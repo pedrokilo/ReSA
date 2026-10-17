@@ -18,6 +18,7 @@ END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
 #include "Formation.h"
+#include "X87Math.h"
 
 // 0x699F50
 void CFormation::ReturnTargetPedForPed(CPed* ped, CPed** pOutTargetPed) {
@@ -42,219 +43,49 @@ bool CFormation::ReturnDestinationForPed(CPed* ped, CVector* out) {
     return false;
 }
 
-namespace {
-// Match the executable's x87 operations and float stores at 0x699FF0.
-float CoverSubtract(float a, float b) {
-    float result;
-    __asm {
-        fld a
-        fsub b
-        fstp result
-    }
-    return result;
-}
-float CoverAdd(float a, float b) {
-    float result;
-    __asm {
-        fld a
-        fadd b
-        fstp result
-    }
-    return result;
-}
-CVector CoverCorner(const CMatrix* matrix, float x, float y) {
-    constexpr float z=0.f;
-    CVector result;
-    auto* output=&result;
-    __asm {
-        mov eax,matrix
-        mov ecx,output
-        fld dword ptr [eax+20h]
-        fmul z
-        fld dword ptr [eax+10h]
-        fmul y
-        faddp st(1),st
-        fld dword ptr [eax]
-        fmul x
-        faddp st(1),st
-        fadd dword ptr [eax+30h]
-        fstp dword ptr [ecx]
-        fld dword ptr [eax+24h]
-        fmul z
-        fld dword ptr [eax+4]
-        fmul x
-        faddp st(1),st
-        fld dword ptr [eax+14h]
-        fmul y
-        faddp st(1),st
-        fadd dword ptr [eax+34h]
-        fstp dword ptr [ecx+4]
-        fld dword ptr [eax+28h]
-        fmul z
-        fld dword ptr [eax+8]
-        fmul x
-        faddp st(1),st
-        fld dword ptr [eax+18h]
-        fmul y
-        faddp st(1),st
-        fadd dword ptr [eax+38h]
-        fstp dword ptr [ecx+8]
-    }
-    return result;
-}
-float CoverDistance2D(const CVector& a, const CVector& b) {
-    const float firstX=a.x, firstY=a.y, secondX=b.x, secondY=b.y;
-    float result;
-    __asm {
-        fld firstX
-        fsub secondX
-        fld firstY
-        fsub secondY
-        fld st(0)
-        fmul st, st(1)
-        fld st(2)
-        fmul st, st(3)
-        faddp st(1), st
-        fsqrt
-        fstp st(2)
-        fstp st(0)
-        fstp result
-    }
-    return result;
-}
-void CoverNormalise(CVector& value) {
-    auto* p=&value;
-    __asm {
-        mov ecx, p
-        fld dword ptr [ecx+8]
-        fld dword ptr [ecx+4]
-        fld dword ptr [ecx]
-        fld st(0)
-        fmul st, st(1)
-        fld st(2)
-        fmul st, st(3)
-        faddp st(1), st
-        fld st(3)
-        fmul st, st(4)
-        faddp st(1), st
-        fstp st(3)
-        fstp st(0)
-        fstp st(0)
-        fcom dword ptr ds:[0x858B50]
-        fnstsw ax
-        test ah, 41h
-        jp positive
-        fstp st(0)
-        mov dword ptr [ecx], 3F800000h
-        jmp finished
-    positive:
-        fsqrt
-        fdivr dword ptr ds:[0x858624]
-        fld st(0)
-        fmul dword ptr [ecx]
-        fstp dword ptr [ecx]
-        fld st(0)
-        fmul dword ptr [ecx+4]
-        fstp dword ptr [ecx+4]
-        fmul dword ptr [ecx+8]
-        fstp dword ptr [ecx+8]
-    finished:
-    }
-}
-float CoverOffset(float position, float direction) {
-    constexpr float scale=.75f;
-    float result;
-    __asm {
-        fld direction
-        fmul scale
-        fadd position
-        fstp result
-    }
-    return result;
-}
-}
-
 // 0x699FF0
 void CFormation::FindCoverPointsBehindBox(
     CPointList* outPoints, CVector target, CMatrix* mat,
     const CVector& center, const CVector& bbMin, const CVector& bbMax, float cutoffDist
 ) {
-    const float targetZ=target.z, matrixZ=mat->GetPosition().z;
-    bool withinHeight{};
-    __asm {
-        fld targetZ
-        fsub matrixZ
-        fabs
-        fcomp dword ptr ds:[0x858F48]
-        fnstsw ax
-        test ah,5
-        jp outsideHeight
-        mov withinHeight,1
-    outsideHeight:
-    }
-    if (!withinHeight) return;
-    const CVector corners[4]{
-        CoverCorner(mat,bbMin.x,bbMin.y),
-        CoverCorner(mat,bbMin.x,bbMax.y),
-        CoverCorner(mat,bbMax.x,bbMax.y),
-        CoverCorner(mat,bbMax.x,bbMin.y)
+    // The executable compares |target.z - matrix.z| < 7.0f (0x858F48); the boolean is the same with SSE floats:
+    // both round the difference to 24 bits and NaN/overflow make the ordered comparison false.
+    if (!(std::abs(target.z - mat->GetPosition().z) < 7.0f)) return;
+    // 0x59C890 inlined: transform of {x, y, 0}, x87 chains without float stores (FormationTransformPointCpp).
+    const CVector locals[4]{
+        {bbMin.x, bbMin.y, 0.f},
+        {bbMin.x, bbMax.y, 0.f},
+        {bbMax.x, bbMax.y, 0.f},
+        {bbMax.x, bbMin.y, 0.f}
     };
+    CVector corners[4];
+    for (int32 i = 0; i < 4; ++i) {
+        FormationTransformPointCpp(reinterpret_cast<const float*>(mat), &locals[i].x, &corners[i].x);
+    }
     float distances[4];
-    for (int32 i=0;i<4;++i) distances[i]=CoverDistance2D(corners[i],target);
-    int32 closest=0;
-    for (int32 i=1;i<4;++i) if (distances[i]<distances[closest]) closest=i;
-    const auto& opposite=corners[(closest-2)&3];
-    for (int32 i=0;i<4;++i) {
-        if (i==closest || ((i-2)&3)==closest || static_cast<int32>(outPoints->m_Count)>=24 || !(distances[i]<cutoffDist)) continue;
-        const auto& corner=corners[i];
-        CVector direction{CoverSubtract(opposite.x,corner.x),CoverSubtract(opposite.y,corner.y),0.f};
-        CoverNormalise(direction);
-        const CVector point{CoverAdd(corner.x,direction.x),CoverAdd(corner.y,direction.y),CoverAdd(corner.z,direction.z)};
-        CVector away{CoverSubtract(point.x,target.x),CoverSubtract(point.y,target.y),0.f};
-        CoverNormalise(away);
-        outPoints->m_Points[outPoints->m_Count++]=CVector{CoverOffset(point.x,away.x),CoverOffset(point.y,away.y),CoverAdd(point.z,away.z*.75f)};
+    for (int32 i = 0; i < 4; ++i) distances[i] = FormationDistance2DCpp(corners[i].x, corners[i].y, target.x, target.y);
+    int32 closest = 0;
+    for (int32 i = 1; i < 4; ++i) if (distances[i] < distances[closest]) closest = i;
+    const auto& opposite = corners[(closest - 2) & 3];
+    for (int32 i = 0; i < 4; ++i) {
+        if (i == closest || ((i - 2) & 3) == closest || static_cast<int32>(outPoints->m_Count) >= 24 || !(distances[i] < cutoffDist)) continue;
+        const auto& corner = corners[i];
+        // 0x69A218..0x69A23B: direction = opposite - corner (fstp dword each), z = 0, then CVector::Normalise (0x59C910).
+        CVector direction{RpNanSubCpp(opposite.x, corner.x), RpNanSubCpp(opposite.y, corner.y), 0.f};
+        (void)PathFindNormaliseStatusCpp(&direction.x);
+        // 0x69A240..0x69A260: operand order of the executable (direction + corner for x/y, corner.z + direction.z).
+        const CVector point{RpNanAddCpp(direction.x, corner.x), RpNanAddCpp(direction.y, corner.y), RpNanAddCpp(corner.z, direction.z)};
+        // 0x69A264..0x69A2B5: away = point - target (z = 0), normalised.
+        CVector away{RpNanSubCpp(point.x, target.x), RpNanSubCpp(point.y, target.y), 0.f};
+        (void)PathFindNormaliseStatusCpp(&away.x);
+        // 0x69A2BA..0x69A2FF: x/y keep away*0.75 in ST0 (RpNanMulAddCpp); away.z*0.75 is stored as float first.
+        const float scaledZ = X87TimesFloatCpp(away.z, 0.75f);
+        outPoints->m_Points[outPoints->m_Count++] = CVector{
+            RpNanMulAddCpp(away.x, 0.75f, point.x),
+            RpNanMulAddCpp(away.y, 0.75f, point.y),
+            RpNanAddCpp(scaledZ, point.z)
+        };
     }
-}
-
-namespace {
-// Keep the x87 angle and cosine product extended until the executable's spills.
-CVector GatherPoint(int32 index, int32 count, float heading, float radius, const CVector& pos) {
-    constexpr float halfPi = std::bit_cast<float>(0x3FC90FDBu), pi = std::bit_cast<float>(0x40490FDBu), twoPi = std::bit_cast<float>(0x40C90FDBu);
-    float sineProduct, resultX, resultY;
-    const float px = pos.x, py = pos.y;
-    __asm {
-        fld radius
-        cmp count, 1
-        jg many
-        fld heading
-        fadd halfPi
-        jmp angleReady
-    many:
-        fild count
-        fild index
-        fdiv st, st(1)
-        fmul twoPi
-        fsub heading
-        fld pi
-        fdiv st, st(2)
-        faddp st(1), st
-        fstp st(1)
-    angleReady:
-        fld st(0)
-        fsin
-        fmul st, st(2)
-        fstp sineProduct
-        fcos
-        fmul st, st(1)
-        fadd py
-        fstp resultY
-        fld sineProduct
-        fadd px
-        fstp resultX
-        fstp st(0)
-    }
-    return {resultX, resultY, pos.z};
-}
 }
 
 // 0x69A620
@@ -271,61 +102,21 @@ void CFormation::GenerateGatherDestinations(CPedList& pedList, CPed* ped) {
     }
     const float heading = ped->m_fCurrentRotation;
     for (int32 i = 0; i < int32(pedList.m_count); ++i) {
-        const auto point = GatherPoint(i, int32(pedList.m_count), heading, radius, ped->GetPosition());
+        CVector point;
+        const auto& position = ped->GetPosition();
+        FormationGatherPointCpp(i, int32(pedList.m_count), heading, radius, &position.x, &point.x);
         if (m_Destinations.m_Count < m_Destinations.m_Points.size()) {
             m_Destinations.m_Points[m_Destinations.m_Count++] = point;
         }
     }
 }
 
-static float GatherCarFraction(int32 index, int32 count) {
-    float result;
-    __asm {
-        fild index
-        fidiv count
-        fsubr dword ptr ds:[0x858B8C]
-        fstp result
-    }
-    return result;
-}
-
-static float GatherCarComponent(float position, float right, float lateralOffset, float forward, float forwardLength, float factor, bool positive, int32 component) {
-    float edge, product, result;
-    __asm {
-        fld right
-        fmul lateralOffset
-        cmp positive, 0
-        je negativeSide
-        fadd position
-        jmp storeEdge
-    negativeSide:
-        fsubr position
-    storeEdge:
-        fstp edge
-        fld forward
-        fmul forwardLength
-        cmp component, 2
-        jne multiplyFraction
-        fstp product
-        fld product
-    multiplyFraction:
-        fmul factor
-        cmp component, 0
-        jne addEdge
-        fstp product
-        fld product
-    addEdge:
-        fadd edge
-        fstp result
-    }
-    return result;
-}
-
 // 0x69A770
 void CFormation::GenerateGatherDestinations_AroundCar(CPedList& pedList, CVehicle* veh) {
     const auto& box = veh->GetColModel()->m_boundBox;
-    const float offset = float(double(box.m_vecMax.x) + 1.5);
-    const float length = float(double(box.m_vecMax.y) - box.m_vecMin.y);
+    // fld max.x; fadd 1.5; fstp / fld max.y; fsub min.y; fstp (0x69A789..0x69A7A8)
+    const float offset = RpNanAddCpp(box.m_vecMax.x, 1.5f);
+    const float length = RpNanSubCpp(box.m_vecMax.y, box.m_vecMin.y);
     CVector right = veh->GetMatrix().GetRight();
     CVector forward = veh->GetMatrix().GetForward();
     right.Normalise();
@@ -338,174 +129,12 @@ void CFormation::GenerateGatherDestinations_AroundCar(CPedList& pedList, CVehicl
         const int32 count = side ? secondCount : firstCount;
         for (int32 i = 0; i < count; ++i) {
             const auto& pos = veh->GetPosition();
-            const float factor = GatherCarFraction(i, count);
-            const CVector point{
-                GatherCarComponent(pos.x, right.x, offset, forward.x, length, factor, side != 0, 0),
-                GatherCarComponent(pos.y, right.y, offset, forward.y, length, factor, side != 0, 1),
-                GatherCarComponent(pos.z, right.z, offset, forward.z, length, factor, side != 0, 2)
-            };
+            CVector point;
+            FormationGatherCarPointCpp(&pos.x, &right.x, offset, &forward.x, length, i, count, side != 0, &point.x);
             if (m_Destinations.m_Count < m_Destinations.m_Points.size())
                 m_Destinations.m_Points[m_Destinations.m_Count++] = point;
         }
     }
-}
-
-struct FormationExtended { uint8 bytes[10]; };
-
-static CVector FormationCentroid(const CVector* points, int32 count, bool destination) {
-    float sumY, sumZ, inverseSpill, resultX, resultY, resultZ;
-    __asm {
-        mov esi, points
-        mov ecx, count
-        fldz
-        fldz
-        fldz
-        test ecx, ecx
-        jle centroidSumsReady
-    centroidPoint:
-        fxch st(2)
-        fadd dword ptr [esi]
-        fxch st(2)
-        fxch st(1)
-        fadd dword ptr [esi+4]
-        fxch st(1)
-        fadd dword ptr [esi+8]
-        add esi, 12
-        dec ecx
-        jnz centroidPoint
-    centroidSumsReady:
-        fstp sumZ
-        cmp destination, 0
-        je centroidPeds
-        fstp sumY
-        fld dword ptr ds:[00858624h]
-        fidiv count
-        fxch st(1)
-        fmul st, st(1)
-        fstp resultX
-        fld sumY
-        fmul st, st(1)
-        fstp resultY
-        fld sumZ
-        fmul st, st(1)
-        fstp resultZ
-        fstp st(0)
-        jmp centroidDone
-    centroidPeds:
-        fld dword ptr ds:[00858624h]
-        fidiv count
-        fst inverseSpill
-        fmul st, st(2)
-        fstp resultX
-        fmul inverseSpill
-        fstp resultY
-        fstp st(0)
-        fld sumZ
-        fmul inverseSpill
-        fstp resultZ
-    centroidDone:
-    }
-    return {resultX, resultY, resultZ};
-}
-
-static void FormationMeanRadius(const CVector* points, int32 count, const CVector& center, FormationExtended* result) {
-    const float componentX = center.x, componentY = center.y, componentZ = center.z;
-    __asm {
-        mov esi, points
-        mov ecx, count
-        fldz
-        test ecx, ecx
-        jle divideRadius
-    nextPoint:
-        fld dword ptr [esi]
-        fsub componentX
-        fld dword ptr [esi+4]
-        fsub componentY
-        fld dword ptr [esi+8]
-        fsub componentZ
-        fld st(0)
-        fmul st, st(1)
-        fld st(2)
-        fmul st, st(3)
-        faddp st(1), st
-        fld st(3)
-        fmul st, st(4)
-        faddp st(1), st
-        fsqrt
-        fstp st(3)
-        fstp st(0)
-        fstp st(0)
-        faddp st(1), st
-        add esi, 12
-        dec ecx
-        jnz nextPoint
-    divideRadius:
-        fidiv count
-        mov edi, result
-        fstp tbyte ptr [edi]
-    }
-}
-
-static void FormationRadiusScale(const FormationExtended& destination, const FormationExtended& ped, FormationExtended* result) {
-    const auto* destinationData = destination.bytes;
-    const auto* pedData = ped.bytes;
-    float destinationRadius;
-    __asm {
-        mov esi, destinationData
-        fld tbyte ptr [esi]
-        fstp destinationRadius
-    }
-    if (destinationRadius < 1.0f) destinationRadius = 1.0f;
-    __asm {
-        mov esi, pedData
-        fld tbyte ptr [esi]
-        fld dword ptr ds:[0x858624]
-        fcomp st(1)
-        fnstsw ax
-        test ah, 0x41
-        jne radiusReady
-        fstp st(0)
-        fld dword ptr ds:[0x858624]
-    radiusReady:
-        fdivr destinationRadius
-        mov edi, result
-        fstp tbyte ptr [edi]
-    }
-}
-
-static CVector FormationScalePosition(const CVector& point, const CVector& pedCenter, const CVector& destinationCenter, const FormationExtended& scale) {
-    const float pointX = point.x, pointY = point.y, pointZ = point.z;
-    const float pedX = pedCenter.x, pedY = pedCenter.y, pedZ = pedCenter.z;
-    const float destinationX = destinationCenter.x, destinationY = destinationCenter.y, destinationZ = destinationCenter.z;
-    const auto* scaleData = scale.bytes;
-    float differenceZ, scaledX, resultX, resultY, resultZ;
-    __asm {
-        mov esi, scaleData
-        fld tbyte ptr [esi]
-        fld pointX
-        fsub pedX
-        fld pointY
-        fsub pedY
-        fld pointZ
-        fsub pedZ
-        fstp differenceZ
-        fxch st(1)
-        fmul st, st(2)
-        fstp scaledX
-        fmul st, st(1)
-        fld differenceZ
-        fmul st, st(2)
-        fld scaledX
-        fadd destinationX
-        fstp resultX
-        fxch st(1)
-        fadd destinationY
-        fstp resultY
-        fadd destinationZ
-        fstp resultZ
-        fstp st(0)
-    }
-    return {resultX, resultY, resultZ};
 }
 
 // 0x69B240
@@ -514,18 +143,21 @@ void CFormation::DistributeDestinations(CPedList& pedList) {
     const int32 count = int32(m_Peds.m_count);
     if (!count) return;
     const int32 destinations = int32(m_Destinations.m_Count);
-    const CVector destinationCenter = FormationCentroid(m_Destinations.m_Points.data(), destinations, true);
+    CVector destinationCenter;
+    FormationCentroidCpp(&m_Destinations.m_Points[0].x, destinations, true, &destinationCenter.x);
     std::array<CVector, 24> positions;
     for (int32 i = 0; i < count; ++i) {
         positions[i] = m_Peds.m_peds[i]->GetPosition();
     }
-    const CVector pedCenter = FormationCentroid(positions.data(), count, false);
-    FormationExtended destinationRadius, pedRadius, scale;
-    FormationMeanRadius(m_Destinations.m_Points.data(), destinations, destinationCenter, &destinationRadius);
-    FormationMeanRadius(positions.data(), count, pedCenter, &pedRadius);
-    FormationRadiusScale(destinationRadius, pedRadius, &scale);
+    CVector pedCenter;
+    FormationCentroidCpp(&positions[0].x, count, false, &pedCenter.x);
+    const double destinationRadius = FormationMeanRadiusCpp(&m_Destinations.m_Points[0].x, destinations, &destinationCenter.x);
+    const double pedRadius = FormationMeanRadiusCpp(&positions[0].x, count, &pedCenter.x);
+    const double scale = FormationRadiusScaleCpp(destinationRadius, pedRadius);
     for (int32 i = 0; i < count; ++i) {
-        positions[i] = FormationScalePosition(positions[i], pedCenter, destinationCenter, scale);
+        CVector scaled;
+        FormationScalePositionCpp(&positions[i].x, &pedCenter.x, &destinationCenter.x, scale, &scaled.x);
+        positions[i] = scaled;
     }
     float best = std::bit_cast<float>(0x497423FEu);
     for (int32 attempt = 0; attempt < count; ++attempt) {
@@ -550,22 +182,19 @@ void CFormation::DistributeDestinations_CoverPoints(const CPedList& pedlist, CVe
     m_Peds = pedlist;
     if (!m_Peds.m_count) return;
     m_aPedLinkToDestinations.fill(-1);
-    const auto distance = [](const CVector& a, const CVector& b) {
-        const double x = double(a.x) - b.x, y = double(a.y) - b.y;
-        return std::sqrt(y * y + x * x);
-    };
     for (int32 point = 0; point < int32(m_Destinations.m_Count); ++point) {
         const auto& destination = m_Destinations.m_Points[point];
-        const float targetDistance = float(distance(destination, pos));
+        // 0x69B5F5..0x69B626: fld dest.x; fsub pos.x; ...; fsqrt; fstp dword (x87 a 24 bits, no doubles de SSE).
+        const float targetDistance = FormationDistance2DCpp(destination.x, destination.y, pos.x, pos.y);
         float bestScore = 0.4f;
         int32 bestPed = -1;
         for (int32 ped = 0; ped < int32(m_Peds.m_count); ++ped) {
             if (m_aPedLinkToDestinations[ped] >= 0) continue;
             const auto& position = m_Peds.m_peds[ped]->GetPosition();
-            const double pedDistance = distance(position, pos);
-            if (!(pedDistance + 1.0 >= targetDistance)) continue;
-            const double score = 1.0 - ((distance(position, destination) + targetDistance) - pedDistance) / pedDistance;
-            if (score > bestScore) {
+            double score;
+            // 0x69B653..0x69B6C6: la distancia del peatón y el cociente quedan sin redondear en ST0; sólo el mejor puntaje se guarda como float.
+            if (!FormationCoverScoreCpp(&position.x, &destination.x, &pos.x, targetDistance, &score)) continue;
+            if (score > double(bestScore)) { // fcom; test ah,41h; jne -> sólo "mayor que" ordenado
                 bestScore = float(score);
                 bestPed = ped;
             }
@@ -593,10 +222,10 @@ void CFormation::DistributeDestinations_PedsToAttack(const CPedList& pedList) {
                 if (remaining[target] <= 0) continue;
                 const auto& a = pedList.m_peds[ped]->GetPosition();
                 const auto& b = m_DestinationPeds.m_peds[target]->GetPosition();
-                const double x = double(a.x) - b.x, y = double(a.y) - b.y;
-                const double distance = std::sqrt(x * x + y * y);
+                // 0x69B7E0..0x69B805: la raíz queda en ST0 (24 bits) y se compara contra el mejor float; si gana se guarda como float.
+                const float distance = FormationDistance2DCpp(a.x, a.y, b.x, b.y);
                 if (distance < bestDistance) {
-                    bestDistance = float(distance);
+                    bestDistance = distance;
                     selectedPed = ped;
                     selectedTarget = target;
                 }
@@ -607,27 +236,6 @@ void CFormation::DistributeDestinations_PedsToAttack(const CPedList& pedList) {
     }
 }
 
-static bool FormationVehicleIsStationary(const CVector& speed) {
-    const float componentX = speed.x, componentY = speed.y, componentZ = speed.z;
-    uint8 accepted;
-    __asm {
-        fld componentX
-        fmul st, st
-        fld componentY
-        fmul st, st
-        faddp st(1), st
-        fld componentZ
-        fmul st, st
-        faddp st(1), st
-        fsqrt
-        fcomp dword ptr ds:[0x858B4C]
-        fnstsw ax
-        test ah, 5
-        setnp accepted
-    }
-    return accepted != 0;
-}
-
 // 0x69B860
 void CFormation::FindCoverPoints(CVector pos, float radius) {
     m_Destinations.m_Count = 0;
@@ -636,7 +244,7 @@ void CFormation::FindCoverPoints(CVector pos, float radius) {
     for (int32 i = int32(vehicles->GetSize()); i-- > 0;) {
         auto* vehicle = vehicles->GetAt(i);
         if (!vehicle || !vehicle->IsAutomobile()) continue;
-        if (!FormationVehicleIsStationary(vehicle->m_vecMoveSpeed)) continue;
+        if (!FormationVehicleStationaryCpp(&vehicle->m_vecMoveSpeed.x)) continue;
         const auto& box = vehicle->GetColModel()->m_boundBox;
         if (!(box.m_vecMax.z < 1.5f)) continue;
         CPointList points;
@@ -653,11 +261,12 @@ void CFormation::FindCoverPoints(CVector pos, float radius) {
         auto* object = objects->GetAt(i);
         if (!object || !(object->m_matrix->GetUp().z > 0.95f) || !object->CanBeUsedToTakeCoverBehind()) continue;
         const auto& origin = object->GetPosition();
-        const double x = double(origin.x) - pos.x, y = double(origin.y) - pos.y;
-        if (!(std::sqrt(y * y + x * x) < radius)) continue;
-        CVector direction{float(x), float(y), float(double(origin.z) - pos.z)};
-        direction.Normalise();
-        const CVector point{float(double(direction.x) + origin.x),float(double(direction.y) + origin.y),float(double(direction.z) + origin.z)};
+        // 0x69BA4F..0x69BAA4: distancia 2D en x87 (24 bits) comparada con radius; dx, dy, dz se guardan como float, se normalizan con 0x59C910
+        // y se suman a origin (dirección + origen) en x87.
+        if (!(FormationDistance2DCpp(origin.x, origin.y, pos.x, pos.y) < radius)) continue;
+        CVector direction{RpNanSubCpp(origin.x, pos.x), RpNanSubCpp(origin.y, pos.y), RpNanSubCpp(origin.z, pos.z)};
+        (void)PathFindNormaliseStatusCpp(&direction.x);
+        const CVector point{RpNanAddCpp(direction.x, origin.x), RpNanAddCpp(direction.y, origin.y), RpNanAddCpp(direction.z, origin.z)};
         if (m_Destinations.m_Count < m_Destinations.m_Points.size())
             m_Destinations.m_Points[m_Destinations.m_Count++] = point;
     }
@@ -679,60 +288,13 @@ void CFormation::InjectHooks() {
     RH_ScopedGlobalInstall(FindCoverPoints, 0x69B860);
 }
 
-// 0x69B1B0: native first-minimum, claimed mask and x87 distance/total writes.
-__declspec(naked) int32 CFormation::FindNearestFreeDestination(CVector,float*) {
-    __asm {
-    push ecx
-    fld dword ptr ds:[0086D270h]
-    push esi
-    mov esi,dword ptr ds:[00C1A318h]
-    push edi
-    or edi,0FFFFFFFFh
-    xor ecx,ecx
-    test esi,esi
-    jle L0069B223
-    mov edx,0C1A324h
-    lea ecx,[ecx]
-    L0069B1D0: mov al,byte ptr [ecx+00C1A43Ch]
-    test al,al
-    jne L0069B21B
-    fld dword ptr [edx-8]
-    fsub dword ptr [esp+10h]
-    fld dword ptr [edx-4]
-    fsub dword ptr [esp+14h]
-    fld dword ptr [edx]
-    fsub dword ptr [esp+18h]
-    fld st(0)
-    fmul st,st(1)
-    fld st(2)
-    fmul st,st(3)
-    faddp st(1),st
-    fld st(3)
-    fmul st,st(4)
-    faddp st(1),st
-    fsqrt
-    fstp st(3)
-    fstp st(0)
-    fstp st(0)
-    fst dword ptr [esp+8]
-    fcomp st(1)
-    fnstsw ax
-    test ah,5
-    jp L0069B21B
-    fstp st(0)
-    mov edi,ecx
-    fld dword ptr [esp+8]
-    L0069B21B: inc ecx
-    add edx,0Ch
-    cmp ecx,esi
-    jl L0069B1D0
-    L0069B223: mov eax,dword ptr [esp+1Ch]
-    fadd dword ptr [eax]
-    fstp dword ptr [eax]
-    mov eax,edi
-    pop edi
-    pop esi
-    pop ecx
-    ret
-    }
+// 0x69B1B0: first free destination with the smallest distance (x87 rounding and store points in FormationNearestFreeCpp).
+int32 CFormation::FindNearestFreeDestination(CVector origin, float* total) {
+    return FormationNearestFreeCpp(
+        &m_Destinations.m_Points[0].x,
+        reinterpret_cast<const unsigned char*>(m_Destinations.m_PointHasBeenClaimed),
+        int32(m_Destinations.m_Count),
+        &origin.x,
+        total
+    );
 }

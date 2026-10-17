@@ -29,7 +29,16 @@ def main():
                 signature = 'void CSprite::RenderBufferedOneXLUSprite(CVector pos, CVector2D size, uint8 r, uint8 g, uint8 b, int16 intensity, float recipNearZ, uint8 alpha) {'
                 content = content.replace(signature, signature+'\n    CloudsProbe::Record("sprite", {pos.x,pos.y,pos.z,size.x,size.y,recipNearZ}, {r,g,b,intensity,alpha});')
             else:
-                content = content.replace('        CClouds::RenderBottomFromHeight();', '        CloudsLive::Update();\n        CClouds::RenderBottomFromHeight();')
+                anchors = (
+                    ('        CClouds::RenderBottomFromHeight();', '        CloudsLive::Update();\n        CClouds::RenderBottomFromHeight();'),
+                    # Latido de arranque y contadores (ver LiveComparison.hpp): distinguen "el juego no llega a dibujar" de "el banco no escribe".
+                    ('void Idle(void* param) {\n    ZoneScoped;\n', 'void Idle(void* param) {\n    ZoneScoped;\n    CloudsLive::Heartbeat(1, param);\n'),
+                    ('void FrontendIdle() {\n    ZoneScoped;\n', 'void FrontendIdle() {\n    ZoneScoped;\n    CloudsLive::Heartbeat(2, nullptr);\n'),
+                    ('void RenderScene() {\n    ZoneScoped;\n', 'void RenderScene() {\n    ZoneScoped;\n    ++CloudsLive::renderScenes;\n'),
+                )
+                for old_text, new_text in anchors:
+                    if content.count(old_text) != 1: raise RuntimeError('Instrumentation anchor missing in app_game.cpp: ' + old_text.strip().splitlines()[0])
+                    content = content.replace(old_text, new_text)
             if content == data.decode('utf-8'): raise RuntimeError('Instrumentation anchor missing: '+str(p))
             p.write_bytes(content.encode('utf-8'))
         with (artifacts/'probe-build.log').open('w') as log:

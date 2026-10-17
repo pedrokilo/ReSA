@@ -708,6 +708,7 @@ CAnimBlendAssocGroup,CreateAssociations-3,0x004CE3B0,1,0,1,S,hooks.csv
 InteriorManager_c,Init,0x005C0500,1,0,1,S,hooks.csv
 CShadows,CastPlayerShadowSectorList<CPtrListSingleLink<CPhysical*>>,0x0070A470,1,0,1,S,hooks.csv
 CShadows,CastRealTimeShadowSectorList<CPtrListSingleLink<CPhysical*>>,0x0070A7E0,1,0,1,S,hooks.csv
+CShadows,CastShadowSectorList<CPtrListSingleLink<CPhysical*>>,0x0070A630,1,0,1,S,hooks.csv
 CShadows,ShadowRenderTriangleCB,0x00709CF0,1,0,1,S,hooks.csv
 CShadowCamera,atomicQuickRender,0x00705620,1,0,1,S,hooks.csv
 VideoPlayer,OnGraphNotify,0x00745FB0,1,0,1,S,hooks.csv
@@ -897,7 +898,10 @@ CTaskComplexCarDriveMissionFleeScene,Clone,0x004B8950,1,0,1,V,hooks.csv
 CTaskComplexCarDriveMissionKillPed,Clone,0x004B8A30,1,0,1,V,hooks.csv
 CQuaternion,Set-matrix,0x0059C3E0,1,0,1,S,hooks.csv
 CQuaternion,Set-axis-angle,0x0059C600,1,0,1,S,hooks.csv
+CPad,GetCurrentKeyPressed,0x00541490,1,0,1,S,hooks.csv
 CFont,GetScriptLetterSize,0x00719670,1,0,1,S,hooks.csv
+CDecisionMakerTypes,MakeDecision-Ped,0x00606E70,1,0,1,S,hooks.csv
+CDecisionMakerTypes,MakeDecision-Group,0x00606F80,1,0,1,S,hooks.csv
 Rs,psGetMemoryFunctions,0x00745510,1,0,1,S,hooks.csv
 CVehicle,IsValidModForVehicle,0x0049B010,1,0,1,S,hooks.csv
 CCarCtrl,Native_00424100,0x00424100,1,0,1,S,hooks.csv

@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 #include "WaterLevel.h"
 #include "PostEffects.h"
+#include "X87Math.h"
 #include <sstream>
 
 #define TRIANGLE_ARGS_OUT X1, Y1, P1, X2, Y2, P2, X3, Y3, P3
@@ -188,39 +189,6 @@ void CWaterLevel::Shutdown() {
     }
 }
 
-static float WaterInterpolateWave(float base, float alongX, float alongY, float fractionX, float fractionY, float level, bool lower) {
-    float result;
-    __asm {
-        fld alongX
-        fsub base
-        cmp lower, 0
-        je upperX
-        fmul fractionX
-        jmp yTerm
-    upperX:
-        fld dword ptr ds:[0x858624]
-        fsub fractionX
-        fmulp st(1), st
-    yTerm:
-        fld alongY
-        fsub base
-        cmp lower, 0
-        je upperY
-        fmul fractionY
-        jmp sumTerms
-    upperY:
-        fld dword ptr ds:[0x858624]
-        fsub fractionY
-        fmulp st(1), st
-    sumTerms:
-        faddp st(1), st
-        fadd level
-        fadd base
-        fstp result
-    }
-    return result;
-}
-
 // 0x6E81E0
 void CWaterLevel::AddWaveToResult(float x, float y, float* pfWaterLevel, float fUnkn1, float fUnkn2, CVector* pVecNormal)
 {
@@ -229,31 +197,21 @@ void CWaterLevel::AddWaveToResult(float x, float y, float* pfWaterLevel, float f
     const float fractionX = float(double(halfX) - floorX), fractionY = float(double(halfY) - floorY);
     const auto ix = int32(floorX * 2.0), iy = int32(floorY * 2.0);
     float base = 0.0f, alongX = 0.0f, alongY = 0.0f;
-    const bool lower = double(fractionX) + double(fractionY) < 1.0;
+    // Como el original (0x6E8269..0x6E8287): fractionY + fractionX se suma en la x87 (24 bits) y se compara con 1.0; la mitad inferior solo si la suma redondeada es < 1.0.
+    const bool lower = WaterLevelWaveLowerCpp(fractionX, fractionY);
     if (lower) {
         CalculateWavesOnlyForCoordinate2(ix, iy, &base, fUnkn1, fUnkn2);
         CalculateWavesOnlyForCoordinate2(ix + 2, iy, &alongX, fUnkn1, fUnkn2);
         CalculateWavesOnlyForCoordinate2(ix, iy + 2, &alongY, fUnkn1, fUnkn2);
-        const float dx = alongX - base, dy = alongY - base;
-        if (pVecNormal) {
-            *pfWaterLevel = WaterInterpolateWave(base, alongX, alongY, fractionX, fractionY, *pfWaterLevel, lower);
-            *pVecNormal = CVector{-2.0f * dx, -2.0f * dy, 4.0f};
-            pVecNormal->Normalise();
-        } else {
-            *pfWaterLevel = WaterInterpolateWave(base, alongX, alongY, fractionX, fractionY, *pfWaterLevel, lower);
-        }
     } else {
         CalculateWavesOnlyForCoordinate2(ix + 2, iy + 2, &base, fUnkn1, fUnkn2);
         CalculateWavesOnlyForCoordinate2(ix, iy + 2, &alongX, fUnkn1, fUnkn2);
         CalculateWavesOnlyForCoordinate2(ix + 2, iy, &alongY, fUnkn1, fUnkn2);
-        const float dx = alongX - base, dy = alongY - base;
-        if (pVecNormal) {
-            *pfWaterLevel = WaterInterpolateWave(base, alongX, alongY, fractionX, fractionY, *pfWaterLevel, lower);
-            *pVecNormal = CVector{2.0f * dx, 2.0f * dy, 4.0f};
-            pVecNormal->Normalise();
-        } else {
-            *pfWaterLevel = WaterInterpolateWave(base, alongX, alongY, fractionX, fractionY, *pfWaterLevel, lower);
-        }
+    }
+    // 0x6E82D3..0x6E8546 (X87Math): interpolacion del nivel y, con normal, producto vectorial de 0x59C730 sin normalizar; luego CVector::Normalise (0x59C910).
+    WaterLevelWaveInterpolateCpp(base, alongX, alongY, fractionX, fractionY, lower, pfWaterLevel, pVecNormal ? &pVecNormal->x : nullptr);
+    if (pVecNormal) {
+        pVecNormal->Normalise();
     }
 }
 
@@ -427,16 +385,8 @@ void CWaterLevel::RenderWakeSegment(
             const float sum = float(double(py) - std::floor(double(py))) + fx;
             float phase = sum * 6.2831855f; // 0x858CBC
             phase = phase + angle;
-            const float wz = wakeZ;
-            float z;
-            __asm {
-                fld phase
-                fsin
-                fld windRadius
-                fmulp st(1), st
-                fadd wz
-                fstp z
-            }
+            // Como el original (0x6EA65A..0x6EA67E): fld phase; fsin; * windRadius; + wakeZ; fstp (el seno entra sin redondear).
+            const float z = TrigCompoundSinMulAdd(phase, windRadius, wakeZ);
             auto* vtx = &TempBufferVertices.m_3d[base + k];
             vtx->objVertex.x = cx[k]; vtx->objVertex.y = cy[k]; vtx->objVertex.z = z;
             const uint32 color = (uint32(uint8(int32(alphas[k]))) << 24) | 0xFFFFFFu;
@@ -905,25 +855,12 @@ void CWaterLevel::SetUpWaterFog(int32 minX, int32 minY, int32 maxX, int32 maxY) 
     ms_WaterFog.z[idx]    = fogZ;
 }
 
-static double WaterNearestDistance(double x, double y) {
-    double result;
-    __asm {
-        fld y
-        fmul st, st
-        fld x
-        fmul st, st
-        faddp st(1), st
-        fsqrt
-        fstp result
-    }
-    return result;
-}
-
 // 0x6E9D70
 void CWaterLevel::FindNearestWaterAndItsFlow() {
     const auto& position = TheCamera.GetPosition();
     const float x = position.x, y = position.y;
-    if (!(x > -3000.0f && x < 3000.0f && y > -3000.0f && y < 3000.0f)) {
+    // Como el original (0x6E9DBA..0x6E9E05): fcomp + test ah,41h / test ah,1 solo rechazan x <= -3000 o x >= 3000 ordenados: un NaN sigue adelante.
+    if (x <= -3000.0f || x >= 3000.0f || y <= -3000.0f || y >= 3000.0f) {
         TheCamera.m_fDistanceToWater = 0.0f;
         TheCamera.m_fHeightOfNearestWater = 0.0f;
         m_CurrentDesiredFlow.x = 0.0f; m_CurrentDesiredFlow.y = 0.0f;
@@ -935,31 +872,26 @@ void CWaterLevel::FindNearestWaterAndItsFlow() {
         const auto& a = m_aVertices[quad.verts[0]];
         const auto& b = m_aVertices[quad.verts[1]];
         const auto& c = m_aVertices[quad.verts[2]];
-        double dx = x < a.x ? double(a.x) - x : x > b.x ? double(x) - b.x : 0.0;
-        double dy = y < a.y ? double(a.y) - y : y > c.y ? double(y) - c.y : 0.0;
-        const double distance = WaterNearestDistance(dx, dy);
+        // Distancia con las restas a 24 bits, suma de cuadrados y fsqrt como el EXE (X87Math).
+        const float distance = WaterLevelNearestDistanceCpp(x, y, float(a.x), float(b.x), float(a.y), float(c.y));
         bool waves = false;
         for (const auto index : quad.verts) {
             const auto& vertex = m_aVertices[index];
             waves |= vertex.rp.bigWaves != 0.0f || vertex.rp.smallWaves != 0.0f;
         }
         if (distance < nearestWaves && waves) {
-            nearestWaves = float(distance);
+            nearestWaves = distance;
             height = a.rp.z;
         }
         if (distance < nearest) {
-            nearest = float(distance);
-            std::array<float, 4> squared;
+            nearest = distance;
+            float vertexX[4], vertexY[4];
             for (size_t k = 0; k < 4; ++k) {
                 const auto& vertex = m_aVertices[quad.verts[k]];
-                const double vx = double(x) - vertex.x, vy = double(y) - vertex.y;
-                squared[k] = float(vy * vy + vx * vx);
+                vertexX[k] = float(vertex.x);
+                vertexY[k] = float(vertex.y);
             }
-            size_t chosen;
-            if (squared[0] < squared[1] && squared[0] < squared[2] && squared[0] < squared[3]) chosen = 0;
-            else if (squared[1] < squared[2] && squared[1] < squared[3]) chosen = 1;
-            else if (squared[2] < squared[3]) chosen = 2;
-            else chosen = 3;
+            const auto chosen = size_t(WaterLevelNearestFlowIndexCpp(x, y, vertexX, vertexY));
             const auto& vertex = m_aVertices[quad.verts[chosen]];
             m_CurrentDesiredFlow.x = float(vertex.rp.flowX) * (1.0f / 64.0f);
             m_CurrentDesiredFlow.y = float(vertex.rp.flowY) * (1.0f / 64.0f);
@@ -1090,7 +1022,32 @@ void CWaterLevel::RenderWaterFog() {
     CPostEffects::ImmediateModeRenderStatesReStore();
 }
 
-// 0x6E6EF0 - Transcripcion exacta del EXE (x87, tabla de senos 0xBB3E00 indexada por _ftol2 & 0xFF, constantes de .rdata).
+namespace {
+// Preparacion comun de CalculateWavesOnlyForCoordinate (0x6E6EF0..0x6E6F49) y de CalculateWavesOnlyForCoordinate2Native (0x6E7210..0x6E726F): valor absoluto con neg (INT_MIN sigue negativo),
+// cdq + sub, sar 1 y and 7 como indices de las tablas de factores (0x8D38C8 / 0x8D38E8) y restos de (tiempo - desplazamiento) entre 5000, 3500 y 3000 (div sin signo, 0x1388 / 0xDAC / 0xBB8).
+struct WaterWaveSetup {
+    int32 absX, absY;
+    float multX, multY;
+    uint32 rem1, rem2, rem3;
+};
+WaterWaveSetup MakeWaterWaveSetup(int32 x, int32 y) {
+    WaterWaveSetup setup{};
+    setup.absX = x < 0 ? int32(0u - uint32(x)) : x;
+    setup.absY = y < 0 ? int32(0u - uint32(y)) : y;
+    const int32 foldedX = int32(uint32(setup.absX) - uint32(setup.absX >> 31));
+    const int32 foldedY = int32(uint32(setup.absY) - uint32(setup.absY >> 31));
+    setup.multX = CWaterLevel::faWaveMultipliersX.data()[(foldedX >> 1) & 7];
+    setup.multY = CWaterLevel::faWaveMultipliersY.data()[(foldedY >> 1) & 7];
+    const uint32 elapsed = CTimer::m_snTimeInMilliseconds - CWaterLevel::m_nWaterTimeOffset;
+    setup.rem1 = elapsed % 5000u;
+    setup.rem2 = elapsed % 3500u;
+    setup.rem3 = elapsed % 3000u;
+    return setup;
+}
+const float* WaterSinTable() { return StaticRef<std::array<float, 256>>(0xBB3E00).data(); }
+}
+
+// 0x6E6EF0 - Aritmetica x87 del EXE en X87Math (tabla de senos 0xBB3E00 indexada por _ftol2 & 0xFF); la normal se normaliza aqui con CVector::Normalise (0x59C910).
 void CWaterLevel::CalculateWavesOnlyForCoordinate(
     int32 x, int32 y,
     float bigWavesAmplitude,
@@ -1101,233 +1058,11 @@ void CWaterLevel::CalculateWavesOnlyForCoordinate(
     CVector& vecNormal
 )
 {
-    int32 ix = x, iy = y, tmp = 0;
-    float fbig = bigWavesAmplitude, fsmall = smallWavesAmplitude;
-    float* pOut = &outWave; float* pColor = &colorMult; float* pGlare = &glare; CVector* pNormal = &vecNormal;
-    float t1 = 0.f, t2 = 0.f, t3 = 1.f;
-    __asm {
-        mov eax, ix
-        test eax, eax
-        jge posX
-        neg eax
-        mov ix, eax
-    posX:
-        mov ecx, iy
-        test ecx, ecx
-        jge posY
-        neg ecx
-        mov iy, ecx
-    posY:
-        cdq
-        sub eax, edx
-        mov esi, eax
-        mov eax, ecx
-        mov ecx, dword ptr ds:[0xC228A4]
-        cdq
-        sub eax, edx
-        sar eax, 1
-        sar esi, 1
-        and eax, 7
-        and esi, 7
-        xor edx, edx
-        fld dword ptr [esi*4+0x8D38C8]
-        fmul dword ptr [eax*4+0x8D38E8]
-        mov eax, dword ptr ds:[0xB7CB84]
-        sub eax, ecx
-        mov ecx, 0x1388
-        div ecx
-        fmul dword ptr ds:[0xC812E8]
-        fild dword ptr ix
-        fild dword ptr iy
-        test edx, edx
-        mov tmp, edx
-        fild dword ptr tmp
-        jge w1a
-        fadd dword ptr ds:[0x858C54]
-    w1a:
-        fmul dword ptr ds:[0x872020]
-        fld st(1)
-        fadd st, st(3)
-        fmul dword ptr ds:[0x87201C]
-        faddp st(1), st
-        fmul dword ptr ds:[0x85A778]
-        fld st(0)
-        mov eax, 0x821B40
-        call eax
-        mov edi, pOut
-        and eax, 0xFF
-        fld dword ptr [eax*4+0xBB3E00]
-        fmul dword ptr ds:[0x871FF8]
-        fmul st, st(4)
-        fmul fbig
-        fadd dword ptr [edi]
-        fstp dword ptr [edi]
-        fadd dword ptr ds:[0x859A44]
-        mov eax, 0x821B40
-        call eax
-        mov esi, pNormal
-        and eax, 0xFF
-        fld dword ptr [eax*4+0xBB3E00]
-        mov edx, esi
-        fmul dword ptr ds:[0x871FF8]
-        mov dword ptr t3, 0x3F800000
-        fmul st, st(3)
-        fmul fbig
-        fmul dword ptr ds:[0x87201C]
-        fchs
-        fst dword ptr t1
-        mov eax, t1
-        mov dword ptr [edx], eax
-        fstp dword ptr t2
-        mov ecx, t2
-        mov eax, t3
-        mov dword ptr [edx+4], ecx
-        mov dword ptr [edx+8], eax
-        mov edx, dword ptr ds:[0xC228A4]
-        mov eax, dword ptr ds:[0xB7CB84]
-        sub eax, edx
-        xor edx, edx
-        mov ecx, 0xDAC
-        div ecx
-        test edx, edx
-        mov tmp, edx
-        fild dword ptr tmp
-        jge w2a
-        fadd dword ptr ds:[0x858C54]
-    w2a:
-        fmul dword ptr ds:[0x872018]
-        fld st(1)
-        fmul dword ptr ds:[0x872014]
-        faddp st(1), st
-        fld st(2)
-        fmul dword ptr ds:[0x872010]
-        faddp st(1), st
-        fmul dword ptr ds:[0x85A778]
-        fld st(0)
-        mov eax, 0x821B40
-        call eax
-        and eax, 0xFF
-        fld dword ptr [eax*4+0xBB3E00]
-        fmul dword ptr ds:[0x871FFC]
-        fmul st, st(4)
-        fmul fsmall
-        fadd dword ptr [edi]
-        fstp dword ptr [edi]
-        fadd dword ptr ds:[0x859A44]
-        mov eax, 0x821B40
-        call eax
-        and eax, 0xFF
-        fld dword ptr [eax*4+0xBB3E00]
-        fmul dword ptr ds:[0x871FFC]
-        xor edx, edx
-        fmul st, st(3)
-        fmul fsmall
-        fmul dword ptr ds:[0x872010]
-        fld st(0)
-        fadd dword ptr [esi]
-        fstp dword ptr [esi]
-        fadd dword ptr [esi+4]
-        fstp dword ptr [esi+4]
-        mov ecx, dword ptr ds:[0xC228A4]
-        mov eax, dword ptr ds:[0xB7CB84]
-        sub eax, ecx
-        mov ecx, 0xBB8
-        div ecx
-        test edx, edx
-        mov tmp, edx
-        fild dword ptr tmp
-        jge w3a
-        fadd dword ptr ds:[0x858C54]
-    w3a:
-        fmul dword ptr ds:[0x87200C]
-        fxch st(1)
-        fmul dword ptr ds:[0x872008]
-        faddp st(1), st
-        fstp st(1)
-        fmul dword ptr ds:[0x85A778]
-        fld st(0)
-        mov eax, 0x821B40
-        call eax
-        and eax, 0xFF
-        fld dword ptr [eax*4+0xBB3E00]
-        fmul dword ptr ds:[0x872000]
-        fmul st, st(2)
-        fmul fsmall
-        fadd dword ptr [edi]
-        fstp dword ptr [edi]
-        fadd dword ptr ds:[0x859A44]
-        mov eax, 0x821B40
-        call eax
-        and eax, 0xFF
-        fld dword ptr [eax*4+0xBB3E00]
-        fmul dword ptr ds:[0x872000]
-        mov ecx, esi
-        fmulp st(1), st
-        fmul fsmall
-        fmul dword ptr ds:[0x872008]
-        fadd dword ptr [esi]
-        fstp dword ptr [esi]
-        mov eax, 0x59C910
-        call eax
-        fld dword ptr [esi+8]
-        fadd dword ptr [esi+4]
-        fadd dword ptr [esi]
-        fmul dword ptr ds:[0x872004]
-        fld dword ptr ds:[0x858B50]
-        fcomp st(1)
-        fnstsw ax
-        test ah, 0x41
-        jne cm1
-        fstp st(0)
-        fld dword ptr ds:[0x858B50]
-    cm1:
-        fmul dword ptr ds:[0x8D3924]
-        mov ecx, pColor
-        fadd dword ptr ds:[0x8D3920]
-        fstp dword ptr [ecx]
-        mov ecx, pGlare
-        fld dword ptr [esi+8]
-        fmul dword ptr ds:[0x872004]
-        fld dword ptr [esi+4]
-        fmul dword ptr ds:[0x872004]
-        faddp st(1), st
-        fld dword ptr ds:[0x872004]
-        fmul dword ptr [esi]
-        faddp st(1), st
-        fld st(0)
-        fstp dword ptr [ecx]
-        fmul dword ptr ds:[0x859000]
-        fsub dword ptr ds:[0x858C80]
-        fld dword ptr ds:[0x862CD0]
-        fcomp st(1)
-        fnstsw ax
-        test ah, 5
-        jnp gl2
-        fld st(0)
-        fld dword ptr ds:[0x858B50]
-        fcomp st(1)
-        fnstsw ax
-        fstp st(0)
-        test ah, 0x41
-        jne gl2
-        fstp st(0)
-        fld dword ptr ds:[0x858B50]
-        fmul dword ptr ds:[0xC812E0]
-        fstp dword ptr [ecx]
-        jmp done
-    gl2:
-        fld dword ptr ds:[0x862CD0]
-        fcomp st(1)
-        fnstsw ax
-        test ah, 5
-        jp gl3
-        fstp st(0)
-        fld dword ptr ds:[0x862CD0]
-    gl3:
-        fmul dword ptr ds:[0xC812E0]
-        fstp dword ptr [ecx]
-    done:
-    }
+    const WaterWaveSetup setup = MakeWaterWaveSetup(x, y);
+    WaterLevelWavesFullCpp(setup.absX, setup.absY, setup.multX, setup.multY, CWeather::Wavyness, setup.rem1, setup.rem2, setup.rem3,
+        bigWavesAmplitude, smallWavesAmplitude, WaterSinTable(), &outWave, &vecNormal.x);
+    vecNormal.Normalise();
+    WaterLevelWaveColorGlareCpp(&vecNormal.x, StaticRef<float>(0x8D3924), StaticRef<float>(0x8D3920), CWeather::SunGlare, &colorMult, &glare);
 }
 
 // 0x6E5810
@@ -1365,121 +1100,20 @@ void CWaterLevel::MarkQuadsAndPolysToBeRendered(int32 blockX, int32 blockY, bool
 }
 
 // 0x6E7210
-static uintptr_t WaterWaveFtolLibrary=0x821B40;
-// Native stack order differs from public interface: x,y,big,small,height.
-__declspec(naked) void CWaterLevel::CalculateWavesOnlyForCoordinate2Native(int32,int32,float,float,float*) {
-    __asm {
-    mov eax,dword ptr [esp+4]
-    test eax,eax
-    jge L006E721E
-    neg eax
-    mov dword ptr [esp+4],eax
-    L006E721E: mov ecx,dword ptr [esp+8]
-    test ecx,ecx
-    jge L006E722C
-    neg ecx
-    mov dword ptr [esp+8],ecx
-    L006E722C: cdq
-    sub eax,edx
-    push esi
-    mov esi,eax
-    mov eax,ecx
-    mov ecx,dword ptr ds:[00C228A4h]
-    cdq
-    sub eax,edx
-    sar eax,1
-    sar esi,1
-    and eax,7
-    and esi,7
-    xor edx,edx
-    fld dword ptr [esi*4+008D38C8h]
-    fmul dword ptr [eax*4+008D38E8h]
-    mov eax,dword ptr ds:[00B7CB84h]
-    sub eax,ecx
-    mov ecx,1388h
-    div ecx
-    fmul dword ptr ds:[00C812E8h]
-    fild dword ptr [esp+8]
-    fild dword ptr [esp+0Ch]
-    fstp dword ptr [esp+8]
-    test edx,edx
-    mov dword ptr [esp+0Ch],edx
-    fild dword ptr [esp+0Ch]
-    jge L006E7289
-    fadd dword ptr ds:[00858C54h]
-    L006E7289: fmul dword ptr ds:[00872020h]
-    fld dword ptr [esp+8]
-    fadd st,st(2)
-    fmul dword ptr ds:[0087201Ch]
-    faddp st(1),st
-    fmul dword ptr ds:[0085A778h]
-    call dword ptr [WaterWaveFtolLibrary]
-    mov esi,dword ptr [esp+18h]
-    and eax,0FFh
-    fld dword ptr [eax*4+00BB3E00h]
-    mov ecx,0DACh
-    fmul dword ptr ds:[00871FF8h]
-    fmul st,st(2)
-    fmul dword ptr [esp+10h]
-    fadd dword ptr [esi]
-    fst dword ptr [esp+0Ch]
-    fstp dword ptr [esi]
-    mov edx,dword ptr ds:[00C228A4h]
-    mov eax,dword ptr ds:[00B7CB84h]
-    sub eax,edx
-    xor edx,edx
-    div ecx
-    test edx,edx
-    mov dword ptr [esp+10h],edx
-    fild dword ptr [esp+10h]
-    jge L006E72F4
-    fadd dword ptr ds:[00858C54h]
-    L006E72F4: fmul dword ptr ds:[00872018h]
-    fld dword ptr [esp+8]
-    fmul dword ptr ds:[00872014h]
-    faddp st(1),st
-    fxch st(1)
-    fmul dword ptr ds:[00872010h]
-    faddp st(1),st
-    fmul dword ptr ds:[0085A778h]
-    call dword ptr [WaterWaveFtolLibrary]
-    and eax,0FFh
-    fld dword ptr [eax*4+00BB3E00h]
-    mov ecx,0BB8h
-    fmul dword ptr ds:[00871FFCh]
-    fmul st,st(1)
-    fmul dword ptr [esp+14h]
-    fadd dword ptr [esp+0Ch]
-    fst dword ptr [esi]
-    mov edx,dword ptr ds:[00C228A4h]
-    mov eax,dword ptr ds:[00B7CB84h]
-    sub eax,edx
-    xor edx,edx
-    div ecx
-    test edx,edx
-    mov dword ptr [esp+0Ch],edx
-    fild dword ptr [esp+0Ch]
-    jge L006E7361
-    fadd dword ptr ds:[00858C54h]
-    L006E7361: fmul dword ptr ds:[0087200Ch]
-    fld dword ptr [esp+8]
-    fmul dword ptr ds:[00872008h]
-    faddp st(1),st
-    fmul dword ptr ds:[0085A778h]
-    call dword ptr [WaterWaveFtolLibrary]
-    and eax,0FFh
-    fld dword ptr [eax*4+00BB3E00h]
-    fmul dword ptr ds:[00872000h]
-    fmul st,st(2)
-    fmul dword ptr [esp+14h]
-    fadd st,st(1)
-    fstp dword ptr [esi]
-    pop esi
-    fstp st(0)
-    fstp st(0)
-    ret
-    }
+// Orden de pila del EXE (x, y, grandes, pequenas, altura), distinto del interfaz publico. Como el EXE, sale con EAX = indice de la tercera onda, ECX/EDX = residuo de _ftol2 (0x821B40) de esa onda y los
+// argumentos x, y, grandes de la pila reescritos (x = bits de float(|y|), y = resto entre 3000, grandes = resto entre 3500); termina con ResidueRegsCpp (contrib/audit_register_residue.py).
+#pragma runtime_checks("", off)
+__declspec(safebuffers) void CWaterLevel::CalculateWavesOnlyForCoordinate2Native(int32 x, int32 y, float bigWavesAmpl, float smallWavesAmpl, float* height) {
+    const WaterWaveSetup setup = MakeWaterWaveSetup(x, y);
+    const Ftol2Regs regs = WaterLevelWavesNativeCpp(setup.absX, setup.absY, setup.multX, setup.multY, CWeather::Wavyness, setup.rem1, setup.rem2, setup.rem3,
+        bigWavesAmpl, smallWavesAmpl, WaterSinTable(), height);
+    // Los argumentos de la pila quedan como los deja el EXE (el banco DependenciesWorld9 compara los cinco huecos tras la llamada); la escritura volatil impide que se elimine.
+    *const_cast<volatile int32*>(&x) = std::bit_cast<int32>(float(setup.absY));
+    *const_cast<volatile int32*>(&y) = int32(setup.rem3);
+    *const_cast<volatile uint32*>(reinterpret_cast<const uint32*>(&bigWavesAmpl)) = setup.rem2;
+    (void)ResidueRegsCpp(regs.ecx, regs.edx, regs.eax);
 }
+#pragma runtime_checks("", restore)
 void CWaterLevel::CalculateWavesOnlyForCoordinate2(int32 x,int32 y,float* height,float bigWavesAmpl,float smallWavesAmpl) {
     CalculateWavesOnlyForCoordinate2Native(x,y,bigWavesAmpl,smallWavesAmpl,height);
 }
@@ -1518,131 +1152,27 @@ void CWaterLevel::RenderHighDetailWaterTriangle(int32 X1, int32 Y1, CRenPar P1, 
 }
 
 namespace {
+// Como el original (0x6EF8E2..0x6EFAF9, dentro de RenderWater): desplazamientos de textura y ruido del agua. La aritmetica x87 esta en X87Math; el rand de
+// la CRT del EXE (0x821B1E) se llama por direccion, en el mismo orden y con la pila x87 vacia.
 void WaterRenderShifts() {
-    int32 randomValue; float angleSpill, noiseMultiplier, cosineSpill;
-    __asm {
-        fld dword ptr ds:[00B7CB5Ch]
-        fmul dword ptr ds:[00C22890h]
-        fmul dword ptr ds:[008D392Ch]
-        fld dword ptr ds:[00859018h]
-        fmul st,st(1)
-        fadd dword ptr ds:[008D3824h]
-        fstp dword ptr ds:[008D3824h]
-        fld dword ptr ds:[00B7CB5Ch]
-        fmul dword ptr ds:[00C22894h]
-        fmul dword ptr ds:[008D392Ch]
-        fld dword ptr ds:[00859018h]
-        fmul st,st(1)
-        fadd dword ptr ds:[008D3828h]
-        fstp dword ptr ds:[008D3828h]
-        fld dword ptr ds:[008D3824h]
-        fcomp dword ptr ds:[00858624h]
-        fnstsw ax
-        test ah,41h
-        jne water006EF956
-        fld dword ptr ds:[008D3824h]
-        fsub dword ptr ds:[00858624h]
-        fstp dword ptr ds:[008D3824h]
-    water006EF956:
-        fld dword ptr ds:[008D3828h]
-        fcomp dword ptr ds:[00858624h]
-        fnstsw ax
-        test ah,41h
-        jne water006EF97B
-        fld dword ptr ds:[008D3828h]
-        fsub dword ptr ds:[00858624h]
-        fstp dword ptr ds:[008D3828h]
-    water006EF97B:
-        fxch st(1)
-        fmul dword ptr ds:[00858CECh]
-        fadd dword ptr ds:[008D382Ch]
-        fstp dword ptr ds:[008D382Ch]
-        fmul dword ptr ds:[00858CECh]
-        fadd dword ptr ds:[008D3830h]
-        fstp dword ptr ds:[008D3830h]
-        fld dword ptr ds:[008D382Ch]
-        fcomp dword ptr ds:[00858624h]
-        fnstsw ax
-        test ah,41h
-        jne water006EF9C6
-        fld dword ptr ds:[008D382Ch]
-        fsub dword ptr ds:[00858624h]
-        fstp dword ptr ds:[008D382Ch]
-    water006EF9C6:
-        fld dword ptr ds:[008D3830h]
-        fcomp dword ptr ds:[00858624h]
-        fnstsw ax
-        test ah,41h
-        jne water006EF9EB
-        fld dword ptr ds:[008D3830h]
-        fsub dword ptr ds:[00858624h]
-        fstp dword ptr ds:[008D3830h]
-    water006EF9EB:
-        mov eax,dword ptr ds:[00B7CB84h]
-        mov edx,eax
-        and edx,0FFFh
-        test edx,edx
-        mov dword ptr randomValue,edx
-        fild dword ptr randomValue
-        jge water006EFA0A
-        fadd dword ptr ds:[00858C54h]
-    water006EFA0A:
-        fmul dword ptr ds:[00872174h]
-        and eax,1FFFh
-        test eax,eax
-        mov dword ptr randomValue,eax
-        fld st(0)
-        fsin
-        fmul dword ptr ds:[00C812E8h]
-        fmul dword ptr ds:[00859018h]
-        fadd dword ptr ds:[008D3824h]
-        fstp dword ptr ds:[00C21184h]
-        fcos
-        fmul dword ptr ds:[00C812E8h]
-        fmul dword ptr ds:[00859018h]
-        fadd dword ptr ds:[008D3828h]
-        fstp dword ptr ds:[00C21180h]
-        fild dword ptr randomValue
-        jge water006EFA5D
-        fadd dword ptr ds:[00858C54h]
-    water006EFA5D:
-        fmul dword ptr ds:[00872170h]
-        mov eax,dword ptr ds:[008D382Ch]
-        mov ecx,dword ptr ds:[008D3928h]
-        mov dword ptr ds:[00C2117Ch],eax
-        fstp dword ptr angleSpill
-        mov dword ptr noiseMultiplier,ecx
-        fld dword ptr angleSpill
-        fcos
-        fst dword ptr cosineSpill
-        fmul dword ptr ds:[0087216Ch]
-        fadd dword ptr ds:[008D3830h]
-        fstp dword ptr ds:[00C21178h]
-        mov eax, 00821B1Eh
-        call eax
-        mov edx,dword ptr ds:[008D3928h]
-        mov dword ptr randomValue,eax
-        fild dword ptr randomValue
-        fmul dword ptr ds:[00858C7Ch]
-        fmul dword ptr noiseMultiplier
-        mov dword ptr noiseMultiplier,edx
-        fstp dword ptr ds:[00C21174h]
-        mov eax, 00821B1Eh
-        call eax
-        mov dword ptr randomValue,eax
-        fild dword ptr randomValue
-        fmul dword ptr ds:[00858C7Ch]
-        fld dword ptr angleSpill
-        fsin
-        fmul dword ptr ds:[008D3834h]
-        fadd dword ptr ds:[00C21174h]
-        fstp dword ptr ds:[00C21174h]
-        fmul dword ptr noiseMultiplier
-        fld dword ptr cosineSpill
-        fmul dword ptr ds:[008D3834h]
-        faddp st(1),st
-        fstp dword ptr ds:[00C21170h]
-    }
+    auto* shifts = reinterpret_cast<float*>(0x8D3824); // 0x8D3824, 0x8D3828, 0x8D382C, 0x8D3830
+    WaterLevelShiftsAdvanceCpp(CTimer::GetTimeStep(), CWaterLevel::m_CurrentFlow.x, CWaterLevel::m_CurrentFlow.y, StaticRef<float>(0x8D392C), shifts);
+    const uint32 time = CTimer::GetTimeInMS();
+    const float angleA = IntTimesFloatCpp(int32(time & 0xFFFu), std::bit_cast<float>(0x3AC90FDBu));  // fild * 0x872174
+    CWaterLevel::TextureShiftSecondU = WaterLevelSinMulMulAddCpp(angleA, CWeather::Wavyness, StaticRef<float>(0x859018), shifts[0]); // 0xC21184
+    CWaterLevel::TextureShiftSecondV = WaterLevelCosMulMulAddCpp(angleA, CWeather::Wavyness, StaticRef<float>(0x859018), shifts[1]); // 0xC21180
+    const float angleB = IntTimesFloatCpp(int32(time & 0x1FFFu), std::bit_cast<float>(0x3A490FDBu));  // fild * 0x872170
+    StaticRef<uint32>(0xC2117C) = StaticRef<uint32>(0x8D382C);                                         // copia de los bits (mov eax,[0x8D382C]; mov [0xC2117C],eax)
+    const float firstNoise = StaticRef<float>(0x8D3928);
+    const float cosineSpill = TrigSimpleCosCpp(angleB);
+    CWaterLevel::TextureShiftFirstV = TrigCompoundCosMulAdd(angleB, std::bit_cast<float>(0x3CC49BA6u), shifts[3]); // 0xC21178: cos * 0x87216C + 0x8D3830
+    const int32 randomA = plugin::CallAndReturn<int32, 0x821B1E>();
+    const float noiseScale = std::bit_cast<float>(0x38000100u);                                         // 0x858C7C
+    StaticRef<float>(0xC21174) = WaterLevelNoiseFirstCpp(randomA, noiseScale, firstNoise);
+    const float secondNoise = StaticRef<float>(0x8D3928);
+    const int32 randomB = plugin::CallAndReturn<int32, 0x821B1E>();
+    StaticRef<float>(0xC21174) = TrigCompoundSinMulAdd(angleB, StaticRef<float>(0x8D3834), StaticRef<float>(0xC21174));
+    StaticRef<float>(0xC21170) = WaterLevelNoiseSecondCpp(randomB, noiseScale, secondNoise, cosineSpill, StaticRef<float>(0x8D3834));
 }
 }
 
@@ -1882,412 +1412,22 @@ bool CWaterLevel::TestLineAgainstWater(CVector from, CVector to, CVector* inters
     return plugin::CallAndReturn<bool, 0x6E61B0, CVector, CVector, CVector*>(from, to, intersection);
 }
 
-// 0x6e5bb0: reads real loaded water atlas; no game collaborator calls.
-__declspec(naked) bool CWaterLevel::GetWaterLevelNoWavesForQuad(const CWaterQuad*,float,float,float,float*,float*,float*) {
-    __asm {
-    sub esp,10h
-    mov ecx,dword ptr [esp+14h]
-    movsx edx,word ptr [ecx]
-    lea edx,[edx+edx*4]
-    shl edx,2
-    movsx eax,word ptr [edx+00C22910h]
-    mov dword ptr [esp],eax
-    push ebx
-    push ebp
-    fild dword ptr [esp+8]
-    push esi
-    push edi
-    fstp dword ptr [esp+24h]
-    fld dword ptr [esp+28h]
-    fcomp dword ptr [esp+24h]
-    fnstsw ax
-    test ah,1
-    jne L006E5E6E
-    movsx eax,word ptr [ecx+2]
-    lea edi,[eax+eax*4]
-    shl edi,2
-    movsx ebp,word ptr [edi+00C22910h]
-    mov dword ptr [esp+18h],ebp
-    fild dword ptr [esp+18h]
-    fcomp dword ptr [esp+28h]
-    fnstsw ax
-    test ah,1
-    jne L006E5E6E
-    movsx eax,word ptr [edx+00C22912h]
-    mov dword ptr [esp+18h],eax
-    fild dword ptr [esp+18h]
-    fstp dword ptr [esp+14h]
-    fld dword ptr [esp+2Ch]
-    fcomp dword ptr [esp+14h]
-    fnstsw ax
-    test ah,1
-    jne L006E5E6E
-    movsx eax,word ptr [ecx+4]
-    lea esi,[eax+eax*4]
-    shl esi,2
-    movsx ebx,word ptr [esi+00C22912h]
-    mov dword ptr [esp+1Ch],ebx
-    fild dword ptr [esp+1Ch]
-    fcomp dword ptr [esp+2Ch]
-    fnstsw ax
-    test ah,1
-    jne L006E5E6E
-    mov eax,dword ptr [esp+10h]
-    fld dword ptr [esp+28h]
-    fsub dword ptr [esp+24h]
-    sub ebp,eax
-    mov dword ptr [esp+28h],ebp
-    fidiv dword ptr [esp+28h]
-    mov eax,dword ptr [esp+18h]
-    sub ebx,eax
-    mov dword ptr [esp+24h],ebx
-    fstp dword ptr [esp+28h]
-    fld dword ptr [esp+2Ch]
-    fsub dword ptr [esp+14h]
-    fidiv dword ptr [esp+24h]
-    fld dword ptr [esp+28h]
-    fadd st,st(1)
-    fcomp dword ptr ds:[00858624h]
-    fnstsw ax
-    test ah,41h
-    jp L006E5D6A
-    fld dword ptr [esi+00C22914h]
-    mov esi,dword ptr [esp+34h]
-    fsub dword ptr [edx+00C22914h]
-    fmul st,st(1)
-    fld dword ptr [edi+00C22914h]
-    mov edi,dword ptr [esp+38h]
-    test edi,edi
-    fsub dword ptr [edx+00C22914h]
-    fmul dword ptr [esp+28h]
-    faddp st(1),st
-    fadd dword ptr [edx+00C22914h]
-    fstp dword ptr [esi]
-    je L006E5E7A
-    movsx edx,word ptr [ecx+4]
-    movsx eax,word ptr [ecx]
-    lea edx,[edx+edx*4]
-    lea eax,[eax+eax*4]
-    fld dword ptr [edx*4+00C22918h]
-    movsx edx,word ptr [ecx+2]
-    lea edx,[edx+edx*4]
-    fsub dword ptr [eax*4+00C22918h]
-    fmul st,st(1)
-    fld dword ptr [edx*4+00C22918h]
-    fsub dword ptr [eax*4+00C22918h]
-    fmul dword ptr [esp+28h]
-    faddp st(1),st
-    fadd dword ptr [eax*4+00C22918h]
-    fstp dword ptr [edi]
-    movsx edx,word ptr [ecx+4]
-    movsx eax,word ptr [ecx]
-    lea edx,[edx+edx*4]
-    lea eax,[eax+eax*4]
-    fld dword ptr [edx*4+00C2291Ch]
-    movsx edx,word ptr [ecx+2]
-    lea edx,[edx+edx*4]
-    fsub dword ptr [eax*4+00C2291Ch]
-    fmul st,st(1)
-    fld dword ptr [edx*4+00C2291Ch]
-    fsub dword ptr [eax*4+00C2291Ch]
-    fmul dword ptr [esp+28h]
-    faddp st(1),st
-    fadd dword ptr [eax*4+00C2291Ch]
-    mov eax,dword ptr [esp+3Ch]
-    fstp dword ptr [eax]
-    jmp L006E5E40
-    L006E5D6A: fsubr dword ptr ds:[00858624h]
-    movsx eax,word ptr [ecx+6]
-    fld dword ptr ds:[00858624h]
-    lea eax,[eax+eax*4]
-    fsub dword ptr [esp+28h]
-    fld dword ptr [esi+00C22914h]
-    mov esi,dword ptr [esp+34h]
-    fsub dword ptr [eax*4+00C22914h]
-    fmul st,st(1)
-    fld dword ptr [edi+00C22914h]
-    mov edi,dword ptr [esp+38h]
-    test edi,edi
-    fsub dword ptr [eax*4+00C22914h]
-    fmul st,st(3)
-    faddp st(1),st
-    fadd dword ptr [eax*4+00C22914h]
-    fstp dword ptr [esi]
-    je L006E5E78
-    movsx edx,word ptr [ecx+2]
-    movsx eax,word ptr [ecx+6]
-    lea edx,[edx+edx*4]
-    lea eax,[eax+eax*4]
-    fld dword ptr [edx*4+00C22918h]
-    movsx edx,word ptr [ecx+4]
-    lea edx,[edx+edx*4]
-    fsub dword ptr [eax*4+00C22918h]
-    fmul st,st(2)
-    fld dword ptr [edx*4+00C22918h]
-    fsub dword ptr [eax*4+00C22918h]
-    fmul st,st(2)
-    faddp st(1),st
-    fadd dword ptr [eax*4+00C22918h]
-    fstp dword ptr [edi]
-    movsx edx,word ptr [ecx+2]
-    movsx eax,word ptr [ecx+6]
-    lea edx,[edx+edx*4]
-    lea eax,[eax+eax*4]
-    fld dword ptr [edx*4+00C2291Ch]
-    movsx edx,word ptr [ecx+4]
-    lea edx,[edx+edx*4]
-    fsub dword ptr [eax*4+00C2291Ch]
-    fmul st,st(2)
-    fld dword ptr [edx*4+00C2291Ch]
-    fsub dword ptr [eax*4+00C2291Ch]
-    fmul st,st(2)
-    faddp st(1),st
-    fadd dword ptr [eax*4+00C2291Ch]
-    mov eax,dword ptr [esp+3Ch]
-    fstp dword ptr [eax]
-    fstp st(0)
-    L006E5E40: fstp st(0)
-    fld dword ptr [esi]
-    fsub dword ptr ds:[00858B44h]
-    fcomp dword ptr [esp+30h]
-    fnstsw ax
-    test ah,41h
-    jne L006E5E5B
-    test byte ptr [ecx+8],4
-    jne L006E5E6E
-    L006E5E5B: fld dword ptr [esi]
-    fadd dword ptr ds:[00858BA4h]
-    fcomp dword ptr [esp+30h]
-    fnstsw ax
-    test ah,5
-    jp L006E5E7C
-    L006E5E6E: pop edi
-    pop esi
-    pop ebp
-    xor al,al
-    pop ebx
-    add esp,10h
-    ret
-    L006E5E78: fstp st(0)
-    L006E5E7A: fstp st(0)
-    L006E5E7C: pop edi
-    pop esi
-    pop ebp
-    mov al,1
-    pop ebx
-    add esp,10h
-    ret
-    }
+namespace {
+// El EXE indexa m_aVertices con el indice de 16 bits extendido con signo (movsx; lea; shl 2) y sin comprobar el limite.
+const WaterLevelVertexCpp* WaterVertexAt(uint16 index) {
+    static_assert(sizeof(CWaterVertex) == sizeof(WaterLevelVertexCpp));
+    return reinterpret_cast<const WaterLevelVertexCpp*>(CWaterLevel::m_aVertices.data()) + int16(index);
+}
 }
 
-// 0x6e5e90: reads real loaded water atlas; no game collaborator calls.
-__declspec(naked) bool CWaterLevel::GetWaterLevelNoWavesForTriangle(const CWaterTriangle*,float,float,float,float*,float*,float*) {
-    __asm {
-    sub esp,10h
-    mov ecx,dword ptr [esp+14h]
-    movsx edx,word ptr [ecx]
-    lea edx,[edx+edx*4]
-    shl edx,2
-    movsx eax,word ptr [edx+00C22910h]
-    mov dword ptr [esp+8],eax
-    push ebx
-    push ebp
-    fild dword ptr [esp+10h]
-    push esi
-    push edi
-    fstp dword ptr [esp+14h]
-    fld dword ptr [esp+28h]
-    fcomp dword ptr [esp+14h]
-    fnstsw ax
-    test ah,1
-    jne L006E619E
-    movsx eax,word ptr [ecx+2]
-    lea ebx,[eax+eax*4]
-    shl ebx,2
-    movsx ebp,word ptr [ebx+00C22910h]
-    mov dword ptr [esp+24h],ebp
-    fild dword ptr [esp+24h]
-    fcomp dword ptr [esp+28h]
-    fnstsw ax
-    test ah,1
-    jne L006E619E
-    movsx eax,word ptr [ecx+4]
-    lea esi,[eax+eax*4]
-    mov ax,word ptr [edx+00C22912h]
-    shl esi,2
-    mov di,word ptr [esi+00C22912h]
-    cmp ax,di
-    movsx edi,di
-    movsx eax,ax
-    mov dword ptr [esp+24h],edi
-    mov dword ptr [esp+10h],eax
-    jge L006E5F2B
-    fild dword ptr [esp+10h]
-    fst dword ptr [esp+1Ch]
-    fild dword ptr [esp+24h]
-    jmp L006E5F37
-    L006E5F2B: fild dword ptr [esp+24h]
-    fild dword ptr [esp+10h]
-    fst dword ptr [esp+1Ch]
-    L006E5F37: fstp dword ptr [esp+24h]
-    fld dword ptr [esp+2Ch]
-    fcomp st(1)
-    fnstsw ax
-    fstp st(0)
-    test ah,1
-    jne L006E619E
-    fld dword ptr [esp+2Ch]
-    fcomp dword ptr [esp+24h]
-    fnstsw ax
-    test ah,41h
-    jp L006E619E
-    mov eax,dword ptr [esp+18h]
-    fld dword ptr [esp+28h]
-    fsub dword ptr [esp+14h]
-    sub ebp,eax
-    mov dword ptr [esp+28h],ebp
-    fidiv dword ptr [esp+28h]
-    mov ebp,dword ptr [esp+10h]
-    sub edi,ebp
-    mov dword ptr [esp+28h],edi
-    mov ax,word ptr [edx+00C22910h]
-    cmp ax,word ptr [esi+00C22910h]
-    fstp dword ptr [esp+24h]
-    fld dword ptr [esp+2Ch]
-    fsub dword ptr [esp+1Ch]
-    fidiv dword ptr [esp+28h]
-    fstp dword ptr [esp+28h]
-    jne L006E608B
-    fld dword ptr [esp+28h]
-    fadd dword ptr [esp+24h]
-    fcomp dword ptr ds:[00858624h]
-    fnstsw ax
-    test ah,41h
-    jp L006E619E
-    fld dword ptr [esi+00C22914h]
-    mov esi,dword ptr [esp+38h]
-    test esi,esi
-    fsub dword ptr [edx+00C22914h]
-    mov edi,dword ptr [esp+34h]
-    fmul dword ptr [esp+28h]
-    fld dword ptr [ebx+00C22914h]
-    fsub dword ptr [edx+00C22914h]
-    fmul dword ptr [esp+24h]
-    faddp st(1),st
-    fadd dword ptr [edx+00C22914h]
-    fstp dword ptr [edi]
-    je L006E6168
-    movsx edx,word ptr [ecx+2]
-    movsx eax,word ptr [ecx]
-    lea edx,[edx+edx*4]
-    lea eax,[eax+eax*4]
-    fld dword ptr [edx*4+00C22918h]
-    movsx edx,word ptr [ecx+4]
-    lea edx,[edx+edx*4]
-    fsub dword ptr [eax*4+00C22918h]
-    fmul dword ptr [esp+24h]
-    fld dword ptr [edx*4+00C22918h]
-    fsub dword ptr [eax*4+00C22918h]
-    fmul dword ptr [esp+28h]
-    faddp st(1),st
-    fadd dword ptr [eax*4+00C22918h]
-    fstp dword ptr [esi]
-    movsx edx,word ptr [ecx+4]
-    movsx eax,word ptr [ecx]
-    lea edx,[edx+edx*4]
-    lea eax,[eax+eax*4]
-    fld dword ptr [edx*4+00C2291Ch]
-    movsx edx,word ptr [ecx+2]
-    lea edx,[edx+edx*4]
-    fsub dword ptr [eax*4+00C2291Ch]
-    fmul dword ptr [esp+28h]
-    fld dword ptr [edx*4+00C2291Ch]
-    fsub dword ptr [eax*4+00C2291Ch]
-    fmul dword ptr [esp+24h]
-    faddp st(1),st
-    fadd dword ptr [eax*4+00C2291Ch]
-    mov eax,dword ptr [esp+3Ch]
-    fstp dword ptr [eax]
-    jmp L006E6168
-    L006E608B: fld dword ptr [esp+24h]
-    fcomp dword ptr [esp+28h]
-    fnstsw ax
-    test ah,1
-    jne L006E619E
-    fld dword ptr ds:[00858624h]
-    mov edi,dword ptr [esp+34h]
-    fsub dword ptr [esp+24h]
-    fld dword ptr [esi+00C22914h]
-    mov esi,dword ptr [esp+38h]
-    test esi,esi
-    fsub dword ptr [ebx+00C22914h]
-    fmul dword ptr [esp+28h]
-    fld dword ptr [edx+00C22914h]
-    fsub dword ptr [ebx+00C22914h]
-    fmul st,st(2)
-    faddp st(1),st
-    fadd dword ptr [ebx+00C22914h]
-    fstp dword ptr [edi]
-    je L006E6166
-    movsx edx,word ptr [ecx]
-    movsx eax,word ptr [ecx+2]
-    lea edx,[edx+edx*4]
-    lea eax,[eax+eax*4]
-    fld dword ptr [edx*4+00C22918h]
-    movsx edx,word ptr [ecx+4]
-    lea edx,[edx+edx*4]
-    fsub dword ptr [eax*4+00C22918h]
-    fmul st,st(1)
-    fld dword ptr [edx*4+00C22918h]
-    fsub dword ptr [eax*4+00C22918h]
-    fmul dword ptr [esp+28h]
-    faddp st(1),st
-    fadd dword ptr [eax*4+00C22918h]
-    fstp dword ptr [esi]
-    movsx edx,word ptr [ecx]
-    movsx eax,word ptr [ecx+2]
-    lea edx,[edx+edx*4]
-    lea eax,[eax+eax*4]
-    fld dword ptr [edx*4+00C2291Ch]
-    movsx edx,word ptr [ecx+4]
-    lea edx,[edx+edx*4]
-    fsub dword ptr [eax*4+00C2291Ch]
-    fmul st,st(1)
-    fld dword ptr [edx*4+00C2291Ch]
-    fsub dword ptr [eax*4+00C2291Ch]
-    fmul dword ptr [esp+28h]
-    faddp st(1),st
-    fadd dword ptr [eax*4+00C2291Ch]
-    mov eax,dword ptr [esp+3Ch]
-    fstp dword ptr [eax]
-    L006E6166: fstp st(0)
-    L006E6168: fld dword ptr [edi]
-    fsub dword ptr ds:[00858B44h]
-    fcomp dword ptr [esp+30h]
-    fnstsw ax
-    test ah,41h
-    jne L006E6181
-    test byte ptr [ecx+6],4
-    jne L006E619E
-    L006E6181: fld dword ptr [edi]
-    fadd dword ptr ds:[00858BA4h]
-    fcomp dword ptr [esp+30h]
-    fnstsw ax
-    test ah,5
-    jnp L006E619E
-    pop edi
-    pop esi
-    pop ebp
-    mov al,1
-    pop ebx
-    add esp,10h
-    ret
-    L006E619E: pop edi
-    pop esi
-    pop ebp
-    xor al,al
-    pop ebx
-    add esp,10h
-    ret
-    }
+// 0x6e5bb0: lee el atlas real cargado; sin colaboradores. La aritmetica x87 (limites, u, v, mitad, interpolacion y prueba de profundidad) esta en X87Math (WaterLevelQuadCpp).
+bool CWaterLevel::GetWaterLevelNoWavesForQuad(const CWaterQuad* quad, float x, float y, float z, float* outLevel, float* outBigWaves, float* outSmallWaves) {
+    const WaterLevelVertexCpp* vertex[4]{ WaterVertexAt(quad->verts[0]), WaterVertexAt(quad->verts[1]), WaterVertexAt(quad->verts[2]), WaterVertexAt(quad->verts[3]) };
+    return WaterLevelQuadCpp(vertex, quad->bLimitedDepth, x, y, z, outLevel, outBigWaves, outSmallWaves);
+}
+
+// 0x6e5e90: igual para triangulos (WaterLevelTriangleCpp).
+bool CWaterLevel::GetWaterLevelNoWavesForTriangle(const CWaterTriangle* triangle, float x, float y, float z, float* outLevel, float* outBigWaves, float* outSmallWaves) {
+    const WaterLevelVertexCpp* vertex[3]{ WaterVertexAt(triangle->verts[0]), WaterVertexAt(triangle->verts[1]), WaterVertexAt(triangle->verts[2]) };
+    return WaterLevelTriangleCpp(vertex, triangle->bLimitedDepth, x, y, z, outLevel, outBigWaves, outSmallWaves);
 }

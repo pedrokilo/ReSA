@@ -644,6 +644,19 @@ inline void Update() {
                         if(nm=="Constructor"){ ctorPos=CVector{uni(-100.f,100.f),uni(-100.f,100.f),uni(0.f,50.f)}; q1=next()%4 ? &ctorPos : nullptr;
                             f0=uni(0.f,30.f); a0=int32(next()%5000); q0=next()%2 ? p1 : nullptr; }
                         if(nm=="MakeAbortable"){ a0=int32(next()%3); ev=next()%4 ? event.data() : nullptr; }
+                        { // Estres del lote JetPack (flujo aleatorio aparte: no mueve las semillas del resto del banco). Solo toca entradas que el C++ SSE restante no combina
+                          // (un NaN por operacion; la rama de parada de ProcessThrust y las fuerzas con la velocidad no se estresan: siguen en C++ SSE).
+                          uint32 sx=uint32(i)*0x85EBCA6Bu^uint32(f)*0xC2B2AE35u^0x4A37E5u; if(!sx)sx=1;
+                          auto nx=[&]{sx^=sx<<13;sx^=sx>>17;sx^=sx<<5;return sx;};
+                          static const uint32 sa[]{0x7FC00000u,0xFFC00000u,0x7FA00000u,0xFFA00000u,0x7F800000u,0xFF800000u,0x00000001u,0x80000001u,0x80000000u,0x501502F9u,0xD01502F9u};
+                          static const uint32 sv[]{0x7FC00000u,0xFFC00000u,0x7FA00000u,0xFFA00000u,0x7F800000u,0xFF800000u,0x00000001u,0x80000001u,0x80000000u,0x7149F2CAu,0xF149F2CAu,0x0DA24260u,0x8DA24260u,0x7F7FFFFFu,0xFF7FFFFFu};
+                          const bool thrust=nm=="ProcessThrust", ctrl=nm=="ProcessControlInput";
+                          if((thrust||ctrl||nm=="ProcessPed")&&nx()%6==0)At<uint32>(o,0x14)=sa[nx()%11]; // angulo de empuje: ThrustDir, Lerp
+                          if(thrust&&!o[0xD]&&nx()%4==0){ // velocidad del peaton, velocidad previa, velocidades y angulos de balanceo: cola de ProcessThrust
+                              const uint32 w=nx()%4, k=nx()%3, bits=sv[nx()%15];
+                              if(w==0)At<uint32>(p,PH_SPEED+4*k)=bits; else if(w==1)At<uint32>(o,0x30+4*k)=bits; else if(w==2)At<uint32>(o,0x24+4*(k%2))=bits; else At<uint32>(o,0x18+4*k)=bits; }
+                          if(ctrl&&nx()%6==0){ auto& v=G<CVector>(CAMFRONT0+(nx()%3)*CAMSTRIDE); (&v.x)[nx()%2]=std::bit_cast<float>(sv[nx()%15]); } // frente de la camara: fpatan
+                        }
                     }
                     const auto before=Snapshot(); const auto occT=Occ(TaskHdr());
                     for(auto* h:hooks)h->State(candidate);

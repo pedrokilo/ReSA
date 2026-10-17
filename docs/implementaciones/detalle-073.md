@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 15/10/2026 (Ciudad de México):** 784 grupos / 8550 funciones reconstruidas; 8550 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 105 aprobadas dentro del juego; 130 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 16/10/2026 (Ciudad de México):** 784 grupos / 8550 funciones reconstruidas; 8550 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 105 aprobadas dentro del juego; 130 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,25 +7,6 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-1441"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTaskInteriorSitAtDesk | [source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h:13](../../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h#L13) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Clone() const override | [source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h:27](../../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h:28](../../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1442"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTaskInteriorSitInChair | [source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.h:9](../../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.h#L9) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.h:19](../../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1443"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorUseInfo.h
 
@@ -35,7 +16,7 @@
 | * Clone() const override | [source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorUseInfo.h:20](../../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorUseInfo.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorUseInfo.h:21](../../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorUseInfo.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1444"></a>
+<a id="grupo-1442"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.h
 
@@ -43,7 +24,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CEntitySeekPosCalculator | [source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.h:9](../../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.h#L9) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1445"></a>
+<a id="grupo-1443"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.h
 
@@ -51,7 +32,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CEntitySeekPosCalculatorFixedPos | [source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.h:7](../../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.h#L7) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1446"></a>
+<a id="grupo-1444"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.h
 
@@ -59,7 +40,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CEntitySeekPosCalculatorRadiusAngleOffset | [source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.h:6](../../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.h#L6) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1447"></a>
+<a id="grupo-1445"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorStandard.h
 
@@ -67,7 +48,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CEntitySeekPosCalculatorStandard | [source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorStandard.h:5](../../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorStandard.h#L5) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1448"></a>
+<a id="grupo-1446"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.h
 
@@ -77,7 +58,7 @@
 | CEntitySeekPosCalculatorXYOffset(const CVector& offset) | [source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.h:16](../../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.h#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | SetOffset(CVector v) | [source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.h:23](../../source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.h#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1449"></a>
+<a id="grupo-1447"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h
 
@@ -105,7 +86,7 @@
 | GetMoveStateRadius() const | [source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h:421](../../source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h#L421) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CreateSubTaskWhenPedIsTooFarFromEntity(CPed* ped, float pedToSeekPosDist2DSq) | [source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h:448](../../source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h#L448) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1450"></a>
+<a id="grupo-1448"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityAnyMeans.h
 
@@ -121,7 +102,7 @@
 | StartScanTimer() | [source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityAnyMeans.h:90](../../source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityAnyMeans.h#L90) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetSeekPos(CPed* ped) | [source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityAnyMeans.h:96](../../source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityAnyMeans.h#L96) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1451"></a>
+<a id="grupo-1449"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityAnyMeansXYOffset.h
 
@@ -131,7 +112,7 @@
 | CTaskComplexSeekEntityAnyMeansXYOffset(CEntity* entity, const CVector& offsetXY, int32 period = 1000, float radius = 8.f) | [source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityAnyMeansXYOffset.h:11](../../source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityAnyMeansXYOffset.h#L11) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Clone() const override | [source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityAnyMeansXYOffset.h:17](../../source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityAnyMeansXYOffset.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1452"></a>
+<a id="grupo-1450"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h
 
@@ -139,7 +120,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CTaskComplexSeekEntity&lt;CEntitySeekPosCalculatorRadiusAngleOffset&gt; | [source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h:6](../../source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h#L6) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1453"></a>
+<a id="grupo-1451"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h
 
@@ -147,7 +128,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CTaskComplexSeekEntity&lt;CEntitySeekPosCalculatorStandard&gt; | [source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h:6](../../source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h#L6) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1454"></a>
+<a id="grupo-1452"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp
 
@@ -155,7 +136,7 @@
 | --- | --- | --- | --- | --- | --- |
 | SetMaxEntityDist2DRegs(void* self, uint32 entryEdx, uint32 distanceBits) | [source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp:12](../../source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp#L12) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_snTimeInMilliseconds: source/game_sa/Timer.h:44 (0x00B7CB84) |
 
-<a id="grupo-1455"></a>
+<a id="grupo-1453"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h
 
@@ -163,7 +144,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CTaskComplexSeekEntity&lt;CEntitySeekPosCalculatorXYOffset&gt; | [source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h:6](../../source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h#L6) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1456"></a>
+<a id="grupo-1454"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp
 
@@ -171,7 +152,7 @@
 | --- | --- | --- | --- | --- | --- |
 | MakeSurePedHasWeaponInHand(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp:138](../../source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp#L138) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1457"></a>
+<a id="grupo-1455"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h
 
@@ -183,7 +164,7 @@
 | * Constructor(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h:34](../../source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h:35](../../source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h#L35) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1458"></a>
+<a id="grupo-1456"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.h
 
@@ -195,7 +176,7 @@
 | * CreateNextSubTask(CPed* ped) override | [source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.h:20](../../source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * ControlSubTask(CPed* ped) override | [source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.h:21](../../source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1459"></a>
+<a id="grupo-1457"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h
 
@@ -204,7 +185,7 @@
 | CTaskComplexAvoidEntity | [source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h:11](../../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h#L11) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h:19](../../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1460"></a>
+<a id="grupo-1458"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.h
 
@@ -213,3 +194,23 @@
 | CTaskComplexAvoidOtherPedWhileWandering | [source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.h:9](../../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.h#L9) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.h:18](../../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetPedToAvoid() const | [source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.h:47](../../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.h#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1459"></a>
+
+## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTaskComplexWanderCop | [source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.h:5](../../source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.h#L5) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskComplexBeCop(eMoveState moveState, uint8 dir, CTask* task) | [source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.h:13](../../source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.h#L13) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.h:17](../../source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1460"></a>
+
+## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTaskComplexBeInCouple | [source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.h:5](../../source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.h#L5) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.h:33](../../source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.h#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.h:34](../../source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.h#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexBeInCouple::GetTaskType 0x00683770 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

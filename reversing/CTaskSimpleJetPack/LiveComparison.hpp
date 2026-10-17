@@ -13,17 +13,23 @@ inline uint32 randomState{};
 inline int32 generated=-1;
 inline json events=json::array();
 inline std::ofstream log;
-inline ReversingProbe::EntryPatch *generatePatch{},*coordsPatch{};
+inline ReversingProbe::EntryPatch *generatePatch{},*coordsPatch{},*coordsDllPatch{};
+// Cuerpo real de una funcion de la DLL (salta los thunks ILT que apuntan dentro de la DLL).
+inline uintptr_t Body(uintptr_t p){
+    for(int k=0;k<4&&*reinterpret_cast<const uint8*>(p)==0xE9;++k){ const uintptr_t t=p+5+*reinterpret_cast<const int32*>(p+1); if(t>=0x400000&&t<0x1000000)break; p=t; }
+    return p; }
 inline void Write(const json& r) { ReversingProbe::PumpMessages(); log << r.dump() << '\n'; log.flush(); }
 inline int Report(int type,char* msg,int*) {
     if(type!=_CRT_ASSERT) return FALSE;
     Write({{"event","assertion"},{"message",msg ? msg : ""}}); ExitProcess(91);
 }
 inline int __cdecl Random() { randomState=randomState*214013u+2531011u; return int((randomState>>16)&32767); }
+inline uint16 __cdecl RandomNumber() { return uint16(Random()); }
 inline void __cdecl Coords(float x,float y,float z,float& ox,float& oy,float& oz) {
-    coordsPatch->Enable(false);
+    // Se sueltan las dos entradas (EXE y DLL) para llamar al cuerpo real sin recursion.
+    coordsPatch->Enable(false); coordsDllPatch->Enable(false);
     reinterpret_cast<void(__cdecl*)(float,float,float,float&,float&,float&)>(0x458A80)(x,y,z,ox,oy,oz);
-    coordsPatch->Enable(true); events.push_back({"coords",x,y,z,ox,oy,oz});
+    coordsDllPatch->Enable(true); coordsPatch->Enable(true); events.push_back({"coords",x,y,z,ox,oy,oz});
 }
 inline int32 __cdecl Generate(CVector pos,uint32 model,ePickupType type,uint32 ammo,uint32 money,bool empty,char* message) {
     int32 result=-1;
@@ -79,8 +85,12 @@ inline void Update() {
     bool enabled=hook->Hooked(),locked=hook->Locked(); hook->LockState(false);
     bool passed=true; int pairs=0,created=0;
     {
+        // CreatePickupCoorsCloseToCoors y CGeneral::GetRandomNumber estan reconstruidas y la DLL las llama directamente (la conversion de DropJetPack
+        // ya no pasa por 0x458A80): mismas sustituciones en la entrada de la DLL que en la del EXE; el RNG de la DLL usa rand() de su propia CRT.
         ReversingProbe::EntryPatch gen(0x456F20,Generate),coords(0x458A80,Coords),random(0x821B1E,Random);
-        generatePatch=&gen; coordsPatch=&coords;
+        ReversingProbe::EntryPatch coordsDll(Body(std::bit_cast<uintptr_t>(static_cast<void(*)(float,float,float,float&,float&,float&)>(&CPickups::CreatePickupCoorsCloseToCoors))),Coords);
+        ReversingProbe::EntryPatch randomDll(Body(std::bit_cast<uintptr_t>(&CGeneral::GetRandomNumber)),RandomNumber);
+        generatePatch=&gen; coordsPatch=&coords; coordsDllPatch=&coordsDll;
         auto entry=reinterpret_cast<void(__thiscall*)(CTaskSimpleJetPack*,CPed*)>(0x67B660);
         for(int i=0;i<128 && passed;++i) {
             realGeneration=i<64;

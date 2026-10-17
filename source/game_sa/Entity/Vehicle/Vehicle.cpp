@@ -45,6 +45,7 @@ END GENERATED HOOK STATUS */
 #include "Shadows.h"
 #include "CustomBuildingDNPipeline.h"
 #include "PedClothesDesc.h"
+#include "X87Math.h"
 
 auto& planeRotorDmgTimeMS = StaticRef<uint32>(0xC1CC1C);
 
@@ -120,31 +121,13 @@ CVector VehECross(const CVector& a, const CVector& b) {
 
 // Como el original: pow del CRT del EXE (_CIpow, 0x822130, precision x87 completa) y resultado guardado como float
 float VehEPow(float base, float exponent) {
-    float result;
-    __asm {
-        fld base
-        fld exponent
-        mov eax, 0x822130
-        call eax
-        fstp result
-    }
-    return result;
+    return CnvDecayPowCpp(base, exponent); // fld base; fld exponent; call 0x822130; fstp dword: pow del EXE con un solo redondeo a float
 }
 
 // Como el original: fsin y fcos del x87 sobre el mismo valor (precision completa, el resultado se redondea al guardarlo)
 void VehESinCos(float angle, float& outSin, float& outCos) {
-    float* pSin = &outSin;
-    float* pCos = &outCos;
-    __asm {
-        fld angle
-        fsin
-        mov eax, pSin
-        fstp dword ptr [eax]
-        fld angle
-        fcos
-        mov eax, pCos
-        fstp dword ptr [eax]
-    }
+    outSin = TrigSimpleSinCpp(angle);
+    outCos = TrigSimpleCosCpp(angle);
 }
 
 // Como el original: CVector2D::Normalise (0x44E480); con suma de cuadrados no positiva solo pone x = 1
@@ -548,13 +531,14 @@ CVehicle::~CVehicle() {
     }
 }
 
-// Como el original: size no se consulta; el pool real usa almacenamiento de 0xA18 bytes.
-// CVehiclePool::New reconstruida se instala separadamente en 0x6E2A50.
-__declspec(naked) void* CVehicle::operator new(unsigned size) {
-    __asm { mov ecx,dword ptr ds:[0B74494h] }
-    __asm { push 06E2A50h }
-    __asm { ret }
+// Como el original (0x6E2D50: mov ecx,[0xB74494]; jmp 0x6E2A50): size no se consulta; el pool real usa almacenamiento de 0xA18 bytes.
+// CVehiclePool::New reconstruida se instala separadamente en 0x6E2A50. El EXE sale con ECX/EDX tal como los deja New (salto, no llamada), asi que
+// la llamada a New tiene que ser lo ultimo que se ejecuta: sin comprobaciones de ejecucion (RTC) ni cookie /GS, que insertarian codigo tras ella.
+#pragma runtime_checks("", off)
+__declspec(safebuffers) void* CVehicle::operator new(unsigned size) {
+    return GetVehiclePool()->New();
 }
+#pragma runtime_checks("", restore)
 
 void CVehicle::operator delete(void* data) {
     GetVehiclePool()->Delete(static_cast<CVehicle*>(data));
@@ -1084,22 +1068,8 @@ void CVehicle::ProcessDrivingAnims(CPed* driver, bool blend) {
     else if (CVehicleAnimGroupData::UsesTruckDrivingAnims(static_cast<AssocGroupId>(m_pHandlingData->m_nAnimGroup)))
         usedAnims = &aDriveAnimIdsTruck;
     else {
-        // Preserve the executable's x87 rounding and stat-read order.
-        const auto* speed = &m_vecMoveSpeed;
-        float fSpeed;
-        __asm {
-            mov eax, speed
-            fld dword ptr [eax]
-            fmul st(0), st(0)
-            fld dword ptr [eax+4]
-            fmul st(0), st(0)
-            faddp st(1), st(0)
-            fld dword ptr [eax+8]
-            fmul st(0), st(0)
-            faddp st(1), st(0)
-            fsqrt
-            fstp fSpeed
-        }
+        // Preserve the executable's x87 rounding and stat-read order: fsqrt((x*x + y*y) + z*z) (0x6DF504..0x6DF52D), stored as float.
+        const float fSpeed = DestroyCarDistanceCpp(&m_vecMoveSpeed.x);
         if (CStats::GetStatValue(eStats::STAT_DRIVING_SKILL) >= 100.0F) {
             usedAnims = fSpeed <= 0.4F ? &aDriveAnimIdsProSlow : &aDriveAnimIdsPro;
         } else if (CStats::GetStatValue(eStats::STAT_DRIVING_SKILL) >= 50.0F) {
@@ -1162,12 +1132,7 @@ void CVehicle::ProcessDrivingAnims(CPed* driver, bool blend) {
 
     const auto angle = m_fSteerAngle;
     const float scale = angle < 0.0F ? -0x1.a3ac1p+0F : 0x1.a3ac1p+0F;
-    float fUsedAngle;
-    __asm {
-        fld angle
-        fmul scale
-        fstp fUsedAngle
-    }
+    float fUsedAngle = X87TimesFloatCpp(angle, scale); // fld angle; fmul [0x871FD0/0x871FD4]
     fUsedAngle = std::clamp(fUsedAngle, 0.0F, 1.0F);
 
     if (m_fSteerAngle < 0) {
@@ -1428,17 +1393,15 @@ void CVehicle::ResetAfterRender() {
 }
 
 // Native ProcessDrivingAnims keeps ECX and EDX live across both calls. The C++ ABI
-// allows them to be clobbered, so preserve them at the executable boundary.
-__declspec(naked) eVehicleAppearance __fastcall CVehicle::GetVehicleAppearance_Reversed(const CVehicle*, void*) {
-    __asm {
-        push ecx
-        push edx
-        call CVehicle::GetVehicleAppearance
-        pop edx
-        pop ecx
-        ret
-    }
+// allows them to be clobbered, so preserve them at the executable boundary: the EXE function (0x6D1080) only
+// writes EAX, so on exit ECX = this, EDX = entry EDX and EAX = result. ResidueRegsCpp is the last call (see
+// contrib/audit_register_residue.py, object Vehicle); no RTC / GS cookie after it.
+#pragma runtime_checks("", off)
+__declspec(safebuffers) eVehicleAppearance __fastcall CVehicle::GetVehicleAppearance_Reversed(const CVehicle* self, void* entryEdx) {
+    const uint32 result = static_cast<uint32>(self->GetVehicleAppearance());
+    return static_cast<eVehicleAppearance>(ResidueRegsCpp(static_cast<uint32>(reinterpret_cast<uintptr_t>(self)), static_cast<uint32>(reinterpret_cast<uintptr_t>(entryEdx)), result));
 }
+#pragma runtime_checks("", restore)
 
 // 0x6D1080
 eVehicleAppearance CVehicle::GetVehicleAppearance() const {
@@ -4122,32 +4085,21 @@ void CVehicle::SetComponentRotation(RwFrame* component, eRotationAxis axis, floa
     mat.UpdateRW();
 }
 
-// Como el original (0x6DBC41 / 0x6DBC55): atan2(y, x) con fpatan del x87 a precisión interna completa; el resultado lo redondea el fstp posterior
-static __declspec(naked) float __cdecl TransmissionAtan2(float y, float x) {
-    __asm {
-        fld    dword ptr [esp + 4]
-        fld    dword ptr [esp + 8]
-        fpatan
-        ret
-    }
-}
-
 // 0x6DBBB0
 void CVehicle::SetTransmissionRotation(RwFrame* component, float angleL, float angleR, CVector wheelPos, bool isFront) {
     if (component) {
         CMatrix mat(&component->modelling);
         CVector savedPos = mat.GetPosition();
-        // Como el original: (L + R) * 0.5 (0x858B8C) y PI exacto del EXE (0x858CB8 = 0x40490FDB), no el PI impreciso de common.h
-        float angleX = -TransmissionAtan2(
-            (angleL + angleR) * 0.5f - wheelPos.z,
-            mat.GetPosition().y - wheelPos.y
-        );
-        if (isFront) {
-            angleX += std::bit_cast<float>(0x40490FDBu);
-        }
+        // Como el original (0x6DBBFB..0x6DBC67): -fpatan((L + R) * 0.5 - z, y - wy) y fpatan(L - R, |x| + |x|) con ST0 sin redondear y un solo fstp float
+        // cada uno; PI exacto del EXE (0x858CB8 = 0x40490FDB) sumado en x87. Los dos angulos se calculan antes de SetRotateX/RotateY.
+        float angleX, angleY;
+        VehicleTransmissionAnglesCpp(angleL, angleR, mat.GetPosition().y, &wheelPos.x, isFront, &angleX, &angleY);
         mat.SetRotateX(angleX);
-        mat.RotateY(TransmissionAtan2(angleL - angleR, std::fabs(wheelPos.x) + std::fabs(wheelPos.x)));
-        mat.GetPosition() += savedPos;
+        mat.RotateY(angleY);
+        // Como el original (0x6DBC87..0x6DBCA7): fld pos; fadd saved; fstp por componente (x87: conserva subnormales y elige el NaN de mayor mantisa)
+        mat.GetPosition().x = RpNanAddCpp(mat.GetPosition().x, savedPos.x);
+        mat.GetPosition().y = RpNanAddCpp(mat.GetPosition().y, savedPos.y);
+        mat.GetPosition().z = RpNanAddCpp(mat.GetPosition().z, savedPos.z);
         mat.UpdateRW();
     }
 }
@@ -5181,175 +5133,77 @@ void CVehicle::GetPlaneWeaponFiringStatus(bool& status, eOrdnanceType& ordnanceT
 }
 
 
-namespace {
-__declspec(naked) void VehicleStats11WheelCount() { __asm { push 0004C8740h } __asm { ret } }
-__declspec(naked) void VehicleStats11WheelModel() { __asm { push 0004C8750h } __asm { ret } }
-}
+// 0x49B010. Como el original: bool en AL; ademas el EXE sale con EAX/ECX/EDX segun el camino (los bancos los comparan en bruto), asi que cada camino
+// calcula los tres y termina en ResidueRegsCpp, que es lo ultimo que se ejecuta (ver contrib/audit_register_residue.py, objeto Vehicle). La llamada se
+// hace con el tipo de retorno bool (VehicleResidueBoolCpp) para que AL sea el resultado sin instrucciones posteriores. Los colaboradores 0x4C8740/0x4C8750 solo escriben EAX
+// (y 0x4C8750 ademas ECX = su segundo argumento) en el EXE, por lo que ECX/EDX de salida son los del EXE original; EDX = infoModelo del vehiculo salvo en la busqueda.
+//   - Ruedas (indicador 0x100 y tipo 0x800): bucle sobre GetWheelUpgrade; ECX = indice, o el ultimo indice probado si no se encuentra (o la palabra de indicadores si no hay ruedas).
+//   - Lista (resto, salvo tipo 0x4400 sin 0x100): 18 mejoras en infoModelo+0x2D6; ECX = direccion de la entrada, EDX = entrada con signo extendido.
+//   - Nitro (tipo 0x4400 sin 0x100): lee tres bytes del vehiculo; ECX = 0x4400 | byte 0x1BE.
+// Mismo simbolo que ResidueRegsCpp (X87Math.cpp) con retorno bool: la llamada deja EAX/ECX/EDX y el compilador no anade nada tras ella (llamada directa, no por puntero).
+extern "C" bool __fastcall VehicleResidueBoolCpp(uint32 ecxValue, uint32 edxValue, uint32 eaxValue);
+#pragma comment(linker, "/alternatename:@VehicleResidueBoolCpp@12=?ResidueRegsCpp@@YIIIII@Z")
+#pragma runtime_checks("", off)
+__declspec(safebuffers) bool IsValidModForVehicle(uint32 modelId, CVehicle* vehicle) {
+    const auto readU8  = [](uint32 address) { return uint32(*reinterpret_cast<const uint8*>(uintptr_t(address))); };
+    const auto readU16 = [](uint32 address) { return uint32(*reinterpret_cast<const uint16*>(uintptr_t(address))); };
+    const auto readS16 = [](uint32 address) { return uint32(int32(*reinterpret_cast<const int16*>(uintptr_t(address)))); };
+    const auto readU32 = [](uint32 address) { return *reinterpret_cast<const uint32*>(uintptr_t(address)); };
 
-__declspec(naked) bool IsValidModForVehicle(uint32 modelId, CVehicle* vehicle) {
-    __asm {
-        // 0x49B010
-        push ebx
-        // 0x49B011
-        mov ebx,dword ptr [esp+8]
-        // 0x49B015
-        push esi
-        // 0x49B016
-        mov esi,dword ptr [esp+010h]
-        // 0x49B01A
-        movsx eax,word ptr [esi+022h]
-        // 0x49B01E
-        mov edx,dword ptr [eax*4+000A9B0C8h]
-        // 0x49B025
-        mov eax,dword ptr [ebx*4+000A9B0C8h]
-        // 0x49B02C
-        xor ecx,ecx
-        // 0x49B02E
-        mov cx,word ptr [eax+012h]
-        // 0x49B032
-        push edi
-        // 0x49B033
-        mov eax,ecx
-        // 0x49B035
-        and eax,0100h
-        // 0x49B03A
-        test ax,ax
-        // 0x49B03D
-        je VehicleStats11_VehicleMod_49B089
-        // 0x49B03F
-        mov edi,ecx
-        // 0x49B041
-        and edi,07C00h
-        // 0x49B047
-        cmp edi,0800h
-        // 0x49B04D
-        jne VehicleStats11_VehicleMod_49B084
-        // 0x49B04F
-        movsx edi,byte ptr [edx+04Fh]
-        // 0x49B053
-        push edi
-        // 0x49B054
-        xor esi,esi
-        // 0x49B056
-        call VehicleStats11WheelCount
-        // 0x49B05B
-        add esp,4
-        // 0x49B05E
-        test eax,eax
-        // 0x49B060
-        jle VehicleStats11_VehicleMod_49B07E
-VehicleStats11_VehicleMod_49B062:
-        push esi
-        // 0x49B063
-        push edi
-        // 0x49B064
-        call VehicleStats11WheelModel
-        // 0x49B069
-        add esp,8
-        // 0x49B06C
-        cmp eax,ebx
-        // 0x49B06E
-        je VehicleStats11_VehicleMod_49B0DA
-        // 0x49B070
-        push edi
-        // 0x49B071
-        inc esi
-        // 0x49B072
-        call VehicleStats11WheelCount
-        // 0x49B077
-        add esp,4
-        // 0x49B07A
-        cmp esi,eax
-        // 0x49B07C
-        jl VehicleStats11_VehicleMod_49B062
-VehicleStats11_VehicleMod_49B07E:
-        xor al,al
-VehicleStats11_VehicleMod_49B080:
-        pop edi
-        // 0x49B081
-        pop esi
-        // 0x49B082
-        pop ebx
-        // 0x49B083
-        ret
-VehicleStats11_VehicleMod_49B084:
-        test ax,ax
-        // 0x49B087
-        jne VehicleStats11_VehicleMod_49B0BC
-VehicleStats11_VehicleMod_49B089:
-        and ecx,07C00h
-        // 0x49B08F
-        cmp ecx,04400h
-        // 0x49B095
-        jne VehicleStats11_VehicleMod_49B0BC
-        // 0x49B097
-        mov al,byte ptr [esi+0000001D3h]
-        // 0x49B09D
-        test al,al
-        // 0x49B09F
-        jne VehicleStats11_VehicleMod_49B07E
-        // 0x49B0A1
-        mov cl,byte ptr [esi+0000001BEh]
-        // 0x49B0A7
-        mov al,1
-        // 0x49B0A9
-        cmp cl,al
-        // 0x49B0AB
-        jne VehicleStats11_VehicleMod_49B080
-        // 0x49B0AD
-        test byte ptr [esi+00000042Eh],010h
-        // 0x49B0B4
-        jne VehicleStats11_VehicleMod_49B080
-        // 0x49B0B6
-        pop edi
-        // 0x49B0B7
-        pop esi
-        // 0x49B0B8
-        xor al,al
-        // 0x49B0BA
-        pop ebx
-        // 0x49B0BB
-        ret
-VehicleStats11_VehicleMod_49B0BC:
-        xor eax,eax
-        // 0x49B0BE
-        lea ecx,[edx+0000002D6h]
-VehicleStats11_VehicleMod_49B0C4:
-        movsx edx,word ptr [ecx]
-        // 0x49B0C7
-        cmp edx,ebx
-        // 0x49B0C9
-        je VehicleStats11_VehicleMod_49B0DA
-        // 0x49B0CB
-        inc eax
-        // 0x49B0CC
-        add ecx,2
-        // 0x49B0CF
-        cmp eax,012h
-        // 0x49B0D2
-        jl VehicleStats11_VehicleMod_49B0C4
-        // 0x49B0D4
-        pop edi
-        // 0x49B0D5
-        pop esi
-        // 0x49B0D6
-        xor al,al
-        // 0x49B0D8
-        pop ebx
-        // 0x49B0D9
-        ret
-VehicleStats11_VehicleMod_49B0DA:
-        pop edi
-        // 0x49B0DB
-        pop esi
-        // 0x49B0DC
-        mov al,1
-        // 0x49B0DE
-        pop ebx
-        // 0x49B0DF
-        ret
+    const uint32 veh         = static_cast<uint32>(reinterpret_cast<uintptr_t>(vehicle));
+    const uint32 vehicleInfo = readU32(0xA9B0C8u + readS16(veh + 0x22) * 4u); // EDX
+    const uint32 modInfo     = readU32(0xA9B0C8u + modelId * 4u);
+    const uint32 flags       = readU16(modInfo + 0x12);                       // ECX (movzx)
+
+    uint32 outEcx = flags, outEdx = vehicleInfo, outEax = 0;
+    if ((flags & 0x100u) != 0 && (flags & 0x7C00u) == 0x800u) {
+        const int32 group = int32(int8(readU8(vehicleInfo + 0x4F)));
+        int32 count       = CVehicleModelInfo::GetNumWheelUpgrades(group);
+        bool found        = false;
+        if (count > 0) {
+            for (int32 i = 0;;) {
+                const int32 wheelModel = CVehicleModelInfo::GetWheelUpgrade(group, i);
+                outEcx                 = uint32(i);
+                if (uint32(wheelModel) == modelId) {
+                    found = true;
+                    break;
+                }
+                ++i;
+                count = CVehicleModelInfo::GetNumWheelUpgrades(group);
+                if (!(i < count)) {
+                    break;
+                }
+            }
+        }
+        outEax = found ? ((modelId & 0xFFFFFF00u) | 1u) : (uint32(count) & 0xFFFFFF00u);
+    } else if ((flags & 0x100u) == 0 && (flags & 0x7C00u) == 0x4400u) {
+        outEcx = 0x4400u;
+        if (readU8(veh + 0x1D3) != 0) {
+            outEax = 0;
+        } else {
+            const uint32 vehicleType = readU8(veh + 0x1BE);
+            outEcx                   = 0x4400u | vehicleType;
+            outEax                   = (vehicleType != 1 || (readU8(veh + 0x42E) & 0x10u) != 0) ? 1u : 0u;
+        }
+    } else {
+        outEcx = vehicleInfo + 0x2D6u;
+        for (uint32 i = 0;;) {
+            outEdx = readS16(outEcx);
+            if (outEdx == modelId) {
+                outEax = 1u; // (indice & ~0xFF) | 1, con indice < 18
+                break;
+            }
+            ++i;
+            outEcx += 2;
+            if (!(int32(i) < 0x12)) {
+                outEax = 0; // (18 & ~0xFF) con AL = 0
+                break;
+            }
+        }
     }
+    return VehicleResidueBoolCpp(outEcx, outEdx, outEax);
 }
+#pragma runtime_checks("", restore)
 
 // 0x6E38F0
 bool IsVehiclePointerValid(CVehicle* vehicle) {

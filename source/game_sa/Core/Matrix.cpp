@@ -8,6 +8,7 @@
 #include "StdInc.h"
 
 #include "Matrix.h"
+#include "X87Math.h"
 
 uint8* CMatrix::EulerIndices1 = (uint8*)0x866D9C;
 uint8* CMatrix::EulerIndices2 = (uint8*)0x866D94;
@@ -177,81 +178,26 @@ void CMatrix::SetTranslate(CVector translation)
 }
 
 // 0x59AFA0
-// Como el original: fsin/fcos del x87 (precisión interna completa) guardados a float con fstp, sin el
-// sin/cos de la CRT, y los mismos campos escritos (sin tocar el relleno ni la posición).
-__declspec(naked) void CMatrix::SetRotateXOnly(float angle)
+// Como el original: fcos/fsin del x87 (X87Math, MatrixSetRotateXOnlyCpp) guardados a float, sin el sin/cos de la CRT,
+// y los mismos campos escritos (sin tocar el relleno ni la posición).
+void CMatrix::SetRotateXOnly(float angle)
 {
-    __asm {
-        fld dword ptr [esp+4]
-        xor eax,eax
-        fcos
-        mov dword ptr [ecx],3F800000h
-        mov dword ptr [ecx+4],eax
-        mov dword ptr [ecx+8],eax
-        mov dword ptr [ecx+10h],eax
-        mov dword ptr [ecx+20h],eax
-        fld dword ptr [esp+4]
-        fsin
-        fld st(1)
-        fstp dword ptr [ecx+14h]
-        fst dword ptr [ecx+18h]
-        fchs
-        fstp dword ptr [ecx+24h]
-        fstp dword ptr [ecx+28h]
-        ret 4
-    }
+    MatrixSetRotateXOnlyCpp(reinterpret_cast<float*>(this), angle);
 }
 
 // 0x59AFE0
-// Como el original: igual que SetRotateXOnly, con fsin/fcos del x87.
-__declspec(naked) void CMatrix::SetRotateYOnly(float angle)
+// Como el original: igual que SetRotateXOnly, con fsin/fcos del x87 (MatrixSetRotateYOnlyCpp).
+void CMatrix::SetRotateYOnly(float angle)
 {
-    __asm {
-        fld dword ptr [esp+4]
-        xor eax,eax
-        fcos
-        mov dword ptr [ecx+4],eax
-        mov dword ptr [ecx+10h],eax
-        mov dword ptr [ecx+14h],3F800000h
-        mov dword ptr [ecx+18h],eax
-        mov dword ptr [ecx+24h],eax
-        fld dword ptr [esp+4]
-        fsin
-        fld st(1)
-        fstp dword ptr [ecx]
-        fld st(0)
-        fchs
-        fstp dword ptr [ecx+8]
-        fstp dword ptr [ecx+20h]
-        fstp dword ptr [ecx+28h]
-        ret 4
-    }
+    MatrixSetRotateYOnlyCpp(reinterpret_cast<float*>(this), angle);
 }
 
 // 0x59B020
-// Como el original: fsin/fcos del x87 (precisión interna completa) guardados a float con fstp,
+// Como el original: fsin/fcos del x87 guardados a float (MatrixSetRotateZOnlyCpp),
 // y los mismos campos escritos (sin tocar el relleno ni la posición).
-__declspec(naked) void CMatrix::SetRotateZOnly(float angle)
+void CMatrix::SetRotateZOnly(float angle)
 {
-    __asm {
-        fld dword ptr [esp+4]
-        xor eax,eax
-        fcos
-        mov dword ptr [ecx+8],eax
-        mov dword ptr [ecx+18h],eax
-        mov dword ptr [ecx+20h],eax
-        mov dword ptr [ecx+24h],eax
-        mov dword ptr [ecx+28h],3F800000h
-        fld dword ptr [esp+4]
-        fsin
-        fld st(1)
-        fstp dword ptr [ecx]
-        fst dword ptr [ecx+4]
-        fchs
-        fstp dword ptr [ecx+10h]
-        fstp dword ptr [ecx+14h]
-        ret 4
-    }
+    MatrixSetRotateZOnlyCpp(reinterpret_cast<float*>(this), angle);
 }
 
 void CMatrix::SetRotateX(float angle)
@@ -274,309 +220,35 @@ void CMatrix::SetRotateZ(float angle)
 
 // set rotate on 3 axes
 // 0x59B120
-// Como el original: transcripción exacta del x87 del EXE (fsin/fcos a precisión interna completa, sin
-// redondear a float antes de los productos), para obtener los mismos bits.
-__declspec(naked) void CMatrix::SetRotate(float x, float y, float z)
+// Como el original: MatrixSetRotateCpp (X87Math) reproduce el x87 del EXE (fsin/fcos a precisión interna completa, sin
+// redondear a float antes de los productos salvo cos(y), sin(z) y cos(z)·sin(x), que el EXE guarda en la pila), para obtener los mismos bits.
+void CMatrix::SetRotate(float x, float y, float z)
 {
-    __asm {
-        fld dword ptr [esp+4]
-        xor eax,eax
-        fcos
-        mov dword ptr [ecx+30h],eax
-        mov dword ptr [ecx+34h],eax
-        mov dword ptr [ecx+38h],eax
-        fld dword ptr [esp+4]
-        fsin
-        fld dword ptr [esp+8]
-        fcos
-        fstp dword ptr [esp+4]
-        fld dword ptr [esp+8]
-        fsin
-        fld dword ptr [esp+0Ch]
-        fcos
-        fld dword ptr [esp+0Ch]
-        fsin
-        fst dword ptr [esp+8]
-        fmul st,st(3)
-        fld st(1)
-        fmul st,st(4)
-        fstp dword ptr [esp+0Ch]
-        fld st(1)
-        fmul dword ptr [esp+4]
-        fld st(1)
-        fmul st,st(4)
-        fsubp st(1),st
-        fstp dword ptr [ecx]
-        fld dword ptr [esp+0Ch]
-        fmul st,st(3)
-        fld dword ptr [esp+8]
-        fmul dword ptr [esp+4]
-        faddp st(1),st
-        fstp dword ptr [ecx+4]
-        fld st(2)
-        fmul st,st(5)
-        fchs
-        fstp dword ptr [ecx+8]
-        fld dword ptr [esp+8]
-        fmul st,st(5)
-        fchs
-        fstp dword ptr [ecx+10h]
-        fld st(1)
-        fmul st,st(5)
-        fstp dword ptr [ecx+14h]
-        fxch st(3)
-        fstp dword ptr [ecx+18h]
-        fmul st,st(1)
-        fxch st(2)
-        fmul dword ptr [esp+4]
-        faddp st(2),st
-        fxch st(1)
-        fstp dword ptr [ecx+20h]
-        fld dword ptr [esp+8]
-        fmul st,st(1)
-        fld dword ptr [esp+0Ch]
-        fmul dword ptr [esp+4]
-        fsubp st(1),st
-        fstp dword ptr [ecx+24h]
-        fstp st(0)
-        fld dword ptr [esp+4]
-        fmul st,st(1)
-        fstp dword ptr [ecx+28h]
-        fstp st(0)
-        ret 0Ch
-    }
+    MatrixSetRotateCpp(reinterpret_cast<float*>(this), x, y, z);
 }
 
 // 0x59B1E0
-// Como el original: transcripción exacta del x87 del EXE. fcos se queda en la pila sin redondear a float,
-// fsin se guarda como float (fstp); los productos se redondean a 24 bits como en el EXE y la posición también se rota.
-__declspec(naked) void CMatrix::RotateX(float angle)
+// Como el original: MatrixRotateXCpp (X87Math). fcos se queda sin redondear a float, fsin se guarda como float (fstp);
+// los productos se redondean a 24 bits como en el EXE y la posición también se rota.
+void CMatrix::RotateX(float angle)
 {
-    __asm {
-        sub esp,20h
-        fld dword ptr [esp+24h]
-        fcos
-        fld dword ptr [esp+24h]
-        fsin
-        fstp dword ptr [esp+24h]
-        fld st(0)
-        fmul dword ptr [ecx+4]
-        fld dword ptr [esp+24h]
-        fmul dword ptr [ecx+8]
-        fsubp st(1),st
-        fld dword ptr [esp+24h]
-        fmul dword ptr [ecx+4]
-        fld st(2)
-        fmul dword ptr [ecx+8]
-        faddp st(1),st
-        fld st(2)
-        fmul dword ptr [ecx+14h]
-        fld dword ptr [esp+24h]
-        fmul dword ptr [ecx+18h]
-        fsubp st(1),st
-        fstp dword ptr [esp+8]
-        fld dword ptr [esp+24h]
-        mov eax,dword ptr [esp+8]
-        fmul dword ptr [ecx+14h]
-        mov dword ptr [ecx+14h],eax
-        fld st(3)
-        fmul dword ptr [ecx+18h]
-        faddp st(1),st
-        fstp dword ptr [esp+0Ch]
-        fld st(2)
-        mov edx,dword ptr [esp+0Ch]
-        fmul dword ptr [ecx+24h]
-        mov dword ptr [ecx+18h],edx
-        fld dword ptr [esp+24h]
-        fmul dword ptr [ecx+28h]
-        fsubp st(1),st
-        fstp dword ptr [esp+10h]
-        fld dword ptr [esp+24h]
-        mov eax,dword ptr [esp+10h]
-        fmul dword ptr [ecx+24h]
-        mov dword ptr [ecx+24h],eax
-        fld st(3)
-        fmul dword ptr [ecx+28h]
-        faddp st(1),st
-        fstp dword ptr [esp+14h]
-        mov edx,dword ptr [esp+14h]
-        fld st(2)
-        fmul dword ptr [ecx+34h]
-        mov dword ptr [ecx+28h],edx
-        fld dword ptr [esp+24h]
-        fmul dword ptr [ecx+38h]
-        fsubp st(1),st
-        fstp dword ptr [esp+18h]
-        fld dword ptr [esp+24h]
-        mov eax,dword ptr [esp+18h]
-        fmul dword ptr [ecx+34h]
-        mov dword ptr [ecx+34h],eax
-        fxch st(3)
-        fmul dword ptr [ecx+38h]
-        faddp st(3),st
-        fxch st(2)
-        fstp dword ptr [esp+1Ch]
-        mov edx,dword ptr [esp+1Ch]
-        fstp dword ptr [ecx+4]
-        mov dword ptr [ecx+38h],edx
-        fstp dword ptr [ecx+8]
-        add esp,20h
-        ret 4
-    }
+    MatrixRotateXCpp(reinterpret_cast<float*>(this), angle);
 }
 
 // 0x59B2C0
-// Como el original: transcripción exacta del x87 del EXE. fcos se queda en la pila sin redondear a float,
-// fsin se guarda como float con fst pero right.x usa el seno sin redondear; los productos se redondean a 24 bits como en el EXE y la posición también se rota.
-__declspec(naked) void CMatrix::RotateY(float angle)
+// Como el original: MatrixRotateYCpp (X87Math). fcos se queda sin redondear a float, fsin se guarda como float (fst)
+// pero right.x usa el seno sin redondear; los productos se redondean a 24 bits como en el EXE y la posición también se rota.
+void CMatrix::RotateY(float angle)
 {
-    __asm {
-        sub esp,20h
-        fld dword ptr [esp+24h]
-        fcos
-        fld dword ptr [esp+24h]
-        fsin
-        fst dword ptr [esp+24h]
-        fmul dword ptr [ecx+8]
-        fld st(1)
-        fmul dword ptr [ecx]
-        faddp st(1),st
-        fld st(1)
-        fmul dword ptr [ecx+8]
-        fld dword ptr [esp+24h]
-        fmul dword ptr [ecx]
-        fsubp st(1),st
-        fld dword ptr [esp+24h]
-        fmul dword ptr [ecx+18h]
-        fld st(3)
-        fmul dword ptr [ecx+10h]
-        faddp st(1),st
-        fstp dword ptr [esp+8]
-        fld st(2)
-        mov eax,dword ptr [esp+8]
-        fmul dword ptr [ecx+18h]
-        fld dword ptr [esp+24h]
-        fmul dword ptr [ecx+10h]
-        mov dword ptr [ecx+10h],eax
-        fsubp st(1),st
-        fstp dword ptr [esp+0Ch]
-        fld dword ptr [esp+24h]
-        mov edx,dword ptr [esp+0Ch]
-        fmul dword ptr [ecx+28h]
-        mov dword ptr [ecx+18h],edx
-        fld st(3)
-        fmul dword ptr [ecx+20h]
-        faddp st(1),st
-        fstp dword ptr [esp+10h]
-        fld st(2)
-        mov eax,dword ptr [esp+10h]
-        fmul dword ptr [ecx+28h]
-        fld dword ptr [esp+24h]
-        fmul dword ptr [ecx+20h]
-        mov dword ptr [ecx+20h],eax
-        fsubp st(1),st
-        fstp dword ptr [esp+14h]
-        fld dword ptr [esp+24h]
-        mov edx,dword ptr [esp+14h]
-        fmul dword ptr [ecx+38h]
-        mov dword ptr [ecx+28h],edx
-        fld st(3)
-        fmul dword ptr [ecx+30h]
-        faddp st(1),st
-        fstp dword ptr [esp+18h]
-        mov eax,dword ptr [esp+18h]
-        fxch st(2)
-        fmul dword ptr [ecx+38h]
-        fld dword ptr [esp+24h]
-        fmul dword ptr [ecx+30h]
-        mov dword ptr [ecx+30h],eax
-        fsubp st(1),st
-        fstp dword ptr [esp+1Ch]
-        mov edx,dword ptr [esp+1Ch]
-        fstp dword ptr [ecx]
-        mov dword ptr [ecx+38h],edx
-        fstp dword ptr [ecx+8]
-        add esp,20h
-        ret 4
-    }
+    MatrixRotateYCpp(reinterpret_cast<float*>(this), angle);
 }
 
 // 0x59B390
-// Como el original: transcripción exacta del x87 del EXE. fcos se queda en la pila sin redondear a float,
-// fsin se guarda como float (fstp); los productos se redondean a 24 bits como en el EXE y la posición también se rota.
-__declspec(naked) void CMatrix::RotateZ(float angle)
+// Como el original: HoldEntityRotateZCpp (X87Math) es la misma rotación en Z del EXE (fcos sin redondear a float,
+// fsin guardado como float; los productos se redondean a 24 bits y la posición también se rota).
+void CMatrix::RotateZ(float angle)
 {
-    __asm {
-        sub esp,20h
-        fld dword ptr [esp+24h]
-        fcos
-        fld dword ptr [esp+24h]
-        fsin
-        fstp dword ptr [esp+24h]
-        fld st(0)
-        fmul dword ptr [ecx]
-        fld dword ptr [esp+24h]
-        fmul dword ptr [ecx+4]
-        fsubp st(1),st
-        fld st(1)
-        fmul dword ptr [ecx+4]
-        fld dword ptr [esp+24h]
-        fmul dword ptr [ecx]
-        faddp st(1),st
-        fld st(2)
-        fmul dword ptr [ecx+10h]
-        fld dword ptr [esp+24h]
-        fmul dword ptr [ecx+14h]
-        fsubp st(1),st
-        fstp dword ptr [esp+8]
-        fld dword ptr [esp+24h]
-        mov eax,dword ptr [esp+8]
-        fmul dword ptr [ecx+10h]
-        mov dword ptr [ecx+10h],eax
-        fld st(3)
-        fmul dword ptr [ecx+14h]
-        faddp st(1),st
-        fstp dword ptr [esp+0Ch]
-        fld st(2)
-        mov edx,dword ptr [esp+0Ch]
-        fmul dword ptr [ecx+20h]
-        mov dword ptr [ecx+14h],edx
-        fld dword ptr [esp+24h]
-        fmul dword ptr [ecx+24h]
-        fsubp st(1),st
-        fstp dword ptr [esp+10h]
-        fld dword ptr [esp+24h]
-        mov eax,dword ptr [esp+10h]
-        fmul dword ptr [ecx+20h]
-        mov dword ptr [ecx+20h],eax
-        fld st(3)
-        fmul dword ptr [ecx+24h]
-        faddp st(1),st
-        fstp dword ptr [esp+14h]
-        mov edx,dword ptr [esp+14h]
-        fld st(2)
-        fmul dword ptr [ecx+30h]
-        mov dword ptr [ecx+24h],edx
-        fld dword ptr [esp+24h]
-        fmul dword ptr [ecx+34h]
-        fsubp st(1),st
-        fstp dword ptr [esp+18h]
-        fld dword ptr [esp+24h]
-        mov eax,dword ptr [esp+18h]
-        fmul dword ptr [ecx+30h]
-        mov dword ptr [ecx+30h],eax
-        fxch st(3)
-        fmul dword ptr [ecx+34h]
-        faddp st(3),st
-        fxch st(2)
-        fstp dword ptr [esp+1Ch]
-        mov edx,dword ptr [esp+1Ch]
-        fstp dword ptr [ecx]
-        mov dword ptr [ecx+34h],edx
-        fstp dword ptr [ecx+4]
-        add esp,20h
-        ret 4
-    }
+    HoldEntityRotateZCpp(reinterpret_cast<float*>(this), angle);
 }
 
 // rotate on 3 axes
@@ -591,114 +263,11 @@ void CMatrix::Rotate(CVector rotation)
 }
 
 // 0x59B6A0
-// Como el original: transcripción exacta del x87 del EXE (productos vectoriales en línea, normalización
+// Como el original: MatrixReorthogonaliseCpp (X87Math) reproduce el x87 del EXE (productos vectoriales en línea, normalización
 // sin comprobar cero con la suma z² + y² + x² y el recíproco 1/sqrt), para obtener los mismos bits.
-static const float s_ReorthogonaliseOne = 1.0f;
-__declspec(naked) void CMatrix::Reorthogonalise()
+void CMatrix::Reorthogonalise()
 {
-    __asm {
-        sub esp,28h
-        fld dword ptr [ecx+4]
-        fmul dword ptr [ecx+18h]
-        fld dword ptr [ecx+14h]
-        fmul dword ptr [ecx+8]
-        fsubp st(1),st
-        fld dword ptr [ecx+10h]
-        fmul dword ptr [ecx+8]
-        fld dword ptr [ecx]
-        fmul dword ptr [ecx+18h]
-        fsubp st(1),st
-        fstp dword ptr [esp+8]
-        fld dword ptr [ecx+14h]
-        fmul dword ptr [ecx]
-        fld dword ptr [ecx+10h]
-        fmul dword ptr [ecx+4]
-        fsubp st(1),st
-        fst dword ptr [esp+0Ch]
-        fmul dword ptr [esp+0Ch]
-        fld dword ptr [esp+8]
-        fmul dword ptr [esp+8]
-        faddp st(1),st
-        fld st(1)
-        fmul st,st(2)
-        faddp st(1),st
-        fsqrt
-        fdivr s_ReorthogonaliseOne
-        fst dword ptr [esp]
-        fmulp st(1),st
-        fld dword ptr [esp]
-        fmul dword ptr [esp+8]
-        fld dword ptr [esp]
-        fmul dword ptr [esp+0Ch]
-        fst dword ptr [esp+0Ch]
-        fmul dword ptr [ecx+14h]
-        fld st(1)
-        fmul dword ptr [ecx+18h]
-        fsubp st(1),st
-        fld st(2)
-        fmul dword ptr [ecx+18h]
-        fld dword ptr [esp+0Ch]
-        fmul dword ptr [ecx+10h]
-        fsubp st(1),st
-        fstp dword ptr [esp+14h]
-        fld st(1)
-        fmul dword ptr [ecx+10h]
-        fld st(3)
-        fmul dword ptr [ecx+14h]
-        fsubp st(1),st
-        fst dword ptr [esp+18h]
-        fmul dword ptr [esp+18h]
-        fld dword ptr [esp+14h]
-        fmul dword ptr [esp+14h]
-        faddp st(1),st
-        fld st(1)
-        fmul st,st(2)
-        faddp st(1),st
-        fsqrt
-        fdivr s_ReorthogonaliseOne
-        fstp dword ptr [esp]
-        fmul dword ptr [esp]
-        fld dword ptr [esp+14h]
-        fmul dword ptr [esp]
-        fld dword ptr [esp+18h]
-        fmul dword ptr [esp]
-        fst dword ptr [esp+18h]
-        fmul st,st(3)
-        fld st(1)
-        fmul dword ptr [esp+0Ch]
-        fsubp st(1),st
-        fstp dword ptr [esp+1Ch]
-        fld st(1)
-        fmul dword ptr [esp+0Ch]
-        fld dword ptr [esp+18h]
-        fmul st,st(5)
-        fsubp st(1),st
-        mov eax,dword ptr [esp+18h]
-        fstp dword ptr [esp+20h]
-        mov edx,dword ptr [esp+1Ch]
-        fld st(0)
-        mov dword ptr [ecx+8],eax
-        mov eax,dword ptr [esp+20h]
-        fmul st,st(4)
-        fld st(2)
-        mov dword ptr [ecx+10h],edx
-        fmul st,st(4)
-        mov dword ptr [ecx+14h],eax
-        mov eax,dword ptr [esp+0Ch]
-        mov dword ptr [ecx+28h],eax
-        fsubp st(1),st
-        fstp dword ptr [esp+24h]
-        mov edx,dword ptr [esp+24h]
-        fxch st(1)
-        fstp dword ptr [ecx]
-        mov dword ptr [ecx+18h],edx
-        fstp dword ptr [ecx+4]
-        fxch st(1)
-        fstp dword ptr [ecx+20h]
-        fstp dword ptr [ecx+24h]
-        add esp,28h
-        ret
-    }
+    MatrixReorthogonaliseCpp(reinterpret_cast<float*>(this));
 }
 
 // similar to UpdateRW(RwMatrixTag *)
@@ -747,393 +316,31 @@ void CMatrix::ForceUpVector(CVector vecUp) {
 // Como el original: tablas de indices del EXE (0x866D9C y 0x866D94) y epsilon 0x866D90 (1,9073486e-6)
 static const uint8 EulerIdx1[4]{0, 1, 2, 0};
 static const uint8 EulerIdx2[4]{1, 2, 0, 1};
-static const float kEulerEps = 1.9073486328125e-06f;
 
-// 0x59A840: transcripcion x87 del EXE (fsqrt/productos a la precision vigente, fpatan completo; el
-// orden de rama y los indices [fila][columna] son los del original, p. ej. Z en Euler usa atan2(m[i2][i1], -m[i3][i1])).
-__declspec(naked) void CMatrix::ConvertToEulerAngles(float* pX, float* pY, float* pZ, uint32 uiFlags)
+// Ejes i, j, k que el EXE obtiene de los bits 2..4 de las banderas (bit 2 = paridad, bits 3..4 = primer eje):
+// i = Idx1[(f >> 3) & 3], k = Idx2[i + paridad], j = Idx2[1 + i - paridad].
+struct EulerAxes { int i, j, k; };
+static EulerAxes EulerAxesFromFlags(uint32 flags)
 {
-    __asm {
-        sub   esp, 28h
-        mov   eax, dword ptr [ecx]
-        mov   edx, dword ptr [ecx+4]
-        mov   dword ptr [esp+4], eax
-        mov   eax, dword ptr [ecx+8]
-        mov   dword ptr [esp+0Ch], eax
-        mov   eax, dword ptr [ecx+14h]
-        mov   dword ptr [esp+14h], eax
-        mov   eax, dword ptr [ecx+20h]
-        mov   dword ptr [esp+8], edx
-        mov   edx, dword ptr [ecx+10h]
-        mov   dword ptr [esp+1Ch], eax
-        mov   eax, dword ptr [ecx+28h]
-        push  ebx
-        mov   dword ptr [esp+14h], edx
-        mov   edx, dword ptr [ecx+18h]
-        mov   dword ptr [esp+28h], eax
-        mov   eax, dword ptr [esp+3Ch]
-        push  ebp
-        mov   dword ptr [esp+20h], edx
-        mov   edx, dword ptr [ecx+24h]
-        mov   ecx, eax
-        shr   eax, 1
-        push  esi
-        push  edi
-        mov   edi, eax
-        shr   eax, 1
-        mov   ebx, eax
-        shr   eax, 1
-        and   ecx, 1
-        and   eax, 3
-        movzx esi, byte ptr [EulerIdx1+eax]
-        mov   dword ptr [esp+10h], ecx
-        and   ebx, 1
-        mov   ecx, esi
-        and   edi, 1
-        sub   ecx, ebx
-        cmp   edi, 1
-        movzx ecx, byte ptr [EulerIdx2+1+ecx]
-        mov   dword ptr [esp+30h], edx
-        movzx edx, byte ptr [EulerIdx2+esi+ebx]
-        jne   L_tait
-        lea   eax, [esi+esi*2]
-        lea   edi, [eax+ecx]
-        fld   dword ptr [esp+edi*4+14h]
-        lea   ebp, [eax+edx]
-        fld   dword ptr [esp+ebp*4+14h]
-        lea   edi, [esp+edi*4+14h]
-        fld   st(0)
-        lea   ebp, [esp+ebp*4+14h]
-        fmul  st, st(1)
-        fld   st(2)
-        fmul  st, st(3)
-        faddp st(1), st
-        fsqrt
-        fstp  st(2)
-        fstp  st(0)
-        fcom  dword ptr [kEulerEps]
-        fnstsw ax
-        test  ah, 41h
-        jne   L_eSmall
-        fld   dword ptr [ebp]
-        mov   eax, dword ptr [esp+3Ch]
-        fld   dword ptr [edi]
-        mov   edi, esi
-        fpatan
-        shl   edi, 4
-        lea   ebp, [esi+edx*2]
-        add   edx, ebp
-        fstp  dword ptr [eax]
-        fld   dword ptr [esp+edi+14h]
-        mov   edi, dword ptr [esp+40h]
-        fpatan
-        fstp  dword ptr [edi]
-        fld   dword ptr [esp+edx*4+14h]
-        lea   edx, [esi+ecx*2]
-        add   ecx, edx
-        fld   dword ptr [esp+ecx*4+14h]
-        fchs
-        mov   ecx, dword ptr [esp+44h]
-        fpatan
-        fstp  dword ptr [ecx]
-        jmp   L_post
-    L_eSmall:
-        lea   eax, [ecx+edx*2]
-        mov   ecx, edx
-        add   ecx, eax
-        fld   dword ptr [esp+ecx*4+14h]
-        shl   edx, 4
-        fchs
-        mov   eax, dword ptr [esp+3Ch]
-        fld   dword ptr [esp+edx+14h]
-        fpatan
-        shl   esi, 4
-        fstp  dword ptr [eax]
-        fld   dword ptr [esp+esi+14h]
-        jmp   L_atanY
-    L_tait:
-        lea   edi, [edx+edx*2]
-        mov   eax, esi
-        shl   eax, 4
-        lea   ebp, [edi+esi]
-        fld   dword ptr [esp+ebp*4+14h]
-        lea   eax, [esp+eax+14h]
-        fld   dword ptr [eax]
-        lea   ebp, [esp+ebp*4+14h]
-        fld   st(1)
-        mov   dword ptr [esp+48h], eax
-        fmulp st(2), st
-        fld   st(0)
-        fmul  st, st(1)
-        faddp st(2), st
-        fxch  st(1)
-        fsqrt
-        fstp  st(1)
-        fcom  dword ptr [kEulerEps]
-        fnstsw ax
-        test  ah, 41h
-        mov   eax, dword ptr [esp+3Ch]
-        jne   L_tSmall
-        lea   edi, [ecx+ecx*2]
-        add   edx, edi
-        fld   dword ptr [esp+edx*4+14h]
-        shl   ecx, 4
-        fld   dword ptr [esp+ecx+14h]
-        fpatan
-        add   edi, esi
-        mov   ecx, dword ptr [esp+48h]
-        fstp  dword ptr [eax]
-        fld   dword ptr [esp+edi*4+14h]
-        mov   edi, dword ptr [esp+40h]
-        fchs
-        fxch  st(1)
-        fpatan
-        fstp  dword ptr [edi]
-        fld   dword ptr [ebp]
-        fld   dword ptr [ecx]
-        mov   ecx, dword ptr [esp+44h]
-        fpatan
-        fstp  dword ptr [ecx]
-        jmp   L_post
-    L_tSmall:
-        add   edi, ecx
-        fld   dword ptr [esp+edi*4+14h]
-        shl   edx, 4
-        fchs
-        fld   dword ptr [esp+edx+14h]
-        fpatan
-        lea   edx, [esi+ecx*2]
-        add   ecx, edx
-        fstp  dword ptr [eax]
-        fld   dword ptr [esp+ecx*4+14h]
-        fchs
-        fxch  st(1)
-    L_atanY:
-        fpatan
-        mov   edi, dword ptr [esp+40h]
-        mov   ecx, dword ptr [esp+44h]
-        fstp  dword ptr [edi]
-        mov   dword ptr [ecx], 0
-    L_post:
-        cmp   ebx, 1
-        jne   L_noneg
-        fld   dword ptr [eax]
-        fchs
-        fstp  dword ptr [eax]
-        fld   dword ptr [edi]
-        fchs
-        fstp  dword ptr [edi]
-        fld   dword ptr [ecx]
-        fchs
-        fstp  dword ptr [ecx]
-    L_noneg:
-        cmp   dword ptr [esp+10h], 1
-        pop   edi
-        pop   esi
-        pop   ebp
-        pop   ebx
-        jne   L_end
-        mov   edx, dword ptr [ecx]
-        fld   dword ptr [eax]
-        mov   dword ptr [eax], edx
-        fstp  dword ptr [ecx]
-    L_end:
-        add   esp, 28h
-        ret   10h
-    }
+    const int parity = int((flags >> 2) & 1);
+    const int i = EulerIdx1[(flags >> 3) & 3];
+    return { i, EulerIdx2[1 + i - parity], EulerIdx2[i + parity] };
 }
 
-// 0x59AA40: transcripcion x87 del EXE (fsin/fcos a precision completa, productos y sumas en el orden del original;
-// sinZ queda en la pila x87 sin redondear a float entre sus usos).
-__declspec(naked) void CMatrix::ConvertFromEulerAngles(float x, float y, float z, uint32 uiFlags)
+// 0x59A840: MatrixConvertToEulerCpp (X87Math) reproduce el x87 del EXE (fsqrt/productos a la precision vigente, fpatan completo; el
+// orden de rama y los indices [fila][columna] son los del original, p. ej. Z en Euler usa atan2(m[i2][i1], -m[i3][i1])).
+void CMatrix::ConvertToEulerAngles(float* pX, float* pY, float* pZ, uint32 uiFlags)
 {
-    __asm {
-        mov   eax, dword ptr [esp+10h]
-        sub   esp, 38h
-        push  ebx
-        mov   ebx, eax
-        shr   eax, 1
-        push  ebp
-        mov   ebp, eax
-        shr   eax, 1
-        push  esi
-        push  edi
-        mov   edi, eax
-        shr   eax, 1
-        and   eax, 3
-        movzx edx, byte ptr [EulerIdx1+eax]
-        and   edi, 1
-        movzx esi, byte ptr [EulerIdx2+edx+edi]
-        mov   eax, edx
-        and   ebx, 1
-        sub   eax, edi
-        movzx eax, byte ptr [EulerIdx2+1+eax]
-        and   ebp, 1
-        cmp   ebx, 1
-        jne   L_f1
-        mov   ebx, dword ptr [esp+4Ch]
-        fld   dword ptr [esp+54h]
-        mov   dword ptr [esp+4Ch], ebx
-        mov   dword ptr [esp+54h], ebx
-        jmp   L_f2
-    L_f1:
-        fld   dword ptr [esp+4Ch]
-    L_f2:
-        cmp   edi, 1
-        jne   L_f3
-        fchs
-        fld   dword ptr [esp+50h]
-        fchs
-        fld   dword ptr [esp+54h]
-        fchs
-        fstp  dword ptr [esp+54h]
-        jmp   L_f4
-    L_f3:
-        fld   dword ptr [esp+50h]
-    L_f4:
-        fld   st(1)
-        mov   edi, edx
-        fcos
-        shl   edi, 4
-        cmp   ebp, 1
-        fstp  dword ptr [esp+20h]
-        fld   st(0)
-        fcos
-        fstp  dword ptr [esp+50h]
-        fld   dword ptr [esp+54h]
-        fcos
-        fstp  dword ptr [esp+58h]
-        fxch  st(1)
-        fsin
-        fstp  dword ptr [esp+1Ch]
-        fsin
-        fstp  dword ptr [esp+4Ch]
-        fld   dword ptr [esp+54h]
-        fsin
-        fld   dword ptr [esp+58h]
-        fmul  dword ptr [esp+20h]
-        fstp  dword ptr [esp+10h]
-        fld   dword ptr [esp+20h]
-        fmul  st, st(1)
-        fstp  dword ptr [esp+14h]
-        fld   dword ptr [esp+1Ch]
-        fmul  dword ptr [esp+58h]
-        fstp  dword ptr [esp+18h]
-        fld   dword ptr [esp+1Ch]
-        fmul  st, st(1)
-        fstp  dword ptr [esp+54h]
-        jne   L_fT
-        fld   dword ptr [esp+50h]
-        fstp  dword ptr [esp+edi+24h]
-        lea   edi, [edx+edx*2]
-        fld   dword ptr [esp+4Ch]
-        lea   ebx, [edi+esi]
-        fmul  dword ptr [esp+1Ch]
-        add   edi, eax
-        fstp  dword ptr [esp+ebx*4+24h]
-        fld   dword ptr [esp+4Ch]
-        fmul  dword ptr [esp+20h]
-        fstp  dword ptr [esp+edi*4+24h]
-        lea   edi, [esi+esi*2]
-        lea   ebx, [edi+edx]
-        fmul  dword ptr [esp+4Ch]
-        add   edi, eax
-        fstp  dword ptr [esp+ebx*4+24h]
-        mov   ebx, esi
-        fld   dword ptr [esp+54h]
-        shl   ebx, 4
-        fmul  dword ptr [esp+50h]
-        fsubr dword ptr [esp+10h]
-        fstp  dword ptr [esp+ebx+24h]
-        fld   dword ptr [esp+14h]
-        fmul  dword ptr [esp+50h]
-        fchs
-        fsub  dword ptr [esp+18h]
-        fstp  dword ptr [esp+edi*4+24h]
-        lea   edi, [eax+eax*2]
-        fld   dword ptr [esp+4Ch]
-        add   edx, edi
-        fmul  dword ptr [esp+58h]
-        add   edi, esi
-        fchs
-        fstp  dword ptr [esp+edx*4+24h]
-        fld   dword ptr [esp+18h]
-        fmul  dword ptr [esp+50h]
-        fadd  dword ptr [esp+14h]
-        fstp  dword ptr [esp+edi*4+24h]
-        fld   dword ptr [esp+10h]
-        fmul  dword ptr [esp+50h]
-        fsub  dword ptr [esp+54h]
-        jmp   L_fEnd
-    L_fT:
-        fld   dword ptr [esp+58h]
-        fmul  dword ptr [esp+50h]
-        fstp  dword ptr [esp+edi+24h]
-        lea   edi, [edx+edx*2]
-        fld   dword ptr [esp+18h]
-        lea   ebx, [edi+esi]
-        fmul  dword ptr [esp+4Ch]
-        add   edi, eax
-        fsub  dword ptr [esp+14h]
-        fstp  dword ptr [esp+ebx*4+24h]
-        fld   dword ptr [esp+10h]
-        fmul  dword ptr [esp+4Ch]
-        fadd  dword ptr [esp+54h]
-        fstp  dword ptr [esp+edi*4+24h]
-        lea   edi, [esi+esi*2]
-        lea   ebx, [edi+edx]
-        fmul  dword ptr [esp+50h]
-        add   edi, eax
-        fstp  dword ptr [esp+ebx*4+24h]
-        mov   ebx, esi
-        fld   dword ptr [esp+54h]
-        shl   ebx, 4
-        fmul  dword ptr [esp+4Ch]
-        fadd  dword ptr [esp+10h]
-        fstp  dword ptr [esp+ebx+24h]
-        fld   dword ptr [esp+14h]
-        fmul  dword ptr [esp+4Ch]
-        fsub  dword ptr [esp+18h]
-        fstp  dword ptr [esp+edi*4+24h]
-        lea   edi, [eax+eax*2]
-        fld   dword ptr [esp+4Ch]
-        add   edx, edi
-        fchs
-        add   edi, esi
-        fstp  dword ptr [esp+edx*4+24h]
-        fld   dword ptr [esp+1Ch]
-        fmul  dword ptr [esp+50h]
-        fstp  dword ptr [esp+edi*4+24h]
-        fld   dword ptr [esp+50h]
-        fmul  dword ptr [esp+20h]
-    L_fEnd:
-        shl   eax, 4
-        fstp  dword ptr [esp+eax+24h]
-        mov   eax, dword ptr [esp+24h]
-        mov   edx, dword ptr [esp+28h]
-        mov   dword ptr [ecx], eax
-        mov   eax, dword ptr [esp+2Ch]
-        mov   dword ptr [ecx+4], edx
-        mov   edx, dword ptr [esp+30h]
-        mov   dword ptr [ecx+8], eax
-        mov   eax, dword ptr [esp+34h]
-        pop   edi
-        mov   dword ptr [ecx+10h], edx
-        mov   edx, dword ptr [esp+34h]
-        mov   dword ptr [ecx+14h], eax
-        mov   eax, dword ptr [esp+38h]
-        pop   esi
-        mov   dword ptr [ecx+18h], edx
-        mov   edx, dword ptr [esp+38h]
-        mov   dword ptr [ecx+20h], eax
-        mov   eax, dword ptr [esp+3Ch]
-        pop   ebp
-        mov   dword ptr [ecx+24h], edx
-        mov   dword ptr [ecx+28h], eax
-        pop   ebx
-        add   esp, 38h
-        ret   10h
-    }
+    const auto axes = EulerAxesFromFlags(uiFlags);
+    MatrixConvertToEulerCpp(reinterpret_cast<const float*>(this), pX, pY, pZ, uiFlags, axes.i, axes.j, axes.k);
+}
+
+// 0x59AA40: MatrixConvertFromEulerCpp (X87Math) reproduce el x87 del EXE (fsin/fcos a precision completa, productos y sumas en el orden del original;
+// sinZ queda en la pila x87 sin redondear a float entre sus usos).
+void CMatrix::ConvertFromEulerAngles(float x, float y, float z, uint32 uiFlags)
+{
+    const auto axes = EulerAxesFromFlags(uiFlags);
+    MatrixConvertFromEulerCpp(reinterpret_cast<float*>(this), x, y, z, uiFlags, axes.i, axes.j, axes.k);
 }
 
 void CMatrix::operator=(const CMatrix& other) {

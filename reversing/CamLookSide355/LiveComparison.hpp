@@ -64,6 +64,7 @@ inline void Update() {
  EntryPatch ho(0x600FF0,Hold),hod(bit_cast<uintptr_t>(&CPedIntelligence::GetTaskHold),Hold);
  EntryPatch ne(0x7EE1D0,Near),ned(bit_cast<uintptr_t>(&RwCameraSetNearClipPlane),Near);
  EntryPatch ht(0x509CA0,Height);
+ EntryPatch htd(bit_cast<uintptr_t>(&CCam::GetBoatHeightForFirstPerson),Height);
  EntryPatch cu(0x72DD40,Cull),cud(bit_cast<uintptr_t>(&CCullZones::Cam1stPersonForPlayer),Cull);
  EntryPatch po(0x5DF910,Position),pod(bit_cast<uintptr_t>(&CPed::SetPedPositionInCar),Position);
  EntryPatch mu(0x446F90,MatrixUpdate),mud(bit_cast<uintptr_t>(&CEntity::UpdateRwMatrix),MatrixUpdate);

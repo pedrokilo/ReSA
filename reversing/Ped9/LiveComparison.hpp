@@ -263,6 +263,11 @@ inline void Update() {
     InitBufs();
     std::array<ReversibleHooks::ReversibleHook::Base*,NFNS> hooks{};
     for(size_t f=0;f<fns.size();++f)if(!(hooks[f]=FindHook(fns[f].cls,fns[f].name))){Write({{"event","error"},{"reason","hook not found"},{"function",std::string(fns[f].cls)+"::"+fns[f].name}});return;}
+    // CMatrix::RotateX/RotateY (0x59B1E0/0x59B2C0) son colaboradores de PitchForSlope: el PitchForSlope original los llama por la direccion del EXE, que la DLL tiene enganchada.
+    // Se desactivan durante todo el banco para que el original use el codigo del EXE y el candidato (PedIKRotateXCpp/PedIKRotateYCpp) se compare con el.
+    ReversibleHooks::ReversibleHook::Base* const matrixHooks[2]{FindHook("CMatrix","RotateX"),FindHook("CMatrix","RotateY")};
+    // CMatrix::InjectHooks esta desactivado en InjectHooksMain (no hay hooks de RotateX/RotateY): el EXE se ejecuta entonces sin desviar. Se exige que existan los dos o ninguno.
+    if(bool(matrixHooks[0])!=bool(matrixHooks[1])){Write({{"event","error"},{"reason","hook not found"},{"function","CMatrix::RotateX/RotateY"}});return;}
     const int16 pedModel=player->m_nModelIndex; int16 vehModel=-1;
     for(int32 m=400;m<612&&vehModel<0;++m)if(CModelInfo::GetModelInfo(m))vehModel=int16(m);
     const uint32 clumpOffset=AtA(ADDR_CLUMPOFFSET);
@@ -290,6 +295,8 @@ inline void Update() {
     std::array<bool,NFNS> enabled{},locked{};
     for(size_t f=0;f<fns.size();++f){enabled[f]=hooks[f]->Hooked();locked[f]=hooks[f]->Locked();hooks[f]->LockState(false);}
     auto setState=[&](bool on){ for(auto* h:hooks)h->State(on); };
+    std::array<bool,2> matrixEnabled{},matrixLocked{};
+    for(size_t k=0;k<2;++k){if(!matrixHooks[k])continue;matrixEnabled[k]=matrixHooks[k]->Hooked();matrixLocked[k]=matrixHooks[k]->Locked();matrixHooks[k]->LockState(false);matrixHooks[k]->State(false);}
     bool passed=true; int pair=0;
     // etiquetas de los nodos de la jerarquia falsa (incluyen los huesos que usan PitchForSlope y las tareas)
     static const int32 tags[NNODE]{0,1,2,3,4,5,6,7,8,21,22,23,24,25,26,31,32,33,34,35,36,41,42,43,44,51,52,53,54,201,301,302};
@@ -413,7 +420,10 @@ inline void Update() {
                     case PEDIK: {
                         std::memset(ikObj.data(),0xCD,ikObj.size());
                         At<CPed*>(o,0)=PedA();
-                        auto pick=[&](float lo,float hi){ const uint32 m=next()%8; return m==0 ? 0.f : m==1 ? uni(-0.01f,0.01f) : m==2 ? 0.01f : uni(lo,hi); };
+                        // 1 de cada 16: valores extremos (cero negativo, subnormales, +-1e30, +-FLT_MAX, +-inf y NaN); el mismo NaN en todos los campos para que x87 y SSE den los mismos bits
+                        auto pick=[&](float lo,float hi){ static const float stress[]{-0.f,1e-40f,-1e-40f,1e30f,-1e30f,3.4028235e38f,-3.4028235e38f,std::numeric_limits<float>::infinity(),-std::numeric_limits<float>::infinity(),std::numeric_limits<float>::quiet_NaN()};
+                            if(next()%16==0)return stress[next()%10];
+                            const uint32 m=next()%8; return m==0 ? 0.f : m==1 ? uni(-0.01f,0.01f) : m==2 ? 0.01f : uni(lo,hi); };
                         At<float>(o,4)=uni(-2.f,2.f); At<float>(o,8)=uni(-2.f,2.f);
                         At<float>(o,0xC)=pick(-1.5f,1.5f); At<float>(o,0x10)=uni(-1.f,2.f); At<float>(o,0x14)=pick(-1.5f,1.5f); At<float>(o,0x18)=pick(-1.f,1.f);
                         At<uint32>(o,0x1C)=next();
@@ -621,6 +631,7 @@ inline void Update() {
     const bool intactBefore=globalsIntact();
     restoreGlobals();
     for(size_t f=0;f<fns.size();++f){hooks[f]->State(enabled[f]);hooks[f]->LockState(locked[f]);}
+    for(size_t k=0;k<2;++k){if(!matrixHooks[k])continue;matrixHooks[k]->State(matrixEnabled[k]);matrixHooks[k]->LockState(matrixLocked[k]);}
     Write({{"event",passed ? "complete":"error"},{"pairs",pair},{"globals_were_modified",!intactBefore},
            {"state_restored",Occupancy()==occupancyStart&&freeRefs()==savedFree&&globalsIntact()}});
 }

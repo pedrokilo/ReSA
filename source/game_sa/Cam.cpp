@@ -37,6 +37,7 @@ END GENERATED HOOK STATUS */
 #include "Tasks/TaskTypes/TaskSimpleSwim.h"
 #include "Tasks/TaskTypes/TaskSimpleClimb.h"
 #include "Ragdoll/IKChainManager.h"
+#include "X87Math.h"
 
 auto& gbFirstPersonRunThisFrame = StaticRef<bool>(0xB6EC20);
 auto& gLastFrameProcessedDWCineyCam = StaticRef<uint32>(0x8CCB9C);
@@ -56,23 +57,25 @@ static inline float CamExeFloat(uintptr_t address) {
     return std::bit_cast<float>(*reinterpret_cast<const uint32*>(address));
 }
 
+// Operando de 32 bits (direccion o valor entero) que reciben los ayudantes x87 de X87Math para lo que el ensamblador cargaba en un registro.
+template<class T>
+static inline unsigned CamAddr(T value) {
+    if constexpr (std::is_pointer_v<T>) {
+        return static_cast<unsigned>(reinterpret_cast<uintptr_t>(value));
+    } else {
+        return static_cast<unsigned>(value);
+    }
+}
+
 // Como el EXE: fsin/fcos del x87 (precision completa; el resultado se redondea a float al guardarlo).
 static float CamExeSin(float angle) {
     float result;
-    __asm {
-        fld  dword ptr [angle]
-        fsin
-        fstp dword ptr [result]
-    }
+    result = TrigSimpleSinCpp(angle);
     return result;
 }
 static float CamExeCos(float angle) {
     float result;
-    __asm {
-        fld  dword ptr [angle]
-        fcos
-        fstp dword ptr [result]
-    }
+    result = TrigSimpleCosCpp(angle);
     return result;
 }
 
@@ -427,16 +430,7 @@ CEntity* CCam::Get_TwoPlayer_AimVector(CVector& out) {
         const float fovScale = CamExeFloat(0x8631D4);
         const float aspect   = CDraw::ms_fAspectRatio;
         float tanRounded, tanOverAspect;
-        __asm {
-            fld   dword ptr [fov]
-            fmul  dword ptr [fovScale]
-            fptan
-            fstp  st(0)
-            fld   dword ptr [aspect]
-            fdivr st(0), st(1)
-            fstp  dword ptr [tanOverAspect]
-            fstp  dword ptr [tanRounded]
-        }
+        CamTwoPlayerAimTanCpp(fov, fovScale, aspect, &tanOverAspect, &tanRounded);
         const float scaledY = tanOverAspect * m_fY_Targetting;
         const float upX = scaledY * m_vecUp.x, upY = scaledY * m_vecUp.y, upZ = scaledY * m_vecUp.z;
         const float rightX = (right.x * m_fX_Targetting) * tanRounded;
@@ -539,15 +533,7 @@ bool CCam::LookBehind() {
     }
     if(type==ENTITY_TYPE_PED){
         const float heading=m_fHorizontalAngle;float x,y;
-        __asm { fld heading
-            fcos
-            fchs
-            fstp x
-            fld heading
-            fsin
-            fchs
-            fstp y
-        }
+        CamLookBehindPedSideCpp(heading, &x, &y);
         const auto* raw=reinterpret_cast<const uint8*>(entity);
         m_vecSource=CVector{x,y,0};
         m_vecSource.z=(m_vecSource.z-((*reinterpret_cast<const float*>(raw+0x578)*m_vecSource.x+*reinterpret_cast<const float*>(raw+0x57C)*m_vecSource.y)+*reinterpret_cast<const float*>(raw+0x580)*m_vecSource.z))+.3f;
@@ -571,24 +557,7 @@ bool CCam::LookBehind() {
 // 0x520E40
 static void LookSideOrbit(float directionX,float directionY,float sign,float distance,float targetX,float targetY,float& outputX,float& outputY) {
     const uintptr_t atanFunction=std::bit_cast<uintptr_t>(&CGeneral::GetATanOfXY);const float halfPi=std::bit_cast<float>(0x3FC90FDBu);float outX,outY;
-    __asm {
-        push directionY
-        push directionX
-        call atanFunction
-        add esp,8
-        fld sign
-        fmul halfPi
-        faddp st(1),st(0)
-        fld st(0)
-        fcos
-        fmul distance
-        fadd targetX
-        fstp outX
-        fsin
-        fmul distance
-        fadd targetY
-        fstp outY
-    }
+    CamLookSideOrbitCpp(directionY, directionX, CamAddr(atanFunction), sign, halfPi, distance, targetX, &outX, targetY, &outY);
     outputX=outX;outputY=outY;
 }
 
@@ -640,12 +609,7 @@ bool CCam::RotCamIfInFrontCar(const CVector& target, float orientation) {
     auto* vehicle=static_cast<CVehicle*>(entity);const auto& matrix=entity->GetMatrix();const auto& velocity=vehicle->m_vecMoveSpeed;
     if(velocity.y*velocity.y+velocity.x*velocity.x>std::bit_cast<float>(0x3B6BEDFAu)){
         const float negativeX=-velocity.x,velocityY=velocity.y,halfPi=std::bit_cast<float>(0x3FC90FDBu);
-        __asm { fld negativeX
-            fld velocityY
-            fpatan
-            fsub halfPi
-            fstp orientation
-        }
+        orientation = Atan2MinusCpp(negativeX, velocityY, halfPi);
     }
     const auto delta=m_vecSource-target;const float distance=std::sqrt(delta.y*delta.y+delta.x*delta.x);
     const auto normalise=[](float v){const float pi=std::bit_cast<float>(0x40490FDBu),twoPi=std::bit_cast<float>(0x40C90FDBu);while(v>pi)v-=twoPi;while(v<-pi)v+=twoPi;return v;};
@@ -663,17 +627,7 @@ bool CCam::RotCamIfInFrontCar(const CVector& target, float orientation) {
         if(rear==1&&active)m_fHorizontalAngle=orientation+std::bit_cast<float>(0x40490FDBu);
         if(back&&active)m_fHorizontalAngle=*reinterpret_cast<const float*>(reinterpret_cast<const uint8*>(this)+0x9C);
         const float angle=m_fHorizontalAngle,baseX=target.x,baseY=target.y;float resultX,resultY;
-        __asm { fld angle
-            fcos
-            fmul distance
-            fadd baseX
-            fstp resultX
-            fld angle
-            fsin
-            fmul distance
-            fadd baseY
-            fstp resultY
-        }
+        CamRotInFrontCarOrbitCpp(angle, distance, baseX, &resultX, baseY, &resultY);
         m_vecSource.x=resultX;m_vecSource.y=resultY;
         if(std::abs(normalise(orientation-m_fHorizontalAngle))<std::bit_cast<float>(0x3D0EFA35u))m_bFixingBeta=false;
     }
@@ -715,106 +669,27 @@ float CamPower(float,float);
 static float CamVelocityInverseStep(float step) {
     const float denominator=std::max(1.f,step), one=1.f;
     float reciprocal;
-    __asm {
-        fld one
-        fdiv denominator
-        fstp reciprocal
-    }
+    CamVelocityInverseStepCpp(one, denominator, &reciprocal);
     return reciprocal;
 }
 
 static float CamVehicleTargetSpeed(float forwardX,float forwardY,float velocityX,float velocityY) {
     const float zero=0.f,one=1.f,half=.5f,positiveScale=StaticRef<float>(0x86325C),negativeScale=StaticRef<float>(0x863258);
     float result;
-    __asm {
-        fld forwardY
-        fmul forwardY
-        fld forwardX
-        fmul forwardX
-        faddp st(1),st(0)
-        fsqrt
-        fcom zero
-        fnstsw ax
-        test ah,44h
-        jnp camVehicleSkipNormalise
-        fdivr one
-        fld forwardX
-        fmul st(0),st(1)
-        fstp forwardX
-        fmul forwardY
-        fstp forwardY
-        jmp camVehicleProducts
-    camVehicleSkipNormalise:
-        fstp st(0)
-    camVehicleProducts:
-        fld forwardX
-        fmul velocityX
-        fld forwardY
-        fmul velocityY
-        fld st(0)
-        fadd st(0),st(2)
-        fcomp zero
-        fld st(0)
-        fmul st(0),st(1)
-        fld st(2)
-        fmul st(0),st(3)
-        fnstsw ax
-        faddp st(1),st(0)
-        test ah,41h
-        fsqrt
-        fstp st(2)
-        fstp st(0)
-        jne camVehicleNegative
-        fmul positiveScale
-        fld one
-        fcomp st(1)
-        fnstsw ax
-        test ah,5
-        jp camVehicleStore
-        fstp st(0)
-        fld one
-        jmp camVehicleStore
-    camVehicleNegative:
-        fmul negativeScale
-        fld half
-        fcomp st(1)
-        fnstsw ax
-        test ah,5
-        jp camVehicleNegate
-        fstp st(0)
-        fld half
-    camVehicleNegate:
-        fchs
-    camVehicleStore:
-        fstp result
-    }
+    CamVehicleTargetSpeedCpp(&forwardY, &forwardX, zero, one, velocityX, velocityY, positiveScale, negativeScale, half, &result);
     return result;
 }
 static float CamVehicleSmoothedSpeed(float previous,float target) {
     const float previousWeight=StaticRef<float>(0x863250),targetWeight=StaticRef<float>(0x863254);
     float result;
-    __asm {
-        fld target
-        fmul targetWeight
-        fld previous
-        fmul previousWeight
-        faddp st(1),st(0)
-        fstp result
-    }
+    CamVehicleSmoothedSpeedCpp(target, targetWeight, previous, previousWeight, &result);
     return result;
 }
 
 float CamPowerComplement(float base,float step) {
     const float one=StaticRef<float>(0x858624);
     float result;
-    __asm {
-        fld base
-        fld step
-        mov eax,00822130h
-        call eax
-        fsubr one
-        fstp result
-    }
+    CamPowerComplementCpp(base, step, one, &result);
     return result;
 }
 }
@@ -1025,26 +900,7 @@ static CVector DeadCamWave(float elapsed, const CVector& side, const CVector& ta
     const float capped = elapsed > 1000.0f ? 1000.0f : elapsed;
     const float period = StaticRef<float>(0x8CC810), amplitude = StaticRef<float>(0x8CC80C), factor = .001f;
     const float sx=side.x, sy=side.y, tx=target.x; float x, y, scaledY;
-    __asm {
-        fld elapsed
-        fdiv period
-        fsin
-        fld capped
-        fmul factor
-        fmulp st(1),st(0)
-        fld sx
-        fmul amplitude
-        fld sy
-        fmul amplitude
-        fstp scaledY
-        fmul st(0),st(1)
-        fld scaledY
-        fmul st(0),st(2)
-        fstp y
-        fadd tx
-        fstp x
-        fstp st(0)
-    }
+    CamDeadWaveCpp(elapsed, period, capped, factor, sx, amplitude, sy, &scaledY, &y, tx, &x);
     return {x, y + target.y, 0};
 }
 
@@ -1068,24 +924,14 @@ void CCam::ProcessPedsDeadBaby() {
         side=CrossProduct(target->GetMatrix().GetForward(),CVector{0,0,1});side.z=0;side.Normalise();
         const int32 elapsedInt=int32(CTimer::GetTimeInMS()-StaticRef<uint32>(0xB6F094));float elapsed;
         const float unsignedCorrection=4294967296.0f;
-        __asm { fild elapsedInt
-            cmp elapsedInt,0
-            jge dead_elapsed_positive
-            fadd unsignedCorrection
-        dead_elapsed_positive:
-            fstp elapsed
-        }
+        CamDeadUnsignedElapsedCpp(elapsedInt, unsignedCorrection, &elapsed);
         const auto wave=DeadCamWave(elapsed,side,dest);
         CVector movement{wave.x-source.x,wave.y-source.y,0};movement.Normalise();
         const CVector test{movement.x*.2f+source.x,movement.y*.2f+source.y,movement.z*.2f+source.z};
         if(!CWorld::TestSphereAgainstWorld(test,.3f,target,true,true,false,true,false,true)){source.x=wave.x;source.y=wave.y;}
         const float period=StaticRef<float>(0x8CC810),amplitude=StaticRef<float>(0x8CC814);
         const float scale=(elapsed>2000.0f?2000.0f:elapsed)*.0005f;float cosine;
-        __asm { fld elapsed
-            fdiv period
-            fcos
-            fstp cosine
-        }
+        CamDeadCosineCpp(elapsed, period, &cosine);
         m_vecFront=CVector{((side.x*amplitude)*scale)*cosine,((side.y*amplitude)*scale)*cosine,((side.z*amplitude)*scale)*cosine-1.0f};
         m_vecFront.Normalise();m_vecUp=CrossProduct(side,m_vecFront);m_vecUp.Normalise();
     }
@@ -1170,23 +1016,7 @@ void CCam::Process_1rstPersonPedOnPC(const CVector&, float orientation, float, f
         float pitch = m_fVerticalAngle;
         float yaw = m_fHorizontalAngle;
         float cosineX, sineY, sineZ;
-        __asm {
-            fld pitch
-            fcos
-            fld yaw
-            fcos
-            fmul st, st(1)
-            fld yaw
-            fsin
-            fmul st, st(2)
-            fstp sineY
-            fld pitch
-            fsin
-            fstp sineZ
-            fmul dword ptr ds:[00858B3Ch]
-            fstp cosineX
-            fstp st(0)
-        }
+        CamFirstPersonPedFrontCpp(pitch, yaw, &sineY, &sineZ, &cosineX);
         m_vecFront.x = (cosineX + m_vecSource.x) - m_vecSource.x;
         m_vecFront.y = (sineY * f(0x858B3C) + m_vecSource.y) - m_vecSource.y;
         m_vecFront.z = (sineZ * f(0x858B3C) + m_vecSource.z) - m_vecSource.z;
@@ -1198,12 +1028,7 @@ void CCam::Process_1rstPersonPedOnPC(const CVector&, float orientation, float, f
         float heading;
         float headingInputX = -m_vecFront.x;
         float headingInputY = m_vecFront.y;
-        __asm {
-            fld headingInputX
-            fld headingInputY
-            fpatan
-            fstp heading
-        }
+        heading = TrigAtan2Cpp(headingInputX, headingInputY);
         auto* player = StaticRef<CPed*>(0xB6F980);
         player->m_fCurrentRotation = heading; player->m_fAimingRotation = heading; player->SetHeading(heading);
         if (player->GetRwObject()) player->UpdateRwMatrix();
@@ -1393,236 +1218,43 @@ void CCam::Process_1stPerson(const CVector& target, float orientation, float spe
 namespace { float CamPower(float,float); float M16Asin(float); CVector M16Direction(float,float); void CameraRoundVector4(CVector&); float CameraHeadingMinusHalfPI(CPlaceable*); }
 static float CamAimHeading355(float frontX, float frontY, float headingOffset) {
     float result;
-    __asm {
-        fld frontX
-        fchs
-        fld frontY
-        fpatan
-        fsub headingOffset
-        fstp result
-    }
+    result = Atan2MinusCpp(-frontX, frontY, headingOffset);
     return result;
 }
 // Native 52198E..5219ED: tangent stays resident across both offsets.
 static void CamAimOffsets355(float fov, float& horizontal, float& vertical) {
     float hResult,vResult;
-    __asm {
-        fld fov
-        fmul dword ptr ds:[00858B8Ch]
-        fmul dword ptr ds:[008595ECh]
-        fptan
-        fstp st(0)
-        fld dword ptr ds:[00B6EC14h]
-        fsub dword ptr ds:[00858B8Ch]
-        fadd st(0),st
-        fmul st,st(1)
-        fld1
-        fpatan
-        fstp vResult
-        fld dword ptr ds:[00858B8Ch]
-        fsub dword ptr ds:[00B6EC10h]
-        fadd st(0),st
-        fld dword ptr ds:[00858624h]
-        fdiv dword ptr ds:[00C3EFA4h]
-        fmulp st(1),st
-        fmulp st(1),st
-        fld1
-        fpatan
-        fstp hResult
-    }
+    CamAimOffsetsCpp(fov, &vResult, &hResult);
     horizontal=hResult;vertical=vResult;
 }
 // 521FD4..522032: X/Y differences stay resident; Z, flat and angles spill.
 static void CamAimTargetAngles355(const CVector& target, const CVector& focal, float& horizontal, float& flat, float& pitch) {
     const float tx=target.x,ty=target.y,tz=target.z,fx=focal.x,fy=focal.y,fz=focal.z;
     float dz,hResult,fResult,pResult;
-    __asm {
-        fld tx
-        fsub fx
-        fld ty
-        fsub fy
-        fld tz
-        fsub fz
-        fstp dz
-        fld st(1)
-        fchs
-        fld st(1)
-        fpatan
-        fsub dword ptr ds:[00858FE4h]
-        fstp hResult
-        fld st(1)
-        fmul st,st(2)
-        fld st(1)
-        fmul st,st(2)
-        faddp st(1),st
-        fstp fResult
-        fstp st(0)
-        fstp st(0)
-        fld dz
-        fld fResult
-        fsqrt
-        fxch st(1)
-        fxch st(1)
-        fpatan
-        fstp pResult
-    }
+    CamAimTargetAnglesCpp(tx, fx, ty, fy, tz, fz, &dz, &hResult, &fResult, &pResult);
     horizontal=hResult;flat=fResult;pitch=pResult;
 }
 // 522915..522A13: distance remains extended through projection;
 // front and source products spill only at the EXE's prescribed stores.
-#pragma warning(push)
-#pragma warning(disable: 4731) // Balanced push/pop EBP; compiler locals loaded before rebinding.
 static void CamAimProjection355(CCam* cam, const CVector& focal, uint32 rowOffset) {
     float scratch[0x60/4]{};
     scratch[0x3C/4]=focal.x;scratch[0x40/4]=focal.y;scratch[0x44/4]=focal.z;
-    __asm {
-        push ebp
-        mov esi,cam
-        lea edi,scratch
-        mov eax,rowOffset
-        mov ebp,eax
-        fld dword ptr [ebp+008CC4C0h]
-        fld dword ptr [esi+000000ACh]
-        fcomp dword ptr ds:[00858B50h]
-        fnstsw ax
-        test ah,41h
-        jne aim_projection_00522955
-        fld dword ptr [ebp+008CC4C8h]
-        fmul dword ptr [esi+000000ACh]
-        fld dword ptr ds:[00858FE4h]
-        fcomp st(1)
-        fnstsw ax
-        test ah,5
-        jp aim_projection_00522951
-        fstp st(0)
-        fld dword ptr ds:[00858FE4h]
-    aim_projection_00522951:
-        fcos
-        jmp aim_projection_0052295D
-    aim_projection_00522955:
-        fld dword ptr [esi+000000ACh]
-        fcos
-    aim_projection_0052295D:
-        fmul dword ptr [ebp+008CC4C4h]
-        lea ebp,[esi+00000190h]
-        mov edx,ebp
-        faddp st(1),st
-        lea ebx,[esi+0000019Ch]
-        fld dword ptr [esi+000000ACh]
-        fcos
-        fld dword ptr [esi+000000BCh]
-        fcos
-        fmul st,st(1)
-        fchs
-        fstp dword ptr [edi+30h]
-        mov eax,dword ptr [edi+30h]
-        fld dword ptr [esi+000000BCh]
-        mov dword ptr [edx],eax
-        fsin
-        fmul st,st(1)
-        fchs
-        fstp dword ptr [edi+34h]
-        mov ecx,dword ptr [edi+34h]
-        mov dword ptr [edx+4],ecx
-        fstp st(0)
-        mov ecx,ebx
-        fld dword ptr [esi+000000ACh]
-        fsin
-        fstp dword ptr [edi+38h]
-        mov eax,dword ptr [edi+38h]
-        fld st(0)
-        mov dword ptr [edx+8],eax
-        fmul dword ptr [ebp]
-        fld st(1)
-        fmul dword ptr [ebp+4]
-        fstp dword ptr [edi+58h]
-        fxch st(1)
-        fmul dword ptr [ebp+8]
-        fstp dword ptr [edi+5Ch]
-        fld dword ptr [edi+3Ch]
-        fsub st,st(1)
-        fstp dword ptr [edi+30h]
-        mov edx,dword ptr [edi+30h]
-        mov dword ptr [ecx],edx
-        fstp st(0)
-        fld dword ptr [edi+40h]
-        fsub dword ptr [edi+58h]
-        fstp dword ptr [edi+34h]
-        fld dword ptr [edi+44h]
-        mov eax,dword ptr [edi+34h]
-        fsub dword ptr [edi+5Ch]
-        mov dword ptr [ecx+4],eax
-        lea eax,[edi+3Ch]
-        fstp dword ptr [edi+3Ch]
-        mov edx,dword ptr [edi+3Ch]
-        mov dword ptr [ecx+8],edx
-        pop ebp
-    }
+    CamAimProjectionCpp(CamAddr(cam), CamAddr(scratch), CamAddr(rowOffset));
 }
 
-#pragma warning(pop)
 // 521915..52196E keeps pow and complement resident across all three blends.
 static void CamAimMeleeBlend355(float desiredHorizontal,float desiredVertical,float desiredBlend) {
     float scratch[0x2C/4]{};
     scratch[0x20/4]=desiredHorizontal;scratch[0x14/4]=desiredVertical;scratch[0x28/4]=desiredBlend;
-    __asm {
-        lea ebx,scratch
-        fld dword ptr ds:[00862F30h]
-        fld dword ptr ds:[00B7CB5Ch]
-        mov eax,00822130h
-        call eax
-        fld dword ptr ds:[00858624h]
-        fsub st,st(1)
-        fld dword ptr [ebx+20h]
-        fmul st,st(1)
-        fld dword ptr ds:[00B70100h]
-        fmul st,st(3)
-        faddp st(1),st
-        fstp dword ptr ds:[00B70100h]
-        fld dword ptr [ebx+14h]
-        fmul st,st(1)
-        fld dword ptr ds:[00B700FCh]
-        fmul st,st(3)
-        faddp st(1),st
-        fstp dword ptr ds:[00B700FCh]
-        fmul dword ptr [ebx+28h]
-        fld dword ptr ds:[00B700F4h]
-        fmul st,st(2)
-        faddp st(1),st
-        fstp dword ptr ds:[00B700F4h]
-        fstp st(0)
-    }
+    CamAimMeleeBlendCpp(CamAddr(scratch));
 }
 static void CamAimMouseAngles355(CCam* cam) {
-    __asm {
-        mov eax,cam
-        fld dword ptr [eax+0B4h]
-        fmul dword ptr ds:[0085A5C4h]
-        fld dword ptr ds:[00B73428h]
-        fmul dword ptr ds:[00858B90h]
-        fmul st(0),st(1)
-        fmul dword ptr ds:[00B6EC18h]
-        fld dword ptr ds:[00B73424h]
-        fmul dword ptr ds:[008631B0h]
-        fmul st(0),st(2)
-        fmul dword ptr ds:[00B6EC1Ch]
-        fadd dword ptr [eax+0BCh]
-        fstp dword ptr [eax+0BCh]
-        fadd dword ptr [eax+0ACh]
-        fstp dword ptr [eax+0ACh]
-        fstp st(0)
-    }
+    CamAimMouseAnglesCpp(CamAddr(cam));
 }
 
 static float CamAimVehicleResetPitch355(float clampedZ,float initialAlpha) {
     float result;
-    __asm {
-        fld clampedZ
-        mov eax,00821E70h
-        call eax
-        fadd initialAlpha
-        fstp result
-    }
+    CamAimVehicleResetPitchCpp(clampedZ, initialAlpha, &result);
     return result;
 }
 
@@ -1857,27 +1489,7 @@ void CCam::Process_AttachedCam() {
         StaticRef<int32>(0xB6F0B4)=int32(velocity.x*scale);StaticRef<int32>(0xB6F0B0)=int32(velocity.y*scale);StaticRef<int32>(0xB6F0AC)=int32(velocity.z*scale);StaticRef<int32>(0xB6F0B8)=2;StaticRef<uint32>(0xB6F0C8)=StaticRef<uint32>(0x8CC7A4);
     }
     const float sideX=side.x,sideY=side.y,sideZ=side.z,upX=vertical.x,upY=vertical.y,upZ=vertical.z;float sinX,sinY,sinZ,cosX,cosY,cosZ;
-    __asm { fld angle
-        fsin
-        fld sideX
-        fmul st(0),st(1)
-        fstp sinX
-        fld sideY
-        fmul st(0),st(1)
-        fstp sinY
-        fmul sideZ
-        fstp sinZ
-        fld angle
-        fcos
-        fld upX
-        fmul st(0),st(1)
-        fstp cosX
-        fld upY
-        fmul st(0),st(1)
-        fstp cosY
-        fmul upZ
-        fstp cosZ
-    }
+    CamAttachedUpCpp(angle, sideX, &sinX, sideY, &sinY, sideZ, &sinZ, upX, &cosX, upY, &cosY, upZ, &cosZ);
     m_vecUp=CVector{cosX+sinX,cosY+sinY,cosZ+sinZ};StaticRef<uint32>(0xB7CD68)=0;
 }
 
@@ -1885,13 +1497,7 @@ namespace {
 // Uncatalogued helpers used by both cooperative camera modes (0x513220/0x5132D0).
 float CamPower(float base, float step) {
     float result;
-    __asm {
-        fld base
-        fld step
-        mov eax,00822130h
-        call eax
-        fstp result
-    }
+    result = CnvDecayPowCpp(base, step);
     return result;
 }
 // Uncatalogued stick helpers used by the mouse follow camera (0x540E80/0x540F80).
@@ -1911,23 +1517,7 @@ void TwoPlayerCameraGeometry(CCam* cam, float beta, CVector& source, CVector& fr
     float directionX;
     float directionY;
     float directionZ;
-    __asm {
-        fld alpha
-        fcos
-        fld beta
-        fcos
-        fmul st(0),st(1)
-        fchs
-        fstp directionX
-        fld beta
-        fsin
-        fmulp st(1),st(0)
-        fchs
-        fstp directionY
-        fld alpha
-        fsin
-        fstp directionZ
-    }
+    CamDirectionFromAnglesCpp(alpha, beta, &directionX, &directionY, &directionZ);
     front = CVector{directionX,directionY,directionZ};
     CVector flat{front.x,front.y,0.f}; flat.Normalise();
     const auto first = StaticRef<CPed*>(0xB7CD98)->GetPosition();
@@ -1999,13 +1589,7 @@ void CCam::Process_Cam_TwoPlayer() {
             float heading;
             const float headingX = -velocity.x;
             const float headingY = velocity.y;
-            __asm {
-                fld headingX
-                fld headingY
-                fpatan
-                fsub dword ptr ds:[00858FE4h]
-                fstp heading
-            }
+            heading = Atan2MinusCpp(headingX, headingY, CamExeFloat(0x858FE4));
             heading = wrap(heading,desired);
             const float rate = StaticRef<float>(0x8CC5E8) * CTimer::GetTimeStep();
             const float limit = StaticRef<float>(0x8CC5EC) * CTimer::GetTimeStep();
@@ -2023,13 +1607,7 @@ void CCam::Process_Cam_TwoPlayer() {
     desired = wrap(additional + desired,m_fHorizontalAngle);
     float velocity = (desired - m_fHorizontalAngle) / std::max(CTimer::GetTimeStep(),1.f);
     float smoothing;
-    __asm {
-        fld dword ptr ds:[008CC5E0h]
-        fld dword ptr ds:[00B7CB5Ch]
-        mov eax,00822130h
-        call eax
-        fstp smoothing
-    }
+    smoothing = CnvDecayPowCpp(StaticRef<float>(0x8CC5E0), StaticRef<float>(0xB7CB5C));
     if (attempt == 0 && StaticRef<uint32>(0xB6EC28) + 1000 <= now) {
         const auto left = CPad::GetPad(0)->AimWeaponLeftRight(first);
         const auto right = CPad::GetPad(1)->AimWeaponLeftRight(second);
@@ -2067,13 +1645,7 @@ void CCam::Process_Cam_TwoPlayer() {
 // 0x519810
 static float CamShootingSourceZ355(float alpha, float radius, float targetZ) {
     float result;
-    __asm {
-        fld alpha
-        fsin
-        fmul radius
-        fsubr targetZ
-        fstp result
-    }
+    CamShootingSourceZCpp(alpha, radius, targetZ, &result);
     return result;
 }
 // Native 51A0C5..51A11D: sine and coordinate differences stay resident,
@@ -2083,198 +1655,17 @@ static void CamShootingOrbit355(CCam* cam, const CVector& target, float excess) 
     scratch[0x1C/4]=target.x; scratch[0x20/4]=target.y; scratch[0x24/4]=target.z;
     scratch[0x28/4]=excess;
     auto* source=&cam->m_vecSource;
-    __asm {
-        mov esi,cam
-        mov edi,source
-        lea ebx,scratch
-        fld dword ptr [edi]
-        fsub dword ptr [ebx+1Ch]
-        lea eax,[esi+00000190h]
-        fld dword ptr [esi+000001A0h]
-        fsub dword ptr [ebx+20h]
-        fld dword ptr [ebx+28h]
-        fsin
-        fld st(0)
-        fld dword ptr [ebx+28h]
-        fcos
-        fstp dword ptr [ebx+10h]
-        fmul st,st(2)
-        fld dword ptr [ebx+10h]
-        fmul st,st(4)
-        faddp st(1),st
-        fstp dword ptr [ebx+30h]
-        fld dword ptr [ebx+10h]
-        mov dword ptr [ebx+10h],eax
-        fmul st,st(2)
-        fxch st(1)
-        fmul st,st(3)
-        fsubp st(1),st
-        fstp st(2)
-        fstp st(0)
-        fld dword ptr [ebx+30h]
-        fadd dword ptr [ebx+1Ch]
-        fstp dword ptr [edi]
-        fadd dword ptr [ebx+20h]
-        fstp dword ptr [esi+000001A0h]
-    }
+    CamShootingOrbitCpp(CamAddr(cam), CamAddr(source), CamAddr(scratch));
 }
 // Exact 519F1B..519FF2: magnitude/atan/mix/pow retain the native x87 stores.
 static void CamShootingTilt355(CCam* cam, CVehicle* vehicle, float wantedAlpha) {
     float scratch[0x38/4]{};
     scratch[0x34/4]=wantedAlpha;
-    __asm {
-        mov esi,cam
-        mov ebx,vehicle
-        lea edi,scratch
-        fld dword ptr [ebx+4Ch]
-        fld dword ptr [ebx+48h]
-        fld dword ptr [ebx+44h]
-        fld st(0)
-        fmul st,st(1)
-        fld st(2)
-        fmul st,st(3)
-        faddp st(1),st
-        fld st(3)
-        fmul st,st(4)
-        faddp st(1),st
-        fcomp dword ptr ds:[00858FC4h]
-        fstp st(0)
-        fnstsw ax
-        fstp st(0)
-        test ah,41h
-        fstp st(0)
-        jne shooting_tilt_end
-        fld dword ptr [ebx+48h]
-        mov eax,dword ptr [ebx+00000594h]
-        cmp eax,3
-        fld dword ptr [ebx+44h]
-        fld st(0)
-        fmul st,st(1)
-        fld st(2)
-        fmul st,st(3)
-        faddp st(1),st
-        fstp st(2)
-        fstp st(0)
-        fsqrt
-        fld dword ptr [ebx+4Ch]
-        fxch st(1)
-        fpatan
-        fld dword ptr ds:[00862F7Ch]
-        jne shooting_tilt_00519F81
-        fstp st(0)
-        fld dword ptr ds:[00862F88h]
-    shooting_tilt_00519F81:
-        fld dword ptr [ebx+4Ch]
-        fld dword ptr [ebx+48h]
-        fld dword ptr [ebx+44h]
-        fld st(0)
-        fmul st,st(1)
-        fld st(2)
-        fmul st,st(3)
-        faddp st(1),st
-        fld st(3)
-        fmul st,st(4)
-        faddp st(1),st
-        fstp st(3)
-        fstp st(0)
-        fstp st(0)
-        fsqrt
-        fsub dword ptr ds:[00858C58h]
-        fmulp st(1),st
-        fld dword ptr ds:[00858624h]
-        fcomp st(1)
-        fnstsw ax
-        test ah,5
-        jp shooting_tilt_00519FC1
-        fstp st(0)
-        fld dword ptr ds:[00858624h]
-    shooting_tilt_00519FC1:
-        fmulp st(1),st
-        fadd dword ptr [edi+34h]
-        fstp dword ptr [edi+34h]
-        fld dword ptr ds:[00862F78h]
-        fld dword ptr ds:[00B7CB5Ch]
-        mov eax,000822130h
-        call eax
-        fld dword ptr ds:[00858624h]
-        fsub st,st(1)
-        fmul dword ptr [edi+34h]
-        fxch st(1)
-        fmul dword ptr [esi+000000ACh]
-        faddp st(1),st
-        fstp dword ptr [esi+000000ACh]
-    shooting_tilt_end:
-    }
+    CamShootingTiltCpp(CamAddr(cam), CamAddr(vehicle), CamAddr(scratch));
 }
 // Exact 5198D2..5199A1: dot and pow resident; all branches/stores preserved.
 static void CamShootingFov355(CCam* cam, CVehicle* vehicle) {
-    __asm {
-        mov esi,cam
-        mov ebx,vehicle
-        mov eax,dword ptr [ebx+594h]
-        test eax,eax
-        je shooting_fov_005198DB
-        cmp eax,9
-        jne shooting_fov_0051992F
-    shooting_fov_005198DB:
-        mov ecx,dword ptr [ebx+14h]
-        fld dword ptr [ebx+4Ch]
-        fmul dword ptr [ecx+18h]
-        fld dword ptr [ebx+48h]
-        fmul dword ptr [ecx+14h]
-        faddp st(1),st
-        fld dword ptr [ebx+44h]
-        fmul dword ptr [ecx+10h]
-        faddp st(1),st
-        fcomp dword ptr ds:[008CC540h]
-        fnstsw ax
-        test ah,41h
-        jne shooting_fov_0051992F
-        fld dword ptr [ebx+4Ch]
-        fmul dword ptr [ecx+18h]
-        fld dword ptr [ebx+48h]
-        fmul dword ptr [ecx+14h]
-        faddp st(1),st
-        fld dword ptr [ecx+10h]
-        fmul dword ptr [ebx+44h]
-        faddp st(1),st
-        fsub dword ptr ds:[008CC540h]
-        fmul dword ptr ds:[00B7CB5Ch]
-        fadd dword ptr [esi+000000B4h]
-        fstp dword ptr [esi+000000B4h]
-    shooting_fov_0051992F:
-        fld dword ptr [esi+000000B4h]
-        fcomp dword ptr ds:[00858CE0h]
-        fnstsw ax
-        test ah,41h
-        jne shooting_fov_0051996F
-        fld dword ptr ds:[008CC544h]
-        fld dword ptr ds:[00B7CB5Ch]
-        mov eax,000822130h
-        call eax
-        fld dword ptr [esi+000000B4h]
-        fsub dword ptr ds:[00858CE0h]
-        fmul st,st(1)
-        fadd dword ptr ds:[00858CE0h]
-        fstp dword ptr [esi+000000B4h]
-        fstp st(0)
-    shooting_fov_0051996F:
-        fld dword ptr [esi+000000B4h]
-        fcomp dword ptr ds:[00858628h]
-        fnstsw ax
-        test ah,41h
-        jne shooting_fov_0051998E
-        mov dword ptr [esi+000000B4h],42C80000h
-        jmp shooting_fov_end
-    shooting_fov_0051998E:
-        fld dword ptr [esi+000000B4h]
-        fcomp dword ptr ds:[00858CE0h]
-        fnstsw ax
-        test ah,5
-        jp shooting_fov_end
-        mov dword ptr [esi+000000B4h],428C0000h
-    shooting_fov_end:
-    }
+    CamShootingFovCpp(CamAddr(cam), CamAddr(vehicle));
 }
 void CCam::Process_Cam_TwoPlayer_InCarAndShooting() {
     if (!m_pCamTargetEntity->GetIsTypeVehicle()) return;
@@ -2288,19 +1679,9 @@ void CCam::Process_Cam_TwoPlayer_InCarAndShooting() {
     const float headingInputY = headingMatrix ? headingMatrix->GetForward().y : 0.f;
     const float storedHeading = *reinterpret_cast<float*>(reinterpret_cast<uint8*>(vehicle) + 0x10);
     if (headingMatrix) {
-        __asm {
-            fld headingInputX
-            fld headingInputY
-            fpatan
-            fsub dword ptr ds:[00858FE4h]
-            fstp vehicleHeading
-        }
+        vehicleHeading = Atan2MinusCpp(headingInputX, headingInputY, CamExeFloat(0x858FE4));
     } else {
-        __asm {
-            fld storedHeading
-            fsub dword ptr ds:[00858FE4h]
-            fstp vehicleHeading
-        }
+        CamStoredHeadingMinusHalfPiCpp(storedHeading, &vehicleHeading);
     }
     auto* pad = CPad::GetPad(vehicle->m_pDriver == first ? 1 : 0);
     auto* shooter = vehicle->m_pDriver == first ? second : first;
@@ -2354,13 +1735,7 @@ void CCam::Process_Cam_TwoPlayer_InCarAndShooting() {
     const float headingX = -(target.x - m_vecSource.x);
     const float headingY = target.y - m_vecSource.y;
     float heading;
-    __asm {
-        fld headingX
-        fld headingY
-        fpatan
-        fsub dword ptr ds:[00858FE4h]
-        fstp heading
-    }
+    heading = Atan2MinusCpp(headingX, headingY, CamExeFloat(0x858FE4));
     m_fHorizontalAngle = heading;
     if (maxDistance < distance || distance < minDistance) {
         const float radius = maxDistance < distance ? maxDistance : minDistance;
@@ -2402,171 +1777,12 @@ void CCam::Process_Cam_TwoPlayer_InCarAndShooting() {
 // 0x513510
 static void CamTwoCarsBlend355(CCam* cam,const CVector* firstPos,const CVector* secondPos,const CVector* firstSource,const CVector* secondSource,const CVector* towardSecond,const CVector* towardFirst,const CVector* side,float blend) {
     float sine,weight;
-    __asm {
-        fld blend
-        fmul dword ptr ds:[00858CB8h]
-        fld st(0)
-        fsin
-        fstp sine
-        fcos
-        fadd dword ptr ds:[00858624h]
-        fmul dword ptr ds:[00858B8Ch]
-        fstp weight
-    }
+    CamTwoCarsBlendWeightCpp(blend, &sine, &weight);
     float scratch[0x98/4]{};
     const auto put=[&](size_t offset,const CVector& value){std::memcpy(reinterpret_cast<uint8*>(scratch)+offset,&value,sizeof(value));};
     put(0x20,*firstSource);put(0x30,*secondSource);put(0x7C,*towardSecond);put(0x88,*towardFirst);put(0x64,*side);
     scratch[0x48/4]=sine;scratch[0x2C/4]=weight;
-    __asm {
-        lea esi,scratch
-        mov ebx,cam
-        mov eax,firstPos
-        mov ecx,secondPos
-        fld dword ptr [eax] // 0051379F
-        fsub dword ptr [ecx] // 005137A2
-        fld dword ptr [eax+4] // 005137A4
-        fsub dword ptr [ecx+4] // 005137A7
-        fld dword ptr [eax+8] // 005137AA
-        fsub dword ptr [ecx+8] // 005137AD
-        fld st(2) // 005137B0
-        fmulp st(3),st // 005137B2
-        fld st(0) // 005137B4
-        fmul st,st(1) // 005137B6
-        faddp st(3),st // 005137B8
-        fld st(1) // 005137BA
-        fmul st,st(2) // 005137BC
-        faddp st(3),st // 005137BE
-        fxch st(2) // 005137C0
-        fsqrt // 005137C2
-        fstp st(2) // 005137C4
-        fstp st(0) // 005137C6
-        fstp dword ptr [esi+1Ch] // 005137C8
-        fld dword ptr [esi+48h] // 005137CC
-        fmul dword ptr [esi+64h] // 005137D0
-        fst dword ptr [esi+3Ch] // 005137D4
-        fld dword ptr [esi+48h] // 005137D8
-        fmul dword ptr [esi+68h] // 005137DC
-        fld st(0) // 005137E0
-        fld dword ptr [esi+48h] // 005137E2
-        fmul dword ptr [esi+6Ch] // 005137E6
-        fst dword ptr [esi+00000094h] // 005137EA
-        fld dword ptr [esi+3Ch] // 005137F1
-        fmul dword ptr [esi+1Ch] // 005137F5
-        fstp dword ptr [esi+10h] // 005137F9
-        fxch st(1) // 005137FD
-        fmul dword ptr [esi+1Ch] // 005137FF
-        fstp dword ptr [esi+14h] // 00513803
-        fmul dword ptr [esi+1Ch] // 00513807
-        fld dword ptr [esi+10h] // 0051380B
-        fmul dword ptr ds:[00858F34h] // 0051380F
-        fld dword ptr [esi+14h] // 00513815
-        fmul dword ptr ds:[00858F34h] // 00513819
-        fstp dword ptr [esi+40h] // 0051381F
-        fxch st(1) // 00513823
-        fmul dword ptr ds:[00858F34h] // 00513825
-        fstp dword ptr [esi+44h] // 0051382B
-        fld dword ptr ds:[00858624h] // 0051382F
-        fsub dword ptr [esi+2Ch] // 00513835
-        fst dword ptr [esi+1Ch] // 00513839
-        fld dword ptr [esi+30h] // 0051383D
-        fmul st,st(1) // 00513841
-        fld st(1) // 00513843
-        fmul dword ptr [esi+34h] // 00513845
-        fstp dword ptr [esi+5Ch] // 00513849
-        fxch st(1) // 0051384D
-        fmul dword ptr [esi+38h] // 0051384F
-        fstp dword ptr [esi+60h] // 00513853
-        fld dword ptr [esi+2Ch] // 00513857
-        fmul dword ptr [esi+20h] // 0051385B
-        fld dword ptr [esi+2Ch] // 0051385F
-        fmul dword ptr [esi+24h] // 00513863
-        fstp dword ptr [esi+34h] // 00513867
-        fld dword ptr [esi+2Ch] // 0051386B
-        fmul dword ptr [esi+28h] // 0051386F
-        fstp dword ptr [esi+38h] // 00513873
-        fadd st,st(1) // 00513877
-        fstp dword ptr [esi+10h] // 00513879
-        fstp st(0) // 0051387D
-        fld dword ptr [esi+34h] // 0051387F
-        fadd dword ptr [esi+5Ch] // 00513883
-        fstp dword ptr [esi+14h] // 00513887
-        fld dword ptr [esi+38h] // 0051388B
-        lea eax,[ebx+0000019Ch] // 0051388F
-        fadd dword ptr [esi+60h] // 00513895
-        fstp dword ptr [esi+18h] // 00513899
-        fld dword ptr [esi+10h] // 0051389D
-        fsub st,st(1) // 005138A1
-        fstp dword ptr [esi+20h] // 005138A3
-        mov ecx,dword ptr [esi+20h] // 005138A7
-        mov dword ptr [eax],ecx // 005138AB
-        fstp st(0) // 005138AD
-        fld dword ptr [esi+14h] // 005138AF
-        fsub dword ptr [esi+40h] // 005138B3
-        fstp dword ptr [esi+24h] // 005138B7
-        fld dword ptr [esi+18h] // 005138BB
-        mov edx,dword ptr [esi+24h] // 005138BF
-        fsub dword ptr [esi+44h] // 005138C3
-        mov dword ptr [eax+4],edx // 005138C7
-        fstp dword ptr [esi+28h] // 005138CA
-        fxch st(1) // 005138CE
-        mov ecx,dword ptr [esi+28h] // 005138D0
-        fstp dword ptr [esi+10h] // 005138D4
-        mov dword ptr [eax+8],ecx // 005138D8
-        fld dword ptr [esi+00000094h] // 005138DB
-        fld dword ptr [esi+1Ch] // 005138E2
-        fld dword ptr [esi+00000088h] // 005138E6
-        fmul st,st(1) // 005138ED
-        fld dword ptr [esi+0000008Ch] // 005138EF
-        fmul st,st(2) // 005138F6
-        fstp dword ptr [esi+5Ch] // 005138F8
-        fld dword ptr [esi+00000090h] // 005138FC
-        fmul st,st(2) // 00513903
-        fstp dword ptr [esi+60h] // 00513905
-        fld dword ptr [esi+7Ch] // 00513909
-        fmul dword ptr [esi+2Ch] // 0051390D
-        fld dword ptr [esi+00000080h] // 00513911
-        fmul dword ptr [esi+2Ch] // 00513918
-        fstp dword ptr [esi+40h] // 0051391C
-        fld dword ptr [esi+00000084h] // 00513920
-        fmul dword ptr [esi+2Ch] // 00513927
-        fstp dword ptr [esi+44h] // 0051392B
-        fadd st,st(1) // 0051392F
-        fstp st(2) // 00513931
-        fstp st(0) // 00513933
-        fld dword ptr [esi+40h] // 00513935
-        fadd dword ptr [esi+5Ch] // 00513939
-        fld dword ptr [esi+44h] // 0051393D
-        fadd dword ptr [esi+60h] // 00513941
-        fstp dword ptr [esi+60h] // 00513945
-        fld dword ptr ds:[00858624h] // 00513949
-        fsub dword ptr [esi+48h] // 0051394F
-        fstp dword ptr [esi+1Ch] // 00513953
-        fxch st(1) // 00513957
-        fmul dword ptr [esi+1Ch] // 00513959
-        fstp dword ptr [esi+3Ch] // 0051395D
-        fmul dword ptr [esi+1Ch] // 00513961
-        fld dword ptr [esi+60h] // 00513965
-        fmul dword ptr [esi+1Ch] // 00513969
-        fstp dword ptr [esi+44h] // 0051396D
-        fld dword ptr [esi+3Ch] // 00513971
-        fadd dword ptr [esi+10h] // 00513975
-        fstp dword ptr [esi+10h] // 00513979
-        fadd st,st(2) // 0051397D
-        fstp dword ptr [esi+14h] // 0051397F
-        fld dword ptr [esi+44h] // 00513983
-        fadd st,st(1) // 00513987
-        mov eax,dword ptr [esi+10h] // 00513989
-        fstp dword ptr [esi+18h] // 0051398D
-        mov ecx,dword ptr [esi+14h] // 00513991
-        lea edi,[ebx+00000190h] // 00513995
-        fstp st(0) // 0051399B
-        mov edx,edi // 0051399D
-        fstp st(0) // 0051399F
-        mov dword ptr [edx],eax // 005139A1
-        mov eax,dword ptr [esi+18h] // 005139A3
-        mov dword ptr [edx+4],ecx // 005139A7
-        mov dword ptr [edx+8],eax // 005139AC
-    }
+    CamTwoCarsBlendCpp(CamAddr(scratch), CamAddr(cam), CamAddr(firstPos), CamAddr(secondPos));
 }
 // 5135B0..513673: lifted Z values and scaled X/Z spill at native locations.
 static void CamTwoCarsSources355(const CVector& first, const CVector& second, const CVector& between, float firstHeight, float secondHeight, CVector& firstSource, CVector& secondSource) {
@@ -2574,40 +1790,7 @@ static void CamTwoCarsSources355(const CVector& first, const CVector& second, co
     const float secondX=second.x,secondY=second.y,secondZ=second.z;
     const float betweenX=between.x,betweenY=between.y,betweenZ=between.z;
     float liftedFirst,liftedSecond,scaledX,scaledZ,fx,fy,fz,sx,sy,sz;
-    __asm {
-        fld firstZ
-        fadd firstHeight
-        fadd dword ptr ds:[00858624h]
-        fstp liftedFirst
-        fld secondZ
-        fadd secondHeight
-        fadd dword ptr ds:[00858624h]
-        fstp liftedSecond
-        fld betweenX
-        fmul dword ptr ds:[00858B44h]
-        fstp scaledX
-        fld firstX
-        fsub scaledX
-        fstp fx
-        fld scaledX
-        fadd secondX
-        fstp sx
-        fld betweenY
-        fmul dword ptr ds:[00858B44h]
-        fld firstY
-        fsub st,st(1)
-        fstp fy
-        fadd secondY
-        fstp sy
-        fld betweenZ
-        fmul dword ptr ds:[00858B44h]
-        fst scaledZ
-        fsubr liftedFirst
-        fstp fz
-        fld scaledZ
-        fadd liftedSecond
-        fstp sz
-    }
+    CamTwoCarsSourcesCpp(firstZ, firstHeight, &liftedFirst, secondZ, secondHeight, &liftedSecond, betweenX, &scaledX, firstX, &fx, secondX, &sx, betweenY, firstY, &fy, secondY, &sy, betweenZ, &scaledZ, &fz, &sz);
     firstSource=CVector{fx,fy,fz};secondSource=CVector{sx,sy,sz};
 }
 void CCam::Process_Cam_TwoPlayer_Separate_Cars() {
@@ -2718,37 +1901,14 @@ void CCam::Process_Cam_TwoPlayer_Separate_Cars_TopDown() {
 static float BirdyCameraEase(float ratio, float from, float to) {
     const float degrees270 = 270.f, degrees180 = 180.f, radians = std::bit_cast<float>(0x3C8EFA35u), one = 1.f, half = .5f;
     float value;
-    __asm {
-        fld ratio
-        fmul degrees180
-        fsubr degrees270
-        fmul radians
-        fsin
-        fadd one
-        fmul half
-        fld to
-        fsub from
-        fmulp st(1), st(0)
-        fadd from
-        fstp value
-    }
+    CamEaseCpp(ratio, degrees180, degrees270, radians, one, half, to, from, &value);
     return value;
 }
 
 static float BirdyLampHeight355(float pointZ,float height,int randomValue) {
     const float randomScale=StaticRef<float>(0x858C7C),one=1.f;
     float result;
-    __asm {
-        fild randomValue
-        fmul randomScale
-        fld height
-        fsub one
-        fmul st(0),st(1)
-        fadd one
-        fsubr pointZ
-        fstp result
-        fstp st(0)
-    }
+    CamBirdyLampHeightCpp(randomValue, randomScale, height, one, pointZ, &result);
     return result;
 }
 
@@ -2843,89 +2003,7 @@ static float CamManFov(const CVector& target, const CVector& source, float progr
     const float timeScale=StaticRef<float>(0x8CCD38), early=StaticRef<float>(0x8CCD34);
     const float zero=0.f, one=1.f, half=.5f, degrees180=180.f, degrees270=270.f, radians=std::bit_cast<float>(0x3C8EFA35u);
     float fov;
-    __asm {
-        mov eax,target
-        mov edx,source
-        fld dword ptr [eax]
-        fsub dword ptr [edx]
-        fld dword ptr [eax+4]
-        fsub dword ptr [edx+4]
-        fld dword ptr [eax+8]
-        fsub dword ptr [edx+8]
-        fld st(2)
-        fmulp st(3),st(0)
-        fld st(0)
-        fmul st(0),st(1)
-        faddp st(3),st(0)
-        fld st(1)
-        fmul st(0),st(2)
-        faddp st(3),st(0)
-        fxch st(2)
-        fsqrt
-        fstp st(2)
-        fstp st(0)
-        fdiv distanceScale
-        fcom zero
-        fnstsw ax
-        test ah,5
-        jp manDistanceUpper
-        fstp st(0)
-        fld zero
-        jmp manDistanceEase
-    manDistanceUpper:
-        fcom one
-        fnstsw ax
-        test ah,41h
-        jne manDistanceEase
-        fstp st(0)
-        fld one
-    manDistanceEase:
-        fmul degrees180
-        fsubr degrees270
-        fmul radians
-        fsin
-        fadd one
-        fmul half
-        fld final
-        fsub initial
-        fmulp st(1),st(0)
-        fadd initial
-        fstp fov
-        fld progress
-        fcomp timeScale
-        fnstsw ax
-        test ah,5
-        jp manFovDone
-        fld progress
-        fdiv timeScale
-        fcom zero
-        fnstsw ax
-        test ah,5
-        jp manTimeUpper
-        fstp st(0)
-        fld zero
-        jmp manTimeEase
-    manTimeUpper:
-        fcom one
-        fnstsw ax
-        test ah,41h
-        jne manTimeEase
-        fstp st(0)
-        fld one
-    manTimeEase:
-        fmul degrees180
-        fsubr degrees270
-        fmul radians
-        fsin
-        fadd one
-        fmul half
-        fld fov
-        fsub early
-        fmulp st(1),st(0)
-        fadd early
-        fstp fov
-    manFovDone:
-    }
+    CamManFovCpp(CamAddr(&target), CamAddr(&source), distanceScale, zero, one, degrees180, degrees270, radians, half, final, initial, &fov, progress, timeScale, early);
     return fov;
 }
 
@@ -2959,10 +2037,7 @@ bool CCam::Process_DW_CamManCam(bool) {
         if(!chosen){failed=1;return false;}
     }
     const int32 elapsed=int32(now-start),duration=int32(end-start);float progress;
-    __asm { fild elapsed
-        fidiv duration
-        fstp progress
-    }
+    progress = IntRatioCpp(elapsed, duration);
     if(!failed){src=StaticRef<CVector>(0xB70068);CVector direction=dest-src;direction.Normalise();const float offset=StaticRef<float>(0x8CCD48);src=CVector{direction.x*offset+src.x,direction.y*offset+src.y,direction.z*offset+src.z};}
     const float fov=CamManFov(dest,src,progress);
     if(IsTimeToExitThisDWCineyCamMode(21,src,dest,progress,false)){failed=1;return false;}
@@ -2981,22 +2056,7 @@ static float HeliChaseInitialFov(float progress, float duration, float from, flo
     const float one = 1.f, half = .5f, degrees180 = 180.f, degrees270 = 270.f;
     const float radians = std::bit_cast<float>(0x3C8EFA35u);
     float result;
-    __asm {
-        fld one
-        fdiv duration
-        fmul progress
-        fmul degrees180
-        fsubr degrees270
-        fmul radians
-        fsin
-        fadd one
-        fmul half
-        fld to
-        fsub from
-        fmulp st(1), st(0)
-        fadd from
-        fstp result
-    }
+    CamHeliInitialFovCpp(one, duration, progress, degrees180, degrees270, radians, half, to, from, &result);
     return result;
 }
 
@@ -3005,41 +2065,7 @@ static float HeliChaseReturnFov355(int32 now, int32 start, int32 end, float from
     const float degrees = StaticRef<float>(0x85A994), phase = StaticRef<float>(0x859070);
     const float radians = StaticRef<float>(0x8595EC), half = StaticRef<float>(0x858B8C);
     float result;
-    __asm {
-        fild start
-        fild now
-        fsub st(0),st(1)
-        fild end
-        fsub st(0),st(2)
-        fdivp st(1),st(0)
-        fstp st(1)
-        fcom zero
-        fnstsw ax
-        test ah,5
-        jp heliReturnUpper355
-        fstp st(0)
-        fld zero
-        jmp heliReturnEase355
-    heliReturnUpper355:
-        fcom one
-        fnstsw ax
-        test ah,41h
-        jne heliReturnEase355
-        fstp st(0)
-        fld one
-    heliReturnEase355:
-        fmul degrees
-        fsubr phase
-        fmul radians
-        fsin
-        fadd one
-        fmul half
-        fld to
-        fsub from
-        fmulp st(1),st(0)
-        fadd from
-        fstp result
-    }
+    CamHeliReturnFovCpp(start, now, end, zero, one, degrees, phase, radians, half, to, from, &result);
     return result;
 }
 
@@ -3047,85 +2073,7 @@ static float HeliChaseDistanceFov355(const CVector& camera, const CVector& dest,
     const float zero=StaticRef<float>(0x858B50),one=StaticRef<float>(0x858624),half=StaticRef<float>(0x858B8C);
     const float degrees=StaticRef<float>(0x85A994),phase=StaticRef<float>(0x859070),radians=StaticRef<float>(0x8595EC);
     float distance,result;
-    __asm {
-        fld to
-        cmp initial,0
-        je heliDistanceMeasure355
-        fstp st(0)
-        fld one
-        fdiv duration
-        fmul progress
-        fmul degrees
-        fsubr phase
-        fmul radians
-        fsin
-        fadd one
-        fmul half
-        fld to
-        fsub from
-        fmulp st(1),st(0)
-        fadd from
-    heliDistanceMeasure355:
-        fld zero
-        mov eax,camera
-        mov edx,dest
-        fld dword ptr [eax]
-        fsub dword ptr [edx]
-        fld dword ptr [eax+4]
-        fsub dword ptr [edx+4]
-        fld dword ptr [eax+8]
-        fsub dword ptr [edx+8]
-        fld st(0)
-        fmul st(0),st(1)
-        fld st(2)
-        fmul st(0),st(3)
-        faddp st(1),st(0)
-        fld st(3)
-        fmul st(0),st(4)
-        faddp st(1),st(0)
-        fsqrt
-        fstp st(3)
-        fstp st(0)
-        fstp st(0)
-        fst distance
-        fcomp nearDistance
-        fnstsw ax
-        test ah,41h
-        jne heliDistanceSubtract355
-        fstp st(0)
-        fld distance
-        fsub nearDistance
-        fld farDistance
-        fsub nearDistance
-        fdivp st(1),st(0)
-        fcom zero
-        fnstsw ax
-        test ah,5
-        jp heliDistanceUpper355
-        fstp st(0)
-        fld zero
-        jmp heliDistanceEase355
-    heliDistanceUpper355:
-        fcom one
-        fnstsw ax
-        test ah,41h
-        jne heliDistanceEase355
-        fstp st(0)
-        fld one
-    heliDistanceEase355:
-        fmul degrees
-        fsubr phase
-        fmul radians
-        fsin
-        fadd one
-        fmul half
-        fmul reduction
-    heliDistanceSubtract355:
-        fxch st(1)
-        fsub st(0),st(1)
-        fstp result
-        fstp st(0)
-    }
+    CamHeliDistanceFovCpp(to, initial, one, duration, progress, degrees, phase, radians, half, from, zero, CamAddr(&camera), CamAddr(&dest), &distance, nearDistance, farDistance, reduction, &result);
     return result;
 }
 
@@ -3240,28 +2188,7 @@ CVector PlaneOrbitWave(const CVector& up, float amplitude, int32 cycles, int32 n
     const float radians=std::bit_cast<float>(0x3C8EFA35u),degrees=360.0f;
     float componentX=up.x*amplitude,componentY=up.y*amplitude,componentZ=up.z*amplitude;
     float resultX,resultY,resultZ;
-    __asm {
-        fild start
-        fild now
-        fsub st(0),st(1)
-        fild end
-        fsub st(0),st(2)
-        fdivp st(1),st(0)
-        fild cycles
-        fmulp st(1),st(0)
-        fmul degrees
-        fmul radians
-        fsin
-        fstp st(1)
-        fld componentX
-        fmul st(0),st(1)
-        fstp resultX
-        fld componentY
-        fmul st(0),st(1)
-        fstp resultY
-        fmul componentZ
-        fstp resultZ
-    }
+    CamPlaneOrbitWaveCpp(start, now, end, cycles, degrees, radians, componentX, &resultX, componentY, &resultY, componentZ, &resultZ);
     return CVector{resultX,resultY,resultZ};
 }
 bool ProcessPlaneOrbit(CCam* cam, bool second) {
@@ -3283,10 +2210,7 @@ bool ProcessPlaneOrbit(CCam* cam, bool second) {
         if(std::rand()<0x3FFF)StaticRef<float>(second?0x8CCDD8:0x8CCDB4)=-1;
     }else if(!second&&TheCamera.GetRoughDistanceToGround()<StaticRef<float>(0x8CCDB8)){failed=1;return false;}
     const int32 elapsed=int32(now-start),duration=int32(end-start);float progress;
-    __asm { fild elapsed
-        fidiv duration
-        fstp progress
-    }
+    progress = IntRatioCpp(elapsed, duration);
     forward.Normalise();right.Normalise();
     if(second){forward*=((1.0f-2.0f*progress)*StaticRef<float>(0xB700CC));right*=((1.0f-progress)*StaticRef<float>(0x8CCDD8));}
     else right*=StaticRef<float>(0x8CCDB4);
@@ -3334,10 +2258,7 @@ bool CCam::Process_DW_PlaneCam3(bool) {
     }
     const int32 elapsed=int32(now-start),duration=int32(end-start);
     float progress;
-    __asm { fild elapsed
-        fidiv duration
-        fstp progress
-    }
+    progress = IntRatioCpp(elapsed, duration);
     CWorld::pIgnoreEntity=entity;
     const auto& box=CModelInfo::GetModelInfo(int16(entity->GetModelIndex()))->GetColModel()->m_boundBox;
     auto& height=StaticRef<float>(0x8CCDE8);
@@ -3361,36 +2282,14 @@ bool CCam::Process_DW_PlaneCam3(bool) {
 }
 
 static float PlaneSpotterEase(float ratio,float from,float to) {if(ratio<0)ratio=0;else if(ratio>1)ratio=1;const float degrees270=270,degrees180=180,radians=std::bit_cast<float>(0x3C8EFA35u),one=1,half=.5f;float value;
-        __asm { fld ratio
-            fmul degrees180
-            fsubr degrees270
-            fmul radians
-            fsin
-            fadd one
-            fmul half
-            fld to
-            fsub from
-            fmulp st(1),st(0)
-            fadd from
-            fstp value
-        }
+        CamEaseCpp(ratio, degrees180, degrees270, radians, one, half, to, from, &value);
         return value;
 }
 
 static float PlaneSpotterRandomCoordinate(int randomValue, float range, float halfRange, float origin) {
     const float randomScale=StaticRef<float>(0x858C7C);
     float result;
-    __asm {
-        fild randomValue
-        fmul randomScale
-        fld range
-        fsub halfRange
-        fmul st(0),st(1)
-        fadd halfRange
-        fadd origin
-        fstp result
-        fstp st(0)
-    }
+    CamPlaneSpotterRandomCpp(randomValue, randomScale, range, halfRange, origin, &result);
     return result;
 }
 
@@ -3417,10 +2316,7 @@ bool CCam::Process_DW_PlaneSpotterCam(bool) {
         StaticRef<uint8>(0xB700A4)=uint8(std::rand()<0x3FFF);
     }
     const int32 elapsed=int32(now-start),duration=int32(end-start);float progress;
-    __asm { fild elapsed
-        fidiv duration
-        fstp progress
-    }
+    progress = IntRatioCpp(elapsed, duration);
     src=position;float fov=70;
     const auto delta=position-dest;const float planar=std::sqrt(delta.y*delta.y+delta.x*delta.x);
     if(!(planar>=5.0f)){failed=1;return false;}
@@ -3641,15 +2537,7 @@ void CCam::Process_FlyBy(const CVector&, float, float, float) {
     advance(targetPath,targetIndex,10);CameraPathInterpolateVector(&m_vecFront,targetPath,time,&targetIndex);
     float roll=0;advance(rollPath,rollIndex,4);CameraPathInterpolateScalar(&roll,rollPath,time,&rollIndex);
     const float radians=std::bit_cast<float>(0x3C8EFA35u),halfPi=std::bit_cast<float>(0x3FC90FDBu);float upX,upZ;
-    __asm { fld roll
-        fmul radians
-        fadd halfPi
-        fld st(0)
-        fcos
-        fstp upX
-        fsin
-        fstp upZ
-    }
+    CamFlyByUpCpp(roll, radians, halfPi, &upX, &upZ);
     m_vecUp.x=upX;m_vecUp.z=upZ;
     advance(fovPath,fovIndex,4);CameraPathInterpolateScalar(&StaticRef<float>(0xBC4074),fovPath,time,&fovIndex);
     if(done){StaticRef<float>(0xB6F168)=1;sourceIndex=targetIndex=rollIndex=fovIndex=0;}
@@ -3660,42 +2548,7 @@ void CCam::Process_FlyBy(const CVector&, float, float, float) {
 // 0x5245B0
 static float CamFollowCarBetaBlend355(float betaInput,float betaCorrection,float maximumSpeed,float smoothing,float previous) {
     float result,negativeMaximum;
-    __asm {
-        fld betaInput
-        fadd betaCorrection
-        fcom maximumSpeed
-        fnstsw ax
-        test ah,41h
-        jne car_beta_lower355
-        fstp st(0)
-        fld maximumSpeed
-        jmp car_beta_blend355
-    car_beta_lower355:
-        fld maximumSpeed
-        fchs
-        fstp negativeMaximum
-        fcom negativeMaximum
-        fnstsw ax
-        test ah,5
-        jp car_beta_blend355
-        fstp st(0)
-        fld negativeMaximum
-    car_beta_blend355:
-        fld dword ptr ds:[00858624h]
-        fsub smoothing
-        fmulp st(1),st
-        fld smoothing
-        fmul previous
-        faddp st(1),st
-        fst result
-        fabs
-        fcomp dword ptr ds:[008CCEBCh]
-        fnstsw ax
-        test ah,5
-        jp car_beta_done355
-        mov result,0
-    car_beta_done355:
-    }
+    CamFollowCarBetaBlendCpp(betaInput, betaCorrection, maximumSpeed, &negativeMaximum, smoothing, previous, &result);
     return result;
 }
 
@@ -3705,26 +2558,7 @@ static CVector CamFollowCarHistory355(const CVector& focal,const CVector& front,
     const float focalX=focal.x,focalY=focal.y,focalZ=focal.z;
     const float frontX=front.x,frontY=front.y,frontZ=front.z;
     float outputX,outputY,outputZ,scaledZ;
-    __asm {
-        fld radius
-        fmul frontX
-        fld radius
-        fmul frontY
-        fld radius
-        fmul frontZ
-        fstp scaledZ
-        fld focalX
-        fsub st,st(2)
-        fstp outputX
-        fld focalY
-        fsub st,st(1)
-        fstp outputY
-        fstp st(0)
-        fstp st(0)
-        fld focalZ
-        fsub scaledZ
-        fstp outputZ
-    }
+    CamFollowCarHistoryCpp(radius, frontX, frontY, frontZ, &scaledZ, focalX, &outputX, focalY, &outputY, focalZ, &outputZ);
     return CVector{outputX,outputY,outputZ};
 }
 // Native525C21..525D48: alpha cosine spills, beta sine remains resident.
@@ -3733,321 +2567,29 @@ static void CamFollowCarFinalHistory355(CCam* cam,const CVector& focal,float alp
     scratch[0x14/4]=alpha;scratch[0x2C/4]=historyDistance;scratch[0x7C/4]=distance;
     scratch[0x48/4]=focal.x;scratch[0x4C/4]=focal.y;scratch[0x50/4]=focal.z;
     float cosineAlpha;
-    __asm {
-        fld alpha
-        fcos
-        fstp cosineAlpha
-    }
+    cosineAlpha = TrigSimpleCosCpp(alpha);
     scratch[0x8C/4]=cosineAlpha;
-    __asm {
-        mov esi,cam
-        lea edi,scratch
-        lea eax,[esi+1D8h]
-        fld dword ptr [esi+000000BCh]
-        fcos
-        fmul dword ptr [edi+0000008Ch]
-        fchs
-        fst dword ptr [edi+6Ch]
-        fld dword ptr [esi+000000BCh]
-        fsin
-        fmul dword ptr [edi+0000008Ch]
-        fchs
-        fld st(0)
-        fld dword ptr [edi+14h]
-        fsin
-        fst dword ptr [edi+0000008Ch]
-        fld dword ptr [edi+6Ch]
-        fmul dword ptr [edi+2Ch]
-        fstp dword ptr [edi+6Ch]
-        fxch st(1)
-        fmul dword ptr [edi+2Ch]
-        fstp dword ptr [edi+70h]
-        fmul dword ptr [edi+2Ch]
-        fld dword ptr [edi+48h]
-        fsub dword ptr [edi+6Ch]
-        fstp dword ptr [edi+54h]
-        mov ecx,dword ptr [edi+54h]
-        fld dword ptr [edi+4Ch]
-        mov dword ptr [eax],ecx
-        fsub dword ptr [edi+70h]
-        fstp dword ptr [edi+58h]
-        fld dword ptr [edi+50h]
-        mov edx,dword ptr [edi+58h]
-        fsub st,st(1)
-        mov dword ptr [eax+4],edx
-        fstp dword ptr [edi+5Ch]
-        mov ecx,dword ptr [edi+5Ch]
-        fstp st(0)
-        mov dword ptr [eax+8],ecx
-        fxch st(1)
-        fstp dword ptr [edi+6Ch]
-        fld dword ptr [edi+0000008Ch]
-        fld dword ptr [edi+6Ch]
-        fmul dword ptr [edi+7Ch]
-        fstp dword ptr [edi+6Ch]
-        fxch st(1)
-        fmul dword ptr [edi+7Ch]
-        fstp dword ptr [edi+70h]
-        fmul dword ptr [edi+7Ch]
-        fld dword ptr [edi+48h]
-        fsub dword ptr [edi+6Ch]
-        fstp dword ptr [edi+54h]
-        mov edx,dword ptr [edi+54h]
-        fld dword ptr [edi+4Ch]
-        mov dword ptr [esi+000001E4h],edx
-        fsub dword ptr [edi+70h]
-        fstp dword ptr [edi+58h]
-        fld dword ptr [edi+50h]
-        mov eax,dword ptr [edi+58h]
-        fsub st,st(1)
-        mov dword ptr [esi+000001E8h],eax
-        mov eax,dword ptr [edi+24h]
-        fstp dword ptr [edi+5Ch]
-        mov ecx,dword ptr [edi+5Ch]
-        mov dword ptr [esi+000001ECh],ecx
-        fstp st(0)
-    }
+    CamFollowCarFinalHistoryCpp(CamAddr(cam), CamAddr(scratch));
 }
 // Exact524E30..525006: history/velocity headings, dot/projection, limit
 // and beta correction keep the native resident order and float spills.
-#pragma warning(push)
-#pragma warning(disable: 4731) // Balanced push/pop EBP; compiler locals loaded before rebinding.
 static float CamFollowCarBetaCorrection355(CCam* cam,CVehicle* vehicle,uint32 rowOffset) {
     float scratch[0x90/4]{};
     *reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(scratch)+0x34)=rowOffset;
     auto* front=&cam->m_vecFront;
-    __asm {
-        push ebp
-        mov esi,cam
-        mov edi,vehicle
-        lea ecx,scratch
-        mov eax,front
-        mov ebp,eax
-        fld dword ptr [ebp]
-        fchs
-        fld dword ptr [esi+00000194h]
-        fpatan
-        fsub dword ptr ds:[00858FE4h]
-        fcom dword ptr ds:[00858CC0h]
-        fnstsw ax
-        test ah,5
-        jp follow_car_beta_00524E56
-        fadd dword ptr ds:[00858CBCh]
-    follow_car_beta_00524E56:
-        fld dword ptr [edi+48h]
-        fld dword ptr [edi+44h]
-        fld st(0)
-        fmul st,st(1)
-        fld st(2)
-        fmul st,st(3)
-        faddp st(1),st
-        fsqrt
-        fstp st(2)
-        fstp st(0)
-        fcomp dword ptr ds:[00858B38h]
-        fnstsw ax
-        test ah,41h
-        jne follow_car_beta_00524E8B
-        fld dword ptr [edi+44h]
-        fchs
-        fld dword ptr [edi+48h]
-        fpatan
-        fsub dword ptr ds:[00858FE4h]
-        jmp follow_car_beta_00524E8D
-    follow_car_beta_00524E8B:
-        fld st(0)
-    follow_car_beta_00524E8D:
-        fld st(1)
-        fadd dword ptr ds:[00858CB8h]
-        fld st(1)
-        fcompp
-        fnstsw ax
-        test ah,41h
-        jne follow_car_beta_00524EA8
-        fsub dword ptr ds:[00858CBCh]
-        jmp follow_car_beta_00524EC1
-    follow_car_beta_00524EA8:
-        fld st(1)
-        fsub dword ptr ds:[00858CB8h]
-        fld st(1)
-        fcompp
-        fnstsw ax
-        test ah,5
-        jp follow_car_beta_00524EC1
-        fadd dword ptr ds:[00858CBCh]
-    follow_car_beta_00524EC1:
-        mov ebx,dword ptr [ecx+34h]
-        fld dword ptr ds:[00B7CB5Ch]
-        fmul dword ptr [ebx+008CC628h]
-        fld dword ptr ds:[00B7CB5Ch]
-        fmul dword ptr [ebx+008CC62Ch]
-        fstp dword ptr [ecx+18h]
-        fld dword ptr [edi+4Ch]
-        fmul dword ptr [ebp+8]
-        fld dword ptr [edi+48h]
-        fmul dword ptr [ebp+4]
-        faddp st(1),st
-        fld dword ptr [edi+44h]
-        fmul dword ptr [ebp]
-        faddp st(1),st
-        fld st(0)
-        fmul dword ptr [ebp]
-        fld st(1)
-        fmul dword ptr [ebp+4]
-        fstp dword ptr [ecx+70h]
-        fxch st(1)
-        fmul dword ptr [ebp+8]
-        fstp dword ptr [ecx+74h]
-        fsubr dword ptr [edi+44h]
-        fld dword ptr [edi+48h]
-        fsub dword ptr [ecx+70h]
-        fld dword ptr [edi+4Ch]
-        fsub dword ptr [ecx+74h]
-        fld st(2)
-        fmul st,st(3)
-        fld st(1)
-        fmul st,st(2)
-        faddp st(1),st
-        fld st(2)
-        fmul st,st(3)
-        faddp st(1),st
-        fsqrt
-        fstp dword ptr [ecx+0000008Ch]
-        fstp st(0)
-        fstp st(0)
-        fstp st(0)
-        fmul dword ptr [ecx+0000008Ch]
-        fld dword ptr ds:[00858624h]
-        fcomp st(1)
-        fnstsw ax
-        test ah,5
-        jp follow_car_beta_00524F5C
-        fstp st(0)
-        fld dword ptr ds:[00858624h]
-    follow_car_beta_00524F5C:
-        fxch st(1)
-        fsub st,st(2)
-        fmulp st(1),st
-        fcom dword ptr [ecx+18h]
-        fnstsw ax
-        test ah,41h
-        jne follow_car_beta_00524F75
-        fstp st(0)
-        fld dword ptr [ecx+18h]
-        jmp follow_car_beta_00524F99
-    follow_car_beta_00524F75:
-        fld dword ptr [ecx+18h]
-        fchs
-        fstp dword ptr [ecx+0000008Ch]
-        fcom dword ptr [ecx+0000008Ch]
-        fnstsw ax
-        test ah,5
-        jp follow_car_beta_00524F99
-        fstp st(0)
-        fld dword ptr [ecx+0000008Ch]
-    follow_car_beta_00524F99:
-        faddp st(1),st
-        fld dword ptr [esi+000000BCh]
-        fadd dword ptr ds:[00858CB8h]
-        fld st(1)
-        fcompp
-        fnstsw ax
-        test ah,41h
-        jne follow_car_beta_00524FBA
-        fsub dword ptr ds:[00858CBCh]
-        jmp follow_car_beta_00524FD7
-    follow_car_beta_00524FBA:
-        fld dword ptr [esi+000000BCh]
-        fsub dword ptr ds:[00858CB8h]
-        fld st(1)
-        fcompp
-        fnstsw ax
-        test ah,5
-        jp follow_car_beta_00524FD7
-        fadd dword ptr ds:[00858CBCh]
-    follow_car_beta_00524FD7:
-        fld dword ptr ds:[00858624h]
-        fcomp dword ptr ds:[00B7CB5Ch]
-        fnstsw ax
-        test ah,41h
-        jne follow_car_beta_00524FF2
-        fld dword ptr ds:[00858624h]
-        jmp follow_car_beta_00524FF8
-    follow_car_beta_00524FF2:
-        fld dword ptr ds:[00B7CB5Ch]
-    follow_car_beta_00524FF8:
-        fxch st(1)
-        fsub dword ptr [esi+000000BCh]
-        fdiv st,st(1)
-        fstp dword ptr [ecx+44h]
-        fstp st(0)
-        pop ebp
-    }
+    CamFollowCarBetaCorrectionCpp(CamAddr(cam), CamAddr(vehicle), CamAddr(scratch), CamAddr(front));
     return scratch[0x44/4];
 }
 
-#pragma warning(pop)
 static float CamFollowCarActualDistance355(const CVector& focal, const CVector& history) {
     const CVector* origin=&focal;const CVector* previous=&history;float result;
-    __asm {
-        mov eax,origin
-        mov edx,previous
-        fld dword ptr [eax]
-        fsub dword ptr [edx]
-        fld dword ptr [eax+4]
-        fsub dword ptr [edx+4]
-        fld dword ptr [eax+8]
-        fsub dword ptr [edx+8]
-        fld st(2)
-        fmulp st(3),st(0)
-        fld st(0)
-        fmul st(0),st(1)
-        faddp st(3),st(0)
-        fld st(1)
-        fmul st(0),st(2)
-        faddp st(3),st(0)
-        fxch st(2)
-        fsqrt
-        fstp st(2)
-        fstp st(0)
-        fstp result
-    }
+    CamFollowCarActualDistanceCpp(CamAddr(origin), CamAddr(previous), &result);
     return result;
 }
 
 static float CamFollowCarAutoAlpha355(float base,float step,float wanted,float previous,float maximum) {
     float result;
-    __asm {
-        fld base
-        fld step
-        mov eax,00822130h
-        call eax
-        fsubr dword ptr ds:[00858624h]
-        fld wanted
-        fsub previous
-        fmulp st(1),st
-        fst result
-        fcomp maximum
-        fnstsw ax
-        test ah,41h
-        jne car_auto_lower355
-        mov eax,maximum
-        mov result,eax
-        jmp car_auto_done355
-    car_auto_lower355:
-        fld maximum
-        fchs
-        fld result
-        fcomp st(1)
-        fnstsw ax
-        test ah,5
-        jp car_auto_keep355
-        fstp result
-        jmp car_auto_done355
-    car_auto_keep355:
-        fstp st(0)
-    car_auto_done355:
-    }
+    CamFollowCarAutoAlphaCpp(base, step, wanted, previous, &result, maximum);
     return result;
 }
 // Native5259A1..525A29: product/sum precision, limits and cutoff.
@@ -4055,58 +2597,9 @@ static void CamFollowCarAlphaBlend355(CCam* cam,float smoothing,float alphaInput
     float scratch[0x90/4]{};
     scratch[0x3C/4]=smoothing;scratch[0x10/4]=alphaInput;scratch[0x18/4]=maximumSpeed;
     float complement;
-    __asm {
-        fld dword ptr ds:[00858624h]
-        fsub smoothing
-        fstp complement
-    }
+    CamFollowCarAlphaComplementCpp(smoothing, &complement);
     scratch[0x8C/4]=complement;
-    __asm {
-        mov esi,cam
-        lea edi,scratch
-        fld dword ptr [edi+0000008Ch]
-        fmul dword ptr [edi+10h]
-        fld dword ptr [edi+3Ch]
-        fmul dword ptr [esi+000000B0h]
-        faddp st(1),st
-        fst dword ptr [edi+0000008Ch]
-        fstp dword ptr [esi+000000B0h]
-        fld dword ptr [edi+10h]
-        fcomp dword ptr ds:[00858B50h]
-        fld dword ptr [edi+18h]
-        fnstsw ax
-        test ah,41h
-        jne car_alpha_005259E0
-        fmul dword ptr ds:[00858B8Ch]
-    car_alpha_005259E0:
-        fld dword ptr [edi+0000008Ch]
-        fcomp st(1)
-        fnstsw ax
-        test ah,41h
-        jne car_alpha_005259F8
-        fstp dword ptr [esi+000000B0h]
-        jmp car_alpha_00525A14
-    car_alpha_005259F8:
-        fchs
-        fld dword ptr [edi+0000008Ch]
-        fcomp st(1)
-        fnstsw ax
-        test ah,5
-        jp car_alpha_00525A12
-        fstp dword ptr [esi+000000B0h]
-        jmp car_alpha_00525A14
-    car_alpha_00525A12:
-        fstp st(0)
-    car_alpha_00525A14:
-        fld dword ptr [esi+000000B0h]
-        fabs
-        fcomp dword ptr ds:[008CCEB4h]
-        fnstsw ax
-        test ah,5
-        jp car_alpha_end
-        mov dword ptr [esi+000000B0h],0
-    car_alpha_end:
-    }
+    CamFollowCarAlphaBlendCpp(CamAddr(cam), CamAddr(scratch));
 }
 void CCam::Process_FollowCar_SA(const CVector& targetPosition,float,float,float,bool preserveAngles) {
     if (!m_pCamTargetEntity->GetIsTypeVehicle()) return;
@@ -4320,128 +2813,7 @@ static void CamMouseFinalDistance355(CCam* cam, const CVector& target) {
     scratch[0x2C / 4] = target.y;
     scratch[0x30 / 4] = target.z;
     auto* source = &cam->m_vecSource;
-    __asm {
-        mov edi,cam
-        mov ebx,source
-        lea esi,scratch
-        fld dword ptr [esi+28h]
-        fsub dword ptr [ebx]
-        fld dword ptr [esi+2Ch]
-        fsub dword ptr [ebx+4]
-        fld dword ptr [esi+30h]
-        fsub dword ptr [ebx+8]
-        fld st(0)
-        fmul st,st(1)
-        fld st(2)
-        fmul st,st(3)
-        faddp st(1),st
-        fld st(3)
-        fmul st,st(4)
-        faddp st(1),st
-        fsqrt
-        fstp st(3)
-        fstp st(0)
-        fstp st(0)
-        fst dword ptr [esi+10h]
-        fcomp dword ptr [edi+000000C4h]
-        fnstsw ax
-        test ah,5
-        jp mouse_final_005103C4
-        mov eax,dword ptr [esi+10h]
-        mov dword ptr [edi+000000C4h],eax
-        jmp mouse_final_end
-    mouse_final_005103C4:
-        fld dword ptr ds:[00862F14h]
-        fld dword ptr ds:[00B7CB5Ch]
-        mov eax,000822130h
-        call eax
-        fld dword ptr ds:[00858624h]
-        fsub st,st(1)
-        fmul dword ptr [esi+10h]
-        fxch st(1)
-        fmul dword ptr [edi+000000C4h]
-        faddp st(1),st
-        fst dword ptr [edi+000000C4h]
-        fld dword ptr [esi+10h]
-        fcomp dword ptr ds:[00858C28h]
-        fnstsw ax
-        test ah,41h
-        jne mouse_final_0051049C
-        fld dword ptr [ebx]
-        fsub dword ptr [esi+28h]
-        fld dword ptr [ebx+4]
-        fsub dword ptr [esi+2Ch]
-        fld dword ptr [ebx+8]
-        fsub dword ptr [esi+30h]
-        fstp dword ptr [esi+0000009Ch]
-        fld st(2)
-        fstp dword ptr [esi+14h]
-        fxch st(1)
-        fmul dword ptr [esi+14h]
-        fstp dword ptr [esi+000000A0h]
-        fmul dword ptr [esi+14h]
-        fld dword ptr [esi+0000009Ch]
-        fmul dword ptr [esi+14h]
-        fld dword ptr ds:[00858624h]
-        fdiv dword ptr [esi+10h]
-        fld dword ptr [esi+000000A0h]
-        fmul st,st(1)
-        fstp dword ptr [esi+44h]
-        fxch st(2)
-        fmul st,st(2)
-        fstp dword ptr [esi+48h]
-        fmul st,st(1)
-        fxch st(1)
-        fstp st(0)
-        fld dword ptr [esi+44h]
-        fadd dword ptr [esi+28h]
-        fstp dword ptr [esi+34h]
-        mov ecx,dword ptr [esi+34h]
-        fld dword ptr [esi+48h]
-        mov dword ptr [ebx],ecx
-        fadd dword ptr [esi+2Ch]
-        fstp dword ptr [esi+38h]
-        mov edx,dword ptr [esi+38h]
-        fadd dword ptr [esi+30h]
-        mov dword ptr [ebx+4],edx
-        fstp dword ptr [esi+3Ch]
-        mov eax,dword ptr [esi+3Ch]
-        mov dword ptr [ebx+8],eax
-    mouse_final_0051049C:
-        fsub dword ptr ds:[008CC38Ch]
-        mov ecx,dword ptr ds:[00C1703Ch]
-        fld dword ptr [ecx+00000080h]
-        fld st(1)
-        fcompp
-        fnstsw ax
-        test ah,5
-        jp mouse_final_005104F4
-        fcom dword ptr ds:[00858B1Ch]
-        fnstsw ax
-        test ah,41h
-        jne mouse_final_005104DA
-        fstp dword ptr [esi+10h]
-        mov edx,dword ptr [esi+10h]
-        push edx
-        push ecx
-        mov eax,0007EE1D0h
-        call eax
-        add esp,8
-        jmp mouse_final_end
-    mouse_final_005104DA:
-        mov dword ptr [esi+10h],3DCCCCCDh
-        fstp st(0)
-        mov edx,dword ptr [esi+10h]
-        push edx
-        push ecx
-        mov eax,0007EE1D0h
-        call eax
-        add esp,8
-        jmp mouse_final_end
-    mouse_final_005104F4:
-        fstp st(0)
-    mouse_final_end:
-    }
+    CamMouseFinalDistanceCpp(CamAddr(cam), CamAddr(source), CamAddr(scratch));
 }
 static void CamMouseChanges355(float fov,float inputX,float inputY,bool sticks,float& beta,float& alpha) {
     const float scaleFactor=StaticRef<float>(0x85A5C4), mouseBeta=-2.5f,mouseAlpha=4.f;
@@ -4449,58 +2821,16 @@ static void CamMouseChanges355(float fov,float inputX,float inputY,bool sticks,f
     const float stickBeta=StaticRef<float>(0x859B50),stickAlpha=StaticRef<float>(0x8631AC),step=CTimer::GetTimeStep(),stickScale=StaticRef<float>(0x8CC7CC);
     float betaResult,alphaResult;
     if(sticks){
-        __asm {
-            fld inputY
-            fld fov
-            fmul scaleFactor
-            fld stickBeta
-            fmul st(0),st(1)
-            fmul step
-            fmul stickScale
-            fmul inputX
-            fstp betaResult
-            fmul stickAlpha
-            fmul step
-            fmul st(0),st(1)
-            fmul stickScale
-            fstp alphaResult
-            fstp st(0)
-        }
+        CamMouseChangesStickCpp(inputY, fov, scaleFactor, stickBeta, step, stickScale, inputX, &betaResult, stickAlpha, &alphaResult);
     }else{
-        __asm {
-            fld inputX
-            fmul mouseBeta
-            fld inputY
-            fmul mouseAlpha
-            fld fov
-            fmul scaleFactor
-            fld betaSensitivity
-            fmul st(0),st(1)
-            fmul st(0),st(3)
-            fstp betaResult
-            fmul st(0),st(1)
-            fmul alphaSensitivity
-            fstp alphaResult
-            fstp st(0)
-            fstp st(0)
-        }
+        CamMouseChangesMouseCpp(inputX, mouseBeta, inputY, mouseAlpha, fov, scaleFactor, betaSensitivity, &betaResult, alphaSensitivity, &alphaResult);
     }
     beta=betaResult;alpha=alphaResult;
 }
 static float CamMouseRepeatedRadius355(float fov,float nearPlane) {
     const float radians=StaticRef<float>(0x8595EC),half=.5f,factor=StaticRef<float>(0x862F10),aspect=StaticRef<float>(0xC3EFA4);
     float result;
-    __asm {
-        fld fov
-        fmul radians
-        fmul half
-        fptan
-        fstp st(0)
-        fmul aspect
-        fmul nearPlane
-        fmul factor
-        fstp result
-    }
+    CamMouseRepeatedRadiusCpp(fov, radians, half, aspect, nearPlane, factor, &result);
     return result;
 }
 
@@ -4508,183 +2838,36 @@ static float CamMousePerpendicularDistance355(const CVector& source,const CVecto
     const CVector& collision=StaticRef<CVector>(0xB9B250);
     const float one=1.f;
     float inverse,result,zDifference,yProjection,zProjection,xPerpendicular;
-    __asm {
-        fld one
-        fdiv radiusFactor
-        fstp inverse
-        mov eax,collision
-        mov edx,source
-        mov ecx,front
-        fld dword ptr [eax]
-        fsub dword ptr [edx]
-        fld dword ptr [eax+4]
-        fsub dword ptr [edx+4]
-        fld dword ptr [eax+8]
-        fsub dword ptr [edx+8]
-        fst zDifference
-        fmul dword ptr [ecx+8]
-        fld st(1)
-        fmul dword ptr [ecx+4]
-        faddp st(1),st(0)
-        fld st(2)
-        fmul dword ptr [ecx]
-        faddp st(1),st(0)
-        fld st(0)
-        fmul dword ptr [ecx]
-        fld st(1)
-        fmul dword ptr [ecx+4]
-        fstp yProjection
-        fxch st(1)
-        fmul dword ptr [ecx+8]
-        fstp zProjection
-        fxch st(2)
-        fsub st(0),st(2)
-        fstp xPerpendicular
-        fstp st(1)
-        fsub yProjection
-        fld zDifference
-        fsub zProjection
-        fld st(0)
-        fmul st(0),st(1)
-        fld st(2)
-        fmul st(0),st(3)
-        faddp st(1),st(0)
-        fld xPerpendicular
-        fmul xPerpendicular
-        faddp st(1),st(0)
-        fsqrt
-        fstp st(2)
-        fstp st(0)
-        fmul inverse
-        fstp result
-    }
+    CamMousePerpendicularDistanceCpp(one, radiusFactor, &inverse, CamAddr(&collision), CamAddr(&source), CamAddr(&front), &zDifference, &yProjection, &zProjection, &xPerpendicular, &result);
     return result;
 }
 static void CamMouseSphereCenter355(CVector& result,const CVector& front,const CVector& source,float nearPlane) {
     float zProduct;
-    __asm {
-        mov eax,front
-        mov edx,source
-        mov ecx,result
-        fld nearPlane
-        fmul dword ptr [eax]
-        fld nearPlane
-        fmul dword ptr [eax+4]
-        fld nearPlane
-        fmul dword ptr [eax+8]
-        fstp zProduct
-        fxch st(1)
-        fadd dword ptr [edx]
-        fstp dword ptr [ecx]
-        fadd dword ptr [edx+4]
-        fstp dword ptr [ecx+4]
-        fld zProduct
-        fadd dword ptr [edx+8]
-        fstp dword ptr [ecx+8]
-    }
+    CamMouseSphereCenterCpp(CamAddr(&front), CamAddr(&source), CamAddr(&result), nearPlane, &zProduct);
 }
 
 static void CamMouseInitialSource355(CVector& result,const CVector& target,const CVector& front,float distance) {
     float zProduct;
-    __asm {
-        mov eax,target
-        mov edx,front
-        mov ecx,result
-        fld distance
-        fmul dword ptr [edx]
-        fld distance
-        fmul dword ptr [edx+4]
-        fld distance
-        fmul dword ptr [edx+8]
-        fstp zProduct
-        fld dword ptr [eax]
-        fsub st(0),st(2)
-        fstp dword ptr [ecx]
-        fld dword ptr [eax+4]
-        fsub st(0),st(1)
-        fstp dword ptr [ecx+4]
-        fstp st(0)
-        fstp st(0)
-        fld dword ptr [eax+8]
-        fsub zProduct
-        fstp dword ptr [ecx+8]
-    }
+    CamMouseInitialSourceCpp(CamAddr(&target), CamAddr(&front), CamAddr(&result), distance, &zProduct);
 }
 static float CamMouseFirstHitDistance355(const CVector& target,const CVector& hit) {
     float result;
-    __asm {
-        mov eax,target
-        mov edx,hit
-        fld dword ptr [eax]
-        fsub dword ptr [edx]
-        fld dword ptr [eax+4]
-        fsub dword ptr [edx+4]
-        fld dword ptr [eax+8]
-        fsub dword ptr [edx+8]
-        fld st(0)
-        fmul st(0),st(1)
-        fld st(2)
-        fmul st(0),st(3)
-        faddp st(1),st(0)
-        fld st(3)
-        fmul st(0),st(4)
-        faddp st(1),st(0)
-        fsqrt
-        fstp st(3)
-        fstp st(0)
-        fstp st(0)
-        fstp result
-    }
+    CamMouseFirstHitDistanceCpp(CamAddr(&target), CamAddr(&hit), &result);
     return result;
 }
 static void CamMousePullSource355(CVector& source,const CVector& target) {
     const float factor=.3f;
     float xProduct,zDifference;
-    __asm {
-        mov eax,target
-        mov edx,source
-        fld dword ptr [eax]
-        fsub dword ptr [edx]
-        fld dword ptr [eax+4]
-        fsub dword ptr [edx+4]
-        fld dword ptr [eax+8]
-        fsub dword ptr [edx+8]
-        fstp zDifference
-        fxch st(1)
-        fmul factor
-        fstp xProduct
-        fmul factor
-        fld zDifference
-        fmul factor
-        fld xProduct
-        fadd dword ptr [edx]
-        fstp dword ptr [edx]
-        fxch st(1)
-        fadd dword ptr [edx+4]
-        fstp dword ptr [edx+4]
-        fadd dword ptr [edx+8]
-        fstp dword ptr [edx+8]
-    }
+    CamMousePullSourceCpp(CamAddr(&target), CamAddr(&source), &zDifference, factor, &xProduct);
 }
 
 static float CamMouseRecenterDelta355(const CVector& direction,float orientation,float beta) {
     float result;
     const float x=direction.x,y=direction.y;
     if(direction.z>=StaticRef<float>(0x858CAC)) {
-        __asm {
-            fld y
-            fld x
-            fpatan
-            fsub beta
-            fstp result
-        }
+        result = Atan2MinusCpp(y, x, beta);
     } else {
-        __asm {
-            fld orientation
-            fadd dword ptr ds:[00858CB8h]
-            fsub beta
-            fstp result
-        }
+        CamMouseRecenterDeltaCpp(orientation, beta, &result);
     }
     return result;
 }
@@ -4721,29 +2904,7 @@ void CCam::Process_FollowPedWithMouse(const CVector& position, float orientation
     float alpha = m_fVerticalAngle;
     const float alphaMultiplier = StaticRef<float>(0x8CC7C8);
     float distance;
-    __asm {
-        fld alpha
-        fldz
-        fcomip st(0),st(1)
-        jae follow_mouse_nonpositive_alpha
-        fmul alphaMultiplier
-        fcomp dword ptr ds:[00858FE4h]
-        fnstsw ax
-        test ah,41h
-        jne follow_mouse_positive_bounded
-        fld dword ptr ds:[00858FE4h]
-        jmp follow_mouse_cos_distance
-    follow_mouse_positive_bounded:
-        fld alpha
-        fmul alphaMultiplier
-        jmp follow_mouse_cos_distance
-    follow_mouse_nonpositive_alpha:
-    follow_mouse_cos_distance:
-        fcos
-        fmul dword ptr ds:[008CC7C4h]
-        fadd dword ptr ds:[008CC7C0h]
-        fstp distance
-    }
+    CamFollowMouseDistanceCpp(alpha, alphaMultiplier, &distance);
     if (StaticRef<uint8>(0xB6F05F) == 1) m_fHorizontalAngle = *reinterpret_cast<const float*>(reinterpret_cast<const uint8*>(this) + 0x9C);
     if (StaticRef<uint8>(0xB6F042) == 1) m_fHorizontalAngle = StaticRef<float>(0xB6F148) + StaticRef<float>(0x858CB8);
     if (StaticRef<uint8>(0xB6F043) == 1) m_fHorizontalAngle = StaticRef<float>(0xB6F148);
@@ -4752,23 +2913,7 @@ void CCam::Process_FollowPedWithMouse(const CVector& position, float orientation
     float frontX;
     float frontY;
     float frontZ;
-    __asm {
-        fld alpha
-        fcos
-        fld beta
-        fcos
-        fmul st(0),st(1)
-        fchs
-        fstp frontX
-        fld beta
-        fsin
-        fmulp st(1),st(0)
-        fchs
-        fstp frontY
-        fld alpha
-        fsin
-        fstp frontZ
-    }
+    CamDirectionFromAnglesCpp(alpha, beta, &frontX, &frontY, &frontZ);
     m_vecFront = CVector{frontX,frontY,frontZ};
     CamMouseInitialSource355(m_vecSource,target,m_vecFront,distance);
     m_vecTargetCoorsForFudgeInter = target;
@@ -4792,16 +2937,7 @@ void CCam::Process_FollowPedWithMouse(const CVector& position, float orientation
     const float fov = m_fFOV;
     float radiusFactor;
     const float radians = .017453292f, half = .5f, factor = 1.1f;
-    __asm {
-        fld fov
-        fmul radians
-        fmul half
-        fptan
-        fstp st(0)
-        fmul dword ptr ds:[00C3EFA4h]
-        fmul factor
-        fstp radiusFactor
-    }
+    CamFollowMouseRadiusCpp(fov, radians, half, factor, &radiusFactor);
     float nearPlane = Scene.m_pRwCamera->nearPlane;
     CVector sphereCenter;
     CamMouseSphereCenter355(sphereCenter,m_vecFront,m_vecSource,nearPlane);
@@ -4823,12 +2959,7 @@ void CCam::Process_FollowPedWithMouse(const CVector& position, float orientation
         float heading;
         const float headingX = -m_vecFront.x;
         const float headingY = m_vecFront.y;
-        __asm {
-            fld headingX
-            fld headingY
-            fpatan
-            fstp heading
-        }
+        heading = TrigAtan2Cpp(headingX, headingY);
         auto* player = StaticRef<CPed*>(0xB6F980); player->m_fCurrentRotation = heading; player->m_fAimingRotation = heading; player->SetHeading(heading);
         if (player->GetRwObject()) player->UpdateRwMatrix();
     }
@@ -4837,39 +2968,13 @@ void CCam::Process_FollowPedWithMouse(const CVector& position, float orientation
 // 0x522D40
 namespace {
 float CameraRound4(float value) {
-    double scaled,integral;
+    float scaled; float integral;
     float result;
     int five=5;
     int four=4;
-    __asm {
-        fld qword ptr ds:[00859EA8h]
-        fild five
-        mov eax,00822130h
-        call eax
-        fmul value
-        fld value
-        fcomp dword ptr ds:[00858B50h]
-        fnstsw ax
-        test ah,5
-        jp camera_round_positive
-        fsub dword ptr ds:[00858C80h]
-        jmp camera_round_fraction
-    camera_round_positive:
-        fadd dword ptr ds:[00858C80h]
-    camera_round_fraction:
-        fmul dword ptr ds:[00858B1Ch]
-        fstp scaled
-    }
+    CamRound4ScaleCpp(five, value, &scaled);
     std::modf(scaled,&integral);
-    __asm {
-        fld integral
-        fld qword ptr ds:[00859EA8h]
-        fild four
-        mov eax,00822130h
-        call eax
-        fdivp st(1),st
-        fstp result
-    }
+    CamRound4FinishCpp(integral, four, &result);
     return result;
 }
 float CameraHeadingMinusHalfPI(CPlaceable* ped) {
@@ -4877,341 +2982,51 @@ float CameraHeadingMinusHalfPI(CPlaceable* ped) {
     float headingInputX=-ped->GetMatrix().GetForward().x;
     float headingInputY=ped->GetMatrix().GetForward().y;
     float result;
-    __asm {
-        fld headingInputX
-        fld headingInputY
-        fpatan
-        fsub dword ptr ds:[00858FE4h]
-        fstp result
-    }
+    result = Atan2MinusCpp(headingInputX, headingInputY, CamExeFloat(0x858FE4));
     return result;
 }
 void CameraRoundVector4(CVector& v) { v.x=CameraRound4(v.x);v.y=CameraRound4(v.y);v.z=CameraRound4(v.z); }
 }
 static float CamFollowPedAutoAlpha355(float base,float step,float wanted,float previous,float maximum) {
     float result;
-    __asm {
-        fld base
-        fld step
-        mov eax,00822130h
-        call eax
-        fsubr dword ptr ds:[00858624h]
-        fld wanted
-        fsub previous
-        fmulp st(1),st
-        fst result
-        fcomp maximum
-        fnstsw ax
-        test ah,41h
-        jne ped_auto_lower355
-        mov eax,maximum
-        mov result,eax
-        jmp ped_auto_done355
-    ped_auto_lower355:
-        fld maximum
-        fchs
-        fld result
-        fcomp st(1)
-        fnstsw ax
-        test ah,5
-        jp ped_auto_keep355
-        fstp result
-        jmp ped_auto_done355
-    ped_auto_keep355:
-        fstp st(0)
-    ped_auto_done355:
-    }
+    CamFollowPedAutoAlphaCpp(base, step, wanted, previous, &result, maximum);
     return result;
 }
 
 static float CamFollowPedPitchCorrection355(float wantedPitch, float historyPitch, float followWeight, float followMaximum, float taskWeight, float verticalOffset) {
     float maximum,negativeMaximum,result;
-    __asm {
-        fld wantedPitch
-        fld dword ptr ds:[008CCE84h]
-        fmul followWeight
-        fld dword ptr ds:[00858624h]
-        fcomp st(1)
-        fnstsw ax
-        test ah,5
-        jp pedPitchWeight355
-        fstp st(0)
-        fld dword ptr ds:[00858624h]
-    pedPitchWeight355:
-        fld dword ptr ds:[008CCE80h]
-        fmul followMaximum
-        fstp maximum
-        fld taskWeight
-        fcomp dword ptr ds:[00858B50h]
-        fnstsw ax
-        test ah,44h
-        jnp pedPitchProduct355
-        fmul taskWeight
-        fld maximum
-        fmul taskWeight
-        fstp maximum
-    pedPitchProduct355:
-        fxch st(1)
-        fsub historyPitch
-        fmulp st(1),st(0)
-        fcom maximum
-        fnstsw ax
-        test ah,41h
-        jne pedPitchLower355
-        fstp st(0)
-        fld maximum
-        jmp pedPitchSum355
-    pedPitchLower355:
-        fld maximum
-        fchs
-        fstp negativeMaximum
-        fcom negativeMaximum
-        fnstsw ax
-        test ah,5
-        jp pedPitchSum355
-        fstp st(0)
-        fld negativeMaximum
-    pedPitchSum355:
-        fld historyPitch
-        fadd st(0),st(1)
-        fsub verticalOffset
-        fstp result
-        fstp st(0)
-    }
+    CamFollowPedPitchCorrectionCpp(wantedPitch, followWeight, followMaximum, &maximum, taskWeight, historyPitch, &negativeMaximum, verticalOffset, &result);
     return result;
 }
 
 static float CamFollowPedDistance355(const CVector& focal,const CVector& history,float distance,float rowMinimum,float minimumDistance) {
     const CVector* origin=&focal;const CVector* previous=&history;float actual;
-    __asm {
-        mov eax,origin
-        mov edx,previous
-        fld dword ptr [eax]
-        fsub dword ptr [edx]
-        fld dword ptr [eax+4]
-        fsub dword ptr [edx+4]
-        fld dword ptr [eax+8]
-        fsub dword ptr [edx+8]
-        fld st(2)
-        fmulp st(3),st(0)
-        fld st(0)
-        fmul st(0),st(1)
-        faddp st(3),st(0)
-        fld st(1)
-        fmul st(0),st(2)
-        faddp st(3),st(0)
-        fxch st(2)
-        fsqrt
-        fstp st(2)
-        fstp st(0)
-        fst actual
-        fcomp distance
-        fnstsw ax
-        test ah,5
-        jp pedDistanceDone355
-        fld distance
-        fcomp rowMinimum
-        fnstsw ax
-        test ah,41h
-        jne pedDistanceDone355
-        fld minimumDistance
-        fcomp actual
-        fnstsw ax
-        test ah,41h
-        jne pedDistanceActual355
-        mov eax,minimumDistance
-        mov distance,eax
-        jmp pedDistanceDone355
-    pedDistanceActual355:
-        mov eax,actual
-        mov distance,eax
-    pedDistanceDone355:
-    }
+    CamFollowPedDistanceCpp(CamAddr(origin), CamAddr(previous), &actual, &distance, rowMinimum, minimumDistance);
     return distance;
 }
 
 static float CamFollowPedLimitHistoryPitch355(float separation,float historyPitch,float step) {
     float maximum;
-    __asm {
-        fld separation
-        fsub dword ptr ds:[008CCE90h]
-        fmul dword ptr ds:[00858F08h]
-        fld dword ptr ds:[00858CB8h]
-        fsub dword ptr ds:[008CCE90h]
-        fdivp st(1),st(0)
-        fld dword ptr ds:[00858624h]
-        fcomp st(1)
-        fnstsw ax
-        test ah,5
-        jp pedHistoryMaximum355
-        fstp st(0)
-        fld dword ptr ds:[00858624h]
-    pedHistoryMaximum355:
-        fld dword ptr ds:[00858FE4h]
-        fsub dword ptr ds:[008CCE8Ch]
-        fmul st(0),st(1)
-        fsubr dword ptr ds:[00858FE4h]
-        fstp maximum
-        fstp st(0)
-        fld dword ptr ds:[008CCE88h]
-        fld step
-        mov eax,00822130h
-        call eax
-        fld historyPitch
-        fcomp maximum
-        fnstsw ax
-        test ah,41h
-        jne pedHistoryNegative355
-        fld dword ptr ds:[00858624h]
-        fsub st(0),st(1)
-        fmul maximum
-        fxch st(1)
-        fmul historyPitch
-        faddp st(1),st(0)
-        fstp historyPitch
-        jmp pedHistoryDone355
-    pedHistoryNegative355:
-        fld maximum
-        fchs
-        fcomp historyPitch
-        fnstsw ax
-        test ah,41h
-        jne pedHistoryUnchanged355
-        fld historyPitch
-        fmul st(0),st(1)
-        fld dword ptr ds:[00858624h]
-        fsub st(0),st(2)
-        fmul maximum
-        fsubp st(1),st(0)
-        fstp historyPitch
-    pedHistoryUnchanged355:
-        fstp st(0)
-    pedHistoryDone355:
-    }
+    CamFollowPedHistoryPitchCpp(separation, &maximum, step, &historyPitch);
     return historyPitch;
 }
 
 static float CamFollowPedHistoryBase355(float step,float speed,float wanted) {
     float result;
-    __asm {
-        fld step
-        fmul speed
-        fadd wanted
-        fstp result
-    }
+    CamFollowPedHistoryBaseCpp(step, speed, wanted, &result);
     return result;
 }
 
 static void CamFollowPedResetHistory355(const CVector& focal, const CVector& front, float firstDistance, float secondDistance, CVector& first, CVector& second) {
     const CVector* origin=&focal;const CVector* direction=&front;CVector* firstOut=&first;CVector* secondOut=&second;
     float zProduct;
-    __asm {
-        mov eax,origin
-        mov ecx,direction
-        mov edx,firstOut
-        fld firstDistance
-        fmul dword ptr [ecx]
-        fld firstDistance
-        fmul dword ptr [ecx+4]
-        fld firstDistance
-        fmul dword ptr [ecx+8]
-        fstp zProduct
-        fld dword ptr [eax]
-        fsub st(0),st(2)
-        fstp dword ptr [edx]
-        fld dword ptr [eax+4]
-        fsub st(0),st(1)
-        fstp dword ptr [edx+4]
-        fstp st(0)
-        fstp st(0)
-        fld dword ptr [eax+8]
-        fsub zProduct
-        fstp dword ptr [edx+8]
-        mov edx,secondOut
-        fld secondDistance
-        fmul dword ptr [ecx]
-        fld secondDistance
-        fmul dword ptr [ecx+4]
-        fld secondDistance
-        fmul dword ptr [ecx+8]
-        fstp zProduct
-        fld dword ptr [eax]
-        fsub st(0),st(2)
-        fstp dword ptr [edx]
-        fld dword ptr [eax+4]
-        fsub st(0),st(1)
-        fstp dword ptr [edx+4]
-        fstp st(0)
-        fstp st(0)
-        fld dword ptr [eax+8]
-        fsub zProduct
-        fstp dword ptr [edx+8]
-    }
+    CamFollowPedResetHistoryCpp(CamAddr(origin), CamAddr(direction), CamAddr(firstOut), firstDistance, &zProduct, CamAddr(secondOut), secondDistance);
 }
 
 static void CamFollowPedHistory355(float historyDelta,float verticalOffset,float beta,const CVector& focal,float historyDistance,float distance,CVector& first,CVector& second) {
     float angle,cosAlpha,xDirection,zDirection,xProduct,yProduct;
     const CVector* origin=&focal;CVector* firstOut=&first;CVector* secondOut=&second;
-    __asm {
-        fld historyDelta
-        fadd verticalOffset
-        fst angle
-        fcos
-        fstp cosAlpha
-        fld beta
-        fcos
-        fmul cosAlpha
-        fchs
-        fst xDirection
-        fld beta
-        fsin
-        fmul cosAlpha
-        fchs
-        fld st(0)
-        fld angle
-        fsin
-        fst zDirection
-        fld xDirection
-        fmul historyDistance
-        fstp xProduct
-        fxch st(1)
-        fmul historyDistance
-        fstp yProduct
-        fmul historyDistance
-        mov eax,origin
-        mov edx,firstOut
-        fld dword ptr [eax]
-        fsub xProduct
-        fstp dword ptr [edx]
-        fld dword ptr [eax+4]
-        fsub yProduct
-        fstp dword ptr [edx+4]
-        fld dword ptr [eax+8]
-        fsub st,st(1)
-        fstp dword ptr [edx+8]
-        fstp st(0)
-        fxch st(1)
-        fstp xDirection
-        fld zDirection
-        fld xDirection
-        fmul distance
-        fstp xProduct
-        fxch st(1)
-        fmul distance
-        fstp yProduct
-        fmul distance
-        mov edx,secondOut
-        fld dword ptr [eax]
-        fsub xProduct
-        fstp dword ptr [edx]
-        fld dword ptr [eax+4]
-        fsub yProduct
-        fstp dword ptr [edx+4]
-        fld dword ptr [eax+8]
-        fsub st,st(1)
-        fstp dword ptr [edx+8]
-        fstp st(0)
-    }
+    CamFollowPedHistoryCpp(historyDelta, verticalOffset, &angle, &cosAlpha, beta, &xDirection, &zDirection, historyDistance, &xProduct, &yProduct, CamAddr(origin), CamAddr(firstOut), distance, CamAddr(secondOut));
 }
 
 // Native5234EC..523531: fpatan-minusHalfPI then extended comparison;
@@ -5219,22 +3034,7 @@ static void CamFollowPedHistory355(float historyDelta,float verticalOffset,float
 static float CamFollowPedHistoryHeading355(const CVector& front) {
     const float frontX=front.x,frontY=front.y;
     float result;
-    __asm {
-        fld frontX
-        fchs
-        fld frontY
-        fpatan
-        fsub dword ptr ds:[00858FE4h]
-        fst result
-        fcomp dword ptr ds:[00858CC0h]
-        fnstsw ax
-        test ah,5
-        jp ped_history_heading_done355
-        fld result
-        fadd dword ptr ds:[00858CBCh]
-        fstp result
-    ped_history_heading_done355:
-    }
+    CamFollowPedHistoryHeadingCpp(frontX, frontY, &result);
     return result;
 }
 void CCam::Process_FollowPed_SA(const CVector& targetPosition, float, float, float, bool resetHistory) {
@@ -5434,253 +3234,42 @@ void CCam::Process_FollowPed_SA(const CVector& targetPosition, float, float, flo
 namespace {
 float M16Asin(float input) {
     float result;
-    __asm {
-        fld input
-        mov eax, 00821E70h
-        call eax
-        fstp result
-    }
+    result = CnvAsinFloatCpp(input);
     return result;
 }
 CVector M16Direction(float horizontal, float vertical) {
     float x, y, z;
-    __asm {
-        fld vertical
-        fcos
-        fld horizontal
-        fcos
-        fmul st, st(1)
-        fchs
-        fstp x
-        fld horizontal
-        fsin
-        fmulp st(1), st
-        fchs
-        fstp y
-        fld vertical
-        fsin
-        fstp z
-    }
+    CamDirectionFromAnglesCpp(vertical, horizontal, &x, &y, &z);
     return {x,y,z};
 }
 }
 // 0x5105C0
 static void CamM16Blend355(float smoothing,float betaInput,float alphaInput,float* betaSpeed,float* alphaSpeed,float* betaAngle,float* alphaAngle) {
     float complement,alphaRounded;
-    __asm {
-        fld dword ptr ds:[00858624h]
-        fsub smoothing
-        fst complement
-        fmul betaInput
-        mov eax,betaSpeed
-        fld smoothing
-        fmul dword ptr [eax]
-        faddp st(1),st
-        fst dword ptr [eax]
-        mov eax,alphaSpeed
-        fld smoothing
-        fmul dword ptr [eax]
-        fld complement
-        fmul alphaInput
-        faddp st(1),st
-        fst alphaRounded
-        fstp dword ptr [eax]
-        fld alphaRounded
-        fxch st(1)
-        mov eax,betaAngle
-        fadd dword ptr [eax]
-        fstp dword ptr [eax]
-        mov eax,alphaAngle
-        fadd dword ptr [eax]
-        fstp dword ptr [eax]
-    }
+    CamM16BlendCpp(smoothing, &complement, betaInput, CamAddr(betaSpeed), CamAddr(alphaSpeed), alphaInput, &alphaRounded, CamAddr(betaAngle), CamAddr(alphaAngle));
 }
 
 static void CamM16Bump355(float* beta,float* alpha,float* horz,float* vert,uint32 elapsed) {
     const float damping=StaticRef<float>(0x8CC47C),step=CTimer::GetTimeStep();
     const int32 signedElapsed=static_cast<int32>(elapsed);
-    __asm {
-        fild signedElapsed
-        cmp signedElapsed,0
-        jge m16_elapsed_positive355
-        fadd dword ptr ds:[00858C54h]
-    m16_elapsed_positive355:
-        fidiv dword ptr ds:[008CC474h]
-        fmul dword ptr ds:[00858CBCh]
-        fcos
-        fld dword ptr ds:[008CC480h]
-        fmul st,st(1)
-        mov eax,horz
-        fmul dword ptr [eax]
-        mov eax,beta
-        fadd dword ptr [eax]
-        fstp dword ptr [eax]
-        mov eax,vert
-        fmul dword ptr [eax]
-        fmul dword ptr ds:[008CC480h]
-        mov eax,alpha
-        fadd dword ptr [eax]
-        fstp dword ptr [eax]
-        fld damping
-        fld step
-        mov eax,00822130h
-        call eax
-        mov eax,horz
-        fmul dword ptr [eax]
-        fstp dword ptr [eax]
-        fld damping
-        fld step
-        mov eax,00822130h
-        call eax
-        mov eax,vert
-        fmul dword ptr [eax]
-        fstp dword ptr [eax]
-    }
+    CamM16BumpCpp(signedElapsed, CamAddr(horz), CamAddr(beta), CamAddr(vert), CamAddr(alpha), damping, step);
 }
 
 static void CamM16StickInputs355(bool attached,float horizontal,float vertical,float fov,float step,float* beta,float* alpha) {
     float betaResult,alphaResult,horizontalSign=1.f;
-    __asm {
-        fld vertical
-        cmp attached,0
-        je m16_unattached_input355
-        fld horizontal
-        fmul dword ptr ds:[00858B88h]
-        fld fov
-        fmul dword ptr ds:[0085A5C4h]
-        fld st(1)
-        fabs
-        fld st(1)
-        fmul dword ptr ds:[00858CECh]
-        fmulp st(1),st
-        fmul step
-        fmul st,st(2)
-        fstp betaResult
-        fld st(2)
-        fmul dword ptr ds:[00858B88h]
-        fld st(0)
-        fabs
-        fxch st(2)
-        fmul dword ptr ds:[008631C0h]
-        fmulp st(2),st
-        fxch st(1)
-        fmul step
-        fmul st,st(1)
-        fstp alphaResult
-        fstp st(0)
-        fstp st(0)
-        jmp m16_input_cleanup355
-    m16_unattached_input355:
-        fld dword ptr ds:[00858624h]
-        fld horizontal
-        fcomp dword ptr ds:[00858B50h]
-        fnstsw ax
-        test ah,5
-        jp m16_positive_h355
-        mov horizontalSign,0BF800000h
-    m16_positive_h355:
-        fld st(1)
-        fcomp dword ptr ds:[00858B50h]
-        fnstsw ax
-        test ah,5
-        jp m16_positive_v355
-        fstp st(0)
-        fld dword ptr ds:[00858C1Ch]
-    m16_positive_v355:
-        fld fov
-        fmul dword ptr ds:[0085A5C4h]
-        fld horizontal
-        fmul horizontal
-        fmul dword ptr ds:[00858FC4h]
-        fld st(1)
-        fmul dword ptr ds:[00863100h]
-        fmulp st(1),st
-        fmul step
-        fmul horizontalSign
-        fstp betaResult
-        fld st(2)
-        fmul st,st(3)
-        fmul dword ptr ds:[008630FCh]
-        fxch st(1)
-        fmul dword ptr ds:[00859B50h]
-        fmulp st(1),st
-        fmul step
-        fmul st,st(1)
-        fstp alphaResult
-        fstp st(0)
-    m16_input_cleanup355:
-        fstp st(0)
-    }
+    CamM16StickInputsCpp(vertical, attached, horizontal, fov, step, &betaResult, &alphaResult, &horizontalSign);
     *beta=betaResult;*alpha=alphaResult;
 }
 
 static void CamM16MouseAngles355(float horizontal,float vertical,float fov,float* beta,float* alpha) {
     float scale;
-    __asm {
-        fld horizontal
-        fld fov
-        fmul dword ptr ds:[0085A5C4h]
-        fst scale
-        fmul dword ptr ds:[00B6EC1Ch]
-        fmulp st(1),st
-        fld scale
-        fmul dword ptr ds:[00B6EC18h]
-        fmul vertical
-        fxch st(1)
-        mov eax,beta
-        fadd dword ptr [eax]
-        fstp dword ptr [eax]
-        mov eax,alpha
-        fadd dword ptr [eax]
-        fstp dword ptr [eax]
-    }
+    CamM16MouseAnglesCpp(horizontal, fov, &scale, vertical, CamAddr(beta), CamAddr(alpha));
 }
 
 static CVector CamM16SideRay355(float beta,float alpha,bool positive,const CVector& source) {
     float xDirection,yDirection,yProduct,zProduct;
     CVector result;const CVector* origin=&source;CVector* outputVector=&result;
-    __asm {
-        fld beta
-        cmp positive,0
-        je m16_side_negative355
-        fadd dword ptr ds:[008631B8h]
-        jmp m16_side_alpha355
-    m16_side_negative355:
-        fsub dword ptr ds:[008631B8h]
-    m16_side_alpha355:
-        fld alpha
-        fsub dword ptr ds:[008631B4h]
-        fld st(0)
-        fcos
-        fld st(2)
-        fcos
-        fmul st,st(1)
-        fstp xDirection
-        fxch st(2)
-        fsin
-        fmul st,st(2)
-        fstp yDirection
-        fstp st(1)
-        fsin
-        fld xDirection
-        fmul dword ptr ds:[00858B3Ch]
-        fld yDirection
-        fmul dword ptr ds:[00858B3Ch]
-        fstp yProduct
-        fxch st(1)
-        fmul dword ptr ds:[00858B3Ch]
-        fstp zProduct
-        mov eax,origin
-        mov edx,outputVector
-        fadd dword ptr [eax]
-        fstp dword ptr [edx]
-        fld yProduct
-        fadd dword ptr [eax+4]
-        fstp dword ptr [edx+4]
-        fld zProduct
-        fadd dword ptr [eax+8]
-        fstp dword ptr [edx+8]
-    }
+    CamM16SideRayCpp(beta, positive, alpha, &xDirection, &yDirection, &yProduct, &zProduct, CamAddr(origin), CamAddr(outputVector));
     return result;
 }
 
@@ -5771,13 +3360,7 @@ void CCam::Process_M16_1stPerson(const CVector&, float, float, float) {
         float slopeInput=entity->GetMatrix().GetForward().z, heading;
         const float attachedForwardX=-entity->GetMatrix().GetForward().x;
         const float attachedForwardY=entity->GetMatrix().GetForward().y;
-        __asm {
-            fld attachedForwardX
-            fld attachedForwardY
-            fpatan
-            fsub dword ptr ds:[00858FE4h]
-            fstp heading
-        }
+        heading = Atan2MinusCpp(attachedForwardX, attachedForwardY, CamExeFloat(0x858FE4));
         switch (ped->m_fTurretAngleA) {
         case 1: slopeInput=-entity->GetMatrix().GetRight().z; heading=entity->GetHeading(); break;
         case 2: slopeInput=-entity->GetMatrix().GetForward().z; heading=entity->GetHeading()+StaticRef<float>(0x858FE4); break;
@@ -5844,12 +3427,7 @@ void CCam::Process_M16_1stPerson(const CVector&, float, float, float) {
     if (!obstruction && mode==46) RwCameraSetNearClipPlane(Scene.m_pRwCamera,((15.f-std::min(m_fFOV,15.f))*.15f+1.f)*.3f);
     m_vecSource-=m_vecFront*.4f; GetVectorsReadyForRW();
     float headingInputX=-m_vecFront.x, headingInputY=m_vecFront.y, heading;
-    __asm {
-        fld headingInputX
-        fld headingInputY
-        fpatan
-        fstp heading
-    }
+    heading = TrigAtan2Cpp(headingInputX, headingInputY);
     auto* player=StaticRef<CPed*>(0xB6F980);
     player->m_fCurrentRotation=player->m_fAimingRotation=heading;
 }
@@ -5917,24 +3495,7 @@ void CCam::Process_Rocket(const CVector& target, float orientation, float speedV
         const float verticalAngle   = m_fVerticalAngle;
         const float horizontalAngle = m_fHorizontalAngle;
         float frontX, frontY, frontZ;
-        __asm {
-            fld  dword ptr [verticalAngle]
-            fcos
-            fld  dword ptr [horizontalAngle]
-            fcos
-            fmul st(0), st(1)
-            fchs
-            fstp dword ptr [frontX]
-            fld  dword ptr [horizontalAngle]
-            fsin
-            fmul st(0), st(1)
-            fchs
-            fstp dword ptr [frontY]
-            fstp st(0)
-            fld  dword ptr [verticalAngle]
-            fsin
-            fstp dword ptr [frontZ]
-        }
+        CamRocketFrontCpp(verticalAngle, horizontalAngle, &frontX, &frontY, &frontZ);
         m_vecFront = CVector{ frontX, frontY, frontZ };
         GetVectorsReadyForRW();
 
@@ -5945,14 +3506,7 @@ void CCam::Process_Rocket(const CVector& target, float orientation, float speedV
         {
             const float atanX = m_vecFront.x, atanY = m_vecFront.y, halfPi = CamExeFloat(0x858FE4);
             const auto atanFn = &CGeneral::GetATanOfXY;
-            __asm {
-                push dword ptr [atanY]
-                push dword ptr [atanX]
-                call dword ptr [atanFn]
-                add  esp, 8
-                fsub dword ptr [halfPi]
-                fstp dword ptr [heading]
-            }
+            CamRocketHeadingCpp(atanY, atanX, CamAddr(atanFn), halfPi, &heading);
         }
         auto* cameraTargetPed = StaticRef<CPed*>(0xB6F980);
         cameraTargetPed->m_fCurrentRotation = heading;
@@ -6071,11 +3625,7 @@ void CCam::Process_SpecialFixedForSyphon(const CVector& target, float, float, fl
     if(!info||(info->flags.bAimWithArm&&!ped->bIsDucking)||info->m_nWeaponFire==WEAPON_FIRE_MELEE)return;
     const auto delta=ped->m_pTargetedObject->GetPosition()-ped->GetPosition();
     const float negativeX=-delta.x,deltaY=delta.y;float angle;
-    __asm { fld negativeX
-        fld deltaY
-        fpatan
-        fstp angle
-    }
+    angle = TrigAtan2Cpp(negativeX, deltaY);
     ped->m_fCurrentRotation=angle;ped->m_fAimingRotation=angle;ped->SetHeading(angle);ped->UpdateRwMatrix();
 }
 
@@ -6088,41 +3638,7 @@ static CVector WheelCameraUp(const CVector& side, const CVector& vertical, uint3
     const float sx = side.x, sy = side.y, sz = side.z;
     const float ux = vertical.x, uy = vertical.y, uz = vertical.z;
     float lateralX, lateralY, verticalY, verticalZ, outputX, outputY, outputZ;
-    __asm {
-        fild phase
-        fmul angleScale
-        fcos
-        fmul amount
-        fld st(0)
-        fsin
-        fld sx
-        fmul st, st(1)
-        fstp lateralX
-        fld sy
-        fmul st, st(1)
-        fstp lateralY
-        fmul sz
-        fxch st(1)
-        fcos
-        fld ux
-        fmul st, st(1)
-        fld uy
-        fmul st, st(2)
-        fstp verticalY
-        fld uz
-        fmul st, st(2)
-        fstp verticalZ
-        fadd lateralX
-        fstp outputX
-        fstp st(0)
-        fld verticalY
-        fadd lateralY
-        fstp outputY
-        fld verticalZ
-        fadd st, st(1)
-        fstp outputZ
-        fstp st(0)
-    }
+    CamWheelUpCpp(phase, angleScale, amount, sx, &lateralX, sy, &lateralY, sz, ux, uy, &verticalY, uz, &verticalZ, &outputX, &outputY, &outputZ);
     return CVector{outputX, outputY, outputZ};
 }
 
@@ -6311,370 +3827,31 @@ bool IsLampPost(eModelID modelId) {
     );
 }
 
-// Actual EXE CRT conversion library (ST0 input).
-static uintptr_t CameraPathFtolLibrary=0x821B40;
-
-// 0x5b2090: exact native spline arithmetic and index writes.
-__declspec(naked) void CameraPathInterpolateVector(CVector*,const float*,float,int32*) {
-    __asm {
-    sub esp,34h
-    push esi
-    mov esi,dword ptr [esp+40h]
-    fld dword ptr [esi]
-    push edi
-    call dword ptr [CameraPathFtolLibrary]
-    mov edi,dword ptr [esp+4Ch]
-    mov edx,dword ptr [edi]
-    fld dword ptr [esi+edx*4]
-    mov ecx,eax
-    fsub dword ptr [esi+edx*4-28h]
-    lea eax,[ecx+ecx*4]
-    fmul dword ptr ds:[00858C4Ch]
-    fld dword ptr [esi+eax*8-24h]
-    fmul dword ptr ds:[00858C4Ch]
-    fstp dword ptr [esp+44h]
-    fld dword ptr [esp+48h]
-    fcomp dword ptr [esp+44h]
-    fnstsw ax
-    test ah,5
-    jp L005B2128
-    dec edx
-    mov eax,0CCCCCCCDh
-    mul edx
-    shr edx,3
-    cmp edx,ecx
-    push ebx
-    mov bl,1
-    jbe L005B20F3
-    lea edx,[ecx+ecx*4-5]
-    lea eax,[edx+edx+1]
-    xor bl,bl
-    mov dword ptr [edi],eax
-    L005B20F3: fcom dword ptr ds:[008D0F80h]
-    fnstsw ax
-    test ah,41h
-    jp L005B2127
-    cmp bl,1
-    jne L005B2127
-    mov eax,dword ptr [edi]
-    add eax,0Ah
-    mov dword ptr [edi],eax
-    lea edx,[eax-1]
-    mov eax,0CCCCCCCDh
-    mul edx
-    shr edx,3
-    cmp edx,ecx
-    jbe L005B2127
-    lea eax,[ecx+ecx*4-5]
-    lea ecx,[eax+eax+1]
-    mov dword ptr [edi],ecx
-    L005B2127: pop ebx
-    L005B2128: mov ecx,dword ptr [edi]
-    fld dword ptr [esi+ecx*4-28h]
-    fmul dword ptr ds:[00858C4Ch]
-    fsubr dword ptr [esp+48h]
-    fdivrp st(1),st
-    fcom dword ptr ds:[00858624h]
-    fnstsw ax
-    test ah,41h
-    jne L005B2151
-    fstp st(0)
-    fld dword ptr ds:[00858624h]
-    jmp L005B2166
-    L005B2151: fcom dword ptr ds:[00858B50h]
-    fnstsw ax
-    test ah,5
-    jp L005B2166
-    fstp st(0)
-    fld dword ptr ds:[00858B50h]
-    L005B2166: fld dword ptr [esp+48h]
-    fcomp dword ptr [esp+44h]
-    fnstsw ax
-    test ah,41h
-    jne L005B217D
-    fstp st(0)
-    fld dword ptr ds:[00858624h]
-    L005B217D: fld dword ptr [esi+ecx*4-24h]
-    pop edi
-    fstp dword ptr [esp+8]
-    fld dword ptr [esi+ecx*4-20h]
-    fstp dword ptr [esp+0Ch]
-    fld dword ptr [esi+ecx*4-1Ch]
-    fstp dword ptr [esp+10h]
-    fld dword ptr [esi+ecx*4+4]
-    fstp dword ptr [esp+14h]
-    fld dword ptr [esi+ecx*4+8]
-    fstp dword ptr [esp+18h]
-    fld dword ptr [esi+ecx*4+0Ch]
-    fstp dword ptr [esp+1Ch]
-    fld dword ptr [esi+ecx*4-0Ch]
-    fst dword ptr [esp+20h]
-    fld dword ptr [esi+ecx*4-8]
-    fstp dword ptr [esp+24h]
-    fld dword ptr [esi+ecx*4-4]
-    fstp dword ptr [esp+28h]
-    fld dword ptr [esi+ecx*4+10h]
-    fstp dword ptr [esp+2Ch]
-    fld dword ptr [esi+ecx*4+14h]
-    fstp dword ptr [esp+30h]
-    fld dword ptr [esi+ecx*4+18h]
-    pop esi
-    fstp dword ptr [esp+30h]
-    fcomp dword ptr [esp+4]
-    fnstsw ax
-    test ah,44h
-    jp L005B220C
-    fld dword ptr [esp+20h]
-    fcomp dword ptr [esp+8]
-    fnstsw ax
-    test ah,44h
-    jp L005B220C
-    fld dword ptr [esp+24h]
-    fcomp dword ptr [esp+0Ch]
-    fnstsw ax
-    test ah,44h
-    jnp L005B22C4
-    L005B220C: fld st(0)
-    mov eax,dword ptr [esp+38h]
-    fmul st,st(1)
-    fld st(0)
-    fmul st,st(2)
-    fstp dword ptr [esp+3Ch]
-    fld dword ptr ds:[00858624h]
-    fsub st,st(2)
-    fld st(0)
-    fmul st,st(1)
-    fst dword ptr [esp]
-    fmul st,st(1)
-    fstp dword ptr [esp+44h]
-    fmul st,st(1)
-    fstp dword ptr [esp+40h]
-    fstp st(0)
-    fmul dword ptr [esp]
-    fld dword ptr [esp+40h]
-    fmul dword ptr [esp+28h]
-    fld st(1)
-    fmul dword ptr [esp+1Ch]
-    faddp st(1),st
-    fmul dword ptr ds:[00858B3Ch]
-    fld dword ptr [esp+3Ch]
-    fmul dword ptr [esp+10h]
-    faddp st(1),st
-    fld dword ptr [esp+44h]
-    fmul dword ptr [esp+4]
-    faddp st(1),st
-    fstp dword ptr [eax]
-    fld dword ptr [esp+40h]
-    fmul dword ptr [esp+2Ch]
-    fld st(1)
-    fmul dword ptr [esp+20h]
-    faddp st(1),st
-    fmul dword ptr ds:[00858B3Ch]
-    fld dword ptr [esp+3Ch]
-    fmul dword ptr [esp+14h]
-    faddp st(1),st
-    fld dword ptr [esp+44h]
-    fmul dword ptr [esp+8]
-    faddp st(1),st
-    fstp dword ptr [eax+4]
-    fmul dword ptr [esp+24h]
-    fld dword ptr [esp+40h]
-    fmul dword ptr [esp+30h]
-    faddp st(1),st
-    fmul dword ptr ds:[00858B3Ch]
-    fld dword ptr [esp+3Ch]
-    fmul dword ptr [esp+18h]
-    faddp st(1),st
-    fld dword ptr [esp+44h]
-    fmul dword ptr [esp+0Ch]
-    faddp st(1),st
-    fstp dword ptr [eax+8]
-    jmp L005B22FC
-    L005B22C4: fld dword ptr [esp+10h]
-    mov eax,dword ptr [esp+38h]
-    fsub dword ptr [esp+4]
-    fmul st,st(1)
-    fadd dword ptr [esp+4]
-    fstp dword ptr [eax]
-    fld dword ptr [esp+14h]
-    fsub dword ptr [esp+8]
-    fmul st,st(1)
-    fadd dword ptr [esp+8]
-    fstp dword ptr [eax+4]
-    fld dword ptr [esp+18h]
-    fsub dword ptr [esp+0Ch]
-    fmul st,st(1)
-    fadd dword ptr [esp+0Ch]
-    fstp dword ptr [eax+8]
-    fstp st(0)
-    L005B22FC: fld dword ptr ds:[00B6F8ACh]
-    fadd dword ptr [eax]
-    fstp dword ptr [eax]
-    fld dword ptr ds:[00B6F8B0h]
-    fadd dword ptr [eax+4]
-    fstp dword ptr [eax+4]
-    fld dword ptr ds:[00B6F8B4h]
-    fadd dword ptr [eax+8]
-    fstp dword ptr [eax+8]
-    add esp,34h
-    ret
-    }
+// 0x5B2090: spline de la ruta de camara. La aritmetica x87 del EXE (incluida la conversion _ftol2 del indice y la pila de
+// 0x34 bytes) vive en CamPathInterpolateVectorCpp (X87Math.cpp); los argumentos cdecl llegan como palabras de 32 bits.
+void CameraPathInterpolateVector(CVector* out, const float* knots, float t, int32* index) {
+    CamPathInterpolateVectorCpp(CamAddr(out), CamAddr(knots), std::bit_cast<uint32>(t), CamAddr(index));
 }
 
-// 0x5b2330: exact native spline arithmetic and index writes.
-__declspec(naked) void CameraPathInterpolateScalar(float*,const float*,float,int32*) {
-    __asm {
-    push ebx
-    push esi
-    mov esi,dword ptr [esp+10h]
-    fld dword ptr [esi]
-    push edi
-    call dword ptr [CameraPathFtolLibrary]
-    mov edx,dword ptr [esp+1Ch]
-    mov edi,dword ptr [edx]
-    fld dword ptr [esi+edi*4]
-    mov ecx,eax
-    fsub dword ptr [esi+edi*4-10h]
-    shl eax,4
-    fmul dword ptr ds:[00858C4Ch]
-    fld dword ptr [eax+esi-0Ch]
-    fmul dword ptr ds:[00858C4Ch]
-    fstp dword ptr [esp+14h]
-    fld dword ptr [esp+18h]
-    fcomp dword ptr [esp+14h]
-    fnstsw ax
-    test ah,5
-    jp L005B23B4
-    dec edi
-    shr edi,2
-    cmp edi,ecx
-    mov bl,1
-    jbe L005B2388
-    lea eax,[ecx*4+0FFFFFFFDh]
-    xor bl,bl
-    mov dword ptr [edx],eax
-    L005B2388: fcomp dword ptr ds:[008D0F80h]
-    fnstsw ax
-    test ah,41h
-    jp L005B23B6
-    cmp bl,1
-    jne L005B23B6
-    mov eax,dword ptr [edx]
-    add eax,4
-    mov dword ptr [edx],eax
-    dec eax
-    shr eax,2
-    cmp eax,ecx
-    jbe L005B23B6
-    lea ecx,[ecx*4+0FFFFFFFDh]
-    mov dword ptr [edx],ecx
-    jmp L005B23B6
-    L005B23B4: fstp st(0)
-    L005B23B6: mov ecx,dword ptr [edx]
-    fld dword ptr [esi+ecx*4-10h]
-    fmul dword ptr ds:[00858C4Ch]
-    fsubr dword ptr [esp+18h]
-    fld dword ptr [esi+ecx*4]
-    fsub dword ptr [esi+ecx*4-10h]
-    fmul dword ptr ds:[00858C4Ch]
-    fdivp st(1),st
-    fcom dword ptr ds:[00858624h]
-    fnstsw ax
-    test ah,41h
-    jne L005B23EC
-    fstp st(0)
-    fld dword ptr ds:[00858624h]
-    jmp L005B2401
-    L005B23EC: fcom dword ptr ds:[00858B50h]
-    fnstsw ax
-    test ah,5
-    jp L005B2401
-    fstp st(0)
-    fld dword ptr ds:[00858B50h]
-    L005B2401: fld dword ptr [esp+18h]
-    fcomp dword ptr [esp+14h]
-    fnstsw ax
-    test ah,41h
-    jne L005B2418
-    fstp st(0)
-    fld dword ptr ds:[00858624h]
-    L005B2418: fld dword ptr ds:[00858624h]
-    fsub st,st(1)
-    fld st(0)
-    fmul st,st(1)
-    fld st(0)
-    fmul st,st(2)
-    fld dword ptr [esi+ecx*4-4]
-    fld dword ptr [esi+ecx*4+8]
-    fld st(1)
-    fcomp dword ptr [esi+ecx*4-0Ch]
-    fnstsw ax
-    test ah,44h
-    jnp L005B2477
-    fld dword ptr [esi+ecx*4+4]
-    mov edx,dword ptr [esp+10h]
-    fmul st,st(6)
-    fxch st(1)
-    pop edi
-    fmul st,st(5)
-    fmul dword ptr ds:[00858B3Ch]
-    faddp st(1),st
-    fmul st,st(5)
-    fxch st(1)
-    fmul st,st(3)
-    fmul dword ptr ds:[00858B3Ch]
-    faddp st(1),st
-    fmul st,st(4)
-    fxch st(1)
-    fmul dword ptr [esi+ecx*4-0Ch]
-    pop esi
-    pop ebx
-    faddp st(1),st
-    fstp dword ptr [edx]
-    fstp st(0)
-    fstp st(0)
-    fstp st(0)
-    ret
-    L005B2477: fstp st(0)
-    mov eax,dword ptr [esp+10h]
-    fstp st(0)
-    pop edi
-    fstp st(0)
-    fstp st(0)
-    fstp st(0)
-    fld dword ptr [esi+ecx*4+4]
-    fsub dword ptr [esi+ecx*4-0Ch]
-    fmul st,st(1)
-    fadd dword ptr [esi+ecx*4-0Ch]
-    pop esi
-    pop ebx
-    fstp dword ptr [eax]
-    fstp st(0)
-    ret
-    }
+// 0x5B2330: igual para un escalar (cuatro floats por nodo).
+void CameraPathInterpolateScalar(float* out, const float* knots, float t, int32* index) {
+    CamPathInterpolateScalarCpp(CamAddr(out), CamAddr(knots), std::bit_cast<uint32>(t), CamAddr(index));
 }
 
-static uintptr_t CameraBoatHandlingBody=std::bit_cast<uintptr_t>(&cHandlingDataMgr::GetBoatPointer);
-// 0x509CA0: real target/model metadata and handling row; RET4 exact.
-__declspec(naked) bool CCam::GetBoatHeightForFirstPerson(float*) {
-    __asm {
-    mov eax,dword ptr [ecx+0000021Ch]
-    test eax,eax
-    je L00509CD6
-    movsx eax,word ptr [eax+22h]
-    mov ecx,dword ptr [eax*4+00A9B0C8h]
-    movsx eax,word ptr [ecx+4Ah]
-    push eax
-    mov ecx,0C2B9C8h
-    call dword ptr [CameraBoatHandlingBody]
-    test eax,eax
-    je L00509CD6
-    mov edx,dword ptr [eax+20h]
-    mov eax,dword ptr [esp+4]
-    mov dword ptr [eax],edx
-    mov al,1
-    ret 4
-    L00509CD6: xor al,al
-    ret 4
+// 0x509CA0: altura de la camara en primera persona sobre una barca. Como el original: datos del modelo del objetivo de la camara
+// (word en +0x22 del objetivo, tabla de modelos 0xA9B0C8, id de manejo = word en +0x4A), cHandlingDataMgr::GetBoatPointer y copia
+// de los 32 bits de +0x20 (mov, no fld/fstp: conserva el patron de bits). El EXE solo devuelve AL (ret 4, thiscall).
+bool CCam::GetBoatHeightForFirstPerson(float* height) {
+    auto* const target = m_pCamTargetEntity;
+    if (!target) {
+        return false;
     }
+    auto* const modelInfo = CModelInfo::GetModelInfo(int32(int16(target->m_nModelIndex)));
+    const auto handlingId = static_cast<uint8>(*reinterpret_cast<const int16*>(reinterpret_cast<const uint8*>(modelInfo) + 0x4A));
+    auto* const boat = gHandlingDataMgr.GetBoatPointer(handlingId);
+    if (!boat) {
+        return false;
+    }
+    *reinterpret_cast<uint32*>(height) = *reinterpret_cast<const uint32*>(reinterpret_cast<const uint8*>(boat) + 0x20);
+    return true;
 }

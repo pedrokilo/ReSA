@@ -107,8 +107,8 @@ inline void FillTargets() {
         {"psInstallFileSystem",0x745520,Addr(&psInstallFileSystem),V(&XInstallFS)},
         {"psNativeTextureSupport",0x745530,Addr(&psNativeTextureSupport),V(&XNativeTex)},
         {"AppEventHandler",0x53EC10,Addr(&AppEventHandler),V(&XApp)},
-        // envoltorios de la DLL que llaman al EXE: solo la direccion del EXE
-        {"psGetMemoryFunctions",0x745510,0,V(&XMemFuncs)},
+        // RwEngine*/RwTexture* son envoltorios de la DLL que llaman al EXE: solo la direccion del EXE
+        {"psGetMemoryFunctions",0x745510,Addr(&psGetMemoryFunctions),V(&XMemFuncs)}, // ahora C++ puro: RsRwInitialize lo llama directo, necesita EntryPatch en la entrada de la DLL
         {"RwEngineInit",0x7F3170,0,V(&XEngInit)},
         {"RwEngineOpen",0x7F2F70,0,V(&XEngOpen)},
         {"RwEngineStart",0x7F2E70,0,V(&XEngStart)},
@@ -144,16 +144,17 @@ struct AllPatches {
 };
 
 // Llamada con el argumento en eax (rsCommandLine / rsPreInitCommandLine); devuelve eax y edx tras la llamada
-inline uint32 CallEax(uintptr_t target,uint32 value,uint32& edxAfter) {
-    uint32 r{}, e{};
+inline uint32 CallEax(uintptr_t target,uint32 value,uint32& edxAfter,uint32& ecxAfter) {
+    uint32 r{}, e{}, c{};
     __asm {
         mov eax, value
         mov edx, 5A5A1234h
         call target
         mov r, eax
         mov e, edx
+        mov c, ecx
     }
-    edxAfter=e; return r;
+    edxAfter=e; ecxAfter=c; return r;
 }
 
 inline ReversibleHooks::ReversibleHook::Base* FindHook(const char* cls,const char* fn) {
@@ -250,16 +251,16 @@ inline void Update() {
                         AllPatches ap; ret=reinterpret_cast<int32(__cdecl*)(int32,void*)>(a)(type,h);
                     }
                     else if(nm=="rsCommandLine") {
-                        void* p=anyPtr(); uint32 edx{};
-                        { AllPatches ap; ret=CallEax(a,U(p),edx); } // el EXE no conserva edx aqui
+                        void* p=anyPtr(); uint32 edx{}, ecx{};
+                        { AllPatches ap; ret=CallEax(a,U(p),edx,ecx); } // el EXE no conserva edx aqui
                     }
                     else if(nm=="rsPreInitCommandLine") {
                         static const char* const fixed[]{"-vms","-vm","-vmsx","","-VMS","-v","x-vms","-vms ","-vms","-vms"};
                         const char* s=next()%4 ? fixed[next()%10] : randStr(cmd,"-vms");
                         if(s!=cmd.data()){ std::strcpy(cmd.data(),s); }
-                        uint32 edx{};
-                        { AllPatches ap; ret=CallEax(a,U(cmd.data()),edx); }
-                        out["edx"]=edx; out["arg"]=std::string(cmd.data());
+                        uint32 edx{}, ecx{};
+                        { AllPatches ap; ret=CallEax(a,U(cmd.data()),edx,ecx); }
+                        out["edx"]=edx; out["ecx"]=ecx; out["arg"]=std::string(cmd.data());
                     }
                     else if(nm=="RsKeyboardEventHandler"||nm=="RsMouseEventHandler"||nm=="RsPadEventHandler") {
                         const int32 e=pick({28,29,5,6,7,31,32,33,0,int32(next()%40)}); void* p=anyPtr();

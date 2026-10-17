@@ -44,7 +44,6 @@ inline void Update(){
         EntryPatch e(0x4F9710,Bicycle),ed(bit_cast<uintptr_t>(&CAEVehicleAudioEntity::PlayBicycleSound),Bicycle);
         EntryPatch f(0x4FAD40,Generic),fd(bit_cast<uintptr_t>(&CAEVehicleAudioEntity::UpdateGenericVehicleSound),Generic);
         EntryPatch g(0x4F60B0,Tyre),gd(bit_cast<uintptr_t>(&CAEVehicleAudioEntity::GetBaseVolumeForBicycleTyre),Tyre);
-        EntryPatch h(0x4D9E50,Log10),hd(bit_cast<uintptr_t>(&CAEAudioUtility::AudioLog10),Log10);
         EntryPatch j(0x540080,Brake),jd(bit_cast<uintptr_t>(&CPad::GetBrake),Brake);
         EntryPatch k(0x5403F0,Accel),kd(bit_cast<uintptr_t>(&CPad::GetAccelerate),Accel);
         EntryPatch l(0x59C910,Normalise),ld(bit_cast<uintptr_t>(&CVector::Normalise),Normalise);
@@ -55,6 +54,11 @@ inline void Update(){
                     *reinterpret_cast<float*>(transmission.data()+0x58)=3.f;*reinterpret_cast<uintptr_t*>(vehicle.data()+0x14)=uintptr_t(matrix.data());*reinterpret_cast<uint16*>(vehicle.data()+0x22)=std::array<uint16,5>{519,520,577,592,400}[i%5];vehicle[0x36]=uint8((i/5)%2?0:8);vehicle[0x428]=uint8(i%7?0x10:0);vehicle[0x804]=uint8(i%5);vehicle[0x834]=uint8((i/9)%2);*reinterpret_cast<float*>(vehicle.data()+0x648)=float(i%11-5)*.25f;*reinterpret_cast<float*>(vehicle.data()+0x818)=i%2?6.f:0.f;*reinterpret_cast<float*>(vehicle.data()+0x820)=i%3?-.5f:.5f;*reinterpret_cast<float*>(vehicle.data()+0x988)=float(i%31-15)*.125f;*reinterpret_cast<float*>(vehicle.data()+0x9C4)=float(i%9-2)*.1f;
                     const float axis=float(i%9-4)*.125f;*reinterpret_cast<CVector*>(matrix.data())=CVector{1.f,0.f,axis};*reinterpret_cast<CVector*>(matrix.data()+0x10)=CVector{0.f,1.f,-axis};*reinterpret_cast<CVector*>(matrix.data()+0x30)=CVector{1.f+float(i%3),2.f,3.f};
                     for(int s=0;s<10;++s)*reinterpret_cast<int16*>(0xB6B9A0+s*4)=int16((i/5)%2?int(self->m_DummyEngineBank):-1);
+                    if(n<2&&i>=768){const uint32 sp[]={0x7FC00000u,0xFFC12345u,0x80000000u,0u,0x7149F2CAu,0xF149F2CAu,0x7F7FFFFFu,0x7F800000u,0xFF800000u,0x3F400000u,0x40400000u,0x40400001u};
+                        const uint32 mv[]={0x40400000u,0u,0x80000000u,0x7FC00000u,1u,0x7149F2CAu};
+                        const uint32 an[]={0x7FC00000u,0xFFC00001u,0x80000000u,1u,0x80000001u,0x3FC90FDBu,0xBFC90FDBu,0x5149F2CAu,0x2EDBE6FFu};
+                        const uint32 k=uint32(i-768),s0=sp[k%12],m0=mv[(k/12)%6],g0=an[(k/7)%9];
+                        memcpy(&vp->Speed,&s0,4);memcpy(transmission.data()+0x58,&m0,4);memcpy(vehicle.data()+0x648,&g0,4);}
                     StaticRef<float>(0xB6BA6C)=.5f;StaticRef<float>(0xB6BA70)=.75f;StaticRef<float>(0xB6BA90)=3.f;StaticRef<float>(0xB6BA94)=.5f;StaticRef<float>(0xB6B9F4)=2.f;StaticRef<float>(0xB6B9F8)=3.f;StaticRef<float>(0xB6B9FC)=4.f;StaticRef<uint8>(0xB6BAC8)=uint8(i%2);StaticRef<uint8>(0xB6BAC9)=uint8(i%2);StaticRef<float>(0xB6BACC)=i%4?0.f:2.f;StaticRef<float>(0xB6BAD0)=.5f;
                     hooks[n]->State(candidate);if(ReversingProbe::JumpsToDll(fn.address)!=candidate)return json{{"switch",false}};
                     if(n==2)reinterpret_cast<void(__thiscall*)(void*,bool,CAEVehicleAudioEntity::tVehicleParams&,float,float,float,float,float)>(fn.address)(self,i%11!=0,*vp,float(i%9)*.125f,i%3==0?.5f:0.f,i%7==0?.5f:0.f,-float(i%4),.75f+float(i%3)*.125f);

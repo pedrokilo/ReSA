@@ -26,6 +26,7 @@ END GENERATED HOOK STATUS */
 
 #include "Radar.h"
 #include "EntryExitManager.h"
+#include "X87Math.h"
 
 namespace {
 // Constantes float leidas del EXE (algunas no son el float mas cercano al literal decimal).
@@ -38,6 +39,8 @@ inline float RadarStretchBaseX() { return (float)RsGlobal.maximumWidth * RadarEx
 inline float RadarStretchBaseY() { return (float)RsGlobal.maximumHeight * RadarExeFloat(0x859524); }
 // _ftol2 (0x821B40): truncamiento a 64 bits; las funciones usan solo la parte baja.
 inline int32 RadarFtol(float v) { return (int32)(int64)v; }
+// Envoltura de hook de 0x583480 (definida junto al cuerpo): conserva EDX y deja EAX = entrada, ECX = salida como el EXE.
+CVector2D* __cdecl RadarTransformScreenExe(CVector2D* out, const CVector2D* in);
 }
 
 constexpr std::array<airstrip_info, NUM_AIRSTRIPS> airstrip_table = { // 0x8D06E0
@@ -137,7 +140,7 @@ void CRadar::InjectHooks() {
     RH_ScopedInstall(SetMapCentreToPlayerCoords, 0x585B20);
     RH_ScopedInstall(InitFrontEndMap, 0x585960);
     RH_ScopedInstall(CalculateBlipAlpha, 0x583420);
-    RH_ScopedInstall(TransformRadarPointToScreenSpace, 0x583480);
+    RH_ScopedNamedGlobalInstall(RadarTransformScreenExe, "TransformRadarPointToScreenSpace", 0x583480); // Como el original: EDX conservado, EAX/ECX de salida
     RH_ScopedInstall(TransformRealWorldPointToRadarSpace, 0x583530);
     RH_ScopedInstall(CalculateCachedSinCos, 0x583670);
     RH_ScopedInstall(SetBlipSprite, 0x583D70);
@@ -434,8 +437,9 @@ uint8 CRadar::CalculateBlipAlpha(float distance) {
     return (uint8)(int64)alpha;
 }
 
-// Como el original (0x583480): preserva EDX (solo toca EAX/ECX); DrawRadarSection/DrawAreaOnRadar/DrawRadarMask del EXE lo usan como contador de bucle.
-// El cuerpo real esta en TransformRadarPointToScreenSpaceImpl; este envoltorio guarda y restaura EDX y devuelve el puntero de salida en EAX.
+// Como el original (0x583480): solo toca EAX y ECX (EAX = puntero de entrada, ECX = puntero de salida) y conserva EDX; DrawRadarSection/DrawAreaOnRadar/
+// DrawRadarMask y los llamadores 0x575203, 0x57770B.. del EXE lo usan como contador de bucle. El cuerpo esta en TransformRadarPointToScreenSpaceImpl; el hook del EXE
+// (RadarTransformScreenExe) reproduce los registros con CarEnterExitEntryEdxCpp/ResidueRegsCpp y el metodo de la clase (llamado desde la DLL) no los modela.
 static void __cdecl TransformRadarPointToScreenSpaceImpl(CVector2D* out, const CVector2D* in) {
     if (FrontEndMenuManager.m_bDrawingMap) {
         // 0x583491..0x5834B3: zoom * in.x + origen.x ; origen.y - zoom * in.y
@@ -457,17 +461,22 @@ static void __cdecl TransformRadarPointToScreenSpaceImpl(CVector2D* out, const C
     out->y = base - (s76 * in->y) * RadarExeFloat(0x858B8C);
 }
 
-__declspec(naked) CVector2D CRadar::TransformRadarPointToScreenSpace(const CVector2D& in) {
-    __asm {
-        push edx
-        push dword ptr [esp+0Ch]     // in
-        push dword ptr [esp+0Ch]     // out (puntero de retorno oculto)
-        call TransformRadarPointToScreenSpaceImpl
-        add  esp, 8
-        pop  edx
-        mov  eax, dword ptr [esp+4]
-        ret
-    }
+namespace {
+// Lo primero: ninguna instruccion anterior escribe EDX (lo vigila contrib/audit_register_residue.py, objeto Radar). /RTC1 y la cookie de /GS pisarian ECX/EDX.
+#pragma runtime_checks("", off)
+__declspec(safebuffers) CVector2D* __cdecl RadarTransformScreenExe(CVector2D* out, const CVector2D* in) {
+    const uint32 entryEdx = uint32(CarEnterExitEntryEdxCpp() >> 32);
+    TransformRadarPointToScreenSpaceImpl(out, in);
+    // 0x583480 sale con ECX = out ([esp+4]), EAX = in ([esp+8]) y EDX intacto
+    return reinterpret_cast<CVector2D*>(ResidueRegsCpp(uint32(reinterpret_cast<uintptr_t>(out)), entryEdx, uint32(reinterpret_cast<uintptr_t>(in))));
+}
+#pragma runtime_checks("", restore)
+}
+
+CVector2D CRadar::TransformRadarPointToScreenSpace(const CVector2D& in) {
+    CVector2D out;
+    TransformRadarPointToScreenSpaceImpl(&out, &in);
+    return out;
 }
 
 /*!
@@ -519,35 +528,15 @@ void CRadar::CalculateCachedSinCos() {
     }
 
     // Como el original: el angulo sale de fpatan (precision completa) y fsin/fcos se calculan SOBRE ese valor sin redondear a float;
-    // solo m_fRadarOrientation (fst dword) se redondea. Se replica con x87 en linea.
-    float orientation = 0.0f, sinValue = 0.0f, cosValue = 0.0f;
-
+    // solo m_fRadarOrientation (fst dword) se redondea. Los ayudantes x87 de X87Math reproducen la secuencia y guardan los tres floats.
     if (TheCamera.GetLookDirection() == LOOKING_DIRECTION_FORWARD) {
         // 0x5837E0..0x583813: TheCamera.m_matrix ? atan2(-forward.x, forward.y) : TheCamera.m_placement.m_fHeading
         const float* forward = TheCamera.m_matrix ? &TheCamera.m_matrix->GetForward().x : nullptr;
-        const float  heading = TheCamera.m_placement.m_fHeading;
-        __asm {
-            mov  eax, forward
-            test eax, eax
-            je   noMatrix
-            fld  dword ptr [eax]
-            fchs
-            fld  dword ptr [eax+4]
-            fpatan
-            jmp  haveAngle
-        noMatrix:
-            fld  heading
-        haveAngle:
-            fst  orientation
-            fld  st(0)
-            fsin
-            fstp sinValue
-            fcos
-            fstp cosValue
+        if (forward) {
+            RadarSinCosFromAtan2Cpp(forward[0], forward[1], &m_fRadarOrientation, &cachedSin, &cachedCos);
+        } else {
+            RadarSinCosFromAngleCpp(TheCamera.m_placement.m_fHeading, &m_fRadarOrientation, &cachedSin, &cachedCos);
         }
-        m_fRadarOrientation = orientation;
-        cachedSin = sinValue;
-        cachedCos = cosValue;
 
         return;
     }
@@ -573,23 +562,8 @@ void CRadar::CalculateCachedSinCos() {
         directionToTarget = ForwardOfTarget();
     }
 
-    const float dirX = directionToTarget.x, dirY = directionToTarget.y;
-    __asm {
-        fld  dirX
-        fchs
-        fld  dirY
-        fpatan
-        fld  st(0)
-        fsin
-        fstp sinValue
-        fld  st(0)
-        fcos
-        fstp cosValue
-        fstp orientation
-    }
-    m_fRadarOrientation = orientation;
-    cachedSin = sinValue;
-    cachedCos = cosValue;
+    // 0x5837B5..0x5837D6: fld x; fchs; fld y; fpatan; fsin/fcos sobre el mismo valor sin redondear
+    RadarSinCosFromAtan2Cpp(directionToTarget.x, directionToTarget.y, &m_fRadarOrientation, &cachedSin, &cachedCos);
 }
 
 /*!
@@ -1099,38 +1073,9 @@ void CRadar::DrawRotatingRadarSprite(CSprite2d& sprite, float x, float y, float 
 
     // Como el original (0x584896..0x584916): angulo = (i * 1.5707964 [0x858FE4]) + (angulo - 0.7853982 [0x859AB0]) redondeado a float; sin/cos x87 sin
     // redondear; x = (0.0 [0x858B50] * cos + sin) * ancho + x ; y = (cos - 0.0 * sin) * alto + y. width/height se leen como enteros sin signo (fild + fadd 2^32).
-    const float widthF  = (float)width;
-    const float heightF = (float)height;
-    const float start   = angle - RadarExeFloat(0x859AB0);
-    const float halfPi  = RadarExeFloat(0x858FE4);
-    const float zero    = RadarExeFloat(0x858B50);
+    // width/height se pasan como enteros (el ayudante reproduce fild + fadd 2^32 sin redondear antes de multiplicar).
     CVector2D verts[4];
-    for (auto i = 0u; i < std::size(verts); i++) {
-        const float theta = (float)i * halfPi + start;
-        float vertX = 0.0f, vertY = 0.0f;
-        __asm {
-            fld  theta
-            fld  st(0)
-            fsin
-            fxch st(1)
-            fcos                    // [cos, sin]
-            fld  zero
-            fmul st, st(1)          // 0 * cos
-            fadd st, st(2)          // + sin
-            fmul widthF
-            fadd x
-            fstp vertX              // [cos, sin]
-            fxch st(1)              // [sin, cos]
-            fmul zero
-            fsubr st, st(1)         // cos - 0 * sin
-            fmul heightF
-            fadd y
-            fstp vertY              // [cos]
-            fstp st(0)
-        }
-        verts[i].x = vertX;
-        verts[i].y = vertY;
-    }
+    RadarRotatedSpriteVertsCpp(angle, x, y, width, height, RadarExeFloat(0x859AB0), RadarExeFloat(0x858FE4), RadarExeFloat(0x858B50), &verts[0].x);
 
     sprite.Draw(verts[3].x, verts[3].y, verts[2].x, verts[2].y, verts[0].x, verts[0].y, verts[1].x, verts[1].y, color);
 }
@@ -1158,18 +1103,7 @@ void CRadar::DrawYouAreHereSprite(float x, float y) {
         const float circleAngle = angle + RadarExeFloat(0x858FE4);
         const float radius = RadarExeFloat(0x85F100);
         float offsetX = 0.0f, offsetY = 0.0f;
-        __asm {
-            fld  circleAngle
-            fld  st(0)
-            fsin
-            fmul radius
-            fsubr y
-            fstp offsetY
-            fcos
-            fmul radius
-            fadd x
-            fstp offsetX
-        }
+        RadarYouAreHereOffsetCpp(circleAngle, radius, x, y, &offsetX, &offsetY);
         const float scale25 = RadarExeFloat(0x858FE8);
         DrawRotatingRadarSprite(
             RadarBlipSprites[RADAR_SPRITE_MAP_HERE],
@@ -1309,308 +1243,90 @@ int32 LineRadarBoxCollision(CVector2D& result, const CVector2D& lineStart, const
 }
 
 // 0x585040
-// The bank proves this mutable RH entry resolves to the reconstructed helper.
-static uintptr_t RadarBoxCollisionBody=reinterpret_cast<uintptr_t>(&LineRadarBoxCollision);
+// Recorte del cuadrilatero `in` contra el cuadrado del radar [-1, 1] (transcripcion de 0x585040..0x5853C9; la salida no tiene limite de capacidad).
+int32 CRadar::ClipRadarPoly(CVector2D* out, const CVector2D* in) {
+    constexpr uint32 ONE = 0x3F800000u, MINUS_ONE = 0xBF800000u;
+    // Esquinas del cuadrado en el orden del EXE (0x585054..0x585099: [esp+38h..54h]) precedidas de las dos palabras de pila que lee el EXE con
+    // lastSide == -1 ([esp+30h] = direccion del arreglo `inside` - 1 y [esp+34h] = &out[n]); esa ruta (ningun lado intersecado) lee basura en el EXE.
+    // [esp+30h] es una direccion de pila ABSOLUTA del marco del EXE (0x5851BF..0x5851D2: lea edx,[esp+14h]; dec edx), no la de un local de la DLL (el marco de la DLL
+    // es otro y la salida del EXE la deja en out[]): se reconstruye desde el esp de entrada A (= direccion del retorno): push ebp (ebp = A-4); and esp,-8; sub esp,4Ch;
+    // push ebx/esi/edi => esp = ((A-4) & ~7) - 0x58 e `inside` = esp + 0x14, de modo que [esp+30h] = ((A-4) & ~7) - 0x58 + 0x13.
+    const uint32 exeInsideMinusOne = uint32(((reinterpret_cast<uintptr_t>(_AddressOfReturnAddress()) - 4) & ~uintptr_t(7)) - 0x45);
+    uint32 frame[10] = { 0, 0, ONE, MINUS_ONE, ONE, ONE, MINUS_ONE, ONE, MINUS_ONE, MINUS_ONE };
 
-__declspec(naked) int32 CRadar::ClipRadarPoly(CVector2D*,const CVector2D*) {
-    __asm {
-    push ebp
-    mov ebp,esp
-    and esp,0FFFFFFF8h
-    sub esp,4Ch
-    push ebx
-    mov ebx,dword ptr [ebp+0Ch]
-    fld dword ptr [ebx]
-    push esi
-    fcomp dword ptr ds:[00858C1Ch]
-    push edi
-    xor edi,edi
-    mov dword ptr [esp+10h],edi
-    mov dword ptr [esp+18h],0FFFFFFFFh
-    fnstsw ax
-    mov dword ptr [esp+38h],3F800000h
-    mov dword ptr [esp+3Ch],0BF800000h
-    test ah,5
-    mov dword ptr [esp+40h],3F800000h
-    mov dword ptr [esp+44h],3F800000h
-    mov dword ptr [esp+48h],0BF800000h
-    mov dword ptr [esp+4Ch],3F800000h
-    mov dword ptr [esp+50h],0BF800000h
-    mov dword ptr [esp+54h],0BF800000h
-    jnp L005850DF
-    fld dword ptr [ebx]
-    fcomp dword ptr ds:[00858624h]
-    fnstsw ax
-    test ah,41h
-    je L005850DF
-    fld dword ptr [ebx+4]
-    fcomp dword ptr ds:[00858C1Ch]
-    fnstsw ax
-    test ah,5
-    jnp L005850DF
-    fld dword ptr [ebx+4]
-    fcomp dword ptr ds:[00858624h]
-    fnstsw ax
-    test ah,41h
-    je L005850DF
-    mov al,1
-    jmp L005850E1
-    L005850DF: xor al,al
-    L005850E1: fld dword ptr [ebx+8]
-    mov byte ptr [esp+14h],al
-    fcomp dword ptr ds:[00858C1Ch]
-    fnstsw ax
-    test ah,5
-    jnp L00585129
-    fld dword ptr [ebx+8]
-    fcomp dword ptr ds:[00858624h]
-    fnstsw ax
-    test ah,41h
-    je L00585129
-    fld dword ptr [ebx+0Ch]
-    fcomp dword ptr ds:[00858C1Ch]
-    fnstsw ax
-    test ah,5
-    jnp L00585129
-    fld dword ptr [ebx+0Ch]
-    fcomp dword ptr ds:[00858624h]
-    fnstsw ax
-    test ah,41h
-    je L00585129
-    mov al,1
-    jmp L0058512B
-    L00585129: xor al,al
-    L0058512B: fld dword ptr [ebx+10h]
-    mov byte ptr [esp+15h],al
-    fcomp dword ptr ds:[00858C1Ch]
-    fnstsw ax
-    test ah,5
-    jnp L00585173
-    fld dword ptr [ebx+10h]
-    fcomp dword ptr ds:[00858624h]
-    fnstsw ax
-    test ah,41h
-    je L00585173
-    fld dword ptr [ebx+14h]
-    fcomp dword ptr ds:[00858C1Ch]
-    fnstsw ax
-    test ah,5
-    jnp L00585173
-    fld dword ptr [ebx+14h]
-    fcomp dword ptr ds:[00858624h]
-    fnstsw ax
-    test ah,41h
-    je L00585173
-    mov al,1
-    jmp L00585175
-    L00585173: xor al,al
-    L00585175: fld dword ptr [ebx+18h]
-    mov byte ptr [esp+16h],al
-    fcomp dword ptr ds:[00858C1Ch]
-    fnstsw ax
-    test ah,5
-    jnp L005851BD
-    fld dword ptr [ebx+18h]
-    fcomp dword ptr ds:[00858624h]
-    fnstsw ax
-    test ah,41h
-    je L005851BD
-    fld dword ptr [ebx+1Ch]
-    fcomp dword ptr ds:[00858C1Ch]
-    fnstsw ax
-    test ah,5
-    jnp L005851BD
-    fld dword ptr [ebx+1Ch]
-    fcomp dword ptr ds:[00858624h]
-    fnstsw ax
-    test ah,41h
-    je L005851BD
-    mov al,1
-    jmp L005851BF
-    L005851BD: xor al,al
-    L005851BF: lea edx,[esp+14h]
-    mov ecx,ebx
-    dec edx
-    mov byte ptr [esp+17h],al
-    mov dword ptr [esp+20h],edi
-    mov dword ptr [esp+1Ch],ecx
-    mov dword ptr [esp+30h],edx
-    jmp L005851E0
-    L005851D8: mov edx,dword ptr [esp+30h]
-    lea esp,[esp]
-    L005851E0: mov eax,dword ptr [esp+20h]
-    inc eax
-    cmp byte ptr [edx+eax],0
-    mov dword ptr [esp+2Ch],eax
-    je L00585209
-    mov edx,dword ptr [ebp+8]
-    mov esi,dword ptr [ecx]
-    lea edx,[edx+edi*8]
-    mov dword ptr [edx],esi
-    mov esi,dword ptr [ecx+4]
-    inc edi
-    mov dword ptr [esp+10h],edi
-    mov dword ptr [edx+4],esi
-    jmp L00585317
-    L00585209: mov esi,eax
-    add eax,0FFFFFFFEh
-    and eax,3
-    lea eax,[ebx+eax*8]
-    push eax
-    push ecx
-    mov ecx,dword ptr [ebp+8]
-    lea edx,[ecx+edi*8]
-    push edx
-    and esi,3
-    call dword ptr [RadarBoxCollisionBody]
-    mov edi,eax
-    add esp,0Ch
-    cmp edi,0FFFFFFFFh
-    je L0058523C
-    mov eax,dword ptr [esp+10h]
-    inc eax
-    mov dword ptr [esp+18h],edi
-    mov dword ptr [esp+10h],eax
-    L0058523C: mov ecx,dword ptr [esp+10h]
-    mov eax,dword ptr [ebp+8]
-    lea eax,[eax+ecx*8]
-    mov ecx,dword ptr [esp+1Ch]
-    lea edx,[ebx+esi*8]
-    push edx
-    push ecx
-    push eax
-    mov dword ptr [esp+40h],eax
-    call dword ptr [RadarBoxCollisionBody]
-    add esp,0Ch
-    cmp eax,0FFFFFFFFh
-    mov dword ptr [esp+28h],eax
-    je L0058530B
-    cmp edi,0FFFFFFFFh
-    jne L00585307
-    cmp dword ptr [esp+18h],edi
-    jne L005852B5
-    mov edi,dword ptr [esp+20h]
-    mov esi,3
-    cmp edi,esi
-    jg L005852B5
-    L00585285: test esi,esi
-    lea edx,[esp+20h]
-    jne L00585294
-    lea eax,[ebx+18h]
-    push eax
-    push ebx
-    jmp L0058529C
-    L00585294: lea eax,[ebx+esi*8]
-    lea ecx,[eax-8]
-    push ecx
-    push eax
-    L0058529C: push edx
-    call dword ptr [RadarBoxCollisionBody]
-    add esp,0Ch
-    cmp eax,0FFFFFFFFh
-    jne L005852B1
-    dec esi
-    cmp esi,edi
-    jge L00585285
-    jmp L005852B5
-    L005852B1: mov dword ptr [esp+18h],eax
-    L005852B5: mov edx,dword ptr [esp+34h]
-    mov eax,dword ptr [esp+18h]
-    fld dword ptr [edx]
-    mov ecx,dword ptr [esp+28h]
-    fld dword ptr [edx+4]
-    cmp eax,ecx
-    je L005852F7
-    lea ebx,[ebx+00000000h]
-    L005852D0: mov esi,dword ptr [esp+10h]
-    inc esi
-    mov ecx,edx
-    mov dword ptr [esp+10h],esi
-    mov esi,dword ptr [esp+eax*8+38h]
-    mov dword ptr [ecx],esi
-    mov esi,dword ptr [esp+eax*8+3Ch]
-    add edx,8
-    inc eax
-    mov dword ptr [ecx+4],esi
-    mov ecx,dword ptr [esp+28h]
-    and eax,3
-    cmp eax,ecx
-    jne L005852D0
-    L005852F7: mov eax,dword ptr [ebp+8]
-    fxch st(1)
-    mov ecx,dword ptr [esp+10h]
-    fstp dword ptr [eax+ecx*8]
-    fstp dword ptr [eax+ecx*8+4]
-    L00585307: inc dword ptr [esp+10h]
-    L0058530B: mov edi,dword ptr [esp+10h]
-    mov ecx,dword ptr [esp+1Ch]
-    mov eax,dword ptr [esp+2Ch]
-    L00585317: add ecx,8
-    cmp eax,4
-    mov dword ptr [esp+20h],eax
-    mov dword ptr [esp+1Ch],ecx
-    jl L005851D8
-    test edi,edi
-    jne L005853C1
-    fld dword ptr [ebx+4]
-    fsub dword ptr [ebx+0Ch]
-    fld dword ptr [ebx]
-    fsub dword ptr [ebx+8]
-    fdivp st(1),st
-    fld dword ptr [ebx+4]
-    fsub dword ptr [ebx+1Ch]
-    fld dword ptr [ebx]
-    fsub dword ptr [ebx+18h]
-    fdivp st(1),st
-    fstp dword ptr [esp+2Ch]
-    fld st(0)
-    fmul dword ptr [ebx+18h]
-    fsub dword ptr [ebx+1Ch]
-    fxch st(1)
-    fmul dword ptr [ebx]
-    fsub dword ptr [ebx+4]
-    fmulp st(1),st
-    fcomp dword ptr ds:[00858B50h]
-    fnstsw ax
-    test ah,5
-    jp L005853C1
-    fld dword ptr [esp+2Ch]
-    fmul dword ptr [ebx+8]
-    fsub dword ptr [ebx+0Ch]
-    fld dword ptr [esp+2Ch]
-    fmul dword ptr [ebx]
-    fsub dword ptr [ebx+4]
-    fmulp st(1),st
-    fcomp dword ptr ds:[00858B50h]
-    fnstsw ax
-    test ah,5
-    jp L005853C1
-    mov ecx,dword ptr [ebp+8]
-    mov eax,3F800000h
-    mov edx,0BF800000h
-    mov dword ptr [ecx],eax
-    mov dword ptr [ecx+4],edx
-    mov dword ptr [ecx+8],eax
-    mov dword ptr [ecx+0Ch],eax
-    mov dword ptr [ecx+14h],eax
-    mov dword ptr [ecx+10h],edx
-    mov eax,4
-    mov dword ptr [ecx+18h],edx
-    mov dword ptr [ecx+1Ch],edx
-    pop edi
-    pop esi
-    pop ebx
-    mov esp,ebp
-    pop ebp
-    ret
-    L005853C1: mov eax,edi
-    pop edi
-    pop esi
-    pop ebx
-    mov esp,ebp
-    pop ebp
-    ret
+    bool inside[4];
+    for (auto k = 0; k < 4; k++) {
+        inside[k] = IsPointInsideRadar(in[k]); // fcomp -1.0 / 1.0 ordenados: un NaN cuenta como dentro
     }
+
+    int32 count    = 0;  // [esp+10h]
+    int32 lastSide = -1; // [esp+18h]
+    for (int32 i = 0; i < 4; i++) {
+        if (inside[i]) {
+            memcpy(&out[count], &in[i], sizeof(CVector2D)); // 0x5851F7: copia entera de dwords
+            count++;
+            continue;
+        }
+
+        const int32 prev = (i - 1) & 3;
+        const int32 next = (i + 1) & 3;
+
+        // Del vertice exterior hacia el anterior y hacia el siguiente
+        const int32 sideBack = LineRadarBoxCollision(out[count], in[i], in[prev]);
+        if (sideBack != -1) {
+            count++;
+            lastSide = sideBack;
+        }
+        const int32 sideForward = LineRadarBoxCollision(out[count], in[i], in[next]);
+        if (sideForward == -1) {
+            continue;
+        }
+        if (sideBack != -1) {
+            count++; // 0x585307
+            continue;
+        }
+
+        // Solo salida hacia el siguiente: si no hay lado previo, se busca el ultimo lado intersecado de 3 a i (0x585278..0x5852B1)
+        if (lastSide == -1) {
+            CVector2D scratch;
+            for (int32 e = 3; e >= i; e--) {
+                const int32 side = LineRadarBoxCollision(scratch, in[e], in[e == 0 ? 3 : e - 1]);
+                if (side != -1) {
+                    lastSide = side;
+                    break;
+                }
+            }
+        }
+
+        // 0x5852BD..0x5852C3: el punto de interseccion se carga (x87) ANTES de escribir las esquinas, que pueden pisarlo
+        const float savedX = out[count].x;
+        const float savedY = out[count].y;
+        if (lastSide != sideForward) {
+            frame[0] = exeInsideMinusOne;
+            frame[1] = uint32(reinterpret_cast<uintptr_t>(&out[count]));
+            // Esquinas desde lastSide hasta sideForward (exclusive), siempre al menos una (do-while en 0x5852D0..0x5852F5)
+            int32 corner = lastSide;
+            do {
+                memcpy(&out[count], &frame[2 + 2 * corner], sizeof(CVector2D));
+                count++;
+                corner = (corner + 1) & 3;
+            } while (corner != sideForward);
+        }
+        out[count].x = savedX; // 0x5852FA..0x585303
+        out[count].y = savedY;
+        count++;
+    }
+
+    if (count != 0) {
+        return count;
+    }
+
+    // Ningun vertice dentro ni lado intersecado: si el cuadrado queda dentro del cuadrilatero se devuelve el cuadrado (0x585333..0x5853B7)
+    if (!RadarClipHullInsideCpp(&in[0].x)) {
+        return 0;
+    }
+    memcpy(out, &frame[2], 4 * sizeof(CVector2D));
+    return 4;
 }
 
 // 0x5853D0
@@ -1705,21 +1421,11 @@ void CRadar::DrawRadarMask() {
         in.y = corner.y;
         out[0] = TransformRadarPointToScreenSpace(in);
 
-        // Then generate a quarter of the circle: angulo = j * 0.2617994 [0x858F1C] (float); cos/sin x87 sin redondear antes de multiplicar por la esquina
+        // Then generate a quarter of the circle: angulo = j * 0.2617994 [0x858F1C] (float); fcos/fsin x87 sin redondear y cada uno se MULTIPLICA por la
+        // coordenada de la esquina antes de guardarse como float (0x585860..0x58586C)
         const float step = RadarExeFloat(0x858F1C);
         for (auto j = 0; j < 7; j++) {
-            const float arc = (float)j * step;
-            float cosArc = 0.0f, sinArc = 0.0f;
-            __asm {
-                fld  arc
-                fld  st(0)
-                fcos
-                fstp cosArc
-                fsin
-                fstp sinArc
-            }
-            in.x = cosArc * corner.x;
-            in.y = sinArc * corner.y;
+            RadarArcPointCpp(j, step, corner.x, corner.y, &in.x, &in.y);
             out[j + 1] = TransformRadarPointToScreenSpace(in);
         };
 
@@ -2075,17 +1781,7 @@ static uint32 RadarTraceStaticColour(const tRadarTrace& trace) {
 
 // Como el original (0x5867A2..0x5867F7): fsin x87, + 1.0, * 0.5 y fimul con el alfa de la zona; el resultado se trunca con _ftol2.
 static float RadarGangPulse(float angle, int32 alphaInt) {
-    const float one = 1.0f, half = RadarExeFloat(0x858B8C);
-    float blended = 0.0f;
-    __asm {
-        fld   angle
-        fsin
-        fadd  one
-        fmul  half
-        fimul alphaInt
-        fstp  blended
-    }
-    return blended;
+    return RadarGangPulseCpp(angle, alphaInt, RadarExeFloat(0x858624), RadarExeFloat(0x858B8C));
 }
 
 // 0x586650
@@ -2181,16 +1877,10 @@ void CRadar::DrawRadarMap() {
         const auto cSin = cachedSin;
         const auto cCos = cachedCos;
         // Como el original (0x586A17..0x586A4A): sin/cos x87 de la constante double 0x866B80 (= float(PI) 3.1415927410125732) sin redondear antes
-        const double piConst = *reinterpret_cast<const double*>(0x866B80);
-        float sinPi = 0.0f, cosPi = 0.0f;
-        __asm {
-            fld  piConst
-            fsin
-            fstp sinPi
-            fld  piConst
-            fcos
-            fstp cosPi
-        }
+        // La constante double 0x866B80 es exactamente float(PI) (0x40490FDB): float(sin/cos(double(pi))) es fsin/fcos + un fstp dword.
+        const float piConst = (float)*reinterpret_cast<const double*>(0x866B80);
+        const float sinPi = TrigSimpleSinCpp(piConst);
+        const float cosPi = TrigSimpleCosCpp(piConst);
         cachedSin = sinPi;
         cachedCos = cosPi;
 
@@ -2200,17 +1890,7 @@ void CRadar::DrawRadarMap() {
         const float upZ      = vehicle->m_matrix->GetUp().z;
         const float degrees  = RadarExeFloat(0x859878);
         const float playerY  = playerPos.y;
-        float bottomY = 0.0f;
-        __asm {
-            fld   forwardZ
-            fchs
-            fld   upZ
-            fpatan
-            fmul  degrees
-            fadd  st(0), st(0)
-            fsubr playerY
-            fstp  bottomY
-        }
+        const float bottomY = RadarPlaneBottomYCpp(forwardZ, upZ, degrees, playerY);
 
         DrawAreaOnRadar(
             RadarRawRect(playerPos.x - 1000.0f, playerPos.y + 2000.0f, playerPos.x + 1000.0f, bottomY),

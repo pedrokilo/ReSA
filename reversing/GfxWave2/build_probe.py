@@ -10,5 +10,6 @@ from probe_build import build
 G = 'source/game_sa/'
 SOURCES = [G + 'ClothesBuilder.cpp', G + 'ClothesBuilder.h',
            G + 'Shadows.cpp', G + 'Shadows.h',
-           G + 'WaterLevel.cpp', G + 'WaterLevel.h']
+           G + 'WaterLevel.cpp', G + 'WaterLevel.h',
+           G + 'X87Math.cpp', G + 'X87Math.h']
 if __name__ == '__main__': print(json.dumps(build(Path(__file__).parent, 'gfxwave2', 'GfxWave2Live', SOURCES)))

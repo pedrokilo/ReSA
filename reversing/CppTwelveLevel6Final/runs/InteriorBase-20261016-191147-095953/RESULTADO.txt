@@ -1,0 +1,3 @@
+APROBADO: InteriorBase
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-interior-base\20261016-191147-095953

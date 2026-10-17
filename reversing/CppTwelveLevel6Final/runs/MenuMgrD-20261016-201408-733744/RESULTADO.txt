@@ -1,0 +1,3 @@
+APROBADO: CMenuManager grupo D (13)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-menumgrd\20261016-201408-733744

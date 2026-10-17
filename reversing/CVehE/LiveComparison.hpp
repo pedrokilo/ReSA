@@ -383,7 +383,7 @@ inline json RunProcessBoat(uintptr_t a,Rng& r){
     P.Both(0x60A8D0,S_Breath,Addr(&CPlayerPed::HandlePlayerBreath));
     P.Both(0x4F6420,S_AudioEvent,Addr(static_cast<void(CAEVehicleAudioEntity::*)(eAudioEvents,float)>(&CAEVehicleAudioEntity::AddAudioEvent)));
     P.Add(0x4B35A0,S_Affects); P.Add(DllBody("CEventDamage","AffectsPed"),S_Affects);
-    P.Add(0x4B5AC0,S_ComputeResp);
+    P.Both(0x4B5AC0,S_ComputeResp,Addr(&CPedDamageResponseCalculator::ComputeDamageResponse));
     P.Both(0x4AB420,S_EvAdd,Addr(static_cast<CEvent*(CEventGroup::*)(CEvent*,bool)>(&CEventGroup::Add)));
     P.Both(0x6C3030,S_Buoy,Addr(&cBuoyancy::ProcessBuoyancyBoat));
     const uint32 kind=r.below(10);
@@ -427,7 +427,7 @@ inline json RunBlade(uintptr_t a,Rng& r){
     P.Both(0x49F040,S_Sparks,Addr(&Fx_c::AddSparks));
     P.Both(0x49EB00,S_Blood,Addr(&Fx_c::AddBlood));
     P.Add(0x4B35A0,S_Affects); P.Add(DllBody("CEventDamage","AffectsPed"),S_Affects);
-    P.Add(0x4B5AC0,S_ComputeResp);
+    P.Both(0x4B5AC0,S_ComputeResp,Addr(&CPedDamageResponseCalculator::ComputeDamageResponse));
     P.Both(0x4AB420,S_EvAdd,Addr(static_cast<CEvent*(CEventGroup::*)(CEvent*,bool)>(&CEventGroup::Add)));
     P.Both(0x56D230,S_LocBlood,Addr(&CLocalisation::Blood));
     P.Both(0x534540,S_OnScreen,Addr(&CEntity::GetIsOnScreen));

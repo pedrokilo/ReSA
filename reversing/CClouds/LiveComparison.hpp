@@ -106,11 +106,44 @@ inline bool Equal(const json& a, const json& b, double& error) {
     if (a.is_number_float() || b.is_number_float()) { if (!a.is_number() || !b.is_number()) return false; const double x = a, y = b; if (!std::isfinite(x) || !std::isfinite(y)) return false; error = std::max(error, std::abs(x-y)); return x == y; }
     return a == b;
 }
+// Diagnostico de arranque: el banco solo llama a Update() desde RenderScene (rama CMirrors::TypeOfMirror == NONE), de modo que si el juego nunca llega a
+// dibujar el mundo (menu por Ctrl pulsado durante la carga rapida, pantalla en negro, ventana oculta/minimizada, dispositivo perdido, Idle sin render) el
+// registro ni siquiera se crea y el ejecutor solo ve "sin progreso" a los 240 s. Latido ACOTADO (<= 45 filas, 1 cada 2 s, solo hasta que Update() empieza
+// los pares): no oculta un cuelgue real porque tras el tope vuelve a aplicar el criterio global STALL_SECONDS del ejecutor.
+inline unsigned idleCalls{}, frontendCalls{}, renderScenes{}, heartbeatRows{};
+inline uintptr_t lastIdleParam{};
+inline bool announced{};
+inline BOOL CALLBACK FindMainWindow(HWND window, LPARAM out) {
+    if (IsWindowVisible(window) && !GetWindow(window, GW_OWNER)) { *reinterpret_cast<HWND*>(out) = window; return FALSE; }
+    return TRUE;
+}
+inline bool OpenLog() {
+    if (log.is_open()) return true;
+    char exe[MAX_PATH]{}; GetModuleFileNameA(nullptr, exe, MAX_PATH); const auto dir = std::filesystem::path(exe).parent_path();
+    if (!std::filesystem::exists(dir / "clouds-runtime.start")) return false;
+    log.open(dir / "clouds-runtime.jsonl"); return log.is_open();
+}
+inline void Heartbeat(int kind, const void* param) {
+    if (kind == 1) { ++idleCalls; lastIdleParam = reinterpret_cast<uintptr_t>(param); } else { ++frontendCalls; }
+    static DWORD last{};
+    if (done || heartbeatRows >= 45) return;
+    const DWORD now = GetTickCount();
+    if (last && now - last < 2000) return;
+    last = now;
+    if (!OpenLog()) { heartbeatRows = 45; return; }
+    ++heartbeatRows;
+    HWND window{}; EnumThreadWindows(GetCurrentThreadId(), FindMainWindow, reinterpret_cast<LPARAM>(&window));
+    Write({{"event", "waiting_for_game"}, {"row", heartbeatRows}, {"idle_calls", idleCalls}, {"frontend_calls", frontendCalls}, {"render_scene_calls", renderScenes},
+           {"last_idle_param", lastIdleParam}, {"frame", CTimer::m_FrameCounter}, {"menu_active", FrontEndMenuManager.m_bMenuActive != 0},
+           {"fade_status", int(TheCamera.GetScreenFadeStatus())}, {"player", FindPlayerPed() != nullptr}, {"cutscene", CCutsceneMgr::IsRunning()},
+           {"cloud_mask", gpCloudMaskTex != nullptr}, {"ctrl_down", (GetAsyncKeyState(VK_CONTROL) & 0x8000) != 0},
+           {"window_found", window != nullptr}, {"window_visible", window && IsWindowVisible(window)}, {"window_iconic", window && IsIconic(window)}});
+}
 inline void Update() {
     if (done) return;
     char exe[MAX_PATH]{}; GetModuleFileNameA(nullptr, exe, MAX_PATH); const auto dir = std::filesystem::path(exe).parent_path();
     if (!std::filesystem::exists(dir / "clouds-runtime.start")) { done = true; return; }
-    if (!log.is_open()) { log.open(dir / "clouds-runtime.jsonl"); Write({{"event", "waiting_for_player"}}); }
+    if (!announced) { announced = true; if (!log.is_open()) log.open(dir / "clouds-runtime.jsonl"); Write({{"event", "waiting_for_player"}}); }
     if (!FindPlayerPed() || CCutsceneMgr::IsRunning() || !gpCloudMaskTex) return;
     done = true; auto previousReport = _CrtSetReportHook(Report); const State saved;
     ReversibleHooks::ReversibleHook::Base* hook{};

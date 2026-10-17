@@ -1,0 +1,3 @@
+APROBADO: Dependencias hoja ModelInfo y ScratchPad
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciesleaf2\20261016-120347-027634

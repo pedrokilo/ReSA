@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 
 #include "CarCtrl.h"
 #include "Shadows.h"
+#include "X87Math.h"
 
 namespace {
 // Como el original: global sin nombre de 0xC1C83C (solo se lee en PreRender; el EXE nunca la escribe, vale 0)
@@ -39,137 +40,7 @@ constexpr float kBmxK863984      = std::bit_cast<float>(0x3C03126Fu); // 0x86398
 // Como el original: plantillas Max (0x420800) y Min (0x404330) del EXE; con NaN devuelven el segundo
 float BmxMax(float a, float b) { return a > b ? a : b; }
 
-// Como el original: fsin / fcos del x87 (precision interna completa) guardados a float
-float BmxSin(float x) {
-    float result;
-    __asm {
-        fld   x
-        fsin
-        fstp  result
-    }
-    return result;
-}
-
-float BmxCos(float x) {
-    float result;
-    __asm {
-        fld   x
-        fcos
-        fstp  result
-    }
-    return result;
-}
-
-// Como el original: sin(x) * k con el seno a precision completa (el producto redondea una sola vez)
-float BmxSinTimes(float x, float k) {
-    float result;
-    __asm {
-        fld   x
-        fsin
-        fmul  k
-        fstp  result
-    }
-    return result;
-}
-
-// Como el original: ((1 - cos(lean)) * limiteZ) * 0.9 + zOff con el coseno a precision completa
-float BmxChassisZ(float lean, float boundMinZ, float zOff) {
-    const float kNine = 0.9f; // 0x858C20
-    float       result;
-    __asm {
-        fld   lean
-        fcos
-        fld1
-        fsub  st, st(1)
-        fmul  boundMinZ
-        fmul  kNine
-        fadd  zOff
-        fstp  result
-        fstp  st(0)
-    }
-    return result;
-}
-
-// Como el original: sin(tiempo / total * 2PI + inicio) * mezcla * multiplicador con el seno a precision completa
-float BmxLeanTerm(float curTime, float totalTime, float start, float blend, float mult) {
-    const float twoPi = kBmxTwoPi;
-    float       result;
-    __asm {
-        fld   curTime
-        fdiv  totalTime
-        fmul  twoPi
-        fadd  start
-        fsin
-        fmul  blend
-        fmul  mult
-        fstp  result
-    }
-    return result;
-}
-
-// Como el original: fpatan x87 (precision interna completa) redondeado a float
-float BmxAtan2(float y, float x) {
-    float result;
-    __asm {
-        fld   y
-        fld   x
-        fpatan
-        fstp  result
-    }
-    return result;
-}
-
-// Como el original: pow del CRT del EXE (_CIpow, 0x822130): base ^ paso * x con pow a precision completa
-float BmxPowTimes(float base, float timeStep, float x) {
-    float result;
-    __asm {
-        fld   base
-        fld   timeStep
-        mov   eax, 0x822130
-        call  eax
-        fmul  x
-        fstp  result
-    }
-    return result;
-}
-
-// Como el original: -asin(x) del CRT del EXE (0x821E70): fpatan(x, sqrt((1 + x)(1 - x))) con la palabra de control
-// (anterior & 0x300) | 0x7F; el resultado se niega (fmul -1.0, exacto) y se guarda a float
-float __declspec(naked) __cdecl BmxNegAsinCore(float x) {
-    __asm {
-        sub    esp, 4
-        fnstcw word ptr [esp]
-        mov    ax, word ptr [esp]
-        and    ax, 300h
-        or     ax, 7Fh
-        mov    word ptr [esp + 2], ax
-        fldcw  word ptr [esp + 2]
-        fld    dword ptr [esp + 8]
-        fld1
-        fadd   st, st(1)
-        fld1
-        fsub   st, st(2)
-        fmulp  st(1), st
-        fsqrt
-        fpatan
-        fldcw  word ptr [esp]
-        fmul   dword ptr ds:[0x858C1C] // -1.0f como el caller del EXE (6C0FCF): no cambia el signo de un NaN
-        add    esp, 4
-        ret
-    }
-}
-
-// Como el original (0x821E8D): con |x| >= 1 (o NaN) devuelve el indefinido negativo (salvo |x| == 1 exacto: +-pi/2) y luego fmul -1.0
-float BmxNegAsin(float x) {
-    const double   d  = x;
-    const uint64   b  = std::bit_cast<uint64>(d);
-    const uint32   hi = uint32(b >> 32) & 0x7FFFFFFFu;
-    const uint32   lo = uint32(b);
-    if (hi > 0x3FF00000u || (hi == 0x3FF00000u && ((hi & 0xFFFFFu) | lo) != 0)) {
-        return std::bit_cast<float>(0xFFC00000u);
-    }
-    return BmxNegAsinCore(x);
-}
+// Como el original: el x87 (fsin, fcos, fpatan, _CIpow y _CIasin del EXE) vive en los ayudantes Trig*, Bmx*, PowScaleFloatCpp de X87Math.cpp.
 
 // Como el original: Multiply3x3 (0x59C790), matriz por vector, con el orden de sumas del EXE
 CVector BmxMultiply3x3_MV(const CMatrix& m, const CVector& v) {
@@ -276,15 +147,16 @@ void CBmx::ProcessControl() {
 
     if (animBikeSprint && animBikeSprint->GetBlendAmount() > 0.01f) {
         const float mult   = GetModelId() == MODEL_MTBIKE ? MTB_SPRINT_LEANMULT : BMX_SPRINT_LEANMULT;
-        m_fSprintLeanAngle = BmxLeanTerm(
+        m_fSprintLeanAngle = BmxLeanTermCpp(
             animBikeSprint->GetCurrentTime(), animBikeSprint->GetHier()->GetTotalTime(), kBmxHalfPi, animBikeSprint->GetBlendAmount(), mult);
     } else {
         auto animBikePedal = RpAnimBlendClumpGetAssociation(m_pDriver->GetRpClump(), ANIM_ID_BIKE_PEDAL);
         const float mult   = GetModelId() == MODEL_MTBIKE ? MTB_PEDAL_LEANMULT : BMX_PEDAL_LEANMULT;
         if (animBikePedal && animBikePedal->GetBlendAmount() > 0.01f) {
-            const float term = BmxLeanTerm(
-                animBikePedal->GetCurrentTime(), animBikePedal->GetHier()->GetTotalTime(), BmxPedalLeanStart, animBikePedal->GetBlendAmount(), mult);
-            m_RideAnimData.LeanAngle = term + m_RideAnimData.LeanAngle;
+            // Como el original: el termino se suma a LeanAngle sin guardarse antes como float (0x6BFB29)
+            m_RideAnimData.LeanAngle = BmxLeanTermAddCpp(
+                animBikePedal->GetCurrentTime(), animBikePedal->GetHier()->GetTotalTime(), BmxPedalLeanStart, animBikePedal->GetBlendAmount(), mult,
+                m_RideAnimData.LeanAngle);
         }
         m_fSprintLeanAngle = 0.95f * m_fSprintLeanAngle;
     }
@@ -392,7 +264,7 @@ void CBmx::ProcessDrivingAnims(CPed* driver, bool blend) {
             m_fCrankAngle = 0.0f - active->GetCurrentTime() / active->GetHier()->GetTotalTime() * kBmxTwoPi;
         };
         if (!active) {
-            m_fCrankAngle = BmxPowTimes(0.97f, CTimer::GetTimeStep(), m_fCrankAngle);
+            PowScaleFloatCpp(&m_fCrankAngle, 0.97f, CTimer::GetTimeStep());
         } else if (!created) {
             CrankFromTime();
         } else {
@@ -460,7 +332,7 @@ void CBmx::ProcessDrivingAnims(CPed* driver, bool blend) {
         } else if (fwdA && fwdA->GetBlendAmount() > 0.1f) {
             m_fCrankAngle = (1.0f - fwdA->GetBlendAmount()) * m_fCrankAngle + kBmxHalfPi * fwdA->GetBlendAmount();
         } else {
-            m_fCrankAngle = BmxPowTimes(0.97f, CTimer::GetTimeStep(), m_fCrankAngle);
+            PowScaleFloatCpp(&m_fCrankAngle, 0.97f, CTimer::GetTimeStep());
         }
 
         if (driveA) {
@@ -532,7 +404,7 @@ void CBmx::GetFrameOffset(float& fZOffset, float& fAngleOffset) {
 
     fZOffset     = (1.0f - m_fMidWheelFracY) * d1 + d2 * m_fMidWheelFracY;
     // Como el original: fpatan x87
-    fAngleOffset = BmxAtan2(d1 - d2, m_fMidWheelDistY);
+    fAngleOffset = TrigAtan2Cpp(d1 - d2, m_fMidWheelDistY);
 }
 
 // 0x6C0550
@@ -660,7 +532,7 @@ void CBmx::PreRender() {
 
             uint32 flags = (w == 0 || m_WheelStates[1] == WHEEL_STATE_FIXED) ? 4u : 0u;
 
-            const float S = BmxSinTimes(m_RideAnimData.LeanAngle, GetColModel()->m_boundBox.m_vecMin.z) * 0.8f;
+            const float S = BmxSinTimes2Cpp(m_RideAnimData.LeanAngle, GetColModel()->m_boundBox.m_vecMin.z, 0.8f);
             CVector     P = m_aWheelColPoints[ray].m_vecPoint;
             P.x           = S * m_matrix->GetRight().x + P.x;
             P.y           = P.y + S * m_matrix->GetRight().y;
@@ -695,7 +567,7 @@ void CBmx::PreRender() {
 
     CMatrix mat;
     const float steer = m_fSteerAngle;
-    const CVector steerAxis{ -BmxSin(steer), BmxCos(steer), 0.0f };
+    const CVector steerAxis{ -TrigSimpleSinCpp(steer), TrigSimpleCosCpp(steer), 0.0f };
     const CVector steerDir = BmxMultiply3x3_MV(*m_matrix, steerAxis);
     const CVector fwdCopy  = m_matrix->GetForward();
 
@@ -741,8 +613,8 @@ void CBmx::PreRender() {
         tmp.UpdateRW();
 
         const float steerAngleModel = mi->m_fBikeSteerAngle;
-        const float rotAngle        = steerAngleModel * kBmxDegToRad;
-        CVector axis{ 0.0f, BmxSin(rotAngle), -BmxCos(rotAngle) };
+        // Como el original: el producto grados por radianes queda en ST0 y pasa directo a fsin / fcos (0x6C0E0D..0x6C0E32)
+        CVector axis{ 0.0f, BmxSinScaledCpp(steerAngleModel, kBmxDegToRad), -BmxCosScaledCpp(steerAngleModel, kBmxDegToRad) };
         axis.Normalise();
         CQuaternion quat;
         quat.Set(&axis, -m_RideAnimData.BarSteerAngle);
@@ -772,7 +644,7 @@ void CBmx::PreRender() {
     // Como el original: horquilla trasera
     if (auto* node = m_aBikeNodes[BMX_FORKS_REAR]) {
         const float ratio = (m_aWheelSuspensionHeights[1] - m_aWheelOrigHeights[1]) / m_fSwingArmLength;
-        const float angle = BmxNegAsin(ratio);
+        const float angle = BmxNegAsinCpp(ratio);
         mat.Attach(RwFrameGetMatrix(node), false);
         const CVector saved = mat.GetPosition();
         mat.SetRotate(angle, 0.0f, 0.0f);
@@ -790,7 +662,7 @@ void CBmx::PreRender() {
                 - (m_aWheelSuspensionHeights[0] - m_aWheelOrigHeights[0]) * m_fSteerAngleTan;
         }
         if (m_nWheelStatus.data()[0] == 1) {
-            mat.SetRotate(m_aWheelPitchAngles[0], 0.0f, BmxSinTimes(m_aWheelPitchAngles[0], 0.02f));
+            mat.SetRotate(m_aWheelPitchAngles[0], 0.0f, TrigSimpleSinMulCpp(m_aWheelPitchAngles[0], 0.02f));
         } else {
             mat.SetRotateX(m_aWheelPitchAngles[0]);
         }
@@ -807,7 +679,7 @@ void CBmx::PreRender() {
             saved.z = m_aWheelSuspensionHeights[1];
         }
         if (m_nWheelStatus.data()[1] == 1) {
-            mat.SetRotate(m_aWheelPitchAngles[1], 0.0f, BmxSinTimes(m_aWheelPitchAngles[1], 0.04f));
+            mat.SetRotate(m_aWheelPitchAngles[1], 0.0f, TrigSimpleSinMulCpp(m_aWheelPitchAngles[1], 0.04f));
         } else {
             mat.SetRotateX(m_aWheelPitchAngles[1]);
         }
@@ -824,7 +696,7 @@ void CBmx::PreRender() {
         }
         mat.Attach(RwFrameGetMatrix(node), false);
         CVector saved = mat.GetPosition();
-        saved.z       = BmxChassisZ(m_RideAnimData.LeanAngle, colModel->m_boundBox.m_vecMin.z, zOff);
+        saved.z       = BmxChassisZCpp(m_RideAnimData.LeanAngle, colModel->m_boundBox.m_vecMin.z, zOff);
         mat.SetRotateX(std::fabs(m_RideAnimData.LeanAngle) * -0.05f + angOff);
         mat.RotateY(m_fSprintLeanAngle + m_RideAnimData.LeanAngle);
         mat.GetPosition() += saved;

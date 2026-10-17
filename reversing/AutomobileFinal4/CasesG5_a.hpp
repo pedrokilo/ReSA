@@ -207,7 +207,7 @@ inline std::string StubsG5(){
     H("CCarAI","UpdateCarAI",0x41DA30,FnPtr(&G5S_UpdateCarAI)); H("CCarAI","GetCarToParkAtCoors",0x41D350,FnPtr(&G5S_GetCarToPark));
     H("CCarAI","MakeWayForCarWithSiren",0x41D660,FnPtr(&G5S_MakeWay));
     E(0x437C20,FnPtr(&G5S_SteerAI)); E(0x42FC40,FnPtr(&G5S_Reconsider)); E(0x436540,FnPtr(&G5S_OnRails)); E(0x42CE40,FnPtr(&G5S_PedDanger));
-    E(0x45AE80,FnPtr(&G5S_TakeRemote)); E(0x559AF0,FnPtr(&G5S_FatMuscle)); E(0x741FD0,FnPtr(&G5S_DriveBy));
+    E(0x45AE80,FnPtr(&G5S_TakeRemote)); AddStub(5,G5_ALL,0x559AF0,bit_cast<uintptr_t>(&CStats::GetFatAndMuscleModifier),FnPtr(&G5S_FatMuscle)); /* la DLL ya no es naked: Automobile.cpp la llama directo */ E(0x741FD0,FnPtr(&G5S_DriveBy));
     // CVehicle
     H("CVehicle","ProcessCarAlarm",0x6D21F0,FnPtr(&G5S_CarAlarm));   H("CVehicle","UpdateClumpAlpha",0x6D2980,FnPtr(&G5S_ClumpAlpha));
     H("CVehicle","UpdatePassengerList",0x6D29E0,FnPtr(&G5S_PassengerList)); H("CVehicle","IsUpsideDown",0x6D1D90,FnPtr(&G5S_IsUpsideDown));

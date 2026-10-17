@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "bac851ee7bede2eb0e63620524d86c1ad7e2bccb9ec0c5e23513673ca4dc9e43",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "pairs": 6272,
+  "pairs_per_function": {
+    "CWorld::CallOffChaseForArea": 512,
+    "CWorld::CallOffChaseForAreaSectorListPeds": 1024,
+    "CWorld::CallOffChaseForAreaSectorListVehicles": 1024,
+    "CWorld::ClearCarsFromArea": 512,
+    "CWorld::ClearExcitingStuffFromArea": 512,
+    "CWorld::ClearPedsFromArea": 256,
+    "CWorld::ExtinguishAllCarFiresInArea": 256,
+    "CWorld::PrintCarChanges": 256,
+    "CWorld::Process": 256,
+    "CWorld::ProcessAttachedEntities": 256,
+    "CWorld::ProcessForAnimViewer": 128,
+    "CWorld::ProcessPedsAfterPreRender": 128,
+    "CWorld::RemoveEntityInsteadOfProcessingIt": 256,
+    "CWorld::RemoveFallenCars": 256,
+    "CWorld::RemoveFallenPeds": 256,
+    "CWorld::RemoveReferencesToDeletedObject": 256,
+    "CWorld::RemoveStaticObjects": 128
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "6c2ea2fba9bb13cfcdb6a9b39ef9b265df59b621e815349f8d25b924ec62b8f0",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

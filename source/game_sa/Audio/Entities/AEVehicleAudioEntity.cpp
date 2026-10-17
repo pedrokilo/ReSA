@@ -27,28 +27,18 @@ END GENERATED HOOK STATUS */
 #include <Enums/eSoundBankSlot.h>
 #include <DamageManager.h> // tComponent
 #include <reversiblebugfixes/Bugs.hpp>
+#include "X87Math.h"
 
 constexpr size_t HORN_NUM_PATTERNS = 8;
-// Como el original (4D9E67 fyl2x; los llamadores multiplican ST0 sin almacenarlo como float).
+// Como el original (0x4D9E50): p < 1e-5 (0x858C14) o NaN (fcomp + test ah,1 / jne) devuelve -5.0 (0x858FC8); si no, fldlg2/fyl2x a precision completa en ST0.
+// Los llamadores del EXE multiplican ST0 sin almacenarlo por 10.0f (0x85862C) o 20.0f (0x858BA4), asi que el producto se redondea una sola vez:
+// -5 * 10 = -50 y -5 * 20 = -100 son exactos en float y el logaritmo va a los ayudantes x87 de X87Math (Log10Times10Cpp / AudioLog10Times20Cpp).
 static float AudioLog10ScaledExe(float input, float factor) {
-    float result;
+    assert(factor == 10.0f || factor == 20.0f);
     if (!(input >= std::bit_cast<float>(0x3727C5ACu))) {
-        input = -5.0f;
-        __asm {
-            fld input
-            fmul factor
-            fstp result
-        }
-    } else {
-        __asm {
-            fldlg2
-            fld input
-            fyl2x
-            fmul factor
-            fstp result
-        }
+        return -5.0f * factor;
     }
-    return result;
+    return factor == 10.0f ? Log10Times10Cpp(input) : AudioLog10Times20Cpp(input);
 }
 constexpr size_t HORN_PATTERN_SIZE = 44;
 // Como el original: el EXE indexa 0x862B9C + patron*44 - contador (4F6263 imul edx,edx,2Ch / 4F626C sub edx,ecx / 4F626E mov al,[edx+862B9Ch]),
@@ -2954,21 +2944,11 @@ float CAEVehicleAudioEntity::GetFreqForPlayerEngineSound(tVehicleParams& vp, eVe
     // 0x4F8131 - factor de moto (|sin(angulo de inclinacion)| * 0.12 con fsin de precision completa)
     float B = 0.0f;
     if (m_AuSettings.VehicleAudioType == AE_BIKE) {
+        // 0x4F8145..0x4F8196: fsin sin redondear; fchs solo si sin < 0 (no fabs: -0 y NaN conservan el signo); fmul lean; fadd boost (bPlayerBoost);
+        // fmul gf; un solo fstp a float (ningun redondeo intermedio).
         auto* const bikeBytes = reinterpret_cast<uint8*>(vp.Vehicle);
         const float angle     = *reinterpret_cast<float*>(bikeBytes + 0x648);
-        const float lean      = cfg->FrqBikeLeanFactor;
-        float       bf;
-        __asm {
-            fld   angle
-            fsin
-            fabs
-            fmul  lean
-            fstp  bf
-        }
-        if (bikeBytes[0x614] & 0x20) { // bikeFlags.bPlayerBoost
-            bf = bf + cfg->FrqPlayerBikeBoostOffset;
-        }
-        B = bf * gf;
+        B = VehAudioBikeLeanCpp(angle, cfg->FrqBikeLeanFactor, (bikeBytes[0x614] & 0x20) != 0, cfg->FrqPlayerBikeBoostOffset, gf);
     }
 
     float f;
@@ -3045,22 +3025,11 @@ void CAEVehicleAudioEntity::ProcessPlayerVehicleEngine(tVehicleParams& vp) {
     // 0x4FBBC3..0x4FBC1C: el EXE limita la relacion a [0, 1] (fcomp con 1.0 y 0.0 dobles); un NaN se queda como NaN
     auto* const gear = &vp.Transmission->m_aGears.data()[vp.RealGear]; // Como el original (4FBBC6): indexa sin comprobacion de limite.
     {
-        // Como el original (4FBBCD..4FBBD5): x87 conserva subnormales, incluso en la ranura 6 solapada con campos de transmision.
-        // SSE con FTZ/DAZ cambiaria un divisor subnormal por cero y produciria NaN para velocidad cero.
-        const float absSpeed = vp.AbsSpeed;
-        const float gearMax = gear->MaxVelocity;
-        const float gearDown = gear->ChangeDownVelocity;
-        float r;
-        __asm {
-            fld absSpeed
-            fsub gearDown
-            fld gearMax
-            fsub gearDown
-            fdivp st(1), st
-            fstp r
-        }
+        // Como el original (4FBBCD..4FBC1C): x87 conserva subnormales, incluso en la ranura 6 solapada con campos de transmision.
+        // SSE con FTZ/DAZ cambiaria un divisor subnormal por cero y produciria NaN para velocidad cero. (abs - bajar) / (max - bajar) y la
+        // limitacion a [0, 1] se hacen sobre ST0 sin redondear (VehAudioRevsRatioCpp); solo el fstp final redondea a float.
         vp.RealRevsRatio = vp.RealGear
-            ? (r > 1.0 ? 1.0f : (r < 0.0 ? 0.0f : r))
+            ? VehAudioRevsRatioCpp(vp.AbsSpeed, gear->MaxVelocity, gear->ChangeDownVelocity)
             : 0.f;
     }
 
@@ -4591,16 +4560,9 @@ void CAEVehicleAudioEntity::ProcessDummyTrainEngine(tVehicleParams& vp) {
 
     // 0x500876 - Calculate frequency for tilt: z = (fy + fx) * 0 + fz; saturado con los DOBLES +-0.3 (0x862D58 / 0x862D60) y
     // multiplicado por la pendiente en x87 (fmul con operando double, redondeo a float al guardar)
+    // (0x500868..0x5008BE: todo en ST0 sin redondear; solo el fstp final del producto redondea a float; NaN -> -0.3 como en el EXE)
     const auto& fwd = train->GetForward();
-    const float z   = (fwd.y + fwd.x) * 0.0f + fwd.z;
-    const double zc = !(static_cast<double>(z) > -0.3) ? -0.3 : (!(static_cast<double>(z) < 0.3) ? 0.3 : static_cast<double>(z));
-    const float slopeFactor = cfg->FrqSlopeFactor;
-    float tiltFrq;
-    __asm {
-        fld  qword ptr [zc]
-        fmul dword ptr [slopeFactor]
-        fstp dword ptr [tiltFrq]
-    }
+    const float tiltFrq = VehAudioTrainTiltCpp(fwd.x, fwd.y, fwd.z, cfg->FrqSlopeFactor);
 
     // 0x5008B2 - Calculate linear speed of train to use
     const auto trspeed = GetTrainSpeed(train);
@@ -5053,23 +5015,14 @@ void ProcessBicycleAudio(CAEVehicleAudioEntity& self, CAEVehicleAudioEntity::tVe
         StaticRef<float>(0xB6BACC) -= StaticRef<float>(0x858CB0);
         if (StaticRef<float>(0xB6BACC)<0.f) StaticRef<float>(0xB6BACC)=0.f;
     }
-    const auto ratio = std::clamp(std::abs(params.Speed / *reinterpret_cast<float*>(reinterpret_cast<uint8*>(params.Transmission)+0x58)), 0.f, 1.f);
+    // 0x4FFE75..0x4FFED9 / 0x5000EE..0x50014F: |v / vmax| limitado a 1 con NaN -> 1.0 (el EXE no usa clamp: fcomp + test ah,5 / jp), y un resultado <= 0 se guarda como +0
+    const auto ratio = VehAudioBicycleRatioCpp(params.Speed, *reinterpret_cast<float*>(reinterpret_cast<uint8*>(params.Transmission)+0x58));
     const auto wheel = float(vehicle[0x804]);
     const auto volume = (AudioLog10ScaledExe(wheel * .25f * ratio, 20.0f) + self.m_EventVolume) + StaticRef<float>(0x8CBEBC);
     const auto frequencyBase = ((wheel * StaticRef<float>(0xB6BA6C)) * .125f + StaticRef<float>(0xB6BA6C) * ratio) + StaticRef<float>(0x8CBD5C);
-    float frequency;
+    // 0x4FFF39..0x4FFF66 / 0x5001AF..0x5001DC: fsin sin redondear; fchs solo si sin < 0; fmul 0x8CBD60; fadd 1.0f; fmul frequencyBase; un solo fstp
     const float angle = *reinterpret_cast<float*>(vehicle+0x648);
-    const float multiplier=StaticRef<float>(0x8CBD60);
-    const float one=1.f;
-    __asm {
-        fld angle
-        fsin
-        fabs
-        fmul multiplier
-        fadd one
-        fmul frequencyBase
-        fstp frequency
-    }
+    const float frequency = VehAudioBicycleFrequencyCpp(angle, StaticRef<float>(0x8CBD60), frequencyBase);
     const bool pedaling = vehicle[0x834] != 0;
     const auto tyre = pedaling ? self.GetBaseVolumeForBicycleTyre(ratio) : 0.f;
     const auto sprocketVolume = (AudioLog10ScaledExe(tyre, 20.0f) + self.m_EventVolume) + StaticRef<float>(0x8CBEC0);
@@ -5493,68 +5446,45 @@ void CAEVehicleAudioEntity::ProcessVehicle(CPhysical* physical) {
     }
 }
 
-// Como el original (0x4F5C60): GetFreqForIdle solo usa EAX/ECX y su llamador del EXE (0x4F8205, dentro de GetFreqForPlayerEngineSound)
-// sigue usando EDX tras la llamada (0x4F8210 mov edx,[edx+10h]); esta envoltura thiscall (ret 4, float en ST0) conserva EDX.
-static float __fastcall G2GetFreqForIdle_Impl(const CAEVehicleAudioEntity* self, void* /*edx*/, float ratio) {
-    return self->GetFreqForIdle(ratio);
-}
-static void __declspec(naked) G2GetFreqForIdle_KeepEdx() {
-    __asm {
-        push edx
-        push dword ptr [esp + 8]
-        call G2GetFreqForIdle_Impl
-        pop  edx
-        ret  4
+// Envolturas __fastcall de los cuatro colaboradores cuyos llamadores del EXE reutilizan un registro tras la llamada. Reciben ECX/EDX de entrada como
+// parametros, llaman al metodo C++ y terminan en PlayerPedResidueFloatCpp (X87Math: `fld dword ptr [esp+4]; ret 4`, no toca ECX/EDX/EAX), de modo que
+// el EXE ve los mismos ECX/EDX (y el resultado en ST0) sin ensamblador. Sin comprobaciones de ejecucion (RTC) ni cookie /GS para que no cambien
+// ECX/EDX tras la ultima llamada (contrib/audit_register_residue.py vigila el objeto AEVehicleAudioEntity).
+#pragma runtime_checks("", off)
+
+// Como el original (0x4F5C60): solo escribe EAX, ECX y ST0 y deja EDX intacto; su llamador del EXE (0x4F8205, dentro de GetFreqForPlayerEngineSound)
+// sigue usando EDX tras la llamada (0x4F8210 mov edx,[edx+10h]). ECX sale con el indice del bucle (xor ecx,ecx; primer i de 0..4 con
+// tabla[i] > ratio, o 5; NaN no cumple la comparacion). ret 4.
+static float __declspec(safebuffers) __fastcall G2GetFreqForIdle_KeepEdx(const CAEVehicleAudioEntity* self, uint32 entryEdx, float ratio) {
+    const float result = self->GetFreqForIdle(ratio);
+    static constexpr float xs[5] = { 0.000f, 0.075f, 0.150f, 0.250f, 1.0001f }; // 0x8CC164 + 8 * i
+    uint32 index = 0;
+    while (index < 5 && !(xs[index] > ratio)) {
+        ++index;
     }
+    return PlayerPedResidueFloatCpp(index, entryEdx, result);
 }
 
-// Como el original (0x4F5F30 / 0x4F6000): solo usan EAX/ECX/ESI y preservan EDX; el unico llamador del EXE (0x4F905F push edx) lo reutiliza.
-static float __fastcall G3DriveSkid_Impl(const CAEVehicleAudioEntity* self, void* /*edx*/, CVehicle* veh, tWheelState ws, float revs, cTransmission* tr, float speed) {
-    return self->GetVehicleDriveWheelSkidValue(veh, ws, revs, *tr, speed);
+// Como el original (0x4F5F30 / 0x4F6000): solo escriben EAX y ST0; ECX (this) y EDX quedan intactos y el unico llamador del EXE (0x4F905F push edx)
+// reutiliza EDX. ret 0x14 / ret 0x10.
+static float __declspec(safebuffers) __fastcall G3DriveSkid_KeepEdx(const CAEVehicleAudioEntity* self, uint32 entryEdx, CVehicle* veh, tWheelState ws, float revs, cTransmission* tr, float speed) {
+    const float result = self->GetVehicleDriveWheelSkidValue(veh, ws, revs, *tr, speed);
+    return PlayerPedResidueFloatCpp(static_cast<uint32>(reinterpret_cast<uintptr_t>(self)), entryEdx, result);
 }
-static void __declspec(naked) G3DriveSkid_KeepEdx() {
-    __asm {
-        push edx
-        push dword ptr [esp + 0x18]
-        push dword ptr [esp + 0x18]
-        push dword ptr [esp + 0x18]
-        push dword ptr [esp + 0x18]
-        push dword ptr [esp + 0x18]
-        call G3DriveSkid_Impl
-        pop  edx
-        ret  0x14
-    }
-}
-static float __fastcall G3NonDriveSkid_Impl(const CAEVehicleAudioEntity* self, void* /*edx*/, CVehicle* veh, tWheelState ws, cTransmission* tr, float speed) {
-    return self->GetVehicleNonDriveWheelSkidValue(veh, ws, *tr, speed);
-}
-static void __declspec(naked) G3NonDriveSkid_KeepEdx() {
-    __asm {
-        push edx
-        push dword ptr [esp + 0x14]
-        push dword ptr [esp + 0x14]
-        push dword ptr [esp + 0x14]
-        push dword ptr [esp + 0x14]
-        call G3NonDriveSkid_Impl
-        pop  edx
-        ret  0x10
-    }
+static float __declspec(safebuffers) __fastcall G3NonDriveSkid_KeepEdx(const CAEVehicleAudioEntity* self, uint32 entryEdx, CVehicle* veh, tWheelState ws, cTransmission* tr, float speed) {
+    const float result = self->GetVehicleNonDriveWheelSkidValue(veh, ws, *tr, speed);
+    return PlayerPedResidueFloatCpp(static_cast<uint32>(reinterpret_cast<uintptr_t>(self)), entryEdx, result);
 }
 
-// Como el original (4F5D00..4F5E2F): conserva ECX, que 4FC9CD reutiliza despues de 4FC9C1.
-static float __fastcall VehAudioPlayerVolume_Impl(const CAEVehicleAudioEntity* self, void*, CAEVehicleAudioEntity::tVehicleParams* vp, CAEVehicleAudioEntity::eVehicleEngineSoundType st) {
-    return self->GetVolForPlayerEngineSound(*vp, st);
+// Como el original (4F5D00..4F5E2F): conserva ECX, que 4FC9CD reutiliza despues de 4FC9C1, y sale con EDX = [[this+4]+0x4C8] (0x4F5DD6 mov edx,[eax+4C8h],
+// comun a todas las ramas). ret 8.
+static float __declspec(safebuffers) __fastcall VehAudioPlayerVolume_KeepEcx(const CAEVehicleAudioEntity* self, uint32 /*entryEdx*/, CAEVehicleAudioEntity::tVehicleParams* vp, CAEVehicleAudioEntity::eVehicleEngineSoundType st) {
+    const float result = self->GetVolForPlayerEngineSound(*vp, st);
+    const uint32 exitEdx = *reinterpret_cast<const uint32*>(reinterpret_cast<const uint8*>(self->m_Entity) + 0x4C8);
+    return PlayerPedResidueFloatCpp(static_cast<uint32>(reinterpret_cast<uintptr_t>(self)), exitEdx, result);
 }
-static void __declspec(naked) VehAudioPlayerVolume_KeepEcx() {
-    __asm {
-        push ecx
-        push dword ptr [esp + 0Ch]
-        push dword ptr [esp + 0Ch]
-        call VehAudioPlayerVolume_Impl
-        pop ecx
-        ret 8
-    }
-}
+
+#pragma runtime_checks("", restore)
 
 void CAEVehicleAudioEntity::InjectHooks() {
     RH_ScopedVirtualClass(CAEVehicleAudioEntity, 0x862CEC, 1);

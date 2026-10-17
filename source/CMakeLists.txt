@@ -93,6 +93,14 @@ if(MSVC)
         SKIP_PRECOMPILE_HEADERS ON
         SKIP_UNITY_BUILD_INCLUSION ON
     )
+    # CStats::LoadStatUpdateConditions (0x559860): StatsLoadStatUpdateConditionsExe necesita el marco de pila del EXE (ECX = direccion de pila que deja fclose);
+    # se optimiza por pragma, que solo actua con /Zi y sin comprobaciones de ejecucion (las funciones de residuo del archivo ya las desactivan por pragma).
+    set_source_files_properties(game_sa/Stats.cpp PROPERTIES
+        COMPILE_OPTIONS "$<$<CONFIG:Debug>:/Zi>"
+        VS_SETTINGS "BasicRuntimeChecks=Default"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
     # CPedSaveStructure::Construct (0x5D43D0) deja el residuo de EAX/EDX del EXE y ECX = 0 por el rep movsd: el archivo de la clase
     # (solo esa clase) se compila optimizado.
     set_source_files_properties(game_sa/Entity/Ped/PedSaveStructure.cpp PROPERTIES
@@ -127,11 +135,22 @@ if(MSVC)
         SKIP_UNITY_BUILD_INCLUSION ON
     )
     # Interior_c holds bodies that must match the EXE. /ZI padding would change the flags of the empty
-    # Shop_FurnishCeiling, so the class file uses ordinary /Zi symbols. It is NOT compiled optimized as a whole:
-    # its naked transcriptions clobber EBX/ESI/EDI like the EXE, so optimized C++ callers would lose values kept in
-    # those registers. Only Shop_AddShelfInfo (direct x87 stores for the EXE's C1 rounding) is optimized, by pragma.
+    # Shop_FurnishCeiling, so the class file uses ordinary /Zi symbols. The file has no __asm or naked code any more, but it
+    # still needs /arch:IA32 (every float operation must be x87 with 24-bit rounding, like the EXE: the file wraps its
+    # converted bodies in #pragma float_control(precise, on) so /fp:fast cannot reassociate them) and it stays unoptimized as
+    # a whole: Shop_AddShelfInfo (direct x87 stores for the EXE's C1 rounding) is optimized by pragma, which is only valid
+    # with BasicRuntimeChecks=Default.
     set_source_files_properties(game_sa/Interior/Interior_c.cpp PROPERTIES
         COMPILE_OPTIONS "$<$<CONFIG:Debug>:/Zi>;/arch:IA32"
+        VS_SETTINGS "BasicRuntimeChecks=Default"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
+    # CDecisionMakerTypes::LoadEventIndices (0x600840) debe llamar a 0x5BB9F0 con el mismo ESP que el EXE (el colaborador deja en ECX una
+    # direccion de su propio marco y los bancos DependenciesDecisionRelationship6/Ped7 comparan ECX/EDX): el marco /Od de depuracion
+    # (push ebp + sub esp + 3 push = 84 bytes) lo desplaza. Se optimiza por pragma, que solo actua con /Zi y sin comprobaciones de ejecucion.
+    set_source_files_properties(game_sa/DecisionMakers/DecisionMakerTypes.cpp PROPERTIES
+        COMPILE_OPTIONS "$<$<CONFIG:Debug>:/Zi>"
         VS_SETTINGS "BasicRuntimeChecks=Default"
         SKIP_PRECOMPILE_HEADERS ON
         SKIP_UNITY_BUILD_INCLUSION ON

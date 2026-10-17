@@ -435,6 +435,8 @@ inline void Update() {
     const uintptr_t dllSetupSusp=DllBody("CBike","SetupSuspensionLines");
     const uintptr_t dllFill=Body(&CClumpModelInfo::FillFrameArray);
     const uintptr_t dllChoose=Body(&CVehicleModelInfo::ChooseVehicleColour);
+    // CMemoryMgr::Malloc de la DLL: Bike.cpp llama a la sobrecarga de 1 argumento, que reenvia a la de 2 (cuerpo propio de la DLL, no pasa por 0x72F420); hay que interceptar las dos entradas
+    const uintptr_t dllMalloc1=Body(static_cast<void*(*)(uint32)>(&CMemoryMgr::Malloc)), dllMalloc2=Body(static_cast<void*(*)(uint32,uint32)>(&CMemoryMgr::Malloc));
     const uintptr_t dllAudioInit=Body(&CAEVehicleAudioEntity::Initialise), dllAudioTerm=Body(&CAEVehicleAudioEntity::Terminate);
     const uintptr_t dllRwMatDestroy=Body(&RwMatrixDestroy);
     const uintptr_t dllSkill=Body(&CPed::GetBikeRidingSkill), dllLocalDir=Body(&CPed::GetLocalDirection);
@@ -587,7 +589,7 @@ inline void Update() {
                     P.Add(0x6D6A40,S_VehSetModel); P.Add(dllVehSetModel,S_VehSetModel);
                     P.Add(0x4C5440,S_FillFrames); P.Add(dllFill,S_FillFrames);
                     P.Add(0x4C8500,S_Choose); P.Add(dllChoose,S_Choose);
-                    P.Add(0x72F420,S_Malloc);
+                    P.Add(0x72F420,S_Malloc); P.Add(dllMalloc1,S_Malloc); P.Add(dllMalloc2,S_Malloc);
                     P.Add(0x6B89B0,S_SetupSusp); P.Add(dllSetupSusp,S_SetupSusp);
                     P.Add(0x4F7670,S_AudioInit); P.Add(dllAudioInit,S_AudioInit);
                     out["state"]=CaseCtor(r,target); }

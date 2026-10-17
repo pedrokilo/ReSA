@@ -22,6 +22,7 @@ END GENERATED HOOK STATUS */
 #include <TaskComplexWander.h>
 #include <TaskSimpleStandStill.h>
 #include <PedPlacement.h>
+#include "X87Math.h"
 
 void CTaskSimpleCarSetPedSlowDraggedOut::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleCarSetPedSlowDraggedOut, 0x86EF30, 9);
@@ -106,17 +107,11 @@ bool CTaskSimpleCarSetPedSlowDraggedOut::ProcessPed(CPed* ped) {
     ped->SetPosn(pos);
 
     // 0x64C50B - Reset rotation
-    // Como el original: se usa el rumbo del vehiculo (fpatan del x87), no el del peaton
+    // Como el original (0x64C4FC..0x64C513): se usa el rumbo del vehiculo (fpatan(-forward.x, forward.y) del x87 guardado
+    // como float con fst/fstp), no el del peaton
     float heading;
     if (const auto mat = m_Vehicle->m_matrix) {
-        const float fx = mat->GetForward().x, fy = mat->GetForward().y;
-        __asm {
-            fld fx
-            fchs
-            fld fy
-            fpatan
-            fstp heading
-        }
+        heading = TrigAtan2Cpp(-mat->GetForward().x, mat->GetForward().y); // X87Math.cpp
     } else {
         heading = m_Vehicle->m_placement.m_fHeading;
     }

@@ -48,8 +48,8 @@ inline void Update(){
  EntryPatch x0(0x7EDD90,Transform),x1(bit_cast<uintptr_t>(&RwV3dTransformPoints),Transform);
  EntryPatch s0(0x7F22C0,Scale),s1(bit_cast<uintptr_t>(&RwMatrixScale),Scale);
  EntryPatch b0(0x5E4280,BonePosition),b1(bit_cast<uintptr_t>(static_cast<void(CPed::*)(CVector*,eBoneTag,bool)>(&CPed::GetBonePosition)),BonePosition);
- EntryPatch l0(0x540E80,Left);
- EntryPatch u0(0x540F80,Up);
+ EntryPatch l0(0x540E80,Left),l1(bit_cast<uintptr_t>(&CPad::GetMouseCameraStickHorizontal),Left);
+ EntryPatch u0(0x540F80,Up),u1(bit_cast<uintptr_t>(&CPad::GetMouseCameraStickVertical),Up);
  EntryPatch zi0(0x540B30,ZoomIn),zi1(bit_cast<uintptr_t>(&CPad::SniperZoomIn),ZoomIn);
  EntryPatch zo0(0x540B80,ZoomOut),zo1(bit_cast<uintptr_t>(&CPad::SniperZoomOut),ZoomOut);
  EntryPatch p0(0x5DF8F0,Player),p1(bit_cast<uintptr_t>(&CPed::IsPlayer),Player);

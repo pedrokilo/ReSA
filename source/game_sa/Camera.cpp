@@ -35,6 +35,7 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleHoldEntity.h"
 #include "TaskSimpleDuck.h"
 #include "Hud.h"
+#include "X87Math.h"
 
 auto& TheCamera = StaticRef<CCamera>(0xB6F028);
 auto& gbModelViewer = StaticRef<bool>(0xBA6728);
@@ -64,59 +65,20 @@ inline CPlayerPed* ActivePlayerPed() {
 }
 
 // Como el original (0x50A97E..0x50A98E, 0x50AA91..0x50AA9D): fild del entero con signo, +2^32 si es negativo, fmul 0.001f.
-// El producto se redondea una sola vez a 24 bits (la conversion a float previa daria otro resultado).
+// El producto se redondea una sola vez a 24 bits (la conversion a float previa daria otro resultado). Ayudante de X87Math.cpp.
 float ElapsedSeconds(int32 elapsedMs) {
-    const float fourGig = 4294967296.0f, milli = kExeMilli;
-    float result;
-    __asm {
-        fild elapsedMs
-        cmp elapsedMs, 0
-        jge positive
-        fadd fourGig
-    positive:
-        fmul milli
-        fstp result
-    }
-    return result;
+    return CameraElapsedSecondsCpp(uint32(elapsedMs));
 }
 
 // Como el original (0x50C088..0x50C0AA): (porcentaje * 0.01f) * tiempo final (fild, +2^32 si es negativo), un solo redondeo
 float CutSceneElapsed(float percent, uint32 finishTime) {
-    const int32 finish = int32(finishTime);
-    const float fourGig = 4294967296.0f, hundredth = kExePercent;
-    float elapsed;
-    __asm {
-        fld percent
-        fmul hundredth
-        fild finish
-        cmp finish, 0
-        jge positive
-        fadd fourGig
-    positive:
-        fmulp st(1), st(0)
-        fstp elapsed
-    }
-    return elapsed;
+    return CameraCutSceneElapsedCpp(percent, finishTime);
 }
 
 // Como el original (0x50AC43.., 0x50D254..): reloj en milisegundos como entero con signo (+2^32 si es negativo) y
 // suma de un float SIN pasar antes por float. Guarda el inicio (fst) y el fin (fadd + fstp).
 void StoreTimeAndTimePlus(float& start, float& end, float plus) {
-    const auto nowMs = int32(CTimer::GetTimeInMS());
-    const float fourGig = 4294967296.0f;
-    float startResult, endResult;
-    __asm {
-        fild nowMs
-        cmp nowMs, 0
-        jge positive
-        fadd fourGig
-    positive:
-        fst startResult
-        fadd plus
-        fstp endResult
-    }
-    start = startResult;
-    end   = endResult;
+    CameraTimePlusCpp(CTimer::GetTimeInMS(), plus, &start, &end);
 }
 }
 
@@ -549,14 +511,7 @@ void CCamera::CamShake(float strength, CVector from) {
     }
 
     // 0x50AA72..0x50AA8D: producto por 0.01 (double del EXE) y resta a 1.0 (double), redondeo de 24 bits en cada paso
-    const double kHundredth = StaticRef<double>(0x85A308), kOne = StaticRef<double>(0x85A310);
-    float percentShakeForce;
-    __asm {
-        fld dist
-        fmul kHundredth
-        fsubr kOne
-        fstp percentShakeForce
-    }
+    const float percentShakeForce = CameraShakePercentCpp(dist);
 
     float shakeForce = (m_fCamShakeForce - ElapsedSeconds(int32(CTimer::GetTimeInMS() - m_nCamShakeStart))) * percentShakeForce;
     // 0x50AAAD..0x50AAD9: primero el tope superior (2.0) y luego el inferior (0.0), con la orientacion de las comparaciones del EXE
@@ -663,29 +618,7 @@ float CCamera::Find3rdPersonQuickAimPitch() const {
     // luego * (1 / aspecto) y atan de eso, mas el angulo vertical, con el signo cambiado.
     const auto& cam = m_aCams[m_nActiveCam];
     const float fov = cam.m_fFOV, vertical = cam.m_fVerticalAngle;
-    const float half = StaticRef<float>(0x858B8C), toRadians = StaticRef<float>(0x8595EC), one = StaticRef<float>(0x858624);
-    const float crosshairY = m_f3rdPersonCHairMultY, aspect = CDraw::ms_fAspectRatio;
-    float result;
-    __asm {
-        fld fov
-        fmul half
-        fmul toRadians
-        fptan
-        fstp st(0)
-        fld half
-        fsub crosshairY
-        fadd st(0), st(0)
-        fmulp st(1), st(0)
-        fld one
-        fdiv aspect
-        fmulp st(1), st(0)
-        fld1
-        fpatan
-        fadd vertical
-        fchs
-        fstp result
-    }
-    return result;
+    return CameraQuickAimPitchCpp(fov, vertical, m_f3rdPersonCHairMultY, CDraw::ms_fAspectRatio);
 }
 
 // 0x50AD90
@@ -1502,28 +1435,7 @@ void CCamera::UpdateSoundDistances() {
 // 0x50CB90
 void CCamera::SetNearClipBasedOnPedCollision(float arg2) {
     const float base=gpCamColVars[4],denominator=StaticRef<float>(0xB6EC68),factor=StaticRef<float>(0x8CCC84),maximum=StaticRef<float>(0x858C24);
-    float clip;
-    __asm {
-        fld base
-        fld arg2
-        fsqrt
-        fdiv denominator
-        fmul factor
-        fld maximum
-        fsub st(0),st(2)
-        fmulp st(1),st(0)
-        fadd st(0),st(1)
-        fst clip
-        fcomp st(1)
-        fnstsw ax
-        test ah,5
-        jp keepClip
-        fstp clip
-        jmp clipDone
-    keepClip:
-        fstp st(0)
-    clipDone:
-    }
+    const float clip = CameraNearClipPedCpp(arg2, base, denominator, factor, maximum);
     RwCameraSetNearClipPlane(Scene.m_pRwCamera,clip);
 }
 
@@ -1640,86 +1552,12 @@ bool CCamera::IsExtraEntityToIgnore(CEntity* entity) {
 }
 
 // 0x420C40
-static uintptr_t CameraTransformPointsLibrary=0x7EDD90;
-// Native camera frustum comparisons; actual RW library transforms one copied point.
-__declspec(naked) bool CCamera::IsSphereVisible(const CVector&,float,RwMatrix*) {
-    __asm {
-    sub esp,0Ch
-    mov eax,dword ptr [esp+10h]
-    fld dword ptr [eax+4]
-    mov edx,dword ptr [esp+18h]
-    push esi
-    push edx
-    mov esi,ecx
-    mov ecx,dword ptr [eax]
-    fstp dword ptr [esp+0Ch]
-    fld dword ptr [eax+8]
-    push 1
-    lea eax,[esp+0Ch]
-    mov dword ptr [esp+0Ch],ecx
-    push eax
-    lea ecx,[esp+10h]
-    fstp dword ptr [esp+18h]
-    push ecx
-    call dword ptr [CameraTransformPointsLibrary]
-    fld dword ptr [esp+18h]
-    fadd dword ptr [esp+28h]
-    add esp,10h
-    fcomp dword ptr ds:[00C3EFA0h]
-    fnstsw ax
-    test ah,5
-    jnp L00420D2D
-    fld dword ptr [esp+8]
-    fsub dword ptr [esp+18h]
-    fcomp dword ptr ds:[00C3EF9Ch]
-    fnstsw ax
-    test ah,41h
-    je L00420D2D
-    fld dword ptr [esp+4]
-    fmul dword ptr [esi+00000B24h]
-    fld dword ptr [esp+8]
-    fmul dword ptr [esi+00000B28h]
-    faddp st(1),st
-    fcomp dword ptr [esp+18h]
-    fnstsw ax
-    test ah,41h
-    je L00420D2D
-    fld dword ptr [esp+4]
-    fmul dword ptr [esi+00000B30h]
-    fld dword ptr [esp+8]
-    fmul dword ptr [esi+00000B34h]
-    faddp st(1),st
-    fcomp dword ptr [esp+18h]
-    fnstsw ax
-    test ah,41h
-    je L00420D2D
-    fld dword ptr [esp+0Ch]
-    fmul dword ptr [esi+00000B44h]
-    fld dword ptr [esp+8]
-    fmul dword ptr [esi+00000B40h]
-    faddp st(1),st
-    fcomp dword ptr [esp+18h]
-    fnstsw ax
-    test ah,41h
-    je L00420D2D
-    fld dword ptr [esp+0Ch]
-    fmul dword ptr [esi+00000B50h]
-    fld dword ptr [esp+8]
-    fmul dword ptr [esi+00000B4Ch]
-    faddp st(1),st
-    fcomp dword ptr [esp+18h]
-    fnstsw ax
-    test ah,41h
-    jne L00420D36
-    L00420D2D: xor al,al
-    pop esi
-    add esp,0Ch
-    ret 0Ch
-    L00420D36: mov al,1
-    pop esi
-    add esp,0Ch
-    ret 0Ch
-    }
+// Como el original (0x420C40..0x420D3C): el punto se copia y se transforma EN EL SITIO con RwV3dTransformPoints (0x7EDD90) y se compara con las
+// cuatro normales del frustum en espacio de camara (m_avecFrustumNormals, 0xB24); las comparaciones son ordenadas (NaN no rechaza).
+bool CCamera::IsSphereVisible(const CVector& origin, float radius, RwMatrix* transformMatrix) {
+    CVector point = origin;
+    RwV3dTransformPoints(&point, &point, 1, transformMatrix);
+    return CameraSphereInFrustumCpp(&point.x, radius, &m_avecFrustumNormals[0].x, StaticRef<float>(0xC3EFA0), StaticRef<float>(0xC3EF9C));
 }
 
 // 0x420D40 - NOTE: Function has no hook
@@ -1797,29 +1635,7 @@ void CCamera::HandleCameraMotionForDuckingDuringAim(CPed* ped, CVector* source, 
 namespace {
 // Como el original: conservar fsin y las operaciones x87 en precisiÃ³n del juego.
 float CameraLinearComponent(float from, float to, float ratio, bool ease) {
-    float value;
-    if (ease) {
-        const float degrees = 180.0f, startAngle = 270.0f;
-        const float radians = std::bit_cast<float>(0x3C8EFA35u);
-        const float one = 1.0f, half = 0.5f;
-        __asm {
-            fld ratio
-            fmul degrees
-            fsubr startAngle
-            fmul radians
-            fsin
-            fadd one
-            fmul half
-            fld to
-            fsub from
-            fmulp st(1), st
-            fadd from
-            fstp value
-        }
-    } else {
-        value = (to - from) * ratio + from;
-    }
-    return value;
+    return CameraLinearBlendCpp(from, to, ratio, ease);
 }
 double CameraLinearTime() {
     const auto time = CTimer::GetTimeInMS();
@@ -2017,33 +1833,8 @@ void CCamera::ProcessVectorMoveLinear(float ratio) {
 // 0x516500
 void CCamera::ProcessFOVLerp() {
     // Como el original (0x516500..0x516556): el reloj se compara y se resta SIN pasar por float (fild, +2^32 si es negativo)
-    const float endTime = m_fEndZoomTime, startTime = m_fStartZoomTime, fourGig = 4294967296.0f;
-    const int32 nowMs = int32(CTimer::GetTimeInMS());
     float ratio;
-    int32 running;
-    __asm {
-        mov running, 0
-        fild nowMs
-        cmp nowMs, 0
-        jge positive
-        fadd fourGig
-    positive:
-        fcom endTime
-        fnstsw ax
-        test ah, 41h
-        jp notRunning
-        fsub startTime
-        fld endTime
-        fsub startTime
-        fdivp st(1), st(0)
-        fstp ratio
-        mov running, 1
-        jmp done
-    notRunning:
-        fstp st(0)
-    done:
-    }
-    if (running) {
+    if (CameraFovLerpRatioCpp(CTimer::GetTimeInMS(), m_fEndZoomTime, m_fStartZoomTime, &ratio)) {
         ProcessFOVLerp(ratio);
     } else if (m_bBlockZoom) { /* Finished */
         m_bFOVLerpProcessed = true;
@@ -2088,203 +1879,33 @@ void CCamera::ProcessScriptedCommands() {
 
 namespace {
 double CameraProcessPhase(uint32 elapsed,uint32 duration) {
-    const uint64 numerator=elapsed,denominator=duration;double result;
-    __asm {
-        fild numerator
-        fild denominator
-        fdivp st(1),st(0)
-        fstp result
-    }
-    return result;
+    return CameraPhaseCpp(elapsed, duration);
 }
 double CameraProcessFractionEase(double phase,float moving,float catchup,bool initial) {
-    const float pi=StaticRef<float>(0x858CB8),half=.5f;double result;
-    if(initial){
-        if(moving==0.f)phase=0.;
-        else {
-            __asm {
-                fld phase
-                fsubr moving
-                fdiv moving
-                fmul pi
-                fcos
-                fmul half
-                fsubr half
-                fstp result
-            }
-            return result;
-        }
-    }else{
-        if(catchup==0.f)phase=1.;
-        else {
-            __asm {
-                fld phase
-                fsub moving
-                fdiv catchup
-                fmul pi
-                fcos
-                fmul half
-                fsubr half
-                fstp result
-            }
-            return result;
-        }
-    }
-    __asm {
-        fld phase
-        fmul pi
-        fcos
-        fmul half
-        fsubr half
-        fstp result
-    }
-    return result;
+    return CameraEaseCpp(float(phase), moving, catchup, initial);
 }
 void CameraProcessAdvance(CVector& result,const CVector& base,const CVector& speed,double coefficient,int mode) {
-    const float stored=float(coefficient);const double spilledCoefficient=mode==0?coefficient:double(stored);float product;
-    if(mode==0||mode==2){
-        __asm { fld coefficient }
-    }else{
-        __asm { fld stored }
-    }
-    __asm {
-        mov eax,speed
-        mov edx,base
-        mov ecx,result
-        fmul dword ptr [eax]
-    }
-    if(mode==1||mode==4){
-        __asm { fstp product
-            fld product
-        }
-    }
-    __asm {
-        mov eax,speed
-        mov edx,base
-        mov ecx,result
-        fadd dword ptr [edx]
-        fstp dword ptr [ecx]
-    }
-    if(mode==0||mode==4){
-        __asm {
-            mov eax,speed
-            mov edx,base
-            mov ecx,result
-            fld spilledCoefficient
-            fmul dword ptr [eax+4]
-            fstp product
-            fld product
-            fadd dword ptr [edx+4]
-            fstp dword ptr [ecx+4]
-            fld spilledCoefficient
-            fmul dword ptr [eax+8]
-            fstp product
-            fld product
-            fadd dword ptr [edx+8]
-            fstp dword ptr [ecx+8]
-        }
-    }else{
-        __asm {
-            mov eax,speed
-            mov edx,base
-            mov ecx,result
-            fld stored
-            fmul dword ptr [eax+4]
-            fadd dword ptr [edx+4]
-            fstp dword ptr [ecx+4]
-            fld stored
-            fmul dword ptr [eax+8]
-        }
-        if(mode!=1){
-            __asm { fstp product
-                fld product
-            }
-        }
-        __asm {
-            mov edx,base
-            mov ecx,result
-            fadd dword ptr [edx+8]
-            fstp dword ptr [ecx+8]
-        }
-    }
+    CameraAdvanceCpp(&result.x, &base.x, &speed.x, float(coefficient), mode);
+}
+void CameraProcessAdvanceToward(CVector& result,const CVector& base,const CVector& destination,double coefficient,int mode) {
+    CameraAdvanceTowardCpp(&result.x, &base.x, &destination.x, float(coefficient), mode);
 }
 float CameraProcessFovAdvance(float base,float operand,float coefficient,bool difference) {
-    float result;
-    if(difference){
-        __asm { fld operand
-            fsub base
-        }
-    }else{
-        __asm { fld operand }
-    }
-    __asm {
-        fmul coefficient
-        fadd base
-        fstp result
-    }
-    return result;
+    return CameraFovAdvanceCpp(base, operand, coefficient, difference);
 }
 float CameraProcessShakeForce(float force, uint32 elapsed) {
-    const double duration = double(elapsed);
-    const float decay = .00028f;
-    float value;
-    __asm {
-        fld duration
-        fmul decay
-        fsubr force
-        fstp value
-    }
-    return value;
+    return CameraShakeForceCpp(force, elapsed);
 }
 double CameraProcessAccumulateDistance(const CVector& current,const CVector& previous,float sum) {
-    double value;
-    __asm {
-        mov eax,current
-        mov edx,previous
-        fld dword ptr [eax]
-        fsub dword ptr [edx]
-        fld dword ptr [eax+4]
-        fsub dword ptr [edx+4]
-        fld dword ptr [eax+8]
-        fsub dword ptr [edx+8]
-        fld st(0)
-        fmul st(0),st(1)
-        fld st(2)
-        fmul st(0),st(3)
-        faddp st(1),st(0)
-        fld st(3)
-        fmul st(0),st(4)
-        faddp st(1),st(0)
-        fsqrt
-        fstp st(3)
-        fstp st(0)
-        fstp st(0)
-        fadd sum
-        fstp value
-    }
-    return value;
+    return CameraAccumulateDistanceCpp(&current.x, &previous.x, sum);
 }
 float CameraProcessAverageDistance(double sum,int32 frames) {
-    float value;
-    __asm {
-        fld sum
-        fild frames
-        fdivp st(1),st(0)
-        fstp value
-    }
-    return value;
+    return CameraAverageDistanceCpp(sum, frames);
 }
 
+// 0x52C8C2..0x52C8D1: fld shake; fmul -255.0f (0x86327C) / fld far * 100.0f; call _ftol2 (0x821B40); mov result, eax.
 int32 CameraProcessTruncateProduct(float value, float multiplier) {
-    int32 result;
-    __asm {
-        fld value
-        fmul multiplier
-        mov eax, 0x821B40
-        call eax
-        mov result, eax
-    }
-    return result;
+    return CameraTruncateProductCpp(value, multiplier);
 }
 void CameraProcessOrthonormalise(CVector& front, CVector& up, eCamMode mode) {
     up.Normalise();
@@ -2377,7 +1998,7 @@ void CCamera::Process() {
         } else if (double(m_fFractionInterToStopMovingTarget) < targetPhase) {
             const double ease=CameraProcessFractionEase(targetPhase,m_fFractionInterToStopMovingTarget,m_fFractionInterToStopCatchUpTarget,false);
             if (m_fFractionInterToStopMovingTarget == 0.f) m_vecTargetWhenInterPol = m_vecStartingTargetForInterPol;
-            CameraProcessAdvance(targetPosition, m_vecTargetWhenInterPol, GetActiveCam().m_vecTargetCoorsForFudgeInter - m_vecTargetWhenInterPol, ease, 1);
+            CameraProcessAdvanceToward(targetPosition, m_vecTargetWhenInterPol, GetActiveCam().m_vecTargetCoorsForFudgeInter, ease, 1);
         }
         if (phase <= m_fFractionInterToStopMoving) {
             const double ease=CameraProcessFractionEase(double(phase),m_fFractionInterToStopMoving,m_fFractionInterToStopCatchUp,true);
@@ -2394,10 +2015,10 @@ void CCamera::Process() {
             fov = m_fFOVWhenInterPol;
         } else if (m_fFractionInterToStopMoving < phase && phase <= 1.f) {
             const double ease=CameraProcessFractionEase(double(phase),m_fFractionInterToStopMoving,m_fFractionInterToStopCatchUp,false);
-            CameraProcessAdvance(source, m_vecSourceWhenInterPol, GetActiveCam().m_vecSource - m_vecSourceWhenInterPol, ease, 4);
+            CameraProcessAdvanceToward(source, m_vecSourceWhenInterPol, GetActiveCam().m_vecSource, ease, 4);
             if (m_bLookingAtPlayer) CameraProcessMinimumDistance(source, targetPosition);
             fov = CameraProcessFovAdvance(m_fFOVWhenInterPol,GetActiveCam().m_fFOV,float(ease),true);
-            CameraProcessAdvance(up, m_vecUpWhenInterPol, GetActiveCam().m_vecUp - m_vecUpWhenInterPol, ease, 4);
+            CameraProcessAdvanceToward(up, m_vecUpWhenInterPol, GetActiveCam().m_vecUp, ease, 4);
             front = targetPosition - source;
             StoreValuesDuringInterPol(&source, &targetPosition, &up, &fov);
             front.Normalise();
@@ -2430,7 +2051,8 @@ void CCamera::Process() {
     m_mCameraMatrix.GetRight() = CrossProduct(up, front);
     m_mCameraMatrix.GetUp() = up; m_mCameraMatrix.GetForward() = front; m_mCameraMatrix.GetPosition() = source;
     float shake = CameraProcessShakeForce(m_fCamShakeForce, CTimer::GetTimeInMS() - m_nCamShakeStart);
-    if (shake >= 2.f) shake = 2.f; else if (shake <= 0.f) shake = 0.f;
+    // 0x52C804..0x52C82C: fcomp 2.0 + test ah,5 + jnp / fcomp 0.0 + test ah,41h + je: NaN sale como 2.0
+    if (!(shake < 2.f)) shake = 2.f; else if (!(shake > 0.f)) shake = 0.f;
     const uint32 random = uint32(std::rand()); const float amount = shake * .1f;
     m_mCameraMatrix.GetPosition().x += float(int32((random & 15) - 7)) * amount;
     m_mCameraMatrix.GetPosition().y += float(int32(((random >> 4) & 15) - 7)) * amount;
@@ -2528,28 +2150,8 @@ void CCamera::Find3rdPersonCamTargetVector(float range, CVector gunMuzzle, CVect
     // con tan() de fptan a precision completa y el producto (1 / aspecto) del EXE.
     auto& cam = m_aCams[m_nActiveCam];
     const float fov = cam.m_fFOV, crosshairX = m_f3rdPersonCHairMultX, crosshairY = m_f3rdPersonCHairMultY, aspect = CDraw::ms_fAspectRatio;
-    const float half = StaticRef<float>(0x858B8C), toRadians = StaticRef<float>(0x8595EC), one = StaticRef<float>(0x858624);
-    float horizontal, vertical;
-    __asm {
-        fld fov
-        fmul half
-        fmul toRadians
-        fptan
-        fstp st(0)
-        fld crosshairX
-        fsub half
-        fadd st(0), st(0)
-        fmul st(0), st(1)
-        fstp horizontal
-        fld half
-        fsub crosshairY
-        fadd st(0), st(0)
-        fld one
-        fdiv aspect
-        fmulp st(1), st(0)
-        fmulp st(1), st(0)
-        fstp vertical
-    }
+    const float horizontal = CameraAimHorizontalCpp(fov, crosshairX);
+    const float vertical = CameraAimVerticalCpp(fov, crosshairY, aspect);
 
     std::memcpy(&outSource, &cam.m_vecSource, sizeof(CVector));
     std::memcpy(&outTarget, &cam.m_vecFront, sizeof(CVector));
@@ -2634,49 +2236,15 @@ float CCamera::CalculateGroundHeight(eGroundHeightType type) {
 
 // 0x514D60
 static float CameraFrustumDot355(const CVector& normal,const CVector& position) {
-    float result;
-    const auto* n=&normal;const auto* p=&position;
-    __asm {
-        mov eax,n
-        mov edx,p
-        fld dword ptr [eax+4]
-        fmul dword ptr [edx+4]
-        fld dword ptr [eax+8]
-        fmul dword ptr [edx+8]
-        faddp st(1),st
-        fld dword ptr [eax]
-        fmul dword ptr [edx]
-        faddp st(1),st
-        fstp result
-    }
-    return result;
+    return CameraDotYZXCpp(&normal.x, &position.x);
 }
 
 void CCamera::CalculateFrustumPlanes(bool bForMirror) {
-    const float fov = CDraw::GetFOV(), factor = StaticRef<float>(0x8631D8);
-    float cosine, sine;
-    __asm {
-        fld fov
-        fmul factor
-        fld st(0)
-        fcos
-        fstp cosine
-        fsin
-        fstp sine
-    }
+    const float fov = CDraw::GetFOV();
     const int32 height = StaticRef<int32>(0xC17048), width = StaticRef<int32>(0xC17044);
-    float ratio, verticalCosine, verticalSine;
-    __asm {
-        fild height
-        fidiv width
-        fst ratio
-        fmul cosine
-        fstp verticalCosine
-        fld ratio
-        fmul sine
-        fchs
-        fstp verticalSine
-    }
+    float terms[4];
+    CameraFrustumTermsCpp(fov, height, width, terms);
+    const float cosine = terms[0], sine = terms[1], verticalCosine = terms[2], verticalSine = terms[3];
     m_avecFrustumNormals[0] = CVector{cosine,-sine,0.0f};
     m_avecFrustumNormals[1] = CVector{-cosine,-sine,0.0f};
     m_avecFrustumNormals[2] = CVector{0.0f,verticalSine,-verticalCosine};
@@ -2699,50 +2267,12 @@ void CCamera::CalculateDerivedValues(bool bForMirror, bool bOriented) {
     if (forward.x == 0.0f && forward.y == 0.0f) {
         forward.x = std::bit_cast<float>(0x38D1B717u);
     } else if (bOriented) {
-        const float x = forward.x, y = forward.y;
-        float orientation;
-        __asm {
-            fld x
-            fld y
-            fpatan
-            fstp orientation
-        }
-        m_fOrientation = orientation;
+        m_fOrientation = TrigAtan2Cpp(forward.x, forward.y);
     }
     m_fCamFrontXNorm = forward.x;
     m_fCamFrontYNorm = forward.y;
-    const float x = forward.x, y = forward.y, one = 1.0f;
     float nx, ny;
-    __asm {
-        fld x
-        fld y
-        fld st(0)
-        fmul st,st(1)
-        fld st(2)
-        fmul st,st(3)
-        faddp st(1),st
-        fsqrt
-        ftst
-        fnstsw ax
-        test ah,44h
-        jp derived_normalize
-        fstp st(0)
-        fld one
-        fstp nx
-        fld y
-        fstp ny
-        jmp derived_finished
-    derived_normalize:
-        fdivr one
-        fld st(0)
-        fmul st,st(3)
-        fstp nx
-        fmul st,st(1)
-        fstp ny
-    derived_finished:
-        fstp st(0)
-        fstp st(0)
-    }
+    CameraFrontNormCpp(forward.x, forward.y, &nx, &ny);
     m_fCamFrontXNorm = nx;
     m_fCamFrontYNorm = ny;
 }
@@ -2780,12 +2310,8 @@ void CCamera::ImproveNearClip(CVehicle* vehicle, CPed* ped, CVector* source, CVe
         }else{
             auto* model=static_cast<CPedModelInfo*>(CModelInfo::GetModelInfo(int16(ped->GetModelIndex())));
             const float fov=StaticRef<float>(0xB6F250+uint32(StaticRef<uint8>(0xB6F081))*sizeof(CCam));
-            const float angle=(90.0f-fov*.5f)*std::bit_cast<float>(0x3C8EFA35u),radius=StaticRef<float>(0xB6EC6C);float limit;
-            __asm { fld angle
-                fsin
-                fmul radius
-                fstp limit
-            }
+            const float angle=(90.0f-fov*.5f)*std::bit_cast<float>(0x3C8EFA35u),radius=StaticRef<float>(0xB6EC6C);
+            const float limit=TrigSimpleSinMulCpp(angle,radius);
             model->AnimatePedColModelSkinnedWorld(ped->GetRpClump());
             const auto& cam=StaticRef<CCam>(0xB6F19C+uint32(active)*sizeof(CCam));
             const float plane=(cam.m_vecFront.z*cam.m_vecSource.z+cam.m_vecFront.y*cam.m_vecSource.y)+cam.m_vecSource.x*cam.m_vecFront.x;
@@ -2847,27 +2373,9 @@ bool CCamera::ConeCastCollisionResolve(const CVector& pos, const CVector& lookAt
 
 // 0x51E560
 static CVector CineyModeRotatedDirection(CVector velocity, float rotation) {
-    const float inputX = velocity.x, inputY = velocity.y; float outputX, outputY, sine;
-    const uintptr_t angleFunction = 0x53CC70;
-    __asm {
-        push inputY
-        push inputX
-        call angleFunction
-        add esp, 8
-        fadd rotation
-        fld st(0)
-        fcos
-        fxch st(1)
-        fsin
-        fstp sine
-        fld inputX
-        fadd st, st(1)
-        fstp outputX
-        fstp st(0)
-        fld sine
-        fadd inputY
-        fstp outputY
-    }
+    // Como el original (0x51F5DD, 0x51F82C, 0x51FB14, 0x51FD8F): GetATanOfXY (ST0 sin redondear) + rotacion, coseno y seno del mismo angulo.
+    float outputX, outputY;
+    CameraCineyRotatedCpp(&CGeneral::GetATanOfXY, velocity.x, velocity.y, rotation, &outputX, &outputY);
     CVector direction{outputX, outputY, 0.f}; direction.Normalise(); return direction;
 }
 
@@ -3564,22 +3072,9 @@ void CameraControlPlayerTransition(CCamera& camera, bool jump) {
     CameraControlCommitJump(camera, requested, camera.m_bLookingAtVector);
 }
 void CameraControlPolarSource(float angle, float radius, const CVector& position, CVector& source) {
-    const float positionX = position.x;
-    const float positionY = position.y;
-    float resultX;
-    float resultY;
-    __asm {
-        fld angle
-        fcos
-        fmul radius
-        fadd positionX
-        fstp resultX
-        fld angle
-        fsin
-        fmul radius
-        fadd positionY
-        fstp resultY
-    }
+    // 0x529F24..0x529F66: fcos/fsin sin redondear, * radio y + posicion, cada resultado guardado como float
+    const float resultX = TrigCompoundCosMulAdd(angle, radius, position.x);
+    const float resultY = TrigCompoundSinMulAdd(angle, radius, position.y);
     source = CVector{resultX, resultY, position.z + 1.15f};
 }
 // 0x529BA3..0x52A002: queued player/weapon modes and fixed dead-target aiming.
@@ -3758,22 +3253,17 @@ float CameraControlWrapHeading(float heading, float reference) {
     }
     return heading;
 }
-float CameraControlTargetHeading(CPed* ped) {
+// 0x52A855..0x52A892: fpatan(-x, y) del vector al objetivo, o CPlaceable::GetHeading (0x441DB0), y fsub pi/2 (0x858FE4) SOBRE ST0: el rumbo no se
+// redondea a float antes de la resta, solo el resultado.
+float CameraControlTargetHeadingMinusHalfPi(CPed* ped) {
+    const float halfPi = kExeHalfPi;
     if (!ped->m_pTargetedObject) {
-        return ped->GetHeading();
+        // GetHeading devuelve ST0 sin redondear (alias del enlazador en Placeable.cpp); se llama por puntero (entrada de la DLL, interceptable por los bancos) y la resta la hace el ayudante.
+        const auto headingFn = std::bit_cast<float(__fastcall*)(const void*, void*)>(&CPlaceable::GetHeading);
+        return CameraHeadingMinusCpp(headingFn, static_cast<const CPlaceable*>(ped), halfPi);
     }
     const auto displacement = ped->m_pTargetedObject->GetPosition() - ped->GetPosition();
-    const float componentX = displacement.x;
-    const float componentY = displacement.y;
-    float heading;
-    __asm {
-        fld componentX
-        fchs
-        fld componentY
-        fpatan
-        fstp heading
-    }
-    return heading;
+    return Atan2MinusCpp(-displacement.x, displacement.y, halfPi);
 }
 // 0x52A714..0x52ADD6: native mode-pair jump rules and transition beta.
 void CameraControlChooseJump(CCamera& camera, bool stairs, bool wasArrested, bool& jump) {
@@ -3791,7 +3281,7 @@ void CameraControlChooseJump(CCamera& camera, bool stairs, bool wasArrested, boo
         const bool jetPack = ped->GetIntelligence()->GetTaskJetPack() != nullptr;
         if (requested == 53 && oldMode == 4 && !jetPack) {
             const auto heading = CameraControlWrapHeading(
-                CameraControlTargetHeading(ped) - StaticRef<float>(0x858FE4), cam.m_fHorizontalAngle
+                CameraControlTargetHeadingMinusHalfPi(ped), cam.m_fHorizontalAngle
             );
             if (StaticRef<float>(0x8CC46C) * StaticRef<float>(0x8595EC)
                 < std::fabs(heading - cam.m_fHorizontalAngle)) {
@@ -4305,17 +3795,7 @@ void CCamera::StartTransition(eCamMode newCamMode) {
     // Como el original (0x515236..0x5152CD): el angulo del ped sale de GetATanOfXY (ST0 sin redondear) menos pi/2 del EXE (0x858FE4)
     if (notsa::contains({ MODE_SNIPER, MODE_ROCKETLAUNCHER, MODE_ROCKETLAUNCHER_HS, MODE_M16_1STPERSON, MODE_SNIPER_RUNABOUT, MODE_ROCKETLAUNCHER_RUNABOUT, MODE_ROCKETLAUNCHER_RUNABOUT_HS, MODE_M16_1STPERSON_RUNABOUT, MODE_FIGHT_CAM_RUNABOUT, MODE_HELICANNON_1STPERSON, MODE_CAMERA, MODE_1STPERSON_RUNABOUT }, activeCamMode)
         && m_pTargetEntity && m_pTargetEntity->GetIsTypePed()) {
-        const float frontX = activeCam.m_vecFront.x, frontY = activeCam.m_vecFront.y, halfPi = kExeHalfPi;
-        const auto atanOfXY = &CGeneral::GetATanOfXY;
-        float angle;
-        __asm {
-            push frontY
-            push frontX
-            call atanOfXY
-            add esp, 8
-            fsub halfPi
-            fstp angle
-        }
+        const float angle = CameraAtanMinusCpp(&CGeneral::GetATanOfXY, activeCam.m_vecFront.x, activeCam.m_vecFront.y, kExeHalfPi);
         m_pTargetEntity->AsPed()->m_fCurrentRotation = angle;
         m_pTargetEntity->AsPed()->m_fAimingRotation  = angle;
     }
@@ -4337,17 +3817,7 @@ void CCamera::StartTransition(eCamMode newCamMode) {
     case MODE_FOLLOWPED: {
         if (m_bJustCameOutOfGarage) {
             // 0x515440..0x51548C: GetATanOfXY (ST0 sin redondear) + pi del EXE (0x858CB8)
-            const float frontX = activeCam.m_vecFront.x, frontY = activeCam.m_vecFront.y, pi = kExePi;
-            const auto atanOfXY = &CGeneral::GetATanOfXY;
-            float angle;
-            __asm {
-                push frontY
-                push frontX
-                call atanOfXY
-                add esp, 8
-                fadd pi
-                fstp angle
-            }
+            const float angle = CameraAtanPlusCpp(&CGeneral::GetATanOfXY, activeCam.m_vecFront.x, activeCam.m_vecFront.y, kExePi);
             activeCam.m_fHorizontalAngle = angle;
             activeCam.m_fTransitionBeta  = 0.0f;
         }
@@ -4360,17 +3830,7 @@ void CCamera::StartTransition(eCamMode newCamMode) {
             m_bUseTransitionBeta = true;
             // 0x5154B8..0x5155C8: el EXE normaliza un 0.0 (no el angulo): |0| <= pi/2 siempre se cumple y se suma SIEMPRE 235 grados
             // (0x8631DC = 4.1015239f); la rama de 55 grados (0x8631E0) no se alcanza nunca.
-            const float frontX = activeCam.m_vecFront.x, frontY = activeCam.m_vecFront.y, deg235 = std::bit_cast<float>(0x40833FAFu);
-            const auto atanOfXY = &CGeneral::GetATanOfXY;
-            float angle;
-            __asm {
-                push frontY
-                push frontX
-                call atanOfXY
-                add esp, 8
-                fadd deg235
-                fstp angle
-            }
+            const float angle = CameraAtanPlusCpp(&CGeneral::GetATanOfXY, activeCam.m_vecFront.x, activeCam.m_vecFront.y, std::bit_cast<float>(0x40833FAFu));
             activeCam.m_fTransitionBeta = angle;
         }
         break;
@@ -4397,13 +3857,7 @@ void CCamera::StartTransition(eCamMode newCamMode) {
             x = ActivePlayerPed()->GetMatrix().GetForward().x;
             y = ActivePlayerPed()->GetMatrix().GetForward().y;
         }
-        float angle;
-        __asm {
-            fld x
-            fld y
-            fpatan
-            fstp angle
-        }
+        const float angle = TrigAtan2Cpp(x, y);
         activeCam.m_fHorizontalAngle = angle;
         activeCam.m_fVerticalAngle   = 0.0f;
         break;

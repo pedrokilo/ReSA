@@ -290,7 +290,8 @@ inline void Update() {
         EntryPatch p14(0x812140,FakeGetEffects), p15(0x5D9570,FakeSetFxEnvTexture), p15d(bit_cast<uintptr_t>(&CCustomBuildingDNPipeline::SetFxEnvTexture),FakeSetFxEnvTexture);
         EntryPatch d1(0x756D90,FakeClipping), d1d(bit_cast<uintptr_t>(&_rwD3D9EnableClippingIfNeeded),FakeClipping), d2(0x7FC320,FakeGetRenderState), d3(0x7FC2D0,FakeSetRenderState), d4(0x7FC340,FakeSetTSS);
         EntryPatch d5(0x7FDE70,FakeSetTexture), d6(0x7FA090,FakeSetStreams), d7(0x7FC4D0,FakeSurface), d8(0x7FE0A0,FakeVertexAlpha), d9(0x7FC200,FakeFlush);
-        EntryPatch e1(0x600840,FakeLoadEventIndices), e2(0x6043A0,FakeRemoveDM), e3(0x607050,FakeAddDM);
+        EntryPatch e1(0x600840,FakeLoadEventIndices), e2(0x6043A0,FakeRemoveDM), e3(0x607050,FakeAddDM),
+            e1d(bit_cast<uintptr_t>(&CDecisionMakerTypes::LoadEventIndices),FakeLoadEventIndices), e2d(bit_cast<uintptr_t>(&CDecisionMakerTypes::RemoveDecisionMaker),FakeRemoveDM), e3d(bit_cast<uintptr_t>(&CDecisionMakerTypes::AddDecisionMaker),FakeAddDM);
 
         for(size_t f=0;f<fns.size();++f) {
             const auto& fn=fns[f]; int failures=0; const std::string cls=fn.cls, nm=fn.name, full=cls+"::"+nm;

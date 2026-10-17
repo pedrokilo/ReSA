@@ -6,7 +6,7 @@
 #include "../OriginalDependencies499/HookRoute.hpp"
 #include "NativeProof.hpp"
 // Genuine C++ global function proposed in TaskComplexSunbathe.cpp, no fabricated class.
-bool CanSunbathe();
+int32 CanSunbathe();
 namespace DependenciesTask11Live {
 inline bool done{};inline std::ofstream log;
 struct Fn {const char* cls;const char* name;uintptr_t address;int reserved,slot,count;};

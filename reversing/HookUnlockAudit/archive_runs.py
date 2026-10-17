@@ -7,6 +7,8 @@ import sys
 from pathlib import Path
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parents[1]
+sys.path.insert(0,str(HERE))
+from retired import EXPECTED_REVIEWS,RETIRED
 RETAINED={('CAEVehicleAudioEntity','ProcessPlayerVehicleEngine'),('CAEVehicleAudioEntity','ProcessVehicle'),
           ('CAEVehicleAudioEntity','Service'),('Game','Render2dStuff'),('Game','Idle'),('Game','FrontendIdle')}
 manifest=json.loads((HERE/'artifacts/build-manifest.json').read_text())
@@ -21,7 +23,8 @@ for argument in sys.argv[1:]:
     assert len(pairs)==2048 and {e['pair'] for e in pairs}==set(range(2048))
     assert all(e['equal'] and e['accepted'] and e['original'] is not None and e['candidate'] is not None and e['original']==e['candidate'] for e in pairs)
     reviews=[e for e in events if e['event']=='catalog_lock_review']
-    assert len(reviews)==421 and len({(e['class'],e['fn_name']) for e in reviews})==421
+    assert len(reviews)==EXPECTED_REVIEWS and len({(e['class'],e['fn_name']) for e in reviews})==EXPECTED_REVIEWS
+    assert not any((e['class'],e['fn_name']) in RETIRED for e in reviews)
     frame=[e for e in events if e['event']=='live_frame']
     assert len(frame)==240 and all(e['route_ok'] and e['result']['globals_restored'] for e in frame)
     post=[e for e in events if e['event']=='posteffects_live_checks']+[e['checks'] for e in events if e['event']=='posteffects_live_frame']
@@ -41,7 +44,7 @@ for argument in sys.argv[1:]:
         writer=csv.DictWriter(stream,fieldnames=['class','fn_name','locked','hooked','reversed','type'],lineterminator='\n');writer.writeheader()
         writer.writerows({k:int(e[k]) if isinstance(e[k],bool) else e[k] for k in writer.fieldnames} for e in runtime)
     results.append(dict(run=path.name,pairs=2048,differences=0,live_frames=240,posteffects_samples=1446,
-        reviewed_locks=421,runtime_locked=sum(e['locked'] for e in runtime),log_sha256=summary['log_sha256'],
+        reviewed_locks=EXPECTED_REVIEWS,retired_locks=len(RETIRED),runtime_locked=sum(e['locked'] for e in runtime),log_sha256=summary['log_sha256'],
         state_restored=True,saves_unchanged=True,configs_restored=True,
         probe_sha256=summary['executed_probe_sha256']))
 last_path=Path(sys.argv[-1]);last_events=[json.loads(line) for line in (last_path/'comparisons.jsonl').read_bytes().splitlines()]

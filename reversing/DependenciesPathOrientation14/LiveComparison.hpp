@@ -4,9 +4,29 @@
 #include "CutsceneMgr.h"
 #include "../ProbeRuntime.hpp"
 #include "../OriginalDependencies499/HookRoute.hpp"
+#include "X87Math.h"
 
 
-extern void PathOrientation14Normalise();
+// La DLL ya no tiene copia naked de 0x59C910: la normalizacion vive en PathFindNormaliseStatusCpp (X87Math.cpp). Este adaptador del banco da a ese
+// ayudante el ABI del EXE (ECX = vector; EAX conserva sus 16 bits altos y recibe en AX el fnstsw; EDX y el resto intactos) con TOP = 6, que es lo que
+// deja el EXE con el ST0 centinela de ResetTestFP (la pila tiene dos valores en el fcom).
+__declspec(naked) inline void PathOrientation14Normalise() {
+    __asm {
+        push edx
+        push eax
+        push ecx
+        push ecx
+        call PathFindNormaliseStatusCpp
+        add  esp, 4
+        or   eax, 3000h
+        mov  edx, eax
+        pop  ecx
+        pop  eax
+        mov  ax, dx
+        pop  edx
+        ret
+    }
+}
 
 namespace DependenciesPathOrientation14Live {
 inline bool done{};
@@ -75,7 +95,14 @@ inline HelperResult HelperGate(uintptr_t entry,uintptr_t instance){
  __asm {mov a,eax} __asm {mov c,ecx} __asm {mov d,edx} __asm {mov b1,ebx} __asm {mov s1,esi} __asm {mov i1,edi} __asm {mov p1,ebp} __asm {mov after,esp}
  return {a,c,d,before==after,b0==b1&&s0==s1&&i0==i1&&p0==p1};
 }
-inline json FPObserve(){alignas(16)std::array<uint8,108> state{};SaveFP(state.data());const uint32 ip=ReadInt(uintptr_t(state.data()+12));memset(state.data()+12,0,4);return {{"numeric_env",Hex(uintptr_t(state.data()),state.size())},{"instruction_pointer",ip},{"mxcsr",ReadMXCSR()}};}
+// Estado x87 observable arquitecturalmente. El FIP (bytes 12..15) se devuelve aparte para comprobar que se ejecuto el cuerpo esperado. Se comparan CW, SW con TOP y banderas sticky,
+// TW, FOP/FDP/FCS/FDS y el contenido de los registros NO vacios segun TW. Se omiten (1) C0..C3 (SW & 0x4700): son el resultado transitorio del ultimo fcom/fxam, que el EXE entrega
+// al llamador por fnstsw AX (esa copia SI se compara: es el EAX de salida) y que el C++ no puede fijar; (2) el contenido de los registros marcados vacios (TW=11): residuo que no
+// se puede leer sin volver a cargarlo y que el C++ no controla.
+inline json FPObserve(){alignas(16)std::array<uint8,108> state{};SaveFP(state.data());const uint32 ip=ReadInt(uintptr_t(state.data()+12));memset(state.data()+12,0,4);
+ uint16 sw{},tw{};memcpy(&sw,state.data()+4,2);memcpy(&tw,state.data()+8,2);const unsigned top=(sw>>11)&7;sw&=uint16(~0x4700);memcpy(state.data()+4,&sw,2);
+ for(unsigned i=0;i<8;++i)if(((tw>>(2*((top+i)&7)))&3)==3)memset(state.data()+28+10*i,0,10);
+ return {{"numeric_env",Hex(uintptr_t(state.data()),state.size())},{"instruction_pointer",ip},{"mxcsr",ReadMXCSR()}};}
 inline void ResetTestFP(){__asm {fninit} _controlfp(_PC_24|_RC_NEAR,_MCW_PC|_MCW_RC);float sentinel=3.25f;__asm {fld sentinel}}
 inline void Update(){
  if(done)return;char exe[MAX_PATH]{};GetModuleFileNameA(nullptr,exe,MAX_PATH);const auto dir=std::filesystem::path(exe).parent_path();
@@ -83,8 +110,8 @@ inline void Update(){
  if(!log.is_open()){log.open(dir/"dependenciespathorientation14-runtime.jsonl");Write({{"event","waiting_for_player"}});ReversingProbe::InstallFailureCapture("dependenciespathorientation14");}
  if(!FindPlayerPed()||CCutsceneMgr::IsRunning())return;done=true;
  static_assert(sizeof(CPathFind)==0x3C80&&sizeof(CPathNode)==0x1C&&sizeof(CCarPathLink)==0xE);
- const auto member=&CPathFind::FindNodeOrientationForCarPlacement;const uintptr_t raw=uintptr_t(FunctionToVoidPtr(member)),helperRaw=uintptr_t(&PathOrientation14Normalise),helper=Resolve(helperRaw);
- std::vector<std::pair<uintptr_t,std::vector<uint8>>> initialCode;for(auto at:{uintptr_t(0x450320),raw,Resolve(raw),uintptr_t(0x59C910),helperRaw,helper})initialCode.push_back({at,ReversingProbe::Bytes(reinterpret_cast<void*>(at),16)});
+ const auto member=&CPathFind::FindNodeOrientationForCarPlacement;const uintptr_t raw=uintptr_t(FunctionToVoidPtr(member)),helperRaw=uintptr_t(&PathOrientation14Normalise),helper=Resolve(helperRaw),normalise=Resolve(uintptr_t(&PathFindNormaliseStatusCpp));
+ std::vector<std::pair<uintptr_t,std::vector<uint8>>> initialCode;for(auto at:{uintptr_t(0x450320),raw,Resolve(raw),uintptr_t(0x59C910),helperRaw,helper,normalise})initialCode.push_back({at,ReversingProbe::Bytes(reinterpret_cast<void*>(at),16)});
  OriginalDependencies499::HookRoute route("CPathFind","FindNodeOrientationForCarPlacement",0x450320,FunctionToVoidPtr(member));const auto offCode=ReversingProbe::Bytes(reinterpret_cast<void*>(0x450320),16);
  alignas(16)std::array<uint8,0x3CA0> path{};alignas(16)std::array<uint8,3*0x1C+32> sources{};alignas(16)std::array<uint8,16*0x1C+32> targets{};
  alignas(16)std::array<uint8,0x1C+32> marker{};alignas(16)std::array<uint8,15*0xE+32> navi{};alignas(16)std::array<uint8,45*4+32> links{};alignas(16)std::array<uint8,45*2+32> naviLinks{};
@@ -92,16 +119,16 @@ inline void Update(){
  std::vector<Block> blocks;blocks.emplace_back(uintptr_t(path.data()),path.size());blocks.emplace_back(uintptr_t(sources.data()),sources.size());blocks.emplace_back(uintptr_t(targets.data()),targets.size());blocks.emplace_back(uintptr_t(marker.data()),marker.size());blocks.emplace_back(uintptr_t(navi.data()),navi.size());blocks.emplace_back(uintptr_t(links.data()),links.size());blocks.emplace_back(uintptr_t(naviLinks.data()),naviLinks.size());
  const uintptr_t actual=uintptr_t(&ThePaths);const auto actualBefore=Hex(actual,sizeof(CPathFind));auto actualUnchanged=[&]{return Hex(actual,sizeof(CPathFind))==actualBefore;};
  SaveFP(savedFP.data());savedMXCSR=ReadMXCSR();savedFPActive=true;auto restore=[&]{for(const auto& b:blocks)b.Restore();RestoreFloatingState();};auto restored=[&]{return std::ranges::all_of(blocks,[](const auto& b){return b.Restored();})&&FloatingStateRestored();};
- auto helperRouteOK=[&]{return ModuleOf(helper)==ModuleOf(uintptr_t(&ModuleMarker))&&ModuleOf(0x59C910)==uintptr_t(GetModuleHandleA(nullptr))&&!ReversingProbe::JumpsToDll(0x59C910)&&*reinterpret_cast<uint8*>(helper)!=0xE9;};
+ auto helperRouteOK=[&]{return ModuleOf(helper)==ModuleOf(uintptr_t(&ModuleMarker))&&ModuleOf(normalise)==ModuleOf(uintptr_t(&ModuleMarker))&&*reinterpret_cast<uint8*>(normalise)!=0xE9&&ModuleOf(0x59C910)==uintptr_t(GetModuleHandleA(nullptr))&&!ReversingProbe::JumpsToDll(0x59C910)&&*reinterpret_cast<uint8*>(helper)!=0xE9;};
  bool ready=route.Registered()&&ModuleOf(route.Body())==ModuleOf(uintptr_t(&ModuleMarker))&&helperRouteOK(),passed=ready;
  json descriptors=json::array();for(const auto& b:blocks)descriptors.push_back({{"address",b.address},{"bytes",b.saved.size()}});
  Write({{"event","actual_path_initial"},{"bytes",actualBefore}});
- Write({{"event","begin"},{"registered_hook",ready},{"functions",1},{"pairs",2048},{"helper_equivalence_cases",2048},{"helper_entry",0x59C910},{"helper_body",helper},{"helper_route_ok",helperRouteOK()},{"collaborators_stubbed",false},{"snapshot_layout",descriptors},{"floating_state_restored",FloatingStateRestored()}});
+ Write({{"event","begin"},{"registered_hook",ready},{"functions",1},{"pairs",2048},{"helper_equivalence_cases",2048},{"helper_entry",0x59C910},{"helper_body",helper},{"normalise_body",normalise},{"helper_route_ok",helperRouteOK()},{"collaborators_stubbed",false},{"snapshot_layout",descriptors},{"floating_state_restored",FloatingStateRestored()}});
  alignas(16)std::array<uint8,44> vector{};Block vectorSaved(uintptr_t(vector.data()),vector.size());
  int helperFailures=0;
  const float components[]{0.f,1.f,-1.f,3.f,4.f,.125f,-.125f,10000000000.f,.0000000001f};
  for(unsigned scenario=0;scenario<2048&&ready;++scenario){const unsigned p=scenario%32,v=scenario/32;const float x=p==0?0.f:components[(p+v)%9],y=p==0?0.f:components[(2*p+v/3)%9],z=p==0?0.f:components[(3*p+v/7)%9];
-  uint32 originalIP{},candidateIP{};auto invoke=[&](bool candidate){RestoreFloatingState();vectorSaved.Restore();memset(vector.data(),0xAB,vector.size());PutInt(uintptr_t(vector.data()+16),std::bit_cast<uint32>(x));PutInt(uintptr_t(vector.data()+20),std::bit_cast<uint32>(y));PutInt(uintptr_t(vector.data()+24),std::bit_cast<uint32>(z));ResetTestFP();const auto r=HelperGate(candidate?helper:0x59C910,uintptr_t(vector.data()+16));auto fp=FPObserve();const uint32 ip=fp["instruction_pointer"];(candidate?candidateIP:originalIP)=ip;const bool executedBody=candidate?(ip>=helper&&ip<helper+256):(ip>=0x59C910&&ip<=0x59C960);fp.erase("instruction_pointer");json out={{"input",json::array({std::bit_cast<uint32>(x),std::bit_cast<uint32>(y),std::bit_cast<uint32>(z)})},{"state",vectorSaved.Observe()},{"eax",r.eax},{"ecx",r.ecx},{"edx",r.edx},{"stack_restored",r.stack},{"nonvolatile_preserved",r.nonvolatile},{"route_ok",helperRouteOK()&&executedBody},{"floating_observation",fp}};vectorSaved.Restore();RestoreFloatingState();out["globals_restored"]=vectorSaved.Restored();out["floating_state_restored"]=FloatingStateRestored();return out;};
+  uint32 originalIP{},candidateIP{};auto invoke=[&](bool candidate){RestoreFloatingState();vectorSaved.Restore();memset(vector.data(),0xAB,vector.size());PutInt(uintptr_t(vector.data()+16),std::bit_cast<uint32>(x));PutInt(uintptr_t(vector.data()+20),std::bit_cast<uint32>(y));PutInt(uintptr_t(vector.data()+24),std::bit_cast<uint32>(z));ResetTestFP();const auto r=HelperGate(candidate?helper:0x59C910,uintptr_t(vector.data()+16));auto fp=FPObserve();const uint32 ip=fp["instruction_pointer"];(candidate?candidateIP:originalIP)=ip;const bool executedBody=candidate?(ip>=normalise&&ip<normalise+512):(ip>=0x59C910&&ip<=0x59C960);fp.erase("instruction_pointer");json out={{"input",json::array({std::bit_cast<uint32>(x),std::bit_cast<uint32>(y),std::bit_cast<uint32>(z)})},{"state",vectorSaved.Observe()},{"eax",r.eax},{"ecx",r.ecx},{"edx",r.edx},{"stack_restored",r.stack},{"nonvolatile_preserved",r.nonvolatile},{"route_ok",helperRouteOK()&&executedBody},{"floating_observation",fp}};vectorSaved.Restore();RestoreFloatingState();out["globals_restored"]=vectorSaved.Restored();out["floating_state_restored"]=FloatingStateRestored();return out;};
   const auto a=invoke(false),b=invoke(true);bool ok=a==b;for(const char* k:{"stack_restored","nonvolatile_preserved","route_ok","globals_restored","floating_state_restored"})ok&=a[k]==true&&b[k]==true;passed&=ok;helperFailures+=!ok;Write({{"event","helper_equivalence"},{"case",scenario},{"original_fp_ip_raw",originalIP},{"candidate_fp_ip_raw",candidateIP},{"original",a},{"candidate",b},{"equal",ok},{"accepted",ok}});
  }
  Write({{"event","helper_summary"},{"cases",ready?2048:0},{"failures",helperFailures},{"state_restored",vectorSaved.Restored()},{"floating_state_restored",FloatingStateRestored()}});

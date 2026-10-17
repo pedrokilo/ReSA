@@ -220,9 +220,16 @@ inline void Update() {
                         EntryPatch s4(Body(bit_cast<uintptr_t>(static_cast<int32(*)(const char*)>(&CAnimManager::GetAnimationBlockIndex))),FakeAnimBlockIndex), s4e(0x4D3990,FakeAnimBlockIndex);
                         EntryPatch s5(Body(MemberAddress(&FurnitureManager_c::Exit)),FakeFurnExit), s5e(0x5911A0,FakeFurnExit);
                         EntryPatch s6(Body(MemberAddress(&FurnitureManager_c::LoadFurniture)),FakeLoadFurniture), s6e(0x5C0280,FakeLoadFurniture);
-                        // InteriorGroup_c/Interior_c de la DLL reenvian al EXE: basta con las direcciones del EXE
+                        // direcciones del EXE (las de la DLL se interceptan abajo)
                         EntryPatch g1(0x5947E0,FakeGrpInit), g2(0x5968E0,FakeGrpUpdate), g3(0x595320,FakeGrpSetup), g4(0x595290,FakeGrpExit), g5(0x594840,FakeGrpAddInterior);
                         EntryPatch n1(0x593BF0,FakeIntInit), n2(0x5913E0,FakePtInside), n3(0x5913B0,FakeGetFurnEnt), n4(0x593DB0,FakeIntBBox);
+                        // InteriorGroup_c e Interior_c ya son C++ en la DLL: InteriorManager_c los llama directamente (no por el EXE), asi que tambien
+                        // hay que interceptar sus entradas de DLL con los mismos falsos (de lo contrario el candidato ejecuta Exit/Unfurnish reales sobre el fixture aleatorio).
+                        EntryPatch gd1(Body(MemberAddress(&InteriorGroup_c::Init)),FakeGrpInit), gd2(Body(MemberAddress(&InteriorGroup_c::Update)),FakeGrpUpdate),
+                                   gd3(Body(MemberAddress(&InteriorGroup_c::Setup)),FakeGrpSetup), gd4(Body(MemberAddress(&InteriorGroup_c::Exit)),FakeGrpExit),
+                                   gd5(Body(MemberAddress(&InteriorGroup_c::AddInterior)),FakeGrpAddInterior);
+                        EntryPatch nd1(Body(MemberAddress(&Interior_c::Init)),FakeIntInit), nd2(Body(MemberAddress(&Interior_c::IsPtInside)),FakePtInside),
+                                   nd3(Body(MemberAddress(&Interior_c::GetFurnitureEntity)),FakeGetFurnEnt), nd4(Body(MemberAddress(&Interior_c::GetBoundingBox)),FakeIntBBox);
                         void* const self=M;
                         if(nm=="ActivatePeds")reinterpret_cast<void(__thiscall*)(void*,uint32)>(a)(self,(next()&0xFFFFFF00u)|(next()%2));
                         else if(nm=="AddSameGroupEffectInfos"||nm=="PruneVisibleEffects"||nm=="GetVisibleEffects"){

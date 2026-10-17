@@ -32,7 +32,7 @@ inline auto* FindHook(const char* n){ReversibleHooks::ReversibleHook::Base* h{};
 inline void Update(){
 if(done)return;char exe[MAX_PATH]{};GetModuleFileNameA(nullptr,exe,MAX_PATH);auto dir=std::filesystem::path(exe).parent_path();if(!std::filesystem::exists(dir/"formation-assign355-runtime.start")){done=true;return;}
 if(!log.is_open()){log.open(dir/"formation-assign355-runtime.jsonl");ReversingProbe::InstallFailureCapture("formation-assign355");Write({{"event","waiting_for_player"}});}if(!FindPlayerPed()||CCutsceneMgr::IsRunning())return;done=true;
-auto* globals=reinterpret_cast<uint8*>(0xC1A2C0);std::array<uint8,0x294> saved{};std::memcpy(saved.data(),globals,saved.size());int pairs=0;bool pass=true;ReversingProbe::EntryPatch choosePatch(0x69B1B0,Choose);
+auto* globals=reinterpret_cast<uint8*>(0xC1A2C0);std::array<uint8,0x294> saved{};std::memcpy(saved.data(),globals,saved.size());int pairs=0;bool pass=true;ReversingProbe::EntryPatch choosePatch(0x69B1B0,Choose),chooseDll(std::bit_cast<uintptr_t>(&CFormation::FindNearestFreeDestination),Choose);
 for(const auto& fn:fns){auto* h=FindHook(fn.name);if(!h){Write({{"event","error"},{"reason","missing hook"},{"function",fn.name}});return;}auto old=h->Hooked(),lock=h->Locked();h->LockState(false);int failures=0,yes=0,no=0;
 for(int i=0;i<fn.cases;++i){auto run=[&](bool candidate){scenario=i;trace=json::array();std::memset(globals,0xCD,saved.size());
 CFormation::m_aPedLinkToDestinations.fill(-1);

@@ -34,6 +34,7 @@ inline void Update() {
  using ReversingProbe::EntryPatch;using std::bit_cast;
  std::array<uint8,16> savedPaths{};std::memcpy(savedPaths.data(),reinterpret_cast<void*>(0xB6F988),16);std::array<uint8,24> savedIndices{};std::memcpy(savedIndices.data(),reinterpret_cast<void*>(0xBC4074),24);const auto savedStep=CTimer::GetTimeStepNonClipped();const auto savedFinished=StaticRef<uint8>(0xB6F045),savedStarted=StaticRef<uint8>(0xB6F05B);const auto savedProgress=StaticRef<float>(0xB6F168);
  EntryPatch a(0x5B2090,Vector);EntryPatch b(0x5B2330,Scalar);
+ EntryPatch ad(bit_cast<uintptr_t>(&CameraPathInterpolateVector),Vector),bd(bit_cast<uintptr_t>(&CameraPathInterpolateScalar),Scalar);
  for(const auto& fn:fns){
   auto* hook=FindHook(fn.cls,fn.name);if(!hook){Write({{"event","error"},{"reason","missing hook"}});return;}
   const bool enabled=hook->Hooked(),locked=hook->Locked();hook->LockState(false);

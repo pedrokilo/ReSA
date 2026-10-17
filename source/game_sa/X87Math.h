@@ -474,3 +474,723 @@ void __cdecl RpNanQuatToMatrixCpp(const float* q, float* m);
 float __cdecl RpUpdateSyncAccumCpp(float total, float speed, float blend, float acc);
 // 0x4D35F3..0x4D3605: fld total; fdiv totalTime; fmul totalBlend; fmul timeStep.
 float __cdecl RpUpdateSyncStepCpp(float total, float totalTime, float totalBlend, float timeStep);
+
+// Lote de doce archivos (15/10/2026).
+// --- Lote Matrix.cpp (w20, prefijo Matrix): m = CMatrix como 16 floats (right@0, flags@3, forward@4, up@8, pos@12). Todos cdecl. ---
+// CMatrix::SetRotateXOnly/YOnly/ZOnly (0x59AFA0 / 0x59AFE0 / 0x59B020): fcos/fsin guardados como float; no tocan flags, relleno ni posicion.
+void __cdecl MatrixSetRotateXOnlyCpp(float* m, float angle);
+void __cdecl MatrixSetRotateYOnlyCpp(float* m, float angle);
+void __cdecl MatrixSetRotateZOnlyCpp(float* m, float angle);
+// CMatrix::SetRotate(x, y, z) (0x59B120): fsin/fcos sin redondear, cos(y), sin(z) y cos(z)*sin(x) guardados como float; posicion a cero.
+void __cdecl MatrixSetRotateCpp(float* m, float x, float y, float z);
+// CMatrix::RotateX / RotateY (0x59B1E0 / 0x59B2C0): rotan right, forward, up y pos; fcos sin redondear, fsin como float (en RotateY, right.x usa el seno sin redondear). RotateZ (0x59B390) usa HoldEntityRotateZCpp.
+void __cdecl MatrixRotateXCpp(float* m, float angle);
+void __cdecl MatrixRotateYCpp(float* m, float angle);
+// CMatrix::Reorthogonalise (0x59B6A0): up = normalize(right x forward), right = normalize(forward x up), forward = up x right, sin comprobar cero, como el x87 del EXE.
+void __cdecl MatrixReorthogonaliseCpp(float* m);
+// CMatrix::ConvertToEulerAngles (0x59A840): flags = banderas del llamador; i, j, k = ejes derivados de las banderas (tablas Idx1/Idx2 de Matrix.cpp); pX/pY/pZ pueden apuntar dentro de m.
+void __cdecl MatrixConvertToEulerCpp(const float* m, float* pX, float* pY, float* pZ, unsigned int flags, int i, int j, int k);
+// CMatrix::ConvertFromEulerAngles (0x59AA40): escribe los 9 elementos de right/forward/up; mismos flags e i, j, k que MatrixConvertToEulerCpp.
+void __cdecl MatrixConvertFromEulerCpp(float* m, float x, float y, float z, unsigned int flags, int i, int j, int k);
+// CPedIK::PitchForSlope (0x5FE721..0x5FE72C): num / fcos(angle) con fdivr y un solo redondeo a float (el llamador resta 0.3f).
+float __cdecl PedIKDivCosCpp(float num, float angle);
+// CPedIK::RotateTorsoForArm (0x5FDFB4..0x5FE000): rumbo atan2(-(direction.x - pos.x), direction.y - pos.y) con fpatan sin redondear, ajustado a +-2pi respecto a rotation (0x858CB8/0x858CBC) y restado; direction y pedPos apuntan a x, y.
+float __cdecl PedIKArmHeadingDiffCpp(const float* direction, const float* pedPos, float rotation);
+// --- CAEVehicleAudioEntity (lote w20, prefijo VehAudio) ---
+// GetFreqForPlayerEngineSound 0x4F8145..0x4F8196: B = ((|fsin(angle)| * lean) [+ boostOffset si boost]) * gf, todo en ST0 sin redondear y un solo fstp a float (fchs solo si sin < 0).
+float __cdecl VehAudioBikeLeanCpp(float angle, float lean, bool boost, float boostOffset, float gf);
+// ProcessPlayerVehicleEngine 0x4FBBCD..0x4FBC1C: ((absSpeed - gearDown) / (gearMax - gearDown)) limitado a [0, 1] sobre ST0 sin redondear (NaN se conserva), un solo fstp a float.
+float __cdecl VehAudioRevsRatioCpp(float absSpeed, float gearMax, float gearDown);
+// ProcessDummyTrainEngine 0x500868..0x5008BE: z = (y + x) * 0 + z saturado a +-0.3 (doble; NaN -> -0.3) por la pendiente, un solo fstp a float.
+float __cdecl VehAudioTrainTiltCpp(float forwardX, float forwardY, float forwardZ, float slope);
+// ProcessDummyBicycle/ProcessPlayerBicycle 0x4FFE75..0x4FFED9 y 0x5000EE..0x50014F: min(|speed / maxVelocity|, 1) con NaN -> 1.0 y resultado <= 0 -> +0.0, guardado como float.
+float __cdecl VehAudioBicycleRatioCpp(float speed, float maxVelocity);
+// Bicicletas 0x4FFF39..0x4FFF66 y 0x5001AF..0x5001DC: ((|fsin(angle)| * multiplier) + 1.0f) * frequencyBase sobre ST0 sin redondear y un solo fstp a float.
+float __cdecl VehAudioBicycleFrequencyCpp(float angle, float multiplier, float frequencyBase);
+// --- CTaskSimpleJetPack (lote w20, prefijo JetPack). Añadir al final de X87Math.h ---
+// JetPackUnsignedDivCpp: (float)(entero sin signo) / divisor con un solo redondeo (RenderJetPack 0x67F7DC).
+float __cdecl JetPackUnsignedDivCpp(unsigned int value, float divisor);
+// JetPackLookBackHeadingCpp: atan2(-(x * -1), y * -1) como float (ProcessControlInput 0x67E914, cámara mirando a otro lado).
+float __cdecl JetPackLookBackHeadingCpp(float x, float y);
+// JetPackLerpThrustAngleCpp: ((1 - p) * ud) * 75 grados + p * ángulo con p = pow(0.9, paso) sin redondear (ProcessControlInput 0x67E93E).
+float __cdecl JetPackLerpThrustAngleCpp(float scaledUpDown, float angle, float step);
+// JetPackThrustDirCpp: out[0..2] = -sin(a) * delante + cos(a) * arriba con los redondeos del EXE (ProcessThrust 0x67F1C2); up/forward/out apuntan a x, y, z consecutivos.
+void __cdecl JetPackThrustDirCpp(float thrustAngle, const float* up, const float* forward, float* out);
+// JetPackSwingSumsCpp: sums[0..2] = delta + aceleración de la velocidad del peatón (ProcessThrust 0x67F43D).
+void __cdecl JetPackSwingSumsCpp(const float* pedVelocity, const float* prevPedVelocity, const float* taskVelocity, float* sums);
+// JetPackSwingAxisCpp: balanceo de una pierna (velocidad *speed y ángulo *angle de la tarea) con el eje delante o lateral de la matriz (ProcessThrust 0x67F4A0 / 0x67F544).
+void __cdecl JetPackSwingAxisCpp(const float* sums, const float* axis, bool grounded, float step, float* speed, float* angle);
+// JetPackSpeedDampBaseCpp: 1 - |velocidad| * 0.02 como float (ProcessThrust 0x67F5EA); después PowScaleVector3Cpp.
+float __cdecl JetPackSpeedDampBaseCpp(const float* velocity);
+// --- Lote PathFind (w20). Anadir al final de X87Math.h ---
+// Como PlayerPedResidueFloatCpp pero ademas fija EAX: al volver ECX = ecxValue, EDX = edxValue, EAX = eaxValue y ST0 = value. Ultima llamada de CPathFind::CalcRoadDensity
+// (0x44EFC0) y FindNodeOrientationForCarPlacement (0x450320); no toca ECX ni EDX (llama a ResidueRegsCpp con los mismos registros y recarga value de la pila).
+float __fastcall PathFindResidueFloatCpp(unsigned int ecxValue, unsigned int edxValue, float value, unsigned int eaxValue);
+// CVector::Normalise del EXE (0x59C910) sobre v[0..2]: (x*x + y*y) + z*z; si es <= 0 solo pone v[0] = 1.0f, si no multiplica los tres por 1.0f / sqrt(suma) con un redondeo a float por producto.
+// Devuelve la palabra de estado que deja su fnstsw (0x59C934) SIN el campo TOP: C3/C2/C0 de fcom contra 0.0 y las banderas IE/DE/ZE/OE/UE/PE acumuladas leidas con _statusfp2.
+unsigned int __cdecl PathFindNormaliseStatusCpp(float* vector);
+// --- CTaskSimpleSwim (lote w20, prefijo Swim) ---
+// ProcessControlInput 0x688BE5..0x688BF3: fpatan(y, x); fst dword [out]; fsub dword [sub]. *out = float(atan2) y devuelve float(atan2 - sub) con un solo redondeo (el llamador niega el resultado, fchs).
+float __cdecl SwimAtan2StoreMinusCpp(float y, float x, float sub, float* out);
+// ProcessControlInput 0x688C72..0x688C7B: float(_CIasin(x) - sub) con el asin del EXE (0x821E70, todas las ramas) en ST0 sin redondear antes de la resta.
+float __cdecl SwimAsinMinusCpp(float x, float sub);
+// ProcessControlInput 0x688FA2..0x688FA7: float(angleFn(0, 0, x2, y2) - sub); angleFn es CGeneral::GetRadianAngleBetweenPoints (0x53CBE0) y su ST0 se consume directamente en la resta.
+float __cdecl SwimRadianAngleMinusCpp(float (__cdecl* angleFn)(float, float, float, float), float x2, float y2, float sub);
+// ProcessSwimmingResistance 0x68A43A..0x68A4D6 (SWIM_UNDERWATER_SPRINTING): out = {P0 + A, P1 + B, ((sin·sy + (P2 + C)) + 0,01)} con A,B,C = sx·right, P = (cos·forward)·sy, fcos/fsin completos y un redondeo a 24 bits por operación.
+void __cdecl SwimSprintVelocityCpp(float rotationX, const float* right, const float* forward, float sx, float sy, float* out);
+// ProcessSwimmingResistance 0x68A4D8..0x68A54D: ms = pow(0,9, paso)·ms + (1 - pow)·v con el pow del EXE (0x822130) en ST0 sin redondear y los tres ms leídos antes de escribir.
+void __cdecl SwimResistanceCpp(float step, float* moveSpeed, const float* wanted);
+// --- CBmx (prefijo Bmx; Bmx.cpp) ---
+// Los demas bloques de Bmx.cpp usan ayudantes ya existentes: TrigSimpleSinCpp/TrigSimpleCosCpp (steer), TrigSimpleSinMulCpp (ruedas, k = 0.02f/0.04f), TrigAtan2Cpp (GetFrameOffset) y PowScaleFloatCpp (cigueñal, base 0.97f).
+// float(sin(angle * k)) y float(cos(angle * k)) con el producto de 24 bits en ST0 sin pasar por float (CBmx::PreRender 0x6C0E0A..0x6C0E34, k = 0x8595EC).
+float __cdecl BmxSinScaledCpp(float angle, float k);
+float __cdecl BmxCosScaledCpp(float angle, float k);
+// float((sin(angle) * k1) * k2) con el seno sin redondear (CBmx::PreRender 0x6C0A27..0x6C0A31, k1 = minZ de la colision, k2 = 0.8f de 0x858C98).
+float __cdecl BmxSinTimes2Cpp(float angle, float k1, float k2);
+// float((((1 - cos(lean)) * boundMinZ) * 0.9f) + zOff) con el coseno sin redondear (CBmx::PreRender 0x6C1251..0x6C128C; 0.9f de 0x858C20).
+float __cdecl BmxChassisZCpp(float lean, float boundMinZ, float zOff);
+// float(sin(cur / total * 2PI + start) * blend * mult) (CBmx::ProcessControl 0x6BFA9C..0x6BFAB8, rama de sprint) y la variante con "+ add" sin redondear antes (rama de pedaleo 0x6BFB0B..0x6BFB2F, add = LeanAngle).
+float __cdecl BmxLeanTermCpp(float curTime, float totalTime, float start, float blend, float mult);
+float __cdecl BmxLeanTermAddCpp(float curTime, float totalTime, float start, float blend, float mult, float add);
+// float(asin(x) * -1.0f) con el _CIasin del EXE (0x821E70, todas sus ramas) y el fmul por -1.0f de 0x858C1C (no cambia el signo de un NaN); CBmx::PreRender 0x6C0FCA..0x6C0FDA.
+float __cdecl BmxNegAsinCpp(float x);
+// Lote WaterLevel (WaterLevel.cpp, w20). Aritmetica x87 de CWaterLevel; todo en X87Math.cpp (se puede colocar al final). Reutiliza TrigCompoundSinMulAdd, TrigCompoundCosMulAdd, TrigSimpleCosCpp, IntTimesFloatCpp, Ftol2RegsDblCpp.
+// Imagen de un CWaterVertex del EXE (20 bytes: x, y, CRenPar { z, bigWaves, smallWaves, flowX, flowY }); WaterLevel.cpp la lee desde m_aVertices.
+struct WaterLevelVertexCpp { short x; short y; float z; float bigWaves; float smallWaves; signed char flowX; signed char flowY; };
+static_assert(sizeof(WaterLevelVertexCpp) == 20, "WaterLevelVertexCpp debe medir lo mismo que CWaterVertex");
+// CWaterLevel::AddWaveToResult (0x6E8269..0x6E8287): fractionY + fractionX a 24 bits < 1.0 (ordenado: con NaN da false).
+bool __cdecl WaterLevelWaveLowerCpp(float fractionX, float fractionY);
+// 0x6E82D3..0x6E8453 y 0x6E8498..0x6E8546: *level = (((alongX-base)*wx + (alongY-base)*wy) + *level) + base (wx = fractionX, o 1-fractionX en la mitad superior) y, si normal != null,
+// el producto vectorial de 0x59C730 (x = dy*0 - dx*K, y = dx*0 - dy*K, z = 4; K = 2 abajo, -2 arriba) sin normalizar; la llamada a Normalise la hace el llamador.
+void __cdecl WaterLevelWaveInterpolateCpp(float base, float alongX, float alongY, float fractionX, float fractionY, bool lower, float* level, float* normal);
+// CWaterLevel::FindNearestWaterAndItsFlow (0x6E9E3F..0x6E9EF4): distancia a un cuadrilatero (cada resta a 24 bits, raiz con fsqrt) devuelta como float; minX/maxX/minY/maxY son x e y de los vertices 0, 1, 0 y 2.
+float __cdecl WaterLevelNearestDistanceCpp(float x, float y, float minX, float maxX, float minY, float maxY);
+// 0x6E9FE6..0x6EA1FE: indice (0..3) del vertice mas cercano por distancia al cuadrado ((y-vy)^2 + (x-vx)^2 guardada como float) con las comparaciones ordenadas del EXE.
+int __cdecl WaterLevelNearestFlowIndexCpp(float x, float y, const float* vertexX, const float* vertexY);
+// CWaterLevel::CalculateWavesOnlyForCoordinate (0x6E6F4F..0x6E713F): las tres ondas con la tabla de senos (indice = _ftol2 & 0xFF), escribe *out y la normal (x, y, z) SIN normalizar.
+// absX/absY = valores absolutos tras el neg del EXE; rem1/rem2/rem3 = (tiempo - desplazamiento) % 5000, 3500 y 3000 (div sin signo); multX*multY = factores de 0x8D38C8/0x8D38E8.
+void __cdecl WaterLevelWavesFullCpp(int absX, int absY, float multX, float multY, float wavyness, unsigned int rem1, unsigned int rem2, unsigned int rem3,
+                                    float bigAmplitude, float smallAmplitude, const float* sinTable, float* out, float* normal);
+// 0x6E7146..0x6E7209: multiplicador de color y brillo a partir de la normal ya normalizada (colorScale = 0x8D3924, colorBias = 0x8D3920, sunGlare = 0xC812E0).
+void __cdecl WaterLevelWaveColorGlareCpp(const float* normal, float colorScale, float colorBias, float sunGlare, float* colorMult, float* glare);
+// CWaterLevel::CalculateWavesOnlyForCoordinate2Native (0x6E7210..0x6E739F): mismas tres ondas sobre *height, con y guardado como float (fstp dword [esp+8]) y x exacto en ST.
+// Devuelve el EAX (indice de la tercera onda), ECX y EDX con que sale el EXE (residuo de la tercera llamada a _ftol2 con ECX de entrada 0xBB8).
+Ftol2Regs __cdecl WaterLevelWavesNativeCpp(int absX, int absY, float multX, float multY, float wavyness, unsigned int rem1, unsigned int rem2, unsigned int rem3,
+                                           float bigAmplitude, float smallAmplitude, const float* sinTable, float* height);
+// CWaterLevel::GetWaterLevelNoWavesForQuad (0x6E5BB0) y ...ForTriangle (0x6E5E90): vertex apunta a los vertices 0..3 (cuadrilatero) o 0..2 (triangulo) en el orden de la lista de indices del poligono.
+// outBigWaves/outSmallWaves pueden ser nulos (el cuadrilatero sale con true sin probar la profundidad; el triangulo si la prueba); con outBigWaves != null se escribe tambien outSmallWaves.
+bool __cdecl WaterLevelQuadCpp(const WaterLevelVertexCpp* const* vertex, bool limitedDepth, float x, float y, float z, float* outLevel, float* outBigWaves, float* outSmallWaves);
+bool __cdecl WaterLevelTriangleCpp(const WaterLevelVertexCpp* const* vertex, bool limitedDepth, float x, float y, float z, float* outLevel, float* outBigWaves, float* outSmallWaves);
+// CWaterLevel::RenderWater (0x6EF8E2..0x6EF9EB): avance de los desplazamientos de textura; shifts apunta a 0x8D3824 (cuatro floats contiguos); flowX/flowY = 0xC22890/0xC22894, scale = 0x8D392C.
+void __cdecl WaterLevelShiftsAdvanceCpp(float timeStep, float flowX, float flowY, float scale, float* shifts);
+// 0x6EFA0A..0x6EFA31 y 0x6EFA37..0x6EFA4B: float(sin(angle) * first * second + add) y float(cos(angle) * first * second + add) con el seno/coseno sin redondear y cada producto a 24 bits.
+float __cdecl WaterLevelSinMulMulAddCpp(float angle, float first, float second, float add);
+float __cdecl WaterLevelCosMulMulAddCpp(float angle, float first, float second, float add);
+// 0x6EFAA2..0x6EFAB8: (random * scale) * multiplier con un solo guardado a float.
+float __cdecl WaterLevelNoiseFirstCpp(int random, float scale, float multiplier);
+// 0x6EFAC7..0x6EFAF9: (random * scale) * multiplier + cosineSpill * factor con un solo guardado a float.
+float __cdecl WaterLevelNoiseSecondCpp(int random, float scale, float multiplier, float cosineSpill, float factor);
+// --- CPhysical (Physical.cpp; w20, prefijo Physical) ---
+// floor(coord * 0.02f + 60) con fld/fmul/fadd/fstp qword, floor y _ftol2 (CPhysical::Add 0x544A30, RemoveAndAdd 0x542560, ProcessShift 0x54DB10, CheckCollision 0x54D920); devuelve los 32 bits bajos de la conversion de 64 bits (0 si |valor| >= 2^63, NaN o infinito).
+int __cdecl PhysicalSectorCpp(float coordinate);
+// CMatrix::Rotate(x, y, z) del EXE (0x59B460) sobre m = 16 floats (right@0, forward@4, up@8, pos@12): fsin/fcos sin redondear, un redondeo por operacion, lecturas antes de escribir.
+void __cdecl PhysicalRotateXYZCpp(float* m, float x, float y, float z);
+// CPhysical::PositionAttachedEntity (0x547990..0x547A76): turnZ' = float(((clamp(ajuste2pi(hA - hB), +-0.5) * 1e-5f) * mass) + turnZ), hA/hB = fpatan(-fwd.x, fwd.y) sin redondear (forward nullptr usa el rumbo compacto).
+float __cdecl PhysicalAttachTurnZCpp(const float* attachedForward, float attachedHeading, const float* selfForward, float selfHeading, float turnZ, float mass);
+// CPhysical::ApplySpeed (0x548270..0x5482B1), puerta: rumbo (fpatan sin redondear) ajustado en +-2pi contra doorStart +- pi (0x858CB8/0x858CBC) y float(rumbo - doorStart).
+float __cdecl PhysicalDoorHeadingCpp(const float* forward, float compactHeading, float doorStart);
+// Lote de Radar.cpp (15/10/2026).
+// CRadar::CalculateCachedSinCos (0x5837B5..0x5837D6, 0x5837E9..0x583813): a = atan2(-x, y) con fpatan sin redondear; orientation = float(a) (fst dword), sin/cos de a sin redondear (un solo redondeo a float cada uno).
+void __cdecl RadarSinCosFromAtan2Cpp(float x, float y, float* orientation, float* sinOut, float* cosOut);
+// CRadar::CalculateCachedSinCos sin matriz de camara (0x5837F5): a = rumbo (fld dword); orientation = float(a), sin/cos de a con un solo redondeo a float cada uno.
+void __cdecl RadarSinCosFromAngleCpp(float angle, float* orientation, float* sinOut, float* cosOut);
+// CRadar::DrawRotatingRadarSprite (0x584896..0x584916): cuatro vertices {x, y} en verts[8]; theta = i · halfPi + (angle - subtract) (un redondeo a 24 bits por operacion), fsin/fcos sin redondear,
+// vx = ((zero·cos + sin) · W + x), vy = ((cos - zero·sin) · H + y) con W/H = fild del entero con signo (+2^32 si es negativo) sin redondear a float.
+void __cdecl RadarRotatedSpriteVertsCpp(float angle, float x, float y, unsigned int width, unsigned int height, float subtract, float halfPi, float zero, float* verts);
+// CRadar::DrawYouAreHereSprite (0x584A25..0x584A4A): *outY = float(y - sin(a)·radius), *outX = float(cos(a)·radius + x) con fsin/fcos sin redondear.
+void __cdecl RadarYouAreHereOffsetCpp(float circleAngle, float radius, float x, float y, float* outX, float* outY);
+// CRadar::DrawRadarMask (0x585850..0x58586C): arc = j · step; *outX = float(cos(arc)·cornerX), *outY = float(sin(arc)·cornerY) con fcos/fsin sin redondear antes de multiplicar.
+void __cdecl RadarArcPointCpp(int j, float step, float cornerX, float cornerY, float* outX, float* outY);
+// CRadar::DrawRadarGangOverlay (0x5867A2..0x5867F7): ((fsin(angle) + one) · half) · alpha (fimul) con un redondeo a 24 bits por operacion; el llamador trunca con _ftol2.
+float __cdecl RadarGangPulseCpp(float angle, int alpha, float one, float half);
+// CRadar::DrawRadarMap (0x586A76..0x586A99): float(playerY - 2 · (atan2(-forwardZ, upZ) · degrees)) con el fpatan sin redondear.
+float __cdecl RadarPlaneBottomYCpp(float forwardZ, float upZ, float degrees, float playerY);
+// CRadar::ClipRadarPoly (0x585333..0x5853B7): poly = 4 vertices {x, y} consecutivos; true si el cuadrado cae dentro del cuadrilatero: (s1·x3 - y3)·(s1·x0 - y0) < 0 con s1 = (y0 - y1)/(x0 - x1) sin redondear a float
+// y (s3·x1 - y1)·(s3·x0 - y0) < 0 con s3 = (y0 - y3)/(x0 - x3) guardado como float (fstp dword); comparaciones ordenadas (false con NaN).
+bool __cdecl RadarClipHullInsideCpp(const float* poly);
+// CPad (lote w20, prefijo Pad). Anadir al final de X87Math.h.
+// ProcessPad: angulo del POV (fild con signo, + 2^32 si es negativo, * 0.01f * 0.017453292f) como double sin redondear a float.
+double __cdecl PadPovAngleCpp(unsigned int pov);
+// ProcessPad: *sine = float(sin(angle)); *negCosine = float(cos(angle) * -1.0) (fsin / fcos / fmul -1.0f del EXE).
+void __cdecl PadPovSinCosCpp(double angle, float* sine, float* negCosine);
+// StartShake_Distance: true si sqrt((dz*dz + dy*dy) + dx*dx) < limit (ordenada); camera y point apuntan a x, y, z consecutivos.
+bool __cdecl PadShakeWithinDistanceCpp(const float* camera, const float* point, float limit);
+// StartShake_Train: *distanceSquared = float(dy*dy + dx*dx) y devuelve true si la suma SIN redondear es < 4900.0 (ordenada); camera y point apuntan a x, y consecutivos.
+bool __cdecl PadShakeTrainWithinCpp(const float* camera, const float* point, float* distanceSquared);
+// StartShake_Train: byte bajo de _ftol2((70.0f - sqrt(distanceSquared)) + 30.0f) (0x53FB18..0x53FB36).
+unsigned char __cdecl PadShakeTrainFrequencyCpp(float distanceSquared);
+// memmgr: sin ayudantes nuevos.
+
+// --- CPedIK::PitchForSlope (lote pitfix) ---
+// CMatrix::operator* (0x59BE30) con la aritmetica x87 del EXE (exponente extendido en los productos y sumas intermedios). a, b y r apuntan a CMatrix como 16 floats (right@0, forward@4, up@8, pos@12); r recibe 12 floats (los rellenos no se tocan) y puede coincidir con a o b.
+void __cdecl PedIKFixMatMulCpp(const float* a, const float* b, float* r);
+
+// --- CTaskSimpleSwim (lote swfix, prefijo SwFix); insertar tras SwimResistanceCpp ---
+// float(acc + (a * b) * c) con los productos sin redondear (ST0 con exponente extendido) y un solo fstp final (ProcessControlInput: `x += ts * k * y`).
+float __cdecl SwFixAccum3Cpp(float acc, float a, float b, float c);
+// float(acc + a * b) (0x688EE0).
+float __cdecl SwFixAccum2Cpp(float acc, float a, float b);
+// float(acc - a * b) (0x689327).
+float __cdecl SwFixSubScaledCpp(float acc, float a, float b);
+// float(-(a - b)) con fsub + fchs: a == b devuelve -0 (0x6891CC).
+float __cdecl SwFixNegDiffCpp(float a, float b);
+
+// --- CTaskSimpleJetPack::ProcessThrust (lote jpfix, prefijo JpFix). Anadir al FINAL de X87Math.h (despues del bloque JetPack) ---
+// Todos reproducen la secuencia x87 del EXE (0x67EF20..0x67F660): 24 bits de precision con exponente extendido, un fstp float solo donde el EXE guarda,
+// y los operandos de memoria (masa, paso, matriz, velocidades) con la semantica de `fop m32`: un NaN senalizante en memoria pierde frente a un NaN
+// silencioso del registro (y se silencia si el registro es un numero). Los punteros apuntan a la memoria ORIGINAL (no pasar copias por registro x87).
+// JpFixUpForceCpp: fuerza de ((arriba * 0.008) * masa) * paso (rama de parada, 0x67EF51); out[0..2].
+void __cdecl JpFixUpForceCpp(const float* up, const float* mass, const float* step, float* out);
+// JpFixNominalForceCpp: fuerza nominal 0.8 (0.4 si halve) hacia arriba (0x67F103); out[0..2].
+void __cdecl JpFixNominalForceCpp(const float* up, bool halve, const float* mass, const float* step, float* out);
+// JpFixThrustDirCpp: out = -sin(a) * delante + cos(a) * arriba, con z limitada a 0.75 (0x67F1C2..0x67F23C).
+void __cdecl JpFixThrustDirCpp(const float* angle, const float* up, const float* forward, float* out);
+// JpFixHeightBelowCpp: (suelo + 100) < z (0x67F25A..0x67F268).
+bool __cdecl JpFixHeightBelowCpp(float groundHeight, const float* z);
+// JpFixThrustForceCpp: fuerza hacia delante (0x67F2B5..0x67F368); scaled = JpFixHeightBelowCpp, groundHeight = segunda llamada a CalculateGroundHeight.
+void __cdecl JpFixThrustForceCpp(const float* t, bool scaled, float groundHeight, const float* z, const float* mass, const float* step, float* out);
+// JpFixStrafeForceCpp: fuerza lateral (0x67F386..0x67F433) con *strafe != 0.
+void __cdecl JpFixStrafeForceCpp(const float* strafe, const float* right, const float* mass, const float* step, float* out);
+// JpFixStopForceCpp: frenado de la rama de parada (0x67EFDA..0x67F0FB). true = fuerza en out; false = velocidad a cero.
+bool __cdecl JpFixStopForceCpp(const float* speed, const float* step, const float* mass, float* out);
+// JpFixSwingSumsCpp / JpFixSwingAxisCpp / JpFixTwistDampCpp / JpFixSpeedDampCpp: cola 0x67F43D..0x67F660 (sustituyen a JetPackSwingSumsCpp, JetPackSwingAxisCpp,
+// PowScaleFloatCpp(&m_LegTwist...) y JetPackSpeedDampBaseCpp + PowScaleVector3Cpp).
+void __cdecl JpFixSwingSumsCpp(const float* pedVelocity, const float* prevPedVelocity, const float* taskVelocity, float* sums);
+void __cdecl JpFixSwingAxisCpp(const float* sums, const float* axis, bool grounded, const float* step, float* speed, float* angle);
+void __cdecl JpFixTwistDampCpp(float* twist, const float* step);
+void __cdecl JpFixSpeedDampCpp(float* velocity, const float* step);
+
+// --- CFormation (Formation.cpp, lote w20, prefijo Formation) ---
+// CMatrix::TransformPoint del EXE (0x59C890 inlinada en 0x699FF0): out = matrix · {v0, v1, v2}; matrix = float[16] como CMatrix; out no puede solaparse con matrix ni vector.
+void __cdecl FormationTransformPointCpp(const float* matrix, const float* vector, float* out);
+// float(sqrt(dy² + dx²)) con dx = firstX - secondX, dy = firstY - secondY, sumas y raíz en x87 (CFormation::FindCoverPointsBehindBox, 0x69A130..0x69A15E).
+float __cdecl FormationDistance2DCpp(float firstX, float firstY, float secondX, float secondY);
+// Punto del círculo de CFormation::GenerateGatherDestinations (0x69A6A0..0x69A705): out = {float(float(sin(a)·radius) + position.x), float(cos(a)·radius + position.y), fld/fstp(position.z)}, a en ST0 sin redondear.
+void __cdecl FormationGatherPointCpp(int index, int count, float heading, float radius, const float* position, float* out);
+// Punto de CFormation::GenerateGatherDestinations_AroundCar (0x69A823..0x69AB7E): position -/+ right·offset (positive = segunda mitad) más forward·length·float(0.5 - index/count), con los redondeos float del EXE.
+void __cdecl FormationGatherCarPointCpp(const float* position, const float* right, float offset, const float* forward, float length, int index, int count, bool positive, float* out);
+// Centroide de CFormation::DistributeDestinations (0x69B2B7.. destinos si destination, 0x69B321.. peatones): Σ en x87, mismas multiplicaciones por 1.0f/count que el EXE; out = {x, y, z}.
+void __cdecl FormationCentroidCpp(const float* points, int count, bool destination, float* out);
+// Radio medio Σ sqrt((dz² + dy²) + dx²) / count que el EXE deja en ST0 (el valor de 24 bits de mantisa cabe exacto en un double); center = {x, y, z}.
+double __cdecl FormationMeanRadiusCpp(const float* points, int count, const float* center);
+// Escala de DistributeDestinations (0x69B44C..0x69B484): float(destinationRadius) y pedRadius limitados por abajo a 1.0 (NaN no cambia); devuelve destino / peatones sin redondear.
+double __cdecl FormationRadiusScaleCpp(double destinationRadius, double pedRadius);
+// Reescala un punto de peatón (0x69B490..0x69B4F0); out no debe solaparse con point.
+void __cdecl FormationScalePositionCpp(const float* point, const float* pedCenter, const float* destinationCenter, double scale, float* out);
+// CFormation::FindNearestFreeDestination (0x69B1B0): índice del primer destino libre de menor distancia (-1 si no hay) y *total = float(mínimo + *total); claimed = bytes de CFormation::m_Destinations.m_PointHasBeenClaimed.
+int __cdecl FormationNearestFreeCpp(const float* points, const unsigned char* claimed, int count, const float* origin, float* total);
+// CFormation::FindCoverPoints (0x69B8D3..0x69B8FF): sqrt((x² + y²) + z²) < 0.005f sobre CVector speed (comparación ordenada: con NaN da false).
+bool __cdecl FormationVehicleStationaryCpp(const float* speed);
+// CFormation::DistributeDestinations_CoverPoints (0x69B646..0x69B6C8; sólo lo usa formation-extra.patch): false si el peatón se descarta; si no, *score = 1 - ((dist(destino) + targetDistance) - pedDistance) / pedDistance (double sin redondear).
+bool __cdecl FormationCoverScoreCpp(const float* ped, const float* destination, const float* target, float targetDistance, double* score);
+
+// fight: sin declaraciones nuevas (reutiliza ResidueRegsCpp y EntryEaxCpp ya declarados en X87Math.h).
+
+// --- CAutomobile (Automobile.cpp; lote w20, prefijo Automobile). Colocar al FINAL de X87Math.h (tras los de Pad/Physical). ---
+// 0x6A884D / 0x6A887C: fild tiempo (con signo, + 2^32 si es negativo) + fadd float (24 bits por operacion) y _ftol2; devuelve el dword bajo del entero truncado (EAX).
+unsigned int __cdecl AutomobileTimeMsPlusFloatCpp(unsigned int timeMs, float addend);
+// ProcessControl 0x6B2DCD..0x6B2DEE: (1 - p) * rate + p * audio con p = pow(base, timeStep) del CRT del EXE sin redondear a float.
+float __cdecl AutomobileWheelSpinAudioCpp(float base, float timeStep, float audio, float rate);
+// ProcessControl 0x6B2989..0x6B2A34: f = asin(x) / (steeringLock * degToRad) sin redondear; f = 1.0 si forceOne o 1.0 < f; devuelve float(f * steerAngle) (nuevo m_fSteerAngle).
+float __cdecl AutomobileSteerFactorCpp(float x, float steeringLock, float degToRad, float steerAngle, bool forceOne);
+// ProcessControl 0x6B30E0..0x6B317E: fuerza de los hidraulicos force = (speed * (up * -1.0f)) * turnMass con speed = pow(pow(base, ts) / (tsf^2 * factor + 1), ts) * tsf - tsf sin redondear; up y force apuntan a x, y, z.
+void __cdecl AutomobileHydraulicForceCpp(float turnSpeedForward, float timeStep, float base, float factor, const float* up, float turnMass, float* force);
+// ProcessCarWheelPair 0x6A5CE7..0x6A5D0F: float(pow(base, timeStep) * temperatureAboveOne + 1.0) con el pow del CRT del EXE sin redondear.
+float __cdecl AutomobileTireDecayCpp(float base, float timeStep, float temperatureAboveOne);
+// HydraulicControl 0x6A0E9D..0x6A0EBF: angulo = fpatan(stickLR, stickUD) + quarterPiNeg (24 bits); *cosOut = float(fcos(angulo) * jump); *sinOut = float(fsin(angulo) * jump).
+void __cdecl AutomobileHydraulicStickCpp(float stickLR, float stickUD, float jump, float quarterPiNeg, float* cosOut, float* sinOut);
+// ProcessSwingingDoor 0x6A9F12..0x6A9F51: nuevo m_angVel = (((s*fy)*vy + (s*fz)*vz) + (s*fx)*vx) + angVel con s = (fsin(angle) + bias) * mul, todo sin pasar por float salvo el fstp final; forward y moveSpeed apuntan a x, y, z.
+float __cdecl AutomobileBonnetAngVelCpp(float angle, float bias, float mul, const float* forward, const float* moveSpeed, float angVel);
+// GetCarRoll 0x6A6010: PlaceableRollDblCpp(right, upZ) * 57.2957763671875 (0x859878, fmul a 24 bits); extern "C" y double: Automobile.cpp lo declara como float con otro nombre (/alternatename) para devolver ST0 sin redondear.
+// GetCarPitch (0x6A6050) es PlaceableRollDblCpp sobre el vector forward: Automobile.cpp lo enlaza directamente por /alternatename.
+extern "C" double __cdecl AutomobileCarRollDblCpp(const float* right, float upZ);
+
+// decision: sin ayudantes nuevos en X87Math.h (se reutilizan ResidueRegsCpp y CarEnterExitEntryEdxCpp).
+
+// CVehicle::SetTransmissionRotation (0x6DBBB0..0x6DBC67), prefijo Vehicle. wheelPos apunta a x, y, z consecutivos. outAngleX = float(-atan2((L + R) * 0.5 - z, matY - y)) (+ PI 0x40490FDB si isFront, sumado en x87); outAngleY = float(atan2(L - R, |x| + |x|)); fpatan sin redondear y un solo fstp float cada uno.
+void __cdecl VehicleTransmissionAnglesCpp(float angleL, float angleR, float matY, const float* wheelPos, bool isFront, float* outAngleX, float* outAngleY);
+
+// --- Lote Garage (Garage.cpp, w20). Colocar al final de X87Math.h. Reutiliza RpNanAddCpp (Garage.cpp lo llama para fRadius + radio de la esfera). ---
+// CGarage::BuildRotatedDoorMatrix (0x4479F0..0x447A67): angulo = doorPos * k (un fmul a 24 bits, sin redondear a float), sin y cos con fsin/fcos de precision completa guardados como float;
+// up = {-(sin * fy), sin * fx, cos} con productos del x87 (fy y fx = forward.y y forward.x). El producto vectorial right = forward x up lo hace el que llama (CrossProduct, 0x59C730).
+void __cdecl GarageDoorUpCpp(float doorPos, float k, float fx, float fy, float* up);
+// CrossProduct (0x59C730) llamado con a = forward, b = up: right = {b.z*a.y - a.z*b.y, a.z*b.x - b.z*a.x, a.x*b.y - b.x*a.y}; cada par de productos se queda en el x87 (24 bits de mantisa, exponente extendido), la resta se guarda como float.
+void __cdecl GarageDoorRightCpp(const float* a, const float* b, float* out);
+// CGarage::IsPointInsideGarage(point) (0x448740): g = el CGarage como floats (pos 0..2, dirA 3..4, dirB 5..6, topZ 7, ancho 8, alto 9), p = {x, y, z}. Comparaciones ordenadas (con NaN no rechaza);
+// dx queda sin redondear en el primer producto y como float en el segundo. *ecxOut recibe los bits de dy (float) cuando la ruta llega a guardarlo (0x448764), si no se deja como estaba.
+bool __cdecl GarageInsidePointCpp(const float* g, const float* p, unsigned int* ecxOut);
+// CGarage::IsPointInsideGarage(point, radius) (0x4487D0): mismos g y p; gz - r, r + topZ, r + ancho y r + alto sin redondear a float; -r guardado como float.
+bool __cdecl GarageInsideRadiusCpp(const float* g, const float* p, float radius);
+// CGarage::IsEntityTouching3D (0x448F15..0x448FBF): true si la posicion pos = {x, y, z} esta dentro de la caja del garaje ampliada en radius (limites g[10..13] = izquierda, derecha, frente, fondo y z, topZ).
+bool __cdecl GarageEntityNearCpp(const float* g, float radius, const float* pos);
+
+// --- Lote Shadows.cpp (prefijo Shadows). Anadir al final de X87Math.h. Todos __cdecl; los vectores son floats consecutivos (x, y[, z]). Reutiliza ShadowSqrtCpp/ShadowDistanceFadeCpp ya declaradas. ---
+// CShadows::UpdatePermanentShadows (0x70C9B9..0x70CA46): int((1.0f - transcurrido / cuarto) * valor), enteros sin signo como fild y _ftol2 (palabra baja; 0/0 -> 0).
+int __cdecl ShadowsPermanentFadeCpp(unsigned int elapsed, unsigned int quarter, int value);
+// CShadows::AddPermanentShadow (0x707007..0x70702E): x*x + y*y < limit con cada producto y la suma redondeados a 24 bits (false con NaN).
+bool __cdecl ShadowsSumSquaresBelowCpp(float x, float y, float limit);
+// CShadows::UpdatePermanentShadows (0x70CB24, 0x70CBEE): fsqrt(((sz-hz)^2 + (sy-hy)^2) + (sx-hx)^2) < *shortest (estricto) -> guarda float(mag) en *shortest y devuelve true.
+bool __cdecl ShadowsOilNearerCpp(const float* source, const float* shadow, float* shortest);
+// CShadows::UpdatePermanentShadows (0x70CBBB..0x70CC24): ShadowsOilNearerCpp y ademas (shadow - source) . (first - source) < 0 (todo a 24 bits sin guardar).
+bool __cdecl ShadowsOilSecondCpp(const float* source, const float* shadow, const float* first, float* shortest);
+// CShadows::StoreRealTimeShadow (0x707E09..0x707E4C): azimut = fpatan(-vx, -vy) * 57.29578f; elevacion = -(fpatan(-vy, -vz) * 57.29578f), fpatan sin redondear y float guardado.
+void __cdecl ShadowsSunAnglesCpp(float vx, float vy, float vz, float* azimuth, float* elevation);
+// CShadows::CastShadowEntityXY (0x70874E..0x7088E1): (a*b) + (c*d) en la x87 guardado como float (argumentos en el orden de carga del EXE).
+float __cdecl ShadowsDot2Cpp(float a, float b, float c, float d);
+// CShadows::CastShadowEntityXY (0x709840..0x709858): ((a*b) + (c*d)) + e, la suma con e sin pasar por float.
+float __cdecl ShadowsDot2AddCpp(float a, float b, float c, float d, float e);
+// CShadows::CastShadowEntityXY (0x708E80..0x708E9A): (x - ox) * ey - (y - oy) * ex con ex = destino.x - ox, ey = destino.y - oy; se devuelve sin redondear (el llamador guarda float(cruce)).
+double __cdecl ShadowsEdgeCrossCpp(float x, float y, float originX, float originY, float destinationX, float destinationY);
+// CShadows::CastShadowEntityXY (0x708EC9..0x708FFB): interseccion de recorte; ratio = |cruce(anterior)| / (|value| + |cruce(anterior)|); outPos/outUv [0..1] = (1 - ratio) * anterior + ratio * actual. Todos los punteros apuntan a x, y.
+void __cdecl ShadowsClipIntersectCpp(const float* prevPos, const float* curPos, const float* prevUv, const float* curUv, const float* origin, const float* destination, float value, float* outPos, float* outUv);
+// CShadows::CastShadowEntityXY (0x7096F9..0x709713): (nz*z + ny*y) + nx*x como float; normal y vertex apuntan a x, y, z.
+float __cdecl ShadowsPlaneDistanceCpp(const float* normal, const float* vertex);
+// CShadows::CastShadowEntityXY (0x70971D..0x709750): (-1.0f / nz) * ((ny*y + nx*x) - distance) como float; normal apunta a x, y, z.
+float __cdecl ShadowsPlaneHeightCpp(const float* normal, float x, float y, float distance);
+// CShadows::CastShadowEntityXYZ (0x70A142..0x70A176): numerador / (valor * multiplicador) como float.
+float __cdecl ShadowsDivByProductCpp(float numerator, float value, float multiplier);
+// CShadows::CastShadowEntityXYZ (0x70A208..0x70A247): valor * multiplicador + base como float.
+float __cdecl ShadowsMulAddCpp(float value, float multiplier, float base);
+// a * b en la x87 a 24 bits (exponente extendido) como double (StoreStaticShadow 0x70BA47, CastShadowEntityXYZ 0x70A3B3, StoreShadowForVehicle).
+double __cdecl ShadowsMulDblCpp(float a, float b);
+// CShadows::StoreStaticShadow (0x70BC53..0x70BCB7): |a - b| en la x87 como double.
+double __cdecl ShadowsAbsDiffCpp(float a, float b);
+// CShadows::CastShadowSectorList / CastRealTimeShadowSectorList (0x70A728..0x70A771, 0x70A8B1..0x70A8FA): (posZ - zDistance) < (maxZ + height) && (minZ + height) < posZ, sumas a 24 bits sin guardar (false con NaN).
+bool __cdecl ShadowsHeightBandCpp(float posZ, float zDistance, float maxZ, float minZ, float height);
+// CShadows::RenderStoredShadows (0x70AA76) y GeneratePolysForStaticShadow (0x70B746): position -/+ (|side| + |front|) como float (maximum suma, si no resta).
+float __cdecl ShadowsRectEdgeCpp(float position, float front, float side, bool maximum);
+// CShadows::StoreStaticShadow (0x70BA27..0x70BA43) y StoreShadowForVehicle: (dy*dy) + (dx*dx) como float; position y camera apuntan a x, y.
+float __cdecl ShadowsCameraDistanceSquaredCpp(const float* position, const float* camera);
+// CShadows::StoreStaticShadow (0x70BAB9..0x70BB10) y StoreShadowForVehicle (0x70BEFE): int(fade * valor) con fild y _ftol2 (palabra baja); fade es un valor de 24 bits en un double.
+int __cdecl ShadowsFadeScaleCpp(double fade, int value);
+// CShadows::CastShadowEntityXY (0x709959..0x709979): int(a * b) con _ftol2 (palabra baja).
+int __cdecl ShadowsTruncMulCpp(float a, float b);
+// CShadows::StoreShadowForVehicle (0x70C035..0x70C064): desplazamiento = ((largo * 0.5f) - maxY) * shift; position[0..1] -= desplazamiento * forward.
+void __cdecl ShadowsVehiclePositionCpp(float* position, float length, float maximumY, float shift, float forwardX, float forwardY);
+// CShadows::ShadowRenderTriangleCB (0x709F13..0x709F45): 0 si 1 - depth*depth < 0, si no el byte bajo de int(intensity * (1 - depth*depth)).
+unsigned int __cdecl ShadowsTriangleAlphaCpp(float depth, unsigned int intensity);
+// CShadows::ShadowRenderTriangleCB (0x709D07..0x709D43): ((ny*ay) + (nz*az)) + (nx*ax) > 0 (false con NaN); normal y at apuntan a x, y, z.
+bool __cdecl ShadowsTriangleFacesAwayCpp(const float* normal, const float* at);
+// CShadows::StoreShadowForVehicle (0x70BE2B..0x70BE5E): squared / ((mult*mult) * 4.0f) como float.
+float __cdecl ShadowsCutsceneScaleCpp(float squared, float lodMultiplier);
+// CShadows::StoreShadowForVehicle (0x70BEC2..0x70BEF8): 1.0f - (fsqrt(squared) - 0.75f*distance) / (0.25f*distance) sin redondear a float (distinto de ShadowDistanceFadeCpp, que usa * (4/d) como StoreStaticShadow).
+double __cdecl ShadowsVehicleFadeCpp(float squared, float distance);
+// CShadows::StoreShadowForVehicle (0x70C075..0x70C0C3, moto): float(factor * ancho) con factor = |lean| * 5.092958f + 1.0f (+ |rightZ| * 4.0f si abandoned y |rightZ| > 0.6f) sin pasar por float.
+float __cdecl ShadowsBikeBreadthCpp(float lean, float breadth, bool abandoned, float rightZ);
+// CShadows::StoreShadowForVehicle (0x70C17F..0x70C1D9): mag = fsqrt(side.y^2 + side.x^2); si mag < 0.5f escribe *outX = (side.x * (1/mag)) * 0.5f, *outY = ((1/mag) * side.y) * 0.5f y devuelve true; si no, no escribe.
+bool __cdecl ShadowsSideNormalizeCpp(const float* side, float* outX, float* outY);
+// CShadows::StoreShadowForVehicle (0x70C28B..0x70C2C1): fsqrt((x*x + y*y) + z*z) * timeStep > 0.1f a 24 bits sin guardar (false con NaN); speed apunta a x, y, z.
+bool __cdecl ShadowsMovementAboveCpp(const float* speed, float timeStep);
+
+// CCamera (Camera.cpp; lote w20, prefijo Camera). ANADIR AL FINAL de source/game_sa/X87Math.h.
+// Segundos transcurridos: fild (+2^32 si el bit alto esta puesto, a 24 bits) * 0.001f, un solo fstp float (CamShake 0x50AA91, CamShakeNoPos 0x50A97E).
+float __cdecl CameraElapsedSecondsCpp(unsigned int elapsed);
+// CamShake (0x50AA72): float(1.0 - distance * 0.01) con las constantes double 0x85A308 y 0x85A310.
+float __cdecl CameraShakePercentCpp(float distance);
+// SetPercentAlongCutScene (0x50C088): (percent * 0.01f) sin guardar * tiempo final sin signo, un solo fstp float.
+float __cdecl CameraCutSceneElapsedCpp(float percent, unsigned int finishTime);
+// AddShakeSimple (0x50D254) y LerpFOV: *start = float(reloj sin signo), *end = float(reloj + plus) con el entero sin pasar por float.
+void __cdecl CameraTimePlusCpp(unsigned int nowMs, float plus, float* start, float* end);
+// Find3rdPersonCamTargetVector (0x514970): ((crosshairX - 0.5f) * 2) * tan(fov * 0.5f * pi/180) y la parte vertical ((0.5f - crosshairY) * 2 * (1.0f / aspect)) * tan.
+float __cdecl CameraAimHorizontalCpp(float fov, float crosshairX);
+float __cdecl CameraAimVerticalCpp(float fov, float crosshairY, float aspect);
+// Find3rdPersonQuickAimPitch (0x50AD40): -(atan2((tan * ((0.5f - crosshairY) * 2)) * (1.0f / aspect), 1) + vertical) con fptan/fpatan sin redondear.
+float __cdecl CameraQuickAimPitchCpp(float fov, float vertical, float crosshairY, float aspect);
+// SetNearClipBasedOnPedCollision (0x50CB90): ((sqrt(arg) / denominator) * factor) * (maximum - base) + base, con suelo en base (ordenado) como el EXE.
+float __cdecl CameraNearClipPedCpp(float arg, float base, float denominator, float factor, float maximum);
+// IsSphereVisible (0x420C40): true si el punto en espacio de camara (x, y, z) esta dentro de los 4 planos (normals = 4 x {x, y, z}) y entre near y far; NaN no rechaza.
+bool __cdecl CameraSphereInFrustumCpp(const float* point, float radius, const float* normals, float nearLimit, float farLimit);
+// CameraLinearComponent (ProcessVectorMoveLinear/TrackLinear/FOVLerp, 0x50D510..): mezcla lineal o con suavizado seno, fsin sin redondear y el resto a 24 bits.
+float __cdecl CameraLinearBlendCpp(float from, float to, float ratio, bool ease);
+// ProcessFOVLerp (0x516500): false si el reloj sin signo supera el fin (o desordenado); si no *ratio = (ahora - inicio) / (fin - inicio) sin guardar intermedios.
+bool __cdecl CameraFovLerpRatioCpp(unsigned int nowMs, float endTime, float startTime, float* ratio);
+// Process (transicion, 0x52BA9D): fase = elapsed / duration con fild + 2^32 y un solo redondeo a float.
+float __cdecl CameraPhaseCpp(unsigned int elapsed, unsigned int duration);
+// Process: ease = 0.5 - cos(x * pi) * 0.5 con las sustituciones de fase del EXE (moving / catchup == 0), fcos sin redondear.
+float __cdecl CameraEaseCpp(float phase, float moving, float catchup, bool initial);
+// Process: out[i] = ease * speed[i] + base[i]; mode 0..4 elige que productos se guardan a float (0: y, z; 1: x; 2 y 3: z; 4: x, y, z).
+void __cdecl CameraAdvanceCpp(float* out, const float* base, const float* speed, float ease, int mode);
+// Process (modos 1 y 4): igual que CameraAdvanceCpp con la velocidad = destination - base calculada como el EXE (modo 4 guarda las restas a float; modo 1 solo la de z).
+void __cdecl CameraAdvanceTowardCpp(float* out, const float* base, const float* destination, float ease, int mode);
+// Process: fov = ((operand [- base]) * coefficient) + base, difference == true resta base antes de multiplicar.
+float __cdecl CameraFovAdvanceCpp(float base, float operand, float coefficient, bool difference);
+// Process: fuerza del temblor = force - elapsed(sin signo) * 0.00028f.
+float __cdecl CameraShakeForceCpp(float force, unsigned int elapsed);
+// Process: sum + sqrt((dz*dz + dy*dy) + dx*dx) con dx = current - previous; devuelve el double sin pasar a float (current y previous apuntan a x, y, z).
+double __cdecl CameraAccumulateDistanceCpp(const float* current, const float* previous, float sum);
+// Process: float(sum / frames) con el double de CameraAccumulateDistanceCpp.
+float __cdecl CameraAverageDistanceCpp(double sum, int frames);
+// CalculateFrustumPlanes (0x514D60): (ny*py + nz*pz) + nx*px, como float.
+float __cdecl CameraDotYZXCpp(const float* normal, const float* position);
+// CalculateFrustumPlanes: terms = {cosine, sine, verticalCosine, verticalSine} (el seno vertical ya con el signo cambiado).
+void __cdecl CameraFrustumTermsCpp(float fov, int height, int width, float* terms);
+// CalculateDerivedValues (0x5151A6): normaliza (x, y) con 1 / sqrt(y*y + x*x); si la longitud es 0 da (1, y).
+void __cdecl CameraFrontNormCpp(float x, float y, float* nx, float* ny);
+// StartTransition (0x515236 / 0x515440 / 0x5154CF): float(atan + add) y float(atan - sub); atanFn = &CGeneral::GetATanOfXY (devuelve ST0 sin redondear).
+float __cdecl CameraAtanPlusCpp(float (__cdecl* atanFn)(float, float), float x, float y, float add);
+float __cdecl CameraAtanMinusCpp(float (__cdecl* atanFn)(float, float), float x, float y, float sub);
+// TryToStartNewCamMode, modos cinematicos (0x51F5DD..): angulo = atanFn(inputX, inputY) + rotation; outX = float(cos + inputX), outY = float(sin) + inputY.
+void __cdecl CameraCineyRotatedCpp(float (__cdecl* atanFn)(float, float), float inputX, float inputY, float rotation, float* outX, float* outY);
+// CameraControlChooseJump (0x52A87A): float(heading - sub) con heading = headingFn(self) (bit_cast de &CPlaceable::GetHeading) sin redondear a float antes de la resta.
+float __cdecl CameraHeadingMinusCpp(float (__fastcall* headingFn)(const void*, void*), const void* self, float sub);
+// Process (0x52C8C2, 0x52CA1B): EAX de _ftol2(value * multiplier) (32 bits bajos del truncado de 64 bits).
+int __cdecl CameraTruncateProductCpp(float value, float multiplier);
+
+// --- Lote CStats (Stats.cpp, w20), prefijo Stats. Anadir al FINAL de X87Math.h (Ftol2Regs ya esta declarado en el lote Ped) ---
+
+// Palabra de estado (AX de fnstsw) tras comparar st0 con other: condiciones C0/C2/C3 + banderas x87 acumuladas + TOP = 8 - depthAfter (bits 11..13); ES, SF y C1 valen 0.
+unsigned int __cdecl StatsCompareDblDblAxCpp(double st0, double other, unsigned int depthAfter); // fcompp / fcomp con los dos operandos en la pila x87
+unsigned int __cdecl StatsCompareDblFltAxCpp(double st0, float other, unsigned int depthAfter);  // st0 en la pila, el otro operando es un float de memoria
+unsigned int __cdecl StatsCompareFltFltAxCpp(float st0, float other, unsigned int depthAfter);   // fld dword ptr [a]; fcomp dword ptr [b]
+unsigned int __cdecl StatsCounterVsFloatAxCpp(unsigned int counter, float threshold);            // fild [contador] (+2^32 si el bit alto esta puesto); fcomp [umbral] (TOP = 0)
+unsigned int __cdecl StatsAbsVsZeroAxCpp(float v);                                               // fld [v]; fabs; fcomp 0.0 (TOP = 0)
+// Operaciones x87 sueltas cuyos resultados se pasan sin redondear (double) a las comparaciones anteriores.
+double __cdecl StatsCounterX87Cpp(unsigned int counter);   // fild + fadd 2^32 si el bit alto esta puesto
+double __cdecl StatsScaledLimitCpp(float limit);           // limite * 1000.0f
+double __cdecl StatsSquareCpp(float c);                    // c * c
+double __cdecl StatsSpeedSumSqCpp(const float* v);         // (x*x + y*y) + z*z con v = {x, y, z}
+double __cdecl StatsSpeedCpp(const float* v);              // fsqrt de la suma anterior
+// Conversiones con las banderas del x87 del EXE.
+float __cdecl StatsIntToFloatCpp(int value);               // fild + fstp dword
+int __cdecl StatsFtolCpp(float v);                         // _ftol2 de un float cargado con fld: palabra baja del entero truncado
+Ftol2Regs __cdecl StatsStepMsRegsCpp(float step, unsigned int ecxAtCall);                              // _ftol2((paso * 0.02f) * 1000.0f) con los registros de salida del EXE
+Ftol2Regs __cdecl StatsAccumulateRegsCpp(int ticks, float k, float base, unsigned int ecxAtCall);       // _ftol2(fild(ticks) [+2^32] * k + base)
+Ftol2Regs __cdecl StatsCeilRegsCpp(int ticks, float multiplier, unsigned int ecxAtCall);               // _ftol2(ceil(multiplicador * fild(ticks) [+2^32]))
+int __cdecl StatsFlightMinutesCpp(int n, float a, float b);                                              // ftol(fild(n) * a * b) con un redondeo por operacion
+// CStats::FindCriminalRatingNumber (0x559080): cadena x87 completa; devuelve EAX del EXE.
+int __cdecl StatsCriminalRatingCpp(int kills, int busted, int hospital, int fireLevel, int paramedicLevel, int money5000, int planes, int firesOut,
+                                   int vigilante, int ambulance, bool hasCheated, int cheated, int bullets, int hits, float made, float total);
+// CStats::GetFatAndMuscleModifier (0x559AF0): los 16 casos; k apunta a la configuracion viva 0x8CDE58..0x8CDEC0.
+float __cdecl StatsFatMuscleModifierCpp(unsigned int mode, float fat, float stamina, float muscle, float maxHealth, int cycling, int lung, int bike, int driving, const float* k);
+
+// --- CCam / Cam.cpp (prefijo Cam; lote w20). Ayudantes generados de los bloques __asm de Cam.cpp ---
+// CCam::Get_TwoPlayer_AimVector (0x513E40), desde CCam::Get_TwoPlayer_AimVector; fptan, fdiv; sin ramas
+void __cdecl CamTwoPlayerAimTanCpp(float fov, float fovScale, float aspect, float* p_tanOverAspect, float* p_tanRounded);
+// CCam::LookBehind (0x520690), desde CCam::LookBehind; fsin, fcos; sin ramas
+void __cdecl CamLookBehindPedSideCpp(float heading, float* p_x, float* p_y);
+// CCam::LookRight (0x520E40), desde LookSideOrbit; fsin, fcos, llamada; sin ramas
+void __cdecl CamLookSideOrbitCpp(float directionY, float directionX, unsigned atanFunction, float sign, float halfPi, float distance, float targetX, float* p_outX, float targetY, float* p_outY);
+// CCam::RotCamIfInFrontCar (0x50A4F0), desde CCam::RotCamIfInFrontCar; fsin, fcos; sin ramas
+void __cdecl CamRotInFrontCarOrbitCpp(float angle, float distance, float baseX, float* p_resultX, float baseY, float* p_resultY);
+// CCam::Process (0x526FC0), desde CamVelocityInverseStep; fdiv; sin ramas
+void __cdecl CamVelocityInverseStepCpp(float one, float denominator, float* p_reciprocal);
+// CCam::Process (0x526FC0), desde CamVehicleTargetSpeed; fsqrt, fdiv; con ramas
+void __cdecl CamVehicleTargetSpeedCpp(float* p_forwardY, float* p_forwardX, float zero, float one, float velocityX, float velocityY, float positiveScale, float negativeScale, float half, float* p_result);
+// CCam::Process (0x526FC0), desde CamVehicleSmoothedSpeed; solo aritmetica 24 bits; sin ramas
+void __cdecl CamVehicleSmoothedSpeedCpp(float target, float targetWeight, float previous, float previousWeight, float* p_result);
+// CCam::Process (0x526FC0), desde CamPowerComplement; _CIpow; sin ramas
+void __cdecl CamPowerComplementCpp(float base, float step, float one, float* p_result);
+// CCam::ProcessPedsDeadBaby (0x519250), desde DeadCamWave; fsin, fdiv; sin ramas
+void __cdecl CamDeadWaveCpp(float elapsed, float period, float capped, float factor, float sx, float amplitude, float sy, float* p_scaledY, float* p_y, float tx, float* p_x);
+// CCam::ProcessPedsDeadBaby (0x519250), desde CCam::ProcessPedsDeadBaby; solo aritmetica 24 bits; con ramas
+void __cdecl CamDeadUnsignedElapsedCpp(int elapsedInt, float unsignedCorrection, float* p_elapsed);
+// CCam::ProcessPedsDeadBaby (0x519250), desde CCam::ProcessPedsDeadBaby; fcos, fdiv; sin ramas
+void __cdecl CamDeadCosineCpp(float elapsed, float period, float* p_cosine);
+// CCam::Process_1rstPersonPedOnPC (0x50EB70), desde CCam::Process_1rstPersonPedOnPC; fsin, fcos; sin ramas
+void __cdecl CamFirstPersonPedFrontCpp(float pitch, float yaw, float* p_sineY, float* p_sineZ, float* p_cosineX);
+// CCam::Process_AimWeapon (0x521500), desde CamAimOffsets355; fptan, fpatan, fdiv; sin ramas
+void __cdecl CamAimOffsetsCpp(float fov, float* p_vResult, float* p_hResult);
+// CCam::Process_AimWeapon (0x521500), desde CamAimTargetAngles355; fpatan, fsqrt; sin ramas
+void __cdecl CamAimTargetAnglesCpp(float tx, float fx, float ty, float fy, float tz, float fz, float* p_dz, float* p_hResult, float* p_fResult, float* p_pResult);
+// CCam::Process_AimWeapon (0x521500), desde CamAimProjection355; fsin, fcos; con ramas
+void __cdecl CamAimProjectionCpp(unsigned cam, unsigned scratch, unsigned rowOffset);
+// CCam::Process_AimWeapon (0x521500), desde CamAimMeleeBlend355; _CIpow; sin ramas
+void __cdecl CamAimMeleeBlendCpp(unsigned scratch);
+// CCam::Process_AimWeapon (0x521500), desde CamAimMouseAngles355; solo aritmetica 24 bits; sin ramas
+void __cdecl CamAimMouseAnglesCpp(unsigned cam);
+// CCam::Process_AimWeapon (0x521500), desde CamAimVehicleResetPitch355; _CIasin; sin ramas
+void __cdecl CamAimVehicleResetPitchCpp(float clampedZ, float initialAlpha, float* p_result);
+// CCam::Process_AttachedCam (0x512B10), desde CCam::Process_AttachedCam; fsin, fcos; sin ramas
+void __cdecl CamAttachedUpCpp(float angle, float sideX, float* p_sinX, float sideY, float* p_sinY, float sideZ, float* p_sinZ, float upX, float* p_cosX, float upY, float* p_cosY, float upZ, float* p_cosZ);
+// CCam::Process_Cam_TwoPlayer (0x525E50), desde TwoPlayerCameraGeometry; fsin, fcos; sin ramas
+void __cdecl CamDirectionFromAnglesCpp(float alpha, float beta, float* p_directionX, float* p_directionY, float* p_directionZ);
+// CCam::Process_Cam_TwoPlayer_InCarAndShooting (0x519810), desde CamShootingSourceZ355; fsin; sin ramas
+void __cdecl CamShootingSourceZCpp(float alpha, float radius, float targetZ, float* p_result);
+// CCam::Process_Cam_TwoPlayer_InCarAndShooting (0x519810), desde CamShootingOrbit355; fsin, fcos; sin ramas
+void __cdecl CamShootingOrbitCpp(unsigned cam, unsigned source, unsigned scratch);
+// CCam::Process_Cam_TwoPlayer_InCarAndShooting (0x519810), desde CamShootingTilt355; fpatan, fsqrt, _CIpow; con ramas
+void __cdecl CamShootingTiltCpp(unsigned cam, unsigned vehicle, unsigned scratch);
+// CCam::Process_Cam_TwoPlayer_InCarAndShooting (0x519810), desde CamShootingFov355; _CIpow; con ramas
+void __cdecl CamShootingFovCpp(unsigned cam, unsigned vehicle);
+// CCam::Process_Cam_TwoPlayer_InCarAndShooting (0x519810), desde CCam::Process_Cam_TwoPlayer_InCarAndShooting; solo aritmetica 24 bits; sin ramas
+void __cdecl CamStoredHeadingMinusHalfPiCpp(float storedHeading, float* p_vehicleHeading);
+// CCam::Process_Cam_TwoPlayer_Separate_Cars (0x513510), desde CamTwoCarsBlend355; fsin, fcos; sin ramas
+void __cdecl CamTwoCarsBlendWeightCpp(float blend, float* p_sine, float* p_weight);
+// CCam::Process_Cam_TwoPlayer_Separate_Cars (0x513510), desde CamTwoCarsBlend355; fsqrt; sin ramas
+void __cdecl CamTwoCarsBlendCpp(unsigned scratch, unsigned cam, unsigned firstPos, unsigned secondPos);
+// CCam::Process_Cam_TwoPlayer_Separate_Cars (0x513510), desde CamTwoCarsSources355; solo aritmetica 24 bits; sin ramas
+void __cdecl CamTwoCarsSourcesCpp(float firstZ, float firstHeight, float* p_liftedFirst, float secondZ, float secondHeight, float* p_liftedSecond, float betweenX, float* p_scaledX, float firstX, float* p_fx, float secondX, float* p_sx, float betweenY, float firstY, float* p_fy, float secondY, float* p_sy, float betweenZ, float* p_scaledZ, float* p_fz, float* p_sz);
+// CCam::Process_DW_BirdyCam (0x51B850), desde BirdyCameraEase; fsin; sin ramas
+void __cdecl CamEaseCpp(float ratio, float degrees180, float degrees270, float radians, float one, float half, float to, float from, float* p_value);
+// CCam::Process_DW_BirdyCam (0x51B850), desde BirdyLampHeight355; solo aritmetica 24 bits; sin ramas
+void __cdecl CamBirdyLampHeightCpp(int randomValue, float randomScale, float height, float one, float pointZ, float* p_result);
+// CCam::Process_DW_CamManCam (0x51B120), desde CamManFov; fsin, fsqrt, fdiv; con ramas
+void __cdecl CamManFovCpp(unsigned target, unsigned source, float distanceScale, float zero, float one, float degrees180, float degrees270, float radians, float half, float final, float initial, float* p_fov, float progress, float timeScale, float early);
+// CCam::Process_DW_HeliChaseCam (0x51A740), desde HeliChaseInitialFov; fsin, fdiv; sin ramas
+void __cdecl CamHeliInitialFovCpp(float one, float duration, float progress, float degrees180, float degrees270, float radians, float half, float to, float from, float* p_result);
+// CCam::Process_DW_HeliChaseCam (0x51A740), desde HeliChaseReturnFov355; fsin, fdiv; con ramas
+void __cdecl CamHeliReturnFovCpp(int start, int now, int end, float zero, float one, float degrees, float phase, float radians, float half, float to, float from, float* p_result);
+// CCam::Process_DW_HeliChaseCam (0x51A740), desde HeliChaseDistanceFov355; fsin, fsqrt, fdiv; con ramas
+void __cdecl CamHeliDistanceFovCpp(float to, int initial, float one, float duration, float progress, float degrees, float phase, float radians, float half, float from, float zero, unsigned camera, unsigned dest, float* p_distance, float nearDistance, float farDistance, float reduction, float* p_result);
+// CCam::Process_DW_PlaneCam1 (0x51C760), desde PlaneOrbitWave; fsin, fdiv; sin ramas
+void __cdecl CamPlaneOrbitWaveCpp(int start, int now, int end, int cycles, float degrees, float radians, float componentX, float* p_resultX, float componentY, float* p_resultY, float componentZ, float* p_resultZ);
+// CCam::Process_DW_PlaneSpotterCam (0x51C250), desde PlaneSpotterRandomCoordinate; solo aritmetica 24 bits; sin ramas
+void __cdecl CamPlaneSpotterRandomCpp(int randomValue, float randomScale, float range, float halfRange, float origin, float* p_result);
+// CCam::Process_FlyBy (0x5B25F0), desde CCam::Process_FlyBy; fsin, fcos; sin ramas
+void __cdecl CamFlyByUpCpp(float roll, float radians, float halfPi, float* p_upX, float* p_upZ);
+// CCam::Process_FollowCar_SA (0x5245B0), desde CamFollowCarBetaBlend355; solo aritmetica 24 bits; con ramas
+void __cdecl CamFollowCarBetaBlendCpp(float betaInput, float betaCorrection, float maximumSpeed, float* p_negativeMaximum, float smoothing, float previous, float* p_result);
+// CCam::Process_FollowCar_SA (0x5245B0), desde CamFollowCarHistory355; solo aritmetica 24 bits; sin ramas
+void __cdecl CamFollowCarHistoryCpp(float radius, float frontX, float frontY, float frontZ, float* p_scaledZ, float focalX, float* p_outputX, float focalY, float* p_outputY, float focalZ, float* p_outputZ);
+// CCam::Process_FollowCar_SA (0x5245B0), desde CamFollowCarFinalHistory355; fsin, fcos; sin ramas
+void __cdecl CamFollowCarFinalHistoryCpp(unsigned cam, unsigned scratch);
+// CCam::Process_FollowCar_SA (0x5245B0), desde CamFollowCarBetaCorrection355; fpatan, fsqrt, fdiv; con ramas
+void __cdecl CamFollowCarBetaCorrectionCpp(unsigned cam, unsigned vehicle, unsigned scratch, unsigned front);
+// CCam::Process_FollowCar_SA (0x5245B0), desde CamFollowCarActualDistance355; fsqrt; sin ramas
+void __cdecl CamFollowCarActualDistanceCpp(unsigned origin, unsigned previous, float* p_result);
+// CCam::Process_FollowCar_SA (0x5245B0), desde CamFollowCarAutoAlpha355; _CIpow; con ramas
+void __cdecl CamFollowCarAutoAlphaCpp(float base, float step, float wanted, float previous, float* p_result, float maximum);
+// CCam::Process_FollowCar_SA (0x5245B0), desde CamFollowCarAlphaBlend355; solo aritmetica 24 bits; sin ramas
+void __cdecl CamFollowCarAlphaComplementCpp(float smoothing, float* p_complement);
+// CCam::Process_FollowCar_SA (0x5245B0), desde CamFollowCarAlphaBlend355; solo aritmetica 24 bits; con ramas
+void __cdecl CamFollowCarAlphaBlendCpp(unsigned cam, unsigned scratch);
+// CCam::Process_FollowPedWithMouse (0x50F970), desde CamMouseFinalDistance355; fsqrt, _CIpow, fdiv, llamada; con ramas
+void __cdecl CamMouseFinalDistanceCpp(unsigned cam, unsigned source, unsigned scratch);
+// CCam::Process_FollowPedWithMouse (0x50F970), desde CamMouseChanges355; solo aritmetica 24 bits; sin ramas
+void __cdecl CamMouseChangesStickCpp(float inputY, float fov, float scaleFactor, float stickBeta, float step, float stickScale, float inputX, float* p_betaResult, float stickAlpha, float* p_alphaResult);
+// CCam::Process_FollowPedWithMouse (0x50F970), desde CamMouseChanges355; solo aritmetica 24 bits; sin ramas
+void __cdecl CamMouseChangesMouseCpp(float inputX, float mouseBeta, float inputY, float mouseAlpha, float fov, float scaleFactor, float betaSensitivity, float* p_betaResult, float alphaSensitivity, float* p_alphaResult);
+// CCam::Process_FollowPedWithMouse (0x50F970), desde CamMouseRepeatedRadius355; fptan; sin ramas
+void __cdecl CamMouseRepeatedRadiusCpp(float fov, float radians, float half, float aspect, float nearPlane, float factor, float* p_result);
+// CCam::Process_FollowPedWithMouse (0x50F970), desde CamMousePerpendicularDistance355; fsqrt, fdiv; sin ramas
+void __cdecl CamMousePerpendicularDistanceCpp(float one, float radiusFactor, float* p_inverse, unsigned collision, unsigned source, unsigned front, float* p_zDifference, float* p_yProjection, float* p_zProjection, float* p_xPerpendicular, float* p_result);
+// CCam::Process_FollowPedWithMouse (0x50F970), desde CamMouseSphereCenter355; solo aritmetica 24 bits; sin ramas
+void __cdecl CamMouseSphereCenterCpp(unsigned front, unsigned source, unsigned result, float nearPlane, float* p_zProduct);
+// CCam::Process_FollowPedWithMouse (0x50F970), desde CamMouseInitialSource355; solo aritmetica 24 bits; sin ramas
+void __cdecl CamMouseInitialSourceCpp(unsigned target, unsigned front, unsigned result, float distance, float* p_zProduct);
+// CCam::Process_FollowPedWithMouse (0x50F970), desde CamMouseFirstHitDistance355; fsqrt; sin ramas
+void __cdecl CamMouseFirstHitDistanceCpp(unsigned target, unsigned hit, float* p_result);
+// CCam::Process_FollowPedWithMouse (0x50F970), desde CamMousePullSource355; solo aritmetica 24 bits; sin ramas
+void __cdecl CamMousePullSourceCpp(unsigned target, unsigned source, float* p_zDifference, float factor, float* p_xProduct);
+// CCam::Process_FollowPedWithMouse (0x50F970), desde CamMouseRecenterDelta355; solo aritmetica 24 bits; sin ramas
+void __cdecl CamMouseRecenterDeltaCpp(float orientation, float beta, float* p_result);
+// CCam::Process_FollowPedWithMouse (0x50F970), desde CCam::Process_FollowPedWithMouse; fcos; con ramas
+void __cdecl CamFollowMouseDistanceCpp(float alpha, float alphaMultiplier, float* p_distance);
+// CCam::Process_FollowPedWithMouse (0x50F970), desde CCam::Process_FollowPedWithMouse; fptan; sin ramas
+void __cdecl CamFollowMouseRadiusCpp(float fov, float radians, float half, float factor, float* p_radiusFactor);
+// CCam::Process_FollowPed_SA (0x522D40), desde CameraRound4; _CIpow; con ramas
+void __cdecl CamRound4ScaleCpp(int five, float value, float* p_scaled);
+// CCam::Process_FollowPed_SA (0x522D40), desde CameraRound4; _CIpow, fdiv; sin ramas
+void __cdecl CamRound4FinishCpp(float integral, int four, float* p_result);
+// CCam::Process_FollowPed_SA (0x522D40), desde CamFollowPedAutoAlpha355; _CIpow; con ramas
+void __cdecl CamFollowPedAutoAlphaCpp(float base, float step, float wanted, float previous, float* p_result, float maximum);
+// CCam::Process_FollowPed_SA (0x522D40), desde CamFollowPedPitchCorrection355; solo aritmetica 24 bits; con ramas
+void __cdecl CamFollowPedPitchCorrectionCpp(float wantedPitch, float followWeight, float followMaximum, float* p_maximum, float taskWeight, float historyPitch, float* p_negativeMaximum, float verticalOffset, float* p_result);
+// CCam::Process_FollowPed_SA (0x522D40), desde CamFollowPedDistance355; fsqrt; con ramas
+void __cdecl CamFollowPedDistanceCpp(unsigned origin, unsigned previous, float* p_actual, float* p_distance, float rowMinimum, float minimumDistance);
+// CCam::Process_FollowPed_SA (0x522D40), desde CamFollowPedLimitHistoryPitch355; _CIpow, fdiv; con ramas
+void __cdecl CamFollowPedHistoryPitchCpp(float separation, float* p_maximum, float step, float* p_historyPitch);
+// CCam::Process_FollowPed_SA (0x522D40), desde CamFollowPedHistoryBase355; solo aritmetica 24 bits; sin ramas
+void __cdecl CamFollowPedHistoryBaseCpp(float step, float speed, float wanted, float* p_result);
+// CCam::Process_FollowPed_SA (0x522D40), desde CamFollowPedResetHistory355; solo aritmetica 24 bits; sin ramas
+void __cdecl CamFollowPedResetHistoryCpp(unsigned origin, unsigned direction, unsigned firstOut, float firstDistance, float* p_zProduct, unsigned secondOut, float secondDistance);
+// CCam::Process_FollowPed_SA (0x522D40), desde CamFollowPedHistory355; fsin, fcos; sin ramas
+void __cdecl CamFollowPedHistoryCpp(float historyDelta, float verticalOffset, float* p_angle, float* p_cosAlpha, float beta, float* p_xDirection, float* p_zDirection, float historyDistance, float* p_xProduct, float* p_yProduct, unsigned origin, unsigned firstOut, float distance, unsigned secondOut);
+// CCam::Process_FollowPed_SA (0x522D40), desde CamFollowPedHistoryHeading355; fpatan; con ramas
+void __cdecl CamFollowPedHistoryHeadingCpp(float frontX, float frontY, float* p_result);
+// CCam::Process_M16_1stPerson (0x5105C0), desde CamM16Blend355; solo aritmetica 24 bits; sin ramas
+void __cdecl CamM16BlendCpp(float smoothing, float* p_complement, float betaInput, unsigned betaSpeed, unsigned alphaSpeed, float alphaInput, float* p_alphaRounded, unsigned betaAngle, unsigned alphaAngle);
+// CCam::Process_M16_1stPerson (0x5105C0), desde CamM16Bump355; fcos, _CIpow, fdiv; con ramas
+void __cdecl CamM16BumpCpp(int signedElapsed, unsigned horz, unsigned beta, unsigned vert, unsigned alpha, float damping, float step);
+// CCam::Process_M16_1stPerson (0x5105C0), desde CamM16StickInputs355; solo aritmetica 24 bits; con ramas
+void __cdecl CamM16StickInputsCpp(float vertical, int attached, float horizontal, float fov, float step, float* p_betaResult, float* p_alphaResult, float* p_horizontalSign);
+// CCam::Process_M16_1stPerson (0x5105C0), desde CamM16MouseAngles355; solo aritmetica 24 bits; sin ramas
+void __cdecl CamM16MouseAnglesCpp(float horizontal, float fov, float* p_scale, float vertical, unsigned beta, unsigned alpha);
+// CCam::Process_M16_1stPerson (0x5105C0), desde CamM16SideRay355; fsin, fcos; con ramas
+void __cdecl CamM16SideRayCpp(float beta, int positive, float alpha, float* p_xDirection, float* p_yDirection, float* p_yProduct, float* p_zProduct, unsigned origin, unsigned outputVector);
+// CCam::Process_Rocket (0x511B50), desde CCam::Process_Rocket; fsin, fcos; sin ramas
+void __cdecl CamRocketFrontCpp(float verticalAngle, float horizontalAngle, float* p_frontX, float* p_frontY, float* p_frontZ);
+// CCam::Process_Rocket (0x511B50), desde CCam::Process_Rocket; llamada; sin ramas
+void __cdecl CamRocketHeadingCpp(float atanY, float atanX, unsigned atanFn, float halfPi, float* p_heading);
+// CCam::Process_WheelCam (0x512110), desde WheelCameraUp; fsin, fcos; sin ramas
+void __cdecl CamWheelUpCpp(int phase, float angleScale, float amount, float sx, float* p_lateralX, float sy, float* p_lateralY, float sz, float ux, float uy, float* p_verticalY, float uz, float* p_verticalZ, float* p_outputX, float* p_outputY, float* p_outputZ);
+// CameraPathInterpolateVector (0x5B2090): spline de la ruta de camara (traduccion del naked, pila emulada en un marco local; _ftol2 como (long long)); los argumentos cdecl llegan como palabras de 32 bits (t = bits del float)
+void __cdecl CamPathInterpolateVectorCpp(unsigned out, unsigned knots, unsigned tBits, unsigned index);
+// CameraPathInterpolateScalar (0x5B2330): spline de la ruta de camara (traduccion del naked, pila emulada en un marco local; _ftol2 como (long long)); los argumentos cdecl llegan como palabras de 32 bits (t = bits del float)
+void __cdecl CamPathInterpolateScalarCpp(unsigned out, unsigned knots, unsigned tBits, unsigned index);
+
+// --- CBike (Bike.cpp; lote w20, prefijo Bike). Reutiliza PowScaleVector3Cpp, PowScaleFloatCpp, CnvDecayPowCpp, QuadBikeDampDeltaFullCpp, TrigSimpleSinCpp/CosCpp/SinMulCpp, BmxSinScaledCpp/CosScaledCpp y UnsignedPlusFloatCpp. ---
+// CBike::CBike (0x6BF59E..0x6BF5BD): float(fptan(degrees * 0.017453292f)); el producto de 24 bits va a fptan sin pasar por float.
+float __cdecl BikeTanScaledCpp(float degrees, float k);
+// float(1 - cos(angle)) con el coseno sin redondear (CBike::CalculateLeanMatrix 0x6B7211) y float(((1 - cos(lean)) * minZ) * 0.9f) (CBike::PreRender 0x6BDD56).
+float __cdecl BikeOneMinusCosCpp(float angle);
+float __cdecl BikeChassisHeightCpp(float lean, float minZ);
+// CBike::PreRender (0x6BD2B3): out[i] = float(float(sin(lean) * minZ * 0.8f) * right[i] + point[i]); out, point y right apuntan a x, y, z consecutivos.
+void __cdecl BikeContactOffsetCpp(float* out, const float* point, const float* right, float lean, float minZ);
+// CBike::PreRender (0x6BDB11): float(asin((height - original) / forkLength) * -1.0f) con el _CIasin del EXE.
+float __cdecl BikeForkAngleCpp(float height, float original, float forkLength);
+// CBike::PlaceOnRoadProperly (0x6BF0F1): rellena right (m[0..2]) y forward (m[4..6]) de una CMatrix; el resto de la matriz no se toca.
+void __cdecl BikeRoadOrientationCpp(float* m, float rear, float front, float backX, float backY, float backZ, float frontX, float frontY, float frontZ);
+// CBike::PlaceOnRoadProperly (0x6BF167): punto medio entre el punto delantero y el trasero; out apunta a x, y, z.
+void __cdecl BikeRoadMidpointCpp(float frontX, float backX, float frontY, float backY, float frontZ, float backZ, float* out);
+// CBike::FixHandsToBars (0x6B8274): bonePosition (x, y, z consecutivos) += delta * factor con el orden de redondeo del EXE.
+void __cdecl BikeMoveHandBoneCpp(float* bonePosition, const float* delta, float factor);
+// CBike::VehicleDamage (0x6B91C2): *health = *health - damage * factor.
+void __cdecl BikeHealthMinusCpp(float* health, float damage, float factor);
+// CBike::SetupSuspensionLines (0x6B8C10 / 0x6B8CFB / 0x6B8D6D): z del extremo de la linea, altura sobre la carretera y ajuste de una esfera de colision (sphere = x, y, z, radio).
+float __cdecl BikeSetupEndCpp(float upper, float lower, float wheel, float startZ);
+float __cdecl BikeSetupHeightCpp(float force, float divisor, float suspensionLength, float wheel, float startZ);
+void __cdecl BikeSetupSphereCpp(float* sphere, float limit);
+// CBike::ProcessRiderAnims (0x6B7932 / 0x6B7CF1 / 0x6B7EBB / 0x6B7C16): suavizado con pow, pesos del conductor, ruido aleatorio y limite hacia delante.
+float __cdecl BikeRiderSmoothCpp(float base, float step, float previous, float target);
+void __cdecl BikeRiderWeightsCpp(float lateral, float forward, float available, float* lateralOut, float* forwardOut);
+float __cdecl BikeRiderJitterCpp(float speed, int randomValue);
+float __cdecl BikeRiderForwardLimitCpp(float lean, float target);
+// CBike::ProcessControlInputs (0x6BE497 / 0x6BE504 / 0x6BE8B4 / 0x6BE31B / 0x6BE98C): mezcla de entradas, producto con suma, direccion, velocidad hacia delante y limite de velocidad.
+float __cdecl BikeControlBlendCpp(float oldValue, int input, float step, float factor);
+float __cdecl BikeControlProductAddCpp(float oldValue, float input, float factor);
+float __cdecl BikeInputSteerCpp(float degrees, float steer);
+float __cdecl BikeForwardSpeedCpp(const float* speed, const float* forward);
+void __cdecl BikeSpeedCapCpp(float* speed, float limit);
+// CBike::ProcessControl (0x6B9250): fusiones con asin del EXE para la inclinacion y el manillar (caballete parado 0x6B9C04, caballete con conductor 0x6BB991, libre 0x6BBB7C, manillar 0x6BAB8E).
+float __cdecl BikeStoppedLeanCpp(float keep, float desired, float sine);
+float __cdecl BikeSideStandLeanCpp(float keep, float desired, float rightZ, float offset);
+float __cdecl BikeFreeLeanCpp(float keep, float desired, float sine, float offset);
+float __cdecl BikeSteerBarCpp(float sine, float steeringLock, float steer, bool doubleIt);
+
+// --- CPlane (Plane.cpp; lote w20, prefijo Plane). Anadir al FINAL de X87Math.h ---
+// Cadenas x87 de CPlane (VehicleDamage 0x6CC4B0, ProcessControlInputs 0x6CADD0, ProcessFlyingCarStuff 0x6CB7C0, PreRender 0x6C94A0): 24 bits por operacion, ST0 sin redondear entre ellas.
+// VehicleDamage: v = mass / scale (si minimumOne y 1.0 > v, v = 1.0); float(v * threshold).
+float __cdecl PlaneMassThresholdCpp(float mass, float scale, float threshold, bool minimumOne);
+// float(health - damage * factor).
+float __cdecl PlaneHealthAfterDamageCpp(float health, float damage, float factor);
+// Delta float(nodePosition - relative) por eje, suma (x² + y²) + z²; si suma < closest² (ordenado) closest = float(sqrt(suma)) y devuelve true. Punteros a x, y, z consecutivos.
+bool __cdecl PlaneSelectCloserCpp(const float* nodePosition, const float* relative, float* closest);
+// ProcessControlInputs: float(((fild(input) * scale - old) * step) * factor + old).
+float __cdecl PlaneControlBlendCpp(float oldValue, int input, float scale, float step, float factor);
+// (z·z' + y·y') + x·x' sobre dos vectores x, y, z consecutivos (velocidad · direccion), guardado como float.
+float __cdecl PlaneForwardSpeedCpp(const float* speed, const float* forward);
+// Cierre a [-1, 1] del deslizamiento: float(((target - old) * step) * factor + old), !(v > -1) -> -1 (NaN incluido), !(v < 1) -> 1.
+float __cdecl PlaneInputSkidCpp(float oldValue, float target, float step, float factor);
+// float(-(max(1 - speed, minimum) * ((degrees * radians) * skid))).
+float __cdecl PlaneGroundSteerCpp(float speed, float degrees, float skid, float minimum, float radians);
+// Entero bajo de _ftol2(((fild(axis) * step) * rate) * scale); el llamador toma el int16 bajo.
+int __cdecl PlaneNozzleChangeCpp(int axis, float step, float rate, float scale);
+// *gear = float(step * factor + *gear); devuelve true si el valor sin redondear >= limit (ordenado).
+bool __cdecl PlaneGearAdvanceCpp(float* gear, float step, float factor, float limit);
+// sqrt((x² + y²) + z²) < limit (ordenado) sobre un vector x, y, z consecutivo.
+bool __cdecl PlaneSpeedBelowCpp(const float* speed, float limit);
+// Si l = sqrt((x² + y²) + z²) > limit, cada componente = float((limit / l) * componente).
+void __cdecl PlaneSpeedCapCpp(float* speed, float limit);
+// float((drag / divisor) * factor).
+float __cdecl PlaneGearResistanceCpp(float drag, float divisor, float factor);
+// ProcessFlyingCarStuff: incremento (entero sin signo) del contador de onda: ver Plane-x87.cpp.txt (0x6CB7E0..0x6CB85B).
+unsigned int __cdecl PlaneWaveAdvanceCpp(float spread, float step, int random, float randomScale, float timeScale, float countScale);
+// min(sqrt((x² + y²) + z²) * 3.0, 1.0) como float (el 1.0 sustituye solo si el producto es mayor, ordenado).
+float __cdecl PlaneDamageSpeedCpp(const float* speed);
+// Ruido de daño de un eje/panel: float(((((((amplitude - (-amplitude)) * (fild(random) * randomScale)) + (-amplitude)) * squaredDamage) * step) * speed) + old).
+float __cdecl PlaneDamageNoiseCpp(float oldValue, float amplitude, int random, float squaredDamage, float step, float speed, float randomScale);
+// Onda de las helices (fsin sin redondear): float(((((sin(fase) - 1) * ((upper - lower) * fraccion + lower)) * daño) * daño) * step) * amount + old).
+float __cdecl PlanePropellerWaveCpp(float oldValue, float upper, float lower, int random, int damage, unsigned int wave, unsigned int period, float step, float randomScale, float circle, float amount);
+// float((1 - fild(damage) * scale) * old); storeFactor guarda el factor como float antes (fstp + fld).
+float __cdecl PlaneFlightDecayCpp(float oldValue, int damage, float scale, bool storeFactor);
+// subtract: float(value - a * b); si no float(a * b + value).
+float __cdecl PlaneFlightProductAddCpp(float value, float a, float b, bool subtract);
+// float(((target - value) * step) * factor + value).
+float __cdecl PlaneFloatBlendCpp(float value, float target, float step, float factor);
+// ((dz² + dy²) + dx²) < threshold con d = first - second sin redondear (ordenado).
+bool __cdecl PlaneDistanceBelowCpp(const float* first, const float* second, float threshold);
+// |rollFn(plane)| contra threshold, con el ST0 sin redondear que deja CPlaceable::GetRoll (rollFn se llama como __fastcall, ECX = plane): greater -> mayor que, si no menor que.
+bool __cdecl PlaneRollCompareCpp(float(__fastcall* rollFn)(const void*, void*), const void* plane, float threshold, bool greater);
+// float(max(height * scale, 0) * target) (0.0 sustituye solo si 0.0 > h, ordenado).
+float __cdecl PlaneCeilingTargetCpp(float height, float target, float scale);
+// float(max(acceleration - height * adjust, -1)) (-1.0 sustituye solo si -1.0 > v, ordenado).
+float __cdecl PlaneCeilingAccelerationCpp(float height, float acceleration, float adjust);
+// subtract: float(1.0 - spread); si no float(spread + 1.0).
+float __cdecl PlaneFlightBoundCpp(float spread, bool subtract);
+// out = { float((v.x * quarter) * multiplier), float((v.y * quarter) * multiplier), float(float(v.z * quarter) * multiplier) }.
+void __cdecl PlaneSmokeParticleVelocityCpp(float* out, const float* speed, float quarter, float multiplier);
+// float(((fild(random) * randomScale) * spread + base) * value).
+float __cdecl PlaneVelocityNoiseCpp(float value, int random, float randomScale, float spread, float base);
+// negativo = float(-strength); float((((strength - negativo) * (fild(random) * randomScale)) + negativo) + value).
+float __cdecl PlanePositionNoiseCpp(float value, float strength, int random, float randomScale);
+// standard; acceleration > 0 -> float((maximum - standard) * a + standard); acceleration < 0 -> float((standard - minimum) * a + standard).
+float __cdecl PlanePropellerTargetCpp(float acceleration, float standard, float maximum, float minimum);
+// ((x² + y²) + z²) > threshold (double, ordenado).
+bool __cdecl PlaneSpeedSquaredAboveCpp(const float* speed, double threshold);
+// PreRender: L = (compression - (1 - spring/line)) / (1 - (1 - spring/line)), guardado como float.
+float __cdecl PlaneWheelCompressionCpp(float springLength, float lineLength, float compression);
+// PreRender: altura de rueda (posZ + lowerLimit, - L*spring si L > 0, suavizado 0.75 salvo snap), guardada como float.
+float __cdecl PlaneWheelHeightCpp(float posZ, float lowerLimit, float compression, float springLength, float oldHeight, bool snap);
+// PreRender (Andromada): rotacion de rueda; compression >= 1 -> rotation * 0.95; si no float(-asin(clamp(dot, -1, 1))) con el _CIasin del EXE.
+float __cdecl PlaneAndromadaWheelRotationCpp(float rotation, float compression, const float* normal, const float* forward);
+// PreRender: angulo de las helices: v = step * propSpeed + angle; si v > fullCircle se resta fullCircle (al menos una vez) mientras v > fullCircle.
+float __cdecl PlanePropAngleCpp(float timeStep, float propSpeed, float angle, float fullCircle);
+// PreRender: *scale = float((1 - |gear|) * half + 1), *offset = float((1 - |gear|) * third).
+void __cdecl PlaneGearFactorsCpp(float gear, float half, float third, float* scale, float* offset);
+// PreRender: float(((amplitude * radians) * control) [operation 1: + addend, 2: - addend, 3: cambio de signo]).
+float __cdecl PlaneSurfaceAngleCpp(float amplitude, float radians, float control, float addend, int operation);
+// PreRender: vector[i] = float(vector[i] - position[i]) para x, y, z.
+void __cdecl PlaneSubtractPositionCpp(float* vector, const float* position);
+// PreRender: float((((1 - finScale) * boxMaxY) * factor) + y).
+float __cdecl PlaneFinOffsetCpp(float finScale, float boxMaxY, float y, float factor);
+// PreRender: float(direction * propAngle) duplicado (v + v) o con el signo cambiado (fchs).
+float __cdecl PlanePropRotationCpp(float direction, float propAngle, bool doubled);
+// PreRender: float(|gear| * value).
+float __cdecl PlaneGearRotationCpp(float gear, float value);
+// PreRender (Hydra): float((fild(misc) * halfPi) / limit).
+float __cdecl PlaneNozzleAngleCpp(int misc, float halfPi, int limit);
+// PreRender (Hydra): float((acceleration + one) * half).
+float __cdecl PlaneDustTimeCpp(float acceleration, float one, float half);
+// PreRender: out[i] = float(a[i] + b[i]), i = 0..2.
+void __cdecl PlaneSumVector3Cpp(const float* a, const float* b, float* out);
+// PreRender: byte bajo = alfa de la estela: low32(_ftol2(max(|(((vz·az + vy·ay) + ax·vx) * attackLift) * scale| - offset, 0))).
+unsigned int __cdecl PlaneStreakAlphaCpp(const float* speed, const float* up, float attackLift, float scale, float offset);
+// PreRender (Cropduster/Stunt): out = { x*scale, y*scale, z*scale [- zOffset si subtractOffset] } como float.
+void __cdecl PlaneSmokeVelocityCpp(const float* speed, float scale, float zOffset, bool subtractOffset, float* out);
+// PreRender: fld; fchs; fstp (-value, con la quietud del fld).
+float __cdecl PlaneNegateCpp(float value);
+// PreRender (Vortex): inclinacion del nodo 23 sobre la matriz temporal; ver plane-x87.cpp.txt. lines = CColLine[4] (0x20 bytes: start.x en [0], start.y en [1]).
+void __cdecl PlaneHoverTiltCpp(float* rightZ, float* forwardZ, float* upX, float* upY, float* upZ, const float* matrixRight, const float* matrixForward, const float* velocity,
+                               const float* wheelPositions, const float* lines, float wheelZ, float wheelSize, float timeStep);
+
+// --- Lote CStats (statsfix3): captura de ECX/EDX tras una llamada ---
+// Se llama a traves de un puntero __fastcall SIN parametros justo despues de un colaborador: el compilador no carga nada en ECX/EDX y la funcion devuelve
+// ECX en la mitad baja y EDX en la alta (compilada /O2 es `mov eax,ecx; ret`; comprobada al cargar la DLL).
+unsigned long long __fastcall StatsCaptureEcxEdxCpp(unsigned int ecx, unsigned int edx);
+// EAX con que sale el colaborador anterior (mismo uso: llamada inmediata tras el colaborador; sin `return`, MSVC no escribe EAX). Distinto de EntryEaxCpp: aquel solo
+// vale como primera lectura del EAX de entrada de la funcion (lo vigila el auditor); este se vigila con su propia regla (violations_before_capture).
+unsigned int __fastcall StatsCaptureEaxCpp();
+
+// --- CStats::UpdateSexAppealStat (0x55BF20, Stats.cpp, w20), prefijo SexAppeal. Anadir al FINAL de X87Math.h ---
+
+// 0x55BF23: fld dword [apariencia]; fmul dword [0x858B8C] (0.5f); fstp dword: escribe el float resultante (bits) en *out; no devuelve nada en ST0.
+void __cdecl SexAppealHalfCpp(float appearance, unsigned int* out);
+// 0x55BF90..0x55BFB9: dx = target[0] - player[0], dy = target[1] - player[1]; fsqrt(dy*dy + dx*dx); fcomp 35.0f; devuelve 1 si distancia < 35 (NaN y >= 35: 0).
+// Deja en la pila x87 vacia el mismo residuo que el EXE (registros 2, 3 y 4: dy, distancia y dx*dx).
+unsigned int __cdecl SexAppealNearCpp(const float* target, const float* player);
+// 0x55BFC5..0x55C04C: salud del vehiculo -> float(2*salud - 1000) guardado, limitado a [0, 1000] (NaN se conserva) y multiplicado por el factor de la clase
+// (factorIndex 0 = x0.1f, 1 = sin factor, 2 = x0.3f, 3 = x0.5f); ST0 sin redondear a float.
+double __cdecl SexAppealVehiclePartCpp(float health, unsigned int factorIndex);
+// 0x55C04C..0x55C093: valor = parte * 0.5f + float(halfBits) (los bits que dejo SexAppealHalfCpp); limite inferior 0 y superior 1000 (NaN se conserva); cheat != 0 -> 1000; fstp dword [0xB793E4] (STAT_SEX_APPEAL).
+void __cdecl SexAppealFinishCpp(double vehiclePart, unsigned int halfBits, unsigned int cheat);
+
+// --- CPlayerPed::ControlButtonSprint (0x60A610; prefijo PlayerPedSprint) ---
+// 0x60A69E: float(f0 + velocidad) o f10 si f10 < f0 + velocidad (el valor que el EXE guarda en datos+0x1C con fstp).
+float __cdecl PlayerPedSprintAddClampCpp(float f0, float speed, float f10);
+// 0x60A6E3 / 0x60A72C: float(velocidad - paso * k) o limite si limite > velocidad - paso * k (limite 1.0f o 0.0f).
+float __cdecl PlayerPedSprintDecayCpp(float timeStep, float k, float speed, float limit);
+// 0x60A776: float(velocidad / umbral).
+float __cdecl PlayerPedSprintRatioCpp(float speed, float threshold);
+// 0x60A7A9..0x60A7D3: ((max(ratio - 1, 0) * k) + 1) con ST0 sin guardar (double, extern "C"); PlayerPed.cpp lo usa como float con otro nombre via /alternatename, no por este encabezado.
+extern "C" double __cdecl PlayerPedSprintTailDblCpp(float ratio, float k);

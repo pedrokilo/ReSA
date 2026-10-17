@@ -1,0 +1,170 @@
+0060A610: push ecx
+0060A611: push edi
+0060A612: mov edi,ecx
+0060A614: mov eax,dword ptr [edi+00000480h]
+0060A61A: test eax,eax
+0060A61C: jne 0060A629
+0060A61E: fld dword ptr ds:[00858B50h]
+0060A624: pop edi
+0060A625: pop ecx
+0060A626: ret 4
+0060A629: mov eax,dword ptr [edi+00000598h]
+0060A62F: test eax,eax
+0060A631: push ebx
+0060A632: push ebp
+0060A633: push esi
+0060A634: jne 0060A643
+0060A636: push eax
+0060A637: call 0053FB70
+0060A63C: add esp,4
+0060A63F: mov ebp,eax
+0060A641: jmp 0060A657
+0060A643: cmp eax,1
+0060A646: jne 0060A655
+0060A648: push eax
+0060A649: call 0053FB70
+0060A64E: add esp,4
+0060A651: mov ebp,eax
+0060A653: jmp 0060A657
+0060A655: xor ebp,ebp
+0060A657: mov ecx,dword ptr [edi+00000480h]
+0060A65D: mov al,byte ptr [ecx+00000084h]
+0060A663: xor bl,bl
+0060A665: test al,al
+0060A667: jne 0060A68B
+0060A669: fld dword ptr [ecx+1Ch]
+0060A66C: fcomp dword ptr ds:[00858B50h]
+0060A672: fnstsw ax
+0060A674: test ah,41h
+0060A677: je 0060A689
+0060A679: fld dword ptr [ecx+18h]
+0060A67C: fcomp dword ptr ds:[00858B50h]
+0060A682: fnstsw ax
+0060A684: test ah,41h
+0060A687: jne 0060A68B
+0060A689: mov bl,1
+0060A68B: mov ecx,ebp
+0060A68D: call 005407F0
+0060A692: test al,al
+0060A694: mov esi,dword ptr [esp+18h]
+0060A698: je 0060A6D4
+0060A69A: test bl,bl
+0060A69C: je 0060A6D4
+0060A69E: mov ecx,dword ptr [edi+00000480h]
+0060A6A4: mov eax,esi
+0060A6A6: shl eax,5
+0060A6A9: fld dword ptr [eax+008D2460h]
+0060A6AF: fadd dword ptr [ecx+1Ch]
+0060A6B2: fld dword ptr [eax+008D2470h]
+0060A6B8: fst dword ptr [esp+18h]
+0060A6BC: fcomp st(1)
+0060A6BE: fnstsw ax
+0060A6C0: test ah,5
+0060A6C3: jp 0060A757
+0060A6C9: fstp st(0)
+0060A6CB: fld dword ptr [esp+18h]
+0060A6CF: jmp 0060A757
+0060A6D4: mov ecx,ebp
+0060A6D6: call 005407A0
+0060A6DB: test al,al
+0060A6DD: je 0060A716
+0060A6DF: test bl,bl
+0060A6E1: je 0060A716
+0060A6E3: fld dword ptr ds:[00B7CB5Ch]
+0060A6E9: mov ecx,dword ptr [edi+00000480h]
+0060A6EF: mov eax,esi
+0060A6F1: shl eax,5
+0060A6F4: fmul dword ptr [eax+008D2464h]
+0060A6FA: fsubr dword ptr [ecx+1Ch]
+0060A6FD: fld dword ptr ds:[00858624h]
+0060A703: fcomp st(1)
+0060A705: fnstsw ax
+0060A707: test ah,41h
+0060A70A: jne 0060A757
+0060A70C: fstp st(0)
+0060A70E: fld dword ptr ds:[00858624h]
+0060A714: jmp 0060A757
+0060A716: mov ecx,dword ptr [edi+00000480h]
+0060A71C: fld dword ptr [ecx+1Ch]
+0060A71F: fcomp dword ptr ds:[00858B50h]
+0060A725: fnstsw ax
+0060A727: test ah,41h
+0060A72A: jne 0060A75A
+0060A72C: fld dword ptr ds:[00B7CB5Ch]
+0060A732: mov edx,esi
+0060A734: shl edx,5
+0060A737: fmul dword ptr [edx+008D2468h]
+0060A73D: fsubr dword ptr [ecx+1Ch]
+0060A740: fld dword ptr ds:[00858B50h]
+0060A746: fcomp st(1)
+0060A748: fnstsw ax
+0060A74A: test ah,41h
+0060A74D: jne 0060A757
+0060A74F: fstp st(0)
+0060A751: fld dword ptr ds:[00858B50h]
+0060A757: fstp dword ptr [ecx+1Ch]
+0060A75A: mov ecx,dword ptr [edi+00000480h]
+0060A760: fld dword ptr [ecx+1Ch]
+0060A763: shl esi,5
+0060A766: fcomp dword ptr [esi+008D246Ch]
+0060A76C: fld dword ptr [ecx+1Ch]
+0060A76F: fnstsw ax
+0060A771: test ah,41h
+0060A774: jne 0060A7DE
+0060A776: fdiv dword ptr [esi+008D246Ch]
+0060A77C: mov eax,dword ptr [esi+008D2478h]
+0060A782: mov dword ptr [esp+18h],eax
+0060A786: fst dword ptr [esp+10h]
+0060A78A: fcomp dword ptr ds:[00858B50h]
+0060A790: fnstsw ax
+0060A792: test ah,41h
+0060A795: jne 0060A810
+0060A797: mov edx,dword ptr [esp+18h]
+0060A79B: push edx
+0060A79C: push 1
+0060A79E: mov ecx,edi
+0060A7A0: call 0060A550
+0060A7A5: test al,al
+0060A7A7: je 0060A803
+0060A7A9: fld dword ptr [esp+10h]
+0060A7AD: fsub dword ptr ds:[00858624h]
+0060A7B3: fld dword ptr ds:[00858B50h]
+0060A7B9: fcomp st(1)
+0060A7BB: fnstsw ax
+0060A7BD: test ah,41h
+0060A7C0: jne 0060A7CA
+0060A7C2: fstp st(0)
+0060A7C4: fld dword ptr ds:[00858B50h]
+0060A7CA: fmul dword ptr [esi+008D247Ch]
+0060A7D0: pop esi
+0060A7D1: pop ebp
+0060A7D2: pop ebx
+0060A7D3: fadd dword ptr ds:[00858624h]
+0060A7D9: pop edi
+0060A7DA: pop ecx
+0060A7DB: ret 4
+0060A7DE: fcomp dword ptr ds:[00858B50h]
+0060A7E4: fnstsw ax
+0060A7E6: test ah,41h
+0060A7E9: jne 0060A810
+0060A7EB: test bl,bl
+0060A7ED: je 0060A810
+0060A7EF: mov ecx,dword ptr [esi+008D2474h]
+0060A7F5: mov dword ptr [esp+10h],3F800000h
+0060A7FD: mov dword ptr [esp+18h],ecx
+0060A801: jmp 0060A797
+0060A803: mov eax,dword ptr [edi+00000480h]
+0060A809: mov dword ptr [eax+1Ch],0
+ 00
+0060A810: fld dword ptr ds:[00858B50h]
+0060A816: pop esi
+0060A817: pop ebp
+0060A818: pop ebx
+0060A819: pop edi
+0060A81A: pop ecx
+0060A81B: ret 4
+0060A820: mov ecx,dword ptr [ecx+00000480h]
+0060A826: fld dword ptr [ecx+1Ch]
+0060A829: fcomp dword ptr ds:[008D2458h]
+ 0060A82F: D9
+0060A830: inc ecx

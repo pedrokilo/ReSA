@@ -22,10 +22,16 @@ def _modified(bank):
 PRE={b:_modified(b) for b in sys.argv[2:]}
 for bank in sys.argv[2:]:
     r={'bank':bank}; t0=time.time()
-    for script in ('build_probe.py','run_local.py'):
+    for script in ('build_probe.py','Diagnostics/verify_compiled_calls.py','run_local.py'):
         sp=str(ROOT/'reversing'/bank/script)
-        p=run([PY,'-B',os.environ['TEMP']+'/hist_wrap.py',sp])
-        r[script[:-3]]=p.returncode
+        # Paso opcional: algunos bancos (RequestedPadProcessPad) regeneran su prueba estatica del PE recien compilado entre la compilacion y la ejecucion;
+        # run_local.py exige que compiled-runtime-proof.json coincida con el hash del ASI que acaba de producir build_probe.py.
+        if script.startswith('Diagnostics/') and not os.path.exists(sp): continue
+        p=run([PY,'-B',sp]) if script.startswith('Diagnostics/') else run([PY,'-B',os.environ['TEMP']+'/hist_wrap.py',sp])  # el verificador estatico no necesita hist_wrap (solo lee)
+        r[Path(script).stem]=p.returncode
+        if script.startswith('Diagnostics/'):
+            if p.returncode: r['err']=(p.stdout+p.stderr)[-500:]; break
+            continue
         if script=='build_probe.py' and p.returncode==0:
             # algunos bancos antiguos no instalan su sonda en _baseline: copiarla desde artifacts si falta
             for ext in ('asi','pdb'):

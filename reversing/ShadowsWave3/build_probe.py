@@ -8,5 +8,5 @@ import runtime_runner
 runtime_runner.GAME = Path('E:/JUEGOS/GTA San Andreas - CVehicle Test')
 from probe_build import build
 G = 'source/game_sa/'
-SOURCES = [G + 'Shadows.cpp', G + 'Shadows.h']
+SOURCES = [G + 'Shadows.cpp', G + 'Shadows.h', G + 'X87Math.cpp', G + 'X87Math.h']
 if __name__ == '__main__': print(json.dumps(build(Path(__file__).parent, 'shadowswave3', 'ShadowsWave3Live', SOURCES)))

@@ -1,0 +1,3 @@
+APROBADO: CHud + CCam (banco simple)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-camhud1\20261016-184927-000394

@@ -1,0 +1,3 @@
+APROBADO: Ayudantes x87 de CCam, EXE vs DLL con estres
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cppcamx87stress1\20261016-185152-121368

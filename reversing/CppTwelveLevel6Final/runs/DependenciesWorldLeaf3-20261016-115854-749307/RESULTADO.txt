@@ -1,0 +1,3 @@
+APROBADO: Keyboard and FX frustum dependencies
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciesworldleaf3\20261016-115854-749307

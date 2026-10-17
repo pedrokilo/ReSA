@@ -79,9 +79,9 @@ public:
     int32 Office_PlaceDeskQuad(int32 a2, int32 a3, int32 a4, int32 a5);
     int32 Office_FurnishCenter();
     void FurnishOffice();
-    int8 Shop_Place3PieceUnit(int32 a2, int32 a3, int32 a4, int32 a5, int32 a6);
+    uint32 Shop_Place3PieceUnit(int32 a2, int32 a3, int32 a4, int32 a5, int32 a6); // EAX completo como el EXE (AL = 1; los bits altos son el CEntity* de la ultima PlaceFurniture): lo compara el banco
     int32 Shop_PlaceEdgeUnits(int32 a2, int32 a3, int32 a4, int32 a5);
-    int32 Shop_PlaceCounter(uint8 a2);
+    int32 Shop_PlaceCounter(uint32 a2); // palabra completa de pila como el EXE (solo se lee el byte bajo)
     void Shop_PlaceFixedUnits();
     void Shop_FurnishCeiling();
     void Shop_AddShelfInfo(int32 a2, int32 a3, int32 a5);

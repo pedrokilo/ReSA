@@ -325,7 +325,8 @@ inline bool RunG3(Ctx& c){
         uint8* t=G3_Tr('F',c.uni(5.f,150.f),c.uni(1.f,60.f));
         const int32 ws= c.i<56 ? static_cast<int32>(c.i%7)-2 : (c.chance(10) ? static_cast<int32>(c.next()%11u)-5 : G3_WS(c));
         const float gas=G3_Gas(c), speed=G3_Speed(c);
-        const float r=CallThis<float>(a,e,static_cast<void*>(v),ws,gas,static_cast<void*>(t),speed);
+        uint32 rc=0,rd=0; const float r=CallThisRegs(a,e,RegSeed(c.i,c.f),&rc,&rd,static_cast<void*>(v),ws,gas,static_cast<void*>(t),speed);
+        out["ecx"]=rc; out["edx"]=rd;   // EXE: ECX y EDX intactos (el llamador 0x4F905F reutiliza EDX)
         ret=F(r);
         return true; }
 
@@ -337,7 +338,8 @@ inline bool RunG3(Ctx& c){
         uint8* t=G3_Tr('R',c.uni(5.f,150.f),c.uni(1.f,60.f));
         const int32 ws= c.i<56 ? static_cast<int32>(c.i%7)-2 : (c.chance(10) ? static_cast<int32>(c.next()%11u)-5 : G3_WS(c));
         const float speed=G3_Speed(c);
-        const float r=CallThis<float>(a,e,static_cast<void*>(v),ws,static_cast<void*>(t),speed);
+        uint32 rc=0,rd=0; const float r=CallThisRegs(a,e,RegSeed(c.i,c.f),&rc,&rd,static_cast<void*>(v),ws,static_cast<void*>(t),speed);
+        out["ecx"]=rc; out["edx"]=rd;   // EXE: ECX y EDX intactos (los llamadores 0x4F9062/0x4F907D reutilizan EDX)
         ret=F(r);
         return true; }
 

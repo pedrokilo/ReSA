@@ -123,7 +123,7 @@ inline void Update() {
     for(const auto& h:helpers){const auto m=h.Metadata();const auto at=m["entry"].get<uintptr_t>();if(at==0x55C470||at==0x55C180||at==0x55B980||at==0x4C8740||at==0x4C8750)ready&=m["registered"]==true&&m["reconstructed"]==true&&m["enabled"]==true;}
     json metadata=json::array();for(const auto& h:helpers)metadata.push_back(h.Metadata());
     json descriptors=json::array();for(const auto& b:blocks)descriptors.push_back({{"address",b.address},{"bytes",b.saved.size()}});
-    Write({{"event","begin"},{"registered_hook",ready},{"helper_routes",metadata},{"helper_routes_ok",helpersOK()},{"floating_state_restored",FloatingStateRestored()},{"functions",2},{"pairs",4096},{"unused_model_slots",slots},{"unused_model_slots_proven",found==2},{"snapshot_blocks",blocks.size()},{"snapshot_layout",descriptors},{"global_cpp_function_owner","CVehicle::IsValidModForVehicle"},{"collaborators_stubbed",false}});
+    Write({{"event","begin"},{"registered_hook",ready},{"helper_routes",metadata},{"helper_routes_ok",helpersOK()},{"floating_state_restored",FloatingStateRestored()},{"functions",2},{"pairs",4096},{"unused_model_slots",slots},{"unused_model_slots_proven",found==2},{"snapshot_blocks",blocks.size()},{"snapshot_layout",descriptors},{"global_cpp_function_owner","CVehicle::IsValidModForVehicle"},{"collaborators_stubbed",false},{"exe_wheel_collaborators_during_call",true}});
     const uint32 counters[]{0,1,999,1000,0x7FFFFFFF,0x80000000,0xFFFFFFFE,0xFFFFFFFF};
     const uint32 limits[]{0xBF800000,0,0x3F800000,0x3F7FFFFF,0x3F800001,0x49800000,0x4A800000,0x7F800000,0x7FC01234};
     const uint32 speeds[]{0,0x3D4CCCCC,0x3D4CCCCD,0x3D4CCCCE,0x3E4CCCCC,0x3E4CCCCD,0x3E4CCCCE,0x3F800000,0xBF800000,0x7FC01234,0x3E800000,0x3D800000,0x3C800000,0x3F000000,0x40000000,0x00000001};
@@ -168,7 +168,11 @@ inline void Update() {
                 input["arg0"]=arg0;input["arg1"]=arg1;
                 const auto vehicleBefore=blocks[blocks.size()-3].Observe(),carBefore=blocks[blocks.size()-2].Observe(),upgradeBefore=blocks.back().Observe();
                 std::vector<std::string> prepared;for(const auto& b:blocks)prepared.push_back(b.Observe());
-                bool routeOK=false,helperOK=helpersOK();const auto result=routes[fn]->Invoke(candidate,[&]{routeOK=ReversingProbe::JumpsToDll(fns[fn].address)==candidate;return Gate(fns[fn].address,true,arg0,arg1);});helperOK&=helpersOK();
+                bool routeOK=false,helperOK=helpersOK();const auto result=routes[fn]->Invoke(candidate,[&]{routeOK=ReversingProbe::JumpsToDll(fns[fn].address)==candidate;
+                    if(fn==1){helpers[11].UseExeCode(true);helpers[12].UseExeCode(true);}   // 0x4C8740 / 0x4C8750 con su codigo del EXE durante la llamada
+                    const auto gate=Gate(fns[fn].address,true,arg0,arg1);
+                    if(fn==1){helpers[11].UseExeCode(false);helpers[12].UseExeCode(false);}
+                    return gate;});helperOK&=helpersOK();
                 json state=json::array();for(const auto& b:blocks)state.push_back(b.Observe());
                 const bool fixtureReadonly=vehicleBefore==blocks[blocks.size()-3].Observe()&&carBefore==blocks[blocks.size()-2].Observe()&&upgradeBefore==blocks.back().Observe();
                 bool allReadonly=true;if(fn==1)for(unsigned n=0;n<blocks.size();++n)allReadonly&=prepared[n]==blocks[n].Observe();

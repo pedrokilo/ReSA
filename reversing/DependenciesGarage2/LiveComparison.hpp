@@ -102,7 +102,12 @@ inline void Update(){
                 const std::array<float,4> pz{-1.0000001f,-1,6,6.0000005f};
                 float x=px[i&7],y=py[(i>>3)&7],z=pz[(i>>6)&3];
                 const std::array<float,4> radios{0,0.5f,7,-0.5f};float radius=radios[(i>>8)&3];
-                if(i&512){switch(i&3){case 0:x=std::bit_cast<float>(0x7FC12345u);break;case 1:y=std::bit_cast<float>(0x7FC12345u);break;case 2:z=std::bit_cast<float>(0x7FC12345u);break;case 3:radius=std::bit_cast<float>(0x7FC12345u);break;}}
+                if(i&512){
+                    // Estres x87: NaN (carga y signo distintos, senalizante), +-inf, +-FLT_MAX y subnormal en una de las cuatro entradas; ademas direcciones del garaje enormes o diminutas (productos con exponente extendido).
+                    static const std::array<uint32,8> stress{0x7FC12345u,0xFFC00001u,0x7FA00001u,0x7F800000u,0xFF800000u,0x7F7FFFFFu,0xFF7FFFFFu,0x00000001u};const float sv=std::bit_cast<float>(stress[(i>>2)&7]);
+                    switch(i&3){case 0:x=sv;break;case 1:y=sv;break;case 2:z=sv;break;case 3:radius=sv;break;}
+                    if(i&16){const float big=(i&32)?3.0e38f:1.0e-38f;garage->m_vDirectionA=CVector2D{big,-big};garage->m_vDirectionB=CVector2D{-big,big};}
+                }
                 if(composed){
                     std::memset(&CGarages::aGarages,0xA7,sizeof(CGarages::aGarages));CGarages::NumGarages=(i&4)?0:3;
                     for(unsigned n=0;n<3;++n){auto& g=CGarages::aGarages[n];std::memcpy(&g,garageBytes.data(),garageBytes.size());g.m_vPosn=CVector{float(n*4),0,-2};g.m_vDirectionA=CVector2D{1,0};g.m_vDirectionB=CVector2D{0,1};g.m_fWidth=8;g.m_fHeight=8;g.m_fTopZ=6;}

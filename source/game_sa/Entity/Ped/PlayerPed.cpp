@@ -35,6 +35,11 @@ END GENERATED HOOK STATUS */
 #include "EventPlayerCommandToGroupGather.h"
 #include "X87Math.h"
 
+// Ayudante de X87Math.cpp (PlayerPedSprintTailDblCpp) que devuelve un double: el ((max(ratio - 1, 0) * k) + 1) de CPlayerPed::ControlButtonSprint queda sin guardar
+// en ST0 (0x60A7D3). Aqui se declara como float (alias del enlazador) para que el llamador reciba ST0 tal cual, como el EXE (mismo mecanismo que Placeable.cpp).
+extern "C" float __cdecl PlayerPedSprintTailFltCpp(float ratio, float k);
+#pragma comment(linker, "/alternatename:_PlayerPedSprintTailFltCpp=_PlayerPedSprintTailDblCpp")
+
 bool CPlayerPed::bDebugPlayerInvincible;
 bool CPlayerPed::bDebugTargeting;
 bool CPlayerPed::bDebugTapToTarget;
@@ -90,6 +95,7 @@ void CPlayerPed::InjectHooks() {
     RH_ScopedInstall(MakePlayerGroupDisappear, 0x60A440);
     RH_ScopedInstall(MakePlayerGroupReappear, 0x60A4B0);
     RH_ScopedInstall(HandleSprintEnergy, 0x60A550);
+    RH_ScopedInstall(ControlButtonSprint, 0x60A610);
     RH_ScopedNamedGlobalInstall(GetButtonSprintResultsKeepEdx, "GetButtonSprintResults", 0x60A820);
     RH_ScopedInstall(HandlePlayerBreath, 0x60A8D0);
     RH_ScopedOverloadedInstall(MakeChangesForNewWeapon, "", 0x60B460, void(CPlayerPed::*)(eWeaponType));
@@ -725,8 +731,50 @@ constexpr struct tPlayerSprintSet { // From 0x8D2460
 
 // 0x60A610
 float CPlayerPed::ControlButtonSprint(eSprintType sprintType) {
-    // El cálculo del control de sprint continúa delegado al ejecutable original.
-    return plugin::CallMethodAndReturn<float, 0x60A610, CPlayerPed *, eSprintType>(this, sprintType);
+    CPlayerPedData* data = GetPlayerData();
+    if (!data)
+        return 0.0f; // 0x60A61E
+
+    // Como el original: GetPad(0) / GetPad(1) segun el tipo de ped (0x598); cualquier otro tipo deja el pad en nullptr y las llamadas a CPad lo desreferencian
+    CPad* pad = nullptr;
+    if (m_nPedType == PED_TYPE_PLAYER1)
+        pad = CPad::GetPad(0);
+    else if (m_nPedType == PED_TYPE_PLAYER2)
+        pad = CPad::GetPad(1);
+
+    // Como el original (0x60A663..0x60A689): comparaciones ordenadas (con NaN, false)
+    const bool canSprint = !data->m_bPlayerSprintDisabled && (data->m_fMoveSpeed > 0.0f || data->m_fTimeCanRun > 0.0f);
+    const auto& sprintSet = PLAYER_SPRINT_SET[sprintType]; // 0x8D2460 + tipo * 32 (sin comprobar el rango, como el original)
+
+    // Como el original: SprintJustDown (0x5407F0) se llama siempre y, si no aplica la primera rama, GetSprint (0x5407A0) tambien
+    if (pad->SprintJustDown() && canSprint) {
+        data->m_fMoveSpeed = PlayerPedSprintAddClampCpp(sprintSet.field_0, data->m_fMoveSpeed, sprintSet.field_10); // 0x60A69E..0x60A757
+    } else if (pad->GetSprint() && canSprint) {
+        data->m_fMoveSpeed = PlayerPedSprintDecayCpp(CTimer::GetTimeStep(), sprintSet.field_4, data->m_fMoveSpeed, 1.0f); // 0x60A6E3..0x60A757
+    } else if (data->m_fMoveSpeed > 0.0f) {
+        data->m_fMoveSpeed = PlayerPedSprintDecayCpp(CTimer::GetTimeStep(), sprintSet.field_8, data->m_fMoveSpeed, 0.0f); // 0x60A716..0x60A757
+    }
+
+    // 0x60A75A: el EXE vuelve a leer la velocidad
+    const float speed = data->m_fMoveSpeed;
+    float ratio;
+    float adrenaline;
+    if (speed > sprintSet.field_C) {
+        // Como el original: ratio > 0 (0x60A78A) es siempre cierto con velocidad > field_C > 0
+        ratio      = PlayerPedSprintRatioCpp(speed, sprintSet.field_C);
+        adrenaline = sprintSet.field_18;
+    } else if (speed > 0.0f && canSprint) {
+        ratio      = 1.0f; // 0x60A7F5
+        adrenaline = sprintSet.field_14;
+    } else {
+        return 0.0f; // 0x60A810
+    }
+
+    if (HandleSprintEnergy(true, adrenaline)) // 0x60A550
+        return PlayerPedSprintTailFltCpp(ratio, sprintSet.field_1C); // 0x60A7A9..0x60A7D3, ST0 sin guardar
+
+    data->m_fMoveSpeed = 0.0f; // 0x60A809
+    return 0.0f;
 }
 
 // 0x60A820

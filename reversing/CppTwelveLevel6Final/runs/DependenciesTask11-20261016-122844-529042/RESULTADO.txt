@@ -1,0 +1,3 @@
+APROBADO: DependenciesTask11
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciestask11\20261016-122844-529042

@@ -159,7 +159,10 @@ inline bool RunG2(Ctx& c){
     if(nm=="GetFreqForIdle"){
         auto* e=G2Base(c);
         const float r=G2Pick(c,{0.f,0.075f,0.15f,0.25f,1.f,1.0001f,G2Next(1.0001f),G2Prev(0.075f),G2Next(0.075f),-0.01f,1.5f,0.2f},-0.1f,1.3f,2);
-        ret=F(CallThis<float>(a,e,r));
+        // ECX/EDX tras la llamada (EXE: ECX = indice del bucle, EDX intacto) se comparan en bits ademas del float
+        uint32 rc=0,rd=0; const float rr=CallThisRegs(a,e,RegSeed(c.i,c.f),&rc,&rd,r);
+        out["ecx"]=rc; out["edx"]=rd;
+        ret=F(rr);
         return true; }
 
     if(nm=="GetFreqForPlayerEngineSound"||nm=="GetVolForPlayerEngineSound"){
@@ -173,6 +176,12 @@ inline bool RunG2(Ctx& c){
         e->m_bNitroOnLastFrame=c.chance(2);
         e->m_CurrentNitroRatio=G2Pick(c,{0.f,1.f,G2Next(1.f),-0.0001f,0.0001f,0.5f},-0.2f,1.2f,3);
         const int st=c.pick<int>({1,2,3,4,5,1,2,3,4,5,2});
+        if(nm=="GetVolForPlayerEngineSound"){
+            // EXE: ECX = this intacto y EDX = [[this+4]+0x4C8] (0x4F5DD6); ambos se comparan en bits ademas del float
+            uint32 rc=0,rd=0; const float rr=CallThisRegs(a,e,RegSeed(c.i,c.f),&rc,&rd,static_cast<void*>(p),int32(st));
+            out["ecx"]=rc; out["edx"]=rd;
+            ret=F(rr);
+            return true; }
         ret=F(CallThis<float>(a,e,static_cast<void*>(p),int32(st)));
         return true; }
 

@@ -5,6 +5,8 @@
 #include <reversiblehooks/ReversibleHook/Base.h>
 #include "Interior/Interior_c.h"
 #include "Interior/Furniture_c.h"
+#include "Interior/FurnitureManager_c.h"
+#include <bit>
 #include "../ProbeRuntime.hpp"
 namespace InteriorHomeLive {
 using ReversingProbe::EntryPatch;
@@ -62,6 +64,15 @@ inline void Update(){
  for(const auto& fn:fns){auto* hook=FindHook(fn.cls,fn.name);if(!hook){Write({{"event","error"},{"reason","missing hook"},{"function",fn.name}});return;}const bool oldEnabled=hook->Hooked(),oldLocked=hook->Locked();hook->LockState(false);
   std::vector<std::unique_ptr<EntryPatch>> patches;auto patch=[&](uintptr_t addr,auto callback){if(addr!=fn.address)patches.emplace_back(std::make_unique<EntryPatch>(addr,callback));};
   patch(0x407180,Range);patch(0x821B1E,Random);patch(0x5911E0,Furniture);patch(0x591220,RandomId);patch(0x591700,Tiles);patch(0x5917C0,Corner);patch(0x5918E0,Tile);patch(0x591C50,Empty);patch(0x591D20,Goto);patch(0x591E40,Info);patch(0x592AA0,Place);patch(0x593120,Wall);patch(0x593340,InCorner);patch(0x5934E0,Object);patch(0x593F10,Table);patch(0x596930,Edges);patch(0x597240,TV);patch(0x597430,Hifi);patch(0x5974E0,Chair);patch(0x5975C0,Sofa);
+  // Tras la conversion a C++, los cuerpos de la DLL llaman a los colaboradores por su simbolo (no por la direccion del EXE): se interceptan las dos entradas con el mismo Fake.
+  auto patchDll=[&](uintptr_t exe,uintptr_t dll,auto callback){if(exe!=fn.address)patches.emplace_back(std::make_unique<EntryPatch>(dll,callback));};
+  patchDll(0x407180,std::bit_cast<uintptr_t>(&CGeneral::GetRandomIntInRange),Range);
+  patchDll(0x5911E0,std::bit_cast<uintptr_t>(&FurnitureManager_c::GetFurniture),Furniture);patchDll(0x591220,std::bit_cast<uintptr_t>(&FurnitureManager_c::GetRandomId),RandomId);
+  patchDll(0x591700,std::bit_cast<uintptr_t>(&Interior_c::SetTilesStatus),Tiles);patchDll(0x5917C0,std::bit_cast<uintptr_t>(&Interior_c::SetCornerTiles),Corner);patchDll(0x5918E0,std::bit_cast<uintptr_t>(&Interior_c::GetTileStatus),Tile);patchDll(0x591C50,std::bit_cast<uintptr_t>(&Interior_c::FindEmptyTiles),Empty);
+  patchDll(0x591D20,std::bit_cast<uintptr_t>(&Interior_c::AddGotoPt),Goto);patchDll(0x591E40,std::bit_cast<uintptr_t>(&Interior_c::AddInteriorInfo),Info);
+  patchDll(0x592AA0,std::bit_cast<uintptr_t>(&Interior_c::PlaceFurniture),Place);patchDll(0x593120,std::bit_cast<uintptr_t>(&Interior_c::PlaceFurnitureOnWall),Wall);patchDll(0x593340,std::bit_cast<uintptr_t>(&Interior_c::PlaceFurnitureInCorner),InCorner);patchDll(0x5934E0,std::bit_cast<uintptr_t>(&Interior_c::PlaceObject),Object);
+  patchDll(0x593F10,std::bit_cast<uintptr_t>(&Interior_c::Bedroom_AddTableItem),Table);patchDll(0x596930,std::bit_cast<uintptr_t>(&Interior_c::Kitchen_FurnishEdges),Edges);patchDll(0x597240,std::bit_cast<uintptr_t>(&Interior_c::Lounge_AddTV),TV);patchDll(0x597430,std::bit_cast<uintptr_t>(&Interior_c::Lounge_AddHifi),Hifi);
+  patchDll(0x5974E0,std::bit_cast<uintptr_t>(&Interior_c::Lounge_AddChairInfo),Chair);patchDll(0x5975C0,std::bit_cast<uintptr_t>(&Interior_c::Lounge_AddSofaInfo),Sofa);
   int failures{},nulls{},nonnull{},positive{},dirMask{};const std::string full=std::string(fn.cls)+"::"+fn.name;
   for(int i=0;i<fn.cases;++i){auto run=[&](bool candidate){hook->State(candidate);scenario=uint32(i);rngCalls=placements=0;trace=json::array();interior.fill(0);box.fill(0);for(size_t k=0;k<objects.size();++k)objects[k].fill(uint8(k));
    for(size_t k=0;k<furniture.size();++k){furniture[k].fill(0);At<int16>(furniture[k].data(),8)=int16(k);furniture[k][0xC]=uint8(1+(i+k)%2);furniture[k][0xD]=uint8(1+(i+k/2)%2);}

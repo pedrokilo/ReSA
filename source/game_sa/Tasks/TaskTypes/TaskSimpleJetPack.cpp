@@ -53,302 +53,6 @@ const float kJpInv60         = std::bit_cast<float>(0x3C888889u); // 0x859044 (s
 const float kJpTimeToRad     = std::bit_cast<float>(0x3ACDE32Eu); // 0x870640
 const float kJpJetBallPeriod = std::bit_cast<float>(0x429F27AAu); // 0x8D2F80
 const float kJpRandRecip     = std::bit_cast<float>(0x38000100u); // 0x858C7C (1/32767)
-const float kJpTwo32         = 4294967296.0f;                     // 0x858C54
-const float kJpOne           = 1.0f;
-const float kJpZero          = 0.0f;
-const float kJpThrustMaxAngle = THRUST_MAX_ANGLE;
-const float kJpAngleRate     = JETPACK_ANGLE_RATE;
-const float kJpSwingDamp     = LEG_SWING_DAMP_FRAC;
-const float kJpSwingDeltaV   = LEG_SWING_DELTA_V_MULT;
-const float kJpSwingGravity  = LEG_SWING_GRAVITY_MULT;
-const float kJpSwingMax      = LEG_SWING_MAX_ANGLE;
-const float kJpMoveDamping   = THRUST_MOVE_DAMPING;
-
-// atan2(y, x) con fpatan (precisión completa, se redondea al guardar)
-float __declspec(naked) __cdecl JpAtan2X87(float y, float x) {
-    __asm {
-        fld   dword ptr [esp+4]
-        fld   dword ptr [esp+8]
-        fpatan
-        ret
-    }
-}
-
-// (float)v · k con v sin signo (fild + 2^32 si es negativo) y un solo redondeo
-float __declspec(naked) __cdecl JpUIntMulX87(uint32 v, float k) {
-    __asm {
-        mov   eax, dword ptr [esp+4]
-        fild  dword ptr [esp+4]
-        test  eax, eax
-        jge   L_pos
-        fadd  dword ptr [kJpTwo32]
-    L_pos:
-        fmul  dword ptr [esp+8]
-        ret
-    }
-}
-
-// (float)v / k con v sin signo (fild + 2^32 si es negativo) y un solo redondeo
-float __declspec(naked) __cdecl JpUIntDivX87(uint32 v, float k) {
-    __asm {
-        mov   eax, dword ptr [esp+4]
-        fild  dword ptr [esp+4]
-        test  eax, eax
-        jge   L_pos
-        fadd  dword ptr [kJpTwo32]
-    L_pos:
-        fdiv  dword ptr [esp+8]
-        ret
-    }
-}
-
-// fsin(a) · k con el seno sin redondear
-
-
-// fcos(a) · k con el coseno sin redondear
-
-
-// (1 - p) · udS · ángulo máximo + p · angle con p = pow(0.9, paso) del _CIpow del EXE (0x822130) en ST0 completo
-float __declspec(naked) __cdecl JpLerpThrustAngleX87(float udS, float angle, float step) {
-    __asm {
-        fld   dword ptr [kJpAngleRate]
-        fld   dword ptr [esp+0Ch]
-        mov   eax, 0x822130
-        call  eax
-        fld   dword ptr [kJpOne]
-        fsub  st, st(1)
-        fmul  dword ptr [esp+4]
-        fmul  dword ptr [kJpThrustMaxAngle]
-        fxch  st(1)
-        fmul  dword ptr [esp+8]
-        faddp st(1), st
-        ret
-    }
-}
-
-// Como el original (0x67F1C2): cos/sin del ángulo de empuje sin redondear por las componentes de arriba y delante;
-// out[0..2] = delante · -sin + arriba · cos (out[3..7] temporales)
-void JpThrustDirX87(float thrustAngle, const float* upVec, const float* fwdVec, float* result) {
-    __asm {
-        mov   eax, upVec
-        mov   edx, fwdVec
-        mov   ecx, result
-        fld   thrustAngle
-        fcos
-        fld   st(0)
-        fmul  dword ptr [eax]
-        fld   st(1)
-        fmul  dword ptr [eax+4]
-        fstp  dword ptr [ecx+0Ch]
-        fxch  st(1)
-        fmul  dword ptr [eax+8]
-        fstp  dword ptr [ecx+10h]
-        fld   thrustAngle
-        fsin
-        fchs
-        fld   st(0)
-        fmul  dword ptr [edx]
-        fstp  dword ptr [ecx+14h]
-        fld   st(0)
-        fmul  dword ptr [edx+4]
-        fstp  dword ptr [ecx+18h]
-        fmul  dword ptr [edx+8]
-        fstp  dword ptr [ecx+1Ch]
-        fld   dword ptr [ecx+14h]
-        fadd  st, st(1)
-        fstp  dword ptr [ecx]
-        fstp  st(0)
-        fld   dword ptr [ecx+18h]
-        fadd  dword ptr [ecx+0Ch]
-        fstp  dword ptr [ecx+4]
-        fld   dword ptr [ecx+1Ch]
-        fadd  dword ptr [ecx+10h]
-        fstp  dword ptr [ecx+8]
-    }
-}
-
-// Como el original (0x67F43D..0x67F660): balanceo de piernas y amortiguación de la velocidad transcritos del x87.
-// damp = pow(0.98, paso) queda en ST0 completo para las dos velocidades y el giro; v *= pow(1 - |v| · 0.02, paso).
-// task: CTaskSimpleJetPack (0x18/0x1C balanceo, 0x20 giro, 0x24/0x28 velocidades, 0x30 velocidad previa)
-void JpSwingTailX87(void* task, CPed* ped, const CVector* prevPedVel, float step) {
-    float accZ, deltaY, deltaZ, sumX, sumY, sumZ, angTmp;
-    __asm {
-        mov   ebx, task
-        mov   edi, ped
-        lea   esi, [edi+44h]
-        mov   ecx, prevPedVel
-        fld   dword ptr [esi]
-        fsub  dword ptr [ecx]
-        fld   dword ptr [esi+4]
-        fsub  dword ptr [ecx+4]
-        fld   dword ptr [esi+8]
-        fsub  dword ptr [ecx+8]
-        fstp  accZ
-        fld   dword ptr [esi]
-        fsub  dword ptr [ebx+30h]
-        fld   dword ptr [esi+4]
-        fsub  dword ptr [ebx+34h]
-        fstp  deltaY
-        fld   dword ptr [esi+8]
-        fsub  dword ptr [ebx+38h]
-        fstp  deltaZ
-        fadd  st, st(2)
-        fstp  sumX
-        fld   deltaY
-        fadd  st, st(1)
-        fstp  sumY
-        fstp  st(0)
-        fstp  st(0)
-        fld   deltaZ
-        fadd  accZ
-        fstp  sumZ
-        fld   dword ptr [kJpSwingDamp]
-        fld   step
-        mov   eax, 0x822130
-        call  eax
-        // hacia delante (matriz + 0x10)
-        mov   eax, dword ptr [edi+14h]
-        fld   sumZ
-        fmul  dword ptr [eax+18h]
-        fld   sumY
-        fmul  dword ptr [eax+14h]
-        faddp st(1), st
-        fld   sumX
-        fmul  dword ptr [eax+10h]
-        faddp st(1), st
-        test  byte ptr [edi+46Ch], 3
-        je    L_fwdAir
-        fstp  st(0)
-        fld   dword ptr [kJpZero]
-    L_fwdAir:
-        fmul  dword ptr [kJpSwingDeltaV]
-        fsubr dword ptr [ebx+24h]
-        fst   dword ptr [ebx+24h]
-        fld   dword ptr [ebx+18h]
-        fsin
-        fmul  step
-        fmul  dword ptr [kJpSwingGravity]
-        fsubp st(1), st
-        fmul  st, st(1)
-        fst   dword ptr [ebx+24h]
-        fmul  step
-        fadd  dword ptr [ebx+18h]
-        fst   angTmp
-        fst   dword ptr [ebx+18h]
-        fcomp dword ptr [kJpSwingMax]
-        fnstsw ax
-        test  ah, 41h
-        jne   L_fwdNotMax
-        mov   eax, dword ptr [kJpSwingMax]
-        mov   dword ptr [ebx+18h], eax
-        jmp   L_fwdDone
-    L_fwdNotMax:
-        fld   dword ptr [kJpSwingMax]
-        fchs
-        fld   angTmp
-        fcomp st(1)
-        fnstsw ax
-        test  ah, 5
-        jp    L_fwdKeep
-        fstp  dword ptr [ebx+18h]
-        jmp   L_fwdDone
-    L_fwdKeep:
-        fstp  st(0)
-    L_fwdDone:
-        // lateral (matriz + 0x00)
-        mov   eax, dword ptr [edi+14h]
-        fld   sumZ
-        fmul  dword ptr [eax+8]
-        fld   sumY
-        fmul  dword ptr [eax+4]
-        faddp st(1), st
-        fld   sumX
-        fmul  dword ptr [eax]
-        faddp st(1), st
-        test  byte ptr [edi+46Ch], 3
-        je    L_sideAir
-        fstp  st(0)
-        fld   dword ptr [kJpZero]
-    L_sideAir:
-        fmul  dword ptr [kJpSwingDeltaV]
-        fsubr dword ptr [ebx+28h]
-        fst   dword ptr [ebx+28h]
-        fld   dword ptr [ebx+1Ch]
-        fsin
-        fmul  step
-        fmul  dword ptr [kJpSwingGravity]
-        fsubp st(1), st
-        fmul  st, st(1)
-        fst   dword ptr [ebx+28h]
-        fmul  step
-        fadd  dword ptr [ebx+1Ch]
-        fst   angTmp
-        fst   dword ptr [ebx+1Ch]
-        fcomp dword ptr [kJpSwingMax]
-        fnstsw ax
-        test  ah, 41h
-        jne   L_sideNotMax
-        mov   eax, dword ptr [kJpSwingMax]
-        mov   dword ptr [ebx+1Ch], eax
-        jmp   L_sideDone
-    L_sideNotMax:
-        fld   dword ptr [kJpSwingMax]
-        fchs
-        fld   angTmp
-        fcomp st(1)
-        fnstsw ax
-        test  ah, 5
-        jp    L_sideKeep
-        fstp  dword ptr [ebx+1Ch]
-        jmp   L_sideDone
-    L_sideKeep:
-        fstp  st(0)
-    L_sideDone:
-        // giro: damp · giro
-        fmul  dword ptr [ebx+20h]
-        fstp  dword ptr [ebx+20h]
-        // |v| = sqrt((x² + y²) + z²)
-        fld   dword ptr [esi+8]
-        fld   dword ptr [esi+4]
-        fld   dword ptr [esi]
-        fld   st(0)
-        fmul  st, st(1)
-        fld   st(2)
-        fmul  st, st(3)
-        faddp st(1), st
-        fld   st(3)
-        fmul  st, st(4)
-        faddp st(1), st
-        fsqrt
-        fstp  angTmp
-        fstp  st(0)
-        fstp  st(0)
-        fstp  st(0)
-        fld   angTmp
-        fmul  dword ptr [kJpMoveDamping]
-        fsubr dword ptr [kJpOne]
-        fld   step
-        mov   eax, 0x822130
-        call  eax
-        fld   st(0)
-        fmul  dword ptr [esi]
-        fstp  sumX
-        fld   st(0)
-        fmul  dword ptr [esi+4]
-        fstp  sumY
-        fmul  dword ptr [esi+8]
-        fstp  sumZ
-        mov   eax, sumX
-        mov   ecx, sumY
-        mov   edx, sumZ
-        mov   dword ptr [esi], eax
-        mov   dword ptr [esi+4], ecx
-        mov   dword ptr [esi+8], edx
-        mov   dword ptr [ebx+30h], eax
-        mov   dword ptr [ebx+34h], ecx
-        mov   dword ptr [ebx+38h], edx
-    }
-}
 } // namespace
 
 void CTaskSimpleJetPack::InjectHooks() {
@@ -471,7 +175,7 @@ bool CTaskSimpleJetPack::ProcessPed(CPed* ped) {
             }
 
             // Como el original: t = ms · 0.0015707964 (un redondeo); ((fsin(t) · paso) · -0.05) · rand() · (1/32767)
-            const float t  = JpUIntMulX87(CTimer::m_snTimeInMilliseconds, kJpTimeToRad);
+            const float t  = UnsignedTimesFloatCpp(CTimer::m_snTimeInMilliseconds, kJpTimeToRad);
             const float rf = (float)CGeneral::GetRandomNumber() * kJpRandRecip;
             ped->m_fAimingRotation = TrigSimpleSinMulCpp(t, CTimer::GetTimeStep()) * JETPACK_TURN_RATE * rf + ped->m_fAimingRotation;
 
@@ -527,7 +231,7 @@ void CTaskSimpleJetPack::RenderJetPack(CPed* ped) {
             }
             float x, y;
             if (m_ThrustStop) {
-                const float t = JpUIntDivX87(CTimer::m_snTimeInMilliseconds, kJpJetBallPeriod);
+                const float t = JetPackUnsignedDivCpp(CTimer::m_snTimeInMilliseconds, kJpJetBallPeriod);
                 x = TrigSimpleSinMulCpp(t, bLeftSide ? 45.f : -45.f);
                 y = TrigSimpleCosMulCpp(t, 45.f);
             } else {
@@ -557,77 +261,58 @@ void CTaskSimpleJetPack::RenderJetPack(CPed* ped) {
 
 // 0x67EF20
 void CTaskSimpleJetPack::ProcessThrust(CPed* ped) {
-    // Como el original: fuerzas ((dir · 0.008) · mult) · masa · paso con la matriz leída sin reservarla
+    // Como el original: toda la aritmetica float es x87 (ayudantes JpFix* de X87Math.cpp: 24 bits, exponente extendido, NaN y operandos de memoria
+    // senalizantes como fmul/fsub/fadd m32). Se pasan punteros a la memoria original (masa, paso, matriz, velocidades) para no silenciar un NaN senalizante.
     CVector& speed = ped->m_vecMoveSpeed;
     const CVector prevPedVel = speed;
-    const float step = CTimer::GetTimeStep();
+    const float* const stepPtr = &CTimer::ms_fTimeStep;
 
     if (m_ThrustStop) {
-        const CVector& up = ped->m_matrix->GetUp();
-        const float mass = ped->m_fMass;
-        ped->ApplyMoveForce(CVector{ up.x * MAGIC * mass * step, up.y * MAGIC * mass * step, up.z * MAGIC * mass * step });
+        float force[3];
+        JpFixUpForceCpp(&ped->m_matrix->GetUp().x, &ped->m_fMass, stepPtr, force);
+        ped->ApplyMoveForce(CVector{ force[0], force[1], force[2] });
 
-        const float pedSpdSq = speed.x * speed.x + speed.y * speed.y + speed.z * speed.z;
-        auto stopForce = step * THRUST_STOP * MAGIC;
-        if (stopForce * stopForce > pedSpdSq) {
-            stopForce *= 0.75f;
-        }
-        if (stopForce * stopForce > pedSpdSq) {
-            speed = CVector{ 0.f, 0.f, 0.f };
+        // Como el original: la velocidad se lee despues de aplicar la fuerza; (-v / |v|) * fuerza * masa sin paso, o velocidad cero
+        if (JpFixStopForceCpp(&speed.x, stepPtr, &ped->m_fMass, force)) {
+            ped->ApplyMoveForce(CVector{ force[0], force[1], force[2] });
         } else {
-            // Como el original: (-v · (1 / |v|)) · fuerza · masa, sin paso
-            const float nx = speed.x * -1.f, ny = speed.y * -1.f, nz = speed.z * -1.f;
-            const float inv = 1.f / std::sqrt(pedSpdSq);
-            const float m2 = ped->m_fMass;
-            ped->ApplyMoveForce(CVector{ nx * inv * stopForce * m2, ny * inv * stopForce * m2, nz * inv * stopForce * m2 });
+            speed = CVector{ 0.f, 0.f, 0.f };
         }
     } else {
-        float nominal = THRUST_NOMINAL;
-        if (m_ThrustFwd < 0) {
-            nominal *= 0.5f;
-        }
-        {
-            const CVector& up = ped->m_matrix->GetUp();
-            const float mass = ped->m_fMass;
-            ped->ApplyMoveForce(CVector{ up.x * MAGIC * nominal * mass * step, up.y * MAGIC * nominal * mass * step, up.z * MAGIC * nominal * mass * step });
-        }
+        float force[3];
+        JpFixNominalForceCpp(&ped->m_matrix->GetUp().x, m_ThrustFwd < 0, &ped->m_fMass, stepPtr, force);
+        ped->ApplyMoveForce(CVector{ force[0], force[1], force[2] });
 
         if (m_ThrustFwd > 0) { // 0x67F1B7
             const CMatrix& mat = *ped->m_matrix;
-            float t[8];
-            JpThrustDirX87(m_ThrustAngle, &mat.GetUp().x, &mat.GetForward().x, t);
-            if (t[2] > 0.75f) { // Como el original: se limita la z de la suma (no la de delante)
-                t[2] = 0.75f;
-            }
+            float t[3];
+            JpFixThrustDirCpp(&m_ThrustAngle, &mat.GetUp().x, &mat.GetForward().x, t); // incluye el limite 0.75 a la z de la suma
 
-            // Como el original: 1 - (z - (suelo + 100)) · 0.05 solo por encima, con dos llamadas a CalculateGroundHeight
-            float heightMult = 1.f;
-            if (TheCamera.CalculateGroundHeight(eGroundHeightType::ENTITY_BB_TOP) + 100.f < ped->GetPosition().z) {
-                heightMult = 1.f - (ped->GetPosition().z - (TheCamera.CalculateGroundHeight(eGroundHeightType::ENTITY_BB_TOP) + 100.f)) * 0.05f;
-                if (0.f > heightMult) {
-                    heightMult = 0.f;
-                }
-            }
-            const float mass = ped->m_fMass;
-            ped->ApplyMoveForce(CVector{
-                t[0] * MAGIC * heightMult * THRUST_FULL * mass * step,
-                t[1] * MAGIC * heightMult * THRUST_FULL * mass * step,
-                t[2] * MAGIC * heightMult * THRUST_FULL * mass * step
-            });
+            // Como el original: 1 - (z - (suelo + 100)) * 0.05 solo por encima, con dos llamadas a CalculateGroundHeight (la segunda solo por encima)
+            const float* const z = &ped->GetPosition().z;
+            const bool above = JpFixHeightBelowCpp(TheCamera.CalculateGroundHeight(eGroundHeightType::ENTITY_BB_TOP), z);
+            const float ground2 = above ? TheCamera.CalculateGroundHeight(eGroundHeightType::ENTITY_BB_TOP) : 0.f;
+            JpFixThrustForceCpp(t, above, ground2, z, &ped->m_fMass, stepPtr, force);
+            ped->ApplyMoveForce(CVector{ force[0], force[1], force[2] });
         }
 
         if (m_ThrustStrafe != 0.f) { // 0x67F36F
-            const CVector& right = ped->m_matrix->GetRight();
-            const float mass = ped->m_fMass;
-            ped->ApplyMoveForce(CVector{
-                m_ThrustStrafe * right.x * MAGIC * THRUST_STRAFE * mass * step,
-                m_ThrustStrafe * right.y * MAGIC * THRUST_STRAFE * mass * step,
-                m_ThrustStrafe * right.z * MAGIC * THRUST_STRAFE * mass * step
-            });
+            JpFixStrafeForceCpp(&m_ThrustStrafe, &ped->m_matrix->GetRight().x, &ped->m_fMass, stepPtr, force);
+            ped->ApplyMoveForce(CVector{ force[0], force[1], force[2] });
         }
     }
 
-    JpSwingTailX87(this, ped, &prevPedVel, step);
+    // Como el original (0x67F43D..0x67F660): balanceo de piernas y amortiguacion de la velocidad (x87 en X87Math)
+    {
+        float sums[3];
+        JpFixSwingSumsCpp(&speed.x, &prevPedVel.x, &m_PrevVelocity.x, sums);
+        const bool grounded = ped->bIsStanding || ped->bWasStanding;
+        JpFixSwingAxisCpp(sums, &ped->m_matrix->GetForward().x, grounded, stepPtr, &m_LegSwingFwdSpeed, &m_LegSwingFwd);
+        JpFixSwingAxisCpp(sums, &ped->m_matrix->GetRight().x, grounded, stepPtr, &m_LegSwingSideSpeed, &m_LegSwingSide);
+        JpFixTwistDampCpp(&m_LegTwist, stepPtr);
+        JpFixSpeedDampCpp(&speed.x, stepPtr);
+        m_PrevVelocity = speed;
+    }
 
     if (!m_bIsFinished) {
         ped->GetAE().TurnOnJetPack();
@@ -703,12 +388,12 @@ void CTaskSimpleJetPack::ProcessControlInput(CPlayerPed* player) {
     if (CCamera::m_bUseMouse3rdPerson && !player->bIsStanding) { // 0x67E8BA
         const float walkLeftRightScaled = walkLeftRight * 0.0078125f;
         walkUpDownScaled = walkUpDown * 0.0078125f;
-        // Como el original: fpatan del frente de la cámara; mirando a otro lado se invierte el vector (no se resta pi)
+        // Como el original: fpatan del frente de la cámara; mirando a otro lado se multiplican x e y por -1 y se niega x (no se resta pi)
         const CVector front = TheCamera.GetActiveCam().m_vecFront;
         player->m_fAimingRotation = TheCamera.GetLookDirection() == LOOKING_DIRECTION_FORWARD
-            ? JpAtan2X87(-front.x, front.y)
-            : JpAtan2X87(front.x, -front.y);
-        m_ThrustAngle = JpLerpThrustAngleX87(walkUpDownScaled, m_ThrustAngle, step);
+            ? TrigAtan2Cpp(-front.x, front.y)
+            : JetPackLookBackHeadingCpp(front.x, front.y);
+        m_ThrustAngle = JetPackLerpThrustAngleCpp(walkUpDownScaled, m_ThrustAngle, step);
 
         if (walkLeftRightScaled < 0.f) {
             ClampStrafeDown(m_ThrustStrafe - step * 0.1f, -1.f);
@@ -735,7 +420,7 @@ void CTaskSimpleJetPack::ProcessControlInput(CPlayerPed* player) {
                 player->m_fAimingRotation = a;
             }
         }
-        m_ThrustAngle = JpLerpThrustAngleX87(walkUpDownScaled, m_ThrustAngle, step); // Como el original: siempre en esta rama
+        m_ThrustAngle = JetPackLerpThrustAngleCpp(walkUpDownScaled, m_ThrustAngle, step); // Como el original: siempre en esta rama
     } else { // 0x67EB22
         if (padMoveMag > 0.f) {
             // Como el original: ángulo entre (0, 0) y (-lr, ud) menos la orientación de la cámara (0xB6F178), limitado

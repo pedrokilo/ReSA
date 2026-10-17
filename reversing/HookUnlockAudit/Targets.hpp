@@ -349,7 +349,6 @@ inline constexpr Target targets[]={
 {"CShadows","CastShadowEntityXYZ"},
 {"CShadows","CastShadowSectorList<CPtrListSingleLink<CPhysical*>>"},
 {"CShadows","GeneratePolysForStaticShadow"},
-{"CShadows","ShadowRenderTriangleCB"},
 {"CShadows","StoreShadowForVehicle"},
 {"CShadows","StoreStaticShadow"},
 {"CShadows","UpdatePermanentShadows"},

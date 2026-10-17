@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 15/10/2026 (Ciudad de México):** 784 grupos / 8550 funciones reconstruidas; 8550 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 105 aprobadas dentro del juego; 130 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 16/10/2026 (Ciudad de México):** 784 grupos / 8550 funciones reconstruidas; 8550 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 105 aprobadas dentro del juego; 130 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,68 +7,6 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-1401"></a>
-
-## Globales y helpers: source/game_sa/Sprite.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CalcSpriteScreenZ(float z, float nearZ, float farZ) | [source/game_sa/Sprite.cpp:39](../../source/game_sa/Sprite.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_fFarClipZ: source/game_sa/Draw.h:17 (0x00C3EF9C); Posible dato fijo ms_fNearClipZ: source/game_sa/Draw.h:16 (0x00C3EFA0) |
-| CalcSpriteColor(uint8 r, uint8 g, uint8 b, uint8 a, int16 intensity) | [source/game_sa/Sprite.cpp:49](../../source/game_sa/Sprite.cpp#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsSpriteOffScreen(const CornerCoords1D& xs, const CornerCoords1D& ys) | [source/game_sa/Sprite.cpp:61](../../source/game_sa/Sprite.cpp#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CalcSpriteQuadCoeffs(float rotation) | [source/game_sa/Sprite.cpp:79](../../source/game_sa/Sprite.cpp#L79) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CalcSpriteDimensionTerms(float rotation, float sprW, float sprH, float& outWCos, float& outHSin, float& outHCos, float& outWSin) | [source/game_sa/Sprite.cpp:93](../../source/game_sa/Sprite.cpp#L93) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SpriteMatrixTimesPoint(const CMatrix& mat, const CVector& v) | [source/game_sa/Sprite.cpp:106](../../source/game_sa/Sprite.cpp#L106) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ClampSpriteQuadToScreen(CornerCoords1D& xs, CornerCoords1D& ys, CornerCoords1D& us, CornerCoords1D& vs, CVector2D halfSize) | [source/game_sa/Sprite.cpp:121](../../source/game_sa/Sprite.cpp#L121) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SetSpriteVertices(RwIm2DVertex* vertices, const CornerCoords1D& xs, const CornerCoords1D& ys, const CornerCoords1D& us, const CornerCoords1D& vs, float z, float rhw, const std::array&lt;uint32, 4&gt;& colors) | [source/game_sa/Sprite.cpp:146](../../source/game_sa/Sprite.cpp#L146) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SetSpriteVertices(RwIm2DVertex* vertices, const CornerCoords1D& xs, const CornerCoords1D& ys, const CornerCoords1D& us, const CornerCoords1D& vs, float z, float rhw, uint32 color) | [source/game_sa/Sprite.cpp:162](../../source/game_sa/Sprite.cpp#L162) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SetSpriteVertices(RwIm2DVertex* vertices, const CornerCoords1D& xs, const CornerCoords1D& ys, float z, float rhw, uint32 color) | [source/game_sa/Sprite.cpp:168](../../source/game_sa/Sprite.cpp#L168) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| PushSpriteQuad() | [source/game_sa/Sprite.cpp:174](../../source/game_sa/Sprite.cpp#L174) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo aTempBufferIndices: source/game_sa/common.h:286 (0x00C4B958); Posible dato fijo nSpriteBufferIndex: source/game_sa/Sprite.cpp:23 (0x00C6A158) |
-
-<a id="grupo-1402"></a>
-
-## Globales y helpers: source/game_sa/Stats.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| StatsFtol(float v) | [source/game_sa/Stats.cpp:38](../../source/game_sa/Stats.cpp#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & IntStat(eStats stat) | [source/game_sa/Stats.cpp:42](../../source/game_sa/Stats.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo StatTypesInt: source/game_sa/Stats.h:51 (0x00B79000) |
-| CounterAsX87(uint32 c) | [source/game_sa/Stats.cpp:46](../../source/game_sa/Stats.cpp#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| TimeStepMsInt() | [source/game_sa/Stats.cpp:51](../../source/game_sa/Stats.cpp#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RegisterLowerStat(eStats stat, int32 value) | [source/game_sa/Stats.cpp:56](../../source/game_sa/Stats.cpp#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo StatTypesFloat: source/game_sa/Stats.h:52 (0x00B79380) |
-| Ui8_Bridge_0053FB70() | [source/game_sa/Stats.cpp:80](../../source/game_sa/Stats.cpp#L80) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x0053FB70; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| Ui8_Bridge_00588B50() | [source/game_sa/Stats.cpp:86](../../source/game_sa/Stats.cpp#L86) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00588B50; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| Ui8_Bridge_00558E40() | [source/game_sa/Stats.cpp:92](../../source/game_sa/Stats.cpp#L92) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00558E40; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| Ui8_Bridge_006A0050() | [source/game_sa/Stats.cpp:98](../../source/game_sa/Stats.cpp#L98) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x006A0050; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| Ui8_Bridge_00588BE0() | [source/game_sa/Stats.cpp:104](../../source/game_sa/Stats.cpp#L104) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00588BE0; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| Ui8_Bridge_00559080() | [source/game_sa/Stats.cpp:110](../../source/game_sa/Stats.cpp#L110) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00559080; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| Ui8_Bridge_00821B40() | [source/game_sa/Stats.cpp:116](../../source/game_sa/Stats.cpp#L116) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x00821B40; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| Ui8_Bridge_0055C180() | [source/game_sa/Stats.cpp:122](../../source/game_sa/Stats.cpp#L122) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x0055C180; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| Ui8_Bridge_0055B980() | [source/game_sa/Stats.cpp:128](../../source/game_sa/Stats.cpp#L128) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 1 / 1 | Trampolín ASM a 0x0055B980; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| StatsFile15EntrySetDir() | [source/game_sa/Stats.cpp:662](../../source/game_sa/Stats.cpp#L662) | Ensamblador · Envoltura al EXE | Histórica del catálogo: CStats::LoadStatUpdateConditions 0x00559860 | 2 / 1 | Trampolín ASM a 0x005387D0; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| StatsFile15EntryOpenFile() | [source/game_sa/Stats.cpp:668](../../source/game_sa/Stats.cpp#L668) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 2 / 1 | Trampolín ASM a 0x00538900; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| StatsFile15EntryLoadLine() | [source/game_sa/Stats.cpp:674](../../source/game_sa/Stats.cpp#L674) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 2 / 1 | Trampolín ASM a 0x00536F80; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| StatsFile15EntryCloseFile() | [source/game_sa/Stats.cpp:680](../../source/game_sa/Stats.cpp#L680) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 2 / 1 | Trampolín ASM a 0x005389D0; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| StatsFile15EntrySscanf() | [source/game_sa/Stats.cpp:686](../../source/game_sa/Stats.cpp#L686) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 2 / 1 | Trampolín ASM a 0x008220AD; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| StatsModifierMaxExe(float, float) | [source/game_sa/Stats.cpp:942](../../source/game_sa/Stats.cpp#L942) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| StatsModifierMinExe(float, float) | [source/game_sa/Stats.cpp:956](../../source/game_sa/Stats.cpp#L956) | Ensamblador · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 1 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| StatsModifierBody(eStatModAbilities statMod) | [source/game_sa/Stats.cpp:971](../../source/game_sa/Stats.cpp#L971) | Mixta (C++ + ASM) · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 1 / 0 | ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| VehicleStats10Increment() | [source/game_sa/Stats.cpp:2294](../../source/game_sa/Stats.cpp#L2294) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 2 / 1 | Trampolín ASM a 0x0055C180; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| VehicleStats10Display() | [source/game_sa/Stats.cpp:2295](../../source/game_sa/Stats.cpp#L2295) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 2 / 1 | Trampolín ASM a 0x0055B980; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| VehicleStats10Ftol() | [source/game_sa/Stats.cpp:2296](../../source/game_sa/Stats.cpp#L2296) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 2 / 1 | Trampolín ASM a 0x00821B40; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| VehicleStats10CheckMessage() | [source/game_sa/Stats.cpp:2297](../../source/game_sa/Stats.cpp#L2297) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 2 / 1 | Trampolín ASM a 0x00559760; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| VehicleStats10FatMuscle() | [source/game_sa/Stats.cpp:2298](../../source/game_sa/Stats.cpp#L2298) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 2 / 1 | Trampolín ASM a 0x0055C470; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| VehicleStats10SkillIndex() | [source/game_sa/Stats.cpp:2299](../../source/game_sa/Stats.cpp#L2299) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 2 / 1 | Trampolín ASM a 0x00743CD0; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| VehicleStats10Coop() | [source/game_sa/Stats.cpp:2300](../../source/game_sa/Stats.cpp#L2300) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 2 / 1 | Trampolín ASM a 0x00441390; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| VehicleStats11Fat() | [source/game_sa/Stats.cpp:2583](../../source/game_sa/Stats.cpp#L2583) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 2 / 1 | Trampolín ASM a 0x0055C470; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| VehicleStats11Increment() | [source/game_sa/Stats.cpp:2584](../../source/game_sa/Stats.cpp#L2584) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 2 / 1 | Trampolín ASM a 0x0055C180; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| VehicleStats11Display() | [source/game_sa/Stats.cpp:2585](../../source/game_sa/Stats.cpp#L2585) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 2 / 1 | Trampolín ASM a 0x0055B980; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| VehicleStats11Ftol() | [source/game_sa/Stats.cpp:2586](../../source/game_sa/Stats.cpp#L2586) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 2 / 1 | Trampolín ASM a 0x00821B40; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| VehicleStats11Ceil() | [source/game_sa/Stats.cpp:2587](../../source/game_sa/Stats.cpp#L2587) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 2 / 1 | Trampolín ASM a 0x00823820; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| VehicleStats9Increment() | [source/game_sa/Stats.cpp:3064](../../source/game_sa/Stats.cpp#L3064) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 2 / 1 | Trampolín ASM a 0x0055C180; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| VehicleStats9Display() | [source/game_sa/Stats.cpp:3065](../../source/game_sa/Stats.cpp#L3065) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 2 / 1 | Trampolín ASM a 0x0055B980; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-| VehicleStats9Ftol() | [source/game_sa/Stats.cpp:3066](../../source/game_sa/Stats.cpp#L3066) | Ensamblador · Envoltura al EXE | Sin registro inequívoco | 2 / 1 | Trampolín ASM a 0x00821B40; cuerpo delegado; ASM: flujo por registros y direcciones requiere revisión; no se resuelve indirectamente |
-
-<a id="grupo-1403"></a>
 
 ## Globales y helpers: source/game_sa/StencilShadows.cpp
 
@@ -83,7 +21,7 @@
 | StencilTransformPoints(CVector* out, int32 count, const CMatrix* matrix, const CVector* in) | [source/game_sa/StencilShadows.cpp:121](../../source/game_sa/StencilShadows.cpp#L121) | C++ · Envoltura al EXE | Sin registro inequívoco | 0 / 0 | Delegación por dirección 0x0054EEF0: Common::TransformPoints; ruta efectiva sin resolver |
 | BuildShadowVolume(CStencilShadowObject* obj, bool forVehicle) | [source/game_sa/StencilShadows.cpp:128](../../source/game_sa/StencilShadows.cpp#L128) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo s_ShadowTrianglePoints: source/game_sa/StencilShadows.cpp:28 (0x00C6A174); Posible dato fijo s_ShadowTrianglePointsUnk: source/game_sa/StencilShadows.cpp:27 (0x00C6A170); Posible dato fijo s_SunPosNrm: source/game_sa/StencilShadows.cpp:30 (0x008D5244); Posible dato fijo s_TransformedShadowTrianglePoints: source/game_sa/StencilShadows.cpp:29 (0x00C6A178) |
 
-<a id="grupo-1404"></a>
+<a id="grupo-1402"></a>
 
 ## Globales y helpers: source/game_sa/Streaming.cpp
 
@@ -93,7 +31,7 @@
 | ExeLodSector(float v) | [source/game_sa/Streaming.cpp:41](../../source/game_sa/Streaming.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | MemoryUsedBelow(size_t goal) | [source/game_sa/Streaming.cpp:43](../../source/game_sa/Streaming.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_memoryUsedBytes: source/game_sa/Streaming.h:245 (0x008E4CB4) |
 
-<a id="grupo-1405"></a>
+<a id="grupo-1403"></a>
 
 ## Globales y helpers: source/game_sa/Streaming.h
 
@@ -125,7 +63,7 @@
 | ModelIdToRRR(int32 absId) | [source/game_sa/Streaming.h:138](../../source/game_sa/Streaming.h#L138) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ModelIdToSCM(int32 absId) | [source/game_sa/Streaming.h:139](../../source/game_sa/Streaming.h#L139) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1406"></a>
+<a id="grupo-1404"></a>
 
 ## Globales y helpers: source/game_sa/StuckCarCheck.cpp
 
@@ -133,7 +71,7 @@
 | --- | --- | --- | --- | --- | --- |
 | * GetVehicleNoBoundsCheck(int32 handle) | [source/game_sa/StuckCarCheck.cpp:25](../../source/game_sa/StuckCarCheck.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1407"></a>
+<a id="grupo-1405"></a>
 
 ## Globales y helpers: source/game_sa/StuntJumpManager.cpp
 
@@ -146,7 +84,7 @@
 | ResetAllJumps() | [source/game_sa/StuntJumpManager.cpp:351](../../source/game_sa/StuntJumpManager.cpp#L351) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | StuntJumpTestCode() | [source/game_sa/StuntJumpManager.cpp:359](../../source/game_sa/StuntJumpManager.cpp#L359) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1408"></a>
+<a id="grupo-1406"></a>
 
 ## Globales y helpers: source/game_sa/TagManager.cpp
 
@@ -154,7 +92,7 @@
 | --- | --- | --- | --- | --- | --- |
 | IsTagInArea(const CRect& area, const tTagDesc& tag) | [source/game_sa/TagManager.cpp:121](../../source/game_sa/TagManager.cpp#L121) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1409"></a>
+<a id="grupo-1407"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocator.h
 
@@ -162,7 +100,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CPedGroupDefaultTaskAllocator | [source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocator.h:10](../../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocator.h#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1410"></a>
+<a id="grupo-1408"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorChat.h
 
@@ -171,7 +109,7 @@
 | CPedGroupDefaultTaskAllocatorChat | [source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorChat.h:33](../../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorChat.h#L33) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | AllocateDefaultTasks(CPedGroup* pedGroup, CPed* ped) const override | [source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorChat.h:41](../../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorChat.h#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1411"></a>
+<a id="grupo-1409"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowAnyMeans.h
 
@@ -180,7 +118,7 @@
 | CPedGroupDefaultTaskAllocatorFollowAnyMeans | [source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowAnyMeans.h:31](../../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowAnyMeans.h#L31) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | AllocateDefaultTasks(CPedGroup* pedGroup, CPed* ped) const override | [source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowAnyMeans.h:39](../../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowAnyMeans.h#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1412"></a>
+<a id="grupo-1410"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowLimited.h
 
@@ -189,7 +127,7 @@
 | CPedGroupDefaultTaskAllocatorFollowLimited | [source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowLimited.h:28](../../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowLimited.h#L28) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | AllocateDefaultTasks(CPedGroup* pedGroup, CPed* ped) const override | [source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowLimited.h:36](../../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowLimited.h#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1413"></a>
+<a id="grupo-1411"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorRandom.h
 
@@ -198,7 +136,7 @@
 | CPedGroupDefaultTaskAllocatorRandom | [source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorRandom.h:30](../../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorRandom.h#L30) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetType() const override | [source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorRandom.h:57](../../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorRandom.h#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1414"></a>
+<a id="grupo-1412"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorSitInLeaderCar.h
 
@@ -207,7 +145,7 @@
 | CPedGroupDefaultTaskAllocatorSitInLeaderCar | [source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorSitInLeaderCar.h:31](../../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorSitInLeaderCar.h#L31) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | AllocateDefaultTasks(CPedGroup* pedGroup, CPed* ped) const override | [source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorSitInLeaderCar.h:39](../../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorSitInLeaderCar.h#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1415"></a>
+<a id="grupo-1413"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorStandStill.h
 
@@ -216,7 +154,7 @@
 | CPedGroupDefaultTaskAllocatorStandStill | [source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorStandStill.h:28](../../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorStandStill.h#L28) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | AllocateDefaultTasks(CPedGroup* pedGroup, CPed* ped) const override | [source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorStandStill.h:36](../../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorStandStill.h#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1416"></a>
+<a id="grupo-1414"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/Allocators/TaskAllocator.h
 
@@ -227,7 +165,7 @@
 | Abort() | [source/game_sa/Tasks/Allocators/TaskAllocator.h:41](../../source/game_sa/Tasks/Allocators/TaskAllocator.h#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | classof(const From* f) | [source/game_sa/Tasks/Allocators/TaskAllocator.h:45](../../source/game_sa/Tasks/Allocators/TaskAllocator.h#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1417"></a>
+<a id="grupo-1415"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h
 
@@ -236,7 +174,7 @@
 | CTaskAllocatorAttack | [source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h:6](../../source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h#L6) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetType() override | [source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h:15](../../source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1418"></a>
+<a id="grupo-1416"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/Allocators/TaskAllocatorKillOnFoot.h
 
@@ -245,7 +183,7 @@
 | CTaskAllocatorKillOnFoot | [source/game_sa/Tasks/Allocators/TaskAllocatorKillOnFoot.h:5](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillOnFoot.h#L5) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetType() override | [source/game_sa/Tasks/Allocators/TaskAllocatorKillOnFoot.h:15](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillOnFoot.h#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1419"></a>
+<a id="grupo-1417"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.cpp
 
@@ -253,7 +191,7 @@
 | --- | --- | --- | --- | --- | --- |
 | ClosestThreatDistance(const CVector& a, const CVector& b) | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.cpp:92](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.cpp#L92) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1420"></a>
+<a id="grupo-1418"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.h
 
@@ -261,3 +199,21 @@
 | --- | --- | --- | --- | --- | --- |
 | CTaskAllocatorKillThreatsBasic | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.h:5](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.h#L5) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetType() override | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.h:14](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.h#L14) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1419"></a>
+
+## Globales y helpers: source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTaskAllocatorKillThreatsBasicRandomGroup | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.h:5](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.h#L5) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetType() override | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.h:14](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.h#L14) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1420"></a>
+
+## Globales y helpers: source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTaskAllocatorKillThreatsDriveby | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.h:7](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.h#L7) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetType() override | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.h:16](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.h#L16) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

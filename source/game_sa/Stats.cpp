@@ -23,7 +23,11 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 
+#pragma warning(push, 0)
 #include "StdInc.h"
+#pragma warning(pop)
+#include <intrin.h>
+#include <bit>
 
 #include "Stats.h"
 #include "AudioEngine.h"
@@ -32,6 +36,9 @@ END GENERATED HOOK STATUS */
 #include "World.h"
 #include "FileMgr.h"
 #include "FileLoader.h"
+#include "GameLogic.h"
+#include "WeaponInfo.h"
+#include "X87Math.h"
 
 namespace {
 // Como el original: _ftol2 (0x821B40) trunca a 64 bits y se queda con la palabra baja.
@@ -73,85 +80,117 @@ void RegisterLowerStat(eStats stat, int32 value) {
     }
     CStats::CheckForStatsMessage();
 }
+
+// --- Residuo de registros del EXE (contrib/audit_register_residue.py, objeto Stats) ---
+// Los hooks del EXE de esta clase terminan con los mismos EAX/ECX/EDX que los originales: ResidueRegsCpp (X87Math) cuando el valor es
+// calculable, o la propia llamada al colaborador en la ultima posicion de la funcion (sus registros salen sin tocar). Las constantes
+// de AX son las de `fnstsw ax` + `test ah,mask`: AhJe es je/jz (ZF = 1) y AhJp es jp (PF = 1, paridad par del byte `ah & mask`).
+inline bool AhJe(uint32 ax, uint32 mask) { return ((ax >> 8) & mask) == 0; }
+inline bool AhJp(uint32 ax, uint32 mask) { return (std::popcount((ax >> 8) & mask) & 1) == 0; }
+
+// Tras una llamada a un colaborador de la DLL (residuo propio, no el del EXE), la version del hook conserva los registros con que sale en lugar de suponerlos:
+// EAX con StatsCaptureEaxCpp y ECX/EDX con StatsCaptureEcxEdxCpp (llamadas sin argumentos justo despues; contrib/audit_register_residue.py comprueba que entre el
+// colaborador y la captura solo haya `add esp`, almacenamientos en memoria y `nop`).
+#define STATS_CAPTURE_REGS(eaxv, ecxv, edxv) \
+    if constexpr (kExe) { \
+        (eaxv) = StatsCaptureEaxCpp(); \
+        const uint64 capturedEcxEdx = reinterpret_cast<uint64(__fastcall*)()>(&StatsCaptureEcxEdxCpp)(); \
+        (ecxv) = static_cast<uint32>(capturedEcxEdx); \
+        (edxv) = static_cast<uint32>(capturedEcxEdx >> 32); \
+    }
+
+// GetStatValue de la DLL deja pasar el EDX con que se la llama (el del EXE: el id en `lessthan`, el anterior en `morethan`): solo se capturan EAX y ECX.
+#define STATS_CAPTURE_EAX_ECX(eaxv, ecxv)     if constexpr (kExe) {         (eaxv) = StatsCaptureEaxCpp();         const uint64 capturedEcxEdx = reinterpret_cast<uint64(__fastcall*)()>(&StatsCaptureEcxEdxCpp)();         (ecxv) = static_cast<uint32>(capturedEcxEdx);     }
+
+// Salida de las plantillas <kExe>: la version del hook del EXE termina en ResidueRegsCpp (ECX, EDX, EAX); la de la clase solo devuelve EAX.
+// (Siempre entre llaves: expande a un if constexpr completo.)
+#define STATS_EXIT(ecx, edx, eax) \
+    if constexpr (kExe) { \
+        return ResidueRegsCpp((ecx), (edx), (eax)); \
+    } else { \
+        return (eax); \
+    }
+
+// Llamadas a colaboradores reconstruidos (void en C++) que devuelven el EDX:EAX con que salen: el EXE los deja ahi y las funciones del hook
+// los reutilizan como residuo. Sin captura (version de la clase) devuelven 0. Sin comprobaciones de ejecucion para que nada toque
+// EAX/EDX entre la llamada y el retorno.
+#pragma runtime_checks("", off)
+template<bool kExe>
+__declspec(safebuffers) uint64 StatsDisplayRegs(eStatUpdateState state, eStats stat, float value) {
+    if constexpr (kExe) {
+        return reinterpret_cast<uint64(__cdecl*)(eStatUpdateState, eStats, float)>(&CStats::DisplayScriptStatUpdateMessage)(state, stat, value);
+    } else {
+        CStats::DisplayScriptStatUpdateMessage(state, stat, value);
+        return 0;
+    }
+}
+// Como StatsDisplayRegs pero devuelve ECX (mitad baja) y EDX (alta) con que sale Display: su residuo es el de su propio cuerpo (no depende de los registros de entrada).
+template<bool kExe>
+__declspec(safebuffers) uint64 StatsDisplayEcxEdx(eStatUpdateState state, eStats stat, float value) {
+    if constexpr (kExe) {
+        (void)reinterpret_cast<uint64(__cdecl*)(eStatUpdateState, eStats, float)>(&CStats::DisplayScriptStatUpdateMessage)(state, stat, value);
+        return reinterpret_cast<uint64(__fastcall*)()>(&StatsCaptureEcxEdxCpp)();
+    } else {
+        CStats::DisplayScriptStatUpdateMessage(state, stat, value);
+        return 0;
+    }
+}
+template<bool kExe>
+__declspec(safebuffers) uint64 StatsIncrementRegs(eStats stat, float value) {
+    if constexpr (kExe) {
+        return reinterpret_cast<uint64(__cdecl*)(eStats, float)>(&CStats::IncrementStat)(stat, value);
+    } else {
+        CStats::IncrementStat(stat, value);
+        return 0;
+    }
+}
+#pragma runtime_checks("", restore)
+
+// Como el original: byte suelto de la memoria del EXE sin nombre en la clase (mov al,[direccion]).
+inline uint8 ExeByte(uintptr_t address) { return *reinterpret_cast<const uint8*>(address); }
+inline float ExeFloat(uintptr_t address) { return *reinterpret_cast<const float*>(address); }
 } // namespace
 
 
 namespace {
-__declspec(naked) void Ui8_Bridge_0053FB70() {
-    __asm {
-        push 053FB70h
-        ret
-    }
-}
-__declspec(naked) void Ui8_Bridge_00588B50() {
-    __asm {
-        push 0588B50h
-        ret
-    }
-}
-__declspec(naked) void Ui8_Bridge_00558E40() {
-    __asm {
-        push 0558E40h
-        ret
-    }
-}
-__declspec(naked) void Ui8_Bridge_006A0050() {
-    __asm {
-        push 06A0050h
-        ret
-    }
-}
-__declspec(naked) void Ui8_Bridge_00588BE0() {
-    __asm {
-        push 0588BE0h
-        ret
-    }
-}
-__declspec(naked) void Ui8_Bridge_00559080() {
-    __asm {
-        push 0559080h
-        ret
-    }
-}
-__declspec(naked) void Ui8_Bridge_00821B40() {
-    __asm {
-        push 0821B40h
-        ret
-    }
-}
-__declspec(naked) void Ui8_Bridge_0055C180() {
-    __asm {
-        push 055C180h
-        ret
-    }
-}
-__declspec(naked) void Ui8_Bridge_0055B980() {
-    __asm {
-        push 055B980h
-        ret
-    }
-}
+// Hooks de las direcciones del EXE con el residuo de registros de los originales; cada definicion esta junto al metodo de la clase.
+// Los que reciben argumentos en la pila (cdecl) se declaran __fastcall sin parametros de pila: ECX y EDX de entrada llegan por registro, la
+// limpieza de pila sigue siendo la del llamador y los argumentos se leen bajo la direccion de retorno (_AddressOfReturnAddress).
+uint32 __cdecl StatsFindMostFavoriteExe();                                                    // 0x558FA0
+float __fastcall StatsGetFatAndMuscleModifierExe(uint32 entryEcx, uint32 entryEdx);           // 0x559AF0
+uint32 __fastcall StatsCheckForStatsMessageExe(uint32 entryEcx, uint32 entryEdx);             // 0x559760
+int32 __cdecl StatsLoadStatUpdateConditionsExe();                                             // 0x559860
+uint32 __fastcall StatsUpdateFatAndMuscleStatsExe(uint32 entryEcx, uint32 entryEdx);          // 0x55C470
+uint32 __fastcall StatsUpdateStatsWhenCyclingExe(uint32 entryEcx, uint32 entryEdx);           // 0x55C780
+uint32 __fastcall StatsUpdateStatsWhenSwimmingExe(uint32 entryEcx, uint32 entryEdx);          // 0x55C990
+uint32 __fastcall StatsUpdateStatsWhenDrivingExe(uint32 entryEcx, uint32 entryEdx);           // 0x55CAC0
+uint32 __fastcall StatsUpdateStatsWhenFlyingExe(uint32 entryEcx, uint32 entryEdx);            // 0x55CC00
+uint32 __fastcall StatsUpdateStatsWhenWeaponHitExe(uint32 entryEcx, uint32 entryEdx);         // 0x55CEB0
+uint32 __fastcall StatsUpdateStatsOnRespawnExe(uint32 entryEcx, uint32 entryEdx);             // 0x55CFC0
+uint32 __fastcall StatsUpdateStatsAddToHealthExe(uint32 entryEcx, uint32 entryEdx);           // 0x55D030
+uint32 __cdecl StatsUpdateSexAppealStatExe();                                                // 0x55BF20
 }
 
 void CStats::InjectHooks() {
     RH_ScopedClass(CStats);
     RH_ScopedCategoryGlobal();
-    RH_ScopedInstall(CheckForStatsMessage, 0x559760);
+    RH_ScopedNamedGlobalInstall(StatsCheckForStatsMessageExe, "CheckForStatsMessage", 0x559760); // Como el original: EAX/ECX/EDX de cada salida
     RH_ScopedInstall(FindCriminalRatingString, 0x55A210);
-    RH_ScopedInstall(UpdateStatsOnRespawn, 0x55CFC0);
-    RH_ScopedInstall(UpdateStatsAddToHealth, 0x55D030);
+    RH_ScopedNamedGlobalInstall(StatsUpdateStatsOnRespawnExe, "UpdateStatsOnRespawn", 0x55CFC0);
+    RH_ScopedNamedGlobalInstall(StatsUpdateStatsAddToHealthExe, "UpdateStatsAddToHealth", 0x55D030);
+    RH_ScopedNamedGlobalInstall(StatsUpdateSexAppealStatExe, "UpdateSexAppealStat", 0x55BF20); // Como el original: ECX/EDX de la cola a CheckForStatsMessage
 
 
     RH_ScopedInstall(Init, 0x55C0C0);
-    RH_ScopedInstall(UpdateStatsWhenCycling, 0x55C780);
-    RH_ScopedInstall(UpdateFatAndMuscleStats, 0x55C470);
-    RH_ScopedInstall(UpdateStatsWhenSwimming, 0x55C990);
-    RH_ScopedInstall(UpdateStatsWhenWeaponHit, 0x55CEB0);
-    RH_ScopedInstall(UpdateStatsWhenDriving, 0x55CAC0);
-    RH_ScopedInstall(UpdateStatsWhenFlying, 0x55CC00);
+    RH_ScopedNamedGlobalInstall(StatsUpdateStatsWhenCyclingExe, "UpdateStatsWhenCycling", 0x55C780);
+    RH_ScopedNamedGlobalInstall(StatsUpdateFatAndMuscleStatsExe, "UpdateFatAndMuscleStats", 0x55C470);
+    RH_ScopedNamedGlobalInstall(StatsUpdateStatsWhenSwimmingExe, "UpdateStatsWhenSwimming", 0x55C990);
+    RH_ScopedNamedGlobalInstall(StatsUpdateStatsWhenWeaponHitExe, "UpdateStatsWhenWeaponHit", 0x55CEB0);
+    RH_ScopedNamedGlobalInstall(StatsUpdateStatsWhenDrivingExe, "UpdateStatsWhenDriving", 0x55CAC0);
+    RH_ScopedNamedGlobalInstall(StatsUpdateStatsWhenFlyingExe, "UpdateStatsWhenFlying", 0x55CC00);
     RH_ScopedInstall(PopulateFavoriteRadioStationList, 0x558EC0);
-    RH_ScopedInstall(FindMostFavoriteRadioStation, 0x558FA0);
-    RH_ScopedInstall(GetFatAndMuscleModifier, 0x559AF0);
+    RH_ScopedNamedGlobalInstall(StatsFindMostFavoriteExe, "FindMostFavoriteRadioStation", 0x558FA0); // Como el original: EAX = indice completo, ECX = maximo, EDX = 15
+    RH_ScopedNamedGlobalInstall(StatsGetFatAndMuscleModifierExe, "GetFatAndMuscleModifier", 0x559AF0); // Como el original: ECX/EDX intactos
     RH_ScopedOverloadedInstall(GetStatValue, "-OG", 0x558E40, float(*)(eStats));
     RH_ScopedInstall(SetStatValue, 0x55A070);
     RH_ScopedInstall(IsStatFloat, 0x558E30);
@@ -163,7 +202,7 @@ void CStats::InjectHooks() {
     RH_ScopedInstall(SafeToShowThisStat, 0x559590);
     RH_ScopedInstall(CheckForThreshold, 0x5595F0);
     RH_ScopedInstall(IsStatCapped, 0x559630);
-    RH_ScopedInstall(LoadStatUpdateConditions, 0x559860);
+    RH_ScopedNamedGlobalInstall(StatsLoadStatUpdateConditionsExe, "LoadStatUpdateConditions", 0x559860);
     RH_ScopedInstall(LoadActionReactionStats, 0x5599B0);
     RH_ScopedInstall(FindMaxNumberOfGroupMembers, 0x559A50);
     RH_ScopedInstall(ProcessReactionStatsOnDecrement, 0x559730);
@@ -263,24 +302,41 @@ bool CStats::PopulateFavoriteRadioStationList() {
 }
 
 // 0x558FA0
-// The EXE returns the complete station index in EAX despite the int8 enum declaration.
+// The EXE returns the complete station index in EAX despite the int8 enum declaration (hook: StatsFindMostFavoriteExe).
 // Ignore emergency/off (indices 0/13), keep the first strictly greater signed value.
-__declspec(naked) eRadioID CStats::FindMostFavoriteRadioStation() {
-    __asm {
-        xor ecx, ecx
-        mov eax, 1
-        mov edx, 1
-    nextStation:
-        cmp dword ptr [edx*4+0B78E58h], ecx
-        jle keepStation
-        mov ecx, dword ptr [edx*4+0B78E58h]
-        mov eax, edx
-    keepStation:
-        inc edx
-        cmp edx, 13
-        jl nextStation
-        ret
+namespace {
+// Estaciones 1..12 (el EXE las recorre desenrolladas de 6 en 6); el maximo empieza en 0 y la primera estrictamente mayor con signo gana.
+int32 FindMostFavoriteIndex(int32& maxOut) {
+    int32 best = 0;
+    int32 index = 1;
+    for (int32 i = 1; i < 13; ++i) {
+        const int32 time = CStats::FavoriteRadioStationList.data()[i];
+        if (time > best) {
+            best = time;
+            index = i;
+        }
     }
+    maxOut = best;
+    return index;
+}
+}
+
+eRadioID CStats::FindMostFavoriteRadioStation() {
+    int32 best;
+    return static_cast<eRadioID>(FindMostFavoriteIndex(best));
+}
+
+namespace {
+// Como el original (0x558FA0..0x559009): sale con EAX = indice completo, ECX = maximo (con signo) y EDX = 15 (el bucle desenrollado termina con
+// edx = 15); ESI y EDI se guardan y restauran. Ningun llamador del EXE lee ECX/EDX (0x47BED3, 0x4D7184 y 0x55B35F solo usan EAX); los
+// bancos con registros crudos si.
+#pragma runtime_checks("", off)
+uint32 __declspec(safebuffers) __cdecl StatsFindMostFavoriteExe() {
+    int32 best;
+    const int32 index = FindMostFavoriteIndex(best);
+    return ResidueRegsCpp(static_cast<uint32>(best), 15u, static_cast<uint32>(index));
+}
+#pragma runtime_checks("", restore)
 }
 
 // 0x559010
@@ -290,97 +346,18 @@ int32 CStats::FindLeastFavoriteRadioStation() {
 
 // 0x559080
 int32 CStats::FindCriminalRatingNumber() {
-    // Como el original: todo en x87 (enteros cargados con fild sin redondear, cada operación a la precisión
-    // vigente), dinero de CWorld::Players[PlayerInFocus] dividido entre 5000 como entero, y
-    // kills - busted*3 - hospital*3 (las visitas al hospital restan).
-    int32 kills    = IntStat(STAT_TOTAL_LEGITIMATE_KILLS);
-    int32 busted   = IntStat(STAT_TIMES_BUSTED);
-    int32 hospital = IntStat(STAT_NUMBER_OF_HOSPITAL_VISITS);
-    int32 fireLvl  = IntStat(STAT_HIGHEST_FIREFIGHTER_MISSION_LEVEL);
-    int32 paraLvl  = IntStat(STAT_HIGHEST_PARAMEDIC_MISSION_LEVEL);
-    int32 money    = CWorld::Players[CWorld::PlayerInFocus].m_nMoney / 5000;
-    int32 planes   = IntStat(STAT_PLANES_HELICOPTERS_DESTROYED);
-    int32 firesOut = IntStat(STAT_TOTAL_FIRES_EXTINGUISHED);
-    int32 vigilant = IntStat(STAT_CRIMINALS_KILLED_ON_VIGILANTE_MISSION);
-    int32 savedAmb = IntStat(STAT_PEOPLE_SAVED_IN_AN_AMBULANCE);
-    float k3 = 3.0f, k10 = 10.0f, k30 = 30.0f, k500 = 500.0f, k1000 = 1000.0f;
-    float sum;
-    __asm {
-        fild  kills
-        fild  busted
-        fmul  k3
-        fsubp st(1), st
-        fild  hospital
-        fmul  k3
-        fsubp st(1), st
-        fild  fireLvl
-        fild  paraLvl
-        faddp st(1), st
-        fmul  k10
-        faddp st(1), st
-        fiadd money
-        fild  planes
-        fmul  k30
-        faddp st(1), st
-        fild  firesOut
-        faddp st(1), st
-        fild  vigilant
-        faddp st(1), st
-        fild  savedAmb
-        faddp st(1), st
-        fstp  sum
-    }
-    int32 value = StatsFtol(sum);
-
-    int32 cheated = IntStat(STAT_TIMES_CHEATED);
-    if (!CCheat::m_bHasPlayerCheated && cheated <= 0) {
-        value = std::max(value, 0);
-    } else {
-        float tmpCheat;
-        __asm {
-            fild  value
-            fild  cheated
-            fmul  k10
-            fsubp st(1), st
-            fstp  tmpCheat
-        }
-        value = StatsFtol(tmpCheat);
-        if (value <= -10000) {
-            value = -10000;
-        }
-    }
-
-    // Como el original: solo con más de 100 balas (estricto); hits/balas*500 + valor en x87 y luego ftol.
-    int32 bullets = IntStat(STAT_BULLETS_FIRED);
-    if (bullets > 100) {
-        int32 hits = IntStat(STAT_BULLETS_THAT_HIT);
-        float tmpBullets;
-        __asm {
-            fild  bullets
-            fild  hits
-            fdiv  st, st(1)
-            fmul  k500
-            fiadd value
-            fstp  tmpBullets
-            fstp  st(0)
-        }
-        value = StatsFtol(tmpBullets);
-    }
-
-    // Como el original: GetPercentageProgress en línea: hecho/total*1000 + valor (nada si el total es 0).
-    float made = StatTypesFloat[STAT_PROGRESS_MADE], total = StatTypesFloat[STAT_TOTAL_PROGRESS];
-    if (total == 0.0f) {
-        return value;
-    }
-    float tmpProgress;
-    __asm {
-        fld   made
-        fdiv  total
-        fmul  k1000
-        fiadd value
-        fstp  tmpProgress
-    }
-    return StatsFtol(tmpProgress);
+    // Como el original: todo en x87 (enteros cargados con fild sin redondear, cada operacion a la precision vigente), dinero de
+    // CWorld::Players[PlayerInFocus] dividido entre 5000 como entero, y kills - busted*3 - hospital*3 (las visitas al hospital restan).
+    // La cadena x87 completa (con los cuatro _ftol2) esta en StatsCriminalRatingCpp (X87Math).
+    const int32 money = CWorld::Players[CWorld::PlayerInFocus].m_nMoney / 5000;
+    return StatsCriminalRatingCpp(
+        IntStat(STAT_TOTAL_LEGITIMATE_KILLS), IntStat(STAT_TIMES_BUSTED), IntStat(STAT_NUMBER_OF_HOSPITAL_VISITS),
+        IntStat(STAT_HIGHEST_FIREFIGHTER_MISSION_LEVEL), IntStat(STAT_HIGHEST_PARAMEDIC_MISSION_LEVEL), money,
+        IntStat(STAT_PLANES_HELICOPTERS_DESTROYED), IntStat(STAT_TOTAL_FIRES_EXTINGUISHED),
+        IntStat(STAT_CRIMINALS_KILLED_ON_VIGILANTE_MISSION), IntStat(STAT_PEOPLE_SAVED_IN_AN_AMBULANCE),
+        CCheat::m_bHasPlayerCheated, IntStat(STAT_TIMES_CHEATED),
+        IntStat(STAT_BULLETS_FIRED), IntStat(STAT_BULLETS_THAT_HIT),
+        StatTypesFloat.data()[STAT_PROGRESS_MADE], StatTypesFloat.data()[STAT_TOTAL_PROGRESS]);
 }
 
 // 0x5591E0
@@ -488,411 +465,200 @@ bool CStats::IsStatCapped(eStats stat) {
 }
 
 // 0x559760
-__declspec(naked) void CStats::CheckForStatsMessage() {
-    __asm {
-// 0x559760
-        push        0
-// 0x559762
-        call Ui8_Bridge_0053FB70
-// 0x559767
-        mov         cl,byte ptr [eax+00000117h]
-// 0x55976D
-        add         esp,4
-// 0x559770
-        test        cl,cl
-// 0x559772
-        jne Ui8_CheckForStatsMessage_55985F
-// 0x559778
-        mov         al,byte ptr ds:[008CDE56h]
-// 0x55977D
-        test        al,al
-// 0x55977F
-        je Ui8_CheckForStatsMessage_55985F
-// 0x559785
-        mov         al,byte ptr ds:[00B6F065h]
-// 0x55978A
-        test        al,al
-// 0x55978C
-        jne Ui8_CheckForStatsMessage_55985F
-// 0x559792
-        mov         al,byte ptr ds:[00B5F852h]
-// 0x559797
-        test        al,al
-// 0x559799
-        jne Ui8_CheckForStatsMessage_55985F
-// 0x55979F
-        call Ui8_Bridge_00588B50
-// 0x5597A4
-        test        al,al
-// 0x5597A6
-        jne Ui8_CheckForStatsMessage_55985F
-// 0x5597AC
-        mov         al,byte ptr ds:[00BA82E3h]
-// 0x5597B1
-        test        al,al
-// 0x5597B3
-        jne Ui8_CheckForStatsMessage_55985F
-// 0x5597B9
-        push        ebx
-// 0x5597BA
-        push        esi
-// 0x5597BB
-        push        edi
-// 0x5597BC
-        xor         edi,edi
-// 0x5597BE
-        mov         esi,0B78200h
-// 0x5597C3
-        mov         bl,1
-// 0x5597C5
-        jmp Ui8_CheckForStatsMessage_5597D0
-// 0x5597C7
-        lea         esp,[esp+00000000h]
-// 0x5597CE
-        mov         edi,edi
-Ui8_CheckForStatsMessage_5597D0:
-        cmp         edi,dword ptr ds:[00B794D0h]
-// 0x5597D6
-        jae Ui8_CheckForStatsMessage_55985C
-// 0x5597DC
-        mov         al,byte ptr [esi+2]
-// 0x5597DF
-        test        al,al
-// 0x5597E1
-        jne Ui8_CheckForStatsMessage_55984C
-// 0x5597E3
-        mov         al,byte ptr [esi+3]
-// 0x5597E6
-        test        al,al
-// 0x5597E8
-        je Ui8_CheckForStatsMessage_55980E
-// 0x5597EA
-        xor         eax,eax
-// 0x5597EC
-        mov         ax,word ptr [esi]
-// 0x5597EF
-        push        eax
-// 0x5597F0
-        call Ui8_Bridge_00558E40
-// 0x5597F5
-        fcomp       dword ptr [esi+4]
-// 0x5597F8
-        add         esp,4
-// 0x5597FB
-        fnstsw      ax
-// 0x5597FD
-        test        ah,1
-// 0x559800
-        jne Ui8_CheckForStatsMessage_55984C
-// 0x559802
-        push        0
-// 0x559804
-        push        0
-// 0x559806
-        push        0
-// 0x559808
-        lea         ecx,[esi+8]
-// 0x55980B
-        push        ecx
-// 0x55980C
-        jmp Ui8_CheckForStatsMessage_559830
-Ui8_CheckForStatsMessage_55980E:
-        xor         edx,edx
-// 0x559810
-        mov         dx,word ptr [esi]
-// 0x559813
-        push        edx
-// 0x559814
-        call Ui8_Bridge_00558E40
-// 0x559819
-        fcomp       dword ptr [esi+4]
-// 0x55981C
-        add         esp,4
-// 0x55981F
-        fnstsw      ax
-// 0x559821
-        test        ah,41h
-// 0x559824
-        jp Ui8_CheckForStatsMessage_55984C
-// 0x559826
-        push        0
-// 0x559828
-        push        0
-// 0x55982A
-        push        0
-// 0x55982C
-        lea         eax,[esi+8]
-// 0x55982F
-        push        eax
-Ui8_CheckForStatsMessage_559830:
-        mov         ecx,0C1B340h
-// 0x559835
-        mov         byte ptr [esi+2],bl
-// 0x559838
-        call Ui8_Bridge_006A0050
-// 0x55983D
-        push        eax
-// 0x55983E
-        call Ui8_Bridge_00588BE0
-// 0x559843
-        add         esp,10h
-// 0x559846
-        mov         byte ptr ds:[00B794D4h],bl
-Ui8_CheckForStatsMessage_55984C:
-        inc         edi
-// 0x55984D
-        add         esi,10h
-// 0x559850
-        cmp         edi,80h
-// 0x559856
-        jb Ui8_CheckForStatsMessage_5597D0
-Ui8_CheckForStatsMessage_55985C:
-        pop         edi
-// 0x55985D
-        pop         esi
-// 0x55985E
-        pop         ebx
-Ui8_CheckForStatsMessage_55985F:
-        ret
+namespace {
+// Cuerpo de CheckForStatsMessage (0x559760..0x55985F). Con kExe = true termina como el EXE: EAX/ECX/EDX de cada salida (ver STATS_EXIT);
+// con kExe = false es el metodo de la clase y solo devuelve EAX.
+// Salidas con registros calculables: CPad::GetPad(0) (0x53FB70) solo deja EAX = &Pads[0] sin tocar ECX/EDX y `mov cl,[eax+0x117]` /
+// `mov al,[...]` solo escriben el byte bajo. Tras HelpMessageDisplayed (0x588B50, hook reconstruido) los registros son los del colaborador:
+// si devuelve true se reproducen volviendo a llamar a la consulta (pura) justo antes de salir, con los registros que tenia el EXE en la
+// llamada; el resto de salidas tras llamadas (GetStatValue 0x558E40, CText::Get 0x6A0050, SetHelpMessage 0x588BE0) asumen que el colaborador
+// conserva ECX/EDX y que deja su resultado en EAX: esas salidas dependen del cuerpo compilado del colaborador y no son exactas con
+// seguridad (ver informe).
+#pragma runtime_checks("", off)
+template<bool kExe>
+__declspec(safebuffers) uint32 __fastcall StatsCheckForStatsMessageBody(uint32 entryEcx, uint32 entryEdx) {
+    const CPad* const pad = CPad::GetPad(0);                                       // push 0; call 0x53FB70
+    uint32 eax = static_cast<uint32>(reinterpret_cast<uintptr_t>(pad));
+    uint32 ecx = (entryEcx & 0xFFFFFF00u) | static_cast<uint8>(pad->JustOutOfFrontEnd);   // mov cl,[eax+0x117]
+    uint32 edx = entryEdx;
+    if (static_cast<uint8>(pad->JustOutOfFrontEnd) != 0) {                         // test cl,cl; jne 0x55985F
+        STATS_EXIT(ecx, edx, eax);
     }
+    eax = (eax & 0xFFFFFF00u) | ExeByte(0x8CDE56);                                 // mov al,[0x8CDE56] (bShowUpdateStats)
+    if ((eax & 0xFFu) == 0) {                                                      // je 0x55985F
+        STATS_EXIT(ecx, edx, eax);
+    }
+    eax = (eax & 0xFFFFFF00u) | ExeByte(0xB6F065);
+    if ((eax & 0xFFu) != 0) {                                                      // jne 0x55985F
+        STATS_EXIT(ecx, edx, eax);
+    }
+    eax = (eax & 0xFFFFFF00u) | ExeByte(0xB5F852);
+    if ((eax & 0xFFu) != 0) {                                                      // jne 0x55985F
+        STATS_EXIT(ecx, edx, eax);
+    }
+    // 0x55979F: call 0x588B50 (CHud::HelpMessageDisplayed); el original no toca nada despues salvo `test al,al`
+    if constexpr (kExe) {
+        // Sin argumentos: ECX/EDX de entrada del EXE (ecx, edx) llegan por registro (__fastcall sin pila); la consulta sale sin tocar EDX si no lo necesita.
+        const uint64 help = reinterpret_cast<uint64(__fastcall*)(uint32, uint32)>(&CHud::HelpMessageDisplayed)(ecx, edx);
+        if (static_cast<uint8>(help) != 0) {                                       // jne 0x55985F: EAX/ECX/EDX del colaborador
+            // La consulta (pura, sin argumentos) se vuelve a llamar en posicion de cola con los ECX/EDX del EXE como argumentos __fastcall:
+            // no hace falta ResidueRegsCpp ni sumidero (el auditor no admite un `mov [..],eax` tras el ayudante) y el compilador no puede
+            // eliminar la llamada. La consulta sobrescribe EAX; ECX/EDX salen como el colaborador los deja.
+            return reinterpret_cast<uint32(__fastcall*)(uint32, uint32)>(&CHud::HelpMessageDisplayed)(ecx, edx);
+        }
+        eax = static_cast<uint32>(help);
+        edx = static_cast<uint32>(help >> 32);
+    } else {
+        if (CHud::HelpMessageDisplayed()) {
+            return eax;
+        }
+    }
+    eax = (eax & 0xFFFFFF00u) | ExeByte(0xBA82E3);                                 // mov al,[0xBA82E3]
+    if ((eax & 0xFFu) != 0) {                                                      // jne 0x55985F
+        STATS_EXIT(ecx, edx, eax);
+    }
+
+    // 0x5597B9: push ebx/esi/edi; edi = 0; esi = 0xB78200 (StatMessage); bl = 1. El bucle consulta TotalNumStatMessages en cada vuelta y se
+    // detiene en 128 aunque el contador diga mas.
+    for (uint32 i = 0; i < 128u && i < CStats::TotalNumStatMessages; ++i) {
+        tStatMessage& message = CStats::StatMessage.data()[i];
+        const uint8 displayed = *reinterpret_cast<const uint8*>(&message.displayed);
+        eax = (eax & 0xFFFFFF00u) | displayed;                                     // mov al,[esi+2]
+        if (displayed != 0) {
+            continue;                                                              // jne 0x55984C
+        }
+        const uint8 condition = message.condition;
+        eax = (eax & 0xFFFFFF00u) | condition;                                     // mov al,[esi+3]
+        const uint16 statId = static_cast<uint16>(message.stat_num);
+        bool show;
+        if (condition != 0) {                                                      // morethan: GetStatValue(ax) >= umbral (C0 = menor/sin orden -> siguiente)
+            eax = statId;                                                          // xor eax,eax; mov ax,[esi]
+            const float value = CStats::GetStatValue(static_cast<eStats>(statId)); // call 0x558E40
+            STATS_CAPTURE_EAX_ECX(eax, ecx);                                       // EAX/ECX con que sale GetStatValue de la DLL (EDX pasa tal cual)
+            if constexpr (kExe) {                                                  // con estadistica entera la DLL deja EDX = id; con float pasa el EDX de entrada
+                if (!CStats::IsStatFloat(static_cast<eStats>(statId))) {
+                    edx = statId;
+                }
+            }
+            const uint32 ax = StatsCompareFltFltAxCpp(value, message.value, 0);    // fcomp [esi+4]; fnstsw ax
+            eax = (eax & 0xFFFF0000u) | (ax & 0xFFFFu);
+            show = AhJe(ax, 0x01);                                                 // test ah,1; jne 0x55984C
+            if (show) {
+                ecx = static_cast<uint32>(reinterpret_cast<uintptr_t>(&message)) + 8; // lea ecx,[esi+8]
+            }
+        } else {                                                                   // lessthan: GetStatValue(dx) <= umbral (mayor/sin orden -> siguiente)
+            edx = statId;                                                          // xor edx,edx; mov dx,[esi]
+            const float value = CStats::GetStatValue(static_cast<eStats>(statId)); // call 0x558E40
+            STATS_CAPTURE_EAX_ECX(eax, ecx);
+            if constexpr (kExe) {
+                if (!CStats::IsStatFloat(static_cast<eStats>(statId))) {
+                    edx = statId;
+                }
+            }
+            const uint32 ax = StatsCompareFltFltAxCpp(value, message.value, 0);    // fcomp [esi+4]; fnstsw ax
+            eax = (eax & 0xFFFF0000u) | (ax & 0xFFFFu);
+            show = !AhJp(ax, 0x41);                                                // test ah,41h; jp 0x55984C
+            if (show) {
+                eax = static_cast<uint32>(reinterpret_cast<uintptr_t>(&message)) + 8; // lea eax,[esi+8]
+            }
+        }
+        if (!show) {
+            continue;
+        }
+        // 0x559830: mov ecx,0xC1B340; mov [esi+2],bl; call CText::Get; push eax; call SetHelpMessage(text, 0, 0, 0); add esp,0x10; mov [0xB794D4],bl
+        ecx = 0xC1B340u;
+        *reinterpret_cast<uint8*>(&message.displayed) = 1;
+        const GxtChar* const text = TheText.Get(message.text_id);
+        STATS_CAPTURE_REGS(eax, ecx, edx);                                         // EAX = text (resultado de Get)                                         // registros con que sale CText::Get de la DLL
+        CHud::SetHelpMessage(text, false, false, false);
+        STATS_CAPTURE_REGS(eax, ecx, edx);                                         // y SetHelpMessage (su cuerpo fija ECX/EDX/EAX)
+        *reinterpret_cast<uint8*>(&CStats::bStatUpdateMessageDisplayed) = 1;
+    }
+    STATS_EXIT(ecx, edx, eax);                                                     // 0x55985C: pop edi/esi/ebx; ret
+}
+
+// Hook de 0x559760: ECX y EDX de entrada llegan por registro (la funcion no tiene argumentos).
+uint32 __declspec(safebuffers) __fastcall StatsCheckForStatsMessageExe(uint32 entryEcx, uint32 entryEdx) {
+    return StatsCheckForStatsMessageBody<true>(entryEcx, entryEdx);
+}
+#pragma runtime_checks("", restore)
+}
+
+void CStats::CheckForStatsMessage() {
+    StatsCheckForStatsMessageBody<false>(0u, 0u);
 }
 
 // 0x559860
-// Tail entry bridge: preserves registers, flags and physical arguments.
-__declspec(naked) static void StatsFile15EntrySetDir() {
-    __asm { push 05387D0h }
-    __asm { ret }
-}
+namespace {
+// Como el original (0x559860..0x5599A5): lee DATA\STATDISP.DAT linea a linea con el sscanf del EXE (0x8220AD, CRT estatico del juego; la
+// DLL tiene otro CRT y el banco compara el estado x87 completo tras la llamada). Nada del bucle se reinicializa por linea: el id y el umbral
+// (a 0 una sola vez) y los textos conservan lo leido antes si sscanf no llena el campo. La funcion termina en CFileMgr::CloseFile (0x5389D0):
+// sus EAX/ECX/EDX salen sin tocar, asi que la llamada va en la ultima posicion (sin cookie de /GS ni comprobaciones de ejecucion).
+#pragma runtime_checks("", off)
+__declspec(noinline) __declspec(safebuffers) FILESTREAM StatsLoadConditionsRead(uint32* outCount) {
+    using ExeSscanf = int(__cdecl*)(const char*, const char*, ...);
+    int32 statId = 0;                 // [esp+0x14]
+    float threshold = 0.0f;           // [esp+0x18]
+    char  text[16] = {};              // [esp+0x24]
+    char  condition[16] = {};         // [esp+0x2C]
+    char  name[64] = {};              // [esp+0x38]
+    uint32 count = 0;                 // [esp+0x10]
 
-// Tail entry bridge: preserves registers, flags and physical arguments.
-__declspec(naked) static void StatsFile15EntryOpenFile() {
-    __asm { push 0538900h }
-    __asm { ret }
-}
-
-// Tail entry bridge: preserves registers, flags and physical arguments.
-__declspec(naked) static void StatsFile15EntryLoadLine() {
-    __asm { push 0536F80h }
-    __asm { ret }
-}
-
-// Tail entry bridge: preserves registers, flags and physical arguments.
-__declspec(naked) static void StatsFile15EntryCloseFile() {
-    __asm { push 05389D0h }
-    __asm { ret }
-}
-
-// Tail entry bridge: preserves registers, flags and physical arguments.
-__declspec(naked) static void StatsFile15EntrySscanf() {
-    __asm { push 08220ADh }
-    __asm { ret }
-}
-
-__declspec(naked) void CStats::LoadStatUpdateConditions() {
-    __asm {
-        // 0x559860
-        push ebp
-        // 0x559861
-        mov ebp,esp
-        // 0x559863
-        and esp,0FFFFFFF8h
-        // 0x559866
-        sub esp,78h
-        // 0x559869
-        push ebx
-        // 0x55986A
-        push ebp
-        // 0x55986B
-        push esi
-        // 0x55986C
-        push edi
-        // 0x55986D
-        xor ebx,ebx
-        // 0x55986F
-        push 858B54h
-        // 0x559874
-        mov dword ptr [esp+1Ch],0
-        // 0x55987C
-        mov dword ptr [esp+18h],ebx
-        // 0x559880
-        call StatsFile15EntrySetDir
-        // 0x559885
-        push 859C6Ch
-        // 0x55988A
-        push 863F80h
-        // 0x55988F
-        call StatsFile15EntryOpenFile
-        // 0x559894
-        mov esi,eax
-        // 0x559896
-        push esi
-        // 0x559897
-        mov dword ptr [esp+30h],esi
-        // 0x55989B
-        mov dword ptr ds:[00B794D0h],ebx
-        // 0x5598A1
-        mov dword ptr [esp+20h],ebx
-        // 0x5598A5
-        call StatsFile15EntryLoadLine
-        // 0x5598AA
-        add esp,10h
-        // 0x5598AD
-        cmp eax,ebx
-        // 0x5598AF
-        je StatsFile15_55998B
-        // 0x5598B5
-        mov ecx,8
-        // 0x5598BA
-        lea edx,[esp+24h]
-        // 0x5598BE
-        sub ecx,edx
-        // 0x5598C0
-        mov ebp,0B78200h
-        // 0x5598C5
-        mov dword ptr [esp+1Ch],ecx
-        // 0x5598C9
-        lea esp,[esp+00000000h]
-        StatsFile15_5598D0:
-        mov cl,byte ptr [eax]
-        // 0x5598D2
-        cmp cl,23h
-        // 0x5598D5
-        je StatsFile15_55997A
-        // 0x5598DB
-        cmp cl,bl
-        // 0x5598DD
-        je StatsFile15_55997A
-        // 0x5598E3
-        lea ecx,[esp+24h]
-        // 0x5598E7
-        push ecx
-        // 0x5598E8
-        lea edx,[esp+1Ch]
-        // 0x5598EC
-        push edx
-        // 0x5598ED
-        lea ecx,[esp+34h]
-        // 0x5598F1
-        push ecx
-        // 0x5598F2
-        lea edx,[esp+44h]
-        // 0x5598F6
-        push edx
-        // 0x5598F7
-        lea ecx,[esp+24h]
-        // 0x5598FB
-        push ecx
-        // 0x5598FC
-        push 863F70h
-        // 0x559901
-        push eax
-        // 0x559902
-        call StatsFile15EntrySscanf
-        // 0x559907
-        mov dx,word ptr [esp+30h]
-        // 0x55990C
-        add esp,1Ch
-        // 0x55990F
-        mov edi,863F64h
-        // 0x559914
-        lea esi,[esp+2Ch]
-        // 0x559918
-        mov ecx,9
-        // 0x55991D
-        xor eax,eax
-        // 0x55991F
-        repe cmpsb
-        // 0x559921
-        mov word ptr [ebp],dx
-        // 0x559925
-        mov byte ptr [ebp+2],bl
-        // 0x559928
-        jne StatsFile15_55992F
-        // 0x55992A
-        mov byte ptr [ebp+3],bl
-        // 0x55992D
-        jmp StatsFile15_559947
-        StatsFile15_55992F:
-        mov edi,863F58h
-        // 0x559934
-        lea esi,[esp+2Ch]
-        // 0x559938
-        mov ecx,9
-        // 0x55993D
-        xor edx,edx
-        // 0x55993F
-        repe cmpsb
-        // 0x559941
-        jne StatsFile15_559947
-        // 0x559943
-        mov byte ptr [ebp+3],1
-        StatsFile15_559947:
-        mov eax,dword ptr [esp+18h]
-        // 0x55994B
-        mov ecx,dword ptr [esp+1Ch]
-        // 0x55994F
-        mov dword ptr [ebp+4],eax
-        // 0x559952
-        lea eax,[esp+24h]
-        // 0x559956
-        lea edx,[ecx+ebp]
-        // 0x559959
-        lea esp,[esp+00000000h]
-        StatsFile15_559960:
-        mov cl,byte ptr [eax]
-        // 0x559962
-        mov byte ptr [edx+eax],cl
-        // 0x559965
-        inc eax
-        // 0x559966
-        cmp cl,bl
-        // 0x559968
-        jne StatsFile15_559960
-        // 0x55996A
-        mov ecx,dword ptr [esp+10h]
-        // 0x55996E
-        mov esi,dword ptr [esp+20h]
-        // 0x559972
-        inc ecx
-        // 0x559973
-        mov dword ptr [esp+10h],ecx
-        // 0x559977
-        add ebp,10h
-        StatsFile15_55997A:
-        push esi
-        // 0x55997B
-        call StatsFile15EntryLoadLine
-        // 0x559980
-        add esp,4
-        // 0x559983
-        cmp eax,ebx
-        // 0x559985
-        jne StatsFile15_5598D0
-        StatsFile15_55998B:
-        mov edx,dword ptr [esp+10h]
-        // 0x55998F
-        push esi
-        // 0x559990
-        mov dword ptr ds:[00B794D0h],edx
-        // 0x559996
-        call StatsFile15EntryCloseFile
-        // 0x55999B
-        add esp,4
-        // 0x55999E
-        pop edi
-        // 0x55999F
-        pop esi
-        // 0x5599A0
-        pop ebp
-        // 0x5599A1
-        pop ebx
-        // 0x5599A2
-        mov esp,ebp
-        // 0x5599A4
-        pop ebp
-        // 0x5599A5
-        ret
+    CFileMgr::SetDir("");
+    FILESTREAM file = CFileMgr::OpenFile("DATA\\STATDISP.DAT", "rb");
+    CStats::TotalNumStatMessages = 0;
+    char* line = CFileLoader::LoadLine(file);
+    tStatMessage* record = CStats::StatMessage.data();
+    for (; line != nullptr; line = CFileLoader::LoadLine(file)) {
+        if (line[0] == '#' || line[0] == '\0') {
+            continue;
+        }
+        reinterpret_cast<ExeSscanf>(0x8220AD)(line, "%d %s %s %f %s", &statId, name, condition, &threshold, text);
+        *reinterpret_cast<uint16*>(record) = static_cast<uint16>(statId);        // mov word ptr [ebp],dx
+        *reinterpret_cast<uint8*>(&record->displayed) = 0;
+        if (std::memcmp(condition, "lessthan", 9) == 0) {                          // repe cmpsb de 9 bytes contra 0x863F64
+            record->condition = static_cast<uint8>(STATMESSAGE_LESSTHAN);
+        } else if (std::memcmp(condition, "morethan", 9) == 0) {                   // contra 0x863F58; si no coincide conserva el byte anterior
+            record->condition = static_cast<uint8>(STATMESSAGE_MORETHAN);
+        }
+        std::memcpy(&record->value, &threshold, sizeof(float));
+        const char* source = text;                                                  // copia hasta el NUL inclusive, sin limite (rec+8)
+        char* destination = reinterpret_cast<char*>(record) + 8;
+        char current;
+        do {
+            current = *source++;
+            *destination++ = current;
+        } while (current != '\0');
+        ++count;
+        ++record;
     }
+    *outCount = count;
+    return file;
+}
+
+// Los EAX/ECX/EDX de salida son los de CFileMgr::CloseFile (cola) y su ECX es una direccion de pila de fclose: depende de la profundidad del marco (medido: la
+// diferencia entre el EXE y la DLL es exactamente la de los marcos). El EXE llega a CloseFile con 4 (ebp) + 4 (alineacion del banco) + 0x78 (locales) + 16 (ebx, ebp,
+// esi, edi) + 4 (argumento) = 0x94 bytes bajo la direccion de retorno. Sin optimizar el marco minimo de MSVC es sub esp,0C0h (0xD4 + 4 en total), asi que esta funcion
+// se optimiza por pragma (CMakeLists.txt compila Stats.cpp con /Zi y sin comprobaciones de ejecucion, como Clothes.cpp): sin ebp ni registros guardados el marco es
+// `sub esp,N` y la profundidad en la llamada es N + 4, de modo que N = 0x90 = 144 (count 4 + frameFill 140). Comprobar con symbytes/dumpbin que el prologo sea
+// `sub esp,90h`; si el compilador guardara registros, ajustar frameFill para que N + 4 * registros + 4 = 0x94.
+#pragma optimize("gty", on)
+int32 __declspec(safebuffers) __cdecl StatsLoadStatUpdateConditionsExe() {
+    uint32 count = 0;
+    // El compilador deja sin liberar el argumento de la llamada a StatsLoadConditionsRead (&count) hasta el final: 4 bytes mas bajo la llamada a CloseFile (medido: ECX
+    // 0xEBB6A4 frente a 0xEBB6A8 con sub esp,90h). Profundidad = N + 4 (argumento retenido) + 4 (argumento de CloseFile) = 0x94, de modo que N = 0x8C = count 4 + frameFill 136.
+    volatile uint8 frameFill[136];   // relleno del marco del EXE (solo reserva espacio)
+    frameFill[0] = 0;
+    FILESTREAM file = StatsLoadConditionsRead(&count);
+    CStats::TotalNumStatMessages = count;
+    return CFileMgr::CloseFile(file);
+}
+#pragma optimize("", on)
+#pragma runtime_checks("", restore)
+}
+
+void CStats::LoadStatUpdateConditions() {
+    (void)StatsLoadStatUpdateConditionsExe();
 }
 
 // 0x5599B0
@@ -938,369 +704,28 @@ int32 CStats::FindMaxNumberOfGroupMembers() {
     return 7;
 }
 
-// Como el original: Max/Min devuelven el segundo argumento con NaN; retornan en ST0.
-static __declspec(naked) float __cdecl StatsModifierMaxExe(float, float) {
-    __asm {
-        fld dword ptr [esp+4]
-        fcomp dword ptr [esp+8]
-        fnstsw ax
-        test ah,41h
-        jne statsMaxSecond
-        fld dword ptr [esp+4]
-        ret
-    statsMaxSecond:
-        fld dword ptr [esp+8]
-        ret
-    }
-}
-static __declspec(naked) float __cdecl StatsModifierMinExe(float, float) {
-    __asm {
-        fld dword ptr [esp+4]
-        fcomp dword ptr [esp+8]
-        fnstsw ax
-        test ah,5
-        jp statsMinSecond
-        fld dword ptr [esp+4]
-        ret
-    statsMinSecond:
-        fld dword ptr [esp+8]
-        ret
-    }
+// 0x559AF0
+float CStats::GetFatAndMuscleModifier(eStatModAbilities statMod) {
+    // Como el original: orden x87 y comparaciones AH, incluidos NaN y la configuracion viva 0x8CDE58..0x8CDEC0 (27 floats consecutivos que
+    // el EXE no nombra); los helpers Max (0x420800) y Min (0x404330) del EXE se calculan en linea. Cadena completa en X87Math.
+    return StatsFatMuscleModifierCpp(static_cast<uint32>(statMod),
+                                     StatTypesFloat.data()[STAT_FAT], StatTypesFloat.data()[STAT_STAMINA],
+                                     StatTypesFloat.data()[STAT_MUSCLE], StatTypesFloat.data()[STAT_MAX_HEALTH],
+                                     IntStat(STAT_CYCLING_SKILL), IntStat(STAT_LUNG_CAPACITY), IntStat(STAT_BIKE_SKILL),
+                                     IntStat(STAT_DRIVING_SKILL), reinterpret_cast<const float*>(0x8CDE58));
 }
 
-static float __cdecl StatsModifierBody(eStatModAbilities statMod) {
-    // Como el original: orden x87 y comparaciones AH, incluidos NaN y configuración viva 0x8CDE58..C0.
-    float result;
-    __asm {
-        mov eax, statMod
-        fld         dword ptr ds:[00858624h]
-        cmp         eax,0Fh
-        ja          statsMod_00559F58
-        cmp eax, 0
-        je statsMod_00559B0A
-        cmp eax, 1
-        je statsMod_00559B41
-        cmp eax, 2
-        je statsMod_00559BB3
-        cmp eax, 3
-        je statsMod_00559C25
-        cmp eax, 4
-        je statsMod_00559C61
-        cmp eax, 5
-        je statsMod_00559CC5
-        cmp eax, 6
-        je statsMod_00559D62
-        cmp eax, 7
-        je statsMod_00559DC9
-        cmp eax, 8
-        je statsMod_00559DE4
-        cmp eax, 9
-        je statsMod_00559E05
-        cmp eax, 10
-        je statsMod_00559E1A
-        cmp eax, 11
-        je statsMod_00559E23
-        cmp eax, 12
-        je statsMod_00559E4F
-        cmp eax, 13
-        je statsMod_00559E7B
-        cmp eax, 14
-        je statsMod_00559EA7
-        cmp eax, 15
-        je statsMod_00559EF9
-        jmp statsMod_00559F58
-    statsMod_00559B0A:
-        fstp        st(0)
-        fld         dword ptr ds:[00B793D4h]
-        fcomp       dword ptr ds:[008594DCh]
-        fnstsw      ax
-        test        ah,41h
-        je          statsMod_00559CBE
-        fld         dword ptr ds:[00B793D4h]
-        fcomp       dword ptr ds:[0085A700h]
-        fnstsw      ax
-        test        ah,41h
-        je          statsMod_00559EF2
-        fld         dword ptr ds:[00858B50h]
-        jmp statsMod_finish
-    statsMod_00559B41:
-        fstp        st(0)
-        push        ecx
-        fld         dword ptr ds:[00B793D4h]
-        fsub        dword ptr ds:[008CDEC0h]
-        fld         dword ptr ds:[00858C4Ch]
-        fsub        dword ptr ds:[008CDEC0h]
-        fdivp       st(1),st
-        fstp        dword ptr [esp]
-        push        0
-        call StatsModifierMaxExe
-        fmul        dword ptr ds:[008CDEBCh]
-        add         esp,8
-        fadd        dword ptr ds:[00858624h]
-        fld         dword ptr ds:[00B793DCh]
-        fsub        dword ptr ds:[008CDEB8h]
-        fmul        dword ptr ds:[008CDEB4h]
-        fld         dword ptr ds:[00858C4Ch]
-        fsub        dword ptr ds:[008CDEB8h]
-        fdivp       st(1),st
-        faddp       st(1),st
-        fcom        dword ptr ds:[00858CB0h]
-        fnstsw      ax
-        test        ah,5
-        jp          statsMod_00559F58
-        fstp        st(0)
-        fld         dword ptr ds:[00858CB0h]
-        jmp statsMod_finish
-    statsMod_00559BB3:
-        fstp        st(0)
-        push        ecx
-        fld         dword ptr ds:[00B793D4h]
-        fsub        dword ptr ds:[008CDEC0h]
-        fld         dword ptr ds:[00858C4Ch]
-        fsub        dword ptr ds:[008CDEC0h]
-        fdivp       st(1),st
-        fstp        dword ptr [esp]
-        push        0
-        call StatsModifierMaxExe
-        fmul        dword ptr ds:[008CDEB0h]
-        add         esp,8
-        fadd        dword ptr ds:[00858624h]
-        fld         dword ptr ds:[00B793DCh]
-        fsub        dword ptr ds:[008CDEB8h]
-        fmul        dword ptr ds:[008CDEACh]
-    statsMod_00559BFB:
-        fld         dword ptr ds:[00858C4Ch]
-        fsub        dword ptr ds:[008CDEB8h]
-        fdivp       st(1),st
-        faddp       st(1),st
-        fcom        dword ptr ds:[00858C98h]
-        fnstsw      ax
-        test        ah,5
-        jp          statsMod_00559F58
-        fstp        st(0)
-        fld         dword ptr ds:[00858C98h]
-        jmp statsMod_finish
-    statsMod_00559C25:
-        fstp        st(0)
-        fld         dword ptr ds:[00B793D4h]
-        fsub        dword ptr ds:[008CDEC0h]
-        fmul        dword ptr ds:[008CDEA8h]
-        fld         dword ptr ds:[00858C4Ch]
-        fsub        dword ptr ds:[008CDEC0h]
-        fdivp       st(1),st
-        fadd        dword ptr ds:[00858624h]
-        fld         dword ptr ds:[00B793DCh]
-        fsub        dword ptr ds:[008CDEB8h]
-        fmul        dword ptr ds:[008CDEA4h]
-        jmp         statsMod_00559BFB
-    statsMod_00559C61:
-        fstp        st(0)
-        fld         dword ptr ds:[00B793D4h]
-        fsub        dword ptr ds:[008CDEC0h]
-        fmul        dword ptr ds:[008CDEA0h]
-        fld         dword ptr ds:[00858C4Ch]
-        fsub        dword ptr ds:[008CDEC0h]
-        fdivp       st(1),st
-        fadd        dword ptr ds:[00858624h]
-        fld         dword ptr ds:[00B793DCh]
-        fsub        dword ptr ds:[008CDEB8h]
-        fmul        dword ptr ds:[008CDE9Ch]
-        fld         dword ptr ds:[00858C4Ch]
-        fsub        dword ptr ds:[008CDEB8h]
-        fdivp       st(1),st
-        faddp       st(1),st
-        fcom        dword ptr ds:[00858CA0h]
-        fnstsw      ax
-        test        ah,41h
-        jne         statsMod_00559F58
-    statsMod_00559CBC:
-        fstp        st(0)
-    statsMod_00559CBE:
-        fld         dword ptr ds:[00858CA0h]
-        jmp statsMod_finish
-    statsMod_00559CC5:
-        fstp        st(0)
-        fld         dword ptr ds:[00B793D4h]
-        fsub        dword ptr ds:[008CDEC0h]
-        fmul        dword ptr ds:[008CDE98h]
-        fld         dword ptr ds:[00858C4Ch]
-        fsub        dword ptr ds:[008CDEC0h]
-        fdivp       st(1),st
-        fadd        dword ptr ds:[00858624h]
-        fld         dword ptr ds:[00B793DCh]
-        fsub        dword ptr ds:[008CDEB8h]
-        fmul        dword ptr ds:[008CDE94h]
-        fld         dword ptr ds:[00858C4Ch]
-        fsub        dword ptr ds:[008CDEB8h]
-        fdivp       st(1),st
-        faddp       st(1),st
-        fld         dword ptr ds:[00B793D8h]
-        fmul        dword ptr ds:[00858CDCh]
-        fmul        dword ptr ds:[008CDE90h]
-        faddp       st(1),st
-        fild        dword ptr ds:[00B791B8h]
-        fmul        dword ptr ds:[00858CDCh]
-        fmul        dword ptr ds:[008CDE8Ch]
-        faddp       st(1),st
-        fcom        dword ptr ds:[00858CA0h]
-        fnstsw      ax
-        test        ah,41h
-        je          statsMod_00559CBC
-        fcom        dword ptr ds:[00858C84h]
-        fnstsw      ax
-        test        ah,5
-        jp          statsMod_00559F58
-        fstp        st(0)
-        fld         dword ptr ds:[00858C84h]
-        jmp statsMod_finish
-    statsMod_00559D62:
-        fstp        st(0)
-        fld         dword ptr ds:[00B793D4h]
-        fsub        dword ptr ds:[008CDEC0h]
-        fmul        dword ptr ds:[008CDE88h]
-        fld         dword ptr ds:[00858C4Ch]
-        fsub        dword ptr ds:[008CDEC0h]
-        fdivp       st(1),st
-        fadd        dword ptr ds:[00858624h]
-        fild        dword ptr ds:[00B791B8h]
-        fmul        dword ptr ds:[00858CDCh]
-        fmul        dword ptr ds:[008CDE84h]
-        faddp       st(1),st
-        fcom        dword ptr ds:[00858CA0h]
-        fnstsw      ax
-        test        ah,41h
-        je          statsMod_00559CBC
-        fcom        dword ptr ds:[00858B8Ch]
-        fnstsw      ax
-        test        ah,5
-        jp          statsMod_00559F58
-        fstp        st(0)
-        fld         dword ptr ds:[00858B8Ch]
-        jmp statsMod_finish
-    statsMod_00559DC9:
-        fstp        st(0)
-        fld         dword ptr ds:[00B793D8h]
-        fmul        dword ptr ds:[00858CDCh]
-        fmul        dword ptr ds:[008CDE80h]
-        fadd        dword ptr ds:[00858A28h]
-        jmp statsMod_finish
-    statsMod_00559DE4:
-        fstp        st(0)
-        fild        dword ptr ds:[00B791A4h]
-        fadd        dword ptr ds:[00B793D8h]
-        fmul        dword ptr ds:[00859978h]
-        fmul        dword ptr ds:[008CDE7Ch]
-        fadd        dword ptr ds:[00858C4Ch]
-        jmp statsMod_finish
-    statsMod_00559E05:
-        fstp        st(0)
-        fld         dword ptr ds:[00B793E0h]
-        fmul        dword ptr ds:[00858CDCh]
-        fmul        dword ptr ds:[008CDE78h]
-        jmp statsMod_finish
-    statsMod_00559E1A:
-        fstp        st(0)
-        fld         dword ptr ds:[008CDE78h]
-        jmp statsMod_finish
-    statsMod_00559E23:
-        fstp        st(0)
-        push        ecx
-        fild        dword ptr ds:[00B791B4h]
-        fmul        dword ptr ds:[00858CDCh]
-        fstp        dword ptr [esp]
-        push        3F800000h
-        call StatsModifierMinExe
-        fmul        dword ptr ds:[008CDE74h]
-        add         esp,8
-        fadd        dword ptr ds:[00858624h]
-        jmp statsMod_finish
-    statsMod_00559E4F:
-        fstp        st(0)
-        push        ecx
-        fild        dword ptr ds:[00B791B4h]
-        fmul        dword ptr ds:[00858CDCh]
-        fstp        dword ptr [esp]
-        push        3F800000h
-        call StatsModifierMinExe
-        fmul        dword ptr ds:[008CDE70h]
-        add         esp,8
-        fadd        dword ptr ds:[00858624h]
-        jmp statsMod_finish
-    statsMod_00559E7B:
-        fstp        st(0)
-        push        ecx
-        fild        dword ptr ds:[00B791B4h]
-        fmul        dword ptr ds:[00858CDCh]
-        fstp        dword ptr [esp]
-        push        3F800000h
-        call StatsModifierMinExe
-        fmul        dword ptr ds:[008CDE6Ch]
-        add         esp,8
-        fadd        dword ptr ds:[00858624h]
-        jmp statsMod_finish
-    statsMod_00559EA7:
-        fstp        st(0)
-        fld         dword ptr ds:[00B793D4h]
-        fsub        dword ptr ds:[008CDEC0h]
-        fmul        dword ptr ds:[008CDE68h]
-        fld         dword ptr ds:[00858C4Ch]
-        fsub        dword ptr ds:[008CDEC0h]
-        fdivp       st(1),st
-        fild        dword ptr ds:[00B790A0h]
-        fmul        dword ptr ds:[00858CDCh]
-        fmul        dword ptr ds:[008CDE64h]
-        fadd        dword ptr ds:[00858624h]
-        faddp       st(1),st
-        fcom        dword ptr ds:[00858624h]
-        fnstsw      ax
-        test        ah,41h
-        jne         statsMod_00559F58
-        fstp        st(0)
-    statsMod_00559EF2:
-        fld         dword ptr ds:[00858624h]
-        jmp statsMod_finish
-    statsMod_00559EF9:
-        fstp        st(0)
-        fld         dword ptr ds:[00B793D4h]
-        fsub        dword ptr ds:[008CDEC0h]
-        fmul        dword ptr ds:[008CDE60h]
-        fld         dword ptr ds:[00858C4Ch]
-        fsub        dword ptr ds:[008CDEC0h]
-        fdivp       st(1),st
-        fadd        dword ptr ds:[00858624h]
-        fld         dword ptr ds:[00B793DCh]
-        fsub        dword ptr ds:[008CDEB8h]
-        fmul        dword ptr ds:[008CDE5Ch]
-        fld         dword ptr ds:[00858C4Ch]
-        fsub        dword ptr ds:[008CDEB8h]
-        fdivp       st(1),st
-        faddp       st(1),st
-        fcom        dword ptr ds:[008CDE58h]
-        fnstsw      ax
-        test        ah,5
-        jp          statsMod_00559F58
-        fstp        st(0)
-        fld         dword ptr ds:[008CDE58h]
-    statsMod_00559F58:
-        jmp statsMod_finish
-    statsMod_finish:
-        fstp result
-    }
-    return result;
+namespace {
+// Como el original (0x559AF0): el EXE conserva ECX y EDX incluso en las ramas con las llamadas Max/Min (sus 36 llamadores lo ignoran, el
+// banco DependenciesStats1 lo exige). cdecl con un argumento en la pila: ECX/EDX entran por registro y el argumento se lee bajo la direccion
+// de retorno; PlayerPedResidueFloatCpp deja ECX/EDX y el resultado en ST0 sin tocar nada mas.
+#pragma runtime_checks("", off)
+float __declspec(safebuffers) __fastcall StatsGetFatAndMuscleModifierExe(uint32 entryEcx, uint32 entryEdx) {
+    const uint32 statMod = static_cast<const uint32*>(_AddressOfReturnAddress())[1]; // [esp+4]
+    const float result = CStats::GetFatAndMuscleModifier(static_cast<eStatModAbilities>(statMod));
+    return PlayerPedResidueFloatCpp(entryEcx, entryEdx, result);
 }
-
-// 0x559AF0: el EXE conserva ECX/EDX incluso en las ramas con llamadas Max/Min.
-__declspec(naked) float CStats::GetFatAndMuscleModifier(eStatModAbilities) {
-    __asm {
-        push ecx
-        push edx
-        push dword ptr [esp+12]
-        call StatsModifierBody
-        add esp,4
-        pop edx
-        pop ecx
-        ret
-    }
+#pragma runtime_checks("", restore)
 }
 
 // 0x559730
@@ -1359,732 +784,105 @@ void CStats::RegisterBestPosition(eStats stat, int32 position) {
 }
 
 // 0x55A210
-__declspec(naked) GxtChar* CStats::FindCriminalRatingString() {
-    __asm {
-// 0x55A210
-        call Ui8_Bridge_00559080
-// 0x55A215
-        test        eax,eax
-// 0x55A217
-        jge Ui8_FindCriminalRatingString_55A280
-// 0x55A219
-        cmp         eax,0FFFFFE0Ch
-// 0x55A21E
-        jle Ui8_FindCriminalRatingString_55A230
-// 0x55A220
-        push        86417Ch
-// 0x55A225
-        mov         ecx,0C1B340h
-// 0x55A22A
-        call Ui8_Bridge_006A0050
-// 0x55A22F
-        ret
-Ui8_FindCriminalRatingString_55A230:
-        cmp         eax,0FFFFF830h
-// 0x55A235
-        jle Ui8_FindCriminalRatingString_55A247
-// 0x55A237
-        push        864174h
-// 0x55A23C
-        mov         ecx,0C1B340h
-// 0x55A241
-        call Ui8_Bridge_006A0050
-// 0x55A246
-        ret
-Ui8_FindCriminalRatingString_55A247:
-        cmp         eax,0FFFFF060h
-// 0x55A24C
-        jle Ui8_FindCriminalRatingString_55A25E
-// 0x55A24E
-        push        86416Ch
-// 0x55A253
-        mov         ecx,0C1B340h
-// 0x55A258
-        call Ui8_Bridge_006A0050
-// 0x55A25D
-        ret
-Ui8_FindCriminalRatingString_55A25E:
-        cmp         eax,0FFFFE890h
-// 0x55A263
-        mov         ecx,0C1B340h
-// 0x55A268
-        jle Ui8_FindCriminalRatingString_55A275
-// 0x55A26A
-        push        864164h
-// 0x55A26F
-        call Ui8_Bridge_006A0050
-// 0x55A274
-        ret
-Ui8_FindCriminalRatingString_55A275:
-        push        86415Ch
-// 0x55A27A
-        call Ui8_Bridge_006A0050
-// 0x55A27F
-        ret
-Ui8_FindCriminalRatingString_55A280:
-        cmp         eax,14h
-// 0x55A283
-        jge Ui8_FindCriminalRatingString_55A295
-// 0x55A285
-        push        864154h
-// 0x55A28A
-        mov         ecx,0C1B340h
-// 0x55A28F
-        call Ui8_Bridge_006A0050
-// 0x55A294
-        ret
-Ui8_FindCriminalRatingString_55A295:
-        cmp         eax,32h
-// 0x55A298
-        jge Ui8_FindCriminalRatingString_55A2AA
-// 0x55A29A
-        push        86414Ch
-// 0x55A29F
-        mov         ecx,0C1B340h
-// 0x55A2A4
-        call Ui8_Bridge_006A0050
-// 0x55A2A9
-        ret
-Ui8_FindCriminalRatingString_55A2AA:
-        cmp         eax,4Bh
-// 0x55A2AD
-        jge Ui8_FindCriminalRatingString_55A2BF
-// 0x55A2AF
-        push        864144h
-// 0x55A2B4
-        mov         ecx,0C1B340h
-// 0x55A2B9
-        call Ui8_Bridge_006A0050
-// 0x55A2BE
-        ret
-Ui8_FindCriminalRatingString_55A2BF:
-        cmp         eax,64h
-// 0x55A2C2
-        jge Ui8_FindCriminalRatingString_55A2D4
-// 0x55A2C4
-        push        86413Ch
-// 0x55A2C9
-        mov         ecx,0C1B340h
-// 0x55A2CE
-        call Ui8_Bridge_006A0050
-// 0x55A2D3
-        ret
-Ui8_FindCriminalRatingString_55A2D4:
-        cmp         eax,78h
-// 0x55A2D7
-        jge Ui8_FindCriminalRatingString_55A2E9
-// 0x55A2D9
-        push        864134h
-// 0x55A2DE
-        mov         ecx,0C1B340h
-// 0x55A2E3
-        call Ui8_Bridge_006A0050
-// 0x55A2E8
-        ret
-Ui8_FindCriminalRatingString_55A2E9:
-        cmp         eax,96h
-// 0x55A2EE
-        jge Ui8_FindCriminalRatingString_55A300
-// 0x55A2F0
-        push        86412Ch
-// 0x55A2F5
-        mov         ecx,0C1B340h
-// 0x55A2FA
-        call Ui8_Bridge_006A0050
-// 0x55A2FF
-        ret
-Ui8_FindCriminalRatingString_55A300:
-        cmp         eax,0C8h
-// 0x55A305
-        jge Ui8_FindCriminalRatingString_55A317
-// 0x55A307
-        push        864124h
-// 0x55A30C
-        mov         ecx,0C1B340h
-// 0x55A311
-        call Ui8_Bridge_006A0050
-// 0x55A316
-        ret
-Ui8_FindCriminalRatingString_55A317:
-        cmp         eax,0F0h
-// 0x55A31C
-        jge Ui8_FindCriminalRatingString_55A32E
-// 0x55A31E
-        push        86411Ch
-// 0x55A323
-        mov         ecx,0C1B340h
-// 0x55A328
-        call Ui8_Bridge_006A0050
-// 0x55A32D
-        ret
-Ui8_FindCriminalRatingString_55A32E:
-        cmp         eax,10Eh
-// 0x55A333
-        jge Ui8_FindCriminalRatingString_55A345
-// 0x55A335
-        push        864114h
-// 0x55A33A
-        mov         ecx,0C1B340h
-// 0x55A33F
-        call Ui8_Bridge_006A0050
-// 0x55A344
-        ret
-Ui8_FindCriminalRatingString_55A345:
-        cmp         eax,12Ch
-// 0x55A34A
-        jge Ui8_FindCriminalRatingString_55A35C
-// 0x55A34C
-        push        86410Ch
-// 0x55A351
-        mov         ecx,0C1B340h
-// 0x55A356
-        call Ui8_Bridge_006A0050
-// 0x55A35B
-        ret
-Ui8_FindCriminalRatingString_55A35C:
-        cmp         eax,14Fh
-// 0x55A361
-        jge Ui8_FindCriminalRatingString_55A373
-// 0x55A363
-        push        864104h
-// 0x55A368
-        mov         ecx,0C1B340h
-// 0x55A36D
-        call Ui8_Bridge_006A0050
-// 0x55A372
-        ret
-Ui8_FindCriminalRatingString_55A373:
-        cmp         eax,172h
-// 0x55A378
-        jge Ui8_FindCriminalRatingString_55A38A
-// 0x55A37A
-        push        8640FCh
-// 0x55A37F
-        mov         ecx,0C1B340h
-// 0x55A384
-        call Ui8_Bridge_006A0050
-// 0x55A389
-        ret
-Ui8_FindCriminalRatingString_55A38A:
-        cmp         eax,190h
-// 0x55A38F
-        jge Ui8_FindCriminalRatingString_55A3A1
-// 0x55A391
-        push        8640F4h
-// 0x55A396
-        mov         ecx,0C1B340h
-// 0x55A39B
-        call Ui8_Bridge_006A0050
-// 0x55A3A0
-        ret
-Ui8_FindCriminalRatingString_55A3A1:
-        cmp         eax,1C2h
-// 0x55A3A6
-        jge Ui8_FindCriminalRatingString_55A3B8
-// 0x55A3A8
-        push        8640ECh
-// 0x55A3AD
-        mov         ecx,0C1B340h
-// 0x55A3B2
-        call Ui8_Bridge_006A0050
-// 0x55A3B7
-        ret
-Ui8_FindCriminalRatingString_55A3B8:
-        cmp         eax,1F4h
-// 0x55A3BD
-        jge Ui8_FindCriminalRatingString_55A3CF
-// 0x55A3BF
-        push        8640E4h
-// 0x55A3C4
-        mov         ecx,0C1B340h
-// 0x55A3C9
-        call Ui8_Bridge_006A0050
-// 0x55A3CE
-        ret
-Ui8_FindCriminalRatingString_55A3CF:
-        cmp         eax,226h
-// 0x55A3D4
-        jge Ui8_FindCriminalRatingString_55A3E6
-// 0x55A3D6
-        push        8640DCh
-// 0x55A3DB
-        mov         ecx,0C1B340h
-// 0x55A3E0
-        call Ui8_Bridge_006A0050
-// 0x55A3E5
-        ret
-Ui8_FindCriminalRatingString_55A3E6:
-        cmp         eax,258h
-// 0x55A3EB
-        jge Ui8_FindCriminalRatingString_55A3FD
-// 0x55A3ED
-        push        8640D4h
-// 0x55A3F2
-        mov         ecx,0C1B340h
-// 0x55A3F7
-        call Ui8_Bridge_006A0050
-// 0x55A3FC
-        ret
-Ui8_FindCriminalRatingString_55A3FD:
-        cmp         eax,262h
-// 0x55A402
-        jge Ui8_FindCriminalRatingString_55A414
-// 0x55A404
-        push        8640CCh
-// 0x55A409
-        mov         ecx,0C1B340h
-// 0x55A40E
-        call Ui8_Bridge_006A0050
-// 0x55A413
-        ret
-Ui8_FindCriminalRatingString_55A414:
-        cmp         eax,28Ah
-// 0x55A419
-        jge Ui8_FindCriminalRatingString_55A42B
-// 0x55A41B
-        push        8640C4h
-// 0x55A420
-        mov         ecx,0C1B340h
-// 0x55A425
-        call Ui8_Bridge_006A0050
-// 0x55A42A
-        ret
-Ui8_FindCriminalRatingString_55A42B:
-        cmp         eax,2BCh
-// 0x55A430
-        jge Ui8_FindCriminalRatingString_55A442
-// 0x55A432
-        push        8640BCh
-// 0x55A437
-        mov         ecx,0C1B340h
-// 0x55A43C
-        call Ui8_Bridge_006A0050
-// 0x55A441
-        ret
-Ui8_FindCriminalRatingString_55A442:
-        cmp         eax,352h
-// 0x55A447
-        jge Ui8_FindCriminalRatingString_55A459
-// 0x55A449
-        push        8640B4h
-// 0x55A44E
-        mov         ecx,0C1B340h
-// 0x55A453
-        call Ui8_Bridge_006A0050
-// 0x55A458
-        ret
-Ui8_FindCriminalRatingString_55A459:
-        cmp         eax,3E8h
-// 0x55A45E
-        jge Ui8_FindCriminalRatingString_55A470
-// 0x55A460
-        push        8640ACh
-// 0x55A465
-        mov         ecx,0C1B340h
-// 0x55A46A
-        call Ui8_Bridge_006A0050
-// 0x55A46F
-        ret
-Ui8_FindCriminalRatingString_55A470:
-        cmp         eax,3EDh
-// 0x55A475
-        jge Ui8_FindCriminalRatingString_55A487
-// 0x55A477
-        push        8640A4h
-// 0x55A47C
-        mov         ecx,0C1B340h
-// 0x55A481
-        call Ui8_Bridge_006A0050
-// 0x55A486
-        ret
-Ui8_FindCriminalRatingString_55A487:
-        cmp         eax,47Eh
-// 0x55A48C
-        jge Ui8_FindCriminalRatingString_55A49E
-// 0x55A48E
-        push        86409Ch
-// 0x55A493
-        mov         ecx,0C1B340h
-// 0x55A498
-        call Ui8_Bridge_006A0050
-// 0x55A49D
-        ret
-Ui8_FindCriminalRatingString_55A49E:
-        cmp         eax,514h
-// 0x55A4A3
-        jge Ui8_FindCriminalRatingString_55A4D3
-// 0x55A4A5
-        fild        dword ptr ds:[00B79034h]
-// 0x55A4AB
-        mov         ecx,0C1B340h
-// 0x55A4B0
-        fcomp       dword ptr ds:[00858B50h]
-// 0x55A4B6
-        fnstsw      ax
-// 0x55A4B8
-        test        ah,41h
-// 0x55A4BB
-        jne Ui8_FindCriminalRatingString_55A4C8
-// 0x55A4BD
-        push        864094h
-// 0x55A4C2
-        call Ui8_Bridge_006A0050
-// 0x55A4C7
-        ret
-Ui8_FindCriminalRatingString_55A4C8:
-        push        86409Ch
-// 0x55A4CD
-        call Ui8_Bridge_006A0050
-// 0x55A4D2
-        ret
-Ui8_FindCriminalRatingString_55A4D3:
-        cmp         eax,5DCh
-// 0x55A4D8
-        jge Ui8_FindCriminalRatingString_55A4EA
-// 0x55A4DA
-        push        86408Ch
-// 0x55A4DF
-        mov         ecx,0C1B340h
-// 0x55A4E4
-        call Ui8_Bridge_006A0050
-// 0x55A4E9
-        ret
-Ui8_FindCriminalRatingString_55A4EA:
-        cmp         eax,6A4h
-// 0x55A4EF
-        jge Ui8_FindCriminalRatingString_55A501
-// 0x55A4F1
-        push        864084h
-// 0x55A4F6
-        mov         ecx,0C1B340h
-// 0x55A4FB
-        call Ui8_Bridge_006A0050
-// 0x55A500
-        ret
-Ui8_FindCriminalRatingString_55A501:
-        cmp         eax,7D0h
-// 0x55A506
-        jge Ui8_FindCriminalRatingString_55A518
-// 0x55A508
-        push        86407Ch
-// 0x55A50D
-        mov         ecx,0C1B340h
-// 0x55A512
-        call Ui8_Bridge_006A0050
-// 0x55A517
-        ret
-Ui8_FindCriminalRatingString_55A518:
-        cmp         eax,834h
-// 0x55A51D
-        jge Ui8_FindCriminalRatingString_55A52F
-// 0x55A51F
-        push        864074h
-// 0x55A524
-        mov         ecx,0C1B340h
-// 0x55A529
-        call Ui8_Bridge_006A0050
-// 0x55A52E
-        ret
-Ui8_FindCriminalRatingString_55A52F:
-        cmp         eax,8FCh
-// 0x55A534
-        jge Ui8_FindCriminalRatingString_55A546
-// 0x55A536
-        push        86406Ch
-// 0x55A53B
-        mov         ecx,0C1B340h
-// 0x55A540
-        call Ui8_Bridge_006A0050
-// 0x55A545
-        ret
-Ui8_FindCriminalRatingString_55A546:
-        cmp         eax,9C4h
-// 0x55A54B
-        jge Ui8_FindCriminalRatingString_55A55D
-// 0x55A54D
-        push        864064h
-// 0x55A552
-        mov         ecx,0C1B340h
-// 0x55A557
-        call Ui8_Bridge_006A0050
-// 0x55A55C
-        ret
-Ui8_FindCriminalRatingString_55A55D:
-        cmp         eax,0ABEh
-// 0x55A562
-        jge Ui8_FindCriminalRatingString_55A574
-// 0x55A564
-        push        86405Ch
-// 0x55A569
-        mov         ecx,0C1B340h
-// 0x55A56E
-        call Ui8_Bridge_006A0050
-// 0x55A573
-        ret
-Ui8_FindCriminalRatingString_55A574:
-        cmp         eax,0BB8h
-// 0x55A579
-        jge Ui8_FindCriminalRatingString_55A58B
-// 0x55A57B
-        push        864054h
-// 0x55A580
-        mov         ecx,0C1B340h
-// 0x55A585
-        call Ui8_Bridge_006A0050
-// 0x55A58A
-        ret
-Ui8_FindCriminalRatingString_55A58B:
-        cmp         eax,0DACh
-// 0x55A590
-        jge Ui8_FindCriminalRatingString_55A5A2
-// 0x55A592
-        push        86404Ch
-// 0x55A597
-        mov         ecx,0C1B340h
-// 0x55A59C
-        call Ui8_Bridge_006A0050
-// 0x55A5A1
-        ret
-Ui8_FindCriminalRatingString_55A5A2:
-        cmp         eax,0FA0h
-// 0x55A5A7
-        jge Ui8_FindCriminalRatingString_55A5B9
-// 0x55A5A9
-        push        864044h
-// 0x55A5AE
-        mov         ecx,0C1B340h
-// 0x55A5B3
-        call Ui8_Bridge_006A0050
-// 0x55A5B8
-        ret
-Ui8_FindCriminalRatingString_55A5B9:
-        cmp         eax,1388h
-// 0x55A5BE
-        jge Ui8_FindCriminalRatingString_55A5D0
-// 0x55A5C0
-        push        86403Ch
-// 0x55A5C5
-        mov         ecx,0C1B340h
-// 0x55A5CA
-        call Ui8_Bridge_006A0050
-// 0x55A5CF
-        ret
-Ui8_FindCriminalRatingString_55A5D0:
-        cmp         eax,1D4Ch
-// 0x55A5D5
-        jge Ui8_FindCriminalRatingString_55A5E7
-// 0x55A5D7
-        push        864034h
-// 0x55A5DC
-        mov         ecx,0C1B340h
-// 0x55A5E1
-        call Ui8_Bridge_006A0050
-// 0x55A5E6
-        ret
-Ui8_FindCriminalRatingString_55A5E7:
-        cmp         eax,2710h
-// 0x55A5EC
-        jge Ui8_FindCriminalRatingString_55A5FE
-// 0x55A5EE
-        push        86402Ch
-// 0x55A5F3
-        mov         ecx,0C1B340h
-// 0x55A5F8
-        call Ui8_Bridge_006A0050
-// 0x55A5FD
-        ret
-Ui8_FindCriminalRatingString_55A5FE:
-        cmp         eax,4E20h
-// 0x55A603
-        jge Ui8_FindCriminalRatingString_55A615
-// 0x55A605
-        push        864024h
-// 0x55A60A
-        mov         ecx,0C1B340h
-// 0x55A60F
-        call Ui8_Bridge_006A0050
-// 0x55A614
-        ret
-Ui8_FindCriminalRatingString_55A615:
-        cmp         eax,7530h
-// 0x55A61A
-        jge Ui8_FindCriminalRatingString_55A62C
-// 0x55A61C
-        push        86401Ch
-// 0x55A621
-        mov         ecx,0C1B340h
-// 0x55A626
-        call Ui8_Bridge_006A0050
-// 0x55A62B
-        ret
-Ui8_FindCriminalRatingString_55A62C:
-        cmp         eax,9C40h
-// 0x55A631
-        jge Ui8_FindCriminalRatingString_55A643
-// 0x55A633
-        push        864014h
-// 0x55A638
-        mov         ecx,0C1B340h
-// 0x55A63D
-        call Ui8_Bridge_006A0050
-// 0x55A642
-        ret
-Ui8_FindCriminalRatingString_55A643:
-        cmp         eax,0C350h
-// 0x55A648
-        jge Ui8_FindCriminalRatingString_55A65A
-// 0x55A64A
-        push        86400Ch
-// 0x55A64F
-        mov         ecx,0C1B340h
-// 0x55A654
-        call Ui8_Bridge_006A0050
-// 0x55A659
-        ret
-Ui8_FindCriminalRatingString_55A65A:
-        cmp         eax,0FDE8h
-// 0x55A65F
-        jge Ui8_FindCriminalRatingString_55A671
-// 0x55A661
-        push        864004h
-// 0x55A666
-        mov         ecx,0C1B340h
-// 0x55A66B
-        call Ui8_Bridge_006A0050
-// 0x55A670
-        ret
-Ui8_FindCriminalRatingString_55A671:
-        cmp         eax,13880h
-// 0x55A676
-        jge Ui8_FindCriminalRatingString_55A688
-// 0x55A678
-        push        863FFCh
-// 0x55A67D
-        mov         ecx,0C1B340h
-// 0x55A682
-        call Ui8_Bridge_006A0050
-// 0x55A687
-        ret
-Ui8_FindCriminalRatingString_55A688:
-        cmp         eax,186A0h
-// 0x55A68D
-        jge Ui8_FindCriminalRatingString_55A69F
-// 0x55A68F
-        push        863FF4h
-// 0x55A694
-        mov         ecx,0C1B340h
-// 0x55A699
-        call Ui8_Bridge_006A0050
-// 0x55A69E
-        ret
-Ui8_FindCriminalRatingString_55A69F:
-        cmp         eax,249F0h
-// 0x55A6A4
-        jge Ui8_FindCriminalRatingString_55A6B6
-// 0x55A6A6
-        push        863FECh
-// 0x55A6AB
-        mov         ecx,0C1B340h
-// 0x55A6B0
-        call Ui8_Bridge_006A0050
-// 0x55A6B5
-        ret
-Ui8_FindCriminalRatingString_55A6B6:
-        cmp         eax,30D40h
-// 0x55A6BB
-        jge Ui8_FindCriminalRatingString_55A6CD
-// 0x55A6BD
-        push        863FE4h
-// 0x55A6C2
-        mov         ecx,0C1B340h
-// 0x55A6C7
-        call Ui8_Bridge_006A0050
-// 0x55A6CC
-        ret
-Ui8_FindCriminalRatingString_55A6CD:
-        cmp         eax,493E0h
-// 0x55A6D2
-        jge Ui8_FindCriminalRatingString_55A6E4
-// 0x55A6D4
-        push        863FDCh
-// 0x55A6D9
-        mov         ecx,0C1B340h
-// 0x55A6DE
-        call Ui8_Bridge_006A0050
-// 0x55A6E3
-        ret
-Ui8_FindCriminalRatingString_55A6E4:
-        cmp         eax,5B8D8h
-// 0x55A6E9
-        jge Ui8_FindCriminalRatingString_55A6FB
-// 0x55A6EB
-        push        863FD4h
-// 0x55A6F0
-        mov         ecx,0C1B340h
-// 0x55A6F5
-        call Ui8_Bridge_006A0050
-// 0x55A6FA
-        ret
-Ui8_FindCriminalRatingString_55A6FB:
-        cmp         eax,7A120h
-// 0x55A700
-        jge Ui8_FindCriminalRatingString_55A739
-// 0x55A702
-        fild        dword ptr ds:[00B790C4h]
-// 0x55A708
-        fmul        dword ptr ds:[00863FD0h]
-// 0x55A70E
-        fmul        dword ptr ds:[00859044h]
-// 0x55A714
-        call Ui8_Bridge_00821B40
-// 0x55A719
-        cmp         eax,0Ah
-// 0x55A71C
-        mov         ecx,0C1B340h
-// 0x55A721
-        jle Ui8_FindCriminalRatingString_55A72E
-// 0x55A723
-        push        863FC8h
-// 0x55A728
-        call Ui8_Bridge_006A0050
-// 0x55A72D
-        ret
-Ui8_FindCriminalRatingString_55A72E:
-        push        863FD4h
-// 0x55A733
-        call Ui8_Bridge_006A0050
-// 0x55A738
-        ret
-Ui8_FindCriminalRatingString_55A739:
-        cmp         eax,0F4240h
-// 0x55A73E
-        jl Ui8_FindCriminalRatingString_55A769
-// 0x55A740
-        movzx       eax,byte ptr ds:[00B7CD74h]
-// 0x55A747
-        imul        eax,eax,190h
-// 0x55A74D
-        cmp         dword ptr [eax+00B7CE54h],989680h
-// 0x55A757
-        jle Ui8_FindCriminalRatingString_55A769
-// 0x55A759
-        push        863FC0h
-// 0x55A75E
-        mov         ecx,0C1B340h
-// 0x55A763
-        call Ui8_Bridge_006A0050
-// 0x55A768
-        ret
-Ui8_FindCriminalRatingString_55A769:
-        push        863FB8h
-// 0x55A76E
-        mov         ecx,0C1B340h
-// 0x55A773
-        call Ui8_Bridge_006A0050
-// 0x55A778
-        ret
+namespace {
+// Cadena de umbrales de 0x55A280..0x55A739: el primero cuyo limite es mayor que el rating da la clave de texto (cmp eax,limite; jge siguiente).
+struct RatingStep {
+    int32       limit;
+    const char* key;
+    uint8       special; // 1: arrestos (B79034) decide entre RATNG25 y RATNG24; 2: minutos de vuelo (B790C4) deciden entre RATNG50 y RATNG49
+};
+constexpr RatingStep kRatingSteps[] = {
+    { 20, "RATNG1", 0 },
+    { 50, "RATNG2", 0 },
+    { 75, "RATNG3", 0 },
+    { 100, "RATNG4", 0 },
+    { 120, "RATNG5", 0 },
+    { 150, "RATNG6", 0 },
+    { 200, "RATNG7", 0 },
+    { 240, "RATNG8", 0 },
+    { 270, "RATNG9", 0 },
+    { 300, "RATNG10", 0 },
+    { 335, "RATNG11", 0 },
+    { 370, "RATNG12", 0 },
+    { 400, "RATNG13", 0 },
+    { 450, "RATNG14", 0 },
+    { 500, "RATNG15", 0 },
+    { 550, "RATNG16", 0 },
+    { 600, "RATNG17", 0 },
+    { 610, "RATNG18", 0 },
+    { 650, "RATNG19", 0 },
+    { 700, "RATNG20", 0 },
+    { 850, "RATNG21", 0 },
+    { 1000, "RATNG22", 0 },
+    { 1005, "RATNG23", 0 },
+    { 1150, "RATNG24", 0 },
+    { 1300, nullptr, 1 }, // 0x514: RATNG25 con arrestos (B79034 > 0), si no RATNG24
+    { 1500, "RATNG26", 0 },
+    { 1700, "RATNG27", 0 },
+    { 2000, "RATNG28", 0 },
+    { 2100, "RATNG29", 0 },
+    { 2300, "RATNG30", 0 },
+    { 2500, "RATNG31", 0 },
+    { 2750, "RATNG32", 0 },
+    { 3000, "RATNG33", 0 },
+    { 3500, "RATNG34", 0 },
+    { 4000, "RATNG35", 0 },
+    { 5000, "RATNG36", 0 },
+    { 7500, "RATNG37", 0 },
+    { 10000, "RATNG38", 0 },
+    { 20000, "RATNG39", 0 },
+    { 30000, "RATNG40", 0 },
+    { 40000, "RATNG41", 0 },
+    { 50000, "RATNG42", 0 },
+    { 65000, "RATNG43", 0 },
+    { 80000, "RATNG44", 0 },
+    { 100000, "RATNG45", 0 },
+    { 150000, "RATNG46", 0 },
+    { 200000, "RATNG47", 0 },
+    { 300000, "RATNG48", 0 },
+    { 375000, "RATNG49", 0 },
+    { 500000, nullptr, 2 }, // 0x7A120: RATNG50 si los minutos de vuelo (B790C4) son > 10, si no RATNG49
+};
+
+// Clave GXT para el rating (los textos RATNG* del EXE en 0x863FB8..0x86417C, ocho bytes cada uno).
+const char* RatingKey(int32 rating) {
+    if (rating < 0) { // 0x55A219..0x55A27F: rating > -500, -2000, -4000, -6000
+        if (rating > -500)  return "RATNG53";
+        if (rating > -2000) return "RATNG54";
+        if (rating > -4000) return "RATNG55";
+        if (rating > -6000) return "RATNG56";
+        return "RATNG57";
     }
+    for (const RatingStep& step : kRatingSteps) {
+        if (rating >= step.limit) {
+            continue;
+        }
+        if (step.special == 1) {
+            return IntStat(STAT_TIMES_BUSTED) > 0 ? "RATNG25" : "RATNG24"; // fild [0xB79034]; fcomp 0.0
+        }
+        if (step.special == 2) {
+            // fild [0xB790C4] * [0x863FD0] * [0x859044] -> _ftol2; cmp eax,10; jle
+            return StatsFlightMinutesCpp(IntStat(STAT_FLIGHT_TIME), ExeFloat(0x863FD0), ExeFloat(0x859044)) > 10 ? "RATNG50" : "RATNG49";
+        }
+        return step.key;
+    }
+    if (rating < 1000000) {
+        return "RATNG51";
+    }
+    // 0x55A740: movzx eax,[0xB7CD74]; imul eax,eax,0x190; cmp [eax+0xB7CE54],0x989680 (dinero mostrado del jugador en foco)
+    return CWorld::Players[CWorld::PlayerInFocus].m_nDisplayMoney > 10000000 ? "RATNG52" : "RATNG51";
 }
+}
+
+// Como el original: llama a FindCriminalRatingNumber (0x559080) y sale con un unico `call CText::Get(clave)` en la ultima posicion (ECX = TheText en cada
+// salida); sus EAX/ECX/EDX salen sin tocar, asi que no hace falta ayudante de residuo. Sin comprobaciones de ejecucion ni cookie de /GS.
+#pragma runtime_checks("", off)
+__declspec(safebuffers) GxtChar* CStats::FindCriminalRatingString() {
+    const int32 rating = FindCriminalRatingNumber();
+    const char* const key = RatingKey(rating);
+    return const_cast<GxtChar*>(TheText.Get(key));
+}
+#pragma runtime_checks("", restore)
 
 // 0x55A780
 int32 CStats::ConstructStatLine(int32 arg0, uint8 arg1) {
@@ -2209,8 +1007,94 @@ void CStats::UpdateRespectStat(uint8 arg0) {
 }
 
 // 0x55BF20
+namespace {
+// Como el original (0x55BF20..0x55C09C, 108 instrucciones). Dos mitades:
+//  - Aritmetica x87: va entera en X87Math (SexAppealHalfCpp, SexAppealNearCpp, SexAppealVehiclePartCpp, SexAppealFinishCpp); aqui no hay ninguna operacion
+//    float/double (Stats.cpp se compila con SSE: cada una cambiaria los MXCSR/FSW que el EXE deja). La comparacion que ramifica (fsqrt, fcomp [35.0f] y su
+//    `test ah,5; jp`) va DENTRO de SexAppealNearCpp: asi la pila x87 queda, tambien en sus registros vacios, como la deja el EXE (el banco compara el FNSAVE entero).
+//  - Colaboradores y residuo de registros: la funcion termina con `jmp 0x559760` (CheckForStatsMessage) y, como el original, le llegan el ECX/EDX con
+//    que los dejo la ultima instruccion que los escribio:
+//      * sin cache de vehiculo (mov ecx,[0xB79530] = 0; je 0x55C048): ECX = 0 y EDX = el que deja el primer FindPlayerVehicle (0x56E0D0);
+//      * distancia >= 35 o NaN (jp 0x55C048): los de FindPlayerCoors (0x56E010);
+//      * distancia < 35: ECX = movsx(modelo del vehiculo) y EDX = ms_modelInfoPtrs[ECX] (mov ecx,[0xB79530] ... movsx ecx,word [ecx+0x22]; mov edx,[ecx*4+0xA9B0C8]).
+//    Los de los colaboradores se capturan con StatsCaptureEcxEdxCpp justo despues de la llamada (como STATS_CAPTURE_REGS); EAX no hace falta: lo pisa CPad::GetPad.
+//    El segundo FindPlayerVehicle y RegisterReference nunca llegan al final: el ECX se recarga de la cache y el EDX lo pisa FindPlayerCoors o el modelo.
+#define STATS_SEX_APPEAL_CAPTURE(ecxv, edxv) \
+    if constexpr (kExe) { \
+        const uint64 capturedEcxEdx = reinterpret_cast<uint64(__fastcall*)()>(&StatsCaptureEcxEdxCpp)(); \
+        (ecxv) = static_cast<uint32>(capturedEcxEdx); \
+        (edxv) = static_cast<uint32>(capturedEcxEdx >> 32); \
+    }
+
+// Tabla de 11 bytes de 0x55C0B4 (movzx eax,byte [eax+0x55C0B4]) para la clase de vehiculo - 1 (0..10); el resto (ja 0x55C040) usa el indice 3. Indices del
+// salto de 0x55C0A4: 0 = x0.1f (0x55C038), 1 = sin factor (0x55C04C), 2 = x0.3f (0x55C030), 3 = x0.5f (0x55C040).
+constexpr uint8 kSexAppealFactorTable[11] = { 0, 1, 1, 2, 0, 2, 0, 3, 1, 2, 0 };
+
+#pragma runtime_checks("", off)
+template<bool kExe>
+__declspec(safebuffers) uint32 StatsSexAppealBody() {
+    // 0x55BF23: fld [0xB794C0] (STAT_APPEARANCE); fmul 0.5f; fstp [esp+0xC]. [esp+8] (la parte del vehiculo) vale 0.0f.
+    uint32 halfBits = 0;
+    SexAppealHalfCpp(CStats::StatTypesFloat.data()[STAT_APPEARANCE], &halfBits);
+    [[maybe_unused]] uint32 ecx = 0;
+    [[maybe_unused]] uint32 edx = 0;
+    CVehicle*& cache = *reinterpret_cast<CVehicle**>(0xB79530);                    // ultimo vehiculo del jugador (referencia registrada)
+
+    CVehicle* const vehicle = FindPlayerVehicle(-1, false);                        // 0x55BF3F: push 0; push -1; call 0x56E0D0
+    STATS_SEX_APPEAL_CAPTURE(ecx, edx);                                            // EDX/ECX de FindPlayerVehicle (llegan al final si no hay cache)
+    if (vehicle) {
+        CVehicle* const current = FindPlayerVehicle(-1, false);                    // 0x55BF4F: segunda llamada identica
+        cache = current;                                                            // mov [0xB79530],eax (antes del RegisterReference)
+        static_cast<CEntity*>(current)->RegisterReference(reinterpret_cast<CEntity**>(&cache)); // mov ecx,eax; push 0xB79530; call 0x571B70
+    }
+
+    CVehicle* const target = cache;                                                // 0x55BF68: mov ecx,[0xB79530]
+    double vehiclePart = 0.0;                                                      // [esp] = 0.0f (0x55C048: fld [esp])
+    if (!target) {                                                                 // 0x55BF70: je 0x55C048
+        ecx = 0;
+    } else {
+        // 0x55BF76: esi = matriz ? &matriz->pos (+0x30) : &placeable->pos (+4); el pop esi posterior deja ESI como estaba
+        const uintptr_t targetAddress = reinterpret_cast<uintptr_t>(target);
+        const uint32 matrix = *reinterpret_cast<const uint32*>(targetAddress + 0x14);
+        const float* const position = reinterpret_cast<const float*>(matrix ? static_cast<uintptr_t>(matrix) + 0x30u : targetAddress + 4u);
+        const CVector player = FindPlayerCoors(-1);                                // 0x55BF8B: push -1; push &tmp; call 0x56E010
+        STATS_SEX_APPEAL_CAPTURE(ecx, edx);                                        // ECX/EDX de FindPlayerCoors (llegan al final si la distancia no es < 35)
+        // 0x55BF90..0x55BFB9: fsqrt(dy*dy + dx*dx) sin redondear a float; fcomp [0x85F070] (35.0f); fnstsw ax; test ah,5; jp 0x55C048
+        if (SexAppealNearCpp(position, &player.x) != 0) {                          // solo sigue con distancia < 35 (NaN y >= 35 saltan)
+            // 0x55BFBF: mov ecx,[0xB79530] (se relee; no cambia); salud = [ecx+0x4C0]; modelo = movsx word [ecx+0x22]
+            const uintptr_t currentAddress = reinterpret_cast<uintptr_t>(cache);
+            const float health = *reinterpret_cast<const float*>(currentAddress + 0x4C0);
+            const int32 modelId = static_cast<int16>(*reinterpret_cast<const uint16*>(currentAddress + 0x22));      // movsx ecx,word [ecx+0x22]
+            const uint32 modelInfo = reinterpret_cast<const uint32*>(0xA9B0C8)[modelId];                           // mov edx,[ecx*4+0xA9B0C8] (sin comprobar el rango)
+            const int32 vehicleClass = *reinterpret_cast<const int8*>(static_cast<uintptr_t>(modelInfo) + 0x4D);   // movsx eax,byte [edx+0x4D]
+            const uint32 classIndex = static_cast<uint32>(vehicleClass) - 1u;                                       // dec eax; cmp eax,0Ah; ja 0x55C040
+            const uint32 factorIndex = classIndex > 10u ? 3u : kSexAppealFactorTable[classIndex];
+            vehiclePart = SexAppealVehiclePartCpp(health, factorIndex);
+            ecx = static_cast<uint32>(modelId);
+            edx = modelInfo;
+        }
+    }
+    // 0x55C04C: x0.5f + mitad de la apariencia, limites [0, 1000], cheat (byte 0x969180 = CHEAT_MAX_SEX_APPEAL) -> 1000; fstp [0xB793E4] (STAT_SEX_APPEAL)
+    SexAppealFinishCpp(vehiclePart, halfBits, ExeByte(0x969180) != 0 ? 1u : 0u);
+
+    // 0x55C09C: jmp 0x559760
+    if constexpr (kExe) {
+        return StatsCheckForStatsMessageExe(ecx, edx);
+    } else {
+        CStats::CheckForStatsMessage();
+        return 0;
+    }
+}
+
+// Hook de 0x55BF20: sin argumentos. El llamador (CGameLogic::Update, 0x442ADF) no lee ningun registro; ECX/EDX los fija la cola a CheckForStatsMessage.
+uint32 __declspec(safebuffers) __cdecl StatsUpdateSexAppealStatExe() {
+    return StatsSexAppealBody<true>();
+}
+#pragma runtime_checks("", restore)
+}
+
 void CStats::UpdateSexAppealStat() {
-    plugin::Call<0x55BF20>();
+    StatsSexAppealBody<false>();
 }
 
 // 0x55C180
@@ -2289,266 +1173,72 @@ void CStats::IncrementStat(eStats stat, float value)
 }
 
 // 0x55C470
-
 namespace {
-__declspec(naked) void VehicleStats10Increment() { __asm { push 00055C180h } __asm { ret } }
-__declspec(naked) void VehicleStats10Display() { __asm { push 00055B980h } __asm { ret } }
-__declspec(naked) void VehicleStats10Ftol() { __asm { push 000821B40h } __asm { ret } }
-__declspec(naked) void VehicleStats10CheckMessage() { __asm { push 000559760h } __asm { ret } }
-__declspec(naked) void VehicleStats10FatMuscle() { __asm { push 00055C470h } __asm { ret } }
-__declspec(naked) void VehicleStats10SkillIndex() { __asm { push 000743CD0h } __asm { ret } }
-__declspec(naked) void VehicleStats10Coop() { __asm { push 000441390h } __asm { ret } }
+// Como el original (0x55C470..0x55C65A). Las dos salidas (`pop ecx; ret`) dejan ECX = el de entrada: la primera tras DisplayScriptStatUpdateMessage
+// (EAX/EDX = los del colaborador, capturados con StatsDisplayRegs) y la segunda tras _ftol2 (EAX/EDX de StatsStepMsRegsCpp). Ninguna lee AX.
+#pragma runtime_checks("", off)
+template<bool kExe>
+__declspec(safebuffers) uint32 __fastcall StatsFatAndMuscleBody(uint32 entryEcx, uint32 entryEdx, uint32 value) {
+    float* const reaction = CStats::StatReactionValue.data();
+    float* const stats = CStats::StatTypesFloat.data();
+    uint8& messageState = *reinterpret_cast<uint8*>(0xB79534); // estado de los mensajes de grasa/musculo
+
+    // fild [0xB794FC] (+2^32 si el bit alto esta puesto); fld [0xB78FB8]; fmul 1000.0f; fcompp; jp 0x55C5B1
+    if (reaction[STAT_TIMELIMIT_FAT_ADJUST] * 1000.0f < CounterAsX87(CStats::m_FatCounter)) {
+        CStats::m_FatCounter = 0;
+        if (stats[STAT_FAT] > 0.0f) {                                    // 0x55C4AF: fcomp 0.0; jne 0x55C556
+            const float decFat = reaction[STAT_DEC_FAT];                 // [0xB78F6C]
+            if (decFat > 0.0f) {                                         // 0x55C4C6
+                const float lowered = stats[STAT_FAT] - decFat;          // 0x55C4D3: fcom 0.0; je (> 0): conserva; si no, 0
+                stats[STAT_FAT] = lowered > 0.0f ? lowered : 0.0f;
+                CStats::CheckForStatsMessage();
+            }
+            CStats::IncrementStat(STAT_MUSCLE, reaction[STAT_INC_BODY_MUSCLE]);          // push [0xB78F34]; push 0x17
+            if (messageState == 1) {
+                messageState = 2;
+                CStats::DisplayScriptStatUpdateMessage(STAT_UPDATE_INCREASE, STAT_MUSCLE, reaction[STAT_INC_BODY_MUSCLE]);
+            } else {
+                messageState = 1;
+                CStats::DisplayScriptStatUpdateMessage(STAT_UPDATE_DECREASE, STAT_FAT, reaction[STAT_DEC_FAT]);
+            }
+        } else {                                                         // 0x55C556
+            const float decMuscle = reaction[STAT_DEC_BODY_MUSCLE];      // [0xB78F70]
+            if (decMuscle > 0.0f) {
+                const float lowered = stats[STAT_MUSCLE] - decMuscle;
+                stats[STAT_MUSCLE] = lowered > 0.0f ? lowered : 0.0f;
+                CStats::CheckForStatsMessage();
+            }
+            messageState = 3;
+            CStats::DisplayScriptStatUpdateMessage(STAT_UPDATE_DECREASE, STAT_MUSCLE, reaction[STAT_DEC_BODY_MUSCLE]);
+        }
+    } else {                                                             // 0x55C5B1: ftol(paso * 0.02f * 1000.0f) * value / 10 sin signo
+        const uint32 ticks = static_cast<uint32>(TimeStepMsInt());
+        CStats::m_FatCounter += (ticks * value) / 10u;                   // imul edx,[esp+8]; mul 0xCCCCCCCD; shr edx,3
+    }
+
+    // 0x55C5E5: contador de salud maxima
+    if (reaction[STAT_TIMELIMIT_MAX_HEALTH] * 1000.0f < CounterAsX87(CStats::m_MaxHealthCounter)) {
+        CStats::IncrementStat(STAT_MAX_HEALTH, reaction[STAT_INC_MAX_HEALTH]);
+        const uint64 display = StatsDisplayRegs<kExe>(STAT_UPDATE_INCREASE, STAT_MAX_HEALTH, reaction[STAT_INC_MAX_HEALTH]);
+        CStats::m_MaxHealthCounter = 0;
+        STATS_EXIT(entryEcx, static_cast<uint32>(display >> 32), static_cast<uint32>(display)); // pop ecx; ret
+    }
+    // 0x55C63C
+    const Ftol2Regs ftol = StatsStepMsRegsCpp(CTimer::GetTimeStep(), entryEcx);
+    CStats::m_MaxHealthCounter += ftol.eax;                              // add [0xB7950C],eax
+    STATS_EXIT(entryEcx, ftol.edx, ftol.eax);                            // pop ecx; ret
 }
 
-__declspec(naked) void CStats::UpdateFatAndMuscleStats(uint32 value) {
-    __asm {
-        // 0x55C470
-        push ecx
-        // 0x55C471
-        mov eax,dword ptr ds:[000B794FCh]
-        // 0x55C476
-        fild dword ptr ds:[000B794FCh]
-        // 0x55C47C
-        test eax,eax
-        // 0x55C47E
-        jge VehicleStats10_UpdateFatAndMuscleStats_55C486
-        // 0x55C480
-        fadd dword ptr ds:[000858C54h]
-VehicleStats10_UpdateFatAndMuscleStats_55C486:
-        fld dword ptr ds:[000B78FB8h]
-        // 0x55C48C
-        fmul dword ptr ds:[000858C4Ch]
-        // 0x55C492
-        fcompp
-        // 0x55C494
-        fnstsw ax
-        // 0x55C496
-        test ah,5
-        // 0x55C499
-        jp VehicleStats10_UpdateFatAndMuscleStats_55C5B1
-        // 0x55C49F
-        fld dword ptr ds:[000B793D4h]
-        // 0x55C4A5
-        mov dword ptr ds:[000B794FCh],0
-        // 0x55C4AF
-        fcomp dword ptr ds:[000858B50h]
-        // 0x55C4B5
-        fnstsw ax
-        // 0x55C4B7
-        test ah,041h
-        // 0x55C4BA
-        jne VehicleStats10_UpdateFatAndMuscleStats_55C556
-        // 0x55C4C0
-        fld dword ptr ds:[000B78F6Ch]
-        // 0x55C4C6
-        fcomp dword ptr ds:[000858B50h]
-        // 0x55C4CC
-        fnstsw ax
-        // 0x55C4CE
-        test ah,041h
-        // 0x55C4D1
-        jne VehicleStats10_UpdateFatAndMuscleStats_55C4FF
-        // 0x55C4D3
-        fld dword ptr ds:[000B793D4h]
-        // 0x55C4D9
-        fsub dword ptr ds:[000B78F6Ch]
-        // 0x55C4DF
-        fcom dword ptr ds:[000858B50h]
-        // 0x55C4E5
-        fnstsw ax
-        // 0x55C4E7
-        test ah,041h
-        // 0x55C4EA
-        je VehicleStats10_UpdateFatAndMuscleStats_55C4F4
-        // 0x55C4EC
-        fstp st(0)
-        // 0x55C4EE
-        fld dword ptr ds:[000858B50h]
-VehicleStats10_UpdateFatAndMuscleStats_55C4F4:
-        fstp dword ptr ds:[000B793D4h]
-        // 0x55C4FA
-        call VehicleStats10CheckMessage
-VehicleStats10_UpdateFatAndMuscleStats_55C4FF:
-        mov ecx,dword ptr ds:[000B78F34h]
-        // 0x55C505
-        push ecx
-        // 0x55C506
-        push 017h
-        // 0x55C508
-        call VehicleStats10Increment
-        // 0x55C50D
-        mov al,byte ptr ds:[000B79534h]
-        // 0x55C512
-        add esp,8
-        // 0x55C515
-        cmp al,1
-        // 0x55C517
-        jne VehicleStats10_UpdateFatAndMuscleStats_55C537
-        // 0x55C519
-        mov eax,dword ptr ds:[000B78F34h]
-        // 0x55C51E
-        push eax
-        // 0x55C51F
-        push 017h
-        // 0x55C521
-        push 1
-        // 0x55C523
-        mov byte ptr ds:[000B79534h],2
-        // 0x55C52A
-        call VehicleStats10Display
-        // 0x55C52F
-        add esp,00Ch
-        // 0x55C532
-        jmp VehicleStats10_UpdateFatAndMuscleStats_55C5E5
-VehicleStats10_UpdateFatAndMuscleStats_55C537:
-        mov edx,dword ptr ds:[000B78F6Ch]
-        // 0x55C53D
-        push edx
-        // 0x55C53E
-        push 015h
-        // 0x55C540
-        push 0
-        // 0x55C542
-        mov byte ptr ds:[000B79534h],1
-        // 0x55C549
-        call VehicleStats10Display
-        // 0x55C54E
-        add esp,00Ch
-        // 0x55C551
-        jmp VehicleStats10_UpdateFatAndMuscleStats_55C5E5
-VehicleStats10_UpdateFatAndMuscleStats_55C556:
-        fld dword ptr ds:[000B78F70h]
-        // 0x55C55C
-        fcomp dword ptr ds:[000858B50h]
-        // 0x55C562
-        fnstsw ax
-        // 0x55C564
-        test ah,041h
-        // 0x55C567
-        jne VehicleStats10_UpdateFatAndMuscleStats_55C595
-        // 0x55C569
-        fld dword ptr ds:[000B793DCh]
-        // 0x55C56F
-        fsub dword ptr ds:[000B78F70h]
-        // 0x55C575
-        fcom dword ptr ds:[000858B50h]
-        // 0x55C57B
-        fnstsw ax
-        // 0x55C57D
-        test ah,041h
-        // 0x55C580
-        je VehicleStats10_UpdateFatAndMuscleStats_55C58A
-        // 0x55C582
-        fstp st(0)
-        // 0x55C584
-        fld dword ptr ds:[000858B50h]
-VehicleStats10_UpdateFatAndMuscleStats_55C58A:
-        fstp dword ptr ds:[000B793DCh]
-        // 0x55C590
-        call VehicleStats10CheckMessage
-VehicleStats10_UpdateFatAndMuscleStats_55C595:
-        mov ecx,dword ptr ds:[000B78F70h]
-        // 0x55C59B
-        push ecx
-        // 0x55C59C
-        push 017h
-        // 0x55C59E
-        push 0
-        // 0x55C5A0
-        mov byte ptr ds:[000B79534h],3
-        // 0x55C5A7
-        call VehicleStats10Display
-        // 0x55C5AC
-        add esp,00Ch
-        // 0x55C5AF
-        jmp VehicleStats10_UpdateFatAndMuscleStats_55C5E5
-VehicleStats10_UpdateFatAndMuscleStats_55C5B1:
-        fld dword ptr ds:[000B7CB5Ch]
-        // 0x55C5B7
-        fmul dword ptr ds:[000858B38h]
-        // 0x55C5BD
-        fmul dword ptr ds:[000858C4Ch]
-        // 0x55C5C3
-        call VehicleStats10Ftol
-        // 0x55C5C8
-        mov edx,eax
-        // 0x55C5CA
-        imul edx,dword ptr [esp+8]
-        // 0x55C5CF
-        mov eax,00CCCCCCCDh
-        // 0x55C5D4
-        mul edx
-        // 0x55C5D6
-        mov eax,dword ptr ds:[000B794FCh]
-        // 0x55C5DB
-        shr edx,3
-        // 0x55C5DE
-        add eax,edx
-        // 0x55C5E0
-        mov dword ptr ds:[000B794FCh],eax
-VehicleStats10_UpdateFatAndMuscleStats_55C5E5:
-        mov eax,dword ptr ds:[000B7950Ch]
-        // 0x55C5EA
-        fild dword ptr ds:[000B7950Ch]
-        // 0x55C5F0
-        test eax,eax
-        // 0x55C5F2
-        jge VehicleStats10_UpdateFatAndMuscleStats_55C5FA
-        // 0x55C5F4
-        fadd dword ptr ds:[000858C54h]
-VehicleStats10_UpdateFatAndMuscleStats_55C5FA:
-        fld dword ptr ds:[000B78FC4h]
-        // 0x55C600
-        fmul dword ptr ds:[000858C4Ch]
-        // 0x55C606
-        fcompp
-        // 0x55C608
-        fnstsw ax
-        // 0x55C60A
-        test ah,5
-        // 0x55C60D
-        jp VehicleStats10_UpdateFatAndMuscleStats_55C63C
-        // 0x55C60F
-        mov ecx,dword ptr ds:[000B78F3Ch]
-        // 0x55C615
-        push ecx
-        // 0x55C616
-        push 018h
-        // 0x55C618
-        call VehicleStats10Increment
-        // 0x55C61D
-        mov edx,dword ptr ds:[000B78F3Ch]
-        // 0x55C623
-        push edx
-        // 0x55C624
-        push 018h
-        // 0x55C626
-        push 1
-        // 0x55C628
-        call VehicleStats10Display
-        // 0x55C62D
-        add esp,014h
-        // 0x55C630
-        mov dword ptr ds:[000B7950Ch],0
-        // 0x55C63A
-        pop ecx
-        // 0x55C63B
-        ret
-VehicleStats10_UpdateFatAndMuscleStats_55C63C:
-        fld dword ptr ds:[000B7CB5Ch]
-        // 0x55C642
-        fmul dword ptr ds:[000858B38h]
-        // 0x55C648
-        fmul dword ptr ds:[000858C4Ch]
-        // 0x55C64E
-        call VehicleStats10Ftol
-        // 0x55C653
-        add dword ptr ds:[000B7950Ch],eax
-        // 0x55C659
-        pop ecx
-        // 0x55C65A
-        ret
-    }
+// Hook de 0x55C470: cdecl con un argumento en la pila ([esp+4] = value); ECX/EDX de entrada por registro.
+uint32 __declspec(safebuffers) __fastcall StatsUpdateFatAndMuscleStatsExe(uint32 entryEcx, uint32 entryEdx) {
+    const uint32 value = static_cast<const uint32*>(_AddressOfReturnAddress())[1];
+    return StatsFatAndMuscleBody<true>(entryEcx, entryEdx, value);
+}
+#pragma runtime_checks("", restore)
+}
+
+void CStats::UpdateFatAndMuscleStats(uint32 value) {
+    StatsFatAndMuscleBody<false>(0u, 0u, value);
 }
 
 // 0x55C660
@@ -2578,871 +1268,331 @@ void CStats::UpdateStatsWhenRunning() {
 }
 
 // 0x55C780
-
 namespace {
-__declspec(naked) void VehicleStats11Fat() { __asm { push 00055C470h } __asm { ret } }
-__declspec(naked) void VehicleStats11Increment() { __asm { push 00055C180h } __asm { ret } }
-__declspec(naked) void VehicleStats11Display() { __asm { push 00055B980h } __asm { ret } }
-__declspec(naked) void VehicleStats11Ftol() { __asm { push 000821B40h } __asm { ret } }
-__declspec(naked) void VehicleStats11Ceil() { __asm { push 000823820h } __asm { ret } }
+// Como el original (0x55C780..0x55C98C). La primera parte (tasa de ejercicio) y la segunda (habilidad) dejan EAX/ECX/EDX en cada colaborador
+// (UpdateFatAndMuscleStats, _ftol2, DisplayScriptStatUpdateMessage). Las salidas son:
+//  - Display de la habilidad (0x55C89B..0x55C8A0): la llamada va en ultima posicion y sus registros salen sin tocar (pop esi; pop ebx; ret).
+//  - rama del techo (0x55C97F..0x55C987): EAX = ftol(ceil(paso * multiplicador)), ECX = contador + EAX, EDX de _ftol2.
+//  - salida por velocidad (0x55C98A): EAX = parte alta del contador de habilidad + AX de la ultima comparacion (TOP = 6 y banderas
+//    acumuladas de las operaciones x87 de esta llamada, que se repiten aqui con StatsSpeedSumSqCpp/StatsCompareDblDblAxCpp), ECX/EDX = los que
+//    dejo la primera parte (ftol de la tasa); si en la primera parte hubo Display, su ECX no es calculable y se supone conservado (ver informe).
+// El segundo argumento (puntero al BMX) se sobrescribe con el tick truncado en la rama del techo (mov [esp+10h],eax): `bmxSlot` es ese hueco.
+#pragma runtime_checks("", off)
+template<bool kExe>
+__declspec(safebuffers) uint32 __fastcall StatsCyclingBody(uint32 entryEcx, uint32 entryEdx, uint32 sprintArgument, volatile uint32* bmxSlot) {
+    float* const reaction = CStats::StatReactionValue.data();
+    const uint8     sprint = static_cast<uint8>(sprintArgument);       // mov bl,[esp+8]
+    const uintptr_t bmx    = *bmxSlot;                                 // mov esi,[esp+0x10]
+    uint32 ecx = entryEcx;
+    uint32 edx = entryEdx;
+
+    // 0x55C78A: fld [bmx+0x49C]; fabs; fcomp 0.0; fnstsw ax; test ah,41h; je (> 0)
+    const uint32 axSteer = StatsAbsVsZeroAxCpp(*reinterpret_cast<const float*>(bmx + 0x49C));
+    bool  exercise = true;
+    float rate     = 0.0f;
+    if (AhJe(axSteer, 0x41)) {
+        rate = sprint != 0 ? reaction[STAT_EXERCISE_RATE_CYCLE_SPRINT] : reaction[STAT_EXERCISE_RATE_CYCLE]; // [0xB78F7C] : [0xB78F78]
+    } else if (sprint != 0) {
+        rate = reaction[STAT_EXERCISE_RATE_CYCLE_SPRINT];
+    } else {
+        exercise = false;                                              // je 0x55C843
+    }
+    if (exercise) {
+        // call _ftol2; push eax; call 0x55C470: _ftol2 deja ECX/EDX y 0x55C470 sale con el ECX con que se la llama (pop ecx).
+        const Ftol2Regs rateRegs = Ftol2RegsCpp(rate, ecx);
+        ecx = rateRegs.ecx;
+        edx = rateRegs.edx;
+        CStats::UpdateFatAndMuscleStats(rateRegs.eax);
+        const double counter = StatsCounterX87Cpp(CStats::m_CycleStaminaCounter);   // fild [0xB794DC] (+2^32)
+        const double limit   = StatsScaledLimitCpp(reaction[STAT_TIMELIMIT_CYCLE_STAMINA]); // fld [0xB78F94]; fmul 1000.0f
+        const uint32 ax      = StatsCompareDblDblAxCpp(limit, counter, 0);          // fcompp; fnstsw ax
+        if (!AhJp(ax, 0x05)) {
+            CStats::m_CycleStaminaCounter = 0;
+            CStats::IncrementStat(STAT_STAMINA, reaction[STAT_INC_CYCLE_STAMINA]);
+            const float shown = reaction[STAT_INC_CYCLE_STAMINA];
+            ecx = std::bit_cast<uint32>(shown);                                     // mov ecx,[0xB78F10]: el ECX con que se llega a Display
+            const uint64 display = StatsDisplayEcxEdx<kExe>(STAT_UPDATE_INCREASE, STAT_STAMINA, shown);
+            if constexpr (kExe) {                                                   // Display sale con el ECX/EDX de su propio cuerpo
+                ecx = static_cast<uint32>(display);
+                edx = static_cast<uint32>(display >> 32);
+            }
+        } else {
+            const Ftol2Regs ftol = StatsStepMsRegsCpp(CTimer::GetTimeStep(), ecx);  // 0x55C826
+            CStats::m_CycleStaminaCounter += ftol.eax;
+            ecx = ftol.ecx;
+            edx = ftol.edx;
+        }
+    }
+
+    // 0x55C843: mov eax,[0xB794E0]; fild [0xB794E0]; fld [0xB78FAC]; fmul 1000.0f; fcompp; test ah,5; jp 0x55C8A1
+    const uint32 skillCounter = CStats::m_CycleSkillCounter;
+    const uint32 skillHigh    = skillCounter & 0xFFFF0000u;
+    const double skillLimit   = StatsScaledLimitCpp(reaction[STAT_TIMELIMIT_CYCLE_SKILL]);
+    const uint32 axSkill      = StatsCompareDblDblAxCpp(skillLimit, StatsCounterX87Cpp(skillCounter), 0);
+    if (!AhJp(axSkill, 0x05)) {
+        CStats::m_CycleSkillCounter = 0;
+        CStats::IncrementStat(STAT_CYCLING_SKILL, reaction[STAT_INC_CYCLE_SKILL]);
+        if constexpr (kExe) {   // call Display; add esp,0x14; pop esi; pop ebx; ret: los registros del colaborador salen sin tocar
+            return reinterpret_cast<uint32(__cdecl*)(eStatUpdateState, eStats, float)>(&CStats::DisplayScriptStatUpdateMessage)(STAT_UPDATE_INCREASE, STAT_CYCLING_SKILL, reaction[STAT_INC_CYCLE_SKILL]);
+        } else {
+            CStats::DisplayScriptStatUpdateMessage(STAT_UPDATE_INCREASE, STAT_CYCLING_SKILL, reaction[STAT_INC_CYCLE_SKILL]);
+            return 0;
+        }
+    }
+
+    // 0x55C8A1: velocidad al cuadrado del BMX ([bmx+0x44..0x4C]) contra 0.05^2 (si [bmx+0x804] < 2) y contra 0.2^2
+    const float* const velocity = reinterpret_cast<const float*>(bmx + 0x44);
+    float multiplier = 0.0f;
+    bool  moving     = false;
+    if (*reinterpret_cast<const uint8*>(bmx + 0x804) < 2) {
+        const double lowSquare = StatsSquareCpp(ExeFloat(0x863E58));                 // 0.05f
+        const uint32 axLow     = StatsCompareDblDblAxCpp(lowSquare, StatsSpeedSumSqCpp(velocity), 2);
+        if (!AhJp(axLow, 0x05)) {
+            multiplier = ExeFloat(0x863E64);                                         // 3.0f
+            moving     = true;
+        }
+    }
+    if (!moving) {                                                                   // 0x55C8E6
+        const double square  = StatsSquareCpp(ExeFloat(0x863E54));                   // 0.2f
+        const uint32 axSpeed = StatsCompareDblDblAxCpp(square, StatsSpeedSumSqCpp(velocity), 2);
+        if (AhJp(axSpeed, 0x05)) {                                                   // jp 0x55C98A: pop esi; pop ebx; ret
+            STATS_EXIT(ecx, edx, skillHigh | (axSpeed & 0xFFFFu));
+        }
+        multiplier = sprint != 0 ? ExeFloat(0x863E60) : ExeFloat(0x863E5C);          // 1.5f : 1.0f
+    }
+    // 0x55C92C: fcom 0.0; fnstsw ax; test ah,41h; jne 0x55C988 (los multiplicadores son constantes positivas: no se toma)
+    const uint32 axMultiplier = StatsCompareFltFltAxCpp(multiplier, 0.0f, 1);
+    if (!AhJe(axMultiplier, 0x41)) {
+        STATS_EXIT(ecx, edx, skillHigh | (axMultiplier & 0xFFFFu));
+    }
+    // 0x55C939: ticks = ftol(paso * 0.02f * 1000.0f) guardados en el hueco del argumento; ftol(ceil(ticks * multiplicador))
+    const Ftol2Regs ticksRegs = StatsStepMsRegsCpp(CTimer::GetTimeStep(), ecx);
+    *bmxSlot = ticksRegs.eax;                                                        // mov [esp+0x10],eax
+    const Ftol2Regs ceilRegs  = StatsCeilRegsCpp(static_cast<int32>(ticksRegs.eax), multiplier, ticksRegs.ecx);
+    const uint32 newCounter   = CStats::m_CycleSkillCounter + ceilRegs.eax;          // mov ecx,[0xB794E0]; add ecx,eax
+    CStats::m_CycleSkillCounter = newCounter;
+    STATS_EXIT(newCounter, ceilRegs.edx, ceilRegs.eax);                              // pop esi; mov [0xB794E0],ecx; pop ebx; ret
 }
 
-__declspec(naked) void CStats::UpdateStatsWhenCycling(bool arg0, CBmx* bmx) {
-    __asm {
-        // 0x55C780
-        push ebx
-        // 0x55C781
-        mov bl,byte ptr [esp+8]
-        // 0x55C785
-        push esi
-        // 0x55C786
-        mov esi,dword ptr [esp+010h]
-        // 0x55C78A
-        fld dword ptr [esi+00000049Ch]
-        // 0x55C790
-        fabs
-        // 0x55C792
-        fcomp dword ptr ds:[000858B50h]
-        // 0x55C798
-        fnstsw ax
-        // 0x55C79A
-        test ah,041h
-        // 0x55C79D
-        je VehicleStats11_Cycling_55C7AF
-        // 0x55C79F
-        test bl,bl
-        // 0x55C7A1
-        je VehicleStats11_Cycling_55C843
-        // 0x55C7A7
-        fld dword ptr ds:[000B78F7Ch]
-        // 0x55C7AD
-        jmp VehicleStats11_Cycling_55C7C1
-VehicleStats11_Cycling_55C7AF:
-        test bl,bl
-        // 0x55C7B1
-        je VehicleStats11_Cycling_55C7BB
-        // 0x55C7B3
-        fld dword ptr ds:[000B78F7Ch]
-        // 0x55C7B9
-        jmp VehicleStats11_Cycling_55C7C1
-VehicleStats11_Cycling_55C7BB:
-        fld dword ptr ds:[000B78F78h]
-VehicleStats11_Cycling_55C7C1:
-        call VehicleStats11Ftol
-        // 0x55C7C6
-        push eax
-        // 0x55C7C7
-        call VehicleStats11Fat
-        // 0x55C7CC
-        fild dword ptr ds:[000B794DCh]
-        // 0x55C7D2
-        mov eax,dword ptr ds:[000B794DCh]
-        // 0x55C7D7
-        add esp,4
-        // 0x55C7DA
-        test eax,eax
-        // 0x55C7DC
-        jge VehicleStats11_Cycling_55C7E4
-        // 0x55C7DE
-        fadd dword ptr ds:[000858C54h]
-VehicleStats11_Cycling_55C7E4:
-        fld dword ptr ds:[000B78F94h]
-        // 0x55C7EA
-        fmul dword ptr ds:[000858C4Ch]
-        // 0x55C7F0
-        fcompp
-        // 0x55C7F2
-        fnstsw ax
-        // 0x55C7F4
-        test ah,5
-        // 0x55C7F7
-        jp VehicleStats11_Cycling_55C826
-        // 0x55C7F9
-        mov ecx,dword ptr ds:[000B78F10h]
-        // 0x55C7FF
-        push ecx
-        // 0x55C800
-        push 016h
-        // 0x55C802
-        mov dword ptr ds:[000B794DCh],0
-        // 0x55C80C
-        call VehicleStats11Increment
-        // 0x55C811
-        mov edx,dword ptr ds:[000B78F10h]
-        // 0x55C817
-        push edx
-        // 0x55C818
-        push 016h
-        // 0x55C81A
-        push 1
-        // 0x55C81C
-        call VehicleStats11Display
-        // 0x55C821
-        add esp,014h
-        // 0x55C824
-        jmp VehicleStats11_Cycling_55C843
-VehicleStats11_Cycling_55C826:
-        fld dword ptr ds:[000B7CB5Ch]
-        // 0x55C82C
-        fmul dword ptr ds:[000858B38h]
-        // 0x55C832
-        fmul dword ptr ds:[000858C4Ch]
-        // 0x55C838
-        call VehicleStats11Ftol
-        // 0x55C83D
-        add dword ptr ds:[000B794DCh],eax
-VehicleStats11_Cycling_55C843:
-        mov eax,dword ptr ds:[000B794E0h]
-        // 0x55C848
-        fild dword ptr ds:[000B794E0h]
-        // 0x55C84E
-        test eax,eax
-        // 0x55C850
-        jge VehicleStats11_Cycling_55C858
-        // 0x55C852
-        fadd dword ptr ds:[000858C54h]
-VehicleStats11_Cycling_55C858:
-        fld dword ptr ds:[000B78FACh]
-        // 0x55C85E
-        fmul dword ptr ds:[000858C4Ch]
-        // 0x55C864
-        fcompp
-        // 0x55C866
-        fnstsw ax
-        // 0x55C868
-        test ah,5
-        // 0x55C86B
-        jp VehicleStats11_Cycling_55C8A1
-        // 0x55C86D
-        mov ecx,dword ptr ds:[000B78F28h]
-        // 0x55C873
-        push ecx
-        // 0x55C874
-        push 00E6h
-        // 0x55C879
-        mov dword ptr ds:[000B794E0h],0
-        // 0x55C883
-        call VehicleStats11Increment
-        // 0x55C888
-        mov edx,dword ptr ds:[000B78F28h]
-        // 0x55C88E
-        push edx
-        // 0x55C88F
-        push 00E6h
-        // 0x55C894
-        push 1
-        // 0x55C896
-        call VehicleStats11Display
-        // 0x55C89B
-        add esp,014h
-        // 0x55C89E
-        pop esi
-        // 0x55C89F
-        pop ebx
-        // 0x55C8A0
-        ret
-VehicleStats11_Cycling_55C8A1:
-        cmp byte ptr [esi+000000804h],2
-        // 0x55C8A8
-        jae VehicleStats11_Cycling_55C8E6
-        // 0x55C8AA
-        fld dword ptr [esi+04Ch]
-        // 0x55C8AD
-        fld dword ptr [esi+048h]
-        // 0x55C8B0
-        fld dword ptr [esi+044h]
-        // 0x55C8B3
-        fld st(0)
-        // 0x55C8B5
-        fmul st,st(1)
-        // 0x55C8B7
-        fld st(2)
-        // 0x55C8B9
-        fmul st,st(3)
-        // 0x55C8BB
-        faddp st(1),st
-        // 0x55C8BD
-        fld st(3)
-        // 0x55C8BF
-        fmul st,st(4)
-        // 0x55C8C1
-        faddp st(1),st
-        // 0x55C8C3
-        fld dword ptr ds:[000863E58h]
-        // 0x55C8C9
-        fmul dword ptr ds:[000863E58h]
-        // 0x55C8CF
-        fcompp
-        // 0x55C8D1
-        fstp st(0)
-        // 0x55C8D3
-        fnstsw ax
-        // 0x55C8D5
-        fstp st(0)
-        // 0x55C8D7
-        test ah,5
-        // 0x55C8DA
-        fstp st(0)
-        // 0x55C8DC
-        jp VehicleStats11_Cycling_55C8E6
-        // 0x55C8DE
-        fld dword ptr ds:[000863E64h]
-        // 0x55C8E4
-        jmp VehicleStats11_Cycling_55C92C
-VehicleStats11_Cycling_55C8E6:
-        fld dword ptr [esi+04Ch]
-        // 0x55C8E9
-        fld dword ptr [esi+048h]
-        // 0x55C8EC
-        fld dword ptr [esi+044h]
-        // 0x55C8EF
-        fld st(0)
-        // 0x55C8F1
-        fmul st,st(1)
-        // 0x55C8F3
-        fld st(2)
-        // 0x55C8F5
-        fmul st,st(3)
-        // 0x55C8F7
-        faddp st(1),st
-        // 0x55C8F9
-        fld st(3)
-        // 0x55C8FB
-        fmul st,st(4)
-        // 0x55C8FD
-        faddp st(1),st
-        // 0x55C8FF
-        fld dword ptr ds:[000863E54h]
-        // 0x55C905
-        fmul dword ptr ds:[000863E54h]
-        // 0x55C90B
-        fcompp
-        // 0x55C90D
-        fstp st(0)
-        // 0x55C90F
-        fnstsw ax
-        // 0x55C911
-        fstp st(0)
-        // 0x55C913
-        test ah,5
-        // 0x55C916
-        fstp st(0)
-        // 0x55C918
-        jp VehicleStats11_Cycling_55C98A
-        // 0x55C91A
-        test bl,bl
-        // 0x55C91C
-        je VehicleStats11_Cycling_55C926
-        // 0x55C91E
-        fld dword ptr ds:[000863E60h]
-        // 0x55C924
-        jmp VehicleStats11_Cycling_55C92C
-VehicleStats11_Cycling_55C926:
-        fld dword ptr ds:[000863E5Ch]
-VehicleStats11_Cycling_55C92C:
-        fcom dword ptr ds:[000858B50h]
-        // 0x55C932
-        fnstsw ax
-        // 0x55C934
-        test ah,041h
-        // 0x55C937
-        jne VehicleStats11_Cycling_55C988
-        // 0x55C939
-        fld dword ptr ds:[000B7CB5Ch]
-        // 0x55C93F
-        fmul dword ptr ds:[000858B38h]
-        // 0x55C945
-        fmul dword ptr ds:[000858C4Ch]
-        // 0x55C94B
-        call VehicleStats11Ftol
-        // 0x55C950
-        test eax,eax
-        // 0x55C952
-        mov dword ptr [esp+010h],eax
-        // 0x55C956
-        fild dword ptr [esp+010h]
-        // 0x55C95A
-        jge VehicleStats11_Cycling_55C962
-        // 0x55C95C
-        fadd dword ptr ds:[000858C54h]
-VehicleStats11_Cycling_55C962:
-        fmulp st(1),st
-        // 0x55C964
-        sub esp,8
-        // 0x55C967
-        fstp qword ptr [esp]
-        // 0x55C96A
-        call VehicleStats11Ceil
-        // 0x55C96F
-        add esp,8
-        // 0x55C972
-        call VehicleStats11Ftol
-        // 0x55C977
-        mov ecx,dword ptr ds:[000B794E0h]
-        // 0x55C97D
-        add ecx,eax
-        // 0x55C97F
-        pop esi
-        // 0x55C980
-        mov dword ptr ds:[000B794E0h],ecx
-        // 0x55C986
-        pop ebx
-        // 0x55C987
-        ret
-VehicleStats11_Cycling_55C988:
-        fstp st(0)
-VehicleStats11_Cycling_55C98A:
-        pop esi
-        // 0x55C98B
-        pop ebx
-        // 0x55C98C
-        ret
-    }
+// Hook de 0x55C780: cdecl (bool, CBmx*) en la pila; [esp+8] es el hueco que la funcion sobrescribe.
+uint32 __declspec(safebuffers) __fastcall StatsUpdateStatsWhenCyclingExe(uint32 entryEcx, uint32 entryEdx) {
+    volatile uint32* const arguments = static_cast<volatile uint32*>(_AddressOfReturnAddress()) + 1;
+    return StatsCyclingBody<true>(entryEcx, entryEdx, arguments[0], &arguments[1]);
+}
+#pragma runtime_checks("", restore)
+}
+
+void CStats::UpdateStatsWhenCycling(bool arg0, CBmx* bmx) {
+    uint32 slot = static_cast<uint32>(reinterpret_cast<uintptr_t>(bmx));
+    StatsCyclingBody<false>(0u, 0u, arg0 ? 1u : 0u, &slot);
 }
 
 // 0x55C990
-__declspec(naked) void CStats::UpdateStatsWhenSwimming(bool arg0, bool arg1) {
-    __asm {
-        // 0x55C990
-        push ecx
-        // 0x55C991
-        mov al,byte ptr [esp+8]
-        // 0x55C995
-        test al,al
-        // 0x55C997
-        jne VehicleStats10_UpdateStatsWhenSwimming_55C9A9
-        // 0x55C999
-        mov al,byte ptr [esp+00Ch]
-        // 0x55C99D
-        test al,al
-        // 0x55C99F
-        jne VehicleStats10_UpdateStatsWhenSwimming_55C9A9
-        // 0x55C9A1
-        fld dword ptr ds:[000B78F80h]
-        // 0x55C9A7
-        jmp VehicleStats10_UpdateStatsWhenSwimming_55C9AF
-VehicleStats10_UpdateStatsWhenSwimming_55C9A9:
-        fld dword ptr ds:[000B78F84h]
-VehicleStats10_UpdateStatsWhenSwimming_55C9AF:
-        call VehicleStats10Ftol
-        // 0x55C9B4
-        push eax
-        // 0x55C9B5
-        call VehicleStats10FatMuscle
-        // 0x55C9BA
-        fild dword ptr ds:[000B794E4h]
-        // 0x55C9C0
-        mov eax,dword ptr ds:[000B794E4h]
-        // 0x55C9C5
-        add esp,4
-        // 0x55C9C8
-        test eax,eax
-        // 0x55C9CA
-        jge VehicleStats10_UpdateStatsWhenSwimming_55C9D2
-        // 0x55C9CC
-        fadd dword ptr ds:[000858C54h]
-VehicleStats10_UpdateStatsWhenSwimming_55C9D2:
-        fld dword ptr ds:[000B78F98h]
-        // 0x55C9D8
-        fmul dword ptr ds:[000858C4Ch]
-        // 0x55C9DE
-        fcompp
-        // 0x55C9E0
-        fnstsw ax
-        // 0x55C9E2
-        test ah,5
-        // 0x55C9E5
-        jp VehicleStats10_UpdateStatsWhenSwimming_55CA14
-        // 0x55C9E7
-        mov ecx,dword ptr ds:[000B78F14h]
-        // 0x55C9ED
-        push ecx
-        // 0x55C9EE
-        push 016h
-        // 0x55C9F0
-        mov dword ptr ds:[000B794E4h],0
-        // 0x55C9FA
-        call VehicleStats10Increment
-        // 0x55C9FF
-        mov edx,dword ptr ds:[000B78F14h]
-        // 0x55CA05
-        push edx
-        // 0x55CA06
-        push 016h
-        // 0x55CA08
-        push 1
-        // 0x55CA0A
-        call VehicleStats10Display
-        // 0x55CA0F
-        add esp,014h
-        // 0x55CA12
-        jmp VehicleStats10_UpdateStatsWhenSwimming_55CA31
-VehicleStats10_UpdateStatsWhenSwimming_55CA14:
-        fld dword ptr ds:[000B7CB5Ch]
-        // 0x55CA1A
-        fmul dword ptr ds:[000858B38h]
-        // 0x55CA20
-        fmul dword ptr ds:[000858C4Ch]
-        // 0x55CA26
-        call VehicleStats10Ftol
-        // 0x55CA2B
-        add dword ptr ds:[000B794E4h],eax
-VehicleStats10_UpdateStatsWhenSwimming_55CA31:
-        mov al,byte ptr [esp+8]
-        // 0x55CA35
-        test al,al
-        // 0x55CA37
-        je VehicleStats10_UpdateStatsWhenSwimming_55CAB3
-        // 0x55CA39
-        mov eax,dword ptr ds:[000B794E8h]
-        // 0x55CA3E
-        fild dword ptr ds:[000B794E8h]
-        // 0x55CA44
-        test eax,eax
-        // 0x55CA46
-        jge VehicleStats10_UpdateStatsWhenSwimming_55CA4E
-        // 0x55CA48
-        fadd dword ptr ds:[000858C54h]
-VehicleStats10_UpdateStatsWhenSwimming_55CA4E:
-        fld dword ptr ds:[000B78FC0h]
-        // 0x55CA54
-        fmul dword ptr ds:[000858C4Ch]
-        // 0x55CA5A
-        fcompp
-        // 0x55CA5C
-        fnstsw ax
-        // 0x55CA5E
-        test ah,5
-        // 0x55CA61
-        jp VehicleStats10_UpdateStatsWhenSwimming_55CA96
-        // 0x55CA63
-        mov ecx,dword ptr ds:[000B78F38h]
-        // 0x55CA69
-        push ecx
-        // 0x55CA6A
-        push 00E1h
-        // 0x55CA6F
-        mov dword ptr ds:[000B794E8h],0
-        // 0x55CA79
-        call VehicleStats10Increment
-        // 0x55CA7E
-        mov edx,dword ptr ds:[000B78F38h]
-        // 0x55CA84
-        push edx
-        // 0x55CA85
-        push 00E1h
-        // 0x55CA8A
-        push 1
-        // 0x55CA8C
-        call VehicleStats10Display
-        // 0x55CA91
-        add esp,014h
-        // 0x55CA94
-        pop ecx
-        // 0x55CA95
-        ret
-VehicleStats10_UpdateStatsWhenSwimming_55CA96:
-        fld dword ptr ds:[000B7CB5Ch]
-        // 0x55CA9C
-        fmul dword ptr ds:[000858B38h]
-        // 0x55CAA2
-        fmul dword ptr ds:[000858C4Ch]
-        // 0x55CAA8
-        call VehicleStats10Ftol
-        // 0x55CAAD
-        add dword ptr ds:[000B794E8h],eax
-VehicleStats10_UpdateStatsWhenSwimming_55CAB3:
-        pop ecx
-        // 0x55CAB4
-        ret
+namespace {
+// Como el original (0x55C990..0x55CAB4). Todas las salidas son `pop ecx; ret` (ECX = el de entrada); EAX/EDX salen del ultimo colaborador de la
+// primera parte (Display o _ftol2) o de la segunda, y si arg0 es 0 el EXE sale tras `mov al,[esp+8]` (solo cambia AL). Ninguna lee AX.
+#pragma runtime_checks("", off)
+template<bool kExe>
+__declspec(safebuffers) uint32 __fastcall StatsSwimmingBody(uint32 entryEcx, uint32 entryEdx, uint32 underwaterArgument, uint32 sprintArgument) {
+    float* const reaction = CStats::StatReactionValue.data();
+    const uint8  arg0 = static_cast<uint8>(underwaterArgument);            // [esp+4]
+    const uint8  arg1 = static_cast<uint8>(sprintArgument);                // [esp+8]
+
+    // 0x55C991: tasa 0xB78F84 si arg0 o arg1, si no 0xB78F80
+    const float rate = (arg0 != 0 || arg1 != 0) ? reaction[STAT_EXERCISE_RATE_SWIM_SPRINT] : reaction[STAT_EXERCISE_RATE_SWIM];
+    CStats::UpdateFatAndMuscleStats(static_cast<uint32>(StatsFtol(rate)));  // call _ftol2; push eax; call 0x55C470
+
+    uint32 eax;
+    uint32 edx;
+    // fild [0xB794E4] (+2^32); fld [0xB78F98]; fmul 1000.0f; fcompp; test ah,5; jp 0x55CA14
+    if (reaction[STAT_TIMELIMIT_SWIM_STAMINA] * 1000.0f < CounterAsX87(CStats::m_SwimStaminaCounter)) {
+        CStats::m_SwimStaminaCounter = 0;
+        CStats::IncrementStat(STAT_STAMINA, reaction[STAT_INC_SWIM_STAMINA]);
+        const uint64 display = StatsDisplayRegs<kExe>(STAT_UPDATE_INCREASE, STAT_STAMINA, reaction[STAT_INC_SWIM_STAMINA]);
+        eax = static_cast<uint32>(display);
+        edx = static_cast<uint32>(display >> 32);
+    } else {
+        const Ftol2Regs ftol = StatsStepMsRegsCpp(CTimer::GetTimeStep(), entryEcx);   // 0x55CA14
+        CStats::m_SwimStaminaCounter += ftol.eax;
+        eax = ftol.eax;
+        edx = ftol.edx;
     }
+
+    if (arg0 == 0) {                                                       // 0x55CA31: mov al,[esp+8]; test al,al; je 0x55CAB3
+        STATS_EXIT(entryEcx, edx, eax & 0xFFFFFF00u);
+    }
+    // 0x55CA39: contador bajo el agua
+    if (reaction[STAT_TIMELIMIT_BREATH_UNDERWATER] * 1000.0f < CounterAsX87(CStats::m_SwimUnderWaterCounter)) {
+        CStats::m_SwimUnderWaterCounter = 0;
+        CStats::IncrementStat(STAT_LUNG_CAPACITY, reaction[STAT_INC_BREATH_UNDERWATER]);
+        const uint64 display = StatsDisplayRegs<kExe>(STAT_UPDATE_INCREASE, STAT_LUNG_CAPACITY, reaction[STAT_INC_BREATH_UNDERWATER]);
+        STATS_EXIT(entryEcx, static_cast<uint32>(display >> 32), static_cast<uint32>(display));
+    }
+    const Ftol2Regs ftol = StatsStepMsRegsCpp(CTimer::GetTimeStep(), entryEcx);       // 0x55CA96
+    CStats::m_SwimUnderWaterCounter += ftol.eax;
+    STATS_EXIT(entryEcx, ftol.edx, ftol.eax);
+}
+
+// Hook de 0x55C990: cdecl (bool, bool) en la pila; el llamador (0x68A1A7) empuja EAX/ECX con los bytes altos sin definir.
+uint32 __declspec(safebuffers) __fastcall StatsUpdateStatsWhenSwimmingExe(uint32 entryEcx, uint32 entryEdx) {
+    const uint32* const arguments = static_cast<const uint32*>(_AddressOfReturnAddress()) + 1;
+    return StatsSwimmingBody<true>(entryEcx, entryEdx, arguments[0], arguments[1]);
+}
+#pragma runtime_checks("", restore)
+}
+
+void CStats::UpdateStatsWhenSwimming(bool arg0, bool arg1) {
+    StatsSwimmingBody<false>(0u, 0u, arg0 ? 1u : 0u, arg1 ? 1u : 0u);
 }
 
 // 0x55CAC0
-
 namespace {
-__declspec(naked) void VehicleStats9Increment() { __asm { push 00055C180h } __asm { ret } }
-__declspec(naked) void VehicleStats9Display() { __asm { push 00055B980h } __asm { ret } }
-__declspec(naked) void VehicleStats9Ftol() { __asm { push 000821B40h } __asm { ret } }
+// Como el original (0x55CAC0..0x55CBFE). El EXE guarda el contador convertido a float en el hueco de su argumento ([esp+8] tras `push ecx`:
+// fstp dword [esp+8]) y los llamadores (0x571482/0x571492) lo descartan, pero el banco lo observa: `vehicleSlot` es ese hueco. Salidas
+// (todas con ECX = el de entrada, `pop ecx`):
+//  - Display (0x55CB34): EAX/EDX del colaborador (capturados con StatsDisplayRegs).
+//  - velocidad <= 0.2 (0x55CBFD): EAX = parte alta del contador + AX de la ultima comparacion (fcomp pop: TOP = 0), EDX = vehiculo.
+//  - _ftol2 (0x55CBBC / 0x55CBFC): EAX/EDX de la segunda conversion (StatsAccumulateRegsCpp).
+#pragma runtime_checks("", off)
+template<bool kExe>
+__declspec(safebuffers) uint32 __fastcall StatsDrivingBody(uint32 entryEcx, uint32 entryEdx, volatile uint32* vehicleSlot) {
+    float* const reaction = CStats::StatReactionValue.data();
+    const uint32 vehicle = *vehicleSlot;                                   // mov edx,[esp+8]
+    const uintptr_t vehicleAddress = vehicle;
+    // mov eax,[vehicle+0x590]; xor ecx,ecx; test eax,eax; jne; mov ecx,edx
+    const uint32 wheelsVehicle = *reinterpret_cast<const uint32*>(vehicleAddress + 0x590) == 0 ? vehicle : 0u;
+
+    const uint32 counter     = CStats::m_DrivingCounter;                   // mov eax,[0xB794EC]; fild [0xB794EC] (+2^32)
+    const float  counterFloat = static_cast<float>(StatsCounterX87Cpp(counter)); // fstp dword [esp+8]
+    *vehicleSlot = std::bit_cast<uint32>(counterFloat);
+    // fld [0xB78FA4]; fmul 1000.0f; fcomp dword [esp+8]; fnstsw ax; test ah,5; jp 0x55CB36
+    const double limit = StatsScaledLimitCpp(reaction[STAT_TIMELIMIT_DRIVING_SKILL]);
+    const uint32 axCounter = StatsCompareDblFltAxCpp(limit, counterFloat, 0);
+    if (!AhJp(axCounter, 0x05)) {
+        CStats::m_DrivingCounter = 0;
+        CStats::IncrementStat(STAT_DRIVING_SKILL, reaction[STAT_INC_DRIVING_SKILL]);
+        const uint64 display = StatsDisplayRegs<kExe>(STAT_UPDATE_INCREASE, STAT_DRIVING_SKILL, reaction[STAT_INC_DRIVING_SKILL]);
+        STATS_EXIT(entryEcx, static_cast<uint32>(display >> 32), static_cast<uint32>(display));
+    }
+
+    // 0x55CB36: velocidad = sqrt((x*x + y*y) + z*z) con x,y,z = [vehiculo+0x44..0x4C]; fcom [0x863E70] (0.8f); test ah,41h; je 0x55CBBE
+    const double speed = StatsSpeedCpp(reinterpret_cast<const float*>(vehicleAddress + 0x44));
+    const uint32 axFast = StatsCompareDblFltAxCpp(speed, ExeFloat(0x863E70), 1);
+    bool fast = AhJe(axFast, 0x41);
+    if (!fast && wheelsVehicle != 0 && *reinterpret_cast<const uint8*>(static_cast<uintptr_t>(wheelsVehicle) + 0x960) == 0) {
+        fast = true;                                                       // sin ruedas en contacto: je 0x55CBBE
+    }
+    float multiplier;
+    if (!fast) {
+        // 0x55CB72: fcomp [0x863E68] (0.2f); test ah,41h; jne 0x55CBFD
+        const uint32 axSlow = StatsCompareDblFltAxCpp(speed, ExeFloat(0x863E68), 0);
+        if (!AhJe(axSlow, 0x41)) {
+            STATS_EXIT(entryEcx, vehicle, (counter & 0xFFFF0000u) | (axSlow & 0xFFFFu));
+        }
+        multiplier = ExeFloat(0x863E6C);                                   // 0.5f
+    } else {
+        multiplier = ExeFloat(0x863E74);                                   // 1.5f (fstp st(0) descarta la velocidad)
+    }
+    // ftol(paso * 0.02f * 1000.0f) -> fild (+2^32 si es negativo) * multiplicador + contador (float) -> ftol -> [0xB794EC]
+    const Ftol2Regs ticks = StatsStepMsRegsCpp(CTimer::GetTimeStep(), wheelsVehicle);
+    const Ftol2Regs total = StatsAccumulateRegsCpp(static_cast<int32>(ticks.eax), multiplier, counterFloat, ticks.ecx);
+    CStats::m_DrivingCounter = total.eax;
+    // `mov [esp],eax` tras el primer _ftol2 sobrescribe el ECX guardado: el `pop ecx` final devuelve los ticks.
+    STATS_EXIT(ticks.eax, total.edx, total.eax);
 }
 
-__declspec(naked) void CStats::UpdateStatsWhenDriving(CVehicle* vehicle) {
-    __asm {
-        // 0x55CAC0
-        push ecx
-        // 0x55CAC1
-        mov edx,dword ptr [esp+8]
-        // 0x55CAC5
-        mov eax,dword ptr [edx+000000590h]
-        // 0x55CACB
-        xor ecx,ecx
-        // 0x55CACD
-        test eax,eax
-        // 0x55CACF
-        jne VehicleStats9_UpdateStatsWhenDriving_55CAD3
-        // 0x55CAD1
-        mov ecx,edx
-VehicleStats9_UpdateStatsWhenDriving_55CAD3:
-        mov eax,dword ptr ds:[000B794ECh]
-        // 0x55CAD8
-        fild dword ptr ds:[000B794ECh]
-        // 0x55CADE
-        test eax,eax
-        // 0x55CAE0
-        jge VehicleStats9_UpdateStatsWhenDriving_55CAE8
-        // 0x55CAE2
-        fadd dword ptr ds:[000858C54h]
-VehicleStats9_UpdateStatsWhenDriving_55CAE8:
-        fstp dword ptr [esp+8]
-        // 0x55CAEC
-        fld dword ptr ds:[000B78FA4h]
-        // 0x55CAF2
-        fmul dword ptr ds:[000858C4Ch]
-        // 0x55CAF8
-        fcomp dword ptr [esp+8]
-        // 0x55CAFC
-        fnstsw ax
-        // 0x55CAFE
-        test ah,5
-        // 0x55CB01
-        jp VehicleStats9_UpdateStatsWhenDriving_55CB36
-        // 0x55CB03
-        mov ecx,dword ptr ds:[000B78F20h]
-        // 0x55CB09
-        push ecx
-        // 0x55CB0A
-        push 00A0h
-        // 0x55CB0F
-        mov dword ptr ds:[000B794ECh],0
-        // 0x55CB19
-        call VehicleStats9Increment
-        // 0x55CB1E
-        mov edx,dword ptr ds:[000B78F20h]
-        // 0x55CB24
-        push edx
-        // 0x55CB25
-        push 00A0h
-        // 0x55CB2A
-        push 1
-        // 0x55CB2C
-        call VehicleStats9Display
-        // 0x55CB31
-        add esp,014h
-        // 0x55CB34
-        pop ecx
-        // 0x55CB35
-        ret
-VehicleStats9_UpdateStatsWhenDriving_55CB36:
-        fld dword ptr [edx+04Ch]
-        // 0x55CB39
-        fld dword ptr [edx+048h]
-        // 0x55CB3C
-        fld dword ptr [edx+044h]
-        // 0x55CB3F
-        fld st(0)
-        // 0x55CB41
-        fmul st,st(1)
-        // 0x55CB43
-        fld st(2)
-        // 0x55CB45
-        fmul st,st(3)
-        // 0x55CB47
-        faddp st(1),st
-        // 0x55CB49
-        fld st(3)
-        // 0x55CB4B
-        fmul st,st(4)
-        // 0x55CB4D
-        faddp st(1),st
-        // 0x55CB4F
-        fsqrt
-        // 0x55CB51
-        fstp st(3)
-        // 0x55CB53
-        fstp st(0)
-        // 0x55CB55
-        fstp st(0)
-        // 0x55CB57
-        fcom dword ptr ds:[000863E70h]
-        // 0x55CB5D
-        fnstsw ax
-        // 0x55CB5F
-        test ah,041h
-        // 0x55CB62
-        je VehicleStats9_UpdateStatsWhenDriving_55CBBE
-        // 0x55CB64
-        test ecx,ecx
-        // 0x55CB66
-        je VehicleStats9_UpdateStatsWhenDriving_55CB72
-        // 0x55CB68
-        mov al,byte ptr [ecx+000000960h]
-        // 0x55CB6E
-        test al,al
-        // 0x55CB70
-        je VehicleStats9_UpdateStatsWhenDriving_55CBBE
-VehicleStats9_UpdateStatsWhenDriving_55CB72:
-        fcomp dword ptr ds:[000863E68h]
-        // 0x55CB78
-        fnstsw ax
-        // 0x55CB7A
-        test ah,041h
-        // 0x55CB7D
-        jne VehicleStats9_UpdateStatsWhenDriving_55CBFD
-        // 0x55CB7F
-        fld dword ptr ds:[000B7CB5Ch]
-        // 0x55CB85
-        fmul dword ptr ds:[000858B38h]
-        // 0x55CB8B
-        fmul dword ptr ds:[000858C4Ch]
-        // 0x55CB91
-        call VehicleStats9Ftol
-        // 0x55CB96
-        test eax,eax
-        // 0x55CB98
-        mov dword ptr [esp],eax
-        // 0x55CB9C
-        fild dword ptr [esp]
-        // 0x55CBA0
-        jge VehicleStats9_UpdateStatsWhenDriving_55CBA8
-        // 0x55CBA2
-        fadd dword ptr ds:[000858C54h]
-VehicleStats9_UpdateStatsWhenDriving_55CBA8:
-        fmul dword ptr ds:[000863E6Ch]
-        // 0x55CBAE
-        fadd dword ptr [esp+8]
-        // 0x55CBB2
-        call VehicleStats9Ftol
-        // 0x55CBB7
-        mov dword ptr ds:[000B794ECh],eax
-        // 0x55CBBC
-        pop ecx
-        // 0x55CBBD
-        ret
-VehicleStats9_UpdateStatsWhenDriving_55CBBE:
-        fstp st(0)
-        // 0x55CBC0
-        fld dword ptr ds:[000B7CB5Ch]
-        // 0x55CBC6
-        fmul dword ptr ds:[000858B38h]
-        // 0x55CBCC
-        fmul dword ptr ds:[000858C4Ch]
-        // 0x55CBD2
-        call VehicleStats9Ftol
-        // 0x55CBD7
-        test eax,eax
-        // 0x55CBD9
-        mov dword ptr [esp],eax
-        // 0x55CBDD
-        fild dword ptr [esp]
-        // 0x55CBE1
-        jge VehicleStats9_UpdateStatsWhenDriving_55CBE9
-        // 0x55CBE3
-        fadd dword ptr ds:[000858C54h]
-VehicleStats9_UpdateStatsWhenDriving_55CBE9:
-        fmul dword ptr ds:[000863E74h]
-        // 0x55CBEF
-        fadd dword ptr [esp+8]
-        // 0x55CBF3
-        call VehicleStats9Ftol
-        // 0x55CBF8
-        mov dword ptr ds:[000B794ECh],eax
-VehicleStats9_UpdateStatsWhenDriving_55CBFD:
-        pop ecx
-        // 0x55CBFE
-        ret
-    }
+// Hook de 0x55CAC0: cdecl (CVehicle*) en la pila; el hueco se sobrescribe.
+uint32 __declspec(safebuffers) __fastcall StatsUpdateStatsWhenDrivingExe(uint32 entryEcx, uint32 entryEdx) {
+    volatile uint32* const arguments = static_cast<volatile uint32*>(_AddressOfReturnAddress()) + 1;
+    return StatsDrivingBody<true>(entryEcx, entryEdx, arguments);
+}
+#pragma runtime_checks("", restore)
+}
+
+void CStats::UpdateStatsWhenDriving(CVehicle* vehicle) {
+    uint32 slot = static_cast<uint32>(reinterpret_cast<uintptr_t>(vehicle));
+    StatsDrivingBody<false>(0u, 0u, &slot);
 }
 
 // 0x55CC00
-__declspec(naked) void CStats::UpdateStatsWhenFlying(CVehicle* vehicle) {
-    __asm {
-        // 0x55CC00
-        push ecx
-        // 0x55CC01
-        mov ecx,dword ptr [esp+8]
-        // 0x55CC05
-        mov eax,dword ptr [ecx+000000590h]
-        // 0x55CC0B
-        test eax,eax
-        // 0x55CC0D
-        jne VehicleStats9_UpdateStatsWhenFlying_55CD50
-        // 0x55CC13
-        mov eax,dword ptr ds:[000B794F0h]
-        // 0x55CC18
-        fild dword ptr ds:[000B794F0h]
-        // 0x55CC1E
-        test eax,eax
-        // 0x55CC20
-        jge VehicleStats9_UpdateStatsWhenFlying_55CC28
-        // 0x55CC22
-        fadd dword ptr ds:[000858C54h]
-VehicleStats9_UpdateStatsWhenFlying_55CC28:
-        fstp dword ptr [esp+8]
-        // 0x55CC2C
-        fld dword ptr ds:[000B78FA8h]
-        // 0x55CC32
-        fmul dword ptr ds:[000858C4Ch]
-        // 0x55CC38
-        fcomp dword ptr [esp+8]
-        // 0x55CC3C
-        fnstsw ax
-        // 0x55CC3E
-        test ah,5
-        // 0x55CC41
-        jp VehicleStats9_UpdateStatsWhenFlying_55CC76
-        // 0x55CC43
-        mov ecx,dword ptr ds:[000B78F24h]
-        // 0x55CC49
-        push ecx
-        // 0x55CC4A
-        push 00DFh
-        // 0x55CC4F
-        mov dword ptr ds:[000B794F0h],0
-        // 0x55CC59
-        call VehicleStats9Increment
-        // 0x55CC5E
-        mov edx,dword ptr ds:[000B78F24h]
-        // 0x55CC64
-        push edx
-        // 0x55CC65
-        push 00DFh
-        // 0x55CC6A
-        push 1
-        // 0x55CC6C
-        call VehicleStats9Display
-        // 0x55CC71
-        add esp,014h
-        // 0x55CC74
-        pop ecx
-        // 0x55CC75
-        ret
-VehicleStats9_UpdateStatsWhenFlying_55CC76:
-        mov al,byte ptr [ecx+000000960h]
-        // 0x55CC7C
-        test al,al
-        // 0x55CC7E
-        jne VehicleStats9_UpdateStatsWhenFlying_55CD50
-        // 0x55CC84
-        fld dword ptr [ecx+04Ch]
-        // 0x55CC87
-        fld dword ptr [ecx+048h]
-        // 0x55CC8A
-        fld dword ptr [ecx+044h]
-        // 0x55CC8D
-        fld st(0)
-        // 0x55CC8F
-        fmul st,st(1)
-        // 0x55CC91
-        fld st(2)
-        // 0x55CC93
-        fmul st,st(3)
-        // 0x55CC95
-        faddp st(1),st
-        // 0x55CC97
-        fld st(3)
-        // 0x55CC99
-        fmul st,st(4)
-        // 0x55CC9B
-        faddp st(1),st
-        // 0x55CC9D
-        fsqrt
-        // 0x55CC9F
-        fstp st(3)
-        // 0x55CCA1
-        fstp st(0)
-        // 0x55CCA3
-        fstp st(0)
-        // 0x55CCA5
-        fcom dword ptr ds:[000863E80h]
-        // 0x55CCAB
-        fnstsw ax
-        // 0x55CCAD
-        test ah,041h
-        // 0x55CCB0
-        je VehicleStats9_UpdateStatsWhenFlying_55CD11
-        // 0x55CCB2
-        mov eax,dword ptr [ecx+014h]
-        // 0x55CCB5
-        fld dword ptr [eax+028h]
-        // 0x55CCB8
-        fcomp dword ptr ds:[000858B50h]
-        // 0x55CCBE
-        fnstsw ax
-        // 0x55CCC0
-        test ah,5
-        // 0x55CCC3
-        jnp VehicleStats9_UpdateStatsWhenFlying_55CD11
-        // 0x55CCC5
-        fcomp dword ptr ds:[000863E78h]
-        // 0x55CCCB
-        fnstsw ax
-        // 0x55CCCD
-        test ah,041h
-        // 0x55CCD0
-        jne VehicleStats9_UpdateStatsWhenFlying_55CD50
-        // 0x55CCD2
-        fld dword ptr ds:[000B7CB5Ch]
-        // 0x55CCD8
-        fmul dword ptr ds:[000858B38h]
-        // 0x55CCDE
-        fmul dword ptr ds:[000858C4Ch]
-        // 0x55CCE4
-        call VehicleStats9Ftol
-        // 0x55CCE9
-        test eax,eax
-        // 0x55CCEB
-        mov dword ptr [esp],eax
-        // 0x55CCEF
-        fild dword ptr [esp]
-        // 0x55CCF3
-        jge VehicleStats9_UpdateStatsWhenFlying_55CCFB
-        // 0x55CCF5
-        fadd dword ptr ds:[000858C54h]
-VehicleStats9_UpdateStatsWhenFlying_55CCFB:
-        fmul dword ptr ds:[000863E7Ch]
-        // 0x55CD01
-        fadd dword ptr [esp+8]
-        // 0x55CD05
-        call VehicleStats9Ftol
-        // 0x55CD0A
-        mov dword ptr ds:[000B794F0h],eax
-        // 0x55CD0F
-        pop ecx
-        // 0x55CD10
-        ret
-VehicleStats9_UpdateStatsWhenFlying_55CD11:
-        fstp st(0)
-        // 0x55CD13
-        fld dword ptr ds:[000B7CB5Ch]
-        // 0x55CD19
-        fmul dword ptr ds:[000858B38h]
-        // 0x55CD1F
-        fmul dword ptr ds:[000858C4Ch]
-        // 0x55CD25
-        call VehicleStats9Ftol
-        // 0x55CD2A
-        test eax,eax
-        // 0x55CD2C
-        mov dword ptr [esp],eax
-        // 0x55CD30
-        fild dword ptr [esp]
-        // 0x55CD34
-        jge VehicleStats9_UpdateStatsWhenFlying_55CD3C
-        // 0x55CD36
-        fadd dword ptr ds:[000858C54h]
-VehicleStats9_UpdateStatsWhenFlying_55CD3C:
-        fmul dword ptr ds:[000863E84h]
-        // 0x55CD42
-        fadd dword ptr [esp+8]
-        // 0x55CD46
-        call VehicleStats9Ftol
-        // 0x55CD4B
-        mov dword ptr ds:[000B794F0h],eax
-VehicleStats9_UpdateStatsWhenFlying_55CD50:
-        pop ecx
-        // 0x55CD51
-        ret
+namespace {
+// Como el original (0x55CC00..0x55CD51). Igual que la de conducir: el contador convertido a float se guarda en el hueco del argumento. Salidas
+// (todas con `pop ecx`: ECX = el de entrada):
+//  - con conductor ([vehiculo+0x590] != 0): EAX = ese valor, EDX = el de entrada.
+//  - Display: EAX/EDX del colaborador.
+//  - con ruedas en contacto ([vehiculo+0x960] != 0): EAX = parte alta del contador + AH de la comparacion del contador + AL = esa byte.
+//  - velocidad <= 0.5 (0x55CD50): EAX = parte alta del puntero a la matriz + AX de la comparacion (TOP = 0), EDX = el de entrada.
+//  - _ftol2: EAX/EDX de la segunda conversion.
+#pragma runtime_checks("", off)
+template<bool kExe>
+__declspec(safebuffers) uint32 __fastcall StatsFlyingBody(uint32 entryEcx, uint32 entryEdx, volatile uint32* vehicleSlot) {
+    float* const reaction = CStats::StatReactionValue.data();
+    const uint32 vehicle = *vehicleSlot;                                   // mov ecx,[esp+8]
+    const uintptr_t vehicleAddress = vehicle;
+    const uint32 driver = *reinterpret_cast<const uint32*>(vehicleAddress + 0x590);
+    if (driver != 0) {                                                     // jne 0x55CD50
+        STATS_EXIT(entryEcx, entryEdx, driver);
     }
+
+    const uint32 counter      = CStats::m_FlyingCounter;                   // mov eax,[0xB794F0]; fild [0xB794F0] (+2^32)
+    const float  counterFloat = static_cast<float>(StatsCounterX87Cpp(counter)); // fstp dword [esp+8]
+    *vehicleSlot = std::bit_cast<uint32>(counterFloat);
+    // fld [0xB78FA8]; fmul 1000.0f; fcomp dword [esp+8]; fnstsw ax; test ah,5; jp 0x55CC76
+    const double limit = StatsScaledLimitCpp(reaction[STAT_TIMELIMIT_FLYING_SKILL]);
+    const uint32 axCounter = StatsCompareDblFltAxCpp(limit, counterFloat, 0);
+    if (!AhJp(axCounter, 0x05)) {
+        CStats::m_FlyingCounter = 0;
+        CStats::IncrementStat(STAT_FLYING_SKILL, reaction[STAT_INC_FLYING_SKILL]);
+        const uint64 display = StatsDisplayRegs<kExe>(STAT_UPDATE_INCREASE, STAT_FLYING_SKILL, reaction[STAT_INC_FLYING_SKILL]);
+        STATS_EXIT(entryEcx, static_cast<uint32>(display >> 32), static_cast<uint32>(display));
+    }
+
+    // 0x55CC76: mov al,[vehiculo+0x960]; test al,al; jne 0x55CD50
+    const uint8 contactWheels = *reinterpret_cast<const uint8*>(vehicleAddress + 0x960);
+    if (contactWheels != 0) {
+        STATS_EXIT(entryEcx, entryEdx, (counter & 0xFFFF0000u) | (axCounter & 0xFF00u) | contactWheels);
+    }
+    // 0x55CC84: velocidad = sqrt((x*x + y*y) + z*z); fcom [0x863E80] (1.3f); test ah,41h; je 0x55CD11
+    const double speed = StatsSpeedCpp(reinterpret_cast<const float*>(vehicleAddress + 0x44));
+    const uint32 axFast = StatsCompareDblFltAxCpp(speed, ExeFloat(0x863E80), 1);
+    bool fast = AhJe(axFast, 0x41);
+    float multiplier = 0.0f;
+    if (!fast) {
+        // mov eax,[vehiculo+0x14]; fld [eax+0x28]; fcomp 0.0; test ah,5; jnp 0x55CD11 (componente < 0)
+        const uint32 matrix = *reinterpret_cast<const uint32*>(vehicleAddress + 0x14);
+        const uint32 axMatrix = StatsCompareFltFltAxCpp(*reinterpret_cast<const float*>(static_cast<uintptr_t>(matrix) + 0x28), 0.0f, 1);
+        if (!AhJp(axMatrix, 0x05)) {
+            fast = true;
+        } else {
+            // fcomp [0x863E78] (0.5f); test ah,41h; jne 0x55CD50
+            const uint32 axSlow = StatsCompareDblFltAxCpp(speed, ExeFloat(0x863E78), 0);
+            if (!AhJe(axSlow, 0x41)) {
+                STATS_EXIT(entryEcx, entryEdx, (matrix & 0xFFFF0000u) | (axSlow & 0xFFFFu));
+            }
+            multiplier = ExeFloat(0x863E7C);                               // 0.5f
+        }
+    }
+    if (fast) {
+        multiplier = ExeFloat(0x863E84);                                   // 1.5f (fstp st(0) descarta la velocidad)
+    }
+    const Ftol2Regs ticks = StatsStepMsRegsCpp(CTimer::GetTimeStep(), vehicle);
+    const Ftol2Regs total = StatsAccumulateRegsCpp(static_cast<int32>(ticks.eax), multiplier, counterFloat, ticks.ecx);
+    CStats::m_FlyingCounter = total.eax;
+    // `mov [esp],eax` tras el primer _ftol2 sobrescribe el ECX guardado: el `pop ecx` final devuelve los ticks.
+    STATS_EXIT(ticks.eax, total.edx, total.eax);
+}
+
+// Hook de 0x55CC00: cdecl (CVehicle*) en la pila; el hueco se sobrescribe.
+uint32 __declspec(safebuffers) __fastcall StatsUpdateStatsWhenFlyingExe(uint32 entryEcx, uint32 entryEdx) {
+    volatile uint32* const arguments = static_cast<volatile uint32*>(_AddressOfReturnAddress()) + 1;
+    return StatsFlyingBody<true>(entryEcx, entryEdx, arguments);
+}
+#pragma runtime_checks("", restore)
+}
+
+void CStats::UpdateStatsWhenFlying(CVehicle* vehicle) {
+    uint32 slot = static_cast<uint32>(reinterpret_cast<uintptr_t>(vehicle));
+    StatsFlyingBody<false>(0u, 0u, &slot);
 }
 
 // 0x55CD60
@@ -3466,155 +1616,79 @@ void CStats::UpdateStatsWhenOnMotorBike(CBike* bike) {
 }
 
 // 0x55CEB0
-__declspec(naked) void CStats::UpdateStatsWhenWeaponHit(eWeaponType weaponType) {
-    __asm {
-        // 0x55CEB0
-        push ecx
-        // 0x55CEB1
-        mov eax,dword ptr [esp+8]
-        // 0x55CEB5
-        push esi
-        // 0x55CEB6
-        push edi
-        // 0x55CEB7
-        push eax
-        // 0x55CEB8
-        call VehicleStats10SkillIndex
-        // 0x55CEBD
-        mov esi,eax
-        // 0x55CEBF
-        add esp,4
-        // 0x55CEC2
-        cmp si,052h
-        // 0x55CEC6
-        lea edi,[esi-045h]
-        // 0x55CEC9
-        jae VehicleStats10_UpdateStatsWhenWeaponHit_55CED7
-        // 0x55CECB
-        movzx ecx,si
-        // 0x55CECE
-        fld dword ptr [ecx*4+000B79380h]
-        // 0x55CED5
-        jmp VehicleStats10_UpdateStatsWhenWeaponHit_55CEE1
-VehicleStats10_UpdateStatsWhenWeaponHit_55CED7:
-        movzx edx,si
-        // 0x55CEDA
-        fild dword ptr [edx*4+000B78E20h]
-VehicleStats10_UpdateStatsWhenWeaponHit_55CEE1:
-        fstp dword ptr [esp+8]
-        // 0x55CEE5
-        call VehicleStats10Coop
-        // 0x55CEEA
-        test al,al
-        // 0x55CEEC
-        jne VehicleStats10_UpdateStatsWhenWeaponHit_55CF90
-        // 0x55CEF2
-        fld dword ptr [esp+8]
-        // 0x55CEF6
-        fcomp dword ptr ds:[000858C4Ch]
-        // 0x55CEFC
-        fnstsw ax
-        // 0x55CEFE
-        test ah,5
-        // 0x55CF01
-        jp VehicleStats10_UpdateStatsWhenWeaponHit_55CF90
-        // 0x55CF07
-        mov eax,dword ptr [edi*4+000B78F40h]
-        // 0x55CF0E
-        push ebx
-        // 0x55CF0F
-        lea ebx,[edi*4+000B78F40h]
-        // 0x55CF16
-        push eax
-        // 0x55CF17
-        push esi
-        // 0x55CF18
-        call VehicleStats10Increment
-        // 0x55CF1D
-        mov eax,dword ptr ds:[000B79514h]
-        // 0x55CF22
-        add esp,8
-        // 0x55CF25
-        cmp eax,edi
-        // 0x55CF27
-        je VehicleStats10_UpdateStatsWhenWeaponHit_55CF3E
-        // 0x55CF29
-        pop ebx
-        // 0x55CF2A
-        mov dword ptr ds:[000B79514h],edi
-        // 0x55CF30
-        pop edi
-        // 0x55CF31
-        mov dword ptr ds:[000B79504h],0
-        // 0x55CF3B
-        pop esi
-        // 0x55CF3C
-        pop ecx
-        // 0x55CF3D
-        ret
-VehicleStats10_UpdateStatsWhenWeaponHit_55CF3E:
-        mov ecx,dword ptr ds:[000B79504h]
-        // 0x55CF44
-        fild dword ptr ds:[000B79504h]
-        // 0x55CF4A
-        test ecx,ecx
-        // 0x55CF4C
-        jge VehicleStats10_UpdateStatsWhenWeaponHit_55CF54
-        // 0x55CF4E
-        fadd dword ptr ds:[000858C54h]
-VehicleStats10_UpdateStatsWhenWeaponHit_55CF54:
-        fcom dword ptr [edi*4+000B78FC8h]
-        // 0x55CF5B
-        fnstsw ax
-        // 0x55CF5D
-        test ah,041h
-        // 0x55CF60
-        jne VehicleStats10_UpdateStatsWhenWeaponHit_55CF82
-        // 0x55CF62
-        fmul dword ptr [ebx]
-        // 0x55CF64
-        push ecx
-        // 0x55CF65
-        fstp dword ptr [esp]
-        // 0x55CF68
-        push esi
-        // 0x55CF69
-        push 1
-        // 0x55CF6B
-        call VehicleStats10Display
-        // 0x55CF70
-        add esp,00Ch
-        // 0x55CF73
-        pop ebx
-        // 0x55CF74
-        pop edi
-        // 0x55CF75
-        mov dword ptr ds:[000B79504h],0
-        // 0x55CF7F
-        pop esi
-        // 0x55CF80
-        pop ecx
-        // 0x55CF81
-        ret
-VehicleStats10_UpdateStatsWhenWeaponHit_55CF82:
-        mov eax,dword ptr ds:[000B79504h]
-        // 0x55CF87
-        fstp st(0)
-        // 0x55CF89
-        inc eax
-        // 0x55CF8A
-        mov dword ptr ds:[000B79504h],eax
-        // 0x55CF8F
-        pop ebx
-VehicleStats10_UpdateStatsWhenWeaponHit_55CF90:
-        pop edi
-        // 0x55CF91
-        pop esi
-        // 0x55CF92
-        pop ecx
-        // 0x55CF93
-        ret
+namespace {
+// Como el original (0x55CEB0..0x55CF93). El EXE escribe el valor de la habilidad (float) en el ECX guardado ([esp+8] tras `push ecx`), no en el
+// argumento: todas las salidas (`pop ecx`) dejan ECX = los bits de ese float. EAX/EDX salen de los colaboradores (IsCoopGameGoingOn, IncrementStat,
+// DisplayScriptStatUpdateMessage, capturados con uint64) o del contador:
+//  - juego cooperativo: EAX/EDX de IsCoopGameGoingOn (0x441390).
+//  - habilidad >= 1000: EAX = parte alta de EAX del colaborador + AX de la comparacion (TOP = 0), EDX = el del colaborador.
+//  - arma distinta de la ultima: EAX = el valor anterior de [0xB79514], EDX = el de IncrementStat.
+//  - Display: EAX/EDX de DisplayScriptStatUpdateMessage; si no, EAX = contador + 1 y EDX = el de IncrementStat.
+#pragma runtime_checks("", off)
+template<bool kExe>
+__declspec(safebuffers) uint32 __fastcall StatsWeaponHitBody(uint32 entryEcx, uint32 entryEdx, uint32 weaponType) {
+    // 0x55CEB7: push eax; call 0x743CD0 (CWeaponInfo::GetSkillStatIndex); mov esi,eax
+    const uint32 statIndex = static_cast<uint32>(CWeaponInfo::GetSkillStatIndex(static_cast<eWeaponType>(weaponType)));
+    const uint16 statWord  = static_cast<uint16>(statIndex);               // cmp si,52h; movzx ecx,si
+    const uint32 slot      = statIndex - 0x45u;                            // lea edi,[esi-45h]
+    float skill;
+    if (statWord < 0x52) {
+        skill = CStats::StatTypesFloat.data()[statWord];                   // fld [ecx*4+0xB79380]
+    } else {
+        skill = StatsIntToFloatCpp(*reinterpret_cast<const int32*>(0xB78E20 + statWord * 4u)); // fild [edx*4+0xB78E20]; fstp dword
     }
+    const uint32 skillBits = std::bit_cast<uint32>(skill);                 // fstp dword [esp+8]: el ECX guardado
+
+    const uint64 coop = reinterpret_cast<uint64(__cdecl*)()>(&CGameLogic::IsCoopGameGoingOn)();   // call 0x441390
+    const uint32 coopEax = static_cast<uint32>(coop);
+    const uint32 coopEdx = static_cast<uint32>(coop >> 32);
+    if (static_cast<uint8>(coopEax) != 0) {                                // jne 0x55CF90
+        STATS_EXIT(skillBits, coopEdx, coopEax);
+    }
+    // fld [esp+8]; fcomp [0x858C4C] (1000.0f); fnstsw ax; test ah,5; jp 0x55CF90
+    const uint32 axSkill = StatsCompareFltFltAxCpp(skill, 1000.0f, 0);
+    if (AhJp(axSkill, 0x05)) {
+        STATS_EXIT(skillBits, coopEdx, (coopEax & 0xFFFF0000u) | (axSkill & 0xFFFFu));
+    }
+    // 0x55CF07: push [slot*4+0xB78F40]; push esi; call IncrementStat
+    const uintptr_t incrementAddress = 0xB78F40u + static_cast<uintptr_t>(slot) * 4u;
+    const float incrementValue = ExeFloat(incrementAddress);
+    const uint64 increment = StatsIncrementRegs<kExe>(static_cast<eStats>(statIndex), incrementValue);
+    // IncrementStat sale al instante con value <= 0 o NaN y entonces conserva el EDX con que se la llama (el de IsCoopGameGoingOn en el EXE).
+    const uint32 incrementEdx = !(incrementValue > 0.0f) ? coopEdx : static_cast<uint32>(increment >> 32);
+    const uint32 lastWeapon = CStats::m_LastWeaponTypeFired;               // mov eax,[0xB79514]
+    if (lastWeapon != slot) {                                              // cmp eax,edi; je 0x55CF3E
+        CStats::m_LastWeaponTypeFired = slot;
+        CStats::m_WeaponCounter = 0;
+        STATS_EXIT(skillBits, incrementEdx, lastWeapon);
+    }
+    // 0x55CF3E: fild [0xB79504] (+2^32); fcom [slot*4+0xB78FC8]; fnstsw ax; test ah,41h; jne 0x55CF82
+    const uint32 weaponCounter = CStats::m_WeaponCounter;
+    const double counter = StatsCounterX87Cpp(weaponCounter);
+    const uint32 axReach = StatsCompareDblFltAxCpp(counter, ExeFloat(0xB78FC8u + static_cast<uintptr_t>(slot) * 4u), 1);
+    if (AhJe(axReach, 0x41)) {
+        // fmul [ebx] (ebx = &[slot*4+0xB78F40]); push ecx; fstp dword [esp]; push esi; push 1; call Display
+        const float shown = UnsignedTimesFloatCpp(weaponCounter, ExeFloat(incrementAddress));
+        const uint64 display = StatsDisplayRegs<kExe>(STAT_UPDATE_INCREASE, static_cast<eStats>(statIndex), shown);
+        CStats::m_WeaponCounter = 0;
+        STATS_EXIT(skillBits, static_cast<uint32>(display >> 32), static_cast<uint32>(display));
+    }
+    // 0x55CF82: mov eax,[0xB79504]; fstp st(0); inc eax; mov [0xB79504],eax
+    const uint32 next = weaponCounter + 1u;
+    CStats::m_WeaponCounter = next;
+    STATS_EXIT(skillBits, incrementEdx, next);
+}
+
+// Hook de 0x55CEB0: cdecl (eWeaponType) en la pila; el llamador (0x73B853) la limpia con add esp,4.
+uint32 __declspec(safebuffers) __fastcall StatsUpdateStatsWhenWeaponHitExe(uint32 entryEcx, uint32 entryEdx) {
+    const uint32 weaponType = static_cast<const uint32*>(_AddressOfReturnAddress())[1];
+    return StatsWeaponHitBody<true>(entryEcx, entryEdx, weaponType);
+}
+#pragma runtime_checks("", restore)
+}
+
+void CStats::UpdateStatsWhenWeaponHit(eWeaponType weaponType) {
+    StatsWeaponHitBody<false>(0u, 0u, static_cast<uint32>(weaponType));
 }
 
 // 0x55CFA0
@@ -3623,125 +1697,87 @@ void CStats::UpdateStatsWhenFighting() {
 }
 
 // 0x55CFC0
-__declspec(naked) void CStats::UpdateStatsOnRespawn() {
-    __asm {
-// 0x55CFC0
-        push        ecx
-// 0x55CFC1
-        mov         eax,dword ptr ds:[00B79508h]
-// 0x55CFC6
-        fild        dword ptr ds:[00B79508h]
-// 0x55CFCC
-        test        eax,eax
-// 0x55CFCE
-        jge Ui8_UpdateStatsOnRespawn_55CFD6
-// 0x55CFD0
-        fadd        dword ptr ds:[00858C54h]
-Ui8_UpdateStatsOnRespawn_55CFD6:
-        fcomp       dword ptr ds:[00B78FF4h]
-// 0x55CFDC
-        fnstsw      ax
-// 0x55CFDE
-        test        ah,41h
-// 0x55CFE1
-        jne Ui8_UpdateStatsOnRespawn_55D023
-// 0x55CFE3
-        fld         dword ptr ds:[00B793E0h]
-// 0x55CFE9
-        fcomp       dword ptr ds:[0085A700h]
-// 0x55CFEF
-        fnstsw      ax
-// 0x55CFF1
-        test        ah,41h
-// 0x55CFF4
-        jne Ui8_UpdateStatsOnRespawn_55D017
-// 0x55CFF6
-        mov         ecx,dword ptr ds:[00B78F74h]
-// 0x55CFFC
-        push        ecx
-// 0x55CFFD
-        push        18h
-// 0x55CFFF
-        call Ui8_Bridge_0055C180
-// 0x55D004
-        mov         edx,dword ptr ds:[00B78F74h]
-// 0x55D00A
-        push        edx
-// 0x55D00B
-        push        18h
-// 0x55D00D
-        push        0
-// 0x55D00F
-        call Ui8_Bridge_0055B980
-// 0x55D014
-        add         esp,14h
-Ui8_UpdateStatsOnRespawn_55D017:
-        mov         dword ptr ds:[00B79508h],0
-// 0x55D021
-        pop         ecx
-// 0x55D022
-        ret
-Ui8_UpdateStatsOnRespawn_55D023:
-        inc         dword ptr ds:[00B79508h]
-// 0x55D029
-        pop         ecx
-// 0x55D02A
-        ret
+namespace {
+// Como el original (0x55CFC0..0x55D02A). Salidas (`pop ecx; ret`, ECX = el de entrada):
+//  - contador + 1 (0x55D023) y fin sin reducir salud (0x55D017): EDX = el de entrada y EAX = parte alta del contador + AX de `fnstsw ax`
+//    (condiciones C0/C2/C3 de la comparacion mas las banderas x87 acumuladas, TOP = 0), que StatsCounterVsFloatAxCpp/StatsCompareFltFltAxCpp ejecutan con
+//    las mismas operaciones x87 (fild, fadd 2^32, fcomp);
+//  - tras Increment + Display (0x55D014): EAX/EDX de DisplayScriptStatUpdateMessage.
+#pragma runtime_checks("", off)
+template<bool kExe>
+__declspec(safebuffers) uint32 __fastcall StatsRespawnBody(uint32 entryEcx, uint32 entryEdx) {
+    float* const reaction = CStats::StatReactionValue.data();
+    const uint32 counter = CStats::m_DeathCounter;                         // mov eax,[0xB79508]
+    const uint32 high = counter & 0xFFFF0000u;
+    // fild [0xB79508] (+2^32 si el bit alto esta puesto); fcomp [0xB78FF4]; fnstsw ax; test ah,41h; jne 0x55D023
+    const uint32 axCounter = StatsCounterVsFloatAxCpp(counter, reaction[STAT_TIMELIMIT_DEATH_HEALTH]);
+    if (!AhJe(axCounter, 0x41)) {
+        CStats::m_DeathCounter = counter + 1u;                             // inc dword ptr [0xB79508]
+        STATS_EXIT(entryEcx, entryEdx, high | (axCounter & 0xFFFFu));
     }
+    // 0x55CFE3: fld [0xB793E0]; fcomp [0x85A700] (400.0f); fnstsw ax; test ah,41h; jne 0x55D017
+    const uint32 axHealth = StatsCompareFltFltAxCpp(CStats::StatTypesFloat.data()[STAT_MAX_HEALTH], 400.0f, 0);
+    if (AhJe(axHealth, 0x41)) {
+        // mov ecx,[0xB78F74]; push ecx; push 0x18; call 0x55C180; mov edx,[0xB78F74]; push edx; push 0x18; push 0; call 0x55B980; add esp,0x14
+        CStats::IncrementStat(STAT_MAX_HEALTH, reaction[STAT_DEC_MAX_HEALTH]);
+        const uint64 display = StatsDisplayRegs<kExe>(STAT_UPDATE_DECREASE, STAT_MAX_HEALTH, reaction[STAT_DEC_MAX_HEALTH]);
+        CStats::m_DeathCounter = 0;
+        STATS_EXIT(entryEcx, static_cast<uint32>(display >> 32), static_cast<uint32>(display));
+    }
+    CStats::m_DeathCounter = 0;                                            // 0x55D017
+    STATS_EXIT(entryEcx, entryEdx, high | (axHealth & 0xFFFFu));
+}
+
+// Hook de 0x55CFC0: sin argumentos; ECX y EDX de entrada por registro.
+uint32 __declspec(safebuffers) __fastcall StatsUpdateStatsOnRespawnExe(uint32 entryEcx, uint32 entryEdx) {
+    return StatsRespawnBody<true>(entryEcx, entryEdx);
+}
+#pragma runtime_checks("", restore)
+}
+
+void CStats::UpdateStatsOnRespawn() {
+    StatsRespawnBody<false>(0u, 0u);
 }
 
 // 0x55D030
-__declspec(naked) void CStats::UpdateStatsAddToHealth(uint32 addToHealth) {
-    __asm {
-// 0x55D030
-        mov         eax,dword ptr ds:[00B79510h]
-// 0x55D035
-        add         eax,dword ptr [esp+4]
-// 0x55D039
-        test        eax,eax
-// 0x55D03B
-        mov         dword ptr [esp+4],eax
-// 0x55D03F
-        fild        dword ptr [esp+4]
-// 0x55D043
-        mov         dword ptr ds:[00B79510h],eax
-// 0x55D048
-        jge Ui8_UpdateStatsAddToHealth_55D050
-// 0x55D04A
-        fadd        dword ptr ds:[00858C54h]
-Ui8_UpdateStatsAddToHealth_55D050:
-        fcomp       dword ptr ds:[00B78FF8h]
-// 0x55D056
-        fnstsw      ax
-// 0x55D058
-        test        ah,41h
-// 0x55D05B
-        jne Ui8_UpdateStatsAddToHealth_55D087
-// 0x55D05D
-        mov         eax,dword ptr ds:[00B78F3Ch]
-// 0x55D062
-        push        eax
-// 0x55D063
-        push        18h
-// 0x55D065
-        call Ui8_Bridge_0055C180
-// 0x55D06A
-        mov         ecx,dword ptr ds:[00B78F3Ch]
-// 0x55D070
-        push        ecx
-// 0x55D071
-        push        18h
-// 0x55D073
-        push        1
-// 0x55D075
-        call Ui8_Bridge_0055B980
-// 0x55D07A
-        add         esp,14h
-// 0x55D07D
-        mov         dword ptr ds:[00B79510h],0
-Ui8_UpdateStatsAddToHealth_55D087:
-        ret
+namespace {
+// Como el original (0x55D030..0x55D087): sobrescribe su argumento con la suma ([esp+4] = contador + argumento, que el banco observa) y la guarda en
+// el contador. Salidas: EAX = parte alta de la suma + AX de la comparacion (ECX/EDX = los de entrada), o la llamada a Display en la ultima posicion
+// (ret sin pop: EAX/ECX/EDX del colaborador salen sin tocar; el `mov [0xB79510],0` posterior se hace antes de Display, que no lo lee).
+#pragma runtime_checks("", off)
+template<bool kExe>
+__declspec(safebuffers) uint32 __fastcall StatsAddToHealthBody(uint32 entryEcx, uint32 entryEdx, volatile uint32* argument) {
+    float* const reaction = CStats::StatReactionValue.data();
+    const uint32 sum = CStats::m_AddToHealthCounter + *argument;           // mov eax,[0xB79510]; add eax,[esp+4]
+    *argument = sum;                                                       // mov [esp+4],eax
+    CStats::m_AddToHealthCounter = sum;
+    // fild [esp+4] (+2^32 si el bit alto esta puesto); fcomp [0xB78FF8]; fnstsw ax; test ah,41h; jne 0x55D087
+    const uint32 axSum = StatsCounterVsFloatAxCpp(sum, reaction[STAT_TIMELIMIT_ADD_TO_HEALTH]);
+    if (!AhJe(axSum, 0x41)) {
+        STATS_EXIT(entryEcx, entryEdx, (sum & 0xFFFF0000u) | (axSum & 0xFFFFu));
     }
+    // mov eax,[0xB78F3C]; push eax; push 0x18; call 0x55C180; mov ecx,[0xB78F3C]; push ecx; push 0x18; push 1; call 0x55B980; add esp,0x14
+    CStats::IncrementStat(STAT_MAX_HEALTH, reaction[STAT_INC_MAX_HEALTH]);
+    CStats::m_AddToHealthCounter = 0;
+    if constexpr (kExe) {
+        return reinterpret_cast<uint32(__cdecl*)(eStatUpdateState, eStats, float)>(&CStats::DisplayScriptStatUpdateMessage)(STAT_UPDATE_INCREASE, STAT_MAX_HEALTH, reaction[STAT_INC_MAX_HEALTH]);
+    } else {
+        CStats::DisplayScriptStatUpdateMessage(STAT_UPDATE_INCREASE, STAT_MAX_HEALTH, reaction[STAT_INC_MAX_HEALTH]);
+        return 0;
+    }
+}
+
+// Hook de 0x55D030: cdecl (uint32) en la pila; [esp+4] se sobrescribe y los llamadores (0x456610, 0x55C34A) lo limpian con add esp,4.
+uint32 __declspec(safebuffers) __fastcall StatsUpdateStatsAddToHealthExe(uint32 entryEcx, uint32 entryEdx) {
+    volatile uint32* const arguments = static_cast<volatile uint32*>(_AddressOfReturnAddress()) + 1;
+    return StatsAddToHealthBody<true>(entryEcx, entryEdx, arguments);
+}
+#pragma runtime_checks("", restore)
+}
+
+void CStats::UpdateStatsAddToHealth(uint32 addToHealth) {
+    uint32 argument = addToHealth;
+    StatsAddToHealthBody<false>(0u, 0u, &argument);
 }
 
 // 0x55D090
@@ -3820,3 +1856,13 @@ void CStats::RegisterMissionAttempted(uint8 missionId) {
 void CStats::RegisterMissionPassed(uint8 missionId) {
     TimesMissionAttempted.data()[missionId] = -1; // Como el original: sin comprobar el rango
 }
+
+#undef STATS_EXIT
+#undef STATS_CAPTURE_REGS
+#undef STATS_CAPTURE_EAX_ECX
+
+// IMPRESCINDIBLE: dejar al final del archivo y sin `restore`. MSVC instancia las plantillas <kExe> (cuerpos StatsXxxBody<true/false>) al final de la unidad de
+// traduccion e ignora el estado de #pragma runtime_checks vigente donde estan definidas, llamadas o instanciadas explicitamente: con /RTC1 (Debug) emiten
+// `call _RTC_CheckStackVars` (que pone ECX = EBP, pisando el residuo de ECX), `push edx`/`pop edx` alrededor y `add esp,N; cmp ebp,esp; call __RTC_CheckEsp`
+// tras la llamada a ResidueRegsCpp. Con el pragma activo en el estado final de la unidad, las instancias salen sin comprobaciones.
+#pragma runtime_checks("", off)

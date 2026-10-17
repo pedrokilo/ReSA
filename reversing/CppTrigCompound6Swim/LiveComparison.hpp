@@ -483,6 +483,7 @@ inline void Update() {
                     std::memset(routes.data(),0xCD,routes.size());
                     *reinterpret_cast<uint32*>(TIMER)=next()%3 ? 100000+next()%1000000 : next();
                     *reinterpret_cast<float*>(TIMESTEP)=next()%3 ? 1.f : pick({0.5f,2.f,uni(0.1f,3.f),0.02f});
+                    if(i%16==5){ static const float stressStep[]{0.f,1e-30f,std::bit_cast<float>(1u),1e-20f,100.f,0.0001f}; *reinterpret_cast<float*>(TIMESTEP)=stressStep[(i/16)%6]; } // estres sin consumir RNG: pow(0,9, paso) y productos con paso 0, subnormal y extremos
                     *reinterpret_cast<uint32*>(FRAMES)=next();
                     const float ts=*reinterpret_cast<float*>(TIMESTEP);
                     // --- peatones falsos ---
@@ -554,6 +555,7 @@ inline void Update() {
                     fatMod=pick({1000.f,500.f,1500.f,uni(100.f,2000.f)});
                     *reinterpret_cast<uint8*>(MOUSE3RD)=uint8(next()%3==0); *reinterpret_cast<float*>(CAM_ORIENT)=uni(-3.2f,3.2f);
                     { auto* cf=reinterpret_cast<float*>(camFront); cf[0]=uni(-1.f,1.f); cf[1]=uni(-1.f,1.f); cf[2]=next()%4==0 ? 0.f : uni(-0.9f,0.9f); }
+                    if(i%16==11){ static const float stressXY[]{1e30f,-1e30f,1e-30f,0.f,-0.f,3.4028235e38f}; static const float stressZ[]{1.f,-1.f,1e-30f,-0.f,0.999999f,-0.999999f}; auto* cf=reinterpret_cast<float*>(camFront); cf[0]=stressXY[(i/16)%6]; cf[1]=stressXY[(i/96)%6]; cf[2]=stressZ[(i/16)%6]; } // estres sin consumir RNG: fpatan con magnitudes extremas y asin(+-1) (rama +-pi/2 del CRT del EXE)
                     { const float pz=At<float>(matA.data(),0x38); for(auto& w:waterLevels)w=pick({pz+2.f,std::nextafter(pz+2.f,1000.f),pz+0.5f,std::nextafter(pz+0.5f,1000.f),pz+0.65f,pz+uni(-1.f,3.f),pz-0.2f}); }
                     climbRet=next()%2 ? static_cast<void*>(climbEnt.data()) : nullptr;
                     groupRet=next()%3 ? static_cast<void*>(group.data()) : nullptr;

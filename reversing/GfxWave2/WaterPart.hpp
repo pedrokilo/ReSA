@@ -309,7 +309,9 @@ inline json CaseAddQuad(unsigned i, bool cand, Hook* hook, uintptr_t addr) {
     if (n > 0 && Rnd(s) % 3 == 0) {
         /* Reutilizar el vertice 0 (deduplicacion) solo si la Y minima sigue apareciendo en exactamente 2 vertices (o el quad se descarta por Y/X iguales): si no, el EXE lee la pila sin inicializar (listas A/B de 1 o 3 elementos). */
         const auto& v = CWaterLevel::m_aVertices[0];
-        int32 ty[4]{ y[0], v.y, y[2], y[3] };
+        /* AddWaterLevelVertex fija cada Y <= -3000 / >= 3000 en el limite ANTES de que el quad compare las Y minimas: el recuento debe hacerse con las Y ya recortadas (casos 548 y 997 de la corrida 20261015-200341 tenian 3+1 tras recortar). */
+        const auto clampY = [](int32 value) { return value <= -3000 ? -3000 : (value >= 3000 ? 3000 : value); };
+        int32 ty[4]{ clampY(y[0]), clampY(v.y), clampY(y[2]), clampY(y[3]) };
         const int32 mn = std::min(std::min(ty[0], ty[1]), std::min(ty[2], ty[3]));
         const int cnt = (ty[0] == mn) + (ty[1] == mn) + (ty[2] == mn) + (ty[3] == mn);
         if (cnt == 2 || cnt == 4) { x[1] = v.x; y[1] = v.y; p[1].z = v.rp.z; }

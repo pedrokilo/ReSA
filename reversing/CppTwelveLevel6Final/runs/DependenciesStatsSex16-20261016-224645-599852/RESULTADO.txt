@@ -1,0 +1,3 @@
+APROBADO: DependenciesStatsSex16
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciesstatssex16\20261016-224645-599852

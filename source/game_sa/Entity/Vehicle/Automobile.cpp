@@ -27,6 +27,7 @@ END GENERATED HOOK STATUS */
 #include <bit> // popcnt
 
 #include "Automobile.h"
+#include "X87Math.h"
 #include "ModelIndices.h"
 #include "WaterCannons.h"
 #include "Buoyancy.h"
@@ -106,21 +107,9 @@ static void G2UpdateDoorFrameMatrix(const CDoor& door, CMatrix& mat) {
 }
 
 // Como el original (0x6A884D..0x6A886E y 0x6A887C..0x6A889C): fild de CTimer::m_snTimeInMilliseconds (entero con signo), + 2^32 (0x858C54)
-// si es negativo, + constante flotante en el x87 y _ftol2 (truncacion a 64 bits; se guarda el dword bajo)
+// si es negativo, + constante flotante en el x87 (24 bits por operacion) y _ftol2 (truncacion a 64 bits; se guarda el dword bajo)
 static uint32 G2TimeMsPlusFloat(float addend) {
-    int32 timeMs = (int32)CTimer::GetTimeInMS();
-    float wrap = 4294967296.0f;
-    double result = 0.0;
-    __asm {
-        fild dword ptr timeMs
-        cmp timeMs, 0
-        jge no_wrap
-        fadd wrap
-    no_wrap:
-        fadd addend
-        fstp qword ptr result
-    }
-    return (uint32)(int64)result;
+    return AutomobileTimeMsPlusFloatCpp(CTimer::GetTimeInMS(), addend);
 }
 
 void CAutomobile::InjectHooks()
@@ -497,65 +486,7 @@ static CVector G5Multiply3x3(const CMatrix& m, const CVector& v) {
 // Como el original: 6B2DCD..6B2DEE: m_fWheelSpinForAudio = r * audio + (1 - r) * rate con r = pow(base, ts) del CRT del EXE (0x822130)
 // sin redondear a float (el resultado de la potencia se usa con la precision completa de ST0)
 static float G5WheelSpinForAudio(float base, float timeStep, float audio, float rate) {
-    float result;
-    __asm {
-        fld base
-        fld timeStep
-        mov eax, 0x822130
-        call eax
-        fld1
-        fsub st, st(1)
-        fmul rate
-        fxch st(1)
-        fmul audio
-        faddp st(1), st
-        fstp result
-    }
-    return result;
-}
-
-// Como el original: 6B2989..6B29C4: steerAngle = asin(x) / (steeringLock * 0.017453292f) con el asin del CRT del EXE (0x821E70);
-// el cociente se hace con el resultado extendido de ST0 (un unico redondeo)
-static float G5SteerAngleAsin(float x, float steeringLock) {
-    float result;
-    const float degToRad = StaticRef<float>(0x8595EC);
-    __asm {
-        fld x
-        mov eax, 0x821E70
-        call eax
-        fld steeringLock
-        fmul degToRad
-        fdivp st(1), st
-        fstp result
-    }
-    return result;
-}
-
-// Como el original: 6B30E0..6B3124: velocidad angular amortiguada de los hidraulicos con pow del CRT del EXE (0x822130):
-// speedTimeStep = pow(0.985f, ts) / (tsf^2 * 5 + 1); speed = pow(speedTimeStep, ts) * tsf - tsf (la potencia sin redondear a float)
-static float G5HydraulicTurnSpeed(float turnSpeedForward, float timeStep) {
-    float result;
-    const float base = StaticRef<float>(0x8D3210);
-    const float factor = StaticRef<float>(0x8D320C);
-    __asm {
-        fld base
-        fld timeStep
-        mov eax, 0x822130
-        call eax
-        fld turnSpeedForward
-        fmul turnSpeedForward
-        fmul factor
-        fld1
-        faddp st(1), st
-        fdivp st(1), st
-        fld timeStep
-        mov eax, 0x822130
-        call eax
-        fmul turnSpeedForward
-        fsub turnSpeedForward
-        fstp result
-    }
-    return result;
+    return AutomobileWheelSpinAudioCpp(base, timeStep, audio, rate);
 }
 
 // 0x6B1880
@@ -963,6 +894,7 @@ void CAutomobile::ProcessControl()
         // Como el original: 6B28D6 fld [0x8D3214] (= 4.0f, global en .data); fcomp 0; jne -> si no es > 0 se salta todo el bloque (incluido el producto por m_fSteerAngle)
         if (StaticRef<float>(0x8D3214) > 0.0f) {
             float steerAngle = 1.0f; // todo: Repeated branch in conditional chain
+            bool steerAngleApplied = false;
             if (!(speedForward > 0.01f) || !(m_WheelCounts[CAR_WHEEL_FRONT_LEFT] > 0.0f) && !(m_WheelCounts[CAR_WHEEL_REAR_LEFT] > 0.0f))
                 steerAngle = 1.0f;
             else if (GetStatus() != STATUS_PLAYER)
@@ -976,16 +908,17 @@ void CAutomobile::ProcessControl()
                 // Como el original: 6B2970..6B2988 ((adhesive * traction) * [0x8D3214]) * 4.0f / (speedForward^2)
                 steerAngle = adhesive * traction * StaticRef<float>(0x8D3214) * 4.0f / (speedForward * speedForward);
                 steerAngle = (1.0f < steerAngle) ? 1.0f : steerAngle;
-                steerAngle = G5SteerAngleAsin(steerAngle, m_pHandlingData->m_fSteeringLock);
-                if (m_fSteerAngle < 0.0f && speedRight > 0.05f
+                // Como el original: 6B2989..6B2A34. El cociente asin(x) / (steeringLock * 0.017453292f) (asin del CRT del EXE, 0x821E70) se queda sin
+                // redondear en ST0 hasta el producto por m_fSteerAngle (fmul [esi+494h]; fstp): todo va en un ayudante x87 (un solo redondeo a float).
+                // Se pone a 1.0 si m_fSteerAngle y speedRight van en sentidos opuestos, con el freno de mano o si el cociente supera 1.0.
+                const bool steerOpposed = m_fSteerAngle < 0.0f && speedRight > 0.05f
                     || m_fSteerAngle > 0.0f && speedRight < -0.05f
-                    || vehicleFlags.bIsHandbrakeOn
-                    || steerAngle > 1.0f)
-                {
-                    steerAngle = 1.0f;
-                }
+                    || vehicleFlags.bIsHandbrakeOn;
+                m_fSteerAngle = AutomobileSteerFactorCpp(steerAngle, m_pHandlingData->m_fSteeringLock, StaticRef<float>(0x8595EC), m_fSteerAngle, steerOpposed);
+                steerAngleApplied = true;
             }
-            m_fSteerAngle *= steerAngle;
+            if (!steerAngleApplied)
+                m_fSteerAngle *= steerAngle;
         }
 
         if (!handlingFlags.bProcRearwheelFirst) {
@@ -1183,10 +1116,10 @@ void CAutomobile::ProcessControl()
             return false;
         }()) {
             float       turnSpeedForward = DotProduct(m_vecTurnSpeed, GetForward());
-            // Como el original: 6B30E0..6B3124 (pow del CRT del EXE con la precision completa de ST0)
-            const float speed            = G5HydraulicTurnSpeed(turnSpeedForward, CTimer::GetTimeStep());
-
-            CVector force = speed * GetUp() * -1.0f * m_fTurnMass;
+            // Como el original: 6B30E0..6B317E. speedTimeStep = pow(0.985f, ts) / (tsf^2 * 5 + 1); speed = pow(speedTimeStep, ts) * tsf - tsf (pow del CRT del
+            // EXE, 0x822130) queda sin redondear en ST0 y alimenta los tres productos (speed * (up * -1.0f)) * m_fTurnMass: todo en un ayudante x87.
+            CVector force;
+            AutomobileHydraulicForceCpp(turnSpeedForward, CTimer::GetTimeStep(), StaticRef<float>(0x8D3210), StaticRef<float>(0x8D320C), &GetUp().x, m_fTurnMass, &force.x);
             CVector point = GetRight() + G5Multiply3x3(GetMatrix(), m_vecCentreOfMass); // Como el original: 6B318E call 59C790
             ApplyTurnForce(force, point);
         }
@@ -1724,54 +1657,22 @@ void G4CopyColPoint(CColPoint& dst, const CColPoint& src) {
 
 // Como el original: fsin / fcos del x87 (0x41BCE0 / 0x41BCF0), resultado redondeado al guardar como float
 float G4Fsin(float v) {
-    float r;
-    __asm {
-        fld v
-        fsin
-        fstp r
-    }
-    return r;
+    return TrigSimpleSinCpp(v);
 }
 
 float G4Fcos(float v) {
-    float r;
-    __asm {
-        fld v
-        fcos
-        fstp r
-    }
-    return r;
+    return TrigSimpleCosCpp(v);
 }
 
 // Como el original (0x6A5CE7..0x6A5D0F): pow(0.995, paso) con el _CIpow del EXE (0x822130, via 0x470000), usado con
 // precision completa en (restante * pow) + 1.0
 float G4TireTemperatureDecay(float temperatureAboveOne, float timeStep) {
-    const float base = std::bit_cast<float>(0x3F7EB852u);
-    const float one = 1.0f;
-    float result;
-    __asm {
-        fld base
-        fld timeStep
-        mov eax, 0x822130
-        call eax
-        fmul temperatureAboveOne
-        fadd one
-        fstp result
-    }
-    return result;
+    return AutomobileTireDecayCpp(std::bit_cast<float>(0x3F7EB852u), timeStep, temperatureAboveOne); // 0.995f
 }
 
 // Como el original: pow(base, exponente) con el _CIpow del EXE (0x822130), guardado como float (fstp dword)
 float G4PowToFloat(float base, float exponent) {
-    float result;
-    __asm {
-        fld base
-        fld exponent
-        mov eax, 0x822130
-        call eax
-        fstp result
-    }
-    return result;
+    return CnvDecayPowCpp(base, exponent);
 }
 } // namespace
 
@@ -2265,15 +2166,8 @@ void CAutomobile::ProcessControlCollisionCheck(bool applySpeed) {
 // Como el original: 0x6AD8D1..0x6AD8E8 fld 0.975f; fld timestep; call 0x822130 (pow del CRT del EXE, precision completa en ST0); fmul raw (se redondea al guardar)
 static float G3MouseSteerDecay(float raw, float timeStep) {
     const float base = StaticRef<float>(0x871064);
-    float result;
-    __asm {
-        fld base
-        fld timeStep
-        mov eax, 0x822130
-        call eax
-        fmul raw
-        fstp result
-    }
+    float result = raw;
+    PowScaleFloatCpp(&result, base, timeStep); // result = float(pow(base, ts) * raw)
     return result;
 }
 
@@ -3933,25 +3827,7 @@ void CAutomobile::SetupModelNodes() {
 // Como el original: 0x6A0E9D..0x6A0EBF. angulo = fpatan(lr, ud) + (-pi/4 = [0x8D31BC]) (la suma se redondea a float);
 // cosOut = fcos(angulo) * jump y sinOut = fsin(angulo) * jump con fpatan/fcos/fsin en precision extendida y un unico redondeo en cada producto
 static void G6HydraulicStickAngleChange(float stickLR, float stickUD, float jump, float& cosOut, float& sinOut) {
-    const float quarterPiNeg = std::bit_cast<float>(0xBF490FDBu);
-    float resCos, resSin;
-    __asm {
-        fld jump
-        fld stickLR
-        fld stickUD
-        fpatan
-        fadd quarterPiNeg
-        fld st(0)
-        fcos
-        fmul st, st(2)
-        fstp resCos
-        fsin
-        fmul st, st(1)
-        fstp resSin
-        fstp st(0)
-    }
-    cosOut = resCos;
-    sinOut = resSin;
+    AutomobileHydraulicStickCpp(stickLR, stickUD, jump, std::bit_cast<float>(0xBF490FDBu), &cosOut, &sinOut);
 }
 
 // 0x6A07A0
@@ -5337,42 +5213,23 @@ void CAutomobile::ProcessCarWheelPair(eCarWheel leftWheel, eCarWheel rightWheel,
 
 // TODO: Could add these to CMatrix as well, might be useful.. Like: CMatrix::GetRoll()
 
+// Ayudantes de X87Math.cpp (AutomobileCarRollDblCpp / PlaceableRollDblCpp) que devuelven un double: el fpatan (y su producto) queda sin redondear en ST0.
+// Aqui se declaran como float (alias del enlazador, como en Placeable.cpp) para que el metodo devuelva ST0 tal cual.
+extern "C" float __cdecl AutomobileCarRollFltCpp(const float* right, float upZ);
+extern "C" float __cdecl AutomobileCarPitchFltCpp(const float* forward, float upZ);
+#pragma comment(linker, "/alternatename:_AutomobileCarRollFltCpp=_AutomobileCarRollDblCpp")
+#pragma comment(linker, "/alternatename:_AutomobileCarPitchFltCpp=_PlaceableRollDblCpp")
+
 /*!
 * @addr 0x6A6010
 * @brief Returns `roll` in DEGREES
 */
 float CAutomobile::GetCarRoll() {
-    // Como el original (0x6A6010): sqrt(x*x + y*y) con fsqrt, signo segun up.z (fcomp + test ah,5 / jp: solo negativo si up.z < 0),
-    // fpatan a precision completa y multiplicacion por 57.2957763671875 (0x859878) sin redondear antes a float.
+    // Como el original (0x6A6010, igual que CPlaceable::GetRoll 0x420B30): sqrt(x*x + y*y) con fsqrt, signo segun up.z (fcomp + test ah,5 / jp: solo negativo si up.z < 0),
+    // fpatan a precision completa y multiplicacion por 57.2957763671875 (0x859878) sin redondear antes a float: el ayudante x87 devuelve double (ST0)
+    // y esta funcion lo declara como float con otro nombre (/alternatename) para que el resultado salga tal cual en ST0, como el EXE.
     const auto& right = m_matrix->GetRight();
-    const float rx = right.x, ry = right.y, rz = right.z, upZ = m_matrix->GetUp().z;
-    const float zero = 0.0f, minusOne = -1.0f, toDegrees = 57.2957763671875f;
-    float result;
-    __asm {
-        fld ry
-        fld rx
-        fld st(0)
-        fmul st(0), st(1)
-        fld st(2)
-        fmul st(0), st(3)
-        faddp st(1), st(0)
-        fsqrt
-        fstp st(2)
-        fstp st(0)
-        fld upZ
-        fcomp zero
-        fnstsw ax
-        test ah, 5
-        jp rollKeepSign
-        fmul minusOne
-    rollKeepSign:
-        fld rz
-        fxch st(1)
-        fpatan
-        fmul toDegrees
-        fstp result
-    }
-    return result;
+    return AutomobileCarRollFltCpp(&right.x, m_matrix->GetUp().z);
 }
 
 /*!
@@ -5380,35 +5237,10 @@ float CAutomobile::GetCarRoll() {
 * @brief Returns `pitch` in RADIANS
 */
 float CAutomobile::GetCarPitch() {
-    // Como el original (0x6A6050): igual que GetCarRoll pero con el vector forward y sin escalar el resultado de fpatan.
+    // Como el original (0x6A6050): igual que GetCarRoll pero con el vector forward y sin escalar el resultado de fpatan; es el mismo calculo que
+    // CPlaceable::GetRoll sobre el vector forward (PlaceableRollDblCpp), con el fpatan sin redondear en ST0.
     const auto& fwd = m_matrix->GetForward();
-    const float fx = fwd.x, fy = fwd.y, fz = fwd.z, upZ = m_matrix->GetUp().z;
-    const float zero = 0.0f, minusOne = -1.0f;
-    float result;
-    __asm {
-        fld fy
-        fld fx
-        fld st(0)
-        fmul st(0), st(1)
-        fld st(2)
-        fmul st(0), st(3)
-        faddp st(1), st(0)
-        fsqrt
-        fstp st(2)
-        fstp st(0)
-        fld upZ
-        fcomp zero
-        fnstsw ax
-        test ah, 5
-        jp pitchKeepSign
-        fmul minusOne
-    pitchKeepSign:
-        fld fz
-        fxch st(1)
-        fpatan
-        fstp result
-    }
-    return result;
+    return AutomobileCarPitchFltCpp(&fwd.x, m_matrix->GetUp().z);
 }
 
 // 0x6A6140
@@ -6166,29 +5998,9 @@ void CAutomobile::ProcessSwingingDoor(eCarNodes nodeIdx, eDoors doorIdx)
     if (doorIdx == eDoors::DOOR_BONNET) {
         auto& bonnet = m_doors[eDoors::DOOR_BONNET];
         if ((bonnet.m_dirn & DOOR_EXTRA_DIRN_MASK) == DOOR_AXIS_Y) {
-            // Como el original (0x6A9F12..0x6A9F51): s = (fsin(angulo) + 0.1f) * 0.05f (fsin del x87 a precision completa); los
-            // productos s*forward y despues por la velocidad se redondean a float uno a uno y se suman en el orden y, z, x
-            float bonnetAngle = bonnet.m_angle;
-            float swingBias = 0.1f;     // 0x858B1C
-            float swingMul = 0.05f;     // 0x8D31CC
-            float swingScale = 0.f;
-            __asm {
-                fld bonnetAngle
-                fsin
-                fadd swingBias
-                fmul swingMul
-                fstp swingScale
-            }
-            const CMatrix& vehMat = *m_matrix;
-            const float sz = swingScale * vehMat.GetForward().z;
-            const float sy = swingScale * vehMat.GetForward().y;
-            const float sx = swingScale * vehMat.GetForward().x;
-            const float py = sy * m_vecMoveSpeed.y;
-            const float pz = sz * m_vecMoveSpeed.z;
-            const float pyz = py + pz;
-            const float px = sx * m_vecMoveSpeed.x;
-            const float sum = pyz + px;
-            bonnet.m_angVel = bonnet.m_angVel + sum;
+            // Como el original (0x6A9F12..0x6A9F51): s = (fsin(angulo) + 0.1f [0x858B1C]) * 0.05f [0x8D31CC] y los productos s*forward, despues por la velocidad
+            // (y, z, x), la suma y el fadd con m_angVel quedan en la pila x87 sin pasar por float hasta el fstp final: todo en un ayudante x87.
+            bonnet.m_angVel = AutomobileBonnetAngVelCpp(bonnet.m_angle, 0.1f, 0.05f, &m_matrix->GetForward().x, &m_vecMoveSpeed.x, bonnet.m_angVel);
         }
     }
 

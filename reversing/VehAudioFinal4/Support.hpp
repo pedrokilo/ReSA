@@ -265,4 +265,39 @@ inline uint64 SavedHash(){ uint64 g=1469598103934665603ull; for(auto& s:saved){ 
 template<class R,class... A> inline R CallThis(uintptr_t a,void* self,A... args){ return reinterpret_cast<R(__thiscall*)(void*,A...)>(a)(self,args...); }
 template<class R,class... A> inline R CallCdecl(uintptr_t a,A... args){ return reinterpret_cast<R(__cdecl*)(A...)>(a)(args...); }
 template<class R,class... A> inline R CallStd(uintptr_t a,A... args){ return reinterpret_cast<R(__stdcall*)(A...)>(a)(args...); }
+
+// Llamada thiscall con ECX = this y EDX sembrado, que devuelve el float de ST0 y captura ECX/EDX justo despues del `ret N` del destino. Las envolturas de
+// GetFreqForIdle (0x4F5C60), GetVehicleDriveWheelSkidValue (0x4F5F30), GetVehicleNonDriveWheelSkidValue (0x4F6000) y GetVolForPlayerEngineSound (0x4F5D00)
+// existen para dejar ECX/EDX como el EXE (sus llamadores los reutilizan), asi que el banco los compara en bits (EAX no: en estas funciones solo es residuo de
+// fnstsw). Los argumentos de pila se pasan como palabras de 32 bits (puntero, entero o float) y se apilan de derecha a izquierda; el destino los retira.
+inline float CallThisRegsN(uintptr_t a,void* self,const uint32* words,int count,uint32 seedEdx,uint32* ecxOut,uint32* edxOut){
+    float res=0.f; uint32 ec=0,ed=0;
+    __asm {
+        mov eax, count
+        mov edx, words
+    pushloop:
+        test eax, eax
+        jz pushed
+        dec eax
+        push dword ptr [edx+eax*4]
+        jmp pushloop
+    pushed:
+        mov eax, a
+        mov ecx, self
+        mov edx, seedEdx
+        call eax
+        mov ec, ecx
+        mov ed, edx
+        fstp res
+    }
+    *ecxOut=ec; *edxOut=ed;
+    return res;
+}
+template<class T> inline uint32 RegWord(T v){ static_assert(sizeof(T)==4); uint32 w; std::memcpy(&w,&v,4); return w; }
+template<class... A> inline float CallThisRegs(uintptr_t a,void* self,uint32 seedEdx,uint32* ecxOut,uint32* edxOut,A... args){
+    const uint32 words[sizeof...(A)+1]={RegWord(args)...};
+    return CallThisRegsN(a,self,words,int(sizeof...(A)),seedEdx,ecxOut,edxOut);
+}
+// Semilla de EDX por caso y por funcion, sin consumir el generador del caso (los fixtures existentes no cambian).
+inline uint32 RegSeed(int caseIndex,uint32 fnIndex){ return 0x5EED0000u ^ (uint32(caseIndex)*0x9E3779B1u) ^ (fnIndex*0x85EBCA6Bu) ^ 0x00001234u; }
 }

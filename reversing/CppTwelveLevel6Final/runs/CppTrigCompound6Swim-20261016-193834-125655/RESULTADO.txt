@@ -1,0 +1,3 @@
+APROBADO: CppTrigCompound6Swim
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cpptrigcompound6swim\20261016-193834-125655

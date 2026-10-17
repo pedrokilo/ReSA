@@ -1,0 +1,3 @@
+APROBADO: DependenciesVehicle12
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciesvehicle12\20261016-185539-956559

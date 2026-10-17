@@ -17,6 +17,8 @@
 #include "MatrixPoolProof.hpp"
 #include "../ProbeRuntime.hpp"
 #include "../OriginalDependencies499/HookRoute.hpp"
+// Garage.cpp: el hook del EXE 0x4487D0 es esta envoltura __fastcall (conserva ECX y EDX como el original); la sobrecarga CGarage::IsPointInsideGarage es la version para C++.
+uint32 __fastcall GarageIsPointInsideRadiusRegs(CGarage* self, uint32 entryEdx, CVector point, float radius);
 namespace DependenciesWorld15Live {
 struct Fn{const char* cls;const char* name;uintptr_t address,vtable;int slot,cases;};
 inline constexpr Fn fns[]{{"CGarage","IsEntityTouching3D",0x448EE0,0,-1,2048}};
@@ -98,7 +100,7 @@ inline void Update(){
  {"CGarage","IsEntityTouching3D",0x448EE0,FunctionToVoidPtr(&CGarage::IsEntityTouching3D)},
  {"CEntity","GetColModel",0x535300,FunctionToVoidPtr(&CEntity::GetColModel)},
  {"CPlaceable","GetMatrix",0x411990,FunctionToVoidPtr(&CPlaceable::GetMatrix)},
- {"CGarage","IsPointInsideGarage-radius",0x4487D0,FunctionToVoidPtr(static_cast<bool(CGarage::*)(CVector,float)>(&CGarage::IsPointInsideGarage))},
+ {"CGarage","IsPointInsideGarage-radius",0x4487D0,reinterpret_cast<void*>(&GarageIsPointInsideRadiusRegs)},
  {"CPlaceable","AllocateMatrix",0x54F560,FunctionToVoidPtr(&CPlaceable::AllocateMatrix)},
  {"CPlaceable","RemoveMatrix",0x54F3B0,FunctionToVoidPtr(&CPlaceable::RemoveMatrix)},
  {"CMatrixLinkList","AddToList1",0x54E9D0,FunctionToVoidPtr(&CMatrixLinkList::AddToList1)},

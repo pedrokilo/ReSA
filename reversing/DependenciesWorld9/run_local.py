@@ -39,7 +39,7 @@ def analyze(path):
    nan|=any((v[k]&0x7F800000)==0x7F800000 and v[k]&0x007FFFFF for k in ('old_bits','new_bits'))
    signedzero|={v['old_bits'],v['new_bits']}=={0,0x80000000}and not v['distance_changed']
  if pairs!=set(range(4096))or cases!={fn:set(range(2048))for fn in EXPECTED}:raise RuntimeError('Missing cases/pairs')
- if coords!={-1,0,1}or elapsed!={0,2999,3000,3499,3500,4999,5000,123456}or weather!=set(range(4))or big!=set(range(4))or small!=set(range(4)):raise RuntimeError('Missing wave coverage')
+ if coords!={-1,0,1}or elapsed!={0,2999,3000,3499,3500,4999,5000,123456}or weather!=set(range(4))or big!=set(range(8))or small!=set(range(8)):raise RuntimeError('Missing wave coverage')
  if changed!={False,True}or ticks!={0,1,0x7FFFFFFF,0x80000000,0xFFFFFFFE,0xFFFFFFFF}or not nan or not signedzero:raise RuntimeError('Missing setter comparison/timer coverage')
  fs=[r for r in rows if r.get('event')=='function_summary']
  if len(fs)!=2 or {r['function']for r in fs}!=set(EXPECTED)or not all(r.get('complete_paths')is True and r.get('failures')==0 and r.get('cases')==2048 for r in fs):raise RuntimeError('Incomplete function summary')

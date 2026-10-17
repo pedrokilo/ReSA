@@ -1,0 +1,3 @@
+APROBADO: Arreglos de nucleo fuera de listas
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fixcore\20261016-113335-588078

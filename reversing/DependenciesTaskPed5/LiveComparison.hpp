@@ -10,7 +10,27 @@
 #include "Reference.h"
 #include "../ProbeRuntime.hpp"
 #include "../OriginalDependencies499/HookRoute.hpp"
+#include <reversiblehooks/ReversibleHook/Simple.h>
 namespace DependenciesTaskPed5Live {
+// Fight (w20): los colaboradores 0x571A00 y 0x571B70 se ejecutan con sus bytes del EXE durante la llamada (RH apagado), de modo que EAX/ECX/EDX de salida de la ruta
+// original sean los del EXE y no los de la DLL; la ruta candidata (C++) llama a CEntity directamente y reproduce ese residuo.
+struct FightHelperHooksOff {
+    struct Item { ReversibleHooks::ReversibleHook::Base* hook{}; bool enabled{}, locked{}; };
+    std::array<Item, 2> items{};
+    explicit FightHelperHooksOff(bool active) {
+        if (!active) return;
+        const uintptr_t at[]{0x571A00, 0x571B70};
+        for (int i = 0; i < 2; ++i)
+            ReversibleHooks::GetRootCategory().ForEachCategory([&](auto& c) {
+                for (auto& h : c.Items())
+                    if (h->Type() == ReversibleHooks::ReversibleHook::Base::HookType::Simple && reinterpret_cast<uintptr_t>(static_cast<ReversibleHooks::ReversibleHook::Simple*>(h.get())->GetHookGTAAddress()) == at[i])
+                        items[i] = {h.get(), h->Hooked(), h->Locked()};
+            });
+        for (auto& item : items) if (item.hook) { item.hook->LockState(false); item.hook->State(false); }
+    }
+    ~FightHelperHooksOff() { for (auto& item : items) if (item.hook) { item.hook->State(item.enabled); item.hook->LockState(item.locked); } }
+};
+
 struct Fn {const char* cls;const char* name;uintptr_t address;int vt,slot,cases;};
 inline const Fn fns[]{
  {"CAttractorScanner","Clear",0x5FFF90,0,-1,2048},
@@ -109,7 +129,7 @@ inline void Update(){
     for(int r=0;r<7;++r)refs[r].m_pNext=&refs[r+1];CReferences::pEmptyList=refs.data();
     uint32 thisPtr=uint32(reinterpret_cast<uintptr_t>(object.data())),argA=0,argB=0,argC=0;int argc=0;auto expected=object;
     bool contract=true,aliasEqual=true;int expectedEvent=0;Abi abi{};bool routeOk=false;
-    auto native=[&]{return routes[index]->Invoke(candidate,[&]{routeOk=ReversingProbe::JumpsToDll(fn.address)==candidate;return Call(fn.address,thisPtr,argA,argB,argC,0,argc,0xED12AA55u^uint32(scenario),index==3);});};
+    auto native=[&]{return routes[index]->Invoke(candidate,[&]{routeOk=ReversingProbe::JumpsToDll(fn.address)==candidate;FightHelperHooksOff fightHelpersOff(index==2);return Call(fn.address,thisPtr,argA,argB,argC,0,argc,0xED12AA55u^uint32(scenario),index==3);});};
     if(index==0){
      const float squared=ClearSquaredConstant();
      for(int n=0;n<10;++n){put32(expected.data()+0x18+4*n,0);put32(expected.data()+0x40+4*n,0);put32(expected.data()+0x68+4*n,std::bit_cast<uint32>((n==4||n==7)?squared:25.f));}

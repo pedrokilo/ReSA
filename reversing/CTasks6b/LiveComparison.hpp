@@ -21,6 +21,7 @@
 // Pool de tareas: m_LastFreeSlot y estados se restauran y los slots libres se rellenan con 0xCD en cada ejecucion.
 // Se guardan y restauran el reloj y CCarEnterExit::ms_vecPedGetUpAnimOffset.
 #include <fstream>
+#include <bit>
 #include <unordered_map>
 #include <reversiblehooks/RootHookCategory.h>
 #include <reversiblehooks/ReversibleHook/Base.h>
@@ -400,7 +401,13 @@ inline void Update() {
                         auto* v=vehs[n].data(); std::memset(v,0,vehs[n].size()); std::memset(vehMats[n].data(),0,vehMats[n].size());
                         At<void*>(v,0)=vehVtbl.data(); v[E_TYPE]=uint8(2|(next()%32)<<3); At<void*>(v,V_HANDLING)=handling.data();
                         if(next()%5){ At<void*>(v,E_MATRIX)=vehMats[n].data(); CMatrix m{}; m.SetRotate(0.f,0.f,uni(-3.2f,3.2f));
-                            m.GetPosition()=CVector{uni(-50.f,50.f),uni(-50.f,50.f),uni(0.f,30.f)}; std::memcpy(vehMats[n].data(),&m,sizeof(CMatrix)); }
+                            m.GetPosition()=CVector{uni(-50.f,50.f),uni(-50.f,50.f),uni(0.f,30.f)};
+                            // Estres del rumbo del vehiculo de SetPedSlowDraggedOut::ProcessPed (0x64C4FC: fpatan(-forward.x, forward.y)): NaN con distinta carga y signo,
+                            // +-inf, +-0, subnormales, +-1e30/1e-30 y FLT_MAX en x e y del frente
+                            { static constexpr uint32 fwdBits[]{0x00000000u,0x80000000u,0x00000001u,0x80000001u,0x007FFFFFu,0x00800000u,0x7F7FFFFFu,0xFF7FFFFFu,
+                                  0x7F800000u,0xFF800000u,0x7FC00000u,0xFFC00000u,0x7FC00001u,0x7F800001u,0xFF800001u,0x3F800000u,0xBF800000u,0x7149F2CAU,0x0DA24260U,0xF149F2CAU,0x8DA24260U};
+                              if(next()%6==0){ m.GetForward().x=std::bit_cast<float>(fwdBits[next()%std::size(fwdBits)]); m.GetForward().y=std::bit_cast<float>(fwdBits[next()%std::size(fwdBits)]); } }
+                            std::memcpy(vehMats[n].data(),&m,sizeof(CMatrix)); }
                         else { At<CVector>(v,E_POS)=CVector{uni(-50.f,50.f),uni(-50.f,50.f),uni(0.f,30.f)}; At<float>(v,E_HEADING)=uni(-3.2f,3.2f); }
                         for(size_t b=0;b<0xA0;++b)v[V_AUTOPILOT+b]=uint8(next());
                         { static const uint32 locks[]{1,5,2,5,0}; At<uint32>(v,V_DOORLOCK)=locks[next()%5]; }

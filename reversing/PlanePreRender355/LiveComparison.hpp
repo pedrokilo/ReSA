@@ -2,6 +2,7 @@
 #include <fstream>
 #include <reversiblehooks/RootHookCategory.h>
 #include <reversiblehooks/ReversibleHook/Base.h>
+#include <reversiblehooks/ReversibleHook/Virtual.h>
 #include "Plane.h"
 #include "ColModel.h"
 #include "VehicleModelInfo.h"
@@ -58,6 +59,11 @@ inline void Update(){
  EntryPatch col(0x535300,Col),base(0x6D6480,Base),wheel(0x4C7D20,Wheel),position(0x4C7DD0,OriginalPosition),flags(0x6AA290,SetFlags),rotation(0x6DBA30,Rotation),objects(0x7F1200,Objects),alpha(0x6D2960,Alpha),dust(0x6B0690,Dust);
  EntryPatch create(0x4A9BE0,Create),play(0x4AA2F0,Play),kill(0x4AA3F0,Kill),local(0x4AA910,Local),copy(0x4AA890,Copy),fxMatrix(0x4AA630,FxMatrix),offset(0x4AA660,Offset),time(0x4AA6C0,Time),particle(0x4AA440,Particle);
  EntryPatch panel(0x6F49A0,Panel),shadow(0x70BDA0,Shadow),streak(0x721DC0,Streak),boat(0x6DD130,Boat);
+ // CPlane::PreRender llama ahora a los colaboradores reconstruidos directamente por su simbolo de la DLL: misma sustitucion en la entrada de la DLL que en la direccion del EXE.
+ auto* vehiclePreRender=FindHook("CVehicle","PreRender");if(!vehiclePreRender){Write({{"event","error"},{"reason","missing hook"}});return;}
+ EntryPatch colD(std::bit_cast<uintptr_t>(&CEntity::GetColModel),Col),baseD(reinterpret_cast<uintptr_t>(static_cast<ReversibleHooks::ReversibleHook::Virtual*>(vehiclePreRender)->GetHookOurAddress()),Base),wheelD(std::bit_cast<uintptr_t>(&CVehicleModelInfo::GetWheelPosn),Wheel),positionD(std::bit_cast<uintptr_t>(&CVehicleModelInfo::GetOriginalCompPosition),OriginalPosition),rotationD(std::bit_cast<uintptr_t>(&CVehicle::SetComponentRotation),Rotation),objectsD(std::bit_cast<uintptr_t>(&RwFrameForAllObjects),Objects),alphaD(std::bit_cast<uintptr_t>(&CVehicle::SetComponentAtomicAlpha),Alpha),dustD(std::bit_cast<uintptr_t>(&CAutomobile::DoHeliDustEffect),Dust);
+ EntryPatch createD(std::bit_cast<uintptr_t>(static_cast<FxSystem_c*(FxManager_c::*)(const char*,const CVector&,RwMatrix*,bool)>(&FxManager_c::CreateFxSystem)),Create),playD(std::bit_cast<uintptr_t>(&FxSystem_c::Play),Play),killD(std::bit_cast<uintptr_t>(&FxSystem_c::Kill),Kill),localD(std::bit_cast<uintptr_t>(&FxSystem_c::SetLocalParticles),Local),copyD(std::bit_cast<uintptr_t>(&FxSystem_c::CopyParentMatrix),Copy),fxMatrixD(std::bit_cast<uintptr_t>(&FxSystem_c::SetMatrix),FxMatrix),offsetD(std::bit_cast<uintptr_t>(&FxSystem_c::SetOffsetPos),Offset),timeD(std::bit_cast<uintptr_t>(&FxSystem_c::SetConstTime),Time),particleD(std::bit_cast<uintptr_t>(static_cast<void(FxSystem_c::*)(const CVector&,const CVector&,float,const FxPrtMult_c&,float,float,float,bool)>(&FxSystem_c::AddParticle)),Particle);
+ EntryPatch panelD(std::bit_cast<uintptr_t>(&CBouncingPanel::ProcessPanel),Panel),shadowD(std::bit_cast<uintptr_t>(&CShadows::StoreShadowForVehicle),Shadow),streakD(std::bit_cast<uintptr_t>(&CMotionBlurStreaks::RegisterStreak),Streak),boatD(std::bit_cast<uintptr_t>(&CVehicle::DoBoatSplashes),Boat);
  const auto savedStep=CTimer::GetTimeStep();
  constexpr std::array<int16,16> models{460,464,476,511,512,513,519,520,539,553,577,592,2000,463,518,591};
  std::array<uintptr_t,models.size()> savedModels;for(size_t n=0;n<models.size();++n)savedModels[n]=StaticRef<uintptr_t[20000]>(0xA9B0C8)[size_t(models[n])];

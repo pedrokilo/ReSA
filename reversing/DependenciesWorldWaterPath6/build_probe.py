@@ -9,5 +9,5 @@ if __name__=='__main__':
     print(json.dumps(build(Path(__file__).parent,'dependenciesworldwaterpath6','DependenciesWorldWaterPath6Live',[
         'source/game_sa/Cam.cpp','source/game_sa/Cam.h',
         'source/game_sa/Camera.cpp','source/game_sa/Camera.h',
-        'source/game_sa/WaterLevel.cpp','source/game_sa/WaterLevel.h',
+        'source/game_sa/WaterLevel.cpp','source/game_sa/WaterLevel.h','source/game_sa/X87Math.cpp','source/game_sa/X87Math.h',
         'source/InjectHooksMain.cpp','reversing/OriginalDependencies499/HookRoute.hpp'])))

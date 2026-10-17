@@ -14,6 +14,8 @@ inline constexpr Fn fns[]{
 };
 inline bool done{};inline std::ofstream log;
 inline void Write(const json& r){ReversingProbe::PumpMessages();log<<r.dump()<<'\n';log.flush();}
+// Estres de las entradas x, y, z (cada ranura se sustituye en 1 de cada 73 escenarios): NaN con distinta carga/signo, +-inf, +-0, subnormales, +-1e30, +-1e-30, FLT_MAX.
+inline float Stress(float value,int scenario,int slot){static constexpr uint32 bits[]{0x7FC00000u,0xFFC00001u,0x7F800000u,0xFF800000u,0x00000000u,0x80000000u,0x00000001u,0x80000003u,0x7F7FFFFFu,0xFF7FFFFFu,0x7149F2CAu,0xF149F2CAu,0x0DA24260u,0x8DA24260u};return scenario%73!=slot*24+3?value:std::bit_cast<float>(bits[size_t(scenario/73)%std::size(bits)]);}
 struct Result{uint32 value;bool abi;};
 __declspec(noinline) inline Result Call(uintptr_t entry,const std::array<uintptr_t,7>& args,bool water){
     const uintptr_t a=args[0],b=args[1],c=args[2],d=args[3],e=args[4],f=args[5],g=args[6];
@@ -129,7 +131,7 @@ inline void Update(){
                     const float fractions[]{-.001f,0,.125f,.375f,.625f,.875f,1,1.001f};const float u=fractions[scenario%8],v=fractions[(scenario/8)%8];
                     const float x=float(a.x)+float(int(b.x)-int(a.x))*u;const float y=float(std::min(a.y,c.y))+float(std::abs(int(c.y)-int(a.y)))*v;
                     const float zModes[]{-2000,-100,std::nextafter(-6.f,-std::numeric_limits<float>::infinity()),-6,std::nextafter(-6.f,std::numeric_limits<float>::infinity()),-4,-3,0,.5f,1,std::nextafter(20.f,-std::numeric_limits<float>::infinity()),20,std::nextafter(20.f,std::numeric_limits<float>::infinity()),100,2000,-1,6,19};const float z=a.rp.z+zModes[zVariant];optional=(scenario/1152)%3;
-                    args={uintptr_t(&polygon[2]),std::bit_cast<uint32>(x),std::bit_cast<uint32>(y),std::bit_cast<uint32>(z),uintptr_t(&output[1]),optional==0?uintptr_t(&output[2]):0,optional==1?0:uintptr_t(&output[3])};
+                    args={uintptr_t(&polygon[2]),std::bit_cast<uint32>(Stress(x,scenario,0)),std::bit_cast<uint32>(Stress(y,scenario,1)),std::bit_cast<uint32>(Stress(z,scenario,2)),uintptr_t(&output[1]),optional==0?uintptr_t(&output[2]):0,optional==1?0:uintptr_t(&output[3])};
                     // Native big!=NULL requires small!=NULL; big==NULL permits either small state.
                     fixtureKind=triangle?(a.x==c.x?0:1):(u+v<=1?0:1);fixtureValid=ids[0]<nv&&ids[1]<nv&&ids[2]<nv&&(args[5]==0||args[6]!=0);
                 }

@@ -405,7 +405,7 @@ inline void Update() {
     P.Add(0x6A3EA0,S_Nitrous);                 P.Add(Dll(&CAutomobile::NitrousControl),S_Nitrous);
     P.Add(0x506FA0,S_Bass);                    P.Add(Dll(&CAudioEngine::SetRadioBassSetting),S_Bass);
     P.Add(0x571B70,S_RegRef);                  P.Add(Dll(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::RegisterReference)),S_RegRef);
-    P.Add(0x4185A0,S_RemoveTrianglePlanes);    // CCollision::RemoveTrianglePlanes(CColModel*): el envoltorio de la DLL llama a esta direccion
+    P.Add(0x4185A0,S_RemoveTrianglePlanes);    P.Add(Dll(static_cast<void(*)(CColModel*)>(&CCollision::RemoveTrianglePlanes)),S_RemoveTrianglePlanes); // la DLL (Vehicle.cpp) ya llama a su funcion, no a 0x4185A0
     P.Add(0x40F810,S_AllocateData);            P.Add(Dll(static_cast<void(CColModel::*)()>(&CColModel::AllocateData)),S_AllocateData);
     P.Add(0x40F7C0,S_ColAssign);               P.Add(Dll(static_cast<CColModel&(CColModel::*)(const CColModel&)>(&CColModel::operator=)),S_ColAssign);
     P.Add(0x59C080,S_QuatGet);                 P.Add(Dll(static_cast<void(CQuaternion::*)(RwMatrix*) const>(&CQuaternion::Get)),S_QuatGet);

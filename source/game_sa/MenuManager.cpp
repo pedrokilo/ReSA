@@ -35,6 +35,7 @@ END GENERATED HOOK STATUS */
 #include "platform.h"
 #include "Hud.h"
 #include "ControllerConfigManager.h"
+#include "X87Math.h"
 
 auto& FrontEndMenuManager = StaticRef<CMenuManager>(0xBA6748);
 
@@ -950,16 +951,9 @@ void CMenuManager::SaveStatsToFile() {
                 static auto& unk = StaticRef<uint16>(0xB794CC);
                 if (unk) { // stat line formatted in percents?
                     // Como el original: atoi * 0.001f * 100.0f, y 100 si no es < 100 (NaN incluido); sprintf sin límite.
-                    // fild/fmul/fmul del EXE (0x57E116): el entero entra exacto en el x87 (sin redondear antes a float).
-                    const int32 percentValue = atoi(val);
-                    const float percentScale = 0.001f, percentHundred = 100.0f;
-                    float percent;
-                    __asm {
-                        fild percentValue
-                        fmul percentScale
-                        fmul percentHundred
-                        fstp percent
-                    }
+                    // fild/fmul/fmul del EXE (0x57E116..0x57E123, constantes 0x858CDC y 0x858628): el entero entra exacto en el x87
+                    // (sin redondear antes a float) y cada producto se redondea a 24 bits (X87Math.cpp).
+                    float percent = IntTimesTwoFloatsCpp(atoi(val), 0.001f, 100.0f);
                     if (!(percent < 100.0f)) {
                         percent = 100.0f;
                     }

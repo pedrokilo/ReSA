@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 15/10/2026 (Ciudad de México):** 784 grupos / 8550 funciones reconstruidas; 8550 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 105 aprobadas dentro del juego; 130 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 16/10/2026 (Ciudad de México):** 784 grupos / 8550 funciones reconstruidas; 8550 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 105 aprobadas dentro del juego; 130 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -8,21 +8,13 @@
 
 <a id="grupo-1241"></a>
 
-## Globales y helpers: source/game_sa/Fx/Blueprints/FxInfoForce.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FxInfoForce_c | [source/game_sa/Fx/Blueprints/FxInfoForce.h:6](../../source/game_sa/Fx/Blueprints/FxInfoForce.h#L6) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1242"></a>
-
 ## Globales y helpers: source/game_sa/Fx/Blueprints/FxInfoFriction.h
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | FxInfoFriction_c | [source/game_sa/Fx/Blueprints/FxInfoFriction.h:6](../../source/game_sa/Fx/Blueprints/FxInfoFriction.h#L6) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1243"></a>
+<a id="grupo-1242"></a>
 
 ## Globales y helpers: source/game_sa/Fx/Blueprints/FxInfoGroundCollide.h
 
@@ -30,7 +22,7 @@
 | --- | --- | --- | --- | --- | --- |
 | FxInfoGroundCollide_c | [source/game_sa/Fx/Blueprints/FxInfoGroundCollide.h:6](../../source/game_sa/Fx/Blueprints/FxInfoGroundCollide.h#L6) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1244"></a>
+<a id="grupo-1243"></a>
 
 ## Globales y helpers: source/game_sa/Fx/Blueprints/FxInfoHeatHaze.h
 
@@ -38,7 +30,7 @@
 | --- | --- | --- | --- | --- | --- |
 | FxInfoHeatHaze_c | [source/game_sa/Fx/Blueprints/FxInfoHeatHaze.h:6](../../source/game_sa/Fx/Blueprints/FxInfoHeatHaze.h#L6) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1245"></a>
+<a id="grupo-1244"></a>
 
 ## Globales y helpers: source/game_sa/Fx/Blueprints/FxInfoJitter.h
 
@@ -46,7 +38,7 @@
 | --- | --- | --- | --- | --- | --- |
 | FxInfoJitter_c | [source/game_sa/Fx/Blueprints/FxInfoJitter.h:6](../../source/game_sa/Fx/Blueprints/FxInfoJitter.h#L6) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1246"></a>
+<a id="grupo-1245"></a>
 
 ## Globales y helpers: source/game_sa/Fx/Blueprints/FxInfoNoise.h
 
@@ -54,7 +46,7 @@
 | --- | --- | --- | --- | --- | --- |
 | FxInfoNoise_c | [source/game_sa/Fx/Blueprints/FxInfoNoise.h:6](../../source/game_sa/Fx/Blueprints/FxInfoNoise.h#L6) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1247"></a>
+<a id="grupo-1246"></a>
 
 ## Globales y helpers: source/game_sa/Fx/Blueprints/FxInfoRotSpeed.h
 
@@ -62,7 +54,7 @@
 | --- | --- | --- | --- | --- | --- |
 | FxInfoRotSpeed_c | [source/game_sa/Fx/Blueprints/FxInfoRotSpeed.h:6](../../source/game_sa/Fx/Blueprints/FxInfoRotSpeed.h#L6) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1248"></a>
+<a id="grupo-1247"></a>
 
 ## Globales y helpers: source/game_sa/Fx/Blueprints/FxInfoSelfLit.h
 
@@ -70,7 +62,7 @@
 | --- | --- | --- | --- | --- | --- |
 | FxInfoSelfLit_c | [source/game_sa/Fx/Blueprints/FxInfoSelfLit.h:6](../../source/game_sa/Fx/Blueprints/FxInfoSelfLit.h#L6) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1249"></a>
+<a id="grupo-1248"></a>
 
 ## Globales y helpers: source/game_sa/Fx/Blueprints/FxInfoSize.h
 
@@ -78,7 +70,7 @@
 | --- | --- | --- | --- | --- | --- |
 | FxInfoSize_c | [source/game_sa/Fx/Blueprints/FxInfoSize.h:6](../../source/game_sa/Fx/Blueprints/FxInfoSize.h#L6) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1250"></a>
+<a id="grupo-1249"></a>
 
 ## Globales y helpers: source/game_sa/Fx/Blueprints/FxInfoSmoke.h
 
@@ -86,7 +78,7 @@
 | --- | --- | --- | --- | --- | --- |
 | FxInfoSmoke_c | [source/game_sa/Fx/Blueprints/FxInfoSmoke.h:6](../../source/game_sa/Fx/Blueprints/FxInfoSmoke.h#L6) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1251"></a>
+<a id="grupo-1250"></a>
 
 ## Globales y helpers: source/game_sa/Fx/Blueprints/FxInfoSpriteRect.h
 
@@ -94,7 +86,7 @@
 | --- | --- | --- | --- | --- | --- |
 | FxInfoSpriteRect_c | [source/game_sa/Fx/Blueprints/FxInfoSpriteRect.h:6](../../source/game_sa/Fx/Blueprints/FxInfoSpriteRect.h#L6) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1252"></a>
+<a id="grupo-1251"></a>
 
 ## Globales y helpers: source/game_sa/Fx/Blueprints/FxInfoTrail.h
 
@@ -102,7 +94,7 @@
 | --- | --- | --- | --- | --- | --- |
 | FxInfoTrail_c | [source/game_sa/Fx/Blueprints/FxInfoTrail.h:6](../../source/game_sa/Fx/Blueprints/FxInfoTrail.h#L6) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1253"></a>
+<a id="grupo-1252"></a>
 
 ## Globales y helpers: source/game_sa/Fx/Blueprints/FxInfoUnderwater.h
 
@@ -110,7 +102,7 @@
 | --- | --- | --- | --- | --- | --- |
 | FxInfoUnderwater_c | [source/game_sa/Fx/Blueprints/FxInfoUnderwater.h:6](../../source/game_sa/Fx/Blueprints/FxInfoUnderwater.h#L6) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1254"></a>
+<a id="grupo-1253"></a>
 
 ## Globales y helpers: source/game_sa/Fx/Blueprints/FxInfoWind.h
 
@@ -118,7 +110,7 @@
 | --- | --- | --- | --- | --- | --- |
 | FxInfoWind_c | [source/game_sa/Fx/Blueprints/FxInfoWind.h:6](../../source/game_sa/Fx/Blueprints/FxInfoWind.h#L6) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1255"></a>
+<a id="grupo-1254"></a>
 
 ## Globales y helpers: source/game_sa/Fx/Blueprints/Interp/FxInterpInfo.h
 
@@ -126,7 +118,7 @@
 | --- | --- | --- | --- | --- | --- |
 | FxInterpInfo_c | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo.h:5](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo.h#L5) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1256"></a>
+<a id="grupo-1255"></a>
 
 ## Globales y helpers: source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.h
 
@@ -134,7 +126,7 @@
 | --- | --- | --- | --- | --- | --- |
 | FxInterpInfo255_c | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.h:5](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.h#L5) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1257"></a>
+<a id="grupo-1256"></a>
 
 ## Globales y helpers: source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.h
 
@@ -142,7 +134,7 @@
 | --- | --- | --- | --- | --- | --- |
 | FxInterpInfo32_c | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.h:5](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.h#L5) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1258"></a>
+<a id="grupo-1257"></a>
 
 ## Globales y helpers: source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.h
 
@@ -150,7 +142,7 @@
 | --- | --- | --- | --- | --- | --- |
 | FxInterpInfoFloat_c | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.h:5](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.h#L5) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1259"></a>
+<a id="grupo-1258"></a>
 
 ## Globales y helpers: source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.h
 
@@ -158,11 +150,19 @@
 | --- | --- | --- | --- | --- | --- |
 | FxInterpInfoU255_c | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.h:5](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.h#L5) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1260"></a>
+<a id="grupo-1259"></a>
 
 ## Globales y helpers: source/game_sa/Fx/Fx.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| CreateFxWithinCameraRange(const char* name, const CVector& pos, float range) | [source/game_sa/Fx/Fx.cpp:141](../../source/game_sa/Fx/Fx.cpp#L141) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:39 (0x00B6F028); Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80) |
+| CreateFxWithinCameraRange(const char* name, const CVector& pos, float range) | [source/game_sa/Fx/Fx.cpp:141](../../source/game_sa/Fx/Fx.cpp#L141) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:40 (0x00B6F028); Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80) |
 | RenderAddTri(CVector pos1, CVector pos2, CVector pos3, RwTexCoords coord1, RwTexCoords coord2, RwTexCoords coord3, const CRGBA& color1, const CRGBA& color2, const CRGBA& color3) | [source/game_sa/Fx/Fx.cpp:456](../../source/game_sa/Fx/Fx.cpp#L456) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_fx: source/game_sa/Fx/Fx.cpp:32 (0x00A9AE00) |
+
+<a id="grupo-1260"></a>
+
+## Globales y helpers: source/game_sa/Fx/FxEmitter.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| FxEmitter_c | [source/game_sa/Fx/FxEmitter.h:7](../../source/game_sa/Fx/FxEmitter.h#L7) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

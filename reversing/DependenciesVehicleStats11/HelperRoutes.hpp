@@ -24,6 +24,11 @@ public:
             for(auto at:{entry,library,body})bytes.push_back({at,ReversingProbe::Bytes(reinterpret_cast<void*>(at),16)});
         } else {body=Resolve(entry);for(auto at:{entry,body})bytes.push_back({at,ReversingProbe::Bytes(reinterpret_cast<void*>(at),16)});}
     }
+    // IsValidModForVehicle ya no llama a este colaborador: reproduce el residuo (ECX/EDX/EAX) del EXE puro. Durante la llamada medida se ejecuta, por tanto, el
+    // codigo ORIGINAL del EXE en la entrada (hook apagado; el candidato en C++ llama a la funcion de la DLL por simbolo y no depende del hook) y se restaura el modo inicial al terminar.
+    void UseExeCode(bool exe) const {
+        if(hook&&enabled){hook->LockState(false);hook->State(!exe);hook->LockState(locked);}
+    }
     bool Check() const {
         bool ok=module!=0;
         for(auto& [at,saved]:bytes)ok&=saved==ReversingProbe::Bytes(reinterpret_cast<void*>(at),16);

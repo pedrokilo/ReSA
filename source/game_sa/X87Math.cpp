@@ -467,11 +467,12 @@ static bool EntryEaxHelperIsTrivial() {
 
 static bool PlayerPedResidueFloatIsTrivial();
 static bool CarEnterExitEntryEdxHelperIsTrivial();
+static bool PathFindResidueFloatIsTrivial();
 static bool ResidueHelpersAreTrivial() {
     auto  member = &ResidueEcx::Get;
     const void* getAddress;
     memcpy(&getAddress, &member, sizeof getAddress);
-    return ResidueHelperIsTrivial(reinterpret_cast<const void*>(&ResidueRegsCpp)) && ResidueHelperIsTrivial(getAddress) && EntryEaxHelperIsTrivial() && PlayerPedResidueFloatIsTrivial() && CarEnterExitEntryEdxHelperIsTrivial();
+    return ResidueHelperIsTrivial(reinterpret_cast<const void*>(&ResidueRegsCpp)) && ResidueHelperIsTrivial(getAddress) && EntryEaxHelperIsTrivial() && PlayerPedResidueFloatIsTrivial() && CarEnterExitEntryEdxHelperIsTrivial() && PathFindResidueFloatIsTrivial();
 }
 
 static const bool s_residueHelpersChecked = (assert(ResidueHelpersAreTrivial() && "Los ayudantes de residuo de registros ya no son triviales: revisar X87Math.cpp y las opciones de compilacion"), true);
@@ -2398,5 +2399,7134 @@ __declspec(noinline) float __cdecl RpUpdateSyncAccumCpp(float total, float speed
 }
 __declspec(noinline) float __cdecl RpUpdateSyncStepCpp(float total, float totalTime, float totalBlend, float timeStep) {
     return float(double(total) / double(totalTime) * double(totalBlend) * double(timeStep));
+}
+#pragma float_control(pop)
+
+// --- Lote de doce archivos (AEVehicleAudioEntity, TaskSimpleJetPack, PathFind, TaskSimpleSwim, Bmx, PedIK, WaterLevel, MemoryMgr, Physical, Radar, Pad, Matrix; 15/10/2026) ---
+// --- Lote Matrix.cpp (w20), prefijo Matrix. Poner al final de X87Math.cpp (tras HoldEntityRotateZCpp, que CMatrix::RotateZ reutiliza). ---
+// m = CMatrix como 16 floats: right@0, flags@3, forward@4, up@8, pos@12 (misma disposicion que RwMatrix). Todos los ayudantes son noinline.
+// Fuera de precise (sin cadenas de tres terminos): fsin/fcos/fpatan/fsqrt salen en linea. Los valores que el EXE deja en la pila x87 son double
+// (sin redondear a float); los que guarda con fst/fstp a la pila del llamado son `volatile float` y se releen igual.
+static constexpr float kMatrix_36000000 = std::bit_cast<float>(0x36000000u); // 1,9073486e-6 (0x866D90): umbral de bloqueo cardan de ConvertToEulerAngles
+
+// CMatrix::SetRotateXOnly (0x59AFA0): right = {1,0,0}, forward.x = 0, forward.y = cos, forward.z = sin, up.x = 0, up.y = -sin, up.z = cos; no toca flags, relleno ni posicion.
+__declspec(noinline) void __cdecl MatrixSetRotateXOnlyCpp(float* m, float angle) {
+    const double c = cos(double(angle));
+    const double s = sin(double(angle));
+    m[0] = 1.0f; m[1] = 0.0f; m[2] = 0.0f; m[4] = 0.0f; m[8] = 0.0f;
+    m[5] = float(c); m[6] = float(s); m[9] = float(-s); m[10] = float(c);
+}
+// CMatrix::SetRotateYOnly (0x59AFE0): right = {cos, 0, -sin}, forward = {0, 1, 0}, up = {sin, 0, cos}.
+__declspec(noinline) void __cdecl MatrixSetRotateYOnlyCpp(float* m, float angle) {
+    const double c = cos(double(angle));
+    const double s = sin(double(angle));
+    m[1] = 0.0f; m[4] = 0.0f; m[5] = 1.0f; m[6] = 0.0f; m[9] = 0.0f;
+    m[0] = float(c); m[2] = float(-s); m[8] = float(s); m[10] = float(c);
+}
+// CMatrix::SetRotateZOnly (0x59B020): right = {cos, sin, 0}, forward = {-sin, cos, 0}, up = {0, 0, 1}.
+__declspec(noinline) void __cdecl MatrixSetRotateZOnlyCpp(float* m, float angle) {
+    const double c = cos(double(angle));
+    const double s = sin(double(angle));
+    m[2] = 0.0f; m[6] = 0.0f; m[8] = 0.0f; m[9] = 0.0f; m[10] = 1.0f;
+    m[0] = float(c); m[1] = float(s); m[4] = float(-s); m[5] = float(c);
+}
+
+// CMatrix::RotateX (0x59B1E0): por fila (y, z): y' = c*y - s*z, z' = s*y + c*z (right, forward, up y pos); fcos sin redondear, fsin guardado como float,
+// un redondeo a 24 bits por operacion y un fstp float por resultado. Todas las lecturas van antes de las escrituras. Equivale al PedIKRotateXCpp propuesto por el lote PedIK: dejar solo uno.
+__declspec(noinline) void __cdecl MatrixRotateXCpp(float* m, float angle) {
+    const double c = cos(double(angle));
+    volatile float storedSin = float(sin(double(angle)));
+    const double s = storedSin;
+    const double ry = m[1],  rz = m[2];
+    const double fy = m[5],  fz = m[6];
+    const double uy = m[9],  uz = m[10];
+    const double py = m[13], pz = m[14];
+    m[5]  = float(c * fy - s * fz);
+    m[6]  = float(s * fy + c * fz);
+    m[9]  = float(c * uy - s * uz);
+    m[10] = float(s * uy + c * uz);
+    m[13] = float(c * py - s * pz);
+    m[14] = float(s * py + c * pz);
+    m[1]  = float(c * ry - s * rz);
+    m[2]  = float(s * ry + c * rz);
+}
+// CMatrix::RotateY (0x59B2C0): por fila (x, z): x' = s*z + c*x, z' = c*z - s*x. right.x usa el seno SIN redondear (fst deja el valor en ST0); el resto usa el seno guardado como float.
+// Equivale al PedIKRotateYCpp propuesto por el lote PedIK: dejar solo uno.
+__declspec(noinline) void __cdecl MatrixRotateYCpp(float* m, float angle) {
+    const double c = cos(double(angle));
+    const double sFull = sin(double(angle));
+    volatile float storedSin = float(sFull);
+    const double s = storedSin;
+    const double rx = m[0],  rz = m[2];
+    const double fx = m[4],  fz = m[6];
+    const double ux = m[8],  uz = m[10];
+    const double px = m[12], pz = m[14];
+    m[4]  = float(s * fz + c * fx);
+    m[6]  = float(c * fz - s * fx);
+    m[8]  = float(s * uz + c * ux);
+    m[10] = float(c * uz - s * ux);
+    m[12] = float(s * pz + c * px);
+    m[14] = float(c * pz - s * px);
+    m[0]  = float(sFull * rz + c * rx);
+    m[2]  = float(c * rz - s * rx);
+}
+// CMatrix::RotateZ (0x59B390): se reutiliza HoldEntityRotateZCpp (misma secuencia del EXE; comprobado instruccion a instruccion).
+
+// Trigonometria y raiz fuera de precise (en linea: fcos, fsin, 1/fsqrt) para las funciones de abajo que SI necesitan precise (sin reasociar productos/sumas).
+static __declspec(noinline) double __cdecl MatrixCosDbl(double angle) { return cos(angle); }
+static __declspec(noinline) double __cdecl MatrixSinDbl(double angle) { return sin(angle); }
+static __declspec(noinline) double __cdecl MatrixInvSqrtDbl(double sum) { return 1.0 / sqrt(sum); } // fsqrt; fdivr [1.0f] (0x858624)
+
+#pragma float_control(precise, on, push)
+// CMatrix::SetRotate(x, y, z) (0x59B120). Pila x87 del EXE: cos/sin(x), sin(y), cos(z) y sin(z) sin redondear; se guardan como float cos(y) (fstp), sin(z) (fst) y cos(z)*sin(x) (fstp).
+//   a = sin(z)*sin(x) (ST sin redondear). Pone la posicion a cero; no toca flags ni relleno.
+__declspec(noinline) void __cdecl MatrixSetRotateCpp(float* m, float x, float y, float z) {
+    const double cx = MatrixCosDbl(double(x)), sx = MatrixSinDbl(double(x));
+    const double cy = MatrixCosDbl(double(y));
+    volatile float storedCy = float(cy);
+    const double sy = MatrixSinDbl(double(y));
+    const double cz = MatrixCosDbl(double(z));
+    const double sz = MatrixSinDbl(double(z));
+    volatile float storedSz = float(sz);
+    const double a = sz * sx;
+    volatile float storedB = float(cz * sx);
+    const double CY = storedCy, SZ = storedSz, B = storedB;
+    m[12] = 0.0f; m[13] = 0.0f; m[14] = 0.0f;
+    m[0]  = float(cz * CY - a * sy);
+    m[1]  = float(B * sy + SZ * CY);
+    m[2]  = float(-(sy * cx));
+    m[4]  = float(-(SZ * cx));
+    m[5]  = float(cz * cx);
+    m[6]  = float(sx);
+    m[8]  = float(cz * sy + a * CY);
+    m[9]  = float(SZ * sy - B * CY);
+    m[10] = float(CY * cx);
+}
+
+// CMatrix::Reorthogonalise (0x59B6A0). Productos vectoriales y normalizaciones sin comprobar cero. Orden del EXE (los `volatile float` son los fst/fstp a la pila del llamado):
+//   T1 = ry*fz - fy*rz (ST), T2 = fx*rz - rx*fz (float), T3 = fy*rx - fx*ry (ST y float); s = (T3*T3f + T2f*T2f) + T1*T1; inv = 1/sqrt(s) (ST y float);
+//   up = (T1*inv, invF*T2f, invF*T3f -> float); W1 = V3*fy - V2*fz (ST), W2 = V1*fz - V3f*fx (float), W3 = V2*fx - V1*fy (ST y float);
+//   s2 = (W3*W3f + W2f*W2f) + W1*W1; inv2 = 1/sqrt(s2) (float); right = (W1*inv2F, W2f*inv2F, W3f*inv2F -> float);
+//   forward = (X3*V2 - X2*V3f, X1*V3f - X3f*V1, X2*V1 - X1*V2). Escribe right, forward y up; no toca flags ni posicion. Las lecturas de m van antes de las escrituras.
+__declspec(noinline) void __cdecl MatrixReorthogonaliseCpp(float* m) {
+    const double rx = m[0], ry = m[1], rz = m[2];
+    const double fx = m[4], fy = m[5], fz = m[6];
+    const double t1 = ry * fz - fy * rz;
+    volatile float t2f = float(fx * rz - rx * fz);
+    const double t3 = fy * rx - fx * ry;
+    volatile float t3f = float(t3);
+    const double sum1 = (t3 * double(t3f) + double(t2f) * double(t2f)) + t1 * t1;
+    const double inv1 = MatrixInvSqrtDbl(sum1);
+    volatile float inv1f = float(inv1);
+    const double v1 = t1 * inv1;
+    const double v2 = double(inv1f) * double(t2f);
+    const double v3 = double(inv1f) * double(t3f);
+    volatile float v3f = float(v3);
+    const double w1 = v3 * fy - v2 * fz;
+    volatile float w2f = float(v1 * fz - double(v3f) * fx);
+    const double w3 = v2 * fx - v1 * fy;
+    volatile float w3f = float(w3);
+    const double sum2 = (w3 * double(w3f) + double(w2f) * double(w2f)) + w1 * w1;
+    const double inv2 = MatrixInvSqrtDbl(sum2);
+    volatile float inv2f = float(inv2);
+    const double x1 = w1 * double(inv2f);
+    const double x2 = double(w2f) * double(inv2f);
+    const double x3 = double(w3f) * double(inv2f);
+    volatile float x3f = float(x3);
+    const float y1 = float(x3 * v2 - x2 * double(v3f));
+    const float y2 = float(x1 * double(v3f) - double(x3f) * v1);
+    const float y3 = float(x2 * v1 - x1 * v2);
+    m[2]  = x3f;
+    m[4]  = y1;
+    m[5]  = y2;
+    m[10] = v3f;
+    m[6]  = y3;
+    m[0]  = float(x1);
+    m[1]  = float(x2);
+    m[8]  = float(v1);
+    m[9]  = float(v2);
+}
+#pragma float_control(pop)
+
+// sqrt(a*a + b*b) con la suma en el orden del EXE (a*a primero) y la raiz sin redondear a float (ST0 para fcom y fpatan). Aparte para que /fp:fast no reescriba la comparacion con el umbral.
+static __declspec(noinline) double __cdecl MatrixEulerSqrtSumDbl(double a, double b) { return sqrt(a * a + b * b); }
+
+// CMatrix::ConvertToEulerAngles (0x59A840). m = matriz (se copian right, forward y up a M[9] antes de escribir, de modo que pX/pY/pZ pueden apuntar dentro de m);
+// i, j, k = ejes que el EXE saca de las banderas (Idx1/Idx2; ver Matrix.cpp); flags: bit 0 = intercambiar X y Z al final, bit 1 = repeticion (angulos de Euler propios),
+// bit 2 = paridad (niega los tres angulos). s = sqrt(...) sin redondear; con s <= 1,9073486e-6 o NaN se toma la rama de bloqueo cardan (Z = 0).
+// Las escrituras (y las relecturas de la negacion y el intercambio) son volatile y en el orden del EXE (X, Y, Z), por si los punteros se solapan.
+__declspec(noinline) void __cdecl MatrixConvertToEulerCpp(const float* m, float* pX, float* pY, float* pZ, unsigned int flags, int i, int j, int k) {
+    const float M[9] = { m[0], m[1], m[2], m[4], m[5], m[6], m[8], m[9], m[10] };
+    volatile float* const px = pX;
+    volatile float* const py = pY;
+    volatile float* const pz = pZ;
+    const double eps = double(kMatrix_36000000);
+    if ((flags & 2u) != 0) {
+        const double p = M[3 * i + j], q = M[3 * i + k];
+        const double s = MatrixEulerSqrtSumDbl(q, p);
+        if (s > eps) {
+            *px = float(atan2(q, p));
+            *py = float(atan2(s, double(M[4 * i])));
+            *pz = float(atan2(double(M[3 * k + i]), -double(M[3 * j + i])));
+        } else {
+            *px = float(atan2(-double(M[3 * k + j]), double(M[4 * k])));
+            *py = float(atan2(s, double(M[4 * i])));
+            *pz = 0.0f;
+        }
+    } else {
+        const double a1 = M[3 * k + i], d = M[4 * i];
+        const double s = MatrixEulerSqrtSumDbl(a1, d);
+        if (s > eps) {
+            *px = float(atan2(double(M[3 * j + k]), double(M[4 * j])));
+            *py = float(atan2(-double(M[3 * j + i]), s));
+            *pz = float(atan2(a1, d));
+        } else {
+            *px = float(atan2(-double(M[3 * k + j]), double(M[4 * k])));
+            *py = float(atan2(-double(M[3 * j + i]), s));
+            *pz = 0.0f;
+        }
+    }
+    if ((flags & 4u) != 0) {
+        *px = -*px;
+        *py = -*py;
+        *pz = -*pz;
+    }
+    if ((flags & 1u) != 0) {
+        const float z = *pz;
+        const float x = *px;
+        *px = z;
+        *pz = x;
+    }
+}
+
+// CMatrix::ConvertFromEulerAngles (0x59AA40). Escribe solo los 9 elementos de right/forward/up (m[4*fila+columna]). flags como en ConvertToEulerCpp; i, j, k = ejes del EXE.
+// bit 0: (A, B, C) = (z, y, x) en vez de (x, y, z); bit 2: se niegan A, B y C antes del trigonometrico. cos(A), sin(A), cos(B), sin(B) y cos(C) se guardan como float (fstp);
+// sin(C) queda SIN redondear en ST0; t10 = cC*cA, t14 = cA*sC, t18 = sA*cC y t54 = sA*sC se guardan como float.
+__declspec(noinline) void __cdecl MatrixConvertFromEulerCpp(float* m, float x, float y, float z, unsigned int flags, int i, int j, int k) {
+    double angA = double((flags & 1u) != 0 ? z : x);
+    double angB = double(y);
+    double angC = double((flags & 1u) != 0 ? x : z);
+    if ((flags & 4u) != 0) {
+        angA = -angA;
+        angB = -angB;
+        angC = -angC;
+    }
+    volatile float vcA = float(cos(angA));
+    volatile float vcB = float(cos(angB));
+    volatile float vcC = float(cos(angC));
+    volatile float vsA = float(sin(angA));
+    volatile float vsB = float(sin(angB));
+    const double sC = sin(angC);
+    const double cA = vcA, cB = vcB, cC = vcC, sA = vsA, sB = vsB;
+    volatile float v10 = float(cC * cA);
+    volatile float v14 = float(cA * sC);
+    volatile float v18 = float(sA * cC);
+    volatile float v54 = float(sA * sC);
+    const double t10 = v10, t14 = v14, t18 = v18, t54 = v54;
+    if ((flags & 2u) != 0) {
+        m[5 * i]         = float(cB);
+        m[4 * i + k]     = float(sB * sA);
+        m[4 * i + j]     = float(sB * cA);
+        m[4 * k + i]     = float(sC * sB);
+        m[5 * k]         = float(t10 - t54 * cB);
+        m[4 * k + j]     = float(-(t14 * cB) - t18);
+        m[4 * j + i]     = float(-(sB * cC));
+        m[4 * j + k]     = float(t18 * cB + t14);
+        m[5 * j]         = float(t10 * cB - t54);
+    } else {
+        m[5 * i]         = float(cC * cB);
+        m[4 * i + k]     = float(t18 * sB - t14);
+        m[4 * i + j]     = float(t10 * sB + t54);
+        m[4 * k + i]     = float(sC * cB);
+        m[5 * k]         = float(t54 * sB + t10);
+        m[4 * k + j]     = float(t14 * sB - t18);
+        m[4 * j + i]     = float(-sB);
+        m[4 * j + k]     = float(sA * cB);
+        m[5 * j]         = float(cB * cA);
+    }
+}
+
+// CPedIK::PitchForSlope (0x5FE721): fld angle; fcos; fdivr num; fstp.
+__declspec(noinline) float __cdecl PedIKDivCosCpp(float num, float angle) {
+    return float(double(num) / cos(double(angle)));
+}
+
+// CPedIK::RotateTorsoForArm (0x5FDFB4..0x5FE000). Las dos diferencias (fsub, 24 bits) se guardan como float -exactas- para que /fp:fast no convierta -(a - b) en b - a (cambiaria el signo de un cero).
+// Despues: heading = fpatan(-dx, dy) sin redondear; limite superior = rot + pi (24 bits): si heading > limite -> heading - 2pi; si no, inferior = rot - pi: si heading < inferior -> heading + 2pi (con NaN, ninguna rama); resultado = float(heading - rot).
+__declspec(noinline) float __cdecl PedIKArmHeadingDiffCpp(const float* direction, const float* pedPos, float rotation) {
+    const float pi    = std::bit_cast<float>(0x40490FDBu); // 0x858CB8
+    const float twoPi = std::bit_cast<float>(0x40C90FDBu); // 0x858CBC
+    volatile float dx = float(double(direction[0]) - double(pedPos[0]));
+    volatile float dy = float(double(direction[1]) - double(pedPos[1]));
+    double heading = atan2(-double(dx), double(dy));
+    const float upper = rotation + pi;
+    if (heading > double(upper)) {
+        heading = heading - double(twoPi);
+    } else {
+        const float lower = rotation - pi;
+        if (heading < double(lower)) {
+            heading = heading + double(twoPi);
+        }
+    }
+    volatile float result = float(heading - double(rotation));
+    return result;
+}
+
+// --- CAEVehicleAudioEntity (lote w20, prefijo VehAudio) ---
+// fsin sin redondear a float; fchs solo si sin < 0 (no fabs: -0 y NaN conservan su signo, como PedAudioJetPackSinCpp); sin float_control(precise) para que fsin salga en linea.
+// Revisar en el .obj que no aparezca fabs ni llamada a la CRT.
+__declspec(noinline) float __cdecl VehAudioBikeLeanCpp(float angle, float lean, bool boost, float boostOffset, float gf) {
+    double s = sin(double(angle));
+    if (s < 0.0) s = -s;
+    double v = s * double(lean);
+    if (boost) v = v + double(boostOffset);
+    volatile float result = float(v * double(gf));
+    return result;
+}
+
+__declspec(noinline) float __cdecl VehAudioBicycleFrequencyCpp(float angle, float multiplier, float frequencyBase) {
+    double s = sin(double(angle));
+    if (s < 0.0) s = -s;
+    volatile float result = float((s * double(multiplier) + 1.0) * double(frequencyBase));
+    return result;
+}
+
+// Sin transcendentales: orden estricto del EXE (sin reasociar) y comparaciones ordenadas (NaN conserva el valor). Cada operacion se redondea a 24 bits (x87 a PC24).
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl VehAudioRevsRatioCpp(float absSpeed, float gearMax, float gearDown) {
+    const double numerator = double(absSpeed) - double(gearDown);
+    const double denominator = double(gearMax) - double(gearDown);
+    double ratio = numerator / denominator;
+    if (ratio > 1.0) {
+        ratio = 1.0;                // 0x4FBC03..0x4FBC14
+    } else if (0.0 > ratio) {
+        ratio = 0.0;                // 0x4FBBE6..0x4FBBFB (0x859EF8 = 0.0 doble)
+    }
+    volatile float result = float(ratio);
+    return result;
+}
+
+__declspec(noinline) float __cdecl VehAudioTrainTiltCpp(float forwardX, float forwardY, float forwardZ, float slope) {
+    volatile float zero = 0.0f;     // 0x858B50: fmul por cero (inf/NaN se conservan)
+    const double z = (double(forwardY) + double(forwardX)) * double(zero) + double(forwardZ);
+    double clamped = z;
+    if (!(z > -0.3)) {
+        clamped = -0.3;             // 0x862D60 (incluye NaN)
+    } else if (!(z < 0.3)) {
+        clamped = 0.3;              // 0x862D58
+    }
+    volatile float tilt = float(clamped * double(slope));
+    return tilt;
+}
+
+__declspec(noinline) float __cdecl VehAudioBicycleRatioCpp(float speed, float maxVelocity) {
+    const double quotient = double(speed) / double(maxVelocity);
+    double magnitude = quotient;
+    if (quotient < 0.0) magnitude = -quotient;      // fchs solo si el cociente < 0
+    const double ratio = (magnitude < 1.0) ? magnitude : 1.0; // !(|q| < 1) o NaN -> 1.0 (0x85A310)
+    volatile float stored = float(ratio);           // fst dword
+    if (!(ratio > 0.0)) stored = 0.0f;              // fcomp 0 + test ah,41h / je: <= 0 se guarda como +0
+    return stored;
+}
+#pragma float_control(pop)
+
+// --- CTaskSimpleJetPack (lote w20, prefijo JetPack). Añadir al FINAL de X87Math.cpp (usa UnsignedAsX87 y ExeCompatiblePowCpp, ya definidos arriba) ---
+// Seno, coseno y raíz van en funciones aparte SIN float_control(precise) (con precise serían llamadas a la CRT) y devuelven double = ST0 sin redondear a float.
+// Cada uso consume el valor al instante (no se guarda ningún seno/coseno/pow de 64 bits en memoria): los que el EXE reutiliza se recalculan, el resultado es idéntico.
+__declspec(noinline) static double __cdecl JetPackSinExtCpp(float angle) { return sin(double(angle)); }
+__declspec(noinline) static double __cdecl JetPackCosExtCpp(float angle) { return cos(double(angle)); }
+__declspec(noinline) static double __cdecl JetPackNegSinExtCpp(float angle) { return -sin(double(angle)); } // fsin; fchs (conserva el signo de NaN que da fchs)
+__declspec(noinline) static double __cdecl JetPackSqrtExtCpp(double value) { return sqrt(value); }
+
+static constexpr float kJetPackMaxThrustAngle = std::bit_cast<float>(0x3FA78D36u); // 0x8D2F48 (75 grados)
+static constexpr float kJetPackAngleRate      = std::bit_cast<float>(0x3F666666u); // 0x8D2F54 (0.9)
+static constexpr float kJetPackSwingMax       = std::bit_cast<float>(0x3F490FDBu); // 0x8D2F58 (pi/4)
+static constexpr float kJetPackSwingDeltaV    = std::bit_cast<float>(0xBE4CCCCDu); // 0x8D2F5C (-0.2)
+static constexpr float kJetPackSwingGravity   = std::bit_cast<float>(0x3C23D70Au); // 0x8D2F60 (0.01)
+static constexpr float kJetPackSwingDamp      = std::bit_cast<float>(0x3F7AE148u); // 0x8D2F64 (0.98)
+static constexpr float kJetPackSpeedDamping   = std::bit_cast<float>(0x3CA3D70Au); // 0x8D2F4C (0.02)
+
+// RenderJetPack (0x67F7DC..0x67F7EC): fild ms; fadd 2^32 si el bit alto está puesto; fdiv [0x8D2F80]; el cociente (24 bits) alimenta fsin/fcos sin pasar por memoria.
+__declspec(noinline) float __cdecl JetPackUnsignedDivCpp(unsigned int value, float divisor) {
+    volatile float result = float(UnsignedAsX87(value) / double(divisor));
+    return result;
+}
+
+// ProcessControlInput (0x67E914..0x67E930), cámara mirando a otro lado: fmul -1.0 (0x858C1C) de x e y, fchs del primero (no es una simple negación: con NaN el signo
+// del NaN de x vuelve a invertirse y el de y se conserva) y fpatan; fstp float. Los productos se guardan en volatile para que /fp:fast no los pliegue en una negación.
+__declspec(noinline) float __cdecl JetPackLookBackHeadingCpp(float x, float y) {
+    volatile float  minusOne = -1.0f;
+    volatile double scaledX  = double(x) * double(minusOne);
+    volatile double scaledY  = double(y) * double(minusOne);
+    const double    negScaledX = -scaledX;
+    return float(atan2(negScaledX, scaledY));
+}
+
+#pragma float_control(precise, on, push)
+// ProcessControlInput (0x67E93E..0x67E962): p = pow(0.9, paso) sin redondear (_CIpow 0x822130); 1 - p (24 bits); ((1 - p) · ud) · 75º + p · ángulo; un redondeo a float al guardar.
+__declspec(noinline) float __cdecl JetPackLerpThrustAngleCpp(float scaledUpDown, float angle, float step) {
+    const double p = ExeCompatiblePowCpp(double(kJetPackAngleRate), double(step));
+    const double blended = ((1.0 - p) * double(scaledUpDown)) * double(kJetPackMaxThrustAngle);
+    volatile float result = float(blended + p * double(angle));
+    return result;
+}
+
+// ProcessThrust (0x67F1C2..0x67F221): c = cos(a), s = -sin(a) sin redondear. Los productos con delante (s·f) y con arriba en Y/Z (c·u) se guardan como float; c·arribaX queda
+// en ST0 (24 bits) y se suma a s·delanteX. out[i] = float(s·f[i] + c·u[i]).
+__declspec(noinline) void __cdecl JetPackThrustDirCpp(float thrustAngle, const float* up, const float* forward, float* out) {
+    volatile float sinForwardX = float(JetPackNegSinExtCpp(thrustAngle) * double(forward[0]));
+    volatile float sinForwardY = float(JetPackNegSinExtCpp(thrustAngle) * double(forward[1]));
+    volatile float sinForwardZ = float(JetPackNegSinExtCpp(thrustAngle) * double(forward[2]));
+    volatile float cosUpY      = float(JetPackCosExtCpp(thrustAngle) * double(up[1]));
+    volatile float cosUpZ      = float(JetPackCosExtCpp(thrustAngle) * double(up[2]));
+    out[0] = float(double(sinForwardX) + JetPackCosExtCpp(thrustAngle) * double(up[0]));
+    out[1] = float(double(sinForwardY) + double(cosUpY));
+    out[2] = float(double(sinForwardZ) + double(cosUpZ));
+}
+
+// ProcessThrust (0x67F43D..0x67F48A): aceleración = velocidad - velocidad previa del peatón; delta = velocidad - velocidad previa de la tarea.
+// X e Y de la aceleración y X de delta se quedan en ST0 (24 bits, sin pasar por float); accZ, deltaY y deltaZ se guardan como float; sums = float(delta + aceleración).
+__declspec(noinline) void __cdecl JetPackSwingSumsCpp(const float* pedVelocity, const float* prevPedVelocity, const float* taskVelocity, float* sums) {
+    const double   accX   = double(pedVelocity[0]) - double(prevPedVelocity[0]);
+    const double   accY   = double(pedVelocity[1]) - double(prevPedVelocity[1]);
+    volatile float accZ   = float(double(pedVelocity[2]) - double(prevPedVelocity[2]));
+    const double   deltaX = double(pedVelocity[0]) - double(taskVelocity[0]);
+    volatile float deltaY = float(double(pedVelocity[1]) - double(taskVelocity[1]));
+    volatile float deltaZ = float(double(pedVelocity[2]) - double(taskVelocity[2]));
+    sums[0] = float(deltaX + accX);
+    sums[1] = float(double(deltaY) + accY);
+    sums[2] = float(double(deltaZ) + double(accZ));
+}
+
+// ProcessThrust (0x67F4A0..0x67F544 delante con axis = fila +0x10 de la matriz; 0x67F544..0x67F5E4 lateral con axis = fila +0x00): balanceo de una pierna.
+// dot = (sz·az + sy·ay) + sx·ax (0 si el peatón estaba/está de pie); v1 = velocidad - dot · -0.2 (ST0); v2 = (v1 - ((sin(ángulo) · paso) · 0.01)) · pow(0.98, paso) (ST0, se guarda float en *speed);
+// nuevoÁngulo = v2 · paso + ángulo (ST0): se guarda float en *angle y, si el valor sin redondear > pi/4, *angle = pi/4; si no, si el float guardado < -pi/4, *angle = -pi/4 (NaN se conserva).
+__declspec(noinline) void __cdecl JetPackSwingAxisCpp(const float* sums, const float* axis, bool grounded, float step, float* speed, float* angle) {
+    const double projected = (double(sums[2]) * double(axis[2]) + double(sums[1]) * double(axis[1])) + double(sums[0]) * double(axis[0]);
+    const double dot       = grounded ? 0.0 : projected;
+    const double v1        = double(*speed) - dot * double(kJetPackSwingDeltaV);
+    const double gravity   = (JetPackSinExtCpp(*angle) * double(step)) * double(kJetPackSwingGravity);
+    const double v2        = (v1 - gravity) * ExeCompatiblePowCpp(double(kJetPackSwingDamp), double(step));
+    *speed = float(v2);
+    const double   swung       = v2 * double(step) + double(*angle);
+    volatile float swungStored = float(swung);
+    *angle = swungStored;
+    if (swung > double(kJetPackSwingMax)) {
+        *angle = kJetPackSwingMax;
+    } else if (swungStored < -kJetPackSwingMax) {
+        *angle = -kJetPackSwingMax;
+    }
+}
+
+// ProcessThrust (0x67F5EA..0x67F618): base de la amortiguación de la velocidad = 1 - |v| · 0.02 con |v| = float(sqrt((x² + y²) + z²)) (fsqrt a 24 bits, fstp float, fld float).
+// La base (ST0, 24 bits y dentro del rango float) se devuelve como float; PowScaleVector3Cpp(velocidad, base, paso) hace pow(base, paso) y los tres productos.
+__declspec(noinline) float __cdecl JetPackSpeedDampBaseCpp(const float* velocity) {
+    const double   x = velocity[0];
+    const double   y = velocity[1];
+    const double   z = velocity[2];
+    volatile float magnitude = float(JetPackSqrtExtCpp((x * x + y * y) + z * z));
+    volatile float base      = float(1.0 - double(magnitude) * double(kJetPackSpeedDamping));
+    return base;
+}
+#pragma float_control(pop)
+
+// --- Lote PathFind (w20). Anadir al final de X87Math.cpp (despues de ResidueRegsCpp, FollowIncrementalThunks y PlayerPedResidueFloatCpp) ---
+
+// Igual que PlayerPedResidueFloatCpp pero ademas deja EAX = eaxValue: llama a ResidueRegsCpp con los mismos ECX/EDX (ya estan en los registros de
+// entrada, no se mueven) y despues carga value en ST0. Compilada (/O2) es `push dword ptr [esp+8]; call ResidueRegsCpp; fld dword ptr [esp+4]; ret 8`
+// y no toca ECX ni EDX. Se comprueba al cargar la DLL (PathFindResidueFloatIsTrivial, anadir a ResidueHelpersAreTrivial).
+// El resultado de ResidueRegsCpp se guarda en una variable volatile: sin ese efecto observable el compilador elimina la llamada (la funcion es pura) y EAX
+// no se fija. Guardar EAX en memoria no cambia ECX, EDX ni EAX.
+static volatile unsigned int s_pathFindResidueSink;
+#pragma runtime_checks("", off)
+__declspec(noinline) float __fastcall PathFindResidueFloatCpp(unsigned int ecxValue, unsigned int edxValue, float value, unsigned int eaxValue) {
+    s_pathFindResidueSink = ResidueRegsCpp(ecxValue, edxValue, eaxValue);
+    return value;
+}
+#pragma runtime_checks("", restore)
+
+// Colocar la declaracion adelantada `static bool PathFindResidueFloatIsTrivial();` junto a la de PlayerPedResidueFloatIsTrivial y anadir
+// `&& PathFindResidueFloatIsTrivial()` a ResidueHelpersAreTrivial. Acepta la forma sin marco (/O2) y la del Debug con marco ebp.
+static bool PathFindResidueFloatIsTrivial() {
+    static const unsigned char head[]       = {0xFF, 0x74, 0x24, 0x08};       // push dword ptr [esp+8]
+    static const unsigned char loadPlain[]  = {0xD9, 0x44, 0x24, 0x04};       // fld dword ptr [esp+4]
+    static const unsigned char retPlain[]   = {0xC2, 0x08, 0x00};             // ret 8
+    static const unsigned char frameHead[]  = {0x55, 0x8B, 0xEC, 0xFF, 0x75, 0x0C}; // push ebp; mov ebp,esp; push dword ptr [ebp+0Ch]
+    static const unsigned char loadFrame[]  = {0xD9, 0x45, 0x08};             // fld dword ptr [ebp+8]
+    static const unsigned char retFrame[]   = {0x5D, 0xC2, 0x08, 0x00};       // pop ebp; ret 8
+    const unsigned char* code     = FollowIncrementalThunks(reinterpret_cast<const unsigned char*>(&PathFindResidueFloatCpp));
+    const unsigned char* expected = FollowIncrementalThunks(reinterpret_cast<const unsigned char*>(&ResidueRegsCpp));
+    const bool           framed   = memcmp(code, frameHead, sizeof frameHead) == 0;
+    const bool           plain    = memcmp(code, head, sizeof head) == 0;
+    if (!framed && !plain) {
+        return false;
+    }
+    const unsigned char* call = code + (framed ? sizeof frameHead : sizeof head);
+    if (call[0] != 0xE8) {
+        return false;
+    }
+    int offset;
+    memcpy(&offset, call + 1, sizeof offset);
+    if (FollowIncrementalThunks(call + 5 + offset) != expected) {
+        return false;
+    }
+    // Tras la llamada solo puede haber la carga del float y el guardado de EAX en la variable volatile (mov [s_pathFindResidueSink], eax = A3 imm32),
+    // en cualquiera de los dos ordenes: ninguna de las dos cosas cambia ECX, EDX ni EAX.
+    const unsigned char* load = framed ? loadFrame : loadPlain;
+    const size_t loadSize     = framed ? sizeof loadFrame : sizeof loadPlain;
+    const unsigned char* ret  = framed ? retFrame : retPlain;
+    const size_t retSize      = framed ? sizeof retFrame : sizeof retPlain;
+    const unsigned char* after = call + 5;
+    if (memcmp(after, load, loadSize) == 0 && after[loadSize] == 0xA3) {
+        return memcmp(after + loadSize + 5, ret, retSize) == 0;
+    }
+    if (after[0] == 0xA3 && memcmp(after + 5, load, loadSize) == 0) {
+        return memcmp(after + 5 + loadSize, ret, retSize) == 0;
+    }
+    return false;
+}
+
+// CVector::Normalise del EXE (0x59C910..0x59C960) sobre v[0..2]:
+//   fld z; fld y; fld x; x*x + y*y (faddp) + z*z (faddp); fcom 0.0; fnstsw ax; test ah,41h; jp -> (suma > 0 o NaN) normaliza, si no v[0] = 1.0f
+//   fsqrt; fdivr 1.0f; cada componente: fld st; fmul [v[i]]; fstp [v[i]]  (un redondeo a 24 bits por producto; el reciproco queda en ST0).
+// El valor de retorno es el AX de ese fnstsw sin TOP (bits 11..13, que dependen de la profundidad de la pila x87 del llamador y vale 0 aqui):
+// C3 = 0x4000 (suma == 0), C0 = 0x0100 (suma < 0, imposible), C3|C2|C0 = 0x4500 (NaN); C1 = 0; mas las banderas sticky IE=1, DE=2, ZE=4, OE=8, UE=0x10, PE=0x20
+// que el hardware lleva acumuladas (se leen con _statusfp2 despues de los productos y la suma, como X87CompareStatusCpp). PE sale de x*x, y*y o la suma inexactos
+// a 24 bits. Limitacion: fcom (ordenada) tambien marca IE con un NaN silencioso; esta funcion compara con == y no lo marca (el dominio de CPathFind son int16 * 0.125, sin NaN).
+#pragma float_control(precise, on, push)
+static __declspec(noinline) double PathFindSumSquares3(const float* v) {
+    return (v[0] * v[0] + v[1] * v[1]) + v[2] * v[2];
+}
+#pragma float_control(pop)
+
+__declspec(noinline) unsigned int __cdecl PathFindNormaliseStatusCpp(float* v) {
+    const double sum = PathFindSumSquares3(v);
+    unsigned int status = 0;
+    if (!(sum == sum)) {
+        status = 0x4500; // desordenado
+    } else if (sum == 0.0) {
+        status = 0x4000;
+    } else if (sum < 0.0) {
+        status = 0x0100;
+    }
+    unsigned int x87 = 0, sse = 0;
+    _statusfp2(&x87, &sse);
+    if (x87 & _SW_INVALID)    status |= 0x01;
+    if (x87 & _SW_DENORMAL)   status |= 0x02;
+    if (x87 & _SW_ZERODIVIDE) status |= 0x04;
+    if (x87 & _SW_OVERFLOW)   status |= 0x08;
+    if (x87 & _SW_UNDERFLOW)  status |= 0x10;
+    if (x87 & _SW_INEXACT)    status |= 0x20;
+    if (sum <= 0.0) { // test ah,41h con C3 (igual) o C0 (menor) y paridad impar: solo x = 1.0f
+        v[0] = 1.0f;
+        return status;
+    }
+    const double inv = 1.0f / sqrt(sum); // fsqrt; fdivr [0x858624] (1.0f)
+    v[0] = float(inv * v[0]);
+    v[1] = float(inv * v[1]);
+    v[2] = float(inv * v[2]);
+    return status;
+}
+
+// --- CTaskSimpleSwim (lote w20, prefijo Swim) ---
+// 0x688BE5..0x688BF3: fpatan; fst dword [ped+0x55C]; fsub dword [ped+0x558]. El fpatan completo se guarda como float en *out y se resta sin redondear antes.
+// Revisar en el .obj: atan2, fst dword [out], fsub dword [sub], fstp; sin fstp qword entre el atan2 y la resta.
+__declspec(noinline) float __cdecl SwimAtan2StoreMinusCpp(float y, float x, float sub, float* out) {
+    const double angle = atan2(double(y), double(x));
+    *out = float(angle);
+    volatile float result = float(angle - double(sub));
+    return result;
+}
+
+// 0x688C72..0x688C7B: fld x; call _CIasin; fsub [rotX]. ExeAsinDoubleCpp reproduce todas las ramas del CRT del EXE (|x| > 1 y NaN incluidos).
+__declspec(noinline) float __cdecl SwimAsinMinusCpp(float x, float sub) {
+    volatile float result = float(ExeAsinDoubleCpp(double(x)) - double(sub));
+    return result;
+}
+
+// 0x688FA2..0x688FA7: call 0x53CBE0 (o su fake/DLL, por el puntero); fsub [TheCamera.m_fOrientation]. El ST0 de la llamada se resta sin pasar por memoria.
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl SwimRadianAngleMinusCpp(float (__cdecl* angleFn)(float, float, float, float), float x2, float y2, float sub) {
+    volatile float result = float(double(angleFn(0.0f, 0.0f, x2, y2)) - double(sub));
+    return result;
+}
+
+// 0x68A43A..0x68A4D6. A = sx·right.x [fstp], B = sx·right.y [en pila], C = sx·right.z [fstp]; cos·forward[i] (fcos completo, un redondeo) por sy = P[i]; vx = P0 + A, vy = P1 + B,
+// vz = ((sin·sy) + (P2 + C)) + 0,01 (0x8708CC). Lo transcendental sale de TrigSimple*MulCpp; la aritmética queda en esta función con precise para no reasociar.
+__declspec(noinline) void __cdecl SwimSprintVelocityCpp(float rotationX, const float* right, const float* forward, float sx, float sy, float* out) {
+    const float cosFx = TrigSimpleCosMulCpp(rotationX, forward[0]);
+    const float cosFy = TrigSimpleCosMulCpp(rotationX, forward[1]);
+    const float cosFz = TrigSimpleCosMulCpp(rotationX, forward[2]);
+    const float sinSy = TrigSimpleSinMulCpp(rotationX, sy);
+    const float a = sx * right[0];
+    const float b = sx * right[1];
+    const float c = sx * right[2];
+    const float p0 = cosFx * sy;
+    const float p1 = cosFy * sy;
+    const float p2 = cosFz * sy;
+    const float vx = p0 + a;
+    const float vy = p1 + b;
+    const float p2c = p2 + c;
+    const float s = sinSy + p2c;
+    const float vz = s + 0.01f; // 0x8708CC
+    out[0] = vx;
+    out[1] = vy;
+    out[2] = vz;
+}
+
+// 0x68A4D8..0x68A54D: P = pow(0,9f (0x8708D0), paso) en ST0; Q = 1 - P (fsub, 24 bits); t0 = v.x·Q y t1 = v.y·Q (fstp); R = Q·v.z queda en la pila;
+// t2 = P·ms.z (fstp); ms.x = P·ms.x + t0; ms.y = P·ms.y + t1; ms.z = t2 + R. Los tres ms se leen antes de escribir ninguno.
+__declspec(noinline) void __cdecl SwimResistanceCpp(float step, float* moveSpeed, const float* wanted) {
+    const double keep = ExeCompatiblePowCpp(double(0.9f), double(step));
+    const double rest = 1.0 - keep;
+    const float msX = moveSpeed[0];
+    const float msY = moveSpeed[1];
+    const float msZ = moveSpeed[2];
+    const float t0 = float(double(wanted[0]) * rest);
+    const float t1 = float(double(wanted[1]) * rest);
+    const double r = rest * double(wanted[2]);
+    const float t2 = float(keep * double(msZ));
+    const float outX = float(keep * double(msX) + double(t0));
+    const float outY = float(keep * double(msY) + double(t1));
+    const float outZ = float(double(t2) + r);
+    moveSpeed[0] = outX;
+    moveSpeed[1] = outY;
+    moveSpeed[2] = outZ;
+}
+#pragma float_control(pop)
+
+// --- CBmx (prefijo Bmx; colocar al final de X87Math.cpp, tras ExeAsinDoubleCpp y TrigAtan2Cpp) ---
+// float(sin(angle * k)) / float(cos(angle * k)): el producto (fmul de 24 bits) pasa a fsin/fcos sin guardarse como float (CBmx::PreRender 0x6C0E0A..0x6C0E34).
+__declspec(noinline) float __cdecl BmxSinScaledCpp(float angle, float k) {
+    volatile float result = float(sin(double(angle) * double(k)));
+    return result;
+}
+__declspec(noinline) float __cdecl BmxCosScaledCpp(float angle, float k) {
+    volatile float result = float(cos(double(angle) * double(k)));
+    return result;
+}
+
+// CBmx::PreRender 0x6C0A27..0x6C0A31: fld angle; fsin; fmul [colModel+8]; fmul 0.8f. Lecturas volatile para que /fp:fast no reasocie k1 * k2.
+__declspec(noinline) float __cdecl BmxSinTimes2Cpp(float angle, float k1, float k2) {
+    const volatile float* first  = &k1;
+    const volatile float* second = &k2;
+    double value = sin(double(angle));
+    value *= double(*first);
+    value *= double(*second);
+    volatile float result = float(value);
+    return result;
+}
+
+// CBmx::PreRender 0x6C1251..0x6C128C: fcos; fld1; fsub st, st(1); fmul minZ; fmul 0.9f; fadd zOff; fstp. 1 - cos se calcula con el coseno completo (no puede pasar por double).
+__declspec(noinline) float __cdecl BmxChassisZCpp(float lean, float boundMinZ, float zOff) {
+    float nine = std::bit_cast<float>(0x3F666666u); // 0x858C20
+    const volatile float* minZ   = &boundMinZ;
+    const volatile float* factor = &nine;
+    const volatile float* offset = &zOff;
+    double value = 1.0 - cos(double(lean));
+    value *= double(*minZ);
+    value *= double(*factor);
+    value += double(*offset);
+    volatile float result = float(value);
+    return result;
+}
+
+// CBmx::ProcessControl 0x6BFA9C..0x6BFAB8: fld cur; fdiv total; fmul 2PI (0x858CBC); fadd start; fsin; fmul blend; fmul mult; fstp.
+__declspec(noinline) float __cdecl BmxLeanTermCpp(float curTime, float totalTime, float start, float blend, float mult) {
+    float twoPi = std::bit_cast<float>(0x40C90FDBu); // 0x858CBC
+    const volatile float* cur    = &curTime;
+    const volatile float* total  = &totalTime;
+    const volatile float* period = &twoPi;
+    const volatile float* from   = &start;
+    const volatile float* weight = &blend;
+    const volatile float* scale  = &mult;
+    double angle = double(*cur) / double(*total);
+    angle *= double(*period);
+    angle += double(*from);
+    double value = sin(angle);
+    value *= double(*weight);
+    value *= double(*scale);
+    volatile float result = float(value);
+    return result;
+}
+
+// CBmx::ProcessControl 0x6BFB0B..0x6BFB2F: igual y "fadd [LeanAngle]; fstp" sin redondear el termino a float.
+__declspec(noinline) float __cdecl BmxLeanTermAddCpp(float curTime, float totalTime, float start, float blend, float mult, float add) {
+    float twoPi = std::bit_cast<float>(0x40C90FDBu); // 0x858CBC
+    const volatile float* cur    = &curTime;
+    const volatile float* total  = &totalTime;
+    const volatile float* period = &twoPi;
+    const volatile float* from   = &start;
+    const volatile float* weight = &blend;
+    const volatile float* scale  = &mult;
+    const volatile float* addend = &add;
+    double angle = double(*cur) / double(*total);
+    angle *= double(*period);
+    angle += double(*from);
+    double value = sin(angle);
+    value *= double(*weight);
+    value *= double(*scale);
+    value += double(*addend);
+    volatile float result = float(value);
+    return result;
+}
+
+// CBmx::PreRender 0x6C0FCA..0x6C0FDA: call _CIasin (0x821E70); fmul [0x858C1C] (-1.0f); fstp. La constante va por lectura volatile: -x se compilaria como fchs y cambiaria el signo de un NaN.
+__declspec(noinline) float __cdecl BmxNegAsinCpp(float x) {
+    static const volatile float kMinusOne = -1.0f; // 0x858C1C
+    volatile float result = float(ExeAsinDoubleCpp(double(x)) * double(kMinusOne));
+    return result;
+}
+
+// --- CWaterLevel (WaterLevel.cpp; lote w20, prefijo WaterLevel). Colocar al final de X87Math.cpp (usa Ftol2RegsDblCpp y TrigCompound*, ya definidos arriba). ---
+// La x87 corre a 24 bits: cada operacion double() de una cadena equivale al fmul/fadd/fsub del EXE (redondeo a 24 bits por operacion, exponente extendido entre ellas); solo se guarda como
+// float donde el EXE hace fstp/fst dword. Constantes: .rdata del EXE (direcciones en los comentarios).
+// sin, cos y sqrt van en funciones aparte SIN float_control(precise) (con precise pasarian a llamadas a la CRT); devuelven ST0 sin redondear.
+static __declspec(noinline) double WaterLevelSinFull(double angle) { return sin(angle); }
+static __declspec(noinline) double WaterLevelCosFull(double angle) { return cos(angle); }
+static __declspec(noinline) double WaterLevelSqrtFull(double value) { return sqrt(value); }
+
+// _ftol2 (0x821B40) sobre ST0 y `and eax, 0FFh`: byte bajo del entero de 64 bits truncado (NaN, infinito y |v| >= 2^63 dan 0x8000000000000000 -> 0).
+static __forceinline unsigned int WaterLevelFtolByte(double value) {
+    return unsigned(static_cast<long long>(value)) & 0xFFu;
+}
+
+#pragma float_control(precise, on, push)
+// CWaterLevel::AddWaveToResult 0x6E8269: fld fractionY; fadd fractionX; fcomp 1.0; test ah,5; jp -> mitad superior (la suma ya va redondeada a 24 bits).
+__declspec(noinline) bool __cdecl WaterLevelWaveLowerCpp(float fractionX, float fractionY) {
+    return double(fractionY) + double(fractionX) < 1.0;
+}
+
+// 0x6E82D3..0x6E8546. Mitad inferior: pesos fractionX y fractionY; superior: 1 - fractionX y 1 - fractionY. Suma ((tx + ty) + *level) + base y un solo fstp a *level.
+// Normal (0x59C730 con a = V2 = (2,0,dx), b = V1 = (0,2,dy) abajo y a = (-2,0,dx), b = (0,-2,dy) arriba): x = b.z*a.y - a.z*b.y, y = a.z*b.x - b.z*a.x, z = a.x*b.y - b.x*a.y.
+__declspec(noinline) void __cdecl WaterLevelWaveInterpolateCpp(float base, float alongX, float alongY, float fractionX, float fractionY, bool lower, float* level, float* normal) {
+    const double dy = double(alongY) - double(base);
+    const double dx = double(alongX) - double(base);
+    const double weightX = lower ? double(fractionX) : 1.0 - double(fractionX);
+    const double weightY = lower ? double(fractionY) : 1.0 - double(fractionY);
+    *level = float(((dx * weightX + dy * weightY) + double(*level)) + double(base));
+    if (normal) {
+        const double k = lower ? 2.0 : -2.0;
+        normal[0] = float(dy * 0.0 - dx * k);
+        normal[1] = float(dx * 0.0 - dy * k);
+        normal[2] = 4.0f; // 2*2 - 0*0 (o (-2)*(-2) - 0*0)
+    }
+}
+
+// 0x6E9E3F..0x6E9EF4: fld/fild, fsub a 24 bits, fld st0; fmul; fld st2; fmul; faddp; fsqrt (el valor queda en ST0 a 24 bits y se compara con floats).
+__declspec(noinline) float __cdecl WaterLevelNearestDistanceCpp(float x, float y, float minX, float maxX, float minY, float maxY) {
+    const double dx = x < minX ? double(minX) - double(x) : (x > maxX ? double(x) - double(maxX) : 0.0);
+    const double dy = y < minY ? double(minY) - double(y) : (y > maxY ? double(y) - double(maxY) : 0.0);
+    return float(WaterLevelSqrtFull(dy * dy + dx * dx));
+}
+
+// 0x6E9FE6..0x6EA0F9 (cuatro distancias al cuadrado guardadas como float, la del vertice 0 en ST0) y las comparaciones 0x6EA0CA..0x6EA1C8 (fcom + test ah,5; jp: avanza si no es estrictamente menor).
+__declspec(noinline) int __cdecl WaterLevelNearestFlowIndexCpp(float x, float y, const float* vertexX, const float* vertexY) {
+    float squared[4];
+    for (int k = 0; k < 4; ++k) {
+        const double dy = double(y) - double(vertexY[k]);
+        const double dx = double(x) - double(vertexX[k]);
+        squared[k] = float(dy * dy + dx * dx);
+    }
+    if (squared[0] < squared[1] && squared[0] < squared[2] && squared[0] < squared[3]) {
+        return 0;
+    }
+    if (squared[1] < squared[2] && squared[1] < squared[3]) {
+        return 1;
+    }
+    return squared[2] < squared[3] ? 2 : 3;
+}
+#pragma float_control(pop)
+
+#pragma float_control(precise, on, push)
+// Constantes de las ondas (.rdata): 0x872020, 0x87201C, 0x85A778 (escala a indice de la tabla), 0x872018, 0x872014, 0x872010, 0x87200C, 0x872008.
+static constexpr double kWaterWavePhase1Time  = double(std::bit_cast<float>(0x3AA4B5BEu)); // 0x872020
+static constexpr double kWaterWavePhase1Space = double(std::bit_cast<float>(0x3DC90FDBu)); // 0x87201C
+static constexpr double kWaterWaveToIndex     = double(std::bit_cast<float>(0x4222F983u)); // 0x85A778
+static constexpr double kWaterWavePhase2Time  = double(std::bit_cast<float>(0x3AEB4CC7u)); // 0x872018
+static constexpr double kWaterWavePhase2Y     = double(std::bit_cast<float>(0x3DF775FAu)); // 0x872014
+static constexpr double kWaterWavePhase2X     = double(std::bit_cast<float>(0x3E7775FAu)); // 0x872010
+static constexpr double kWaterWavePhase3Time  = double(std::bit_cast<float>(0x3B09421Fu)); // 0x87200C
+static constexpr double kWaterWavePhase3Y     = double(std::bit_cast<float>(0x3EA0D97Cu)); // 0x872008
+
+// 0x6E6F4F..0x6E713F. Pila x87: A2 = (multX*multY)*wavyness; x e y quedan exactos (fild) hasta la segunda y tercera onda; cada indice es _ftol2(ST0) & 0xFF; la segunda llamada de cada par suma 64.0 (0x859A44).
+__declspec(noinline) void __cdecl WaterLevelWavesFullCpp(int absX, int absY, float multX, float multY, float wavyness, unsigned int rem1, unsigned int rem2, unsigned int rem3,
+                                                         float bigAmplitude, float smallAmplitude, const float* sinTable, float* out, float* normal) {
+    const double amp = double(multX) * double(multY) * double(wavyness);
+    const double x = double(absX);
+    const double y = double(absY);
+
+    const double phase1 = (double(int(rem1)) * kWaterWavePhase1Time + (y + x) * kWaterWavePhase1Space) * kWaterWaveToIndex;
+    *out = float(((double(sinTable[WaterLevelFtolByte(phase1)]) * 2.0) * amp * double(bigAmplitude)) + double(*out));
+    const double cosine1 = double(sinTable[WaterLevelFtolByte(phase1 + 64.0)]) * 2.0 * amp * double(bigAmplitude) * kWaterWavePhase1Space;
+    const float negative = float(-cosine1);
+    normal[0] = negative;
+    normal[1] = negative;
+    normal[2] = 1.0f;
+
+    const double phase2 = ((double(int(rem2)) * kWaterWavePhase2Time + y * kWaterWavePhase2Y) + x * kWaterWavePhase2X) * kWaterWaveToIndex;
+    *out = float((double(sinTable[WaterLevelFtolByte(phase2)]) * 1.0 * amp * double(smallAmplitude)) + double(*out));
+    const double cosine2 = double(sinTable[WaterLevelFtolByte(phase2 + 64.0)]) * 1.0 * amp * double(smallAmplitude) * kWaterWavePhase2X;
+    normal[0] = float(cosine2 + double(normal[0]));
+    normal[1] = float(cosine2 + double(normal[1]));
+
+    const double phase3 = (double(int(rem3)) * kWaterWavePhase3Time + y * kWaterWavePhase3Y) * kWaterWaveToIndex;
+    *out = float((double(sinTable[WaterLevelFtolByte(phase3)]) * 0.5 * amp * double(smallAmplitude)) + double(*out));
+    const double cosine3 = double(sinTable[WaterLevelFtolByte(phase3 + 64.0)]) * 0.5 * amp * double(smallAmplitude) * kWaterWavePhase3Y;
+    normal[0] = float(cosine3 + double(normal[0]));
+}
+
+// 0x6E7146..0x6E7209. c = (nz + ny + nx) * 0.577 (0x872004), 0.0 si c < 0; color = c * colorScale + colorBias. g = nz*0.577 + ny*0.577 + 0.577*nx (se guarda en *glare), h = g*8.0 - 5.0 (0x859000, 0x858C80),
+// recortado a [0.0, 0.99 (0x862CD0)] con comparaciones ordenadas (NaN pasa tal cual) y glare = h * sunGlare.
+__declspec(noinline) void __cdecl WaterLevelWaveColorGlareCpp(const float* normal, float colorScale, float colorBias, float sunGlare, float* colorMult, float* glare) {
+    const double k = double(std::bit_cast<float>(0x3F13B646u)); // 0x872004
+    double c = ((double(normal[2]) + double(normal[1])) + double(normal[0])) * k;
+    if (0.0 > c) {
+        c = 0.0;
+    }
+    *colorMult = float(c * double(colorScale) + double(colorBias));
+    const double g = (double(normal[2]) * k + double(normal[1]) * k) + k * double(normal[0]);
+    *glare = float(g);
+    double h = g * double(std::bit_cast<float>(0x41000000u)) - double(std::bit_cast<float>(0x40A00000u)); // 8.0, 5.0
+    if (0.0 > h) {
+        h = 0.0;
+    } else if (double(std::bit_cast<float>(0x3F7D70A4u)) < h) { // 0.99
+        h = double(std::bit_cast<float>(0x3F7D70A4u));
+    }
+    *glare = float(h * double(sunGlare));
+}
+
+// 0x6E7210..0x6E739F. Como WavesFull pero sin normal: y se guarda como float (fstp dword [esp+8]) y se usa asi en las tres ondas; x sigue exacto; el valor de la segunda onda se suma en la tercera sin pasar por float.
+__declspec(noinline) Ftol2Regs __cdecl WaterLevelWavesNativeCpp(int absX, int absY, float multX, float multY, float wavyness, unsigned int rem1, unsigned int rem2, unsigned int rem3,
+                                                                float bigAmplitude, float smallAmplitude, const float* sinTable, float* height) {
+    const double amp = double(multX) * double(multY) * double(wavyness);
+    const double x = double(absX);
+    const float ys = float(absY);
+
+    const double phase1 = (double(int(rem1)) * kWaterWavePhase1Time + (double(ys) + x) * kWaterWavePhase1Space) * kWaterWaveToIndex;
+    const float first = float(((double(sinTable[WaterLevelFtolByte(phase1)]) * 2.0) * amp * double(bigAmplitude)) + double(*height));
+    *height = first;
+
+    const double phase2 = ((double(int(rem2)) * kWaterWavePhase2Time + double(ys) * kWaterWavePhase2Y) + x * kWaterWavePhase2X) * kWaterWaveToIndex;
+    const double second = (double(sinTable[WaterLevelFtolByte(phase2)]) * 1.0 * amp * double(smallAmplitude)) + double(first);
+    *height = float(second);
+
+    const double phase3 = (double(int(rem3)) * kWaterWavePhase3Time + double(ys) * kWaterWavePhase3Y) * kWaterWaveToIndex;
+    const Ftol2Regs regs = Ftol2RegsDblCpp(phase3, 0xBB8u); // ECX de entrada = 0xBB8 (mov ecx,0BB8h antes de div)
+    const unsigned int index = regs.eax & 0xFFu;
+    *height = float((double(sinTable[index]) * 0.5 * amp * double(smallAmplitude)) + second);
+    return { index, regs.ecx, regs.edx };
+}
+
+// 0x6E5BB0. Las comparaciones de limites son las del EXE (fcomp + test ah,1: fallan con menor o NaN); u y v salen de fidiv (division por el entero exacto); la mitad se elige con u + v <= 1.0 ordenado.
+// outBigWaves nulo: sale con true sin probar la profundidad (0x6E5D5B/0x6E5E7A). Profundidad: (nivel - 6.0 > z y bLimitedDepth) o (nivel + 20.0 < z) devuelven false; el nivel se relee de *outLevel.
+__declspec(noinline) bool __cdecl WaterLevelQuadCpp(const WaterLevelVertexCpp* const* vertex, bool limitedDepth, float x, float y, float z, float* outLevel, float* outBigWaves, float* outSmallWaves) {
+    const WaterLevelVertexCpp& v0 = *vertex[0];
+    const WaterLevelVertexCpp& v1 = *vertex[1];
+    const WaterLevelVertexCpp& v2 = *vertex[2];
+    const WaterLevelVertexCpp& v3 = *vertex[3];
+    const float x0 = float(int(v0.x));
+    if (!(x >= x0)) {
+        return false;
+    }
+    if (!(double(int(v1.x)) >= double(x))) {
+        return false;
+    }
+    const float y0 = float(int(v0.y));
+    if (!(y >= y0)) {
+        return false;
+    }
+    if (!(double(int(v2.y)) >= double(y))) {
+        return false;
+    }
+    const float u = float((double(x) - double(x0)) / double(int(v1.x) - int(v0.x)));
+    const double v = (double(y) - double(y0)) / double(int(v2.y) - int(v0.y));
+    if (double(u) + v <= 1.0) {
+        *outLevel = float(((double(v2.z) - double(v0.z)) * v + (double(v1.z) - double(v0.z)) * double(u)) + double(v0.z));
+        if (!outBigWaves) {
+            return true;
+        }
+        *outBigWaves = float(((double(v2.bigWaves) - double(v0.bigWaves)) * v + (double(v1.bigWaves) - double(v0.bigWaves)) * double(u)) + double(v0.bigWaves));
+        *outSmallWaves = float(((double(v2.smallWaves) - double(v0.smallWaves)) * v + (double(v1.smallWaves) - double(v0.smallWaves)) * double(u)) + double(v0.smallWaves));
+    } else {
+        const double oneMinusU = 1.0 - double(u);
+        const double oneMinusV = 1.0 - v;
+        *outLevel = float(((double(v2.z) - double(v3.z)) * oneMinusU + (double(v1.z) - double(v3.z)) * oneMinusV) + double(v3.z));
+        if (!outBigWaves) {
+            return true;
+        }
+        *outBigWaves = float(((double(v1.bigWaves) - double(v3.bigWaves)) * oneMinusV + (double(v2.bigWaves) - double(v3.bigWaves)) * oneMinusU) + double(v3.bigWaves));
+        *outSmallWaves = float(((double(v1.smallWaves) - double(v3.smallWaves)) * oneMinusV + (double(v2.smallWaves) - double(v3.smallWaves)) * oneMinusU) + double(v3.smallWaves));
+    }
+    const double level = double(*outLevel);
+    if (level - 6.0 > double(z) && limitedDepth) { // 0x858B44
+        return false;
+    }
+    return !(level + 20.0 < double(z)); // 0x858BA4
+}
+
+// 0x6E5E90. y entre min(y0, y2) y max(y0, y2) (el menor queda en ST exacto, el mayor como float); u y v se guardan como float; si v0.x == v2.x basta v + u <= 1.0, si no hace falta u >= v.
+// Con outBigWaves nulo el triangulo si prueba la profundidad (0x6E6168).
+__declspec(noinline) bool __cdecl WaterLevelTriangleCpp(const WaterLevelVertexCpp* const* vertex, bool limitedDepth, float x, float y, float z, float* outLevel, float* outBigWaves, float* outSmallWaves) {
+    const WaterLevelVertexCpp& v0 = *vertex[0];
+    const WaterLevelVertexCpp& v1 = *vertex[1];
+    const WaterLevelVertexCpp& v2 = *vertex[2];
+    const float x0 = float(int(v0.x));
+    if (!(x >= x0)) {
+        return false;
+    }
+    if (!(double(int(v1.x)) >= double(x))) {
+        return false;
+    }
+    const int y0Int = v0.y;
+    const int y2Int = v2.y;
+    const float y0 = float(y0Int);
+    double yMin;
+    float yMax;
+    if (y0Int < y2Int) {
+        yMin = double(y0Int);
+        yMax = float(y2Int);
+    } else {
+        yMin = double(y2Int);
+        yMax = float(y0Int);
+    }
+    if (!(double(y) >= yMin)) {
+        return false;
+    }
+    if (!(y <= yMax)) {
+        return false;
+    }
+    const float u = float((double(x) - double(x0)) / double(int(v1.x) - int(v0.x)));
+    const float v = float((double(y) - double(y0)) / double(y2Int - y0Int));
+    if (v0.x == v2.x) {
+        if (!(double(v) + double(u) <= 1.0)) {
+            return false;
+        }
+        *outLevel = float(((double(v2.z) - double(v0.z)) * double(v) + (double(v1.z) - double(v0.z)) * double(u)) + double(v0.z));
+        if (outBigWaves) {
+            *outBigWaves = float(((double(v1.bigWaves) - double(v0.bigWaves)) * double(u) + (double(v2.bigWaves) - double(v0.bigWaves)) * double(v)) + double(v0.bigWaves));
+            *outSmallWaves = float(((double(v2.smallWaves) - double(v0.smallWaves)) * double(v) + (double(v1.smallWaves) - double(v0.smallWaves)) * double(u)) + double(v0.smallWaves));
+        }
+    } else {
+        if (!(double(u) >= double(v))) {
+            return false;
+        }
+        const double oneMinusU = 1.0 - double(u);
+        *outLevel = float(((double(v2.z) - double(v1.z)) * double(v) + (double(v0.z) - double(v1.z)) * oneMinusU) + double(v1.z));
+        if (outBigWaves) {
+            *outBigWaves = float(((double(v0.bigWaves) - double(v1.bigWaves)) * oneMinusU + (double(v2.bigWaves) - double(v1.bigWaves)) * double(v)) + double(v1.bigWaves));
+            *outSmallWaves = float(((double(v0.smallWaves) - double(v1.smallWaves)) * oneMinusU + (double(v2.smallWaves) - double(v1.smallWaves)) * double(v)) + double(v1.smallWaves));
+        }
+    }
+    const double level = double(*outLevel);
+    if (level - 6.0 > double(z) && limitedDepth) { // 0x858B44
+        return false;
+    }
+    return !(level + 20.0 < double(z)); // 0x858BA4
+}
+
+// CWaterLevel::RenderWater 0x6EF8E2..0x6EF9EB. S1 = (timeStep*flowX)*scale y S2 igual con flowY quedan en ST; 0.08 = 0x859018, 0.04 = 0x858CEC, 1.0 = 0x858624.
+// Orden: shifts[0] y [1] += 0.08*S; envolver (> 1.0 -> - 1.0) ; shifts[2] y [3] += S*0.04; envolver (comparacion ordenada: NaN no envuelve).
+__declspec(noinline) void __cdecl WaterLevelShiftsAdvanceCpp(float timeStep, float flowX, float flowY, float scale, float* shifts) {
+    const double layerScale = double(std::bit_cast<float>(0x3DA3D70Au));
+    const double flowScale = double(std::bit_cast<float>(0x3D23D70Au));
+    const double s1 = double(timeStep) * double(flowX) * double(scale);
+    const double s2 = double(timeStep) * double(flowY) * double(scale);
+    shifts[0] = float(layerScale * s1 + double(shifts[0]));
+    shifts[1] = float(layerScale * s2 + double(shifts[1]));
+    if (shifts[0] > 1.0f) {
+        shifts[0] = float(double(shifts[0]) - 1.0);
+    }
+    if (shifts[1] > 1.0f) {
+        shifts[1] = float(double(shifts[1]) - 1.0);
+    }
+    shifts[2] = float(s1 * flowScale + double(shifts[2]));
+    shifts[3] = float(s2 * flowScale + double(shifts[3]));
+    if (shifts[2] > 1.0f) {
+        shifts[2] = float(double(shifts[2]) - 1.0);
+    }
+    if (shifts[3] > 1.0f) {
+        shifts[3] = float(double(shifts[3]) - 1.0);
+    }
+}
+
+// 0x6EFA1B..0x6EFA4B: fld angle; fsin; fmul first; fmul second; fadd add; fstp (el seno entra sin redondear).
+__declspec(noinline) float __cdecl WaterLevelSinMulMulAddCpp(float angle, float first, float second, float add) {
+    return float(WaterLevelSinFull(double(angle)) * double(first) * double(second) + double(add));
+}
+// Igual con fcos (0x6EFA37..0x6EFA4B, sobre la misma copia de ST0 que el fsin).
+__declspec(noinline) float __cdecl WaterLevelCosMulMulAddCpp(float angle, float first, float second, float add) {
+    return float(WaterLevelCosFull(double(angle)) * double(first) * double(second) + double(add));
+}
+// fild random; fmul scale (0x858C7C); fmul multiplier; fstp dword.
+__declspec(noinline) float __cdecl WaterLevelNoiseFirstCpp(int random, float scale, float multiplier) {
+    return float(double(random) * double(scale) * double(multiplier));
+}
+// fild random; fmul scale; ... fmul multiplier; (fld cosineSpill; fmul factor); faddp; fstp dword.
+__declspec(noinline) float __cdecl WaterLevelNoiseSecondCpp(int random, float scale, float multiplier, float cosineSpill, float factor) {
+    return float(double(random) * double(scale) * double(multiplier) + double(cosineSpill) * double(factor));
+}
+#pragma float_control(pop)
+
+// --- CPhysical (Physical.cpp; w20, prefijo Physical). Añadir al final de X87Math.cpp (no depende de otros ayudantes nuevos). ---
+
+// 0x544A30 (y 0x542560, 0x54DB10, 0x54D920): fld coord; fmul [0x858B38]=0.02f; fadd [0x858B34]=60.0f; fstp qword; call floor (0x8219F0); call _ftol2 (0x821B40); el llamador usa EAX.
+// Cada operacion se redondea a 24 bits (x87 del proceso); el double guardado es exacto. floor sin <cmath>: truncado de 64 bits corregido; |valor| >= 2^63, NaN e infinito dan fistp
+// "indefinido" (0x8000000000000000 -> EAX = 0), igual que _ftol2 del EXE; por eso se descartan mirando el exponente (sin comparaciones con NaN que /fp:fast pudiera reordenar).
+__declspec(noinline) int __cdecl PhysicalSectorCpp(float coordinate) {
+    const double sector = double(coordinate) * double(0.02f) + 60.0;
+    unsigned long long bits;
+    memcpy(&bits, &sector, 8);
+    if (((bits >> 52) & 0x7FF) >= 0x43E)
+        return 0;
+    long long truncated = static_cast<long long>(sector);
+    if (double(truncated) > sector)
+        --truncated;
+    return static_cast<int>(truncated);
+}
+
+// CMatrix::Rotate (0x59B460). Etapa A (precise, fsin/fcos por MatrixSinDbl/MatrixCosDbl en linea): cos x, cos y, sin y, cos z, sin z quedan sin redondear en la pila x87; sin x y sin z se guardan como float (fstp/fst dword),
+// cos z · sin x tambien; sin z · sin x queda en ST0 sin redondear a float. Cada producto/suma se redondea a 24 bits y los diez resultados se guardan como float (los nueve valores y cos x · cos y,
+// que no se guarda, pasan a la etapa B por memoria: son floats o dobles con mantisa de 24 bits, es decir, exactos).
+// REVISAR EN EL .obj: ningun fstp qword de cos/sin entre su fsin/fcos y su ultimo producto.
+struct PhysicalRotTerms {
+    float f1, f4, f5, f6, f7, f8, f9, f10;
+    double cc;
+};
+#pragma float_control(precise, on, push)
+// Con /fp:fast el compilador elimina el redondeo a float de sin x, sin z y cos z · sin x y reutiliza el valor sin redondear en los productos siguientes; el EXE los guarda en la pila
+// ([esp+58h], [esp+5Ch], [esp+60h]) y los vuelve a leer como float (fmul dword). Por eso van en volatile float (fstp/fld dword) y la función es precise (sin reasociar). fsin/fcos salen de
+// MatrixSinDbl/MatrixCosDbl (en línea, resultado en ST0), igual que MatrixSetRotateCpp.
+static __declspec(noinline) void __cdecl PhysicalRotTermsCpp(PhysicalRotTerms* t, float x, float y, float z) {
+    const double cx = MatrixCosDbl(double(x));
+    volatile float f1v = float(MatrixSinDbl(double(x)));     // fstp dword [esp+58h]
+    const double cy = MatrixCosDbl(double(y));
+    const double sy = MatrixSinDbl(double(y));
+    const double cz = MatrixCosDbl(double(z));
+    const double sz = MatrixSinDbl(double(z));
+    volatile float f2v = float(sz);                          // fst dword [esp+5Ch]
+    const double p1 = sz * double(f1v);                      // fmul dword [esp+58h]: queda en ST0 sin guardar
+    volatile float f3v = float(cz * double(f1v));            // fstp dword [esp+60h]
+    const double f1 = f1v, f2 = f2v, f3 = f3v;
+    t->f1  = float(f1);
+    t->f4  = float(cz * cy - p1 * sy);                       // [esp]
+    t->f5  = float(f3 * sy + f2 * cy);                       // [esp+4]
+    t->f6  = float(-(sy * cx));                              // fchs; [esp+8]
+    t->f7  = float(-(f2 * cx));                              // fchs; [esp+0Ch]
+    t->f8  = float(cz * cx);                                 // [esp+10h]
+    t->f9  = float(cz * sy + p1 * cy);                       // [esp+18h]
+    t->f10 = float(f2 * sy - f3 * cy);                       // [esp+1Ch]
+    t->cc  = cx * cy;                                        // fmulp: no se guarda como float
+}
+#pragma float_control(pop)
+// Etapa B (precise: orden de sumas del EXE, (a·m + b·m) + c·m con cada operacion redondeada a 24 bits y un fstp dword por resultado). Se leen las doce palabras antes de escribir.
+#pragma float_control(precise, on, push)
+__declspec(noinline) void __cdecl PhysicalRotateXYZCpp(float* m, float x, float y, float z) {
+    PhysicalRotTerms t;
+    PhysicalRotTermsCpp(&t, x, y, z);
+    const double f1 = t.f1, f4 = t.f4, f5 = t.f5, f6 = t.f6, f7 = t.f7, f8 = t.f8, f9 = t.f9, f10 = t.f10, cc = t.cc;
+    const double m0 = m[0], m1 = m[1], m2 = m[2], m4 = m[4], m5 = m[5], m6 = m[6], m8 = m[8], m9 = m[9], m10 = m[10], m12 = m[12], m13 = m[13], m14 = m[14];
+    const float o2  = float((cc * m2 + f1 * m1) + f6 * m0);
+    const float o4  = float((f4 * m4 + f9 * m6) + f7 * m5);
+    const float o5  = float((f5 * m4 + f10 * m6) + f8 * m5);
+    const float o6  = float((f6 * m4 + cc * m6) + f1 * m5);
+    const float o8  = float((f4 * m8 + f9 * m10) + f7 * m9);
+    const float o9  = float((f5 * m8 + f10 * m10) + f8 * m9);
+    const float o10 = float((f6 * m8 + cc * m10) + f1 * m9);
+    const float o12 = float((f4 * m12 + f9 * m14) + f7 * m13);
+    const float o13 = float((f5 * m12 + f10 * m14) + f8 * m13);
+    const float o14 = float((f6 * m12 + cc * m14) + f1 * m13);
+    const float o0  = float((f9 * m2 + f7 * m1) + f4 * m0);
+    const float o1  = float((f10 * m2 + f8 * m1) + f5 * m0);
+    m[2] = o2;   m[4] = o4;   m[5] = o5;   m[6] = o6;
+    m[8] = o8;   m[9] = o9;   m[10] = o10;
+    m[12] = o12; m[13] = o13; m[14] = o14;
+    m[0] = o0;   m[1] = o1;
+}
+#pragma float_control(pop)
+
+// Rumbo de CPlaceable::GetHeading (0x441DB0) dos veces, A - B con un solo fsubp (24 bits), devuelto en ST0 (double exacto: la mantisa ya es de 24 bits). Sin precise para que fpatan salga en linea
+// y A y B se queden en la pila x87 (sin fstp qword entre los dos fpatan): REVISAR EN EL .obj.
+static __declspec(noinline) double __cdecl PhysicalHeadingDiffDbl(const float* forwardA, float headingA, const float* forwardB, float headingB) {
+    const double a = forwardA ? atan2(-double(forwardA[0]), double(forwardA[1])) : double(headingA);
+    const double b = forwardB ? atan2(-double(forwardB[0]), double(forwardB[1])) : double(headingB);
+    return a - b;
+}
+// 0x547990..0x547A76: fsubp; fcom [0x858CB8]=pi (no menor ni igual -> fsub [0x858CBC]=2pi y salta); si no, fcom [0x858CC0]=-pi (solo menor -> fadd 2pi); recorte a +-0.5 (0x8CD7E0; NaN pasa);
+// fmul [0x8CD7DC]=1e-5f; fmul masa; fadd turnZ; fstp float. Todo sin guardar a float entre operaciones.
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl PhysicalAttachTurnZCpp(const float* attachedForward, float attachedHeading, const float* selfForward, float selfHeading, float turnZ, float mass) {
+    const double pi    = double(std::bit_cast<float>(0x40490FDBu)); // 0x858CB8
+    const double twoPi = double(std::bit_cast<float>(0x40C90FDBu)); // 0x858CBC
+    const double scale = double(std::bit_cast<float>(0x3727C5ACu)); // 0x8CD7DC
+    double angle = PhysicalHeadingDiffDbl(attachedForward, attachedHeading, selfForward, selfHeading);
+    if (angle > pi) {
+        angle = angle - twoPi;
+    } else if (angle < -pi) {                                        // 0x858CC0
+        angle = angle + twoPi;
+    }
+    if (angle > 0.5) {                                               // 0x8CD7E0
+        angle = 0.5;
+    } else if (angle < -0.5) {
+        angle = -0.5;
+    }
+    return float((angle * scale) * double(mass) + double(turnZ));
+}
+#pragma float_control(pop)
+
+// CPhysical::ApplySpeed (0x548270): GetHeading (0x441DB0) deja el fpatan en ST0 sin redondear. fld pi; fadd st,st(1) [redondeado a 24 bits]; fcomp door: solo "menor" suma 2pi (con NaN o igual no);
+// si no, fld pi; fsubr; fcomp door: "mayor" resta 2pi. Despues fsub door y fstp float (el EXE sigue en ST0, pero |valor| < 0.001 se anula y por encima de eso un float de 24 bits es exacto).
+// No reasociar h + pi < door: REVISAR EN EL .obj (fadd + fcomp, sin fstp qword del rumbo).
+__declspec(noinline) float __cdecl PhysicalDoorHeadingCpp(const float* forward, float compactHeading, float doorStart) {
+    const double pi    = double(std::bit_cast<float>(0x40490FDBu)); // 0x858CB8
+    const double twoPi = double(std::bit_cast<float>(0x40C90FDBu)); // 0x858CBC
+    const double door  = double(doorStart);
+    double heading = forward ? atan2(-double(forward[0]), double(forward[1])) : double(compactHeading);
+    const double piPlusHeading = pi + heading;
+    if (piPlusHeading < door) {
+        heading = heading + twoPi;
+    } else {
+        const double headingMinusPi = heading - pi;
+        if (headingMinusPi > door) {
+            heading = heading - twoPi;
+        }
+    }
+    volatile float result = float(heading - door);
+    return result;
+}
+
+// --- Lote de Radar.cpp (15/10/2026) ---
+// CRadar::CalculateCachedSinCos: fld x; fchs; fld y; fpatan; fst orientation; fld st0; fsin; fstp sin; fcos; fstp cos. El fpatan queda sin redondear en ST0 para fsin/fcos.
+__declspec(noinline) void __cdecl RadarSinCosFromAtan2Cpp(float x, float y, float* orientation, float* sinOut, float* cosOut) {
+    const double angle = atan2(-double(x), double(y));
+    *orientation       = float(angle);
+    *sinOut            = float(sin(angle));
+    *cosOut            = float(cos(angle));
+}
+
+// CRadar::CalculateCachedSinCos sin matriz: fld heading; fst orientation; fsin/fcos del mismo valor. El rumbo ya es un float, asi que `angle` es exacto.
+__declspec(noinline) void __cdecl RadarSinCosFromAngleCpp(float angle, float* orientation, float* sinOut, float* cosOut) {
+    const double a = double(angle);
+    *orientation   = float(a);
+    *sinOut        = float(sin(a));
+    *cosOut        = float(cos(a));
+}
+
+// CRadar::DrawRotatingRadarSprite: W/H quedan en la pila x87 como fild (exactos hasta 2^31) y, si el entero es negativo, fadd 2^32 (4294967296.0f, un redondeo a 24 bits).
+// theta = (i · halfPi) + (angle - subtract), cada operacion redondeada a 24 bits por la x87 del proceso; vx/vy en el orden fmul/fadd del EXE.
+__declspec(noinline) void __cdecl RadarRotatedSpriteVertsCpp(float angle, float x, float y, unsigned int width, unsigned int height, float subtract, float halfPi, float zero, float* verts) {
+    const double start = double(angle) - double(subtract);
+    double w = double(int(width));
+    if (int(width) < 0) {
+        w += 4294967296.0f;
+    }
+    double h = double(int(height));
+    if (int(height) < 0) {
+        h += 4294967296.0f;
+    }
+    for (int i = 0; i < 4; i++) {
+        const double theta = double(i) * double(halfPi) + start;
+        const double s     = sin(theta);
+        const double c     = cos(theta);
+        verts[2 * i]       = float(((double(zero) * c + s) * w) + double(x));
+        verts[2 * i + 1]   = float(((c - double(zero) * s) * h) + double(y));
+    }
+}
+
+// CRadar::DrawYouAreHereSprite: fld circleAngle; fld st0; fsin; fmul radius; fsubr y; fstp offsetY; fcos; fmul radius; fadd x; fstp offsetX.
+__declspec(noinline) void __cdecl RadarYouAreHereOffsetCpp(float circleAngle, float radius, float x, float y, float* outX, float* outY) {
+    const double s = sin(double(circleAngle));
+    const double c = cos(double(circleAngle));
+    *outY          = float(double(y) - s * double(radius));
+    *outX          = float(c * double(radius) + double(x));
+}
+
+// CRadar::DrawRadarMask: fild j; fmul step; fld st0; fcos; fmul cornerX; fstp; fsin; fmul cornerY; fstp (el coseno y el seno NO se guardan como float antes de multiplicar).
+__declspec(noinline) void __cdecl RadarArcPointCpp(int j, float step, float cornerX, float cornerY, float* outX, float* outY) {
+    const double arc = double(j) * double(step);
+    *outX            = float(cos(arc) * double(cornerX));
+    *outY            = float(sin(arc) * double(cornerY));
+}
+
+// CRadar::DrawRadarGangOverlay: fsin; fadd one; fmul half; fimul alpha; el _ftol2 posterior trunca ST0 (valor en [0, 255]: el redondeo a float no cambia nada).
+__declspec(noinline) float __cdecl RadarGangPulseCpp(float angle, int alpha, float one, float half) {
+    return float(((sin(double(angle)) + double(one)) * double(half)) * double(alpha));
+}
+
+// CRadar::DrawRadarMap: fld forwardZ; fchs; fld upZ; fpatan; fmul degrees; fadd st0, st0; fsubr playerY; fstp bottomY.
+__declspec(noinline) float __cdecl RadarPlaneBottomYCpp(float forwardZ, float upZ, float degrees, float playerY) {
+    double angle = atan2(-double(forwardZ), double(upZ)) * double(degrees);
+    angle        = angle + angle;
+    return float(double(playerY) - angle);
+}
+
+// CRadar::ClipRadarPoly, rama sin vertices de salida: aritmetica pura (sin fsin/fcos), el orden del EXE no puede reasociarse.
+#pragma float_control(precise, on, push)
+__declspec(noinline) bool __cdecl RadarClipHullInsideCpp(const float* poly) {
+    const double slope1 = (double(poly[1]) - double(poly[3])) / (double(poly[0]) - double(poly[2]));   // 0x585333..0x58533E, queda en ST0
+    volatile float slope3Stored = float((double(poly[1]) - double(poly[7])) / (double(poly[0]) - double(poly[6]))); // 0x585340..0x58534D: fstp dword [esp+2Ch]
+    const double first = (slope1 * double(poly[6]) - double(poly[7])) * (slope1 * double(poly[0]) - double(poly[1])); // 0x585351..0x585360
+    if (!(first < 0.0)) {                                                                                // fcomp 0.0; test ah,5; jp -> sin recorte
+        return false;
+    }
+    const double slope3 = double(slope3Stored);
+    const double second = (slope3 * double(poly[2]) - double(poly[3])) * (slope3 * double(poly[0]) - double(poly[1])); // 0x58536F..0x585382
+    return second < 0.0;
+}
+#pragma float_control(pop)
+
+// --- CPad (lote w20, prefijo Pad). Anadir al final de X87Math.cpp ---
+// Las cadenas con varias operaciones van con precise para que /fp:fast no las reasocie; el seno/coseno va aparte (sin precise) para que siga siendo fsin/fcos en linea.
+#pragma float_control(precise, on, push)
+// CPad::ProcessPad (0x746B32..0x746B4A): fild del POV con signo; si es negativo fadd 2^32 (float, 0x858C54); * 0.01f (0x858C58); * 0.017453292f (0x8595EC).
+// Devuelve el angulo como double para no redondearlo a float (con PC53 el EXE conserva 53 bits en ST0 hasta fsin/fcos; con PC24 ya esta redondeado a 24 bits).
+__declspec(noinline) double __cdecl PadPovAngleCpp(unsigned int pov) {
+    const int signedPov = static_cast<int>(pov);
+    double    angle     = static_cast<double>(signedPov);
+    if (signedPov < 0) {
+        angle += 4294967296.0;
+    }
+    angle = angle * static_cast<double>(std::bit_cast<float>(0x3C23D70Au)); // 0.01f (0x858C58)
+    angle = angle * static_cast<double>(std::bit_cast<float>(0x3C8EFA35u)); // 0.017453292f (0x8595EC)
+    return angle;
+}
+
+// CPad::StartShake_Distance (0x53F9E5..0x53FA29): ((dz*dz + dy*dy) + dx*dx), fsqrt, fcomp limite y "test ah,5 / jp": true solo si raiz < limite (ordenada: con NaN da false).
+// camera y point apuntan a x, y, z consecutivos.
+__declspec(noinline) bool __cdecl PadShakeWithinDistanceCpp(const float* camera, const float* point, float limit) {
+    const double dz  = static_cast<double>(camera[2]) - static_cast<double>(point[2]);
+    const double dy  = static_cast<double>(camera[1]) - static_cast<double>(point[1]);
+    const double dx  = static_cast<double>(camera[0]) - static_cast<double>(point[0]);
+    const double sum = (dz * dz + dy * dy) + dx * dx;
+    return sqrt(sum) < static_cast<double>(limit);
+}
+
+// CPad::StartShake_Train (0x53FAD8..0x53FB08): dy*dy + dx*dx; fst dword [esp+0xC] guarda la copia redondeada a float y fcomp 4900.0f (0x8599CC) compara el valor SIN redondear.
+// Devuelve true si suma < 4900 (ordenada). camera apunta a x, y (, z); point a x, y.
+__declspec(noinline) bool __cdecl PadShakeTrainWithinCpp(const float* camera, const float* point, float* distanceSquared) {
+    const double dy  = static_cast<double>(camera[1]) - static_cast<double>(point[1]);
+    const double dx  = static_cast<double>(camera[0]) - static_cast<double>(point[0]);
+    const double sum = dy * dy + dx * dx;
+    *distanceSquared = static_cast<float>(sum);
+    return sum < 4900.0;
+}
+
+// CPad::StartShake_Train (0x53FB18..0x53FB36): fld dword distanceSquared; fsqrt; fsubr 70.0f (0x858CE0); fadd 30.0f (0x858CA4); call _ftol2 (0x821B40); mov [edi+0x110], al.
+// El truncado lo hace el __ftol2 del compilador (mismo algoritmo que 0x821B40, incluidas las banderas x87); solo se usa el byte bajo.
+__declspec(noinline) unsigned char __cdecl PadShakeTrainFrequencyCpp(float distanceSquared) {
+    const double remaining = (70.0 - sqrt(static_cast<double>(distanceSquared))) + 30.0;
+    return static_cast<unsigned char>(static_cast<long long>(remaining));
+}
+#pragma float_control(pop)
+
+// CPad::ProcessPad (0x746B50..0x746B62): fld st(0); fsin; fstp [x]; fcos; fmul -1.0f (0x858C1C); fstp [y]. Sin precise: fsin/fcos quedan en linea (con precise serian llamadas a la CRT).
+__declspec(noinline) void __cdecl PadPovSinCosCpp(double angle, float* sine, float* negCosine) {
+    *sine      = static_cast<float>(sin(angle));
+    *negCosine = static_cast<float>(cos(angle) * -1.0);
+}
+
+// memmgr: no hace falta ningun ayudante nuevo (MemoryMgr.cpp es entero; solo se reutiliza ResidueRegsCpp ya existente).
+
+// --- CPedIK::PitchForSlope (lote pitfix) ---
+// CMatrix::operator* (0x59BE30), llamado por CMatrix::operator*= (0x411A80): cada elemento es una cadena de fmul/faddp del x87 con exponente
+// extendido (sin desborde intermedio) y un solo fstp a float. a y b apuntan a un CMatrix (right@0, forward@4, up@8, pos@12, en floats);
+// r recibe los 12 floats (los rellenos no se tocan). Los productos y las sumas siguen el orden exacto del EXE.
+#pragma float_control(precise, on, push)
+__declspec(noinline) void __cdecl PedIKFixMatMulCpp(const float* a, const float* b, float* r) {
+    float out[12];
+    out[0]  = (a[4] * b[1] + a[0] * b[0]) + b[2] * a[8];
+    out[1]  = (a[9] * b[2] + a[1] * b[0]) + a[5] * b[1];
+    out[2]  = (a[6] * b[1] + a[10] * b[2]) + b[0] * a[2];
+    out[3]  = (b[6] * a[8] + a[4] * b[5]) + b[4] * a[0];
+    out[4]  = (a[9] * b[6] + a[5] * b[5]) + b[4] * a[1];
+    out[5]  = (b[4] * a[2] + a[10] * b[6]) + a[6] * b[5];
+    out[6]  = (a[4] * b[9] + b[10] * a[8]) + b[8] * a[0];
+    out[7]  = (a[9] * b[10] + a[5] * b[9]) + b[8] * a[1];
+    out[8]  = (b[8] * a[2] + a[10] * b[10]) + a[6] * b[9];
+    out[9]  = ((a[4] * b[13] + b[14] * a[8]) + b[12] * a[0]) + a[12];
+    out[10] = ((b[14] * a[9] + b[13] * a[5]) + b[12] * a[1]) + a[13];
+    out[11] = ((b[12] * a[2] + a[6] * b[13]) + a[10] * b[14]) + a[14];
+    r[0] = out[0]; r[1] = out[1]; r[2] = out[2];
+    r[4] = out[3]; r[5] = out[4]; r[6] = out[5];
+    r[8] = out[6]; r[9] = out[7]; r[10] = out[8];
+    r[12] = out[9]; r[13] = out[10]; r[14] = out[11];
+}
+#pragma float_control(pop)
+
+// --- CTaskSimpleSwim: sumas/restas con escalado sin redondear el producto (lote swfix, prefijo SwFix) ---
+// Insertar tras el #pragma float_control(pop) del bloque Swim (despues de SwimResistanceCpp).
+// El EXE hace `fld ts; fmul k; fmul x; fadd [acum]; fstp [acum]`: los productos viven en ST0 con exponente extendido (un producto 1e-46 NO se pierde) y solo
+// el fstp final redondea a float. En SSE (DLL) ts*k ya se redondea a 0 y el signo del cero resultante cambia (acum = +0 y producto negativo: EXE -0, SSE +0).
+#pragma float_control(precise, on, push)
+// acc + (a * b) * c  (0x689350, 0x689372, 0x68946x, 0x688C56, 0x688CD1, 0x688ED0, 0x689252, 0x689046...)
+__declspec(noinline) float __cdecl SwFixAccum3Cpp(float acc, float a, float b, float c) {
+    volatile float result = float((double(a) * double(b)) * double(c) + double(acc));
+    return result;
+}
+// acc + a * b  (0x688EE0: fld ts; fmul k; fadd [rotX]; fst)
+__declspec(noinline) float __cdecl SwFixAccum2Cpp(float acc, float a, float b) {
+    volatile float result = float(double(a) * double(b) + double(acc));
+    return result;
+}
+// acc - a * b  (0x689327: fld ts; fmul 0.05; fsubr [moveBlend])
+__declspec(noinline) float __cdecl SwFixSubScaledCpp(float acc, float a, float b) {
+    volatile float result = float(double(acc) - double(a) * double(b));
+    return result;
+}
+// -(a - b)  (0x6891CC: fld a; fsub b; fchs): a == b da -0, nunca +0 (el compilador con /fp:fast puede reescribirlo como b - a).
+__declspec(noinline) float __cdecl SwFixNegDiffCpp(float a, float b) {
+    volatile float result = float(-(double(a) - double(b)));
+    return result;
+}
+#pragma float_control(pop)
+
+// --- CTaskSimpleJetPack::ProcessThrust (lote jpfix, prefijo JpFix). Anadir al FINAL de X87Math.cpp, DESPUES del bloque JetPack (usa JetPackSinExtCpp,
+// JetPackCosExtCpp, JetPackNegSinExtCpp, JetPackSqrtExtCpp, ExeCompatiblePowCpp y kJetPackSwing*/kJetPackSpeedDamping, ya definidos arriba) ---
+// Causa del fallo del caso 469: el EXE hace `fld ped.z; fsub dword [task.z]` (el SNaN queda en MEMORIA y pierde frente al NaN silencioso del registro: 0x7FC00000),
+// mientras que el codigo generado de JetPackSwingSumsCpp hacia `fld dword [task.z]` (silencia el SNaN a 0x7FE00000) y `fsubr`: dos NaN silenciosos, gana el de mayor mantisa.
+// La semantica de `fld R; fop m32` se verifico en hardware (ctypes, 11 patrones x 4 operaciones x ambos ordenes): memoria SNaN + registro NaN -> el registro; memoria SNaN +
+// registro numero -> la memoria silenciada; dos NaN silenciosos -> mayor mantisa y, a igualdad, el de signo positivo; un solo NaN -> ese.
+#pragma float_control(precise, on, push)
+
+enum { kJpFixAdd = 0, kJpFixMul = 1, kJpFixSub = 2 /* reg - mem */, kJpFixSubr = 3 /* mem - reg */ };
+static constexpr double kJpFixMagic   = double(std::bit_cast<float>(0x3C03126Fu)); // 0x863984 (0.008)
+static constexpr double kJpFixNominal = double(std::bit_cast<float>(0x3F4CCCCDu)); // 0x8D2F38 (0.8)
+static constexpr double kJpFixFull    = double(std::bit_cast<float>(0x3F19999Au)); // 0x8D2F3C (0.6)
+static constexpr double kJpFixStrafe  = double(std::bit_cast<float>(0x3E99999Au)); // 0x8D2F40 (0.3)
+static constexpr double kJpFixHeight  = double(std::bit_cast<float>(0x3D4CCCCDu)); // 0x858C28 (0.05)
+
+// `fld reg; fop dword [mem]` con reg = ST0 (ya cargado, nunca senalizante) y mem = float en memoria que puede ser senalizante. Devuelve ST0 (double, sin redondear a float).
+__declspec(noinline) static double __cdecl JpFixMemOp(int op, double reg, const float* mem) {
+    unsigned int mb;
+    memcpy(&mb, mem, sizeof mb);
+    unsigned long long rb;
+    memcpy(&rb, &reg, sizeof rb);
+    const bool memNan = (mb & 0x7FFFFFFFu) > 0x7F800000u;
+    const bool regNan = (rb & 0x7FFFFFFFFFFFFFFFull) > 0x7FF0000000000000ull;
+    if (memNan || regNan) {
+        const unsigned long long mw = (static_cast<unsigned long long>(mb & 0x80000000u) << 32) | 0x7FF0000000000000ull | (static_cast<unsigned long long>(mb & 0x007FFFFFu) << 29);
+        unsigned long long result;
+        if (!regNan) {
+            result = mw | 0x0008000000000000ull;           // solo la memoria es NaN: se silencia
+        } else if (!memNan || !(mb & 0x00400000u)) {
+            result = rb;                                    // solo el registro es NaN, o la memoria es senalizante: gana el registro
+        } else {                                            // dos NaN silenciosos
+            const unsigned long long rs = rb & 0x000FFFFFFFFFFFFFull, ms = mw & 0x000FFFFFFFFFFFFFull;
+            if (ms > rs) {
+                result = mw;
+            } else if (ms < rs) {
+                result = rb;
+            } else {
+                result = (rb & 0x7FFFFFFFFFFFFFFFull) | (rb & mw & 0x8000000000000000ull); // empate: gana el positivo
+            }
+        }
+        double d;
+        memcpy(&d, &result, sizeof d);
+        return d;
+    }
+    const double m = double(*mem);
+    switch (op) {
+    case kJpFixAdd:  return reg + m;
+    case kJpFixMul:  return reg * m;
+    case kJpFixSub:  return reg - m;
+    default:         return m - reg;
+    }
+}
+
+// Rama de parada, fuerza hacia arriba (0x67EF51..0x67EFD2): a = ux*0.008 (ST0, 24 bits); z se guarda como float antes de multiplicar por la masa; x se guarda tras la masa.
+__declspec(noinline) void __cdecl JpFixUpForceCpp(const float* up, const float* mass, const float* step, float* out) {
+    const double a = double(up[0]) * kJpFixMagic;
+    const double b = double(up[1]) * kJpFixMagic;
+    const double c = double(up[2]) * kJpFixMagic;
+    volatile float cf = float(c);
+    volatile float af = float(JpFixMemOp(kJpFixMul, a, mass));
+    const double bm = JpFixMemOp(kJpFixMul, b, mass);
+    const double cm = JpFixMemOp(kJpFixMul, double(cf), mass);
+    out[0] = float(JpFixMemOp(kJpFixMul, double(af), step));
+    out[1] = float(JpFixMemOp(kJpFixMul, bm, step));
+    out[2] = float(JpFixMemOp(kJpFixMul, cm, step));
+}
+
+// Fuerza nominal (0x67F103..0x67F1AD): n = 0.8 (* 0.5 si el empuje es negativo); x: float(a*n) y float(.. * masa); y: (b*n)*masa sin guardar; z: float(c), float(cf*n), cnf*masa.
+__declspec(noinline) void __cdecl JpFixNominalForceCpp(const float* up, bool halve, const float* mass, const float* step, float* out) {
+    double n = kJpFixNominal;
+    if (halve) {
+        n = n * 0.5;
+    }
+    const double a = double(up[0]) * kJpFixMagic;
+    const double b = double(up[1]) * kJpFixMagic;
+    const double c = double(up[2]) * kJpFixMagic;
+    volatile float cf = float(c);
+    volatile float af = float(a * n);
+    const double bn = b * n;
+    volatile float cnf = float(double(cf) * n);
+    volatile float afm = float(JpFixMemOp(kJpFixMul, double(af), mass));
+    const double bnm = JpFixMemOp(kJpFixMul, bn, mass);
+    const double cnfm = JpFixMemOp(kJpFixMul, double(cnf), mass);
+    out[0] = float(JpFixMemOp(kJpFixMul, double(afm), step));
+    out[1] = float(JpFixMemOp(kJpFixMul, bnm, step));
+    out[2] = float(JpFixMemOp(kJpFixMul, cnfm, step));
+}
+
+// 0x67F1C2..0x67F23C: c = cos(a) (ST0); c*up[0] queda en el registro, c*up[1] y c*up[2] se guardan como float; s = -sin(a); s*fwd[i] se guardan como float; out = float(s*f + c*u);
+// la z de la suma (sin redondear) se compara con 0.75 y, si es mayor, out[2] = 0.75.
+__declspec(noinline) void __cdecl JpFixThrustDirCpp(const float* angle, const float* up, const float* forward, float* out) {
+    const double c = JetPackCosExtCpp(*angle);
+    const double cux = JpFixMemOp(kJpFixMul, c, up + 0);
+    volatile float cuy = float(JpFixMemOp(kJpFixMul, c, up + 1));
+    volatile float cuz = float(JpFixMemOp(kJpFixMul, c, up + 2));
+    const double s = JetPackNegSinExtCpp(*angle);
+    volatile float sfx = float(JpFixMemOp(kJpFixMul, s, forward + 0));
+    volatile float sfy = float(JpFixMemOp(kJpFixMul, s, forward + 1));
+    volatile float sfz = float(JpFixMemOp(kJpFixMul, s, forward + 2));
+    out[0] = float(double(sfx) + cux);
+    out[1] = float(double(sfy) + double(cuy));
+    const double t2 = double(sfz) + double(cuz);
+    out[2] = float(t2);
+    if (t2 > double(std::bit_cast<float>(0x3F400000u))) { // 0x8703DC (0.75)
+        out[2] = std::bit_cast<float>(0x3F400000u);
+    }
+}
+
+// (suelo + 100) < z: fadd 100 (24 bits) y fcomp contra la memoria de z; NaN -> falso.
+__declspec(noinline) bool __cdecl JpFixHeightBelowCpp(float groundHeight, const float* z) {
+    const double s = double(groundHeight) + 100.0; // 0x8703D8
+    return s < double(*z);
+}
+
+// 0x67F2B5..0x67F368: hm = 1, o 1 - (z - (suelo2 + 100)) * 0.05 acotado por abajo a 0 (comparacion estricta: NaN se conserva); p = t0*0.008, q = t1*0.008, r = float(t2*0.008);
+// float(p*hm), q*hm, float(float(r)*hm) * 0.6; (float(p*hm)*0.6 guardado) * masa guardado; q*hm*0.6 * masa guardado; r*0.6*masa; cada uno por el paso.
+__declspec(noinline) void __cdecl JpFixThrustForceCpp(const float* t, bool scaled, float groundHeight, const float* z, const float* mass, const float* step, float* out) {
+    double hm = 1.0;
+    if (scaled) {
+        const double s = double(groundHeight) + 100.0;
+        hm = 1.0 - JpFixMemOp(kJpFixSubr, s, z) * kJpFixHeight;
+        if (0.0 > hm) {
+            hm = 0.0;
+        }
+    }
+    const double p = double(t[0]) * kJpFixMagic;
+    const double q = double(t[1]) * kJpFixMagic;
+    const double r = double(t[2]) * kJpFixMagic;
+    volatile float rf = float(r);
+    volatile float pf = float(p * hm);
+    const double qh = q * hm;
+    volatile float rhf = float(double(rf) * hm);
+    volatile float pff = float(double(pf) * kJpFixFull);
+    const double qh6 = qh * kJpFixFull;
+    const double r6 = double(rhf) * kJpFixFull;
+    const double m = double(*mass);
+    volatile float pm = float(double(pff) * m);
+    volatile float qm = float(qh6 * m);
+    const double r6m = r6 * m;
+    out[0] = float(JpFixMemOp(kJpFixMul, double(pm), step));
+    out[1] = float(JpFixMemOp(kJpFixMul, double(qm), step));
+    out[2] = float(JpFixMemOp(kJpFixMul, r6m, step));
+}
+
+// 0x67F386..0x67F433: s*right[0] queda en el registro; s*right[1] y s*right[2] se guardan; * 0.008; z se guarda; * 0.3; x se guarda tras *0.3; * masa (x e y guardados); * paso.
+__declspec(noinline) void __cdecl JpFixStrafeForceCpp(const float* strafe, const float* right, const float* mass, const float* step, float* out) {
+    const double s = double(*strafe);
+    const double srx = JpFixMemOp(kJpFixMul, s, right + 0);
+    volatile float sry = float(JpFixMemOp(kJpFixMul, s, right + 1));
+    volatile float srz = float(JpFixMemOp(kJpFixMul, s, right + 2));
+    const double u0 = srx * kJpFixMagic;
+    const double u1 = double(sry) * kJpFixMagic;
+    volatile float u2f = float(double(srz) * kJpFixMagic);
+    volatile float v0f = float(u0 * kJpFixStrafe);
+    const double v1 = u1 * kJpFixStrafe;
+    const double v2 = double(u2f) * kJpFixStrafe;
+    const double m = double(*mass);
+    volatile float w0 = float(double(v0f) * m);
+    volatile float w1 = float(v1 * m);
+    const double v2m = v2 * m;
+    out[0] = float(JpFixMemOp(kJpFixMul, double(w0), step));
+    out[1] = float(JpFixMemOp(kJpFixMul, double(w1), step));
+    out[2] = float(JpFixMemOp(kJpFixMul, v2m, step));
+}
+
+// 0x67EFDA..0x67F0FB (velocidad ya modificada por la primera fuerza): spd = float((x*x + y*y) + z*z); sf = (paso*0.5)*0.008 sin redondear; si sf^2 > spd, sf *= 0.75;
+// si sigue sf^2 > spd -> false (velocidad a cero). Si no: n = v * -1 (z guardado), inv = 1/sqrt(spd) (guardado aparte, pero x lo usa sin redondear),
+// ax = float(inv*nx), ay = ny*float(inv), az = float(float(nz)*float(inv)); e0 = float(ax*sf), e1 = float(ay*sf), e2 = sf*az; out = (e0, e1, e2) * masa con x e y guardados como float.
+__declspec(noinline) bool __cdecl JpFixStopForceCpp(const float* speed, const float* step, const float* mass, float* out) {
+    const double x = speed[0], y = speed[1], z = speed[2];
+    volatile float spdSq = float((x * x + y * y) + z * z);
+    double sf = double(*step) * 0.5 * kJpFixMagic; // 0x8D2F44, 0x863984
+    if (sf * sf > double(spdSq)) {
+        sf = sf * double(std::bit_cast<float>(0x3F400000u)); // 0x858F34
+    }
+    if (sf * sf > double(spdSq)) {
+        return false;
+    }
+    const double nx = double(speed[0]) * -1.0;
+    const double ny = double(speed[1]) * -1.0;
+    volatile float nzf = float(double(speed[2]) * -1.0);
+    const double inv = 1.0 / JetPackSqrtExtCpp(double(spdSq));
+    volatile float invf = float(inv);
+    volatile float axf = float(inv * nx);
+    const double ay = ny * double(invf);
+    volatile float azf = float(double(nzf) * double(invf));
+    volatile float e0f = float(double(axf) * sf);
+    volatile float e1f = float(ay * sf);
+    const double e2 = sf * double(azf);
+    const double m = double(*mass);
+    out[0] = float(double(e0f) * m);
+    out[1] = float(double(e1f) * m);
+    out[2] = float(e2 * m);
+    return true;
+}
+
+// 0x67F43D..0x67F48A. accX/accY/deltaX quedan en ST0 (sin guardar); accZ/deltaY/deltaZ se guardan como float; la resta con prevPed y task es `fsub m32` (memoria, posible SNaN).
+__declspec(noinline) void __cdecl JpFixSwingSumsCpp(const float* ped, const float* prevPed, const float* task, float* sums) {
+    const double accX = JpFixMemOp(kJpFixSub, double(ped[0]), prevPed + 0);
+    const double accY = JpFixMemOp(kJpFixSub, double(ped[1]), prevPed + 1);
+    volatile float accZ = float(JpFixMemOp(kJpFixSub, double(ped[2]), prevPed + 2));
+    const double deltaX = JpFixMemOp(kJpFixSub, double(ped[0]), task + 0);
+    volatile float deltaY = float(JpFixMemOp(kJpFixSub, double(ped[1]), task + 1));
+    volatile float deltaZ = float(JpFixMemOp(kJpFixSub, double(ped[2]), task + 2));
+    sums[0] = float(deltaX + accX);
+    sums[1] = float(double(deltaY) + accY);
+    sums[2] = float(double(deltaZ) + double(accZ));
+}
+
+// 0x67F48E..0x67F5E4 (un eje). Todos los `fmul/fsubr/fadd m32` con datos de memoria (eje, velocidad, paso, angulo) usan JpFixMemOp; v1 = *speed - dot * -0.2 (fsubr m32);
+// g = ((sin(angulo) * paso) * 0.01); v2 = (v1 - g) * pow(0.98, paso); *speed = float(v2); swung = (v2 * paso) + *angulo (fadd m32); *angulo = float(swung), acotado a +-pi/4.
+__declspec(noinline) void __cdecl JpFixSwingAxisCpp(const float* sums, const float* axis, bool grounded, const float* step, float* speed, float* angle) {
+    const double pw = ExeCompatiblePowCpp(double(kJetPackSwingDamp), double(*step));
+    double dot = JpFixMemOp(kJpFixMul, double(sums[2]), axis + 2);
+    dot = dot + JpFixMemOp(kJpFixMul, double(sums[1]), axis + 1);
+    dot = dot + JpFixMemOp(kJpFixMul, double(sums[0]), axis + 0);
+    if (grounded) {
+        dot = 0.0;
+    }
+    const double v1 = JpFixMemOp(kJpFixSubr, dot * double(kJetPackSwingDeltaV), speed);
+    const double g  = JpFixMemOp(kJpFixMul, JetPackSinExtCpp(*angle), step) * double(kJetPackSwingGravity);
+    const double v2 = (v1 - g) * pw;
+    *speed = float(v2);
+    const double swung = JpFixMemOp(kJpFixAdd, JpFixMemOp(kJpFixMul, v2, step), angle);
+    volatile float swungStored = float(swung);
+    *angle = swungStored;
+    if (swung > double(kJetPackSwingMax)) {
+        *angle = kJetPackSwingMax;
+    } else if (swungStored < -kJetPackSwingMax) {
+        *angle = -kJetPackSwingMax;
+    }
+}
+
+// 0x67F5E4: *twist = float(pow(0.98, paso) * *twist) con `fmul m32`.
+__declspec(noinline) void __cdecl JpFixTwistDampCpp(float* twist, const float* step) {
+    *twist = float(JpFixMemOp(kJpFixMul, ExeCompatiblePowCpp(double(kJetPackSwingDamp), double(*step)), twist));
+}
+
+// 0x67F5EA..0x67F660: mag = float(sqrt((x^2 + y^2) + z^2)); base = 1 - mag*0.02 (sin redondear); p = pow(base, paso); v[i] = float(p * v[i]) (`fmul m32`); los tres se calculan antes de escribir.
+__declspec(noinline) void __cdecl JpFixSpeedDampCpp(float* velocity, const float* step) {
+    const double x = velocity[0], y = velocity[1], z = velocity[2];
+    volatile float magnitude = float(JetPackSqrtExtCpp((x * x + y * y) + z * z));
+    const double base = 1.0 - double(magnitude) * double(kJetPackSpeedDamping);
+    const double pw = ExeCompatiblePowCpp(base, double(*step));
+    const float r0 = float(JpFixMemOp(kJpFixMul, pw, velocity + 0));
+    const float r1 = float(JpFixMemOp(kJpFixMul, pw, velocity + 1));
+    const float r2 = float(JpFixMemOp(kJpFixMul, pw, velocity + 2));
+    velocity[0] = r0;
+    velocity[1] = r1;
+    velocity[2] = r2;
+}
+#pragma float_control(pop)
+
+// --- CFormation (Formation.cpp, lote w20, prefijo Formation). Se puede colocar al final de X87Math.cpp. ---
+// Reutiliza RpNanAddCpp / RpNanSubCpp / RpNanMulAddCpp / X87TimesFloatCpp / PathFindNormaliseStatusCpp (ya declarados en X87Math.h).
+// Convención: los valores que el EXE guarda con fstp/fst dword se escriben como `volatile float` (o como float de salida);
+// los que quedan en la pila x87 son double (con el proceso a 24 bits, cada operación double redondea la mantisa a 24 bits
+// y conserva el exponente extendido, igual que el x87 del EXE).
+
+// Raíz cuadrada aislada: /fp:fast convierte sqrt(s) < c en s < c*c si ambos están en la misma función.
+static __declspec(noinline) double FormationRootCpp(double value) {
+    return sqrt(value);
+}
+
+// fld dword / fstp dword de un float (quita la señal de un SNaN, como el EXE).
+static __declspec(noinline) float FormationFloatThroughCpp(float value) {
+    return value;
+}
+
+#pragma float_control(precise, on, push)
+
+// CMatrix::TransformPoint del EXE (0x59C890, inlinada en 0x699FF0): out = matriz * {v0, v1, v2}. Cada componente es una cadena
+// ((m·z + m·y) + m·x) + traslación sin redondear a float entre operaciones; se escribe x, luego y, luego z.
+// `matrix` = float[16] con la misma disposición que CMatrix (right 0, forward 4, up 8, pos 12); `out` no puede solaparse con matrix/vector.
+__declspec(noinline) void __cdecl FormationTransformPointCpp(const float* matrix, const float* vector, float* out) {
+    const double x = double(vector[0]), y = double(vector[1]), z = double(vector[2]);
+    out[0] = float(((double(matrix[8]) * z + double(matrix[4]) * y) + double(matrix[0]) * x) + double(matrix[12]));
+    out[1] = float(((double(matrix[9]) * z + double(matrix[1]) * x) + double(matrix[5]) * y) + double(matrix[13]));
+    out[2] = float(((double(matrix[10]) * z + double(matrix[2]) * x) + double(matrix[6]) * y) + double(matrix[14]));
+}
+
+// 0x69A130..0x69A15E: fld a.x; fsub b.x; fld a.y; fsub b.y; y² + x²; fsqrt; fstp dword.
+__declspec(noinline) float __cdecl FormationDistance2DCpp(float firstX, float firstY, float secondX, float secondY) {
+    const double dx = double(firstX) - double(secondX);
+    const double dy = double(firstY) - double(secondY);
+    return float(FormationRootCpp(dy * dy + dx * dx));
+}
+
+// CFormation::GenerateGatherDestinations (0x69A6A0..0x69A705): el ángulo queda en ST0 sin redondear para fsin/fcos.
+static __declspec(noinline) double FormationGatherAngleCpp(int index, int count, float heading) {
+    // 0x858CBC = 2π, 0x858CB8 = π, 0x858FE4 = π/2 (float). OJO: `fdiv st, st(2)` divide π entre `count` (no entre el radio).
+    const double twoPi = double(std::bit_cast<float>(0x40C90FDBu));
+    const double pi = double(std::bit_cast<float>(0x40490FDBu));
+    const double halfPi = double(std::bit_cast<float>(0x3FC90FDBu));
+    if (count > 1) {
+        return ((double(index) / double(count)) * twoPi - double(heading)) + pi / double(count);
+    }
+    return double(heading) + halfPi;
+}
+#pragma float_control(pop)
+
+// Punto del círculo: x = float(float(sin(a) · r) + px), y = float(cos(a) · r + py), z = fld/fstp de pz. sin/cos van fuera de la región `precise`.
+__declspec(noinline) void __cdecl FormationGatherPointCpp(int index, int count, float heading, float radius, const float* position, float* out) {
+    const double angle = FormationGatherAngleCpp(index, count, heading);
+    volatile float sineProduct = float(sin(angle) * double(radius)); // fstp dword [esp+0x18]
+    out[1] = float(cos(angle) * double(radius) + double(position[1]));
+    out[0] = float(double(sineProduct) + double(position[0]));
+    out[2] = FormationFloatThroughCpp(position[2]);
+}
+
+#pragma float_control(precise, on, push)
+
+// CFormation::GenerateGatherDestinations_AroundCar (0x69A823..): un punto del lado `positive` (false = primera mitad, true = segunda).
+// edge = pos -/+ right·offset (producto sin redondear); luego factor = float(0.5 - index/count);
+// x: float(float(fwd.x·len·factor) + edge.x); y: float(fwd.y·len·factor + edge.y) todo en registro; z: float(float(fwd.z·len)·factor + edge.z).
+__declspec(noinline) void __cdecl FormationGatherCarPointCpp(const float* position, const float* right, float offset, const float* forward, float length,
+                                                            int index, int count, bool positive, float* out) {
+    const double rightX = double(right[0]) * double(offset);
+    const double rightY = double(right[1]) * double(offset);
+    const double rightZ = double(right[2]) * double(offset);
+    const float edgeX = float(positive ? rightX + double(position[0]) : double(position[0]) - rightX);
+    const float edgeY = float(positive ? rightY + double(position[1]) : double(position[1]) - rightY);
+    const float edgeZ = float(positive ? rightZ + double(position[2]) : double(position[2]) - rightZ);
+    const double forwardX = double(forward[0]) * double(length);
+    const double forwardY = double(forward[1]) * double(length);
+    volatile float forwardZ = float(double(forward[2]) * double(length)); // fstp dword [esp+0x4C]
+    volatile float factor = float(0.5 - double(index) / double(count));  // fild; fidiv; fsubr 0.5; fstp dword
+    volatile float productX = float(forwardX * double(factor));          // fstp dword [esp+0x50]
+    out[0] = float(double(productX) + double(edgeX));
+    out[1] = float(forwardY * double(factor) + double(edgeY));
+    out[2] = float(double(forwardZ) * double(factor) + double(edgeZ));
+}
+
+// CFormation::DistributeDestinations: centroide (0x69B2B7..0x69B315 destinos, 0x69B321..0x69B3B7 peatones).
+// Las sumas siguen en x87 sin redondear; sumZ (y sumY en destinos) se guardan como float. Destinos: x = sumX·inv (inv sin redondear);
+// y/z = float(sum)·inv. Peatones: inv se guarda como float (fst) y la multiplicación de x usa inv sin redondear, y/z usan el float.
+__declspec(noinline) void __cdecl FormationCentroidCpp(const float* points, int count, bool destination, float* out) {
+    double sumX = 0.0, sumY = 0.0, sumZ = 0.0;
+    for (int i = 0; i < count; ++i) {
+        sumX += double(points[3 * i]);
+        sumY += double(points[3 * i + 1]);
+        sumZ += double(points[3 * i + 2]);
+    }
+    volatile float storedZ = float(sumZ);
+    const double inverse = 1.0 / double(count); // fild; fstp float; fdiv (exacto para |count| < 2^24)
+    if (destination) {
+        volatile float storedY = float(sumY);
+        out[0] = float(sumX * inverse);
+        out[1] = float(double(storedY) * inverse);
+        out[2] = float(double(storedZ) * inverse);
+    } else {
+        volatile float storedInverse = float(inverse);
+        out[0] = float(inverse * sumX);
+        out[1] = float(sumY * double(storedInverse));
+        out[2] = float(double(storedZ) * double(storedInverse));
+    }
+}
+
+// Radio medio (0x69B3D0..0x69B407 y 0x69B417..0x69B44C): Σ sqrt((dz² + dy²) + dx²) / count, sin redondear a float (el EXE lo deja en ST0).
+__declspec(noinline) double __cdecl FormationMeanRadiusCpp(const float* points, int count, const float* center) {
+    double accumulated = 0.0;
+    for (int i = 0; i < count; ++i) {
+        const double dx = double(points[3 * i]) - double(center[0]);
+        const double dy = double(points[3 * i + 1]) - double(center[1]);
+        const double dz = double(points[3 * i + 2]) - double(center[2]);
+        accumulated += FormationRootCpp((dz * dz + dy * dy) + dx * dx);
+    }
+    return accumulated / double(count);
+}
+
+// 0x69B44C..0x69B484: radio de destinos guardado como float y limitado por abajo a 1.0 (con NaN no cambia); radio de peatones
+// (ST0, sin redondear) limitado a 1.0 igual; escala = float(destinos) / peatones.
+__declspec(noinline) double __cdecl FormationRadiusScaleCpp(double destinationRadius, double pedRadius) {
+    volatile float destination = float(destinationRadius);
+    if (destination < 1.0f) destination = 1.0f;
+    if (pedRadius < 1.0) pedRadius = 1.0;
+    return double(destination) / pedRadius;
+}
+
+// 0x69B490..0x69B4F0: reescala un punto de peatón. dz y dx·scale se guardan como float; dy·scale y dz·scale siguen en ST0.
+__declspec(noinline) void __cdecl FormationScalePositionCpp(const float* point, const float* pedCenter, const float* destinationCenter, double scale, float* out) {
+    const double dx = double(point[0]) - double(pedCenter[0]);
+    const double dy = double(point[1]) - double(pedCenter[1]);
+    volatile float dz = float(double(point[2]) - double(pedCenter[2])); // fstp dword [esp+0x48]
+    volatile float scaledX = float(dx * scale);                         // fstp dword [esp+0x4C]
+    const double scaledY = dy * scale;
+    const double scaledZ = double(dz) * scale;
+    out[0] = float(double(scaledX) + double(destinationCenter[0]));
+    out[1] = float(scaledY + double(destinationCenter[1]));
+    out[2] = float(scaledZ + double(destinationCenter[2]));
+}
+
+// CFormation::FindNearestFreeDestination (0x69B1B0): primer destino libre de menor distancia. La distancia (ST0) se compara sin
+// redondear contra el mínimo y, si gana, el mínimo pasa a ser su copia float (fst dword + fld dword). El mínimo inicial es 1e7.
+// Al final: *total = float(mínimo + *total) aunque no se haya elegido nada (devuelve -1). `claimed` se lee byte a byte (test al,al).
+__declspec(noinline) int __cdecl FormationNearestFreeCpp(const float* points, const unsigned char* claimed, int count, const float* origin, float* total) {
+    double minimum = double(std::bit_cast<float>(0x4B189680u)); // 0x86D270 = 10000000.0f
+    int selected = -1;
+    for (int i = 0; i < count; ++i) {
+        if (claimed[i] != 0) continue;
+        const double dx = double(points[3 * i]) - double(origin[0]);
+        const double dy = double(points[3 * i + 1]) - double(origin[1]);
+        const double dz = double(points[3 * i + 2]) - double(origin[2]);
+        const double distance = FormationRootCpp((dz * dz + dy * dy) + dx * dx);
+        volatile float stored = float(distance); // fst dword [esp+8]
+        if (distance < minimum) { // fcomp st(1); test ah,5; jp -> sólo "menor que" ordenado
+            minimum = double(stored);
+            selected = i;
+        }
+    }
+    *total = float(minimum + double(*total));
+    return selected;
+}
+
+// CFormation::FindCoverPoints (0x69B8D3..0x69B8FF): sqrt((x² + y²) + z²) < 0.005f sobre la velocidad.
+__declspec(noinline) bool __cdecl FormationVehicleStationaryCpp(const float* speed) {
+    const double sum = (double(speed[0]) * double(speed[0]) + double(speed[1]) * double(speed[1])) + double(speed[2]) * double(speed[2]);
+    return FormationRootCpp(sum) < double(std::bit_cast<float>(0x3BA3D70Au)); // 0x858B4C
+}
+// CFormation::DistributeDestinations_CoverPoints (0x69B646..0x69B6C8; sólo lo usa formation-extra.patch): candidato peatón -> punto de cobertura.
+// pedDistance = sqrt(dy² + dx²) respecto a `target` (ST0, sin redondear); se descarta (false) si 1.0 + pedDistance < targetDistance o hay NaN (fcomp; test ah,1).
+// score = 1.0 - (((sqrt(dy² + dx²) peatón-destino + targetDistance) - pedDistance) / pedDistance) sin redondear a float.
+__declspec(noinline) bool __cdecl FormationCoverScoreCpp(const float* ped, const float* destination, const float* target, float targetDistance, double* score) {
+    const double dx = double(ped[0]) - double(target[0]);
+    const double dy = double(ped[1]) - double(target[1]);
+    const double pedDistance = FormationRootCpp(dy * dy + dx * dx);
+    if (!(1.0 + pedDistance >= double(targetDistance))) return false;
+    const double destinationX = double(ped[0]) - double(destination[0]);
+    const double destinationY = double(ped[1]) - double(destination[1]);
+    const double destinationDistance = FormationRootCpp(destinationY * destinationY + destinationX * destinationX);
+    *score = 1.0 - ((destinationDistance + double(targetDistance)) - pedDistance) / pedDistance;
+    return true;
+}
+#pragma float_control(pop)
+
+// fight: no hace falta ningun ayudante nuevo en X87Math.cpp (TaskSimpleFight no usa x87; reutiliza ResidueRegsCpp, EntryEaxCpp y CEntity::RegisterReferenceWithResidue).
+
+// --- CAutomobile (Automobile.cpp; lote w20, prefijo Automobile). Colocar al FINAL de X87Math.cpp (usa UnsignedAsX87 [static, definido arriba], ExeCompatiblePowCpp, ExeAsinDoubleCpp y PlaceableRollDblCpp, ya definidos antes). ---
+// 0x6A884D / 0x6A887C (SpawnFlyingComponent): fild tiempo; si es negativo fadd 2^32; fadd addend; _ftol2 (EAX). Cada suma redondea a 24 bits (UnsignedAsX87 ya lo hace).
+__declspec(noinline) unsigned int __cdecl AutomobileTimeMsPlusFloatCpp(unsigned int timeMs, float addend) {
+    const double sum = UnsignedAsX87(timeMs) + double(addend);
+    return static_cast<unsigned int>(static_cast<long long>(sum));
+}
+
+// Las cadenas siguientes son de orden estricto (sumas y productos como el EXE); lo transcendental (pow, asin) va en ayudantes aparte, sin precise.
+#pragma float_control(precise, on, push)
+// ProcessControl 0x6B2DCD..0x6B2DEE: fld base; fld ts; call _CIpow; fld1; fsub st(1); fmul rate; fxch; fmul audio; faddp; fstp. p queda sin redondear en ST0.
+__declspec(noinline) float __cdecl AutomobileWheelSpinAudioCpp(float base, float timeStep, float audio, float rate) {
+    const double p    = ExeCompatiblePowCpp(double(base), double(timeStep));
+    const double rest = (1.0 - p) * double(rate);
+    const double kept = p * double(audio);
+    volatile float result = float(rest + kept);
+    return result;
+}
+
+// ProcessControl 0x6B2989..0x6B2A34: _CIasin; fld lock; fmul degToRad; fdivp (ST0 = asin / (lock * degToRad), sin redondear a float); si forceOne o 1.0 < ST0 (fcomp st(1); test ah,5; jp)
+// ST0 pasa a ser 1.0 (con NaN se conserva); fmul [esi+494h] y fstp dword.
+__declspec(noinline) float __cdecl AutomobileSteerFactorCpp(float x, float steeringLock, float degToRad, float steerAngle, bool forceOne) {
+    double factor = ExeAsinDoubleCpp(double(x)) / (double(steeringLock) * double(degToRad));
+    if (forceOne || 1.0 < factor)
+        factor = 1.0;
+    volatile float result = float(factor * double(steerAngle));
+    return result;
+}
+
+// ProcessControl 0x6B30E0..0x6B317E. fst dword [esp+20h] guarda una copia del primer pow que el EXE no vuelve a leer. up * -1.0f es fmul por 0x858C1C (no fchs: un NaN conserva su signo);
+// la componente z se guarda como float (fstp [esp+4Ch]), el producto speed * x y speed * z tambien (fstp [esp+38h] / [esp+40h]) y speed * y queda en la pila.
+__declspec(noinline) void __cdecl AutomobileHydraulicForceCpp(float turnSpeedForward, float timeStep, float base, float factor, const float* up, float turnMass, float* force) {
+    static const volatile float kMinusOne = -1.0f; // 0x858C1C
+    const double tsf     = double(turnSpeedForward);
+    const double damped  = ExeCompatiblePowCpp(double(base), double(timeStep));
+    const double ratio   = damped / (((tsf * tsf) * double(factor)) + 1.0);
+    const double speed   = (ExeCompatiblePowCpp(ratio, double(timeStep)) * tsf) - tsf;
+    const double mass    = double(turnMass);
+    const double negX    = double(up[0]) * double(kMinusOne);
+    const double negY    = double(up[1]) * double(kMinusOne);
+    const float  negZ    = float(double(up[2]) * double(kMinusOne));
+    const float  speedX  = float(speed * negX);
+    const double speedY  = speed * negY;
+    const float  speedZ  = float(speed * double(negZ));
+    force[0] = float(double(speedX) * mass);
+    force[1] = float(speedY * mass);
+    force[2] = float(double(speedZ) * mass);
+}
+
+// ProcessCarWheelPair 0x6A5CE7..0x6A5D0F: call 0x470000 (fld base; fld ts; _CIpow); fmul temp; fadd 1.0 (0x858624); fstp.
+__declspec(noinline) float __cdecl AutomobileTireDecayCpp(float base, float timeStep, float temperatureAboveOne) {
+    volatile float result = float(ExeCompatiblePowCpp(double(base), double(timeStep)) * double(temperatureAboveOne) + 1.0);
+    return result;
+}
+#pragma float_control(pop)
+
+// HydraulicControl 0x6A0E9D..0x6A0EBF (sin precise: fpatan, fcos y fsin en linea). El jump ya viene calculado (sqrt(ud^2 + lr^2) * 1.5 / 128 exacto en float).
+__declspec(noinline) void __cdecl AutomobileHydraulicStickCpp(float stickLR, float stickUD, float jump, float quarterPiNeg, float* cosOut, float* sinOut) {
+    const double angle = atan2(double(stickLR), double(stickUD)) + double(quarterPiNeg);
+    const float cosine = float(cos(angle) * double(jump));
+    const float sine   = float(sin(angle) * double(jump));
+    *cosOut = cosine;
+    *sinOut = sine;
+}
+
+// ProcessSwingingDoor 0x6A9F12..0x6A9F29: fld angle; fsin; fadd bias; fmul mul (ST0 sin redondear). Sin precise para que fsin salga en linea.
+static __declspec(noinline) double AutomobileBonnetSwing(float angle, float bias, float mul) {
+    return (sin(double(angle)) + double(bias)) * double(mul);
+}
+
+#pragma float_control(precise, on, push)
+// ProcessSwingingDoor 0x6A9F29..0x6A9F51: s*fz, s*fy, s*fx; *vy, *vz, suma, *vx, suma; fadd angVel; fstp (sin float intermedios).
+__declspec(noinline) float __cdecl AutomobileBonnetAngVelCpp(float angle, float bias, float mul, const float* forward, const float* moveSpeed, float angVel) {
+    const double swing = AutomobileBonnetSwing(angle, bias, mul);
+    const double sz    = swing * double(forward[2]);
+    const double sy    = swing * double(forward[1]);
+    const double sx    = swing * double(forward[0]);
+    const double py    = sy * double(moveSpeed[1]);
+    const double pz    = sz * double(moveSpeed[2]);
+    const double pyz   = py + pz;
+    const double px    = sx * double(moveSpeed[0]);
+    volatile float result = float((pyz + px) + double(angVel));
+    return result;
+}
+#pragma float_control(pop)
+
+// GetCarRoll 0x6A6010: igual que CPlaceable::GetRoll (0x420B30, PlaceableRollDblCpp) y fmul [0x859878] = 57.2957763671875 (exacta como float) a 24 bits; devuelve ST0 sin redondear.
+extern "C" __declspec(noinline) double __cdecl AutomobileCarRollDblCpp(const float* right, float upZ) {
+    return PlaceableRollDblCpp(right, upZ) * 57.2957763671875;
+}
+
+// decision: DecisionMakerTypes.cpp no necesita ayudantes nuevos en X87Math.cpp (aritmetica entera; usa ResidueRegsCpp y CarEnterExitEntryEdxCpp, que ya existen).
+
+// --- CVehicle::SetTransmissionRotation (0x6DBBB0), prefijo Vehicle. Añadir al final de X87Math.cpp (usa atan2 y std::bit_cast, ya disponibles). ---
+// Los tres operandos de los fpatan se calculan fuera del modo normal (precise: sin reasociación de /fp:fast); el proceso corre el x87 a 24 bits, así que
+// cada fadd/fsub/fmul de double equivale a la operación de memoria del EXE (fadd [R], fmul [0x858B8C], fsub [wz]; fsub [wy]; fsub [R]) con un solo redondeo.
+#pragma float_control(precise, on, push)
+static __declspec(noinline) double __cdecl VehicleTransmissionNumeratorCpp(float angleL, float angleR, float wheelZ) {
+    return (double(angleL) + double(angleR)) * 0.5 - double(wheelZ);
+}
+static __declspec(noinline) double __cdecl VehicleTransmissionDifferenceCpp(float a, float b) {
+    return double(a) - double(b);
+}
+#pragma float_control(pop)
+
+// El fpatan (llamada al intrínseco, fuera de precise) toma los operandos en ST0/ST1 sin redondear a float; -fpatan + fstp == -float(fpatan) y el PI se suma sobre el float ya guardado (fld [angleX]; fadd [0x858CB8]; fstp).
+// |x| se obtiene limpiando el bit de signo (fld quita la señal de un sNaN; fabs limpia el signo también de un NaN); |x| + |x| es exacto (fadd st(0), st(0)).
+__declspec(noinline) void __cdecl VehicleTransmissionAnglesCpp(float angleL, float angleR, float matY, const float* wheelPos, bool isFront, float* outAngleX, float* outAngleY) {
+    const double numerator   = VehicleTransmissionNumeratorCpp(angleL, angleR, wheelPos[2]);
+    const double denominator = VehicleTransmissionDifferenceCpp(matY, wheelPos[1]);
+    volatile float angleX    = float(-atan2(numerator, denominator));
+    if (isFront) {
+        angleX = float(double(angleX) + double(std::bit_cast<float>(0x40490FDBu)));
+    }
+    const double difference = VehicleTransmissionDifferenceCpp(angleL, angleR);
+    const float  absX       = std::bit_cast<float>(std::bit_cast<unsigned int>(wheelPos[0]) & 0x7FFFFFFFu);
+    volatile float angleY   = float(atan2(difference, double(absX) + double(absX)));
+    *outAngleX = angleX;
+    *outAngleY = angleY;
+}
+
+// --- Lote Garage (Garage.cpp, w20). Colocar al final de X87Math.cpp (compilado /O2 /Oi /arch:IA32 /fp:fast; el proceso corre el x87 a 24 bits). ---
+
+// Seno y coseno de angle = doorPos * k: el fmul del x87 deja el producto en ST0 con 24 bits de mantisa y exponente extendido (sin redondear a float); fsin/fcos de precision completa y
+// un fstp a float cada uno. Sin float_control(precise) para que sin/cos salgan en linea (con precise serian llamadas a la CRT).
+static __declspec(noinline) void GarageDoorSinCos(float doorPos, float k, float* sinOut, float* cosOut) {
+    const double angle = double(doorPos) * double(k);
+    *sinOut = float(sin(angle));
+    *cosOut = float(cos(angle));
+}
+
+// precise: el compilador no puede reasociar ni distribuir la negacion ni cambiar el orden de las comparaciones (NaN) de las funciones siguientes. Los float que el EXE guarda en pila con fstp
+// y vuelve a cargar (dy, dx de la segunda proyeccion, -r) son `volatile float`; lo que queda en ST0 (dx de la primera proyeccion, sumas con r) son double: el hardware los redondea a 24 bits.
+#pragma float_control(precise, on, push)
+__declspec(noinline) void __cdecl GarageDoorUpCpp(float doorPos, float k, float fx, float fy, float* up) {
+    float sinA, cosA;
+    GarageDoorSinCos(doorPos, k, &sinA, &cosA);
+    volatile double sinTimesFy = double(sinA) * double(fy); // fld sin; fmul [forward.y]; fchs; fstp
+    volatile double sinTimesFx = double(sinA) * double(fx); // fld sin; fmul [forward.x]; fstp
+    up[0] = float(-sinTimesFy);
+    up[1] = float(sinTimesFx);
+    up[2] = cosA;
+}
+
+// 0x59C730: cada componente son dos `fld R; fmul dword [M]` y un fsubp (R, M en este orden: b.z/a.y, a.z/b.y, ...). El orden importa con NaN: un NaN senalizante en MEMORIA pierde frente a un NaN
+// silencioso del registro, y si esta en el registro (fld lo silencia) gana el de mayor mantisa. El codigo generado de `double(x) * double(y)` conmuta los factores aun con float_control(precise)
+// (casos 800 y 981 de Data23), asi que cada producto pasa por JpFixMemOp (registro ya cargado, memoria leida en bits; mas arriba en este archivo). El producto a 24 bits, la resta de dos registros
+// (simetrica: mayor mantisa; a igualdad, el positivo) y el fstp float los hace el hardware. Este bloque ya esta dentro del float_control(precise) de GarageDoorUpCpp.
+static __forceinline double GarageCrossTerm(double r1, const float* m1, double r2, const float* m2) {
+    const double first  = JpFixMemOp(kJpFixMul, r1, m1);
+    const double second = JpFixMemOp(kJpFixMul, r2, m2);
+    return first - second;
+}
+__declspec(noinline) void __cdecl GarageDoorRightCpp(const float* a, const float* b, float* out) {
+    out[0] = float(GarageCrossTerm(double(b[2]), a + 1, double(a[2]), b + 1)); // fld b.z; fmul a.y; fld a.z; fmul b.y
+    out[1] = float(GarageCrossTerm(double(a[2]), b + 0, double(b[2]), a + 0)); // fld a.z; fmul b.x; fld b.z; fmul a.x
+    out[2] = float(GarageCrossTerm(double(a[0]), b + 1, double(b[0]), a + 1)); // fld a.x; fmul b.y; fld b.x; fmul a.y
+}
+
+__declspec(noinline) bool __cdecl GarageInsidePointCpp(const float* g, const float* p, unsigned int* ecxOut) {
+    if (double(p[2]) < double(g[2])) return false; // fld z; fcomp [g.z]
+    if (double(p[2]) > double(g[7])) return false; // fld z; fcomp [topZ]
+    volatile float dy = float(double(p[1]) - double(g[1]));
+    *ecxOut = *reinterpret_cast<const volatile unsigned int*>(&dy); // fstp [esp] pisa el ECX guardado; el pop ecx final lo devuelve
+    const double dx = double(p[0]) - double(g[0]);
+    volatile float dxStored = float(dx); // fst dword: se guarda pero el primer producto usa ST0
+    const double along = dx * double(g[3]) + double(dy) * double(g[4]);
+    if (along < 0.0) return false;            // fcom [0.0f]
+    if (along > double(g[8])) return false;   // fcomp [ancho]
+    const double across = double(dxStored) * double(g[5]) + double(dy) * double(g[6]);
+    if (across < 0.0) return false;
+    if (across > double(g[9])) return false;  // fcomp [alto]
+    return true;
+}
+
+__declspec(noinline) bool __cdecl GarageInsideRadiusCpp(const float* g, const float* p, float radius) {
+    const double r = radius;
+    if (double(g[2]) - r > double(p[2])) return false; // fld [g.z]; fsub r; fcomp z
+    if (r + double(g[7]) < double(p[2])) return false; // fld r; fadd [topZ]; fcomp z
+    volatile float dy = float(double(p[1]) - double(g[1]));
+    const double dx = double(p[0]) - double(g[0]);
+    volatile float dxStored = float(dx);
+    const double along = dx * double(g[3]) + double(dy) * double(g[4]);
+    volatile float negR = float(-r); // fld r; fchs; fstp dword
+    if (along < double(negR)) return false;
+    if (along > r + double(g[8])) return false; // fld r; fadd [ancho]; fxch; fcompp
+    const double across = double(dxStored) * double(g[5]) + double(dy) * double(g[6]);
+    if (across < double(negR)) return false;
+    if (across > r + double(g[9])) return false;
+    return true;
+}
+
+__declspec(noinline) bool __cdecl GarageEntityNearCpp(const float* g, float radius, const float* pos) {
+    const double r = radius;
+    if (double(g[10]) - r > double(pos[0])) return false; // izquierda - r > x
+    if (r + double(g[11]) < double(pos[0])) return false; // r + derecha < x
+    if (double(g[12]) - r > double(pos[1])) return false; // frente - r > y
+    if (r + double(g[13]) < double(pos[1])) return false; // r + fondo < y
+    if (double(g[2]) - r > double(pos[2])) return false;  // z del garaje - r > z
+    if (r + double(g[7]) < double(pos[2])) return false;  // r + topZ < z
+    return true;
+}
+#pragma float_control(pop)
+
+// =====================================================================================================================================
+// Lote Shadows.cpp (prefijo Shadows). Anadir AL FINAL de source/game_sa/X87Math.cpp (usa UnsignedAsX87, definida mas arriba, y ShadowSqrtCpp).
+// Regla comun: el EXE corre la x87 a 24 bits de mantisa con exponente extendido y no guarda entre operaciones; por eso los intermedios son
+// `double` (un volcado a pila no los redondea a float y el rango de un double cubre el de la x87 a 24 bits) y solo lo que el EXE guarda con
+// fstp dword pasa por float (`volatile float` + return, como los demas ayudantes). Las cadenas van con float_control(precise) para que
+// /fp:fast no las reasocie; lo trascendental (fsqrt, fpatan) va fuera del bloque precise.
+// =====================================================================================================================================
+
+// --- Fuera de precise: raiz y fpatan en linea ---
+// fsqrt de un double (24 bits de mantisa) con un solo redondeo a 24 bits; se guarda y recarga como double (FSTP64 + FLD64), igual que ShadowSqrtCpp.
+static __declspec(noinline) double ShadowsSqrtDblCpp(double value) {
+    volatile double result = sqrt(value);
+    return result;
+}
+
+// fchs de la x87: invierte el bit de signo tambien en un NaN. /fp:fast reescribe -(a * k) como a * (-k) y entonces el signo de un NaN no se invierte (Gfx
+// Wave2, casos 33 y 85: el EXE da 0x7FC00000 y la DLL 0xFFC00000), asi que la inversion se hace sobre los bits y no puede fusionarse con el fmul.
+static __declspec(noinline) double ShadowsFchsDbl(double value) {
+    unsigned long long bits;
+    memcpy(&bits, &value, sizeof bits);
+    bits ^= 0x8000000000000000ull;
+    memcpy(&value, &bits, sizeof bits);
+    return value;
+}
+
+// CShadows::StoreRealTimeShadow (0x707E09-0x707E4C): elevacion = -(fpatan(-vy, -vz) * 57.29578f) y azimut = fpatan(-vx, -vy) * 57.29578f (0x859878),
+// el fpatan sin redondear, un redondeo a 24 bits por el fmul y fstp dword de cada uno (en la elevacion, fchs entre el fmul y el fstp).
+__declspec(noinline) void __cdecl ShadowsSunAnglesCpp(float vx, float vy, float vz, float* azimuth, float* elevation) {
+    const double degrees = double(std::bit_cast<float>(0x42652EE0u));
+    volatile double elevationProduct = atan2(-double(vy), -double(vz)) * degrees; // fpatan; fmul [0x859878] (24 bits)
+    volatile float elevationStored = float(ShadowsFchsDbl(elevationProduct));     // fchs; fstp dword
+    volatile float azimuthStored = float(atan2(-double(vx), -double(vy)) * degrees);
+    *elevation = elevationStored;
+    *azimuth = azimuthStored;
+}
+
+#pragma float_control(precise, on, push)
+// fabs de la x87 (solo borra el bit de signo, tambien en NaN y -0).
+static __forceinline double ShadowsAbsDbl(double value) {
+    unsigned long long bits;
+    memcpy(&bits, &value, sizeof bits);
+    bits &= 0x7FFFFFFFFFFFFFFFull;
+    memcpy(&value, &bits, sizeof bits);
+    return value;
+}
+// Sumas de cuadrados en los tres ordenes del EXE; las entradas ya son valores de 24 bits (diferencias hechas en la x87).
+static __declspec(noinline) double ShadowsSumSquaresYXDbl(double x, double y) { return y * y + x * x; }
+static __declspec(noinline) double ShadowsSumSquaresXYZDbl(double x, double y, double z) { return (x * x + y * y) + z * z; }
+static __declspec(noinline) double ShadowsSumSquaresZYXDbl(double x, double y, double z) { return (z * z + y * y) + x * x; }
+
+// CShadows::UpdatePermanentShadows (0x70C9B9-0x70CA46): int((1.0f - transcurrido / cuarto) * valor), con los dos enteros sin signo cargados como fild (+ 2^32 si el bit alto esta
+// puesto) y _ftol2 (palabra baja; NaN o fuera de rango -> 0). Antes era un fistp de 32 bits con la palabra de control en truncamiento (0/0 daba 0x80000000, que tras truncar a 16 u 8 bits coincide con 0).
+__declspec(noinline) int __cdecl ShadowsPermanentFadeCpp(unsigned int elapsed, unsigned int quarter, int value) {
+    const double ratio = UnsignedAsX87(elapsed) / UnsignedAsX87(quarter);
+    const double fade = 1.0f - ratio; // fsubr dword [0x858624]
+    return static_cast<int>(static_cast<long long>(fade * double(value)));
+}
+
+// CShadows::AddPermanentShadow (0x707007-0x70702E): x*x + y*y < limite con cada producto y la suma redondeados a 24 bits (fcomp + test ah,5 + jp: false con NaN).
+__declspec(noinline) bool __cdecl ShadowsSumSquaresBelowCpp(float x, float y, float limit) {
+    const double sum = double(x) * x + double(y) * y;
+    return sum < limit;
+}
+
+// CShadows::UpdatePermanentShadows (0x70CB24-0x70CB35 y 0x70CBEE-0x70CBF9): mag = fsqrt(((sz-hz)^2 + (sy-hy)^2) + (sx-hx)^2) con las diferencias source - shadow sin redondear a float;
+// si mag < *shortest (estricto, false con NaN) guarda float(mag) en *shortest y devuelve true. source y shadow apuntan a x, y, z.
+__declspec(noinline) bool __cdecl ShadowsOilNearerCpp(const float* source, const float* shadow, float* shortest) {
+    const double magnitude = ShadowsSqrtDblCpp(ShadowsSumSquaresZYXDbl(double(source[0]) - shadow[0], double(source[1]) - shadow[1], double(source[2]) - shadow[2]));
+    if (!(magnitude < *shortest)) {
+        return false;
+    }
+    *shortest = float(magnitude);
+    return true;
+}
+
+// CShadows::UpdatePermanentShadows (0x70CBBB-0x70CC24): igual que ShadowsOilNearerCpp pero ademas exige (shadow - source) . (first - source) < 0, con
+// dot = (sy' * dyf) + (sx' * dxf) y dyf, dxf = first - source, todo a 24 bits sin guardar. first apunta a x, y, z.
+__declspec(noinline) bool __cdecl ShadowsOilSecondCpp(const float* source, const float* shadow, const float* first, float* shortest) {
+    const double firstDeltaX = double(first[0]) - source[0];
+    const double firstDeltaY = double(first[1]) - source[1];
+    const double magnitude = ShadowsSqrtDblCpp(ShadowsSumSquaresZYXDbl(double(source[0]) - shadow[0], double(source[1]) - shadow[1], double(source[2]) - shadow[2]));
+    if (!(magnitude < *shortest)) {
+        return false;
+    }
+    const double dot = (double(shadow[1]) - source[1]) * firstDeltaY + (double(shadow[0]) - source[0]) * firstDeltaX;
+    if (!(dot < 0.0)) {
+        return false;
+    }
+    *shortest = float(magnitude);
+    return true;
+}
+
+// (a * b) + (c * d) en la x87 (producto escalar de dos terminos) guardado como float (CShadows::CastShadowEntityXY, 0x70874E-0x7088E1). Los argumentos van en el orden de carga del EXE.
+__declspec(noinline) float __cdecl ShadowsDot2Cpp(float a, float b, float c, float d) {
+    const double first = double(a) * b;
+    const double second = double(c) * d;
+    volatile float result = float(first + second);
+    return result;
+}
+
+// ((a * b) + (c * d)) + e sin guardar entre la suma y e (CShadows::CastShadowEntityXY, 0x709840-0x709858: forward * y + right * x + posicion).
+__declspec(noinline) float __cdecl ShadowsDot2AddCpp(float a, float b, float c, float d, float e) {
+    const double first = double(a) * b;
+    const double second = double(c) * d;
+    const double sum = first + second;
+    volatile float result = float(sum + e);
+    return result;
+}
+
+// Cruce de borde (CShadows::CastShadowEntityXY, 0x708E80-0x708E9A): (x - ox) * ey - (y - oy) * ex con ex = dx - ox y ey = dy - oy (destino - origen) en registro; se devuelve
+// sin redondear a float (el EXE compara ST0 con 0 antes del fst dword y el llamador guarda float(cruce)).
+__declspec(noinline) double __cdecl ShadowsEdgeCrossCpp(float x, float y, float originX, float originY, float destinationX, float destinationY) {
+    const double edgeX = double(destinationX) - originX;
+    const double edgeY = double(destinationY) - originY;
+    const double result = (double(x) - originX) * edgeY - (double(y) - originY) * edgeX;
+    return result;
+}
+
+// Interseccion de recorte (CShadows::CastShadowEntityXY, 0x708EC9-0x708F45 y 0x708F7E-0x708FFB): ratio = |cruce(anterior)| / (|valor| + |cruce(anterior)|) con valor = el float guardado
+// del cruce actual; (1 - ratio) * anterior + ratio * actual para la posicion (outPos[0..1]) y para la UV (outUv[0..1]). prevPos/curPos/prevUv/curUv/origin/destination apuntan a x, y;
+// outPos/outUv son distintos de las entradas. El orden de los dos sumandos solo cambia el resultado con dos NaN.
+__declspec(noinline) void __cdecl ShadowsClipIntersectCpp(const float* prevPos, const float* curPos, const float* prevUv, const float* curUv,
+                                                          const float* origin, const float* destination, float value, float* outPos, float* outUv) {
+    const double edgeX = double(destination[0]) - origin[0];
+    const double edgeY = double(destination[1]) - origin[1];
+    const double before = ShadowsAbsDbl((double(prevPos[0]) - origin[0]) * edgeY - (double(prevPos[1]) - origin[1]) * edgeX);
+    const double ratio = before / (ShadowsAbsDbl(value) + before);
+    const double keep = 1.0f - ratio; // fld [0x858624]; fsub ratio
+    outUv[0] = float(keep * prevUv[0] + ratio * curUv[0]);
+    outUv[1] = float(keep * prevUv[1] + ratio * curUv[1]);
+    outPos[0] = float(ratio * curPos[0] + keep * prevPos[0]);
+    outPos[1] = float(ratio * curPos[1] + keep * prevPos[1]);
+}
+
+// Distancia al plano (CShadows::CastShadowEntityXY, 0x7096F9-0x709713): (nz * z + ny * y) + nx * x guardado como float. normal y vertex apuntan a x, y, z.
+__declspec(noinline) float __cdecl ShadowsPlaneDistanceCpp(const float* normal, const float* vertex) {
+    const double zy = double(normal[2]) * vertex[2] + double(normal[1]) * vertex[1];
+    volatile float result = float(zy + double(normal[0]) * vertex[0]);
+    return result;
+}
+
+// Altura del plano (CShadows::CastShadowEntityXY, 0x70971D-0x709750): (-1.0f / nz) * (((ny * y) + (nx * x)) - distancia) guardado como float. normal apunta a x, y, z.
+__declspec(noinline) float __cdecl ShadowsPlaneHeightCpp(const float* normal, float x, float y, float distance) {
+    const double factor = -1.0f / double(normal[2]); // fld [0x858C1C]; fdiv nz
+    const double sum = double(normal[1]) * y + double(normal[0]) * x;
+    volatile float result = float((sum - distance) * factor);
+    return result;
+}
+
+// numerador / (valor * multiplicador) guardado como float (CShadows::CastShadowEntityXYZ, 0x70A142-0x70A176: -0.5 / (vw * 0.9) y 1.0 / (vw * 0.8)).
+__declspec(noinline) float __cdecl ShadowsDivByProductCpp(float numerator, float value, float multiplier) {
+    const double product = double(value) * multiplier;
+    volatile float result = float(double(numerator) / product);
+    return result;
+}
+
+// valor * multiplicador + base guardado como float (CShadows::CastShadowEntityXYZ, 0x70A208-0x70A247: frontX * -1.1f + centro.x).
+__declspec(noinline) float __cdecl ShadowsMulAddCpp(float value, float multiplier, float base) {
+    const double product = double(value) * multiplier;
+    volatile float result = float(product + base);
+    return result;
+}
+
+// a * b en la x87 (24 bits de mantisa, exponente extendido) como double (CShadows::StoreStaticShadow 0x70BA47-0x70BA89, CastShadowEntityXYZ 0x70A3B3-0x70A3D1, StoreShadowForVehicle).
+__declspec(noinline) double __cdecl ShadowsMulDblCpp(float a, float b) {
+    volatile double result = double(a) * b;
+    return result;
+}
+
+// |a - b| en la x87 como double (CShadows::StoreStaticShadow, 0x70BC53-0x70BCB7: fld a; fsub b; fabs).
+__declspec(noinline) double __cdecl ShadowsAbsDiffCpp(float a, float b) {
+    volatile double result = ShadowsAbsDbl(double(a) - b);
+    return result;
+}
+
+// CShadows::CastShadowSectorList / CastRealTimeShadowSectorList (0x70A728-0x70A771 y 0x70A8B1-0x70A8FA): (posZ - zDistance) < (maxZ + altura) y (minZ + altura) < posZ, las cuatro sumas
+// a 24 bits sin guardar (fcompp / fcomp + test ah,41h y test ah,5: false con NaN).
+__declspec(noinline) bool __cdecl ShadowsHeightBandCpp(float posZ, float zDistance, float maxZ, float minZ, float height) {
+    const double lower = double(posZ) - zDistance;
+    const double upper = double(maxZ) + height;
+    if (!(upper > lower)) {
+        return false;
+    }
+    const double bottom = double(minZ) + height;
+    return bottom < double(posZ);
+}
+
+// Borde del rectangulo de una sombra (CShadows::RenderStoredShadows 0x70AA76-0x70AAD6, GeneratePolysForStaticShadow 0x70B746-0x70B7A6): (|side| + |front|) y posicion -/+ esa
+// extension (maximum: fadd; si no, fsubr), guardado como float.
+__declspec(noinline) float __cdecl ShadowsRectEdgeCpp(float position, float front, float side, bool maximum) {
+    const double extent = ShadowsAbsDbl(side) + ShadowsAbsDbl(front);
+    volatile float result = float(maximum ? extent + position : position - extent);
+    return result;
+}
+
+// Distancia al cuadrado a la camara (CShadows::StoreStaticShadow 0x70BA27-0x70BA43, StoreShadowForVehicle): (dy * dy) + (dx * dx) guardado como float. position y camera apuntan a x, y.
+__declspec(noinline) float __cdecl ShadowsCameraDistanceSquaredCpp(const float* position, const float* camera) {
+    const double dy = double(position[1]) - camera[1];
+    const double dx = double(position[0]) - camera[0];
+    volatile float result = float(dy * dy + dx * dx);
+    return result;
+}
+
+// fade * valor (fild) truncado con _ftol2, palabra baja (CShadows::StoreStaticShadow 0x70BAB9-0x70BB10, StoreShadowForVehicle 0x70BEFE-0x70BF02). fade es un valor de 24 bits en un double.
+__declspec(noinline) int __cdecl ShadowsFadeScaleCpp(double fade, int value) {
+    return static_cast<int>(static_cast<long long>(fade * double(value)));
+}
+
+// a * b truncado con _ftol2, palabra baja (CShadows::CastShadowEntityXY, 0x709959-0x709979: uv * 200.0f).
+__declspec(noinline) int __cdecl ShadowsTruncMulCpp(float a, float b) {
+    return static_cast<int>(static_cast<long long>(double(a) * b));
+}
+
+// CShadows::StoreShadowForVehicle (0x70C035-0x70C064): desplazamiento = ((largo * 0.5f) - maxY) * shift; x -= desplazamiento * forwardX; y -= desplazamiento * forwardY.
+// position apunta a x, y; las dos posiciones se leen antes de escribirse.
+__declspec(noinline) void __cdecl ShadowsVehiclePositionCpp(float* position, float length, float maximumY, float shift, float forwardX, float forwardY) {
+    const double x = position[0];
+    const double y = position[1];
+    const double offset = (double(length) * 0.5f - maximumY) * shift;
+    const float newX = float(x - offset * forwardX);
+    const float newY = float(y - offset * forwardY);
+    position[0] = newX;
+    position[1] = newY;
+}
+
+// CShadows::ShadowRenderTriangleCB (0x709F13-0x709F45): 0 si 1.0f - depth * depth < 0; si no (tambien NaN) el byte bajo de _ftol2(fild(intensity) * (1.0f - depth * depth)).
+__declspec(noinline) unsigned int __cdecl ShadowsTriangleAlphaCpp(float depth, unsigned int intensity) {
+    const double remaining = 1.0f - double(depth) * depth;
+    if (remaining < 0.0) {
+        return 0;
+    }
+    return static_cast<unsigned int>(static_cast<long long>(double(static_cast<int>(intensity)) * remaining)) & 0xFFu;
+}
+
+// CShadows::ShadowRenderTriangleCB (0x709D07-0x709D43): ((ny * ay) + (nz * az)) + (nx * ax) > 0 (el producto queda en la x87 sin redondear; false con NaN). normal y at apuntan a x, y, z.
+__declspec(noinline) bool __cdecl ShadowsTriangleFacesAwayCpp(const float* normal, const float* at) {
+    const double yz = double(normal[1]) * at[1] + double(normal[2]) * at[2];
+    const double facing = yz + double(normal[0]) * at[0];
+    return facing > 0.0;
+}
+
+// CShadows::StoreShadowForVehicle (0x70BE2B-0x70BE5E, rodaje de cinematica): squared / ((mult * mult) * 4.0f) guardado como float.
+__declspec(noinline) float __cdecl ShadowsCutsceneScaleCpp(float squared, float lodMultiplier) {
+    const double scale = (double(lodMultiplier) * lodMultiplier) * 4.0f;
+    volatile float result = float(double(squared) / scale);
+    return result;
+}
+
+// CShadows::StoreShadowForVehicle (0x70BEC2-0x70BEF8): 1.0f - (fsqrt(squared) - 0.75f * distance) / (0.25f * distance), sin redondear a float (se usa con ShadowsFadeScaleCpp).
+// OJO: StoreStaticShadow usa otra cadena ((raiz - 0.75 * d) * (4.0 / d), ShadowDistanceFadeCpp).
+__declspec(noinline) double __cdecl ShadowsVehicleFadeCpp(float squared, float distance) {
+    const double root = ShadowSqrtCpp(squared);
+    const double threshold = double(distance) * 0.75f;
+    const double ratio = (root - threshold) / (double(distance) * 0.25f);
+    volatile double result = 1.0f - ratio;
+    return result;
+}
+
+// CShadows::StoreShadowForVehicle (0x70C075-0x70C0C3, moto): factor = |inclinacion| * 5.092958f + 1.0f; si esta abandonada y |rightZ| > 0.6f suma |rightZ| * 4.0f; devuelve
+// float(factor * ancho). El factor no pasa por float.
+__declspec(noinline) float __cdecl ShadowsBikeBreadthCpp(float lean, float breadth, bool abandoned, float rightZ) {
+    double factor = ShadowsAbsDbl(lean) * 5.092958f + 1.0f;
+    if (abandoned) {
+        const double right = ShadowsAbsDbl(rightZ);
+        if (right > 0.6f) {
+            factor = factor + right * 4.0f;
+        }
+    }
+    volatile float result = float(factor * breadth);
+    return result;
+}
+
+// CShadows::StoreShadowForVehicle (0x70C17F-0x70C1D9): magnitud = fsqrt(side.y^2 + side.x^2); si magnitud < 0.5f (false con NaN) escribe *outX = (side.x * (1/mag)) * 0.5f y
+// *outY = ((1/mag) * side.y) * 0.5f y devuelve true; si no, no escribe nada. side apunta a x, y.
+__declspec(noinline) bool __cdecl ShadowsSideNormalizeCpp(const float* side, float* outX, float* outY) {
+    const double magnitude = ShadowsSqrtDblCpp(ShadowsSumSquaresYXDbl(side[0], side[1]));
+    if (!(magnitude < 0.5f)) {
+        return false;
+    }
+    const double reciprocal = 1.0f / magnitude; // fdivr dword [0x858624]
+    const float x = float((double(side[0]) * reciprocal) * 0.5f);
+    const float y = float((reciprocal * side[1]) * 0.5f);
+    *outX = x;
+    *outY = y;
+    return true;
+}
+
+// CShadows::StoreShadowForVehicle (0x70C28B-0x70C2C1): fsqrt((x*x + y*y) + z*z) * paso > 0.1f (0x858B1C), con la raiz y el producto a 24 bits sin guardar (false con NaN). speed apunta a x, y, z.
+__declspec(noinline) bool __cdecl ShadowsMovementAboveCpp(const float* speed, float timeStep) {
+    const double magnitude = ShadowsSqrtDblCpp(ShadowsSumSquaresXYZDbl(speed[0], speed[1], speed[2]));
+    return magnitude * timeStep > 0.1f;
+}
+#pragma float_control(pop)
+
+// ===================================================================================================================
+// CCamera (Camera.cpp; lote w20, prefijo Camera). ANADIR AL FINAL de source/game_sa/X87Math.cpp (despues de UnsignedAsX87, que ya esta definida mas arriba).
+// Convencion de este bloque: el proceso corre el x87 a 24 bits, asi que cada operacion double deja un valor de 24 bits de mantisa; los valores intermedios que el EXE
+// NO guarda en memoria se fijan con "volatile double" (el qword conserva el valor exacto y evita que /fp:fast reasocie), los que el EXE guarda con fst/fstp se
+// fijan con "volatile float". Nunca se guarda en un double un resultado de fsin/fcos/fptan/fpatan/fsqrt-sin-redondear (precision completa): ese se consume en la misma expresion.
+// ===================================================================================================================
+static constexpr float kCamera_3C8EFA35 = std::bit_cast<float>(0x3C8EFA35u); // 0x8595EC (pi / 180)
+static constexpr float kCamera_40490FDB = std::bit_cast<float>(0x40490FDBu); // 0x858CB8 (pi)
+static constexpr float kCamera_3C0EF921 = std::bit_cast<float>(0x3C0EF921u); // 0x8631D8 (factor del FOV en CalculateFrustumPlanes)
+static constexpr float kCamera_3992CCF7 = std::bit_cast<float>(0x3992CCF7u); // 0x863280 (0.00028f)
+static constexpr float kCamera_3A83126F = std::bit_cast<float>(0x3A83126Fu); // 0x858CDC (0.001f)
+static constexpr float kCamera_3C23D70A = std::bit_cast<float>(0x3C23D70Au); // 0x858C58 (0.01f)
+
+// --- tiempos (CamShake 0x50AA91, CamShakeNoPos 0x50A97E, SetPercentAlongCutScene 0x50C088, AddShakeSimple 0x50D254, LerpFOV 0x50D2A0) ---
+// fild del entero con signo, +2^32 si es negativo (fadd a 24 bits) y fmul 0.001f; un solo fstp float. UnsignedMillisToSecondsCpp usa double(unsigned) (sin la
+// correccion de 24 bits de +2^32), por eso aqui se usa UnsignedAsX87.
+__declspec(noinline) float __cdecl CameraElapsedSecondsCpp(unsigned int elapsed) {
+    volatile float seconds = float(UnsignedAsX87(elapsed) * double(kCamera_3A83126F));
+    return seconds;
+}
+
+// CCamera::CamShake (0x50AA72..0x50AA8D): fmul qword 0.01 (0x85A308), fsubr qword 1.0 (0x85A310), fstp float.
+__declspec(noinline) float __cdecl CameraShakePercentCpp(float distance) {
+    volatile double scaled = double(distance) * 0.01;
+    volatile float percent = float(1.0 - scaled);
+    return percent;
+}
+
+// CCamera::SetPercentAlongCutScene (0x50C088..0x50C0AA): (percent * 0.01f) sin guardar, * finishTime (fild + 2^32 si es negativo), un solo fstp float.
+__declspec(noinline) float __cdecl CameraCutSceneElapsedCpp(float percent, unsigned int finishTime) {
+    volatile double scaled = double(percent) * double(kCamera_3C23D70A);
+    volatile float elapsed = float(scaled * UnsignedAsX87(finishTime));
+    return elapsed;
+}
+
+// CCamera::AddShakeSimple (0x50D254) y LerpFOV (0x50D29x): fild reloj (+2^32), fst start (float), fadd plus, fstp end (float). La suma usa el entero SIN pasar por float.
+__declspec(noinline) void __cdecl CameraTimePlusCpp(unsigned int nowMs, float plus, float* start, float* end) {
+    const double now = UnsignedAsX87(nowMs);
+    *start = float(now);
+    *end = float(now + double(plus));
+}
+
+// --- apuntado en tercera persona (Find3rdPersonQuickAimPitch 0x50AD40, Find3rdPersonCamTargetVector 0x514970) ---
+// radianes = (fov * 0.5f) * (pi/180) con cada fmul a 24 bits; fptan queda en ST0 sin redondear y se consume en la misma expresion.
+static __forceinline double CameraAimRadians(float fov) {
+    volatile double halved = double(fov) * 0.5;
+    volatile double radians = halved * double(kCamera_3C8EFA35);
+    return radians;
+}
+// horizontal = float(((crosshairX - 0.5f) + (crosshairX - 0.5f)) * tan) (0x5149A6..0x5149B6: fadd st,st y fmul st(1); fstp).
+__declspec(noinline) float __cdecl CameraAimHorizontalCpp(float fov, float crosshairX) {
+    const double radians = CameraAimRadians(fov);
+    volatile double centred = double(crosshairX) - 0.5;
+    volatile double doubled = centred + centred;
+    volatile float horizontal = float(tan(radians) * doubled);
+    return horizontal;
+}
+// vertical = ((((0.5f - crosshairY) * 2) * (1.0f / aspect)) * tan) (0x5149BA..0x514A21: fmulp, fmulp; queda en ST0 sin guardar a float en el EXE).
+__declspec(noinline) float __cdecl CameraAimVerticalCpp(float fov, float crosshairY, float aspect) {
+    const double radians = CameraAimRadians(fov);
+    volatile double centred = 0.5 - double(crosshairY);
+    volatile double doubled = centred + centred;
+    volatile double ratio = 1.0 / double(aspect);
+    volatile double scaled = doubled * ratio;
+    volatile float vertical = float(tan(radians) * scaled);
+    return vertical;
+}
+// Find3rdPersonQuickAimPitch: -(fpatan((tan * ((0.5f - crosshairY) * 2)) * (1.0f / aspect), 1) + vertical); el resultado vuelve en ST0 (ret).
+__declspec(noinline) float __cdecl CameraQuickAimPitchCpp(float fov, float vertical, float crosshairY, float aspect) {
+    const double radians = CameraAimRadians(fov);
+    volatile double centred = 0.5 - double(crosshairY);
+    volatile double doubled = centred + centred;
+    volatile double scaled = tan(radians) * doubled;
+    volatile double ratio = 1.0 / double(aspect);
+    volatile double tilted = scaled * ratio;
+    volatile float pitch = float(-(atan2(tilted, 1.0) + double(vertical)));
+    return pitch;
+}
+
+// --- CCamera::SetNearClipBasedOnPedCollision (0x50CB90..0x50CBC7) ---
+// clip = ((sqrt(arg) / denominator) * factor) * (maximum - base) + base; fst float; si el valor SIN redondear es menor que base (ordenado) el resultado es base.
+__declspec(noinline) float __cdecl CameraNearClipPedCpp(float arg, float base, float denominator, float factor, float maximum) {
+    volatile double root = sqrt(double(arg));
+    volatile double quotient = root / double(denominator);
+    volatile double scaled = quotient * double(factor);
+    volatile double room = double(maximum) - double(base);
+    volatile double product = scaled * room;
+    volatile double sum = product + double(base);
+    volatile float clip = float(sum);
+    if (sum < double(base)) {
+        clip = base;
+    }
+    return clip;
+}
+
+// --- CCamera::IsSphereVisible (0x420C40..0x420D3C) ---
+// point = punto ya transformado a espacio de camara (x, y, z); normals = m_avecFrustumNormals (4 x {x, y, z}); near = [0xC3EFA0], far = [0xC3EF9C].
+// Cada comparacion es ordenada como la del EXE (fcomp + test ah): NaN no rechaza; rechaza y+r < near, y-r > far y cada suma de productos > r.
+__declspec(noinline) bool __cdecl CameraSphereInFrustumCpp(const float* point, float radius, const float* normals, float nearLimit, float farLimit) {
+    const double r = double(radius);
+    volatile double nearValue = double(point[1]) + r;
+    if (nearValue < double(nearLimit)) {
+        return false;
+    }
+    volatile double farValue = double(point[1]) - r;
+    if (farValue > double(farLimit)) {
+        return false;
+    }
+    volatile double left0 = double(point[0]) * double(normals[0]);
+    volatile double left1 = double(point[1]) * double(normals[1]);
+    volatile double sum0 = left0 + left1;
+    if (sum0 > r) {
+        return false;
+    }
+    volatile double right0 = double(point[0]) * double(normals[3]);
+    volatile double right1 = double(point[1]) * double(normals[4]);
+    volatile double sum1 = right0 + right1;
+    if (sum1 > r) {
+        return false;
+    }
+    volatile double top0 = double(point[2]) * double(normals[8]);
+    volatile double top1 = double(point[1]) * double(normals[7]);
+    volatile double sum2 = top0 + top1;
+    if (sum2 > r) {
+        return false;
+    }
+    volatile double bottom0 = double(point[2]) * double(normals[11]);
+    volatile double bottom1 = double(point[1]) * double(normals[10]);
+    volatile double sum3 = bottom0 + bottom1;
+    return !(sum3 > r);
+}
+
+// --- CameraLinearComponent (0x50D510, 0x50D430, 0x50D350, ...) ---
+// ease: (sin((270 - ratio * 180) * pi/180) + 1) * 0.5, luego * (to - from) + from (fsin sin redondear, fadd 1.0 a 24 bits); sin ease: (to - from) * ratio + from.
+__declspec(noinline) float __cdecl CameraLinearBlendCpp(float from, float to, float ratio, bool ease) {
+    if (ease) {
+        volatile double scaled = double(ratio) * 180.0;
+        volatile double angle = 270.0 - scaled;
+        volatile double radians = angle * double(kCamera_3C8EFA35);
+        volatile double wave = sin(radians) + 1.0;
+        volatile double halfWave = wave * 0.5;
+        volatile double delta = double(to) - double(from);
+        volatile double product = halfWave * delta;
+        volatile float value = float(product + double(from));
+        return value;
+    }
+    volatile double delta = double(to) - double(from);
+    volatile double product = delta * double(ratio);
+    volatile float value = float(product + double(from));
+    return value;
+}
+
+// --- CCamera::ProcessFOVLerp (0x516500..0x51653B) ---
+// ahora = fild reloj (+2^32); no corre si ahora > fin o desordenado (fcom + test ah,41h + jp); ratio = (ahora - inicio) / (fin - inicio) sin guardar nada entre medias.
+__declspec(noinline) bool __cdecl CameraFovLerpRatioCpp(unsigned int nowMs, float endTime, float startTime, float* ratio) {
+    const double now = UnsignedAsX87(nowMs);
+    if (!(now <= double(endTime))) {
+        return false;
+    }
+    volatile double elapsed = now - double(startTime);
+    volatile double total = double(endTime) - double(startTime);
+    *ratio = float(elapsed / total);
+    return true;
+}
+
+// --- CCamera::Process, transicion (0x52BA9D..0x52CB10) ---
+// fase = fild(elapsed) / fild(duration) (cada fild con +2^32 si es negativo), un solo redondeo de 24 bits.
+__declspec(noinline) float __cdecl CameraPhaseCpp(unsigned int elapsed, unsigned int duration) {
+    volatile float phase = float(UnsignedAsX87(elapsed) / UnsignedAsX87(duration));
+    return phase;
+}
+// ease = 0.5 - cos(x * pi) * 0.5 con x = 0 / (moving - phase) / moving (initial) o 1 / (phase - moving) / catchup (no initial); moving == 0 (o catchup == 0) sustituye la fase.
+// fcos sin redondear, fmul 0.5 y fsubr 0.5 a 24 bits cada uno.
+__declspec(noinline) float __cdecl CameraEaseCpp(float phase, float moving, float catchup, bool initial) {
+    volatile double argument;
+    if (initial) {
+        if (moving == 0.0f) {
+            argument = 0.0;
+        } else {
+            volatile double remaining = double(moving) - double(phase);
+            argument = remaining / double(moving);
+        }
+    } else {
+        if (catchup == 0.0f) {
+            argument = 1.0;
+        } else {
+            volatile double elapsed = double(phase) - double(moving);
+            argument = elapsed / double(catchup);
+        }
+    }
+    volatile double angle = argument * double(kCamera_40490FDB);
+    volatile double halfCosine = cos(angle) * 0.5;
+    volatile float ease = float(0.5 - halfCosine);
+    return ease;
+}
+// out[i] = ease * speed[i] + base[i]. Productos guardados a float (fstp + fld) segun el modo del EXE; el resto queda en ST0 (extension de exponente):
+// modo 0 (objetivo inicial) y: guardado y, z; modo 1 (objetivo, alcance) guardado x; modo 2 y 3 (origen y arriba iniciales) guardado z; modo 4 guardados x, y, z.
+static __forceinline double CameraAdvanceProduct(double ease, double speed, bool stored) {
+    if (stored) {
+        volatile float product = float(ease * speed);
+        return double(product);
+    }
+    volatile double product = ease * speed;
+    return product;
+}
+__declspec(noinline) void __cdecl CameraAdvanceCpp(float* out, const float* base, const float* speed, float ease, int mode) {
+    const double coefficient = double(ease);
+    const bool storedX = mode == 1 || mode == 4;
+    const bool storedY = mode == 0 || mode == 4;
+    const bool storedZ = mode != 1;
+    out[0] = float(CameraAdvanceProduct(coefficient, double(speed[0]), storedX) + double(base[0]));
+    out[1] = float(CameraAdvanceProduct(coefficient, double(speed[1]), storedY) + double(base[1]));
+    out[2] = float(CameraAdvanceProduct(coefficient, double(speed[2]), storedZ) + double(base[2]));
+}
+// Modos 1 y 4 con la velocidad = destination - base calculada como el EXE: modo 4 (0x40FE60: CVector - CVector) guarda cada resta a float; modo 1 (0x52BC51..0x52BC7F) deja
+// las restas de x e y en ST0 sin guardar y guarda solo la de z (fstp [esp+18]).
+__declspec(noinline) void __cdecl CameraAdvanceTowardCpp(float* out, const float* base, const float* destination, float ease, int mode) {
+    const double coefficient = double(ease);
+    if (mode == 4) {
+        volatile float speedX = float(double(destination[0]) - double(base[0]));
+        volatile float speedY = float(double(destination[1]) - double(base[1]));
+        volatile float speedZ = float(double(destination[2]) - double(base[2]));
+        out[0] = float(CameraAdvanceProduct(coefficient, double(speedX), true) + double(base[0]));
+        out[1] = float(CameraAdvanceProduct(coefficient, double(speedY), true) + double(base[1]));
+        out[2] = float(CameraAdvanceProduct(coefficient, double(speedZ), true) + double(base[2]));
+        return;
+    }
+    volatile double speedX = double(destination[0]) - double(base[0]);
+    volatile double speedY = double(destination[1]) - double(base[1]);
+    volatile float speedZ = float(double(destination[2]) - double(base[2]));
+    out[0] = float(CameraAdvanceProduct(coefficient, speedX, true) + double(base[0]));
+    out[1] = float(CameraAdvanceProduct(coefficient, speedY, false) + double(base[1]));
+    out[2] = float(CameraAdvanceProduct(coefficient, double(speedZ), false) + double(base[2]));
+}
+// fov: difference == false -> operand * coefficient + base; true -> (operand - base) * coefficient + base (fld, fsub, fmul, fadd, fstp).
+__declspec(noinline) float __cdecl CameraFovAdvanceCpp(float base, float operand, float coefficient, bool difference) {
+    volatile double start = difference ? double(operand) - double(base) : double(operand);
+    volatile double scaled = start * double(coefficient);
+    volatile float value = float(scaled + double(base));
+    return value;
+}
+// fuerza del temblor = force - elapsed * 0.00028f (fild + 2^32 si es negativo, fmul, fsubr), un fstp/fst float.
+__declspec(noinline) float __cdecl CameraShakeForceCpp(float force, unsigned int elapsed) {
+    volatile double decayed = UnsignedAsX87(elapsed) * double(kCamera_3992CCF7);
+    volatile float value = float(double(force) - decayed);
+    return value;
+}
+// sum + sqrt((dz*dz + dy*dy) + dx*dx) con dx = current - previous (fsub a 24 bits); el resultado queda en ST0 (double sin pasar a float) porque el EXE lo divide despues.
+__declspec(noinline) double __cdecl CameraAccumulateDistanceCpp(const float* current, const float* previous, float sum) {
+    volatile double dx = double(current[0]) - double(previous[0]);
+    volatile double dy = double(current[1]) - double(previous[1]);
+    volatile double dz = double(current[2]) - double(previous[2]);
+    volatile double zz = dz * dz;
+    volatile double yy = dy * dy;
+    volatile double zy = zz + yy;
+    volatile double xx = dx * dx;
+    volatile double all = zy + xx;
+    volatile double distance = sqrt(all);
+    volatile double total = distance + double(sum);
+    return total;
+}
+// media = sum / fild(frames) (fdivr st(1)), un solo fstp float; sum es el double devuelto por CameraAccumulateDistanceCpp.
+__declspec(noinline) float __cdecl CameraAverageDistanceCpp(double sum, int frames) {
+    volatile float average = float(sum / double(frames));
+    return average;
+}
+
+// --- CCamera::CalculateFrustumPlanes (0x514D60..0x514E5C) ---
+// ny*py + nz*pz y luego + nx*px, cada producto y suma a 24 bits (el EXE guarda float al final).
+__declspec(noinline) float __cdecl CameraDotYZXCpp(const float* normal, const float* position) {
+    volatile double yy = double(normal[1]) * double(position[1]);
+    volatile double zz = double(normal[2]) * double(position[2]);
+    volatile double yz = yy + zz;
+    volatile double xx = double(normal[0]) * double(position[0]);
+    volatile float dot = float(yz + xx);
+    return dot;
+}
+// terms = {cosine, sine, verticalCosine, verticalSine}: angulo = fov * 0.008726389f (0x8631D8, fmul a 24 bits), fcos y fsin guardados a float,
+// ratio = fild(height) / fidiv(width) (24 bits; se guarda a float), verticalCosine = ratio * cosine y verticalSine = -(ratio * sine) (fmul a 24 bits, fchs, guardados).
+__declspec(noinline) void __cdecl CameraFrustumTermsCpp(float fov, int height, int width, float* terms) {
+    volatile double angle = double(fov) * double(kCamera_3C0EF921);
+    volatile float cosine = float(cos(angle));
+    volatile float sine = float(sin(angle));
+    volatile double ratioWide = double(height) / double(width);
+    volatile float ratio = float(ratioWide);
+    volatile double verticalCosine = double(ratio) * double(cosine);
+    volatile double verticalSine = double(ratio) * double(sine);
+    terms[0] = cosine;
+    terms[1] = sine;
+    terms[2] = float(verticalCosine);
+    terms[3] = -float(verticalSine);
+}
+
+// --- CCamera::CalculateDerivedValues (0x5151A6..0x5151E5) ---
+// r = sqrt(y*y + x*x) (fsqrt a 24 bits, sin guardar); si r == 0 -> nx = 1.0f y ny = y; si no inverse = 1.0 / r y nx = inverse * x, ny = inverse * y (cada uno a 24 bits y fstp float).
+__declspec(noinline) void __cdecl CameraFrontNormCpp(float x, float y, float* nx, float* ny) {
+    volatile double yy = double(y) * double(y);
+    volatile double xx = double(x) * double(x);
+    volatile double sum = yy + xx;
+    volatile double length = sqrt(sum);
+    if (length == 0.0) {
+        *nx = 1.0f;
+        *ny = y;
+        return;
+    }
+    volatile double inverse = 1.0 / length;
+    *nx = float(inverse * double(x));
+    *ny = float(inverse * double(y));
+}
+
+// --- CGeneral::GetATanOfXY (0x53CC70) y su consumo en ST0 sin redondear ---
+// atanFn debe ser &CGeneral::GetATanOfXY (alias /alternatename que devuelve ST0 sin redondear), llamado a traves del puntero para que los bancos lo intercepten en la entrada de la DLL.
+// StartTransition (0x515236, 0x515440, 0x5154CF..): float(atan + add) y float(atan - sub), un solo redondeo a 24 bits.
+__declspec(noinline) float __cdecl CameraAtanPlusCpp(float (__cdecl* atanFn)(float, float), float x, float y, float add) {
+    volatile float result = float(double(atanFn(x, y)) + double(add));
+    return result;
+}
+__declspec(noinline) float __cdecl CameraAtanMinusCpp(float (__cdecl* atanFn)(float, float), float x, float y, float sub) {
+    volatile float result = float(double(atanFn(x, y)) - double(sub));
+    return result;
+}
+// CCamera::TryToStartNewCamMode, modos cinematicos (0x51F5DD, 0x51F82C, 0x51FB14, 0x51FD8F): angulo = atanFn(inputX, inputY) + rotation (24 bits, sin guardar);
+// outX = float(cos(angle) + inputX); sine = float(sin(angle)) guardado; outY = sine + inputY.
+__declspec(noinline) void __cdecl CameraCineyRotatedCpp(float (__cdecl* atanFn)(float, float), float inputX, float inputY, float rotation, float* outX, float* outY) {
+    volatile double angle = double(atanFn(inputX, inputY)) + double(rotation);
+    volatile float sine = float(sin(angle));
+    *outX = float(cos(angle) + double(inputX));
+    *outY = sine + inputY;
+}
+// CCamera (CameraControlChooseJump, 0x52A87A..0x52A892): float(CPlaceable::GetHeading() - sub) con el rumbo en ST0 sin redondear. headingFn = bit_cast de &CPlaceable::GetHeading
+// (thiscall sin argumentos; se llama como __fastcall con ECX = self y EDX de relleno). Se llama siempre (los bancos interceptan la entrada de la DLL).
+__declspec(noinline) float __cdecl CameraHeadingMinusCpp(float (__fastcall* headingFn)(const void*, void*), const void* self, float sub) {
+    volatile float result = float(double(headingFn(self, nullptr)) - double(sub));
+    return result;
+}
+// CCamera::Process (0x52C8C2 y 0x52CA1B): fld value; fmul multiplier; call _ftol2 (0x821B40); solo se usa EAX. _ftol2 devuelve el truncado de 64 bits: fuera del rango de int32 EAX son los
+// 32 bits bajos (NO 0x80000000 como cvttss2si). El truncado lo hace el __ftol2 del compilador (/arch:IA32, mismo algoritmo que 0x821B40); el producto se redondea a 24 bits.
+__declspec(noinline) int __cdecl CameraTruncateProductCpp(float value, float multiplier) {
+    volatile double product = double(value) * double(multiplier);
+    return static_cast<int>(static_cast<long long>(product));
+}
+
+// --- Lote CStats (Stats.cpp, w20), prefijo Stats. Anadir al FINAL de X87Math.cpp: usa UnsignedAsX87 (definida mas arriba), Ftol2RegsDblCpp y Ftol2Regs (lote Ped);
+// <float.h> (_statusfp2, _SW_*) y <bit> ya estan incluidos. Todo es noinline y se compila con /O2 /Oi /arch:IA32 /fp:fast. ---
+
+// Palabra de estado que deja `fnstsw ax` tras comparar st0 con other (fcom/fcomp ordenado: IE con NaN, DE con operandos desnormalizados): condiciones C0 (0x0100),
+// C2 (0x0400) y C3 (0x4000) de la comparacion, banderas acumuladas leidas con _statusfp2 (IE 1, DE 2, ZE 4, OE 8, UE 0x10, PE 0x20: son las de TODAS las operaciones x87 ejecutadas
+// antes en esta llamada, porque la x87 las conserva) y TOP = 8 - depthAfter (bits 11..13; depthAfter = registros ocupados de la pila x87 tras la instruccion). ES, SF y C1 valen 0.
+#pragma float_control(precise, on, push)
+static __forceinline unsigned int StatsAxCore(double st0, double other, unsigned int depthAfter) {
+    const bool less    = st0 < other;
+    const bool greater = st0 > other;
+    unsigned int status = 0;
+    if (less) {
+        status = 0x0100;
+    } else if (!greater) {
+        status = (st0 == other) ? 0x4000u : 0x4500u; // igual / sin orden
+    }
+    unsigned int x87 = 0, sse = 0;
+    _statusfp2(&x87, &sse);
+    if (x87 & _SW_INVALID)    status |= 0x01;
+    if (x87 & _SW_DENORMAL)   status |= 0x02;
+    if (x87 & _SW_ZERODIVIDE) status |= 0x04;
+    if (x87 & _SW_OVERFLOW)   status |= 0x08;
+    if (x87 & _SW_UNDERFLOW)  status |= 0x10;
+    if (x87 & _SW_INEXACT)    status |= 0x20;
+    return status | (((8u - depthAfter) & 7u) << 11);
+}
+
+// fcompp / fcomp con los dos operandos ya en la pila (resultados de operaciones x87 anteriores).
+__declspec(noinline) unsigned int __cdecl StatsCompareDblDblAxCpp(double st0, double other, unsigned int depthAfter) {
+    return StatsAxCore(st0, other, depthAfter);
+}
+// fcom/fcomp dword ptr [mem]: st0 es un resultado x87 y el segundo operando un float de memoria.
+__declspec(noinline) unsigned int __cdecl StatsCompareDblFltAxCpp(double st0, float other, unsigned int depthAfter) {
+    return StatsAxCore(st0, static_cast<double>(other), depthAfter);
+}
+// fld dword ptr [a]; fcom/fcomp dword ptr [b].
+__declspec(noinline) unsigned int __cdecl StatsCompareFltFltAxCpp(float st0, float other, unsigned int depthAfter) {
+    return StatsAxCore(static_cast<double>(st0), static_cast<double>(other), depthAfter);
+}
+// fild [contador] (+2^32 si el bit alto esta puesto); fcomp dword ptr [umbral]; fnstsw ax (TOP = 0): UpdateStatsOnRespawn y UpdateStatsAddToHealth.
+__declspec(noinline) unsigned int __cdecl StatsCounterVsFloatAxCpp(unsigned int counter, float threshold) {
+    return StatsAxCore(UnsignedAsX87(counter), static_cast<double>(threshold), 0);
+}
+// fld dword ptr [v]; fabs; fcomp 0.0 (0x858B50); fnstsw ax (TOP = 0): CStats::UpdateStatsWhenCycling.
+__declspec(noinline) unsigned int __cdecl StatsAbsVsZeroAxCpp(float v) {
+    const double magnitude = std::bit_cast<double>(std::bit_cast<unsigned long long>(static_cast<double>(v)) & 0x7FFFFFFFFFFFFFFFull); // fabs: no marca excepciones
+    return StatsAxCore(magnitude, 0.0, 0);
+}
+#pragma float_control(pop)
+
+// Contador sin signo como lo carga el EXE: fild + (test; jge; fadd 0x858C54 = 2^32) en la precision vigente (identico a UnsignedAsX87).
+__declspec(noinline) double __cdecl StatsCounterX87Cpp(unsigned int counter) {
+    return UnsignedAsX87(counter);
+}
+// fld dword ptr [limite]; fmul dword ptr [0x858C4C] (1000.0f) sin redondear a float.
+__declspec(noinline) double __cdecl StatsScaledLimitCpp(float limit) {
+    return static_cast<double>(limit) * 1000.0f;
+}
+// fld dword ptr [c]; fmul dword ptr [c] (cuadrado de una constante de velocidad).
+__declspec(noinline) double __cdecl StatsSquareCpp(float c) {
+    return static_cast<double>(c) * static_cast<double>(c);
+}
+
+// Suma de cuadrados de v[0..2] (x, y, z consecutivos) en el orden del EXE: (x*x + y*y) + z*z, cada operacion a la precision vigente (UpdateStatsWhenCycling 0x55C8A1..).
+#pragma float_control(precise, on, push)
+__declspec(noinline) double __cdecl StatsSpeedSumSqCpp(const float* v) {
+    const double x = v[0], y = v[1], z = v[2];
+    return (x * x + y * y) + z * z;
+}
+#pragma float_control(pop)
+// Modulo de v: fsqrt de la suma anterior (fuera de precise para que sea fsqrt en linea, no una llamada a la CRT): UpdateStatsWhenDriving/Flying.
+__declspec(noinline) double __cdecl StatsSpeedCpp(const float* v) {
+    return sqrt(StatsSpeedSumSqCpp(v));
+}
+
+// fild [entero]; fstp dword ptr [float]: la conversion redondea (PE) si el entero necesita mas de 24 bits (UpdateStatsWhenWeaponHit, habilidad entera).
+__declspec(noinline) float __cdecl StatsIntToFloatCpp(int value) {
+    volatile float result = static_cast<float>(static_cast<double>(value));
+    return result;
+}
+
+// _ftol2 (0x821B40) de un float cargado con fld dword ptr: devuelve la palabra baja del entero truncado (EAX del EXE) y deja las banderas PE/IE del fistp.
+__declspec(noinline) int __cdecl StatsFtolCpp(float v) {
+    volatile long long truncated = static_cast<long long>(static_cast<double>(v));
+    return static_cast<int>(truncated);
+}
+
+// ftol((paso * 0.02f [0x858B38]) * 1000.0f [0x858C4C]) con los tres registros con que sale _ftol2 (ver Ftol2RegsDblCpp); ecxAtCall = ECX en la llamada.
+#pragma float_control(precise, on, push)
+__declspec(noinline) Ftol2Regs __cdecl StatsStepMsRegsCpp(float step, unsigned int ecxAtCall) {
+    const double v = (static_cast<double>(step) * 0.02f) * 1000.0f;
+    volatile long long truncated = static_cast<long long>(v); // PE/IE del fistp
+    (void)truncated;
+    return Ftol2RegsDblCpp(v, ecxAtCall);
+}
+
+// ftol(fild(ticks) [+2^32 si ticks < 0] * k + base): ticks * multiplicador + contador como float (UpdateStatsWhenDriving 0x55CBA8.., Flying 0x55CCFB..).
+__declspec(noinline) Ftol2Regs __cdecl StatsAccumulateRegsCpp(int ticks, float k, float base, unsigned int ecxAtCall) {
+    const double v = UnsignedAsX87(static_cast<unsigned int>(ticks)) * static_cast<double>(k) + static_cast<double>(base);
+    volatile long long truncated = static_cast<long long>(v);
+    (void)truncated;
+    return Ftol2RegsDblCpp(v, ecxAtCall);
+}
+
+// ceil(multiplicador * fild(ticks) [+2^32]) y despues _ftol2 (CStats::UpdateStatsWhenCycling 0x55C961..0x55C972: fmulp, fstp qword, call 0x823820 (ceil del CRT), call _ftol2).
+// El producto (24 bits de mantisa) es exacto en double; el ceil se hace con enteros (|v| < 2^52) porque X87Math no usa <cmath>.
+static double StatsCeilDouble(double v) {
+    if (!(v == v) || v >= 4503599627370496.0 || v <= -4503599627370496.0) {
+        return v;
+    }
+    double whole = static_cast<double>(static_cast<long long>(v));
+    if (whole < v) {
+        whole += 1.0;
+    }
+    return whole;
+}
+__declspec(noinline) Ftol2Regs __cdecl StatsCeilRegsCpp(int ticks, float multiplier, unsigned int ecxAtCall) {
+    const double product = static_cast<double>(multiplier) * UnsignedAsX87(static_cast<unsigned int>(ticks));
+    const double ceiled  = StatsCeilDouble(product);
+    volatile long long truncated = static_cast<long long>(ceiled);
+    (void)truncated;
+    return Ftol2RegsDblCpp(ceiled, ecxAtCall);
+}
+
+// ftol(fild(n) * a * b) con un redondeo a 24 bits por operacion (CStats::FindCriminalRatingString, minutos de vuelo: n * [0x863FD0] * [0x859044]); /fp:fast no puede reasociar (precise).
+__declspec(noinline) int __cdecl StatsFlightMinutesCpp(int n, float a, float b) {
+    const double v = (static_cast<double>(n) * static_cast<double>(a)) * static_cast<double>(b);
+    return static_cast<int>(static_cast<long long>(v));
+}
+
+// CStats::FindCriminalRatingNumber (0x559080..0x5591D2): toda la cadena x87 con los enteros cargados con fild y sin redondear (cada operacion a la precision vigente) y los cuatro
+// _ftol2 (palabra baja del entero truncado). money5000 = dinero / 5000 como entero con signo (se suma con fiadd). El progreso se omite solo si el total es exactamente 0 (test ah,44h; jnp: con NaN calcula y el resultado es la indefinicion de _ftol2).
+__declspec(noinline) int __cdecl StatsCriminalRatingCpp(int kills, int busted, int hospital, int fireLevel, int paramedicLevel, int money5000, int planes, int firesOut,
+                                                        int vigilante, int ambulance, bool hasCheated, int cheated, int bullets, int hits, float made, float total) {
+    double sum = static_cast<double>(kills) - static_cast<double>(busted) * 3.0f;      // fild kills; fild busted; fmul 3.0; fsubp
+    sum -= static_cast<double>(hospital) * 3.0f;                                        // fild; fmul 3.0; fsubp
+    sum += (static_cast<double>(fireLevel) + static_cast<double>(paramedicLevel)) * 10.0f;
+    sum += static_cast<double>(money5000);                                              // fiadd
+    sum += static_cast<double>(planes) * 30.0f;
+    sum += static_cast<double>(firesOut);
+    sum += static_cast<double>(vigilante);
+    sum += static_cast<double>(ambulance);
+    int value = static_cast<int>(static_cast<long long>(sum));                          // call 0x821B40
+    if (!hasCheated && cheated <= 0) {
+        if (value <= 0) {
+            value = 0;                                                                  // setle dl; dec edx; and ecx,edx
+        }
+    } else {
+        const double penalised = static_cast<double>(value) - static_cast<double>(cheated) * 10.0f;
+        value = static_cast<int>(static_cast<long long>(penalised));
+        if (value <= -10000) {
+            value = -10000;                                                             // cmp ecx,0xFFFFD8F0; jg
+        }
+    }
+    if (static_cast<double>(bullets) > 100.0f) {                                        // fcom [0x858628]; test ah,41h; jne
+        const double accuracy = (static_cast<double>(hits) / static_cast<double>(bullets)) * 500.0f + static_cast<double>(value);
+        value = static_cast<int>(static_cast<long long>(accuracy));
+    }
+    if (total != 0.0f) {                                                                // fcomp 0.0; test ah,44h; jnp: solo el igual (C3) tiene paridad impar y salta; con NaN (C3|C2) calcula
+        const double progress = (static_cast<double>(made) / static_cast<double>(total)) * 1000.0f + static_cast<double>(value);
+        value = static_cast<int>(static_cast<long long>(progress));
+    }
+    return value;
+}
+#pragma float_control(pop)
+
+// CStats::GetFatAndMuscleModifier (0x559AF0..0x559F58): los 16 casos del EXE con la configuracion viva 0x8CDE58..0x8CDEC0 (k[(direccion - 0x8CDE58) / 4]), los helpers Max (0x420800) y Min
+// (0x404330) en linea (con NaN devuelven el segundo argumento) y cada operacion a la precision vigente. Fuera de 0..15 (sin signo) devuelve 1.0f. Las ramas que acotan comparan
+// con fcom: `test ah,5; jp` deja el valor cuando es mayor o igual o no ordenado, `test ah,41h; jne` cuando es menor o igual o no ordenado.
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl StatsFatMuscleModifierCpp(unsigned int mode, float fat, float stamina, float muscle, float maxHealth, int cycling, int lung, int bike, int driving, const float* k) {
+    const double thousand = 1000.0f;
+    const double one      = 1.0f;
+    auto K = [k](unsigned int address) { return static_cast<double>(k[(address - 0x8CDE58u) / 4u]); };
+    // Solo se evaluan en los casos que las usan (las operaciones x87 dejan banderas): fat - 200, 1000 - 200, muscle - 50, 1000 - 50.
+    auto FatTerm     = [&] { return static_cast<double>(fat) - K(0x8CDEC0); };
+    auto FatDenom    = [&] { return thousand - K(0x8CDEC0); };
+    auto MuscleTerm  = [&] { return static_cast<double>(muscle) - K(0x8CDEB8); };
+    auto MuscleDenom = [&] { return thousand - K(0x8CDEB8); };
+    switch (mode) {
+    case 0: {
+        if (static_cast<double>(fat) > 800.0f) { return 2.0f; }
+        if (static_cast<double>(fat) > 400.0f) { return 1.0f; }
+        return 0.0f;
+    }
+    case 1:
+    case 2: {
+        const float  t = static_cast<float>(FatTerm() / FatDenom());                        // fstp dword [esp]
+        const double m = (0.0 > static_cast<double>(t)) ? 0.0 : static_cast<double>(t); // Max(0, t)
+        double r = m * K(mode == 1 ? 0x8CDEBCu : 0x8CDEB0u) + one;
+        r += (MuscleTerm() * K(mode == 1 ? 0x8CDEB4u : 0x8CDEACu)) / MuscleDenom();
+        const double floorValue = (mode == 1) ? static_cast<double>(0.7f) : static_cast<double>(0.8f); // 0x858CB0 / 0x858C98
+        if (r < floorValue) { r = floorValue; }
+        return static_cast<float>(r);
+    }
+    case 3: {
+        double r = (FatTerm() * K(0x8CDEA8)) / FatDenom() + one;
+        r += (MuscleTerm() * K(0x8CDEA4)) / MuscleDenom();
+        if (r < static_cast<double>(0.8f)) { r = 0.8f; }
+        return static_cast<float>(r);
+    }
+    case 4: {
+        double r = (FatTerm() * K(0x8CDEA0)) / FatDenom() + one;
+        r += (MuscleTerm() * K(0x8CDE9C)) / MuscleDenom();
+        if (r > 2.0f) { r = 2.0f; }
+        return static_cast<float>(r);
+    }
+    case 5: {
+        double r = (FatTerm() * K(0x8CDE98)) / FatDenom() + one;
+        r += (MuscleTerm() * K(0x8CDE94)) / MuscleDenom();
+        r += (static_cast<double>(stamina) * 0.001f) * K(0x8CDE90);                    // fld [0xB793D8]; fmul [0x858CDC]; fmul k; faddp
+        r += (static_cast<double>(cycling) * 0.001f) * K(0x8CDE8C);                    // fild [0xB791B8]; fmul; fmul; faddp
+        if (r > 2.0f) {
+            r = 2.0f;
+        } else if (r < 0.25f) {
+            r = 0.25f;                                                                 // 0x858C84
+        }
+        return static_cast<float>(r);
+    }
+    case 6: {
+        double r = (FatTerm() * K(0x8CDE88)) / FatDenom() + one;
+        r += (static_cast<double>(cycling) * 0.001f) * K(0x8CDE84);
+        if (r > 2.0f) {
+            r = 2.0f;
+        } else if (r < 0.5f) {
+            r = 0.5f;                                                                  // 0x858B8C
+        }
+        return static_cast<float>(r);
+    }
+    case 7:
+        return static_cast<float>((static_cast<double>(stamina) * 0.001f) * K(0x8CDE80) + 150.0f); // 0x858A28
+    case 8:
+        return static_cast<float>(((static_cast<double>(lung) + static_cast<double>(stamina)) * 0.0005f) * K(0x8CDE7C) + thousand); // fild [0xB791A4]; fadd [0xB793D8]; fmul [0x859978]
+    case 9:
+        return static_cast<float>((static_cast<double>(maxHealth) * 0.001f) * K(0x8CDE78));
+    case 10:
+        return static_cast<float>(K(0x8CDE78));
+    case 11:
+    case 12:
+    case 13: {
+        const float  x = static_cast<float>(static_cast<double>(bike) * 0.001f);       // fild [0xB791B4]; fmul [0x858CDC]; fstp dword [esp]
+        const double m = (1.0 < static_cast<double>(x)) ? 1.0 : static_cast<double>(x); // Min(1.0, x)
+        const unsigned int address = (mode == 11) ? 0x8CDE74u : (mode == 12) ? 0x8CDE70u : 0x8CDE6Cu;
+        return static_cast<float>(m * K(address) + one);
+    }
+    case 14: {
+        double r = (FatTerm() * K(0x8CDE68)) / FatDenom();
+        r += (static_cast<double>(driving) * 0.001f) * K(0x8CDE64) + one;             // fild [0xB790A0]; fmul; fmul; fadd [0x858624]; faddp
+        if (r > one) { r = one; }
+        return static_cast<float>(r);
+    }
+    case 15: {
+        double r = (FatTerm() * K(0x8CDE60)) / FatDenom() + one;
+        r += (MuscleTerm() * K(0x8CDE5C)) / MuscleDenom();
+        const double floorValue = K(0x8CDE58);
+        if (r < floorValue) { r = floorValue; }
+        return static_cast<float>(r);
+    }
+    default:
+        return 1.0f;
+    }
+}
+#pragma float_control(pop)
+
+// --- CCam / Cam.cpp (prefijo Cam; lote w20): colocar al final de X87Math.cpp (usa ExeCompatiblePowCpp y ExeAsinDoubleCpp, ya definidos arriba) ---
+// Los ayudantes transcriben, instruccion a instruccion, los bloques __asm de Cam.cpp: cada ST(i) es una variable double sN (indice absoluto en la pila x87),
+// cada fadd/fsub/fmul/fdiv/fsqrt pasa por una variable volatile double (CAM_R) para que /fp:fast no reasocie ni funda operaciones (el x87 del proceso va a 24 bits:
+// el resultado ya sale redondeado), fsin/fcos/fptan/fpatan se emiten en linea y se recalculan en cada uso a partir de una copia aN del argumento ya redondeado (funcion pura: el resultado de 64 bits se consume justo donde se produce, sin derrames de 53 bits entre medias), y cada fst/fstp a memoria es un almacenamiento
+// volatile float (CAM_SF) con el redondeo del EXE. Las comparaciones fcom/fnstsw se reproducen con CamX87Status (C0/C2/C3 en el formato de AH) y las ramas con goto.
+#define CAM_LF(a) (*(volatile float*)(unsigned)(a))
+#define CAM_LD(a) (*(volatile double*)(unsigned)(a))
+#define CAM_LU(a) (*(volatile unsigned*)(unsigned)(a))
+#define CAM_LW(a) (*(volatile unsigned short*)(unsigned)(a))
+#define CAM_LB(a) (*(volatile unsigned char*)(unsigned)(a))
+#define CAM_SF(a, v) (*(volatile float*)(unsigned)(a) = (float)(v))
+#define CAM_SD(a, v) (*(volatile double*)(unsigned)(a) = (double)(v))
+#define CAM_SU(a, v) (*(volatile unsigned*)(unsigned)(a) = (unsigned)(v))
+#define CAM_R(dst, expr) { volatile double r_ = (expr); (dst) = r_; }
+// Copia de los 32 bits de un float (mov reg,[mem] / mov [mem],reg): sin pasar por el x87.
+#define CAM_BITS(var) (*(const volatile unsigned*)&(var))
+#define CAM_SETBITS(var, v) (*(volatile unsigned*)&(var) = (unsigned)(v))
+
+// fcom/fcomp + fnstsw ax: bits C3 (0x40), C2 (0x04) y C0 (0x01) del byte alto de AX. Con NaN (desordenado) los tres.
+#pragma float_control(precise, on, push)
+static __declspec(noinline) unsigned CamX87Status(double a, double b) {
+    if (a > b) {
+        return 0;
+    }
+    if (a < b) {
+        return 0x01;
+    }
+    if (a == b) {
+        return 0x40;
+    }
+    return 0x45;
+}
+#pragma float_control(pop)
+// Paridad par del byte bajo (bandera PF tras test/cmp).
+static __forceinline unsigned CamParity(unsigned value) {
+    value &= 0xFF;
+    value ^= value >> 4;
+    value ^= value >> 2;
+    value ^= value >> 1;
+    return ~value & 1;
+}
+static __forceinline double CamFabs(double value) {
+    unsigned long long bits;
+    memcpy(&bits, &value, sizeof(bits));
+    bits &= 0x7FFFFFFFFFFFFFFFull;
+    memcpy(&value, &bits, sizeof(value));
+    return value;
+}
+
+__declspec(noinline) void __cdecl CamTwoPlayerAimTanCpp(float fov, float fovScale, float aspect, float* p_tanOverAspect, float* p_tanRounded) {
+    double s0 = 0.0, s1 = 0.0;
+    double a0 = 0.0;
+    volatile float tanOverAspect = 0.0f;
+    volatile float tanRounded = 0.0f;
+    s0 = (double)fov;
+    CAM_R(s0, s0 * ((double)fovScale));
+    a0 = s0;
+    s1 = 1.0;
+    s1 = (double)aspect;
+    CAM_R(s1, ((tan(a0))) / s1);
+    tanOverAspect = (float)s1;
+    tanRounded = (float)(tan(a0));
+    *p_tanOverAspect = tanOverAspect;
+    *p_tanRounded = tanRounded;
+}
+
+__declspec(noinline) void __cdecl CamLookBehindPedSideCpp(float heading, float* p_x, float* p_y) {
+    double s0 = 0.0;
+    double a0 = 0.0, a1 = 0.0;
+    volatile float x = 0.0f;
+    volatile float y = 0.0f;
+    s0 = (double)heading;
+    a0 = s0;
+    s0 = -(cos(a0));
+    x = (float)s0;
+    s0 = (double)heading;
+    a1 = s0;
+    s0 = -(sin(a1));
+    y = (float)s0;
+    *p_x = x;
+    *p_y = y;
+}
+
+__declspec(noinline) void __cdecl CamLookSideOrbitCpp(float directionY, float directionX, unsigned atanFunction, float sign, float halfPi, float distance, float targetX, float* p_outX, float targetY, float* p_outY) {
+    double s0 = 0.0, s1 = 0.0;
+    double a0 = 0.0, a1 = 0.0;
+    volatile float outX = 0.0f;
+    volatile float outY = 0.0f;
+    s0 = (double)((float(__cdecl*)(float, float))(uintptr_t)atanFunction)(directionX, directionY);
+    s1 = (double)sign;
+    CAM_R(s1, s1 * ((double)halfPi));
+    CAM_R(s0, s0 + (s1));
+    s1 = s0;
+    a0 = s1;
+    CAM_R(s1, (cos(a0)) * ((double)distance));
+    CAM_R(s1, s1 + ((double)targetX));
+    outX = (float)s1;
+    a1 = s0;
+    CAM_R(s0, (sin(a1)) * ((double)distance));
+    CAM_R(s0, s0 + ((double)targetY));
+    outY = (float)s0;
+    *p_outX = outX;
+    *p_outY = outY;
+}
+
+__declspec(noinline) void __cdecl CamRotInFrontCarOrbitCpp(float angle, float distance, float baseX, float* p_resultX, float baseY, float* p_resultY) {
+    double s0 = 0.0;
+    double a0 = 0.0, a1 = 0.0;
+    volatile float resultX = 0.0f;
+    volatile float resultY = 0.0f;
+    s0 = (double)angle;
+    a0 = s0;
+    CAM_R(s0, (cos(a0)) * ((double)distance));
+    CAM_R(s0, s0 + ((double)baseX));
+    resultX = (float)s0;
+    s0 = (double)angle;
+    a1 = s0;
+    CAM_R(s0, (sin(a1)) * ((double)distance));
+    CAM_R(s0, s0 + ((double)baseY));
+    resultY = (float)s0;
+    *p_resultX = resultX;
+    *p_resultY = resultY;
+}
+
+__declspec(noinline) void __cdecl CamVelocityInverseStepCpp(float one, float denominator, float* p_reciprocal) {
+    double s0 = 0.0;
+    volatile float reciprocal = 0.0f;
+    s0 = (double)one;
+    CAM_R(s0, s0 / ((double)denominator));
+    reciprocal = (float)s0;
+    *p_reciprocal = reciprocal;
+}
+
+__declspec(noinline) void __cdecl CamVehicleTargetSpeedCpp(float* p_forwardY, float* p_forwardX, float zero, float one, float velocityX, float velocityY, float positiveScale, float negativeScale, float half, float* p_result) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0, s3 = 0.0;
+    unsigned cc = 0;
+    unsigned fa = 0, fb = 0;
+    unsigned eax = 0;
+    volatile float forwardY = *p_forwardY;
+    volatile float forwardX = *p_forwardX;
+    volatile float result = *p_result;
+    s0 = (double)forwardY;
+    CAM_R(s0, s0 * ((double)forwardY));
+    s1 = (double)forwardX;
+    CAM_R(s1, s1 * ((double)forwardX));
+    CAM_R(s0, s0 + (s1));
+    CAM_R(s0, sqrt(s0));
+    cc = CamX87Status(s0, (double)zero);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x44u);
+    if (!CamParity(((fa & fb) & 0xFFu))) goto cam_camVehicleSkipNormalise;
+    CAM_R(s0, ((double)one) / s0);
+    s1 = (double)forwardX;
+    CAM_R(s1, s1 * (s0));
+    forwardX = (float)s1;
+    CAM_R(s0, s0 * ((double)forwardY));
+    forwardY = (float)s0;
+    goto cam_camVehicleProducts;
+cam_camVehicleSkipNormalise:;
+cam_camVehicleProducts:;
+    s0 = (double)forwardX;
+    CAM_R(s0, s0 * ((double)velocityX));
+    s1 = (double)forwardY;
+    CAM_R(s1, s1 * ((double)velocityY));
+    s2 = s1;
+    CAM_R(s2, s2 + (s0));
+    cc = CamX87Status(s2, (double)zero);
+    s2 = s1;
+    CAM_R(s2, s2 * (s1));
+    s3 = s0;
+    CAM_R(s3, s3 * (s0));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    CAM_R(s2, s2 + (s3));
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    CAM_R(s2, sqrt(s2));
+    s0 = s2;
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_camVehicleNegative;
+    CAM_R(s0, s0 * ((double)positiveScale));
+    s1 = (double)one;
+    cc = CamX87Status(s1, s0);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_camVehicleStore;
+    s0 = (double)one;
+    goto cam_camVehicleStore;
+cam_camVehicleNegative:;
+    CAM_R(s0, s0 * ((double)negativeScale));
+    s1 = (double)half;
+    cc = CamX87Status(s1, s0);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_camVehicleNegate;
+    s0 = (double)half;
+cam_camVehicleNegate:;
+    s0 = -s0;
+cam_camVehicleStore:;
+    result = (float)s0;
+    *p_forwardY = forwardY;
+    *p_forwardX = forwardX;
+    *p_result = result;
+}
+
+__declspec(noinline) void __cdecl CamVehicleSmoothedSpeedCpp(float target, float targetWeight, float previous, float previousWeight, float* p_result) {
+    double s0 = 0.0, s1 = 0.0;
+    volatile float result = 0.0f;
+    s0 = (double)target;
+    CAM_R(s0, s0 * ((double)targetWeight));
+    s1 = (double)previous;
+    CAM_R(s1, s1 * ((double)previousWeight));
+    CAM_R(s0, s0 + (s1));
+    result = (float)s0;
+    *p_result = result;
+}
+
+__declspec(noinline) void __cdecl CamPowerComplementCpp(float base, float step, float one, float* p_result) {
+    double s0 = 0.0, s1 = 0.0;
+    unsigned eax = 0;
+    volatile float result = 0.0f;
+    s0 = (double)base;
+    s1 = (double)step;
+    eax = (unsigned)(0x822130u);
+    s0 = ExeCompatiblePowCpp(s0, s1);
+    CAM_R(s0, ((double)one) - s0);
+    result = (float)s0;
+    *p_result = result;
+}
+
+__declspec(noinline) void __cdecl CamDeadWaveCpp(float elapsed, float period, float capped, float factor, float sx, float amplitude, float sy, float* p_scaledY, float* p_y, float tx, float* p_x) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0;
+    double a0 = 0.0;
+    volatile float scaledY = 0.0f;
+    volatile float y = 0.0f;
+    volatile float x = 0.0f;
+    s0 = (double)elapsed;
+    CAM_R(s0, s0 / ((double)period));
+    a0 = s0;
+    s1 = (double)capped;
+    CAM_R(s1, s1 * ((double)factor));
+    CAM_R(s0, (sin(a0)) * (s1));
+    s1 = (double)sx;
+    CAM_R(s1, s1 * ((double)amplitude));
+    s2 = (double)sy;
+    CAM_R(s2, s2 * ((double)amplitude));
+    scaledY = (float)s2;
+    CAM_R(s1, s1 * (s0));
+    s2 = (double)scaledY;
+    CAM_R(s2, s2 * (s0));
+    y = (float)s2;
+    CAM_R(s1, s1 + ((double)tx));
+    x = (float)s1;
+    *p_scaledY = scaledY;
+    *p_y = y;
+    *p_x = x;
+}
+
+__declspec(noinline) void __cdecl CamDeadUnsignedElapsedCpp(int elapsedInt, float unsignedCorrection, float* p_elapsed) {
+    double s0 = 0.0;
+    unsigned fa = 0, fb = 0;
+    volatile float elapsed = *p_elapsed;
+    s0 = (double)((int)elapsedInt);
+    fa = (unsigned)((unsigned)elapsedInt);
+    fb = (unsigned)(0x0u);
+    if ((int)fa >= (int)fb) goto cam_dead_elapsed_positive;
+    CAM_R(s0, s0 + ((double)unsignedCorrection));
+cam_dead_elapsed_positive:;
+    elapsed = (float)s0;
+    *p_elapsed = elapsed;
+}
+
+__declspec(noinline) void __cdecl CamDeadCosineCpp(float elapsed, float period, float* p_cosine) {
+    double s0 = 0.0;
+    double a0 = 0.0;
+    volatile float cosine = 0.0f;
+    s0 = (double)elapsed;
+    CAM_R(s0, s0 / ((double)period));
+    a0 = s0;
+    cosine = (float)(cos(a0));
+    *p_cosine = cosine;
+}
+
+__declspec(noinline) void __cdecl CamFirstPersonPedFrontCpp(float pitch, float yaw, float* p_sineY, float* p_sineZ, float* p_cosineX) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0;
+    double a0 = 0.0, a1 = 0.0, a2 = 0.0, a3 = 0.0;
+    volatile float sineY = 0.0f;
+    volatile float sineZ = 0.0f;
+    volatile float cosineX = 0.0f;
+    s0 = (double)pitch;
+    a0 = s0;
+    s1 = (double)yaw;
+    a1 = s1;
+    CAM_R(s1, (cos(a1)) * ((cos(a0))));
+    s2 = (double)yaw;
+    a2 = s2;
+    CAM_R(s2, (sin(a2)) * ((cos(a0))));
+    sineY = (float)s2;
+    s2 = (double)pitch;
+    a3 = s2;
+    sineZ = (float)(sin(a3));
+    CAM_R(s1, s1 * ((double)CAM_LF(0x858B3C)));
+    cosineX = (float)s1;
+    *p_sineY = sineY;
+    *p_sineZ = sineZ;
+    *p_cosineX = cosineX;
+}
+
+__declspec(noinline) void __cdecl CamAimOffsetsCpp(float fov, float* p_vResult, float* p_hResult) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0;
+    double a0 = 0.0, a1 = 0.0, a2 = 0.0, a3 = 0.0, a4 = 0.0;
+    volatile float vResult = 0.0f;
+    volatile float hResult = 0.0f;
+    s0 = (double)fov;
+    CAM_R(s0, s0 * ((double)CAM_LF(0x858B8C)));
+    CAM_R(s0, s0 * ((double)CAM_LF(0x8595EC)));
+    a0 = s0;
+    s1 = 1.0;
+    s1 = (double)CAM_LF(0xB6EC14);
+    CAM_R(s1, s1 - ((double)CAM_LF(0x858B8C)));
+    CAM_R(s1, s1 + (s1));
+    CAM_R(s1, s1 * ((tan(a0))));
+    s2 = 1.0;
+    a1 = s1;
+    a2 = s2;
+    vResult = (float)(atan2(a1, a2));
+    s1 = (double)CAM_LF(0x858B8C);
+    CAM_R(s1, s1 - ((double)CAM_LF(0xB6EC10)));
+    CAM_R(s1, s1 + (s1));
+    s2 = (double)CAM_LF(0x858624);
+    CAM_R(s2, s2 / ((double)CAM_LF(0xC3EFA4)));
+    CAM_R(s1, s1 * (s2));
+    CAM_R(s0, (tan(a0)) * (s1));
+    s1 = 1.0;
+    a3 = s0;
+    a4 = s1;
+    hResult = (float)(atan2(a3, a4));
+    *p_vResult = vResult;
+    *p_hResult = hResult;
+}
+
+__declspec(noinline) void __cdecl CamAimTargetAnglesCpp(float tx, float fx, float ty, float fy, float tz, float fz, float* p_dz, float* p_hResult, float* p_fResult, float* p_pResult) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0, s3 = 0.0;
+    double a0 = 0.0, a1 = 0.0, a2 = 0.0, a3 = 0.0;
+    volatile float dz = 0.0f;
+    volatile float hResult = 0.0f;
+    volatile float fResult = 0.0f;
+    volatile float pResult = 0.0f;
+    s0 = (double)tx;
+    CAM_R(s0, s0 - ((double)fx));
+    s1 = (double)ty;
+    CAM_R(s1, s1 - ((double)fy));
+    s2 = (double)tz;
+    CAM_R(s2, s2 - ((double)fz));
+    dz = (float)s2;
+    s2 = s0;
+    s2 = -s2;
+    s3 = s1;
+    a0 = s2;
+    a1 = s3;
+    CAM_R(s2, (atan2(a0, a1)) - ((double)CAM_LF(0x858FE4)));
+    hResult = (float)s2;
+    s2 = s0;
+    CAM_R(s2, s2 * (s0));
+    s3 = s1;
+    CAM_R(s3, s3 * (s1));
+    CAM_R(s2, s2 + (s3));
+    fResult = (float)s2;
+    s0 = (double)dz;
+    s1 = (double)fResult;
+    CAM_R(s1, sqrt(s1));
+    { double t_ = s1; s1 = s0; s0 = t_; }
+    { double t_ = s1; s1 = s0; s0 = t_; }
+    a2 = s0;
+    a3 = s1;
+    pResult = (float)(atan2(a2, a3));
+    *p_dz = dz;
+    *p_hResult = hResult;
+    *p_fResult = fResult;
+    *p_pResult = pResult;
+}
+
+__declspec(noinline) void __cdecl CamAimProjectionCpp(unsigned cam, unsigned scratch, unsigned rowOffset) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0;
+    double a0 = 0.0, a1 = 0.0, a2 = 0.0, a3 = 0.0, a4 = 0.0;
+    unsigned cc = 0;
+    unsigned fa = 0, fb = 0;
+    unsigned eax = 0, ebx = 0, ecx = 0, edx = 0, esi = 0, edi = 0, ebp = 0;
+    esi = (unsigned)(cam);
+    edi = (unsigned)(scratch);
+    eax = (unsigned)(rowOffset);
+    ebp = (unsigned)(eax);
+    s0 = (double)CAM_LF((unsigned)(ebp+0x8CC4C0));
+    s1 = (double)CAM_LF((unsigned)(esi+0xAC));
+    cc = CamX87Status(s1, (double)CAM_LF(0x858B50));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_aim_projection_00522955;
+    s1 = (double)CAM_LF((unsigned)(ebp+0x8CC4C8));
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(esi+0xAC))));
+    s2 = (double)CAM_LF(0x858FE4);
+    cc = CamX87Status(s2, s1);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_aim_projection_00522951;
+    s1 = (double)CAM_LF(0x858FE4);
+cam_aim_projection_00522951:;
+    goto cam_aim_projection_0052295D;
+cam_aim_projection_00522955:;
+    s1 = (double)CAM_LF((unsigned)(esi+0xAC));
+cam_aim_projection_0052295D:;
+    a0 = s1;
+    CAM_R(s1, (cos(a0)) * ((double)CAM_LF((unsigned)(ebp+0x8CC4C4))));
+    ebp = (unsigned)((unsigned)(esi+0x190));
+    edx = (unsigned)(ebp);
+    CAM_R(s0, s0 + (s1));
+    ebx = (unsigned)((unsigned)(esi+0x19C));
+    s1 = (double)CAM_LF((unsigned)(esi+0xAC));
+    a1 = s1;
+    s2 = (double)CAM_LF((unsigned)(esi+0xBC));
+    a2 = s2;
+    CAM_R(s2, (cos(a2)) * ((cos(a1))));
+    s2 = -s2;
+    CAM_SF((unsigned)(edi+0x30), s2);
+    eax = (unsigned)(CAM_LU((unsigned)(edi+0x30)));
+    s2 = (double)CAM_LF((unsigned)(esi+0xBC));
+    CAM_SU((unsigned)(edx), eax);
+    a3 = s2;
+    CAM_R(s2, (sin(a3)) * ((cos(a1))));
+    s2 = -s2;
+    CAM_SF((unsigned)(edi+0x34), s2);
+    ecx = (unsigned)(CAM_LU((unsigned)(edi+0x34)));
+    CAM_SU((unsigned)(edx+0x4), ecx);
+    ecx = (unsigned)(ebx);
+    s1 = (double)CAM_LF((unsigned)(esi+0xAC));
+    a4 = s1;
+    CAM_SF((unsigned)(edi+0x38), (sin(a4)));
+    eax = (unsigned)(CAM_LU((unsigned)(edi+0x38)));
+    s1 = s0;
+    CAM_SU((unsigned)(edx+0x8), eax);
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(ebp))));
+    s2 = s0;
+    CAM_R(s2, s2 * ((double)CAM_LF((unsigned)(ebp+0x4))));
+    CAM_SF((unsigned)(edi+0x58), s2);
+    { double t_ = s1; s1 = s0; s0 = t_; }
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(ebp+0x8))));
+    CAM_SF((unsigned)(edi+0x5C), s1);
+    s1 = (double)CAM_LF((unsigned)(edi+0x3C));
+    CAM_R(s1, s1 - (s0));
+    CAM_SF((unsigned)(edi+0x30), s1);
+    edx = (unsigned)(CAM_LU((unsigned)(edi+0x30)));
+    CAM_SU((unsigned)(ecx), edx);
+    s0 = (double)CAM_LF((unsigned)(edi+0x40));
+    CAM_R(s0, s0 - ((double)CAM_LF((unsigned)(edi+0x58))));
+    CAM_SF((unsigned)(edi+0x34), s0);
+    s0 = (double)CAM_LF((unsigned)(edi+0x44));
+    eax = (unsigned)(CAM_LU((unsigned)(edi+0x34)));
+    CAM_R(s0, s0 - ((double)CAM_LF((unsigned)(edi+0x5C))));
+    CAM_SU((unsigned)(ecx+0x4), eax);
+    eax = (unsigned)((unsigned)(edi+0x3C));
+    CAM_SF((unsigned)(edi+0x3C), s0);
+    edx = (unsigned)(CAM_LU((unsigned)(edi+0x3C)));
+    CAM_SU((unsigned)(ecx+0x8), edx);
+    ebp = (unsigned)(ebp);
+}
+
+__declspec(noinline) void __cdecl CamAimMeleeBlendCpp(unsigned scratch) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0, s3 = 0.0;
+    unsigned eax = 0, ebx = 0;
+    ebx = (unsigned)(scratch);
+    s0 = (double)CAM_LF(0x862F30);
+    s1 = (double)CAM_LF(0xB7CB5C);
+    eax = (unsigned)(0x822130u);
+    s0 = ExeCompatiblePowCpp(s0, s1);
+    s1 = (double)CAM_LF(0x858624);
+    CAM_R(s1, s1 - (s0));
+    s2 = (double)CAM_LF((unsigned)(ebx+0x20));
+    CAM_R(s2, s2 * (s1));
+    s3 = (double)CAM_LF(0xB70100);
+    CAM_R(s3, s3 * (s0));
+    CAM_R(s2, s2 + (s3));
+    CAM_SF(0xB70100, s2);
+    s2 = (double)CAM_LF((unsigned)(ebx+0x14));
+    CAM_R(s2, s2 * (s1));
+    s3 = (double)CAM_LF(0xB700FC);
+    CAM_R(s3, s3 * (s0));
+    CAM_R(s2, s2 + (s3));
+    CAM_SF(0xB700FC, s2);
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(ebx+0x28))));
+    s2 = (double)CAM_LF(0xB700F4);
+    CAM_R(s2, s2 * (s0));
+    CAM_R(s1, s1 + (s2));
+    CAM_SF(0xB700F4, s1);
+}
+
+__declspec(noinline) void __cdecl CamAimMouseAnglesCpp(unsigned cam) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0;
+    unsigned eax = 0;
+    eax = (unsigned)(cam);
+    s0 = (double)CAM_LF((unsigned)(eax+0xB4));
+    CAM_R(s0, s0 * ((double)CAM_LF(0x85A5C4)));
+    s1 = (double)CAM_LF(0xB73428);
+    CAM_R(s1, s1 * ((double)CAM_LF(0x858B90)));
+    CAM_R(s1, s1 * (s0));
+    CAM_R(s1, s1 * ((double)CAM_LF(0xB6EC18)));
+    s2 = (double)CAM_LF(0xB73424);
+    CAM_R(s2, s2 * ((double)CAM_LF(0x8631B0)));
+    CAM_R(s2, s2 * (s0));
+    CAM_R(s2, s2 * ((double)CAM_LF(0xB6EC1C)));
+    CAM_R(s2, s2 + ((double)CAM_LF((unsigned)(eax+0xBC))));
+    CAM_SF((unsigned)(eax+0xBC), s2);
+    CAM_R(s1, s1 + ((double)CAM_LF((unsigned)(eax+0xAC))));
+    CAM_SF((unsigned)(eax+0xAC), s1);
+}
+
+__declspec(noinline) void __cdecl CamAimVehicleResetPitchCpp(float clampedZ, float initialAlpha, float* p_result) {
+    double s0 = 0.0;
+    unsigned eax = 0;
+    volatile float result = 0.0f;
+    s0 = (double)clampedZ;
+    eax = (unsigned)(0x821E70u);
+    s0 = ExeAsinDoubleCpp(s0);
+    CAM_R(s0, s0 + ((double)initialAlpha));
+    result = (float)s0;
+    *p_result = result;
+}
+
+__declspec(noinline) void __cdecl CamAttachedUpCpp(float angle, float sideX, float* p_sinX, float sideY, float* p_sinY, float sideZ, float* p_sinZ, float upX, float* p_cosX, float upY, float* p_cosY, float upZ, float* p_cosZ) {
+    double s0 = 0.0, s1 = 0.0;
+    double a0 = 0.0, a1 = 0.0;
+    volatile float sinX = 0.0f;
+    volatile float sinY = 0.0f;
+    volatile float sinZ = 0.0f;
+    volatile float cosX = 0.0f;
+    volatile float cosY = 0.0f;
+    volatile float cosZ = 0.0f;
+    s0 = (double)angle;
+    a0 = s0;
+    s1 = (double)sideX;
+    CAM_R(s1, s1 * ((sin(a0))));
+    sinX = (float)s1;
+    s1 = (double)sideY;
+    CAM_R(s1, s1 * ((sin(a0))));
+    sinY = (float)s1;
+    CAM_R(s0, (sin(a0)) * ((double)sideZ));
+    sinZ = (float)s0;
+    s0 = (double)angle;
+    a1 = s0;
+    s1 = (double)upX;
+    CAM_R(s1, s1 * ((cos(a1))));
+    cosX = (float)s1;
+    s1 = (double)upY;
+    CAM_R(s1, s1 * ((cos(a1))));
+    cosY = (float)s1;
+    CAM_R(s0, (cos(a1)) * ((double)upZ));
+    cosZ = (float)s0;
+    *p_sinX = sinX;
+    *p_sinY = sinY;
+    *p_sinZ = sinZ;
+    *p_cosX = cosX;
+    *p_cosY = cosY;
+    *p_cosZ = cosZ;
+}
+
+__declspec(noinline) void __cdecl CamDirectionFromAnglesCpp(float alpha, float beta, float* p_directionX, float* p_directionY, float* p_directionZ) {
+    double s0 = 0.0, s1 = 0.0;
+    double a0 = 0.0, a1 = 0.0, a2 = 0.0, a3 = 0.0;
+    volatile float directionX = 0.0f;
+    volatile float directionY = 0.0f;
+    volatile float directionZ = 0.0f;
+    s0 = (double)alpha;
+    a0 = s0;
+    s1 = (double)beta;
+    a1 = s1;
+    CAM_R(s1, (cos(a1)) * ((cos(a0))));
+    s1 = -s1;
+    directionX = (float)s1;
+    s1 = (double)beta;
+    a2 = s1;
+    CAM_R(s0, (cos(a0)) * ((sin(a2))));
+    s0 = -s0;
+    directionY = (float)s0;
+    s0 = (double)alpha;
+    a3 = s0;
+    directionZ = (float)(sin(a3));
+    *p_directionX = directionX;
+    *p_directionY = directionY;
+    *p_directionZ = directionZ;
+}
+
+__declspec(noinline) void __cdecl CamShootingSourceZCpp(float alpha, float radius, float targetZ, float* p_result) {
+    double s0 = 0.0;
+    double a0 = 0.0;
+    volatile float result = 0.0f;
+    s0 = (double)alpha;
+    a0 = s0;
+    CAM_R(s0, (sin(a0)) * ((double)radius));
+    CAM_R(s0, ((double)targetZ) - s0);
+    result = (float)s0;
+    *p_result = result;
+}
+
+__declspec(noinline) void __cdecl CamShootingOrbitCpp(unsigned cam, unsigned source, unsigned scratch) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0, s3 = 0.0, s4 = 0.0;
+    double a0 = 0.0, a1 = 0.0;
+    unsigned eax = 0, ebx = 0, esi = 0, edi = 0;
+    esi = (unsigned)(cam);
+    edi = (unsigned)(source);
+    ebx = (unsigned)(scratch);
+    s0 = (double)CAM_LF((unsigned)(edi));
+    CAM_R(s0, s0 - ((double)CAM_LF((unsigned)(ebx+0x1C))));
+    eax = (unsigned)((unsigned)(esi+0x190));
+    s1 = (double)CAM_LF((unsigned)(esi+0x1A0));
+    CAM_R(s1, s1 - ((double)CAM_LF((unsigned)(ebx+0x20))));
+    s2 = (double)CAM_LF((unsigned)(ebx+0x28));
+    a0 = s2;
+    s4 = (double)CAM_LF((unsigned)(ebx+0x28));
+    a1 = s4;
+    CAM_SF((unsigned)(ebx+0x10), (cos(a1)));
+    CAM_R(s3, (sin(a0)) * (s1));
+    s4 = (double)CAM_LF((unsigned)(ebx+0x10));
+    CAM_R(s4, s4 * (s0));
+    CAM_R(s3, s3 + (s4));
+    CAM_SF((unsigned)(ebx+0x30), s3);
+    s3 = (double)CAM_LF((unsigned)(ebx+0x10));
+    CAM_SU((unsigned)(ebx+0x10), eax);
+    CAM_R(s3, s3 * (s1));
+    s2 = sin(a0);
+    { double t_ = s3; s3 = s2; s2 = t_; }
+    CAM_R(s3, s3 * (s0));
+    CAM_R(s2, s2 - (s3));
+    s0 = s2;
+    s1 = (double)CAM_LF((unsigned)(ebx+0x30));
+    CAM_R(s1, s1 + ((double)CAM_LF((unsigned)(ebx+0x1C))));
+    CAM_SF((unsigned)(edi), s1);
+    CAM_R(s0, s0 + ((double)CAM_LF((unsigned)(ebx+0x20))));
+    CAM_SF((unsigned)(esi+0x1A0), s0);
+}
+
+__declspec(noinline) void __cdecl CamShootingTiltCpp(unsigned cam, unsigned vehicle, unsigned scratch) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0, s3 = 0.0, s4 = 0.0, s5 = 0.0, s6 = 0.0;
+    double atanY = 0.0, atanX = 0.0;
+    unsigned cc = 0;
+    unsigned fa = 0, fb = 0;
+    unsigned eax = 0, ebx = 0, esi = 0, edi = 0;
+    esi = (unsigned)(cam);
+    ebx = (unsigned)(vehicle);
+    edi = (unsigned)(scratch);
+    s0 = (double)CAM_LF((unsigned)(ebx+0x4C));
+    s1 = (double)CAM_LF((unsigned)(ebx+0x48));
+    s2 = (double)CAM_LF((unsigned)(ebx+0x44));
+    s3 = s2;
+    CAM_R(s3, s3 * (s2));
+    s4 = s1;
+    CAM_R(s4, s4 * (s1));
+    CAM_R(s3, s3 + (s4));
+    s4 = s0;
+    CAM_R(s4, s4 * (s0));
+    CAM_R(s3, s3 + (s4));
+    cc = CamX87Status(s3, (double)CAM_LF(0x858FC4));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_shooting_tilt_end;
+    s0 = (double)CAM_LF((unsigned)(ebx+0x48));
+    eax = (unsigned)(CAM_LU((unsigned)(ebx+0x594)));
+    fa = (unsigned)(eax);
+    fb = (unsigned)(0x3u);
+    s1 = (double)CAM_LF((unsigned)(ebx+0x44));
+    s2 = s1;
+    CAM_R(s2, s2 * (s1));
+    s3 = s0;
+    CAM_R(s3, s3 * (s0));
+    CAM_R(s2, s2 + (s3));
+    s0 = s2;
+    CAM_R(s0, sqrt(s0));
+    s1 = (double)CAM_LF((unsigned)(ebx+0x4C));
+    { double t_ = s1; s1 = s0; s0 = t_; }
+    atanY = s0;
+    atanX = s1;
+    s1 = (double)CAM_LF(0x862F7C);
+    if (fa != fb) goto cam_shooting_tilt_00519F81;
+    s1 = (double)CAM_LF(0x862F88);
+cam_shooting_tilt_00519F81:;
+    s2 = (double)CAM_LF((unsigned)(ebx+0x4C));
+    s3 = (double)CAM_LF((unsigned)(ebx+0x48));
+    s4 = (double)CAM_LF((unsigned)(ebx+0x44));
+    s5 = s4;
+    CAM_R(s5, s5 * (s4));
+    s6 = s3;
+    CAM_R(s6, s6 * (s3));
+    CAM_R(s5, s5 + (s6));
+    s6 = s2;
+    CAM_R(s6, s6 * (s2));
+    CAM_R(s5, s5 + (s6));
+    s2 = s5;
+    CAM_R(s2, sqrt(s2));
+    CAM_R(s2, s2 - ((double)CAM_LF(0x858C58)));
+    CAM_R(s1, s1 * (s2));
+    s2 = (double)CAM_LF(0x858624);
+    cc = CamX87Status(s2, s1);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_shooting_tilt_00519FC1;
+    s1 = (double)CAM_LF(0x858624);
+cam_shooting_tilt_00519FC1:;
+    CAM_R(s0, atan2(atanY, atanX) * (s1));
+    CAM_R(s0, s0 + ((double)CAM_LF((unsigned)(edi+0x34))));
+    CAM_SF((unsigned)(edi+0x34), s0);
+    s0 = (double)CAM_LF(0x862F78);
+    s1 = (double)CAM_LF(0xB7CB5C);
+    eax = (unsigned)(0x822130u);
+    s0 = ExeCompatiblePowCpp(s0, s1);
+    s1 = (double)CAM_LF(0x858624);
+    CAM_R(s1, s1 - (s0));
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(edi+0x34))));
+    { double t_ = s1; s1 = s0; s0 = t_; }
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(esi+0xAC))));
+    CAM_R(s0, s0 + (s1));
+    CAM_SF((unsigned)(esi+0xAC), s0);
+cam_shooting_tilt_end:;
+}
+
+__declspec(noinline) void __cdecl CamShootingFovCpp(unsigned cam, unsigned vehicle) {
+    double s0 = 0.0, s1 = 0.0;
+    unsigned cc = 0;
+    unsigned fa = 0, fb = 0;
+    unsigned eax = 0, ebx = 0, ecx = 0, esi = 0;
+    esi = (unsigned)(cam);
+    ebx = (unsigned)(vehicle);
+    eax = (unsigned)(CAM_LU((unsigned)(ebx+0x594)));
+    fa = (unsigned)(eax);
+    fb = (unsigned)(eax);
+    if ((((fa & fb) & 0xFFFFFFFFu) == 0)) goto cam_shooting_fov_005198DB;
+    fa = (unsigned)(eax);
+    fb = (unsigned)(0x9u);
+    if (fa != fb) goto cam_shooting_fov_0051992F;
+cam_shooting_fov_005198DB:;
+    ecx = (unsigned)(CAM_LU((unsigned)(ebx+0x14)));
+    s0 = (double)CAM_LF((unsigned)(ebx+0x4C));
+    CAM_R(s0, s0 * ((double)CAM_LF((unsigned)(ecx+0x18))));
+    s1 = (double)CAM_LF((unsigned)(ebx+0x48));
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(ecx+0x14))));
+    CAM_R(s0, s0 + (s1));
+    s1 = (double)CAM_LF((unsigned)(ebx+0x44));
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(ecx+0x10))));
+    CAM_R(s0, s0 + (s1));
+    cc = CamX87Status(s0, (double)CAM_LF(0x8CC540));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_shooting_fov_0051992F;
+    s0 = (double)CAM_LF((unsigned)(ebx+0x4C));
+    CAM_R(s0, s0 * ((double)CAM_LF((unsigned)(ecx+0x18))));
+    s1 = (double)CAM_LF((unsigned)(ebx+0x48));
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(ecx+0x14))));
+    CAM_R(s0, s0 + (s1));
+    s1 = (double)CAM_LF((unsigned)(ecx+0x10));
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(ebx+0x44))));
+    CAM_R(s0, s0 + (s1));
+    CAM_R(s0, s0 - ((double)CAM_LF(0x8CC540)));
+    CAM_R(s0, s0 * ((double)CAM_LF(0xB7CB5C)));
+    CAM_R(s0, s0 + ((double)CAM_LF((unsigned)(esi+0xB4))));
+    CAM_SF((unsigned)(esi+0xB4), s0);
+cam_shooting_fov_0051992F:;
+    s0 = (double)CAM_LF((unsigned)(esi+0xB4));
+    cc = CamX87Status(s0, (double)CAM_LF(0x858CE0));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_shooting_fov_0051996F;
+    s0 = (double)CAM_LF(0x8CC544);
+    s1 = (double)CAM_LF(0xB7CB5C);
+    eax = (unsigned)(0x822130u);
+    s0 = ExeCompatiblePowCpp(s0, s1);
+    s1 = (double)CAM_LF((unsigned)(esi+0xB4));
+    CAM_R(s1, s1 - ((double)CAM_LF(0x858CE0)));
+    CAM_R(s1, s1 * (s0));
+    CAM_R(s1, s1 + ((double)CAM_LF(0x858CE0)));
+    CAM_SF((unsigned)(esi+0xB4), s1);
+cam_shooting_fov_0051996F:;
+    s0 = (double)CAM_LF((unsigned)(esi+0xB4));
+    cc = CamX87Status(s0, (double)CAM_LF(0x858628));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_shooting_fov_0051998E;
+    CAM_SU((unsigned)(esi+0xB4), 0x42C80000u);
+    goto cam_shooting_fov_end;
+cam_shooting_fov_0051998E:;
+    s0 = (double)CAM_LF((unsigned)(esi+0xB4));
+    cc = CamX87Status(s0, (double)CAM_LF(0x858CE0));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_shooting_fov_end;
+    CAM_SU((unsigned)(esi+0xB4), 0x428C0000u);
+cam_shooting_fov_end:;
+}
+
+__declspec(noinline) void __cdecl CamStoredHeadingMinusHalfPiCpp(float storedHeading, float* p_vehicleHeading) {
+    double s0 = 0.0;
+    volatile float vehicleHeading = 0.0f;
+    s0 = (double)storedHeading;
+    CAM_R(s0, s0 - ((double)CAM_LF(0x858FE4)));
+    vehicleHeading = (float)s0;
+    *p_vehicleHeading = vehicleHeading;
+}
+
+__declspec(noinline) void __cdecl CamTwoCarsBlendWeightCpp(float blend, float* p_sine, float* p_weight) {
+    double s0 = 0.0, s1 = 0.0;
+    double a0 = 0.0, a1 = 0.0;
+    volatile float sine = 0.0f;
+    volatile float weight = 0.0f;
+    s0 = (double)blend;
+    CAM_R(s0, s0 * ((double)CAM_LF(0x858CB8)));
+    s1 = s0;
+    a0 = s1;
+    sine = (float)(sin(a0));
+    a1 = s0;
+    CAM_R(s0, (cos(a1)) + ((double)CAM_LF(0x858624)));
+    CAM_R(s0, s0 * ((double)CAM_LF(0x858B8C)));
+    weight = (float)s0;
+    *p_sine = sine;
+    *p_weight = weight;
+}
+
+__declspec(noinline) void __cdecl CamTwoCarsBlendCpp(unsigned scratch, unsigned cam, unsigned firstPos, unsigned secondPos) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0, s3 = 0.0, s4 = 0.0, s5 = 0.0;
+    unsigned eax = 0, ebx = 0, ecx = 0, edx = 0, esi = 0, edi = 0;
+    esi = (unsigned)(scratch);
+    ebx = (unsigned)(cam);
+    eax = (unsigned)(firstPos);
+    ecx = (unsigned)(secondPos);
+    s0 = (double)CAM_LF((unsigned)(eax));
+    CAM_R(s0, s0 - ((double)CAM_LF((unsigned)(ecx))));
+    s1 = (double)CAM_LF((unsigned)(eax+0x4));
+    CAM_R(s1, s1 - ((double)CAM_LF((unsigned)(ecx+0x4))));
+    s2 = (double)CAM_LF((unsigned)(eax+0x8));
+    CAM_R(s2, s2 - ((double)CAM_LF((unsigned)(ecx+0x8))));
+    s3 = s0;
+    CAM_R(s0, s0 * (s3));
+    s3 = s2;
+    CAM_R(s3, s3 * (s2));
+    CAM_R(s0, s0 + (s3));
+    s3 = s1;
+    CAM_R(s3, s3 * (s1));
+    CAM_R(s0, s0 + (s3));
+    { double t_ = s2; s2 = s0; s0 = t_; }
+    CAM_R(s2, sqrt(s2));
+    s0 = s2;
+    CAM_SF((unsigned)(esi+0x1C), s0);
+    s0 = (double)CAM_LF((unsigned)(esi+0x48));
+    CAM_R(s0, s0 * ((double)CAM_LF((unsigned)(esi+0x64))));
+    CAM_SF((unsigned)(esi+0x3C), s0);
+    s1 = (double)CAM_LF((unsigned)(esi+0x48));
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(esi+0x68))));
+    s2 = s1;
+    s3 = (double)CAM_LF((unsigned)(esi+0x48));
+    CAM_R(s3, s3 * ((double)CAM_LF((unsigned)(esi+0x6C))));
+    CAM_SF((unsigned)(esi+0x94), s3);
+    s4 = (double)CAM_LF((unsigned)(esi+0x3C));
+    CAM_R(s4, s4 * ((double)CAM_LF((unsigned)(esi+0x1C))));
+    CAM_SF((unsigned)(esi+0x10), s4);
+    { double t_ = s3; s3 = s2; s2 = t_; }
+    CAM_R(s3, s3 * ((double)CAM_LF((unsigned)(esi+0x1C))));
+    CAM_SF((unsigned)(esi+0x14), s3);
+    CAM_R(s2, s2 * ((double)CAM_LF((unsigned)(esi+0x1C))));
+    s3 = (double)CAM_LF((unsigned)(esi+0x10));
+    CAM_R(s3, s3 * ((double)CAM_LF(0x858F34)));
+    s4 = (double)CAM_LF((unsigned)(esi+0x14));
+    CAM_R(s4, s4 * ((double)CAM_LF(0x858F34)));
+    CAM_SF((unsigned)(esi+0x40), s4);
+    { double t_ = s3; s3 = s2; s2 = t_; }
+    CAM_R(s3, s3 * ((double)CAM_LF(0x858F34)));
+    CAM_SF((unsigned)(esi+0x44), s3);
+    s3 = (double)CAM_LF(0x858624);
+    CAM_R(s3, s3 - ((double)CAM_LF((unsigned)(esi+0x2C))));
+    CAM_SF((unsigned)(esi+0x1C), s3);
+    s4 = (double)CAM_LF((unsigned)(esi+0x30));
+    CAM_R(s4, s4 * (s3));
+    s5 = s3;
+    CAM_R(s5, s5 * ((double)CAM_LF((unsigned)(esi+0x34))));
+    CAM_SF((unsigned)(esi+0x5C), s5);
+    { double t_ = s4; s4 = s3; s3 = t_; }
+    CAM_R(s4, s4 * ((double)CAM_LF((unsigned)(esi+0x38))));
+    CAM_SF((unsigned)(esi+0x60), s4);
+    s4 = (double)CAM_LF((unsigned)(esi+0x2C));
+    CAM_R(s4, s4 * ((double)CAM_LF((unsigned)(esi+0x20))));
+    s5 = (double)CAM_LF((unsigned)(esi+0x2C));
+    CAM_R(s5, s5 * ((double)CAM_LF((unsigned)(esi+0x24))));
+    CAM_SF((unsigned)(esi+0x34), s5);
+    s5 = (double)CAM_LF((unsigned)(esi+0x2C));
+    CAM_R(s5, s5 * ((double)CAM_LF((unsigned)(esi+0x28))));
+    CAM_SF((unsigned)(esi+0x38), s5);
+    CAM_R(s4, s4 + (s3));
+    CAM_SF((unsigned)(esi+0x10), s4);
+    s3 = (double)CAM_LF((unsigned)(esi+0x34));
+    CAM_R(s3, s3 + ((double)CAM_LF((unsigned)(esi+0x5C))));
+    CAM_SF((unsigned)(esi+0x14), s3);
+    s3 = (double)CAM_LF((unsigned)(esi+0x38));
+    eax = (unsigned)((unsigned)(ebx+0x19C));
+    CAM_R(s3, s3 + ((double)CAM_LF((unsigned)(esi+0x60))));
+    CAM_SF((unsigned)(esi+0x18), s3);
+    s3 = (double)CAM_LF((unsigned)(esi+0x10));
+    CAM_R(s3, s3 - (s2));
+    CAM_SF((unsigned)(esi+0x20), s3);
+    ecx = (unsigned)(CAM_LU((unsigned)(esi+0x20)));
+    CAM_SU((unsigned)(eax), ecx);
+    s2 = (double)CAM_LF((unsigned)(esi+0x14));
+    CAM_R(s2, s2 - ((double)CAM_LF((unsigned)(esi+0x40))));
+    CAM_SF((unsigned)(esi+0x24), s2);
+    s2 = (double)CAM_LF((unsigned)(esi+0x18));
+    edx = (unsigned)(CAM_LU((unsigned)(esi+0x24)));
+    CAM_R(s2, s2 - ((double)CAM_LF((unsigned)(esi+0x44))));
+    CAM_SU((unsigned)(eax+0x4), edx);
+    CAM_SF((unsigned)(esi+0x28), s2);
+    { double t_ = s1; s1 = s0; s0 = t_; }
+    ecx = (unsigned)(CAM_LU((unsigned)(esi+0x28)));
+    CAM_SF((unsigned)(esi+0x10), s1);
+    CAM_SU((unsigned)(eax+0x8), ecx);
+    s1 = (double)CAM_LF((unsigned)(esi+0x94));
+    s2 = (double)CAM_LF((unsigned)(esi+0x1C));
+    s3 = (double)CAM_LF((unsigned)(esi+0x88));
+    CAM_R(s3, s3 * (s2));
+    s4 = (double)CAM_LF((unsigned)(esi+0x8C));
+    CAM_R(s4, s4 * (s2));
+    CAM_SF((unsigned)(esi+0x5C), s4);
+    s4 = (double)CAM_LF((unsigned)(esi+0x90));
+    CAM_R(s4, s4 * (s2));
+    CAM_SF((unsigned)(esi+0x60), s4);
+    s4 = (double)CAM_LF((unsigned)(esi+0x7C));
+    CAM_R(s4, s4 * ((double)CAM_LF((unsigned)(esi+0x2C))));
+    s5 = (double)CAM_LF((unsigned)(esi+0x80));
+    CAM_R(s5, s5 * ((double)CAM_LF((unsigned)(esi+0x2C))));
+    CAM_SF((unsigned)(esi+0x40), s5);
+    s5 = (double)CAM_LF((unsigned)(esi+0x84));
+    CAM_R(s5, s5 * ((double)CAM_LF((unsigned)(esi+0x2C))));
+    CAM_SF((unsigned)(esi+0x44), s5);
+    CAM_R(s4, s4 + (s3));
+    s2 = s4;
+    s3 = (double)CAM_LF((unsigned)(esi+0x40));
+    CAM_R(s3, s3 + ((double)CAM_LF((unsigned)(esi+0x5C))));
+    s4 = (double)CAM_LF((unsigned)(esi+0x44));
+    CAM_R(s4, s4 + ((double)CAM_LF((unsigned)(esi+0x60))));
+    CAM_SF((unsigned)(esi+0x60), s4);
+    s4 = (double)CAM_LF(0x858624);
+    CAM_R(s4, s4 - ((double)CAM_LF((unsigned)(esi+0x48))));
+    CAM_SF((unsigned)(esi+0x1C), s4);
+    { double t_ = s3; s3 = s2; s2 = t_; }
+    CAM_R(s3, s3 * ((double)CAM_LF((unsigned)(esi+0x1C))));
+    CAM_SF((unsigned)(esi+0x3C), s3);
+    CAM_R(s2, s2 * ((double)CAM_LF((unsigned)(esi+0x1C))));
+    s3 = (double)CAM_LF((unsigned)(esi+0x60));
+    CAM_R(s3, s3 * ((double)CAM_LF((unsigned)(esi+0x1C))));
+    CAM_SF((unsigned)(esi+0x44), s3);
+    s3 = (double)CAM_LF((unsigned)(esi+0x3C));
+    CAM_R(s3, s3 + ((double)CAM_LF((unsigned)(esi+0x10))));
+    CAM_SF((unsigned)(esi+0x10), s3);
+    CAM_R(s2, s2 + (s0));
+    CAM_SF((unsigned)(esi+0x14), s2);
+    s2 = (double)CAM_LF((unsigned)(esi+0x44));
+    CAM_R(s2, s2 + (s1));
+    eax = (unsigned)(CAM_LU((unsigned)(esi+0x10)));
+    CAM_SF((unsigned)(esi+0x18), s2);
+    ecx = (unsigned)(CAM_LU((unsigned)(esi+0x14)));
+    edi = (unsigned)((unsigned)(ebx+0x190));
+    edx = (unsigned)(edi);
+    CAM_SU((unsigned)(edx), eax);
+    eax = (unsigned)(CAM_LU((unsigned)(esi+0x18)));
+    CAM_SU((unsigned)(edx+0x4), ecx);
+    CAM_SU((unsigned)(edx+0x8), eax);
+}
+
+__declspec(noinline) void __cdecl CamTwoCarsSourcesCpp(float firstZ, float firstHeight, float* p_liftedFirst, float secondZ, float secondHeight, float* p_liftedSecond, float betweenX, float* p_scaledX, float firstX, float* p_fx, float secondX, float* p_sx, float betweenY, float firstY, float* p_fy, float secondY, float* p_sy, float betweenZ, float* p_scaledZ, float* p_fz, float* p_sz) {
+    double s0 = 0.0, s1 = 0.0;
+    volatile float liftedFirst = 0.0f;
+    volatile float liftedSecond = 0.0f;
+    volatile float scaledX = 0.0f;
+    volatile float fx = 0.0f;
+    volatile float sx = 0.0f;
+    volatile float fy = 0.0f;
+    volatile float sy = 0.0f;
+    volatile float scaledZ = 0.0f;
+    volatile float fz = 0.0f;
+    volatile float sz = 0.0f;
+    s0 = (double)firstZ;
+    CAM_R(s0, s0 + ((double)firstHeight));
+    CAM_R(s0, s0 + ((double)CAM_LF(0x858624)));
+    liftedFirst = (float)s0;
+    s0 = (double)secondZ;
+    CAM_R(s0, s0 + ((double)secondHeight));
+    CAM_R(s0, s0 + ((double)CAM_LF(0x858624)));
+    liftedSecond = (float)s0;
+    s0 = (double)betweenX;
+    CAM_R(s0, s0 * ((double)CAM_LF(0x858B44)));
+    scaledX = (float)s0;
+    s0 = (double)firstX;
+    CAM_R(s0, s0 - ((double)scaledX));
+    fx = (float)s0;
+    s0 = (double)scaledX;
+    CAM_R(s0, s0 + ((double)secondX));
+    sx = (float)s0;
+    s0 = (double)betweenY;
+    CAM_R(s0, s0 * ((double)CAM_LF(0x858B44)));
+    s1 = (double)firstY;
+    CAM_R(s1, s1 - (s0));
+    fy = (float)s1;
+    CAM_R(s0, s0 + ((double)secondY));
+    sy = (float)s0;
+    s0 = (double)betweenZ;
+    CAM_R(s0, s0 * ((double)CAM_LF(0x858B44)));
+    scaledZ = (float)s0;
+    CAM_R(s0, ((double)liftedFirst) - s0);
+    fz = (float)s0;
+    s0 = (double)scaledZ;
+    CAM_R(s0, s0 + ((double)liftedSecond));
+    sz = (float)s0;
+    *p_liftedFirst = liftedFirst;
+    *p_liftedSecond = liftedSecond;
+    *p_scaledX = scaledX;
+    *p_fx = fx;
+    *p_sx = sx;
+    *p_fy = fy;
+    *p_sy = sy;
+    *p_scaledZ = scaledZ;
+    *p_fz = fz;
+    *p_sz = sz;
+}
+
+__declspec(noinline) void __cdecl CamEaseCpp(float ratio, float degrees180, float degrees270, float radians, float one, float half, float to, float from, float* p_value) {
+    double s0 = 0.0, s1 = 0.0;
+    double a0 = 0.0;
+    volatile float value = 0.0f;
+    s0 = (double)ratio;
+    CAM_R(s0, s0 * ((double)degrees180));
+    CAM_R(s0, ((double)degrees270) - s0);
+    CAM_R(s0, s0 * ((double)radians));
+    a0 = s0;
+    CAM_R(s0, (sin(a0)) + ((double)one));
+    CAM_R(s0, s0 * ((double)half));
+    s1 = (double)to;
+    CAM_R(s1, s1 - ((double)from));
+    CAM_R(s0, s0 * (s1));
+    CAM_R(s0, s0 + ((double)from));
+    value = (float)s0;
+    *p_value = value;
+}
+
+__declspec(noinline) void __cdecl CamBirdyLampHeightCpp(int randomValue, float randomScale, float height, float one, float pointZ, float* p_result) {
+    double s0 = 0.0, s1 = 0.0;
+    volatile float result = 0.0f;
+    s0 = (double)((int)randomValue);
+    CAM_R(s0, s0 * ((double)randomScale));
+    s1 = (double)height;
+    CAM_R(s1, s1 - ((double)one));
+    CAM_R(s1, s1 * (s0));
+    CAM_R(s1, s1 + ((double)one));
+    CAM_R(s1, ((double)pointZ) - s1);
+    result = (float)s1;
+    *p_result = result;
+}
+
+__declspec(noinline) void __cdecl CamManFovCpp(unsigned target, unsigned source, float distanceScale, float zero, float one, float degrees180, float degrees270, float radians, float half, float final, float initial, float* p_fov, float progress, float timeScale, float early) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0, s3 = 0.0;
+    double a0 = 0.0, a1 = 0.0;
+    unsigned cc = 0;
+    unsigned fa = 0, fb = 0;
+    unsigned eax = 0, edx = 0;
+    volatile float fov = *p_fov;
+    eax = (unsigned)(target);
+    edx = (unsigned)(source);
+    s0 = (double)CAM_LF((unsigned)(eax));
+    CAM_R(s0, s0 - ((double)CAM_LF((unsigned)(edx))));
+    s1 = (double)CAM_LF((unsigned)(eax+0x4));
+    CAM_R(s1, s1 - ((double)CAM_LF((unsigned)(edx+0x4))));
+    s2 = (double)CAM_LF((unsigned)(eax+0x8));
+    CAM_R(s2, s2 - ((double)CAM_LF((unsigned)(edx+0x8))));
+    s3 = s0;
+    CAM_R(s0, s0 * (s3));
+    s3 = s2;
+    CAM_R(s3, s3 * (s2));
+    CAM_R(s0, s0 + (s3));
+    s3 = s1;
+    CAM_R(s3, s3 * (s1));
+    CAM_R(s0, s0 + (s3));
+    { double t_ = s2; s2 = s0; s0 = t_; }
+    CAM_R(s2, sqrt(s2));
+    s0 = s2;
+    CAM_R(s0, s0 / ((double)distanceScale));
+    cc = CamX87Status(s0, (double)zero);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_manDistanceUpper;
+    s0 = (double)zero;
+    goto cam_manDistanceEase;
+cam_manDistanceUpper:;
+    cc = CamX87Status(s0, (double)one);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_manDistanceEase;
+    s0 = (double)one;
+cam_manDistanceEase:;
+    CAM_R(s0, s0 * ((double)degrees180));
+    CAM_R(s0, ((double)degrees270) - s0);
+    CAM_R(s0, s0 * ((double)radians));
+    a0 = s0;
+    CAM_R(s0, (sin(a0)) + ((double)one));
+    CAM_R(s0, s0 * ((double)half));
+    s1 = (double)final;
+    CAM_R(s1, s1 - ((double)initial));
+    CAM_R(s0, s0 * (s1));
+    CAM_R(s0, s0 + ((double)initial));
+    fov = (float)s0;
+    s0 = (double)progress;
+    cc = CamX87Status(s0, (double)timeScale);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_manFovDone;
+    s0 = (double)progress;
+    CAM_R(s0, s0 / ((double)timeScale));
+    cc = CamX87Status(s0, (double)zero);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_manTimeUpper;
+    s0 = (double)zero;
+    goto cam_manTimeEase;
+cam_manTimeUpper:;
+    cc = CamX87Status(s0, (double)one);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_manTimeEase;
+    s0 = (double)one;
+cam_manTimeEase:;
+    CAM_R(s0, s0 * ((double)degrees180));
+    CAM_R(s0, ((double)degrees270) - s0);
+    CAM_R(s0, s0 * ((double)radians));
+    a1 = s0;
+    CAM_R(s0, (sin(a1)) + ((double)one));
+    CAM_R(s0, s0 * ((double)half));
+    s1 = (double)fov;
+    CAM_R(s1, s1 - ((double)early));
+    CAM_R(s0, s0 * (s1));
+    CAM_R(s0, s0 + ((double)early));
+    fov = (float)s0;
+cam_manFovDone:;
+    *p_fov = fov;
+}
+
+__declspec(noinline) void __cdecl CamHeliInitialFovCpp(float one, float duration, float progress, float degrees180, float degrees270, float radians, float half, float to, float from, float* p_result) {
+    double s0 = 0.0, s1 = 0.0;
+    double a0 = 0.0;
+    volatile float result = 0.0f;
+    s0 = (double)one;
+    CAM_R(s0, s0 / ((double)duration));
+    CAM_R(s0, s0 * ((double)progress));
+    CAM_R(s0, s0 * ((double)degrees180));
+    CAM_R(s0, ((double)degrees270) - s0);
+    CAM_R(s0, s0 * ((double)radians));
+    a0 = s0;
+    CAM_R(s0, (sin(a0)) + ((double)one));
+    CAM_R(s0, s0 * ((double)half));
+    s1 = (double)to;
+    CAM_R(s1, s1 - ((double)from));
+    CAM_R(s0, s0 * (s1));
+    CAM_R(s0, s0 + ((double)from));
+    result = (float)s0;
+    *p_result = result;
+}
+
+__declspec(noinline) void __cdecl CamHeliReturnFovCpp(int start, int now, int end, float zero, float one, float degrees, float phase, float radians, float half, float to, float from, float* p_result) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0;
+    double a0 = 0.0;
+    unsigned cc = 0;
+    unsigned fa = 0, fb = 0;
+    unsigned eax = 0;
+    volatile float result = *p_result;
+    s0 = (double)((int)start);
+    s1 = (double)((int)now);
+    CAM_R(s1, s1 - (s0));
+    s2 = (double)((int)end);
+    CAM_R(s2, s2 - (s0));
+    CAM_R(s1, s1 / (s2));
+    s0 = s1;
+    cc = CamX87Status(s0, (double)zero);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_heliReturnUpper355;
+    s0 = (double)zero;
+    goto cam_heliReturnEase355;
+cam_heliReturnUpper355:;
+    cc = CamX87Status(s0, (double)one);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_heliReturnEase355;
+    s0 = (double)one;
+cam_heliReturnEase355:;
+    CAM_R(s0, s0 * ((double)degrees));
+    CAM_R(s0, ((double)phase) - s0);
+    CAM_R(s0, s0 * ((double)radians));
+    a0 = s0;
+    CAM_R(s0, (sin(a0)) + ((double)one));
+    CAM_R(s0, s0 * ((double)half));
+    s1 = (double)to;
+    CAM_R(s1, s1 - ((double)from));
+    CAM_R(s0, s0 * (s1));
+    CAM_R(s0, s0 + ((double)from));
+    result = (float)s0;
+    *p_result = result;
+}
+
+__declspec(noinline) void __cdecl CamHeliDistanceFovCpp(float to, int initial, float one, float duration, float progress, float degrees, float phase, float radians, float half, float from, float zero, unsigned camera, unsigned dest, float* p_distance, float nearDistance, float farDistance, float reduction, float* p_result) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0, s3 = 0.0, s4 = 0.0, s5 = 0.0, s6 = 0.0;
+    double a0 = 0.0, a1 = 0.0;
+    unsigned cc = 0;
+    unsigned fa = 0, fb = 0;
+    unsigned eax = 0, edx = 0;
+    volatile float distance = *p_distance;
+    volatile float result = *p_result;
+    s0 = (double)to;
+    fa = (unsigned)((unsigned)initial);
+    fb = (unsigned)(0x0u);
+    if (fa == fb) goto cam_heliDistanceMeasure355;
+    s0 = (double)one;
+    CAM_R(s0, s0 / ((double)duration));
+    CAM_R(s0, s0 * ((double)progress));
+    CAM_R(s0, s0 * ((double)degrees));
+    CAM_R(s0, ((double)phase) - s0);
+    CAM_R(s0, s0 * ((double)radians));
+    a0 = s0;
+    CAM_R(s0, (sin(a0)) + ((double)one));
+    CAM_R(s0, s0 * ((double)half));
+    s1 = (double)to;
+    CAM_R(s1, s1 - ((double)from));
+    CAM_R(s0, s0 * (s1));
+    CAM_R(s0, s0 + ((double)from));
+cam_heliDistanceMeasure355:;
+    s1 = (double)zero;
+    eax = (unsigned)(camera);
+    edx = (unsigned)(dest);
+    s2 = (double)CAM_LF((unsigned)(eax));
+    CAM_R(s2, s2 - ((double)CAM_LF((unsigned)(edx))));
+    s3 = (double)CAM_LF((unsigned)(eax+0x4));
+    CAM_R(s3, s3 - ((double)CAM_LF((unsigned)(edx+0x4))));
+    s4 = (double)CAM_LF((unsigned)(eax+0x8));
+    CAM_R(s4, s4 - ((double)CAM_LF((unsigned)(edx+0x8))));
+    s5 = s4;
+    CAM_R(s5, s5 * (s4));
+    s6 = s3;
+    CAM_R(s6, s6 * (s3));
+    CAM_R(s5, s5 + (s6));
+    s6 = s2;
+    CAM_R(s6, s6 * (s2));
+    CAM_R(s5, s5 + (s6));
+    CAM_R(s5, sqrt(s5));
+    s2 = s5;
+    distance = (float)s2;
+    cc = CamX87Status(s2, (double)nearDistance);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_heliDistanceSubtract355;
+    s1 = (double)distance;
+    CAM_R(s1, s1 - ((double)nearDistance));
+    s2 = (double)farDistance;
+    CAM_R(s2, s2 - ((double)nearDistance));
+    CAM_R(s1, s1 / (s2));
+    cc = CamX87Status(s1, (double)zero);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_heliDistanceUpper355;
+    s1 = (double)zero;
+    goto cam_heliDistanceEase355;
+cam_heliDistanceUpper355:;
+    cc = CamX87Status(s1, (double)one);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_heliDistanceEase355;
+    s1 = (double)one;
+cam_heliDistanceEase355:;
+    CAM_R(s1, s1 * ((double)degrees));
+    CAM_R(s1, ((double)phase) - s1);
+    CAM_R(s1, s1 * ((double)radians));
+    a1 = s1;
+    CAM_R(s1, (sin(a1)) + ((double)one));
+    CAM_R(s1, s1 * ((double)half));
+    CAM_R(s1, s1 * ((double)reduction));
+cam_heliDistanceSubtract355:;
+    { double t_ = s1; s1 = s0; s0 = t_; }
+    CAM_R(s1, s1 - (s0));
+    result = (float)s1;
+    *p_distance = distance;
+    *p_result = result;
+}
+
+__declspec(noinline) void __cdecl CamPlaneOrbitWaveCpp(int start, int now, int end, int cycles, float degrees, float radians, float componentX, float* p_resultX, float componentY, float* p_resultY, float componentZ, float* p_resultZ) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0;
+    double a0 = 0.0;
+    volatile float resultX = 0.0f;
+    volatile float resultY = 0.0f;
+    volatile float resultZ = 0.0f;
+    s0 = (double)((int)start);
+    s1 = (double)((int)now);
+    CAM_R(s1, s1 - (s0));
+    s2 = (double)((int)end);
+    CAM_R(s2, s2 - (s0));
+    CAM_R(s1, s1 / (s2));
+    s2 = (double)((int)cycles);
+    CAM_R(s1, s1 * (s2));
+    CAM_R(s1, s1 * ((double)degrees));
+    CAM_R(s1, s1 * ((double)radians));
+    a0 = s1;
+    s1 = (double)componentX;
+    CAM_R(s1, s1 * ((sin(a0))));
+    resultX = (float)s1;
+    s1 = (double)componentY;
+    CAM_R(s1, s1 * ((sin(a0))));
+    resultY = (float)s1;
+    CAM_R(s0, (sin(a0)) * ((double)componentZ));
+    resultZ = (float)s0;
+    *p_resultX = resultX;
+    *p_resultY = resultY;
+    *p_resultZ = resultZ;
+}
+
+__declspec(noinline) void __cdecl CamPlaneSpotterRandomCpp(int randomValue, float randomScale, float range, float halfRange, float origin, float* p_result) {
+    double s0 = 0.0, s1 = 0.0;
+    volatile float result = 0.0f;
+    s0 = (double)((int)randomValue);
+    CAM_R(s0, s0 * ((double)randomScale));
+    s1 = (double)range;
+    CAM_R(s1, s1 - ((double)halfRange));
+    CAM_R(s1, s1 * (s0));
+    CAM_R(s1, s1 + ((double)halfRange));
+    CAM_R(s1, s1 + ((double)origin));
+    result = (float)s1;
+    *p_result = result;
+}
+
+__declspec(noinline) void __cdecl CamFlyByUpCpp(float roll, float radians, float halfPi, float* p_upX, float* p_upZ) {
+    double s0 = 0.0, s1 = 0.0;
+    double a0 = 0.0, a1 = 0.0;
+    volatile float upX = 0.0f;
+    volatile float upZ = 0.0f;
+    s0 = (double)roll;
+    CAM_R(s0, s0 * ((double)radians));
+    CAM_R(s0, s0 + ((double)halfPi));
+    s1 = s0;
+    a0 = s1;
+    upX = (float)(cos(a0));
+    a1 = s0;
+    upZ = (float)(sin(a1));
+    *p_upX = upX;
+    *p_upZ = upZ;
+}
+
+__declspec(noinline) void __cdecl CamFollowCarBetaBlendCpp(float betaInput, float betaCorrection, float maximumSpeed, float* p_negativeMaximum, float smoothing, float previous, float* p_result) {
+    double s0 = 0.0, s1 = 0.0;
+    unsigned cc = 0;
+    unsigned fa = 0, fb = 0;
+    unsigned eax = 0;
+    volatile float negativeMaximum = *p_negativeMaximum;
+    volatile float result = *p_result;
+    s0 = (double)betaInput;
+    CAM_R(s0, s0 + ((double)betaCorrection));
+    cc = CamX87Status(s0, (double)maximumSpeed);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_car_beta_lower355;
+    s0 = (double)maximumSpeed;
+    goto cam_car_beta_blend355;
+cam_car_beta_lower355:;
+    s1 = (double)maximumSpeed;
+    s1 = -s1;
+    negativeMaximum = (float)s1;
+    cc = CamX87Status(s0, (double)negativeMaximum);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_car_beta_blend355;
+    s0 = (double)negativeMaximum;
+cam_car_beta_blend355:;
+    s1 = (double)CAM_LF(0x858624);
+    CAM_R(s1, s1 - ((double)smoothing));
+    CAM_R(s0, s0 * (s1));
+    s1 = (double)smoothing;
+    CAM_R(s1, s1 * ((double)previous));
+    CAM_R(s0, s0 + (s1));
+    result = (float)s0;
+    s0 = CamFabs(s0);
+    cc = CamX87Status(s0, (double)CAM_LF(0x8CCEBC));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_car_beta_done355;
+    CAM_SETBITS(result, 0x0u);
+cam_car_beta_done355:;
+    *p_negativeMaximum = negativeMaximum;
+    *p_result = result;
+}
+
+__declspec(noinline) void __cdecl CamFollowCarHistoryCpp(float radius, float frontX, float frontY, float frontZ, float* p_scaledZ, float focalX, float* p_outputX, float focalY, float* p_outputY, float focalZ, float* p_outputZ) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0;
+    volatile float scaledZ = 0.0f;
+    volatile float outputX = 0.0f;
+    volatile float outputY = 0.0f;
+    volatile float outputZ = 0.0f;
+    s0 = (double)radius;
+    CAM_R(s0, s0 * ((double)frontX));
+    s1 = (double)radius;
+    CAM_R(s1, s1 * ((double)frontY));
+    s2 = (double)radius;
+    CAM_R(s2, s2 * ((double)frontZ));
+    scaledZ = (float)s2;
+    s2 = (double)focalX;
+    CAM_R(s2, s2 - (s0));
+    outputX = (float)s2;
+    s2 = (double)focalY;
+    CAM_R(s2, s2 - (s1));
+    outputY = (float)s2;
+    s0 = (double)focalZ;
+    CAM_R(s0, s0 - ((double)scaledZ));
+    outputZ = (float)s0;
+    *p_scaledZ = scaledZ;
+    *p_outputX = outputX;
+    *p_outputY = outputY;
+    *p_outputZ = outputZ;
+}
+
+__declspec(noinline) void __cdecl CamFollowCarFinalHistoryCpp(unsigned cam, unsigned scratch) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0, s3 = 0.0, s4 = 0.0;
+    double a0 = 0.0, a1 = 0.0, a2 = 0.0;
+    unsigned eax = 0, ecx = 0, edx = 0, esi = 0, edi = 0;
+    esi = (unsigned)(cam);
+    edi = (unsigned)(scratch);
+    eax = (unsigned)((unsigned)(esi+0x1D8));
+    s0 = (double)CAM_LF((unsigned)(esi+0xBC));
+    a0 = s0;
+    CAM_R(s0, (cos(a0)) * ((double)CAM_LF((unsigned)(edi+0x8C))));
+    s0 = -s0;
+    CAM_SF((unsigned)(edi+0x6C), s0);
+    s1 = (double)CAM_LF((unsigned)(esi+0xBC));
+    a1 = s1;
+    CAM_R(s1, (sin(a1)) * ((double)CAM_LF((unsigned)(edi+0x8C))));
+    s1 = -s1;
+    s2 = s1;
+    s3 = (double)CAM_LF((unsigned)(edi+0x14));
+    a2 = s3;
+    CAM_SF((unsigned)(edi+0x8C), (sin(a2)));
+    s4 = (double)CAM_LF((unsigned)(edi+0x6C));
+    CAM_R(s4, s4 * ((double)CAM_LF((unsigned)(edi+0x2C))));
+    CAM_SF((unsigned)(edi+0x6C), s4);
+    s3 = sin(a2);
+    { double t_ = s3; s3 = s2; s2 = t_; }
+    CAM_R(s3, s3 * ((double)CAM_LF((unsigned)(edi+0x2C))));
+    CAM_SF((unsigned)(edi+0x70), s3);
+    CAM_R(s2, s2 * ((double)CAM_LF((unsigned)(edi+0x2C))));
+    s3 = (double)CAM_LF((unsigned)(edi+0x48));
+    CAM_R(s3, s3 - ((double)CAM_LF((unsigned)(edi+0x6C))));
+    CAM_SF((unsigned)(edi+0x54), s3);
+    ecx = (unsigned)(CAM_LU((unsigned)(edi+0x54)));
+    s3 = (double)CAM_LF((unsigned)(edi+0x4C));
+    CAM_SU((unsigned)(eax), ecx);
+    CAM_R(s3, s3 - ((double)CAM_LF((unsigned)(edi+0x70))));
+    CAM_SF((unsigned)(edi+0x58), s3);
+    s3 = (double)CAM_LF((unsigned)(edi+0x50));
+    edx = (unsigned)(CAM_LU((unsigned)(edi+0x58)));
+    CAM_R(s3, s3 - (s2));
+    CAM_SU((unsigned)(eax+0x4), edx);
+    CAM_SF((unsigned)(edi+0x5C), s3);
+    ecx = (unsigned)(CAM_LU((unsigned)(edi+0x5C)));
+    CAM_SU((unsigned)(eax+0x8), ecx);
+    { double t_ = s1; s1 = s0; s0 = t_; }
+    CAM_SF((unsigned)(edi+0x6C), s1);
+    s1 = (double)CAM_LF((unsigned)(edi+0x8C));
+    s2 = (double)CAM_LF((unsigned)(edi+0x6C));
+    CAM_R(s2, s2 * ((double)CAM_LF((unsigned)(edi+0x7C))));
+    CAM_SF((unsigned)(edi+0x6C), s2);
+    { double t_ = s1; s1 = s0; s0 = t_; }
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(edi+0x7C))));
+    CAM_SF((unsigned)(edi+0x70), s1);
+    CAM_R(s0, s0 * ((double)CAM_LF((unsigned)(edi+0x7C))));
+    s1 = (double)CAM_LF((unsigned)(edi+0x48));
+    CAM_R(s1, s1 - ((double)CAM_LF((unsigned)(edi+0x6C))));
+    CAM_SF((unsigned)(edi+0x54), s1);
+    edx = (unsigned)(CAM_LU((unsigned)(edi+0x54)));
+    s1 = (double)CAM_LF((unsigned)(edi+0x4C));
+    CAM_SU((unsigned)(esi+0x1E4), edx);
+    CAM_R(s1, s1 - ((double)CAM_LF((unsigned)(edi+0x70))));
+    CAM_SF((unsigned)(edi+0x58), s1);
+    s1 = (double)CAM_LF((unsigned)(edi+0x50));
+    eax = (unsigned)(CAM_LU((unsigned)(edi+0x58)));
+    CAM_R(s1, s1 - (s0));
+    CAM_SU((unsigned)(esi+0x1E8), eax);
+    eax = (unsigned)(CAM_LU((unsigned)(edi+0x24)));
+    CAM_SF((unsigned)(edi+0x5C), s1);
+    ecx = (unsigned)(CAM_LU((unsigned)(edi+0x5C)));
+    CAM_SU((unsigned)(esi+0x1EC), ecx);
+}
+
+__declspec(noinline) void __cdecl CamFollowCarBetaCorrectionCpp(unsigned cam, unsigned vehicle, unsigned scratch, unsigned front) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0, s3 = 0.0, s4 = 0.0, s5 = 0.0, s6 = 0.0, s7 = 0.0;
+    double a0 = 0.0, a1 = 0.0, a2 = 0.0, a3 = 0.0;
+    unsigned cc = 0;
+    unsigned fa = 0, fb = 0;
+    unsigned eax = 0, ebx = 0, ecx = 0, esi = 0, edi = 0, ebp = 0;
+    esi = (unsigned)(cam);
+    edi = (unsigned)(vehicle);
+    ecx = (unsigned)(scratch);
+    eax = (unsigned)(front);
+    ebp = (unsigned)(eax);
+    s0 = (double)CAM_LF((unsigned)(ebp));
+    s0 = -s0;
+    s1 = (double)CAM_LF((unsigned)(esi+0x194));
+    a0 = s0;
+    a1 = s1;
+    CAM_R(s0, (atan2(a0, a1)) - ((double)CAM_LF(0x858FE4)));
+    cc = CamX87Status(s0, (double)CAM_LF(0x858CC0));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_follow_car_beta_00524E56;
+    CAM_R(s0, s0 + ((double)CAM_LF(0x858CBC)));
+cam_follow_car_beta_00524E56:;
+    s1 = (double)CAM_LF((unsigned)(edi+0x48));
+    s2 = (double)CAM_LF((unsigned)(edi+0x44));
+    s3 = s2;
+    CAM_R(s3, s3 * (s2));
+    s4 = s1;
+    CAM_R(s4, s4 * (s1));
+    CAM_R(s3, s3 + (s4));
+    CAM_R(s3, sqrt(s3));
+    s1 = s3;
+    cc = CamX87Status(s1, (double)CAM_LF(0x858B38));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_follow_car_beta_00524E8B;
+    s1 = (double)CAM_LF((unsigned)(edi+0x44));
+    s1 = -s1;
+    s2 = (double)CAM_LF((unsigned)(edi+0x48));
+    a2 = s1;
+    a3 = s2;
+    CAM_R(s1, (atan2(a2, a3)) - ((double)CAM_LF(0x858FE4)));
+    goto cam_follow_car_beta_00524E8D;
+cam_follow_car_beta_00524E8B:;
+    s1 = s0;
+cam_follow_car_beta_00524E8D:;
+    s2 = s0;
+    CAM_R(s2, s2 + ((double)CAM_LF(0x858CB8)));
+    s3 = s1;
+    cc = CamX87Status(s3, s2);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_follow_car_beta_00524EA8;
+    CAM_R(s1, s1 - ((double)CAM_LF(0x858CBC)));
+    goto cam_follow_car_beta_00524EC1;
+cam_follow_car_beta_00524EA8:;
+    s2 = s0;
+    CAM_R(s2, s2 - ((double)CAM_LF(0x858CB8)));
+    s3 = s1;
+    cc = CamX87Status(s3, s2);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_follow_car_beta_00524EC1;
+    CAM_R(s1, s1 + ((double)CAM_LF(0x858CBC)));
+cam_follow_car_beta_00524EC1:;
+    ebx = (unsigned)(CAM_LU((unsigned)(ecx+0x34)));
+    s2 = (double)CAM_LF(0xB7CB5C);
+    CAM_R(s2, s2 * ((double)CAM_LF((unsigned)(ebx+0x8CC628))));
+    s3 = (double)CAM_LF(0xB7CB5C);
+    CAM_R(s3, s3 * ((double)CAM_LF((unsigned)(ebx+0x8CC62C))));
+    CAM_SF((unsigned)(ecx+0x18), s3);
+    s3 = (double)CAM_LF((unsigned)(edi+0x4C));
+    CAM_R(s3, s3 * ((double)CAM_LF((unsigned)(ebp+0x8))));
+    s4 = (double)CAM_LF((unsigned)(edi+0x48));
+    CAM_R(s4, s4 * ((double)CAM_LF((unsigned)(ebp+0x4))));
+    CAM_R(s3, s3 + (s4));
+    s4 = (double)CAM_LF((unsigned)(edi+0x44));
+    CAM_R(s4, s4 * ((double)CAM_LF((unsigned)(ebp))));
+    CAM_R(s3, s3 + (s4));
+    s4 = s3;
+    CAM_R(s4, s4 * ((double)CAM_LF((unsigned)(ebp))));
+    s5 = s3;
+    CAM_R(s5, s5 * ((double)CAM_LF((unsigned)(ebp+0x4))));
+    CAM_SF((unsigned)(ecx+0x70), s5);
+    { double t_ = s4; s4 = s3; s3 = t_; }
+    CAM_R(s4, s4 * ((double)CAM_LF((unsigned)(ebp+0x8))));
+    CAM_SF((unsigned)(ecx+0x74), s4);
+    CAM_R(s3, ((double)CAM_LF((unsigned)(edi+0x44))) - s3);
+    s4 = (double)CAM_LF((unsigned)(edi+0x48));
+    CAM_R(s4, s4 - ((double)CAM_LF((unsigned)(ecx+0x70))));
+    s5 = (double)CAM_LF((unsigned)(edi+0x4C));
+    CAM_R(s5, s5 - ((double)CAM_LF((unsigned)(ecx+0x74))));
+    s6 = s3;
+    CAM_R(s6, s6 * (s3));
+    s7 = s5;
+    CAM_R(s7, s7 * (s5));
+    CAM_R(s6, s6 + (s7));
+    s7 = s4;
+    CAM_R(s7, s7 * (s4));
+    CAM_R(s6, s6 + (s7));
+    CAM_R(s6, sqrt(s6));
+    CAM_SF((unsigned)(ecx+0x8C), s6);
+    CAM_R(s2, s2 * ((double)CAM_LF((unsigned)(ecx+0x8C))));
+    s3 = (double)CAM_LF(0x858624);
+    cc = CamX87Status(s3, s2);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_follow_car_beta_00524F5C;
+    s2 = (double)CAM_LF(0x858624);
+cam_follow_car_beta_00524F5C:;
+    { double t_ = s2; s2 = s1; s1 = t_; }
+    CAM_R(s2, s2 - (s0));
+    CAM_R(s1, s1 * (s2));
+    cc = CamX87Status(s1, (double)CAM_LF((unsigned)(ecx+0x18)));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_follow_car_beta_00524F75;
+    s1 = (double)CAM_LF((unsigned)(ecx+0x18));
+    goto cam_follow_car_beta_00524F99;
+cam_follow_car_beta_00524F75:;
+    s2 = (double)CAM_LF((unsigned)(ecx+0x18));
+    s2 = -s2;
+    CAM_SF((unsigned)(ecx+0x8C), s2);
+    cc = CamX87Status(s1, (double)CAM_LF((unsigned)(ecx+0x8C)));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_follow_car_beta_00524F99;
+    s1 = (double)CAM_LF((unsigned)(ecx+0x8C));
+cam_follow_car_beta_00524F99:;
+    CAM_R(s0, s0 + (s1));
+    s1 = (double)CAM_LF((unsigned)(esi+0xBC));
+    CAM_R(s1, s1 + ((double)CAM_LF(0x858CB8)));
+    s2 = s0;
+    cc = CamX87Status(s2, s1);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_follow_car_beta_00524FBA;
+    CAM_R(s0, s0 - ((double)CAM_LF(0x858CBC)));
+    goto cam_follow_car_beta_00524FD7;
+cam_follow_car_beta_00524FBA:;
+    s1 = (double)CAM_LF((unsigned)(esi+0xBC));
+    CAM_R(s1, s1 - ((double)CAM_LF(0x858CB8)));
+    s2 = s0;
+    cc = CamX87Status(s2, s1);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_follow_car_beta_00524FD7;
+    CAM_R(s0, s0 + ((double)CAM_LF(0x858CBC)));
+cam_follow_car_beta_00524FD7:;
+    s1 = (double)CAM_LF(0x858624);
+    cc = CamX87Status(s1, (double)CAM_LF(0xB7CB5C));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_follow_car_beta_00524FF2;
+    s1 = (double)CAM_LF(0x858624);
+    goto cam_follow_car_beta_00524FF8;
+cam_follow_car_beta_00524FF2:;
+    s1 = (double)CAM_LF(0xB7CB5C);
+cam_follow_car_beta_00524FF8:;
+    { double t_ = s1; s1 = s0; s0 = t_; }
+    CAM_R(s1, s1 - ((double)CAM_LF((unsigned)(esi+0xBC))));
+    CAM_R(s1, s1 / (s0));
+    CAM_SF((unsigned)(ecx+0x44), s1);
+    ebp = (unsigned)(ebp);
+}
+
+__declspec(noinline) void __cdecl CamFollowCarActualDistanceCpp(unsigned origin, unsigned previous, float* p_result) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0, s3 = 0.0;
+    unsigned eax = 0, edx = 0;
+    volatile float result = 0.0f;
+    eax = (unsigned)(origin);
+    edx = (unsigned)(previous);
+    s0 = (double)CAM_LF((unsigned)(eax));
+    CAM_R(s0, s0 - ((double)CAM_LF((unsigned)(edx))));
+    s1 = (double)CAM_LF((unsigned)(eax+0x4));
+    CAM_R(s1, s1 - ((double)CAM_LF((unsigned)(edx+0x4))));
+    s2 = (double)CAM_LF((unsigned)(eax+0x8));
+    CAM_R(s2, s2 - ((double)CAM_LF((unsigned)(edx+0x8))));
+    s3 = s0;
+    CAM_R(s0, s0 * (s3));
+    s3 = s2;
+    CAM_R(s3, s3 * (s2));
+    CAM_R(s0, s0 + (s3));
+    s3 = s1;
+    CAM_R(s3, s3 * (s1));
+    CAM_R(s0, s0 + (s3));
+    { double t_ = s2; s2 = s0; s0 = t_; }
+    CAM_R(s2, sqrt(s2));
+    s0 = s2;
+    result = (float)s0;
+    *p_result = result;
+}
+
+__declspec(noinline) void __cdecl CamFollowCarAutoAlphaCpp(float base, float step, float wanted, float previous, float* p_result, float maximum) {
+    double s0 = 0.0, s1 = 0.0;
+    unsigned cc = 0;
+    unsigned fa = 0, fb = 0;
+    unsigned eax = 0;
+    volatile float result = *p_result;
+    s0 = (double)base;
+    s1 = (double)step;
+    eax = (unsigned)(0x822130u);
+    s0 = ExeCompatiblePowCpp(s0, s1);
+    CAM_R(s0, ((double)CAM_LF(0x858624)) - s0);
+    s1 = (double)wanted;
+    CAM_R(s1, s1 - ((double)previous));
+    CAM_R(s0, s0 * (s1));
+    result = (float)s0;
+    cc = CamX87Status(s0, (double)maximum);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_car_auto_lower355;
+    eax = (unsigned)(CAM_BITS(maximum));
+    CAM_SETBITS(result, eax);
+    goto cam_car_auto_done355;
+cam_car_auto_lower355:;
+    s0 = (double)maximum;
+    s0 = -s0;
+    s1 = (double)result;
+    cc = CamX87Status(s1, s0);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_car_auto_keep355;
+    result = (float)s0;
+    goto cam_car_auto_done355;
+cam_car_auto_keep355:;
+cam_car_auto_done355:;
+    *p_result = result;
+}
+
+__declspec(noinline) void __cdecl CamFollowCarAlphaComplementCpp(float smoothing, float* p_complement) {
+    double s0 = 0.0;
+    volatile float complement = 0.0f;
+    s0 = (double)CAM_LF(0x858624);
+    CAM_R(s0, s0 - ((double)smoothing));
+    complement = (float)s0;
+    *p_complement = complement;
+}
+
+__declspec(noinline) void __cdecl CamFollowCarAlphaBlendCpp(unsigned cam, unsigned scratch) {
+    double s0 = 0.0, s1 = 0.0;
+    unsigned cc = 0;
+    unsigned fa = 0, fb = 0;
+    unsigned eax = 0, esi = 0, edi = 0;
+    esi = (unsigned)(cam);
+    edi = (unsigned)(scratch);
+    s0 = (double)CAM_LF((unsigned)(edi+0x8C));
+    CAM_R(s0, s0 * ((double)CAM_LF((unsigned)(edi+0x10))));
+    s1 = (double)CAM_LF((unsigned)(edi+0x3C));
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(esi+0xB0))));
+    CAM_R(s0, s0 + (s1));
+    CAM_SF((unsigned)(edi+0x8C), s0);
+    CAM_SF((unsigned)(esi+0xB0), s0);
+    s0 = (double)CAM_LF((unsigned)(edi+0x10));
+    cc = CamX87Status(s0, (double)CAM_LF(0x858B50));
+    s0 = (double)CAM_LF((unsigned)(edi+0x18));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_car_alpha_005259E0;
+    CAM_R(s0, s0 * ((double)CAM_LF(0x858B8C)));
+cam_car_alpha_005259E0:;
+    s1 = (double)CAM_LF((unsigned)(edi+0x8C));
+    cc = CamX87Status(s1, s0);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_car_alpha_005259F8;
+    CAM_SF((unsigned)(esi+0xB0), s0);
+    goto cam_car_alpha_00525A14;
+cam_car_alpha_005259F8:;
+    s0 = -s0;
+    s1 = (double)CAM_LF((unsigned)(edi+0x8C));
+    cc = CamX87Status(s1, s0);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_car_alpha_00525A12;
+    CAM_SF((unsigned)(esi+0xB0), s0);
+    goto cam_car_alpha_00525A14;
+cam_car_alpha_00525A12:;
+cam_car_alpha_00525A14:;
+    s0 = (double)CAM_LF((unsigned)(esi+0xB0));
+    s0 = CamFabs(s0);
+    cc = CamX87Status(s0, (double)CAM_LF(0x8CCEB4));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_car_alpha_end;
+    CAM_SU((unsigned)(esi+0xB0), 0x0u);
+cam_car_alpha_end:;
+}
+
+__declspec(noinline) void __cdecl CamMouseFinalDistanceCpp(unsigned cam, unsigned source, unsigned scratch) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0, s3 = 0.0, s4 = 0.0;
+    unsigned cc = 0;
+    unsigned fa = 0, fb = 0;
+    unsigned eax = 0, ebx = 0, ecx = 0, edx = 0, esi = 0, edi = 0;
+    edi = (unsigned)(cam);
+    ebx = (unsigned)(source);
+    esi = (unsigned)(scratch);
+    s0 = (double)CAM_LF((unsigned)(esi+0x28));
+    CAM_R(s0, s0 - ((double)CAM_LF((unsigned)(ebx))));
+    s1 = (double)CAM_LF((unsigned)(esi+0x2C));
+    CAM_R(s1, s1 - ((double)CAM_LF((unsigned)(ebx+0x4))));
+    s2 = (double)CAM_LF((unsigned)(esi+0x30));
+    CAM_R(s2, s2 - ((double)CAM_LF((unsigned)(ebx+0x8))));
+    s3 = s2;
+    CAM_R(s3, s3 * (s2));
+    s4 = s1;
+    CAM_R(s4, s4 * (s1));
+    CAM_R(s3, s3 + (s4));
+    s4 = s0;
+    CAM_R(s4, s4 * (s0));
+    CAM_R(s3, s3 + (s4));
+    CAM_R(s3, sqrt(s3));
+    s0 = s3;
+    CAM_SF((unsigned)(esi+0x10), s0);
+    cc = CamX87Status(s0, (double)CAM_LF((unsigned)(edi+0xC4)));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_mouse_final_005103C4;
+    eax = (unsigned)(CAM_LU((unsigned)(esi+0x10)));
+    CAM_SU((unsigned)(edi+0xC4), eax);
+    goto cam_mouse_final_end;
+cam_mouse_final_005103C4:;
+    s0 = (double)CAM_LF(0x862F14);
+    s1 = (double)CAM_LF(0xB7CB5C);
+    eax = (unsigned)(0x822130u);
+    s0 = ExeCompatiblePowCpp(s0, s1);
+    s1 = (double)CAM_LF(0x858624);
+    CAM_R(s1, s1 - (s0));
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(esi+0x10))));
+    { double t_ = s1; s1 = s0; s0 = t_; }
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(edi+0xC4))));
+    CAM_R(s0, s0 + (s1));
+    CAM_SF((unsigned)(edi+0xC4), s0);
+    s1 = (double)CAM_LF((unsigned)(esi+0x10));
+    cc = CamX87Status(s1, (double)CAM_LF(0x858C28));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_mouse_final_0051049C;
+    s1 = (double)CAM_LF((unsigned)(ebx));
+    CAM_R(s1, s1 - ((double)CAM_LF((unsigned)(esi+0x28))));
+    s2 = (double)CAM_LF((unsigned)(ebx+0x4));
+    CAM_R(s2, s2 - ((double)CAM_LF((unsigned)(esi+0x2C))));
+    s3 = (double)CAM_LF((unsigned)(ebx+0x8));
+    CAM_R(s3, s3 - ((double)CAM_LF((unsigned)(esi+0x30))));
+    CAM_SF((unsigned)(esi+0x9C), s3);
+    s3 = s0;
+    CAM_SF((unsigned)(esi+0x14), s3);
+    { double t_ = s2; s2 = s1; s1 = t_; }
+    CAM_R(s2, s2 * ((double)CAM_LF((unsigned)(esi+0x14))));
+    CAM_SF((unsigned)(esi+0xA0), s2);
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(esi+0x14))));
+    s2 = (double)CAM_LF((unsigned)(esi+0x9C));
+    CAM_R(s2, s2 * ((double)CAM_LF((unsigned)(esi+0x14))));
+    s3 = (double)CAM_LF(0x858624);
+    CAM_R(s3, s3 / ((double)CAM_LF((unsigned)(esi+0x10))));
+    s4 = (double)CAM_LF((unsigned)(esi+0xA0));
+    CAM_R(s4, s4 * (s3));
+    CAM_SF((unsigned)(esi+0x44), s4);
+    { double t_ = s3; s3 = s1; s1 = t_; }
+    CAM_R(s3, s3 * (s1));
+    CAM_SF((unsigned)(esi+0x48), s3);
+    CAM_R(s2, s2 * (s1));
+    { double t_ = s2; s2 = s1; s1 = t_; }
+    s2 = (double)CAM_LF((unsigned)(esi+0x44));
+    CAM_R(s2, s2 + ((double)CAM_LF((unsigned)(esi+0x28))));
+    CAM_SF((unsigned)(esi+0x34), s2);
+    ecx = (unsigned)(CAM_LU((unsigned)(esi+0x34)));
+    s2 = (double)CAM_LF((unsigned)(esi+0x48));
+    CAM_SU((unsigned)(ebx), ecx);
+    CAM_R(s2, s2 + ((double)CAM_LF((unsigned)(esi+0x2C))));
+    CAM_SF((unsigned)(esi+0x38), s2);
+    edx = (unsigned)(CAM_LU((unsigned)(esi+0x38)));
+    CAM_R(s1, s1 + ((double)CAM_LF((unsigned)(esi+0x30))));
+    CAM_SU((unsigned)(ebx+0x4), edx);
+    CAM_SF((unsigned)(esi+0x3C), s1);
+    eax = (unsigned)(CAM_LU((unsigned)(esi+0x3C)));
+    CAM_SU((unsigned)(ebx+0x8), eax);
+cam_mouse_final_0051049C:;
+    CAM_R(s0, s0 - ((double)CAM_LF(0x8CC38C)));
+    ecx = (unsigned)(CAM_LU(0xC1703C));
+    s1 = (double)CAM_LF((unsigned)(ecx+0x80));
+    s2 = s0;
+    cc = CamX87Status(s2, s1);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_mouse_final_005104F4;
+    cc = CamX87Status(s0, (double)CAM_LF(0x858B1C));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_mouse_final_005104DA;
+    CAM_SF((unsigned)(esi+0x10), s0);
+    edx = (unsigned)(CAM_LU((unsigned)(esi+0x10)));
+    eax = (unsigned)(0x7EE1D0u);
+    ((void(__cdecl*)(void*, unsigned))(uintptr_t)0x7EE1D0)((void*)(uintptr_t)(ecx), (unsigned)(edx));
+    goto cam_mouse_final_end;
+cam_mouse_final_005104DA:;
+    CAM_SU((unsigned)(esi+0x10), 0x3DCCCCCDu);
+    edx = (unsigned)(CAM_LU((unsigned)(esi+0x10)));
+    eax = (unsigned)(0x7EE1D0u);
+    ((void(__cdecl*)(void*, unsigned))(uintptr_t)0x7EE1D0)((void*)(uintptr_t)(ecx), (unsigned)(edx));
+    goto cam_mouse_final_end;
+cam_mouse_final_005104F4:;
+cam_mouse_final_end:;
+}
+
+__declspec(noinline) void __cdecl CamMouseChangesStickCpp(float inputY, float fov, float scaleFactor, float stickBeta, float step, float stickScale, float inputX, float* p_betaResult, float stickAlpha, float* p_alphaResult) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0;
+    volatile float betaResult = 0.0f;
+    volatile float alphaResult = 0.0f;
+    s0 = (double)inputY;
+    s1 = (double)fov;
+    CAM_R(s1, s1 * ((double)scaleFactor));
+    s2 = (double)stickBeta;
+    CAM_R(s2, s2 * (s1));
+    CAM_R(s2, s2 * ((double)step));
+    CAM_R(s2, s2 * ((double)stickScale));
+    CAM_R(s2, s2 * ((double)inputX));
+    betaResult = (float)s2;
+    CAM_R(s1, s1 * ((double)stickAlpha));
+    CAM_R(s1, s1 * ((double)step));
+    CAM_R(s1, s1 * (s0));
+    CAM_R(s1, s1 * ((double)stickScale));
+    alphaResult = (float)s1;
+    *p_betaResult = betaResult;
+    *p_alphaResult = alphaResult;
+}
+
+__declspec(noinline) void __cdecl CamMouseChangesMouseCpp(float inputX, float mouseBeta, float inputY, float mouseAlpha, float fov, float scaleFactor, float betaSensitivity, float* p_betaResult, float alphaSensitivity, float* p_alphaResult) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0, s3 = 0.0;
+    volatile float betaResult = 0.0f;
+    volatile float alphaResult = 0.0f;
+    s0 = (double)inputX;
+    CAM_R(s0, s0 * ((double)mouseBeta));
+    s1 = (double)inputY;
+    CAM_R(s1, s1 * ((double)mouseAlpha));
+    s2 = (double)fov;
+    CAM_R(s2, s2 * ((double)scaleFactor));
+    s3 = (double)betaSensitivity;
+    CAM_R(s3, s3 * (s2));
+    CAM_R(s3, s3 * (s0));
+    betaResult = (float)s3;
+    CAM_R(s2, s2 * (s1));
+    CAM_R(s2, s2 * ((double)alphaSensitivity));
+    alphaResult = (float)s2;
+    *p_betaResult = betaResult;
+    *p_alphaResult = alphaResult;
+}
+
+__declspec(noinline) void __cdecl CamMouseRepeatedRadiusCpp(float fov, float radians, float half, float aspect, float nearPlane, float factor, float* p_result) {
+    double s0 = 0.0, s1 = 0.0;
+    double a0 = 0.0;
+    volatile float result = 0.0f;
+    s0 = (double)fov;
+    CAM_R(s0, s0 * ((double)radians));
+    CAM_R(s0, s0 * ((double)half));
+    a0 = s0;
+    s1 = 1.0;
+    CAM_R(s0, (tan(a0)) * ((double)aspect));
+    CAM_R(s0, s0 * ((double)nearPlane));
+    CAM_R(s0, s0 * ((double)factor));
+    result = (float)s0;
+    *p_result = result;
+}
+
+__declspec(noinline) void __cdecl CamMousePerpendicularDistanceCpp(float one, float radiusFactor, float* p_inverse, unsigned collision, unsigned source, unsigned front, float* p_zDifference, float* p_yProjection, float* p_zProjection, float* p_xPerpendicular, float* p_result) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0, s3 = 0.0, s4 = 0.0;
+    unsigned eax = 0, ecx = 0, edx = 0;
+    volatile float inverse = 0.0f;
+    volatile float zDifference = 0.0f;
+    volatile float yProjection = 0.0f;
+    volatile float zProjection = 0.0f;
+    volatile float xPerpendicular = 0.0f;
+    volatile float result = 0.0f;
+    s0 = (double)one;
+    CAM_R(s0, s0 / ((double)radiusFactor));
+    inverse = (float)s0;
+    eax = (unsigned)(collision);
+    edx = (unsigned)(source);
+    ecx = (unsigned)(front);
+    s0 = (double)CAM_LF((unsigned)(eax));
+    CAM_R(s0, s0 - ((double)CAM_LF((unsigned)(edx))));
+    s1 = (double)CAM_LF((unsigned)(eax+0x4));
+    CAM_R(s1, s1 - ((double)CAM_LF((unsigned)(edx+0x4))));
+    s2 = (double)CAM_LF((unsigned)(eax+0x8));
+    CAM_R(s2, s2 - ((double)CAM_LF((unsigned)(edx+0x8))));
+    zDifference = (float)s2;
+    CAM_R(s2, s2 * ((double)CAM_LF((unsigned)(ecx+0x8))));
+    s3 = s1;
+    CAM_R(s3, s3 * ((double)CAM_LF((unsigned)(ecx+0x4))));
+    CAM_R(s2, s2 + (s3));
+    s3 = s0;
+    CAM_R(s3, s3 * ((double)CAM_LF((unsigned)(ecx))));
+    CAM_R(s2, s2 + (s3));
+    s3 = s2;
+    CAM_R(s3, s3 * ((double)CAM_LF((unsigned)(ecx))));
+    s4 = s2;
+    CAM_R(s4, s4 * ((double)CAM_LF((unsigned)(ecx+0x4))));
+    yProjection = (float)s4;
+    { double t_ = s3; s3 = s2; s2 = t_; }
+    CAM_R(s3, s3 * ((double)CAM_LF((unsigned)(ecx+0x8))));
+    zProjection = (float)s3;
+    { double t_ = s2; s2 = s0; s0 = t_; }
+    CAM_R(s2, s2 - (s0));
+    xPerpendicular = (float)s2;
+    s0 = s1;
+    CAM_R(s0, s0 - ((double)yProjection));
+    s1 = (double)zDifference;
+    CAM_R(s1, s1 - ((double)zProjection));
+    s2 = s1;
+    CAM_R(s2, s2 * (s1));
+    s3 = s0;
+    CAM_R(s3, s3 * (s0));
+    CAM_R(s2, s2 + (s3));
+    s3 = (double)xPerpendicular;
+    CAM_R(s3, s3 * ((double)xPerpendicular));
+    CAM_R(s2, s2 + (s3));
+    CAM_R(s2, sqrt(s2));
+    s0 = s2;
+    CAM_R(s0, s0 * ((double)inverse));
+    result = (float)s0;
+    *p_inverse = inverse;
+    *p_zDifference = zDifference;
+    *p_yProjection = yProjection;
+    *p_zProjection = zProjection;
+    *p_xPerpendicular = xPerpendicular;
+    *p_result = result;
+}
+
+__declspec(noinline) void __cdecl CamMouseSphereCenterCpp(unsigned front, unsigned source, unsigned result, float nearPlane, float* p_zProduct) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0;
+    unsigned eax = 0, ecx = 0, edx = 0;
+    volatile float zProduct = 0.0f;
+    eax = (unsigned)(front);
+    edx = (unsigned)(source);
+    ecx = (unsigned)(result);
+    s0 = (double)nearPlane;
+    CAM_R(s0, s0 * ((double)CAM_LF((unsigned)(eax))));
+    s1 = (double)nearPlane;
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(eax+0x4))));
+    s2 = (double)nearPlane;
+    CAM_R(s2, s2 * ((double)CAM_LF((unsigned)(eax+0x8))));
+    zProduct = (float)s2;
+    { double t_ = s1; s1 = s0; s0 = t_; }
+    CAM_R(s1, s1 + ((double)CAM_LF((unsigned)(edx))));
+    CAM_SF((unsigned)(ecx), s1);
+    CAM_R(s0, s0 + ((double)CAM_LF((unsigned)(edx+0x4))));
+    CAM_SF((unsigned)(ecx+0x4), s0);
+    s0 = (double)zProduct;
+    CAM_R(s0, s0 + ((double)CAM_LF((unsigned)(edx+0x8))));
+    CAM_SF((unsigned)(ecx+0x8), s0);
+    *p_zProduct = zProduct;
+}
+
+__declspec(noinline) void __cdecl CamMouseInitialSourceCpp(unsigned target, unsigned front, unsigned result, float distance, float* p_zProduct) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0;
+    unsigned eax = 0, ecx = 0, edx = 0;
+    volatile float zProduct = 0.0f;
+    eax = (unsigned)(target);
+    edx = (unsigned)(front);
+    ecx = (unsigned)(result);
+    s0 = (double)distance;
+    CAM_R(s0, s0 * ((double)CAM_LF((unsigned)(edx))));
+    s1 = (double)distance;
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(edx+0x4))));
+    s2 = (double)distance;
+    CAM_R(s2, s2 * ((double)CAM_LF((unsigned)(edx+0x8))));
+    zProduct = (float)s2;
+    s2 = (double)CAM_LF((unsigned)(eax));
+    CAM_R(s2, s2 - (s0));
+    CAM_SF((unsigned)(ecx), s2);
+    s2 = (double)CAM_LF((unsigned)(eax+0x4));
+    CAM_R(s2, s2 - (s1));
+    CAM_SF((unsigned)(ecx+0x4), s2);
+    s0 = (double)CAM_LF((unsigned)(eax+0x8));
+    CAM_R(s0, s0 - ((double)zProduct));
+    CAM_SF((unsigned)(ecx+0x8), s0);
+    *p_zProduct = zProduct;
+}
+
+__declspec(noinline) void __cdecl CamMouseFirstHitDistanceCpp(unsigned target, unsigned hit, float* p_result) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0, s3 = 0.0, s4 = 0.0;
+    unsigned eax = 0, edx = 0;
+    volatile float result = 0.0f;
+    eax = (unsigned)(target);
+    edx = (unsigned)(hit);
+    s0 = (double)CAM_LF((unsigned)(eax));
+    CAM_R(s0, s0 - ((double)CAM_LF((unsigned)(edx))));
+    s1 = (double)CAM_LF((unsigned)(eax+0x4));
+    CAM_R(s1, s1 - ((double)CAM_LF((unsigned)(edx+0x4))));
+    s2 = (double)CAM_LF((unsigned)(eax+0x8));
+    CAM_R(s2, s2 - ((double)CAM_LF((unsigned)(edx+0x8))));
+    s3 = s2;
+    CAM_R(s3, s3 * (s2));
+    s4 = s1;
+    CAM_R(s4, s4 * (s1));
+    CAM_R(s3, s3 + (s4));
+    s4 = s0;
+    CAM_R(s4, s4 * (s0));
+    CAM_R(s3, s3 + (s4));
+    CAM_R(s3, sqrt(s3));
+    s0 = s3;
+    result = (float)s0;
+    *p_result = result;
+}
+
+__declspec(noinline) void __cdecl CamMousePullSourceCpp(unsigned target, unsigned source, float* p_zDifference, float factor, float* p_xProduct) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0;
+    unsigned eax = 0, edx = 0;
+    volatile float zDifference = 0.0f;
+    volatile float xProduct = 0.0f;
+    eax = (unsigned)(target);
+    edx = (unsigned)(source);
+    s0 = (double)CAM_LF((unsigned)(eax));
+    CAM_R(s0, s0 - ((double)CAM_LF((unsigned)(edx))));
+    s1 = (double)CAM_LF((unsigned)(eax+0x4));
+    CAM_R(s1, s1 - ((double)CAM_LF((unsigned)(edx+0x4))));
+    s2 = (double)CAM_LF((unsigned)(eax+0x8));
+    CAM_R(s2, s2 - ((double)CAM_LF((unsigned)(edx+0x8))));
+    zDifference = (float)s2;
+    { double t_ = s1; s1 = s0; s0 = t_; }
+    CAM_R(s1, s1 * ((double)factor));
+    xProduct = (float)s1;
+    CAM_R(s0, s0 * ((double)factor));
+    s1 = (double)zDifference;
+    CAM_R(s1, s1 * ((double)factor));
+    s2 = (double)xProduct;
+    CAM_R(s2, s2 + ((double)CAM_LF((unsigned)(edx))));
+    CAM_SF((unsigned)(edx), s2);
+    { double t_ = s1; s1 = s0; s0 = t_; }
+    CAM_R(s1, s1 + ((double)CAM_LF((unsigned)(edx+0x4))));
+    CAM_SF((unsigned)(edx+0x4), s1);
+    CAM_R(s0, s0 + ((double)CAM_LF((unsigned)(edx+0x8))));
+    CAM_SF((unsigned)(edx+0x8), s0);
+    *p_zDifference = zDifference;
+    *p_xProduct = xProduct;
+}
+
+__declspec(noinline) void __cdecl CamMouseRecenterDeltaCpp(float orientation, float beta, float* p_result) {
+    double s0 = 0.0;
+    volatile float result = 0.0f;
+    s0 = (double)orientation;
+    CAM_R(s0, s0 + ((double)CAM_LF(0x858CB8)));
+    CAM_R(s0, s0 - ((double)beta));
+    result = (float)s0;
+    *p_result = result;
+}
+
+__declspec(noinline) void __cdecl CamFollowMouseDistanceCpp(float alpha, float alphaMultiplier, float* p_distance) {
+    double s0 = 0.0, s1 = 0.0;
+    double a0 = 0.0;
+    unsigned cc = 0;
+    unsigned fa = 0, fb = 0;
+    unsigned eax = 0;
+    volatile float distance = *p_distance;
+    s0 = (double)alpha;
+    s1 = 0.0;
+    cc = CamX87Status(s1, s0);
+    if (!((cc & 0x01) != 0)) goto cam_follow_mouse_nonpositive_alpha;
+    CAM_R(s0, s0 * ((double)alphaMultiplier));
+    cc = CamX87Status(s0, (double)CAM_LF(0x858FE4));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_follow_mouse_positive_bounded;
+    s0 = (double)CAM_LF(0x858FE4);
+    goto cam_follow_mouse_cos_distance;
+cam_follow_mouse_positive_bounded:;
+    s0 = (double)alpha;
+    CAM_R(s0, s0 * ((double)alphaMultiplier));
+    goto cam_follow_mouse_cos_distance;
+cam_follow_mouse_nonpositive_alpha:;
+cam_follow_mouse_cos_distance:;
+    a0 = s0;
+    CAM_R(s0, (cos(a0)) * ((double)CAM_LF(0x8CC7C4)));
+    CAM_R(s0, s0 + ((double)CAM_LF(0x8CC7C0)));
+    distance = (float)s0;
+    *p_distance = distance;
+}
+
+__declspec(noinline) void __cdecl CamFollowMouseRadiusCpp(float fov, float radians, float half, float factor, float* p_radiusFactor) {
+    double s0 = 0.0, s1 = 0.0;
+    double a0 = 0.0;
+    volatile float radiusFactor = 0.0f;
+    s0 = (double)fov;
+    CAM_R(s0, s0 * ((double)radians));
+    CAM_R(s0, s0 * ((double)half));
+    a0 = s0;
+    s1 = 1.0;
+    CAM_R(s0, (tan(a0)) * ((double)CAM_LF(0xC3EFA4)));
+    CAM_R(s0, s0 * ((double)factor));
+    radiusFactor = (float)s0;
+    *p_radiusFactor = radiusFactor;
+}
+
+__declspec(noinline) void __cdecl CamRound4ScaleCpp(int five, float value, float* p_scaled) {
+    double s0 = 0.0, s1 = 0.0;
+    unsigned cc = 0;
+    unsigned fa = 0, fb = 0;
+    unsigned eax = 0;
+    volatile float scaled = *p_scaled;
+    s0 = (double)CAM_LD(0x859EA8);
+    s1 = (double)((int)five);
+    eax = (unsigned)(0x822130u);
+    s0 = ExeCompatiblePowCpp(s0, s1);
+    CAM_R(s0, s0 * ((double)value));
+    s1 = (double)value;
+    cc = CamX87Status(s1, (double)CAM_LF(0x858B50));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_camera_round_positive;
+    CAM_R(s0, s0 - ((double)CAM_LF(0x858C80)));
+    goto cam_camera_round_fraction;
+cam_camera_round_positive:;
+    CAM_R(s0, s0 + ((double)CAM_LF(0x858C80)));
+cam_camera_round_fraction:;
+    CAM_R(s0, s0 * ((double)CAM_LF(0x858B1C)));
+    scaled = (float)s0;
+    *p_scaled = scaled;
+}
+
+__declspec(noinline) void __cdecl CamRound4FinishCpp(float integral, int four, float* p_result) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0;
+    unsigned eax = 0;
+    volatile float result = 0.0f;
+    s0 = (double)integral;
+    s1 = (double)CAM_LD(0x859EA8);
+    s2 = (double)((int)four);
+    eax = (unsigned)(0x822130u);
+    s1 = ExeCompatiblePowCpp(s1, s2);
+    CAM_R(s0, s0 / (s1));
+    result = (float)s0;
+    *p_result = result;
+}
+
+__declspec(noinline) void __cdecl CamFollowPedAutoAlphaCpp(float base, float step, float wanted, float previous, float* p_result, float maximum) {
+    double s0 = 0.0, s1 = 0.0;
+    unsigned cc = 0;
+    unsigned fa = 0, fb = 0;
+    unsigned eax = 0;
+    volatile float result = *p_result;
+    s0 = (double)base;
+    s1 = (double)step;
+    eax = (unsigned)(0x822130u);
+    s0 = ExeCompatiblePowCpp(s0, s1);
+    CAM_R(s0, ((double)CAM_LF(0x858624)) - s0);
+    s1 = (double)wanted;
+    CAM_R(s1, s1 - ((double)previous));
+    CAM_R(s0, s0 * (s1));
+    result = (float)s0;
+    cc = CamX87Status(s0, (double)maximum);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_ped_auto_lower355;
+    eax = (unsigned)(CAM_BITS(maximum));
+    CAM_SETBITS(result, eax);
+    goto cam_ped_auto_done355;
+cam_ped_auto_lower355:;
+    s0 = (double)maximum;
+    s0 = -s0;
+    s1 = (double)result;
+    cc = CamX87Status(s1, s0);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_ped_auto_keep355;
+    result = (float)s0;
+    goto cam_ped_auto_done355;
+cam_ped_auto_keep355:;
+cam_ped_auto_done355:;
+    *p_result = result;
+}
+
+__declspec(noinline) void __cdecl CamFollowPedPitchCorrectionCpp(float wantedPitch, float followWeight, float followMaximum, float* p_maximum, float taskWeight, float historyPitch, float* p_negativeMaximum, float verticalOffset, float* p_result) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0;
+    unsigned cc = 0;
+    unsigned fa = 0, fb = 0;
+    unsigned eax = 0;
+    volatile float maximum = *p_maximum;
+    volatile float negativeMaximum = *p_negativeMaximum;
+    volatile float result = *p_result;
+    s0 = (double)wantedPitch;
+    s1 = (double)CAM_LF(0x8CCE84);
+    CAM_R(s1, s1 * ((double)followWeight));
+    s2 = (double)CAM_LF(0x858624);
+    cc = CamX87Status(s2, s1);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_pedPitchWeight355;
+    s1 = (double)CAM_LF(0x858624);
+cam_pedPitchWeight355:;
+    s2 = (double)CAM_LF(0x8CCE80);
+    CAM_R(s2, s2 * ((double)followMaximum));
+    maximum = (float)s2;
+    s2 = (double)taskWeight;
+    cc = CamX87Status(s2, (double)CAM_LF(0x858B50));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x44u);
+    if (!CamParity(((fa & fb) & 0xFFu))) goto cam_pedPitchProduct355;
+    CAM_R(s1, s1 * ((double)taskWeight));
+    s2 = (double)maximum;
+    CAM_R(s2, s2 * ((double)taskWeight));
+    maximum = (float)s2;
+cam_pedPitchProduct355:;
+    { double t_ = s1; s1 = s0; s0 = t_; }
+    CAM_R(s1, s1 - ((double)historyPitch));
+    CAM_R(s0, s0 * (s1));
+    cc = CamX87Status(s0, (double)maximum);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_pedPitchLower355;
+    s0 = (double)maximum;
+    goto cam_pedPitchSum355;
+cam_pedPitchLower355:;
+    s1 = (double)maximum;
+    s1 = -s1;
+    negativeMaximum = (float)s1;
+    cc = CamX87Status(s0, (double)negativeMaximum);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_pedPitchSum355;
+    s0 = (double)negativeMaximum;
+cam_pedPitchSum355:;
+    s1 = (double)historyPitch;
+    CAM_R(s1, s1 + (s0));
+    CAM_R(s1, s1 - ((double)verticalOffset));
+    result = (float)s1;
+    *p_maximum = maximum;
+    *p_negativeMaximum = negativeMaximum;
+    *p_result = result;
+}
+
+__declspec(noinline) void __cdecl CamFollowPedDistanceCpp(unsigned origin, unsigned previous, float* p_actual, float* p_distance, float rowMinimum, float minimumDistance) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0, s3 = 0.0;
+    unsigned cc = 0;
+    unsigned fa = 0, fb = 0;
+    unsigned eax = 0, edx = 0;
+    volatile float actual = *p_actual;
+    volatile float distance = *p_distance;
+    eax = (unsigned)(origin);
+    edx = (unsigned)(previous);
+    s0 = (double)CAM_LF((unsigned)(eax));
+    CAM_R(s0, s0 - ((double)CAM_LF((unsigned)(edx))));
+    s1 = (double)CAM_LF((unsigned)(eax+0x4));
+    CAM_R(s1, s1 - ((double)CAM_LF((unsigned)(edx+0x4))));
+    s2 = (double)CAM_LF((unsigned)(eax+0x8));
+    CAM_R(s2, s2 - ((double)CAM_LF((unsigned)(edx+0x8))));
+    s3 = s0;
+    CAM_R(s0, s0 * (s3));
+    s3 = s2;
+    CAM_R(s3, s3 * (s2));
+    CAM_R(s0, s0 + (s3));
+    s3 = s1;
+    CAM_R(s3, s3 * (s1));
+    CAM_R(s0, s0 + (s3));
+    { double t_ = s2; s2 = s0; s0 = t_; }
+    CAM_R(s2, sqrt(s2));
+    s0 = s2;
+    actual = (float)s0;
+    cc = CamX87Status(s0, (double)distance);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_pedDistanceDone355;
+    s0 = (double)distance;
+    cc = CamX87Status(s0, (double)rowMinimum);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_pedDistanceDone355;
+    s0 = (double)minimumDistance;
+    cc = CamX87Status(s0, (double)actual);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_pedDistanceActual355;
+    eax = (unsigned)(CAM_BITS(minimumDistance));
+    CAM_SETBITS(distance, eax);
+    goto cam_pedDistanceDone355;
+cam_pedDistanceActual355:;
+    eax = (unsigned)(CAM_BITS(actual));
+    CAM_SETBITS(distance, eax);
+cam_pedDistanceDone355:;
+    *p_actual = actual;
+    *p_distance = distance;
+}
+
+__declspec(noinline) void __cdecl CamFollowPedHistoryPitchCpp(float separation, float* p_maximum, float step, float* p_historyPitch) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0;
+    unsigned cc = 0;
+    unsigned fa = 0, fb = 0;
+    unsigned eax = 0;
+    volatile float maximum = *p_maximum;
+    volatile float historyPitch = *p_historyPitch;
+    s0 = (double)separation;
+    CAM_R(s0, s0 - ((double)CAM_LF(0x8CCE90)));
+    CAM_R(s0, s0 * ((double)CAM_LF(0x858F08)));
+    s1 = (double)CAM_LF(0x858CB8);
+    CAM_R(s1, s1 - ((double)CAM_LF(0x8CCE90)));
+    CAM_R(s0, s0 / (s1));
+    s1 = (double)CAM_LF(0x858624);
+    cc = CamX87Status(s1, s0);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_pedHistoryMaximum355;
+    s0 = (double)CAM_LF(0x858624);
+cam_pedHistoryMaximum355:;
+    s1 = (double)CAM_LF(0x858FE4);
+    CAM_R(s1, s1 - ((double)CAM_LF(0x8CCE8C)));
+    CAM_R(s1, s1 * (s0));
+    CAM_R(s1, ((double)CAM_LF(0x858FE4)) - s1);
+    maximum = (float)s1;
+    s0 = (double)CAM_LF(0x8CCE88);
+    s1 = (double)step;
+    eax = (unsigned)(0x822130u);
+    s0 = ExeCompatiblePowCpp(s0, s1);
+    s1 = (double)historyPitch;
+    cc = CamX87Status(s1, (double)maximum);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_pedHistoryNegative355;
+    s1 = (double)CAM_LF(0x858624);
+    CAM_R(s1, s1 - (s0));
+    CAM_R(s1, s1 * ((double)maximum));
+    { double t_ = s1; s1 = s0; s0 = t_; }
+    CAM_R(s1, s1 * ((double)historyPitch));
+    CAM_R(s0, s0 + (s1));
+    historyPitch = (float)s0;
+    goto cam_pedHistoryDone355;
+cam_pedHistoryNegative355:;
+    s1 = (double)maximum;
+    s1 = -s1;
+    cc = CamX87Status(s1, (double)historyPitch);
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_pedHistoryUnchanged355;
+    s1 = (double)historyPitch;
+    CAM_R(s1, s1 * (s0));
+    s2 = (double)CAM_LF(0x858624);
+    CAM_R(s2, s2 - (s0));
+    CAM_R(s2, s2 * ((double)maximum));
+    CAM_R(s1, s1 - (s2));
+    historyPitch = (float)s1;
+cam_pedHistoryUnchanged355:;
+cam_pedHistoryDone355:;
+    *p_maximum = maximum;
+    *p_historyPitch = historyPitch;
+}
+
+__declspec(noinline) void __cdecl CamFollowPedHistoryBaseCpp(float step, float speed, float wanted, float* p_result) {
+    double s0 = 0.0;
+    volatile float result = 0.0f;
+    s0 = (double)step;
+    CAM_R(s0, s0 * ((double)speed));
+    CAM_R(s0, s0 + ((double)wanted));
+    result = (float)s0;
+    *p_result = result;
+}
+
+__declspec(noinline) void __cdecl CamFollowPedResetHistoryCpp(unsigned origin, unsigned direction, unsigned firstOut, float firstDistance, float* p_zProduct, unsigned secondOut, float secondDistance) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0;
+    unsigned eax = 0, ecx = 0, edx = 0;
+    volatile float zProduct = 0.0f;
+    eax = (unsigned)(origin);
+    ecx = (unsigned)(direction);
+    edx = (unsigned)(firstOut);
+    s0 = (double)firstDistance;
+    CAM_R(s0, s0 * ((double)CAM_LF((unsigned)(ecx))));
+    s1 = (double)firstDistance;
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(ecx+0x4))));
+    s2 = (double)firstDistance;
+    CAM_R(s2, s2 * ((double)CAM_LF((unsigned)(ecx+0x8))));
+    zProduct = (float)s2;
+    s2 = (double)CAM_LF((unsigned)(eax));
+    CAM_R(s2, s2 - (s0));
+    CAM_SF((unsigned)(edx), s2);
+    s2 = (double)CAM_LF((unsigned)(eax+0x4));
+    CAM_R(s2, s2 - (s1));
+    CAM_SF((unsigned)(edx+0x4), s2);
+    s0 = (double)CAM_LF((unsigned)(eax+0x8));
+    CAM_R(s0, s0 - ((double)zProduct));
+    CAM_SF((unsigned)(edx+0x8), s0);
+    edx = (unsigned)(secondOut);
+    s0 = (double)secondDistance;
+    CAM_R(s0, s0 * ((double)CAM_LF((unsigned)(ecx))));
+    s1 = (double)secondDistance;
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(ecx+0x4))));
+    s2 = (double)secondDistance;
+    CAM_R(s2, s2 * ((double)CAM_LF((unsigned)(ecx+0x8))));
+    zProduct = (float)s2;
+    s2 = (double)CAM_LF((unsigned)(eax));
+    CAM_R(s2, s2 - (s0));
+    CAM_SF((unsigned)(edx), s2);
+    s2 = (double)CAM_LF((unsigned)(eax+0x4));
+    CAM_R(s2, s2 - (s1));
+    CAM_SF((unsigned)(edx+0x4), s2);
+    s0 = (double)CAM_LF((unsigned)(eax+0x8));
+    CAM_R(s0, s0 - ((double)zProduct));
+    CAM_SF((unsigned)(edx+0x8), s0);
+    *p_zProduct = zProduct;
+}
+
+__declspec(noinline) void __cdecl CamFollowPedHistoryCpp(float historyDelta, float verticalOffset, float* p_angle, float* p_cosAlpha, float beta, float* p_xDirection, float* p_zDirection, float historyDistance, float* p_xProduct, float* p_yProduct, unsigned origin, unsigned firstOut, float distance, unsigned secondOut) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0, s3 = 0.0, s4 = 0.0;
+    double a0 = 0.0, a1 = 0.0, a2 = 0.0, a3 = 0.0;
+    unsigned eax = 0, edx = 0;
+    volatile float angle = 0.0f;
+    volatile float cosAlpha = 0.0f;
+    volatile float xDirection = 0.0f;
+    volatile float zDirection = 0.0f;
+    volatile float xProduct = 0.0f;
+    volatile float yProduct = 0.0f;
+    s0 = (double)historyDelta;
+    CAM_R(s0, s0 + ((double)verticalOffset));
+    angle = (float)s0;
+    a0 = s0;
+    cosAlpha = (float)(cos(a0));
+    s0 = (double)beta;
+    a1 = s0;
+    CAM_R(s0, (cos(a1)) * ((double)cosAlpha));
+    s0 = -s0;
+    xDirection = (float)s0;
+    s1 = (double)beta;
+    a2 = s1;
+    CAM_R(s1, (sin(a2)) * ((double)cosAlpha));
+    s1 = -s1;
+    s2 = s1;
+    s3 = (double)angle;
+    a3 = s3;
+    zDirection = (float)(sin(a3));
+    s4 = (double)xDirection;
+    CAM_R(s4, s4 * ((double)historyDistance));
+    xProduct = (float)s4;
+    s3 = sin(a3);
+    { double t_ = s3; s3 = s2; s2 = t_; }
+    CAM_R(s3, s3 * ((double)historyDistance));
+    yProduct = (float)s3;
+    CAM_R(s2, s2 * ((double)historyDistance));
+    eax = (unsigned)(origin);
+    edx = (unsigned)(firstOut);
+    s3 = (double)CAM_LF((unsigned)(eax));
+    CAM_R(s3, s3 - ((double)xProduct));
+    CAM_SF((unsigned)(edx), s3);
+    s3 = (double)CAM_LF((unsigned)(eax+0x4));
+    CAM_R(s3, s3 - ((double)yProduct));
+    CAM_SF((unsigned)(edx+0x4), s3);
+    s3 = (double)CAM_LF((unsigned)(eax+0x8));
+    CAM_R(s3, s3 - (s2));
+    CAM_SF((unsigned)(edx+0x8), s3);
+    { double t_ = s1; s1 = s0; s0 = t_; }
+    xDirection = (float)s1;
+    s1 = (double)zDirection;
+    s2 = (double)xDirection;
+    CAM_R(s2, s2 * ((double)distance));
+    xProduct = (float)s2;
+    { double t_ = s1; s1 = s0; s0 = t_; }
+    CAM_R(s1, s1 * ((double)distance));
+    yProduct = (float)s1;
+    CAM_R(s0, s0 * ((double)distance));
+    edx = (unsigned)(secondOut);
+    s1 = (double)CAM_LF((unsigned)(eax));
+    CAM_R(s1, s1 - ((double)xProduct));
+    CAM_SF((unsigned)(edx), s1);
+    s1 = (double)CAM_LF((unsigned)(eax+0x4));
+    CAM_R(s1, s1 - ((double)yProduct));
+    CAM_SF((unsigned)(edx+0x4), s1);
+    s1 = (double)CAM_LF((unsigned)(eax+0x8));
+    CAM_R(s1, s1 - (s0));
+    CAM_SF((unsigned)(edx+0x8), s1);
+    *p_angle = angle;
+    *p_cosAlpha = cosAlpha;
+    *p_xDirection = xDirection;
+    *p_zDirection = zDirection;
+    *p_xProduct = xProduct;
+    *p_yProduct = yProduct;
+}
+
+__declspec(noinline) void __cdecl CamFollowPedHistoryHeadingCpp(float frontX, float frontY, float* p_result) {
+    double s0 = 0.0, s1 = 0.0;
+    double a0 = 0.0, a1 = 0.0;
+    unsigned cc = 0;
+    unsigned fa = 0, fb = 0;
+    unsigned eax = 0;
+    volatile float result = *p_result;
+    s0 = (double)frontX;
+    s0 = -s0;
+    s1 = (double)frontY;
+    a0 = s0;
+    a1 = s1;
+    CAM_R(s0, (atan2(a0, a1)) - ((double)CAM_LF(0x858FE4)));
+    result = (float)s0;
+    cc = CamX87Status(s0, (double)CAM_LF(0x858CC0));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_ped_history_heading_done355;
+    s0 = (double)result;
+    CAM_R(s0, s0 + ((double)CAM_LF(0x858CBC)));
+    result = (float)s0;
+cam_ped_history_heading_done355:;
+    *p_result = result;
+}
+
+__declspec(noinline) void __cdecl CamM16BlendCpp(float smoothing, float* p_complement, float betaInput, unsigned betaSpeed, unsigned alphaSpeed, float alphaInput, float* p_alphaRounded, unsigned betaAngle, unsigned alphaAngle) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0;
+    unsigned eax = 0;
+    volatile float complement = 0.0f;
+    volatile float alphaRounded = 0.0f;
+    s0 = (double)CAM_LF(0x858624);
+    CAM_R(s0, s0 - ((double)smoothing));
+    complement = (float)s0;
+    CAM_R(s0, s0 * ((double)betaInput));
+    eax = (unsigned)(betaSpeed);
+    s1 = (double)smoothing;
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(eax))));
+    CAM_R(s0, s0 + (s1));
+    CAM_SF((unsigned)(eax), s0);
+    eax = (unsigned)(alphaSpeed);
+    s1 = (double)smoothing;
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(eax))));
+    s2 = (double)complement;
+    CAM_R(s2, s2 * ((double)alphaInput));
+    CAM_R(s1, s1 + (s2));
+    alphaRounded = (float)s1;
+    CAM_SF((unsigned)(eax), s1);
+    s1 = (double)alphaRounded;
+    { double t_ = s1; s1 = s0; s0 = t_; }
+    eax = (unsigned)(betaAngle);
+    CAM_R(s1, s1 + ((double)CAM_LF((unsigned)(eax))));
+    CAM_SF((unsigned)(eax), s1);
+    eax = (unsigned)(alphaAngle);
+    CAM_R(s0, s0 + ((double)CAM_LF((unsigned)(eax))));
+    CAM_SF((unsigned)(eax), s0);
+    *p_complement = complement;
+    *p_alphaRounded = alphaRounded;
+}
+
+__declspec(noinline) void __cdecl CamM16BumpCpp(int signedElapsed, unsigned horz, unsigned beta, unsigned vert, unsigned alpha, float damping, float step) {
+    double s0 = 0.0, s1 = 0.0;
+    double a0 = 0.0;
+    unsigned fa = 0, fb = 0;
+    unsigned eax = 0;
+    s0 = (double)((int)signedElapsed);
+    fa = (unsigned)((unsigned)signedElapsed);
+    fb = (unsigned)(0x0u);
+    if ((int)fa >= (int)fb) goto cam_m16_elapsed_positive355;
+    CAM_R(s0, s0 + ((double)CAM_LF(0x858C54)));
+cam_m16_elapsed_positive355:;
+    CAM_R(s0, s0 / (double)((int)CAM_LU(0x8CC474)));
+    CAM_R(s0, s0 * ((double)CAM_LF(0x858CBC)));
+    a0 = s0;
+    s1 = (double)CAM_LF(0x8CC480);
+    CAM_R(s1, s1 * ((cos(a0))));
+    eax = (unsigned)(horz);
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(eax))));
+    eax = (unsigned)(beta);
+    CAM_R(s1, s1 + ((double)CAM_LF((unsigned)(eax))));
+    CAM_SF((unsigned)(eax), s1);
+    eax = (unsigned)(vert);
+    CAM_R(s0, (cos(a0)) * ((double)CAM_LF((unsigned)(eax))));
+    CAM_R(s0, s0 * ((double)CAM_LF(0x8CC480)));
+    eax = (unsigned)(alpha);
+    CAM_R(s0, s0 + ((double)CAM_LF((unsigned)(eax))));
+    CAM_SF((unsigned)(eax), s0);
+    s0 = (double)damping;
+    s1 = (double)step;
+    eax = (unsigned)(0x822130u);
+    s0 = ExeCompatiblePowCpp(s0, s1);
+    eax = (unsigned)(horz);
+    CAM_R(s0, s0 * ((double)CAM_LF((unsigned)(eax))));
+    CAM_SF((unsigned)(eax), s0);
+    s0 = (double)damping;
+    s1 = (double)step;
+    eax = (unsigned)(0x822130u);
+    s0 = ExeCompatiblePowCpp(s0, s1);
+    eax = (unsigned)(vert);
+    CAM_R(s0, s0 * ((double)CAM_LF((unsigned)(eax))));
+    CAM_SF((unsigned)(eax), s0);
+}
+
+__declspec(noinline) void __cdecl CamM16StickInputsCpp(float vertical, int attached, float horizontal, float fov, float step, float* p_betaResult, float* p_alphaResult, float* p_horizontalSign) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0, s3 = 0.0, s4 = 0.0;
+    unsigned cc = 0;
+    unsigned fa = 0, fb = 0;
+    unsigned eax = 0;
+    volatile float betaResult = *p_betaResult;
+    volatile float alphaResult = *p_alphaResult;
+    volatile float horizontalSign = *p_horizontalSign;
+    s0 = (double)vertical;
+    fa = (unsigned)((unsigned)attached);
+    fb = (unsigned)(0x0u);
+    if (fa == fb) goto cam_m16_unattached_input355;
+    s1 = (double)horizontal;
+    CAM_R(s1, s1 * ((double)CAM_LF(0x858B88)));
+    s2 = (double)fov;
+    CAM_R(s2, s2 * ((double)CAM_LF(0x85A5C4)));
+    s3 = s1;
+    s3 = CamFabs(s3);
+    s4 = s2;
+    CAM_R(s4, s4 * ((double)CAM_LF(0x858CEC)));
+    CAM_R(s3, s3 * (s4));
+    CAM_R(s3, s3 * ((double)step));
+    CAM_R(s3, s3 * (s1));
+    betaResult = (float)s3;
+    s3 = s0;
+    CAM_R(s3, s3 * ((double)CAM_LF(0x858B88)));
+    s4 = s3;
+    s4 = CamFabs(s4);
+    { double t_ = s4; s4 = s2; s2 = t_; }
+    CAM_R(s4, s4 * ((double)CAM_LF(0x8631C0)));
+    CAM_R(s2, s2 * (s4));
+    { double t_ = s3; s3 = s2; s2 = t_; }
+    CAM_R(s3, s3 * ((double)step));
+    CAM_R(s3, s3 * (s2));
+    alphaResult = (float)s3;
+    goto cam_m16_input_cleanup355;
+cam_m16_unattached_input355:;
+    s1 = (double)CAM_LF(0x858624);
+    s2 = (double)horizontal;
+    cc = CamX87Status(s2, (double)CAM_LF(0x858B50));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_m16_positive_h355;
+    CAM_SETBITS(horizontalSign, 0xBF800000u);
+cam_m16_positive_h355:;
+    s2 = s0;
+    cc = CamX87Status(s2, (double)CAM_LF(0x858B50));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_m16_positive_v355;
+    s1 = (double)CAM_LF(0x858C1C);
+cam_m16_positive_v355:;
+    s2 = (double)fov;
+    CAM_R(s2, s2 * ((double)CAM_LF(0x85A5C4)));
+    s3 = (double)horizontal;
+    CAM_R(s3, s3 * ((double)horizontal));
+    CAM_R(s3, s3 * ((double)CAM_LF(0x858FC4)));
+    s4 = s2;
+    CAM_R(s4, s4 * ((double)CAM_LF(0x863100)));
+    CAM_R(s3, s3 * (s4));
+    CAM_R(s3, s3 * ((double)step));
+    CAM_R(s3, s3 * ((double)horizontalSign));
+    betaResult = (float)s3;
+    s3 = s0;
+    CAM_R(s3, s3 * (s0));
+    CAM_R(s3, s3 * ((double)CAM_LF(0x8630FC)));
+    { double t_ = s3; s3 = s2; s2 = t_; }
+    CAM_R(s3, s3 * ((double)CAM_LF(0x859B50)));
+    CAM_R(s2, s2 * (s3));
+    CAM_R(s2, s2 * ((double)step));
+    CAM_R(s2, s2 * (s1));
+    alphaResult = (float)s2;
+cam_m16_input_cleanup355:;
+    *p_betaResult = betaResult;
+    *p_alphaResult = alphaResult;
+    *p_horizontalSign = horizontalSign;
+}
+
+__declspec(noinline) void __cdecl CamM16MouseAnglesCpp(float horizontal, float fov, float* p_scale, float vertical, unsigned beta, unsigned alpha) {
+    double s0 = 0.0, s1 = 0.0;
+    unsigned eax = 0;
+    volatile float scale = 0.0f;
+    s0 = (double)horizontal;
+    s1 = (double)fov;
+    CAM_R(s1, s1 * ((double)CAM_LF(0x85A5C4)));
+    scale = (float)s1;
+    CAM_R(s1, s1 * ((double)CAM_LF(0xB6EC1C)));
+    CAM_R(s0, s0 * (s1));
+    s1 = (double)scale;
+    CAM_R(s1, s1 * ((double)CAM_LF(0xB6EC18)));
+    CAM_R(s1, s1 * ((double)vertical));
+    { double t_ = s1; s1 = s0; s0 = t_; }
+    eax = (unsigned)(beta);
+    CAM_R(s1, s1 + ((double)CAM_LF((unsigned)(eax))));
+    CAM_SF((unsigned)(eax), s1);
+    eax = (unsigned)(alpha);
+    CAM_R(s0, s0 + ((double)CAM_LF((unsigned)(eax))));
+    CAM_SF((unsigned)(eax), s0);
+    *p_scale = scale;
+}
+
+__declspec(noinline) void __cdecl CamM16SideRayCpp(float beta, int positive, float alpha, float* p_xDirection, float* p_yDirection, float* p_yProduct, float* p_zProduct, unsigned origin, unsigned outputVector) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0, s3 = 0.0;
+    double a0 = 0.0, a1 = 0.0, a2 = 0.0, a3 = 0.0;
+    unsigned fa = 0, fb = 0;
+    unsigned eax = 0, edx = 0;
+    volatile float xDirection = *p_xDirection;
+    volatile float yDirection = *p_yDirection;
+    volatile float yProduct = *p_yProduct;
+    volatile float zProduct = *p_zProduct;
+    s0 = (double)beta;
+    fa = (unsigned)((unsigned)positive);
+    fb = (unsigned)(0x0u);
+    if (fa == fb) goto cam_m16_side_negative355;
+    CAM_R(s0, s0 + ((double)CAM_LF(0x8631B8)));
+    goto cam_m16_side_alpha355;
+cam_m16_side_negative355:;
+    CAM_R(s0, s0 - ((double)CAM_LF(0x8631B8)));
+cam_m16_side_alpha355:;
+    s1 = (double)alpha;
+    CAM_R(s1, s1 - ((double)CAM_LF(0x8631B4)));
+    s2 = s1;
+    a0 = s2;
+    s3 = s0;
+    a1 = s3;
+    CAM_R(s3, (cos(a1)) * ((cos(a0))));
+    xDirection = (float)s3;
+    s2 = cos(a0);
+    { double t_ = s2; s2 = s0; s0 = t_; }
+    a2 = s2;
+    CAM_R(s2, (sin(a2)) * (s0));
+    yDirection = (float)s2;
+    s0 = s1;
+    a3 = s0;
+    s1 = (double)xDirection;
+    CAM_R(s1, s1 * ((double)CAM_LF(0x858B3C)));
+    s2 = (double)yDirection;
+    CAM_R(s2, s2 * ((double)CAM_LF(0x858B3C)));
+    yProduct = (float)s2;
+    s0 = sin(a3);
+    { double t_ = s1; s1 = s0; s0 = t_; }
+    CAM_R(s1, s1 * ((double)CAM_LF(0x858B3C)));
+    zProduct = (float)s1;
+    eax = (unsigned)(origin);
+    edx = (unsigned)(outputVector);
+    CAM_R(s0, s0 + ((double)CAM_LF((unsigned)(eax))));
+    CAM_SF((unsigned)(edx), s0);
+    s0 = (double)yProduct;
+    CAM_R(s0, s0 + ((double)CAM_LF((unsigned)(eax+0x4))));
+    CAM_SF((unsigned)(edx+0x4), s0);
+    s0 = (double)zProduct;
+    CAM_R(s0, s0 + ((double)CAM_LF((unsigned)(eax+0x8))));
+    CAM_SF((unsigned)(edx+0x8), s0);
+    *p_xDirection = xDirection;
+    *p_yDirection = yDirection;
+    *p_yProduct = yProduct;
+    *p_zProduct = zProduct;
+}
+
+__declspec(noinline) void __cdecl CamRocketFrontCpp(float verticalAngle, float horizontalAngle, float* p_frontX, float* p_frontY, float* p_frontZ) {
+    double s0 = 0.0, s1 = 0.0;
+    double a0 = 0.0, a1 = 0.0, a2 = 0.0, a3 = 0.0;
+    volatile float frontX = 0.0f;
+    volatile float frontY = 0.0f;
+    volatile float frontZ = 0.0f;
+    s0 = (double)verticalAngle;
+    a0 = s0;
+    s1 = (double)horizontalAngle;
+    a1 = s1;
+    CAM_R(s1, (cos(a1)) * ((cos(a0))));
+    s1 = -s1;
+    frontX = (float)s1;
+    s1 = (double)horizontalAngle;
+    a2 = s1;
+    CAM_R(s1, (sin(a2)) * ((cos(a0))));
+    s1 = -s1;
+    frontY = (float)s1;
+    s0 = (double)verticalAngle;
+    a3 = s0;
+    frontZ = (float)(sin(a3));
+    *p_frontX = frontX;
+    *p_frontY = frontY;
+    *p_frontZ = frontZ;
+}
+
+__declspec(noinline) void __cdecl CamRocketHeadingCpp(float atanY, float atanX, unsigned atanFn, float halfPi, float* p_heading) {
+    double s0 = 0.0;
+    volatile float heading = 0.0f;
+    s0 = (double)((float(__cdecl*)(float, float))(uintptr_t)atanFn)(atanX, atanY);
+    CAM_R(s0, s0 - ((double)halfPi));
+    heading = (float)s0;
+    *p_heading = heading;
+}
+
+__declspec(noinline) void __cdecl CamWheelUpCpp(int phase, float angleScale, float amount, float sx, float* p_lateralX, float sy, float* p_lateralY, float sz, float ux, float uy, float* p_verticalY, float uz, float* p_verticalZ, float* p_outputX, float* p_outputY, float* p_outputZ) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0, s3 = 0.0;
+    double a0 = 0.0, a1 = 0.0, a2 = 0.0;
+    volatile float lateralX = 0.0f;
+    volatile float lateralY = 0.0f;
+    volatile float verticalY = 0.0f;
+    volatile float verticalZ = 0.0f;
+    volatile float outputX = 0.0f;
+    volatile float outputY = 0.0f;
+    volatile float outputZ = 0.0f;
+    s0 = (double)((int)phase);
+    CAM_R(s0, s0 * ((double)angleScale));
+    a0 = s0;
+    CAM_R(s0, (cos(a0)) * ((double)amount));
+    s1 = s0;
+    a1 = s1;
+    s2 = (double)sx;
+    CAM_R(s2, s2 * ((sin(a1))));
+    lateralX = (float)s2;
+    s2 = (double)sy;
+    CAM_R(s2, s2 * ((sin(a1))));
+    lateralY = (float)s2;
+    CAM_R(s1, (sin(a1)) * ((double)sz));
+    { double t_ = s1; s1 = s0; s0 = t_; }
+    a2 = s1;
+    s2 = (double)ux;
+    CAM_R(s2, s2 * ((cos(a2))));
+    s3 = (double)uy;
+    CAM_R(s3, s3 * ((cos(a2))));
+    verticalY = (float)s3;
+    s3 = (double)uz;
+    CAM_R(s3, s3 * ((cos(a2))));
+    verticalZ = (float)s3;
+    CAM_R(s2, s2 + ((double)lateralX));
+    outputX = (float)s2;
+    s1 = (double)verticalY;
+    CAM_R(s1, s1 + ((double)lateralY));
+    outputY = (float)s1;
+    s1 = (double)verticalZ;
+    CAM_R(s1, s1 + (s0));
+    outputZ = (float)s1;
+    *p_lateralX = lateralX;
+    *p_lateralY = lateralY;
+    *p_verticalY = verticalY;
+    *p_verticalZ = verticalZ;
+    *p_outputX = outputX;
+    *p_outputY = outputY;
+    *p_outputZ = outputZ;
+}
+
+__declspec(noinline) void __cdecl CamPathInterpolateVectorCpp(unsigned out, unsigned knots, unsigned tBits, unsigned index) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0, s3 = 0.0;
+    unsigned cc = 0;
+    unsigned fa = 0, fb = 0;
+    unsigned esp = 0, eax = 0, ebx = 0, ecx = 0, edx = 0, esi = 0, edi = 0;
+    unsigned frame[96] = {0};
+    esp = (unsigned)&frame[80];
+    CAM_SU(esp + 0x4, out);
+    CAM_SU(esp + 0x8, knots);
+    CAM_SU(esp + 0xC, tBits);
+    CAM_SU(esp + 0x10, index);
+    esp = (unsigned)(esp - 0x34u);
+    esp = esp - 4;
+    CAM_SU(esp, esi);
+    esi = (unsigned)(CAM_LU((unsigned)(esp+0x40)));
+    s0 = (double)CAM_LF((unsigned)(esi));
+    esp = esp - 4;
+    CAM_SU(esp, edi);
+    { long long t_ = (long long)s0; eax = (unsigned)t_; edx = (unsigned)((unsigned long long)t_ >> 32); }
+    edi = (unsigned)(CAM_LU((unsigned)(esp+0x4C)));
+    edx = (unsigned)(CAM_LU((unsigned)(edi)));
+    s0 = (double)CAM_LF((unsigned)(esi+edx*4));
+    ecx = (unsigned)(eax);
+    CAM_R(s0, s0 - ((double)CAM_LF((unsigned)(esi+edx*4-0x28))));
+    eax = (unsigned)((unsigned)(ecx+ecx*4));
+    CAM_R(s0, s0 * ((double)CAM_LF(0x858C4C)));
+    s1 = (double)CAM_LF((unsigned)(esi+eax*8-0x24));
+    CAM_R(s1, s1 * ((double)CAM_LF(0x858C4C)));
+    CAM_SF((unsigned)(esp+0x44), s1);
+    s1 = (double)CAM_LF((unsigned)(esp+0x48));
+    cc = CamX87Status(s1, (double)CAM_LF((unsigned)(esp+0x44)));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_L005B2128;
+    edx = (unsigned)(edx - 1);
+    eax = (unsigned)(0xCCCCCCCDu);
+    { unsigned long long p_ = (unsigned long long)eax * (unsigned)(edx); eax = (unsigned)p_; edx = (unsigned)(p_ >> 32); }
+    edx = (unsigned)(edx >> 0x3u);
+    fa = (unsigned)(edx);
+    fb = (unsigned)(ecx);
+    esp = esp - 4;
+    CAM_SU(esp, ebx);
+    ebx = (ebx & ~(0xFFu << 0)) | (((unsigned)(0x1u) & 0xFFu) << 0);
+    if (fa <= fb) goto cam_L005B20F3;
+    edx = (unsigned)((unsigned)(ecx+ecx*4-0x5));
+    eax = (unsigned)((unsigned)(edx+edx+0x1));
+    ebx = (ebx & ~(0xFFu << 0)) | (((unsigned)(((ebx >> 0) & 0xFF) ^ ((ebx >> 0) & 0xFF)) & 0xFFu) << 0);
+    CAM_SU((unsigned)(edi), eax);
+cam_L005B20F3:;
+    cc = CamX87Status(s0, (double)CAM_LF(0x8D0F80));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_L005B2127;
+    fa = (unsigned)(((ebx >> 0) & 0xFF));
+    fb = (unsigned)(0x1u);
+    if ((fa & 0xFFu) != (fb & 0xFFu)) goto cam_L005B2127;
+    eax = (unsigned)(CAM_LU((unsigned)(edi)));
+    eax = (unsigned)(eax + 0xAu);
+    CAM_SU((unsigned)(edi), eax);
+    edx = (unsigned)((unsigned)(eax-0x1));
+    eax = (unsigned)(0xCCCCCCCDu);
+    { unsigned long long p_ = (unsigned long long)eax * (unsigned)(edx); eax = (unsigned)p_; edx = (unsigned)(p_ >> 32); }
+    edx = (unsigned)(edx >> 0x3u);
+    fa = (unsigned)(edx);
+    fb = (unsigned)(ecx);
+    if (fa <= fb) goto cam_L005B2127;
+    eax = (unsigned)((unsigned)(ecx+ecx*4-0x5));
+    ecx = (unsigned)((unsigned)(eax+eax+0x1));
+    CAM_SU((unsigned)(edi), ecx);
+cam_L005B2127:;
+    ebx = (unsigned)(CAM_LU(esp));
+    esp = esp + 4;
+cam_L005B2128:;
+    ecx = (unsigned)(CAM_LU((unsigned)(edi)));
+    s1 = (double)CAM_LF((unsigned)(esi+ecx*4-0x28));
+    CAM_R(s1, s1 * ((double)CAM_LF(0x858C4C)));
+    CAM_R(s1, ((double)CAM_LF((unsigned)(esp+0x48))) - s1);
+    CAM_R(s0, (s1) / s0);
+    cc = CamX87Status(s0, (double)CAM_LF(0x858624));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_L005B2151;
+    s0 = (double)CAM_LF(0x858624);
+    goto cam_L005B2166;
+cam_L005B2151:;
+    cc = CamX87Status(s0, (double)CAM_LF(0x858B50));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_L005B2166;
+    s0 = (double)CAM_LF(0x858B50);
+cam_L005B2166:;
+    s1 = (double)CAM_LF((unsigned)(esp+0x48));
+    cc = CamX87Status(s1, (double)CAM_LF((unsigned)(esp+0x44)));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_L005B217D;
+    s0 = (double)CAM_LF(0x858624);
+cam_L005B217D:;
+    s1 = (double)CAM_LF((unsigned)(esi+ecx*4-0x24));
+    edi = (unsigned)(CAM_LU(esp));
+    esp = esp + 4;
+    CAM_SF((unsigned)(esp+0x8), s1);
+    s1 = (double)CAM_LF((unsigned)(esi+ecx*4-0x20));
+    CAM_SF((unsigned)(esp+0xC), s1);
+    s1 = (double)CAM_LF((unsigned)(esi+ecx*4-0x1C));
+    CAM_SF((unsigned)(esp+0x10), s1);
+    s1 = (double)CAM_LF((unsigned)(esi+ecx*4+0x4));
+    CAM_SF((unsigned)(esp+0x14), s1);
+    s1 = (double)CAM_LF((unsigned)(esi+ecx*4+0x8));
+    CAM_SF((unsigned)(esp+0x18), s1);
+    s1 = (double)CAM_LF((unsigned)(esi+ecx*4+0xC));
+    CAM_SF((unsigned)(esp+0x1C), s1);
+    s1 = (double)CAM_LF((unsigned)(esi+ecx*4-0xC));
+    CAM_SF((unsigned)(esp+0x20), s1);
+    s2 = (double)CAM_LF((unsigned)(esi+ecx*4-0x8));
+    CAM_SF((unsigned)(esp+0x24), s2);
+    s2 = (double)CAM_LF((unsigned)(esi+ecx*4-0x4));
+    CAM_SF((unsigned)(esp+0x28), s2);
+    s2 = (double)CAM_LF((unsigned)(esi+ecx*4+0x10));
+    CAM_SF((unsigned)(esp+0x2C), s2);
+    s2 = (double)CAM_LF((unsigned)(esi+ecx*4+0x14));
+    CAM_SF((unsigned)(esp+0x30), s2);
+    s2 = (double)CAM_LF((unsigned)(esi+ecx*4+0x18));
+    esi = (unsigned)(CAM_LU(esp));
+    esp = esp + 4;
+    CAM_SF((unsigned)(esp+0x30), s2);
+    cc = CamX87Status(s1, (double)CAM_LF((unsigned)(esp+0x4)));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x44u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_L005B220C;
+    s1 = (double)CAM_LF((unsigned)(esp+0x20));
+    cc = CamX87Status(s1, (double)CAM_LF((unsigned)(esp+0x8)));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x44u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_L005B220C;
+    s1 = (double)CAM_LF((unsigned)(esp+0x24));
+    cc = CamX87Status(s1, (double)CAM_LF((unsigned)(esp+0xC)));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x44u);
+    if (!CamParity(((fa & fb) & 0xFFu))) goto cam_L005B22C4;
+cam_L005B220C:;
+    s1 = s0;
+    eax = (unsigned)(CAM_LU((unsigned)(esp+0x38)));
+    CAM_R(s1, s1 * (s0));
+    s2 = s1;
+    CAM_R(s2, s2 * (s0));
+    CAM_SF((unsigned)(esp+0x3C), s2);
+    s2 = (double)CAM_LF(0x858624);
+    CAM_R(s2, s2 - (s0));
+    s3 = s2;
+    CAM_R(s3, s3 * (s2));
+    CAM_SF((unsigned)(esp), s3);
+    CAM_R(s3, s3 * (s2));
+    CAM_SF((unsigned)(esp+0x44), s3);
+    CAM_R(s2, s2 * (s1));
+    CAM_SF((unsigned)(esp+0x40), s2);
+    CAM_R(s0, s0 * ((double)CAM_LF((unsigned)(esp))));
+    s1 = (double)CAM_LF((unsigned)(esp+0x40));
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(esp+0x28))));
+    s2 = s0;
+    CAM_R(s2, s2 * ((double)CAM_LF((unsigned)(esp+0x1C))));
+    CAM_R(s1, s1 + (s2));
+    CAM_R(s1, s1 * ((double)CAM_LF(0x858B3C)));
+    s2 = (double)CAM_LF((unsigned)(esp+0x3C));
+    CAM_R(s2, s2 * ((double)CAM_LF((unsigned)(esp+0x10))));
+    CAM_R(s1, s1 + (s2));
+    s2 = (double)CAM_LF((unsigned)(esp+0x44));
+    CAM_R(s2, s2 * ((double)CAM_LF((unsigned)(esp+0x4))));
+    CAM_R(s1, s1 + (s2));
+    CAM_SF((unsigned)(eax), s1);
+    s1 = (double)CAM_LF((unsigned)(esp+0x40));
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(esp+0x2C))));
+    s2 = s0;
+    CAM_R(s2, s2 * ((double)CAM_LF((unsigned)(esp+0x20))));
+    CAM_R(s1, s1 + (s2));
+    CAM_R(s1, s1 * ((double)CAM_LF(0x858B3C)));
+    s2 = (double)CAM_LF((unsigned)(esp+0x3C));
+    CAM_R(s2, s2 * ((double)CAM_LF((unsigned)(esp+0x14))));
+    CAM_R(s1, s1 + (s2));
+    s2 = (double)CAM_LF((unsigned)(esp+0x44));
+    CAM_R(s2, s2 * ((double)CAM_LF((unsigned)(esp+0x8))));
+    CAM_R(s1, s1 + (s2));
+    CAM_SF((unsigned)(eax+0x4), s1);
+    CAM_R(s0, s0 * ((double)CAM_LF((unsigned)(esp+0x24))));
+    s1 = (double)CAM_LF((unsigned)(esp+0x40));
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(esp+0x30))));
+    CAM_R(s0, s0 + (s1));
+    CAM_R(s0, s0 * ((double)CAM_LF(0x858B3C)));
+    s1 = (double)CAM_LF((unsigned)(esp+0x3C));
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(esp+0x18))));
+    CAM_R(s0, s0 + (s1));
+    s1 = (double)CAM_LF((unsigned)(esp+0x44));
+    CAM_R(s1, s1 * ((double)CAM_LF((unsigned)(esp+0xC))));
+    CAM_R(s0, s0 + (s1));
+    CAM_SF((unsigned)(eax+0x8), s0);
+    goto cam_L005B22FC;
+cam_L005B22C4:;
+    s1 = (double)CAM_LF((unsigned)(esp+0x10));
+    eax = (unsigned)(CAM_LU((unsigned)(esp+0x38)));
+    CAM_R(s1, s1 - ((double)CAM_LF((unsigned)(esp+0x4))));
+    CAM_R(s1, s1 * (s0));
+    CAM_R(s1, s1 + ((double)CAM_LF((unsigned)(esp+0x4))));
+    CAM_SF((unsigned)(eax), s1);
+    s1 = (double)CAM_LF((unsigned)(esp+0x14));
+    CAM_R(s1, s1 - ((double)CAM_LF((unsigned)(esp+0x8))));
+    CAM_R(s1, s1 * (s0));
+    CAM_R(s1, s1 + ((double)CAM_LF((unsigned)(esp+0x8))));
+    CAM_SF((unsigned)(eax+0x4), s1);
+    s1 = (double)CAM_LF((unsigned)(esp+0x18));
+    CAM_R(s1, s1 - ((double)CAM_LF((unsigned)(esp+0xC))));
+    CAM_R(s1, s1 * (s0));
+    CAM_R(s1, s1 + ((double)CAM_LF((unsigned)(esp+0xC))));
+    CAM_SF((unsigned)(eax+0x8), s1);
+cam_L005B22FC:;
+    s0 = (double)CAM_LF(0xB6F8AC);
+    CAM_R(s0, s0 + ((double)CAM_LF((unsigned)(eax))));
+    CAM_SF((unsigned)(eax), s0);
+    s0 = (double)CAM_LF(0xB6F8B0);
+    CAM_R(s0, s0 + ((double)CAM_LF((unsigned)(eax+0x4))));
+    CAM_SF((unsigned)(eax+0x4), s0);
+    s0 = (double)CAM_LF(0xB6F8B4);
+    CAM_R(s0, s0 + ((double)CAM_LF((unsigned)(eax+0x8))));
+    CAM_SF((unsigned)(eax+0x8), s0);
+    esp = (unsigned)(esp + 0x34u);
+    goto cam_end;
+cam_end:;
+}
+
+__declspec(noinline) void __cdecl CamPathInterpolateScalarCpp(unsigned out, unsigned knots, unsigned tBits, unsigned index) {
+    double s0 = 0.0, s1 = 0.0, s2 = 0.0, s3 = 0.0, s4 = 0.0, s5 = 0.0, s6 = 0.0;
+    unsigned cc = 0;
+    unsigned fa = 0, fb = 0;
+    unsigned esp = 0, eax = 0, ebx = 0, ecx = 0, edx = 0, esi = 0, edi = 0;
+    unsigned frame[96] = {0};
+    esp = (unsigned)&frame[80];
+    CAM_SU(esp + 0x4, out);
+    CAM_SU(esp + 0x8, knots);
+    CAM_SU(esp + 0xC, tBits);
+    CAM_SU(esp + 0x10, index);
+    esp = esp - 4;
+    CAM_SU(esp, ebx);
+    esp = esp - 4;
+    CAM_SU(esp, esi);
+    esi = (unsigned)(CAM_LU((unsigned)(esp+0x10)));
+    s0 = (double)CAM_LF((unsigned)(esi));
+    esp = esp - 4;
+    CAM_SU(esp, edi);
+    { long long t_ = (long long)s0; eax = (unsigned)t_; edx = (unsigned)((unsigned long long)t_ >> 32); }
+    edx = (unsigned)(CAM_LU((unsigned)(esp+0x1C)));
+    edi = (unsigned)(CAM_LU((unsigned)(edx)));
+    s0 = (double)CAM_LF((unsigned)(esi+edi*4));
+    ecx = (unsigned)(eax);
+    CAM_R(s0, s0 - ((double)CAM_LF((unsigned)(esi+edi*4-0x10))));
+    eax = (unsigned)(eax << 0x4u);
+    CAM_R(s0, s0 * ((double)CAM_LF(0x858C4C)));
+    s1 = (double)CAM_LF((unsigned)(eax+esi-0xC));
+    CAM_R(s1, s1 * ((double)CAM_LF(0x858C4C)));
+    CAM_SF((unsigned)(esp+0x14), s1);
+    s1 = (double)CAM_LF((unsigned)(esp+0x18));
+    cc = CamX87Status(s1, (double)CAM_LF((unsigned)(esp+0x14)));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_L005B23B4;
+    edi = (unsigned)(edi - 1);
+    edi = (unsigned)(edi >> 0x2u);
+    fa = (unsigned)(edi);
+    fb = (unsigned)(ecx);
+    ebx = (ebx & ~(0xFFu << 0)) | (((unsigned)(0x1u) & 0xFFu) << 0);
+    if (fa <= fb) goto cam_L005B2388;
+    eax = (unsigned)((unsigned)(ecx*4+0xFFFFFFFD));
+    ebx = (ebx & ~(0xFFu << 0)) | (((unsigned)(((ebx >> 0) & 0xFF) ^ ((ebx >> 0) & 0xFF)) & 0xFFu) << 0);
+    CAM_SU((unsigned)(edx), eax);
+cam_L005B2388:;
+    cc = CamX87Status(s0, (double)CAM_LF(0x8D0F80));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_L005B23B6;
+    fa = (unsigned)(((ebx >> 0) & 0xFF));
+    fb = (unsigned)(0x1u);
+    if ((fa & 0xFFu) != (fb & 0xFFu)) goto cam_L005B23B6;
+    eax = (unsigned)(CAM_LU((unsigned)(edx)));
+    eax = (unsigned)(eax + 0x4u);
+    CAM_SU((unsigned)(edx), eax);
+    eax = (unsigned)(eax - 1);
+    eax = (unsigned)(eax >> 0x2u);
+    fa = (unsigned)(eax);
+    fb = (unsigned)(ecx);
+    if (fa <= fb) goto cam_L005B23B6;
+    ecx = (unsigned)((unsigned)(ecx*4+0xFFFFFFFD));
+    CAM_SU((unsigned)(edx), ecx);
+    goto cam_L005B23B6;
+cam_L005B23B4:;
+cam_L005B23B6:;
+    ecx = (unsigned)(CAM_LU((unsigned)(edx)));
+    s0 = (double)CAM_LF((unsigned)(esi+ecx*4-0x10));
+    CAM_R(s0, s0 * ((double)CAM_LF(0x858C4C)));
+    CAM_R(s0, ((double)CAM_LF((unsigned)(esp+0x18))) - s0);
+    s1 = (double)CAM_LF((unsigned)(esi+ecx*4));
+    CAM_R(s1, s1 - ((double)CAM_LF((unsigned)(esi+ecx*4-0x10))));
+    CAM_R(s1, s1 * ((double)CAM_LF(0x858C4C)));
+    CAM_R(s0, s0 / (s1));
+    cc = CamX87Status(s0, (double)CAM_LF(0x858624));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_L005B23EC;
+    s0 = (double)CAM_LF(0x858624);
+    goto cam_L005B2401;
+cam_L005B23EC:;
+    cc = CamX87Status(s0, (double)CAM_LF(0x858B50));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x5u);
+    if (CamParity(((fa & fb) & 0xFFu))) goto cam_L005B2401;
+    s0 = (double)CAM_LF(0x858B50);
+cam_L005B2401:;
+    s1 = (double)CAM_LF((unsigned)(esp+0x18));
+    cc = CamX87Status(s1, (double)CAM_LF((unsigned)(esp+0x14)));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x41u);
+    if (!(((fa & fb) & 0xFFu) == 0)) goto cam_L005B2418;
+    s0 = (double)CAM_LF(0x858624);
+cam_L005B2418:;
+    s1 = (double)CAM_LF(0x858624);
+    CAM_R(s1, s1 - (s0));
+    s2 = s1;
+    CAM_R(s2, s2 * (s1));
+    s3 = s2;
+    CAM_R(s3, s3 * (s1));
+    s4 = (double)CAM_LF((unsigned)(esi+ecx*4-0x4));
+    s5 = (double)CAM_LF((unsigned)(esi+ecx*4+0x8));
+    s6 = s4;
+    cc = CamX87Status(s6, (double)CAM_LF((unsigned)(esi+ecx*4-0xC)));
+    eax = (eax & 0xFFFF0000u) | ((unsigned)(cc << 8) & 0xFFFFu);
+    fa = (unsigned)(((eax >> 8) & 0xFF));
+    fb = (unsigned)(0x44u);
+    if (!CamParity(((fa & fb) & 0xFFu))) goto cam_L005B2477;
+    s6 = (double)CAM_LF((unsigned)(esi+ecx*4+0x4));
+    edx = (unsigned)(CAM_LU((unsigned)(esp+0x10)));
+    CAM_R(s6, s6 * (s0));
+    { double t_ = s6; s6 = s5; s5 = t_; }
+    edi = (unsigned)(CAM_LU(esp));
+    esp = esp + 4;
+    CAM_R(s6, s6 * (s1));
+    CAM_R(s6, s6 * ((double)CAM_LF(0x858B3C)));
+    CAM_R(s5, s5 + (s6));
+    CAM_R(s5, s5 * (s0));
+    { double t_ = s5; s5 = s4; s4 = t_; }
+    CAM_R(s5, s5 * (s2));
+    CAM_R(s5, s5 * ((double)CAM_LF(0x858B3C)));
+    CAM_R(s4, s4 + (s5));
+    CAM_R(s4, s4 * (s0));
+    { double t_ = s4; s4 = s3; s3 = t_; }
+    CAM_R(s4, s4 * ((double)CAM_LF((unsigned)(esi+ecx*4-0xC))));
+    esi = (unsigned)(CAM_LU(esp));
+    esp = esp + 4;
+    ebx = (unsigned)(CAM_LU(esp));
+    esp = esp + 4;
+    CAM_R(s3, s3 + (s4));
+    CAM_SF((unsigned)(edx), s3);
+    goto cam_end;
+cam_L005B2477:;
+    eax = (unsigned)(CAM_LU((unsigned)(esp+0x10)));
+    edi = (unsigned)(CAM_LU(esp));
+    esp = esp + 4;
+    s1 = (double)CAM_LF((unsigned)(esi+ecx*4+0x4));
+    CAM_R(s1, s1 - ((double)CAM_LF((unsigned)(esi+ecx*4-0xC))));
+    CAM_R(s1, s1 * (s0));
+    CAM_R(s1, s1 + ((double)CAM_LF((unsigned)(esi+ecx*4-0xC))));
+    esi = (unsigned)(CAM_LU(esp));
+    esp = esp + 4;
+    ebx = (unsigned)(CAM_LU(esp));
+    esp = esp + 4;
+    CAM_SF((unsigned)(eax), s1);
+    goto cam_end;
+cam_end:;
+}
+
+#undef CAM_LF
+#undef CAM_LD
+#undef CAM_LU
+#undef CAM_LW
+#undef CAM_LB
+#undef CAM_SF
+#undef CAM_SD
+#undef CAM_SU
+#undef CAM_R
+#undef CAM_BITS
+#undef CAM_SETBITS
+
+// ===== CBike (Bike.cpp; lote w20, prefijo Bike) =====
+// Colocar al FINAL de X87Math.cpp, fuera de cualquier #pragma float_control(precise) abierto y DESPUES de ExeCompatiblePowCpp / ExeAsinDoubleCpp
+// (ya definidos arriba). Usa tambien (sin copiarlos) PowScaleVector3Cpp, PowScaleFloatCpp, CnvDecayPowCpp, QuadBikeDampDeltaFullCpp, TrigSimple*Cpp, BmxSin/CosScaledCpp
+// y UnsignedPlusFloatCpp. Las constantes del EXE se leen por punteros volatile para que /fp:fast (y el plegado de constantes) no reasocie ni agrupe operaciones.
+static double BikeAbsDouble(double value) {
+    unsigned long long bits;
+    memcpy(&bits, &value, 8);
+    bits &= 0x7FFFFFFFFFFFFFFFull;                                  // fabs: limpia el signo tambien de un NaN
+    memcpy(&value, &bits, 8);
+    return value;
+}
+// fsqrt en linea (fuera de precise, que lo convertiria en una llamada a la CRT); la comparacion de la raiz la hace el llamador.
+static __declspec(noinline) double BikeSqrtFull(double value) { return sqrt(value); }
+
+// --- CBike::CBike (0x6BF59E..0x6BF5BD): fld degrees; fmul 0.017453292f (0x8595EC); fptan; fstp st(0); fstp [this+7A4h]. tan a precision completa.
+__declspec(noinline) float __cdecl BikeTanScaledCpp(float degrees, float k) {
+    volatile float result = float(tan(double(degrees) * double(k)));
+    return result;
+}
+
+// --- Transcendentes con el resultado sin redondear en ST0 (fuera de precise) ---
+// CBike::CalculateLeanMatrix (0x6B7211..0x6B721D): fld angle; fcos; fsubr 1.0f; fstp. 1 - cos con el coseno completo.
+__declspec(noinline) float __cdecl BikeOneMinusCosCpp(float angle) {
+    volatile float result = float(1.0 - cos(double(angle)));
+    return result;
+}
+// CBike::PreRender (0x6BDD56..0x6BDD93): fcos; (1.0f - cos) * minZ * 0.9f (0x858C20); sin el sumando de BmxChassisZCpp (el -0 de minZ * 0 se conserva).
+__declspec(noinline) float __cdecl BikeChassisHeightCpp(float lean, float minZ) {
+    static const volatile float kNine = std::bit_cast<float>(0x3F666666u);   // 0x858C20
+    const volatile float* height = &minZ;
+    const volatile float* factor = &kNine;
+    double value = 1.0 - cos(double(lean));
+    value *= double(*height);
+    value *= double(*factor);
+    volatile float result = float(value);
+    return result;
+}
+// CBike::PreRender (0x6BD2B3..0x6BD320): s = sin(lean) * minZ * 0.8f (0x858C98); out = s * right + point por componente (fmul / fadd de 24 bits, un fstp float por resultado).
+__declspec(noinline) void __cdecl BikeContactOffsetCpp(float* out, const float* point, const float* right, float lean, float minZ) {
+    static const volatile float kEight = std::bit_cast<float>(0x3F4CCCCDu);  // 0x858C98
+    const volatile float* height = &minZ;
+    const volatile float* factor = &kEight;
+    double s = sin(double(lean));
+    s *= double(*height);
+    s *= double(*factor);
+    const float p0 = point[0], p1 = point[1], p2 = point[2];
+    const float r0 = right[0], r1 = right[1], r2 = right[2];
+    out[2] = float(s * double(r2) + double(p2));
+    out[1] = float(s * double(r1) + double(p1));
+    out[0] = float(s * double(r0) + double(p0));
+}
+// CBike::PreRender (0x6BDB11..0x6BDB37): fld h; fsub o; fdiv len; fst [esp+20h]; call _CIasin (0x821E70); fmul -1.0f (0x858C1C); fstp. El cociente llega a _CIasin en ST0 (sin pasar por float).
+__declspec(noinline) float __cdecl BikeForkAngleCpp(float height, float original, float forkLength) {
+    static const volatile float kMinusOne = -1.0f;                           // 0x858C1C
+    const double quotient = (double(height) - double(original)) / double(forkLength);
+    volatile float result = float(ExeAsinDoubleCpp(quotient) * double(kMinusOne));
+    return result;
+}
+
+// CBike::PlaceOnRoadProperly (0x6BF0F1..0x6BF155): L = rear + front; angle = fpatan((fz - bz) / L, 1.0f); c = fcos(angle); right.x = (fy - by) / L; right.y = -((fx - bx) / L);
+// right.z = 0; forward.x = -(c * right.y); forward.y = c * right.x (leyendo los float guardados); forward.z = fsin(angle). m apunta a una CMatrix (right en 0..2, forward en 4..6).
+// angle queda en la pila para fcos y fsin (sin redondear); sin precise para que fpatan/fcos/fsin salgan en linea.
+__declspec(noinline) void __cdecl BikeRoadOrientationCpp(float* m, float rear, float front, float backX, float backY, float backZ, float frontX, float frontY, float frontZ) {
+    const double length = double(rear) + double(front);
+    const double angle = atan2((double(frontZ) - double(backZ)) / length, 1.0);
+    const double c = cos(angle);
+    volatile float rightX = float((double(frontY) - double(backY)) / length);
+    volatile float rightY = float(-((double(frontX) - double(backX)) / length));
+    m[0] = rightX;
+    m[1] = rightY;
+    m[2] = 0.0f;
+    volatile float forwardX = float(-(c * double(rightY)));
+    m[4] = forwardX;
+    volatile float forwardY = float(c * double(rightX));
+    m[5] = forwardY;
+    m[6] = float(sin(angle));
+}
+
+// --- Aritmetica con el orden de redondeo del EXE (precise: sin reasociar ni distribuir) ---
+#pragma float_control(precise, on, push)
+// CBike::PlaceOnRoadProperly (0x6BF167..0x6BF1E0): x = (fx + bx) * 0.5f, y = (fy + by) * 0.5f (sumas de 24 bits sin guardar), z = float(fz + bz) guardado y luego * 0.5f.
+__declspec(noinline) void __cdecl BikeRoadMidpointCpp(float frontX, float backX, float frontY, float backY, float frontZ, float backZ, float* out) {
+    static const volatile float kHalf = 0.5f;                                // 0x858B8C
+    const double half = double(kHalf);
+    out[0] = float((double(frontX) + double(backX)) * half);
+    out[1] = float((double(frontY) + double(backY)) * half);
+    volatile float sumZ = float(double(backZ) + double(frontZ));
+    out[2] = float(double(sumZ) * half);
+}
+
+// CBike::FixHandsToBars (0x6B8274..0x6B8430): bone += delta * factor. x e y: producto guardado como float (fstp) y luego fadd; z: producto sin guardar. Los tres redondeos a float al escribir.
+__declspec(noinline) void __cdecl BikeMoveHandBoneCpp(float* bonePosition, const float* delta, float factor) {
+    volatile float deltaX = float(double(delta[0]) * double(factor));
+    volatile float deltaY = float(double(delta[1]) * double(factor));
+    const double deltaZ = double(delta[2]) * double(factor);
+    bonePosition[0] = float(double(deltaX) + double(bonePosition[0]));
+    bonePosition[1] = float(double(deltaY) + double(bonePosition[1]));
+    bonePosition[2] = float(deltaZ + double(bonePosition[2]));
+}
+
+// CBike::ProcessBuoyancy: usa PowScaleVector3Cpp (move y turn). VehicleDamage (0x6B91C2): health = health - damage * factor (fmul; fsubr; fstp).
+__declspec(noinline) void __cdecl BikeHealthMinusCpp(float* health, float damage, float factor) {
+    *health = float(double(*health) - double(damage) * double(factor));
+}
+
+// CBike::SetupSuspensionLines (0x6B8C10..0x6B8C54): z del extremo = ((lower - upper) - wheel * 0.5f) + startZ.
+__declspec(noinline) float __cdecl BikeSetupEndCpp(float upper, float lower, float wheel, float startZ) {
+    static const volatile float kHalf = 0.5f;                                // 0x858B8C
+    const double scaledWheel = double(wheel) * double(kHalf);
+    const double span = double(lower) - double(upper);
+    volatile float result = float((span - scaledWheel) + double(startZ));
+    return result;
+}
+// CBike::SetupSuspensionLines (0x6B8CFB..0x6B8D34): ((1 - 1 / (force * divisor)) * suspensionLength) + (wheel * 0.5f - startZ); divisor = 4.0f (0x858B90).
+__declspec(noinline) float __cdecl BikeSetupHeightCpp(float force, float divisor, float suspensionLength, float wheel, float startZ) {
+    static const volatile float kHalf = 0.5f;                                // 0x858B8C
+    static const volatile float kOne = 1.0f;                                 // 0x858624
+    const double one = double(kOne);
+    const double scale = one - one / (double(force) * double(divisor));
+    const double lowered = double(wheel) * double(kHalf) - double(startZ);
+    volatile float result = float(scale * double(suspensionLength) + lowered);
+    return result;
+}
+// CBike::SetupSuspensionLines (0x6B8D6D..0x6B8E97), por esfera de colision (sphere = x, y, z, radio): solo si (z - radio) < limit (comparacion ordenada).
+// Si radio > 0.4f (0x858EE8): radio = max(0.4f, z - limit) (NaN conserva z - limit); luego z = limit + radio.
+__declspec(noinline) void __cdecl BikeSetupSphereCpp(float* sphere, float limit) {
+    static const volatile float kMinimum = std::bit_cast<float>(0x3ECCCCCDu); // 0x858EE8
+    const double minimum = double(kMinimum);
+    const double bottom = double(sphere[2]) - double(sphere[3]);
+    if (bottom < double(limit)) {
+        if (double(sphere[3]) > minimum) {
+            const double lowered = double(sphere[2]) - double(limit);
+            sphere[3] = float(minimum > lowered ? minimum : lowered);
+        }
+        sphere[2] = float(double(limit) + double(sphere[3]));
+    }
+}
+
+// CBike::ProcessRiderAnims (0x6B7932..0x6B795C y 0x6B7C87..0x6B7CAB): p = pow(base, paso) (ST0 sin redondear); (1 - p) * target + p * previous; fstp float.
+__declspec(noinline) float __cdecl BikeRiderSmoothCpp(float base, float step, float previous, float target) {
+    const double keep = ExeCompatiblePowCpp(double(base), double(step));
+    const double rest = 1.0 - keep;
+    const double fromTarget = rest * double(target);
+    const double fromPrevious = keep * double(previous);
+    volatile float result = float(fromTarget + fromPrevious);
+    return result;
+}
+// CBike::ProcessRiderAnims (0x6B7CF1..0x6B7D64): len = sqrt(lateral^2 + forward^2) (sqrt 24 bits, sin guardar); si len > 0.01f (0x87135C): inv = 1 / len guardado como float,
+// pesos |forward * inv| y |inv * lateral|; si no: |forward| y |lateral|. forwardOut = peso1 * available, lateralOut = peso2 * available (fabs de x87: tambien limpia el signo de un NaN).
+__declspec(noinline) void __cdecl BikeRiderWeightsCpp(float lateral, float forward, float available, float* lateralOut, float* forwardOut) {
+    static const volatile float kSmall = std::bit_cast<float>(0x3C23D70Au);   // 0x87135C
+    const double length = BikeSqrtFull(double(lateral) * double(lateral) + double(forward) * double(forward));
+    double forwardWeight, lateralWeight;
+    if (length > double(kSmall)) {
+        volatile float inverse = float(1.0 / length);
+        forwardWeight = BikeAbsDouble(double(forward) * double(inverse));
+        lateralWeight = BikeAbsDouble(double(inverse) * double(lateral));
+    } else {
+        forwardWeight = BikeAbsDouble(double(forward));
+        lateralWeight = BikeAbsDouble(double(lateral));
+    }
+    *forwardOut = float(forwardWeight * double(available));
+    *lateralOut = float(lateralWeight * double(available));
+}
+// CBike::ProcessRiderAnims (0x6B7EBB..0x6B7EFC y 0x6B7F0C..0x6B7F47): max = 6.0f (0x871338) * speed (fst float); min = -(ST0) (fchs; fstp float); (max - min) * (random * 3.0517578e-5f (0x858C7C)) + min.
+__declspec(noinline) float __cdecl BikeRiderJitterCpp(float speed, int randomValue) {
+    static const volatile float kSix = 6.0f;                                  // 0x871338
+    static const volatile float kScale = std::bit_cast<float>(0x38000100u);   // 0x858C7C
+    const double product = double(kSix) * double(speed);
+    volatile float maximum = float(product);
+    volatile float minimum = float(-product);
+    const double fraction = double(randomValue) * double(kScale);
+    volatile float result = float((double(maximum) - double(minimum)) * fraction + double(minimum));
+    return result;
+}
+// CBike::ProcessRiderAnims (0x6B7C16..0x6B7C5E): v = 1.0f - (|lean| - 0.3f) / (0.56f - 0.3f); si 0.0f > v: v = 0.0f; result = v * target. 0.56f - 0.3f se resta en x87 (24 bits): constantes por puntero volatile.
+__declspec(noinline) float __cdecl BikeRiderForwardLimitCpp(float lean, float target) {
+    static const volatile float kLow = std::bit_cast<float>(0x3E99999Au);     // 0x871358 (0.3f)
+    static const volatile float kHigh = std::bit_cast<float>(0x3F0F5C29u);    // 0x871354 (0.56f)
+    static const volatile float kOne = 1.0f;                                   // 0x858624
+    static const volatile float kZero = 0.0f;                                  // 0x858B50
+    const double excess = BikeAbsDouble(double(lean)) - double(kLow);
+    const double range = double(kHigh) - double(kLow);
+    double value = double(kOne) - excess / range;
+    if (double(kZero) > value) {
+        value = double(kZero);
+    }
+    volatile float result = float(value * double(target));
+    return result;
+}
+
+// CBike::ProcessControlInputs (0x6BE497..0x6BE4B7 y 0x6BE5E8..0x6BE64F): ((input * 0.0078125f) - old) * step * factor + old, todo con el redondeo de 24 bits del EXE.
+__declspec(noinline) float __cdecl BikeControlBlendCpp(float oldValue, int input, float step, float factor) {
+    static const volatile float kScale = std::bit_cast<float>(0x3C000000u);   // 0x858B88
+    const double scaled = double(input) * double(kScale);
+    volatile float result = float(((scaled - double(oldValue)) * double(step)) * double(factor) + double(oldValue));
+    return result;
+}
+// CBike::ProcessControlInputs (0x6BE504..0x6BE537): input * factor + old (fmul; fadd; fstp).
+__declspec(noinline) float __cdecl BikeControlProductAddCpp(float oldValue, float input, float factor) {
+    volatile float result = float(double(input) * double(factor) + double(oldValue));
+    return result;
+}
+// CBike::ProcessControlInputs (0x6BE8B4..0x6BE8C6): (degrees * 0.017453292f (0x8595EC)) * steer.
+__declspec(noinline) float __cdecl BikeInputSteerCpp(float degrees, float steer) {
+    static const volatile float kRadians = std::bit_cast<float>(0x3C8EFA35u);  // 0x8595EC
+    const double radians = double(degrees) * double(kRadians);
+    volatile float result = float(radians * double(steer));
+    return result;
+}
+// CBike::ProcessControlInputs (0x6BE31B..0x6BE33D): (speed.z * forward.z + speed.y * forward.y) + speed.x * forward.x (fmul / faddp, z primero).
+__declspec(noinline) float __cdecl BikeForwardSpeedCpp(const float* speed, const float* forward) {
+    const double z = double(speed[2]) * double(forward[2]);
+    const double y = double(speed[1]) * double(forward[1]);
+    const double x = double(speed[0]) * double(forward[0]);
+    volatile float result = float((z + y) + x);
+    return result;
+}
+// CBike::ProcessControlInputs (0x6BE98C..0x6BE9F0): len = sqrt((x*x + y*y) + z*z) (24 bits, sin guardar); si len > 0.28f (0x871254): speed *= limit / len (factor sin guardar; cada producto a float).
+__declspec(noinline) void __cdecl BikeSpeedCapCpp(float* speed, float limit) {
+    const double x = speed[0], y = speed[1], z = speed[2];
+    const double length = BikeSqrtFull((x * x + y * y) + z * z);
+    if (length > double(limit)) {
+        const double factor = double(limit) / length;
+        speed[0] = float(factor * x);
+        speed[1] = float(factor * y);
+        speed[2] = float(factor * z);
+    }
+}
+
+// CBike::ProcessControl (0x6B9C04..0x6B9C29), moto parada sobre el caballete: asin(v) (_CIasin, sin redondear) + 0.2617994f (0x858F1C); (1 - keep) * eso; keep * desired - eso.
+__declspec(noinline) float __cdecl BikeStoppedLeanCpp(float keep, float desired, float sine) {
+    static const volatile float kOffset = std::bit_cast<float>(0x3E860A92u);   // 0x858F1C
+    static const volatile float kOne = 1.0f;                                   // 0x858624
+    const double carried = double(keep) * double(desired);
+    const double shifted = ExeAsinDoubleCpp(double(sine)) + double(kOffset);
+    const double rest = double(kOne) - double(keep);
+    volatile float result = float(carried - rest * shifted);
+    return result;
+}
+// CBike::ProcessControl (0x6BB991..0x6BB9BA), caballete + conductor: (asin(rz) + offset) + 0.2617994f; carried - (1 - keep) * eso.
+__declspec(noinline) float __cdecl BikeSideStandLeanCpp(float keep, float desired, float rightZ, float offset) {
+    static const volatile float kOffset = std::bit_cast<float>(0x3E860A92u);   // 0x858F1C
+    static const volatile float kOne = 1.0f;                                   // 0x858624
+    const double carried = double(keep) * double(desired);
+    const double shifted = (ExeAsinDoubleCpp(double(rightZ)) + double(offset)) + double(kOffset);
+    const double rest = double(kOne) - double(keep);
+    volatile float result = float(carried - rest * shifted);
+    return result;
+}
+// CBike::ProcessControl (0x6BBB7C..0x6BBBA1), inclinacion libre: (asin(y) - offset) * (1 - keep) + keep * desired.
+__declspec(noinline) float __cdecl BikeFreeLeanCpp(float keep, float desired, float sine, float offset) {
+    static const volatile float kOne = 1.0f;                                   // 0x858624
+    const double shifted = ExeAsinDoubleCpp(double(sine)) - double(offset);
+    const double rest = double(kOne) - double(keep);
+    const double weighted = shifted * rest;
+    const double carried = double(keep) * double(desired);
+    volatile float result = float(weighted + carried);
+    return result;
+}
+// CBike::ProcessControl (0x6BAB8E..0x6BAC16), manillar: v = asin(y) / (steeringLock * 0.017453292f); si doubleIt: v + v; si 1.0f < v: v = 1.0f; result = v * steer.
+__declspec(noinline) float __cdecl BikeSteerBarCpp(float sine, float steeringLock, float steer, bool doubleIt) {
+    static const volatile float kRadians = std::bit_cast<float>(0x3C8EFA35u);  // 0x8595EC
+    static const volatile float kOne = 1.0f;                                   // 0x858624
+    const double scaledLock = double(steeringLock) * double(kRadians);
+    double value = ExeAsinDoubleCpp(double(sine)) / scaledLock;
+    if (doubleIt) {
+        value = value + value;
+    }
+    if (double(kOne) < value) {
+        value = double(kOne);
+    }
+    volatile float result = float(value * double(steer));
+    return result;
+}
+#pragma float_control(pop)
+
+// --- CPlane (Plane.cpp; lote w20, prefijo Plane). Colocar al FINAL de X87Math.cpp (usa UnsignedAsX87, ExeCompatiblePowCpp y ExeAsinDoubleCpp, ya definidos arriba). ---
+// La x87 corre a 24 bits: cada operacion double() de una cadena equivale al fmul/fadd/fsub del EXE (un redondeo por operacion, exponente extendido entre ellas);
+// solo se guarda como float (volatile float) donde el EXE hace fstp/fst dword. Las direcciones entre parentesis son las del EXE de GTA SA 1.0 (gta-sa.exe).
+// sqrt y sin van en funciones aparte SIN float_control(precise) (con precise pasarian a llamadas a la CRT) y devuelven ST0.
+static __declspec(noinline) double PlaneSqrtExtCpp(double value) { return sqrt(value); }
+static __declspec(noinline) double PlaneSinExtCpp(double value) { return sin(value); }
+
+// fabs sobre un float cargado con fld (el bit de signo se limpia; para las comparaciones el signo de un NaN no importa).
+static __forceinline double PlaneFabsFloat(float value) {
+    return double(std::bit_cast<float>(std::bit_cast<unsigned int>(value) & 0x7FFFFFFFu));
+}
+
+#pragma float_control(precise, on, push)
+
+// --- CPlane::VehicleDamage (0x6CC4B0) ---
+// 0x6CC575..0x6CC5B8: v = mass / scale (fdiv); si minimumOne y 1.0 > v (ordenado) v = 1.0; resultado = v * threshold (un solo fstp). Con NaN no sustituye.
+__declspec(noinline) float __cdecl PlaneMassThresholdCpp(float mass, float scale, float threshold, bool minimumOne) {
+    double value = double(mass) / double(scale);
+    if (minimumOne && 1.0 > value) { // fld 1.0; fcomp st(1); test ah,41h; jne -> solo sustituye si 1.0 > v
+        value = 1.0;
+    }
+    volatile float result = float(value * double(threshold));
+    return result;
+}
+
+// 0x6CC642..0x6CC6CE: health = health - (damage * factor) (fld damage; fmul factor; fsubr [health]; fstp [health]).
+__declspec(noinline) float __cdecl PlaneHealthAfterDamageCpp(float health, float damage, float factor) {
+    volatile float result = float(double(health) - double(damage) * double(factor));
+    return result;
+}
+
+// 0x6CC7E3..0x6CC839 (bucle de componentes 12..24): delta = float(nodePosition - relative) por eje (fsub + fstp), CVector::SquaredMagnitude (0x406DA0) = (x² + y²) + z²,
+// closest² = closest · closest; si suma < closest² (comparacion ordenada: fcompp; test ah,5; jp) closest = float(sqrt(suma)) y devuelve true (se elige el componente).
+__declspec(noinline) bool __cdecl PlaneSelectCloserCpp(const float* nodePosition, const float* relative, float* closest) {
+    volatile float dx = float(double(nodePosition[0]) - double(relative[0]));
+    volatile float dy = float(double(nodePosition[1]) - double(relative[1]));
+    volatile float dz = float(double(nodePosition[2]) - double(relative[2]));
+    const double sum = (double(dx) * double(dx) + double(dy) * double(dy)) + double(dz) * double(dz);
+    const double limit = double(*closest) * double(*closest);
+    if (sum < limit) {
+        *closest = float(PlaneSqrtExtCpp(sum));
+        return true;
+    }
+    return false;
+}
+
+// --- CPlane::ProcessControlInputs (0x6CADD0) ---
+// 0x6CAF1C..0x6CAF3C (y 0x6CB05B..): ((float(input) · scale) - old) · step · factor + old; fild exacto, un redondeo por operacion, un fstp.
+__declspec(noinline) float __cdecl PlaneControlBlendCpp(float oldValue, int input, float scale, float step, float factor) {
+    volatile float result = float(((double(input) * double(scale) - double(oldValue)) * double(step)) * double(factor) + double(oldValue));
+    return result;
+}
+
+// 0x6CADDB..0x6CADFD: velocidad · direccion = (z·z' + y·y') + x·x' (fmul/faddp en ese orden); fstp float.
+__declspec(noinline) float __cdecl PlaneForwardSpeedCpp(const float* speed, const float* forward) {
+    volatile float result = float((double(speed[2]) * double(forward[2]) + double(speed[1]) * double(forward[1])) + double(speed[0]) * double(forward[0]));
+    return result;
+}
+
+// 0x6CB1B1..0x6CB25A (y 0x6CB0A5): target = fild(eje) · escala (hecho por el llamador); v = ((target - old) · step) · factor + old; v limitado a [-1, 1]:
+// si !(v > -1) -> -1 (NaN incluido); si !(v < 1) -> 1; si no v. Un fstp float.
+__declspec(noinline) float __cdecl PlaneInputSkidCpp(float oldValue, float target, float step, float factor) {
+    const double value = ((double(target) - double(oldValue)) * double(step)) * double(factor) + double(oldValue);
+    float out;
+    if (!(value > -1.0)) {
+        out = -1.0f;
+    } else if (!(value < 1.0)) {
+        out = 1.0f;
+    } else {
+        out = float(value);
+    }
+    volatile float result = out;
+    return result;
+}
+
+// 0x6CB260..0x6CB2A1: m = 1.0 - speed (si minimum > m, m = minimum); angulo = -(m · ((steeringLock · radians) · skid)).
+__declspec(noinline) float __cdecl PlaneGroundSteerCpp(float speed, float degrees, float skid, float minimum, float radians) {
+    double factor = 1.0 - double(speed);
+    if (double(minimum) > factor) {
+        factor = double(minimum);
+    }
+    volatile float result = float(-(factor * ((double(degrees) * double(radians)) * double(skid))));
+    return result;
+}
+
+// 0x6CB55C..0x6CB5BB: fild(eje) · step · rate · scale -> _ftol2 (64 bits); el llamador usa el entero de 16 bits bajo (movsx).
+__declspec(noinline) int __cdecl PlaneNozzleChangeCpp(int axis, float step, float rate, float scale) {
+    return static_cast<int>(static_cast<long long>(((double(axis) * double(step)) * double(rate)) * double(scale)));
+}
+
+// 0x6CB3AD..0x6CB4F0: *gear = float(step · factor + *gear) (fst dword); devuelve true si el valor (ST0) >= limit (fcomp; test ah,1; jne -> no con C0, tampoco con NaN).
+__declspec(noinline) bool __cdecl PlaneGearAdvanceCpp(float* gear, float step, float factor, float limit) {
+    const double value = double(step) * double(factor) + double(*gear);
+    *gear = float(value);
+    return value >= double(limit);
+}
+
+// 0x6CB68D..0x6CB6B8: sqrt((x² + y²) + z²) < limit (fsqrt; fcomp; test ah,5; jp -> solo "menor que" ordenado).
+__declspec(noinline) bool __cdecl PlaneSpeedBelowCpp(const float* speed, float limit) {
+    const double x = speed[0], y = speed[1], z = speed[2];
+    return PlaneSqrtExtCpp((x * x + y * y) + z * z) < double(limit);
+}
+
+// 0x6CB742..0x6CB7A1: l = sqrt((x² + y²) + z²); si l > limit (fcom; test ah,41h; jne) s = limit / l (fdivr) y cada componente = float(s · componente) (los tres productos usan el valor original).
+__declspec(noinline) void __cdecl PlaneSpeedCapCpp(float* speed, float limit) {
+    const double x = speed[0], y = speed[1], z = speed[2];
+    const double length = PlaneSqrtExtCpp((x * x + y * y) + z * z);
+    if (length > double(limit)) {
+        const double scale = double(limit) / length;
+        volatile float scaledX = float(scale * x);
+        volatile float scaledY = float(scale * y);
+        volatile float scaledZ = float(scale * z);
+        speed[0] = scaledX;
+        speed[1] = scaledY;
+        speed[2] = scaledZ;
+    }
+}
+
+// 0x6CB48D..0x6CB499: gear = float((drag / divisor) · factor).
+__declspec(noinline) float __cdecl PlaneGearResistanceCpp(float drag, float divisor, float factor) {
+    volatile float result = float((double(drag) / double(divisor)) * double(factor));
+    return result;
+}
+
+// --- CPlane::ProcessFlyingCarStuff (0x6CB7C0) ---
+// 0x6CB7E0..0x6CB85B: upper = float(spread + 1.0), lower = float(1.0 - spread); r = fild(random) · randomScale; v = ((upper - lower) · r) + lower;
+// n = _ftol2(step · timeScale · countScale) (eax; fild de 32 bits, +2^32 si negativo); resultado = low32(_ftol2(v · n)).
+__declspec(noinline) unsigned int __cdecl PlaneWaveAdvanceCpp(float spread, float step, int random, float randomScale, float timeScale, float countScale) {
+    volatile float upperStore = float(double(spread) + 1.0);
+    volatile float lowerStore = float(1.0 - double(spread));
+    const double fraction = double(random) * double(randomScale);
+    const double value = ((double(upperStore) - double(lowerStore)) * fraction) + double(lowerStore);
+    const int count = static_cast<int>(static_cast<long long>((double(step) * double(timeScale)) * double(countScale)));
+    double countValue = double(count);
+    if (count < 0) {
+        countValue += double(4294967296.0f); // 0x858C54
+    }
+    return static_cast<unsigned int>(static_cast<long long>(value * countValue));
+}
+
+// 0x6CB861..0x6CB8C6: s = sqrt((x² + y²) + z²) · 3.0; si s > 1.0 (fcomp; test ah,41h; jne) s = 1.0; fstp float.
+__declspec(noinline) float __cdecl PlaneDamageSpeedCpp(const float* speed) {
+    const double x = speed[0], y = speed[1], z = speed[2];
+    double value = PlaneSqrtExtCpp((x * x + y * y) + z * z) * double(std::bit_cast<float>(0x40400000u)); // 0x858B3C = 3.0f
+    if (value > 1.0) {
+        value = 1.0;
+    }
+    volatile float result = float(value);
+    return result;
+}
+
+// 0x6CBB01..0x6CBB3C (y variantes 0x6CBC0D, 0x6CBD32): fraccion = fild(random) · randomScale; negativo = float(-amplitude) (fchs; fstp);
+// ruido = ((amplitude - negativo) · fraccion) + negativo; resultado = float(((((ruido · dañoCuadrado) · step) · speed) + old)).
+__declspec(noinline) float __cdecl PlaneDamageNoiseCpp(float oldValue, float amplitude, int random, float squaredDamage, float step, float speed, float randomScale) {
+    const double fraction = double(random) * double(randomScale);
+    volatile float negative = float(-double(amplitude));
+    const double noise = (double(amplitude) - double(negative)) * fraction + double(negative);
+    volatile float result = float(((((noise * double(squaredDamage)) * double(step)) * double(speed)) + double(oldValue)));
+    return result;
+}
+
+// 0x6CBA08..0x6CBAA7 (propulsor): upper/lower se calculan con PlaneFlightBoundCpp. fraccion = fild(random) · randomScale; fase = (fild(onda sin signo) · 2π) / fild(periodo sin signo);
+// v = (sin(fase) - 1.0) · (((upper - lower) · fraccion) + lower); resultado = float(((((v · daño) · daño) · step) · amount) + old). fsin sin redondear.
+__declspec(noinline) float __cdecl PlanePropellerWaveCpp(float oldValue, float upper, float lower, int random, int damage, unsigned int wave, unsigned int period, float step, float randomScale, float circle, float amount) {
+    const double fraction = double(random) * double(randomScale);
+    const double damageValue = double(damage);
+    const double phase = (UnsignedAsX87(wave) * double(circle)) / UnsignedAsX87(period);
+    const double wavy = PlaneSinExtCpp(phase) - 1.0;
+    const double amplitude = (double(upper) - double(lower)) * fraction + double(lower);
+    const double product = wavy * amplitude;
+    volatile float result = float(((((product * damageValue) * damageValue) * double(step)) * double(amount)) + double(oldValue));
+    return result;
+}
+
+// 0x6CBABA..0x6CBAE2 (timon) y 0x6CBBD7.. (elevadores / alerones): factor = fild(daño) · scale; si storeFactor se guarda como float (fstp + fld); resultado = float((1.0 - factor) · old).
+__declspec(noinline) float __cdecl PlaneFlightDecayCpp(float oldValue, int damage, float scale, bool storeFactor) {
+    double factor = double(damage) * double(scale);
+    if (storeFactor) {
+        volatile float stored = float(factor);
+        factor = double(stored);
+    }
+    volatile float result = float((1.0 - factor) * double(oldValue));
+    return result;
+}
+
+// 0x6CBBA7..0x6CBBCA (y equivalentes): a · b; restar -> float(value - a·b) (fsubr); sumar -> float(a·b + value) (fadd).
+__declspec(noinline) float __cdecl PlaneFlightProductAddCpp(float value, float a, float b, bool subtract) {
+    const double product = double(a) * double(b);
+    volatile float result = float(subtract ? double(value) - product : product + double(value));
+    return result;
+}
+
+// 0x6CC2CE..0x6CC2F5: float(((target - value) · step) · factor + value).
+__declspec(noinline) float __cdecl PlaneFloatBlendCpp(float value, float target, float step, float factor) {
+    volatile float result = float(((double(target) - double(value)) * double(step)) * double(factor) + double(value));
+    return result;
+}
+
+// 0x6CBE6C..0x6CBE9D: distancia² = (dz² + dy²) + dx² con d = float(first - second) en ST0 (sin guardar); true si es menor que threshold (comparacion ordenada).
+__declspec(noinline) bool __cdecl PlaneDistanceBelowCpp(const float* first, const float* second, float threshold) {
+    const double dx = double(first[0]) - double(second[0]);
+    const double dy = double(first[1]) - double(second[1]);
+    const double dz = double(first[2]) - double(second[2]);
+    return ((dz * dz + dy * dy) + dx * dx) < double(threshold);
+}
+
+// 0x6CB92F..0x6CB962: roll = CPlaceable::GetRoll() (0x420B30, deja el fpatan sin redondear en ST0: rollFn se llama como __fastcall con ECX = plane); |roll| contra threshold.
+// greater: |roll| > threshold (fcomp; test ah,41h; jne); si no |roll| < threshold (test ah,5; jp). El signo de un NaN y de -0 no cambian la comparacion.
+__declspec(noinline) bool __cdecl PlaneRollCompareCpp(float(__fastcall* rollFn)(const void*, void*), const void* plane, float threshold, bool greater) {
+    double roll = double(rollFn(plane, nullptr));
+    if (roll < 0.0) {
+        roll = -roll;
+    }
+    return greater ? (roll > double(threshold)) : (roll < double(threshold));
+}
+
+// 0x6CC25A..0x6CC286: h = height · scale (0x858B38); si 0.0 > h (ordenado) h = 0.0; target = float(h · target).
+__declspec(noinline) float __cdecl PlaneCeilingTargetCpp(float height, float target, float scale) {
+    double limited = double(height) * double(scale);
+    if (0.0 > limited) {
+        limited = 0.0;
+    }
+    volatile float result = float(limited * double(target));
+    return result;
+}
+
+// 0x6CC2A0..0x6CC2C8: v = accel - (height · adjust) (fmul; fsubr); si -1.0 > v (ordenado) v = -1.0; fstp float.
+__declspec(noinline) float __cdecl PlaneCeilingAccelerationCpp(float height, float acceleration, float adjust) {
+    double value = double(acceleration) - double(height) * double(adjust);
+    if (-1.0 > value) {
+        value = -1.0;
+    }
+    volatile float result = float(value);
+    return result;
+}
+
+// 0x6CBA08 / 0x6CBA14: subtract -> float(1.0 - spread); si no float(spread + 1.0).
+__declspec(noinline) float __cdecl PlaneFlightBoundCpp(float spread, bool subtract) {
+    volatile float result = float(subtract ? 1.0 - double(spread) : double(spread) + 1.0);
+    return result;
+}
+
+// 0x6CBF20..0x6CBF75: out[0] = float((v.x · quarter) · multiplier), out[1] igual, out[2] = float(float(v.z · quarter) · multiplier) (la z pasa por memoria).
+__declspec(noinline) void __cdecl PlaneSmokeParticleVelocityCpp(float* out, const float* speed, float quarter, float multiplier) {
+    volatile float x = float((double(speed[0]) * double(quarter)) * double(multiplier));
+    volatile float y = float((double(speed[1]) * double(quarter)) * double(multiplier));
+    volatile float roundedZ = float(double(speed[2]) * double(quarter));
+    volatile float z = float(double(roundedZ) * double(multiplier));
+    out[0] = x;
+    out[1] = y;
+    out[2] = z;
+}
+
+// 0x6CBF7B..0x6CBF9E (y x2): float(((fild(random) · randomScale) · spread + base) · value).
+__declspec(noinline) float __cdecl PlaneVelocityNoiseCpp(float value, int random, float randomScale, float spread, float base) {
+    volatile float result = float(((double(random) * double(randomScale)) * double(spread) + double(base)) * double(value));
+    return result;
+}
+
+// 0x6CC00A..0x6CC045 (y x2): negativo = float(-strength) (fchs; fst; fstp); fraccion = fild(random) · randomScale; resultado = float((((strength - negativo) · fraccion) + negativo) + value).
+__declspec(noinline) float __cdecl PlanePositionNoiseCpp(float value, float strength, int random, float randomScale) {
+    volatile float negative = float(-double(strength));
+    const double fraction = double(random) * double(randomScale);
+    const double noise = (double(strength) - double(negative)) * fraction + double(negative);
+    volatile float result = float(noise + double(value));
+    return result;
+}
+
+// 0x6CC1A6..0x6CC1FC: target = standard; accel > 0 -> float((maximum - standard) · accel + standard); accel < 0 -> float((standard - minimum) · accel + standard); si no standard.
+__declspec(noinline) float __cdecl PlanePropellerTargetCpp(float acceleration, float standard, float maximum, float minimum) {
+    volatile float result = standard;
+    if (acceleration > 0.0f) {
+        result = float((double(maximum) - double(standard)) * double(acceleration) + double(standard));
+    } else if (acceleration < 0.0f) {
+        result = float((double(standard) - double(minimum)) * double(acceleration) + double(standard));
+    }
+    return result;
+}
+
+// 0x6CC381..0x6CC3AB: ((x² + y²) + z²) > threshold (double del EXE en 0x859068; fcomp qword; test ah,41h; jne -> comparacion ordenada).
+__declspec(noinline) bool __cdecl PlaneSpeedSquaredAboveCpp(const float* speed, double threshold) {
+    const double x = speed[0], y = speed[1], z = speed[2];
+    return ((x * x + y * y) + z * z) > threshold;
+}
+
+// --- CPlane::PreRender (0x6C94A0) ---
+// 0x6C9532..0x6C955F: ratio = spring / line (fdiv); hueco = 1.0 - ratio (fsubr); L = (compression - hueco) / (1.0 - hueco); fstp float.
+__declspec(noinline) float __cdecl PlaneWheelCompressionCpp(float springLength, float lineLength, float compression) {
+    const double ratio = double(springLength) / double(lineLength);
+    const double gap = 1.0 - ratio;
+    const double numerator = double(compression) - gap;
+    const double denominator = 1.0 - gap;
+    volatile float result = float(numerator / denominator);
+    return result;
+}
+
+// 0x6C9564..0x6C95B6: z = posZ + lowerLimit; si L > 0.0 z = z - L · spring (fsubp); si !(z > old) (fcom [edi]; test ah,41h; je) y !snap: z = (z - old) · 0.75 + old; wheelPosition = float(z).
+__declspec(noinline) float __cdecl PlaneWheelHeightCpp(float posZ, float lowerLimit, float compression, float springLength, float oldHeight, bool snap) {
+    double z = double(posZ) + double(lowerLimit);
+    if (compression > 0.0f) {
+        z = z - double(compression) * double(springLength);
+    }
+    if (!(z > double(oldHeight)) && !snap) {
+        z = (z - double(oldHeight)) * double(std::bit_cast<float>(0x3F400000u)) + double(oldHeight); // 0x858F34 = 0.75f
+    }
+    volatile float result = float(z);
+    return result;
+}
+
+// 0x6C95C4..0x6C9652 (Andromada 592): comp >= 1 (o NaN) -> rotacion · 0.95 (0x858EF0); si no dot = (f.z·n.z + n.x·f.x) + f.y·n.y limitado a [-1, 1] (se guarda como float) y
+// rotacion = float(-asin(dot)) con el _CIasin del EXE (ExeAsinDoubleCpp); fchs sobre ST0 sin redondear.
+__declspec(noinline) float __cdecl PlaneAndromadaWheelRotationCpp(float rotation, float compression, const float* normal, const float* forward) {
+    if (!(compression < 1.0f)) {
+        volatile float scaled = float(double(rotation) * double(std::bit_cast<float>(0x3F733333u))); // 0x858EF0 = 0.95f
+        return scaled;
+    }
+    const double dot = (double(forward[2]) * double(normal[2]) + double(normal[0]) * double(forward[0])) + double(forward[1]) * double(normal[1]);
+    float argument;
+    if (-1.0 > dot) {
+        argument = -1.0f;
+    } else if (1.0 < dot) {
+        argument = 1.0f;
+    } else {
+        volatile float stored = float(dot);
+        argument = stored;
+    }
+    volatile float result = float(-ExeAsinDoubleCpp(double(argument)));
+    return result;
+}
+
+// 0x6C96A5..0x6C96E3: v = step · propSpeed + angle (fmul; fadd; fst dword); si v > fullCircle (2π, ordenado) se resta fullCircle (al menos una vez) mientras v > fullCircle; fstp float.
+__declspec(noinline) float __cdecl PlanePropAngleCpp(float timeStep, float propSpeed, float angle, float fullCircle) {
+    double value = double(timeStep) * double(propSpeed) + double(angle);
+    volatile float stored = float(value);
+    if (value > double(fullCircle)) {
+        value = double(stored);
+        do {
+            value -= double(fullCircle);
+        } while (value > double(fullCircle));
+        stored = float(value);
+    }
+    return stored;
+}
+
+// 0x6C987C..0x6C98AE: g = 1.0 - |gear| (fabs; fsubr); *scale = float(g · half + 1.0); *offset = float(g · third).
+__declspec(noinline) void __cdecl PlaneGearFactorsCpp(float gear, float half, float third, float* scale, float* offset) {
+    const double gap = 1.0 - PlaneFabsFloat(gear);
+    volatile float scaleStore = float(gap * double(half) + 1.0);
+    volatile float offsetStore = float(gap * double(third));
+    *scale = scaleStore;
+    *offset = offsetStore;
+}
+
+// Angulo de una superficie de control: ((amplitude · radians) · control) y, segun operation: 0 nada, 1 + addend, 2 - addend, 3 cambio de signo (fchs); fstp float.
+// Usos: timon 0x6C97AB..0x6C97C9 (0), aleron 0x6C9956..0x6C9971 (+offset), segundo aleron (-offset) y los dos elevadores (cambio de signo / sin cambio) en 0x6C9A2A..0x6C9C94.
+__declspec(noinline) float __cdecl PlaneSurfaceAngleCpp(float amplitude, float radians, float control, float addend, int operation) {
+    double angle = (double(amplitude) * double(radians)) * double(control);
+    if (operation == 1) {
+        angle = angle + double(addend);
+    } else if (operation == 2) {
+        angle = angle - double(addend);
+    } else if (operation == 3) {
+        angle = -angle;
+    }
+    volatile float result = float(angle);
+    return result;
+}
+
+// 0x6C9775..0x6C979B (y copias): vector[i] = float(vector[i] - position[i]) para x, y, z (fld; fsub; fstp).
+__declspec(noinline) void __cdecl PlaneSubtractPositionCpp(float* vector, const float* position) {
+    volatile float x = float(double(vector[0]) - double(position[0]));
+    volatile float y = float(double(vector[1]) - double(position[1]));
+    volatile float z = float(double(vector[2]) - double(position[2]));
+    vector[0] = x;
+    vector[1] = y;
+    vector[2] = z;
+}
+
+// 0x6C99EA..0x6C9A0E (y 0x6C9AEA): y' = float((((1.0 - finScale) · boxMaxY) · factor) + y).
+__declspec(noinline) float __cdecl PlaneFinOffsetCpp(float finScale, float boxMaxY, float y, float factor) {
+    volatile float result = float(((1.0 - double(finScale)) * double(boxMaxY)) * double(factor) + double(y));
+    return result;
+}
+
+// 0x6C9CBB..0x6C9CCC / 0x6C9D16..0x6C9D27: v = direction · propAngle; doubled -> float(v + v) (fadd st,st); si no float(-v) (fchs).
+__declspec(noinline) float __cdecl PlanePropRotationCpp(float direction, float propAngle, bool doubled) {
+    double value = double(direction) * double(propAngle);
+    value = doubled ? value + value : -value;
+    volatile float result = float(value);
+    return result;
+}
+
+// 0x6C9E49..0x6C9EDE: float(|gear| · value) (fabs; fmul; fstp).
+__declspec(noinline) float __cdecl PlaneGearRotationCpp(float gear, float value) {
+    volatile float result = float(PlaneFabsFloat(gear) * double(value));
+    return result;
+}
+
+// 0x6C9F40..0x6C9F52 (Hydra): float((fild(misc) · halfPi) / fidiv(limit)).
+__declspec(noinline) float __cdecl PlaneNozzleAngleCpp(int misc, float halfPi, int limit) {
+    volatile float result = float((double(misc) * double(halfPi)) / double(limit));
+    return result;
+}
+
+// 0x6C9F83..0x6C9FA5 (Hydra): float((accel + 1.0) · 0.5).
+__declspec(noinline) float __cdecl PlaneDustTimeCpp(float acceleration, float one, float half) {
+    volatile float result = float((double(acceleration) + double(one)) * double(half));
+    return result;
+}
+
+// 0x6CA6A9..0x6CA71E: out[i] = float(a[i] + b[i]) (fld a; fadd b; fstp) para i = 0..2 (velocidad + velocidad de friccion / giro + giro de friccion).
+__declspec(noinline) void __cdecl PlaneSumVector3Cpp(const float* a, const float* b, float* out) {
+    volatile float x = float(double(a[0]) + double(b[0]));
+    volatile float y = float(double(a[1]) + double(b[1]));
+    volatile float z = float(double(a[2]) + double(b[2]));
+    out[0] = x;
+    out[1] = y;
+    out[2] = z;
+}
+
+// 0x6CA768..0x6CA7AF: alfa de la estela = low32(_ftol2(v)) con v = |(((vz·az + vy·ay) + ax·vx) · attackLift) · scale| - offset, limitado por abajo a 0.0 (0.0 > v -> 0.0). El llamador usa el byte bajo.
+__declspec(noinline) unsigned int __cdecl PlaneStreakAlphaCpp(const float* speed, const float* up, float attackLift, float scale, float offset) {
+    const double dot = (double(speed[2]) * double(up[2]) + double(speed[1]) * double(up[1])) + double(up[0]) * double(speed[0]);
+    double value = (dot * double(attackLift)) * double(scale);
+    if (value < 0.0) {
+        value = -value;
+    }
+    value = value - double(offset);
+    if (0.0 > value) {
+        value = 0.0;
+    }
+    return static_cast<unsigned int>(static_cast<long long>(value));
+}
+
+// 0x6CA9AD..0x6CA9D6 (Cropduster) y 0x6CAA39..0x6CAA58 (Stunt): out = {x · 10, y · 10, z · 10 [- 3.0 si subtractOffset]}: cada eje es fld; fmul; fstp (z, ademas, fsub 3.0 antes del fstp).
+__declspec(noinline) void __cdecl PlaneSmokeVelocityCpp(const float* speed, float scale, float zOffset, bool subtractOffset, float* out) {
+    volatile float x = float(double(speed[0]) * double(scale));
+    volatile float y = float(double(speed[1]) * double(scale));
+    double z = double(speed[2]) * double(scale);
+    if (subtractOffset) {
+        z = z - double(zOffset);
+    }
+    volatile float zStore = float(z);
+    out[0] = x;
+    out[1] = y;
+    out[2] = zStore;
+}
+
+// fld; fchs; fstp: -value con el redondeo/aviso del fld (un NaN senalizante se silencia).
+__declspec(noinline) float __cdecl PlaneNegateCpp(float value) {
+    volatile float result = float(-double(value));
+    return result;
+}
+
+// Vortex (539), 0x6CA33D..0x6CA633: inclinacion del nodo 23 sobre la matriz temporal (right.z, forward.z, up.x, up.y, up.z). axis.v = ((a.z·v.z + a.y·v.y) + a.x·v.x) · 2.0 limitado a [-0.3, 0.3]
+// (v > 0.3 -> 0.3; v < -0.3 -> -0.3; NaN pasa), forward -> up.y, right -> up.x. P = pow(0.9, step) (_CIpow, ST0 sin redondear); 1 - P se guarda como float; cada elemento nuevo = old · P + (1 - P) · R
+// con R1 = clamp(((w2 - w3) + (w0 - w1)) · 0.5 / (l0y - l1y), ±0.1), R2 = clamp(((w3 - w1) + (w2 - w0)) · 0.5 / (l3x - l1x), ±0.1), R3 = min(1.0 - ((((w3 + w1) + w2) + w0) · 0.25 - wheelZ) / (wheelSize · 0.5), 1.3).
+// Elementos: R1 -> forward.z, R2 -> right.z, R3 -> up.z. `lines` = CColLine[4] de 0x20 bytes (start.x en [0], start.y en [1]).
+__declspec(noinline) void __cdecl PlaneHoverTiltCpp(float* rightZ, float* forwardZ, float* upX, float* upY, float* upZ, const float* matrixRight, const float* matrixForward, const float* velocity,
+                                                    const float* wheelPositions, const float* lines, float wheelZ, float wheelSize, float timeStep) {
+    const double limitUpper = double(std::bit_cast<float>(0x3E99999Au)); // 0x8D3414 = 0.3f
+    const double doubleFactor = double(std::bit_cast<float>(0x40000000u)); // 0x8D3418 = 2.0f
+    const double forwardDot = ((double(matrixForward[2]) * double(velocity[2]) + double(matrixForward[1]) * double(velocity[1])) + double(matrixForward[0]) * double(velocity[0])) * doubleFactor;
+    const double rightDot = ((double(velocity[2]) * double(matrixRight[2]) + double(velocity[1]) * double(matrixRight[1])) + double(matrixRight[0]) * double(velocity[0])) * doubleFactor;
+    {
+        volatile float forwardClamp = float(forwardDot > limitUpper ? limitUpper : (forwardDot < -limitUpper ? -limitUpper : forwardDot));
+        volatile float rightClamp = float(rightDot > limitUpper ? limitUpper : (rightDot < -limitUpper ? -limitUpper : rightDot));
+        *upY = forwardClamp;
+        *upX = rightClamp;
+    }
+    const double power = ExeCompatiblePowCpp(double(std::bit_cast<float>(0x3F666666u)), double(timeStep)); // 0x8D3410 = 0.9f
+    volatile float oneMinus = float(1.0 - power);
+    const double limitSmall = double(std::bit_cast<float>(0x3DCCCCCDu)); // 0x8D340C / 0x8D3408 = 0.1f
+    const double half = double(std::bit_cast<float>(0x3F000000u));        // 0x858B8C
+    const double quarter = double(std::bit_cast<float>(0x3E800000u));     // 0x858C84
+    const double w0 = wheelPositions[0], w1 = wheelPositions[1], w2 = wheelPositions[2], w3 = wheelPositions[3];
+
+    double first = (((w2 - w3) + (w0 - w1)) * half) / (double(lines[1]) - double(lines[9]));
+    if (first > limitSmall) {
+        first = limitSmall;
+    } else if (first < -limitSmall) {
+        first = -limitSmall;
+    }
+    {
+        volatile float value = float(double(*forwardZ) * power + double(oneMinus) * first);
+        *forwardZ = value;
+    }
+    double second = (((w3 - w1) + (w2 - w0)) * half) / (double(lines[24]) - double(lines[8]));
+    if (second > limitSmall) {
+        second = limitSmall;
+    } else if (second < -limitSmall) {
+        second = -limitSmall;
+    }
+    {
+        volatile float value = float(double(*rightZ) * power + double(oneMinus) * second);
+        *rightZ = value;
+    }
+    double third = 1.0 - ((((w3 + w1) + w2) + w0) * quarter - double(wheelZ)) / (double(wheelSize) * half);
+    if (third > double(std::bit_cast<float>(0x3FA66666u))) { // 0x8D3404 = 1.3f
+        third = double(std::bit_cast<float>(0x3FA66666u));
+    }
+    {
+        volatile float value = float(double(*upZ) * power + double(oneMinus) * third);
+        *upZ = value;
+    }
+}
+
+#pragma float_control(pop)
+
+// --- Lote CStats (statsfix3) ---
+// ECX/EDX de entrada como resultado de 64 bits: lo llama Stats.cpp con el prototipo `uint64(__fastcall*)()` (sin argumentos) justo despues de un colaborador de la DLL
+// para conservar los registros con que este sale. Sin pila ni marco: `mov eax,ecx; ret` (EDX no se toca).
+__declspec(noinline) unsigned long long __fastcall StatsCaptureEcxEdxCpp(unsigned int ecx, unsigned int edx) {
+    // El resultado de 64 bits es EDX:ECX; la mitad alta ya esta en EDX, asi que el compilador solo emite `mov eax,ecx; ret` (devolver `ecx` a secas anadiria `xor edx,edx`).
+    return (static_cast<unsigned long long>(edx) << 32) | ecx;
+}
+
+#pragma warning(push)
+#pragma warning(disable : 4716)
+__declspec(noinline) unsigned int __fastcall StatsCaptureEaxCpp() {
+}
+#pragma warning(pop)
+
+static bool StatsCaptureEaxIsTrivial() {
+    const unsigned char* code = FollowIncrementalThunks(reinterpret_cast<const unsigned char*>(&StatsCaptureEaxCpp));
+    static const unsigned char plain[]     = {0xC2, 0x00, 0x00};                         // ret 0
+    static const unsigned char withFrame[] = {0x55, 0x8B, 0xEC, 0x5D, 0xC2, 0x00, 0x00}; // push ebp; mov ebp,esp; pop ebp; ret 0
+    return code[0] == 0xC3 || memcmp(code, plain, sizeof plain) == 0 || memcmp(code, withFrame, sizeof withFrame) == 0;
+}
+
+static bool StatsCaptureEcxEdxIsTrivial() {
+    static const unsigned char movEax[] = {0x8B, 0xC1, 0xC3};            // mov eax,ecx; ret
+    static const unsigned char orEax[]  = {0x33, 0xC0, 0x0B, 0xC1, 0xC3}; // xor eax,eax; or eax,ecx; ret (misma semantica, EDX intacto)
+    const unsigned char* p = FollowIncrementalThunks(reinterpret_cast<const unsigned char*>(&StatsCaptureEcxEdxCpp));
+    return memcmp(p, movEax, sizeof movEax) == 0 || memcmp(p, orEax, sizeof orEax) == 0;
+}
+static const bool s_statsCaptureChecked = (assert(StatsCaptureEaxIsTrivial() && StatsCaptureEcxEdxIsTrivial() && "StatsCaptureEcxEdxCpp ya no es `mov eax,ecx; ret`: revisar X87Math.cpp"), true);
+
+// --- CStats::UpdateSexAppealStat (0x55BF20, Stats.cpp, w20), prefijo SexAppeal. Anadir al FINAL de X87Math.cpp (despues de s_statsCaptureChecked) ---
+// Todo es noinline y se compila con /O2 /Oi /arch:IA32 /fp:fast. Cada operacion se redondea a 24 bits (PC24 del proceso); lo que el EXE deja sin guardar en memoria
+// (distancia, parte del vehiculo, suma final) sigue en doble hasta su comparacion o su fstp, y lo que el EXE guarda como float (apariencia/2, 2*salud-1000, el resultado)
+// ESTADO FNSAVE: el banco exige la pila x87 entera tras la funcion (TOP, FCW, FSW con C0-C3 y banderas acumuladas, FTW, FOP, FDP y el contenido crudo de los 8 registros ST, tambien los
+// vacios), asi que cada ayudante deja en ella los MISMOS valores muertos que el tramo del EXE (0x55BF23..0x55C093):
+//  - Half: fld; fmul [0.5f]; fstp dword.
+//  - Near: fld x; fsub; fld y; fsub; fld st; fmul st,st(1); fld st(2); fmul st,st(3); faddp; fsqrt; fcomp [35.0f]: deja dy, la distancia y dx*dx en los registros 2, 3 y 4 de la pila (vacios).
+//    s_sexAppealSinkA y las dos ramas con sumideros distintos obligan a MSVC a conservar dx y dy vivos hasta despues de la raiz y a elevar dy*dy antes que dx*dx (si no, eleva los cuadrados
+//    en el sitio o en el orden contrario y el residuo cambia).
+//  - VehiclePart: fld; fadd st,st; fsub [1000.0f]; fstp dword [local]; fld [1000.0f]; fcomp [local]; ...: el cero y el mil se leen de variables volatile para que el compilador no los suba a
+//    registros ni los combine (fld 0.0 con el valor vivo deja un 0.0 en el registro 2, como el EXE) y el local se lee de memoria en cada comparacion (fcomp dword [mem], sin empujar el local).
+//  - Finish: fld; fmul [0.5]; fadd [half]; fcom [0.0]; fcom [1000.0]; las sustituciones 0.0/1000.0 se cargan con fild de un entero volatile (mismo valor exacto, sin hoisting) y la comparacion
+//    se escribe con el valor como primer operando (`0.0f > v`, `1000.0f < v`) para que salga fcom con operando de memoria y el valor en ST0, como en el EXE (mismas C0/C2/C3 finales).
+// Los valores pasan entre ayudantes como double (suma exacta de 24 bits): nunca se recalculan, y el fstp/fld qword intermedio del llamador no cambia ningun registro ni bandera.
+// Comprobado con un arnes aislado (fuera del repo) que compara el FNSAVE (salvo FIP) de una transcripcion en ensamblador del EXE con esta cadena en las 30 rutas y mas de 5 millones de entradas con
+// NaN, desnormales, infinitos y cero con signo, TOP y residuo iniciales aleatorios: cero diferencias. Cualquier cambio de compilador u opciones exige repetirlo (o ejecutar el banco).
+
+static volatile int s_sexAppealZeroInt = 0, s_sexAppealThousandInt = 1000;
+static const volatile float s_sexAppealZeroFloat = 0.0f, s_sexAppealThousandFloat = 1000.0f;
+static volatile double s_sexAppealSinkX, s_sexAppealSinkY, s_sexAppealSinkX2, s_sexAppealSinkY2, s_sexAppealSinkA;
+
+// 0x55BF23..0x55BF3B: fld [apariencia]; fmul [0x858B8C] (0.5f); fstp dword [esp+0xC].
+__declspec(noinline) void __cdecl SexAppealHalfCpp(float appearance, unsigned int* out) {
+    *reinterpret_cast<volatile float*>(out) = static_cast<float>(static_cast<double>(appearance) * 0.5f);
+}
+
+// 0x55BF90..0x55BFB9: dx = [esi] - [eax], dy = [esi+4] - [eax+4]; dy*dy + dx*dx; fsqrt; fcomp [0x85F070] (35.0f); test ah,5; jp. Devuelve 1 si la distancia es < 35 (NaN y >= 35 dan 0).
+// Residuo del EXE al salir: registros fisicos 2 = dy, 3 = distancia (sqrt) y 4 = dx*dx (el 1 lo pisa despues siempre un fld).
+__declspec(noinline) unsigned int __cdecl SexAppealNearCpp(const float* target, const float* player) {
+    const double dx = static_cast<double>(target[0]) - static_cast<double>(player[0]);
+    const double dy = static_cast<double>(target[1]) - static_cast<double>(player[1]);
+    const double a = dy * dy;
+    s_sexAppealSinkA = a;
+    const double b = dx * dx;
+    const double d = sqrt(a + b);
+    if (d < 35.0f) {
+        s_sexAppealSinkY = dy;
+        s_sexAppealSinkX = dx;
+        return 1;
+    }
+    s_sexAppealSinkY2 = dy;
+    s_sexAppealSinkX2 = dx;
+    return 0;
+}
+
+// 0x55BFC5..0x55C04A: fld [ecx+0x4C0]; fadd st,st; fsub 1000.0f; fstp dword [esp] (se guarda como float);
+// 1000.0f < local ? 1000 : (local, y 0 si 0 > local; NaN se conserva); despues fmul por el factor de la clase (la tabla de 0x55C0B4 la resuelve Stats.cpp). ST0 sin redondear a float.
+__declspec(noinline) double __cdecl SexAppealVehiclePartCpp(float health, unsigned int factorIndex) {
+    volatile float local = static_cast<float>((static_cast<double>(health) + static_cast<double>(health)) - 1000.0f);
+    double part;
+    if (s_sexAppealThousandFloat < local) {
+        part = s_sexAppealThousandInt;
+    } else {
+        part = local;
+        if (s_sexAppealZeroFloat > local) {
+            part = s_sexAppealZeroInt;
+        }
+    }
+    switch (factorIndex) {
+    case 0:  part = part * 0.1f; break; // 0x55C038: fmul [0x858B1C]
+    case 2:  part = part * 0.3f; break; // 0x55C030: fmul [0x858C24]
+    case 3:  part = part * 0.5f; break; // 0x55C040: fmul [0x858B8C]
+    default: break;                     // 0x55C04C: sin factor
+    }
+    return part;
+}
+
+// 0x55C04C..0x55C093: fmul 0.5f; fadd dword [esp+4]; fcom 0.0 (test ah,5; jp: si < 0 -> 0); si no, fcom 1000.0 (test ah,41h; jne: si > 1000 -> 1000); cheat -> 1000; fstp dword [0xB793E4].
+// Solo toca el registro 1 de la pila, como el EXE.
+__declspec(noinline) void __cdecl SexAppealFinishCpp(double vehiclePart, unsigned int halfBits, unsigned int cheat) {
+    const float half = __builtin_bit_cast(float, halfBits); // intrinsico del compilador: std::bit_cast con /Ob0 seria una llamada que devuelve el float en ST0
+    double value = (vehiclePart * 0.5f) + static_cast<double>(half);
+    if (0.0f > value) {
+        value = s_sexAppealZeroInt;
+    } else if (1000.0f < value) {
+        value = s_sexAppealThousandInt;
+    }
+    if (cheat != 0) {
+        value = s_sexAppealThousandInt;
+    }
+    *reinterpret_cast<volatile float*>(0xB793E4) = static_cast<float>(value);
+}
+
+// --- CPlayerPed::ControlButtonSprint (0x60A610; prefijo PlayerPedSprint) ---
+// Tabla del EXE 0x8D2460 (32 bytes por tipo), 1.0f = 0x858624, 0.0f = 0x858B50, tiempo de paso = 0xB7CB5C. Cada ayudante reproduce un tramo x87 de la funcion: operaciones de 24 bits
+// (PC24) sobre double y UN solo redondeo a float en cada fstp del EXE; las comparaciones usan el valor del registro (no el float guardado) como el fcomp del EXE.
+
+// 0x60A69E..0x60A757 (sprint recien pulsado): suma = f0 + velocidad; si f10 < suma (fcomp st(1); test ah,5; jp) el resultado es f10, si no la suma (con NaN, la suma);
+// fstp dword [datos+0x1C].
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl PlayerPedSprintAddClampCpp(float f0, float speed, float f10) {
+    const double sum = double(f0) + double(speed);
+    volatile float result = float((double(f10) < sum) ? double(f10) : sum);
+    return result;
+}
+#pragma float_control(pop)
+
+// 0x60A6E3..0x60A757 (sprint mantenido, limite = 1.0f) y 0x60A72C..0x60A757 (sin pulsar, limite = 0.0f): r = velocidad - (paso * k) (fmul, fsubr); si limite > r
+// (fcomp st(1); test ah,41h; jne) el resultado es el limite, si no r (con NaN, r); fstp dword [datos+0x1C].
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl PlayerPedSprintDecayCpp(float timeStep, float k, float speed, float limit) {
+    const double r = double(speed) - (double(timeStep) * double(k));
+    volatile float result = float((double(limit) > r) ? double(limit) : r);
+    return result;
+}
+#pragma float_control(pop)
+
+// 0x60A776 / 0x60A786: fdiv velocidad / f_C y fst dword [esp+10h] (float(velocidad / f_C), un redondeo a 24 bits en la division y otro a float al guardarlo).
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl PlayerPedSprintRatioCpp(float speed, float threshold) {
+    volatile float result = float(double(speed) / double(threshold));
+    return result;
+}
+#pragma float_control(pop)
+
+// 0x60A7A9..0x60A7D3: fld ratio; fsub 1.0; (0.0 > r ? 0.0 : r); fmul f_1C; fadd 1.0 y ret con ST0 SIN guardar. Devuelve double (extern "C"): PlayerPed.cpp lo declara como float con
+// otro nombre (/alternatename _PlayerPedSprintTailFltCpp=_PlayerPedSprintTailDblCpp) para que ST0 salga tal cual, como el EXE.
+#pragma float_control(precise, on, push)
+extern "C" __declspec(noinline) double __cdecl PlayerPedSprintTailDblCpp(float ratio, float k) {
+    double r = double(ratio) - 1.0;
+    if (0.0 > r) {
+        r = 0.0;
+    }
+    return (r * double(k)) + 1.0;
 }
 #pragma float_control(pop)

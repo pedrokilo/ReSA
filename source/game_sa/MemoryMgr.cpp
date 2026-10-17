@@ -1,4 +1,5 @@
 #include "StdInc.h"
+#include "X87Math.h"
 
 #include <cstdlib>
 
@@ -103,58 +104,48 @@ void CMemoryMgr::SetHint(void* memory, const char* hint) {
 }
 
 // 0x72F480
-// Como el original: Init(mem=0xC8E0C8, size=0x4000, bInitSizes=false).
-// Se conserva el orden de escrituras y los bytes de cabeceras que el EXE no inicializa.
-__declspec(naked) void CMemoryMgr::InitScratchPad() {
-    __asm {
-        mov eax,3FF0h
-        push ebx
-        push esi
-        mov esi,0C87BD0h
-        mov ecx,0C8E0C8h
-        mov dword ptr [esi],ecx
-        add ecx,eax
-        mov dword ptr [esi+4],ecx
-        xor ebx,ebx
-        mov dword ptr [esi+40h],ebx
-        mov dl,1
-        mov byte ptr [esi+3Ch],dl
-        push edi
-        or edi,0FFFFFFFFh
-        mov dword ptr [esi+44h],edi
-        mov byte ptr [ecx+4],dl
-        mov ecx,dword ptr [esi+4]
-        mov word ptr [ecx+6],di
-        mov edx,dword ptr [esi+4]
-        mov dword ptr [edx],ebx
-        mov ecx,dword ptr [esi+4]
-        mov edx,dword ptr [esi]
-        mov dword ptr [ecx+0Ch],edx
-        mov ecx,dword ptr [esi]
-        add eax,0FFFFFFF0h
-        mov dword ptr [ecx],eax
-        mov edx,dword ptr [esi]
-        mov byte ptr [edx+4],bl
-        mov eax,dword ptr [esi]
-        mov dword ptr [eax+0Ch],ebx
-        lea eax,[esi+8]
-        mov dword ptr [esi+34h],eax
-        mov dword ptr [esi+20h],7FFFFFFFh
-        lea ecx,[esi+20h]
-        mov dword ptr [esi+18h],ecx
-        mov edx,dword ptr [eax+10h]
-        mov ecx,dword ptr [esi]
-        mov dword ptr [ecx+10h],edx
-        mov edx,dword ptr [eax+10h]
-        mov dword ptr [edx+14h],ecx
-        mov dword ptr [ecx+14h],eax
-        mov dword ptr [eax+10h],ecx
-        pop edi
-        pop esi
-        pop ebx
-        ret
-    }
+// Como el original: Init(mem=0xC8E0C8, size=0x4000, bInitSizes=false) de 0x72F180 en línea. Sólo se escriben los campos que el EXE escribe
+// (no CMemoryHeap::Init de C++, que además pone a cero m_paCommonSizes y enlaza begin.m_Prev / end.m_Next): quedan intactos los bytes
+// +0x1C, +0x30 y +0x38 del montículo, el m_nMemId / m_pDebugInfo del primer bloque y el m_pDebugInfo del último.
+// Salida del EXE (72F1F3..31F): EAX = &m_FreeListBegin (0xC87BD8), ECX = primer bloque (0xC8E0C8), EDX = &m_FreeListEnd (0xC87BF0);
+// ResidueRegsCpp es lo último que se ejecuta (ver contrib/audit_register_residue.py, objeto MemoryMgr).
+#pragma runtime_checks("", off)
+void CMemoryMgr::InitScratchPad() {
+    constexpr uint32 kSize = MEMORY_MGR_PC_SCRATCH_SIZE;
+    CMemoryHeap& heap = g_Heaps[HEAP_SCRATCH];
+
+    auto* const first = reinterpret_cast<HeapFreeBlockDesc*>(&s_MemoryHeapBuffer[0]);
+    auto* const last  = reinterpret_cast<HeapBlockDesc*>(&s_MemoryHeapBuffer[0] + (kSize - sizeof(HeapBlockDesc)));
+    HeapFreeBlockDesc* const begin = &heap.m_FreeListBegin;
+    HeapFreeBlockDesc* const end   = &heap.m_FreeListEnd;
+
+    heap.m_FirstBlock = first;
+    heap.m_LastBlock  = last;
+    heap.m_nMemUsed   = 0;
+    heap.m_bMovingRestricted = true;
+    heap.m_nMemId     = -1;
+
+    // bloque final (tamaño 0, en uso)
+    last->m_bInUse    = true;
+    last->m_nMemId    = -1;
+    last->m_nSize     = 0;
+    last->m_PrevBlock = first;
+
+    // primer bloque libre: kSize - 0x10 - 0x10
+    first->m_nSize     = int32(kSize - 2 * sizeof(HeapBlockDesc));
+    first->m_bInUse    = false;
+    first->m_PrevBlock = nullptr;
+
+    // lista de libres: begin -> first -> end (begin.m_Prev y end.m_Next no se tocan)
+    end->m_nSize = 0x7FFFFFFF;
+    begin->m_Next = first;
+    first->m_Next = end;
+    first->m_Prev = begin;
+    end->m_Prev   = first;
+
+    (void)ResidueRegsCpp(reinterpret_cast<uint32>(first), reinterpret_cast<uint32>(end), reinterpret_cast<uint32>(begin));
 }
+#pragma runtime_checks("", restore)
 
 void* CMemoryMgr::MallocFromScratchPad(uint32 size) {
     void* memory = g_Heaps[HEAP_SCRATCH].Malloc(size);
@@ -261,24 +252,11 @@ void* CMemoryMgr::InternalRealloc(void* memory, uint32 size) {
 }
 
 namespace {
-__declspec(naked) void* __cdecl Memory9NativeMalloc(uint32) {
-    __asm {
-        push 00824257h
-        ret
-    }
-}
-__declspec(naked) uint8* __cdecl Memory9NativeRealloc(void*, uint32) {
-    __asm {
-        push 00824269h
-        ret
-    }
-}
-__declspec(naked) void __cdecl Memory9NativeFree(void*) {
-    __asm {
-        push 0082413Fh
-        ret
-    }
-}
+// CRT estática del EXE (no son funciones del juego reconstruidas): malloc 0x824257, realloc 0x824269 y free 0x82413F, todas __cdecl.
+// Se llaman por dirección directamente desde cada función (sin ayudante intermedio) para que la dirección de retorno caiga dentro del cuerpo.
+using ExeCrtMalloc  = void*  (__cdecl*)(uint32);
+using ExeCrtRealloc = uint8* (__cdecl*)(void*, uint32);
+using ExeCrtFree    = void   (__cdecl*)(void*);
 }
 
 // 0x72F420
@@ -312,14 +290,9 @@ void* CMemoryMgr::Malloc(uint32 size, uint32 nHint) {
 #endif
 }
 #else
-__declspec(naked) void* CMemoryMgr::Malloc(uint32 size, uint32 nHint) {
-    __asm {
-        mov eax,[esp+4]
-        push eax
-        call Memory9NativeMalloc
-        add esp,4
-        ret
-    }
+void* CMemoryMgr::Malloc(uint32 size, uint32 nHint) {
+    // 0x72F420: sólo reenvía el tamaño; el hint se ignora.
+    return reinterpret_cast<ExeCrtMalloc>(uintptr_t{0x824257})(size);
 }
 #endif
 
@@ -377,16 +350,9 @@ uint8* CMemoryMgr::Realloc(void* memory, uint32 size, uint32 nHint) {
 #endif
 }
 #else
-__declspec(naked) uint8* CMemoryMgr::Realloc(void* memory, uint32 size, uint32 nHint) {
-    __asm {
-        mov eax,[esp+8]
-        mov ecx,[esp+4]
-        push eax
-        push ecx
-        call Memory9NativeRealloc
-        add esp,8
-        ret
-    }
+uint8* CMemoryMgr::Realloc(void* memory, uint32 size, uint32 nHint) {
+    // 0x72F440: realloc(memory, size) del CRT del EXE; el hint se ignora.
+    return reinterpret_cast<ExeCrtRealloc>(uintptr_t{0x824269})(memory, size);
 }
 #endif
 
@@ -411,24 +377,15 @@ uint8* CMemoryMgr::MallocAlign(uint32 size, uint32 align, uint32 nHint) {
     return static_cast<uint8*>(result);
 }
 #else
-__declspec(naked) uint8* CMemoryMgr::MallocAlign(uint32 size, uint32 align, uint32 nHint) {
-    __asm {
-        mov eax,[esp+4]
-        push esi
-        mov esi,[esp+0Ch]
-        add eax,esi
-        push eax
-        call Memory9NativeMalloc
-        mov ecx,eax
-        lea eax,[ecx+esi]
-        add esp,4
-        dec esi
-        not esi
-        and eax,esi
-        mov [eax-4],ecx
-        pop esi
-        ret
-    }
+uint8* CMemoryMgr::MallocAlign(uint32 size, uint32 align, uint32 nHint) {
+    // 0x72F4C0: malloc(size + align), resultado = (base + align) & ~(align - 1) con la base guardada en [resultado - 4].
+    // Aritmética de 32 bits sin signo (add/lea con desborde); sin comprobar OOM ni alineamientos que no sean potencia de dos, como el EXE.
+    const uint32 requested = size + align;
+    uint8* const base      = static_cast<uint8*>(reinterpret_cast<ExeCrtMalloc>(uintptr_t{0x824257})(requested));
+    const uint32 aligned   = (static_cast<uint32>(reinterpret_cast<uintptr_t>(base)) + align) & ~(align - 1u);
+    auto* const  result    = reinterpret_cast<uint8*>(static_cast<uintptr_t>(aligned));
+    *reinterpret_cast<void**>(result - sizeof(void*)) = base;
+    return result;
 }
 #endif
 
@@ -438,13 +395,14 @@ void CMemoryMgr::FreeAlign(void* memory) {
     Free(*((void**)memory - 1));
 }
 #else
-__declspec(naked) void CMemoryMgr::FreeAlign(void* memory) {
-    __asm {
-        mov eax,[esp+4]
-        mov ecx,[eax-4]
-        mov [esp+4],ecx
-        jmp Memory9NativeFree
-    }
+__declspec(noinline) void CMemoryMgr::FreeAlign(void* memory) {
+    // 0x72F4F0: el EXE sobrescribe el argumento entrante [esp+4] con la base guardada en [memory - 4] y salta (tail call) a free del CRT.
+    // `argument` es un acceso volátil al propio objeto parámetro (que MSVC x86 mantiene en su ranura de pila entrante al tomarle la
+    // dirección): la escritura no se puede eliminar y free recibe la base leída de esa ranura. Hay que comprobar en el objeto compilado
+    // que la ranura entrante cambia (lo exige DependenciesMemoryCpp16: argument_after_matches). No es una garantía del lenguaje.
+    void* volatile* const argument = &memory;
+    *argument = *reinterpret_cast<void**>(static_cast<uint8*>(*argument) - sizeof(void*));
+    reinterpret_cast<ExeCrtFree>(uintptr_t{0x82413F})(*argument);
 }
 #endif
 

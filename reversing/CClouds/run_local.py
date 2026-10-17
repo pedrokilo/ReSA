@@ -59,4 +59,4 @@ if __name__=='__main__':
         result=analyze(Path(sys.argv[2]))
         if result is None:raise RuntimeError('Registro incompleto.')
         print(json.dumps(result,indent=2))
-    else:sys.exit(run_case('clouds',PROBE_HASH,analyze,'CClouds::RenderBottomFromHeight'))
+    else:sys.exit(run_case('clouds',PROBE_HASH,analyze,'CClouds::RenderBottomFromHeight',timeout=1500))

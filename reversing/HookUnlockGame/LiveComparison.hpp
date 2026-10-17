@@ -1,6 +1,8 @@
 #pragma once
 #include "IdlePairs.hpp"
 #include "RenderPairs.hpp"
+#include <atomic>
+#include <thread>
 #include <reversiblehooks/ReversibleHook/Simple.h>
 extern bool ProcessGameLogic(INT nCmdShow);
 #ifdef NOTSA_USE_SDL3
@@ -51,11 +53,69 @@ inline bool PatchRenderCall() {
     auto bytes=renderCallBytes;const int32 displacement=int32(uintptr_t(&RenderForward)-0x53EB17);
     std::memcpy(bytes.data()+1,&displacement,4);PutCall(bytes);renderCallPatched=true;return true;
 }
+// Diagnostico del cursor (no cambia ninguna condicion de aceptacion): un hilo muestrea GetCursorPos cada ~1 ms mientras dura la comprobacion y
+// registra cuando cambia (ms desde el inicio, x, y); asi se distingue un salto exacto al centro del cliente (SetCursorPos de la DLL/EXE: RsMouseSetPos,
+// CentreMousePointer) de un movimiento gradual (raton fisico/otra aplicacion) y se ve en que fase ocurre (antes de ProcessGameLogic, durante la pausa o
+// durante AppEventHandler).
+struct CursorWatch {
+    struct Sample { DWORD ms; LONG x, y; };
+    std::atomic<bool> stop{false};
+    std::atomic<int> count{0};
+    Sample samples[24]{};
+    std::thread worker;
+    DWORD origin{};
+    void Start(POINT initial) {
+        origin=GetTickCount();
+        worker=std::thread([this,initial]{
+            POINT last=initial,p{};
+            while(!stop.load()){
+                if(GetCursorPos(&p)&&(p.x!=last.x||p.y!=last.y)){
+                    const int i=count.load();
+                    if(i<24){samples[i]={GetTickCount()-origin,p.x,p.y};count.store(i+1);}
+                    last=p;
+                }
+                Sleep(1);
+            }
+        });
+    }
+    json Stop() {
+        stop.store(true);
+        if(worker.joinable())worker.join();
+        json changes=json::array();
+        for(int i=0;i<count.load();++i)changes.push_back({{"ms",samples[i].ms},{"x",samples[i].x},{"y",samples[i].y}});
+        return changes;
+    }
+    ~CursorWatch(){ if(worker.joinable()){stop.store(true);worker.join();} }
+};
+inline BOOL CALLBACK FindMainWindow(HWND window,LPARAM out) {
+    if(IsWindowVisible(window)&&!GetWindow(window,GW_OWNER)){*reinterpret_cast<HWND*>(out)=window;return FALSE;}
+    return TRUE;
+}
+inline json CursorWindowInfo() {
+    HWND window{};EnumThreadWindows(GetCurrentThreadId(),FindMainWindow,reinterpret_cast<LPARAM>(&window));
+    HWND foreground=GetForegroundWindow();DWORD foregroundPid{};if(foreground)GetWindowThreadProcessId(foreground,&foregroundPid);
+    json info={{"window_found",window!=nullptr},{"foreground_is_game_process",foregroundPid==GetCurrentProcessId()},{"foreground_is_main_window",window&&foreground==window}};
+    if(window){
+        RECT client{},outer{};GetClientRect(window,&client);GetWindowRect(window,&outer);
+        POINT center{(client.right-client.left)/2,(client.bottom-client.top)/2};ClientToScreen(window,&center);
+        info["client_center"]={center.x,center.y};info["window_rect"]={outer.left,outer.top,outer.right,outer.bottom};info["iconic"]=IsIconic(window)!=0;
+    }
+    CURSORINFO cursorInfo{};cursorInfo.cbSize=sizeof(cursorInfo);
+    if(GetCursorInfo(&cursorInfo))info["cursor_showing"]=(cursorInfo.flags&CURSOR_SHOWING)!=0;
+    RECT clip{};if(GetClipCursor(&clip))info["clip_rect"]={clip.left,clip.top,clip.right,clip.bottom};
+    return info;
+}
 inline bool BackgroundCheck(int mask,bool renderParam,bool appActive) {
     ReversingProbe::PumpMessages();
+    // Control (solo en el primer caso): 120 ms de Sleep SIN codigo del juego. Si el cursor se mueve aqui, lo mueve algo ajeno a la DLL (raton fisico, otra aplicacion).
+    json cursorControl=nullptr;static bool cursorControlDone=false;
+    if(!cursorControlDone){cursorControlDone=true;POINT c0{},c1{};GetCursorPos(&c0);Sleep(120);GetCursorPos(&c1);
+        cursorControl={{"sleep_ms",120},{"before",{c0.x,c0.y}},{"after",{c1.x,c1.y}},{"moved",c0.x!=c1.x||c0.y!=c1.y}};}
     const uint32 fg=*reinterpret_cast<const uint32*>(0x8D621C);const auto frame=CTimer::m_FrameCounter;
     const uint8 foregroundTracking=*reinterpret_cast<const uint8*>(0xC920EC);
     POINT before{},after{};const bool cursorBefore=GetCursorPos(&before)!=0;
+    CursorWatch cursorWatch;cursorWatch.Start(before);const json windowBefore=CursorWindowInfo();
+    POINT phaseLoop{},phaseStatus{};
     hooks[0]->LockState(false);hooks[0]->State(false);
     const bool appEnabled=appHook->Hooked(),appLocked=appHook->Locked();
     const auto appDllAddress=uintptr_t(static_cast<ReversibleHooks::ReversibleHook::Simple*>(appHook)->GetHookOurAddress());
@@ -93,6 +153,7 @@ inline bool BackgroundCheck(int mask,bool renderParam,bool appActive) {
 #endif
     }
     const DWORD loopTime=GetTickCount()-loopStart;
+    GetCursorPos(&phaseLoop);
 #ifdef NOTSA_USE_SDL3
     const bool lostConsumed=!SDL_HasEvent(SDL_EVENT_WINDOW_FOCUS_LOST);
     const bool gainedConsumed=!SDL_HasEvent(SDL_EVENT_WINDOW_FOCUS_GAINED);
@@ -105,11 +166,13 @@ inline bool BackgroundCheck(int mask,bool renderParam,bool appActive) {
     if(!messagePump)PeekMessage(&remaining,nullptr,probeMessage,probeMessage,PM_REMOVE);
 #endif
     const auto status=appActive?AppEventHandler(rsIDLE,renderParam?reinterpret_cast<void*>(1):nullptr):rsEVENTPROCESSED;
+    GetCursorPos(&phaseStatus);
     FrontEndMenuManager.m_bStartGameLoading=loading;RsGlobal.quit=quit;
     inDispatch=false;*reinterpret_cast<uint32*>(0x8D621C)=fg;
     *reinterpret_cast<uint8*>(0xC920EC)=foregroundTracking;
     appHook->State(appEnabled);appHook->LockState(appLocked);
     const bool cursorAfter=GetCursorPos(&after)!=0;
+    const json cursorChanges=cursorWatch.Stop();
     const bool callOk=messagePump&&predicate&&loopTime>=90&&loopStatus&&status==rsEVENTPROCESSED&&frame==CTimer::m_FrameCounter&&cursorBefore&&cursorAfter&&before.x==after.x&&before.y==after.y;
     const bool gameRestored=Restore();
     const bool appRestored=appHook->Hooked()==appEnabled&&appHook->Locked()==appLocked&&
@@ -133,6 +196,8 @@ inline bool BackgroundCheck(int mask,bool renderParam,bool appActive) {
         {"frame_unchanged",frame==CTimer::m_FrameCounter},{"backend",messageApplicable?"Win32":"SDL3 (prueba WM_APP no aplicable)"}});
     Write({{"event","background_dispatch_guard"},{"mask",mask},{"param_nonnull",renderParam},
         {"app_active",appActive},{"pause_predicate",predicate},{"loop_elapsed_ms",loopTime},{"loop_returned",loopStatus},{"passed",ok},{"frame_unchanged",frame==CTimer::m_FrameCounter},{"cursor_unchanged",before.x==after.x&&before.y==after.y},
+        {"cursor_before",{before.x,before.y}},{"cursor_after",{after.x,after.y}},{"cursor_after_loop",{phaseLoop.x,phaseLoop.y}},{"cursor_after_status",{phaseStatus.x,phaseStatus.y}},
+        {"cursor_ok_before",cursorBefore},{"cursor_ok_after",cursorAfter},{"dispatch_status",int(status)},{"cursor_changes",cursorChanges},{"cursor_window",windowBefore},{"cursor_control_idle_120ms",cursorControl},
         {"state_restored",stateRestored},{"app_bytes_restored",appRestored},{"game_bytes_restored",gameRestored},
         {"foreground_tracking_before",foregroundTracking},{"foreground_tracking_after",*reinterpret_cast<const uint8*>(0xC920EC)},
         {"foreground_tracking_restored",*reinterpret_cast<const uint8*>(0xC920EC)==foregroundTracking}});

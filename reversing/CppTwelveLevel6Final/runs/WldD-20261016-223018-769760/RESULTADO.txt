@@ -1,0 +1,3 @@
+APROBADO: Mundo: limpieza y proceso (CWorld, grupo D)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-wldd\20261016-223018-769760

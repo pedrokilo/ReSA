@@ -129,6 +129,18 @@ patch(0x59A590,D59A590);
  patchDll(0x59A130,std::bit_cast<uintptr_t>(&Interior_c::Shop_FurnishCeiling),D59A130);
  patchDll(0x591E40,std::bit_cast<uintptr_t>(&Interior_c::AddInteriorInfo),D591E40);
  patchDll(0x591220,std::bit_cast<uintptr_t>(&FurnitureManager_c::GetRandomId),D591220);
+
+ // Los cuerpos C++ de las doce funciones convertidas llaman a sus colaboradores por simbolo: se interceptan tambien las entradas de la DLL que faltaban.
+ patchDll(0x407180,std::bit_cast<uintptr_t>(&CGeneral::GetRandomIntInRange),RandomRange);
+ patchDll(0x5911E0,std::bit_cast<uintptr_t>(&FurnitureManager_c::GetFurniture),D5911E0);
+ patchDll(0x591920,std::bit_cast<uintptr_t>(&Interior_c::GetNumEmptyTiles),D591920);patchDll(0x5918E0,std::bit_cast<uintptr_t>(&Interior_c::GetTileStatus),D5918E0);
+ patchDll(0x591D20,std::bit_cast<uintptr_t>(&Interior_c::AddGotoPt),D591D20);patchDll(0x592AA0,std::bit_cast<uintptr_t>(&Interior_c::PlaceFurniture),D592AA0);
+ patchDll(0x599210,std::bit_cast<uintptr_t>(&Interior_c::Office_PlaceEdgeFillers),D599210);patchDll(0x5993E0,std::bit_cast<uintptr_t>(&Interior_c::Office_PlaceDesk),D5993E0);
+ patchDll(0x5995B0,std::bit_cast<uintptr_t>(&Interior_c::Office_PlaceEdgeDesks),D5995B0);patchDll(0x599960,std::bit_cast<uintptr_t>(&Interior_c::Office_PlaceDeskQuad),D599960);
+ patchDll(0x599BB0,std::bit_cast<uintptr_t>(&Interior_c::Shop_Place3PieceUnit),D599BB0);patchDll(0x599DC0,std::bit_cast<uintptr_t>(&Interior_c::Shop_PlaceEdgeUnits),D599DC0);
+ patchDll(0x599EF0,std::bit_cast<uintptr_t>(&Interior_c::Shop_PlaceCounter),D599EF0);patchDll(0x59A030,std::bit_cast<uintptr_t>(&Interior_c::Shop_PlaceFixedUnits),D59A030);
+ patchDll(0x59A140,std::bit_cast<uintptr_t>(&Interior_c::Shop_AddShelfInfo),D59A140);patchDll(0x59A1B0,std::bit_cast<uintptr_t>(&Interior_c::Shop_FurnishEdges),D59A1B0);
+ patchDll(0x59A590,std::bit_cast<uintptr_t>(&Interior_c::Shop_FurnishAisles),D59A590);
   alignas(16) std::array<uint8,sizeof(Interior_c)> object{};alignas(16) std::array<uint8,64> box{};
   for(int i=0;i<fn.cases;++i){auto run=[&](bool candidate){scenario=uint32(i);calls=0;rngCalls=0;trace=json::array();object.fill(0);box.fill(0);furniture.fill(0);auto* self=reinterpret_cast<Interior_c*>(object.data());self->m_box=reinterpret_cast<tEffectInterior*>(box.data());
    box[2]=uint8(5+i%24);box[3]=uint8(5+(i/3)%24);box[5]=uint8(i%12);box[0x1F]=uint8(i%5);*reinterpret_cast<int16*>(furniture.data()+10)=int16(i%8);self->field_3EC=int16(box[2]);self->field_3EE=int16(box[3]);self->m_furnitureGroupId=int8(i%9);self->m_furnitureId=int8(i%8);self->field_792=int8(i%7);self->m_interiorInfosCount=int8(i%8);

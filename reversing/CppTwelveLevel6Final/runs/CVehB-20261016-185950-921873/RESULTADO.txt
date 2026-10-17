@@ -1,0 +1,3 @@
+APROBADO: CVehicle grupo B (ocupantes, ciclo de vida y geometria)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cvehb\20261016-185950-921873

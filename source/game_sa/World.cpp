@@ -30,6 +30,7 @@ END GENERATED HOOK STATUS */
 #include "CarCtrl.h"
 #include "TagManager.h"
 #include "Glass.h"
+#include "X87Math.h"
 #include "Shadows.h"
 #include "CustomBuildingDNPipeline.h"
 #include "VehicleRecording.h"
@@ -2395,31 +2396,6 @@ void CWorld::TriggerExplosionSectorList(PtrListType& ptrList, const CVector& poi
 }
 
 // 0x5684A0
-namespace {
-// Como el original (0x568952..0x568978): CRT pow del EXE (0x822130, precision completa) con base 0.707 (0x8CDEEC)
-// y exponente ms_fTimeStep; cada componente se multiplica por el resultado y se redondea a float.
-// Fuera de la lambda de Process porque MSVC no admite ensamblador en linea dentro de lambdas.
-void __cdecl WorldDampMoveSpeedExe(float* moveSpeed) {
-    __asm {
-        mov eax, 0x8CDEEC
-        fld dword ptr [eax]
-        mov eax, 0xB7CB5C
-        fld dword ptr [eax]
-        mov eax, 0x822130
-        call eax
-        mov edx, moveSpeed
-        fld st(0)
-        fmul dword ptr [edx]
-        fstp dword ptr [edx]
-        fld st(0)
-        fmul dword ptr [edx + 4]
-        fstp dword ptr [edx + 4]
-        fmul dword ptr [edx + 8]
-        fstp dword ptr [edx + 8]
-    }
-}
-} // namespace
-
 void CWorld::Process() {
     ZoneScoped;
 
@@ -2591,10 +2567,10 @@ void CWorld::Process() {
                         if (entity->TreatAsPlayerForCollisions()) {
                             NOTSA_LOG_DEBUG("STUCK: Final Step: Player Entity {} Is Stuck", entity->GetModelIndex()); // R* log
                             const auto physical = entity->AsPhysical();
-                            // Como el original (0x568952..0x568978): CRT pow del EXE (0x822130, precision completa) con base
+                            // Como el original (0x568952..0x568978): _CIpow del EXE (0x822130, precision completa) con base
                             // 0.707 (0x8CDEEC) y como exponente ms_fTimeStep (no en milisegundos); cada componente se
-                            // multiplica por el resultado y se redondea a float
-                            WorldDampMoveSpeedExe(&physical->m_vecMoveSpeed.x);
+                            // multiplica por el resultado sin redondear y se guarda como float (X87Math.cpp)
+                            PowScaleVector3Cpp(&physical->m_vecMoveSpeed.x, 0.707f, CTimer::ms_fTimeStep);
                             physical->ApplyMoveSpeed();
                             physical->ApplyTurnSpeed();
                         }
@@ -2606,7 +2582,8 @@ void CWorld::Process() {
     g_LoadMonitor.EndTimer(eLoadType::COLLISION);
 
     CVehicleRecording::SaveOrRetrieveDataForThisFrame();
-    g_ikChainMan.Update(CTimer::ms_fTimeStep * 0.02f); // Como el original (0x5689E3): multiplica por 0.02 (0x858B38), no divide entre 50
+    // Como el original (0x5689E3): fld ms_fTimeStep; fmul 0.02f (0x858B38); fstp [esp] (x87: conserva los subnormales, el SSE de la DLL los descarta)
+    g_ikChainMan.Update(X87TimesFloatCpp(CTimer::ms_fTimeStep, 0.02f));
     ProcessAttachedEntities();
 
     IterateMovingList([&](CEntity* entity) {

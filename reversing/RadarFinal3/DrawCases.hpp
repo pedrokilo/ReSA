@@ -49,7 +49,14 @@ inline json CaseShowRadarMarker(unsigned I, bool cand, Hook* hook, uintptr_t add
 inline json CaseDrawRotatingRadarSprite(unsigned I, bool cand, Hook* hook, uintptr_t addr) {
     return CaseBlip(I, cand, hook, addr, 0x7205, [](uint32& s, json&, uintptr_t a) {
         void* sprite = reinterpret_cast<void*>(0xBAA250u + 4u * (Rnd(s) % 64));
-        Call<void>(a, sprite, PickIn(s, -100.f, 1800.f), PickIn(s, -100.f, 1100.f), PickIn(s, -7.f, 7.f), Rnd(s) % 60, Rnd(s) % 60, Rnd(s));
+        // Estres: anchos/altos que el EXE carga con fild (sin redondear a float) y suma 2^32 si son negativos, y angulos limite (el seno/coseno x87 no se redondea)
+        static constexpr uint32 bigDims[] = { 0u, 16777216u, 16777217u, 16777219u, 33554433u, 0x7FFFFFFFu, 0x80000000u, 0x80000001u, 0xFFFFFFFFu, 0xFFFFFF01u };
+        static constexpr float specialAngles[] = { 0.f, -0.f, 1e-40f, -1e-40f, 100.f, -1e5f, 1.5707964f, 3.1415927f };
+        const auto dim = [&s]() -> uint32 { return (Rnd(s) % 4 == 0) ? bigDims[Rnd(s) % std::size(bigDims)] : Rnd(s) % 60; };
+        const float x = PickIn(s, -100.f, 1800.f), y = PickIn(s, -100.f, 1100.f);
+        const float angle = (Rnd(s) % 5 == 0) ? specialAngles[Rnd(s) % std::size(specialAngles)] : PickIn(s, -7.f, 7.f);
+        const uint32 w = dim(), h = dim();
+        Call<void>(a, sprite, x, y, angle, w, h, Rnd(s));
     });
 }
 inline json CaseDrawYouAreHere(unsigned I, bool cand, Hook* hook, uintptr_t addr) {

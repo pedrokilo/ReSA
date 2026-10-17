@@ -6,5 +6,6 @@ from probe_build import build
 G = 'source/game_sa/'
 SOURCES = [G + p for p in ('Entity/Vehicle/Bmx.cpp', 'Entity/Vehicle/Bmx.h', 'Entity/Vehicle/QuadBike.cpp', 'Entity/Vehicle/QuadBike.h',
                            'Fx/CarFXRenderer.cpp', 'Fx/CarFXRenderer.h', 'StencilShadows.cpp', 'StencilShadows.h',
-                           'StencilShadowObject.cpp', 'StencilShadowObject.h')]
+                           'StencilShadowObject.cpp', 'StencilShadowObject.h',
+                           'X87Math.cpp', 'X87Math.h')]
 if __name__ == '__main__': print(json.dumps(build(Path(__file__).parent, 'misc61b', 'Misc61bLive', SOURCES)))

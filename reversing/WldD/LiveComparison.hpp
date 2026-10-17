@@ -440,6 +440,15 @@ inline void Update() {
                         At<void*>(reinterpret_cast<void*>(PLAYERS),0)=rng.chance(80) ? playerPed : nullptr;
                         At<void*>(reinterpret_cast<void*>(PLAYERS+0x190),0)=rng.chance(30) ? static_cast<void*>(P.back()) : nullptr;
                         for(auto* e:Phys())if(rng.chance(25))EntPos(e)->z=rng.uni(-130.f,-90.f);
+                        // Estres del amortiguado del jugador atascado (0x568952..0x568978: _CIpow(0.707, ms_fTimeStep) y tres productos x87 sin
+                        // redondear): velocidad del jugador y paso con NaN (silencioso y señalizante), +-inf, +-0, subnormales, +-1e30/1e-30 y FLT_MAX.
+                        {
+                            static constexpr uint32 speedBits[]{0x00000000u,0x80000000u,0x00000001u,0x80000001u,0x007FFFFFu,0x00800000u,0x7F7FFFFFu,0xFF7FFFFFu,
+                                0x7F800000u,0xFF800000u,0x7FC00000u,0xFFC00000u,0x7FC00001u,0x7F800001u,0x3F800000u,0xBF800000u,0x7149F2CAU,0x0DA24260U,0xF149F2CAU};
+                            static constexpr uint32 stepBits[]{0x00000000u,0x3F800000u,0x00000001u,0x007FFFFFu,0x7F7FFFFFu,0x7F800000u,0x7FC00000u,0x7149F2CAU,0x0DA24260U,0x42C80000U,0x3C23D70AU};
+                            if(playerPed&&rng.chance(35))for(int k=0;k<3;++k)At<float>(playerPed,0x44+size_t(k)*4)=std::bit_cast<float>(speedBits[rng.next()%std::size(speedBits)]);
+                            if(rng.chance(25))*reinterpret_cast<float*>(STEP)=std::bit_cast<float>(stepBits[rng.next()%std::size(stepBits)]);
+                        }
                         reinterpret_cast<void(__cdecl*)()>(a)();
                     }
                     out["args"]=args; out["trace"]=trace;

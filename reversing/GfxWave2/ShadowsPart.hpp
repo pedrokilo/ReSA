@@ -277,7 +277,7 @@ inline json CaseStoreRT(unsigned I, bool cand, Hook* hook, uintptr_t addr) {
     playerPedRet = isPlayer ? static_cast<void*>(p) : (Chance(s, 50) ? nullptr : static_cast<void*>(other.p()));
     sphereRet = Chance(s, 60); fxQ = 0; texRet = reinterpret_cast<void*>(0x6E000000u + (Rnd(s) & 0xFFFF) * 0x10u); frameRet = frame.p();
     for (size_t off : { 0x30u, 0x34u, 0x38u }) At<float>(frame.p(), off) = Chance(s, 5) ? 0.f : PickNear(s);
-    for (int k = 0; k < 48; ++k) G<float>(TC_SUN + k * 4) = Pick(s, { 0.f, 0.5f, -0.5f, 1.f, -1.f, 0.25f, -0.75f, 2.f });
+    for (int k = 0; k < 48; ++k) G<float>(TC_SUN + k * 4) = Chance(s, 40) ? PickF(s) : Pick(s, { 0.f, 0.5f, -0.5f, 1.f, -1.f, 0.25f, -0.75f, 2.f });
     G<int32>(TC_IDX) = int32(Rnd(s) % 16);
     const float dx = Qf(s), dy = Qf(s), fx = Qf(s), fy = Qf(s), sx = Qf(s), sy = Qf(s);
     const auto c = CallIt(hook, cand, addr, [&] { reinterpret_cast<void(__cdecl*)(void*, float, float, float, float, float, float)>(addr)(p, dx, dy, fx, fy, sx, sy); });

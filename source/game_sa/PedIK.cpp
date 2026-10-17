@@ -24,6 +24,7 @@ END GENERATED HOOK STATUS */
 */
 
 #include "StdInc.h"
+#include "X87Math.h"
 
 static inline auto& bRotateWithNeck = StaticRef<bool>(0x8D2354);
 // Como el original: PitchForSlope elige el producto de los muslos según este byte del EXE (0xC0AFC0)
@@ -33,249 +34,25 @@ namespace {
 // Como el original: 0x859878 = 0x42652EE0 (57.29578f, no es 180/PI redondeado)
 constexpr float IK_RAD_TO_DEG = 57.2957763671875f;
 
-// asin del CRT del juego (0x821E70): fpatan(x, sqrt((1 + x)(1 - x))) con la palabra de control
-// (anterior & 0x300) | 0x7F, como en BulletInfo.cpp
-float __declspec(naked) __cdecl AsinX87(float x) {
-    __asm {
-        sub    esp, 4
-        fnstcw word ptr [esp]
-        mov    ax, word ptr [esp]
-        and    ax, 300h
-        or     ax, 7Fh
-        mov    word ptr [esp + 2], ax
-        fldcw  word ptr [esp + 2]
-        fld    dword ptr [esp + 8]
-        fld1
-        fadd   st, st(1)
-        fld1
-        fsub   st, st(2)
-        fmulp  st(1), st
-        fsqrt
-        fpatan
-        fldcw  word ptr [esp]
-        add    esp, 4
-        ret
-    }
+// Como el original: los bloques x87 se resuelven con los ayudantes compartidos de X87Math.cpp:
+//   asin (_CIasin, 0x821E70)         -> CnvAsinFloatCpp (fstp dword del asin, todas las ramas)
+//   fpatan(y, x) - rot (24 bits)     -> Atan2MinusCpp
+//   fsin / fcos guardados como float -> TrigSimpleSinCpp / TrigSimpleCosCpp
+//   fsin(a) * k                      -> TrigSimpleSinMulCpp
+//   num / fcos(a)                    -> PedIKDivCosCpp
+//   CMatrix::RotateX / RotateY       -> MatrixRotateXCpp / MatrixRotateYCpp (0x59B1E0 / 0x59B2C0)
+//   rumbo del brazo                  -> PedIKArmHeadingDiffCpp
+void SinCosExe(float angle, float& outSin, float& outCos) {
+    outSin = TrigSimpleSinCpp(angle);
+    outCos = TrigSimpleCosCpp(angle);
 }
 
-// Como el original: fpatan a precisión completa y la resta redondeada por la FPU (24 bits)
-float AtanMinusX87(float y, float x, float rot) {
-    float result;
-    __asm {
-        fld    y
-        fld    x
-        fpatan
-        fsub   rot
-        fstp   result
-    }
-    return result;
+void RotateXExe(CMatrix& matrix, float angle) {
+    MatrixRotateXCpp(reinterpret_cast<float*>(&matrix), angle);
 }
 
-// Como el original: fsin/fcos a precisión completa sobre un float
-void SinCosX87(float angle, float& outSin, float& outCos) {
-    float ls, lc;
-    __asm {
-        fld    angle
-        fld    st(0)
-        fsin
-        fstp   ls
-        fcos
-        fstp   lc
-    }
-    outSin = ls;
-    outCos = lc;
-}
-
-// Como el original: fsin(a) * k con un solo redondeo
-float SinMulX87(float angle, float k) {
-    float result;
-    __asm {
-        fld    angle
-        fsin
-        fmul   k
-        fstp   result
-    }
-    return result;
-}
-
-// Como el original: num / fcos(a) con un solo redondeo
-float DivCosX87(float num, float angle) {
-    float result;
-    __asm {
-        fld    angle
-        fcos
-        fdivr  num
-        fstp   result
-    }
-    return result;
-}
-
-// Como el original: CMatrix::RotateX del EXE (0x59B1E0, sin hook en la DLL): fcos queda sin redondear en la FPU
-void RotateXX87(CMatrix& matrix, float angle) {
-    float* const m = reinterpret_cast<float*>(&matrix);
-    float sn;
-    __asm {
-        mov    ecx, m
-        fld    angle
-        fcos
-        fld    angle
-        fsin
-        fstp   sn
-        // right (y = 4, z = 8)
-        fld    st(0)
-        fmul   dword ptr [ecx + 4]
-        fld    sn
-        fmul   dword ptr [ecx + 8]
-        fsubp  st(1), st
-        fld    sn
-        fmul   dword ptr [ecx + 4]
-        fld    st(2)
-        fmul   dword ptr [ecx + 8]
-        faddp  st(1), st
-        fstp   dword ptr [ecx + 8]
-        fstp   dword ptr [ecx + 4]
-        // forward
-        fld    st(0)
-        fmul   dword ptr [ecx + 14h]
-        fld    sn
-        fmul   dword ptr [ecx + 18h]
-        fsubp  st(1), st
-        fld    sn
-        fmul   dword ptr [ecx + 14h]
-        fld    st(2)
-        fmul   dword ptr [ecx + 18h]
-        faddp  st(1), st
-        fstp   dword ptr [ecx + 18h]
-        fstp   dword ptr [ecx + 14h]
-        // up
-        fld    st(0)
-        fmul   dword ptr [ecx + 24h]
-        fld    sn
-        fmul   dword ptr [ecx + 28h]
-        fsubp  st(1), st
-        fld    sn
-        fmul   dword ptr [ecx + 24h]
-        fld    st(2)
-        fmul   dword ptr [ecx + 28h]
-        faddp  st(1), st
-        fstp   dword ptr [ecx + 28h]
-        fstp   dword ptr [ecx + 24h]
-        // pos
-        fld    st(0)
-        fmul   dword ptr [ecx + 34h]
-        fld    sn
-        fmul   dword ptr [ecx + 38h]
-        fsubp  st(1), st
-        fld    sn
-        fmul   dword ptr [ecx + 34h]
-        fld    st(2)
-        fmul   dword ptr [ecx + 38h]
-        faddp  st(1), st
-        fstp   dword ptr [ecx + 38h]
-        fstp   dword ptr [ecx + 34h]
-        fstp   st(0)
-    }
-}
-
-// Como el original: CMatrix::RotateY del EXE (0x59B2C0, sin hook en la DLL): fcos sin redondear y,
-// solo para right.x, también el seno sin redondear (fst)
-void RotateYX87(CMatrix& matrix, float angle) {
-    float* const m = reinterpret_cast<float*>(&matrix);
-    float sn;
-    __asm {
-        mov    ecx, m
-        fld    angle
-        fcos
-        fld    angle
-        fsin
-        fst    sn
-        fmul   dword ptr [ecx + 8]
-        fld    st(1)
-        fmul   dword ptr [ecx]
-        faddp  st(1), st
-        fld    st(1)
-        fmul   dword ptr [ecx + 8]
-        fld    sn
-        fmul   dword ptr [ecx]
-        fsubp  st(1), st
-        // forward (x = 10h, z = 18h); pila: z', x', cos
-        fld    sn
-        fmul   dword ptr [ecx + 18h]
-        fld    st(3)
-        fmul   dword ptr [ecx + 10h]
-        faddp  st(1), st
-        fld    st(3)
-        fmul   dword ptr [ecx + 18h]
-        fld    sn
-        fmul   dword ptr [ecx + 10h]
-        fsubp  st(1), st
-        fstp   dword ptr [ecx + 18h]
-        fstp   dword ptr [ecx + 10h]
-        // up
-        fld    sn
-        fmul   dword ptr [ecx + 28h]
-        fld    st(3)
-        fmul   dword ptr [ecx + 20h]
-        faddp  st(1), st
-        fld    st(3)
-        fmul   dword ptr [ecx + 28h]
-        fld    sn
-        fmul   dword ptr [ecx + 20h]
-        fsubp  st(1), st
-        fstp   dword ptr [ecx + 28h]
-        fstp   dword ptr [ecx + 20h]
-        // pos
-        fld    sn
-        fmul   dword ptr [ecx + 38h]
-        fld    st(3)
-        fmul   dword ptr [ecx + 30h]
-        faddp  st(1), st
-        fld    st(3)
-        fmul   dword ptr [ecx + 38h]
-        fld    sn
-        fmul   dword ptr [ecx + 30h]
-        fsubp  st(1), st
-        fstp   dword ptr [ecx + 38h]
-        fstp   dword ptr [ecx + 30h]
-        // right
-        fstp   dword ptr [ecx + 8]
-        fstp   dword ptr [ecx]
-        fstp   st(0)
-    }
-}
-
-// Como el original: rumbo (fpatan sin redondear) ajustado a +-PI de la rotación actual y restado
-float ArmHeadingDiffX87(float nx, float ny, float rot) {
-    const float kPi    = std::bit_cast<float>(0x40490FDBu); // 0x858CB8
-    const float kTwoPi = std::bit_cast<float>(0x40C90FDBu); // 0x858CBC
-    float result;
-    __asm {
-        fld    nx
-        fld    ny
-        fpatan
-        fld    rot
-        fadd   kPi
-        fld    st(1)
-        fcompp
-        fnstsw ax
-        test   ah, 41h
-        jne    L_NotAbove
-        fsub   kTwoPi
-        jmp    L_Done
-    L_NotAbove:
-        fld    rot
-        fsub   kPi
-        fld    st(1)
-        fcompp
-        fnstsw ax
-        test   ah, 5
-        jp     L_Done
-        fadd   kTwoPi
-    L_Done:
-        fsub   rot
-        fstp   result
-    }
-    return result;
+void RotateYExe(CMatrix& matrix, float angle) {
+    MatrixRotateYCpp(reinterpret_cast<float*>(&matrix), angle);
 }
 } // namespace
 
@@ -306,7 +83,7 @@ void CPedIK::RotateTorso(AnimBlendFrameData* bone, LimbOrientation& orientation,
 // 0x5FDF90
 void CPedIK::RotateTorsoForArm(const CVector& direction) {
     const auto& pedPos = m_pPed->GetPosition();
-    const float difAngle = ArmHeadingDiffX87(-(direction.x - pedPos.x), direction.y - pedPos.y, m_pPed->m_fCurrentRotation);
+    const float difAngle = PedIKArmHeadingDiffCpp(&direction.x, &pedPos.x, m_pPed->m_fCurrentRotation);
 
     float resultAngle;
     if (difAngle > std::bit_cast<float>(0x3F490FDBu)) { // 0x86C860
@@ -368,10 +145,10 @@ bool CPedIK::PointGunInDirection(float zAngle, float distance, bool flag, float 
     // Como el original: vuelve a pedir la jerarquía y usa la matriz 2 del array
     const auto headHier  = GetAnimHierarchyFromSkinClump(m_pPed->GetRpClump());
     const auto head      = &RpHAnimHierarchyGetMatrixArray(headHier)[PED_NODE_HEAD];
-    const auto headAngle = -CGeneral::LimitRadianAngle(AtanMinusX87(-head->at.y, -head->at.x, m_pPed->m_fCurrentRotation));
+    const auto headAngle = -CGeneral::LimitRadianAngle(Atan2MinusCpp(-head->at.y, -head->at.x, m_pPed->m_fCurrentRotation));
 
     float headSin, headCos;
-    SinCosX87(headAngle, headSin, headCos);
+    SinCosExe(headAngle, headSin, headCos);
     const auto axis = CVector{
         0.0f,
         flag ? headCos : -headSin,
@@ -413,6 +190,13 @@ void CPedIK::PitchForSlope() {
     const bool isDeadState = state == PEDSTATE_DIE || state == PEDSTATE_DEAD;
     const bool dying       = isDeadState || m_pPed->bFallenDown;
     const auto IsSignificant = [](float v) { return v > 0.01f || v < -0.01f; };
+    // Como el original: operator*= (0x411A80 -> 0x59BE30) multiplica con el x87 (exponente extendido en los productos intermedios);
+    // el producto en float de SSE desbordaba a inf/NaN con matrices de ~1e30 (fsin/fcos fuera de rango dejan el argumento).
+    const auto MulExe = [](CMatrix& lhs, const CMatrix& rhs) {
+        CMatrix product;
+        PedIKFixMatMulCpp(reinterpret_cast<const float*>(&lhs), reinterpret_cast<const float*>(&rhs), reinterpret_cast<float*>(&product));
+        lhs = product;
+    };
 
     if (IsSignificant(m_fSlopePitch) && !isDeadState) {
         const float moveMult = m_pPed->m_nMoveState == PEDMOVE_WALK ? 0.85f : 1.0f;
@@ -455,9 +239,9 @@ void CPedIK::PitchForSlope() {
         CMatrix matResult(m_pPed->GetModellingMatrix(), false);
         CMatrix matTransl;
         matTransl.SetTranslate(CVector{ 0.0f, 0.0f, 1.0f });
-        RotateXX87(matTransl, -m_fSlopePitch);
-        RotateYX87(matTransl, m_fSlopeRoll);
-        matResult *= matTransl;
+        RotateXExe(matTransl, -m_fSlopePitch);
+        RotateYExe(matTransl, m_fSlopeRoll);
+        MulExe(matResult, matTransl);
         matResult.GetPosition().z -= 1.0f;
         matResult.UpdateRW();
         m_pPed->UpdateRwFrame();
@@ -485,7 +269,7 @@ void CPedIK::PitchForSlope() {
 
             // Como el original: pantorrilla y pie usan el asin del muslo y se rotan en POSTCONCAT
             const auto RotateLeg = [&](eBoneTag thigh, eBoneTag calf, eBoneTag foot) {
-                const float thighAsin  = AsinX87(GetBoneMatrix(thigh)->up.z);
+                const float thighAsin  = CnvAsinFloatCpp(GetBoneMatrix(thigh)->up.z);
                 const float thighAngle = bPitchForSlopeAbsAsin
                     ? std::abs(thighAsin) * m_fSlopePitch * 30.0f
                     : 30.0f * m_fSlopePitch * thighAsin;
@@ -506,15 +290,15 @@ void CPedIK::PitchForSlope() {
             CMatrix result(m_pPed->GetModellingMatrix(), false);
             CMatrix translate;
             translate.SetTranslate(CVector{ 0.0f, 0.0f, 0.0f });
-            RotateXX87(translate, -(0.5f * m_fSlopePitch));
-            result *= translate;
+            RotateXExe(translate, -(0.5f * m_fSlopePitch));
+            MulExe(result, translate);
 
-            const float fwdScale = SinMulX87(m_fSlopePitch, 0.75f);
+            const float fwdScale = TrigSimpleSinMulCpp(m_fSlopePitch, 0.75f);
             const auto& fwd = m_pPed->GetForward();
             auto& pos = result.GetPosition();
             pos.x = pos.x + fwdScale * fwd.x;
             pos.y = pos.y + fwdScale * fwd.y;
-            const float lift = DivCosX87(0.3f, m_fSlopeRoll) - 0.3f;
+            const float lift = PedIKDivCosCpp(0.3f, m_fSlopeRoll) - 0.3f;
             pos.z = (pos.z + fwdScale * fwd.z) + lift;
             result.UpdateRW();
             m_pPed->UpdateRwFrame();
@@ -527,9 +311,9 @@ void CPedIK::PitchForSlope() {
         const auto RotateFoot = [&](eBoneTag bone) {
             const auto q = GetBoneQuat(bone);
             const auto hierMatrix = GetBoneMatrix(bone);
-            const auto angle = CGeneral::LimitRadianAngle(AtanMinusX87(hierMatrix->at.y, hierMatrix->at.x, m_pPed->m_fCurrentRotation));
+            const auto angle = CGeneral::LimitRadianAngle(Atan2MinusCpp(hierMatrix->at.y, hierMatrix->at.x, m_pPed->m_fCurrentRotation));
             float footSin, footCos;
-            SinCosX87(angle, footSin, footCos);
+            SinCosExe(angle, footSin, footCos);
             const CVector axis{ 0.0f, footCos, footSin };
             RtQuatRotate(q, &axis, m_fSlopeRoll * IK_RAD_TO_DEG, rwCOMBINEPRECONCAT);
         };

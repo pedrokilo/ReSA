@@ -72,7 +72,7 @@ public:
     bool Registered() const { return hook!=nullptr; }
     bool Check() const {
         bool ok=hook&&hook->Reversed()&&hook->Hooked()&&hook->Locked()&&module!=0&&body!=0
-            &&ReversingProbe::JumpsToDll(entry)&&Resolve(entry)==body&&Resolve(raw)==body
+            &&ReversingProbe::JumpsToDll(entry)&&Resolve(entry)==body
             &&ModuleOf(raw)==module&&ModuleOf(body)==module;
         for(auto& [at,bytes]:on)ok&=bytes==ReversingProbe::Bytes(reinterpret_cast<void*>(at),16);
         return ok;

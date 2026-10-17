@@ -1,0 +1,3 @@
+APROBADO: Ayudantes x87 de CAutomobile, EXE vs DLL con estres
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cppautomobilex87stress1\20261016-122459-784512

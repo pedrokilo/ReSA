@@ -34,274 +34,92 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "PathFind.h"
+#include "X87Math.h"
 
 #include <reversiblebugfixes/Bugs.hpp>
 
 // 0x44EFC0
-__declspec(naked) float CPathFind::CalcRoadDensity(float x, float y) {
-    __asm {
-        // 0x44EFC0
-        sub esp,18h
-        // 0x44EFC3
-        fld dword ptr ds:[00858B50h]
-        // 0x44EFC9
-        push ebx
-        // 0x44EFCA
-        push ebp
-        // 0x44EFCB
-        push esi
-        // 0x44EFCC
-        push edi
-        // 0x44EFCD
-        lea ebp,[ecx+00000804h]
-        // 0x44EFD3
-        mov dword ptr [esp+20h],40h
-        // 0x44EFDB
-        jmp PathDensity13_44EFE0
-        // 0x44EFDD
-        lea ecx,[ecx]
-PathDensity13_44EFE0:
-        mov edx,dword ptr [ebp]
-        // 0x44EFE3
-        test edx,edx
-        // 0x44EFE5
-        je PathDensity13_44F167
-        // 0x44EFEB
-        mov eax,dword ptr [ebp+000008C0h]
-        // 0x44EFF1
-        test eax,eax
-        // 0x44EFF3
-        jle PathDensity13_44F167
-        // 0x44EFF9
-        lea esi,[edx+0Ah]
-        // 0x44EFFC
-        mov dword ptr [esp+18h],esi
-        // 0x44F000
-        mov dword ptr [esp+1Ch],eax
-PathDensity13_44F004:
-        movsx eax,word ptr [esi-2]
-        // 0x44F008
-        mov dword ptr [esp+14h],eax
-        // 0x44F00C
-        fild dword ptr [esp+14h]
-        // 0x44F010
-        fmul dword ptr ds:[00858C48h]
-        // 0x44F016
-        fst dword ptr [esp+10h]
-        // 0x44F01A
-        fsub dword ptr [esp+2Ch]
-        // 0x44F01E
-        fabs
-        // 0x44F020
-        fcomp dword ptr ds:[00858A14h]
-        // 0x44F026
-        fnstsw ax
-        // 0x44F028
-        test ah,5
-        // 0x44F02B
-        jp PathDensity13_44F151
-        // 0x44F031
-        movsx edx,word ptr [esi]
-        // 0x44F034
-        mov dword ptr [esp+14h],edx
-        // 0x44F038
-        fild dword ptr [esp+14h]
-        // 0x44F03C
-        fmul dword ptr ds:[00858C48h]
-        // 0x44F042
-        fst dword ptr [esp+14h]
-        // 0x44F046
-        fsub dword ptr [esp+30h]
-        // 0x44F04A
-        fabs
-        // 0x44F04C
-        fcomp dword ptr ds:[00858A14h]
-        // 0x44F052
-        fnstsw ax
-        // 0x44F054
-        test ah,5
-        // 0x44F057
-        jp PathDensity13_44F151
-        // 0x44F05D
-        xor edx,edx
-        // 0x44F05F
-        mov dl,byte ptr [esi+0Eh]
-        // 0x44F062
-        test dl,0Fh
-        // 0x44F065
-        je PathDensity13_44F151
-        // 0x44F06B
-        and edx,0Fh
-        // 0x44F06E
-        jle PathDensity13_44F151
-        // 0x44F074
-        movsx eax,word ptr [esi+6]
-        // 0x44F078
-        mov edi,dword ptr [ebp+00000240h]
-        // 0x44F07E
-        lea esi,[eax+eax]
-        // 0x44F081
-        lea edi,[edi+eax*4]
-        // 0x44F084
-        mov ebx,edx
-PathDensity13_44F086:
-        mov eax,dword ptr [edi]
-        // 0x44F088
-        mov dword ptr [esp+24h],eax
-        // 0x44F08C
-        movzx eax,ax
-        // 0x44F08F
-        mov edx,dword ptr [ecx+eax*4+00000804h]
-        // 0x44F096
-        test edx,edx
-        // 0x44F098
-        je PathDensity13_44F140
-        // 0x44F09E
-        mov eax,dword ptr [esp+24h]
-        // 0x44F0A2
-        fld dword ptr [esp+10h]
-        // 0x44F0A6
-        shr eax,10h
-        // 0x44F0A9
-        imul eax,eax,1Ch
-        // 0x44F0AC
-        add eax,edx
-        // 0x44F0AE
-        movsx edx,word ptr [eax+8]
-        // 0x44F0B2
-        movsx eax,word ptr [eax+0Ah]
-        // 0x44F0B6
-        mov dword ptr [esp+24h],edx
-        // 0x44F0BA
-        mov edx,dword ptr [ebp+000005A0h]
-        // 0x44F0C0
-        fild dword ptr [esp+24h]
-        // 0x44F0C4
-        mov dword ptr [esp+24h],eax
-        // 0x44F0C8
-        movzx eax,word ptr [esi+edx]
-        // 0x44F0CC
-        fmul dword ptr ds:[00858C48h]
-        // 0x44F0D2
-        fsubp st(1),st
-        // 0x44F0D4
-        mov edx,eax
-        // 0x44F0D6
-        fld dword ptr [esp+14h]
-        // 0x44F0DA
-        shr edx,0Ah
-        // 0x44F0DD
-        cmp dword ptr [ecx+edx*4+00000804h],0
-        // 0x44F0E5
-        fild dword ptr [esp+24h]
-        // 0x44F0E9
-        fmul dword ptr ds:[00858C48h]
-        // 0x44F0EF
-        fsubp st(1),st
-        // 0x44F0F1
-        fld st(0)
-        // 0x44F0F3
-        fmul st,st(1)
-        // 0x44F0F5
-        fld st(2)
-        // 0x44F0F7
-        fmul st,st(3)
-        // 0x44F0F9
-        faddp st(1),st
-        // 0x44F0FB
-        fsqrt
-        // 0x44F0FD
-        fstp st(2)
-        // 0x44F0FF
-        fstp st(0)
-        // 0x44F101
-        je PathDensity13_44F13E
-        // 0x44F103
-        mov edx,dword ptr [ecx+edx*4+00000924h]
-        // 0x44F10A
-        and eax,3FFh
-        // 0x44F10F
-        imul eax,eax,0Eh
-        // 0x44F112
-        mov al,byte ptr [edx+eax+0Bh]
-        // 0x44F116
-        mov dl,al
-        // 0x44F118
-        and dl,7
-        // 0x44F11B
-        movzx edx,dl
-        // 0x44F11E
-        mov dword ptr [esp+24h],edx
-        // 0x44F122
-        shr al,3
-        // 0x44F125
-        fild dword ptr [esp+24h]
-        // 0x44F129
-        and al,7
-        // 0x44F12B
-        movzx eax,al
-        // 0x44F12E
-        fmul st,st(1)
-        // 0x44F130
-        mov dword ptr [esp+24h],eax
-        // 0x44F134
-        faddp st(2),st
-        // 0x44F136
-        fild dword ptr [esp+24h]
-        // 0x44F13A
-        fmul st,st(1)
-        // 0x44F13C
-        faddp st(2),st
-PathDensity13_44F13E:
-        fstp st(0)
-PathDensity13_44F140:
-        add edi,4
-        // 0x44F143
-        add esi,2
-        // 0x44F146
-        dec ebx
-        // 0x44F147
-        jne PathDensity13_44F086
-        // 0x44F14D
-        mov esi,dword ptr [esp+18h]
-PathDensity13_44F151:
-        mov eax,dword ptr [esp+1Ch]
-        // 0x44F155
-        add esi,1Ch
-        // 0x44F158
-        dec eax
-        // 0x44F159
-        mov dword ptr [esp+18h],esi
-        // 0x44F15D
-        mov dword ptr [esp+1Ch],eax
-        // 0x44F161
-        jne PathDensity13_44F004
-PathDensity13_44F167:
-        mov eax,dword ptr [esp+20h]
-        // 0x44F16B
-        add ebp,4
-        // 0x44F16E
-        dec eax
-        // 0x44F16F
-        mov dword ptr [esp+20h],eax
-        // 0x44F173
-        jne PathDensity13_44EFE0
-        // 0x44F179
-        fmul dword ptr ds:[00858FC0h]
-        // 0x44F17F
-        pop edi
-        // 0x44F180
-        pop esi
-        // 0x44F181
-        pop ebp
-        // 0x44F182
-        pop ebx
-        // 0x44F183
-        add esp,18h
-        // 0x44F186
-        ret 8
+// Como el original (130 instrucciones, 0x44EFC0..0x44F186): recorre las 64 areas del mapa y, por cada nodo de vehiculos a menos de 80 unidades
+// de (x, y) (|p - c| < 80 estricto y ordenado: un NaN lo descarta), suma la longitud de cada enlace por los carriles propios (bits 0..2 del byte
+// +0xB del CCarPathLink) y despues por los del sentido contrario (bits 3..5); el total se multiplica por 0.0004 (0x858FC0).
+// Todos los valores son finitos y acotados (int16 * 0.125, diferencias de hasta 8192), sin subnormales ni desbordes: el float del SSE de la DLL
+// redondea operacion a operacion igual que el x87 de 24 bits del EXE (fild/fmul/fsubp/fsqrt/faddp), sin ayudantes x87.
+// Registros de salida del EXE: EAX = 0 (contador de areas), ECX = this (no se escribe) y EDX = el ultimo valor que escribe el recorrido
+// (puntero de nodos del area 63, o lo que sigue: y del nodo, byte de enlaces, area del enlace, area de navegacion, carriles propios). Los deja
+// PathFindResidueFloatCpp (X87Math.cpp), ultima llamada, junto con el ST0 de retorno (sin comprobaciones de ejecucion ni cookie de /GS;
+// lo vigila contrib/audit_register_residue.py, objeto PathFind).
+#pragma runtime_checks("", off)
+__declspec(safebuffers) float CPathFind::CalcRoadDensity(float x, float y) {
+    const uint32 ecxValue = static_cast<uint32>(reinterpret_cast<uintptr_t>(this));
+    uint32       edxValue = 0;
+    float        density  = 0.f; // fld dword [0x858B50]
+
+    for (int32 area = 0; area < NUM_PATH_MAP_AREAS; area++) {
+        const uint8* node = reinterpret_cast<const uint8*>(m_pPathNodes[area]);
+        edxValue          = static_cast<uint32>(reinterpret_cast<uintptr_t>(node)); // 0x44EFE0: mov edx,[ebp]
+        if (!node) {
+            continue;
+        }
+        int32 numNodes = static_cast<int32>(m_anNumVehicleNodes[area]); // 0x44EFEB: contador con signo (jle)
+        if (numNodes <= 0) {
+            continue;
+        }
+        for (; numNodes > 0; numNodes--, node += sizeof(CPathNode)) {
+            const int16 rawX  = *reinterpret_cast<const int16*>(node + 0x8);
+            const float nodeX = static_cast<float>(rawX) * 0.125f;
+            if (!(std::fabs(nodeX - x) < 80.f)) { // fsub; fabs; fcomp 80.0; test ah,5; jp
+                continue;
+            }
+            const int16 rawY = *reinterpret_cast<const int16*>(node + 0xA);
+            edxValue         = static_cast<uint32>(static_cast<int32>(rawY)); // 0x44F031: movsx edx,[esi]
+            const float nodeY = static_cast<float>(rawY) * 0.125f;
+            if (!(std::fabs(nodeY - y) < 80.f)) {
+                continue;
+            }
+            const uint8 flags = node[0x18];
+            edxValue          = flags; // 0x44F05D: xor edx,edx; mov dl,[esi+0Eh]
+            if ((flags & 0xF) == 0) {
+                continue;
+            }
+            const uint32 numLinks = static_cast<uint32>(flags & 0xF);
+            edxValue              = numLinks; // 0x44F06B: and edx,0Fh
+            const int16         baseLink  = *reinterpret_cast<const int16*>(node + 0x10);
+            const uint32* const nodeLinks = reinterpret_cast<const uint32*>(m_pNodeLinks[area]) + baseLink; // this+0xA44
+            const uint16* const naviLinks = reinterpret_cast<const uint16*>(m_pNaviLinks[area]) + baseLink; // this+0xDA4
+
+            for (uint32 i = 0; i < numLinks; i++) {
+                const uint32 link = nodeLinks[i];
+                // El indice de area llega a 0xFFFF sin comprobar, como en el EXE (movzx eax,ax)
+                const uint8* const linkedNodes = reinterpret_cast<const uint8*>(m_pPathNodes[link & 0xFFFF]);
+                edxValue                       = static_cast<uint32>(reinterpret_cast<uintptr_t>(linkedNodes)); // 0x44F08F
+                if (!linkedNodes) {
+                    continue;
+                }
+                const uint8* const linked     = linkedNodes + (link >> 16) * sizeof(CPathNode);
+                const int16        linkedRawX = *reinterpret_cast<const int16*>(linked + 0x8);
+                const int16        linkedRawY = *reinterpret_cast<const int16*>(linked + 0xA);
+                const uint32       naviLink   = naviLinks[i];
+                const uint32       naviArea   = naviLink >> 10;
+                edxValue                      = naviArea; // 0x44F0D4: mov edx,eax; shr edx,0Ah
+                const float dx     = nodeX - static_cast<float>(linkedRawX) * 0.125f;
+                const float dy     = nodeY - static_cast<float>(linkedRawY) * 0.125f;
+                const float length = std::sqrt(dy * dy + dx * dx); // fsqrt: 24 bits, correctamente redondeada
+                if (!m_pPathNodes[naviArea]) {
+                    continue;
+                }
+                const uint8* const naviNodes = reinterpret_cast<const uint8*>(m_pNaviNodes[naviArea]);
+                const uint8        lanes     = naviNodes[(naviLink & 0x3FF) * sizeof(CCarPathLink) + 0xB];
+                const uint32       ownLanes  = static_cast<uint32>(lanes & 7);
+                edxValue                     = ownLanes; // 0x44F116..0x44F11B: mov dl,al; and dl,7; movzx edx,dl
+                density                      = density + static_cast<float>(ownLanes) * length;
+                density                      = density + static_cast<float>((lanes >> 3) & 7) * length;
+            }
+        }
     }
+
+    return PathFindResidueFloatCpp(ecxValue, edxValue, density * std::bit_cast<float>(0x39D1B717u), 0); // fmul [0x858FC0] (0.0004f); EAX = 0
 }
+#pragma runtime_checks("", restore)
 
 // TODO: Move into the class itself
 auto& s_pathsNeededPosn = StaticRef<CVector>(0x977B70);
@@ -867,21 +685,8 @@ CVector CPathFind::FindNodeCoorsForScript(CNodeAddress nodeAddrA, CNodeAddress n
     const float dy   = posB.y - posA.y;
 
     // Como el original (0x450833..0x45084C): fchs; fpatan; fmul 57.29578 (0x42652EE0); fstp. Un solo redondeo, con la direccion
-    // sin normalizar (antes se normalizaba y se llamaba a std::atan2).
-    {
-        const float headNegDx = -dx;
-        const float headDy    = dy;
-        const float headDeg   = std::bit_cast<float>(0x42652EE0u);
-        float       headOut = 0.f;
-        __asm {
-            fld  dword ptr [headNegDx]
-            fld  dword ptr [headDy]
-            fpatan
-            fmul dword ptr [headDeg]
-            fstp dword ptr [headOut]
-        }
-        outHeadingDeg = headOut;
-    }
+    // sin normalizar (antes se normalizaba y se llamaba a std::atan2). WeaponHeadingDegreesCpp (X87Math) es float(atan2(-dx, dy) * 57.29578f).
+    outHeadingDeg = WeaponHeadingDegreesCpp(dx, dy);
 
     if (nodeA->m_nPathWidth == 0) {
         return posA;
@@ -1482,345 +1287,120 @@ bool CPathFind::ThisNodeHasToBeSwitchedOff(CPathNode* node) {
 }
 
 // 0x4504F0
-// This function is only called from `SwitchOffNodeAndNeighbours` but when unhooked
-// it doesn't spoil `eax` which makes the former crash
-// so hopefully the `__asm mov eax, this` fixes it
-// If not just lock both :D
-size_t CPathFind::CountNeighboursToBeSwitchedOff(const CPathNode& node) {
-    const auto ret = (size_t)rng::count_if(GetNodeLinkedNodes(node), &CPathNode::HasToBeSwitchedOff);
-    __asm mov eax, this // It has to be `this`
-    return ret;
+// Como el original (0x4504F0..0x450559): cuenta los enlaces del nodo cuya area esta cargada y cuyo tipo de comportamiento (byte +0x1A >> 4)
+// no es 1 ni 2. El EXE no toca ECX (SwitchOffNodeAndNeighbours del EXE lo sigue usando tras la llamada), deja EAX = cuenta y EDX = el ultimo
+// valor que escribe: puntero del nodo (sin enlaces), area del enlace (area sin cargar) o (puntero del nodo enlazado con el byte bajo = tipo).
+// ResidueRegsCpp (X87Math.cpp) es la ultima llamada (contrib/audit_register_residue.py, objeto PathFind).
+#pragma runtime_checks("", off)
+__declspec(safebuffers) size_t CPathFind::CountNeighboursToBeSwitchedOff(const CPathNode& node) {
+    const uint32       ecxValue = static_cast<uint32>(reinterpret_cast<uintptr_t>(this));
+    const uint8* const raw      = reinterpret_cast<const uint8*>(&node);
+    uint32             edxValue = static_cast<uint32>(reinterpret_cast<uintptr_t>(raw)); // mov edx,[esp+4]
+    uint32             count    = 0;
+    const int32        numLinks = raw[0x18] & 0xF;
+    if (numLinks > 0) {
+        const int16         baseLink = *reinterpret_cast<const int16*>(raw + 0x10);
+        const uint32* const links    = reinterpret_cast<const uint32*>(m_pNodeLinks[*reinterpret_cast<const uint16*>(raw + 0x12)]) + baseLink;
+        for (int32 i = 0; i < numLinks; i++) {
+            const uint32 link = links[i];
+            edxValue          = link & 0xFFFF; // movzx edx,dx
+            const uint8* const areaNodes = reinterpret_cast<const uint8*>(m_pPathNodes[link & 0xFFFF]);
+            if (!areaNodes) {
+                continue;
+            }
+            const uint8* const linked = areaNodes + (link >> 16) * sizeof(CPathNode);
+            const uint32       type   = static_cast<uint32>(linked[0x1A] >> 4);
+            edxValue                  = (static_cast<uint32>(reinterpret_cast<uintptr_t>(linked)) & 0xFFFFFF00u) | type; // mov dl,[edx+1Ah]; shr dl,4
+            if (type != 1 && type != 2) {
+                count++;
+            }
+        }
+    }
+    return ResidueRegsCpp(ecxValue, edxValue, count);
 }
+#pragma runtime_checks("", restore)
 
 // 0x450320
-// Complete EXE helper 0x59C910..0x59C960; local reconstruction, no original delegation.
-__declspec(naked) void PathOrientation14Normalise() {
-    __asm {
-    // 0x59C910
-    fld dword ptr [ecx+8]
-    // 0x59C913
-    fld dword ptr [ecx+4]
-    // 0x59C916
-    fld dword ptr [ecx]
-    // 0x59C918
-    fld st(0)
-    // 0x59C91A
-    fmul st,st(1)
-    // 0x59C91C
-    fld st(2)
-    // 0x59C91E
-    fmul st,st(3)
-    // 0x59C920
-    faddp st(1),st
-    // 0x59C922
-    fld st(3)
-    // 0x59C924
-    fmul st,st(4)
-    // 0x59C926
-    faddp st(1),st
-    // 0x59C928
-    fstp st(3)
-    // 0x59C92A
-    fstp st(0)
-    // 0x59C92C
-    fstp st(0)
-    // 0x59C92E
-    fcom dword ptr ds:[000858B50h]
-    // 0x59C934
-    fnstsw ax
-    // 0x59C936
-    test ah,041h
-    // 0x59C939
-    jp PathOrientation14Norm_59C944
-    // 0x59C93B
-    fstp st(0)
-    // 0x59C93D
-    mov dword ptr [ecx],03F800000h
-    // 0x59C943
-    ret
-    PathOrientation14Norm_59C944:
-    fsqrt
-    // 0x59C946
-    fdivr dword ptr ds:[000858624h]
-    // 0x59C94C
-    fld st(0)
-    // 0x59C94E
-    fmul dword ptr [ecx]
-    // 0x59C950
-    fstp dword ptr [ecx]
-    // 0x59C952
-    fld st(0)
-    // 0x59C954
-    fmul dword ptr [ecx+4]
-    // 0x59C957
-    fstp dword ptr [ecx+4]
-    // 0x59C95A
-    fmul dword ptr [ecx+8]
-    // 0x59C95D
-    fstp dword ptr [ecx+8]
-    // 0x59C960
-    ret
-    }
-}
+// Como el original (126 instrucciones, 0x450320..0x4504DE; la normalizacion es el CVector::Normalise de 0x59C910, que reproduce
+// PathFindNormaliseStatusCpp de X87Math.cpp). Recorre los primeros enlaces-1 enlaces de navegacion del nodo y elige el primero cuyo
+// CCarPathLink tenga carriles (bits 3..5 si el CCarPathLink es de este mismo nodo, bits 0..2 si no), o el ultimo enlace; con la diferencia
+// XY de los dos nodos (z = 0) normalizada devuelve float(atan2(-x, y) * 57.29578).
+// Efectos observables que el banco compara y que se reproducen:
+//  - 0x4503E3: mov [esp+38h],eax sobrescribe el argumento fisico con el nodeLink elegido (antes de comprobar que su area este cargada); en
+//    la ruta con calculo los fild usan ese mismo hueco de pila como temporal y el ultimo valor que queda es la z entera del nodo ENLAZADO
+//    (0x45046D: movsx edx,[eax+0Ch]; mov [esp+30h],edx).
+//  - Registros de salida (EAX/ECX/EDX), por ruta: sin area -> (0, this, area); sin enlaces -> ((nodos & ~FF) | byte, this, area); destino sin
+//    cargar -> (area del enlace, 0, m_pNodeLinks[area]); calculo -> ((bits de dx & FFFF0000) | fnstsw de Normalise, ESP de entrada - 0x24 =
+//    &vector local, bits de dz).
+// El estado x87 lo calcula PathFindNormaliseStatusCpp. TOP: la compuerta siembra un ST0 centinela (ResetTestFP) y Normalise lee fnstsw con dos
+// valores en la pila (TOP = 6); con la pila vacia de una llamada normal seria 7 y ningun llamador del EXE lee ese EAX.
+// PathFindResidueFloatCpp es la ultima llamada de cada salida (sin comprobaciones de ejecucion ni cookie de /GS; contrib/audit_register_residue.py).
+#pragma runtime_checks("", off)
+__declspec(safebuffers) float CPathFind::FindNodeOrientationForCarPlacement(CNodeAddress nodeInfo) {
+    constexpr uint32 kNormaliseTop = 6u << 11; // bits 11..13 del fnstsw
+    const uint32     entryEsp      = static_cast<uint32>(reinterpret_cast<uintptr_t>(_AddressOfReturnAddress()));
+    const uint32     self          = static_cast<uint32>(reinterpret_cast<uintptr_t>(this));
+    const uint32     areaId        = nodeInfo.m_wAreaId;
+    const uint32     nodeId        = nodeInfo.m_wNodeId;
 
-__declspec(naked) float CPathFind::FindNodeOrientationForCarPlacement(CNodeAddress nodeInfo) {
-    __asm {
-    // 0x450320
-    sub esp,028h
-    // 0x450323
-    movzx edx,word ptr [esp+02Ch]
-    // 0x450328
-    mov eax,dword ptr [ecx+edx*4+000000804h]
-    // 0x45032F
-    test eax,eax
-    // 0x450331
-    mov dword ptr [esp],edx
-    // 0x450335
-    jne PathOrientation14_450343
-    // 0x450337
-    fld dword ptr ds:[000858B50h]
-    // 0x45033D
-    add esp,028h
-    // 0x450340
-    ret 4
-    PathOrientation14_450343:
-    push esi
-    // 0x450344
-    mov esi,dword ptr [esp+030h]
-    // 0x450348
-    shr esi,010h
-    // 0x45034B
-    imul esi,esi,01Ch
-    // 0x45034E
-    add esi,eax
-    // 0x450350
-    mov al,byte ptr [esi+018h]
-    // 0x450353
-    test al,00Fh
-    // 0x450355
-    jne PathOrientation14_450364
-    PathOrientation14_450357:
-    fld dword ptr ds:[000858B50h]
-    // 0x45035D
-    pop esi
-    // 0x45035E
-    add esp,028h
-    // 0x450361
-    ret 4
-    PathOrientation14_450364:
-    push ebx
-    // 0x450365
-    and eax,00Fh
-    // 0x450368
-    push ebp
-    // 0x450369
-    lea ebx,[eax-1]
-    // 0x45036C
-    xor ebp,ebp
-    // 0x45036E
-    test ebx,ebx
-    // 0x450370
-    jle PathOrientation14_4503D3
-    // 0x450372
-    movsx eax,word ptr [esi+010h]
-    // 0x450376
-    mov edx,dword ptr [ecx+edx*4+000000DA4h]
-    // 0x45037D
-    push edi
-    // 0x45037E
-    lea edi,[edx+eax*2]
-    PathOrientation14_450381:
-    movzx eax,word ptr [edi]
-    // 0x450384
-    mov edx,eax
-    // 0x450386
-    shr edx,00Ah
-    // 0x450389
-    cmp dword ptr [ecx+edx*4+000000804h],0
-    // 0x450391
-    je PathOrientation14_4503C6
-    // 0x450393
-    mov edx,dword ptr [ecx+edx*4+000000924h]
-    // 0x45039A
-    and eax,03FFh
-    // 0x45039F
-    imul eax,eax,00Eh
-    // 0x4503A2
-    add eax,edx
-    // 0x4503A4
-    mov dx,word ptr [esp+03Ch]
-    // 0x4503A9
-    cmp word ptr [eax+4],dx
-    // 0x4503AD
-    jne PathOrientation14_4503C0
-    // 0x4503AF
-    mov dx,word ptr [esp+03Eh]
-    // 0x4503B4
-    cmp word ptr [eax+6],dx
-    // 0x4503B8
-    jne PathOrientation14_4503C0
-    // 0x4503BA
-    test byte ptr [eax+00Bh],038h
-    // 0x4503BE
-    jmp PathOrientation14_4503C4
-    PathOrientation14_4503C0:
-    test byte ptr [eax+00Bh],7
-    PathOrientation14_4503C4:
-    jne PathOrientation14_4503CE
-    PathOrientation14_4503C6:
-    inc ebp
-    // 0x4503C7
-    add edi,2
-    // 0x4503CA
-    cmp ebp,ebx
-    // 0x4503CC
-    jl PathOrientation14_450381
-    PathOrientation14_4503CE:
-    mov edx,dword ptr [esp+010h]
-    // 0x4503D2
-    pop edi
-    PathOrientation14_4503D3:
-    movsx eax,word ptr [esi+010h]
-    // 0x4503D7
-    mov edx,dword ptr [ecx+edx*4+000000A44h]
-    // 0x4503DE
-    add eax,ebp
-    // 0x4503E0
-    mov eax,dword ptr [edx+eax*4]
-    // 0x4503E3
-    mov dword ptr [esp+038h],eax
-    // 0x4503E7
-    movzx eax,ax
-    // 0x4503EA
-    mov ecx,dword ptr [ecx+eax*4+000000804h]
-    // 0x4503F1
-    test ecx,ecx
-    // 0x4503F3
-    pop ebp
-    // 0x4503F4
-    pop ebx
-    // 0x4503F5
-    je PathOrientation14_450357
-    // 0x4503FB
-    mov eax,dword ptr [esp+030h]
-    // 0x4503FF
-    movsx edx,word ptr [esi+00Ah]
-    // 0x450403
-    shr eax,010h
-    // 0x450406
-    imul eax,eax,01Ch
-    // 0x450409
-    add eax,ecx
-    // 0x45040B
-    movsx ecx,word ptr [esi+8]
-    // 0x45040F
-    mov dword ptr [esp+030h],ecx
-    // 0x450413
-    movsx ecx,word ptr [esi+00Ch]
-    // 0x450417
-    fild dword ptr [esp+030h]
-    // 0x45041B
-    mov dword ptr [esp+030h],edx
-    // 0x45041F
-    fmul dword ptr ds:[000858C48h]
-    // 0x450425
-    movsx edx,word ptr [eax+8]
-    // 0x450429
-    fild dword ptr [esp+030h]
-    // 0x45042D
-    mov dword ptr [esp+030h],ecx
-    // 0x450431
-    fmul dword ptr ds:[000858C48h]
-    // 0x450437
-    movsx ecx,word ptr [eax+00Ah]
-    // 0x45043B
-    fild dword ptr [esp+030h]
-    // 0x45043F
-    mov dword ptr [esp+030h],edx
-    // 0x450443
-    fmul dword ptr ds:[000858C48h]
-    // 0x450449
-    fstp dword ptr [esp+028h]
-    // 0x45044D
-    fild dword ptr [esp+030h]
-    // 0x450451
-    mov dword ptr [esp+030h],ecx
-    // 0x450455
-    fmul dword ptr ds:[000858C48h]
-    // 0x45045B
-    fild dword ptr [esp+030h]
-    // 0x45045F
-    fmul dword ptr ds:[000858C48h]
-    // 0x450465
-    fstp dword ptr [esp+00Ch]
-    // 0x450469
-    movsx edx,word ptr [eax+00Ch]
-    // 0x45046D
-    mov dword ptr [esp+030h],edx
-    // 0x450471
-    fild dword ptr [esp+030h]
-    // 0x450475
-    fmul dword ptr ds:[000858C48h]
-    // 0x45047B
-    fstp dword ptr [esp+010h]
-    // 0x45047F
-    fsub st,st(2)
-    // 0x450481
-    fstp dword ptr [esp+014h]
-    // 0x450485
-    mov eax,dword ptr [esp+014h]
-    // 0x450489
-    fld dword ptr [esp+00Ch]
-    // 0x45048D
-    mov dword ptr [esp+8],eax
-    // 0x450491
-    fsub st,st(1)
-    // 0x450493
-    fstp dword ptr [esp+018h]
-    // 0x450497
-    mov ecx,dword ptr [esp+018h]
-    // 0x45049B
-    fstp st(0)
-    // 0x45049D
-    mov dword ptr [esp+00Ch],ecx
-    // 0x4504A1
-    fstp st(0)
-    // 0x4504A3
-    lea ecx,[esp+8]
-    // 0x4504A7
-    fld dword ptr [esp+010h]
-    // 0x4504AB
-    fsub dword ptr [esp+028h]
-    // 0x4504AF
-    fstp dword ptr [esp+01Ch]
-    // 0x4504B3
-    mov edx,dword ptr [esp+01Ch]
-    // 0x4504B7
-    mov dword ptr [esp+010h],edx
-    // 0x4504BB
-    mov dword ptr [esp+010h],0
-    // 0x4504C3
-    call PathOrientation14Normalise
-    // 0x4504C8
-    fld dword ptr [esp+8]
-    // 0x4504CC
-    fchs
-    // 0x4504CE
-    pop esi
-    // 0x4504CF
-    fld dword ptr [esp+8]
-    // 0x4504D3
-    fpatan
-    // 0x4504D5
-    fmul dword ptr ds:[000859878h]
-    // 0x4504DB
-    add esp,028h
-    // 0x4504DE
-    ret 4
+    const uint8* const areaNodes = reinterpret_cast<const uint8*>(m_pPathNodes[areaId]);
+    if (!areaNodes) {
+        return PathFindResidueFloatCpp(self, areaId, 0.f, 0);
     }
-}
+    const uint8* const node  = areaNodes + nodeId * sizeof(CPathNode);
+    const uint8        flags = node[0x18];
+    if ((flags & 0xF) == 0) {
+        return PathFindResidueFloatCpp(self, areaId, 0.f, (static_cast<uint32>(reinterpret_cast<uintptr_t>(areaNodes)) & 0xFFFFFF00u) | flags);
+    }
 
-// 0x452160
+    const int16 baseLink = *reinterpret_cast<const int16*>(node + 0x10);
+    int32       chosen   = 0;
+    for (const int32 last = static_cast<int32>(flags & 0xF) - 1; chosen < last; chosen++) {
+        const uint32 naviLink = *reinterpret_cast<const uint16*>(&m_pNaviLinks[areaId][baseLink + chosen]); // this+0xDA4
+        const uint32 naviArea = naviLink >> 10;
+        if (!m_pPathNodes[naviArea]) {
+            continue;
+        }
+        const uint8* const naviNode = reinterpret_cast<const uint8*>(m_pNaviNodes[naviArea]) + (naviLink & 0x3FF) * sizeof(CCarPathLink);
+        const bool         sameNode = *reinterpret_cast<const uint16*>(naviNode + 4) == nodeInfo.m_wAreaId
+                                   && *reinterpret_cast<const uint16*>(naviNode + 6) == nodeInfo.m_wNodeId;
+        if (naviNode[0xB] & (sameNode ? 0x38 : 0x07)) {
+            break;
+        }
+    }
+
+    const uint32 nodeLinksPtr = static_cast<uint32>(reinterpret_cast<uintptr_t>(m_pNodeLinks[areaId]));
+    const uint32 linkAddress  = *reinterpret_cast<const uint32*>(&m_pNodeLinks[areaId][baseLink + chosen]);
+    *reinterpret_cast<volatile uint32*>(&nodeInfo) = linkAddress; // 0x4503E3
+    const uint32       linkArea      = linkAddress & 0xFFFF;
+    const uint8* const linkAreaNodes = reinterpret_cast<const uint8*>(m_pPathNodes[linkArea]);
+    if (!linkAreaNodes) {
+        return PathFindResidueFloatCpp(0, nodeLinksPtr, 0.f, linkArea);
+    }
+    const uint8* const linked = linkAreaNodes + (linkAddress >> 16) * sizeof(CPathNode);
+
+    // Coordenadas comprimidas int16 * 0.125 (0x858C48); las diferencias son exactas en float
+    const int32 rawX       = *reinterpret_cast<const int16*>(node + 0x8);
+    const int32 rawY       = *reinterpret_cast<const int16*>(node + 0xA);
+    const int32 rawZ       = *reinterpret_cast<const int16*>(node + 0xC);
+    const int32 linkedRawX = *reinterpret_cast<const int16*>(linked + 0x8);
+    const int32 linkedRawY = *reinterpret_cast<const int16*>(linked + 0xA);
+    const int32 linkedRawZ = *reinterpret_cast<const int16*>(linked + 0xC);
+    CVector     diff;
+    diff.x         = static_cast<float>(linkedRawX) * 0.125f - static_cast<float>(rawX) * 0.125f;
+    diff.y         = static_cast<float>(linkedRawY) * 0.125f - static_cast<float>(rawY) * 0.125f;
+    const float dz = static_cast<float>(linkedRawZ) * 0.125f - static_cast<float>(rawZ) * 0.125f;
+    diff.z         = 0.f; // 0x4504BB: mov [esp+10h],0
+    const uint32 dxBits = std::bit_cast<uint32>(diff.x);
+    const uint32 dzBits = std::bit_cast<uint32>(dz);
+    *reinterpret_cast<volatile uint32*>(&nodeInfo) = static_cast<uint32>(linkedRawZ); // ultimo temporal de fild en el hueco del argumento
+
+    const uint32 status  = PathFindNormaliseStatusCpp(&diff.x); // 0x4504C3: call 0x59C910; deja fnstsw en AX
+    const float  heading = WeaponHeadingDegreesCpp(diff.x, diff.y);
+    return PathFindResidueFloatCpp(entryEsp - 0x24, dzBits, heading, (dxBits & 0xFFFF0000u) | kNormaliseTop | status);
+}
+#pragma runtime_checks("", restore)
+
 void CPathFind::SwitchOffNodeAndNeighbours(CPathNode* node, CPathNode*& outNext1, CPathNode** outNext2, bool bWhatToSwitchTo, bool bBackToOriginal) {
     node->m_isSwitchedOff = bBackToOriginal ? node->m_isSwitchedOffOriginal : bWhatToSwitchTo;
    
@@ -1983,41 +1563,33 @@ float CPathFind::FindYCoorsForRegion(size_t y) {
     return detail::GetCoorsOfRegion(y, NUM_PATH_MAP_AREA_Y);
 }
 
-// 0x44DF60: clears this node's six slots and signed references in all active rows.
-__declspec(naked) void CPathFind::RemoveInteriorLinks(uint32) {
-    __asm {
-    push edi
-    mov edi,dword ptr ds:[0096EF80h]
-    xor edx,edx
-    test edi,edi
-    jle L0044DF9C
-    push ebx
-    push esi
-    mov esi,dword ptr [esp+10h]
-    mov ecx,96EAC0h
-    L0044DF78: xor eax,eax
-    lea ebx,[ebx]
-    L0044DF7C: cmp edx,esi
-    je L0044DF88
-    movsx ebx,byte ptr [eax+ecx]
-    cmp ebx,esi
-    jne L0044DF8C
-    L0044DF88: mov byte ptr [eax+ecx],0FFh
-    L0044DF8C: inc eax
-    cmp eax,6
-    jl L0044DF7C
-    inc edx
-    add ecx,6
-    cmp edx,edi
-    jl L0044DF78
-    pop esi
-    pop ebx
-    L0044DF9C: pop edi
-    ret 4
+// 0x44DF60: pone a -1 las seis casillas de la fila `intId` y todas las referencias con signo a `intId` en las filas activas (NumNodesGiven).
+// Como el original (0x44DF60..0x44DF9D): el contador y los indices se comparan con signo y no se limita a 64 filas; `this` no se usa. Registros
+// de salida del EXE: sin filas (contador <= 0) conserva el EAX y el ECX de entrada y pone EDX = 0; con filas EAX = 6, ECX = tabla + 6 * filas
+// (0x96EAC0) y EDX = filas. EntryEaxCpp tiene que ser lo primero que se ejecuta; ResidueRegsCpp es la ultima llamada de cada salida
+// (contrib/audit_register_residue.py, objeto PathFind; sin comprobaciones de ejecucion ni cookie de /GS).
+#pragma runtime_checks("", off)
+__declspec(safebuffers) void CPathFind::RemoveInteriorLinks(uint32 intId) {
+    const uint32 entryEax = EntryEaxCpp();
+    const uint32 entryEcx = static_cast<uint32>(reinterpret_cast<uintptr_t>(this));
+    const int32  numRows  = static_cast<int32>(NumNodesGiven);
+    if (numRows <= 0) {
+        (void)ResidueRegsCpp(entryEcx, 0, entryEax);
+        return;
     }
+    int8* const table = reinterpret_cast<int8*>(ConnectsToGiven.data());
+    for (int32 row = 0; row < numRows; row++) {
+        int8* const entries = table + row * 6;
+        for (int32 slot = 0; slot < 6; slot++) {
+            if (row == static_cast<int32>(intId) || static_cast<int32>(entries[slot]) == static_cast<int32>(intId)) {
+                entries[slot] = static_cast<int8>(-1);
+            }
+        }
+    }
+    (void)ResidueRegsCpp(static_cast<uint32>(reinterpret_cast<uintptr_t>(table)) + static_cast<uint32>(numRows) * 6u, static_cast<uint32>(numRows), 6);
 }
+#pragma runtime_checks("", restore)
 
-// 0x44DED0
 void CPathFind::AddInteriorLink(int32 intNodeA, int32 intNodeB) {
     const auto AddLink = [](int32 intIdx, int32 linkTo) {
         // Como el original (0x44DED5..0x44DF24): filas de 6 bytes; se busca el primer byte negativo (con signo) y se guarda el enlace.
@@ -2160,6 +1732,8 @@ void CPathFind::SwitchPedRoadsOffInArea(float xMin, float xMax, float yMin, floa
 }
 
 // 0x44DA30: both offsets use the minimum raw width; preserve x-before-y alias order.
+// Como el original (0x44DA97..0x44DAF1): fild desplazamiento; fmul 0x3BFDF3B6; fadd [x]; fstp [x], a 24 bits y sin redondeo intermedio a float del
+// producto; RpNanMulAddCpp (X87Math) es float(a * k + c) con el mismo orden. Los dos anchos se leen otra vez tras escribir x (puede solaparse).
 void CPathFind::AddRandomOffsetToNodePosition(CNodeAddress first, CNodeAddress second, int16 random, float* x, float* y) {
     if (first.m_wAreaId == 0xFFFF || !m_pPathNodes[first.m_wAreaId]) return;
     if (second.m_wAreaId == 0xFFFF || !m_pPathNodes[second.m_wAreaId]) return;
@@ -2168,36 +1742,10 @@ void CPathFind::AddRandomOffsetToNodePosition(CNodeAddress first, CNodeAddress s
     const int32 xFactor = (uint16(random) & 15) - 7;
     const int32 yFactor = ((uint16(random) >> 4) & 15) - 7;
     const float scale = std::bit_cast<float>(0x3BFDF3B6u);
-    int32 displacement;
-    __asm {
-        mov ecx, a
-        mov edx, b
-        movzx eax, byte ptr [ecx + 16h]
-        movzx ebx, byte ptr [edx + 16h]
-        cmp eax, ebx
-        jbe firstMinimum
-        mov eax, ebx
-    firstMinimum:
-        imul eax, xFactor
-        mov displacement, eax
-        mov eax, x
-        fild displacement
-        fmul scale
-        fadd dword ptr [eax]
-        fstp dword ptr [eax]
-        // Original reloads both widths after writing x, including possible aliasing.
-        movzx eax, byte ptr [ecx + 16h]
-        movzx ebx, byte ptr [edx + 16h]
-        cmp eax, ebx
-        jbe secondMinimum
-        mov eax, ebx
-    secondMinimum:
-        imul eax, yFactor
-        mov displacement, eax
-        mov eax, y
-        fild displacement
-        fmul scale
-        fadd dword ptr [eax]
-        fstp dword ptr [eax]
-    }
+    const auto  minWidth = [a, b] { return static_cast<int32>(std::min(a[0x16], b[0x16])); };
+    const int32 xDisplacement = xFactor * minWidth();
+    *x = RpNanMulAddCpp(static_cast<float>(xDisplacement), scale, *x);
+    // Original reloads both widths after writing x, including possible aliasing.
+    const int32 yDisplacement = yFactor * minWidth();
+    *y = RpNanMulAddCpp(static_cast<float>(yDisplacement), scale, *y);
 }

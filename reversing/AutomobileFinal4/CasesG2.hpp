@@ -381,7 +381,10 @@ inline std::string StubsG2() {
     H(G2_CTOR, 0x4F7670, "CAEVehicleAudioEntity", "Initialise", FnPtr(&S2_AudioInit));
     H(G2_DTOR, 0x4FB8C0, "CAEVehicleAudioEntity", "Terminate", FnPtr(&S2_AudioTerm));
     E(G2_DTOR, 0x6E2B40, "??1CVehicle@@UAE@XZ", FnPtr(&S2_VehDtor), "CVehicle::~CVehicle");
-    AddStub(2, G2_MALLOC, 0x72F420, 0, FnPtr(&S2_Malloc));
+    // La DLL ya no llama a 0x72F420 (CMemoryMgr::Malloc es C++ y reenvia al malloc del CRT 0x824257): hay que parchear tambien
+    // sus entradas de la DLL, la de 2 argumentos (la del hook) y la de 1 argumento (la que usa CCollisionData::AllocateLines).
+    AddStub(2, G2_MALLOC, 0x72F420, bit_cast<uintptr_t>(static_cast<void*(*)(uint32, uint32)>(&CMemoryMgr::Malloc)), FnPtr(&S2_Malloc));
+    AddStub(2, G2_MALLOC, 0, bit_cast<uintptr_t>(static_cast<void*(*)(uint32)>(&CMemoryMgr::Malloc)), FnPtr(&S2_Malloc));
     H(G2_WHEELPOSN, 0x4C7D20, "CVehicleModelInfo", "GetWheelPosn", FnPtr(&S2_WheelPosn));
     H(G2_GLASS, 0x71C2B0, "CGlass", "CarWindscreenShatters", FnPtr(&S2_Glass));
     H(G2_DMGSUB, 0x6B1350, "CAutomobile", "SetBumperDamage", FnPtr(&S2_DmgBumper));

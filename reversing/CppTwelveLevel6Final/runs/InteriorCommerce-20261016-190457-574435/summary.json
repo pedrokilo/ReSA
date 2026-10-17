@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "927f4b7b22090bd00ec4bc5106aad07cbe9b8d08598c4c4e06ab1cb76ce3db0d",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "pairs": 16384,
+  "pairs_per_function": {
+    "Interior_c::Office_PlaceEdgeFillers": 1024,
+    "Interior_c::Office_PlaceDesk": 1024,
+    "Interior_c::Office_PlaceEdgeDesks": 1024,
+    "Interior_c::Office_FurnishEdges": 1024,
+    "Interior_c::Office_PlaceDeskQuad": 1024,
+    "Interior_c::Office_FurnishCenter": 1024,
+    "Interior_c::FurnishOffice": 1024,
+    "Interior_c::Shop_Place3PieceUnit": 1024,
+    "Interior_c::Shop_PlaceEdgeUnits": 1024,
+    "Interior_c::Shop_PlaceCounter": 1024,
+    "Interior_c::Shop_PlaceFixedUnits": 1024,
+    "Interior_c::Shop_FurnishCeiling": 1024,
+    "Interior_c::Shop_AddShelfInfo": 1024,
+    "Interior_c::Shop_FurnishEdges": 1024,
+    "Interior_c::Shop_FurnishAisles": 1024,
+    "Interior_c::FurnishShop": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "c37b7aad7f0f196494d0acd33005fd8ab933908931943ec868afa1f31c313319",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

@@ -6,7 +6,27 @@
 #include "Reference.h"
 #include "../ProbeRuntime.hpp"
 #include "../OriginalDependencies499/HookRoute.hpp"
+#include <reversiblehooks/ReversibleHook/Simple.h>
 namespace DependenciesTaskLeaf3Live {
+// Fight (w20): los colaboradores 0x571A00 y 0x571B70 se ejecutan con sus bytes del EXE durante la llamada (RH apagado), de modo que EAX/ECX/EDX de salida de la ruta
+// original sean los del EXE y no los de la DLL; la ruta candidata (C++) llama a CEntity directamente y reproduce ese residuo.
+struct FightHelperHooksOff {
+    struct Item { ReversibleHooks::ReversibleHook::Base* hook{}; bool enabled{}, locked{}; };
+    std::array<Item, 2> items{};
+    explicit FightHelperHooksOff(bool active) {
+        if (!active) return;
+        const uintptr_t at[]{0x571A00, 0x571B70};
+        for (int i = 0; i < 2; ++i)
+            ReversibleHooks::GetRootCategory().ForEachCategory([&](auto& c) {
+                for (auto& h : c.Items())
+                    if (h->Type() == ReversibleHooks::ReversibleHook::Base::HookType::Simple && reinterpret_cast<uintptr_t>(static_cast<ReversibleHooks::ReversibleHook::Simple*>(h.get())->GetHookGTAAddress()) == at[i])
+                        items[i] = {h.get(), h->Hooked(), h->Locked()};
+            });
+        for (auto& item : items) if (item.hook) { item.hook->LockState(false); item.hook->State(false); }
+    }
+    ~FightHelperHooksOff() { for (auto& item : items) if (item.hook) { item.hook->State(item.enabled); item.hook->LockState(item.locked); } }
+};
+
 struct Fn {const char* cls;const char* name;uintptr_t address;int vt,slot,cases;};
 inline const Fn fns[]{
     {"CTaskSimpleFight","ControlFight",0x61C5E0,0,-1,2048},
@@ -100,7 +120,7 @@ inline void Update(){
                     put32(ped.data()+0x78C,(scenario&64)?0:uint32(reinterpret_cast<uintptr_t>(exits[selected].data())));
                     thisPointer=uint32(reinterpret_cast<uintptr_t>(save.data()));argA=uint32(reinterpret_cast<uintptr_t>(ped.data()));argc=1;pedBefore=ped;matrixBefore=matrix;
                 }
-                bool routeOk=false;const auto result=route.Invoke(candidate,[&]{routeOk=ReversingProbe::JumpsToDll(fn.address)==candidate;return Call(fn.address,thisPointer,argA,argB,argc,0xED12AA55u^uint32(scenario));});
+                bool routeOk=false;const auto result=route.Invoke(candidate,[&]{routeOk=ReversingProbe::JumpsToDll(fn.address)==candidate;FightHelperHooksOff fightHelpersOff(index==0);return Call(fn.address,thisPointer,argA,argB,argc,0xED12AA55u^uint32(scenario));});
                 bool contract=true;
                 if(!index){uint32 target;memcpy(&target,task.data()+0x18,4);contract=target==argA&&task[9]==1&&task[0x26]==expectedCommand&&(result.eax&0xFFu)==1;
                     auto masked=task;masked[9]=taskBefore[9];masked[0x26]=taskBefore[0x26];memcpy(masked.data()+0x18,taskBefore.data()+0x18,4);contract=contract&&masked==taskBefore;

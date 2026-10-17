@@ -29,6 +29,7 @@ END GENERATED HOOK STATUS */
 #include "Glass.h"
 #include "TaskSimpleClimb.h"
 #include "RealTimeShadowManager.h"
+#include "X87Math.h"
 
 /**
  * Registra integración física, fuerzas, colisiones, attachments y listas espaciales.
@@ -168,17 +169,9 @@ CPhysical::~CPhysical()
 
 namespace {
 // The executable multiplies by the stored float reciprocal in x87 before
-// floor(double). Rounding to float, or dividing by 50, changes sector borders.
+// floor(double) and _ftol2. Rounding to float, or dividing by 50, changes sector borders (PhysicalSectorCpp, X87Math).
 int32 PhysicalSector(float coordinate) {
-    const float reciprocal = .02f, origin = 60.f;
-    double sector;
-    __asm {
-        fld coordinate
-        fmul reciprocal
-        fadd origin
-        fstp sector
-    }
-    return static_cast<int32>(std::floor(sector));
+    return PhysicalSectorCpp(coordinate);
 }
 CPtrListDoubleLink<CPhysical*>* PhysicalSectorList(CRepeatSector& sector, eEntityType type) {
     switch (type) {
@@ -549,28 +542,10 @@ void CPhysical::ProcessShift() {
             }
             if (bSomeSpecificFlagsSet || CWorld::bSecondShift)
             {
-                // Como el original: pow(damp, paso) con el _CIpow del EXE (0x822130), redondeado a float
-                const float fDamp = CPhysical::PHYSICAL_SHIFT_SPEED_DAMP;
-                const float fStep = CTimer::GetTimeStep();
-                float fMoveSpeedShift;
-                __asm {
-                    fld fDamp
-                    fld fStep
-                    mov eax, 0x822130
-                    call eax
-                    fstp fMoveSpeedShift
-                }
+                // Como el original: pow(damp, paso) con el _CIpow del EXE (0x822130), redondeado a float (fstp)
+                const float fMoveSpeedShift = CnvDecayPowCpp(CPhysical::PHYSICAL_SHIFT_SPEED_DAMP, CTimer::GetTimeStep());
                 m_vecMoveSpeed *= fMoveSpeedShift;
-                const float fDamp2 = CPhysical::PHYSICAL_SHIFT_SPEED_DAMP;
-                const float fStep2 = CTimer::GetTimeStep();
-                float fTurnSpeedShift;
-                __asm {
-                    fld fDamp2
-                    fld fStep2
-                    mov eax, 0x822130
-                    call eax
-                    fstp fTurnSpeedShift
-                }
+                const float fTurnSpeedShift = CnvDecayPowCpp(CPhysical::PHYSICAL_SHIFT_SPEED_DAMP, CTimer::GetTimeStep());
                 m_vecTurnSpeed *= fTurnSpeedShift;
             }
         }
@@ -1574,58 +1549,14 @@ void CPhysical::ApplyAirResistance()
         }
 
         // Como el original: pow(1 - v, paso) con el _CIpow del EXE (0x822130) y ST0 completo en los productos
-        const float fBase = 1.0f - fSpeedMagnitude;
-        const float fStep = CTimer::GetTimeStep();
-        float* const pMove = &m_vecMoveSpeed.x;
-        __asm {
-            fld fBase
-            fld fStep
-            mov eax, 0x822130
-            call eax
-            mov edx, pMove
-            fld st(0)
-            fmul dword ptr [edx]
-            fstp dword ptr [edx]
-            fld st(0)
-            fmul dword ptr [edx+4]
-            fstp dword ptr [edx+4]
-            fmul dword ptr [edx+8]
-            fstp dword ptr [edx+8]
-        }
+        PowScaleVector3Cpp(&m_vecMoveSpeed.x, 1.0f - fSpeedMagnitude, CTimer::GetTimeStep());
         m_vecTurnSpeed *= 0.99f;
     }
     else
     {
         // Como el original: pow(resistencia, paso) con el _CIpow del EXE (0x822130) y ST0 completo en los 6 productos
-        const float fBase = m_fAirResistance;
-        const float fStep = CTimer::GetTimeStep();
-        float* const pMove = &m_vecMoveSpeed.x;
-        float* const pTurn = &m_vecTurnSpeed.x;
-        __asm {
-            fld fBase
-            fld fStep
-            mov eax, 0x822130
-            call eax
-            mov edx, pMove
-            fld st(0)
-            fmul dword ptr [edx]
-            fstp dword ptr [edx]
-            fld st(0)
-            fmul dword ptr [edx+4]
-            fstp dword ptr [edx+4]
-            fld st(0)
-            fmul dword ptr [edx+8]
-            fstp dword ptr [edx+8]
-            mov edx, pTurn
-            fld st(0)
-            fmul dword ptr [edx]
-            fstp dword ptr [edx]
-            fld st(0)
-            fmul dword ptr [edx+4]
-            fstp dword ptr [edx+4]
-            fmul dword ptr [edx+8]
-            fstp dword ptr [edx+8]
-        }
+        PowScaleVector3Cpp(&m_vecMoveSpeed.x, m_fAirResistance, CTimer::GetTimeStep());
+        PowScaleVector3Cpp(&m_vecTurnSpeed.x, m_fAirResistance, CTimer::GetTimeStep());
     }
 }
 
@@ -2341,200 +2272,6 @@ CVector PhysAttachMat3x3_59C790(const CMatrix& m, const CVector& v) {
         (m.GetUp().z * v.z + m.GetRight().z * v.x) + m.GetForward().z * v.y
     };
 }
-
-// Como el original: transcripción exacta de CMatrix::Rotate(x, y, z) (0x59B460), con fsin/fcos del x87
-// y su orden de productos (la versión DLL de CMatrix::Rotate(CVector) usa otro orden).
-__declspec(naked) void __fastcall PhysAttachRotate59B460(CMatrix* /*ecx*/, int /*edx*/, float /*x*/, float /*y*/, float /*z*/) {
-    __asm {
-        sub esp,54h
-        fld dword ptr [esp+58h]
-        fcos
-        fld dword ptr [esp+58h]
-        fsin
-        fstp dword ptr [esp+58h]
-        fld dword ptr [esp+5Ch]
-        fcos
-        fld dword ptr [esp+5Ch]
-        fsin
-        fld dword ptr [esp+60h]
-        fcos
-        fld dword ptr [esp+60h]
-        fsin
-        fst dword ptr [esp+5Ch]
-        fmul dword ptr [esp+58h]
-        fld st(1)
-        fmul dword ptr [esp+58h]
-        fstp dword ptr [esp+60h]
-        fld st(1)
-        fmul st,st(4)
-        fld st(1)
-        fmul st,st(4)
-        fsubp st(1),st
-        fstp dword ptr [esp]
-        fld dword ptr [esp+60h]
-        fmul st,st(3)
-        fld dword ptr [esp+5Ch]
-        fmul st,st(5)
-        faddp st(1),st
-        fstp dword ptr [esp+4]
-        fld st(2)
-        fmul st,st(5)
-        fchs
-        fstp dword ptr [esp+8]
-        fld dword ptr [esp+5Ch]
-        fmul st,st(5)
-        fchs
-        fstp dword ptr [esp+0Ch]
-        fld st(1)
-        fmul st,st(5)
-        fstp dword ptr [esp+10h]
-        fxch st(1)
-        fmul st,st(2)
-        fxch st(1)
-        fmul st,st(3)
-        faddp st(1),st
-        fstp dword ptr [esp+18h]
-        fld dword ptr [esp+5Ch]
-        fmul st,st(1)
-        fld dword ptr [esp+60h]
-        fmul st,st(3)
-        fsubp st(1),st
-        fstp dword ptr [esp+1Ch]
-        fstp st(0)
-        fmulp st(1),st
-        fld dword ptr [esp+18h]
-        fmul dword ptr [ecx+8]
-        fld dword ptr [esp+0Ch]
-        fmul dword ptr [ecx+4]
-        faddp st(1),st
-        fld dword ptr [esp]
-        fmul dword ptr [ecx]
-        faddp st(1),st
-        fld dword ptr [esp+1Ch]
-        fmul dword ptr [ecx+8]
-        fld dword ptr [esp+10h]
-        fmul dword ptr [ecx+4]
-        faddp st(1),st
-        fld dword ptr [esp+4]
-        fmul dword ptr [ecx]
-        faddp st(1),st
-        fld st(2)
-        fmul dword ptr [ecx+8]
-        fld dword ptr [esp+58h]
-        fmul dword ptr [ecx+4]
-        faddp st(1),st
-        fld dword ptr [esp+8]
-        fmul dword ptr [ecx]
-        faddp st(1),st
-        fstp dword ptr [esp+2Ch]
-        fld dword ptr [esp]
-        fmul dword ptr [ecx+10h]
-        fld dword ptr [esp+18h]
-        fmul dword ptr [ecx+18h]
-        faddp st(1),st
-        fld dword ptr [esp+0Ch]
-        fmul dword ptr [ecx+14h]
-        faddp st(1),st
-        fstp dword ptr [esp+30h]
-        fld dword ptr [esp+4]
-        fmul dword ptr [ecx+10h]
-        fld dword ptr [esp+1Ch]
-        fmul dword ptr [ecx+18h]
-        faddp st(1),st
-        fld dword ptr [esp+10h]
-        fmul dword ptr [ecx+14h]
-        faddp st(1),st
-        fstp dword ptr [esp+34h]
-        fld dword ptr [esp+8]
-        fmul dword ptr [ecx+10h]
-        fld st(3)
-        fmul dword ptr [ecx+18h]
-        faddp st(1),st
-        fld dword ptr [esp+58h]
-        fmul dword ptr [ecx+14h]
-        faddp st(1),st
-        fstp dword ptr [esp+38h]
-        fld dword ptr [esp]
-        fmul dword ptr [ecx+20h]
-        fld dword ptr [esp+18h]
-        fmul dword ptr [ecx+28h]
-        faddp st(1),st
-        fld dword ptr [esp+0Ch]
-        fmul dword ptr [ecx+24h]
-        faddp st(1),st
-        fstp dword ptr [esp+3Ch]
-        fld dword ptr [esp+4]
-        fmul dword ptr [ecx+20h]
-        fld dword ptr [esp+1Ch]
-        fmul dword ptr [ecx+28h]
-        faddp st(1),st
-        fld dword ptr [esp+10h]
-        fmul dword ptr [ecx+24h]
-        faddp st(1),st
-        fstp dword ptr [esp+40h]
-        fld dword ptr [esp+8]
-        fmul dword ptr [ecx+20h]
-        fld st(3)
-        fmul dword ptr [ecx+28h]
-        faddp st(1),st
-        fld dword ptr [esp+58h]
-        fmul dword ptr [ecx+24h]
-        faddp st(1),st
-        fstp dword ptr [esp+44h]
-        fld dword ptr [esp]
-        fmul dword ptr [ecx+30h]
-        fld dword ptr [esp+18h]
-        fmul dword ptr [ecx+38h]
-        faddp st(1),st
-        fld dword ptr [esp+0Ch]
-        fmul dword ptr [ecx+34h]
-        faddp st(1),st
-        fstp dword ptr [esp+48h]
-        fld dword ptr [esp+4]
-        fmul dword ptr [ecx+30h]
-        fld dword ptr [esp+1Ch]
-        fmul dword ptr [ecx+38h]
-        faddp st(1),st
-        fld dword ptr [esp+10h]
-        fmul dword ptr [ecx+34h]
-        faddp st(1),st
-        fstp dword ptr [esp+4Ch]
-        fld dword ptr [esp+8]
-        fmul dword ptr [ecx+30h]
-        fxch st(3)
-        fmul dword ptr [ecx+38h]
-        mov eax,dword ptr [esp+2Ch]
-        faddp st(3),st
-        fld dword ptr [esp+58h]
-        mov edx,dword ptr [esp+30h]
-        fmul dword ptr [ecx+34h]
-        mov dword ptr [ecx+8],eax
-        mov eax,dword ptr [esp+34h]
-        mov dword ptr [ecx+10h],edx
-        mov edx,dword ptr [esp+38h]
-        faddp st(3),st
-        mov dword ptr [ecx+14h],eax
-        fxch st(2)
-        mov eax,dword ptr [esp+3Ch]
-        mov dword ptr [ecx+18h],edx
-        fstp dword ptr [esp+50h]
-        mov edx,dword ptr [esp+40h]
-        mov dword ptr [ecx+20h],eax
-        fstp dword ptr [ecx]
-        mov eax,dword ptr [esp+44h]
-        mov dword ptr [ecx+24h],edx
-        fstp dword ptr [ecx+4]
-        mov edx,dword ptr [esp+48h]
-        mov dword ptr [ecx+28h],eax
-        mov eax,dword ptr [esp+4Ch]
-        mov dword ptr [ecx+30h],edx
-        mov edx,dword ptr [esp+50h]
-        mov dword ptr [ecx+34h],eax
-        mov dword ptr [ecx+38h],edx
-        add esp,54h
-        ret 0Ch
-    }
-}
 }
 
 // Used in driving school mission
@@ -2616,7 +2353,8 @@ void CPhysical::PositionAttachedEntity()
         }
         else {
             attachedEntityRotationMatrix.ResetOrientation();
-            PhysAttachRotate59B460(&attachedEntityRotationMatrix, 0, m_vecAttachedEntityRotation.x, m_vecAttachedEntityRotation.y, m_vecAttachedEntityRotation.z);
+            // Como el original: CMatrix::Rotate (0x59B460) con fsin/fcos del x87 y su orden de productos (la versión DLL usa otro orden).
+            PhysicalRotateXYZCpp(reinterpret_cast<float*>(&attachedEntityRotationMatrix), m_vecAttachedEntityRotation.x, m_vecAttachedEntityRotation.y, m_vecAttachedEntityRotation.z);
             attachedEntityMatrix = attachedToEntityMatrix;
             attachedEntityMatrix *= attachedEntityRotationMatrix;
         }
@@ -2738,50 +2476,13 @@ void CPhysical::PositionAttachedEntity()
                 CVector vecDistance = (vecCenterOfMassMultiplied + GetPosition()) - m_pAttachedTo->GetPosition();
                 m_pAttachedTo->ApplyForce(vecForce * -1.0f, vecDistance, true);
             }
-            // Como el original: los dos headings de fpatan se restan sin redondear a float (x87)
+            // Como el original: los dos headings de fpatan se restan sin redondear a float (x87), el ajuste de +-2pi, el recorte a +-0.5
+            // y el producto por 1e-5 (0x8CD7DC), la masa y la suma al giro Z se hacen en una sola cadena x87 (PhysicalAttachTurnZCpp)
             const CPlaceable* const attachedTo = m_pAttachedTo;
-            const CPlaceable* const self = this;
-            float fRotationInRadians;
-            __asm {
-                mov ecx, attachedTo
-                mov eax, dword ptr [ecx+14h]
-                test eax, eax
-                je at_no_matrix
-                fld dword ptr [eax+14h]
-                fld dword ptr [eax+10h]
-                fchs
-                fxch st(1)
-                fpatan
-                jmp at_done
-            at_no_matrix:
-                fld dword ptr [ecx+10h]
-            at_done:
-                mov ecx, self
-                mov eax, dword ptr [ecx+14h]
-                test eax, eax
-                je self_no_matrix
-                fld dword ptr [eax+14h]
-                fld dword ptr [eax+10h]
-                fchs
-                fxch st(1)
-                fpatan
-                jmp self_done
-            self_no_matrix:
-                fld dword ptr [ecx+10h]
-            self_done:
-                fsubp st(1), st
-                fstp fRotationInRadians
-            }
-            // Como el original: pi y 2pi exactos del exe (0x858CB8 / 0x858CBC / 0x858CC0)
-            const float fPi    = std::bit_cast<float>(0x40490FDBu);
-            const float fTwoPi = std::bit_cast<float>(0x40C90FDBu);
-            if (fRotationInRadians > fPi)
-                fRotationInRadians -= fTwoPi;
-            else if (fRotationInRadians < -fPi)
-                fRotationInRadians += fTwoPi;
-            fRotationInRadians = std::clamp(fRotationInRadians, -0.5f, 0.5f);
-            // Como el original: * 1e-5 (0x8CD7DC) en lugar de / 100000
-            m_vecTurnSpeed.z += fRotationInRadians * std::bit_cast<float>(0x3727C5ACu) * m_fMass;
+            m_vecTurnSpeed.z = PhysicalAttachTurnZCpp(
+                attachedTo->m_matrix ? &attachedTo->m_matrix->GetForward().x : nullptr, attachedTo->m_placement.m_fHeading,
+                m_matrix ? &m_matrix->GetForward().x : nullptr, m_placement.m_fHeading,
+                m_vecTurnSpeed.z, m_fMass);
         }
     }
     else {
@@ -2961,42 +2662,8 @@ void CPhysical::ApplySpeed()
     CTimer::UpdateTimeStep(fOldTimeStep);
     if (object->objectFlags.bIsDoorMoving) {
         // Como el original: el exe llama a CPlaceable::GetHeading (0x441DB0) y usa el resultado de fpatan
-        // sin redondear a float en ST0 para el ajuste de +-2pi y la resta del ángulo inicial.
-        const CPlaceable* const self = this;
-        float fNewHeading;
-        __asm {
-            mov ecx, self
-            mov eax, dword ptr [ecx+14h]
-            test eax, eax
-            je no_matrix
-            fld dword ptr [eax+10h]
-            fchs
-            fld dword ptr [eax+14h]
-            fpatan
-            jmp have_heading
-        no_matrix:
-            fld dword ptr [ecx+10h]
-        have_heading:
-            fld fPi
-            fadd st, st(1)
-            fcomp fDoorStartAngle
-            fnstsw ax
-            test ah, 5
-            jp not_low
-            fadd fTwoPi
-            jmp wrapped
-        not_low:
-            fld fPi
-            fsubr st, st(1)
-            fcomp fDoorStartAngle
-            fnstsw ax
-            test ah, 41h
-            jne wrapped
-            fsub fTwoPi
-        wrapped:
-            fsub fDoorStartAngle
-            fstp fNewHeading
-        }
+        // sin redondear a float en ST0 para el ajuste de +-2pi y la resta del ángulo inicial (PhysicalDoorHeadingCpp).
+        float fNewHeading = PhysicalDoorHeadingCpp(m_matrix ? &m_matrix->GetForward().x : nullptr, m_placement.m_fHeading, fDoorStartAngle);
 
         fHeading -= fDoorStartAngle;
         if (fabs(fHeading) < 0.001f)
@@ -3034,18 +2701,7 @@ void CPhysical::ApplyFriction()
 
         ApplyFriction(CTimer::GetTimeStep() * 0.001f, colPoint);
         // Como el original: pow(0.98, paso) con el _CIpow del EXE (0x822130) en ST0 completo por turnSpeed.z
-        const float fBase = 0.98f;
-        const float fStep = CTimer::GetTimeStep();
-        float* const pTurnZ = &m_vecTurnSpeed.z;
-        __asm {
-            fld fBase
-            fld fStep
-            mov eax, 0x822130
-            call eax
-            mov edx, pTurnZ
-            fmul dword ptr [edx]
-            fstp dword ptr [edx]
-        }
+        PowScaleFloatCpp(&m_vecTurnSpeed.z, 0.98f, CTimer::GetTimeStep());
     }
 
     m_vecMoveSpeed += m_vecFrictionMoveSpeed;
@@ -3061,17 +2717,8 @@ void CPhysical::ApplyFriction()
         && StaticRef<float>(0x8CD7F4) * StaticRef<float>(0x8CD7F4) > m_vecMoveSpeed.SquaredMagnitude()
         && StaticRef<float>(0x8CD7F0) * StaticRef<float>(0x8CD7F0) > m_vecTurnSpeed.SquaredMagnitude())
     {
-        // Como el original: pow con el _CIpow del EXE (0x822130), redondeado a float para CVector::operator*=
-        const float fBase = StaticRef<float>(0x8CD7EC);
-        const float fStep = CTimer::GetTimeStep();
-        float fPow;
-        __asm {
-            fld fBase
-            fld fStep
-            mov eax, 0x822130
-            call eax
-            fstp fPow
-        }
+        // Como el original: pow con el _CIpow del EXE (0x822130), redondeado a float (fstp) para CVector::operator*=
+        const float fPow = CnvDecayPowCpp(StaticRef<float>(0x8CD7EC), CTimer::GetTimeStep());
         m_vecMoveSpeed *= fPow;
     }
 }

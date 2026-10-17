@@ -1,0 +1,109 @@
+005407A0: cmp word ptr [ecx+0000010Eh],0
+005407A8: jne 005407CF
+005407AA: movzx eax,word ptr [ecx+0000010Ah]
+ 00
+005407B1: cmp eax,3
+005407B4: ja 005407CF
+005407B6: jmp dword ptr [eax*4+005407D4h]
+ 00
+005407BD: cmp word ptr [ecx+20h],0
+005407C2: setne al
+005407C5: ret
+005407C6: cmp word ptr [ecx+22h],0
+005407CB: setne al
+005407CE: ret
+005407CF: xor al,al
+005407D1: ret
+005407D2: mov edi,edi
+005407D4: mov ebp,0BD005407h
+005407D9: pop es
+005407DA: push esp
+005407DB: add dh,al
+005407DD: pop es
+005407DE: push esp
+005407DF: add byte ptr [ebp+90005407h],bh
+005407F0: cmp word ptr [ecx+0000010Eh],0
+005407F8: jne 00540832
+005407FA: movzx eax,word ptr [ecx+0000010Ah]
+ 00
+00540801: cmp eax,3
+00540804: ja 00540832
+00540806: jmp dword ptr [eax*4+00540838h]
+ 00
+0054080D: cmp word ptr [ecx+20h],0
+00540812: je 0054082F
+00540814: cmp word ptr [ecx+50h],0
+00540819: jmp 00540827
+0054081B: cmp word ptr [ecx+22h],0
+00540820: je 0054082F
+00540822: cmp word ptr [ecx+52h],0
+00540827: jne 0054082F
+00540829: mov eax,1
+0054082E: ret
+0054082F: xor eax,eax
+00540831: ret
+00540832: xor al,al
+00540834: ret
+00540835: lea ecx,[ecx]
+00540838: or eax,0D005408h
+0054083D: or byte ptr [eax+eax+1Bh],dl
+00540841: or byte ptr [eax+eax+0Dh],dl
+00540845: or byte ptr [eax+eax-70h],dl
+ 00540850: 66
+
+0060A550: mov al,byte ptr [esp+4]
+0060A554: test al,al
+0060A556: push esi
+0060A557: mov esi,ecx
+0060A559: je 0060A5C6
+0060A55B: movzx eax,byte ptr ds:[00B7CD74h]
+ 00
+0060A562: imul eax,eax,190h
+0060A568: mov cl,byte ptr [eax+00B7CEE4h]
+0060A56E: test cl,cl
+0060A570: jne 0060A5C0
+0060A572: mov esi,dword ptr [esi+00000480h]
+0060A578: test byte ptr [esi+34h],2
+0060A57C: jne 0060A5C0
+0060A57E: fld dword ptr [esp+0Ch]
+0060A582: fcomp dword ptr ds:[00858B50h]
+0060A588: fnstsw ax
+0060A58A: test ah,44h
+0060A58D: jnp 0060A5C0
+0060A58F: fld dword ptr [esi+18h]
+0060A592: fcomp dword ptr ds:[0086D1D8h]
+0060A598: fnstsw ax
+0060A59A: test ah,41h
+0060A59D: jne 0060A5FE
+0060A59F: fld dword ptr ds:[00B7CB5Ch]
+0060A5A5: push ecx
+0060A5A6: fmul dword ptr [esp+10h]
+0060A5AA: fsubr dword ptr [esi+18h]
+0060A5AD: fstp dword ptr [esp]
+0060A5B0: push 0C3160000h
+0060A5B5: call 00420800
+0060A5BA: fstp dword ptr [esi+18h]
+0060A5BD: add esp,8
+0060A5C0: mov al,1
+0060A5C2: pop esi
+0060A5C3: ret 8
+0060A5C6: push edi
+0060A5C7: mov edi,dword ptr [esi+00000480h]
+0060A5CD: push 7
+0060A5CF: call 00559AF0
+0060A5D4: fcomp dword ptr [edi+18h]
+0060A5D7: add esp,4
+0060A5DA: pop edi
+0060A5DB: fnstsw ax
+0060A5DD: test ah,41h
+0060A5E0: jne 0060A5FE
+0060A5E2: fld dword ptr ds:[00B7CB5Ch]
+0060A5E8: mov esi,dword ptr [esi+00000480h]
+0060A5EE: fmul dword ptr [esp+0Ch]
+0060A5F2: fmul dword ptr ds:[00858B8Ch]
+0060A5F8: fadd dword ptr [esi+18h]
+0060A5FB: fstp dword ptr [esi+18h]
+0060A5FE: xor al,al
+0060A600: pop esi
+0060A601: ret 8
+0060A610: push ecx

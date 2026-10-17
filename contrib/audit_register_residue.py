@@ -19,12 +19,20 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OBJECTS = ['FxFrustumInfo', 'Garages', 'EventScriptCommand', 'BaseModelInfo', 'ClumpModelInfo', 'PedGroupIntelligence', 'Pools', 'RwHelper', 'TaskInteriorSitInChair',
-           'TaskComplexGoToCarDoorAndStandStill', 'TaskSimpleGoToPointFine', 'PedIntelligence', 'TaskComplexSeekEntityXYOffset', 'PlantLocTri', 'Pickup', 'EntryExit', 'PlayerPed', 'CarEnterExit', 'TaskComplexWaitForPed', 'PlayerRelationshipRecorder', 'EventSource', 'TheZones', 'PedGroups', 'Ped']
+           'TaskComplexGoToCarDoorAndStandStill', 'TaskSimpleGoToPointFine', 'PedIntelligence', 'TaskComplexSeekEntityXYOffset', 'PlantLocTri', 'Pickup', 'EntryExit', 'PlayerPed', 'CarEnterExit', 'TaskComplexWaitForPed', 'PlayerRelationshipRecorder', 'EventSource', 'TheZones', 'PedGroups', 'Ped', 'MemoryMgr', 'Pad', 'PathFind', 'AEVehicleAudioEntity', 'WaterLevel', 'Radar', 'Stats', 'Vehicle', 'TaskSimpleFight', 'DecisionMakerTypes', 'Garage', 'Interior_c', 'platform']
 # Objetos cuyas funciones con ayudante de residuo deben salir SIEMPRE por él (una sola salida; ningun `ret` alcanzable sin pasar por la llamada).
-EVERY_PATH_OBJECTS = {'TheZones', 'Ped'}
-HELPER_CALL = re.compile(r'^call\s+\?(ResidueRegsCpp@@YIIIII@Z|Get@ResidueEcx@@QAEII@Z|PlayerPedResidueFloatCpp@@YIMIIM@Z)\b')
+EVERY_PATH_OBJECTS = {'TheZones', 'Ped', 'MemoryMgr', 'PathFind', 'AEVehicleAudioEntity', 'WaterLevel', 'Vehicle', 'DecisionMakerTypes', 'Interior_c'}
+HELPER_CALL = re.compile(r'^call\s+(?:\?|@)?(ResidueRegsCpp@@YIIIII@Z|Get@ResidueEcx@@QAEII@Z|PlayerPedResidueFloatCpp@@YIMIIM@Z|PathFindResidueFloatCpp@@YIMIIMI@Z|VehicleResidueBoolCpp@12)\b')
 ENTRY_CALL = re.compile(r'^call\s+\?EntryEaxCpp@@YIIXZ$')
 ENTRY_EDX_CALL = re.compile(r'^call\s+\?CarEnterExitEntryEdxCpp@@YI_KXZ$')
+# Capturas de registros tras un colaborador (Stats.cpp, STATS_CAPTURE_REGS): entre la llamada al colaborador y la captura (o entre dos capturas) no puede escribirse
+# EAX/ECX/EDX ni cambiarse el flujo; solo `add esp,N`, almacenamientos en memoria, x87 y `nop`.
+CAPTURE_CALL = re.compile(r'^call\s+\?(StatsCaptureEaxCpp@@YIIXZ|StatsCaptureEcxEdxCpp@@YI_KII@Z)$')
+CAPTURE_FORBIDDEN = [
+    re.compile(r'^(xchg|cdq|cwde|cwd|mul|div|idiv|cpuid|rep|j\w+|loop\w*)\b'),
+    re.compile(r'^(?!push |cmp |test )\w+\s+(eax|ax|al|ah|ecx|cx|cl|ch|edx|dx|dl|dh)\b'),
+    re.compile(r'^pop\s+(eax|ecx|edx)$'),
+]
 # Antes de leer el EAX de entrada (EntryEaxCpp) sólo puede ejecutarse código lineal que no escriba EAX: prólogo, guardado de registros y
 # copias de ECX/EDX/argumentos. Cualquier llamada, salto condicional o instrucción cuyo destino sea EAX/AX/AL/AH lo estropearía.
 ENTRY_FORBIDDEN = [
@@ -57,12 +65,16 @@ CLOBBERS_ECX_EDX = [
 ]
 # Objetos cuyas envolturas reciben el ECX/EDX de entrada como parametros __fastcall (PedGroups: AddGroupExe, InitExe y CleanUpForShutDownExe): ningun
 # prologo puede llamar a nada (p. ej. __CheckForDebuggerJustMyCode de /JMC, que pisa ECX/EDX/EAX) en una funcion que termina con un ayudante de residuo.
-ENTRY_PARAM_OBJECTS = {'PedGroups'}
+ENTRY_PARAM_OBJECTS = {'PedGroups', 'PathFind', 'AEVehicleAudioEntity', 'Stats', 'Vehicle', 'TaskSimpleFight', 'DecisionMakerTypes', 'Garage'}
 JMC_CALL = re.compile(r'^call\s+.*CheckForDebuggerJustMyCode')
 # Minimo de llamadas a ayudantes de residuo por objeto: si baja, alguna funcion dejo de usar la tecnica (el optimizador o un cambio de fuente la elimino).
-MIN_RESIDUE_CALLS = {'PedGroups': 3, 'Ped': 1}
+MIN_RESIDUE_CALLS = {'PedGroups': 3, 'Ped': 1, 'PathFind': 8, 'AEVehicleAudioEntity': 4, 'WaterLevel': 1, 'Stats': 30, 'Vehicle': 2, 'TaskSimpleFight': 6, 'DecisionMakerTypes': 7, 'Garage': 2, 'Interior_c': 2}
 JUMP_TARGET = re.compile(r'^(j\w+)\s+([0-9A-Fa-f]{8})$')
 
+# dumpbin escribe una linea de etiqueta (`nombre decorado (firma):`) antes de cada funcion; en un objeto sin /Gy (Interior_c) las funciones
+# comparten seccion y la direccion no vuelve a 0, asi que sin esto toda la seccion se tomaba como una sola funcion y el `ret` de la primera
+# funcion en linea (IsPedTypeGang, de ePedType.h) se contaba como salida sin ayudante mientras las demas funciones no se auditaban.
+LABEL = re.compile(r'^\S.*:$')
 INSTRUCTION = re.compile(r'^\s*([0-9A-F]{8}):\s+(.*\S)\s*$')
 
 
@@ -88,6 +100,9 @@ def split_functions(lines):
     for line in lines:
         m = INSTRUCTION.match(line)
         if not m:
+            if LABEL.match(line) and current:
+                functions.append(current)
+                current = []
             continue
         address, text = int(m.group(1), 16), re.sub(r'\s+', ' ', m.group(2)).strip()
         if address == 0 and current:
@@ -186,6 +201,21 @@ def violations_before_entry_read(function):
     return found
 
 
+def violations_before_capture(function):
+    """Instrucciones entre cada captura de registros y la llamada anterior (el colaborador u otra captura) que pueden cambiar EAX, ECX o EDX."""
+    found = []
+    for index, (_, text) in enumerate(function):
+        if not CAPTURE_CALL.match(text):
+            continue
+        cursor = index - 1
+        while cursor >= 0 and not function[cursor][1].startswith('call'):
+            address, before = function[cursor]
+            if any(pattern.match(before) for pattern in CAPTURE_FORBIDDEN):
+                found.append((address, before + ' (entre el colaborador y la captura de registros)'))
+            cursor -= 1
+    return found
+
+
 def violations_before_entry_edx_read(function):
     """Instrucciones anteriores a cada llamada a CarEnterExitEntryEdxCpp que pueden cambiar EDX (o desviar el flujo)."""
     found = []
@@ -244,7 +274,7 @@ def audit(functions, every_path=False, entry_params=False, min_calls=0):
         bad.append((0, f'solo {residue_calls} llamadas a ayudantes de residuo, se esperaban al menos {min_calls}'))
     for function in functions:
         calls = sum(1 for _, text in function if HELPER_CALL.match(text))
-        entry_reads = sum(1 for _, text in function if ENTRY_CALL.match(text) or ENTRY_EDX_CALL.match(text))
+        entry_reads = sum(1 for _, text in function if ENTRY_CALL.match(text) or ENTRY_EDX_CALL.match(text) or CAPTURE_CALL.match(text))
         watched = len(monitored_calls(function))
         if not calls and not entry_reads and not watched:
             continue
@@ -255,6 +285,7 @@ def audit(functions, every_path=False, entry_params=False, min_calls=0):
         bad.extend(violations_clobbering_residue(function))
         bad.extend(violations_before_entry_read(function))
         bad.extend(violations_before_entry_edx_read(function))
+        bad.extend(violations_before_capture(function))
         if every_path and calls:
             bad.extend(violations_unprotected_returns(function))
     return checked, bad

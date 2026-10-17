@@ -6,4 +6,5 @@ SOURCES = ['source/game_sa/WaterLevel.cpp','source/game_sa/WaterLevel.h']
 SOURCES += ['source/game_sa/Cam.cpp', 'source/game_sa/Cam.h', 'source/game_sa/Camera.h']
 SOURCES += ['source/game_sa/WeaponInfo.cpp', 'source/game_sa/Entity/Ped/Ped.cpp']
 SOURCES += ['source/game_sa/Core/Vector.cpp', 'source/game_sa/Core/Matrix.h', 'source/game_sa/Entity/Placeable.cpp', 'source/game_sa/Entity/Entity.cpp']
+SOURCES += [f'source/game_sa/X87Math.{e}' for e in ('cpp', 'h')]
 if __name__ == '__main__': print(json.dumps(build(Path(__file__).parent, 'cam-attached355', 'CamAttached355Live', SOURCES)))

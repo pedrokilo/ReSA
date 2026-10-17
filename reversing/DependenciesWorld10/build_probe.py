@@ -7,6 +7,7 @@ runtime_runner.GAME=Path('E:/JUEGOS/GTA San Andreas - CVehicle Test')
 from probe_build import build
 if __name__=='__main__':print(json.dumps(build(Path(__file__).parent,'dependenciesworld10','DependenciesWorld10Live',[
  'source/game_sa/Cam.cpp','source/game_sa/Cam.h','source/game_sa/Camera.cpp','source/game_sa/Camera.h',
+ 'source/game_sa/X87Math.cpp','source/game_sa/X87Math.h',
  'source/game_sa/CarCtrl.cpp','source/game_sa/CarCtrl.h',
  'source/game_sa/cHandlingDataMgr.cpp','source/game_sa/cHandlingDataMgr.h',
  'source/game_sa/Models/ModelInfo.h','source/game_sa/Models/VehicleModelInfo.h',

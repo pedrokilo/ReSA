@@ -95,7 +95,7 @@ def analyze(path):
   if row['original'] is None or row['candidate'] is None or row['original']!=row['candidate'] or row.get('equal') is not True or row.get('accepted') is not True:raise RuntimeError('Diferencia/NULL')
   if e=='helper_equivalence':
    i=helper_fixture(case);expected=helper_expected(i);
-   if not 0x59c910<=row['original_fp_ip_raw']<=0x59c960 or not start['helper_body']<=row['candidate_fp_ip_raw']<start['helper_body']+256:raise RuntimeError('Cuerpo del helper no ejecutado')
+   if not 0x59c910<=row['original_fp_ip_raw']<=0x59c960 or not start['normalise_body']<=row['candidate_fp_ip_raw']<start['normalise_body']+512:raise RuntimeError('Cuerpo del helper no ejecutado')
    helper_paths.add('zero' if not any(i) else 'nonzero')
    for side in ('original','candidate'):
     o=row[side]

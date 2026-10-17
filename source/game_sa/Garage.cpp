@@ -19,8 +19,27 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "Garage.h"
+#include "X87Math.h"
+#include "Collision/CollisionData.h"
+#include "Collision/ColModel.h"
 
-namespace { const float GarageQueryZero = 0.0f; }
+// 0x448740: ECX = this, EDX de entrada y 12 bytes de pila (ret 0Ch). Como el original: EDX queda intacto (los bucles del EXE de 0x448900, 0x4489A0 y 0x44961C lo
+// usan de contador a traves de la llamada); ECX = this en las salidas por la z y los bits de dy en las demas (0x448764 sobrescribe con `fstp [esp]` el ECX guardado
+// por `push ecx` y el `pop ecx` final lo devuelve); AL = resultado. Lo ultimo que ejecuta es ResidueRegsCpp (ver X87Math.h y contrib/audit_register_residue.py).
+#pragma runtime_checks("", off)
+static __declspec(safebuffers) uint32 __fastcall GarageIsPointInsideRegs(CGarage* self, uint32 entryEdx, CVector point) {
+    uint32     ecxOut = static_cast<uint32>(reinterpret_cast<uintptr_t>(self));
+    const bool inside = GarageInsidePointCpp(reinterpret_cast<const float*>(self), &point.x, &ecxOut);
+    return ResidueRegsCpp(ecxOut, entryEdx, inside ? 1u : 0u);
+}
+
+// 0x4487D0: ECX = this, EDX de entrada y 16 bytes de pila (ret 10h). Como el original: ECX y EDX quedan intactos (FindGarageForObject, 0x449BDC y 0x44A296 los
+// reutilizan tras la llamada); AL = resultado. No es static: el banco DependenciesWorld15 declara su direccion como destino del hook.
+__declspec(safebuffers) uint32 __fastcall GarageIsPointInsideRadiusRegs(CGarage* self, uint32 entryEdx, CVector point, float radius) {
+    const bool inside = GarageInsideRadiusCpp(reinterpret_cast<const float*>(self), &point.x, radius);
+    return ResidueRegsCpp(static_cast<uint32>(reinterpret_cast<uintptr_t>(self)), entryEdx, inside ? 1u : 0u);
+}
+#pragma runtime_checks("", restore)
 
 void CGarage::InjectHooks() {
     RH_ScopedClass(CGarage);
@@ -36,36 +55,27 @@ void CGarage::InjectHooks() {
     // RH_ScopedInstall(IsEntityEntirelyOutside, 0x448D30);
     // RH_ScopedInstall(IsStaticPlayerCarEntirelyInside, 0x44A830);
     // RH_ScopedInstall(IsEntityEntirelyInside3D, 0x448BE0);
-    RH_ScopedOverloadedInstall(IsPointInsideGarage, "point", 0x448740, bool(CGarage::*)(CVector));
+    RH_ScopedNamedGlobalInstall(GarageIsPointInsideRegs, "IsPointInsideGarage-point", 0x448740); // EDX/ECX del EXE: ver GarageIsPointInsideRegs
     // RH_ScopedInstall(PlayerArrestedOrDied, 0x4486C0);
     RH_ScopedInstall(OpenThisGarage, 0x447D50);
     RH_ScopedInstall(CloseThisGarage, 0x447D70);
     // RH_ScopedInstall(InitDoorsAtStart, 0x447600);
-    RH_ScopedOverloadedInstall(IsPointInsideGarage, "radius", 0x4487D0, bool(CGarage::*)(CVector, float));
+    RH_ScopedNamedGlobalInstall(GarageIsPointInsideRadiusRegs, "IsPointInsideGarage-radius", 0x4487D0); // ECX/EDX del EXE: ver GarageIsPointInsideRadiusRegs
     // RH_ScopedInstall(Update, 0x44AA50);
 }
 
 // 0x4479F0
 void CGarage::BuildRotatedDoorMatrix(CEntity* entity, float fDoorPosition) {
-    // Como el original: fsin/fcos del x87 (precisión completa) sobre el ángulo redondeado a float
-    // Como el original: constante 0x859998 = -π/2 exacto (el HALF_PI de common.h es impreciso)
-    const float fAngle = fDoorPosition * std::bit_cast<float>(0xBFC90FDBu);
-    float sinA, cosA; // nombres distintos de fsin/fcos: el ensamblador en línea no distingue mayúsculas
-    __asm {
-        fld   fAngle
-        fld   st(0)
-        fsin
-        fstp  sinA
-        fcos
-        fstp  cosA
-    }
-    const float fSin = sinA;
-    const float fCos = cosA;
-    CMatrix& matrix = entity->GetMatrix();
-
-    const auto& vecForward = matrix.GetForward();
-    matrix.GetUp() = CVector(-fSin * vecForward.y, fSin * vecForward.x, fCos);
-    matrix.GetRight() = CrossProduct(vecForward, matrix.GetUp());
+    // Como el original: fsin/fcos del x87 (precision completa) sobre fDoorPosition * (-pi/2 exacto, 0x859998; el HALF_PI de common.h es impreciso), cada uno guardado
+    // como float; up = {-(sin * forward.y), sin * forward.x, cos} con los productos del x87 (GarageDoorUpCpp); right = forward x up con CrossProduct (0x59C730).
+    CMatrix& matrix     = entity->GetMatrix();
+    auto&    vecForward = matrix.GetForward();
+    float    up[3];
+    GarageDoorUpCpp(fDoorPosition, std::bit_cast<float>(0xBFC90FDBu), vecForward.x, vecForward.y, up);
+    float right[3];
+    GarageDoorRightCpp(&vecForward.x, up, right); // 0x59C730 con los productos del x87 (CrossProduct de la DLL es SSE: difiere en subnormales y NaN)
+    std::memcpy(&matrix.GetRight().x, right, sizeof(right)); // copia de bits como los mov enteros del EXE (sin pasar por el x87)
+    std::memcpy(&matrix.GetUp().x, up, sizeof(up));
 }
 
 // 0x449D10
@@ -107,104 +117,27 @@ void CGarage::StoreAndRemoveCarsForThisHideOut(CStoredCar* storedCars, int32 max
 }
 
 
-namespace {
-__declspec(naked) void GarageSphere15_4487D0() {
-    __asm { push 04487D0h }
-    __asm { ret }
-}
-__declspec(naked) void GarageSphere15_535300() {
-    __asm { push 0535300h }
-    __asm { ret }
-}
-__declspec(naked) void GarageSphere15_54F1B0() {
-    __asm { push 054F1B0h }
-    __asm { ret }
-}
-__declspec(naked) void GarageSphere15_54F560() {
-    __asm { push 054F560h }
-    __asm { ret }
-}
-__declspec(naked) void GarageSphere15_59C890() {
-    __asm { push 059C890h }
-    __asm { ret }
-}
-}
-
 // 0x449050
-__declspec(naked) bool CGarage::EntityHasASphereWayOutsideGarage(CEntity* entity, float fRadius) {
-    // Como el original: 0x449050..0x4490EF, AL y ret 8; colaboradores reales.
-    __asm {
-        sub esp,10h
-        push ebx
-        mov ebx,dword ptr [esp+18h]
-        push ebp
-        push esi
-        mov dword ptr [esp+0Ch],ecx
-        push edi
-        mov ecx,ebx
-        call GarageSphere15_535300
-        mov esi,dword ptr [eax+2Ch]
-        xor ebp,ebp
-        cmp word ptr [esi],bp
-        jle L_4490DA
-        xor edi,edi
-L_449072:
-        mov eax,dword ptr [ebx+14h]
-        test eax,eax
-        jne L_44908C
-        mov ecx,ebx
-        call GarageSphere15_54F560
-        mov eax,dword ptr [ebx+14h]
-        push eax
-        lea ecx,[ebx+4]
-        call GarageSphere15_54F1B0
-L_44908C:
-        mov ecx,dword ptr [esi+8]
-        mov eax,dword ptr [ebx+14h]
-        add ecx,edi
-        push ecx
-        push eax
-        lea edx,[esp+1Ch]
-        push edx
-        call GarageSphere15_59C890
-        fld dword ptr [esp+34h]
-        mov ecx,dword ptr [esi+8]
-        fadd dword ptr [ecx+edi+0Ch]
-        push ecx
-        mov ecx,dword ptr [eax]
-        mov edx,esp
-        fstp dword ptr [esp+0Ch]
-        mov dword ptr [edx],ecx
-        mov ecx,dword ptr [eax+4]
-        mov eax,dword ptr [eax+8]
-        mov dword ptr [edx+4],ecx
-        mov ecx,dword ptr [esp+20h]
-        mov dword ptr [edx+8],eax
-        call GarageSphere15_4487D0
-        test al,al
-        je L_4490E6
-        movsx ecx,word ptr [esi]
-        inc ebp
-        add edi,14h
-        cmp ebp,ecx
-        jl L_449072
-L_4490DA:
-        xor al,al
-        pop edi
-        pop esi
-        pop ebp
-        pop ebx
-        add esp,10h
-        ret 8
-L_4490E6:
-        pop edi
-        pop esi
-        pop ebp
-        mov al,1
-        pop ebx
-        add esp,10h
-        ret 8
-    }
+// Como el original (0x449050..0x4490EF): para cada esfera de colision, centro transformado con 0x59C890 (funcion del EXE sin reconstruir, por su direccion),
+// radio = fRadius + radio de la esfera (fadd del x87 guardado como float) y IsPointInsideGarage(centro, radio); devuelve true en la primera esfera que queda fuera.
+// La matriz se crea (y se actualiza) en cada vuelta como el original, y el contador de esferas (int16 con signo) se vuelve a leer en cada vuelta.
+bool CGarage::EntityHasASphereWayOutsideGarage(CEntity* entity, float fRadius) {
+    CCollisionData* const data = entity->GetColModel()->m_pColData;
+    if (static_cast<int16>(data->m_nNumSpheres) <= 0)
+        return false;
+
+    int32 index = 0;
+    do {
+        CColSphere* const sphere = &data->m_pSpheres[index];
+        CMatrix&          matrix = entity->GetMatrix();
+        CVector           transformed;
+        CVector* const    point  = plugin::CallAndReturn<CVector*, 0x59C890, CVector*, CMatrix*, CVector*>(&transformed, &matrix, &sphere->m_vecCenter);
+        const float       radius = RpNanAddCpp(fRadius, sphere->m_fRadius);
+        if (!IsPointInsideGarage(*point, radius))
+            return true;
+        ++index;
+    } while (index < static_cast<int16>(data->m_nNumSpheres));
+    return false;
 }
 
 // 0x449690
@@ -213,152 +146,29 @@ void CGarage::RemoveCarsBlockingDoorNotInside() {
 }
 
 // 0x448EE0
-static uintptr_t GarageTouchColBody = std::bit_cast<uintptr_t>(&CEntity::GetColModel);
-static uintptr_t GarageTouchMatrixBody = std::bit_cast<uintptr_t>(&CPlaceable::GetMatrix);
-static uintptr_t GarageTouchGeometryBody = std::bit_cast<uintptr_t>(static_cast<bool(CGarage::*)(CVector,float)>(&CGarage::IsPointInsideGarage));
-static uintptr_t GarageTouchNativePoint = 0x59C890;
-// Literal x87 and sphere-loop transcription of 0x448EE0..0x449041.
-__declspec(naked) bool CGarage::IsEntityTouching3D(CEntity*) {
-    __asm {
-        sub esp,10h
-        push ebx
-        mov ebx,dword ptr [esp+18h]
-        movsx eax,word ptr [ebx+22h]
-        mov edx,ecx
-        mov ecx,dword ptr [eax*4+00A9B0C8h]
-        mov eax,dword ptr [ecx+14h]
-        mov ecx,dword ptr [eax+24h]
-        push ebp
-        push esi
-        mov dword ptr [esp+20h],ecx
-        mov ecx,dword ptr [ebx+14h]
-        xor esi,esi
-        cmp ecx,esi
-        push edi
-        mov dword ptr [esp+10h],edx
-        lea eax,[ecx+30h]
-        jne garageTouch00448F15
-        lea eax,[ebx+4]
-garageTouch00448F15:
-        fld dword ptr [edx+28h]
-        fsub dword ptr [esp+24h]
-        fcomp dword ptr [eax]
-        fnstsw ax
-        test ah,41h
-        je garageTouch0044902C
-        cmp ecx,esi
-        lea eax,[ecx+30h]
-        jne garageTouch00448F33
-        lea eax,[ebx+4]
-garageTouch00448F33:
-        fld dword ptr [esp+24h]
-        fadd dword ptr [edx+2Ch]
-        fcomp dword ptr [eax]
-        fnstsw ax
-        test ah,5
-        jnp garageTouch0044902C
-        cmp ecx,esi
-        lea eax,[ecx+30h]
-        jne garageTouch00448F51
-        lea eax,[ebx+4]
-garageTouch00448F51:
-        fld dword ptr [edx+30h]
-        fsub dword ptr [esp+24h]
-        fcomp dword ptr [eax+4]
-        fnstsw ax
-        test ah,41h
-        je garageTouch0044902C
-        cmp ecx,esi
-        lea eax,[ecx+30h]
-        jne garageTouch00448F70
-        lea eax,[ebx+4]
-garageTouch00448F70:
-        fld dword ptr [esp+24h]
-        fadd dword ptr [edx+34h]
-        fcomp dword ptr [eax+4]
-        fnstsw ax
-        test ah,5
-        jnp garageTouch0044902C
-        cmp ecx,esi
-        lea eax,[ecx+30h]
-        jne garageTouch00448F8F
-        lea eax,[ebx+4]
-garageTouch00448F8F:
-        fld dword ptr [edx+8]
-        fsub dword ptr [esp+24h]
-        fcomp dword ptr [eax+8]
-        fnstsw ax
-        test ah,41h
-        je garageTouch0044902C
-        cmp ecx,esi
-        je garageTouch00448FAD
-        add ecx,30h
-        jmp garageTouch00448FB0
-garageTouch00448FAD:
-        lea ecx,[ebx+4]
-garageTouch00448FB0:
-        fld dword ptr [esp+24h]
-        fadd dword ptr [edx+1Ch]
-        fcomp dword ptr [ecx+8]
-        fnstsw ax
-        test ah,5
-        jnp garageTouch0044902C
-        mov ecx,ebx
-        call dword ptr [GarageTouchColBody]
-        mov edi,dword ptr [eax+2Ch]
-        cmp word ptr [edi],si
-        mov dword ptr [esp+24h],esi
-        jle garageTouch0044902C
-        mov edx,dword ptr [edi+8]
-garageTouch00448FD7:
-        add edx,esi
-        push edx
-        mov ecx,ebx
-        call dword ptr [GarageTouchMatrixBody]
-        push eax
-        lea eax,[esp+1Ch]
-        push eax
-        call dword ptr [GarageTouchNativePoint]
-        mov edx,dword ptr [edi+8]
-        mov ecx,dword ptr [esi+edx+0Ch]
-        mov ebp,dword ptr [eax]
-        add esp,0Ch
-        push ecx
-        sub esp,0Ch
-        mov ecx,esp
-        mov dword ptr [ecx],ebp
-        mov ebp,dword ptr [eax+4]
-        mov eax,dword ptr [eax+8]
-        mov dword ptr [ecx+4],ebp
-        mov dword ptr [ecx+8],eax
-        mov ecx,dword ptr [esp+20h]
-        call dword ptr [GarageTouchGeometryBody]
-        test al,al
-        jne garageTouch00449038
-        mov eax,dword ptr [esp+24h]
-        movsx ecx,word ptr [edi]
-        inc eax
-        add esi,14h
-        cmp eax,ecx
-        mov dword ptr [esp+24h],eax
-        jl garageTouch00448FD7
-garageTouch0044902C:
-        xor al,al
-        pop edi
-        pop esi
-        pop ebp
-        pop ebx
-        add esp,10h
-        ret 4
-garageTouch00449038:
-        pop edi
-        pop esi
-        pop ebp
-        mov al,1
-        pop ebx
-        add esp,10h
-        ret 4
-    }
+// Como el original (0x448EE0..0x449041): radio = esfera delimitadora del CColModel del modelo (no el de CEntity::GetColModel), rechazo por caja ampliada con los seis
+// limites del garaje (GarageEntityNearCpp, x87) y, para cada esfera de colision, centro transformado con 0x59C890 (por su direccion) e
+// IsPointInsideGarage(centro, radio de la esfera).
+bool CGarage::IsEntityTouching3D(CEntity* entity) {
+    const float radius = CModelInfo::GetModelInfo(static_cast<int32>(static_cast<int16>(entity->m_nModelIndex)))->GetColModel()->GetBoundRadius();
+    if (!GarageEntityNearCpp(reinterpret_cast<const float*>(this), radius, &entity->GetPosition().x))
+        return false;
+
+    CCollisionData* const data = entity->GetColModel()->m_pColData;
+    if (static_cast<int16>(data->m_nNumSpheres) <= 0)
+        return false;
+
+    int32 index = 0;
+    do {
+        CColSphere* const sphere = &data->m_pSpheres[index];
+        CMatrix&          matrix = entity->GetMatrix();
+        CVector           transformed;
+        CVector* const    point  = plugin::CallAndReturn<CVector*, 0x59C890, CVector*, CMatrix*, CVector*>(&transformed, &matrix, &sphere->m_vecCenter);
+        if (IsPointInsideGarage(*point, sphere->m_fRadius))
+            return true;
+        ++index;
+    } while (index < static_cast<int16>(data->m_nNumSpheres));
+    return false;
 }
 
 // 0x448D30
@@ -377,62 +187,10 @@ bool CGarage::IsEntityEntirelyInside3D(CEntity* entity, float radius) {
 }
 
 // 0x448740
-// 0x448764 sobrescribe el ECX guardado con dy; el pop final devuelve esos bits. EDX queda intacto.
-__declspec(naked) bool CGarage::IsPointInsideGarage(CVector point) {
-    __asm {
-        push ecx
-        fld dword ptr [esp+10h]
-        fcomp dword ptr [ecx+8]
-        fnstsw ax
-        test ah,5
-        jnp gpoint004487B4
-        fld dword ptr [esp+10h]
-        fcomp dword ptr [ecx+1Ch]
-        fnstsw ax
-        test ah,41h
-        je gpoint004487B4
-        fld dword ptr [esp+0Ch]
-        fsub dword ptr [ecx+4]
-        fstp dword ptr [esp]
-        fld dword ptr [esp+8]
-        fsub dword ptr [ecx]
-        fst dword ptr [esp+8]
-        fmul dword ptr [ecx+0Ch]
-        fld dword ptr [esp]
-        fmul dword ptr [ecx+10h]
-        faddp st(1),st
-        fcom dword ptr [GarageQueryZero]
-        fnstsw ax
-        test ah,5
-        jnp gpoint004487B2
-        fcomp dword ptr [ecx+20h]
-        fnstsw ax
-        test ah,41h
-        je gpoint004487B4
-        fld dword ptr [esp+8]
-        fmul dword ptr [ecx+14h]
-        fld dword ptr [esp]
-        fmul dword ptr [ecx+18h]
-        faddp st(1),st
-        fcom dword ptr [GarageQueryZero]
-        fnstsw ax
-        test ah,5
-        jp gpoint004487BA
-gpoint004487B2:
-        fstp st(0)
-gpoint004487B4:
-        xor al,al
-        pop ecx
-        ret 0Ch
-gpoint004487BA:
-        fcomp dword ptr [ecx+24h]
-        fnstsw ax
-        test ah,41h
-        je gpoint004487B4
-        mov al,1
-        pop ecx
-        ret 0Ch
-    }
+// Version de la DLL (las llamadas desde C++ no leen el residuo de registros); el hook del EXE es GarageIsPointInsideRegs.
+bool CGarage::IsPointInsideGarage(CVector point) {
+    uint32 ecxUnused = 0;
+    return GarageInsidePointCpp(reinterpret_cast<const float*>(this), &point.x, &ecxUnused);
 }
 
 // 0x4486C0
@@ -462,73 +220,9 @@ void CGarage::InitDoorsAtStart() {
 }
 
 // 0x4487D0
-// Copia del flujo x87 original; conserva ECX y EDX que reutiliza FindGarageForObject.
-__declspec(naked) bool CGarage::IsPointInsideGarage(CVector point, float radius) {
-    __asm {
-        fld dword ptr [ecx+8]
-        sub esp,8
-        fsub dword ptr [esp+18h]
-        fcomp dword ptr [esp+14h]
-        fnstsw ax
-        test ah,41h
-        je gradius0044885C
-        fld dword ptr [esp+18h]
-        fadd dword ptr [ecx+1Ch]
-        fcomp dword ptr [esp+14h]
-        fnstsw ax
-        test ah,5
-        jnp gradius0044885C
-        fld dword ptr [esp+10h]
-        fsub dword ptr [ecx+4]
-        fstp dword ptr [esp]
-        fld dword ptr [esp+0Ch]
-        fsub dword ptr [ecx]
-        fst dword ptr [esp+0Ch]
-        fmul dword ptr [ecx+0Ch]
-        fld dword ptr [esp]
-        fmul dword ptr [ecx+10h]
-        faddp st(1),st
-        fld dword ptr [esp+18h]
-        fchs
-        fstp dword ptr [esp+4]
-        fcom dword ptr [esp+4]
-        fnstsw ax
-        test ah,5
-        jnp gradius0044885A
-        fld dword ptr [esp+18h]
-        fadd dword ptr [ecx+20h]
-        fxch st(1)
-        fcompp
-        fnstsw ax
-        test ah,41h
-        je gradius0044885C
-        fld dword ptr [esp+0Ch]
-        fmul dword ptr [ecx+14h]
-        fld dword ptr [esp]
-        fmul dword ptr [ecx+18h]
-        faddp st(1),st
-        fcom dword ptr [esp+4]
-        fnstsw ax
-        test ah,5
-        jp gradius00448864
-gradius0044885A:
-        fstp st(0)
-gradius0044885C:
-        xor al,al
-        add esp,8
-        ret 10h
-gradius00448864:
-        fld dword ptr [esp+18h]
-        fadd dword ptr [ecx+24h]
-        fxch st(1)
-        fcompp
-        fnstsw ax
-        test ah,41h
-        je gradius0044885C
-        mov al,1
-        add esp,8
-        ret 10h
-    }
+// Version de la DLL; el hook del EXE es GarageIsPointInsideRadiusRegs.
+bool CGarage::IsPointInsideGarage(CVector point, float radius) {
+    return GarageInsideRadiusCpp(reinterpret_cast<const float*>(this), &point.x, radius);
 }
 
 // 0x44AA50

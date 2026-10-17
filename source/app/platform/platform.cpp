@@ -21,28 +21,35 @@ END GENERATED HOOK STATUS */
 #include "platform.h"
 #include "VideoMode.h"
 #include "app/app.h"
+#include "X87Math.h"
 
-// Como el original: el EXE recibe `param` en eax (sin llamadores en el EXE)
-static void __declspec(naked) rsCommandLine_Eax() {
-    __asm {
-        push eax
-        call rsCommandLine
-        add esp, 4
-        ret
-    }
+// 0x619510: el EXE recibe `param` en EAX (sin llamadores directos en el EXE) y sale con EAX = 1.
+// EntryEaxCpp tiene que ser lo primero que se ejecuta (lo vigila contrib/audit_register_residue.py, objeto `platform`).
+#pragma runtime_checks("", off)
+__declspec(safebuffers) static RwBool rsCommandLine_Eax() {
+    return rsCommandLine(reinterpret_cast<void*>(EntryEaxCpp()));
 }
+#pragma runtime_checks("", restore)
 
-// Como el original: el EXE recibe `arg` en eax y conserva edx, esi y edi (sin llamadores en el EXE)
-static void __declspec(naked) rsPreInitCommandLine_Eax() {
-    __asm {
-        push edx
-        push eax
-        call rsPreInitCommandLine
-        add esp, 4
-        pop edx
-        ret
+// 0x619530: el EXE recibe `arg` en EAX (sin llamadores directos en el EXE), conserva ESI, EDI y EDX y deja
+// ECX = 5 - bytes comparados por `repe cmpsb` contra "-vms\0" (0 si coincide). EAX = 0 o 1.
+// ECX/EDX de entrada llegan como parametros __fastcall; ResidueRegsCpp es la ultima llamada y deja ECX, EDX y EAX.
+#pragma runtime_checks("", off)
+__declspec(safebuffers) static uint32 __fastcall rsPreInitCommandLine_Eax(uint32 /*entryEcx*/, uint32 entryEdx) {
+    const uint32 entryEax = EntryEaxCpp();
+    const auto   arg      = reinterpret_cast<const RwChar*>(entryEax);
+    static const char vms[5]{ '-', 'v', 'm', 's', '\0' }; // 0x86D380
+    uint32 residueEcx = 0;
+    for (uint32 i = 0; i < 5; ++i) {
+        if (arg[i] != vms[i]) {
+            residueEcx = 4 - i;
+            break;
+        }
     }
+    const RwBool result = rsPreInitCommandLine(const_cast<RwChar*>(arg));
+    return ResidueRegsCpp(residueEcx, entryEdx, static_cast<uint32>(result));
 }
+#pragma runtime_checks("", restore)
 
 void RsInjectHooks() {
     RH_ScopedNamespaceName("Rs");
@@ -283,11 +290,8 @@ static RwMemoryFunctions g_objMemFunctions = { // 0x8D6228
 
 // 0x745510
 // Native getter returns the actual initialized EXE RW callback table.
-__declspec(naked) RwMemoryFunctions* psGetMemoryFunctions() {
-    __asm {
-        mov eax,8D6228h
-        ret
-    }
+RwMemoryFunctions* psGetMemoryFunctions() {
+    return &StaticRef<RwMemoryFunctions>(0x8D6228);
 }
 
 // 0x619C90

@@ -123,9 +123,9 @@ inline void Update(){
  EntryPatch headingPatch(0x441DB0,Heading),headingDll(bit_cast<uintptr_t>(&CPlaceable::GetHeading),Heading);
  EntryPatch azimuthPatch(0x53CC70,Azimuth),azimuthDll(bit_cast<uintptr_t>(&CGeneral::GetATanOfXY),Azimuth);
  EntryPatch audioPatch(0x506EA0,Audio),audioDll(bit_cast<uintptr_t>(&CAudioEngine::ReportFrontendAudioEvent),Audio);
- EntryPatch cyclePatch(0x5404A0,Cycle);
- EntryPatch stickXPatch(0x540E80,StickX);
- EntryPatch stickYPatch(0x540F80,StickY);
+ EntryPatch cyclePatch(0x5404A0,Cycle),cycleDll(bit_cast<uintptr_t>(&CPad::GetCameraCycleUp),Cycle);
+ EntryPatch stickXPatch(0x540E80,StickX),stickXDll(bit_cast<uintptr_t>(&CPad::GetMouseCameraStickHorizontal),StickX);
+ EntryPatch stickYPatch(0x540F80,StickY),stickYDll(bit_cast<uintptr_t>(&CPad::GetMouseCameraStickVertical),StickY);
  EntryPatch doorsPatch(0x449FF0,Doors);
  EntryPatch zonePositionPatch(0x72D6D0,ZonePosition);
  EntryPatch bufferPatch(0x509AE0,Buffer);

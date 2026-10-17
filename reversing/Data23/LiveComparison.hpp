@@ -420,6 +420,12 @@ inline void Update() {
                             for(int k=0;k<16;++k)if(k%4!=3)*reinterpret_cast<float*>(mat.data()+k*4)=uni(-1.f,1.f);
                             *reinterpret_cast<void**>(ent.data()+0x14)=mat.data(); *reinterpret_cast<void**>(ent.data())=vtTrap.data();
                             float pos; switch(next()%8){case 0:pos=0.f;break;case 1:pos=1.f;break;case 2:pos=float(next()%9)*0.125f;break;case 3:pos=uni(-50.f,50.f);break;default:pos=uni(0.f,1.f);}
+                            if(i>=768){ // estres x87 (casos 768..1023): puerta y forward con NaN (carga/signo distintos, senalizante), +-inf, +-FLT_MAX, subnormales, +-0 y +-1e30/1e-30
+                                static const uint32 stress[]{0x7FC12345u,0xFFC00001u,0x7FA00001u,0x7F800000u,0xFF800000u,0x7F7FFFFFu,0xFF7FFFFFu,0x00000001u,0x80000001u,0x007FFFFFu,0x80000000u,0x00800000u,0x7149F2CAu,0x0DA24260u,0xF149F2CAu,0x8DA24260u};
+                                pos=bit_cast<float>(stress[next()%16]);
+                                const uint32 pick=next()%2, comp=next()%3, value=stress[next()%16];
+                                if(pick)*reinterpret_cast<uint32*>(mat.data()+(4+comp)*4)=value;
+                            }
                             reinterpret_cast<void(__cdecl*)(void*,float)>(a)(ent.data(),pos);
                             out["mat"]=ReversingProbe::Bytes(mat.data(),mat.size()); out["ent"]=Fnv(ent.data(),ent.size());
                         }

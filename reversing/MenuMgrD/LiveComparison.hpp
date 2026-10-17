@@ -204,7 +204,7 @@ inline int32 __cdecl FakeStatLine(int32 a,uint8 item){
     if(a==99999)return statLines[item&7];
     const uint32 h=uint32(Fnv(&a,4,Fnv(&item,1)))^statSalt;
     static const char* const names[]{"","Money earned","Distance run","Pie|Count","Respect 100","Time 3|4 Mins","x","Gym visits"};
-    static const char* const values[]{"0","5","15","42","999","1234","-7","$12345|","100|50","2147483647","abc","3000","16777217","","12 hours","73"};
+    static const char* const values[]{"0","5","15","42","999","1234","-7","$12345|","100|50","2147483647","abc","3000","16777217","","12 hours","73","99999","100000","-2147483648","4999","49","-1","50","99","101"};
     std::strcpy(reinterpret_cast<char*>(gGxtString),names[(h>>3)%std::size(names)]);
     std::strcpy(reinterpret_cast<char*>(gGxtString2),values[(h>>9)%std::size(values)]);
     StaticRef<uint16>(0xB794CC)=uint16(h%3==0 ? 1+(h>>20)%5 : 0);

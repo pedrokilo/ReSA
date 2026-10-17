@@ -184,55 +184,107 @@ check(flat == [[0xA8, 0xAA], [0xAA, 0xA8], [0xAC, 0xAE], [0xAE, 0xAC]] or sorted
 report['ftol'] = {'native': hex(FTOL_NATIVE), 'called_anywhere': False, 'replacement': 'inline cvttss2si ecx,xmm0 after mulss 128.0f (lambda %s), result stored as 16-bit' % hex(lam['body']),
                   'cvttss2si_site': hex(cv[0][0]) if cv else None, 'lambda_call_sites_dest_offsets': [{'site': hex(c['site']), 'dest_offsets': [hex(x) for x in f]} for c, f in zip(lam_calls, flat)]}
 
-# ---- 5. Float path of the POV (and axes) ----
+# ---- 5. Float path del POV y de los ejes ----
+# Pad.cpp ya no lleva __asm: el x87 del EXE vive en ayudantes de X87Math.cpp (PadPovAngleCpp, PadPovSinCosCpp, IntTimesFloatCpp) que el ASI
+# llama por E9 -> cuerpo. Se desensamblan aqui (dumpbin sobre el mismo ASI) para comprobar que el codigo generado conserva la secuencia del EXE.
+import subprocess
+_helper_cache = {}
+
+
+def helper_listing(entry, nbytes=0x90):
+    body = resolve(entry)[0]
+    if body not in _helper_cache:
+        dis = subprocess.check_output([S['dump'], '/disasm', f'/range:0x{body:X},0x{body + nbytes:X}', str(S['asi'])], text=True)
+        out = []
+        for line in dis.splitlines():
+            m = re.match(r'\s+([0-9A-F]{8}): ((?:[0-9A-F]{2} )+)\s+(\S.*)$', line)
+            if m:
+                n = re.sub(r'\s+', ' ', m.group(3).strip())
+                out.append((int(m.group(1), 16), n, n))
+                if n.startswith('ret'):
+                    break
+        _helper_cache[body] = out
+    return body, _helper_cache[body]
+
+
+def x87_ops(ins):
+    return [t.split()[0] for _, t, _ in ins if t.startswith('f')]
+
+
 text = [x[2] for x in ipp]
-LOC = r'dword ptr \[ebp\+([0-9A-F]+)h\]'
-fi = [i for i, t in enumerate(text) if t.startswith('fild')]
-check(len(fi) == 1, f'exactly one x87 fild in compiled ProcessPad (POV): {len(fi)}')
-check(not any(t.startswith('cvtsi2sd') for t in text), 'no cvtsi2sd anywhere in ProcessPad (POV path is x87 fild like the EXE)')
-check(len([t for t in text if t.startswith('fadd')]) == 1, 'exactly one x87 fadd in ProcessPad')
+check(not any(t.startswith(('fild', 'fadd', 'fsin', 'fcos', 'cvtsi2sd')) for t in text),
+      'ProcessPad has no inline fild/fadd/fsin/fcos nor cvtsi2sd (the x87 moved to X87Math helpers)')
 pov = {}
-if fi:
-    i = fi[0]
-    m_fild = re.fullmatch(r'fild ' + LOC, text[i])
-    check(bool(m_fild), f'fild operand is a signed dword local: {text[i]}')
-    loc = m_fild.group(1) if m_fild else None
-    seq = text[i:i + 14]
-    shape = [r'fild ' + LOC, r'cmp ' + LOC + r',0', r'jge [0-9A-F]+', r'fadd ' + LOC, r'fmul ' + LOC, r'fmul ' + LOC, r'fld st\(0\)', r'fsin', r'fstp ' + LOC, r'fcos', r'fchs', r'fstp ' + LOC]
-    ok_shape = len(seq) >= len(shape) and all(re.fullmatch(p_, t) for p_, t in zip(shape, seq))
-    check(ok_shape, f'POV sequence fild;cmp,0;jge;fadd dword;fmul;fmul;fld st0;fsin;fstp;fcos;fchs;fstp not matched: {seq[:12]}')
-    if ok_shape:
-        g = [re.search(r'\[ebp\+([0-9A-F]+)h\]', t).group(1) for t in seq[:6] if '[ebp' in t]
-        check(g[0] == g[1], 'cmp tests the same signed local that fild loaded (sign branch on the DWORD)')
-        jt = int(seq[2].split()[-1], 16)
-        after_fadd = next(x for x in ipp[i:i + 8] if x[2].startswith('fmul'))[0]
-        check(jt == after_fadd, 'jge skips exactly the fadd (lands on first fmul)')
-        # constants: each fadd/fmul local was stored from a movss xmm0,[ds:addr] just before
-        def const(local):
-            for k in range(i - 1, max(i - 40, 0), -1):
-                if re.fullmatch(r'movss dword ptr \[ebp\+' + local + r'h\],xmm0', text[k]):
-                    mm = re.fullmatch(r'movss xmm0,dword ptr ds:\[([0-9A-F]+)h\]', text[k - 1])
-                    return struct.unpack('<f', read(int(mm.group(1), 16), 4))[0] if mm else None
-        fa = re.fullmatch(r'fadd ' + LOC, seq[3]).group(1)
-        m1 = re.fullmatch(r'fmul ' + LOC, seq[4]).group(1)
-        m2 = re.fullmatch(r'fmul ' + LOC, seq[5]).group(1)
-        c_add, c1, c2 = const(fa), const(m1), const(m2)
-        check(c_add == 4294967296.0, f'fadd operand is float 2^32: {c_add}')
-        check(c1 is not None and abs(c1 - 0.01) < 1e-9, f'first fmul 0.01f: {c1}')
-        check(c2 is not None and abs(c2 - 0.017453292) < 1e-9, f'second fmul 0.017453292f: {c2}')
-        # the signed local is filled from the POV[0] buffer slot (ebp+ecx+..) just before the fild
-        check(any(re.fullmatch(r'mov dword ptr \[ebp\+' + loc + r'h\],edx', t) for t in text[max(i - 12, 0):i]), 'signed local stored from POV dword read')
-        pov = {'fild_site': hex(ipp[i][0]), 'fadd_float_constant': c_add, 'multipliers_float': [c1, c2],
-               'sequence': [f'{x[0]:#x}: {x[2]}' for x in ipp[i:i + 12]]}
-# normalizer
-check(any(t[2].startswith('fild dword ptr [ebp+8]') for t in inorm) and any(t[2].startswith('fmul dword ptr') for t in inorm), 'NormalizePadAxis = fild; fmul; fstp float; fld')
-check(struct.unpack('<f', read(int(re.search(r'ds:\[([0-9A-F]+)h\]', next(t[2] for t in inorm if 'movss xmm0,dword ptr ds:[' in t[2])).group(1), 16), 4))[0] == struct.unpack('<f', struct.pack('<f', 0.0005))[0], 'NormalizePadAxis multiplier 0.0005f')
+ang, trig = [], []
+for c in calls(ipp):
+    if not c['in_image']:
+        continue
+    body, hl = helper_listing(c['entry'])
+    t = [x[2] for x in hl]
+    if any(s.startswith('fild dword ptr [ebp+8]') for s in t) and any(s.startswith('fadd qword') for s in t):
+        ang.append((c, body, hl))
+    if 'fsin' in t and 'fcos' in t:
+        trig.append((c, body, hl))
+check(len(ang) == 1, f'POV: calls to the angle helper (PadPovAngleCpp): {len(ang)}')
+check(len(trig) == 1, f'POV: calls to the sin/cos helper (PadPovSinCosCpp): {len(trig)}')
+if len(ang) == 1 and len(trig) == 1:
+    (ca, ba, la), (ct, bt, lt) = ang[0], trig[0]
+    ta, tt = [x[2] for x in la], [x[2] for x in lt]
+    # PadPovAngleCpp = fild dword; (con signo) fadd 2^32 qword si es negativo; fmul 0.01f; fmul 0.017453292f (cada float entra por fld dword: x87 sin conversion SSE)
+    check(x87_ops(la) == ['fild', 'fst', 'fadd', 'fstp', 'fstp', 'fmul', 'fstp', 'fmul'], f'POV: angle helper x87 sequence {x87_ops(la)}')
+    check('cmp dword ptr [ebp+8],0' in ta and any(s.startswith('jge') for s in ta)
+          and ta.index('cmp dword ptr [ebp+8],0') < next(i for i, s in enumerate(ta) if s.startswith('fild')),
+          'POV: angle helper tests the SIGNED dword (cmp [pov],0; jge skips the fadd)')
+    fadd = next((s for s in ta if s.startswith('fadd qword ptr ds:[')), None)
+    c_add = struct.unpack('<d', read(int(re.search(r'\[([0-9A-F]+)h\]', fadd).group(1), 16), 8))[0] if fadd else None
+    check(c_add == 4294967296.0, f'POV: fadd operand is 2^32: {c_add}')
+    imm = [int(m.group(1), 16) for s in ta for m in [re.fullmatch(r'mov dword ptr \[ebp[+-][0-9A-F]+h?\],([0-9A-F]+)h', s)] if m]
+    consts = [struct.unpack('<f', struct.pack('<I', v))[0] for v in imm]
+    check(imm == [0x3C23D70A, 0x3C8EFA35] and abs(consts[0] - 0.01) < 1e-9 and abs(consts[1] - 0.017453292) < 1e-9,
+          f'POV: multipliers 0.01f then 0.017453292f as float bit patterns: {[hex(v) for v in imm]}')
+    fm = [s for s in ta if s.startswith('fmul')]
+    check(len(fm) == 2 and all(s.startswith('fmul qword ptr [ebp-') for s in fm), f'POV: both fmul use the running double: {fm}')
+    for cc in [x for x in calls(la) if x['in_image']]:
+        _, bl = helper_listing(cc['entry'], 0x40)
+        check(any(x[2].startswith('fld dword ptr') for x in bl) and not any(x[2].startswith(('fst', 'cvt', 'fmul', 'fadd')) for x in bl),
+              'POV: float constants enter through a plain fld dword (bit_cast), no conversion')
+    # PadPovSinCosCpp = fld qword; fld st0; fsin; fstp dword [sine]; fcos; fchs; fstp dword [-cos]
+    check(x87_ops(lt) == ['fld', 'fld', 'fsin', 'fstp', 'fcos', 'fchs', 'fstp'] and tt[0:3] == ['push ebp', 'mov ebp,esp', 'fld qword ptr [ebp+8]']
+          and 'fld st(0)' in tt and tt.count('fstp dword ptr [eax]') == 2, f'POV: sin/cos helper {x87_ops(lt)}')
+    # Llamadas en ProcessPad: push del dword POV (buffer DIJOYSTATE2 +0x20); call; add esp,4; fstp qword [slot]; el MISMO slot entra como primer argumento (double) de sin/cos
+    ia = next(k for k, x in enumerate(ipp) if x[0] == ca['site'])
+    it = next(k for k, x in enumerate(ipp) if x[0] == ct['site'])
+    slot = re.fullmatch(r'fstp qword ptr \[ebp([+-][0-9A-F]+h?)\]', ipp[ia + 2][2])
+    check(ipp[ia - 1][2] == 'push edx' and ipp[ia + 1][2] == 'add esp,4' and bool(slot), 'POV: angle call site push pov; call; add esp,4; fstp qword slot')
+    check(slot is not None and any(re.fullmatch(r'movsd xmm0,mmword ptr \[ebp' + re.escape(slot.group(1)) + r'\]', x[2]) for x in ipp[it - 4:it])
+          and ipp[it - 1][2] == 'movsd mmword ptr [esp],xmm0' and ipp[it + 1][2] == 'add esp,10h',
+          'POV: sin/cos call passes the SAME double slot (no float rounding in between)')
+    povoff = re.search(r'\[ebp\+ecx\+(FFFF[0-9A-F]{4})h\]', ipp[ia - 2][2])
+    check(povoff is not None and gds_info.get('buffer_ebp_offset') is not None
+          and int(povoff.group(1), 16) - (1 << 32) == gds_info['buffer_ebp_offset'] + 0x20, 'POV: pushed dword is DIJOYSTATE2.rgdwPOV[0] (+0x20)')
+    pov = {'angle_helper_body': hex(ba), 'sincos_helper_body': hex(bt), 'fadd_double_constant': c_add, 'multipliers_float': consts,
+           'angle_helper_sequence': [f'{x[0]:#x}: {x[2]}' for x in la], 'sincos_helper_sequence': [f'{x[0]:#x}: {x[2]}' for x in lt]}
+# normalizador: IntTimesFloatCpp(n, 0.0005f) = fild dword; fmul dword; fstp dword; fld dword (como el EXE: fild; fmul [0x859978]; fstp)
+itf = []
+for c in calls(inorm):
+    if c['in_image']:
+        body, hl = helper_listing(c['entry'], 0x40)
+        t = [x[2] for x in hl]
+        if t == ['push ebp', 'mov ebp,esp', 'fild dword ptr [ebp+8]', 'fmul dword ptr [ebp+0Ch]', 'fstp dword ptr [ebp+8]', 'fld dword ptr [ebp+8]', 'pop ebp', 'ret']:
+            itf.append((c, body))
+check(len(itf) == 1, f'NormalizePadAxis: IntTimesFloatCpp calls (fild; fmul; fstp float; fld): {len(itf)}')
+cm = [t[2] for t in inorm if 'movss xmm0,dword ptr ds:[' in t[2]]
+check(len(cm) == 1 and struct.unpack('<f', read(int(re.search(r'ds:\[([0-9A-F]+)h\]', cm[0]).group(1), 16), 4))[0] == struct.unpack('<f', struct.pack('<f', 0.0005))[0],
+      'NormalizePadAxis multiplier 0.0005f')
+if itf:
+    j = next(k for k, x in enumerate(inorm) if x[0] == itf[0][0]['site'])
+    check(inorm[j - 1][2] == 'push eax' and inorm[j + 1][2] == 'add esp,8', 'NormalizePadAxis: cdecl (int, float) = push int last, add esp,8')
 norm_calls = [c for c in calls(ipp) if c['in_image'] and c['body'] == norm['body']]
 check(len(norm_calls) == 4, f'NormalizePadAxis calls: {len(norm_calls)}')
 
 pov['exe_sequence'] = 'fild dword [pov]; test eax,eax; jge skip; fadd dword [2^32 float] (PC width: 24 bits in game); fmul 0.01f; fmul 0.017453292f; fld st0; fsin; fstp; fcos; fmul -1.0; fstp'
-pov['compiled_sequence'] = 'fild dword [povSigned]; cmp [povSigned],0; jge skip; fadd dword [2^32 float local]; fmul dword [0.01f local]; fmul dword [0.017453292f local]; fld st0; fsin; fstp dword; fcos; fchs; fstp dword'
-pov['equivalent_to_exe'] = not any(f.startswith(('exactly one x87', 'fild', 'POV', 'cmp tests', 'jge skips', 'fadd operand', 'first fmul', 'second fmul', 'no cvtsi2sd', 'signed local')) for f in failures)
+pov['compiled_sequence'] = 'PadPovAngleCpp: fild dword; cmp [pov],0; jge; fadd qword 2^32; fmul qword (0.01f via fld dword); fmul qword (0.017453292f via fld dword) -> double; PadPovSinCosCpp: fld qword; fld st0; fsin; fstp dword; fcos; fchs; fstp dword'
+pov['equivalent_to_exe'] = not any(f.startswith(('POV', 'ProcessPad has no inline', 'NormalizePadAxis')) for f in failures)
 report['pov_float_path'] = pov
 report['axis_float_path'] = {'normalize_pad_axis': hex(norm['body']), 'calls': len(norm_calls), 'same_as_exe': 'fild; fmul 0.0005f; fstp float (no difference found)',
                              'deadzone_compare': 'comiss 0.3f < fabs(x), jb taken when ordered-less OR unordered (NaN proceeds); EXE skips on NaN; NaN is excluded from the corpus'}

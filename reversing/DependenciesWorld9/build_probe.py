@@ -6,7 +6,7 @@ import runtime_runner
 runtime_runner.GAME=Path('E:/JUEGOS/GTA San Andreas - CVehicle Test')
 from probe_build import build
 if __name__=='__main__':print(json.dumps(build(Path(__file__).parent,'dependenciesworld9','DependenciesWorld9Live',[
-    'source/game_sa/WaterLevel.cpp','source/game_sa/WaterLevel.h',
+    'source/game_sa/WaterLevel.cpp','source/game_sa/WaterLevel.h','source/game_sa/X87Math.cpp','source/game_sa/X87Math.h',
     'source/game_sa/Events/EventHandler.cpp','source/game_sa/Events/EventHandler.h',
     'source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.cpp',
     'source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h',

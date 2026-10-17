@@ -88,7 +88,7 @@ inline uint32 Needs(const std::string& nm){
     return 0; }
 
 // cuerpos de la DLL de los colaboradores (se calculan antes de crear ningun EntryPatch y con los hooks en su estado inicial)
-struct Bodies { uintptr_t timerSuspend{}, timerResume{}, request{}, remove{}, ped{}, coors{}, save{}, load{}; };
+struct Bodies { uintptr_t timerSuspend{}, timerResume{}, request{}, remove{}, ped{}, coors{}, save{}, load{}, memAlloc{}; };
 
 inline json RunCase(const std::string& nm,Rng& r){
     if(nm=="AddDynamicLinkBetween2Nodes_For1Node") return C_AddDynamicLink(r);
@@ -167,10 +167,12 @@ inline void Update() {
     B.request=Body(static_cast<void(*)(int32,int32)>(&CStreaming::RequestModel)); B.remove=Body(static_cast<void(*)(int32)>(&CStreaming::RemoveModel));
     B.ped=Body(static_cast<CPlayerPed*(*)(int32)>(&FindPlayerPed)); B.coors=Body(static_cast<CVector(*)(int32)>(&FindPlayerCoors));
     B.save=Body(static_cast<bool(*)(void*,int32)>(&CGenericGameStorage::SaveDataToWorkBuffer)); B.load=Body(static_cast<bool(*)(void*,int32)>(&CGenericGameStorage::LoadDataFromWorkBuffer));
-    if(!B.timerSuspend||!B.timerResume||!B.request||!B.remove||!B.ped||!B.coors||!B.save||!B.load){
-        Write({{"event","error"},{"reason","DLL body not found"},{"suspend",B.timerSuspend},{"resume",B.timerResume},{"request",B.request},{"remove",B.remove},{"ped",B.ped},{"coors",B.coors},{"save",B.save},{"load",B.load}}); return; }
-    {   std::set<uintptr_t> all{B.timerSuspend,B.timerResume,B.request,B.remove,B.ped,B.coors,B.save,B.load};
-        if(all.size()!=8){ Write({{"event","error"},{"reason","DLL bodies overlap"}}); return; } }
+    // CMemoryMgr::Malloc (0x72F420) esta reconstruida y enganchada: su cuerpo en C++ llama al malloc del CRT (0x824257) sin pasar por 0x72F420
+    B.memAlloc=Body(static_cast<void*(*)(uint32,uint32)>(&CMemoryMgr::Malloc));
+    if(!B.timerSuspend||!B.timerResume||!B.request||!B.remove||!B.ped||!B.coors||!B.save||!B.load||!B.memAlloc){
+        Write({{"event","error"},{"reason","DLL body not found"},{"suspend",B.timerSuspend},{"resume",B.timerResume},{"request",B.request},{"remove",B.remove},{"ped",B.ped},{"coors",B.coors},{"save",B.save},{"load",B.load},{"memAlloc",B.memAlloc}}); return; }
+    {   std::set<uintptr_t> all{B.timerSuspend,B.timerResume,B.request,B.remove,B.ped,B.coors,B.save,B.load,B.memAlloc};
+        if(all.size()!=9){ Write({{"event","error"},{"reason","DLL bodies overlap"}}); return; } }
 
     std::array<bool,54> enabled{},locked{};
     for(size_t f=0;f<fns.size();++f){enabled[f]=hooks[f]->Hooked();locked[f]=hooks[f]->Locked();hooks[f]->LockState(false);}
@@ -235,7 +237,7 @@ inline void Update() {
                 const bool switches= ReversingProbe::JumpsToDll(fn.address)==candidate;   // despues de State(), no antes
                 json out={{"switches",switches}};
                 { Patches P;
-                  if(need&N_MEM){ P.Add(0x72F420,S_Malloc); P.Add(0x72F430,S_Free); }
+                  if(need&N_MEM){ P.Add(0x72F420,S_Malloc); P.Add(B.memAlloc,S_Malloc); P.Add(0x72F430,S_Free); }
                   if(need&N_STREAM){ P.Add(0x7ECEF0,S_RwOpen); P.Add(0x7EC9D0,S_RwRead); P.Add(0x7ECE20,S_RwClose); }
                   if(need&N_TIMER){ P.Add(0x5619D0,S_TimerSuspend); P.Add(B.timerSuspend,S_TimerSuspend); P.Add(0x561A00,S_TimerResume); P.Add(B.timerResume,S_TimerResume); }
                   if(need&N_CLOSEST) P.Add(0x44F460,S_Closest);

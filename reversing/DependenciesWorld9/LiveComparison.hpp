@@ -105,9 +105,9 @@ inline void Update(){
   for(int scenario=0;scenario<2048;++scenario){
    auto run=[&](bool candidate){restore();_controlfp(_PC_24|_RC_NEAR,_MCW_PC|_MCW_RC);const auto topBefore=Top();std::array<uintptr_t,5>args{};
     alignas(4)std::array<uint8,0x60>arena{};arena.fill(0xA7);std::array<uint32,3>height{0x13579BDF,std::bit_cast<uint32>(3.125f),0x2468ACE0};CTaskComplexSeekEntityXYOffset* task=nullptr;uint32 oldBits=0,newBits=0,tickFixture=0,elapsedFixture=0;int waveWeather=0,bigAmp=0,smallAmp=0;bool update=false;int32 x=0,y=0;
-    if(index==0){const int32 coords[]{-32768,-3001,-17,-16,-15,-2,-1,0,1,2,15,16,17,3001,32767,100000};x=coords[scenario%16];y=coords[(scenario/16)%16];const float amps[]{0,.125f,1,2};const float weather[]{0,.25f,1,2};const uint32 elapsed[]{0,2999,3000,3499,3500,4999,5000,123456};
-     elapsedFixture=elapsed[(scenario/256)%8];waveWeather=(scenario/512)%4;bigAmp=(scenario/64)%4;smallAmp=(scenario/256)%4;*reinterpret_cast<uint32*>(0xB7CB84)=*reinterpret_cast<uint32*>(0xC228A4)+elapsedFixture;*reinterpret_cast<float*>(0xC812E8)=weather[waveWeather];
-     args={uint32(x),uint32(y),std::bit_cast<uint32>(amps[(scenario/64)%4]),std::bit_cast<uint32>(amps[(scenario/256)%4]),uintptr_t(&height[1])};
+    if(index==0){const int32 coords[]{-32768,INT32_MIN,-17,-16,-15,-2,-1,0,1,2,15,16,17,3001,32767,100000};x=coords[scenario%16];y=coords[(scenario/16)%16];const float amps[]{0,.125f,1,2,3.0e38f,-1.0e30f,std::numeric_limits<float>::quiet_NaN(),1.0e-40f};const float weather[]{0,.25f,1,2};const uint32 elapsed[]{0,2999,3000,3499,3500,4999,5000,123456};
+     elapsedFixture=elapsed[(scenario/256)%8];waveWeather=(scenario/512)%4;bigAmp=(scenario/64)%8;smallAmp=(scenario/256)%8;*reinterpret_cast<uint32*>(0xB7CB84)=*reinterpret_cast<uint32*>(0xC228A4)+elapsedFixture;*reinterpret_cast<float*>(0xC812E8)=weather[waveWeather];
+     args={uint32(x),uint32(y),std::bit_cast<uint32>(amps[(scenario/64)%8]),std::bit_cast<uint32>(amps[(scenario/256)%8]),uintptr_t(&height[1])};
     }else{
      // Genuine source object with null optional target; setter never reads target or vtable.
      task=::new(static_cast<void*>(arena.data()+4)) CTaskComplexSeekEntityXYOffset(nullptr,1000,500,1.f,.5f,1.f,false,false);

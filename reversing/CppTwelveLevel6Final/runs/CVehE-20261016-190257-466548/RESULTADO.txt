@@ -1,0 +1,3 @@
+APROBADO: CVehicle grupo E: armas de avion, barco, cabrestante, cuchillas y colision
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cvehe\20261016-190257-466548

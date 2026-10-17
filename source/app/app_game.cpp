@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 #include <Tracy.hpp>
 
 #include "app_game.h"
+#include "X87Math.h"
 #include "LoadingScreen.h"
 #include "PlantMgr.h"
 #include "Shadows.h"
@@ -76,17 +77,11 @@ void GameInit() {
 }
 
 // Como el original: la ventana de vista que Idle y FrontendIdle pasan a CameraSize es tan(FOV · π/360)
-// calculada con fptan del x87 (precisión completa) sobre el producto en float.
+// calculada con fptan del x87 (precisión completa) sobre el producto en float (fld; fmul [0x8631D4]; fptan; fstp st(0); fstp [esp]).
+// WeaponTanCpp (X87Math.cpp) es float(tan(double(x))) con fptan en línea; se reutiliza para no duplicar el ayudante.
 static float ExeViewWindow() {
     const float angle = CDraw::ms_fFOV * std::bit_cast<float>(0x3C0EFA35u); // 0x8631D4
-    float       result;
-    __asm {
-        fld     angle
-        fptan
-        fstp    st(0)
-        fstp    result
-    }
-    return result;
+    return WeaponTanCpp(angle);
 }
 
 // 0x53E580

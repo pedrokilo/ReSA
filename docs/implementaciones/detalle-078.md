@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 15/10/2026 (Ciudad de México):** 784 grupos / 8550 funciones reconstruidas; 8550 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 105 aprobadas dentro del juego; 130 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 16/10/2026 (Ciudad de México):** 784 grupos / 8550 funciones reconstruidas; 8550 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 105 aprobadas dentro del juego; 130 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,25 +7,6 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-1541"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexJump.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTaskComplexJump | [source/game_sa/Tasks/TaskTypes/TaskComplexJump.h:11](../../source/game_sa/Tasks/TaskTypes/TaskComplexJump.h#L11) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexJump.h:25](../../source/game_sa/Tasks/TaskTypes/TaskComplexJump.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * ControlSubTask(CPed* ped) override | [source/game_sa/Tasks/TaskTypes/TaskComplexJump.h:27](../../source/game_sa/Tasks/TaskTypes/TaskComplexJump.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1542"></a>
-
-## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexKillAllThreats.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTaskComplexKillAllThreats | [source/game_sa/Tasks/TaskTypes/TaskComplexKillAllThreats.h:10](../../source/game_sa/Tasks/TaskTypes/TaskComplexKillAllThreats.h#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexKillAllThreats.h:18](../../source/game_sa/Tasks/TaskTypes/TaskComplexKillAllThreats.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1543"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.cpp
 
@@ -35,7 +16,7 @@
 | & CriminalField(void* object, size_t offset) | [source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.cpp:420](../../source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.cpp#L420) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CriminalHateEvent(CPed* target, CPed* recipient, eTaskType taskType) | [source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.cpp:423](../../source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.cpp#L423) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1544"></a>
+<a id="grupo-1542"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.h
 
@@ -45,7 +26,7 @@
 | * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.h:27](../../source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.h:28](../../source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1545"></a>
+<a id="grupo-1543"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h
 
@@ -54,7 +35,7 @@
 | CTaskComplexKillPedFromBoat | [source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h:8](../../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h#L8) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h:20](../../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1546"></a>
+<a id="grupo-1544"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexKillPedGroupOnFoot.h
 
@@ -65,7 +46,7 @@
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexKillPedGroupOnFoot.h:35](../../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedGroupOnFoot.h#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * ControlSubTask(CPed* ped) override | [source/game_sa/Tasks/TaskTypes/TaskComplexKillPedGroupOnFoot.h:38](../../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedGroupOnFoot.h#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1547"></a>
+<a id="grupo-1545"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.h
 
@@ -75,7 +56,7 @@
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.h:39](../../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.h#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.h:40](../../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.h#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1548"></a>
+<a id="grupo-1546"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.h
 
@@ -85,7 +66,7 @@
 | * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.h:66](../../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.h#L66) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.h:67](../../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.h#L67) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1549"></a>
+<a id="grupo-1547"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootMelee.cpp
 
@@ -94,7 +75,7 @@
 | KillMeleeTargetDistance(CPed* ped, const CVector& targetPos) | [source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootMelee.cpp:134](../../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootMelee.cpp#L134) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | KillMeleeTargetDistanceSq(CPed* ped, const CVector& targetPos) | [source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootMelee.cpp:139](../../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootMelee.cpp#L139) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1550"></a>
+<a id="grupo-1548"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootMelee.h
 
@@ -104,7 +85,7 @@
 | * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootMelee.h:35](../../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootMelee.h#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootMelee.h:36](../../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootMelee.h#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1551"></a>
+<a id="grupo-1549"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h
 
@@ -114,7 +95,7 @@
 | * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h:24](../../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h:25](../../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1552"></a>
+<a id="grupo-1550"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h
 
@@ -128,7 +109,7 @@
 | * Constructor(int32 delayTime, bool sensibleLeaveCar, bool forceGetOut) | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h:27](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h:28](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h#L28) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1553"></a>
+<a id="grupo-1551"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexLeaveBoat.h
 
@@ -138,7 +119,7 @@
 | * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveBoat.h:24](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveBoat.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveBoat.h:25](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveBoat.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1554"></a>
+<a id="grupo-1552"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h
 
@@ -148,7 +129,7 @@
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h:32](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h:39](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1555"></a>
+<a id="grupo-1553"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.h
 
@@ -158,7 +139,7 @@
 | * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.h:17](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.h:18](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1556"></a>
+<a id="grupo-1554"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndFlee.h
 
@@ -169,7 +150,7 @@
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndFlee.h:37](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndFlee.h#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * ControlSubTask(CPed* ped) override | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndFlee.h:40](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndFlee.h#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1557"></a>
+<a id="grupo-1555"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndWander.h
 
@@ -177,7 +158,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CTaskComplexLeaveCarAndWander | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndWander.h:11](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndWander.h#L11) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1558"></a>
+<a id="grupo-1556"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h
 
@@ -187,7 +168,7 @@
 | * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h:26](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h:27](../../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1559"></a>
+<a id="grupo-1557"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexMedicTreatInjuredPed.h
 
@@ -196,7 +177,7 @@
 | CTaskComplexMedicTreatInjuredPed | [source/game_sa/Tasks/TaskTypes/TaskComplexMedicTreatInjuredPed.h:7](../../source/game_sa/Tasks/TaskTypes/TaskComplexMedicTreatInjuredPed.h#L7) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexMedicTreatInjuredPed.h:22](../../source/game_sa/Tasks/TaskTypes/TaskComplexMedicTreatInjuredPed.h#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1560"></a>
+<a id="grupo-1558"></a>
 
 ## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexMoveBackAndJump.h
 
@@ -207,3 +188,26 @@
 | * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexMoveBackAndJump.h:21](../../source/game_sa/Tasks/TaskTypes/TaskComplexMoveBackAndJump.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexMoveBackAndJump.h:22](../../source/game_sa/Tasks/TaskTypes/TaskComplexMoveBackAndJump.h#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * ControlSubTask(CPed* ped) override | [source/game_sa/Tasks/TaskTypes/TaskComplexMoveBackAndJump.h:25](../../source/game_sa/Tasks/TaskTypes/TaskComplexMoveBackAndJump.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1559"></a>
+
+## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTaskComplexObserveTrafficLights | [source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.h:5](../../source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.h#L5) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.h:17](../../source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexObserveTrafficLights::Destructor 0x006317C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.h:18](../../source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexObserveTrafficLights::GetTaskType 0x006317B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override | [source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.h:19](../../source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexObserveTrafficLights::Clone 0x00636410 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CreateFirstSubTask(CPed* ped) override | [source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.h:21](../../source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1560"></a>
+
+## Globales y helpers: source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTaskComplexObserveTrafficLightsAndAchieveHeading | [source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h:23](../../source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h#L23) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h:34](../../source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| InjectHooks() | [source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h:45](../../source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Constructor(int32 durationInMs, float fTargetHeading) | [source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h:56](../../source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.h#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

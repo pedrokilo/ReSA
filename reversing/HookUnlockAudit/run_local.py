@@ -7,14 +7,18 @@ import runtime_runner
 runtime_runner.GAME=Path('E:/JUEGOS/GTA San Andreas - CVehicle Test')
 from probe_case import analyzer
 HERE=Path(__file__).resolve().parent
+sys.path.insert(0,str(HERE))
+from retired import EXPECTED_REVIEWS,RETIRED
 base=analyzer({'CEntryExit::GetPositionRelativeToOutsideWorld':2048})
 def analyze(path):
     result=base(path)
     if result is None:return None
     rows=[json.loads(s) for s in path.read_text().splitlines()]
     reviews=[r for r in rows if r['event']=='catalog_lock_review']
-    if len(reviews)!=421 or len({(r['class'],r['fn_name']) for r in reviews})!=421:
+    if len(reviews)!=EXPECTED_REVIEWS or len({(r['class'],r['fn_name']) for r in reviews})!=EXPECTED_REVIEWS:
         raise RuntimeError('Inventario de bloqueos incompleto o duplicado')
+    if any((r['class'],r['fn_name']) in RETIRED for r in reviews) or any((r.get('class'),r.get('fn_name')) in RETIRED for r in rows if r['event']=='runtime_hook'):
+        raise RuntimeError('Un hook retirado sigue apareciendo en el inventario o en ejecucion')
     if not all(r['lock_refusal_ok'] for r in reviews):raise RuntimeError('Un bloqueo no restringe la conmutación')
     frames=[r for r in rows if r['event']=='live_frame']
     if len(frames)!=240 or not all(r['route_ok'] and r['result']['globals_restored'] for r in frames):
@@ -22,7 +26,7 @@ def analyze(path):
     if any(r['event'].startswith('first_chance_av') for r in rows):raise RuntimeError('Acceso inválido durante la prueba')
     if any(r['original'] is None or r['candidate'] is None for r in rows if r['event']=='comparison'):
         raise RuntimeError('Resultado par nulo')
-    result.update(reviewed_catalog_locks=421,runtime_locked_in_review=sum(r['runtime_locked'] for r in reviews),
+    result.update(reviewed_catalog_locks=EXPECTED_REVIEWS,retired_catalog_locks=len(RETIRED),runtime_locked_in_review=sum(r['runtime_locked'] for r in reviews),
         live_frames=240,passed=True,posteffects_passed=False)
     post=[r for r in rows if r['event']=='posteffects_live_frame']
     result['posteffects_passed']=len(post)==240 and all(r['checks'].get('passed') is True and r['checks'].get('state_restored') is True for r in post)

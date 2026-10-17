@@ -76,7 +76,7 @@ inline void Update() {
     auto& pedPool=*reinterpret_cast<void**>(0xB74490);auto* pedPoolBefore=pedPool;
     std::array<uint32,5> emptyPool{};pedPool=emptyPool.data();
     auto manager=std::make_unique<Raw<CDecisionMakerTypes>>();decisionManager=manager->get();
-    ReversingProbe::EntryPatch managerPatch(0x4684F0,GetDecisionManager);
+    ReversingProbe::EntryPatch managerPatch(0x4684F0,GetDecisionManager); ReversingProbe::EntryPatch managerPatchDll(std::bit_cast<uintptr_t>(&CDecisionMakerTypes::GetInstance),GetDecisionManager);
     auto& entryPool=*reinterpret_cast<CEntryInfoNodePool**>(0xB7448C);auto* poolBefore=entryPool;
     alignas(4) std::array<uint8,16*20+32> storage{};
     std::array<uint8,16+32> states{};
