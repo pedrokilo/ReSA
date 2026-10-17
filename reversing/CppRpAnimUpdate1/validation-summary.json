@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "pairs": 7168,
+  "differences": 0,
+  "registered_pairs": 7168,
+  "registered_functions": 1,
+  "functions": {
+    "RpAnimBlend::FrameUpdateCallBackOffscreen": 7168
+  },
+  "covered_functions": {
+    "RpAnimBlend::FrameUpdateCallBackOffscreen": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "dependency_review": null,
+  "run": "reversing/CppTwoLevel5Unified/runs/CppRpAnimUpdate1-20261015-154942-427862",
+  "summary_sha256": "b7d3f023be6d01d4d6056d10294d1a78b5b1a6f63f35dfa6eadf472305a49db8",
+  "result_txt_sha256": "e9ac374e71e408f3a7d9a9359a6766de30967d054fa0bea5818aa81a36e8fde5",
+  "log_sha256": "750a10fbac3996721fbb3917505a2047bbb10551cbfc2109a0d64e7154d801e1",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "b9d147a5c4562ccc024385c1452a380fcb484b951421de3c60645d4545f8c957",
+  "manifest": {
+    "tested_sources": {
+      "source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp": "902df4f01b47e18d907b35c4078c3cc8d7e475768bfb326a816ab9184cd9fbac",
+      "source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.h": "8cc6f2bf196cb46a8aa05c353127a7f528bb095ebbdad7560eaf1a4bf6239aa5",
+      "source/game_sa/X87Math.cpp": "9d15a8816749f9a8cd684ce3cc97684cd154c294a2e815838d0510760568fa8a",
+      "source/game_sa/X87Math.h": "c8dafcfc93ee672a18006250d821ada89949e12d30312b05bbbeb3aa204a2ec4",
+      "reversing/RpAnim43/LiveComparison.hpp": "4fa98dec1c89ebdb2f3cad210e1773ccdd1666c1319340391576f53ed832d649",
+      "reversing/ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
+      "reversing/CppRpAnimUpdate1/run_local.py": "7c1b9798b3cdc4c9eea8c37bc2b8d38d08bd3989e63875c1abc25a6b764c9926"
+    }
+  }
+}

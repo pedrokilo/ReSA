@@ -13,9 +13,9 @@
     "body_parse_errors": 845,
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 846,
-    "historical_catalog_rows": 8554,
-    "catalog_rows_without_unambiguous_source_match_in_scope": 910,
-    "validated_reconstructed_own_cpp_definitions": 8527,
+    "historical_catalog_rows": 8556,
+    "catalog_rows_without_unambiguous_source_match_in_scope": 909,
+    "validated_reconstructed_own_cpp_definitions": 8529,
     "validated_reconstructed_own_asm_definitions": 0,
     "wrapper_definitions": 244
   },
@@ -2185,10 +2185,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "e98ea6b4c46c04a5282df262396e355f3fd49d98eaca06bd48e86c6fd220c17e",
+    "hooks.csv": "00ea9f85d8138828e7306c67b409383d31c3c3f4ca9af99e4b2a653f341454d1",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "191521b08c8316c2dc157d6f2df0015cbbf7da87867e9080be2bfa2968151178",
+  "migration_registry_sha256": "103098dc71082c022d71bf0ed56f7cda946285c7509df6f49795172a5c7e876c",
   "files_with_parse_errors": [
     "source/game_sa/Animation/AnimBlendAssocGroup.cpp",
     "source/game_sa/Animation/AnimBlendAssociation.cpp",

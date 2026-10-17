@@ -221318,36 +221318,6 @@
     {
       "hook": {
         "class": "CShadows",
-        "fn_name": "ShadowRenderTriangleCB",
-        "address": "0x00709CF0",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/ShadowTriangle355/validation-summary.json",
-        "sha256": "666b9cb280b1eb840ba01e53fd4934b290b4fe943beeb2fab67e36953beae1a6",
-        "passed_path": [
-          "covered_functions",
-          "CShadows::ShadowRenderTriangleCB"
-        ],
-        "pairs": 2048,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/Shadows.cpp": "7a23a627664f3a67ced2f1ae9d6d5d431eae703d07fdf44bca43ff766587a21b",
-        "source/game_sa/Shadows.h": "dac9918ac70134d3993f1545d03fe48a174d7f9745c20915bfbfc7ee38be18ce",
-        "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
-        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
-        "source/game_sa/Core/Vector.h": "00a8ec7fbe3610f74afd526edbd3ae8ca489c1f3c3ef35a2d3147f7165f60c98",
-        "source/game_sa/Core/Vector2D.h": "8d04bab5a3e40bcea6905c38645544702fa1ae351a3ed84fff68e4155e3089d0"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-222335-843925).",
-      "dependency_review": null,
-      "scope": "2048 pares original/candidato con hook conmutado dentro del motor; banco de 2048 pares. Historical fixture approval of the archived build only. Current source hashes were intentionally not checked; this is not final replay approval. Equivalencia limitada a los fixtures documentados; colaboraciones aisladas sim\u00c3\u00a9tricamente no acreditan su implementaci\u00c3\u00b3n ni una campa\u00c3\u00b1a integral de juego. Archived snapshot only: tested instrumentation hashes are preserved verbatim from the dated build manifest; current instrumentation was not certified. Current mismatches: [{\"path\": \"build_probe.py\", \"tested_sha256\": \"a662f95e9357c34847cc779fe77105853a237e1ba5be78787c53f66bc061e244\", \"current_sha256\": \"058de67d03f16cf1703552a78f8506934ef0e1f09b7f3b7d1c16809e79a001e6\"}, {\"path\": \"run_local.py\", \"tested_sha256\": \"7d7c53a530a3664434116bb1aaf5cad87c7e39fad89d49c91b100c04f9b70f02\", \"current_sha256\": \"6a83f62989a9b253688a326ff7e231f02757a3531d3cf67156f9676b61deff05\"}] Legacy runtime report lacks observed executed ASI/EXE hashes; provenance uses the dated archived manifest and verified binary/instrument hashes, not an observed execution hash.",
-      "review_reference": "reversing/ShadowTriangle355/README.md"
-    },
-    {
-      "hook": {
-        "class": "CShadows",
         "fn_name": "StoreShadowForVehicle",
         "address": "0x0070BDA0",
         "type": "S"
@@ -532954,6 +532924,137 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia hist\u00f3rica limitada a fixtures, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco.",
       "review_reference": "reversing/DependenciesGarageSphere15/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStats",
+        "fn_name": "UpdateSexAppealStat",
+        "address": "0x0055BF20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/DependenciesStatsSex16/validation-summary.json",
+        "sha256": "c0829e1f2ce46937a74e4c3a28784dae9303e93b947c9d75ead21844de106f51",
+        "passed_path": [
+          "covered_functions",
+          "CStats::UpdateSexAppealStat"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Stats.cpp": "2ff660c3b1ba01d98275772ee83eb23786ae8ab605fa594a85114fe7b0551d58",
+        "source/game_sa/Stats.h": "06ea5fa42ae006428bd2d2fe505f68e7f2506cd207f46d6b96f57c930abf1e44",
+        "source/game_sa/X87Math.cpp": "fe1da40879b2f2874e8235116a67facf8e7134eb12b5facf37aba3cecdebe269",
+        "source/game_sa/X87Math.h": "bb0324aa7ba930963feda543f74c841ed9017d4a37e85ac31648407f02d71829",
+        "source/game_sa/Pad.cpp": "1c5dca807d19a1811b60fc19ef2e7a6d98e19788be56a7afac791c9691661981",
+        "source/game_sa/Pad.h": "fc62f4d8e7190a6164e74c206262649d6f6e720ccb213d843f59edf9a440f52e",
+        "source/game_sa/World_Helper.cpp": "331f33ad029ba5a963ac2b15dbe384298d36075b3b0eef2adedeb72454f5a033",
+        "source/game_sa/World.cpp": "0066108864b6c6c3aa13ac5a68da99749b177bd94605ebc3a2c14580018340bd",
+        "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c",
+        "source/game_sa/PlayerInfo.h": "1860550e07f2c88c924f5f072d7859e09bcb6f50feab0d01c1ec5103875ce77c",
+        "source/game_sa/PlayerInfo.cpp": "d12f8689d0214bb834079dabf54abe951e644aa6ffe290cca67ae199613679b2",
+        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
+        "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e",
+        "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "fe438d94b2ab8867d9099eb938c1822f240555d5543ad299212ba3c86f125b6d",
+        "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
+        "source/game_sa/Models/ModelInfo.h": "803a964d2c86424ef2464bd6841f77b1c7eba747f99b81632b217d90ad0f6ba0",
+        "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4",
+        "source/game_sa/References.cpp": "ad9bc2aad3b897010b4dca87afa134b9f6122fe7296b1715ff8fa4c980e17f0a",
+        "source/game_sa/References.h": "bccdb97d415ae4fdb9c276161a92ba2b5433c837b3f0c70b98de40d67d178481",
+        "source/game_sa/Reference.h": "f84250056639dbf79a17ba416bdbdea6bd48772e33a19a5f2dbfb90d4c41a797",
+        "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
+        "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef",
+        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/DependenciesStatsSex16/HelperRoutes.hpp": "19bbe45da5681118c0e2945ae86ef61b3a0718fd89b9e84625a4df0425770a67",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco.",
+      "review_reference": "reversing/DependenciesStatsSex16/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPlayerPed",
+        "fn_name": "ControlButtonSprint",
+        "address": "0x0060A610",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/DependenciesTaskSprint16/validation-summary.json",
+        "sha256": "49b1893bb7ca41b09866d9f40dbe34c6cc900baf620a2923a6d8c09a813b1ad8",
+        "passed_path": [
+          "covered_functions",
+          "CPlayerPed::ControlButtonSprint"
+        ],
+        "pairs": 3848,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/PlayerPed.cpp": "68b89ae9eef986ebedd6a1c9b7ba1344e2e1c89d223b360af1ef364ee61fb413",
+        "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e",
+        "source/game_sa/PlayerPedData.cpp": "a45df4c32450184f66bed255b008af7aba9cbb32fba4a001c95d923fbada8551",
+        "source/game_sa/PlayerPedData.h": "f65775d2237827ae7f028e54e14cf648d3c8d6c1894af7f1a6d3d8e06d11ab82",
+        "source/game_sa/PlayerInfo.cpp": "d12f8689d0214bb834079dabf54abe951e644aa6ffe290cca67ae199613679b2",
+        "source/game_sa/PlayerInfo.h": "1860550e07f2c88c924f5f072d7859e09bcb6f50feab0d01c1ec5103875ce77c",
+        "source/game_sa/Pad.cpp": "1c5dca807d19a1811b60fc19ef2e7a6d98e19788be56a7afac791c9691661981",
+        "source/game_sa/Pad.h": "fc62f4d8e7190a6164e74c206262649d6f6e720ccb213d843f59edf9a440f52e",
+        "source/game_sa/ControllerState.h": "98f2aacccd672d6adeb2630c0f89591ea9290341b7eb5f5041dbec76c422c75f",
+        "source/game_sa/World.cpp": "74cca001e2b1eef4e132cb82de87abffbbd6b83dd713aeed37808071366e6239",
+        "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c",
+        "source/game_sa/Timer.cpp": "bb1e999ca6da7dbef1eee9d565c88dcd9bd213729bfdde861355fcf9e0127a5c",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "source/game_sa/Enums/eSprintType.h": "554b963cce43e1cf7aff8ffb095f7b2cba3365291f5712c2d04116268f842d16",
+        "source/game_sa/Stats.cpp": "2ff660c3b1ba01d98275772ee83eb23786ae8ab605fa594a85114fe7b0551d58",
+        "source/game_sa/Stats.h": "06ea5fa42ae006428bd2d2fe505f68e7f2506cd207f46d6b96f57c930abf1e44",
+        "source/game_sa/X87Math.cpp": "fe1da40879b2f2874e8235116a67facf8e7134eb12b5facf37aba3cecdebe269",
+        "source/game_sa/X87Math.h": "bb0324aa7ba930963feda543f74c841ed9017d4a37e85ac31648407f02d71829",
+        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco.",
+      "review_reference": "reversing/DependenciesTaskSprint16/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpAnimBlend",
+        "fn_name": "FrameUpdateCallBackOffscreen",
+        "address": "0x004D2E10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CppRpAnimUpdate1/validation-summary.json",
+        "sha256": "1a22b18ad50e8ab755e5605e66222eda3d0c5566764ac21fc1cfe7b335a0900f",
+        "passed_path": [
+          "covered_functions",
+          "RpAnimBlend::FrameUpdateCallBackOffscreen"
+        ],
+        "pairs": 7168,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp": "902df4f01b47e18d907b35c4078c3cc8d7e475768bfb326a816ab9184cd9fbac",
+        "source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.h": "8cc6f2bf196cb46a8aa05c353127a7f528bb095ebbdad7560eaf1a4bf6239aa5",
+        "source/game_sa/X87Math.cpp": "9d15a8816749f9a8cd684ce3cc97684cd154c294a2e815838d0510760568fa8a",
+        "source/game_sa/X87Math.h": "c8dafcfc93ee672a18006250d821ada89949e12d30312b05bbbeb3aa204a2ec4",
+        "reversing/RpAnim43/LiveComparison.hpp": "4fa98dec1c89ebdb2f3cad210e1773ccdd1666c1319340391576f53ed832d649",
+        "reversing/ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
+        "reversing/CppRpAnimUpdate1/run_local.py": "7c1b9798b3cdc4c9eea8c37bc2b8d38d08bd3989e63875c1abc25a6b764c9926"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco.",
+      "review_reference": "reversing/CppRpAnimUpdate1/README.md"
     }
   ]
 }

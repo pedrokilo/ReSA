@@ -7576,7 +7576,6 @@ CShadows,RenderIndicatorShadow,0x0070CCB0,1,0,1,S
 CShadows,RenderStaticShadows,0x00708300,1,0,1,S
 CShadows,RenderStoredShadows,0x0070A960,1,0,1,S
 CShadows,SetRenderModeForShadowType,0x00707460,1,0,1,S
-CShadows,ShadowRenderTriangleCB,0x00709CF0,1,0,1,S
 CShadows,Shutdown,0x00706ED0,1,0,1,S
 CShadows,StoreCarLightShadow,0x0070C500,1,0,1,S
 CShadows,StoreRealTimeShadow,0x00707CA0,1,0,1,S
@@ -8549,3 +8548,6 @@ CPedGroupIntelligence,ComputeScriptCommandTasks,0x005F7800,1,0,1,S
 CStats,LoadStatUpdateConditions,0x00559860,1,0,1,S
 CGarage,IsEntityTouching3D,0x00448EE0,1,0,1,S
 CGarage,EntityHasASphereWayOutsideGarage,0x00449050,1,0,1,S
+CStats,UpdateSexAppealStat,0x0055BF20,1,0,1,S
+CPlayerPed,ControlButtonSprint,0x0060A610,1,0,1,S
+RpAnimBlend,FrameUpdateCallBackOffscreen,0x004D2E10,1,0,1,S

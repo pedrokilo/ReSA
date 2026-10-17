@@ -337,7 +337,7 @@ CPlantLocTri,class,3,3,0,3,3,0,,,source/game_sa/Plant/PlantLocTri.h:12,catalogue
 CPlantMgr,class,19,19,0,19,19,0,,,source/game_sa/PlantMgr.h:18,catalogue_class_or_group
 CPlantSurfPropMgr,class,4,4,0,4,4,0,,,source/game_sa/PlantSurfPropMgr.h:50,catalogue_class_or_group
 CPlayerInfo,class,28,28,0,28,28,0,,,source/game_sa/PlayerInfo.h:27,catalogue_class_or_group
-CPlayerPed,class,51,51,0,51,51,0,0x0086D168,public CPed,source/game_sa/Entity/Ped/PlayerPed.h:20,catalogue_class_or_group
+CPlayerPed,class,52,52,0,52,52,0,0x0086D168,public CPed,source/game_sa/Entity/Ped/PlayerPed.h:20,catalogue_class_or_group
 CPlayerPedData,class,5,5,0,5,5,0,,,source/game_sa/PlayerPedData.h:19,catalogue_class_or_group
 CPlayerRelationshipRecorder,class,1,1,0,1,1,0,,,source/game_sa/PlayerRelationshipRecorder.h:18,catalogue_class_or_group
 CPlayerSkin,class,4,4,0,4,4,0,,,source/game_sa/Entity/Ped/PlayerSkin.h:5,catalogue_class_or_group
@@ -375,7 +375,7 @@ CScriptsForBrains,class,7,7,0,7,7,0,,,source/game_sa/ScriptsForBrains.h:30,catal
 CSetPiece,class,3,3,0,3,3,0,,,source/game_sa/SetPiece.h:21,catalogue_class_or_group
 CSetPieces,class,5,5,0,5,5,0,,,source/game_sa/SetPieces.h:7,catalogue_class_or_group
 CShadowCamera,class,19,19,0,19,19,0,,,source/game_sa/ShadowCamera.h:12,catalogue_class_or_group
-CShadows,class,31,31,0,31,31,0,,,source/game_sa/Shadows.h:173,catalogue_class_or_group
+CShadows,class,30,30,0,30,30,0,,,source/game_sa/Shadows.h:173,catalogue_class_or_group
 CShinyTexts,class,4,4,0,4,4,0,,,source/game_sa/ShinyTexts.h:34,catalogue_class_or_group
 CShopping,class,30,30,0,30,30,0,,,source/game_sa/Shopping.h:24,catalogue_class_or_group
 CShotInfo,class,5,5,0,5,5,0,,,source/game_sa/ShotInfo.h:14,catalogue_class_or_group
@@ -386,7 +386,7 @@ CSpecialPlateHandler,class,4,4,0,4,4,0,,,source/game_sa/SpecialPlateHandler.h:16
 CSprite,class,15,15,0,15,15,0,,,source/game_sa/Sprite.h:6,catalogue_class_or_group
 CSprite2d,class,34,34,0,34,34,0,,,source/game_sa/Sprite2d.h:16,catalogue_class_or_group
 CStaticShadow,class,1,1,0,1,1,0,,,source/game_sa/Shadows.h:118,catalogue_class_or_group
-CStats,class,46,46,0,46,46,0,,,source/game_sa/Stats.h:39,catalogue_class_or_group
+CStats,class,47,47,0,47,47,0,,,source/game_sa/Stats.h:39,catalogue_class_or_group
 CStencilShadowObject,class,3,3,0,3,3,0,,,source/game_sa/StencilShadowObject.h:9,catalogue_class_or_group
 CStencilShadows,class,13,13,0,13,13,0,,,source/game_sa/StencilShadows.h:5,catalogue_class_or_group
 CStreamedScripts,class,12,12,0,12,12,0,,,source/game_sa/StreamedScripts.h:13,catalogue_class_or_group
@@ -768,7 +768,7 @@ ProcObjectMan_c,class,8,8,0,8,8,0,,,source/game_sa/Plant/ProcObjectMan.h:23,cata
 ProcSurfaceInfo_c,class,4,4,0,4,4,0,,,source/game_sa/Plant/ProcSurfaceInfo.h:10,catalogue_class_or_group
 Ps,catalogue_group,22,22,0,22,22,0,,,,catalogue_class_or_group
 RenderBuffer,catalogue_group,4,4,0,4,4,0,,,,catalogue_class_or_group
-RpAnimBlend,catalogue_group,43,43,0,43,43,0,,,,catalogue_class_or_group
+RpAnimBlend,catalogue_group,44,44,0,44,44,0,,,,catalogue_class_or_group
 Rs,catalogue_group,28,28,0,28,28,0,,,,catalogue_class_or_group
 RtAnim,catalogue_group,1,1,0,1,1,0,,,,catalogue_class_or_group
 RwCore,catalogue_group,4,4,0,4,4,0,,,,catalogue_class_or_group

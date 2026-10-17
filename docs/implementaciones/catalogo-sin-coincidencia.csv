@@ -709,7 +709,6 @@ InteriorManager_c,Init,0x005C0500,1,0,1,S,hooks.csv
 CShadows,CastPlayerShadowSectorList<CPtrListSingleLink<CPhysical*>>,0x0070A470,1,0,1,S,hooks.csv
 CShadows,CastRealTimeShadowSectorList<CPtrListSingleLink<CPhysical*>>,0x0070A7E0,1,0,1,S,hooks.csv
 CShadows,CastShadowSectorList<CPtrListSingleLink<CPhysical*>>,0x0070A630,1,0,1,S,hooks.csv
-CShadows,ShadowRenderTriangleCB,0x00709CF0,1,0,1,S,hooks.csv
 CShadowCamera,atomicQuickRender,0x00705620,1,0,1,S,hooks.csv
 VideoPlayer,OnGraphNotify,0x00745FB0,1,0,1,S,hooks.csv
 VideoPlayer,Play,0x00747660,1,0,1,S,hooks.csv

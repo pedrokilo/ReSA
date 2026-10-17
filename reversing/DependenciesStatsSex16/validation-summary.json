@@ -1,0 +1,57 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CStats::UpdateSexAppealStat": 4096
+  },
+  "covered_functions": {
+    "CStats::UpdateSexAppealStat": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/DependenciesStatsSex16-20261016-224645-599852",
+  "summary_sha256": "f126602b527521935cb35517c7f334a9bc3dfd0ee94e1b64d873b598e43f175a",
+  "result_txt_sha256": "af52807786edbd85d3095444cbf8d41cabd788ed0abe83fe32a63fda2661c488",
+  "log_sha256": "8e97069da3ffd19c7d849746037e29ad7005673c27ba276f24de4651e3fe2e2e",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "bbd2ab56adfb0388324e0c0d871332e08e2481dc247e9f9acf62228d811dd92a",
+  "manifest": {
+    "tested_sources": {
+      "source/game_sa/Stats.cpp": "2ff660c3b1ba01d98275772ee83eb23786ae8ab605fa594a85114fe7b0551d58",
+      "source/game_sa/Stats.h": "06ea5fa42ae006428bd2d2fe505f68e7f2506cd207f46d6b96f57c930abf1e44",
+      "source/game_sa/X87Math.cpp": "fe1da40879b2f2874e8235116a67facf8e7134eb12b5facf37aba3cecdebe269",
+      "source/game_sa/X87Math.h": "bb0324aa7ba930963feda543f74c841ed9017d4a37e85ac31648407f02d71829",
+      "source/game_sa/Pad.cpp": "1c5dca807d19a1811b60fc19ef2e7a6d98e19788be56a7afac791c9691661981",
+      "source/game_sa/Pad.h": "fc62f4d8e7190a6164e74c206262649d6f6e720ccb213d843f59edf9a440f52e",
+      "source/game_sa/World_Helper.cpp": "331f33ad029ba5a963ac2b15dbe384298d36075b3b0eef2adedeb72454f5a033",
+      "source/game_sa/World.cpp": "0066108864b6c6c3aa13ac5a68da99749b177bd94605ebc3a2c14580018340bd",
+      "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c",
+      "source/game_sa/PlayerInfo.h": "1860550e07f2c88c924f5f072d7859e09bcb6f50feab0d01c1ec5103875ce77c",
+      "source/game_sa/PlayerInfo.cpp": "d12f8689d0214bb834079dabf54abe951e644aa6ffe290cca67ae199613679b2",
+      "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
+      "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e",
+      "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "fe438d94b2ab8867d9099eb938c1822f240555d5543ad299212ba3c86f125b6d",
+      "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
+      "source/game_sa/Models/ModelInfo.h": "803a964d2c86424ef2464bd6841f77b1c7eba747f99b81632b217d90ad0f6ba0",
+      "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4",
+      "source/game_sa/References.cpp": "ad9bc2aad3b897010b4dca87afa134b9f6122fe7296b1715ff8fa4c980e17f0a",
+      "source/game_sa/References.h": "bccdb97d415ae4fdb9c276161a92ba2b5433c837b3f0c70b98de40d67d178481",
+      "source/game_sa/Reference.h": "f84250056639dbf79a17ba416bdbdea6bd48772e33a19a5f2dbfb90d4c41a797",
+      "source/game_sa/CutsceneMgr.cpp": "d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d",
+      "source/game_sa/CutsceneMgr.h": "f9f7546fdf9f7accd6116772119fdcb3ed64deb0ce91ca019180f757bccb24ef",
+      "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/DependenciesStatsSex16/HelperRoutes.hpp": "19bbe45da5681118c0e2945ae86ef61b3a0718fd89b9e84625a4df0425770a67",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}
