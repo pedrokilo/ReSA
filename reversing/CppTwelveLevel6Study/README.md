@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 16/10/2026 (Ciudad de México):** 784 grupos / 8552 funciones reconstruidas; 8552 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 105 aprobadas dentro del juego; 130 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 17/10/2026 (Ciudad de México):** 786 grupos / 8573 funciones reconstruidas; 8573 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 125 aprobadas dentro del juego; 130 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Oleadas 1 y 2 del nivel 6: los 25 archivos restantes sin ensamblador (16/10/2026)
@@ -27,6 +27,45 @@ Se eliminó todo el ensamblador en línea y todas las declaraciones `naked` de l
 - `ShadowSectors355` se colgó en una pasada («GTA no responde», 30 s) y aprobó al repetir.
 - `PlaneBlow355` dejó un `gta_sa.exe` huérfano que bloqueó la cola; el proceso que parecía girar era en realidad `PowEquivalence` (banco de unos 40 minutos de CPU) de la cola anterior, que se mató por error y hay que repetir. Regla: no matar procesos `gta_sa` sin comprobar con el sello de tiempo del `.asi` de `scripts\` a qué banco pertenecen.
 - La regresión final se detuvo una vez (54 bancos de 148) y se reanudó tras aplicar los parches de `World.cpp`, `TaskSimpleCarSetPedSlowDraggedOut.cpp`, `MenuManager.cpp`, `platform.cpp`, `app_game.cpp`, sexappeal, sprint y `HookUnlockAudit`; los bancos que vigilan esas fuentes (`WldD`, `CTasks6b`, `MenuMgrA`..`MenuMgrD`, `Rs27`, `GameIdle`, `HookUnlockGame`, `CppFormationNumeric`, `DependenciesFormationMemory8` y los que listan `World.cpp`) se repiten.
+
+## Destinos inciertos resueltos (PLAN-001)
+
+El 17/10/2026 se resolvieron las 21 filas `category=unknown` de la cohorte de 499 ([review-uncertain-21.md](../OriginalDependencies499/review-uncertain-21.md)). Cada una se clasificó con al menos dos evidencias, se reconstruyó en C++ puro con hook RH y se validó dentro del juego con los bancos `Dependencies21A` a `Dependencies21G` (corridas finales en `reversing/CppTwelveLevel6Final/runs/`), 47104 pares y cero diferencias. Resultado: 20 funciones del juego y 1 biblioteca (la CRT `printf`); la cohorte queda en 255 del juego (125 aprobadas, 130 pendientes), 244 bibliotecas y 0 inciertas. Los bancos usan el esquema de nivel 6 (`validation-summary.json` por banco y corrida sin `approval-audit.json`); sus entradas se listan en `approved-level6.json`, aparte de `approved.json`, porque `audit-cohort-current.py` y `refresh_progress_docs.py` sólo entienden el esquema anterior.
+
+| Banco | Función (dirección) | Pares | Categoría |
+| --- | --- | ---: | --- |
+| Dependencies21A | `CRT::CrtPrintf` (0x00821982) | 4096 | biblioteca (CRT estática de MSVC) |
+| Dependencies21B | `CCamera::ProcessObbeCinemaCameraCar` (0x005267C0) | 2048 | juego |
+| Dependencies21B | `CCamera::ProcessObbeCinemaCameraTrain` (0x00526950) | 2048 | juego |
+| Dependencies21B | `CCamera::ProcessObbeCinemaCameraHeli` (0x00526AE0) | 2048 | juego |
+| Dependencies21B | `CCamera::ProcessObbeCinemaCameraPlane` (0x00526C80) | 2048 | juego |
+| Dependencies21B | `CCamera::ProcessObbeCinemaCameraBoat` (0x00526E20) | 2048 | juego |
+| Dependencies21C | `CTaskSimpleFight::FightSetUpCol` (0x0061D5F0) | 1536 | juego |
+| Dependencies21C | `CTaskSimpleFight::FightHitCar` (0x0061D0B0) | 1536 | juego |
+| Dependencies21C | `CTaskSimpleFight::FightStrike` (0x006240B0) | 1536 | juego |
+| Dependencies21D | `CTaskSimpleGangDriveBy::Constructor` (0x006217D0, antes `FUN_006217d0`) | 1024 | juego |
+| Dependencies21D | `CTaskSimpleGangDriveBy::PlayerTarget` (0x00621960) | 2048 | juego |
+| Dependencies21D | `CTaskSimpleGangDriveBy::AITarget` (0x00627600) | 4096 | juego |
+| Dependencies21D | `CTaskSimpleGangDriveBy::AimGun` (0x00628350) | 4096 | juego |
+| Dependencies21E | `CPopulation::RandomIntInLimitRange` (0x00610DB0) | 1536 | juego |
+| Dependencies21E | `CZoneDef::GetCenter` (0x0072D6D0) | 1536 | juego |
+| Dependencies21E | `CTaskComplexEnterCar::GetCameraStickModifier` (0x0063A380) | 3072 | juego |
+| Dependencies21F | `D3DResourceSystem::TidyUpD3DTextures` (0x007305E0) | 2048 | juego (confianza media-alta) |
+| Dependencies21F | `D3DResourceSystem::TidyUpD3DIndexBuffers` (0x00730740) | 2048 | juego (confianza media-alta) |
+| Dependencies21G | `RwHelper::GetFirstTexture` (0x00734940) | 1024 | juego |
+| Dependencies21G | `RwHelper::RpGeometryReplaceOldMaterialWithNewMaterial` (0x00734DE0) | 1536 | juego |
+| Dependencies21G | `CQuaternion::Slerp` (0x0059C300) | 4096 | juego |
+
+Lo aprendido en las corridas de estos bancos (las causas de los fallos que hubo que corregir antes de aprobarlos):
+
+- **Compuerta de zonas vigiladas solapadas con zonas modificables.** Una zona vigilada que se solapa con una zona modificable de la función hacía fallar la compuerta de los bancos aunque el comportamiento fuera correcto; las zonas vigiladas no deben solaparse con las modificables.
+- **Comprobación de estado final tras `Restore`.** El estado final se comprobaba después de `Restore`, de modo que se miraba el estado ya restaurado y no el que dejó la función.
+- **Autoparcheo del falso con `--unhook Audio`.** Con `--unhook Audio` el falso se autoparcheaba y la comparación dejaba de ser entre la entrada del EXE y la de la DLL.
+- **Residuo y EAX.** Algunos bancos comparaban EAX o el residuo de registros que ningún llamador lee (ver los informes de residuo de los grupos B, C y F, en cada README de banco): se comprueba antes con los llamadores y, si nadie lo lee, no se compara ni se reproduce (sin `ResidueRegsCpp` ni `EntryEaxCpp`).
+- **Punteros de pila en el banco.** Los punteros a la pila del llamador cambian de una pasada a otra; se etiquetan como `local` (relativos a la arena) en lugar de compararlos como números.
+- **Baseline de memoria entre pasadas.** La memoria compartida debe partir del mismo estado inicial en la pasada original y en la candidata; si no, la segunda pasada hereda restos de la primera.
+- **Hallazgo de fuente.** `TaskGangHassleVehicle.cpp` escribía `[0x20]`, `[0x21]` y `[0x23]` sobre la tarea, que en el EXE son `[0x24]` (combo), `[0x25]` (movimiento) y `[0x27]` (último comando): el banco 21C lo detectó.
+- Las reconstrucciones cambian el hash de varias fuentes que vigilan otros bancos (`HassleVehicle355`, `CTaskSimpleUseGun`, `DriveByPending`, `GangWarsPending`, `Mix14` y otros): se repiten, como indican las notas de cada banco.
 
 ## Estado de la regresión final
 

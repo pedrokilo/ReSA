@@ -1,0 +1,90 @@
+# QuaternionSlerpCpp tal como lo compila X87Math.cpp (cl 19.51, /O2 /Oi /arch:IA32 /fp:fast /Zi) con el anexo del grupo G; se verifica en el objeto real (ver README.md)
+?QuaternionSlerpCpp@@YAXPAMPBM1MMM@Z (void __cdecl QuaternionSlerpCpp(float *,float const *,float const *,float,float,float)):
+00000000: fld dword ptr [esp+10h]
+00000004: sub esp,18h
+00000007: fcomp dword ptr [?kSlerpZero@@3MD]
+0000000D: fnstsw ax
+0000000F: test ah,1
+00000012: jne 00000047
+00000014: fld dword ptr [esp+28h]
+00000018: fcomp dword ptr [?kSlerpZero@@3MD]
+0000001E: fnstsw ax
+00000020: test ah,41h
+00000023: jp 00000047
+00000025: mov edx,dword ptr [esp+24h]
+00000029: mov ecx,dword ptr [esp+1Ch]
+0000002D: mov eax,dword ptr [edx]
+0000002F: mov dword ptr [ecx],eax
+00000031: mov eax,dword ptr [edx+4]
+00000034: mov dword ptr [ecx+4],eax
+00000037: mov eax,dword ptr [edx+8]
+0000003A: mov dword ptr [ecx+8],eax
+0000003D: mov eax,dword ptr [edx+0Ch]
+00000040: mov dword ptr [ecx+0Ch],eax
+00000043: add esp,18h
+00000046: ret
+00000047: fld dword ptr [esp+28h]
+0000004B: fcomp dword ptr [__real@3fc90fdb]
+00000051: fnstsw ax
+00000053: test ah,41h
+00000056: jne 00000087
+00000058: fld dword ptr [esp+28h]
+0000005C: fsubr dword ptr [__real@40490fdb]
+00000062: fstp dword ptr [esp]
+00000065: fld dword ptr [esp+30h]
+00000069: fld1
+0000006B: fsubrp st(1),st
+0000006D: fmul dword ptr [esp]
+00000070: fsin
+00000072: fmul dword ptr [esp+2Ch]
+00000076: fld dword ptr [esp]
+00000079: fmul dword ptr [esp+30h]
+0000007D: fsin
+0000007F: fmul dword ptr [esp+2Ch]
+00000083: fchs
+00000085: jmp 000000A7
+00000087: fld dword ptr [esp+30h]
+0000008B: fld1
+0000008D: fsubrp st(1),st
+0000008F: fmul dword ptr [esp+28h]
+00000093: fsin
+00000095: fmul dword ptr [esp+2Ch]
+00000099: fld dword ptr [esp+28h]
+0000009D: fmul dword ptr [esp+30h]
+000000A1: fsin
+000000A3: fmul dword ptr [esp+2Ch]
+000000A7: mov edx,dword ptr [esp+20h]
+000000AB: fxch st(1)
+000000AD: mov eax,dword ptr [esp+24h]
+000000B1: fst qword ptr [esp+8]
+000000B5: mov ecx,dword ptr [esp+1Ch]
+000000B9: fxch st(1)
+000000BB: fst qword ptr [esp]
+000000BE: fld qword ptr [esp+8]
+000000C2: fmul dword ptr [edx]
+000000C4: fld qword ptr [esp]
+000000C7: fmul dword ptr [eax]
+000000C9: faddp st(1),st
+000000CB: fstp dword ptr [ecx]
+000000CD: fld qword ptr [esp]
+000000D0: fmul dword ptr [eax+4]
+000000D3: fld qword ptr [esp+8]
+000000D7: fmul dword ptr [edx+4]
+000000DA: faddp st(1),st
+000000DC: fstp dword ptr [ecx+4]
+000000DF: fld qword ptr [esp]
+000000E2: fmul dword ptr [eax+8]
+000000E5: fld qword ptr [esp+8]
+000000E9: fmul dword ptr [edx+8]
+000000EC: faddp st(1),st
+000000EE: fstp dword ptr [ecx+8]
+000000F1: fstp qword ptr [esp+10h]
+000000F5: fstp qword ptr [esp+10h]
+000000F9: fld qword ptr [esp]
+000000FC: fmul dword ptr [eax+0Ch]
+000000FF: fld qword ptr [esp+8]
+00000103: fmul dword ptr [edx+0Ch]
+00000106: faddp st(1),st
+00000108: fstp dword ptr [ecx+0Ch]
+0000010B: add esp,18h
+0000010E: ret

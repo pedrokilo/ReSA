@@ -9530,3 +9530,393 @@ extern "C" __declspec(noinline) double __cdecl PlayerPedSprintTailDblCpp(float r
     return (r * double(k)) + 1.0;
 }
 #pragma float_control(pop)
+
+// --- CTaskSimpleFight: FightHitCar (0x61D0B0) y FightStrike (0x6240B0) (prefijo Fight; lote gc) ---
+// Sin reasociar: cada operacion del EXE redondea a 24 bits (PC24) y los intermedios que el EXE no guarda quedan en ST (rango de exponente extendido).
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl FightHitCarIntensityCpp(float mass, float damage, float scale) {
+    volatile float result = (mass * damage) * scale;
+    return result;
+}
+
+__declspec(noinline) float __cdecl FightStrikeReachCpp(float boundRadius, float hitRadius, bool bigHit) {
+    volatile float reach = boundRadius + hitRadius; // fld ; fadd ; fstp dword
+    if (bigHit) {
+        reach = (hitRadius * 0.5f) + reach;         // fld ; fmul 0.5f ; fadd dword [alcance] ; fstp dword
+    }
+    return reach;
+}
+
+__declspec(noinline) bool __cdecl FightStrikeWithin2DCpp(const float* centre, const float* position, float reach) {
+    return ((centre[0] - position[0]) * (centre[0] - position[0]) + (centre[1] - position[1]) * (centre[1] - position[1])) < reach * reach;
+}
+
+__declspec(noinline) bool __cdecl FightStrikeWithin3DCpp(const float* centre, const float* position, float reach) {
+    return (((centre[0] - position[0]) * (centre[0] - position[0]) + (centre[1] - position[1]) * (centre[1] - position[1])) + (centre[2] - position[2]) * (centre[2] - position[2])) < reach * reach;
+}
+
+// direccion = centro - posicion: tres restas con operando en memoria (fld [centro]; fsub [posicion]; fstp dword), en funcion aparte para que el compilador no invierta el orden (fld posicion; fsubr centro).
+static __declspec(noinline) void __cdecl FightStrikeDirectionCpp(const float* sphere, const float* position, float* direction) {
+    direction[2] = sphere[2] - position[2];
+    direction[1] = sphere[1] - position[1];
+    direction[0] = sphere[0] - position[0];
+}
+
+__declspec(noinline) bool __cdecl FightStrikeSphereHitCpp(const float* sphere, const float* position, float hitRadius, float* direction) {
+    FightStrikeDirectionCpp(sphere, position, direction);
+    return (((sphere[0] - position[0]) * (sphere[0] - position[0]) + (sphere[1] - position[1]) * (sphere[1] - position[1])) + (sphere[2] - position[2]) * (sphere[2] - position[2]))
+         < (sphere[3] + hitRadius) * (sphere[3] + hitRadius);
+}
+
+// *objetivo = fld [sumando] ; fadd [objetivo] ; fstp (en funcion aparte para conservar el orden de operandos del EXE: sumando cargado, posicion en memoria).
+static __declspec(noinline) void __cdecl FightStrikeAddStoredCpp(const float* addend, float* target) {
+    *target = *addend + *target;
+}
+
+__declspec(noinline) void __cdecl FightStrikeAdvanceCpp(const float* forward, float radius, float* position) {
+    volatile float x15 = forward[0] * 1.5f;                // fstp dword [esp+5Ch] y relectura
+    volatile float reach = radius;                         // fld ; fstp dword [esp+14h]: un NaN senalizante queda silenciado
+    float z = (forward[2] * 1.5f) * reach;                 // fstp dword [esp+20h] (su direccion escapa: se guarda como float)
+    position[0] = (x15 * reach) + position[0];
+    position[1] = ((forward[1] * 1.5f) * reach) + position[1]; // la componente y no se guarda antes de sumarla (rango extendido)
+    FightStrikeAddStoredCpp(&z, &position[2]);
+}
+#pragma float_control(pop)
+
+// --- CTaskSimpleGangDriveBy (lote w21 D; prefijo GangDriveBy: PlayerTarget 0x621960, AITarget 0x627600, AimGun 0x628350). Anadir al FINAL de X87Math.cpp ---
+// Usa JetPackSqrtExtCpp (raiz en una funcion aparte que devuelve ST0), ExeAsinDoubleCpp (_CIasin, 0x821E70), RpNanAddCpp/RpNanSubCpp y X87TimesFloatCpp, ya definidos arriba.
+// Regla de las etapas: cada fpatan/fsin/fcos (64 bits de mantisa) se calcula en una funcion SIN precise que devuelve double (ST0 sin guardar) y la funcion siguiente lo consume
+// al volver; todo lo demas son valores de 24 bits de mantisa (resultados de fadd/fsub/fmul a PC24), que un double guarda sin perdida.
+
+static constexpr float kGangDriveByQuarterPi = std::bit_cast<float>(0x3F490FDBu); // 0x859AB0
+static constexpr float kGangDriveByTwoOverPi = std::bit_cast<float>(0x3F22F983u); // 0x858FB8
+static constexpr float kGangDriveByRangeBonus = std::bit_cast<float>(0x41A00000u); // 0x858BA4
+
+// Etapa 1 del rumbo (0x6219E1..0x621A09 y 0x6276DE..0x627703): fpatan(-x, y) menos el rumbo del vehiculo (fpatan(-fwdX, fwdY) de su matriz, o el float del placement si no hay
+// matriz); la resta (fsubp / fsub st(1)) redondea a 24 bits. Devuelve ST0 sin guardar.
+static __declspec(noinline) double __cdecl GangDriveByHeadingDiffDbl(float x, float y, const float* forward, float heading) {
+    const double aim     = atan2(-double(x), double(y));
+    const double vehicle = forward ? atan2(-double(forward[0]), double(forward[1])) : double(heading);
+    return aim - vehicle;
+}
+
+// Rumbo base - rumbo del vehiculo (0x628648 / 0x628672: fsubr [base]); sin guardar.
+static __declspec(noinline) double __cdecl GangDriveByBaseMinusHeadingDbl(float base, const float* forward, float heading) {
+    const double vehicle = forward ? atan2(-double(forward[0]), double(forward[1])) : double(heading);
+    return double(base) - vehicle;
+}
+
+static __declspec(noinline) double __cdecl GangDriveBySinDbl(double angle) { return sin(angle); }
+static __declspec(noinline) double __cdecl GangDriveByCosDbl(double angle) { return cos(angle); }
+
+#pragma float_control(precise, on, push)
+// 0x621A33..0x621A5F, 0x62786C..0x62787B: angulo + pi/4 (0x859AB0); si < 0 (fcom ordenado: con NaN no) + 2pi (0x858CBC); * 2/pi (0x858FB8); _ftol2 y el byte bajo con signo (movsx al).
+static __forceinline int GangDriveByQuadrantOf(double angle) {
+    double value = angle + double(kGangDriveByQuarterPi);
+    if (value < 0.0) {
+        value = value + double(kF_40C90FDB);
+    }
+    value = value * double(kGangDriveByTwoOverPi);
+    return static_cast<signed char>(static_cast<long long>(value));
+}
+
+// PlayerTarget (0x621960), cuadrante (0x6219E1..0x621A5F): rumbo de la camara - rumbo del vehiculo, ajuste de +-2pi respecto a +-pi (0x858CB8 / 0x858CC0) sin guardar como float.
+// forward = &matriz->forward (x, y, z consecutivos) o nullptr (entonces heading = placement.m_fHeading del vehiculo).
+__declspec(noinline) int __cdecl GangDriveByPlayerQuadrantCpp(float aimX, float aimY, const float* forward, float heading) {
+    double angle = GangDriveByHeadingDiffDbl(aimX, aimY, forward, heading);
+    if (angle > double(kF_40490FDB)) {
+        angle = angle - double(kF_40C90FDB);
+    } else if (angle < double(-kF_40490FDB)) {
+        angle = angle + double(kF_40C90FDB);
+    }
+    return GangDriveByQuadrantOf(angle);
+}
+
+// AITarget (0x627600), cuadrante del angulo ya guardado como float (0x627858..0x62787B).
+__declspec(noinline) int __cdecl GangDriveByAiQuadrantCpp(float angle) {
+    return GangDriveByQuadrantOf(double(angle));
+}
+
+// AITarget (0x627600), 0x627657..0x627741: dx, dy, dz = objetivo - posicion (cada resta a 24 bits y guardada como float), distancia = float(sqrt((dz^2 + dx^2) + dy^2)),
+// angulo = float(fpatan(-dx, dy) - rumbo del vehiculo) y ajuste de +-2pi respecto a +-pi con un guardado como float por ajuste.
+// target/pos = {x, y, z}; out = {dx, dy, dz, distancia, angulo}.
+__declspec(noinline) void __cdecl GangDriveByAiGeometryCpp(const float* target, const float* pos, const float* forward, float heading, float* out) {
+    volatile float dx = float(double(target[0]) - double(pos[0]));
+    volatile float dy = float(double(target[1]) - double(pos[1]));
+    volatile float dz = float(double(target[2]) - double(pos[2]));
+    const double sum = (double(dz) * double(dz) + double(dx) * double(dx)) + double(dy) * double(dy);
+    volatile float distance = float(JetPackSqrtExtCpp(sum));
+    volatile float angle = float(GangDriveByHeadingDiffDbl(dx, dy, forward, heading));
+    if (angle > kF_40490FDB) {
+        angle = float(double(angle) - double(kF_40C90FDB));
+    } else if (angle < -kF_40490FDB) {
+        angle = float(double(angle) + double(kF_40C90FDB));
+    }
+    out[0] = dx;
+    out[1] = dy;
+    out[2] = dz;
+    out[3] = distance;
+    out[4] = angle;
+}
+
+// AimGun (0x628350), 0x6283CB..0x628403 (camara TWOPLAYER_IN_CAR_AND_SHOOTING): float(sqrt((dz^2 + dy^2) + dx^2) + 20.0f) con d = pos - source (sin guardar entre pasos).
+__declspec(noinline) float __cdecl GangDriveByAimRangeCpp(const float* pos, const float* source) {
+    const double dx = double(pos[0]) - double(source[0]);
+    const double dy = double(pos[1]) - double(source[1]);
+    const double dz = double(pos[2]) - double(source[2]);
+    volatile float result = float(JetPackSqrtExtCpp((dz * dz + dy * dy) + dx * dx) + double(kGangDriveByRangeBonus));
+    return result;
+}
+
+// AimGun (0x628350), rama de moto 0x6285F4..0x6286DB. gun = {x, y, z} del hueso de la mano (x e y ya sustituidos por la posicion del ped), target = {x, y, z}.
+//   horizontal = float(sqrt(dy^2 + dx^2)) con d = gun - target; elevacion = radianFn(target.z, horizontal, gun.z, 0.0f) (CGeneral::GetRadianAngleBetweenPoints, ST0 sin guardar;
+//   radianFn se declara con bits en x1/x2/y2 porque el EXE los empuja sin pasar por la x87);
+//   h = base - rumbo del vehiculo; r = float(sin(h) * lean + elevacion); c = float(cos(h)); s = clamp(forward[2], -1, 1) (con NaN se conserva);
+//   resultado = float(asin(s) * c + r) con el _CIasin del EXE. forward debe ser distinto de nullptr (el EXE lee forward[2] sin comprobar).
+__declspec(noinline) float __cdecl GangDriveByBikeElevationCpp(float (__cdecl* radianFn)(unsigned int, float, unsigned int, unsigned int), const float* target, const float* gun, float baseAngle, const float* forward, float heading, float lean) {
+    const double dx = double(gun[0]) - double(target[0]);
+    const double dy = double(gun[1]) - double(target[1]);
+    volatile float horizontal = float(JetPackSqrtExtCpp(dy * dy + dx * dx));
+    // x1, x2 e y2 viajan como bits (el EXE los empuja con mov enteros: un NaN senalizante no se silencia); y1 es el float guardado.
+    const double elevation = double(radianFn(*reinterpret_cast<const unsigned int*>(&target[2]), horizontal, *reinterpret_cast<const unsigned int*>(&gun[2]), 0u));
+    const double h = GangDriveByBaseMinusHeadingDbl(baseAngle, forward, heading);
+    volatile float result = float(GangDriveBySinDbl(h) * double(lean) + elevation);
+    volatile float cosine = float(GangDriveByCosDbl(h));
+    const float fz = forward[2];
+    const float slope = (-1.0f > fz) ? -1.0f : ((1.0f < fz) ? 1.0f : fz); // 0x858C1C / 0x858624
+    result = float(ExeAsinDoubleCpp(double(slope)) * double(cosine) + double(result));
+    return result;
+}
+#pragma float_control(pop)
+
+// --- Grupo E (ge): 0x610DB0, 0x72D6D0 y 0x63A380 (3 de los 21 destinos inciertos de la cohorte de 499) ---
+// Todo el aritmetico va aqui (X87Math.cpp se compila con /O2 /Oi /arch:IA32 /fp:fast); precise evita que /fp:fast reasocie o pliegue operaciones, pero con
+// precise el compilador llama a __CIatan2 en vez de emitir fpatan en linea, asi que los fpatan van en funciones sueltas SIN precise (como Atan2MinusCpp).
+// Las constantes son las del EXE (direccion indicada); constexpr evita cualquier llamada a std::bit_cast dentro de las funciones precise.
+extern "C" double __cdecl fabs(double);
+#pragma intrinsic(fabs)
+namespace GeEnterCar {
+constexpr double kUnit15   = double(std::bit_cast<float>(0x38000000u)); // 0x858B14 = 2^-15
+constexpr double kHalf     = double(std::bit_cast<float>(0x3F000000u)); // 0x858B8C
+constexpr double kPi       = double(std::bit_cast<float>(0x40490FDBu)); // 0x858CB8
+constexpr double kTwoPi    = double(std::bit_cast<float>(0x40C90FDBu)); // 0x858CBC
+constexpr double kHalfPi   = double(std::bit_cast<float>(0x3FC90FDBu)); // 0x858FE4
+constexpr double kNegHalfPi = double(std::bit_cast<float>(0xBFC90FDBu)); // 0x859998
+constexpr double kEightDeg = double(std::bit_cast<float>(0x3E0EFA35u)); // 0x86E694
+constexpr double kSeven    = double(std::bit_cast<float>(0x3F333333u)); // 0x86E690 = 0.7f
+constexpr double kZero     = 0.0;                                       // 0x858B50
+}
+
+// 0x610DB0: fild rand (ya enmascarado a 16 bits); fmul dword [0x858B14] (2^-15, exacto); fimul (limite superior - limite inferior, un redondeo a 24 bits);
+// call _ftol2. Devuelve los 32 bits bajos del entero de 64 bits truncado por _ftol2. El llamador suma el limite inferior.
+#pragma float_control(precise, on, push)
+__declspec(noinline) int __cdecl PopulationRandomRangeCpp(int random, int range) {
+    double value = double(random) * GeEnterCar::kUnit15;
+    value = value * double(range);
+    return static_cast<int>(static_cast<long long>(value));
+}
+#pragma float_control(pop)
+
+// 0x72D6D0 (CZoneDef::GetCenter): zona = 8 int16 {esquinaX, esquinaY, vec1X, vec1Y, vec2X, vec2Y, minZ, maxZ}.
+// x = (vec2X + vec1X) * 0.5 + esquinaX; y = (vec2Y + vec1Y) * 0.5 + esquinaY; z = (minZ + maxZ) * 0.5 (fild/fiadd/fmul dword [0x858B8C]/fiadd/fstp).
+// Todos los pasos son exactos (enteros de 16 bits); el EXE los guarda en el orden x, y, z (z se calcula primero y se guarda el ultimo).
+#pragma float_control(precise, on, push)
+__declspec(noinline) void __cdecl CullZoneCenterCpp(const short* zone, float* out) {
+    const double z = double(int(zone[6]) + int(zone[7])) * GeEnterCar::kHalf;
+    const double y = (double(int(zone[5])) + double(int(zone[3]))) * GeEnterCar::kHalf + double(int(zone[1]));
+    const double x = (double(int(zone[4])) + double(int(zone[2]))) * GeEnterCar::kHalf + double(int(zone[0]));
+    out[0] = float(x);
+    out[1] = float(y);
+    out[2] = float(z);
+}
+#pragma float_control(pop)
+
+// 0x63A460..0x63A478 y 0x63A482..0x63A49A: movsx; fild; fabs; fcomp dword [0x858BA4] (20.0f); test ah, 41h; je -> true si |valor| > 20 (el estado x87 de la comparacion queda
+// como en el EXE).
+#pragma float_control(precise, on, push)
+__declspec(noinline) bool __cdecl EnterCarCamStickBeyondCpp(short value) {
+    return fabs(double(int(value))) > 20.0;
+}
+#pragma float_control(pop)
+
+// 0x63A4D8..0x63A4EA (fpatan sin redondear en ST0, fsub pi/2 y fstp dword): rumbo del coche menos pi/2 a partir de la matriz (up.x, up.y = matrix + 0x10 / + 0x14).
+static __declspec(noinline) float EnterCarCamHeadingMatrixCpp(const float* up) {
+    volatile float heading = float(atan2(-double(up[0]), double(up[1])) - GeEnterCar::kHalfPi);
+    return heading;
+}
+// 0x63A4E4 (sin matriz): fld dword [coche+0x10]; fsub pi/2; fstp dword.
+#pragma float_control(precise, on, push)
+static __declspec(noinline) float EnterCarCamHeadingPlacementCpp(float placementHeading) {
+    volatile float heading = float(double(placementHeading) - GeEnterCar::kHalfPi);
+    return heading;
+}
+// 0x63A50F..0x63A52D: escalar = (dz * der.z + dy * der.y) + dx * der.x, cada paso redondeado a 24 bits; devuelve ST0 tal cual (24 bits, exponente extendido).
+static __declspec(noinline) double EnterCarCamDotCpp(const float* carPos, const float* pedPos, const float* right) {
+    const double dx = double(pedPos[0]) - double(carPos[0]);
+    const double dy = double(pedPos[1]) - double(carPos[1]);
+    const double dz = double(pedPos[2]) - double(carPos[2]);
+    return (dz * double(right[2]) + dy * double(right[1])) + dx * double(right[0]);
+}
+#pragma float_control(pop)
+// 0x63A533..0x63A53F: fld distancia; fpatan; fmul 0.7f; fstp dword. El escalar llega con 24 bits (exacto como double).
+static __declspec(noinline) float EnterCarCamAngleCpp(double dot, float distance) {
+    volatile float angle = float(atan2(dot, double(distance)) * GeEnterCar::kSeven);
+    return angle;
+}
+
+// 0x63A4CE..0x63A53F (CTaskComplexEnterCar, camara): out = {rumbo - pi/2, escalar, angulo}, los tres guardados como float (fstp/fst dword), como el EXE.
+// matrix: matriz del coche o nullptr (entonces el rumbo es placementHeading y, como el EXE, el producto escalar desreferencia matrix + 8 y falla).
+// carPos / pedPos: posiciones (matrix + 0x30 o placement + 4) de coche y peaton.
+__declspec(noinline) void __cdecl EnterCarCamLateralCpp(const float* matrix, float placementHeading, const float* carPos, const float* pedPos, float distance, float* out) {
+    out[0] = matrix ? EnterCarCamHeadingMatrixCpp(matrix + 4) : EnterCarCamHeadingPlacementCpp(placementHeading);
+    const double dot = EnterCarCamDotCpp(carPos, pedPos, matrix);
+    volatile float dotStored = float(dot);
+    out[1] = dotStored;
+    out[2] = EnterCarCamAngleCpp(dot, distance);
+}
+
+// 0x63A55A..0x63A67A (resto de la camara de EnterCar): camMinY = CColModel::m_boundBox.m_vecMin.y del coche; choice = byte [tarea+0x29] (0, 1 o 2);
+// t1 = float [0x86E684 + 4 * choice]; t2 = float [0x86E678 + 4 * choice]; limit = float [0x8D2ECC] (dato modificable del EXE).
+// Cada comparacion conserva el significado de su fcom/fcomp + test ah (con NaN: "mayor que" falso, "menor o igual" cierto, etc.).
+// Los operandos que el EXE usa como operando de memoria (fadd/fsub/fcomp dword [mem]) se leen por punteros volatile para que el compilador los emita igual que el EXE
+// (un fld previo marcaria la bandera DE con un subnormal incluso cuando el otro operando es NaN, y el EXE no).
+#pragma float_control(precise, on, push)
+// 0x63A63C..0x63A64C: fmul dword [t2] (delta en ST0); fadd dword [beta]; el llamador guarda el resultado con fstp dword.
+static __declspec(noinline) double EnterCarCamBetaSumCpp(double delta, const volatile float* t2, const volatile float* beta) {
+    return delta * double(*t2) + double(*beta);
+}
+// 0x63A548..0x63A56F: fld [colmodel+4]; fchs; fcomp dword [distancia]; test ah, 41h; jne: true si -min.y > distancia (con NaN, false).
+// Con -min.y NaN el EXE no lee la distancia como operando (un subnormal no marca DE): se compara con 0, que deja IE y C0/C2/C3 igual (desordenado).
+// "distancia < -min.y" hace que el compilador emita fcompp con -min.y en ST0, el mismo C0/C3 que el fcomp del EXE.
+static __declspec(noinline) bool EnterCarCamBeyondCpp(const volatile float* minY, const volatile float* distance) {
+    const double negMinY = -double(*minY);
+    if (negMinY != negMinY) {
+        return negMinY > GeEnterCar::kZero;
+    }
+    return double(*distance) < -double(*minY);
+}
+// 0x63A64E..0x63A65B: fld dword [vertical]; fcomp dword [limite]; test ah, 41h; jne: true si vertical > limite (con NaN, false). Con vertical NaN no se lee el limite.
+static __declspec(noinline) bool EnterCarCamAboveCpp(const volatile float* vertical, const volatile float* limit) {
+    const double vert = double(*vertical);
+    if (vert != vert) {
+        return vert > GeEnterCar::kZero;
+    }
+    return double(*limit) < double(*vertical);
+}
+__declspec(noinline) void __cdecl EnterCarCamStickCpp(float camMinY, float distance, float angle, float heading, float dot, unsigned int choice, float t1, float t2, float limit,
+                                                      const volatile float* vertical, const volatile float* horizontal, float* alphaStick, float* betaStick) {
+    using namespace GeEnterCar;
+    // 0x63A548
+    double x = double(angle);
+    const bool beyond = EnterCarCamBeyondCpp(&camMinY, &distance);
+    if (beyond) {
+        x = (double(angle) > kZero) ? -kEightDeg : kEightDeg;
+    }
+    // 0x63A571
+    double target;
+    if (choice == 1u) {
+        target = x + (double(heading) + kPi);
+    } else {
+        target = double(heading) - x;
+    }
+    // 0x63A58B: llevar target a (horizontal - pi, horizontal + pi]
+    if (target > double(*horizontal) + kPi) {
+        target = target - kTwoPi;
+    } else if (target < double(*horizontal) - kPi) {
+        target = target + kTwoPi;
+    }
+    double delta = target - double(*horizontal);
+    // 0x63A5C5
+    const bool dotPositive = double(dot) > kZero;
+    if (dotPositive == (choice == 1u)) {
+        if (delta <= kNegHalfPi) {
+            delta = -delta;
+        }
+    } else {
+        if (delta >= kHalfPi) {
+            delta = -delta;
+        }
+    }
+    // 0x63A5EE: acotar a [-t1, t1]
+    if (delta > double(t1)) {
+        delta = double(t1);
+    } else {
+        volatile float negT1 = float(-double(t1));
+        if (delta < double(negT1)) {
+            delta = double(negT1);
+        }
+    }
+    // 0x63A63C
+    volatile float beta = float(EnterCarCamBetaSumCpp(delta, &t2, betaStick));
+    *betaStick = beta;
+    // 0x63A64E
+    const bool proceed = EnterCarCamAboveCpp(vertical, &limit);
+    if (proceed) {
+        volatile float alpha = float(double(*alphaStick) - double(t2) * double(t1));
+        *alphaStick = alpha;
+    }
+}
+#pragma float_control(pop)
+
+// --- Grupo G (BRIEF_21): CQuaternion::Slerp ---
+// CQuaternion::Slerp (0x59C300, thiscall con cinco argumentos de pila): out/from/to apuntan a x, y, z, w consecutivos; out puede coincidir con from o con to.
+// Rama theta == 0 (fcomp 0.0 + "test ah,0x44 / jp"; con NaN no entra): copia `to` palabra a palabra sin pasar por la x87.
+// Rama de calculo: si theta > pi/2 (0x858FE4; con NaN no entra), theta' = float(pi - theta) (0x858CB8; guardado como float), A = sin((1 - t)·theta')·inv y B = -(sin(theta'·t)·inv);
+// si no, A = sin((1 - t)·theta)·inv y B = sin(theta·t)·inv. Los senos (fsin) quedan sin redondear en ST0 y cada fsub/fmul se redondea a 24 bits (PC24 del proceso).
+// Cada componente se calcula como en el EXE: x = A·from.x + B·to.x, y/z/w = B·to + A·from, con A y B cargados de memoria como operando de fmul (DE solo si el operando
+// es subnormal y el otro no es NaN) y las pilas x87 muertas iguales a las del EXE. Se comparte el estado x87 final con el EXE (FSW, FTW, TOP y los ocho registros ST).
+// Las lecturas pasan por punteros volatile y A/B se derraman a doubles volatile: sin eso el compilador carga el float y multiplica por el registro (otro DE y otros residuos).
+// Verificado con un arnes que ejecuta los bytes reales del EXE reubicados frente a esta funcion: 12 000 000 de casos (NaN con carga distinta, senalizantes, subnormales, +-inf, +-0,
+// FLT_MAX, 1e30, solapes out == from y out == to) con salida, FCW, FSW, FTW y los diez bytes de cada registro ST identicos.
+static const volatile float kSlerpZero = 0.0f;                          // 0x858B50
+static constexpr float kSlerpHalfPi = std::bit_cast<float>(0x3FC90FDBu); // 0x858FE4
+__declspec(noinline) void __cdecl QuaternionSlerpCpp(float* out, const float* from, const float* to, float theta, float invSin, float t) {
+    const volatile float* const vTheta = &theta;
+    const volatile float* const vInv   = &invSin;
+    const volatile float* const vT     = &t;
+    const volatile float* const vFrom  = from;
+    const volatile float* const vTo    = to;
+    if (*vTheta >= kSlerpZero && *vTheta <= kSlerpZero) {
+        const unsigned* source = reinterpret_cast<const unsigned*>(to);
+        unsigned* target       = reinterpret_cast<unsigned*>(out);
+        target[0] = source[0];
+        target[1] = source[1];
+        target[2] = source[2];
+        target[3] = source[3];
+        return;
+    }
+    double a, b;
+    if (*vTheta > kSlerpHalfPi) {
+        volatile float flipped = float(double(kF_40490FDB) - double(*vTheta));
+        const volatile float* const vAngle = &flipped;
+        a = sin((1.0 - double(*vT)) * double(*vAngle)) * double(*vInv);
+        b = -(sin(double(*vAngle) * double(*vT)) * double(*vInv));
+    } else {
+        a = sin((1.0 - double(*vT)) * double(*vTheta)) * double(*vInv);
+        b = sin(double(*vTheta) * double(*vT)) * double(*vInv);
+    }
+    volatile double aSpill = a;
+    volatile double bSpill = b;
+    {
+        const double a0 = aSpill; const double p0 = a0 * vFrom[0];
+        const double b0 = bSpill; const double q0 = b0 * vTo[0];
+        out[0] = float(p0 + q0);
+    }
+    {
+        const double b1 = bSpill; const double q1 = b1 * vTo[1];
+        const double a1 = aSpill; const double p1 = a1 * vFrom[1];
+        out[1] = float(q1 + p1);
+    }
+    {
+        const double b2 = bSpill; const double q2 = b2 * vTo[2];
+        const double a2 = aSpill; const double p2 = a2 * vFrom[2];
+        out[2] = float(q2 + p2);
+    }
+    volatile double bSink = b;
+    volatile double aSink = a;
+    {
+        const double b3 = bSpill; const double q3 = b3 * vTo[3];
+        const double a3 = aSpill; const double p3 = a3 * vFrom[3];
+        out[3] = float(q3 + p3);
+    }
+}

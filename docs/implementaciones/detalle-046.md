@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 16/10/2026 (Ciudad de México):** 784 grupos / 8552 funciones reconstruidas; 8552 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 105 aprobadas dentro del juego; 130 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 17/10/2026 (Ciudad de México):** 786 grupos / 8573 funciones reconstruidas; 8573 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 125 aprobadas dentro del juego; 130 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,6 +7,15 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-901"></a>
+
+## CWaterLevel::PolyInfo
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| Id() const | [source/game_sa/WaterLevel.h:166](../../source/game_sa/WaterLevel.h#L166) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_id: source/game_sa/MemoryMgr.h:101 (0x00C87B1C) |
+| Type() const | [source/game_sa/WaterLevel.h:167](../../source/game_sa/WaterLevel.h#L167) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-902"></a>
 
 ## CWaterPolygon
 
@@ -16,7 +25,7 @@
 | IsInInterior() const | [source/game_sa/WaterLevel.h:49](../../source/game_sa/WaterLevel.h#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | DoMarkToBeRendered(bool isInInterior) | [source/game_sa/WaterLevel.h:51](../../source/game_sa/WaterLevel.h#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-902"></a>
+<a id="grupo-903"></a>
 
 ## CWaterPolygon&lt;NumVerts&gt;
 
@@ -24,7 +33,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CWaterPolygon&lt;NumVerts&gt;::GetVertex(uint16 idx) const | [source/game_sa/WaterLevel.cpp:1406](../../source/game_sa/WaterLevel.cpp#L1406) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_aVertices: source/game_sa/WaterLevel.h:103 (0x00C22910) |
 
-<a id="grupo-903"></a>
+<a id="grupo-904"></a>
 
 ## CWeapon
 
@@ -82,7 +91,7 @@
 | GetTotalAmmo() const noexcept | [source/game_sa/Weapon.h:133](../../source/game_sa/Weapon.h#L133) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor(eWeaponType weaponType, uint32 ammo) | [source/game_sa/Weapon.h:147](../../source/game_sa/Weapon.h#L147) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeapon::Constructor 0x0073B430 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-904"></a>
+<a id="grupo-905"></a>
 
 ## CWeaponEffects
 
@@ -99,7 +108,7 @@
 | CWeaponEffects::ClearCrossHairsImmediately() | [source/game_sa/WeaponEffects.cpp:116](../../source/game_sa/WeaponEffects.cpp#L116) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeaponEffects::ClearCrossHairsImmediately 0x00742CC0 | 0 / 0 | Posible dato fijo gCrossHair: source/game_sa/WeaponEffects.h:51 (0x00C8A838); Posible dato fijo m_bActive: source/game_sa/LoadingScreen.h:33 (0x00BAB318), source/game_sa/StuntJumpManager.h:30 (0x00A9A890) |
 | CWeaponEffects::Render() | [source/game_sa/WeaponEffects.cpp:125](../../source/game_sa/WeaponEffects.cpp#L125) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeaponEffects::Render 0x00742CF0 | 0 / 0 | Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98); Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:40 (0x00B6F028); Posible dato fijo gCrossHair: source/game_sa/WeaponEffects.h:51 (0x00C8A838); Posible dato fijo gpCrossHairTex: source/game_sa/WeaponEffects.h:52 (0x00C8A818); Posible dato fijo gpCrossHairTexFlight: source/game_sa/WeaponEffects.h:53 (0x00C8A810); Posible dato fijo m_bActive: source/game_sa/LoadingScreen.h:33 (0x00BAB318), source/game_sa/StuntJumpManager.h:30 (0x00A9A890); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
 
-<a id="grupo-905"></a>
+<a id="grupo-906"></a>
 
 ## CWeaponInfo
 
@@ -127,7 +136,7 @@
 | GetWeaponInfo(CPed* ped, std::optional&lt;eWeaponSkill&gt; skill = {}) | [source/game_sa/WeaponInfo.h:145](../../source/game_sa/WeaponInfo.h#L145) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeaponInfo::GetWeaponInfo-original 0x00743C60 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | & GetAimingOffset() const | [source/game_sa/WeaponInfo.h:149](../../source/game_sa/WeaponInfo.h#L149) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_WeaponAimOffsets: source/game_sa/WeaponInfo.h:45 (0x00C8A8A8) |
 
-<a id="grupo-906"></a>
+<a id="grupo-907"></a>
 
 ## CWeaponModelInfo
 
@@ -141,7 +150,7 @@
 | SetWeaponInfo(eWeaponType weapon) | [source/game_sa/Models/WeaponModelInfo.h:33](../../source/game_sa/Models/WeaponModelInfo.h#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetWeaponInfo() | [source/game_sa/Models/WeaponModelInfo.h:34](../../source/game_sa/Models/WeaponModelInfo.h#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-907"></a>
+<a id="grupo-908"></a>
 
 ## CWeather
 
@@ -159,13 +168,13 @@
 | CWeather::RenderRainStreaks() | [source/game_sa/Weather.cpp:362](../../source/game_sa/Weather.cpp#L362) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CWeather::RenderRainStreaks 0x0072AF70 | 0 / 0 | Posible dato fijo CameraForward984: source/game_sa/Weather.cpp:62 (0x00B6F9AC); Posible dato fijo CurrentRainParticleStrength: source/game_sa/Weather.h:26 (0x00C812B0); Posible dato fijo Rain: source/game_sa/Weather.h:46 (0x00C81324); Posible dato fijo RainStreakPosX: source/game_sa/Weather.cpp:48 (0x00C81420); Posible dato fijo RainStreakPosY: source/game_sa/Weather.cpp:49 (0x00C8141C); Posible dato fijo RainStreakPosZ: source/game_sa/Weather.cpp:50 (0x00C81418); Posible dato fijo RainStreakStrength: source/game_sa/Weather.cpp:51 (0x00C81414); Posible dato fijo TempBufferVertices: source/game_sa/common.h:287 (0x00C4D958); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:40 (0x00B6F028); Posible dato fijo UnderWaterness: source/game_sa/Weather.h:49 (0x00C8132C); Posible dato fijo Wind: source/game_sa/Weather.h:44 (0x00C812F0); Posible dato fijo WindDir: source/game_sa/Weather.h:43 (0x00C813E0); Posible dato fijo aTempBufferIndices: source/game_sa/common.h:286 (0x00C4B958); Posible dato fijo currArea: source/game_sa/Game.h:21 (0x00B72914); Posible dato fijo m_FogReduction: source/game_sa/TimeCycle.h:121 (0x00B79E48); Posible dato fijo uiTempBufferIndicesStored: source/game_sa/common.h:284 (0x00C4B954); Posible dato fijo uiTempBufferVerticesStored: source/game_sa/common.h:285 (0x00C4B950) |
 | CWeather::SetWeatherToAppropriateTypeNow() | [source/game_sa/Weather.cpp:518](../../source/game_sa/Weather.cpp#L518) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeather::SetWeatherToAppropriateTypeNow 0x0072A790 | 0 / 0 | Posible dato fijo ForcedWeatherType: source/game_sa/Weather.h:58 (0x00C81318); Posible dato fijo NewWeatherType: source/game_sa/Weather.h:59 (0x00C8131C); Posible dato fijo OldWeatherType: source/game_sa/Weather.h:60 (0x00C81320) |
 | CWeather::Update() | [source/game_sa/Weather.cpp:529](../../source/game_sa/Weather.cpp#L529) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeather::Update 0x0072B850 | 0 / 0 | Posible dato fijo ClockSecondsByte: source/game_sa/Weather.cpp:59 (0x00B70150); Posible dato fijo CloudCoverage: source/game_sa/Weather.h:53 (0x00C81304); Posible dato fijo ExtraSunnyness: source/game_sa/Weather.h:50 (0x00C812F8); Posible dato fijo Foggyness: source/game_sa/Weather.h:52 (0x00C81300); Posible dato fijo Foggyness_SF: source/game_sa/Weather.h:51 (0x00C812FC); Posible dato fijo ForcedWeatherType: source/game_sa/Weather.h:58 (0x00C81318); Posible dato fijo HeadLightsSpectrum: source/game_sa/Weather.h:35 (0x00C812D0); Posible dato fijo HeatHaze: source/game_sa/Weather.h:38 (0x00C812DC); Posible dato fijo HeatHazeFXControl: source/game_sa/Weather.h:37 (0x00C812D8); Posible dato fijo HeatHazeFXLevel: source/game_sa/Weather.cpp:54 (0x00C81448); Posible dato fijo HeatHazeFadeSpeed: source/game_sa/Weather.cpp:56 (0x008D50DC); Posible dato fijo HeatHazeInsideFadeSpeed: source/game_sa/Weather.cpp:57 (0x008D50E0); Posible dato fijo HeatHazeLastMinute: source/game_sa/Weather.cpp:55 (0x008D6078); Posible dato fijo InterpolationValue: source/game_sa/Weather.h:55 (0x00C8130C); Posible dato fijo LightningBurst: source/game_sa/Weather.h:34 (0x00C812CD); Posible dato fijo LightningDuration: source/game_sa/Weather.h:31 (0x00C812C4); Posible dato fijo LightningFlash: source/game_sa/Weather.h:33 (0x00C812CC); Posible dato fijo LightningFlashLastChange: source/game_sa/Weather.h:29 (0x00C812BC); Posible dato fijo LightningStart: source/game_sa/Weather.h:32 (0x00C812C8); Posible dato fijo NewWeatherType: source/game_sa/Weather.h:59 (0x00C8131C); Posible dato fijo OldWeatherType: source/game_sa/Weather.h:60 (0x00C81320); Posible dato fijo Rain: source/game_sa/Weather.h:46 (0x00C81324); Posible dato fijo Rainbow: source/game_sa/Weather.h:40 (0x00C812E4); Posible dato fijo Sandstorm: source/game_sa/Weather.h:45 (0x00C812F4); Posible dato fijo SunGlare: source/game_sa/Weather.h:39 (0x00C812E0); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:40 (0x00B6F028); Posible dato fijo TrafficLightsBrightness: source/game_sa/Weather.h:23 (0x00C812A8); Posible dato fijo UnderWaterness: source/game_sa/Weather.h:49 (0x00C8132C); Posible dato fijo WaterFogFXControl: source/game_sa/Weather.h:36 (0x00C81338); Posible dato fijo WaterFogFXHolding: source/game_sa/Weather.cpp:53 (0x00C81440); Posible dato fijo WaterFogFXValue: source/game_sa/Weather.cpp:52 (0x00C81444); Posible dato fijo WaterFogSourceWord: source/game_sa/Weather.cpp:60 (0x00B7C540); Posible dato fijo Wavyness: source/game_sa/Weather.h:41 (0x00C812E8); Posible dato fijo WeatherTypeInList: source/game_sa/Weather.h:56 (0x00C81310); Posible dato fijo WetRoads: source/game_sa/Weather.h:54 (0x00C81308); Posible dato fijo WhenToPlayLightningSound: source/game_sa/Weather.h:30 (0x00C812C0); Posible dato fijo Wind: source/game_sa/Weather.h:44 (0x00C812F0); Posible dato fijo WindClipped: source/game_sa/Weather.h:42 (0x00C812EC); Posible dato fijo WindDir: source/game_sa/Weather.h:43 (0x00C813E0); Posible dato fijo bSnapShotActive: source/game_sa/SpecialFX.h:26 (0x00C7C714); Posible dato fijo currArea: source/game_sa/Game.h:21 (0x00B72914); Posible dato fijo m_CurrentStoredValue: source/game_sa/TimeCycle.h:110 (0x00B79FD0); Posible dato fijo m_FrameCounter: source/game_sa/Timer.h:31 (0x00B7CB4C); Posible dato fijo m_HeatHazeFXHourOfDayEnd: source/game_sa/PostEffects.h:172 (0x008D50D8); Posible dato fijo m_HeatHazeFXHourOfDayStart: source/game_sa/PostEffects.h:171 (0x008D50D4); Posible dato fijo m_VectorToSun: source/game_sa/TimeCycle.h:111 (0x00B7CA50); Posible dato fijo m_WeatherAudioEntity: source/game_sa/Weather.h:61 (0x00C81360); Posible dato fijo m_snTimeInMilliseconds: source/game_sa/Timer.h:44 (0x00B7CB84); Posible dato fijo ms_fTimeStep: source/game_sa/Timer.h:33 (0x00B7CB5C); Posible dato fijo ms_nGameClockHours: source/game_sa/Clock.h:21 (0x00B70153); Posible dato fijo ms_nGameClockMinutes: source/game_sa/Clock.h:20 (0x00B70152); Posible dato fijo ms_running: source/game_sa/CutsceneMgr.h:77 (0x00B5F851) |
-| CWeather::UpdateInTunnelness() | [source/game_sa/Weather.cpp:924](../../source/game_sa/Weather.cpp#L924) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeather::UpdateInTunnelness 0x0072B630 | 0 / 0 | Posible dato fijo CurrentFlags_Camera: source/game_sa/CullZones.h:167 (0x00C87ABC); Posible dato fijo InTunnelness: source/game_sa/Weather.h:47 (0x00C81334); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:40 (0x00B6F028); Posible dato fijo TunnelInitFlags: source/game_sa/Weather.cpp:65 (0x00C8143C); Posible dato fijo TunnelPoint1: source/game_sa/Weather.cpp:63 (0x00C81430); Posible dato fijo TunnelPoint2: source/game_sa/Weather.cpp:64 (0x00C81424); Posible dato fijo ms_fTimeStep: source/game_sa/Timer.h:33 (0x00B7CB5C) |
+| CWeather::UpdateInTunnelness() | [source/game_sa/Weather.cpp:924](../../source/game_sa/Weather.cpp#L924) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeather::UpdateInTunnelness 0x0072B630 | 0 / 0 | Posible dato fijo CurrentFlags_Camera: source/game_sa/CullZones.h:171 (0x00C87ABC); Posible dato fijo InTunnelness: source/game_sa/Weather.h:47 (0x00C81334); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:40 (0x00B6F028); Posible dato fijo TunnelInitFlags: source/game_sa/Weather.cpp:65 (0x00C8143C); Posible dato fijo TunnelPoint1: source/game_sa/Weather.cpp:63 (0x00C81430); Posible dato fijo TunnelPoint2: source/game_sa/Weather.cpp:64 (0x00C81424); Posible dato fijo ms_fTimeStep: source/game_sa/Timer.h:33 (0x00B7CB5C) |
 | CWeather::FindWeatherRegion(CVector2D pos) | [source/game_sa/Weather.cpp:991](../../source/game_sa/Weather.cpp#L991) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CWeather::UpdateWeatherRegion(CVector* posn) | [source/game_sa/Weather.cpp:1008](../../source/game_sa/Weather.cpp#L1008) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:40 (0x00B6F028); Posible dato fijo WeatherRegion: source/game_sa/Weather.h:57 (0x00C81314) |
 | CWeather::IsRainy() | [source/game_sa/Weather.cpp:1013](../../source/game_sa/Weather.cpp#L1013) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeather::IsRainy 0x004ABF50 | 0 / 0 | Posible dato fijo Rain: source/game_sa/Weather.h:46 (0x00C81324) |
 | IsUnderWater() | [source/game_sa/Weather.h:95](../../source/game_sa/Weather.h#L95) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo UnderWaterness: source/game_sa/Weather.h:49 (0x00C8132C) |
 
-<a id="grupo-908"></a>
+<a id="grupo-909"></a>
 
 ## CWindModifiers
 
@@ -175,7 +184,7 @@
 | CWindModifiers::RegisterOne(CVector vecPos, int32 iActive, float fPower) | [source/game_sa/WindModifiers.cpp:32](../../source/game_sa/WindModifiers.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWindModifiers::RegisterOne 0x0072C8B0 | 0 / 0 | Posible dato fijo Array: source/game_sa/WindModifiers.h:14 (0x00C81458); Posible dato fijo Number: source/game_sa/WindModifiers.h:13 (0x00C81450); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:40 (0x00B6F028) |
 | CWindModifiers::FindWindModifier(CVector vecPos, float* outX, float* outY) | [source/game_sa/WindModifiers.cpp:52](../../source/game_sa/WindModifiers.cpp#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWindModifiers::FindWindModifier 0x0072C950 | 0 / 0 | Posible dato fijo Array: source/game_sa/WindModifiers.h:14 (0x00C81458); Posible dato fijo Number: source/game_sa/WindModifiers.h:13 (0x00C81450) |
 
-<a id="grupo-909"></a>
+<a id="grupo-910"></a>
 
 ## CWorld
 
@@ -310,7 +319,7 @@
 | FindPlayerHeading(int32 playerId) | [source/game_sa/World_Helper.cpp:129](../../source/game_sa/World_Helper.cpp#L129) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWorld::FindPlayerHeading 0x0056E450 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo PlayerInFocus: source/game_sa/World.h:56 (0x00B7CD74); Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
 | * FindPlayerWanted(int32 playerId) | [source/game_sa/World_Helper.cpp:153](../../source/game_sa/World_Helper.cpp#L153) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWorld::FindPlayerWanted 0x0056E230 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-910"></a>
+<a id="grupo-911"></a>
 
 ## CWorldScan
 
@@ -319,7 +328,7 @@
 | CWorldScan::ScanWorld(CVector2D *points, int32 pointsCount, tScanFunction scanFunction) | [source/game_sa/Renderer.cpp:103](../../source/game_sa/Renderer.cpp#L103) | C++ · Envoltura al EXE | Sin registro inequívoco | 0 / 0 | Delegación por dirección 0x0072CAE0: fuera del catálogo consultado; ruta efectiva sin resolver |
 | CWorldScan::SetExtraRectangleToScan(float minX, float maxX, float minY, float maxY) | [source/game_sa/Renderer.cpp:108](../../source/game_sa/Renderer.cpp#L108) | C++ · Envoltura al EXE | Sin registro inequívoco | 0 / 0 | Delegación por dirección 0x0072D5E0: fuera del catálogo consultado; ruta efectiva sin resolver |
 
-<a id="grupo-911"></a>
+<a id="grupo-912"></a>
 
 ## CZone
 
@@ -331,16 +340,17 @@
 | GetRect() const | [source/game_sa/Zone.h:24](../../source/game_sa/Zone.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetBB() const | [source/game_sa/Zone.h:25](../../source/game_sa/Zone.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-912"></a>
+<a id="grupo-913"></a>
 
 ## CZoneDef
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
+| * CZoneDef::GetCenter(CVector& out) const | [source/game_sa/CullZones.cpp:63](../../source/game_sa/CullZones.cpp#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CZoneDef::GetCenter 0x0072D6D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Init( const CVector& pos, float vec1X, float vec1Y, float minZ, float vec2X, float vec2Y, float maxZ ) | [source/game_sa/CullZones.h:82](../../source/game_sa/CullZones.h#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsPointWithin(const CVector& point) const | [source/game_sa/CullZones.h:104](../../source/game_sa/CullZones.h#L104) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-913"></a>
+<a id="grupo-914"></a>
 
 ## CZoneInfo
 
@@ -348,7 +358,7 @@
 | --- | --- | --- | --- | --- | --- |
 | GetSumOfGangDensity() const | [source/game_sa/ZoneInfo.h:53](../../source/game_sa/ZoneInfo.h#L53) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-914"></a>
+<a id="grupo-915"></a>
 
 ## C_PcSave
 
@@ -361,7 +371,7 @@
 | C_PcSave::SaveSlot(int32 slot) | [source/game_sa/C_PcSave.cpp:120](../../source/game_sa/C_PcSave.cpp#L120) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: C_PcSave::SaveSlot 0x00619060 | 0 / 0 | Posible dato fijo s_PcSaveHelper: source/game_sa/C_PcSave.h:42 (0x00C17034) |
 | C_PcSave::DeleteSlot(int32 slot) | [source/game_sa/C_PcSave.cpp:130](../../source/game_sa/C_PcSave.cpp#L130) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: C_PcSave::DeleteSlot 0x006190D0 | 0 / 0 | Posible dato fijo DefaultPCSaveFileName: source/game_sa/C_PcSave.h:27 (0x00C16F18); Posible dato fijo s_PcSaveHelper: source/game_sa/C_PcSave.h:42 (0x00C17034) |
 
-<a id="grupo-915"></a>
+<a id="grupo-916"></a>
 
 ## CdStream
 
@@ -377,7 +387,7 @@
 | CdStreamRemoveImages() | [source/game_sa/CdStreamInfo.cpp:285](../../source/game_sa/CdStreamInfo.cpp#L285) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CdStream::CdStreamRemoveImages 0x00406690 | 0 / 0 | Posible dato fijo gCdImageNames: source/game_sa/CdStreamInfo.cpp:22 (0x008E4098); Posible dato fijo gOpenStreamCount: source/game_sa/CdStreamInfo.cpp:26 (0x008E4094); Posible dato fijo gStreamCount: source/game_sa/CdStreamInfo.cpp:25 (0x008E4090); Posible dato fijo gStreamFileHandles: source/game_sa/CdStreamInfo.cpp:21 (0x008E4010) |
 | CdStreamShutdown() | [source/game_sa/CdStreamInfo.cpp:301](../../source/game_sa/CdStreamInfo.cpp#L301) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CdStream::CdStreamShutdown 0x00406370 | 0 / 0 | Posible dato fijo gCdStreams: source/game_sa/CdStreamInfo.cpp:24 (0x008E3FFC); Posible dato fijo gStreamCount: source/game_sa/CdStreamInfo.cpp:25 (0x008E4090); Posible dato fijo gStreamQueue: source/game_sa/CdStreamInfo.cpp:29 (0x008E3FEC); Posible dato fijo gStreamSemaphore: source/game_sa/CdStreamInfo.cpp:30 (0x008E4004); Posible dato fijo gStreamingInitialized: source/game_sa/CdStreamInfo.cpp:27 (0x008E3FE4); Posible dato fijo gStreamingThread: source/game_sa/CdStreamInfo.cpp:31 (0x008E4008) |
 
-<a id="grupo-916"></a>
+<a id="grupo-917"></a>
 
 ## CdStreamPos
 
@@ -385,7 +395,7 @@
 | --- | --- | --- | --- | --- | --- |
 | ToInt() const | [source/game_sa/CdStreamInfo.h:22](../../source/game_sa/CdStreamInfo.h#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-917"></a>
+<a id="grupo-918"></a>
 
 ## ColDef
 
@@ -394,7 +404,7 @@
 | * ColDef::operator new(unsigned size) | [source/game_sa/Collision/ColStore.cpp:39](../../source/game_sa/Collision/ColStore.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pColPool: source/game_sa/Collision/ColStore.cpp:24 (0x00965560) |
 | ColDef::operator delete(void* data) | [source/game_sa/Collision/ColStore.cpp:43](../../source/game_sa/Collision/ColStore.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pColPool: source/game_sa/Collision/ColStore.cpp:24 (0x00965560) |
 
-<a id="grupo-918"></a>
+<a id="grupo-919"></a>
 
 ## ColHelpers::FileHeader
 
@@ -404,7 +414,7 @@
 | GetDataSize() const | [source/game_sa/Collision/ColHelpers.h:61](../../source/game_sa/Collision/ColHelpers.h#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetVersion() const | [source/game_sa/Collision/ColHelpers.h:66](../../source/game_sa/Collision/ColHelpers.h#L66) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-919"></a>
+<a id="grupo-920"></a>
 
 ## ColHelpers::FileHeader::FileInfo
 
@@ -412,12 +422,3 @@
 | --- | --- | --- | --- | --- | --- |
 | GetVersion() const | [source/game_sa/Collision/ColHelpers.h:34](../../source/game_sa/Collision/ColHelpers.h#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsValid() const | [source/game_sa/Collision/ColHelpers.h:46](../../source/game_sa/Collision/ColHelpers.h#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-920"></a>
-
-## ColHelpers::V2::Header
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| IsEmpty() const | [source/game_sa/Collision/ColHelpers.h:205](../../source/game_sa/Collision/ColHelpers.h#L205) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| HasFaceGroups() const | [source/game_sa/Collision/ColHelpers.h:206](../../source/game_sa/Collision/ColHelpers.h#L206) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "1c5b1b4a0f51d355fd47afa5b2443d93879b034c039037b17060f868f33862ba",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9",
+    "scripts/gta-reversed.ini": "46b358de2c1ec812e0468617f85b304e41933a08c0c828d94650b6fa57f8aff9"
+  },
+  "pairs": 6656,
+  "pairs_per_function": {
+    "RwHelper::GetFirstTexture": 1024,
+    "RwHelper::RpGeometryReplaceOldMaterialWithNewMaterial": 1536,
+    "CQuaternion::Slerp": 4096
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "26a9f56dbc2e3d9a62843689ff2c254139998ccfc9fa5ec2575deb35073cf679",
+  "coverage": {
+    "ft_null": 114,
+    "ft_nonnull": 910,
+    "rp_replaced": 1140,
+    "rp_not_replaced": 396,
+    "rp_absent_written": 204,
+    "rp_destroy_last": 118,
+    "rp_wrap": 287,
+    "rp_fmo": 294,
+    "sl_copy": 256,
+    "sl_math": 3840,
+    "sl_nan_theta": 512,
+    "sl_alias1": 1365,
+    "sl_alias2": 1365,
+    "sl_inf_theta": 256,
+    "sl_denorm_theta": 256
+  },
+  "declared_fixture_coverage": {
+    "replace": {
+      "meshes_0": 171,
+      "absent": 283,
+      "new_is_old": 427,
+      "first_mesh_offset": 383,
+      "wrap_refs": 398,
+      "destroy_last": 168,
+      "empty_list": 225
+    },
+    "first_texture": {
+      "empty": 114,
+      "many": 113,
+      "orders": 6,
+      "junk": 5
+    }
+  },
+  "residue_pairs_where_ecx_edx_differ": 6656,
+  "compare_dead_x87_registers": true,
+  "coverage_method": "serialized_inputs_and_independent_oracle; no_instruction_branch_tracing",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

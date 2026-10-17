@@ -48,6 +48,7 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexFallAndGetUp.h"
 #include "TaskSimpleLeaveGroup.h"
 #include "TaskSimpleStandStill.h"
+#include "X87Math.h"
 
 #include "EventCopCarBeingStolen.h"
 #include "EventLeaderQuitEnteringCarAsDriver.h"
@@ -66,6 +67,7 @@ void CTaskComplexEnterCar::InjectHooks() {
     RH_ScopedInstall(CreateTaskUtilityLineUpPedWithCar, 0x63ACC0);
     RH_ScopedInstall(GetTargetPos, 0x63A300);
     RH_ScopedInstall(GetCameraAvoidVehicle, 0x63A690);
+    RH_ScopedInstall(GetCameraStickModifier, 0x63A380);
     RH_ScopedInstall(SetVehicleFlags, 0x63AB90);
     RH_ScopedInstall(CreateSubTask, 0x63E040);
 
@@ -815,6 +817,65 @@ CVector CTaskComplexEnterCar::GetTargetPos() const {
         return tGoTo->GetTargetPt();
     }
     return {};
+}
+
+// 0x63A380
+// Como el original (0x63A380..0x63A67E, ret 0x18). Sin coche, o con un coche de subtipo helicoptero (VEHICLE_TYPE_HELI, [coche+0x594] == 3), no hace nada. El pad es el 0 y,
+// solo si el tipo del peaton ([ped+0x598]) es el del jugador 2, el 1. Con subtarea nula, o de un tipo distinto de los cinco listados, tampoco. Cada comprobacion de tipo
+// vuelve a pedir GetTaskType (el EXE repite 0x322 dos veces). Las palancas de apuntado (|valor| > 20, fild/fabs/fcomp en la x87) fijan la eleccion 3 (sale), o
+// acelerar la 2, o frenar la 1; sin ninguna, la eleccion (+0x29) se conserva. El resto es aritmetico x87 de X87Math.cpp: el rumbo del coche a partir de su matriz (fpatan sin
+// redondear), el escalar peaton-coche con el eje derecho, el angulo con atan2 y 0.7f, y la acotacion del giro con las tablas del EXE (0x86E678 y 0x86E684, indexadas por la eleccion)
+// y el limite de 0x8D2ECC. Con matriz nula el EXE se cae al leer [0 + 8]; aqui tambien (no se comprueba).
+// Ningun llamador del EXE (CCam::Process_FollowPed_SA, 0x523E9B) lee EAX, ECX ni EDX tras la llamada (recarga EDX, EAX y ECX antes de usarlos), asi que no hay residuo.
+void CTaskComplexEnterCar::GetCameraStickModifier(CPed* ped, float distance, float& verticalAngle, float& horizontalAngle, float& alphaStick, float& betaStick) {
+    if (!m_Car || m_Car->m_nVehicleSubType == VEHICLE_TYPE_HELI) {
+        return;
+    }
+    CPad* const pad = ped->m_nPedType == PED_TYPE_PLAYER2 ? CPad::GetPad(1) : CPad::GetPad(0);
+    if (!m_pSubTask) {
+        return;
+    }
+    const auto IsSubTask = [this](eTaskType type) { return m_pSubTask->GetTaskType() == type; };
+    if (!(IsSubTask(TASK_SIMPLE_CAR_OPEN_DOOR_FROM_OUTSIDE) || IsSubTask(TASK_SIMPLE_CAR_OPEN_DOOR_FROM_OUTSIDE) || IsSubTask(TASK_SIMPLE_BIKE_PICK_UP)
+          || IsSubTask(TASK_SIMPLE_CAR_SLOW_DRAG_PED_OUT) || IsSubTask(TASK_SIMPLE_CAR_GET_IN) || IsSubTask(TASK_SIMPLE_CAR_SHUFFLE))) {
+        return;
+    }
+    if (EnterCarCamStickBeyondCpp(pad->AimWeaponLeftRight(ped)) || EnterCarCamStickBeyondCpp(pad->AimWeaponUpDown(ped))) {
+        m_CamMovementChoice = 3;
+    } else if (pad->GetAccelerate()) {
+        m_CamMovementChoice = 2;
+    } else if (pad->GetBrake()) {
+        m_CamMovementChoice = 1;
+    }
+    if (m_CamMovementChoice == 3) {
+        return;
+    }
+    const unsigned choice = m_CamMovementChoice;
+    float lateral[3]; // rumbo - pi/2, escalar, angulo
+    EnterCarCamLateralCpp(
+        reinterpret_cast<const float*>(m_Car->m_matrix),
+        m_Car->m_placement.m_fHeading,
+        &m_Car->GetPosition().x,
+        &ped->GetPosition().x,
+        distance,
+        lateral
+    );
+    const float minY = m_Car->GetColModel()->GetBoundingBox().m_vecMin.y;
+    EnterCarCamStickCpp(
+        minY,
+        distance,
+        lateral[2],
+        lateral[0],
+        lateral[1],
+        choice,
+        StaticRef<float>(0x86E684 + 4 * choice),
+        StaticRef<float>(0x86E678 + 4 * choice),
+        StaticRef<float>(0x8D2ECC),
+        &verticalAngle,
+        &horizontalAngle,
+        &alphaStick,
+        &betaStick
+    );
 }
 
 // 0x63A690

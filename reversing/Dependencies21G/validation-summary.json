@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "pairs": 6656,
+  "differences": 0,
+  "registered_pairs": 6656,
+  "registered_functions": 3,
+  "functions": {
+    "RwHelper::GetFirstTexture": 1024,
+    "RwHelper::RpGeometryReplaceOldMaterialWithNewMaterial": 1536,
+    "CQuaternion::Slerp": 4096
+  },
+  "covered_functions": {
+    "RwHelper::GetFirstTexture": true,
+    "RwHelper::RpGeometryReplaceOldMaterialWithNewMaterial": true,
+    "CQuaternion::Slerp": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Dependencies21G-20261017-023157-980087",
+  "summary_sha256": "353ea5a1a05e529b370b4b1a8e533fe5811ddfe257eb7228db59f56f0b0856cc",
+  "result_txt_sha256": "6b11029439aa01b344ff322a1e1dc38622e3461e65051bbed9e12080f3ad52e2",
+  "log_sha256": "26a9f56dbc2e3d9a62843689ff2c254139998ccfc9fa5ec2575deb35073cf679",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "1c5b1b4a0f51d355fd47afa5b2443d93879b034c039037b17060f868f33862ba",
+  "manifest": {
+    "tested_sources": {
+      "source/game_sa/Core/Quaternion.cpp": "21caa19e14bb8f966bd7ad618e71df273f47470bad8a37b0b79a044fea5f2ca4",
+      "source/game_sa/Core/Quaternion.h": "48db9873122fa6bfad1c9a50ba0ac91c3a7c4d5a80e984984ec10f5f4bf38dec",
+      "source/game_sa/X87Math.cpp": "2744cf9b95d7657d019d320f455c50af1884474b4901a4ad357a128b441d7cee",
+      "source/game_sa/X87Math.h": "a9aa393f782698977e7c6453e1f65fa49357c241164bcd90713093a829c64f01",
+      "source/game_sa/RwHelper.cpp": "769661aea9d37b15793e56e282c77ae27406e608576808f9a776a0de4808a94c",
+      "source/game_sa/RwHelper.h": "37cb8ba332c4b3cfc3eaf639e293012d17f8083b9815d3348e62ace5fd792205",
+      "source/game_sa/RenderWare/rw/rwtexdict.cpp": "2e0aeb5e2105ab577db0365f4a00a327205693828bfea2f304074822f7fdd19d",
+      "source/game_sa/RenderWare/rw/rpworld.cpp": "b94a008930bc0d155118fdf0b7deb39a6bf59f3a1598490d6729a96731dde749",
+      "source/game_sa/Animation/AnimBlendNode.h": "3f921e75734288796aca38f759bc63771aa81c78ae7ffa54cc30c532b84423bf",
+      "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Dependencies21G/Fixtures.hpp": "888d53ad95ff47af314b06900066828ef9f41f25ee4880b20a499c6988f5aa8a",
+      "reversing/Dependencies21G/Arenas.hpp": "3a3238196c830ff2bdd21226c165f5d852b26fb845ea5cd9d55d79e2fc11c19a",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

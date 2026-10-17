@@ -266,7 +266,7 @@ public:
                 trans.z *= blend;
             }
 
-            // Update rotation (Slerp llama al del EXE, 0x59C300)
+            // Update rotation (Slerp reconstruido en C++, 0x59C300)
             if (m_Seq->m_bHasRotation) {
                 const CQuaternion rotPrev = KeyFrameRot<IsCompressed>(kfPrev);
                 const CQuaternion rotCurr = KeyFrameRot<IsCompressed>(kfCurr);

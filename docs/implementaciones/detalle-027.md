@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 16/10/2026 (Ciudad de México):** 784 grupos / 8552 funciones reconstruidas; 8552 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 105 aprobadas dentro del juego; 130 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 17/10/2026 (Ciudad de México):** 786 grupos / 8573 funciones reconstruidas; 8573 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 125 aprobadas dentro del juego; 130 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,6 +7,45 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-521"></a>
+
+## CStreamingInfo
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CStreamingInfo::InjectHooks() | [source/game_sa/StreamingInfo.cpp:21](../../source/game_sa/StreamingInfo.cpp#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStreamingInfo::Init() | [source/game_sa/StreamingInfo.cpp:35](../../source/game_sa/StreamingInfo.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStreamingInfo::Init 0x00407460 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStreamingInfo::GetCdPosn() const | [source/game_sa/StreamingInfo.cpp:47](../../source/game_sa/StreamingInfo.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStreamingInfo::GetCdPosn 0x00407570 | 0 / 0 | Posible dato fijo ms_files: source/game_sa/Streaming.h:207 (0x008E48D8) |
+| CStreamingInfo::GetCdPosn_Hook() const | [source/game_sa/StreamingInfo.cpp:54](../../source/game_sa/StreamingInfo.cpp#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStreamingInfo::GetCdPosn 0x00407570 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStreamingInfo::SetCdPosnAndSize(uint32 offset, size_t size) | [source/game_sa/StreamingInfo.cpp:59](../../source/game_sa/StreamingInfo.cpp#L59) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStreamingInfo::SetCdPosnAndSize 0x004075E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStreamingInfo::GetCdPosnAndSize(CdStreamPos& pos, size_t& size) | [source/game_sa/StreamingInfo.cpp:65](../../source/game_sa/StreamingInfo.cpp#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStreamingInfo::GetCdPosnAndSize 0x004075A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStreamingInfo::InList() const | [source/game_sa/StreamingInfo.cpp:75](../../source/game_sa/StreamingInfo.cpp#L75) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStreamingInfo::InList 0x00407560 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CStreamingInfo::AddToList(CStreamingInfo* after) | [source/game_sa/StreamingInfo.cpp:81](../../source/game_sa/StreamingInfo.cpp#L81) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStreamingInfo::AddToList 0x00407480 | 0 / 0 | Posible dato fijo ms_pArrayBase: source/game_sa/StreamingInfo.h:50 (0x009654B4) |
+| CStreamingInfo::RemoveFromList() | [source/game_sa/StreamingInfo.cpp:90](../../source/game_sa/StreamingInfo.cpp#L90) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CStreamingInfo::RemoveFromList 0x004074E0 | 0 / 0 | Posible dato fijo ms_pArrayBase: source/game_sa/StreamingInfo.h:50 (0x009654B4) |
+| HasCdPosnAndSize() const noexcept | [source/game_sa/StreamingInfo.h:60](../../source/game_sa/StreamingInfo.h#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetCdSize() const | [source/game_sa/StreamingInfo.h:61](../../source/game_sa/StreamingInfo.h#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * GetNext() | [source/game_sa/StreamingInfo.h:62](../../source/game_sa/StreamingInfo.h#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pArrayBase: source/game_sa/StreamingInfo.h:50 (0x009654B4) |
+| * GetPrev() | [source/game_sa/StreamingInfo.h:63](../../source/game_sa/StreamingInfo.h#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pArrayBase: source/game_sa/StreamingInfo.h:50 (0x009654B4) |
+| SetImg(StreamingImgID imgID) | [source/game_sa/StreamingInfo.h:64](../../source/game_sa/StreamingInfo.h#L64) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetFlags(uint32 flags) | [source/game_sa/StreamingInfo.h:84](../../source/game_sa/StreamingInfo.h#L84) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ClearFlags(uint32 flags) | [source/game_sa/StreamingInfo.h:85](../../source/game_sa/StreamingInfo.h#L85) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetFlags() const noexcept | [source/game_sa/StreamingInfo.h:86](../../source/game_sa/StreamingInfo.h#L86) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ClearAllFlags() noexcept | [source/game_sa/StreamingInfo.h:87](../../source/game_sa/StreamingInfo.h#L87) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| AreAnyFlagsSetOutOf(uint32 flags) const noexcept | [source/game_sa/StreamingInfo.h:88](../../source/game_sa/StreamingInfo.h#L88) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsLoadedOrBeingRead() const noexcept | [source/game_sa/StreamingInfo.h:90](../../source/game_sa/StreamingInfo.h#L90) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsLoaded() const | [source/game_sa/StreamingInfo.h:99](../../source/game_sa/StreamingInfo.h#L99) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsRequested() const | [source/game_sa/StreamingInfo.h:100](../../source/game_sa/StreamingInfo.h#L100) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsBeingRead() const | [source/game_sa/StreamingInfo.h:101](../../source/game_sa/StreamingInfo.h#L101) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsLoadingFinishing() const | [source/game_sa/StreamingInfo.h:102](../../source/game_sa/StreamingInfo.h#L102) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| DontRemoveInLoadScene() const noexcept | [source/game_sa/StreamingInfo.h:104](../../source/game_sa/StreamingInfo.h#L104) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsGameRequired() const noexcept | [source/game_sa/StreamingInfo.h:105](../../source/game_sa/StreamingInfo.h#L105) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsMissionRequired() const noexcept | [source/game_sa/StreamingInfo.h:106](../../source/game_sa/StreamingInfo.h#L106) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| DoKeepInMemory() const noexcept | [source/game_sa/StreamingInfo.h:107](../../source/game_sa/StreamingInfo.h#L107) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsPriorityRequest() const noexcept | [source/game_sa/StreamingInfo.h:108](../../source/game_sa/StreamingInfo.h#L108) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsLoadingScene() const noexcept | [source/game_sa/StreamingInfo.h:109](../../source/game_sa/StreamingInfo.h#L109) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsMissionOrGameRequired() const noexcept | [source/game_sa/StreamingInfo.h:110](../../source/game_sa/StreamingInfo.h#L110) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsRequiredToBeKept() const noexcept | [source/game_sa/StreamingInfo.h:111](../../source/game_sa/StreamingInfo.h#L111) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-522"></a>
 
 ## CStuckCarCheck
 
@@ -24,7 +63,7 @@
 | CStuckCarCheck::ResetArrayElement(uint16 carHandle) | [source/game_sa/StuckCarCheck.cpp:221](../../source/game_sa/StuckCarCheck.cpp#L221) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CStuckCarCheck::ResetArrayElement(tStuckCar& car) | [source/game_sa/StuckCarCheck.cpp:226](../../source/game_sa/StuckCarCheck.cpp#L226) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-522"></a>
+<a id="grupo-523"></a>
 
 ## CStuntJumpManager
 
@@ -41,7 +80,7 @@
 | CStuntJumpManager::SetActive(bool active) | [source/game_sa/StuntJumpManager.cpp:341](../../source/game_sa/StuntJumpManager.cpp#L341) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CStuntJumpManager::Render() | [source/game_sa/StuntJumpManager.cpp:346](../../source/game_sa/StuntJumpManager.cpp#L346) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-523"></a>
+<a id="grupo-524"></a>
 
 ## CTagManager
 
@@ -71,7 +110,7 @@
 | GetTags() | [source/game_sa/TagManager.h:54](../../source/game_sa/TagManager.h#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_numTags: source/game_sa/TagManager.h:25 (0x00A9AD70); Posible dato fijo ms_tagDesc: source/game_sa/TagManager.h:24 (0x00A9A8C0) |
 | GetTagsInArea(const CRect& area) | [source/game_sa/TagManager.h:62](../../source/game_sa/TagManager.h#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-524"></a>
+<a id="grupo-525"></a>
 
 ## CTask
 
@@ -92,7 +131,7 @@
 | * CloneIfIs(CTask* t) | [source/game_sa/Tasks/Task.h:81](../../source/game_sa/Tasks/Task.h#L81) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | classof(const From* f) | [source/game_sa/Tasks/Task.h:89](../../source/game_sa/Tasks/Task.h#L89) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-525"></a>
+<a id="grupo-526"></a>
 
 ## CTaskAllocator
 
@@ -106,7 +145,7 @@
 | Abort() | [source/game_sa/Tasks/Allocators/TaskAllocator.h:41](../../source/game_sa/Tasks/Allocators/TaskAllocator.h#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocator::Abort 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | classof(const From* f) | [source/game_sa/Tasks/Allocators/TaskAllocator.h:45](../../source/game_sa/Tasks/Allocators/TaskAllocator.h#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-526"></a>
+<a id="grupo-527"></a>
 
 ## CTaskAllocatorAttack
 
@@ -121,7 +160,7 @@
 | * Constructor(CPed * ped1, int32 groupId, CPed * ped2) | [source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h:27](../../source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocatorAttack::Constructor 0x0069C240 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h:33](../../source/game_sa/Tasks/Allocators/TaskAllocatorAttack.h#L33) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskAllocatorAttack::Destructor 0x0069C2D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-527"></a>
+<a id="grupo-528"></a>
 
 ## CTaskAllocatorKillOnFoot
 
@@ -134,7 +173,7 @@
 | * Constructor(CPed* a, int32 b) | [source/game_sa/Tasks/Allocators/TaskAllocatorKillOnFoot.h:24](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillOnFoot.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocatorKillOnFoot::Constructor 0x0069BB80 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/Allocators/TaskAllocatorKillOnFoot.h:30](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillOnFoot.h#L30) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskAllocatorKillOnFoot::Destructor 0x0069BBF0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-528"></a>
+<a id="grupo-529"></a>
 
 ## CTaskAllocatorKillThreatsBasic
 
@@ -149,7 +188,7 @@
 | * Constructor(CPed * ped) | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.h:27](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocatorKillThreatsBasic::Constructor 0x0069C710 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.h:33](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.h#L33) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskAllocatorKillThreatsBasic::Destructor 0x0069C780 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-529"></a>
+<a id="grupo-530"></a>
 
 ## CTaskAllocatorKillThreatsBasicRandomGroup
 
@@ -159,7 +198,7 @@
 | CTaskAllocatorKillThreatsBasicRandomGroup::InjectHooks() | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.cpp:80](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.cpp#L80) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetType() override | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.h:14](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.h#L14) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocatorKillThreatsBasicRandomGroup::GetType 0x005F68F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-530"></a>
+<a id="grupo-531"></a>
 
 ## CTaskAllocatorKillThreatsDriveby
 
@@ -173,7 +212,7 @@
 | * Constructor(CPed* a) | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.h:26](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.h#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocatorKillThreatsDriveby::Constructor 0x0069CAF0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.h:32](../../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.h#L32) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskAllocatorKillThreatsDriveby::Destructor 0x0069CB60 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-531"></a>
+<a id="grupo-532"></a>
 
 ## CTaskAllocatorPlayerCommandAttack
 
@@ -185,7 +224,7 @@
 | CTaskAllocatorPlayerCommandAttack::InjectHooks() | [source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp:96](../../source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp#L96) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetType() override | [source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.h:15](../../source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.h#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocatorPlayerCommandAttack::GetType 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-532"></a>
+<a id="grupo-533"></a>
 
 ## CTaskAllocatorPlayerCommandRetreat
 
@@ -194,7 +233,7 @@
 | CTaskAllocatorPlayerCommandRetreat::AllocateTasks(CPedGroupIntelligence* intel) | [source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandRetreat.cpp:5](../../source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandRetreat.cpp#L5) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetType() override | [source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandRetreat.h:10](../../source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandRetreat.h#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-533"></a>
+<a id="grupo-534"></a>
 
 ## CTaskAllocatorPool
 
@@ -203,7 +242,7 @@
 | InjectHooks() | [source/game_sa/Pools/TaskAllocatorPool.h:35](../../source/game_sa/Pools/TaskAllocatorPool.h#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * New() | [source/game_sa/Pools/TaskAllocatorPool.h:49](../../source/game_sa/Pools/TaskAllocatorPool.h#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocatorPool::New 0x0069D8E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-534"></a>
+<a id="grupo-535"></a>
 
 ## CTaskAllocatorRetreat
 
@@ -212,7 +251,7 @@
 | GetType() override | [source/game_sa/Tasks/Allocators/TaskAllocatorRetreat.h:10](../../source/game_sa/Tasks/Allocators/TaskAllocatorRetreat.h#L10) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | AllocateTasks(CPedGroupIntelligence* intel) override | [source/game_sa/Tasks/Allocators/TaskAllocatorRetreat.h:11](../../source/game_sa/Tasks/Allocators/TaskAllocatorRetreat.h#L11) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskAllocatorKillThreatsBasicRandomGroup::GetType 0x005F68F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-535"></a>
+<a id="grupo-536"></a>
 
 ## CTaskCategories
 
@@ -223,7 +262,7 @@
 | CTaskCategories::IsFollowPedTask(const CTask* task, bool& a2, bool& a3) | [source/game_sa/Tasks/TaskCategories.cpp:30](../../source/game_sa/Tasks/TaskCategories.cpp#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CTaskCategories::IsKillPedTask(const CTask* task, bool& a2, bool& a3) | [source/game_sa/Tasks/TaskCategories.cpp:36](../../source/game_sa/Tasks/TaskCategories.cpp#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-536"></a>
+<a id="grupo-537"></a>
 
 ## CTaskComplex
 
@@ -235,7 +274,7 @@
 | MakeAbortable(class CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override | [source/game_sa/Tasks/TaskComplex.h:24](../../source/game_sa/Tasks/TaskComplex.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexWalkAlongsidePed::MakeAbortable 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | SetSubTask(CTask* subTask) final | [source/game_sa/Tasks/TaskComplex.h:28](../../source/game_sa/Tasks/TaskComplex.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-537"></a>
+<a id="grupo-538"></a>
 
 ## CTaskComplexArrestPed
 
@@ -254,7 +293,7 @@
 | * Constructor(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h:34](../../source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexArrestPed::Constructor 0x0068B990 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h:35](../../source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h#L35) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexArrestPed::Destructor 0x0068BA00 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-538"></a>
+<a id="grupo-539"></a>
 
 ## CTaskComplexAttractorPartnerWait
 
@@ -269,7 +308,7 @@
 | * CreateNextSubTask(CPed* ped) override | [source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.h:20](../../source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.h#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexAttractorPartnerWait::CreateNextSubTask 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * ControlSubTask(CPed* ped) override | [source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.h:21](../../source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.h#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexAttractorPartnerWait::ControlSubTask 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-539"></a>
+<a id="grupo-540"></a>
 
 ## CTaskComplexAvoidEntity
 
@@ -277,28 +316,3 @@
 | --- | --- | --- | --- | --- | --- |
 | CTaskComplexAvoidEntity::InjectHooks() | [source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp:5](../../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp#L5) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h:19](../../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-540"></a>
-
-## CTaskComplexAvoidOtherPedWhileWandering
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTaskComplexAvoidOtherPedWhileWandering::InjectHooks() | [source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp:28](../../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTaskComplexAvoidOtherPedWhileWandering::CTaskComplexAvoidOtherPedWhileWandering( CPed* pedToAvoid, const CVector& targetPoint, eMoveState moveState, //VVV NOTSA ARGS VVV// bool isMovingTarget ) | [source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp:51](../../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexAvoidOtherPedWhileWandering::Constructor 0x0066A100 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CTaskComplexAvoidOtherPedWhileWandering::Clone() const | [source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp:68](../../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexAvoidOtherPedWhileWandering::Clone 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CTaskComplexAvoidOtherPedWhileWandering::ControlSubTask(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp:78](../../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp#L78) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexAvoidOtherPedWhileWandering::ControlSubTask 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTaskComplexAvoidOtherPedWhileWandering::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) | [source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp:165](../../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp#L165) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexAvoidOtherPedWhileWandering::MakeAbortable 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CTaskComplexAvoidOtherPedWhileWandering::CreateNextSubTask(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp:175](../../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp#L175) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexAvoidOtherPedWhileWandering::CreateNextSubTask 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CTaskComplexAvoidOtherPedWhileWandering::CreateFirstSubTask(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp:185](../../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp#L185) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexAvoidOtherPedWhileWandering::CreateFirstSubTask 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTaskComplexAvoidOtherPedWhileWandering::QuitIK(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp:205](../../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp#L205) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexAvoidOtherPedWhileWandering::QuitIK 0x0066A230 | 0 / 0 | Posible dato fijo g_ikChainMan: source/game_sa/Ragdoll/IKChainManager.cpp:29 (0x00C15448) |
-| * CTaskComplexAvoidOtherPedWhileWandering::ComputeSphere(CColSphere* out, PedsToAvoidArray& accountedPeds) | [source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp:212](../../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp#L212) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexAvoidOtherPedWhileWandering::ComputeSphere 0x0066A320 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTaskComplexAvoidOtherPedWhileWandering::SetUpIK(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp:253](../../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp#L253) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexAvoidOtherPedWhileWandering::SetUpIK 0x0066A850 | 0 / 0 | Posible dato fijo g_ikChainMan: source/game_sa/Ragdoll/IKChainManager.cpp:29 (0x00C15448); Posible dato fijo ms_fLookAtThresholdDotProduct: source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h:22 (0x00C18D48) |
-| CTaskComplexAvoidOtherPedWhileWandering::NearbyPedsInSphere(CPed* ped, const CColSphere& colSphere, PedsToAvoidArray& pedsToCheck, PedsToAvoidArray& pedsInSphere) | [source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp:303](../../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp#L303) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexAvoidOtherPedWhileWandering::NearbyPedsInSphere 0x00671FE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTaskComplexAvoidOtherPedWhileWandering::ComputeAvoidSphere(CPed* ped, CColSphere& outSp) | [source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp:330](../../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp#L330) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexAvoidOtherPedWhileWandering::ComputeAvoidSphere 0x00672080 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTaskComplexAvoidOtherPedWhileWandering::ComputeRouteRoundSphere(CPed* ped, CColSphere& spToAvoid) | [source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp:351](../../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp#L351) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexAvoidOtherPedWhileWandering::ComputeRouteRoundSphere 0x0066A7B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTaskComplexAvoidOtherPedWhileWandering::ComputeDetourTarget(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp:365](../../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp#L365) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexAvoidOtherPedWhileWandering::ComputeDetourTarget 0x00672180 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.h:18](../../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexAvoidOtherPedWhileWandering::GetTaskType 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetPedToAvoid() const | [source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.h:47](../../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.h#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| Constructor(CPed* ped, const CVector& targetPoint, eMoveState moveState) | [source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.h:54](../../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.h#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskComplexAvoidOtherPedWhileWandering::Constructor 0x0066A100 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| Destructor() | [source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.h:60](../../source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.h#L60) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskComplexAvoidOtherPedWhileWandering::Destructor 0x0066A1D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

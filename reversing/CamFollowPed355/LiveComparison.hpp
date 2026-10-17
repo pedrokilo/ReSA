@@ -16,6 +16,7 @@
 #include "WeaponInfo.h"
 #include "Tasks/TaskTypes/TaskSimpleSwim.h"
 #include "Tasks/TaskTypes/TaskSimpleClimb.h"
+#include "Tasks/TaskTypes/TaskComplexEnterCar.h"
 #include "Tasks/TaskManager.h"
 #include "Ragdoll/IKChainManager.h"
 #include "IdleCam.h"
@@ -70,6 +71,7 @@ inline CTask* __fastcall Active(CTaskManager*,void*){trace.push_back({"active"})
 inline eTaskType __fastcall TaskType(CTask*,void*){trace.push_back({"taskType"});return static_cast<eTaskType>(scenario%5==0?701:100);}
 inline void __fastcall ClimbModifier(CTaskSimpleClimb*,void*,CEntity*,float& alpha,float& beta,float& stickAlpha,float& stickBeta){trace.push_back({"climbModifier",F(alpha),F(beta),F(stickAlpha),F(stickBeta)});alpha+=.0625f;beta-=.125f;stickAlpha+=.0001f;stickBeta-=.0002f;}
 inline void __fastcall SpecialModifier(CTask*,void*,CPed*,float distance,float* alpha,float* beta,float* stickAlpha,float* stickBeta){trace.push_back({"specialModifier",F(distance),F(*alpha),F(*beta),F(*stickAlpha),F(*stickBeta)});*alpha+=.0625f;*beta-=.125f;*stickAlpha+=.0001f;*stickBeta-=.0002f;}
+inline uintptr_t Body(uintptr_t at){for(int i=0;i<16&&*reinterpret_cast<const uint8*>(at)==0xE9;++i)at+=5+*reinterpret_cast<const int32*>(at+1);return at;}
 inline bool __fastcall Behind(const CPad*,void*){trace.push_back({"behind"});return scenario%7==0;}
 inline int16 __fastcall WalkX(const CPad*,void*){trace.push_back({"walkX"});return scenario%3==0?0:int16(int32(scenario%9)*24-96);}
 inline int16 __fastcall WalkY(const CPad*,void*){trace.push_back({"walkY"});return scenario%3==0?0:int16(int32((scenario/9)%9)*24-96);}
@@ -97,6 +99,8 @@ inline void Update(){
  if(!log.is_open()){log.open(dir/"cam-follow-ped355-runtime.jsonl");Write({{"event","waiting_for_player"}});ReversingProbe::InstallFailureCapture("cam-follow-ped355");}
  if(!FindPlayerPed()||CCutsceneMgr::IsRunning())return;done=true;
  using ReversingProbe::EntryPatch;using std::bit_cast;
+ // Process_FollowPed_SA (DLL) llama a CTaskComplexEnterCar::GetCameraStickModifier de la DLL (sobre una tarea falsa de sizeof(CTask) bytes): mismo falso que en 0x63A380. Body calculado ANTES de crear ningun parche.
+ const uintptr_t specialThunk=bit_cast<uintptr_t>(&CTaskComplexEnterCar::GetCameraStickModifier),specialBody=Body(specialThunk);
  EntryPatch h0(0x734A40,Hierarchy),h1(bit_cast<uintptr_t>(&GetAnimHierarchyFromSkinClump),Hierarchy);
  EntryPatch t0(0x4D58A0,BoneTag),t1(bit_cast<uintptr_t>(&ConvertPedNode2BoneTag),BoneTag);
  EntryPatch i0(0x7C51A0,BoneIndex),i1(bit_cast<uintptr_t>(&RpHAnimIDGetIndex),BoneIndex);
@@ -124,7 +128,8 @@ inline void Update(){
  EntryPatch cv0(0x50CBF0,ColVars),cv1(bit_cast<uintptr_t>(&CCamera::SetColVarsAimWeapon),ColVars),gc0(0x50CD30,Generic),gc1(bit_cast<uintptr_t>(&CCamera::CameraGenericModeSpecialCases),Generic),pc0(0x50CDA0,PedCases),pc1(bit_cast<uintptr_t>(&CCamera::CameraPedAimModeSpecialCases),PedCases);
  EntryPatch cr0(0x520190,ColReact),cr1(bit_cast<uintptr_t>(&CCamera::CameraColDetAndReact),ColReact),im0(0x516B20,Improve),im1(bit_cast<uintptr_t>(&CCamera::ImproveNearClip),Improve),qp0(0x50AD40,QuickPitch),qp1(bit_cast<uintptr_t>(&CCamera::Find3rdPersonQuickAimPitch),QuickPitch);
  EntryPatch sw0(0x601070,Swim),sw1(bit_cast<uintptr_t>(&CPedIntelligence::GetTaskSwim),Swim),cl0(0x601180,Climb),cl1(bit_cast<uintptr_t>(&CPedIntelligence::GetTaskClimb),Climb),pa0(0x6011B0,Parachute),pa1(bit_cast<uintptr_t>(&CPedIntelligence::GetUsingParachute),Parachute),ac0(0x681720,Active),ac1(bit_cast<uintptr_t>(&CTaskManager::GetActiveTask),Active);
- EntryPatch cm0(0x67A5D0,ClimbModifier),cm1(bit_cast<uintptr_t>(&CTaskSimpleClimb::GetCameraStickModifier),ClimbModifier),sm0(0x63A380,SpecialModifier);
+ EntryPatch cm0(0x67A5D0,ClimbModifier),cm1(bit_cast<uintptr_t>(&CTaskSimpleClimb::GetCameraStickModifier),ClimbModifier),sm0(0x63A380,SpecialModifier),sm1(specialThunk,SpecialModifier);
+ std::unique_ptr<EntryPatch> sm2;if(specialBody!=specialThunk)sm2=std::make_unique<EntryPatch>(specialBody,SpecialModifier);
  EntryPatch bh0(0x540AE0,Behind),bh1(bit_cast<uintptr_t>(&CPad::GetForceCameraBehindPlayer),Behind),wx0(0x53FC90,WalkX),wx1(bit_cast<uintptr_t>(static_cast<int16(CPad::*)()const>(&CPad::GetPedWalkLeftRight)),WalkX),wy0(0x53FD30,WalkY),wy1(bit_cast<uintptr_t>(static_cast<int16(CPad::*)()const>(&CPad::GetPedWalkUpDown)),WalkY),ch0(0x541BD0,Clear),ch1(bit_cast<uintptr_t>(&CPad::ClearMouseHistory),Clear);
  EntryPatch fp0(0x56E210,FindPed),fp1(bit_cast<uintptr_t>(&FindPlayerPed),FindPed),lk0(0x618970,Look),lk1(bit_cast<uintptr_t>(&IKChainManager_c::LookAt),Look),pcv0(0x50CC50,PedColVars),pcv1(bit_cast<uintptr_t>(&CCamera::SetColVarsPed),PedColVars),q0(0x441390,Query),id0(0x522C80,Idle),id1(bit_cast<uintptr_t>(&CIdleCam::Process),Idle);
  EntryPatch duckFollow0(0x50CFA0,DuckMotion),duckFollow1(bit_cast<uintptr_t>(&CCamera::HandleCameraMotionForDucking),DuckMotion);

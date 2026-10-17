@@ -62,10 +62,18 @@ public:
     CTaskSimpleGangDriveBy(CEntity *target, const CVector *targetPos, float abortRange, int8 frequencyPercentage, eDrivebyStyle drivebyStyle, bool seatRHS);
     ~CTaskSimpleGangDriveBy() override;
 
+    // Envoltura del constructor para el hook (0x6217D0): los llamadores del EXE reservan la memoria y llaman con la memoria en ECX.
+    CTaskSimpleGangDriveBy* Constructor(CEntity* target, const CVector* targetPos, float abortRange, int8 frequencyPercentage, eDrivebyStyle drivebyStyle, bool seatRHS);
+
     eTaskType GetTaskType() const override { return Type; }
     CTask* Clone() const override;
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool ProcessPed(CPed* ped) override;
+
+    // Ayudantes de ProcessPed (antes llamadas por direccion al EXE).
+    void PlayerTarget(CPed* ped); // 0x621960: objetivo del jugador (camara de apuntado), elige la animacion de disparo segun el cuadrante
+    void AITarget(CPed* ped);     // 0x627600: objetivo de un NPC (distancias, rangos, lado/cuadrante segun el estilo)
+    void AimGun(CPed* ped);       // 0x628350: apunta el arma con CPedIK::PointGunInDirection hacia el objetivo (no dispara: dispara 0x627CC0)
 };
 VALIDATE_SIZE(CTaskSimpleGangDriveBy, 0x44);
 

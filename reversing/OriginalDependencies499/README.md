@@ -1,23 +1,25 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 16/10/2026 (Ciudad de México):** 784 grupos / 8552 funciones reconstruidas; 8552 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 105 aprobadas dentro del juego; 130 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 17/10/2026 (Ciudad de México):** 786 grupos / 8573 funciones reconstruidas; 8573 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 125 aprobadas dentro del juego; 130 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Dependencias originales fuera del catálogo · cohorte de 499
 
 Cohorte fija del 10 de octubre de 2026: destinos originales explícitos referenciados desde entradas catalogadas. `targets.csv` y `baseline.json` preservan el snapshot inicial y sus hashes. El inventario general puede cambiar al admitir funciones; esta cohorte siempre conserva sus 499 direcciones.
 
-Tres subagentes revisaron los destinos por símbolos, contratos fuente y evidencia binaria. [progress.csv](progress.csv) conserva decisiones y admisiones; las 21 inciertas siguen explícitas en los informes de revisión. Clasificar una función no equivale a validarla.
+Tres subagentes revisaron los destinos por símbolos, contratos fuente y evidencia binaria. [progress.csv](progress.csv) conserva decisiones y admisiones; las 21 que el 10/10 quedaron inciertas se resolvieron el 17/10/2026 (PLAN-001): fichas con evidencias en [review-uncertain-21.md](review-uncertain-21.md), 20 como juego y 1 como biblioteca, reconstruidas en C++ y validadas con los bancos `Dependencies21A` a `Dependencies21G`. Clasificar una función no equivale a validarla.
 
 | Clasificación | Total | Aprobadas en juego | Pendientes |
 | --- | ---: | ---: | ---: |
-| Funciones del juego | 235 | 105 | 130 |
-| Bibliotecas/runtime/SDK | 243 | 0 | Seguimiento separado |
-| Identidad o procedencia incierta | 21 | 0 | 21 |
-| Total de la cohorte | 499 | 105 | 394 |
+| Funciones del juego | 255 | 125 | 130 |
+| Bibliotecas/runtime/SDK | 244 | 0 (1 reconstruida y validada, `CrtPrintf`, contada como biblioteca) | Seguimiento separado |
+| Identidad o procedencia incierta | 0 | 0 | 0 |
+| Total de la cohorte | 499 | 125 | 374 |
+
+Evolución: el 10/10/2026 la tabla era 235 del juego (105 aprobadas, 130 pendientes), 243 bibliotecas y 21 inciertas; el 17/10/2026 las 21 inciertas se resolvieron (20 juego, 1 biblioteca). El total sigue en 499 y `targets.csv` y `baseline.json` no cambian. Los 374 de la columna de pendientes son las 130 del juego y las 244 bibliotecas, de las que la reconstruida (`CrtPrintf`, `runtime_status=library_validated` en `progress.csv`) conserva su seguimiento aparte y no cuenta como aprobada en juego.
 
 ## Funciones admitidas
 
-105 funciones, **243392 pares finales, cero diferencias y ningún resultado original/candidate nulo**, con rutas RH de producción apagado/activo comprobadas, restauración de estado, partidas y configuración. Se cuenta únicamente la corrida final de cada banco; las preparatorias no inflan el total. Catálogo principal actual: 8550/8550 funciones y 784/784 grupos con evidencia histórica; su 100% no incluye las dependencias pendientes de esta cohorte.
+La tabla siguiente es la admisión del 10/10/2026 (la que registra `approved.json`); las 20 funciones del juego admitidas el 17/10/2026 se listan en la sección «Resolución de los 21 inciertos». 105 funciones, **243392 pares finales, cero diferencias y ningún resultado original/candidate nulo**, con rutas RH de producción apagado/activo comprobadas, restauración de estado, partidas y configuración. Se cuenta únicamente la corrida final de cada banco; las preparatorias no inflan el total. Catálogo principal actual: 8550/8550 funciones y 784/784 grupos con evidencia histórica; su 100% no incluye las dependencias pendientes de esta cohorte.
 
 | Función | Dirección EXE | Pares finales | Banco y alcance |
 | --- | --- | ---: | --- |
@@ -131,6 +133,36 @@ Cada banco documenta dirección/instrucción del EXE, reconstrucción o correcci
 
 `approved.json` enlaza evidencias; `verify_bank.py` comprueba cada par, resúmenes, rutas, restauración y huellas exactas; `register_bank.py` admite sólo direcciones clasificadas como juego dentro de esta cohorte. `dependency_review=null`: aprobación histórica de los fixtures, sin certificar independencia transitiva del EXE ni integración universal. Las huellas de corridas anteriores no se reescriben cuando otra función del mismo archivo cambia.
 
+## Resolución de los 21 inciertos (17/10/2026)
+
+20 funciones del juego aprobadas con **43008 pares finales, cero diferencias y ningún resultado nulo**, y una biblioteca (CRT `printf`) con 4096 pares, sumando 47104 pares de los bancos `Dependencies21A` a `Dependencies21G`. Sus corridas finales están en `reversing/CppTwelveLevel6Final/runs/` y se registran en [approved-level6.json](approved-level6.json) (mismo formato que `approved.json`; bancos del esquema de nivel 6, sin `approval-audit.json`, por lo que `audit-cohort-current.py` y `refresh_progress_docs.py` siguen leyendo sólo `approved.json`). En `progress.csv` las 20 figuran con `category=game`, `implementation=implemented` y `runtime_status=passed`.
+
+| Función | Dirección EXE | Pares finales | Banco |
+| --- | --- | ---: | --- |
+| CCamera::ProcessObbeCinemaCameraCar | 0x005267C0 | 2048 | [Evidencia](../Dependencies21B/README.md) |
+| CCamera::ProcessObbeCinemaCameraTrain | 0x00526950 | 2048 | [Evidencia](../Dependencies21B/README.md) |
+| CCamera::ProcessObbeCinemaCameraHeli | 0x00526AE0 | 2048 | [Evidencia](../Dependencies21B/README.md) |
+| CCamera::ProcessObbeCinemaCameraPlane | 0x00526C80 | 2048 | [Evidencia](../Dependencies21B/README.md) |
+| CCamera::ProcessObbeCinemaCameraBoat | 0x00526E20 | 2048 | [Evidencia](../Dependencies21B/README.md) |
+| CTaskSimpleFight::FightSetUpCol | 0x0061D5F0 | 1536 | [Evidencia](../Dependencies21C/README.md) |
+| CTaskSimpleFight::FightHitCar | 0x0061D0B0 | 1536 | [Evidencia](../Dependencies21C/README.md) |
+| CTaskSimpleFight::FightStrike | 0x006240B0 | 1536 | [Evidencia](../Dependencies21C/README.md) |
+| CTaskSimpleGangDriveBy::Constructor | 0x006217D0 | 1024 | [Evidencia](../Dependencies21D/README.md) |
+| CTaskSimpleGangDriveBy::PlayerTarget | 0x00621960 | 2048 | [Evidencia](../Dependencies21D/README.md) |
+| CTaskSimpleGangDriveBy::AITarget | 0x00627600 | 4096 | [Evidencia](../Dependencies21D/README.md) |
+| CTaskSimpleGangDriveBy::AimGun | 0x00628350 | 4096 | [Evidencia](../Dependencies21D/README.md) |
+| CPopulation::RandomIntInLimitRange | 0x00610DB0 | 1536 | [Evidencia](../Dependencies21E/README.md) |
+| CZoneDef::GetCenter | 0x0072D6D0 | 1536 | [Evidencia](../Dependencies21E/README.md) |
+| CTaskComplexEnterCar::GetCameraStickModifier | 0x0063A380 | 3072 | [Evidencia](../Dependencies21E/README.md) |
+| D3DResourceSystem::TidyUpD3DTextures | 0x007305E0 | 2048 | [Evidencia](../Dependencies21F/README.md) |
+| D3DResourceSystem::TidyUpD3DIndexBuffers | 0x00730740 | 2048 | [Evidencia](../Dependencies21F/README.md) |
+| RwHelper::GetFirstTexture | 0x00734940 | 1024 | [Evidencia](../Dependencies21G/README.md) |
+| RwHelper::RpGeometryReplaceOldMaterialWithNewMaterial | 0x00734DE0 | 1536 | [Evidencia](../Dependencies21G/README.md) |
+| CQuaternion::Slerp (halftheta) | 0x0059C300 | 4096 | [Evidencia](../Dependencies21G/README.md) |
+| CRT::CrtPrintf (biblioteca, seguimiento separado) | 0x00821982 | 4096 | [Evidencia](../Dependencies21A/README.md) |
+
+Los grupos D3D (confianza media-alta, procedencia histórica no observable en el binario) y los colaboradores sustituidos por falsos en los bancos se detallan en [review-uncertain-21.md](review-uncertain-21.md). `dependency_review=null`: no certifica independencia transitiva del EXE.
+
 ## Continuación
 
-[work-queue.csv](work-queue.csv) muestra las entradas del juego todavía pendientes. Las bibliotecas siguen en el inventario completo; no se consideran reconstruidas por clasificarlas. Las inciertas necesitan resolver identidad/procedencia antes de diseñar pruebas. No registrar por nombre supuesto, cuerpo existente ni por pertenecer a un rango de direcciones.
+[work-queue.csv](work-queue.csv) muestra las entradas del juego todavía pendientes. Las bibliotecas siguen en el inventario completo; no se consideran reconstruidas por clasificarlas. Ya no quedan inciertas (resueltas el 17/10/2026). No registrar por nombre supuesto, cuerpo existente ni por pertenecer a un rango de direcciones.

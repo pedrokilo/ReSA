@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "CullZones.h"
+#include "X87Math.h"
 
 void CCullZones::InjectHooks() {
     RH_ScopedClass(CCullZones);
@@ -47,6 +48,21 @@ void CCullZones::InjectHooks() {
     RH_ScopedInstall(Update, 0x72DEC0);
 
     //RH_ScopedGlobalInstall(IsPointWithinArbitraryArea, 0x72DDE0);
+
+    {
+        RH_ScopedClass(CZoneDef);
+        RH_ScopedCategoryGlobal();
+
+        RH_ScopedInstall(GetCenter, 0x72D6D0);
+    }
+}
+
+// 0x72D6D0
+// Como el original: fild/fiadd exactos (int16), fmul por 0.5f (0x858B8C) y fstp dword en el orden x, y, z; el aritmetico esta en X87Math.cpp. Devuelve out (EAX);
+// el unico llamador del EXE (CCamera::CamControl, 0x529312) sobrescribe ECX y EDX antes de leerlos, asi que no hay residuo que reproducir.
+CVector* CZoneDef::GetCenter(CVector& out) const {
+    CullZoneCenterCpp(&m_cornerX, &out.x);
+    return &out;
 }
 
 // 0x72D6B0

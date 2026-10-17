@@ -1,0 +1,70 @@
+# CQuaternion::Slerp (0x59C300..0x59C3D4) y constantes: 858B50=0.0 858FE4=0x3FC90FDB(pi/2) 858CB8=0x40490FDB(pi) 858624=1.0 (float)
+59c300: fld dword ptr [esp + 0xc]
+59c304: fcomp dword ptr [0x858b50]
+59c30a: fnstsw ax
+59c30c: test ah, 0x44
+59c30f: jp 0x59c32e
+59c311: mov eax, dword ptr [esp + 8]
+59c315: mov edx, dword ptr [eax]
+59c317: mov dword ptr [ecx], edx
+59c319: mov edx, dword ptr [eax + 4]
+59c31c: mov dword ptr [ecx + 4], edx
+59c31f: mov edx, dword ptr [eax + 8]
+59c322: mov dword ptr [ecx + 8], edx
+59c325: mov eax, dword ptr [eax + 0xc]
+59c328: mov dword ptr [ecx + 0xc], eax
+59c32b: ret 0x14
+59c32e: fld dword ptr [esp + 0xc]
+59c332: fcomp dword ptr [0x858fe4]
+59c338: fnstsw ax
+59c33a: test ah, 0x41
+59c33d: jne 0x59c373
+59c33f: fld dword ptr [0x858cb8]
+59c345: fsub dword ptr [esp + 0xc]
+59c349: fstp dword ptr [esp + 0xc]
+59c34d: fld dword ptr [0x858624]
+59c353: fsub dword ptr [esp + 0x14]
+59c357: fmul dword ptr [esp + 0xc]
+59c35b: fsin 
+59c35d: fmul dword ptr [esp + 0x10]
+59c361: fld dword ptr [esp + 0xc]
+59c365: fmul dword ptr [esp + 0x14]
+59c369: fsin 
+59c36b: fmul dword ptr [esp + 0x10]
+59c36f: fchs 
+59c371: jmp 0x59c395
+59c373: fld dword ptr [0x858624]
+59c379: fsub dword ptr [esp + 0x14]
+59c37d: fmul dword ptr [esp + 0xc]
+59c381: fsin 
+59c383: fmul dword ptr [esp + 0x10]
+59c387: fld dword ptr [esp + 0xc]
+59c38b: fmul dword ptr [esp + 0x14]
+59c38f: fsin 
+59c391: fmul dword ptr [esp + 0x10]
+59c395: mov eax, dword ptr [esp + 4]
+59c399: fld st(1)
+59c39b: fmul dword ptr [eax]
+59c39d: mov edx, dword ptr [esp + 8]
+59c3a1: fld st(1)
+59c3a3: fmul dword ptr [edx]
+59c3a5: faddp st(1)
+59c3a7: fstp dword ptr [ecx]
+59c3a9: fld st(0)
+59c3ab: fmul dword ptr [edx + 4]
+59c3ae: fld st(2)
+59c3b0: fmul dword ptr [eax + 4]
+59c3b3: faddp st(1)
+59c3b5: fstp dword ptr [ecx + 4]
+59c3b8: fld st(0)
+59c3ba: fmul dword ptr [edx + 8]
+59c3bd: fld st(2)
+59c3bf: fmul dword ptr [eax + 8]
+59c3c2: faddp st(1)
+59c3c4: fstp dword ptr [ecx + 8]
+59c3c7: fmul dword ptr [edx + 0xc]
+59c3ca: fxch st(1)
+59c3cc: fmul dword ptr [eax + 0xc]
+59c3cf: faddp st(1)
+59c3d1: fstp dword ptr [ecx + 0xc]
+59c3d4: ret 0x14

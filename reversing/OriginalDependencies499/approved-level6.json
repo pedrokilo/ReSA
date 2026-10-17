@@ -1,0 +1,82 @@
+{
+  "0x006217D0": {
+    "identity": "CTaskSimpleGangDriveBy::Constructor",
+    "validation_summary": "reversing/Dependencies21D/validation-summary.json"
+  },
+  "0x00734940": {
+    "identity": "RwHelper::GetFirstTexture",
+    "validation_summary": "reversing/Dependencies21G/validation-summary.json"
+  },
+  "0x007305E0": {
+    "identity": "D3DResourceSystem::TidyUpD3DTextures",
+    "validation_summary": "reversing/Dependencies21F/validation-summary.json"
+  },
+  "0x00730740": {
+    "identity": "D3DResourceSystem::TidyUpD3DIndexBuffers",
+    "validation_summary": "reversing/Dependencies21F/validation-summary.json"
+  },
+  "0x0059C300": {
+    "identity": "CQuaternion::Slerp-halftheta",
+    "validation_summary": "reversing/Dependencies21G/validation-summary.json"
+  },
+  "0x005267C0": {
+    "identity": "CCamera::ProcessObbeCinemaCameraCar",
+    "validation_summary": "reversing/Dependencies21B/validation-summary.json"
+  },
+  "0x00526950": {
+    "identity": "CCamera::ProcessObbeCinemaCameraTrain",
+    "validation_summary": "reversing/Dependencies21B/validation-summary.json"
+  },
+  "0x00526AE0": {
+    "identity": "CCamera::ProcessObbeCinemaCameraHeli",
+    "validation_summary": "reversing/Dependencies21B/validation-summary.json"
+  },
+  "0x00526C80": {
+    "identity": "CCamera::ProcessObbeCinemaCameraPlane",
+    "validation_summary": "reversing/Dependencies21B/validation-summary.json"
+  },
+  "0x00526E20": {
+    "identity": "CCamera::ProcessObbeCinemaCameraBoat",
+    "validation_summary": "reversing/Dependencies21B/validation-summary.json"
+  },
+  "0x00610DB0": {
+    "identity": "CPopulation::RandomIntInLimitRange",
+    "validation_summary": "reversing/Dependencies21E/validation-summary.json"
+  },
+  "0x0061D0B0": {
+    "identity": "CTaskSimpleFight::FightHitCar",
+    "validation_summary": "reversing/Dependencies21C/validation-summary.json"
+  },
+  "0x0061D5F0": {
+    "identity": "CTaskSimpleFight::FightSetUpCol",
+    "validation_summary": "reversing/Dependencies21C/validation-summary.json"
+  },
+  "0x00621960": {
+    "identity": "CTaskSimpleGangDriveBy::PlayerTarget",
+    "validation_summary": "reversing/Dependencies21D/validation-summary.json"
+  },
+  "0x006240B0": {
+    "identity": "CTaskSimpleFight::FightStrike",
+    "validation_summary": "reversing/Dependencies21C/validation-summary.json"
+  },
+  "0x00627600": {
+    "identity": "CTaskSimpleGangDriveBy::AITarget",
+    "validation_summary": "reversing/Dependencies21D/validation-summary.json"
+  },
+  "0x00628350": {
+    "identity": "CTaskSimpleGangDriveBy::AimGun",
+    "validation_summary": "reversing/Dependencies21D/validation-summary.json"
+  },
+  "0x0063A380": {
+    "identity": "CTaskComplexEnterCar::GetCameraStickModifier",
+    "validation_summary": "reversing/Dependencies21E/validation-summary.json"
+  },
+  "0x0072D6D0": {
+    "identity": "CZoneDef::GetCenter",
+    "validation_summary": "reversing/Dependencies21E/validation-summary.json"
+  },
+  "0x00734DE0": {
+    "identity": "RwHelper::RpGeometryReplaceOldMaterialWithNewMaterial",
+    "validation_summary": "reversing/Dependencies21G/validation-summary.json"
+  }
+}

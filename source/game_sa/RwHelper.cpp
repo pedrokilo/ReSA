@@ -40,6 +40,8 @@ void RwHelperInjectHooks() {
     RH_ScopedGlobalInstall(GetAnimHierarchyFromSkinClump, 0x734A40);
     RH_ScopedNamedGlobalInstall(GetAnimHierarchyFromFrameRegs, "GetAnimHierarchyFromFrame", 0x734AB0);
     RH_ScopedGlobalInstall(RwTexDictionaryFindHashNamedTexture, 0x734E50);
+    RH_ScopedGlobalInstall(GetFirstTexture, 0x734940);
+    RH_ScopedGlobalInstall(RpGeometryReplaceOldMaterialWithNewMaterial, 0x734DE0);
     RH_ScopedGlobalInstall(GetAnimHierarchyFromClump, 0x734B10);
     RH_ScopedGlobalInstall(AtomicRemoveAnimFromSkinCB, 0x734B90);
     RH_ScopedGlobalInstall(RpAtomicConvertGeometryToTL, 0x734BE0);
@@ -296,9 +298,26 @@ bool SetFilterModeOnClumpsTextures(RpClump* clump, RwTextureFilterMode filtering
     return true;
 }
 
-// 0x734DE0
+// 0x734DE0: sustituye oldMaterial por newMaterial en cada malla de la geometria y en su lista de materiales. Devuelve true si cambio alguna malla.
+// El EXE ignora RpMeshHeader::firstMeshOffset: las mallas empiezan justo despues de la cabecera de 0x10 bytes. Por cada coincidencia, en este orden:
+// indice del material en la lista (_rpMaterialListFindMaterialIndex, 0x74E420; -1 si no esta y entonces materials[-1] se escribe igual que en el EXE),
+// RpMaterialDestroy(material viejo) (0x74DA20, resta una referencia), lista y malla pasan a apuntar al nuevo y se suma una referencia al nuevo (16 bits).
 bool RpGeometryReplaceOldMaterialWithNewMaterial(RpGeometry* geometry, RpMaterial* oldMaterial, RpMaterial* newMaterial) {
-    return ((bool(__cdecl*)(RpGeometry*, RpMaterial*, RpMaterial*))0x734DE0)(geometry, oldMaterial, newMaterial);
+    RpMeshHeader* const header = geometry->mesh;
+    bool replaced = false;
+    RpMesh* mesh = reinterpret_cast<RpMesh*>(header + 1);
+    for (uint32 count = header->numMeshes; count > 0; --count, ++mesh) {
+        if (mesh->material != oldMaterial) {
+            continue;
+        }
+        const int32 index = _rpMaterialListFindMaterialIndex(&geometry->matList, mesh->material);
+        RpMaterialDestroy(mesh->material);
+        geometry->matList.materials[index] = newMaterial;
+        mesh->material = newMaterial;
+        ++newMaterial->refCount;
+        replaced = true;
+    }
+    return replaced;
 }
 
 // 0x734E50

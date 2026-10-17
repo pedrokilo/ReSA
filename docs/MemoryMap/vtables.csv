@@ -182,7 +182,7 @@ CTaskComplexDriveToPoint,0x0086E9DC,0x0046E9DC,14,source/game_sa/Tasks/TaskTypes
 CTaskComplexCarDriveWander,0x0086E96C,0x0046E96C,14,source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp,25,source_vtable_reference
 CTaskComplexEnterAnyCarAsDriver,0x0086EA14,0x0046EA14,11,source/game_sa/Tasks/TaskTypes/TaskComplexEnterAnyCarAsDriver.cpp,25,source_vtable_reference
 CTaskComplexEnterBoatAsDriver,0x0086E7D0,0x0046E7D0,11,source/game_sa/Tasks/TaskTypes/TaskComplexEnterBoatAsDriver.cpp,28,source_vtable_reference
-CTaskComplexEnterCar,0x0086E6F0,0x0046E6F0,12,source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.cpp,58,source_vtable_reference
+CTaskComplexEnterCar,0x0086E6F0,0x0046E6F0,12,source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.cpp,59,source_vtable_reference
 CTaskComplexEnterCarAsDriver,0x0086EAAC,0x0046EAAC,12,source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriver.cpp,24,source_vtable_reference
 CTaskComplexEnterCarAsDriverTimed,0x0086E720,0x0046E720,11,source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.cpp,25,source_vtable_reference
 CTaskComplexEnterCarAsPassenger,0x0086EADC,0x0046EADC,12,source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassenger.cpp,24,source_vtable_reference
@@ -367,10 +367,10 @@ CTaskSimpleEvasiveDive,0x0086F244,0x0046F244,9,source/game_sa/Tasks/TaskTypes/Ta
 CTaskSimpleEvasiveStep,0x0086F1F4,0x0046F1F4,9,source/game_sa/Tasks/TaskTypes/TaskSimpleEvasiveStep.cpp,24,source_vtable_reference
 CTaskSimpleFacial,0x00870AB8,0x00470AB8,9,source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp,24,source_vtable_reference
 CTaskSimpleFall,0x00870430,0x00470430,9,source/game_sa/Tasks/TaskTypes/TaskSimpleFall.cpp,25,source_vtable_reference
-CTaskSimpleFight,0x0086D684,0x0046D684,9,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,217,source_vtable_reference
+CTaskSimpleFight,0x0086D684,0x0046D684,9,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,497,source_vtable_reference
 CTaskSimpleFightingControl,0x0086D700,0x0046D700,9,source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp,38,source_vtable_reference
 CTaskSimpleFinishBrain,0x00859D20,0x00459D20,9,source/game_sa/Tasks/TaskTypes/TaskSimpleFinishBrain.cpp,23,source_vtable_reference
-CTaskSimpleGangDriveBy,0x0086D944,0x0046D944,9,source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp,25,source_vtable_reference
+CTaskSimpleGangDriveBy,0x0086D944,0x0046D944,9,source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp,26,source_vtable_reference
 CTaskSimpleGetUp,0x008703E0,0x004703E0,9,source/game_sa/Tasks/TaskTypes/TaskSimpleGetUp.cpp,25,source_vtable_reference
 CTaskSimpleGiveCPR,0x0086F4C8,0x0046F4C8,9,source/game_sa/Tasks/TaskTypes/TaskSimpleGiveCPR.cpp,26,source_vtable_reference
 CTaskSimpleGoTo,0x0086FD1C,0x0046FD1C,9,source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp,26,source_vtable_reference

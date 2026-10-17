@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 16/10/2026 (Ciudad de México):** 784 grupos / 8552 funciones reconstruidas; 8552 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 105 aprobadas dentro del juego; 130 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 17/10/2026 (Ciudad de México):** 786 grupos / 8573 funciones reconstruidas; 8573 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 125 aprobadas dentro del juego; 130 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,6 +7,19 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-481"></a>
+
+## CReplay::tReplayBuffer::Iterator
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| & CReplay::tReplayBuffer::Iterator::operator++() | [source/game_sa/Replay.cpp:1928](../../source/game_sa/Replay.cpp#L1928) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| Iterator(const tReplayBuffer* buffer, uint32 offset) | [source/game_sa/Replay.h:93](../../source/game_sa/Replay.h#L93) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| operator++(int) | [source/game_sa/Replay.h:97](../../source/game_sa/Replay.h#L97) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| & operator*() const | [source/game_sa/Replay.h:103](../../source/game_sa/Replay.h#L103) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * operator-&gt;() const | [source/game_sa/Replay.h:113](../../source/game_sa/Replay.h#L113) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| operator-(const Iterator& rhs) const | [source/game_sa/Replay.h:126](../../source/game_sa/Replay.h#L126) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-482"></a>
 
 ## CRestart
 
@@ -25,7 +38,7 @@
 | CRestart::Load() | [source/game_sa/Restart.cpp:212](../../source/game_sa/Restart.cpp#L212) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CRestart::Load 0x005D3770 | 0 / 0 | Posible dato fijo ExtraHospitalRestartCoors: source/game_sa/Restart.h:29 (0x00A43414); Posible dato fijo ExtraHospitalRestartHeading: source/game_sa/Restart.h:31 (0x00A43254); Posible dato fijo ExtraHospitalRestartRadius: source/game_sa/Restart.h:30 (0x00A43258); Posible dato fijo ExtraPoliceStationRestartCoors: source/game_sa/Restart.h:34 (0x00A43420); Posible dato fijo ExtraPoliceStationRestartHeading: source/game_sa/Restart.h:36 (0x00A4324C); Posible dato fijo ExtraPoliceStationRestartRadius: source/game_sa/Restart.h:35 (0x00A43250); Posible dato fijo HospitalRestartHeadings: source/game_sa/Restart.h:25 (0x00A432E8); Posible dato fijo HospitalRestartPoints: source/game_sa/Restart.h:26 (0x00A43318); Posible dato fijo HospitalRestartWhenToUse: source/game_sa/Restart.h:24 (0x00A432C0); Posible dato fijo NumberOfHospitalRestarts: source/game_sa/Restart.h:23 (0x00A4326C); Posible dato fijo NumberOfPoliceRestarts: source/game_sa/Restart.h:18 (0x00A43268); Posible dato fijo OverridePosition: source/game_sa/Restart.h:13 (0x00A43408); Posible dato fijo PoliceRestartHeadings: source/game_sa/Restart.h:20 (0x00A43298); Posible dato fijo PoliceRestartPoints: source/game_sa/Restart.h:21 (0x00A43390); Posible dato fijo PoliceRestartWhenToUse: source/game_sa/Restart.h:19 (0x00A43270); Posible dato fijo bFadeInAfterNextArrest: source/game_sa/Restart.h:15 (0x00A4325C); Posible dato fijo bFadeInAfterNextDeath: source/game_sa/Restart.h:16 (0x00A4325D); Posible dato fijo bOverrideRestart: source/game_sa/Restart.h:12 (0x00A43264) |
 | CRestart::Save() | [source/game_sa/Restart.cpp:246](../../source/game_sa/Restart.cpp#L246) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CRestart::Save 0x005D3620 | 0 / 0 | Posible dato fijo ExtraHospitalRestartCoors: source/game_sa/Restart.h:29 (0x00A43414); Posible dato fijo ExtraHospitalRestartHeading: source/game_sa/Restart.h:31 (0x00A43254); Posible dato fijo ExtraHospitalRestartRadius: source/game_sa/Restart.h:30 (0x00A43258); Posible dato fijo ExtraPoliceStationRestartCoors: source/game_sa/Restart.h:34 (0x00A43420); Posible dato fijo ExtraPoliceStationRestartHeading: source/game_sa/Restart.h:36 (0x00A4324C); Posible dato fijo ExtraPoliceStationRestartRadius: source/game_sa/Restart.h:35 (0x00A43250); Posible dato fijo HospitalRestartHeadings: source/game_sa/Restart.h:25 (0x00A432E8); Posible dato fijo HospitalRestartPoints: source/game_sa/Restart.h:26 (0x00A43318); Posible dato fijo HospitalRestartWhenToUse: source/game_sa/Restart.h:24 (0x00A432C0); Posible dato fijo NumberOfHospitalRestarts: source/game_sa/Restart.h:23 (0x00A4326C); Posible dato fijo NumberOfPoliceRestarts: source/game_sa/Restart.h:18 (0x00A43268); Posible dato fijo OverridePosition: source/game_sa/Restart.h:13 (0x00A43408); Posible dato fijo PoliceRestartHeadings: source/game_sa/Restart.h:20 (0x00A43298); Posible dato fijo PoliceRestartPoints: source/game_sa/Restart.h:21 (0x00A43390); Posible dato fijo PoliceRestartWhenToUse: source/game_sa/Restart.h:19 (0x00A43270); Posible dato fijo bFadeInAfterNextArrest: source/game_sa/Restart.h:15 (0x00A4325C); Posible dato fijo bFadeInAfterNextDeath: source/game_sa/Restart.h:16 (0x00A4325D); Posible dato fijo bOverrideRestart: source/game_sa/Restart.h:12 (0x00A43264) |
 
-<a id="grupo-482"></a>
+<a id="grupo-483"></a>
 
 ## CRideAnimData
 
@@ -33,7 +46,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CRideAnimData(AssocGroupId animGroup) | [source/game_sa/RideAnimData.h:29](../../source/game_sa/RideAnimData.h#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-483"></a>
+<a id="grupo-484"></a>
 
 ## CRoadBlocks
 
@@ -49,7 +62,7 @@
 | CRoadBlocks::GetRoadBlockNodeInfo(CNodeAddress nodeAddress, float& outWidth, CVector& outDir) | [source/game_sa/RoadBlocks.cpp:579](../../source/game_sa/RoadBlocks.cpp#L579) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CRoadBlocks::GetRoadBlockNodeInfo 0x00460EE0 | 0 / 0 | Posible dato fijo ThePaths: source/game_sa/PathFind.h:619 (0x0096F050) |
 | CRoadBlocks::RegisterScriptRoadBlock(CVector cornerA, CVector cornerB, bool isGangRoadBlock) | [source/game_sa/RoadBlocks.cpp:605](../../source/game_sa/RoadBlocks.cpp#L605) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CRoadBlocks::RegisterScriptRoadBlock 0x00460DF0 | 0 / 0 | Posible dato fijo aScriptRoadBlocks: source/game_sa/RoadBlocks.h:40 (0x00A43AB8) |
 
-<a id="grupo-484"></a>
+<a id="grupo-485"></a>
 
 ## CRope
 
@@ -65,7 +78,7 @@
 | CRope::PickUpObject(CEntity* obj) | [source/game_sa/Rope.cpp:198](../../source/game_sa/Rope.cpp#L198) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CRope::PickUpObject 0x005569C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CRope::Update() | [source/game_sa/Rope.cpp:236](../../source/game_sa/Rope.cpp#L236) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CRope::Update 0x00557530 | 0 / 0 | Conversión de dirección fija: 0x00A9B0C8; Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:40 (0x00B6F028) |
 
-<a id="grupo-485"></a>
+<a id="grupo-486"></a>
 
 ## CRopes
 
@@ -85,7 +98,7 @@
 | CRopes::SetSpeedOfTopNode(uint32 ropeId, CVector dirSpeed) | [source/game_sa/Ropes.cpp:258](../../source/game_sa/Ropes.cpp#L258) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CRopes::SetSpeedOfTopNode 0x00555DF0 | 0 / 0 | Posible dato fijo aRopes: source/game_sa/Ropes.h:24 (0x00B768B8) |
 | & GetRope(int32 index) | [source/game_sa/Ropes.h:47](../../source/game_sa/Ropes.h#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo aRopes: source/game_sa/Ropes.h:24 (0x00B768B8) |
 
-<a id="grupo-486"></a>
+<a id="grupo-487"></a>
 
 ## CRubbish
 
@@ -93,7 +106,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CRubbish::SetVisibility(bool unk) | [source/game_sa/Rubbish.cpp:5](../../source/game_sa/Rubbish.cpp#L5) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-487"></a>
+<a id="grupo-488"></a>
 
 ## CRunningScript
 
@@ -160,7 +173,7 @@
 | & GetArrayGlobal(scm::VarLoc base, size_t idx, size_t elemSizeInDWords = std::max&lt;size_t&gt;(1, sizeof(T) / sizeof(int32))) | [source/game_sa/Scripts/RunningScript.h:376](../../source/game_sa/Scripts/RunningScript.h#L376) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | & GetAtIPFromArray(bool isGlobalArray) | [source/game_sa/Scripts/RunningScript.h:382](../../source/game_sa/Scripts/RunningScript.h#L382) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-488"></a>
+<a id="grupo-489"></a>
 
 ## CSaveGarage
 
@@ -169,7 +182,7 @@
 | CSaveGarage::CopyGarageIntoSaveGarage(Const CGarage& g) | [source/game_sa/Garage.cpp:315](../../source/game_sa/Garage.cpp#L315) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CSaveGarage::CopyGarageOutOfSaveGarage(CGarage& g) const | [source/game_sa/Garage.cpp:336](../../source/game_sa/Garage.cpp#L336) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-489"></a>
+<a id="grupo-490"></a>
 
 ## CScriptResourceManager
 
@@ -183,7 +196,7 @@
 | CScriptResourceManager::Load() | [source/game_sa/ScriptResourceManager.cpp:91](../../source/game_sa/ScriptResourceManager.cpp#L91) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CScriptResourceManager::Save() | [source/game_sa/ScriptResourceManager.cpp:97](../../source/game_sa/ScriptResourceManager.cpp#L97) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-490"></a>
+<a id="grupo-491"></a>
 
 ## CScripted2dEffects
 
@@ -201,7 +214,7 @@
 | Load() | [source/game_sa/Scripts/Scripted2dEffects.h:76](../../source/game_sa/Scripts/Scripted2dEffects.h#L76) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Save() | [source/game_sa/Scripts/Scripted2dEffects.h:77](../../source/game_sa/Scripts/Scripted2dEffects.h#L77) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-491"></a>
+<a id="grupo-492"></a>
 
 ## CScriptedBrainTaskEntry
 
@@ -211,7 +224,7 @@
 | CScriptedBrainTaskEntry::CScriptedBrainTaskEntry() | [source/game_sa/Tasks/ScriptedBrainTaskStore.cpp:51](../../source/game_sa/Tasks/ScriptedBrainTaskStore.cpp#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CScriptedBrainTaskEntry::Constructor 0x0062EC40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CScriptedBrainTaskEntry::Constructor() | [source/game_sa/Tasks/ScriptedBrainTaskStore.cpp:57](../../source/game_sa/Tasks/ScriptedBrainTaskStore.cpp#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CScriptedBrainTaskEntry::Constructor 0x0062EC40 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-492"></a>
+<a id="grupo-493"></a>
 
 ## CScriptedBrainTaskStore
 
@@ -224,7 +237,7 @@
 | CScriptedBrainTaskStore::Clear(CTask* task) | [source/game_sa/Tasks/ScriptedBrainTaskStore.cpp:119](../../source/game_sa/Tasks/ScriptedBrainTaskStore.cpp#L119) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CScriptedBrainTaskStore::Clear-task 0x006357F0 | 0 / 0 | Posible dato fijo ms_entries: source/game_sa/Tasks/ScriptedBrainTaskStore.h:29 (0x00C188F0) |
 | CScriptedBrainTaskStore::GetOf(CPed* ped) -&gt; CScriptedBrainTaskEntry* | [source/game_sa/Tasks/ScriptedBrainTaskStore.cpp:132](../../source/game_sa/Tasks/ScriptedBrainTaskStore.cpp#L132) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_entries: source/game_sa/Tasks/ScriptedBrainTaskStore.h:29 (0x00C188F0) |
 
-<a id="grupo-493"></a>
+<a id="grupo-494"></a>
 
 ## CScriptsForBrains
 
@@ -242,7 +255,7 @@
 | CScriptsForBrains::GetIndexOfScriptBrainWithThisName(const char* name, int8 type) | [source/game_sa/ScriptsForBrains.cpp:160](../../source/game_sa/ScriptsForBrains.cpp#L160) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CScriptsForBrains::GetIndexOfScriptBrainWithThisName 0x0046AA30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CScriptsForBrains::StartAttractorScriptBrainWithThisName(const char* name, CPed* ped, bool bHasAScriptBrain) | [source/game_sa/ScriptsForBrains.cpp:169](../../source/game_sa/ScriptsForBrains.cpp#L169) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CScriptsForBrains::StartAttractorScriptBrainWithThisName 0x0046B390 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-494"></a>
+<a id="grupo-495"></a>
 
 ## CSearchLight
 
@@ -256,7 +269,7 @@
 | CSearchLight::GetOnEntity() | [source/game_sa/SearchLight.cpp:22](../../source/game_sa/SearchLight.cpp#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CSearchLight::IsSpottedEntity(uint32 index, const CEntity& entity) | [source/game_sa/SearchLight.cpp:27](../../source/game_sa/SearchLight.cpp#L27) | C++ · Envoltura al EXE | Sin registro inequívoco | 0 / 0 | Delegación por dirección 0x00493900: fuera del catálogo consultado; ruta efectiva sin resolver |
 
-<a id="grupo-495"></a>
+<a id="grupo-496"></a>
 
 ## CSetPiece
 
@@ -289,7 +302,7 @@
 | GetTargetCoord2X() const | [source/game_sa/SetPiece.h:61](../../source/game_sa/SetPiece.h#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTargetCoord2Y() const | [source/game_sa/SetPiece.h:62](../../source/game_sa/SetPiece.h#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-496"></a>
+<a id="grupo-497"></a>
 
 ## CSetPieces
 
@@ -302,7 +315,7 @@
 | CSetPieces::Save() | [source/game_sa/SetPieces.cpp:81](../../source/game_sa/SetPieces.cpp#L81) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSetPieces::Save 0x005D3C70 | 0 / 0 | Posible dato fijo NumSetPieces: source/game_sa/SetPieces.h:10 (0x00A957FC); Posible dato fijo aSetPieces: source/game_sa/SetPieces.h:9 (0x00A95818) |
 | CSetPieces::Update() | [source/game_sa/SetPieces.cpp:88](../../source/game_sa/SetPieces.cpp#L88) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CSetPieces::Update 0x0049AA00 | 0 / 0 | Posible dato fijo NumSetPieces: source/game_sa/SetPieces.h:10 (0x00A957FC); Posible dato fijo aSetPieces: source/game_sa/SetPieces.h:9 (0x00A95818) |
 
-<a id="grupo-497"></a>
+<a id="grupo-498"></a>
 
 ## CShadowCamera
 
@@ -331,7 +344,7 @@
 | * Constructor() | [source/game_sa/ShadowCamera.h:133](../../source/game_sa/ShadowCamera.h#L133) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShadowCamera::Constructor 0x007053F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/ShadowCamera.h:138](../../source/game_sa/ShadowCamera.h#L138) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CShadowCamera::Destructor 0x00705B50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-498"></a>
+<a id="grupo-499"></a>
 
 ## CShadows
 
@@ -370,7 +383,7 @@
 | CShadows::StoreShadowForPole(CEntity* entity, float offsetX, float offsetY, float offsetZ, float poleHeight, float poleWidth, uint32 localId) | [source/game_sa/Shadows.cpp:1608](../../source/game_sa/Shadows.cpp#L1608) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShadows::StoreShadowForPole 0x0070C750 | 0 / 0 | Posible dato fijo gpPostShadowTex: source/game_sa/Shadows.h:260 (0x00C4040C); Posible dato fijo m_CurrentColours: source/game_sa/TimeCycle.h:105 (0x00B7C4A0); Posible dato fijo m_nPoleShadowStrength: source/game_sa/TimeCycle.h:71 (0x00B7B340) |
 | CShadows::RenderIndicatorShadow( uint32 id, eShadowType, RwTexture*, const CVector& posn, float frontX, float frontY, float sideX, float sideY, int16 /*intensity*/ ) | [source/game_sa/Shadows.cpp:1648](../../source/game_sa/Shadows.cpp#L1648) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShadows::RenderIndicatorShadow 0x0070CCB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-499"></a>
+<a id="grupo-500"></a>
 
 ## CShinyTexts
 
@@ -382,46 +395,3 @@
 | CShinyTexts::Render() | [source/game_sa/ShinyTexts.cpp:60](../../source/game_sa/ShinyTexts.cpp#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShinyTexts::Render 0x00724890 | 0 / 0 | Posible dato fijo NumShinyTexts: source/game_sa/ShinyTexts.h:36 (0x00C7C6F8); Posible dato fijo ShinyTempIndicesStored: source/game_sa/ShinyTexts.cpp:27 (0x00C4B954); Posible dato fijo ShinyTempVerticesStored: source/game_sa/ShinyTexts.cpp:26 (0x00C4B950); Posible dato fijo TempBufferVertices: source/game_sa/common.h:287 (0x00C4D958); Posible dato fijo aShinyTexts: source/game_sa/ShinyTexts.h:37 (0x00C7D258); Posible dato fijo aTempBufferIndices: source/game_sa/common.h:286 (0x00C4B958); Posible dato fijo gpHandManTex: source/game_sa/Shadows.h:258 (0x00C40404) |
 | CShinyTexts::RegisterOne(CVector cornerAA, CVector cornerAB, CVector cornerBA, CVector cornerBB, float u1, float v1, float u2, float v2, float u3, float v3, float u4, float v4, bool alwaysTrue, uint8 red, uint8 green, uint8 blue, float maxDistance ) | [source/game_sa/ShinyTexts.cpp:133](../../source/game_sa/ShinyTexts.cpp#L133) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShinyTexts::RegisterOne 0x00724B60 | 0 / 0 | Posible dato fijo NumShinyTexts: source/game_sa/ShinyTexts.h:36 (0x00C7C6F8); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:40 (0x00B6F028); Posible dato fijo aShinyTexts: source/game_sa/ShinyTexts.h:37 (0x00C7D258) |
 | GetShinyTexts() | [source/game_sa/ShinyTexts.h:54](../../source/game_sa/ShinyTexts.h#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo NumShinyTexts: source/game_sa/ShinyTexts.h:36 (0x00C7C6F8); Posible dato fijo aShinyTexts: source/game_sa/ShinyTexts.h:37 (0x00C7D258) |
-
-<a id="grupo-500"></a>
-
-## CShopping
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CShopping::InjectHooks() | [source/game_sa/Shopping.cpp:23](../../source/game_sa/Shopping.cpp#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CShopping::Init() | [source/game_sa/Shopping.cpp:84](../../source/game_sa/Shopping.cpp#L84) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::Init 0x0049C290 | 0 / 0 | Posible dato fijo gClothesHaveBeenStored: source/game_sa/Shopping.h:132 (0x00A97298); Posible dato fijo ms_bHasBought: source/game_sa/Shopping.h:72 (0x00A972A0); Posible dato fijo ms_keys: source/game_sa/Shopping.h:77 (0x00A97D90); Posible dato fijo ms_numBuyableItems: source/game_sa/Shopping.h:76 (0x00A9A310); Posible dato fijo ms_numPriceModifiers: source/game_sa/Shopping.h:81 (0x00A9A7D0); Posible dato fijo ms_numPrices: source/game_sa/Shopping.h:80 (0x00A9A7CC) |
-| CShopping::ShutdownForRestart() | [source/game_sa/Shopping.cpp:96](../../source/game_sa/Shopping.cpp#L96) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::ShutdownForRestart 0x0049B640 | 0 / 0 | Posible dato fijo ms_bHasBought: source/game_sa/Shopping.h:72 (0x00A972A0); Posible dato fijo ms_numPriceModifiers: source/game_sa/Shopping.h:81 (0x00A9A7D0) |
-| CShopping::Buy(uint32 key, int32 extraInfo) | [source/game_sa/Shopping.cpp:104](../../source/game_sa/Shopping.cpp#L104) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::Buy 0x0049BF70 | 0 / 0 | Posible dato fijo gClothesHaveBeenStored: source/game_sa/Shopping.h:132 (0x00A97298); Posible dato fijo gStoredClothesState: source/game_sa/Shopping.h:133 (0x00A9A810); Posible dato fijo m_pVehicleStruct: source/game_sa/Models/VehicleModelInfo.h:170 (0x00B4E680); Posible dato fijo ms_bHasBought: source/game_sa/Shopping.h:72 (0x00A972A0); Posible dato fijo ms_modelInfoPtrs: source/game_sa/Models/ModelInfo.h:30 (0x00A9B0C8); Posible dato fijo ms_priceSectionLoaded: source/game_sa/Shopping.h:79 (0x00A9A7C8); Posible dato fijo ms_prices: source/game_sa/Shopping.h:75 (0x00A986F0); Posible dato fijo ms_statModifiers: source/game_sa/Shopping.h:73 (0x00A974D0) |
-| CShopping::FindItem(uint32 itemKey) | [source/game_sa/Shopping.cpp:250](../../source/game_sa/Shopping.cpp#L250) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::FindItem 0x0049AD20 | 0 / 0 | Posible dato fijo ms_numPrices: source/game_sa/Shopping.h:80 (0x00A9A7CC); Posible dato fijo ms_prices: source/game_sa/Shopping.h:75 (0x00A986F0) |
-| CShopping::FindSection(FILESTREAM file, const char* sectionName) | [source/game_sa/Shopping.cpp:267](../../source/game_sa/Shopping.cpp#L267) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::FindSection 0x0049AE70 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CShopping::FindSectionInSection(FILESTREAM file, const char* parentSection, const char* childSection) | [source/game_sa/Shopping.cpp:291](../../source/game_sa/Shopping.cpp#L291) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::FindSectionInSection 0x0049AF90 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CShopping::GetExtraInfo(uint32 itemKey, int32 index) | [source/game_sa/Shopping.cpp:296](../../source/game_sa/Shopping.cpp#L296) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::GetExtraInfo 0x0049ADE0 | 0 / 0 | Posible dato fijo ms_prices: source/game_sa/Shopping.h:75 (0x00A986F0) |
-| CShopping::GetItemIndex(uint32 itemKey) | [source/game_sa/Shopping.cpp:316](../../source/game_sa/Shopping.cpp#L316) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::GetItemIndex 0x0049AB10 | 0 / 0 | Posible dato fijo ms_keys: source/game_sa/Shopping.h:77 (0x00A97D90) |
-| CShopping::GetKey(const char* modelName, ePriceSection section) | [source/game_sa/Shopping.cpp:327](../../source/game_sa/Shopping.cpp#L327) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::GetKey 0x0049AB30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CShopping::GetNameTag(uint32 itemKey) | [source/game_sa/Shopping.cpp:347](../../source/game_sa/Shopping.cpp#L347) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::GetNameTag 0x0049ADA0 | 0 / 0 | Posible dato fijo ms_prices: source/game_sa/Shopping.h:75 (0x00A986F0) |
-| * CShopping::GetNextSection(FILESTREAM file) | [source/game_sa/Shopping.cpp:357](../../source/game_sa/Shopping.cpp#L357) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::GetNextSection 0x0049AF10 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CShopping::GetPrice(uint32 itemKey) | [source/game_sa/Shopping.cpp:377](../../source/game_sa/Shopping.cpp#L377) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::GetPrice 0x0049AD50 | 0 / 0 | Posible dato fijo gPriceMultipliers: source/game_sa/Shopping.h:5 (0x008A6204); Posible dato fijo m_CurrLevel: source/game_sa/TheZones.h:18 (0x00BA6718); Posible dato fijo ms_prices: source/game_sa/Shopping.h:75 (0x00A986F0) |
-| CShopping::GetPriceSectionFromName(const char* name) | [source/game_sa/Shopping.cpp:385](../../source/game_sa/Shopping.cpp#L385) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::GetPriceSectionFromName 0x0049AAD0 | 0 / 0 | Posible dato fijo ms_sectionNames: source/game_sa/Shopping.h:70 (0x008A61D8) |
-| CShopping::SetPlayerHasBought(uint32 itemKey) | [source/game_sa/Shopping.cpp:396](../../source/game_sa/Shopping.cpp#L396) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::SetPlayerHasBought 0x0049B610 | 0 / 0 | Posible dato fijo ms_bHasBought: source/game_sa/Shopping.h:72 (0x00A972A0) |
-| CShopping::HasPlayerBought(uint32 itemKey) | [source/game_sa/Shopping.cpp:401](../../source/game_sa/Shopping.cpp#L401) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::HasPlayerBought 0x0049B5E0 | 0 / 0 | Posible dato fijo ms_bHasBought: source/game_sa/Shopping.h:72 (0x00A972A0) |
-| CShopping::IncrementStat(uint32 statIndex, int32 change) | [source/game_sa/Shopping.cpp:411](../../source/game_sa/Shopping.cpp#L411) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::IncrementStat 0x0049BE70 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CShopping::IncrementStat2(int32 stat, int32 change) | [source/game_sa/Shopping.cpp:429](../../source/game_sa/Shopping.cpp#L429) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::IncrementStat2 0x0049AFD0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CShopping::LoadPrices(const char* sectionName) | [source/game_sa/Shopping.cpp:441](../../source/game_sa/Shopping.cpp#L441) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::LoadPrices 0x0049B8D0 | 0 / 0 | Posible dato fijo ms_numItemsInShop: source/game_sa/Shopping.h:83 (0x00A9A7F0); Posible dato fijo ms_numPriceModifiers: source/game_sa/Shopping.h:81 (0x00A9A7D0); Posible dato fijo ms_numPrices: source/game_sa/Shopping.h:80 (0x00A9A7CC); Posible dato fijo ms_priceModifiers: source/game_sa/Shopping.h:74 (0x00A98650); Posible dato fijo ms_priceSectionLoaded: source/game_sa/Shopping.h:79 (0x00A9A7C8); Posible dato fijo ms_prices: source/game_sa/Shopping.h:75 (0x00A986F0); Posible dato fijo ms_sectionNames: source/game_sa/Shopping.h:70 (0x008A61D8) |
-| CShopping::LoadShop(const char* sectionName) | [source/game_sa/Shopping.cpp:522](../../source/game_sa/Shopping.cpp#L522) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::LoadShop 0x0049BBE0 | 0 / 0 | Posible dato fijo ms_bHasBought: source/game_sa/Shopping.h:72 (0x00A972A0); Posible dato fijo ms_numItemsInShop: source/game_sa/Shopping.h:83 (0x00A9A7F0); Posible dato fijo ms_numPrices: source/game_sa/Shopping.h:80 (0x00A9A7CC); Posible dato fijo ms_priceSectionLoaded: source/game_sa/Shopping.h:79 (0x00A9A7C8); Posible dato fijo ms_prices: source/game_sa/Shopping.h:75 (0x00A986F0); Posible dato fijo ms_shopContents: source/game_sa/Shopping.h:78 (0x00A9A318); Posible dato fijo ms_shopLoaded: source/game_sa/Shopping.h:82 (0x00A9A7D8) |
-| CShopping::LoadStats() | [source/game_sa/Shopping.cpp:571](../../source/game_sa/Shopping.cpp#L571) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::LoadStats 0x0049B6A0 | 0 / 0 | Posible dato fijo ms_bHasBought: source/game_sa/Shopping.h:72 (0x00A972A0); Posible dato fijo ms_keys: source/game_sa/Shopping.h:77 (0x00A97D90); Posible dato fijo ms_numBuyableItems: source/game_sa/Shopping.h:76 (0x00A9A310); Posible dato fijo ms_statModifiers: source/game_sa/Shopping.h:73 (0x00A974D0) |
-| CShopping::RemoveLoadedPrices() | [source/game_sa/Shopping.cpp:626](../../source/game_sa/Shopping.cpp#L626) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::RemoveLoadedPrices 0x0049AC90 | 0 / 0 | Posible dato fijo ms_priceSectionLoaded: source/game_sa/Shopping.h:79 (0x00A9A7C8); Posible dato fijo ms_sectionNames: source/game_sa/Shopping.h:70 (0x008A61D8) |
-| CShopping::RemoveLoadedShop() | [source/game_sa/Shopping.cpp:635](../../source/game_sa/Shopping.cpp#L635) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::RemoveLoadedShop 0x0049AE30 | 0 / 0 | Posible dato fijo ms_shopLoaded: source/game_sa/Shopping.h:82 (0x00A9A7D8) |
-| CShopping::AddPriceModifier(const char* name, const char* section, int32 price) | [source/game_sa/Shopping.cpp:641](../../source/game_sa/Shopping.cpp#L641) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CShopping::AddPriceModifier(uint32 key, int32 price) | [source/game_sa/Shopping.cpp:646](../../source/game_sa/Shopping.cpp#L646) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_numPriceModifiers: source/game_sa/Shopping.h:81 (0x00A9A7D0); Posible dato fijo ms_numPrices: source/game_sa/Shopping.h:80 (0x00A9A7CC); Posible dato fijo ms_priceModifiers: source/game_sa/Shopping.h:74 (0x00A98650); Posible dato fijo ms_prices: source/game_sa/Shopping.h:75 (0x00A986F0) |
-| CShopping::RemovePriceModifier(const char* name, const char* section) | [source/game_sa/Shopping.cpp:671](../../source/game_sa/Shopping.cpp#L671) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CShopping::RemovePriceModifier(uint32 key) | [source/game_sa/Shopping.cpp:676](../../source/game_sa/Shopping.cpp#L676) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_numPriceModifiers: source/game_sa/Shopping.h:81 (0x00A9A7D0); Posible dato fijo ms_priceModifiers: source/game_sa/Shopping.h:74 (0x00A98650) |
-| CShopping::StoreClothesState() | [source/game_sa/Shopping.cpp:694](../../source/game_sa/Shopping.cpp#L694) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::StoreClothesState 0x0049B200 | 0 / 0 | Posible dato fijo gClothesHaveBeenStored: source/game_sa/Shopping.h:132 (0x00A97298); Posible dato fijo gStoredClothesState: source/game_sa/Shopping.h:133 (0x00A9A810) |
-| CShopping::StoreVehicleMods() | [source/game_sa/Shopping.cpp:700](../../source/game_sa/Shopping.cpp#L700) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::StoreVehicleMods 0x0049B280 | 0 / 0 | Posible dato fijo gComponentDamageState: source/game_sa/Shopping.h:134 (0x00A97258); Posible dato fijo gStoredVehicleMods: source/game_sa/Shopping.h:135 (0x00A97274) |
-| CShopping::RestoreClothesState() | [source/game_sa/Shopping.cpp:744](../../source/game_sa/Shopping.cpp#L744) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::RestoreClothesState 0x0049B240 | 0 / 0 | Posible dato fijo gClothesHaveBeenStored: source/game_sa/Shopping.h:132 (0x00A97298); Posible dato fijo gStoredClothesState: source/game_sa/Shopping.h:133 (0x00A9A810) |
-| CShopping::RestoreVehicleMods() | [source/game_sa/Shopping.cpp:751](../../source/game_sa/Shopping.cpp#L751) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::RestoreVehicleMods 0x0049B3C0 | 0 / 0 | Posible dato fijo gComponentDamageState: source/game_sa/Shopping.h:134 (0x00A97258); Posible dato fijo gStoredVehicleMods: source/game_sa/Shopping.h:135 (0x00A97274) |
-| CShopping::SetCurrentProperty(CMultiBuilding* property) | [source/game_sa/Shopping.cpp:830](../../source/game_sa/Shopping.cpp#L830) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::SetCurrentProperty 0x0049B1F0 | 0 / 0 | Posible dato fijo gpCurrentProperty: source/game_sa/Shopping.h:136 (0x00A97294) |
-| CShopping::UpdateStats(size_t index, bool increment) | [source/game_sa/Shopping.cpp:835](../../source/game_sa/Shopping.cpp#L835) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::UpdateStats 0x0049BEF0 | 0 / 0 | Posible dato fijo ms_statModifiers: source/game_sa/Shopping.h:73 (0x00A974D0) |
-| CShopping::Load() | [source/game_sa/Shopping.cpp:847](../../source/game_sa/Shopping.cpp#L847) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::Load 0x005D3E40 | 0 / 0 | Posible dato fijo ms_bHasBought: source/game_sa/Shopping.h:72 (0x00A972A0); Posible dato fijo ms_numBuyableItems: source/game_sa/Shopping.h:76 (0x00A9A310); Posible dato fijo ms_numPriceModifiers: source/game_sa/Shopping.h:81 (0x00A9A7D0); Posible dato fijo ms_priceModifiers: source/game_sa/Shopping.h:74 (0x00A98650) |
-| CShopping::Save() | [source/game_sa/Shopping.cpp:860](../../source/game_sa/Shopping.cpp#L860) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CShopping::Save 0x005D3DE0 | 0 / 0 | Posible dato fijo ms_bHasBought: source/game_sa/Shopping.h:72 (0x00A972A0); Posible dato fijo ms_numBuyableItems: source/game_sa/Shopping.h:76 (0x00A9A310); Posible dato fijo ms_numPriceModifiers: source/game_sa/Shopping.h:81 (0x00A9A7D0); Posible dato fijo ms_priceModifiers: source/game_sa/Shopping.h:74 (0x00A98650) |
-| GetPriceMultipliedByLevel(int32 price, eLevelName level = NUM_LEVELS) | [source/game_sa/Shopping.h:124](../../source/game_sa/Shopping.h#L124) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gPriceMultipliers: source/game_sa/Shopping.h:5 (0x008A6204); Posible dato fijo m_CurrLevel: source/game_sa/TheZones.h:18 (0x00BA6718) |

@@ -239,6 +239,7 @@ cBuoyancy,class,,source/game_sa/Buoyancy.h,27,source_type_definition
 C_PcSave,class,,source/game_sa/C_PcSave.h,7,source_type_definition
 C_PcSave::eErrorCode,class,,source/game_sa/C_PcSave.h,10,source_type_definition
 CCam,class,,source/game_sa/Cam.h,22,source_type_definition
+ObbeCinemaKind,struct,,source/game_sa/Camera.cpp,1776,source_type_definition
 eFadeFlag,class,uint16,source/game_sa/Camera.h,28,source_type_definition
 eSwitchType,class,uint16,source/game_sa/Camera.h,33,source_type_definition
 eGroundHeightType,class,int32,source/game_sa/Camera.h,52,source_type_definition
@@ -386,9 +387,9 @@ CCrime,class,,source/game_sa/Crime.h,7,source_type_definition
 CCrimeBeingQd,class,,source/game_sa/CrimeBeingQd.h,13,source_type_definition
 cTransmission,class,,source/game_sa/cTransmission.h,24,source_type_definition
 CZoneDef,struct,,source/game_sa/CullZones.h,75,source_type_definition
-CMirrorAttributeZone,struct,,source/game_sa/CullZones.h,137,source_type_definition
-CAttributeZone,struct,,source/game_sa/CullZones.h,148,source_type_definition
-CCullZones,class,,source/game_sa/CullZones.h,161,source_type_definition
+CMirrorAttributeZone,struct,,source/game_sa/CullZones.h,141,source_type_definition
+CAttributeZone,struct,,source/game_sa/CullZones.h,152,source_type_definition
+CCullZones,class,,source/game_sa/CullZones.h,165,source_type_definition
 CCurrentVehicle,class,,source/game_sa/CurrentVehicle.h,5,source_type_definition
 CCurves,class,,source/game_sa/Curves.h,7,source_type_definition
 CCustomCarPlateMgr,class,,source/game_sa/CustomCarPlateMgr.h,19,source_type_definition
@@ -1712,9 +1713,9 @@ CTaskSimpleEvasiveStep,class,public CTaskSimple,source/game_sa/Tasks/TaskTypes/T
 eFacialExpression,class,,source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.h,16,source_type_definition
 CTaskSimpleFacial,class,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.h,32,source_type_definition
 CTaskSimpleFall,class,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleFall.h,6,source_type_definition
-FightFrame,struct,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,25,source_type_definition
-FightRegs,struct,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,58,source_type_definition
-PoolSpec,struct,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,83,source_type_definition
+FightFrame,struct,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,39,source_type_definition
+FightRegs,struct,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,72,source_type_definition
+PoolSpec,struct,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,97,source_type_definition
 CMeleeInfo,class,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h,23,source_type_definition
 CTaskSimpleFight,class,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h,42,source_type_definition
 CTaskSimpleFightingControl,class,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h,8,source_type_definition

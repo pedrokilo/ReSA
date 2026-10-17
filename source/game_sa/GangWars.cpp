@@ -32,6 +32,7 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexKillPedOnFoot.h"
 #include "TaskComplexDriveWander.h"
 #include "TaskSimpleCarDrive.h"
+#include "TaskSimpleGangDriveBy.h"
 #include "TaskComplexWanderGang.h"
 #include "Hud.h"
 #include "EventScriptCommand.h"
@@ -387,8 +388,7 @@ bool CGangWars::CreateAttackWave(int32 warFerocity, int32 waveID) {
                     if (!ped) continue;
                     ped->GiveDelayedWeapon(WEAPON_MICRO_UZI,1500);
                     ped->SetCurrentWeapon(WEAPON_MICRO_UZI);
-                    auto* memory=CTask::operator new(0x44);
-                    auto* task=memory?plugin::CallMethodAndReturn<CTask*,0x6217D0>(static_cast<CTask*>(memory),FindPlayerPed(),nullptr,100.0f,50,8,~seat&1):nullptr;
+                    auto* task=new CTaskSimpleGangDriveBy(FindPlayerPed(),nullptr,100.0f,50,eDrivebyStyle::AI_ALL_DIRN,((~seat)&1)!=0);
                     GangWaveCommand(ped,task);
                 }
                 GangWaveBlip(pDriveByCar->m_pDriver,lastGang,3);

@@ -57,6 +57,7 @@ void CPopulation::InjectHooks() {
     RH_ScopedCategoryGlobal();
 
     RH_ScopedGlobalInstall(FindPedRaceFromName, 0x5B6D40);
+    RH_ScopedGlobalInstall(RandomIntInLimitRange, 0x610DB0);
 
     RH_ScopedGlobalInstall(LoadPedGroups, 0x5BCFE0);
     RH_ScopedGlobalInstall(LoadCarGroups, 0x5BD1A0);
@@ -126,6 +127,17 @@ void CPopulation::InjectHooks() {
 
     RH_ScopedGlobalOverloadedInstall(IsSunbather, "ModelID", 0x611760, bool(*)(eModelID));
     //RH_ScopedGlobalOverloadedInstall(IsSunbather, "Ped", 0x611760, bool(*)(CPed*));
+}
+
+// 0x610DB0
+// Como el original: lee primero el limite superior (0x86C6C8) y el inferior (0x86C6C4), tira el RNG (el EXE usa rand, 0x821B1E) y enmascara a 16 bits;
+// fild * 2^-15 (0x858B14), fimul (superior - inferior) y _ftol2 en X87Math.cpp (PopulationRandomRangeCpp); suma entera del limite inferior.
+// Unico llamador del EXE: CPopulation::AddToPopulation (0x614AC6), que solo guarda EAX (recarga ECX y EDX), asi que no hay residuo que reproducir.
+int32 CPopulation::RandomIntInLimitRange() {
+    const int32 upper = StaticRef<int32>(0x86C6C8);
+    const int32 lower = StaticRef<int32>(0x86C6C4);
+    const uint32 random = CGeneral::GetRandomNumber() & 0xFFFFu;
+    return static_cast<int32>(static_cast<uint32>(lower) + static_cast<uint32>(PopulationRandomRangeCpp(static_cast<int>(random), static_cast<int>(static_cast<uint32>(upper) - static_cast<uint32>(lower)))));
 }
 
 // 0x5B6D40
@@ -2054,7 +2066,7 @@ bool CPopulation::AddToPopulation(float minDist, float maxDist, float minDistClo
             type=static_cast<ePedType>(*reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(CModelInfo::GetModelInfo(maleModel))+0x28));
         }
         if(m_AllRandomPedsThisType>0) type=static_cast<ePedType>(m_AllRandomPedsThisType);
-        if(type>=PED_TYPE_GANG1 && type<=PED_TYPE_GANG10) count=plugin::CallAndReturn<uint32,0x610DB0>();
+        if(type>=PED_TYPE_GANG1 && type<=PED_TYPE_GANG10) count=RandomIntInLimitRange();
     }
     const bool gang=type>=PED_TYPE_GANG1&&type<=PED_TYPE_GANG10;
     if(gang) {minDist+=30.0f;maxDist+=30.0f;}

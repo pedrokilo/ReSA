@@ -235,12 +235,14 @@ CTask* CTaskGangHassleVehicle::ControlSubTask(CPed* ped) {
     CTaskSimpleFight fight(m_Vehicle, 11, 20000);
     CMatrix matrix(*ped->m_matrix);
     matrix.GetPosition() += ped->GetForward();
-    plugin::CallMethod<0x61D5F0, CTaskSimpleFight*, float>(&fight, .5f);
-    reinterpret_cast<uint8*>(&fight)[0x20] = 4;
-    reinterpret_cast<uint8*>(&fight)[0x21] = 1;
-    reinterpret_cast<uint8*>(&fight)[0x23] = 11;
+    fight.FightSetUpCol(.5f); // 0x6640C6
+    // Como el EXE (0x6640D4..0x6640DE): combo 4, movimiento 1 y ultimo comando 11 en +24h/+25h/+27h
+    fight.m_nComboSet = 4;
+    fight.m_nCurrentMove = FIGHT_ATTACK_HIT_2;
+    fight.m_nLastCommand = 11;
     if (CCollision::ProcessColModels(matrix, *reinterpret_cast<CColModel*>(0xC17824), *m_Vehicle->m_matrix, *m_Vehicle->GetColModel(), CWorld::m_aTempColPts, nullptr, nullptr, false) > 0) {
-        plugin::CallMethod<0x61D0B0, CTaskSimpleFight*, CPed*, CVehicle*, CVector*, CVector*, int16, int8>(&fight, ped, m_Vehicle, reinterpret_cast<CVector*>(0xB9ACD0), reinterpret_cast<CVector*>(0xB9ACE0), int16(*reinterpret_cast<uint8*>(0xB9ACF4)), int8(*reinterpret_cast<uint8*>(0xB9ACF3)));
+        auto& point = CWorld::m_aTempColPts[0]; // 0xB9ACD0: punto en +0, normal en +10h, pieza B en +24h y superficie B en +23h
+        fight.FightHitCar(ped, m_Vehicle, point.m_vecPoint, point.m_vecNormal, int16(point.m_nPieceTypeB), int8(point.m_nSurfaceTypeB)); // 0x66412C
     }
     m_Vehicle->m_fHealth = health;
     m_Vehicle->m_vehicleAudio.AddAudioEvent(static_cast<eAudioEvents>(0x6C), 0.f);

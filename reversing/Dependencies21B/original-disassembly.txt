@@ -1,0 +1,671 @@
+; ===== CCamera::ProcessObbeCinemaCameraCar 0x5267C0 (desensamblado del EXE, hasta el RET final; el resto es relleno/NOP o la siguiente funcion) =====
+5267c0: mov al, byte ptr [0xb6ec2d]
+5267c5: push ebx
+5267c6: push esi
+5267c7: push edi
+5267c8: xor edi, edi
+5267ca: test al, al
+5267cc: mov esi, ecx
+5267ce: mov ebx, 1
+5267d3: jne 0x526828
+5267d5: mov al, byte ptr [0x8cc381]
+5267da: test al, al
+5267dc: mov dword ptr [0x8cceec], 0xffffffff
+5267e6: jle 0x526819
+5267e8: mov al, byte ptr [esi + 0xcf0]
+5267ee: test al, al
+5267f0: jne 0x526819
+5267f2: mov al, byte ptr [0x8cc381]
+5267f7: push edi
+5267f8: push edi
+5267f9: push ebx
+5267fa: dec al
+5267fc: push 0x863248
+526801: mov ecx, 0xc1b340
+526806: mov byte ptr [0x8cc381], al
+52680b: call 0x6a0050
+526810: push eax
+526811: call 0x588be0
+526816: add esp, 0x10
+526819: mov al, byte ptr [0xb6ec2d]
+52681e: test al, al
+526820: mov byte ptr [0xb6ec34], bl
+526826: je 0x52684b
+526828: mov ecx, dword ptr [0x8cceec]
+52682e: mov eax, dword ptr [0xb70120]
+526833: mov edx, dword ptr [ecx*4 + 0x8cc828]
+52683a: push eax
+52683b: push edx
+52683c: mov ecx, esi
+52683e: call 0x51d770
+526843: test al, al
+526845: je 0x52692f
+52684b: movsx eax, byte ptr [0x8cc471]
+526852: add eax, dword ptr [0x8cceec]
+526858: cdq 
+526859: mov ecx, 0xb
+52685e: idiv ecx
+526860: test edx, edx
+526862: mov dword ptr [0x8cceec], edx
+526868: jge 0x526871
+52686a: mov edx, 0xa
+52686f: jmp 0x526878
+526871: cmp edx, 0xa
+526874: jle 0x52687e
+526876: xor edx, edx
+526878: mov dword ptr [0x8cceec], edx
+52687e: mov edx, dword ptr [edx*4 + 0x8cc828]
+526885: push edx
+526886: mov ecx, esi
+526888: call 0x51e560
+52688d: test al, al
+52688f: jne 0x5268dd
+526891: cmp edi, 0xb
+526894: jg 0x5268dd
+526896: movsx eax, byte ptr [0x8cc471]
+52689d: add eax, dword ptr [0x8cceec]
+5268a3: cdq 
+5268a4: mov ecx, 0xb
+5268a9: idiv ecx
+5268ab: test edx, edx
+5268ad: mov dword ptr [0x8cceec], edx
+5268b3: jge 0x5268bc
+5268b5: mov edx, 0xa
+5268ba: jmp 0x5268c3
+5268bc: cmp edx, 0xa
+5268bf: jle 0x5268c9
+5268c1: xor edx, edx
+5268c3: mov dword ptr [0x8cceec], edx
+5268c9: mov edx, dword ptr [edx*4 + 0x8cc828]
+5268d0: push edx
+5268d1: mov ecx, esi
+5268d3: inc edi
+5268d4: call 0x51e560
+5268d9: test al, al
+5268db: je 0x526891
+5268dd: cmp edi, 0xb
+5268e0: mov eax, dword ptr [0xb7cb84]
+5268e5: mov dword ptr [0xb70120], eax
+5268ea: jl 0x52691a
+5268ec: mov ecx, dword ptr [0x8cc854]
+5268f2: push ecx
+5268f3: mov ecx, esi
+5268f5: mov dword ptr [0x8cceec], 0xb
+5268ff: call 0x51e560
+526904: mov edx, dword ptr [0x8cceec]
+52690a: pop edi
+52690b: mov dword ptr [esi + 0xc34], edx
+526911: pop esi
+526912: mov byte ptr [0xb6ec2d], bl
+526918: pop ebx
+526919: ret 
+52691a: mov eax, dword ptr [0x8cceec]
+52691f: pop edi
+526920: mov dword ptr [esi + 0xc34], eax
+526926: pop esi
+526927: mov byte ptr [0xb6ec2d], bl
+52692d: pop ebx
+52692e: ret 
+52692f: mov ecx, dword ptr [0x8cceec]
+526935: pop edi
+526936: mov dword ptr [esi + 0xc34], ecx
+52693c: pop esi
+52693d: mov byte ptr [0xb6ec2d], bl
+526943: pop ebx
+526944: ret 
+526945: nop 
+526946: nop 
+526947: nop 
+526948: nop 
+526949: nop 
+52694a: nop 
+52694b: nop 
+52694c: nop 
+52694d: nop 
+52694e: nop 
+52694f: nop 
+526950: mov al, byte ptr [0xb6ec2d]
+526955: push ebx
+526956: push esi
+526957: push edi
+526958: xor edi, edi
+52695a: test al, al
+52695c: mov esi, ecx
+52695e: mov ebx, 1
+526963: jne 0x5269b8
+526965: mov al, byte ptr [0x8cc381]
+52696a: test al, al
+52696c: mov dword ptr [0x8ccef0], 0xffffffff
+526976: jle 0x5269a9
+526978: mov al, byte ptr [esi + 0xcf0]
+52697e: test al, al
+526980: jne 0x5269a9
+526982: mov al, byte ptr [0x8cc381]
+526987: push edi
+526988: push edi
+526989: push ebx
+52698a: dec al
+52698c: push 0x863248
+526991: mov ecx, 0xc1b340
+526996: mov byte ptr [0x8cc381], al
+52699b: call 0x6a0050
+5269a0: push eax
+5269a1: call 0x588be0
+5269a6: add esp, 0x10
+5269a9: mov al, byte ptr [0xb6ec2d]
+5269ae: test al, al
+5269b0: mov byte ptr [0xb6ec34], bl
+5269b6: je 0x5269db
+5269b8: mov ecx, dword ptr [0x8ccef0]
+
+; ===== CCamera::ProcessObbeCinemaCameraTrain 0x526950 (desensamblado del EXE, hasta el RET final; el resto es relleno/NOP o la siguiente funcion) =====
+526950: mov al, byte ptr [0xb6ec2d]
+526955: push ebx
+526956: push esi
+526957: push edi
+526958: xor edi, edi
+52695a: test al, al
+52695c: mov esi, ecx
+52695e: mov ebx, 1
+526963: jne 0x5269b8
+526965: mov al, byte ptr [0x8cc381]
+52696a: test al, al
+52696c: mov dword ptr [0x8ccef0], 0xffffffff
+526976: jle 0x5269a9
+526978: mov al, byte ptr [esi + 0xcf0]
+52697e: test al, al
+526980: jne 0x5269a9
+526982: mov al, byte ptr [0x8cc381]
+526987: push edi
+526988: push edi
+526989: push ebx
+52698a: dec al
+52698c: push 0x863248
+526991: mov ecx, 0xc1b340
+526996: mov byte ptr [0x8cc381], al
+52699b: call 0x6a0050
+5269a0: push eax
+5269a1: call 0x588be0
+5269a6: add esp, 0x10
+5269a9: mov al, byte ptr [0xb6ec2d]
+5269ae: test al, al
+5269b0: mov byte ptr [0xb6ec34], bl
+5269b6: je 0x5269db
+5269b8: mov ecx, dword ptr [0x8ccef0]
+5269be: mov eax, dword ptr [0xb70124]
+5269c3: mov edx, dword ptr [ecx*4 + 0x8cc858]
+5269ca: push eax
+5269cb: push edx
+5269cc: mov ecx, esi
+5269ce: call 0x51d770
+5269d3: test al, al
+5269d5: je 0x526abf
+5269db: movsx eax, byte ptr [0x8cc471]
+5269e2: add eax, dword ptr [0x8ccef0]
+5269e8: cdq 
+5269e9: mov ecx, 6
+5269ee: idiv ecx
+5269f0: test edx, edx
+5269f2: mov dword ptr [0x8ccef0], edx
+5269f8: jge 0x526a01
+5269fa: mov edx, 5
+5269ff: jmp 0x526a08
+526a01: cmp edx, 5
+526a04: jle 0x526a0e
+526a06: xor edx, edx
+526a08: mov dword ptr [0x8ccef0], edx
+526a0e: mov edx, dword ptr [edx*4 + 0x8cc858]
+526a15: push edx
+526a16: mov ecx, esi
+526a18: call 0x51e560
+526a1d: test al, al
+526a1f: jne 0x526a6d
+526a21: cmp edi, 6
+526a24: jg 0x526a6d
+526a26: movsx eax, byte ptr [0x8cc471]
+526a2d: add eax, dword ptr [0x8ccef0]
+526a33: cdq 
+526a34: mov ecx, 6
+526a39: idiv ecx
+526a3b: test edx, edx
+526a3d: mov dword ptr [0x8ccef0], edx
+526a43: jge 0x526a4c
+526a45: mov edx, 5
+526a4a: jmp 0x526a53
+526a4c: cmp edx, 5
+526a4f: jle 0x526a59
+526a51: xor edx, edx
+526a53: mov dword ptr [0x8ccef0], edx
+526a59: mov edx, dword ptr [edx*4 + 0x8cc858]
+526a60: push edx
+526a61: mov ecx, esi
+526a63: inc edi
+526a64: call 0x51e560
+526a69: test al, al
+526a6b: je 0x526a21
+526a6d: cmp edi, 6
+526a70: mov eax, dword ptr [0xb7cb84]
+526a75: mov dword ptr [0xb70124], eax
+526a7a: jl 0x526aaa
+526a7c: mov ecx, dword ptr [0x8cc870]
+526a82: push ecx
+526a83: mov ecx, esi
+526a85: mov dword ptr [0x8ccef0], 6
+526a8f: call 0x51e560
+526a94: mov edx, dword ptr [0x8ccef0]
+526a9a: pop edi
+526a9b: mov dword ptr [esi + 0xc34], edx
+526aa1: pop esi
+526aa2: mov byte ptr [0xb6ec2d], bl
+526aa8: pop ebx
+526aa9: ret 
+526aaa: mov eax, dword ptr [0x8ccef0]
+526aaf: pop edi
+526ab0: mov dword ptr [esi + 0xc34], eax
+526ab6: pop esi
+526ab7: mov byte ptr [0xb6ec2d], bl
+526abd: pop ebx
+526abe: ret 
+526abf: mov ecx, dword ptr [0x8ccef0]
+526ac5: pop edi
+526ac6: mov dword ptr [esi + 0xc34], ecx
+526acc: pop esi
+526acd: mov byte ptr [0xb6ec2d], bl
+526ad3: pop ebx
+526ad4: ret 
+526ad5: nop 
+526ad6: nop 
+526ad7: nop 
+526ad8: nop 
+526ad9: nop 
+526ada: nop 
+526adb: nop 
+526adc: nop 
+526add: nop 
+526ade: nop 
+526adf: nop 
+
+; ===== CCamera::ProcessObbeCinemaCameraHeli 0x526AE0 (desensamblado del EXE, hasta el RET final; el resto es relleno/NOP o la siguiente funcion) =====
+526ae0: mov al, byte ptr [0xb6ec2d]
+526ae5: push ebx
+526ae6: push esi
+526ae7: push edi
+526ae8: xor edi, edi
+526aea: test al, al
+526aec: mov esi, ecx
+526aee: mov ebx, 1
+526af3: jne 0x526b48
+526af5: mov al, byte ptr [0x8cc381]
+526afa: test al, al
+526afc: mov dword ptr [0x8ccef4], 0xffffffff
+526b06: jle 0x526b39
+526b08: mov al, byte ptr [esi + 0xcf0]
+526b0e: test al, al
+526b10: jne 0x526b39
+526b12: mov al, byte ptr [0x8cc381]
+526b17: push edi
+526b18: push edi
+526b19: push ebx
+526b1a: dec al
+526b1c: push 0x863248
+526b21: mov ecx, 0xc1b340
+526b26: mov byte ptr [0x8cc381], al
+526b2b: call 0x6a0050
+526b30: push eax
+526b31: call 0x588be0
+526b36: add esp, 0x10
+526b39: mov al, byte ptr [0xb6ec2d]
+526b3e: test al, al
+526b40: mov byte ptr [0xb6ec34], bl
+526b46: je 0x526b74
+526b48: call 0x50b830
+526b4d: test al, al
+526b4f: jne 0x526b74
+526b51: mov ecx, dword ptr [0x8ccef4]
+526b57: mov eax, dword ptr [0xb70128]
+526b5c: mov edx, dword ptr [ecx*4 + 0x8cc874]
+526b63: push eax
+526b64: push edx
+526b65: mov ecx, esi
+526b67: call 0x51d770
+526b6c: test al, al
+526b6e: je 0x526c45
+526b74: movsx eax, byte ptr [0x8cc471]
+526b7b: add eax, dword ptr [0x8ccef4]
+526b81: cdq 
+526b82: mov ecx, 7
+526b87: idiv ecx
+526b89: test edx, edx
+526b8b: mov dword ptr [0x8ccef4], edx
+526b91: jge 0x526b9a
+526b93: mov edx, 6
+526b98: jmp 0x526ba1
+526b9a: cmp edx, 6
+526b9d: jle 0x526ba7
+526b9f: xor edx, edx
+526ba1: mov dword ptr [0x8ccef4], edx
+526ba7: mov edx, dword ptr [edx*4 + 0x8cc874]
+526bae: push edx
+526baf: mov ecx, esi
+526bb1: call 0x51e560
+526bb6: test al, al
+526bb8: jne 0x526c5a
+526bbe: mov edi, edi
+526bc0: cmp edi, 7
+526bc3: jg 0x526c11
+526bc5: movsx eax, byte ptr [0x8cc471]
+526bcc: add eax, dword ptr [0x8ccef4]
+526bd2: cdq 
+526bd3: mov ecx, 7
+526bd8: idiv ecx
+526bda: test edx, edx
+526bdc: mov dword ptr [0x8ccef4], edx
+526be2: jge 0x526beb
+526be4: mov edx, 6
+526be9: jmp 0x526bf2
+526beb: cmp edx, 6
+526bee: jle 0x526bf8
+526bf0: xor edx, edx
+526bf2: mov dword ptr [0x8ccef4], edx
+526bf8: mov edx, dword ptr [edx*4 + 0x8cc874]
+526bff: push edx
+526c00: mov ecx, esi
+526c02: inc edi
+526c03: call 0x51e560
+526c08: test al, al
+526c0a: je 0x526bc0
+526c0c: cmp edi, 7
+526c0f: jl 0x526c5a
+526c11: movzx ecx, byte ptr [esi + 0x59]
+526c15: imul ecx, ecx, 0x238
+526c1b: cmp word ptr [ecx + esi + 0x180], 0x12
+526c24: mov eax, 7
+526c29: mov dword ptr [0x8ccef4], eax
+526c2e: je 0x526c4a
+526c30: push 0x1d
+526c32: mov ecx, esi
+526c34: call 0x51e560
+526c39: mov edx, dword ptr [0xb7cb84]
+526c3f: mov dword ptr [0xb70128], edx
+526c45: mov eax, dword ptr [0x8ccef4]
+526c4a: pop edi
+526c4b: mov dword ptr [esi + 0xc34], eax
+526c51: pop esi
+526c52: mov byte ptr [0xb6ec2d], bl
+526c58: pop ebx
+526c59: ret 
+526c5a: mov ecx, dword ptr [0xb7cb84]
+526c60: mov edx, dword ptr [0x8ccef4]
+526c66: pop edi
+526c67: mov dword ptr [esi + 0xc34], edx
+526c6d: pop esi
+526c6e: mov byte ptr [0xb6ec2d], bl
+526c74: mov dword ptr [0xb70128], ecx
+526c7a: pop ebx
+526c7b: ret 
+526c7c: nop 
+526c7d: nop 
+526c7e: nop 
+526c7f: nop 
+
+; ===== CCamera::ProcessObbeCinemaCameraPlane 0x526C80 (desensamblado del EXE, hasta el RET final; el resto es relleno/NOP o la siguiente funcion) =====
+526c80: mov al, byte ptr [0xb6ec2d]
+526c85: push ebx
+526c86: push esi
+526c87: push edi
+526c88: xor edi, edi
+526c8a: test al, al
+526c8c: mov esi, ecx
+526c8e: mov ebx, 1
+526c93: jne 0x526cea
+526c95: mov al, byte ptr [0x8cc381]
+526c9a: test al, al
+526c9c: mov dword ptr [0x8ccef8], 0xffffffff
+526ca6: mov byte ptr [0xb6ec34], bl
+526cac: jle 0x526d16
+526cae: mov al, byte ptr [esi + 0xcf0]
+526cb4: test al, al
+526cb6: jne 0x526d16
+526cb8: mov cl, byte ptr [0x8cc381]
+526cbe: push edi
+526cbf: push edi
+526cc0: dec cl
+526cc2: push ebx
+526cc3: mov byte ptr [0x8cc381], cl
+526cc9: push 0x863248
+526cce: mov ecx, 0xc1b340
+526cd3: call 0x6a0050
+526cd8: push eax
+526cd9: call 0x588be0
+526cde: mov al, byte ptr [0xb6ec2d]
+526ce3: add esp, 0x10
+526ce6: test al, al
+526ce8: je 0x526d16
+526cea: call 0x50b830
+526cef: test al, al
+526cf1: jne 0x526d16
+526cf3: mov ecx, dword ptr [0x8ccef8]
+526cf9: mov eax, dword ptr [0xb7012c]
+526cfe: mov edx, dword ptr [ecx*4 + 0x8cc894]
+526d05: push eax
+526d06: push edx
+526d07: mov ecx, esi
+526d09: call 0x51d770
+526d0e: test al, al
+526d10: je 0x526de5
+526d16: movsx eax, byte ptr [0x8cc471]
+526d1d: add eax, dword ptr [0x8ccef8]
+526d23: cdq 
+526d24: mov ecx, 6
+526d29: idiv ecx
+526d2b: test edx, edx
+526d2d: mov dword ptr [0x8ccef8], edx
+526d33: jge 0x526d3c
+526d35: mov edx, 5
+526d3a: jmp 0x526d43
+526d3c: cmp edx, 5
+526d3f: jle 0x526d49
+526d41: xor edx, edx
+526d43: mov dword ptr [0x8ccef8], edx
+526d49: mov edx, dword ptr [edx*4 + 0x8cc894]
+526d50: push edx
+526d51: mov ecx, esi
+526d53: call 0x51e560
+526d58: test al, al
+526d5a: jne 0x526dfa
+526d60: cmp edi, 6
+526d63: jg 0x526db1
+526d65: movsx eax, byte ptr [0x8cc471]
+526d6c: add eax, dword ptr [0x8ccef8]
+526d72: cdq 
+526d73: mov ecx, 6
+526d78: idiv ecx
+526d7a: test edx, edx
+526d7c: mov dword ptr [0x8ccef8], edx
+526d82: jge 0x526d8b
+526d84: mov edx, 5
+526d89: jmp 0x526d92
+526d8b: cmp edx, 5
+526d8e: jle 0x526d98
+526d90: xor edx, edx
+526d92: mov dword ptr [0x8ccef8], edx
+526d98: mov edx, dword ptr [edx*4 + 0x8cc894]
+526d9f: push edx
+526da0: mov ecx, esi
+526da2: inc edi
+526da3: call 0x51e560
+526da8: test al, al
+526daa: je 0x526d60
+526dac: cmp edi, 6
+526daf: jl 0x526dfa
+526db1: movzx ecx, byte ptr [esi + 0x59]
+526db5: imul ecx, ecx, 0x238
+526dbb: cmp word ptr [ecx + esi + 0x180], 0x12
+526dc4: mov eax, 6
+526dc9: mov dword ptr [0x8ccef8], eax
+526dce: je 0x526dea
+526dd0: push 0x1d
+526dd2: mov ecx, esi
+526dd4: call 0x51e560
+526dd9: mov edx, dword ptr [0xb7cb84]
+526ddf: mov dword ptr [0xb7012c], edx
+526de5: mov eax, dword ptr [0x8ccef8]
+526dea: pop edi
+526deb: mov dword ptr [esi + 0xc34], eax
+526df1: pop esi
+526df2: mov byte ptr [0xb6ec2d], bl
+526df8: pop ebx
+526df9: ret 
+526dfa: mov ecx, dword ptr [0xb7cb84]
+526e00: mov edx, dword ptr [0x8ccef8]
+526e06: pop edi
+526e07: mov dword ptr [esi + 0xc34], edx
+526e0d: pop esi
+526e0e: mov byte ptr [0xb6ec2d], bl
+526e14: mov dword ptr [0xb7012c], ecx
+526e1a: pop ebx
+526e1b: ret 
+526e1c: nop 
+526e1d: nop 
+526e1e: nop 
+526e1f: nop 
+
+; ===== CCamera::ProcessObbeCinemaCameraBoat 0x526E20 (desensamblado del EXE, hasta el RET final; el resto es relleno/NOP o la siguiente funcion) =====
+526e20: mov al, byte ptr [0xb6ec2d]
+526e25: push ebx
+526e26: push esi
+526e27: push edi
+526e28: xor edi, edi
+526e2a: test al, al
+526e2c: mov esi, ecx
+526e2e: mov ebx, 1
+526e33: jne 0x526e88
+526e35: mov al, byte ptr [0x8cc381]
+526e3a: test al, al
+526e3c: mov dword ptr [0x8ccefc], 0xffffffff
+526e46: jle 0x526e79
+526e48: mov al, byte ptr [esi + 0xcf0]
+526e4e: test al, al
+526e50: jne 0x526e79
+526e52: mov al, byte ptr [0x8cc381]
+526e57: push edi
+526e58: push edi
+526e59: push ebx
+526e5a: dec al
+526e5c: push 0x863248
+526e61: mov ecx, 0xc1b340
+526e66: mov byte ptr [0x8cc381], al
+526e6b: call 0x6a0050
+526e70: push eax
+526e71: call 0x588be0
+526e76: add esp, 0x10
+526e79: mov al, byte ptr [0xb6ec2d]
+526e7e: test al, al
+526e80: mov byte ptr [0xb6ec34], bl
+526e86: je 0x526eab
+526e88: mov ecx, dword ptr [0x8ccefc]
+526e8e: mov eax, dword ptr [0xb70130]
+526e93: mov edx, dword ptr [ecx*4 + 0x8cc8b0]
+526e9a: push eax
+526e9b: push edx
+526e9c: mov ecx, esi
+526e9e: call 0x51d770
+526ea3: test al, al
+526ea5: je 0x526f7a
+526eab: movsx eax, byte ptr [0x8cc471]
+526eb2: add eax, dword ptr [0x8ccefc]
+526eb8: cdq 
+526eb9: mov ecx, 3
+526ebe: idiv ecx
+526ec0: test edx, edx
+526ec2: mov dword ptr [0x8ccefc], edx
+526ec8: jge 0x526ed1
+526eca: mov edx, 2
+526ecf: jmp 0x526ed8
+526ed1: cmp edx, 2
+526ed4: jle 0x526ede
+526ed6: xor edx, edx
+526ed8: mov dword ptr [0x8ccefc], edx
+526ede: mov edx, dword ptr [edx*4 + 0x8cc8b0]
+526ee5: push edx
+526ee6: mov ecx, esi
+526ee8: call 0x51e560
+526eed: test al, al
+526eef: jne 0x526f8f
+526ef5: cmp edi, 3
+526ef8: jg 0x526f46
+526efa: movsx eax, byte ptr [0x8cc471]
+526f01: add eax, dword ptr [0x8ccefc]
+526f07: cdq 
+526f08: mov ecx, 3
+526f0d: idiv ecx
+526f0f: test edx, edx
+526f11: mov dword ptr [0x8ccefc], edx
+526f17: jge 0x526f20
+526f19: mov edx, 2
+526f1e: jmp 0x526f27
+526f20: cmp edx, 2
+526f23: jle 0x526f2d
+526f25: xor edx, edx
+526f27: mov dword ptr [0x8ccefc], edx
+526f2d: mov edx, dword ptr [edx*4 + 0x8cc8b0]
+526f34: push edx
+526f35: mov ecx, esi
+526f37: inc edi
+526f38: call 0x51e560
+526f3d: test al, al
+526f3f: je 0x526ef5
+526f41: cmp edi, 3
+526f44: jl 0x526f8f
+526f46: movzx ecx, byte ptr [esi + 0x59]
+526f4a: imul ecx, ecx, 0x238
+526f50: cmp word ptr [ecx + esi + 0x180], 0x12
+526f59: mov eax, 3
+526f5e: mov dword ptr [0x8ccefc], eax
+526f63: je 0x526f7f
+526f65: push 0x1d
+526f67: mov ecx, esi
+526f69: call 0x51e560
+526f6e: mov edx, dword ptr [0xb7cb84]
+526f74: mov dword ptr [0xb70130], edx
+526f7a: mov eax, dword ptr [0x8ccefc]
+526f7f: pop edi
+526f80: mov dword ptr [esi + 0xc34], eax
+526f86: pop esi
+526f87: mov byte ptr [0xb6ec2d], bl
+526f8d: pop ebx
+526f8e: ret 
+526f8f: mov ecx, dword ptr [0xb7cb84]
+526f95: mov edx, dword ptr [0x8ccefc]
+526f9b: pop edi
+526f9c: mov dword ptr [esi + 0xc34], edx
+526fa2: pop esi
+526fa3: mov byte ptr [0xb6ec2d], bl
+526fa9: mov dword ptr [0xb70130], ecx
+526faf: pop ebx
+526fb0: ret 
+526fb1: nop 
+526fb2: nop 
+526fb3: nop 
+526fb4: nop 
+526fb5: nop 
+526fb6: nop 
+526fb7: nop 
+526fb8: nop 
+526fb9: nop 
+526fba: nop 
+526fbb: nop 
+526fbc: nop 
+526fbd: nop 
+526fbe: nop 
+526fbf: nop 
+526fc0: fild dword ptr [0xb6fe34]
+526fc6: sub esp, 0x7c
+526fc9: push esi
+526fca: mov esi, ecx
+526fcc: fcomp dword ptr [0xb6fdc8]
+526fd2: push edi
+526fd3: mov cl, 0xfe
+526fd5: fnstsw ax
+526fd7: test ah, 0x41
+526fda: je 0x526fe2

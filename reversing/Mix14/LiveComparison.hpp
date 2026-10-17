@@ -225,7 +225,7 @@ inline void Update() {
         EntryPatch t6(bit_cast<uintptr_t>(&CTxdStore::RemoveTxdSlot),FakeRemoveTxdSlot), t6e(0x731CD0,FakeRemoveTxdSlot);
         EntryPatch w1(0x7F3AC0,FakeTextureRead), w2(0x7FB2D0,FakeRasterLock), w3(0x7FAEC0,FakeRasterUnlock), w4(0x7F3820,FakeTextureDestroy);
         EntryPatch w5(0x7FB230,FakeRasterCreate), w6(0x7FB020,FakeRasterDestroy), w7(0x7F37C0,FakeTextureCreate), w8(0x7F38A0,FakeTextureSetName);
-        EntryPatch w9(0x74DBC0,FakeMaterialSetTexture), w10(0x74C790,FakeForAllMaterials), w11(0x749B70,FakeForAllAtomics), w12(0x734DE0,FakeReplaceMaterial);
+        EntryPatch w9(0x74DBC0,FakeMaterialSetTexture), w10(0x74C790,FakeForAllMaterials), w11(0x749B70,FakeForAllAtomics), w12(0x734DE0,FakeReplaceMaterial), w12e(bit_cast<uintptr_t>(&RpGeometryReplaceOldMaterialWithNewMaterial),FakeReplaceMaterial);
 
         for(size_t f=0;f<fns.size();++f) {
             const auto& fn=fns[f]; int failures=0; const std::string cls=fn.cls, nm=fn.name, full=cls+"::"+nm;

@@ -1194,3 +1194,50 @@ float __cdecl PlayerPedSprintDecayCpp(float timeStep, float k, float speed, floa
 float __cdecl PlayerPedSprintRatioCpp(float speed, float threshold);
 // 0x60A7A9..0x60A7D3: ((max(ratio - 1, 0) * k) + 1) con ST0 sin guardar (double, extern "C"); PlayerPed.cpp lo usa como float con otro nombre via /alternatename, no por este encabezado.
 extern "C" double __cdecl PlayerPedSprintTailDblCpp(float ratio, float k);
+
+// --- CTaskSimpleFight: FightHitCar (0x61D0B0) y FightStrike (0x6240B0) (prefijo Fight; lote gc) ---
+// 0x61D1CB..0x61D1DD / 0x61D210..0x61D221: float((masa * danio) * escala): fld masa; fmul danio; fmul escala; fstp dword (dos productos a 24 bits, el intermedio sin guardar).
+float __cdecl FightHitCarIntensityCpp(float mass, float damage, float scale);
+// 0x6242A0..0x6242BF: alcance = float(radioEnvolvente + radioGolpe); si el golpe es fuerte (bigHit): float(radioGolpe * 0.5f + alcance) (fstp dword [esp+14h] y relectura).
+float __cdecl FightStrikeReachCpp(float boundRadius, float hitRadius, bool bigHit);
+// 0x62432A..0x624385 (ped): distancia en el plano (dx*dx + dy*dy) a 24 bits frente a alcance*alcance; true solo si es menor (fcompp + test ah,5 + jp: orden estricto, NaN -> false).
+bool __cdecl FightStrikeWithin2DCpp(const float* centre, const float* position, float reach);
+// 0x62434E..0x624385 (vehiculo/objeto): ((dx*dx + dy*dy) + dz*dz) frente a alcance*alcance.
+bool __cdecl FightStrikeWithin3DCpp(const float* centre, const float* position, float reach);
+// 0x6243D2..0x624435: direccion = centro - posicion (float, se guarda en `direction`); true si ((dx*dx + dy*dy) + dz*dz) < (radioEsfera + radioGolpe)^2 (el radio sumado sin guardar).
+bool __cdecl FightStrikeSphereHitCpp(const float* sphere, const float* position, float hitRadius, float* direction);
+// 0x624456..0x6244BA: posicion += adelante * 1.5f * radio (x: float(adelante.x * 1.5f) guardado y relectura; y: sin guardar; z: guardado), cada componente se guarda en la posicion.
+void __cdecl FightStrikeAdvanceCpp(const float* forward, float radius, float* position);
+
+// --- CTaskSimpleGangDriveBy (lote w21 D; prefijo GangDriveBy). Anadir al FINAL de X87Math.h ---
+// PlayerTarget (0x621960, 0x6219E1..0x621A5F): cuadrante 0..3 (byte con signo del _ftol2) de ((atan2(-aimX, aimY) - rumbo del vehiculo) ajustado a +-pi + pi/4, + 2pi si < 0) * 2/pi, sin guardar como float.
+// forward = &matriz del vehiculo->forward (x, y consecutivos) o nullptr (heading = placement.m_fHeading).
+int __cdecl GangDriveByPlayerQuadrantCpp(float aimX, float aimY, const float* forward, float heading);
+// AITarget (0x627600, 0x627858..0x62787B): igual para el angulo ya guardado como float.
+int __cdecl GangDriveByAiQuadrantCpp(float angle);
+// AITarget (0x627600, 0x627657..0x627741): out = {dx, dy, dz, distancia, angulo} (ver X87Math.cpp); target y pos apuntan a x, y, z.
+void __cdecl GangDriveByAiGeometryCpp(const float* target, const float* pos, const float* forward, float heading, float* out);
+// AimGun (0x628350, 0x6283CB..0x628403): float(sqrt((dz^2 + dy^2) + dx^2) + 20.0f) con d = pos - source.
+float __cdecl GangDriveByAimRangeCpp(const float* pos, const float* source);
+// AimGun (0x628350, 0x6285F4..0x6286DB): elevacion de la rama de moto. radianFn = CGeneral::GetRadianAngleBetweenPoints reinterpretado con bits en x1, x2 e y2 (se llama una vez); forward != nullptr (lee forward[2]).
+float __cdecl GangDriveByBikeElevationCpp(float (__cdecl* radianFn)(unsigned int, float, unsigned int, unsigned int), const float* target, const float* gun, float baseAngle, const float* forward, float heading, float lean);
+
+// --- Grupo E (ge): 0x610DB0, 0x72D6D0 y 0x63A380 ---
+// 0x610DB0: fild random; fmul 2^-15; fimul range; _ftol2; devuelve los 32 bits bajos (el llamador suma el limite inferior). random ya viene enmascarado a 16 bits.
+int __cdecl PopulationRandomRangeCpp(int random, int range);
+// 0x72D6D0 (CZoneDef::GetCenter): zone = 8 int16 {esquinaX, esquinaY, vec1X, vec1Y, vec2X, vec2Y, minZ, maxZ}; out = {x, y, z} (centro, fild/fiadd/fmul 0.5/fiadd/fstp).
+void __cdecl CullZoneCenterCpp(const short* zone, float* out);
+// 0x63A460..0x63A49A: true si |valor| > 20 (movsx; fild; fabs; fcomp 20.0f; test ah, 41h; je), con el estado x87 de la comparacion como el EXE.
+bool __cdecl EnterCarCamStickBeyondCpp(short value);
+// 0x63A4CE..0x63A53F (CTaskComplexEnterCar): out = {rumbo - pi/2, escalar coche->peaton . eje derecho, atan2(escalar, distancia) * 0.7f}, los tres como float.
+// matrix: matriz del coche o nullptr (rumbo = placementHeading; como el EXE, el escalar desreferencia matrix + 8 y falla). carPos/pedPos: x, y, z consecutivos.
+void __cdecl EnterCarCamLateralCpp(const float* matrix, float placementHeading, const float* carPos, const float* pedPos, float distance, float* out);
+// 0x63A548..0x63A67A (CTaskComplexEnterCar): camMinY = CColModel::m_boundBox.m_vecMin.y del coche; choice = byte [tarea+0x29] (0..2); t1 = float [0x86E684 + 4 * choice];
+// t2 = float [0x86E678 + 4 * choice]; limit = float [0x8D2ECC]. Actualiza *betaStick y, si *vertical > limit, *alphaStick. vertical/horizontal solo se leen.
+void __cdecl EnterCarCamStickCpp(float camMinY, float distance, float angle, float heading, float dot, unsigned int choice, float t1, float t2, float limit,
+                                 const volatile float* vertical, const volatile float* horizontal, float* alphaStick, float* betaStick);
+
+// --- Grupo G (BRIEF_21): CQuaternion::Slerp ---
+// CQuaternion::Slerp del EXE (0x59C300): out/from/to = x, y, z, w consecutivos (out puede coincidir con from o to). theta == 0 copia `to`; si no, mezcla from y to con los pesos
+// A = sin((1 - t)·theta')·invSin y B = ±sin(theta'·t)·invSin (theta' = float(pi - theta) si theta > pi/2). Aritmetica x87 de 24 bits, senos sin redondear, estado x87 final como el del EXE.
+void __cdecl QuaternionSlerpCpp(float* out, const float* from, const float* to, float theta, float invSin, float t);

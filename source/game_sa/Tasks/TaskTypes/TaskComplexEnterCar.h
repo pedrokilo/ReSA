@@ -28,6 +28,8 @@ public:
     CTask*         CreateSubTask(eTaskType type, CPed* ped);
     CVector        GetTargetPos() const;
     CVehicle*      GetCameraAvoidVehicle();
+    // Como CTaskSimpleClimb::GetCameraStickModifier: ajusta el giro de la camara en tercera persona (CCam::Process_FollowPed_SA) mientras el peaton entra al coche
+    void           GetCameraStickModifier(CPed* ped, float distance, float& verticalAngle, float& horizontalAngle, float& alphaStick, float& betaStick);
 
     auto GetTargetCar() const { return m_Car; }
     void SetMoveState(eMoveState ms) { m_MoveState = ms; }

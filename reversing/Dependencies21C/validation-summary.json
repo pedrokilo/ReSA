@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 4608,
+  "differences": 0,
+  "registered_pairs": 4608,
+  "registered_functions": 3,
+  "functions": {
+    "CTaskSimpleFight::FightSetUpCol": 1536,
+    "CTaskSimpleFight::FightHitCar": 1536,
+    "CTaskSimpleFight::FightStrike": 1536
+  },
+  "covered_functions": {
+    "CTaskSimpleFight::FightSetUpCol": true,
+    "CTaskSimpleFight::FightHitCar": true,
+    "CTaskSimpleFight::FightStrike": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Dependencies21C-20261017-024536-158294",
+  "summary_sha256": "f259c473f77f7cb53ebaa3ae22ea2e5a96bad55b6fa08681c3536876e2fc4f41",
+  "result_txt_sha256": "cb9c12153e635ebb50f39fb6130b67c6c470bf6ea06ca3a615decfbe85171306",
+  "log_sha256": "b09c37ec64e749f3577bc676829ae9f8ecada81637c469cd673801a150172a22",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "bc227f525fa70a8b25333e231eb822bdff265fba12a0d2567cb47973a7e7c3f8",
+  "manifest": {
+    "tested_sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "6a3d2d98b4bce0aee97a08790ce20cd2abf453a37baf0137728115469b5a4ebd",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "1eab8612f9343d766debc1db79a405df84cc4654a4b2e2e5fb7748fb8d616981",
+      "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "862f6635260c621952fc0c15772ae9d2fa161daedf87c1b349a93565d789022f",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp": "a79a33ef432c49892523b9117e87aea916daf04cd1d73cc3baebfaa472609448",
+      "source/game_sa/X87Math.cpp": "2744cf9b95d7657d019d320f455c50af1884474b4901a4ad357a128b441d7cee",
+      "source/game_sa/X87Math.h": "a9aa393f782698977e7c6453e1f65fa49357c241164bcd90713093a829c64f01",
+      "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
+    }
+  }
+}

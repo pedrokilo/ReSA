@@ -426,7 +426,7 @@ EntryPatch hse(0x5E0460,HandSignal),hsd(bit_cast<uintptr_t>(&CPed::IsPlayingHand
 EntryPatch he(0x441DB0,Heading),hd(bit_cast<uintptr_t>(&CPlaceable::GetHeading),Heading);
 EntryPatch ase(0x4D68B0,Association),asd(bit_cast<uintptr_t>(static_cast<CAnimBlendAssociation*(*)(RpClump*,uint32)>(&RpAnimBlendClumpGetAssociation)),Association);
 EntryPatch fe(0x542A50,Force),fd(bit_cast<uintptr_t>(&CPhysical::ApplyTurnForce),Force);
-EntryPatch fse(0x61D5F0,FightSetup),fhe(0x61D0B0,FightHit);
+EntryPatch fse(0x61D5F0,FightSetup),fsd(bit_cast<uintptr_t>(&CTaskSimpleFight::FightSetUpCol),FightSetup),fhe(0x61D0B0,FightHit),fhd(bit_cast<uintptr_t>(&CTaskSimpleFight::FightHitCar),FightHit);
 EntryPatch ce(0x4185C0,Collision),cd(bit_cast<uintptr_t>(&CCollision::ProcessColModels),Collision);
 EntryPatch aue(0x4F6420,Audio),aud(bit_cast<uintptr_t>(static_cast<void(CAEVehicleAudioEntity::*)(eAudioEvents,float)>(&CAEVehicleAudioEntity::AddAudioEvent)),Audio);
 std::optional<EntryPatch> nextE,nextD;if(fn.slot==9||fn.slot==10){nextE.emplace(0x65FC80,Next);nextD.emplace(bit_cast<uintptr_t>(&CTaskGangHassleVehicle::CreateNextSubTask),Next);}

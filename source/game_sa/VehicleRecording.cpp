@@ -357,6 +357,33 @@ void CVehicleRecording::RestoreInfoForMatrix(CMatrix& matrix, const CVehicleStat
     matrix.GetPosition() = frame.m_vecPosn;
 }
 
+// Como el original (0x821982..0x8219D7): printf del CRT estático del juego (char*, no wprintf; el identificador "wprintf" de Ghidra es un conflicto de FID)
+// sobre el stdout del EXE (FILE 0x8E2C50). Es el envoltorio de la CRT: toma el cerrojo del flujo, activa el búfer temporal, formatea con el motor
+// de formato del EXE y libera el cerrojo siempre (try/finally del original). El motor (_output) depende de las tablas de configuración regional y
+// de la conversión de coma flotante del CRT del EXE, por lo que se llama por dirección en lugar de reimplementarlo. Devuelve el número de
+// caracteres (EAX); ningún llamador lee ECX/EDX tras la llamada.
+static int __cdecl CrtPrintf(const char* format, ...) {
+    using LockFn   = void(__cdecl*)(int, void*);                 // 0x823FD1: _lock_file2(1, stream)
+    using UnlockFn = void(__cdecl*)(int, void*);                 // 0x824023: _unlock_file2(1, stream)
+    using StbufFn  = int(__cdecl*)(void*);                       // 0x827DEC: _stbuf
+    using OutputFn = int(__cdecl*)(void*, const char*, va_list); // 0x827F4B: _output
+    using FtbufFn  = void(__cdecl*)(int, void*);                 // 0x827E74: _ftbuf
+    void* const stream = reinterpret_cast<void*>(0x8E2C50);
+    reinterpret_cast<LockFn>(0x823FD1)(1, stream);
+    int result = 0;
+    __try {
+        const int tempBuffer = reinterpret_cast<StbufFn>(0x827DEC)(stream);
+        va_list args;
+        va_start(args, format);
+        result = reinterpret_cast<OutputFn>(0x827F4B)(stream, format, args);
+        va_end(args);
+        reinterpret_cast<FtbufFn>(0x827E74)(tempBuffer, stream);
+    } __finally {
+        reinterpret_cast<UnlockFn>(0x824023)(1, stream);
+    }
+    return result;
+}
+
 // 0x45A610
 void CVehicleRecording::SaveOrRetrieveDataForThisFrame() {
     if (CReplay::Mode == MODE_PLAYBACK)
@@ -377,7 +404,7 @@ void CVehicleRecording::SaveOrRetrieveDataForThisFrame() {
         // Como el original: el tiempo solo avanza si la reproducción no está en pausa.
         if (!bPlaybackPaused[i]) {
             if ((float)(CTimer::GetTimeInMS() - CTimer::m_snPPPPreviousTimeInMilliseconds) * PlaybackSpeed[i] * 0.25f > 500.0f) {
-                plugin::Call<0x821982, const char*>("That's a really big step\n"); // printf del EXE
+                CrtPrintf("That's a really big step\n");
             }
             PlaybackRunningTime[i] = (float)(CTimer::GetTimeInMS() - CTimer::m_snPPPPreviousTimeInMilliseconds) * PlaybackSpeed[i] * 0.25f + PlaybackRunningTime[i];
         }
@@ -569,6 +596,14 @@ void CVehicleRecording::InjectHooks() {
     RH_ScopedInstall(IsPlaybackPausedForCar, 0x4595A0);
     RH_ScopedInstall(SkipForwardInRecording, 0x459D10);
     RH_ScopedInstall(SkipToEndAndStopPlaybackRecordedCar, 0x45A4A0);
+
+    // printf del CRT del EXE (0x821982), usado por 29 llamadores del juego y por varias reconstrucciones (Pools, World, cTransmission, AESoundManager).
+    // Bloque propio para que los objetos de ámbito (RHCurrentScopeName...) no choquen con los de esta función.
+    {
+        RH_ScopedNamespaceName("CRT");
+        RH_ScopedCategoryGlobal();
+        RH_ScopedGlobalInstall(CrtPrintf, 0x821982);
+    }
 }
 
 uint32 CPath::GetIndex() const {

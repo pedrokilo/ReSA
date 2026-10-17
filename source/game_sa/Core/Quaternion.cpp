@@ -18,6 +18,7 @@ void CQuaternion::InjectHooks() {
     // RH_ScopedOverloadedInstall(Get, "", 0x59C080, void (CQuaternion::*)(RwMatrix*) const);
     RH_ScopedOverloadedInstall(Set, "matrix", 0x59C3E0, void (CQuaternion::*)(const RwMatrix&));
     RH_ScopedOverloadedInstall(Set, "axis-angle", 0x59C600, void (CQuaternion::*)(RwV3d*, float));
+    RH_ScopedOverloadedInstall(Slerp, "halftheta", 0x59C300, void (CQuaternion::*)(const CQuaternion&, const CQuaternion&, float, float, float));
 }
 
 // Quat to matrix
@@ -56,9 +57,11 @@ void CQuaternion::Multiply(const CQuaternion& a, const CQuaternion& b) {
     ((void(__thiscall*)(CQuaternion*, const CQuaternion&, const CQuaternion&))0x59C270)(this, a, b);
 }
 
-// Spherical linear interpolation
+// Spherical linear interpolation (0x59C300): contrato thiscall propio de GTA (no es RtQuatSetupSlerpCache de RenderWare) con el angulo y 1/sin(angulo) ya precalculados
+// (CAnimBlendNode::CalcTheta, 0x4D00E0; lo llama CAnimBlendNode::Update, 0x4D06C0). theta == 0 copia `to`; si theta > pi/2 usa pi - theta y el segundo peso cambia de signo; el resto es
+// {sin((1 - t)*theta)*inv}*from + {+/-sin(theta*t)*inv}*to con la aritmetica x87 de 24 bits y los senos sin redondear (QuaternionSlerpCpp, X87Math).
 void CQuaternion::Slerp(const CQuaternion& from, const CQuaternion& to, float halftheta, float sintheta_inv, float t) {
-    ((void(__thiscall*)(CQuaternion*, const CQuaternion&, const CQuaternion&, float, float, float))0x59C300)(this, from, to, halftheta, sintheta_inv, t);
+    QuaternionSlerpCpp(&x, &from.x, &to.x, halftheta, sintheta_inv, t);
 }
 
 // Quat from matrix (0x59C3E0). Cuatro ramas segun la traza; cada operacion x87 del EXE (24 bits) es una operacion float, en su

@@ -15,10 +15,22 @@
 #pragma warning(pop)
 #endif
 
+// Globales del EXE (0x730830 Init las inicializa); declaradas en D3DResourceSystem.h.
+bool&                D3DResourceSystem::UseD3DResourceBuffering = *reinterpret_cast<bool*>(0x8D6084);
+uint32&              D3DResourceSystem::NumTextureBuffers       = *reinterpret_cast<uint32*>(0xC87C60);
+D3DTextureBuffer&    D3DResourceSystem::TextureBuffer           = *reinterpret_cast<D3DTextureBuffer*>(0xC87C68); // TextureBuffers[0]
+D3DTextureBuffer (&D3DResourceSystem::TextureBuffers)[17]       = *reinterpret_cast<D3DTextureBuffer(*)[17]>(0xC87C68);
+D3DIndexDataBuffer (&D3DResourceSystem::IndexDataBuffers)[16]   = *reinterpret_cast<D3DIndexDataBuffer(*)[16]>(0xC87E48);
+D3DIndexDataBuffer&  D3DResourceSystem::IndexDataBuffer         = *reinterpret_cast<D3DIndexDataBuffer*>(0xC87FC8);
+uint32&              D3DResourceSystem::FreeTextureBufferIndex  = *reinterpret_cast<uint32*>(0xC87FE0);
+uint32&              D3DResourceSystem::FreeIndexBufferIndex    = *reinterpret_cast<uint32*>(0xC87FE4);
+
 void D3DResourceSystem::InjectHooks() {
     RH_ScopedClass(D3DResourceSystem);
     RH_ScopedCategory("RenderWare");
     RH_ScopedInstall(SetUseD3DResourceBuffering, 0x730AC0);
+    RH_ScopedInstall(TidyUpD3DIndexBuffers, 0x730740);
+    RH_ScopedInstall(TidyUpD3DTextures, 0x7305E0);
 }
 
 // 0x730900
@@ -52,14 +64,116 @@ void D3DResourceSystem::Shutdown() {
     plugin::Call<0x730A00>();
 }
 
+namespace {
+// IUnknown::Release (ranura 2 de la vtable, stdcall con `this` en la pila) de un recurso D3D9 (textura o index buffer): el `call dword ptr [edx+8]` del EXE.
+// Se llama por la vtable para no depender de d3d9.h (las caches guardan void*).
+inline void ReleaseD3DResource(void* resource) {
+    using ReleaseFn = unsigned long(__stdcall*)(void*);
+    (*static_cast<ReleaseFn**>(resource))[2](resource);
+}
+// Buffer i-esimo con la aritmetica de 32 bits del EXE (`imul eax,edx,0x1C`; `lea eax,[edx+edx*2]` y `*8`): sin comprobar el rango, como el original.
+inline D3DTextureBuffer* TextureBufferAt(int32 index) {
+    return reinterpret_cast<D3DTextureBuffer*>(reinterpret_cast<uintptr_t>(&D3DResourceSystem::TextureBuffers[0]) + static_cast<uint32>(index) * sizeof(D3DTextureBuffer));
+}
+inline D3DIndexDataBuffer* IndexDataBufferAt(int32 index) {
+    return reinterpret_cast<D3DIndexDataBuffer*>(reinterpret_cast<uintptr_t>(&D3DResourceSystem::IndexDataBuffers[0]) + static_cast<uint32>(index) * sizeof(D3DIndexDataBuffer));
+}
+}
+
 // 0x730740
+// Libera hasta `count` index buffers. Primero vacia la pila del buffer generico (IndexDataBuffer, 0xC87FC8); cuando esa pila se agota (o encuentra un
+// puntero nulo, cuyos contadores ya estan decrementados) recorre en circulo los 16 buffers por tamano (IndexDataBuffers, 0xC87E48) desde
+// FreeIndexBufferIndex, que se guarda en cada paso. Tras cada Release el indice se vuelve a leer de la memoria (la llamada puede cambiarlo).
+// Termina tras `count` Release o tras 16 pasos seguidos sin liberar nada. No reproduce el residuo de EAX/ECX/EDX: ningun llamador lo lee (todos son C++).
 void D3DResourceSystem::TidyUpD3DIndexBuffers(uint32 count) {
-    plugin::Call<0x730740, uint32>(count);
+    if (count == 0) {
+        return;
+    }
+    uint32 remaining = count;
+    // Fase 1: buffer generico.
+    while (IndexDataBuffer.m_nSize != 0) {
+        const uint32 top = IndexDataBuffer.m_nSize - 1;
+        IndexDataBuffer.m_nNumDatasInBuffer = IndexDataBuffer.m_nNumDatasInBuffer - 1;
+        IndexDataBuffer.m_nSize = top;
+        void* const indexBuffer = IndexDataBuffer.m_apIndexData[top];
+        if (!indexBuffer) {
+            break;
+        }
+        ReleaseD3DResource(indexBuffer);
+        if (--remaining == 0) {
+            return;
+        }
+    }
+    // Fase 2: los 16 buffers por tamano.
+    int32 index = static_cast<int32>(FreeIndexBufferIndex);
+    int32 emptyScans = 0;
+    while (emptyScans < 16) {
+        D3DIndexDataBuffer* const buffer = IndexDataBufferAt(index);
+        bool released = false;
+        if (buffer->m_nSize != 0) {
+            const uint32 top = buffer->m_nSize - 1;
+            buffer->m_nNumDatasInBuffer = buffer->m_nNumDatasInBuffer - 1;
+            buffer->m_nSize = top;
+            void* const indexBuffer = buffer->m_apIndexData[top];
+            if (indexBuffer) {
+                ReleaseD3DResource(indexBuffer);
+                index = static_cast<int32>(FreeIndexBufferIndex);
+                emptyScans = 0;
+                --remaining;
+                released = true;
+            }
+        }
+        if (!released) {
+            ++emptyScans;
+        }
+        index = static_cast<int32>(static_cast<uint32>(index) + 1u) % 16;
+        FreeIndexBufferIndex = static_cast<uint32>(index);
+        if (remaining == 0) {
+            return;
+        }
+    }
 }
 
 // 0x7305E0
+// Libera hasta `count` texturas: recorre en circulo los NumTextureBuffers buffers de TextureBuffers (0xC87C68) desde FreeTextureBufferIndex y saca de cada
+// uno la ultima textura de su pila (decrementa m_nNumTexturesInBuffer y m_nSize antes de liberar, tambien si el puntero es nulo). El indice avanza
+// (modulo NumTextureBuffers) tras cada buffer y se guarda en cada paso; tras cada Release el numero de buffers y el indice se vuelven a leer de la memoria.
+// Termina tras `count` Release o tras NumTextureBuffers pasos seguidos sin liberar nada (con NumTextureBuffers <= 0 no hace nada). Sin residuo de
+// registros: ningun llamador (todos ya en C++) lee EAX/ECX/EDX.
 void D3DResourceSystem::TidyUpD3DTextures(uint32 count) {
-    plugin::Call<0x7305E0, uint32>(count);
+    if (count == 0) {
+        return;
+    }
+    uint32 remaining = count;
+    int32 index = static_cast<int32>(FreeTextureBufferIndex);
+    int32 numBuffers = static_cast<int32>(NumTextureBuffers);
+    int32 emptyScans = 0;
+    while (emptyScans < numBuffers) {
+        D3DTextureBuffer* const buffer = TextureBufferAt(index);
+        bool released = false;
+        if (buffer->m_nSize != 0) {
+            const uint32 top = buffer->m_nSize - 1;
+            buffer->m_nNumTexturesInBuffer = buffer->m_nNumTexturesInBuffer - 1;
+            buffer->m_nSize = top;
+            void* const texture = buffer->m_apTextures[top];
+            if (texture) {
+                ReleaseD3DResource(texture);
+                numBuffers = static_cast<int32>(NumTextureBuffers);
+                index = static_cast<int32>(FreeTextureBufferIndex);
+                emptyScans = 0;
+                --remaining;
+                released = true;
+            }
+        }
+        if (!released) {
+            ++emptyScans;
+        }
+        index = static_cast<int32>(static_cast<uint32>(index) + 1u) % numBuffers;
+        FreeTextureBufferIndex = static_cast<uint32>(index);
+        if (remaining == 0) {
+            return;
+        }
+    }
 }
 
 // 0x7306A0

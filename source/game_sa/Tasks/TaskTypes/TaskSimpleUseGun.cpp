@@ -554,7 +554,7 @@ bool CTaskSimpleUseGun::ProcessPed(CPed* ped) {
             fight.m_nCurrentMove = eFightAttackType(crouched);
             fight.m_nLastCommand = 11;
             fight.m_pAnim = m_Anim;
-            plugin::CallMethod<0x6240B0, CTaskSimpleFight*, CPed*, CVector&>(&fight, ped, strike);
+            fight.FightStrike(ped, strike);
             fight.m_pAnim = nullptr;
         }
         if (m_TargetEntity) ped->m_fAimingRotation = (m_TargetEntity->GetPosition() - ped->GetPosition()).Heading();

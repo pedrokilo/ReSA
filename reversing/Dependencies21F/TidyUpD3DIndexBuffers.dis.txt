@@ -1,0 +1,67 @@
+730740: push esi
+730741: mov esi, dword ptr [esp + 8]
+730745: push edi
+730746: xor edi, edi
+730748: test esi, esi
+73074a: je 0x7307ea
+730750: mov eax, dword ptr [0xc87fd8]
+730755: test eax, eax
+730757: je 0x730785
+730759: mov ecx, dword ptr [0xc87fd4]
+73075f: dec ecx
+730760: dec eax
+730761: mov dword ptr [0xc87fd4], ecx
+730767: mov ecx, dword ptr [0xc87fdc]
+73076d: mov dword ptr [0xc87fd8], eax
+730772: mov eax, dword ptr [ecx + eax*4]
+730775: test eax, eax
+730777: je 0x730785
+730779: mov edx, dword ptr [eax]
+73077b: push eax
+73077c: call dword ptr [edx + 8]
+73077f: dec esi
+730780: jne 0x730750
+730782: pop edi
+730783: pop esi
+730784: ret 
+730785: test esi, esi
+730787: je 0x7307ea
+730789: mov edx, dword ptr [0xc87fe4]
+73078f: push ebx
+730790: cmp edi, 0x10
+730793: jge 0x7307e9
+730795: lea eax, [edx + edx*2]
+730798: mov ecx, dword ptr [eax*8 + 0xc87e58]
+73079f: test ecx, ecx
+7307a1: lea eax, [eax*8 + 0xc87e48]
+7307a8: je 0x7307d0
+7307aa: mov ebx, dword ptr [eax + 0xc]
+7307ad: dec ebx
+7307ae: dec ecx
+7307af: mov dword ptr [eax + 0xc], ebx
+7307b2: mov dword ptr [eax + 0x10], ecx
+7307b5: mov eax, dword ptr [eax + 0x14]
+7307b8: mov eax, dword ptr [eax + ecx*4]
+7307bb: test eax, eax
+7307bd: je 0x7307d0
+7307bf: mov ecx, dword ptr [eax]
+7307c1: push eax
+7307c2: call dword ptr [ecx + 8]
+7307c5: mov edx, dword ptr [0xc87fe4]
+7307cb: xor edi, edi
+7307cd: dec esi
+7307ce: jmp 0x7307d1
+7307d0: inc edi
+7307d1: inc edx
+7307d2: and edx, 0x8000000f
+7307d8: jns 0x7307df
+7307da: dec edx
+7307db: or edx, 0xfffffff0
+7307de: inc edx
+7307df: test esi, esi
+7307e1: mov dword ptr [0xc87fe4], edx
+7307e7: jne 0x730790
+7307e9: pop ebx
+7307ea: pop edi
+7307eb: pop esi
+7307ec: ret 

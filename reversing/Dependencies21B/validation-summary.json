@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "pairs": 10240,
+  "differences": 0,
+  "registered_pairs": 10240,
+  "registered_functions": 5,
+  "functions": {
+    "CCamera::ProcessObbeCinemaCameraCar": 2048,
+    "CCamera::ProcessObbeCinemaCameraTrain": 2048,
+    "CCamera::ProcessObbeCinemaCameraHeli": 2048,
+    "CCamera::ProcessObbeCinemaCameraPlane": 2048,
+    "CCamera::ProcessObbeCinemaCameraBoat": 2048
+  },
+  "covered_functions": {
+    "CCamera::ProcessObbeCinemaCameraCar": true,
+    "CCamera::ProcessObbeCinemaCameraTrain": true,
+    "CCamera::ProcessObbeCinemaCameraHeli": true,
+    "CCamera::ProcessObbeCinemaCameraPlane": true,
+    "CCamera::ProcessObbeCinemaCameraBoat": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Dependencies21B-20261017-022839-927967",
+  "summary_sha256": "7852f32be98126c7e2d96730cee0750a179d4af09d2bda2700d231890a29af0f",
+  "result_txt_sha256": "52774b46cafaef90ad7470a36918917ed0f008be537a9a53f52a247e8d481a39",
+  "log_sha256": "04b4f75d1acf0229d58a1235de0d93cf9932c1520e7479b33282706203fcd183",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "497527cd8c8c26f944e097b02f684dab19c14bf9043ec592f4a1dca6f94d1dc2",
+  "manifest": {
+    "tested_sources": {
+      "source/game_sa/Camera.cpp": "69088a382c52d1f6215f64617f231abf1d665ff3374ca3b404455c4ddf55e6f0",
+      "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51",
+      "source/game_sa/Cam.h": "f48cf3c64eda811b598ea3808c1ad78ca126075703d4c81022986500d826524d",
+      "source/game_sa/Hud.cpp": "f6f38b6d52096e15cc0cdbcec3b66eb7e81d9fc90ab89c33bfc1cbf5701cb0a8",
+      "source/game_sa/Hud.h": "79281d4af6081a87676aa178f11fb77ed5003c1aa0a6a09965b8767e1a9209fa",
+      "source/game_sa/Text/Text.cpp": "d474d34d62c9736dfc123b55dbe074047270605fe4b187eb07238dbf2e078e23",
+      "source/game_sa/Text/Text.h": "c37296988233a6936c373ef7b8ca3b2ef1ba0aca659917de6370cc616f256ee6",
+      "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
+    }
+  }
+}

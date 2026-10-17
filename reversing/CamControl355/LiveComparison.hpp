@@ -59,6 +59,7 @@ inline void __fastcall Fixed(CCamera* self,void*,const CVector& source,const CVe
 inline bool __cdecl Garage(CVector position){trace.push_back({"garage",V(position)});return garageCase;}
 inline void __fastcall Doors(CGarage*,void*,CObject** first,CObject** second){trace.push_back({"doors",firstDoor!=nullptr,secondDoor!=nullptr});*first=firstDoor;*second=secondDoor;}
 inline CVector* __fastcall ZonePosition(CAttributeZone*,void*,CVector* out){trace.push_back({"zone_position"});*out=CVector{2,3,4};return out;}
+inline uintptr_t Body(uintptr_t at){for(int i=0;i<16&&*reinterpret_cast<const uint8*>(at)==0xE9;++i)at+=5+*reinterpret_cast<const int32*>(at+1);return at;}
 inline float __cdecl Ground(CVector position,bool* found,CEntity** entity){trace.push_back({"ground",V(position),found!=nullptr,entity==nullptr});*found=scenario%4!=0;return 2.25f;}
 inline bool __cdecl Clear(const CVector& from,const CVector& to,bool b0,bool b1,bool b2,bool b3,bool b4,bool b5,bool b6){trace.push_back({"clear",V(from),V(to),b0,b1,b2,b3,b4,b5,b6});return scenario%3!=0;}
 inline bool __cdecl Line(const CVector& from,const CVector& to,CColPoint& cp,CEntity*& entity,bool b0,bool b1,bool b2,bool b3,bool b4,bool b5,bool b6,bool b7){trace.push_back({"line",V(from),V(to),b0,b1,b2,b3,b4,b5,b6,b7});std::memset(&cp,0,sizeof(cp));cp.m_vecPoint=CVector{2,3,4};entity=nullptr;return scenario%3!=0;}
@@ -127,7 +128,10 @@ inline void Update(){
  EntryPatch stickXPatch(0x540E80,StickX),stickXDll(bit_cast<uintptr_t>(&CPad::GetMouseCameraStickHorizontal),StickX);
  EntryPatch stickYPatch(0x540F80,StickY),stickYDll(bit_cast<uintptr_t>(&CPad::GetMouseCameraStickVertical),StickY);
  EntryPatch doorsPatch(0x449FF0,Doors);
- EntryPatch zonePositionPatch(0x72D6D0,ZonePosition);
+ // CCamera::CamControl (DLL) llama a CZoneDef::GetCenter de la DLL directamente (CameraControlZoneCameraPosition): el mismo falso en la entrada de la DLL (Body calculado ANTES de crear parches, para no seguir un salto propio).
+ const uintptr_t zoneCenterThunk=bit_cast<uintptr_t>(&CZoneDef::GetCenter),zoneCenterBody=Body(zoneCenterThunk);
+ EntryPatch zonePositionPatch(0x72D6D0,ZonePosition),zonePositionDll(zoneCenterThunk,ZonePosition);
+ std::unique_ptr<EntryPatch> zonePositionBody;if(zoneCenterBody!=zoneCenterThunk)zonePositionBody=std::make_unique<EntryPatch>(zoneCenterBody,ZonePosition);
  EntryPatch bufferPatch(0x509AE0,Buffer);
  EntryPatch cinemaCarPatch(0x5267C0,CinemaCar);
  EntryPatch cinemaTrainPatch(0x526950,CinemaTrain);

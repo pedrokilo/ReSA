@@ -36,6 +36,7 @@ END GENERATED HOOK STATUS */
 #include "PedClothesDesc.h"
 #include "Tasks/TaskTypes/TaskSimpleSwim.h"
 #include "Tasks/TaskTypes/TaskSimpleClimb.h"
+#include "Tasks/TaskTypes/TaskComplexEnterCar.h"
 #include "Ragdoll/IKChainManager.h"
 #include "X87Math.h"
 
@@ -3177,7 +3178,7 @@ void CCam::Process_FollowPed_SA(const CVector& targetPosition, float, float, flo
         intelligence->GetTaskClimb()->GetCameraStickModifier(ped,m_fVerticalAngle,m_fHorizontalAngle,alphaStick,betaStick);
     } else {
         auto* active=intelligence->GetTaskManager().GetActiveTask();
-        if (int(active->GetTaskType())==701) plugin::CallMethod<0x63A380>(intelligence->GetTaskManager().GetActiveTask(),ped,distance,&m_fVerticalAngle,&m_fHorizontalAngle,&alphaStick,&betaStick);
+        if (int(active->GetTaskType())==701) static_cast<CTaskComplexEnterCar*>(intelligence->GetTaskManager().GetActiveTask())->GetCameraStickModifier(ped,distance,m_fVerticalAngle,m_fHorizontalAngle,alphaStick,betaStick);
     }
     const float speedWeight=CamPower(f(row+32),step),maximumSpeed=f(row+36);
     const float wantedBetaSpeed=std::clamp(betaStick+betaCorrection,-maximumSpeed,maximumSpeed);

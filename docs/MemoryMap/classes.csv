@@ -82,7 +82,7 @@ CBuildingPool,class,1,1,0,1,1,0,,public CPool<CBuilding>,source/game_sa/Pools/Bu
 CBulletInfo,class,4,4,0,4,4,0,,,source/game_sa/BulletInfo.h:16,catalogue_class_or_group
 CBulletTraces,class,5,5,0,5,5,0,,,source/game_sa/BulletTraces.h:11,catalogue_class_or_group
 CCam,class,47,47,0,47,47,0,,,source/game_sa/Cam.h:22,catalogue_class_or_group
-CCamera,class,111,111,0,111,111,0,,public CPlaceable,source/game_sa/Camera.h:79,catalogue_class_or_group
+CCamera,class,116,116,0,116,116,0,,public CPlaceable,source/game_sa/Camera.h:79,catalogue_class_or_group
 CCarAI,class,25,25,0,25,25,0,,,source/game_sa/CarAI.h:11,catalogue_class_or_group
 CCarCtrl,class,30,30,0,30,30,0,,,source/game_sa/CarCtrl.h:23,catalogue_class_or_group
 CCarEnterExit,class,32,32,0,32,32,0,,,source/game_sa/CarEnterExit.h:15,catalogue_class_or_group
@@ -122,7 +122,7 @@ CCranes,class,5,5,0,5,5,0,,,source/game_sa/Cranes.h:3,catalogue_class_or_group
 CCredits,class,6,6,0,6,6,0,,,source/game_sa/Credits.h:9,catalogue_class_or_group
 CCreepingFire,class,3,3,0,3,3,0,,,source/game_sa/CreepingFire.h:11,catalogue_class_or_group
 CCrime,class,2,2,0,2,2,0,,,source/game_sa/Crime.h:7,catalogue_class_or_group
-CCullZones,class,21,21,0,21,21,0,,,source/game_sa/CullZones.h:161,catalogue_class_or_group
+CCullZones,class,21,21,0,21,21,0,,,source/game_sa/CullZones.h:165,catalogue_class_or_group
 CCurrentVehicle,class,2,2,0,2,2,0,,,source/game_sa/CurrentVehicle.h:5,catalogue_class_or_group
 CCurves,class,6,6,0,6,6,0,,,source/game_sa/Curves.h:7,catalogue_class_or_group
 CCustomBuildingDNPipeline,class,14,14,0,14,14,0,,,source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h:22,catalogue_class_or_group
@@ -345,14 +345,15 @@ CPointLights,class,3,3,0,3,3,0,,,source/game_sa/PointLights.h:40,catalogue_class
 CPointRoutePool,class,1,1,0,1,1,0,,public CPool<CPointRoute>,source/game_sa/Pools/PointRoutePool.h:31,catalogue_class_or_group
 CPools,class,19,19,0,19,19,0,,,source/game_sa/Pools/Pools.h:169,catalogue_class_or_group
 CPopCycle,class,15,15,0,15,15,0,,,source/game_sa/PopCycle.h:192,catalogue_class_or_group
-CPopulation,class,66,66,0,66,66,0,,,source/game_sa/Population.h:33,catalogue_class_or_group
+CPopulation,class,67,67,0,67,67,0,,,source/game_sa/Population.h:33,catalogue_class_or_group
 CPostEffects,class,38,38,0,38,38,0,,,source/game_sa/PostEffects.h:18,catalogue_class_or_group
 CProjectileInfo,class,12,12,0,12,12,0,,,source/game_sa/ProjectileInfo.h:17,catalogue_class_or_group
 CPtrNodeDoubleLinkPool,class,1,1,0,1,1,0,,public CPool<CPtrNodeDoubleLink<void*>>,source/game_sa/Pools/PtrNodeDoubleLinkPool.h:30,catalogue_class_or_group
 CPtrNodeSingleLinkPool,class,1,1,0,1,1,0,,public CPool<CPtrNodeSingleLink<void*>>,source/game_sa/Pools/PtrNodeSingleLinkPool.h:30,catalogue_class_or_group
 CQuadBike,class,12,12,0,12,12,0,0x00871AE8,public CAutomobile,source/game_sa/Entity/Vehicle/QuadBike.h:37,catalogue_class_or_group
 CQuadTreeNode<T>,catalogue_group,12,12,0,12,12,0,,,,catalogue_class_or_group
-CQuaternion,class,2,2,0,2,2,0,,,source/game_sa/Core/Quaternion.h:12,catalogue_class_or_group
+CQuaternion,class,3,3,0,3,3,0,,,source/game_sa/Core/Quaternion.h:12,catalogue_class_or_group
+CRT,catalogue_group,1,1,0,1,1,0,,,,catalogue_class_or_group
 CRadar,class,64,64,0,64,64,0,,,source/game_sa/Radar.h:201,catalogue_class_or_group
 CRealTimeShadow,class,8,8,0,8,8,0,,,source/game_sa/RealTimeShadow.h:16,catalogue_class_or_group
 CRealTimeShadowManager,class,7,7,0,7,7,0,,,source/game_sa/RealTimeShadowManager.h:7,catalogue_class_or_group
@@ -434,7 +435,7 @@ CTaskComplexDrivePointRoute,class,7,7,0,7,7,0,0x0086EBF8,public CTaskComplex,sou
 CTaskComplexDriveToPoint,class,8,8,0,8,8,0,0x0086E9DC,public CTaskComplexCarDrive,source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h:13,catalogue_class_or_group
 CTaskComplexEnterAnyCarAsDriver,class,5,5,0,5,5,0,0x0086EA14,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexEnterAnyCarAsDriver.h:5,catalogue_class_or_group
 CTaskComplexEnterBoatAsDriver,class,8,8,0,8,8,0,0x0086E7D0,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexEnterBoatAsDriver.h:8,catalogue_class_or_group
-CTaskComplexEnterCar,class,14,14,0,14,14,0,0x0086E6F0,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.h:16,catalogue_class_or_group
+CTaskComplexEnterCar,class,15,15,0,15,15,0,0x0086E6F0,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.h:16,catalogue_class_or_group
 CTaskComplexEnterCarAsDriver,class,3,3,0,3,3,0,0x0086EAAC,public CTaskComplexEnterCar,source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriver.h:12,catalogue_class_or_group
 CTaskComplexEnterCarAsDriverTimed,class,9,9,0,9,9,0,0x0086E720,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.h:16,catalogue_class_or_group
 CTaskComplexEnterCarAsPassenger,class,3,3,0,3,3,0,0x0086EADC,public CTaskComplexEnterCar,source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassenger.h:11,catalogue_class_or_group
@@ -625,10 +626,10 @@ CTaskSimpleEvasiveDive,class,8,8,0,8,8,0,0x0086F244,public CTaskSimple,source/ga
 CTaskSimpleEvasiveStep,class,8,8,0,8,8,0,0x0086F1F4,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleEvasiveStep.h:6,catalogue_class_or_group
 CTaskSimpleFacial,class,5,5,0,5,5,0,0x00870AB8,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.h:32,catalogue_class_or_group
 CTaskSimpleFall,class,6,6,0,6,6,0,0x00870430,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleFall.h:6,catalogue_class_or_group
-CTaskSimpleFight,class,6,6,0,6,6,0,0x0086D684,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h:42,catalogue_class_or_group
+CTaskSimpleFight,class,9,9,0,9,9,0,0x0086D684,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h:42,catalogue_class_or_group
 CTaskSimpleFightingControl,class,7,7,0,7,7,0,0x0086D700,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h:8,catalogue_class_or_group
 CTaskSimpleFinishBrain,class,2,2,0,2,2,0,0x00859D20,public CTaskSimpleNone,source/game_sa/Tasks/TaskTypes/TaskSimpleFinishBrain.h:5,catalogue_class_or_group
-CTaskSimpleGangDriveBy,class,4,4,0,4,4,0,0x0086D944,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h:31,catalogue_class_or_group
+CTaskSimpleGangDriveBy,class,8,8,0,8,8,0,0x0086D944,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h:31,catalogue_class_or_group
 CTaskSimpleGetUp,class,5,5,0,5,5,0,0x008703E0,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleGetUp.h:5,catalogue_class_or_group
 CTaskSimpleGiveCPR,class,6,6,0,6,6,0,0x0086F4C8,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleGiveCPR.h:6,catalogue_class_or_group
 CTaskSimpleGoTo,class,4,4,0,4,4,0,0x0086FD1C,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h:7,catalogue_class_or_group
@@ -734,10 +735,11 @@ CWeaponModelInfo,class,3,3,0,3,3,0,0x0085BD78,public CClumpModelInfo,source/game
 CWeather,class,13,13,0,13,13,0,,,source/game_sa/Weather.h:21,catalogue_class_or_group
 CWindModifiers,class,2,2,0,2,2,0,,,source/game_sa/WindModifiers.h:9,catalogue_class_or_group
 CWorld,class,95,95,0,95,95,0,,,source/game_sa/World.h:52,catalogue_class_or_group
+CZoneDef,struct,1,1,0,1,1,0,,,source/game_sa/CullZones.h:75,catalogue_class_or_group
 C_PcSave,class,5,5,0,5,5,0,,,source/game_sa/C_PcSave.h:7,catalogue_class_or_group
 CdStream,struct,9,9,0,9,9,0,,,source/game_sa/CdStreamInfo.h:32,catalogue_class_or_group
 Common,catalogue_group,11,11,0,11,11,0,,,,catalogue_class_or_group
-D3DResourceSystem,class,1,1,0,1,1,0,,,source/game_sa/RenderWare/D3DResourceSystem.h:15,catalogue_class_or_group
+D3DResourceSystem,class,3,3,0,3,3,0,,,source/game_sa/RenderWare/D3DResourceSystem.h:15,catalogue_class_or_group
 FurnitureGroup_c,class,6,6,0,6,6,0,,,source/game_sa/Interior/FurnitureGroup_c.h:17,catalogue_class_or_group
 FurnitureManager_c,class,7,7,0,7,7,0,,,source/game_sa/Interior/FurnitureManager_c.h:17,catalogue_class_or_group
 FurnitureSubGroup_c,class,3,3,0,3,3,0,,public ListItem_c<FurnitureSubGroup_c>,source/game_sa/Interior/FurnitureSubGroup_c.h:15,catalogue_class_or_group
@@ -772,7 +774,7 @@ RpAnimBlend,catalogue_group,44,44,0,44,44,0,,,,catalogue_class_or_group
 Rs,catalogue_group,28,28,0,28,28,0,,,,catalogue_class_or_group
 RtAnim,catalogue_group,1,1,0,1,1,0,,,,catalogue_class_or_group
 RwCore,catalogue_group,4,4,0,4,4,0,,,,catalogue_class_or_group
-RwHelper,catalogue_group,26,26,0,26,26,0,,,,catalogue_class_or_group
+RwHelper,catalogue_group,28,28,0,28,28,0,,,,catalogue_class_or_group
 Securom,catalogue_group,2,2,0,2,2,0,,,,catalogue_class_or_group
 SurfaceInfos_c,class,47,47,0,47,47,0,,,source/game_sa/SurfaceInfos_c.h:9,catalogue_class_or_group
 VideoMode,catalogue_group,4,4,0,4,4,0,,,,catalogue_class_or_group

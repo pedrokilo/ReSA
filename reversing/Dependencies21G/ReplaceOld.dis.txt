@@ -1,0 +1,97 @@
+# RpGeometryReplaceOldMaterialWithNewMaterial (0x734DE0..0x734E44); _rpMaterialListFindMaterialIndex (0x74E420); RpMaterialDestroy (0x74DA20)
+734de0: push ecx
+734de1: mov eax, dword ptr [esp + 8]
+734de5: push ebx
+734de6: mov ebx, dword ptr [eax + 0x54]
+734de9: movzx ecx, word ptr [ebx + 4]
+734ded: xor al, al
+734def: test ecx, ecx
+734df1: jle 0x734e42
+734df3: push ebp
+734df4: push esi
+734df5: mov esi, dword ptr [esp + 0x1c]
+734df9: push edi
+734dfa: add ebx, 0x18
+734dfd: mov dword ptr [esp + 0x10], ecx
+734e01: mov ecx, dword ptr [ebx]
+734e03: cmp ecx, dword ptr [esp + 0x1c]
+734e07: jne 0x734e31
+734e09: mov edi, dword ptr [esp + 0x18]
+734e0d: push ecx
+734e0e: add edi, 0x20
+734e11: push edi
+734e12: call 0x74e420
+734e17: mov ecx, dword ptr [ebx]
+734e19: push ecx
+734e1a: mov ebp, eax
+734e1c: call 0x74da20
+734e21: mov edx, dword ptr [edi]
+734e23: mov dword ptr [edx + ebp*4], esi
+734e26: add esp, 0xc
+734e29: mov dword ptr [ebx], esi
+734e2b: inc word ptr [esi + 0x18]
+734e2f: mov al, 1
+734e31: mov ecx, dword ptr [esp + 0x10]
+734e35: add ebx, 0xc
+734e38: dec ecx
+734e39: mov dword ptr [esp + 0x10], ecx
+734e3d: jne 0x734e01
+734e3f: pop edi
+734e40: pop esi
+734e41: pop ebp
+734e42: pop ebx
+734e43: pop ecx
+734e44: ret 
+734e45: nop 
+# 0x74E420
+74e420: mov ecx, dword ptr [esp + 4]
+74e424: push esi
+74e425: mov eax, dword ptr [ecx + 4]
+74e428: test eax, eax
+74e42a: jle 0x74e444
+74e42c: mov ecx, dword ptr [ecx]
+74e42e: mov edx, dword ptr [esp + 0xc]
+74e432: lea ecx, [ecx + eax*4]
+74e435: mov esi, dword ptr [ecx - 4]
+74e438: sub ecx, 4
+74e43b: dec eax
+74e43c: cmp esi, edx
+74e43e: je 0x74e445
+74e440: test eax, eax
+74e442: jg 0x74e435
+74e444: dec eax
+74e445: pop esi
+74e446: ret 
+74e447: nop 
+# 0x74DA20
+74da20: push esi
+74da21: mov esi, dword ptr [esp + 8]
+74da25: mov ax, word ptr [esi + 0x18]
+74da29: cmp ax, 1
+74da2d: jne 0x74da72
+74da2f: push esi
+74da30: push 0x8d62a4
+74da35: call 0x808740
+74da3a: mov eax, dword ptr [esi]
+74da3c: add esp, 8
+74da3f: test eax, eax
+74da41: je 0x74da4c
+74da43: push eax
+74da44: call 0x7f3820
+74da49: add esp, 4
+74da4c: mov dword ptr [esi], 0
+74da52: mov eax, dword ptr [0xc97b24]
+74da57: mov ecx, dword ptr [0xc92514]
+74da5d: push esi
+74da5e: mov edx, dword ptr [ecx + eax]
+74da61: push edx
+74da62: call dword ptr [eax + 0x148]
+74da68: add esp, 8
+74da6b: mov eax, 1
+74da70: pop esi
+74da71: ret 
+74da72: dec eax
+74da73: mov word ptr [esi + 0x18], ax
+74da77: mov eax, 1
+74da7c: pop esi
+74da7d: ret 

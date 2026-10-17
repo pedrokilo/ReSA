@@ -129,6 +129,10 @@ struct CZoneDef {
 
         return true;
     }
+
+    // 0x72D6D0
+    // Como el original: centro de la zona; x = (vec2X + vec1X) * 0.5 + esquinaX, y = (vec2Y + vec1Y) * 0.5 + esquinaY, z = (minZ + maxZ) * 0.5. Devuelve out (EAX).
+    CVector* GetCenter(CVector& out) const;
 };
 
 VALIDATE_SIZE(CZoneDef, 0x10);

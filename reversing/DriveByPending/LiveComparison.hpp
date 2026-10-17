@@ -78,6 +78,8 @@ EntryPatch pade(0x609560,Pad),padd(bit_cast<uintptr_t>(&CPlayerPed::GetPadFromPl
 EntryPatch pwe(0x540180,Weapon),pwd(bit_cast<uintptr_t>(&CPad::GetWeapon),Weapon);
 EntryPatch wue(0x73DB40,WeaponUpdate),wud(bit_cast<uintptr_t>(&CWeapon::Update),WeaponUpdate);
 EntryPatch su(0x627B20,Setup),ai(0x627600,AI),inp(0x621960,Input),fire(0x627CC0,Fire),aim(0x628350,Aim);
+// Los ayudantes ya no se llaman por direccion del EXE: ProcessPed (DLL) llama a los metodos de la clase; mismo falso en la entrada de la DLL.
+EntryPatch aid(bit_cast<uintptr_t>(&CTaskSimpleGangDriveBy::AITarget),AI),inpd(bit_cast<uintptr_t>(&CTaskSimpleGangDriveBy::PlayerTarget),Input),aimd(bit_cast<uintptr_t>(&CTaskSimpleGangDriveBy::AimGun),Aim);
 EntryPatch te(0x4CEA80,Time),td(bit_cast<uintptr_t>(&CAnimBlendAssociation::SetCurrentTime),Time);
 EntryPatch ce(0x4CEBC0,Callback),cd(bit_cast<uintptr_t>(&CAnimBlendAssociation::SetDeleteCallback),Callback);
 EntryPatch rnge(0x821B1E,Rand),rngd(bit_cast<uintptr_t>(&CGeneral::GetRandomNumber),Random);

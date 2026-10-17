@@ -1,0 +1,161 @@
+# Llamadores del EXE: ventana de 0x30 bytes tras cada CALL y lectura de EAX/ECX/EDX (resread.py)
+## llamada en 0x5861af
+5861af: call 0x734940
+5861b4: mov ebx, eax
+5861b6: add esp, 4
+5861b9: test ebx, ebx
+5861bb: je 0x586509
+5861c1: fld dword ptr [esp + 0x3c]
+5861c5: push edi
+5861c6: fsub dword ptr [0xbaa248]
+5861cc: fstp dword ptr [esp + 0x18]
+5861d0: fld dword ptr [esp + 0x44]
+5861d4: fsub dword ptr [0xbaa24c]
+5861da: fstp dword ptr [esp + 0x1c]
+## llamada en 0x58658d
+58658d: call 0x734940
+586592: add esp, 4
+586595: test eax, eax
+586597: je 0x586640
+58659d: mov edx, dword ptr [eax]
+58659f: mov eax, dword ptr [0xc97b24]
+5865a4: push edx
+5865a5: push 1
+5865a7: call dword ptr [eax + 0x20]
+5865aa: add esp, 8
+5865ad: push 0xff
+5865b2: push 0xff
+## llamada en 0x59ef7a
+59ef7a: call 0x734940
+59ef7f: add esp, 4
+59ef82: mov dword ptr [esi + 0x184], eax
+59ef88: mov ecx, dword ptr [esi + 0x1c]
+59ef8b: mov al, byte ptr [esi + 0x36]
+59ef8e: and ecx, 0xfffffffe
+59ef91: or ecx, 0x10000400
+59ef97: and al, 7
+59ef99: or al, 0x10
+59ef9b: mov dword ptr [esi + 0x1c], ecx
+59ef9e: push 0
+59efa0: mov ecx, esi
+## llamada en 0x5a5fce
+5a5fce: call 0x734940
+5a5fd3: mov esi, dword ptr [esp + 0x10]
+5a5fd7: add esp, 4
+5a5fda: test esi, esi
+5a5fdc: push eax
+5a5fdd: je 0x5a5fea
+5a5fdf: push esi
+5a5fe0: call 0x5a57b0
+5a5fe5: add esp, 8
+5a5fe8: jmp 0x5a5ff4
+5a5fea: call 0x5a5730
+5a5fef: add esp, 4
+## llamada en 0x5a637d
+5a637d: call 0x734940
+5a6382: push eax
+5a6383: call 0x5a5730
+5a6388: add esp, 8
+5a638b: mov esi, eax
+5a638d: mov ecx, dword ptr [esp + 0x28]
+5a6391: add ecx, 0x4e20
+5a6397: push ecx
+5a6398: call 0x4089a0
+5a639d: mov edx, dword ptr [0x8d0a80]
+5a63a3: push edx
+5a63a4: push esi
+## llamada en 0x5a64e3
+5a64e3: call 0x734940
+5a64e8: push eax
+5a64e9: call 0x5a5730
+5a64ee: add edi, 0x4e20
+5a64f4: push edi
+5a64f5: mov esi, eax
+5a64f7: call 0x4089a0
+5a64fc: add esp, 0xc
+5a64ff: test esi, esi
+5a6501: je 0x5a6519
+5a6503: mov eax, dword ptr [0x8d0aa0]
+5a6508: push eax
+## llamada en 0x6d65b1
+6d65b1: call 0x734940
+6d65b6: mov dword ptr [esi + 0x59c], eax
+6d65bc: mov al, byte ptr [esi + 0x42f]
+6d65c2: add esp, 4
+6d65c5: test al, 4
+6d65c7: jne 0x6d65eb
+6d65c9: mov byte ptr [esi + 0x434], 1
+6d65d0: jmp 0x6d65eb
+6d65d2: add eax, 0x4e20
+6d65d7: push 8
+6d65d9: push eax
+6d65da: call 0x4087e0
+## llamada en 0x6fdf81
+6fdf81: call 0x734de0
+6fdf86: add esp, 0xc
+6fdf89: mov eax, edi
+6fdf8b: pop edi
+6fdf8c: pop esi
+6fdf8d: ret 
+6fdf8e: push esi
+6fdf8f: push 0x872578
+6fdf94: call 0x8229b6
+6fdf99: add esp, 8
+6fdf9c: test eax, eax
+6fdf9e: jne 0x6fdfb2
+## llamada en 0x4d0891
+4d0891: call 0x59c300
+4d0896: fld dword ptr [esp + 0x34]
+4d089a: fmul dword ptr [esi]
+4d089c: fstp dword ptr [esi]
+4d089e: fld dword ptr [esp + 0x34]
+4d08a2: fmul dword ptr [esi + 4]
+4d08a5: fstp dword ptr [esi + 4]
+4d08a8: fld dword ptr [esp + 0x34]
+4d08ac: fmul dword ptr [esi + 8]
+4d08af: fstp dword ptr [esi + 8]
+4d08b2: fld dword ptr [esp + 0x34]
+4d08b6: fmul dword ptr [esi + 0xc]
+## llamada en 0x4d0b2a
+4d0b2a: call 0x59c300
+4d0b2f: fld dword ptr [esp + 0x48]
+4d0b33: fmul dword ptr [esi]
+4d0b35: fstp dword ptr [esi]
+4d0b37: fld dword ptr [esp + 0x48]
+4d0b3b: fmul dword ptr [esi + 4]
+4d0b3e: fstp dword ptr [esi + 4]
+4d0b41: fld dword ptr [esp + 0x48]
+4d0b45: fmul dword ptr [esi + 8]
+4d0b48: fstp dword ptr [esi + 8]
+4d0b4b: fld dword ptr [esp + 0x48]
+4d0b4f: fmul dword ptr [esi + 0xc]
+## llamada en 0x59c664
+59c664: call 0x59c300
+59c669: pop edi
+59c66a: pop esi
+59c66b: pop ebx
+59c66c: ret 0xc
+59c66f: nop 
+59c670: mov eax, dword ptr [esp + 4]
+59c674: mov edx, dword ptr [esp + 8]
+59c678: fld dword ptr [eax + 0x20]
+59c67b: fmul dword ptr [edx + 8]
+59c67e: fld dword ptr [eax + 0x10]
+59c681: fmul dword ptr [edx + 4]
+
+## Lecturas de EAX/ECX/EDX tras cada llamada (python resread.py 734940 734DE0 59C300 59C630)
+== destino 734940
+  5861af: {'eax': [('0x5861b4', 'mov ebx, eax')]}
+  58658d: {'eax': [('0x586595', 'test eax, eax'), ('0x58659d', 'mov edx, dword ptr [eax]')]}
+  59ef7a: {'eax': [('0x59ef82', 'mov dword ptr [esi + 0x184], eax'), ('0x59ef97', 'and al, 7'), ('0x59ef99', 'or al, 0x10'), ('0x59efa2', 'mov byte ptr [esi + 0x36], al')]}
+  5a5fce: {'eax': [('0x5a5fdc', 'push eax')]}
+  5a637d: {'eax': [('0x5a6382', 'push eax')]}
+  5a64e3: {'eax': [('0x5a64e8', 'push eax')]}
+  6d65b1: {'eax': [('0x6d65b6', 'mov dword ptr [esi + 0x59c], eax'), ('0x6d65c5', 'test al, 4')]}
+== destino 734de0
+  6fdf81: ninguna lectura de EAX/ECX/EDX
+== destino 59c300
+  4d0891: ninguna lectura de EAX/ECX/EDX
+  4d0b2a: ninguna lectura de EAX/ECX/EDX
+  59c664: ninguna lectura de EAX/ECX/EDX
+== destino 59c630

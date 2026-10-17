@@ -96,6 +96,11 @@ void CCamera::InjectHooks() {
     RH_ScopedInstall(GetRoughDistanceToGround, 0x516B00);
     RH_ScopedInstall(InitialiseCameraForDebugMode, 0x50AF90);
     RH_ScopedInstall(ProcessObbeCinemaCameraPed, 0x50B880);
+    RH_ScopedInstall(ProcessObbeCinemaCameraCar, 0x5267C0);
+    RH_ScopedInstall(ProcessObbeCinemaCameraTrain, 0x526950);
+    RH_ScopedInstall(ProcessObbeCinemaCameraHeli, 0x526AE0);
+    RH_ScopedInstall(ProcessObbeCinemaCameraPlane, 0x526C80);
+    RH_ScopedInstall(ProcessObbeCinemaCameraBoat, 0x526E20);
     RH_ScopedInstall(ProcessWideScreenOn, 0x50B890);
     RH_ScopedInstall(RenderMotionBlur, 0x50B8F0);
     RH_ScopedInstall(SetCameraDirectlyBehindForFollowPed_CamOnAString, 0x50BD40);
@@ -1764,14 +1769,125 @@ void CCamera::ProcessObbeCinemaCameraPed() {
     // NOP
 }
 
-//
+// 0x5267C0, 0x526950, 0x526AE0, 0x526C80, 0x526E20: the five "Obbe" cinematic cameras (car, train, helicopter, plane and boat) share one cycle
+// over a table of camera sequences. Everything is integer/byte arithmetic: no x87 and no register residue is read by the only caller (CamControl 0x52A6DF..0x52A72D).
+// Static layout of each kind (index, last time and table are EXE data).
+namespace {
+struct ObbeCinemaKind {
+    uintptr_t indexAddress;   // last sequence used (int32, starts as -1)
+    uintptr_t timeAddress;    // time the last sequence started (uint32)
+    uintptr_t tableAddress;   // table of camera sequences; entry [count] is the fallback of car and train
+    int32     count;
+    bool      checkBusy;      // heli and plane ask 0x50B830 before checking the time
+    bool      flagFirst;      // plane sets 0xB6EC34 before showing the help message, the rest after
+    bool      modeFallback;   // heli, plane and boat fall back to sequence 0x1D (unless the active cam is mode 0x12); car and train to table[count]
+};
+VALIDATE_OFFSET(CCamera, m_nActiveCam, 0x59);
+VALIDATE_OFFSET(CCamera, m_aCams, 0x174);
+VALIDATE_OFFSET(CCam, m_nMode, 0xC);   // 0x174 + 0xC = 0x180, the word the EXE reads
+VALIDATE_OFFSET(CCamera, m_bCinemaCamera, 0xCF0);
+VALIDATE_OFFSET(CCamera, m_nModeObbeCamIsInForCar, 0xC34);
+constexpr ObbeCinemaKind ObbeCar{0x8CCEEC, 0xB70120, 0x8CC828, 11, false, false, false};
+constexpr ObbeCinemaKind ObbeTrain{0x8CCEF0, 0xB70124, 0x8CC858, 6, false, false, false};
+constexpr ObbeCinemaKind ObbeHeli{0x8CCEF4, 0xB70128, 0x8CC874, 7, true, false, true};
+constexpr ObbeCinemaKind ObbePlane{0x8CCEF8, 0xB7012C, 0x8CC894, 6, true, true, true};
+constexpr ObbeCinemaKind ObbeBoat{0x8CCEFC, 0xB70130, 0x8CC8B0, 3, false, false, true};
+
+void CameraObbeCinemaCycle(CCamera& camera, const ObbeCinemaKind& kind) {
+    auto& processed = StaticRef<uint8>(0xB6EC2D);        // CCamera::bDidWeProcessAnyCinemaCam
+    auto& cinemaActive = StaticRef<uint8>(0xB6EC34);
+    auto& messageCount = StaticRef<int8>(0x8CC381);      // gbCineyCamMessageDisplayed
+    const auto step = [] { return int32(StaticRef<int8>(0x8CC471)); };
+    auto& index = StaticRef<int32>(kind.indexAddress);
+    auto& lastTime = StaticRef<uint32>(kind.timeAddress);
+    const auto* table = reinterpret_cast<const int32*>(kind.tableAddress);
+    const auto now = [] { return StaticRef<uint32>(0xB7CB84); };   // CTimer::m_snTimeInMilliseconds
+    const auto finish = [&](int32 mode) { camera.m_nModeObbeCamIsInForCar = mode; processed = 1; };
+    const auto isItTime = reinterpret_cast<bool(__thiscall*)(CCamera*, int32, int32)>(0x51D770);   // CCamera::IsItTimeForNewcam, not reconstructed
+
+    bool check = processed != 0;
+    if (!check) {
+        const int8 shown = messageCount;
+        index = -1;
+        if (kind.flagFirst) {
+            cinemaActive = 1;
+        }
+        if (shown > 0 && !camera.m_bCinemaCamera) {
+            messageCount = int8(messageCount - 1);
+            CHud::SetHelpMessage(TheText.Get("CINCAM"), true, false, false);
+        }
+        check = processed != 0;
+        if (!kind.flagFirst) {
+            cinemaActive = 1;
+        }
+    }
+    if (check && !(kind.checkBusy && reinterpret_cast<bool(__cdecl*)()>(0x50B830)())) {
+        const int32 mode = table[index];
+        if (!isItTime(&camera, mode, int32(lastTime))) {
+            finish(index);
+            return;
+        }
+    }
+
+    // Next sequence: signed remainder, negative wraps to the last entry (the original also handles > count - 1, which cannot happen).
+    const auto advance = [&] {
+        const int32 remainder = int32(uint32(step()) + uint32(index)) % kind.count;
+        index = remainder;
+        if (remainder < 0) {
+            index = kind.count - 1;
+        } else if (remainder > kind.count - 1) {
+            index = 0;
+        }
+    };
+    advance();
+    bool started = camera.TryToStartNewCamMode(table[index]);
+    int32 tries = 0;
+    while (!started && tries <= kind.count) {
+        advance();
+        ++tries;
+        started = camera.TryToStartNewCamMode(table[index]);
+    }
+    const bool found = tries < kind.count;
+
+    if (!kind.modeFallback) {
+        lastTime = now();
+        if (found) {
+            finish(index);
+            return;
+        }
+        const int32 fallback = table[kind.count];
+        index = kind.count;
+        camera.TryToStartNewCamMode(fallback);
+        finish(index);
+        return;
+    }
+    if (found) {
+        const uint32 time = now();
+        finish(index);
+        lastTime = time;
+        return;
+    }
+    const auto* activeCam = reinterpret_cast<const uint8*>(&camera.m_aCams[0].m_nMode) + size_t(camera.m_nActiveCam) * sizeof(CCam);
+    const bool alreadyMode18 = *reinterpret_cast<const uint16*>(activeCam) == 0x12;
+    index = kind.count;
+    if (alreadyMode18) {
+        finish(kind.count);
+        return;
+    }
+    camera.TryToStartNewCamMode(0x1D);
+    lastTime = now();
+    finish(index);
+}
+} // namespace
+
+// 0x526C80
 void CCamera::ProcessObbeCinemaCameraPlane() {
-    assert(0);
+    CameraObbeCinemaCycle(*this, ObbePlane);
 }
 
-//
+// 0x526950
 void CCamera::ProcessObbeCinemaCameraTrain() {
-    assert(0);
+    CameraObbeCinemaCycle(*this, ObbeTrain);
 }
 
 // 0x50B890
@@ -1807,19 +1923,19 @@ void CCamera::ProcessVectorTrackLinear(float ratio) {
     m_vecTrackLinear.z = CameraLinearComponent(m_vecTrackLinearEndPoint.z, m_vecTrackLinearStartPoint.z, ratio, m_bTrackLinearWithEase);
 }
 
-//
+// 0x526E20
 void CCamera::ProcessObbeCinemaCameraBoat() {
-    assert(0);
+    CameraObbeCinemaCycle(*this, ObbeBoat);
 }
 
-//
+// 0x5267C0
 void CCamera::ProcessObbeCinemaCameraCar() {
-    assert(0);
+    CameraObbeCinemaCycle(*this, ObbeCar);
 }
 
-//
+// 0x526AE0
 void CCamera::ProcessObbeCinemaCameraHeli() {
-    assert(0);
+    CameraObbeCinemaCycle(*this, ObbeHeli);
 }
 
 // 0x50D430
@@ -3380,8 +3496,7 @@ float CameraControlZoneExtent(const CAttributeZone* zone) {
 }
 CVector CameraControlZoneCameraPosition(CAttributeZone* zone) {
     CVector result;
-    const auto position = plugin::CallMethodAndReturn<CVector*, 0x72D6D0, CAttributeZone*, CVector*>(zone, &result);
-    return *position;
+    return *zone->zoneDef.GetCenter(result);
 }
 // Chooses the clear side of a staircase zone; the vehicle path uses the
 // target itself as the displacement origin, as the original ASM does.

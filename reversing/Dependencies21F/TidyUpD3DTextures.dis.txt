@@ -1,0 +1,48 @@
+7305e0: push esi
+7305e1: mov esi, dword ptr [esp + 8]
+7305e5: push edi
+7305e6: xor edi, edi
+7305e8: test esi, esi
+7305ea: je 0x730654
+7305ec: mov edx, dword ptr [0xc87fe0]
+7305f2: push ebx
+7305f3: mov ebx, dword ptr [0xc87c60]
+7305f9: push ebp
+7305fa: lea ebx, [ebx]
+730600: cmp edi, ebx
+730602: jge 0x730652
+730604: mov eax, edx
+730606: imul eax, eax, 0x1c
+730609: add eax, 0xc87c68
+73060e: mov ecx, dword ptr [eax + 0x14]
+730611: test ecx, ecx
+730613: je 0x730641
+730615: mov ebp, dword ptr [eax + 0x10]
+730618: dec ebp
+730619: dec ecx
+73061a: mov dword ptr [eax + 0x10], ebp
+73061d: mov dword ptr [eax + 0x14], ecx
+730620: mov eax, dword ptr [eax + 0x18]
+730623: mov eax, dword ptr [eax + ecx*4]
+730626: test eax, eax
+730628: je 0x730641
+73062a: mov ecx, dword ptr [eax]
+73062c: push eax
+73062d: call dword ptr [ecx + 8]
+730630: mov ebx, dword ptr [0xc87c60]
+730636: mov edx, dword ptr [0xc87fe0]
+73063c: xor edi, edi
+73063e: dec esi
+73063f: jmp 0x730642
+730641: inc edi
+730642: lea eax, [edx + 1]
+730645: cdq 
+730646: idiv ebx
+730648: test esi, esi
+73064a: mov dword ptr [0xc87fe0], edx
+730650: jne 0x730600
+730652: pop ebp
+730653: pop ebx
+730654: pop edi
+730655: pop esi
+730656: ret 

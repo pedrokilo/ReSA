@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 2,
+  "functions": {
+    "D3DResourceSystem::TidyUpD3DTextures": 2048,
+    "D3DResourceSystem::TidyUpD3DIndexBuffers": 2048
+  },
+  "covered_functions": {
+    "D3DResourceSystem::TidyUpD3DTextures": true,
+    "D3DResourceSystem::TidyUpD3DIndexBuffers": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Dependencies21F-20261017-014930-329804",
+  "summary_sha256": "145424369ff572498cf808f1af6b4b7c73db3967a0ec680141453a5e19e7bf55",
+  "result_txt_sha256": "49f03f56182749372827f2f1fbf442fe511c1f978a810f2d2514d6605d51be1e",
+  "log_sha256": "643c8d1a3d18da5438f12b3ac00e0d7822634e416f59b046fa618bfcec3d306d",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "42da1a1bdb6c4054cf52b6a63b3bac804f5c945c7817e4f79d0013f60175b29f",
+  "manifest": {
+    "tested_sources": {
+      "source/game_sa/RenderWare/D3DResourceSystem.cpp": "fc251c822d04e5d6adbf4eecd89cfdc54d8b9633a84a605b2e014f1b6b027647",
+      "source/game_sa/RenderWare/D3DResourceSystem.h": "31666e8e366ecc5af1a0f006078e4d35c7cd71836e571ea1f776cedd8ee82b53",
+      "source/game_sa/RenderWare/D3DTextureBuffer.h": "c2e8c435d3fa9b7869483c2be90252caa411e71f9eb8d944bf28c625cb4bd3d6",
+      "source/game_sa/RenderWare/D3DIndexDataBuffer.h": "9741408d35194a224bf796f47ddde649e3a61dcccf523f2716a3386000d3971b",
+      "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Dependencies21F/HelperRoutes.hpp": "9f91fbe3f880699ffd8be9d021f086cea62a4efbedc712322fe3e3a90f039648",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

@@ -1,0 +1,55 @@
+# GetFirstTextureCallback (0x734930) y GetFirstTexture (0x734940); RwTexDictionaryForAllTextures (0x7F3730) que llama
+734930: mov eax, dword ptr [esp + 8]
+734934: mov ecx, dword ptr [esp + 4]
+734938: mov dword ptr [eax], ecx
+73493a: xor eax, eax
+73493c: ret 
+73493d: nop 
+73493e: nop 
+73493f: nop 
+734940: push ecx
+734941: mov ecx, dword ptr [esp + 8]
+734945: lea eax, [esp]
+734949: push eax
+73494a: push 0x734930
+73494f: push ecx
+734950: mov dword ptr [esp + 0xc], 0
+734958: call 0x7f3730
+73495d: mov eax, dword ptr [esp + 0xc]
+734961: add esp, 0x10
+734964: ret 
+# 0x7F3730
+7f3730: mov ecx, dword ptr [esp + 4]
+7f3734: push ebx
+7f3735: push ebp
+7f3736: push esi
+7f3737: mov eax, dword ptr [ecx + 8]
+7f373a: push edi
+7f373b: lea edi, [ecx + 8]
+7f373e: cmp eax, edi
+7f3740: je 0x7f3769
+7f3742: mov ebx, dword ptr [esp + 0x1c]
+7f3746: mov ebp, dword ptr [esp + 0x18]
+7f374a: mov esi, dword ptr [eax]
+7f374c: add eax, -8
+7f374f: push ebx
+7f3750: push eax
+7f3751: call ebp
+7f3753: add esp, 8
+7f3756: test eax, eax
+7f3758: je 0x7f3760
+7f375a: cmp esi, edi
+7f375c: mov eax, esi
+7f375e: jne 0x7f374a
+7f3760: mov eax, dword ptr [esp + 0x14]
+7f3764: pop edi
+7f3765: pop esi
+7f3766: pop ebp
+7f3767: pop ebx
+7f3768: ret 
+7f3769: pop edi
+7f376a: pop esi
+7f376b: pop ebp
+7f376c: mov eax, ecx
+7f376e: pop ebx
+7f376f: ret 

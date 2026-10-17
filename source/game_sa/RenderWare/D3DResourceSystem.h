@@ -15,9 +15,13 @@
 class D3DResourceSystem {
 public:
     static bool &UseD3DResourceBuffering;
-    static uint32 &FreeTextureBufferIndex;
-    static D3DTextureBuffer &TextureBuffer;
-    static D3DIndexDataBuffer &IndexDataBuffer;
+    static uint32 &FreeTextureBufferIndex;      // 0xC87FE0
+    static D3DTextureBuffer &TextureBuffer;     // 0xC87C68 (= TextureBuffers[0])
+    static D3DIndexDataBuffer &IndexDataBuffer; // 0xC87FC8
+    static uint32 &NumTextureBuffers;           // 0xC87C60
+    static D3DTextureBuffer (&TextureBuffers)[17];     // 0xC87C68 (CreateTexture 0x730510 admite hasta 17)
+    static D3DIndexDataBuffer (&IndexDataBuffers)[16]; // 0xC87E48 (Init 0x730830)
+    static uint32 &FreeIndexBufferIndex;        // 0xC87FE4
 
     static void InjectHooks();
     static void CancelBuffering();

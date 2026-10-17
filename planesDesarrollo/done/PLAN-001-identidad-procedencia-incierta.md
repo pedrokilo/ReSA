@@ -1,14 +1,14 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 16/10/2026 (Ciudad de México):** 784 grupos / 8552 funciones reconstruidas; 8552 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 105 aprobadas dentro del juego; 130 entradas del juego pendientes, 243 de bibliotecas y 21 inciertas. [Estado actual y alcance](../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 17/10/2026 (Ciudad de México):** 786 grupos / 8573 funciones reconstruidas; 8573 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 125 aprobadas dentro del juego; 130 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # PLAN-001 — Resolver la identidad y la procedencia de los 21 destinos inciertos de la cohorte de 499
 
-- **Estado**: pendiente
+- **Estado**: hecho
 - **Caso de uso relacionado**: ninguno (requerimiento descrito por el usuario en el chat: usar la skill `generar-plan-desarrollo` para planear el trabajo de `docs/BinaryCoverageAudit.md` y `reversing/OriginalDependencies499/README.md`, empezando por la fila «Identidad o procedencia incierta · 21»)
 - **Plan(es) hermano(s)**: ninguno todavía. Quedan fuera, y pueden ser planes posteriores: validar con bancos las 130 funciones del juego pendientes de la cohorte y dar seguimiento a las 243 bibliotecas
 - **Fecha de creación**: 2026-10-17
-- **Fecha de cierre**: (se llena al mover a `planesDesarrollo/done/`)
+- **Fecha de cierre**: 2026-10-17
 
 > **Adaptación de la skill.** `generar-plan-desarrollo` se escribió para otro proyecto (backend FastAPI + app Android). Se aplicó su método (entender el requerimiento, explorar el código real antes de planear, plan autocontenido con alcance, pruebas por tarea, criterios de aceptación y checklist, estado `pendiente`) y se sustituyeron las secciones de backend, app móvil y Postman por las de este repositorio (inventario del EXE, `progress.csv`, scripts de verificación y documentación). Este repositorio no tiene `CLAUDE.md` raíz ni `.codegraph/`: la exploración se hizo con lectura directa de los archivos.
 
@@ -115,30 +115,30 @@ Particularidades por grupo:
 ## Checklist de tareas
 
 **Fase 0 — Base**
-- [ ] Confirmar el estado de partida: 499 = 235 + 243 + 21 con `audit-cohort-current.py` y guardar los hashes de `targets.csv` y `baseline.json`.
-- [ ] Preparar el documento `review-uncertain-21.md` con una ficha por destino (campos del método de decisión).
+- [x] Confirmar el estado de partida: 499 = 235 + 243 + 21 con `audit-cohort-current.py` y guardar los hashes de `targets.csv` y `baseline.json`.
+- [x] Preparar el documento `review-uncertain-21.md` con una ficha por destino (campos del método de decisión).
 
 **Fase 1 — Las que parecen de biblioteca (menor riesgo)**
-- [ ] G: `GetFirstTexture` (0x00734940) y `RpGeometryReplaceOldMaterialWithNewMaterial` (0x00734DE0): decidir con grafo y zona del binario.
-- [ ] F: `TidyUpD3DTextures` (0x007305E0) y `TidyUpD3DIndexBuffers` (0x00730740): decidir juego o biblioteca.
-- [ ] A: 0x00821982: resolver `char`/`wchar` y clasificar.
+- [x] G: `GetFirstTexture` (0x00734940) y `RpGeometryReplaceOldMaterialWithNewMaterial` (0x00734DE0): decidir con grafo y zona del binario.
+- [x] F: `TidyUpD3DTextures` (0x007305E0) y `TidyUpD3DIndexBuffers` (0x00730740): decidir juego o biblioteca.
+- [x] A: 0x00821982: resolver `char`/`wchar` y clasificar.
 
 **Fase 2 — Las que parecen del juego**
-- [ ] G: `CQuaternion::Slerp` (0x0059C300).
-- [ ] B: las cinco `ProcessObbeCinemaCamera*` (0x005267C0, 0x00526950, 0x00526AE0, 0x00526C80, 0x00526E20).
-- [ ] C: `FightHitCar`, `FightSetUpCol`, `FightStrike` (0x0061D0B0, 0x0061D5F0, 0x006240B0).
-- [ ] D: los tres ayudantes de drive-by (0x00621960, 0x00627600, 0x00628350) y la identidad de 0x006217D0.
-- [ ] E: los tres ayudantes (0x00610DB0, 0x0063A380, 0x0072D6D0).
+- [x] G: `CQuaternion::Slerp` (0x0059C300).
+- [x] B: las cinco `ProcessObbeCinemaCamera*` (0x005267C0, 0x00526950, 0x00526AE0, 0x00526C80, 0x00526E20).
+- [x] C: `FightHitCar`, `FightSetUpCol`, `FightStrike` (0x0061D0B0, 0x0061D5F0, 0x006240B0).
+- [x] D: los tres ayudantes de drive-by (0x00621960, 0x00627600, 0x00628350) y la identidad de 0x006217D0.
+- [x] E: los tres ayudantes (0x00610DB0, 0x0063A380, 0x0072D6D0).
 
 **Fase 3 — Registro y documentación**
-- [ ] Actualizar `progress.csv` (categoría, implementación, evidencia, notas) para cada destino resuelto.
-- [ ] Regenerar `work-queue.csv` y la tabla del README con `update_progress.py` / `refresh_progress_docs.py`.
-- [ ] Actualizar `docs/BinaryCoverageAudit.md` (fila de la cohorte y texto de la sección) con la fecha.
-- [ ] Ejecutar `sync_docs.py` y `sync_current_markdown.py --date <fecha>`, restaurar `docs/ReversingPriorities.md` y `docs/ValidationInventory.md`.
+- [x] Actualizar `progress.csv` (categoría, implementación, evidencia, notas) para cada destino resuelto.
+- [x] Regenerar `work-queue.csv` y la tabla del README con `update_progress.py` / `refresh_progress_docs.py`.
+- [x] Actualizar `docs/BinaryCoverageAudit.md` (fila de la cohorte y texto de la sección) con la fecha.
+- [x] Ejecutar `sync_docs.py` y `sync_current_markdown.py --date <fecha>`, restaurar `docs/ReversingPriorities.md` y `docs/ValidationInventory.md`.
 
 **Fase 4 — Verificación**
-- [ ] Pasar `audit_hook_catalog --strict`, `audit_register_residue` y `contrib/tests`.
-- [ ] Revisar a mano las decisiones con menos evidencia (residuos) antes de cerrar.
+- [x] Pasar `audit_hook_catalog --strict`, `audit_register_residue` y `contrib/tests`.
+- [x] Revisar a mano las decisiones con menos evidencia (residuos) antes de cerrar.
 
 ## Decisiones pendientes del usuario
 
@@ -148,4 +148,26 @@ Particularidades por grupo:
 
 ## Notas / decisiones tomadas durante la ejecución
 
-(Se llena al ejecutar. Al cerrar el plan, esta sección alimenta la memoria de proyecto.)
+Ejecutado el 17/10/2026. El plan se amplió sobre la marcha: no sólo se clasificaron las 21, también se **reconstruyeron en C++ y se validaron dentro del juego** (el plan original lo dejaba fuera de alcance).
+
+**Resultado.** Las 21 filas `category=unknown` quedaron resueltas: **20 del juego y 1 biblioteca**. La tabla de la cohorte pasa de 235/243/21 a **255 juego (125 aprobadas, 130 pendientes), 244 bibliotecas y 0 inciertas**; el total sigue en 499 y `targets.csv` y `baseline.json` no cambian. Cada ficha (dirección, identidad, categoría, dos o más evidencias, banco y pares) está en `reversing/OriginalDependencies499/review-uncertain-21.md`.
+
+| Grupo | Resultado | Banco y pares |
+|---|---|---|
+| A. `0x00821982` | `printf(const char*, ...)` de la CRT estática de MSVC (no `wprintf`: el `FID_conflict` era una coincidencia de huella); **biblioteca**, reconstruida como envoltorio C++ que llama por dirección a lock/`_stbuf`/`_output`/`_ftbuf`/unlock | Dependencies21A, 4096 |
+| B. 5 cámaras Obbe | juego | Dependencies21B, 10240 |
+| C. 3 de pelea | juego | Dependencies21C, 4608 |
+| D. 4 de drive-by | juego; `FUN_006217d0` es el constructor `CTaskSimpleGangDriveBy::Constructor` y `0x628350` apunta el arma (`AimGun`), no dispara | Dependencies21D, 11264 |
+| E. 3 ayudantes | juego (`RandomIntInLimitRange`, `CZoneDef::GetCenter`, `GetCameraStickModifier`) | Dependencies21E, 6144 |
+| F. 2 de caché D3D | juego (confianza media-alta; la procedencia histórica no es observable en el binario) | Dependencies21F, 4096 |
+| G. 3 | las tres del **juego**, incluidas `GetFirstTexture` y `RpGeometryReplaceOldMaterialWithNewMaterial` (el plan esperaba biblioteca) | Dependencies21G, 6656 |
+
+Total de los bancos: 47104 pares, cero diferencias, ningún resultado nulo; corridas finales en `reversing/CppTwelveLevel6Final/runs/Dependencies21X-<marca>`.
+
+**Respuestas a las decisiones pendientes.** (1) Los nombres de referencia del proyecto upstream se usaron sólo como pista de nombre, contrastados con el desensamblado. (2) Las del juego no quedaron sólo clasificadas: se admitieron con bancos en la misma tanda. (3) No quedó ningún residuo incierto.
+
+**Datos.** `progress.csv` (20 filas `game`/`passed`, `CrtPrintf` `library` con `runtime_status=library_validated`), `classification-a/b/c.csv`, `progress.json` y la tabla del README. Las 20 aprobadas se registran en `approved-level6.json`; `approved.json` conserva las 105 del esquema anterior porque `audit-cohort-current.py` y `refresh_progress_docs.py` exigen `approval-audit.json`, que las corridas de nivel 6 no producen. Las 21 están además en `docs/hooks.csv` (8573 filas, todas `validated=1`), `reversing/validation-registry.json` y `reversing/CppOnlyMigration/approvals.json`.
+
+**Lo aprendido (causas de los fallos de banco).** Zonas vigiladas solapadas con zonas modificables; comprobación del estado final tras `Restore`; autoparcheo del falso con `--unhook Audio`; EAX y residuo que ningún llamador lee; punteros de pila del llamador sin etiquetar; baseline de memoria distinta entre la pasada original y la candidata. Detalle en `reversing/CppTwelveLevel6Study/README.md` y en las trampas de `reversing/CppOnlyMigration/PROCESO.md`. Hallazgo de fuente: `TaskGangHassleVehicle.cpp` escribía `[0x20]`, `[0x21]`, `[0x23]` en lugar de `[0x24]`, `[0x25]`, `[0x27]` de la tarea de pelea.
+
+**Incoherencias detectadas al cerrar.** `audit-cohort-current.py` ya no queda limpio sobre las 105 admisiones del 10/10: tras la conversión a C++ de la instrumentación de varios bancos `Dependencies*` (`LiveComparison.hpp`, `build_probe.py`, `run_local.py`) 24 hallazgos de «instrument changed» indican que el árbol actual ya no coincide con el manifiesto histórico de esos bancos; `AUDIT_COHORT_CURRENT.md` conserva la versión previa (0 hallazgos) y la regeneración queda pendiente de repetir esos bancos.

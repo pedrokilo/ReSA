@@ -17,22 +17,29 @@ inline int Report(int type, char* msg, int*) {
 inline std::vector<uint8> Bytes(const void* ptr, size_t size) {
     const auto* p = static_cast<const uint8*>(ptr); return {p,p+size};
 }
+// FightStrike lo llama la DLL directamente (CTaskSimpleFight::FightStrike, hook 0x6240B0): se parchea la entrada del EXE y la de la DLL (sin thunks) con el mismo falso.
 struct StrikePatch {
-    std::array<uint8,5> saved;
-    StrikePatch() {
-        auto* p = reinterpret_cast<uint8*>(0x6240B0); std::memcpy(saved.data(),p,5);
-        std::array<uint8,5> jump{0xE9}; const auto offset=uint32(reinterpret_cast<uintptr_t>(Strike)-0x6240B0-5);
-        std::memcpy(jump.data()+1,&offset,4); Put(jump);
+    std::array<uint8,5> saved, savedDll;
+    uintptr_t dll;
+    static uintptr_t Body(uintptr_t p) { for(int i=0;i<16&&*reinterpret_cast<uint8*>(p)==0xE9;++i) p+=5+*reinterpret_cast<int32*>(p+1); return p; }
+    StrikePatch() : dll(Body(std::bit_cast<uintptr_t>(&CTaskSimpleFight::FightStrike))) {
+        Install(0x6240B0, saved);
+        Install(dll, savedDll);
+    }
+    static void Install(uintptr_t address, std::array<uint8,5>& save) {
+        auto* p = reinterpret_cast<uint8*>(address); std::memcpy(save.data(),p,5);
+        std::array<uint8,5> jump{0xE9}; const auto offset=uint32(reinterpret_cast<uintptr_t>(Strike)-address-5);
+        std::memcpy(jump.data()+1,&offset,4); Put(address, jump);
     }
     static void __fastcall Strike(CTaskSimpleFight* fight, void*, CPed*, CVector* pos) {
         GunProbe::events.push_back({"FightStrike",pos->x,pos->y,pos->z,int(fight->m_nComboSet),int(fight->m_nCurrentMove),fight->m_nLastCommand,fight->m_pAnim!=nullptr});
     }
-    static void Put(const std::array<uint8,5>& bytes) {
-        void* p=reinterpret_cast<void*>(0x6240B0); DWORD old,ignored;
+    static void Put(uintptr_t address, const std::array<uint8,5>& bytes) {
+        void* p=reinterpret_cast<void*>(address); DWORD old,ignored;
         VirtualProtect(p,5,PAGE_EXECUTE_READWRITE,&old); std::memcpy(p,bytes.data(),5);
         VirtualProtect(p,5,old,&ignored); FlushInstructionCache(GetCurrentProcess(),p,5);
     }
-    ~StrikePatch() { Put(saved); }
+    ~StrikePatch() { Put(dll, savedDll); Put(0x6240B0, saved); }
 };
 template<class T> struct Storage {
     alignas(T) std::array<uint8,sizeof(T)> bytes{};
