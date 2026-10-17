@@ -213,7 +213,7 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| CMatrix::InjectHooks() | [source/game_sa/Core/Matrix.cpp:19](../../source/game_sa/Core/Matrix.cpp#L19) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CMatrix::InjectHooks() | [source/game_sa/Core/Matrix.cpp:19](../../source/game_sa/Core/Matrix.cpp#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CMatrix::CMatrix(const CMatrix& matrix) | [source/game_sa/Core/Matrix.cpp:65](../../source/game_sa/Core/Matrix.cpp#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CMatrix::CMatrix(RwMatrix* matrix, bool temporary) | [source/game_sa/Core/Matrix.cpp:70](../../source/game_sa/Core/Matrix.cpp#L70) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CMatrix::~CMatrix() | [source/game_sa/Core/Matrix.cpp:75](../../source/game_sa/Core/Matrix.cpp#L75) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
@@ -345,7 +345,7 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| CMemoryMgr::InjectHooks() | [source/game_sa/MemoryMgr.cpp:25](../../source/game_sa/MemoryMgr.cpp#L25) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CMemoryMgr::InjectHooks() | [source/game_sa/MemoryMgr.cpp:25](../../source/game_sa/MemoryMgr.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CMemoryMgr::Init() | [source/game_sa/MemoryMgr.cpp:37](../../source/game_sa/MemoryMgr.cpp#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_Heaps: source/game_sa/MemoryMgr.h:66 (0x00C87B40) |
 | CMemoryMgr::InitMemoryTracking(int32 numIDs) | [source/game_sa/MemoryMgr.cpp:58](../../source/game_sa/MemoryMgr.cpp#L58) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_memUsed: source/game_sa/MemoryMgr.h:103 (0x00C87B34); Posible dato fijo m_pBlockArray: source/game_sa/MemoryMgr.h:98 (0x00C87B14); Posible dato fijo m_pMemUsedArray: source/game_sa/MemoryMgr.h:100 (0x00C87B18) |
 | CMemoryMgr::Shutdown() | [source/game_sa/MemoryMgr.cpp:73](../../source/game_sa/MemoryMgr.cpp#L73) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_Heaps: source/game_sa/MemoryMgr.h:66 (0x00C87B40) |

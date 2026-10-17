@@ -27,6 +27,7 @@ def blank(data):
 
 def sanitized(raw):
     raw = CLASS_MACROS.sub(lambda m: blank(m[0]), raw)
+    raw = CALLING_CONVENTION.sub(lambda m: blank(m[0]), raw)
     clean = MASK.sub(lambda m: blank(m[0]), raw)
     # Keep strings in the syntax tree: removing a string argument can leave
     # f(, value), breaking the surrounding function. Only comments are blanked.
@@ -46,7 +47,88 @@ def sanitized(raw):
             end = len(clean) if line == -1 else line
         out[start:end] = blank(clean[start:end])
         out[start] = 59
+    blank_hook_arguments(out)
     return bytes(out)
+
+
+HOOK_CALL = re.compile(rb'(?<![A-Za-z0-9_])(?:RH_Scoped\w+|RWPLUGINOFFSET)\s*\(')
+CALLING_CONVENTION = re.compile(rb'(?<![A-Za-z0-9_])__(?:stdcall|cdecl|fastcall|thiscall)(?![A-Za-z0-9_])')
+
+
+def blank_hook_arguments(out):
+    """Blank the arguments of RH_Scoped* registrations (offsets preserved).
+
+    Their casts (`int16 (CPad::*)(CPed*) const`) are not valid expressions and made the parser swallow
+    every following definition into InjectHooks; registrations are read separately by parse_registrations."""
+    for match in HOOK_CALL.finditer(bytes(out)):
+        i, depth, in_string = match.end(), 1, False
+        while i < len(out) and depth:
+            c = out[i]
+            if in_string:
+                if c == 92:
+                    i += 1
+                elif c == 34:
+                    in_string = False
+            elif c == 34:
+                in_string = True
+            elif c == 40:
+                depth += 1
+            elif c == 41:
+                depth -= 1
+            i += 1
+        for j in range(match.end(), i - 1):
+            if out[j] not in (10, 13):
+                out[j] = 32
+
+
+def ancestors(node):
+    parent = node.parent
+    while parent:
+        yield parent
+        parent = parent.parent
+
+
+def template_header(node, raw):
+    """Text of the enclosing template headers (`template<std::integral T>`), empty for non-templates."""
+    parts = []
+    for ancestor in ancestors(node):
+        if ancestor.type == 'template_declaration':
+            parameters = ancestor.child_by_field_name('parameters')
+            if parameters is not None:
+                parts.append(re.sub(r'\s+', ' ', txt(parameters, raw)))
+            for child in ancestor.named_children:
+                if child.type == 'requires_clause':
+                    parts.append(re.sub(r'\s+', ' ', txt(child, raw)))
+    return ' '.join(reversed(parts))
+
+
+def template_parameters(header):
+    """Names of the type parameters in a template header text."""
+    return set(re.findall(r'(?:typename|class|[\w:]+)\s+(\w+)\s*(?:,|>|=|$)', header))
+
+
+INTEGRAL = {'int', 'int8', 'int16', 'int32', 'int64', 'uint8', 'uint16', 'uint32', 'uint64', 'short', 'long', 'char', 'bool',
+            'unsigned', 'size_t', 'std::int32_t', 'std::uint32_t'}
+FLOATING = {'float', 'double'}
+
+
+def satisfies(header, argument):
+    """True/False when the template header uses a known constraint that decides `argument`; None if undecidable."""
+    if re.search(r'std::integral\b|is_integral_v', header):
+        return argument in INTEGRAL
+    if re.search(r'std::floating_point\b|is_floating_point_v', header):
+        return argument in FLOATING
+    return None
+
+
+def class_base_names(node, raw):
+    names = []
+    for clause in node.named_children:
+        if clause.type == 'base_class_clause':
+            for child in clause.named_children:
+                if child.type in {'type_identifier', 'qualified_identifier', 'template_type'}:
+                    names.append(strip_templates(txt(child, raw)).rsplit('::', 1)[-1])
+    return names
 
 
 def walk(node):
@@ -276,53 +358,128 @@ def param_types(signature):
     return [] if result == ['void'] else result
 
 
-def link_by_registration(functions, catalog, registrations, matched, scanned):
+ALIAS = re.compile(r'typedef\s+(?:struct\s+)?(\w+)\s+(\w+)\s*;|using\s+(\w+)\s*=\s*(\w+)\s*;')
+TEMPLATE_ARGS = re.compile(r'(?<=\w)<[^<>]*>')
+
+
+def strip_templates(text):
+    """`A<B<C>>::f<D>` -> `A::f`; operators are left untouched."""
+    if 'operator' in text:
+        return text
+    previous = None
+    while previous != text:
+        previous, text = text, TEMPLATE_ARGS.sub('', text)
+    return text
+
+
+def resolve_alias(type_text, aliases):
+    """Replace known typedef/using aliases (`RwIm2DVertex` -> `RwD3D9Vertex`) inside a normalized type."""
+    def one(match):
+        word, seen = match[0], set()
+        while aliases.get(word) and word not in seen:
+            seen.add(word)
+            word = aliases[word]
+        return word
+    return re.sub(r'[A-Za-z_]\w*', one, type_text)
+
+
+def matches_template(f, wanted, aliases):
+    """Parameter list equal to `wanted` where parameters spelled with a template parameter name accept any type."""
+    names = template_parameters(f['template_header'])
+    have = param_types(f['signature'])
+    if have is None or len(have) != len(wanted):
+        return False
+    for mine, theirs in zip(have, wanted):
+        core = re.sub(r'^const|[&*]|const$', '', mine)
+        if core in names:
+            continue
+        if resolve_alias(mine, aliases) != theirs:
+            return False
+    return True
+
+
+def link_by_registration(functions, catalog, registrations, matched, scanned, bases=None, aliases=None):
     """Link catalog rows still unmatched to exactly one source body using the hook installation.
 
     The registration (scope, name, address) identifies the catalog row; the registered C++ symbol
-    identifies the body. Anything that stays ambiguous is left unmatched."""
+    identifies the body (template arguments are ignored: an instantiation runs the generic template body;
+    a member that the registered class inherits is looked up in its base classes). Anything that stays
+    ambiguous is left unmatched. A body that is a template can serve several catalog entries (one per
+    instantiation): the first one becomes the body's catalog link and the rest are recorded in `shared`."""
+    bases = bases or {}
+    aliases = aliases or {}
     by_symbol = defaultdict(list)
     for f in functions:
-        by_symbol[f['function'].rsplit('::', 1)[-1]].append(f)
+        by_symbol[strip_templates(f['function']).rsplit('::', 1)[-1]].append(f)
     catalog_by_key = defaultdict(list)
     for c in catalog:
         catalog_by_key[(c['class'], c['fn_name'])].append(c)
-    proposals = defaultdict(set)  # id(catalog row) -> {id(function)}
-    rows = {}
+
+    def members(owner, short, depth=0):
+        want = owner + '::' + short
+        found = [f for f in by_symbol.get(short, []) if strip_templates(f['function']) == want or strip_templates(f['function']).endswith('::' + want)]
+        if found or depth >= 4:
+            return found, depth > 0
+        result = []
+        for base in bases.get(owner, ()):
+            result += members(base, short, depth + 1)[0]
+        return result, True
+
+    proposals = {}  # id(catalog row) -> (catalog row, candidate body, inherited)
     for r in registrations:
         if r['file'] not in scanned:
             continue
         keyed = catalog_by_key.get((r['scope'], r['display']), [])
-        keyed = [c for c in keyed if canonical(c['address']) == r['address'] or (r['virtual'] and int(c['address'], 16) == 0)]
+        keyed = [c for c in keyed if canonical(c['address']) == r['address'] or int(c['address'], 16) == 0]
         if len(keyed) != 1 or id(keyed[0]) in matched:
             continue
         c = keyed[0]
-        symbol = r['symbol']
+        symbol = strip_templates(r['symbol'])
         short = symbol.rsplit('::', 1)[-1]
+        inherited = False
         if r['member']:
             if not r['ns']:
                 continue
-            want = r['ns'] + '::' + short
-            candidates = [f for f in by_symbol.get(short, []) if f['function'] == want or f['function'].endswith('::' + want)]
+            candidates, inherited = members(strip_templates(r['ns']), short)
         else:
-            candidates = [f for f in by_symbol.get(short, []) if f['function'] == symbol or f['function'].endswith('::' + symbol)]
+            candidates = [f for f in by_symbol.get(short, []) if strip_templates(f['function']) == symbol or strip_templates(f['function']).endswith('::' + symbol)]
             same = [f for f in candidates if f['file'] == r['file']]
             if len(candidates) > 1 and same:
                 candidates = same
+        arguments = re.findall(r'<([^<>]*)>\s*$', r['symbol'])
+        if arguments and len(candidates) > 1:
+            # An instantiation `f<T>` runs a template body (never a plain overload); template constraints pick between them.
+            candidates = [f for f in candidates if f.get('templated')]
+            decided = [f for f in candidates if satisfies(f['template_header'], arguments[0].strip()) is not False]
+            if decided:
+                candidates = decided
         if len(candidates) > 1 and r['cast']:
             wanted = param_types(r['cast'])
             if wanted is not None:
-                candidates = [f for f in candidates if param_types(f['signature']) == wanted]
-        if len(candidates) != 1 or candidates[0].get('catalog_match'):
+                wanted = [resolve_alias(t, aliases) for t in wanted]
+                strict = [f for f in candidates if [resolve_alias(t, aliases) for t in param_types(f['signature']) or []] == wanted]
+                candidates = strict or [f for f in candidates if f.get('templated') and matches_template(f, wanted, aliases)]
+        if len(candidates) != 1:
             continue
-        proposals[id(c)].add(id(candidates[0]))
-        rows[id(c)] = (c, candidates[0])
-    claimed = Counter(next(iter(v)) for v in proposals.values() if len(v) == 1)
-    for key, targets in proposals.items():
-        if len(targets) == 1 and claimed[next(iter(targets))] == 1:
-            c, f = rows[key]
+        previous = proposals.get(id(c))
+        if previous and previous[1] is not candidates[0]:
+            proposals[id(c)] = None  # two registrations disagree: ambiguous
+        elif id(c) not in proposals:
+            proposals[id(c)] = (c, candidates[0], inherited)
+    claimed = Counter(id(v[1]) for v in proposals.values() if v)
+    order = {id(c): i for i, c in enumerate(catalog)}
+    for key in sorted((k for k, v in proposals.items() if v), key=order.get):
+        c, f, inherited = proposals[key]
+        if f.get('catalog_match') is None and claimed[id(f)] == 1:
             f['catalog_match'] = c
             f['linked_by_address'] = True
+            matched.add(key)
+        elif f.get('templated') and (claimed[id(f)] > 1 or f.get('catalog_match') is not None):
+            if f.get('catalog_match') is None:
+                f['catalog_match'] = c
+                f['linked_by_address'] = True
+            else:
+                f.setdefault('shared', []).append((c, 'plantilla heredada' if inherited else 'plantilla genérica'))
             matched.add(key)
 
 
@@ -344,6 +501,8 @@ def collect():
     functions, occurrences, unresolved, file_errors = [], [], [], []
     source_hashes, global_data = {}, defaultdict(list)
     registrations = []
+    class_bases = {}
+    aliases = {}
     paths = sorted(p for root in SCAN_ROOTS for p in (ROOT / root).rglob('*')
                    if p.suffix in {'.cpp', '.h', '.hpp', '.inc'} and p.relative_to(ROOT).as_posix() not in SKIPPED_FILES)
     scanned = {p.relative_to(ROOT).as_posix() for p in paths}
@@ -360,10 +519,18 @@ def collect():
         tree = parser.parse(sanitized_raw)
         definitions = []
         for node in walk(tree.root_node):
-            if node.type != 'function_definition':
+            if node.type not in {'function_definition', 'field_declaration'}:
                 continue
             body = node.child_by_field_name('body')
-            if body is None or body.type != 'compound_statement':
+            if node.type == 'field_declaration':
+                # `virtual void F() { };`: the parser reads the empty braces as an initializer list.
+                initializer = [c for c in node.named_children if c.type == 'initializer_list']
+                if (len(initializer) != 1 or node.child_by_field_name('declarator') is None
+                        or node.child_by_field_name('declarator').type != 'function_declarator'
+                        or sanitized_raw[initializer[0].start_byte + 1:initializer[0].end_byte - 1].strip()):
+                    continue
+                body = initializer[0]
+            elif body is None or body.type != 'compound_statement':
                 continue
             name = declarator_name(node.child_by_field_name('declarator'), raw)
             if not name:
@@ -375,10 +542,12 @@ def collect():
                    'end_line': node.end_point.row + 1, 'start': node.start_byte,
                    'end': node.end_byte, 'body_start': body.start_byte,
                    'body_end': body.end_byte, 'asm_occurrences': 0, 'naked_declarations': 0,
-                   'parser_error': body.has_error, 'body': txt(body, raw),
+                   'parser_error': body.has_error if body.type == 'compound_statement' else node.has_error, 'body': txt(body, raw),
                    'clean_body': txt(body, clean_raw),
                    'has_cpp_body': bool(re.search(rb'[A-Za-z_]', sanitized_raw[body.start_byte:body.end_byte])),
-                   'statements': [n.type for n in body.named_children if n.type != 'comment']}
+                   'statements': [n.type for n in body.named_children if n.type != 'comment'],
+                   'templated': any(a.type == 'template_declaration' for a in ancestors(node)),
+                   'template_header': template_header(node, raw)}
             prefix = raw[max(0, node.start_byte - 450):node.start_byte].decode('utf-8', errors='replace')
             comments = re.search(r'(?://[^\n]*\n[ \t]*)+$', prefix)  # contiguous comment lines only: a blank line ends the block
             addresses = HEX.findall(comments[0]) if comments else []
@@ -386,6 +555,15 @@ def collect():
             row['address'] = canonical(entries[0]) if entries else ''
             definitions.append(row)
             functions.append(row)
+        for node in walk(tree.root_node):
+            if node.type in {'class_specifier', 'struct_specifier'} and node.child_by_field_name('name'):
+                name = strip_templates(txt(node.child_by_field_name('name'), raw))
+                found = class_base_names(node, raw)
+                if found:
+                    class_bases[name] = tuple(found) if class_bases.get(name, tuple(found)) == tuple(found) else ()
+        for alias in ALIAS.finditer(original):
+            target, name = (alias[1], alias[2]) if alias[1] else (alias[4], alias[3])
+            aliases[name] = target if aliases.get(name, target) == target else None
         # Each occurrence goes to the smallest enclosing named definition (lambdas belong to caller).
         for match in TOKENS.finditer(lexical):
             offset = len(original[:match.start()].encode('utf-8')) + (3 if raw.startswith(b'\xef\xbb\xbf') else 0)
@@ -443,7 +621,7 @@ def collect():
         if c and int(c['address'], 16) == 0 and (c['class'], c['fn_name']) not in anchored:
             row['catalog_match'] = None
     matched = {id(f['catalog_match']) for f in functions if f['catalog_match']}
-    link_by_registration(functions, catalog, registrations, matched, scanned)
+    link_by_registration(functions, catalog, registrations, matched, scanned, class_bases, aliases)
     outside = outside_game_sa(catalog, registrations, matched)
     outside = [(c, outside[id(c)]) for c in catalog if id(c) in outside]
     for row in functions:
@@ -508,21 +686,30 @@ def collect():
         row['dependency_details'] = dependencies
         row['dependency'] = '; '.join(dependencies) if dependencies else 'Sin indicio directo en patrones examinados; dependencias transitivas sin determinar'
         row['independence'] = 'No demostrada'
-    return functions, occurrences, catalog, source_hashes, file_errors, outside
+    shared = [(c, f, via) for f in functions for c, via in f.get('shared', [])]
+    return functions, occurrences, catalog, source_hashes, file_errors, outside, shared
 
 
-def write(functions, occurrences, catalog, hashes, errors, outside):
+def write(functions, occurrences, catalog, hashes, errors, outside, shared=()):
     out = ROOT / 'docs/implementaciones'
     out.mkdir(exist_ok=True)
     groups = defaultdict(list)
     for row in functions:
         groups[row['owner']].append(row)
     matched = {(r['catalog_identity'], r['catalog_address']) for r in functions}
+    matched |= {(c['class'] + '::' + c['fn_name'], canonical(c['address'])) for c, _, _ in shared}
     unmatched = [c for c in catalog if (c['class'] + '::' + c['fn_name'], canonical(c['address'])) not in matched]
     with (out / 'catalogo-sin-coincidencia.csv').open('w', encoding='utf-8', newline='') as stream:
         writer = csv.DictWriter(stream, fieldnames=list(catalog[0]))
         writer.writeheader()
         writer.writerows(unmatched)
+    # Entries served by a template body that is already the link of another entry (one per instantiation / derived class).
+    with (out / 'catalogo-cuerpo-compartido.csv').open('w', encoding='utf-8', newline='') as stream:
+        writer = csv.writer(stream)
+        writer.writerow(['catalog_identity', 'catalog_address', 'catalog', 'reversed', 'validated', 'file', 'line', 'language', 'via'])
+        for c, f, via in shared:
+            writer.writerow([c['class'] + '::' + c['fn_name'], canonical(c['address']), c['catalog'], c['reversed'], c['validated'],
+                             f['file'], f['line'], f['language'], via])
     # Catalog rows installed from outside source/game_sa (platform, application...) that still have no identifiable body.
     with (out / 'catalogo-fuera-de-game_sa.csv').open('w', encoding='utf-8', newline='') as stream:
         writer = csv.DictWriter(stream, fieldnames=list(catalog[0]) + ['registered_in'])
@@ -581,6 +768,7 @@ def write(functions, occurrences, catalog, hashes, errors, outside):
         'files_with_any_parse_errors': len(errors), 'historical_catalog_rows': len(catalog),
         'catalog_rows_without_unambiguous_source_match_in_scope': len(unmatched),
         'catalog_rows_installed_outside_game_sa': len(outside),
+        'catalog_rows_sharing_a_template_body': len(shared),
         'catalog_rows_linked_by_hook_address': sum(bool(r.get('linked_by_address')) for r in functions),
         'validated_reconstructed_own_cpp_definitions': sum(r['own_validated_reconstructed'] and r['language'] == 'C++' for r in functions),
         'validated_reconstructed_own_asm_definitions': sum(r['own_validated_reconstructed'] and r['language'] != 'C++' for r in functions),
@@ -620,6 +808,7 @@ def write(functions, occurrences, catalog, hashes, errors, outside):
         '- [Todas las funciones y sus estados](implementaciones/funciones.csv).',
         '- [Cada aparición ASM/naked asignada a su función](implementaciones/apariciones.csv).',
         '- [Entradas del catálogo sin asociación inequívoca dentro del ámbito](implementaciones/catalogo-sin-coincidencia.csv).',
+        '- [Entradas servidas por el cuerpo genérico de una plantilla ya enlazado a otra instanciación o clase derivada](implementaciones/catalogo-cuerpo-compartido.csv).',
         '- [Entradas cuyo hook se instala fuera de source/game_sa (plataforma, aplicación...) y siguen sin cuerpo enlazado](implementaciones/catalogo-fuera-de-game_sa.csv).',
         '- [Conteos, versiones del parser y hashes de entrada](implementaciones/resumen.json).',
         '- [Conversiones a C++ revalidadas recientemente](../reversing/CppOnlyMigration/README.md).',
@@ -634,13 +823,13 @@ def write(functions, occurrences, catalog, hashes, errors, outside):
 
 
 def main():
-    functions, occurrences, catalog, hashes, errors, outside = collect()
+    functions, occurrences, catalog, hashes, errors, outside, shared = collect()
     with (ROOT / 'reversing/CppOnlyMigration/inventory.csv').open(encoding='utf-8', newline='') as stream:
         expected = Counter((r['file'], int(r['line']), r['kind']) for r in csv.DictReader(stream))
     actual = Counter((r['file'], r['line'], r['kind']) for r in occurrences if r['file'].startswith(GAME_SA))
     if expected != actual:
         raise ValueError('Lexical inventory mismatch; regenerate audit_cpp_assembly.py first')
-    print(json.dumps(write(functions, occurrences, catalog, hashes, errors, outside), ensure_ascii=False))
+    print(json.dumps(write(functions, occurrences, catalog, hashes, errors, outside, shared), ensure_ascii=False))
 
 
 if __name__ == '__main__':

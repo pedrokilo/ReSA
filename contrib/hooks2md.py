@@ -83,7 +83,14 @@ def generate(input_path, output_path, update_source_status=False):
                 if row['reversed'] == '1' and row['catalog'] == Path(input_path).name:  # solo hooks.csv; hooks_notsa.csv queda fuera
                     key = (row['catalog_identity'], row['catalog_address'])
                     linked[key] = linked.get(key, True) and row['language'] == 'C++'
-            cpp_only = sum(linked.values())
+        shared_file = Path(input_path).with_name('implementaciones') / 'catalogo-cuerpo-compartido.csv'
+        if shared_file.exists():  # entradas servidas por el cuerpo genérico de una plantilla (instanciaciones, clases derivadas)
+            with shared_file.open(encoding='utf-8-sig', newline='') as stream:
+                for row in csv.DictReader(stream):
+                    if row['reversed'] == '1' and row['catalog'] == Path(input_path).name:
+                        key = (row['catalog_identity'], row['catalog_address'])
+                        linked[key] = linked.get(key, True) and row['language'] == 'C++'
+        cpp_only = sum(linked.values())
     cpp_row = ([f"| Funciones reconstruidas escritas solo en C++ (sin ensamblador) | `{'█' * round(20*cpp_only/cpp_total)}{'░' * (20-round(20*cpp_only/cpp_total))}` | {cpp_only:,}/{cpp_total:,} · {cpp_only/cpp_total:.2%} |"]
                if inventory.exists() and cpp_total else [])
     now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")

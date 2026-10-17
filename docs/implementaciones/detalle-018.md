@@ -62,7 +62,7 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| CModelInfo::InjectHooks() | [source/game_sa/Models/ModelInfo.cpp:45](../../source/game_sa/Models/ModelInfo.cpp#L45) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CModelInfo::InjectHooks() | [source/game_sa/Models/ModelInfo.cpp:45](../../source/game_sa/Models/ModelInfo.cpp#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CModelInfo::ReInit2dEffects() | [source/game_sa/Models/ModelInfo.cpp:86](../../source/game_sa/Models/ModelInfo.cpp#L86) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CModelInfo::ReInit2dEffects 0x004C63B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CModelInfo::ShutDown() | [source/game_sa/Models/ModelInfo.cpp:100](../../source/game_sa/Models/ModelInfo.cpp#L100) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CModelInfo::ShutDown 0x004C63E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CModelInfo::AddAtomicModel(int32 index) | [source/game_sa/Models/ModelInfo.cpp:145](../../source/game_sa/Models/ModelInfo.cpp#L145) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CModelInfo::AddAtomicModel 0x004C6620 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
@@ -192,7 +192,8 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| CNodeRoute::InjectHooks() | [source/game_sa/NodeRoute.cpp:22](../../source/game_sa/NodeRoute.cpp#L22) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CNodeRoute::InjectHooks() | [source/game_sa/NodeRoute.cpp:22](../../source/game_sa/NodeRoute.cpp#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CNodeRoute::operator new(uint32 size) | [source/game_sa/NodeRoute.cpp:30](../../source/game_sa/NodeRoute.cpp#L30) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CNodeRoute::operator new 0x0041B860 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CNodeRoute::operator delete(void* ptr, size_t sz) | [source/game_sa/NodeRoute.cpp:34](../../source/game_sa/NodeRoute.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CNodeRoute::operator delete 0x0041B870 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-352"></a>
@@ -211,7 +212,7 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| CObject::InjectHooks() | [source/game_sa/Entity/Object/Object.cpp:89](../../source/game_sa/Entity/Object/Object.cpp#L89) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CObject::InjectHooks() | [source/game_sa/Entity/Object/Object.cpp:89](../../source/game_sa/Entity/Object/Object.cpp#L89) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CObject::CObject() | [source/game_sa/Entity/Object/Object.cpp:146](../../source/game_sa/Entity/Object/Object.cpp#L146) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CObject::CObject(int32 modelId, bool bCreate) | [source/game_sa/Entity/Object/Object.cpp:153](../../source/game_sa/Entity/Object/Object.cpp#L153) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CObject::CObject(CDummyObject* dummyObj) | [source/game_sa/Entity/Object/Object.cpp:164](../../source/game_sa/Entity/Object/Object.cpp#L164) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

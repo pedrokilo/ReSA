@@ -514,7 +514,7 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| CBulletTraces::InjectHooks() | [source/game_sa/BulletTraces.cpp:23](../../source/game_sa/BulletTraces.cpp#L23) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CBulletTraces::InjectHooks() | [source/game_sa/BulletTraces.cpp:23](../../source/game_sa/BulletTraces.cpp#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CBulletTraces::Init() | [source/game_sa/BulletTraces.cpp:36](../../source/game_sa/BulletTraces.cpp#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CBulletTraces::Init 0x00721D50 | 0 / 0 | Posible dato fijo aTraces: source/game_sa/BulletTraces.h:13 (0x00C7C748) |
 | CBulletTraces::Update() | [source/game_sa/BulletTraces.cpp:44](../../source/game_sa/BulletTraces.cpp#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CBulletTraces::Update 0x00723FB0 | 0 / 0 | Posible dato fijo aTraces: source/game_sa/BulletTraces.h:13 (0x00C7C748) |
 | * CBulletTraces::GetFree() | [source/game_sa/BulletTraces.cpp:51](../../source/game_sa/BulletTraces.cpp#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo aTraces: source/game_sa/BulletTraces.h:13 (0x00C7C748) |

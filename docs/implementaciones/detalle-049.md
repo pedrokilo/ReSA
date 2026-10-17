@@ -208,7 +208,7 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| FxManager_c::InjectHooks() | [source/game_sa/Fx/FxManager.cpp:42](../../source/game_sa/Fx/FxManager.cpp#L42) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxManager_c::InjectHooks() | [source/game_sa/Fx/FxManager.cpp:42](../../source/game_sa/Fx/FxManager.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FxManager_c::FxManager_c() | [source/game_sa/Fx/FxManager.cpp:74](../../source/game_sa/Fx/FxManager.cpp#L74) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxManager_c::Constructor 0x004A9470 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * FxManager_c::Constructor() | [source/game_sa/Fx/FxManager.cpp:78](../../source/game_sa/Fx/FxManager.cpp#L78) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxManager_c::Constructor 0x004A9470 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * FxManager_c::Destructor() | [source/game_sa/Fx/FxManager.cpp:106](../../source/game_sa/Fx/FxManager.cpp#L106) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: FxManager_c::Destructor 0x004A90A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

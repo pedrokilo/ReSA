@@ -12,7 +12,7 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| CGridRef::InjectHooks() | [source/game_sa/GridRef.cpp:26](../../source/game_sa/GridRef.cpp#L26) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CGridRef::InjectHooks() | [source/game_sa/GridRef.cpp:26](../../source/game_sa/GridRef.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CGridRef::Init() | [source/game_sa/GridRef.cpp:38](../../source/game_sa/GridRef.cpp#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGridRef::Init 0x0071D4E0 | 0 / 0 | Posible dato fijo GridRefList: source/game_sa/GridRef.cpp:24 (0x00C72FB0) |
 | CGridRef::GetAreaName(uint8 x, uint8 y) | [source/game_sa/GridRef.cpp:58](../../source/game_sa/GridRef.cpp#L58) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGridRef::GetAreaName 0x0071D670 | 0 / 0 | Posible dato fijo GridRefList: source/game_sa/GridRef.cpp:24 (0x00C72FB0) |
 | * CGridRef::GetArtistBugstarID(uint8 x, uint8 y) | [source/game_sa/GridRef.cpp:66](../../source/game_sa/GridRef.cpp#L66) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CGridRef::GetArtistBugstarID 0x0071D650 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
@@ -352,7 +352,7 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| CKeyGen::InjectHooks() | [source/game_sa/Core/KeyGen.cpp:35](../../source/game_sa/Core/KeyGen.cpp#L35) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CKeyGen::InjectHooks() | [source/game_sa/Core/KeyGen.cpp:35](../../source/game_sa/Core/KeyGen.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | AppendStringToKey(uint32 key, const char* str) noexcept | [source/game_sa/Core/KeyGen.h:26](../../source/game_sa/Core/KeyGen.h#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CKeyGen::AppendStringToKey 0x0053CF70 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetKey(const char* str) noexcept | [source/game_sa/Core/KeyGen.h:35](../../source/game_sa/Core/KeyGen.h#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CKeyGen::GetKey-null-terminated 0x0053CF00 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetKey(const char* str, int32 size) noexcept | [source/game_sa/Core/KeyGen.h:46](../../source/game_sa/Core/KeyGen.h#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CKeyGen::GetKey-sized 0x0053CED0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
