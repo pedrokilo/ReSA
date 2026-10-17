@@ -8193,5 +8193,37 @@
     "state_restored": true,
     "helper_codegen": "reversing/CppTwelveLevel6Study/README.md",
     "scope": "Destino incierto de la cohorte de 499 (PLAN-001), reconstruido en C++ y validado con su banco Dependencies21 en la regresión final; pares propios de la función según pairs_per_function. Sin cobertura exhaustiva más allá de los fixtures del banco."
+  },
+  "0x006E1A60": {
+    "identity": "CVehicle::DoVehicleLights",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Entity/Vehicle/Vehicle.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "Dependencies23A",
+    "run": "20261017-134505-935121",
+    "pairs": 8192,
+    "own_pairs": 8192,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Dependencies23A-20261017-134505-935121/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwelveLevel6Study/README.md",
+    "scope": "Destino incierto de la cohorte de 499 (PLAN-001), reconstruido en C++ y validado con su banco Dependencies21 en la regresión final; pares propios de la función según pairs_per_function. Sin cobertura exhaustiva más allá de los fixtures del banco."
+  },
+  "0x006D85F0": {
+    "identity": "CVehicle::FlyingControl",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Entity/Vehicle/Vehicle.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "Dependencies23B",
+    "run": "20261017-140631-638808",
+    "pairs": 16896,
+    "own_pairs": 16896,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Dependencies23B-20261017-140631-638808/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwelveLevel6Study/README.md",
+    "scope": "Destino incierto de la cohorte de 499 (PLAN-001), reconstruido en C++ y validado con su banco Dependencies21 en la regresión final; pares propios de la función según pairs_per_function. Sin cobertura exhaustiva más allá de los fixtures del banco."
   }
 }

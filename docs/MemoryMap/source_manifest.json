@@ -1977,7 +1977,7 @@
   },
   {
     "file": "source/game_sa/Entity/Vehicle/Vehicle.cpp",
-    "sha256": "8f790f225e98a56259e29d9a946677072eaec3903a9d11e97a08166d3d6c9b9f"
+    "sha256": "729368905b3759af53f39326bbc5b818183b8382004493757c346fe0c0a05056"
   },
   {
     "file": "source/game_sa/Entity/Vehicle/Vehicle.h",
@@ -3021,7 +3021,7 @@
   },
   {
     "file": "source/game_sa/FileMgr.cpp",
-    "sha256": "a7a192213bcc8f9c445f080ea27e957fc58c27e8345fedd35be93bca37c51f68"
+    "sha256": "d3d1e045e5fe41895ee4bc624ba91d46134b57affa59ef79b1260f75a8ee55ea"
   },
   {
     "file": "source/game_sa/FileMgr.h",
@@ -8865,11 +8865,11 @@
   },
   {
     "file": "source/game_sa/X87Math.cpp",
-    "sha256": "b9098287fec661bfbdd610e16c6b0ebbace21dec4069d62e5355c4789d331624"
+    "sha256": "8c095e5650de124975b0de0e36063681090f57d49837e6ce33b9b17bc7d8fe90"
   },
   {
     "file": "source/game_sa/X87Math.h",
-    "sha256": "7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97"
+    "sha256": "098e7579cf41d61519603bd3a133ddf00212a7006da14fa82a9866f7f1b83c90"
   },
   {
     "file": "source/game_sa/Zone.cpp",

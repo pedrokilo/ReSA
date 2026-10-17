@@ -10125,14 +10125,22 @@ static __declspec(noinline) void VehHeadTailTransformCpp(const float* m, const f
     out[2] = float(JpFixMemOp(kJpFixAdd, zt, m + 14));
 }
 
+static const volatile double kVehHeadTailZero = 0.0; // 0x858B50
 // CVector::NormaliseAndMag del EXE (0x59C970): suma (x*x + y*y) + z*z sin redondear; si es <= 0 (comparacion ordenada: NaN sigue) solo pone x = 1.0f y devuelve 1.0f;
 // si no, recip = 1.0 / sqrt(suma) (24 bits), cada componente = float(recip * componente) y devuelve 1.0 / recip (sin guardar a float: el llamador lo hace).
-static __declspec(noinline) float VehHeadTailNormaliseMagCpp(float* v) {
+// stale (opcional, 3 valores): z*z, la suma y x antes de normalizar = lo que el EXE deja en los registros muertos 5, 4 y 3 de esta funcion (los lee VehHeadTailHeadGeometryCpp).
+static __declspec(noinline) float VehHeadTailNormaliseMagCpp(float* v, double* stale = nullptr) {
     const double x = double(v[0]);
     const double y = double(v[1]);
     const double z = double(v[2]);
-    const double sum = (x * x + y * y) + z * z;
-    if (sum <= 0.0) {
+    const double zz = z * z;
+    volatile double sum = (x * x + y * y) + zz;
+    if (stale) {
+        stale[0] = zz;
+        stale[1] = sum;
+        stale[2] = x;
+    }
+    if (sum <= kVehHeadTailZero) {   // fld suma; fcom [0] (la suma en ST0, como 0x59C98E: los codigos C0-C3 que deja)
         v[0] = 1.0f;
         return 1.0f;
     }
@@ -10145,50 +10153,13 @@ static __declspec(noinline) float VehHeadTailNormaliseMagCpp(float* v) {
 }
 
 // Parte comun: world = matriz * punto; delta = camara - world (fld camara; fsub [world], z, y, x, cada uno a float); mag = NormaliseAndMag(delta). Devuelve la magnitud y deja delta normalizado en d.
-static __declspec(noinline) float VehHeadTailDirectionCpp(const float* matrix, const float* point, const float* camera, float* d) {
+static __declspec(noinline) float VehHeadTailDirectionCpp(const float* matrix, const float* point, const float* camera, float* d, double* stale = nullptr) {
     float world[3];
     VehHeadTailTransformCpp(matrix, point, world);
     d[2] = float(JpFixMemOp(kJpFixSub, double(camera[2]), world + 2));
     d[1] = float(JpFixMemOp(kJpFixSub, double(camera[1]), world + 1));
     d[0] = float(JpFixMemOp(kJpFixSub, double(camera[0]), world + 0));
-    return VehHeadTailNormaliseMagCpp(d);
-}
-
-// CVehicle::DoHeadLightEffect 0x6E0AC5..0x6E0BD6. dummy = posicion del dummy en espacio del modelo (x, y, z); forward = frente de la matriz del vehiculo (x, y, z) o nulo si el vehiculo
-// no tiene matriz (entonces direccion = (-sin(heading), cos(heading), 0)); mirror = lado izquierdo (x = x - (x + x)); matrix = matriz del argumento (float[16] como CMatrix);
-// camera = posicion de la camara. Salidas: offset = punto (relativo al vehiculo) que se pasa a RegisterCorona, magnitude = distancia a la camara (0x59C970), dot = producto escalar
-// del vector normalizado a la camara con el frente de la matriz sumado z, y, x (float).
-__declspec(noinline) void __cdecl VehHeadTailHeadGeometryCpp(const float* dummy, const float* forward, float heading, bool mirror, const float* matrix, const float* camera,
-                                                             float* offset, float* magnitude, float* dot) {
-    double x1, y1;
-    volatile float z1;
-    if (forward) {
-        x1 = double(forward[0]) * kJpFixHeight;
-        y1 = double(forward[1]) * kJpFixHeight;
-        z1 = float(double(forward[2]) * kJpFixHeight);
-    } else {
-        x1 = JetPackNegSinExtCpp(heading) * kJpFixHeight;      // fld heading; fsin; fchs; fmul [0x858C28] (el seno de 64 bits llega al producto sin guardarse)
-        volatile float cosine = float(JetPackCosExtCpp(heading)); // fld heading; fcos; fstp dword
-        y1 = double(cosine) * kJpFixHeight;
-        z1 = float(double(0.0f) * kJpFixHeight);
-    }
-    float v[3];
-    v[0] = float(JpFixMemOp(kJpFixAdd, x1, dummy + 0));
-    v[1] = float(JpFixMemOp(kJpFixAdd, y1, dummy + 1));
-    v[2] = float(JpFixMemOp(kJpFixAdd, double(z1), dummy + 2));
-    if (mirror) {
-        const double twice = double(dummy[0]) + double(dummy[0]);
-        v[0] = float(JpFixMemOp(kJpFixSubr, twice, v + 0));
-    }
-    float d[3];
-    *magnitude = VehHeadTailDirectionCpp(matrix, v, camera, d);
-    const double tz = JpFixMemOp(kJpFixMul, double(d[2]), matrix + 6);
-    const double ty = JpFixMemOp(kJpFixMul, double(d[1]), matrix + 5);
-    const double tx = JpFixMemOp(kJpFixMul, double(d[0]), matrix + 4);
-    *dot = float((tz + ty) + tx);
-    offset[0] = v[0];
-    offset[1] = v[1];
-    offset[2] = v[2];
+    return VehHeadTailNormaliseMagCpp(d, stale);
 }
 
 // CVehicle::DoTailLightEffect 0x6E1820..0x6E18CC. dummy = posicion del dummy (copiada como bits); mirror = lado izquierdo (x = x - (x + x) con la x original en memoria);
@@ -10214,34 +10185,6 @@ __declspec(noinline) void __cdecl VehHeadTailTailGeometryCpp(const float* dummy,
 // Rango comun: float(lodMultiplier * 150.0f) (fld [0xB6F118]; fmul [0x858A28]; fstp), calculado como double y guardado una sola vez.
 static __declspec(noinline) float VehHeadTailRangeCpp(float lodMultiplier) {
     return float(double(lodMultiplier) * kVehHeadTail150);
-}
-
-// CVehicle::DoHeadLightEffect 0x6E0D09..0x6E0DAB. a = sqrtDot * 0.5 + 0.3 (sin redondear a float); size = float(((1 - magnitude * (1/150)) * 0.4) * sqrtDot);
-// tren (no tranvia): a = min(a + a, 1.0) y size = float(size * 4); halogeno: red = _ftol2(190 * a), blue = _ftol2(a * 255); si no red = _ftol2(210 * a), blue = _ftol2(a * 195)
-// (EAX completo de _ftol2: el llamador usa solo el byte bajo). range = float(lodMultiplier * 150).
-__declspec(noinline) void __cdecl VehHeadTailHeadCoronaCpp(float magnitude, float sqrtDot, float lodMultiplier, bool train, bool halogen,
-                                                           float* size, float* range, unsigned int* red, unsigned int* blue) {
-    double a = double(sqrtDot) * kVehHeadTailHalf + kVehHeadTailThreeTenths;  // fld sqrtDot; fmul [0.5]; fadd [0.3]
-    double s = double(magnitude) * kVehHeadTailInv150;                         // fld magnitude; fmul [1/150]
-    s = kVehHeadTailOne - s;                                                   // fsubr [1.0]
-    s = s * kVehHeadTailTwoFifths;                                             // fmul [0.4]
-    float sz = float(JpFixMemOp(kJpFixMul, s, &sqrtDot));                      // fmul dword [sqrtDot]; fstp dword
-    if (train) {
-        a = a + a;
-        if (1.0 < a) {
-            a = 1.0;
-        }
-        sz = float(double(sz) * 4.0);
-    }
-    if (halogen) {
-        *red = Ftol2RegsDblCpp(190.0 * a, 0).eax;
-        *blue = Ftol2RegsDblCpp(a * 255.0, 0).eax;
-    } else {
-        *red = Ftol2RegsDblCpp(210.0 * a, 0).eax;
-        *blue = Ftol2RegsDblCpp(a * 195.0, 0).eax;
-    }
-    *size = sz;
-    *range = VehHeadTailRangeCpp(lodMultiplier);
 }
 
 // CVehicle::DoTailLightEffect 0x6E1916..0x6E19E6. a = dot * 0.5 + 0.2; size = float(((1 - magnitude * (1/150)) * 0.2) * dot); tren (no tranvia): a = min(a * 3, 1.0) y size = float(size * 4);
@@ -11318,3 +11261,1219 @@ __declspec(noinline) void __cdecl PointLightsFogSpriteCpp(const void* lightPtr, 
     *reinterpret_cast<unsigned int*>(&result->z) = *reinterpret_cast<const unsigned int*>(&screen[2]);
 }
 #pragma float_control(pop)
+
+// --- Grupo g23a (BRIEF_21): CVehicle::DoVehicleLights (0x6E1A60), prefijo VehLights, y bloques x87 de DoHeadLightEffect (0x6E0A50), prefijo VehHeadTail. Anexar al FINAL de X87Math.cpp. ---
+// Reutiliza JpFixMemOp / kJpFix* / JetPackNegSinExtCpp / JetPackCosExtCpp / FormationRootCpp / X87FistpQword / PointLightsPlant1..5 y VehHeadTail{Transform,NormaliseMag,Direction}Cpp (todos
+// definidos mas arriba en este archivo), y sustituye a VehHeadTailHeadGeometryCpp / VehHeadTailHeadCoronaCpp de g22b (que se retiran).
+// Metodo (el mismo que X87Plant* y PointLights*): cada bloque corresponde a un tramo recto del EXE que empieza y termina con la pila x87 vacia. El bloque calcula todo con valores en
+// memoria (double volatile = lo que el EXE deja en un registro, que con el proceso a 24 bits ya esta redondeado; float = lo que guarda con fst/fstp dword), de modo que ninguna instruccion
+// use mas registros que el EXE; hace LA MISMA comparacion ordenada (fld izquierdo; fcomp derecho, el izquierdo es el ST0 del EXE) que deja C0/C2/C3 como el EXE y levanta las mismas banderas
+// (las operaciones repetidas con los mismos operandos no cambian las banderas acumuladas), planta con PointLightsPlantN los valores que el EXE deja en los registros muertos T-N .. T-2 y
+// termina, cuando el EXE termina con un fstp dword que redondea (C1), con ese mismo almacenamiento sobre T-1. Las constantes que el EXE compara con operando de memoria van en
+// `const volatile double` (fcomp qword) para que el compilador no cargue un registro mas.
+#pragma float_control(precise, on, push)
+static const volatile double kVehLightsZero      = 0.0;                                         // 0x858B50
+static const volatile double kVehLightsHundred   = double(std::bit_cast<float>(0x42C80000u));   // 0x858628 (100.0)
+static const volatile double kVehLightsForty     = double(std::bit_cast<float>(0x42200000u));   // 0x858A10 (40.0)
+static const volatile double kVehLightsPopUp     = double(std::bit_cast<float>(0x3F32B8C3u));   // 0x871E28 (0.6981317)
+static const volatile double kVehLightsSlowSq    = double(std::bit_cast<float>(0x3E4F5C28u));   // 0x871FDC (0.2025)
+static const volatile double kVehLightsLimit     = double(std::bit_cast<float>(0x3F666666u));   // 0x858C20 (0.9)
+static const volatile double kVehLightsLimitTrain = double(std::bit_cast<float>(0x3F59999Au));  // 0x862E1C (0.85)
+static const volatile double kVehLightsOneV      = double(std::bit_cast<float>(0x3F800000u));   // 0x858624 (1.0)
+static constexpr double kVehLightsStep   = double(std::bit_cast<float>(0x3C23D70Au));           // 0x871E2C (0.01)
+static constexpr double kVehLightsFour   = double(std::bit_cast<float>(0x40800000u));           // 0x858B90 (4.0)
+static constexpr double kVehLights190    = double(std::bit_cast<float>(0x433E0000u));           // 0x858A20
+static constexpr double kVehLights255    = double(std::bit_cast<float>(0x437F0000u));           // 0x859AAC
+static constexpr double kVehLights210    = double(std::bit_cast<float>(0x43520000u));           // 0x863B34
+static constexpr double kVehLights195    = double(std::bit_cast<float>(0x43430000u));           // 0x871FD8
+
+// 0x6E1ABE..0x6E1B96: un vehiculo abandonado con las luces encendidas las apaga si |dx| + |dy| al dueno de la camara supera 100. Por componente: fld cam; fsub dword [pos]; fcomp 0;
+// se recalcula (y se invierte con fchs si salio negativo; con NaN, cero o positivo no se invierte). La suma |dy| + |dx| se compara con 100 (fcomp). Registros muertos: T-2 = suma, T-1 = |dx|.
+// camera / position apuntan a x, y. Devuelve true si hay que apagar las luces.
+__declspec(noinline) bool __cdecl VehLightsAbandonedFarCpp(const float* camera, const float* position) {
+    volatile double dx = JpFixMemOp(kJpFixSub, double(camera[0]), position + 0);
+    volatile double ax = (dx < kVehLightsZero) ? -dx : dx;
+    volatile double dy = JpFixMemOp(kJpFixSub, double(camera[1]), position + 1);
+    volatile double ay = (dy < kVehLightsZero) ? -dy : dy;
+    volatile double sum = ay + ax;
+    const bool far = sum > kVehLightsHundred;
+    PointLightsPlant2(sum);
+    PointLightsPlant1(ax);
+    return far;
+}
+
+// 0x6E1C8E..0x6E1CC8 (ZR-350, luces encendidas o alarma): v = ts * 0.01 + prop (fadd dword [prop]); si objetivo < v, v = objetivo; *prop = float(v) (fst); devuelve true si v < objetivo
+// (el EXE sale de la funcion). Registros muertos: T-2 = objetivo, T-1 = v.
+__declspec(noinline) bool __cdecl VehLightsPropRiseCpp(const float* timeStep, float* prop) {
+    volatile double scaled = double(*timeStep) * kVehLightsStep;
+    volatile double sum = JpFixMemOp(kJpFixAdd, scaled, prop);
+    volatile double kept = (kVehLightsPopUp < sum) ? double(kVehLightsPopUp) : double(sum);
+    *prop = float(kept);
+    const bool below = kept < kVehLightsPopUp;
+    PointLightsPlant2(kVehLightsPopUp);
+    PointLightsPlant1(kept);
+    return below;
+}
+
+// 0x6E1C53..0x6E1C89 (ZR-350, luces apagadas): si prop > 0 (fld; fcomp 0), a = float(prop - ts * 0.01) (fsubr dword [prop]; fstp dword) y *prop = 0x420800(0.0f, a) (devuelve a salvo que 0 > a: un NaN, +-0 y los positivos se conservan, un negativo da +0).
+// Registro muerto: T-1 = el ultimo valor cargado (prop si no cambia, el resultado si cambia: lo deja el propio almacenamiento final).
+__declspec(noinline) void __cdecl VehLightsPropFallCpp(const float* timeStep, float* prop) {
+    volatile double current = double(*prop);
+    if (!(current > kVehLightsZero)) {
+        return;
+    }
+    volatile double scaled = double(*timeStep) * kVehLightsStep;
+    volatile double difference = JpFixMemOp(kJpFixSubr, scaled, prop);
+    volatile float stored = float(difference);
+    volatile double loaded = double(stored);
+    volatile double result = (kVehLightsZero > loaded) ? 0.0 : double(loaded);   // 0x420800(0.0f, a): fld 0; fcomp a; devuelve a salvo que 0 > a (con NaN o igualdad devuelve a)
+    *prop = float(result);
+}
+
+// 0x6E2753..0x6E2791: (vx*vx + vy*vy) < 0.2025 (fcomp). Registros muertos: T-4 = vy*vy, T-3 = suma, T-2 = vx, T-1 = vy. speed apunta a x, y.
+__declspec(noinline) bool __cdecl VehLightsSlowCpp(const float* speed) {
+    volatile double vy = double(speed[1]);
+    volatile double vx = double(speed[0]);
+    volatile double x2 = vx * vx;
+    volatile double y2 = vy * vy;
+    volatile double sum = x2 + y2;
+    const bool slow = sum < kVehLightsSlowSq;
+    PointLightsPlant4(y2);
+    PointLightsPlant3(sum);
+    PointLightsPlant2(vx);
+    PointLightsPlant1(vy);
+    return slow;
+}
+
+// 0x6E27EE..0x6E283E: point = position - forward * 4 (x e y: fsub st(i) con el producto sin redondear a float; z: fsub dword [z*4 ya guardado como float]). Registros muertos:
+// T-3 = y, T-2 = fy * 4, T-1 = z (el fstp dword de z es la ultima instruccion x87).
+__declspec(noinline) void __cdecl VehLightsTrailPointCpp(const float* position, const float* forward, float* point) {
+    volatile double fx = double(forward[0]) * kVehLightsFour;
+    volatile double fy = double(forward[1]) * kVehLightsFour;
+    volatile double fz = double(forward[2]) * kVehLightsFour;
+    float zq = float(fz);
+    volatile double xr = double(position[0]) - fx;
+    point[0] = float(xr);
+    volatile double yr = double(position[1]) - fy;
+    point[1] = float(yr);
+    volatile double zr = JpFixMemOp(kJpFixSub, double(position[2]), &zq);
+    PointLightsPlant3(yr);
+    PointLightsPlant2(fy);
+    point[2] = float(zr);
+}
+
+// 0x6E2850..0x6E2867: brake > 0 (fld; fcomp 0). Registro muerto: T-1 = brake.
+__declspec(noinline) bool __cdecl VehLightsBrakeCpp(const float* brake) {
+    return double(*brake) > kVehLightsZero;
+}
+
+// 0x6E287A..0x6E28C1: out = -forward componente a componente (fld; fchs; fstp dword). Registro muerto: T-1 = -fz.
+__declspec(noinline) void __cdecl VehLightsNegateCpp(const float* forward, float* out) {
+    out[0] = float(-double(forward[0]));
+    out[1] = float(-double(forward[1]));
+    out[2] = float(-double(forward[2]));
+}
+
+// --- DoHeadLightEffect (0x6E0A50 y las dos copias en linea de DoVehicleLights con lightId = 1) ---
+// 0x6E0A88..0x6E0AB9: el dummy es exactamente (0, 0, 0) (fld; fcomp 0 por componente, ordenado: NaN es distinto de cero; sale en la primera componente distinta). T-1 = ultima componente cargada.
+__declspec(noinline) bool __cdecl VehHeadTailDummyZeroCpp(const float* dummy) {
+    for (int i = 0; i < 3; ++i) {
+        volatile double component = double(dummy[i]);
+        if (!(component >= kVehLightsZero && component <= kVehLightsZero)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// CVehicle::DoHeadLightEffect 0x6E0AC5..0x6E0BD6. dummy = posicion del dummy en espacio del modelo (x, y, z); forward = frente de la matriz del vehiculo (x, y, z) o nulo si el vehiculo
+// no tiene matriz (entonces direccion = (-sin(heading), cos(heading), 0)); mirror = lado izquierdo (x = x - (x + x)); matrix = matriz del argumento (float[16] como CMatrix);
+// camera = posicion de la camara. Salidas: offset = punto (relativo al vehiculo) que se pasa a RegisterCorona, magnitude = distancia a la camara (0x59C970), dot = producto escalar
+// del vector normalizado a la camara con el frente de la matriz sumado z, y, x (float).
+// Registros muertos: el bloque usa cinco registros bajo la cima y los deja con z*z (T-5), la suma de cuadrados (T-4) y la x de delta (T-3) de 0x59C970, el termino x del producto escalar
+// (T-2) y el producto escalar sin redondear (T-1); se plantan al final y la ultima instruccion x87 es el fstp dword del producto escalar, como en el EXE.
+__declspec(noinline) void __cdecl VehHeadTailHeadGeometryCpp(const float* dummy, const float* forward, float heading, bool mirror, const float* matrix, const float* camera,
+                                                             float* offset, float* magnitude, float* dot) {
+    double x1, y1;
+    volatile float z1;
+    if (forward) {
+        x1 = double(forward[0]) * kJpFixHeight;
+        y1 = double(forward[1]) * kJpFixHeight;
+        z1 = float(double(forward[2]) * kJpFixHeight);
+    } else {
+        x1 = JetPackNegSinExtCpp(heading) * kJpFixHeight;      // fld heading; fsin; fchs; fmul [0x858C28] (el seno de 64 bits llega al producto sin guardarse)
+        volatile float cosine = float(JetPackCosExtCpp(heading)); // fld heading; fcos; fstp dword
+        y1 = double(cosine) * kJpFixHeight;
+        z1 = float(double(0.0f) * kJpFixHeight);
+    }
+    float v[3];
+    v[0] = float(JpFixMemOp(kJpFixAdd, x1, dummy + 0));
+    v[1] = float(JpFixMemOp(kJpFixAdd, y1, dummy + 1));
+    v[2] = float(JpFixMemOp(kJpFixAdd, double(z1), dummy + 2));
+    if (mirror) {
+        const double twice = double(dummy[0]) + double(dummy[0]);
+        v[0] = float(JpFixMemOp(kJpFixSubr, twice, v + 0));
+    }
+    memcpy(offset, v, sizeof v);   // copia entera: un fld/fstp mas dejaria otro valor en T-1
+    float d[3];
+    double stale[3];
+    *magnitude = VehHeadTailDirectionCpp(matrix, v, camera, d, stale);
+    volatile double tz = JpFixMemOp(kJpFixMul, double(d[2]), matrix + 6);
+    volatile double ty = JpFixMemOp(kJpFixMul, double(d[1]), matrix + 5);
+    volatile double tx = JpFixMemOp(kJpFixMul, double(d[0]), matrix + 4);
+    PointLightsPlant5(stale[0]);
+    PointLightsPlant4(stale[1]);
+    PointLightsPlant3(stale[2]);
+    PointLightsPlant2(tx);
+    *dot = float((tz + ty) + tx);
+}
+
+// 0x6E0BE0..0x6E0BEF: dot > 0 (fld dword [dot]; fcomp 0; ordenado, NaN no pasa). T-1 = dot.
+__declspec(noinline) bool __cdecl VehHeadTailPositiveCpp(const float* dot) {
+    return double(*dot) > kVehLightsZero;
+}
+
+// 0x6E0C20..0x6E0C58: sqrtDot = float(sqrt(dot)) (fld; fsqrt; fstp dword); limite = 0.9 (0.85 en un tren que no es el tranvia); devuelve sqrtDot > limite (fcomp st(1), ordenado).
+// Registros muertos: T-2 = sqrtDot, T-1 = limite en el EXE; aqui no se plantan porque DoHeadLightEffect siempre pasa despues por VehHeadTailHeadCoronaCpp, que reescribe T-3..T-1 (lo comprueba el modo head del ensayo).
+__declspec(noinline) bool __cdecl VehHeadTailLimitCpp(const float* dot, bool train, float* sqrtDot) {
+    *sqrtDot = float(FormationRootCpp(double(*dot)));
+    volatile double limit = train ? kVehLightsLimitTrain : kVehLightsLimit;
+    volatile double root = double(*sqrtDot);
+    return root > limit;
+}
+
+// 0x6E0C5E..0x6E0C6D: magnitude < 40 (fld; fcomp 40; ordenado). T-1 = magnitude.
+__declspec(noinline) bool __cdecl VehHeadTailNearCpp(const float* magnitude) {
+    return double(*magnitude) < kVehLightsForty;
+}
+
+// 0x6E0CC0..0x6E0CC8: rango de la corona = float(lod * 150) (fld; fmul; fstp dword). T-1 = lod * 150.
+__declspec(noinline) void __cdecl VehHeadTailRangeStoreCpp(const float* lodMultiplier, float* range) {
+    *range = float(double(*lodMultiplier) * kVehHeadTail150);
+}
+
+// _ftol2 del EXE (0x821B40) sobre v (hasta 24 bits de mantisa): devuelve la palabra baja (truncada) y los dos valores que el EXE deja en los registros muertos justo debajo del
+// argumento: R (fistp con el redondeo vigente, rama de cero incluida) en el mas profundo y v - R (v en la rama de cero) en el otro. Las banderas (fst dword de v, fistp de R) se
+// levantan ejecutando esas conversiones (la de entero la hace la CRT: fisttp/fistp con las mismas condiciones de PE e IE para valores de 24 bits).
+static __declspec(noinline) unsigned int VehHeadTailFtol2Cpp(double v, double* rounded, double* tail) {
+    volatile double source = v;
+    volatile float asFloat = float(source);          // fst dword [esp+18h]
+    volatile long long truncated = static_cast<long long>(source); // fistp qword [esp+10h]
+    (void)asFloat;
+    const long long    r    = X87FistpQword(v, _control87(0, 0) & _MCW_RC);
+    const unsigned int low  = unsigned(static_cast<unsigned long long>(r));
+    const unsigned int high = unsigned(static_cast<unsigned long long>(r) >> 32);
+    *rounded = double(r);
+    if (low == 0 && (high & 0x7FFFFFFFu) == 0) { // 0x821B9F: dos fstp dword (R y v)
+        *tail = v;
+    } else {
+        volatile double difference = v - double(r);
+        *tail = difference;
+    }
+    return unsigned(static_cast<unsigned long long>(truncated));
+}
+
+// 0x6E0D09..0x6E0DAB (y la copia de 0x6E21A7..0x6E22A0): a = sqrtDot * 0.5 + 0.3; size = float(((1 - magnitude / 150) * 0.4) * sqrtDot); tren (no tranvia): a = min(a + a, 1.0) (fcomp
+// con 1.0 como ST0) y size = float(size * 4); red = _ftol2(190|210 * a) y blue = _ftol2(a * 255|195) (EAX completo; el llamador pasa el byte bajo); range = float(lod * 150) (ultima
+// instruccion x87). Registros muertos: T-3 = R de la primera _ftol2, T-2 = R de la segunda, T-1 = el rango.
+__declspec(noinline) void __cdecl VehHeadTailHeadCoronaCpp(const float* magnitude, const float* sqrtDot, const float* lodMultiplier, bool train, bool halogen, bool inlinedCopy,
+                                                           float* size, float* range, unsigned int* red, unsigned int* blue) {
+    volatile double a = double(*sqrtDot) * kVehHeadTailHalf;
+    a = a + kVehHeadTailThreeTenths;
+    volatile double s = double(*magnitude) * kVehHeadTailInv150;
+    s = kVehHeadTailOne - s;
+    if (inlinedCopy) {   // 0x6E21D0: fmul dword [sqrtDot] antes de fmul [0.4]
+        s = JpFixMemOp(kJpFixMul, s, sqrtDot);
+        s = s * kVehHeadTailTwoFifths;
+    } else {             // 0x6E0D32: fmul [0.4] antes de fmul dword [sqrtDot]
+        s = s * kVehHeadTailTwoFifths;
+        s = JpFixMemOp(kJpFixMul, s, sqrtDot);
+    }
+    volatile double sized = s;
+    *size = float(sized);
+    if (train) {
+        volatile double twice = a + a;
+        volatile double clamped = (kVehLightsOneV < twice) ? double(kVehLightsOneV) : double(twice);
+        a = clamped;
+        volatile double enlarged = double(*size) * 4.0;
+        *size = float(enlarged);
+    }
+    double rounded1, tail1, rounded2, tail2;
+    volatile double first = (halogen ? kVehLights190 : kVehLights210) * a;
+    *red = VehHeadTailFtol2Cpp(first, &rounded1, &tail1);
+    volatile double second = a * (halogen ? kVehLights255 : kVehLights195);
+    *blue = VehHeadTailFtol2Cpp(second, &rounded2, &tail2);
+    PointLightsPlant3(rounded1);
+    PointLightsPlant2(rounded2);
+    *range = float(double(*lodMultiplier) * kVehHeadTail150);
+}
+#pragma float_control(pop)
+
+// =====================================================================================================================================================
+// g23b: CVehicle::FlyingControl (0x6D85F0): maquina x87 de software. Anadir AL FINAL de X87Math.cpp (usa X87PlantStmt1..5Cpp, kPlantOne, X87_PLANT_ZERO e ExeCompatible* ya definidos arriba).
+// =====================================================================================================================================================
+// g23b: maquina x87 de software. Ver flc_soft.h.
+
+// ------------------------------------------------------------------ enteros de 128 bits (hi:lo)
+struct FlcU128 { unsigned long long hi, lo; };
+
+static inline int FlcClz64(unsigned long long v) {
+    int n = 0;
+    if (v == 0) return 64;
+    if (!(v >> 32)) { n += 32; v <<= 32; }
+    if (!(v >> 48)) { n += 16; v <<= 16; }
+    if (!(v >> 56)) { n += 8; v <<= 8; }
+    if (!(v >> 60)) { n += 4; v <<= 4; }
+    if (!(v >> 62)) { n += 2; v <<= 2; }
+    if (!(v >> 63)) { n += 1; }
+    return n;
+}
+static inline FlcU128 FlcMul64(unsigned long long a, unsigned long long b) {
+    const unsigned long long a0 = a & 0xFFFFFFFFull, a1 = a >> 32, b0 = b & 0xFFFFFFFFull, b1 = b >> 32;
+    const unsigned long long p00 = a0 * b0, p01 = a0 * b1, p10 = a1 * b0, p11 = a1 * b1;
+    const unsigned long long mid = (p00 >> 32) + (p01 & 0xFFFFFFFFull) + (p10 & 0xFFFFFFFFull);
+    FlcU128 r;
+    r.lo = (p00 & 0xFFFFFFFFull) | (mid << 32);
+    r.hi = p11 + (p01 >> 32) + (p10 >> 32) + (mid >> 32);
+    return r;
+}
+static inline FlcU128 FlcShl(FlcU128 v, int n) {   // 0 <= n < 128
+    if (n == 0) return v;
+    if (n >= 64) { v.hi = v.lo << (n - 64); v.lo = 0; return v; }
+    v.hi = (v.hi << n) | (v.lo >> (64 - n));
+    v.lo <<= n;
+    return v;
+}
+// desplaza a la derecha con "jam": el bit menos significativo recoge todo lo perdido
+static inline FlcU128 FlcShrJam(FlcU128 v, int n) {
+    if (n <= 0) return v;
+    if (n >= 128) { FlcU128 r{0, (v.hi | v.lo) != 0 ? 1ull : 0ull}; return r; }
+    FlcU128 r;
+    bool lost;
+    if (n >= 64) {
+        const int s = n - 64;
+        lost = v.lo != 0 || (s > 0 && (v.hi & ((1ull << s) - 1)) != 0);
+        r.lo = s == 0 ? v.hi : (v.hi >> s);
+        r.hi = 0;
+    } else {
+        lost = (v.lo & ((1ull << n) - 1)) != 0;
+        r.lo = (v.lo >> n) | (v.hi << (64 - n));
+        r.hi = v.hi >> n;
+    }
+    if (lost) r.lo |= 1;
+    return r;
+}
+static inline FlcU128 FlcAdd128(FlcU128 a, FlcU128 b, bool* carry) {
+    FlcU128 r;
+    r.lo = a.lo + b.lo;
+    const unsigned long long c0 = r.lo < a.lo ? 1 : 0;
+    const unsigned long long t = a.hi + b.hi;
+    const bool c1 = t < a.hi;
+    r.hi = t + c0;
+    *carry = c1 || r.hi < t;
+    return r;
+}
+static inline FlcU128 FlcSub128(FlcU128 a, FlcU128 b) {   // a >= b
+    FlcU128 r;
+    r.lo = a.lo - b.lo;
+    r.hi = a.hi - b.hi - (a.lo < b.lo ? 1 : 0);
+    return r;
+}
+static inline bool FlcGe128(FlcU128 a, FlcU128 b) { return a.hi > b.hi || (a.hi == b.hi && a.lo >= b.lo); }
+
+// ------------------------------------------------------------------ construccion de valores
+static inline FlcExt FlcMake(int kind, int neg, unsigned long long sig, int exp) { FlcExt r; r.sig = sig; r.exp = exp; r.kind = (unsigned char)kind; r.neg = (unsigned char)neg; return r; }
+static inline FlcExt FlcIndefinite() { return FlcMake(FLC_NAN, 1, 0xC000000000000000ull, 0); }
+
+FlcExt FlcFromFloat(unsigned int bits, unsigned int* flags) {
+    const int neg = (int)(bits >> 31);
+    const unsigned int e = (bits >> 23) & 0xFF, m = bits & 0x7FFFFF;
+    if (e == 0xFF) {
+        if (m == 0) return FlcMake(FLC_INF, neg, 1ull << 63, 0);
+        if (flags && !(m & 0x400000)) *flags |= FLC_IE;                       // senalizante: IE y sale silenciado
+        return FlcMake(FLC_NAN, neg, (1ull << 63) | (((unsigned long long)m | 0x400000ull) << 40), 0);
+    }
+    if (e == 0) {
+        if (m == 0) return FlcMake(FLC_ZERO, neg, 0, 0);
+        if (flags) *flags |= FLC_DE;                                          // desnormal: DE y se normaliza
+        const int lz = FlcClz64((unsigned long long)m);
+        return FlcMake(FLC_NORMAL, neg, (unsigned long long)m << lz, (63 - lz) - 149);
+    }
+    return FlcMake(FLC_NORMAL, neg, (1ull << 63) | ((unsigned long long)m << 40), (int)e - 127);
+}
+FlcExt FlcFromDouble(unsigned long long bits, unsigned int* flags) {
+    const int neg = (int)(bits >> 63);
+    const unsigned int e = (unsigned int)((bits >> 52) & 0x7FF);
+    const unsigned long long m = bits & 0xFFFFFFFFFFFFFull;
+    if (e == 0x7FF) {
+        if (m == 0) return FlcMake(FLC_INF, neg, 1ull << 63, 0);
+        if (flags && !(m & 0x8000000000000ull)) *flags |= FLC_IE;
+        return FlcMake(FLC_NAN, neg, (1ull << 63) | ((m | 0x8000000000000ull) << 11), 0);
+    }
+    if (e == 0) {
+        if (m == 0) return FlcMake(FLC_ZERO, neg, 0, 0);
+        if (flags) *flags |= FLC_DE;
+        const int lz = FlcClz64(m);
+        return FlcMake(FLC_NORMAL, neg, m << lz, (63 - lz) - 1074);
+    }
+    return FlcMake(FLC_NORMAL, neg, (1ull << 63) | (m << 11), (int)e - 1023);
+}
+FlcExt FlcFromInt(int value) {
+    if (value == 0) return FlcMake(FLC_ZERO, 0, 0, 0);
+    const int neg = value < 0;
+    const unsigned long long mag = neg ? (unsigned long long)(-(long long)value) : (unsigned long long)value;
+    const int lz = FlcClz64(mag);
+    return FlcMake(FLC_NORMAL, neg, mag << lz, 63 - lz);
+}
+FlcExt FlcFromDoubleExact(double d) {
+    unsigned long long b;
+    memcpy(&b, &d, 8);
+    return FlcFromDouble(b, nullptr);
+}
+
+// ------------------------------------------------------------------ redondeo a 24 bits de (hi:lo) normalizado con peso 2^exp en el bit 127
+static FlcExt FlcRound24(int neg, FlcU128 v, int exp, unsigned int* state, bool* c1) {
+    // v.hi tiene el bit 63 a 1. Se conservan 24 bits.
+    unsigned long long keep = v.hi >> 40;
+    const unsigned long long rem = v.hi & ((1ull << 40) - 1);
+    const bool guard = (rem >> 39) & 1;
+    const bool sticky = (rem & ((1ull << 39) - 1)) != 0 || v.lo != 0;
+    const bool inexact = rem != 0 || v.lo != 0;
+    bool up = false;
+    if (guard && (sticky || (keep & 1))) up = true;
+    if (up) {
+        ++keep;
+        if (keep == (1ull << 24)) { keep = 1ull << 23; ++exp; }
+    }
+    if (inexact) *state |= FLC_PE;
+    *c1 = inexact && up;
+    return FlcMake(FLC_NORMAL, neg, keep << 40, exp);
+}
+
+// NaN: reglas del x87
+static FlcExt FlcPickNaN(const FlcExt& a, const FlcExt& b, unsigned int* state) {
+    const bool an = a.kind == FLC_NAN, bn = b.kind == FLC_NAN;
+    const bool aSig = an && !(a.sig & (1ull << 62)), bSig = bn && !(b.sig & (1ull << 62));
+    if (aSig || bSig) *state |= FLC_IE;
+    FlcExt r;
+    if (an && bn) {
+        if (aSig != bSig) r = aSig ? b : a;                  // QNaN con senalizante: gana la silenciosa
+        else if (a.sig != b.sig) r = a.sig > b.sig ? a : b;  // misma clase: la de mayor mantisa
+        else r = a.neg ? b : a;                              // misma mantisa y signo distinto: gana la positiva (medido en el hardware)
+    } else {
+        r = an ? a : b;
+    }
+    r.sig |= (1ull << 62);
+    return r;
+}
+
+static FlcExt FlcInfOrIndefinite(int neg, bool invalid, unsigned int* state) {
+    if (invalid) { *state |= FLC_IE; return FlcIndefinite(); }
+    return FlcMake(FLC_INF, neg, 1ull << 63, 0);
+}
+
+// ------------------------------------------------------------------ suma
+FlcExt FlcAdd(const FlcExt& a, const FlcExt& b, unsigned int* state, bool* c1) {
+    *c1 = false;
+    if (a.kind == FLC_NAN || b.kind == FLC_NAN) return FlcPickNaN(a, b, state);
+    if (a.kind == FLC_INF || b.kind == FLC_INF) {
+        if (a.kind == FLC_INF && b.kind == FLC_INF && a.neg != b.neg) return FlcInfOrIndefinite(0, true, state);
+        return a.kind == FLC_INF ? a : b;
+    }
+    if (a.kind == FLC_ZERO && b.kind == FLC_ZERO) return FlcMake(FLC_ZERO, (a.neg && b.neg) ? 1 : 0, 0, 0);
+    if (a.kind == FLC_ZERO || b.kind == FLC_ZERO) {                       // 0 + x: x redondeado a 24 bits
+        const FlcExt& o = a.kind == FLC_ZERO ? b : a;
+        return FlcRound24(o.neg, FlcU128{o.sig, 0}, o.exp, state, c1);
+    }
+    // |x| >= |y|
+    FlcExt x = a, y = b;
+    if (y.exp > x.exp || (y.exp == x.exp && y.sig > x.sig)) { x = b; y = a; }
+    const int d = x.exp - y.exp;
+    FlcU128 xv{x.sig, 0}, yv{y.sig, 0};
+    yv = FlcShrJam(yv, d);
+    FlcU128 r;
+    int exp = x.exp;
+    if (x.neg == y.neg) {
+        bool carry;
+        r = FlcAdd128(xv, yv, &carry);
+        if (carry) { r = FlcShrJam(r, 1); r.hi |= 1ull << 63; ++exp; }
+    } else {
+        r = FlcSub128(xv, yv);
+        if (r.hi == 0 && r.lo == 0) return FlcMake(FLC_ZERO, 0, 0, 0);      // x - x = +0 (redondeo al par)
+        const int lz = r.hi ? FlcClz64(r.hi) : 64 + FlcClz64(r.lo);
+        r = FlcShl(r, lz);
+        exp -= lz;
+    }
+    return FlcRound24(x.neg, r, exp, state, c1);
+}
+
+// ------------------------------------------------------------------ producto
+FlcExt FlcMul(const FlcExt& a, const FlcExt& b, unsigned int* state, bool* c1) {
+    *c1 = false;
+    if (a.kind == FLC_NAN || b.kind == FLC_NAN) return FlcPickNaN(a, b, state);
+    const int neg = a.neg ^ b.neg;
+    if (a.kind == FLC_INF || b.kind == FLC_INF) {
+        if (a.kind == FLC_ZERO || b.kind == FLC_ZERO) return FlcInfOrIndefinite(0, true, state);
+        return FlcMake(FLC_INF, neg, 1ull << 63, 0);
+    }
+    if (a.kind == FLC_ZERO || b.kind == FLC_ZERO) return FlcMake(FLC_ZERO, neg, 0, 0);
+    FlcU128 p = FlcMul64(a.sig, b.sig);
+    int exp = a.exp + b.exp;
+    if (p.hi >> 63) ++exp; else p = FlcShl(p, 1);
+    return FlcRound24(neg, p, exp, state, c1);
+}
+
+// ------------------------------------------------------------------ division
+FlcExt FlcDiv(const FlcExt& a, const FlcExt& b, unsigned int* state, bool* c1) {
+    *c1 = false;
+    if (a.kind == FLC_NAN || b.kind == FLC_NAN) return FlcPickNaN(a, b, state);
+    const int neg = a.neg ^ b.neg;
+    if (a.kind == FLC_INF) {
+        if (b.kind == FLC_INF) return FlcInfOrIndefinite(0, true, state);
+        return FlcMake(FLC_INF, neg, 1ull << 63, 0);
+    }
+    if (b.kind == FLC_INF) return FlcMake(FLC_ZERO, neg, 0, 0);
+    if (b.kind == FLC_ZERO) {
+        if (a.kind == FLC_ZERO) return FlcInfOrIndefinite(0, true, state);
+        *state |= FLC_ZE;
+        return FlcMake(FLC_INF, neg, 1ull << 63, 0);
+    }
+    if (a.kind == FLC_ZERO) return FlcMake(FLC_ZERO, neg, 0, 0);
+    // q = floor(a.sig * 2^64 / b.sig): division larga bit a bit (resto de hasta 65 bits)
+    FlcU128 q{0, 0};
+    unsigned long long r = 0;
+    bool rc = false;
+    for (int i = 127; i >= 0; --i) {
+        const unsigned long long bit = i >= 64 ? ((a.sig >> (i - 64)) & 1) : 0;
+        const bool newc = (r >> 63) & 1;
+        r = (r << 1) | bit;
+        rc = newc;
+        q = FlcShl(q, 1);
+        if (rc || r >= b.sig) { r -= b.sig; rc = false; q.lo |= 1; }
+    }
+    const bool remainder = r != 0;
+    const int topbit = q.hi ? 64 + (63 - FlcClz64(q.hi)) : (63 - FlcClz64(q.lo));
+    q = FlcShl(q, 127 - topbit);
+    if (remainder) q.lo |= 1;
+    return FlcRound24(neg, q, topbit - 64 + (a.exp - b.exp), state, c1);
+}
+
+// ------------------------------------------------------------------ raiz cuadrada
+FlcExt FlcSqrt(const FlcExt& a, unsigned int* state, bool* c1) {
+    *c1 = false;
+    if (a.kind == FLC_NAN) return FlcPickNaN(a, a, state);
+    if (a.kind == FLC_ZERO) return a;
+    if (a.neg) return FlcInfOrIndefinite(0, true, state);
+    if (a.kind == FLC_INF) return a;
+    const int e = a.exp;
+    // radicando N de 128 bits: sig << 63 si el exponente es par, sig << 64 si es impar; la raiz tiene siempre el bit 63 a 1 y el exponente es e >> 1
+    FlcU128 n = (e & 1) ? FlcU128{a.sig, 0} : FlcU128{a.sig >> 1, a.sig << 63};
+    FlcU128 res{0, 0}, bit{1ull << 62, 0};
+    while (bit.hi || bit.lo) {
+        bool c;
+        const FlcU128 trial = FlcAdd128(res, bit, &c);
+        const FlcU128 half{res.hi >> 1, (res.lo >> 1) | (res.hi << 63)};
+        if (FlcGe128(n, trial)) { n = FlcSub128(n, trial); res = FlcAdd128(half, bit, &c); }
+        else res = half;
+        bit = FlcU128{bit.hi >> 2, (bit.lo >> 2) | (bit.hi << 62)};
+    }
+    const bool inexact = n.hi != 0 || n.lo != 0;
+    return FlcRound24(0, FlcU128{res.lo, inexact ? 1ull : 0ull}, e >> 1, state, c1);
+}
+
+// ------------------------------------------------------------------ conversiones de salida
+unsigned int FlcToFloat(const FlcExt& v, unsigned int* flags, bool* roundedUp) {
+    *roundedUp = false;
+    const unsigned int s = (unsigned int)v.neg << 31;
+    switch (v.kind) {
+    case FLC_ZERO: return s;
+    case FLC_INF:  return s | 0x7F800000u;
+    case FLC_NAN:  return s | 0x7F800000u | (unsigned int)((v.sig >> 40) & 0x7FFFFFu);
+    }
+    int e = v.exp;
+    const unsigned long long sig = v.sig;
+    if (e >= -126) {
+        unsigned long long keep = sig >> 40;
+        const unsigned long long rem = sig & ((1ull << 40) - 1), half = 1ull << 39;
+        const bool inexact = rem != 0;
+        const bool up = rem > half || (rem == half && (keep & 1));
+        if (up) { ++keep; if (keep == (1ull << 24)) { keep = 1ull << 23; ++e; } }
+        if (e > 127) { *flags |= FLC_OE | FLC_PE; *roundedUp = true; return s | 0x7F800000u; }
+        if (inexact) { *flags |= FLC_PE; *roundedUp = up; }
+        return s | ((unsigned int)(e + 127) << 23) | (unsigned int)(keep & 0x7FFFFF);
+    }
+    // desnormal: unidad = 2^-149; keep = parte entera de sig * 2^(e + 86)
+    const int sh = -e - 86;                                            // >= 41
+    unsigned long long keep, rem, half;
+    if (sh >= 65) { keep = 0; rem = 1; half = 2; }                     // por debajo de 2^-151: redondea a cero (inexacto)
+    else if (sh == 64) { keep = 0; rem = sig; half = 1ull << 63; }
+    else { keep = sig >> sh; rem = sig & ((1ull << sh) - 1); half = 1ull << (sh - 1); }
+    const bool inexact = rem != 0;
+    const bool up = rem > half || (rem == half && (keep & 1));
+    if (up) ++keep;
+    if (inexact) { *flags |= FLC_UE | FLC_PE; *roundedUp = up; }
+    return s | (unsigned int)keep;
+}
+
+unsigned long long FlcToDoubleFlags(const FlcExt& v, unsigned int* flags, bool* roundedUp) {
+    *roundedUp = false;
+    const unsigned long long s = (unsigned long long)v.neg << 63;
+    switch (v.kind) {
+    case FLC_ZERO: return s;
+    case FLC_INF:  return s | 0x7FF0000000000000ull;
+    case FLC_NAN:  return s | 0x7FF0000000000000ull | ((v.sig >> 11) & 0xFFFFFFFFFFFFFull);
+    }
+    int e = v.exp;
+    unsigned long long keep, rem, half;
+    if (e >= -1022) {
+        keep = v.sig >> 11; rem = v.sig & 0x7FF; half = 0x400;
+    } else {                                                           // desnormal en double: unidad = 2^-1074
+        const int sh = -e - 1022 + 11;                                 // bits que se descartan (> 11)
+        if (sh >= 65) { keep = 0; rem = 1; half = 2; }
+        else if (sh == 64) { keep = 0; rem = v.sig; half = 1ull << 63; }
+        else { keep = v.sig >> sh; rem = v.sig & ((1ull << sh) - 1); half = 1ull << (sh - 1); }
+    }
+    const bool inexact = rem != 0;
+    const bool up = rem > half || (rem == half && (keep & 1));
+    if (up) {
+        ++keep;
+        if (e >= -1022 && keep == (1ull << 53)) { keep = 1ull << 52; ++e; }
+    }
+    if (inexact) { *flags |= FLC_PE | (e < -1022 ? FLC_UE : 0); *roundedUp = up; }
+    if (e > 1023) { *flags |= FLC_OE | FLC_PE; *roundedUp = true; return s | 0x7FF0000000000000ull; }
+    if (e < -1022) return s | keep;                                    // desnormal (keep ya es la mantisa)
+    return s | ((unsigned long long)(e + 1023) << 52) | (keep & 0xFFFFFFFFFFFFFull);
+}
+unsigned long long FlcToDouble(const FlcExt& v) {
+    unsigned int f = 0;
+    bool up;
+    return FlcToDoubleFlags(v, &f, &up);
+}
+double FlcToDoubleValue(const FlcExt& v) {
+    const unsigned long long b = FlcToDouble(v);
+    double d;
+    memcpy(&d, &b, 8);
+    return d;
+}
+
+unsigned int FlcCompare(const FlcExt& a, const FlcExt& b, unsigned int* state, bool unorderedSignals) {
+    if (a.kind == FLC_NAN || b.kind == FLC_NAN) {
+        const bool aSig = a.kind == FLC_NAN && !(a.sig & (1ull << 62)), bSig = b.kind == FLC_NAN && !(b.sig & (1ull << 62));
+        if (unorderedSignals || aSig || bSig) *state |= FLC_IE;
+        return FLC_C0 | FLC_C2 | FLC_C3;
+    }
+    // orden total sobre finitos e infinitos
+    auto cmp = [](const FlcExt& x, const FlcExt& y) -> int {
+        auto sign = [](const FlcExt& v) { return v.kind == FLC_ZERO ? 0 : (v.neg ? -1 : 1); };
+        const int sx = sign(x), sy = sign(y);
+        if (sx != sy) return sx < sy ? -1 : 1;
+        if (sx == 0) return 0;
+        int mag;                                                       // |x| frente a |y|
+        if (x.kind == FLC_INF || y.kind == FLC_INF) mag = (x.kind == FLC_INF ? 1 : 0) - (y.kind == FLC_INF ? 1 : 0);
+        else if (x.exp != y.exp) mag = x.exp > y.exp ? 1 : -1;
+        else mag = x.sig == y.sig ? 0 : (x.sig > y.sig ? 1 : -1);
+        return sx > 0 ? mag : -mag;
+    };
+    const int c = cmp(a, b);
+    return c < 0 ? FLC_C0 : (c == 0 ? FLC_C3 : 0);
+}
+bool FlcSameBits(const FlcExt& a, const FlcExt& b) {
+    if (a.kind != b.kind || a.neg != b.neg) return false;
+    if (a.kind == FLC_ZERO || a.kind == FLC_INF) return true;
+    return a.sig == b.sig && (a.kind == FLC_NAN || a.exp == b.exp);
+}
+
+// ================================================================== la maquina
+FlcX87::FlcX87() : depth(0), maxDepth(0), state(0), cc(0), ccValid(false), c1(false), lastClass(0), pendingDE(0) {
+    memset(reg, 0, sizeof(reg));
+    memset(written, 0, sizeof(written));
+}
+void FlcX87::Push(const FlcExt& v) {
+    reg[depth] = v;
+    written[depth] = true;
+    ++depth;
+    if (depth > maxDepth) maxDepth = depth;
+    c1 = false;
+}
+void FlcX87::Write(int i, const FlcExt& v) {
+    reg[depth - 1 - i] = v;
+    written[depth - 1 - i] = true;
+}
+static FlcExt FlcMemFloat(unsigned int bits, unsigned int* pendingDE) {
+    unsigned int f = 0;
+    FlcExt e = FlcFromFloat(bits, &f);
+    *pendingDE |= f & FLC_DE;
+    if (e.kind == FLC_NAN && !(bits & 0x400000u)) e.sig &= ~(1ull << 62);   // el operando de memoria senalizante conserva su clase hasta resolver el NaN
+    return e;
+}
+static FlcExt FlcMemDouble(unsigned long long bits, unsigned int* pendingDE) {
+    unsigned int f = 0;
+    FlcExt e = FlcFromDouble(bits, &f);
+    *pendingDE |= f & FLC_DE;
+    if (e.kind == FLC_NAN && !(bits & 0x8000000000000ull)) e.sig &= ~(1ull << 62);
+    return e;
+}
+FlcExt FlcX87::MemOperand(const float& m) { unsigned int b; memcpy(&b, &m, 4); return FlcMemFloat(b, &pendingDE); }
+FlcExt FlcX87::MemOperandD(const double& m) { unsigned long long b; memcpy(&b, &m, 8); return FlcMemDouble(b, &pendingDE); }
+
+void FlcX87::Fld(const float& m) { unsigned int b, f = 0; memcpy(&b, &m, 4); const FlcExt e = FlcFromFloat(b, &f); state |= f; Push(e); lastClass = 3; }
+void FlcX87::FldRet(const float& m) { unsigned int b, f = 0; memcpy(&b, &m, 4); Push(FlcFromFloat(b, &f)); lastClass = 3; }
+void FlcX87::FldD(const double& m) { unsigned long long b; unsigned int f = 0; memcpy(&b, &m, 8); const FlcExt e = FlcFromDouble(b, &f); state |= f; Push(e); lastClass = 3; }
+void FlcX87::FldI(int value) { Push(FlcFromInt(value)); lastClass = 3; }
+void FlcX87::FldSt(int i) { const FlcExt e = S(i); Push(e); lastClass = 3; }
+void FlcX87::FldZero() { Push(FlcMake(FLC_ZERO, 0, 0, 0)); lastClass = 3; }
+void FlcX87::FldExt(const FlcExt& v) { Push(v); lastClass = 3; }
+void FlcX87::Fst(float& m) {
+    bool up;
+    const unsigned int b = FlcToFloat(Top(), &state, &up);
+    memcpy(&m, &b, 4);
+    c1 = up;
+    lastClass = 3;
+}
+void FlcX87::Fstp(float& m) {
+    bool up;
+    const unsigned int b = FlcToFloat(Top(), &state, &up);
+    memcpy(&m, &b, 4);
+    c1 = up;
+    --depth;
+    lastClass = 2;
+}
+void FlcX87::FstpSt(int i) {
+    if (i != 0) Write(i, Top());
+    --depth;
+    c1 = false;
+    lastClass = 3;
+}
+void FlcX87::FstSt(int i) { if (i != 0) Write(i, Top()); c1 = false; lastClass = 3; }
+void FlcX87::Pop() { --depth; c1 = false; lastClass = 3; }
+void FlcX87::Fxch(int i) { const FlcExt t = Top(); Write(0, S(i)); Write(i, t); c1 = false; lastClass = 3; }
+void FlcX87::Fchs() { FlcExt v = Top(); v.neg ^= 1; Write(0, v); c1 = false; lastClass = 3; }
+void FlcX87::Fabs() { FlcExt v = Top(); v.neg = 0; Write(0, v); c1 = false; lastClass = 3; }
+
+static FlcExt FlcSub(const FlcExt& a, const FlcExt& b, unsigned int* state, bool* c1) {
+    if (a.kind == FLC_NAN || b.kind == FLC_NAN) return FlcAdd(a, b, state, c1);   // el NaN sale sin cambiar de signo
+    FlcExt nb = b;
+    nb.neg ^= 1;
+    return FlcAdd(a, nb, state, c1);
+}
+void FlcX87::ArithReg(char op, FlcExt a, FlcExt b, int dest, bool pop, bool) {
+    bool up = false;
+    const unsigned int de = (a.kind == FLC_NAN || b.kind == FLC_NAN) ? 0 : pendingDE;
+    pendingDE = 0;
+    unsigned int local = 0;
+    FlcExt r;
+    switch (op) {
+    case '+': r = FlcAdd(a, b, &local, &up); break;
+    case '-': r = FlcSub(a, b, &local, &up); break;
+    case '*': r = FlcMul(a, b, &local, &up); break;
+    default:  r = FlcDiv(a, b, &local, &up); break;
+    }
+    if (!(local & (FLC_IE | FLC_ZE))) local |= de;                         // IE y ZE tienen prioridad sobre DE
+    state |= local;
+    Write(dest, r);
+    c1 = up;
+    if (pop) --depth;
+    lastClass = 3;
+}
+void FlcX87::Arith(char op, int dest, int srcA, int srcB, bool pop) { ArithReg(op, S(srcA), S(srcB), dest, pop, false); }
+// ST0 = ST0 op m
+void FlcX87::Fadd(const float& m)  { ArithReg('+', Top(), MemOperand(m), 0, false, true); }
+void FlcX87::Fsub(const float& m)  { ArithReg('-', Top(), MemOperand(m), 0, false, true); }
+void FlcX87::Fsubr(const float& m) { ArithReg('-', MemOperand(m), Top(), 0, false, true); }
+void FlcX87::Fmul(const float& m)  { ArithReg('*', Top(), MemOperand(m), 0, false, true); }
+void FlcX87::Fdiv(const float& m)  { ArithReg('/', Top(), MemOperand(m), 0, false, true); }
+void FlcX87::Fdivr(const float& m) { ArithReg('/', MemOperand(m), Top(), 0, false, true); }
+void FlcX87::FaddD(const double& m)  { ArithReg('+', Top(), MemOperandD(m), 0, false, true); }
+void FlcX87::FsubD(const double& m)  { ArithReg('-', Top(), MemOperandD(m), 0, false, true); }
+void FlcX87::FsubrD(const double& m) { ArithReg('-', MemOperandD(m), Top(), 0, false, true); }
+void FlcX87::FmulD(const double& m)  { ArithReg('*', Top(), MemOperandD(m), 0, false, true); }
+void FlcX87::FdivD(const double& m)  { ArithReg('/', Top(), MemOperandD(m), 0, false, true); }
+void FlcX87::FdivrD(const double& m) { ArithReg('/', MemOperandD(m), Top(), 0, false, true); }
+void FlcX87::FimulI(int v) { ArithReg('*', Top(), FlcFromInt(v), 0, false, true); }
+void FlcX87::FidivI(int v) { ArithReg('/', Top(), FlcFromInt(v), 0, false, true); }
+void FlcX87::FiaddI(int v) { ArithReg('+', Top(), FlcFromInt(v), 0, false, true); }
+
+void FlcX87::FcomMem(const float& m, bool pop) {
+    const FlcExt b = MemOperand(m);
+    if (!(Top().kind == FLC_NAN || b.kind == FLC_NAN)) state |= pendingDE;
+    pendingDE = 0;
+    cc = FlcCompare(Top(), b, &state, true);
+    ccValid = true;
+    c1 = false;
+    lastClass = pop ? 1 : 3;
+    if (pop) --depth;
+}
+void FlcX87::FcomSt(int i, bool pop) {
+    cc = FlcCompare(Top(), S(i), &state, true);
+    ccValid = true;
+    c1 = false;
+    lastClass = 3;
+    if (pop) --depth;
+}
+void FlcX87::Fcompp() {
+    cc = FlcCompare(Top(), S(1), &state, true);
+    ccValid = true;
+    c1 = false;
+    lastClass = 3;
+    depth -= 2;
+}
+void FlcX87::Fsqrt() {
+    bool up;
+    const FlcExt r = FlcSqrt(Top(), &state, &up);
+    Write(0, r);
+    c1 = up;
+    lastClass = 3;
+}
+unsigned int FlcX87::Ah() const { return (cc | (c1 ? FLC_C1 : 0)) >> 8; }
+float FlcX87::StFloat(int i) {
+    bool up;
+    unsigned int f = 0;
+    const unsigned int b = FlcToFloat(St(i), &f, &up);
+    float r;
+    memcpy(&r, &b, 4);
+    return r;
+}
+
+FlcExt FlcFromInt64(long long value) {
+    if (value == 0) return FlcMake(FLC_ZERO, 0, 0, 0);
+    const int neg = value < 0;
+    const unsigned long long mag = neg ? (0ull - (unsigned long long)value) : (unsigned long long)value;
+    const int lz = FlcClz64(mag);
+    return FlcMake(FLC_NORMAL, neg, mag << lz, 63 - lz);
+}
+void FlcX87::FldOne() { Push(FlcMake(FLC_NORMAL, 0, 1ull << 63, 0)); lastClass = 3; }
+void FlcX87::FldI64(long long v) { Push(FlcFromInt64(v)); lastClass = 3; }
+void FlcX87::FstD(double& m) {
+    bool up;
+    const unsigned long long out = FlcToDoubleFlags(Top(), &state, &up);
+    memcpy(&m, &out, 8);
+    c1 = up;
+    lastClass = 3;
+}
+void FlcX87::FstpD(double& m) { FstD(m); --depth; }
+void FlcX87::Fistp64(long long& m) {
+    const FlcExt v = Top();
+    unsigned long long out = 0x8000000000000000ull;
+    bool inexact = false, up = false, invalid = false;
+    if (v.kind == FLC_NAN || v.kind == FLC_INF) invalid = true;
+    else if (v.kind == FLC_ZERO) out = 0;
+    else {
+        if (v.exp >= 63) {
+            // |v| >= 2^63: solo -2^63 exacto es valido
+            if (v.neg && v.exp == 63 && v.sig == (1ull << 63)) out = 0x8000000000000000ull; else invalid = true;
+        } else if (v.exp < -1) {
+            // |v| < 0.5: redondea a cero (inexacto)
+            out = 0; inexact = true; up = false;
+        } else {
+            const int sh = 63 - v.exp;                    // bits fraccionarios en sig (>= 1)
+            unsigned long long ip, rem, half;
+            if (sh >= 64) { ip = 0; rem = v.sig; half = 1ull << 63; }
+            else { ip = v.sig >> sh; rem = v.sig & ((1ull << sh) - 1); half = 1ull << (sh - 1); }
+            inexact = rem != 0;
+            up = rem > half || (rem == half && (ip & 1));
+            if (up) ++ip;
+            out = v.neg ? (0ull - ip) : ip;
+        }
+    }
+    if (invalid) state |= FLC_IE;
+    else if (inexact) state |= FLC_PE;
+    m = (long long)out;
+    c1 = !invalid && inexact && up;
+    --depth;
+    lastClass = 3;
+}
+
+// ---- fsin / fcos / fpatan: el resultado lo calcula el x87 real (53 bits de mantisa aqui)
+static bool FlcOutOfTrigRange(const FlcExt& v) { return v.kind == FLC_NORMAL && v.exp >= 63; }
+void FlcX87::Fsin() {
+    const FlcExt v = Top();
+    FlcExt r = v;
+    if (v.kind == FLC_NAN) { r.sig |= (1ull << 62); }
+    else if (v.kind == FLC_INF) { state |= FLC_IE; r = FlcMake(FLC_NAN, 1, 0xC000000000000000ull, 0); }
+    else if (v.kind == FLC_ZERO) {}
+    else if (FlcOutOfTrigRange(v)) { cc |= FLC_C2; }
+    else { r = FlcFromDoubleExact(FlcHwSin(FlcToDoubleValue(v))); state |= FLC_PE; cc &= ~FLC_C2; }
+    Write(0, r);
+    c1 = false;
+    lastClass = 3;
+}
+void FlcX87::Fcos() {
+    const FlcExt v = Top();
+    FlcExt r = v;
+    if (v.kind == FLC_NAN) { r.sig |= (1ull << 62); }
+    else if (v.kind == FLC_INF) { state |= FLC_IE; r = FlcMake(FLC_NAN, 1, 0xC000000000000000ull, 0); }
+    else if (v.kind == FLC_ZERO) { r = FlcMake(FLC_NORMAL, 0, 1ull << 63, 0); }
+    else if (FlcOutOfTrigRange(v)) { cc |= FLC_C2; }
+    else { r = FlcFromDoubleExact(FlcHwCos(FlcToDoubleValue(v))); state |= FLC_PE; cc &= ~FLC_C2; }
+    Write(0, r);
+    c1 = false;
+    lastClass = 3;
+}
+void FlcX87::Fpatan() {
+    const FlcExt x = S(0), y = S(1);                         // atan2(ST1, ST0)
+    FlcExt r;
+    if (x.kind == FLC_NAN || y.kind == FLC_NAN) r = FlcPickNaN(y, x, &state);
+    else {
+        r = FlcFromDoubleExact(FlcHwAtan2(FlcToDoubleValue(y), FlcToDoubleValue(x)));
+        if (r.kind != FLC_ZERO) state |= FLC_PE;
+    }
+    Write(1, r);
+    --depth;
+    c1 = false;
+    lastClass = 3;
+}
+
+// g23b: funciones auxiliares pequenas del EXE como secuencias x87 de la maquina FlcX87 (ver flc_macros.h).
+
+static void FlcSetExeErrno(int value) {
+    using ExeErrnoFn = int*(__cdecl*)();
+    *reinterpret_cast<ExeErrnoFn>(0x0082B181)() = value;   // _errno() del EXE
+}
+FlcWorld FlcReadWorld() {
+    FlcWorld w;
+    w.sse2Pow = *reinterpret_cast<const int*>(0x00C9C400);
+    w.matherrFlag = *reinterpret_cast<const int*>(0x00C9ABFC);
+    return w;
+}
+
+// ======================================================================================================================== CVector
+void FlcVecAdd(FlcX87& fp, float* out, const float* a, const float* b) {
+    fp.Fld(a[2]); fp.Fadd(b[2]);
+    fp.Fld(a[1]); fp.Fadd(b[1]);
+    fp.Fld(a[0]); fp.Fadd(b[0]);
+    fp.Fstp(out[0]); fp.Fstp(out[1]); fp.Fstp(out[2]);
+}
+void FlcVecSub(FlcX87& fp, float* out, const float* a, const float* b) {
+    fp.Fld(a[2]); fp.Fsub(b[2]);
+    fp.Fld(a[1]); fp.Fsub(b[1]);
+    fp.Fld(a[0]); fp.Fsub(b[0]);
+    fp.Fstp(out[0]); fp.Fstp(out[1]); fp.Fstp(out[2]);
+}
+void FlcVecMulLeft(FlcX87& fp, float* out, const float& f, const float* v) {
+    fp.Fld(f); fp.Fmul(v[2]);
+    fp.Fld(f); fp.Fmul(v[1]);
+    fp.Fld(f); fp.Fmul(v[0]);
+    fp.Fstp(out[0]); fp.Fstp(out[1]); fp.Fstp(out[2]);
+}
+void FlcVecMulRight(FlcX87& fp, float* out, const float* v, const float& f) { FlcVecMulLeft(fp, out, f, v); }   // 0x40FEC0: misma secuencia (f * v.z, f * v.y, f * v.x)
+void FlcVecScale(FlcX87& fp, float* v, const float& f) {
+    fp.Fld(f); fp.Fmul(v[0]); fp.Fstp(v[0]);
+    fp.Fld(f); fp.Fmul(v[1]); fp.Fstp(v[1]);
+    fp.Fld(f); fp.Fmul(v[2]); fp.Fstp(v[2]);
+}
+void FlcVecAddTo(FlcX87& fp, float* v, const float* a) {
+    fp.Fld(a[0]); fp.Fadd(v[0]); fp.Fstp(v[0]);
+    fp.Fld(a[1]); fp.Fadd(v[1]); fp.Fstp(v[1]);
+    fp.Fld(a[2]); fp.Fadd(v[2]); fp.Fstp(v[2]);
+}
+static void FlcSumSquaresLeaveSt0(FlcX87& fp, const float* v) {      // 0x4082C0 / 0x406DA0 hasta el segundo faddp: ST0 = (xx + yy) + zz ; ST1 = x ; ST2 = y ; ST3 = z
+    fp.Fld(v[2]); fp.Fld(v[1]); fp.Fld(v[0]);
+    fp.FldSt(0); fp.Arith('*', 0, 0, 1, false);
+    fp.FldSt(2); fp.Arith('*', 0, 0, 3, false);
+    fp.Arith('+', 1, 1, 0, true);
+    fp.FldSt(3); fp.Arith('*', 0, 0, 4, false);
+    fp.Arith('+', 1, 1, 0, true);
+}
+void FlcVecMagnitude(FlcX87& fp, const float* v) {
+    FlcSumSquaresLeaveSt0(fp, v);
+    fp.Fsqrt();
+    fp.FstpSt(3); fp.Pop(); fp.Pop();
+}
+void FlcVecMagnitudeSquared(FlcX87& fp, const float* v) {
+    FlcSumSquaresLeaveSt0(fp, v);
+    fp.FstpSt(3); fp.Pop(); fp.Pop();
+}
+void FlcVecDot(FlcX87& fp, const float* a, const float* b) {
+    fp.Fld(a[2]); fp.Fmul(b[2]);
+    fp.Fld(a[1]); fp.Fmul(b[1]);
+    fp.Arith('+', 1, 1, 0, true);
+    fp.Fld(a[0]); fp.Fmul(b[0]);
+    fp.Arith('+', 1, 1, 0, true);
+}
+static const float kFlcMacZero = 0.0f;
+static const float kFlcOneF = 1.0f;
+void FlcVecNormalise(FlcX87& fp, float* v) {
+    FlcSumSquaresLeaveSt0(fp, v);                                    // ST0 = suma de cuadrados
+    fp.FstpSt(3); fp.Pop(); fp.Pop();
+    fp.FcomMem(kFlcMacZero, false);                                     // fcom (sin sacar)
+    const unsigned ah = fp.Ah();
+    const bool parityEven = (((ah & 0x41) == 0) || ((ah & 0x41) == 0x41));
+    if (!parityEven) {                                               // suma <= 0
+        fp.Pop();
+        unsigned int one = 0x3F800000u;
+        memcpy(&v[0], &one, 4);
+        return;
+    }
+    fp.Fsqrt();
+    fp.Fdivr(kFlcOneF);
+    fp.FldSt(0); fp.Fmul(v[0]); fp.Fstp(v[0]);
+    fp.FldSt(0); fp.Fmul(v[1]); fp.Fstp(v[1]);
+    fp.Fmul(v[2]); fp.Fstp(v[2]);
+}
+void FlcVecCross(FlcX87& fp, float* out, const float* a, const float* b) {
+    float t[3];
+    fp.Fld(b[2]); fp.Fmul(a[1]);
+    fp.Fld(a[2]); fp.Fmul(b[1]);
+    fp.Arith('-', 1, 1, 0, true); fp.Fstp(t[0]);
+    fp.Fld(a[2]); fp.Fmul(b[0]);
+    fp.Fld(b[2]); fp.Fmul(a[0]);
+    fp.Arith('-', 1, 1, 0, true); fp.Fstp(t[1]);
+    fp.Fld(a[0]); fp.Fmul(b[1]);
+    fp.Fld(b[0]); fp.Fmul(a[1]);
+    fp.Arith('-', 1, 1, 0, true); fp.Fstp(t[2]);
+    memcpy(out, t, 12);
+}
+void FlcMatMul3x3(FlcX87& fp, float* out, const float* m, const float* v) {
+    float t[3];
+    fp.Fld(m[8]);  fp.Fmul(v[2]); fp.Fld(m[4]);  fp.Fmul(v[1]); fp.Arith('+', 1, 1, 0, true); fp.Fld(m[0]); fp.Fmul(v[0]); fp.Arith('+', 1, 1, 0, true); fp.Fstp(t[0]);
+    fp.Fld(m[9]);  fp.Fmul(v[2]); fp.Fld(m[1]);  fp.Fmul(v[0]); fp.Arith('+', 1, 1, 0, true); fp.Fld(m[5]); fp.Fmul(v[1]); fp.Arith('+', 1, 1, 0, true); fp.Fstp(t[1]);
+    fp.Fld(m[10]); fp.Fmul(v[2]); fp.Fld(m[2]);  fp.Fmul(v[0]); fp.Arith('+', 1, 1, 0, true); fp.Fld(m[6]); fp.Fmul(v[1]); fp.Arith('+', 1, 1, 0, true); fp.Fstp(t[2]);
+    memcpy(out, t, 12);
+}
+void FlcMatInvMul3x3(FlcX87& fp, float* out, const float* m, const float* v) {
+    float t[3];
+    fp.Fld(m[1]); fp.Fmul(v[1]); fp.Fld(m[2]); fp.Fmul(v[2]); fp.Arith('+', 1, 1, 0, true); fp.Fld(v[0]); fp.Fmul(m[0]); fp.Arith('+', 1, 1, 0, true); fp.Fstp(t[0]);
+    fp.Fld(m[5]); fp.Fmul(v[1]); fp.Fld(m[4]); fp.Fmul(v[0]); fp.Arith('+', 1, 1, 0, true); fp.Fld(m[6]); fp.Fmul(v[2]); fp.Arith('+', 1, 1, 0, true); fp.Fstp(t[1]);
+    fp.Fld(m[9]); fp.Fmul(v[1]); fp.Fld(m[8]); fp.Fmul(v[0]); fp.Arith('+', 1, 1, 0, true); fp.Fld(m[10]); fp.Fmul(v[2]); fp.Arith('+', 1, 1, 0, true); fp.Fstp(t[2]);
+    memcpy(out, t, 12);
+}
+void FlcFloatMax(FlcX87& fp, const float& a, const float& b) {      // 0x420800: fld a; fcomp b; test ah,0x41; jne -> ST0 = b ; si no ST0 = a
+    fp.Fld(a);
+    fp.FcomMem(b, true);
+    if (fp.Ah() & 0x41) fp.Fld(b); else fp.Fld(a);
+}
+void FlcFloatMin(FlcX87& fp, const float& a, const float& b) {      // 0x404330: fld a; fcomp b; test ah,5; jp -> ST0 = b ; si no ST0 = a
+    fp.Fld(a);
+    fp.FcomMem(b, true);
+    const unsigned ah = fp.Ah();
+    const bool parityEven = (((ah & 5) == 0) || ((ah & 5) == 5));
+    if (parityEven) fp.Fld(b); else fp.Fld(a);
+}
+
+// ======================================================================================================================== CRT
+static unsigned int FlcHighDword(const FlcExt& x) { return (unsigned int)(FlcToDouble(x) >> 32); }
+
+// Cola comun de _CIasin / _CIacos tras calcular el resultado (0x821EB6 / 0x8223C8 / 0x821F1C / 0x82242C): si el CRT comprueba las excepciones (matherrFlag == 0)
+// y el x87 lleva PE, 0x828EA7 guarda ST0 como qword y lo recarga (redondeo a 53 bits); con el dominio invalido ademas pone IE y el errno del EXE.
+static void FlcMathTail(FlcX87& fp, bool domainError, bool nanInput) {
+    const FlcWorld w = FlcReadWorld();
+    if (w.matherrFlag != 0) return;
+    if (!domainError && !nanInput) {
+        if (!((FlcHwSticky() | fp.state) & FLC_PE)) return;
+    }
+    double d;
+    fp.FstD(d);
+    if (domainError) { fp.state |= FLC_IE; }
+    if (domainError || nanInput) FlcSetExeErrno(33);
+    fp.Pop();
+    fp.FldD(d);
+}
+void FlcCrtAsin(FlcX87& fp) {
+    const FlcExt x = fp.St(0);
+    const unsigned int hi = FlcHighDword(x);
+    const unsigned int expo = hi & 0x7FF00000u;
+    if (x.kind == FLC_NAN) { FlcMathTail(fp, false, true); return; }
+    if (x.kind == FLC_INF || expo > 0x3FF00000u || (expo == 0x3FF00000u && (FlcToDouble(x) & 0xFFFFFFFFFFFFFull) != 0)) {
+        fp.Pop();
+        fp.FldExt(FlcExt{0xC000000000000000ull, 0, FLC_NAN, 1});            // indefinido real (0x8E3130)
+        FlcMathTail(fp, true, false);
+        return;
+    }
+    if (expo == 0x3FF00000u) {                                              // +-1 exacto: +-pi/2 de 64 bits (0x8E313A)
+        const int neg = x.neg;
+        fp.Pop();
+        fp.FldExt(FlcExt{0xC90FDAA22168C235ull, 0, FLC_NORMAL, (unsigned char)neg});
+        FlcMathTail(fp, false, false);
+        return;
+    }
+    fp.FldOne(); fp.Arith('+', 0, 0, 1, false);                             // 1 + x
+    fp.FldOne(); fp.Arith('-', 0, 0, 2, false);                             // 1 - x
+    fp.Arith('*', 1, 1, 0, true);
+    fp.Fsqrt();
+    fp.Fpatan();                                                            // atan2(x, raiz)
+    FlcMathTail(fp, false, false);
+}
+void FlcCrtAcos(FlcX87& fp) {
+    const FlcExt x = fp.St(0);
+    const unsigned int hi = FlcHighDword(x);
+    const unsigned int expo = hi & 0x7FF00000u;
+    if (x.kind == FLC_NAN) { FlcMathTail(fp, false, true); return; }
+    if (x.kind == FLC_INF || expo > 0x3FF00000u || (expo == 0x3FF00000u && (FlcToDouble(x) & 0xFFFFFFFFFFFFFull) != 0)) {
+        fp.Pop();
+        fp.FldExt(FlcExt{0xC000000000000000ull, 0, FLC_NAN, 1});
+        FlcMathTail(fp, true, false);
+        return;
+    }
+    if (expo == 0x3FF00000u) {                                              // +-1 exacto: 0 (fldz) o pi (fldpi)
+        const int neg = x.neg;
+        fp.Pop();
+        if (neg) fp.FldExt(FlcExt{0xC90FDAA22168C235ull, 1, FLC_NORMAL, 0}); else fp.FldZero();
+        FlcMathTail(fp, false, false);
+        return;
+    }
+    fp.FldOne(); fp.Arith('+', 0, 0, 1, false);
+    fp.FldOne(); fp.Arith('-', 0, 0, 2, false);
+    fp.Arith('*', 1, 1, 0, true);
+    fp.Fsqrt();
+    fp.Fxch(1);
+    fp.Fpatan();                                                            // atan2(raiz, x)
+    FlcMathTail(fp, false, false);
+}
+
+// _CIpow con la rama SSE2 del CRT del EXE (0x829B80): fxch; fstp qword; fstp qword; call 0x829B99 (pow en SSE2, argumentos double en la pila, resultado en ST0 por fld qword); la rama SSE2 se toma si
+// [0xC9C400] != 0 y las excepciones del x87 y del SSE estan enmascaradas. El nucleo SSE2 (tablas de pow, MXCSR y errno incluidos) es codigo de la CRT del EXE y se llama por su direccion:
+// reproducirlo en C++ exigiria copiar sus tablas (0x8884F0..0x88A540) y dejaria las banderas de MXCSR y errno distintas en los casos limite.
+void FlcCrtPow(FlcX87& fp) {
+    fp.Fxch(1);
+    double base, exponent;
+    fp.FstpD(base);
+    fp.FstpD(exponent);
+    using PowCore = double(__cdecl*)(double, double);
+    const double result = reinterpret_cast<PowCore>(0x00829B99)(base, exponent);
+    fp.FldD(result);
+}
+
+int FlcCrtFtol2(FlcX87& fp) {
+    float f18;
+    long long r;
+    fp.FldSt(0);
+    fp.Fst(f18);
+    fp.Fistp64(r);
+    fp.FldI64(r);
+    unsigned int edx, eax = (unsigned int)(unsigned long long)r;
+    memcpy(&edx, &f18, 4);
+    unsigned int hi = (unsigned int)((unsigned long long)r >> 32);
+    if (eax == 0 && (hi & 0x7FFFFFFFu) == 0) {                               // 0x821B9F: R == 0 (o R = -2^63 con hi...)
+        // el EXE saca R y v con dos fstp dword
+        float sink;
+        fp.Fstp(sink);
+        fp.Fstp(sink);
+        return 0;
+    }
+    fp.Arith('-', 1, 1, 0, true);                                            // fsubp: v - R
+    float frac;
+    fp.Fstp(frac);
+    unsigned int fracBits;
+    memcpy(&fracBits, &frac, 4);
+    if ((int)edx < 0) {                                                       // v negativo: xor ecx,0x80000000; add ecx,0x7FFFFFFF; adc eax,0; adc edx,0
+        const unsigned int t = fracBits ^ 0x80000000u;
+        const unsigned int ecx = t + 0x7FFFFFFFu;
+        const unsigned int carry = ecx < t ? 1u : 0u;
+        return (int)(eax + carry);
+    }
+    const unsigned int ecx = fracBits + 0x7FFFFFFFu;                          // add ecx,0x7FFFFFFF; sbb eax,0; sbb edx,0
+    const unsigned int carry = ecx < fracBits ? 1u : 0u;
+    return (int)(eax - carry);
+}
+
+// ---- Plantas (niveles 6, 7 y 8 nuevos): Stmt(N) = ZT(N-2) + Stmt(N-1), con ZT(k) = arbol equilibrado de 2^k ceros. Se ejecutan con precision de 64 bits (Commit): `1 * d` es exacto.
+#define FZ X87_PLANT_ZERO
+#define FZ2 (FZ + FZ)
+#define FZ4 (FZ2 + FZ2)
+#define FZ8 (FZ4 + FZ4)
+#define FZ16 (FZ8 + FZ8)
+#define FZ32 (FZ16 + FZ16)
+#define FZ64 (FZ32 + FZ32)
+#pragma float_control(precise, on, push)
+static __declspec(noinline) void FlcPlantStmt6(double d) { volatile double sink; sink = FZ16 + (FZ8 + (FZ4 + (FZ2 + (FZ + (kPlantOne * d))))); }
+static __declspec(noinline) void FlcPlantStmt7(double d) { volatile double sink; sink = FZ32 + (FZ16 + (FZ8 + (FZ4 + (FZ2 + (FZ + (kPlantOne * d)))))); }
+static __declspec(noinline) void FlcPlantStmt8(double d) { volatile double sink; sink = FZ64 + (FZ32 + (FZ16 + (FZ8 + (FZ4 + (FZ2 + (FZ + (kPlantOne * d))))))); }
+#pragma float_control(pop)
+static void FlcPlant(int level, double d) {
+    switch (level) {
+    case 1: X87PlantStmt1Cpp(d); break; case 2: X87PlantStmt2Cpp(d); break; case 3: X87PlantStmt3Cpp(d); break; case 4: X87PlantStmt4Cpp(d); break;
+    case 5: X87PlantStmt5Cpp(d); break; case 6: FlcPlantStmt6(d); break; case 7: FlcPlantStmt7(d); break; default: FlcPlantStmt8(d); break;
+    }
+}
+
+// ---- fsin / fcos / fpatan reales (el intrinseco de /arch:IA32 emite la instruccion x87 y devuelve ST0)
+__declspec(noinline) double __cdecl FlcHwSin(double x) { return sin(x); }
+__declspec(noinline) double __cdecl FlcHwCos(double x) { return cos(x); }
+__declspec(noinline) double __cdecl FlcHwAtan2(double y, double x) { return atan2(y, x); }
+
+// ---- constantes volatile
+static const volatile float kFlcZero = 0.0f;
+static const volatile float kFlcOne = 1.0f;
+static const volatile float kFlcThree = 3.0f;
+static const volatile float kFlcInf = __builtin_huge_valf();
+static const volatile float kFlcDenormal = 1.0e-45f;
+static const volatile double kFlcBigDouble = 1.0e300;
+static const volatile double kFlcTinyDouble = 1.0e-300;
+static volatile float gFlcSinkF;
+static volatile double gFlcSinkD;
+static volatile int gFlcSinkI;
+
+// ---- elevan UNA bandera acumulada con un unico registro x87 (T-1); el destino es una variable global volatile que nadie lee
+#pragma float_control(precise, on, push)
+static __declspec(noinline) void FlcRaiseIE() { gFlcSinkF = kFlcZero * kFlcInf; }
+static __declspec(noinline) void FlcRaiseDE() { gFlcSinkF = kFlcDenormal * kFlcOne; }
+static __declspec(noinline) void FlcRaiseZE() { gFlcSinkF = kFlcOne / kFlcZero; }
+static __declspec(noinline) void FlcRaisePE() { gFlcSinkF = kFlcOne / kFlcThree; }
+static __declspec(noinline) void FlcRaiseOE() { gFlcSinkF = float(kFlcBigDouble); }
+static __declspec(noinline) void FlcRaiseUE() { gFlcSinkF = float(kFlcTinyDouble); }
+#pragma float_control(pop)
+
+// ---- fld dword [a]; fcomp dword [b]  (la forma sin `precise` da esta secuencia, igual que GangDriveByGtCpp)
+static __declspec(noinline) void FlcCmpFF(const volatile float* a, const volatile float* b) { gFlcSinkI = (double(*a) > double(*b)) ? 1 : 0; }
+// ---- fld qword [a]; fstp dword [sink]: deja a en T-1 y C1 = redondeo de la conversion
+static __declspec(noinline) void FlcStoreD(const volatile double* a) { gFlcSinkF = float(*a); }
+
+void FlcX87::Commit() {
+    if (maxDepth == 0) return;                                         // el EXE no toco la x87
+    // 1. banderas acumuladas
+    if (state & FLC_IE) FlcRaiseIE();
+    if (state & FLC_DE) FlcRaiseDE();
+    if (state & FLC_ZE) FlcRaiseZE();
+    if (state & FLC_PE) FlcRaisePE();
+    if (state & FLC_OE) FlcRaiseOE();
+    if (state & FLC_UE) FlcRaiseUE();
+    // 2. registros muertos T-maxDepth .. T-2
+    double vals[8];
+    unsigned long long bits[8];
+    for (int i = 0; i < maxDepth; ++i) { bits[i] = FlcToDouble(reg[i]); memcpy(&vals[i], &bits[i], 8); }
+    unsigned int cwPrevious = 0, cwIgnored = 0;
+    __control87_2(0, 0, &cwPrevious, nullptr);
+    __control87_2(_PC_64, _MCW_PC, &cwIgnored, nullptr);                       // precision de 64 bits: `1 * d` es exacto con 53 bits
+    for (int k = maxDepth - 1; k >= 1; --k) FlcPlant(k + 1, vals[k]);
+    __control87_2(cwPrevious, _MCW_PC, &cwIgnored, nullptr);
+    // 3. codigos de condicion, T-1 y C1. Los valores se escriben como enteros: ninguna carga/almacenamiento de coma flotante fuera de la secuencia buscada.
+    static unsigned long long vBits;
+    static unsigned int faBits, fbBits;
+    vBits = bits[0];
+    const unsigned int kQNaN = 0x7FC00000u, kOne = 0x3F800000u;
+    if (ccValid) {                                  // fld [a]; fcomp [b] con 0 / 1 / NaN fija C0/C2/C3 (y C1 = 0)
+        if (cc == (FLC_C0 | FLC_C2 | FLC_C3)) { faBits = kQNaN; fbBits = 0; }
+        else if (cc == FLC_C3) { faBits = 0; fbBits = 0; }
+        else if (cc == FLC_C0) { faBits = 0; fbBits = kOne; }
+        else { faBits = kOne; fbBits = 0; }
+        FlcCmpFF(reinterpret_cast<const volatile float*>(&faBits), reinterpret_cast<const volatile float*>(&fbBits));
+    }
+    if (lastClass == 2) FlcStoreD(reinterpret_cast<const volatile double*>(&vBits));   // fld qword [v]; fstp dword: T-1 = v y C1 = redondeo del almacenamiento
+    else {
+        __control87_2(_PC_64, _MCW_PC, &cwIgnored, nullptr);
+        FlcPlant(1, vals[0]);                                                // T-1 = v, C1 = 0
+        __control87_2(cwPrevious, _MCW_PC, &cwIgnored, nullptr);
+    }
+}
+
+// Banderas acumuladas del x87 real (formato FLC_*), sin modificarlas.
+unsigned int FlcHwSticky() {
+    unsigned int x87 = 0, sse = 0;
+    _statusfp2(&x87, &sse);
+    unsigned int r = 0;
+    if (x87 & _SW_INVALID) r |= FLC_IE;
+    if (x87 & _SW_DENORMAL) r |= FLC_DE;
+    if (x87 & _SW_ZERODIVIDE) r |= FLC_ZE;
+    if (x87 & _SW_OVERFLOW) r |= FLC_OE;
+    if (x87 & _SW_UNDERFLOW) r |= FLC_UE;
+    if (x87 & _SW_INEXACT) r |= FLC_PE;
+    return r;
+}
+
+#undef FZ
+#undef FZ2
+#undef FZ4
+#undef FZ8
+#undef FZ16
+#undef FZ32
+#undef FZ64

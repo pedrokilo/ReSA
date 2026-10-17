@@ -716,7 +716,7 @@ CTrain,class,40,40,0,40,40,0,0x00872370,public CVehicle,source/game_sa/Entity/Ve
 CTxdStore,class,26,26,0,26,26,0,,,source/game_sa/TxdStore.h:26,catalogue_class_or_group
 CUpsideDownCarCheck,class,5,5,0,5,5,0,,,source/game_sa/UpsideDownCarCheck.h:25,catalogue_class_or_group
 CUserDisplay,class,2,2,0,2,2,0,,,source/game_sa/UserDisplay.h:13,catalogue_class_or_group
-CVehicle,class,146,146,0,146,146,0,0x00871E80,public CPhysical,source/game_sa/Entity/Vehicle/Vehicle.h:188,catalogue_class_or_group
+CVehicle,class,148,148,0,148,148,0,0x00871E80,public CPhysical,source/game_sa/Entity/Vehicle/Vehicle.h:188,catalogue_class_or_group
 CVehicleAnimGroup,class,5,5,0,5,5,0,,,source/game_sa/VehicleAnimGroupData.h:106,catalogue_class_or_group
 CVehicleAnimGroupData,class,5,5,0,5,5,0,,,source/game_sa/VehicleAnimGroupData.h:143,catalogue_class_or_group
 CVehicleModelInfo,class,75,75,0,75,75,0,0x0085C5C8,public CClumpModelInfo,source/game_sa/Models/VehicleModelInfo.h:143,catalogue_class_or_group

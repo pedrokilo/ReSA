@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "pairs": 16896,
+  "differences": 0,
+  "registered_pairs": 16896,
+  "registered_functions": 1,
+  "functions": {
+    "CVehicle::FlyingControl": 16896
+  },
+  "covered_functions": {
+    "CVehicle::FlyingControl": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Dependencies23B-20261017-140631-638808",
+  "summary_sha256": "b71d3f87590f6e84b2d2c2ca027f98751dc0b3af14ce2b8407cdc6dd8f067c36",
+  "result_txt_sha256": "6bbcd971014242f2d5bf311a817c99e6d05fa8135856d310b06b70bd92ce387a",
+  "log_sha256": "70394c4f790418bb3d7ab0b59a7c8c471e044742afb6ef7fb5a66575016f5369",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "9687b6fd5231f34c1ece972f048b640f8ca17cc195ebbdb1e830ac594cf602c2",
+  "manifest": {
+    "tested_sources": {
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "729368905b3759af53f39326bbc5b818183b8382004493757c346fe0c0a05056",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "ef1ec3e5a298cebb325f63b31cacb1c5f6b1fb207838ebc96ecfa79285bd71f9",
+      "source/game_sa/X87Math.cpp": "8c095e5650de124975b0de0e36063681090f57d49837e6ce33b9b17bc7d8fe90",
+      "source/game_sa/X87Math.h": "098e7579cf41d61519603bd3a133ddf00212a7006da14fa82a9866f7f1b83c90",
+      "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Dependencies23B/Fixtures.hpp": "81448385edfb45dfb4ba9455fa16eaddf9965772362797c4224fbb6372962b5d",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

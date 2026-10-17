@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "pairs": 8192,
+  "differences": 0,
+  "registered_pairs": 8192,
+  "registered_functions": 1,
+  "functions": {
+    "CVehicle::DoVehicleLights": 8192
+  },
+  "covered_functions": {
+    "CVehicle::DoVehicleLights": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Dependencies23A-20261017-134505-935121",
+  "summary_sha256": "0dbecf15a929ffdec39406e86e702df6c5b79e5cb7bdfc40ca0aad7c6cfece9c",
+  "result_txt_sha256": "bf21ccef929fa0aba8f37fef2ec61b996564a824b8d121a0a21bf46836624e7f",
+  "log_sha256": "17a72722e7a2c8bd095a90002500dbbdc47be07a10396398330b573739dd4eb7",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "2961074bce437108710c362701678c44ca4ffae183b6c7bb887d1502a4a8673a",
+  "manifest": {
+    "tested_sources": {
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "80a6a7fadde262ad3c0f7ebb91a5881b2a6b9b34390a733d656e0af27159a996",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "ef1ec3e5a298cebb325f63b31cacb1c5f6b1fb207838ebc96ecfa79285bd71f9",
+      "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
+      "source/game_sa/Coronas.cpp": "afdf5434acbda6a77575e04588a9e832ab5e20c976883baa42b92c351d31eaa0",
+      "source/game_sa/Coronas.h": "d59ad214748e79750044b7410b6003913d548d0597db0bb61f75e89dbbc567f5",
+      "source/game_sa/DamageManager.cpp": "65512fd91772049fb6eba307668552d26c0795c42d6cfbe582c1dc4e8b98739b",
+      "source/game_sa/DamageManager.h": "ada1c808c605762a63f2d09b6dd2ef007ccf2a57c264444f31d7f995e4a4d1bc",
+      "source/game_sa/PointLights.cpp": "b10358b7b39fce1a8f33c2c0ae382c4fbe25657c64215d57a55653bcc5db6e1b",
+      "source/game_sa/PointLights.h": "4064a0170e62207882e15c48f10e4b76ce043a2748b661e6fe17d30101b973f8",
+      "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4",
+      "source/game_sa/tHandlingData.h": "91ab5abf070978bff8c2076467a610410196a25038a33bdd9958de88ccadc19d",
+      "source/game_sa/Camera.cpp": "69088a382c52d1f6215f64617f231abf1d665ff3374ca3b404455c4ddf55e6f0",
+      "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51",
+      "source/game_sa/Cam.h": "2b90b10dd174deb53e54c93e77f5d9447b0904760f180f14960e9c33856deeb2",
+      "source/game_sa/X87Math.cpp": "0b9ee32814f9250bb82320464663801076f0e542a446f947adc9eb1c6782df54",
+      "source/game_sa/X87Math.h": "626c0ae00b3e210f18ddacd0f4791afa24e587df9936af7604a95a9c6de45f5d",
+      "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
+    }
+  }
+}

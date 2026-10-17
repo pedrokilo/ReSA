@@ -2076,11 +2076,11 @@ TORNADO_ORDNANCE_POS,0x00C1CC44,0x0081CC44,source/game_sa/Entity/Vehicle/Vehicle
 bBraking,0x00C1CDAE,0x0081CDAE,source/game_sa/Entity/Vehicle/Vehicle.cpp,3523,static auto& bBraking = StaticRef<bool>(0xC1CDAE); // false,source_global_reference
 bDriving,0x00C1CDAD,0x0081CDAD,source/game_sa/Entity/Vehicle/Vehicle.cpp,3524,static auto& bDriving = StaticRef<bool>(0xC1CDAD); // false,source_global_reference
 bAlreadySkidding,0x00C1CDAC,0x0081CDAC,source/game_sa/Entity/Vehicle/Vehicle.cpp,3525,static auto& bAlreadySkidding = StaticRef<bool>(0xC1CDAC); // false,source_global_reference
-randomFactorInit,0x00C1CDB8,0x0081CDB8,source/game_sa/Entity/Vehicle/Vehicle.cpp,4663,auto& randomFactorInit = StaticRef<uint32>(0xC1CDB8);,source_global_reference
-randomFactor,0x00C1CDB4,0x0081CDB4,source/game_sa/Entity/Vehicle/Vehicle.cpp,4664,auto& randomFactor     = StaticRef<float>(0xC1CDB4);,source_global_reference
-s_TestBladeCol,0x00C1CD38,0x0081CD38,source/game_sa/Entity/Vehicle/Vehicle.cpp,5130,static auto& s_TestBladeCol       = StaticRef<CColModel>(0xC1CD38);,source_global_reference
-s_TestBladeColData,0x00C1CD68,0x0081CD68,source/game_sa/Entity/Vehicle/Vehicle.cpp,5131,static auto& s_TestBladeColData   = StaticRef<CCollisionData>(0xC1CD68);,source_global_reference
-s_TestBladeColSphere,0x00C1CD98,0x0081CD98,source/game_sa/Entity/Vehicle/Vehicle.cpp,5132,static auto& s_TestBladeColSphere = StaticRef<CColSphere>(0xC1CD98);,source_global_reference
+randomFactorInit,0x00C1CDB8,0x0081CDB8,source/game_sa/Entity/Vehicle/Vehicle.cpp,7145,auto& randomFactorInit = StaticRef<uint32>(0xC1CDB8);,source_global_reference
+randomFactor,0x00C1CDB4,0x0081CDB4,source/game_sa/Entity/Vehicle/Vehicle.cpp,7146,auto& randomFactor     = StaticRef<float>(0xC1CDB4);,source_global_reference
+s_TestBladeCol,0x00C1CD38,0x0081CD38,source/game_sa/Entity/Vehicle/Vehicle.cpp,7749,static auto& s_TestBladeCol       = StaticRef<CColModel>(0xC1CD38);,source_global_reference
+s_TestBladeColData,0x00C1CD68,0x0081CD68,source/game_sa/Entity/Vehicle/Vehicle.cpp,7750,static auto& s_TestBladeColData   = StaticRef<CCollisionData>(0xC1CD68);,source_global_reference
+s_TestBladeColSphere,0x00C1CD98,0x0081CD98,source/game_sa/Entity/Vehicle/Vehicle.cpp,7751,static auto& s_TestBladeColSphere = StaticRef<CColSphere>(0xC1CD98);,source_global_reference
 WHEELSPIN_TARGET_RATE,0x008D3498,0x004D3498,source/game_sa/Entity/Vehicle/Vehicle.h,419,static inline auto& WHEELSPIN_TARGET_RATE = StaticRef<float>(0x8D3498);,source_global_reference
 WHEELSPIN_INAIR_TARGET_RATE,0x008D349C,0x004D349C,source/game_sa/Entity/Vehicle/Vehicle.h,420,static inline auto& WHEELSPIN_INAIR_TARGET_RATE = StaticRef<float>(0x8D349C);,source_global_reference
 WHEELSPIN_RISE_RATE,0x008D34A0,0x004D34A0,source/game_sa/Entity/Vehicle/Vehicle.h,421,static inline auto& WHEELSPIN_RISE_RATE = StaticRef<float>(0x8D34A0);,source_global_reference

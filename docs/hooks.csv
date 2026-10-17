@@ -8580,3 +8580,5 @@ RwHelper,RpGeometryReplaceOldMaterialWithNewMaterial,0x00734DE0,1,0,1,S
 CQuaternion,Slerp-halftheta,0x0059C300,1,0,1,S
 CVehicle,DoHeadLightEffect,0x006E0A50,1,0,1,S
 CVehicle,DoTailLightEffect,0x006E1780,1,0,1,S
+CVehicle,DoVehicleLights,0x006E1A60,1,0,1,S
+CVehicle,FlyingControl,0x006D85F0,1,0,1,S

@@ -1253,15 +1253,8 @@ void __cdecl EnterCarCamStickCpp(float camMinY, float distance, float angle, flo
 void __cdecl QuaternionSlerpCpp(float* out, const float* from, const float* to, float theta, float invSin, float t);
 
 // --- CVehicle::DoHeadLightEffect (0x6E0A50) y CVehicle::DoTailLightEffect (0x6E1780), lote g22b, prefijo VehHeadTail. Anexar al FINAL de X87Math.h. ---
-// Geometria de DoHeadLightEffect (0x6E0AC5..0x6E0BD6): offset = dummy + frente * 0.05 (o (-sin(heading), cos(heading), 0) * 0.05 sin matriz; forward nulo), x = x - (x + x) si mirror;
-// world = matrix * offset (0x59C890), delta = camara - world, magnitude = 0x59C970(delta) y dot = ((dz*fz) + (dy*fy)) + (dx*fx) con el frente de matrix (float[16] como CMatrix).
-// dummy, forward, camera, offset apuntan a x, y, z; magnitude y dot son salidas float. Todo con el x87 a 24 bits y la semantica de NaN del hardware.
-void __cdecl VehHeadTailHeadGeometryCpp(const float* dummy, const float* forward, float heading, bool mirror, const float* matrix, const float* camera,
-                                        float* offset, float* magnitude, float* dot);
 // Geometria de DoTailLightEffect (0x6E1820..0x6E18CC): offset = dummy (x = x - (x + x) si mirror), mismo world/delta/magnitude y dot = ((-fz*dz) + (-fy*dy)) + (-fx*dx).
 void __cdecl VehHeadTailTailGeometryCpp(const float* dummy, bool mirror, const float* matrix, const float* camera, float* offset, float* magnitude, float* dot);
-// Tamano, rango y colores de las coronas de DoHeadLightEffect (0x6E0D09..0x6E0DAB). red/blue = EAX completo de _ftol2 (el llamador pasa solo el byte bajo).
-void __cdecl VehHeadTailHeadCoronaCpp(float magnitude, float sqrtDot, float lodMultiplier, bool train, bool halogen, float* size, float* range, unsigned int* red, unsigned int* blue);
 // Tamano, rango y rojo de la corona de DoTailLightEffect (0x6E1916..0x6E19E6); mode 1 = freno (a * 128), 2 = a * 96, 0 = rojo 0.
 void __cdecl VehHeadTailTailCoronaCpp(float magnitude, float dot, float lodMultiplier, bool train, int mode, float* size, float* range, unsigned int* red);
 
@@ -1310,3 +1303,190 @@ bool __cdecl PointLightsFogPointBoundsCpp(const void* light, const float* size, 
 bool __cdecl PointLightsFogPointCellPreCpp(const void* light, int gx, int gy, const float* size, const float* camera, const float* intensity, const float* groundZ, float* posn, float* alpha, int* tab);
 // Argumentos de CSprite::RenderBufferedOneXLUSprite_Rotate_Aspect tras CalcScreenCoors con exito; table = floats de 0x8D5068, screen = {x, y, z} de CalcScreenCoors.
 void __cdecl PointLightsFogSpriteCpp(const void* light, const float* alpha, const float* screen, float w, float h, const float* table, int tab, int timeValue, bool pointLight, PointLightsFogSprite* result);
+
+// --- Grupo g23a (BRIEF_21): CVehicle::DoVehicleLights (0x6E1A60), prefijo VehLights, y bloques x87 de DoHeadLightEffect (0x6E0A50), prefijo VehHeadTail. Anadir al FINAL de X87Math.h ---
+// Cada funcion es un tramo recto del EXE con la pila x87 vacia al empezar y al acabar: levanta las mismas banderas, deja C0/C2/C3 del ultimo fcomp del tramo y escribe en los registros muertos
+// los mismos valores que el EXE (ver X87Math.cpp). Los operandos que el EXE lee de memoria llegan por puntero.
+// 0x6E1ABE: |dx| + |dy| entre la camara y el vehiculo > 100 (camera / position apuntan a x, y).
+bool __cdecl VehLightsAbandonedFarCpp(const float* camera, const float* position);
+// 0x6E1C8E: ZR-350 con luces: *prop = min(ts * 0.01 + *prop, 0.698); true si queda por debajo del objetivo (la funcion termina).
+bool __cdecl VehLightsPropRiseCpp(const float* timeStep, float* prop);
+// 0x6E1C53: ZR-350 sin luces: si *prop > 0, *prop = max(*prop - ts * 0.01, 0).
+void __cdecl VehLightsPropFallCpp(const float* timeStep, float* prop);
+// 0x6E2753: vx*vx + vy*vy < 0.2025 (speed apunta a x, y).
+bool __cdecl VehLightsSlowCpp(const float* speed);
+// 0x6E27EE: point = position - forward * 4.
+void __cdecl VehLightsTrailPointCpp(const float* position, const float* forward, float* point);
+// 0x6E2850: brake > 0.
+bool __cdecl VehLightsBrakeCpp(const float* brake);
+// 0x6E287A: out = -forward.
+void __cdecl VehLightsNegateCpp(const float* forward, float* out);
+// DoHeadLightEffect (0x6E0A50 y las copias en linea de DoVehicleLights): dummy == (0, 0, 0) con comparaciones ordenadas.
+bool __cdecl VehHeadTailDummyZeroCpp(const float* dummy);
+// Geometria (0x6E0AC5..0x6E0BD6): offset = dummy + frente * 0.05 (o (-sin(heading), cos(heading), 0) * 0.05 sin matriz; forward nulo), x = x - (x + x) si mirror;
+// world = matrix * offset (0x59C890), delta = camara - world, magnitude = 0x59C970(delta) y dot = ((dz*fz) + (dy*fy)) + (dx*fx) con el frente de matrix (float[16] como CMatrix).
+// dummy, forward, camera, offset apuntan a x, y, z; magnitude y dot son salidas float. Todo con el x87 a 24 bits y la semantica de NaN del hardware.
+void __cdecl VehHeadTailHeadGeometryCpp(const float* dummy, const float* forward, float heading, bool mirror, const float* matrix, const float* camera,
+                                        float* offset, float* magnitude, float* dot);
+// dot > 0 (ordenado).
+bool __cdecl VehHeadTailPositiveCpp(const float* dot);
+// *sqrtDot = float(sqrt(*dot)); devuelve *sqrtDot > limite (0.9; 0.85 si train).
+bool __cdecl VehHeadTailLimitCpp(const float* dot, bool train, float* sqrtDot);
+// magnitude < 40 (ordenado).
+bool __cdecl VehHeadTailNearCpp(const float* magnitude);
+// *range = float(lod * 150).
+void __cdecl VehHeadTailRangeStoreCpp(const float* lodMultiplier, float* range);
+// Tamano, rango y colores de la corona principal (0x6E0D09..0x6E0DAB; inlinedCopy = las copias en linea de DoVehicleLights, que multiplican por sqrtDot antes que por 0.4). red / blue = EAX completo de _ftol2 (el llamador pasa solo el byte bajo).
+void __cdecl VehHeadTailHeadCoronaCpp(const float* magnitude, const float* sqrtDot, const float* lodMultiplier, bool train, bool halogen, bool inlinedCopy,
+                                      float* size, float* range, unsigned int* red, unsigned int* blue);
+
+// =====================================================================================================================================================
+// g23b: CVehicle::FlyingControl (0x6D85F0). Maquina x87 de software y funciones auxiliares del EXE como secuencias x87. Anadir AL FINAL de X87Math.h.
+// =====================================================================================================================================================
+// ============================================================================================================================================================
+// g23b: maquina x87 de software (CVehicle::FlyingControl, 0x6D85F0).
+// Reproduce, solo con aritmetica entera, las instrucciones x87 que ejecuta el EXE a precision de 24 bits (palabra de control 0x7F del juego): valores de 64 bits de mantisa,
+// reglas de NaN del x87, banderas acumuladas (IE DE ZE OE UE PE), C0..C3 y C1, y los registros de la pila con el residuo que el EXE deja en los que quedan por debajo de la cima.
+// No ejecuta ninguna instruccion de coma flotante (ni x87 ni SSE) al calcular: el hardware solo interviene en FlcX87::Commit (deja el estado final) y en fsin/fcos/fpatan/pow/asin/acos.
+// ============================================================================================================================================================
+
+struct FlcExt {
+    unsigned long long sig;   // mantisa con bit entero (bit 63 = 1 en normales y NaN; en NaN el bit 62 es el de "silenciado"); 0 para cero
+    int                exp;   // exponente sin sesgo: valor = sig * 2^(exp - 63)
+    unsigned char      kind;  // 0 cero, 1 normal, 2 infinito, 3 NaN
+    unsigned char      neg;
+};
+enum { FLC_ZERO = 0, FLC_NORMAL = 1, FLC_INF = 2, FLC_NAN = 3 };
+
+// Banderas acumuladas (posiciones de la palabra de estado) y codigos de condicion.
+enum { FLC_IE = 0x01, FLC_DE = 0x02, FLC_ZE = 0x04, FLC_OE = 0x08, FLC_UE = 0x10, FLC_PE = 0x20 };
+enum { FLC_C0 = 0x0100, FLC_C1 = 0x0200, FLC_C2 = 0x0400, FLC_C3 = 0x4000 };
+
+// Conversiones (los operandos de memoria float/double/int32 que carga el EXE). `flags` recibe DE/IE de la carga.
+FlcExt FlcFromFloat(unsigned int bits, unsigned int* flags);
+FlcExt FlcFromDouble(unsigned long long bits, unsigned int* flags);
+FlcExt FlcFromInt(int value);
+// fstp dword: devuelve los bits del float; flags recibe OE/UE/PE; *roundedUp = C1.
+unsigned int FlcToFloat(const FlcExt& v, unsigned int* flags, bool* roundedUp);
+unsigned long long FlcToDouble(const FlcExt& v);
+unsigned long long FlcToDoubleFlags(const FlcExt& v, unsigned int* flags, bool* roundedUp);
+FlcExt FlcFromDoubleExact(double d);   // sin banderas (valores que ya estaban en un registro)
+double FlcToDoubleValue(const FlcExt& v);
+
+// Aritmetica a 24 bits (resultado redondeado al par). `state` = banderas acumuladas; *c1 = el resultado se redondeo hacia arriba (magnitud mayor).
+FlcExt FlcAdd(const FlcExt& a, const FlcExt& b, unsigned int* state, bool* c1);
+FlcExt FlcMul(const FlcExt& a, const FlcExt& b, unsigned int* state, bool* c1);
+FlcExt FlcDiv(const FlcExt& a, const FlcExt& b, unsigned int* state, bool* c1);
+FlcExt FlcSqrt(const FlcExt& a, unsigned int* state, bool* c1);
+// Comparacion ordenada: devuelve C0|C2|C3 (0x0100, 0x0400, 0x4000) como fcom; marca IE si hay un NaN.
+unsigned int FlcCompare(const FlcExt& a, const FlcExt& b, unsigned int* state, bool unorderedSignals);
+bool FlcSameBits(const FlcExt& a, const FlcExt& b);
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------
+// La maquina: pila de 8 niveles. reg[d] = registro del nivel d (d = 0 es el primero que se apila tras la entrada, es decir T-1; la cima es reg[depth - 1]).
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------
+struct FlcX87 {
+    FlcExt        reg[8];
+    bool          written[8];
+    int           depth;
+    int           maxDepth;
+    unsigned int  state;       // banderas acumuladas de esta maquina (FLC_IE ... FLC_PE)
+    unsigned int  cc;          // C0 / C2 / C3 de la ultima operacion que los escribe
+    bool          ccValid;     // alguna operacion ha escrito C0/C2/C3
+    bool          c1;
+    int           lastClass;   // 0 ninguna, 1 fcomp m32, 2 fstp m32, 3 otra (clase de la ultima instruccion x87 del EXE; la reproduce Commit)
+    unsigned int  pendingDE;   // DE del operando de memoria, que solo cuenta si ningun operando es NaN
+
+    FlcX87();
+
+    // carga / almacenamiento
+    void Fld(const float& m);              // fld dword [m]
+    void FldD(const double& m);            // fld qword [m]
+    void FldI(int value);                  // fild dword
+    void FldSt(int i);                     // fld st(i)
+    void FldZero();                        // fldz (no se usa en esta funcion, sirve a las pruebas)
+    void FldExt(const FlcExt& v);          // empuja un valor ya calculado (retorno en ST0 de un llamado)
+    void FldRet(const float& m);           // valor float que un llamado deja en ST0: la carga ya levanto sus banderas en el hardware, aqui solo se apila (senalizante -> silenciado)
+    void Fstp(float& m);                   // fstp dword [m]
+    void Fst(float& m);                    // fst dword [m]
+    void FstpSt(int i);                    // fstp st(i)
+    void FstSt(int i);
+    void Fxch(int i);
+    void Fchs();
+    void Fabs();
+    void Pop();                            // fstp st(0)
+    // aritmetica ST0 op= m32 / m64 / int
+    void Fadd(const float& m);   void Fsub(const float& m);   void Fsubr(const float& m);   void Fmul(const float& m);   void Fdiv(const float& m);   void Fdivr(const float& m);
+    void FaddD(const double& m); void FsubD(const double& m); void FsubrD(const double& m); void FmulD(const double& m); void FdivD(const double& m); void FdivrD(const double& m);
+    void FimulI(int v);  void FidivI(int v);  void FiaddI(int v);
+    // aritmetica con registros: dest = (ST(a) op ST(b)); pop = true para las formas con "p"
+    void Arith(char op, int dest, int srcA, int srcB, bool pop);   // op: '+', '-', '*', '/'; calcula ST(srcA) op ST(srcB) y lo escribe en ST(dest)
+    // comparaciones: fcom/fcomp con m32 o ST(i)
+    void FcomMem(const float& m, bool pop);
+    void FcomSt(int i, bool pop);
+    void Fcompp();
+    void Fsqrt();
+    void Fsin(); void Fcos(); void Fpatan();
+    void FldOne();                         // fld1
+    void FstpD(double& m);                 // fstp qword [m]
+    void FstD(double& m);                  // fst qword [m]
+    void FldI64(long long v);              // fild qword
+    void Fistp64(long long& m);            // fistp qword [m] (redondeo al par)
+    // lecturas de la ultima comparacion: AH de fnstsw (bits C0=1, C2=4, C3=0x40)
+    unsigned int Ah() const;
+    // valor de ST(i)
+    const FlcExt& St(int i) const { return reg[depth - 1 - i]; }
+    float  StFloat(int i);                 // el valor de ST(i) como float (sin tocar banderas)
+
+    // Deja el estado final en el hardware (registros muertos T-1..T-maxDepth, banderas acumuladas y codigos de condicion). Implementado en X87Math.cpp.
+    void Commit();
+
+private:
+    FlcExt& Top() { return reg[depth - 1]; }
+    FlcExt& S(int i) { return reg[depth - 1 - i]; }
+    void Push(const FlcExt& v);
+    void Write(int i, const FlcExt& v);    // escribe ST(i) y marca el nivel
+    FlcExt MemOperand(const float& m);
+    FlcExt MemOperandD(const double& m);
+    void ArithReg(char op, FlcExt a, FlcExt b, int dest, bool pop, bool memNaNOperand);
+};
+
+// Funciones x87 reales (X87Math.cpp, /arch:IA32): fsin, fcos y fpatan sobre doubles; el resultado de 64 bits sale como double.
+double __cdecl FlcHwSin(double x);
+double __cdecl FlcHwCos(double x);
+double __cdecl FlcHwAtan2(double y, double x);
+FlcExt FlcFromInt64(long long value);
+
+// g23b: funciones auxiliares pequenas del EXE (CVector, CMatrix, CRT) como secuencias x87 de la maquina FlcX87.
+// Cada una repite, instruccion por instruccion, la secuencia x87 del EXE (direccion entre parentesis); los argumentos de memoria son los mismos punteros/flotantes que recibe la funcion del EXE.
+
+// ---- CVector (en el EXE son instancias fuera de linea de los operadores de CVector)
+void FlcVecAdd(FlcX87& fp, float* out, const float* a, const float* b);            // 0x40FE30  out = a + b           (z, y, x)
+void FlcVecSub(FlcX87& fp, float* out, const float* a, const float* b);            // 0x40FE60  out = a - b           (z, y, x)
+void FlcVecMulLeft(FlcX87& fp, float* out, const float& f, const float* v);        // 0x40FE90  out = f * v           (z, y, x)
+void FlcVecMulRight(FlcX87& fp, float* out, const float* v, const float& f);       // 0x40FEC0  out = v * f           (z, y, x)
+void FlcVecScale(FlcX87& fp, float* v, const float& f);                            // 0x40FEF0  v *= f                (x, y, z)
+void FlcVecAddTo(FlcX87& fp, float* v, const float* a);                            // 0x411A00  v += a                (x, y, z)
+void FlcVecMagnitude(FlcX87& fp, const float* v);                                  // 0x4082C0  deja |v| en ST0
+void FlcVecMagnitudeSquared(FlcX87& fp, const float* v);                           // 0x406DA0  deja |v|^2 en ST0
+void FlcVecDot(FlcX87& fp, const float* a, const float* b);                        // 0x40FDB0  deja a.b en ST0       (z, y, x)
+void FlcVecNormalise(FlcX87& fp, float* v);                                        // 0x59C910  (0x59C943: longitud 0 -> x = 1)
+void FlcVecCross(FlcX87& fp, float* out, const float* a, const float* b);          // 0x59C730  out = a x b (via pila local del EXE)
+void FlcMatMul3x3(FlcX87& fp, float* out, const float* m, const float* v);         // 0x59C790  out = M * v (columnas)
+void FlcMatInvMul3x3(FlcX87& fp, float* out, const float* m, const float* v);      // 0x59C810  out = M^T * v
+void FlcFloatMax(FlcX87& fp, const float& a, const float& b);                      // 0x420800  deja max en ST0 (b si a <= b o NaN)
+void FlcFloatMin(FlcX87& fp, const float& a, const float& b);                      // 0x404330  deja min en ST0
+
+// ---- CRT del EXE (argumentos en la pila x87)
+void FlcCrtAsin(FlcX87& fp);                // 0x821E70 _CIasin: ST0 = asin(ST0)
+void FlcCrtAcos(FlcX87& fp);                // 0x822380 _CIacos: ST0 = acos(ST0)
+void FlcCrtPow(FlcX87& fp);                 // 0x822130 _CIpow:  ST1 ^ ST0 -> ST0 (saca uno)
+int  FlcCrtFtol2(FlcX87& fp);               // 0x821B40 __ftol2: saca ST0 y devuelve EAX
+
+// Estado del mundo que lee el CRT del EXE (en el juego son globales del EXE; los bancos las fijan).
+struct FlcWorld {
+    int sse2Pow;        // [0xC9C400]: el CRT usa pow SSE2
+    int matherrFlag;    // [0xC9ABFC]: 0 -> el CRT comprueba y notifica las excepciones x87
+};
+FlcWorld FlcReadWorld();
+unsigned int FlcHwSticky();   // banderas acumuladas del x87 real (IE.. PE) en el formato FLC_*

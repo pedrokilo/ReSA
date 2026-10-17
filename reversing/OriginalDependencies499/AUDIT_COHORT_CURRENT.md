@@ -78,6 +78,7 @@ Derivas de tested_sources respecto al estado actual son esperadas por tandas pos
 | DependenciesCollisionAdapters1 | source/game_sa/CompressedVector.h | a590cacdace96671c1cbdbf88ff20c6b8ac82eb9b755e53ae2a2d23b54f532d6 | d8e7eba549a22d2a797a0ebcaa284e71477ef9dfdd388fd61d37443a6724bdac |
 | DependenciesCollisionAdapters1 | source/game_sa/MemoryMgr.cpp | 30ec6a6b730b9160a9c61872b7810aaaa5ea3b5266d3695ba6ec7fb9e22f4ee0 | 1cdb60235c4f771740150646e524eb4986b87a69e8cbe45315de2de8c8ba432f |
 | DependenciesCollisionAdapters1 | reversing/OriginalDependencies499/HookRoute.hpp | 82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf | 287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377 |
+| DependenciesDecisionRelationship6 | source/game_sa/FileMgr.cpp | a7a192213bcc8f9c445f080ea27e957fc58c27e8345fedd35be93bca37c51f68 | d3d1e045e5fe41895ee4bc624ba91d46134b57affa59ef79b1260f75a8ee55ea |
 | DependenciesFightLeaf2 | source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp | a677c96ed78e89e6ba483783629136f62ea17cc17111df1fe4be9016a822ef21 | 6a3d2d98b4bce0aee97a08790ce20cd2abf453a37baf0137728115469b5a4ebd |
 | DependenciesFightLeaf2 | source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h | 85e857dcb63b2c84b4dd31d19f1c0165fdd337606ae22405678ca0433633a18a | 1eab8612f9343d766debc1db79a405df84cc4654a4b2e2e5fb7748fb8d616981 |
 | DependenciesFightLeaf2 | source/InjectHooksMain.cpp | 87b22b34070d1b503867720319876156317fe88595a424596c86ef4f2a43380f | 9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8 |
@@ -90,7 +91,7 @@ Derivas de tested_sources respecto al estado actual son esperadas por tandas pos
 | DependenciesGarageSphere15 | source/game_sa/Entity/Entity.cpp | 2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108 | c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25 |
 | DependenciesGarageSphere15 | source/game_sa/Entity/Entity.h | a81231fe40082b1bbd13995679e8032900fd3538eebea83c181346608ea906ed | 4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e |
 | DependenciesGarageSphere15 | source/game_sa/Entity/Placeable.cpp | bf57b97b53cd9e8326d97de870b9934dd487effde705a3462061d883e052e16a | 0030861304db9f417c8fd8b322a7be006ef4e5a099238c157e5dc0cf0d018e24 |
-| DependenciesGarageSphere15 | source/game_sa/Entity/Vehicle/Vehicle.cpp | 1886f1f0360c46ab7fa481fa448b6afef2a6b0b96f1e06eb7285c8f4a1fb93e1 | 8f790f225e98a56259e29d9a946677072eaec3903a9d11e97a08166d3d6c9b9f |
+| DependenciesGarageSphere15 | source/game_sa/Entity/Vehicle/Vehicle.cpp | 1886f1f0360c46ab7fa481fa448b6afef2a6b0b96f1e06eb7285c8f4a1fb93e1 | 729368905b3759af53f39326bbc5b818183b8382004493757c346fe0c0a05056 |
 | DependenciesGarageSphere15 | source/game_sa/Entity/Vehicle/Vehicle.h | fe438d94b2ab8867d9099eb938c1822f240555d5543ad299212ba3c86f125b6d | ef1ec3e5a298cebb325f63b31cacb1c5f6b1fb207838ebc96ecfa79285bd71f9 |
 | DependenciesGarageSphere15 | source/game_sa/SimpleTransform.cpp | 9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2 | 91cfe9e3ac4ceb4a2d63bca9a897a4d62b3ff298a32576300771df16a259c8c4 |
 | DependenciesGarageSphere15 | source/game_sa/Core/Matrix.cpp | f5c9d1f294ca4fdd5245eb23ff28148550d78e9a1615d3e1f4de6f814281d69b | e8eda28e69e0780cdf33668e8ca46aeada103855a83fc5b55f51283b11b602da |
@@ -124,7 +125,8 @@ Derivas de tested_sources respecto al estado actual son esperadas por tandas pos
 | DependenciesMathSprite2 | reversing/OriginalDependencies499/HookRoute.hpp | 82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf | 287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377 |
 | DependenciesMemory9 | source/game_sa/MemoryMgr.cpp | 645dd362627fb014a2acd4fdc95798b0caca8ae35c617762a5285a05053a162c | 1cdb60235c4f771740150646e524eb4986b87a69e8cbe45315de2de8c8ba432f |
 | DependenciesMemory9 | reversing/OriginalDependencies499/HookRoute.hpp | 82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf | 287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377 |
-| DependenciesPadCamera7 | source/game_sa/X87Math.cpp | ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe | b9098287fec661bfbdd610e16c6b0ebbace21dec4069d62e5355c4789d331624 |
+| DependenciesPadCamera7 | source/game_sa/X87Math.cpp | ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe | 8c095e5650de124975b0de0e36063681090f57d49837e6ce33b9b17bc7d8fe90 |
+| DependenciesPadCamera7 | source/game_sa/X87Math.h | 7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97 | 098e7579cf41d61519603bd3a133ddf00212a7006da14fa82a9866f7f1b83c90 |
 | DependenciesPathDensity13 | source/game_sa/PathFind.cpp | b289ad134233f537732d2ff6555ae5d294e0d493bc9bc0e164a13f3b42bda5f2 | 10f68895e0166e581cfe17a4b9e5736ebf2c99985aec5cb72ff0c669dbf5b3e9 |
 | DependenciesPathDensity13 | source/game_sa/CutsceneMgr.cpp | 4cddadb9affd99b4d1def2c1dfd65c218583e4315836c9aa1d6f8fb091a62332 | d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d |
 | DependenciesPathDensity13 | reversing/OriginalDependencies499/HookRoute.hpp | 82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf | 287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377 |
@@ -143,6 +145,7 @@ Derivas de tested_sources respecto al estado actual son esperadas por tandas pos
 | DependenciesStats1 | source/game_sa/Stats.cpp | b8e5e8bb24b9f527750cfcfccd00ecaf9b4b9b0c4f91b9633fb37a992bd106eb | 2ff660c3b1ba01d98275772ee83eb23786ae8ab605fa594a85114fe7b0551d58 |
 | DependenciesStats1 | source/InjectHooksMain.cpp | d774c9f7572474d11096747ef2ff5884a696e92106f7ad40d40713712641c898 | 9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8 |
 | DependenciesStats1 | reversing/OriginalDependencies499/HookRoute.hpp | 82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf | 287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377 |
+| DependenciesStatsFile15 | source/game_sa/FileMgr.cpp | a7a192213bcc8f9c445f080ea27e957fc58c27e8345fedd35be93bca37c51f68 | d3d1e045e5fe41895ee4bc624ba91d46134b57affa59ef79b1260f75a8ee55ea |
 | DependenciesStatsRadio7 | source/game_sa/Stats.cpp | e84d841dc097e7d00a610e9e2b6ab67ad841b49b13077d026c0b38e8ab35e55a | 2ff660c3b1ba01d98275772ee83eb23786ae8ab605fa594a85114fe7b0551d58 |
 | DependenciesStatsRadio7 | source/game_sa/Audio/Managers/AERadioTrackManager.cpp | b0a7c3cc81326a37553706edfd97eaa3de6c1bfa5769d166953c2f6e5c4e48c8 | 8d3ff9190a73e6a39078dbf7714c5d413179b10fd24682eded01d28fd1b45e95 |
 | DependenciesStatsRadio7 | reversing/OriginalDependencies499/HookRoute.hpp | 82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf | 287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377 |
@@ -175,7 +178,7 @@ Derivas de tested_sources respecto al estado actual son esperadas por tandas pos
 | DependenciesTaskCtor4 | source/InjectHooksMain.cpp | 399556be232dab15fe51f27b1a7a8273bd0b6374f060ee746bda26b2d1cef22e | 9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8 |
 | DependenciesTaskCtor4 | reversing/OriginalDependencies499/HookRoute.hpp | 82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf | 287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377 |
 | DependenciesVehicle12 | source/game_sa/CutsceneMgr.cpp | 4cddadb9affd99b4d1def2c1dfd65c218583e4315836c9aa1d6f8fb091a62332 | d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d |
-| DependenciesVehicle12 | source/game_sa/Entity/Vehicle/Vehicle.cpp | 1886f1f0360c46ab7fa481fa448b6afef2a6b0b96f1e06eb7285c8f4a1fb93e1 | 8f790f225e98a56259e29d9a946677072eaec3903a9d11e97a08166d3d6c9b9f |
+| DependenciesVehicle12 | source/game_sa/Entity/Vehicle/Vehicle.cpp | 1886f1f0360c46ab7fa481fa448b6afef2a6b0b96f1e06eb7285c8f4a1fb93e1 | 729368905b3759af53f39326bbc5b818183b8382004493757c346fe0c0a05056 |
 | DependenciesVehicle12 | source/game_sa/Entity/Vehicle/Vehicle.h | fe438d94b2ab8867d9099eb938c1822f240555d5543ad299212ba3c86f125b6d | ef1ec3e5a298cebb325f63b31cacb1c5f6b1fb207838ebc96ecfa79285bd71f9 |
 | DependenciesVehicle12 | source/game_sa/Pools.cpp | 44be32e7886bc6a2ccfd35c5081a6f1970f4104bd1a7ea56a39126405a71c517 | 38b4dfcb66d2428ba80865b1e3d28f82ee464a8543e13443933715b92d8e07f6 |
 | DependenciesVehicle12 | source/game_sa/Pools/Pools.h | 5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe | 1a38f6b00064b093f890e33c6889661d6d5a145333e124bc406057337c7bef93 |
@@ -187,6 +190,7 @@ Derivas de tested_sources respecto al estado actual son esperadas por tandas pos
 | DependenciesVehicleLeaf5 | source/game_sa/Entity/Physical.cpp | 8b177287690825af26d4ef767cec4c39f852c3a83014e8c747c27b3996445dd0 | 29d32a2d942f9ac0b04552be20c8e315a96a18f492d67fb0428f28bcaab41a6d |
 | DependenciesVehicleLeaf5 | source/InjectHooksMain.cpp | 1bcf20e722e114bd25680050a86cf0d927edd8e74e860844719024339636a291 | 9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8 |
 | DependenciesVehicleLeaf5 | reversing/OriginalDependencies499/HookRoute.hpp | 82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf | 287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377 |
+| DependenciesVehicleStats11 | source/game_sa/Entity/Vehicle/Vehicle.cpp | 8f790f225e98a56259e29d9a946677072eaec3903a9d11e97a08166d3d6c9b9f | 729368905b3759af53f39326bbc5b818183b8382004493757c346fe0c0a05056 |
 | DependenciesVehicleStats9 | source/game_sa/Entity/Vehicle/Vehicle.h | fe438d94b2ab8867d9099eb938c1822f240555d5543ad299212ba3c86f125b6d | ef1ec3e5a298cebb325f63b31cacb1c5f6b1fb207838ebc96ecfa79285bd71f9 |
 | DependenciesVehicleStats9 | source/game_sa/Timer.cpp | b78d6cc3da32af05334e109f01853c5c29b9be5774e552f832d6213f9d518e3c | bb1e999ca6da7dbef1eee9d565c88dcd9bd213729bfdde861355fcf9e0127a5c |
 | DependenciesVehicleStats9 | source/game_sa/Stats.cpp | 43c7ed5f6bf2c290b1f8b941764f4d15cbbb012aa8dacba32b6fcae733377360 | 2ff660c3b1ba01d98275772ee83eb23786ae8ab605fa594a85114fe7b0551d58 |
@@ -201,7 +205,8 @@ Derivas de tested_sources respecto al estado actual son esperadas por tandas pos
 | DependenciesVehicleStats9 | source/game_sa/Replay.cpp | d341ccbe2e494a051a57f7172c28d81022ebd2283e9f0956c2f3fda4b917de1f | e8eab1443f86a11639d93d2cec1590d191e253e791cc79495635d5e6ab99c43b |
 | DependenciesVehicleStats9 | source/game_sa/common.cpp | 82ea6042072c5d5ec5583b4557d698115ee47ab7c7dd821e784a27d93c7b0357 | 3c9458212d4210e46d7d4f421cd832ab49fc1989961d0c1db72f5f3420a82cd7 |
 | DependenciesVehicleStats9 | reversing/OriginalDependencies499/HookRoute.hpp | 82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf | 287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377 |
-| DependenciesWorld10 | source/game_sa/X87Math.cpp | ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe | b9098287fec661bfbdd610e16c6b0ebbace21dec4069d62e5355c4789d331624 |
+| DependenciesWorld10 | source/game_sa/X87Math.cpp | ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe | 8c095e5650de124975b0de0e36063681090f57d49837e6ce33b9b17bc7d8fe90 |
+| DependenciesWorld10 | source/game_sa/X87Math.h | 7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97 | 098e7579cf41d61519603bd3a133ddf00212a7006da14fa82a9866f7f1b83c90 |
 | DependenciesWorld11 | source/game_sa/RwHelper.cpp | 6ea8a91c15a09c6d02babc0c5ccfa2261fb206bd1f7812d111edb94be2889ec9 | 769661aea9d37b15793e56e282c77ae27406e608576808f9a776a0de4808a94c |
 | DependenciesWorld11 | source/game_sa/RwHelper.h | ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735 | 37cb8ba332c4b3cfc3eaf639e293012d17f8083b9815d3348e62ace5fd792205 |
 | DependenciesWorld11 | source/game_sa/RenderWare/rw/rwplcore.h | 1e4709dbbc43b0f14681dd53707bff4d3974e3215325af7cf1450684e8e55362 | b62b6c00f476d106ec59a7a9f4e3571eee5e4a50fad028efff5974e4c81e65fa |
@@ -221,7 +226,8 @@ Derivas de tested_sources respecto al estado actual son esperadas por tandas pos
 | DependenciesWorld4 | source/game_sa/RenderWare/D3DResourceSystem.h | dc060d39860ea99ea7e75a7a473db78cfa59b7c30d50f6aa76291e666187a656 | 31666e8e366ecc5af1a0f006078e4d35c7cd71836e571ea1f776cedd8ee82b53 |
 | DependenciesWorld4 | source/InjectHooksMain.cpp | 7a912880d0ff2128cb6654e679653c12ac91c8fa2e94784475ee43cb3ad9360c | 9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8 |
 | DependenciesWorld4 | reversing/OriginalDependencies499/HookRoute.hpp | 82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf | 287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377 |
-| DependenciesWorld9 | source/game_sa/X87Math.cpp | ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe | b9098287fec661bfbdd610e16c6b0ebbace21dec4069d62e5355c4789d331624 |
+| DependenciesWorld9 | source/game_sa/X87Math.cpp | ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe | 8c095e5650de124975b0de0e36063681090f57d49837e6ce33b9b17bc7d8fe90 |
+| DependenciesWorld9 | source/game_sa/X87Math.h | 7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97 | 098e7579cf41d61519603bd3a133ddf00212a7006da14fa82a9866f7f1b83c90 |
 | DependenciesWorldFxFont5 | source/game_sa/Fx/Fx.cpp | d7a80190b86bdbefd8fe91d86ecfac8b13a6dab4050a9916c307536d5f0ab0a0 | 833b5044b63f1df530117f8e7fe604b0e7a0e6be9e3a01c9abad68b2dc5117b8 |
 | DependenciesWorldFxFont5 | source/game_sa/Font.cpp | 174b7aa63a0359e167c0903e82764ec3a2239868f767ac89dbbdc5428c340d66 | 20ffade8bc50bfaf800617ab6557554f52d2ccbd217de58cb18603f92d070545 |
 | DependenciesWorldFxFont5 | source/game_sa/Camera.cpp | 6504b062b078a9abac940d720b6482894ef29275e139c49f12dfd14548f34557 | 69088a382c52d1f6215f64617f231abf1d665ff3374ca3b404455c4ddf55e6f0 |
@@ -235,7 +241,8 @@ Derivas de tested_sources respecto al estado actual son esperadas por tandas pos
 | DependenciesWorldLeaf3 | source/game_sa/Fx/FxFrustumInfo.h | 51a05b5bc94ea9665bd0396dde2570a7bc729167f26782fcdd5428e2e0cd32aa | 3183d338720b3eeef8ddafbe963c8352ae847d7f6637739683f5ebbe484dfab0 |
 | DependenciesWorldLeaf3 | source/InjectHooksMain.cpp | 9dfbb99233c6ca03c5aa68186aeb26d5ed8e2d3c394c747ac7e38b033975877e | 9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8 |
 | DependenciesWorldLeaf3 | reversing/OriginalDependencies499/HookRoute.hpp | 82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf | 287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377 |
-| DependenciesWorldWaterPath6 | source/game_sa/X87Math.cpp | ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe | b9098287fec661bfbdd610e16c6b0ebbace21dec4069d62e5355c4789d331624 |
+| DependenciesWorldWaterPath6 | source/game_sa/X87Math.cpp | ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe | 8c095e5650de124975b0de0e36063681090f57d49837e6ce33b9b17bc7d8fe90 |
+| DependenciesWorldWaterPath6 | source/game_sa/X87Math.h | 7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97 | 098e7579cf41d61519603bd3a133ddf00212a7006da14fa82a9866f7f1b83c90 |
 
 ## Hallazgos
 

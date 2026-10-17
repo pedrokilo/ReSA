@@ -46,6 +46,8 @@ HOOKS = (
     ('CVehicle', 'DoTailLightEffect', '0x006E1780', 'CVehicle::DoTailLightEffect', 'Dependencies22B'),
     ('CCam', 'WrapAngle', '0x00509BE0', 'CCam::WrapAngle', 'Dependencies22C'),
     ('FxEmitter_c', 'CreateParticles', '0x004A41E0', 'FxEmitter_c::CreateParticles', 'Dependencies22C'),
+    ('CVehicle', 'DoVehicleLights', '0x006E1A60', 'CVehicle::DoVehicleLights', 'Dependencies23A'),
+    ('CVehicle', 'FlyingControl', '0x006D85F0', 'CVehicle::FlyingControl', 'Dependencies23B'),
 )
 SOURCES = {
     'CRT::CrtPrintf': 'source/game_sa/VehicleRecording.cpp',
@@ -70,6 +72,7 @@ SOURCES = {
     'CPointLights::ProcessVerticalLineUsingCache': 'source/game_sa/PointLights.cpp', 'CPointLights::RenderFogEffect': 'source/game_sa/PointLights.cpp',
     'CVehicle::DoHeadLightEffect': 'source/game_sa/Entity/Vehicle/Vehicle.cpp', 'CVehicle::DoTailLightEffect': 'source/game_sa/Entity/Vehicle/Vehicle.cpp',
     'CCam::WrapAngle': 'source/game_sa/Cam.cpp', 'FxEmitter_c::CreateParticles': 'source/game_sa/Fx/FxEmitter.cpp',
+    'CVehicle::DoVehicleLights': 'source/game_sa/Entity/Vehicle/Vehicle.cpp', 'CVehicle::FlyingControl': 'source/game_sa/Entity/Vehicle/Vehicle.cpp',
 }
 SCOPE = ('Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. '
          'Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.')
@@ -101,7 +104,10 @@ def main():
             run_dir = runs[-1]
         summary = json.loads((run_dir / 'summary.json').read_text(encoding='utf-8'))
         assert summary['passed'] is True and summary['all_equal'] is True and summary['state_restored'] is True
-        pairs = int(entry['own_pairs']) if entry is not None else int(summary['pairs_per_function'][identity])
+        ppf = dict(summary['pairs_per_function'])
+        if identity not in ppf:  # funcion con rutas: pares_por_funcion lleva una clave `identidad[ruta N]` por ruta; el catalogo cubre la identidad completa
+            ppf = {identity: sum(v for k, v in ppf.items() if k.startswith(identity + '['))}
+        pairs = int(entry['own_pairs']) if entry is not None else int(ppf[identity])
         if entry is None:
             approvals[address] = {
                 'identity': identity, 'converted_source_functions': 1, 'source': SOURCES[identity], 'shared_source': 'source/game_sa/X87Math.cpp',
@@ -114,9 +120,9 @@ def main():
         tested = manifest.get('sources', {})
         evidence = dict(
             passed=True, pairs=int(summary['pairs']), differences=0, registered_pairs=int(summary['pairs']),
-            registered_functions=len(summary.get('pairs_per_function') or {identity: pairs}),
-            functions=dict(summary.get('pairs_per_function') or {identity: pairs}),
-            covered_functions={k: True for k in (summary.get('pairs_per_function') or {identity: pairs})}, scope=SCOPE, dependency_review=None,
+            registered_functions=len(ppf),
+            functions=dict(ppf),
+            covered_functions={k: True for k in ppf}, scope=SCOPE, dependency_review=None,
             run=run_dir.relative_to(ROOT).as_posix(), summary_sha256=sha(run_dir / 'summary.json'),
             result_txt_sha256=sha(run_dir / 'RESULTADO.txt'), log_sha256=summary['log_sha256'], all_equal=True, state_restored=True,
             saves_unchanged=summary['saves_unchanged'], configs_restored=summary['configs_restored'],

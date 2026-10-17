@@ -321,6 +321,14 @@ size_t CFileMgr::Write(FILESTREAM file, const void *buf, size_t size)
 // 0x538990
 bool CFileMgr::Seek(FILESTREAM file, long offset, int32 origin)
 {
+    // Como el CRT estatico del EXE (_fseek_nolock, 0x8236C0): un origen distinto de SEEK_SET/SEEK_CUR/SEEK_END no es un
+    // parametro invalido para el: pone errno = EINVAL, devuelve -1 y no toca el flujo. La UCRT de la DLL, en cambio, lo
+    // trata como parametro invalido (fail-fast 0xC0000409), asi que se resuelve aqui, con el mismo retorno (true) y errno.
+    if (origin != SEEK_SET && origin != SEEK_CUR && origin != SEEK_END) {
+        errno = EINVAL;
+        return true;
+    }
+
     // MikuAuahDark: Pretty sure it shouldn't be ret != 0
     return fseek(file, offset, origin) != 0;
 }

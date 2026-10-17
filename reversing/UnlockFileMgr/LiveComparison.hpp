@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <cerrno>
 #include <fstream>
 #include <reversiblehooks/RootHookCategory.h>
 #include <reversiblehooks/ReversibleHook/Base.h>
@@ -20,6 +21,11 @@ inline json Disk(const std::filesystem::path& p){std::ifstream f(p,std::ios::bin
 // El FILE* del EXE (CRT estatico, 0x8232D8) y el de la DLL (UCRT) NO son intercambiables ni tienen el mismo diseno interno:
 // el instantaneo solo usa la posicion, y siempre por direccion (EXE con los ganchos apagados, DLL con ellos encendidos).
 inline json State(FILESTREAM f){return json{{"position",reinterpret_cast<int(__cdecl*)(FILESTREAM)>(0x538A20)(f)}};}
+// Propietario del FILE*: el CRT estatico del EXE reparte sus flujos de _iob (0x8E2C30..0x8E2E90, 20 entradas de 0x20 bytes) o de __piob
+// (0xC9C418, _nstream en 0xC9D420, bloques de 0x38 del monton del EXE); los de la UCRT de la DLL no estan en ninguna de las dos tablas.
+inline bool ExeOwned(const void* f){const auto a=reinterpret_cast<uintptr_t>(f);if(a>=0x8E2C30&&a<=0x8E2E90)return (a-0x8E2C30)%0x20==0;const int n=*reinterpret_cast<const int*>(0xC9D420);void* const* const t=*reinterpret_cast<void* const* const*>(0xC9C418);for(int k=0;t&&k<n;++k)if(t[k]==f)return true;return false;}
+// errno del CRT del EXE (_errno, 0x82B181): distinto del errno de la UCRT de la DLL.
+inline int& ExeErrno(){return *reinterpret_cast<int*(__cdecl*)()>(0x82B181)();}
 using F1=size_t(__cdecl*)(const char*,uint8*,size_t,const char*);using Open=FILESTREAM(__cdecl*)(const char*,const char*);using OpenOne=FILESTREAM(__cdecl*)(const char*);
 using Read=size_t(__cdecl*)(FILESTREAM,void*,size_t);using WriteFile=size_t(__cdecl*)(FILESTREAM,const void*,size_t);
 using Seek=bool(__cdecl*)(FILESTREAM,long,int);using Tell=int(__cdecl*)(FILESTREAM);using Close=int(__cdecl*)(FILESTREAM);
@@ -38,7 +44,7 @@ inline void Update(){
  for(int i=0;i<13;++i){enabled[i]=hooks[i]->Hooked();locked[i]=hooks[i]->Locked();hooks[i]->LockState(false);Write({{"event","hook_state"},{"function",i},{"enabled",enabled[i]},{"locked",locked[i]}});}
  bool passed=true;int pairs=0;
  for(int fn=0;fn<13&&passed;++fn)for(int i=0;i<128&&passed;++i){
-  auto run=[&]{
+  auto run=[&](const bool dll){
    std::filesystem::current_path(cwd);std::memcpy(CFileMgr::ms_dirName,dirBefore.data(),128);Fixture(file);
    {std::error_code ec;std::filesystem::remove(path+".missing",ec);} // las aperturas en modo escritura de runs anteriores lo creaban y dejaban de ser "ausente"
    std::array<uint8,1024> bytes;bytes.fill(0xA5);json r;FILESTREAM stream{};
@@ -70,7 +76,14 @@ inline void Update(){
    if(stream){
     if(fn==5)r["return"]=reinterpret_cast<Read>(addresses[fn])(stream,bytes.data(),size_t(std::array{0,1,15,255,256,257,511,1024}[i%8]));
     if(fn==6)r["return"]=reinterpret_cast<WriteFile>(addresses[fn])(stream,bytes.data(),size_t(std::array{0,1,15,255}[i%4]));
-    if(fn==7)r["return"]=reinterpret_cast<Seek>(addresses[fn])(stream,long(std::array{-512,-1,0,1,15,256,512,1024}[i%8]),i/8%3);
+    if(fn==7){
+     // Origenes 0..2 validos y 3, -1, 4 e INT_MIN invalidos: el EXE devuelve -1 (true) con errno = EINVAL y deja el flujo intacto; la DLL debe hacer lo mismo sin fail-fast.
+     constexpr std::array<int,16> origins{0,1,2,3,0,1,2,-1,0,1,2,4,0,1,2,(-2147483647-1)};const int origin=origins[i/8];const bool bad=origin<0||origin>2;
+     if(bad){ExeErrno()=0;errno=0;}
+     const bool rv=reinterpret_cast<Seek>(addresses[fn])(stream,long(std::array{-512,-1,0,1,15,256,512,1024}[i%8]),origin);const int e=dll?errno:ExeErrno();
+     r["return"]=rv;r["origin"]=origin;
+     if(bad){uint8 nb=0xA5;r["errno"]=e;r["next_read"]=reinterpret_cast<Read>(addresses[5])(stream,&nb,1);r["next_byte"]=nb;}
+    }
     if(fn==8){using F=bool(__cdecl*)(FILESTREAM,char*,int);r["return"]=reinterpret_cast<F>(addresses[fn])(stream,reinterpret_cast<char*>(bytes.data()),std::array{0,1,2,16,256,512,1024,8}[i%8]);}
     if(fn==10||fn==11)r["return"]=reinterpret_cast<Tell>(addresses[fn])(stream);
     if(fn==12){if(i&1)r["write_to_readonly"]=reinterpret_cast<WriteFile>(addresses[6])(stream,bytes.data(),1);using F=uint32(__cdecl*)(FILESTREAM);r["return"]=reinterpret_cast<F>(addresses[fn])(stream);}
@@ -82,8 +95,8 @@ inline void Update(){
   };
   // Todos los ganchos juntos: la ruta original usa solo el CRT del EXE y la candidata solo el de la DLL
   const auto setAll=[&](bool on){for(auto* h:hooks)h->State(on);};
-  setAll(false);const auto a=FMProbe::calls[fn];const auto original=run();const auto b=FMProbe::calls[fn];
-  setAll(true);const auto candidate=run();const auto c=FMProbe::calls[fn];
+  setAll(false);const auto a=FMProbe::calls[fn];const auto original=run(false);const auto b=FMProbe::calls[fn];
+  setAll(true);const auto candidate=run(true);const auto c=FMProbe::calls[fn];
   // La ruta candidata llama ademas una vez al Seek auxiliar (fn 7) y al Tell del instantaneo (fn 11); la original no cuenta (ganchos apagados).
   const unsigned extra=fn==7||fn==11?1:0;
   passed=original==candidate&&b==a&&c==b+1+extra&&(fn!=1||(original.value("expect_ok",false)&&candidate.value("expect_ok",false)));
@@ -91,14 +104,39 @@ inline void Update(){
   hooks[fn]->State(enabled[fn]);
  }
  json baseline;
- for(int mask=0;mask<64&&passed;mask+=63){ // solo todo-EXE y todo-DLL: mezclar aperturas de un CRT con lecturas de otro cierra el juego
+ // Las 64 mezclas de ganchos no son estados coherentes: un FILE* del CRT del EXE (_ptr@0 _cnt@4 _base@8 _flag@0xC _file@0x10, fd en la tabla 0xC9C300) no es un
+ // FILE* de la UCRT (_ptr@0 _base@4 _cnt@8 _flags@0xC, fd en su propia tabla, cerrojo embebido en +0x20). Los unicos estados coherentes son 0 (todo EXE) y 63 (todo DLL);
+ // se comprueba ademas de quien es el flujo (ExeOwned) para asegurar que los dos lados usan de verdad CRT distintos.
+ for(const int mask:std::array{0,63}){ if(!passed)break;
   constexpr std::array indices{2,5,6,7,11,9};for(int bit=0;bit<6;++bit)hooks[indices[bit]]->State((mask&(1<<bit))!=0);
-  Fixture(file);auto* stream=reinterpret_cast<Open>(0x538900)(path.c_str(),"r+b");assert(stream);
+  Fixture(file);auto* stream=reinterpret_cast<Open>(0x538900)(path.c_str(),"r+b");assert(stream);const bool exeOwned=ExeOwned(stream);
   std::array<uint8,32> bytes{};const auto read=reinterpret_cast<Read>(0x538950)(stream,bytes.data(),bytes.size());
   const auto seek=reinterpret_cast<Seek>(0x538990)(stream,7,SEEK_SET);const auto written=reinterpret_cast<WriteFile>(0x538970)(stream,bytes.data(),bytes.size());
   const auto pos=reinterpret_cast<Tell>(0x538A20)(stream);const auto closed=reinterpret_cast<Close>(0x5389D0)(stream);
   json state{{"read",read},{"seek",seek},{"written",written},{"pos",pos},{"closed",closed},{"bytes",bytes},{"disk",Disk(file)}};
-  if(!mask)baseline=state;passed=state==baseline&&read==32&&written==32&&closed==0;Write({{"event","interop"},{"mask",mask},{"passed",passed},{"state",state}});
+  if(!mask)baseline=state;passed=state==baseline&&read==32&&written==32&&closed==0&&exeOwned==(mask==0);Write({{"event","interop"},{"mask",mask},{"owner",exeOwned?"exe":"dll"},{"passed",passed},{"state",state}});
+ }
+ // Interoperabilidad por disco: ningun FILE* cruza de CRT (los ganchos solo se cambian con todos los ficheros cerrados); se comparten el contenido del fichero y la
+ // conversion de texto. 4 combinaciones (escribe EXE|DLL x lee EXE|DLL) deben dar el mismo resultado, con los flujos de cada lado en su CRT.
+ {json diskBaseline;
+  for(int w=0;w<2&&passed;++w)for(int rd=0;rd<2&&passed;++rd){
+   for(auto* h:hooks)h->State(w!=0);
+   {std::error_code ec;std::filesystem::remove(file,ec);}
+   constexpr char text[]="alfa\nbeta\ngamma\n\n";
+   // Modelo: el modo texto expande cada salto de linea a CR LF en disco (17 bytes escritos, 4 saltos -> 21 bytes); GetTotalSize (ftell/fseek en bruto) devuelve el tamano de disco.
+   const size_t expectedDisk=(sizeof(text)-1)+size_t(std::count(text,text+sizeof(text)-1,'\n'));
+   auto* out=reinterpret_cast<Open>(0x538900)(path.c_str(),"w");assert(out);const bool outExe=ExeOwned(out);
+   const auto wrote=reinterpret_cast<WriteFile>(0x538970)(out,text,sizeof(text)-1);const auto closedOut=reinterpret_cast<Close>(0x5389D0)(out);const auto disk=Disk(file);
+   for(auto* h:hooks)h->State(rd!=0);
+   auto* in=reinterpret_cast<Open>(0x538900)(path.c_str(),"r");assert(in);const bool inExe=ExeOwned(in);
+   using Line=bool(__cdecl*)(FILESTREAM,char*,int);using Size=int(__cdecl*)(FILESTREAM);json lines=json::array();char buf[64];
+   for(int k=0;k<5;++k){buf[0]=0;const bool ok=reinterpret_cast<Line>(0x5389B0)(in,buf,int(sizeof(buf)));lines.push_back(json{{"ok",ok},{"text",std::string(ok?buf:"")}});}
+   const auto total=reinterpret_cast<Size>(0x5389E0)(in);const auto closedIn=reinterpret_cast<Close>(0x5389D0)(in);
+   json state{{"wrote",wrote},{"closed_out",closedOut},{"disk",disk},{"lines",lines},{"total",total},{"closed_in",closedIn}};
+   if(!w&&!rd)diskBaseline=state;
+   passed=state==diskBaseline&&wrote==sizeof(text)-1&&disk.size()==expectedDisk&&size_t(total)==expectedDisk&&closedOut==0&&closedIn==0&&outExe==(w==0)&&inExe==(rd==0);
+   Write({{"event","disk_interop"},{"writer",w?"dll":"exe"},{"reader",rd?"dll":"exe"},{"owner_out",outExe?"exe":"dll"},{"owner_in",inExe?"exe":"dll"},{"passed",passed},{"state",state}});
+  }
  }
  if(passed){
   const auto unicode=folder/std::filesystem::path(L"prueba-\u00f1-\u4e2d.txt");const auto utf8=UnicodeToUTF8(unicode.wstring());auto* f=CFileMgr::OpenFile(utf8.c_str(),"w+b");
