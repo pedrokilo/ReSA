@@ -121,16 +121,217 @@ def load_catalog():
     return rows, by_name, by_addr
 
 
+REG = re.compile(r'\bRH_Scoped(\w+)\s*\(')
+SCOPE_KINDS = {'Class', 'NamedClass', 'VirtualClass', 'Namespace', 'NamespaceName'}
+# kind -> (index of symbol, index of suffix/name or None, index of address, index of cast or None)
+INSTALL_ARGS = {
+    'Install': (0, None, 1, None), 'GlobalInstall': (0, None, 1, None),
+    'OverloadedInstall': (0, 1, 2, 3), 'GlobalOverloadedInstall': (0, 1, 2, 3),
+    'NamedGlobalInstall': (0, 1, 2, None), 'NamedInstall': (0, 1, 2, None),
+    'VMTOverloadedInstall': (0, 1, 2, 3), 'VMTInstall': (0, None, 1, None)}
+BUILTIN = {'int', 'char', 'float', 'double', 'short', 'long', 'unsigned', 'signed', 'bool', 'void', 'const'}
+GAME_SA = 'source/game_sa/'
+
+
+def split_args(text, start):
+    """Split the top-level arguments of the call whose '(' precedes `start`; returns (args, end)."""
+    args, depth, angle, current, i = [], 1, 0, [], start
+    in_string = False
+    while i < len(text):
+        ch = text[i]
+        if in_string:
+            current.append(ch)
+            if ch == '\\':
+                current.append(text[i + 1])
+                i += 1
+            elif ch == '"':
+                in_string = False
+        elif ch == '"':
+            in_string = True
+            current.append(ch)
+        elif ch in '([{':
+            depth += 1
+            current.append(ch)
+        elif ch in ')]}':
+            depth -= 1
+            if depth == 0:
+                args.append(''.join(current).strip())
+                return args, i
+            current.append(ch)
+        elif ch == '<' and depth == 1 and i and (text[i - 1].isalnum() or text[i - 1] == '_'):
+            angle += 1
+            current.append(ch)
+        elif ch == '>' and depth == 1 and angle and text[i - 1] != '-':
+            angle -= 1
+            current.append(ch)
+        elif ch == ',' and depth == 1 and not angle:
+            args.append(''.join(current).strip())
+            current = []
+        else:
+            current.append(ch)
+        i += 1
+    return None, i
+
+
+def literal(value):
+    found = re.fullmatch(r'"([^"\\]*)"', value or '')
+    return found[1] if found else None
+
+
+def parse_registrations(raw, relative):
+    """Hook registrations (RH_Scoped*Install) in one file; comments are ignored."""
+    text = MASK.sub(lambda m: blank(m[0]) if m[0].startswith(b'/') else m[0], raw).decode('utf-8', errors='replace')
+    out, scope = [], (None, None)
+    for match in REG.finditer(text):
+        kind = match[1]
+        if kind not in SCOPE_KINDS and kind not in INSTALL_ARGS:
+            continue
+        args, _ = split_args(text, match.end())
+        if not args:
+            continue
+        if kind in SCOPE_KINDS:
+            if kind == 'NamespaceName':
+                scope = (None, literal(args[0]))
+            elif kind == 'NamedClass' and len(args) > 1:
+                scope = (args[0], literal(args[1]))
+            else:
+                scope = (args[0], args[0])
+            continue
+        sym_i, name_i, addr_i, cast_i = INSTALL_ARGS[kind]
+        if len(args) <= addr_i or not re.fullmatch(r'0x[0-9A-Fa-f]{1,8}', args[addr_i]) or not scope[1]:
+            continue
+        display = args[sym_i]
+        if name_i is not None:
+            part = literal(args[name_i])
+            if part is None:
+                continue
+            display = part if kind in {'NamedGlobalInstall', 'NamedInstall'} else display + '-' + part
+        out.append({'file': relative, 'kind': kind, 'ns': scope[0], 'scope': scope[1], 'symbol': args[sym_i],
+                    'display': display, 'address': canonical(args[addr_i]),
+                    'cast': args[cast_i] if cast_i is not None and len(args) > cast_i else '',
+                    'member': not kind.startswith('Global') and kind != 'NamedGlobalInstall',
+                    'virtual': kind.startswith('VMT')})
+    return out
+
+
+def param_types(signature):
+    """Normalized parameter types (names and defaults removed) of the last parameter list in `signature`."""
+    end = signature.rfind(')')
+    if end < 0:
+        return None
+    depth, start = 0, None
+    for i in range(end, -1, -1):
+        depth += signature[i] == ')'
+        depth -= signature[i] == '('
+        if depth == 0:
+            start = i
+            break
+    if start is None:
+        return None
+    body = signature[start + 1:end]
+    params, depth, angle, current = [], 0, 0, ''
+    for i, ch in enumerate(body):
+        if ch in '([{':
+            depth += 1
+        elif ch in ')]}':
+            depth -= 1
+        elif ch == '<' and i and (body[i - 1].isalnum() or body[i - 1] == '_'):
+            angle += 1
+        elif ch == '>' and angle and body[i - 1] != '-':
+            angle -= 1
+        if ch == ',' and not depth and not angle:
+            params.append(current)
+            current = ''
+        else:
+            current += ch
+    params.append(current)
+    result = []
+    for param in params:
+        param = re.sub(r'\s+', ' ', param.split('=', 1)[0]).strip()
+        param = re.sub(r'\b(?:struct|class|enum)\s+', '', param)
+        named = re.fullmatch(r'(.+?[\s*&>])\s*([A-Za-z_]\w*)', param)
+        if named and named[2] not in BUILTIN:
+            param = named[1]
+        param = re.sub(r'\s+', '', param)
+        if param:
+            result.append(param)
+    return [] if result == ['void'] else result
+
+
+def link_by_registration(functions, catalog, registrations, matched):
+    """Link catalog rows still unmatched to exactly one source body using the hook installation.
+
+    The registration (scope, name, address) identifies the catalog row; the registered C++ symbol
+    identifies the body. Anything that stays ambiguous is left unmatched."""
+    by_symbol = defaultdict(list)
+    for f in functions:
+        by_symbol[f['function'].rsplit('::', 1)[-1]].append(f)
+    catalog_by_key = defaultdict(list)
+    for c in catalog:
+        catalog_by_key[(c['class'], c['fn_name'])].append(c)
+    proposals = defaultdict(set)  # id(catalog row) -> {id(function)}
+    rows = {}
+    for r in registrations:
+        if not r['file'].startswith(GAME_SA):
+            continue
+        keyed = catalog_by_key.get((r['scope'], r['display']), [])
+        keyed = [c for c in keyed if canonical(c['address']) == r['address'] or (r['virtual'] and int(c['address'], 16) == 0)]
+        if len(keyed) != 1 or id(keyed[0]) in matched:
+            continue
+        c = keyed[0]
+        symbol = r['symbol']
+        short = symbol.rsplit('::', 1)[-1]
+        if r['member']:
+            if not r['ns']:
+                continue
+            want = r['ns'] + '::' + short
+            candidates = [f for f in by_symbol.get(short, []) if f['function'] == want or f['function'].endswith('::' + want)]
+        else:
+            candidates = [f for f in by_symbol.get(short, []) if f['function'] == symbol or f['function'].endswith('::' + symbol)]
+            same = [f for f in candidates if f['file'] == r['file']]
+            if len(candidates) > 1 and same:
+                candidates = same
+        if len(candidates) > 1 and r['cast']:
+            wanted = param_types(r['cast'])
+            if wanted is not None:
+                candidates = [f for f in candidates if param_types(f['signature']) == wanted]
+        if len(candidates) != 1 or candidates[0].get('catalog_match'):
+            continue
+        proposals[id(c)].add(id(candidates[0]))
+        rows[id(c)] = (c, candidates[0])
+    claimed = Counter(next(iter(v)) for v in proposals.values() if len(v) == 1)
+    for key, targets in proposals.items():
+        if len(targets) == 1 and claimed[next(iter(targets))] == 1:
+            c, f = rows[key]
+            f['catalog_match'] = c
+            f['linked_by_address'] = True
+            matched.add(key)
+
+
+def outside_game_sa(catalog, registrations, matched):
+    """Unlinked catalog rows whose hook is installed only from a file outside source/game_sa."""
+    inside = {(r['scope'], r['display'], r['address']) for r in registrations if r['file'].startswith(GAME_SA)}
+    found = {(r['scope'], r['display'], r['address']): r['file'] for r in registrations if not r['file'].startswith(GAME_SA)}
+    result = {}
+    for c in catalog:
+        key = (c['class'], c['fn_name'], canonical(c['address']))
+        if id(c) not in matched and key in found and key not in inside:
+            result[id(c)] = found[key]
+    return result
+
+
 def collect():
     parser = Parser(Language(tree_sitter_cpp.language()))
     catalog, by_name, by_addr = load_catalog()
     functions, occurrences, unresolved, file_errors = [], [], [], []
     source_hashes, global_data = {}, defaultdict(list)
+    registrations = []
     paths = sorted(p for p in (ROOT / 'source/game_sa').rglob('*') if p.suffix in {'.cpp', '.h', '.hpp', '.inc'})
     for path in paths:
         relative = path.relative_to(ROOT).as_posix()
         raw = path.read_bytes()
         source_hashes[relative] = hashlib.sha256(raw).hexdigest()
+        registrations += parse_registrations(raw, relative)
         original = raw.decode('utf-8-sig', errors='strict')
         # Canonical lexical scanner, exactly the same rules as the previous inventory.
         lexical = LITERALS.sub(lambda m: ''.join('\n' if c == '\n' else ' ' for c in m[0]), original)
@@ -198,6 +399,11 @@ def collect():
                                               'addresses': sorted(set(map(canonical, addresses)))})
         if tree.root_node.has_error:
             file_errors.append(relative)
+    for path in sorted((ROOT / 'source').rglob('*')):
+        relative = path.relative_to(ROOT).as_posix()
+        if (path.suffix in {'.cpp', '.h', '.hpp', '.inc'} and not relative.startswith(GAME_SA)
+                and not relative.startswith('source/reversiblehooks/')):
+            registrations += parse_registrations(path.read_bytes(), relative)
     if unresolved:
         raise ValueError('Occurrences without a containing definition: ' + json.dumps(unresolved, ensure_ascii=False))
     approvals_file = ROOT / 'reversing/CppOnlyMigration/approvals.json'
@@ -210,8 +416,14 @@ def collect():
         if len(choices) > 1 and row['address']:
             choices = [c for c in choices if canonical(c['address']) == row['address']]
         row['catalog_match'] = choices[0] if len(choices) == 1 else None
+    matched = {id(f['catalog_match']) for f in functions if f['catalog_match']}
+    link_by_registration(functions, catalog, registrations, matched)
+    outside = outside_game_sa(catalog, registrations, matched)
+    outside = [(c, outside[id(c)]) for c in catalog if id(c) in outside]
+    for row in functions:
         c = row['catalog_match']
-        if c and row['function'].find('::') == -1 and row['function'] == c['fn_name']:
+        if c and (row['function'].find('::') == -1 and row['function'] == c['fn_name'] or
+                  row.get('linked_by_address') and row['owner'].startswith('Globales y helpers')):
             row['owner'] = c['class']
         row['catalog_identity'] = (c['class'] + '::' + c['fn_name']) if c else ''
         row['catalog_address'] = canonical(c['address']) if c else ''
@@ -269,10 +481,10 @@ def collect():
         row['dependency_details'] = dependencies
         row['dependency'] = '; '.join(dependencies) if dependencies else 'Sin indicio directo en patrones examinados; dependencias transitivas sin determinar'
         row['independence'] = 'No demostrada'
-    return functions, occurrences, catalog, source_hashes, file_errors
+    return functions, occurrences, catalog, source_hashes, file_errors, outside
 
 
-def write(functions, occurrences, catalog, hashes, errors):
+def write(functions, occurrences, catalog, hashes, errors, outside):
     out = ROOT / 'docs/implementaciones'
     out.mkdir(exist_ok=True)
     groups = defaultdict(list)
@@ -284,6 +496,11 @@ def write(functions, occurrences, catalog, hashes, errors):
         writer = csv.DictWriter(stream, fieldnames=list(catalog[0]))
         writer.writeheader()
         writer.writerows(unmatched)
+    # Reconstructed hooks installed from files outside source/game_sa (platform, application...): not part of this measurement.
+    with (out / 'catalogo-fuera-de-game_sa.csv').open('w', encoding='utf-8', newline='') as stream:
+        writer = csv.DictWriter(stream, fieldnames=list(catalog[0]) + ['registered_in'])
+        writer.writeheader()
+        writer.writerows(dict(c, registered_in=where) for c, where in outside)
     fields = ['owner', 'function', 'signature', 'file', 'line', 'end_line', 'language',
               'asm_occurrences', 'naked_declarations', 'implementation', 'validation',
               'catalog_identity', 'catalog_address', 'reversed', 'validated', 'dependency',
@@ -336,6 +553,8 @@ def write(functions, occurrences, catalog, hashes, errors):
         'asm_bodies_with_parse_errors': sum(bool(r['asm_occurrences']) and bool(r['parser_error']) for r in functions),
         'files_with_any_parse_errors': len(errors), 'historical_catalog_rows': len(catalog),
         'catalog_rows_without_unambiguous_source_match_in_scope': len(unmatched),
+        'catalog_rows_installed_outside_game_sa': len(outside),
+        'catalog_rows_linked_by_hook_address': sum(bool(r.get('linked_by_address')) for r in functions),
         'validated_reconstructed_own_cpp_definitions': sum(r['own_validated_reconstructed'] and r['language'] == 'C++' for r in functions),
         'validated_reconstructed_own_asm_definitions': sum(r['own_validated_reconstructed'] and r['language'] != 'C++' for r in functions),
         'wrapper_definitions': sum(r['implementation'] == 'Envoltura al EXE' for r in functions)}
@@ -353,7 +572,7 @@ def write(functions, occurrences, catalog, hashes, errors):
         '- Las dos columnas de reconstruidas y validadas cuentan cuerpos propios con reversed=1 y validated=1 en una coincidencia inequívoca del catálogo, o con evidencia de la migración a C++. El detalle distingue evidencia **histórica del catálogo** de **revalidación de migración**. Este inventario no ejecuta pruebas ni acredita independencia. Envolturas y cuerpos con errores del parser quedan fuera de esas dos columnas.',
         '- El detalle incluye también cuerpos sin registro, pendientes, auxiliares NOTSA, helpers y envolturas; no se ocultan en el 100% del catálogo. Se muestran nombres y ubicaciones con línea.',
         '- Se inventarían definiciones, no entradas binarias: sobrecargas, especializaciones, inline y variantes del preprocesador pueden tener varias ubicaciones. No se suman estas cifras al catálogo ni a las 34 conversiones recientemente revalidadas.',
-        '- La asociación al catálogo usa nombre calificado inequívoco o dirección del comentario inmediato. Coincidencias ambiguas quedan sin registro inequívoco; no se infiere validación por clase completa ni por un colaborador.',
+        '- La asociación al catálogo usa nombre calificado inequívoco o dirección del comentario inmediato y, cuando el nombre es ambiguo (sobrecargas, sufijos), la dirección de la instalación del hook (`RH_Scoped*Install`) que identifica la entrada y el símbolo registrado que identifica el cuerpo. Coincidencias que siguen ambiguas quedan sin registro inequívoco; no se infiere validación por clase completa ni por un colaborador.',
         '- Una envoltura C++ se reconoce conservadoramente cuando el único statement es una llamada plugin::Call* a dirección fija. Algunos trampolines ASM simples también se reconocen. Otras envolturas indirectas pueden permanecer sin resolver.',
         '- Se registran colaboradores con dirección fija y posibles datos fijos referenciados por nombre. Un destino catalogado puede estar reconstruido y enlazado mediante hook; el inventario **no determina la ruta efectiva**. Direcciones por sí solas no prueban ausencia de reconstrucción.',
         '- «Sin indicio directo» sólo significa que los patrones examinados no lo encontraron. No se resuelven todas las llamadas virtuales, macros, alias, punteros ni dependencias transitivas. **Ningún grupo se declara standalone demostrado.**',
@@ -374,6 +593,7 @@ def write(functions, occurrences, catalog, hashes, errors):
         '- [Todas las funciones y sus estados](implementaciones/funciones.csv).',
         '- [Cada aparición ASM/naked asignada a su función](implementaciones/apariciones.csv).',
         '- [Entradas del catálogo sin asociación inequívoca dentro del ámbito](implementaciones/catalogo-sin-coincidencia.csv).',
+        '- [Entradas cuyo hook se instala fuera de source/game_sa (plataforma, aplicación...); quedan fuera de la medición «solo C++»](implementaciones/catalogo-fuera-de-game_sa.csv).',
         '- [Conteos, versiones del parser y hashes de entrada](implementaciones/resumen.json).',
         '- [Conversiones a C++ revalidadas recientemente](../reversing/CppOnlyMigration/README.md).',
         '- [Alcance del catálogo y dependencias fuera de él](CurrentStatus.md).', '',
@@ -387,13 +607,13 @@ def write(functions, occurrences, catalog, hashes, errors):
 
 
 def main():
-    functions, occurrences, catalog, hashes, errors = collect()
+    functions, occurrences, catalog, hashes, errors, outside = collect()
     with (ROOT / 'reversing/CppOnlyMigration/inventory.csv').open(encoding='utf-8', newline='') as stream:
         expected = Counter((r['file'], int(r['line']), r['kind']) for r in csv.DictReader(stream))
     actual = Counter((r['file'], r['line'], r['kind']) for r in occurrences)
     if expected != actual:
         raise ValueError('Lexical inventory mismatch; regenerate audit_cpp_assembly.py first')
-    print(json.dumps(write(functions, occurrences, catalog, hashes, errors), ensure_ascii=False))
+    print(json.dumps(write(functions, occurrences, catalog, hashes, errors, outside), ensure_ascii=False))
 
 
 if __name__ == '__main__':

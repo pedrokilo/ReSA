@@ -387,6 +387,7 @@
 | * CBuilding::operator new(unsigned size) | [source/game_sa/Entity/Building.cpp:42](../../source/game_sa/Entity/Building.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CBuilding::operator delete(void* data) | [source/game_sa/Entity/Building.cpp:47](../../source/game_sa/Entity/Building.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CBuilding::ReplaceWithNewModel(int32 newModelIndex) | [source/game_sa/Entity/Building.cpp:58](../../source/game_sa/Entity/Building.cpp#L58) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CBuilding::ReplaceWithNewModel 0x00403EC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| IsBuildingPointerValid(CBuilding* building) | [source/game_sa/Entity/Building.cpp:67](../../source/game_sa/Entity/Building.cpp#L67) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CBuilding::IsBuildingPointerValid 0x004040E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-95"></a>
 

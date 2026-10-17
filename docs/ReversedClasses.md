@@ -6,7 +6,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-17 05:51 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-17 06:06 UTC
 
 ## Objetivo y dimensiones de progreso
 
@@ -18,11 +18,11 @@ La [hoja de ruta de ReSA](ProjectRoadmap.md) define una reconstrucción funciona
 | Clases validadas (de las completas) | `████████████████████` | 784/784 · 100.00% |
 | Funciones reconstruidas | `████████████████████` | 8,552/8,552 · 100.00% |
 | Funciones validadas (de las reconstruidas) | `████████████████████` | 8,552/8,552 · 100.00% |
-| Funciones reconstruidas escritas solo en C++ (sin ensamblador) | `███████████████████░` | 8,009/8,552 · 93.65% |
+| Funciones reconstruidas escritas solo en C++ (sin ensamblador) | `██████████████████░░` | 7,733/8,434 · 91.69% |
 
-Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL. La última barra cuenta, de las funciones reconstruidas, las que tienen fuente identificada y sin `__asm` ni `naked`; las entradas sin fuente identificada de forma inequívoca no se cuentan como C++. El detalle está en [ImplementacionesDelJuego.md](ImplementacionesDelJuego.md).
+Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL. La última barra mide solo `source/game_sa`: cuenta, de las funciones reconstruidas, las que tienen fuente identificada y sin `__asm` ni `naked`; las entradas de game_sa sin fuente identificada de forma inequívoca no se cuentan como C++. Su denominador excluye 118 funciones reconstruidas cuyo hook se instala fuera de `source/game_sa` (plataforma y aplicación: Rs, Ps, Light, Game, App, Win, Input, VideoMode, VideoPlayer, Securom), listadas en [catalogo-fuera-de-game_sa.csv](implementaciones/catalogo-fuera-de-game_sa.csv); las demás filas siguen midiendo el catálogo completo. El detalle está en [ImplementacionesDelJuego.md](ImplementacionesDelJuego.md).
 
-**Migración de ensamblador a C++:** algunas clases ya reconstruidas y validadas todavía contienen ensamblador en su fuente (`__asm` o funciones `naked`), porque se reconstruyeron conservando exactamente el comportamiento del EXE. Pasarán por un proceso de conversión de ensamblador a C++ que conserve resultados idénticos y se vuelva a validar dentro del juego. Hasta entonces, «reconstruida y validada» no implica «escrita en C++». Regla del proyecto: todo lo que se reconstruya va en C++, dos archivos por clase (`.cpp` y `.h`) y sin duplicados ([proceso](../reversing/CppOnlyMigration/PROCESO.md)). Lista de archivos pendientes: [FILES.md](../reversing/CppOnlyMigration/FILES.md) · [estado de la migración](../reversing/CppOnlyMigration/README.md).
+**Migración de ensamblador a C++:** en `source/game_sa` ya no queda ningún `__asm` ni función `naked`: todo lo reconstruido está escrito en C++, con resultados validados contra el EXE dentro del juego. Regla del proyecto: todo lo que se reconstruya va en C++, dos archivos por clase (`.cpp` y `.h`) y sin duplicados ([proceso](../reversing/CppOnlyMigration/PROCESO.md)). Historial y excepciones documentadas: [estado de la migración](../reversing/CppOnlyMigration/README.md) · [FILES.md](../reversing/CppOnlyMigration/FILES.md).
 
 Hay 8,552 entradas catalogadas, 0 bloqueadas y 8,552 sin bloqueo. No constituyen un inventario exhaustivo del EXE. Desbloqueada no significa validada, activa ni independiente. No se deducen hooks eliminados del contador de locks. Las extensiones o adaptaciones NOTSA (4, en [hooks_notsa.csv](hooks_notsa.csv)) quedan fuera de la cuenta.
 

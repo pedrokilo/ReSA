@@ -2,7 +2,7 @@
   "scope": "source/game_sa, definitions in cpp/h/hpp/inc; all preprocessing branches",
   "totals": {
     "source_definition_count": 17788,
-    "groups": 1957,
+    "groups": 1951,
     "assembly_occurrences": 0,
     "naked_declarations": 0,
     "definitions_with_assembly": 0,
@@ -14,8 +14,10 @@
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 846,
     "historical_catalog_rows": 8556,
-    "catalog_rows_without_unambiguous_source_match_in_scope": 909,
-    "validated_reconstructed_own_cpp_definitions": 8529,
+    "catalog_rows_without_unambiguous_source_match_in_scope": 823,
+    "catalog_rows_installed_outside_game_sa": 122,
+    "catalog_rows_linked_by_hook_address": 86,
+    "validated_reconstructed_own_cpp_definitions": 8611,
     "validated_reconstructed_own_asm_definitions": 0,
     "wrapper_definitions": 244
   },

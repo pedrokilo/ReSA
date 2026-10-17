@@ -82,5 +82,82 @@ class PublishedInventoryTest(unittest.TestCase):
                     self.assertIn(f'id="{fragment}"', target.read_text(encoding='utf-8'), (page, link))
 
 
+class HookAddressLinkTest(unittest.TestCase):
+    SOURCE = (b'void X::InjectHooks() {' + bytes([10]) +
+              b' RH_ScopedClass(X);' + bytes([10]) +
+              b' //RH_ScopedInstall(Fake, 0x111111);' + bytes([10]) +
+              b' RH_ScopedInstall(Plain, 0x401000);' + bytes([10]) +
+              b' RH_ScopedOverloadedInstall(Draw, "Rect", 0x401010, void(X::*)(const CRect&, CRGBA));' + bytes([10]) +
+              b' RH_ScopedOverloadedInstall(Draw, "Quad", 0x401020, void(X::*)(float, float) const);' + bytes([10]) +
+              b' RH_ScopedNamespaceName("Rs");' + bytes([10]) +
+              b' RH_ScopedNamedGlobalInstall(Impl_Eax, "Impl", 0x619510);' + bytes([10]) + b'}' + bytes([10]))
+
+    def fn(self, name, signature, file='source/game_sa/X.cpp'):
+        return {'function': name, 'signature': signature, 'file': file, 'catalog_match': None}
+
+    def cat(self, cls, name, address, reversed_='1'):
+        return {'class': cls, 'fn_name': name, 'address': address, 'reversed': reversed_, 'catalog': 'hooks.csv'}
+
+    def test_registrations_are_parsed_with_scope_and_comments_ignored(self):
+        regs = inventory.parse_registrations(self.SOURCE, 'source/game_sa/X.cpp')
+        self.assertEqual([(r['scope'], r['display'], r['address']) for r in regs],
+                         [('X', 'Plain', '0x00401000'), ('X', 'Draw-Rect', '0x00401010'),
+                          ('X', 'Draw-Quad', '0x00401020'), ('Rs', 'Impl', '0x00619510')])
+        self.assertTrue(regs[0]['member'])
+        self.assertFalse(regs[3]['member'])
+
+    def test_parameter_types_ignore_names_and_defaults(self):
+        self.assertEqual(inventory.param_types('X::Draw(const CRect& r, CRGBA c = {})'), ['constCRect&', 'CRGBA'])
+        self.assertEqual(inventory.param_types('void(X::*)(const CRect&, CRGBA)'), ['constCRect&', 'CRGBA'])
+        self.assertEqual(inventory.param_types('void(*)(void)'), [])
+        self.assertEqual(inventory.param_types('X::F(unsigned int, float f) const'), ['unsignedint', 'float'])
+
+    def test_ambiguous_overload_is_resolved_by_cast_and_address(self):
+        regs = inventory.parse_registrations(self.SOURCE, 'source/game_sa/X.cpp')
+        a = self.fn('X::Draw', 'X::Draw(const CRect& r, CRGBA c)')
+        b = self.fn('X::Draw', 'X::Draw(float x, float y) const')
+        catalog = [self.cat('X', 'Draw-Rect', '0x00401010'), self.cat('X', 'Draw-Quad', '0x00401020'),
+                   self.cat('X', 'Plain', '0x00401000')]
+        inventory.link_by_registration([a, b], catalog, regs, set())
+        self.assertIs(a['catalog_match'], catalog[0])
+        self.assertIs(b['catalog_match'], catalog[1])
+
+    def test_unresolvable_ambiguity_is_not_guessed(self):
+        regs = inventory.parse_registrations(self.SOURCE, 'source/game_sa/X.cpp')
+        # Two bodies with the same name and no distinguishing cast: nothing may be linked.
+        a = self.fn('X::Plain', 'X::Plain()')
+        b = self.fn('X::Plain', 'X::Plain(int)', 'source/game_sa/X.h')
+        catalog = [self.cat('X', 'Plain', '0x00401000')]
+        inventory.link_by_registration([a, b], catalog, regs, set())
+        self.assertIsNone(a['catalog_match'])
+        self.assertIsNone(b['catalog_match'])
+        # A wrong address in the catalog also prevents the link.
+        c = self.fn('X::Plain', 'X::Plain()')
+        inventory.link_by_registration([c], [self.cat('X', 'Plain', '0x00402000')], regs, set())
+        self.assertIsNone(c['catalog_match'])
+
+    def test_registrations_outside_game_sa_are_excluded_not_linked(self):
+        regs = inventory.parse_registrations(self.SOURCE, 'source/app/platform/platform.cpp')
+        body = self.fn('Impl_Eax', 'Impl_Eax()', 'source/app/platform/platform.cpp')
+        catalog = [self.cat('Rs', 'Impl', '0x00619510')]
+        matched = set()
+        inventory.link_by_registration([body], catalog, regs, matched)
+        self.assertIsNone(body['catalog_match'])
+        self.assertEqual(list(inventory.outside_game_sa(catalog, regs, matched)), [id(catalog[0])])
+
+    def test_published_scope_is_game_sa_only_and_outside_entries_are_not_counted(self):
+        out = inventory.ROOT / 'docs/implementaciones'
+        with (out / 'funciones.csv').open(encoding='utf-8', newline='') as stream:
+            functions = list(csv.DictReader(stream))
+        with (out / 'catalogo-fuera-de-game_sa.csv').open(encoding='utf-8', newline='') as stream:
+            outside = list(csv.DictReader(stream))
+        self.assertTrue(all(r['file'].startswith('source/game_sa/') for r in functions))
+        self.assertTrue(outside)
+        linked = {(r['catalog_identity'], r['catalog_address']) for r in functions}
+        for r in outside:
+            self.assertFalse(r['registered_in'].startswith('source/game_sa/'))
+            self.assertNotIn((r['class'] + '::' + r['fn_name'], inventory.canonical(r['address'])), linked)
+
+
 if __name__ == '__main__':
     unittest.main()
