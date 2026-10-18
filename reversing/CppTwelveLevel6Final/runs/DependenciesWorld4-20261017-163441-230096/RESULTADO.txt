@@ -1,0 +1,3 @@
+APROBADO: D3D toggle and complete nearest garage search
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciesworld4\20261017-163441-230096

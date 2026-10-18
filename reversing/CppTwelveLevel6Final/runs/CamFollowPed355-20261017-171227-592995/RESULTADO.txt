@@ -1,0 +1,3 @@
+APROBADO: CamFollowPed355
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cam-follow-ped355\20261017-171227-592995

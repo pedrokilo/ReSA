@@ -1,0 +1,3 @@
+APROBADO: CameraCollision355
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-camera-collision355\20261017-164603-116396

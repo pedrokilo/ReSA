@@ -1,0 +1,3 @@
+APROBADO: InteriorCommerce
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-interior-commerce\20261017-175002-339329

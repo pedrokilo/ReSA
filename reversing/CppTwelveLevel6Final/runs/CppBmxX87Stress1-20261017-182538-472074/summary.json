@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "d5f7af5327f7335b4ec95c75f2208a9d750478b5b4257f7fd6649198b15d2698",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "e9bfdac79df368547f7d4d12fae77c944dd8b9e4eb086ebb575e7b1760a416f6",
+    "scripts/gta-reversed.ini": "e9bfdac79df368547f7d4d12fae77c944dd8b9e4eb086ebb575e7b1760a416f6"
+  },
+  "pairs": 24576,
+  "pairs_per_function": {
+    "Bmx::Sin": 2048,
+    "Bmx::Cos": 2048,
+    "Bmx::SinScaled": 2048,
+    "Bmx::CosScaled": 2048,
+    "Bmx::SinMul": 2048,
+    "Bmx::SinTimes2": 2048,
+    "Bmx::ChassisZ": 2048,
+    "Bmx::LeanTerm": 2048,
+    "Bmx::LeanTermAdd": 2048,
+    "Bmx::Atan2": 2048,
+    "Bmx::PowScale": 2048,
+    "Bmx::NegAsin": 2048
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "04bcc855525089037871ae9b4f3f29e04a8e9497c53e9bc0ae0f77d6c2e050ef",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

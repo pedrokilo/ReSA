@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "303ec31f77133a3eb84be4a4024887c0bf6cf4ef52c8de7d91e3b2f3f52314be",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "e9bfdac79df368547f7d4d12fae77c944dd8b9e4eb086ebb575e7b1760a416f6",
+    "scripts/gta-reversed.ini": "e9bfdac79df368547f7d4d12fae77c944dd8b9e4eb086ebb575e7b1760a416f6"
+  },
+  "pairs": 4608,
+  "pairs_per_function": {
+    "D3DResourceSystem::SetUseD3DResourceBuffering": 512,
+    "CGarages::FindGarageForObject": 4096
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "4177ba55fa069e3a89562832cd23c74b50189b99936ea19df3af1545de224fab",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

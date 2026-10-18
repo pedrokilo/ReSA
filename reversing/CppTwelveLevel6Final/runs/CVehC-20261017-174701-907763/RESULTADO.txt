@@ -1,0 +1,3 @@
+APROBADO: CVehicle grupo C (mejoras, atomics, remaps y componentes)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cvehc\20261017-174701-907763

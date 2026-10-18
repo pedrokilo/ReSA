@@ -1,0 +1,3 @@
+APROBADO: CamRotate355
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cam-rotate355\20261017-172515-246741

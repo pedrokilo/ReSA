@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "342a3029c7c4a0fe5ad1b21c146ed121df51a13f94c071f4bf72791a6db8b702",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "e9bfdac79df368547f7d4d12fae77c944dd8b9e4eb086ebb575e7b1760a416f6",
+    "scripts/gta-reversed.ini": "e9bfdac79df368547f7d4d12fae77c944dd8b9e4eb086ebb575e7b1760a416f6"
+  },
+  "pairs": 2048,
+  "pairs_per_function": {
+    "CCam::Using3rdPersonMouseCam": 1024,
+    "CCam::KeepTrackOfTheSpeed": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "ad096f8a877740b745de33ff6a59c9a5668e9aaa0bb9deaa59c23144f3436cee",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

@@ -1,0 +1,3 @@
+APROBADO: Estadísticas (lista de 32)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-stats32\20261017-170003-574766

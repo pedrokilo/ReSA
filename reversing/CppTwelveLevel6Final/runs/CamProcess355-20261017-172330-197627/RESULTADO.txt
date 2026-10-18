@@ -1,0 +1,3 @@
+APROBADO: CamProcess355
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cam-process355\20261017-172330-197627

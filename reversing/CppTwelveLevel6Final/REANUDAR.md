@@ -52,3 +52,7 @@ conteos en README.md / docs/CurrentStatus.md / docs/ProjectRoadmap.md / reversin
 - 16/10 ~20:45: regresion anterior se detuvo en 116/135 tras PlaneBlow355; aplicados sexappeal+sexfpu+sprint+file15+misc3+HookUnlockAudit(retired.py); nueva cola cola_final2.txt (48) -> final_raw3.txt
 - 16/10 20:40: PlaneBlow355 dejo un gta_sa.exe huerfano (bucle real, 1109 s CPU) que bloqueo la cola; matado; dmp en scratchpad/hang/planeblow.dmp; cola_final3.txt -> final_raw4.txt (PlaneBlow355 al final). VIGILAR procesos gta_sa huerfanos tras 'GTA no responde'.
 - 16/10 ~21:00 CORRECCION: el gta_sa.exe que 'giraba' NO era PlaneBlow355: era PowEquivalence (banco de ~38 min de CPU, iba al 59%) de la cola anterior, que seguia viva; la mate por error al creer que estaba huerfano. PlaneBlow355 no tiene bucle (BlowUpCar exculpada) pero su resultado quedo vacio: revalidar. PowEquivalence necesita ~40 min; no matar procesos gta_sa sin comprobar con el timestamp del .asi en scripts\ cual es el banco.
+
+## Estado final (17/10/2026)
+
+La regresión de los 95 bancos pendientes terminó el 17/10/2026: 95 de 95 aprobados (93 en la pasada `final_raw14.txt` y los dos restantes, `RequestedPadProcessPad` por hash de README obsoleto tras la sincronización de documentos y `CamLookSide355` por «GTA no responde» intermitente, en `final_raw15.txt`). Ya no hay nada que reanudar.

@@ -1,0 +1,3 @@
+APROBADO: DependenciesStatsUi8
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependenciesstatsui8\20261017-165218-190882

@@ -1,0 +1,3 @@
+FALLO: CamLookSide355
+GTA no responde (ventana colgada y sin progreso 30 s; abortado).
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cam-look-side355\20261017-171653-269148

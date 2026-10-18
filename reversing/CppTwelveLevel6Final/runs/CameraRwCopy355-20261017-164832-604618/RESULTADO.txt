@@ -1,0 +1,3 @@
+APROBADO: CameraRwCopy355
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-camera-rw-copy355\20261017-164832-604618

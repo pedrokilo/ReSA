@@ -1,0 +1,3 @@
+APROBADO: BikePreRender355
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-bike-pre-render355\20261017-181444-739056
