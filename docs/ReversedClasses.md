@@ -6,7 +6,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-18 05:06 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-18 05:10 UTC
 
 ## Objetivo y dimensiones de progreso
 
@@ -319,37 +319,12 @@ Orden alfabético. El número entre paréntesis indica funciones registradas; �
 <a id="parciales"></a>
 ## 🟡 Parciales · 41 clases
 
-Orden de mayor a menor número de envolturas al EXE pendientes (a igualdad, de mayor a menor número de entradas pendientes y alfabético). Para decidir qué abordar primero, consultar la [cola de validación por niveles](ReversingPriorities.md).
+Orden de menor a mayor número de envolturas al EXE pendientes (a igualdad, de menor a mayor número de entradas pendientes y alfabético). Para decidir qué abordar primero, consultar la [cola de validación por niveles](ReversingPriorities.md).
 
 Incluye las clases del catálogo que ya tienen todas sus entradas reconstruidas pero conservan funciones del juego que siguen delegando en el EXE (columna «Envolturas al EXE»): no cuentan como completas hasta reconstruirlas. Detalle por función en [envolturas-pendientes.csv](implementaciones/envolturas-pendientes.csv).
 
 | Clase | Revertidas / total | Pendientes | Envolturas al EXE | Avance | Validated | Locked |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| [CCarCtrl](../source/game_sa/CarCtrl.cpp) | 30/30 | **0** | **81** | 100.00% | 30 | 0 |
-| [CVehicle](../source/game_sa/Entity/Vehicle/Vehicle.cpp) | 149/149 | **0** | **17** | 100.00% | 149 | 0 |
-| [Fx_c](../source/game_sa/Fx/Fx.cpp) | 9/9 | **0** | **17** | 100.00% | 9 | 0 |
-| [CPlayerPed](../source/game_sa/Entity/Ped/PlayerPed.cpp) | 52/52 | **0** | **13** | 100.00% | 52 | 0 |
-| [CHeli](../source/game_sa/Entity/Vehicle/Heli.cpp) | 11/11 | **0** | **11** | 100.00% | 11 | 0 |
-| [CGarage](../source/game_sa/Garage.cpp) | 8/8 | **0** | **10** | 100.00% | 8 | 0 |
-| [D3DResourceSystem](../source/game_sa/RenderWare/D3DResourceSystem.cpp) | 3/3 | **0** | **9** | 100.00% | 3 | 0 |
-| [CPathFind](../source/game_sa/PathFind.cpp) | 60/60 | **0** | **6** | 100.00% | 60 | 0 |
-| [CTaskComplexFollowPedFootsteps](../source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp) | 1/1 | **0** | **5** | 100.00% | 1 | 0 |
-| [CTaskComplexKillPedOnFoot](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp) | 1/1 | **0** | **5** | 100.00% | 1 | 0 |
-| [CTaskComplexPartner](../source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp) | 1/1 | **0** | **5** | 100.00% | 1 | 0 |
-| [CWaterLevel](../source/game_sa/WaterLevel.cpp) | 33/33 | **0** | **5** | 100.00% | 33 | 0 |
-| [CAutomobile](../source/game_sa/Entity/Vehicle/Automobile.cpp) | 99/99 | **0** | **4** | 100.00% | 99 | 0 |
-| [CPed](../source/game_sa/Entity/Ped/Ped.cpp) | 145/145 | **0** | **4** | 100.00% | 145 | 0 |
-| [CStats](../source/game_sa/Stats.cpp) | 47/47 | **0** | **4** | 100.00% | 47 | 0 |
-| [CTaskComplexWalkRoundObject](../source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp) | 1/1 | **0** | **4** | 100.00% | 1 | 0 |
-| [CPedIntelligence](../source/game_sa/PedIntelligence.cpp) | 53/53 | **0** | **3** | 100.00% | 53 | 0 |
-| [CScriptsForBrains](../source/game_sa/ScriptsForBrains.cpp) | 7/7 | **0** | **3** | 100.00% | 7 | 0 |
-| [CTaskComplexPartnerDeal](../source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp) | 1/1 | **0** | **3** | 100.00% | 1 | 0 |
-| [CTaskSimpleFight](../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp) | 9/9 | **0** | **3** | 100.00% | 9 | 0 |
-| [CCamera](../source/game_sa/Camera.cpp) | 116/116 | **0** | **2** | 100.00% | 116 | 0 |
-| [CCustomBuildingDNPipeline](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp) | 14/14 | **0** | **2** | 100.00% | 14 | 0 |
-| [CGarages](../source/game_sa/Garages.cpp) | 24/24 | **0** | **2** | 100.00% | 24 | 0 |
-| [CTaskComplexPartnerChat](../source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.cpp) | 1/1 | **0** | **2** | 100.00% | 1 | 0 |
-| [FxEmitter_c](../source/game_sa/Fx/FxEmitter.cpp) | 1/1 | **0** | **2** | 100.00% | 1 | 0 |
 | [CAutoPilot](../source/game_sa/AutoPilot.cpp) | 1/1 | **0** | **1** | 100.00% | 1 | 0 |
 | [CCustomCarPlateMgr](../source/game_sa/CustomCarPlateMgr.cpp) | 14/14 | **0** | **1** | 100.00% | 14 | 0 |
 | [CDecision](../source/game_sa/DecisionMakers/Decision.cpp) | 3/3 | **0** | **1** | 100.00% | 3 | 0 |
@@ -366,6 +341,31 @@ Incluye las clases del catálogo que ya tienen todas sus entradas reconstruidas 
 | [CSprite2d](../source/game_sa/Sprite2d.cpp) | 34/34 | **0** | **1** | 100.00% | 34 | 0 |
 | [CTaskComplexPartnerShove](../source/game_sa/Tasks/TaskTypes/TaskComplexPartnerShove.cpp) | 1/1 | **0** | **1** | 100.00% | 1 | 0 |
 | [FxInfoManager_c](../source/game_sa/Fx/FxInfoManager.cpp) | 4/4 | **0** | **1** | 100.00% | 4 | 0 |
+| [CCamera](../source/game_sa/Camera.cpp) | 116/116 | **0** | **2** | 100.00% | 116 | 0 |
+| [CCustomBuildingDNPipeline](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp) | 14/14 | **0** | **2** | 100.00% | 14 | 0 |
+| [CGarages](../source/game_sa/Garages.cpp) | 24/24 | **0** | **2** | 100.00% | 24 | 0 |
+| [CTaskComplexPartnerChat](../source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.cpp) | 1/1 | **0** | **2** | 100.00% | 1 | 0 |
+| [FxEmitter_c](../source/game_sa/Fx/FxEmitter.cpp) | 1/1 | **0** | **2** | 100.00% | 1 | 0 |
+| [CPedIntelligence](../source/game_sa/PedIntelligence.cpp) | 53/53 | **0** | **3** | 100.00% | 53 | 0 |
+| [CScriptsForBrains](../source/game_sa/ScriptsForBrains.cpp) | 7/7 | **0** | **3** | 100.00% | 7 | 0 |
+| [CTaskComplexPartnerDeal](../source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp) | 1/1 | **0** | **3** | 100.00% | 1 | 0 |
+| [CTaskSimpleFight](../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp) | 9/9 | **0** | **3** | 100.00% | 9 | 0 |
+| [CAutomobile](../source/game_sa/Entity/Vehicle/Automobile.cpp) | 99/99 | **0** | **4** | 100.00% | 99 | 0 |
+| [CPed](../source/game_sa/Entity/Ped/Ped.cpp) | 145/145 | **0** | **4** | 100.00% | 145 | 0 |
+| [CStats](../source/game_sa/Stats.cpp) | 47/47 | **0** | **4** | 100.00% | 47 | 0 |
+| [CTaskComplexWalkRoundObject](../source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp) | 1/1 | **0** | **4** | 100.00% | 1 | 0 |
+| [CTaskComplexFollowPedFootsteps](../source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp) | 1/1 | **0** | **5** | 100.00% | 1 | 0 |
+| [CTaskComplexKillPedOnFoot](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp) | 1/1 | **0** | **5** | 100.00% | 1 | 0 |
+| [CTaskComplexPartner](../source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp) | 1/1 | **0** | **5** | 100.00% | 1 | 0 |
+| [CWaterLevel](../source/game_sa/WaterLevel.cpp) | 33/33 | **0** | **5** | 100.00% | 33 | 0 |
+| [CPathFind](../source/game_sa/PathFind.cpp) | 60/60 | **0** | **6** | 100.00% | 60 | 0 |
+| [D3DResourceSystem](../source/game_sa/RenderWare/D3DResourceSystem.cpp) | 3/3 | **0** | **9** | 100.00% | 3 | 0 |
+| [CGarage](../source/game_sa/Garage.cpp) | 8/8 | **0** | **10** | 100.00% | 8 | 0 |
+| [CHeli](../source/game_sa/Entity/Vehicle/Heli.cpp) | 11/11 | **0** | **11** | 100.00% | 11 | 0 |
+| [CPlayerPed](../source/game_sa/Entity/Ped/PlayerPed.cpp) | 52/52 | **0** | **13** | 100.00% | 52 | 0 |
+| [CVehicle](../source/game_sa/Entity/Vehicle/Vehicle.cpp) | 149/149 | **0** | **17** | 100.00% | 149 | 0 |
+| [Fx_c](../source/game_sa/Fx/Fx.cpp) | 9/9 | **0** | **17** | 100.00% | 9 | 0 |
+| [CCarCtrl](../source/game_sa/CarCtrl.cpp) | 30/30 | **0** | **81** | 100.00% | 30 | 0 |
 
 <a id="sin-revertir"></a>
 ## 🔴 Sin revertir · 23 clases
@@ -374,16 +374,6 @@ Clases o grupos sin ninguna entrada reconstruida en el catálogo. Las que figura
 
 | Clase | Revertidas / total | Pendientes | Envolturas al EXE | Avance | Validated | Locked |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| (biblioteca) RenderWare SDK | 0/0 | — | **134** | 0.00% | 0 | 0 |
-| (biblioteca) Controlador D3D9 de RenderWare | 0/0 | — | **58** | 0.00% | 0 | 0 |
-| (helpers y globales sin clase) | 0/0 | — | **53** | 0.00% | 0 | 0 |
-| (biblioteca) CRT / runtime estático | 0/0 | — | **7** | 0.00% | 0 | 0 |
-| CTaskComplexLeaveCar | 0/0 | — | **4** | 0.00% | 0 | 0 |
-| (biblioteca) QuickTime/QTML | 0/0 | — | **2** | 0.00% | 0 | 0 |
-| CMissionCleanup | 0/0 | — | **2** | 0.00% | 0 | 0 |
-| CRemote | 0/0 | — | **2** | 0.00% | 0 | 0 |
-| CStoredCar | 0/0 | — | **2** | 0.00% | 0 | 0 |
-| CWorldScan | 0/0 | — | **2** | 0.00% | 0 | 0 |
 | CCollisionEventScanner | 0/0 | — | **1** | 0.00% | 0 | 0 |
 | CEventScanner | 0/0 | — | **1** | 0.00% | 0 | 0 |
 | CMemoryHeap | 0/0 | — | **1** | 0.00% | 0 | 0 |
@@ -397,422 +387,295 @@ Clases o grupos sin ninguna entrada reconstruida en el catálogo. Las que figura
 | FxInterpInfo32_c | 0/0 | — | **1** | 0.00% | 0 | 0 |
 | FxInterpInfoFloat_c | 0/0 | — | **1** | 0.00% | 0 | 0 |
 | FxInterpInfoU255_c | 0/0 | — | **1** | 0.00% | 0 | 0 |
+| (biblioteca) QuickTime/QTML | 0/0 | — | **2** | 0.00% | 0 | 0 |
+| CMissionCleanup | 0/0 | — | **2** | 0.00% | 0 | 0 |
+| CRemote | 0/0 | — | **2** | 0.00% | 0 | 0 |
+| CStoredCar | 0/0 | — | **2** | 0.00% | 0 | 0 |
+| CWorldScan | 0/0 | — | **2** | 0.00% | 0 | 0 |
+| CTaskComplexLeaveCar | 0/0 | — | **4** | 0.00% | 0 | 0 |
+| (biblioteca) CRT / runtime estático | 0/0 | — | **7** | 0.00% | 0 | 0 |
+| (helpers y globales sin clase) | 0/0 | — | **53** | 0.00% | 0 | 0 |
+| (biblioteca) Controlador D3D9 de RenderWare | 0/0 | — | **58** | 0.00% | 0 | 0 |
+| (biblioteca) RenderWare SDK | 0/0 | — | **134** | 0.00% | 0 | 0 |
 
 <a id="cohorte-nuevo"></a>
 ## 📋 Cohorte nuevo (17/10/2026): lista por dificultad
 
-Destinos originales explícitos que `source/` sigue referenciando y que no estaban reconstruidos ni validados el 17/10/2026, las dos listas completas van ordenadas de mayor a menor tamaño en bytes (la columna «Rango» conserva la posición por dificultad, de menor a mayor: 1 es la más fácil) (juego: puntuación de tamaño y riesgos —llamadas sin catalogar, indirectas, x87, tablas de saltos y SEH—; biblioteca: solo tamaño). Lista completa y descargable: [lista-por-dificultad.csv](../reversing/OriginalDependencies2026-10-17/lista-por-dificultad.csv) · metodología: [README del cohorte](../reversing/OriginalDependencies2026-10-17/README.md). La columna «Estado» se calcula con el catálogo actual: una dirección con fila reversed=1 en hooks.csv figura como reconstruida o validada.
+Destinos originales explícitos que `source/` sigue referenciando y que no estaban reconstruidos ni validados el 17/10/2026, las dos listas completas van ordenadas de menor a mayor tamaño en bytes (la columna «Rango» conserva la posición por dificultad, de menor a mayor: 1 es la más fácil) (juego: puntuación de tamaño y riesgos —llamadas sin catalogar, indirectas, x87, tablas de saltos y SEH—; biblioteca: solo tamaño). Lista completa y descargable: [lista-por-dificultad.csv](../reversing/OriginalDependencies2026-10-17/lista-por-dificultad.csv) · metodología: [README del cohorte](../reversing/OriginalDependencies2026-10-17/README.md). La columna «Estado» se calcula con el catálogo actual: una dirección con fila reversed=1 en hooks.csv figura como reconstruida o validada.
 
 | Nivel | Juego | de ellas pendientes | Biblioteca | de ellas pendientes |
 | --- | ---: | ---: | ---: | ---: |
-| 5 Muy difícil | 19 | 19 | 6 | 6 |
-| 4 Difícil | 57 | 56 | 23 | 23 |
-| 3 Media | 75 | 74 | 69 | 69 |
-| 2 Fácil | 25 | 25 | 104 | 104 |
 | 1 Muy fácil | 9 | 1 | 77 | 1 |
+| 2 Fácil | 25 | 25 | 104 | 104 |
+| 3 Media | 75 | 74 | 69 | 69 |
+| 4 Difícil | 57 | 56 | 23 | 23 |
+| 5 Muy difícil | 19 | 19 | 6 | 6 |
 
 <details>
-<summary>Funciones del juego (185), de mayor a menor tamaño en bytes</summary>
+<summary>Funciones del juego (185), de menor a mayor tamaño en bytes</summary>
 
 | Rango | Nivel | Subcategoría | Función | Dirección | Bytes | Estado |
 | ---: | --- | --- | --- | --- | ---: | --- |
-| 178 | 5 Muy difícil | wrapper | CPed::ProcessEntityCollision | `0x005E2530` | 4342 | pendiente |
-| 185 | 5 Muy difícil | wrapper | CCarCtrl::SteerAICarWithPhysics_OnlyMission | `0x00436A90` | 4243 | pendiente |
-| 182 | 5 Muy difícil | wrapper | CCarCtrl::SteerAICarWithPhysicsFollowPath | `0x00434900` | 3729 | pendiente |
-| 170 | 5 Muy difícil | wrapper | CCarCtrl::PickNextNodeRandomly | `0x0042DE80` | 3591 | pendiente |
-| 184 | 5 Muy difícil | embedded_call | helper sin símbolo confirmado (usado por CameraObbeCinemaCycle) | `0x0051D770` | 3445 | pendiente |
-| 181 | 5 Muy difícil | wrapper | CCarCtrl::SteerAICarWithPhysicsFollowPath_Racing | `0x00435830` | 3320 | pendiente |
-| 162 | 5 Muy difícil | wrapper | CCarCtrl::FlyAIHeliInCertainDirection | `0x00429A70` | 2994 | pendiente |
-| 169 | 5 Muy difícil | wrapper | CCarCtrl::DealWithBend_Racing | `0x00428040` | 2361 | pendiente |
-| 175 | 5 Muy difícil | wrapper | CHeli::ProcessControl | `0x006C7050` | 2352 | pendiente |
-| 163 | 5 Muy difícil | wrapper | CCarCtrl::PickNextNodeToFollowPath | `0x00427740` | 2193 | pendiente |
-| 155 | 5 Muy difícil | wrapper | CCarCtrl::PickNextNodeToChaseCar | `0x00426EF0` | 2111 | pendiente |
-| 179 | 5 Muy difícil | wrapper | CMissionCleanup::Process | `0x00468560` | 1955 | pendiente |
-| 140 | 5 Muy difícil | wrapper | CCarCtrl::FlyAIPlaneInCertainDirection | `0x00423000` | 1917 | pendiente |
-| 176 | 5 Muy difícil | wrapper | CTaskSimpleFight::ProcessPed | `0x00629920` | 1907 | pendiente |
-| 166 | 5 Muy difícil | wrapper | CCarCtrl::SlowCarDownForPedsSectorList | `0x00425440` | 1761 | pendiente |
-| 147 | 5 Muy difícil | wrapper | CCarCtrl::DragCarToPoint | `0x0042EC90` | 1748 | pendiente |
-| 173 | 5 Muy difícil | wrapper | CHeli::ProcessControlInputs | `0x006C4830` | 1571 | pendiente |
-| 167 | 5 Muy difícil | wrapper | CCarCtrl::WeaveForOtherCar | `0x00426350` | 1558 | pendiente |
-| 171 | 5 Muy difícil | wrapper | CTaskComplexPartner::CreateNextSubTask | `0x00683AD0` | 1521 | pendiente |
-| 161 | 4 Difícil | wrapper | CHeli::ProcessFlyingCarStuff | `0x006C4E60` | 1467 | pendiente |
-| 177 | 4 Difícil | wrapper | __MainWndProc | `0x00747EB0` | 1458 | ✅ validada |
-| 148 | 4 Difícil | embedded_call | FxEmitter_c::CreateParticle | `0x004A2580` | 1434 | pendiente |
-| 183 | 4 Difícil | wrapper | CTaskComplexLeaveCar::CreateNextSubTask | `0x006419F0` | 1428 | pendiente |
-| 174 | 4 Difícil | wrapper | CTaskComplexFollowPedFootsteps::ControlSubTask | `0x00695090` | 1341 | pendiente |
-| 154 | 4 Difícil | wrapper | CCarCtrl::FindAngleToWeaveThroughTraffic | `0x004325C0` | 1339 | pendiente |
-| 124 | 4 Difícil | wrapper | CCarCtrl::FindNodesThisCarIsNearestTo | `0x0042BD20` | 1323 | pendiente |
-| 164 | 4 Difícil | wrapper | FightHitPedExe | `0x0061CBA0` | 1289 | pendiente |
-| 132 | 4 Difícil | wrapper | CCarCtrl::SteerAICarTowardsPointInEscort | `0x004336D0` | 1223 | pendiente |
-| 143 | 4 Difícil | wrapper | CTaskComplexLeaveCar::CreateSubTask | `0x00641530` | 1214 | pendiente |
-| 135 | 4 Difícil | wrapper | CStoredCar::RestoreCar | `0x00447E40` | 1211 | pendiente |
-| 180 | 4 Difícil | wrapper | CHeli::PreRender | `0x006C5420` | 1204 | pendiente |
-| 122 | 4 Difícil | wrapper | CCarCtrl::SteerAICarWithPhysicsFollowPreRecordedPath | `0x00432DD0` | 1177 | pendiente |
-| 152 | 4 Difícil | wrapper | CCarCtrl::CreateConvoy | `0x0042C740` | 1168 | pendiente |
-| 120 | 4 Difícil | wrapper | CCarCtrl::FlyAIHeliToTarget_FixedOrientation | `0x00423940` | 1167 | pendiente |
-| 165 | 4 Difícil | wrapper | CCarCtrl::CreatePoliceChase | `0x0042C2B0` | 1161 | pendiente |
-| 100 | 4 Difícil | wrapper | CCarCtrl::TestCollisionBetween2MovingRects | `0x00425B30` | 1081 | pendiente |
-| 172 | 4 Difícil | wrapper | CTaskComplexLeaveCar::MakeAbortable | `0x00641100` | 1069 | pendiente |
-| 144 | 4 Difícil | wrapper | CCarCtrl::SlowCarDownForOtherCar | `0x0042D0E0` | 1032 | pendiente |
-| 158 | 4 Difícil | wrapper | CPlayerPed::MakeThisPedJoinOurGroup | `0x0060C840` | 1029 | pendiente |
-| 151 | 4 Difícil | wrapper | CAutomobile::Render | `0x006A2B10` | 1005 | pendiente |
-| 157 | 4 Difícil | wrapper | CVehicle::GetPlaneWeaponFiringStatus | `0x006E3440` | 944 | pendiente |
-| 118 | 4 Difícil | wrapper | CCarCtrl::SteerAIHeliToKeepEntityInView | `0x0042AEB0` | 939 | pendiente |
-| 156 | 4 Difícil | wrapper | CCarCtrl::IsThisAnAppropriateNode | `0x0042DAB0` | 932 | pendiente |
-| 103 | 4 Difícil | wrapper | CCarCtrl::ClitargetOrientationToLink | `0x00422760` | 918 | pendiente |
-| 137 | 4 Difícil | wrapper | CCarCtrl::SteerAIHeliToFollowEntity | `0x0042A750` | 896 | pendiente |
-| 160 | 4 Difícil | wrapper | CHeli::SendDownSwat | `0x006C69C0` | 869 | pendiente |
-| 138 | 4 Difícil | wrapper | CHeli::GenerateHeli | `0x006C6520` | 867 | pendiente |
-| 93 | 4 Difícil | wrapper | CCarCtrl::FindLinksToGoWithTheseNodes | `0x0042B470` | 862 | pendiente |
-| 123 | 4 Difícil | wrapper | CCarCtrl::SteerAICarWithPhysicsHeadingForTarget | `0x00433280` | 841 | pendiente |
-| 139 | 4 Difícil | wrapper | CTaskComplexPartnerChat::GetPartnerSequence | `0x00684380` | 836 | pendiente |
-| 168 | 4 Difícil | wrapper | CTaskComplexKillPedOnFoot::CreateNextSubTask | `0x0062B150` | 831 | pendiente |
-| 141 | 4 Difícil | wrapper | CCarCtrl::WeaveForObject | `0x00426BC0` | 803 | pendiente |
-| 128 | 4 Difícil | wrapper | CCarCtrl::SteerAICarParkPerpendicular | `0x00433EA0` | 800 | pendiente |
-| 113 | 4 Difícil | wrapper | CHeli::BlowUpCar | `0x006C6D30` | 795 | pendiente |
-| 150 | 4 Difícil | wrapper | CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents | `0x00603720` | 777 | pendiente |
-| 95 | 4 Difícil | embedded_call | helper sin símbolo confirmado (usado por CPlayerInfo::Process) | `0x0056EC80` | 776 | pendiente |
-| 134 | 4 Difícil | wrapper | CCarCtrl::SteerAICarParkParallel | `0x00433BA0` | 762 | pendiente |
-| 131 | 4 Difícil | wrapper | CCarCtrl::SteerAICarBlockingPlayerForwardAndBack | `0x00422B20` | 745 | pendiente |
-| 159 | 4 Difícil | wrapper | CStats::BuildStatLine | `0x00559230` | 735 | pendiente |
-| 111 | 4 Difícil | wrapper | CCarCtrl::SteerAIBoatWithPhysicsAttackingPlayer | `0x00428DE0` | 684 | pendiente |
-| 78 | 4 Difícil | wrapper | CCarCtrl::TestCollisionBetween2MovingRects_OnlyFrontBumper | `0x00425F70` | 672 | pendiente |
-| 96 | 4 Difícil | wrapper | CCarCtrl::ChooseModel | `0x00424CE0` | 672 | pendiente |
-| 127 | 4 Difícil | wrapper | CMentalState::Process | `0x006008A0` | 646 | pendiente |
-| 153 | 4 Difícil | wrapper | CTaskComplexWalkRoundObject::CreateFirstSubTask | `0x00657380` | 620 | pendiente |
-| 101 | 4 Difícil | wrapper | CCarCtrl::SteerAIBoatWithPhysicsCirclingPlayer | `0x00429090` | 613 | pendiente |
-| 125 | 4 Difícil | embedded_call | helper sin símbolo confirmado (usado por CWeaponEffects::Render) | `0x0056EF90` | 608 | pendiente |
-| 69 | 4 Difícil | embedded_call | CPed::SpecialEntityPreCollisionStuff | `0x005E3C30` | 603 | pendiente |
-| 94 | 4 Difícil | wrapper | CCarCtrl::SteerAICarWithPhysicsTryingToBlockTarget_Stop | `0x00428990` | 583 | pendiente |
-| 116 | 4 Difícil | embedded_call | CTaskSimpleSlideToCoord::ProcessPed | `0x0066C4E0` | 570 | pendiente |
-| 146 | 4 Difícil | wrapper | RsLoadPresetViews | `0x00619D60` | 552 | pendiente |
-| 109 | 4 Difícil | wrapper | Fx_c::AddWood | `0x0049EE10` | 549 | pendiente |
-| 133 | 4 Difícil | wrapper | CRemote::GivePlayerRemoteControlledCar | `0x0045AB10` | 548 | pendiente |
-| 97 | 4 Difícil | wrapper | CVehicle::FireHeatSeakingMissile | `0x006E05C0` | 529 | pendiente |
-| 105 | 4 Difícil | wrapper | CCarCtrl::TriggerDogFightMoves | `0x00429300` | 526 | pendiente |
-| 73 | 4 Difícil | wrapper | CCarCtrl::FindPathDirection | `0x00422090` | 515 | pendiente |
-| 58 | 4 Difícil | wrapper | CCarCtrl::FireHeliRocketsAtTarget | `0x0042B270` | 506 | pendiente |
-| 57 | 3 Media | wrapper | CCarCtrl::SteerAIBoatWithPhysicsHeadingForTarget | `0x00428BE0` | 497 | pendiente |
-| 119 | 3 Media | wrapper | FightHitObjExe | `0x0061D400` | 494 | pendiente |
-| 110 | 3 Media | wrapper | CTaskComplexFollowPedFootsteps::CreateSubTask | `0x00695E40` | 488 | pendiente |
-| 56 | 3 Media | embedded_call | CPathFind::FindParkingNodeInArea | `0x004513F0` | 476 | pendiente |
-| 91 | 3 Media | wrapper | CCarCtrl::SteerAIHeliAsPoliceHeli | `0x0042AAD0` | 475 | pendiente |
-| 117 | 3 Media | wrapper | CCarCtrl::GetAIPlaneToDoDogFight | `0x00429890` | 472 | pendiente |
-| 126 | 3 Media | wrapper | CCarCtrl::GetAIHeliToAttackPlayer | `0x0042F3C0` | 472 | pendiente |
-| 54 | 3 Media | wrapper | CVehicle::ScanAndMarkTargetForHeatSeekingMissile | `0x006E0400` | 445 | pendiente |
-| 149 | 3 Media | wrapper | D3DResourceSystem::DestroyTexture | `0x00730B70` | 439 | pendiente |
-| 108 | 3 Media | wrapper | CVehicle::AddReplacementUpgrade | `0x006D3830` | 423 | pendiente |
-| 106 | 3 Media | embedded_call | FxEmitter_c::AddParticle | `0x004A3EA0` | 418 | pendiente |
-| 142 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CDecisionMakerTypes::InjectHooks) | `0x004650F0` | 415 | pendiente |
-| 112 | 3 Media | wrapper | CCarCtrl::SlowCarDownForCarsSectorList | `0x00432420` | 413 | pendiente |
-| 104 | 3 Media | embedded_call | FxEmitter_c::AddParticle | `0x004A4050` | 400 | pendiente |
-| 68 | 3 Media | embedded_call | CHeli::CHeli | `0x006C4190` | 398 | pendiente |
-| 145 | 3 Media | wrapper | RsSavePresetView | `0x00619FA0` | 393 | pendiente |
-| 88 | 3 Media | wrapper | CCarCtrl::SlowCarDownForObjectsSectorList | `0x0042D4F0` | 391 | pendiente |
-| 51 | 3 Media | wrapper | CPlayerPed::EvaluateNeighbouringTarget | `0x0060D1C0` | 388 | pendiente |
-| 92 | 3 Media | wrapper | CGarage::IsStaticPlayerCarEntirelyInside | `0x0044A830` | 386 | pendiente |
-| 66 | 3 Media | wrapper | RpClumpGetBoundingSphere | `0x00734FC0` | 384 | pendiente |
-| 60 | 3 Media | wrapper | SkinGetBonePositionsToTable | `0x00735360` | 381 | pendiente |
-| 83 | 3 Media | wrapper | CCarCtrl::SteerAIHeliToLand | `0x0042AD30` | 370 | pendiente |
-| 89 | 3 Media | wrapper | CVehicle::PossiblyDropFreeFallBombForPlayer | `0x006E07E0` | 359 | pendiente |
-| 102 | 3 Media | wrapper | RwTextureGtaStreamRead | `0x00730E60` | 347 | pendiente |
-| 81 | 3 Media | wrapper | CCarCtrl::WeaveThroughPedsSectorList | `0x0042D7E0` | 346 | pendiente |
-| 75 | 3 Media | wrapper | CTaskComplexPartnerDeal::GetPartnerSequence | `0x00682440` | 344 | pendiente |
-| 82 | 3 Media | wrapper | CCarCtrl::WeaveThroughObjectsSectorList | `0x0042D950` | 343 | pendiente |
-| 64 | 3 Media | wrapper | CPed::SpecialEntityCalcCollisionSteps | `0x005E3E90` | 342 | pendiente |
-| 80 | 3 Media | wrapper | CCarCtrl::WeaveThroughCarsSectorList | `0x0042D680` | 341 | pendiente |
-| 129 | 3 Media | wrapper | CTaskComplexWalkRoundObject::ControlSubTask | `0x006575F0` | 341 | pendiente |
-| 136 | 3 Media | wrapper | CTaskComplexWalkRoundObject::CreateNextSubTask | `0x00657220` | 341 | pendiente |
-| 52 | 3 Media | wrapper | CVehicle::AddUpgrade | `0x006DFA20` | 333 | pendiente |
-| 77 | 3 Media | embedded_call | CDecision::MakeDecision | `0x006040D0` | 333 | pendiente |
-| 84 | 3 Media | wrapper | CGarage::IsEntityEntirelyInside3D | `0x00448BE0` | 333 | pendiente |
-| 46 | 3 Media | embedded_call | FxInterpInfoFloat_c::GetVal | `0x004A8470` | 330 | pendiente |
-| 130 | 3 Media | wrapper | CCarCtrl::PickNextNodeAccordingStrategy | `0x00432B10` | 321 | pendiente |
-| 99 | 3 Media | wrapper | CTaskSimpleFight::MakeAbortable | `0x006239F0` | 284 | pendiente |
-| 115 | 3 Media | wrapper | CTaskComplexFollowPedFootsteps::CreateNextSubTask | `0x00694EE0` | 283 | pendiente |
-| 107 | 3 Media | wrapper | CGarage::IsEntityEntirelyOutside | `0x00448D30` | 281 | pendiente |
-| 61 | 3 Media | wrapper | CTaskComplexPartnerShove::GetPartnerSequence | `0x00683120` | 275 | pendiente |
-| 114 | 3 Media | wrapper | D3DResourceSystem::DestroyIndexBuffer | `0x00730D30` | 263 | pendiente |
-| 121 | 3 Media | wrapper | CCarCtrl::GetAIPlaneToAttackPlayer | `0x00429780` | 261 | pendiente |
-| 98 | 3 Media | wrapper | CCarCtrl::SteerAIHeliTowardsTargetCoors | `0x0042A630` | 244 | pendiente |
-| 71 | 3 Media | wrapper | CCarCtrl::SteerAICarWithPhysicsTryingToBlockTarget | `0x004335E0` | 240 | pendiente |
-| 41 | 3 Media | wrapper | CPlantMgr::AtomicCreatePrelitIfNeeded | `0x005DD100` | 221 | pendiente |
-| 33 | 3 Media | wrapper | CQuaternion::Get | `0x0059C080` | 215 | pendiente |
-| 67 | 3 Media | wrapper | CCarCtrl::TestWhetherToFirePlaneGuns | `0x00429520` | 214 | pendiente |
-| 74 | 3 Media | wrapper | diPadInit | `0x007485C0` | 214 | ✅ validada |
-| 72 | 3 Media | wrapper | Fx_c::AddPunchImpact | `0x0049F670` | 209 | pendiente |
-| 32 | 3 Media | wrapper | CCarCtrl::FindPercDependingOnDistToLink | `0x00422620` | 208 | pendiente |
-| 36 | 3 Media | wrapper | CCarCtrl::SwitchBetweenPhysicsAndGhost | `0x004222A0` | 208 | pendiente |
-| 79 | 3 Media | wrapper | D3DResourceSystem::CreateTexture | `0x00730510` | 204 | pendiente |
-| 39 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CTaskSimpleGangDriveBy::AITarget) | `0x00621B10` | 201 | pendiente |
-| 37 | 3 Media | wrapper | CPlayerPed::PlayerWantsToAttack | `0x0060CC50` | 200 | pendiente |
-| 40 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CDecisionMakerTypes::InjectHooks) | `0x005BB9F0` | 197 | pendiente |
-| 43 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CCam::Process_DW_HeliChaseCam) | `0x0050E090` | 192 | pendiente |
-| 86 | 3 Media | wrapper | CTaskComplexPartner::ControlSubTask | `0x006840D0` | 192 | pendiente |
-| 22 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CCam::Process_DW_HeliChaseCam) | `0x0050E180` | 184 | pendiente |
-| 45 | 3 Media | wrapper | CTaskComplexPartner::CreateFirstSubTask | `0x00681F20` | 177 | pendiente |
-| 26 | 3 Media | wrapper | CCarCtrl::FindSpeedMultiplier | `0x004224E0` | 167 | pendiente |
-| 76 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CProjectileInfo::AddProjectile) | `0x005A4030` | 167 | pendiente |
-| 31 | 3 Media | wrapper | FightStrikeDamageExe | `0x0061C740` | 164 | pendiente |
-| 29 | 3 Media | embedded_call | CTrainNode::GetLightingFromCollision | `0x006F5F80` | 161 | pendiente |
-| 85 | 3 Media | wrapper | D3DResourceSystem::CreateIndexBuffer | `0x007306A0` | 153 | pendiente |
-| 30 | 3 Media | wrapper | CCustomBuildingDNPipeline::CustomPipeMaterialSetup | `0x005D7120` | 149 | pendiente |
+| 44 | 2 Fácil | wrapper | CTaskComplexPartnerDeal::CreateFirstSubTask | `0x006823B0` | 5 | pendiente |
+| 1 | 1 Muy fácil | embedded_call | helper sin símbolo confirmado (usado por FightUnwind) | `0x0061A3A0` | 7 | ✅ validada |
+| 20 | 2 Fácil | wrapper | CTaskComplexFollowPedFootsteps::MakeAbortable | `0x00694ED0` | 8 | pendiente |
+| 10 | 2 Fácil | embedded_call | helper sin símbolo confirmado (usado por CHud::DrawVitalStats) | `0x00406CE0` | 19 | pendiente |
+| 47 | 2 Fácil | wrapper | CCarCtrl::GetAIHeliToFlyInDirection | `0x0042A730` | 28 | pendiente |
+| 2 | 1 Muy fácil | embedded_call | CPool&lt;CVehicle&gt;::GetAt (acceso por índice a la ranura de 0xA18 bytes) | `0x0041CC10` | 31 | ✅ validada |
+| 4 | 1 Muy fácil | wrapper | CPedGroups::RemoveAllFollowersFromGroup | `0x005FB8A0` | 32 | ✅ validada |
+| 5 | 1 Muy fácil | wrapper | CDecisionMakerTypes::FlushDecisionMakerEventResponse | `0x00604490` | 35 | ✅ validada |
+| 13 | 2 Fácil | wrapper | CCarCtrl::ThisVehicleShouldTryNotToTurn | `0x00421FE0` | 38 | pendiente |
+| 3 | 1 Muy fácil | wrapper | CAutoPilot::RemoveOnePathNode | `0x0041B950` | 45 | ✅ validada |
+| 6 | 1 Muy fácil | wrapper | CGarages::CountCarsInHideoutGarage | `0x0044A210` | 47 | ✅ validada |
+| 24 | 2 Fácil | wrapper | CTaskComplexKillPedOnFoot::MakeAbortable | `0x00625E40` | 48 | pendiente |
+| 14 | 1 Muy fácil | wrapper | CAEStreamingDecoder scalar deleting destructor (operator delete de la clase) | `0x004F2860` | 50 | ✅ validada |
+| 48 | 2 Fácil | wrapper | CDecisionMakerTypes::AddEventResponse | `0x006044C0` | 50 | pendiente |
+| 12 | 1 Muy fácil | embedded_call | helper sin símbolo confirmado (usado por GetAnimHierarchyFromFrame) | `0x00734A70` | 51 | pendiente |
+| 8 | 1 Muy fácil | wrapper | FindReplacementUpgradeCB | `0x006D3490` | 53 | ✅ validada |
+| 50 | 2 Fácil | wrapper | CTaskComplexPartner::RemoveStreamedAnims | `0x00682370` | 56 | pendiente |
+| 16 | 3 Media | wrapper | CQuaternion::Get | `0x0059C230` | 57 | pendiente |
+| 49 | 2 Fácil | embedded_call | helper sin símbolo confirmado (usado por CDecisionMakerTypes::InjectHooks) | `0x00606060` | 59 | pendiente |
+| 9 | 2 Fácil | wrapper | FindUpgradeCB | `0x006D3370` | 61 | pendiente |
+| 27 | 2 Fácil | wrapper | CTaskComplexPartnerChat::MakeAbortable | `0x00682C60` | 65 | pendiente |
+| 55 | 3 Media | wrapper | CCarCtrl::SteerAIPlaneTowardsTargetCoors | `0x00423790` | 75 | pendiente |
+| 90 | 2 Fácil | wrapper | CCarCtrl::GetAIPlaneToDoDogFightAgainstPlayer | `0x0042F370` | 76 | pendiente |
+| 19 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CameraObbeCinemaCycle) | `0x0050B830` | 77 | pendiente |
+| 7 | 2 Fácil | wrapper | CCarCtrl::SteerAIPlaneToCrashAndBurn | `0x00423880` | 81 | pendiente |
+| 42 | 2 Fácil | embedded_call | helper sin símbolo confirmado (usado por WaitForPedUnwind) | `0x0061A3D0` | 85 | pendiente |
+| 17 | 3 Media | wrapper | CCarCtrl::SteerAIHeliToCrashAndBurn | `0x004238E0` | 89 | pendiente |
+| 53 | 2 Fácil | wrapper | CSearchLight::IsSpottedEntity | `0x00493900` | 90 | pendiente |
+| 18 | 2 Fácil | wrapper | CTaskComplexPartner::StreamRequiredAnims | `0x00682310` | 93 | pendiente |
+| 21 | 3 Media | wrapper | CCarCtrl::FindIntersection2Lines | `0x004226F0` | 100 | pendiente |
+| 87 | 2 Fácil | embedded_call | helper sin símbolo confirmado (usado por CAEUserRadioTrackManager::WriteUserTracksFile) | `0x004F4620` | 102 | pendiente |
+| 34 | 2 Fácil | wrapper | RemoveUpgradeCB | `0x006D3300` | 108 | pendiente |
+| 35 | 2 Fácil | embedded_call | helper sin símbolo confirmado (usado por CTaskSimpleCarDrive::StartRollingDoor) | `0x0063C840` | 108 | pendiente |
+| 11 | 2 Fácil | wrapper | CStats::FindLeastFavoriteRadioStation | `0x00559010` | 110 | pendiente |
+| 62 | 2 Fácil | wrapper | CTaskComplexPartnerDeal::StreamRequiredAnims | `0x006823C0` | 113 | pendiente |
+| 63 | 3 Media | wrapper | CCarCtrl::SteerAIHeliFlyingAwayFromPlayer | `0x0042ACB0` | 122 | pendiente |
+| 23 | 3 Media | embedded_call | TransformPoint | `0x0059C890` | 124 | pendiente |
+| 70 | 2 Fácil | embedded_call | helper sin símbolo confirmado (usado por ProcessPlayerVehicleInteraction) | `0x006919C0` | 126 | pendiente |
+| 38 | 2 Fácil | wrapper | CreateRouteTask | `0x00655140` | 130 | pendiente |
+| 15 | 2 Fácil | wrapper | CCarCtrl::StopCarIfNodesAreInvalid | `0x00422590` | 137 | pendiente |
 | 25 | 2 Fácil | embedded_call | CHeli::FindSwatPositionRelativeToHeli | `0x006C4760` | 141 | pendiente |
 | 28 | 3 Media | embedded_call | CGarage::IsGarageEmpty | `0x0044A9C0` | 141 | pendiente |
 | 59 | 3 Media | wrapper | CCarCtrl::SteerAIPlaneToFollowEntity | `0x004237F0` | 141 | pendiente |
 | 65 | 3 Media | wrapper | CTaskComplexFollowPedFootsteps::CreateFirstSubTask | `0x00695000` | 141 | pendiente |
-| 15 | 2 Fácil | wrapper | CCarCtrl::StopCarIfNodesAreInvalid | `0x00422590` | 137 | pendiente |
-| 38 | 2 Fácil | wrapper | CreateRouteTask | `0x00655140` | 130 | pendiente |
-| 70 | 2 Fácil | embedded_call | helper sin símbolo confirmado (usado por ProcessPlayerVehicleInteraction) | `0x006919C0` | 126 | pendiente |
-| 23 | 3 Media | embedded_call | TransformPoint | `0x0059C890` | 124 | pendiente |
-| 63 | 3 Media | wrapper | CCarCtrl::SteerAIHeliFlyingAwayFromPlayer | `0x0042ACB0` | 122 | pendiente |
-| 62 | 2 Fácil | wrapper | CTaskComplexPartnerDeal::StreamRequiredAnims | `0x006823C0` | 113 | pendiente |
-| 11 | 2 Fácil | wrapper | CStats::FindLeastFavoriteRadioStation | `0x00559010` | 110 | pendiente |
-| 34 | 2 Fácil | wrapper | RemoveUpgradeCB | `0x006D3300` | 108 | pendiente |
-| 35 | 2 Fácil | embedded_call | helper sin símbolo confirmado (usado por CTaskSimpleCarDrive::StartRollingDoor) | `0x0063C840` | 108 | pendiente |
-| 87 | 2 Fácil | embedded_call | helper sin símbolo confirmado (usado por CAEUserRadioTrackManager::WriteUserTracksFile) | `0x004F4620` | 102 | pendiente |
-| 21 | 3 Media | wrapper | CCarCtrl::FindIntersection2Lines | `0x004226F0` | 100 | pendiente |
-| 18 | 2 Fácil | wrapper | CTaskComplexPartner::StreamRequiredAnims | `0x00682310` | 93 | pendiente |
-| 53 | 2 Fácil | wrapper | CSearchLight::IsSpottedEntity | `0x00493900` | 90 | pendiente |
-| 17 | 3 Media | wrapper | CCarCtrl::SteerAIHeliToCrashAndBurn | `0x004238E0` | 89 | pendiente |
-| 42 | 2 Fácil | embedded_call | helper sin símbolo confirmado (usado por WaitForPedUnwind) | `0x0061A3D0` | 85 | pendiente |
-| 7 | 2 Fácil | wrapper | CCarCtrl::SteerAIPlaneToCrashAndBurn | `0x00423880` | 81 | pendiente |
-| 19 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CameraObbeCinemaCycle) | `0x0050B830` | 77 | pendiente |
-| 90 | 2 Fácil | wrapper | CCarCtrl::GetAIPlaneToDoDogFightAgainstPlayer | `0x0042F370` | 76 | pendiente |
-| 55 | 3 Media | wrapper | CCarCtrl::SteerAIPlaneTowardsTargetCoors | `0x00423790` | 75 | pendiente |
-| 27 | 2 Fácil | wrapper | CTaskComplexPartnerChat::MakeAbortable | `0x00682C60` | 65 | pendiente |
-| 9 | 2 Fácil | wrapper | FindUpgradeCB | `0x006D3370` | 61 | pendiente |
-| 49 | 2 Fácil | embedded_call | helper sin símbolo confirmado (usado por CDecisionMakerTypes::InjectHooks) | `0x00606060` | 59 | pendiente |
-| 16 | 3 Media | wrapper | CQuaternion::Get | `0x0059C230` | 57 | pendiente |
-| 50 | 2 Fácil | wrapper | CTaskComplexPartner::RemoveStreamedAnims | `0x00682370` | 56 | pendiente |
-| 8 | 1 Muy fácil | wrapper | FindReplacementUpgradeCB | `0x006D3490` | 53 | ✅ validada |
-| 12 | 1 Muy fácil | embedded_call | helper sin símbolo confirmado (usado por GetAnimHierarchyFromFrame) | `0x00734A70` | 51 | pendiente |
-| 14 | 1 Muy fácil | wrapper | CAEStreamingDecoder scalar deleting destructor (operator delete de la clase) | `0x004F2860` | 50 | ✅ validada |
-| 48 | 2 Fácil | wrapper | CDecisionMakerTypes::AddEventResponse | `0x006044C0` | 50 | pendiente |
-| 24 | 2 Fácil | wrapper | CTaskComplexKillPedOnFoot::MakeAbortable | `0x00625E40` | 48 | pendiente |
-| 6 | 1 Muy fácil | wrapper | CGarages::CountCarsInHideoutGarage | `0x0044A210` | 47 | ✅ validada |
-| 3 | 1 Muy fácil | wrapper | CAutoPilot::RemoveOnePathNode | `0x0041B950` | 45 | ✅ validada |
-| 13 | 2 Fácil | wrapper | CCarCtrl::ThisVehicleShouldTryNotToTurn | `0x00421FE0` | 38 | pendiente |
-| 5 | 1 Muy fácil | wrapper | CDecisionMakerTypes::FlushDecisionMakerEventResponse | `0x00604490` | 35 | ✅ validada |
-| 4 | 1 Muy fácil | wrapper | CPedGroups::RemoveAllFollowersFromGroup | `0x005FB8A0` | 32 | ✅ validada |
-| 2 | 1 Muy fácil | embedded_call | CPool&lt;CVehicle&gt;::GetAt (acceso por índice a la ranura de 0xA18 bytes) | `0x0041CC10` | 31 | ✅ validada |
-| 47 | 2 Fácil | wrapper | CCarCtrl::GetAIHeliToFlyInDirection | `0x0042A730` | 28 | pendiente |
-| 10 | 2 Fácil | embedded_call | helper sin símbolo confirmado (usado por CHud::DrawVitalStats) | `0x00406CE0` | 19 | pendiente |
-| 20 | 2 Fácil | wrapper | CTaskComplexFollowPedFootsteps::MakeAbortable | `0x00694ED0` | 8 | pendiente |
-| 1 | 1 Muy fácil | embedded_call | helper sin símbolo confirmado (usado por FightUnwind) | `0x0061A3A0` | 7 | ✅ validada |
-| 44 | 2 Fácil | wrapper | CTaskComplexPartnerDeal::CreateFirstSubTask | `0x006823B0` | 5 | pendiente |
+| 30 | 3 Media | wrapper | CCustomBuildingDNPipeline::CustomPipeMaterialSetup | `0x005D7120` | 149 | pendiente |
+| 85 | 3 Media | wrapper | D3DResourceSystem::CreateIndexBuffer | `0x007306A0` | 153 | pendiente |
+| 29 | 3 Media | embedded_call | CTrainNode::GetLightingFromCollision | `0x006F5F80` | 161 | pendiente |
+| 31 | 3 Media | wrapper | FightStrikeDamageExe | `0x0061C740` | 164 | pendiente |
+| 26 | 3 Media | wrapper | CCarCtrl::FindSpeedMultiplier | `0x004224E0` | 167 | pendiente |
+| 76 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CProjectileInfo::AddProjectile) | `0x005A4030` | 167 | pendiente |
+| 45 | 3 Media | wrapper | CTaskComplexPartner::CreateFirstSubTask | `0x00681F20` | 177 | pendiente |
+| 22 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CCam::Process_DW_HeliChaseCam) | `0x0050E180` | 184 | pendiente |
+| 43 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CCam::Process_DW_HeliChaseCam) | `0x0050E090` | 192 | pendiente |
+| 86 | 3 Media | wrapper | CTaskComplexPartner::ControlSubTask | `0x006840D0` | 192 | pendiente |
+| 40 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CDecisionMakerTypes::InjectHooks) | `0x005BB9F0` | 197 | pendiente |
+| 37 | 3 Media | wrapper | CPlayerPed::PlayerWantsToAttack | `0x0060CC50` | 200 | pendiente |
+| 39 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CTaskSimpleGangDriveBy::AITarget) | `0x00621B10` | 201 | pendiente |
+| 79 | 3 Media | wrapper | D3DResourceSystem::CreateTexture | `0x00730510` | 204 | pendiente |
+| 32 | 3 Media | wrapper | CCarCtrl::FindPercDependingOnDistToLink | `0x00422620` | 208 | pendiente |
+| 36 | 3 Media | wrapper | CCarCtrl::SwitchBetweenPhysicsAndGhost | `0x004222A0` | 208 | pendiente |
+| 72 | 3 Media | wrapper | Fx_c::AddPunchImpact | `0x0049F670` | 209 | pendiente |
+| 67 | 3 Media | wrapper | CCarCtrl::TestWhetherToFirePlaneGuns | `0x00429520` | 214 | pendiente |
+| 74 | 3 Media | wrapper | diPadInit | `0x007485C0` | 214 | ✅ validada |
+| 33 | 3 Media | wrapper | CQuaternion::Get | `0x0059C080` | 215 | pendiente |
+| 41 | 3 Media | wrapper | CPlantMgr::AtomicCreatePrelitIfNeeded | `0x005DD100` | 221 | pendiente |
+| 71 | 3 Media | wrapper | CCarCtrl::SteerAICarWithPhysicsTryingToBlockTarget | `0x004335E0` | 240 | pendiente |
+| 98 | 3 Media | wrapper | CCarCtrl::SteerAIHeliTowardsTargetCoors | `0x0042A630` | 244 | pendiente |
+| 121 | 3 Media | wrapper | CCarCtrl::GetAIPlaneToAttackPlayer | `0x00429780` | 261 | pendiente |
+| 114 | 3 Media | wrapper | D3DResourceSystem::DestroyIndexBuffer | `0x00730D30` | 263 | pendiente |
+| 61 | 3 Media | wrapper | CTaskComplexPartnerShove::GetPartnerSequence | `0x00683120` | 275 | pendiente |
+| 107 | 3 Media | wrapper | CGarage::IsEntityEntirelyOutside | `0x00448D30` | 281 | pendiente |
+| 115 | 3 Media | wrapper | CTaskComplexFollowPedFootsteps::CreateNextSubTask | `0x00694EE0` | 283 | pendiente |
+| 99 | 3 Media | wrapper | CTaskSimpleFight::MakeAbortable | `0x006239F0` | 284 | pendiente |
+| 130 | 3 Media | wrapper | CCarCtrl::PickNextNodeAccordingStrategy | `0x00432B10` | 321 | pendiente |
+| 46 | 3 Media | embedded_call | FxInterpInfoFloat_c::GetVal | `0x004A8470` | 330 | pendiente |
+| 52 | 3 Media | wrapper | CVehicle::AddUpgrade | `0x006DFA20` | 333 | pendiente |
+| 77 | 3 Media | embedded_call | CDecision::MakeDecision | `0x006040D0` | 333 | pendiente |
+| 84 | 3 Media | wrapper | CGarage::IsEntityEntirelyInside3D | `0x00448BE0` | 333 | pendiente |
+| 80 | 3 Media | wrapper | CCarCtrl::WeaveThroughCarsSectorList | `0x0042D680` | 341 | pendiente |
+| 129 | 3 Media | wrapper | CTaskComplexWalkRoundObject::ControlSubTask | `0x006575F0` | 341 | pendiente |
+| 136 | 3 Media | wrapper | CTaskComplexWalkRoundObject::CreateNextSubTask | `0x00657220` | 341 | pendiente |
+| 64 | 3 Media | wrapper | CPed::SpecialEntityCalcCollisionSteps | `0x005E3E90` | 342 | pendiente |
+| 82 | 3 Media | wrapper | CCarCtrl::WeaveThroughObjectsSectorList | `0x0042D950` | 343 | pendiente |
+| 75 | 3 Media | wrapper | CTaskComplexPartnerDeal::GetPartnerSequence | `0x00682440` | 344 | pendiente |
+| 81 | 3 Media | wrapper | CCarCtrl::WeaveThroughPedsSectorList | `0x0042D7E0` | 346 | pendiente |
+| 102 | 3 Media | wrapper | RwTextureGtaStreamRead | `0x00730E60` | 347 | pendiente |
+| 89 | 3 Media | wrapper | CVehicle::PossiblyDropFreeFallBombForPlayer | `0x006E07E0` | 359 | pendiente |
+| 83 | 3 Media | wrapper | CCarCtrl::SteerAIHeliToLand | `0x0042AD30` | 370 | pendiente |
+| 60 | 3 Media | wrapper | SkinGetBonePositionsToTable | `0x00735360` | 381 | pendiente |
+| 66 | 3 Media | wrapper | RpClumpGetBoundingSphere | `0x00734FC0` | 384 | pendiente |
+| 92 | 3 Media | wrapper | CGarage::IsStaticPlayerCarEntirelyInside | `0x0044A830` | 386 | pendiente |
+| 51 | 3 Media | wrapper | CPlayerPed::EvaluateNeighbouringTarget | `0x0060D1C0` | 388 | pendiente |
+| 88 | 3 Media | wrapper | CCarCtrl::SlowCarDownForObjectsSectorList | `0x0042D4F0` | 391 | pendiente |
+| 145 | 3 Media | wrapper | RsSavePresetView | `0x00619FA0` | 393 | pendiente |
+| 68 | 3 Media | embedded_call | CHeli::CHeli | `0x006C4190` | 398 | pendiente |
+| 104 | 3 Media | embedded_call | FxEmitter_c::AddParticle | `0x004A4050` | 400 | pendiente |
+| 112 | 3 Media | wrapper | CCarCtrl::SlowCarDownForCarsSectorList | `0x00432420` | 413 | pendiente |
+| 142 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CDecisionMakerTypes::InjectHooks) | `0x004650F0` | 415 | pendiente |
+| 106 | 3 Media | embedded_call | FxEmitter_c::AddParticle | `0x004A3EA0` | 418 | pendiente |
+| 108 | 3 Media | wrapper | CVehicle::AddReplacementUpgrade | `0x006D3830` | 423 | pendiente |
+| 149 | 3 Media | wrapper | D3DResourceSystem::DestroyTexture | `0x00730B70` | 439 | pendiente |
+| 54 | 3 Media | wrapper | CVehicle::ScanAndMarkTargetForHeatSeekingMissile | `0x006E0400` | 445 | pendiente |
+| 117 | 3 Media | wrapper | CCarCtrl::GetAIPlaneToDoDogFight | `0x00429890` | 472 | pendiente |
+| 126 | 3 Media | wrapper | CCarCtrl::GetAIHeliToAttackPlayer | `0x0042F3C0` | 472 | pendiente |
+| 91 | 3 Media | wrapper | CCarCtrl::SteerAIHeliAsPoliceHeli | `0x0042AAD0` | 475 | pendiente |
+| 56 | 3 Media | embedded_call | CPathFind::FindParkingNodeInArea | `0x004513F0` | 476 | pendiente |
+| 110 | 3 Media | wrapper | CTaskComplexFollowPedFootsteps::CreateSubTask | `0x00695E40` | 488 | pendiente |
+| 119 | 3 Media | wrapper | FightHitObjExe | `0x0061D400` | 494 | pendiente |
+| 57 | 3 Media | wrapper | CCarCtrl::SteerAIBoatWithPhysicsHeadingForTarget | `0x00428BE0` | 497 | pendiente |
+| 58 | 4 Difícil | wrapper | CCarCtrl::FireHeliRocketsAtTarget | `0x0042B270` | 506 | pendiente |
+| 73 | 4 Difícil | wrapper | CCarCtrl::FindPathDirection | `0x00422090` | 515 | pendiente |
+| 105 | 4 Difícil | wrapper | CCarCtrl::TriggerDogFightMoves | `0x00429300` | 526 | pendiente |
+| 97 | 4 Difícil | wrapper | CVehicle::FireHeatSeakingMissile | `0x006E05C0` | 529 | pendiente |
+| 133 | 4 Difícil | wrapper | CRemote::GivePlayerRemoteControlledCar | `0x0045AB10` | 548 | pendiente |
+| 109 | 4 Difícil | wrapper | Fx_c::AddWood | `0x0049EE10` | 549 | pendiente |
+| 146 | 4 Difícil | wrapper | RsLoadPresetViews | `0x00619D60` | 552 | pendiente |
+| 116 | 4 Difícil | embedded_call | CTaskSimpleSlideToCoord::ProcessPed | `0x0066C4E0` | 570 | pendiente |
+| 94 | 4 Difícil | wrapper | CCarCtrl::SteerAICarWithPhysicsTryingToBlockTarget_Stop | `0x00428990` | 583 | pendiente |
+| 69 | 4 Difícil | embedded_call | CPed::SpecialEntityPreCollisionStuff | `0x005E3C30` | 603 | pendiente |
+| 125 | 4 Difícil | embedded_call | helper sin símbolo confirmado (usado por CWeaponEffects::Render) | `0x0056EF90` | 608 | pendiente |
+| 101 | 4 Difícil | wrapper | CCarCtrl::SteerAIBoatWithPhysicsCirclingPlayer | `0x00429090` | 613 | pendiente |
+| 153 | 4 Difícil | wrapper | CTaskComplexWalkRoundObject::CreateFirstSubTask | `0x00657380` | 620 | pendiente |
+| 127 | 4 Difícil | wrapper | CMentalState::Process | `0x006008A0` | 646 | pendiente |
+| 78 | 4 Difícil | wrapper | CCarCtrl::TestCollisionBetween2MovingRects_OnlyFrontBumper | `0x00425F70` | 672 | pendiente |
+| 96 | 4 Difícil | wrapper | CCarCtrl::ChooseModel | `0x00424CE0` | 672 | pendiente |
+| 111 | 4 Difícil | wrapper | CCarCtrl::SteerAIBoatWithPhysicsAttackingPlayer | `0x00428DE0` | 684 | pendiente |
+| 159 | 4 Difícil | wrapper | CStats::BuildStatLine | `0x00559230` | 735 | pendiente |
+| 131 | 4 Difícil | wrapper | CCarCtrl::SteerAICarBlockingPlayerForwardAndBack | `0x00422B20` | 745 | pendiente |
+| 134 | 4 Difícil | wrapper | CCarCtrl::SteerAICarParkParallel | `0x00433BA0` | 762 | pendiente |
+| 95 | 4 Difícil | embedded_call | helper sin símbolo confirmado (usado por CPlayerInfo::Process) | `0x0056EC80` | 776 | pendiente |
+| 150 | 4 Difícil | wrapper | CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents | `0x00603720` | 777 | pendiente |
+| 113 | 4 Difícil | wrapper | CHeli::BlowUpCar | `0x006C6D30` | 795 | pendiente |
+| 128 | 4 Difícil | wrapper | CCarCtrl::SteerAICarParkPerpendicular | `0x00433EA0` | 800 | pendiente |
+| 141 | 4 Difícil | wrapper | CCarCtrl::WeaveForObject | `0x00426BC0` | 803 | pendiente |
+| 168 | 4 Difícil | wrapper | CTaskComplexKillPedOnFoot::CreateNextSubTask | `0x0062B150` | 831 | pendiente |
+| 139 | 4 Difícil | wrapper | CTaskComplexPartnerChat::GetPartnerSequence | `0x00684380` | 836 | pendiente |
+| 123 | 4 Difícil | wrapper | CCarCtrl::SteerAICarWithPhysicsHeadingForTarget | `0x00433280` | 841 | pendiente |
+| 93 | 4 Difícil | wrapper | CCarCtrl::FindLinksToGoWithTheseNodes | `0x0042B470` | 862 | pendiente |
+| 138 | 4 Difícil | wrapper | CHeli::GenerateHeli | `0x006C6520` | 867 | pendiente |
+| 160 | 4 Difícil | wrapper | CHeli::SendDownSwat | `0x006C69C0` | 869 | pendiente |
+| 137 | 4 Difícil | wrapper | CCarCtrl::SteerAIHeliToFollowEntity | `0x0042A750` | 896 | pendiente |
+| 103 | 4 Difícil | wrapper | CCarCtrl::ClitargetOrientationToLink | `0x00422760` | 918 | pendiente |
+| 156 | 4 Difícil | wrapper | CCarCtrl::IsThisAnAppropriateNode | `0x0042DAB0` | 932 | pendiente |
+| 118 | 4 Difícil | wrapper | CCarCtrl::SteerAIHeliToKeepEntityInView | `0x0042AEB0` | 939 | pendiente |
+| 157 | 4 Difícil | wrapper | CVehicle::GetPlaneWeaponFiringStatus | `0x006E3440` | 944 | pendiente |
+| 151 | 4 Difícil | wrapper | CAutomobile::Render | `0x006A2B10` | 1005 | pendiente |
+| 158 | 4 Difícil | wrapper | CPlayerPed::MakeThisPedJoinOurGroup | `0x0060C840` | 1029 | pendiente |
+| 144 | 4 Difícil | wrapper | CCarCtrl::SlowCarDownForOtherCar | `0x0042D0E0` | 1032 | pendiente |
+| 172 | 4 Difícil | wrapper | CTaskComplexLeaveCar::MakeAbortable | `0x00641100` | 1069 | pendiente |
+| 100 | 4 Difícil | wrapper | CCarCtrl::TestCollisionBetween2MovingRects | `0x00425B30` | 1081 | pendiente |
+| 165 | 4 Difícil | wrapper | CCarCtrl::CreatePoliceChase | `0x0042C2B0` | 1161 | pendiente |
+| 120 | 4 Difícil | wrapper | CCarCtrl::FlyAIHeliToTarget_FixedOrientation | `0x00423940` | 1167 | pendiente |
+| 152 | 4 Difícil | wrapper | CCarCtrl::CreateConvoy | `0x0042C740` | 1168 | pendiente |
+| 122 | 4 Difícil | wrapper | CCarCtrl::SteerAICarWithPhysicsFollowPreRecordedPath | `0x00432DD0` | 1177 | pendiente |
+| 180 | 4 Difícil | wrapper | CHeli::PreRender | `0x006C5420` | 1204 | pendiente |
+| 135 | 4 Difícil | wrapper | CStoredCar::RestoreCar | `0x00447E40` | 1211 | pendiente |
+| 143 | 4 Difícil | wrapper | CTaskComplexLeaveCar::CreateSubTask | `0x00641530` | 1214 | pendiente |
+| 132 | 4 Difícil | wrapper | CCarCtrl::SteerAICarTowardsPointInEscort | `0x004336D0` | 1223 | pendiente |
+| 164 | 4 Difícil | wrapper | FightHitPedExe | `0x0061CBA0` | 1289 | pendiente |
+| 124 | 4 Difícil | wrapper | CCarCtrl::FindNodesThisCarIsNearestTo | `0x0042BD20` | 1323 | pendiente |
+| 154 | 4 Difícil | wrapper | CCarCtrl::FindAngleToWeaveThroughTraffic | `0x004325C0` | 1339 | pendiente |
+| 174 | 4 Difícil | wrapper | CTaskComplexFollowPedFootsteps::ControlSubTask | `0x00695090` | 1341 | pendiente |
+| 183 | 4 Difícil | wrapper | CTaskComplexLeaveCar::CreateNextSubTask | `0x006419F0` | 1428 | pendiente |
+| 148 | 4 Difícil | embedded_call | FxEmitter_c::CreateParticle | `0x004A2580` | 1434 | pendiente |
+| 177 | 4 Difícil | wrapper | __MainWndProc | `0x00747EB0` | 1458 | ✅ validada |
+| 161 | 4 Difícil | wrapper | CHeli::ProcessFlyingCarStuff | `0x006C4E60` | 1467 | pendiente |
+| 171 | 5 Muy difícil | wrapper | CTaskComplexPartner::CreateNextSubTask | `0x00683AD0` | 1521 | pendiente |
+| 167 | 5 Muy difícil | wrapper | CCarCtrl::WeaveForOtherCar | `0x00426350` | 1558 | pendiente |
+| 173 | 5 Muy difícil | wrapper | CHeli::ProcessControlInputs | `0x006C4830` | 1571 | pendiente |
+| 147 | 5 Muy difícil | wrapper | CCarCtrl::DragCarToPoint | `0x0042EC90` | 1748 | pendiente |
+| 166 | 5 Muy difícil | wrapper | CCarCtrl::SlowCarDownForPedsSectorList | `0x00425440` | 1761 | pendiente |
+| 176 | 5 Muy difícil | wrapper | CTaskSimpleFight::ProcessPed | `0x00629920` | 1907 | pendiente |
+| 140 | 5 Muy difícil | wrapper | CCarCtrl::FlyAIPlaneInCertainDirection | `0x00423000` | 1917 | pendiente |
+| 179 | 5 Muy difícil | wrapper | CMissionCleanup::Process | `0x00468560` | 1955 | pendiente |
+| 155 | 5 Muy difícil | wrapper | CCarCtrl::PickNextNodeToChaseCar | `0x00426EF0` | 2111 | pendiente |
+| 163 | 5 Muy difícil | wrapper | CCarCtrl::PickNextNodeToFollowPath | `0x00427740` | 2193 | pendiente |
+| 175 | 5 Muy difícil | wrapper | CHeli::ProcessControl | `0x006C7050` | 2352 | pendiente |
+| 169 | 5 Muy difícil | wrapper | CCarCtrl::DealWithBend_Racing | `0x00428040` | 2361 | pendiente |
+| 162 | 5 Muy difícil | wrapper | CCarCtrl::FlyAIHeliInCertainDirection | `0x00429A70` | 2994 | pendiente |
+| 181 | 5 Muy difícil | wrapper | CCarCtrl::SteerAICarWithPhysicsFollowPath_Racing | `0x00435830` | 3320 | pendiente |
+| 184 | 5 Muy difícil | embedded_call | helper sin símbolo confirmado (usado por CameraObbeCinemaCycle) | `0x0051D770` | 3445 | pendiente |
+| 170 | 5 Muy difícil | wrapper | CCarCtrl::PickNextNodeRandomly | `0x0042DE80` | 3591 | pendiente |
+| 182 | 5 Muy difícil | wrapper | CCarCtrl::SteerAICarWithPhysicsFollowPath | `0x00434900` | 3729 | pendiente |
+| 185 | 5 Muy difícil | wrapper | CCarCtrl::SteerAICarWithPhysics_OnlyMission | `0x00436A90` | 4243 | pendiente |
+| 178 | 5 Muy difícil | wrapper | CPed::ProcessEntityCollision | `0x005E2530` | 4342 | pendiente |
 
 </details>
 
 <details>
-<summary>Bibliotecas (RenderWare, controlador D3D9, CRT, QuickTime) (279), de mayor a menor tamaño en bytes</summary>
+<summary>Bibliotecas (RenderWare, controlador D3D9, CRT, QuickTime) (279), de menor a mayor tamaño en bytes</summary>
 
 | Rango | Nivel | Subcategoría | Función | Dirección | Bytes | Estado |
 | ---: | --- | --- | --- | --- | ---: | --- |
-| 279 | 5 Muy difícil | CRT / runtime estático | helper sin símbolo confirmado (usado por FlcCrtPow) | `0x00829B99` | 2861 | pendiente |
-| 278 | 5 Muy difícil | Controlador D3D9 de RenderWare | _rpD3D9VertexDeclarationInstV3dMorph | `0x00753B60` | 2370 | pendiente |
-| 277 | 5 Muy difícil | Controlador D3D9 de RenderWare | _rpD3D9VertexDeclarationInstWeights | `0x00752320` | 1908 | pendiente |
-| 276 | 5 Muy difícil | CRT / runtime estático | helper sin símbolo confirmado (usado por CrtPrintf) | `0x00827F4B` | 1904 | pendiente |
-| 275 | 5 Muy difícil | Controlador D3D9 de RenderWare | _rwD3D9RenderStateReset | `0x007FD100` | 1806 | pendiente |
-| 274 | 5 Muy difícil | Controlador D3D9 de RenderWare | _rpD3D9VertexDeclarationInstV3d | `0x00752AD0` | 1700 | pendiente |
-| 273 | 4 Difícil | Controlador D3D9 de RenderWare | _rpD3D9VertexDeclarationInstV2d | `0x007544E0` | 1467 | pendiente |
-| 272 | 4 Difícil | RenderWare SDK | RpGeometryStreamRead | `0x0074D190` | 1332 | pendiente |
-| 271 | 4 Difícil | RenderWare SDK | RwPalQuantResolvePalette | `0x0080AF60` | 1320 | pendiente |
-| 270 | 4 Difícil | RenderWare SDK | RwPalQuantMatchImage | `0x0080BF20` | 1289 | pendiente |
-| 269 | 4 Difícil | RenderWare SDK | RwImageResample | `0x0080C600` | 1045 | pendiente |
-| 268 | 4 Difícil | RenderWare SDK | RtPNGImageRead | `0x007CF9B0` | 1039 | pendiente |
-| 267 | 4 Difícil | Controlador D3D9 de RenderWare | _rxD3D9VideoMemoryRasterListRestore | `0x004CC970` | 990 | pendiente |
-| 266 | 4 Difícil | Controlador D3D9 de RenderWare | _rpD3D9VertexDeclarationInstTangent | `0x00754E20` | 973 | pendiente |
-| 264 | 4 Difícil | Controlador D3D9 de RenderWare | _rpD3D9VertexDeclarationUnInstV3d | `0x007551F0` | 936 | pendiente |
-| 265 | 4 Difícil | RenderWare SDK | RwImageApplyMask | `0x00802AF0` | 936 | pendiente |
-| 263 | 4 Difícil | RenderWare SDK | _rpMaterialListStreamRead | `0x0074E600` | 870 | pendiente |
-| 262 | 4 Difícil | RenderWare SDK | RwPalQuantAddImage | `0x0080AA80` | 784 | pendiente |
-| 261 | 4 Difícil | RenderWare SDK | RpMaterialStreamRead | `0x0074DD30` | 724 | pendiente |
-| 260 | 4 Difícil | RenderWare SDK | RwMatrixRotateOneMinusCosineSine | `0x007F1D00` | 717 | pendiente |
-| 259 | 4 Difícil | RenderWare SDK | RpWorldUnlock | `0x0074F210` | 710 | pendiente |
-| 258 | 4 Difícil | RenderWare SDK | _rwFrameListStreamRead | `0x00807970` | 671 | pendiente |
-| 257 | 4 Difícil | RenderWare SDK | RwIm3DSetRenderPipeline | `0x007EFB10` | 644 | pendiente |
-| 256 | 4 Difícil | RenderWare SDK | _rwStringStreamFindAndRead | `0x0080A510` | 609 | pendiente |
-| 255 | 4 Difícil | Controlador D3D9 de RenderWare | _rwD3D9LightsOpen | `0x00755D80` | 604 | pendiente |
-| 254 | 4 Difícil | Controlador D3D9 de RenderWare | _rwD3D9Im3DRenderOpen | `0x0080E020` | 578 | pendiente |
-| 253 | 4 Difícil | Controlador D3D9 de RenderWare | _rpD3D9VertexDeclarationUnInstV2d | `0x007555E0` | 531 | pendiente |
-| 252 | 4 Difícil | RenderWare SDK | _rwPluginRegistryAddPlugin | `0x008084A0` | 515 | pendiente |
-| 251 | 4 Difícil | RenderWare SDK | RwTextureStreamRead | `0x008046E0` | 511 | pendiente |
-| 250 | 3 Media | CRT / runtime estático | helper sin símbolo confirmado (usado por CPedGeometryAnalyser::IsWanderPathClear) | `0x008219F0` | 498 | pendiente |
-| 249 | 3 Media | RenderWare SDK | _rpTriListMeshGenerate | `0x0075D530` | 497 | pendiente |
-| 248 | 3 Media | Controlador D3D9 de RenderWare | _rwD3D9DeviceReleaseVideoMemory | `0x007F7F70` | 488 | pendiente |
-| 247 | 3 Media | Controlador D3D9 de RenderWare | RwD3D9CreateVertexDeclaration | `0x007FAA30` | 480 | pendiente |
-| 246 | 3 Media | RenderWare SDK | RtAnimInterpolatorAddAnimTime | `0x007CD8D0` | 471 | pendiente |
-| 245 | 3 Media | RenderWare SDK | _rpMeshRead | `0x00758EC0` | 462 | pendiente |
-| 244 | 3 Media | RenderWare SDK | RpGeometryAddMorphTargets | `0x0074C310` | 443 | pendiente |
-| 243 | 3 Media | RenderWare SDK | RpMatFXMaterialSetBumpMapTexture | `0x00812160` | 438 | pendiente |
-| 242 | 3 Media | RenderWare SDK | _rwFrameSyncDirty | `0x00809550` | 425 | pendiente |
-| 241 | 3 Media | Controlador D3D9 de RenderWare | RwD3D9CameraAttachWindow | `0x007F8D70` | 424 | pendiente |
-| 240 | 3 Media | CRT / runtime estático | CMemoryMgr::Realloc | `0x00824269` | 406 | pendiente |
-| 239 | 3 Media | Controlador D3D9 de RenderWare | RwD3D9CreateVertexBuffer | `0x007F5500` | 404 | pendiente |
-| 238 | 3 Media | RenderWare SDK | RwImageGammaCorrect | `0x00803E30` | 395 | pendiente |
-| 237 | 3 Media | Controlador D3D9 de RenderWare | _rpD3D9VertexDeclarationInstIndicesRemap | `0x00754C80` | 386 | pendiente |
-| 236 | 3 Media | RenderWare SDK | RwImageReadMaskedImage | `0x008035C0` | 375 | pendiente |
-| 235 | 3 Media | Controlador D3D9 de RenderWare | RwD3D9DynamicVertexBufferLock | `0x007F5B10` | 369 | pendiente |
-| 234 | 3 Media | Controlador D3D9 de RenderWare | _rwD3D9Im2DRenderOpen | `0x007FB480` | 368 | pendiente |
-| 233 | 3 Media | RenderWare SDK | _rpWorldSectorDestroyRecurse | `0x0074ED50` | 364 | pendiente |
-| 232 | 3 Media | Controlador D3D9 de RenderWare | _rpD3D9VertexShaderSetEnvMatrix | `0x00761A10` | 349 | pendiente |
-| 231 | 3 Media | RenderWare SDK | RpLightStreamRead | `0x00751F00` | 338 | pendiente |
-| 229 | 3 Media | RenderWare SDK | _rpMeshWrite | `0x00758D70` | 329 | pendiente |
-| 230 | 3 Media | Controlador D3D9 de RenderWare | RwD3D9DestroyVertexBuffer | `0x007F56A0` | 329 | pendiente |
-| 228 | 3 Media | RenderWare SDK | RpAtomicGetWorldBoundingSphere | `0x00749330` | 327 | pendiente |
-| 227 | 3 Media | RenderWare SDK | RwImageSetGamma | `0x00803FE0` | 325 | pendiente |
-| 226 | 3 Media | Controlador D3D9 de RenderWare | RwD3D9SetTransformWorld | `0x007FA520` | 320 | pendiente |
-| 225 | 3 Media | RenderWare SDK | RxHeapFree | `0x008098B0` | 319 | pendiente |
-| 224 | 3 Media | RenderWare SDK | RwFrameAddChildNoUpdate | `0x007F09C0` | 313 | pendiente |
-| 223 | 3 Media | Controlador D3D9 de RenderWare | _rwD3D9VSGetNormalInLocalSpace | `0x00764D30` | 308 | pendiente |
-| 222 | 3 Media | RenderWare SDK | _rwPluginRegistryReadDataChunks | `0x00808980` | 299 | pendiente |
-| 221 | 3 Media | RenderWare SDK | _rpBuildMeshAddTriangle | `0x00758C00` | 291 | pendiente |
-| 220 | 3 Media | RenderWare SDK | RtDictStreamWrite | `0x007CF490` | 283 | pendiente |
-| 219 | 3 Media | RenderWare SDK | _rwStringOpen | `0x0080A240` | 272 | pendiente |
-| 218 | 3 Media | RenderWare SDK | RxHeapCreate | `0x00809F90` | 270 | pendiente |
-| 217 | 3 Media | Controlador D3D9 de RenderWare | _rwD3D9VSGetWorldNormalizedViewMultiplyTransposeMatrix | `0x00764B50` | 269 | pendiente |
-| 216 | 3 Media | Controlador D3D9 de RenderWare | _rwD3D9RasterConvertToNonPalettized | `0x004CD250` | 265 | pendiente |
-| 215 | 3 Media | RenderWare SDK | RwCameraStreamRead | `0x00808DE0` | 263 | pendiente |
-| 214 | 3 Media | RenderWare SDK | RwFreeListForAllUsed | `0x00801E90` | 254 | pendiente |
-| 213 | 3 Media | RenderWare SDK | RwImageCreateResample | `0x0080CD10` | 252 | pendiente |
-| 212 | 3 Media | RenderWare SDK | RwTextureStreamWrite | `0x008045E0` | 250 | pendiente |
-| 211 | 3 Media | RenderWare SDK | RpHAnimHierarchyCreate | `0x007C4C30` | 247 | pendiente |
-| 210 | 3 Media | Controlador D3D9 de RenderWare | RwD3D9DeviceSupportsDXTTexture | `0x007F9C30` | 242 | pendiente |
-| 208 | 3 Media | RenderWare SDK | RwImageRead | `0x00802FD0` | 240 | pendiente |
-| 209 | 3 Media | RenderWare SDK | RwResourcesEmptyArena | `0x008081F0` | 240 | pendiente |
-| 205 | 3 Media | RenderWare SDK | _rpBuildMeshCreate | `0x00758A90` | 234 | pendiente |
-| 206 | 3 Media | Controlador D3D9 de RenderWare | _rwD3D9VSGetPointInLocalSpace | `0x00764E70` | 234 | pendiente |
-| 207 | 3 Media | RenderWare SDK | RxRenderStateVectorSetDefaultRenderStateVector | `0x0080EA40` | 234 | pendiente |
-| 204 | 3 Media | Controlador D3D9 de RenderWare | _rpD3D9FindFormatV2d | `0x00755AA0` | 227 | pendiente |
-| 203 | 3 Media | Controlador D3D9 de RenderWare | RwD3D9DynamicVertexBufferCreate | `0x007F5A00` | 220 | pendiente |
-| 202 | 3 Media | Controlador D3D9 de RenderWare | _rwD3D9VSGetWorldNormalizedMultiplyTransposeMatrix | `0x00764A70` | 219 | pendiente |
-| 201 | 3 Media | Controlador D3D9 de RenderWare | _rwD3D9VSGetInverseWorldMatrix | `0x007647B0` | 214 | pendiente |
-| 200 | 3 Media | RenderWare SDK | _rpSkinInitialize | `0x007C8740` | 213 | pendiente |
-| 199 | 3 Media | RenderWare SDK | _rxPipelineOpen | `0x00804FE0` | 210 | pendiente |
-| 198 | 3 Media | RenderWare SDK | _rwSListCreate | `0x00809160` | 205 | pendiente |
-| 197 | 3 Media | Controlador D3D9 de RenderWare | _rwD3D9VSGetRadiusInLocalSpace | `0x00764F60` | 203 | pendiente |
-| 196 | 3 Media | RenderWare SDK | _rwPluginRegistryWriteDataChunks | `0x00808B40` | 201 | pendiente |
-| 195 | 3 Media | RenderWare SDK | _rwMatrixIdentityError | `0x007F1590` | 200 | pendiente |
-| 194 | 3 Media | RenderWare SDK | RwImageMakeMask | `0x00802A20` | 198 | pendiente |
-| 193 | 3 Media | Controlador D3D9 de RenderWare | _rwD3D9RenderStateFlushCache | `0x007FC200` | 195 | pendiente |
-| 192 | 3 Media | RenderWare SDK | RwBBoxCalculate | `0x00808F60` | 190 | pendiente |
-| 191 | 3 Media | Controlador D3D9 de RenderWare | _rwD3D9VSGetWorldNormalizedTransposeMatrix | `0x00764C60` | 187 | pendiente |
-| 190 | 3 Media | Controlador D3D9 de RenderWare | _rpD3D9VertexShaderSetBumpMatrix | `0x00761B70` | 182 | pendiente |
-| 189 | 3 Media | RenderWare SDK | RwMatrixOptimize | `0x007F17E0` | 179 | pendiente |
-| 188 | 3 Media | RenderWare SDK | RwPalQuantInit | `0x0080C470` | 176 | pendiente |
-| 187 | 3 Media | QuickTime/QTML | QuickTime runtime shutdown helper | `0x00819770` | 168 | pendiente |
-| 186 | 3 Media | RenderWare SDK | _rwSListGetNewEntry | `0x00809240` | 166 | pendiente |
-| 185 | 3 Media | RenderWare SDK | _rpWorldSectorDeinstanceAll | `0x0074ECA0` | 165 | pendiente |
-| 183 | 3 Media | Controlador D3D9 de RenderWare | _rwD3D9VSGetWorldViewMultiplyTransposeMatrix | `0x007649D0` | 159 | pendiente |
-| 184 | 3 Media | RenderWare SDK | RxPipelineExecute | `0x00805710` | 159 | pendiente |
-| 182 | 3 Media | RenderWare SDK | _rpSkinSplitDataCreate | `0x007C8A70` | 158 | pendiente |
-| 181 | 2 Fácil | Controlador D3D9 de RenderWare | RwD3D9SetRenderTarget | `0x007F9E90` | 148 | pendiente |
-| 179 | 2 Fácil | RenderWare SDK | RpWorldAddClump | `0x00751300` | 143 | pendiente |
-| 180 | 2 Fácil | Controlador D3D9 de RenderWare | _rwD3D9VSSetActiveWorldMatrix | `0x00764650` | 143 | pendiente |
-| 178 | 2 Fácil | RenderWare SDK | RwStreamWriteReal | `0x007ED3D0` | 142 | pendiente |
-| 177 | 2 Fácil | Controlador D3D9 de RenderWare | _rwD3D9LightsClose | `0x00755FE0` | 139 | pendiente |
-| 176 | 2 Fácil | RenderWare SDK | RwFreeListPurge | `0x00801E00` | 138 | pendiente |
-| 175 | 2 Fácil | RenderWare SDK | _rwMatrixNormalError | `0x007F1500` | 137 | pendiente |
-| 173 | 2 Fácil | RenderWare SDK | RwFreeListDestroy | `0x00801B80` | 136 | pendiente |
-| 174 | 2 Fácil | CRT / runtime estático | __stbuf | `0x00827DEC` | 136 | pendiente |
-| 172 | 2 Fácil | Controlador D3D9 de RenderWare | _rpD3D9GetMinMaxValuesV2d | `0x007558F0` | 131 | pendiente |
-| 171 | 2 Fácil | Controlador D3D9 de RenderWare | RwD3D9CameraIsBBoxFullyInsideFrustum | `0x007FAD90` | 130 | pendiente |
-| 170 | 2 Fácil | RenderWare SDK | RpWorldSectorGetWorld | `0x0074F4E0` | 129 | pendiente |
-| 169 | 2 Fácil | RenderWare SDK | _rwFrameSyncHierarchyLTM | `0x008097D0` | 127 | pendiente |
-| 167 | 2 Fácil | RenderWare SDK | RpMaterialSetUVAnim | `0x007CC3B0` | 118 | pendiente |
-| 168 | 2 Fácil | RenderWare SDK | _rwResourcesPurge | `0x00807E50` | 118 | pendiente |
-| 165 | 2 Fácil | RenderWare SDK | RpHAnimKeyFrameStreamRead | `0x007C64C0` | 116 | pendiente |
-| 166 | 2 Fácil | RenderWare SDK | RwPalQuantTerm | `0x0080C520` | 116 | pendiente |
-| 163 | 2 Fácil | RenderWare SDK | RpLightForAllWorldSectors | `0x007519F0` | 114 | pendiente |
-| 164 | 2 Fácil | RenderWare SDK | RtDictFindNamedEntry | `0x007CEFE0` | 114 | pendiente |
-| 162 | 2 Fácil | RenderWare SDK | _rwPluginRegistrySkipDataChunks | `0x00808C10` | 113 | pendiente |
-| 160 | 2 Fácil | RenderWare SDK | RwFrameDestroyHierarchy | `0x007F08A0` | 112 | pendiente |
-| 161 | 2 Fácil | RenderWare SDK | RpMatFXMaterialSetDualBlendModes | `0x008128C0` | 112 | pendiente |
-| 159 | 2 Fácil | RenderWare SDK | RwTextureSetMaskName | `0x007F3910` | 110 | pendiente |
-| 158 | 2 Fácil | RenderWare SDK | RtAnimInterpolatorCreate | `0x007CD520` | 108 | pendiente |
-| 156 | 2 Fácil | RenderWare SDK | RtDictRemoveEntry | `0x007CF0C0` | 106 | pendiente |
-| 157 | 2 Fácil | RenderWare SDK | RwResourcesFreeResEntry | `0x00807DE0` | 106 | pendiente |
-| 153 | 2 Fácil | Controlador D3D9 de RenderWare | _rwD3D9VSGetWorldMultiplyTransposeMatrix | `0x00764960` | 104 | pendiente |
-| 154 | 2 Fácil | RenderWare SDK | _rxHeapReset | `0x00809EC0` | 104 | pendiente |
-| 155 | 2 Fácil | CRT / runtime estático | _free | `0x0082413F` | 104 | pendiente |
-| 151 | 2 Fácil | Controlador D3D9 de RenderWare | _rpD3D9VertexShaderCachePurge | `0x0075EE60` | 103 | pendiente |
-| 152 | 2 Fácil | Controlador D3D9 de RenderWare | _rwD3D9DynamicVertexBufferRestore | `0x007F58D0` | 103 | pendiente |
-| 150 | 2 Fácil | RenderWare SDK | _rwStringStreamWrite | `0x0080A4A0` | 102 | pendiente |
-| 149 | 2 Fácil | RenderWare SDK | RpMatFXMaterialSetUVTransformMatrices | `0x008129E0` | 100 | pendiente |
-| 148 | 2 Fácil | Controlador D3D9 de RenderWare | _rpD3D9AddDynamicGeometry | `0x0074E970` | 99 | pendiente |
-| 147 | 2 Fácil | RenderWare SDK | _rwFramePurgeClone | `0x007F01A0` | 98 | pendiente |
-| 146 | 2 Fácil | Controlador D3D9 de RenderWare | RwD3D9SetMaterial | `0x007FC430` | 97 | pendiente |
-| 145 | 2 Fácil | RenderWare SDK | _rpUVAnimCustomDataStreamRead | `0x007CBF70` | 94 | pendiente |
-| 144 | 2 Fácil | RenderWare SDK | _rpMeshOptimise | `0x0075D970` | 93 | pendiente |
-| 141 | 2 Fácil | RenderWare SDK | _rpMaterialListStreamGetSize | `0x0074E450` | 91 | pendiente |
-| 142 | 2 Fácil | RenderWare SDK | _rwMatrixOrthogonalError | `0x007F14A0` | 91 | pendiente |
-| 143 | 2 Fácil | RenderWare SDK | _rxPacketDestroy | `0x0080F070` | 91 | pendiente |
-| 139 | 2 Fácil | Controlador D3D9 de RenderWare | RwD3D9SetStreamSource | `0x007FA030` | 90 | pendiente |
-| 140 | 2 Fácil | RenderWare SDK | RxHeapDestroy | `0x00809F30` | 90 | pendiente |
-| 138 | 2 Fácil | RenderWare SDK | RpWorldForAllWorldSectors | `0x0074FC70` | 89 | pendiente |
-| 137 | 2 Fácil | RenderWare SDK | _rxPipelineClose | `0x00804F60` | 88 | pendiente |
-| 136 | 2 Fácil | RenderWare SDK | _rwInvSqrt | `0x007EDB90` | 87 | pendiente |
-| 135 | 2 Fácil | RenderWare SDK | RwErrorSet | `0x00808820` | 86 | pendiente |
-| 132 | 2 Fácil | Controlador D3D9 de RenderWare | _rpD3D9RemoveDynamicGeometry | `0x0074E9E0` | 85 | pendiente |
-| 133 | 2 Fácil | Controlador D3D9 de RenderWare | _rpD3D9VertexDeclarationInstColor | `0x00754AE0` | 85 | pendiente |
-| 134 | 2 Fácil | RenderWare SDK | RtDictForAllEntries | `0x007CF060` | 85 | pendiente |
-| 131 | 2 Fácil | RenderWare SDK | _rwSqrt | `0x007EDB30` | 84 | pendiente |
-| 130 | 2 Fácil | RenderWare SDK | _rwPluginRegistryInitObject | `0x008086E0` | 83 | pendiente |
-| 127 | 2 Fácil | RenderWare SDK | _rwStreamWriteVersionedChunkHeader | `0x007ED270` | 82 | pendiente |
-| 128 | 2 Fácil | Controlador D3D9 de RenderWare | RwD3D9CameraIsSphereFullyInsideFrustum | `0x007FAD30` | 82 | pendiente |
-| 129 | 2 Fácil | RenderWare SDK | RxPipelineNodeCloneDefinition | `0x008059C0` | 82 | pendiente |
-| 124 | 2 Fácil | Controlador D3D9 de RenderWare | _rwD3D9VSGetComposedTransformMatrix | `0x007646E0` | 80 | pendiente |
-| 125 | 2 Fácil | RenderWare SDK | RwStreamReadReal | `0x007ED4F0` | 80 | pendiente |
-| 126 | 2 Fácil | RenderWare SDK | RwStreamReadInt32 | `0x007ED540` | 80 | pendiente |
-| 123 | 2 Fácil | RenderWare SDK | _rpMeshSize | `0x00759090` | 77 | pendiente |
-| 122 | 2 Fácil | Controlador D3D9 de RenderWare | RwD3D9DeleteVertexDeclaration | `0x007FAC10` | 76 | pendiente |
-| 120 | 2 Fácil | RenderWare SDK | _rtDictDestruct | `0x007CEF60` | 75 | pendiente |
-| 121 | 2 Fácil | RenderWare SDK | RtDictSchemaForAllDictionaries | `0x007CF5B0` | 75 | pendiente |
-| 119 | 2 Fácil | RenderWare SDK | RwErrorGet | `0x00808880` | 74 | pendiente |
-| 117 | 2 Fácil | RenderWare SDK | _rpSectorDefaultRenderCallBack | `0x0074EEC0` | 72 | pendiente |
-| 118 | 2 Fácil | CRT / runtime estático | _pow | `0x008220F0` | 72 | pendiente |
-| 116 | 2 Fácil | RenderWare SDK | RwIm3DSetTransformPipeline | `0x007EFAC0` | 71 | pendiente |
-| 113 | 2 Fácil | RenderWare SDK | _rwMatrixDeterminant | `0x007F1450` | 69 | pendiente |
-| 114 | 2 Fácil | RenderWare SDK | _rwPluginRegistryInvokeRights | `0x00808AB0` | 69 | pendiente |
-| 115 | 2 Fácil | RenderWare SDK | _rwSListDestroy | `0x00809440` | 69 | pendiente |
-| 111 | 2 Fácil | RenderWare SDK | RpClumpForAllCameras | `0x00749BB0` | 67 | pendiente |
-| 112 | 2 Fácil | RenderWare SDK | RpClumpForAllLights | `0x00749C00` | 67 | pendiente |
-| 110 | 2 Fácil | RenderWare SDK | _rpMaterialSetDefaultSurfaceProperties | `0x0074D870` | 65 | pendiente |
-| 109 | 2 Fácil | RenderWare SDK | _rpBuildMeshDestroy | `0x00758B80` | 64 | pendiente |
-| 108 | 2 Fácil | Controlador D3D9 de RenderWare | RwD3D9SetSamplerState | `0x007FC3C0` | 63 | pendiente |
-| 107 | 2 Fácil | RenderWare SDK | RpWorldForAllMaterials | `0x0074FBC0` | 62 | pendiente |
-| 106 | 2 Fácil | RenderWare SDK | _rwPluginRegistryGetSize | `0x00808B00` | 61 | pendiente |
-| 105 | 2 Fácil | Controlador D3D9 de RenderWare | _rwD3D9SetRenderTarget | `0x007F5F20` | 59 | pendiente |
-| 103 | 2 Fácil | RenderWare SDK | _rpMeshDestroy | `0x00758BC0` | 58 | pendiente |
-| 104 | 2 Fácil | RenderWare SDK | _rpMeshHeaderForAllMeshes | `0x00758D30` | 58 | pendiente |
-| 101 | 2 Fácil | RenderWare SDK | _rpSkinSplitDataDestroy | `0x007C8B10` | 56 | pendiente |
-| 102 | 2 Fácil | RenderWare SDK | RpUVAnimDestroy | `0x007CC0C0` | 56 | pendiente |
-| 100 | 2 Fácil | RenderWare SDK | _rwPluginRegistryAddPluginStream | `0x008088E0` | 55 | pendiente |
-| 98 | 2 Fácil | RenderWare SDK | RwRasterGetNumLevels | `0x007FB160` | 54 | pendiente |
-| 99 | 2 Fácil | RenderWare SDK | RwTextureStreamGetSize | `0x008045A0` | 54 | pendiente |
-| 97 | 2 Fácil | RenderWare SDK | _rpUVAnimCustomDataStreamWrite | `0x007CBFD0` | 53 | pendiente |
-| 94 | 2 Fácil | RenderWare SDK | RpMaterialStreamGetSize | `0x0074E010` | 52 | pendiente |
-| 95 | 2 Fácil | RenderWare SDK | _rwPluginRegistryCopyObject | `0x00808770` | 52 | pendiente |
-| 96 | 2 Fácil | CRT / runtime estático | _sscanf | `0x008220AD` | 52 | pendiente |
-| 91 | 2 Fácil | Controlador D3D9 de RenderWare | _rwD3D9SetVertexShader | `0x007F9FB0` | 51 | pendiente |
-| 92 | 2 Fácil | Controlador D3D9 de RenderWare | _rwD3D9SetPixelShader | `0x007F9FF0` | 51 | pendiente |
-| 93 | 2 Fácil | RenderWare SDK | RwFreeListPurgeAllFreeLists | `0x00801F90` | 51 | pendiente |
-| 90 | 2 Fácil | Controlador D3D9 de RenderWare | _rwD3D9DrawIndexedPrimitive | `0x007FA320` | 50 | pendiente |
-| 88 | 2 Fácil | RenderWare SDK | RpWorldSetDefaultSectorPipeline | `0x0075E270` | 46 | pendiente |
-| 89 | 2 Fácil | RenderWare SDK | RpAtomicSetDefaultPipeline | `0x0075E2A0` | 46 | pendiente |
-| 86 | 2 Fácil | RenderWare SDK | RwEngineGetCurrentVideoMode | `0x007F2D20` | 45 | pendiente |
-| 87 | 2 Fácil | RenderWare SDK | _rwPluginRegistryDeInitObject | `0x00808740` | 45 | pendiente |
-| 83 | 2 Fácil | RenderWare SDK | RpClumpRemoveLight | `0x0074A520` | 44 | pendiente |
-| 84 | 2 Fácil | Controlador D3D9 de RenderWare | _rwD3D9VSGetWorldViewTransposedMatrix | `0x00764730` | 44 | pendiente |
-| 85 | 2 Fácil | RenderWare SDK | RtDictSchemaInit | `0x007CED40` | 44 | pendiente |
-| 80 | 2 Fácil | Controlador D3D9 de RenderWare | RwD3D9GetTransform | `0x007FA4F0` | 42 | pendiente |
-| 81 | 2 Fácil | RenderWare SDK | RwImageFreePixels | `0x00802860` | 42 | pendiente |
-| 82 | 2 Fácil | CRT / runtime estático | __ftbuf | `0x00827E74` | 42 | pendiente |
-| 78 | 2 Fácil | RenderWare SDK | _rwPluginRegistryAddPlgnStrmlwysCB | `0x00808920` | 41 | pendiente |
-| 79 | 2 Fácil | RenderWare SDK | _rwPluginRegistryAddPlgnStrmRightsCB | `0x00808950` | 41 | pendiente |
-| 76 | 1 Muy fácil | RenderWare SDK | RwCameraSetViewOffset | `0x007EE1A0` | 40 | ✅ validada |
-| 77 | 1 Muy fácil | RenderWare SDK | RwRasterLockPalette | `0x007FB0E0` | 40 | ✅ validada |
+| 1 | 1 Muy fácil | RenderWare SDK | _rwStringClose | `0x0080A440` | 1 | ✅ validada |
+| 2 | 1 Muy fácil | RenderWare SDK | _rpSkinDeinitialize | `0x007C8820` | 5 | ✅ validada |
+| 3 | 1 Muy fácil | RenderWare SDK | RwMatrixOrthoNormalize | `0x007F1920` | 5 | ✅ validada |
+| 4 | 1 Muy fácil | RenderWare SDK | _rwDeviceRegisterPlugin | `0x007F5F60` | 5 | ✅ validada |
+| 5 | 1 Muy fácil | RenderWare SDK | RwFreeListCreateAndPreallocateSpace | `0x00801B70` | 5 | ✅ validada |
+| 6 | 1 Muy fácil | Controlador D3D9 de RenderWare | RxNodeDefinitionGetD3D9WorldSectorAllInOne | `0x0075E9F0` | 6 | ✅ validada |
+| 7 | 1 Muy fácil | RenderWare SDK | _rpUVAnimCustomDataStreamGetSize | `0x007CC010` | 6 | ✅ validada |
+| 8 | 1 Muy fácil | RenderWare SDK | RxHeapGetGlobalHeap | `0x008052F0` | 6 | ✅ validada |
+| 9 | 1 Muy fácil | RenderWare SDK | _rwSListGetBegin | `0x00809530` | 7 | ✅ validada |
+| 10 | 1 Muy fácil | RenderWare SDK | RtDictSchemaGetCurrentDict | `0x007CEEE0` | 8 | ✅ validada |
+| 11 | 1 Muy fácil | RenderWare SDK | _rwSListGetNumEntries | `0x008094B0` | 8 | ✅ validada |
+| 12 | 1 Muy fácil | RenderWare SDK | RpAnisotGetMaxSupportedMaxAnisotropy | `0x00748F20` | 9 | ✅ validada |
+| 13 | 1 Muy fácil | CRT / runtime estático | helper sin símbolo confirmado (usado por ExeAsinSetDomainErrno) | `0x0082B181` | 9 | ✅ validada |
+| 14 | 1 Muy fácil | Controlador D3D9 de RenderWare | RwD3D9DeleteVertexShader | `0x007FAC90` | 11 | ✅ validada |
+| 15 | 1 Muy fácil | Controlador D3D9 de RenderWare | RwD3D9DeletePixelShader | `0x007FACF0` | 11 | ✅ validada |
+| 16 | 1 Muy fácil | Controlador D3D9 de RenderWare | _rpD3D9VertexDeclarationGetSize | `0x007522E0` | 12 | ✅ validada |
+| 17 | 1 Muy fácil | RenderWare SDK | RtAnimInterpolatorDestroy | `0x007CD590` | 12 | ✅ validada |
+| 18 | 1 Muy fácil | RenderWare SDK | _rwSListDestroyEndEntries | `0x00809400` | 12 | ✅ validada |
+| 19 | 1 Muy fácil | RenderWare SDK | _rpMaterialListGetMaterial | `0x0074E2B0` | 14 | ✅ validada |
+| 20 | 1 Muy fácil | RenderWare SDK | RpAtomicGetWorld | `0x00751050` | 14 | ✅ validada |
+| 21 | 1 Muy fácil | Controlador D3D9 de RenderWare | RpD3D9GeometryGetUsageFlags | `0x007588D0` | 14 | ✅ validada |
+| 22 | 1 Muy fácil | Controlador D3D9 de RenderWare | RpD3D9WorldSectorGetUsageFlags | `0x00758900` | 14 | ✅ validada |
+| 23 | 1 Muy fácil | RenderWare SDK | _rpMaterialListInitialize | `0x0074E1B0` | 15 | ✅ validada |
+| 24 | 1 Muy fácil | RenderWare SDK | RpHAnimFrameGetHierarchy | `0x007C5160` | 15 | ✅ validada |
+| 25 | 1 Muy fácil | RenderWare SDK | RwTextureGetMipmapping | `0x007F3550` | 16 | ✅ validada |
+| 26 | 1 Muy fácil | RenderWare SDK | RwTextureGetAutoMipmapping | `0x007F3580` | 16 | ✅ validada |
+| 27 | 1 Muy fácil | RenderWare SDK | _rwSListGetEnd | `0x00809540` | 16 | ✅ validada |
+| 28 | 1 Muy fácil | RenderWare SDK | RwFrameDirty | `0x007F0340` | 17 | ✅ validada |
+| 29 | 1 Muy fácil | RenderWare SDK | _rwSListGetEntry | `0x00809510` | 17 | ✅ validada |
+| 30 | 1 Muy fácil | Controlador D3D9 de RenderWare | RpD3D9WorldSectorSetUsageFlags | `0x007588E0` | 18 | ✅ validada |
+| 31 | 1 Muy fácil | RenderWare SDK | RpBuildMeshGenerateDefaultTriStrip | `0x007591B0` | 18 | ✅ validada |
+| 32 | 1 Muy fácil | CRT / runtime estático | _atexit | `0x00821D1E` | 18 | ✅ validada |
+| 33 | 1 Muy fácil | CRT / runtime estático | CMemoryMgr::Malloc | `0x00824257` | 18 | ✅ validada |
+| 34 | 1 Muy fácil | RenderWare SDK | RpAtomicGetPluginOffset | `0x0074BEC0` | 19 | ✅ validada |
+| 35 | 1 Muy fácil | RenderWare SDK | RwEngineGetPluginOffset | `0x007F2BE0` | 19 | ✅ validada |
+| 36 | 1 Muy fácil | Controlador D3D9 de RenderWare | RwD3D9DynamicVertexBufferUnlock | `0x007F5C90` | 20 | ✅ validada |
+| 37 | 1 Muy fácil | RenderWare SDK | RpAnisotTextureGetMaxAnisotropy | `0x00748F50` | 21 | ✅ validada |
+| 38 | 1 Muy fácil | RenderWare SDK | RtDictSchemaDestruct | `0x007CED70` | 22 | ✅ validada |
+| 39 | 1 Muy fácil | RenderWare SDK | RwRasterGetCurrentContext | `0x007FAE60` | 22 | ✅ validada |
+| 40 | 1 Muy fácil | Controlador D3D9 de RenderWare | RwD3D9RasterIsCompressed | `0x00820C90` | 23 | ✅ validada |
+| 41 | 1 Muy fácil | RenderWare SDK | RpAtomicSetStreamAlwaysCallBack | `0x0074BE30` | 24 | ✅ validada |
+| 42 | 1 Muy fácil | RenderWare SDK | RpAtomicSetStreamRightsCallBack | `0x0074BE50` | 24 | ✅ validada |
+| 43 | 1 Muy fácil | RenderWare SDK | RpAnisotTextureSetMaxAnisotropy | `0x00748F30` | 25 | ✅ validada |
+| 44 | 1 Muy fácil | RenderWare SDK | _rpMeshHeaderCreate | `0x00758920` | 26 | ✅ validada |
+| 45 | 1 Muy fácil | QuickTime/QTML | QuickTime dispatch thunk (selector 0x20002) | `0x00819840` | 26 | pendiente |
+| 46 | 1 Muy fácil | RenderWare SDK | RwStreamWriteInt32 | `0x007ED460` | 28 | ✅ validada |
+| 47 | 1 Muy fácil | RenderWare SDK | _rwObjectHasFrameReleaseFrame | `0x00804F40` | 29 | ✅ validada |
+| 48 | 1 Muy fácil | Controlador D3D9 de RenderWare | RwD3D9IndexBufferCreate | `0x004C9970` | 30 | ✅ validada |
+| 49 | 1 Muy fácil | RenderWare SDK | RwRGBAToPixel | `0x00803740` | 31 | ✅ validada |
+| 50 | 1 Muy fácil | RenderWare SDK | RpUVAnimKeyFrameStreamGetSize | `0x007CC9D0` | 32 | ✅ validada |
+| 51 | 1 Muy fácil | RenderWare SDK | RpClumpGetNumAtomics | `0x007498E0` | 33 | ✅ validada |
+| 52 | 1 Muy fácil | RenderWare SDK | RpGeometryTriangleGetMaterial | `0x0074C760` | 33 | ✅ validada |
+| 53 | 1 Muy fácil | RenderWare SDK | _rwFreeListCreate | `0x00801980` | 33 | ✅ validada |
+| 54 | 1 Muy fácil | RenderWare SDK | RpWorldRegisterPluginStream | `0x0074FD00` | 34 | ✅ validada |
+| 55 | 1 Muy fácil | RenderWare SDK | RpWorldSectorRegisterPluginStream | `0x00761CC0` | 34 | ✅ validada |
+| 56 | 1 Muy fácil | Controlador D3D9 de RenderWare | RwD3D9CreatePixelShader | `0x007FACC0` | 34 | ✅ validada |
+| 57 | 1 Muy fácil | RenderWare SDK | RwTextureRegisterPluginStream | `0x00804550` | 34 | ✅ validada |
+| 58 | 1 Muy fácil | RenderWare SDK | _rwFrameListDeinitialize | `0x00807720` | 34 | ✅ validada |
+| 59 | 1 Muy fácil | RenderWare SDK | _rwPluginRegistryGetPluginOffset | `0x00808470` | 34 | ✅ validada |
+| 60 | 1 Muy fácil | RenderWare SDK | _rwStringStreamGetSize | `0x0080A470` | 34 | ✅ validada |
+| 61 | 1 Muy fácil | RenderWare SDK | RtAnimAnimationGetNumNodes | `0x007CD4F0` | 35 | ✅ validada |
+| 62 | 1 Muy fácil | RenderWare SDK | RwTextureRasterGenerateMipmaps | `0x007F3CD0` | 35 | ✅ validada |
+| 63 | 1 Muy fácil | Controlador D3D9 de RenderWare | RwD3D9DynamicVertexBufferDestroy | `0x007F5AE0` | 35 | ✅ validada |
+| 64 | 1 Muy fácil | CRT / runtime estático | __lock_file2 | `0x00823FD1` | 35 | ✅ validada |
+| 65 | 1 Muy fácil | CRT / runtime estático | __unlock_file2 | `0x00824023` | 35 | ✅ validada |
+| 66 | 1 Muy fácil | RenderWare SDK | RwEngineRegisterPlugin | `0x007F2BB0` | 36 | ✅ validada |
+| 67 | 1 Muy fácil | Controlador D3D9 de RenderWare | _rwD3D9SetDepthStencilSurface | `0x007F5EF0` | 36 | ✅ validada |
 | 68 | 1 Muy fácil | RenderWare SDK | _rpMaterialListFindMaterialIndex | `0x0074E420` | 39 | ✅ validada |
 | 69 | 1 Muy fácil | RenderWare SDK | RpWorldRegisterPlugin | `0x0074FCD0` | 39 | ✅ validada |
 | 70 | 1 Muy fácil | RenderWare SDK | RpLightRegisterPlugin | `0x00751D60` | 39 | ✅ validada |
@@ -821,73 +684,210 @@ Destinos originales explícitos que `source/` sigue referenciando y que no estab
 | 73 | 1 Muy fácil | RenderWare SDK | RwTextureRegisterPlugin | `0x007F3BB0` | 39 | ✅ validada |
 | 74 | 1 Muy fácil | RenderWare SDK | RwTexDictionaryRegisterPlugin | `0x007F3C10` | 39 | ✅ validada |
 | 75 | 1 Muy fácil | RenderWare SDK | RwRasterRegisterPlugin | `0x007FB0B0` | 39 | ✅ validada |
-| 66 | 1 Muy fácil | RenderWare SDK | RwEngineRegisterPlugin | `0x007F2BB0` | 36 | ✅ validada |
-| 67 | 1 Muy fácil | Controlador D3D9 de RenderWare | _rwD3D9SetDepthStencilSurface | `0x007F5EF0` | 36 | ✅ validada |
-| 61 | 1 Muy fácil | RenderWare SDK | RtAnimAnimationGetNumNodes | `0x007CD4F0` | 35 | ✅ validada |
-| 62 | 1 Muy fácil | RenderWare SDK | RwTextureRasterGenerateMipmaps | `0x007F3CD0` | 35 | ✅ validada |
-| 63 | 1 Muy fácil | Controlador D3D9 de RenderWare | RwD3D9DynamicVertexBufferDestroy | `0x007F5AE0` | 35 | ✅ validada |
-| 64 | 1 Muy fácil | CRT / runtime estático | __lock_file2 | `0x00823FD1` | 35 | ✅ validada |
-| 65 | 1 Muy fácil | CRT / runtime estático | __unlock_file2 | `0x00824023` | 35 | ✅ validada |
-| 54 | 1 Muy fácil | RenderWare SDK | RpWorldRegisterPluginStream | `0x0074FD00` | 34 | ✅ validada |
-| 55 | 1 Muy fácil | RenderWare SDK | RpWorldSectorRegisterPluginStream | `0x00761CC0` | 34 | ✅ validada |
-| 56 | 1 Muy fácil | Controlador D3D9 de RenderWare | RwD3D9CreatePixelShader | `0x007FACC0` | 34 | ✅ validada |
-| 57 | 1 Muy fácil | RenderWare SDK | RwTextureRegisterPluginStream | `0x00804550` | 34 | ✅ validada |
-| 58 | 1 Muy fácil | RenderWare SDK | _rwFrameListDeinitialize | `0x00807720` | 34 | ✅ validada |
-| 59 | 1 Muy fácil | RenderWare SDK | _rwPluginRegistryGetPluginOffset | `0x00808470` | 34 | ✅ validada |
-| 60 | 1 Muy fácil | RenderWare SDK | _rwStringStreamGetSize | `0x0080A470` | 34 | ✅ validada |
-| 51 | 1 Muy fácil | RenderWare SDK | RpClumpGetNumAtomics | `0x007498E0` | 33 | ✅ validada |
-| 52 | 1 Muy fácil | RenderWare SDK | RpGeometryTriangleGetMaterial | `0x0074C760` | 33 | ✅ validada |
-| 53 | 1 Muy fácil | RenderWare SDK | _rwFreeListCreate | `0x00801980` | 33 | ✅ validada |
-| 50 | 1 Muy fácil | RenderWare SDK | RpUVAnimKeyFrameStreamGetSize | `0x007CC9D0` | 32 | ✅ validada |
-| 49 | 1 Muy fácil | RenderWare SDK | RwRGBAToPixel | `0x00803740` | 31 | ✅ validada |
-| 48 | 1 Muy fácil | Controlador D3D9 de RenderWare | RwD3D9IndexBufferCreate | `0x004C9970` | 30 | ✅ validada |
-| 47 | 1 Muy fácil | RenderWare SDK | _rwObjectHasFrameReleaseFrame | `0x00804F40` | 29 | ✅ validada |
-| 46 | 1 Muy fácil | RenderWare SDK | RwStreamWriteInt32 | `0x007ED460` | 28 | ✅ validada |
-| 44 | 1 Muy fácil | RenderWare SDK | _rpMeshHeaderCreate | `0x00758920` | 26 | ✅ validada |
-| 45 | 1 Muy fácil | QuickTime/QTML | QuickTime dispatch thunk (selector 0x20002) | `0x00819840` | 26 | pendiente |
-| 43 | 1 Muy fácil | RenderWare SDK | RpAnisotTextureSetMaxAnisotropy | `0x00748F30` | 25 | ✅ validada |
-| 41 | 1 Muy fácil | RenderWare SDK | RpAtomicSetStreamAlwaysCallBack | `0x0074BE30` | 24 | ✅ validada |
-| 42 | 1 Muy fácil | RenderWare SDK | RpAtomicSetStreamRightsCallBack | `0x0074BE50` | 24 | ✅ validada |
-| 40 | 1 Muy fácil | Controlador D3D9 de RenderWare | RwD3D9RasterIsCompressed | `0x00820C90` | 23 | ✅ validada |
-| 38 | 1 Muy fácil | RenderWare SDK | RtDictSchemaDestruct | `0x007CED70` | 22 | ✅ validada |
-| 39 | 1 Muy fácil | RenderWare SDK | RwRasterGetCurrentContext | `0x007FAE60` | 22 | ✅ validada |
-| 37 | 1 Muy fácil | RenderWare SDK | RpAnisotTextureGetMaxAnisotropy | `0x00748F50` | 21 | ✅ validada |
-| 36 | 1 Muy fácil | Controlador D3D9 de RenderWare | RwD3D9DynamicVertexBufferUnlock | `0x007F5C90` | 20 | ✅ validada |
-| 34 | 1 Muy fácil | RenderWare SDK | RpAtomicGetPluginOffset | `0x0074BEC0` | 19 | ✅ validada |
-| 35 | 1 Muy fácil | RenderWare SDK | RwEngineGetPluginOffset | `0x007F2BE0` | 19 | ✅ validada |
-| 30 | 1 Muy fácil | Controlador D3D9 de RenderWare | RpD3D9WorldSectorSetUsageFlags | `0x007588E0` | 18 | ✅ validada |
-| 31 | 1 Muy fácil | RenderWare SDK | RpBuildMeshGenerateDefaultTriStrip | `0x007591B0` | 18 | ✅ validada |
-| 32 | 1 Muy fácil | CRT / runtime estático | _atexit | `0x00821D1E` | 18 | ✅ validada |
-| 33 | 1 Muy fácil | CRT / runtime estático | CMemoryMgr::Malloc | `0x00824257` | 18 | ✅ validada |
-| 28 | 1 Muy fácil | RenderWare SDK | RwFrameDirty | `0x007F0340` | 17 | ✅ validada |
-| 29 | 1 Muy fácil | RenderWare SDK | _rwSListGetEntry | `0x00809510` | 17 | ✅ validada |
-| 25 | 1 Muy fácil | RenderWare SDK | RwTextureGetMipmapping | `0x007F3550` | 16 | ✅ validada |
-| 26 | 1 Muy fácil | RenderWare SDK | RwTextureGetAutoMipmapping | `0x007F3580` | 16 | ✅ validada |
-| 27 | 1 Muy fácil | RenderWare SDK | _rwSListGetEnd | `0x00809540` | 16 | ✅ validada |
-| 23 | 1 Muy fácil | RenderWare SDK | _rpMaterialListInitialize | `0x0074E1B0` | 15 | ✅ validada |
-| 24 | 1 Muy fácil | RenderWare SDK | RpHAnimFrameGetHierarchy | `0x007C5160` | 15 | ✅ validada |
-| 19 | 1 Muy fácil | RenderWare SDK | _rpMaterialListGetMaterial | `0x0074E2B0` | 14 | ✅ validada |
-| 20 | 1 Muy fácil | RenderWare SDK | RpAtomicGetWorld | `0x00751050` | 14 | ✅ validada |
-| 21 | 1 Muy fácil | Controlador D3D9 de RenderWare | RpD3D9GeometryGetUsageFlags | `0x007588D0` | 14 | ✅ validada |
-| 22 | 1 Muy fácil | Controlador D3D9 de RenderWare | RpD3D9WorldSectorGetUsageFlags | `0x00758900` | 14 | ✅ validada |
-| 16 | 1 Muy fácil | Controlador D3D9 de RenderWare | _rpD3D9VertexDeclarationGetSize | `0x007522E0` | 12 | ✅ validada |
-| 17 | 1 Muy fácil | RenderWare SDK | RtAnimInterpolatorDestroy | `0x007CD590` | 12 | ✅ validada |
-| 18 | 1 Muy fácil | RenderWare SDK | _rwSListDestroyEndEntries | `0x00809400` | 12 | ✅ validada |
-| 14 | 1 Muy fácil | Controlador D3D9 de RenderWare | RwD3D9DeleteVertexShader | `0x007FAC90` | 11 | ✅ validada |
-| 15 | 1 Muy fácil | Controlador D3D9 de RenderWare | RwD3D9DeletePixelShader | `0x007FACF0` | 11 | ✅ validada |
-| 12 | 1 Muy fácil | RenderWare SDK | RpAnisotGetMaxSupportedMaxAnisotropy | `0x00748F20` | 9 | ✅ validada |
-| 13 | 1 Muy fácil | CRT / runtime estático | helper sin símbolo confirmado (usado por ExeAsinSetDomainErrno) | `0x0082B181` | 9 | ✅ validada |
-| 10 | 1 Muy fácil | RenderWare SDK | RtDictSchemaGetCurrentDict | `0x007CEEE0` | 8 | ✅ validada |
-| 11 | 1 Muy fácil | RenderWare SDK | _rwSListGetNumEntries | `0x008094B0` | 8 | ✅ validada |
-| 9 | 1 Muy fácil | RenderWare SDK | _rwSListGetBegin | `0x00809530` | 7 | ✅ validada |
-| 6 | 1 Muy fácil | Controlador D3D9 de RenderWare | RxNodeDefinitionGetD3D9WorldSectorAllInOne | `0x0075E9F0` | 6 | ✅ validada |
-| 7 | 1 Muy fácil | RenderWare SDK | _rpUVAnimCustomDataStreamGetSize | `0x007CC010` | 6 | ✅ validada |
-| 8 | 1 Muy fácil | RenderWare SDK | RxHeapGetGlobalHeap | `0x008052F0` | 6 | ✅ validada |
-| 2 | 1 Muy fácil | RenderWare SDK | _rpSkinDeinitialize | `0x007C8820` | 5 | ✅ validada |
-| 3 | 1 Muy fácil | RenderWare SDK | RwMatrixOrthoNormalize | `0x007F1920` | 5 | ✅ validada |
-| 4 | 1 Muy fácil | RenderWare SDK | _rwDeviceRegisterPlugin | `0x007F5F60` | 5 | ✅ validada |
-| 5 | 1 Muy fácil | RenderWare SDK | RwFreeListCreateAndPreallocateSpace | `0x00801B70` | 5 | ✅ validada |
-| 1 | 1 Muy fácil | RenderWare SDK | _rwStringClose | `0x0080A440` | 1 | ✅ validada |
+| 76 | 1 Muy fácil | RenderWare SDK | RwCameraSetViewOffset | `0x007EE1A0` | 40 | ✅ validada |
+| 77 | 1 Muy fácil | RenderWare SDK | RwRasterLockPalette | `0x007FB0E0` | 40 | ✅ validada |
+| 78 | 2 Fácil | RenderWare SDK | _rwPluginRegistryAddPlgnStrmlwysCB | `0x00808920` | 41 | pendiente |
+| 79 | 2 Fácil | RenderWare SDK | _rwPluginRegistryAddPlgnStrmRightsCB | `0x00808950` | 41 | pendiente |
+| 80 | 2 Fácil | Controlador D3D9 de RenderWare | RwD3D9GetTransform | `0x007FA4F0` | 42 | pendiente |
+| 81 | 2 Fácil | RenderWare SDK | RwImageFreePixels | `0x00802860` | 42 | pendiente |
+| 82 | 2 Fácil | CRT / runtime estático | __ftbuf | `0x00827E74` | 42 | pendiente |
+| 83 | 2 Fácil | RenderWare SDK | RpClumpRemoveLight | `0x0074A520` | 44 | pendiente |
+| 84 | 2 Fácil | Controlador D3D9 de RenderWare | _rwD3D9VSGetWorldViewTransposedMatrix | `0x00764730` | 44 | pendiente |
+| 85 | 2 Fácil | RenderWare SDK | RtDictSchemaInit | `0x007CED40` | 44 | pendiente |
+| 86 | 2 Fácil | RenderWare SDK | RwEngineGetCurrentVideoMode | `0x007F2D20` | 45 | pendiente |
+| 87 | 2 Fácil | RenderWare SDK | _rwPluginRegistryDeInitObject | `0x00808740` | 45 | pendiente |
+| 88 | 2 Fácil | RenderWare SDK | RpWorldSetDefaultSectorPipeline | `0x0075E270` | 46 | pendiente |
+| 89 | 2 Fácil | RenderWare SDK | RpAtomicSetDefaultPipeline | `0x0075E2A0` | 46 | pendiente |
+| 90 | 2 Fácil | Controlador D3D9 de RenderWare | _rwD3D9DrawIndexedPrimitive | `0x007FA320` | 50 | pendiente |
+| 91 | 2 Fácil | Controlador D3D9 de RenderWare | _rwD3D9SetVertexShader | `0x007F9FB0` | 51 | pendiente |
+| 92 | 2 Fácil | Controlador D3D9 de RenderWare | _rwD3D9SetPixelShader | `0x007F9FF0` | 51 | pendiente |
+| 93 | 2 Fácil | RenderWare SDK | RwFreeListPurgeAllFreeLists | `0x00801F90` | 51 | pendiente |
+| 94 | 2 Fácil | RenderWare SDK | RpMaterialStreamGetSize | `0x0074E010` | 52 | pendiente |
+| 95 | 2 Fácil | RenderWare SDK | _rwPluginRegistryCopyObject | `0x00808770` | 52 | pendiente |
+| 96 | 2 Fácil | CRT / runtime estático | _sscanf | `0x008220AD` | 52 | pendiente |
+| 97 | 2 Fácil | RenderWare SDK | _rpUVAnimCustomDataStreamWrite | `0x007CBFD0` | 53 | pendiente |
+| 98 | 2 Fácil | RenderWare SDK | RwRasterGetNumLevels | `0x007FB160` | 54 | pendiente |
+| 99 | 2 Fácil | RenderWare SDK | RwTextureStreamGetSize | `0x008045A0` | 54 | pendiente |
+| 100 | 2 Fácil | RenderWare SDK | _rwPluginRegistryAddPluginStream | `0x008088E0` | 55 | pendiente |
+| 101 | 2 Fácil | RenderWare SDK | _rpSkinSplitDataDestroy | `0x007C8B10` | 56 | pendiente |
+| 102 | 2 Fácil | RenderWare SDK | RpUVAnimDestroy | `0x007CC0C0` | 56 | pendiente |
+| 103 | 2 Fácil | RenderWare SDK | _rpMeshDestroy | `0x00758BC0` | 58 | pendiente |
+| 104 | 2 Fácil | RenderWare SDK | _rpMeshHeaderForAllMeshes | `0x00758D30` | 58 | pendiente |
+| 105 | 2 Fácil | Controlador D3D9 de RenderWare | _rwD3D9SetRenderTarget | `0x007F5F20` | 59 | pendiente |
+| 106 | 2 Fácil | RenderWare SDK | _rwPluginRegistryGetSize | `0x00808B00` | 61 | pendiente |
+| 107 | 2 Fácil | RenderWare SDK | RpWorldForAllMaterials | `0x0074FBC0` | 62 | pendiente |
+| 108 | 2 Fácil | Controlador D3D9 de RenderWare | RwD3D9SetSamplerState | `0x007FC3C0` | 63 | pendiente |
+| 109 | 2 Fácil | RenderWare SDK | _rpBuildMeshDestroy | `0x00758B80` | 64 | pendiente |
+| 110 | 2 Fácil | RenderWare SDK | _rpMaterialSetDefaultSurfaceProperties | `0x0074D870` | 65 | pendiente |
+| 111 | 2 Fácil | RenderWare SDK | RpClumpForAllCameras | `0x00749BB0` | 67 | pendiente |
+| 112 | 2 Fácil | RenderWare SDK | RpClumpForAllLights | `0x00749C00` | 67 | pendiente |
+| 113 | 2 Fácil | RenderWare SDK | _rwMatrixDeterminant | `0x007F1450` | 69 | pendiente |
+| 114 | 2 Fácil | RenderWare SDK | _rwPluginRegistryInvokeRights | `0x00808AB0` | 69 | pendiente |
+| 115 | 2 Fácil | RenderWare SDK | _rwSListDestroy | `0x00809440` | 69 | pendiente |
+| 116 | 2 Fácil | RenderWare SDK | RwIm3DSetTransformPipeline | `0x007EFAC0` | 71 | pendiente |
+| 117 | 2 Fácil | RenderWare SDK | _rpSectorDefaultRenderCallBack | `0x0074EEC0` | 72 | pendiente |
+| 118 | 2 Fácil | CRT / runtime estático | _pow | `0x008220F0` | 72 | pendiente |
+| 119 | 2 Fácil | RenderWare SDK | RwErrorGet | `0x00808880` | 74 | pendiente |
+| 120 | 2 Fácil | RenderWare SDK | _rtDictDestruct | `0x007CEF60` | 75 | pendiente |
+| 121 | 2 Fácil | RenderWare SDK | RtDictSchemaForAllDictionaries | `0x007CF5B0` | 75 | pendiente |
+| 122 | 2 Fácil | Controlador D3D9 de RenderWare | RwD3D9DeleteVertexDeclaration | `0x007FAC10` | 76 | pendiente |
+| 123 | 2 Fácil | RenderWare SDK | _rpMeshSize | `0x00759090` | 77 | pendiente |
+| 124 | 2 Fácil | Controlador D3D9 de RenderWare | _rwD3D9VSGetComposedTransformMatrix | `0x007646E0` | 80 | pendiente |
+| 125 | 2 Fácil | RenderWare SDK | RwStreamReadReal | `0x007ED4F0` | 80 | pendiente |
+| 126 | 2 Fácil | RenderWare SDK | RwStreamReadInt32 | `0x007ED540` | 80 | pendiente |
+| 127 | 2 Fácil | RenderWare SDK | _rwStreamWriteVersionedChunkHeader | `0x007ED270` | 82 | pendiente |
+| 128 | 2 Fácil | Controlador D3D9 de RenderWare | RwD3D9CameraIsSphereFullyInsideFrustum | `0x007FAD30` | 82 | pendiente |
+| 129 | 2 Fácil | RenderWare SDK | RxPipelineNodeCloneDefinition | `0x008059C0` | 82 | pendiente |
+| 130 | 2 Fácil | RenderWare SDK | _rwPluginRegistryInitObject | `0x008086E0` | 83 | pendiente |
+| 131 | 2 Fácil | RenderWare SDK | _rwSqrt | `0x007EDB30` | 84 | pendiente |
+| 132 | 2 Fácil | Controlador D3D9 de RenderWare | _rpD3D9RemoveDynamicGeometry | `0x0074E9E0` | 85 | pendiente |
+| 133 | 2 Fácil | Controlador D3D9 de RenderWare | _rpD3D9VertexDeclarationInstColor | `0x00754AE0` | 85 | pendiente |
+| 134 | 2 Fácil | RenderWare SDK | RtDictForAllEntries | `0x007CF060` | 85 | pendiente |
+| 135 | 2 Fácil | RenderWare SDK | RwErrorSet | `0x00808820` | 86 | pendiente |
+| 136 | 2 Fácil | RenderWare SDK | _rwInvSqrt | `0x007EDB90` | 87 | pendiente |
+| 137 | 2 Fácil | RenderWare SDK | _rxPipelineClose | `0x00804F60` | 88 | pendiente |
+| 138 | 2 Fácil | RenderWare SDK | RpWorldForAllWorldSectors | `0x0074FC70` | 89 | pendiente |
+| 139 | 2 Fácil | Controlador D3D9 de RenderWare | RwD3D9SetStreamSource | `0x007FA030` | 90 | pendiente |
+| 140 | 2 Fácil | RenderWare SDK | RxHeapDestroy | `0x00809F30` | 90 | pendiente |
+| 141 | 2 Fácil | RenderWare SDK | _rpMaterialListStreamGetSize | `0x0074E450` | 91 | pendiente |
+| 142 | 2 Fácil | RenderWare SDK | _rwMatrixOrthogonalError | `0x007F14A0` | 91 | pendiente |
+| 143 | 2 Fácil | RenderWare SDK | _rxPacketDestroy | `0x0080F070` | 91 | pendiente |
+| 144 | 2 Fácil | RenderWare SDK | _rpMeshOptimise | `0x0075D970` | 93 | pendiente |
+| 145 | 2 Fácil | RenderWare SDK | _rpUVAnimCustomDataStreamRead | `0x007CBF70` | 94 | pendiente |
+| 146 | 2 Fácil | Controlador D3D9 de RenderWare | RwD3D9SetMaterial | `0x007FC430` | 97 | pendiente |
+| 147 | 2 Fácil | RenderWare SDK | _rwFramePurgeClone | `0x007F01A0` | 98 | pendiente |
+| 148 | 2 Fácil | Controlador D3D9 de RenderWare | _rpD3D9AddDynamicGeometry | `0x0074E970` | 99 | pendiente |
+| 149 | 2 Fácil | RenderWare SDK | RpMatFXMaterialSetUVTransformMatrices | `0x008129E0` | 100 | pendiente |
+| 150 | 2 Fácil | RenderWare SDK | _rwStringStreamWrite | `0x0080A4A0` | 102 | pendiente |
+| 151 | 2 Fácil | Controlador D3D9 de RenderWare | _rpD3D9VertexShaderCachePurge | `0x0075EE60` | 103 | pendiente |
+| 152 | 2 Fácil | Controlador D3D9 de RenderWare | _rwD3D9DynamicVertexBufferRestore | `0x007F58D0` | 103 | pendiente |
+| 153 | 2 Fácil | Controlador D3D9 de RenderWare | _rwD3D9VSGetWorldMultiplyTransposeMatrix | `0x00764960` | 104 | pendiente |
+| 154 | 2 Fácil | RenderWare SDK | _rxHeapReset | `0x00809EC0` | 104 | pendiente |
+| 155 | 2 Fácil | CRT / runtime estático | _free | `0x0082413F` | 104 | pendiente |
+| 156 | 2 Fácil | RenderWare SDK | RtDictRemoveEntry | `0x007CF0C0` | 106 | pendiente |
+| 157 | 2 Fácil | RenderWare SDK | RwResourcesFreeResEntry | `0x00807DE0` | 106 | pendiente |
+| 158 | 2 Fácil | RenderWare SDK | RtAnimInterpolatorCreate | `0x007CD520` | 108 | pendiente |
+| 159 | 2 Fácil | RenderWare SDK | RwTextureSetMaskName | `0x007F3910` | 110 | pendiente |
+| 160 | 2 Fácil | RenderWare SDK | RwFrameDestroyHierarchy | `0x007F08A0` | 112 | pendiente |
+| 161 | 2 Fácil | RenderWare SDK | RpMatFXMaterialSetDualBlendModes | `0x008128C0` | 112 | pendiente |
+| 162 | 2 Fácil | RenderWare SDK | _rwPluginRegistrySkipDataChunks | `0x00808C10` | 113 | pendiente |
+| 163 | 2 Fácil | RenderWare SDK | RpLightForAllWorldSectors | `0x007519F0` | 114 | pendiente |
+| 164 | 2 Fácil | RenderWare SDK | RtDictFindNamedEntry | `0x007CEFE0` | 114 | pendiente |
+| 165 | 2 Fácil | RenderWare SDK | RpHAnimKeyFrameStreamRead | `0x007C64C0` | 116 | pendiente |
+| 166 | 2 Fácil | RenderWare SDK | RwPalQuantTerm | `0x0080C520` | 116 | pendiente |
+| 167 | 2 Fácil | RenderWare SDK | RpMaterialSetUVAnim | `0x007CC3B0` | 118 | pendiente |
+| 168 | 2 Fácil | RenderWare SDK | _rwResourcesPurge | `0x00807E50` | 118 | pendiente |
+| 169 | 2 Fácil | RenderWare SDK | _rwFrameSyncHierarchyLTM | `0x008097D0` | 127 | pendiente |
+| 170 | 2 Fácil | RenderWare SDK | RpWorldSectorGetWorld | `0x0074F4E0` | 129 | pendiente |
+| 171 | 2 Fácil | Controlador D3D9 de RenderWare | RwD3D9CameraIsBBoxFullyInsideFrustum | `0x007FAD90` | 130 | pendiente |
+| 172 | 2 Fácil | Controlador D3D9 de RenderWare | _rpD3D9GetMinMaxValuesV2d | `0x007558F0` | 131 | pendiente |
+| 173 | 2 Fácil | RenderWare SDK | RwFreeListDestroy | `0x00801B80` | 136 | pendiente |
+| 174 | 2 Fácil | CRT / runtime estático | __stbuf | `0x00827DEC` | 136 | pendiente |
+| 175 | 2 Fácil | RenderWare SDK | _rwMatrixNormalError | `0x007F1500` | 137 | pendiente |
+| 176 | 2 Fácil | RenderWare SDK | RwFreeListPurge | `0x00801E00` | 138 | pendiente |
+| 177 | 2 Fácil | Controlador D3D9 de RenderWare | _rwD3D9LightsClose | `0x00755FE0` | 139 | pendiente |
+| 178 | 2 Fácil | RenderWare SDK | RwStreamWriteReal | `0x007ED3D0` | 142 | pendiente |
+| 179 | 2 Fácil | RenderWare SDK | RpWorldAddClump | `0x00751300` | 143 | pendiente |
+| 180 | 2 Fácil | Controlador D3D9 de RenderWare | _rwD3D9VSSetActiveWorldMatrix | `0x00764650` | 143 | pendiente |
+| 181 | 2 Fácil | Controlador D3D9 de RenderWare | RwD3D9SetRenderTarget | `0x007F9E90` | 148 | pendiente |
+| 182 | 3 Media | RenderWare SDK | _rpSkinSplitDataCreate | `0x007C8A70` | 158 | pendiente |
+| 183 | 3 Media | Controlador D3D9 de RenderWare | _rwD3D9VSGetWorldViewMultiplyTransposeMatrix | `0x007649D0` | 159 | pendiente |
+| 184 | 3 Media | RenderWare SDK | RxPipelineExecute | `0x00805710` | 159 | pendiente |
+| 185 | 3 Media | RenderWare SDK | _rpWorldSectorDeinstanceAll | `0x0074ECA0` | 165 | pendiente |
+| 186 | 3 Media | RenderWare SDK | _rwSListGetNewEntry | `0x00809240` | 166 | pendiente |
+| 187 | 3 Media | QuickTime/QTML | QuickTime runtime shutdown helper | `0x00819770` | 168 | pendiente |
+| 188 | 3 Media | RenderWare SDK | RwPalQuantInit | `0x0080C470` | 176 | pendiente |
+| 189 | 3 Media | RenderWare SDK | RwMatrixOptimize | `0x007F17E0` | 179 | pendiente |
+| 190 | 3 Media | Controlador D3D9 de RenderWare | _rpD3D9VertexShaderSetBumpMatrix | `0x00761B70` | 182 | pendiente |
+| 191 | 3 Media | Controlador D3D9 de RenderWare | _rwD3D9VSGetWorldNormalizedTransposeMatrix | `0x00764C60` | 187 | pendiente |
+| 192 | 3 Media | RenderWare SDK | RwBBoxCalculate | `0x00808F60` | 190 | pendiente |
+| 193 | 3 Media | Controlador D3D9 de RenderWare | _rwD3D9RenderStateFlushCache | `0x007FC200` | 195 | pendiente |
+| 194 | 3 Media | RenderWare SDK | RwImageMakeMask | `0x00802A20` | 198 | pendiente |
+| 195 | 3 Media | RenderWare SDK | _rwMatrixIdentityError | `0x007F1590` | 200 | pendiente |
+| 196 | 3 Media | RenderWare SDK | _rwPluginRegistryWriteDataChunks | `0x00808B40` | 201 | pendiente |
+| 197 | 3 Media | Controlador D3D9 de RenderWare | _rwD3D9VSGetRadiusInLocalSpace | `0x00764F60` | 203 | pendiente |
+| 198 | 3 Media | RenderWare SDK | _rwSListCreate | `0x00809160` | 205 | pendiente |
+| 199 | 3 Media | RenderWare SDK | _rxPipelineOpen | `0x00804FE0` | 210 | pendiente |
+| 200 | 3 Media | RenderWare SDK | _rpSkinInitialize | `0x007C8740` | 213 | pendiente |
+| 201 | 3 Media | Controlador D3D9 de RenderWare | _rwD3D9VSGetInverseWorldMatrix | `0x007647B0` | 214 | pendiente |
+| 202 | 3 Media | Controlador D3D9 de RenderWare | _rwD3D9VSGetWorldNormalizedMultiplyTransposeMatrix | `0x00764A70` | 219 | pendiente |
+| 203 | 3 Media | Controlador D3D9 de RenderWare | RwD3D9DynamicVertexBufferCreate | `0x007F5A00` | 220 | pendiente |
+| 204 | 3 Media | Controlador D3D9 de RenderWare | _rpD3D9FindFormatV2d | `0x00755AA0` | 227 | pendiente |
+| 205 | 3 Media | RenderWare SDK | _rpBuildMeshCreate | `0x00758A90` | 234 | pendiente |
+| 206 | 3 Media | Controlador D3D9 de RenderWare | _rwD3D9VSGetPointInLocalSpace | `0x00764E70` | 234 | pendiente |
+| 207 | 3 Media | RenderWare SDK | RxRenderStateVectorSetDefaultRenderStateVector | `0x0080EA40` | 234 | pendiente |
+| 208 | 3 Media | RenderWare SDK | RwImageRead | `0x00802FD0` | 240 | pendiente |
+| 209 | 3 Media | RenderWare SDK | RwResourcesEmptyArena | `0x008081F0` | 240 | pendiente |
+| 210 | 3 Media | Controlador D3D9 de RenderWare | RwD3D9DeviceSupportsDXTTexture | `0x007F9C30` | 242 | pendiente |
+| 211 | 3 Media | RenderWare SDK | RpHAnimHierarchyCreate | `0x007C4C30` | 247 | pendiente |
+| 212 | 3 Media | RenderWare SDK | RwTextureStreamWrite | `0x008045E0` | 250 | pendiente |
+| 213 | 3 Media | RenderWare SDK | RwImageCreateResample | `0x0080CD10` | 252 | pendiente |
+| 214 | 3 Media | RenderWare SDK | RwFreeListForAllUsed | `0x00801E90` | 254 | pendiente |
+| 215 | 3 Media | RenderWare SDK | RwCameraStreamRead | `0x00808DE0` | 263 | pendiente |
+| 216 | 3 Media | Controlador D3D9 de RenderWare | _rwD3D9RasterConvertToNonPalettized | `0x004CD250` | 265 | pendiente |
+| 217 | 3 Media | Controlador D3D9 de RenderWare | _rwD3D9VSGetWorldNormalizedViewMultiplyTransposeMatrix | `0x00764B50` | 269 | pendiente |
+| 218 | 3 Media | RenderWare SDK | RxHeapCreate | `0x00809F90` | 270 | pendiente |
+| 219 | 3 Media | RenderWare SDK | _rwStringOpen | `0x0080A240` | 272 | pendiente |
+| 220 | 3 Media | RenderWare SDK | RtDictStreamWrite | `0x007CF490` | 283 | pendiente |
+| 221 | 3 Media | RenderWare SDK | _rpBuildMeshAddTriangle | `0x00758C00` | 291 | pendiente |
+| 222 | 3 Media | RenderWare SDK | _rwPluginRegistryReadDataChunks | `0x00808980` | 299 | pendiente |
+| 223 | 3 Media | Controlador D3D9 de RenderWare | _rwD3D9VSGetNormalInLocalSpace | `0x00764D30` | 308 | pendiente |
+| 224 | 3 Media | RenderWare SDK | RwFrameAddChildNoUpdate | `0x007F09C0` | 313 | pendiente |
+| 225 | 3 Media | RenderWare SDK | RxHeapFree | `0x008098B0` | 319 | pendiente |
+| 226 | 3 Media | Controlador D3D9 de RenderWare | RwD3D9SetTransformWorld | `0x007FA520` | 320 | pendiente |
+| 227 | 3 Media | RenderWare SDK | RwImageSetGamma | `0x00803FE0` | 325 | pendiente |
+| 228 | 3 Media | RenderWare SDK | RpAtomicGetWorldBoundingSphere | `0x00749330` | 327 | pendiente |
+| 229 | 3 Media | RenderWare SDK | _rpMeshWrite | `0x00758D70` | 329 | pendiente |
+| 230 | 3 Media | Controlador D3D9 de RenderWare | RwD3D9DestroyVertexBuffer | `0x007F56A0` | 329 | pendiente |
+| 231 | 3 Media | RenderWare SDK | RpLightStreamRead | `0x00751F00` | 338 | pendiente |
+| 232 | 3 Media | Controlador D3D9 de RenderWare | _rpD3D9VertexShaderSetEnvMatrix | `0x00761A10` | 349 | pendiente |
+| 233 | 3 Media | RenderWare SDK | _rpWorldSectorDestroyRecurse | `0x0074ED50` | 364 | pendiente |
+| 234 | 3 Media | Controlador D3D9 de RenderWare | _rwD3D9Im2DRenderOpen | `0x007FB480` | 368 | pendiente |
+| 235 | 3 Media | Controlador D3D9 de RenderWare | RwD3D9DynamicVertexBufferLock | `0x007F5B10` | 369 | pendiente |
+| 236 | 3 Media | RenderWare SDK | RwImageReadMaskedImage | `0x008035C0` | 375 | pendiente |
+| 237 | 3 Media | Controlador D3D9 de RenderWare | _rpD3D9VertexDeclarationInstIndicesRemap | `0x00754C80` | 386 | pendiente |
+| 238 | 3 Media | RenderWare SDK | RwImageGammaCorrect | `0x00803E30` | 395 | pendiente |
+| 239 | 3 Media | Controlador D3D9 de RenderWare | RwD3D9CreateVertexBuffer | `0x007F5500` | 404 | pendiente |
+| 240 | 3 Media | CRT / runtime estático | CMemoryMgr::Realloc | `0x00824269` | 406 | pendiente |
+| 241 | 3 Media | Controlador D3D9 de RenderWare | RwD3D9CameraAttachWindow | `0x007F8D70` | 424 | pendiente |
+| 242 | 3 Media | RenderWare SDK | _rwFrameSyncDirty | `0x00809550` | 425 | pendiente |
+| 243 | 3 Media | RenderWare SDK | RpMatFXMaterialSetBumpMapTexture | `0x00812160` | 438 | pendiente |
+| 244 | 3 Media | RenderWare SDK | RpGeometryAddMorphTargets | `0x0074C310` | 443 | pendiente |
+| 245 | 3 Media | RenderWare SDK | _rpMeshRead | `0x00758EC0` | 462 | pendiente |
+| 246 | 3 Media | RenderWare SDK | RtAnimInterpolatorAddAnimTime | `0x007CD8D0` | 471 | pendiente |
+| 247 | 3 Media | Controlador D3D9 de RenderWare | RwD3D9CreateVertexDeclaration | `0x007FAA30` | 480 | pendiente |
+| 248 | 3 Media | Controlador D3D9 de RenderWare | _rwD3D9DeviceReleaseVideoMemory | `0x007F7F70` | 488 | pendiente |
+| 249 | 3 Media | RenderWare SDK | _rpTriListMeshGenerate | `0x0075D530` | 497 | pendiente |
+| 250 | 3 Media | CRT / runtime estático | helper sin símbolo confirmado (usado por CPedGeometryAnalyser::IsWanderPathClear) | `0x008219F0` | 498 | pendiente |
+| 251 | 4 Difícil | RenderWare SDK | RwTextureStreamRead | `0x008046E0` | 511 | pendiente |
+| 252 | 4 Difícil | RenderWare SDK | _rwPluginRegistryAddPlugin | `0x008084A0` | 515 | pendiente |
+| 253 | 4 Difícil | Controlador D3D9 de RenderWare | _rpD3D9VertexDeclarationUnInstV2d | `0x007555E0` | 531 | pendiente |
+| 254 | 4 Difícil | Controlador D3D9 de RenderWare | _rwD3D9Im3DRenderOpen | `0x0080E020` | 578 | pendiente |
+| 255 | 4 Difícil | Controlador D3D9 de RenderWare | _rwD3D9LightsOpen | `0x00755D80` | 604 | pendiente |
+| 256 | 4 Difícil | RenderWare SDK | _rwStringStreamFindAndRead | `0x0080A510` | 609 | pendiente |
+| 257 | 4 Difícil | RenderWare SDK | RwIm3DSetRenderPipeline | `0x007EFB10` | 644 | pendiente |
+| 258 | 4 Difícil | RenderWare SDK | _rwFrameListStreamRead | `0x00807970` | 671 | pendiente |
+| 259 | 4 Difícil | RenderWare SDK | RpWorldUnlock | `0x0074F210` | 710 | pendiente |
+| 260 | 4 Difícil | RenderWare SDK | RwMatrixRotateOneMinusCosineSine | `0x007F1D00` | 717 | pendiente |
+| 261 | 4 Difícil | RenderWare SDK | RpMaterialStreamRead | `0x0074DD30` | 724 | pendiente |
+| 262 | 4 Difícil | RenderWare SDK | RwPalQuantAddImage | `0x0080AA80` | 784 | pendiente |
+| 263 | 4 Difícil | RenderWare SDK | _rpMaterialListStreamRead | `0x0074E600` | 870 | pendiente |
+| 264 | 4 Difícil | Controlador D3D9 de RenderWare | _rpD3D9VertexDeclarationUnInstV3d | `0x007551F0` | 936 | pendiente |
+| 265 | 4 Difícil | RenderWare SDK | RwImageApplyMask | `0x00802AF0` | 936 | pendiente |
+| 266 | 4 Difícil | Controlador D3D9 de RenderWare | _rpD3D9VertexDeclarationInstTangent | `0x00754E20` | 973 | pendiente |
+| 267 | 4 Difícil | Controlador D3D9 de RenderWare | _rxD3D9VideoMemoryRasterListRestore | `0x004CC970` | 990 | pendiente |
+| 268 | 4 Difícil | RenderWare SDK | RtPNGImageRead | `0x007CF9B0` | 1039 | pendiente |
+| 269 | 4 Difícil | RenderWare SDK | RwImageResample | `0x0080C600` | 1045 | pendiente |
+| 270 | 4 Difícil | RenderWare SDK | RwPalQuantMatchImage | `0x0080BF20` | 1289 | pendiente |
+| 271 | 4 Difícil | RenderWare SDK | RwPalQuantResolvePalette | `0x0080AF60` | 1320 | pendiente |
+| 272 | 4 Difícil | RenderWare SDK | RpGeometryStreamRead | `0x0074D190` | 1332 | pendiente |
+| 273 | 4 Difícil | Controlador D3D9 de RenderWare | _rpD3D9VertexDeclarationInstV2d | `0x007544E0` | 1467 | pendiente |
+| 274 | 5 Muy difícil | Controlador D3D9 de RenderWare | _rpD3D9VertexDeclarationInstV3d | `0x00752AD0` | 1700 | pendiente |
+| 275 | 5 Muy difícil | Controlador D3D9 de RenderWare | _rwD3D9RenderStateReset | `0x007FD100` | 1806 | pendiente |
+| 276 | 5 Muy difícil | CRT / runtime estático | helper sin símbolo confirmado (usado por CrtPrintf) | `0x00827F4B` | 1904 | pendiente |
+| 277 | 5 Muy difícil | Controlador D3D9 de RenderWare | _rpD3D9VertexDeclarationInstWeights | `0x00752320` | 1908 | pendiente |
+| 278 | 5 Muy difícil | Controlador D3D9 de RenderWare | _rpD3D9VertexDeclarationInstV3dMorph | `0x00753B60` | 2370 | pendiente |
+| 279 | 5 Muy difícil | CRT / runtime estático | helper sin símbolo confirmado (usado por FlcCrtPow) | `0x00829B99` | 2861 | pendiente |
 
 </details>
 

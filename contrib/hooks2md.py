@@ -49,9 +49,9 @@ def difficulty_section(root, input_path):
     def cell(text):
         return str(text).replace('|', '\\|').replace('<', '&lt;').replace('>', '&gt;')
 
-    levels = sorted({r['nivel'] for r in items}, reverse=True)
+    levels = sorted({r['nivel'] for r in items})
     lines = ['', '<a id="cohorte-nuevo"></a>', '## 📋 Cohorte nuevo (17/10/2026): lista por dificultad', '',
-             'Destinos originales explícitos que `source/` sigue referenciando y que no estaban reconstruidos ni validados el 17/10/2026, las dos listas completas van ordenadas de mayor a menor tamaño en bytes (la columna «Rango» conserva la posición por dificultad, de menor a mayor: 1 es la más fácil) '
+             'Destinos originales explícitos que `source/` sigue referenciando y que no estaban reconstruidos ni validados el 17/10/2026, las dos listas completas van ordenadas de menor a mayor tamaño en bytes (la columna «Rango» conserva la posición por dificultad, de menor a mayor: 1 es la más fácil) '
              '(juego: puntuación de tamaño y riesgos —llamadas sin catalogar, indirectas, x87, tablas de saltos y SEH—; biblioteca: solo tamaño). '
              f'Lista completa y descargable: [lista-por-dificultad.csv](../{source.relative_to(root).as_posix()}) · metodología: [README del cohorte](../reversing/OriginalDependencies2026-10-17/README.md). '
              'La columna «Estado» se calcula con el catálogo actual: una dirección con fila reversed=1 en hooks.csv figura como reconstruida o validada.', '',
@@ -61,8 +61,8 @@ def difficulty_section(root, input_path):
         lib = [r for r in items if r['nivel'] == level and r['categoria'] == 'biblioteca']
         lines.append(f"| {cell(level)} | {len(game)} | {sum(status(r) == 'pendiente' for r in game)} | {len(lib)} | {sum(status(r) == 'pendiente' for r in lib)} |")
     for categoria, titulo in (('juego', 'Funciones del juego'), ('biblioteca', 'Bibliotecas (RenderWare, controlador D3D9, CRT, QuickTime)')):
-        rows = sorted((r for r in items if r['categoria'] == categoria), key=lambda r: (-int(r['bytes']), int(r['rango'])))
-        lines += ['', '<details>', f'<summary>{titulo} ({len(rows)}), de mayor a menor tamaño en bytes</summary>', '',
+        rows = sorted((r for r in items if r['categoria'] == categoria), key=lambda r: (int(r['bytes']), int(r['rango'])))
+        lines += ['', '<details>', f'<summary>{titulo} ({len(rows)}), de menor a mayor tamaño en bytes</summary>', '',
                   '| Rango | Nivel | Subcategoría | Función | Dirección | Bytes | Estado |', '| ---: | --- | --- | --- | --- | ---: | --- |']
         for r in rows:
             lines.append(f"| {r['rango']} | {cell(r['nivel'])} | {cell(r['subcategoria'])} | {cell(r['identity'])} | `{r['address']}` | {r['bytes']} | {status(r)} |")
@@ -218,17 +218,17 @@ def generate(input_path, output_path, update_source_status=False):
                 cells.append("")
         lines.append("| " + " | ".join(cells) + " |")
     lines += ["", "</details>", "", '<a id="parciales"></a>', f"## 🟡 Parciales · {len(partial)} clases", "",
-              "Orden de mayor a menor número de envolturas al EXE pendientes (a igualdad, de mayor a menor número de entradas pendientes y alfabético). Para decidir qué abordar primero, consultar la [cola de validación por niveles](ReversingPriorities.md).", "",
+              "Orden de menor a mayor número de envolturas al EXE pendientes (a igualdad, de menor a mayor número de entradas pendientes y alfabético). Para decidir qué abordar primero, consultar la [cola de validación por niveles](ReversingPriorities.md).", "",
               "Incluye las clases del catálogo que ya tienen todas sus entradas reconstruidas pero conservan funciones del juego que siguen delegando en el EXE (columna «Envolturas al EXE»): no cuentan como completas hasta reconstruirlas. Detalle por función en [envolturas-pendientes.csv](implementaciones/envolturas-pendientes.csv).", "",
               "| Clase | Revertidas / total | Pendientes | Envolturas al EXE | Avance | Validated | Locked |", "| --- | ---: | ---: | ---: | ---: | ---: | ---: |"]
-    for c in sorted(partial, key=lambda c: (-wrap_count.get(c.name, 0), -c.pending, c.name.casefold())):
+    for c in sorted(partial, key=lambda c: (wrap_count.get(c.name, 0), c.pending, c.name.casefold())):
         lines.append(f"| {class_link(c.name)} | {c.reversed}/{c.total} | **{c.pending}** | **{wrap_count.get(c.name, 0)}** | {c.reversed/c.total:.2%} | {c.validated} | {c.locked} |")
     lines += ["", '<a id="sin-revertir"></a>', f"## 🔴 Sin revertir · {len(empty) + len(uncatalogued)} clases", "",
               "Clases o grupos sin ninguna entrada reconstruida en el catálogo. Las que figuran con envolturas al EXE no están en [hooks.csv](hooks.csv): sus funciones del juego se conocen por el código fuente o por las cohortes de dependencias y siguen delegando en el original.", "",
               "| Clase | Revertidas / total | Pendientes | Envolturas al EXE | Avance | Validated | Locked |", "| --- | ---: | ---: | ---: | ---: | ---: | ---: |"]
-    for c in sorted(empty, key=lambda c: (-wrap_count.get(c.name, 0), -c.pending, c.name.casefold())):
+    for c in sorted(empty, key=lambda c: (wrap_count.get(c.name, 0), c.pending, c.name.casefold())):
         lines.append(f"| {class_link(c.name)} | 0/{c.total} | **{c.pending}** | **{wrap_count.get(c.name, 0)}** | 0.00% | {c.validated} | {c.locked} |")
-    for name in sorted(uncatalogued, key=lambda n: (-len(wrappers[n]), n.casefold())):
+    for name in sorted(uncatalogued, key=lambda n: (len(wrappers[n]), n.casefold())):
         label = name.replace('<', '&lt;').replace('>', '&gt;').replace('|', '\\|')
         lines.append(f"| {label} | 0/0 | — | **{len(wrappers[name])}** | 0.00% | 0 | 0 |")
     lines += difficulty_section(root, input_path)
