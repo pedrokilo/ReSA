@@ -1,7 +1,7 @@
 {
   "scope": "source/game_sa and source/app (WindowedMode.cpp included as the documented NOTSA assembly exception, reported separately), definitions in cpp/h/hpp/inc; all preprocessing branches",
   "totals": {
-    "source_definition_count": 18120,
+    "source_definition_count": 18121,
     "groups": 1487,
     "assembly_occurrences": 0,
     "naked_declarations": 0,
@@ -20,12 +20,12 @@
     "body_parse_errors": 303,
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 443,
-    "historical_catalog_rows": 8676,
+    "historical_catalog_rows": 8678,
     "catalog_rows_without_unambiguous_source_match_in_scope": 0,
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 20,
     "catalog_rows_linked_by_hook_address": 156,
-    "validated_reconstructed_own_cpp_definitions": 9978,
+    "validated_reconstructed_own_cpp_definitions": 9980,
     "validated_reconstructed_own_asm_definitions": 0,
     "wrapper_definitions": 149
   },
@@ -426,11 +426,11 @@
     "source/game_sa/Date.h": "43c8cc40e9bac088ab3520aa80cbd3ff6132bbe38d619e274760708b95487b0c",
     "source/game_sa/Debug.cpp": "78337ba95092d00ac82d8778572b34a7bcf634a683f84b16a7c9e22ae3ec2a61",
     "source/game_sa/Debug.h": "d8cdb034afcac4ce4adb23f4a01e258dd328e2d7c4cb819b35ac215b0867d6da",
-    "source/game_sa/DecisionMakers/Decision.cpp": "7789f596971309f1fc715847f34f1cb5149c74fbe5970efb952677b8b334e636",
-    "source/game_sa/DecisionMakers/Decision.h": "e7a3a87ea4385b2df44c564bf5a51535bd1b57fbed413c3900c8fb16b717977c",
+    "source/game_sa/DecisionMakers/Decision.cpp": "de65b3b169d449ffcb3a2c0535412f64a0f958333ddbfa87ce8fef83938bcca5",
+    "source/game_sa/DecisionMakers/Decision.h": "9de4d4419340191367031aed272c07295989f190b53acebba73258f5915a2f1a",
     "source/game_sa/DecisionMakers/DecisionMaker.cpp": "1918c5bdbd88420a0385edf9bf12ea7a6711ebba60feb0fc7b5f26790718bd8e",
     "source/game_sa/DecisionMakers/DecisionMaker.h": "ab1b6facd5919f551b5fb4dfa4cfa2be7406d5b408223841907e40395ff5939d",
-    "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "38dd072e359bb7d44662425873717d16e80de53c6eb4b12c990dd31a665318cc",
+    "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "6c31093e8833997db93ae2ee831b11d8646f8fee5a5b0e945706caabd01613e8",
     "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "9cd66af9084969827ff198f1cb9ec3f4947d0031ba670a547e7f295c2ab86ba2",
     "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "a4410d68c0a67da56f282a37c0d8587115a374e4a9a36c4601476a663d57d498",
     "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h": "f57ca5866aacbdd3f005d6e697834ca65e6204d94c7de32cae8d4be4ac55debd",
@@ -2231,10 +2231,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "6951dc33f1df4220914265396bd4f675f670bada988e9ed2def216612d8a5fec",
+    "hooks.csv": "5e4305fefa7ec055462058f0e631d395510833ba846032ccda0bec330a2e4027",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "748dc6269041f01c24afadff0786cef493dda9acec57e63e1178491300a64885",
+  "migration_registry_sha256": "ba6766bbd99a6e750d66c70583de08c2cd4000ed4872140606d64e3f513c5622",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

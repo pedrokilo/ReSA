@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,672 entradas reversed=1**, de 8,672 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,674 entradas reversed=1**, de 8,674 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8672 |
+| `validated=1` · evidencia aprobada vinculada | 8674 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8672 |
+| Evidencia histórica vinculada; revisión pendiente | 8674 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -2154,16 +2154,18 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CData | `Load` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CData | `Unload` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CDebug | `DebugDisplayTextBuffer` | [Resumen](../reversing/Misc56/validation-summary.json) |
+| CDecision | `Add` | [Resumen](../reversing/DecisionAdd27/validation-summary.json) |
 | CDecision | `From` | [Resumen](../reversing/RequestedLeafValidation/LiveBatch/validation-summary.json) |
 | CDecision | `MakeDecision` | [Resumen](../reversing/DecisionMakeDecision27/validation-summary.json) |
 | CDecision | `Set` | [Resumen](../reversing/DecisionPending/validation-summary.json) |
 | CDecision | `SetDefault` | [Resumen](../reversing/DecisionPending/validation-summary.json) |
 | CDecisionMakerTypes | `AddDecisionMaker` | [Resumen](../reversing/DependenciesDecisionRelationship6/validation-summary.json) |
+| CDecisionMakerTypes | `AddEventResponse` | [Resumen](../reversing/DecisionAdd27/validation-summary.json) |
 | CDecisionMakerTypes | `FlushDecisionMakerEventResponse` | [Resumen](../reversing/Dependencies25A/validation-summary.json) |
 | CDecisionMakerTypes | `GetInstance` | [Resumen](../reversing/DependenciesTask11/validation-summary.json) |
 | CDecisionMakerTypes | `LoadEventIndices` | [Resumen](../reversing/DependenciesDecisionRelationship6/validation-summary.json) |
-| CDecisionMakerTypes | `MakeDecision-Group` | [Resumen](../reversing/DependenciesDecisionPed7/validation-summary.json) |
-| CDecisionMakerTypes | `MakeDecision-Ped` | [Resumen](../reversing/DependenciesDecisionPed7/validation-summary.json) |
+| CDecisionMakerTypes | `MakeDecision-Group` | [Resumen](../reversing/DecisionPedGroup27/validation-summary.json) |
+| CDecisionMakerTypes | `MakeDecision-Ped` | [Resumen](../reversing/DecisionPedGroup27/validation-summary.json) |
 | CDecisionMakerTypes | `RemoveDecisionMaker` | [Resumen](../reversing/DependenciesDecisionRelationship6/validation-summary.json) |
 | CDecisionMakerTypesFileLoader | `GetGrpDMName` | [Resumen](../reversing/Audio7/validation-summary.json) |
 | CDecisionMakerTypesFileLoader | `GetPedDMName` | [Resumen](../reversing/Audio7/validation-summary.json) |
@@ -8839,8 +8841,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CDarkel` | 19 | 0 | 19 | 0 |
 | `CData` | 2 | 0 | 2 | 0 |
 | `CDebug` | 1 | 0 | 1 | 0 |
-| `CDecision` | 4 | 0 | 4 | 0 |
-| `CDecisionMakerTypes` | 7 | 0 | 7 | 0 |
+| `CDecision` | 5 | 0 | 5 | 0 |
+| `CDecisionMakerTypes` | 8 | 0 | 8 | 0 |
 | `CDecisionMakerTypesFileLoader` | 7 | 0 | 7 | 0 |
 | `CDirectory` | 10 | 0 | 10 | 0 |
 | `CDoor` | 6 | 0 | 6 | 0 |

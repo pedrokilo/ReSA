@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CDecisionMakerTypes
- * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 7/7 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -39,11 +39,12 @@ void CDecisionMakerTypes::InjectHooks() {
     RH_ScopedInstall(RemoveDecisionMaker, 0x6043A0);
     RH_ScopedInstall(LoadEventIndices, 0x600840);
     RH_ScopedInstall(FlushDecisionMakerEventResponse, 0x604490);
+    RH_ScopedInstall(AddEventResponse, 0x6044C0);
 }
 
 // Registros de las funciones de este archivo (los bancos DependenciesDecisionPed7, DependenciesDecisionRelationship6 y DependenciesTask11
 // siembran EAX/ECX/EDX y comparan lo que sale):
-//  - Los colaboradores del EXE sin reconstruir (0x6040D0, 0x606060, 0x5BB9F0, operator new 0x82119A y el constructor 0x4650F0) no leen EAX/ECX/EDX
+//  - Los colaboradores del EXE sin reconstruir (0x606060, 0x5BB9F0, operator new 0x82119A y el constructor 0x4650F0) no leen EAX/ECX/EDX
 //    de entrada antes de escribirlos, asi que su residuo de salida es independiente del llamador. Se llaman por direccion; cuando es lo ultimo que
 //    hace la funcion (MakeDecision, LoadEventIndices) no se ejecuta nada despues que toque ECX/EDX/EAX y el residuo del colaborador llega intacto
 //    al llamador del EXE. Sin comprobaciones de ejecucion (/RTC1 anade __RTC_CheckEsp tras las llamadas) ni cookie de /GS (safebuffers).
@@ -189,7 +190,7 @@ __declspec(safebuffers) CDecisionMakerTypes* CDecisionMakerTypes::GetInstance() 
 
 // 0x606E70: ECX = this, 11 argumentos en pila (ret 2Ch). Elige el decision maker segun la inteligencia del ped (+0x47C): -2 = jugador (CDecision suelta),
 // -1 = aleatorio/mision segun el tipo de ped (+0x484, byte == 2) con la funcion 0x606060 (indice aparte) y cualquier otro valor = ranura propia
-// [id * 41 + indice]. Todas acaban en el colaborador del EXE (0x6040D0 / 0x606060) y no se ejecuta nada despues: EAX/ECX/EDX de salida son los suyos.
+// [id * 41 + indice]. Todas acaban en CDecision::MakeDecision (C++, 0x6040D0) o en 0x606060 (EXE) y no se ejecuta nada despues; ningun llamador del EXE lee EAX/ECX/EDX de salida.
 __declspec(safebuffers) void CDecisionMakerTypes::MakeDecision(CPed* ped, eEventType eventType, int32 eventSourceType, bool bIsPedInVehicle, eTaskType taskTypeToAvoid1, eTaskType taskTypeToAvoid2, eTaskType taskTypeToAvoid3, eTaskType taskTypeToSeek, bool bUseInGroupDecisionMaker, int16& taskType, int16& facialTaskType) {
     uint8* const       base         = reinterpret_cast<uint8*>(this);
     const uint8* const pedBytes     = reinterpret_cast<const uint8*>(ped);
@@ -273,7 +274,7 @@ __declspec(safebuffers) void CDecisionMakerTypes::RemoveDecisionMaker(eDecisionT
 
 // 0x606F80: ECX = this, ocho argumentos en pila (ret 20h). Igual que la version de peds pero con la inteligencia de grupo (+0x2C8): -1 = por defecto de
 // grupos (aleatorio o mision segun el byte +0x2D0 == 1) y cualquier otro valor = ranura propia. Devuelve el task con signo extendido (el int16 que
-// rellena el colaborador); ECX/EDX de salida son los del colaborador del EXE (0x6040D0).
+// rellena el colaborador); ECX/EDX de salida son los de CDecision::MakeDecision (C++, 0x6040D0); ningun llamador del EXE los lee.
 // EDX de salida = el puntero de salida que el colaborador usa en su ultima escritura: el del task (rama sin opciones) o el del facial. El EXE no tiene
 // locales: pasa como punteros las propias ranuras de pila de los argumentos (task = ranura del primer argumento, ESP_entrada + 4, que sobrescribe con
 // 0xC8; facial = ranura del octavo, ESP_entrada + 0x20). Por eso aqui se pasan las direcciones de los parametros y no las de locales del marco de la DLL
@@ -300,8 +301,12 @@ __declspec(safebuffers) eTaskType CDecisionMakerTypes::MakeDecision(CPedGroup* p
 
 // 0x6044C0
 #pragma runtime_checks("", restore)
+// 0x6044C0: this + 4 + (m_EventIndices[eventType] + decisionMakerIndex * 41) * 0x3C (aritmetica de 32 bits, sin comprobar limites) y CDecision::Add (0x600600, ya en C++).
 void CDecisionMakerTypes::AddEventResponse(int32 decisionMakerIndex, eEventType eventType, eTaskType taskId, float* responseChances, int32* flags) {
-    plugin::CallMethod<0x6044C0, CDecisionMakerTypes*, int32, int32, int32, float*, int32*>(this, decisionMakerIndex, eventType, taskId, responseChances, flags);
+    const uint32 self       = AsU32(this);
+    const uint32 eventIndex = reinterpret_cast<const uint32*>(self + kEventIndices)[static_cast<int32>(eventType)];
+    const uint32 offset     = (eventIndex + static_cast<uint32>(decisionMakerIndex) * static_cast<uint32>(CDecision::MAX_NUM_DECISIONS)) * kDecisionStride;
+    reinterpret_cast<CDecision*>(static_cast<uintptr_t>(self + offset + 4u))->Add(taskId, responseChances, flags);
 }
 
 // 0x604490

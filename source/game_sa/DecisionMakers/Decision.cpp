@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CDecision
- * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 4/4 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -28,7 +28,7 @@ void CDecision::InjectHooks() {
 
     RH_ScopedInstall(SetDefault, 0x600530);
     RH_ScopedInstall(Set, 0x600570);
-    //RH_ScopedInstall(Add, 0x600600, { .reversed = false });
+    RH_ScopedInstall(Add, 0x600600);
     RH_ScopedInstall(From, 0x6006B0);
     //RH_ScopedInstall(HasResponse, 0x600710, { .reversed = false });
     RH_ScopedInstall(MakeDecision, 0x6040D0);
@@ -153,14 +153,46 @@ void CDecision::MakeDecision(int32 eventSourceType, bool bIsPedInVehicle, int32 
     facialSlot = -1;
 }
 
+// 0x600600: busca la primera de las 6 ranuras vacia (tarea -1, las 4 probabilidades a 0 y los 2 bools a 0) y la rellena: tarea, cada probabilidad = parte baja del
+// truncado de la float (_ftol2, 0x821B40) y cada bool = (flags[i] != 0). Si no hay ranura vacia no hace nada. No escribe en `chances` ni en `flags`.
+void CDecision::Add(eTaskType taskId, const float* chances, const int32* flags) {
+    auto* const raw = reinterpret_cast<uint8*>(this);
+    for (int32 i = 0; i < MAX_NUM_CHOICES; i++) {
+        if (*reinterpret_cast<const int32*>(raw + i * 4) != -1) {
+            continue;
+        }
+        bool occupied = false;
+        for (int32 j = 0; j < 4; j++) {
+            if (raw[0x18 + i * 4 + j] > 0) {
+                occupied = true;
+                break;
+            }
+        }
+        if (occupied) {
+            continue;
+        }
+        for (int32 j = 0; j < 2; j++) {
+            if (raw[0x30 + i * 2 + j] != 0) {
+                occupied = true;
+                break;
+            }
+        }
+        if (occupied) {
+            continue;
+        }
+        *reinterpret_cast<int32*>(raw + i * 4) = static_cast<int32>(taskId);
+        for (int32 j = 0; j < 4; j++) {
+            raw[0x18 + i * 4 + j] = static_cast<uint8>(static_cast<int64>(chances[j]));
+        }
+        raw[0x30 + i * 2]     = flags[0] != 0;
+        raw[0x30 + i * 2 + 1] = flags[1] != 0;
+        return;
+    }
+}
+
 /*
 // 0x600710
 bool CDecision::HasResponse() {
-
-}
-
-// 0x600600
-void CDecision::Add(int32, float*, int32*) {
 
 }
 */

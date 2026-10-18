@@ -530415,54 +530415,49 @@
         "type": "S"
       },
       "evidence": {
-        "path": "reversing/DependenciesDecisionPed7/validation-summary.json",
-        "sha256": "ddf700e5ec75c80f65e541457fa403c59ebd12bd494fae319569b49ba5fa0f7d",
+        "path": "reversing/DecisionPedGroup27/validation-summary.json",
+        "sha256": "0cda68f0ca47fb9cfb46e2c5ea1901762ae0e391ffb75150ca9e467d5e54673d",
         "passed_path": [
           "covered_functions",
           "CDecisionMakerTypes::MakeDecision-Ped"
         ],
-        "pairs": 2048,
+        "pairs": 2560,
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "bf0877261510aa7d3f60ddb25dfa95de0d783598ab5fbf677e7ab1571ce8f0ac",
+        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+        "source/game_sa/DecisionMakers/Decision.cpp": "78d9729ba39b8db418f7a466544ecea7374ae3302112bd686f28996206ea00c5",
+        "source/game_sa/DecisionMakers/Decision.h": "9de4d4419340191367031aed272c07295989f190b53acebba73258f5915a2f1a",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "590ba50627a505145eb8df650389f51222d833323a8d8a05cc5a21913afceb01",
         "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "9cd66af9084969827ff198f1cb9ec3f4947d0031ba670a547e7f295c2ab86ba2",
-        "source/game_sa/DecisionMakers/Decision.cpp": "e28de7b43d0893934d257c9886e57f92a691c0e38f0870c933f83df4a7f95ad1",
-        "source/game_sa/DecisionMakers/Decision.h": "515b6b7e9b2f16e3c2245f4bd6b78edf7b64aaa8d256cc279cb562077280fec9",
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "1918c5bdbd88420a0385edf9bf12ea7a6711ebba60feb0fc7b5f26790718bd8e",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "ab1b6facd5919f551b5fb4dfa4cfa2be7406d5b408223841907e40395ff5939d",
-        "source/game_sa/Pools/PedPool.h": "00e211fcbd5c4b1fa276fe781725e11c1c90c2e18a9fa3e5bae5706d9b2cb05b",
-        "source/game_sa/Pools/TaskPool.h": "c0873d69a474d40271eeba2c09e1d4aba91c3d9b38174068f809fddb8f168656",
-        "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe",
-        "source/game_sa/Pools.cpp": "44be32e7886bc6a2ccfd35c5081a6f1970f4104bd1a7ea56a39126405a71c517",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
-        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Entity/Ped/CopPed.h": "d9a6e69e3462ea23401a519dc7be959f72700d31d82ba6c4fadd82e2256a1117",
-        "source/game_sa/PedIntelligence.cpp": "d4c28f40a0670cca99f1bbfb280f30d7e0bdda072fbb78a08820419f37528ff7",
-        "source/game_sa/PedIntelligence.h": "c18190fafe528ca4c7a185f12fac0f4ab348dee5aa411acd2e7349a13df55d91",
-        "source/game_sa/PedGroup.h": "a55bc27dcf3f1ca52c166e998c5a575eb1b5d47892075e058821d45cb6ac979f",
-        "source/game_sa/Events/EventScriptCommand.cpp": "0e526a219ac9b6fbc627fe48757197aa673e79a1e63733aadd928dd3f51068fd",
-        "source/game_sa/Events/EventScriptCommand.h": "c2b81d4dd609c9a0ab18ffa8106ecaf09b6be137a8c9d2c9e9a05ce24adf82b4",
-        "source/game_sa/Events/Event.cpp": "5fe3694504970e61686368410a06d09bb8c4a6f010cb9c09aa9112fa41f6b5d9",
-        "source/game_sa/Events/Event.h": "03bdb8dc071929a39f1e8f44e51fddbe0390afd27ce80074fb8d36ad71c5cf99",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2f9cb5c6c456a1e72832973a6f4575cb00329ba46a16f0683d9ec0bf5d067e9d",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "8dbf353c2ae9ea97c24e4193546199c38cc79b3539edfadbcd3bf9cc70e37006",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "5d1eb7ba3ef63b8555030d95a1fa6e391d1d1c522c779b0c71db02b85db7f159",
-        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
-        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
-        "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
-        "source/game_sa/Tasks/TaskTimer.cpp": "7085edb0e98b7a5235875a3631f9b10dfd218bd2c0d325170cba3f9e1a5dbc25",
-        "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876",
-        "source/game_sa/References.h": "bccdb97d415ae4fdb9c276161a92ba2b5433c837b3f0c70b98de40d67d178481",
-        "source/game_sa/Timer.cpp": "b78d6cc3da32af05334e109f01853c5c29b9be5774e552f832d6213f9d518e3c",
-        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
-        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
-        "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+        "source/game_sa/X87Math.cpp": "37411f250da69e698a85ee3b0ce3026b179bd90f9573a6d24ba3d61e9e83de45",
+        "source/game_sa/X87Math.h": "7697e71e5b0400de633932af4da1ad66ba01044b0c2c841efdf2398d8a65a52b",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/DecisionPedGroup27/LiveComparison.hpp": "72931c0cdb178da544499803a8373dd87f14269379353b9abf1a1ba7465d22f4",
+        "reversing/DecisionPedGroup27/Fixtures.hpp": "496061a4ba8777f03aad1279b9953bb81b3c2a86e3ea6f11792f852e5f33086a",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
-      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia hist\u00f3rica limitada a fixtures, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco.",
-      "review_reference": "reversing/DependenciesDecisionPed7/README.md"
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas (Decision.cpp, Decision.h, DecisionMakerTypes.cpp y .h, DecisionMaker.cpp, X87Math) compiladas desde el worktree D:/Original/gta-wt-dm2 (HEAD 7a759750f); id\u00e9nticas byte a byte a las del \u00e1rbol principal en el momento del registro. CDecision::MakeDecision (0x6040D0) corre en C++ (DLL) en el lado candidato.",
+      "review_reference": "reversing/DecisionPedGroup27/README.md",
+      "previous_evidence": {
+        "evidence": {
+          "path": "reversing/DependenciesDecisionPed7/validation-summary.json",
+          "sha256": "ddf700e5ec75c80f65e541457fa403c59ebd12bd494fae319569b49ba5fa0f7d",
+          "passed_path": [
+            "covered_functions",
+            "CDecisionMakerTypes::MakeDecision-Ped"
+          ],
+          "pairs": 2048,
+          "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+        },
+        "review_reference": "reversing/DependenciesDecisionPed7/README.md"
+      }
     },
     {
       "hook": {
@@ -530472,54 +530467,49 @@
         "type": "S"
       },
       "evidence": {
-        "path": "reversing/DependenciesDecisionPed7/validation-summary.json",
-        "sha256": "ddf700e5ec75c80f65e541457fa403c59ebd12bd494fae319569b49ba5fa0f7d",
+        "path": "reversing/DecisionPedGroup27/validation-summary.json",
+        "sha256": "0cda68f0ca47fb9cfb46e2c5ea1901762ae0e391ffb75150ca9e467d5e54673d",
         "passed_path": [
           "covered_functions",
           "CDecisionMakerTypes::MakeDecision-Group"
         ],
-        "pairs": 2048,
+        "pairs": 2560,
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "bf0877261510aa7d3f60ddb25dfa95de0d783598ab5fbf677e7ab1571ce8f0ac",
+        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+        "source/game_sa/DecisionMakers/Decision.cpp": "78d9729ba39b8db418f7a466544ecea7374ae3302112bd686f28996206ea00c5",
+        "source/game_sa/DecisionMakers/Decision.h": "9de4d4419340191367031aed272c07295989f190b53acebba73258f5915a2f1a",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "590ba50627a505145eb8df650389f51222d833323a8d8a05cc5a21913afceb01",
         "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "9cd66af9084969827ff198f1cb9ec3f4947d0031ba670a547e7f295c2ab86ba2",
-        "source/game_sa/DecisionMakers/Decision.cpp": "e28de7b43d0893934d257c9886e57f92a691c0e38f0870c933f83df4a7f95ad1",
-        "source/game_sa/DecisionMakers/Decision.h": "515b6b7e9b2f16e3c2245f4bd6b78edf7b64aaa8d256cc279cb562077280fec9",
         "source/game_sa/DecisionMakers/DecisionMaker.cpp": "1918c5bdbd88420a0385edf9bf12ea7a6711ebba60feb0fc7b5f26790718bd8e",
         "source/game_sa/DecisionMakers/DecisionMaker.h": "ab1b6facd5919f551b5fb4dfa4cfa2be7406d5b408223841907e40395ff5939d",
-        "source/game_sa/Pools/PedPool.h": "00e211fcbd5c4b1fa276fe781725e11c1c90c2e18a9fa3e5bae5706d9b2cb05b",
-        "source/game_sa/Pools/TaskPool.h": "c0873d69a474d40271eeba2c09e1d4aba91c3d9b38174068f809fddb8f168656",
-        "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe",
-        "source/game_sa/Pools.cpp": "44be32e7886bc6a2ccfd35c5081a6f1970f4104bd1a7ea56a39126405a71c517",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
-        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Entity/Ped/CopPed.h": "d9a6e69e3462ea23401a519dc7be959f72700d31d82ba6c4fadd82e2256a1117",
-        "source/game_sa/PedIntelligence.cpp": "d4c28f40a0670cca99f1bbfb280f30d7e0bdda072fbb78a08820419f37528ff7",
-        "source/game_sa/PedIntelligence.h": "c18190fafe528ca4c7a185f12fac0f4ab348dee5aa411acd2e7349a13df55d91",
-        "source/game_sa/PedGroup.h": "a55bc27dcf3f1ca52c166e998c5a575eb1b5d47892075e058821d45cb6ac979f",
-        "source/game_sa/Events/EventScriptCommand.cpp": "0e526a219ac9b6fbc627fe48757197aa673e79a1e63733aadd928dd3f51068fd",
-        "source/game_sa/Events/EventScriptCommand.h": "c2b81d4dd609c9a0ab18ffa8106ecaf09b6be137a8c9d2c9e9a05ce24adf82b4",
-        "source/game_sa/Events/Event.cpp": "5fe3694504970e61686368410a06d09bb8c4a6f010cb9c09aa9112fa41f6b5d9",
-        "source/game_sa/Events/Event.h": "03bdb8dc071929a39f1e8f44e51fddbe0390afd27ce80074fb8d36ad71c5cf99",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2f9cb5c6c456a1e72832973a6f4575cb00329ba46a16f0683d9ec0bf5d067e9d",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "8dbf353c2ae9ea97c24e4193546199c38cc79b3539edfadbcd3bf9cc70e37006",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "5d1eb7ba3ef63b8555030d95a1fa6e391d1d1c522c779b0c71db02b85db7f159",
-        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
-        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
-        "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
-        "source/game_sa/Tasks/TaskTimer.cpp": "7085edb0e98b7a5235875a3631f9b10dfd218bd2c0d325170cba3f9e1a5dbc25",
-        "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876",
-        "source/game_sa/References.h": "bccdb97d415ae4fdb9c276161a92ba2b5433c837b3f0c70b98de40d67d178481",
-        "source/game_sa/Timer.cpp": "b78d6cc3da32af05334e109f01853c5c29b9be5774e552f832d6213f9d518e3c",
-        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
-        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
-        "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+        "source/game_sa/X87Math.cpp": "37411f250da69e698a85ee3b0ce3026b179bd90f9573a6d24ba3d61e9e83de45",
+        "source/game_sa/X87Math.h": "7697e71e5b0400de633932af4da1ad66ba01044b0c2c841efdf2398d8a65a52b",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/DecisionPedGroup27/LiveComparison.hpp": "72931c0cdb178da544499803a8373dd87f14269379353b9abf1a1ba7465d22f4",
+        "reversing/DecisionPedGroup27/Fixtures.hpp": "496061a4ba8777f03aad1279b9953bb81b3c2a86e3ea6f11792f852e5f33086a",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
-      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia hist\u00f3rica limitada a fixtures, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco.",
-      "review_reference": "reversing/DependenciesDecisionPed7/README.md"
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas (Decision.cpp, Decision.h, DecisionMakerTypes.cpp y .h, DecisionMaker.cpp, X87Math) compiladas desde el worktree D:/Original/gta-wt-dm2 (HEAD 7a759750f); id\u00e9nticas byte a byte a las del \u00e1rbol principal en el momento del registro. CDecision::MakeDecision (0x6040D0) corre en C++ (DLL) en el lado candidato.",
+      "review_reference": "reversing/DecisionPedGroup27/README.md",
+      "previous_evidence": {
+        "evidence": {
+          "path": "reversing/DependenciesDecisionPed7/validation-summary.json",
+          "sha256": "ddf700e5ec75c80f65e541457fa403c59ebd12bd494fae319569b49ba5fa0f7d",
+          "passed_path": [
+            "covered_functions",
+            "CDecisionMakerTypes::MakeDecision-Group"
+          ],
+          "pairs": 2048,
+          "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+        },
+        "review_reference": "reversing/DependenciesDecisionPed7/README.md"
+      }
     },
     {
       "hook": {
@@ -537584,6 +537574,84 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco.",
       "review_reference": "reversing/DecisionMakeDecision27/README.md"
+    },
+    {
+      "hook": {
+        "class": "CDecision",
+        "fn_name": "Add",
+        "address": "0x00600600",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/DecisionAdd27/validation-summary.json",
+        "sha256": "10e606e05eea5246665b61887badb61804961d9745e0b76d951a1f042e805c94",
+        "passed_path": [
+          "covered_functions",
+          "CDecision::Add"
+        ],
+        "pairs": 6144,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+        "source/game_sa/DecisionMakers/Decision.cpp": "78d9729ba39b8db418f7a466544ecea7374ae3302112bd686f28996206ea00c5",
+        "source/game_sa/DecisionMakers/Decision.h": "9de4d4419340191367031aed272c07295989f190b53acebba73258f5915a2f1a",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "590ba50627a505145eb8df650389f51222d833323a8d8a05cc5a21913afceb01",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "9cd66af9084969827ff198f1cb9ec3f4947d0031ba670a547e7f295c2ab86ba2",
+        "source/game_sa/DecisionMakers/DecisionMaker.h": "ab1b6facd5919f551b5fb4dfa4cfa2be7406d5b408223841907e40395ff5939d",
+        "source/game_sa/X87Math.cpp": "37411f250da69e698a85ee3b0ce3026b179bd90f9573a6d24ba3d61e9e83de45",
+        "source/game_sa/X87Math.h": "7697e71e5b0400de633932af4da1ad66ba01044b0c2c841efdf2398d8a65a52b",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/DecisionAdd27/LiveComparison.hpp": "d5c82f6330bca62cbed782c49608e13c61d3cb14c71762e646512498c3c96077",
+        "reversing/DecisionAdd27/Core.hpp": "d2a41766bc40660c308f727854907cbba2ad175932a2f97da9570efb7423cb03",
+        "reversing/DecisionAdd27/Fixtures.hpp": "07c1b9d69c7b0efb8fc0f89e3ead14c5cba1d85d6c489e3ce436b57abe3b1014",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas (Decision.cpp, Decision.h, DecisionMakerTypes.cpp y .h) compiladas desde el worktree D:/Original/gta-wt-dm2 (HEAD 7a759750f); id\u00e9nticas byte a byte a las del \u00e1rbol principal en el momento del registro.",
+      "review_reference": "reversing/DecisionAdd27/README.md"
+    },
+    {
+      "hook": {
+        "class": "CDecisionMakerTypes",
+        "fn_name": "AddEventResponse",
+        "address": "0x006044C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/DecisionAdd27/validation-summary.json",
+        "sha256": "10e606e05eea5246665b61887badb61804961d9745e0b76d951a1f042e805c94",
+        "passed_path": [
+          "covered_functions",
+          "CDecisionMakerTypes::AddEventResponse"
+        ],
+        "pairs": 4608,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+        "source/game_sa/DecisionMakers/Decision.cpp": "78d9729ba39b8db418f7a466544ecea7374ae3302112bd686f28996206ea00c5",
+        "source/game_sa/DecisionMakers/Decision.h": "9de4d4419340191367031aed272c07295989f190b53acebba73258f5915a2f1a",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "590ba50627a505145eb8df650389f51222d833323a8d8a05cc5a21913afceb01",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "9cd66af9084969827ff198f1cb9ec3f4947d0031ba670a547e7f295c2ab86ba2",
+        "source/game_sa/DecisionMakers/DecisionMaker.h": "ab1b6facd5919f551b5fb4dfa4cfa2be7406d5b408223841907e40395ff5939d",
+        "source/game_sa/X87Math.cpp": "37411f250da69e698a85ee3b0ce3026b179bd90f9573a6d24ba3d61e9e83de45",
+        "source/game_sa/X87Math.h": "7697e71e5b0400de633932af4da1ad66ba01044b0c2c841efdf2398d8a65a52b",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/DecisionAdd27/LiveComparison.hpp": "d5c82f6330bca62cbed782c49608e13c61d3cb14c71762e646512498c3c96077",
+        "reversing/DecisionAdd27/Core.hpp": "d2a41766bc40660c308f727854907cbba2ad175932a2f97da9570efb7423cb03",
+        "reversing/DecisionAdd27/Fixtures.hpp": "07c1b9d69c7b0efb8fc0f89e3ead14c5cba1d85d6c489e3ce436b57abe3b1014",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas (Decision.cpp, Decision.h, DecisionMakerTypes.cpp y .h) compiladas desde el worktree D:/Original/gta-wt-dm2 (HEAD 7a759750f); id\u00e9nticas byte a byte a las del \u00e1rbol principal en el momento del registro.",
+      "review_reference": "reversing/DecisionAdd27/README.md"
     }
   ]
 }

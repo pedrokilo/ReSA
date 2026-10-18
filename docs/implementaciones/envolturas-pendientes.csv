@@ -356,7 +356,6 @@ CCarCtrl,WeaveThroughPedsSectorList,0x0042D7E0,source/game_sa/CarCtrl.cpp:2566,c
 CCollisionEventScanner,ScanForCollisionEvents,0x00604500,source/game_sa/Collision/CollisionEventScanner.cpp:5,cohorte 499 + envoltura en el código fuente
 CCustomBuildingDNPipeline,CustomPipeMaterialSetup,0x005D7120,source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp:276,cohorte nuevo 2026-10-17
 CCustomBuildingDNPipeline,CustomPipeRenderCB,,source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp:305,envoltura en el código fuente
-CDecisionMakerTypes,AddEventResponse,0x006044C0,source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:287,cohorte nuevo 2026-10-17
 CEventScanner,ScanForEvents,0x00607E30,source/game_sa/Events/EventScanner.cpp:26,cohorte 499 + envoltura en el código fuente
 CFileLoader,Load2dEffect,0x005B7670,source/game_sa/FileLoader.cpp:1023,cohorte 499
 CGarage,InitDoorsAtStart,0x00447600,source/game_sa/Garage.cpp:165,cohorte 499

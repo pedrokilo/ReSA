@@ -1,0 +1,3 @@
+APROBADO: DecisionAdd27
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-decisionadd27\20261018-144229-450592
