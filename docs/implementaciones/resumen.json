@@ -20,12 +20,12 @@
     "body_parse_errors": 303,
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 443,
-    "historical_catalog_rows": 8678,
+    "historical_catalog_rows": 8679,
     "catalog_rows_without_unambiguous_source_match_in_scope": 0,
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 20,
     "catalog_rows_linked_by_hook_address": 156,
-    "validated_reconstructed_own_cpp_definitions": 9980,
+    "validated_reconstructed_own_cpp_definitions": 9981,
     "validated_reconstructed_own_asm_definitions": 0,
     "wrapper_definitions": 149
   },
@@ -760,7 +760,7 @@
     "source/game_sa/Explosion.h": "9ff67a51fb1b722c14d053e14ebcd2bfd82a5196d2d9f69ccc4bf51ec1f529e1",
     "source/game_sa/FallingGlassPane.cpp": "ffe9c99d63cedc6ed9a31de4035381a42fa3f70311eda0d2cf9c26077910d7ff",
     "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
-    "source/game_sa/FileLoader.cpp": "671b5fbfde7f4b780d4bf5e4896e3a6d3ea9bbb41ebb6b655ffdf645f9f0796a",
+    "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
     "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
     "source/game_sa/FileMgr.cpp": "d3d1e045e5fe41895ee4bc624ba91d46134b57affa59ef79b1260f75a8ee55ea",
     "source/game_sa/FileMgr.h": "5ee4a8305e446d6d3ef391530d1a4226b59940d2a781bf97a096a2d268ee514f",
@@ -2231,10 +2231,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "5e4305fefa7ec055462058f0e631d395510833ba846032ccda0bec330a2e4027",
+    "hooks.csv": "7fca0a5c87cb2c2c957a112eea1b9963e1a02b5770c545dff628805bf266a858",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "ba6766bbd99a6e750d66c70583de08c2cd4000ed4872140606d64e3f513c5622",
+  "migration_registry_sha256": "d2a59b65232cd80a7780b334d89a7f70602d6678f040f5dbda1cbe57c84f5ca9",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

@@ -357,7 +357,6 @@ CCollisionEventScanner,ScanForCollisionEvents,0x00604500,source/game_sa/Collisio
 CCustomBuildingDNPipeline,CustomPipeMaterialSetup,0x005D7120,source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp:276,cohorte nuevo 2026-10-17
 CCustomBuildingDNPipeline,CustomPipeRenderCB,,source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp:305,envoltura en el código fuente
 CEventScanner,ScanForEvents,0x00607E30,source/game_sa/Events/EventScanner.cpp:26,cohorte 499 + envoltura en el código fuente
-CFileLoader,Load2dEffect,0x005B7670,source/game_sa/FileLoader.cpp:1023,cohorte 499
 CGarage,InitDoorsAtStart,0x00447600,source/game_sa/Garage.cpp:165,cohorte 499
 CGarage,IsEntityEntirelyInside3D,0x00448BE0,source/game_sa/Garage.cpp:186,cohorte nuevo 2026-10-17
 CGarage,IsEntityEntirelyOutside,0x00448D30,source/game_sa/Garage.cpp:176,cohorte nuevo 2026-10-17

@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CFileLoader
- * Reconstrucción: COMPLETA — 47/47 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 48/48 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 47/47 entradas.
+ * Validación registrada: 48/48 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -98,6 +98,7 @@ void CFileLoader::InjectHooks() {
     RH_ScopedInstall(LoadPedObject, 0x5B7420);
     RH_ScopedInstall(LoadPickup, 0x5B47B0);
     RH_ScopedInstall(LoadEntryExit, 0x5B8030);
+    RH_ScopedInstall(Load2dEffect, 0x5B7670);
     RH_ScopedInstall(LoadGarage, 0x5B4530);
     RH_ScopedInstall(LoadLevel, 0x5B9030);
     RH_ScopedInstall(LoadScene, 0x5B8700);
@@ -1019,46 +1020,221 @@ int32 CFileLoader::LoadObject(const char* line) {
     return modelId;
 }
 
-// 0x5B7670
+// 0x5B7670: crea una entrada 2DFX en el almacen (CStore de C2dEffect) para el modelo de la linea y rellena el bloque de 0x40 bytes segun el tipo (los tipos 2 y 4 no se leen).
+// Como el original, los campos se escriben por desplazamiento: sscanf escribe directamente en el bloque donde el EXE pasa &bloque[n], y los %d intermedios van a variables
+// locales de las que solo se guarda el byte (o la palabra) bajo. El bloque no se pone a cero antes (queda lo que hubiera en el almacen).
 void CFileLoader::Load2dEffect(const char* line) {
-    return plugin::Call<0x5B7670, const char*>(line);
-
-    // todo:
-    auto modelId{ MODEL_INVALID };
-    CVector pos{};
+    // sscanf del EXE (0x8220AD, CRT estatico del juego): el de la DLL (UCRT) redondea los %f y trata los %d fuera de rango de otra forma (banco FileLoaderLoad2dEffect27).
+    const auto exeSscanf = reinterpret_cast<int(__cdecl*)(const char*, const char*, ...)>(0x8220AD);
+    int32 modelId;
+    float x, y, z;
     int32 type;
-    sscanf(line, "%d %f %f %f %d", &modelId, &pos.x, &pos.y, &pos.z, &type);
+    exeSscanf(line, "%d %f %f %f %d", &modelId, &x, &y, &z, &type);
 
     CTxdStore::PushCurrentTxd();
     CTxdStore::SetCurrentTxd(CTxdStore::FindTxdSlot("particle"));
 
+    CBaseModelInfo* const mi = CModelInfo::ms_modelInfoPtrs[modelId];
     auto& effect = CModelInfo::Get2dEffectStore()->AddItem();
-    CModelInfo::GetModelInfo(modelId)->Add2dEffect(&effect);
-    effect.m_Pos = pos;
-    effect.m_Type = *reinterpret_cast<e2dEffectType*>(type);
+    mi->Add2dEffect(&effect);
+
+    uint8* const e = reinterpret_cast<uint8*>(&effect);
+    const auto PtrI = [e](size_t off) { return reinterpret_cast<int32*>(e + off); };
+    const auto PtrF = [e](size_t off) { return reinterpret_cast<float*>(e + off); };
+    const auto PutF = [e](size_t off, float v) { *reinterpret_cast<float*>(e + off) = v; };
+    const auto PutB = [e](size_t off, int32 v) { e[off] = (uint8)v; };
+
+    *PtrF(0x0) = x;
+    *PtrF(0x4) = y;
+    *PtrF(0x8) = z;
+    e[0xC] = (uint8)type;
 
     switch (type) {
-    case EFFECT_LIGHT:
+    case 0: { // luz
+        int32 r, g, b, a;
+        exeSscanf(line, "%d %f %f %f %d %d %d %d %d", &modelId, &x, &y, &z, &type, &r, &g, &b, &a);
+
+        // Dos cadenas entre comillas (corona y sombra); como el original, sin comprobar el fin de la linea
+        char        coronaName[128], shadowName[128];
+        const char* p = line;
+        char        c;
+        do { c = *p++; } while (c != '"');
+        {
+            char* d = coronaName;
+            while (*p != '"') { *d++ = *p++; }
+            *d = '\0';
+        }
+        p++;
+        do { c = *p++; } while (c != '"');
+        {
+            char* d = shadowName;
+            while (*p != '"') { *d++ = *p++; }
+            *d = '\0';
+        }
+
+        int32 v29, v26, v27, v28, flags, v2a, v2b, v2c, v2d;
+        exeSscanf(p + 1, "%f %f %f %f %d %d %d %d %d %d %d %d %d",
+            PtrF(0x14), PtrF(0x18), PtrF(0x1C), PtrF(0x20),
+            &v29, &v26, &v27, &v28, &flags, &v2a, &v2b, &v2c, &v2d);
+
+        PutB(0x11, g);
+        PutB(0x10, r);
+        PutB(0x29, v29);
+        PutB(0x12, b);
+        PutB(0x13, a);
+        PutB(0x28, v28);
+        PutB(0x26, v26);
+        PutB(0x27, v27);
+        PutB(0x2B, v2b);
+        *reinterpret_cast<uint16*>(e + 0x24) = (uint16)flags;
+        PutB(0x2A, v2a);
+        PutB(0x2C, v2c);
+        PutB(0x2D, v2d);
+        *reinterpret_cast<RwTexture**>(e + 0x30) = RwTextureRead(coronaName, nullptr);
+        *reinterpret_cast<RwTexture**>(e + 0x34) = RwTextureRead(shadowName, nullptr);
+        if ((uint8)flags & 4) {
+            e[0x24] &= 0xFD;
+        }
         break;
-    case EFFECT_PARTICLE:
+    }
+    case 1: // particula
+        exeSscanf(line, "%d %f %f %f %d %s", &modelId, &x, &y, &z, &type, reinterpret_cast<char*>(e + 0x10));
         break;
-    case EFFECT_ATTRACTOR:
+    case 3: { // atractor
+        int32 v34, v35, v36;
+        char  name[128];
+        exeSscanf(line, "%d %f %f %f %d %d %f %f %f %f %f %f %f %f %f %d %d %s",
+            &modelId, &x, &y, &z, &type, &v34,
+            PtrF(0x10), PtrF(0x14), PtrF(0x18), PtrF(0x1C), PtrF(0x20), PtrF(0x24), PtrF(0x28), PtrF(0x2C), PtrF(0x30),
+            &v35, &v36, name);
+        PutB(0x34, v34);
+        strcpy(reinterpret_cast<char*>(e + 0x38), name);
+        PutB(0x35, v35);
+        PutB(0x36, v36);
         break;
-    case EFFECT_INTERIOR:
+    }
+    case 5: { // cartel de carretera
+        int32 f1a0 = -1, f194 = -1, f188 = -1, f19c = -1, f18c = -1, f198 = -1, f190 = -1, f1a4 = -1;
+        int32 f1ac = -1, f1a8 = -1, f1b4 = -1, f1b0 = -1, f1b8 = -1;
+        int32 f16c = -1, f168 = -1, f164 = -1, f15c = -1, f158 = -1, f154 = -1, f178 = -1, f174 = -1, f170 = -1;
+        int32 f150 = -1, f14c = -1, f148 = -1;
+        int32 f160 = 0x32;
+        int32 f184 = 0, f180 = 0;
+        float sizeX = 0.0f, sizeY = 0.0f, sizeZ = 0.0f;
+        exeSscanf(line, "%d %f %f %f %d %d %f %f %f %f %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d  %d %d %d %d  %d %d %d %d  %d %d %d %d",
+            &modelId, &x, &y, &z, &type,
+            PtrI(0x10), &sizeX, &sizeY, &sizeZ, PtrF(0x30),
+            &f184, &f180, &f1a0, &f160, &f194, &f188, &f19c, &f18c, &f198, &f190, &f1a4, &f1ac,
+            &f1a8, &f1b4, &f1b0, &f1b8, &f16c, &f15c, &f178, &f150, &f168, &f158, &f174, &f14c,
+            &f164, &f154, &f170, &f148);
+        // _ftol2 (0x821B40): trunca a 64 bits y se guarda el byte bajo
+        e[0x12] = (uint8)(int64)sizeX;
+        e[0x13] = (uint8)(int64)sizeY;
+        e[0x14] = (uint8)(int64)sizeZ;
+        PutB(0x15, f184);
+        PutB(0x2E, f180);
+        PutB(0x11, f1a0);
+        PutB(0x2F, f160);
+        PutB(0x16, f194);
+        PutB(0x17, f188);
+        PutB(0x1A, f19c);
+        PutB(0x1B, f18c);
+        PutB(0x18, f198);
+        PutB(0x19, f190);
+        PutB(0x1C, f1a4);
+        PutB(0x1D, f1ac);
+        PutB(0x20, f1a8);
+        PutB(0x21, f1b4);
+        PutB(0x1E, f1b0);
+        PutB(0x1F, f1b8);
+        PutB(0x22, f16c);
+        PutB(0x25, f15c);
+        PutB(0x28, f178);
+        PutB(0x2B, f150);
+        PutB(0x23, f168);
+        PutB(0x26, f158);
+        PutB(0x29, f174);
+        PutB(0x2C, f14c);
+        PutB(0x24, f164);
+        PutB(0x27, f154);
+        PutB(0x2A, f170);
+        PutB(0x2D, f148);
         break;
-    case EFFECT_ENEX:
+    }
+    case 6: { // maquina tragaperras
+        int32 v2c = 0, v2e = 0, v2f = 0;
+        char  name[128];
+        exeSscanf(line, "%d %f %f %f %d %f %f %f %f %f %f %f %d %d %s %d",
+            &modelId, &x, &y, &z, &type,
+            PtrF(0x10), PtrF(0x14), PtrF(0x18), PtrF(0x1C), PtrF(0x20), PtrF(0x24), PtrF(0x28),
+            &v2c, &v2e, name, &v2f);
+        *reinterpret_cast<uint16*>(e + 0x2C) = (uint16)v2c;
+        PutB(0x2E, v2e);
+        PutB(0x2F, v2f);
+        strncpy(reinterpret_cast<char*>(e + 0x30), name, 8);
         break;
-    case EFFECT_ROADSIGN:
+    }
+    case 7: { // interior: cuatro nombres, solo se copian los 16 primeros bytes de cada uno
+        char names[4][128];
+        for (auto& n : names) {
+            memset(n, 0, sizeof(n));
+            n[0] = ' ';
+        }
+        float f1b8, f1b0, f1b4, f1a8, f1ac;
+        int32 f1a4;
+        exeSscanf(line, "%d %f %f %f %d %f %f %f %f %f %d %s %s %s %s",
+            &modelId, &x, &y, &z, &type, &f1b8, &f1b0, &f1b4, &f1a8, &f1ac, &f1a4,
+            names[0], names[1], names[2], names[3]);
+        PutF(0x10, f1b8);
+        PutF(0x14, f1b0);
+        PutF(0x18, f1b4);
+        PutF(0x1C, f1a8);
+        PutF(0x20, f1ac);
+        *reinterpret_cast<uint16*>(e + 0x24) = (uint16)f1a4;
+        auto* const block = static_cast<uint8*>(CMemoryMgr::Malloc(0x40, 0));
+        *reinterpret_cast<uint8**>(e + 0x28) = block;
+        for (size_t i = 0; i < 4; i++) {
+            memcpy(block + i * 16, names[i], 16);
+        }
+        *PtrI(0x2C) = 0;
         break;
-    case EFFECT_TRIGGER_POINT:
+    }
+    case 8: {
+        int32 v;
+        exeSscanf(line, "%d %f %f %f %d %d", &modelId, &x, &y, &z, &type, &v);
+        *PtrI(0x10) = v;
         break;
-    case EFFECT_COVER_POINT:
+    }
+    case 9: {
+        float f0, f1;
+        int32 v;
+        exeSscanf(line, "%d %f %f %f %d %f %f %d", &modelId, &x, &y, &z, &type, &f0, &f1, &v);
+        PutF(0x10, f0);
+        PutF(0x14, f1);
+        PutB(0x18, v);
         break;
-    case EFFECT_ESCALATOR:
+    }
+    case 10: {
+        float f1, f2, f3, f4, f5, f6, f7, f8, f9;
+        int32 v;
+        exeSscanf(line, "%d %f %f %f %d %f %f %f %f %f %f %f %f %f %d",
+            &modelId, &x, &y, &z, &type, &f1, &f2, &f3, &f4, &f5, &f6, &f7, &f8, &f9, &v);
+        PutF(0x10, f1);
+        PutF(0x1C, f4);
+        PutF(0x28, f7);
+        PutF(0x14, f2);
+        PutF(0x18, f3);
+        PutF(0x20, f5);
+        PutF(0x24, f6);
+        PutF(0x2C, f8);
+        PutF(0x30, f9);
+        e[0x34] = v != 0;
         break;
+    }
     default:
         break;
     }
+
     CTxdStore::PopCurrentTxd();
 }
 

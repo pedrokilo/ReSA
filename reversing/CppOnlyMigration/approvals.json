@@ -9689,5 +9689,19 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ con el truncado float->int64 del compilador (equivalente al _ftol2 0x821B40 del EXE, que el original sigue ejecutando) y aritmética de 32 bits sin comprobar límites. Banco DecisionAdd27 con 10752 pares y cero diferencias; EAX/ECX/EDX sólo registrados porque ningún llamador los lee. Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas (Decision.cpp, Decision.h, DecisionMakerTypes.cpp y .h) compiladas desde el worktree D:/Original/gta-wt-dm2 (HEAD 7a759750f); idénticas byte a byte a las del árbol principal en el momento del registro."
+  },
+  "0x005B7670": {
+    "identity": "CFileLoader::Load2dEffect",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/FileLoader.cpp",
+    "bank": "FileLoaderLoad2dEffect27",
+    "run": "20261018-160630-995451",
+    "pairs": 6144,
+    "own_pairs": 6144,
+    "audit": "reversing/CppTwelveLevel6Final/runs/FileLoaderLoad2dEffect27-20261018-160630-995451/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ llamando al sscanf del EXE por direccion (0x8220AD, CRT estatico del juego; el UCRT de la DLL daba 338 diferencias de 6144), la conversion float->int64 del compilador (equivalente al _ftol2 0x821B40) y los colaboradores del juego sustituidos por falsos trazados idénticos en ambos lados. Banco FileLoaderLoad2dEffect27 con 6144 pares y cero diferencias; EAX/ECX/EDX sólo registrados. Sin cobertura exhaustiva más allá de los fixtures del banco; los campos que dependen del CRT se documentan en el README del banco. Fuentes probadas (FileLoader.cpp/.h y cabeceras) compiladas desde el worktree D:/Original/gta-wt-fl; FileLoader.cpp idéntico byte a byte al del árbol principal en el momento del registro. sscanf: Load2dEffect llama al sscanf del EXE por dirección (0x8220AD, CRT estático del juego) y no al UCRT de la DLL, que en la corrida previa 20261018-160456-540095 dio 338 diferencias de 6144 (%f/%d en el límite); esa corrida es sólo una nota, no evidencia. Colaboradores sustituidos por falsos trazados idénticos en ambos lados: Get2dEffectStore, Add2dEffect, PushCurrentTxd, FindTxdSlot, SetCurrentTxd, PopCurrentTxd, RwTextureRead y Malloc; no se valida el cuerpo real de esos colaboradores. Las demás llamadas a sscanf de FileLoader.cpp (unas 40) NO están cubiertas por este banco."
   }
 }

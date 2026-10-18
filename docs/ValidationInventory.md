@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,674 entradas reversed=1**, de 8,674 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,675 entradas reversed=1**, de 8,675 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8674 |
+| `validated=1` · evidencia aprobada vinculada | 8675 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8674 |
+| Evidencia histórica vinculada; revisión pendiente | 8675 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -2591,6 +2591,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CFileLoader | `FindRelatedModelInfoCB` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
 | CFileLoader | `FinishLoadClumpFile` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
 | CFileLoader | `LinkLods` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
+| CFileLoader | `Load2dEffect` | [Resumen](../reversing/FileLoaderLoad2dEffect27/validation-summary.json) |
 | CFileLoader | `LoadAnimatedClumpObject` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
 | CFileLoader | `LoadAtomicFile-` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
 | CFileLoader | `LoadAtomicFile-stream` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
@@ -8923,7 +8924,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CEventVehicleToSteal` | 2 | 0 | 2 | 0 |
 | `CExplosion` | 12 | 0 | 12 | 0 |
 | `CFallingGlassPane` | 2 | 0 | 2 | 0 |
-| `CFileLoader` | 47 | 0 | 47 | 0 |
+| `CFileLoader` | 48 | 0 | 48 | 0 |
 | `CFileMgr` | 17 | 0 | 17 | 0 |
 | `CFire` | 5 | 0 | 5 | 0 |
 | `CFireManager` | 24 | 0 | 24 | 0 |

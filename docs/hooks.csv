@@ -8673,3 +8673,4 @@ CAutoPilot,ModifySpeed,0x0041B980,1,0,1,S
 CDecision,MakeDecision,0x006040D0,1,0,1,S
 CDecision,Add,0x00600600,1,0,1,S
 CDecisionMakerTypes,AddEventResponse,0x006044C0,1,0,1,S
+CFileLoader,Load2dEffect,0x005B7670,1,0,1,S

@@ -537652,6 +537652,45 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas (Decision.cpp, Decision.h, DecisionMakerTypes.cpp y .h) compiladas desde el worktree D:/Original/gta-wt-dm2 (HEAD 7a759750f); id\u00e9nticas byte a byte a las del \u00e1rbol principal en el momento del registro.",
       "review_reference": "reversing/DecisionAdd27/README.md"
+    },
+    {
+      "hook": {
+        "class": "CFileLoader",
+        "fn_name": "Load2dEffect",
+        "address": "0x005B7670",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FileLoaderLoad2dEffect27/validation-summary.json",
+        "sha256": "d9b99c9592e9f7408d1e1e3f02117265087064e1b240c94a99af1091f5028b7e",
+        "passed_path": [
+          "covered_functions",
+          "CFileLoader::Load2dEffect"
+        ],
+        "pairs": 6144,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+        "source/game_sa/FileLoader.cpp": "8ca2d704b98933feccdfc4436ed05110881915a37bc2db547e154cf7d0e58d36",
+        "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
+        "source/game_sa/Models/BaseModelInfo.h": "91bece0c4ec1c9f8772b17ba11dcbc9f8e75636292f995f735cbd06514419cc6",
+        "source/game_sa/Models/ModelInfo.h": "803a964d2c86424ef2464bd6841f77b1c7eba747f99b81632b217d90ad0f6ba0",
+        "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
+        "source/game_sa/X87Math.cpp": "37411f250da69e698a85ee3b0ce3026b179bd90f9573a6d24ba3d61e9e83de45",
+        "source/game_sa/X87Math.h": "7697e71e5b0400de633932af4da1ad66ba01044b0c2c841efdf2398d8a65a52b",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/FileLoaderLoad2dEffect27/LiveComparison.hpp": "2581be74632060b76f99a68e17a464f19ccab27496ed6621eff3d0cbcc7e42ff",
+        "reversing/FileLoaderLoad2dEffect27/Core.hpp": "364ded1783ef644bed4515ea90e44dc0dad8fb8e2ac749c08a4fecb624148793",
+        "reversing/FileLoaderLoad2dEffect27/Fixtures.hpp": "3f029d830df53377866a8825895d214bb5e770339337e94ed1548688c8fcade6",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas (FileLoader.cpp/.h y cabeceras) compiladas desde el worktree D:/Original/gta-wt-fl; FileLoader.cpp id\u00e9ntico byte a byte al del \u00e1rbol principal en el momento del registro. sscanf: Load2dEffect llama al sscanf del EXE por direcci\u00f3n (0x8220AD, CRT est\u00e1tico del juego) y no al UCRT de la DLL, que en la corrida previa 20261018-160456-540095 dio 338 diferencias de 6144 (%f/%d en el l\u00edmite); esa corrida es s\u00f3lo una nota, no evidencia. Colaboradores sustituidos por falsos trazados id\u00e9nticos en ambos lados: Get2dEffectStore, Add2dEffect, PushCurrentTxd, FindTxdSlot, SetCurrentTxd, PopCurrentTxd, RwTextureRead y Malloc; no se valida el cuerpo real de esos colaboradores. Las dem\u00e1s llamadas a sscanf de FileLoader.cpp (unas 40) NO est\u00e1n cubiertas por este banco.",
+      "review_reference": "reversing/FileLoaderLoad2dEffect27/README.md"
     }
   ]
 }
