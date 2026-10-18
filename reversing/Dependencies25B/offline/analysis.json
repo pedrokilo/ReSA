@@ -1,0 +1,89 @@
+{
+  "pairs": 20480,
+  "pairs_per_function": {
+    "RwCore::RwD3D9IndexBufferCreate": 1024,
+    "RpAnisot::RpAnisotGetMaxSupportedMaxAnisotropy": 1024,
+    "RpAnisot::RpAnisotTextureSetMaxAnisotropy": 1024,
+    "RpAnisot::RpAnisotTextureGetMaxAnisotropy": 1024,
+    "RpWorld::RpClumpGetNumAtomics": 1024,
+    "RpWorld::RpAtomicSetStreamAlwaysCallBack": 1024,
+    "RpWorld::RpAtomicSetStreamRightsCallBack": 1024,
+    "RpWorld::RpAtomicGetPluginOffset": 1024,
+    "RpWorld::RpGeometryTriangleGetMaterial": 1024,
+    "RpWorld::_rpMaterialListInitialize": 1024,
+    "RpWorld::_rpMaterialListGetMaterial": 1024,
+    "RpWorld::_rpMaterialListFindMaterialIndex": 1024,
+    "RpWorld::RpWorldRegisterPlugin": 1024,
+    "RpWorld::RpWorldRegisterPluginStream": 1024,
+    "RpWorld::RpAtomicGetWorld": 1024,
+    "RpWorld::RpLightRegisterPlugin": 1024,
+    "RpWorld::_rpD3D9VertexDeclarationGetSize": 1024,
+    "RpWorld::RpD3D9GeometryGetUsageFlags": 1024,
+    "RpWorld::RpD3D9WorldSectorSetUsageFlags": 1024,
+    "RpWorld::RpD3D9WorldSectorGetUsageFlags": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "8006b478f470eae79e17f44b81b46c55becbf8dbbcb1a2484d4af41eb390b238",
+  "coverage": {
+    "RwCore::RwD3D9IndexBufferCreate": {
+      "ret_ok": 512,
+      "pp_null": 256,
+      "pp_set": 768,
+      "ret_fail": 512
+    },
+    "RpAnisot::RpAnisotGetMaxSupportedMaxAnisotropy": {
+      "byte_positive": 512,
+      "byte_negative": 512
+    },
+    "RpAnisot::RpAnisotTextureSetMaxAnisotropy": {
+      "tex_set": 512,
+      "val_high_garbage": 1024,
+      "glob_extreme": 256,
+      "tex_null": 512
+    },
+    "RpAnisot::RpAnisotTextureGetMaxAnisotropy": {
+      "tex_set": 512,
+      "glob_extreme": 256,
+      "tex_null": 512
+    },
+    "RpWorld::RpClumpGetNumAtomics": {
+      "n0": 79,
+      "n1": 79,
+      "n2": 79,
+      "n3": 79,
+      "n4": 79,
+      "n5": 79,
+      "n6": 79,
+      "n7": 79,
+      "n8": 79,
+      "n9": 79,
+      "n10": 78,
+      "n11": 78,
+      "n12": 78
+    },
+    "RpWorld::RpGeometryTriangleGetMaterial": {
+      "low_id": 912,
+      "high_id": 80,
+      "no_material": 32
+    },
+    "RpWorld::_rpMaterialListGetMaterial": {
+      "index_wraps": 384,
+      "index_negative": 128
+    },
+    "RpWorld::_rpMaterialListFindMaterialIndex": {
+      "empty_or_negative": 384,
+      "found": 379,
+      "absent": 261
+    },
+    "RpWorld::_rpD3D9VertexDeclarationGetSize": {
+      "in_table": 85,
+      "wrapped": 466,
+      "negative": 143,
+      "other": 939
+    }
+  },
+  "compare_dead_x87_registers": true,
+  "residue_pairs_where_ecx_edx_differ": 10784,
+  "coverage_method": "serialized_inputs_and_independent_oracle; no_instruction_branch_tracing"
+}

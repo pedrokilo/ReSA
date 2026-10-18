@@ -116,6 +116,8 @@ public:
     bool            m_bPlaneDogfightSomething;
     int16           field_96;
 
+    static void InjectHooks();
+
     CAutoPilot();
 
     void ModifySpeed(float target);

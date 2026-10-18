@@ -1,0 +1,1416 @@
+# Llamadores directos (CALL/JMP rel32) de las 20 funciones y las 8 instrucciones siguientes a cada llamada (capstone x86-32, gta-sa.exe original).
+# Las referencias absolutas (tablas de funciones) de 0x7591B0 y 0x7CC9D0 se listan al final de cada seccion. Para el analisis de lectura de EAX/ECX/EDX tras la llamada ver el README (offline/resread.py de Dependencies21G).
+
+== 0x00758920 _rpMeshHeaderCreate: 4 llamadores directos
+-- call 0x75911c
+   75911c: call 0x758920
+   759121: mov ecx, edi
+   759123: mov edx, eax
+   759125: mov ebp, ecx
+   759127: mov eax, 0xcdcdcdcd
+   75912c: mov edi, edx
+   75912e: add esp, 4
+   759131: shr ecx, 2
+   759134: rep stosd dword ptr es:[edi], eax
+-- call 0x75953e
+   75953e: call 0x758920
+   759543: mov esi, eax
+   759545: add esp, 4
+   759548: mov dword ptr [esp + 0x20], esi
+   75954c: mov dword ptr [esi], 1
+   759552: mov word ptr [esi + 4], bx
+   759556: mov eax, dword ptr [0xc9b8c0]
+   75955b: mov ecx, dword ptr [0xc97b24]
+   759561: xor ebx, ebx
+-- call 0x75b3c3
+   75b3c3: call 0x758920
+   75b3c8: mov dword ptr [eax], 1
+   75b3ce: mov word ptr [eax + 4], bp
+   75b3d2: mov ecx, dword ptr [0xc9b8c0]
+   75b3d8: mov edx, dword ptr [0xc97b24]
+   75b3de: add esp, 4
+   75b3e1: lea ebx, [eax + 0x10]
+   75b3e4: mov cx, word ptr [ecx + edx]
+   75b3e8: mov dword ptr [eax + 0xc], 0
+-- call 0x75d5cb
+   75d5cb: call 0x758920
+   75d5d0: mov esi, eax
+   75d5d2: xor edx, edx
+   75d5d4: add esp, 4
+   75d5d7: cmp esi, edx
+   75d5d9: jne 0x75d61a
+   75d5db: mov edx, dword ptr [0xc97b24]
+   75d5e1: push edi
+   75d5e2: call dword ptr [edx + 0x138]
+
+== 0x007591B0 RpBuildMeshGenerateDefaultTriStrip: 0 llamadores directos
+   referencia absoluta en 0x75d4e2 (offset de archivo 0x35c8e2)
+   referencia absoluta en 0x8d6388 (offset de archivo 0x4d3f88)
+
+== 0x0075E9F0 RxNodeDefinitionGetD3D9WorldSectorAllInOne: 3 llamadores directos
+-- call 0x74eaf5
+   74eaf5: call 0x75e9f0
+   74eafa: push eax
+   74eafb: push 0
+   74eafd: push edi
+   74eafe: call 0x806be0
+   74eb03: push eax
+   74eb04: call 0x805f40
+   74eb09: add esp, 0x14
+   74eb0c: test eax, eax
+-- call 0x815f0d
+   815f0d: call 0x75e9f0
+   815f12: push ebx
+   815f13: push eax
+   815f14: push ebx
+   815f15: push edi
+   815f16: call 0x806be0
+   815f1b: push eax
+   815f1c: call 0x805f40
+   815f21: add esp, 0x14
+-- call 0x815f37
+   815f37: call 0x75e9f0
+   815f3c: mov edx, dword ptr [eax]
+   815f3e: mov eax, dword ptr [0xc9ab90]
+   815f43: push ebx
+   815f44: push ebx
+   815f45: push edx
+   815f46: push eax
+   815f47: call 0x806b30
+   815f4c: mov esi, eax
+
+== 0x00761C90 RpWorldSectorRegisterPlugin: 5 llamadores directos
+-- call 0x750115
+   750115: call 0x761c90
+   75011a: push 0x750de0
+   75011f: push 0x750d90
+   750124: push 0x750db0
+   750129: push 0x50e
+   75012e: or esi, eax
+   750130: call 0x74cda0
+   750135: add esp, 0x4c
+   750138: or esi, eax
+-- call 0x750176
+   750176: call 0x761c90
+   75017b: or esi, eax
+   75017d: push 0x750e40
+   750182: push 0x750e00
+   750187: push 0x750e20
+   75018c: push 0x510
+   750191: call 0x74cda0
+   750196: add esp, 0x48
+   750199: or esi, eax
+-- call 0x750215
+   750215: call 0x761c90
+   75021a: push 0x761e80
+   75021f: push 0x761e40
+   750224: push 0x761e00
+   750229: push 0x1f
+   75022b: or esi, eax
+   75022d: call 0x761cc0
+   750232: push 0
+   750234: push 0
+-- call 0x758830
+   758830: call 0x761c90
+   758835: add esp, 0x14
+   758838: xor ecx, ecx
+   75883a: test eax, eax
+   75883c: setge cl
+   75883f: mov dword ptr [0xc926ec], eax
+   758844: mov eax, ecx
+   758846: ret 
+   758847: nop 
+-- call 0x810b70
+   810b70: call 0x761c90
+   810b75: add esp, 0x14
+   810b78: mov dword ptr [0xc9ab88], eax
+   810b7d: test eax, eax
+   810b7f: jge 0x810b84
+   810b81: xor eax, eax
+   810b83: ret 
+   810b84: push 0x811be0
+   810b89: push 0x811b60
+
+== 0x00761CC0 RpWorldSectorRegisterPluginStream: 4 llamadores directos
+-- call 0x75014e
+   75014e: call 0x761cc0
+   750153: push 0
+   750155: push 0
+   750157: push 0
+   750159: push 0x510
+   75015e: push 0
+   750160: or esi, eax
+   750162: call 0x74cd70
+   750167: push 0
+-- call 0x7501af
+   7501af: call 0x761cc0
+   7501b4: push 0
+   7501b6: push 0
+   7501b8: push 0
+   7501ba: push 0x1f
+   7501bc: push 0
+   7501be: or esi, eax
+   7501c0: call 0x74bda0
+   7501c5: push 0x7491a0
+-- call 0x75022d
+   75022d: call 0x761cc0
+   750232: push 0
+   750234: push 0
+   750236: push 0
+   750238: push 0x1f
+   75023a: push 0
+   75023c: or esi, eax
+   75023e: call 0x74dbf0
+   750243: add esp, 0x48
+-- call 0x810b98
+   810b98: call 0x761cc0
+   810b9d: add esp, 0x10
+   810ba0: xor ecx, ecx
+   810ba2: test eax, eax
+   810ba4: setge cl
+   810ba7: mov eax, ecx
+   810ba9: ret 
+   810baa: nop 
+   810bab: nop 
+
+== 0x007C5160 RpHAnimFrameGetHierarchy: 2 llamadores directos
+-- call 0x734a76
+   734a76: call 0x7c5160
+   734a7b: add esp, 4
+   734a7e: test eax, eax
+   734a80: jne 0x734a99
+   734a82: mov eax, dword ptr [esp + 0xc]
+   734a86: push eax
+   734a87: push 0x734a70
+   734a8c: push esi
+   734a8d: call 0x7f0dc0
+-- call 0x734abf
+   734abf: call 0x7c5160
+   734ac4: add esp, 4
+   734ac7: test eax, eax
+   734ac9: jne 0x734ae4
+   734acb: lea eax, [esp + 4]
+   734acf: push eax
+   734ad0: push 0x734a70
+   734ad5: push esi
+   734ad6: call 0x7f0dc0
+
+== 0x007C8820 _rpSkinDeinitialize: 4 llamadores directos
+-- call 0x7c6a23
+   7c6a23: call 0x7c8820
+   7c6a28: mov eax, dword ptr [esi + 0x3c]
+   7c6a2b: add esp, 4
+   7c6a2e: test eax, eax
+   7c6a30: je 0x7c6a42
+   7c6a32: mov ecx, dword ptr [0xc97b24]
+   7c6a38: push eax
+   7c6a39: call dword ptr [ecx + 0x138]
+   7c6a3f: add esp, 4
+-- call 0x7c7023
+   7c7023: call 0x7c8820
+   7c7028: add esp, 4
+   7c702b: mov edx, dword ptr [0xc978a8]
+   7c7031: push ebx
+   7c7032: mov dword ptr [edx + ebx], esi
+   7c7035: call 0x7c8740
+   7c703a: add esp, 4
+   7c703d: mov eax, edi
+   7c703f: pop edi
+-- call 0x7c748e
+   7c748e: call 0x7c8820
+   7c7493: add esp, 4
+   7c7496: mov eax, dword ptr [0xc978a8]
+   7c749b: push edi
+   7c749c: mov dword ptr [eax + edi], esi
+   7c749f: call 0x7c8740
+   7c74a4: add esp, 4
+   7c74a7: mov eax, ebp
+   7c74a9: pop edi
+-- call 0x7c757b
+   7c757b: call 0x7c8820
+   7c7580: add esp, 4
+   7c7583: mov ecx, dword ptr [0xc978a8]
+   7c7589: test edi, edi
+   7c758b: mov dword ptr [ecx + esi], edi
+   7c758e: je 0x7c75a0
+   7c7590: push esi
+   7c7591: call 0x7c8740
+   7c7596: add esp, 4
+
+== 0x007CC010 _rpUVAnimCustomDataStreamGetSize: 1 llamadores directos
+-- call 0x7cc9d9
+   7cc9d9: call 0x7cc010
+   7cc9de: mov ecx, eax
+   7cc9e0: mov eax, dword ptr [esi + 4]
+   7cc9e3: add esp, 4
+   7cc9e6: add ecx, 4
+   7cc9e9: shl eax, 5
+   7cc9ec: add eax, ecx
+   7cc9ee: pop esi
+   7cc9ef: ret 
+
+== 0x007CC9D0 RpUVAnimKeyFrameStreamGetSize: 0 llamadores directos
+   referencia absoluta en 0x8dedac (offset de archivo 0x4dc9ac)
+   referencia absoluta en 0x8deddc (offset de archivo 0x4dc9dc)
+
+== 0x007CD4F0 RtAnimAnimationGetNumNodes: 2 llamadores directos
+-- call 0x7cbcf1
+   7cbcf1: call 0x7cd4f0
+   7cbcf6: add esp, 4
+   7cbcf9: push eax
+   7cbcfa: call 0x7cd520
+   7cbcff: add esp, 8
+   7cbd02: mov dword ptr [ebx], eax
+   7cbd04: test eax, eax
+   7cbd06: je 0x7cbd3e
+   7cbd08: push esi
+-- call 0x7cc3cf
+   7cc3cf: call 0x7cd4f0
+   7cc3d4: add esp, 4
+   7cc3d7: push eax
+   7cc3d8: call 0x7cd520
+   7cc3dd: add esp, 8
+   7cc3e0: mov dword ptr [edi + ebp*4 + 8], eax
+   7cc3e4: test eax, eax
+   7cc3e6: jne 0x7cc3ed
+   7cc3e8: pop edi
+
+== 0x007CD590 RtAnimInterpolatorDestroy: 4 llamadores directos
+-- call 0x7c47ee
+   7c47ee: call 0x7cd590
+   7c47f3: mov eax, dword ptr [0xc9b8cc]
+   7c47f8: mov ecx, dword ptr [0xc97b24]
+   7c47fe: push esi
+   7c47ff: push eax
+   7c4800: call dword ptr [ecx + 0x148]
+   7c4806: add esp, 0xc
+   7c4809: cmp edi, ebx
+   7c480b: je 0x7c4817
+-- call 0x7c4d78
+   7c4d78: call 0x7cd590
+   7c4d7d: mov edx, dword ptr [0xc9b8cc]
+   7c4d83: mov eax, dword ptr [0xc97b24]
+   7c4d88: push esi
+   7c4d89: push edx
+   7c4d8a: call dword ptr [eax + 0x148]
+   7c4d90: add esp, 0xc
+   7c4d93: xor eax, eax
+   7c4d95: cmp edi, ebx
+-- call 0x7cbb0b
+   7cbb0b: call 0x7cd590
+   7cbb10: add esp, 4
+   7cbb13: add ebx, 4
+   7cbb16: dec ebp
+   7cbb17: jne 0x7cbad7
+   7cbb19: mov eax, dword ptr [esp + 0x14]
+   7cbb1d: pop edi
+   7cbb1e: pop esi
+   7cbb1f: pop ebp
+-- call 0x7cc406
+   7cc406: call 0x7cd590
+   7cc40b: add esp, 4
+   7cc40e: xor eax, eax
+   7cc410: pop edi
+   7cc411: pop esi
+   7cc412: pop ebp
+   7cc413: pop ebx
+   7cc414: ret 
+   7cc415: mov esi, dword ptr [esi + 0x14]
+
+== 0x007CED70 RtDictSchemaDestruct: 1 llamadores directos
+-- call 0x7cba32
+   7cba32: call 0x7ced70
+   7cba37: mov eax, dword ptr [0xc978f4]
+   7cba3c: add esp, 4
+   7cba3f: test eax, eax
+   7cba41: je 0x7cba56
+   7cba43: push eax
+   7cba44: call 0x801b80
+   7cba49: add esp, 4
+   7cba4c: mov dword ptr [0xc978f4], 0
+
+== 0x007CEEE0 RtDictSchemaGetCurrentDict: 1 llamadores directos
+-- call 0x7cbca0
+   7cbca0: call 0x7ceee0
+   7cbca5: add esp, 4
+   7cbca8: test eax, eax
+   7cbcaa: je 0x7cbccf
+   7cbcac: lea edx, [esp + 0x14]
+   7cbcb0: push edx
+   7cbcb1: push eax
+   7cbcb2: call 0x7cefe0
+   7cbcb7: mov esi, eax
+
+== 0x007ED460 RwStreamWriteInt32: 70 llamadores directos
+-- call 0x7490d9
+   7490d9: call 0x7ed460
+   7490de: add esp, 0xc
+   7490e1: neg eax
+   7490e3: sbb eax, eax
+   7490e5: and eax, esi
+   7490e7: pop esi
+   7490e8: ret 
+   7490e9: xor eax, eax
+   7490eb: ret 
+-- call 0x749174
+   749174: call 0x7ed460
+   749179: add esp, 0xc
+   74917c: test eax, eax
+   74917e: jne 0x749183
+   749180: pop edi
+   749181: pop esi
+   749182: ret 
+   749183: mov ecx, dword ptr [edi + 0x6c]
+   749186: push 4
+-- call 0x74918d
+   74918d: call 0x7ed460
+   749192: add esp, 0xc
+   749195: neg eax
+   749197: sbb eax, eax
+   749199: pop edi
+   74919a: and eax, esi
+   74919c: pop esi
+   74919d: ret 
+   74919e: nop 
+-- call 0x74aeea
+   74aeea: call 0x7ed460
+   74aeef: add esp, 0xc
+   74aef2: test eax, eax
+   74aef4: je 0x74af0b
+   74aef6: mov eax, dword ptr [esi]
+   74aef8: push eax
+   74aef9: push edi
+   74aefa: call 0x751e30
+   74aeff: add esp, 8
+-- call 0x74af6a
+   74af6a: call 0x7ed460
+   74af6f: add esp, 0xc
+   74af72: test eax, eax
+   74af74: je 0x74af8b
+   74af76: mov eax, dword ptr [esi]
+   74af78: push eax
+   74af79: push edi
+   74af7a: call 0x808d00
+   74af7f: add esp, 8
+-- call 0x74d824
+   74d824: call 0x7ed460
+   74d829: add esp, 0xc
+   74d82c: test eax, eax
+   74d82e: jne 0x74d833
+   74d830: pop edi
+   74d831: pop esi
+   74d832: ret 
+   74d833: mov ecx, dword ptr [edi + 8]
+   74d836: push 4
+-- call 0x74d83d
+   74d83d: call 0x7ed460
+   74d842: add esp, 0xc
+   74d845: neg eax
+   74d847: sbb eax, eax
+   74d849: pop edi
+   74d84a: and eax, esi
+   74d84c: pop esi
+   74d84d: ret 
+   74d84e: nop 
+-- call 0x74e554
+   74e554: call 0x7ed460
+   74e559: add esp, 0xc
+   74e55c: test eax, eax
+   74e55e: jne 0x74e567
+   74e560: pop edi
+   74e561: pop esi
+   74e562: pop ebp
+   74e563: xor eax, eax
+   74e565: pop ebx
+-- call 0x74e596
+   74e596: call 0x7ed460
+   74e59b: add esp, 0xc
+   74e59e: test eax, eax
+   74e5a0: je 0x74e560
+   74e5a2: mov eax, dword ptr [ebp]
+   74e5a5: inc esi
+   74e5a6: cmp esi, eax
+   74e5a8: jl 0x74e570
+   74e5aa: mov eax, dword ptr [ebp]
+-- call 0x758da7
+   758da7: call 0x7ed460
+   758dac: add esp, 0xc
+   758daf: test eax, eax
+   758db1: jne 0x758dc0
+   758db3: pop edi
+   758db4: pop esi
+   758db5: pop ebp
+   758db6: xor eax, eax
+   758db8: pop ebx
+-- call 0x758e10
+   758e10: call 0x7ed460
+   758e15: add esp, 0xc
+   758e18: test eax, eax
+   758e1a: je 0x758db3
+   758e1c: mov ecx, dword ptr [esp + 0x430]
+   758e23: mov al, byte ptr [ecx]
+   758e25: cmp al, 8
+   758e27: jne 0x758e32
+   758e29: test dword ptr [ecx + 8], 0x1000000
+-- call 0x758e84
+   758e84: call 0x7ed460
+   758e89: add esp, 0xc
+   758e8c: test eax, eax
+   758e8e: je 0x758db3
+   758e94: sub ebx, esi
+   758e96: jne 0x758e49
+   758e98: mov edi, dword ptr [esp + 0x10]
+   758e9c: add ebp, 0xc
+   758e9f: test edi, edi
+-- call 0x761db4
+   761db4: call 0x7ed460
+   761db9: add esp, 0xc
+   761dbc: test eax, eax
+   761dbe: jne 0x761dc3
+   761dc0: pop edi
+   761dc1: pop esi
+   761dc2: ret 
+   761dc3: mov ecx, dword ptr [edi + 0x6c]
+   761dc6: push 4
+-- call 0x761dcd
+   761dcd: call 0x7ed460
+   761dd2: add esp, 0xc
+   761dd5: neg eax
+   761dd7: sbb eax, eax
+   761dd9: pop edi
+   761dda: and eax, esi
+   761ddc: pop esi
+   761ddd: ret 
+   761dde: nop 
+-- call 0x761e54
+   761e54: call 0x7ed460
+   761e59: add esp, 0xc
+   761e5c: test eax, eax
+   761e5e: jne 0x761e63
+   761e60: pop edi
+   761e61: pop esi
+   761e62: ret 
+   761e63: mov ecx, dword ptr [edi + 0x7c]
+   761e66: push 4
+-- call 0x761e6d
+   761e6d: call 0x7ed460
+   761e72: add esp, 0xc
+   761e75: neg eax
+   761e77: sbb eax, eax
+   761e79: pop edi
+   761e7a: and eax, esi
+   761e7c: pop esi
+   761e7d: ret 
+   761e7e: nop 
+-- call 0x7c48e9
+   7c48e9: call 0x7ed460
+   7c48ee: add esp, 0xc
+   7c48f1: test eax, eax
+   7c48f3: jne 0x7c48fb
+   7c48f5: pop edi
+   7c48f6: pop esi
+   7c48f7: pop ebp
+   7c48f8: pop ebx
+   7c48f9: pop ecx
+-- call 0x7c490c
+   7c490c: call 0x7ed460
+   7c4911: add esp, 0xc
+   7c4914: test eax, eax
+   7c4916: jne 0x7c491e
+   7c4918: pop edi
+   7c4919: pop esi
+   7c491a: pop ebp
+   7c491b: pop ebx
+   7c491c: pop ecx
+-- call 0x7c493b
+   7c493b: call 0x7ed460
+   7c4940: add esp, 0xc
+   7c4943: test eax, eax
+   7c4945: jne 0x7c494d
+   7c4947: pop edi
+   7c4948: pop esi
+   7c4949: pop ebp
+   7c494a: pop ebx
+   7c494b: pop ecx
+-- call 0x7c4951
+   7c4951: call 0x7ed460
+   7c4956: add esp, 0xc
+   7c4959: test eax, eax
+   7c495b: jne 0x7c4963
+   7c495d: pop edi
+   7c495e: pop esi
+   7c495f: pop ebp
+   7c4960: pop ebx
+   7c4961: pop ecx
+-- call 0x7c496d
+   7c496d: call 0x7ed460
+   7c4972: add esp, 0xc
+   7c4975: test eax, eax
+   7c4977: jne 0x7c497f
+   7c4979: pop edi
+   7c497a: pop esi
+   7c497b: pop ebp
+   7c497c: pop ebx
+   7c497d: pop ecx
+-- call 0x7c498d
+   7c498d: call 0x7ed460
+   7c4992: add esp, 0xc
+   7c4995: test eax, eax
+   7c4997: je 0x7c49ea
+   7c4999: lea ecx, [esi + 4]
+   7c499c: push 4
+   7c499e: push ecx
+   7c499f: push edi
+   7c49a0: call 0x7ed460
+-- call 0x7c49a0
+   7c49a0: call 0x7ed460
+   7c49a5: add esp, 0xc
+   7c49a8: test eax, eax
+   7c49aa: je 0x7c49ea
+   7c49ac: lea edx, [esi + 8]
+   7c49af: push 4
+   7c49b1: push edx
+   7c49b2: push edi
+   7c49b3: call 0x7ed460
+-- call 0x7c49b3
+   7c49b3: call 0x7ed460
+   7c49b8: add esp, 0xc
+   7c49bb: test eax, eax
+   7c49bd: je 0x7c49ea
+   7c49bf: mov eax, dword ptr [ebp]
+   7c49c2: add esi, 0x10
+   7c49c5: inc ebx
+   7c49c6: cmp ebx, eax
+   7c49c8: jl 0x7c4989
+-- call 0x7c49de
+   7c49de: call 0x7ed460
+   7c49e3: add esp, 0xc
+   7c49e6: test eax, eax
+   7c49e8: jne 0x7c49ca
+   7c49ea: pop edi
+   7c49eb: pop esi
+   7c49ec: pop ebp
+   7c49ed: xor eax, eax
+   7c49ef: pop ebx
+-- call 0x7c6583
+   7c6583: call 0x7ed460
+   7c6588: add esp, 0xc
+   7c658b: test eax, eax
+   7c658d: je 0x7c65a4
+   7c658f: mov eax, dword ptr [ebp + 4]
+   7c6592: inc edi
+   7c6593: add esi, 0x24
+   7c6596: cmp edi, eax
+   7c6598: jl 0x7c655c
+-- call 0x7c6c7c
+   7c6c7c: call 0x7ed460
+   7c6c81: add esp, 0xc
+   7c6c84: test eax, eax
+   7c6c86: jne 0x7c6c8c
+   7c6c88: pop edi
+   7c6c89: pop esi
+   7c6c8a: pop ebx
+   7c6c8b: ret 
+   7c6c8c: mov edx, dword ptr [esi + 4]
+-- call 0x7c6cb2
+   7c6cb2: call 0x7ed460
+   7c6cb7: add esp, 0xc
+   7c6cba: test eax, eax
+   7c6cbc: jne 0x7c6cc2
+   7c6cbe: pop edi
+   7c6cbf: pop esi
+   7c6cc0: pop ebx
+   7c6cc1: ret 
+   7c6cc2: mov eax, dword ptr [esi + 0x18]
+-- call 0x7c8874
+   7c8874: call 0x7ed460
+   7c8879: add esp, 0xc
+   7c887c: test eax, eax
+   7c887e: jne 0x7c8883
+   7c8880: pop esi
+   7c8881: pop ecx
+   7c8882: ret 
+   7c8883: mov ecx, dword ptr [esp + 0x10]
+   7c8887: mov edx, dword ptr [0xc978a8]
+-- call 0x7c8894
+   7c8894: call 0x7ed460
+   7c8899: add esp, 0xc
+   7c889c: neg eax
+   7c889e: sbb eax, eax
+   7c88a0: and eax, esi
+   7c88a2: pop esi
+   7c88a3: pop ecx
+   7c88a4: ret 
+   7c88a5: nop 
+-- call 0x7c8b63
+   7c8b63: call 0x7ed460
+   7c8b68: add esp, 0xc
+   7c8b6b: test eax, eax
+   7c8b6d: jne 0x7c8b74
+   7c8b6f: pop edi
+   7c8b70: pop esi
+   7c8b71: pop ebp
+   7c8b72: pop ebx
+   7c8b73: ret 
+-- call 0x7c8b7b
+   7c8b7b: call 0x7ed460
+   7c8b80: add esp, 0xc
+   7c8b83: test eax, eax
+   7c8b85: jne 0x7c8b8c
+   7c8b87: pop edi
+   7c8b88: pop esi
+   7c8b89: pop ebp
+   7c8b8a: pop ebx
+   7c8b8b: ret 
+-- call 0x7c8b93
+   7c8b93: call 0x7ed460
+   7c8b98: add esp, 0xc
+   7c8b9b: test eax, eax
+   7c8b9d: jne 0x7c8ba4
+   7c8b9f: pop edi
+   7c8ba0: pop esi
+   7c8ba1: pop ebp
+   7c8ba2: pop ebx
+   7c8ba3: ret 
+-- call 0x7cbbe0
+   7cbbe0: call 0x7ed460
+   7cbbe5: add esp, 0xc
+   7cbbe8: test eax, eax
+   7cbbea: jne 0x7cbbf1
+   7cbbec: pop edi
+   7cbbed: pop esi
+   7cbbee: pop ebx
+   7cbbef: pop ecx
+   7cbbf0: ret 
+-- call 0x7cbff4
+   7cbff4: call 0x7ed460
+   7cbff9: add esp, 0xc
+   7cbffc: neg eax
+   7cbffe: sbb eax, eax
+   7cc000: pop edi
+   7cc001: and eax, esi
+   7cc003: pop esi
+   7cc004: ret 
+   7cc005: nop 
+-- call 0x7cc939
+   7cc939: call 0x7ed460
+   7cc93e: add esp, 0xc
+   7cc941: test eax, eax
+   7cc943: jne 0x7cc94d
+   7cc945: pop edi
+   7cc946: pop esi
+   7cc947: pop ebp
+   7cc948: pop ebx
+   7cc949: add esp, 8
+-- call 0x7cc9a4
+   7cc9a4: call 0x7ed460
+   7cc9a9: add esp, 0xc
+   7cc9ac: test eax, eax
+   7cc9ae: je 0x7cc962
+   7cc9b0: mov eax, dword ptr [ebp + 4]
+   7cc9b3: inc edi
+   7cc9b4: add esi, 0x20
+   7cc9b7: cmp edi, eax
+   7cc9b9: jl 0x7cc97a
+-- call 0x7cd1ab
+   7cd1ab: call 0x7ed460
+   7cd1b0: add esp, 0x24
+   7cd1b3: test eax, eax
+   7cd1b5: je 0x7cd20c
+   7cd1b7: mov eax, dword ptr [edi]
+   7cd1b9: push 4
+   7cd1bb: push eax
+   7cd1bc: push esi
+   7cd1bd: call 0x7ed460
+-- call 0x7cd1bd
+   7cd1bd: call 0x7ed460
+   7cd1c2: add esp, 0xc
+   7cd1c5: test eax, eax
+   7cd1c7: je 0x7cd20c
+   7cd1c9: lea ecx, [edi + 4]
+   7cd1cc: push 4
+   7cd1ce: push ecx
+   7cd1cf: push esi
+   7cd1d0: call 0x7ed460
+-- call 0x7cd1d0
+   7cd1d0: call 0x7ed460
+   7cd1d5: add esp, 0xc
+   7cd1d8: test eax, eax
+   7cd1da: je 0x7cd20c
+   7cd1dc: lea edx, [edi + 8]
+   7cd1df: push 4
+   7cd1e1: push edx
+   7cd1e2: push esi
+   7cd1e3: call 0x7ed460
+-- call 0x7cd1e3
+   7cd1e3: call 0x7ed460
+   7cd1e8: add esp, 0xc
+   7cd1eb: test eax, eax
+   7cd1ed: je 0x7cd20c
+   7cd1ef: lea eax, [edi + 0xc]
+   7cd1f2: push 4
+   7cd1f4: push eax
+   7cd1f5: push esi
+   7cd1f6: call 0x7ed3d0
+-- call 0x7cd447
+   7cd447: call 0x7ed460
+   7cd44c: add esp, 0x24
+   7cd44f: test eax, eax
+   7cd451: jne 0x7cd457
+   7cd453: pop edi
+   7cd454: pop esi
+   7cd455: pop ecx
+   7cd456: ret 
+   7cd457: mov edx, dword ptr [esi]
+-- call 0x7cd45d
+   7cd45d: call 0x7ed460
+   7cd462: add esp, 0xc
+   7cd465: test eax, eax
+   7cd467: jne 0x7cd46d
+   7cd469: pop edi
+   7cd46a: pop esi
+   7cd46b: pop ecx
+   7cd46c: ret 
+   7cd46d: lea eax, [esi + 4]
+-- call 0x7cd474
+   7cd474: call 0x7ed460
+   7cd479: add esp, 0xc
+   7cd47c: test eax, eax
+   7cd47e: jne 0x7cd484
+   7cd480: pop edi
+   7cd481: pop esi
+   7cd482: pop ecx
+   7cd483: ret 
+   7cd484: lea ecx, [esi + 8]
+-- call 0x7cd48b
+   7cd48b: call 0x7ed460
+   7cd490: add esp, 0xc
+   7cd493: test eax, eax
+   7cd495: jne 0x7cd49b
+   7cd497: pop edi
+   7cd498: pop esi
+   7cd499: pop ecx
+   7cd49a: ret 
+   7cd49b: lea edx, [esi + 0xc]
+-- call 0x7cea27
+   7cea27: call 0x7ed460
+   7cea2c: lea ecx, [esp + 0x20]
+   7cea30: push 2
+   7cea32: push ecx
+   7cea33: push esi
+   7cea34: mov dword ptr [esp + 0x2c], ebx
+   7cea38: call 0x7ed480
+   7cea3d: lea edx, [esp + 0x30]
+   7cea41: push 2
+-- call 0x7cea75
+   7cea75: call 0x7ed460
+   7cea7a: lea ecx, [esp + 0x28]
+   7cea7e: push 4
+   7cea80: push ecx
+   7cea81: push esi
+   7cea82: mov dword ptr [esp + 0x34], 0x28
+   7cea8a: call 0x7ed460
+   7cea8f: mov edx, dword ptr [ebp + 4]
+   7cea92: lea eax, [esp + 0x30]
+-- call 0x7cea8a
+   7cea8a: call 0x7ed460
+   7cea8f: mov edx, dword ptr [ebp + 4]
+   7cea92: lea eax, [esp + 0x30]
+   7cea96: push 4
+   7cea98: push eax
+   7cea99: push esi
+   7cea9a: mov dword ptr [esp + 0x3c], edx
+   7cea9e: call 0x7ed460
+   7ceaa3: mov ecx, dword ptr [ebp + 8]
+-- call 0x7cea9e
+   7cea9e: call 0x7ed460
+   7ceaa3: mov ecx, dword ptr [ebp + 8]
+   7ceaa6: lea edx, [esp + 0x38]
+   7ceaaa: push 4
+   7ceaac: push edx
+   7ceaad: push esi
+   7ceaae: mov dword ptr [esp + 0x44], ecx
+   7ceab2: call 0x7ed460
+   7ceab7: lea eax, [esp + 0x40]
+-- call 0x7ceab2
+   7ceab2: call 0x7ed460
+   7ceab7: lea eax, [esp + 0x40]
+   7ceabb: push 2
+   7ceabd: push eax
+   7ceabe: push esi
+   7ceabf: mov dword ptr [esp + 0x4c], 1
+   7ceac7: call 0x7ed480
+   7ceacc: lea ecx, [esp + 0x5c]
+   7cead0: push 2
+-- call 0x7ceaec
+   7ceaec: call 0x7ed460
+   7ceaf1: lea eax, [esp + 0x34]
+   7ceaf5: push 4
+   7ceaf7: push eax
+   7ceaf8: push esi
+   7ceaf9: mov dword ptr [esp + 0x40], ebx
+   7ceafd: call 0x7ed460
+   7ceb02: lea ecx, [esp + 0x44]
+   7ceb06: push 4
+-- call 0x7ceafd
+   7ceafd: call 0x7ed460
+   7ceb02: lea ecx, [esp + 0x44]
+   7ceb06: push 4
+   7ceb08: push ecx
+   7ceb09: push esi
+   7ceb0a: mov dword ptr [esp + 0x50], ebx
+   7ceb0e: call 0x7ed460
+   7ceb13: lea edx, [esp + 0x54]
+   7ceb17: push 4
+-- call 0x7ceb0e
+   7ceb0e: call 0x7ed460
+   7ceb13: lea edx, [esp + 0x54]
+   7ceb17: push 4
+   7ceb19: push edx
+   7ceb1a: push esi
+   7ceb1b: mov dword ptr [esp + 0x60], ebx
+   7ceb1f: call 0x7ed460
+   7ceb24: add esp, 0x30
+   7ceb27: cmp edi, 8
+-- call 0x7ceb1f
+   7ceb1f: call 0x7ed460
+   7ceb24: add esp, 0x30
+   7ceb27: cmp edi, 8
+   7ceb2a: push 4
+   7ceb2c: ja 0x7cebad
+   7ceb2e: mov eax, dword ptr [ebp + 0x18]
+   7ceb31: mov ebx, 1
+   7ceb36: mov ecx, edi
+   7ceb38: mov dword ptr [esp + 0x48], eax
+-- call 0x7ceb48
+   7ceb48: call 0x7ed460
+   7ceb4d: lea edx, [esp + 0x44]
+   7ceb51: push 4
+   7ceb53: push edx
+   7ceb54: push esi
+   7ceb55: mov dword ptr [esp + 0x50], ebx
+   7ceb59: call 0x7ed460
+   7ceb5e: add esp, 0x18
+   7ceb61: test ebx, ebx
+-- call 0x7ceb59
+   7ceb59: call 0x7ed460
+   7ceb5e: add esp, 0x18
+   7ceb61: test ebx, ebx
+   7ceb63: jle 0x7cebd0
+   7ceb65: mov eax, dword ptr [esp + 0x44]
+   7ceb69: inc eax
+   7ceb6a: mov dword ptr [esp + 0x44], eax
+   7ceb6e: jmp 0x7ceb74
+   7ceb70: mov eax, dword ptr [esp + 0x44]
+-- call 0x7cebb7
+   7cebb7: call 0x7ed460
+   7cebbc: lea eax, [esp + 0x48]
+   7cebc0: push 4
+   7cebc2: push eax
+   7cebc3: push esi
+   7cebc4: mov dword ptr [esp + 0x54], ebx
+   7cebc8: call 0x7ed460
+   7cebcd: add esp, 0x18
+   7cebd0: mov eax, dword ptr [ebp + 4]
+-- call 0x7cebc8
+   7cebc8: call 0x7ed460
+   7cebcd: add esp, 0x18
+   7cebd0: mov eax, dword ptr [ebp + 4]
+   7cebd3: mov edx, dword ptr [0xc97b24]
+   7cebd9: push 0x10000
+   7cebde: lea ecx, [eax + eax*2]
+   7cebe1: push ecx
+   7cebe2: call dword ptr [edx + 0x134]
+   7cebe8: mov ebx, dword ptr [ebp + 8]
+-- call 0x80a972
+   80a972: call 0x7ed460
+   80a977: add esp, 0xc
+   80a97a: cmp eax, esi
+   80a97c: je 0x80a983
+   80a97e: pop edi
+   80a97f: xor eax, eax
+   80a981: pop esi
+   80a982: ret 
+   80a983: push esi
+-- call 0x81073d
+   81073d: call 0x7ed460
+   810742: add esp, 0xc
+   810745: test eax, eax
+   810747: jne 0x81074c
+   810749: pop edi
+   81074a: pop esi
+   81074b: ret 
+   81074c: mov eax, dword ptr [esp + 0x10]
+   810750: test eax, eax
+-- call 0x811217
+   811217: call 0x7ed460
+   81121c: add esp, 0xc
+   81121f: test eax, eax
+   811221: jne 0x81122d
+   811223: pop edi
+   811224: pop esi
+   811225: pop ebp
+   811226: xor eax, eax
+   811228: pop ebx
+-- call 0x811251
+   811251: call 0x7ed460
+   811256: add esp, 0xc
+   811259: test eax, eax
+   81125b: je 0x811223
+   81125d: mov eax, dword ptr [esp + 0x10]
+   811261: dec eax
+   811262: je 0x811341
+   811268: dec eax
+   811269: je 0x8112c4
+-- call 0x811283
+   811283: call 0x7ed460
+   811288: add esp, 0xc
+   81128b: test eax, eax
+   81128d: je 0x811223
+   81128f: mov eax, dword ptr [edi + 8]
+   811292: lea ecx, [esp + 0x28]
+   811296: push 4
+   811298: push ecx
+   811299: push esi
+-- call 0x81129e
+   81129e: call 0x7ed460
+   8112a3: add esp, 0xc
+   8112a6: test eax, eax
+   8112a8: je 0x811223
+   8112ae: mov edi, dword ptr [edi]
+   8112b0: xor edx, edx
+   8112b2: test edi, edi
+   8112b4: setne dl
+   8112b7: lea eax, [esp + 0x14]
+-- call 0x8112ea
+   8112ea: call 0x7ed460
+   8112ef: add esp, 0xc
+   8112f2: test eax, eax
+   8112f4: je 0x811223
+   8112fa: mov edi, dword ptr [edi + 4]
+   8112fd: xor ecx, ecx
+   8112ff: test edi, edi
+   811301: setne cl
+   811304: lea edx, [esp + 0x14]
+-- call 0x811310
+   811310: call 0x7ed460
+   811315: add esp, 0xc
+   811318: test eax, eax
+   81131a: je 0x811223
+   811320: mov eax, dword ptr [esp + 0x14]
+   811324: test eax, eax
+   811326: je 0x81133a
+   811328: push esi
+   811329: push edi
+-- call 0x811378
+   811378: call 0x7ed460
+   81137d: add esp, 0xc
+   811380: test eax, eax
+   811382: je 0x811223
+   811388: mov eax, dword ptr [esp + 0x14]
+   81138c: test eax, eax
+   81138e: je 0x8113a2
+   811390: push esi
+   811391: push ebp
+-- call 0x8113c0
+   8113c0: call 0x7ed460
+   8113c5: add esp, 0xc
+   8113c8: test eax, eax
+   8113ca: je 0x811223
+   8113d0: mov eax, dword ptr [esp + 0x14]
+   8113d4: test eax, eax
+   8113d6: je 0x8113ea
+   8113d8: push esi
+   8113d9: push edi
+-- call 0x811a7d
+   811a7d: call 0x7ed460
+   811a82: add esp, 0xc
+   811a85: ret 
+   811a86: nop 
+   811a87: nop 
+   811a88: nop 
+   811a89: nop 
+   811a8a: nop 
+   811a8b: nop 
+-- call 0x811b7d
+   811b7d: call 0x7ed460
+   811b82: add esp, 0xc
+   811b85: ret 
+   811b86: nop 
+   811b87: nop 
+   811b88: nop 
+   811b89: nop 
+   811b8a: nop 
+   811b8b: nop 
+
+== 0x007EE1A0 RwCameraSetViewOffset: 1 llamadores directos
+-- call 0x808e81
+   808e81: call 0x7ee1a0
+   808e86: mov eax, dword ptr [esp + 0x34]
+   808e8a: push eax
+   808e8b: push esi
+   808e8c: call 0x7ee1d0
+   808e91: mov ecx, dword ptr [esp + 0x40]
+   808e95: push ecx
+   808e96: push esi
+   808e97: call 0x7ee2a0
+
+== 0x007EE450 RwCameraRegisterPlugin: 2 llamadores directos
+-- call 0x749840
+   749840: call 0x7ee450
+   749845: add esp, 0x14
+   749848: mov dword ptr [0xc924d8], eax
+   74984d: test eax, eax
+   74984f: jge 0x749854
+   749851: xor eax, eax
+   749853: ret 
+   749854: push 0
+   749856: push 0x7498d0
+-- call 0x75007f
+   75007f: call 0x7ee450
+   750084: push 0x7509a0
+   750089: push 0x7509b0
+   75008e: push 0x7507b0
+   750093: push 0x509
+   750098: push 8
+   75009a: mov dword ptr [0xc925a4], eax
+   75009f: or esi, eax
+   7500a1: call 0x74bda0
+
+== 0x007F0340 RwFrameDirty: 3 llamadores directos
+-- call 0x74934b
+   74934b: call 0x7f0340
+   749350: add esp, 4
+   749353: test eax, eax
+   749355: jne 0x749361
+   749357: test byte ptr [edi + 3], 1
+   74935b: je 0x749470
+   749361: push esi
+   749362: call 0x7f0990
+   749367: mov esi, eax
+-- call 0x7c5200
+   7c5200: call 0x7f0340
+   7c5205: add esp, 4
+   7c5208: test eax, eax
+   7c520a: jne 0x7c52f2
+   7c5210: push ebx
+   7c5211: call 0x7f0990
+   7c5216: mov ecx, 0x10
+   7c521b: mov esi, eax
+   7c521d: lea edi, [esp + 0xa8]
+-- call 0x7c572c
+   7c572c: call 0x7f0340
+   7c5731: add esp, 4
+   7c5734: test eax, eax
+   7c5736: jne 0x7c582a
+   7c573c: push ebx
+   7c573d: call 0x7f0990
+   7c5742: mov ecx, 0x10
+   7c5747: mov esi, eax
+   7c5749: lea edi, [esp + 0xe8]
+
+== 0x007F1920 RwMatrixOrthoNormalize: 5 llamadores directos
+-- call 0x764acb
+   764acb: call 0x7f1920
+   764ad0: mov ecx, 0x8d7450
+   764ad5: add esp, 8
+   764ad8: mov dword ptr [0x8d745c], 0
+   764ae2: mov dword ptr [0x8d746c], 0
+   764aec: mov dword ptr [0x8d747c], 0
+   764af6: mov dword ptr [0x8d748c], 0x3f800000
+   764b00: mov dword ptr [0xc94c7c], ecx
+   764b06: mov eax, dword ptr [ebp + 0xc]
+-- call 0x764ba6
+   764ba6: call 0x7f1920
+   764bab: mov ecx, 0x8d7450
+   764bb0: add esp, 8
+   764bb3: mov dword ptr [0x8d745c], 0
+   764bbd: mov dword ptr [0x8d746c], 0
+   764bc7: mov dword ptr [0x8d747c], 0
+   764bd1: mov dword ptr [0x8d748c], 0x3f800000
+   764bdb: mov dword ptr [0xc94c7c], ecx
+   764be1: push 0xc9bc80
+-- call 0x764cae
+   764cae: call 0x7f1920
+   764cb3: mov eax, 0x8d7450
+   764cb8: add esp, 8
+   764cbb: mov dword ptr [0x8d745c], 0
+   764cc5: mov dword ptr [0x8d746c], 0
+   764ccf: mov dword ptr [0x8d747c], 0
+   764cd9: mov dword ptr [0x8d748c], 0x3f800000
+   764ce3: mov dword ptr [0xc94c7c], eax
+   764ce8: mov ecx, dword ptr [ebp + 8]
+-- call 0x764df3
+   764df3: call 0x7f1920
+   764df8: mov ecx, dword ptr [ebp + 0xc]
+   764dfb: add esp, 8
+   764dfe: mov eax, 0x8d7410
+   764e03: mov dword ptr [0x8d741c], 0
+   764e0d: mov dword ptr [0xc94c78], eax
+   764e12: push eax
+   764e13: mov eax, dword ptr [ebp + 8]
+   764e16: mov dword ptr [0x8d742c], 0
+-- call 0x7f117a
+   7f117a: call 0x7f1920
+   7f117f: mov ecx, dword ptr [esi + 0xa0]
+   7f1185: xor eax, eax
+   7f1187: add esp, 8
+   7f118a: mov al, byte ptr [ecx + 3]
+   7f118d: test al, 3
+   7f118f: jne 0x7f11e2
+   7f1191: mov edx, dword ptr [0xc97b24]
+   7f1197: mov edx, dword ptr [edx + 0xbc]
+
+== 0x007F2BB0 RwEngineRegisterPlugin: 16 llamadores directos
+-- call 0x748f81
+   748f81: call 0x7f2bb0
+   748f86: add esp, 0x10
+   748f89: test eax, eax
+   748f8b: jge 0x748f90
+   748f8d: xor eax, eax
+   748f8f: ret 
+   748f90: push 0x749040
+   748f95: push 0x749030
+   748f9a: push 0x749020
+-- call 0x74fdb2
+   74fdb2: call 0x7f2bb0
+   74fdb7: push 0x758940
+   74fdbc: push 0x758970
+   74fdc1: push 0x502
+   74fdc6: push 0x30
+   74fdc8: mov esi, eax
+   74fdca: call 0x7f2bb0
+   74fdcf: push 0x74bfc0
+   74fdd4: push 0x74bfa0
+-- call 0x74fdca
+   74fdca: call 0x7f2bb0
+   74fdcf: push 0x74bfc0
+   74fdd4: push 0x74bfa0
+   74fdd9: push 0x503
+   74fdde: push 4
+   74fde0: or esi, eax
+   74fde2: call 0x7f2bb0
+   74fde7: push 0x749480
+   74fdec: push 0x749760
+-- call 0x74fde2
+   74fde2: call 0x7f2bb0
+   74fde7: push 0x749480
+   74fdec: push 0x749760
+   74fdf1: push 0x504
+   74fdf6: push 8
+   74fdf8: or esi, eax
+   74fdfa: call 0x7f2bb0
+   74fdff: add esp, 0x40
+   74fe02: or esi, eax
+-- call 0x74fdfa
+   74fdfa: call 0x7f2bb0
+   74fdff: add esp, 0x40
+   74fe02: or esi, eax
+   74fe04: push 0x7521b0
+   74fe09: push 0x752270
+   74fe0e: push 0x505
+   74fe13: push 4
+   74fe15: call 0x7f2bb0
+   74fe1a: push 0x761c40
+-- call 0x74fe15
+   74fe15: call 0x7f2bb0
+   74fe1a: push 0x761c40
+   74fe1f: push 0x761c30
+   74fe24: push 0x50a
+   74fe29: push 0
+   74fe2b: or esi, eax
+   74fe2d: call 0x7f2bb0
+   74fe32: push 0x74fe90
+   74fe37: push 0x74fee0
+-- call 0x74fe2d
+   74fe2d: call 0x7f2bb0
+   74fe32: push 0x74fe90
+   74fe37: push 0x74fee0
+   74fe3c: push 0x507
+   74fe41: push 0xc
+   74fe43: or esi, eax
+   74fe45: call 0x7f2bb0
+   74fe4a: push 0x7637d0
+   74fe4f: push 0x7637e0
+-- call 0x74fe45
+   74fe45: call 0x7f2bb0
+   74fe4a: push 0x7637d0
+   74fe4f: push 0x7637e0
+   74fe54: push 0x50b
+   74fe59: push 0
+   74fe5b: or esi, eax
+   74fe5d: call 0x7f2bb0
+   74fe62: add esp, 0x40
+   74fe65: or eax, esi
+-- call 0x74fe5d
+   74fe5d: call 0x7f2bb0
+   74fe62: add esp, 0x40
+   74fe65: or eax, esi
+   74fe67: pop esi
+   74fe68: jge 0x74fe6d
+   74fe6a: xor eax, eax
+   74fe6c: ret 
+   74fe6d: call 0x750050
+   74fe72: test eax, eax
+-- call 0x750062
+   750062: call 0x7f2bb0
+   750067: push 0x750710
+   75006c: push 0x750760
+   750071: push 0x7503e0
+   750076: push 0x509
+   75007b: push 0x1c
+   75007d: mov esi, eax
+   75007f: call 0x7ee450
+   750084: push 0x7509a0
+-- call 0x7587e1
+   7587e1: call 0x7f2bb0
+   7587e6: add esp, 0x10
+   7587e9: test eax, eax
+   7587eb: jge 0x7587f0
+   7587ed: xor eax, eax
+   7587ef: ret 
+   7587f0: push 0x758870
+   7587f5: push 0x758860
+   7587fa: push 0x758850
+-- call 0x7c4611
+   7c4611: call 0x7f2bb0
+   7c4616: add esp, 0x10
+   7c4619: test eax, eax
+   7c461b: jl 0x7c466c
+   7c461d: push 0x7c4830
+   7c4622: push 0x7c4770
+   7c4627: push 0x7c4750
+   7c462c: push 0x11e
+   7c4631: push 8
+-- call 0x7c6831
+   7c6831: call 0x7f2bb0
+   7c6836: push 0x7c6ac0
+   7c683b: push 0x7c6aa0
+   7c6840: push 0x7c6a80
+   7c6845: push 0x116
+   7c684a: push 4
+   7c684c: mov dword ptr [0xc978a0], eax
+   7c6851: call 0x74bda0
+   7c6856: push 0x7c7510
+-- call 0x7cb951
+   7cb951: call 0x7f2bb0
+   7cb956: add esp, 0x10
+   7cb959: test eax, eax
+   7cb95b: jl 0x7cb9ac
+   7cb95d: push 0x7cbb30
+   7cb962: push 0x7cbaa0
+   7cb967: push 0x7cba80
+   7cb96c: push 0x135
+   7cb971: push 0x28
+-- call 0x7cccb1
+   7cccb1: call 0x7f2bb0
+   7cccb6: add esp, 0x10
+   7cccb9: xor ecx, ecx
+   7cccbb: test eax, eax
+   7cccbd: setg cl
+   7cccc0: mov eax, ecx
+   7cccc2: ret 
+   7cccc3: nop 
+   7cccc4: nop 
+-- call 0x810ab1
+   810ab1: call 0x7f2bb0
+   810ab6: add esp, 0x10
+   810ab9: test eax, eax
+   810abb: jge 0x810ac0
+   810abd: xor eax, eax
+   810abf: ret 
+   810ac0: push 0x810d20
+   810ac5: push 0x810c60
+   810aca: push 0x810c40
+
+== 0x007F2BE0 RwEngineGetPluginOffset: 9 llamadores directos
+-- call 0x7c68f9
+   7c68f9: call 0x7f2be0
+   7c68fe: add esp, 4
+   7c6901: cmp eax, -1
+   7c6904: je 0x7c690b
+   7c6906: mov esi, 3
+   7c690b: push 0x12e
+   7c6910: call 0x7f2be0
+   7c6915: add esp, 4
+   7c6918: cmp eax, -1
+-- call 0x7c6910
+   7c6910: call 0x7f2be0
+   7c6915: add esp, 4
+   7c6918: cmp eax, -1
+   7c691b: je 0x7c6920
+   7c691d: or esi, 4
+   7c6920: push esi
+   7c6921: call 0x7c8980
+   7c6926: mov eax, dword ptr [0x8dece4]
+   7c692b: mov ecx, dword ptr [0x8dece0]
+-- call 0x7c6aec
+   7c6aec: call 0x7f2be0
+   7c6af1: mov edi, dword ptr [esp + 0x10]
+   7c6af5: add esp, 4
+   7c6af8: cmp eax, -1
+   7c6afb: je 0x7c6b16
+   7c6afd: push 0x120
+   7c6b02: call 0x74bec0
+   7c6b07: mov cl, byte ptr [eax + edi]
+   7c6b0a: add esp, 4
+-- call 0x7c6b2e
+   7c6b2e: call 0x7f2be0
+   7c6b33: add esp, 4
+   7c6b36: cmp eax, -1
+   7c6b39: jne 0x7c6b40
+   7c6b3b: cmp esi, 2
+   7c6b3e: je 0x7c6b57
+   7c6b40: push 0x12e
+   7c6b45: call 0x7f2be0
+   7c6b4a: add esp, 4
+-- call 0x7c6b45
+   7c6b45: call 0x7f2be0
+   7c6b4a: add esp, 4
+   7c6b4d: cmp eax, -1
+   7c6b50: jne 0x7c6b5c
+   7c6b52: cmp esi, 3
+   7c6b55: jne 0x7c6b5c
+   7c6b57: mov esi, 1
+   7c6b5c: push esi
+   7c6b5d: push edi
+-- call 0x7c6b92
+   7c6b92: call 0x7f2be0
+   7c6b97: add esp, 4
+   7c6b9a: cmp eax, -1
+   7c6b9d: jne 0x7c6ba4
+   7c6b9f: cmp esi, 2
+   7c6ba2: je 0x7c6bbb
+   7c6ba4: push 0x12e
+   7c6ba9: call 0x7f2be0
+   7c6bae: add esp, 4
+-- call 0x7c6ba9
+   7c6ba9: call 0x7f2be0
+   7c6bae: add esp, 4
+   7c6bb1: cmp eax, -1
+   7c6bb4: jne 0x7c6bc0
+   7c6bb6: cmp esi, 3
+   7c6bb9: jne 0x7c6bc0
+   7c6bbb: mov esi, 1
+   7c6bc0: push esi
+   7c6bc1: push edi
+-- call 0x7c783a
+   7c783a: call 0x7f2be0
+   7c783f: add esp, 4
+   7c7842: cmp eax, -1
+   7c7845: jne 0x7c784c
+   7c7847: cmp esi, 2
+   7c784a: je 0x7c7863
+   7c784c: push 0x12e
+   7c7851: call 0x7f2be0
+   7c7856: add esp, 4
+-- call 0x7c7851
+   7c7851: call 0x7f2be0
+   7c7856: add esp, 4
+   7c7859: cmp eax, -1
+   7c785c: jne 0x7c7868
+   7c785e: cmp esi, 3
+   7c7861: jne 0x7c7868
+   7c7863: mov esi, 1
+   7c7868: mov eax, dword ptr [esp + 8]
+   7c786c: push esi

@@ -1,3 +1,21 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CDecisionMakerTypes
+ * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 7/7 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 #pragma warning(push, 0)
 #include "StdInc.h"
 #pragma warning(pop)
@@ -20,6 +38,7 @@ void CDecisionMakerTypes::InjectHooks() {
     RH_ScopedInstall(AddDecisionMaker, 0x607050);
     RH_ScopedInstall(RemoveDecisionMaker, 0x6043A0);
     RH_ScopedInstall(LoadEventIndices, 0x600840);
+    RH_ScopedInstall(FlushDecisionMakerEventResponse, 0x604490);
 }
 
 // Registros de las funciones de este archivo (los bancos DependenciesDecisionPed7, DependenciesDecisionRelationship6 y DependenciesTask11
@@ -288,8 +307,14 @@ void CDecisionMakerTypes::AddEventResponse(int32 decisionMakerIndex, eEventType 
 }
 
 // 0x604490
+// ECX = this, dos argumentos en pila (ret 8). Pone por defecto (CDecision::SetDefault, 0x600530) la decision [decisionMakerIndex].m_Decisions[m_EventIndices[eventId]]:
+// direccion = this + 4 + (m_EventIndices[eventId] + decisionMakerIndex * 41) * 0x3C, con aritmetica de 32 bits que da la vuelta (imul/add del EXE) y sin comprobar
+// ningun limite. SetDefault es la ultima llamada; su unico llamador del EXE (0x46D0C7) no lee EAX/ECX/EDX despues.
 void CDecisionMakerTypes::FlushDecisionMakerEventResponse(int32 decisionMakerIndex, eEventType eventId) {
-    plugin::CallMethod<0x604490>(this, decisionMakerIndex, eventId);
+    const uint32 self       = AsU32(this);
+    const uint32 eventIndex = reinterpret_cast<const uint32*>(self + kEventIndices)[static_cast<int32>(eventId)];
+    const uint32 offset     = (eventIndex + static_cast<uint32>(decisionMakerIndex) * static_cast<uint32>(CDecision::MAX_NUM_DECISIONS)) * kDecisionStride;
+    reinterpret_cast<CDecision*>(static_cast<uintptr_t>(self + offset + 4u))->SetDefault();
 }
 
 // 0x600840: ECX = this. Lee data/decision/PedEvent.txt (cadena del EXE 0x86CD44) con 0x5BB9F0(this + 0xC034, nombre) (ret 8); es la ultima llamada y

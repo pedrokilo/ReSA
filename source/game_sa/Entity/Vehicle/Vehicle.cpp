@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CVehicle
- * Reconstrucción: COMPLETA — 142/142 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 149/149 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 142/142 entradas.
+ * Validación registrada: 149/149 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -347,7 +347,7 @@ void CVehicle::InjectHooks() {
     RH_ScopedGlobalOverloadedInstall(RemoveObjectsCB, "Object", 0x6D33B0, RwObject*(*)(RwObject*, void*));
     RH_ScopedGlobalOverloadedInstall(RemoveObjectsCB, "Frame", 0x6D3420, RwFrame*(*)(RwFrame*, void*));
     RH_ScopedGlobalInstall(CopyObjectsCB, 0x6D3450);
-    // RH_ScopedGlobalInstall(FindReplacementUpgradeCB, 0x6D3490);
+    RH_ScopedGlobalInstall(FindReplacementUpgradeCB, 0x6D3490);
     RH_ScopedGlobalInstall(RemoveAllUpgradesCB, 0x6D34D0);
 }
 
@@ -2589,7 +2589,17 @@ RwObject* CopyObjectsCB(RwObject* object, void* data) {
 
 // 0x6D3490
 RwObject* FindReplacementUpgradeCB(RwObject* object, void* data) {
-    return ((RwObject * (__cdecl*)(RwObject*, void*))0x6D3490)(object, data);
+    // Como el original (cdecl, callback de RwFrameForAllObjects): solo un atomo (tipo 1) cuyo id (0x732370, una vez) no tiene el bit 0x800 (ATOMIC_UPGRADE)
+    // y cuyo indice de modelo (0x732250, solo entonces) no es -1 se guarda en data[1] (+4 de tCompSearchStructById) y detiene el recorrido (devuelve nullptr).
+    // Cualquier otro objeto se devuelve tal cual para seguir. El iterador del EXE solo lee EAX a la vuelta.
+    if (RwObjectGetType(object) == rpATOMIC) {
+        auto* const atomic = reinterpret_cast<RpAtomic*>(object);
+        if (!(CVisibilityPlugins::GetAtomicId(atomic) & ATOMIC_UPGRADE) && CVisibilityPlugins::GetModelInfoIndex(atomic) != -1) {
+            reinterpret_cast<RwObject**>(data)[1] = object;
+            return nullptr;
+        }
+    }
+    return object;
 }
 
 // 0x6D34D0

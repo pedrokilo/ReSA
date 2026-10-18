@@ -37,6 +37,7 @@ import re
 from pathlib import Path
 
 import hooks2md
+import pending_wrappers
 import validation_inventory
 import validation_queue
 
@@ -56,9 +57,16 @@ def load_stats():
     reversed_entries = sum(c['reversed'] for c in classes.values())
     validated_entries = sum(1 for r in rows if r['validated'] == '1')
     locked_entries = sum(1 for r in rows if r['locked'] == '1')
-    total_classes = len(classes)
-    complete_classes = sum(1 for c in classes.values() if c['reversed'] == c['total'])
-    validated_classes = sum(1 for c in classes.values() if c['validated'] == c['total'] == c['reversed'])  # de las completas
+    # Las funciones del juego que siguen delegando en el EXE (envolturas-pendientes.csv) impiden que su clase cuente como completa
+    # y las clases que solo existen ahí (sin entradas en el catálogo) se suman como clases sin revertir (misma regla que hooks2md.py).
+    wrappers_file = HOOKS_CSV.with_name('implementaciones') / 'envolturas-pendientes.csv'
+    wrapped = set()
+    if wrappers_file.exists():
+        with wrappers_file.open(encoding='utf-8-sig', newline='') as stream:
+            wrapped = {row['class'] for row in csv.DictReader(stream)}
+    total_classes = len(classes) + len([name for name in wrapped if name not in classes])
+    complete_classes = sum(1 for n, c in classes.items() if c['reversed'] == c['total'] and n not in wrapped)
+    validated_classes = sum(1 for n, c in classes.items() if c['validated'] == c['total'] == c['reversed'] and n not in wrapped)  # de las completas
     return {
         'classes': classes,
         'total_entries': total_entries,
@@ -161,6 +169,7 @@ def main():
           f"({stats['pct_classes']:.2f}%), {stats['validated_entries']} validated=1, {stats['locked_entries']} locked=1.")
 
     if not args.dry_run:
+        pending_wrappers.main()
         hooks2md.generate(str(HOOKS_CSV), str(ROOT / 'docs/ReversedClasses.md'),
                            update_source_status=args.update_source_status)
         validation_inventory.generate(ROOT)

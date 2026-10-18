@@ -20,6 +20,7 @@ RwFrame* GetFirstChild(RwFrame* frame);
 RpAtomic* SkinAtomicGetHAnimHierarchCB(RpAtomic* atomic, void* data);
 RpHAnimHierarchy* GetAnimHierarchyFromSkinClump(RpClump* clump);
 RpHAnimHierarchy* GetAnimHierarchyFromFrame(RwFrame* frame);
+RwFrame* GetAnimHierarchyFromFrameCallback(RwFrame* frame, void* data); // 0x734A70 del EXE (sin hook: solo lo usa GetAnimHierarchyFromFrame)
 uint32 __fastcall GetAnimHierarchyFromFrameRegs(void* entryEcx, uint32 entryEdx); // hook de 0x734AB0: conserva ECX de entrada
 RpHAnimHierarchy* GetAnimHierarchyFromClump(RpClump* clump);
 RpAtomic* AtomicRemoveAnimFromSkinCB(RpAtomic* atomic, void* data);

@@ -18,7 +18,7 @@ def analyze(path):
  if len(begin)!=1:raise RuntimeError('Missing begin')
  b=begin[0]
  if b.get('player_area')!=0 or b.get('fixture_configuration')!='FastLoader.SaveGameToLoad=0':raise RuntimeError('Missing exterior real fixture configuration')
- if not all(b.get(k)is True for k in ('registered_hook','library_route_ok','owned_empty_created','empty_frame_legal','fp_state_restored'))or b.get('collaborators_stubbed')is not False or b.get('real_frames',0)<1:raise RuntimeError('Missing real resource/routes')
+ if not all(b.get(k)is True for k in ('registered_hook','library_route_ok','callback_dll_ok','owned_empty_created','empty_frame_legal','fp_state_restored'))or b.get('collaborators_stubbed')is not False or b.get('real_frames',0)<1:raise RuntimeError('Missing real resource/routes')
  if b.get('native_callback_entry')!=0x734A70 or len(b.get('native_callback_bytes',[]))!=51 or len(b.get('native_getter_bytes',[]))!=15 or len(b.get('native_children_bytes',[]))!=56:raise RuntimeError('Missing canonical native collaborators')
  cases=set();pairs=set();kinds=[0]*4
  for r in rows:

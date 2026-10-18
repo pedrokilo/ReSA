@@ -1,0 +1,126 @@
+{
+  "pairs": 23296,
+  "pairs_per_function": {
+    "RpWorld::_rpMeshHeaderCreate": 1024,
+    "RpWorld::RpBuildMeshGenerateDefaultTriStrip": 1024,
+    "RpWorld::RxNodeDefinitionGetD3D9WorldSectorAllInOne": 1024,
+    "RpWorld::RpWorldSectorRegisterPlugin": 1024,
+    "RpWorld::RpWorldSectorRegisterPluginStream": 1024,
+    "RpHAnim::RpHAnimFrameGetHierarchy": 1024,
+    "RpSkin::_rpSkinDeinitialize": 1024,
+    "RpUVAnim::_rpUVAnimCustomDataStreamGetSize": 1024,
+    "RpUVAnim::RpUVAnimKeyFrameStreamGetSize": 1536,
+    "RtAnim::RtAnimAnimationGetNumNodes": 2048,
+    "RtAnim::RtAnimInterpolatorDestroy": 1024,
+    "RtDict::RtDictSchemaDestruct": 1024,
+    "RtDict::RtDictSchemaGetCurrentDict": 1024,
+    "RwPlCore::RwStreamWriteInt32": 1024,
+    "RwCore::RwCameraSetViewOffset": 2304,
+    "RwCore::RwCameraRegisterPlugin": 1024,
+    "RwCore::RwFrameDirty": 1024,
+    "RwPlCore::RwMatrixOrthoNormalize": 1024,
+    "RwPlCore::RwEngineRegisterPlugin": 1024,
+    "RwPlCore::RwEngineGetPluginOffset": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "405c03a135c13fd11e8862152274b7f0ebb6fb2a047d8295fbc12c88c2a56ebe",
+  "declared_fixture_coverage": {
+    "RpWorld::_rpMeshHeaderCreate": {
+      "size_extremes": 64,
+      "ret_variants": 272
+    },
+    "RpHAnim::RpHAnimFrameGetHierarchy": {
+      "frame_arena": 360,
+      "frame_raw": 352,
+      "frame_null": 312,
+      "offset_wraps": 172
+    },
+    "RpUVAnim::RpUVAnimKeyFrameStreamGetSize": {
+      "real_collaborator": 256,
+      "shift_overflow": 1158,
+      "sum_overflow": 433
+    },
+    "RtAnim::RtAnimAnimationGetNumNodes": {
+      "zero_nodes": 168,
+      "many_nodes": 468,
+      "step_zero": 14,
+      "steps": 12,
+      "nodes": 13,
+      "layouts": 14
+    },
+    "RwCore::RwCameraSetViewOffset": {
+      "alias0": 576,
+      "alias1": 576,
+      "alias2": 576,
+      "alias3": 576,
+      "parent0": 768,
+      "parent1": 768,
+      "parent2": 768,
+      "nan_x": 576,
+      "snan": 192,
+      "subnormal": 288,
+      "inf": 192,
+      "negzero": 96
+    },
+    "RwCore::RwFrameDirty": {
+      "flags": 256,
+      "root_self": 512,
+      "root_other": 512
+    },
+    "RtDict::RtDictSchemaDestruct": {
+      "word_variants": 666
+    },
+    "RtDict::RtDictSchemaGetCurrentDict": {
+      "word_variants": 666
+    },
+    "RpWorld::RpBuildMeshGenerateDefaultTriStrip": {
+      "distinct_args": 1018,
+      "ret_variants": 272
+    },
+    "RpWorld::RpWorldSectorRegisterPlugin": {
+      "distinct_args": 970,
+      "ret_variants": 272
+    },
+    "RpWorld::RpWorldSectorRegisterPluginStream": {
+      "distinct_args": 995,
+      "ret_variants": 272
+    },
+    "RwCore::RwCameraRegisterPlugin": {
+      "distinct_args": 970,
+      "ret_variants": 272
+    },
+    "RwPlCore::RwEngineRegisterPlugin": {
+      "distinct_args": 995,
+      "ret_variants": 272
+    },
+    "RwPlCore::RwStreamWriteInt32": {
+      "distinct_args": 1008,
+      "ret_variants": 272
+    },
+    "RwPlCore::RwMatrixOrthoNormalize": {
+      "distinct_args": 1015,
+      "ret_variants": 272
+    },
+    "RpSkin::_rpSkinDeinitialize": {
+      "distinct_args": 1024,
+      "ret_variants": 272
+    },
+    "RpUVAnim::_rpUVAnimCustomDataStreamGetSize": {
+      "distinct_args": 1024,
+      "ret_variants": 272
+    },
+    "RtAnim::RtAnimInterpolatorDestroy": {
+      "distinct_args": 1024,
+      "ret_variants": 272
+    },
+    "RwPlCore::RwEngineGetPluginOffset": {
+      "distinct_args": 1024,
+      "ret_variants": 272
+    }
+  },
+  "residue_pairs_where_ecx_edx_differ": 11552,
+  "compare_dead_x87_registers": true,
+  "offline": true,
+  "coverage_method": "serialized_inputs_and_independent_oracle; no_instruction_branch_tracing"
+}

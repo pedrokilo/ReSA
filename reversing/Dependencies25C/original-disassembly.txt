@@ -1,0 +1,201 @@
+# Desensamblado del gta-sa.exe original (capstone x86-32). Longitudes de reversing/OriginalDependencies2026-10-17 (lote25-lib2). Sin relleno posterior al ret/jmp.
+
+== 0x00758920 _rpMeshHeaderCreate (26 bytes)
+758920: mov eax, dword ptr [esp + 4]
+758924: mov ecx, dword ptr [0xc97b24]
+75892a: push 0x30502
+75892f: push eax
+758930: call dword ptr [ecx + 0x134]
+758936: add esp, 8
+758939: ret 
+
+== 0x007591B0 RpBuildMeshGenerateDefaultTriStrip (18 bytes)
+7591b0: mov eax, dword ptr [esp + 4]
+7591b4: push 1
+7591b6: push 0
+7591b8: push eax
+7591b9: call 0x7591d0
+7591be: add esp, 0xc
+7591c1: ret 
+
+== 0x0075E9F0 RxNodeDefinitionGetD3D9WorldSectorAllInOne (6 bytes)
+75e9f0: mov eax, 0x8d63b8
+75e9f5: ret 
+
+== 0x00761C90 RpWorldSectorRegisterPlugin (39 bytes)
+761c90: mov eax, dword ptr [esp + 0x14]
+761c94: mov ecx, dword ptr [esp + 0x10]
+761c98: mov edx, dword ptr [esp + 0xc]
+761c9c: push eax
+761c9d: mov eax, dword ptr [esp + 0xc]
+761ca1: push ecx
+761ca2: mov ecx, dword ptr [esp + 0xc]
+761ca6: push edx
+761ca7: push eax
+761ca8: push ecx
+761ca9: push 0x8d736c
+761cae: call 0x8084a0
+761cb3: add esp, 0x18
+761cb6: ret 
+
+== 0x00761CC0 RpWorldSectorRegisterPluginStream (34 bytes)
+761cc0: mov eax, dword ptr [esp + 0x10]
+761cc4: mov ecx, dword ptr [esp + 0xc]
+761cc8: mov edx, dword ptr [esp + 8]
+761ccc: push eax
+761ccd: mov eax, dword ptr [esp + 8]
+761cd1: push ecx
+761cd2: push edx
+761cd3: push eax
+761cd4: push 0x8d736c
+761cd9: call 0x8088e0
+761cde: add esp, 0x14
+761ce1: ret 
+
+== 0x007C5160 RpHAnimFrameGetHierarchy (15 bytes)
+7c5160: mov eax, dword ptr [esp + 4]
+7c5164: mov ecx, dword ptr [0xc9b8c8]
+7c516a: mov eax, dword ptr [ecx + eax + 4]
+7c516e: ret 
+
+== 0x007C8820 _rpSkinDeinitialize (5 bytes)
+7c8820: mov eax, dword ptr [esp + 4]
+7c8824: ret 
+
+== 0x007CC010 _rpUVAnimCustomDataStreamGetSize (6 bytes)
+7cc010: mov eax, 0x40
+7cc015: ret 
+
+== 0x007CC9D0 RpUVAnimKeyFrameStreamGetSize (32 bytes)
+7cc9d0: push esi
+7cc9d1: mov esi, dword ptr [esp + 8]
+7cc9d5: mov eax, dword ptr [esi + 0x14]
+7cc9d8: push eax
+7cc9d9: call 0x7cc010
+7cc9de: mov ecx, eax
+7cc9e0: mov eax, dword ptr [esi + 4]
+7cc9e3: add esp, 4
+7cc9e6: add ecx, 4
+7cc9e9: shl eax, 5
+7cc9ec: add eax, ecx
+7cc9ee: pop esi
+7cc9ef: ret 
+
+== 0x007CD4F0 RtAnimAnimationGetNumNodes (35 bytes)
+7cd4f0: mov ecx, dword ptr [esp + 4]
+7cd4f4: push esi
+7cd4f5: push edi
+7cd4f6: xor eax, eax
+7cd4f8: mov edx, dword ptr [ecx]
+7cd4fa: mov esi, dword ptr [edx + 8]
+7cd4fd: mov edx, dword ptr [ecx + 0x10]
+7cd500: mov ecx, edx
+7cd502: cmp dword ptr [ecx], edx
+7cd504: je 0x7cd510
+7cd506: mov edi, dword ptr [ecx + esi]
+7cd509: add ecx, esi
+7cd50b: inc eax
+7cd50c: cmp edi, edx
+7cd50e: jne 0x7cd506
+7cd510: pop edi
+7cd511: pop esi
+7cd512: ret 
+
+== 0x007CD590 RtAnimInterpolatorDestroy (12 bytes)
+7cd590: mov ecx, dword ptr [0xc97b24]
+7cd596: jmp dword ptr [ecx + 0x138]
+
+== 0x007CED70 RtDictSchemaDestruct (22 bytes)
+7ced70: mov eax, dword ptr [esp + 4]
+7ced74: mov ecx, dword ptr [eax + 0x10]
+7ced77: push ecx
+7ced78: call 0x809440
+7ced7d: add esp, 4
+7ced80: mov eax, 1
+7ced85: ret 
+
+== 0x007CEEE0 RtDictSchemaGetCurrentDict (8 bytes)
+7ceee0: mov eax, dword ptr [esp + 4]
+7ceee4: mov eax, dword ptr [eax + 0x14]
+7ceee7: ret 
+
+== 0x007ED460 RwStreamWriteInt32 (28 bytes)
+7ed460: mov eax, dword ptr [esp + 0xc]
+7ed464: mov ecx, dword ptr [esp + 8]
+7ed468: push esi
+7ed469: mov esi, dword ptr [esp + 8]
+7ed46d: push eax
+7ed46e: push ecx
+7ed46f: push esi
+7ed470: call 0x7ecb30
+7ed475: add esp, 0xc
+7ed478: mov eax, esi
+7ed47a: pop esi
+7ed47b: ret 
+
+== 0x007EE1A0 RwCameraSetViewOffset (40 bytes)
+7ee1a0: mov eax, dword ptr [esp + 8]
+7ee1a4: push esi
+7ee1a5: mov esi, dword ptr [esp + 8]
+7ee1a9: mov ecx, dword ptr [eax]
+7ee1ab: mov dword ptr [esi + 0x78], ecx
+7ee1ae: mov edx, dword ptr [eax + 4]
+7ee1b1: mov eax, dword ptr [esi + 4]
+7ee1b4: mov dword ptr [esi + 0x7c], edx
+7ee1b7: test eax, eax
+7ee1b9: je 0x7ee1c4
+7ee1bb: push eax
+7ee1bc: call 0x7f0910
+7ee1c1: add esp, 4
+7ee1c4: mov eax, esi
+7ee1c6: pop esi
+7ee1c7: ret 
+
+== 0x007EE450 RwCameraRegisterPlugin (39 bytes)
+7ee450: mov eax, dword ptr [esp + 0x14]
+7ee454: mov ecx, dword ptr [esp + 0x10]
+7ee458: mov edx, dword ptr [esp + 0xc]
+7ee45c: push eax
+7ee45d: mov eax, dword ptr [esp + 0xc]
+7ee461: push ecx
+7ee462: mov ecx, dword ptr [esp + 0xc]
+7ee466: push edx
+7ee467: push eax
+7ee468: push ecx
+7ee469: push 0x8e222c
+7ee46e: call 0x8084a0
+7ee473: add esp, 0x18
+7ee476: ret 
+
+== 0x007F0340 RwFrameDirty (17 bytes)
+7f0340: mov eax, dword ptr [esp + 4]
+7f0344: mov ecx, dword ptr [eax + 0xa0]
+7f034a: mov al, byte ptr [ecx + 3]
+7f034d: and eax, 3
+7f0350: ret 
+
+== 0x007F1920 RwMatrixOrthoNormalize (5 bytes)
+7f1920: jmp 0x7f1930
+
+== 0x007F2BB0 RwEngineRegisterPlugin (36 bytes)
+7f2bb0: mov eax, dword ptr [esp + 0x10]
+7f2bb4: mov ecx, dword ptr [esp + 0xc]
+7f2bb8: mov edx, dword ptr [esp + 8]
+7f2bbc: push 0
+7f2bbe: push eax
+7f2bbf: mov eax, dword ptr [esp + 0xc]
+7f2bc3: push ecx
+7f2bc4: push edx
+7f2bc5: push eax
+7f2bc6: push 0x8e2298
+7f2bcb: call 0x8084a0
+7f2bd0: add esp, 0x18
+7f2bd3: ret 
+
+== 0x007F2BE0 RwEngineGetPluginOffset (19 bytes)
+7f2be0: mov eax, dword ptr [esp + 4]
+7f2be4: push eax
+7f2be5: push 0x8e2298
+7f2bea: call 0x808470
+7f2bef: add esp, 8
+7f2bf2: ret 

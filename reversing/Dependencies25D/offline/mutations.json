@@ -1,0 +1,58 @@
+[
+ [
+  "LockPalette: salida inicial a NULL",
+  "detectado: RwCore::RwRasterLockPalette                      1024 pares, 991 diferencias; total: 20480 pares, 991 diferencias"
+ ],
+ [
+  "RGBAToPixel: salida inicial a 0",
+  "detectado: RwCore::RwRGBAToPixel                            1024 pares, 991 diferencias; total: 20480 pares, 991 diferencias"
+ ],
+ [
+  "GetAutoMipmapping: campo equivocado",
+  "detectado: RwCore::RwTextureGetAutoMipmapping               1024 pares, 992 diferencias; total: 20480 pares, 992 diferencias"
+ ],
+ [
+  "SetDepthStencil: global tras la llamada",
+  "detectado: RwCore::_rwD3D9SetDepthStencilSurface            1024 pares, 768 diferencias; total: 20480 pares, 768 diferencias"
+ ],
+ [
+  "DynDestroy: sin salida tras el primero",
+  "detectado: RwCore::RwD3D9DynamicVertexBufferDestroy         1024 pares, 154 diferencias; total: 20480 pares, 154 diferencias"
+ ],
+ [
+  "ReleaseFrame: lecturas viejas",
+  "detectado: RwCore::_rwObjectHasFrameReleaseFrame            1024 pares, 102 diferencias; total: 20480 pares, 102 diferencias"
+ ],
+ [
+  "FreeListCreate: bloques a 0",
+  "detectado: RwPlCore::RwFreeListCreate                       1024 pares, 1024 diferencias; total: 20480 pares, 1024 diferencias"
+ ],
+ [
+  "CreatePixelShader: > 0",
+  "detectado: RwCore::RwD3D9CreatePixelShader                  1024 pares, 64 diferencias; total: 20480 pares, 64 diferencias"
+ ],
+ [
+  "RasterGetCurrentContext: siempre la base",
+  "detectado: RwCore::RwRasterGetCurrentContext                1024 pares, 964 diferencias; total: 20480 pares, 964 diferencias"
+ ],
+ [
+  "GenerateMipmaps: devuelve 2",
+  "detectado: RwCore::RwTextureRasterGenerateMipmaps           1024 pares, 746 diferencias; total: 20480 pares, 746 diferencias"
+ ],
+ [
+  "Unlock: > 0",
+  "detectado: RwCore::RwD3D9DynamicVertexBufferUnlock          1024 pares, 64 diferencias; total: 20480 pares, 64 diferencias"
+ ],
+ [
+  "RegisterPluginStream: registro de diccionario",
+  "detectado: RwCore::RwTextureRegisterPluginStream            1024 pares, 1024 diferencias; total: 20480 pares, 1024 diferencias"
+ ],
+ [
+  "RasterRegisterPlugin: argumentos permutados",
+  "detectado: RwCore::RwRasterRegisterPlugin                   1024 pares, 1024 diferencias; total: 20480 pares, 1024 diferencias"
+ ],
+ [
+  "DeletePixelShader: sin llamada",
+  "detectado: RwCore::RwD3D9DeletePixelShader                  1024 pares, 1024 diferencias; total: 20480 pares, 1024 diferencias"
+ ]
+]

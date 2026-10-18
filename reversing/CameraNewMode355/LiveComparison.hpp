@@ -65,7 +65,7 @@ inline void Update() {
  EntryPatch co(0x56E010,Coors),cod(bit_cast<uintptr_t>(&FindPlayerCoors),Coors);
  EntryPatch sp(0x56E090,Speed),spd(bit_cast<uintptr_t>(&FindPlayerSpeed),Speed);
  EntryPatch wa(0x41BE60,Wanted),wad(bit_cast<uintptr_t>(&CPlayerPed::GetWantedLevel),Wanted);
- EntryPatch po(0x41CC10,Pool);
+ EntryPatch po(0x41CC10,Pool),pod(bit_cast<uintptr_t>(&CVehiclePool::GetAt),Pool);   // g25a: la DLL llama a CVehiclePool::GetAt (hook de 0x41CC10), no a la direccion del EXE
  EntryPatch fi(0x50BEC0,Fixed),fid(bit_cast<uintptr_t>(&CCamera::SetCamPositionForFixedMode),Fixed);
  EntryPatch ct(0x50C7C0,Control),ctd(bit_cast<uintptr_t>(&CCamera::TakeControl),Control);
  EntryPatch re(0x50B830,Reject);

@@ -1,0 +1,24 @@
+F0 vtable equivocada         -> {'CTask::Destructor': 256}
+F1 bit del estado            -> {'CVehiclePool::GetAt': 256}
+F2 contador cacheado         -> {'CAutoPilot::RemoveOnePathNode': 100}
+F2 sin dec                   -> {'CAutoPilot::RemoveOnePathNode': 256}
+F2 zancada de 2 bytes        -> {'CAutoPilot::RemoveOnePathNode': 212}
+F3 sin comprobar activo      -> {'CPedGroups::RemoveAllFollowersFromGroup': 50}
+F3 grupo equivocado          -> {'CPedGroups::RemoveAllFollowersFromGroup': 41}
+F3 indice acotado            -> {'CPedGroups::RemoveAllFollowersFromGroup': 33}
+F4 zancada                   -> {'CDecisionMakerTypes::FlushDecisionMakerEventResponse': 256}
+F4 evento                    -> {'CDecisionMakerTypes::FlushDecisionMakerEventResponse': 256}
+F4 sin +4                    -> {'CDecisionMakerTypes::FlushDecisionMakerEventResponse': 256}
+F5 mascara de modelo         -> {'CGarages::CountCarsInHideoutGarage': 12}
+F5 modelo de 8 bits          -> {'CGarages::CountCarsInHideoutGarage': 27}
+F5 3 ranuras                 -> {'CGarages::CountCarsInHideoutGarage': 153}
+F6 bit equivocado            -> {'FindReplacementUpgradeCB': 86}
+F6 indice                    -> {'FindReplacementUpgradeCB': 27}
+F6 data[0]                   -> {'FindReplacementUpgradeCB': 70}
+F7 sin parada                -> {'RwHelper::GetAnimHierarchyFromFrameCallback': 128}
+F7 sin recorrer hijos        -> {'RwHelper::GetAnimHierarchyFromFrameCallback': 151}
+F8 flag                      -> {'CAEStreamingDecoder::ScalarDeletingDestructor': 133}
+F8 sin anular                -> {'CAEStreamingDecoder::ScalarDeletingDestructor': 192}
+F8 vtable                    -> {'CAEStreamingDecoder::ScalarDeletingDestructor': 256}
+F8 delete this siempre       -> {'CAEStreamingDecoder::ScalarDeletingDestructor': 113}
+F0 sin optimizar (clobbera EAX) -> {'CTask::Destructor': 256}

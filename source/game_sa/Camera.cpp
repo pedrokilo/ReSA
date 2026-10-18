@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CCamera
- * Reconstrucción: COMPLETA — 110/110 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 116/116 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 110/110 entradas.
+ * Validación registrada: 116/116 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -2539,7 +2539,7 @@ bool CCamera::TryToStartNewCamMode(int32 camSequence) {
         if (vehicle && boatBlocked(FindPlayerVehicle(-1, false))) return false;
         while (remaining != 0) {
             --remaining;
-            auto* candidate = reinterpret_cast<CVehicle*(__thiscall*)(void*,int32)>(0x41CC10)(pool, remaining);
+            auto* candidate = reinterpret_cast<CVehiclePool*>(pool)->GetAt(static_cast<size_t>(remaining));
             if (!candidate || *reinterpret_cast<int32*>(reinterpret_cast<uint8*>(candidate) + 0x590) != 0 || candidate == FindPlayerVehicle(-1, false) || !(reinterpret_cast<uint8*>(candidate)[0x428] & 1)) continue;
             if (camSequence == 7 && (reinterpret_cast<uint8*>(candidate)[0x36] & 0xF8) != 0x18) continue;
             const float deltaX = candidate->GetPosition().x - FindPlayerCoors(-1).x;

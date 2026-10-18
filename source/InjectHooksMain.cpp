@@ -569,6 +569,11 @@
 
 #include "WindowedMode.hpp"
 
+// Hooks de biblioteca del grupo g25b (RenderWare SDK / controlador D3D9); el sufijo evita colisiones con otros registradores.
+void RwCoreInjectHooks25b();
+void RpWorldInjectHooks25b();
+void RpAnisotInjectHooks();
+
 void InjectHooksMain() {
     /**
     * We have `NOTSA_STANDALONE` macro to be able to dump all hooks without actually writing to memory,
@@ -605,13 +610,19 @@ void InjectHooksMain() {
     ProcSurfaceInfo_c::InjectHooks();
     RwHelperInjectHooks();
     RwCoreInjectHooks();
+    RwPlCoreInjectHooks();
     CPad::InjectHooks();
     D3DResourceSystem::InjectHooks();
+    RwCoreInjectHooks25d();
+    RwPlCoreInjectHooks25d();
     InjectCommonHooks();
     CEscalator::InjectHooks();
     CShadowCamera::InjectHooks();
     CInterestingEvents::InjectHooks();
     CShadows::InjectHooks();
+    RwCoreInjectHooks25b();
+    RpWorldInjectHooks25b();
+    RpAnisotInjectHooks();
     CCam::InjectHooks();
     CCarAI::InjectHooks();
     CMenuSystem::InjectHooks();
@@ -846,6 +857,7 @@ void InjectHooksMain() {
     CPathFind::InjectHooks();
     CPathNode::InjectHooks();
     CNodeRoute::InjectHooks();
+    CAutoPilot::InjectHooks();
     CLoadMonitor::InjectHooks();
     CDecisionMakerTypes::InjectHooks();
     CPlayerRelationshipRecorder::InjectHooks();
@@ -870,6 +882,13 @@ void InjectHooksMain() {
     CCollisionPlugin::InjectHooks();
     BreakablePlugin::InjectHooks();
     RtAnim::InjectHooks();
+    RwCoreFrameCameraInjectHooks();
+    RwPlCoreEngineStreamInjectHooks();
+    RpWorldInjectHooks();
+    RpHAnimInjectHooks();
+    RpSkinInjectHooks();
+    RpUVAnimInjectHooks();
+    RtDictInjectHooks();
 
     CIplStore::InjectHooks();
     cHandlingDataMgr::InjectHooks();

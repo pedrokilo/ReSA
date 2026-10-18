@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CGarages
- * Reconstrucción: COMPLETA — 21/21 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 24/24 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 21/21 entradas.
+ * Validación registrada: 24/24 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -50,7 +50,7 @@ void CGarages::InjectHooks() {
     RH_ScopedInstall(PrintMessages, 0x447790);
     RH_ScopedInstall(ChangeGarageType, 0x4476D0);
     RH_ScopedInstall(GetGarageNumberByName, 0x447680);
-    // RH_ScopedInstall(CountCarsInHideoutGarage, 0x44A210);
+    RH_ScopedInstall(CountCarsInHideoutGarage, 0x44A210);
     RH_ScopedInstall(Load, 0x5D3270);
     RH_ScopedInstall(Save, 0x5D3160);
 }
@@ -618,5 +618,15 @@ bool CGarages::HasResprayHappened(int16 garageId) {
 
 // 0x44A210
 int32 CGarages::CountCarsInHideoutGarage(eGarageType type) {
-    return plugin::CallAndReturn<int32, 0x44A210, eGarageType>(type);
+    // Como el original: el argumento se lee como byte (movzx), el indice sale de FindSafeHouseIndexForGarageType (0x4489F0, una sola vez) y se cuentan las 4
+    // ranuras del refugio con modelo (m_wModelIndex, +0x12 de cada CStoredCar de 0x40 bytes; el original lee la tabla a partir de 0x96ABEA). El indice no se acota.
+    // Su unico llamador del EXE (0x44BF27) solo lee EAX.
+    const CStoredCar* const slots = GetStoredCarsInSafehouse(FindSafeHouseIndexForGarageType(static_cast<eGarageType>(static_cast<uint8>(type))));
+    int32 count = 0;
+    for (int32 i = 0; i < MAX_CARS_IN_SAFEHOUSE; ++i) {
+        if (slots[i].m_wModelIndex != 0) {
+            ++count;
+        }
+    }
+    return count;
 }

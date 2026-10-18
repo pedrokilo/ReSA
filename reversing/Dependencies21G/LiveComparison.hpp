@@ -124,10 +124,15 @@ inline void Update(){
  OriginalDependencies499::HookRoute firstTexture("RwHelper","GetFirstTexture",0x734940,&GetFirstTexture);
  OriginalDependencies499::HookRoute replace("RwHelper","RpGeometryReplaceOldMaterialWithNewMaterial",0x734DE0,&RpGeometryReplaceOldMaterialWithNewMaterial);
  OriginalDependencies499::HookRoute slerp("CQuaternion","Slerp-halftheta",0x59C300,static_cast<void (CQuaternion::*)(const CQuaternion&,const CQuaternion&,float,float,float)>(&CQuaternion::Slerp));
- const uintptr_t findDll=Resolve(uintptr_t(&_rpMaterialListFindMaterialIndex)),destroyDll=Resolve(uintptr_t(&RpMaterialDestroy));
+ // _rpMaterialListFindMaterialIndex (0x74E420) tiene ahora su propio hook RH (Dependencies25B): se apaga aqui para que el colaborador del lado original sea el codigo del EXE.
+// La entrada de la DLL de un colaborador enganchado se resuelve ANTES de apagar su hook: con el hook apagado RH deja en esa entrada un JMP al EXE y Resolve() devolveria 0x74E420
+ // (ModuleOf(findDll) != asi, ready=false, 0 comparaciones). Con el hook encendido Resolve() salta el thunk y da el cuerpo real de la DLL.
+ const uintptr_t findDll=Resolve(uintptr_t(&_rpMaterialListFindMaterialIndex));
+ OriginalDependencies499::HookRoute findIndexHook("RpWorld","_rpMaterialListFindMaterialIndex",0x74E420,&_rpMaterialListFindMaterialIndex);
+ const uintptr_t destroyDll=Resolve(uintptr_t(&RpMaterialDestroy));
  // Los colaboradores deben ser, hoy, el codigo del EXE (sin hook) y los envoltorios de la DLL que llaman a esas direcciones.
  bool collaboratorsOK=ModuleOf(findDll)==asi&&ModuleOf(destroyDll)==asi&&!ReversingProbe::JumpsToDll(0x74E420)&&!ReversingProbe::JumpsToDll(0x74DA20)&&ModuleOf(Resolve(0x74E420))==gameExe&&ModuleOf(Resolve(0x74DA20))==gameExe;
- bool ready=firstTexture.Registered()&&replace.Registered()&&slerp.Registered()&&collaboratorsOK;
+ bool ready=firstTexture.Registered()&&replace.Registered()&&slerp.Registered()&&findIndexHook.Registered()&&collaboratorsOK;
  ready=ready&&ModuleOf(firstTexture.Body())==asi&&ModuleOf(replace.Body())==asi&&ModuleOf(slerp.Body())==asi;
  std::vector<Watch> watches;
  for(uintptr_t at:{uintptr_t(0x734940),uintptr_t(0x734DE0),uintptr_t(0x59C300),uintptr_t(0x74E420),uintptr_t(0x74DA20),findDll,destroyDll})watches.emplace_back(at,16);

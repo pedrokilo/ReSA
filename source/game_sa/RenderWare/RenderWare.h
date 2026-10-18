@@ -55,6 +55,9 @@ struct RwResEntrySA : RwResEntry {
 
 
 void RwCoreInjectHooks();
+void RwPlCoreInjectHooks();
+void RwCoreInjectHooks25d();   // grupo g25d (biblioteca RenderWare / driver D3D9)
+void RwPlCoreInjectHooks25d();
 
 template<typename T>
 inline T RwStreamRead(RwStream* stream, size_t size = sizeof(T)) {
@@ -66,3 +69,12 @@ inline T RwStreamRead(RwStream* stream, size_t size = sizeof(T)) {
 namespace RtAnim {
     void InjectHooks();
 }
+
+// Funciones de biblioteca de RenderWare (lote 25, grupo g25c).
+void RwCoreFrameCameraInjectHooks();
+void RwPlCoreEngineStreamInjectHooks();
+void RpWorldInjectHooks();
+void RpHAnimInjectHooks();
+void RpSkinInjectHooks();
+void RpUVAnimInjectHooks();
+void RtDictInjectHooks();

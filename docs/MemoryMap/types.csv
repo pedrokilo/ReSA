@@ -8,9 +8,9 @@ _rwD3D9RasterExt,struct,,source/app/platform/win/WindowedMode.cpp,65,source_type
 RwRwDeviceGlobals,struct,,source/app/platform/win/WindowedMode.cpp,82,source_type_definition
 _rwD3D9FormatInfo,struct,,source/app/platform/win/WindowedMode.cpp,88,source_type_definition
 _rxD3D9DisplayMode,struct,,source/app/platform/win/WindowedMode.cpp,96,source_type_definition
-notsa::WindowedMode::PosChangeNoRecursion,struct,,source/app/platform/win/WindowedMode.cpp,155,source_type_definition
-notsa::WindowedMode::ScopedRestoreWindowInfo,struct,,source/app/platform/win/WindowedMode.cpp,301,source_type_definition
-notsa::WindowedMode::D3D9ProxyDevice,struct,,source/app/platform/win/WindowedMode.cpp,344,source_type_definition
+notsa::WindowedMode::PosChangeNoRecursion,struct,,source/app/platform/win/WindowedMode.cpp,154,source_type_definition
+notsa::WindowedMode::ScopedRestoreWindowInfo,struct,,source/app/platform/win/WindowedMode.cpp,300,source_type_definition
+notsa::WindowedMode::D3D9ProxyDevice,struct,,source/app/platform/win/WindowedMode.cpp,343,source_type_definition
 WinVer,class,,source/app/platform/win/WinPlatform.h,15,source_type_definition
 OSStatus,struct,,source/app/platform/win/WinPlatform.h,26,source_type_definition
 std,struct,:formatter<Enum> : std::formatter<std::string>,source/Base.h,206,source_type_definition
@@ -407,7 +407,7 @@ CDebug,class,,source/game_sa/Debug.h,6,source_type_definition
 CDebug::tDebugText,struct,,source/game_sa/Debug.h,9,source_type_definition
 CDecision,class,,source/game_sa/DecisionMakers/Decision.h,29,source_type_definition
 CDecisionMaker,class,,source/game_sa/DecisionMakers/DecisionMaker.h,12,source_type_definition
-InstanceFrame,struct,,source/game_sa/DecisionMakers/DecisionMakerTypes.cpp,123,source_type_definition
+InstanceFrame,struct,,source/game_sa/DecisionMakers/DecisionMakerTypes.cpp,124,source_type_definition
 eDecisionMakerType,class,int32,source/game_sa/DecisionMakers/DecisionMakerTypes.h,10,source_type_definition
 CDecisionMakerTypes,class,,source/game_sa/DecisionMakers/DecisionMakerTypes.h,41,source_type_definition
 CDecisionMakerTypesFileLoader,class,,source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h,7,source_type_definition
@@ -452,7 +452,7 @@ CPlane,class,public CAutomobile,source/game_sa/Entity/Vehicle/Plane.h,40,source_
 CQuadBike,class,public CAutomobile,source/game_sa/Entity/Vehicle/QuadBike.h,37,source_type_definition
 CTrailer,class,public CAutomobile,source/game_sa/Entity/Vehicle/Trailer.h,41,source_type_definition
 CTrain,class,public CVehicle,source/game_sa/Entity/Vehicle/Train.h,43,source_type_definition
-FlcFrame,struct,,source/game_sa/Entity/Vehicle/Vehicle.cpp,3828,source_type_definition
+FlcFrame,struct,,source/game_sa/Entity/Vehicle/Vehicle.cpp,3838,source_type_definition
 eVehicleCollisionComponent,class,uint16,source/game_sa/Entity/Vehicle/Vehicle.h,148,source_type_definition
 tHydraulicData,struct,,source/game_sa/Entity/Vehicle/Vehicle.h,166,source_type_definition
 CVehicle,class,public CPhysical,source/game_sa/Entity/Vehicle/Vehicle.h,188,source_type_definition
@@ -1161,6 +1161,9 @@ RtWingFace,struct,,source/game_sa/RenderWare/rw/rtwing.h,49,source_type_definiti
 RtWingVertex,struct,,source/game_sa/RenderWare/rw/rtwing.h,62,source_type_definition
 RtWingEdge,struct,,source/game_sa/RenderWare/rw/rtwing.h,120,source_type_definition
 RtWings,struct,,source/game_sa/RenderWare/rw/rtwing.h,139,source_type_definition
+TextureGlobalsLayout,struct,,source/game_sa/RenderWare/rw/rwcore.cpp,39,source_type_definition
+RasterGlobalsLayout,struct,,source/game_sa/RenderWare/rw/rwcore.cpp,49,source_type_definition
+D3D9DynamicVertexBuffer,struct,,source/game_sa/RenderWare/rw/rwcore.cpp,55,source_type_definition
 rxHeapFreeBlock,struct,,source/game_sa/RenderWare/rw/rwcore.h,96,source_type_definition
 rxHeapSuperBlockDescriptor,struct,,source/game_sa/RenderWare/rw/rwcore.h,102,source_type_definition
 RxHeap,struct,,source/game_sa/RenderWare/rw/rwcore.h,115,source_type_definition
@@ -1205,15 +1208,15 @@ rwIm3DPool,struct,,source/game_sa/RenderWare/rw/rwcore.h,3444,source_type_defini
 rwIm3DRenderPipelines,struct,,source/game_sa/RenderWare/rw/rwcore.h,3453,source_type_definition
 rwImmediGlobals,struct,,source/game_sa/RenderWare/rw/rwcore.h,3465,source_type_definition
 RxD3D9VertexStream,struct,,source/game_sa/RenderWare/rw/rwcore.h,3552,source_type_definition
-RwFrame,struct,,source/game_sa/RenderWare/rw/rwcore.h,4188,source_type_definition
-RwObjectHasFrame,struct,,source/game_sa/RenderWare/rw/rwcore.h,4400,source_type_definition
-rpTextureChunkInfo,struct,,source/game_sa/RenderWare/rw/rwcore.h,4471,source_type_definition
-rwFrameList,struct,,source/game_sa/RenderWare/rw/rwcore.h,4561,source_type_definition
-RwBBox,struct,,source/game_sa/RenderWare/rw/rwcore.h,4665,source_type_definition
-RwFrustumPlane,struct,,source/game_sa/RenderWare/rw/rwcore.h,4905,source_type_definition
-RwCamera,struct,,source/game_sa/RenderWare/rw/rwcore.h,4915,source_type_definition
-rwPipeGlobals,struct,,source/game_sa/RenderWare/rw/rwcore.h,5071,source_type_definition
-rwStreamCamera,struct,,source/game_sa/RenderWare/rw/rwcore.h,5134,source_type_definition
+RwFrame,struct,,source/game_sa/RenderWare/rw/rwcore.h,4193,source_type_definition
+RwObjectHasFrame,struct,,source/game_sa/RenderWare/rw/rwcore.h,4405,source_type_definition
+rpTextureChunkInfo,struct,,source/game_sa/RenderWare/rw/rwcore.h,4476,source_type_definition
+rwFrameList,struct,,source/game_sa/RenderWare/rw/rwcore.h,4566,source_type_definition
+RwBBox,struct,,source/game_sa/RenderWare/rw/rwcore.h,4670,source_type_definition
+RwFrustumPlane,struct,,source/game_sa/RenderWare/rw/rwcore.h,4910,source_type_definition
+RwCamera,struct,,source/game_sa/RenderWare/rw/rwcore.h,4920,source_type_definition
+rwPipeGlobals,struct,,source/game_sa/RenderWare/rw/rwcore.h,5076,source_type_definition
+rwStreamCamera,struct,,source/game_sa/RenderWare/rw/rwcore.h,5139,source_type_definition
 _RwUInt64,struct,,source/game_sa/RenderWare/rw/rwplcore.h,77,source_type_definition
 _RwInt64,struct,,source/game_sa/RenderWare/rw/rwplcore.h,83,source_type_definition
 _RwUInt64,struct,,source/game_sa/RenderWare/rw/rwplcore.h,91,source_type_definition

@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: RtAnim
- * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 1/1 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -65,16 +65,33 @@ RwInt32 RtAnimAnimationStreamGetSize(const RtAnimAnimation* animation) {
     return ((RwInt32(__cdecl *)(const RtAnimAnimation*))0x7CD4D0)(animation);
 }
 
+// 0x7CD4F0: cuenta los nodos de la animacion recorriendo las cabeceras de fotogramas clave (paso = interpInfo->animKeyFrameSize, +8 de la info):
+// si la primera cabecera ya apunta (prevFrame, primer dword) a pFrames devuelve 0; si no avanza de cabecera en cabecera contando hasta que la
+// cabecera alcanzada vuelva a apuntar a pFrames. Lecturas de dwords sin comprobar limites (con paso 0 y primera cabecera distinta no termina, como el EXE).
 RwUInt32 RtAnimAnimationGetNumNodes(const RtAnimAnimation* animation) {
-    return ((RwUInt32(__cdecl *)(const RtAnimAnimation*))0x7CD4F0)(animation);
+    const uint32 first = reinterpret_cast<uintptr_t>(animation->pFrames);
+    const uint32 step = static_cast<uint32>(animation->interpInfo->animKeyFrameSize);
+    RwUInt32 count = 0;
+    uint32 current = first;
+    if (*reinterpret_cast<const uint32*>(current) != first) {
+        uint32 previousOfNext;
+        do {
+            previousOfNext = *reinterpret_cast<const uint32*>(current + step);
+            current += step;
+            ++count;
+        } while (previousOfNext != first);
+    }
+    return count;
 }
 
 RtAnimInterpolator* RtAnimInterpolatorCreate(RwInt32 numNodes, RwInt32 maxInterpKeyFrameSize) {
     return ((RtAnimInterpolator*(__cdecl *)(RwInt32, RwInt32))0x7CD520)(numNodes, maxInterpKeyFrameSize);
 }
 
+// 0x7CD590: `jmp [RwEngineInstance + 0x138]` con el mismo argumento, es decir RwFree del motor (memoryFuncs.rwfree) sobre la propia interpolacion.
+static_assert(offsetof(RwGlobals, memoryFuncs) + offsetof(RwMemoryFunctions, rwfree) == 0x138);
 void RtAnimInterpolatorDestroy(RtAnimInterpolator* anim) {
-    ((void(__cdecl *)(RtAnimInterpolator*))0x7CD590)(anim);
+    RwFree(anim);
 }
  
 /**
@@ -234,5 +251,7 @@ void RtAnim::InjectHooks() {
     RH_ScopedNamespaceName("RtAnim");
     RH_ScopedCategory("Plugins");
 
+    RH_ScopedGlobalInstall(RtAnimAnimationGetNumNodes, 0x7CD4F0);
+    RH_ScopedGlobalInstall(RtAnimInterpolatorDestroy, 0x7CD590);
     RH_ScopedGlobalInstall(RtAnimInterpolatorSetCurrentAnim, 0x7CD5A0);
 }

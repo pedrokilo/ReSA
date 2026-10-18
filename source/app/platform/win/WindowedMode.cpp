@@ -136,7 +136,6 @@ static RwBool EnableFullScreenDialogBoxMode = FALSE;
 
 
 const auto D3D9DeviceReleaseVideoMemory  = plugin::CallAndReturn<RwBool, 0x7F7F70>;
-const auto _rwD3D9SetDepthStencilSurface = plugin::Call<0x7F5EF0, LPSURFACE>;
 const auto _rwD3D9SetRenderTarget        = plugin::CallAndReturn<RwBool, 0x7F5F20, RwUInt32, LPSURFACE>;
 
 namespace notsa::WindowedMode {

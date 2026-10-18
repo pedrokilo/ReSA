@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: RwHelper
- * Reconstrucción: COMPLETA — 24/24 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 28/28 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 24/24 entradas.
+ * Validación registrada: 28/28 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -148,11 +148,24 @@ RwFrame* GetFirstChild(RwFrame* frame) {
     return child;
 }
 
+// 0x734A70 (callback de RwFrameForAllChildren, cdecl): si el marco tiene jerarquia (RpHAnimFrameGetHierarchy, 0x7C5160) la guarda en *data y detiene el
+// recorrido (nullptr); si no, recorre los hijos del marco con ella misma (RwFrameForAllChildren, 0x7F0DC0) y devuelve el marco para seguir con sus hermanos.
+// No se engancha: el unico llamador del EXE es GetAnimHierarchyFromFrame (0x734AB0), ya enganchada, y asi el cuerpo original de 0x734AB0 sigue usando el callback
+// nativo cuando su hook esta apagado. El iterador del EXE solo lee EAX a la vuelta.
+RwFrame* GetAnimHierarchyFromFrameCallback(RwFrame* frame, void* data) {
+    if (RpHAnimHierarchy* const hierarchy = RpHAnimFrameGetHierarchy(frame)) {
+        *static_cast<RpHAnimHierarchy**>(data) = hierarchy;
+        return nullptr;
+    }
+    RwFrameForAllChildren(frame, GetAnimHierarchyFromFrameCallback, data);
+    return frame;
+}
+
 // 0x734AB0
 // Como el original: jerarquia del propio marco (RpHAnimFrameGetHierarchy, 0x7C5160) o, si no la tiene, la primera que devuelva el
-// recorrido de sus hijos con la funcion 0x734A70 (RwFrameForAllChildren, 0x7F0DC0), que se repite una segunda vez si aun no hay.
+// recorrido de sus hijos con el callback de 0x734A70 (RwFrameForAllChildren, 0x7F0DC0), que se repite una segunda vez si aun no hay.
 RpHAnimHierarchy* GetAnimHierarchyFromFrame(RwFrame* frame) {
-    const auto callback = reinterpret_cast<RwFrameCallBack>(0x734A70);
+    const auto callback = &GetAnimHierarchyFromFrameCallback;
     RpHAnimHierarchy* found = nullptr;
     RpHAnimHierarchy* hierarchy = RpHAnimFrameGetHierarchy(frame);
     if (hierarchy) {

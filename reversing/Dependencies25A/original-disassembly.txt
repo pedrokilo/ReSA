@@ -1,0 +1,361 @@
+=== 0x61A3A0  (7 bytes)  CTask::Destructor (cuerpo no virtual de ~CTask)
+61a3a0: mov dword ptr [ecx], 0x86d48c
+61a3a6: ret 
+
+=== 0x41CC10  (31 bytes)  CPool<CVehicle,CHeli>::GetAt
+41cc10: mov edx, dword ptr [ecx + 4]
+41cc13: mov eax, dword ptr [esp + 4]
+41cc17: cmp byte ptr [edx + eax], 0
+41cc1b: jns 0x41cc22
+41cc1d: xor eax, eax
+41cc1f: ret 4
+41cc22: mov edx, dword ptr [ecx]
+41cc24: imul eax, eax, 0xa18
+41cc2a: add eax, edx
+41cc2c: ret 4
+
+=== 0x41B950  (45 bytes)  CAutoPilot::RemoveOnePathNode
+41b950: dec word ptr [ecx + 0x88]
+41b957: mov dx, word ptr [ecx + 0x88]
+41b95e: xor eax, eax
+41b960: test dx, dx
+41b963: jle 0x41b97c
+41b965: push esi
+41b966: movsx edx, ax
+41b969: mov esi, dword ptr [ecx + edx*4 + 0x6c]
+41b96d: inc eax
+41b96e: mov dword ptr [ecx + edx*4 + 0x68], esi
+41b972: cmp ax, word ptr [ecx + 0x88]
+41b979: jl 0x41b966
+41b97b: pop esi
+41b97c: ret 
+
+=== 0x5FB8A0  (32 bytes)  CPedGroups::RemoveAllFollowersFromGroup
+5fb8a0: mov ecx, dword ptr [esp + 4]
+5fb8a4: mov al, byte ptr [ecx + 0xc098e0]
+5fb8aa: test al, al
+5fb8ac: je 0x5fb8bf
+5fb8ae: imul ecx, ecx, 0x2d4
+5fb8b4: add ecx, 0xc09920
+5fb8ba: jmp 0x5fb7d0
+5fb8bf: ret 
+
+=== 0x604490  (35 bytes)  CDecisionMakerTypes::FlushDecisionMakerEventResponse
+604490: mov eax, dword ptr [esp + 4]
+604494: mov edx, dword ptr [esp + 8]
+604498: imul eax, eax, 0x29
+60449b: mov edx, dword ptr [ecx + edx*4 + 0xc034]
+6044a2: add edx, eax
+6044a4: imul edx, edx, 0x3c
+6044a7: lea ecx, [edx + ecx + 4]
+6044ab: call 0x600530
+6044b0: ret 8
+
+=== 0x44A210  (47 bytes)  CGarages::CountCarsInHideoutGarage
+44a210: movzx eax, byte ptr [esp + 4]
+44a215: push eax
+44a216: xor edx, edx
+44a218: call 0x4489f0
+44a21d: shl eax, 8
+44a220: add esp, 4
+44a223: add eax, 0x96abea
+44a228: mov ecx, 4
+44a22d: lea ecx, [ecx]
+44a22f: cmp word ptr [eax], 0
+44a233: je 0x44a236
+44a235: inc edx
+44a236: add eax, 0x40
+44a239: dec ecx
+44a23a: jne 0x44a22f
+44a23c: mov eax, edx
+44a23e: ret 
+
+=== 0x6D3490  (53 bytes)  FindReplacementUpgradeCB
+6d3490: push esi
+6d3491: mov esi, dword ptr [esp + 8]
+6d3495: cmp byte ptr [esi], 1
+6d3498: jne 0x6d34c1
+6d349a: push esi
+6d349b: call 0x732370
+6d34a0: add esp, 4
+6d34a3: test ah, 8
+6d34a6: jne 0x6d34c1
+6d34a8: push esi
+6d34a9: call 0x732250
+6d34ae: add esp, 4
+6d34b1: cmp eax, -1
+6d34b4: je 0x6d34c1
+6d34b6: mov eax, dword ptr [esp + 0xc]
+6d34ba: mov dword ptr [eax + 4], esi
+6d34bd: xor eax, eax
+6d34bf: pop esi
+6d34c0: ret 
+6d34c1: mov eax, esi
+6d34c3: pop esi
+6d34c4: ret 
+
+=== 0x734A70  (51 bytes)  GetAnimHierarchyFromFrame callback
+734a70: push esi
+734a71: mov esi, dword ptr [esp + 8]
+734a75: push esi
+734a76: call 0x7c5160
+734a7b: add esp, 4
+734a7e: test eax, eax
+734a80: jne 0x734a99
+734a82: mov eax, dword ptr [esp + 0xc]
+734a86: push eax
+734a87: push 0x734a70
+734a8c: push esi
+734a8d: call 0x7f0dc0
+734a92: add esp, 0xc
+734a95: mov eax, esi
+734a97: pop esi
+734a98: ret 
+734a99: mov ecx, dword ptr [esp + 0xc]
+734a9d: mov dword ptr [ecx], eax
+734a9f: xor eax, eax
+734aa1: pop esi
+734aa2: ret 
+
+=== 0x4F2860  (50 bytes)  CAEStreamingDecoder scalar deleting destructor
+4f2860: push esi
+4f2861: mov esi, ecx
+4f2863: push edi
+4f2864: mov edi, dword ptr [esi + 4]
+4f2867: test edi, edi
+4f2869: mov dword ptr [esi], 0x85f418
+4f286f: je 0x4f2888
+4f2871: mov ecx, edi
+4f2873: call 0x4dc490
+4f2878: push edi
+4f2879: call 0x8214bd
+4f287e: add esp, 4
+4f2881: mov dword ptr [esi + 4], 0
+4f2888: test byte ptr [esp + 0xc], 1
+4f288d: je 0x4f2898
+4f288f: push esi
+
+=== colaboradores citados
+--- 0x5FB7D0
+5fb7d0: push ebx
+5fb7d1: push esi
+5fb7d2: lea ebx, [ecx + 8]
+5fb7d5: push edi
+5fb7d6: xor esi, esi
+5fb7d8: lea edi, [ebx + 4]
+5fb7db: jmp 0x5fb7e0
+5fb7dd: lea ecx, [ecx]
+5fb7e0: cmp dword ptr [edi], 0
+5fb7e3: je 0x5fb7f2
+5fb7e5: cmp esi, 7
+5fb7e8: je 0x5fb7f2
+5fb7ea: push esi
+5fb7eb: mov ecx, ebx
+5fb7ed: call 0x5f80d0
+5fb7f2: inc esi
+5fb7f3: add edi, 4
+5fb7f6: cmp esi, 8
+5fb7f9: jl 0x5fb7e0
+5fb7fb: pop edi
+5fb7fc: pop esi
+5fb7fd: pop ebx
+5fb7fe: ret 
+5fb7ff: nop 
+5fb800: push ebx
+5fb801: or eax, 0xffffffff
+5fb804: xor ebx, ebx
+5fb806: mov cl, byte ptr [ebx + 0xc098e0]
+5fb80c: test cl, cl
+5fb80e: je 0x5fb818
+--- 0x600530
+600530: xor eax, eax
+600532: lea edx, [ecx + 0x30]
+600535: push esi
+600536: jmp 0x600540
+600538: lea esp, [esp]
+60053f: nop 
+600540: mov dword ptr [ecx + eax*4], 0xffffffff
+600547: lea esi, [ecx + eax*4 + 0x18]
+60054b: mov dword ptr [esi], 0
+600551: mov word ptr [edx], 0
+600556: inc eax
+600557: add edx, 2
+60055a: cmp eax, 6
+60055d: jl 0x600540
+60055f: pop esi
+600560: ret 
+600561: nop 
+600562: nop 
+600563: nop 
+600564: nop 
+600565: nop 
+600566: nop 
+600567: nop 
+600568: nop 
+600569: nop 
+60056a: nop 
+60056b: nop 
+60056c: nop 
+60056d: nop 
+60056e: nop 
+60056f: nop 
+--- 0x4489F0
+4489f0: mov eax, dword ptr [esp + 4]
+4489f4: add eax, -0x10
+4489f7: cmp eax, 0x1d
+4489fa: ja 0x448a75
+4489fc: jmp dword ptr [eax*4 + 0x448a78]
+448a03: mov eax, 1
+448a08: ret 
+448a09: mov eax, 2
+448a0e: ret 
+448a0f: mov eax, 3
+448a14: ret 
+448a15: mov eax, 4
+448a1a: ret 
+448a1b: mov eax, 5
+448a20: ret 
+448a21: mov eax, 6
+448a26: ret 
+448a27: mov eax, 7
+448a2c: ret 
+448a2d: mov eax, 8
+448a32: ret 
+448a33: mov eax, 9
+448a38: ret 
+448a39: mov eax, 0xa
+448a3e: ret 
+448a3f: mov eax, 0xb
+448a44: ret 
+448a45: mov eax, 0xc
+448a4a: ret 
+448a4b: mov eax, 0xd
+448a50: ret 
+448a51: mov eax, 0xe
+448a56: ret 
+448a57: mov eax, 0xf
+448a5c: ret 
+448a5d: mov eax, 0x10
+448a62: ret 
+448a63: mov eax, 0x11
+448a68: ret 
+448a69: mov eax, 0x12
+448a6e: ret 
+448a6f: mov eax, 0x13
+448a74: ret 
+448a75: xor eax, eax
+448a77: ret 
+448a78: jne 0x448a04
+448a7a: inc esp
+448a7b: add byte ptr [ebx], al
+--- 0x732370
+732370: mov eax, dword ptr [esp + 4]
+--- 0x732250
+732250: mov eax, dword ptr [esp + 4]
+732254: mov ecx, dword ptr [0x8d608c]
+73225a: movsx eax, word ptr [ecx + eax]
+73225e: ret 
+73225f: nop 
+732260: mov eax, dword ptr [esp + 4]
+--- 0x7C5160
+7c5160: mov eax, dword ptr [esp + 4]
+7c5164: mov ecx, dword ptr [0xc9b8c8]
+7c516a: mov eax, dword ptr [ecx + eax + 4]
+7c516e: ret 
+7c516f: nop 
+7c5170: mov ecx, dword ptr [esp + 4]
+--- 0x7F0DC0
+7f0dc0: push ebx
+7f0dc1: push ebp
+7f0dc2: mov ebp, dword ptr [esp + 0xc]
+7f0dc6: push esi
+7f0dc7: push edi
+7f0dc8: mov eax, dword ptr [ebp + 0x98]
+7f0dce: test eax, eax
+7f0dd0: je 0x7f0df1
+7f0dd2: mov edi, dword ptr [esp + 0x1c]
+7f0dd6: mov ebx, dword ptr [esp + 0x18]
+7f0dda: mov esi, dword ptr [eax + 0x9c]
+7f0de0: push edi
+7f0de1: push eax
+7f0de2: call ebx
+7f0de4: add esp, 8
+7f0de7: test eax, eax
+7f0de9: je 0x7f0df1
+7f0deb: test esi, esi
+7f0ded: mov eax, esi
+7f0def: jne 0x7f0dda
+7f0df1: pop edi
+7f0df2: mov eax, ebp
+7f0df4: pop esi
+7f0df5: pop ebp
+7f0df6: pop ebx
+7f0df7: ret 
+7f0df8: nop 
+7f0df9: nop 
+7f0dfa: nop 
+7f0dfb: nop 
+7f0dfc: nop 
+7f0dfd: nop 
+7f0dfe: nop 
+7f0dff: nop 
+7f0e00: mov eax, dword ptr [esp + 4]
+7f0e04: push esi
+7f0e05: push edi
+7f0e06: mov edi, 1
+7f0e0b: mov esi, dword ptr [eax + 0x98]
+7f0e11: test esi, esi
+7f0e13: je 0x7f0e2a
+7f0e15: push esi
+=== destructor escalar de CTask 0x61A5E0 (usa EAX = this tras llamar a 0x61A3A0)
+61a5e0: push edi
+61a5e1: mov eax, ecx
+61a5e3: call 0x61a3a0
+61a5e8: test byte ptr [esp + 8], 1
+61a5ed: je 0x61a613
+61a5ef: push esi
+61a5f0: mov esi, dword ptr [0xb744a8]
+61a5f6: mov ecx, dword ptr [esi]
+61a5f8: mov edx, eax
+61a5fa: sub edx, ecx
+61a5fc: mov ecx, dword ptr [esi + 4]
+61a5ff: mov edi, esi
+61a601: sar edx, 7
+61a604: lea esi, [ecx + edx]
+61a607: or byte ptr [esi], 0x80
+61a60a: cmp edx, dword ptr [edi + 0xc]
+61a60d: pop esi
+61a60e: jge 0x61a613
+61a610: mov dword ptr [edi + 0xc], edx
+61a613: pop edi
+61a614: ret 4
+61a617: nop 
+61a618: nop 
+61a619: nop 
+61a61a: nop 
+61a61b: nop 
+61a61c: nop 
+61a61d: nop 
+61a61e: nop 
+61a61f: nop 
+=== CAEDataStream::~CAEDataStream 0x4DC490
+4dc490: push esi
+4dc491: mov esi, ecx
+4dc493: mov al, byte ptr [esi + 0xc]
+4dc496: test al, al
+4dc498: mov dword ptr [esi], 0x85f0bc
+4dc49e: je 0x4dc4ae
+4dc4a0: mov eax, dword ptr [esi + 4]
+4dc4a3: push eax
+4dc4a4: mov byte ptr [esi + 0xc], 0
+4dc4a8: call dword ptr [0x858078]
+4dc4ae: mov eax, dword ptr [esi + 8]
+4dc4b1: test eax, eax
+4dc4b3: je 0x4dc4c5
+4dc4b5: push eax
+4dc4b6: call 0x8214bd
+4dc4bb: add esp, 4
+4dc4be: mov dword ptr [esi + 8], 0
+4dc4c5: pop esi
+4dc4c6: ret 
+4dc4c7: nop 

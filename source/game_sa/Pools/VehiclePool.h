@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CVehiclePool
- * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 1/1 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -36,6 +36,7 @@ public:
         RH_ScopedClass(CVehiclePool);
         RH_ScopedCategory("Pools");
 
+        RH_ScopedInstall(GetAt, 0x0041CC10); // CPool<CVehicle, CHeli>::GetAt: 0 si el bit 7 del estado de la ranura esta puesto, si no almacenamiento + indice * 0xA18
         RH_ScopedInstall(New, 0x006E2A50);
     }
 

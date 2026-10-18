@@ -1,4 +1,5 @@
 catalog_identity,catalog_address,catalog,reversed,validated,file,line,language,via
+CObjectPool::GetAt,0x00404870,hooks.csv,1,1,source/game_sa/Core/Pool.h,164,C++,plantilla heredada
 CTaskComplexSeekEntityRadiusAngleOffset::CreateSubTask,0x00496270,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,144,C++,plantilla heredada
 CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::CreateSubTask,0x00665270,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,144,C++,plantilla genérica
 CTaskComplexSeekEntityRadiusAngleOffset::Clone,0x00000000,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,192,C++,plantilla heredada

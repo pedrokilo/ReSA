@@ -66,6 +66,8 @@ inline void Update(){
  if(!std::filesystem::exists(dir/"dependenciesworld12-runtime.start")){done=true;return;}
  if(!log.is_open()){log.open(dir/"dependenciesworld12-runtime.jsonl");Write({{"event","waiting_for_player"}});ReversingProbe::InstallFailureCapture("dependenciesworld12");}
  if(!FindPlayerPed()||CCutsceneMgr::IsRunning())return;SaveFP(canonicalFP.data());canonicalMXCSR=ReadMXCSR();canonicalActive=true;
+ // g25b engancha RpHAnimFrameGetHierarchy (0x7C5160): este banco exige las bibliotecas nativas, asi que el hook queda apagado mientras corre (HookRoute lo restaura al salir).
+ OriginalDependencies499::HookRoute libraryRoute("RpHAnim","RpHAnimFrameGetHierarchy",0x7C5160,OriginalDependencies499::HookRoute::RegisteredTarget{});
  static_assert(offsetof(RwFrame,child)==0x98);static_assert(offsetof(RwFrame,next)==0x9C);
  const int32 offset=*reinterpret_cast<const int32*>(0xC9B8C8);if(offset<int32(sizeof(RwFrame))||offset>4096||!Libraries()){RestoreCanonical();Write({{"event","error"},{"reason","Native libraries or HAnim plugin offset unavailable"}});done=true;return;}
  std::vector<RwFrame*> frames;std::set<RwFrame*> seen;bool treeLegal=true;

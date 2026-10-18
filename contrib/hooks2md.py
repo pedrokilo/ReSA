@@ -23,6 +23,53 @@ class Klass:
         return self.total - self.reversed
 
 
+def difficulty_section(root, input_path):
+    """Sección con la lista por dificultad del cohorte nuevo (reversing/OriginalDependencies2026-10-17/lista-por-dificultad.csv)."""
+    source = root / 'reversing/OriginalDependencies2026-10-17/lista-por-dificultad.csv'
+    if not source.exists():
+        return []
+    with source.open(encoding='utf-8-sig', newline='') as stream:
+        items = list(csv.DictReader(stream))
+    state = {}
+    with open(input_path, encoding='utf-8-sig', newline='') as stream:
+        for row in csv.DictReader(stream):
+            if row['reversed'] == '1':
+                try:
+                    state[int(row['address'], 16)] = row['validated'] == '1'
+                except ValueError:
+                    pass
+
+    def status(row):
+        try:
+            validated = state.get(int(row['address'], 16))
+        except ValueError:
+            validated = None
+        return 'pendiente' if validated is None else ('✅ validada' if validated else 'reconstruida')
+
+    def cell(text):
+        return str(text).replace('|', '\\|').replace('<', '&lt;').replace('>', '&gt;')
+
+    levels = sorted({r['nivel'] for r in items})
+    lines = ['', '<a id="cohorte-nuevo"></a>', '## 📋 Cohorte nuevo (17/10/2026): lista por dificultad', '',
+             'Destinos originales explícitos que `source/` sigue referenciando y que no estaban reconstruidos ni validados el 17/10/2026, ordenados de menor a mayor dificultad '
+             '(juego: puntuación de tamaño y riesgos —llamadas sin catalogar, indirectas, x87, tablas de saltos y SEH—; biblioteca: solo tamaño). '
+             f'Lista completa y descargable: [lista-por-dificultad.csv](../{source.relative_to(root).as_posix()}) · metodología: [README del cohorte](../reversing/OriginalDependencies2026-10-17/README.md). '
+             'La columna «Estado» se calcula con el catálogo actual: una dirección con fila reversed=1 en hooks.csv figura como reconstruida o validada.', '',
+             '| Nivel | Juego | de ellas pendientes | Biblioteca | de ellas pendientes |', '| --- | ---: | ---: | ---: | ---: |']
+    for level in levels:
+        game = [r for r in items if r['nivel'] == level and r['categoria'] == 'juego']
+        lib = [r for r in items if r['nivel'] == level and r['categoria'] == 'biblioteca']
+        lines.append(f"| {cell(level)} | {len(game)} | {sum(status(r) == 'pendiente' for r in game)} | {len(lib)} | {sum(status(r) == 'pendiente' for r in lib)} |")
+    for categoria, titulo in (('juego', 'Funciones del juego'), ('biblioteca', 'Bibliotecas (RenderWare, controlador D3D9, CRT, QuickTime)')):
+        rows = [r for r in items if r['categoria'] == categoria]
+        lines += ['', '<details>', f'<summary>{titulo} ({len(rows)}), de menos a más difícil</summary>', '',
+                  '| Rango | Nivel | Subcategoría | Función | Dirección | Bytes | Estado |', '| ---: | --- | --- | --- | --- | ---: | --- |']
+        for r in rows:
+            lines.append(f"| {r['rango']} | {cell(r['nivel'])} | {cell(r['subcategoria'])} | {cell(r['identity'])} | `{r['address']}` | {r['bytes']} | {status(r)} |")
+        lines += ['', '</details>']
+    return lines
+
+
 def generate(input_path, output_path, update_source_status=False):
     root = Path(__file__).resolve().parents[1]
     recorded = read_classes(input_path)
@@ -51,9 +98,21 @@ def generate(input_path, output_path, update_source_status=False):
     if not classes:
         raise ValueError("hooks.csv no contiene funciones")
     ordered = sorted(classes.values(), key=lambda c: c.name.casefold())
-    full = [c for c in ordered if not c.pending]
-    partial = [c for c in ordered if c.reversed and c.pending]
+    # Funciones del juego que siguen delegando en el EXE (docs/implementaciones/envolturas-pendientes.csv, contrib/pending_wrappers.py).
+    # Una clase del catálogo con envolturas pendientes ya no es «completa»: pasa a parciales. Las clases con envolturas que no figuran
+    # en el catálogo aparecen en «sin revertir» con su cantidad de envolturas.
+    wrappers = {}
+    wrappers_file = Path(input_path).with_name('implementaciones') / 'envolturas-pendientes.csv'
+    if wrappers_file.exists():
+        with wrappers_file.open(encoding='utf-8-sig', newline='') as stream:
+            for row in csv.DictReader(stream):
+                wrappers.setdefault(row['class'], []).append(row['function'])
+    wrap_count = {name: len(fns) for name, fns in wrappers.items()}
+    full = [c for c in ordered if not c.pending and not wrap_count.get(c.name)]
+    partial = [c for c in ordered if c.reversed and (c.pending or wrap_count.get(c.name))]
     empty = [c for c in ordered if not c.reversed]
+    uncatalogued = sorted((name for name in wrappers if name not in classes), key=str.casefold)
+    class_total = len(ordered) + len(uncatalogued)
     total = sum(c.total for c in ordered)
     reversed_count = sum(c.reversed for c in ordered)
     locked = sum(c.locked for c in ordered)
@@ -111,7 +170,7 @@ def generate(input_path, output_path, update_source_status=False):
              "La [hoja de ruta de ReSA](ProjectRoadmap.md) define una reconstrucción funcionalmente equivalente, validada y progresivamente independiente del EXE, seguida de un ejecutable propio. Completar este catálogo es un hito intermedio hacia **ReSA — Zero Original Function Dependency**.", "",
              "| Dimensión | Progreso | Medición |",
              "| --- | --- | --- |",
-             f"| Clases completas | `{'█' * round(20*len(full)/len(ordered))}{'░' * (20-round(20*len(full)/len(ordered)))}` | {len(full)}/{len(ordered)} · {len(full)/len(ordered):.2%} |",
+             f"| Clases completas | `{'█' * round(20*len(full)/class_total)}{'░' * (20-round(20*len(full)/class_total))}` | {len(full)}/{class_total} · {len(full)/class_total:.2%} |",
              f"| Clases validadas (de las completas) | `{'█' * round(20*len(validated_classes)/len(full))}{'░' * (20-round(20*len(validated_classes)/len(full)))}` | {len(validated_classes)}/{len(full)} · {len(validated_classes)/len(full):.2%} |",
              f"| Funciones reconstruidas | `{'█' * round(20*reversed_count/total)}{'░' * (20-round(20*reversed_count/total))}` | {reversed_count:,}/{total:,} · {reversed_count/total:.2%} |",
              f"| Funciones validadas (de las reconstruidas) | `{'█' * round(20*validated_count/reversed_count)}{'░' * (20-round(20*validated_count/reversed_count))}` | {validated_count:,}/{reversed_count:,} · {validated_count/reversed_count:.2%} |", *cpp_row, "",
@@ -131,8 +190,9 @@ def generate(input_path, output_path, update_source_status=False):
              "| :---: | :---: | :---: | :---: | :---: |",
              f"| **{len(validated_classes)} / {len(full)}** | **{len(full)-len(validated_classes)} / {len(full)}** | **{validated_count:,} / {reversed_count:,}** | **{reversed_count-validated_count:,} / {reversed_count:,}** | **{total-reversed_count:,} / {total:,}** |",
              f"| {len(validated_classes)/len(full):.2%} | {(len(full)-len(validated_classes))/len(full):.2%} | {validated_count/reversed_count:.2%} | {(reversed_count-validated_count)/reversed_count:.2%} | {(total-reversed_count)/total:.2%} |", "",
-             f"Reconstrucción por clases: {len(full)} completas, {len(partial)} parciales y {len(empty)} sin revertir de {len(ordered)}.", "",
-             "**Ir a:** [Completas](#completas) · [Parciales](#parciales) · [Sin revertir](#sin-revertir) · [Cómo leer y actualizar](#metodo)", "",
+             f"Reconstrucción por clases: {len(full)} completas, {len(partial)} parciales y {len(empty) + len(uncatalogued)} sin revertir de {class_total}"
+             + (f" (incluye {sum(wrap_count.values()):,} funciones del juego con envoltura al EXE aún sin reconstruir, en {len(wrappers)} clases o grupos)." if wrappers else "."), "",
+             "**Ir a:** [Completas](#completas) · [Parciales](#parciales) · [Sin revertir](#sin-revertir) · [Cohorte nuevo por dificultad](#cohorte-nuevo) · [Cómo leer y actualizar](#metodo)", "",
              "> [!NOTE]", "> Los porcentajes de reconstrucción miden entradas registradas como `reversed`; los de validación, entradas con evidencia aprobada (`validated=1`). Ninguno mide estabilidad del juego. Una clase completa puede conservar hooks bloqueados o funciones todavía no registradas.", ""]
     repo, sha = os.environ.get("GITHUB_REPO_URL"), os.environ.get("GITHUB_SHA")
     if repo and sha and sha != "unknown":
@@ -158,13 +218,19 @@ def generate(input_path, output_path, update_source_status=False):
         lines.append("| " + " | ".join(cells) + " |")
     lines += ["", "</details>", "", '<a id="parciales"></a>', f"## 🟡 Parciales · {len(partial)} clases", "",
               "Orden alfabético para localizar clases. Para decidir qué abordar primero, consultar la [cola de validación por niveles](ReversingPriorities.md).", "",
-              "| Clase | Revertidas / total | Pendientes | Avance | Validated | Locked |", "| --- | ---: | ---: | ---: | ---: | ---: |"]
+              "Incluye las clases del catálogo que ya tienen todas sus entradas reconstruidas pero conservan funciones del juego que siguen delegando en el EXE (columna «Envolturas al EXE»): no cuentan como completas hasta reconstruirlas. Detalle por función en [envolturas-pendientes.csv](implementaciones/envolturas-pendientes.csv).", "",
+              "| Clase | Revertidas / total | Pendientes | Envolturas al EXE | Avance | Validated | Locked |", "| --- | ---: | ---: | ---: | ---: | ---: | ---: |"]
     for c in partial:
-        lines.append(f"| {class_link(c.name)} | {c.reversed}/{c.total} | **{c.pending}** | {c.reversed/c.total:.2%} | {c.validated} | {c.locked} |")
-    lines += ["", '<a id="sin-revertir"></a>', f"## 🔴 Sin revertir · {len(empty)} clases", "",
-              "| Clase | Revertidas / total | Pendientes | Avance | Validated | Locked |", "| --- | ---: | ---: | ---: | ---: | ---: |"]
+        lines.append(f"| {class_link(c.name)} | {c.reversed}/{c.total} | **{c.pending}** | **{wrap_count.get(c.name, 0)}** | {c.reversed/c.total:.2%} | {c.validated} | {c.locked} |")
+    lines += ["", '<a id="sin-revertir"></a>', f"## 🔴 Sin revertir · {len(empty) + len(uncatalogued)} clases", "",
+              "Clases o grupos sin ninguna entrada reconstruida en el catálogo. Las que figuran con envolturas al EXE no están en [hooks.csv](hooks.csv): sus funciones del juego se conocen por el código fuente o por las cohortes de dependencias y siguen delegando en el original.", "",
+              "| Clase | Revertidas / total | Pendientes | Envolturas al EXE | Avance | Validated | Locked |", "| --- | ---: | ---: | ---: | ---: | ---: | ---: |"]
     for c in empty:
-        lines.append(f"| {class_link(c.name)} | 0/{c.total} | **{c.pending}** | 0.00% | {c.validated} | {c.locked} |")
+        lines.append(f"| {class_link(c.name)} | 0/{c.total} | **{c.pending}** | **{wrap_count.get(c.name, 0)}** | 0.00% | {c.validated} | {c.locked} |")
+    for name in uncatalogued:
+        label = name.replace('<', '&lt;').replace('>', '&gt;').replace('|', '\\|')
+        lines.append(f"| {label} | 0/0 | — | **{len(wrappers[name])}** | 0.00% | 0 | 0 |")
+    lines += difficulty_section(root, input_path)
     lines += ["", '<a id="metodo"></a>', "## Cómo leer y actualizar", "",
               "- **Pendientes:** total menos revertidas. Cada fila del CSV cuenta como una entrada, incluidas sobrecargas y virtuales.",
               "- **Validated:** `1` indica evidencia aprobada vinculada para esa entrada. No implica vigencia actual ni independencia del EXE.",

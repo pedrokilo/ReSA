@@ -515,7 +515,7 @@ static void PlaneGenerationSelect355(int32 aircraftCount){
  if(policeAllowed)policeAllowed=CTimer::GetTimeInMS()>uint32(previous+60000u);
  if(policeAllowed){
   auto* pool=StaticRef<void*>(0xB74494);int32 remaining=*reinterpret_cast<int32*>(reinterpret_cast<uint8*>(pool)+8),hydras=0;
-  while(remaining){--remaining;auto* vehicle=reinterpret_cast<CVehicle*(__thiscall*)(void*,int32)>(0x41CC10)(pool,remaining);if(vehicle&&reinterpret_cast<uint8*>(vehicle)[0x3BA]==59)++hydras;}
+  while(remaining){--remaining;auto* vehicle=reinterpret_cast<CVehiclePool*>(pool)->GetAt(static_cast<size_t>(remaining));if(vehicle&&reinterpret_cast<uint8*>(vehicle)[0x3BA]==59)++hydras;}
   bool spawn=hydras<1;
   if(!spawn&&hydras<2)spawn=static_cast<int32>(FindPlayerPed(-1)->GetWantedLevel())>4;
   if(spawn){model=520;state=1;}

@@ -34,6 +34,7 @@ private:
 
     CAEStreamingDecoder* Constructor(CAEDataStream* dataStream);
     CAEStreamingDecoder* Destructor();
+    CAEStreamingDecoder* ScalarDeletingDestructor(int32 flags); // 0x4F2860: ranura 6 de la vtable base del EXE (0x85F418)
 };
 
 VALIDATE_SIZE(CAEStreamingDecoder, 0x8);

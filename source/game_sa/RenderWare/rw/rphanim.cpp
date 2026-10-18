@@ -1,6 +1,31 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: RpHAnim
+ * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 1/1 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 #include "StdInc.h"
 
 #include "rphanim.h"
+
+void RpHAnimInjectHooks() {
+    RH_ScopedNamespaceName("RpHAnim");
+    RH_ScopedCategory("Plugins");
+
+    RH_ScopedGlobalInstall(RpHAnimFrameGetHierarchy, 0x7C5160);
+}
 
 void RpHAnimHierarchySetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
     ((void(__cdecl *)(RwInt32, RwInt32))0x7C45E0)(blockSize, numBlocksToPrealloc);
@@ -42,8 +67,11 @@ RwBool RpHAnimFrameSetHierarchy(RwFrame* frame, RpHAnimHierarchy* hierarchy) {
     return ((RwBool(__cdecl *)(RwFrame*, RpHAnimHierarchy*))0x7C5130)(frame, hierarchy);
 }
 
+// 0x7C5160: lee el desplazamiento del dato de plugin HAnim de los marcos (int32 global del EXE, 0xC9B8C8) y devuelve el puntero guardado en
+// +4 de ese dato: `*(RpHAnimHierarchy**)(frame + offset + 4)`. Aritmetica de 32 bits como el EXE (sin comprobar nulos ni rangos).
 RpHAnimHierarchy* RpHAnimFrameGetHierarchy(RwFrame* frame) {
-    return ((RpHAnimHierarchy*(__cdecl *)(RwFrame*))0x7C5160)(frame);
+    const uint32 frameDataOffset = StaticRef<uint32>(0xC9B8C8);
+    return *reinterpret_cast<RpHAnimHierarchy**>(reinterpret_cast<uintptr_t>(frame) + frameDataOffset + 4);
 }
 
 RwMatrix* RpHAnimHierarchyGetMatrixArray(RpHAnimHierarchy* hierarchy) {

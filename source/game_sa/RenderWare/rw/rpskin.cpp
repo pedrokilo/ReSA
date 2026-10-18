@@ -1,6 +1,31 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: RpSkin
+ * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 1/1 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 #include "StdInc.h"
 
 #include "rpskin.h"
+
+void RpSkinInjectHooks() {
+    RH_ScopedNamespaceName("RpSkin");
+    RH_ScopedCategory("Plugins");
+
+    RH_ScopedGlobalInstall(_rpSkinDeinitialize, 0x7C8820);
+}
 
 void RpSkinSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
     ((void(__cdecl *)(RwInt32, RwInt32))0x7C67F0)(blockSize, numBlocksToPrealloc);
@@ -66,8 +91,9 @@ RpGeometry* _rpSkinInitialize(RpGeometry* geometry) {
     return ((RpGeometry*(__cdecl *)(RpGeometry*))0x7C8740)(geometry);
 }
 
+// 0x7C8820: `mov eax, [esp+4]; ret`: devuelve la geometria sin tocar nada.
 RpGeometry* _rpSkinDeinitialize(RpGeometry* geometry) {
-    return ((RpGeometry*(__cdecl *)(RpGeometry*))0x7C8820)(geometry);
+    return geometry;
 }
 
 RwUInt8* _rpSkinGetMeshBoneRemapIndices(RpSkin* skin) {

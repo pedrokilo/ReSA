@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTask
- * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 4/4 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -22,7 +22,10 @@ END GENERATED HOOK STATUS */
     https://github.com/DK22Pac/plugin-sdk
     Do not delete this comment block. Respect others' work!
 */
+// Sin PCH (CMakeLists.txt) StdInc.h redefine NOMINMAX (winincl.h) y el aviso C4005 es error: mismo recurso que Clothes.cpp, Stats.cpp y DecisionMakerTypes.cpp.
+#pragma warning(push, 0)
 #include "StdInc.h"
+#pragma warning(pop)
 
 #include "Task.h"
 
@@ -30,6 +33,17 @@ END GENERATED HOOK STATUS */
 // vtable after a complex task has released its owned subtask.
 CTask::~CTask() {
 }
+
+// 0x61A3A0: cuerpo no virtual de ~CTask. Los destructores del EXE (259 llamadores, 148 de ellos con `jmp` final) lo llaman con `this` en ECX y esperan que
+// EAX, ECX y EDX salgan intactos, asi que el codigo debe ser exactamente `mov dword ptr [ecx], 0x86D48C; ret`: se optimiza por pragma (CMakeLists.txt: /Zi y
+// BasicRuntimeChecks=Default para este archivo), sin marco de pila ni comprobaciones de ejecucion. La vtable es la del EXE (no la de la DLL), como en el original.
+#pragma runtime_checks("", off)
+#pragma optimize("gty", on)
+void CTask::Destructor() {
+    *reinterpret_cast<uint32*>(this) = 0x86D48C;
+}
+#pragma optimize("", on)
+#pragma runtime_checks("", restore)
 
 // 0x61A5A0
 void* CTask::operator new(size_t size) {
@@ -72,6 +86,7 @@ void CTask::InjectHooks() {
     RH_ScopedVirtualClass(CTask, 0x86D48C, 7);
 
     RH_ScopedInstall(IsTaskPtr, 0x61A4B0);
+    RH_ScopedInstall(Destructor, 0x61A3A0);
     RH_ScopedInstall(operator new, 0x61A5A0);
     RH_ScopedInstall(operator delete, 0x61A5B0);
     RH_ScopedVMTInstall(StopTimer, 0x421180);

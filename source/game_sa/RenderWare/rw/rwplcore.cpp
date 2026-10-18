@@ -1,17 +1,69 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: RwPlCore
+ * Reconstrucción: COMPLETA — 14/14 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 14/14 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 #include "StdInc.h"
 
 #include "rwplcore.h"
+
+namespace {
+// 0x8019B0: RwFreeListCreateAndPreallocateSpace real (el simbolo publico 0x801B70 es un JMP a esta direccion); sin reconstruir.
+RwFreeList* FreeListCreateAndPreallocateSpaceExe(RwInt32 entrySize, RwInt32 entriesPerBlock, RwInt32 alignment, RwInt32 numBlocksToPreallocate, RwFreeList* inPlaceSpaceForFreeListStruct, RwUInt32 hint) {
+    return ((RwFreeList*(__cdecl *)(RwInt32, RwInt32, RwInt32, RwInt32, RwFreeList*, RwUInt32))0x8019B0)(entrySize, entriesPerBlock, alignment, numBlocksToPreallocate, inPlaceSpaceForFreeListStruct, hint);
+}
+} // namespace
+
+// Biblioteca RenderWare (reconstruidas en C++, banco Dependencies25D)
+void RwPlCoreInjectHooks25d() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwPlCore");
+
+    RH_ScopedGlobalInstall(RwFreeListCreate, 0x801980);
+    RH_ScopedGlobalInstall(RwFreeListCreateAndPreallocateSpace, 0x801B70);
+}
+
+void RwPlCoreInjectHooks() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwPlCore");
+
+    // Funciones de biblioteca (RenderWare) de <= 40 bytes reconstruidas en C++ (lote 25, grupo g25e).
+    RH_ScopedGlobalInstall(_rwPluginRegistryGetPluginOffset, 0x808470);
+    RH_ScopedGlobalInstall(_rwSListDestroyEndEntries, 0x809400);
+    RH_ScopedGlobalInstall(_rwSListGetNumEntries, 0x8094B0);
+    RH_ScopedGlobalInstall(_rwSListGetEntry, 0x809510);
+    RH_ScopedGlobalInstall(_rwSListGetBegin, 0x809530);
+    RH_ScopedGlobalInstall(_rwSListGetEnd, 0x809540);
+    RH_ScopedGlobalInstall(_rwStringClose, 0x80A440);
+    RH_ScopedGlobalInstall(_rwStringStreamGetSize, 0x80A470);
+}
 
 RwMemoryFunctions* RwOsGetMemoryInterface() {
     return ((RwMemoryFunctions*(__cdecl *)(void))0x802230)();
 }
 
-RwFreeList* _rwFreeListCreate(RwInt32 entrySize, RwInt32 entriesPerBlock, RwInt32 alignment, RwUInt32 hint, const RwChar* fileCreate, RwUInt32 lineCreate) {
-    return ((RwFreeList*(__cdecl *)(RwInt32, RwInt32, RwInt32, RwUInt32, const RwChar*, RwUInt32))0x801980)(entrySize, entriesPerBlock, alignment, hint, fileCreate, lineCreate);
+// 0x801980: RwFreeListCreate de la compilacion sin RWDEBUG (4 argumentos de pila; la version con fileCreate/lineCreate es solo de depuracion):
+// reserva con un bloque preasignado y sin espacio propio para la estructura.
+RwFreeList* RwFreeListCreate(RwInt32 entrySize, RwInt32 entriesPerBlock, RwInt32 alignment, RwUInt32 hint) {
+    return FreeListCreateAndPreallocateSpaceExe(entrySize, entriesPerBlock, alignment, 1, nullptr, hint);
 }
 
+// 0x801B70: salto directo a 0x8019B0 con los mismos seis argumentos.
 RwFreeList* RwFreeListCreateAndPreallocateSpace(RwInt32 entrySize, RwInt32 entriesPerBlock, RwInt32 alignment, RwInt32 numBlocksToPreallocate, RwFreeList* inPlaceSpaceForFreeListStruct, RwUInt32 hint) {
-    return ((RwFreeList*(__cdecl *)(RwInt32, RwInt32, RwInt32, RwInt32, RwFreeList*, RwUInt32))0x801B70)(entrySize, entriesPerBlock, alignment, numBlocksToPreallocate, inPlaceSpaceForFreeListStruct, hint);
+    return FreeListCreateAndPreallocateSpaceExe(entrySize, entriesPerBlock, alignment, numBlocksToPreallocate, inPlaceSpaceForFreeListStruct, hint);
 }
 
 RwBool RwFreeListDestroy(RwFreeList* freelist) {
@@ -70,16 +122,22 @@ RwBool _rwStringOpen() {
     return ((RwBool(__cdecl *)(void))0x80A240)();
 }
 
+// 0x80A440: el EXE solo ejecuta `ret` (1 byte, seguido de 15 bytes de relleno 0x90 hasta 0x80A450).
 void _rwStringClose() {
-    ((void(__cdecl *)(void))0x80A440)();
 }
 
 RwBool _rwStringDestroy(RwChar* string) {
     return ((RwBool(__cdecl *)(RwChar*))0x80A450)(string);
 }
 
+// 0x80A470: una cadena nula se sustituye por la cadena vacía del EXE (0x884F6A); la longitud sale de rwstrlen del motor
+// ([RwEngineInstance + 0x120], cdecl) y el tamaño en el flujo es (longitud + 4) con los dos bits bajos a cero (`add eax, 4` / `and al, 0FCh`).
 RwUInt32 _rwStringStreamGetSize(const RwChar* string) {
-    return ((RwUInt32(__cdecl *)(const RwChar*))0x80A470)(string);
+    if (!string) {
+        string = reinterpret_cast<const RwChar*>(0x884F6A);
+    }
+    const uint32 length = static_cast<uint32>(RWSRCGLOBAL(stringFuncs).vecStrlen(string));
+    return (length + 4u) & ~3u;
 }
 
 const RwChar* _rwStringStreamWrite(const RwChar* string, RwStream* stream) {
@@ -102,8 +160,15 @@ RwInt32 _rwPluginRegistryAddPlugin(RwPluginRegistry* reg, RwInt32 size, RwUInt32
     return ((RwInt32(__cdecl *)(RwPluginRegistry*, RwInt32, RwUInt32, RwPluginObjectConstructor, RwPluginObjectDestructor, RwPluginObjectCopy))0x8084A0)(reg, size, pluginID, constructCB, destructCB, copyCB);
 }
 
+// 0x808470: recorre la lista de plugins del registro (firstRegEntry +0x10, nextRegEntry +0x30) y devuelve el desplazamiento (+0) del primero con ese
+// pluginID (+8), o -1 si no está.
 RwInt32 _rwPluginRegistryGetPluginOffset(const RwPluginRegistry* reg, RwUInt32 pluginID) {
-    return ((RwInt32(__cdecl *)(const RwPluginRegistry*, RwUInt32))0x808470)(reg, pluginID);
+    for (const RwPluginRegEntry* entry = reg->firstRegEntry; entry; entry = entry->nextRegEntry) {
+        if (entry->pluginID == pluginID) {
+            return entry->offset;
+        }
+    }
+    return -1;
 }
 
 const RwPluginRegistry* _rwPluginRegistryInitObject(const RwPluginRegistry* reg, void* object) {
@@ -178,8 +243,10 @@ RwMatrix* RwMatrixTransform(RwMatrix* matrix, const RwMatrix* transform, RwOpCom
     return ((RwMatrix*(__cdecl *)(RwMatrix*, const RwMatrix*, RwOpCombineType))0x7F25A0)(matrix, transform, combineOp);
 }
 
+// 0x7F1920: `jmp 0x7F1930` (salto de incremental linking a la rutina real, x87, todavia sin reconstruir). Se le pasa (matrixOut, matrixIn) por direccion y
+// se devuelve su resultado; la rutina real hace todo el calculo (incluido el estado x87 que deja).
 RwMatrix* RwMatrixOrthoNormalize(RwMatrix* matrixOut, const RwMatrix* matrixIn) {
-    return ((RwMatrix*(__cdecl *)(RwMatrix*, const RwMatrix*))0x7F1920)(matrixOut, matrixIn);
+    return reinterpret_cast<RwMatrix*(__cdecl*)(RwMatrix*, const RwMatrix*)>(0x7F1930)(matrixOut, matrixIn);
 }
 
 RwMatrix* RwMatrixInvert(RwMatrix* matrixOut, const RwMatrix* matrixIn) {
@@ -282,28 +349,33 @@ RwBool _rwSListDestroy(RwSList* sList) {
     return ((RwBool(__cdecl *)(RwSList*))0x809440)(sList);
 }
 
+// 0x809400: resta `amount` a numElementsFilled (+4), con envoltura de 32 bits.
 void _rwSListDestroyEndEntries(RwSList* sList, RwInt32 amount) {
-    ((void(__cdecl *)(RwSList*, RwInt32))0x809400)(sList, amount);
+    sList->numElementsFilled = static_cast<RwInt32>(static_cast<uint32>(sList->numElementsFilled) - static_cast<uint32>(amount));
 }
 
+// 0x809510: listElements + entrySize * entry (imul de 32 bits con envoltura).
 void* _rwSListGetEntry(RwSList* sList, RwInt32 entry) {
-    return ((void*(__cdecl *)(RwSList*, RwInt32))0x809510)(sList, entry);
+    return reinterpret_cast<void*>(reinterpret_cast<uintptr_t>(sList->listElements) + static_cast<uint32>(sList->entrySize) * static_cast<uint32>(entry));
 }
 
 void* _rwSListGetNewEntry(RwSList* sList, RwUInt32 hint) {
     return ((void*(__cdecl *)(RwSList*, RwUInt32))0x809240)(sList, hint);
 }
 
+// 0x8094B0: numElementsFilled (+4).
 RwInt32 _rwSListGetNumEntries(const RwSList* sList) {
-    return ((RwInt32(__cdecl *)(const RwSList*))0x8094B0)(sList);
+    return sList->numElementsFilled;
 }
 
+// 0x809530: listElements (+0).
 void* _rwSListGetBegin(RwSList* sList) {
-    return ((void*(__cdecl *)(RwSList*))0x809530)(sList);
+    return sList->listElements;
 }
 
+// 0x809540: listElements + entrySize * numElementsFilled (imul de 32 bits con envoltura).
 void* _rwSListGetEnd(RwSList* sList) {
-    return ((void*(__cdecl *)(RwSList*))0x809540)(sList);
+    return reinterpret_cast<void*>(reinterpret_cast<uintptr_t>(sList->listElements) + static_cast<uint32>(sList->entrySize) * static_cast<uint32>(sList->numElementsFilled));
 }
 
 RwUInt32 RwEngineGetVersion() {
@@ -314,12 +386,29 @@ RwBool RwEngineInit(const RwMemoryFunctions* memFuncs, RwUInt32 initFlags, RwUIn
     return ((RwBool(__cdecl *)(const RwMemoryFunctions*, RwUInt32, RwUInt32))0x7F3170)(memFuncs, initFlags, resArenaSize);
 }
 
-RwInt32 RwEngineRegisterPlugin(RwInt32 size, RwUInt32 pluginID, RwPluginObjectConstructor initCB, RwPluginObjectDestructor termCB) {
-    return ((RwInt32(__cdecl *)(RwInt32, RwUInt32, RwPluginObjectConstructor, RwPluginObjectDestructor))0x7F2BB0)(size, pluginID, initCB, termCB);
+// Direcciones del EXE usadas por las funciones del lote 25 (g25c) de este archivo.
+namespace {
+constexpr uintptr_t kEnginePluginRegistry = 0x8E2298; // RwEngine: lista de plugins de RwGlobals
 }
 
+void RwPlCoreEngineStreamInjectHooks() {
+    RH_ScopedNamespaceName("RwPlCore");
+    RH_ScopedCategory("Renderware");
+
+    RH_ScopedGlobalInstall(RwStreamWriteInt32, 0x7ED460);
+    RH_ScopedGlobalInstall(RwMatrixOrthoNormalize, 0x7F1920);
+    RH_ScopedGlobalInstall(RwEngineRegisterPlugin, 0x7F2BB0);
+    RH_ScopedGlobalInstall(RwEngineGetPluginOffset, 0x7F2BE0);
+}
+
+// 0x7F2BB0: registra el plugin en la lista del motor (0x8E2298) con _rwPluginRegistryAddPlugin (0x8084A0); el callback de copia es nulo.
+RwInt32 RwEngineRegisterPlugin(RwInt32 size, RwUInt32 pluginID, RwPluginObjectConstructor initCB, RwPluginObjectDestructor termCB) {
+    return _rwPluginRegistryAddPlugin(reinterpret_cast<RwPluginRegistry*>(kEnginePluginRegistry), size, pluginID, initCB, termCB, nullptr);
+}
+
+// 0x7F2BE0: desplazamiento del plugin en la lista del motor (0x8E2298) con _rwPluginRegistryGetPluginOffset (0x808470).
 RwInt32 RwEngineGetPluginOffset(RwUInt32 pluginID) {
-    return ((RwInt32(__cdecl *)(RwUInt32))0x7F2BE0)(pluginID);
+    return _rwPluginRegistryGetPluginOffset(reinterpret_cast<const RwPluginRegistry*>(kEnginePluginRegistry), pluginID);
 }
 
 RwBool RwEngineOpen(RwEngineOpenParams* initParams) {
@@ -446,8 +535,10 @@ RwStream* RwStreamWriteReal(RwStream* stream, const RwReal* reals, RwUInt32 numB
     return ((RwStream*(__cdecl *)(RwStream*, const RwReal*, RwUInt32))0x7ED3D0)(stream, reals, numBytes);
 }
 
+// 0x7ED460: escribe los bytes tal cual con RwStreamWrite (0x7ECB30; sin conversion de orden de bytes en x86), ignora su resultado y devuelve el flujo.
 RwStream* RwStreamWriteInt32(RwStream* stream, const RwInt32* ints, RwUInt32 numBytes) {
-    return ((RwStream*(__cdecl *)(RwStream*, const RwInt32*, RwUInt32))0x7ED460)(stream, ints, numBytes);
+    RwStreamWrite(stream, ints, numBytes);
+    return stream;
 }
 
 RwStream* RwStreamWriteInt16(RwStream* stream, const RwInt16* ints, RwUInt32 numBytes) {

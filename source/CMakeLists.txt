@@ -155,6 +155,14 @@ if(MSVC)
         SKIP_PRECOMPILE_HEADERS ON
         SKIP_UNITY_BUILD_INCLUSION ON
     )
+    # CTask::Destructor (0x61A3A0) es `mov [ecx], 0x86D48C; ret`: sus 259 llamadores del EXE (148 con `jmp` final) conservan EAX, ECX y EDX, asi que el cuerpo
+    # no puede llevar marco ni comprobaciones. Se optimiza por pragma, que solo actua con /Zi y sin comprobaciones de ejecucion.
+    set_source_files_properties(game_sa/Tasks/Task.cpp PROPERTIES
+        COMPILE_OPTIONS "$<$<CONFIG:Debug>:/Zi>"
+        VS_SETTINGS "BasicRuntimeChecks=Default"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
 endif()
 if (${RE_PROJECT}_WITH_OPENAL)
     # TODO: Remove dsound specific sources

@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CPedGroups
- * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 11/11 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 2/2 entradas.
+ * Validación registrada: 11/11 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -171,6 +171,7 @@ void CPedGroups::InjectHooks() {
     RH_ScopedNamedGlobalInstall(InitExe, "Init", 0x5FB8C0);
     RH_ScopedNamedGlobalInstall(CleanUpForShutDownExe, "CleanUpForShutDown", 0x5FB930);
     RH_ScopedInstall(RemoveGroup, 0x5FB870);
+    RH_ScopedInstall(RemoveAllFollowersFromGroup, 0x5FB8A0);
     RH_ScopedInstall(GetPedsGroup, 0x5F7E80);
     RH_ScopedInstall(IsGroupLeader, 0x5F7E40);
     RH_ScopedInstall(GetGroupId, 0x5F7EE0);
@@ -205,7 +206,12 @@ void CPedGroups::RemoveGroup(int32 groupId) {
 
 // 0x5FB8A0
 void CPedGroups::RemoveAllFollowersFromGroup(int32 groupId) {
-    plugin::Call<0x5FB8A0, int32>(groupId);
+    // Como el original: sin comprobar ni afirmar el indice (acceso por direccion; std::array::operator[] lo vigila en Debug) y con la bandera leida como byte.
+    // El EXE termina con `jmp 0x5FB7D0` (CPedGroup::RemoveAllFollowers) con ECX = 0xC09920 + groupId * 0x2D4; su unico llamador (0x492744) no lee los registros.
+    if (!ms_activeGroups.data()[groupId]) {
+        return;
+    }
+    (ms_groups.data() + groupId)->RemoveAllFollowers();
 }
 
 // 0x5FB8C0

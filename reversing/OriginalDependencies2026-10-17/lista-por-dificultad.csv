@@ -1,0 +1,465 @@
+rango,categoria,nivel,subcategoria,address,identity,bytes,score,riesgos,fuente
+1,juego,1 Muy fácil,embedded_call,0x0061A3A0,helper sin símbolo confirmado (usado por FightUnwind),7,7,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:47
+2,juego,1 Muy fácil,embedded_call,0x0041CC10,CPool<CVehicle>::GetAt (acceso por índice a la ranura de 0xA18 bytes),31,31,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/Camera.cpp:2542
+3,juego,1 Muy fácil,wrapper,0x0041B950,CAutoPilot::RemoveOnePathNode,45,45,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/AutoPilot.cpp:52
+4,juego,1 Muy fácil,wrapper,0x005FB8A0,CPedGroups::RemoveAllFollowersFromGroup,32,52,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/PedGroups.cpp:208
+5,juego,1 Muy fácil,wrapper,0x00604490,CDecisionMakerTypes::FlushDecisionMakerEventResponse,35,55,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:292
+6,juego,1 Muy fácil,wrapper,0x0044A210,CGarages::CountCarsInHideoutGarage,47,67,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/Garages.cpp:621
+7,juego,2 Fácil,wrapper,0x00423880,CCarCtrl::SteerAIPlaneToCrashAndBurn,81,81,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1109
+8,juego,1 Muy fácil,wrapper,0x006D3490,FindReplacementUpgradeCB,53,93,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/Entity/Vehicle/Vehicle.cpp:2592
+9,juego,2 Fácil,wrapper,0x006D3370,FindUpgradeCB,61,101,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/Entity/Vehicle/Vehicle.cpp:2539
+10,juego,2 Fácil,embedded_call,0x00406CE0,helper sin símbolo confirmado (usado por CHud::DrawVitalStats),19,109,callees_sin_catalogar=0;indirectas=0;x87=2;switch=0;seh=0;biblioteca=1,source/game_sa/Hud.cpp:1632
+11,juego,2 Fácil,wrapper,0x00559010,CStats::FindLeastFavoriteRadioStation,110,110,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/Stats.cpp:344
+12,juego,1 Muy fácil,embedded_call,0x00734A70,helper sin símbolo confirmado (usado por GetAnimHierarchyFromFrame),51,111,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=0;biblioteca=2,source/game_sa/RwHelper.cpp:155
+13,juego,2 Fácil,wrapper,0x00421FE0,CCarCtrl::ThisVehicleShouldTryNotToTurn,38,118,callees_sin_catalogar=0;indirectas=0;x87=0;switch=1;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1160
+14,juego,1 Muy fácil,wrapper,0x004F2860,CAEStreamingDecoder scalar deleting destructor (operator delete de la clase),50,130,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=0;biblioteca=2,source/game_sa/Audio/Loaders/AEStreamingDecoder.cpp:33
+15,juego,2 Fácil,wrapper,0x00422590,CCarCtrl::StopCarIfNodesAreInvalid,137,137,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1124
+16,juego,3 Media,wrapper,0x0059C230,CQuaternion::Get,57,147,callees_sin_catalogar=0;indirectas=0;x87=14;switch=0;seh=0;biblioteca=1,source/game_sa/Core/Quaternion.cpp:52
+17,juego,3 Media,wrapper,0x004238E0,CCarCtrl::SteerAIHeliToCrashAndBurn,89,149,callees_sin_catalogar=0;indirectas=0;x87=3;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1084
+18,juego,2 Fácil,wrapper,0x00682310,CTaskComplexPartner::StreamRequiredAnims,93,153,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:80
+19,juego,3 Media,embedded_call,0x0050B830,helper sin símbolo confirmado (usado por CameraObbeCinemaCycle),77,157,callees_sin_catalogar=0;indirectas=0;x87=3;switch=0;seh=0;biblioteca=0,source/game_sa/Camera.cpp:1824
+20,juego,2 Fácil,wrapper,0x00694ED0,CTaskComplexFollowPedFootsteps::MakeAbortable,8,158,callees_sin_catalogar=0;indirectas=1;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp:69
+21,juego,3 Media,wrapper,0x004226F0,CCarCtrl::FindIntersection2Lines,100,160,callees_sin_catalogar=0;indirectas=0;x87=24;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:333
+22,juego,3 Media,embedded_call,0x0050E180,helper sin símbolo confirmado (usado por CCam::Process_DW_HeliChaseCam),184,184,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/Cam.cpp:2127
+23,juego,3 Media,embedded_call,0x0059C890,TransformPoint,124,184,callees_sin_catalogar=0;indirectas=0;x87=30;switch=0;seh=0;biblioteca=0,source/game_sa/Entity/Vehicle/Plane.cpp:618
+24,juego,2 Fácil,wrapper,0x00625E40,CTaskComplexKillPedOnFoot::MakeAbortable,48,198,callees_sin_catalogar=0;indirectas=1;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp:62
+25,juego,2 Fácil,embedded_call,0x006C4760,CHeli::FindSwatPositionRelativeToHeli,141,221,callees_sin_catalogar=0;indirectas=0;x87=0;switch=1;seh=0;biblioteca=0,source/game_sa/Entity/Vehicle/Heli.cpp:179
+26,juego,3 Media,wrapper,0x004224E0,CCarCtrl::FindSpeedMultiplier,167,227,callees_sin_catalogar=0;indirectas=0;x87=35;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:377
+27,juego,2 Fácil,wrapper,0x00682C60,CTaskComplexPartnerChat::MakeAbortable,65,235,callees_sin_catalogar=0;indirectas=1;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.cpp:59
+28,juego,3 Media,embedded_call,0x0044A9C0,CGarage::IsGarageEmpty,141,241,callees_sin_catalogar=0;indirectas=0;x87=8;switch=0;seh=0;biblioteca=0,source/game_sa/Garage.cpp:260
+29,juego,3 Media,embedded_call,0x006F5F80,CTrainNode::GetLightingFromCollision,161,241,callees_sin_catalogar=0;indirectas=0;x87=10;switch=0;seh=0;biblioteca=0,source/game_sa/Entity/Vehicle/Train.cpp:581
+30,juego,3 Media,wrapper,0x005D7120,CCustomBuildingDNPipeline::CustomPipeMaterialSetup,149,259,callees_sin_catalogar=0;indirectas=0;x87=4;switch=0;seh=0;biblioteca=1,source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp:276
+31,juego,3 Media,wrapper,0x0061C740,FightStrikeDamageExe,164,264,callees_sin_catalogar=0;indirectas=0;x87=9;switch=0;seh=0;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:258
+32,juego,3 Media,wrapper,0x00422620,CCarCtrl::FindPercDependingOnDistToLink,208,268,callees_sin_catalogar=0;indirectas=0;x87=28;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:358
+33,juego,3 Media,wrapper,0x0059C080,CQuaternion::Get,215,275,callees_sin_catalogar=0;indirectas=0;x87=61;switch=0;seh=0;biblioteca=0,source/game_sa/Entity/Vehicle/Plane.cpp:612
+34,juego,2 Fácil,wrapper,0x006D3300,RemoveUpgradeCB,108,278,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=0;biblioteca=3,source/game_sa/Entity/Vehicle/Vehicle.cpp:2534
+35,juego,2 Fácil,embedded_call,0x0063C840,helper sin símbolo confirmado (usado por CTaskSimpleCarDrive::StartRollingDoor),108,298,callees_sin_catalogar=0;indirectas=1;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.cpp:182
+36,juego,3 Media,wrapper,0x004222A0,CCarCtrl::SwitchBetweenPhysicsAndGhost,208,308,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1129
+37,juego,3 Media,wrapper,0x0060CC50,CPlayerPed::PlayerWantsToAttack,200,320,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/Entity/Ped/PlayerPed.cpp:1037
+38,juego,2 Fácil,wrapper,0x00655140,CreateRouteTask,130,320,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=1;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp:79
+39,juego,3 Media,embedded_call,0x00621B10,helper sin símbolo confirmado (usado por CTaskSimpleGangDriveBy::AITarget),201,341,callees_sin_catalogar=0;indirectas=0;x87=8;switch=0;seh=0;biblioteca=2,source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:412
+40,juego,3 Media,embedded_call,0x005BB9F0,helper sin símbolo confirmado (usado por CDecisionMakerTypes::InjectHooks),197,367,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=0;biblioteca=1,source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:40
+41,juego,3 Media,wrapper,0x005DD100,CPlantMgr::AtomicCreatePrelitIfNeeded,221,371,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=0;biblioteca=5,source/game_sa/PlantMgr.cpp:33
+42,juego,2 Fácil,embedded_call,0x0061A3D0,helper sin símbolo confirmado (usado por WaitForPedUnwind),85,385,callees_sin_catalogar=0;indirectas=1;x87=0;switch=0;seh=1;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp:25
+43,juego,3 Media,embedded_call,0x0050E090,helper sin símbolo confirmado (usado por CCam::Process_DW_HeliChaseCam),192,402,callees_sin_catalogar=0;indirectas=0;x87=30;switch=0;seh=0;biblioteca=5,source/game_sa/Cam.cpp:2129
+44,juego,2 Fácil,wrapper,0x006823B0,CTaskComplexPartnerDeal::CreateFirstSubTask,5,405,callees_sin_catalogar=1;indirectas=0;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp:46
+45,juego,3 Media,wrapper,0x00681F20,CTaskComplexPartner::CreateFirstSubTask,177,407,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=1;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:72
+46,juego,3 Media,embedded_call,0x004A8470,FxInterpInfoFloat_c::GetVal,330,420,callees_sin_catalogar=0;indirectas=0;x87=30;switch=0;seh=0;biblioteca=1,source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp:46
+47,juego,2 Fácil,wrapper,0x0042A730,CCarCtrl::GetAIHeliToFlyInDirection,28,428,callees_sin_catalogar=1;indirectas=0;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:512
+48,juego,2 Fácil,wrapper,0x006044C0,CDecisionMakerTypes::AddEventResponse,50,450,callees_sin_catalogar=1;indirectas=0;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:287
+49,juego,2 Fácil,embedded_call,0x00606060,helper sin símbolo confirmado (usado por CDecisionMakerTypes::InjectHooks),59,459,callees_sin_catalogar=1;indirectas=0;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:39
+50,juego,2 Fácil,wrapper,0x00682370,CTaskComplexPartner::RemoveStreamedAnims,56,476,callees_sin_catalogar=1;indirectas=0;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:84
+51,juego,3 Media,wrapper,0x0060D1C0,CPlayerPed::EvaluateNeighbouringTarget,388,488,callees_sin_catalogar=0;indirectas=0;x87=56;switch=0;seh=0;biblioteca=0,source/game_sa/Entity/Ped/PlayerPed.cpp:1105
+52,juego,3 Media,wrapper,0x006DFA20,CVehicle::AddUpgrade,333,503,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=0;biblioteca=3,source/game_sa/Entity/Vehicle/Vehicle.cpp:7267
+53,juego,2 Fácil,wrapper,0x00493900,CSearchLight::IsSpottedEntity,90,510,callees_sin_catalogar=1;indirectas=0;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/SearchLight.cpp:28
+54,juego,3 Media,wrapper,0x006E0400,CVehicle::ScanAndMarkTargetForHeatSeekingMissile,445,545,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=0;biblioteca=2,source/game_sa/Entity/Vehicle/Vehicle.cpp:7282
+55,juego,3 Media,wrapper,0x00423790,CCarCtrl::SteerAIPlaneTowardsTargetCoors,75,555,callees_sin_catalogar=1;indirectas=0;x87=7;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1119
+56,juego,3 Media,embedded_call,0x004513F0,CPathFind::FindParkingNodeInArea,476,576,callees_sin_catalogar=0;indirectas=0;x87=19;switch=0;seh=0;biblioteca=0,source/game_sa/PathFind.cpp:1083
+57,juego,3 Media,wrapper,0x00428BE0,CCarCtrl::SteerAIBoatWithPhysicsHeadingForTarget,497,597,callees_sin_catalogar=0;indirectas=0;x87=69;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1009
+58,juego,4 Difícil,wrapper,0x0042B270,CCarCtrl::FireHeliRocketsAtTarget,506,606,callees_sin_catalogar=0;indirectas=0;x87=72;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:427
+59,juego,3 Media,wrapper,0x004237F0,CCarCtrl::SteerAIPlaneToFollowEntity,141,621,callees_sin_catalogar=1;indirectas=0;x87=7;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1114
+60,juego,3 Media,wrapper,0x00735360,SkinGetBonePositionsToTable,381,621,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=0;biblioteca=8,source/game_sa/RwHelper.cpp:353
+61,juego,3 Media,wrapper,0x00683120,CTaskComplexPartnerShove::GetPartnerSequence,275,625,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=1;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerShove.cpp:45
+62,juego,2 Fácil,wrapper,0x006823C0,CTaskComplexPartnerDeal::StreamRequiredAnims,113,633,callees_sin_catalogar=1;indirectas=0;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp:51
+63,juego,3 Media,wrapper,0x0042ACB0,CCarCtrl::SteerAIHeliFlyingAwayFromPlayer,122,642,callees_sin_catalogar=1;indirectas=0;x87=8;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1079
+64,juego,3 Media,wrapper,0x005E3E90,CPed::SpecialEntityCalcCollisionSteps,342,642,callees_sin_catalogar=0;indirectas=0;x87=54;switch=0;seh=0;biblioteca=8,source/game_sa/Entity/Ped/Ped.cpp:4471
+65,juego,3 Media,wrapper,0x00695000,CTaskComplexFollowPedFootsteps::CreateFirstSubTask,141,651,callees_sin_catalogar=0;indirectas=3;x87=19;switch=0;seh=0;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp:77
+66,juego,3 Media,wrapper,0x00734FC0,RpClumpGetBoundingSphere,384,654,callees_sin_catalogar=0;indirectas=0;x87=16;switch=0;seh=0;biblioteca=7,source/game_sa/RwHelper.cpp:338
+67,juego,3 Media,wrapper,0x00429520,CCarCtrl::TestWhetherToFirePlaneGuns,214,674,callees_sin_catalogar=1;indirectas=0;x87=33;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1155
+68,juego,3 Media,embedded_call,0x006C4190,CHeli::CHeli,398,678,callees_sin_catalogar=0;indirectas=0;x87=5;switch=0;seh=1;biblioteca=1,source/game_sa/Entity/Vehicle/Plane.cpp:558
+69,juego,4 Difícil,embedded_call,0x005E3C30,CPed::SpecialEntityPreCollisionStuff,603,683,callees_sin_catalogar=0;indirectas=0;x87=21;switch=0;seh=0;biblioteca=0,source/game_sa/Entity/Ped/Ped.cpp:4462
+70,juego,2 Fácil,embedded_call,0x006919C0,helper sin símbolo confirmado (usado por ProcessPlayerVehicleInteraction),126,696,callees_sin_catalogar=1;indirectas=0;x87=0;switch=0;seh=1;biblioteca=0,source/game_sa/PlayerInfoProcess.cpp.inc:95
+71,juego,3 Media,wrapper,0x004335E0,CCarCtrl::SteerAICarWithPhysicsTryingToBlockTarget,240,700,callees_sin_catalogar=1;indirectas=0;x87=34;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1059
+72,juego,3 Media,wrapper,0x0049F670,Fx_c::AddPunchImpact,209,709,callees_sin_catalogar=1;indirectas=0;x87=19;switch=0;seh=0;biblioteca=0,source/game_sa/Fx/Fx.cpp:312
+73,juego,4 Difícil,wrapper,0x00422090,CCarCtrl::FindPathDirection,515,735,callees_sin_catalogar=0;indirectas=0;x87=57;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:353
+74,juego,3 Media,wrapper,0x007485C0,diPadInit,214,744,callees_sin_catalogar=0;indirectas=3;x87=0;switch=0;seh=0;biblioteca=2,source/app/platform/win/WinInput.cpp:53
+75,juego,3 Media,wrapper,0x00682440,CTaskComplexPartnerDeal::GetPartnerSequence,344,754,callees_sin_catalogar=0;indirectas=0;x87=0;switch=0;seh=1;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp:56
+76,juego,3 Media,embedded_call,0x005A4030,helper sin símbolo confirmado (usado por CProjectileInfo::AddProjectile),167,757,callees_sin_catalogar=1;indirectas=0;x87=0;switch=0;seh=1;biblioteca=0,source/game_sa/ProjectileInfo.cpp:158
+77,juego,3 Media,embedded_call,0x006040D0,CDecision::MakeDecision,333,793,callees_sin_catalogar=1;indirectas=0;x87=8;switch=0;seh=0;biblioteca=0,source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:38
+78,juego,4 Difícil,wrapper,0x00425F70,CCarCtrl::TestCollisionBetween2MovingRects_OnlyFrontBumper,672,812,callees_sin_catalogar=0;indirectas=0;x87=143;switch=1;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1150
+79,juego,3 Media,wrapper,0x00730510,D3DResourceSystem::CreateTexture,204,814,callees_sin_catalogar=1;indirectas=1;x87=5;switch=0;seh=0;biblioteca=0,source/game_sa/RenderWare/D3DResourceSystem.cpp:186
+80,juego,3 Media,wrapper,0x0042D680,CCarCtrl::WeaveThroughCarsSectorList,341,821,callees_sin_catalogar=1;indirectas=0;x87=23;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1233
+81,juego,3 Media,wrapper,0x0042D7E0,CCarCtrl::WeaveThroughPedsSectorList,346,826,callees_sin_catalogar=1;indirectas=0;x87=23;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1245
+82,juego,3 Media,wrapper,0x0042D950,CCarCtrl::WeaveThroughObjectsSectorList,343,843,callees_sin_catalogar=1;indirectas=0;x87=26;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1239
+83,juego,3 Media,wrapper,0x0042AD30,CCarCtrl::SteerAIHeliToLand,370,850,callees_sin_catalogar=1;indirectas=0;x87=47;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1099
+84,juego,3 Media,wrapper,0x00448BE0,CGarage::IsEntityEntirelyInside3D,333,853,callees_sin_catalogar=1;indirectas=0;x87=27;switch=0;seh=0;biblioteca=0,source/game_sa/Garage.cpp:186
+85,juego,3 Media,wrapper,0x007306A0,D3DResourceSystem::CreateIndexBuffer,153,853,callees_sin_catalogar=1;indirectas=2;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/RenderWare/D3DResourceSystem.cpp:181
+86,juego,3 Media,wrapper,0x006840D0,CTaskComplexPartner::ControlSubTask,192,872,callees_sin_catalogar=0;indirectas=4;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:76
+87,juego,2 Fácil,embedded_call,0x004F4620,helper sin símbolo confirmado (usado por CAEUserRadioTrackManager::WriteUserTracksFile),102,902,callees_sin_catalogar=2;indirectas=0;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp:446
+88,juego,3 Media,wrapper,0x0042D4F0,CCarCtrl::SlowCarDownForObjectsSectorList,391,911,callees_sin_catalogar=1;indirectas=0;x87=27;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:950
+89,juego,3 Media,wrapper,0x006E07E0,CVehicle::PossiblyDropFreeFallBombForPlayer,359,919,callees_sin_catalogar=1;indirectas=0;x87=12;switch=0;seh=0;biblioteca=0,source/game_sa/Entity/Vehicle/Vehicle.cpp:7292
+90,juego,2 Fácil,wrapper,0x0042F370,CCarCtrl::GetAIPlaneToDoDogFightAgainstPlayer,76,936,callees_sin_catalogar=2;indirectas=0;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:527
+91,juego,3 Media,wrapper,0x0042AAD0,CCarCtrl::SteerAIHeliAsPoliceHeli,475,955,callees_sin_catalogar=1;indirectas=0;x87=38;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1074
+92,juego,3 Media,wrapper,0x0044A830,CGarage::IsStaticPlayerCarEntirelyInside,386,966,callees_sin_catalogar=1;indirectas=0;x87=49;switch=0;seh=0;biblioteca=0,source/game_sa/Garage.cpp:181
+93,juego,4 Difícil,wrapper,0x0042B470,CCarCtrl::FindLinksToGoWithTheseNodes,862,972,callees_sin_catalogar=0;indirectas=0;x87=22;switch=0;seh=0;biblioteca=1,source/game_sa/CarCtrl.cpp:338
+94,juego,4 Difícil,wrapper,0x00428990,CCarCtrl::SteerAICarWithPhysicsTryingToBlockTarget_Stop,583,983,callees_sin_catalogar=0;indirectas=1;x87=72;switch=0;seh=0;biblioteca=1,source/game_sa/CarCtrl.cpp:1064
+95,juego,4 Difícil,embedded_call,0x0056EC80,helper sin símbolo confirmado (usado por CPlayerInfo::Process),776,1016,callees_sin_catalogar=0;indirectas=0;x87=97;switch=0;seh=0;biblioteca=0,source/game_sa/PlayerInfo.cpp:325
+96,juego,4 Difícil,wrapper,0x00424CE0,CCarCtrl::ChooseModel,672,1072,callees_sin_catalogar=0;indirectas=0;x87=33;switch=0;seh=0;biblioteca=8,source/game_sa/CarCtrl.cpp:181
+97,juego,4 Difícil,wrapper,0x006E05C0,CVehicle::FireHeatSeakingMissile,529,1089,callees_sin_catalogar=1;indirectas=0;x87=55;switch=0;seh=0;biblioteca=0,source/game_sa/Entity/Vehicle/Vehicle.cpp:7287
+98,juego,3 Media,wrapper,0x0042A630,CCarCtrl::SteerAIHeliTowardsTargetCoors,244,1124,callees_sin_catalogar=2;indirectas=0;x87=23;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1104
+99,juego,3 Media,wrapper,0x006239F0,CTaskSimpleFight::MakeAbortable,284,1124,callees_sin_catalogar=1;indirectas=2;x87=6;switch=0;seh=0;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:222
+100,juego,4 Difícil,wrapper,0x00425B30,CCarCtrl::TestCollisionBetween2MovingRects,1081,1141,callees_sin_catalogar=0;indirectas=0;x87=207;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1145
+101,juego,4 Difícil,wrapper,0x00429090,CCarCtrl::SteerAIBoatWithPhysicsCirclingPlayer,613,1153,callees_sin_catalogar=1;indirectas=0;x87=83;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1004
+102,juego,3 Media,wrapper,0x00730E60,RwTextureGtaStreamRead,347,1157,callees_sin_catalogar=1;indirectas=1;x87=20;switch=0;seh=0;biblioteca=4,source/game_sa/RenderWare/rw/rwtexdict.cpp:22
+103,juego,4 Difícil,wrapper,0x00422760,CCarCtrl::ClitargetOrientationToLink,918,1158,callees_sin_catalogar=0;indirectas=0;x87=143;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:223
+104,juego,3 Media,embedded_call,0x004A4050,FxEmitter_c::AddParticle,400,1180,callees_sin_catalogar=1;indirectas=0;x87=5;switch=0;seh=0;biblioteca=4,source/game_sa/Fx/FxEmitter.cpp:88
+105,juego,4 Difícil,wrapper,0x00429300,CCarCtrl::TriggerDogFightMoves,526,1186,callees_sin_catalogar=1;indirectas=0;x87=55;switch=1;seh=0;biblioteca=4,source/game_sa/CarCtrl.cpp:1165
+106,juego,3 Media,embedded_call,0x004A3EA0,FxEmitter_c::AddParticle,418,1198,callees_sin_catalogar=1;indirectas=0;x87=5;switch=0;seh=0;biblioteca=4,source/game_sa/Fx/FxEmitter.cpp:48
+107,juego,3 Media,wrapper,0x00448D30,CGarage::IsEntityEntirelyOutside,281,1201,callees_sin_catalogar=2;indirectas=0;x87=19;switch=0;seh=0;biblioteca=0,source/game_sa/Garage.cpp:176
+108,juego,3 Media,wrapper,0x006D3830,CVehicle::AddReplacementUpgrade,423,1233,callees_sin_catalogar=0;indirectas=2;x87=3;switch=0;seh=0;biblioteca=9,source/game_sa/Entity/Vehicle/Vehicle.cpp:2742
+109,juego,4 Difícil,wrapper,0x0049EE10,Fx_c::AddWood,549,1239,callees_sin_catalogar=1;indirectas=0;x87=66;switch=0;seh=0;biblioteca=7,source/game_sa/Fx/Fx.cpp:292
+110,juego,3 Media,wrapper,0x00695E40,CTaskComplexFollowPedFootsteps::CreateSubTask,488,1258,callees_sin_catalogar=1;indirectas=0;x87=3;switch=0;seh=1;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp:85
+111,juego,4 Difícil,wrapper,0x00428DE0,CCarCtrl::SteerAIBoatWithPhysicsAttackingPlayer,684,1284,callees_sin_catalogar=1;indirectas=0;x87=100;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:999
+112,juego,3 Media,wrapper,0x00432420,CCarCtrl::SlowCarDownForCarsSectorList,413,1313,callees_sin_catalogar=2;indirectas=0;x87=33;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:916
+113,juego,4 Difícil,wrapper,0x006C6D30,CHeli::BlowUpCar,795,1315,callees_sin_catalogar=0;indirectas=0;x87=5;switch=0;seh=0;biblioteca=2,source/game_sa/Entity/Vehicle/Heli.cpp:300
+114,juego,3 Media,wrapper,0x00730D30,D3DResourceSystem::DestroyIndexBuffer,263,1363,callees_sin_catalogar=2;indirectas=2;x87=0;switch=0;seh=0;biblioteca=0,source/game_sa/RenderWare/D3DResourceSystem.cpp:191
+115,juego,3 Media,wrapper,0x00694EE0,CTaskComplexFollowPedFootsteps::CreateNextSubTask,283,1393,callees_sin_catalogar=0;indirectas=7;x87=19;switch=0;seh=0;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp:73
+116,juego,4 Difícil,embedded_call,0x0066C4E0,CTaskSimpleSlideToCoord::ProcessPed,570,1430,callees_sin_catalogar=1;indirectas=1;x87=63;switch=0;seh=1;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp:54
+117,juego,3 Media,wrapper,0x00429890,CCarCtrl::GetAIPlaneToDoDogFight,472,1482,callees_sin_catalogar=2;indirectas=0;x87=58;switch=0;seh=0;biblioteca=3,source/game_sa/CarCtrl.cpp:522
+118,juego,4 Difícil,wrapper,0x0042AEB0,CCarCtrl::SteerAIHeliToKeepEntityInView,939,1489,callees_sin_catalogar=1;indirectas=0;x87=120;switch=0;seh=0;biblioteca=1,source/game_sa/CarCtrl.cpp:1094
+119,juego,3 Media,wrapper,0x0061D400,FightHitObjExe,494,1604,callees_sin_catalogar=2;indirectas=1;x87=32;switch=0;seh=0;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:268
+120,juego,4 Difícil,wrapper,0x00423940,CCarCtrl::FlyAIHeliToTarget_FixedOrientation,1167,1717,callees_sin_catalogar=1;indirectas=0;x87=190;switch=0;seh=0;biblioteca=1,source/game_sa/CarCtrl.cpp:437
+121,juego,3 Media,wrapper,0x00429780,CCarCtrl::GetAIPlaneToAttackPlayer,261,1721,callees_sin_catalogar=3;indirectas=0;x87=21;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:517
+122,juego,4 Difícil,wrapper,0x00432DD0,CCarCtrl::SteerAICarWithPhysicsFollowPreRecordedPath,1177,1797,callees_sin_catalogar=1;indirectas=0;x87=175;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1049
+123,juego,4 Difícil,wrapper,0x00433280,CCarCtrl::SteerAICarWithPhysicsHeadingForTarget,841,1801,callees_sin_catalogar=2;indirectas=0;x87=128;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1054
+124,juego,4 Difícil,wrapper,0x0042BD20,CCarCtrl::FindNodesThisCarIsNearestTo,1323,1883,callees_sin_catalogar=1;indirectas=0;x87=106;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:348
+125,juego,4 Difícil,embedded_call,0x0056EF90,helper sin símbolo confirmado (usado por CWeaponEffects::Render),608,1948,callees_sin_catalogar=0;indirectas=8;x87=33;switch=0;seh=0;biblioteca=0,source/game_sa/WeaponEffects.cpp:337
+126,juego,3 Media,wrapper,0x0042F3C0,CCarCtrl::GetAIHeliToAttackPlayer,472,1952,callees_sin_catalogar=3;indirectas=0;x87=33;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:507
+127,juego,4 Difícil,wrapper,0x006008A0,CMentalState::Process,646,1956,callees_sin_catalogar=2;indirectas=0;x87=2;switch=0;seh=1;biblioteca=2,source/game_sa/MentalHealth.cpp:22
+128,juego,4 Difícil,wrapper,0x00433EA0,CCarCtrl::SteerAICarParkPerpendicular,800,2050,callees_sin_catalogar=2;indirectas=0;x87=18;switch=0;seh=1;biblioteca=0,source/game_sa/CarCtrl.cpp:1024
+129,juego,3 Media,wrapper,0x006575F0,CTaskComplexWalkRoundObject::ControlSubTask,341,2071,callees_sin_catalogar=3;indirectas=3;x87=31;switch=0;seh=0;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp:67
+130,juego,3 Media,wrapper,0x00432B10,CCarCtrl::PickNextNodeAccordingStrategy,321,2081,callees_sin_catalogar=4;indirectas=0;x87=0;switch=1;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:667
+131,juego,4 Difícil,wrapper,0x00422B20,CCarCtrl::SteerAICarBlockingPlayerForwardAndBack,745,2105,callees_sin_catalogar=3;indirectas=0;x87=114;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1014
+132,juego,4 Difícil,wrapper,0x004336D0,CCarCtrl::SteerAICarTowardsPointInEscort,1223,2203,callees_sin_catalogar=2;indirectas=0;x87=191;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1029
+133,juego,4 Difícil,wrapper,0x0045AB10,CRemote::GivePlayerRemoteControlledCar,548,2258,callees_sin_catalogar=3;indirectas=0;x87=6;switch=0;seh=1;biblioteca=0,source/game_sa/Remote.cpp:12
+134,juego,4 Difícil,wrapper,0x00433BA0,CCarCtrl::SteerAICarParkParallel,762,2352,callees_sin_catalogar=3;indirectas=0;x87=34;switch=0;seh=1;biblioteca=0,source/game_sa/CarCtrl.cpp:1019
+135,juego,4 Difícil,wrapper,0x00447E40,CStoredCar::RestoreCar,1211,2361,callees_sin_catalogar=1;indirectas=0;x87=23;switch=1;seh=1;biblioteca=0,source/game_sa/Garage.cpp:365
+136,juego,3 Media,wrapper,0x00657220,CTaskComplexWalkRoundObject::CreateNextSubTask,341,2361,callees_sin_catalogar=4;indirectas=1;x87=0;switch=0;seh=1;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp:71
+137,juego,4 Difícil,wrapper,0x0042A750,CCarCtrl::SteerAIHeliToFollowEntity,896,2366,callees_sin_catalogar=3;indirectas=1;x87=72;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1089
+138,juego,4 Difícil,wrapper,0x006C6520,CHeli::GenerateHeli,867,2427,callees_sin_catalogar=3;indirectas=0;x87=80;switch=0;seh=1;biblioteca=1,source/game_sa/Entity/Vehicle/Heli.cpp:223
+139,juego,4 Difícil,wrapper,0x00684380,CTaskComplexPartnerChat::GetPartnerSequence,836,2436,callees_sin_catalogar=2;indirectas=0;x87=14;switch=0;seh=1;biblioteca=3,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.cpp:64
+140,juego,5 Muy difícil,wrapper,0x00423000,CCarCtrl::FlyAIPlaneInCertainDirection,1917,2487,callees_sin_catalogar=1;indirectas=0;x87=286;switch=0;seh=0;biblioteca=1,source/game_sa/CarCtrl.cpp:442
+141,juego,4 Difícil,wrapper,0x00426BC0,CCarCtrl::WeaveForObject,803,2583,callees_sin_catalogar=4;indirectas=0;x87=88;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1222
+142,juego,3 Media,embedded_call,0x004650F0,helper sin símbolo confirmado (usado por CDecisionMakerTypes::InjectHooks),415,2695,callees_sin_catalogar=5;indirectas=0;x87=0;switch=0;seh=1;biblioteca=1,source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:43
+143,juego,4 Difícil,wrapper,0x00641530,CTaskComplexLeaveCar::CreateSubTask,1214,2784,callees_sin_catalogar=2;indirectas=0;x87=0;switch=0;seh=1;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp:93
+144,juego,4 Difícil,wrapper,0x0042D0E0,CCarCtrl::SlowCarDownForOtherCar,1032,2832,callees_sin_catalogar=4;indirectas=0;x87=132;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:955
+145,juego,3 Media,wrapper,0x00619FA0,RsSavePresetView,393,2843,callees_sin_catalogar=3;indirectas=7;x87=14;switch=0;seh=0;biblioteca=4,source/app/platform/preset_view.cpp:127
+146,juego,4 Difícil,wrapper,0x00619D60,RsLoadPresetViews,552,2902,callees_sin_catalogar=2;indirectas=9;x87=0;switch=0;seh=0;biblioteca=4,source/app/platform/preset_view.cpp:122
+147,juego,5 Muy difícil,wrapper,0x0042EC90,CCarCtrl::DragCarToPoint,1748,2918,callees_sin_catalogar=2;indirectas=1;x87=144;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:323
+148,juego,4 Difícil,embedded_call,0x004A2580,FxEmitter_c::CreateParticle,1434,2944,callees_sin_catalogar=1;indirectas=0;x87=192;switch=0;seh=0;biblioteca=31,source/game_sa/Fx/FxEmitter.cpp:151
+149,juego,3 Media,wrapper,0x00730B70,D3DResourceSystem::DestroyTexture,439,2949,callees_sin_catalogar=5;indirectas=3;x87=6;switch=0;seh=0;biblioteca=0,source/game_sa/RenderWare/D3DResourceSystem.cpp:196
+150,juego,4 Difícil,wrapper,0x00603720,CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents,777,3107,callees_sin_catalogar=5;indirectas=0;x87=70;switch=0;seh=1;biblioteca=0,source/game_sa/Events/EventScanner.cpp:46
+151,juego,4 Difícil,wrapper,0x006A2B10,CAutomobile::Render,1005,3285,callees_sin_catalogar=0;indirectas=11;x87=60;switch=0;seh=0;biblioteca=5,source/game_sa/Entity/Vehicle/Automobile.cpp:7077
+152,juego,4 Difícil,wrapper,0x0042C740,CCarCtrl::CreateConvoy,1168,3308,callees_sin_catalogar=3;indirectas=3;x87=79;switch=0;seh=1;biblioteca=2,source/game_sa/CarCtrl.cpp:308
+153,juego,4 Difícil,wrapper,0x00657380,CTaskComplexWalkRoundObject::CreateFirstSubTask,620,3330,callees_sin_catalogar=6;indirectas=0;x87=41;switch=0;seh=1;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp:75
+154,juego,4 Difícil,wrapper,0x004325C0,CCarCtrl::FindAngleToWeaveThroughTraffic,1339,3559,callees_sin_catalogar=4;indirectas=0;x87=153;switch=0;seh=0;biblioteca=16,source/game_sa/CarCtrl.cpp:328
+155,juego,5 Muy difícil,wrapper,0x00426EF0,CCarCtrl::PickNextNodeToChaseCar,2111,3581,callees_sin_catalogar=3;indirectas=0;x87=93;switch=0;seh=0;biblioteca=3,source/game_sa/CarCtrl.cpp:684
+156,juego,4 Difícil,wrapper,0x0042DAB0,CCarCtrl::IsThisAnAppropriateNode,932,3672,callees_sin_catalogar=6;indirectas=0;x87=17;switch=1;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:574
+157,juego,4 Difícil,wrapper,0x006E3440,CVehicle::GetPlaneWeaponFiringStatus,944,3734,callees_sin_catalogar=6;indirectas=0;x87=9;switch=1;seh=0;biblioteca=1,source/game_sa/Entity/Vehicle/Vehicle.cpp:7844
+158,juego,4 Difícil,wrapper,0x0060C840,CPlayerPed::MakeThisPedJoinOurGroup,1029,3939,callees_sin_catalogar=5;indirectas=0;x87=4;switch=0;seh=1;biblioteca=0,source/game_sa/Entity/Ped/PlayerPed.cpp:1032
+159,juego,4 Difícil,wrapper,0x00559230,CStats::BuildStatLine,735,4105,callees_sin_catalogar=7;indirectas=0;x87=24;switch=1;seh=0;biblioteca=9,source/game_sa/Stats.cpp:375
+160,juego,4 Difícil,wrapper,0x006C69C0,CHeli::SendDownSwat,869,4209,callees_sin_catalogar=7;indirectas=0;x87=33;switch=0;seh=1;biblioteca=1,source/game_sa/Entity/Vehicle/Heli.cpp:260
+161,juego,4 Difícil,wrapper,0x006C4E60,CHeli::ProcessFlyingCarStuff,1467,4217,callees_sin_catalogar=6;indirectas=0;x87=112;switch=0;seh=1;biblioteca=2,source/game_sa/Entity/Vehicle/Heli.cpp:374
+162,juego,5 Muy difícil,wrapper,0x00429A70,CCarCtrl::FlyAIHeliInCertainDirection,2994,4424,callees_sin_catalogar=3;indirectas=0;x87=419;switch=0;seh=0;biblioteca=1,source/game_sa/CarCtrl.cpp:432
+163,juego,5 Muy difícil,wrapper,0x00427740,CCarCtrl::PickNextNodeToFollowPath,2193,4433,callees_sin_catalogar=5;indirectas=0;x87=98;switch=0;seh=0;biblioteca=4,source/game_sa/CarCtrl.cpp:689
+164,juego,4 Difícil,wrapper,0x0061CBA0,FightHitPedExe,1289,4629,callees_sin_catalogar=6;indirectas=1;x87=28;switch=0;seh=1;biblioteca=6,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:263
+165,juego,4 Difícil,wrapper,0x0042C2B0,CCarCtrl::CreatePoliceChase,1161,5221,callees_sin_catalogar=7;indirectas=4;x87=29;switch=0;seh=1;biblioteca=3,source/game_sa/CarCtrl.cpp:313
+166,juego,5 Muy difícil,wrapper,0x00425440,CCarCtrl::SlowCarDownForPedsSectorList,1761,5371,callees_sin_catalogar=8;indirectas=0;x87=183;switch=0;seh=1;biblioteca=0,source/game_sa/CarCtrl.cpp:961
+167,juego,5 Muy difícil,wrapper,0x00426350,CCarCtrl::WeaveForOtherCar,1558,5638,callees_sin_catalogar=10;indirectas=0;x87=128;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1227
+168,juego,4 Difícil,wrapper,0x0062B150,CTaskComplexKillPedOnFoot::CreateNextSubTask,831,5771,callees_sin_catalogar=11;indirectas=2;x87=20;switch=0;seh=0;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp:66
+169,juego,5 Muy difícil,wrapper,0x00428040,CCarCtrl::DealWithBend_Racing,2361,6121,callees_sin_catalogar=9;indirectas=0;x87=338;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:318
+170,juego,5 Muy difícil,wrapper,0x0042DE80,CCarCtrl::PickNextNodeRandomly,3591,6611,callees_sin_catalogar=7;indirectas=0;x87=109;switch=0;seh=0;biblioteca=4,source/game_sa/CarCtrl.cpp:679
+171,juego,5 Muy difícil,wrapper,0x00683AD0,CTaskComplexPartner::CreateNextSubTask,1521,6861,callees_sin_catalogar=9;indirectas=7;x87=67;switch=0;seh=1;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:68
+172,juego,4 Difícil,wrapper,0x00641100,CTaskComplexLeaveCar::MakeAbortable,1069,6899,callees_sin_catalogar=6;indirectas=20;x87=5;switch=0;seh=1;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp:55
+173,juego,5 Muy difícil,wrapper,0x006C4830,CHeli::ProcessControlInputs,1571,7171,callees_sin_catalogar=13;indirectas=0;x87=207;switch=0;seh=0;biblioteca=2,source/game_sa/Entity/Vehicle/Heli.cpp:322
+174,juego,4 Difícil,wrapper,0x00695090,CTaskComplexFollowPedFootsteps::ControlSubTask,1341,7201,callees_sin_catalogar=12;indirectas=6;x87=71;switch=0;seh=0;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp:81
+175,juego,5 Muy difícil,wrapper,0x006C7050,CHeli::ProcessControl,2352,7472,callees_sin_catalogar=11;indirectas=0;x87=170;switch=1;seh=0;biblioteca=4,source/game_sa/Entity/Vehicle/Heli.cpp:386
+176,juego,5 Muy difícil,wrapper,0x00629920,CTaskSimpleFight::ProcessPed,1907,8547,callees_sin_catalogar=15;indirectas=0;x87=71;switch=0;seh=0;biblioteca=2,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:227
+177,juego,4 Difícil,wrapper,0x00747EB0,__MainWndProc,1458,8668,callees_sin_catalogar=7;indirectas=24;x87=2;switch=3;seh=0;biblioteca=11,source/app/platform/win/WinMain.cpp:102
+178,juego,5 Muy difícil,wrapper,0x005E2530,CPed::ProcessEntityCollision,4342,8832,callees_sin_catalogar=9;indirectas=0;x87=300;switch=0;seh=1;biblioteca=0,source/game_sa/Entity/Ped/Ped.cpp:4715
+179,juego,5 Muy difícil,wrapper,0x00468560,CMissionCleanup::Process,1955,9065,callees_sin_catalogar=14;indirectas=1;x87=0;switch=1;seh=0;biblioteca=0,source/game_sa/MissionCleanup.cpp:31
+180,juego,4 Difícil,wrapper,0x006C5420,CHeli::PreRender,1204,9284,callees_sin_catalogar=19;indirectas=1;x87=96;switch=0;seh=1;biblioteca=0,source/game_sa/Entity/Vehicle/Heli.cpp:380
+181,juego,5 Muy difícil,wrapper,0x00435830,CCarCtrl::SteerAICarWithPhysicsFollowPath_Racing,3320,10720,callees_sin_catalogar=18;indirectas=0;x87=249;switch=0;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1044
+182,juego,5 Muy difícil,wrapper,0x00434900,CCarCtrl::SteerAICarWithPhysicsFollowPath,3729,10909,callees_sin_catalogar=17;indirectas=0;x87=345;switch=3;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1039
+183,juego,4 Difícil,wrapper,0x006419F0,CTaskComplexLeaveCar::CreateNextSubTask,1428,12088,callees_sin_catalogar=25;indirectas=2;x87=0;switch=2;seh=0;biblioteca=0,source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp:60
+184,juego,5 Muy difícil,embedded_call,0x0051D770,helper sin símbolo confirmado (usado por CameraObbeCinemaCycle),3445,15135,callees_sin_catalogar=26;indirectas=0;x87=143;switch=1;seh=0;biblioteca=1,source/game_sa/Camera.cpp:1806
+185,juego,5 Muy difícil,wrapper,0x00436A90,CCarCtrl::SteerAICarWithPhysics_OnlyMission,4243,26343,callees_sin_catalogar=53;indirectas=0;x87=190;switch=1;seh=0;biblioteca=0,source/game_sa/CarCtrl.cpp:1069
+1,biblioteca,1 Muy fácil,RenderWare SDK,0x0080A440,_rwStringClose,1,1,,source/game_sa/RenderWare/rw/rwplcore.cpp:74
+2,biblioteca,1 Muy fácil,RenderWare SDK,0x007C8820,_rpSkinDeinitialize,5,5,,source/game_sa/RenderWare/rw/rpskin.cpp:70
+3,biblioteca,1 Muy fácil,RenderWare SDK,0x007F1920,RwMatrixOrthoNormalize,5,5,,source/game_sa/RenderWare/rw/rwplcore.cpp:182
+4,biblioteca,1 Muy fácil,RenderWare SDK,0x007F5F60,_rwDeviceRegisterPlugin,5,5,,source/game_sa/RenderWare/rw/rwcore.cpp:831
+5,biblioteca,1 Muy fácil,RenderWare SDK,0x00801B70,RwFreeListCreateAndPreallocateSpace,5,5,,source/game_sa/RenderWare/rw/rwplcore.cpp:14
+6,biblioteca,1 Muy fácil,Controlador D3D9 de RenderWare,0x0075E9F0,RxNodeDefinitionGetD3D9WorldSectorAllInOne,6,6,,source/game_sa/RenderWare/rw/rpworld.cpp:127
+7,biblioteca,1 Muy fácil,RenderWare SDK,0x007CC010,_rpUVAnimCustomDataStreamGetSize,6,6,,source/game_sa/RenderWare/rw/rpuvanim.cpp:14
+8,biblioteca,1 Muy fácil,RenderWare SDK,0x008052F0,RxHeapGetGlobalHeap,6,6,,source/game_sa/RenderWare/rw/rwcore.cpp:78
+9,biblioteca,1 Muy fácil,RenderWare SDK,0x00809530,_rwSListGetBegin,7,7,,source/game_sa/RenderWare/rw/rwplcore.cpp:302
+10,biblioteca,1 Muy fácil,RenderWare SDK,0x007CEEE0,RtDictSchemaGetCurrentDict,8,8,,source/game_sa/RenderWare/rw/rtdict.cpp:34
+11,biblioteca,1 Muy fácil,RenderWare SDK,0x008094B0,_rwSListGetNumEntries,8,8,,source/game_sa/RenderWare/rw/rwplcore.cpp:298
+12,biblioteca,1 Muy fácil,RenderWare SDK,0x00748F20,RpAnisotGetMaxSupportedMaxAnisotropy,9,9,,source/game_sa/RenderWare/rw/rpanisot.cpp:6
+13,biblioteca,1 Muy fácil,CRT / runtime estático,0x0082B181,helper sin símbolo confirmado (usado por ExeAsinSetDomainErrno),9,9,,source/game_sa/X87Math.cpp:323
+14,biblioteca,1 Muy fácil,Controlador D3D9 de RenderWare,0x007FAC90,RwD3D9DeleteVertexShader,11,11,,source/game_sa/RenderWare/rw/rwcore.cpp:799
+15,biblioteca,1 Muy fácil,Controlador D3D9 de RenderWare,0x007FACF0,RwD3D9DeletePixelShader,11,11,,source/game_sa/RenderWare/rw/rwcore.cpp:807
+16,biblioteca,1 Muy fácil,Controlador D3D9 de RenderWare,0x007522E0,_rpD3D9VertexDeclarationGetSize,12,12,,source/game_sa/RenderWare/rw/rpworld.cpp:951
+17,biblioteca,1 Muy fácil,RenderWare SDK,0x007CD590,RtAnimInterpolatorDestroy,12,12,,source/game_sa/RenderWare/rw/rtanim.cpp:77
+18,biblioteca,1 Muy fácil,RenderWare SDK,0x00809400,_rwSListDestroyEndEntries,12,12,,source/game_sa/RenderWare/rw/rwplcore.cpp:286
+19,biblioteca,1 Muy fácil,RenderWare SDK,0x0074E2B0,_rpMaterialListGetMaterial,14,14,,source/game_sa/RenderWare/rw/rpworld.cpp:207
+20,biblioteca,1 Muy fácil,RenderWare SDK,0x00751050,RpAtomicGetWorld,14,14,,source/game_sa/RenderWare/rw/rpworld.cpp:1067
+21,biblioteca,1 Muy fácil,Controlador D3D9 de RenderWare,0x007588D0,RpD3D9GeometryGetUsageFlags,14,14,,source/game_sa/RenderWare/rw/rpworld.cpp:899
+22,biblioteca,1 Muy fácil,Controlador D3D9 de RenderWare,0x00758900,RpD3D9WorldSectorGetUsageFlags,14,14,,source/game_sa/RenderWare/rw/rpworld.cpp:907
+23,biblioteca,1 Muy fácil,RenderWare SDK,0x0074E1B0,_rpMaterialListInitialize,15,15,,source/game_sa/RenderWare/rw/rpworld.cpp:195
+24,biblioteca,1 Muy fácil,RenderWare SDK,0x007C5160,RpHAnimFrameGetHierarchy,15,15,,source/game_sa/RenderWare/rw/rphanim.cpp:46
+25,biblioteca,1 Muy fácil,RenderWare SDK,0x007F3550,RwTextureGetMipmapping,16,16,,source/game_sa/RenderWare/rw/rwcore.cpp:423
+26,biblioteca,1 Muy fácil,RenderWare SDK,0x007F3580,RwTextureGetAutoMipmapping,16,16,,source/game_sa/RenderWare/rw/rwcore.cpp:431
+27,biblioteca,1 Muy fácil,RenderWare SDK,0x00809540,_rwSListGetEnd,16,16,,source/game_sa/RenderWare/rw/rwplcore.cpp:306
+28,biblioteca,1 Muy fácil,RenderWare SDK,0x007F0340,RwFrameDirty,17,17,,source/game_sa/RenderWare/rw/rwcore.cpp:956
+29,biblioteca,1 Muy fácil,RenderWare SDK,0x00809510,_rwSListGetEntry,17,17,,source/game_sa/RenderWare/rw/rwplcore.cpp:290
+30,biblioteca,1 Muy fácil,Controlador D3D9 de RenderWare,0x007588E0,RpD3D9WorldSectorSetUsageFlags,18,18,,source/game_sa/RenderWare/rw/rpworld.cpp:903
+31,biblioteca,1 Muy fácil,RenderWare SDK,0x007591B0,RpBuildMeshGenerateDefaultTriStrip,18,18,,source/game_sa/RenderWare/rw/rpworld.cpp:315
+32,biblioteca,1 Muy fácil,CRT / runtime estático,0x00821D1E,_atexit,18,18,,source/game_sa/SpecialFX.cpp:118
+33,biblioteca,1 Muy fácil,CRT / runtime estático,0x00824257,CMemoryMgr::Malloc,18,18,,source/game_sa/MemoryMgr.cpp:295
+34,biblioteca,1 Muy fácil,RenderWare SDK,0x0074BEC0,RpAtomicGetPluginOffset,19,19,,source/game_sa/RenderWare/rw/rpworld.cpp:763
+35,biblioteca,1 Muy fácil,RenderWare SDK,0x007F2BE0,RwEngineGetPluginOffset,19,19,,source/game_sa/RenderWare/rw/rwplcore.cpp:322
+36,biblioteca,1 Muy fácil,Controlador D3D9 de RenderWare,0x007F5C90,RwD3D9DynamicVertexBufferUnlock,20,20,,source/game_sa/RenderWare/rw/rwcore.cpp:262
+37,biblioteca,1 Muy fácil,RenderWare SDK,0x00748F50,RpAnisotTextureGetMaxAnisotropy,21,21,,source/game_sa/RenderWare/rw/rpanisot.cpp:14
+38,biblioteca,1 Muy fácil,RenderWare SDK,0x007CED70,RtDictSchemaDestruct,22,22,,source/game_sa/RenderWare/rw/rtdict.cpp:10
+39,biblioteca,1 Muy fácil,RenderWare SDK,0x007FAE60,RwRasterGetCurrentContext,22,22,,source/game_sa/RenderWare/rw/rwcore.cpp:310
+40,biblioteca,1 Muy fácil,Controlador D3D9 de RenderWare,0x00820C90,RwD3D9RasterIsCompressed,23,23,,source/game_sa/RenderWare/rw/rwcore.cpp:623
+41,biblioteca,1 Muy fácil,RenderWare SDK,0x0074BE30,RpAtomicSetStreamAlwaysCallBack,24,24,,source/game_sa/RenderWare/rw/rpworld.cpp:747
+42,biblioteca,1 Muy fácil,RenderWare SDK,0x0074BE50,RpAtomicSetStreamRightsCallBack,24,24,,source/game_sa/RenderWare/rw/rpworld.cpp:751
+43,biblioteca,1 Muy fácil,RenderWare SDK,0x00748F30,RpAnisotTextureSetMaxAnisotropy,25,25,,source/game_sa/RenderWare/rw/rpanisot.cpp:10
+44,biblioteca,1 Muy fácil,RenderWare SDK,0x00758920,_rpMeshHeaderCreate,26,26,,source/game_sa/RenderWare/rw/rpworld.cpp:287
+45,biblioteca,1 Muy fácil,QuickTime/QTML,0x00819840,QuickTime dispatch thunk (selector 0x20002),26,26,,source/game_sa/Audio/Loaders/AEMFDecoder.cpp:212
+46,biblioteca,1 Muy fácil,RenderWare SDK,0x007ED460,RwStreamWriteInt32,28,28,,source/game_sa/RenderWare/rw/rwplcore.cpp:450
+47,biblioteca,1 Muy fácil,RenderWare SDK,0x00804F40,_rwObjectHasFrameReleaseFrame,29,29,,source/game_sa/RenderWare/rw/rwcore.cpp:1192
+48,biblioteca,1 Muy fácil,Controlador D3D9 de RenderWare,0x004C9970,RwD3D9IndexBufferCreate,30,30,,source/game_sa/RenderWare/rw/rwcore.cpp:787
+49,biblioteca,1 Muy fácil,RenderWare SDK,0x00803740,RwRGBAToPixel,31,31,,source/game_sa/RenderWare/rw/rwcore.cpp:1196
+50,biblioteca,1 Muy fácil,RenderWare SDK,0x007CC9D0,RpUVAnimKeyFrameStreamGetSize,32,32,,source/game_sa/RenderWare/rw/rpuvanim.cpp:70
+51,biblioteca,1 Muy fácil,RenderWare SDK,0x007498E0,RpClumpGetNumAtomics,33,33,,source/game_sa/RenderWare/rw/rpworld.cpp:687
+52,biblioteca,1 Muy fácil,RenderWare SDK,0x0074C760,RpGeometryTriangleGetMaterial,33,33,,source/game_sa/RenderWare/rw/rpworld.cpp:391
+53,biblioteca,1 Muy fácil,RenderWare SDK,0x00801980,_rwFreeListCreate,33,33,,source/game_sa/RenderWare/rw/rwplcore.cpp:10
+54,biblioteca,1 Muy fácil,RenderWare SDK,0x0074FD00,RpWorldRegisterPluginStream,34,34,,source/game_sa/RenderWare/rw/rpworld.cpp:875
+55,biblioteca,1 Muy fácil,RenderWare SDK,0x00761CC0,RpWorldSectorRegisterPluginStream,34,34,,source/game_sa/RenderWare/rw/rpworld.cpp:467
+56,biblioteca,1 Muy fácil,Controlador D3D9 de RenderWare,0x007FACC0,RwD3D9CreatePixelShader,34,34,,source/game_sa/RenderWare/rw/rwcore.cpp:803
+57,biblioteca,1 Muy fácil,RenderWare SDK,0x00804550,RwTextureRegisterPluginStream,34,34,,source/game_sa/RenderWare/rw/rwcore.cpp:996
+58,biblioteca,1 Muy fácil,RenderWare SDK,0x00807720,_rwFrameListDeinitialize,34,34,,source/game_sa/RenderWare/rw/rwcore.cpp:1060
+59,biblioteca,1 Muy fácil,RenderWare SDK,0x00808470,_rwPluginRegistryGetPluginOffset,34,34,,source/game_sa/RenderWare/rw/rwplcore.cpp:106
+60,biblioteca,1 Muy fácil,RenderWare SDK,0x0080A470,_rwStringStreamGetSize,34,34,,source/game_sa/RenderWare/rw/rwplcore.cpp:82
+61,biblioteca,1 Muy fácil,RenderWare SDK,0x007CD4F0,RtAnimAnimationGetNumNodes,35,35,,source/game_sa/RenderWare/rw/rtanim.cpp:69
+62,biblioteca,1 Muy fácil,RenderWare SDK,0x007F3CD0,RwTextureRasterGenerateMipmaps,35,35,,source/game_sa/RenderWare/rw/rwcore.cpp:455
+63,biblioteca,1 Muy fácil,Controlador D3D9 de RenderWare,0x007F5AE0,RwD3D9DynamicVertexBufferDestroy,35,35,,source/game_sa/RenderWare/rw/rwcore.cpp:254
+64,biblioteca,1 Muy fácil,CRT / runtime estático,0x00823FD1,__lock_file2,35,35,,source/game_sa/VehicleRecording.cpp:372
+65,biblioteca,1 Muy fácil,CRT / runtime estático,0x00824023,__unlock_file2,35,35,,source/game_sa/VehicleRecording.cpp:382
+66,biblioteca,1 Muy fácil,RenderWare SDK,0x007F2BB0,RwEngineRegisterPlugin,36,36,,source/game_sa/RenderWare/rw/rwplcore.cpp:318
+67,biblioteca,1 Muy fácil,Controlador D3D9 de RenderWare,0x007F5EF0,_rwD3D9SetDepthStencilSurface,36,36,,source/app/platform/win/WindowedMode.cpp:139
+68,biblioteca,1 Muy fácil,RenderWare SDK,0x0074E420,_rpMaterialListFindMaterialIndex,39,39,,source/game_sa/RenderWare/rw/rpworld.cpp:223
+69,biblioteca,1 Muy fácil,RenderWare SDK,0x0074FCD0,RpWorldRegisterPlugin,39,39,,source/game_sa/RenderWare/rw/rpworld.cpp:871
+70,biblioteca,1 Muy fácil,RenderWare SDK,0x00751D60,RpLightRegisterPlugin,39,39,,source/game_sa/RenderWare/rw/rpworld.cpp:527
+71,biblioteca,1 Muy fácil,RenderWare SDK,0x00761C90,RpWorldSectorRegisterPlugin,39,39,,source/game_sa/RenderWare/rw/rpworld.cpp:463
+72,biblioteca,1 Muy fácil,RenderWare SDK,0x007EE450,RwCameraRegisterPlugin,39,39,,source/game_sa/RenderWare/rw/rwcore.cpp:1148
+73,biblioteca,1 Muy fácil,RenderWare SDK,0x007F3BB0,RwTextureRegisterPlugin,39,39,,source/game_sa/RenderWare/rw/rwcore.cpp:547
+74,biblioteca,1 Muy fácil,RenderWare SDK,0x007F3C10,RwTexDictionaryRegisterPlugin,39,39,,source/game_sa/RenderWare/rw/rwcore.cpp:551
+75,biblioteca,1 Muy fácil,RenderWare SDK,0x007FB0B0,RwRasterRegisterPlugin,39,39,,source/game_sa/RenderWare/rw/rwcore.cpp:343
+76,biblioteca,1 Muy fácil,RenderWare SDK,0x007EE1A0,RwCameraSetViewOffset,40,40,,source/game_sa/RenderWare/rw/rwcore.cpp:1128
+77,biblioteca,1 Muy fácil,RenderWare SDK,0x007FB0E0,RwRasterLockPalette,40,40,,source/game_sa/RenderWare/rw/rwcore.cpp:335
+78,biblioteca,2 Fácil,RenderWare SDK,0x00808920,_rwPluginRegistryAddPlgnStrmlwysCB,41,41,,source/game_sa/RenderWare/rw/rwplcore.cpp:126
+79,biblioteca,2 Fácil,RenderWare SDK,0x00808950,_rwPluginRegistryAddPlgnStrmRightsCB,41,41,,source/game_sa/RenderWare/rw/rwplcore.cpp:130
+80,biblioteca,2 Fácil,Controlador D3D9 de RenderWare,0x007FA4F0,RwD3D9GetTransform,42,42,,source/game_sa/RenderWare/rw/rwcore.cpp:755
+81,biblioteca,2 Fácil,RenderWare SDK,0x00802860,RwImageFreePixels,42,42,,source/game_sa/RenderWare/rw/rwcore.cpp:367
+82,biblioteca,2 Fácil,CRT / runtime estático,0x00827E74,__ftbuf,42,42,,source/game_sa/VehicleRecording.cpp:380
+83,biblioteca,2 Fácil,RenderWare SDK,0x0074A520,RpClumpRemoveLight,44,44,,source/game_sa/RenderWare/rw/rpworld.cpp:635
+84,biblioteca,2 Fácil,Controlador D3D9 de RenderWare,0x00764730,_rwD3D9VSGetWorldViewTransposedMatrix,44,44,,source/game_sa/RenderWare/rw/rpworld.cpp:15
+85,biblioteca,2 Fácil,RenderWare SDK,0x007CED40,RtDictSchemaInit,44,44,,source/game_sa/RenderWare/rw/rtdict.cpp:6
+86,biblioteca,2 Fácil,RenderWare SDK,0x007F2D20,RwEngineGetCurrentVideoMode,45,45,,source/game_sa/RenderWare/rw/rwplcore.cpp:370
+87,biblioteca,2 Fácil,RenderWare SDK,0x00808740,_rwPluginRegistryDeInitObject,45,45,,source/game_sa/RenderWare/rw/rwplcore.cpp:114
+88,biblioteca,2 Fácil,RenderWare SDK,0x0075E270,RpWorldSetDefaultSectorPipeline,46,46,,source/game_sa/RenderWare/rw/rpworld.cpp:1019
+89,biblioteca,2 Fácil,RenderWare SDK,0x0075E2A0,RpAtomicSetDefaultPipeline,46,46,,source/game_sa/RenderWare/rw/rpworld.cpp:1023
+90,biblioteca,2 Fácil,Controlador D3D9 de RenderWare,0x007FA320,_rwD3D9DrawIndexedPrimitive,50,50,,source/game_sa/RenderWare/rw/rwcore.cpp:691
+91,biblioteca,2 Fácil,Controlador D3D9 de RenderWare,0x007F9FB0,_rwD3D9SetVertexShader,51,51,,source/game_sa/RenderWare/rw/rwcore.cpp:707
+92,biblioteca,2 Fácil,Controlador D3D9 de RenderWare,0x007F9FF0,_rwD3D9SetPixelShader,51,51,,source/game_sa/RenderWare/rw/rwcore.cpp:711
+93,biblioteca,2 Fácil,RenderWare SDK,0x00801F90,RwFreeListPurgeAllFreeLists,51,51,,source/game_sa/RenderWare/rw/rwplcore.cpp:38
+94,biblioteca,2 Fácil,RenderWare SDK,0x0074E010,RpMaterialStreamGetSize,52,52,,source/game_sa/RenderWare/rw/rpworld.cpp:179
+95,biblioteca,2 Fácil,RenderWare SDK,0x00808770,_rwPluginRegistryCopyObject,52,52,,source/game_sa/RenderWare/rw/rwplcore.cpp:118
+96,biblioteca,2 Fácil,CRT / runtime estático,0x008220AD,_sscanf,52,52,,source/game_sa/Stats.cpp:616
+97,biblioteca,2 Fácil,RenderWare SDK,0x007CBFD0,_rpUVAnimCustomDataStreamWrite,53,53,,source/game_sa/RenderWare/rw/rpuvanim.cpp:10
+98,biblioteca,2 Fácil,RenderWare SDK,0x007FB160,RwRasterGetNumLevels,54,54,,source/game_sa/RenderWare/rw/rwcore.cpp:282
+99,biblioteca,2 Fácil,RenderWare SDK,0x008045A0,RwTextureStreamGetSize,54,54,,source/game_sa/RenderWare/rw/rwcore.cpp:1004
+100,biblioteca,2 Fácil,RenderWare SDK,0x008088E0,_rwPluginRegistryAddPluginStream,55,55,,source/game_sa/RenderWare/rw/rwplcore.cpp:122
+101,biblioteca,2 Fácil,RenderWare SDK,0x007C8B10,_rpSkinSplitDataDestroy,56,56,,source/game_sa/RenderWare/rw/rpskin.cpp:90
+102,biblioteca,2 Fácil,RenderWare SDK,0x007CC0C0,RpUVAnimDestroy,56,56,,source/game_sa/RenderWare/rw/rpuvanim.cpp:78
+103,biblioteca,2 Fácil,RenderWare SDK,0x00758BC0,_rpMeshDestroy,58,58,,source/game_sa/RenderWare/rw/rpworld.cpp:259
+104,biblioteca,2 Fácil,RenderWare SDK,0x00758D30,_rpMeshHeaderForAllMeshes,58,58,,source/game_sa/RenderWare/rw/rpworld.cpp:267
+105,biblioteca,2 Fácil,Controlador D3D9 de RenderWare,0x007F5F20,_rwD3D9SetRenderTarget,59,59,,source/app/platform/win/WindowedMode.cpp:140
+106,biblioteca,2 Fácil,RenderWare SDK,0x00808B00,_rwPluginRegistryGetSize,61,61,,source/game_sa/RenderWare/rw/rwplcore.cpp:146
+107,biblioteca,2 Fácil,RenderWare SDK,0x0074FBC0,RpWorldForAllMaterials,62,62,,source/game_sa/RenderWare/rw/rpworld.cpp:835
+108,biblioteca,2 Fácil,Controlador D3D9 de RenderWare,0x007FC3C0,RwD3D9SetSamplerState,63,63,,source/game_sa/RenderWare/rw/rwcore.cpp:731
+109,biblioteca,2 Fácil,RenderWare SDK,0x00758B80,_rpBuildMeshDestroy,64,64,,source/game_sa/RenderWare/rw/rpworld.cpp:255
+110,biblioteca,2 Fácil,RenderWare SDK,0x0074D870,_rpMaterialSetDefaultSurfaceProperties,65,65,,source/game_sa/RenderWare/RenderWare.h:45
+111,biblioteca,2 Fácil,RenderWare SDK,0x00749BB0,RpClumpForAllCameras,67,67,,source/game_sa/RenderWare/rw/rpworld.cpp:611
+112,biblioteca,2 Fácil,RenderWare SDK,0x00749C00,RpClumpForAllLights,67,67,,source/game_sa/RenderWare/rw/rpworld.cpp:607
+113,biblioteca,2 Fácil,RenderWare SDK,0x007F1450,_rwMatrixDeterminant,69,69,,source/game_sa/RenderWare/rw/rwplcore.cpp:218
+114,biblioteca,2 Fácil,RenderWare SDK,0x00808AB0,_rwPluginRegistryInvokeRights,69,69,,source/game_sa/RenderWare/rw/rwplcore.cpp:150
+115,biblioteca,2 Fácil,RenderWare SDK,0x00809440,_rwSListDestroy,69,69,,source/game_sa/RenderWare/rw/rwplcore.cpp:282
+116,biblioteca,2 Fácil,RenderWare SDK,0x007EFAC0,RwIm3DSetTransformPipeline,71,71,,source/game_sa/RenderWare/rw/rwcore.cpp:607
+117,biblioteca,2 Fácil,RenderWare SDK,0x0074EEC0,_rpSectorDefaultRenderCallBack,72,72,,source/game_sa/RenderWare/rw/rpworld.cpp:807
+118,biblioteca,2 Fácil,CRT / runtime estático,0x008220F0,_pow,72,72,,source/game_sa/PostEffects.cpp:52
+119,biblioteca,2 Fácil,RenderWare SDK,0x00808880,RwErrorGet,74,74,,source/game_sa/RenderWare/rw/rwplcore.cpp:398
+120,biblioteca,2 Fácil,RenderWare SDK,0x007CEF60,_rtDictDestruct,75,75,,source/game_sa/RenderWare/rw/rtdict.cpp:74
+121,biblioteca,2 Fácil,RenderWare SDK,0x007CF5B0,RtDictSchemaForAllDictionaries,75,75,,source/game_sa/RenderWare/rw/rtdict.cpp:30
+122,biblioteca,2 Fácil,Controlador D3D9 de RenderWare,0x007FAC10,RwD3D9DeleteVertexDeclaration,76,76,,source/game_sa/RenderWare/rw/rwcore.cpp:795
+123,biblioteca,2 Fácil,RenderWare SDK,0x00759090,_rpMeshSize,77,77,,source/game_sa/RenderWare/rw/rpworld.cpp:279
+124,biblioteca,2 Fácil,Controlador D3D9 de RenderWare,0x007646E0,_rwD3D9VSGetComposedTransformMatrix,80,80,,source/game_sa/RenderWare/rw/rpworld.cpp:11
+125,biblioteca,2 Fácil,RenderWare SDK,0x007ED4F0,RwStreamReadReal,80,80,,source/game_sa/RenderWare/rw/rwplcore.cpp:458
+126,biblioteca,2 Fácil,RenderWare SDK,0x007ED540,RwStreamReadInt32,80,80,,source/game_sa/RenderWare/rw/rwplcore.cpp:462
+127,biblioteca,2 Fácil,RenderWare SDK,0x007ED270,_rwStreamWriteVersionedChunkHeader,82,82,,source/game_sa/RenderWare/rw/rwplcore.cpp:442
+128,biblioteca,2 Fácil,Controlador D3D9 de RenderWare,0x007FAD30,RwD3D9CameraIsSphereFullyInsideFrustum,82,82,,source/game_sa/RenderWare/rw/rwcore.cpp:819
+129,biblioteca,2 Fácil,RenderWare SDK,0x008059C0,RxPipelineNodeCloneDefinition,82,82,,source/game_sa/RenderWare/rw/rwcore.cpp:166
+130,biblioteca,2 Fácil,RenderWare SDK,0x008086E0,_rwPluginRegistryInitObject,83,83,,source/game_sa/RenderWare/rw/rwplcore.cpp:110
+131,biblioteca,2 Fácil,RenderWare SDK,0x007EDB30,_rwSqrt,84,84,,source/game_sa/RenderWare/rw/rwplcore.cpp:266
+132,biblioteca,2 Fácil,Controlador D3D9 de RenderWare,0x0074E9E0,_rpD3D9RemoveDynamicGeometry,85,85,,source/game_sa/RenderWare/rw/rpworld.cpp:947
+133,biblioteca,2 Fácil,Controlador D3D9 de RenderWare,0x00754AE0,_rpD3D9VertexDeclarationInstColor,85,85,,source/game_sa/RenderWare/rw/rpworld.cpp:975
+134,biblioteca,2 Fácil,RenderWare SDK,0x007CF060,RtDictForAllEntries,85,85,,source/game_sa/RenderWare/rw/rtdict.cpp:54
+135,biblioteca,2 Fácil,RenderWare SDK,0x00808820,RwErrorSet,86,86,,source/game_sa/RenderWare/rw/rwplcore.cpp:402
+136,biblioteca,2 Fácil,RenderWare SDK,0x007EDB90,_rwInvSqrt,87,87,,source/game_sa/RenderWare/rw/rwplcore.cpp:270
+137,biblioteca,2 Fácil,RenderWare SDK,0x00804F60,_rxPipelineClose,88,88,,source/game_sa/RenderWare/rw/rwcore.cpp:66
+138,biblioteca,2 Fácil,RenderWare SDK,0x0074FC70,RpWorldForAllWorldSectors,89,89,,source/game_sa/RenderWare/rw/rpworld.cpp:843
+139,biblioteca,2 Fácil,Controlador D3D9 de RenderWare,0x007FA030,RwD3D9SetStreamSource,90,90,,source/game_sa/RenderWare/rw/rwcore.cpp:675
+140,biblioteca,2 Fácil,RenderWare SDK,0x00809F30,RxHeapDestroy,90,90,,source/game_sa/RenderWare/rw/rwcore.cpp:38
+141,biblioteca,2 Fácil,RenderWare SDK,0x0074E450,_rpMaterialListStreamGetSize,91,91,,source/game_sa/RenderWare/rw/rpworld.cpp:227
+142,biblioteca,2 Fácil,RenderWare SDK,0x007F14A0,_rwMatrixOrthogonalError,91,91,,source/game_sa/RenderWare/rw/rwplcore.cpp:226
+143,biblioteca,2 Fácil,RenderWare SDK,0x0080F070,_rxPacketDestroy,91,91,,source/game_sa/RenderWare/rw/rwcore.cpp:102
+144,biblioteca,2 Fácil,RenderWare SDK,0x0075D970,_rpMeshOptimise,93,93,,source/game_sa/RenderWare/rw/rpworld.cpp:351
+145,biblioteca,2 Fácil,RenderWare SDK,0x007CBF70,_rpUVAnimCustomDataStreamRead,94,94,,source/game_sa/RenderWare/rw/rpuvanim.cpp:6
+146,biblioteca,2 Fácil,Controlador D3D9 de RenderWare,0x007FC430,RwD3D9SetMaterial,97,97,,source/game_sa/RenderWare/rw/rwcore.cpp:759
+147,biblioteca,2 Fácil,RenderWare SDK,0x007F01A0,_rwFramePurgeClone,98,98,,source/game_sa/RenderWare/rw/rwcore.cpp:980
+148,biblioteca,2 Fácil,Controlador D3D9 de RenderWare,0x0074E970,_rpD3D9AddDynamicGeometry,99,99,,source/game_sa/RenderWare/rw/rpworld.cpp:943
+149,biblioteca,2 Fácil,RenderWare SDK,0x008129E0,RpMatFXMaterialSetUVTransformMatrices,100,100,,source/game_sa/RenderWare/rw/rpmatfx.cpp:126
+150,biblioteca,2 Fácil,RenderWare SDK,0x0080A4A0,_rwStringStreamWrite,102,102,,source/game_sa/RenderWare/rw/rwplcore.cpp:86
+151,biblioteca,2 Fácil,Controlador D3D9 de RenderWare,0x0075EE60,_rpD3D9VertexShaderCachePurge,103,103,,source/game_sa/RenderWare/rw/rpworld.cpp:67
+152,biblioteca,2 Fácil,Controlador D3D9 de RenderWare,0x007F58D0,_rwD3D9DynamicVertexBufferRestore,103,103,,source/app/platform/win/WindowedMode.cpp:541
+153,biblioteca,2 Fácil,Controlador D3D9 de RenderWare,0x00764960,_rwD3D9VSGetWorldMultiplyTransposeMatrix,104,104,,source/game_sa/RenderWare/rw/rpworld.cpp:31
+154,biblioteca,2 Fácil,RenderWare SDK,0x00809EC0,_rxHeapReset,104,104,,source/game_sa/RenderWare/rw/rwcore.cpp:42
+155,biblioteca,2 Fácil,CRT / runtime estático,0x0082413F,_free,104,104,,source/game_sa/MemoryMgr.cpp:405
+156,biblioteca,2 Fácil,RenderWare SDK,0x007CF0C0,RtDictRemoveEntry,106,106,,source/game_sa/RenderWare/rw/rtdict.cpp:58
+157,biblioteca,2 Fácil,RenderWare SDK,0x00807DE0,RwResourcesFreeResEntry,106,106,,source/game_sa/RenderWare/rw/rwplcore.cpp:430
+158,biblioteca,2 Fácil,RenderWare SDK,0x007CD520,RtAnimInterpolatorCreate,108,108,,source/game_sa/RenderWare/rw/rtanim.cpp:73
+159,biblioteca,2 Fácil,RenderWare SDK,0x007F3910,RwTextureSetMaskName,110,110,,source/game_sa/RenderWare/rw/rwcore.cpp:487
+160,biblioteca,2 Fácil,RenderWare SDK,0x007F08A0,RwFrameDestroyHierarchy,112,112,,source/game_sa/RenderWare/rw/rwcore.cpp:903
+161,biblioteca,2 Fácil,RenderWare SDK,0x008128C0,RpMatFXMaterialSetDualBlendModes,112,112,,source/game_sa/RenderWare/rw/rpmatfx.cpp:114
+162,biblioteca,2 Fácil,RenderWare SDK,0x00808C10,_rwPluginRegistrySkipDataChunks,113,113,,source/game_sa/RenderWare/rw/rwplcore.cpp:142
+163,biblioteca,2 Fácil,RenderWare SDK,0x007519F0,RpLightForAllWorldSectors,114,114,,source/game_sa/RenderWare/rw/rpworld.cpp:1107
+164,biblioteca,2 Fácil,RenderWare SDK,0x007CEFE0,RtDictFindNamedEntry,114,114,,source/game_sa/RenderWare/rw/rtdict.cpp:50
+165,biblioteca,2 Fácil,RenderWare SDK,0x007C64C0,RpHAnimKeyFrameStreamRead,116,116,,source/game_sa/RenderWare/rw/rphanim.cpp:93
+166,biblioteca,2 Fácil,RenderWare SDK,0x0080C520,RwPalQuantTerm,116,116,,source/game_sa/RenderWare/rw/rwcore.cpp:403
+167,biblioteca,2 Fácil,RenderWare SDK,0x007CC3B0,RpMaterialSetUVAnim,118,118,,source/game_sa/RenderWare/rw/rpuvanim.cpp:90
+168,biblioteca,2 Fácil,RenderWare SDK,0x00807E50,_rwResourcesPurge,118,118,,source/game_sa/RenderWare/rw/rwplcore.cpp:434
+169,biblioteca,2 Fácil,RenderWare SDK,0x008097D0,_rwFrameSyncHierarchyLTM,127,127,,source/game_sa/RenderWare/rw/rwcore.cpp:992
+170,biblioteca,2 Fácil,RenderWare SDK,0x0074F4E0,RpWorldSectorGetWorld,129,129,,source/game_sa/RenderWare/rw/rpworld.cpp:867
+171,biblioteca,2 Fácil,Controlador D3D9 de RenderWare,0x007FAD90,RwD3D9CameraIsBBoxFullyInsideFrustum,130,130,,source/game_sa/RenderWare/rw/rwcore.cpp:823
+172,biblioteca,2 Fácil,Controlador D3D9 de RenderWare,0x007558F0,_rpD3D9GetMinMaxValuesV2d,131,131,,source/game_sa/RenderWare/rw/rpworld.cpp:1007
+173,biblioteca,2 Fácil,RenderWare SDK,0x00801B80,RwFreeListDestroy,136,136,,source/game_sa/RenderWare/rw/rwplcore.cpp:18
+174,biblioteca,2 Fácil,CRT / runtime estático,0x00827DEC,__stbuf,136,136,,source/game_sa/VehicleRecording.cpp:375
+175,biblioteca,2 Fácil,RenderWare SDK,0x007F1500,_rwMatrixNormalError,137,137,,source/game_sa/RenderWare/rw/rwplcore.cpp:222
+176,biblioteca,2 Fácil,RenderWare SDK,0x00801E00,RwFreeListPurge,138,138,,source/game_sa/RenderWare/rw/rwplcore.cpp:30
+177,biblioteca,2 Fácil,Controlador D3D9 de RenderWare,0x00755FE0,_rwD3D9LightsClose,139,139,,source/game_sa/RenderWare/rw/rpworld.cpp:575
+178,biblioteca,2 Fácil,RenderWare SDK,0x007ED3D0,RwStreamWriteReal,142,142,,source/game_sa/RenderWare/rw/rwplcore.cpp:446
+179,biblioteca,2 Fácil,RenderWare SDK,0x00751300,RpWorldAddClump,143,143,,source/game_sa/RenderWare/rw/rpworld.cpp:1071
+180,biblioteca,2 Fácil,Controlador D3D9 de RenderWare,0x00764650,_rwD3D9VSSetActiveWorldMatrix,143,143,,source/game_sa/RenderWare/rw/rpworld.cpp:7
+181,biblioteca,2 Fácil,Controlador D3D9 de RenderWare,0x007F9E90,RwD3D9SetRenderTarget,148,148,,source/game_sa/RenderWare/rw/rwcore.cpp:659
+182,biblioteca,3 Media,RenderWare SDK,0x007C8A70,_rpSkinSplitDataCreate,158,158,,source/game_sa/RenderWare/rw/rpskin.cpp:86
+183,biblioteca,3 Media,Controlador D3D9 de RenderWare,0x007649D0,_rwD3D9VSGetWorldViewMultiplyTransposeMatrix,159,159,,source/game_sa/RenderWare/rw/rpworld.cpp:35
+184,biblioteca,3 Media,RenderWare SDK,0x00805710,RxPipelineExecute,159,159,,source/game_sa/RenderWare/rw/rwcore.cpp:82
+185,biblioteca,3 Media,RenderWare SDK,0x0074ECA0,_rpWorldSectorDeinstanceAll,165,165,,source/game_sa/RenderWare/rw/rpworld.cpp:791
+186,biblioteca,3 Media,RenderWare SDK,0x00809240,_rwSListGetNewEntry,166,166,,source/game_sa/RenderWare/rw/rwplcore.cpp:294
+187,biblioteca,3 Media,QuickTime/QTML,0x00819770,QuickTime runtime shutdown helper,168,168,,source/game_sa/Audio/Loaders/AEMFDecoder.cpp:213
+188,biblioteca,3 Media,RenderWare SDK,0x0080C470,RwPalQuantInit,176,176,,source/game_sa/RenderWare/rw/rwcore.cpp:399
+189,biblioteca,3 Media,RenderWare SDK,0x007F17E0,RwMatrixOptimize,179,179,,source/game_sa/RenderWare/rw/rwplcore.cpp:214
+190,biblioteca,3 Media,Controlador D3D9 de RenderWare,0x00761B70,_rpD3D9VertexShaderSetBumpMatrix,182,182,,source/game_sa/RenderWare/rw/rpworld.cpp:123
+191,biblioteca,3 Media,Controlador D3D9 de RenderWare,0x00764C60,_rwD3D9VSGetWorldNormalizedTransposeMatrix,187,187,,source/game_sa/RenderWare/rw/rpworld.cpp:47
+192,biblioteca,3 Media,RenderWare SDK,0x00808F60,RwBBoxCalculate,190,190,,source/game_sa/RenderWare/rw/rwcore.cpp:1076
+193,biblioteca,3 Media,Controlador D3D9 de RenderWare,0x007FC200,_rwD3D9RenderStateFlushCache,195,195,,source/game_sa/RenderWare/rw/rwcore.cpp:679
+194,biblioteca,3 Media,RenderWare SDK,0x00802A20,RwImageMakeMask,198,198,,source/game_sa/RenderWare/rw/rwcore.cpp:375
+195,biblioteca,3 Media,RenderWare SDK,0x007F1590,_rwMatrixIdentityError,200,200,,source/game_sa/RenderWare/rw/rwplcore.cpp:230
+196,biblioteca,3 Media,RenderWare SDK,0x00808B40,_rwPluginRegistryWriteDataChunks,201,201,,source/game_sa/RenderWare/rw/rwplcore.cpp:138
+197,biblioteca,3 Media,Controlador D3D9 de RenderWare,0x00764F60,_rwD3D9VSGetRadiusInLocalSpace,203,203,,source/game_sa/RenderWare/rw/rpworld.cpp:63
+198,biblioteca,3 Media,RenderWare SDK,0x00809160,_rwSListCreate,205,205,,source/game_sa/RenderWare/rw/rwplcore.cpp:278
+199,biblioteca,3 Media,RenderWare SDK,0x00804FE0,_rxPipelineOpen,210,210,,source/game_sa/RenderWare/rw/rwcore.cpp:62
+200,biblioteca,3 Media,RenderWare SDK,0x007C8740,_rpSkinInitialize,213,213,,source/game_sa/RenderWare/rw/rpskin.cpp:66
+201,biblioteca,3 Media,Controlador D3D9 de RenderWare,0x007647B0,_rwD3D9VSGetInverseWorldMatrix,214,214,,source/game_sa/RenderWare/rw/rpworld.cpp:23
+202,biblioteca,3 Media,Controlador D3D9 de RenderWare,0x00764A70,_rwD3D9VSGetWorldNormalizedMultiplyTransposeMatrix,219,219,,source/game_sa/RenderWare/rw/rpworld.cpp:39
+203,biblioteca,3 Media,Controlador D3D9 de RenderWare,0x007F5A00,RwD3D9DynamicVertexBufferCreate,220,220,,source/game_sa/RenderWare/rw/rwcore.cpp:250
+204,biblioteca,3 Media,Controlador D3D9 de RenderWare,0x00755AA0,_rpD3D9FindFormatV2d,227,227,,source/game_sa/RenderWare/rw/rpworld.cpp:1015
+205,biblioteca,3 Media,RenderWare SDK,0x00758A90,_rpBuildMeshCreate,234,234,,source/game_sa/RenderWare/rw/rpworld.cpp:251
+206,biblioteca,3 Media,Controlador D3D9 de RenderWare,0x00764E70,_rwD3D9VSGetPointInLocalSpace,234,234,,source/game_sa/RenderWare/rw/rpworld.cpp:59
+207,biblioteca,3 Media,RenderWare SDK,0x0080EA40,RxRenderStateVectorSetDefaultRenderStateVector,234,234,,source/game_sa/RenderWare/rw/rwcore.cpp:351
+208,biblioteca,3 Media,RenderWare SDK,0x00802FD0,RwImageRead,240,240,,source/game_sa/RenderWare/rw/rwcore.cpp:383
+209,biblioteca,3 Media,RenderWare SDK,0x008081F0,RwResourcesEmptyArena,240,240,,source/game_sa/RenderWare/rw/rwplcore.cpp:422
+210,biblioteca,3 Media,Controlador D3D9 de RenderWare,0x007F9C30,RwD3D9DeviceSupportsDXTTexture,242,242,,source/game_sa/RenderWare/rw/rwcore.cpp:627
+211,biblioteca,3 Media,RenderWare SDK,0x007C4C30,RpHAnimHierarchyCreate,247,247,,source/game_sa/RenderWare/rw/rphanim.cpp:10
+212,biblioteca,3 Media,RenderWare SDK,0x008045E0,RwTextureStreamWrite,250,250,,source/game_sa/RenderWare/rw/rwcore.cpp:1012
+213,biblioteca,3 Media,RenderWare SDK,0x0080CD10,RwImageCreateResample,252,252,,source/game_sa/RenderWare/rw/rwcore.cpp:847
+214,biblioteca,3 Media,RenderWare SDK,0x00801E90,RwFreeListForAllUsed,254,254,,source/game_sa/RenderWare/rw/rwplcore.cpp:34
+215,biblioteca,3 Media,RenderWare SDK,0x00808DE0,RwCameraStreamRead,263,263,,source/game_sa/RenderWare/rw/rwcore.cpp:1176
+216,biblioteca,3 Media,Controlador D3D9 de RenderWare,0x004CD250,_rwD3D9RasterConvertToNonPalettized,265,265,,source/game_sa/RenderWare/rw/rwcore.cpp:827
+217,biblioteca,3 Media,Controlador D3D9 de RenderWare,0x00764B50,_rwD3D9VSGetWorldNormalizedViewMultiplyTransposeMatrix,269,269,,source/game_sa/RenderWare/rw/rpworld.cpp:43
+218,biblioteca,3 Media,RenderWare SDK,0x00809F90,RxHeapCreate,270,270,,source/game_sa/RenderWare/rw/rwcore.cpp:34
+219,biblioteca,3 Media,RenderWare SDK,0x0080A240,_rwStringOpen,272,272,,source/game_sa/RenderWare/rw/rwplcore.cpp:70
+220,biblioteca,3 Media,RenderWare SDK,0x007CF490,RtDictStreamWrite,283,283,,source/game_sa/RenderWare/rw/rtdict.cpp:62
+221,biblioteca,3 Media,RenderWare SDK,0x00758C00,_rpBuildMeshAddTriangle,291,291,,source/game_sa/RenderWare/rw/rpworld.cpp:263
+222,biblioteca,3 Media,RenderWare SDK,0x00808980,_rwPluginRegistryReadDataChunks,299,299,,source/game_sa/RenderWare/rw/rwplcore.cpp:134
+223,biblioteca,3 Media,Controlador D3D9 de RenderWare,0x00764D30,_rwD3D9VSGetNormalInLocalSpace,308,308,,source/game_sa/RenderWare/rw/rpworld.cpp:55
+224,biblioteca,3 Media,RenderWare SDK,0x007F09C0,RwFrameAddChildNoUpdate,313,313,,source/game_sa/RenderWare/rw/rwcore.cpp:919
+225,biblioteca,3 Media,RenderWare SDK,0x008098B0,RxHeapFree,319,319,,source/game_sa/RenderWare/rw/rwcore.cpp:50
+226,biblioteca,3 Media,Controlador D3D9 de RenderWare,0x007FA520,RwD3D9SetTransformWorld,320,320,,source/game_sa/RenderWare/rw/rwcore.cpp:767
+227,biblioteca,3 Media,RenderWare SDK,0x00803FE0,RwImageSetGamma,325,325,,source/game_sa/RenderWare/rw/rwcore.cpp:391
+228,biblioteca,3 Media,RenderWare SDK,0x00749330,RpAtomicGetWorldBoundingSphere,327,327,,source/game_sa/RenderWare/rw/rpworld.cpp:595
+229,biblioteca,3 Media,RenderWare SDK,0x00758D70,_rpMeshWrite,329,329,,source/game_sa/RenderWare/rw/rpworld.cpp:271
+230,biblioteca,3 Media,Controlador D3D9 de RenderWare,0x007F56A0,RwD3D9DestroyVertexBuffer,329,329,,source/game_sa/RenderWare/rw/rwcore.cpp:246
+231,biblioteca,3 Media,RenderWare SDK,0x00751F00,RpLightStreamRead,338,338,,source/game_sa/RenderWare/rw/rpworld.cpp:519
+232,biblioteca,3 Media,Controlador D3D9 de RenderWare,0x00761A10,_rpD3D9VertexShaderSetEnvMatrix,349,349,,source/game_sa/RenderWare/rw/rpworld.cpp:119
+233,biblioteca,3 Media,RenderWare SDK,0x0074ED50,_rpWorldSectorDestroyRecurse,364,364,,source/game_sa/RenderWare/rw/rpworld.cpp:795
+234,biblioteca,3 Media,Controlador D3D9 de RenderWare,0x007FB480,_rwD3D9Im2DRenderOpen,368,368,,source/app/platform/win/WindowedMode.cpp:596
+235,biblioteca,3 Media,Controlador D3D9 de RenderWare,0x007F5B10,RwD3D9DynamicVertexBufferLock,369,369,,source/game_sa/RenderWare/rw/rwcore.cpp:258
+236,biblioteca,3 Media,RenderWare SDK,0x008035C0,RwImageReadMaskedImage,375,375,,source/game_sa/RenderWare/rw/rwcore.cpp:379
+237,biblioteca,3 Media,Controlador D3D9 de RenderWare,0x00754C80,_rpD3D9VertexDeclarationInstIndicesRemap,386,386,,source/game_sa/RenderWare/rw/rpworld.cpp:983
+238,biblioteca,3 Media,RenderWare SDK,0x00803E30,RwImageGammaCorrect,395,395,,source/game_sa/RenderWare/rw/rwcore.cpp:395
+239,biblioteca,3 Media,Controlador D3D9 de RenderWare,0x007F5500,RwD3D9CreateVertexBuffer,404,404,,source/game_sa/RenderWare/rw/rwcore.cpp:242
+240,biblioteca,3 Media,CRT / runtime estático,0x00824269,CMemoryMgr::Realloc,406,406,,source/game_sa/MemoryMgr.cpp:355
+241,biblioteca,3 Media,Controlador D3D9 de RenderWare,0x007F8D70,RwD3D9CameraAttachWindow,424,424,,source/game_sa/RenderWare/rw/rwcore.cpp:671
+242,biblioteca,3 Media,RenderWare SDK,0x00809550,_rwFrameSyncDirty,425,425,,source/game_sa/RenderWare/rw/rwcore.cpp:988
+243,biblioteca,3 Media,RenderWare SDK,0x00812160,RpMatFXMaterialSetBumpMapTexture,438,438,,source/game_sa/RenderWare/rw/rpmatfx.cpp:50
+244,biblioteca,3 Media,RenderWare SDK,0x0074C310,RpGeometryAddMorphTargets,443,443,,source/game_sa/RenderWare/rw/rpworld.cpp:367
+245,biblioteca,3 Media,RenderWare SDK,0x00758EC0,_rpMeshRead,462,462,,source/game_sa/RenderWare/rw/rpworld.cpp:275
+246,biblioteca,3 Media,RenderWare SDK,0x007CD8D0,RtAnimInterpolatorAddAnimTime,471,471,,source/game_sa/RenderWare/rw/rtanim.cpp:202
+247,biblioteca,3 Media,Controlador D3D9 de RenderWare,0x007FAA30,RwD3D9CreateVertexDeclaration,480,480,,source/game_sa/RenderWare/rw/rwcore.cpp:791
+248,biblioteca,3 Media,Controlador D3D9 de RenderWare,0x007F7F70,_rwD3D9DeviceReleaseVideoMemory,488,488,,source/app/platform/win/WindowedMode.cpp:138
+249,biblioteca,3 Media,RenderWare SDK,0x0075D530,_rpTriListMeshGenerate,497,497,,source/game_sa/RenderWare/rw/rpworld.cpp:347
+250,biblioteca,3 Media,CRT / runtime estático,0x008219F0,helper sin símbolo confirmado (usado por CPedGeometryAnalyser::IsWanderPathClear),498,498,,source/game_sa/PedGeometryAnalyser.cpp:792
+251,biblioteca,4 Difícil,RenderWare SDK,0x008046E0,RwTextureStreamRead,511,511,,source/game_sa/RenderWare/rw/rwcore.cpp:1008
+252,biblioteca,4 Difícil,RenderWare SDK,0x008084A0,_rwPluginRegistryAddPlugin,515,515,,source/game_sa/RenderWare/rw/rwplcore.cpp:102
+253,biblioteca,4 Difícil,Controlador D3D9 de RenderWare,0x007555E0,_rpD3D9VertexDeclarationUnInstV2d,531,531,,source/game_sa/RenderWare/rw/rpworld.cpp:999
+254,biblioteca,4 Difícil,Controlador D3D9 de RenderWare,0x0080E020,_rwD3D9Im3DRenderOpen,578,578,,source/app/platform/win/WindowedMode.cpp:604
+255,biblioteca,4 Difícil,Controlador D3D9 de RenderWare,0x00755D80,_rwD3D9LightsOpen,604,604,,source/game_sa/RenderWare/rw/rpworld.cpp:555
+256,biblioteca,4 Difícil,RenderWare SDK,0x0080A510,_rwStringStreamFindAndRead,609,609,,source/game_sa/RenderWare/rw/rwplcore.cpp:90
+257,biblioteca,4 Difícil,RenderWare SDK,0x007EFB10,RwIm3DSetRenderPipeline,644,644,,source/game_sa/RenderWare/rw/rwcore.cpp:611
+258,biblioteca,4 Difícil,RenderWare SDK,0x00807970,_rwFrameListStreamRead,671,671,,source/game_sa/RenderWare/rw/rwcore.cpp:1068
+259,biblioteca,4 Difícil,RenderWare SDK,0x0074F210,RpWorldUnlock,710,710,,source/game_sa/RenderWare/rw/rpworld.cpp:815
+260,biblioteca,4 Difícil,RenderWare SDK,0x007F1D00,RwMatrixRotateOneMinusCosineSine,717,717,,source/game_sa/RenderWare/rw/rwplcore.cpp:202
+261,biblioteca,4 Difícil,RenderWare SDK,0x0074DD30,RpMaterialStreamRead,724,724,,source/game_sa/RenderWare/rw/rpworld.cpp:183
+262,biblioteca,4 Difícil,RenderWare SDK,0x0080AA80,RwPalQuantAddImage,784,784,,source/game_sa/RenderWare/rw/rwcore.cpp:407
+263,biblioteca,4 Difícil,RenderWare SDK,0x0074E600,_rpMaterialListStreamRead,870,870,,source/game_sa/RenderWare/rw/rpworld.cpp:231
+264,biblioteca,4 Difícil,Controlador D3D9 de RenderWare,0x007551F0,_rpD3D9VertexDeclarationUnInstV3d,936,936,,source/game_sa/RenderWare/rw/rpworld.cpp:995
+265,biblioteca,4 Difícil,RenderWare SDK,0x00802AF0,RwImageApplyMask,936,936,,source/game_sa/RenderWare/rw/rwcore.cpp:371
+266,biblioteca,4 Difícil,Controlador D3D9 de RenderWare,0x00754E20,_rpD3D9VertexDeclarationInstTangent,973,973,,source/game_sa/RenderWare/rw/rpworld.cpp:991
+267,biblioteca,4 Difícil,Controlador D3D9 de RenderWare,0x004CC970,_rxD3D9VideoMemoryRasterListRestore,990,990,,source/app/platform/win/WindowedMode.cpp:533
+268,biblioteca,4 Difícil,RenderWare SDK,0x007CF9B0,RtPNGImageRead,1039,1039,,source/game_sa/RenderWare/rw/rtpng.cpp:10
+269,biblioteca,4 Difícil,RenderWare SDK,0x0080C600,RwImageResample,1045,1045,,source/game_sa/RenderWare/rw/rwcore.cpp:843
+270,biblioteca,4 Difícil,RenderWare SDK,0x0080BF20,RwPalQuantMatchImage,1289,1289,,source/game_sa/RenderWare/rw/rwcore.cpp:415
+271,biblioteca,4 Difícil,RenderWare SDK,0x0080AF60,RwPalQuantResolvePalette,1320,1320,,source/game_sa/RenderWare/rw/rwcore.cpp:411
+272,biblioteca,4 Difícil,RenderWare SDK,0x0074D190,RpGeometryStreamRead,1332,1332,,source/game_sa/RenderWare/rw/rpworld.cpp:447
+273,biblioteca,4 Difícil,Controlador D3D9 de RenderWare,0x007544E0,_rpD3D9VertexDeclarationInstV2d,1467,1467,,source/game_sa/RenderWare/rw/rpworld.cpp:971
+274,biblioteca,5 Muy difícil,Controlador D3D9 de RenderWare,0x00752AD0,_rpD3D9VertexDeclarationInstV3d,1700,1700,,source/game_sa/RenderWare/rw/rpworld.cpp:959
+275,biblioteca,5 Muy difícil,Controlador D3D9 de RenderWare,0x007FD100,_rwD3D9RenderStateReset,1806,1806,,source/app/platform/win/WindowedMode.cpp:550
+276,biblioteca,5 Muy difícil,CRT / runtime estático,0x00827F4B,helper sin símbolo confirmado (usado por CrtPrintf),1904,1904,,source/game_sa/VehicleRecording.cpp:378
+277,biblioteca,5 Muy difícil,Controlador D3D9 de RenderWare,0x00752320,_rpD3D9VertexDeclarationInstWeights,1908,1908,,source/game_sa/RenderWare/rw/rpworld.cpp:987
+278,biblioteca,5 Muy difícil,Controlador D3D9 de RenderWare,0x00753B60,_rpD3D9VertexDeclarationInstV3dMorph,2370,2370,,source/game_sa/RenderWare/rw/rpworld.cpp:967
+279,biblioteca,5 Muy difícil,CRT / runtime estático,0x00829B99,helper sin símbolo confirmado (usado por FlcCrtPow),2861,2861,,source/game_sa/X87Math.cpp:12332

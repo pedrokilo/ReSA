@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: RwCore
- * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 29/29 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 4/4 entradas.
+ * Validación registrada: 29/29 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -20,6 +20,92 @@ END GENERATED HOOK STATUS */
 
 #include "rwcore.h"
 
+// Estado global del motor que leen o escriben las funciones reconstruidas del grupo g25d en este archivo (direcciones del EXE):
+//   RwEngineInstance (0xC97B24, ver RenderWare.h)       puntero a RwGlobals; los modulos cuelgan de el con su `globalsOffset`
+//   textureModule.globalsOffset  0xC97B4C                RwTextureGlobals: mipmapping +0x1C, autoMipmapping +0x20, callback de generacion +0x2C
+//   rasterModule.globalsOffset   0xC980D8                RwRasterGlobals: pila de contextos +0x00 (10 entradas), puntero de pila +0x28
+//   lista de buferes de vertices dinamicos D3D9 0xC97B8C (cabeza)
+//   superficie de profundidad actual 0xC9808C ; dispositivo D3D9 (_RwD3DDevice) 0xC97C28
+//   registros de plugins: textureTKList 0x8E23CC, texDictTKList 0x8E23E4, rasterTKList 0x8E2518
+namespace {
+auto& TextureModuleGlobalsOffset  = StaticRef<RwInt32>(0xC97B4C);
+auto& RasterModuleGlobalsOffset   = StaticRef<RwInt32>(0xC980D8);
+auto& TextureTKList               = StaticRef<RwPluginRegistry>(0x8E23CC);
+auto& TexDictTKList               = StaticRef<RwPluginRegistry>(0x8E23E4);
+auto& RasterTKList                = StaticRef<RwPluginRegistry>(0x8E2518);
+auto& CurrentDepthStencilSurface  = StaticRef<void*>(0xC9808C);
+auto& D3D9Device                  = StaticRef<void*>(0xC97C28);
+
+struct TextureGlobalsLayout {   // solo los campos que usan estas funciones (batextur.c de RW 3.6)
+    uint8 pad0[0x1C];
+    RwBool mipmapping;          // +0x1C
+    RwBool autoMipmapping;      // +0x20
+    uint8 pad1[0x08];
+    RwTextureCallBackMipmapGeneration mipmapGenerationCallBack; // +0x2C
+};
+static_assert(offsetof(TextureGlobalsLayout, mipmapping) == 0x1C && offsetof(TextureGlobalsLayout, autoMipmapping) == 0x20
+           && offsetof(TextureGlobalsLayout, mipmapGenerationCallBack) == 0x2C);
+
+struct RasterGlobalsLayout {    // pila de contextos de RwRasterPushContext/PopContext (bardevice/baraster.c)
+    RwRaster* rasterStack[10];  // +0x00
+    RwInt32   rasterSP;         // +0x28
+};
+static_assert(offsetof(RasterGlobalsLayout, rasterSP) == 0x28);
+
+struct D3D9DynamicVertexBuffer { // nodo de la lista 0xC97B8C (0x14 bytes)
+    uint32 size;                 // +0x00
+    uint32 inUse;                // +0x04 (RwD3D9DynamicVertexBufferDestroy lo pone a 0)
+    void*  vertexBuffer;         // +0x08 IDirect3DVertexBuffer9*
+    uint32 used;                 // +0x0C (RwD3D9DynamicVertexBufferDestroy lo pone a 0)
+    D3D9DynamicVertexBuffer* next; // +0x10
+};
+static_assert(sizeof(D3D9DynamicVertexBuffer) == 0x14 && offsetof(D3D9DynamicVertexBuffer, next) == 0x10);
+auto& DynamicVertexBufferList = StaticRef<D3D9DynamicVertexBuffer*>(0xC97B8C);
+
+TextureGlobalsLayout& TextureGlobals() {
+    return *reinterpret_cast<TextureGlobalsLayout*>(reinterpret_cast<uint8*>(RwEngineInstance) + TextureModuleGlobalsOffset);
+}
+RasterGlobalsLayout& RasterGlobals() {
+    return *reinterpret_cast<RasterGlobalsLayout*>(reinterpret_cast<uint8*>(RwEngineInstance) + RasterModuleGlobalsOffset);
+}
+
+// Llamada COM stdcall por la tabla virtual (this primero); la tabla se lee en el momento de la llamada.
+template<size_t Slot, typename R, typename... Args>
+R ComCall(void* self, Args... args) {
+    auto* const vtbl = *reinterpret_cast<void***>(self);
+    return reinterpret_cast<R(__stdcall*)(void*, Args...)>(vtbl[Slot])(self, args...);
+}
+constexpr size_t kSlotRelease = 2;                      // IUnknown::Release
+constexpr size_t kSlotVertexBufferUnlock = 12;          // IDirect3DVertexBuffer9::Unlock (+0x30)
+constexpr size_t kSlotSetDepthStencilSurface = 39;      // IDirect3DDevice9::SetDepthStencilSurface (+0x9C)
+constexpr size_t kSlotCreatePixelShader = 106;          // IDirect3DDevice9::CreatePixelShader (+0x1A8)
+} // namespace
+
+// Biblioteca RenderWare / controlador D3D9 (reconstruidas en C++, banco Dependencies25D); registro propio para no compartir lista con otros grupos.
+void RwCoreInjectHooks25d() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwCore");
+
+    RH_ScopedGlobalInstall(RwTextureGetMipmapping, 0x7F3550);
+    RH_ScopedGlobalInstall(RwTextureGetAutoMipmapping, 0x7F3580);
+    RH_ScopedGlobalInstall(RwTextureRegisterPlugin, 0x7F3BB0);
+    RH_ScopedGlobalInstall(RwTexDictionaryRegisterPlugin, 0x7F3C10);
+    RH_ScopedGlobalInstall(RwTextureRasterGenerateMipmaps, 0x7F3CD0);
+    RH_ScopedGlobalInstall(RwD3D9DynamicVertexBufferDestroy, 0x7F5AE0);
+    RH_ScopedGlobalInstall(RwD3D9DynamicVertexBufferUnlock, 0x7F5C90);
+    RH_ScopedGlobalInstall(_rwD3D9SetDepthStencilSurface, 0x7F5EF0);
+    RH_ScopedGlobalInstall(_rwDeviceRegisterPlugin, 0x7F5F60);
+    RH_ScopedGlobalInstall(RwD3D9DeleteVertexShader, 0x7FAC90);
+    RH_ScopedGlobalInstall(RwD3D9CreatePixelShader, 0x7FACC0);
+    RH_ScopedGlobalInstall(RwD3D9DeletePixelShader, 0x7FACF0);
+    RH_ScopedGlobalInstall(RwRasterGetCurrentContext, 0x7FAE60);
+    RH_ScopedGlobalInstall(RwRasterRegisterPlugin, 0x7FB0B0);
+    RH_ScopedGlobalInstall(RwRasterLockPalette, 0x7FB0E0);
+    RH_ScopedGlobalInstall(RwRGBAToPixel, 0x803740);
+    RH_ScopedGlobalInstall(RwTextureRegisterPluginStream, 0x804550);
+    RH_ScopedGlobalInstall(_rwObjectHasFrameReleaseFrame, 0x804F40);
+}
+
 void RwCoreInjectHooks() {
     RH_ScopedCategory("Renderware");
     RH_ScopedNamespaceName("RwCore");
@@ -28,6 +114,11 @@ void RwCoreInjectHooks() {
     RH_ScopedGlobalInstall(RwCameraEndUpdate, 0x7EE180);
     RH_ScopedGlobalInstall(RwCameraClear, 0x7EE340);
     RH_ScopedGlobalInstall(RwCameraShowRaster, 0x7EE370);
+
+    // Funciones de biblioteca (RenderWare) de <= 40 bytes reconstruidas en C++ (lote 25, grupo g25e).
+    RH_ScopedGlobalInstall(RxHeapGetGlobalHeap, 0x8052F0);
+    RH_ScopedGlobalInstall(_rwFrameListDeinitialize, 0x807720);
+    RH_ScopedGlobalInstall(RwD3D9RasterIsCompressed, 0x820C90);
 }
 
 RxHeap* RxHeapCreate(RwUInt32 size) {
@@ -74,8 +165,9 @@ void _rxPipelineDestroy(RxPipeline* Pipeline) {
     ((void(__cdecl *)(RxPipeline*))0x805820)(Pipeline);
 }
 
+// 0x8052F0: `mov eax, [0xC9A6B0] / ret`. El montón global de Rx es una variable del EXE (se lee por dirección, sin copiarla).
 RxHeap* RxHeapGetGlobalHeap() {
-    return ((RxHeap*(__cdecl *)(void))0x8052F0)();
+    return StaticRef<RxHeap*>(0xC9A6B0);
 }
 
 RxPipeline* RxPipelineExecute(RxPipeline* pipeline, void* data, RwBool heapReset) {
@@ -250,16 +342,25 @@ RwBool RwD3D9DynamicVertexBufferCreate(RwUInt32 size, void* vertexBuffer) {
     return ((RwBool(__cdecl *)(RwUInt32, void*))0x7F5A00)(size, vertexBuffer);
 }
 
-void RwD3D9DynamicVertexBufferDestroy() {
-    ((void(__cdecl *)(void))0x7F5AE0)();
+// 0x7F5AE0: marca como libre (inUse = used = 0) el primer nodo de la lista cuyo bufer es `vertexBuffer`; no libera nada ni toca el resto.
+void RwD3D9DynamicVertexBufferDestroy(void* vertexBuffer) {
+    for (auto* node = DynamicVertexBufferList; node != nullptr; node = node->next) {
+        if (node->vertexBuffer == vertexBuffer) {
+            node->inUse = 0;
+            node->used = 0;
+            return;
+        }
+    }
 }
 
 RwBool RwD3D9DynamicVertexBufferLock(RwUInt32 vertexSize, RwUInt32 numVertex, void* vertexBufferOut, void* vertexDataOut, RwUInt32* baseIndexOut) {
     return ((RwBool(__cdecl *)(RwUInt32, RwUInt32, void*, void*, RwUInt32*))0x7F5B10)(vertexSize, numVertex, vertexBufferOut, vertexDataOut, baseIndexOut);
 }
 
-RwBool RwD3D9DynamicVertexBufferUnlock() {
-    return ((RwBool(__cdecl *)(void))0x7F5C90)();
+// 0x7F5C90: IDirect3DVertexBuffer9::Unlock; TRUE si el HRESULT no es negativo.
+RwBool RwD3D9DynamicVertexBufferUnlock(void* vertexBuffer) {
+    const HRESULT result = ComCall<kSlotVertexBufferUnlock, HRESULT>(vertexBuffer);
+    return result >= 0;
 }
 
 void RwRasterSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
@@ -306,8 +407,10 @@ RwRaster* RwRasterPopContext() {
     return ((RwRaster*(__cdecl *)(void))0x7FB110)();
 }
 
+// 0x7FAE60: cima de la pila de contextos de rasters (rasterStack[rasterSP], sin comprobar el rango de rasterSP).
 RwRaster* RwRasterGetCurrentContext() {
-    return ((RwRaster*(__cdecl *)(void))0x7FAE60)();
+    auto& globals = RasterGlobals();
+    return *(globals.rasterStack + globals.rasterSP);
 }
 
 RwBool RwRasterClear(RwInt32 pixelValue) {
@@ -331,16 +434,23 @@ RwRaster* RwRasterUnlock(RwRaster* raster) {
     return ((RwRaster*(__cdecl *)(RwRaster*))0x7FAEC0)(raster);
 }
 
+// 0x7FB0E0: stdFunc[rwSTANDARDRASTERLOCKPALETTE](&paleta, raster, lockMode). El EXE reutiliza como variable de salida la ranura del
+// argumento `lockMode`: si la funcion estandar devuelve TRUE sin escribir la salida, el resultado es el propio `lockMode`.
 RwUInt8* RwRasterLockPalette(RwRaster* raster, RwInt32 lockMode) {
-    return ((RwUInt8*(__cdecl *)(RwRaster*, RwInt32))0x7FB0E0)(raster, lockMode);
+    RwUInt8* palette = reinterpret_cast<RwUInt8*>(static_cast<uintptr_t>(static_cast<uint32>(lockMode)));
+    if (!RwEngineInstance->stdFunc[rwSTANDARDRASTERLOCKPALETTE](&palette, raster, lockMode)) {
+        return nullptr;
+    }
+    return palette;
 }
 
 RwRaster* RwRasterUnlockPalette(RwRaster* raster) {
     return ((RwRaster*(__cdecl *)(RwRaster*))0x7FAFF0)(raster);
 }
 
+// 0x7FB0B0: _rwPluginRegistryAddPlugin(&rasterTKList, ...)
 RwInt32 RwRasterRegisterPlugin(RwInt32 size, RwUInt32 pluginID, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB, RwPluginObjectCopy copyCB) {
-    return ((RwInt32(__cdecl *)(RwInt32, RwUInt32, RwPluginObjectConstructor, RwPluginObjectDestructor, RwPluginObjectCopy))0x7FB0B0)(size, pluginID, constructCB, destructCB, copyCB);
+    return _rwPluginRegistryAddPlugin(&RasterTKList, size, pluginID, constructCB, destructCB, copyCB);
 }
 
 RwInt32 RwRasterGetPluginOffset(RwUInt32 pluginID) {
@@ -419,16 +529,18 @@ RwBool RwTextureSetMipmapping(RwBool enable) {
     return ((RwBool(__cdecl *)(RwBool))0x7F3530)(enable);
 }
 
+// 0x7F3550: RwTextureGlobals::mipmapping
 RwBool RwTextureGetMipmapping() {
-    return ((RwBool(__cdecl *)(void))0x7F3550)();
+    return TextureGlobals().mipmapping;
 }
 
 RwBool RwTextureSetAutoMipmapping(RwBool enable) {
     return ((RwBool(__cdecl *)(RwBool))0x7F3560)(enable);
 }
 
+// 0x7F3580: RwTextureGlobals::autoMipmapping
 RwBool RwTextureGetAutoMipmapping() {
-    return ((RwBool(__cdecl *)(void))0x7F3580)();
+    return TextureGlobals().autoMipmapping;
 }
 
 RwBool RwTextureSetMipmapGenerationCallBack(RwTextureCallBackMipmapGeneration callback) {
@@ -451,8 +563,9 @@ RwBool RwTextureGenerateMipmapName(RwChar* name, RwChar* maskName, RwUInt8 mipLe
     return ((RwBool(__cdecl *)(RwChar*, RwChar*, RwUInt8, RwInt32))0x7F3AA0)(name, maskName, mipLevel, format);
 }
 
+// 0x7F3CD0: llama al callback de generacion de mipmaps del motor (sin comprobar que exista) y devuelve TRUE si no devuelve NULL.
 RwBool RwTextureRasterGenerateMipmaps(RwRaster* raster, RwImage* image) {
-    return ((RwBool(__cdecl *)(RwRaster*, RwImage*))0x7F3CD0)(raster, image);
+    return TextureGlobals().mipmapGenerationCallBack(raster, image) != nullptr;
 }
 
 RwBool _rwTextureSetAutoMipMapState(RwBool enable) {
@@ -543,12 +656,14 @@ RwBool RwTexDictionaryForAllTexDictionaries(RwTexDictionaryCallBack fpCallBack, 
     return ((RwBool(__cdecl *)(RwTexDictionaryCallBack, void*))0x7F3770)(fpCallBack, data);
 }
 
+// 0x7F3BB0: _rwPluginRegistryAddPlugin(&textureTKList, ...)
 RwInt32 RwTextureRegisterPlugin(RwInt32 size, RwUInt32 pluginID, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB, RwPluginObjectCopy copyCB) {
-    return ((RwInt32(__cdecl *)(RwInt32, RwUInt32, RwPluginObjectConstructor, RwPluginObjectDestructor, RwPluginObjectCopy))0x7F3BB0)(size, pluginID, constructCB, destructCB, copyCB);
+    return _rwPluginRegistryAddPlugin(&TextureTKList, size, pluginID, constructCB, destructCB, copyCB);
 }
 
+// 0x7F3C10: _rwPluginRegistryAddPlugin(&texDictTKList, ...)
 RwInt32 RwTexDictionaryRegisterPlugin(RwInt32 size, RwUInt32 pluginID, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB, RwPluginObjectCopy copyCB) {
-    return ((RwInt32(__cdecl *)(RwInt32, RwUInt32, RwPluginObjectConstructor, RwPluginObjectDestructor, RwPluginObjectCopy))0x7F3C10)(size, pluginID, constructCB, destructCB, copyCB);
+    return _rwPluginRegistryAddPlugin(&TexDictTKList, size, pluginID, constructCB, destructCB, copyCB);
 }
 
 RwInt32 RwTextureGetPluginOffset(RwUInt32 pluginID) {
@@ -619,8 +734,11 @@ RwTexture* RwD3D9DDSTextureRead(const RwChar* name, const RwChar* maskname) {
     return ((RwTexture*(__cdecl *)(const RwChar*, const RwChar*))0x820A10)(name, maskname);
 }
 
+// 0x820C90: la extensión D3D9 del raster está en raster + _RwD3D9RasterExtOffset (0xB4E9E0); su byte +0xA guarda en el nibble alto el formato comprimido.
+// Devuelve 1 si ese nibble no es cero (neg al / sbb eax,eax / neg eax) y 0 si lo es. Aritmética de 32 bits con envoltura, como el EXE.
 RwBool RwD3D9RasterIsCompressed(const RwRaster* raster) {
-    return ((RwBool(__cdecl *)(const RwRaster*))0x820C90)(raster);
+    const uint32 address = static_cast<uint32>(reinterpret_cast<uintptr_t>(raster)) + static_cast<uint32>(StaticRef<RwInt32>(0xB4E9E0)) + 0xAu;
+    return (*reinterpret_cast<const uint8*>(static_cast<uintptr_t>(address)) & 0xF0u) != 0;
 }
 
 RwBool RwD3D9DeviceSupportsDXTTexture() {
@@ -783,8 +901,19 @@ RwBool RwD3D9EnableLight(RwInt32 index, RwBool enable) {
    return ((RwBool(__cdecl *)(RwInt32, RwBool))0x7FA860)(index, enable);
 }
 
-RwBool RwD3D9IndexBufferCreate(RwUInt32 numIndices, void* indexBuffer) {
-   return ((RwBool(__cdecl *)(RwUInt32, void*))0x4C9970)(numIndices, indexBuffer);
+// Registro de los hooks del grupo g25b en rwcore.cpp (propio para no compartir la lista de RwCoreInjectHooks con otros grupos).
+void RwCoreInjectHooks25b() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwCore");
+
+    RH_ScopedGlobalInstall(RwD3D9IndexBufferCreate, 0x4C9970);
+}
+
+// 0x4C9970
+// Indice de 16 bits (D3DFMT_INDEX16 = 0x65) creado por el sistema de recursos D3D; true si el resultado con signo es >= 0 (setge del EXE).
+RwBool RwD3D9IndexBufferCreate(RwUInt32 numIndices, void** indexBuffer) {
+    constexpr uint32 D3DFMT_INDEX16_VALUE = 0x65;
+    return D3DResourceSystem::CreateIndexBuffer(numIndices, D3DFMT_INDEX16_VALUE, indexBuffer) >= 0;
 }
 
 RwBool RwD3D9CreateVertexDeclaration(const void* elements, void* vertexdeclaration) {
@@ -795,16 +924,31 @@ void RwD3D9DeleteVertexDeclaration() {
    ((void(__cdecl *)(void))0x7FAC10)();
 }
 
-void RwD3D9DeleteVertexShader() {
-   ((void(__cdecl *)(void))0x7FAC90)();
+// 0x7FAC90: IDirect3DVertexShader9::Release (sin comprobar NULL)
+void RwD3D9DeleteVertexShader(void* shader) {
+    ComCall<kSlotRelease, ULONG>(shader);
 }
 
-RwBool RwD3D9CreatePixelShader(const RwUInt32* function, void* shader) {
-   return ((RwBool(__cdecl *)(const RwUInt32*, void*))0x7FACC0)(function, shader);
+// 0x7FACC0: _RwD3DDevice->CreatePixelShader(function, shader); TRUE si el HRESULT no es negativo.
+RwBool RwD3D9CreatePixelShader(const RwUInt32* function, void** shader) {
+    const HRESULT result = ComCall<kSlotCreatePixelShader, HRESULT>(D3D9Device, function, shader);
+    return result >= 0;
 }
 
-void RwD3D9DeletePixelShader() {
-   ((void(__cdecl *)(void))0x7FACF0)();
+// 0x7FACF0: IDirect3DPixelShader9::Release (sin comprobar NULL)
+void RwD3D9DeletePixelShader(void* shader) {
+    ComCall<kSlotRelease, ULONG>(shader);
+}
+
+// 0x7F5EF0: si la superficie de profundidad actual cambia, la anota ANTES de llamar a _RwD3DDevice->SetDepthStencilSurface y no la
+// vuelve a escribir despues (aunque la llamada la modifique).
+void _rwD3D9SetDepthStencilSurface(void* surface) {
+    if (CurrentDepthStencilSurface == surface) {
+        return;
+    }
+    void* const device = D3D9Device;
+    CurrentDepthStencilSurface = surface;
+    ComCall<kSlotSetDepthStencilSurface, HRESULT>(device, surface);
 }
 
 void _rwD3D9SetStreams(const RxD3D9VertexStream* streams, RwBool useOffsets) {
@@ -827,8 +971,9 @@ void _rwD3D9RasterConvertToNonPalettized(RwRaster* raster) {
    ((void(__cdecl *)(RwRaster*))0x4CD250)(raster);
 }
 
+// 0x7F5F60: salto directo a 0x4C9AB0 (registro del plugin de raster D3D9, sin reconstruir; cuerpo del EXE)
 RwBool _rwDeviceRegisterPlugin() {
-   return ((RwBool(__cdecl *)(void))0x7F5F60)();
+    return ((RwBool(__cdecl *)(void))0x4C9AB0)();
 }
 
 void _rwD3D9DeviceSetRestoreCallback(rwD3D9DeviceRestoreCallBack callback) {
@@ -952,8 +1097,10 @@ RwBool _rwFrameDeInit(RwFrame* frame) {
     return ((RwBool(__cdecl *)(RwFrame*))0x7F06F0)(frame);
 }
 
+// 0x7F0340: bits 0 y 1 del indicador privado del marco RAIZ (frame->root, +0xA0; privateFlags en +3). Lee la raiz sin comprobar nulos.
+static_assert(offsetof(RwFrame, root) == 0xA0 && offsetof(RwObject, privateFlags) == 3);
 RwBool RwFrameDirty(const RwFrame* frame) {
-    return ((RwBool(__cdecl *)(const RwFrame*))0x7F0340)(frame);
+    return frame->root->object.privateFlags & 3;
 }
 
 RwInt32 RwFrameCount(RwFrame* frame) {
@@ -980,10 +1127,6 @@ RwFrame* _rwFramePurgeClone(RwFrame* root) {
     return ((RwFrame*(__cdecl *)(RwFrame*))0x7F01A0)(root);
 }
 
-void _rwObjectHasFrameReleaseFrame() {
-    ((void(__cdecl *)(void))0x804F40)();
-}
-
 RwBool _rwFrameSyncDirty() {
     return ((RwBool(__cdecl *)(void))0x809550)();
 }
@@ -992,8 +1135,9 @@ void _rwFrameSyncHierarchyLTM(RwFrame* frame) {
     ((void(__cdecl *)(RwFrame*))0x8097D0)(frame);
 }
 
+// 0x804550: _rwPluginRegistryAddPluginStream(&textureTKList, ...)
 RwInt32 RwTextureRegisterPluginStream(RwUInt32 pluginID, RwPluginDataChunkReadCallBack readCB, RwPluginDataChunkWriteCallBack writeCB, RwPluginDataChunkGetSizeCallBack getSizeCB) {
-    return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkReadCallBack, RwPluginDataChunkWriteCallBack, RwPluginDataChunkGetSizeCallBack))0x804550)(pluginID, readCB, writeCB, getSizeCB);
+    return _rwPluginRegistryAddPluginStream(&TextureTKList, pluginID, readCB, writeCB, getSizeCB);
 }
 
 RwInt32 RwTextureSetStreamAlwaysCallBack(RwUInt32 pluginID, RwPluginDataChunkAlwaysCallBack alwaysCB) {
@@ -1056,8 +1200,13 @@ RwBool _rwFrameListFindFrame(const rwFrameList* frameList, const RwFrame* frame,
     return ((RwBool(__cdecl *)(const rwFrameList*, const RwFrame*, RwInt32*))0x8076E0)(frameList, frame, npIndex);
 }
 
+// 0x807720: si numFrames (+4) no es 0 libera el vector `frames` (+0) con la función rwfree del motor ([RwEngineInstance + 0x138], cdecl, un argumento)
+// y devuelve la propia lista. El EXE comprueba numFrames, no el puntero.
 rwFrameList* _rwFrameListDeinitialize(rwFrameList* frameList) {
-    return ((rwFrameList*(__cdecl *)(rwFrameList*))0x807720)(frameList);
+    if (frameList->numFrames) {
+        RwFree(frameList->frames);
+    }
+    return frameList;
 }
 
 RwUInt32 _rwFrameListStreamGetSize(const rwFrameList* frameList) {
@@ -1124,8 +1273,33 @@ RwCamera* RwCameraClone(RwCamera* camera) {
     return ((RwCamera*(__cdecl *)(RwCamera*))0x7EF3B0)(camera);
 }
 
+// Direcciones del EXE usadas por las funciones del lote 25 (g25c) de este archivo.
+namespace {
+constexpr uintptr_t kCameraPluginRegistry = 0x8E222C; // RwCamera: lista de plugins
+}
+
+void RwCoreFrameCameraInjectHooks() {
+    RH_ScopedNamespaceName("RwCore");
+    RH_ScopedCategory("Renderware");
+
+    RH_ScopedGlobalInstall(RwFrameDirty, 0x7F0340);
+    RH_ScopedGlobalInstall(RwCameraSetViewOffset, 0x7EE1A0);
+    RH_ScopedGlobalInstall(RwCameraRegisterPlugin, 0x7EE450);
+}
+
+// 0x7EE1A0: copia los dos dwords del desplazamiento a camera->viewOffset (+0x78/+0x7C) en este orden (lee x, escribe x, lee y, escribe y: importa si se
+// solapan), sin pasar por ninguna operacion de coma flotante (copia de bits), y, si la camara tiene marco padre (object.parent, +4), llama a
+// RwFrameUpdateObjects (0x7F0910) con el. Devuelve la camara.
+static_assert(offsetof(RwCamera, viewOffset) == 0x78 && offsetof(RwCamera, object) + offsetof(RwObjectHasFrame, object) + offsetof(RwObject, parent) == 4);
 RwCamera* RwCameraSetViewOffset(RwCamera* camera, const RwV2d* offset) {
-    return ((RwCamera*(__cdecl *)(RwCamera*, const RwV2d*))0x7EE1A0)(camera, offset);
+    const auto* const source = reinterpret_cast<const uint32*>(offset);
+    auto* const target = reinterpret_cast<uint32*>(&camera->viewOffset);
+    target[0] = source[0];
+    target[1] = source[1];
+    if (auto* const parent = static_cast<RwFrame*>(camera->object.object.parent)) {
+        RwFrameUpdateObjects(parent);
+    }
+    return camera;
 }
 
 RwCamera* RwCameraSetViewWindow(RwCamera* camera, const RwV2d* viewWindow) {
@@ -1144,8 +1318,9 @@ RwCamera* RwCameraSetFarClipPlane(RwCamera* camera, RwReal farClip) {
     return ((RwCamera*(__cdecl *)(RwCamera*, RwReal))0x7EE2A0)(camera, farClip);
 }
 
+// 0x7EE450: registra el plugin en la lista de RwCamera (0x8E222C) con _rwPluginRegistryAddPlugin (0x8084A0).
 RwInt32 RwCameraRegisterPlugin(RwInt32 size, RwUInt32 pluginID, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB, RwPluginObjectCopy copyCB) {
-    return ((RwInt32(__cdecl *)(RwInt32, RwUInt32, RwPluginObjectConstructor, RwPluginObjectDestructor, RwPluginObjectCopy))0x7EE450)(size, pluginID, constructCB, destructCB, copyCB);
+    return _rwPluginRegistryAddPlugin(reinterpret_cast<RwPluginRegistry*>(kCameraPluginRegistry), size, pluginID, constructCB, destructCB, copyCB);
 }
 
 RwInt32 RwCameraGetPluginOffset(RwUInt32 pluginID) {
@@ -1188,10 +1363,19 @@ void _rwObjectHasFrameSetFrame(void *object, RwFrame *frame) {
     plugin::Call<0x804EF0, void*, RwFrame*>(object, frame);
 }
 
+// 0x804F40: si el objeto tiene marco (object.parent), lo saca de la lista de objetos del marco (sin borrar `parent`).
 void _rwObjectHasFrameReleaseFrame(void *object) {
-    plugin::Call<0x804F40, void*>(object);
+    auto* const hasFrame = static_cast<RwObjectHasFrame*>(object);
+    if (hasFrame->object.parent == nullptr) {
+        return;
+    }
+    rwLinkListRemoveLLLink(&hasFrame->lFrame);
 }
 
+// 0x803740: stdFunc[rwSTANDARDRGBTOPIXEL](&pixel, rgbIn, rasterFormat). El EXE reutiliza como salida la ranura del argumento
+// `rasterFormat`: si la funcion estandar no escribe, el resultado es el propio `rasterFormat`.
 RwUInt32 RwRGBAToPixel(RwRGBA* rgbIn, RwInt32 rasterFormat) {
-    return plugin::CallAndReturn<RwUInt32, 0x803740, RwRGBA*, RwInt32>(rgbIn, rasterFormat);
+    RwUInt32 pixel = static_cast<RwUInt32>(rasterFormat);
+    RwEngineInstance->stdFunc[rwSTANDARDRGBTOPIXEL](&pixel, rgbIn, rasterFormat);
+    return pixel;
 }

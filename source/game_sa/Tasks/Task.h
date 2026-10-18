@@ -32,6 +32,9 @@ public:
     static bool IsGoToTask(CTask* task);
     static bool IsTaskPtr(CTask* task);
 
+    //! 0x61A3A0: cuerpo no virtual de ~CTask que usan los destructores del EXE; solo deja la vtable base (0x86D48C) y conserva EAX/ECX/EDX
+    void Destructor();
+
     void* operator new(size_t size);
     void operator delete(void* object);
 

@@ -1,6 +1,32 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: RpUVAnim
+ * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 2/2 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 #include "StdInc.h"
 
 #include "rpuvanim.h"
+
+void RpUVAnimInjectHooks() {
+    RH_ScopedNamespaceName("RpUVAnim");
+    RH_ScopedCategory("Plugins");
+
+    RH_ScopedGlobalInstall(_rpUVAnimCustomDataStreamGetSize, 0x7CC010);
+    RH_ScopedGlobalInstall(RpUVAnimKeyFrameStreamGetSize, 0x7CC9D0);
+}
 
 _rpUVAnimCustomData* _rpUVAnimCustomDataStreamRead(RwStream* stream) {
     return ((_rpUVAnimCustomData*(__cdecl *)(RwStream*))0x7CBF70)(stream);
@@ -10,8 +36,9 @@ const _rpUVAnimCustomData* _rpUVAnimCustomDataStreamWrite(const _rpUVAnimCustomD
     return ((const _rpUVAnimCustomData*(__cdecl *)(const _rpUVAnimCustomData*, RwStream*))0x7CBFD0)(customData, stream);
 }
 
+// 0x7CC010: `mov eax, 0x40; ret`: tamano en flujo de los datos de usuario de UVAnim (constante, no mira el argumento).
 RwUInt32 _rpUVAnimCustomDataStreamGetSize(const _rpUVAnimCustomData* customData) {
-    return ((RwUInt32(__cdecl *)(const _rpUVAnimCustomData*))0x7CC010)(customData);
+    return 0x40;
 }
 
 RwBool RpUVAnimPluginAttach() {
@@ -66,8 +93,11 @@ RwBool RpUVAnimKeyFrameStreamWrite(const RtAnimAnimation* animation, RwStream* s
     return ((RwBool(__cdecl *)(const RtAnimAnimation*, RwStream*))0x7CC920)(animation, stream);
 }
 
+// 0x7CC9D0: tamano en flujo de los fotogramas clave: numFrames * 32 (cada fotograma de 32 bytes) + _rpUVAnimCustomDataStreamGetSize(customData) + 4.
+// El EXE llama a 0x7CC010 con animation->customData (+0x14) y suma en 32 bits sin comprobar desbordes; aqui se suma en uint32 para repetir esa aritmetica.
 RwInt32 RpUVAnimKeyFrameStreamGetSize(const RtAnimAnimation* animation) {
-    return ((RwInt32(__cdecl *)(const RtAnimAnimation*))0x7CC9D0)(animation);
+    const uint32 customDataSize = _rpUVAnimCustomDataStreamGetSize(static_cast<const _rpUVAnimCustomData*>(animation->customData));
+    return static_cast<RwInt32>((static_cast<uint32>(animation->numFrames) << 5) + (customDataSize + 4));
 }
 
 RpUVAnim* RpUVAnimCreate(const RwChar* name, RwUInt32 numNodes, RwUInt32 numFrames, RwReal duration, RwUInt32* nodeIndexToUVChannelMap, RpUVAnimKeyFrameType keyframeType) {

@@ -4015,6 +4015,11 @@ extern RwBool RwD3D9CreatePixelShader(const RwUInt32 *function, void **shader);
 extern void RwD3D9DeletePixelShader(void *shader);
 
 /*
+ * Set the current depth stencil surface (only calls the device when it changes)
+ */
+extern void _rwD3D9SetDepthStencilSurface(void *surface);
+
+/*
  * Utility function for setting streams
  */
 extern void
