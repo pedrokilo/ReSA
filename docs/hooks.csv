@@ -4742,6 +4742,7 @@ CAEAudioHardware,StopSound,0x004D88E0,1,0,1,S
 CAEAudioHardware,StopTrack,0x004D8F50,1,0,1,S
 CAEAudioHardware,Terminate,0x004D97A0,1,0,1,S
 CAEAudioHardware,UpdateReverbEnvironment,0x004D8DA0,1,0,1,S
+CAEAudioHardware,PlaySound,0x004D86B0,1,0,1,S
 CAEAudioChannel,ConvertFromBytesToMS,0x004D79D0,1,0,1,S
 CAEAudioChannel,ConvertFromMsToBytes,0x004D79F0,1,0,1,S
 CAEAudioChannel,GetCurrentPlaybackPosition,0x004D79A0,1,0,1,S

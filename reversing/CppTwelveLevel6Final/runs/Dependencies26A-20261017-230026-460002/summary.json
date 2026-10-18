@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "11a8355a58a1a608866d9556f53ec4142c61d1376065be70c47dcbc8dd7a2b5d",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "e9bfdac79df368547f7d4d12fae77c944dd8b9e4eb086ebb575e7b1760a416f6",
+    "scripts/gta-reversed.ini": "e9bfdac79df368547f7d4d12fae77c944dd8b9e4eb086ebb575e7b1760a416f6"
+  },
+  "pairs": 2048,
+  "pairs_per_function": {
+    "CAEAudioHardware::PlaySound": 2048
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "a1c6a60935d12baa2551a9d8607b84203d0e5d34496018b12b6344baef54ed58",
+  "coverage": {
+    "path:full": 1344,
+    "n3d_on": 825,
+    "in_room": 315,
+    "clamped": 318,
+    "index_63": 60,
+    "index_64": 69,
+    "wrap32": 128,
+    "speed_qnan": 82,
+    "speed_snan": 61,
+    "speed_inf": 52,
+    "speed_subnormal": 79,
+    "flags_negative": 124,
+    "dirty_high_bits": 527,
+    "percent": 308,
+    "percent_pe": 258,
+    "percent_negative_length": 66,
+    "percent_zero_length": 25,
+    "percent_huge_length": 40,
+    "path:channel_negative": 142,
+    "path:slot_out_of_range": 137,
+    "path:no_buffer": 144,
+    "path:index_over_64": 142,
+    "path:set_audio_buffer_failed": 139,
+    "on_street": 510,
+    "n3d_off": 519,
+    "percent_exact": 50,
+    "fsw_distinct": 8
+  },
+  "compare_dead_x87_registers": true,
+  "dead_registers_equal_pairs": [
+    2048,
+    2048
+  ],
+  "residue_pairs_where_eax_ecx_edx_differ": 2048,
+  "coverage_method": "serialized_inputs_and_independent_oracle; no_instruction_branch_tracing",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

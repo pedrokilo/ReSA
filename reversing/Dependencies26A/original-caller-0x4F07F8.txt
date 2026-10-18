@@ -1,0 +1,89 @@
+4f0790: shl edx, 6
+4f0793: shl ebp, 7
+4f0796: or ebx, ebp
+4f0798: mov ebp, dword ptr [esp + 0x24]
+4f079c: or ebx, edx
+4f079e: mov edx, dword ptr [esp + 0x1c]
+4f07a2: shr ecx, 6
+4f07a5: lea eax, [edx + edx]
+4f07a8: mov edx, dword ptr [esp + 0x18]
+4f07ac: or ebx, eax
+4f07ae: and ecx, 1
+4f07b1: push ecx
+4f07b2: lea eax, [edx*4]
+4f07b9: or ebx, eax
+4f07bb: shl ecx, 4
+4f07be: or ebx, ecx
+4f07c0: mov ecx, dword ptr [esp + 0x24]
+4f07c4: lea edx, [ecx*8]
+4f07cb: xor eax, eax
+4f07cd: mov ax, word ptr [edi + 0x5c]
+4f07d1: or ebx, edx
+4f07d3: xor ecx, ecx
+4f07d5: mov cx, word ptr [edi]
+4f07d8: or ebx, ebp
+4f07da: mov ebp, dword ptr [esp + 0x18]
+4f07de: xor edx, edx
+4f07e0: mov dx, word ptr [edi + 2]
+4f07e4: fstp dword ptr [esp]
+4f07e7: push ebx
+4f07e8: push eax
+4f07e9: xor eax, eax
+4f07eb: mov ax, word ptr [esi + 2]
+4f07ef: push ecx
+4f07f0: mov ecx, 0xb5f8b8
+4f07f5: push edx
+4f07f6: push ebp
+4f07f7: push eax
+4f07f8: call 0x4d86b0
+4f07fd: fld dword ptr [edi + 0x60]
+4f0800: push 0
+4f0802: push ecx
+4f0803: xor ecx, ecx
+4f0805: mov cx, word ptr [esi + 2]
+4f0809: fstp dword ptr [esp]
+4f080c: push ebp
+4f080d: push ecx
+4f080e: mov ecx, 0xb5f8b8
+4f0813: call 0x4d8870
+4f0818: mov al, byte ptr [edi + 0x56]
+4f081b: add edi, 0x24
+4f081e: test al, 1
+4f0820: jne 0x4f0832
+4f0822: lea edx, [esp + 0x2c]
+4f0826: push edi
+4f0827: push edx
+4f0828: call 0x4d80b0
+4f082d: add esp, 8
+4f0830: jmp 0x4f0846
+4f0832: mov eax, dword ptr [edi]
+4f0834: mov dword ptr [esp + 0x2c], eax
+4f0838: mov ecx, dword ptr [edi + 4]
+4f083b: mov dword ptr [esp + 0x30], ecx
+4f083f: mov edx, dword ptr [edi + 8]
+4f0842: mov dword ptr [esp + 0x34], edx
+4f0846: xor ecx, ecx
+4f0848: mov cx, word ptr [esi + 2]
+4f084c: push 0
+4f084e: lea eax, [esp + 0x30]
+4f0852: push eax
+4f0853: push ebp
+4f0854: push ecx
+4f0855: mov ecx, 0xb5f8b8
+4f085a: call 0x4d8920
+4f085f: mov edx, dword ptr [esp + 0x28]
+4f0863: xor eax, eax
+4f0865: mov ax, word ptr [esi + 2]
+4f0869: push edx
+4f086a: push ebp
+4f086b: mov ecx, 0xb5f8b8
+4f0870: push eax
+4f0871: call 0x4d8960
+4f0876: inc ebp
+4f0877: mov dword ptr [esp + 0x14], ebp
+4f087b: mov eax, dword ptr [esp + 0x10]
+4f087f: movzx edx, word ptr [esi]
+4f0882: inc eax
+4f0883: movsx ecx, ax
+4f0886: cmp ecx, edx
+4f0888: mov dword ptr [esp + 0x10], eax

@@ -1,11 +1,13 @@
 """Genera docs/implementaciones/envolturas-pendientes.csv: funciones del juego que siguen delegando en el EXE.
 
-Une tres fuentes, sin inflar ni ocultar:
+Une cuatro fuentes, sin inflar ni ocultar:
   1. docs/implementaciones/funciones.csv: definiciones del código fuente cuya implementación es «Envoltura al EXE».
   2. reversing/OriginalDependencies499/progress.csv: funciones del juego de la cohorte de 499 que siguen sin aprobar.
   3. reversing/OriginalDependencies2026-10-17/classification.csv: funciones del juego del cohorte nuevo.
-Una dirección que ya figure en docs/hooks.csv con reversed=1 se descarta (ya está reconstruida). Las bibliotecas (RenderWare, CRT, D3D9,
-QuickTime) no cuentan como funciones del juego pendientes.
+  4. reversing/OriginalDependencies2026-10-17/lista-por-dificultad.csv: bibliotecas (RenderWare, controlador D3D9, CRT, QuickTime) del cohorte nuevo,
+     agrupadas como «(biblioteca) <subcategoría>».
+Una dirección que ya figure en docs/hooks.csv con reversed=1 se descarta (ya está reconstruida). Todo lo que queda cuenta como función por
+reconstruir en los porcentajes de docs/ReversedClasses.md (funciones y clases).
 
 Uso: python contrib/pending_wrappers.py
 """
@@ -81,6 +83,11 @@ def main():
         if row['category'] == 'game':
             cls, fn = split_identity(row['identity'])
             add(cls, fn, row['address'], row['source'], 'cohorte nuevo 2026-10-17')
+
+    for row in read(ROOT / 'reversing/OriginalDependencies2026-10-17/lista-por-dificultad.csv'):
+        if row['categoria'] == 'biblioteca':
+            identity = re.sub(r'\s*\(.*$', '', row['identity'].strip())
+            add('(biblioteca) ' + row['subcategoria'], identity, row['address'], row['fuente'], 'cohorte nuevo 2026-10-17 (biblioteca)')
 
     rows = sorted(found.values(), key=lambda r: (r['class_'].casefold(), r['function'].casefold(), r['address']))
     with OUT.open('w', encoding='utf-8', newline='') as stream:

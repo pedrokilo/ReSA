@@ -1,7 +1,7 @@
 {
   "scope": "source/game_sa and source/app (WindowedMode.cpp included as the documented NOTSA assembly exception, reported separately), definitions in cpp/h/hpp/inc; all preprocessing branches",
   "totals": {
-    "source_definition_count": 18081,
+    "source_definition_count": 18082,
     "groups": 1482,
     "assembly_occurrences": 0,
     "naked_declarations": 0,
@@ -20,14 +20,14 @@
     "body_parse_errors": 302,
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 443,
-    "historical_catalog_rows": 8673,
+    "historical_catalog_rows": 8674,
     "catalog_rows_without_unambiguous_source_match_in_scope": 0,
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 20,
     "catalog_rows_linked_by_hook_address": 156,
-    "validated_reconstructed_own_cpp_definitions": 9972,
+    "validated_reconstructed_own_cpp_definitions": 9974,
     "validated_reconstructed_own_asm_definitions": 0,
-    "wrapper_definitions": 237
+    "wrapper_definitions": 236
   },
   "source_sha256": {
     "source/app/app.cpp": "4717fcefd64b864f51910ae3ab7b4b3bc0966838f9cddaaca5727ee06c47ac16",
@@ -190,7 +190,7 @@
     "source/game_sa/Audio/Enums/SoundIDs.h": "d89abe86a2e48742d52f40568be68a6f35f9e3ee83c1d9c356b84590c0c9f359",
     "source/game_sa/Audio/Hardware/AEAudioChannel.cpp": "67ef38a18d83947b04a4a19841b06cff02a12530cab5f864bac0008e7a534786",
     "source/game_sa/Audio/Hardware/AEAudioChannel.h": "616e9689d1fd6ded10b14d7c90cf7c671e6e92cc95979b46e9a6dc75db2a8a55",
-    "source/game_sa/Audio/Hardware/AEAudioHardware.cpp": "7fd6deb7f80f7d017cd4b1e703a4ccf88b557cbfd78fae26181d048224658041",
+    "source/game_sa/Audio/Hardware/AEAudioHardware.cpp": "6fab9bc87b09084b869579bf0d4d4e40f852b47644c638125ecb44106519488b",
     "source/game_sa/Audio/Hardware/AEAudioHardware.h": "e09c4152ef905e510e374162f1e08eb318ba64eb85672d2ffb5f02d5d4ec7ae5",
     "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "612cfb8f8f7b6a32cee9b8f8f2902cdffbcb04b29ae2c781b4c2ef760a11ac82",
     "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
@@ -2224,17 +2224,17 @@
     "source/game_sa/World.cpp": "0066108864b6c6c3aa13ac5a68da99749b177bd94605ebc3a2c14580018340bd",
     "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c",
     "source/game_sa/World_Helper.cpp": "331f33ad029ba5a963ac2b15dbe384298d36075b3b0eef2adedeb72454f5a033",
-    "source/game_sa/X87Math.cpp": "3ce2a47f006a021d0e2a6b6112cf91f0761600db33ec527ea8cfa2e33751364e",
-    "source/game_sa/X87Math.h": "ea2b09b7de6d55f92a0ed4cf40398407ac6fb383268dbd3a74adfd787b26f2f6",
+    "source/game_sa/X87Math.cpp": "37411f250da69e698a85ee3b0ce3026b179bd90f9573a6d24ba3d61e9e83de45",
+    "source/game_sa/X87Math.h": "7697e71e5b0400de633932af4da1ad66ba01044b0c2c841efdf2398d8a65a52b",
     "source/game_sa/Zone.cpp": "efb2c9fa14a6744d59fb142a8c8497719d7e9bf976ca3aebca78cc33caffa14a",
     "source/game_sa/Zone.h": "6e68b4a81ee271b97e3ed2b1ce9a6fcc1ff87dd54ab7790cb908fb14c5624d93",
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "5c8954db00c5b710d1974e9ff34f302f450d0dbc2a1099c8ae20dc9386590f58",
+    "hooks.csv": "278a0e304971e9b14583ee8474aa17eb26139a6803b35c4cb56ad054d740488a",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "c10fa968f496eaca123878ef5e39009baf473cc73f809a360e617d0e4da5bc73",
+  "migration_registry_sha256": "c10f1a3f9d22bdde2edad7718b917f75c78e9dd9f887ca8641618ed4cef2007f",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

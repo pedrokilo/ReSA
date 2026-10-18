@@ -154,8 +154,8 @@ Derivas de tested_sources respecto al estado actual son esperadas por tandas pos
 | DependenciesMemory9 | reversing/OriginalDependencies499/HookRoute.hpp | 82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf | 287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377 |
 | DependenciesPadCamera7 | source/game_sa/Pad.cpp | 1c5dca807d19a1811b60fc19ef2e7a6d98e19788be56a7afac791c9691661981 | 4ae7648009088d8055e7806d18518d46c545bc33405fa48b7860c32b6f41461c |
 | DependenciesPadCamera7 | source/game_sa/Cam.cpp | 6ab1fb927348cf3519da8d4c47023ff04dd0ec7f8d9c0a15db96a9f40bef58d4 | 8228cb158cc83a6fb966c77f46116cf623f0f8654cc6cfc3e1b345c458c254fa |
-| DependenciesPadCamera7 | source/game_sa/X87Math.cpp | ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe | 3ce2a47f006a021d0e2a6b6112cf91f0761600db33ec527ea8cfa2e33751364e |
-| DependenciesPadCamera7 | source/game_sa/X87Math.h | 7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97 | ea2b09b7de6d55f92a0ed4cf40398407ac6fb383268dbd3a74adfd787b26f2f6 |
+| DependenciesPadCamera7 | source/game_sa/X87Math.cpp | ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe | 37411f250da69e698a85ee3b0ce3026b179bd90f9573a6d24ba3d61e9e83de45 |
+| DependenciesPadCamera7 | source/game_sa/X87Math.h | 7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97 | 7697e71e5b0400de633932af4da1ad66ba01044b0c2c841efdf2398d8a65a52b |
 | DependenciesPadCamera7 | source/game_sa/Camera.cpp | 69088a382c52d1f6215f64617f231abf1d665ff3374ca3b404455c4ddf55e6f0 | daeb1c75d7021ab1961541d4b4b4d2d3c2af3a532243ef0149485a6448d47841 |
 | DependenciesPadCamera7 | source/InjectHooksMain.cpp | 9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8 | 002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b |
 | DependenciesPathDensity13 | source/game_sa/PathFind.cpp | b289ad134233f537732d2ff6555ae5d294e0d493bc9bc0e164a13f3b42bda5f2 | 2a20d5686c67a7a6c39a8cb43fd7476bb53f2743eae27d2009c1daa3ae73babb |
@@ -280,8 +280,8 @@ Derivas de tested_sources respecto al estado actual son esperadas por tandas pos
 | DependenciesVehicleStats9 | reversing/OriginalDependencies499/HookRoute.hpp | 82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf | 287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377 |
 | DependenciesWorld10 | source/game_sa/Cam.cpp | 6ab1fb927348cf3519da8d4c47023ff04dd0ec7f8d9c0a15db96a9f40bef58d4 | 8228cb158cc83a6fb966c77f46116cf623f0f8654cc6cfc3e1b345c458c254fa |
 | DependenciesWorld10 | source/game_sa/Camera.cpp | 69088a382c52d1f6215f64617f231abf1d665ff3374ca3b404455c4ddf55e6f0 | daeb1c75d7021ab1961541d4b4b4d2d3c2af3a532243ef0149485a6448d47841 |
-| DependenciesWorld10 | source/game_sa/X87Math.cpp | ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe | 3ce2a47f006a021d0e2a6b6112cf91f0761600db33ec527ea8cfa2e33751364e |
-| DependenciesWorld10 | source/game_sa/X87Math.h | 7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97 | ea2b09b7de6d55f92a0ed4cf40398407ac6fb383268dbd3a74adfd787b26f2f6 |
+| DependenciesWorld10 | source/game_sa/X87Math.cpp | ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe | 37411f250da69e698a85ee3b0ce3026b179bd90f9573a6d24ba3d61e9e83de45 |
+| DependenciesWorld10 | source/game_sa/X87Math.h | 7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97 | 7697e71e5b0400de633932af4da1ad66ba01044b0c2c841efdf2398d8a65a52b |
 | DependenciesWorld10 | source/game_sa/CarCtrl.cpp | d9236aeeb52b5bffbf53ccae1d1991b699e6e0ea7e0e4f6aaf7754b4b039693a | 4ed891035e056e53dd1b564c53bc3e5222ddb55deda0b08935ab5aa36bda1ccc |
 | DependenciesWorld10 | source/game_sa/Pools/VehiclePool.h | 9430baf7198222a21f4404c8314c9da0709d6c91f509d0a4938a6f1473e3df3a | e2381e0d1c8f4c9b4746e8620f9d2132b52d5a8bd8831ff1afe149bc3b31c469 |
 | DependenciesWorld10 | source/InjectHooksMain.cpp | 9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8 | 002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b |
@@ -316,8 +316,8 @@ Derivas de tested_sources respecto al estado actual son esperadas por tandas pos
 | DependenciesWorld4 | source/InjectHooksMain.cpp | 7a912880d0ff2128cb6654e679653c12ac91c8fa2e94784475ee43cb3ad9360c | 002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b |
 | DependenciesWorld4 | reversing/OriginalDependencies499/HookRoute.hpp | 82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf | 287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377 |
 | DependenciesWorld9 | source/game_sa/WaterLevel.cpp | 3736bb0cf967624e4af7982083fac50c731308515ad6ab479896455a31b245e1 | b03ddfda81980115e6e8f99adcdfe7d0e4e235ab81584a4dcff40db7a69a7417 |
-| DependenciesWorld9 | source/game_sa/X87Math.cpp | ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe | 3ce2a47f006a021d0e2a6b6112cf91f0761600db33ec527ea8cfa2e33751364e |
-| DependenciesWorld9 | source/game_sa/X87Math.h | 7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97 | ea2b09b7de6d55f92a0ed4cf40398407ac6fb383268dbd3a74adfd787b26f2f6 |
+| DependenciesWorld9 | source/game_sa/X87Math.cpp | ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe | 37411f250da69e698a85ee3b0ce3026b179bd90f9573a6d24ba3d61e9e83de45 |
+| DependenciesWorld9 | source/game_sa/X87Math.h | 7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97 | 7697e71e5b0400de633932af4da1ad66ba01044b0c2c841efdf2398d8a65a52b |
 | DependenciesWorld9 | source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h | d5e65f000dc368667440f7e29921343dde5ac0a8afa554f13b4f120730516c1b | f82bb6c29446d4f991d98dba8c5d3f5f3278fc76e991a26d583622196fca85bb |
 | DependenciesWorld9 | source/game_sa/Tasks/Task.h | a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311 | 51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8 |
 | DependenciesWorld9 | source/game_sa/Tasks/Task.cpp | 054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84 | d700418e6a00f573db2dc824d4a6d0bd325136ddf4f208589b74aef3d5f083c8 |
@@ -339,8 +339,8 @@ Derivas de tested_sources respecto al estado actual son esperadas por tandas pos
 | DependenciesWorldWaterPath6 | source/game_sa/Cam.cpp | 6ab1fb927348cf3519da8d4c47023ff04dd0ec7f8d9c0a15db96a9f40bef58d4 | 8228cb158cc83a6fb966c77f46116cf623f0f8654cc6cfc3e1b345c458c254fa |
 | DependenciesWorldWaterPath6 | source/game_sa/Camera.cpp | 69088a382c52d1f6215f64617f231abf1d665ff3374ca3b404455c4ddf55e6f0 | daeb1c75d7021ab1961541d4b4b4d2d3c2af3a532243ef0149485a6448d47841 |
 | DependenciesWorldWaterPath6 | source/game_sa/WaterLevel.cpp | 3736bb0cf967624e4af7982083fac50c731308515ad6ab479896455a31b245e1 | b03ddfda81980115e6e8f99adcdfe7d0e4e235ab81584a4dcff40db7a69a7417 |
-| DependenciesWorldWaterPath6 | source/game_sa/X87Math.cpp | ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe | 3ce2a47f006a021d0e2a6b6112cf91f0761600db33ec527ea8cfa2e33751364e |
-| DependenciesWorldWaterPath6 | source/game_sa/X87Math.h | 7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97 | ea2b09b7de6d55f92a0ed4cf40398407ac6fb383268dbd3a74adfd787b26f2f6 |
+| DependenciesWorldWaterPath6 | source/game_sa/X87Math.cpp | ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe | 37411f250da69e698a85ee3b0ce3026b179bd90f9573a6d24ba3d61e9e83de45 |
+| DependenciesWorldWaterPath6 | source/game_sa/X87Math.h | 7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97 | 7697e71e5b0400de633932af4da1ad66ba01044b0c2c841efdf2398d8a65a52b |
 | DependenciesWorldWaterPath6 | source/InjectHooksMain.cpp | 9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8 | 002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b |
 | DependenciesZones13 | source/game_sa/TheZones.cpp | a5b1268fc9f575876c3faaf5bf58e2563a9a96545a237005199abc56b6f6564a | 29c2a29afc2ae5b40350b03af5b795dff11f3e3f79bd73326a45249b11d191bd |
 | DependenciesZones13 | source/InjectHooksMain.cpp | 9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8 | 002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b |

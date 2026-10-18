@@ -12,7 +12,7 @@ CAEAmbienceTrackManager,class,7,7,0,7,7,0,,,source/game_sa/Audio/Managers/AEAmbi
 CAEAudioChannel,class,12,12,0,12,12,0,0x0085F03C,,source/game_sa/Audio/Hardware/AEAudioChannel.h:15,catalogue_class_or_group
 CAEAudioEntity,class,2,2,0,2,2,0,0x00859988,,source/game_sa/Audio/Entities/AEAudioEntity.h:15,catalogue_class_or_group
 CAEAudioEnvironment,class,6,6,0,6,6,0,,,source/game_sa/Audio/AEAudioEnvironment.h:21,catalogue_class_or_group
-CAEAudioHardware,class,54,54,0,54,54,0,,,source/game_sa/Audio/Hardware/AEAudioHardware.h:61,catalogue_class_or_group
+CAEAudioHardware,class,55,55,0,55,55,0,,,source/game_sa/Audio/Hardware/AEAudioHardware.h:61,catalogue_class_or_group
 CAEAudioUtility,class,11,11,0,11,11,0,,,source/game_sa/Audio/AEAudioUtility.h:13,catalogue_class_or_group
 CAEBankLoader,class,6,6,0,6,6,0,,,source/game_sa/Audio/Loaders/AEBankLoader.h:95,catalogue_class_or_group
 CAECollisionAudioEntity,class,18,18,0,18,18,0,0x00862E64,public CAEAudioEntity,source/game_sa/Audio/Entities/AECollisionAudioEntity.h:25,catalogue_class_or_group

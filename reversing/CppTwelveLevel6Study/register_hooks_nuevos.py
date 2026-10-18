@@ -134,6 +134,7 @@ HOOKS = (
     ('CTask', 'Destructor', '0x0061A3A0', 'CTask::Destructor', 'Dependencies25A'),
     ('CVehicle', 'FindReplacementUpgradeCB', '0x006D3490', 'FindReplacementUpgradeCB', 'Dependencies25A'),
     ('CVehiclePool', 'GetAt', '0x0041CC10', 'CVehiclePool::GetAt', 'Dependencies25A'),
+    ('CAEAudioHardware', 'PlaySound', '0x004D86B0', 'CAEAudioHardware::PlaySound', 'Dependencies26A'),
 )
 SOURCES = {
     'CRT::CrtPrintf': 'source/game_sa/VehicleRecording.cpp',
@@ -168,6 +169,7 @@ SOURCES = {
     'CTask::Destructor': 'source/game_sa/Tasks/Task.cpp',
     'FindReplacementUpgradeCB': 'source/game_sa/Entity/Vehicle/Vehicle.cpp',
     'CVehiclePool::GetAt': 'source/game_sa/Pools/VehiclePool.h',
+    'CAEAudioHardware::PlaySound': 'source/game_sa/Audio/Hardware/AEAudioHardware.cpp',
     'RwCore::RwD3D9IndexBufferCreate': 'source/game_sa/RenderWare/rw/rwcore.cpp',
     'RpAnisot::RpAnisotGetMaxSupportedMaxAnisotropy': 'source/game_sa/RenderWare/rw/rpanisot.cpp',
     'RpAnisot::RpAnisotTextureSetMaxAnisotropy': 'source/game_sa/RenderWare/rw/rpanisot.cpp',

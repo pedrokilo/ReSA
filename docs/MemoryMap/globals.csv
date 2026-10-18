@@ -113,7 +113,7 @@ ms_numAnimBlocks,0x00B4EA30,0x0074EA30,source/game_sa/Animation/AnimManager.h,42
 ms_AnimCache,0x00B5EB20,0x0075EB20,source/game_sa/Animation/AnimManager.h,44,static inline auto& ms_AnimCache = StaticRef<CLinkList<CAnimBlendHierarchy*>>(0xB5EB20);,source_global_reference
 ms_tasks,0x00C0985C,0x0080985C,source/game_sa/Attractors/PedAttractor.h,13,inline static auto& ms_tasks = StaticRef<SArray<CTask*>>(0xC0985C);,source_global_reference
 ms_displacements,0x00C0986C,0x0080986C,source/game_sa/Attractors/PedShelterAttractor.h,7,static inline auto& ms_displacements = StaticRef<SArray<CVector>>(0xC0986C);,source_global_reference
-baseDistance,0x0086C52C,0x0046C52C,source/game_sa/AttractorScanner.cpp,17,const auto& baseDistance = StaticRef<float>(0x86C52C);,source_global_reference
+baseDistance,0x0086C52C,0x0046C52C,source/game_sa/AttractorScanner.cpp,35,const auto& baseDistance = StaticRef<float>(0x86C52C);,source_global_reference
 gAudioZoneToReverbEnvironmentMap,0x008AD670,0x004AD670,source/game_sa/Audio/AEAudioEnvironment.cpp,22,auto& gAudioZoneToReverbEnvironmentMap = StaticRef<sReverbEnvironment[NUM_AUDIO_ENVIRONMENTS]>(0x8AD670);,source_global_reference
 gMikeCutOff,0x008AC258,0x004AC258,source/game_sa/Audio/AEAudioEnvironment.cpp,25,static auto& gMikeCutOff          = StaticRef<float>(0x8AC258); // 0.707,source_global_reference
 gMikeCutOffLow,0x008AC25C,0x004AC25C,source/game_sa/Audio/AEAudioEnvironment.cpp,26,static auto& gMikeCutOffLow       = StaticRef<float>(0x8AC25C); // -0.707,source_global_reference
@@ -303,8 +303,8 @@ s_EAXListenerPropertySet,0x0085EFDC,0x0045EFDC,source/game_sa/Audio/Hardware/AEA
 s_EAXBufferPropertySet,0x0085EF9C,0x0045EF9C,source/game_sa/Audio/Hardware/AEAudioChannel.cpp,251,static inline auto& s_EAXBufferPropertySet   = StaticRef<GUID>(0x85EF9C);,source_global_reference
 s_EAXEnvironments,0x008AC198,0x004AC198,source/game_sa/Audio/Hardware/AEAudioChannel.cpp,252,"static inline auto& s_EAXEnvironments        = StaticRef<std::array<int32, 48>>(0x8AC198);",source_global_reference
 AEAudioHardware,0x00B5F8B8,0x0075F8B8,source/game_sa/Audio/Hardware/AEAudioHardware.cpp,30,auto& AEAudioHardware = StaticRef<CAEAudioHardware>(0xB5F8B8);,source_global_reference
-s_EAXContextPropertySet,0x0085EFEC,0x0045EFEC,source/game_sa/Audio/Hardware/AEAudioHardware.cpp,853,static inline auto& s_EAXContextPropertySet = StaticRef<GUID>(0x85EFEC);,source_global_reference
-s_EAXFXSlot0PropertySet,0x0085EFDC,0x0045EFDC,source/game_sa/Audio/Hardware/AEAudioHardware.cpp,854,static inline auto& s_EAXFXSlot0PropertySet = StaticRef<GUID>(0x85EFDC);,source_global_reference
+s_EAXContextPropertySet,0x0085EFEC,0x0045EFEC,source/game_sa/Audio/Hardware/AEAudioHardware.cpp,904,static inline auto& s_EAXContextPropertySet = StaticRef<GUID>(0x85EFEC);,source_global_reference
+s_EAXFXSlot0PropertySet,0x0085EFDC,0x0045EFDC,source/game_sa/Audio/Hardware/AEAudioHardware.cpp,905,static inline auto& s_EAXFXSlot0PropertySet = StaticRef<GUID>(0x85EFDC);,source_global_reference
 reference,0x00858C54,0x00458C54,source/game_sa/Audio/Hardware/AEStreamingChannel.cpp,356,f = f + StaticRef<float>(0x858C54);,source_global_reference
 reference,0x00859CE0,0x00459CE0,source/game_sa/Audio/Hardware/AEStreamingChannel.cpp,361,const float freqFactor = ToFloat(m_nFrequency) * StaticRef<float>(0x859CE0);,source_global_reference
 upperLimit,0x0085F414,0x0045F414,source/game_sa/Audio/Hardware/AEStreamingChannel.cpp,362,const float upperLimit = StaticRef<float>(0x85F414) / freqFactor;,source_global_reference
@@ -2888,7 +2888,7 @@ s_lastTimeHungryStateProcessedGuard,0x00B9B8F4,0x0079B8F4,source/game_sa/PlayerI
 s_lastTimeHungryStateProcessed,0x00B9B8F2,0x0079B8F2,source/game_sa/PlayerInfo.cpp,586,static auto& s_lastTimeHungryStateProcessed = StaticRef<uint8>(0xB9B8F2);,source_global_reference
 s_LastHungryState,0x00B9B8F1,0x0079B8F1,source/game_sa/PlayerInfo.cpp,587,static auto& s_LastHungryState = StaticRef<uint8>(0xB9B8F1);,source_global_reference
 s_bHungryMessageShown,0x00B9B8F0,0x0079B8F0,source/game_sa/PlayerInfo.cpp,588,static auto& s_bHungryMessageShown = StaticRef<bool>(0xB9B8F0);,source_global_reference
-g_sPlayerRelationshipRecorder,0x00C17084,0x00817084,source/game_sa/PlayerRelationshipRecorder.cpp,108,static auto& g_sPlayerRelationshipRecorder = StaticRef<CPlayerRelationshipRecorder*>(0xC17084);,source_global_reference
+g_sPlayerRelationshipRecorder,0x00C17084,0x00817084,source/game_sa/PlayerRelationshipRecorder.cpp,126,static auto& g_sPlayerRelationshipRecorder = StaticRef<CPlayerRelationshipRecorder*>(0xC17084);,source_global_reference
 g_BreakablePlugin,0x00BB4238,0x007B4238,source/game_sa/Plugins/BreakablePlugin/BreakablePlugin.h,11,static inline auto& g_BreakablePlugin = StaticRef<int32>(0xBB4238);,source_global_reference
 gCollisionPluginOffset,0x009689DC,0x005689DC,source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp,23,auto& gCollisionPluginOffset = StaticRef<RwInt32>(0x9689DC);,source_global_reference
 ms_currentModel,0x009689E0,0x005689E0,source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.h,25,static inline auto& ms_currentModel = StaticRef<CClumpModelInfo*>(0x9689E0);,source_global_reference
@@ -2906,9 +2906,9 @@ gpAnimBlendFrameData,0x00B5F87C,0x0075F87C,source/game_sa/Plugins/RpAnimBlendPlu
 gpAnimBlendClump,0x00B4EA0C,0x0074EA0C,source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp,688,static auto& gpAnimBlendClump = StaticRef<CAnimBlendClumpData*>(0xB4EA0C);,source_global_reference
 ms_nTxdSlot,0x008D4948,0x004D4948,source/game_sa/Plugins/TwoDEffectPlugin/2dEffect.h,267,static inline auto& ms_nTxdSlot = StaticRef<int32>(0x8D4948);,source_global_reference
 g2dEffectPluginOffset,0x00C3A1E0,0x0083A1E0,source/game_sa/Plugins/TwoDEffectPlugin/2dEffect.h,268,static inline auto& g2dEffectPluginOffset = StaticRef<uint32>(0xC3A1E0);,source_global_reference
-extraLights,0x00C886F0,0x008886F0,source/game_sa/PointLights.cpp,76,auto& extraLights = StaticRef<RpLight*[6]>(0xC886F0);,source_global_reference
-reference,0x00C88708,0x00888708,source/game_sa/PointLights.cpp,80,StaticRef<uint32>(0xC88708) = 0;,source_global_reference
-reference,0x008D5068,0x004D5068,source/game_sa/PointLights.cpp,140,"PointLightsFogSpriteCpp(&light, &alpha, &screen.x, w, h, &StaticRef<float>(0x8D5068), tab, static_cast<int32>(timeValue), pointLight, &sprite);",source_global_reference
+extraLights,0x00C886F0,0x008886F0,source/game_sa/PointLights.cpp,94,auto& extraLights = StaticRef<RpLight*[6]>(0xC886F0);,source_global_reference
+reference,0x00C88708,0x00888708,source/game_sa/PointLights.cpp,98,StaticRef<uint32>(0xC88708) = 0;,source_global_reference
+reference,0x008D5068,0x004D5068,source/game_sa/PointLights.cpp,158,"PointLightsFogSpriteCpp(&light, &alpha, &screen.x, w, h, &StaticRef<float>(0x8D5068), tab, static_cast<int32>(timeValue), pointLight, &sprite);",source_global_reference
 NumLights,0x00C3F0D0,0x0083F0D0,source/game_sa/PointLights.h,42,static inline auto& NumLights = StaticRef<uint32>(0xC3F0D0); // num of registered lights in frame,source_global_reference
 aLights,0x00C3F0E0,0x0083F0E0,source/game_sa/PointLights.h,43,static inline auto& aLights = StaticRef<CPointLight[MAX_POINT_LIGHTS]>(0xC3F0E0);,source_global_reference
 aCachedMapReadResults,0x00C3F050,0x0083F050,source/game_sa/PointLights.h,45,static inline auto& aCachedMapReadResults = StaticRef<float[MAX_POINT_LIGHTS]>(0xC3F050);,source_global_reference
@@ -3236,15 +3236,15 @@ RsGlobal,0x00C17040,0x00817040,source/game_sa/RenderWare/RenderWare.h,24,static 
 geometryTKList,0x008D628C,0x004D628C,source/game_sa/RenderWare/RenderWare.h,25,static inline auto& geometryTKList =  StaticRef<RwPluginRegistry>(0x8D628C);,source_global_reference
 RpUVAnimDictSchema,0x008DED50,0x004DED50,source/game_sa/RenderWare/RenderWare.h,26,static inline auto& RpUVAnimDictSchema =  StaticRef<RtDictSchema>(0x8DED50);,source_global_reference
 AmbientSaturated,0x008E2418,0x004E2418,source/game_sa/RenderWare/RenderWare.h,27,static inline auto& AmbientSaturated = StaticRef<RwRGBAReal>(0x8E2418);,source_global_reference
-s_anisotTextureOffset,0x00C92478,0x00892478,source/game_sa/RenderWare/rw/rpanisot.cpp,6,static auto& s_anisotTextureOffset = StaticRef<RwInt32>(0xC92478);,source_global_reference
-frameDataOffset,0x00C9B8C8,0x0089B8C8,source/game_sa/RenderWare/rw/rphanim.cpp,55,const uint32 frameDataOffset = StaticRef<uint32>(0xC9B8C8);,source_global_reference
+s_anisotTextureOffset,0x00C92478,0x00892478,source/game_sa/RenderWare/rw/rpanisot.cpp,24,static auto& s_anisotTextureOffset = StaticRef<RwInt32>(0xC92478);,source_global_reference
+frameDataOffset,0x00C9B8C8,0x0089B8C8,source/game_sa/RenderWare/rw/rphanim.cpp,73,const uint32 frameDataOffset = StaticRef<uint32>(0xC9B8C8);,source_global_reference
 MatFXMaterialDataOffset,0x00C9AB74,0x0089AB74,source/game_sa/RenderWare/rw/rpmatfx.h,19,static inline auto& MatFXMaterialDataOffset = StaticRef<RwInt32>(0xC9AB74);,source_global_reference
-s_atomicTKList,0x008D624C,0x004D624C,source/game_sa/RenderWare/rw/rpworld.cpp,214,static auto& s_atomicTKList  = StaticRef<RwPluginRegistry>(0x8D624C);,source_global_reference
-s_worldTKList,0x008D62D0,0x004D62D0,source/game_sa/RenderWare/rw/rpworld.cpp,215,static auto& s_worldTKList   = StaticRef<RwPluginRegistry>(0x8D62D0);,source_global_reference
-s_lightTKList,0x008D62F8,0x004D62F8,source/game_sa/RenderWare/rw/rpworld.cpp,216,static auto& s_lightTKList   = StaticRef<RwPluginRegistry>(0x8D62F8);,source_global_reference
-s_atomicWorldOffset,0x00C925A8,0x008925A8,source/game_sa/RenderWare/rw/rpworld.cpp,217,static auto& s_atomicWorldOffset        = StaticRef<RwInt32>(0xC925A8); // escrito en 0x7500BC,source_global_reference
-s_geometryUsageFlagsOffset,0x00C926E8,0x008926E8,source/game_sa/RenderWare/rw/rpworld.cpp,218,static auto& s_geometryUsageFlagsOffset = StaticRef<RwInt32>(0xC926E8); // escrito en 0x75880E,source_global_reference
-s_sectorUsageFlagsOffset,0x00C926EC,0x008926EC,source/game_sa/RenderWare/rw/rpworld.cpp,219,static auto& s_sectorUsageFlagsOffset   = StaticRef<RwInt32>(0xC926EC); // escrito en 0x75883F,source_global_reference
+s_atomicTKList,0x008D624C,0x004D624C,source/game_sa/RenderWare/rw/rpworld.cpp,232,static auto& s_atomicTKList  = StaticRef<RwPluginRegistry>(0x8D624C);,source_global_reference
+s_worldTKList,0x008D62D0,0x004D62D0,source/game_sa/RenderWare/rw/rpworld.cpp,233,static auto& s_worldTKList   = StaticRef<RwPluginRegistry>(0x8D62D0);,source_global_reference
+s_lightTKList,0x008D62F8,0x004D62F8,source/game_sa/RenderWare/rw/rpworld.cpp,234,static auto& s_lightTKList   = StaticRef<RwPluginRegistry>(0x8D62F8);,source_global_reference
+s_atomicWorldOffset,0x00C925A8,0x008925A8,source/game_sa/RenderWare/rw/rpworld.cpp,235,static auto& s_atomicWorldOffset        = StaticRef<RwInt32>(0xC925A8); // escrito en 0x7500BC,source_global_reference
+s_geometryUsageFlagsOffset,0x00C926E8,0x008926E8,source/game_sa/RenderWare/rw/rpworld.cpp,236,static auto& s_geometryUsageFlagsOffset = StaticRef<RwInt32>(0xC926E8); // escrito en 0x75880E,source_global_reference
+s_sectorUsageFlagsOffset,0x00C926EC,0x008926EC,source/game_sa/RenderWare/rw/rpworld.cpp,237,static auto& s_sectorUsageFlagsOffset   = StaticRef<RwInt32>(0xC926EC); // escrito en 0x75883F,source_global_reference
 TextureModuleGlobalsOffset,0x00C97B4C,0x00897B4C,source/game_sa/RenderWare/rw/rwcore.cpp,31,auto& TextureModuleGlobalsOffset  = StaticRef<RwInt32>(0xC97B4C);,source_global_reference
 RasterModuleGlobalsOffset,0x00C980D8,0x008980D8,source/game_sa/RenderWare/rw/rwcore.cpp,32,auto& RasterModuleGlobalsOffset   = StaticRef<RwInt32>(0xC980D8);,source_global_reference
 TextureTKList,0x008E23CC,0x004E23CC,source/game_sa/RenderWare/rw/rwcore.cpp,33,auto& TextureTKList               = StaticRef<RwPluginRegistry>(0x8E23CC);,source_global_reference

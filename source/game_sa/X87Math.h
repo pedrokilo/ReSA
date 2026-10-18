@@ -1496,3 +1496,9 @@ unsigned int FlcHwSticky();   // banderas acumuladas del x87 real (IE.. PE) en e
 // de 1000.0f / frameLimit, con el cociente redondeado a 24 bits por la propia x87) dejando las banderas acumuladas (PE del fdiv y del fistp, ZE si frameLimit = 0, IE del fistp con +inf) y los
 // registros x87 muertos del EXE (T-2 = R, T-1 = fraccion), como Ftol2RegsCpp. Se usa como segundo argumento de SetTimer.
 unsigned int __cdecl WndProcTimerPeriodCpp(int frameLimit);
+
+// --- Grupo g26a (BRIEF_21): CAEAudioHardware::PlaySound (0x4D86B0). Anadir al FINAL de X87Math.h (Ftol2Regs / Ftol2RegsDblCpp ya estan declarados en el lote Ped) ---
+// Posicion de inicio en porcentaje (0x4D8782..0x4D87A0, solo con el bit 3 de flags y posicion > 0): fild movsx(posicion); fmul dword [0x858C58] (0.01f); fimul dword length; fstp dword (float);
+// 0x406CE0: fld dword; fstp qword; floor del CRT del EXE (0x8219F0, ruta SSE2: devuelve el resultado en ST0 con fld qword); _ftol2 (0x821B40). Devuelve EAX de _ftol2 (palabra baja del entero
+// de 64 bits truncado) dejando las banderas acumuladas (PE de los dos productos) y los registros x87 muertos del EXE (T-2 = R, T-1 = fraccion, via Ftol2RegsDblCpp / X87Plant*).
+unsigned int __cdecl AudioHwPercentPositionCpp(int percent, int length);

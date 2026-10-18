@@ -1,0 +1,112 @@
+4d86b0: push ecx
+4d86b1: push esi
+4d86b2: push edi
+4d86b3: mov edi, dword ptr [esp + 0x10]
+4d86b7: test di, di
+4d86ba: mov esi, ecx
+4d86bc: jl 0x4d8802
+4d86c2: mov cx, word ptr [esp + 0x14]
+4d86c7: movsx eax, di
+4d86ca: cmp cx, word ptr [esi + eax*2 + 0x90]
+4d86d2: mov dword ptr [esp + 8], eax
+4d86d6: jae 0x4d8802
+4d86dc: mov ecx, dword ptr [esi + 0xd98]
+4d86e2: push ebx
+4d86e3: mov ebx, dword ptr [esp + 0x20]
+4d86e7: push ebp
+4d86e8: mov ebp, dword ptr [esp + 0x20]
+4d86ec: lea edx, [esp + 0x24]
+4d86f0: push edx
+4d86f1: lea eax, [esp + 0x24]
+4d86f5: push eax
+4d86f6: push ebx
+4d86f7: push ebp
+4d86f8: call 0x4e0280
+4d86fd: test eax, eax
+4d86ff: mov dword ptr [esp + 0x18], eax
+4d8703: je 0x4d8800
+4d8709: mov ecx, dword ptr [esi + 0xd98]
+4d870f: push ebx
+4d8710: push ebp
+4d8711: call 0x4e0380
+4d8716: mov ecx, dword ptr [esp + 0x1c]
+4d871a: add ecx, edi
+4d871c: cmp cx, 0x40
+4d8720: ja 0x4d8800
+4d8726: movzx edx, cx
+4d8729: mov ecx, dword ptr [esp + 0x24]
+4d872d: push ecx
+4d872e: mov ecx, dword ptr [esi + edx*4 + 0xe64]
+4d8735: push eax
+4d8736: mov eax, dword ptr [esp + 0x20]
+4d873a: push ebx
+4d873b: lea edi, [esi + edx*4 + 0xe64]
+4d8742: mov edx, dword ptr [esp + 0x2c]
+4d8746: push ebp
+4d8747: push edx
+4d8748: push eax
+4d8749: call 0x4f0c40
+4d874e: test al, al
+4d8750: je 0x4d8800
+4d8756: mov ebp, dword ptr [esp + 0x28]
+4d875a: test bp, bp
+4d875d: jge 0x4d8761
+4d875f: xor ebp, ebp
+4d8761: mov ecx, dword ptr [edi]
+4d8763: mov edx, dword ptr [ecx]
+4d8765: call dword ptr [edx + 0x10]
+4d8768: mov ebx, dword ptr [esp + 0x2c]
+4d876c: test bl, 8
+4d876f: mov dword ptr [esp + 0x18], eax
+4d8773: je 0x4d87a6
+4d8775: test bp, bp
+4d8778: jle 0x4d87a6
+4d877a: movsx eax, bp
+4d877d: mov dword ptr [esp + 0x28], eax
+4d8781: push ecx
+4d8782: fild dword ptr [esp + 0x2c]
+4d8786: fmul dword ptr [0x858c58]
+4d878c: fimul dword ptr [esp + 0x1c]
+4d8790: fstp dword ptr [esp]
+4d8793: call 0x406ce0
+4d8798: add esp, 4
+4d879b: call 0x821b40
+4d87a0: mov ebp, eax
+4d87a2: mov eax, dword ptr [esp + 0x18]
+4d87a6: movsx ecx, bp
+4d87a9: cmp ecx, eax
+4d87ab: jle 0x4d87af
+4d87ad: mov ebp, eax
+4d87af: mov al, byte ptr [esi + 0xda8]
+4d87b5: test al, al
+4d87b7: je 0x4d87dc
+4d87b9: mov edx, ebx
+4d87bb: and edx, 0x200
+4d87c1: test dx, dx
+4d87c4: mov byte ptr [esp + 0x18], 1
+4d87c9: je 0x4d87d0
+4d87cb: mov byte ptr [esp + 0x18], 0
+4d87d0: mov eax, dword ptr [esp + 0x18]
+4d87d4: mov ecx, dword ptr [edi]
+4d87d6: push eax
+4d87d7: call 0x4d7b50
+4d87dc: mov eax, dword ptr [esp + 0x30]
+4d87e0: mov ecx, dword ptr [edi]
+4d87e2: mov edx, dword ptr [ecx]
+4d87e4: push eax
+4d87e5: push ebx
+4d87e6: push ebp
+4d87e7: call dword ptr [edx + 0x14]
+4d87ea: movzx ecx, word ptr [esp + 0x1c]
+4d87ef: add ecx, dword ptr [esp + 0x10]
+4d87f3: mov word ptr [esi + ecx*2 + 6], bx
+4d87f8: mov eax, dword ptr [edi]
+4d87fa: movsx edx, bx
+4d87fd: mov dword ptr [eax + 0x28], edx
+4d8800: pop ebp
+4d8801: pop ebx
+4d8802: pop edi
+4d8803: pop esi
+4d8804: pop ecx
+4d8805: ret 0x1c
+4d8808: nop 

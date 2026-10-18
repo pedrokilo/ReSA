@@ -407,7 +407,7 @@ CDebug,class,,source/game_sa/Debug.h,6,source_type_definition
 CDebug::tDebugText,struct,,source/game_sa/Debug.h,9,source_type_definition
 CDecision,class,,source/game_sa/DecisionMakers/Decision.h,29,source_type_definition
 CDecisionMaker,class,,source/game_sa/DecisionMakers/DecisionMaker.h,12,source_type_definition
-InstanceFrame,struct,,source/game_sa/DecisionMakers/DecisionMakerTypes.cpp,124,source_type_definition
+InstanceFrame,struct,,source/game_sa/DecisionMakers/DecisionMakerTypes.cpp,142,source_type_definition
 eDecisionMakerType,class,int32,source/game_sa/DecisionMakers/DecisionMakerTypes.h,10,source_type_definition
 CDecisionMakerTypes,class,,source/game_sa/DecisionMakers/DecisionMakerTypes.h,41,source_type_definition
 CDecisionMakerTypesFileLoader,class,,source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.h,7,source_type_definition
@@ -1641,7 +1641,7 @@ CTaskComplexWaitAtAttractor,class,public CTaskComplex,source/game_sa/Tasks/TaskT
 CTaskComplexWaitForBackup,class,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexWaitForBackup.h,10,source_type_definition
 CTaskComplexWaitForBus,class,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexWaitForBus.h,8,source_type_definition
 CTaskComplexWaitForDryWeather,class,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexWaitForDryWeather.h,8,source_type_definition
-WaitForPedFrame,struct,,source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp,17,source_type_definition
+WaitForPedFrame,struct,,source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp,35,source_type_definition
 CTaskComplexWaitForPed,class,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.h,8,source_type_definition
 CTaskComplexWalkAlongsidePed,class,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexWalkAlongsidePed.h,9,source_type_definition
 CTaskComplexWalkRoundBuildingAttempt,class,public CTaskComplex,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.h,14,source_type_definition
@@ -1716,9 +1716,9 @@ CTaskSimpleEvasiveStep,class,public CTaskSimple,source/game_sa/Tasks/TaskTypes/T
 eFacialExpression,class,,source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.h,16,source_type_definition
 CTaskSimpleFacial,class,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.h,32,source_type_definition
 CTaskSimpleFall,class,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleFall.h,6,source_type_definition
-FightFrame,struct,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,39,source_type_definition
-FightRegs,struct,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,72,source_type_definition
-PoolSpec,struct,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,97,source_type_definition
+FightFrame,struct,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,57,source_type_definition
+FightRegs,struct,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,90,source_type_definition
+PoolSpec,struct,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,115,source_type_definition
 CMeleeInfo,class,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h,23,source_type_definition
 CTaskSimpleFight,class,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h,42,source_type_definition
 CTaskSimpleFightingControl,class,public CTaskSimple,source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h,8,source_type_definition

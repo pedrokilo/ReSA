@@ -12562,3 +12562,36 @@ __declspec(noinline) unsigned int __cdecl WndProcTimerPeriodCpp(int frameLimit) 
     return Ftol2RegsCpp(v, 0).eax;
 }
 #pragma float_control(pop)
+
+// --- Grupo g26a (BRIEF_21): CAEAudioHardware::PlaySound (0x4D86B0). Anadir al FINAL de X87Math.cpp (usa Ftol2RegsDblCpp, ya definido arriba) ---
+// 0x4D8782..0x4D879B: fild movsx(posicion) (1..32767); fmul 0.01f (0x858C58); fimul length (int32 con signo); fstp dword. Con la x87 a 24 bits cada operacion redondea una sola vez
+// (el producto de 15 + 24 bits cabe, y el del entero de 32 bits se redondea una vez, no dos como con float(length)): `double(...)` en cadena equivale a fmul/fimul del EXE. precise evita que
+// /fp:fast reasocie (0.01f * length) primero. El float guardado (volatile) ya es exacto a 24 bits, asi que 0x406CE0 (fld; fstp qword) no cambia nada.
+// floor del CRT (SSE2, 0x8219F0..0x821B10): |v| < 1 -> +0 (v >= +0) o -1.0 (v < 0); si no, el entero hacia -inf. Se calcula con enteros desde los bits del float (sin tocar ninguna bandera):
+// v nunca es NaN, infinito ni cero negativo (posicion > 0 por un entero) y |v| < 2^40. _ftol2 trunca el resultado (ya entero) y deja EAX/EDX, las banderas y T-2 = R, T-1 = fraccion.
+#pragma float_control(precise, on, push)
+__declspec(noinline) unsigned int __cdecl AudioHwPercentPositionCpp(int percent, int length) {
+    volatile float scaled = float(double(percent) * double(0.01f) * double(length)); // fild; fmul [0x858C58]; fimul length; fstp dword
+    const unsigned int bits = *reinterpret_cast<const volatile unsigned int*>(&scaled);
+    const bool negative = (bits >> 31) != 0;
+    const int exponent = int((bits >> 23) & 0xFFu) - 127;
+    long long floored;
+    if (exponent < 0) { // |v| < 1
+        floored = (negative && (bits << 1) != 0) ? -1ll : 0ll;
+    } else {
+        const unsigned long long mantissa = (bits & 0x7FFFFFu) | 0x800000u;
+        unsigned long long magnitude;
+        if (exponent >= 23) {
+            magnitude = mantissa << (exponent - 23);
+        } else {
+            const unsigned int shift = 23u - unsigned(exponent);
+            magnitude = mantissa >> shift;
+            if (negative && (mantissa & ((1ull << shift) - 1ull)) != 0) {
+                ++magnitude; // floor de un negativo no entero: una unidad mas de magnitud
+            }
+        }
+        floored = negative ? -static_cast<long long>(magnitude) : static_cast<long long>(magnitude);
+    }
+    return Ftol2RegsDblCpp(double(floored), 0u).eax; // ECX de entrada: nadie lo lee tras la llamada
+}
+#pragma float_control(pop)

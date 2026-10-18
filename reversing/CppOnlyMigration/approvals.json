@@ -9601,5 +9601,21 @@
     "state_restored": true,
     "helper_codegen": "reversing/CppTwelveLevel6Study/README.md",
     "scope": "Destino incierto de la cohorte de 499 (PLAN-001), reconstruido en C++ y validado con su banco Dependencies21 en la regresión final; pares propios de la función según pairs_per_function. Sin cobertura exhaustiva más allá de los fixtures del banco."
+  },
+  "0x004D86B0": {
+    "identity": "CAEAudioHardware::PlaySound",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Audio/Hardware/AEAudioHardware.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "Dependencies26A",
+    "run": "20261017-230026-460002",
+    "pairs": 2048,
+    "own_pairs": 2048,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Dependencies26A-20261017-230026-460002/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwelveLevel6Study/README.md",
+    "scope": "Destino incierto de la cohorte de 499 (PLAN-001), reconstruido en C++ y validado con su banco Dependencies21 en la regresión final; pares propios de la función según pairs_per_function. Sin cobertura exhaustiva más allá de los fixtures del banco."
   }
 }

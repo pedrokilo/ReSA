@@ -107,7 +107,7 @@ CEventVehicleDied,0x0085B400,0x0045B400,16,source/game_sa/Events/EventVehicleDie
 CEventVehicleHitAndRun,0x0085AFA8,0x0045AFA8,16,source/game_sa/Events/EventVehicleHitAndRun.cpp,25,source_vtable_reference
 CEventVehicleOnFire,0x0085B440,0x0045B440,17,source/game_sa/Events/EventVehicleOnFire.cpp,25,source_vtable_reference
 CEventVehicleToSteal,0x0085B210,0x0045B210,16,source/game_sa/Events/EventVehicleToSteal.cpp,23,source_vtable_reference
-FxEmitter_c,0x0085A7A4,0x0045A7A4,6,source/game_sa/Fx/FxEmitter.cpp,13,source_vtable_reference
+FxEmitter_c,0x0085A7A4,0x0045A7A4,6,source/game_sa/Fx/FxEmitter.cpp,31,source_vtable_reference
 FxEmitterBP_c,0x0085A788,0x0045A788,7,source/game_sa/Fx/FxEmitterBP.cpp,37,source_vtable_reference
 CAtomicModelInfo,0x0085BBF0,0x0045BBF0,16,source/game_sa/Models/AtomicModelInfo.cpp,38,source_vtable_reference
 CBaseModelInfo,0x0085BB9C,0x0045BB9C,15,source/game_sa/Models/BaseModelInfo.cpp,46,source_vtable_reference
@@ -367,7 +367,7 @@ CTaskSimpleEvasiveDive,0x0086F244,0x0046F244,9,source/game_sa/Tasks/TaskTypes/Ta
 CTaskSimpleEvasiveStep,0x0086F1F4,0x0046F1F4,9,source/game_sa/Tasks/TaskTypes/TaskSimpleEvasiveStep.cpp,24,source_vtable_reference
 CTaskSimpleFacial,0x00870AB8,0x00470AB8,9,source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp,24,source_vtable_reference
 CTaskSimpleFall,0x00870430,0x00470430,9,source/game_sa/Tasks/TaskTypes/TaskSimpleFall.cpp,25,source_vtable_reference
-CTaskSimpleFight,0x0086D684,0x0046D684,9,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,497,source_vtable_reference
+CTaskSimpleFight,0x0086D684,0x0046D684,9,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,515,source_vtable_reference
 CTaskSimpleFightingControl,0x0086D700,0x0046D700,9,source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp,38,source_vtable_reference
 CTaskSimpleFinishBrain,0x00859D20,0x00459D20,9,source/game_sa/Tasks/TaskTypes/TaskSimpleFinishBrain.cpp,23,source_vtable_reference
 CTaskSimpleGangDriveBy,0x0086D944,0x0046D944,9,source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp,26,source_vtable_reference

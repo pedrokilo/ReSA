@@ -53,7 +53,6 @@ def load_stats():
         c['total'] += 1
         c['reversed'] += row['reversed'] == '1'
         c['validated'] += row['validated'] == '1'
-    total_entries = len(rows)
     reversed_entries = sum(c['reversed'] for c in classes.values())
     validated_entries = sum(1 for r in rows if r['validated'] == '1')
     locked_entries = sum(1 for r in rows if r['locked'] == '1')
@@ -61,9 +60,15 @@ def load_stats():
     # y las clases que solo existen ahí (sin entradas en el catálogo) se suman como clases sin revertir (misma regla que hooks2md.py).
     wrappers_file = HOOKS_CSV.with_name('implementaciones') / 'envolturas-pendientes.csv'
     wrapped = set()
+    pending_functions = 0
+    pending_rows = []
     if wrappers_file.exists():
         with wrappers_file.open(encoding='utf-8-sig', newline='') as stream:
-            wrapped = {row['class'] for row in csv.DictReader(stream)}
+            pending_rows = list(csv.DictReader(stream))
+        wrapped = {row['class'] for row in pending_rows}
+        pending_functions = len(pending_rows)
+    # El universo de funciones incluye las pendientes de reconstruir que no están en el catálogo (envolturas y bibliotecas del cohorte nuevo).
+    total_entries = len(rows) + pending_functions
     total_classes = len(classes) + len([name for name in wrapped if name not in classes])
     complete_classes = sum(1 for n, c in classes.items() if c['reversed'] == c['total'] and n not in wrapped)
     validated_classes = sum(1 for n, c in classes.items() if c['validated'] == c['total'] == c['reversed'] and n not in wrapped)  # de las completas
@@ -74,7 +79,7 @@ def load_stats():
         'pending_entries': total_entries - reversed_entries,
         'validated_entries': validated_entries,
         'locked_entries': locked_entries,
-        'unlocked_entries': total_entries - locked_entries,
+        'unlocked_entries': len(rows) - locked_entries,
         'total_classes': total_classes,
         'complete_classes': complete_classes,
         'validated_classes': validated_classes,
@@ -163,13 +168,14 @@ def main():
     parser.add_argument('--dry-run', action='store_true', help='No escribir ningún archivo; solo mostrar qué cambiaría.')
     args = parser.parse_args()
 
+    if not args.dry_run:
+        pending_wrappers.main()  # antes de calcular los totales: las funciones pendientes de reconstruir cuentan en ellos
     stats = load_stats()
     print(f"hooks.csv: {stats['reversed_entries']}/{stats['total_entries']} entradas reversed=1 "
           f"({stats['pct_reversed']:.2f}%), {stats['complete_classes']}/{stats['total_classes']} clases completas "
           f"({stats['pct_classes']:.2f}%), {stats['validated_entries']} validated=1, {stats['locked_entries']} locked=1.")
 
     if not args.dry_run:
-        pending_wrappers.main()
         hooks2md.generate(str(HOOKS_CSV), str(ROOT / 'docs/ReversedClasses.md'),
                            update_source_status=args.update_source_status)
         validation_inventory.generate(ROOT)

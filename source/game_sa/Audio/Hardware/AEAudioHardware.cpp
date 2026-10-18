@@ -37,6 +37,7 @@ void CAEAudioHardware::InjectHooks() {
     RH_ScopedInstall(Destructor, 0x4D83A0);
 
     RH_ScopedInstall(AllocateChannels, 0x5B9340);
+    RH_ScopedInstall(PlaySound, 0x4D86B0);
     RH_ScopedInstall(RequestVirtualChannelSoundInfo, 0x4D8E60);
     RH_ScopedInstall(Query3DSoundEffects, 0x4D8490);
     RH_ScopedInstall(GetNumAvailableChannels, 0x4D8810);
@@ -287,8 +288,58 @@ void CAEAudioHardware::Terminate() {
     SAFE_RELEASE(m_pDSDevice);
 }
 
+// 0x4D86B0 (thiscall, ret 0x1C). Reconstrucción exacta del EXE: mismas comprobaciones, mismo orden de llamadas y mismas escrituras. Un solo llamador (0x4F07F8, CAESoundManager)
+// que no lee EAX/ECX/EDX tras la llamada (ver g26a-audit.txt), así que no hay residuo de registros que reproducir.
 void CAEAudioHardware::PlaySound(int16 channel, uint16 channelSlot, uint16 soundIdInSlot, uint16 bankSlot, int16 playPosition, int16 flags, float speed) {
-    plugin::CallMethod<0x4D86B0, CAEAudioHardware*, int16, uint16, uint16, uint16, int16, int16, float>(this, channel, channelSlot, soundIdInSlot, bankSlot, playPosition, flags, speed);
+    // Como el original: `test di, di`; los índices se usan como en el EXE, sin comprobarlos contra el tamaño de las tablas.
+    if (channel < 0) {
+        return;
+    }
+    if (channelSlot >= reinterpret_cast<const uint16*>(m_anNumChannelsInSlot)[channel]) { // 0x4D86CA: cmp cx, [this + channel*2 + 0x90]
+        return;
+    }
+
+    // Como el original: el banco se pasa con movsx de 16 bits y el sonido con su palabra baja.
+    const auto bankSlotId = static_cast<eSoundBankSlot>(static_cast<int16>(bankSlot));
+    const auto soundId    = static_cast<eSoundID>(static_cast<int16>(soundIdInSlot));
+
+    uint32 soundSize{};
+    uint16 sampleRate{};
+    uint8* const soundBuffer = m_pMP3BankLoader->GetSoundBuffer(soundId, bankSlotId, soundSize, sampleRate);
+    if (!soundBuffer) {
+        return;
+    }
+    const int32 loopOffset = m_pMP3BankLoader->GetLoopOffset(soundId, bankSlotId); // se llama antes de comprobar el índice, como el EXE
+
+    // Como el original: `add ecx, edi; cmp cx, 0x40; ja`: la suma se trunca a 16 bits y se admite el 64 (el canal 64 es el primer
+    // dword de gBeatInfo, justo tras la tabla). La ranura se relee del objeto en cada uso (`mov ecx, [edi]`).
+    const uint16 channelIndex = static_cast<uint16>(channelSlot + channel);
+    if (channelIndex > MAX_NUM_AUDIO_CHANNELS) {
+        return;
+    }
+    CAEAudioChannel* const volatile* const channelSlotPtr = reinterpret_cast<CAEAudioChannel* const volatile*>(m_aChannels) + channelIndex;
+
+    if (!static_cast<CAEStaticChannel*>(*channelSlotPtr)->SetAudioBuffer(soundBuffer, soundSize, static_cast<int16>(soundIdInSlot), static_cast<int16>(bankSlot), static_cast<int16>(loopOffset), sampleRate)) {
+        return;
+    }
+
+    int32 position = playPosition < 0 ? 0 : playPosition; // 0x4D875A: test bp, bp; jge; xor ebp, ebp
+    const int32 length = (*channelSlotPtr)->GetLength();
+    if ((flags & 8) && position > 0) { // m_bIsStartPercentage: porcentaje de la longitud (fild, fmul 0.01f, fimul length, floor del CRT y _ftol2)
+        position = static_cast<int32>(AudioHwPercentPositionCpp(position, length));
+    }
+    if (static_cast<int32>(static_cast<int16>(position)) > length) { // movsx ecx, bp; cmp ecx, eax; jle
+        position = length;
+    }
+
+    if (m_n3dEffectsQueryResult) {
+        (*channelSlotPtr)->SetNotInRoom(!(flags & 0x200)); // `and edx, 0x200; test dx, dx`: sólo cuenta el bit 9
+    }
+    (*channelSlotPtr)->Play(static_cast<int16>(position), static_cast<int8>(flags), speed);
+
+    // Como el original: la tabla de flags se indexa con la suma de 32 bits (movsx del canal + movzx de la ranura), no con la de 16.
+    reinterpret_cast<int16*>(m_awChannelFlags)[channel + channelSlot] = flags;
+    (*channelSlotPtr)->m_nFlags = static_cast<uint32>(static_cast<int32>(flags)); // movsx edx, bx
 }
 
 // 0x5B9340

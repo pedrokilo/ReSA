@@ -537475,6 +537475,43 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco.",
       "review_reference": "reversing/Dependencies25A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAEAudioHardware",
+        "fn_name": "PlaySound",
+        "address": "0x004D86B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Dependencies26A/validation-summary.json",
+        "sha256": "6313cc841908cb1f5628b791e98009c3aa454b94d0ccdc4d9dbe75a513b6ba91",
+        "passed_path": [
+          "covered_functions",
+          "CAEAudioHardware::PlaySound"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Audio/Hardware/AEAudioHardware.cpp": "6fab9bc87b09084b869579bf0d4d4e40f852b47644c638125ecb44106519488b",
+        "source/game_sa/Audio/Hardware/AEAudioHardware.h": "e09c4152ef905e510e374162f1e08eb318ba64eb85672d2ffb5f02d5d4ec7ae5",
+        "source/game_sa/Audio/Hardware/AEAudioChannel.h": "616e9689d1fd6ded10b14d7c90cf7c671e6e92cc95979b46e9a6dc75db2a8a55",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "357fffac7121ecea70117e19c206d98d27d6f09072f490f88c9aa312cc9307d8",
+        "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "199b64ebf65960360f0ef983e5012d878f5635fe3ef3c2768206b219997d8a9b",
+        "source/game_sa/X87Math.cpp": "37411f250da69e698a85ee3b0ce3026b179bd90f9573a6d24ba3d61e9e83de45",
+        "source/game_sa/X87Math.h": "7697e71e5b0400de633932af4da1ad66ba01044b0c2c841efdf2398d8a65a52b",
+        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Dependencies26A/Core.hpp": "7796b57c6895b7d29683ecf9aa787e35ea31f68c6e84b4c0509f3b3eaa6b32cc",
+        "reversing/Dependencies26A/Fixtures.hpp": "cd99e9f0c98756df2ce927b29bd1e3e4af6a5f6ed684baf07d0a21d1315f9808",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco.",
+      "review_reference": "reversing/Dependencies26A/README.md"
     }
   ]
 }
