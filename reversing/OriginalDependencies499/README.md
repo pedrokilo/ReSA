@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 17/10/2026 (Ciudad de México):** 787 grupos / 8583 funciones reconstruidas; 8583 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 125 aprobadas dentro del juego; 130 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 17/10/2026 (Ciudad de México):** 787 grupos / 8583 funciones reconstruidas; 8583 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Dependencias originales fuera del catálogo · cohorte de 499
@@ -10,12 +10,12 @@ Tres subagentes revisaron los destinos por símbolos, contratos fuente y evidenc
 
 | Clasificación | Total | Aprobadas en juego | Pendientes |
 | --- | ---: | ---: | ---: |
-| Funciones del juego | 255 | 125 | 130 |
+| Funciones del juego | 255 | 131 | 124 |
 | Bibliotecas/runtime/SDK | 244 | 0 (1 reconstruida y validada, `CrtPrintf`, contada como biblioteca) | Seguimiento separado |
 | Identidad o procedencia incierta | 0 | 0 | 0 |
-| Total de la cohorte | 499 | 125 | 374 |
+| Total de la cohorte | 499 | 131 | 368 |
 
-Evolución: el 10/10/2026 la tabla era 235 del juego (105 aprobadas, 130 pendientes), 243 bibliotecas y 21 inciertas; el 17/10/2026 las 21 inciertas se resolvieron (20 juego, 1 biblioteca). El total sigue en 499 y `targets.csv` y `baseline.json` no cambian. Los 374 de la columna de pendientes son las 130 del juego y las 244 bibliotecas, de las que la reconstruida (`CrtPrintf`, `runtime_status=library_validated` en `progress.csv`) conserva su seguimiento aparte y no cuenta como aprobada en juego.
+Evolución: el 10/10/2026 la tabla era 235 del juego (105 aprobadas, 130 pendientes), 243 bibliotecas y 21 inciertas; el 17/10/2026 las 21 inciertas se resolvieron (20 juego, 1 biblioteca) y se conciliaron 6 funciones del juego que otros bancos ya habían reconstruido y validado (ver «Conciliación con bancos de otras tandas»), de modo que hoy son 131 aprobadas y 124 pendientes. El total sigue en 499 y `targets.csv` y `baseline.json` no cambian. Los 368 de la columna de pendientes son las 124 del juego y las 244 bibliotecas, de las que la reconstruida (`CrtPrintf`, `runtime_status=library_validated` en `progress.csv`) conserva su seguimiento aparte y no cuenta como aprobada en juego.
 
 ## Funciones admitidas
 
@@ -163,6 +163,24 @@ Cada banco documenta dirección/instrucción del EXE, reconstrucción o correcci
 
 Los grupos D3D (confianza media-alta, procedencia histórica no observable en el binario) y los colaboradores sustituidos por falsos en los bancos se detallan en [review-uncertain-21.md](review-uncertain-21.md). `dependency_review=null`: no certifica independencia transitiva del EXE.
 
+<!-- COHORT-RECONCILE:BEGIN -->
+## Conciliación con bancos de otras tandas (17/10/2026)
+
+6 funciones del juego de la cohorte, que el 10/10 figuraban como envoltorios pendientes, fueron reconstruidas y validadas después por bancos de otras tandas (regresión final de nivel 6 y bancos 22/23) y constan con `validated=1` en `docs/hooks.csv` y en `reversing/validation-registry.json`. `reconcile_validated.py` las admite en [approved-reconciled.json](approved-reconciled.json) sólo tras reverificar la evidencia: identidad única en catálogo y registro, SHA256 del resumen, `passed`/`all_equal`/`differences=0`/`state_restored`, `covered_functions` propio, resumen de la corrida registrada, log JSONL leído en streaming contra su SHA y recuento de pares de **la propia función** (los fixtures de otras funciones del mismo banco no dan crédito). Las direcciones que sólo coinciden por nombre no cuentan (`InteriorGroup_c::SetupHousePeds` 0x0046CED0 es otra dirección que la validada 0x005965E0 y sigue pendiente). La biblioteca `CrtPrintf` ya estaba como `library_validated`; se reverifica con la misma regla y no cambia de categoría.
+
+| Función | Dirección EXE | Pares propios | Pares del banco | Corrida |
+| --- | --- | ---: | ---: | --- |
+| CPlayerPed::ControlButtonSprint | 0x0060A610 | 3848 | 3848 | `DependenciesTaskSprint16-20261016-204102-478023` |
+| CVehicle::FlyingControl | 0x006D85F0 | 16896 | 16896 | `Dependencies23B-20261017-162634-919625` |
+| CPointLights::GenerateLightsAffectingObject | 0x006FFBB0 | 2048 | 7680 | `Dependencies22A-20261017-121118-063873` |
+| CStats::UpdateSexAppealStat | 0x0055BF20 | 4096 | 4096 | `DependenciesStatsSex16-20261016-224645-599852` |
+| CVehicle::DoVehicleLights | 0x006E1A60 | 8192 | 8192 | `Dependencies23A-20261017-134505-935121` |
+| CPointLights::RenderFogEffect | 0x007002D0 | 2048 | 7680 | `Dependencies22A-20261017-121118-063873` |
+| CRT::CrtPrintf (biblioteca) | 0x00821982 | 4096 | 4096 | `Dependencies21A-20261017-014358-631804` |
+
+Los pares propios son los de la función en su banco; no se suman a los 243392 + 43008 de las secciones anteriores. `audit-cohort-current.py` sigue auditando sólo `approved.json`; las seis filas se auditaron con `reconcile_validated.py`.
+<!-- COHORT-RECONCILE:END -->
+
 ## Continuación
 
-[work-queue.csv](work-queue.csv) muestra las entradas del juego todavía pendientes. Las bibliotecas siguen en el inventario completo; no se consideran reconstruidas por clasificarlas. Ya no quedan inciertas (resueltas el 17/10/2026). No registrar por nombre supuesto, cuerpo existente ni por pertenecer a un rango de direcciones.
+[work-queue.csv](work-queue.csv) muestra las entradas del juego todavía pendientes (124). Las bibliotecas siguen en el inventario completo; no se consideran reconstruidas por clasificarlas. Ya no quedan inciertas (resueltas el 17/10/2026). No registrar por nombre supuesto, cuerpo existente ni por pertenecer a un rango de direcciones.

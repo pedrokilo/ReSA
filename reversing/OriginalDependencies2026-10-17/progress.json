@@ -1,0 +1,27 @@
+{
+  "targets": 464,
+  "reviewed": 464,
+  "categories": {
+    "library": 279,
+    "game": 185
+  },
+  "implementation": {
+    "embedded_call": 50,
+    "wrapper": 414
+  },
+  "wrapper_styles": {
+    "reinterpret_cast_pointer": 31,
+    "plugin_call; reinterpret_cast_pointer": 1,
+    "address_constant": 4,
+    "direct_function_pointer_cast": 272,
+    "plugin_call": 155,
+    "direct_function_pointer_cast; plugin_call": 1
+  },
+  "plugin_call_targets": 157,
+  "runtime_passed": 0,
+  "runtime_pending": 464,
+  "scope": "Source classification is not runtime validation; unknowns preserved.",
+  "game_runtime_pending": 185,
+  "unknown_category_pending": 0,
+  "library_runtime_validated": 0
+}

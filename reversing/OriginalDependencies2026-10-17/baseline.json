@@ -1,0 +1,17 @@
+{
+  "targets": 464,
+  "date": "2026-10-17",
+  "explicit_uncatalogued_function_targets_total": 831,
+  "excluded_cohort1_still_referenced": 367,
+  "explicit_uncatalogued_targets_in_source_game_sa": 452,
+  "explicit_uncatalogued_targets_only_outside_game_sa": 12,
+  "scope": "explicit original function targets referenced by address from source/ (all .cpp/.h/.hpp/.inc/.inl), absent from the catalogue at 2026-10-17, excluding the 499 of cohort 1",
+  "binary_functions_sha256": "60633d0d0d8dae2af7da4687138c702720f72e6a206d74011c790b3337a30588",
+  "binary_calls_sha256": "c90c72ac1a84974bcbe87f67250554505a7d37daf4f5a234f02c994bbd02e6ec",
+  "hooks_csv_sha256": "56b4fdabea5b927620fc3a4b7eea2adf99c6fc85ff1663b49c510884420805ff",
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "cohort1_targets_sha256": "053429a5f106c4ebc29692571ed378d915edd0c6b967ced2cd7eacac7526f491",
+  "targets_sha256": "9afaf58573f46e1a21f0584599d74e74e06b7f738637a9c54846f9a16a12d637",
+  "evidence_sources_sha256": "606919b3cdad762ca38c5e11ae289983a8312a140aa1ca5cdd2717af87c68a00",
+  "binary_map_regeneration": "copy docs/MemoryMap/index.html to <dir>; python contrib/build-binary-map.py --root . --export build/binary-map --output <dir>"
+}

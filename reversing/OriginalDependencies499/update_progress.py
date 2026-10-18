@@ -48,9 +48,22 @@ def main():
             assert row['category'] in {'game', 'library', 'compiler', 'unknown'}, row
             assert row['implementation'] in {'wrapper', 'implemented', 'unknown'}, row
             reviews[row['address']] = row
-    approved_path = HERE / 'approved.json'
-    approved = json.loads(approved_path.read_text(encoding='utf-8')) if approved_path.exists() else {}
-    assert set(approved) <= expected
+    # Admission files: approved.json (10/10 banks), approved-level6.json (PLAN-001 level-6 banks) and
+    # approved-reconciled.json (rows validated by other banks, written by reconcile_validated.py after full re-verification).
+    approved = {}
+    reconciled = {}
+    for name in ('approved.json', 'approved-level6.json', 'approved-reconciled.json'):
+        path = HERE / name
+        part = json.loads(path.read_text(encoding='utf-8')) if path.exists() else {}
+        assert set(part) <= expected, name
+        assert not set(part) & set(approved), name
+        approved.update(part)
+        if name == 'approved-reconciled.json':
+            reconciled = part
+    # Decisions already written in progress.csv by PLAN-001 (17/10/2026) carry their evidence and notes; keep them.
+    previous = {}
+    if (HERE / 'progress.csv').exists():
+        previous = {r['address']: r for r in read(HERE / 'progress.csv') if 'PLAN-001' in r['notes']}
     merged = []
     for target in targets:
         address = target['address']
@@ -60,24 +73,35 @@ def main():
                'runtime_status': 'not_validated', 'runtime_evidence': ''}
         if address in reviews:
             row.update(reviews[address])
+        if address in previous:
+            row.update({k: previous[address][k] for k in ('identity', 'category', 'evidence', 'notes')})
         if address in approved:
             row['identity'] = approved[address]['identity']
             row['implementation'] = 'implemented'
-            row['runtime_status'] = 'passed'
+            row['runtime_status'] = 'library_validated' if row['category'] == 'library' else 'passed'
             row['runtime_evidence'] = approved[address]['validation_summary']
             summary = json.loads((ROOT / row['runtime_evidence']).read_text(encoding='utf-8'))
             assert summary['passed'] is True and summary['differences'] == 0
             assert summary['state_restored'] is True
+            if address in reconciled:
+                item = reconciled[address]
+                tag = (' | Conciliada el 17/10/2026 con la evidencia de otro banco (no de la cohorte): %s, %d pares propios de la '
+                       'funcion en %s; ver reconcile_validated.py.' % (item['validation_summary'], item['own_pairs'], item['run']))
+                if tag not in row['notes']:
+                    row['notes'] += tag
         merged.append(row)
     write(HERE / 'progress.csv', merged, list(merged[0]))
+    passed = sum(row['runtime_status'] == 'passed' for row in merged)
     summary = {'targets': 499, 'reviewed': len(reviews),
-               'categories': dict(Counter(row['category'] for row in merged)),
+               'categories': {c: sum(row['category'] == c for row in merged) for c in ('library', 'game', 'unknown')},
                'implementation': dict(Counter(row['implementation'] for row in merged)),
-               'runtime_passed': len(approved), 'runtime_pending': 499-len(approved),
+               'runtime_passed': passed, 'runtime_pending': 499-passed,
                'scope': 'Source classification is not runtime validation; unknowns preserved.'}
     summary['game_runtime_pending'] = sum(row['category']=='game' and row['runtime_status']!='passed' for row in merged)
     summary['unknown_category_pending'] = sum(row['category']=='unknown' for row in merged)
-    (HERE / 'progress.json').write_text(json.dumps(summary, indent=2)+'\n', encoding='utf-8')
+    summary['library_runtime_validated'] = sum(row['runtime_status'] == 'library_validated' for row in merged)
+    summary['reconciled_from_other_banks'] = len(reconciled)
+    (HERE / 'progress.json').write_text(json.dumps(summary, indent=2)+chr(10), encoding='utf-8')
     print(json.dumps(summary))
 
 

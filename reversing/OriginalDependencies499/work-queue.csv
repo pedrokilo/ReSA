@@ -10,10 +10,8 @@ address,identity,status,bank,pairs_expected,source_snapshot
 0x0049EB00,Fx_c::AddBlood,pending,,,source/game_sa/Fx/Fx.cpp:273
 0x0049F3D0,Fx_c::AddBulletImpact,pending,,,source/game_sa/Fx/Fx.cpp:293
 0x004A0D70,Fx_c::TriggerWaterHydrant,pending,,,source/game_sa/Fx/Fx.cpp:343
-0x0060A610,CPlayerPed::ControlButtonSprint,prepared_not_validated,DependenciesTaskSprint16,2048,source/game_sa/Entity/Ped/PlayerPed.cpp:717
 0x0060E530,CPlayerPed::FindNextWeaponLockOnTarget,pending,,,source/game_sa/Entity/Ped/PlayerPed.cpp:1119
 0x006D7C90,CVehicle::InflictDamage,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:3738
-0x006D85F0,CVehicle::FlyingControl,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:3821
 0x0072CAE0,CWorldScan::ScanWorld,pending,,,source/game_sa/Renderer.cpp:112
 0x00741FD0,CVehicle::DoDriveByShootings,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:5223
 0x0042B7D0,CCarCtrl::GenerateOneEmergencyServicesCar,pending,,,source/game_sa/CarCtrl.cpp:383
@@ -58,7 +56,6 @@ address,identity,status,bank,pairs_expected,source_snapshot
 0x006E6A10,CWaterLevel helper de agua cercana,pending,,,source/game_sa/WaterLevel.cpp:1557
 0x006E7680,CWaterLevel helper de envío de agua acumulada sin símbolo confirmado,pending,,,source/game_sa/WaterLevel.cpp:351; source/game_sa/WaterLevel.cpp:397; source/game_sa/WaterLevel.cpp:748
 0x006EABA0,Creación de objeto toalla para sunbathe sin símbolo confirmado,pending,,,source/game_sa/Population.cpp:2012; source/game_sa/Population.cpp:2026
-0x006FFBB0,CPointLights::GenerateLightsAffectingObject,pending,,,source/game_sa/PointLights.cpp:18
 0x00719B40,CFont helper de impresión de segmento sin símbolo confirmado,pending,,,source/game_sa/Font.cpp:704
 0x00730FC0,RwTexDictionaryGtaStreamRead,pending,,,source/game_sa/RenderWare/rw/rwtexdict.cpp:18
 0x00406E80,"Selector de modelo de ped para ataque de bandas, sin símbolo confirmado",pending,,,source/game_sa/GangWars.cpp:319
@@ -95,7 +92,6 @@ address,identity,status,bank,pairs_expected,source_snapshot
 0x00515BD0,CCamera::UpdateSoundDistances,pending,,,source/game_sa/Camera.cpp:1497
 0x00516010,CCam helper copSource alternativo=true sin símbolo confirmado,pending,,,source/game_sa/Cam.cpp:961
 0x00516560,CCamera::ProcessShake,pending,,,source/game_sa/Camera.cpp:1999
-0x0055BF20,CStats::UpdateSexAppealStat,prepared_not_validated,DependenciesStatsSex16,2048,source/game_sa/Stats.cpp:980
 0x005617C0,GetMillisecondTime,pending,,,source/game_sa/Timer.cpp:53
 0x00587000,CRadar::DrawEntityBlip,pending,,,source/game_sa/Radar.cpp:2074
 0x005B7670,CFileLoader::Load2dEffect,pending,,,source/game_sa/FileLoader.cpp:1023
@@ -116,13 +112,11 @@ address,identity,status,bank,pairs_expected,source_snapshot
 0x00641FC0,CTaskComplexLeaveCar::CreateFirstSubTask,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp:65
 0x006C79A0,CHeli::UpdateHelis,pending,,,source/game_sa/Entity/Vehicle/Heli.cpp:267
 0x006DF930,CVehicle::RemoveVehicleUpgrade,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:4822
-0x006E1A60,CVehicle::DoVehicleLights,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:5031
 0x006E3950,CVehicle::ProcessWeapons,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:5196
 0x006E7B30,CWaterLevel::FillQuadsAndTrianglesList,pending,,,source/game_sa/WaterLevel.cpp:1736
 0x006EA960,CWaterLevel::GetWaterDepth,pending,,,source/game_sa/WaterLevel.cpp:1005
 0x006EB810,CWaterLevel::RenderHighDetailWaterRectangle,pending,,,source/game_sa/WaterLevel.cpp:770
 0x006EDDC0,CWaterLevel::RenderHighDetailWaterTriangle,pending,,,source/game_sa/WaterLevel.cpp:1404
-0x007002D0,CPointLights::RenderFogEffect,pending,,,source/game_sa/PointLights.cpp:148
 0x00706520,CRealTimeShadow::SetupForThisEntity,pending,,,source/game_sa/RealTimeShadow.cpp:93
 0x00730830,D3DResourceSystem::Init,pending,,,source/game_sa/RenderWare/D3DResourceSystem.cpp:27
 0x00730900,D3DResourceSystem::CancelBuffering,pending,,,source/game_sa/RenderWare/D3DResourceSystem.cpp:12

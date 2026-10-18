@@ -1,0 +1,186 @@
+address,identity,status,bank,pairs_expected,source_snapshot,priority_rank,score,body_bytes,uncatalogued_game_callees,indirect_calls,x87_instructions,switch_tables,library_calls,catalogued_callees,seh,implementation
+0x0061A3A0,helper sin símbolo confirmado (usado por FightUnwind),pending,,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:47,1,7,7,0,0,0,0,0,0,0,embedded_call
+0x0041CC10,CPool<CVehicle>::GetAt (acceso por índice a la ranura de 0xA18 bytes),pending,,,source/game_sa/Camera.cpp:2542,2,31,31,0,0,0,0,0,0,0,embedded_call
+0x0041B950,CAutoPilot::RemoveOnePathNode,pending,,,source/game_sa/AutoPilot.cpp:52,3,45,45,0,0,0,0,0,0,0,wrapper
+0x005FB8A0,CPedGroups::RemoveAllFollowersFromGroup,pending,,,source/game_sa/PedGroups.cpp:208,4,52,32,0,0,0,0,0,1,0,wrapper
+0x00604490,CDecisionMakerTypes::FlushDecisionMakerEventResponse,pending,,,source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:292,5,55,35,0,0,0,0,0,1,0,wrapper
+0x0044A210,CGarages::CountCarsInHideoutGarage,pending,,,source/game_sa/Garages.cpp:621,6,67,47,0,0,0,0,0,1,0,wrapper
+0x00423880,CCarCtrl::SteerAIPlaneToCrashAndBurn,pending,,,source/game_sa/CarCtrl.cpp:1109,7,81,81,0,0,0,0,0,0,0,wrapper
+0x006D3490,FindReplacementUpgradeCB,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:2592,8,93,53,0,0,0,0,0,2,0,wrapper
+0x006D3370,FindUpgradeCB,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:2539,9,101,61,0,0,0,0,0,2,0,wrapper
+0x00406CE0,helper sin símbolo confirmado (usado por CHud::DrawVitalStats),pending,,,source/game_sa/Hud.cpp:1632,10,109,19,0,0,2,0,1,0,0,embedded_call
+0x00559010,CStats::FindLeastFavoriteRadioStation,pending,,,source/game_sa/Stats.cpp:344,11,110,110,0,0,0,0,0,0,0,wrapper
+0x00734A70,helper sin símbolo confirmado (usado por GetAnimHierarchyFromFrame),pending,,,source/game_sa/RwHelper.cpp:155,12,111,51,0,0,0,0,2,0,0,embedded_call
+0x00421FE0,CCarCtrl::ThisVehicleShouldTryNotToTurn,pending,,,source/game_sa/CarCtrl.cpp:1160,13,118,38,0,0,0,1,0,0,0,wrapper
+0x004F2860,CAEStreamingDecoder scalar deleting destructor (operator delete de la clase),pending,,,source/game_sa/Audio/Loaders/AEStreamingDecoder.cpp:33,14,130,50,0,0,0,0,2,1,0,wrapper
+0x00422590,CCarCtrl::StopCarIfNodesAreInvalid,pending,,,source/game_sa/CarCtrl.cpp:1124,15,137,137,0,0,0,0,0,0,0,wrapper
+0x0059C230,CQuaternion::Get,pending,,,source/game_sa/Core/Quaternion.cpp:52,16,147,57,0,0,14,0,1,0,0,wrapper
+0x004238E0,CCarCtrl::SteerAIHeliToCrashAndBurn,pending,,,source/game_sa/CarCtrl.cpp:1084,17,149,89,0,0,3,0,0,0,0,wrapper
+0x00682310,CTaskComplexPartner::StreamRequiredAnims,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:80,18,153,93,0,0,0,0,0,3,0,wrapper
+0x0050B830,helper sin símbolo confirmado (usado por CameraObbeCinemaCycle),pending,,,source/game_sa/Camera.cpp:1824,19,157,77,0,0,3,0,0,1,0,embedded_call
+0x00694ED0,CTaskComplexFollowPedFootsteps::MakeAbortable,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp:69,20,158,8,0,1,0,0,0,0,0,wrapper
+0x004226F0,CCarCtrl::FindIntersection2Lines,pending,,,source/game_sa/CarCtrl.cpp:333,21,160,100,0,0,24,0,0,0,0,wrapper
+0x0050E180,helper sin símbolo confirmado (usado por CCam::Process_DW_HeliChaseCam),pending,,,source/game_sa/Cam.cpp:2127,22,184,184,0,0,0,0,0,0,0,embedded_call
+0x0059C890,TransformPoint,pending,,,source/game_sa/Entity/Vehicle/Plane.cpp:618,23,184,124,0,0,30,0,0,0,0,embedded_call
+0x00625E40,CTaskComplexKillPedOnFoot::MakeAbortable,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp:62,24,198,48,0,1,0,0,0,0,0,wrapper
+0x006C4760,CHeli::FindSwatPositionRelativeToHeli,pending,,,source/game_sa/Entity/Vehicle/Heli.cpp:179,25,221,141,0,0,0,1,0,0,0,embedded_call
+0x004224E0,CCarCtrl::FindSpeedMultiplier,pending,,,source/game_sa/CarCtrl.cpp:377,26,227,167,0,0,35,0,0,0,0,wrapper
+0x00682C60,CTaskComplexPartnerChat::MakeAbortable,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.cpp:59,27,235,65,0,1,0,0,0,1,0,wrapper
+0x0044A9C0,CGarage::IsGarageEmpty,pending,,,source/game_sa/Garage.cpp:260,28,241,141,0,0,8,0,0,2,0,embedded_call
+0x006F5F80,CTrainNode::GetLightingFromCollision,pending,,,source/game_sa/Entity/Vehicle/Train.cpp:581,29,241,161,0,0,10,0,0,1,0,embedded_call
+0x005D7120,CCustomBuildingDNPipeline::CustomPipeMaterialSetup,pending,,,source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp:276,30,259,149,0,0,4,0,1,1,0,wrapper
+0x0061C740,FightStrikeDamageExe,pending,,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:258,31,264,164,0,0,9,0,0,2,0,wrapper
+0x00422620,CCarCtrl::FindPercDependingOnDistToLink,pending,,,source/game_sa/CarCtrl.cpp:358,32,268,208,0,0,28,0,0,0,0,wrapper
+0x0059C080,CQuaternion::Get,pending,,,source/game_sa/Entity/Vehicle/Plane.cpp:612,33,275,215,0,0,61,0,0,0,0,wrapper
+0x006D3300,RemoveUpgradeCB,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:2534,34,278,108,0,0,0,0,3,4,0,wrapper
+0x0063C840,helper sin símbolo confirmado (usado por CTaskSimpleCarDrive::StartRollingDoor),pending,,,source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.cpp:182,35,298,108,0,1,0,0,0,2,0,embedded_call
+0x004222A0,CCarCtrl::SwitchBetweenPhysicsAndGhost,pending,,,source/game_sa/CarCtrl.cpp:1129,36,308,208,0,0,0,0,0,5,0,wrapper
+0x0060CC50,CPlayerPed::PlayerWantsToAttack,pending,,,source/game_sa/Entity/Ped/PlayerPed.cpp:1037,37,320,200,0,0,0,0,0,6,0,wrapper
+0x00655140,CreateRouteTask,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp:79,38,320,130,0,0,0,0,0,2,1,wrapper
+0x00621B10,helper sin símbolo confirmado (usado por CTaskSimpleGangDriveBy::AITarget),pending,,,source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:412,39,341,201,0,0,8,0,2,1,0,embedded_call
+0x005BB9F0,helper sin símbolo confirmado (usado por CDecisionMakerTypes::InjectHooks),pending,,,source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:40,40,367,197,0,0,0,0,1,7,0,embedded_call
+0x005DD100,CPlantMgr::AtomicCreatePrelitIfNeeded,pending,,,source/game_sa/PlantMgr.cpp:33,41,371,221,0,0,0,0,5,0,0,wrapper
+0x0061A3D0,helper sin símbolo confirmado (usado por WaitForPedUnwind),pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp:25,42,385,85,0,1,0,0,0,0,1,embedded_call
+0x0050E090,helper sin símbolo confirmado (usado por CCam::Process_DW_HeliChaseCam),pending,,,source/game_sa/Cam.cpp:2129,43,402,192,0,0,30,0,5,0,0,embedded_call
+0x006823B0,CTaskComplexPartnerDeal::CreateFirstSubTask,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp:46,44,405,5,1,0,0,0,0,0,0,wrapper
+0x00681F20,CTaskComplexPartner::CreateFirstSubTask,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:72,45,407,177,0,0,0,0,0,4,1,wrapper
+0x004A8470,FxInterpInfoFloat_c::GetVal,pending,,,source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp:46,46,420,330,0,0,30,0,1,0,0,embedded_call
+0x0042A730,CCarCtrl::GetAIHeliToFlyInDirection,pending,,,source/game_sa/CarCtrl.cpp:512,47,428,28,1,0,0,0,0,0,0,wrapper
+0x006044C0,CDecisionMakerTypes::AddEventResponse,pending,,,source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:287,48,450,50,1,0,0,0,0,0,0,wrapper
+0x00606060,helper sin símbolo confirmado (usado por CDecisionMakerTypes::InjectHooks),pending,,,source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:39,49,459,59,1,0,0,0,0,0,0,embedded_call
+0x00682370,CTaskComplexPartner::RemoveStreamedAnims,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:84,50,476,56,1,0,0,0,0,1,0,wrapper
+0x0060D1C0,CPlayerPed::EvaluateNeighbouringTarget,pending,,,source/game_sa/Entity/Ped/PlayerPed.cpp:1105,51,488,388,0,0,56,0,0,2,0,wrapper
+0x006DFA20,CVehicle::AddUpgrade,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:7267,52,503,333,0,0,0,0,3,4,0,wrapper
+0x00493900,CSearchLight::IsSpottedEntity,pending,,,source/game_sa/SearchLight.cpp:28,53,510,90,1,0,0,0,0,1,0,wrapper
+0x006E0400,CVehicle::ScanAndMarkTargetForHeatSeekingMissile,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:7282,54,545,445,0,0,0,0,2,2,0,wrapper
+0x00423790,CCarCtrl::SteerAIPlaneTowardsTargetCoors,pending,,,source/game_sa/CarCtrl.cpp:1119,55,555,75,1,0,7,0,0,1,0,wrapper
+0x004513F0,CPathFind::FindParkingNodeInArea,pending,,,source/game_sa/PathFind.cpp:1083,56,576,476,0,0,19,0,0,2,0,embedded_call
+0x00428BE0,CCarCtrl::SteerAIBoatWithPhysicsHeadingForTarget,pending,,,source/game_sa/CarCtrl.cpp:1009,57,597,497,0,0,69,0,0,2,0,wrapper
+0x0042B270,CCarCtrl::FireHeliRocketsAtTarget,pending,,,source/game_sa/CarCtrl.cpp:427,58,606,506,0,0,72,0,0,2,0,wrapper
+0x004237F0,CCarCtrl::SteerAIPlaneToFollowEntity,pending,,,source/game_sa/CarCtrl.cpp:1114,59,621,141,1,0,7,0,0,1,0,wrapper
+0x00735360,SkinGetBonePositionsToTable,pending,,,source/game_sa/RwHelper.cpp:353,60,621,381,0,0,0,0,8,0,0,wrapper
+0x00683120,CTaskComplexPartnerShove::GetPartnerSequence,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerShove.cpp:45,61,625,275,0,0,0,0,0,10,1,wrapper
+0x006823C0,CTaskComplexPartnerDeal::StreamRequiredAnims,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp:51,62,633,113,1,0,0,0,0,6,0,wrapper
+0x0042ACB0,CCarCtrl::SteerAIHeliFlyingAwayFromPlayer,pending,,,source/game_sa/CarCtrl.cpp:1079,63,642,122,1,0,8,0,0,3,0,wrapper
+0x005E3E90,CPed::SpecialEntityCalcCollisionSteps,pending,,,source/game_sa/Entity/Ped/Ped.cpp:4471,64,642,342,0,0,54,0,8,0,0,wrapper
+0x00695000,CTaskComplexFollowPedFootsteps::CreateFirstSubTask,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp:77,65,651,141,0,3,19,0,0,0,0,wrapper
+0x00734FC0,RpClumpGetBoundingSphere,pending,,,source/game_sa/RwHelper.cpp:338,66,654,384,0,0,16,0,7,0,0,wrapper
+0x00429520,CCarCtrl::TestWhetherToFirePlaneGuns,pending,,,source/game_sa/CarCtrl.cpp:1155,67,674,214,1,0,33,0,0,0,0,wrapper
+0x006C4190,CHeli::CHeli,pending,,,source/game_sa/Entity/Vehicle/Plane.cpp:558,68,678,398,0,0,5,0,1,2,1,embedded_call
+0x005E3C30,CPed::SpecialEntityPreCollisionStuff,pending,,,source/game_sa/Entity/Ped/Ped.cpp:4462,69,683,603,0,0,21,0,0,1,0,embedded_call
+0x006919C0,helper sin símbolo confirmado (usado por ProcessPlayerVehicleInteraction),pending,,,source/game_sa/PlayerInfoProcess.cpp.inc:95,70,696,126,1,0,0,0,0,1,1,embedded_call
+0x004335E0,CCarCtrl::SteerAICarWithPhysicsTryingToBlockTarget,pending,,,source/game_sa/CarCtrl.cpp:1059,71,700,240,1,0,34,0,0,0,0,wrapper
+0x0049F670,Fx_c::AddPunchImpact,pending,,,source/game_sa/Fx/Fx.cpp:312,72,709,209,1,0,19,0,0,2,0,wrapper
+0x00422090,CCarCtrl::FindPathDirection,pending,,,source/game_sa/CarCtrl.cpp:353,73,735,515,0,0,57,0,0,8,0,wrapper
+0x007485C0,diPadInit,pending,,,source/app/platform/win/WinInput.cpp:53,74,744,214,0,3,0,0,2,1,0,wrapper
+0x00682440,CTaskComplexPartnerDeal::GetPartnerSequence,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp:56,75,754,344,0,0,0,0,0,13,1,wrapper
+0x005A4030,helper sin símbolo confirmado (usado por CProjectileInfo::AddProjectile),pending,,,source/game_sa/ProjectileInfo.cpp:158,76,757,167,1,0,0,0,0,2,1,embedded_call
+0x006040D0,CDecision::MakeDecision,pending,,,source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:38,77,793,333,1,0,8,0,0,0,0,embedded_call
+0x00425F70,CCarCtrl::TestCollisionBetween2MovingRects_OnlyFrontBumper,pending,,,source/game_sa/CarCtrl.cpp:1150,78,812,672,0,0,143,1,0,0,0,wrapper
+0x00730510,D3DResourceSystem::CreateTexture,pending,,,source/game_sa/RenderWare/D3DResourceSystem.cpp:186,79,814,204,1,1,5,0,0,0,0,wrapper
+0x0042D680,CCarCtrl::WeaveThroughCarsSectorList,pending,,,source/game_sa/CarCtrl.cpp:1233,80,821,341,1,0,23,0,0,1,0,wrapper
+0x0042D7E0,CCarCtrl::WeaveThroughPedsSectorList,pending,,,source/game_sa/CarCtrl.cpp:1245,81,826,346,1,0,23,0,0,1,0,wrapper
+0x0042D950,CCarCtrl::WeaveThroughObjectsSectorList,pending,,,source/game_sa/CarCtrl.cpp:1239,82,843,343,1,0,26,0,0,2,0,wrapper
+0x0042AD30,CCarCtrl::SteerAIHeliToLand,pending,,,source/game_sa/CarCtrl.cpp:1099,83,850,370,1,0,47,0,0,1,0,wrapper
+0x00448BE0,CGarage::IsEntityEntirelyInside3D,pending,,,source/game_sa/Garage.cpp:186,84,853,333,1,0,27,0,0,3,0,wrapper
+0x007306A0,D3DResourceSystem::CreateIndexBuffer,pending,,,source/game_sa/RenderWare/D3DResourceSystem.cpp:181,85,853,153,1,2,0,0,0,0,0,wrapper
+0x006840D0,CTaskComplexPartner::ControlSubTask,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:76,86,872,192,0,4,0,0,0,4,0,wrapper
+0x004F4620,helper sin símbolo confirmado (usado por CAEUserRadioTrackManager::WriteUserTracksFile),pending,,,source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp:446,87,902,102,2,0,0,0,0,0,0,embedded_call
+0x0042D4F0,CCarCtrl::SlowCarDownForObjectsSectorList,pending,,,source/game_sa/CarCtrl.cpp:950,88,911,391,1,0,27,0,0,3,0,wrapper
+0x006E07E0,CVehicle::PossiblyDropFreeFallBombForPlayer,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:7292,89,919,359,1,0,12,0,0,5,0,wrapper
+0x0042F370,CCarCtrl::GetAIPlaneToDoDogFightAgainstPlayer,pending,,,source/game_sa/CarCtrl.cpp:527,90,936,76,2,0,0,0,0,3,0,wrapper
+0x0042AAD0,CCarCtrl::SteerAIHeliAsPoliceHeli,pending,,,source/game_sa/CarCtrl.cpp:1074,91,955,475,1,0,38,0,0,1,0,wrapper
+0x0044A830,CGarage::IsStaticPlayerCarEntirelyInside,pending,,,source/game_sa/Garage.cpp:181,92,966,386,1,0,49,0,0,6,0,wrapper
+0x0042B470,CCarCtrl::FindLinksToGoWithTheseNodes,pending,,,source/game_sa/CarCtrl.cpp:338,93,972,862,0,0,22,0,1,1,0,wrapper
+0x00428990,CCarCtrl::SteerAICarWithPhysicsTryingToBlockTarget_Stop,pending,,,source/game_sa/CarCtrl.cpp:1064,94,983,583,0,1,72,0,1,8,0,wrapper
+0x0056EC80,helper sin símbolo confirmado (usado por CPlayerInfo::Process),pending,,,source/game_sa/PlayerInfo.cpp:325,95,1016,776,0,0,97,0,0,9,0,embedded_call
+0x00424CE0,CCarCtrl::ChooseModel,pending,,,source/game_sa/CarCtrl.cpp:181,96,1072,672,0,0,33,0,8,5,0,wrapper
+0x006E05C0,CVehicle::FireHeatSeakingMissile,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:7287,97,1089,529,1,0,55,0,0,5,0,wrapper
+0x0042A630,CCarCtrl::SteerAIHeliTowardsTargetCoors,pending,,,source/game_sa/CarCtrl.cpp:1104,98,1124,244,2,0,23,0,0,1,0,wrapper
+0x006239F0,CTaskSimpleFight::MakeAbortable,pending,,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:222,99,1124,284,1,2,6,0,0,4,0,wrapper
+0x00425B30,CCarCtrl::TestCollisionBetween2MovingRects,pending,,,source/game_sa/CarCtrl.cpp:1145,100,1141,1081,0,0,207,0,0,0,0,wrapper
+0x00429090,CCarCtrl::SteerAIBoatWithPhysicsCirclingPlayer,pending,,,source/game_sa/CarCtrl.cpp:1004,101,1153,613,1,0,83,0,0,4,0,wrapper
+0x00730E60,RwTextureGtaStreamRead,pending,,,source/game_sa/RenderWare/rw/rwtexdict.cpp:22,102,1157,347,1,1,20,0,4,4,0,wrapper
+0x00422760,CCarCtrl::ClitargetOrientationToLink,pending,,,source/game_sa/CarCtrl.cpp:223,103,1158,918,0,0,143,0,0,9,0,wrapper
+0x004A4050,FxEmitter_c::AddParticle,pending,,,source/game_sa/Fx/FxEmitter.cpp:88,104,1180,400,1,0,5,0,4,10,0,embedded_call
+0x00429300,CCarCtrl::TriggerDogFightMoves,pending,,,source/game_sa/CarCtrl.cpp:1165,105,1186,526,1,0,55,1,4,0,0,wrapper
+0x004A3EA0,FxEmitter_c::AddParticle,pending,,,source/game_sa/Fx/FxEmitter.cpp:48,106,1198,418,1,0,5,0,4,10,0,embedded_call
+0x00448D30,CGarage::IsEntityEntirelyOutside,pending,,,source/game_sa/Garage.cpp:176,107,1201,281,2,0,19,0,0,3,0,wrapper
+0x006D3830,CVehicle::AddReplacementUpgrade,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:2742,108,1233,423,0,2,3,0,9,9,0,wrapper
+0x0049EE10,Fx_c::AddWood,pending,,,source/game_sa/Fx/Fx.cpp:292,109,1239,549,1,0,66,0,7,1,0,wrapper
+0x00695E40,CTaskComplexFollowPedFootsteps::CreateSubTask,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp:85,110,1258,488,1,0,3,0,0,8,1,wrapper
+0x00428DE0,CCarCtrl::SteerAIBoatWithPhysicsAttackingPlayer,pending,,,source/game_sa/CarCtrl.cpp:999,111,1284,684,1,0,100,0,0,7,0,wrapper
+0x00432420,CCarCtrl::SlowCarDownForCarsSectorList,pending,,,source/game_sa/CarCtrl.cpp:916,112,1313,413,2,0,33,0,0,2,0,wrapper
+0x006C6D30,CHeli::BlowUpCar,pending,,,source/game_sa/Entity/Vehicle/Heli.cpp:300,113,1315,795,0,0,5,0,2,20,0,wrapper
+0x00730D30,D3DResourceSystem::DestroyIndexBuffer,pending,,,source/game_sa/RenderWare/D3DResourceSystem.cpp:191,114,1363,263,2,2,0,0,0,0,0,wrapper
+0x00694EE0,CTaskComplexFollowPedFootsteps::CreateNextSubTask,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp:73,115,1393,283,0,7,19,0,0,0,0,wrapper
+0x0066C4E0,CTaskSimpleSlideToCoord::ProcessPed,pending,,,source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp:54,116,1430,570,1,1,63,0,0,5,1,embedded_call
+0x00429890,CCarCtrl::GetAIPlaneToDoDogFight,pending,,,source/game_sa/CarCtrl.cpp:522,117,1482,472,2,0,58,0,3,3,0,wrapper
+0x0042AEB0,CCarCtrl::SteerAIHeliToKeepEntityInView,pending,,,source/game_sa/CarCtrl.cpp:1094,118,1489,939,1,0,120,0,1,3,0,wrapper
+0x0061D400,FightHitObjExe,pending,,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:268,119,1604,494,2,1,32,0,0,5,0,wrapper
+0x00423940,CCarCtrl::FlyAIHeliToTarget_FixedOrientation,pending,,,source/game_sa/CarCtrl.cpp:437,120,1717,1167,1,0,190,0,1,3,0,wrapper
+0x00429780,CCarCtrl::GetAIPlaneToAttackPlayer,pending,,,source/game_sa/CarCtrl.cpp:517,121,1721,261,3,0,21,0,0,10,0,wrapper
+0x00432DD0,CCarCtrl::SteerAICarWithPhysicsFollowPreRecordedPath,pending,,,source/game_sa/CarCtrl.cpp:1049,122,1797,1177,1,0,175,0,0,8,0,wrapper
+0x00433280,CCarCtrl::SteerAICarWithPhysicsHeadingForTarget,pending,,,source/game_sa/CarCtrl.cpp:1054,123,1801,841,2,0,128,0,0,5,0,wrapper
+0x0042BD20,CCarCtrl::FindNodesThisCarIsNearestTo,pending,,,source/game_sa/CarCtrl.cpp:348,124,1883,1323,1,0,106,0,0,5,0,wrapper
+0x0056EF90,helper sin símbolo confirmado (usado por CWeaponEffects::Render),pending,,,source/game_sa/WeaponEffects.cpp:337,125,1948,608,0,8,33,0,0,4,0,embedded_call
+0x0042F3C0,CCarCtrl::GetAIHeliToAttackPlayer,pending,,,source/game_sa/CarCtrl.cpp:507,126,1952,472,3,0,33,0,0,11,0,wrapper
+0x006008A0,CMentalState::Process,pending,,,source/game_sa/MentalHealth.cpp:22,127,1956,646,2,0,2,0,2,12,1,wrapper
+0x00433EA0,CCarCtrl::SteerAICarParkPerpendicular,pending,,,source/game_sa/CarCtrl.cpp:1024,128,2050,800,2,0,18,0,0,12,1,wrapper
+0x006575F0,CTaskComplexWalkRoundObject::ControlSubTask,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp:67,129,2071,341,3,3,31,0,0,1,0,wrapper
+0x00432B10,CCarCtrl::PickNextNodeAccordingStrategy,pending,,,source/game_sa/CarCtrl.cpp:667,130,2081,321,4,0,0,1,0,4,0,wrapper
+0x00422B20,CCarCtrl::SteerAICarBlockingPlayerForwardAndBack,pending,,,source/game_sa/CarCtrl.cpp:1014,131,2105,745,3,0,114,0,0,5,0,wrapper
+0x004336D0,CCarCtrl::SteerAICarTowardsPointInEscort,pending,,,source/game_sa/CarCtrl.cpp:1029,132,2203,1223,2,0,191,0,0,6,0,wrapper
+0x0045AB10,CRemote::GivePlayerRemoteControlledCar,pending,,,source/game_sa/Remote.cpp:12,133,2258,548,3,0,6,0,0,15,1,wrapper
+0x00433BA0,CCarCtrl::SteerAICarParkParallel,pending,,,source/game_sa/CarCtrl.cpp:1019,134,2352,762,3,0,34,0,0,9,1,wrapper
+0x00447E40,CStoredCar::RestoreCar,pending,,,source/game_sa/Garage.cpp:365,135,2361,1211,1,0,23,1,0,23,1,wrapper
+0x00657220,CTaskComplexWalkRoundObject::CreateNextSubTask,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp:71,136,2361,341,4,1,0,0,0,6,1,wrapper
+0x0042A750,CCarCtrl::SteerAIHeliToFollowEntity,pending,,,source/game_sa/CarCtrl.cpp:1089,137,2366,896,3,1,72,0,0,3,0,wrapper
+0x006C6520,CHeli::GenerateHeli,pending,,,source/game_sa/Entity/Vehicle/Heli.cpp:223,138,2427,867,3,0,80,0,1,6,1,wrapper
+0x00684380,CTaskComplexPartnerChat::GetPartnerSequence,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.cpp:64,139,2436,836,2,0,14,0,3,25,1,wrapper
+0x00423000,CCarCtrl::FlyAIPlaneInCertainDirection,pending,,,source/game_sa/CarCtrl.cpp:442,140,2487,1917,1,0,286,0,1,4,0,wrapper
+0x00426BC0,CCarCtrl::WeaveForObject,pending,,,source/game_sa/CarCtrl.cpp:1222,141,2583,803,4,0,88,0,0,6,0,wrapper
+0x004650F0,helper sin símbolo confirmado (usado por CDecisionMakerTypes::InjectHooks),pending,,,source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:43,142,2695,415,5,0,0,0,1,5,1,embedded_call
+0x00641530,CTaskComplexLeaveCar::CreateSubTask,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp:93,143,2784,1214,2,0,0,0,0,31,1,wrapper
+0x0042D0E0,CCarCtrl::SlowCarDownForOtherCar,pending,,,source/game_sa/CarCtrl.cpp:955,144,2832,1032,4,0,132,0,0,7,0,wrapper
+0x00619FA0,RsSavePresetView,pending,,,source/app/platform/preset_view.cpp:127,145,2843,393,3,7,14,0,4,1,0,wrapper
+0x00619D60,RsLoadPresetViews,pending,,,source/app/platform/preset_view.cpp:122,146,2902,552,2,9,0,0,4,4,0,wrapper
+0x0042EC90,CCarCtrl::DragCarToPoint,pending,,,source/game_sa/CarCtrl.cpp:323,147,2918,1748,2,1,144,0,0,8,0,wrapper
+0x004A2580,FxEmitter_c::CreateParticle,pending,,,source/game_sa/Fx/FxEmitter.cpp:151,148,2944,1434,1,0,192,0,31,6,0,embedded_call
+0x00730B70,D3DResourceSystem::DestroyTexture,pending,,,source/game_sa/RenderWare/D3DResourceSystem.cpp:196,149,2949,439,5,3,6,0,0,0,0,wrapper
+0x00603720,CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents,pending,,,source/game_sa/Events/EventScanner.cpp:46,150,3107,777,5,0,70,0,0,6,1,wrapper
+0x006A2B10,CAutomobile::Render,pending,,,source/game_sa/Entity/Vehicle/Automobile.cpp:7077,151,3285,1005,0,11,60,0,5,21,0,wrapper
+0x0042C740,CCarCtrl::CreateConvoy,pending,,,source/game_sa/CarCtrl.cpp:308,152,3308,1168,3,3,79,0,2,11,1,wrapper
+0x00657380,CTaskComplexWalkRoundObject::CreateFirstSubTask,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp:75,153,3330,620,6,0,41,0,0,5,1,wrapper
+0x004325C0,CCarCtrl::FindAngleToWeaveThroughTraffic,pending,,,source/game_sa/CarCtrl.cpp:328,154,3559,1339,4,0,153,0,16,4,0,wrapper
+0x00426EF0,CCarCtrl::PickNextNodeToChaseCar,pending,,,source/game_sa/CarCtrl.cpp:684,155,3581,2111,3,0,93,0,3,6,0,wrapper
+0x0042DAB0,CCarCtrl::IsThisAnAppropriateNode,pending,,,source/game_sa/CarCtrl.cpp:574,156,3672,932,6,0,17,1,0,10,0,wrapper
+0x006E3440,CVehicle::GetPlaneWeaponFiringStatus,pending,,,source/game_sa/Entity/Vehicle/Vehicle.cpp:7844,157,3734,944,6,0,9,1,1,11,0,wrapper
+0x0060C840,CPlayerPed::MakeThisPedJoinOurGroup,pending,,,source/game_sa/Entity/Ped/PlayerPed.cpp:1032,158,3939,1029,5,0,4,0,0,35,1,wrapper
+0x00559230,CStats::BuildStatLine,pending,,,source/game_sa/Stats.cpp:375,159,4105,735,7,0,24,1,9,8,0,wrapper
+0x006C69C0,CHeli::SendDownSwat,pending,,,source/game_sa/Entity/Vehicle/Heli.cpp:260,160,4209,869,7,0,33,0,1,15,1,wrapper
+0x006C4E60,CHeli::ProcessFlyingCarStuff,pending,,,source/game_sa/Entity/Vehicle/Heli.cpp:374,161,4217,1467,6,0,112,0,2,4,1,wrapper
+0x00429A70,CCarCtrl::FlyAIHeliInCertainDirection,pending,,,source/game_sa/CarCtrl.cpp:432,162,4424,2994,3,0,419,0,1,7,0,wrapper
+0x00427740,CCarCtrl::PickNextNodeToFollowPath,pending,,,source/game_sa/CarCtrl.cpp:689,163,4433,2193,5,0,98,0,4,3,0,wrapper
+0x0061CBA0,FightHitPedExe,pending,,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:263,164,4629,1289,6,1,28,0,6,20,1,wrapper
+0x0042C2B0,CCarCtrl::CreatePoliceChase,pending,,,source/game_sa/CarCtrl.cpp:313,165,5221,1161,7,4,29,0,3,18,1,wrapper
+0x00425440,CCarCtrl::SlowCarDownForPedsSectorList,pending,,,source/game_sa/CarCtrl.cpp:961,166,5371,1761,8,0,183,0,0,10,1,wrapper
+0x00426350,CCarCtrl::WeaveForOtherCar,pending,,,source/game_sa/CarCtrl.cpp:1227,167,5638,1558,10,0,128,0,0,1,0,wrapper
+0x0062B150,CTaskComplexKillPedOnFoot::CreateNextSubTask,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp:66,168,5771,831,11,2,20,0,0,9,0,wrapper
+0x00428040,CCarCtrl::DealWithBend_Racing,pending,,,source/game_sa/CarCtrl.cpp:318,169,6121,2361,9,0,338,0,0,5,0,wrapper
+0x0042DE80,CCarCtrl::PickNextNodeRandomly,pending,,,source/game_sa/CarCtrl.cpp:679,170,6611,3591,7,0,109,0,4,2,0,wrapper
+0x00683AD0,CTaskComplexPartner::CreateNextSubTask,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:68,171,6861,1521,9,7,67,0,0,24,1,wrapper
+0x00641100,CTaskComplexLeaveCar::MakeAbortable,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp:55,172,6899,1069,6,20,5,0,0,11,1,wrapper
+0x006C4830,CHeli::ProcessControlInputs,pending,,,source/game_sa/Entity/Vehicle/Heli.cpp:322,173,7171,1571,13,0,207,0,2,14,0,wrapper
+0x00695090,CTaskComplexFollowPedFootsteps::ControlSubTask,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp:81,174,7201,1341,12,6,71,0,0,5,0,wrapper
+0x006C7050,CHeli::ProcessControl,pending,,,source/game_sa/Entity/Vehicle/Heli.cpp:386,175,7472,2352,11,0,170,1,4,23,0,wrapper
+0x00629920,CTaskSimpleFight::ProcessPed,pending,,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:227,176,8547,1907,15,0,71,0,2,26,0,wrapper
+0x00747EB0,__MainWndProc,pending,,,source/app/platform/win/WinMain.cpp:102,177,8668,1458,7,24,2,3,11,17,0,wrapper
+0x005E2530,CPed::ProcessEntityCollision,pending,,,source/game_sa/Entity/Ped/Ped.cpp:4715,178,8832,4342,9,0,300,0,0,34,1,wrapper
+0x00468560,CMissionCleanup::Process,pending,,,source/game_sa/MissionCleanup.cpp:31,179,9065,1955,14,1,0,1,0,64,0,wrapper
+0x006C5420,CHeli::PreRender,pending,,,source/game_sa/Entity/Vehicle/Heli.cpp:380,180,9284,1204,19,1,96,0,0,6,1,wrapper
+0x00435830,CCarCtrl::SteerAICarWithPhysicsFollowPath_Racing,pending,,,source/game_sa/CarCtrl.cpp:1044,181,10720,3320,18,0,249,0,0,7,0,wrapper
+0x00434900,CCarCtrl::SteerAICarWithPhysicsFollowPath,pending,,,source/game_sa/CarCtrl.cpp:1039,182,10909,3729,17,0,345,3,0,12,0,wrapper
+0x006419F0,CTaskComplexLeaveCar::CreateNextSubTask,pending,,,source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp:60,183,12088,1428,25,2,0,2,0,14,0,wrapper
+0x0051D770,helper sin símbolo confirmado (usado por CameraObbeCinemaCycle),pending,,,source/game_sa/Camera.cpp:1806,184,15135,3445,26,0,143,1,1,56,0,embedded_call
+0x00436A90,CCarCtrl::SteerAICarWithPhysics_OnlyMission,pending,,,source/game_sa/CarCtrl.cpp:1069,185,26343,4243,53,0,190,1,0,38,0,wrapper
