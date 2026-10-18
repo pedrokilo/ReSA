@@ -9631,5 +9631,19 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ sin llamadas al EXE (CCarPathLink::OneWayLaneOffset de PathFind.h reproduce 0x44DB00; colaborador CCurves::CalcSpeedScaleFactor 0x43C710 ya en C++). Banco ModifySpeed27 con 4096 pares y cero diferencias; EAX/ECX/EDX sólo registrados porque ningún llamador los lee. Sin cobertura exhaustiva más allá de los fixtures del banco."
+  },
+  "0x006040D0": {
+    "identity": "CDecision::MakeDecision",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/DecisionMakers/Decision.cpp",
+    "bank": "DecisionMakeDecision27",
+    "run": "20261018-140521-969916",
+    "pairs": 6144,
+    "own_pairs": 6144,
+    "audit": "reversing/CppTwelveLevel6Final/runs/DecisionMakeDecision27-20261018-140521-969916/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (Decision.cpp) con el colaborador 0x6007A0 en línea y el rand del EXE 0x821B1E llamado por dirección; x87 a 24 bits como el EXE. Banco DecisionMakeDecision27 con 6144 pares y cero diferencias; EAX/ECX/EDX sólo registrados porque ningún llamador los lee. Sin cobertura exhaustiva más allá de los fixtures del banco. Los hashes de fuentes probadas corresponden al worktree D:/Original/gta-wt-decision, no a DecisionMakerTypes.cpp del árbol principal (que lleva además un cambio ajeno de AddEventResponse sin validar)."
   }
 }

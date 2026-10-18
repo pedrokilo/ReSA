@@ -537550,6 +537550,40 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco.",
       "review_reference": "reversing/ModifySpeed27/README.md"
+    },
+    {
+      "hook": {
+        "class": "CDecision",
+        "fn_name": "MakeDecision",
+        "address": "0x006040D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/DecisionMakeDecision27/validation-summary.json",
+        "sha256": "b66dbe225311cb2e5b754cb3fa829e9a4c9368e8fa2072a87dc2b4a987863123",
+        "passed_path": [
+          "covered_functions",
+          "CDecision::MakeDecision"
+        ],
+        "pairs": 6144,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+        "source/game_sa/DecisionMakers/Decision.cpp": "9434ac29d9f256e5f232b88d1f99acd1fdcf5fba56e6401c0f093052aa657680",
+        "source/game_sa/DecisionMakers/Decision.h": "e7a3a87ea4385b2df44c564bf5a51535bd1b57fbed413c3900c8fb16b717977c",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/DecisionMakeDecision27/LiveComparison.hpp": "d56d9a64f4665797938f457f61ed9d073987ac792093589cfb42f782b8b58895",
+        "reversing/DecisionMakeDecision27/Core.hpp": "0c6ef4c14d14b53b28ccb40e4331d4921a458d1b1a721874cbd09fa21fe0c75c",
+        "reversing/DecisionMakeDecision27/Fixtures.hpp": "ccf3f3590a108fd33276a113018feaaf7fe4d65892c6fb71e6d6c32fa5ca960b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco.",
+      "review_reference": "reversing/DecisionMakeDecision27/README.md"
     }
   ]
 }

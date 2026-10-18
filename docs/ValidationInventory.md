@@ -1,18 +1,14 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 18/10/2026 (Ciudad de México):** 795 grupos / 8671 funciones reconstruidas; 8671 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
 # Inventario de validación de funciones reconstruidas
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,671 entradas reversed=1**, de 8,671 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,672 entradas reversed=1**, de 8,672 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8671 |
+| `validated=1` · evidencia aprobada vinculada | 8672 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8671 |
+| Evidencia histórica vinculada; revisión pendiente | 8672 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -2159,6 +2155,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CData | `Unload` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CDebug | `DebugDisplayTextBuffer` | [Resumen](../reversing/Misc56/validation-summary.json) |
 | CDecision | `From` | [Resumen](../reversing/RequestedLeafValidation/LiveBatch/validation-summary.json) |
+| CDecision | `MakeDecision` | [Resumen](../reversing/DecisionMakeDecision27/validation-summary.json) |
 | CDecision | `Set` | [Resumen](../reversing/DecisionPending/validation-summary.json) |
 | CDecision | `SetDefault` | [Resumen](../reversing/DecisionPending/validation-summary.json) |
 | CDecisionMakerTypes | `AddDecisionMaker` | [Resumen](../reversing/DependenciesDecisionRelationship6/validation-summary.json) |
@@ -8842,7 +8839,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CDarkel` | 19 | 0 | 19 | 0 |
 | `CData` | 2 | 0 | 2 | 0 |
 | `CDebug` | 1 | 0 | 1 | 0 |
-| `CDecision` | 3 | 0 | 3 | 0 |
+| `CDecision` | 4 | 0 | 4 | 0 |
 | `CDecisionMakerTypes` | 7 | 0 | 7 | 0 |
 | `CDecisionMakerTypesFileLoader` | 7 | 0 | 7 | 0 |
 | `CDirectory` | 10 | 0 | 10 | 0 |

@@ -8670,3 +8670,4 @@ RtDict,RtDictSchemaDestruct,0x007CED70,1,0,1,S
 RtDict,RtDictSchemaGetCurrentDict,0x007CEEE0,1,0,1,S
 CAutoPilot,RemoveOnePathNode,0x0041B950,1,0,1,S
 CAutoPilot,ModifySpeed,0x0041B980,1,0,1,S
+CDecision,MakeDecision,0x006040D0,1,0,1,S

@@ -44,6 +44,7 @@ public:
 
     void SetDefault();
     void From(const CDecision& rhs);
+    void MakeDecision(int32 eventSourceType, bool bIsPedInVehicle, int32 taskIdToAvoid1, int32 taskIdToAvoid2, int32 taskIdToAvoid3, int32 taskIdToSeek, int16& taskSlot, int16& facialSlot);
     void Set(
         notsa::mdarray<int32, MAX_NUM_CHOICES>&    tasks,
         notsa::mdarray<float, MAX_NUM_CHOICES, 4>& probs,

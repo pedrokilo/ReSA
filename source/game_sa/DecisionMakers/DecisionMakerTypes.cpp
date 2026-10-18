@@ -54,7 +54,6 @@ void CDecisionMakerTypes::InjectHooks() {
 //  - La salida de Add/Remove/GetInstance termina con ResidueRegsCpp(ECX, EDX, EAX) (lo vigila contrib/audit_register_residue.py, objeto DecisionMakerTypes).
 namespace {
 // Colaboradores del EXE sin reconstruir. Todos son thiscall/stdcall con parametros en pila (callee limpia), por eso se declaran __fastcall con un EDX explicito.
-constexpr uintptr_t kExeDecisionOne  = 0x6040D0; // thiscall(CDecision*, srcType, inVehicle, avoid1, avoid2, avoid3, seek, int16* task, int16* facial), ret 0x20
 constexpr uintptr_t kExeDecisionMany = 0x606060; // thiscall(CDecision* base, index, srcType, inVehicle, avoid1, avoid2, avoid3, seek, int16* task, int16* facial), ret 0x24
 constexpr uintptr_t kExeReadEvents   = 0x5BB9F0; // stdcall(int32* indices, const char* fileName), ret 8
 constexpr uintptr_t kExeOperatorNew  = 0x82119A; // cdecl(size_t)
@@ -62,7 +61,6 @@ constexpr uintptr_t kExeOperatorDel  = 0x8214BD; // cdecl(void*)
 constexpr uintptr_t kExeConstruct    = 0x4650F0; // thiscall(CDecisionMakerTypes*), ret; EAX = this
 constexpr uintptr_t kExePedEventFile = 0x86CD44; // "PedEvent.txt"
 
-using ExeDecisionOne  = void(__fastcall*)(void* decision, uint32 edx, int32 sourceType, int32 inVehicle, int32 avoid1, int32 avoid2, int32 avoid3, int32 seek, int16* taskType, int16* facialTaskType);
 using ExeDecisionMany = void(__fastcall*)(void* base, uint32 edx, uint32 eventIndex, int32 sourceType, int32 inVehicle, int32 avoid1, int32 avoid2, int32 avoid3, int32 seek, int16* taskType, int16* facialTaskType);
 using ExeReadEvents   = void(__stdcall*)(int32* indices, const char* fileName);
 using ExeOperatorNew  = uint64(__cdecl*)(uint32 size);
@@ -204,11 +202,11 @@ __declspec(safebuffers) void CDecisionMakerTypes::MakeDecision(CPed* ped, eEvent
     int16* const outTask   = &taskType;
     int16* const outFacial = &facialTaskType;
     if (decisionMaker == -2) {
-        reinterpret_cast<ExeDecisionOne>(kExeDecisionOne)(base + kPlayerPed + eventIndex * kDecisionStride, eventIndex * kDecisionStride, eventSourceType, static_cast<int32>(bIsPedInVehicle), static_cast<int32>(taskTypeToAvoid1), static_cast<int32>(taskTypeToAvoid2), static_cast<int32>(taskTypeToAvoid3), static_cast<int32>(taskTypeToSeek), outTask, outFacial);
+        reinterpret_cast<CDecision*>(base + kPlayerPed + eventIndex * kDecisionStride)->MakeDecision(eventSourceType, bIsPedInVehicle, static_cast<int32>(taskTypeToAvoid1), static_cast<int32>(taskTypeToAvoid2), static_cast<int32>(taskTypeToAvoid3), static_cast<int32>(taskTypeToSeek), *outTask, *outFacial);
     } else if (decisionMaker == -1) {
         reinterpret_cast<ExeDecisionMany>(kExeDecisionMany)(base + (pedBytes[0x484] == 2 ? kMissionPed : kRandomPed), eventIndex, eventIndex, eventSourceType, static_cast<int32>(bIsPedInVehicle), static_cast<int32>(taskTypeToAvoid1), static_cast<int32>(taskTypeToAvoid2), static_cast<int32>(taskTypeToAvoid3), static_cast<int32>(taskTypeToSeek), outTask, outFacial);
     } else {
-        reinterpret_cast<ExeDecisionOne>(kExeDecisionOne)(base + 4 + (static_cast<uint32>(decisionMaker) * static_cast<uint32>(CDecision::MAX_NUM_DECISIONS) + eventIndex) * kDecisionStride, eventIndex, eventSourceType, static_cast<int32>(bIsPedInVehicle), static_cast<int32>(taskTypeToAvoid1), static_cast<int32>(taskTypeToAvoid2), static_cast<int32>(taskTypeToAvoid3), static_cast<int32>(taskTypeToSeek), outTask, outFacial);
+        reinterpret_cast<CDecision*>(base + 4 + (static_cast<uint32>(decisionMaker) * static_cast<uint32>(CDecision::MAX_NUM_DECISIONS) + eventIndex) * kDecisionStride)->MakeDecision(eventSourceType, bIsPedInVehicle, static_cast<int32>(taskTypeToAvoid1), static_cast<int32>(taskTypeToAvoid2), static_cast<int32>(taskTypeToAvoid3), static_cast<int32>(taskTypeToSeek), *outTask, *outFacial);
     }
 }
 
@@ -291,9 +289,9 @@ __declspec(safebuffers) eTaskType CDecisionMakerTypes::MakeDecision(CPedGroup* p
     *reinterpret_cast<int32*>(taskSlot) = 0xC8; // como el EXE: mov dword [esp+8], 0C8h sobre la ranura del primer argumento
 
     if (decisionMaker == -1) {
-        reinterpret_cast<ExeDecisionOne>(kExeDecisionOne)(base + (missionFlag == 1 ? kMissionGroup : kRandomGroup) + eventIndex * kDecisionStride, eventIndex * kDecisionStride, eventSourceType, static_cast<int32>(bIsPedInVehicle), static_cast<int32>(taskId1), static_cast<int32>(taskId2), static_cast<int32>(taskId3), static_cast<int32>(taskId4), taskSlot, facialSlot);
+        reinterpret_cast<CDecision*>(base + (missionFlag == 1 ? kMissionGroup : kRandomGroup) + eventIndex * kDecisionStride)->MakeDecision(eventSourceType, bIsPedInVehicle, static_cast<int32>(taskId1), static_cast<int32>(taskId2), static_cast<int32>(taskId3), static_cast<int32>(taskId4), *taskSlot, *facialSlot);
     } else {
-        reinterpret_cast<ExeDecisionOne>(kExeDecisionOne)(base + 4 + (static_cast<uint32>(decisionMaker) * static_cast<uint32>(CDecision::MAX_NUM_DECISIONS) + eventIndex) * kDecisionStride, eventIndex, eventSourceType, static_cast<int32>(bIsPedInVehicle), static_cast<int32>(taskId1), static_cast<int32>(taskId2), static_cast<int32>(taskId3), static_cast<int32>(taskId4), taskSlot, facialSlot);
+        reinterpret_cast<CDecision*>(base + 4 + (static_cast<uint32>(decisionMaker) * static_cast<uint32>(CDecision::MAX_NUM_DECISIONS) + eventIndex) * kDecisionStride)->MakeDecision(eventSourceType, bIsPedInVehicle, static_cast<int32>(taskId1), static_cast<int32>(taskId2), static_cast<int32>(taskId3), static_cast<int32>(taskId4), *taskSlot, *facialSlot);
     }
     // Lo unico que se ejecuta tras el colaborador: movsx eax, word ptr [ranura]. Se lee directamente la ranura (no a traves de un puntero local, que
     // en /Od se cargaria en ECX).
