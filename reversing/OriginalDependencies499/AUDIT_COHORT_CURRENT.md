@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 17/10/2026 (Ciudad de México):** 787 grupos / 8583 funciones reconstruidas; 8583 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 17/10/2026 (Ciudad de México):** 787 grupos / 8585 funciones reconstruidas; 8585 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Auditoría independiente de la cohorte admitida actual
@@ -129,8 +129,8 @@ Derivas de tested_sources respecto al estado actual son esperadas por tandas pos
 | DependenciesMathSprite2 | reversing/OriginalDependencies499/HookRoute.hpp | 82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf | 287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377 |
 | DependenciesMemory9 | source/game_sa/MemoryMgr.cpp | 645dd362627fb014a2acd4fdc95798b0caca8ae35c617762a5285a05053a162c | 1cdb60235c4f771740150646e524eb4986b87a69e8cbe45315de2de8c8ba432f |
 | DependenciesMemory9 | reversing/OriginalDependencies499/HookRoute.hpp | 82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf | 287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377 |
-| DependenciesPadCamera7 | source/game_sa/X87Math.cpp | ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe | 218837db535132c19242e58a7767ef15246bb071d671e6d1eeafc5fd75e8b547 |
-| DependenciesPadCamera7 | source/game_sa/X87Math.h | 7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97 | 098e7579cf41d61519603bd3a133ddf00212a7006da14fa82a9866f7f1b83c90 |
+| DependenciesPadCamera7 | source/game_sa/X87Math.cpp | ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe | 3ce2a47f006a021d0e2a6b6112cf91f0761600db33ec527ea8cfa2e33751364e |
+| DependenciesPadCamera7 | source/game_sa/X87Math.h | 7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97 | ea2b09b7de6d55f92a0ed4cf40398407ac6fb383268dbd3a74adfd787b26f2f6 |
 | DependenciesPathDensity13 | source/game_sa/PathFind.cpp | b289ad134233f537732d2ff6555ae5d294e0d493bc9bc0e164a13f3b42bda5f2 | 10f68895e0166e581cfe17a4b9e5736ebf2c99985aec5cb72ff0c669dbf5b3e9 |
 | DependenciesPathDensity13 | source/game_sa/CutsceneMgr.cpp | 4cddadb9affd99b4d1def2c1dfd65c218583e4315836c9aa1d6f8fb091a62332 | d05005b3a7ea935b9ec7cb07a1f9069e71aaa6a381913d87405c804d18030a1d |
 | DependenciesPathDensity13 | reversing/OriginalDependencies499/HookRoute.hpp | 82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf | 287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377 |
@@ -209,8 +209,8 @@ Derivas de tested_sources respecto al estado actual son esperadas por tandas pos
 | DependenciesVehicleStats9 | source/game_sa/Replay.cpp | d341ccbe2e494a051a57f7172c28d81022ebd2283e9f0956c2f3fda4b917de1f | e8eab1443f86a11639d93d2cec1590d191e253e791cc79495635d5e6ab99c43b |
 | DependenciesVehicleStats9 | source/game_sa/common.cpp | 82ea6042072c5d5ec5583b4557d698115ee47ab7c7dd821e784a27d93c7b0357 | 3c9458212d4210e46d7d4f421cd832ab49fc1989961d0c1db72f5f3420a82cd7 |
 | DependenciesVehicleStats9 | reversing/OriginalDependencies499/HookRoute.hpp | 82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf | 287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377 |
-| DependenciesWorld10 | source/game_sa/X87Math.cpp | ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe | 218837db535132c19242e58a7767ef15246bb071d671e6d1eeafc5fd75e8b547 |
-| DependenciesWorld10 | source/game_sa/X87Math.h | 7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97 | 098e7579cf41d61519603bd3a133ddf00212a7006da14fa82a9866f7f1b83c90 |
+| DependenciesWorld10 | source/game_sa/X87Math.cpp | ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe | 3ce2a47f006a021d0e2a6b6112cf91f0761600db33ec527ea8cfa2e33751364e |
+| DependenciesWorld10 | source/game_sa/X87Math.h | 7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97 | ea2b09b7de6d55f92a0ed4cf40398407ac6fb383268dbd3a74adfd787b26f2f6 |
 | DependenciesWorld11 | source/game_sa/RwHelper.cpp | 6ea8a91c15a09c6d02babc0c5ccfa2261fb206bd1f7812d111edb94be2889ec9 | 769661aea9d37b15793e56e282c77ae27406e608576808f9a776a0de4808a94c |
 | DependenciesWorld11 | source/game_sa/RwHelper.h | ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735 | 37cb8ba332c4b3cfc3eaf639e293012d17f8083b9815d3348e62ace5fd792205 |
 | DependenciesWorld11 | source/game_sa/RenderWare/rw/rwplcore.h | 1e4709dbbc43b0f14681dd53707bff4d3974e3215325af7cf1450684e8e55362 | b62b6c00f476d106ec59a7a9f4e3571eee5e4a50fad028efff5974e4c81e65fa |
@@ -230,8 +230,8 @@ Derivas de tested_sources respecto al estado actual son esperadas por tandas pos
 | DependenciesWorld4 | source/game_sa/RenderWare/D3DResourceSystem.h | dc060d39860ea99ea7e75a7a473db78cfa59b7c30d50f6aa76291e666187a656 | 31666e8e366ecc5af1a0f006078e4d35c7cd71836e571ea1f776cedd8ee82b53 |
 | DependenciesWorld4 | source/InjectHooksMain.cpp | 7a912880d0ff2128cb6654e679653c12ac91c8fa2e94784475ee43cb3ad9360c | 9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8 |
 | DependenciesWorld4 | reversing/OriginalDependencies499/HookRoute.hpp | 82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf | 287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377 |
-| DependenciesWorld9 | source/game_sa/X87Math.cpp | ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe | 218837db535132c19242e58a7767ef15246bb071d671e6d1eeafc5fd75e8b547 |
-| DependenciesWorld9 | source/game_sa/X87Math.h | 7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97 | 098e7579cf41d61519603bd3a133ddf00212a7006da14fa82a9866f7f1b83c90 |
+| DependenciesWorld9 | source/game_sa/X87Math.cpp | ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe | 3ce2a47f006a021d0e2a6b6112cf91f0761600db33ec527ea8cfa2e33751364e |
+| DependenciesWorld9 | source/game_sa/X87Math.h | 7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97 | ea2b09b7de6d55f92a0ed4cf40398407ac6fb383268dbd3a74adfd787b26f2f6 |
 | DependenciesWorldFxFont5 | source/game_sa/Fx/Fx.cpp | d7a80190b86bdbefd8fe91d86ecfac8b13a6dab4050a9916c307536d5f0ab0a0 | 833b5044b63f1df530117f8e7fe604b0e7a0e6be9e3a01c9abad68b2dc5117b8 |
 | DependenciesWorldFxFont5 | source/game_sa/Font.cpp | 174b7aa63a0359e167c0903e82764ec3a2239868f767ac89dbbdc5428c340d66 | 20ffade8bc50bfaf800617ab6557554f52d2ccbd217de58cb18603f92d070545 |
 | DependenciesWorldFxFont5 | source/game_sa/Camera.cpp | 6504b062b078a9abac940d720b6482894ef29275e139c49f12dfd14548f34557 | 69088a382c52d1f6215f64617f231abf1d665ff3374ca3b404455c4ddf55e6f0 |
@@ -245,8 +245,8 @@ Derivas de tested_sources respecto al estado actual son esperadas por tandas pos
 | DependenciesWorldLeaf3 | source/game_sa/Fx/FxFrustumInfo.h | 51a05b5bc94ea9665bd0396dde2570a7bc729167f26782fcdd5428e2e0cd32aa | 3183d338720b3eeef8ddafbe963c8352ae847d7f6637739683f5ebbe484dfab0 |
 | DependenciesWorldLeaf3 | source/InjectHooksMain.cpp | 9dfbb99233c6ca03c5aa68186aeb26d5ed8e2d3c394c747ac7e38b033975877e | 9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8 |
 | DependenciesWorldLeaf3 | reversing/OriginalDependencies499/HookRoute.hpp | 82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf | 287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377 |
-| DependenciesWorldWaterPath6 | source/game_sa/X87Math.cpp | ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe | 218837db535132c19242e58a7767ef15246bb071d671e6d1eeafc5fd75e8b547 |
-| DependenciesWorldWaterPath6 | source/game_sa/X87Math.h | 7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97 | 098e7579cf41d61519603bd3a133ddf00212a7006da14fa82a9866f7f1b83c90 |
+| DependenciesWorldWaterPath6 | source/game_sa/X87Math.cpp | ff115d0bb000b3af1b792fb65e58c763392c2d4ca848e82bfb6bbcbab05e61fe | 3ce2a47f006a021d0e2a6b6112cf91f0761600db33ec527ea8cfa2e33751364e |
+| DependenciesWorldWaterPath6 | source/game_sa/X87Math.h | 7751a4e84ebe3f695e73174a8c006de9412c08aed0a27d8c37a7f6ba888a1e97 | ea2b09b7de6d55f92a0ed4cf40398407ac6fb383268dbd3a74adfd787b26f2f6 |
 
 ## Hallazgos
 

@@ -12533,3 +12533,32 @@ unsigned int FlcHwSticky() {
 #undef FZ16
 #undef FZ32
 #undef FZ64
+
+// --- Grupo g24a (BRIEF_21): Win::__MainWndProc (0x747EB0), prefijo WndProc. Anadir al FINAL de X87Math.cpp (usa Ftol2RegsCpp, definida mas arriba) ---
+// _ftol2 (0x821B40) de ST0 = 1000.0f / (float)fild(frameLimit): el cociente sale del fdivr con la precision vigente (24 bits en el juego) y NO se guarda como float antes de _ftol2, pero a 24 bits
+// es exactamente un float. Banderas acumuladas del EXE: PE si el fdivr es inexacto, ZE si frameLimit = 0 (cociente +inf); el fistp de _ftol2 anade PE cuando la parte fraccionaria no es cero aunque
+// el cociente sea exacto (p. ej. 62,5 con frameLimit = 16) e IE cuando el cociente no cabe en 64 bits (+inf). Ftol2RegsCpp calcula el entero con enteros (no levanta banderas) y planta los registros
+// muertos, de modo que aqui se levantan antes, con operaciones x87 que solo usan T-1 (se sobrescribe despues): una division inexacta (1/3) y una raiz de -1.
+#pragma float_control(precise, on, push)
+__declspec(noinline) unsigned int __cdecl WndProcTimerPeriodCpp(int frameLimit) {
+    volatile float quotient = float(1000.0 / double(frameLimit)); // fild; fdivr [1000.0f]
+    const float    v        = quotient;
+    if (frameLimit == 0) { // +inf: el fistp de _ftol2 es una operacion invalida
+        volatile double minusOne = -1.0;
+        volatile double invalid  = sqrt(minusOne);
+        (void)invalid;
+    } else {
+        // Parte fraccionaria no nula (con enteros: una comparacion x87 tocaria C0..C3): el fistp redondea y levanta PE
+        const unsigned int bits     = std::bit_cast<unsigned int>(v);
+        const int          exponent = int((bits >> 23) & 0xFFu) - 127;
+        const unsigned int mantissa = bits & 0x7FFFFFu;
+        const bool         integral = exponent >= 23 || (exponent < 0 ? (bits << 1) == 0 : (((mantissa | 0x800000u) & ((1u << (23 - exponent)) - 1u)) == 0));
+        if (!integral) {
+            volatile float one = 1.0f, three = 3.0f;
+            volatile float inexact = one / three;
+            (void)inexact;
+        }
+    }
+    return Ftol2RegsCpp(v, 0).eax;
+}
+#pragma float_control(pop)

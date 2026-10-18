@@ -772,6 +772,10 @@ def write(functions, occurrences, catalog, hashes, errors, outside, shared=()):
         lines.append('')
     for name, lines in details.items():
         (out / name).write_text('\n'.join(lines).rstrip() + '\n', encoding='utf-8')
+    # Las páginas de detalle sobrantes de un inventario anterior con más grupos ya no se regeneran y quedarían con enlaces a líneas inexistentes.
+    for stale in sorted(out.glob('detalle-*.md')):
+        if stale.name not in details:
+            stale.unlink()
     # Assembly counters keep their historical scope (source/game_sa, the lexical audit). Assembly outside game_sa is the documented
     # NOTSA exception (project-own code, not a game function): it is counted separately and listed, never mixed in nor hidden.
     in_game = [r for r in functions if r['file'].startswith(GAME_SA)]

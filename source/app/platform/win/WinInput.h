@@ -12,6 +12,7 @@ BOOL CALLBACK EnumDevicesCallback(LPCDIDEVICEINSTANCEA pInst, LPVOID);
 CMouseControllerState GetMouseSetUp();
 
 void InjectHooks();
+void InjectPadHooks();
 bool Initialise();
 
 bool IsKeyDown(unsigned int keyCode);

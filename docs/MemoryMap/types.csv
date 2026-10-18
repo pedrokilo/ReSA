@@ -11,7 +11,6 @@ _rxD3D9DisplayMode,struct,,source/app/platform/win/WindowedMode.cpp,96,source_ty
 notsa::WindowedMode::PosChangeNoRecursion,struct,,source/app/platform/win/WindowedMode.cpp,155,source_type_definition
 notsa::WindowedMode::ScopedRestoreWindowInfo,struct,,source/app/platform/win/WindowedMode.cpp,301,source_type_definition
 notsa::WindowedMode::D3D9ProxyDevice,struct,,source/app/platform/win/WindowedMode.cpp,344,source_type_definition
-WinInput::EnumDevicesContext,struct,,source/app/platform/win/WinInput.cpp,163,source_type_definition
 WinVer,class,,source/app/platform/win/WinPlatform.h,15,source_type_definition
 OSStatus,struct,,source/app/platform/win/WinPlatform.h,26,source_type_definition
 std,struct,:formatter<Enum> : std::formatter<std::string>,source/Base.h,206,source_type_definition

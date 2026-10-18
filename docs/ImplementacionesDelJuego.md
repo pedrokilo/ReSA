@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 17/10/2026 (Ciudad de México):** 787 grupos / 8583 funciones reconstruidas; 8583 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 17/10/2026 (Ciudad de México):** 787 grupos / 8585 funciones reconstruidas; 8585 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Implementaciones del juego: C++, ensamblador y dependencia del EXE
@@ -8,7 +8,7 @@ Este documento distingue el lenguaje de la fuente, la reconstrucción, la valida
 
 El inventario asigna **0 apariciones de ensamblador** a **0 definiciones con cuerpo** y **0 declaraciones naked** a **0 definiciones**. No queda ninguna aparición sin ubicación. Las funciones mixtas se cuentan en «con ensamblador»; naked es una marca adicional que no se suma como otra función.
 
-De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 18056 definiciones en 1475 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
+De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 18055 definiciones en 1475 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
 
 ## Cómo leer la tabla
 
@@ -1035,7 +1035,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [Globales y helpers: source/app/platform/win/WinPlatform.cpp](implementaciones/detalle-051.md#grupo-1004) · [source/app/platform/win/WinPlatform.cpp](../source/app/platform/win/WinPlatform.cpp) | 0 | 0 | 2 | 0 | 0 |
 | [Globales y helpers: source/app/platform/win/WinPs.cpp](implementaciones/detalle-051.md#grupo-1005) · [source/app/platform/win/WinPs.cpp](../source/app/platform/win/WinPs.cpp) | 0 | 0 | 2 | 0 | 0 |
 | [Globales y helpers: source/app/platform/win/WindowedMode.cpp](implementaciones/detalle-051.md#grupo-1006) · [source/app/platform/win/WindowedMode.cpp](../source/app/platform/win/WindowedMode.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [Globales y helpers: source/app/platform/win/WndProc.cpp](implementaciones/detalle-051.md#grupo-1007) · [source/app/platform/win/WndProc.cpp](../source/app/platform/win/WndProc.cpp) | 0 | 0 | 2 | 0 | 0 |
+| [Globales y helpers: source/app/platform/win/WndProc.cpp](implementaciones/detalle-051.md#grupo-1007) · [source/app/platform/win/WndProc.cpp](../source/app/platform/win/WndProc.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/3dMarker.cpp](implementaciones/detalle-051.md#grupo-1008) · [source/game_sa/3dMarker.cpp](../source/game_sa/3dMarker.cpp) | 0 | 0 | 2 | 0 | 0 |
 | [Globales y helpers: source/game_sa/3dMarkers.cpp](implementaciones/detalle-051.md#grupo-1009) · [source/game_sa/3dMarkers.cpp](../source/game_sa/3dMarkers.cpp) | 0 | 0 | 2 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Animation/AnimManager.cpp](implementaciones/detalle-051.md#grupo-1010) · [source/game_sa/Animation/AnimManager.cpp](../source/game_sa/Animation/AnimManager.cpp) | 0 | 0 | 3 | 0 | 0 |
@@ -1333,7 +1333,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [Globales y helpers: source/game_sa/Weather.cpp](implementaciones/detalle-066.md#grupo-1302) · [source/game_sa/Weather.cpp](../source/game_sa/Weather.cpp) | 0 | 0 | 8 | 0 | 0 |
 | [Globales y helpers: source/game_sa/World.cpp](implementaciones/detalle-066.md#grupo-1303) · [source/game_sa/World.cpp](../source/game_sa/World.cpp) | 0 | 0 | 18 | 0 | 0 |
 | [Globales y helpers: source/game_sa/World_Helper.cpp](implementaciones/detalle-066.md#grupo-1304) · [source/game_sa/World_Helper.cpp](../source/game_sa/World_Helper.cpp) | 0 | 0 | 4 | 0 | 0 |
-| [Globales y helpers: source/game_sa/X87Math.cpp](implementaciones/detalle-066.md#grupo-1305) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 807 | 0 | 1 | 0 | 0 |
+| [Globales y helpers: source/game_sa/X87Math.cpp](implementaciones/detalle-066.md#grupo-1305) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 808 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/cHandlingDataMgr.cpp](implementaciones/detalle-066.md#grupo-1306) · [source/game_sa/cHandlingDataMgr.cpp](../source/game_sa/cHandlingDataMgr.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/common.cpp](implementaciones/detalle-066.md#grupo-1307) · [source/game_sa/common.cpp](../source/game_sa/common.cpp) | 3 | 0 | 10 | 0 | 0 |
 | [Globales y helpers: source/game_sa/common.h](implementaciones/detalle-066.md#grupo-1308) · [source/game_sa/common.h](../source/game_sa/common.h) | 0 | 0 | 26 | 0 | 0 |
@@ -1388,8 +1388,8 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [VideoPlayer](implementaciones/detalle-068.md#grupo-1357) · [source/app/platform/win/VideoPlayer/VideoPlayer.cpp](../source/app/platform/win/VideoPlayer/VideoPlayer.cpp) | 6 | 0 | 2 | 0 | 0 |
 | [WaterCreatureManager_c](implementaciones/detalle-068.md#grupo-1358) · [source/game_sa/WaterCreatureManager_c.cpp](../source/game_sa/WaterCreatureManager_c.cpp), [source/game_sa/WaterCreatureManager_c.h](../source/game_sa/WaterCreatureManager_c.h) | 7 | 0 | 3 | 0 | 0 |
 | [WaterCreature_c](implementaciones/detalle-068.md#grupo-1359) · [source/game_sa/WaterCreature_c.cpp](../source/game_sa/WaterCreature_c.cpp), [source/game_sa/WaterCreature_c.h](../source/game_sa/WaterCreature_c.h) | 3 | 0 | 5 | 0 | 0 |
-| [Win](implementaciones/detalle-068.md#grupo-1360) · [source/app/platform/win/WinMain.cpp](../source/app/platform/win/WinMain.cpp), [source/app/platform/win/WinPlatform.cpp](../source/app/platform/win/WinPlatform.cpp) | 5 | 0 | 1 | 0 | 0 |
-| [WinInput](implementaciones/detalle-069.md#grupo-1361) · [source/app/platform/win/WinInput.cpp](../source/app/platform/win/WinInput.cpp) | 0 | 0 | 16 | 0 | 0 |
+| [Win](implementaciones/detalle-068.md#grupo-1360) · [source/app/platform/win/WinMain.cpp](../source/app/platform/win/WinMain.cpp), [source/app/platform/win/WinPlatform.cpp](../source/app/platform/win/WinPlatform.cpp), [source/app/platform/win/WndProc.cpp](../source/app/platform/win/WndProc.cpp) | 6 | 0 | 1 | 0 | 0 |
+| [WinInput](implementaciones/detalle-069.md#grupo-1361) · [source/app/platform/win/WinInput.cpp](../source/app/platform/win/WinInput.cpp) | 1 | 0 | 13 | 0 | 0 |
 | [cBuoyancy](implementaciones/detalle-069.md#grupo-1362) · [source/game_sa/Buoyancy.cpp](../source/game_sa/Buoyancy.cpp) | 9 | 0 | 1 | 0 | 0 |
 | [cHandlingDataMgr](implementaciones/detalle-069.md#grupo-1363) · [source/game_sa/cHandlingDataMgr.cpp](../source/game_sa/cHandlingDataMgr.cpp) | 11 | 0 | 4 | 0 | 0 |
 | [cTransmission](implementaciones/detalle-069.md#grupo-1364) · [source/game_sa/cTransmission.cpp](../source/game_sa/cTransmission.cpp) | 4 | 0 | 1 | 0 | 0 |

@@ -91,12 +91,12 @@ VideoPlayer,Play,0x00747660,RH_ScopedInstall,source/app/platform/win/VideoPlayer
 WindowedModeHooks,notsa::WindowedMode::HookDirect3DDeviceReplacerSA,0x007F6781,RH_ScopedGlobalInstall,source/app/platform/win/WindowedMode.cpp,1889,source_hook_reference
 WindowedModeHooks,RenderWare::_rwD3D9CameraClear,0x007F7730,RH_ScopedGlobalInstall,source/app/platform/win/WindowedMode.cpp,1893,source_hook_reference
 WindowedModeHooks,RenderWare::_rwD3D9CameraBeginUpdate,0x007F8F20,RH_ScopedGlobalInstall,source/app/platform/win/WindowedMode.cpp,1896,source_hook_reference
-Input,Initialise,0x007487CF,RH_ScopedGlobalInstall,source/app/platform/win/WinInput.cpp,437,source_hook_reference
-Input,diMouseInit,0x007469A0,RH_ScopedGlobalInstall,source/app/platform/win/WinInput.cpp,438,source_hook_reference
-Input,EnumDevicesCallback,0x00747020,RH_ScopedGlobalInstall,source/app/platform/win/WinInput.cpp,439,source_hook_reference
-Input,diPadInit,0x007485C0,RH_ScopedGlobalInstall,source/app/platform/win/WinInput.cpp,440,source_hook_reference
-Input,diPadSetRanges,0x00746D80,RH_ScopedGlobalInstall,source/app/platform/win/WinInput.cpp,441,source_hook_reference
-Input,GetMouseSetUp,0x0053F2D0,RH_ScopedGlobalInstall,source/app/platform/win/WinInput.cpp,442,source_hook_reference
+Input,diPadInit,0x007485C0,RH_ScopedGlobalInstall,source/app/platform/win/WinInput.cpp,307,source_hook_reference
+Input,Initialise,0x007487CF,RH_ScopedGlobalInstall,source/app/platform/win/WinInput.cpp,314,source_hook_reference
+Input,diMouseInit,0x007469A0,RH_ScopedGlobalInstall,source/app/platform/win/WinInput.cpp,315,source_hook_reference
+Input,EnumDevicesCallback,0x00747020,RH_ScopedGlobalInstall,source/app/platform/win/WinInput.cpp,316,source_hook_reference
+Input,diPadSetRanges,0x00746D80,RH_ScopedGlobalInstall,source/app/platform/win/WinInput.cpp,317,source_hook_reference
+Input,GetMouseSetUp,0x0053F2D0,RH_ScopedGlobalInstall,source/app/platform/win/WinInput.cpp,318,source_hook_reference
 Win,IsForegroundApp,0x00746060,RH_ScopedGlobalInstall,source/app/platform/win/WinMain.cpp,531,source_hook_reference
 Win,IsAlreadyRunning,0x007468E0,RH_ScopedGlobalInstall,source/app/platform/win/WinMain.cpp,532,source_hook_reference
 Win,NOTSA_WinMain,0x00748710,RH_ScopedGlobalInstall,source/app/platform/win/WinMain.cpp,535,source_hook_reference
@@ -127,7 +127,7 @@ Ps,psSelectDevice,0x00746190,RH_ScopedGlobalInstall,source/app/platform/win/WinP
 Ps,InitialiseLanguage,0x007465B0,RH_ScopedGlobalInstall,source/app/platform/win/WinPs.cpp,563,source_hook_reference
 Ps,CheckDirectSound,0x00745840,RH_ScopedGlobalInstall,source/app/platform/win/WinPs.cpp,564,source_hook_reference
 Ps,GetVideoMemInfo,0x007455E0,RH_ScopedGlobalInstall,source/app/platform/win/WinPs.cpp,565,source_hook_reference
-Win,__MainWndProc,0x00747EB0,RH_ScopedGlobalInstall,source/app/platform/win/WndProc.cpp,293,source_hook_reference
+Win,__MainWndProc,0x00747EB0,RH_ScopedGlobalInstall,source/app/platform/win/WndProc.cpp,309,source_hook_reference
 Securom,SecuromDisplayInit,0x00744A70,RH_ScopedGlobalInstall,source/app/securom/Securom.cpp,31,source_hook_reference
 Securom,SecuromStateDisplay,0x00744AE0,RH_ScopedGlobalInstall,source/app/securom/Securom.cpp,32,source_hook_reference
 C3dMarker,AddMarker,0x00722230,RH_ScopedInstall,source/game_sa/3dMarker.cpp,28,source_hook_reference

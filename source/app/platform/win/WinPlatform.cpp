@@ -165,10 +165,12 @@ void Win32InjectHooks() {
     RH_ScopedGlobalInstall(GTATranslateShiftKey, 0x747CD0);
     RH_ScopedGlobalInstall(GTATranslateKey, 0x747820);
 
-#ifndef NOTSA_USE_SDL3
+    // Tambien con SDL3: la ventana nativa sigue registrando 0x747EB0 como procedimiento (WinMain.cpp), asi que el hook sustituye al EXE en ambas configuraciones.
     InjectHooksWndProcStuff();
+#ifndef NOTSA_USE_SDL3
     WinInput::InjectHooks();
 #endif
+    WinInput::InjectPadHooks();
     InjectWinMainStuff();
     WinPsInjectHooks();
 }

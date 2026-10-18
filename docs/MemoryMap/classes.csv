@@ -758,7 +758,7 @@ Fx_c,class,9,9,0,9,9,0,,,source/game_sa/Fx/Fx.h:47,catalogue_class_or_group
 Game,catalogue_group,12,12,0,12,12,0,,,,catalogue_class_or_group
 IKChainManager_c,class,17,17,0,17,17,0,,,source/game_sa/Ragdoll/IKChainManager.h:12,catalogue_class_or_group
 IKChain_c,class,20,20,0,20,20,0,,public ListItem_c<IKChain_c>,source/game_sa/Ragdoll/IKChain.h:18,catalogue_class_or_group
-Input,catalogue_group,5,5,0,5,5,0,,,,catalogue_class_or_group
+Input,catalogue_group,6,6,0,6,6,0,,,,catalogue_class_or_group
 InteriorGroup_c,class,24,24,0,24,24,0,,public ListItem_c<InteriorGroup_c>,source/game_sa/Interior/InteriorGroup_c.h:19,catalogue_class_or_group
 InteriorManager_c,class,21,21,0,21,21,0,,,source/game_sa/Interior/InteriorManager_c.h:16,catalogue_class_or_group
 Interior_c,class,52,52,0,52,52,0,,public ListItem_c<Interior_c>,source/game_sa/Interior/Interior_c.h:19,catalogue_class_or_group
@@ -782,7 +782,7 @@ VideoMode,catalogue_group,4,4,0,4,4,0,,,,catalogue_class_or_group
 VideoPlayer,catalogue_group,6,6,0,6,6,0,,,,catalogue_class_or_group
 WaterCreatureManager_c,class,7,7,0,7,7,0,,,source/game_sa/WaterCreatureManager_c.h:28,catalogue_class_or_group
 WaterCreature_c,class,3,3,0,3,3,0,,public ListItem_c<WaterCreature_c>,source/game_sa/WaterCreature_c.h:21,catalogue_class_or_group
-Win,catalogue_group,5,5,0,5,5,0,,,,catalogue_class_or_group
+Win,catalogue_group,6,6,0,6,6,0,,,,catalogue_class_or_group
 cBuoyancy,class,9,9,0,9,9,0,,,source/game_sa/Buoyancy.h:27,catalogue_class_or_group
 cHandlingDataMgr,class,11,11,0,11,11,0,,,source/game_sa/cHandlingDataMgr.h:229,catalogue_class_or_group
 cTransmission,class,4,4,0,4,4,0,,,source/game_sa/cTransmission.h:24,catalogue_class_or_group

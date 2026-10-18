@@ -8225,5 +8225,37 @@
     "state_restored": true,
     "helper_codegen": "reversing/CppTwelveLevel6Study/README.md",
     "scope": "Destino incierto de la cohorte de 499 (PLAN-001), reconstruido en C++ y validado con su banco Dependencies21 en la regresión final; pares propios de la función según pairs_per_function. Sin cobertura exhaustiva más allá de los fixtures del banco."
+  },
+  "0x00747EB0": {
+    "identity": "Win::__MainWndProc",
+    "converted_source_functions": 1,
+    "source": "source/app/platform/win/WndProc.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "Dependencies24A",
+    "run": "20261017-204926-981743",
+    "pairs": 19456,
+    "own_pairs": 19456,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Dependencies24A-20261017-204926-981743/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwelveLevel6Study/README.md",
+    "scope": "Destino incierto de la cohorte de 499 (PLAN-001), reconstruido en C++ y validado con su banco Dependencies21 en la regresión final; pares propios de la función según pairs_per_function. Sin cobertura exhaustiva más allá de los fixtures del banco."
+  },
+  "0x007485C0": {
+    "identity": "WinInput::diPadInit",
+    "converted_source_functions": 1,
+    "source": "source/app/platform/win/WinInput.cpp",
+    "shared_source": "source/game_sa/X87Math.cpp",
+    "bank": "Dependencies24B",
+    "run": "20261017-195529-312102",
+    "pairs": 2048,
+    "own_pairs": 2048,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Dependencies24B-20261017-195529-312102/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "helper_codegen": "reversing/CppTwelveLevel6Study/README.md",
+    "scope": "Destino incierto de la cohorte de 499 (PLAN-001), reconstruido en C++ y validado con su banco Dependencies21 en la regresión final; pares propios de la función según pairs_per_function. Sin cobertura exhaustiva más allá de los fixtures del banco."
   }
 }

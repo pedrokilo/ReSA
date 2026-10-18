@@ -1490,3 +1490,9 @@ struct FlcWorld {
 };
 FlcWorld FlcReadWorld();
 unsigned int FlcHwSticky();   // banderas acumuladas del x87 real (IE.. PE) en el formato FLC_*
+
+// --- Grupo g24a (BRIEF_21): Win::__MainWndProc (0x747EB0), prefijo WndProc. Anadir al FINAL de X87Math.h (Ftol2Regs ya esta declarado en el lote Ped) ---
+// WM_ACTIVATE con la ventana inactiva (0x747FAA..0x747FC2): fild dword [RsGlobal.frameLimit]; fdivr dword [0x858C4C] (1000.0f); call _ftol2. Devuelve EAX de _ftol2 (palabra baja del entero truncado
+// de 1000.0f / frameLimit, con el cociente redondeado a 24 bits por la propia x87) dejando las banderas acumuladas (PE del fdiv y del fistp, ZE si frameLimit = 0, IE del fistp con +inf) y los
+// registros x87 muertos del EXE (T-2 = R, T-1 = fraccion), como Ftol2RegsCpp. Se usa como segundo argumento de SetTimer.
+unsigned int __cdecl WndProcTimerPeriodCpp(int frameLimit);

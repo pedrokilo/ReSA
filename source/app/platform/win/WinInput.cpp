@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: Input
- * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 5/5 entradas.
+ * Validación registrada: 5/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
 #include "ControllerConfigManager.h"
 #include "WinPlatform.h"
 #include "VideoMode.h"
+#include <intrin.h>
 #pragma comment(lib, "dinput8.lib")
 #pragma comment(lib, "dxguid.lib")
 
@@ -50,7 +51,7 @@ bool Initialise() {
     }
 
     diMouseInit(false);
-    plugin::Call<0x7485C0>(); // Keep native device enumeration for both startup paths.
+    diPadInit(); // Keep native device enumeration for both startup paths.
 
     return true;
 }
@@ -129,24 +130,6 @@ HRESULT diPadSetRanges(LPDIRECTINPUTDEVICE8 dev, DWORD padNum) {
     return S_OK;
 }
 
-//! [NOTSA - From 0x7485C0] - Set device config product/vendor id
-void diPadSetPIDVID(LPDIRECTINPUTDEVICE8 dev, DWORD padNum) {
-    DIPROPDWORD vidpid{
-        .diph = DIPROPHEADER{
-            .dwSize       = sizeof(DIPROPDWORD),
-            .dwHeaderSize = sizeof(DIPROPHEADER),
-            .dwObj        = NULL,
-            .dwHow        = DIPH_DEVICE,
-        }
-    };
-    WIN_FCHECK(dev->GetProperty(DIPROP_VIDPID, &vidpid.diph));
-    auto& cfg = AllValidWinJoys.JoyStickNum[padNum];
-    cfg.wDeviceID = vidpid.dwData;
-    cfg.wVendorID = LOWORD(vidpid.dwData);
-    cfg.wProductID = HIWORD(vidpid.dwData);
-    cfg.bJoyAttachedToPort = true;
-}
-
 // 0x7469A0
 void diMouseInit(bool exclusive) {
     WIN_FCHECK(PSGLOBAL(diInterface)->CreateDevice(GUID_SysMouse, &PSGLOBAL(diMouse), 0));
@@ -155,195 +138,80 @@ void diMouseInit(bool exclusive) {
     WIN_FCHECK(PSGLOBAL(diMouse)->Acquire());
 }
 
-// 0x7485C0
-static constexpr auto DEVICE_AXIS_MIN = -2000;
-static constexpr auto DEVICE_AXIS_MAX = 2000;
+// 0x7485C0 - _InputInitialiseJoys: borra los dos registros de pad, enumera con 0x7477C0 y, para cada pad presente, lee VID/PID.
+//
+// Reconstruccion exacta del EXE (sin ensamblador). Detalles que el EXE tiene y que se conservan:
+//  - Solo se borran wDeviceID y los tres indicadores de cada pad: wVendorID/wProductID (y el relleno del byte +7) NO se tocan.
+//  - La enumeracion es el 0x7477C0 del EXE (EnumDevices con 0x747020 y diPadSetRanges 0x746D80); su resultado se ignora.
+//  - GetCapabilities se llama con dwSize = 0x2C y su resultado se ignora; ControlsManager.InitDefaultControlConfigJoyPad recibe
+//    la constante 0x20, no dwButtons.
+//  - HRESULT de GetProperty ignorado: si falla (o no escribe dwData) el EXE guarda los restos de pila que habia en el DIPROPDWORD,
+//    y el pad 2 reutiliza el mismo DIPROPDWORD que el pad 1 (cabecera y dwData); si no hay pad 1, su cabecera tambien es resto de
+//    pila. Esos cinco dwords estan en [R-0x40, R-0x2C) siendo R la direccion de retorno del EXE: se copian al entrar, antes de que
+//    el marco de la DLL pueda pisarlos (diPadInit va sin comprobaciones de ejecucion y con un marco de pocos bytes).
+//  - psGlobal se vuelve a leer exactamente donde lo hace el EXE (tras GetCapabilities y tras InitDefaultControlConfigJoyPad); el
+//    puntero del pad 1 se vuelve a leer antes de cada llamada.
+//  - Ningun llamador lee EAX/ECX/EDX al volver (0x748813 los sobrescribe), por eso no se reproduce el residuo de registros.
+static_assert(sizeof(DIDEVCAPS) == 0x2C && sizeof(DIPROPDWORD) == 0x14 && sizeof(DIPROPHEADER) == 0x10);
+static inline uint32 s_diPadEntryResidue[5]; // dwSize, dwHeaderSize, dwObj, dwHow, dwData
 
-// Context structure for device enumeration callback
-struct EnumDevicesContext {
-    int count = 0;
-};
+__declspec(noinline) static void diPadInitBody() {
+    AllValidWinJoys.ClearJoyInfo(0);
+    AllValidWinJoys.ClearJoyInfo(1);
 
-// Based on _InputEnumDevicesCallback, using context instead of static count
-BOOL CALLBACK EnumDevicesCallback_Old( const DIDEVICEINSTANCE* pdidInstance, VOID* pContextData )
-{
-    HRESULT hr;
-    EnumDevicesContext* ctx = static_cast<EnumDevicesContext*>(pContextData);
+    plugin::Call<0x7477C0>();
 
-    LPDIRECTINPUTDEVICE8 *pJoystick = nullptr;
+    DIPROPDWORD prop;
+    prop.diph.dwSize       = s_diPadEntryResidue[0];
+    prop.diph.dwHeaderSize = s_diPadEntryResidue[1];
+    prop.diph.dwObj        = s_diPadEntryResidue[2];
+    prop.diph.dwHow        = s_diPadEntryResidue[3];
+    prop.dwData            = s_diPadEntryResidue[4];
 
-    if ( ctx->count == 0 )
-        pJoystick = &PSGLOBAL(diDevice1);
-    else if ( ctx->count == 1 )
-        pJoystick = &PSGLOBAL(diDevice2);
-    else {
-        // Already have 2 devices, stop enumerating
-        return DIENUM_STOP;
-    }
+    psGlobalType* ps = RsGlobal.ps;
+    if (ps->diDevice1) {
+        AllValidWinJoys.JoyStickNum[0].bJoyAttachedToPort = true;
 
-    // Obtain an interface to the enumerated joystick.
-    hr = PSGLOBAL(diInterface)->CreateDevice( pdidInstance->guidInstance, pJoystick, nullptr );
+        DIDEVCAPS caps;
+        caps.dwSize = sizeof(DIDEVCAPS);
+        ps->diDevice1->GetCapabilities(&caps);
 
-    // If it failed, then we can't use this joystick. (Maybe the user unplugged
-    // it while we were in the middle of enumerating it.)
-    if( FAILED(hr) )
-        return DIENUM_CONTINUE;
-
-    // Set the data format to use DirectInput's standard joystick control structure.
-    hr = (*pJoystick)->SetDataFormat( &c_dfDIJoystick2 );
-    if( FAILED(hr) )
-    {
-        (*pJoystick)->Release();
-        *pJoystick = nullptr; // Ensure it's null if setup fails
-        return DIENUM_CONTINUE;
-    }
-
-    // Set the cooperative level to share access with other applications.
-    hr = (*pJoystick)->SetCooperativeLevel( PSGLOBAL(window), DISCL_NONEXCLUSIVE|DISCL_FOREGROUND );
-    if( FAILED(hr) )
-    {
-        (*pJoystick)->Release();
-        *pJoystick = nullptr; // Ensure it's null if setup fails
-        return DIENUM_CONTINUE;
-    }
-
-    ctx->count++;
-
-    // Stop enumeration if we have found two devices.
-    if ( ctx->count >= 2 ) // todo: Use JOYPAD_COUNT or similar constant
-        return DIENUM_STOP;
-
-    return DIENUM_CONTINUE;
-}
-
-
-// Based on _InputAddJoyStick - Sets axis ranges and detects axis presence
-void diPadAddJoyStick(LPDIRECTINPUTDEVICE8 lpDevice, INT padNum)
-{
-    if (!lpDevice) {
-        return;
-    }
-
-    DIDEVICEOBJECTINSTANCE objInst;
-    objInst.dwSize = sizeof( DIDEVICEOBJECTINSTANCE );
-
-    DIPROPRANGE range;
-    range.diph.dwSize = sizeof(DIPROPRANGE);
-    range.diph.dwHeaderSize = sizeof(DIPROPHEADER);
-    range.lMin = DEVICE_AXIS_MIN;
-    range.lMax = DEVICE_AXIS_MAX;
-    range.diph.dwHow = DIPH_BYOFFSET;
-
-    // Set X range
-    range.diph.dwObj = DIJOFS_X;
-    if ( SUCCEEDED( lpDevice->GetObjectInfo( &objInst,	DIJOFS_X, DIPH_BYOFFSET ) ) ) {
-        // Attempt to set range, ignore failure (might be read-only or unsupported)
-        lpDevice->SetProperty( DIPROP_RANGE, &range.diph );
-    }
-
-    // Set Y range
-    range.diph.dwObj = DIJOFS_Y;
-    if ( SUCCEEDED( lpDevice->GetObjectInfo( &objInst,	DIJOFS_Y, DIPH_BYOFFSET ) ) ) {
-        lpDevice->SetProperty( DIPROP_RANGE, &range.diph );
-    }
-
-    // Set Z range and check presence
-    range.diph.dwObj = DIJOFS_Z;
-    if ( SUCCEEDED( lpDevice->GetObjectInfo( &objInst,	DIJOFS_Z, DIPH_BYOFFSET ) ) ) {
-        // Only mark as present if setting the range succeeds (implies axis is usable)
-        if( SUCCEEDED( lpDevice->SetProperty( DIPROP_RANGE, &range.diph ) ) ) {
-            AllValidWinJoys.JoyStickNum[padNum].bZAxisPresent = true;
-        }
-    }
-
-    // Set RZ (Rotation Z) range and check presence
-    range.diph.dwObj = DIJOFS_RZ;
-    if ( SUCCEEDED( lpDevice->GetObjectInfo( &objInst,	DIJOFS_RZ, DIPH_BYOFFSET ) ) ) {
-        if( SUCCEEDED( lpDevice->SetProperty( DIPROP_RANGE, &range.diph ) ) ) {
-             AllValidWinJoys.JoyStickNum[padNum].bZRotPresent = true;
-        }
-    }
-}
-
-// Based on _InputAddJoys - Enumerates and sets up joysticks
-HRESULT diPadAddJoys()
-{
-    HRESULT hr;
-    EnumDevicesContext context; // Use context for enumeration count
-
-    // Enumerate attached game controllers
-    hr = PSGLOBAL(diInterface)->EnumDevices(DI8DEVCLASS_GAMECTRL, EnumDevicesCallback_Old, &context, DIEDFL_ATTACHEDONLY );
-
-    if( FAILED(hr) ) {
-        spdlog::error("DirectInput EnumDevices failed with HRESULT: {:#x}", hr);
-        return hr;
-    }
-
-    // If no devices were successfully initialized, return S_FALSE
-    if ( PSGLOBAL(diDevice1) == nullptr && PSGLOBAL(diDevice2) == nullptr) {
-        spdlog::info("No joysticks found or initialized.");
-        return S_FALSE;
-    }
-
-    // Configure ranges and detect axes for the initialized devices
-    diPadAddJoyStick(PSGLOBAL(diDevice1), 0);
-    diPadAddJoyStick(PSGLOBAL(diDevice2), 1);
-
-    return S_OK;
-}
-
-
-// Based on _InputInitialiseJoys - Main initialization function for pads
-void diPadInit() {
-    AllValidWinJoys = CJoySticks{}; // Clear existing joystick info
-
-    // Enumerate, create, and perform basic setup for joystick devices
-    if (FAILED(diPadAddJoys())) {
-        // Error already logged in diPadAddJoys if EnumDevices failed.
-        // If S_FALSE, it means no devices were found, which is not necessarily an error.
-        spdlog::info("diPadAddJoys completed (possibly with no devices found).");
-    }
-
-    // Get VID/PID, capabilities, and finalize setup for successfully initialized devices
-    const auto FinalizePadSetup = [](LPDIRECTINPUTDEVICE8 dev, DWORD padNum) {
-        if (dev == nullptr) {
-            return; // Skip if device wasn't initialized
-        }
-
-        DIDEVCAPS devCaps;
-        devCaps.dwSize = sizeof(DIDEVCAPS);
-        if (FAILED(dev->GetCapabilities(&devCaps))) {
-            spdlog::warn("Failed to get capabilities for pad {}", padNum);
-            // Continue without capabilities if needed, or handle error
-        }
-
-        DIPROPDWORD prop;
-        prop.diph.dwSize = sizeof(DIPROPDWORD);
+        ps = RsGlobal.ps;
+        prop.diph.dwSize       = sizeof(DIPROPDWORD);
         prop.diph.dwHeaderSize = sizeof(DIPROPHEADER);
-        prop.diph.dwObj = 0;
-        prop.diph.dwHow = DIPH_DEVICE; // Use DIPH_DEVICE for VIDPID
+        prop.diph.dwObj        = 0;
+        prop.diph.dwHow        = DIPH_DEVICE;
+        ps->diDevice1->GetProperty(DIPROP_VIDPID, &prop.diph);
 
-        if (SUCCEEDED(dev->GetProperty(DIPROP_VIDPID, &prop.diph))) {
-            auto& joyInfo = AllValidWinJoys.JoyStickNum[padNum];
-            joyInfo.wVendorID = LOWORD(prop.dwData);
-            joyInfo.wProductID = HIWORD(prop.dwData);
-            joyInfo.wDeviceID = prop.dwData; // Store the full VIDPID
-            spdlog::info("Pad {} VID: {:#06x}, PID: {:#06x}", padNum, joyInfo.wVendorID, joyInfo.wProductID);
-        } else {
-            spdlog::warn("Failed to get VID/PID for pad {}", padNum);
-        }
+        AllValidWinJoys.JoyStickNum[0].wVendorID  = LOWORD(prop.dwData);
+        AllValidWinJoys.JoyStickNum[0].wProductID = HIWORD(prop.dwData);
 
-        AllValidWinJoys.JoyStickNum[padNum].bJoyAttachedToPort = true; // Mark as initialized/attached
+        ControlsManager.InitDefaultControlConfigJoyPad(0x20);
 
-        // Initialize default controls only for the first pad, based on original logic
-        if (padNum == 0) {
-            ControlsManager.InitDefaultControlConfigJoyPad(devCaps.dwButtons);
-            spdlog::info("Initialized default controls for pad 0 with {} buttons.", devCaps.dwButtons);
-        }
-    };
-    FinalizePadSetup(PSGLOBAL(diDevice1), 0);
-    FinalizePadSetup(PSGLOBAL(diDevice2), 1);
+        ps = RsGlobal.ps;
+    }
+
+    if (ps->diDevice2) {
+        ps->diDevice2->GetProperty(DIPROP_VIDPID, &prop.diph);
+
+        AllValidWinJoys.JoyStickNum[1].wVendorID  = LOWORD(prop.dwData);
+        AllValidWinJoys.JoyStickNum[1].wProductID = HIWORD(prop.dwData);
+        AllValidWinJoys.JoyStickNum[1].bJoyAttachedToPort = true;
+    }
 }
+
+#pragma runtime_checks("", off)
+void diPadInit() {
+    // Debe ser lo primero: lee el residuo de pila del llamador del EXE (ver arriba) antes de que nada reutilice esa zona.
+    const auto* r = reinterpret_cast<const uint32*>(static_cast<const uint8*>(_AddressOfReturnAddress()) - 0x40);
+    s_diPadEntryResidue[0] = r[0];
+    s_diPadEntryResidue[1] = r[1];
+    s_diPadEntryResidue[2] = r[2];
+    s_diPadEntryResidue[3] = r[3];
+    s_diPadEntryResidue[4] = r[4];
+    diPadInitBody();
+}
+#pragma runtime_checks("", restore)
 
 // 0x747020
 BOOL CALLBACK EnumDevicesCallback(LPCDIDEVICEINSTANCEA inst, LPVOID) {
@@ -430,6 +298,15 @@ CMouseControllerState GetMouseSetUp() {
     return state;
 }
 
+// diPadInit se registra aparte de InjectHooks: con NOTSA_USE_SDL3 el resto de WinInput no se engancha, pero el banco
+// Dependencies24B necesita el hook registrado (el EXE de SDL no llama a 0x7485C0, asi que enganchar es inocuo).
+void InjectPadHooks() {
+    RH_ScopedCategory("Win");
+    RH_ScopedNamespaceName("Input");
+
+    RH_ScopedGlobalInstall(diPadInit, 0x7485C0);
+}
+
 void InjectHooks() {
     RH_ScopedCategory("Win");
     RH_ScopedNamespaceName("Input");
@@ -437,7 +314,6 @@ void InjectHooks() {
     RH_ScopedGlobalInstall(Initialise, 0x7487CF); 
     RH_ScopedGlobalInstall(diMouseInit, 0x7469A0, {.locked = true}); // Can't be hooked because it fails with ACCESS DENIED and crashes
     RH_ScopedGlobalInstall(EnumDevicesCallback, 0x747020);
-    RH_ScopedGlobalInstall(diPadInit, 0x7485C0);
     RH_ScopedGlobalInstall(diPadSetRanges, 0x746D80);
     RH_ScopedGlobalInstall(GetMouseSetUp, 0x53F2D0);
 }

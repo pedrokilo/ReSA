@@ -82,6 +82,10 @@ gCpuVendor,0x008D6238,0x004D6238,source/app/platform/win/WinPs.cpp,45,"static au
 PsGlobal,0x00C8CF88,0x0088CF88,source/app/platform/win/WinPs.cpp,47,static auto& PsGlobal = StaticRef<psGlobalType>(0xC8CF88);,source_global_reference
 s_SelectDeviceTscHigh,0x00C92104,0x00892104,source/app/platform/win/WinPs.cpp,50,static auto& s_SelectDeviceTscHigh = StaticRef<uint32>(0xC92104);,source_global_reference
 s_SelectDeviceTscLow,0x00C92108,0x00892108,source/app/platform/win/WinPs.cpp,51,static auto& s_SelectDeviceTscLow  = StaticRef<uint32>(0xC92108);,source_global_reference
+RwInitializedDword,0x00C920E8,0x008920E8,source/app/platform/win/WndProc.cpp,41,static auto& RwInitializedDword        = StaticRef<uint32>(0xC920E8);,source_global_reference
+ForegroundAppDword,0x008D621C,0x004D621C,source/app/platform/win/WndProc.cpp,42,static auto& ForegroundAppDword        = StaticRef<uint32>(0x8D621C);,source_global_reference
+WindowedDword,0x00C920CC,0x008920CC,source/app/platform/win/WndProc.cpp,43,static auto& WindowedDword             = StaticRef<uint32>(0xC920CC);,source_global_reference
+CameraResizeRejectedDword,0x00C9246C,0x0089246C,source/app/platform/win/WndProc.cpp,44,static auto& CameraResizeRejectedDword = StaticRef<uint32>(0xC9246C); // 1 si RsEventHandler(rsCAMERASIZE) no pudo fijar el tamaño pedido (solo la escribe este procedimiento),source_global_reference
 trapDisplay,0x00C8CDE8,0x0088CDE8,source/app/securom/Securom.cpp,24,"static auto& trapDisplay = StaticRef<std::array<int32, 32>>(0xC8CDE8);",source_global_reference
 triggerDisplay,0x00C8CE68,0x0088CE68,source/app/securom/Securom.cpp,25,"static auto& triggerDisplay = StaticRef<std::array<int32, 32>>(0xC8CE68);",source_global_reference
 s_SavedAlpha,0x008D5E44,0x004D5E44,source/game_sa/3dMarker.cpp,160,static auto& s_SavedAlpha = StaticRef<uint8>(0x8D5E44);,source_global_reference

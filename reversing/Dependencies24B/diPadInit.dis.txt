@@ -1,0 +1,112 @@
+; diPadInit 0x7485C0 (EXE gta-sa.exe 1.0 US, SHA256 72ae59e4...ecc9b) - desensamblado con exedis.py (capstone)
+7485c0: sub esp, 0x40
+7485c3: push ebx
+7485c4: mov eax, 0xc92148
+7485c9: xor ebx, ebx
+7485cb: jmp 0x7485d0
+7485cd: lea ecx, [ecx]
+7485d0: mov dword ptr [eax - 4], ebx
+7485d3: mov byte ptr [eax], bl
+7485d5: mov byte ptr [eax + 1], bl
+7485d8: mov byte ptr [eax + 2], bl
+7485db: add eax, 0x10
+7485de: cmp eax, 0xc92168
+7485e3: jl 0x7485d0
+7485e5: call 0x7477c0
+7485ea: mov eax, dword ptr [0xc17054]
+7485ef: cmp dword ptr [eax + 0x20], ebx
+7485f2: je 0x748664
+7485f4: mov byte ptr [0xc92148], 1
+7485fb: mov dword ptr [esp + 0x18], 0x2c
+748603: mov eax, dword ptr [eax + 0x20]
+748606: mov ecx, dword ptr [eax]
+748608: lea edx, [esp + 0x18]
+74860c: push edx
+74860d: push eax
+74860e: call dword ptr [ecx + 0xc]
+748611: mov eax, dword ptr [0xc17054]
+748616: lea edx, [esp + 4]
+74861a: push edx
+74861b: mov dword ptr [esp + 8], 0x14
+748623: mov dword ptr [esp + 0xc], 0x10
+74862b: mov dword ptr [esp + 0x10], ebx
+74862f: mov dword ptr [esp + 0x14], ebx
+748633: mov eax, dword ptr [eax + 0x20]
+748636: mov ecx, dword ptr [eax]
+748638: push 0x18
+74863a: push eax
+74863b: call dword ptr [ecx + 0x14]
+74863e: mov eax, dword ptr [esp + 0x14]
+748642: movzx ecx, ax
+748645: mov dword ptr [0xc9214c], ecx
+74864b: shr eax, 0x10
+74864e: push 0x20
+748650: mov ecx, 0xb70198
+748655: mov dword ptr [0xc92150], eax
+74865a: call 0x530b00
+74865f: mov eax, dword ptr [0xc17054]
+748664: mov eax, dword ptr [eax + 0x24]
+748667: cmp eax, ebx
+748669: pop ebx
+74866a: je 0x748695
+74866c: mov edx, dword ptr [eax]
+74866e: lea ecx, [esp]
+748672: push ecx
+748673: push 0x18
+748675: push eax
+748676: call dword ptr [edx + 0x14]
+748679: mov eax, dword ptr [esp + 0x10]
+74867d: movzx edx, ax
+748680: shr eax, 0x10
+748683: mov dword ptr [0xc9215c], edx
+748689: mov dword ptr [0xc92160], eax
+74868e: mov byte ptr [0xc92158], 1
+748695: add esp, 0x40
+748698: ret 
+748699: nop 
+
+; --- 0x7477C0 (_InputAddJoys, colaborador sin reconstruir)
+7477c0: mov eax, dword ptr [0xc17054]
+7477c5: mov eax, dword ptr [eax + 0x18]
+7477c8: mov ecx, dword ptr [eax]
+7477ca: push 1
+7477cc: push 0
+7477ce: push 0x747020
+7477d3: push 4
+7477d5: push eax
+7477d6: call dword ptr [ecx + 0x10]
+7477d9: test eax, eax
+7477db: jne 0x747814
+7477dd: mov edx, dword ptr [0xc17054]
+7477e3: mov eax, dword ptr [edx + 0x20]
+7477e6: test eax, eax
+7477e8: je 0x74780f
+7477ea: push 0
+7477ec: push eax
+7477ed: call 0x746d80
+7477f2: mov eax, dword ptr [0xc17054]
+7477f7: mov eax, dword ptr [eax + 0x24]
+7477fa: add esp, 8
+7477fd: test eax, eax
+7477ff: je 0x74780c
+747801: push 1
+
+; --- llamador unico del EXE: 0x748813 (dentro de 0x748710)
+748800: push eax
+748801: call 0x817523
+748806: cmp eax, ebx
+748808: jl 0x748818
+74880a: push ebx
+74880b: call 0x7469a0
+748810: add esp, 4
+748813: call 0x7485c0
+748818: cmp byte ptr [0xba6818], bl
+74881e: sete dl
+748821: lea eax, [esp + 0x34]
+748825: mov ecx, 0xba6744
+74882a: push edx
+74882b: push eax
+74882c: call 0x53f2d0
+748831: push eax
+748832: mov ecx, 0xb70198
+748837: call 0x52f6f0

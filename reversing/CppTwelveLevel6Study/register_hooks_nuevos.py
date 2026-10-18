@@ -48,6 +48,8 @@ HOOKS = (
     ('FxEmitter_c', 'CreateParticles', '0x004A41E0', 'FxEmitter_c::CreateParticles', 'Dependencies22C'),
     ('CVehicle', 'DoVehicleLights', '0x006E1A60', 'CVehicle::DoVehicleLights', 'Dependencies23A'),
     ('CVehicle', 'FlyingControl', '0x006D85F0', 'CVehicle::FlyingControl', 'Dependencies23B'),
+    ('Win', '__MainWndProc', '0x00747EB0', 'Win::__MainWndProc', 'Dependencies24A'),
+    ('Input', 'diPadInit', '0x007485C0', 'WinInput::diPadInit', 'Dependencies24B'),
 )
 SOURCES = {
     'CRT::CrtPrintf': 'source/game_sa/VehicleRecording.cpp',
@@ -73,6 +75,7 @@ SOURCES = {
     'CVehicle::DoHeadLightEffect': 'source/game_sa/Entity/Vehicle/Vehicle.cpp', 'CVehicle::DoTailLightEffect': 'source/game_sa/Entity/Vehicle/Vehicle.cpp',
     'CCam::WrapAngle': 'source/game_sa/Cam.cpp', 'FxEmitter_c::CreateParticles': 'source/game_sa/Fx/FxEmitter.cpp',
     'CVehicle::DoVehicleLights': 'source/game_sa/Entity/Vehicle/Vehicle.cpp', 'CVehicle::FlyingControl': 'source/game_sa/Entity/Vehicle/Vehicle.cpp',
+    'Win::__MainWndProc': 'source/app/platform/win/WndProc.cpp', 'WinInput::diPadInit': 'source/app/platform/win/WinInput.cpp',
 }
 SCOPE = ('Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. '
          'Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.')

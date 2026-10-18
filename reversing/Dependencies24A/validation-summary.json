@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "pairs": 19456,
+  "differences": 0,
+  "registered_pairs": 19456,
+  "registered_functions": 1,
+  "functions": {
+    "Win::__MainWndProc": 19456
+  },
+  "covered_functions": {
+    "Win::__MainWndProc": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Dependencies24A-20261017-204926-981743",
+  "summary_sha256": "7d5b52da7e521aaa8d7120380444787cb38cf50261a64c4655dd1417d953a54b",
+  "result_txt_sha256": "32a367a32114e08036a292e0a68160cb350f732f432686679646f8fcbe04d21e",
+  "log_sha256": "e75b39a16c5e9d5731c1ade68eb21f306fe15cc7486703a450a79fda0885547c",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "9379843843c7efb321645fa82bc2b078521c458efcbf91e6915647f82752b249",
+  "manifest": {
+    "tested_sources": {
+      "source/app/platform/win/WndProc.cpp": "14ec5794db89dc893d9273c36f0636ff6122ea17204f3ec6d3f3b31aecfb291a",
+      "source/app/platform/win/WndProc.h": "9b41672e76b14f775f0cb0dec5b4cd436c47785ee3002ce8d3af438aeb48a2d7",
+      "source/app/platform/win/WinPlatform.cpp": "39faa6d441f3030c1fea8f4a2964e87933b663d94d87e498360ebdd49737ce94",
+      "source/game_sa/X87Math.cpp": "3ce2a47f006a021d0e2a6b6112cf91f0761600db33ec527ea8cfa2e33751364e",
+      "source/game_sa/X87Math.h": "ea2b09b7de6d55f92a0ed4cf40398407ac6fb383268dbd3a74adfd787b26f2f6",
+      "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Dependencies24A/Core.hpp": "3f837a542b86945ee10a36a1da118cf47aa7fda14c59f11472d3a94634083a03",
+      "reversing/Dependencies24A/Fixtures.hpp": "9af85de045b73a3c60f1ec7f535dcf7c6f45cbaea7050a7b87271452e01fceae",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

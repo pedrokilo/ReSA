@@ -7790,6 +7790,7 @@ Input,HandleKeyDown,0x00743DF0,1,0,1,S
 Input,HandleKeyUp,0x007443C0,1,0,1,S
 Input,KeyboardHandler,0x00744880,1,0,1,S
 Input,PadHandler,0x007449F0,1,0,1,S
+Input,diPadInit,0x007485C0,1,0,1,S
 Game,FrontendIdle,0x0053E770,1,0,1,S
 Game,GameInit,0x005BF3B0,1,0,1,S
 Game,Idle,0x0053E920,1,0,1,S
@@ -7830,6 +7831,7 @@ Win,GTATranslateShiftKey,0x00747CD0,1,0,1,S
 Win,IsAlreadyRunning,0x007468E0,1,0,1,S
 Win,IsForegroundApp,0x00746060,1,0,1,S
 Win,MessageLoop,0x00746870,1,0,1,S
+Win,__MainWndProc,0x00747EB0,1,0,1,S
 Ps,CheckDirectSound,0x00745840,1,0,1,S
 Ps,GetVideoMemInfo,0x007455E0,1,0,1,S
 Ps,InitialiseLanguage,0x007465B0,1,0,1,S

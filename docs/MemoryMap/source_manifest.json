@@ -29,7 +29,7 @@
   },
   {
     "file": "source/app/app_input.cpp",
-    "sha256": "d5d7a8417fe8a60d48b9d6e4bc94b86ebd8add0157a6234f4cfdc69de8efd162"
+    "sha256": "02708ac4c031cf3aa8f243677014c3fc66da54c79cbc4e7de5c6e65bd91abc70"
   },
   {
     "file": "source/app/app_input.h",
@@ -101,11 +101,11 @@
   },
   {
     "file": "source/app/platform/win/WinInput.cpp",
-    "sha256": "c26062610b5e07346bb29a938ee832a2386ee158c0b1dafd156a6392302239fd"
+    "sha256": "65b01d8676783ac42cc02fa601b8beb5afaab94ba0fa0556794617243d86e0a3"
   },
   {
     "file": "source/app/platform/win/WinInput.h",
-    "sha256": "4e48da9a1e1361f3f345f325aef8ae88c78748d8f5d3f6a668c9fb81bbb928a7"
+    "sha256": "69b60d5be10481f56ce112cfd8c618a0288e3659b4a44d44d32cf148d60fb045"
   },
   {
     "file": "source/app/platform/win/WinMain.cpp",
@@ -117,7 +117,7 @@
   },
   {
     "file": "source/app/platform/win/WinPlatform.cpp",
-    "sha256": "65a57230f8a38a098036b66f5cdbb3342134979f2e67693690ca4d7dfdec4e26"
+    "sha256": "39faa6d441f3030c1fea8f4a2964e87933b663d94d87e498360ebdd49737ce94"
   },
   {
     "file": "source/app/platform/win/WinPlatform.h",
@@ -129,11 +129,11 @@
   },
   {
     "file": "source/app/platform/win/WndProc.cpp",
-    "sha256": "524a67e496b0f1faef9653c6f95b4a174d76ec8f805b9b4e30e97efadf2964c3"
+    "sha256": "14ec5794db89dc893d9273c36f0636ff6122ea17204f3ec6d3f3b31aecfb291a"
   },
   {
     "file": "source/app/platform/win/WndProc.h",
-    "sha256": "e7d3339a209f3d143e778a611c05c6e3118b973ce1f99260bd3488202101fbac"
+    "sha256": "9b41672e76b14f775f0cb0dec5b4cd436c47785ee3002ce8d3af438aeb48a2d7"
   },
   {
     "file": "source/app/securom/Securom.cpp",
@@ -8865,11 +8865,11 @@
   },
   {
     "file": "source/game_sa/X87Math.cpp",
-    "sha256": "218837db535132c19242e58a7767ef15246bb071d671e6d1eeafc5fd75e8b547"
+    "sha256": "3ce2a47f006a021d0e2a6b6112cf91f0761600db33ec527ea8cfa2e33751364e"
   },
   {
     "file": "source/game_sa/X87Math.h",
-    "sha256": "098e7579cf41d61519603bd3a133ddf00212a7006da14fa82a9866f7f1b83c90"
+    "sha256": "ea2b09b7de6d55f92a0ed4cf40398407ac6fb383268dbd3a74adfd787b26f2f6"
   },
   {
     "file": "source/game_sa/Zone.cpp",

@@ -534261,6 +534261,76 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco.",
       "review_reference": "reversing/Dependencies23B/README.md"
+    },
+    {
+      "hook": {
+        "class": "Win",
+        "fn_name": "__MainWndProc",
+        "address": "0x00747EB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Dependencies24A/validation-summary.json",
+        "sha256": "9282dee57a643a1bcf071e9441b74aa44d88ac53dda215304903054d145f0534",
+        "passed_path": [
+          "covered_functions",
+          "Win::__MainWndProc"
+        ],
+        "pairs": 19456,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/app/platform/win/WndProc.cpp": "14ec5794db89dc893d9273c36f0636ff6122ea17204f3ec6d3f3b31aecfb291a",
+        "source/app/platform/win/WndProc.h": "9b41672e76b14f775f0cb0dec5b4cd436c47785ee3002ce8d3af438aeb48a2d7",
+        "source/app/platform/win/WinPlatform.cpp": "39faa6d441f3030c1fea8f4a2964e87933b663d94d87e498360ebdd49737ce94",
+        "source/game_sa/X87Math.cpp": "3ce2a47f006a021d0e2a6b6112cf91f0761600db33ec527ea8cfa2e33751364e",
+        "source/game_sa/X87Math.h": "ea2b09b7de6d55f92a0ed4cf40398407ac6fb383268dbd3a74adfd787b26f2f6",
+        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Dependencies24A/Core.hpp": "3f837a542b86945ee10a36a1da118cf47aa7fda14c59f11472d3a94634083a03",
+        "reversing/Dependencies24A/Fixtures.hpp": "9af85de045b73a3c60f1ec7f535dcf7c6f45cbaea7050a7b87271452e01fceae",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco.",
+      "review_reference": "reversing/Dependencies24A/README.md"
+    },
+    {
+      "hook": {
+        "class": "Input",
+        "fn_name": "diPadInit",
+        "address": "0x007485C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Dependencies24B/validation-summary.json",
+        "sha256": "30a8ddf271fff569ba2d9565cf7d9ed08fffd0f5946cd6fad79a77abe77cafd1",
+        "passed_path": [
+          "covered_functions",
+          "WinInput::diPadInit"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/app/platform/win/WinInput.cpp": "65b01d8676783ac42cc02fa601b8beb5afaab94ba0fa0556794617243d86e0a3",
+        "source/app/platform/win/WinInput.h": "69b60d5be10481f56ce112cfd8c618a0288e3659b4a44d44d32cf148d60fb045",
+        "source/app/platform/win/WinPlatform.cpp": "927822f8f3c74ac7c4de9a9e851a112e9f6ecdd32f03a1ee594c3aac0a6f350d",
+        "source/game_sa/ControllerConfigManager.cpp": "b4074183f77737689059a36f37092d3b14b650608ceaab0dc3aba0e967a10d60",
+        "source/game_sa/ControllerConfigManager.h": "3f96f170535c8a131d7724812a0353eae60fe8a6856fb781b3040f358c764da9",
+        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Dependencies24B/Fixtures.hpp": "fae8020043ae4ae689abad8e1a3edfca35727e1fb92ad1d080ffd540918b7204",
+        "reversing/Dependencies24B/Rows.hpp": "2a5a13f5e2afc244d929bd1906a9419d70ea54959a8a406fe37eee72a9caa3e4",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco.",
+      "review_reference": "reversing/Dependencies24B/README.md"
     }
   ]
 }
