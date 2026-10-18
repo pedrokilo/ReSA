@@ -1,0 +1,10 @@
+class,function,address,bytes,source
+D3DResourceSystem,CancelBuffering,0x00730900,225,source/game_sa/RenderWare/D3DResourceSystem.cpp:55
+D3DResourceSystem,CreateIndexBuffer,0x007306A0,153,source/game_sa/RenderWare/D3DResourceSystem.cpp:198
+D3DResourceSystem,CreateTexture,0x00730510,204,source/game_sa/RenderWare/D3DResourceSystem.cpp:203
+D3DResourceSystem,DestroyIndexBuffer,0x00730D30,263,source/game_sa/RenderWare/D3DResourceSystem.cpp:208
+D3DResourceSystem,DestroyTexture,0x00730B70,439,source/game_sa/RenderWare/D3DResourceSystem.cpp:213
+D3DResourceSystem,GetTotalIndexDataSize,,,source/game_sa/RenderWare/D3DResourceSystem.cpp:60
+D3DResourceSystem,GetTotalPixelsSize,,,source/game_sa/RenderWare/D3DResourceSystem.cpp:65
+D3DResourceSystem,Init,0x00730830,192,source/game_sa/RenderWare/D3DResourceSystem.cpp:70
+D3DResourceSystem,Shutdown,0x00730A00,178,source/game_sa/RenderWare/D3DResourceSystem.cpp:81

@@ -1,0 +1,11 @@
+class,function,address,bytes,source
+CCarCtrl,SteerAICarWithPhysicsFollowPreRecordedPath,0x00432DD0,1177,source/game_sa/CarCtrl.cpp:1048
+CCarCtrl,PossiblyRemoveVehicle,0x00424F80,1204,source/game_sa/CarCtrl.cpp:726
+CCarCtrl,SteerAICarTowardsPointInEscort,0x004336D0,1223,source/game_sa/CarCtrl.cpp:1028
+CCarCtrl,FindNodesThisCarIsNearestTo,0x0042BD20,1323,source/game_sa/CarCtrl.cpp:347
+CCarCtrl,FindAngleToWeaveThroughTraffic,0x004325C0,1339,source/game_sa/CarCtrl.cpp:327
+CCarCtrl,UpdateCarOnRails,0x00436540,1351,source/game_sa/CarCtrl.cpp:1216
+CCarCtrl,WeaveForOtherCar,0x00426350,1558,source/game_sa/CarCtrl.cpp:1226
+CCarCtrl,SteerAICarWithPhysics,0x00437C20,1717,source/game_sa/CarCtrl.cpp:1033
+CCarCtrl,DragCarToPoint,0x0042EC90,1748,source/game_sa/CarCtrl.cpp:322
+CCarCtrl,SlowCarDownForPedsSectorList,0x00425440,1761,source/game_sa/CarCtrl.cpp:960

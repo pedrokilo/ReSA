@@ -1,0 +1,13 @@
+class,function,address,bytes,source
+CAutoPilot,ModifySpeed,0x0041B980,752,source/game_sa/AutoPilot.cpp:71
+CCustomCarPlateMgr,LoadPlatecharsetDat,,,source/game_sa/CustomCarPlateMgr.cpp:113
+CDecision,MakeDecision,0x006040D0,333,source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:38
+CDecisionMakerTypes,AddEventResponse,0x006044C0,50,source/game_sa/DecisionMakers/DecisionMakerTypes.cpp:305
+CFileLoader,Load2dEffect,0x005B7670,2451,source/game_sa/FileLoader.cpp:1023
+CObject,CObject,0x005A1D70,113,source/game_sa/Population.cpp:1979
+CPedSaveStructure,Extract,0x005D44B0,362,source/game_sa/Entity/Ped/PedSaveStructure.cpp:26
+CPedStats,FindIndexWithPedStat,,,source/game_sa/PedStats.cpp:146
+CPickups,GenerateNewOne,0x00456F20,1118,source/game_sa/Pickups.cpp:507
+CPlantMgr,AtomicCreatePrelitIfNeeded,0x005DD100,221,source/game_sa/PlantMgr.cpp:33
+CQuaternion,Get,0x0059C080,215,source/game_sa/Entity/Vehicle/Plane.cpp:612
+CRadar,DrawEntityBlip,0x00587000,3049,source/game_sa/Radar.cpp:2053

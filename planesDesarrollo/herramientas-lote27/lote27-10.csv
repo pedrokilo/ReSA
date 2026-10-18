@@ -1,0 +1,11 @@
+class,function,address,bytes,source
+CGarage,InitDoorsAtStart,0x00447600,61,source/game_sa/Garage.cpp:218
+CGarage,IsEntityEntirelyInside3D,0x00448BE0,333,source/game_sa/Garage.cpp:185
+CGarage,IsEntityEntirelyOutside,0x00448D30,281,source/game_sa/Garage.cpp:175
+CGarage,IsGarageEmpty,0x0044A9C0,141,source/game_sa/Garage.cpp:260
+CGarage,IsStaticPlayerCarEntirelyInside,0x0044A830,386,source/game_sa/Garage.cpp:180
+CGarage,PlayerArrestedOrDied,0x004486C0,60,source/game_sa/Garage.cpp:197
+CGarage,RemoveCarsBlockingDoorNotInside,0x00449690,175,source/game_sa/Garage.cpp:144
+CGarage,TidyUpGarage,,,source/game_sa/Garage.cpp:87
+CGarage,TidyUpGarageClose,,,source/game_sa/Garage.cpp:82
+CGarage,Update,0x0044AA50,7553,source/game_sa/Garage.cpp:229

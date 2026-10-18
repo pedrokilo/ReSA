@@ -1,0 +1,11 @@
+class,function,address,bytes,source
+CCarCtrl,JoinCarWithRoadSystemGotoCoors,0x0042F870,327,source/game_sa/CarCtrl.cpp:661
+CCarCtrl,WeaveThroughCarsSectorList,0x0042D680,341,source/game_sa/CarCtrl.cpp:1232
+CCarCtrl,WeaveThroughObjectsSectorList,0x0042D950,343,source/game_sa/CarCtrl.cpp:1238
+CCarCtrl,WeaveThroughPedsSectorList,0x0042D7E0,346,source/game_sa/CarCtrl.cpp:1244
+CCarCtrl,SetCoordsOfScriptCar,0x004342A0,350,source/game_sa/CarCtrl.cpp:904
+CCarCtrl,SteerAIHeliToLand,0x0042AD30,370,source/game_sa/CarCtrl.cpp:1098
+CCarCtrl,SlowCarDownForObjectsSectorList,0x0042D4F0,391,source/game_sa/CarCtrl.cpp:949
+CCarCtrl,SlowCarDownForCarsSectorList,0x00432420,413,source/game_sa/CarCtrl.cpp:915
+CCarCtrl,GetAIHeliToAttackPlayer,0x0042F3C0,472,source/game_sa/CarCtrl.cpp:506
+CCarCtrl,GetAIPlaneToDoDogFight,0x00429890,472,source/game_sa/CarCtrl.cpp:521

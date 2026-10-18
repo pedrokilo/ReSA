@@ -1,0 +1,11 @@
+class,function,address,bytes,source
+CCarCtrl,SteerAIPlaneToFollowEntity,0x004237F0,141,source/game_sa/CarCtrl.cpp:1113
+CCarCtrl,FindSpeedMultiplier,0x004224E0,167,source/game_sa/CarCtrl.cpp:376
+CCarCtrl,FindPercDependingOnDistToLink,0x00422620,208,source/game_sa/CarCtrl.cpp:357
+CCarCtrl,SwitchBetweenPhysicsAndGhost,0x004222A0,208,source/game_sa/CarCtrl.cpp:1128
+CCarCtrl,TestWhetherToFirePlaneGuns,0x00429520,214,source/game_sa/CarCtrl.cpp:1154
+CCarCtrl,SteerAICarWithPhysicsTryingToBlockTarget,0x004335E0,240,source/game_sa/CarCtrl.cpp:1058
+CCarCtrl,SteerAIHeliTowardsTargetCoors,0x0042A630,244,source/game_sa/CarCtrl.cpp:1103
+CCarCtrl,GetAIPlaneToAttackPlayer,0x00429780,261,source/game_sa/CarCtrl.cpp:516
+CCarCtrl,SetUpDriverAndPassengersForVehicle,0x004217C0,307,source/game_sa/CarCtrl.cpp:909
+CCarCtrl,PickNextNodeAccordingStrategy,0x00432B10,321,source/game_sa/CarCtrl.cpp:666

@@ -1,0 +1,7 @@
+class,function,address,bytes,source
+CPathFind,CompleteNewInterior,0x00452270,1244,source/game_sa/Interior/InteriorGroup_c.cpp:237
+CPathFind,FindNextNodeWandering,0x00451B70,1161,source/game_sa/PathFind.cpp:440
+CPathFind,FindNodeClosestToCoors,0x0044F460,1115,source/game_sa/PathFind.cpp:843
+CPathFind,FindNthNodeClosestToCoors,0x0044F8C0,354,source/game_sa/PathFind.cpp:350
+CPathFind,FindParkingNodeInArea,0x004513F0,476,source/game_sa/PathFind.cpp:1083
+CPathFind,GeneratePedCreationCoors_Interior,0x0044ECA0,787,source/game_sa/PathFind.cpp:402

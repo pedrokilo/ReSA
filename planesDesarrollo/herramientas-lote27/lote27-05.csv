@@ -1,0 +1,9 @@
+class,function,address,bytes,source
+CStats,BuildStatLine,0x00559230,735,source/game_sa/Stats.cpp:374
+CStats,ConstructStatLine,0x0055A780,3924,source/game_sa/Stats.cpp:888
+CStats,FindLeastFavoriteRadioStation,0x00559010,110,source/game_sa/Stats.cpp:343
+CStats,UpdateRespectStat,0x0055BC50,716,source/game_sa/Stats.cpp:1005
+CTaskComplexWalkRoundObject,ControlSubTask,0x006575F0,341,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp:66
+CTaskComplexWalkRoundObject,CreateFirstSubTask,0x00657380,620,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp:74
+CTaskComplexWalkRoundObject,CreateNextSubTask,0x00657220,341,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp:70
+CTaskComplexWalkRoundObject,CreateRouteTask,,,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp:78

@@ -1,0 +1,12 @@
+class,function,address,bytes,source
+CHeli,BlowUpCar,0x006C6D30,795,source/game_sa/Entity/Vehicle/Heli.cpp:299
+CHeli,CHeli,0x006C4190,398,source/game_sa/Entity/Vehicle/Plane.cpp:558
+CHeli,FindSwatPositionRelativeToHeli,0x006C4760,141,source/game_sa/Entity/Vehicle/Heli.cpp:179
+CHeli,GenerateHeli,0x006C6520,867,source/game_sa/Entity/Vehicle/Heli.cpp:223
+CHeli,PreRender,0x006C5420,1204,source/game_sa/Entity/Vehicle/Heli.cpp:379
+CHeli,ProcessControl,0x006C7050,2352,source/game_sa/Entity/Vehicle/Heli.cpp:385
+CHeli,ProcessControlInputs,0x006C4830,1571,source/game_sa/Entity/Vehicle/Heli.cpp:321
+CHeli,ProcessFlyingCarStuff,0x006C4E60,1467,source/game_sa/Entity/Vehicle/Heli.cpp:373
+CHeli,SearchLightCone,0x006C58E0,3121,source/game_sa/Entity/Vehicle/Heli.cpp:218
+CHeli,SendDownSwat,0x006C69C0,869,source/game_sa/Entity/Vehicle/Heli.cpp:260
+CHeli,UpdateHelis,0x006C79A0,678,source/game_sa/Entity/Vehicle/Heli.cpp:267

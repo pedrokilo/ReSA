@@ -1,0 +1,11 @@
+class,function,address,bytes,source
+CCarCtrl,SteerAIHeliAsPoliceHeli,0x0042AAD0,475,source/game_sa/CarCtrl.cpp:1073
+CCarCtrl,SteerAIBoatWithPhysicsHeadingForTarget,0x00428BE0,497,source/game_sa/CarCtrl.cpp:1008
+CCarCtrl,FireHeliRocketsAtTarget,0x0042B270,506,source/game_sa/CarCtrl.cpp:426
+CCarCtrl,FindPathDirection,0x00422090,515,source/game_sa/CarCtrl.cpp:352
+CCarCtrl,TriggerDogFightMoves,0x00429300,526,source/game_sa/CarCtrl.cpp:1164
+CCarCtrl,SteerAICarWithPhysicsTryingToBlockTarget_Stop,0x00428990,583,source/game_sa/CarCtrl.cpp:1063
+CCarCtrl,SteerAIBoatWithPhysicsCirclingPlayer,0x00429090,613,source/game_sa/CarCtrl.cpp:1003
+CCarCtrl,ScanForPedDanger,0x0042CE40,657,source/game_sa/CarCtrl.cpp:887
+CCarCtrl,ChooseModel,0x00424CE0,672,source/game_sa/CarCtrl.cpp:180
+CCarCtrl,TestCollisionBetween2MovingRects_OnlyFrontBumper,0x00425F70,672,source/game_sa/CarCtrl.cpp:1149

@@ -1,0 +1,2 @@
+class,function,address,bytes,source
+CCarCtrl,GenerateOneRandomCar,0x00430050,7915,source/game_sa/CarCtrl.cpp:461

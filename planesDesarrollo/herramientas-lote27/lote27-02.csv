@@ -1,0 +1,13 @@
+class,function,address,bytes,source
+CRealTimeShadow,SetupForThisEntity,0x00706520,222,source/game_sa/RealTimeShadow.cpp:93
+CSprite2d,AddToBuffer,0x00728200,180,source/game_sa/Sprite2d.cpp:468
+CTaskComplexPartnerShove,GetPartnerSequence,0x00683120,275,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerShove.cpp:43
+FxInfoManager_c,Load,0x005C0B70,2927,source/game_sa/Fx/FxInfoManager.cpp:181
+CCamera,ProcessShake,0x00516560,1394,source/game_sa/Camera.cpp:1978
+CCamera,UpdateSoundDistances,0x00515BD0,431,source/game_sa/Camera.cpp:1435
+CCustomBuildingDNPipeline,CustomPipeMaterialSetup,0x005D7120,149,source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp:275
+CCustomBuildingDNPipeline,CustomPipeRenderCB,,,source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp:280
+CGarages,AddOne,0x004471E0,1044,source/game_sa/Garages.cpp:170
+CGarages,StoreCarInNearestImpoundingGarage,0x0044A3C0,263,source/game_sa/Garages.cpp:589
+CTaskComplexPartnerChat,GetPartnerSequence,0x00684380,836,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.cpp:63
+CTaskComplexPartnerChat,MakeAbortable,0x00682C60,65,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.cpp:58

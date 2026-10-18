@@ -1,0 +1,11 @@
+class,function,address,bytes,source
+CCarCtrl,FlyAIPlaneInCertainDirection,0x00423000,1917,source/game_sa/CarCtrl.cpp:441
+CCarCtrl,PickNextNodeToChaseCar,0x00426EF0,2111,source/game_sa/CarCtrl.cpp:683
+CCarCtrl,PickNextNodeToFollowPath,0x00427740,2193,source/game_sa/CarCtrl.cpp:688
+CCarCtrl,DealWithBend_Racing,0x00428040,2361,source/game_sa/CarCtrl.cpp:317
+CCarCtrl,GenerateCarCreationCoors2,0x00424210,2751,source/game_sa/CarCtrl.cpp:446
+CCarCtrl,FlyAIHeliInCertainDirection,0x00429A70,2994,source/game_sa/CarCtrl.cpp:431
+CCarCtrl,SteerAICarWithPhysicsFollowPath_Racing,0x00435830,3320,source/game_sa/CarCtrl.cpp:1043
+CCarCtrl,PickNextNodeRandomly,0x0042DE80,3591,source/game_sa/CarCtrl.cpp:678
+CCarCtrl,SteerAICarWithPhysicsFollowPath,0x00434900,3729,source/game_sa/CarCtrl.cpp:1038
+CCarCtrl,SteerAICarWithPhysics_OnlyMission,0x00436A90,4243,source/game_sa/CarCtrl.cpp:1068

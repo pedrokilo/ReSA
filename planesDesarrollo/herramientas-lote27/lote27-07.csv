@@ -1,0 +1,11 @@
+class,function,address,bytes,source
+CTaskComplexPartner,ControlSubTask,0x006840D0,192,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:75
+CTaskComplexPartner,CreateFirstSubTask,0x00000000,,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:71
+CTaskComplexPartner,CreateNextSubTask,0x00683AD0,1521,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:67
+CTaskComplexPartner,RemoveStreamedAnims,0x00682370,56,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:83
+CTaskComplexPartner,StreamRequiredAnims,0x00682310,93,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:79
+CWaterLevel,FillQuadsAndTrianglesList,0x006E7B30,519,source/game_sa/WaterLevel.cpp:1378
+CWaterLevel,GetWaterDepth,0x006EA960,132,source/game_sa/WaterLevel.cpp:938
+CWaterLevel,RenderHighDetailWaterRectangle,0x006EB810,1707,source/game_sa/WaterLevel.cpp:722
+CWaterLevel,RenderHighDetailWaterTriangle,0x006EDDC0,704,source/game_sa/WaterLevel.cpp:1150
+CWaterLevel,TestLineAgainstWater,0x006E61B0,1505,source/game_sa/WaterLevel.cpp:1411

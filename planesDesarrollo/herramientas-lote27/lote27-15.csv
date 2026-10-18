@@ -1,0 +1,11 @@
+class,function,address,bytes,source
+CCarCtrl,GenerateEmergencyServicesCar,,,source/game_sa/CarCtrl.cpp:451
+CCarCtrl,GetAIHeliToFlyInDirection,0x0042A730,28,source/game_sa/CarCtrl.cpp:511
+CCarCtrl,ThisVehicleShouldTryNotToTurn,0x00421FE0,38,source/game_sa/CarCtrl.cpp:1159
+CCarCtrl,SteerAIPlaneTowardsTargetCoors,0x00423790,75,source/game_sa/CarCtrl.cpp:1118
+CCarCtrl,GetAIPlaneToDoDogFightAgainstPlayer,0x0042F370,76,source/game_sa/CarCtrl.cpp:526
+CCarCtrl,SteerAIPlaneToCrashAndBurn,0x00423880,81,source/game_sa/CarCtrl.cpp:1108
+CCarCtrl,SteerAIHeliToCrashAndBurn,0x004238E0,89,source/game_sa/CarCtrl.cpp:1083
+CCarCtrl,FindIntersection2Lines,0x004226F0,100,source/game_sa/CarCtrl.cpp:332
+CCarCtrl,SteerAIHeliFlyingAwayFromPlayer,0x0042ACB0,122,source/game_sa/CarCtrl.cpp:1078
+CCarCtrl,StopCarIfNodesAreInvalid,0x00422590,137,source/game_sa/CarCtrl.cpp:1123

@@ -1,0 +1,11 @@
+class,function,address,bytes,source
+CTaskComplexFollowPedFootsteps,ControlSubTask,0x00695090,1341,source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp:80
+CTaskComplexFollowPedFootsteps,CreateFirstSubTask,0x00695000,141,source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp:76
+CTaskComplexFollowPedFootsteps,CreateNextSubTask,0x00694EE0,283,source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp:72
+CTaskComplexFollowPedFootsteps,CreateSubTask,0x00695E40,488,source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp:84
+CTaskComplexFollowPedFootsteps,MakeAbortable,0x00694ED0,8,source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp:68
+CTaskComplexKillPedOnFoot,ControlSubTask,0x00626260,2075,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp:73
+CTaskComplexKillPedOnFoot,CreateFirstSubTask,0x0062B490,757,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp:69
+CTaskComplexKillPedOnFoot,CreateNextSubTask,0x0062B150,831,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp:65
+CTaskComplexKillPedOnFoot,CreateSubTask,0x00625E70,997,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp:77
+CTaskComplexKillPedOnFoot,MakeAbortable,0x00625E40,48,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp:61

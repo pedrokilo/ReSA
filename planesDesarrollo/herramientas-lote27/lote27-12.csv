@@ -1,0 +1,14 @@
+class,function,address,bytes,source
+CPlayerPed,Compute3rdPersonMouseTarget,0x0060B650,1062,source/game_sa/Entity/Ped/PlayerPed.cpp:881
+CPlayerPed,DrawTriangleForMouseRecruitPed,0x0060BA80,1593,source/game_sa/Entity/Ped/PlayerPed.cpp:887
+CPlayerPed,EvaluateNeighbouringTarget,0x0060D1C0,388,source/game_sa/Entity/Ped/PlayerPed.cpp:1104
+CPlayerPed,FindNextWeaponLockOnTarget,0x0060E530,1362,source/game_sa/Entity/Ped/PlayerPed.cpp:1146
+CPlayerPed,FindWeaponLockOnTarget,0x0060DC50,2263,source/game_sa/Entity/Ped/PlayerPed.cpp:1141
+CPlayerPed,KeepAreaAroundPlayerClear,0x0060C1E0,817,source/game_sa/Entity/Ped/PlayerPed.cpp:920
+CPlayerPed,MakeThisPedJoinOurGroup,0x0060C840,1029,source/game_sa/Entity/Ped/PlayerPed.cpp:1031
+CPlayerPed,PlayerWantsToAttack,0x0060CC50,200,source/game_sa/Entity/Ped/PlayerPed.cpp:1036
+CPlayerPed,ProcessAnimGroups,0x006098F0,909,source/game_sa/Entity/Ped/PlayerPed.cpp:393
+CPlayerPed,ProcessGroupBehaviour,0x0060D350,589,source/game_sa/Entity/Ped/PlayerPed.cpp:1109
+CPlayerPed,ProcessWeaponSwitch,0x0060D850,1012,source/game_sa/Entity/Ped/PlayerPed.cpp:1136
+CPlayerPed,SetInitialState,0x0060CD20,727,source/game_sa/Entity/Ped/PlayerPed.cpp:1041
+CPlayerPed,SetRealMoveAnim,0x0060A9C0,2711,source/game_sa/Entity/Ped/PlayerPed.cpp:818

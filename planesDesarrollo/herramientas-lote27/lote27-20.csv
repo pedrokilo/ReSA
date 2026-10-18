@@ -1,0 +1,11 @@
+class,function,address,bytes,source
+CCarCtrl,FindMaximumSpeedForThisCarInTraffic,0x00434400,900,source/game_sa/CarCtrl.cpp:342
+CCarCtrl,ClitargetOrientationToLink,0x00422760,918,source/game_sa/CarCtrl.cpp:222
+CCarCtrl,IsThisAnAppropriateNode,0x0042DAB0,932,source/game_sa/CarCtrl.cpp:573
+CCarCtrl,SteerAIHeliToKeepEntityInView,0x0042AEB0,939,source/game_sa/CarCtrl.cpp:1093
+CCarCtrl,SlowCarDownForOtherCar,0x0042D0E0,1032,source/game_sa/CarCtrl.cpp:954
+CCarCtrl,TestCollisionBetween2MovingRects,0x00425B30,1081,source/game_sa/CarCtrl.cpp:1144
+CCarCtrl,GenerateOneEmergencyServicesCar,0x0042B7D0,1146,source/game_sa/CarCtrl.cpp:456
+CCarCtrl,CreatePoliceChase,0x0042C2B0,1161,source/game_sa/CarCtrl.cpp:312
+CCarCtrl,FlyAIHeliToTarget_FixedOrientation,0x00423940,1167,source/game_sa/CarCtrl.cpp:436
+CCarCtrl,CreateConvoy,0x0042C740,1168,source/game_sa/CarCtrl.cpp:307

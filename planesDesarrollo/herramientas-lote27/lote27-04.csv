@@ -1,0 +1,12 @@
+class,function,address,bytes,source
+CTaskSimpleFight,LoadMeleeData,0x005BEDC0,1326,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:39
+CTaskSimpleFight,MakeAbortable,0x006239F0,284,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:239
+CTaskSimpleFight,ProcessPed,0x00629920,1907,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:244
+CAutomobile,HasCarStoppedBecauseOfLight,0x0044D520,605,source/game_sa/Entity/Vehicle/Automobile.cpp:7233
+CAutomobile,PreRender,0x006AAB50,8545,source/game_sa/Entity/Vehicle/Automobile.cpp:7071
+CAutomobile,Render,0x006A2B10,1005,source/game_sa/Entity/Vehicle/Automobile.cpp:7076
+CAutomobile,UpdateWheelMatrix,0x006AA290,2210,source/game_sa/Entity/Vehicle/Automobile.cpp:6272
+CPed,ProcessControl,0x005E8CD0,2145,source/game_sa/Entity/Ped/Ped.cpp:4423
+CPed,ProcessEntityCollision,0x005E2530,4342,source/game_sa/Entity/Ped/Ped.cpp:4713
+CPed,SpecialEntityCalcCollisionSteps,0x005E3E90,342,source/game_sa/Entity/Ped/Ped.cpp:4468
+CPed,SpecialEntityPreCollisionStuff,0x005E3C30,603,source/game_sa/Entity/Ped/Ped.cpp:4454

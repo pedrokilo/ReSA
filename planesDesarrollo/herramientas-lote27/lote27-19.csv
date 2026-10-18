@@ -1,0 +1,11 @@
+class,function,address,bytes,source
+CCarCtrl,SteerAIBoatWithPhysicsAttackingPlayer,0x00428DE0,684,source/game_sa/CarCtrl.cpp:998
+CCarCtrl,JoinCarWithRoadSystem,0x0042F5A0,709,source/game_sa/CarCtrl.cpp:656
+CCarCtrl,SteerAICarBlockingPlayerForwardAndBack,0x00422B20,745,source/game_sa/CarCtrl.cpp:1013
+CCarCtrl,SteerAICarParkParallel,0x00433BA0,762,source/game_sa/CarCtrl.cpp:1018
+CCarCtrl,SteerAICarParkPerpendicular,0x00433EA0,800,source/game_sa/CarCtrl.cpp:1023
+CCarCtrl,WeaveForObject,0x00426BC0,803,source/game_sa/CarCtrl.cpp:1221
+CCarCtrl,SteerAICarWithPhysicsHeadingForTarget,0x00433280,841,source/game_sa/CarCtrl.cpp:1053
+CCarCtrl,ReconsiderRoute,0x0042FC40,855,source/game_sa/CarCtrl.cpp:746
+CCarCtrl,FindLinksToGoWithTheseNodes,0x0042B470,862,source/game_sa/CarCtrl.cpp:337
+CCarCtrl,SteerAIHeliToFollowEntity,0x0042A750,896,source/game_sa/CarCtrl.cpp:1088

@@ -1,0 +1,12 @@
+class,function,address,bytes,source
+FxEmitter_c,AddParticle,0x004A3EA0,418,source/game_sa/Fx/FxEmitter.cpp:48
+FxEmitter_c,CreateParticle,0x004A2580,1434,source/game_sa/Fx/FxEmitter.cpp:151
+CPedIntelligence,HasInterestingEntites,,,source/game_sa/PedIntelligence.cpp:791
+CPedIntelligence,IsInHearingRange,,,source/game_sa/PedIntelligence.cpp:204
+CPedIntelligence,RemoveAllInterestingEntities,,,source/game_sa/PedIntelligence.cpp:865
+CScriptsForBrains,CheckIfNewEntityNeedsScript,0x0046FF20,201,source/game_sa/ScriptsForBrains.cpp:58
+CScriptsForBrains,RequestAttractorScriptBrainWithThisName,0x0046AA80,91,source/game_sa/ScriptsForBrains.cpp:70
+CScriptsForBrains,StartNewStreamedScriptBrain,0x0046B270,250,source/game_sa/ScriptsForBrains.cpp:74
+CTaskComplexPartnerDeal,CreateFirstSubTask,0x006823B0,5,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp:44
+CTaskComplexPartnerDeal,GetPartnerSequence,0x00682440,344,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp:54
+CTaskComplexPartnerDeal,StreamRequiredAnims,0x006823C0,113,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp:49
