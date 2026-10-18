@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CAutoPilot::ModifySpeed": 4096
+  },
+  "covered_functions": {
+    "CAutoPilot::ModifySpeed": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/ModifySpeed27-20261018-131101-659386",
+  "summary_sha256": "8674bbb54a248fec283456a648a3ce0262e31d5518aac6c767ca7e62d9543b03",
+  "result_txt_sha256": "d7b69615691875289c0c8fa1e12ea1b0d35307df5d00098f7186b1e5f8ec8a87",
+  "log_sha256": "949996ff0b9d979a56c95708085b5c2c32941870f53994210bde771c32bfa40b",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "085df844bf3b396cdac458f6a21c79d21468fb538e3a74836afe4b79cb876a1a",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/AutoPilot.cpp": "9fe00722397632b26d5085b887a26008f3a779c25925b9bba8b98411d6c85b70",
+      "source/game_sa/AutoPilot.h": "68cf4c2a1775079dd69ea0c82d7ee667dd4b5c4938262d3c30763ec878a6ec19",
+      "source/game_sa/PathFind.h": "f9d2e152051e5755f7f6a4783b6d727b6f63cdb2ecac303eef9d19aacc5cf5e4",
+      "source/game_sa/Curves.cpp": "d2a686c6f591667dd52cdae6bb695640b2639bdf38f4a9f942e329475991b373",
+      "source/game_sa/Curves.h": "8625c0cdc242a1df1103a3ac40615a4863d8c089afce5523f94198a217587b54",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/ModifySpeed27/LiveComparison.hpp": "1d485246e6e919e21bb283ed60de0369ec91e0a8be9a0b75af5e45d0dbb83bb9",
+      "reversing/ModifySpeed27/Core.hpp": "1a8fd4ab32cba57dec6ca7d4b654a1b604d2ea398c1eff74d83f9faf03db1b93",
+      "reversing/ModifySpeed27/Fixtures.hpp": "84ec010b27c1e98996b964e44f245aab5dbd6ab7105cacc91e55df3d654aa6b2",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

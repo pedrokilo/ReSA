@@ -9617,5 +9617,19 @@
     "state_restored": true,
     "helper_codegen": "reversing/CppTwelveLevel6Study/README.md",
     "scope": "Destino incierto de la cohorte de 499 (PLAN-001), reconstruido en C++ y validado con su banco Dependencies21 en la regresión final; pares propios de la función según pairs_per_function. Sin cobertura exhaustiva más allá de los fixtures del banco."
+  },
+  "0x0041B980": {
+    "identity": "CAutoPilot::ModifySpeed",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/AutoPilot.cpp",
+    "bank": "ModifySpeed27",
+    "run": "20261018-131101-659386",
+    "pairs": 4096,
+    "own_pairs": 4096,
+    "audit": "reversing/CppTwelveLevel6Final/runs/ModifySpeed27-20261018-131101-659386/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE (CCarPathLink::OneWayLaneOffset de PathFind.h reproduce 0x44DB00; colaborador CCurves::CalcSpeedScaleFactor 0x43C710 ya en C++). Banco ModifySpeed27 con 4096 pares y cero diferencias; EAX/ECX/EDX sólo registrados porque ningún llamador los lee. Sin cobertura exhaustiva más allá de los fixtures del banco."
   }
 }

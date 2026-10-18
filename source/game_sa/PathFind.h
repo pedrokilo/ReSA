@@ -99,15 +99,18 @@ public:
         return (float)m_nPathNodeWidth;
     }
 
+    // 0x44DB00: opp = bits 0-2 y same = bits 3-5 de +0xB; ancho = byte sin signo de +0xA. x87 a 24 bits: cada operacion se redondea a float.
     float OneWayLaneOffset() const {
-        if (m_numOppositeDirLanes) {
-            return 0.5f - (float)m_numSameDirLanes / 2.f;
-        }        
-        if (m_numSameDirLanes) {
-            // 0.011574074 = 1 / 16.f / 5.4f
-            return 0.5f - GetNodePathWidth() / 5.4f / 2.f;
+        const uint8* const raw = reinterpret_cast<const uint8*>(this);
+        const uint8 flags = raw[0xB];
+        const uint8 opp   = flags & 7;
+        if (opp == 0) {
+            return 0.5f - (float)((flags >> 3) & 7) * 0.5f;
         }
-        return 0.5f - (float)m_numOppositeDirLanes / 2.f;
+        if ((flags & 0x38) == 0) {
+            return 0.5f - (float)opp * 0.5f;
+        }
+        return (float)raw[0xA] * 0.011574074f + 0.5f;
     }
 
     /// Get uncompressed world position

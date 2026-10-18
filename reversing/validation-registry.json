@@ -537512,6 +537512,44 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco.",
       "review_reference": "reversing/Dependencies26A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAutoPilot",
+        "fn_name": "ModifySpeed",
+        "address": "0x0041B980",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ModifySpeed27/validation-summary.json",
+        "sha256": "7356f17d7bd70a2a779ef52b37f0ba15445eb852f73b06210848edb865ae6ddb",
+        "passed_path": [
+          "covered_functions",
+          "CAutoPilot::ModifySpeed"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+        "source/game_sa/AutoPilot.cpp": "9fe00722397632b26d5085b887a26008f3a779c25925b9bba8b98411d6c85b70",
+        "source/game_sa/AutoPilot.h": "68cf4c2a1775079dd69ea0c82d7ee667dd4b5c4938262d3c30763ec878a6ec19",
+        "source/game_sa/PathFind.h": "f9d2e152051e5755f7f6a4783b6d727b6f63cdb2ecac303eef9d19aacc5cf5e4",
+        "source/game_sa/Curves.cpp": "d2a686c6f591667dd52cdae6bb695640b2639bdf38f4a9f942e329475991b373",
+        "source/game_sa/Curves.h": "8625c0cdc242a1df1103a3ac40615a4863d8c089afce5523f94198a217587b54",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/ModifySpeed27/LiveComparison.hpp": "1d485246e6e919e21bb283ed60de0369ec91e0a8be9a0b75af5e45d0dbb83bb9",
+        "reversing/ModifySpeed27/Core.hpp": "1a8fd4ab32cba57dec6ca7d4b654a1b604d2ea398c1eff74d83f9faf03db1b93",
+        "reversing/ModifySpeed27/Fixtures.hpp": "84ec010b27c1e98996b964e44f245aab5dbd6ab7105cacc91e55df3d654aa6b2",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco.",
+      "review_reference": "reversing/ModifySpeed27/README.md"
     }
   ]
 }
