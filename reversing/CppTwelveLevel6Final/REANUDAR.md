@@ -56,3 +56,5 @@ conteos en README.md / docs/CurrentStatus.md / docs/ProjectRoadmap.md / reversin
 ## Estado final (17/10/2026)
 
 La regresión de los 95 bancos pendientes terminó el 17/10/2026: 95 de 95 aprobados (93 en la pasada `final_raw14.txt` y los dos restantes, `RequestedPadProcessPad` por hash de README obsoleto tras la sincronización de documentos y `CamLookSide355` por «GTA no responde» intermitente, en `final_raw15.txt`). Ya no hay nada que reanudar.
+
+Cierre del hueco de `Ftol2RegsCore` (17/10/2026): los siete bancos de las funciones que usan los helpers que llegan a `Ftol2RegsCore` y que no se habían repetido con el árbol actual (`CPedC`, `DependenciesVehicleStats9`, `GfxWave2`, `Misc61b`, `Stats32`, `Zones21`, `CameraFinal4`) se ejecutaron en `final_raw16.txt`: 7 de 7 aprobados.
