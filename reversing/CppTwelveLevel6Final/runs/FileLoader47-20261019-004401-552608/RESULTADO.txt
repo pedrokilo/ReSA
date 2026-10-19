@@ -1,0 +1,3 @@
+APROBADO: CFileLoader (lista 34): lectores dat/ide/ipl, colision, RW y LinkLods
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fileloader47\20261019-004401-552608

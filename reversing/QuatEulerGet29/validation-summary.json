@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CQuaternion::Get(float*, float*, float*)": 4096
+  },
+  "covered_functions": {
+    "CQuaternion::Get(float*, float*, float*)": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas = árbol principal (Quaternion.cpp/.h, X87Math.cpp/.h, InjectHooksMain.cpp, CMakeLists.txt idénticos byte a byte), compiladas desde el worktree D:/Original/wq-f (HEAD 98286d43c + fusión de las cinco funciones de CQuaternion en Quaternion.cpp, X87Math.cpp y X87Math.h; ver artifacts/build-manifest.json). CQuaternion::Get(float*, float*, float*) con el colaborador 0x59C080 (Get(RwMatrix*)) real en ambos lados (EXE con el hook Get-matrix apagado / C++ directo), sin sustituir. El oráculo independiente se relajó a 2 ulp/comodines donde acos, sin o la reducción de 66 bits de fsin/fcos no se modelan al ulp; la comparación EXE == DLL es estricta bit a bit en los 4096 pares. NaN siempre silenciosos (sNaN no cubierto); los empates de NaN sólo exigen EXE == DLL. EAX/ECX/EDX sólo registrados; ningún llamador del EXE.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/QuatEulerGet29-20261019-005207-470374",
+  "summary_sha256": "6c6ead604e2c58aae3c1c694b1fd0ca3ff77e49d84bbc9a86d302b1b49291635",
+  "result_txt_sha256": "56b670409891b71efd48542f3602f92b5b366edf52d6779f269f07b1b91b4894",
+  "log_sha256": "9d24c4d2f2905da61afb2bbf85c250ee84f38a99371d26a8b187a6d224b76bda",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "3938e7adc37c569b96b9bab8283204977f8420c8ee2374a69df81ba2cde0c745",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Core/Quaternion.cpp": "98325b11f53686b95b265e0409a0d464ec42c912c75c3cc2ae0cf881f889f95a",
+      "source/game_sa/Core/Quaternion.h": "48db9873122fa6bfad1c9a50ba0ac91c3a7c4d5a80e984984ec10f5f4bf38dec",
+      "source/game_sa/X87Math.cpp": "1fd582b7f1d1247729aa370a27a4388ed75596c77dc2e5eb62da5014ceff29cb",
+      "source/game_sa/X87Math.h": "f9d606c768edd4d8c544af658a47cf69dec2713b047695b321ff8ac8639c183a",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/QuatEulerGet29/LiveComparison.hpp": "6954485daf5f675d35c646b4dd2f227956aba1a4b7a90b8e84cfda678b1bd192",
+      "reversing/QuatEulerGet29/Core.hpp": "e0acc5c7416fcb78c49ee1d0f4d5beac873cab9263ced351ec5c25c5fd09b3aa",
+      "reversing/QuatEulerGet29/Fixtures.hpp": "bcaf535f675e5115704ace04c5aafcb5d97e8495d130df0932ee2895c94c3b33",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

@@ -8685,3 +8685,8 @@ CSprite2d,AddToBuffer,0x00728200,1,0,1,S
 CTaskComplexPartnerShove,GetPartnerSequence,0x00000000,1,0,1,V
 FxInfoManager_c,Load,0x005C0B70,1,0,1,S
 CQuaternion,Get-axis-angle,0x0059C230,1,0,1,S
+CQuaternion,Conjugate,0x004D37D0,1,0,1,S
+CQuaternion,Multiply,0x0059C270,1,0,1,S
+CQuaternion,Get-euler,0x0059C160,1,0,1,S
+CQuaternion,Set-euler,0x0059C530,1,0,1,S
+CQuaternion,Slerp-t,0x0059C630,1,0,1,S

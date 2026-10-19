@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,686 entradas reversed=1**, de 8,686 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,691 entradas reversed=1**, de 8,691 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8686 |
+| `validated=1` · evidencia aprobada vinculada | 8691 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8686 |
+| Evidencia histórica vinculada; revisión pendiente | 8691 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -2587,54 +2587,54 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CExplosion | `Update` | [Resumen](../reversing/World12/validation-summary.json) |
 | CFallingGlassPane | `Render` | [Resumen](../reversing/Misc70/validation-summary.json) |
 | CFallingGlassPane | `Update` | [Resumen](../reversing/Misc70/validation-summary.json) |
-| CFileLoader | `AddTexDictionaries` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `FindRelatedModelInfoCB` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `FinishLoadClumpFile` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LinkLods` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
+| CFileLoader | `AddTexDictionaries` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `FindRelatedModelInfoCB` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `FinishLoadClumpFile` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LinkLods` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
 | CFileLoader | `Load2dEffect` | [Resumen](../reversing/FileLoaderLoad2dEffect27/validation-summary.json) |
-| CFileLoader | `LoadAnimatedClumpObject` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadAtomicFile-` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadAtomicFile-stream` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadAudioZone` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadCarGenerator-0` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadCarGenerator-1` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadCarPathNode` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadClumpFile-` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadClumpFile-1` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadClumpObject` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadCollisionFile-Buffer` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadCollisionFile-File` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadCollisionFileFirstTime` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadCollisionModel` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadCollisionModelVer2` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadCollisionModelVer3` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadCollisionModelVer4` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadCullZone` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadEntryExit` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadGarage` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadLevel` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadLine-Bufer` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadLine-File` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadObject` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadObjectInstance-file` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadObjectInstance-inst` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadObjectTypes` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadOcclusionVolume` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadPathHeader` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadPedObject` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadPedPathNode` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadPickup` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261018.json) |
-| CFileLoader | `LoadScene` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadStuntJump` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadTXDParent` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadTexDictionary` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadTimeCyclesModifier` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadTimeObject` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadVehicleObject` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadWeaponObject` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadZone` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `SetRelatedModelInfoCB` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `StartLoadClumpFile` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
+| CFileLoader | `LoadAnimatedClumpObject` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadAtomicFile-` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadAtomicFile-stream` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadAudioZone` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadCarGenerator-0` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadCarGenerator-1` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadCarPathNode` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadClumpFile-` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadClumpFile-1` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadClumpObject` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadCollisionFile-Buffer` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadCollisionFile-File` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadCollisionFileFirstTime` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadCollisionModel` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadCollisionModelVer2` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadCollisionModelVer3` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadCollisionModelVer4` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadCullZone` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadEntryExit` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadGarage` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadLevel` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadLine-Bufer` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadLine-File` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadObject` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadObjectInstance-file` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadObjectInstance-inst` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadObjectTypes` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadOcclusionVolume` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadPathHeader` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadPedObject` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadPedPathNode` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadPickup` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadScene` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadStuntJump` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadTXDParent` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadTexDictionary` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadTimeCyclesModifier` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadTimeObject` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadVehicleObject` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadWeaponObject` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `LoadZone` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `SetRelatedModelInfoCB` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
+| CFileLoader | `StartLoadClumpFile` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261019.json) |
 | CFileMgr | `ChangeDir` | [Resumen](../reversing/Sys17/validation-summary.json) |
 | CFileMgr | `CloseFile` | [Resumen](../reversing/Sys17/validation-summary.json) |
 | CFileMgr | `GetErrorReadWrite` | [Resumen](../reversing/Sys17/validation-summary.json) |
@@ -2779,41 +2779,41 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CGameLogic | `UpdateSkip` | [Resumen](../reversing/GameLogic27/validation-summary.json) |
 | CGamma | `Init` | [Resumen](../reversing/Misc70/validation-summary.json) |
 | CGamma | `SetGamma` | [Resumen](../reversing/Misc70/validation-summary.json) |
-| CGangWars | `AddKillToProvocation` | [Resumen](../reversing/GangWarsPending/validation-summary.json) |
-| CGangWars | `AttackWaveOvercome` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `CalculateTimeTillNextAttack` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `CanPlayerStartAGangWarHere` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `CheerVictory` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `ClearSpecificZonesToTriggerGangWar` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `ClearTheStreets` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `CreateAttackWave` | [Resumen](../reversing/GangWarsPending/validation-summary.json) |
-| CGangWars | `CreateDefendingGroup` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `DoStuffWhenPlayerVictorious` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `DoesPlayerControlThisZone` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `DontCreateCivilians` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `EndGangWar` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `GangWarFightingGoingOn` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `GangWarGoingOn` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `InitAtStartOfGame` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `Load` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `MakeEnemyGainInfluenceInZone` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `MakePlayerGainInfluenceInZone` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `PedStreamedInForThisGang` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `PickStreamedInPedForThisGang` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `PickZoneToAttack` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `ReleaseCarsInAttackWave` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `ReleasePedsInAttackWave` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `Save` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `SetGangWarsActive` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `SetSpecificZoneToTriggerGangWar` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `StartDefensiveGangWar` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `StartOffensiveGangWar` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `StrengthenPlayerInfluenceInZone` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `SwitchGangWarsActive` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `TellGangMembersTo` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `TellStreamingWhichGangsAreNeeded` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGangWars | `Update` | [Resumen](../reversing/GangWarsPending/validation-summary.json) |
-| CGangWars | `UpdateTerritoryUnderControlPercentage` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
+| CGangWars | `AddKillToProvocation` | [Resumen](../reversing/GangWarsPending/validation-summary-reval-20261019.json) |
+| CGangWars | `AttackWaveOvercome` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `CalculateTimeTillNextAttack` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `CanPlayerStartAGangWarHere` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `CheerVictory` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `ClearSpecificZonesToTriggerGangWar` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `ClearTheStreets` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `CreateAttackWave` | [Resumen](../reversing/GangWarsPending/validation-summary-reval-20261019.json) |
+| CGangWars | `CreateDefendingGroup` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `DoStuffWhenPlayerVictorious` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `DoesPlayerControlThisZone` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `DontCreateCivilians` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `EndGangWar` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `GangWarFightingGoingOn` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `GangWarGoingOn` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `InitAtStartOfGame` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `Load` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `MakeEnemyGainInfluenceInZone` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `MakePlayerGainInfluenceInZone` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `PedStreamedInForThisGang` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `PickStreamedInPedForThisGang` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `PickZoneToAttack` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `ReleaseCarsInAttackWave` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `ReleasePedsInAttackWave` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `Save` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `SetGangWarsActive` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `SetSpecificZoneToTriggerGangWar` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `StartDefensiveGangWar` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `StartOffensiveGangWar` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `StrengthenPlayerInfluenceInZone` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `SwitchGangWarsActive` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `TellGangMembersTo` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `TellStreamingWhichGangsAreNeeded` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `Update` | [Resumen](../reversing/GangWarsPending/validation-summary-reval-20261019.json) |
+| CGangWars | `UpdateTerritoryUnderControlPercentage` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangs | `ChooseGangPedModel` | [Resumen](../reversing/Data8a/validation-summary.json) |
 | CGangs | `GetWillAttackPlayerWithCops` | [Resumen](../reversing/Data8a/validation-summary.json) |
 | CGangs | `Initialise` | [Resumen](../reversing/Data8a/validation-summary.json) |
@@ -2918,38 +2918,38 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CGridRef | `GetGridRefPositions-` | [Resumen](../reversing/World43/validation-summary.json) |
 | CGridRef | `GetGridRefPositions-vec` | [Resumen](../reversing/World43/validation-summary.json) |
 | CGridRef | `Init` | [Resumen](../reversing/World43/validation-summary.json) |
-| CGroupEventHandler | `ComputeDoDealResponse` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeDrivebyResponse` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeEventResponseTasks` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeFleePedResponse` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeGreetResponse` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeHandSignalResponse` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeHassleSexyPedResponse` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeHassleThreatResponse` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeKillPlayerBasicResponse` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeKillThreatsBasicResponse` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeLeanOnVehicleResponse` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeMemberResponses` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
+| CGroupEventHandler | `ComputeDoDealResponse` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeDrivebyResponse` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeEventResponseTasks` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeFleePedResponse` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeGreetResponse` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeHandSignalResponse` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeHassleSexyPedResponse` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeHassleThreatResponse` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeKillPlayerBasicResponse` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeKillThreatsBasicResponse` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeLeanOnVehicleResponse` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeMemberResponses` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGroupEventHandler | `ComputeResponsLeaderQuitEnteringCar` | [Resumen](../reversing/GroupEventPending/validation-summary.json) |
-| CGroupEventHandler | `ComputeResponseDamage` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeResponseDanger` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeResponseDraggedOutCar` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeResponseGather` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeResponseGunAimedAt` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeResponseLeaderEnterExit` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
+| CGroupEventHandler | `ComputeResponseDamage` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeResponseDanger` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeResponseDraggedOutCar` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeResponseGather` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeResponseGunAimedAt` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeResponseLeaderEnterExit` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGroupEventHandler | `ComputeResponseLeaderEnteredCar` | [Resumen](../reversing/GroupEventPending/validation-summary.json) |
-| CGroupEventHandler | `ComputeResponseLeaderExitedCar` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeResponseNewGangMember` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeResponsePedFriend` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeResponsePedThreat` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeResponsePlayerCommand` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeResponseSeenCop` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeResponseSexyPed` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeResponseShotFired` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeResponseVehicleDamage` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeStareResponse` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `ComputeWalkAlongsideResponse` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
-| CGroupEventHandler | `IsKillTaskAppropriate` | [Resumen](../reversing/GangEvent1/validation-summary.json) |
+| CGroupEventHandler | `ComputeResponseLeaderExitedCar` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeResponseNewGangMember` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeResponsePedFriend` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeResponsePedThreat` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeResponsePlayerCommand` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeResponseSeenCop` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeResponseSexyPed` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeResponseShotFired` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeResponseVehicleDamage` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeStareResponse` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `ComputeWalkAlongsideResponse` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGroupEventHandler | `IsKillTaskAppropriate` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CHandObject | `PreRender` | [Resumen](../reversing/World52/validation-summary.json) |
 | CHandObject | `ProcessControl` | [Resumen](../reversing/World52/validation-summary.json) |
 | CHandObject | `Render` | [Resumen](../reversing/World52/validation-summary.json) |
@@ -4459,11 +4459,16 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CQuadTreeNode<T> | `GetAllMatching-vec` | [Resumen](../reversing/Sys12/validation-summary.json) |
 | CQuadTreeNode<T> | `InSector` | [Resumen](../reversing/Sys12/validation-summary.json) |
 | CQuadTreeNode<T> | `InitPool` | [Resumen](../reversing/Sys12/validation-summary.json) |
+| CQuaternion | `Conjugate` | [Resumen](../reversing/QuatConjugate29/validation-summary.json) |
 | CQuaternion | `Get-axis-angle` | [Resumen](../reversing/QuatGetAxis29/validation-summary.json) |
+| CQuaternion | `Get-euler` | [Resumen](../reversing/QuatEulerGet29/validation-summary.json) |
 | CQuaternion | `Get-matrix` | [Resumen](../reversing/QuatGet28/validation-summary.json) |
+| CQuaternion | `Multiply` | [Resumen](../reversing/QuatMultiply29/validation-summary.json) |
 | CQuaternion | `Set-axis-angle` | [Resumen](../reversing/DependenciesMathLeaf3/validation-summary.json) |
+| CQuaternion | `Set-euler` | [Resumen](../reversing/QuatEulerSet29/validation-summary.json) |
 | CQuaternion | `Set-matrix` | [Resumen](../reversing/DependenciesMathLeaf3/validation-summary.json) |
 | CQuaternion | `Slerp-halftheta` | [Resumen](../reversing/Dependencies21G/validation-summary.json) |
+| CQuaternion | `Slerp-t` | [Resumen](../reversing/QuatSlerpT29/validation-summary.json) |
 | CRT | `CrtAtexit` | [Resumen](../reversing/Dependencies25E/validation-summary.json) |
 | CRT | `CrtErrno` | [Resumen](../reversing/Dependencies25E/validation-summary.json) |
 | CRT | `CrtLockFile2` | [Resumen](../reversing/Dependencies25E/validation-summary.json) |
@@ -8302,7 +8307,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | InteriorManager_c | `Update` | [Resumen](../reversing/Interior21/validation-summary.json) |
 | Interior_c | `AddGotoPt` | [Resumen](../reversing/InteriorLifecycleCore/validation-summary.json) |
 | Interior_c | `AddInteriorInfo` | [Resumen](../reversing/InteriorLifecycleCore/validation-summary.json) |
-| Interior_c | `AddPickups` | [Resumen](../reversing/InteriorLifecycleRuntime/validation-summary.json) |
+| Interior_c | `AddPickups` | [Resumen](../reversing/InteriorLifecycleRuntime/validation-summary-reval-20261019.json) |
 | Interior_c | `Bedroom_AddTableItem` | [Resumen](../reversing/InteriorHome/validation-summary.json) |
 | Interior_c | `CalcExitPts` | [Resumen](../reversing/InteriorLifecycleCore/validation-summary.json) |
 | Interior_c | `CalcMatrix` | [Resumen](../reversing/InteriorSpatial/validation-summary.json) |
@@ -8322,9 +8327,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | Interior_c | `GetRandomTile` | [Resumen](../reversing/InteriorSpatial/validation-summary.json) |
 | Interior_c | `GetTileCentre` | [Resumen](../reversing/InteriorSpatial/validation-summary.json) |
 | Interior_c | `GetTileStatus` | [Resumen](../reversing/InteriorBase/validation-summary.json) |
-| Interior_c | `Init` | [Resumen](../reversing/InteriorLifecycleRuntime/validation-summary.json) |
+| Interior_c | `Init` | [Resumen](../reversing/InteriorLifecycleRuntime/validation-summary-reval-20261019.json) |
 | Interior_c | `IsPtInside` | [Resumen](../reversing/InteriorSpatial/validation-summary.json) |
-| Interior_c | `IsVisible` | [Resumen](../reversing/InteriorLifecycleRuntime/validation-summary.json) |
+| Interior_c | `IsVisible` | [Resumen](../reversing/InteriorLifecycleRuntime/validation-summary-reval-20261019.json) |
 | Interior_c | `Kitchen_FurnishEdges` | [Resumen](../reversing/InteriorHome/validation-summary.json) |
 | Interior_c | `Lounge_AddChairInfo` | [Resumen](../reversing/InteriorHome/validation-summary.json) |
 | Interior_c | `Lounge_AddHifi` | [Resumen](../reversing/InteriorHome/validation-summary.json) |
@@ -8351,7 +8356,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | Interior_c | `Shop_PlaceCounter` | [Resumen](../reversing/InteriorCommerce/validation-summary.json) |
 | Interior_c | `Shop_PlaceEdgeUnits` | [Resumen](../reversing/InteriorCommerce/validation-summary.json) |
 | Interior_c | `Shop_PlaceFixedUnits` | [Resumen](../reversing/InteriorCommerce/validation-summary.json) |
-| Interior_c | `Unfurnish` | [Resumen](../reversing/InteriorLifecycleRuntime/validation-summary.json) |
+| Interior_c | `Unfurnish` | [Resumen](../reversing/InteriorLifecycleRuntime/validation-summary-reval-20261019.json) |
 | JPegPlugin | `JPegCompressScreen` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | JPegPlugin | `JPegCompressScreenToBuffer` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | JPegPlugin | `JPegCompressScreenToFile` | [Resumen](../reversing/Fx43/validation-summary.json) |
@@ -9067,7 +9072,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPtrNodeSingleLinkPool` | 1 | 0 | 1 | 0 |
 | `CQuadBike` | 12 | 0 | 12 | 0 |
 | `CQuadTreeNode<T>` | 12 | 0 | 12 | 0 |
-| `CQuaternion` | 5 | 0 | 5 | 0 |
+| `CQuaternion` | 10 | 0 | 10 | 0 |
 | `CRT` | 6 | 0 | 6 | 0 |
 | `CRadar` | 65 | 0 | 65 | 0 |
 | `CRealTimeShadow` | 9 | 0 | 9 | 0 |

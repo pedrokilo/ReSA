@@ -474,6 +474,7 @@ void __cdecl RpNanQuatToMatrixCpp(const float* q, float* m);
 // CQuaternion::Get(RwV3d*, float*) del EXE (0x59C230): q = {x, y, z, w}; *angle = float(acos(2w)) (_CIacos 0x822380) y axis = (1 / sin(acos(2w))) · {x, y, z} con cada producto redondeado a float;
 // 2w, el acos y el seno no se redondean a float, y las lecturas del cuaternion y escrituras de angle/axis siguen el orden del EXE (pueden solaparse). Fuera de |2w| <= 1 el acos del CRT da el indefinido y errno = 33.
 void __cdecl QuaternionGetAxisAngleCpp(const float* q, float* axis, float* angle);
+void __cdecl QuatMultiplyCpp(float* out, const float* a, const float* b);   // CQuaternion::Multiply (0x59C270)
 // Lote RpUpdate (RpAnimBlendClumpUpdateAnimations, 0x4D34F0; w20). Cadenas x87 sin guardar entre operaciones (cada operación redondea a 24 bits; un solo fstp a float).
 // 0x4D3578..0x4D3585: fld total; fdiv speed; fmul blend; fadd acc.
 float __cdecl RpUpdateSyncAccumCpp(float total, float speed, float blend, float acc);
@@ -1510,3 +1511,15 @@ unsigned int __cdecl WndProcTimerPeriodCpp(int frameLimit);
 // 0x406CE0: fld dword; fstp qword; floor del CRT del EXE (0x8219F0, ruta SSE2: devuelve el resultado en ST0 con fld qword); _ftol2 (0x821B40). Devuelve EAX de _ftol2 (palabra baja del entero
 // de 64 bits truncado) dejando las banderas acumuladas (PE de los dos productos) y los registros x87 muertos del EXE (T-2 = R, T-1 = fraccion, via Ftol2RegsDblCpp / X87Plant*).
 unsigned int __cdecl AudioHwPercentPositionCpp(int percent, int length);
+// CQuaternion::Get(float*, float*, float*) del EXE (0x59C160; lote 29): m = RwMatrix ya calculada por CQuaternion::Get(RwMatrix*) (right/up/at en m[0..2], m[4..6], m[8..10]).
+// Escribe, en este orden, *pz = atan2(m[1], m[5]), *px = atan2(-m[9], sin(z)*m[1] + cos(z)*m[5]) y *py = atan2(-(m[2]*cos(z) - m[6]*sin(z)), m[0]*cos(z) - m[4]*sin(z)); cada uno como float y,
+// si es < 0, sumandole 2*pi (0x858CBC) con un segundo guardado. x87 de 24 bits (FlcX87), pila vacia al salir.
+void __cdecl QuatEulerGetCpp(const float* m, float* px, float* py, float* pz);
+
+// --- CQuaternion::Set(float, float, float) (0x59C530; lote 29, prefijo QuatEuler) ---
+// q = {x, y, z, w} (se escribe w, x, y, z); a = {ax, ay, az} * 0.5f. cos(a) sin redondear (el de z se guarda como float), sin(a) guardado como float, cada producto y suma a 24 bits.
+void __cdecl QuaternionFromEulerCpp(float* q, float ax, float ay, float az);
+
+// --- CQuaternion::Slerp(from, to, t) (0x59C630), prefijo QuatSlerpT. Anadir al FINAL de X87Math.h ---
+// CalcTheta (0x4D00E0, con el _CIacos del EXE en FlcX87) y luego QuaternionSlerpCpp (0x59C300) con (theta, 1/sin(theta), t).
+void __cdecl QuatSlerpTCpp(float* out, const float* from, const float* to, float t);

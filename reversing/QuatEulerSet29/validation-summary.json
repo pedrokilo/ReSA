@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CQuaternion::Set(float, float, float)": 4096
+  },
+  "covered_functions": {
+    "CQuaternion::Set(float, float, float)": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas = árbol principal (Quaternion.cpp/.h, X87Math.cpp/.h, InjectHooksMain.cpp, CMakeLists.txt idénticos byte a byte), compiladas desde el worktree D:/Original/wq-f (HEAD 98286d43c + fusión de las cinco funciones de CQuaternion en Quaternion.cpp, X87Math.cpp y X87Math.h; ver artifacts/build-manifest.json). CQuaternion::Set(float, float, float) sin colaboradores sustituidos; fsin/fcos del EXE (x87 en línea) y de la DLL (QuaternionFromEulerCpp en X87Math.cpp); los casos con |ángulo/2| entre 2^26 y 2^63 y los empates de NaN con signos opuestos sólo exigen EXE == DLL. La primera corrida (20261019-003950-675554) tuvo 526/4096 diferencias reales por fsin/fcos de ±inf (el hardware da el NaN indefinido) y por intermedios en registro x87 que perdían rango de exponente; se corrigió con QuatEulerTrig y QuatEulerRound24 en X87Math.cpp y no es evidencia. El oráculo independiente se relajó a 2 ulp/comodines donde acos, sin o la reducción de 66 bits de fsin/fcos no se modelan al ulp; la comparación EXE == DLL es estricta bit a bit en los 4096 pares. NaN siempre silenciosos (sNaN no cubierto); los empates de NaN sólo exigen EXE == DLL. EAX/ECX/EDX sólo registrados; ningún llamador del EXE.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/QuatEulerSet29-20261019-004919-715372",
+  "summary_sha256": "535f9c2f4f8e54192caa19353d6d33cee88afe908cbc6d1e71de2218380fc08b",
+  "result_txt_sha256": "2ae23cca781e7debeee8b91ec7dfcae91d0894763302be2a6e43becd5040d1eb",
+  "log_sha256": "044ec01afbf48d46dc28298f4fbf0f2882b6ef5dd0f722f9bb42916b03c61767",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "ffd5cee1130c8e1b823fa71288efdcb0da71833d0a4c89a767b14addb6cb94f9",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Core/Quaternion.cpp": "98325b11f53686b95b265e0409a0d464ec42c912c75c3cc2ae0cf881f889f95a",
+      "source/game_sa/Core/Quaternion.h": "48db9873122fa6bfad1c9a50ba0ac91c3a7c4d5a80e984984ec10f5f4bf38dec",
+      "source/game_sa/X87Math.cpp": "1fd582b7f1d1247729aa370a27a4388ed75596c77dc2e5eb62da5014ceff29cb",
+      "source/game_sa/X87Math.h": "f9d606c768edd4d8c544af658a47cf69dec2713b047695b321ff8ac8639c183a",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/QuatEulerSet29/LiveComparison.hpp": "ea7ca3c873bf1df38cbaabaf52ead838108fb3a0720b6863439dcf0a89683449",
+      "reversing/QuatEulerSet29/Core.hpp": "61bcb55ab8a02f7ab71a75a5b74c02d2ea53f41bcf9247225f71384834f8ddc6",
+      "reversing/QuatEulerSet29/Fixtures.hpp": "827847db63fb27b5c5c585e01495e702ff11ab31b72c2c5fe8f92d8129f5645c",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

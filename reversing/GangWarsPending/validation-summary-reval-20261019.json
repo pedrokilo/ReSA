@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "pairs": 3072,
+  "differences": 0,
+  "registered_pairs": 3072,
+  "registered_functions": 3,
+  "functions": {
+    "CGangWars::AddKillToProvocation": 1024,
+    "CGangWars::Update": 1024,
+    "CGangWars::CreateAttackWave": 1024
+  },
+  "covered_functions": {
+    "CGangWars::AddKillToProvocation": true,
+    "CGangWars::Update": true,
+    "CGangWars::CreateAttackWave": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. REVALIDACIÓN 19/10/2026: re-ejecución del banco (3072 pares, 0 diferencias) con las fuentes actuales (su manifiesto no lista Pickups.cpp/.h). run_local.py y build_probe.py fijan runtime_runner.GAME al clon E:/JUEGOS/GTA San Andreas - CVehicle Test (el valor por defecto D:/JUEGOS no existe). Sonda compilada desde el worktree D:/Original/wq-f (HEAD 98286d43c + fusión de CQuaternion; ver artifacts/build-manifest.json) con las fuentes actuales de Pickups.cpp/.h (CPickups::GenerateNewOne ahora envoltorio de GenerateNewOne_ExeAbi). Los hashes de tested_sources son los del HEAD 98286d43c compilado; el árbol principal tiene además trabajo sin commit del lote 27 (sin validar) que modifica GangWars.h, por lo que esos archivos no coinciden con el árbol de trabajo actual (el registro los marcará distintos hasta que ese trabajo se confirme o se descarte).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/GangWarsPending-20261019-004230-898132",
+  "bank_pairs": 3072,
+  "bank_functions": 3,
+  "summary_sha256": "8d94023b6222667d2b8a8db199eb3ab0cac743044c97cb3317d51760ad55218c",
+  "result_txt_sha256": "b4cd748c35d28ddd5589c17419139f11ab4c9021d865f725e26e999965ba62f8",
+  "log_sha256": "b63fe486ad079aeed60b8023b97dec1b662a77ab4df5c36523c10f308b81118a",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "45c55e06c37a68080fecfe0042a7752302c3c2996ec2f5c09cf76688253f43b8",
+  "manifest": {
+    "tested_sources": {
+      "source/game_sa/GangWars.cpp": "9afd981a236aaed46846a50b318fbcfd87067c280407bdaba78fbd6f10ac16f2",
+      "source/game_sa/GangWars.h": "8f7a31194226e4ed1ab464116354db839707e2684cefba22b7028daec58f7e76"
+    }
+  }
+}

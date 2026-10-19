@@ -204,7 +204,7 @@ class,function,address,source,origins
 (helpers y globales sin clase),_rwObjectHasFrameSetFrame,,source/game_sa/RenderWare/rw/rwcore.cpp:1362,envoltura en el código fuente
 (helpers y globales sin clase),CAEMFDecoder helper abrir movie/media sonido,0x004E7990,source/game_sa/Audio/Loaders/AEMFDecoder.cpp:58,cohorte 499
 (helpers y globales sin clase),CAEMFDecoder helper obtener formato media,0x004E7A80,source/game_sa/Audio/Loaders/AEMFDecoder.cpp:61,cohorte 499
-(helpers y globales sin clase),CameraControlGarageDoors,,source/game_sa/Camera.cpp:3586,envoltura en el código fuente
+(helpers y globales sin clase),CameraControlGarageDoors,,source/game_sa/Camera.cpp:3587,envoltura en el código fuente
 (helpers y globales sin clase),CCam helper arrest camera de from/initialise sin símbolo confirmado,0x00512EF0,source/game_sa/Cam.cpp:962,cohorte 499
 (helpers y globales sin clase),CCam helper copSource alternativo=true sin símbolo confirmado,0x00516010,source/game_sa/Cam.cpp:961,cohorte 499
 (helpers y globales sin clase),CCam unnamed arrest cop-source helper,0x00515D80,source/game_sa/Cam.cpp:961,cohorte 499
@@ -271,7 +271,7 @@ CAutomobile,HasCarStoppedBecauseOfLight,0x0044D520,source/game_sa/Entity/Vehicle
 CAutomobile,PreRender,0x006AAB50,source/game_sa/Entity/Vehicle/Automobile.cpp:7124,cohorte 499 + envoltura en el código fuente
 CAutomobile,Render,0x006A2B10,source/game_sa/Entity/Vehicle/Automobile.cpp:7129,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CAutomobile,UpdateWheelMatrix,0x006AA290,source/game_sa/Entity/Vehicle/Automobile.cpp:6272,cohorte 499
-CCamera,ProcessShake,0x00516560,source/game_sa/Camera.cpp:2019,cohorte 499 + envoltura en el código fuente
+CCamera,ProcessShake,0x00516560,source/game_sa/Camera.cpp:2020,cohorte 499 + envoltura en el código fuente
 CCamera,UpdateSoundDistances,0x00515BD0,source/game_sa/Camera.cpp:1497,cohorte 499
 CCarCtrl,ChooseModel,0x00424CE0,source/game_sa/CarCtrl.cpp:184,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CCarCtrl,ClitargetOrientationToLink,0x00422760,source/game_sa/CarCtrl.cpp:223,cohorte nuevo 2026-10-17

@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 4,
+  "functions": {
+    "Interior_c::Init": 1024,
+    "Interior_c::Unfurnish": 1024,
+    "Interior_c::IsVisible": 1024,
+    "Interior_c::AddPickups": 1024
+  },
+  "covered_functions": {
+    "Interior_c::Init": true,
+    "Interior_c::Unfurnish": true,
+    "Interior_c::IsVisible": true,
+    "Interior_c::AddPickups": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. REVALIDACIÓN 19/10/2026: re-ejecución del banco (4096 pares, 0 diferencias) con las fuentes actuales para refrescar los hashes de Pickups.cpp/.h. run_local.py y build_probe.py fijan runtime_runner.GAME al clon E:/JUEGOS/GTA San Andreas - CVehicle Test (el valor por defecto D:/JUEGOS no existe). El intento 20261019-004315-510521 se colgó en el arranque de GTA (fallo conocido del inicio del juego, anotado en el README) y no es evidencia. Sonda compilada desde el worktree D:/Original/wq-f (HEAD 98286d43c + fusión de CQuaternion; ver artifacts/build-manifest.json) con las fuentes actuales de Pickups.cpp/.h (CPickups::GenerateNewOne ahora envoltorio de GenerateNewOne_ExeAbi). Los hashes de tested_sources son los del HEAD 98286d43c compilado; el árbol principal tiene además trabajo sin commit del lote 27 (sin validar) que modifica InteriorGroup_c.h, por lo que esos archivos no coinciden con el árbol de trabajo actual (el registro los marcará distintos hasta que ese trabajo se confirme o se descarte).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/InteriorLifecycleRuntime-20261019-004743-227738",
+  "bank_pairs": 4096,
+  "bank_functions": 4,
+  "summary_sha256": "f4f611c82b675bc93b205a69b706c2fa3357af509549fef185f17d2a8e20e428",
+  "result_txt_sha256": "371b2cecd90a560f36acb9ae497b4ef7d45c4e307cb35a16d4ef80e00a84c897",
+  "log_sha256": "640e523580fbf16007b65f8c6d2acf918be72d9dabfbe162b00c1978b90a44e5",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "9c5d98b6c4700ee7b943b93d294eef6b22725fd25e3f17fa07a5b5688a67103c",
+  "manifest": {
+    "tested_sources": {
+      "source/game_sa/Interior/Interior_c.cpp": "5b9a3f006550285c8d831442667e0b384a6ca4b2ecf192e3fc9c155a1b00061b",
+      "source/game_sa/Interior/Interior_c.h": "e5bc2bd3ac5f8cdf6b4f5909829688a652f97d6a1f5e6d64a104f270a3767fec",
+      "source/game_sa/Interior/Furniture_c.h": "13c5c9d6d0ea5448412e158532530f5e9a30b95228f01bc6e48fc27a92f71216",
+      "source/game_sa/Interior/FurnitureManager_c.h": "e235083ff94829d209180cf56fd504d74784a71b45fff39c42a14d4ae9bfa4f0",
+      "source/game_sa/Interior/InteriorInfo_t.h": "c14b863ca30e85df464bdf4b8b31ccd62e907d4d1e22b12a7ba13d4f43af0bb0",
+      "source/game_sa/Interior/InteriorGroup_c.h": "bef3add045c251898f83d1f45ea0a9e5ad1ae6ee376355fa8145c744920f1cd7",
+      "source/game_sa/Interior/InteriorManager_c.h": "03902416fd4a3d05afde758819ecb4296316c711f6894955b75bbf1a9d700aab",
+      "source/game_sa/Interior/InteriorManager_c.cpp": "55b3d5718a7f1ab52fff48c52f4b75858b64e13db7e4d26320e10f9012e2dc45",
+      "source/game_sa/Core/Matrix.cpp": "e8eda28e69e0780cdf33668e8ca46aeada103855a83fc5b55f51283b11b602da",
+      "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
+      "source/game_sa/Entity/Placeable.cpp": "0030861304db9f417c8fd8b322a7be006ef4e5a099238c157e5dc0cf0d018e24",
+      "source/game_sa/Entity/Placeable.h": "39566380c1c727f446b167f044a749312eaaba6e62b79a552a863769bfeea4fc",
+      "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+      "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CQuaternion::Conjugate()": 4096
+  },
+  "covered_functions": {
+    "CQuaternion::Conjugate()": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas = árbol principal (Quaternion.cpp/.h, X87Math.h, InjectHooksMain.cpp, CMakeLists.txt idénticos byte a byte salvo X87Math.cpp, ver abajo), compiladas desde el worktree D:/Original/wq-f (HEAD 98286d43c + fusión de las cinco funciones de CQuaternion en Quaternion.cpp, X87Math.cpp y X87Math.h; ver artifacts/build-manifest.json). CQuaternion::Conjugate() sin colaboradores; negación con enteros en Quaternion.cpp (el sNaN sale como qNaN, igual que fld/fchs), sin tocar el x87. Nota de procedencia: la sonda se compiló antes de añadirse a X87Math.cpp los ayudantes de CQuaternion::Set(euler) (QuatEulerTrig, QuatEulerRound24), por lo que el X87Math.cpp del manifiesto (3e58bbb7…) difiere del actual; Conjugate no lo usa y Quaternion.cpp, Quaternion.h y X87Math.h coinciden. Oráculo independiente exacto en bits (sin tolerancia). Los sNaN de entrada SÍ están cubiertos (1157 casos: salen como qNaN con el signo invertido). EAX/ECX/EDX sólo registrados; ningún llamador del EXE.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/QuatConjugate29-20261019-003748-740133",
+  "summary_sha256": "f62c978ebda95edfe841816029ac584e9ca0c5229616c96503a2889c0140b63c",
+  "result_txt_sha256": "ee82c5422b65abafa2b9891d5ede6862499ee1c662d9a514428f6ddf406419f0",
+  "log_sha256": "049d7bb57e89262d82d349f44457d74613dadbcd497f5002fdf427c40d3c6660",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "0ca88f6066d3689ef4cb2976af58c43b2fbe6639ac892ddde2654f2f888f59c5",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Core/Quaternion.cpp": "98325b11f53686b95b265e0409a0d464ec42c912c75c3cc2ae0cf881f889f95a",
+      "source/game_sa/Core/Quaternion.h": "48db9873122fa6bfad1c9a50ba0ac91c3a7c4d5a80e984984ec10f5f4bf38dec",
+      "source/game_sa/X87Math.cpp": "3e58bbb7a3a68aa7cee22389364c213b29c3043a43f6234fbd4c75cd26e8a7a2",
+      "source/game_sa/X87Math.h": "f9d606c768edd4d8c544af658a47cf69dec2713b047695b321ff8ac8639c183a",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/QuatConjugate29/LiveComparison.hpp": "43c2ac1abc534ed1ce86a03c1e6dd90e03bdaa089fd94ba70b52a4afbc5e40cd",
+      "reversing/QuatConjugate29/Core.hpp": "645707ad42e97c7b66b12e4baffa6f504ba926d751ee2668548e2371f1a6d7f3",
+      "reversing/QuatConjugate29/Fixtures.hpp": "56d115bc4d946aed392d052a67fac1d13a4229ccc20f1f05069d2649b2af4782",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

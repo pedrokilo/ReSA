@@ -1,0 +1,80 @@
+diff --git a/source/game_sa/Core/Quaternion.cpp b/source/game_sa/Core/Quaternion.cpp
+index 777d81994..121671c5b 100644
+--- a/source/game_sa/Core/Quaternion.cpp
++++ b/source/game_sa/Core/Quaternion.cpp
+@@ -34,6 +34,7 @@ void CQuaternion::InjectHooks() {
+ 
+     RH_ScopedOverloadedInstall(Get, "matrix", 0x59C080, void (CQuaternion::*)(RwMatrix*) const);
+     RH_ScopedOverloadedInstall(Get, "axis-angle", 0x59C230, void (CQuaternion::*)(RwV3d*, float*));
++    RH_ScopedOverloadedInstall(Set, "euler", 0x59C530, void (CQuaternion::*)(float, float, float));
+     RH_ScopedOverloadedInstall(Set, "matrix", 0x59C3E0, void (CQuaternion::*)(const RwMatrix&));
+     RH_ScopedOverloadedInstall(Set, "axis-angle", 0x59C600, void (CQuaternion::*)(RwV3d*, float));
+     RH_ScopedOverloadedInstall(Slerp, "halftheta", 0x59C300, void (CQuaternion::*)(const CQuaternion&, const CQuaternion&, float, float, float));
+@@ -115,9 +116,10 @@ void CQuaternion::Set(const RwMatrix& m) {
+ }
+ #pragma float_control(pop)
+ 
+-// Quat from euler angles
++// Quat from euler angles (0x59C530): medios angulos {x, y, z} * 0.5 (0x858B8C); cos de cada uno sin redondear (el de z se guarda como float), sin de cada uno guardado como float,
++// productos y sumas a 24 bits con la pila x87 del EXE (QuaternionFromEulerCpp, X87Math). Escribe w, x, y, z en ese orden.
+ void CQuaternion::Set(float x, float y, float z) {
+-    ((void(__thiscall*)(CQuaternion*, float, float, float))0x59C530)(this, x, y, z);
++    QuaternionFromEulerCpp(&this->x, x, y, z);
+ }
+ 
+ // Quat from axis & angle (0x59C600): {sin(a/2) * eje, cos(a/2)} con el seno sin redondear (QuaternionFromAxisAngleCpp, X87Math).
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 5ace44ecd..7fbcf4871 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -12659,3 +12659,38 @@ __declspec(noinline) unsigned int __cdecl AudioHwPercentPositionCpp(int percent,
+     return Ftol2RegsDblCpp(double(floored), 0u).eax; // ECX de entrada: nadie lo lee tras la llamada
+ }
+ #pragma float_control(pop)
++
++// --- CQuaternion::Set(float, float, float) (0x59C530; lote 29, prefijo QuatEuler) ---
++// El EXE (0x59C530..0x59C5EF): hx = ax*0.5f (0x858B8C), idem hy, hz; cx = cos(hx), cy = cos(hy), cz = cos(hz) (sin redondear salvo cz, que se guarda como float); sx, sy, sz = sin(h) guardados
++// como float; cycx = f(cy*cx), sysx = f(sy*sx), sxcy = f(sx*cy) (cy y cx sin redondear), cxsy = cx*sy (queda en registro, 24 bits);
++// w = f(f(sysx*sz) + f(cycx*cz)), x = f(f(cycx*sz) - f(sysx*cz)), y = f(f(sz*cxsy) + f(sxcy*cz)), z = f(f(cxsy*cz) - f(sxcy*sz)); se escriben en el orden w, x, y, z.
++// Los valores que el EXE guarda como float (fstp dword) son `volatile float`; |h| >= 2^63 deja fsin/fcos el operando intacto (C2), igual que el EXE.
++static double QuatEulerSin(double h) { return (h >= 9223372036854775808.0 || h <= -9223372036854775808.0) ? h : sin(h); }
++static double QuatEulerCos(double h) { return (h >= 9223372036854775808.0 || h <= -9223372036854775808.0) ? h : cos(h); }
++__declspec(noinline) void __cdecl QuaternionFromEulerCpp(float* q, float ax, float ay, float az) {
++    const double hx = double(ax) * 0.5f;
++    const double hy = double(ay) * 0.5f;
++    const double hz = double(az) * 0.5f;
++    const double cx = QuatEulerCos(hx);
++    const double cy = QuatEulerCos(hy);
++    volatile float cz = float(QuatEulerCos(hz));
++    volatile float sx = float(QuatEulerSin(hx));
++    volatile float sy = float(QuatEulerSin(hy));
++    volatile float sz = float(QuatEulerSin(hz));
++    volatile float cycx = float(cy * cx);
++    volatile float sysx = float(double(sy) * double(sx));
++    volatile float sxcy = float(double(sx) * cy);
++    const double cxsy = double(float(cx * double(sy)));
++    volatile float t1 = float(double(sysx) * double(sz));
++    volatile float t2 = float(double(cycx) * double(cz));
++    q[3] = float(double(t1) + double(t2));
++    t1 = float(double(cycx) * double(sz));
++    t2 = float(double(sysx) * double(cz));
++    q[0] = float(double(t1) - double(t2));
++    t1 = float(double(sz) * cxsy);
++    t2 = float(double(sxcy) * double(cz));
++    q[1] = float(double(t1) + double(t2));
++    t1 = float(cxsy * double(cz));
++    t2 = float(double(sxcy) * double(sz));
++    q[2] = float(double(t1) - double(t2));
++}
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index 31932f811..cc288f89c 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1510,3 +1510,7 @@ unsigned int __cdecl WndProcTimerPeriodCpp(int frameLimit);
+ // 0x406CE0: fld dword; fstp qword; floor del CRT del EXE (0x8219F0, ruta SSE2: devuelve el resultado en ST0 con fld qword); _ftol2 (0x821B40). Devuelve EAX de _ftol2 (palabra baja del entero
+ // de 64 bits truncado) dejando las banderas acumuladas (PE de los dos productos) y los registros x87 muertos del EXE (T-2 = R, T-1 = fraccion, via Ftol2RegsDblCpp / X87Plant*).
+ unsigned int __cdecl AudioHwPercentPositionCpp(int percent, int length);
++
++// --- CQuaternion::Set(float, float, float) (0x59C530; lote 29, prefijo QuatEuler) ---
++// q = {x, y, z, w} (se escribe w, x, y, z); a = {ax, ay, az} * 0.5f. cos(a) sin redondear (el de z se guarda como float), sin(a) guardado como float, cada producto y suma a 24 bits.
++void __cdecl QuaternionFromEulerCpp(float* q, float ax, float ay, float az);

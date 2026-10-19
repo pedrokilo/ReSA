@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CQuaternion
- * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 5/5 entradas.
+ * Validación registrada: 10/10 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -36,7 +36,12 @@ void CQuaternion::InjectHooks() {
     RH_ScopedOverloadedInstall(Get, "axis-angle", 0x59C230, void (CQuaternion::*)(RwV3d*, float*));
     RH_ScopedOverloadedInstall(Set, "matrix", 0x59C3E0, void (CQuaternion::*)(const RwMatrix&));
     RH_ScopedOverloadedInstall(Set, "axis-angle", 0x59C600, void (CQuaternion::*)(RwV3d*, float));
+    RH_ScopedOverloadedInstall(Get, "euler", 0x59C160, void (CQuaternion::*)(float*, float*, float*));
+    RH_ScopedInstall(Multiply, 0x59C270);
+    RH_ScopedOverloadedInstall(Set, "euler", 0x59C530, void (CQuaternion::*)(float, float, float));
+    RH_ScopedInstall(Conjugate, 0x4D37D0);
     RH_ScopedOverloadedInstall(Slerp, "halftheta", 0x59C300, void (CQuaternion::*)(const CQuaternion&, const CQuaternion&, float, float, float));
+    RH_ScopedOverloadedInstall(Slerp, "t", 0x59C630, void (CQuaternion::*)(const CQuaternion&, const CQuaternion&, float));
 }
 
 // 0x59C080: quat to matrix. Escribe sólo right (+0x00), up (+0x10) y at (+0x20) del RwMatrix; la aritmética x87 exacta del EXE (2z guardado como float, 2x y 2y en registros,
@@ -45,9 +50,11 @@ void CQuaternion::Get(RwMatrix* out) const {
     RpNanQuatToMatrixCpp(&x, reinterpret_cast<float*>(out));
 }
 
-// Quat to euler angles
+// Quat to euler angles (0x59C160): Get(RwMatrix*) sobre una matriz local y tres atan2 x87 de 24 bits (QuatEulerGetCpp, X87Math); escribe z, x, y en este orden y suma 2*pi a los negativos.
 void CQuaternion::Get(float* x, float* y, float* z) {
-    ((void(__thiscall*)(CQuaternion*, float*, float*, float*))0x59C160)(this, x, y, z);
+    RwMatrix matrix;
+    Get(&matrix);
+    QuatEulerGetCpp(reinterpret_cast<const float*>(&matrix), x, y, z);
 }
 
 // Quat to axis & angle (0x59C230): *angle = float(acos(2w)) con el _CIacos del EXE (0x822380; dominio |2w| <= 1, fuera de el NaN indefinido y errno = 33) y
@@ -56,9 +63,9 @@ void CQuaternion::Get(RwV3d* axis, float* angle) {
     QuaternionGetAxisAngleCpp(&x, &axis->x, angle);
 }
 
-// Stores result of quat multiplication
+// Stores result of quat multiplication (0x59C270): producto con la x87 de 24 bits del EXE; out puede solaparse con a o b (QuatMultiplyCpp, X87Math).
 void CQuaternion::Multiply(const CQuaternion& a, const CQuaternion& b) {
-    ((void(__thiscall*)(CQuaternion*, const CQuaternion&, const CQuaternion&))0x59C270)(this, a, b);
+    QuatMultiplyCpp(&x, &a.x, &b.x);
 }
 
 // Spherical linear interpolation (0x59C300): contrato thiscall propio de GTA (no es RtQuatSetupSlerpCache de RenderWare) con el angulo y 1/sin(angulo) ya precalculados
@@ -115,9 +122,10 @@ void CQuaternion::Set(const RwMatrix& m) {
 }
 #pragma float_control(pop)
 
-// Quat from euler angles
+// Quat from euler angles (0x59C530): medios angulos {x, y, z} * 0.5 (0x858B8C); cos de cada uno sin redondear (el de z se guarda como float), sin de cada uno guardado como float,
+// productos y sumas a 24 bits con la pila x87 del EXE (QuaternionFromEulerCpp, X87Math). Escribe w, x, y, z en ese orden.
 void CQuaternion::Set(float x, float y, float z) {
-    ((void(__thiscall*)(CQuaternion*, float, float, float))0x59C530)(this, x, y, z);
+    QuaternionFromEulerCpp(&this->x, x, y, z);
 }
 
 // Quat from axis & angle (0x59C600): {sin(a/2) * eje, cos(a/2)} con el seno sin redondear (QuaternionFromAxisAngleCpp, X87Math).
@@ -125,14 +133,25 @@ void CQuaternion::Set(RwV3d* axis, float angle) {
     QuaternionFromAxisAngleCpp(&x, &axis->x, angle);
 }
 
-// Spherical linear interpolation
+// Spherical linear interpolation (0x59C630): CalcTheta (0x4D00E0, con el _CIacos del EXE) y luego la version de cinco argumentos (0x59C300) con (theta, 1/sin(theta), t)
+// (QuatSlerpTCpp, X87Math).
 void CQuaternion::Slerp(const CQuaternion& from, const CQuaternion& to, float t) {
-    ((void(__thiscall*)(CQuaternion*, const CQuaternion&, const CQuaternion&, float))0x59C630)(this, from, to, t);
+    QuatSlerpTCpp(&x, &from.x, &to.x, t);
 }
 
-// Conjugate of a quat
+// Conjugate of a quat (0x4D37D0): x, y y z cambian de signo y w no se toca. El EXE lo hace con fld dword / fchs / fstp dword por componente, de modo que un sNaN sale como qNaN
+// (bit 22 puesto, con el signo invertido igual que cualquier otro NaN); el resto de valores (cero, subnormal, inf, qNaN) solo cambia de signo. Se reproduce con enteros, sin tocar el x87.
 void CQuaternion::Conjugate() {
-    ((void(__thiscall*)(CQuaternion*))0x4D37D0)(this);
+    const auto negateLikeX87 = [](float& v) {
+        auto bits = std::bit_cast<uint32>(v);
+        if ((bits & 0x7F800000u) == 0x7F800000u && (bits & 0x007FFFFFu) != 0u) {
+            bits |= 0x00400000u; // fld convierte el sNaN en qNaN
+        }
+        v = std::bit_cast<float>(bits ^ 0x80000000u); // fchs
+    };
+    negateLikeX87(x);
+    negateLikeX87(y);
+    negateLikeX87(z);
 }
 
 // Squared length of a quat

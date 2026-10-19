@@ -1,0 +1,3 @@
+APROBADO: QuatSlerpT29
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-quatslerpt29\20261019-005314-077172

@@ -1,0 +1,61 @@
+diff --git a/source/game_sa/Core/Quaternion.cpp b/source/game_sa/Core/Quaternion.cpp
+index 777d81994..8d4cf64ff 100644
+--- a/source/game_sa/Core/Quaternion.cpp
++++ b/source/game_sa/Core/Quaternion.cpp
+@@ -36,6 +36,7 @@ void CQuaternion::InjectHooks() {
+     RH_ScopedOverloadedInstall(Get, "axis-angle", 0x59C230, void (CQuaternion::*)(RwV3d*, float*));
+     RH_ScopedOverloadedInstall(Set, "matrix", 0x59C3E0, void (CQuaternion::*)(const RwMatrix&));
+     RH_ScopedOverloadedInstall(Set, "axis-angle", 0x59C600, void (CQuaternion::*)(RwV3d*, float));
++    RH_ScopedInstall(Multiply, 0x59C270);
+     RH_ScopedOverloadedInstall(Slerp, "halftheta", 0x59C300, void (CQuaternion::*)(const CQuaternion&, const CQuaternion&, float, float, float));
+ }
+ 
+@@ -56,9 +57,9 @@ void CQuaternion::Get(RwV3d* axis, float* angle) {
+     QuaternionGetAxisAngleCpp(&x, &axis->x, angle);
+ }
+ 
+-// Stores result of quat multiplication
++// Stores result of quat multiplication (0x59C270): producto con la x87 de 24 bits del EXE; out puede solaparse con a o b (QuatMultiplyCpp, X87Math).
+ void CQuaternion::Multiply(const CQuaternion& a, const CQuaternion& b) {
+-    ((void(__thiscall*)(CQuaternion*, const CQuaternion&, const CQuaternion&))0x59C270)(this, a, b);
++    QuatMultiplyCpp(&x, &a.x, &b.x);
+ }
+ 
+ // Spherical linear interpolation (0x59C300): contrato thiscall propio de GTA (no es RtQuatSetupSlerpCache de RenderWare) con el angulo y 1/sin(angulo) ya precalculados
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 5ace44ecd..70d09b222 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -12659,3 +12659,20 @@ __declspec(noinline) unsigned int __cdecl AudioHwPercentPositionCpp(int percent,
+     return Ftol2RegsDblCpp(double(floored), 0u).eax; // ECX de entrada: nadie lo lee tras la llamada
+ }
+ #pragma float_control(pop)
++
++// --- CQuaternion::Multiply (0x59C270; lote 29, QuatMultiply29) ---
++// El EXE lee `a` y `b` por referencia y escribe `out` entre lecturas: los tres primeros componentes se guardan antes de que los pasos 4 a 7 relean a/b, de modo que con
++// out == a o out == b las lecturas posteriores ven los valores ya escritos. Por eso cada fld es una lectura de memoria en el mismo punto que el EXE (maquina FlcX87, 24 bits).
++// Sin llamadores en el EXE (codigo muerto): nadie lee EAX/ECX/EDX.
++__declspec(noinline) void __cdecl QuatMultiplyCpp(float* o, const float* a, const float* b) {
++    FlcX87 fp;
++    fp.Fld(b[2]); fp.Fmul(a[1]); fp.Fld(a[2]); fp.Fmul(b[1]); fp.Arith('-', 1, 1, 0, true); fp.Fstp(o[0]);   // 59C278..59C286
++    fp.Fld(a[2]); fp.Fmul(b[0]); fp.Fld(a[0]); fp.Fmul(b[2]); fp.Arith('-', 1, 1, 0, true); fp.Fstp(o[1]);   // 59C288..59C294
++    fp.Fld(a[0]); fp.Fmul(b[1]); fp.Fld(b[0]); fp.Fmul(a[1]); fp.Arith('-', 1, 1, 0, true); fp.Fstp(o[2]);   // 59C297..59C2A3
++    fp.Fld(b[3]); fp.Fmul(a[0]); fp.Fld(a[3]); fp.Fmul(b[0]); fp.Arith('+', 1, 1, 0, true); fp.Fadd(o[0]); fp.Fstp(o[0]);   // 59C2A6..59C2B4
++    fp.Fld(a[3]); fp.Fmul(b[1]); fp.Fld(b[3]); fp.Fmul(a[1]); fp.Arith('+', 1, 1, 0, true); fp.Fadd(o[1]); fp.Fstp(o[1]);   // 59C2B6..59C2C7
++    fp.Fld(a[2]); fp.Fmul(b[3]); fp.Fld(a[3]); fp.Fmul(b[2]); fp.Arith('+', 1, 1, 0, true); fp.Fadd(o[2]); fp.Fstp(o[2]);   // 59C2CA..59C2DB
++    fp.Fld(a[3]); fp.Fmul(b[3]); fp.Fld(a[0]); fp.Fmul(b[0]); fp.Fld(a[2]); fp.Fmul(b[2]); fp.Arith('+', 1, 1, 0, true);   // 59C2DE..59C2EE
++    fp.Fld(a[1]); fp.Fmul(b[1]); fp.Arith('+', 1, 1, 0, true); fp.Arith('-', 1, 1, 0, true); fp.Fstp(o[3]);   // 59C2F0..59C2FA
++    fp.Commit();
++}
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index 31932f811..6104797cf 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -474,6 +474,7 @@ void __cdecl RpNanQuatToMatrixCpp(const float* q, float* m);
+ // CQuaternion::Get(RwV3d*, float*) del EXE (0x59C230): q = {x, y, z, w}; *angle = float(acos(2w)) (_CIacos 0x822380) y axis = (1 / sin(acos(2w))) · {x, y, z} con cada producto redondeado a float;
+ // 2w, el acos y el seno no se redondean a float, y las lecturas del cuaternion y escrituras de angle/axis siguen el orden del EXE (pueden solaparse). Fuera de |2w| <= 1 el acos del CRT da el indefinido y errno = 33.
+ void __cdecl QuaternionGetAxisAngleCpp(const float* q, float* axis, float* angle);
++void __cdecl QuatMultiplyCpp(float* out, const float* a, const float* b);   // CQuaternion::Multiply (0x59C270)
+ // Lote RpUpdate (RpAnimBlendClumpUpdateAnimations, 0x4D34F0; w20). Cadenas x87 sin guardar entre operaciones (cada operación redondea a 24 bits; un solo fstp a float).
+ // 0x4D3578..0x4D3585: fld total; fdiv speed; fmul blend; fadd acc.
+ float __cdecl RpUpdateSyncAccumCpp(float total, float speed, float blend, float acc);

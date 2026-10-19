@@ -1,0 +1,96 @@
+diff --git a/source/game_sa/Core/Quaternion.cpp b/source/game_sa/Core/Quaternion.cpp
+index 777d81994..9b00be2db 100644
+--- a/source/game_sa/Core/Quaternion.cpp
++++ b/source/game_sa/Core/Quaternion.cpp
+@@ -33,6 +33,7 @@ void CQuaternion::InjectHooks() {
+     RH_ScopedCategory("Core");
+ 
+     RH_ScopedOverloadedInstall(Get, "matrix", 0x59C080, void (CQuaternion::*)(RwMatrix*) const);
++    RH_ScopedOverloadedInstall(Get, "euler", 0x59C160, void (CQuaternion::*)(float*, float*, float*));
+     RH_ScopedOverloadedInstall(Get, "axis-angle", 0x59C230, void (CQuaternion::*)(RwV3d*, float*));
+     RH_ScopedOverloadedInstall(Set, "matrix", 0x59C3E0, void (CQuaternion::*)(const RwMatrix&));
+     RH_ScopedOverloadedInstall(Set, "axis-angle", 0x59C600, void (CQuaternion::*)(RwV3d*, float));
+@@ -45,9 +46,11 @@ void CQuaternion::Get(RwMatrix* out) const {
+     RpNanQuatToMatrixCpp(&x, reinterpret_cast<float*>(out));
+ }
+ 
+-// Quat to euler angles
++// Quat to euler angles (0x59C160): Get(RwMatrix*) sobre una matriz local y tres atan2 x87 de 24 bits (QuatEulerGetCpp, X87Math); escribe z, x, y en este orden y suma 2*pi a los negativos.
+ void CQuaternion::Get(float* x, float* y, float* z) {
+-    ((void(__thiscall*)(CQuaternion*, float*, float*, float*))0x59C160)(this, x, y, z);
++    RwMatrix matrix;
++    Get(&matrix);
++    QuatEulerGetCpp(reinterpret_cast<const float*>(&matrix), x, y, z);
+ }
+ 
+ // Quat to axis & angle (0x59C230): *angle = float(acos(2w)) con el _CIacos del EXE (0x822380; dominio |2w| <= 1, fuera de el NaN indefinido y errno = 33) y
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 5ace44ecd..44db230d3 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -12659,3 +12659,53 @@ __declspec(noinline) unsigned int __cdecl AudioHwPercentPositionCpp(int percent,
+     return Ftol2RegsDblCpp(double(floored), 0u).eax; // ECX de entrada: nadie lo lee tras la llamada
+ }
+ #pragma float_control(pop)
++
++// --- CQuaternion::Get(float*, float*, float*) (0x59C160; lote 29, QuatEulerGet29) ---
++// Tras CQuaternion::Get(RwMatrix*) (0x59C080) sobre una RwMatrix local (solo right/up/at = m[0..2], m[4..6], m[8..10]), el EXE calcula tres angulos con fpatan y los guarda en este orden:
++// z (3er puntero), x (1er puntero), y (2o puntero); cada uno se guarda como float y, si es < 0 (fcom contra 0; test ah,5 / jp: NaN, 0 y > 0 no suman), se le suma 2*pi (0x858CBC) y se vuelve a guardar.
++// sin/cos de z se releen de *pz (float ya guardado). Todo en la maquina FlcX87 (24 bits, pila vacia al salir). Los tres punteros pueden solaparse: el orden de lecturas/escrituras es el del EXE.
++static void QuatEulerWrapStoreCpp(FlcX87& fp, float& out) {
++    static const float kZero = 0.0f;                                  // [0x858B50]
++    static const float kTwoPi = std::bit_cast<float>(0x40C90FDBu);   // [0x858CBC]
++    fp.FldSt(0);                  // fld st(0)
++    fp.Fstp(out);                 // fstp [out]
++    fp.FcomMem(kZero, false);     // fcom [0x858B50] ; fnstsw ax
++    const unsigned t = fp.Ah() & 5u;
++    if (t == 0u || t == 5u) {     // test ah,5 ; jp (paridad par: sin menor que)
++        fp.Pop();                 // fstp st(0)
++    } else {
++        fp.Fadd(kTwoPi);          // fadd [0x858CBC]
++        fp.Fstp(out);             // fstp [out]
++    }
++}
++
++__declspec(noinline) void __cdecl QuatEulerGetCpp(const float* m, float* px, float* py, float* pz) {
++    FlcX87 fp;
++    fp.Fld(m[1]); fp.Fld(m[5]);                // 59C16D fld [esp+4] ; fld [esp+14h]
++    fp.Fpatan();                               // 59C179 fpatan = atan2(m[1], m[5])
++    QuatEulerWrapStoreCpp(fp, *pz);            // 59C17B..59C194
++    fp.Fld(*pz); fp.Fsin();                    // 59C198 fld [ecx] ; fsin
++    fp.Fld(*pz); fp.Fcos();                    // 59C19C fld [ecx] ; fcos
++    fp.Fld(m[9]); fp.Fchs();                   // 59C1A4 fld [esp+24h] ; fchs
++    fp.FldSt(2); fp.Fmul(m[1]);                // 59C1AA sin * m[1]
++    fp.FldSt(2); fp.Fmul(m[5]);                // 59C1B0 cos * m[5]
++    fp.Arith('+', 1, 1, 0, true);              // 59C1B6 faddp
++    fp.Fpatan();                               // 59C1B8 atan2(-m[9], sin*m[1] + cos*m[5])
++    QuatEulerWrapStoreCpp(fp, *px);            // 59C1BA..59C1D3
++    fp.Fld(m[2]);                              // 59C1D7 fld [esp+8]
++    fp.Arith('*', 0, 0, 1, false);             // 59C1DF fmul st,st(1) (cos)
++    fp.Fld(m[6]);                              // 59C1E1 fld [esp+18h]
++    fp.Arith('*', 0, 0, 3, false);             // 59C1E5 fmul st,st(3) (sin)
++    fp.Arith('-', 1, 1, 0, true);              // 59C1E7 fsubp
++    fp.Fchs();                                 // 59C1E9
++    fp.Fld(m[0]);                              // 59C1EB fld [esp]
++    fp.Arith('*', 0, 0, 2, false);             // 59C1EF fmul st,st(2) (cos)
++    fp.Fld(m[4]);                              // 59C1F1 fld [esp+10h]
++    fp.Arith('*', 0, 0, 4, false);             // 59C1F5 fmul st,st(4) (sin)
++    fp.Arith('-', 1, 1, 0, true);              // 59C1F7 fsubp
++    fp.Fpatan();                               // 59C1F9 atan2(-(m[2]*cos - m[6]*sin), m[0]*cos - m[4]*sin)
++    fp.FstpSt(2);                              // 59C1FB fstp st(2)
++    fp.Pop();                                  // 59C1FD fstp st(0)
++    QuatEulerWrapStoreCpp(fp, *py);            // 59C1FF..59C216 / 59C21E
++    fp.Commit();
++}
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index 31932f811..9d2908913 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1510,3 +1510,7 @@ unsigned int __cdecl WndProcTimerPeriodCpp(int frameLimit);
+ // 0x406CE0: fld dword; fstp qword; floor del CRT del EXE (0x8219F0, ruta SSE2: devuelve el resultado en ST0 con fld qword); _ftol2 (0x821B40). Devuelve EAX de _ftol2 (palabra baja del entero
+ // de 64 bits truncado) dejando las banderas acumuladas (PE de los dos productos) y los registros x87 muertos del EXE (T-2 = R, T-1 = fraccion, via Ftol2RegsDblCpp / X87Plant*).
+ unsigned int __cdecl AudioHwPercentPositionCpp(int percent, int length);
++// CQuaternion::Get(float*, float*, float*) del EXE (0x59C160; lote 29): m = RwMatrix ya calculada por CQuaternion::Get(RwMatrix*) (right/up/at en m[0..2], m[4..6], m[8..10]).
++// Escribe, en este orden, *pz = atan2(m[1], m[5]), *px = atan2(-m[9], sin(z)*m[1] + cos(z)*m[5]) y *py = atan2(-(m[2]*cos(z) - m[6]*sin(z)), m[0]*cos(z) - m[4]*sin(z)); cada uno como float y,
++// si es < 0, sumandole 2*pi (0x858CBC) con un segundo guardado. x87 de 24 bits (FlcX87), pila vacia al salir.
++void __cdecl QuatEulerGetCpp(const float* m, float* px, float* py, float* pz);

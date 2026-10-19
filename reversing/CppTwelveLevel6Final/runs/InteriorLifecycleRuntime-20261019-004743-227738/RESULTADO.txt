@@ -1,0 +1,3 @@
+APROBADO: InteriorLifecycleRuntime
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-interior-lifecycle-runtime\20261019-004743-227738

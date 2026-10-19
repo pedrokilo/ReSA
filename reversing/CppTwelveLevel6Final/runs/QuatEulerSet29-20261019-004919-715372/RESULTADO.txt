@@ -1,0 +1,3 @@
+APROBADO: QuatEulerSet29
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-quateulerset29\20261019-004919-715372

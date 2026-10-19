@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CQuaternion::Multiply": 4096
+  },
+  "covered_functions": {
+    "CQuaternion::Multiply": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas = árbol principal (Quaternion.cpp/.h, X87Math.cpp/.h, InjectHooksMain.cpp, CMakeLists.txt idénticos byte a byte), compiladas desde el worktree D:/Original/wq-f (HEAD 98286d43c + fusión de las cinco funciones de CQuaternion en Quaternion.cpp, X87Math.cpp y X87Math.h; ver artifacts/build-manifest.json). CQuaternion::Multiply sin colaboradores (QuatMultiplyCpp de X87Math.cpp sobre la máquina FlcX87). El oráculo independiente se relajó a 2 ulp/comodines donde acos, sin o la reducción de 66 bits de fsin/fcos no se modelan al ulp; la comparación EXE == DLL es estricta bit a bit en los 4096 pares. NaN siempre silenciosos (sNaN no cubierto); los empates de NaN sólo exigen EXE == DLL. EAX/ECX/EDX sólo registrados; ningún llamador del EXE. La corrida inmediatamente anterior (20261019-005112-216780) falló por un cierre inesperado de GTA en el arranque (0xC0000409) y no es evidencia.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/QuatMultiply29-20261019-005418-687938",
+  "summary_sha256": "5b3bb6209d1a5f63469937b213e065335760b72edf069fa92f57397b670e4c79",
+  "result_txt_sha256": "5988d48053d79644abcdf2902a351fb05659e0aae4014e0f3e1d2d1197ffba18",
+  "log_sha256": "e639c4a15de114ae0d08006d650675e6be19735783108cfa9dede98c33a50beb",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "283a1b3740542e76d2e29ff1d9d2a8d9b536a289e05edcb115385c6675b913f0",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Core/Quaternion.cpp": "98325b11f53686b95b265e0409a0d464ec42c912c75c3cc2ae0cf881f889f95a",
+      "source/game_sa/Core/Quaternion.h": "48db9873122fa6bfad1c9a50ba0ac91c3a7c4d5a80e984984ec10f5f4bf38dec",
+      "source/game_sa/X87Math.cpp": "1fd582b7f1d1247729aa370a27a4388ed75596c77dc2e5eb62da5014ceff29cb",
+      "source/game_sa/X87Math.h": "f9d606c768edd4d8c544af658a47cf69dec2713b047695b321ff8ac8639c183a",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/QuatMultiply29/LiveComparison.hpp": "c8472330c85233888092d720c4ae914de68161b5a0e5af27c4cf898bfd7ceb23",
+      "reversing/QuatMultiply29/Core.hpp": "f7a5a3c447dc9b2311f1c3bf638f9fa5485566945c17055c9798273379c24895",
+      "reversing/QuatMultiply29/Fixtures.hpp": "7f2af99b1951a27391bacd83034164c4ff9955f4266b6cc4a8320c9a03008968",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

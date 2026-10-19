@@ -12659,3 +12659,183 @@ __declspec(noinline) unsigned int __cdecl AudioHwPercentPositionCpp(int percent,
     return Ftol2RegsDblCpp(double(floored), 0u).eax; // ECX de entrada: nadie lo lee tras la llamada
 }
 #pragma float_control(pop)
+
+// --- CQuaternion::Get(float*, float*, float*) (0x59C160; lote 29, QuatEulerGet29) ---
+// Tras CQuaternion::Get(RwMatrix*) (0x59C080) sobre una RwMatrix local (solo right/up/at = m[0..2], m[4..6], m[8..10]), el EXE calcula tres angulos con fpatan y los guarda en este orden:
+// z (3er puntero), x (1er puntero), y (2o puntero); cada uno se guarda como float y, si es < 0 (fcom contra 0; test ah,5 / jp: NaN, 0 y > 0 no suman), se le suma 2*pi (0x858CBC) y se vuelve a guardar.
+// sin/cos de z se releen de *pz (float ya guardado). Todo en la maquina FlcX87 (24 bits, pila vacia al salir). Los tres punteros pueden solaparse: el orden de lecturas/escrituras es el del EXE.
+static void QuatEulerWrapStoreCpp(FlcX87& fp, float& out) {
+    static const float kZero = 0.0f;                                  // [0x858B50]
+    static const float kTwoPi = std::bit_cast<float>(0x40C90FDBu);   // [0x858CBC]
+    fp.FldSt(0);                  // fld st(0)
+    fp.Fstp(out);                 // fstp [out]
+    fp.FcomMem(kZero, false);     // fcom [0x858B50] ; fnstsw ax
+    const unsigned t = fp.Ah() & 5u;
+    if (t == 0u || t == 5u) {     // test ah,5 ; jp (paridad par: sin menor que)
+        fp.Pop();                 // fstp st(0)
+    } else {
+        fp.Fadd(kTwoPi);          // fadd [0x858CBC]
+        fp.Fstp(out);             // fstp [out]
+    }
+}
+
+__declspec(noinline) void __cdecl QuatEulerGetCpp(const float* m, float* px, float* py, float* pz) {
+    FlcX87 fp;
+    fp.Fld(m[1]); fp.Fld(m[5]);                // 59C16D fld [esp+4] ; fld [esp+14h]
+    fp.Fpatan();                               // 59C179 fpatan = atan2(m[1], m[5])
+    QuatEulerWrapStoreCpp(fp, *pz);            // 59C17B..59C194
+    fp.Fld(*pz); fp.Fsin();                    // 59C198 fld [ecx] ; fsin
+    fp.Fld(*pz); fp.Fcos();                    // 59C19C fld [ecx] ; fcos
+    fp.Fld(m[9]); fp.Fchs();                   // 59C1A4 fld [esp+24h] ; fchs
+    fp.FldSt(2); fp.Fmul(m[1]);                // 59C1AA sin * m[1]
+    fp.FldSt(2); fp.Fmul(m[5]);                // 59C1B0 cos * m[5]
+    fp.Arith('+', 1, 1, 0, true);              // 59C1B6 faddp
+    fp.Fpatan();                               // 59C1B8 atan2(-m[9], sin*m[1] + cos*m[5])
+    QuatEulerWrapStoreCpp(fp, *px);            // 59C1BA..59C1D3
+    fp.Fld(m[2]);                              // 59C1D7 fld [esp+8]
+    fp.Arith('*', 0, 0, 1, false);             // 59C1DF fmul st,st(1) (cos)
+    fp.Fld(m[6]);                              // 59C1E1 fld [esp+18h]
+    fp.Arith('*', 0, 0, 3, false);             // 59C1E5 fmul st,st(3) (sin)
+    fp.Arith('-', 1, 1, 0, true);              // 59C1E7 fsubp
+    fp.Fchs();                                 // 59C1E9
+    fp.Fld(m[0]);                              // 59C1EB fld [esp]
+    fp.Arith('*', 0, 0, 2, false);             // 59C1EF fmul st,st(2) (cos)
+    fp.Fld(m[4]);                              // 59C1F1 fld [esp+10h]
+    fp.Arith('*', 0, 0, 4, false);             // 59C1F5 fmul st,st(4) (sin)
+    fp.Arith('-', 1, 1, 0, true);              // 59C1F7 fsubp
+    fp.Fpatan();                               // 59C1F9 atan2(-(m[2]*cos - m[6]*sin), m[0]*cos - m[4]*sin)
+    fp.FstpSt(2);                              // 59C1FB fstp st(2)
+    fp.Pop();                                  // 59C1FD fstp st(0)
+    QuatEulerWrapStoreCpp(fp, *py);            // 59C1FF..59C216 / 59C21E
+    fp.Commit();
+}
+
+// --- CQuaternion::Multiply (0x59C270; lote 29, QuatMultiply29) ---
+// El EXE lee `a` y `b` por referencia y escribe `out` entre lecturas: los tres primeros componentes se guardan antes de que los pasos 4 a 7 relean a/b, de modo que con
+// out == a o out == b las lecturas posteriores ven los valores ya escritos. Por eso cada fld es una lectura de memoria en el mismo punto que el EXE (maquina FlcX87, 24 bits).
+// Sin llamadores en el EXE (codigo muerto): nadie lee EAX/ECX/EDX.
+__declspec(noinline) void __cdecl QuatMultiplyCpp(float* o, const float* a, const float* b) {
+    FlcX87 fp;
+    fp.Fld(b[2]); fp.Fmul(a[1]); fp.Fld(a[2]); fp.Fmul(b[1]); fp.Arith('-', 1, 1, 0, true); fp.Fstp(o[0]);   // 59C278..59C286
+    fp.Fld(a[2]); fp.Fmul(b[0]); fp.Fld(a[0]); fp.Fmul(b[2]); fp.Arith('-', 1, 1, 0, true); fp.Fstp(o[1]);   // 59C288..59C294
+    fp.Fld(a[0]); fp.Fmul(b[1]); fp.Fld(b[0]); fp.Fmul(a[1]); fp.Arith('-', 1, 1, 0, true); fp.Fstp(o[2]);   // 59C297..59C2A3
+    fp.Fld(b[3]); fp.Fmul(a[0]); fp.Fld(a[3]); fp.Fmul(b[0]); fp.Arith('+', 1, 1, 0, true); fp.Fadd(o[0]); fp.Fstp(o[0]);   // 59C2A6..59C2B4
+    fp.Fld(a[3]); fp.Fmul(b[1]); fp.Fld(b[3]); fp.Fmul(a[1]); fp.Arith('+', 1, 1, 0, true); fp.Fadd(o[1]); fp.Fstp(o[1]);   // 59C2B6..59C2C7
+    fp.Fld(a[2]); fp.Fmul(b[3]); fp.Fld(a[3]); fp.Fmul(b[2]); fp.Arith('+', 1, 1, 0, true); fp.Fadd(o[2]); fp.Fstp(o[2]);   // 59C2CA..59C2DB
+    fp.Fld(a[3]); fp.Fmul(b[3]); fp.Fld(a[0]); fp.Fmul(b[0]); fp.Fld(a[2]); fp.Fmul(b[2]); fp.Arith('+', 1, 1, 0, true);   // 59C2DE..59C2EE
+    fp.Fld(a[1]); fp.Fmul(b[1]); fp.Arith('+', 1, 1, 0, true); fp.Arith('-', 1, 1, 0, true); fp.Fstp(o[3]);   // 59C2F0..59C2FA
+    fp.Commit();
+}
+
+// --- CQuaternion::Set(float, float, float) (0x59C530; lote 29, prefijo QuatEuler) ---
+// El EXE (0x59C530..0x59C5EF): hx = ax*0.5f (0x858B8C), idem hy, hz; cx = cos(hx), cy = cos(hy), cz = cos(hz) (sin redondear salvo cz, que se guarda como float); sx, sy, sz = sin(h) guardados
+// como float; cycx = f(cy*cx), sysx = f(sy*sx), sxcy = f(sx*cy) (cy y cx sin redondear), cxsy = cx*sy (queda en registro, mantisa de 24 bits y exponente extendido);
+// w = f(r24(sysx*sz) + r24(cycx*cz)), x = f(r24(cycx*sz) - r24(sysx*cz)), y = f(r24(sz*cxsy) + r24(sxcy*cz)), z = f(r24(cxsy*cz) - r24(sxcy*sz)); se escriben en el orden w, x, y, z.
+// f = fstp dword (float(), desborda a inf y denormaliza); r24 = redondeo de la mantisa a 24 bits (al par) SIN tocar el exponente: los productos y la suma/resta final viven en registros x87
+// y solo se pasan a float en el fstp. Los valores guardados como float (cz, sx, sy, sz, cycx, sysx, sxcy y las cuatro salidas) son `volatile float`.
+// fsin/fcos: NaN -> el mismo NaN; +-inf -> indefinido real (0xFFC00000); |h| finito >= 2^63 -> operando intacto (C2 = 1).
+static double QuatEulerRound24(double v) {
+    unsigned long long u = std::bit_cast<unsigned long long>(v);
+    if ((u & 0x7FF0000000000000ull) == 0x7FF0000000000000ull || (u & 0x7FF0000000000000ull) == 0) return v; // inf, NaN, cero y subnormales de double (no aparecen en estos productos)
+    const unsigned long long low = u & 0x1FFFFFFFull;
+    u &= ~0x1FFFFFFFull;
+    if (low > 0x10000000ull || (low == 0x10000000ull && (u & 0x20000000ull))) u += 0x20000000ull; // el acarreo sube al exponente
+    return std::bit_cast<double>(u);
+}
+static double QuatEulerTrig(double h, bool cosine) {
+    if (h != h) return h;
+    if (h >= 9223372036854775808.0 || h <= -9223372036854775808.0) {
+        if (h == std::bit_cast<double>(0x7FF0000000000000ull) || h == std::bit_cast<double>(0xFFF0000000000000ull)) return std::bit_cast<double>(0xFFF8000000000000ull); // indefinido real
+        return h;
+    }
+    return cosine ? cos(h) : sin(h);
+}
+__declspec(noinline) void __cdecl QuaternionFromEulerCpp(float* q, float ax, float ay, float az) {
+    const double hx = double(ax) * 0.5f;
+    const double hy = double(ay) * 0.5f;
+    const double hz = double(az) * 0.5f;
+    const double cx = QuatEulerTrig(hx, true);
+    const double cy = QuatEulerTrig(hy, true);
+    volatile float cz = float(QuatEulerTrig(hz, true));
+    volatile float sx = float(QuatEulerTrig(hx, false));
+    volatile float sy = float(QuatEulerTrig(hy, false));
+    volatile float sz = float(QuatEulerTrig(hz, false));
+    volatile float cycx = float(QuatEulerRound24(cy * cx));
+    volatile float sysx = float(QuatEulerRound24(double(sy) * double(sx)));
+    volatile float sxcy = float(QuatEulerRound24(double(sx) * cy));
+    const double cxsy = QuatEulerRound24(cx * double(sy));
+    double t1 = QuatEulerRound24(double(sysx) * double(sz));
+    double t2 = QuatEulerRound24(double(cycx) * double(cz));
+    volatile float w = float(QuatEulerRound24(t1 + t2));
+    t1 = QuatEulerRound24(double(cycx) * double(sz));
+    t2 = QuatEulerRound24(double(sysx) * double(cz));
+    volatile float x = float(QuatEulerRound24(t1 - t2));
+    t1 = QuatEulerRound24(double(sz) * cxsy);
+    t2 = QuatEulerRound24(double(sxcy) * double(cz));
+    volatile float y = float(QuatEulerRound24(t1 + t2));
+    t1 = QuatEulerRound24(cxsy * double(cz));
+    t2 = QuatEulerRound24(double(sxcy) * double(sz));
+    volatile float z = float(QuatEulerRound24(t1 - t2));
+    q[3] = w;
+    q[0] = x;
+    q[1] = y;
+    q[2] = z;
+}
+// --- CQuaternion::Slerp(from, to, t) (0x59C630), prefijo QuatSlerpT ---
+// CAnimBlendNode::CalcTheta (0x4D00E0) en la maquina FlcX87 con el _CIacos del EXE (0x822380) y sus efectos (errno = 33 y NaN indefinido en el dominio |dot| > 1 o NaN).
+// dot = ((from.w*to.w + from.z*to.z) + from.y*to.y) + from.x*to.x a 24 bits; fst [tmp]; fcomp 1.0 ("test ah,41h": solo si dot > 1 se guarda 1.0f en tmp); fld [tmp]; acos;
+// fld st ; fstp [theta] ; fcom 0.0 ("test ah,44h ; jnp": igual a 0 -> 1/sin = 0 y se descarta el acos) ; fsin ; fdivr 1.0 ; fstp [invSin].
+static __declspec(noinline) void QuatSlerpTCalcThetaCpp(const float* from, const float* to, float* theta, float* invSin) {
+    static const float kOne  = 1.0f; // [0x858624]
+    static const float kZero = 0.0f; // [0x858B50]
+    FlcX87 fp;
+    float tmp = 0.0f;
+    fp.Fld(from[3]); fp.Fmul(to[3]);        // 4D00E8
+    fp.Fld(from[2]); fp.Fmul(to[2]);
+    fp.Arith('+', 1, 1, 0, true);           // faddp st(1),st
+    fp.Fld(from[1]); fp.Fmul(to[1]);
+    fp.Arith('+', 1, 1, 0, true);
+    fp.Fld(from[0]); fp.Fmul(to[0]);
+    fp.Arith('+', 1, 1, 0, true);
+    fp.Fst(tmp);                            // 4D0104 fst dword [esp+4]
+    fp.FcomMem(kOne, true);                 // 4D0108 fcomp 1.0
+    if ((fp.Ah() & 0x41) == 0) {
+        tmp = 1.0f;                         // 4D0115 mov [esp+4], 3F800000h (dot > 1)
+    }
+    fp.Fld(tmp);                            // 4D011D
+    FlcCrtAcos(fp);                         // 4D0121 call 0x822380
+    fp.FldSt(0);                            // 4D0126
+    fp.Fstp(*theta);                        // 4D012C fstp [theta]
+    fp.FcomMem(kZero, false);               // 4D012E fcom 0.0
+    const unsigned ah = fp.Ah() & 0x44;
+    if (ah == 0x04 || ah == 0x40) {         // jnp: paridad impar -> igual a cero
+        fp.Pop();                           // 4D014E fstp st(0)
+        *invSin = 0.0f;                     // 4D0150 mov [edx], 0
+    } else {
+        // 4D013B fsin. Con dot == -1 el _CIacos devuelve fldpi de 64 bits (sin redondear a 53) y fsin lo recibe completo: igual que QuaternionGetAxisAngleCpp, ese seno se calcula
+        // con el x87 real a 64 bits de precision (FlcX87::Fsin pasaria el argumento a double).
+        const FlcExt top = fp.St(0);
+        if (top.kind == FLC_NORMAL && top.neg == 0 && top.sig == 0xC90FDAA22168C235ull && top.exp == 1) {
+            const double sine = ExtendedPiSinCpp();
+            fp.Pop();
+            fp.FldExt(FlcFromDoubleExact(sine));
+            fp.state |= FLC_PE;
+            fp.cc &= ~FLC_C2;
+            fp.c1 = false;
+            fp.lastClass = 3;
+        } else {
+            fp.Fsin();
+        }
+        fp.Fdivr(kOne);                     // 4D0141
+        fp.Fstp(*invSin);                   // 4D0147
+    }
+    fp.Commit();
+}
+
+// 0x59C630: thiscall, ret 0Ch. CalcTheta escribe theta e invSin en los huecos de pila de los argumentos from/to (ya copiados a EBX/EDI); luego llama a 0x59C300 (QuaternionSlerpCpp)
+// con (from, to, theta, invSin, t). Ningun llamador del EXE.
+__declspec(noinline) void __cdecl QuatSlerpTCpp(float* out, const float* from, const float* to, float t) {
+    float theta, invSin;
+    QuatSlerpTCalcThetaCpp(from, to, &theta, &invSin);
+    QuaternionSlerpCpp(out, from, to, theta, invSin, t);
+}

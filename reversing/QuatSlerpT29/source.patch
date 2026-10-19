@@ -1,0 +1,104 @@
+diff --git a/source/game_sa/Core/Quaternion.cpp b/source/game_sa/Core/Quaternion.cpp
+index 777d81994..154900736 100644
+--- a/source/game_sa/Core/Quaternion.cpp
++++ b/source/game_sa/Core/Quaternion.cpp
+@@ -37,6 +37,7 @@ void CQuaternion::InjectHooks() {
+     RH_ScopedOverloadedInstall(Set, "matrix", 0x59C3E0, void (CQuaternion::*)(const RwMatrix&));
+     RH_ScopedOverloadedInstall(Set, "axis-angle", 0x59C600, void (CQuaternion::*)(RwV3d*, float));
+     RH_ScopedOverloadedInstall(Slerp, "halftheta", 0x59C300, void (CQuaternion::*)(const CQuaternion&, const CQuaternion&, float, float, float));
++    RH_ScopedOverloadedInstall(Slerp, "t", 0x59C630, void (CQuaternion::*)(const CQuaternion&, const CQuaternion&, float));
+ }
+ 
+ // 0x59C080: quat to matrix. Escribe sólo right (+0x00), up (+0x10) y at (+0x20) del RwMatrix; la aritmética x87 exacta del EXE (2z guardado como float, 2x y 2y en registros,
+@@ -125,9 +126,10 @@ void CQuaternion::Set(RwV3d* axis, float angle) {
+     QuaternionFromAxisAngleCpp(&x, &axis->x, angle);
+ }
+ 
+-// Spherical linear interpolation
++// Spherical linear interpolation (0x59C630): CalcTheta (0x4D00E0, con el _CIacos del EXE) y luego la version de cinco argumentos (0x59C300) con (theta, 1/sin(theta), t)
++// (QuatSlerpTCpp, X87Math).
+ void CQuaternion::Slerp(const CQuaternion& from, const CQuaternion& to, float t) {
+-    ((void(__thiscall*)(CQuaternion*, const CQuaternion&, const CQuaternion&, float))0x59C630)(this, from, to, t);
++    QuatSlerpTCpp(&x, &from.x, &to.x, t);
+ }
+ 
+ // Conjugate of a quat
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 5ace44ecd..7c8723b2d 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -12659,3 +12659,62 @@ __declspec(noinline) unsigned int __cdecl AudioHwPercentPositionCpp(int percent,
+     return Ftol2RegsDblCpp(double(floored), 0u).eax; // ECX de entrada: nadie lo lee tras la llamada
+ }
+ #pragma float_control(pop)
++
++// --- CQuaternion::Slerp(from, to, t) (0x59C630), prefijo QuatSlerpT ---
++// CAnimBlendNode::CalcTheta (0x4D00E0) en la maquina FlcX87 con el _CIacos del EXE (0x822380) y sus efectos (errno = 33 y NaN indefinido en el dominio |dot| > 1 o NaN).
++// dot = ((from.w*to.w + from.z*to.z) + from.y*to.y) + from.x*to.x a 24 bits; fst [tmp]; fcomp 1.0 ("test ah,41h": solo si dot > 1 se guarda 1.0f en tmp); fld [tmp]; acos;
++// fld st ; fstp [theta] ; fcom 0.0 ("test ah,44h ; jnp": igual a 0 -> 1/sin = 0 y se descarta el acos) ; fsin ; fdivr 1.0 ; fstp [invSin].
++static __declspec(noinline) void QuatSlerpTCalcThetaCpp(const float* from, const float* to, float* theta, float* invSin) {
++    static const float kOne  = 1.0f; // [0x858624]
++    static const float kZero = 0.0f; // [0x858B50]
++    FlcX87 fp;
++    float tmp = 0.0f;
++    fp.Fld(from[3]); fp.Fmul(to[3]);        // 4D00E8
++    fp.Fld(from[2]); fp.Fmul(to[2]);
++    fp.Arith('+', 1, 1, 0, true);           // faddp st(1),st
++    fp.Fld(from[1]); fp.Fmul(to[1]);
++    fp.Arith('+', 1, 1, 0, true);
++    fp.Fld(from[0]); fp.Fmul(to[0]);
++    fp.Arith('+', 1, 1, 0, true);
++    fp.Fst(tmp);                            // 4D0104 fst dword [esp+4]
++    fp.FcomMem(kOne, true);                 // 4D0108 fcomp 1.0
++    if ((fp.Ah() & 0x41) == 0) {
++        tmp = 1.0f;                         // 4D0115 mov [esp+4], 3F800000h (dot > 1)
++    }
++    fp.Fld(tmp);                            // 4D011D
++    FlcCrtAcos(fp);                         // 4D0121 call 0x822380
++    fp.FldSt(0);                            // 4D0126
++    fp.Fstp(*theta);                        // 4D012C fstp [theta]
++    fp.FcomMem(kZero, false);               // 4D012E fcom 0.0
++    const unsigned ah = fp.Ah() & 0x44;
++    if (ah == 0x04 || ah == 0x40) {         // jnp: paridad impar -> igual a cero
++        fp.Pop();                           // 4D014E fstp st(0)
++        *invSin = 0.0f;                     // 4D0150 mov [edx], 0
++    } else {
++        // 4D013B fsin. Con dot == -1 el _CIacos devuelve fldpi de 64 bits (sin redondear a 53) y fsin lo recibe completo: igual que QuaternionGetAxisAngleCpp, ese seno se calcula
++        // con el x87 real a 64 bits de precision (FlcX87::Fsin pasaria el argumento a double).
++        const FlcExt top = fp.St(0);
++        if (top.kind == FLC_NORMAL && top.neg == 0 && top.sig == 0xC90FDAA22168C235ull && top.exp == 1) {
++            const double sine = ExtendedPiSinCpp();
++            fp.Pop();
++            fp.FldExt(FlcFromDoubleExact(sine));
++            fp.state |= FLC_PE;
++            fp.cc &= ~FLC_C2;
++            fp.c1 = false;
++            fp.lastClass = 3;
++        } else {
++            fp.Fsin();
++        }
++        fp.Fdivr(kOne);                     // 4D0141
++        fp.Fstp(*invSin);                   // 4D0147
++    }
++    fp.Commit();
++}
++
++// 0x59C630: thiscall, ret 0Ch. CalcTheta escribe theta e invSin en los huecos de pila de los argumentos from/to (ya copiados a EBX/EDI); luego llama a 0x59C300 (QuaternionSlerpCpp)
++// con (from, to, theta, invSin, t). Ningun llamador del EXE.
++__declspec(noinline) void __cdecl QuatSlerpTCpp(float* out, const float* from, const float* to, float t) {
++    float theta, invSin;
++    QuatSlerpTCalcThetaCpp(from, to, &theta, &invSin);
++    QuaternionSlerpCpp(out, from, to, theta, invSin, t);
++}
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index 31932f811..112d437a9 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1510,3 +1510,7 @@ unsigned int __cdecl WndProcTimerPeriodCpp(int frameLimit);
+ // 0x406CE0: fld dword; fstp qword; floor del CRT del EXE (0x8219F0, ruta SSE2: devuelve el resultado en ST0 con fld qword); _ftol2 (0x821B40). Devuelve EAX de _ftol2 (palabra baja del entero
+ // de 64 bits truncado) dejando las banderas acumuladas (PE de los dos productos) y los registros x87 muertos del EXE (T-2 = R, T-1 = fraccion, via Ftol2RegsDblCpp / X87Plant*).
+ unsigned int __cdecl AudioHwPercentPositionCpp(int percent, int length);
++
++// --- CQuaternion::Slerp(from, to, t) (0x59C630), prefijo QuatSlerpT. Anadir al FINAL de X87Math.h ---
++// CalcTheta (0x4D00E0, con el _CIacos del EXE en FlcX87) y luego QuaternionSlerpCpp (0x59C300) con (theta, 1/sin(theta), t).
++void __cdecl QuatSlerpTCpp(float* out, const float* from, const float* to, float t);
