@@ -16,9 +16,12 @@
 // Plantilla: reversing/PartnerChatSeq30 (ABI, hook Virtual, falso con parche de entrada).
 //
 // Banco par a par de UNA funcion, CTaskComplexPartnerDeal::CreateFirstSubTask (0x6823B0, hook virtual: HookRoute con el cuerpo del hook Virtual). El EXE es un unico `jmp 0x681F20`
-// (CTaskComplexPartner::CreateFirstSubTask, hoy todavia en el EXE: el C++ de la DLL lo llama con plugin::CallMethodAndReturn). Original = bytes del EXE con el hook RH apagado; candidato = DLL
-// con SOLO ese hook encendido. SUSTITUIDO por un falso identico en ambos lados (parche de entrada en 0x681F20; el cuerpo de la DLL de CTaskComplexPartner::CreateFirstSubTask no tiene hook y llama a esa
-// direccion): registra (this, ped) y devuelve un valor fijado por el caso. Se exige que 0x681F20 NO salte a la DLL (si algun dia se engancha hay que ampliar el banco: ver README.md).
+// (CTaskComplexPartner::CreateFirstSubTask). Original = bytes del EXE con el hook RH apagado; candidato = DLL con SOLO el hook de Deal encendido.
+// ASUME (API prevista, aun no en HEAD): CTaskComplexPartner::CreateFirstSubTask esta reconstruida en C++ con RH_ScopedVMTInstall(CreateFirstSubTask, 0x681F20) (hook Virtual "V" de la categoria
+// CTaskComplexPartner). Esa base se SUSTITUYE por un falso identico en ambos lados (registra (this, ped) y devuelve un valor fijado por el caso), con el hook de la base decidido POR LADO (patron de
+// reversing/CTaskSimpleJetPack y PickWeap1): ORIGINAL = hook de la base APAGADO (0x681F20 = codigo del EXE) y el falso se parchea en 0x681F20; CANDIDATO = hook de la base ENCENDIDO (0x681F20 salta a la
+// DLL) y el MISMO falso se parchea en el cuerpo real de la DLL de la base (resuelto con el hook ENCENDIDO antes de crear ningun parche). Cada parche se crea DESPUES de fijar el estado del hook de ese lado
+// (State() reescribe los 5 bytes de 0x681F20 y los de la entrada de la DLL) y se destruye antes del siguiente cambio de estado.
 
 namespace PartnerDealFirst31Live {
 using namespace PartnerDealFirst31Fix;
@@ -28,6 +31,8 @@ inline std::ofstream log;
 inline void ModuleMarker() {}
 inline uintptr_t ModuleOf(uintptr_t address) {MEMORY_BASIC_INFORMATION i{};return VirtualQuery(reinterpret_cast<void*>(address),&i,sizeof(i))==sizeof(i)?uintptr_t(i.AllocationBase):0;}
 inline uintptr_t Resolve(uintptr_t address) {for(unsigned i=0;i<16&&*reinterpret_cast<uint8*>(address)==0xE9;++i)address+=5+*reinterpret_cast<int32*>(address+1);return address;}
+// Cuerpo real de una funcion de la DLL (salta los thunks ILT que apuntan dentro de la DLL; se detiene ante un salto al EXE).
+inline uintptr_t Body(uintptr_t p){for(int k=0;k<4&&*reinterpret_cast<const uint8*>(p)==0xE9;++k){const uintptr_t t=p+5+*reinterpret_cast<const int32*>(p+1);if(t>=0x400000&&t<0x1000000)break;p=t;}return p;}
 inline void SaveFP(void* p) {__asm {mov eax,p} __asm {fnsave [eax]} __asm {frstor [eax]}}
 inline void RestoreFP(void* p) {__asm {mov eax,p} __asm {frstor [eax]}}
 inline uint32 ReadMXCSR() {uint32 v{};__asm {stmxcsr v}return v;}
@@ -148,28 +153,54 @@ inline std::array<CallEv,4> calls{};inline unsigned ncalls{};inline u32 gRet{};
 inline u32 __fastcall FakeBase(void* self,void*,u32 ped){if(ncalls<calls.size())calls[ncalls++]=CallEv{u32(uintptr_t(self)),ped};return gRet;}
 inline constexpr uintptr_t kBase=0x681F20;
 
-struct Side {Reg reg{};std::array<uint8,108> fp{};uint32 mxcsr{};bool routeOK{};bool collabOK{};};
+struct Side {Reg reg{};std::array<uint8,108> fp{};uint32 mxcsr{};bool routeOK{};bool collabOK{};bool patchOK{};};
 struct Env {
     uintptr_t asi{},game{};
     std::unique_ptr<HookRoute> route;
-    std::vector<Watch> watches;   // 0x681F20: debe seguir siendo el codigo que era al empezar
+    std::vector<Watch> watches;   // 0x681F20 y la entrada de la DLL de la base, tal como estaban al empezar (estado de produccion): deben recuperarse al final
     bool WatchesIntact()const{return std::ranges::all_of(watches,[](const auto& w){return w.Intact();});}
+    // Hook Virtual de CTaskComplexPartner::CreateFirstSubTask (0x681F20): estado inicial, entrada de la DLL (GetHookOurAddress), cuerpo real resuelto con el hook ENCENDIDO y bytes de referencia por lado
+    ReversibleHooks::ReversibleHook::Base* partner{};
+    bool partnerEnabled{},partnerLocked{},partnerRestored{};
+    uintptr_t partnerOur{},partnerBody{};
+    std::vector<uint8> exeBytes,bodyBytes;   // 16 bytes de 0x681F20 con el hook apagado / del cuerpo con el hook encendido, antes de parchear
+    bool RestorePartner(){
+        if(!partner)return partnerRestored=true;
+        partner->State(partnerEnabled);partner->LockState(partnerLocked);
+        return partnerRestored=partner->Hooked()==partnerEnabled&&partner->Locked()==partnerLocked;
+    }
 };
+inline bool JumpsToExe(uintptr_t at){
+    if(*reinterpret_cast<const uint8*>(at)!=0xE9)return false;
+    const uintptr_t target=at+5+*reinterpret_cast<const int32*>(at+1);
+    return target>=0x400000&&target<0x1000000;
+}
 struct Totals {unsigned pairs{};unsigned failures{};bool passed{true};};
 inline json ResidueJson(const Reg& r){return {{"eax",r.eax},{"ecx",r.ecx},{"edx",r.edx},{"eflags",r.eflags}};}
 
-// Ruta: original = hook apagado; candidato = SOLO el hook de la ruta encendido (cuerpo en el modulo ASI). En ambos lados 0x681F20 debe ser el codigo del EXE (no un salto a la DLL);
-// el falso se instala DESPUES de comprobar rutas.
+// Ruta: original = hook de Deal apagado; candidato = SOLO el hook de Deal encendido (cuerpo en el modulo ASI). El hook de la BASE (0x681F20) se fija por lado: original apagado (0x681F20 = EXE, no salta
+// a la DLL), candidato encendido (0x681F20 salta a la entrada de la DLL de la base y el cuerpo real esta en el ASI). El falso se instala DESPUES de fijar el estado y de comprobar rutas/bytes de referencia,
+// en 0x681F20 (original) o en el cuerpo de la DLL (candidato); el mismo FakeBase en los dos.
 template<class Fn> Side Execute(Env& env,HookRoute& route,uintptr_t entry,bool candidate,Fn gate) {
     Side side{};
     auto call=[&]{
         side.routeOK=candidate?(ReversingProbe::JumpsToDll(entry)&&ModuleOf(Resolve(entry))==env.asi):!ReversingProbe::JumpsToDll(entry);
-        side.collabOK=!ReversingProbe::JumpsToDll(kBase)&&ModuleOf(Resolve(kBase))!=env.asi;
+        env.partner->State(candidate);   // los parches se crean DESPUES de este cambio (State reescribe 0x681F20 y la entrada de la DLL)
+        const uintptr_t at=candidate?env.partnerBody:kBase;
+        const auto before=ReversingProbe::Bytes(reinterpret_cast<void*>(at),16);
+        if(candidate) {
+            const uintptr_t hop=kBase+5+*reinterpret_cast<const int32*>(kBase+1);
+            side.collabOK=env.partner->Hooked()&&ReversingProbe::JumpsToDll(kBase)&&hop==env.partnerOur&&ModuleOf(Resolve(kBase))==env.asi
+                &&ModuleOf(env.partnerBody)==env.asi&&!JumpsToExe(env.partnerBody)&&before==env.bodyBytes;
+        } else {
+            side.collabOK=!env.partner->Hooked()&&!ReversingProbe::JumpsToDll(kBase)&&ModuleOf(Resolve(kBase))!=env.asi&&before==env.exeBytes;
+        }
         {
             std::optional<ReversingProbe::EntryPatch> patch;
-            patch.emplace(kBase,&FakeBase);
+            patch.emplace(at,&FakeBase);
             side.reg=gate(entry);
         }
+        side.patchOK=before==ReversingProbe::Bytes(reinterpret_cast<void*>(at),16);
         SaveFP(side.fp.data());side.mxcsr=ReadMXCSR();
         return 0;
     };
@@ -223,10 +254,9 @@ inline void CaseFirst(Env& env,Totals& t,unsigned n) {
         obs["this_changes"]=thisChanges;
         if(kCompareVolatileRegisters){obs["ecx"]=sides[s].reg.ecx;obs["edx"]=sides[s].reg.edx;}
         auto fp=NormalizeFp(sides[s].fp);
-        const bool watchesIntact=env.WatchesIntact();
         json out=CommonRow(sides[s],fp);out["observed"]=obs;
         RestoreFloatingState();
-        out["globals_restored"]=watchesIntact&&env.WatchesIntact();
+        out["globals_restored"]=sides[s].patchOK;
         out["floating_state_restored"]=FloatingStateRestored();
         rows[s]=out;
     }
@@ -237,24 +267,38 @@ inline void CaseFirst(Env& env,Totals& t,unsigned n) {
 inline void Run(Env& env,bool ready,const json& registered,const json& bodies) {
     const uintptr_t body=env.route?env.route->Body():0;
     ready&=body&&ModuleOf(body)==env.asi;
+    // ---- hook Virtual de la base (0x681F20): estado inicial -> vigilancia -> cuerpo con el hook ENCENDIDO -> bytes de referencia con el hook APAGADO (antes de crear ningun parche)
+    ready&=env.partner&&env.partnerOur;
     env.watches.emplace_back(kBase,16);
+    if(env.partnerOur)env.watches.emplace_back(env.partnerOur,16);
     json watched=json::array();for(const auto& w:env.watches)watched.push_back({{"address",w.address},{"bytes",HexBytes(reinterpret_cast<void*>(w.address),16)}});
-    ready&=!ReversingProbe::JumpsToDll(kBase);
+    if(env.partner) {
+        env.partnerEnabled=env.partner->Hooked();env.partnerLocked=env.partner->Locked();env.partner->LockState(false);
+        env.partner->State(true);
+        env.partnerBody=Body(env.partnerOur);env.bodyBytes=ReversingProbe::Bytes(reinterpret_cast<void*>(env.partnerBody),16);
+        ready&=env.partner->Hooked()&&ReversingProbe::JumpsToDll(kBase)&&env.partnerBody>=0x1000000&&ModuleOf(env.partnerBody)==env.asi&&!JumpsToExe(env.partnerBody);
+        env.partner->State(false);
+        env.exeBytes=ReversingProbe::Bytes(reinterpret_cast<void*>(kBase),16);
+        ready&=!env.partner->Hooked()&&!ReversingProbe::JumpsToDll(kBase)&&ModuleOf(Resolve(kBase))!=env.asi;
+    }
     SaveFP(savedFP.data());savedMXCSR=ReadMXCSR();savedFPActive=true;
     Write({{"event","begin"},{"registered_hook",ready},{"registered",registered},{"functions",1},{"pairs",kCases},
         {"cases",{{"CTaskComplexPartnerDeal::CreateFirstSubTask",kCases}}},
         {"direct_functions",json::array()},{"compare_dead_x87_registers",kCompareDeadX87Registers},{"compare_volatile_registers",kCompareVolatileRegisters},
         {"x87_comparison","fcw+top+ftw+valid_st; ignora FSW banderas/CC, FIP/FDP y registros vacios; MXCSR sin banderas"},{"collaborators_stubbed",true},
-        {"collaborators",{{"dll_real",json::array()},{"stubbed",json::array({json{{"exe",kBase},{"dll",0}}})}}},
+        {"collaborators",{{"dll_real",json::array()},{"stubbed",json::array({json{{"exe",kBase},{"dll",env.partnerBody}}})}}},
+        {"partner_hook",{{"registered",env.partner!=nullptr},{"our_address",env.partnerOur},{"body",env.partnerBody},{"enabled_initially",env.partnerEnabled},{"locked_initially",env.partnerLocked}}},
         {"watched_entries",watched},{"bodies",bodies},{"asi_module",env.asi},{"original_module",env.game},
         {"initial_fp",HexBytes(savedFP.data(),108)},{"initial_mxcsr",savedMXCSR}});
     Totals totals;
     if(ready) {
         for(unsigned c=0;c<kCases;++c)CaseFirst(env,totals,c);
+        env.RestorePartner();   // antes del resumen: el hook de la base vuelve a su estado inicial y se comprueba la vigilancia de 0x681F20 / entrada de la DLL
         Write({{"event","function_summary"},{"function","CTaskComplexPartnerDeal::CreateFirstSubTask"},{"cases",kCases},{"failures",totals.failures},{"state_restored",env.WatchesIntact()}});
     }
     const bool entriesIntact=env.WatchesIntact();
     bool stateRestored=entriesIntact;
+    stateRestored&=env.RestorePartner()&&env.WatchesIntact();
     if(env.route)stateRestored&=env.route->Restore();
     RestoreFloatingState();stateRestored&=FloatingStateRestored();
     Write({{"event","global_state_final"},{"floating_state",HexBytes(savedFP.data(),108)},{"mxcsr",ReadMXCSR()},{"state_restored",stateRestored},{"watched_intact",entriesIntact}});

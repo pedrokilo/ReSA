@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,714 entradas reversed=1**, de 8,714 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,715 entradas reversed=1**, de 8,715 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8714 |
+| `validated=1` · evidencia aprobada vinculada | 8715 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8714 |
+| Evidencia histórica vinculada; revisión pendiente | 8715 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -5787,20 +5787,20 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexKillPedOnFootMelee | `Destructor` | [Resumen](../reversing/CTasks10a/validation-summary.json) |
 | CTaskComplexKillPedOnFootMelee | `GetTaskType` | [Resumen](../reversing/CTasks10a/validation-summary.json) |
 | CTaskComplexKillPedOnFootMelee | `MakeAbortable` | [Resumen](../reversing/CTasks10a/validation-summary.json) |
-| CTaskComplexKillPedOnFootStealth | `Clone` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexKillPedOnFootStealth | `Constructor` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexKillPedOnFootStealth | `ControlSubTask` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexKillPedOnFootStealth | `CreateFirstSubTask` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexKillPedOnFootStealth | `CreateNextSubTask` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexKillPedOnFootStealth | `Destructor` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexKillPedOnFootStealth | `GetTaskType` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexLeaveAnyCar | `Clone` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexLeaveAnyCar | `Constructor` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexLeaveAnyCar | `ControlSubTask` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexLeaveAnyCar | `CreateFirstSubTask` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexLeaveAnyCar | `CreateNextSubTask` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexLeaveAnyCar | `Destructor` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexLeaveAnyCar | `GetTaskType` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
+| CTaskComplexKillPedOnFootStealth | `Clone` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexKillPedOnFootStealth | `Constructor` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexKillPedOnFootStealth | `ControlSubTask` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexKillPedOnFootStealth | `CreateFirstSubTask` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexKillPedOnFootStealth | `CreateNextSubTask` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexKillPedOnFootStealth | `Destructor` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexKillPedOnFootStealth | `GetTaskType` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexLeaveAnyCar | `Clone` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexLeaveAnyCar | `Constructor` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexLeaveAnyCar | `ControlSubTask` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexLeaveAnyCar | `CreateFirstSubTask` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexLeaveAnyCar | `CreateNextSubTask` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexLeaveAnyCar | `Destructor` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexLeaveAnyCar | `GetTaskType` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
 | CTaskComplexLeaveBoat | `Clone` | [Resumen](../reversing/CTasks8b/validation-summary.json) |
 | CTaskComplexLeaveBoat | `Constructor` | [Resumen](../reversing/CTasks8b/validation-summary.json) |
 | CTaskComplexLeaveBoat | `ControlSubTask` | [Resumen](../reversing/CTasks8b/validation-summary.json) |
@@ -5886,20 +5886,21 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexOpenPassengerDoor | `Destructor` | [Resumen](../reversing/CTasks61a/validation-summary.json) |
 | CTaskComplexOpenPassengerDoor | `GetTaskType` | [Resumen](../reversing/CTasks61a/validation-summary.json) |
 | CTaskComplexPartner | `Constructor` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
+| CTaskComplexPartner | `CreateFirstSubTask` | [Resumen](../reversing/PartnerFirstSub31/validation-summary.json) |
 | CTaskComplexPartnerChat | `Constructor` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
 | CTaskComplexPartnerChat | `GetPartnerSequence` | [Resumen](../reversing/PartnerChatSeq30/validation-summary.json) |
 | CTaskComplexPartnerChat | `MakeAbortable` | [Resumen](../reversing/PartnerChatAbort30/validation-summary.json) |
 | CTaskComplexPartnerDeal | `Constructor` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
-| CTaskComplexPartnerDeal | `CreateFirstSubTask` | [Resumen](../reversing/PartnerDealFirst31/validation-summary.json) |
+| CTaskComplexPartnerDeal | `CreateFirstSubTask` | [Resumen](../reversing/PartnerDealFirst31/validation-summary-reval-20261019.json) |
 | CTaskComplexPartnerDeal | `GetPartnerSequence` | [Resumen](../reversing/PartnerDealSeq31/validation-summary.json) |
 | CTaskComplexPartnerDeal | `StreamRequiredAnims` | [Resumen](../reversing/PartnerDealAnims31/validation-summary.json) |
-| CTaskComplexPartnerGreet | `Clone` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexPartnerGreet | `Constructor` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexPartnerGreet | `CreateFirstSubTask` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexPartnerGreet | `Destructor` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexPartnerGreet | `GetPartnerSequence` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexPartnerGreet | `GetTaskType` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexPartnerGreet | `StreamRequiredAnims` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
+| CTaskComplexPartnerGreet | `Clone` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexPartnerGreet | `Constructor` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexPartnerGreet | `CreateFirstSubTask` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexPartnerGreet | `Destructor` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexPartnerGreet | `GetPartnerSequence` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexPartnerGreet | `GetTaskType` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexPartnerGreet | `StreamRequiredAnims` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
 | CTaskComplexPartnerShove | `Constructor` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
 | CTaskComplexPartnerShove | `GetPartnerSequence` | [Resumen](../reversing/PartnerShoveSeq28/validation-summary.json) |
 | CTaskComplexPassObject | `AbortIK` | [Resumen](../reversing/CTasks9c/validation-summary.json) |
@@ -5990,13 +5991,13 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset> | `GetTaskType` | [Resumen](../reversing/CTasks9d/validation-summary.json) |
 | CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset> | `MakeAbortable` | [Resumen](../reversing/CTasks9d/validation-summary.json) |
 | CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset> | `SetMaxEntityDist2D` | [Resumen](../reversing/DependenciesWorld9/validation-summary.json) |
-| CTaskComplexSeekEntityAiming | `Clone` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexSeekEntityAiming | `Constructor` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexSeekEntityAiming | `ControlSubTask` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexSeekEntityAiming | `CreateFirstSubTask` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexSeekEntityAiming | `CreateNextSubTask` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexSeekEntityAiming | `Destructor` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexSeekEntityAiming | `GetTaskType` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
+| CTaskComplexSeekEntityAiming | `Clone` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexSeekEntityAiming | `Constructor` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexSeekEntityAiming | `ControlSubTask` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexSeekEntityAiming | `CreateFirstSubTask` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexSeekEntityAiming | `CreateNextSubTask` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexSeekEntityAiming | `Destructor` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexSeekEntityAiming | `GetTaskType` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
 | CTaskComplexSeekEntityAnyMeansXYOffset | `Clone` | [Resumen](../reversing/CTasks43/validation-summary.json) |
 | CTaskComplexSeekEntityAnyMeansXYOffset | `ControlSubTask` | [Resumen](../reversing/CTasks43/validation-summary.json) |
 | CTaskComplexSeekEntityAnyMeansXYOffset | `CreateFirstSubTask` | [Resumen](../reversing/CTasks43/validation-summary.json) |
@@ -6059,13 +6060,13 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexSitDownThenIdleThenStandUp | `Destructor` | [Resumen](../reversing/CTasks9c/validation-summary.json) |
 | CTaskComplexSitDownThenIdleThenStandUp | `GetTaskType` | [Resumen](../reversing/CTasks9c/validation-summary.json) |
 | CTaskComplexSitDownThenIdleThenStandUp | `MakeAbortable` | [Resumen](../reversing/CTasks9c/validation-summary.json) |
-| CTaskComplexSmartFleeEntity | `Clone` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexSmartFleeEntity | `Constructor` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexSmartFleeEntity | `ControlSubTask` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexSmartFleeEntity | `CreateFirstSubTask` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexSmartFleeEntity | `CreateNextSubTask` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexSmartFleeEntity | `Destructor` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
-| CTaskComplexSmartFleeEntity | `GetTaskType` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
+| CTaskComplexSmartFleeEntity | `Clone` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexSmartFleeEntity | `Constructor` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexSmartFleeEntity | `ControlSubTask` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexSmartFleeEntity | `CreateFirstSubTask` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexSmartFleeEntity | `CreateNextSubTask` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexSmartFleeEntity | `Destructor` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
+| CTaskComplexSmartFleeEntity | `GetTaskType` | [Resumen](../reversing/CTasks7b/validation-summary-reval-20261019.json) |
 | CTaskComplexSmartFleePoint | `Clone` | [Resumen](../reversing/SmartFlee355/validation-summary.json) |
 | CTaskComplexSmartFleePoint | `ComputeFleeDir` | [Resumen](../reversing/SmartFlee355/validation-summary.json) |
 | CTaskComplexSmartFleePoint | `Constructor` | [Resumen](../reversing/RequestedPreflightTasks/validation-summary.json) |
@@ -9243,7 +9244,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexOnFire` | 9 | 0 | 9 | 0 |
 | `CTaskComplexOpenDriverDoor` | 4 | 0 | 4 | 0 |
 | `CTaskComplexOpenPassengerDoor` | 4 | 0 | 4 | 0 |
-| `CTaskComplexPartner` | 1 | 0 | 1 | 0 |
+| `CTaskComplexPartner` | 2 | 0 | 2 | 0 |
 | `CTaskComplexPartnerChat` | 3 | 0 | 3 | 0 |
 | `CTaskComplexPartnerDeal` | 4 | 0 | 4 | 0 |
 | `CTaskComplexPartnerGreet` | 7 | 0 | 7 | 0 |

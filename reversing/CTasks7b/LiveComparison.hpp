@@ -20,6 +20,8 @@
 #include <unordered_map>
 #include <reversiblehooks/RootHookCategory.h>
 #include <reversiblehooks/ReversibleHook/Base.h>
+#include <reversiblehooks/ReversibleHook/Virtual.h>
+#include "TaskComplexPartner.h"
 #include "Tasks/Task.h"
 #include "Tasks/TaskComplexSequence.h"
 #include "TaskComplexKillPedOnFootStealth.h"
@@ -162,6 +164,55 @@ inline CEvent* __fastcall FakeEventAdd(void* grp,void*,CEvent* e,uint32 valid) {
     return nullptr;
 }
 
+// CTaskComplexPartner::CreateFirstSubTask (0x681F20) esta reconstruida en C++ con hook Virtual: con el hook ENCENDIDO 0x681F20 salta a la DLL y la DLL la llama directamente (cuerpo C++); apagado, la entrada
+// de la DLL salta a 0x681F20. El mismo falso FakePartnerFirst se parchea por lado: original = hook apagado + falso en 0x681F20; candidato = hook encendido + falso en el cuerpo de la DLL (resuelto con el hook
+// encendido antes de crear parches). State() reescribe 0x681F20 y la entrada de la DLL, y EntryPatch::Enable(false) escribe los bytes guardados al construir: por eso el orden de Set() es estricto
+// (desactivar el parche del estado que se abandona ANTES de cambiar el hook; activar el del nuevo estado DESPUES). Finish() deshace en el orden seguro (cada parche se destruye en el estado en que se creo).
+struct PartnerSwitch {
+    ReversibleHooks::ReversibleHook::Base* hook{}; uintptr_t our{},body{},asi{},fakeAddr{}; bool enabled0{},locked0{},on{};
+    std::vector<uint8> exeBytes,bodyBytes;
+    std::optional<ReversingProbe::EntryPatch> exeFake,bodyFake;
+    static uintptr_t BodyOf(uintptr_t p){for(int k=0;k<4&&*reinterpret_cast<const uint8*>(p)==0xE9;++k){const uintptr_t t=p+5+*reinterpret_cast<const int32*>(p+1);if(t>=0x400000&&t<0x1000000)break;p=t;}return p;}
+    static uintptr_t ModuleOf(uintptr_t a){MEMORY_BASIC_INFORMATION i{};return VirtualQuery(reinterpret_cast<void*>(a),&i,sizeof(i))==sizeof(i)?uintptr_t(i.AllocationBase):0;}
+    bool Init(ReversibleHooks::ReversibleHook::Base* h,uintptr_t asi,void* fake){   // hook ya encontrado; false si no es el hook Virtual esperado
+        hook=h; this->asi=asi; fakeAddr=uintptr_t(fake); if(!hook||strcmp(hook->Symbol(),"V"))return false;
+        our=uintptr_t(static_cast<ReversibleHooks::ReversibleHook::Virtual*>(hook)->GetHookOurAddress());
+        enabled0=hook->Hooked(); locked0=hook->Locked(); hook->LockState(false);
+        hook->State(true);                                   // cuerpo con el hook ENCENDIDO, antes de crear ningun parche
+        body=BodyOf(our); bodyBytes=ReversingProbe::Bytes(reinterpret_cast<void*>(body),16);
+        bool ok=hook->Hooked()&&ReversingProbe::JumpsToDll(0x681F20)&&body>=0x1000000&&ModuleOf(body)==asi&&!(*reinterpret_cast<uint8*>(body)==0xE9&&body+5+*reinterpret_cast<int32*>(body+1)<0x1000000&&body+5+*reinterpret_cast<int32*>(body+1)>=0x400000);
+        bodyFake.emplace(body,fake); bodyFake->Enable(false);   // guarda los bytes reales del cuerpo (hook encendido)
+        hook->State(false); on=false;
+        exeBytes=ReversingProbe::Bytes(reinterpret_cast<void*>(0x681F20),16);
+        ok&=!hook->Hooked()&&!ReversingProbe::JumpsToDll(0x681F20);
+        exeFake.emplace(uintptr_t(0x681F20),fake);           // activo: estado apagado = original
+        return ok;
+    }
+    void Set(bool want){
+        if(want==on)return;
+        if(want){ exeFake->Enable(false); hook->State(true); bodyFake->Enable(true); }
+        else    { bodyFake->Enable(false); hook->State(false); exeFake->Enable(true); }
+        on=want;
+    }
+    // la base esta en el estado del lado: hook en ese estado, 0x681F20 salta a la DLL solo en el candidato y el parche del lado esta puesto
+    bool SideOK(bool candidate) const {
+        if(hook->Hooked()!=candidate||on!=candidate)return false;
+        if(candidate){ const uintptr_t hop=0x681F20+5+*reinterpret_cast<const int32*>(0x681F21); return ReversingProbe::JumpsToDll(0x681F20)&&hop==our&&ModuleOf(body)==asi&&ModuleOf(our)==asi; }
+        // original: hook apagado y 0x681F20 lleva el parche del falso (E9 -> FakePartnerFirst, que esta en el ASI, asi que JumpsToDll seria true: se comprueba el destino exacto)
+        const bool patched=*reinterpret_cast<const uint8*>(0x681F20)==0xE9&&uintptr_t(0x681F20+5+*reinterpret_cast<const int32*>(0x681F21))==fakeAddr;
+        return patched;
+    }
+    bool Finish(){   // devuelve true si 0x681F20 y el cuerpo vuelven a sus bytes y el hook a su estado inicial
+        if(!hook)return true;
+        Set(false); exeFake.reset();                         // hook apagado: restaura los bytes del EXE
+        const bool exeOK=ReversingProbe::Bytes(reinterpret_cast<void*>(0x681F20),16)==exeBytes;
+        hook->State(true); bodyFake.reset();                 // hook encendido: restaura los bytes reales del cuerpo
+        const bool bodyOK=ReversingProbe::Bytes(reinterpret_cast<void*>(body),16)==bodyBytes;
+        hook->State(enabled0); hook->LockState(locked0); on=enabled0;
+        return exeOK&&bodyOK&&hook->Hooked()==enabled0&&hook->Locked()==locked0;
+    }
+};
+
 inline std::vector<bool> Occupancy() { auto* p=GetTaskPool(); std::vector<bool> r(p->GetSize()); for(size_t k=0;k<r.size();++k)r[k]=!p->IsFreeSlotAtIndex(k); return r; }
 inline ReversibleHooks::ReversibleHook::Base* FindHook(const char* cls,const char* fn) {
     ReversibleHooks::ReversibleHook::Base* r{};
@@ -240,12 +291,12 @@ inline void Update() {
     const std::vector<uint8> statesStart(PoolStates(),PoolStates()+PoolCap());
     std::array<bool,NFNS> enabled{},locked{};
     for(size_t f=0;f<fns.size();++f){enabled[f]=hooks[f]->Hooked();locked[f]=hooks[f]->Locked();hooks[f]->LockState(false);}
-    bool passed=true; int pair=0;
+    bool passed=true, partnerOK=true; int pair=0;
     {
         using ReversingProbe::EntryPatch; using std::bit_cast;
         EntryPatch r1(bit_cast<uintptr_t>(&CGeneral::GetRandomNumber),FakeRandomNumber), r1e(0x821B1E,FakeRand);
         EntryPatch s1(bit_cast<uintptr_t>(static_cast<int16(CPed::*)(eGlobalSpeechContext,uint32,float,bool,bool,bool)>(&CPed::Say)),FakeSay), s1e(0x5EFFE0,FakeSay);
-        EntryPatch k1e(0x62B490,FakeKpofFirst), k2e(0x626260,FakeKpofControl), k3e(0x625E70,FakeKpofSub), p1e(0x681F20,FakePartnerFirst);
+        EntryPatch k1e(0x62B490,FakeKpofFirst), k2e(0x626260,FakeKpofControl), k3e(0x625E70,FakeKpofSub);
         EntryPatch g1(bit_cast<uintptr_t>(&CPedGeometryAnalyser::CanPedTargetPed),FakeCanTarget), g1e(0x5F1C40,FakeCanTarget);
         EntryPatch g2(bit_cast<uintptr_t>(&CPedIntelligence::CanSeeEntityWithLights),FakeCanSee), g2e(0x605550,FakeCanSee);
         EntryPatch a1(bit_cast<uintptr_t>(&CTaskComplexGangLeader::ShouldLoadGangAnims),FakeShouldLoad), a1e(0x65E7F0,FakeShouldLoad);
@@ -260,6 +311,12 @@ inline void Update() {
         EntryPatch f1(bit_cast<uintptr_t>(&CTaskComplexSmartFleePoint::SetFleePosition),FakeSetFlee), f1e(0x65C3C0,FakeSetFlee);
         EntryPatch e1(bit_cast<uintptr_t>(static_cast<CEvent*(CEventGroup::*)(CEvent*,bool)>(&CEventGroup::Add)),FakeEventAdd), e1e(0x4AB420,FakeEventAdd);
 
+        PartnerSwitch partner;
+        if(!partner.Init(FindHook("CTaskComplexPartner","CreateFirstSubTask"),PartnerSwitch::ModuleOf(uintptr_t(&FakePartnerFirst)),reinterpret_cast<void*>(&FakePartnerFirst))){
+            Write({{"event","error"},{"reason","partner hook (CTaskComplexPartner::CreateFirstSubTask 0x681F20) missing or not Virtual/consistent"},{"our",partner.our},{"body",partner.body}});
+            partner.Finish(); for(size_t f=0;f<fns.size();++f)hooks[f]->LockState(locked[f]); return; }
+        Write({{"event","partner_hook"},{"our",partner.our},{"body",partner.body},{"enabled_initially",partner.enabled0},{"locked_initially",partner.locked0}});
+        auto SetAll=[&](bool on){ for(auto* h:hooks)h->State(on); partner.Set(on); };
         for(size_t f=0;f<fns.size();++f) {
             const auto& fn=fns[f]; int failures=0; const std::string cls=fn.cls, nm=fn.name, full=cls+"::"+nm;
             if(!only.empty()&&only!=full)continue;
@@ -306,13 +363,14 @@ inline void Update() {
                     kpofFirstRet=uintptr_t(Fake(2)); kpofControlRet=uintptr_t(Fake(3)); kpofSubRet=next()%2 ? uintptr_t(Fake(2)) : 0; partnerFirstRet=next()%2 ? uintptr_t(Fake(2)) : 0;
 
                     const auto occ=Occupancy();
-                    for(auto* h:hooks)h->State(candidate);
+                    SetAll(candidate);
                     const auto vt=reinterpret_cast<uintptr_t*>(fn.vt); const uintptr_t target=fn.slot>=0 ? vt[fn.slot] : fn.address;
-                    const bool switches=fn.slot>=0 ? ((target>=0x400000&&target<0x1000000)!=candidate) : (ReversingProbe::JumpsToDll(fn.address)==candidate);
+                    const bool switchesFn=fn.slot>=0 ? ((target>=0x400000&&target<0x1000000)!=candidate) : (ReversingProbe::JumpsToDll(fn.address)==candidate);
+                    const bool switches=switchesFn&&partner.SideOK(candidate);
                     json out={{"switches",switches}}; json ret=nullptr; std::vector<CTask*> roots;
                     auto* o=object.data(); auto* p0=Ped(0);
                     auto collectFresh=[&](CTask* r){
-                        for(auto* h:hooks)h->State(false);
+                        SetAll(false);
                         auto* pool=GetTaskPool(); std::vector<CTask*> fresh;
                         for(size_t k=0;k<occ.size();++k)if(!occ[k]&&!pool->IsFreeSlotAtIndex(k)){fresh.push_back(pool->GetAt(k));freshIds[uintptr_t(pool->GetAt(k))]=int(fresh.size()-1);}
                         json tasks=json::array(); for(auto* t:fresh)tasks.push_back(SerTask(t,-1)); out["tasks"]=tasks;
@@ -340,7 +398,7 @@ inline void Update() {
                         if(nm=="Constructor"){
                             CPed* t=static_cast<CPed*>(next()%4 ? pickEntity(false) : nullptr);
                             ret=Name(reinterpret_cast<void*(__thiscall*)(void*,CPed*)>(target)(o,t));
-                            for(auto* h:hooks)h->State(false);
+                            SetAll(false);
                             out["object"]=Region(o,0x48,true); out["type"]=typeOf(o);
                         } else {
                             setTask(VT_KPS,0x48);
@@ -357,7 +415,7 @@ inline void Update() {
                                 if(nm=="ControlSubTask"&&next()%8==0){ At<CPed*>(o,0x10)=nullptr; CleanRefs(); }
                                 auto* r=callTask(p0); collectFresh(r); ret=Name(r);
                             }
-                            for(auto* h:hooks)h->State(false);
+                            SetAll(false);
                             out["object"]=Region(o,0x48,true); out["sub"]=Region(fakes[0].data(),0x30,true);
                         }
                         out["refs"]=AllRefs();
@@ -367,7 +425,7 @@ inline void Update() {
                         if(nm=="Constructor"){
                             const int32 delay=next()%4 ? int32(next()%3000) : -int32(next()%100); const uint32 a=next()%2, b=next()%2;
                             ret=Name(reinterpret_cast<void*(__thiscall*)(void*,int32,uint32,uint32)>(target)(o,delay,a|(next()&0xFF00),b|(next()&0xFF00)));
-                            for(auto* h:hooks)h->State(false);
+                            SetAll(false);
                             out["object"]=Region(o,0x14,true); out["type"]=typeOf(o);
                         } else {
                             setTask(VT_LAC,0x14);
@@ -379,7 +437,7 @@ inline void Update() {
                                 inVeh(p0,next()%4!=0); At<CVehicle*>(p0,P_VEHICLE)=next()%4 ? Veh(int(next()%NVEH)) : nullptr;
                                 auto* r=callTask(p0); collectFresh(r); ret=Name(r);
                             }
-                            for(auto* h:hooks)h->State(false);
+                            SetAll(false);
                             out["object"]=Region(o,0x14,true);
                         }
                         out["refs"]=AllRefs();
@@ -393,7 +451,7 @@ inline void Update() {
                             CPed* part=static_cast<CPed*>(next()%4 ? pickEntity(false) : nullptr); const uint32 lead=next()%2; const float dist=next()%3 ? uni(0.f,3.f) : 1.f;
                             const int32 hs=int32(next()%8)-1; const CVector pt{uni(-30.f,30.f),uni(-30.f,30.f),uni(0.f,10.f)};
                             ret=Name(reinterpret_cast<void*(__thiscall*)(void*,const char*,CPed*,uint32,float,int32,CVector)>(target)(o,cmd,part,lead,dist,hs,pt));
-                            for(auto* h:hooks)h->State(false);
+                            SetAll(false);
                             out["object"]=Region(o,0x78,true); out["type"]=typeOf(o);
                         } else {
                             setTask(VT_PG,0x78); setName();
@@ -408,7 +466,7 @@ inline void Update() {
                                 static const int32 types[]{TASK_SIMPLE_PAUSE,TASK_COMPLEX_SEQUENCE};
                                 setSub(types,2,false); auto* r=callTask(p0); collectFresh(r); ret=Name(r);
                             }
-                            for(auto* h:hooks)h->State(false);
+                            SetAll(false);
                             out["object"]=Region(o,0x78,true);
                         }
                         out["refs"]=AllRefs();
@@ -418,7 +476,7 @@ inline void Update() {
                         if(nm=="Constructor"){
                             CEntity* e=pickEntity(true); const float sr=next()%3 ? uni(0.f,20.f) : 5.f, ar=next()%3 ? uni(0.f,20.f) : 10.f;
                             ret=Name(reinterpret_cast<void*(__thiscall*)(void*,CEntity*,float,float)>(target)(o,e,sr,ar));
-                            for(auto* h:hooks)h->State(false);
+                            SetAll(false);
                             out["object"]=Region(o,0x18,true); out["type"]=typeOf(o);
                         } else {
                             setTask(VT_SEA,0x18);
@@ -447,7 +505,7 @@ inline void Update() {
                                     if(slot&&freshIds.contains(uintptr_t(slot))){ roots.push_back(slot); At<CTask*>(intels[0].data(),I_ATTACK)=nullptr; }
                                 }
                             }
-                            for(auto* h:hooks)h->State(false);
+                            SetAll(false);
                             out["object"]=Region(o,0x18,true); out["sub"]=Region(fakes[0].data(),0x30,true);
                         }
                         out["refs"]=AllRefs();
@@ -460,7 +518,7 @@ inline void Update() {
                             CEntity* e=pickEntity(true); const uint32 scream=next()%2; const float safe=uni(0.f,100.f); const int32 time=next()%3 ? 1000000 : int32(next()%20000);
                             const int32 period=next()%4 ? 1000 : int32(next()%3000)-500; const float tol=next()%3 ? 1.f : uni(0.f,5.f);
                             ret=Name(reinterpret_cast<void*(__thiscall*)(void*,CEntity*,uint32,float,int32,int32,float)>(target)(o,e,scream|(next()&0xFF00),safe,time,period,tol));
-                            for(auto* h:hooks)h->State(false);
+                            SetAll(false);
                             out["object"]=Region(o,0x40,true); out["type"]=typeOf(o);
                         } else {
                             setTask(VT_SFE,0x40);
@@ -486,12 +544,12 @@ inline void Update() {
                                 }
                                 auto* r=callTask(p0); collectFresh(r); ret=Name(r);
                             }
-                            for(auto* h:hooks)h->State(false);
+                            SetAll(false);
                             out["object"]=Region(o,0x40,true); out["sub"]=Region(fakes[0].data(),0x30,true);
                         }
                         out["refs"]=AllRefs();
                     }
-                    for(auto* h:hooks)h->State(false);
+                    SetAll(false);
                     // limpieza: tareas nuevas alcanzables (raices) y referencias; despues el pool debe quedar como antes
                     const size_t traceBefore=trace.size();
                     for(auto* t:roots)delete t;
@@ -513,12 +571,13 @@ inline void Update() {
             }
             Write({{"event","function_summary"},{"function",full},{"failures",failures},{"cases",fn.cases}});
         }
+        partnerOK=partner.Finish();   // 0x681F20, cuerpo de la DLL y hook de la base (estado y bloqueo) restaurados
     }
     CleanRefs(); restoreGlobals(); PoolLast()=lf0;
     for(int32 k=0;k<PoolCap();++k)if(PoolStates()[k]&0x80)std::memset(PoolStorage()+k*TASK_SLOT,0xCD,TASK_SLOT);
     for(size_t f=0;f<fns.size();++f){hooks[f]->State(enabled[f]);hooks[f]->LockState(locked[f]);}
-    const bool restored=Occupancy()==occupancyStart&&freeRefs()==savedFree&&globalsIntact();
+    const bool restored=Occupancy()==occupancyStart&&freeRefs()==savedFree&&globalsIntact()&&partnerOK;
     if(restored)std::memcpy(PoolStates(),statesStart.data(),statesStart.size());
-    Write({{"event",passed&&restored ? "complete":"error"},{"pairs",pair},{"state_restored",restored}});
+    Write({{"event",passed&&restored ? "complete":"error"},{"pairs",pair},{"state_restored",restored},{"partner_restored",partnerOK}});
 }
 }

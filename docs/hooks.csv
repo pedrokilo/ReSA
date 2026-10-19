@@ -8713,3 +8713,4 @@ CTaskComplexWalkRoundObject,CreateNextSubTask,0x00000000,1,0,1,V
 CTaskSimpleFight,LoadMeleeData,0x005BEDC0,1,0,1,S
 CTaskSimpleFight,MakeAbortable,0x00000000,1,0,1,V
 CTaskSimpleFight,ProcessPed,0x00000000,1,0,1,V
+CTaskComplexPartner,CreateFirstSubTask,0x00000000,1,0,1,V

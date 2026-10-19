@@ -1,7 +1,7 @@
 """Compuertas independientes del banco PartnerDealFirst31 (CTaskComplexPartnerDeal::CreateFirstSubTask 0x6823B0), 4096 pares.
 
 Ademas de la igualdad EXE/DLL fila a fila (probe_case.analyzer), exige: hook virtual registrado y cuerpo en el ASI, todas las compuertas de ABI/ruta/DF/SEH/restauracion en AMBOS
-lados (route_ok incluye que la entrada 0x6823B0 salte a la DLL solo en el candidato; collaborators_dll exige que 0x681F20 siga siendo codigo del EXE en ambos lados, porque ahi se instala el falso),
+lados (route_ok incluye que la entrada 0x6823B0 salte a la DLL solo en el candidato; collaborators_dll exige, POR LADO, que la base 0x681F20 sea codigo del EXE con su hook apagado (original, falso en 0x681F20) o salte al cuerpo del ASI con su hook encendido (candidato, mismo falso en el cuerpo)),
 fp_difference vacio, la salida de CADA lado (retorno, llamadas al falso con (this, ped), `this` intacto) igual a la que modela fixture_oracle.py desde el desensamblado, la cobertura de las
 fixtures y la restauracion final (hook, entrada vigilada 0x681F20, x87).
 `python -B run_local.py --analyze <comparisons.jsonl>` solo analiza (devuelve None si el registro aun no existe o no esta completo).
@@ -45,7 +45,7 @@ def analyze(path):
     rows = [json.loads(line) for line in path.read_text(encoding='utf-8').splitlines()]
     begin = [r for r in rows if r['event'] == 'begin']
     if len(begin) != 1 or begin[0].get('registered_hook') is not True or begin[0].get('collaborators_stubbed') is not True:
-        raise RuntimeError('Inicio sin hook registrado, o sin el falso de 0x681F20')
+        raise RuntimeError('Inicio sin hooks registrados (Deal 0x6823B0 y la base 0x681F20), o sin el falso de 0x681F20')
     b = begin[0]
     if b.get('compare_dead_x87_registers') is not False or b.get('compare_volatile_registers') is not False:
         raise RuntimeError('Configuracion de compuertas inesperada (ver README.md): x87 normalizado y ECX/EDX solo registrados')
@@ -55,7 +55,11 @@ def analyze(path):
         raise RuntimeError('Hook RH sin registrar o cuerpo sin resolver')
     col = b['collaborators']
     stubbed = col['stubbed']
-    if {w['address'] for w in b['watched_entries']} != WATCHED or col['dll_real'] or len(stubbed) != 1 or stubbed[0]['exe'] != STUBBED:
+    # Hook Virtual de la base 0x681F20 (hook por lado: apagado en el original, encendido en el candidato). Vigiladas: 0x681F20 y la entrada de la DLL de la base.
+    ph = b.get('partner_hook') or {}
+    if ph.get('registered') is not True or not ph.get('our_address') or not ph.get('body') or ph['body'] < 0x1000000:
+        raise RuntimeError('Hook Virtual de CTaskComplexPartner::CreateFirstSubTask (0x681F20) sin registrar o cuerpo sin resolver: ' + json.dumps(ph))
+    if {w['address'] for w in b['watched_entries']} != WATCHED | {ph['our_address']} or col['dll_real'] or len(stubbed) != 1 or stubbed[0]['exe'] != STUBBED or stubbed[0]['dll'] != ph['body']:
         raise RuntimeError('Colaboradores o entradas vigiladas inesperados')
     seen = set()
     cov = {}
@@ -94,11 +98,12 @@ def analyze(path):
         raise RuntimeError('Cobertura de estres insuficiente: ' + json.dumps(shortfalls))
     end = [r for r in rows if r['event'] == 'complete']
     if len(end) != 1 or end[0]['pairs'] != sum(EXPECTED.values()) or not all(end[0].get(k) is True for k in ('state_restored', 'floating_state_restored', 'entries_intact')):
-        raise RuntimeError('Final sin restauracion exacta')
+        raise RuntimeError('Final sin restauracion exacta (incluido el hook de la base 0x681F20)')
     state = [r for r in rows if r['event'] == 'global_state_final']
     if len(state) != 1 or state[0]['floating_state'] != b['initial_fp'] or state[0]['watched_intact'] is not True or state[0]['state_restored'] is not True:
         raise RuntimeError('El x87, el hook o la entrada vigilada no se restauraron')
     summary['compare_dead_x87_registers'] = False
+    summary['partner_hook'] = ph
     summary['coverage'] = cov
     summary['coverage_method'] = 'serialized_inputs_and_independent_oracle; no_instruction_branch_tracing'
     return summary

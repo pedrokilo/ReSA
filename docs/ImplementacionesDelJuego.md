@@ -19,7 +19,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 
 - **Excepción NOTSA con ensamblador fuera de source/game_sa:** 1 definición con 14 apariciones `__asm` (contadas por expansión de macro) y 1 `naked` en source/app/platform/win/WindowedMode.cpp: código propio del proyecto (modo ventana), no una función del juego, y su hook figura solo en hooks_notsa.csv. Se mantiene como excepción documentada, no se convierte a C++ y **no cuenta como «solo C++»**. Los contadores de ensamblador de arriba cubren source/game_sa; esta excepción se lista aparte en [el listado de excepciones NOTSA](implementaciones/catalogo-excepciones-notsa-asm.csv) y sus apariciones constan en apariciones.csv.
 
-- 0 entradas de ambos catálogos no tienen coincidencia inequívoca en los cuerpos detectados de source/game_sa. Pueden estar fuera de este ámbito o requerir resolver alias, macros o sobrecargas. **No se presentan como funciones inexistentes ni como nuevas pendientes de validación.** Se conservan en [el listado de asociaciones sin resolver](implementaciones/catalogo-sin-coincidencia.csv).
+- 1 entradas de ambos catálogos no tienen coincidencia inequívoca en los cuerpos detectados de source/game_sa. Pueden estar fuera de este ámbito o requerir resolver alias, macros o sobrecargas. **No se presentan como funciones inexistentes ni como nuevas pendientes de validación.** Se conservan en [el listado de asociaciones sin resolver](implementaciones/catalogo-sin-coincidencia.csv).
 
 ## Resumen por clase o grupo
 

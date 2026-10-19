@@ -3,6 +3,7 @@
 #include <fstream>
 #include <memory>
 #include "Tasks/TaskTypes/TaskComplexPartnerDeal.h"
+#include "Tasks/TaskTypes/TaskComplexPartner.h"
 #include "Tasks/Task.h"
 #include "Entity/Ped/Ped.h"
 #include "Pools/TaskPool.h"
@@ -15,6 +16,7 @@
 // Banco par a par PartnerDealFirst31 dentro del juego: Update() se llama desde CGame::Process (probe_build.py). Todo el nucleo esta en Core.hpp.
 // Una ruta: CTaskComplexPartnerDeal::CreateFirstSubTask (0x6823B0). Es un hook VIRTUAL: HookRoute::RegisteredTarget solo conoce los hooks Simple, asi que el cuerpo del
 // candidato se toma de ReversibleHook::Virtual::GetHookOurAddress() (el hook Virtual parchea tambien la entrada 0x6823B0 con un salto a ese cuerpo).
+// Segundo hook (la base, 0x681F20) tambien Virtual: se busca en la categoria "CTaskComplexPartner"; si aun no existe, el banco no arranca (registered_hook=false).
 static_assert(sizeof(CTaskComplexPartnerDeal) == PartnerDealFirst31Fix::kThisBytes, "CTaskComplexPartnerDeal mide 0x74");
 namespace PartnerDealFirst31Live {
 inline ReversibleHooks::ReversibleHook::Base* FindHook(const char* cls,const char* fn) {
@@ -37,6 +39,10 @@ inline void Update() {
     env.route.reset(new HookRoute("CTaskComplexPartnerDeal","CreateFirstSubTask",0x6823B0,body));
     registered["CTaskComplexPartnerDeal::CreateFirstSubTask"]=env.route->Registered();bodies["CTaskComplexPartnerDeal::CreateFirstSubTask"]=env.route->Body();
     ready&=env.route->Registered()&&env.route->Body()&&ModuleOf(env.route->Body())==env.asi;
+    // Hook Virtual de la base CTaskComplexPartner::CreateFirstSubTask (0x681F20): API prevista (RH_ScopedVMTInstall). Run() lo gestiona por lado y lo restaura.
+    env.partner=FindHook("CTaskComplexPartner","CreateFirstSubTask");
+    if(env.partner&&!strcmp(env.partner->Symbol(),"V"))env.partnerOur=uintptr_t(static_cast<ReversibleHooks::ReversibleHook::Virtual*>(env.partner)->GetHookOurAddress());
+    else env.partner=nullptr;
     Run(env,ready,registered,bodies);
 }
 }

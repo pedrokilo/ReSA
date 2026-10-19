@@ -426,7 +426,6 @@ CTaskComplexLeaveCar,CreateNextSubTask,0x006419F0,source/game_sa/Tasks/TaskTypes
 CTaskComplexLeaveCar,CreateSubTask,0x00641530,source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp:92,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CTaskComplexLeaveCar,MakeAbortable,0x00641100,source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp:54,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CTaskComplexPartner,ControlSubTask,0x006840D0,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:76,cohorte nuevo 2026-10-17
-CTaskComplexPartner,CreateFirstSubTask,0x00681F20,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:72,cohorte nuevo 2026-10-17
 CTaskComplexPartner,CreateNextSubTask,0x00683AD0,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:68,cohorte nuevo 2026-10-17
 CTaskComplexPartner,RemoveStreamedAnims,0x00682370,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:84,cohorte nuevo 2026-10-17
 CTaskComplexPartner,StreamRequiredAnims,0x00682310,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:80,cohorte nuevo 2026-10-17

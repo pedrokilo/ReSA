@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CTaskComplexPartnerDeal::CreateFirstSubTask": 4096
+  },
+  "covered_functions": {
+    "CTaskComplexPartnerDeal::CreateFirstSubTask": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. REVALIDACIÓN 19/10/2026: la base CTaskComplexPartner::CreateFirstSubTask (0x681F20) ya es C++ con hook virtual; el banco se adaptó para falsear 0x681F20 en la dirección del EXE (original, hook de la base apagado) y en el cuerpo de la DLL (candidato, hook de la base encendido) con el mismo falso. 4096 pares, 0 diferencias. Sonda compilada desde el worktree D:/Original/wp-1 (HEAD 48c452e1f + TaskComplexPartner.cpp con CTaskComplexPartner::CreateFirstSubTask en C++; ver artifacts/build-manifest.json), de sólo lectura y eliminado tras el registro. En el árbol principal TaskComplexPartner.cpp/.h se fusionaron en tres vías con trabajo sin validar del lote 27, por lo que sus hashes pueden diferir de los del manifiesto (normalizados a LF o no). Sustituye la evidencia de la corrida 20261019-161255-872921 (base como envoltura al EXE), que queda en previous_evidence.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/PartnerDealFirst31-20261019-171326-340195",
+  "bank_pairs": 4096,
+  "bank_functions": 1,
+  "summary_sha256": "961ba9eb9e772187208ff332e0b03f0d6a5d4f60519422f7f340067b39150be5",
+  "result_txt_sha256": "2361261f15d77690a6508e8c048ec7b357df739e86a017882d0d33164ee27d8f",
+  "log_sha256": "9bf36c08e2e79e704f8539b0f92c8e57f9f132fb52d9e223bf56642be7dca286",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "78f5ff6aaf5216c2689964d8d0c7f53809a2a19af177c0a07b60c83eb0a55611",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp": "5aab0d818de92a3ff75889f8391190d025a67aab84a75ed95cf4b15043e8f7bc",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h": "df877a5eec42862774087651887ad29739f11844726e26dbf21754cbe661aadb",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "07d2261b26b8e88d6aa0797c9dd002ba4002467ccdfb6a310dac35b9cfdf9c44",
+      "source/game_sa/Tasks/Task.cpp": "d700418e6a00f573db2dc824d4a6d0bd325136ddf4f208589b74aef3d5f083c8",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/PartnerDealFirst31/LiveComparison.hpp": "b5fc2062f8d5e402bd0530186132e6520544d5270e0af959ed4269701df71379",
+      "reversing/PartnerDealFirst31/Core.hpp": "83200e9611605554d9683f6eec9584d0103e1844e9e1161144d8b672d9f055a3",
+      "reversing/PartnerDealFirst31/Fixtures.hpp": "f231bdc1a4c08b1143fca863c60354485a314eb49988a333f856609681e1b5d5",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

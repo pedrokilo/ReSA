@@ -12,7 +12,7 @@
 
 Recrear GTA San Andreas PC de forma funcionalmente equivalente mediante código fuente reconstruido, reduciendo hasta eliminar la dependencia de funciones originales del ejecutable. Completar `ReversedClasses.md` es un paso intermedio: el objetivo es una reconstrucción completa, validada y ejecutable, seguida de un ejecutable propio.
 
-El contador técnico decisivo será **cuántas funciones siguen necesitando código original**, incluidas sus dependencias transitivas. El 94,72% registrado como reconstruido no representa el porcentaje recorrido hacia un GTA SA independiente.
+El contador técnico decisivo será **cuántas funciones siguen necesitando código original**, incluidas sus dependencias transitivas. El 94,73% registrado como reconstruido no representa el porcentaje recorrido hacia un GTA SA independiente.
 
 ## Cuatro dimensiones de progreso
 
@@ -22,8 +22,8 @@ Estado documental del 10 de octubre de 2026 (corte de validación 453). Clases y
 | --- | --- | --- |
 | Clases completas en el catálogo | `███████████████████░` | 780/818 · 95,35% |
 | Clases validadas de las completas | `████████████████████` | 780/780 · 100,00% |
-| Funciones registradas como reconstruidas | `███████████████████░` | 8.714/9.200 · 94,72% |
-| Funciones con evidencia aprobada (`validated=1`) de las reconstruidas | `████████████████████` | **8.714/8.714 · 100,00%** |
+| Funciones registradas como reconstruidas | `███████████████████░` | 8.715/9.200 · 94,73% |
+| Funciones con evidencia aprobada (`validated=1`) de las reconstruidas | `████████████████████` | **8.715/8.715 · 100,00%** |
 
 **Siguientes mediciones** (todavía sin porcentaje útil):
 
@@ -34,7 +34,7 @@ Estado documental del 10 de octubre de 2026 (corte de validación 453). Clases y
 
 Las cuatro extensiones y adaptaciones NOTSA están en [hooks_notsa.csv](hooks_notsa.csv) y quedan fuera del progreso: tres hooks de modo ventana y Win::NOTSA_WinMain. Este último conserva validated=0 y su hook en 0x748710; su reclasificación no añade una validación. [Alcance NOTSA](HooksNOTSA.md).
 
-El catálogo contiene 8.445 entradas, no un inventario demostrado de todas las funciones del EXE. Hay 486 entradas pendientes y 38 clases incompletas. De las entradas registradas, 0 tienen `locked=1` y 8.714 tienen `locked=0`: estas últimas son **desbloqueadas**, no necesariamente validadas, activas o independientes. No se conoce todavía el total de funciones que usan el original. Tampoco puede calcularse cuántos hooks originales se han eliminado restando los locks.
+El catálogo contiene 8.445 entradas, no un inventario demostrado de todas las funciones del EXE. Hay 485 entradas pendientes y 38 clases incompletas. De las entradas registradas, 0 tienen `locked=1` y 8.715 tienen `locked=0`: estas últimas son **desbloqueadas**, no necesariamente validadas, activas o independientes. No se conoce todavía el total de funciones que usan el original. Tampoco puede calcularse cuántos hooks originales se han eliminado restando los locks.
 
 `reversed`, `validated`, vigencia de validación, `locked` y dependencia del original son dimensiones distintas. `validated=1` conserva que la función pasó una evidencia aprobada; la vigencia se calcula aparte con hashes y revisión de dependencias. Un cuerpo C++ puede seguir pendiente de validación; una función validada puede llamar a otras implementaciones originales. El [registro separado de validaciones](../reversing/ValidationRegistry/README.md) vincula 8.445 entradas con evidencia histórica aprobada; ninguna tiene vigencia actual acreditada. El [inventario completo](ValidationInventory.md) clasifica las 8.445 entradas reconstruidas. La [auditoría de cobertura](BinaryCoverageAudit.md) identifica 924 destinos originales explícitos sin nombre catalogado, 499 con aristas desde funciones catalogadas y 9.328 entradas binarias sin nombre del catálogo. Son conjuntos solapados que incluyen bibliotecas, helpers y código generado; no representan un total exacto de funciones de juego faltantes. El panel calcula la vigencia mediante evidencia, hashes y revisión de dependencias; no la deduce del flag de reconstrucción.
 

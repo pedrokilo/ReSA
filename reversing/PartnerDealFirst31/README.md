@@ -1,6 +1,6 @@
 # Banco PartnerDealFirst31: CTaskComplexPartnerDeal::CreateFirstSubTask (0x6823B0)
 
-**Estado: PREPARADO** (sin compilar el proyecto ni ejecutar el juego: lo corre el coordinador en serie). Plantilla: `reversing/PartnerChatSeq30` (ABI, hook Virtual, falso con parche de entrada) y contrato `reversing/_handoff/BRIEF.md`.
+**Estado: APROBADO (revisión 2, 19/10/2026)** — la base 0x681F20 pasa a C++ con hook; el banco adaptado compiló y pasó en el juego (4096 pares, corrida 20261019-171326-340195; evidencia registrada en `validation-summary-reval-20261019.json`). La aprobación de la revisión 1 (corrida 20261019-161255-872921) valía sólo para el caso «base = envoltura al EXE».
 
 ## Comandos para el coordinador
 
@@ -18,6 +18,16 @@ Requiere el ASI con `RH_ScopedVMTInstall(CreateFirstSubTask, 0x6823B0)` (`source
 
 Ya comprobado sin el juego: `fixture_oracle.py` → `ok`; `fixture_mirror.py` → `ok` (4096 casos, arenas iguales, 0 faltas de cobertura); `source.patch` pasa `git apply --check` contra el blob de HEAD; `--analyze` de un registro inexistente devuelve `None`. **No** se compiló `Core.hpp`/`LiveComparison.hpp` con el proyecto.
 
+## Adaptación (base 0x681F20 reconstruida con hook Virtual)
+
+**Asume** (API prevista, otro subagente la entrega en `TaskComplexPartner.cpp/.h`): `CTaskComplexPartner::CreateFirstSubTask(CPed*)` en C++ con `RH_ScopedVMTInstall(CreateFirstSubTask, 0x681F20)` (hook «V», categoría `CTaskComplexPartner`). Antes la compuerta exigía que 0x681F20 NO saltara a la DLL; con el hook ese salto existe y el candidato habría ejecutado el cuerpo real. Ahora, siguiendo `CTaskSimpleJetPack`/`PickWeap1`:
+- `Run` resuelve el cuerpo real de la DLL de la base con su hook **ENCENDIDO** (`Body(GetHookOurAddress())`, siguiendo thunks ILT) y guarda 16 bytes de referencia; luego lo apaga y guarda los 16 bytes de 0x681F20 (EXE puro). Todo ello **antes** de crear ningún parche.
+- Por lado, dentro de `Execute`: ORIGINAL = hook de la base apagado + falso parcheado en 0x681F20; CANDIDATO = hook de la base encendido + el MISMO `FakeBase` parcheado en el cuerpo de la DLL. El parche se crea DESPUÉS de fijar el estado del hook (State reescribe 0x681F20 y la entrada de la DLL) y se destruye antes del siguiente cambio.
+- `collaborators_dll` por lado: original = hook apagado, 0x681F20 no salta a la DLL, bytes = referencia EXE; candidato = hook encendido, 0x681F20 salta exactamente a `GetHookOurAddress()` (módulo ASI), cuerpo en el ASI, no es un salto al EXE y bytes = referencia. `globals_restored` = el parche de ese lado restauró los 16 bytes. Al final el hook de la base vuelve a su estado/bloqueo inicial y se verifica la vigilancia de 0x681F20 y de la entrada de la DLL (`watched_entries`, `partner_hook` en `begin`).
+- `run_local.py` exige `partner_hook.registered`, cuerpo en la DLL y `stubbed[0].dll == body`. Si el hook de la base no existe (HEAD actual) el banco no arranca (`registered_hook=false`, evento `error`).
+- Sin cambios: fixtures, oráculo, espejo y `build_probe.py` (ya lista `TaskComplexPartner.cpp/.h`). `register_hook.py` no se tocó: antes de registrar, actualizar su `SCOPE_NOTE` (la base ya no es una envoltura al EXE; hook de la base sustituido por falso en ambos lados). Ver «Suposiciones y riesgos» más abajo.
+- Nada de esto se compiló ni se ejecutó.
+
 ## Qué hace la función
 
 El EXE (0x6823B0) es **un único `jmp 0x681F20`**, es decir, `CTaskComplexPartner::CreateFirstSubTask`: reenvía `this` (ECX) y el argumento de pila (`ped`) sin tocar nada y devuelve su EAX. El C++ es `return CTaskComplexPartner::CreateFirstSubTask(ped);`. **Importante:** la base (0x681F20) sigue siendo una envoltura al EXE en HEAD (`plugin::CallMethodAndReturn<..., 0x681F20, ...>`), así que el C++ de esta función depende de una función no reconstruida; es lo que hace el original (un salto), pero la política «sin llamadas al EXE» sólo se cumple del todo cuando se reconstruya 0x681F20 (hay borrador sin validar en el árbol principal).
@@ -30,7 +40,7 @@ El EXE (0x6823B0) es **un único `jmp 0x681F20`**, es decir, `CTaskComplexPartne
 
 ## Qué se compara
 
-Original = EXE con el hook RH apagado; candidato = DLL con **sólo** ese hook encendido (`HookRoute("CTaskComplexPartnerDeal","CreateFirstSubTask",0x6823B0)` con el cuerpo de `ReversibleHook::Virtual::GetHookOurAddress()`). **Sustituido** por un falso idéntico en ambos lados: 0x681F20 (parche de entrada; el cuerpo de la DLL de `CTaskComplexPartner::CreateFirstSubTask` no tiene hook y llama a esa dirección, así que basta el parche en el EXE). El falso registra `(this, ped)` y devuelve un valor del caso. El banco **exige** que 0x681F20 NO salte a la DLL (`collaborators_dll`) y vigila sus 16 bytes. Observado: EAX (etiqueta `T+0` si es `this`), llamadas `[(this, ped)]` y su número (exactamente 1), `this` intacto (arena completa de 0x100 con guardas), ABI (ESP, EBX/ESI/EDI/EBP, DF, `fs:[0]`, x87 normalizado), ruta, estado restaurado.
+Original = EXE con el hook RH apagado; candidato = DLL con **sólo** ese hook encendido (`HookRoute("CTaskComplexPartnerDeal","CreateFirstSubTask",0x6823B0)` con el cuerpo de `ReversibleHook::Virtual::GetHookOurAddress()`). **Sustituido** por un falso idéntico en ambos lados: 0x681F20 en el original y el cuerpo de la DLL de la base en el candidato (ver «Adaptación»). El falso registra `(this, ped)` y devuelve un valor del caso. El banco comprueba por lado el estado de 0x681F20 (`collaborators_dll`) y vigila sus 16 bytes y la entrada de la DLL de la base. Observado: EAX (etiqueta `T+0` si es `this`), llamadas `[(this, ped)]` y su número (exactamente 1), `this` intacto (arena completa de 0x100 con guardas), ABI (ESP, EBX/ESI/EDI/EBP, DF, `fs:[0]`, x87 normalizado), ruta, estado restaurado.
 
 ## Fixtures: 4096 = 16 familias × 256
 
@@ -38,7 +48,10 @@ ped nulo / bordes (0, 1, 2, 3, 4, 0x7FFFFFFF, 0x80000000, 0x80000001, 0xFFFFFFFF
 
 ## Suposiciones y riesgos
 
-- El C++ de la DLL reenvía por la envoltura `plugin::CallMethodAndReturn` de la base: si esa envoltura desapareciera (reconstrucción de 0x681F20 con hook), el banco avisa (`collaborators_dll` falla, 0x681F20 salta a la DLL) y habría que sustituir el cuerpo de la DLL también.
+- Si el compilador inlinara `CTaskComplexPartner::CreateFirstSubTask` en el cuerpo de Deal, el falso no se ejecutaría (`ncalls`=0) y el banco fallaría (no pasaría en silencio).
+- Si el hook de la base está bloqueado por otro motivo, `State()` no cambia y `collaborators_dll` falla. Se usa `LockState(false)` y se restaura.
+- El thunk ILT: si `GetHookOurAddress()` es un thunk a la función real, `Body()` lo sigue; si con el hook encendido el cuerpo resultara ser un salto al EXE, la compuerta falla.
+- Aserciones de fuentes: la base debe tener la firma `CTask* (CPed*)` virtual y el nombre exacto `CreateFirstSubTask` en `RH_ScopedVMTInstall`; si la categoría del hook no fuera `CTaskComplexPartner`, cambiar `FindHook` en `LiveComparison.hpp`.
 - La función no usa x87; los fixtures no ejercen coma flotante.
 - Hash de fuentes probadas: `build_probe.py` lista `TaskComplexPartnerDeal.cpp/.h`, `TaskComplexPartner.cpp/.h`, `Task.cpp`, los hooks `Simple`/`Virtual` y los archivos del banco.
 

@@ -10249,5 +10249,19 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ con 21 colaboradores sustituidos por falsos identicos en ambos lados (los cinco sin reconstruir: 0x61C7F0, 0x61C9B0, 0x624710, 0x624A40 y 0x623B10, por direccion del EXE; el resto ya en C++). Banco FightProcessPed31 con 4608 pares y cero diferencias (tarea, asociaciones, ped, tabla de combos y globales falsos); AL es el retorno y ECX/EDX solo registrados (0x681D08 y 0x681DA5 de ManageTasks solo prueban AL). El angulo de orientacion (atan2) se compara con 2 ulp frente al oraculo y en bits entre EXE y DLL. Fuentes probadas compiladas desde el worktree D:/Original/wm-1 (HEAD 63d8ac6cb + parches del lote 31; ver artifacts/build-manifest.json), de sólo lectura y eliminado tras el registro. En el árbol principal las fuentes se fusionaron en tres vías con trabajo sin validar del lote 27 en los mismos archivos, por lo que sus hashes pueden diferir de los del manifiesto (normalizados a LF o no). Hook virtual (RH_ScopedVMTInstall) registrado como tipo V con original_address 0x00629920. Falsos idénticos en ambos lados: 21 colaboradores (ver README); objetos, tabla de combos y globales falsos. El oráculo acepta el ángulo de orientación (atan2) con tolerancia de 2 ulp (fpatan no modelado al ulp) y exige EXE == DLL estricto en bits; EAX/ECX/EDX sólo registrados. "
+  },
+  "0x00681F20": {
+    "identity": "CTaskComplexPartner::CreateFirstSubTask",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp",
+    "bank": "PartnerFirstSub31",
+    "run": "20261019-171631-275750",
+    "pairs": 4608,
+    "own_pairs": 4608,
+    "audit": "reversing/CppTwelveLevel6Final/runs/PartnerFirstSub31-20261019-171631-275750/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE: pide la conversación (sólo jefe de CTaskComplexPartnerChat), detiene la señal de mano y reserva CTaskSimpleStandStill(50, false, false, 8.0f). Colaboradores RequestPedConversation, StopPlayingHandSignal y operator new sustituidos por falsos idénticos en ambos lados; el constructor es real. Banco PartnerFirstSub31 con 4608 pares y cero diferencias; ECX/EDX sólo registrados porque ningún llamador los lee. Sin cobertura de punteros de ped/partner reales (los falsos no los desreferencian). Fuentes probadas compiladas desde el worktree D:/Original/wp-1 (HEAD 48c452e1f + TaskComplexPartner.cpp con CTaskComplexPartner::CreateFirstSubTask en C++; ver artifacts/build-manifest.json), de sólo lectura y eliminado tras el registro. En el árbol principal TaskComplexPartner.cpp/.h se fusionaron en tres vías con trabajo sin validar del lote 27 (y TaskComplexPartnerChat.cpp y AEPedSpeechAudioEntity.cpp difieren también del manifiesto), por lo que sus hashes pueden diferir de los del manifiesto (normalizados a LF o no). Hook virtual (RH_ScopedVMTInstall) registrado como tipo V con original_address 0x00681F20. Sustituidos por falsos idénticos en ambos lados: RequestPedConversation (0x4E50E0), StopPlayingHandSignal (0x5E0480) y CTask::operator new (0x61A5A0); el constructor de CTaskSimpleStandStill es real en ambos lados. EAX/ECX/EDX sólo registrados (único consumo: EAX por la maquinaria virtual de CTaskComplex). La corrida previa 20261019-171228-759788 falló por un desajuste del oráculo del propio banco y no es evidencia."
   }
 }

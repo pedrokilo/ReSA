@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-19 22:45 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-19 23:24 UTC
 
 ## Objetivo y dimensiones de progreso
 
@@ -12,15 +12,15 @@ La [hoja de ruta de ReSA](ProjectRoadmap.md) define una reconstrucción funciona
 | --- | --- | --- |
 | Clases completas | `███████████████████░` | 780/818 · 95.35% |
 | Clases validadas (de las completas) | `████████████████████` | 780/780 · 100.00% |
-| Funciones reconstruidas | `███████████████████░` | 8,714/9,200 · 94.72% |
-| Funciones validadas (de las reconstruidas) | `████████████████████` | 8,714/8,714 · 100.00% |
-| Funciones reconstruidas escritas solo en C++ (sin ensamblador) | `████████████████████` | 8,714/8,714 · 100.00% |
+| Funciones reconstruidas | `███████████████████░` | 8,715/9,200 · 94.73% |
+| Funciones validadas (de las reconstruidas) | `████████████████████` | 8,715/8,715 · 100.00% |
+| Funciones reconstruidas escritas solo en C++ (sin ensamblador) | `████████████████████` | 8,714/8,715 · 99.99% |
 
 Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL. La última barra cuenta, de las funciones reconstruidas, las que tienen fuente identificada y sin `__asm` ni `naked`; las entradas sin fuente identificada de forma inequívoca no se cuentan como C++. El detalle está en [ImplementacionesDelJuego.md](ImplementacionesDelJuego.md).
 
 **Migración de ensamblador a C++:** en `source/game_sa` ya no queda ningún `__asm` ni función `naked`: todo lo reconstruido está escrito en C++, con resultados validados contra el EXE dentro del juego. Regla del proyecto: todo lo que se reconstruya va en C++, dos archivos por clase (`.cpp` y `.h`) y sin duplicados ([proceso](../reversing/CppOnlyMigration/PROCESO.md)). Historial y excepciones documentadas: [estado de la migración](../reversing/CppOnlyMigration/README.md) · [FILES.md](../reversing/CppOnlyMigration/FILES.md).
 
-Hay 8,714 entradas catalogadas, 0 bloqueadas y 8,714 sin bloqueo. No constituyen un inventario exhaustivo del EXE. Desbloqueada no significa validada, activa ni independiente. No se deducen hooks eliminados del contador de locks. Las extensiones o adaptaciones NOTSA (4, en [hooks_notsa.csv](hooks_notsa.csv)) quedan fuera de la cuenta.
+Hay 8,715 entradas catalogadas, 0 bloqueadas y 8,715 sin bloqueo. No constituyen un inventario exhaustivo del EXE. Desbloqueada no significa validada, activa ni independiente. No se deducen hooks eliminados del contador de locks. Las extensiones o adaptaciones NOTSA (4, en [hooks_notsa.csv](hooks_notsa.csv)) quedan fuera de la cuenta.
 
 ### Siguientes mediciones
 
@@ -28,19 +28,19 @@ Estas dimensiones todavía no tienen un porcentaje útil: indican el trabajo que
 
 | Dimensión | Estado actual | Qué hay que hacer |
 | --- | --- | --- |
-| Validaciones vigentes para el árbol actual | 0/8,714 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). |
+| Validaciones vigentes para el árbol actual | 0/8,715 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). |
 | Dependencias de funciones originales eliminadas | No medido | Auditar, para cada función reconstruida, las llamadas directas y transitivas que todavía saltan a código del EXE (`plugin::Call*`, direcciones fijas, hooks sin reconstruir) y contar las que ya no dependen de ninguna. |
 
-**Validación consolidada parcialmente:** 8714 funciones con evidencia aprobada vinculada, 470 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
+**Validación consolidada parcialmente:** 8715 funciones con evidencia aprobada vinculada, 470 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
 
 ## Vista general
 
 | Clases validadas | Completas por validar | Funciones validadas | Reconstruidas por validar | Funciones por reconstruir |
 | :---: | :---: | :---: | :---: | :---: |
-| **780 / 780** | **0 / 780** | **8,714 / 8,714** | **0 / 8,714** | **486 / 9,200** |
-| 100.00% | 0.00% | 100.00% | 0.00% | 5.28% |
+| **780 / 780** | **0 / 780** | **8,715 / 8,715** | **0 / 8,715** | **485 / 9,200** |
+| 100.00% | 0.00% | 100.00% | 0.00% | 5.27% |
 
-Reconstrucción por clases: 780 completas, 15 parciales y 23 sin revertir de 818 (incluye 486 funciones del juego con envoltura al EXE aún sin reconstruir, en 38 clases o grupos).
+Reconstrucción por clases: 780 completas, 15 parciales y 23 sin revertir de 818 (incluye 485 funciones del juego con envoltura al EXE aún sin reconstruir, en 38 clases o grupos).
 
 **Ir a:** [Completas](#completas) · [Parciales](#parciales) · [Sin revertir](#sin-revertir) · [Cohorte nuevo por dificultad](#cohorte-nuevo) · [Cómo leer y actualizar](#metodo)
 
@@ -332,9 +332,9 @@ Incluye las clases del catálogo que ya tienen todas sus entradas reconstruidas 
 | [CAutomobile](../source/game_sa/Entity/Vehicle/Automobile.cpp) | 99/99 | **0** | **4** | 100.00% | 99 | 0 |
 | [CPed](../source/game_sa/Entity/Ped/Ped.cpp) | 145/145 | **0** | **4** | 100.00% | 145 | 0 |
 | [CStats](../source/game_sa/Stats.cpp) | 47/47 | **0** | **4** | 100.00% | 47 | 0 |
+| [CTaskComplexPartner](../source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp) | 2/2 | **0** | **4** | 100.00% | 2 | 0 |
 | [CTaskComplexFollowPedFootsteps](../source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp) | 1/1 | **0** | **5** | 100.00% | 1 | 0 |
 | [CTaskComplexKillPedOnFoot](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp) | 1/1 | **0** | **5** | 100.00% | 1 | 0 |
-| [CTaskComplexPartner](../source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp) | 1/1 | **0** | **5** | 100.00% | 1 | 0 |
 | [CWaterLevel](../source/game_sa/WaterLevel.cpp) | 33/33 | **0** | **5** | 100.00% | 33 | 0 |
 | [CPathFind](../source/game_sa/PathFind.cpp) | 60/60 | **0** | **6** | 100.00% | 60 | 0 |
 | [D3DResourceSystem](../source/game_sa/RenderWare/D3DResourceSystem.cpp) | 3/3 | **0** | **7** | 100.00% | 3 | 0 |
@@ -385,7 +385,7 @@ Destinos originales explícitos que `source/` sigue referenciando y que no estab
 | --- | ---: | ---: | ---: | ---: |
 | 1 Muy fácil | 9 | 1 | 77 | 1 |
 | 2 Fácil | 25 | 21 | 104 | 104 |
-| 3 Media | 75 | 62 | 69 | 69 |
+| 3 Media | 75 | 61 | 69 | 69 |
 | 4 Difícil | 57 | 53 | 23 | 23 |
 | 5 Muy difícil | 19 | 18 | 6 | 6 |
 
@@ -444,7 +444,7 @@ Destinos originales explícitos que `source/` sigue referenciando y que no estab
 | 31 | 3 Media | wrapper | FightStrikeDamageExe | `0x0061C740` | 164 | pendiente |
 | 26 | 3 Media | wrapper | CCarCtrl::FindSpeedMultiplier | `0x004224E0` | 167 | pendiente |
 | 76 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CProjectileInfo::AddProjectile) | `0x005A4030` | 167 | pendiente |
-| 45 | 3 Media | wrapper | CTaskComplexPartner::CreateFirstSubTask | `0x00681F20` | 177 | pendiente |
+| 45 | 3 Media | wrapper | CTaskComplexPartner::CreateFirstSubTask | `0x00681F20` | 177 | ✅ validada |
 | 22 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CCam::Process_DW_HeliChaseCam) | `0x0050E180` | 184 | pendiente |
 | 43 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CCam::Process_DW_HeliChaseCam) | `0x0050E090` | 192 | pendiente |
 | 86 | 3 Media | wrapper | CTaskComplexPartner::ControlSubTask | `0x006840D0` | 192 | pendiente |

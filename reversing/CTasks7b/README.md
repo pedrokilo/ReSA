@@ -44,3 +44,19 @@ Validadas el 02/10/2026 con **10.496 pares original/candidato dentro de GTA**, t
 - Las tareas nuevas del pool (secuencias con sus subtareas, `UseGun` de la ranura secundaria) se serializan y se borran después.
 
 Repetir: `python reversing/CTasks7b/build_probe.py` y `python reversing/run.py --case ctasks7b`. Evidencia: [validation-summary.json](validation-summary.json).
+
+## Adaptación a la base 0x681F20 con hook Virtual (2026-10-19)
+
+**Estado: ADAPTADO, PENDIENTE DE COMPILAR/PROBAR.** Sin compilar ni ejecutar. Misma técnica que `reversing/PartnerDealFirst31` (aprobado en juego).
+
+- Problema: `FakePartnerFirst` sólo estaba parcheado en la entrada del EXE (`p1e`, 0x681F20). Con `CTaskComplexPartner::CreateFirstSubTask` en C++ (`RH_ScopedVMTInstall(CreateFirstSubTask, 0x681F20)`), `CTaskComplexPartnerGreet::CreateFirstSubTask` llama al cuerpo de la DLL, que no pasaba por el falso.
+- Solución (`PartnerSwitch` en `LiveComparison.hpp`): el cuerpo de la base se resuelve con su hook ENCENDIDO antes de crear parches; el MISMO `FakePartnerFirst` se parchea en 0x681F20 (original, hook apagado) y en el cuerpo de la DLL (candidato, hook encendido). Los 6 puntos de cambio `for(auto* h:hooks)h->State(x)` son ahora `SetAll(x)`, que también conmuta el hook de la base y re-aplica los parches en el orden seguro (EntryPatch::Enable(false) escribe los bytes guardados al construir, por eso se desactiva el parche del estado que se abandona antes de cambiar el hook y se activa el nuevo después).
+- Compuerta por lado: se integra en el campo `switches` (la comparación original==candidato y `switches==true` ya existente): hook de la base en el estado del lado, 0x681F20 salta a `GetHookOurAddress()` sólo en el candidato (módulo ASI). Fin: `PartnerSwitch::Finish()` restaura 0x681F20, el cuerpo y el hook (estado y bloqueo); el evento final lleva `partner_restored` y se incluye en `state_restored`.
+- Evento nuevo `partner_hook` (our, body, estado inicial) tras resolver; `run_local.py` lo exige (cuerpo en la DLL) y exige `partner_restored`.
+- Sin cambios: tabla de funciones, fixtures, EXPECTED (10496 pares, calculado por la misma regex) y trazas de las demás funciones. 0x681F20 sólo la usa `CTaskComplexPartnerGreet::CreateFirstSubTask`; en el resto de casos el hook de la base queda apagado (estado del original) y su parche del EXE es el mismo que antes.
+- Arreglos de banco antiguo: `build_probe.py` y `run_local.py` fijan `runtime_runner.GAME = E:/JUEGOS/GTA San Andreas - CVehicle Test`; `analyze` devuelve `None` si el `.jsonl` no existe. `build_probe.py` añade `TaskComplexPartner.cpp/.h` y los hooks `Simple`/`Virtual`.
+- Supuestos: el hook se llama `CreateFirstSubTask` en la categoría `CTaskComplexPartner` y es Virtual ("V"). Si falta, el banco escribe `error` y termina. Si el compilador inlinara la base en Greet, la traza `partner_create_first` faltaría en el candidato (fallo visible).
+
+Comandos: `python -B reversing/CTasks7b/build_probe.py`; `python -B reversing/CTasks7b/run_local.py`; `python -B reversing/CTasks7b/run_local.py --analyze <carpeta>/comparisons.jsonl`.
+
+**Corrección (primera corrida, 100 % de fallos):** `SideOK(false)` exigía `!JumpsToDll(0x681F20)`, pero en el original 0x681F20 lleva el parche `E9 -> FakePartnerFirst` (que vive en el ASI), así que `JumpsToDll` era siempre verdadero y `switches` falso en el lado original. Ahora el original exige hook apagado y que 0x681F20 sea `E9` con destino exactamente `FakePartnerFirst`; el candidato sigue exigiendo que salte a `GetHookOurAddress()` (módulo ASI). (También se quitó la coma suelta tras `k3e(...)`.)
