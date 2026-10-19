@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: FxEmitter_c
- * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 3/3 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -36,7 +36,7 @@ void FxEmitter_c::InjectHooks() {
     // RH_ScopedInstall(Reset_Reversed, 0x4A2570);
     // La entrada 0x4A3EA0 es la sobrecarga con vector de posicion (vtable +0x14); la de matriz es 0x4A4050 (+0x10).
     RH_ScopedVMTOverloadedInstall(AddParticle, "vector", 0x4A3EA0, void(FxEmitter_c::*)(const CVector&, const CVector&, float, const FxPrtMult_c&, float, float, bool));
-    // RH_ScopedOverloadedInstall(AddParticle_Reversed, "", 0x4A4050, void(FxEmitter_c::*)(CVector*, CVector*, float, FxPrtMult_c*, float, float, bool));
+    RH_ScopedVMTOverloadedInstall(AddParticle, "matrix", 0x4A4050, void(FxEmitter_c::*)(const RwMatrix&, const CVector&, float, const FxPrtMult_c&, float, float, bool));
     RH_ScopedInstall(CreateParticles, 0x4A41E0);
     RH_ScopedInstall(CreateParticle, 0x4A2580);
 }
@@ -106,40 +106,41 @@ void FxEmitter_c::AddParticle(const CVector& pos, const CVector& vel, float time
     g_fxMan.FxRwMatrixDestroy(mat0);
 }
 
-// 0x4A4050
+// 0x4A4050 (vtable +0x10)
+// Igual que la sobrecarga de vector (0x4A3EA0) salvo que la matriz de mundo C no se construye con identidad + posicion: el EXE escribe la identidad (dead stores) y a continuacion copia las 16
+// palabras de `mat` encima con rep movs (flags incluidos), asi que C = mat. Despues: RwMatrixUpdate(C), B = C o C * padre, D = GetRWMatrix del prim, A = D * B, CreateParticle(emision, A, &vel, ...)
+// y, si rotZ >= 0 (ordenado), m_RotZ = byte bajo de _ftol2(rotZ * 0.5f). Destruye C, B, A en ese orden. Ningun llamador del EXE lee EAX/ECX/EDX.
 void FxEmitter_c::AddParticle(const RwMatrix& mat, const CVector& vel, float timeSince, const FxPrtMult_c& fxMults, float rotZ, float brightness, bool createLocal) {
-    return plugin::CallMethod<0x4A4050, FxEmitter_c*, const RwMatrix*, const CVector*, float, const FxPrtMult_c*, float, float, bool>(this, &mat, &vel, timeSince, &fxMults, rotZ, brightness,
-                                                                                                                    createLocal);
-
-    // todo:
     EmissionInfo_t emission;
     m_PrimBP->m_FxInfoManager.ProcessEmissionInfo(0.0f, 0.0f, m_System->m_SystemBP->m_fLength, m_System->m_UseConstTime, &emission);
-    auto mat2 = g_fxMan.FxRwMatrixCreate();
-    auto mat1 = g_fxMan.FxRwMatrixCreate();
-    auto mat0 = g_fxMan.FxRwMatrixCreate();
-    RwMatrixSetIdentity(mat0);
-    *mat0 = mat;
 
-    RwMatrixUpdate(mat0);
+    RwMatrix* const mat0 = g_fxMan.FxRwMatrixCreate();
+    RwMatrix* const mat1 = g_fxMan.FxRwMatrixCreate();
+    RwMatrix* const mat2 = g_fxMan.FxRwMatrixCreate();
+
+    std::memcpy(mat2, &mat, sizeof(RwMatrix));
+    RwMatrixUpdate(mat2);
+
     if (m_System->m_ParentMatrix) {
-        RwMatrixMultiply(mat1, mat0, m_System->m_ParentMatrix);
+        RwMatrixMultiply(mat1, mat2, m_System->m_ParentMatrix);
     } else {
-        mat1 = mat0;
+        std::memcpy(mat1, mat2, sizeof(RwMatrix));
     }
 
-    auto mat3 = g_fxMan.FxRwMatrixCreate();
-    m_PrimBP->GetRWMatrix(*mat3);
-    RwMatrixMultiply(mat2, mat3, mat1);
-    g_fxMan.FxRwMatrixDestroy(mat3);
+    RwMatrix* const primMat = g_fxMan.FxRwMatrixCreate();
+    m_PrimBP->GetRWMatrix(*primMat);
+    RwMatrixMultiply(mat0, primMat, mat1);
+    g_fxMan.FxRwMatrixDestroy(primMat);
 
-    if (auto* particle = CreateParticle(emission, *mat2, &vel, timeSince, fxMults, brightness, createLocal)) {
-        if (rotZ >= 0.0f)
-            particle->m_RotZ = (uint8)(rotZ * 2.0f); // todo:: see above
+    if (auto* const particle = CreateParticle(emission, *mat0, &vel, timeSince, fxMults, brightness, createLocal)) {
+        if (rotZ >= 0.0f) {
+            particle->m_RotZ = static_cast<int8>(FxAddParticleRotZByteCpp(rotZ));
+        }
     }
 
-    g_fxMan.FxRwMatrixDestroy(mat0);
-    g_fxMan.FxRwMatrixDestroy(mat1);
     g_fxMan.FxRwMatrixDestroy(mat2);
+    g_fxMan.FxRwMatrixDestroy(mat1);
+    g_fxMan.FxRwMatrixDestroy(mat0);
 }
 
 // 0x4A41E0

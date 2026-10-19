@@ -1,0 +1,5 @@
+# Llamadas directas a 0x4A4050 (python reversing/Dependencies25A/residue_scan.py 0x4A4050): sin resultados. La funcion solo se invoca por la vtable de FxEmitter_c (0x85A7A4 + 0x10).
+# Barrido capstone (skipdata) de .text de `call dword ptr [reg+0x10]` en el rango del Fx (0x4AA000..0x4AB9FF): el unico llamador con 7 argumentos de pila es 0x4AA5F7 (FxSystem_c::AddParticle, sobrecarga con matriz).
+#   0x4AA5F7: tras el call -> mov ecx,[edi+8]; movsx edx,byte ptr [ecx+1Bh]; inc esi; cmp esi,edx; jl 0x4AA5D4 (el bucle recarga EAX en 0x4AA5D4 y ECX en 0x4AA5D8) -> EAX, ECX y EDX escritos antes de leerse.
+#   0x4AA14B (1 argumento, ret 4), 0x4AB3A7, 0x4AB55B, 0x4AB873, 0x4AB8C4, 0x4AB9E7: otras clases / otras firmas; no son esta funcion.
+# El barrido global del EXE da cientos de `call [reg+0x10]` de otras clases; no se han analizado uno a uno (el emisor solo lo recorre FxSystem_c).

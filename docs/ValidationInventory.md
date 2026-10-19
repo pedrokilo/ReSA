@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,701 entradas reversed=1**, de 8,701 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,702 entradas reversed=1**, de 8,702 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8701 |
+| `validated=1` · evidencia aprobada vinculada | 8702 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8701 |
+| Evidencia histórica vinculada; revisión pendiente | 8702 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -8116,6 +8116,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | FxEmitterBP_c | `Update` | [Resumen](../reversing/FxEmitterCore355/validation-summary.json) |
 | FxEmitterBP_c | `UpdateParticle` | [Resumen](../reversing/FxEmitterParticle355/validation-summary.json) |
 | FxEmitterPrt_c | `operator new[]` | [Resumen](../reversing/Pools56/validation-summary.json) |
+| FxEmitter_c | `AddParticle-matrix` | [Resumen](../reversing/FxEmitterAddParticleMat31/validation-summary.json) |
 | FxEmitter_c | `AddParticle-vector` | [Resumen](../reversing/FxEmitterAddParticle30/validation-summary.json) |
 | FxEmitter_c | `CreateParticle` | [Resumen](../reversing/FxEmitterCreateParticle30/validation-summary.json) |
 | FxEmitter_c | `CreateParticles` | [Resumen](../reversing/Dependencies22C/validation-summary-reval-20261019.json) |
@@ -9475,7 +9476,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `FurnitureSubGroup_c` | 3 | 0 | 3 | 0 |
 | `FxEmitterBP_c` | 9 | 0 | 9 | 0 |
 | `FxEmitterPrt_c` | 1 | 0 | 1 | 0 |
-| `FxEmitter_c` | 3 | 0 | 3 | 0 |
+| `FxEmitter_c` | 4 | 0 | 4 | 0 |
 | `FxFrustumInfo_c` | 1 | 0 | 1 | 0 |
 | `FxInfoManager_c` | 5 | 0 | 5 | 0 |
 | `FxManager_c` | 25 | 0 | 25 | 0 |

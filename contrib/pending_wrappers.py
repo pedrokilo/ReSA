@@ -12,6 +12,7 @@ reconstruir en los porcentajes de docs/ReversedClasses.md (funciones y clases).
 Uso: python contrib/pending_wrappers.py
 """
 import csv
+import json
 import re
 from pathlib import Path
 
@@ -49,6 +50,16 @@ def main():
             done_names.add((row['class'].casefold(), row['fn_name'].casefold()))
             if norm_addr(row['address']) and int(row['address'], 16):
                 done.add(norm_addr(row['address']))
+    # Los virtuales figuran en hooks.csv con dirección 0x00000000 (y, si están sobrecargados, con nombre «Función-sobrecarga»): su dirección del EXE
+    # está en validation-registry.json (evidence.original_address); sin ella la fila pendiente de cada sobrecarga no se podría descartar.
+    registry = ROOT / 'reversing/validation-registry.json'
+    if registry.exists():
+        reversed_rows = {(r['class'], r['fn_name']) for r in read(ROOT / 'docs/hooks.csv') if r['reversed'] == '1'}
+        for entry in json.loads(registry.read_text(encoding='utf-8'))['functions']:
+            hook = entry['hook']
+            original = norm_addr(entry.get('evidence', {}).get('original_address', ''))
+            if original and (hook['class'], hook['fn_name']) in reversed_rows and not int(hook['address'], 16):
+                done.add(original)
     found = {}
     names = {}
 

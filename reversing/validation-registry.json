@@ -535078,6 +535078,49 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wc-b (HEAD c5318699a + parches del lote 30; ver artifacts/build-manifest.json), de s\u00f3lo lectura y eliminado tras el registro. El \u00e1rbol principal tiene adem\u00e1s trabajo sin validar del lote 27 en archivos vecinos, fusionado en tres v\u00edas, por lo que los hashes del manifiesto (normalizados a LF) de las fuentes probadas de esta funci\u00f3n coinciden con los del \u00e1rbol principal; los archivos con hash distinto sin normalizar s\u00f3lo difieren por finales de l\u00ednea (CRLF). rand() del EXE se llama por direcci\u00f3n (0x821B1E) y los colaboradores (GetParticle, FreeUpParticle, GetRWMatrix, RwV3dNormalize, RwV3dTransformVectors, RotateVecIntoVec, UpdateParticle) est\u00e1n sustituidos por stubs id\u00e9nticos en ambos lados (no se validan sus cuerpos). EAX (la part\u00edcula) se compara; ECX/EDX s\u00f3lo registrados. NaN de las fixtures siempre silenciosos (sNaN no cubierto); los empates de NaN con signos opuestos (3 casos con comod\u00edn) s\u00f3lo exigen EXE == DLL.",
       "review_reference": "reversing/FxEmitterCreateParticle30/README.md"
+    },
+    {
+      "hook": {
+        "class": "FxEmitter_c",
+        "fn_name": "AddParticle-matrix",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/FxEmitterAddParticleMat31/validation-summary.json",
+        "sha256": "5047ec49f333b028957129c5d2fbed0200be61dc9650dbb9804ae7ef5458589c",
+        "passed_path": [
+          "covered_functions",
+          "FxEmitter_c::AddParticle(matrix)"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x004A4050"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+        "source/game_sa/Fx/FxEmitter.cpp": "0b72388fa22391be2733f86553c692abdd8e60b8cbed552b8c0ec4bd87049a16",
+        "source/game_sa/Fx/FxEmitter.h": "96dbd9a2fac41759e7abf278f60a2b8a7bce62d2e05ea4f3c77cb5b542ff08d6",
+        "source/game_sa/X87Math.cpp": "30c95b55b36b9e753257fcc316b798c77b0c425f0b6278e472c22b24df55c45f",
+        "source/game_sa/X87Math.h": "41da5c307f800d79ce74fb2a850e2a4bbf775d9907d9c9780beee017fae395a7",
+        "source/game_sa/Fx/FxManager.cpp": "8ad17f1c5c416b0caa461b7c789a32a0e872b4607d4e1c0ec79808e4f185a877",
+        "source/game_sa/Fx/FxPrimBP.cpp": "a50405dd75d0be3083d46acb0d40613a1950f6a1f1a31165c9dc087f64dd8159",
+        "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
+        "source/game_sa/RenderWare/rw/rwplcore.cpp": "74a39f7114cb16465ed166f0b7642bcac0faf8e32a51d997fdc5d6ab27169394",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/FxEmitterAddParticleMat31/LiveComparison.hpp": "c65b2a17f949a726cf33741e2f00d95ce394fcd8a2e21ced6cca123643ef9c80",
+        "reversing/FxEmitterAddParticleMat31/Core.hpp": "8659962957401f41e60ca94d98dcbbf2e258d5b889e74b88ea5e3942429cff3d",
+        "reversing/FxEmitterAddParticleMat31/Fixtures.hpp": "1acb2426c91bdcd239cb48f725590c2ba62f0970bbcd04e1bc4f127fa194089a",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wf-1 (HEAD fdd6cba63 + source/game_sa/Fx/FxEmitter.cpp del parche del banco; ver artifacts/build-manifest.json), de s\u00f3lo lectura y eliminado tras el registro; el FxEmitter.cpp probado es id\u00e9ntico (mismo SHA256) al del \u00e1rbol principal en el momento del registro. Corrida aprobada 20261019-095245-962195, sin corridas previas. Hook virtual (RH_ScopedVMTOverloadedInstall, sobrecarga matriz, slot +0x10) registrado como tipo V con direcci\u00f3n 0x00000000 y original_address 0x004A4050. Colaboradores sustituidos por stubs id\u00e9nticos en ambos lados (no se validan sus cuerpos); los hooks AddParticle-vector y AddParticle-matrix estuvieron activos a la vez sin interferencia. Sin rand, sscanf ni transformaci\u00f3n de puntos. EAX/ECX/EDX s\u00f3lo registrados porque el \u00fanico llamador (0x004AA5F7) los recarga antes de leerlos. NaN de las fixtures siempre silenciosos (sNaN no cubierto).",
+      "review_reference": "reversing/FxEmitterAddParticleMat31/README.md"
     }
   ]
 }

@@ -20,11 +20,11 @@
     "body_parse_errors": 303,
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 443,
-    "historical_catalog_rows": 8705,
+    "historical_catalog_rows": 8706,
     "catalog_rows_without_unambiguous_source_match_in_scope": 0,
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 20,
-    "catalog_rows_linked_by_hook_address": 160,
+    "catalog_rows_linked_by_hook_address": 162,
     "validated_reconstructed_own_cpp_definitions": 10046,
     "validated_reconstructed_own_asm_definitions": 0,
     "wrapper_definitions": 147
@@ -868,7 +868,7 @@
     "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
     "source/game_sa/Fx/FxBox.cpp": "cd912fe5906fc0e8c9aa290c80dd6ddb4f131822a4177cb829987c3c362ef33d",
     "source/game_sa/Fx/FxBox.h": "3232c761508369e0e9484871ccc25c6318ef508d6c6437d9a200b3213c8585d3",
-    "source/game_sa/Fx/FxEmitter.cpp": "a8642f388c67aadd06672c0356d22ffe2c61ce044337ea20e2f1ab7cc8779fa9",
+    "source/game_sa/Fx/FxEmitter.cpp": "0ad0c3cf33c4623fc1d6f8d2a90fee9cdd12a1ac278ef9987203bf67925f961c",
     "source/game_sa/Fx/FxEmitter.h": "96dbd9a2fac41759e7abf278f60a2b8a7bce62d2e05ea4f3c77cb5b542ff08d6",
     "source/game_sa/Fx/FxEmitterBP.cpp": "099a6416e0589342c0c52636ecb4b51e4ed0c177e6f1a81e37fcc1d90564e1c6",
     "source/game_sa/Fx/FxEmitterBP.h": "b1dc281fd3cb409f6ac10af27c338fd7c4b679d61cb2424c9baa49acad9576f2",
@@ -917,7 +917,7 @@
     "source/game_sa/Garage.cpp": "3b6b2ef9ada9444c3e92855bf8fc0491ea1586c8fcc4dc1fa64e2dd021725e58",
     "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a",
     "source/game_sa/Garages.cpp": "00d50a1d456143b7574ae3ea3bea69e95113fddb4eaaa92b1f573af312296ba7",
-    "source/game_sa/Garages.h": "c2c1628d5807c882da89bea14e66a8a25bfc0d8454812e7c026ba04d6399b741",
+    "source/game_sa/Garages.h": "f71fc96fd17d9d22cba76e913da868dea9b8359fe466eea9465241a3f093f658",
     "source/game_sa/General.cpp": "7b6b28991efbd0a1e8b1a4d6a09a077e870a161df158fa38fb23c5ef1d1264f5",
     "source/game_sa/General.h": "392cf3dca613f3a5e5caa859b0a5d80a10ca5a5d01bf2c300b62119137a056ff",
     "source/game_sa/GenericGameStorage.cpp": "8750cfe3150b3a22c1fa11051c12619093499f46911dbe47f977e0259673d20f",
@@ -2231,10 +2231,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "16f193326eb6e050683e26472282461a7ff18799ce29d571f2ffcf5b3c0ceb81",
+    "hooks.csv": "7d60f5618b7119fcc7257665b7ae46fa0bdac81bfe4099118a1065b1130bcb14",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "cc9370f7d67fd27287a70659ce426ea71b0bf1dc71f1439fa168321c9499dd25",
+  "migration_registry_sha256": "1c6e7fe120642da4ed1948e95c23f5f29c8a41b9a9e4b43694966ec37d8157f3",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",
