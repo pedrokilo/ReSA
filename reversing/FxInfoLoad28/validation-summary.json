@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "pairs": 4608,
+  "differences": 0,
+  "registered_pairs": 4608,
+  "registered_functions": 1,
+  "functions": {
+    "FxInfoManager_c::Load": 4608
+  },
+  "covered_functions": {
+    "FxInfoManager_c::Load": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Colaboradores sustituidos por falsos trazados idénticos en ambos lados: ReadLine (0x4AB250, flujo sintético con semántica de fgets), FxMemoryPool_c::GetMem (0x4A9CA0), FxInfoManager_c::AddFxInfo (0x4A7B00) y el Load virtual de FxInfo_c (falso); no se valida aquí el cuerpo real de esos colaboradores. sscanf: la función llama al sscanf del EXE por dirección (0x8220AD, CRT estático del juego), igual en ambos lados. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/gta-wt-b28 (HEAD de6ed4a4d + source.patch de cada banco + tres arreglos posteriores; ver artifacts/build-manifest.json); idénticas al árbol principal salvo FxMemoryPool.cpp/.h (sólo finales de línea, CRLF frente a LF). sscanf: Load llama al sscanf del EXE por dirección (0x8220AD, CRT estático del juego) en ambos lados, como CFileLoader::Load2dEffect; no se sondeó el CRT de la DLL. Colaboradores sustituidos por falsos trazados idénticos: ReadLine, FxMemoryPool_c::GetMem, FxInfoManager_c::AddFxInfo y el Load virtual de FxInfo_c.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/FxInfoLoad28-20261018-175941-988715",
+  "summary_sha256": "248a4a0adeb52a698323834a769e9039755e3394feae6d8ce0dee769ee99e086",
+  "result_txt_sha256": "ed7e1a48078baab8d210fe52354e2953e7d3c547ae33073f1e018305c0521d68",
+  "log_sha256": "66632628a8f7e274bf491233d16643875d70601e95dfbba56694b7ee1ada4742",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "00c63003501f5c6812c524710474e58b59af4486eb5ccfe92c1f56a78a9cd67b",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Fx/FxInfoManager.cpp": "97f02b82afb759411e38f5ba6a9503f16e7489176750c638e7c3fd37906be435",
+      "source/game_sa/Fx/FxInfoManager.h": "732c9394986e6f778c7d8a0d62a39609352af65d423c0aced391dbf960fce09c",
+      "source/game_sa/Fx/FxMemoryPool.cpp": "99710e9d4ddc6e662087f76a0288751f225d7b08511a24cb27e8478a6b8ce790",
+      "source/game_sa/Fx/FxMemoryPool.h": "c1cdb364ba657edcb60a3242573e96bd0bca6ff8b137c5a67b29fef79a619091",
+      "source/game_sa/Fx/FxManager.cpp": "8ad17f1c5c416b0caa461b7c789a32a0e872b4607d4e1c0ec79808e4f185a877",
+      "source/game_sa/Fx/FxManager.h": "b80c788eaba818ce8c926d96d3afcb80ab6474e48ff0266c6b96985b0603c220",
+      "source/game_sa/Fx/FxTools.cpp": "73a08808cc5a1314d19323e51acc5a5271a1542d22167c5a37ebdba20ff1a91c",
+      "source/game_sa/Fx/FxTools.h": "411d3d8128ec85cdac7f50f59214959ca977fd04d0939c38fadc04941418b77d",
+      "source/game_sa/Fx/Blueprints/FxInfo.h": "dbfc4658ca0e4a9e379b95ab860b03e22b8034366d714632fbb8b65db0f0e97d",
+      "source/game_sa/Fx/eFxInfoType.h": "e2b63b7b9845dc48dc34c779ffd15856023bab68cd12c7fb9dfe2dfc716f4042",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/FxInfoLoad28/LiveComparison.hpp": "d974fb623961d30969371f5518e182f76cfd7e750f7a1ad62259d2cd7fdd6b94",
+      "reversing/FxInfoLoad28/Core.hpp": "63ab2e9e066c7d876811e4194ed29d889200b7deda40218afa27a82f24f3fdb7",
+      "reversing/FxInfoLoad28/Fixtures.hpp": "91e99b08b532a90f0a2866b8596707c2afbb46e00a5f40426630d9a87872916b",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

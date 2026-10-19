@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,675 entradas reversed=1**, de 8,675 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,685 entradas reversed=1**, de 8,685 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8675 |
+| `validated=1` · evidencia aprobada vinculada | 8685 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8675 |
+| Evidencia histórica vinculada; revisión pendiente | 8685 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -3345,6 +3345,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CObject | `CanBeDeleted` | [Resumen](../reversing/Object48/validation-summary.json) |
 | CObject | `CanBeTargetted` | [Resumen](../reversing/Object48/validation-summary.json) |
 | CObject | `CanBeUsedToTakeCoverBehind` | [Resumen](../reversing/Object48/validation-summary.json) |
+| CObject | `Constructor` | [Resumen](../reversing/ObjectCtor28/validation-summary.json) |
 | CObject | `Create-dummy` | [Resumen](../reversing/Object48/validation-summary.json) |
 | CObject | `Create-intbool` | [Resumen](../reversing/Object48/validation-summary.json) |
 | CObject | `CreateRwObject` | [Resumen](../reversing/Object48/validation-summary.json) |
@@ -3960,6 +3961,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPedPool | `GetRef` | [Resumen](../reversing/DependenciesDecisionPed7/validation-summary.json) |
 | CPedPool | `New` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CPedSaveStructure | `Construct` | [Resumen](../reversing/DependenciesTaskLeaf3/validation-summary.json) |
+| CPedSaveStructure | `Extract` | [Resumen](../reversing/PedSaveExtract28/validation-summary.json) |
 | CPedScriptedTaskRecord | `GetRecordAssociatedWithEvent` | [Resumen](../reversing/Events43/validation-summary.json) |
 | CPedScriptedTaskRecord | `GetStatus-` | [Resumen](../reversing/Events43/validation-summary.json) |
 | CPedScriptedTaskRecord | `GetStatus-opcode` | [Resumen](../reversing/Events43/validation-summary.json) |
@@ -4076,6 +4078,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPickups | `DoMoneyEffects` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CPickups | `DoPickUpEffects` | [Resumen](../reversing/PickupsPending/validation-summary.json) |
 | CPickups | `FindPickUpForThisObject` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
+| CPickups | `GenerateNewOne` | [Resumen](../reversing/PickupsGenNew28/validation-summary.json) |
 | CPickups | `GenerateNewOne_WeaponType` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CPickups | `GetActualPickupIndex` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CPickups | `GetNewUniquePickupIndex` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
@@ -4157,6 +4160,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPlantLocTri | `Add` | [Resumen](../reversing/World52/validation-summary.json) |
 | CPlantLocTri | `GetPlantDensity` | [Resumen](../reversing/World52/validation-summary.json) |
 | CPlantLocTri | `Release` | [Resumen](../reversing/World52/validation-summary.json) |
+| CPlantMgr | `AtomicCreatePrelitIfNeeded` | [Resumen](../reversing/PlantAtomicPrelit28/validation-summary.json) |
 | CPlantMgr | `CalculateWindBending` | [Resumen](../reversing/Plant19/validation-summary.json) |
 | CPlantMgr | `Initialise` | [Resumen](../reversing/Plant19/validation-summary.json) |
 | CPlantMgr | `MoveColEntToList` | [Resumen](../reversing/Plant19/validation-summary.json) |
@@ -4455,6 +4459,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CQuadTreeNode<T> | `GetAllMatching-vec` | [Resumen](../reversing/Sys12/validation-summary.json) |
 | CQuadTreeNode<T> | `InSector` | [Resumen](../reversing/Sys12/validation-summary.json) |
 | CQuadTreeNode<T> | `InitPool` | [Resumen](../reversing/Sys12/validation-summary.json) |
+| CQuaternion | `Get-matrix` | [Resumen](../reversing/QuatGet28/validation-summary.json) |
 | CQuaternion | `Set-axis-angle` | [Resumen](../reversing/DependenciesMathLeaf3/validation-summary.json) |
 | CQuaternion | `Set-matrix` | [Resumen](../reversing/DependenciesMathLeaf3/validation-summary.json) |
 | CQuaternion | `Slerp-halftheta` | [Resumen](../reversing/Dependencies21G/validation-summary.json) |
@@ -4481,6 +4486,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CRadar | `DrawAreaOnRadar` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
 | CRadar | `DrawBlips` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
 | CRadar | `DrawCoordBlip` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
+| CRadar | `DrawEntityBlip` | [Resumen](../reversing/RadarBlip28/validation-summary.json) |
 | CRadar | `DrawLegend` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
 | CRadar | `DrawMap` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
 | CRadar | `DrawRadarGangOverlay` | [Resumen](../reversing/RadarFinal3/validation-summary.json) |
@@ -4535,6 +4541,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CRealTimeShadow | `DrawBorderAroundTexture` | [Resumen](../reversing/Data8b/validation-summary.json) |
 | CRealTimeShadow | `GetShadowRwTexture` | [Resumen](../reversing/Data8b/validation-summary.json) |
 | CRealTimeShadow | `SetLightProperties` | [Resumen](../reversing/Data8b/validation-summary.json) |
+| CRealTimeShadow | `SetupForThisEntity` | [Resumen](../reversing/RTShadowSetup28/validation-summary.json) |
 | CRealTimeShadow | `Update` | [Resumen](../reversing/Data8b/validation-summary.json) |
 | CRealTimeShadowManager | `DoShadowThisFrame` | [Resumen](../reversing/GeoFinal1/validation-summary.json) |
 | CRealTimeShadowManager | `Exit` | [Resumen](../reversing/GeoFinal1/validation-summary.json) |
@@ -4866,6 +4873,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CSprite | `RenderOneXLUSprite_Rotate_Aspect` | [Resumen](../reversing/World15/validation-summary.json) |
 | CSprite | `RenderOneXLUSprite_Triangle` | [Resumen](../reversing/World15/validation-summary.json) |
 | CSprite | `Set4Vertices2D-CRect` | [Resumen](../reversing/World15/validation-summary.json) |
+| CSprite2d | `AddToBuffer` | [Resumen](../reversing/SpriteAddBuf28/validation-summary.json) |
 | CSprite2d | `Constructor` | [Resumen](../reversing/Sprite2d33/validation-summary.json) |
 | CSprite2d | `Delete` | [Resumen](../reversing/Sprite2d33/validation-summary.json) |
 | CSprite2d | `Destructor` | [Resumen](../reversing/Sprite2d33/validation-summary.json) |
@@ -5873,6 +5881,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexPartnerGreet | `GetTaskType` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
 | CTaskComplexPartnerGreet | `StreamRequiredAnims` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
 | CTaskComplexPartnerShove | `Constructor` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
+| CTaskComplexPartnerShove | `GetPartnerSequence` | [Resumen](../reversing/PartnerShoveSeq28/validation-summary.json) |
 | CTaskComplexPassObject | `AbortIK` | [Resumen](../reversing/CTasks9c/validation-summary.json) |
 | CTaskComplexPassObject | `Clone` | [Resumen](../reversing/CTasks9c/validation-summary.json) |
 | CTaskComplexPassObject | `Constructor` | [Resumen](../reversing/CTasks9c/validation-summary.json) |
@@ -8096,6 +8105,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | FxEmitter_c | `CreateParticles` | [Resumen](../reversing/Dependencies22C/validation-summary.json) |
 | FxFrustumInfo_c | `IsCollision` | [Resumen](../reversing/DependenciesWorldLeaf3/validation-summary.json) |
 | FxInfoManager_c | `AddFxInfo` | [Resumen](../reversing/Misc8/validation-summary.json) |
+| FxInfoManager_c | `Load` | [Resumen](../reversing/FxInfoLoad28/validation-summary.json) |
 | FxInfoManager_c | `ProcessEmissionInfo` | [Resumen](../reversing/Misc8/validation-summary.json) |
 | FxInfoManager_c | `ProcessMovementInfo` | [Resumen](../reversing/Misc8/validation-summary.json) |
 | FxInfoManager_c | `ProcessRenderInfo` | [Resumen](../reversing/Misc8/validation-summary.json) |
@@ -8982,7 +8992,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CMovingThings` | 5 | 0 | 5 | 0 |
 | `CNodeRoute` | 2 | 0 | 2 | 0 |
 | `CNodeRoutePool` | 1 | 0 | 1 | 0 |
-| `CObject` | 48 | 0 | 48 | 0 |
+| `CObject` | 49 | 0 | 49 | 0 |
 | `CObjectData` | 2 | 0 | 2 | 0 |
 | `CObjectPool` | 2 | 0 | 2 | 0 |
 | `CObjectSaveStructure` | 2 | 0 | 2 | 0 |
@@ -9020,7 +9030,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPedModelInfo` | 9 | 0 | 9 | 0 |
 | `CPedPlacement` | 3 | 0 | 3 | 0 |
 | `CPedPool` | 3 | 0 | 3 | 0 |
-| `CPedSaveStructure` | 1 | 0 | 1 | 0 |
+| `CPedSaveStructure` | 2 | 0 | 2 | 0 |
 | `CPedScriptedTaskRecord` | 5 | 0 | 5 | 0 |
 | `CPedScriptedTaskRecordData` | 8 | 0 | 8 | 0 |
 | `CPedShelterAttractor` | 4 | 0 | 4 | 0 |
@@ -9030,7 +9040,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPedType` | 13 | 0 | 13 | 0 |
 | `CPhysical` | 57 | 0 | 57 | 0 |
 | `CPickup` | 12 | 0 | 12 | 0 |
-| `CPickups` | 37 | 0 | 37 | 0 |
+| `CPickups` | 38 | 0 | 38 | 0 |
 | `CPlaceName` | 2 | 0 | 2 | 0 |
 | `CPlaceable` | 16 | 0 | 16 | 0 |
 | `CPlane` | 23 | 0 | 23 | 0 |
@@ -9038,7 +9048,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPlaneTrails` | 4 | 0 | 4 | 0 |
 | `CPlantColEntEntry` | 2 | 0 | 2 | 0 |
 | `CPlantLocTri` | 3 | 0 | 3 | 0 |
-| `CPlantMgr` | 19 | 0 | 19 | 0 |
+| `CPlantMgr` | 20 | 0 | 20 | 0 |
 | `CPlantSurfPropMgr` | 4 | 0 | 4 | 0 |
 | `CPlayerInfo` | 28 | 0 | 28 | 0 |
 | `CPlayerPed` | 52 | 0 | 52 | 0 |
@@ -9056,10 +9066,10 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPtrNodeSingleLinkPool` | 1 | 0 | 1 | 0 |
 | `CQuadBike` | 12 | 0 | 12 | 0 |
 | `CQuadTreeNode<T>` | 12 | 0 | 12 | 0 |
-| `CQuaternion` | 3 | 0 | 3 | 0 |
+| `CQuaternion` | 4 | 0 | 4 | 0 |
 | `CRT` | 6 | 0 | 6 | 0 |
-| `CRadar` | 64 | 0 | 64 | 0 |
-| `CRealTimeShadow` | 8 | 0 | 8 | 0 |
+| `CRadar` | 65 | 0 | 65 | 0 |
+| `CRealTimeShadow` | 9 | 0 | 9 | 0 |
 | `CRealTimeShadowManager` | 7 | 0 | 7 | 0 |
 | `CRect` | 8 | 0 | 8 | 0 |
 | `CReferences` | 4 | 0 | 4 | 0 |
@@ -9089,7 +9099,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CSpecialFX` | 7 | 0 | 7 | 0 |
 | `CSpecialPlateHandler` | 4 | 0 | 4 | 0 |
 | `CSprite` | 15 | 0 | 15 | 0 |
-| `CSprite2d` | 34 | 0 | 34 | 0 |
+| `CSprite2d` | 35 | 0 | 35 | 0 |
 | `CStaticShadow` | 1 | 0 | 1 | 0 |
 | `CStats` | 47 | 0 | 47 | 0 |
 | `CStencilShadowObject` | 3 | 0 | 3 | 0 |
@@ -9208,7 +9218,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexPartnerChat` | 1 | 0 | 1 | 0 |
 | `CTaskComplexPartnerDeal` | 1 | 0 | 1 | 0 |
 | `CTaskComplexPartnerGreet` | 7 | 0 | 7 | 0 |
-| `CTaskComplexPartnerShove` | 1 | 0 | 1 | 0 |
+| `CTaskComplexPartnerShove` | 2 | 0 | 2 | 0 |
 | `CTaskComplexPassObject` | 9 | 0 | 9 | 0 |
 | `CTaskComplexPlayHandSignalAnim` | 9 | 0 | 9 | 0 |
 | `CTaskComplexPolicePursuit` | 13 | 0 | 13 | 0 |
@@ -9451,7 +9461,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `FxEmitterPrt_c` | 1 | 0 | 1 | 0 |
 | `FxEmitter_c` | 1 | 0 | 1 | 0 |
 | `FxFrustumInfo_c` | 1 | 0 | 1 | 0 |
-| `FxInfoManager_c` | 4 | 0 | 4 | 0 |
+| `FxInfoManager_c` | 5 | 0 | 5 | 0 |
 | `FxManager_c` | 25 | 0 | 25 | 0 |
 | `FxMemoryPool_c` | 5 | 0 | 5 | 0 |
 | `FxPrimBP_c` | 2 | 0 | 2 | 0 |

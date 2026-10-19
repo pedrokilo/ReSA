@@ -1965,7 +1965,7 @@ void PopulationDefaultTask(CPed* ped,ePedType type) {
         ped->GetTaskManager().SetTask(task,TASK_PRIMARY_DEFAULT,false);
     } else if(type!=PED_TYPE_COP) {
         auto* memory=static_cast<CObject*>(CObject::operator new(0x17C));
-        auto* object=memory?plugin::CallMethodAndReturn<CObject*,0x5A1D70>(memory,ModelIndices::MI_TELLY,true):nullptr;
+        auto* object=memory?::new(memory) CObject(ModelIndices::MI_TELLY,true):nullptr; // CObject::CObject(int32, bool) 0x5A1D70 en C++
         CWorld::Add(object);
         ped->GetTaskManager().SetTask(CTaskComplexWander::GetWanderTaskByPedType(ped),TASK_PRIMARY_DEFAULT,false);
         CVector offset{0.0f,.45f,.35f};

@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CRadar
- * Reconstrucción: COMPLETA — 64/64 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 65/65 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 64/64 entradas.
+ * Validación registrada: 65/65 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -191,7 +191,7 @@ void CRadar::InjectHooks() {
     RH_ScopedInstall(DrawRadarSection, 0x586110);
     RH_ScopedInstall(DrawRadarSectionMap, 0x586520);
     RH_ScopedInstall(DrawRadarGangOverlay, 0x586650);
-    // RH_ScopedInstall(DrawEntityBlip, 0x587000);
+    RH_ScopedInstall(DrawEntityBlip, 0x587000);
     RH_ScopedGlobalInstall(LineRadarBoxCollision, 0x584E00);
 
     // unused
@@ -2049,9 +2049,308 @@ void CRadar::DrawCoordBlip(int32 blipIndex, bool isSprite) {
     AddBlipToLegendList(true, blipIndex);
 }
 
-// 0x587000
-void CRadar::DrawEntityBlip(int32 blipIndex, uint8 arg1) {
-    plugin::Call<0x587000, int32, uint8>(blipIndex, arg1);
+// Estaticas locales de DrawEntityBlip en el EXE (0xBAA370..0xBAA380): el destello de la pista de aterrizaje y sus banderas de inicializacion (bit 0: BAA37C, bit 1: BAA378).
+static auto& airstripFlashDone  = StaticRef<bool>(0xBAA370);
+static auto& airstripFlashTime  = StaticRef<uint32>(0xBAA374);
+static auto& airstripFlashEnd   = StaticRef<int16>(0xBAA378);
+static auto& airstripFlashStep  = StaticRef<int16>(0xBAA37C);
+static auto& airstripFlashGuard = StaticRef<uint32>(0xBAA380);
+
+/*
+ * @brief Draw a blip of an entity (vehicle, ped, object, pickup), script spotlight or airstrip by its index in `ms_RadarTrace`
+ * @param isSprite true: pase de los blips con icono; false: pase de los cuadrados/triangulos y de los demas dibujos
+ * @addr 0x587000
+ */
+void CRadar::DrawEntityBlip(int32 blipIndex, uint8 isSprite) {
+    auto& trace = ms_RadarTrace.data()[blipIndex];
+
+    CEntity*            entity     = nullptr; // [esp+14h]
+    tScriptSearchlight* spot       = nullptr; // [esp+1Ch]
+    bool                isAirstrip = false;   // bl
+    float               airstripDist = 0.0f;  // [esp+18h]
+    CVector             pos{};                // [esp+40h]: el EXE no lo inicializa en el aeropuerto lejano (basura de pila que nada visible usa); aqui queda a cero
+
+    // 0x58704E..0x587482: posicion de la entidad (matriz si la tiene, si no la compacta) y, si es un peaton, ajustada por su entrada/salida
+    const auto SetEntity = [&](CEntity* e) {
+        entity = e;
+        if (!e) {
+            return false;
+        }
+        pos = e->GetPosition();
+        if (e->GetType() == ENTITY_TYPE_PED) {
+            if (const auto enex = static_cast<CPed*>(e)->m_pEnex) {
+                enex->GetPositionRelativeToOutsideWorld(pos);
+            }
+        }
+        return true;
+    };
+
+    // 0x587035: tabla de saltos por (tipo - 1); los tipos 0, 4, 5 y >8 salen sin dibujar
+    switch (trace.m_nBlipType) {
+    case BLIP_CAR:
+        if (!SetEntity(GetVehiclePool()->GetAtRef(trace.m_nEntityHandle))) {
+            return;
+        }
+        break;
+    case BLIP_CHAR: {
+        const auto ped = GetPedPool()->GetAtRef(trace.m_nEntityHandle);
+        if (!ped) {
+            return;
+        }
+        // un peaton dentro de un vehiculo usa el vehiculo (que puede ser nulo: sale)
+        if (!SetEntity(ped->bInVehicle ? static_cast<CEntity*>(ped->m_pVehicle) : static_cast<CEntity*>(ped))) {
+            return;
+        }
+        break;
+    }
+    case BLIP_OBJECT:
+        if (!SetEntity(GetObjectPool()->GetAtRef(trace.m_nEntityHandle))) {
+            return;
+        }
+        break;
+    case BLIP_SPOTLIGHT: { // 0x5870B0
+        const auto idx = CTheScripts::GetActualScriptThingIndex(trace.m_nEntityHandle, SCRIPT_THING_SEARCH_LIGHT);
+        if (idx < 0) {
+            return;
+        }
+        spot = &CTheScripts::ScriptSearchLightArray.data()[idx];
+        pos  = spot->m_Target;
+        break;
+    }
+    case BLIP_PICKUP: { // 0x5870F6
+        const auto idx = CPickups::GetActualPickupIndex(trace.m_nEntityHandle);
+        if (idx < 0) {
+            return;
+        }
+        pos = CPickups::aPickUps.data()[idx].GetPosn();
+        break;
+    }
+    case BLIP_AIRSTRIP: { // 0x58737B
+        isAirstrip = true;
+
+        // 0x58737B..0x587425: cuatro llamadas a FindPlayerVehicle (el EXE guarda un puntero a la posicion de cada una);
+        // (ay - p4.y) * (ay - p3.y) + (ax - p1.x) * (ax - p2.x), raiz cuadrada guardada como float
+        const CVector* const p1 = &FindPlayerVehicle(-1, false)->GetPosition();
+        const CVector* const p2 = &FindPlayerVehicle(-1, false)->GetPosition();
+        const CVector* const p3 = &FindPlayerVehicle(-1, false)->GetPosition();
+        const CVector* const p4 = &FindPlayerVehicle(-1, false)->GetPosition();
+        const auto& strip = airstrip_table.data()[(uint8)airstrip_location];
+        const float prodY = (strip.position.y - p4->y) * (strip.position.y - p3->y);
+        const float prodX = (strip.position.x - p1->x) * (strip.position.x - p2->x);
+        airstripDist      = std::sqrt(prodY + prodX);
+
+        if (!(airstripDist < RadarExeFloat(0x858B58))) { // 500.0: lejos (o NaN) el destello se apaga (0x587617)
+            airstripFlashDone = false;
+            break;
+        }
+
+        // 0x58743E..0x5874D5: inicializacion perezosa de las dos estaticas con -longitud truncada a 16 bits
+        uint32 guard = airstripFlashGuard;
+        int16  step{};
+        if (!(guard & 1)) {
+            guard |= 1;
+            airstripFlashGuard = guard;
+            step               = (int16)RadarFtol(-strip.radius);
+            airstripFlashStep  = step;
+        } else {
+            step = airstripFlashStep;
+        }
+        if (!(guard & 2)) {
+            guard |= 2;
+            airstripFlashGuard = guard;
+            airstripFlashEnd   = (int16)RadarFtol(-strip.radius);
+        }
+
+        // 0x5874D6..0x587552: la posicion se gira alrededor del punto con (cos, -sin) * paso; el resultado de la primera transformacion se descarta
+        pos = trace.m_vPosition;
+        TransformRealWorldPointToRadarSpace(CVector2D{ pos.x, pos.y });
+        RadarAirstripRotateCpp(strip.direction, RadarExeFloat(0x8595EC), step, &pos.x, &pos.y);
+        auto radarPos = TransformRealWorldPointToRadarSpace(CVector2D{ pos.x, pos.y });
+
+        // 0x587557..0x5875FB: el paso solo avanza si el punto esta lejos del centro del radar (fcom: NaN cuenta como menor) o han pasado mas de 3 ms
+        const uint32 now = CTimer::GetTimeInMSPauseMode(); // [0xB7CB7C]
+        const float  d   = std::sqrt(radarPos.y * radarPos.y + radarPos.x * radarPos.x);
+        if (d >= RadarExeFloat(0x858C20) || now - airstripFlashTime > 3u) { // 0.9
+            step              = (int16)(step + 100);
+            airstripFlashStep = step;
+            if ((float)step > strip.radius) {
+                step              = (int16)RadarFtol(-strip.radius);
+                airstripFlashStep = step;
+            }
+            if (airstripFlashEnd == step) {
+                airstripFlashDone = false;
+            }
+            if (d < RadarExeFloat(0x858C20)) {
+                airstripFlashEnd  = step;
+                airstripFlashDone = true;
+            }
+            airstripFlashTime = now;
+        }
+        LimitRadarPoint(radarPos); // 0x5875FF: la distancia se descarta
+        break;
+    }
+    default:
+        return;
+    }
+
+    // 0x58713D: color del blip y marcador de depuracion pulsante
+    const uint32 colour = GetRadarTraceColour(trace.m_nColour, trace.m_bBright, trace.m_bFriendly);
+
+    if ((trace.m_nBlipDisplayFlag == BLIP_DISPLAY_BOTH || trace.m_nBlipDisplayFlag == BLIP_DISPLAY_MARKERONLY) && CTheScripts::DbgFlag) {
+        ShowRadarMarker(pos, colour, trace.m_fSphereRadius);
+        trace.m_fSphereRadius -= RadarExeFloat(0x858B1C); // 0.1
+        if (trace.m_fSphereRadius < 1.0f) {
+            trace.m_fSphereRadius = 5.0f;
+        }
+    }
+
+    if (trace.m_pEntryExit) {
+        trace.m_pEntryExit->GetPositionRelativeToOutsideWorld(pos);
+    }
+
+    if (trace.m_nBlipDisplayFlag != BLIP_DISPLAY_BOTH && trace.m_nBlipDisplayFlag != BLIP_DISPLAY_BLIPONLY) {
+        return;
+    }
+
+    // 0x5871FD..0x58723F: posicion en el radar, limitada (distancia real) y en pantalla, en este orden
+    auto radarPos = TransformRealWorldPointToRadarSpace(CVector2D{ pos.x, pos.y });
+    const float realDist = LimitRadarPoint(radarPos);
+    auto screenPos = TransformRadarPointToScreenSpace(radarPos);
+
+    // 0x587242..0x58725E: un blip de corto alcance lejano solo se ve en el mapa
+    if (trace.m_bShortRange && realDist > 1.0f && !FrontEndMenuManager.m_bDrawingMap) {
+        return;
+    }
+
+    // 0x587264..0x587790: con zoom del script y sin vehiculo del jugador, los blips lejanos se dibujan en el borde con su altura relativa
+    if (CTheScripts::RadarZoomValue != 0 && !FindPlayerVehicle(-1, false)
+        && trace.m_nBlipType != BLIP_OBJECT && trace.m_nBlipType != BLIP_PICKUP) {
+        if (isSprite) {
+            return;
+        }
+        if (!trace.m_bBlipRemain) {
+            const float d = std::sqrt(radarPos.y * radarPos.y + radarPos.x * radarPos.x);
+            if (!(d <= 1.0f)) {
+                return;
+            }
+        }
+
+        const float heading = entity ? entity->GetHeading() : 0.0f; // [esp+50h]
+        if (FrontEndMenuManager.m_bDrawingMap && !FrontEndMenuManager.m_ShowMissionBlips) {
+            return;
+        }
+
+        const auto centre = FindPlayerCentreOfWorldForMap(0);
+        const auto ShowWithHeight = [&](eRadarTraceHeight height) {
+            // Los argumentos de color se pasan como en el EXE (b = color >> 8, g = color >> 16, r = color >> 24, sin enmascarar; alfa = color completo)
+            ShowRadarTraceWithHeight(screenPos.x, screenPos.y, (uint32)(int32)(int16)trace.m_nBlipSize, colour >> 24, colour >> 16, colour >> 8, colour, height);
+        };
+        if (pos.z - RadarExeFloat(0x858CA0) > centre.z) { // 2.0
+            if (!CTheScripts::RadarShowBlipOnAllLevels) {
+                return;
+            }
+            ShowWithHeight(RADAR_TRACE_LOW);
+            return;
+        }
+        if (pos.z + RadarExeFloat(0x858B90) < centre.z) { // 4.0
+            if (!CTheScripts::RadarShowBlipOnAllLevels) {
+                return;
+            }
+            ShowWithHeight(RADAR_TRACE_HIGH);
+            return;
+        }
+
+        // 0x58767E: a la misma altura, la flecha del radar apuntando al blip (con el mapa de arriba hacia abajo: rumbo + pi; si no, rumbo - (orientacion + pi))
+        const CRGBA rgba{ (uint8)(colour >> 24), (uint8)(colour >> 16), (uint8)(colour >> 8), 255 };
+        const bool  topDown = (uint16)TheCamera.m_aCams.data()[TheCamera.m_nActiveCam].m_nMode == (uint16)MODE_TOPDOWN;
+        const uint32 height = (uint32)RadarFtol(RadarStretchBaseY() * RadarExeFloat(0x859000)); // 8.0: primero el alto y despues el ancho
+        const uint32 width  = (uint32)RadarFtol(RadarStretchBaseX() * RadarExeFloat(0x859000));
+        const float  angle  = topDown ? heading + RadarExeFloat(0x858CB8) : heading - (m_fRadarOrientation + RadarExeFloat(0x858CB8));
+        DrawRotatingRadarSprite(RadarBlipSprites.data()[RADAR_SPRITE_CENTRE], screenPos.x, screenPos.y, angle, width, height, rgba);
+        return;
+    }
+
+    // 0x587790: pase de iconos
+    if (isSprite) {
+        if (trace.m_nBlipSprite == RADAR_SPRITE_NONE || !HasThisBlipBeenRevealed(blipIndex)) {
+            return;
+        }
+        DrawRadarSprite(trace.m_nBlipSprite, screenPos.x, screenPos.y, 255);
+        return;
+    }
+    if (trace.m_nBlipSprite != RADAR_SPRITE_NONE) {
+        return;
+    }
+    if (FrontEndMenuManager.m_bDrawingMap && !FrontEndMenuManager.m_ShowMissionBlips) {
+        return;
+    }
+
+    if (spot) { // 0x5877C7..0x5878A9: circulo oscuro con borde claro del tamano de la luz, solo fuera del mapa y dentro del radar
+        const float d = std::sqrt(radarPos.y * radarPos.y + radarPos.x * radarPos.x);
+        if (d <= RadarExeFloat(0x858C20) && !FrontEndMenuManager.m_bDrawingMap) { // 0.9
+            float radius = RadarStretchBaseX() * RadarExeFloat(0x866B78); // 94.0
+            radius       = radius / m_radarRange;
+            radius       = radius * spot->m_fTargetRadius;
+            radius       = radius * RadarExeFloat(0x858CC8); // 0.6
+            const CVector2D circleCentre{ screenPos.x, screenPos.y };
+            CSprite2d::DrawCircleAtNearClip(circleCentre, radius, CRGBA{ 0, 0, 0, 150 }, 15);
+            CSprite2d::DrawCircleAtNearClip(circleCentre, radius - RadarStretchBaseX(), CRGBA{ 220, 220, 220, 200 }, 15);
+        }
+        return;
+    }
+
+    if (isAirstrip) { // 0x5878AE..0x587B02
+        const CRGBA white{ 255, 255, 255, 255 };
+        if (!FrontEndMenuManager.m_bDrawingMap) {
+            const float d = std::sqrt(radarPos.y * radarPos.y + radarPos.x * radarPos.x);
+            if (d < RadarExeFloat(0x858C20) && airstripDist < RadarExeFloat(0x858B58)) { // 0.9 y 500.0: la luz fija del extremo cercano
+                const uint32 height = (uint32)RadarFtol(RadarStretchBaseY() * RadarExeFloat(0x859000));
+                const uint32 width  = (uint32)RadarFtol(RadarStretchBaseX() * RadarExeFloat(0x859000));
+                DrawRotatingRadarSprite(RadarBlipSprites.data()[RADAR_SPRITE_LIGHT], screenPos.x, screenPos.y, 0.0f, width, height, white);
+            }
+        }
+
+        // 0x587959..0x5879A5: la pista se vuelve a situar desde la posicion original del blip
+        pos          = trace.m_vPosition;
+        radarPos     = TransformRealWorldPointToRadarSpace(CVector2D{ pos.x, pos.y });
+        LimitRadarPoint(radarPos);
+        screenPos    = TransformRadarPointToScreenSpace(radarPos);
+
+        const auto& strip = airstrip_table.data()[(uint8)airstrip_location];
+        const float k16   = RadarExeFloat(0x8599D0); // 16.0
+        if (FrontEndMenuManager.m_bDrawingMap) {
+            float heading = strip.direction;
+            if ((uint8)airstrip_location != 1) {
+                heading = heading - RadarExeFloat(0x85991C); // 90.0
+            }
+            const uint32 height = (uint32)RadarFtol(RadarStretchBaseY() * k16);
+            const uint32 width  = (uint32)RadarFtol(RadarStretchBaseX() * k16);
+            DrawRotatingRadarSprite(RadarBlipSprites.data()[RADAR_SPRITE_RUNWAY], screenPos.x, screenPos.y, heading * RadarExeFloat(0x8595EC), width, height, white);
+            AddBlipToLegendList(false, RADAR_SPRITE_RUNWAY);
+        } else if (!airstripFlashDone) {
+            const uint32 height = (uint32)RadarFtol(RadarStretchBaseY() * k16);
+            const uint32 width  = (uint32)RadarFtol(RadarStretchBaseX() * k16);
+            const float  turn   = (strip.direction - RadarExeFloat(0x85991C)) * RadarExeFloat(0x8595EC);
+            DrawRotatingRadarSprite(RadarBlipSprites.data()[RADAR_SPRITE_RUNWAY], screenPos.x, screenPos.y, (-m_fRadarOrientation) - turn, width, height, white);
+        }
+        return;
+    }
+
+    // 0x587B02: altura relativa al jugador (sin FindPlayerPed ni comprobacion del mapa antes)
+    const auto centre = FindPlayerCentreOfWorldForMap(0);
+    eRadarTraceHeight height;
+    if (pos.z - RadarExeFloat(0x858CA0) > centre.z) { // 2.0
+        height = RADAR_TRACE_LOW;
+    } else if (pos.z + RadarExeFloat(0x858B90) < centre.z) { // 4.0
+        height = RADAR_TRACE_HIGH;
+    } else {
+        height = RADAR_TRACE_NORMAL;
+    }
+    ShowRadarTraceWithHeight(screenPos.x, screenPos.y, (uint32)(int32)(int16)trace.m_nBlipSize, colour >> 24, colour >> 16, colour >> 8, colour, height);
+
+    if (FrontEndMenuManager.m_bDrawingMap) {
+        AddBlipToLegendList(true, blipIndex);
+    }
 }
 
 /*

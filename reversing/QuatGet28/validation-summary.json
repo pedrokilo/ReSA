@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CQuaternion::Get(RwMatrix*)": 4096
+  },
+  "covered_functions": {
+    "CQuaternion::Get(RwMatrix*)": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/gta-wt-b28 (HEAD de6ed4a4d + source.patch de cada banco + tres arreglos posteriores; ver artifacts/build-manifest.json); idénticas al árbol principal en el momento del registro. Corrida aprobada = 20261018-180758-275555 (la más reciente). Corridas previas sólo como nota: 20261018-175254-822774 falló en el oráculo del EXE (arena de matriz con tamaño distinto de la esperada); 20261018-180454-275013 pasó con una sonda anterior (sha 438ca4f1...) y no cuenta como evidencia. CQuaternion::Get(RwMatrix*) const sin colaboradores; RpNanQuatToMatrixCpp (X87Math.cpp, /arch:IA32) queda cubierta con aritmética x87 de 24 bits. NaN de las fixtures siempre silenciosos (sNaN no cubierto); los empates de NaN sólo exigen EXE == DLL. EAX/ECX/EDX sólo registrados.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/QuatGet28-20261018-180758-275555",
+  "summary_sha256": "149dea633d43b88ca7ac31d6ac190304e7c29a08ecb7da81574473ebe00ca913",
+  "result_txt_sha256": "d717e613e841666748b7970db43bb3e1f73bbdfe27e58c2f0c30999492803b13",
+  "log_sha256": "79cac37d408c530d840d68da69a301445fccfecbb2bb2e365829627318282056",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "25f89bf51e5c64d50d27e979367053ba26e0e89804a707b77e55812ab5ed3602",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Core/Quaternion.cpp": "1f5800ada4df7cba15a872cdba6b500c6281a2702962408fed015b9f2b7de53e",
+      "source/game_sa/Core/Quaternion.h": "48db9873122fa6bfad1c9a50ba0ac91c3a7c4d5a80e984984ec10f5f4bf38dec",
+      "source/game_sa/X87Math.cpp": "26b2c8771fe218cb9c102acb4b73c68c5ed7dc90953f5a6ce9a1fbe40126920a",
+      "source/game_sa/X87Math.h": "c6b5f413d16b9f83c4707ce877024fcb7ba83d805f37dfed100e45715a14862f",
+      "source/game_sa/Entity/Vehicle/Plane.cpp": "92f0707dcad234635641f9c1c6a5024f2b97b38fdceb0162387b8c6da9e19215",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/QuatGet28/LiveComparison.hpp": "2e552de4412e835efe290199411e4960bfd3ef2c7ad99a13270d8b519e664aa6",
+      "reversing/QuatGet28/Core.hpp": "a2c5645e3e6714f259e00964dd48693467d12312b1470ba3d44ebb15cd50a41f",
+      "reversing/QuatGet28/Fixtures.hpp": "562168d5cf24b9e83aa081e02ad700b7bdd67d3e5ab5942ab20b32a399ceff95",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

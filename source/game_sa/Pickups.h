@@ -85,6 +85,7 @@ public:
     // EAX en el EXE, pero MSVC las devolveria por puntero oculto en la DLL. Estos son los que se enganchan.
     static int32 GetUniquePickupIndex_ExeAbi(int32 pickupIndex);
     static int32 GetNewUniquePickupIndex_ExeAbi(int32 pickupIndex);
+    static int32 GenerateNewOne_ExeAbi(CVector coors, uint32 modelId, ePickupType pickupType, uint32 ammo, uint32 moneyPerDay, uint8 isEmpty, char* message);
     static int32 GenerateNewOne_WeaponType_ExeAbi(CVector coors, eWeaponType weaponType, ePickupType pickupType, uint32 ammo, bool isEmpty, char* message);
 
     // Helpers NOTSA

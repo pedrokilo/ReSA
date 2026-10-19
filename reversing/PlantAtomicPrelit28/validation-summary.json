@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CPlantMgr::AtomicCreatePrelitIfNeeded": 4096
+  },
+  "covered_functions": {
+    "CPlantMgr::AtomicCreatePrelitIfNeeded": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/gta-wt-b28 (HEAD de6ed4a4d + source.patch de cada banco + tres arreglos posteriores; ver artifacts/build-manifest.json); idénticas al árbol principal en el momento del registro. Colaboradores de RenderWare sustituidos por falsos trazados idénticos en ambos lados (RpGeometryCreate 0x74CA90, RpGeometryTriangleGetMaterial 0x74C760, RpGeometryTriangleSetMaterial 0x74C6C0, RpGeometryUnlock 0x74C800, RpAtomicSetGeometry 0x749D40); no se valida el cuerpo real de RenderWare, sólo la lógica de copia, el orden de llamadas y los argumentos. No cubre contadores negativos ni mayores que 100.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/PlantAtomicPrelit28-20261018-175434-037677",
+  "summary_sha256": "944be4dbe4274d86dbd411929e90ef19ce246249710793b09ba7356828db9f95",
+  "result_txt_sha256": "5cb3567dee5f862befcd5b1a331b555756459e614f173dc14da311e376ac6b09",
+  "log_sha256": "0c5b56bc293dc449f4b89e5681bf52b47b26ffc4ce82616dfbb218e82c384df2",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "ef510b84dda36cdcafb40f2185854606e0df2daa5443a9c0787f3adaf954dd65",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/PlantMgr.cpp": "162b4b1b177b09e3c3219806c80a3c11c52a36013cc88b5c29dad9a1f8a19233",
+      "source/game_sa/PlantMgr.h": "85a199fd8a066d31f9af099189ed1b1ebb60e0bc1764cb4ba73198c29d161366",
+      "source/game_sa/RenderWare/rw/rpworld.cpp": "78738b50d2616ffc0563ac741a3fccc6838a1c9c684c14a07c0a01e3fabbb827",
+      "source/game_sa/RenderWare/rw/rpworld.h": "591e52dbfd4f0b577d8fee030fa4b3ada4831ab0c2f46646fc940164fc7502c7",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/PlantAtomicPrelit28/LiveComparison.hpp": "47b6f4df440c6940615c78d9dc8321a1d51a6c8f40d581672b56e26220f66c2e",
+      "reversing/PlantAtomicPrelit28/Core.hpp": "19365f27d7f04582ec1a5fc9edac7440aafbb30e70a8b2bd7195d0d20776ca0b",
+      "reversing/PlantAtomicPrelit28/Fixtures.hpp": "d85726d5b97b30e0900a797514555174f0d7ba36c41c491d82f91654a321ddc9",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

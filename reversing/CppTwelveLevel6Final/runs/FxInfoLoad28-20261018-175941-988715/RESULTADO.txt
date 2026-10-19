@@ -1,0 +1,3 @@
+APROBADO: FxInfoLoad28
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fxinfoload28\20261018-175941-988715

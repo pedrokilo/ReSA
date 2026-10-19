@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CPlantMgr
- * Reconstrucción: COMPLETA — 19/19 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 20/20 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 19/19 entradas.
+ * Validación registrada: 20/20 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -29,8 +29,35 @@ END GENERATED HOOK STATUS */
 #include "CustomBuildingDNPipeline.h"
 
 // 0x5DD100 (todo: move)
+// Si la geometria del atomico no tiene luces precalculadas (prelit), crea una copia con tristrip + texcoords + prelit (formato 0xD) con los mismos
+// vertices, texcoords, triangulos y materiales por triangulo, y se la asigna al atomico (rpATOMICSAMEBOUNDINGSPHERE).
 static void AtomicCreatePrelitIfNeeded(RpAtomic* atomic) {
-    plugin::Call<0x5DD100, RpAtomic*>(atomic);
+    RpGeometry* const oldGeometry = atomic->geometry;
+    if (oldGeometry->flags & rpGEOMETRYPRELIT) {
+        return;
+    }
+    const int32 numTriangles = oldGeometry->numTriangles;
+    const int32 numVertices  = oldGeometry->numVertices;
+    RpMorphTarget* const oldMorphTarget = oldGeometry->morphTarget;
+
+    RpGeometry* const newGeometry = RpGeometryCreate(numVertices, numTriangles, 0xD);
+    RpMorphTarget* const newMorphTarget = newGeometry->morphTarget;
+    RwTexCoords* const newTexCoords = newGeometry->texCoords[0];
+    RwTexCoords* const oldTexCoords = oldGeometry->texCoords[0];
+
+    std::memcpy(newMorphTarget->verts, oldMorphTarget->verts, static_cast<size_t>(numVertices) * sizeof(RwV3d));
+    std::memcpy(newTexCoords, oldTexCoords, static_cast<size_t>(numVertices) * sizeof(RwTexCoords));
+    RpTriangle* const oldTriangles = oldGeometry->triangles;
+    RpTriangle* const newTriangles = newGeometry->triangles;
+    std::memcpy(newTriangles, oldTriangles, static_cast<size_t>(numTriangles) * sizeof(RpTriangle));
+
+    for (int32 i = 0; i < numTriangles; ++i) {
+        RpMaterial* const material = RpGeometryTriangleGetMaterial(oldGeometry, &oldTriangles[i]);
+        RpGeometryTriangleSetMaterial(newGeometry, &newTriangles[i], material);
+    }
+    RpGeometryUnlock(newGeometry);
+    newGeometry->flags |= 2; // rpGEOMETRYPOSITIONS
+    RpAtomicSetGeometry(atomic, newGeometry, 1);
 }
 
 // 0x5DD1E0 (do not hook! it has retarded calling conv)
@@ -115,6 +142,7 @@ void CPlantMgr::InjectHooks() {
     RH_ScopedInstall(_ProcessEntryCollisionDataSections_RemoveLocTris, 0x5DBF20);
     RH_ScopedInstall(_UpdateLocTris, 0x5DCF00);
     RH_ScopedInstall(Render, 0x5DBAE0);
+    RH_ScopedGlobalInstall(AtomicCreatePrelitIfNeeded, 0x5DD100);
     //RH_ScopedGlobalInstall(LoadModels, 0x5DD220); // uses `__usercall`, can't hook
 
     // Do not uncomment!

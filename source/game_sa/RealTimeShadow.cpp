@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CRealTimeShadow
- * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 8/8 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -18,6 +18,7 @@ END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
 #include "RealTimeShadow.h"
+#include "X87Math.h"
 #include "RealTimeShadowManager.h"
 
 void CRealTimeShadow::InjectHooks() {
@@ -31,6 +32,7 @@ void CRealTimeShadow::InjectHooks() {
     RH_ScopedInstall(GetShadowRwTexture, 0x7059F0);
     RH_ScopedInstall(DrawBorderAroundTexture, 0x705A00);
     RH_ScopedInstall(Create, 0x706460);
+    RH_ScopedInstall(SetupForThisEntity, 0x706520);
     RH_ScopedInstall(Update, 0x706600);
     RH_ScopedInstall(Destroy, 0x705990);
 }
@@ -88,9 +90,45 @@ void CRealTimeShadow::DrawBorderAroundTexture(RwRGBA const& color) {
     GetCurrentCamera().DrawOutlineBorder(color);
 }
 
-// 0x706460
+// 0x706520
 bool CRealTimeShadow::SetupForThisEntity(CPhysical* owner) {
-    return plugin::CallMethodAndReturn<bool, 0x706520, CRealTimeShadow*, CPhysical*>(this, owner);
+    // Como el original: el dueno se guarda antes de mirar el objeto RW
+    m_pOwner = owner;
+    RwObject* const object = owner->GetRwObject();
+    if (!object) {
+        return false;
+    }
+    const uint32 type = RwObjectGetType(object); // byte de tipo (movzx)
+    m_nRwObjectType = type;
+    if (type == 0 || type > 2) {
+        Destroy();
+        return false;
+    }
+
+    if (type == rpATOMIC) {
+        auto* const atomic = reinterpret_cast<RpAtomic*>(object);
+        if (atomic->interpolator.flags & 2) { // esfera interpolada sucia (test byte [atomic+0x4C], 2)
+            _rpAtomicResyncInterpolatedSphere(atomic);
+        }
+        // Como el original: copia de 4 dwords (memcpy conserva los bits de NaN señalizadores)
+        std::memcpy(&m_boundingSphere.m_vecCenter.x, &atomic->boundingSphere.center.x, sizeof(float));
+        std::memcpy(&m_boundingSphere.m_vecCenter.y, &atomic->boundingSphere.center.y, sizeof(float));
+        std::memcpy(&m_boundingSphere.m_vecCenter.z, &atomic->boundingSphere.center.z, sizeof(float));
+        std::memcpy(&m_boundingSphere.m_fRadius,     &atomic->boundingSphere.radius,   sizeof(float));
+    } else { // rpCLUMP
+        RpClumpGetBoundingSphere(reinterpret_cast<RpClump*>(object), reinterpret_cast<RwSphere*>(&m_boundingSphere), true);
+    }
+    std::memcpy(&m_baseSphere.m_fRadius, &m_boundingSphere.m_fRadius, sizeof(float)); // dword
+    RwV3dTransformPoints(
+        reinterpret_cast<RwV3d*>(&m_baseSphere.m_vecCenter),
+        reinterpret_cast<const RwV3d*>(&m_boundingSphere.m_vecCenter),
+        1,
+        RwFrameGetMatrix(static_cast<RwFrame*>(rwObjectGetParent(object)))
+    );
+
+    m_camera.SetFrustum(FloatTimesFloatCpp(m_boundingSphere.m_fRadius, StaticRef<float>(0x858F14)) /* 1.1f: fmul del x87, conserva denormales */);
+    m_camera.SetCenter(m_baseSphere.m_vecCenter);
+    return true;
 }
 
 bool CRealTimeShadow::Create(bool isBlurred, int32 blurPasses, bool drawMoreBlur) {

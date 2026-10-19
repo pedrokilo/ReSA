@@ -8674,3 +8674,13 @@ CDecision,MakeDecision,0x006040D0,1,0,1,S
 CDecision,Add,0x00600600,1,0,1,S
 CDecisionMakerTypes,AddEventResponse,0x006044C0,1,0,1,S
 CFileLoader,Load2dEffect,0x005B7670,1,0,1,S
+CObject,Constructor,0x005A1D70,1,0,1,S
+CPedSaveStructure,Extract,0x005D44B0,1,0,1,S
+CPickups,GenerateNewOne,0x00456F20,1,0,1,S
+CPlantMgr,AtomicCreatePrelitIfNeeded,0x005DD100,1,0,1,S
+CQuaternion,Get-matrix,0x0059C080,1,0,1,S
+CRadar,DrawEntityBlip,0x00587000,1,0,1,S
+CRealTimeShadow,SetupForThisEntity,0x00706520,1,0,1,S
+CSprite2d,AddToBuffer,0x00728200,1,0,1,S
+CTaskComplexPartnerShove,GetPartnerSequence,0x00000000,1,0,1,V
+FxInfoManager_c,Load,0x005C0B70,1,0,1,S

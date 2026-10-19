@@ -227,6 +227,11 @@ __declspec(noinline) float __cdecl TrigIntSinMulCpp(int i, float k) {
     return float(sin(double(i) * double(k)));
 }
 
+__declspec(noinline) float __cdecl FloatTimesFloatCpp(float a, float b) {
+    volatile float result = a * b;
+    return result;
+}
+
 __declspec(noinline) float __cdecl IntTimesFloatCpp(int n, float f) {
     volatile float result = float(double(n) * double(f));
     return result;
@@ -3598,6 +3603,16 @@ __declspec(noinline) void __cdecl RadarYouAreHereOffsetCpp(float circleAngle, fl
     const double c = cos(double(circleAngle));
     *outY          = float(double(y) - s * double(radius));
     *outX          = float(c * double(radius) + double(x));
+}
+
+// CRadar::DrawEntityBlip (destello de la pista): fld heading; fmul degToRad; fild steps; fld st1; fcos; fmul st1; fadd x; fstp x; fxch; fsin; fmul st1; fsubr y; fst y.
+// El producto por degToRad se redondea a 24 bits (la x87 del proceso) y fcos/fsin leen ese mismo valor; el coseno y el seno no se guardan como float antes de multiplicar por steps.
+__declspec(noinline) void __cdecl RadarAirstripRotateCpp(float heading, float degToRad, int steps, float* x, float* y) {
+    const double a = double(heading) * double(degToRad);
+    const double n = double(steps);
+    const float  newX = float(cos(a) * n + double(*x));
+    *x                = newX;
+    *y                = float(double(*y) - sin(a) * n);
 }
 
 // CRadar::DrawRadarMask: fild j; fmul step; fld st0; fcos; fmul cornerX; fstp; fsin; fmul cornerY; fstp (el coseno y el seno NO se guardan como float antes de multiplicar).

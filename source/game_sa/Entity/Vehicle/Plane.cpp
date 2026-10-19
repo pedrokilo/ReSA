@@ -602,14 +602,13 @@ bool CPlane::BurstTyre(uint8 tyreComponentId, bool bPhysicalEffect) {
 
 // 0x6C94A0
 // Transcripcion del EXE a C++ (C++ puro; el CMatrix temporal es un objeto local y su destruccion la hace el compilador). Las cadenas x87 con redondeos propios o ST0 sin redondear
-// van a ayudantes de X87Math (Plane...Cpp); los colaboradores reconstruidos se llaman directamente y los que siguen en el EXE (cuaternion -> matriz 0x59C080 y
-// matriz * vector 0x59C890) por su direccion.
+// van a ayudantes de X87Math (Plane...Cpp); los colaboradores reconstruidos se llaman directamente y los que siguen en el EXE (matriz * vector 0x59C890) por su direccion.
 static const uint8 PlanePreRenderGearSwitchMap[] = {0,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,1,2,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,3,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,1,5,5,5,5,5,5,5,5,5,5,5,5,5,5,4};
 static_assert(sizeof(PlanePreRenderGearSwitchMap) == 0x75);
 
-// 0x59C080: CQuaternion::Get(RwMatrix*) (sin reconstruir en el EXE): escribe solo right/up/at del RwMatrix indicado.
+// 0x59C080: CQuaternion::Get(RwMatrix*) (reconstruida en C++, X87Math): escribe solo right/up/at del RwMatrix indicado.
 static void PlaneQuaternionToMatrix(const CQuaternion& quaternion, RwMatrix* matrix) {
-    reinterpret_cast<void(__thiscall*)(const CQuaternion*, RwMatrix*)>(0x59C080)(&quaternion, matrix);
+    quaternion.Get(matrix);
 }
 
 // 0x59C890: CMatrix * CVector (sin reconstruir en el EXE, orden de sumas propio).

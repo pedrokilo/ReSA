@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "pairs": 6144,
+  "differences": 0,
+  "registered_pairs": 6144,
+  "registered_functions": 1,
+  "functions": {
+    "CTaskComplexPartnerShove::GetPartnerSequence": 6144
+  },
+  "covered_functions": {
+    "CTaskComplexPartnerShove::GetPartnerSequence": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/gta-wt-b28 (HEAD de6ed4a4d + source.patch de cada banco + tres arreglos posteriores; ver artifacts/build-manifest.json); idénticas al árbol principal salvo TaskComplexPartner.h: el árbol principal añade además la declaración virtual pura GetPartnerSequence en la base (ausente en la sonda; no modifica el cuerpo probado). Hook virtual (RH_ScopedVMTInstall) registrado como tipo V con original_address 0x00683120. Ningún colaborador está sustituido: CTask::operator new, los constructores, AddTask y RegisterReference son los ya reconstruidos en C++ y enganchados, por lo que el lado EXE también los ejecuta (no se validan sus cuerpos aquí). No cubre el agotamiento total del pool (el EXE se detiene). EAX/ECX/EDX sólo registrados (0x683B46 los sobrescribe).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/PartnerShoveSeq28-20261018-175528-909759",
+  "summary_sha256": "4a3276a1ac4cf2a57a97ae02dce841c2047ad6034b6330c5038fb1e58b2ff348",
+  "result_txt_sha256": "9aa50456720740fff03cae73cd1ac477b358ed602de0742dd4d9aa90c9bd7894",
+  "log_sha256": "f8fe84d48e4df385aa887c0051173ac1197f3854a7a8c3d6d8ac20969a3860d5",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "79d54a1c7e037f75dea4e63d38bba968dc4557732c4a75de188fd62e6b8cf6cf",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerShove.cpp": "00b20e4bdec2f0de0828043c78a0ca33bcaee91fb835a6912857429fea9ca96b",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerShove.h": "6d76ce304306d331298c307011b285e4299737c243e33afe48b6eda8eb8dbf86",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+      "source/game_sa/Tasks/TaskComplexSequence.cpp": "3497ea85aebba258669ea20dbd06fd3628f1e443bca554bfbdd257f1984d5df5",
+      "source/game_sa/Tasks/TaskComplexSequence.h": "9d2404579563e19da54b6c829f3f98129484cc3d10c6c2732e5845d5660926aa",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexTurnToFaceEntityOrCoord.cpp": "921d5f3f7fe35d7c4bc106ea20c88a25b50577a3296ee6a50937860b5a450a81",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexTurnToFaceEntityOrCoord.h": "c457da7020506df591768909a62af77e2ea43356744d84edb2b771de336ae71f",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.cpp": "b4f9a9afa80c1f715e62e161e05bfcb6cba13495ab5a9663853b450177991213",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "4041c65038644cf2aaaf3683bb5c8cf02b46271cbb183e6b0ca4ffc562262c82",
+      "source/game_sa/Tasks/Task.cpp": "d700418e6a00f573db2dc824d4a6d0bd325136ddf4f208589b74aef3d5f083c8",
+      "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/PartnerShoveSeq28/LiveComparison.hpp": "2044c39473cea09ea5ebea908334df15189ef160545b2e4c97bc54c2ac710c90",
+      "reversing/PartnerShoveSeq28/Core.hpp": "d03b4c23bea08269687d722abb30c883680fa4f10e0584767d0773a807df2b0f",
+      "reversing/PartnerShoveSeq28/Fixtures.hpp": "cb0171e6eb315a899822b0f6fec52537e4774ff7c46689482ce23446a2e826e1",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

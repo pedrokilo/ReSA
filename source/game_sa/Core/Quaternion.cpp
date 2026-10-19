@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CQuaternion
- * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 3/3 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -32,32 +32,16 @@ void CQuaternion::InjectHooks() {
     RH_ScopedClass(CQuaternion);
     RH_ScopedCategory("Core");
 
-    // Keep Get disabled: only the two independently tested dependencies are installed.
-    // RH_ScopedOverloadedInstall(Get, "", 0x59C080, void (CQuaternion::*)(RwMatrix*) const);
+    RH_ScopedOverloadedInstall(Get, "matrix", 0x59C080, void (CQuaternion::*)(RwMatrix*) const);
     RH_ScopedOverloadedInstall(Set, "matrix", 0x59C3E0, void (CQuaternion::*)(const RwMatrix&));
     RH_ScopedOverloadedInstall(Set, "axis-angle", 0x59C600, void (CQuaternion::*)(RwV3d*, float));
     RH_ScopedOverloadedInstall(Slerp, "halftheta", 0x59C300, void (CQuaternion::*)(const CQuaternion&, const CQuaternion&, float, float, float));
 }
 
-// Quat to matrix
+// 0x59C080: quat to matrix. Escribe sólo right (+0x00), up (+0x10) y at (+0x20) del RwMatrix; la aritmética x87 exacta del EXE (2z guardado como float, 2x y 2y en registros,
+// 2y·w y 2z·w sin redondear a float) vive en el módulo compartido X87Math (RpNanQuatToMatrixCpp), compilado con /arch:IA32.
 void CQuaternion::Get(RwMatrix* out) const {
-    auto vecImag2 = imag + imag;
-    auto x2x = vecImag2.x * imag.x;
-    auto y2x = vecImag2.y * imag.x;
-    auto z2x = vecImag2.z * imag.x;
-
-    auto y2y = vecImag2.y * imag.y;
-    auto z2y = vecImag2.z * imag.y;
-    auto z2z = vecImag2.z * imag.z;
-
-    auto x2r = vecImag2.x * real;
-    auto y2r = vecImag2.y * real;
-    auto z2r = vecImag2.z * real;
-
-    CVector right{1.0F - (z2z + y2y), z2r + y2x, z2x - y2r}, up{y2x - z2r, 1.0F - (z2z + x2x), x2r + z2y}, at{y2r + z2x, z2y - x2r, 1.0F - (y2y + x2x)};
-    RwV3dAssign(RwMatrixGetRight(out), &right);
-    RwV3dAssign(RwMatrixGetUp(out), &up);
-    RwV3dAssign(RwMatrixGetAt(out), &at);
+    RpNanQuatToMatrixCpp(&x, reinterpret_cast<float*>(out));
 }
 
 // Quat to euler angles

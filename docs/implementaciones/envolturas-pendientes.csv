@@ -384,7 +384,6 @@ CMemoryHeap,IntegrityCheck,,source/game_sa/Memory/MemoryHeap.cpp:330,envoltura e
 CMentalState,Process,0x006008A0,source/game_sa/MentalHealth.cpp:21,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CMissionCleanup,CheckIfCollisionHasLoadedForMissionObjects,0x004652D0,source/game_sa/MissionCleanup.cpp:113,cohorte 499
 CMissionCleanup,Process,0x00468560,source/game_sa/MissionCleanup.cpp:31,cohorte nuevo 2026-10-17
-CObject,CObject,0x005A1D70,source/game_sa/Population.cpp:1979,cohorte 499
 CPathFind,CompleteNewInterior,0x00452270,source/game_sa/Interior/InteriorGroup_c.cpp:237,cohorte 499
 CPathFind,FindNextNodeWandering,0x00451B70,source/game_sa/PathFind.cpp:360,cohorte 499
 CPathFind,FindNodeClosestToCoors,0x0044F460,source/game_sa/PathFind.cpp:843,cohorte 499
@@ -395,10 +394,7 @@ CPed,ProcessControl,0x005E8CD0,source/game_sa/Entity/Ped/Ped.cpp:4423,cohorte 49
 CPed,ProcessEntityCollision,0x005E2530,source/game_sa/Entity/Ped/Ped.cpp:4713,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CPed,SpecialEntityCalcCollisionSteps,0x005E3E90,source/game_sa/Entity/Ped/Ped.cpp:4468,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CPed,SpecialEntityPreCollisionStuff,0x005E3C30,source/game_sa/Entity/Ped/Ped.cpp:4454,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CPedSaveStructure,Extract,0x005D44B0,source/game_sa/Entity/Ped/PedSaveStructure.cpp:5,cohorte 499
 CPedStuckChecker,TestPedStuck,0x00602C00,source/game_sa/PedStuckChecker.cpp:5,cohorte 499 + envoltura en el código fuente
-CPickups,GenerateNewOne,0x00456F20,source/game_sa/Pickups.cpp:507,cohorte 499
-CPlantMgr,AtomicCreatePrelitIfNeeded,0x005DD100,source/game_sa/PlantMgr.cpp:33,cohorte nuevo 2026-10-17
 CPlayerPed,Compute3rdPersonMouseTarget,0x0060B650,source/game_sa/Entity/Ped/PlayerPed.cpp:883,cohorte 499 + envoltura en el código fuente
 CPlayerPed,DrawTriangleForMouseRecruitPed,0x0060BA80,source/game_sa/Entity/Ped/PlayerPed.cpp:889,cohorte 499 + envoltura en el código fuente
 CPlayerPed,EvaluateNeighbouringTarget,0x0060D1C0,source/game_sa/Entity/Ped/PlayerPed.cpp:1105,cohorte nuevo 2026-10-17
@@ -412,16 +408,13 @@ CPlayerPed,ProcessGroupBehaviour,0x0060D350,source/game_sa/Entity/Ped/PlayerPed.
 CPlayerPed,ProcessWeaponSwitch,0x0060D850,source/game_sa/Entity/Ped/PlayerPed.cpp:1214,cohorte 499 + envoltura en el código fuente
 CPlayerPed,SetInitialState,0x0060CD20,source/game_sa/Entity/Ped/PlayerPed.cpp:1081,cohorte 499 + envoltura en el código fuente
 CPlayerPed,SetRealMoveAnim,0x0060A9C0,source/game_sa/Entity/Ped/PlayerPed.cpp:820,cohorte 499 + envoltura en el código fuente
-CQuaternion,Get,0x0059C080,source/game_sa/Entity/Vehicle/Plane.cpp:612,cohorte nuevo 2026-10-17
-CRadar,DrawEntityBlip,0x00587000,source/game_sa/Radar.cpp:2053,cohorte 499 + envoltura en el código fuente
-CRealTimeShadow,SetupForThisEntity,0x00706520,source/game_sa/RealTimeShadow.cpp:93,cohorte 499
+CQuaternion,Get,0x0059C230,source/game_sa/Core/Quaternion.cpp:52,cohorte nuevo 2026-10-17
 CRemote,GivePlayerRemoteControlledCar,0x0045AB10,source/game_sa/Remote.cpp:10,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CRemote,TakeRemoteControlledCarFromPlayer,0x0045AE80,source/game_sa/Remote.cpp:5,cohorte 499 + envoltura en el código fuente
 CScriptsForBrains,CheckIfNewEntityNeedsScript,0x0046FF20,source/game_sa/ScriptsForBrains.cpp:58,cohorte 499
 CScriptsForBrains,RequestAttractorScriptBrainWithThisName,0x0046AA80,source/game_sa/ScriptsForBrains.cpp:66,cohorte 499
 CScriptsForBrains,StartNewStreamedScriptBrain,0x0046B270,source/game_sa/ScriptsForBrains.cpp:70,cohorte 499
 CSearchLight,IsSpottedEntity,0x00493900,source/game_sa/SearchLight.cpp:27,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CSprite2d,AddToBuffer,0x00728200,source/game_sa/Sprite2d.cpp:468,cohorte 499
 CStats,BuildStatLine,0x00559230,source/game_sa/Stats.cpp:375,cohorte nuevo 2026-10-17
 CStats,ConstructStatLine,0x0055A780,source/game_sa/Stats.cpp:993,cohorte 499 + envoltura en el código fuente
 CStats,FindLeastFavoriteRadioStation,0x00559010,source/game_sa/Stats.cpp:344,cohorte nuevo 2026-10-17
@@ -452,7 +445,6 @@ CTaskComplexPartnerChat,MakeAbortable,0x00682C60,source/game_sa/Tasks/TaskTypes/
 CTaskComplexPartnerDeal,CreateFirstSubTask,0x006823B0,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp:46,cohorte nuevo 2026-10-17
 CTaskComplexPartnerDeal,GetPartnerSequence,0x00682440,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp:56,cohorte nuevo 2026-10-17
 CTaskComplexPartnerDeal,StreamRequiredAnims,0x006823C0,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp:51,cohorte nuevo 2026-10-17
-CTaskComplexPartnerShove,GetPartnerSequence,0x00683120,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerShove.cpp:45,cohorte nuevo 2026-10-17
 CTaskComplexWalkRoundObject,ControlSubTask,0x006575F0,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp:67,cohorte nuevo 2026-10-17
 CTaskComplexWalkRoundObject,CreateFirstSubTask,0x00657380,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp:75,cohorte nuevo 2026-10-17
 CTaskComplexWalkRoundObject,CreateNextSubTask,0x00657220,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp:71,cohorte nuevo 2026-10-17
@@ -512,7 +504,6 @@ Fx_c,TriggerTankFire,0x004A0FA0,source/game_sa/Fx/Fx.cpp:353,cohorte 499
 Fx_c,TriggerWaterHydrant,0x004A0D70,source/game_sa/Fx/Fx.cpp:343,cohorte 499
 FxEmitter_c,AddParticle,0x004A3EA0,source/game_sa/Fx/FxEmitter.cpp:48,cohorte nuevo 2026-10-17
 FxEmitter_c,CreateParticle,0x004A2580,source/game_sa/Fx/FxEmitter.cpp:151,cohorte nuevo 2026-10-17
-FxInfoManager_c,Load,0x005C0B70,source/game_sa/Fx/FxInfoManager.cpp:181,cohorte 499
 FxInterpInfo255_c,GetVal,,source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp:40,envoltura en el código fuente
 FxInterpInfo32_c,GetVal,,source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp:40,envoltura en el código fuente
 FxInterpInfoFloat_c,GetVal,0x004A8470,source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp:40,cohorte nuevo 2026-10-17 + envoltura en el código fuente

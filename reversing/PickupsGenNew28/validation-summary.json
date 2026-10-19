@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "pairs": 6144,
+  "differences": 0,
+  "registered_pairs": 6144,
+  "registered_functions": 1,
+  "functions": {
+    "CPickups::GenerateNewOne": 6144
+  },
+  "covered_functions": {
+    "CPickups::GenerateNewOne": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauracion verificadas. Evidencia limitada a los fixtures del banco, no integracion universal ni independencia transitiva del EXE. Alcance por funcion en README del banco. Colaboradores sustituidos por falsos identicos en ambos lados: CPickup::FindTextIndexForString, CPickup::IsVisible, CPickup::GiveUsAPickUpObject, CWorld::Remove, CWorld::Add y el destructor virtual del objeto; no se valida aqui su cuerpo. Fuentes probadas compiladas desde el worktree D:/Original/gta-wt-b28 (HEAD de6ed4a4d + source.patch de cada banco + tres arreglos posteriores; ver artifacts/build-manifest.json); idénticas al árbol principal en el momento del registro. El hook se llama GenerateNewOne (cuerpo GenerateNewOne_ExeAbi, con la ABI del EXE: argumentos en pila y retirados por el llamador). Colaboradores sustituidos por falsos idénticos: FindTextIndexForString, IsVisible, GiveUsAPickUpObject, CWorld::Remove, CWorld::Add y el destructor virtual; las conversiones float->int64 de CPickup::SetPosn y _ftol2 son las reales. Los bancos históricos que sustituían 0x456F20 con un falso (PickWeap1, CTaskSimpleJetPack, FileLoader47, GangEvent1, GangWarsPending, InteriorLifecycleRuntime) ya no interceptan la llamada de la DLL y deben revalidarse.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/PickupsGenNew28-20261018-175854-397966",
+  "summary_sha256": "3ce9f98c6a76100528b65b98568960ee32ba59001234e3fea2624027a8e60abe",
+  "result_txt_sha256": "995767a5d0bf0cfdbcb7e767be768ba0194a1c36a7726081784469b318dfe424",
+  "log_sha256": "6e3b740f811ef4d55b4c5cfba6d17144ce1d94db4102c80818911da184728145",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "1b565c16b77a639507fbfd0609eeeb820c9148f88ad320e0822d8e4f361e13ca",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Pickups.cpp": "41bedc81ea95a142096c0cab9d174332a6c0872d7ca2f83bb983bc6196433a98",
+      "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+      "source/game_sa/Pickup.cpp": "02ad12cc6c1cf61878ec53b8dfc79383391c90e482e2c0200da6ed002091fd73",
+      "source/game_sa/Pickup.h": "c6689725365050b7263a929a8b2d6cf422b2d6eed2566d54360d336d84d657b3",
+      "source/game_sa/World.cpp": "0066108864b6c6c3aa13ac5a68da99749b177bd94605ebc3a2c14580018340bd",
+      "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/PickupsGenNew28/LiveComparison.hpp": "461c550ad142ec8201b83c8095206cbfc9bc1b913f56b5a1777f2275899c9d8b",
+      "reversing/PickupsGenNew28/Core.hpp": "8fdf9d1cbcd0f04b0bd3969ec4941fcd697efb512fd779cd28a9f556acac03d0",
+      "reversing/PickupsGenNew28/Fixtures.hpp": "d2c5b8e765b7852874f2e80bbdd31885b2bb9d49464a0f48e820d348b69308a9",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

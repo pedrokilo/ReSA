@@ -1,0 +1,38 @@
+diff --git a/source/game_sa/Entity/Object/Object.cpp b/source/game_sa/Entity/Object/Object.cpp
+index 8f1c5c857..2945cb0b2 100644
+--- a/source/game_sa/Entity/Object/Object.cpp
++++ b/source/game_sa/Entity/Object/Object.cpp
+@@ -91,6 +91,7 @@ void CObject::InjectHooks()
+     RH_ScopedVirtualClass(CObject, 0x866F60, 23);
+     RH_ScopedCategory("Entity/Object");
+ 
++    RH_ScopedInstall(Constructor, 0x5A1D70);
+     RH_ScopedVMTInstall(SetIsStatic, 0x5A0760);
+     RH_ScopedVMTInstall(CreateRwObject, 0x59F110);
+     RH_ScopedVMTInstall(ProcessControl, 0x5A2130);
+diff --git a/source/game_sa/Entity/Object/Object.h b/source/game_sa/Entity/Object/Object.h
+index fa5ad3c92..913de2e1a 100644
+--- a/source/game_sa/Entity/Object/Object.h
++++ b/source/game_sa/Entity/Object/Object.h
+@@ -171,6 +171,8 @@ private:
+     friend void InjectHooksMain();
+     static void InjectHooks();
+ 
++    // Envoltura del hook del constructor CObject(int32, bool) (0x5A1D70, thiscall, ret 8): devuelve this en EAX como el EXE.
++    auto Constructor(int32 modelId, bool bCreate) { this->CObject::CObject(modelId, bCreate); return this; }
+ };
+ VALIDATE_SIZE(CObject, 0x17C);
+ 
+diff --git a/source/game_sa/Population.cpp b/source/game_sa/Population.cpp
+index a5c7a8897..a218c54be 100644
+--- a/source/game_sa/Population.cpp
++++ b/source/game_sa/Population.cpp
+@@ -1965,7 +1965,7 @@ void PopulationDefaultTask(CPed* ped,ePedType type) {
+         ped->GetTaskManager().SetTask(task,TASK_PRIMARY_DEFAULT,false);
+     } else if(type!=PED_TYPE_COP) {
+         auto* memory=static_cast<CObject*>(CObject::operator new(0x17C));
+-        auto* object=memory?plugin::CallMethodAndReturn<CObject*,0x5A1D70>(memory,ModelIndices::MI_TELLY,true):nullptr;
++        auto* object=memory?::new(memory) CObject(ModelIndices::MI_TELLY,true):nullptr; // CObject::CObject(int32, bool) 0x5A1D70 en C++
+         CWorld::Add(object);
+         ped->GetTaskManager().SetTask(CTaskComplexWander::GetWanderTaskByPedType(ped),TASK_PRIMARY_DEFAULT,false);
+         CVector offset{0.0f,.45f,.35f};

@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CSprite2d::AddToBuffer": 4096
+  },
+  "covered_functions": {
+    "CSprite2d::AddToBuffer": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/gta-wt-b28 (HEAD de6ed4a4d + source.patch de cada banco + tres arreglos posteriores; ver artifacts/build-manifest.json); idénticas al árbol principal en el momento del registro. Colaboradores sustituidos por falsos con traza idénticos en ambos lados: CSprite2d::SetVertices (0x727A00) y RenderVertexBuffer (0x7273D0); IsVertexBufferFull (0x7273A0) es real (función pura). No se valida aquí el cuerpo real de SetVertices ni de RenderVertexBuffer. NaN señalizantes cubiertos (la DLL copia con movss).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/SpriteAddBuf28-20261018-175346-263426",
+  "summary_sha256": "ae4e01b8c80f8f4dff25a1448ebb758005d644d0868ce80291017cd9729fdd8a",
+  "result_txt_sha256": "199498770dba3c88726ab01fd10dcd32a943a33cd4f8bd7a065260f9129304c5",
+  "log_sha256": "70cbb561d69250c2855c446b1601cdaca729efb6932b94d337fa1d6168e1b436",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "c6c4b0c14a579fa0f79507d7770d5e571c3494aaed7bcd967153ca4eb45144ff",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Sprite2d.cpp": "2c7e54f4b31aabc54bd3788f8250df2547f6f1b3dd8a28bb401ab9088519f81a",
+      "source/game_sa/Sprite2d.h": "ee32c8bb9d2ab4089fa71683113e6dfe2398b92cf4d5e890bdd6c43d10284592",
+      "source/game_sa/common.h": "8d8089e14184c70ca8c1e7711cdc0fb48719447ab544cc5ff9520dc1ff998ed1",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/SpriteAddBuf28/LiveComparison.hpp": "9ceaf068e256103aabcd95c309626b3a66e69a166ad762068d2378c53ab53769",
+      "reversing/SpriteAddBuf28/Core.hpp": "076c7e4d0d389301b93477e8015099173626fddf8209b8bb6b1ca476e378d361",
+      "reversing/SpriteAddBuf28/Fixtures.hpp": "19f4c400dfcb8bd417ecd8c4d281df6e7541b6978ee06c5b9fb5dd850686358e",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "pairs": 5120,
+  "differences": 0,
+  "registered_pairs": 5120,
+  "registered_functions": 1,
+  "functions": {
+    "CRealTimeShadow::SetupForThisEntity": 5120
+  },
+  "covered_functions": {
+    "CRealTimeShadow::SetupForThisEntity": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/gta-wt-b28 (HEAD de6ed4a4d + source.patch de cada banco + tres arreglos posteriores; ver artifacts/build-manifest.json); idénticas al árbol principal en el momento del registro. Corrida aprobada = 20261018-180652-693943 (la más reciente). La primera corrida (20261018-175628-516713) tuvo 124/5120 diferencias por denormales de radio*1,1f (x87 a 24 bits en el EXE frente a SSE en la DLL); se arregló con X87Math::FloatTimesFloatCpp y esa corrida es sólo una nota, no evidencia. Colaboradores sustituidos por falsos trazados idénticos en ambos lados: CRealTimeShadow::Destroy, _rpAtomicResyncInterpolatedSphere, RpClumpGetBoundingSphere, RwV3dTransformPoints, CShadowCamera::SetFrustum y SetCenter. EAX/ECX/EDX sólo registrados (único llamador 0x706A42); AL sí se compara.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/RTShadowSetup28-20261018-180652-693943",
+  "summary_sha256": "5acc7b611eb0f69091da1677db218381ceae4c99f7b2b09a35cbeb82e97a7567",
+  "result_txt_sha256": "131da4d1e7a28b96d0f0e912ba15132c1be00acde5f292b01e38c0136eda11c3",
+  "log_sha256": "b52b68ca8aa43a1d9fd18bb975200ebbca2bcdddbd8ef0ad367003dcc1b609cb",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "297c86c0a39c5252ad6fb04f70aeedd93aa4f210712f547d6d38ab7778f75215",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/RealTimeShadow.cpp": "5a831da3410b939033a0d124976992d80cc78c206ba8c27aa336bd6b8ec31b01",
+      "source/game_sa/RealTimeShadow.h": "9851f77d169019512dfb60e050f620ad383e84c94193bdf80aacbba7d0533b49",
+      "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
+      "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc",
+      "source/game_sa/RwHelper.cpp": "bb6b2a8c02ef77811e3e1521dcdd26b24c75442845965d287b1dcb1e9c644926",
+      "source/game_sa/RwHelper.h": "0d5c310aaa72a2daee4cf05a5d435f160a6b75c6895d6d1130e892aea7a5ae65",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/RTShadowSetup28/LiveComparison.hpp": "5b727d315beca50eec744f2457a5709666f64216dc04c45427f1b7f2097a8036",
+      "reversing/RTShadowSetup28/Core.hpp": "0aa1ecadd88f073571c75ff4723b3873c77dac4dba9f54931e9f780b11ac58d9",
+      "reversing/RTShadowSetup28/Fixtures.hpp": "56c63a2191b929bafbfe88ff0fcc37700554c3bacd0f0ea1ed218c3aa0c49c76",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

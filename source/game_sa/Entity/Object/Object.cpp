@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CObject
- * Reconstrucción: COMPLETA — 48/48 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 49/49 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 48/48 entradas.
+ * Validación registrada: 49/49 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -91,6 +91,7 @@ void CObject::InjectHooks()
     RH_ScopedVirtualClass(CObject, 0x866F60, 23);
     RH_ScopedCategory("Entity/Object");
 
+    RH_ScopedInstall(Constructor, 0x5A1D70);
     RH_ScopedVMTInstall(SetIsStatic, 0x5A0760);
     RH_ScopedVMTInstall(CreateRwObject, 0x59F110);
     RH_ScopedVMTInstall(ProcessControl, 0x5A2130);

@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "pairs": 6144,
+  "differences": 0,
+  "registered_pairs": 6144,
+  "registered_functions": 1,
+  "functions": {
+    "CObject::CObject": 6144
+  },
+  "covered_functions": {
+    "CObject::CObject": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Colaboradores sustituidos por falsos idénticos en ambos lados (CPhysical::CPhysical 0x542260, CEntity::SetModelIndex 0x532AE0, CEntity::SetModelIndexNoCreate 0x533700, CObject::Init 0x59F840): el banco valida el cuerpo propio del constructor (orden de llamadas, argumentos, selección por el byte bajo de bCreate, vptr y m_pDummyObject), no a los colaboradores. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/gta-wt-b28 (HEAD de6ed4a4d + source.patch de cada banco + tres arreglos posteriores; ver artifacts/build-manifest.json); idénticas al árbol principal en el momento del registro salvo los finales de línea de Population.cpp (CRLF en el árbol principal, LF en el worktree; mismo contenido). Population.cpp:1979 ya llama al constructor C++. La corrida valida con los cuatro colaboradores sustituidos; ECX/EDX sólo registrados (EAX = this sí se exige). Los valores de bCreate no canónicos (2/3) ejercitan sólo el byte bajo.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/ObjectCtor28-20261018-175813-861295",
+  "summary_sha256": "e7394972a06a60f12c9268761c06eba911796a24c537b1901a8efaa355145d19",
+  "result_txt_sha256": "d2b9e656b456da69a21d91d055e3834565d741f9bb1d1efdee68b18f60f1c4f0",
+  "log_sha256": "03a42d605a476f4793d2bc1a9d931aaef26b20d184007ffd92a77ace8a59dc5f",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "42a1e83a23999bb19594c623732c8f6b200c2fc966a8a9abf336ac552fcb953c",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Entity/Object/Object.cpp": "d1801574b6f8e1cf80a270575d973873e46bd31d41e31f93e2b2db7b099061ea",
+      "source/game_sa/Entity/Object/Object.h": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7",
+      "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
+      "source/game_sa/Entity/Entity.h": "4434873dabecd750024d5a8d193c45b870aad9922ed5be53a4a8aa6324d5007e",
+      "source/game_sa/Entity/Physical.cpp": "5b39a96da8e4e5fd60e1e5c935b5bb2419756af85214c00e41c99d2ed652ed97",
+      "source/game_sa/Entity/Physical.h": "2be1902e933b8704da536c4f89fc7cf541083fb57aa1ca7cdc3c4ae1c719cea3",
+      "source/game_sa/Population.cpp": "a0b769aaabb8559c2ad7c1f9cdbab92d0640d23b71b158694c07a97d6a074801",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/ObjectCtor28/LiveComparison.hpp": "2bc412f36809c8b95430274cab96fc343a250037945acbbe2f6562f32c85ff20",
+      "reversing/ObjectCtor28/Core.hpp": "9562c6b49cee8a8f9831a9295da6388c016b8020ddfee349cadd9aced33c042e",
+      "reversing/ObjectCtor28/Fixtures.hpp": "21131cde7d88443ec508fb44b4aaedec7895fe0e6bd9f15dd9d0080d195dffc7",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

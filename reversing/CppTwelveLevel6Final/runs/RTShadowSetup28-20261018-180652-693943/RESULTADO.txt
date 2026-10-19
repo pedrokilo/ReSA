@@ -1,0 +1,3 @@
+APROBADO: RTShadowSetup28
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-rtshadowsetup28\20261018-180652-693943

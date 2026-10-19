@@ -171,6 +171,8 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    // Envoltura del hook del constructor CObject(int32, bool) (0x5A1D70, thiscall, ret 8): devuelve this en EAX como el EXE.
+    auto Constructor(int32 modelId, bool bCreate) { this->CObject::CObject(modelId, bCreate); return this; }
 };
 VALIDATE_SIZE(CObject, 0x17C);
 

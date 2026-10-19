@@ -1,0 +1,36 @@
+diff --git a/source/game_sa/Sprite2d.cpp b/source/game_sa/Sprite2d.cpp
+index 895f46143..03b055a4f 100644
+--- a/source/game_sa/Sprite2d.cpp
++++ b/source/game_sa/Sprite2d.cpp
+@@ -32,6 +32,7 @@ void CSprite2d::InjectHooks() {
+     RH_ScopedClass(CSprite2d);
+     RH_ScopedCategoryGlobal();
+     RH_ScopedInstall(OffsetTexCoordForBilinearFiltering, 0x728150);
++    RH_ScopedInstall(AddToBuffer, 0x728200);
+ 
+     RH_ScopedInstall(Constructor, 0x727230);
+     RH_ScopedInstall(Destructor, 0x7281E0);
+@@ -468,7 +469,22 @@ void CSprite2d::OffsetTexCoordForBilinearFiltering(float width, float height)
+ // add vertices to buffer
+ void CSprite2d::AddToBuffer(const CRect& posn, const CRGBA& color, float u1, float v1, float u2, float v2, float u3, float v3, float u4, float v4)
+ {
+-    ((void(__cdecl*)(const CRect&, const CRGBA&, float, float, float, float, float, float, float, float))0x728200)(posn, color, u1, v1, u2, v2, u3, v3, u4, v4);
++    // 0x728200: escribe 4 vertices con el mismo color (0x727A00) en el buffer de radiosidad, anade dos triangulos (v, v+1, v+2) y (v+3, v, v+2) al buffer de
++    // indices y, si alguno de los dos buffers supera su limite (1532 vertices / 4090 indices), lo dibuja y lo vacia.
++    const int32 vertex = nextBufferVertex;
++    SetVertices(&aRadiosityVertexBuffer[vertex], posn, color, color, color, color, u1, v1, u2, v2, u3, v3, u4, v4);
++    const int32 index = nextBufferIndex;
++    aTempBufferIndices[index + 1] = static_cast<RxVertexIndex>(vertex + 1);
++    aTempBufferIndices[index + 0] = static_cast<RxVertexIndex>(vertex);
++    aTempBufferIndices[index + 4] = static_cast<RxVertexIndex>(vertex);
++    aTempBufferIndices[index + 2] = static_cast<RxVertexIndex>(vertex + 2);
++    aTempBufferIndices[index + 3] = static_cast<RxVertexIndex>(vertex + 3);
++    aTempBufferIndices[index + 5] = static_cast<RxVertexIndex>(vertex + 2);
++    nextBufferVertex = vertex + 4;
++    nextBufferIndex  = index + 6;
++    if (IsVertexBufferFull()) {
++        RenderVertexBuffer();
++    }
+ }
+ 
+ // non-textured polygon

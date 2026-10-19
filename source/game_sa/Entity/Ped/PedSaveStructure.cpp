@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CPedSaveStructure
- * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 1/1 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -23,8 +23,52 @@ END GENERATED HOOK STATUS */
 #include "EntryExitManager.h"
 #include "EntryExit.h"
 
+// 0x5D44B0
 void CPedSaveStructure::Extract(CPed* ped) {
-    plugin::CallMethod<0x5D44B0, CPedSaveStructure*, CPed*>(this, ped);
+    // Como el original: posicion (matriz o colocacion), vida, armadura, slot activo, creador y estilo de lucha
+    ped->GetPosition() = m_pos;
+    ped->m_fHealth     = m_health;
+    ped->m_fArmour     = m_armor;
+    ped->m_nActiveWeaponSlot = static_cast<uint8>(m_activeWeaponSlot);
+    ped->SetCharCreatedBy(m_createdBy);
+    ped->m_nFightingStyle      = static_cast<eFightingStyle>(m_nFightingStyle);
+    ped->m_nAllowedAttackMoves = static_cast<char>(m_nAllowedAttackMoves);
+
+    // Armas: carga los modelos (flags 8) y las entrega; despues restaura la municion del cargador
+    for (size_t i = 0; i < std::size(m_weapons); i++) {
+        const CWeapon& saved = m_weapons[i];
+        if (static_cast<int32>(saved.m_Type) == 0) {
+            continue;
+        }
+        const auto modelId1 = CWeaponInfo::GetWeaponInfo(saved.m_Type, eWeaponSkill::STD)->m_nModelId1;
+        if (modelId1 != -1) {
+            CStreaming::RequestModel(modelId1, 8);
+            CStreaming::LoadAllRequestedModels(false);
+        }
+        const auto modelId2 = CWeaponInfo::GetWeaponInfo(saved.m_Type, eWeaponSkill::STD)->m_nModelId2;
+        if (modelId2 != -1) {
+            CStreaming::RequestModel(modelId2, 8);
+            CStreaming::LoadAllRequestedModels(false);
+        }
+        ped->GiveWeapon(saved.m_Type, saved.m_TotalAmmo, false);
+        ped->m_aWeapons[i].m_AmmoInClip = saved.m_AmmoInClip;
+    }
+    ped->SetCurrentWeapon(static_cast<int32>(m_activeWeaponSlot));
+    ped->SetAreaCode(static_cast<eAreaCodes>(m_areaCode));
+
+    // Como el original: la entrada/salida se recupera del pool por indice (-1 = ninguna; hueco libre = ninguna)
+    // El EXE (0x5D45D7) no comprueba el rango del indice: lee el byte de estado [indice] del pool 0x96A7D8 (bit 7 = libre)
+    // y devuelve almacenamiento + indice * 0x3C. CPool::GetAt lo comprobaria con assert, asi que se lee en crudo
+    // (primer miembro = almacenamiento, segundo = estados).
+    CEntryExit* enex = nullptr;
+    if (const int32 idx = m_nExitIndex; idx != -1) {
+        const auto* const pool   = reinterpret_cast<const uintptr_t*>(CEntryExitManager::GetPool());
+        const auto        states = reinterpret_cast<const int8*>(pool[1]);
+        if (states[idx] >= 0) {
+            enex = reinterpret_cast<CEntryExit*>(pool[0] + static_cast<uint32>(idx) * sizeof(CEntryExit));
+        }
+    }
+    ped->m_pEnex = enex;
 }
 
 // 0x5D43D0
@@ -70,5 +114,6 @@ uint64 CPedSaveStructure::Construct(CPed* ped) {
 void CPedSaveStructure::InjectHooks() {
     RH_ScopedClass(CPedSaveStructure);
     RH_ScopedCategory("Entity/Ped");
+    RH_ScopedInstall(Extract, 0x5D44B0);
     RH_ScopedInstall(Construct, 0x5D43D0);
 }

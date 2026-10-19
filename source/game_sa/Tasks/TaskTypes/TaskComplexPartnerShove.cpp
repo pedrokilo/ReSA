@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskComplexPartnerShove
- * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 1/1 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -19,12 +19,16 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "TaskComplexPartnerShove.h"
+#include "TaskComplexSequence.h"
+#include "TaskComplexTurnToFaceEntityOrCoord.h"
+#include "TaskSimpleRunAnim.h"
 
 void CTaskComplexPartnerShove::InjectHooks()
 {
     RH_ScopedVirtualClass(CTaskComplexPartnerShove, 0x870800, 14);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedInstall(Constructor, 0x6846F0);
+    RH_ScopedVMTInstall(GetPartnerSequence, 0x683120);
 }
 
 CTaskComplexPartnerShove::CTaskComplexPartnerShove(const char* commandName, CPed* partner, bool leadSpeaker, float distanceMultiplier, int8 updateDirectionCount, CVector point) :
@@ -40,7 +44,11 @@ CTaskComplexPartnerShove* CTaskComplexPartnerShove::Constructor(const char* comm
     return this;
 }
 
+// 0x683120
 CTaskComplexSequence* CTaskComplexPartnerShove::GetPartnerSequence()
 {
-    return plugin::CallMethodAndReturn<CTaskComplexSequence*, 0x683120, CTask*>(this);
+    auto* seq = new CTaskComplexSequence; // Como el original: sin inicialización por valor
+    seq->AddTask(new CTaskComplexTurnToFaceEntityOrCoord(m_partner, 0.5f, 0.001f)); // 0x86FC7C y 0x3A83126F
+    seq->AddTask(new CTaskSimpleRunAnim(ANIM_GROUP_DEFAULT, m_leadSpeaker ? ANIM_ID_SHOVE_PARTIAL : ANIM_ID_HANDSUP, 4.0f, false)); // 0xA4 si m_leadSpeaker != 0, si no 0x8E; mezcla 4.0f (0x40800000)
+    return seq;
 }

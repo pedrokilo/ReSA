@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "pairs": 4608,
+  "differences": 0,
+  "registered_pairs": 4608,
+  "registered_functions": 1,
+  "functions": {
+    "CPedSaveStructure::Extract": 4608
+  },
+  "covered_functions": {
+    "CPedSaveStructure::Extract": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/gta-wt-b28 (HEAD de6ed4a4d + source.patch de cada banco + tres arreglos posteriores; ver artifacts/build-manifest.json); idénticas al árbol principal salvo: PedSaveStructure.h (sólo finales de línea, CRLF frente a LF) y X87Math.cpp/.h, que en el manifiesto de este banco son una versión anterior a la actual (la actual sólo añade FloatTimesFloatCpp y RadarAirstripRotateCpp; PedSaveStructure.cpp no usa X87Math, por lo que no afecta a la función probada). Los seis colaboradores (SetCharCreatedBy, GetWeaponInfo, RequestModel, LoadAllRequestedModels, GiveWeapon, SetCurrentWeapon) están sustituidos por falsos idénticos en ambos lados. Posiciones con NaN de señalización no cubiertas. EAX/ECX/EDX sólo registrados (único llamador 0x5D46A4).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/PedSaveExtract28-20261018-175707-784669",
+  "summary_sha256": "85c27f6ee3b641495c34a474a2c3cec77977b858329cf93336c4793a82f8a3ea",
+  "result_txt_sha256": "82449514017b9d594bf18120c8730daa445ee3ef918fe811a1be918c91c21933",
+  "log_sha256": "89fe4a5a74c5bf1b58250a4f703e4f3dbf35e7b545e4937ea834f91f54f4cd8a",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "ec6408f52ee72817c76d2ba0ad51197d964247a30559f09bd6b78c49503f90e1",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Entity/Ped/PedSaveStructure.cpp": "befac489e704ae4dd19c3f5e7b0df4c4216ba6aff7850b0b797f36f82f42a85e",
+      "source/game_sa/Entity/Ped/PedSaveStructure.h": "5e9364170ca00846642debcdad784d87b37e01335493931cdc1323e8b1f4c503",
+      "source/game_sa/Entity/Ped/Ped.cpp": "9276709c6c47677beccd39d2607a65945d14de5ca81cb5da1208ce94e4774b00",
+      "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+      "source/game_sa/EntryExitManager.cpp": "d117468bd8a0ab779d1751562341646d260c51fb090087a5d6b6e45b28007d9c",
+      "source/game_sa/EntryExitManager.h": "f9a1d78f6113d00af5b7ccee113a3def6b173a037e9ce030f44093a4c51503ab",
+      "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
+      "source/game_sa/X87Math.cpp": "194dde3e2c00fe44de970f108cca73df931abe6b8d3339382a12c22910a8130c",
+      "source/game_sa/X87Math.h": "18336e59cc657794d12c33c1f12b7cdd03f3583c83025de24ba059f78459f5e4",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/PedSaveExtract28/LiveComparison.hpp": "3a69a3967ced1d137d3a8953dcc757ee5c8d8f3b9717445a19743320dbf79b1b",
+      "reversing/PedSaveExtract28/Core.hpp": "3e0930628039954f2eafcd96a7fd65737b15cb12b85b8e09ea414496080f9980",
+      "reversing/PedSaveExtract28/Fixtures.hpp": "88f17a4a2738c68d52cad401c5ba0af55d961755b1a749586106a148e1a46cb4",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

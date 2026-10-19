@@ -101,6 +101,8 @@ float __cdecl FloatPlusIntCpp(float f, int i);
 float __cdecl IntTimesTwoFloatsCpp(int n, float a, float b);
 // CCurves::CalcCorrectedDist (0x43C880): distancia corregida y t; devuelve el valor sin redondear en ST0.
 float __cdecl CurvesCorrectedDistCpp(float current, float total, float speedVariation, float* outT);
+// a · b con el fmul del x87 y un solo guardado a float: a diferencia de SSE conserva los denormales del resultado (CRealTimeShadow::SetupForThisEntity, 0x706520).
+float __cdecl FloatTimesFloatCpp(float a, float b);
 // Radio de la esfera del frustum de FxManager_c::CalcFrustumInfo (0x4A9165..0x4A91B5).
 float __cdecl FxFrustumRadiusCpp(float dist, float farClip);
 
@@ -609,6 +611,9 @@ void __cdecl RadarSinCosFromAngleCpp(float angle, float* orientation, float* sin
 void __cdecl RadarRotatedSpriteVertsCpp(float angle, float x, float y, unsigned int width, unsigned int height, float subtract, float halfPi, float zero, float* verts);
 // CRadar::DrawYouAreHereSprite (0x584A25..0x584A4A): *outY = float(y - sin(a)·radius), *outX = float(cos(a)·radius + x) con fsin/fcos sin redondear.
 void __cdecl RadarYouAreHereOffsetCpp(float circleAngle, float radius, float x, float y, float* outX, float* outY);
+// CRadar::DrawEntityBlip (0x58752A..0x58754E), destello de la pista: a = heading · degToRad (un redondeo a 24 bits), *x = float(cos(a) · steps + *x), *y = float(*y - sin(a) · steps) con fcos/fsin sin redondear
+// y steps = fild del int16 con signo.
+void __cdecl RadarAirstripRotateCpp(float heading, float degToRad, int steps, float* x, float* y);
 // CRadar::DrawRadarMask (0x585850..0x58586C): arc = j · step; *outX = float(cos(arc)·cornerX), *outY = float(sin(arc)·cornerY) con fcos/fsin sin redondear antes de multiplicar.
 void __cdecl RadarArcPointCpp(int j, float step, float cornerX, float cornerY, float* outX, float* outY);
 // CRadar::DrawRadarGangOverlay (0x5867A2..0x5867F7): ((fsin(angle) + one) · half) · alpha (fimul) con un redondeo a 24 bits por operacion; el llamador trunca con _ftol2.

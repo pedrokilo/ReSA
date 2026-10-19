@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CPickups
- * Reconstrucción: COMPLETA — 37/37 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 38/38 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 37/37 entradas.
+ * Validación registrada: 38/38 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -60,8 +60,8 @@ void CPickups::InjectHooks() {
     RH_ScopedInstall(DoPickUpEffects, 0x455720);
     RH_ScopedInstall(FindPickUpForThisObject, 0x4551C0);
 
-    // Cannot be hooked at all for now due to ABI fuckery, the return value is 32 bit, but causes the function to assume the calling convention of of T* Function(T*, ...)
-    //RH_ScopedInstall(GenerateNewOne, 0x456F20, { .reversed = false });
+    // El EXE devuelve el handle de 32 bits en EAX; con tPickupReference (struct con constructores) MSVC usaria puntero oculto, asi que se engancha la version con ABI del EXE.
+    RH_ScopedNamedInstall(GenerateNewOne_ExeAbi, "GenerateNewOne", 0x456F20);
 
     RH_ScopedNamedInstall(GenerateNewOne_WeaponType_ExeAbi, "GenerateNewOne_WeaponType", 0x457380);
     RH_ScopedInstall(GetActualPickupIndex, 0x4552A0);
@@ -436,10 +436,127 @@ CPickup* CPickups::FindPickUpForThisObject(CObject* object) {
 }
 
 // returns pickup handle
-// g
+// 0x456F20 (ver GenerateNewOne_ExeAbi)
 tPickupReference CPickups::GenerateNewOne(CVector coors, uint32 modelId, ePickupType pickupType, uint32 ammo, uint32 moneyPerDay, bool isEmpty, char* message) {
-    auto retVal = plugin::CallAndReturn<int32, 0x456F20, CVector, uint32, ePickupType, uint32, uint32, bool, char*>(coors, modelId, pickupType, ammo, moneyPerDay, isEmpty, message);
-    return tPickupReference(retVal);
+    return tPickupReference(GenerateNewOne_ExeAbi(coors, modelId, pickupType, ammo, moneyPerDay, static_cast<uint8>(isEmpty), message));
+}
+
+// 0x456F20
+// Como el original: cdecl, el handle va en EAX; isEmpty se lee como byte (cualquier valor distinto de 0 cuenta como "vacio" para elegir
+// hueco, y solo el bit 0 se guarda en bEmpty); modelId y moneyPerDay se truncan a 16 bits. Busca hueco: 1) PICKUP_NONE (desde el final si el tipo es
+// FLOATINGPACKAGE/NAUTICAL_MINE_INACTIVE o isEmpty != 0; si no, desde el principio), 2) el primero de tipo PICKUP_MONEY, 3) el primero de tipo
+// ONCE_TIMEOUT/ONCE_TIMEOUT_SLOW; en 2 y 3 se quita del mundo y se borra el objeto del pickup. Sin hueco devuelve -1.
+int32 CPickups::GenerateNewOne_ExeAbi(CVector coors, uint32 modelId, ePickupType pickupType, uint32 ammo, uint32 moneyPerDay, uint8 isEmpty, char* message) {
+    CPickup* const slots = aPickUps.data();
+    int32 index = (int32)MAX_NUM_PICKUPS; // 0x26C = sin hueco
+
+    // 0x456F20..0x456FF4 / 0x45701B..: pasada 1 (hueco libre)
+    if (pickupType == PICKUP_FLOATINGPACKAGE || pickupType == PICKUP_NAUTICAL_MINE_INACTIVE || isEmpty != 0) {
+        for (int32 i = (int32)MAX_NUM_PICKUPS - 1; i >= 0; --i) {
+            if (slots[i].m_nPickupType == PICKUP_NONE) {
+                index = i;
+                break;
+            }
+        }
+    } else {
+        for (int32 i = 0; i < (int32)MAX_NUM_PICKUPS; ++i) {
+            if (slots[i].m_nPickupType == PICKUP_NONE) {
+                index = i;
+                break;
+            }
+        }
+    }
+
+    // 0x457000: pasada 2 (primer pickup de dinero) y 0x457097: pasada 3 (primer pickup con tiempo limite). Sustituyen al pickup existente.
+    bool replacing = false;
+    if (index >= (int32)MAX_NUM_PICKUPS) {
+        for (int32 i = 0; i < (int32)MAX_NUM_PICKUPS; ++i) {
+            if (slots[i].m_nPickupType == PICKUP_MONEY) {
+                index = i;
+                replacing = true;
+                break;
+            }
+        }
+    }
+    if (index >= (int32)MAX_NUM_PICKUPS) {
+        for (int32 i = 0; i < (int32)MAX_NUM_PICKUPS; ++i) {
+            const uint8 type = (uint8)slots[i].m_nPickupType;
+            if (type == PICKUP_ONCE_TIMEOUT || type == PICKUP_ONCE_TIMEOUT_SLOW) {
+                index = i;
+                replacing = true;
+                break;
+            }
+        }
+    }
+    if (index >= (int32)MAX_NUM_PICKUPS) {
+        return -1;
+    }
+
+    CPickup& pickup = slots[index];
+    if (replacing && pickup.m_pObject) { // 0x4571A5..0x4571CA
+        CWorld::Remove(pickup.m_pObject);
+        if (CObject* const object = pickup.m_pObject) {
+            delete object; // destructor virtual con borrado
+        }
+        pickup.m_pObject = nullptr;
+    }
+
+    // 0x4571DF: relleno del hueco, en el orden del EXE
+    uint8& flags = *reinterpret_cast<uint8*>(&pickup.m_nFlags); // +0x1D
+    pickup.m_nAmmo = ammo;
+    pickup.m_nMoneyPerDay = static_cast<uint16>(moneyPerDay);
+    flags = static_cast<uint8>((flags & 0xF8u) | ((isEmpty & 1u) << 1)); // bDisabled=0, bEmpty=bit 0, bHelpMessageDisplayed=0; se conservan bVisible y el texto
+    pickup.m_nPickupType = pickupType;
+    pickup.m_fRevenueValue = 0.0f;
+    const uint32 now = CTimer::GetTimeInMS();
+    pickup.m_nRegenerationTime = now;
+    switch ((uint8)pickupType) {
+    case PICKUP_ONCE_TIMEOUT:
+        pickup.m_nRegenerationTime = now + 20'000u;
+        break;
+    case PICKUP_ONCE_TIMEOUT_SLOW:
+        pickup.m_nRegenerationTime = now + 120'000u;
+        break;
+    case PICKUP_MONEY:
+        pickup.m_nRegenerationTime = now + 30'000u;
+        break;
+    case PICKUP_MINE_INACTIVE:
+    case PICKUP_MINE_ARMED:
+        pickup.m_nPickupType = PICKUP_MINE_INACTIVE;
+        pickup.m_nRegenerationTime = now + 1'500u;
+        break;
+    case PICKUP_NAUTICAL_MINE_INACTIVE:
+    case PICKUP_NAUTICAL_MINE_ARMED:
+        pickup.m_nPickupType = PICKUP_NAUTICAL_MINE_INACTIVE;
+        pickup.m_nRegenerationTime = now + 1'500u;
+        break;
+    default:
+        break;
+    }
+    pickup.m_nModelIndex = static_cast<int16>(modelId);
+
+    // 0x4572A1: indice de texto en los bits 4..6 de las banderas
+    const uint32 textIndex = (uint32)CPickup::FindTextIndexForString(message);
+    flags = static_cast<uint8>((flags & ~0x70u) | ((textIndex << 4) & 0x70u));
+
+    pickup.SetPosn(coors); // x*8, y*8, z*8 con _ftol2 en ese orden
+
+    // 0x4572F3: visible -> bit 3; luego se crea el objeto si es visible
+    const bool visible = pickup.IsVisible();
+    flags = static_cast<uint8>((flags & ~8u) | (visible ? 8u : 0u));
+    pickup.m_pObject = nullptr;
+    if (flags & 8u) {
+        pickup.GiveUsAPickUpObject(pickup.m_pObject, -1);
+        if (CObject* const object = pickup.m_pObject) {
+            CWorld::Add(object);
+        }
+    }
+
+    // 0x45733A: nuevo indice de referencia (0xFFFE y 0xFFFF vuelven a 1) y handle = (referencia << 16) | indice
+    uint32 ref = static_cast<uint16>(pickup.m_nReferenceIndex);
+    ref = (ref >= 0xFFFEu) ? 1u : ref + 1u;
+    pickup.m_nReferenceIndex = static_cast<int16>(ref);
+    return static_cast<int32>((ref << 16) | static_cast<uint32>(index));
 }
 
 /*!
