@@ -1,0 +1,201 @@
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp b/source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp
+index 1c84bd9..5a16672 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp
+@@ -39,6 +39,8 @@ END GENERATED HOOK STATUS */
+ #include "Models/PedModelInfo.h"
+ #include "PedIntelligence.h"
+ #include "World.h"
++#include "FileMgr.h"
++#include "FileLoader.h"
+ 
+ // 0x61C470
+ CTaskSimpleFight::CTaskSimpleFight(CEntity* entity, int32 nCommand, uint32 nIdlePeriod) : CTaskSimple() {
+@@ -228,13 +230,6 @@ AssocGroupId CTaskSimpleFight::GetComboAnimGroupID() {
+     return FightComboInfo(this)->m_nAnimGroup;
+ }
+ 
+-// 0x5BEDC0
+-void CTaskSimpleFight::LoadMeleeData() {
+-    ZoneScoped;
+-
+-    plugin::Call<0x5BEDC0>();
+-}
+-
+ // 0x6239F0
+ bool CTaskSimpleFight::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
+     return plugin::CallMethodAndReturn<bool, 0x6239F0, CTaskSimpleFight*, CPed*, eAbortPriority, const CEvent*>(this, ped, priority, event);
+@@ -299,6 +294,165 @@ bool FightStrikeBigHit(const uint8* row, int32 move) {
+ }
+ } // namespace
+ 
++namespace {
++// --- LoadMeleeData (0x5BEDC0) ---
++constexpr uintptr_t FightLevelsAddress = 0xC177D0; // siete vectores (x, y, z) de "START_LEVELS" de melee.dat
++
++// sscanf del CRT estatico del juego (0x8220AD): el UCRT de la DLL redondea los %f y trata los %d/%x fuera de rango de otra forma (lecciones de FileLoaderLoad2dEffect27).
++using FightSscanfFn = int(__cdecl*)(const char*, const char*, ...);
++const auto FightSscanf = reinterpret_cast<FightSscanfFn>(0x8220AD);
++
++constexpr float FightMeleeDataK    = std::bit_cast<float>(0x3D088889u); // 0x858F10 = 1/30
++
++template<typename T>
++T& FightAt(uintptr_t address) {
++    return *reinterpret_cast<T*>(address);
++}
++
++// 0x5BD360 (CTaskSimpleFight::GetHitLevel): solo mira el primer caracter; el resto de comparaciones de 16 bits del EXE nunca se cumplen (EAX es un byte).
++uint8 FightHitLevel(const char* text) {
++    switch (*text) {
++    case 'H': return 0;
++    case 'L': return 1;
++    case 'G': return 2;
++    case 'B': return 3;
++    default:  return 7;
++    }
++}
++
++// 0x5BD3B0 (CTaskSimpleFight::GetHitSound): 1..8 -> 0x3D, 0x3E, 0x3F..0x44; cualquier otro valor -> 0x3E (comparacion sin signo de n - 1 contra 7).
++int32 FightHitSound(int32 n) {
++    return static_cast<uint32>(n) - 1u > 7u ? 0x3E : 0x3C + n; // dec eax ; cmp eax,7 ; ja: sin signo, con envoltura en INT_MIN
++}
++} // namespace
++
++// 0x5BEDC0: inicializa las 14 filas de la tabla de combos (el EXE recorre hasta 0xC177BC: las dos ultimas pisan el principio de la tabla de niveles, que se rellena despues), los
++// siete vectores de niveles y lee DATA\melee.dat. Cada linea se interpreta segun el contador de lineas dentro del bloque START_COMBO; los escalares de sscanf conservan su valor
++// entre lineas (en el EXE son huecos de pila que persisten), con los residuos de pila de la inicializacion (0, 0.75f, 0) en los tres floats de START_LEVELS.
++void CTaskSimpleFight::LoadMeleeData() {
++    ZoneScoped;
++
++    constexpr uintptr_t Table = FightTableAddress;
++    uintptr_t row = Table;
++    do {
++        FightAt<int32>(row) = 0x21;
++        FightAt<uint32>(row + 4) = 0x3FC00000u; // 1.5f
++        for (uintptr_t i = 0; i < 5; ++i) {
++            FightAt<uint32>(row + 0x08 + i * 4) = 0x42C80000u; // 100.0f
++            FightAt<uint32>(row + 0x1C + i * 4) = 0x42C80000u;
++            FightAt<uint32>(row + 0x30 + i * 4) = 0x3F800000u; // 1.0f
++            FightAt<uint8>(row + 0x50 + i)      = 7;
++            FightAt<uint8>(row + 0x55 + i)      = 0;
++            FightAt<uint32>(row + 0x5C + i * 4) = 0;
++            FightAt<uint32>(row + 0x70 + i * 4) = 0;
++        }
++        FightAt<uint32>(row + 0x44) = 0;
++        FightAt<uint32>(row + 0x48) = 0x42C80000u;
++        FightAt<uint32>(row + 0x4C) = 0x42C80000u;
++        FightAt<uint16>(row + 0x84) = 0;
++        row += sizeof(CMeleeInfo);
++    } while (row + 4 < 0xC177BC);
++
++    for (uintptr_t i = 0; i < 7; ++i) { // x = 0, y = 0.75f, z = 0
++        FightAt<uint32>(FightLevelsAddress + i * 12 + 0) = 0;
++        FightAt<uint32>(FightLevelsAddress + i * 12 + 4) = 0x3F400000u;
++        FightAt<uint32>(FightLevelsAddress + i * 12 + 8) = 0;
++    }
++
++    const auto file = CFileMgr::OpenFile("DATA\\melee.dat", "rb");
++
++    char   word[256]{};   // [esp+50h]
++    char   word2[256]{};  // [esp+70h]
++    float  f1c = 0.f, f20 = 0.f, f24 = 0.f;
++    uint32 raw28 = 0, raw2c = 0, x3c = 0; // se copian en crudo (mov), no pasan por la x87
++    int32  i30 = 0, i34 = 0, i38 = 0;
++    uint32 level[3] = { 0, 0x3F400000u, 0 };
++    uint32 rowOffset = 0;  // EBP: 0x88 por combo cerrado
++    int32  counter   = 0;  // EBX: lineas ya vistas dentro del combo (o vectores de START_LEVELS)
++    bool   inCombo = false, inLevels = false; // [esp+12h] / [esp+13h]
++    int32  move = 0;       // [esp+14h]
++
++    for (char* line = CFileLoader::LoadLine(file); line; line = CFileLoader::LoadLine(file)) {
++        if (*line == '#' || *line == '\0') {
++            continue;
++        }
++        if (std::strncmp(line, "END_MELEE_DATA", 14) == 0) {
++            break;
++        }
++        if (!inCombo && !inLevels) {
++            if (std::strncmp(line, "START_COMBO", 11) == 0) {
++                inCombo = true;
++            } else if (std::strncmp(line, "START_LEVELS", 12) == 0) {
++                inLevels = true;
++            }
++            continue;
++        }
++        if (std::strncmp(line, "END_COMBO", 9) == 0) {
++            if (inCombo) {
++                rowOffset += sizeof(CMeleeInfo);
++            }
++            counter  = 0;
++            inCombo  = false;
++            inLevels = false;
++            continue;
++        }
++        const uintptr_t comboRow = Table + rowOffset;
++        if (inLevels) {
++            FightSscanf(line, "%s %f %f %f", word, reinterpret_cast<float*>(&level[0]), reinterpret_cast<float*>(&level[1]), reinterpret_cast<float*>(&level[2]));
++            const uintptr_t vec = FightLevelsAddress + static_cast<uint32>(counter) * 12u;
++            FightAt<uint32>(vec + 0) = level[0];
++            FightAt<uint32>(vec + 4) = level[1];
++            FightAt<uint32>(vec + 8) = level[2];
++            ++counter;
++            continue;
++        }
++        switch (counter++) {
++        case 0: { // "<nombre> <grupo de animaciones>"
++            FightSscanf(line, "%s %s", word, word2);
++            for (int32 group = 0; group < static_cast<int32>(StaticRef<uint32>(0xB4EA28)); ++group) { // el EXE relee el contador de grupos (0xB4EA28, privado en CAnimManager) en cada vuelta y compara con signo
++                if (std::strcmp(word2, CAnimManager::GetAnimGroupName(static_cast<AssocGroupId>(group))) == 0) {
++                    FightAt<int32>(comboRow) = group;
++                    break;
++                }
++            }
++            break;
++        }
++        case 1: // "<nombre> <rango>"
++            FightSscanf(line, "%s %f", word, reinterpret_cast<float*>(&raw28));
++            FightAt<uint32>(comboRow + 4) = raw28;
++            break;
++        case 2: case 3: case 4: case 5: case 6: { // un golpe del combo (counter - 3 despues del incremento)
++            f1c = 0.f;
++            FightSscanf(line, "%s %f %f %f %s %d %d %d %f", word, &f20, &f24, reinterpret_cast<float*>(&raw2c), word2, &i30, &i34, &i38, &f1c);
++            move = counter - 3;
++            FightAt<float>(comboRow + 0x08 + move * 4) = f20 * FightMeleeDataK; // fld ; fmul ; fstp
++            FightAt<uint32>(comboRow + 0x30 + move * 4) = raw2c;
++            FightAt<float>(comboRow + 0x1C + move * 4) = f24 * FightMeleeDataK;
++            FightAt<uint8>(comboRow + 0x50 + move) = FightHitLevel(word2); // 0x5BD360
++            FightAt<uint8>(comboRow + 0x55 + move) = static_cast<uint8>(i30);
++            FightAt<int32>(comboRow + 0x5C + move * 4) = static_cast<int16>(FightHitSound(i34)); // 0x5BD3B0 ; movsx
++            FightAt<int32>(comboRow + 0x70 + move * 4) = static_cast<int16>(FightHitSound(i38));
++            if (f1c > 0.f) { // fcomp ; test ah,41h ; jne: solo si es mayor que 0 (con NaN no)
++                FightAt<float>(comboRow + 0x44) = f1c * FightMeleeDataK;
++            }
++            break;
++        }
++        case 7: // "<nombre> <bloqueo golpe> <bloqueo cadena>"
++            FightSscanf(line, "%s %f %f", word, &f20, &f24);
++            FightAt<float>(comboRow + 0x48) = f20 * FightMeleeDataK;
++            FightAt<float>(comboRow + 0x4C) = f24 * FightMeleeDataK;
++            break;
++        case 8: // "<nombre> <banderas en hexadecimal>"
++            FightSscanf(line, "%s %x", word, &x3c);
++            FightAt<uint16>(comboRow + 0x84) = static_cast<uint16>(x3c);
++            break;
++        default:
++            break;
++        }
++    }
++    CFileMgr::CloseFile(file);
++}
++
+ // 0x61D5F0 (ret 4): deja listo el CColModel estatico del golpe (una esfera de radio `radius` centrada en el origen; caja [-radius, radius]). `this` no se usa, como en el EXE.
+ // El EXE arma la caja con fld/fchs/fst: el minimo es -radius pasando por ST0 (un NaN senalizante sale silenciado, con el signo cambiado); el resto se copia en crudo.
+ void CTaskSimpleFight::FightSetUpCol(float radius) {
+@@ -525,6 +679,7 @@ void CTaskSimpleFight::InjectHooks() {
+     RH_ScopedInstall(FightSetUpCol, 0x61D5F0);
+     RH_ScopedInstall(FightHitCar, 0x61D0B0);
+     RH_ScopedInstall(FightStrike, 0x6240B0);
++    RH_ScopedInstall(LoadMeleeData, 0x5BEDC0);
+ 
+ }
+ 

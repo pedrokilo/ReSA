@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "pairs": 4608,
+  "differences": 0,
+  "registered_pairs": 4608,
+  "registered_functions": 1,
+  "functions": {
+    "CTaskSimpleFight::ProcessPed": 4608
+  },
+  "covered_functions": {
+    "CTaskSimpleFight::ProcessPed": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wm-1 (HEAD 63d8ac6cb + parches del lote 31; ver artifacts/build-manifest.json), de sólo lectura y eliminado tras el registro. En el árbol principal las fuentes se fusionaron en tres vías con trabajo sin validar del lote 27 en los mismos archivos, por lo que sus hashes pueden diferir de los del manifiesto (normalizados a LF o no). Hook virtual (RH_ScopedVMTInstall) registrado como tipo V con original_address 0x00629920. Falsos idénticos en ambos lados: 21 colaboradores (ver README); objetos, tabla de combos y globales falsos. El oráculo acepta el ángulo de orientación (atan2) con tolerancia de 2 ulp (fpatan no modelado al ulp) y exige EXE == DLL estricto en bits; EAX/ECX/EDX sólo registrados. ",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/FightProcessPed31-20261019-161934-006419",
+  "summary_sha256": "c6802be4f57aa9dfb9bd3313df0d21f7b7f8398738a55bcd69044935ee01a908",
+  "result_txt_sha256": "ce92701797f5fdf14bfbad8e04ca05b020299f0cf17549f8b6293665350048fc",
+  "log_sha256": "002be9777b946af26ef7692a87b381395b268056233dc59ba7e4de86b97c86c2",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "fb845656b4b609db528035eeb768d1101f8fa77932528a9838109d7290655094",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "6b115891eae981f5eaa64160ce407bd90d4043762e9e622f09358b30703bb2b5",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "1eab8612f9343d766debc1db79a405df84cc4654a4b2e2e5fb7748fb8d616981",
+      "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
+      "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
+      "source/game_sa/Animation/AnimBlendAssociation.cpp": "48d69096df4497e826e3afa52fbd856fa1d122d6e6349521f6dda121551956b6",
+      "source/game_sa/Animation/AnimBlendAssociation.h": "c9f3243ffe9626d3bf003debd8cfa6fe8762323601c6a1cdc1acc911d4fa21cd",
+      "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
+      "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b",
+      "source/game_sa/Entity/Ped/Ped.cpp": "9276709c6c47677beccd39d2607a65945d14de5ca81cb5da1208ce94e4774b00",
+      "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+      "source/game_sa/Entity/Ped/PlayerPed.cpp": "1405f8e607e5eb2201a2616d72eabbe3c16a1a8c8d7b4cfd36c8af9c925446c3",
+      "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
+      "source/game_sa/Pad.cpp": "4ae7648009088d8055e7806d18518d46c545bc33405fa48b7860c32b6f41461c",
+      "source/game_sa/Pad.h": "fc62f4d8e7190a6164e74c206262649d6f6e720ccb213d843f59edf9a440f52e",
+      "source/game_sa/WeaponInfo.cpp": "94ae37868705fc7af459a43e70621b57b5645ff49a8452b49f970b94951e3a4a",
+      "source/game_sa/WeaponInfo.h": "fe843e4192ec6ed6da8be6d5843ae6d4ed69ecf7558422dd099d30c9c201d00b",
+      "source/game_sa/Streaming.cpp": "48313acbad9ed6f78f77272a6700e80623215eb4c32063936b9cd8967b2f443f",
+      "source/game_sa/Streaming.h": "0055e9284d015c283c2e31bf4b82a6e57fc44f0658b7d20e0e98cd7db9d4ebf7",
+      "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "431552bf8c78c0d41cd8e1d1d90fcdce125ff87160d40ad4099977df98160d57",
+      "source/game_sa/Audio/Entities/AEPedAudioEntity.h": "36ff93c3997768edf488fa60d956c4fd0cba35c399420a0541171f3fc0d5ad9c",
+      "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
+      "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
+      "source/game_sa/X87Math.cpp": "6fc107272dd05de961c0764eb952a78686cb4b429a67ab5888e281667dace1f0",
+      "source/game_sa/X87Math.h": "838ab9c3d6626bb6a912fc010349e878c211862c6bd36cd8ec9609059bff7bd9",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/FightProcessPed31/LiveComparison.hpp": "d2da1154044f45462ed4a43dce33b7315990afcaddb3fd1af9fdbedd57105213",
+      "reversing/FightProcessPed31/Core.hpp": "fe1d350c7dccb11bf25e0b4d4579fcf64a5f6910d7da86412375cc80f944249e",
+      "reversing/FightProcessPed31/Fixtures.hpp": "bb6fe295785d06f61a61554306f18ffd06c24b0be4e76ca98a7d756f339c2cb8",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CTaskComplexPartnerDeal::CreateFirstSubTask": 4096
+  },
+  "covered_functions": {
+    "CTaskComplexPartnerDeal::CreateFirstSubTask": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wm-1 (HEAD 63d8ac6cb + parches del lote 31; ver artifacts/build-manifest.json), de sólo lectura y eliminado tras el registro. En el árbol principal las fuentes se fusionaron en tres vías con trabajo sin validar del lote 27 en los mismos archivos, por lo que sus hashes pueden diferir de los del manifiesto (normalizados a LF o no). Hook virtual (RH_ScopedVMTInstall) registrado como tipo V con original_address 0x006823B0. Colaborador sustituido por un falso idéntico en ambos lados: 0x00681F20 (CTaskComplexPartner::CreateFirstSubTask, que SIGUE llamando al EXE y está pendiente de reconstruir). Una primera corrida falló por un error de etiquetado del banco y no es evidencia. ",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/PartnerDealFirst31-20261019-161255-872921",
+  "summary_sha256": "e3b3c4186d45db7716d1c093e7e80a1ea55884723930a485bacb96c834c2cdbf",
+  "result_txt_sha256": "44d7a6560763b212d7ae2d11ed293f2123ea6f469872318e906d0d83b9bdab7a",
+  "log_sha256": "eb2a76c7e4cda649db29747e216b298b23d347eee2743b20a4f31c95718061a6",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "00d055e083a58e940ad18a9a8c810f6ae9ddd6c69513bd58406764962637f996",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp": "c735b90d54ecf5f612320c780165bd7ce3405776df52a151c2de0c61bd545305",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h": "df877a5eec42862774087651887ad29739f11844726e26dbf21754cbe661aadb",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "715f49b718c8f81bb7a5623a4d4bf2bb6052f47504eddcfdf9609608d4d88498",
+      "source/game_sa/Tasks/Task.cpp": "d700418e6a00f573db2dc824d4a6d0bd325136ddf4f208589b74aef3d5f083c8",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/PartnerDealFirst31/LiveComparison.hpp": "e7db46065e6f9d46dec0d02231d958cad009451bcea381a51172ab6efd1579ff",
+      "reversing/PartnerDealFirst31/Core.hpp": "8a6d5cf0d06ce620c9009d1c2d441d8ff424b8612aeb13f36624b6776324c06e",
+      "reversing/PartnerDealFirst31/Fixtures.hpp": "1c41aade483928a1fc9dab542f6f8a3ef72a8be6a255e3a918a27edd94402f62",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

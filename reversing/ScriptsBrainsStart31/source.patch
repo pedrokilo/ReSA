@@ -1,0 +1,45 @@
+diff --git a/source/game_sa/ScriptsForBrains.cpp b/source/game_sa/ScriptsForBrains.cpp
+--- a/source/game_sa/ScriptsForBrains.cpp
++++ b/source/game_sa/ScriptsForBrains.cpp
+@@ -33,3 +33,3 @@
+     RH_ScopedInstall(HasAttractorScriptBrainWithThisNameLoaded, 0x46AB20);
+-    //RH_ScopedInstall(StartNewStreamedScriptBrain, 0x46B270, {.reversed = false});
++    RH_ScopedInstall(StartNewStreamedScriptBrain, 0x46B270);
+     RH_ScopedInstall(StartAttractorScriptBrainWithThisName, 0x46B390);
+@@ -73,4 +73,35 @@
+ 
++// 0x46B270
+ void CScriptsForBrains::StartNewStreamedScriptBrain(uint8 index, CEntity* entity, bool bHasAScriptBrain) {
+-    plugin::CallMethodAndReturn<void, 0x46B270, CScriptsForBrains*, uint8, CEntity*, uint8>(this, index, entity, bHasAScriptBrain);
++    const auto& brain  = m_aScriptForBrains[index];
++    auto* const script = CTheScripts::StreamedScripts.StartNewStreamedScript(brain.m_StreamedScriptIndex);
++    script->m_ExternalType = brain.m_TypeOfBrain;
++
++    // Tabla de saltos del EXE (0x46B36C): 0, 3 y 5 = ped; 1 y 4 = objeto; 2 y el resto (incluidos negativos) = nada mas.
++    switch (brain.m_TypeOfBrain) {
++    case 0:
++    case 3:
++    case 5: {
++        auto* const ped = static_cast<CPed*>(entity);
++        script->m_LocalVars[0].iParam = GetPedPool()->GetRef(ped);
++        ped->bHasAScriptBrain = true; // 0x800000
++        if (brain.m_TypeOfBrain == 5) {
++            script->m_LocalVars[1].iParam = static_cast<int32>(static_cast<uint8>(bHasAScriptBrain));
++        }
++        const auto toLoad = ped->m_StreamedScriptBrainToLoad;
++        ped->bWaitingForScriptBrainToLoad = false; // 0x1000000
++        CTheScripts::RemoveFromWaitingForScriptBrainArray(ped, toLoad);
++        ped->m_StreamedScriptBrainToLoad = -1;
++        break;
++    }
++    case 1:
++    case 4: {
++        auto* const object = static_cast<CObject*>(entity);
++        script->m_LocalVars[0].iParam = GetObjectPool()->GetRef(object);
++        object->m_nObjectFlags |= 0x300000;
++        break;
++    }
++    default:
++        break;
++    }
+ }

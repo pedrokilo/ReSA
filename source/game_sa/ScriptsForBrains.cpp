@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CScriptsForBrains
- * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 7/7 entradas.
+ * Validación registrada: 10/10 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -25,17 +25,19 @@ void CScriptsForBrains::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Init, 0x46A8C0);
+    RH_ScopedInstall(CheckIfNewEntityNeedsScript, 0x46FF20);
     RH_ScopedInstall(MarkAttractorScriptBrainWithThisNameAsNoLongerNeeded, 0x46AAE0);
     //RH_ScopedInstall(SwitchAllObjectBrainsWithThisID, 0x46A900, {.reversed = false});
     //RH_ScopedInstall(AddNewScriptBrain, 0x46A930, {.reversed = false});
     //RH_ScopedInstall(AddNewStreamedScriptBrainForCodeUse, 0x46A9C0, {.reversed = false});
     RH_ScopedInstall(GetIndexOfScriptBrainWithThisName, 0x46AA30);
     RH_ScopedInstall(HasAttractorScriptBrainWithThisNameLoaded, 0x46AB20);
-    //RH_ScopedInstall(StartNewStreamedScriptBrain, 0x46B270, {.reversed = false});
+    RH_ScopedInstall(StartNewStreamedScriptBrain, 0x46B270);
     RH_ScopedInstall(StartAttractorScriptBrainWithThisName, 0x46B390);
     RH_ScopedInstall(StartOrRequestNewStreamedScriptBrain, 0x46CD80);
     //RH_ScopedInstall(StartOrRequestNewStreamedScriptBrainWithThisName, 0x46CED0, {.reversed = false});
     RH_ScopedInstall(IsObjectWithinBrainActivationRange, 0x46B3D0);
+    RH_ScopedInstall(RequestAttractorScriptBrainWithThisName, 0x46AA80);
 }
 
 
@@ -55,8 +57,34 @@ void CScriptsForBrains::Init() {
     }
 }
 
+// 0x46FF20
 void CScriptsForBrains::CheckIfNewEntityNeedsScript(CEntity* entity, int8 attachType, void* unused) {
-    plugin::CallMethod<0x46FF20, CScriptsForBrains*, CEntity*, int8, void*>(this, entity, attachType, unused);
+    UNUSED(unused);
+    // Como el original: tipo 0 = ped (0x800000 = ya tiene cerebro, 0x1000000 = esperando a que cargue); el resto, objeto (0x300000).
+    if (attachType == 0) {
+        const auto* ped = static_cast<CPed*>(entity);
+        if (ped->bHasAScriptBrain || ped->bWaitingForScriptBrainToLoad) {
+            return;
+        }
+    } else if (static_cast<CObject*>(entity)->m_nObjectFlags & 0x300000) {
+        return;
+    }
+
+    // Recorre los 70 cerebros; el primero que coincide en tipo y modelo (16 bits) y supera la tirada arranca/solicita el script y termina.
+    for (uint8 i = 0; i < m_aScriptForBrains.size(); i++) {
+        const auto& brain = m_aScriptForBrains[i];
+        if (brain.m_TypeOfBrain != attachType || static_cast<uint16>(brain.m_PedModelOrPedGeneratorIndex) != static_cast<uint16>(entity->m_nModelIndex)) {
+            continue;
+        }
+        // Como el original: rand del EXE (0x821B1E) & 0xFFFF, * 2^-15 (0x858B14), * 100.0 (0x858628), truncado (_ftol2).
+        // El producto es exacto en float (k < 65536, k * 100 < 2^24), asi que no depende de la precision del x87.
+        const auto exeRand = reinterpret_cast<int(__cdecl*)()>(0x821B1E);
+        const int32 roll = static_cast<int32>(static_cast<float>(static_cast<uint32>(exeRand()) & 0xFFFFu) * std::bit_cast<float>(0x38000000u) * 100.0f);
+        if (roll < static_cast<int32>(brain.m_PercentageChance)) {
+            StartOrRequestNewStreamedScriptBrain(i, entity, attachType, true);
+            return;
+        }
+    }
 }
 
 void CScriptsForBrains::MarkAttractorScriptBrainWithThisNameAsNoLongerNeeded(const char* name) {
@@ -67,12 +95,54 @@ void CScriptsForBrains::MarkAttractorScriptBrainWithThisNameAsNoLongerNeeded(con
     if (users) --users;
 }
 
+// 0x46AA80
 void CScriptsForBrains::RequestAttractorScriptBrainWithThisName(const char* name) {
-    plugin::CallMethod<0x46AA80, CScriptsForBrains*, const char*>(this, name);
+    const auto index = GetIndexOfScriptBrainWithThisName(name, 5);
+    if (index < 0) {
+        return;
+    }
+    const auto script  = m_aScriptForBrains[index].m_StreamedScriptIndex;
+    const auto modelId = SCMToModelId(script);
+    // Como el original: el estado de carga se lee del arreglo de informacion de streaming; si no es LOADED (1) pide el modelo con 0x10.
+    if (!CStreaming::IsModelLoaded(modelId)) {
+        CStreaming::RequestModel(modelId, STREAMING_PRIORITY_REQUEST);
+    }
+    CTheScripts::StreamedScripts.m_aScripts[script].m_NumberOfUsers++;
 }
 
+// 0x46B270
 void CScriptsForBrains::StartNewStreamedScriptBrain(uint8 index, CEntity* entity, bool bHasAScriptBrain) {
-    plugin::CallMethodAndReturn<void, 0x46B270, CScriptsForBrains*, uint8, CEntity*, uint8>(this, index, entity, bHasAScriptBrain);
+    const auto& brain  = m_aScriptForBrains[index];
+    auto* const script = CTheScripts::StreamedScripts.StartNewStreamedScript(brain.m_StreamedScriptIndex);
+    script->m_ExternalType = brain.m_TypeOfBrain;
+
+    // Tabla de saltos del EXE (0x46B36C): 0, 3 y 5 = ped; 1 y 4 = objeto; 2 y el resto (incluidos negativos) = nada mas.
+    switch (brain.m_TypeOfBrain) {
+    case 0:
+    case 3:
+    case 5: {
+        auto* const ped = static_cast<CPed*>(entity);
+        script->m_LocalVars[0].iParam = GetPedPool()->GetRef(ped);
+        ped->bHasAScriptBrain = true; // 0x800000
+        if (brain.m_TypeOfBrain == 5) {
+            script->m_LocalVars[1].iParam = static_cast<int32>(static_cast<uint8>(bHasAScriptBrain));
+        }
+        const auto toLoad = ped->m_StreamedScriptBrainToLoad;
+        ped->bWaitingForScriptBrainToLoad = false; // 0x1000000
+        CTheScripts::RemoveFromWaitingForScriptBrainArray(ped, toLoad);
+        ped->m_StreamedScriptBrainToLoad = -1;
+        break;
+    }
+    case 1:
+    case 4: {
+        auto* const object = static_cast<CObject*>(entity);
+        script->m_LocalVars[0].iParam = GetObjectPool()->GetRef(object);
+        object->m_nObjectFlags |= 0x300000;
+        break;
+    }
+    default:
+        break;
+    }
 }
 
 // 0x46CD80

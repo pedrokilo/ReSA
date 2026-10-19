@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CScriptsForBrains::CheckIfNewEntityNeedsScript": 4096
+  },
+  "covered_functions": {
+    "CScriptsForBrains::CheckIfNewEntityNeedsScript": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/ScriptsBrainsCheckNew31-20261019-160239-335798",
+  "summary_sha256": "caeb880d9388bbefa3528da6d3616e01bf4992df260e97547c82e4ea329ff4c7",
+  "result_txt_sha256": "624621f0c27edff5bcb12faa78def93a2fa5ca13b013a0361ed1f02233ebc2ba",
+  "log_sha256": "f5feea69794da18ec809e6e56172e49ac7e0cf1b25bf0987df9dc7dbd084d478",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "733957d7992394d96f9b0283d637e60ba9ade387dc18a8fab76eaa7077566266",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/ScriptsForBrains.cpp": "772532b6ca2160ed4fb828a97e1e5442e821a87dd92d4ca3de11103f27c8c5ff",
+      "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
+      "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/ScriptsBrainsCheckNew31/LiveComparison.hpp": "03133eb7d3cb598200af17e2d83dd8a73d92f2435ee37b0d50a6951a643fc02c",
+      "reversing/ScriptsBrainsCheckNew31/Core.hpp": "bf89ce7c7b7116bde141f57d82d8dc820ba006ff5a83f06c1b37a034538feef3",
+      "reversing/ScriptsBrainsCheckNew31/Fixtures.hpp": "d2c568db25c04211a4ad5547a3c546eb648445f73f278909d2d211e26220ebf5",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

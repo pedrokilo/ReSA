@@ -1,0 +1,24 @@
+diff --git a/source/game_sa/ScriptsForBrains.cpp b/source/game_sa/ScriptsForBrains.cpp
+--- a/source/game_sa/ScriptsForBrains.cpp
++++ b/source/game_sa/ScriptsForBrains.cpp
+@@ -38,2 +38,3 @@
+     RH_ScopedInstall(IsObjectWithinBrainActivationRange, 0x46B3D0);
++    RH_ScopedInstall(RequestAttractorScriptBrainWithThisName, 0x46AA80);
+ }
+@@ -69,4 +70,15 @@
+ 
++// 0x46AA80
+ void CScriptsForBrains::RequestAttractorScriptBrainWithThisName(const char* name) {
+-    plugin::CallMethod<0x46AA80, CScriptsForBrains*, const char*>(this, name);
++    const auto index = GetIndexOfScriptBrainWithThisName(name, 5);
++    if (index < 0) {
++        return;
++    }
++    const auto script  = m_aScriptForBrains[index].m_StreamedScriptIndex;
++    const auto modelId = SCMToModelId(script);
++    // Como el original: el estado de carga se lee del arreglo de informacion de streaming; si no es LOADED (1) pide el modelo con 0x10.
++    if (!CStreaming::IsModelLoaded(modelId)) {
++        CStreaming::RequestModel(modelId, STREAMING_PRIORITY_REQUEST);
++    }
++    CTheScripts::StreamedScripts.m_aScripts[script].m_NumberOfUsers++;
+ }

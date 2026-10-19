@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "pairs": 4608,
+  "differences": 0,
+  "registered_pairs": 4608,
+  "registered_functions": 1,
+  "functions": {
+    "CTaskComplexWalkRoundObject::CreateNextSubTask": 4608
+  },
+  "covered_functions": {
+    "CTaskComplexWalkRoundObject::CreateNextSubTask": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wm-1 (HEAD 63d8ac6cb + parches del lote 31; ver artifacts/build-manifest.json), de sólo lectura y eliminado tras el registro. En el árbol principal las fuentes se fusionaron en tres vías con trabajo sin validar del lote 27 en los mismos archivos, por lo que sus hashes pueden diferir de los del manifiesto (normalizados a LF o no). Hook virtual (RH_ScopedVMTInstall) registrado como tipo V con original_address 0x00657220. CTask::operator new (0x61A5A0) y el constructor de CTaskComplexGoToPointAndStandStill (0x668120, con GoToPoint 0x46FE60 dentro) son los ya reconstruidos y enganchados; ComputeClosestSurfacePoint (ped 0x5F3B70 y posicion 0x5F36F0), ComputeEntityHitSide (0x5F3AC0) y CreateRouteTask (0x655140, sin hook: la DLL la llama por plugin al EXE) estan sustituidos por falsos identicos en ambos lados; la subtarea es una tarea falsa con vtable propia. EAX/ECX/EDX solo registrados (el unico llamador es CTaskManager::SetNextSubTask 0x681920 (C++ de la DLL), que solo usa EAX).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/WalkRoundNext31-20261019-160809-022379",
+  "summary_sha256": "11b33fea5efdcd858975159707b76468146221be81c17f70b6a274f0e8b13f8a",
+  "result_txt_sha256": "598497061c052a705f02834b78e5c582ab02453f728a1bae59d2a96b32b22488",
+  "log_sha256": "5f1defe204bfaea5441c47d1ce79bbb97095cdac29a9b3df331dc8a0ea669424",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "2a9e91bb42bc297ada1a7f66e32cb3b4be5b424e493f521b7da2ee278d8cc205",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "5869196b725cb1c927412838a334e3d6a136ed37f18035a6f9274ac519d69c21",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "8ecb300df3689b30f889a0c6a8e1d823da3617e917795c32d03842700ab36679",
+      "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+      "source/game_sa/Tasks/Task.cpp": "d700418e6a00f573db2dc824d4a6d0bd325136ddf4f208589b74aef3d5f083c8",
+      "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
+      "source/game_sa/PedGeometryAnalyser.cpp": "fa4da8480c2c639c2a78b9a16170e845ca5ba7391e866a789cc1c6303302b8da",
+      "source/game_sa/PedGeometryAnalyser.h": "75356ef5cc37b54f916fcd3bf2b8435a077b4b7dd32f97fd98486cbd5f2a52f7",
+      "source/game_sa/Route.hpp": "daaa88cd5402a812f7c1ee6ce5d4829df5dc38d473757a3bfbe4cfef240fbaba",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "0eaf10e15bed49090db67f0b03bac2b2d00b33294883b4dbc5617e137c3ba6b7",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.h": "70a6149b4fe79ca1505be3b8fa9cd90fee360a3f73d8d7b5f3417d09491163e9",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c",
+      "reversing/WalkRoundNext31/LiveComparison.hpp": "84f4205afabd14d03c40af62e087c5f2999977298de3701b7d039e92feea7999",
+      "reversing/WalkRoundNext31/Core.hpp": "bc235d46e302767e4e52c689c1641dffd3ff82abf6131266f7311a00efa0275b",
+      "reversing/WalkRoundNext31/Fixtures.hpp": "2010d2a79d4b2502299c800b301d1ce15e743555415536afa197239be2b18ae1"
+    }
+  }
+}

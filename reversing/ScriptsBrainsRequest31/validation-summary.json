@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CScriptsForBrains::RequestAttractorScriptBrainWithThisName": 4096
+  },
+  "covered_functions": {
+    "CScriptsForBrains::RequestAttractorScriptBrainWithThisName": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/ScriptsBrainsRequest31-20261019-160344-127220",
+  "summary_sha256": "856f9bb6f2d888b21b0eed8567f5d601214bb3bb340bf092d0b4bc7edced76d4",
+  "result_txt_sha256": "f3b6775fd87d3544cf7da70210ca69153f2d0e92f57462f39678d8093c76dc2b",
+  "log_sha256": "d60b0494d02cf032b4174c15bc030ed6872046e2877871c1b35d00a3c90449f3",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "7a753ce50bf00a8ebaa60d15640cdba3a49cc984084795df70ae52fe4a5ef65f",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/ScriptsForBrains.cpp": "772532b6ca2160ed4fb828a97e1e5442e821a87dd92d4ca3de11103f27c8c5ff",
+      "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
+      "source/game_sa/Streaming.cpp": "48313acbad9ed6f78f77272a6700e80623215eb4c32063936b9cd8967b2f443f",
+      "source/game_sa/Streaming.h": "0055e9284d015c283c2e31bf4b82a6e57fc44f0658b7d20e0e98cd7db9d4ebf7",
+      "source/game_sa/StreamingInfo.h": "2c0ebf455d8000cd8252ccc6ca3bd77b2f40afc111c2f30dd8323b0b74851e29",
+      "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/ScriptsBrainsRequest31/LiveComparison.hpp": "e9f1c4e7000c4c5331f6de87a585ae34be9944894db73f6d87ad37e68e3170d9",
+      "reversing/ScriptsBrainsRequest31/Core.hpp": "1678545aa2031313b13f97fb5bf37256f345f1ff322acc03b234fbd4c03a676c",
+      "reversing/ScriptsBrainsRequest31/Fixtures.hpp": "20e32914fb14770286f947b7fad46d8bb0a249ad7285c78459d2c861642f20a0",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

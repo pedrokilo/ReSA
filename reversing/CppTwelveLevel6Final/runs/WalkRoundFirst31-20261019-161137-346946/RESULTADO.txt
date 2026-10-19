@@ -1,0 +1,3 @@
+APROBADO: WalkRoundFirst31
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-walkroundfirst31\20261019-161137-346946

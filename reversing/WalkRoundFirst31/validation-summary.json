@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "pairs": 4608,
+  "differences": 0,
+  "registered_pairs": 4608,
+  "registered_functions": 1,
+  "functions": {
+    "CTaskComplexWalkRoundObject::CreateFirstSubTask": 4608
+  },
+  "covered_functions": {
+    "CTaskComplexWalkRoundObject::CreateFirstSubTask": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wm-1 (HEAD 63d8ac6cb + parches del lote 31; ver artifacts/build-manifest.json), de sólo lectura y eliminado tras el registro. En el árbol principal las fuentes se fusionaron en tres vías con trabajo sin validar del lote 27 en los mismos archivos, por lo que sus hashes pueden diferir de los del manifiesto (normalizados a LF o no). Hook virtual (RH_ScopedVMTInstall) registrado como tipo V con original_address 0x00657380. CTask::operator new (0x61A5A0), CVector::NormaliseAndMag (0x59C970), CGeneral::LimitRadianAngle (0x53CB50) y GetRadianAngleBetweenPoints (0x53CBE0) son los ya reconstruidos y enganchados; AllocateMatrix (0x54F560), UpdateMatrix (0x54F1B0), 0x6551D0 (sin simbolo) y CreateRouteTask (0x655140) estan sustituidos por falsos identicos en ambos lados. EAX/ECX/EDX solo registrados (el unico llamador es CTaskManager::AddSubTasks 0x681A30 (C++ de la DLL), que solo usa EAX). La primera corrida (20261019-160715-197856) falló por la compuerta del hook apagado de CVector::NormaliseAndMag 0x59C970 (ahora sólo vigilado; el lado original ejecuta el x87 del EXE y el candidato el C++ de la DLL) y no es evidencia; el ángulo del giro se acepta a 1e-4 rad (fpatan no modelado) con EXE == DLL estricto.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/WalkRoundFirst31-20261019-161137-346946",
+  "summary_sha256": "3d8d4bc8da77f724fcaf93fd40f434ab4218bc4125cfb792491cca67a8fa86b8",
+  "result_txt_sha256": "54906e0a86e19cc1eca0b0a2283a464e04cdd8296623bcc6f2a0a0fb02d0da57",
+  "log_sha256": "d85169598d74ec6ecc612b82125d24998417c71402460838e8ed40bde076c44d",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "6eb901cfe17acf8f8db20c85c29829c8a38f5bd11e9e79890642c9c826398639",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "5869196b725cb1c927412838a334e3d6a136ed37f18035a6f9274ac519d69c21",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "8ecb300df3689b30f889a0c6a8e1d823da3617e917795c32d03842700ab36679",
+      "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+      "source/game_sa/Tasks/Task.cpp": "d700418e6a00f573db2dc824d4a6d0bd325136ddf4f208589b74aef3d5f083c8",
+      "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
+      "source/game_sa/X87Math.cpp": "6fc107272dd05de961c0764eb952a78686cb4b429a67ab5888e281667dace1f0",
+      "source/game_sa/X87Math.h": "838ab9c3d6626bb6a912fc010349e878c211862c6bd36cd8ec9609059bff7bd9",
+      "source/game_sa/Entity/Placeable.cpp": "0030861304db9f417c8fd8b322a7be006ef4e5a099238c157e5dc0cf0d018e24",
+      "source/game_sa/Entity/Placeable.h": "39566380c1c727f446b167f044a749312eaaba6e62b79a552a863769bfeea4fc",
+      "source/game_sa/SimpleTransform.cpp": "91cfe9e3ac4ceb4a2d63bca9a897a4d62b3ff298a32576300771df16a259c8c4",
+      "source/game_sa/SimpleTransform.h": "48d68e2dbb22fb131e21e6b58078fc06be4136824c38dce24a268db8765374f8",
+      "source/game_sa/Core/Vector.cpp": "79876b134e317dba1705147a63e44c0404317244f7e43e1e4eb749005ef27e96",
+      "source/game_sa/Core/Vector.h": "00a8ec7fbe3610f74afd526edbd3ae8ca489c1f3c3ef35a2d3147f7165f60c98",
+      "source/game_sa/General.cpp": "7b6b28991efbd0a1e8b1a4d6a09a077e870a161df158fa38fb23c5ef1d1264f5",
+      "source/game_sa/General.h": "392cf3dca613f3a5e5caa859b0a5d80a10ca5a5d01bf2c300b62119137a056ff",
+      "source/game_sa/PedGeometryAnalyser.h": "75356ef5cc37b54f916fcd3bf2b8435a077b4b7dd32f97fd98486cbd5f2a52f7",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleAchieveHeading.cpp": "1afe77e20f9880545f4f15df42af9f5906731a6494dfb9579adbf27bbf124df8",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleAchieveHeading.h": "07aa4dfb7deaad10adedff7eec4e66ea166da77d0bcfa9441e68cbaa4f4e9b6c",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c",
+      "reversing/WalkRoundFirst31/LiveComparison.hpp": "3bbd59965af4f0e853136751431e5711dd99b5fb635a3a9abb419386324c9ef0",
+      "reversing/WalkRoundFirst31/Core.hpp": "20cfdccb66e1c86c92ecbdbac8ebf9301e8b0226fad54d26c4ecf5e064f0d2b3",
+      "reversing/WalkRoundFirst31/Fixtures.hpp": "5f199c004efbd9012fe9a8a06bb2b5f2c8a535913d1c7264450dcbcd8338975c"
+    }
+  }
+}

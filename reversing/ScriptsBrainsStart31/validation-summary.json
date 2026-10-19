@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CScriptsForBrains::StartNewStreamedScriptBrain": 4096
+  },
+  "covered_functions": {
+    "CScriptsForBrains::StartNewStreamedScriptBrain": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/ScriptsBrainsStart31-20261019-161022-770552",
+  "summary_sha256": "fa15132f5f2125299ea58fc1434a83f5d9636913ab9cc863e695d36101bd2cfe",
+  "result_txt_sha256": "1e7d3fe626c59862e5be67d7dd22b870f845a1b04032074b98fb20d3601332d9",
+  "log_sha256": "9f2677ef05e26631e7ebe6f17c986fee3d8dfb44b7619a10c273c0bc50e42f7f",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "8f418ac43fbeaa5b3bd5fc6bc3260ac327781902a4334bf124a4f663d27f7931",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/ScriptsForBrains.cpp": "772532b6ca2160ed4fb828a97e1e5442e821a87dd92d4ca3de11103f27c8c5ff",
+      "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
+      "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+      "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+      "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
+      "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
+      "source/game_sa/Pools.cpp": "38b4dfcb66d2428ba80865b1e3d28f82ee464a8543e13443933715b92d8e07f6",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/ScriptsBrainsStart31/LiveComparison.hpp": "35b478e866687ebdd8b4b340ca9e6aa47ab49dbe3b707397dbf7c92c9fab13b6",
+      "reversing/ScriptsBrainsStart31/Core.hpp": "418be03b722e1574c53951110561f91fa9aa7295fb3011fa0eec13563119a75d",
+      "reversing/ScriptsBrainsStart31/Fixtures.hpp": "3ac95f5369cef793a4f087081f5429089f91f01ef0d0a6dafd9113f8e0eccb6e",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

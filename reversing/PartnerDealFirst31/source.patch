@@ -1,0 +1,24 @@
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp b/source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp
+index a0abc4645..dfcfc7e9f 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp
+@@ -25,6 +25,7 @@ void CTaskComplexPartnerDeal::InjectHooks()
+     RH_ScopedVirtualClass(CTaskComplexPartnerDeal, 0x870754, 14);
+     RH_ScopedCategory("Tasks/TaskTypes");
+     RH_ScopedInstall(Constructor, 0x684190);
++    RH_ScopedVMTInstall(CreateFirstSubTask, 0x6823B0);
+ }
+ 
+ CTaskComplexPartnerDeal::CTaskComplexPartnerDeal(const char* commandName, CPed* partner, bool leadSpeaker, float distanceMultiplier, CVector point) :
+@@ -41,9 +42,10 @@ CTaskComplexPartnerDeal* CTaskComplexPartnerDeal::Constructor(const char* comman
+     return this;
+ }
+ 
++// 0x6823B0
+ CTask* CTaskComplexPartnerDeal::CreateFirstSubTask(CPed* ped)
+ {
+-    return plugin::CallMethodAndReturn<CTask*, 0x6823B0, CTask*, CPed*>(this, ped);
++    return CTaskComplexPartner::CreateFirstSubTask(ped); // Como el original: salto directo a 0x681F20
+ }
+ 
+ void CTaskComplexPartnerDeal::StreamRequiredAnims()

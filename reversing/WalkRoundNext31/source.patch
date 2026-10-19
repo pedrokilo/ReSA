@@ -1,0 +1,83 @@
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp b/source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp
+index 9f10843..3ce00f5 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp
+@@ -19,13 +19,15 @@ END GENERATED HOOK STATUS */
+ #include "StdInc.h"
+ 
+ #include "TaskComplexWalkRoundObject.h"
+-// #include "PointRoute.h"
++#include "PedGeometryAnalyser.h"
++#include "TaskComplexGoToPointAndStandStill.h"
+ 
+ void CTaskComplexWalkRoundObject::InjectHooks() {
+     RH_ScopedVirtualClass(CTaskComplexWalkRoundObject, 0x86F364, 11);
+     RH_ScopedCategory("Tasks/TaskTypes");
+ 
+     RH_ScopedInstall(Constructor, 0x655020);
++    RH_ScopedVMTInstall(CreateNextSubTask, 0x657220);
+ }
+ 
+ // 0x655020
+@@ -67,8 +69,38 @@ CTask* CTaskComplexWalkRoundObject::ControlSubTask(CPed* ped) {
+     return plugin::CallMethodAndReturn<CTask*, 0x6575F0, CTaskComplexWalkRoundObject*, CPed*>(this, ped);
+ }
+ 
++// 0x657220
+ CTask* CTaskComplexWalkRoundObject::CreateNextSubTask(CPed* ped) {
+-    return plugin::CallMethodAndReturn<CTask*, 0x657220, CTaskComplexWalkRoundObject*, CPed*>(this, ped);
++    if (!m_object) {
++        return nullptr;
++    }
++
++    switch (m_pSubTask->GetTaskType()) {
++    case TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL: // 0x387
++        return CreateRouteTask(ped);
++    case TASK_SIMPLE_ACHIEVE_HEADING: // 0x386
++        break;
++    default: // incluye TASK_SIMPLE_STAND_STILL (0xCB) y TASK_COMPLEX_FOLLOW_POINT_ROUTE (0x389)
++        return nullptr;
++    }
++
++    if (m_pointRoute->m_NumEntries != 0) {
++        return CreateRouteTask(ped);
++    }
++
++    // Como el original: punto más cercano de la superficie del objeto al peatón; si cae del mismo lado que el destino se añaden a la ruta
++    // ese punto y el más cercano al destino; si no, se camina hasta el punto
++    CVector point;
++    CPedGeometryAnalyser::ComputeClosestSurfacePoint(*ped, *m_object, point);
++    const int32 sideOfPoint  = CPedGeometryAnalyser::ComputeEntityHitSide(point, *m_object);
++    const int32 sideOfTarget = CPedGeometryAnalyser::ComputeEntityHitSide(m_targetPoint, *m_object);
++    if (sideOfPoint == sideOfTarget) {
++        m_pointRoute->AddUnlessFull(point);
++        CPedGeometryAnalyser::ComputeClosestSurfacePoint(m_targetPoint, *m_object, point);
++        m_pointRoute->AddUnlessFull(point);
++        return CreateRouteTask(ped);
++    }
++    return new CTaskComplexGoToPointAndStandStill(PEDMOVE_WALK, point, 0.5f, 2.0f, false, false); // 0x86FC84 y 0x86FC88
+ }
+ 
+ CTask* CTaskComplexWalkRoundObject::CreateFirstSubTask(CPed* ped) {
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h b/source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h
+index a93c4aa..d9fbb40 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h
++++ b/source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h
+@@ -15,7 +15,10 @@ public:
+     int32        field_28;
+     int8         field_2C;
+     int8         field_2D;
+-    int32        field_30;
++    // Como el original: el constructor (0x655020) no escribe estos campos; las uniones anónimas evitan el inicializador por defecto de CVector
++    union { CVector m_objectStartPos; };     // posición inicial del objeto
++    union { CVector m_objectStartForward; }; // frente inicial del objeto
++    union { CVector m_objectStartRight; };   // derecha inicial del objeto
+ 
+ public:
+     static constexpr auto Type = TASK_COMPLEX_WALK_ROUND_OBJECT;
+@@ -38,4 +41,4 @@ private:
+     CTaskComplexWalkRoundObject* Constructor(int32 moveState, const CVector& targetPoint, CEntity* object);
+ };
+ 
+-VALIDATE_SIZE(CTaskComplexWalkRoundObject, 0x34);
++VALIDATE_SIZE(CTaskComplexWalkRoundObject, 0x54);

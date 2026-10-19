@@ -1,0 +1,50 @@
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp b/source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp
+index a0abc4645..2054b5934 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp
+@@ -19,12 +19,14 @@ END GENERATED HOOK STATUS */
+ #include "StdInc.h"
+ 
+ #include "TaskComplexPartnerDeal.h"
++#include "TaskComplexGangLeader.h"
+ 
+ void CTaskComplexPartnerDeal::InjectHooks()
+ {
+     RH_ScopedVirtualClass(CTaskComplexPartnerDeal, 0x870754, 14);
+     RH_ScopedCategory("Tasks/TaskTypes");
+     RH_ScopedInstall(Constructor, 0x684190);
++    RH_ScopedVMTInstall(StreamRequiredAnims, 0x6823C0);
+ }
+ 
+ CTaskComplexPartnerDeal::CTaskComplexPartnerDeal(const char* commandName, CPed* partner, bool leadSpeaker, float distanceMultiplier, CVector point) :
+@@ -46,9 +48,29 @@ CTask* CTaskComplexPartnerDeal::CreateFirstSubTask(CPed* ped)
+     return plugin::CallMethodAndReturn<CTask*, 0x6823B0, CTask*, CPed*>(this, ped);
+ }
+ 
++// 0x6823C0
+ void CTaskComplexPartnerDeal::StreamRequiredAnims()
+ {
+-    return plugin::CallMethod<0x6823C0, CTask*>(this);
++    // Como el original: sin referencia, se pide/referencia el bloque si hay que cargar las animaciones de bandas;
++    // con referencia, se suelta si ya no hay que cargarlas (el bloque cargado se compara con == 1)
++    if (reinterpret_cast<const uint8&>(m_requiredAnimsStreamedIn) == 0) { // Como el original: se prueba el byte entero
++        if (!CTaskComplexGangLeader::ShouldLoadGangAnims()) {
++            return;
++        }
++        const auto blkIdx = CAnimManager::GetAnimationBlockIndex(m_animBlockName);
++        if (reinterpret_cast<const uint8&>(CAnimManager::GetAnimBlocks()[blkIdx].IsLoaded) != 1) {
++            CStreaming::RequestModel(IFPToModelId(blkIdx), STREAMING_KEEP_IN_MEMORY);
++            return;
++        }
++        CAnimManager::AddAnimBlockRef(blkIdx);
++        m_requiredAnimsStreamedIn = true;
++    } else {
++        if (CTaskComplexGangLeader::ShouldLoadGangAnims()) {
++            return;
++        }
++        CAnimManager::RemoveAnimBlockRef(CAnimManager::GetAnimationBlockIndex(m_animBlockName));
++        m_requiredAnimsStreamedIn = false;
++    }
+ }
+ 
+ CTaskComplexSequence* CTaskComplexPartnerDeal::GetPartnerSequence()

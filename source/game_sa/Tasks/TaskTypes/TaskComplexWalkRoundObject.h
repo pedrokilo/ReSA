@@ -15,7 +15,10 @@ public:
     int32        field_28;
     int8         field_2C;
     int8         field_2D;
-    int32        field_30;
+    // Como el original: el constructor (0x655020) no escribe estos campos; las uniones anónimas evitan el inicializador por defecto de CVector
+    union { CVector m_objectStartPos; };     // posición inicial del objeto
+    union { CVector m_objectStartForward; }; // frente inicial del objeto
+    union { CVector m_objectStartRight; };   // derecha inicial del objeto
 
 public:
     static constexpr auto Type = TASK_COMPLEX_WALK_ROUND_OBJECT;
@@ -38,4 +41,4 @@ private:
     CTaskComplexWalkRoundObject* Constructor(int32 moveState, const CVector& targetPoint, CEntity* object);
 };
 
-VALIDATE_SIZE(CTaskComplexWalkRoundObject, 0x34);
+VALIDATE_SIZE(CTaskComplexWalkRoundObject, 0x54);

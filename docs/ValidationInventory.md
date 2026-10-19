@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,702 entradas reversed=1**, de 8,702 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,714 entradas reversed=1**, de 8,714 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8702 |
+| `validated=1` · evidencia aprobada vinculada | 8714 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8702 |
+| Evidencia histórica vinculada; revisión pendiente | 8714 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -4747,12 +4747,15 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CScriptedBrainTaskStore | `Clear-task` | [Resumen](../reversing/Events23/validation-summary.json) |
 | CScriptedBrainTaskStore | `GetTask` | [Resumen](../reversing/Events23/validation-summary.json) |
 | CScriptedBrainTaskStore | `SetTask` | [Resumen](../reversing/Events23/validation-summary.json) |
+| CScriptsForBrains | `CheckIfNewEntityNeedsScript` | [Resumen](../reversing/ScriptsBrainsCheckNew31/validation-summary.json) |
 | CScriptsForBrains | `GetIndexOfScriptBrainWithThisName` | [Resumen](../reversing/Misc61a/validation-summary.json) |
 | CScriptsForBrains | `HasAttractorScriptBrainWithThisNameLoaded` | [Resumen](../reversing/Misc61a/validation-summary.json) |
 | CScriptsForBrains | `Init` | [Resumen](../reversing/Misc61a/validation-summary.json) |
 | CScriptsForBrains | `IsObjectWithinBrainActivationRange` | [Resumen](../reversing/Misc61a/validation-summary.json) |
 | CScriptsForBrains | `MarkAttractorScriptBrainWithThisNameAsNoLongerNeeded` | [Resumen](../reversing/DependenciesVehicleLeaf5/validation-summary.json) |
+| CScriptsForBrains | `RequestAttractorScriptBrainWithThisName` | [Resumen](../reversing/ScriptsBrainsRequest31/validation-summary.json) |
 | CScriptsForBrains | `StartAttractorScriptBrainWithThisName` | [Resumen](../reversing/Misc61a/validation-summary.json) |
+| CScriptsForBrains | `StartNewStreamedScriptBrain` | [Resumen](../reversing/ScriptsBrainsStart31/validation-summary.json) |
 | CScriptsForBrains | `StartOrRequestNewStreamedScriptBrain` | [Resumen](../reversing/Misc61a/validation-summary.json) |
 | CSetPiece | `TryToGenerateCopCar` | [Resumen](../reversing/PedTasks52/validation-summary.json) |
 | CSetPiece | `TryToGenerateCopPed` | [Resumen](../reversing/PedTasks52/validation-summary.json) |
@@ -5887,6 +5890,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexPartnerChat | `GetPartnerSequence` | [Resumen](../reversing/PartnerChatSeq30/validation-summary.json) |
 | CTaskComplexPartnerChat | `MakeAbortable` | [Resumen](../reversing/PartnerChatAbort30/validation-summary.json) |
 | CTaskComplexPartnerDeal | `Constructor` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
+| CTaskComplexPartnerDeal | `CreateFirstSubTask` | [Resumen](../reversing/PartnerDealFirst31/validation-summary.json) |
+| CTaskComplexPartnerDeal | `GetPartnerSequence` | [Resumen](../reversing/PartnerDealSeq31/validation-summary.json) |
+| CTaskComplexPartnerDeal | `StreamRequiredAnims` | [Resumen](../reversing/PartnerDealAnims31/validation-summary.json) |
 | CTaskComplexPartnerGreet | `Clone` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
 | CTaskComplexPartnerGreet | `Constructor` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
 | CTaskComplexPartnerGreet | `CreateFirstSubTask` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
@@ -6293,6 +6299,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexWalkRoundFire | `Destructor` | [Resumen](../reversing/CTasks8c/validation-summary.json) |
 | CTaskComplexWalkRoundFire | `GetTaskType` | [Resumen](../reversing/CTasks8c/validation-summary.json) |
 | CTaskComplexWalkRoundObject | `Constructor` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
+| CTaskComplexWalkRoundObject | `ControlSubTask` | [Resumen](../reversing/WalkRoundControl31/validation-summary.json) |
+| CTaskComplexWalkRoundObject | `CreateFirstSubTask` | [Resumen](../reversing/WalkRoundFirst31/validation-summary.json) |
+| CTaskComplexWalkRoundObject | `CreateNextSubTask` | [Resumen](../reversing/WalkRoundNext31/validation-summary.json) |
 | CTaskComplexWander | `ComputeTargetHeading` | [Resumen](../reversing/CTasks14a/validation-summary.json) |
 | CTaskComplexWander | `ComputeTargetPos` | [Resumen](../reversing/CTasks14a/validation-summary.json) |
 | CTaskComplexWander | `Constructor` | [Resumen](../reversing/CTasks14a/validation-summary.json) |
@@ -6790,6 +6799,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleFight | `GetComboAnimGroupID` | [Resumen](../reversing/DependenciesFightLeaf2/validation-summary.json) |
 | CTaskSimpleFight | `IsComboSet` | [Resumen](../reversing/DependenciesFightLeaf2/validation-summary.json) |
 | CTaskSimpleFight | `IsHitComboSet` | [Resumen](../reversing/DependenciesFightLeaf2/validation-summary.json) |
+| CTaskSimpleFight | `LoadMeleeData` | [Resumen](../reversing/FightMeleeData31/validation-summary.json) |
+| CTaskSimpleFight | `MakeAbortable` | [Resumen](../reversing/FightAbort31/validation-summary.json) |
+| CTaskSimpleFight | `ProcessPed` | [Resumen](../reversing/FightProcessPed31/validation-summary.json) |
 | CTaskSimpleFightingControl | `CalcMoveCommand` | [Resumen](../reversing/TaskFinal2/validation-summary.json) |
 | CTaskSimpleFightingControl | `Clone` | [Resumen](../reversing/TaskFinal2/validation-summary.json) |
 | CTaskSimpleFightingControl | `Constructor` | [Resumen](../reversing/RequestedPreflightAdditionalLifetimes/runs/20261008-124111-185817/enriched-summary.json) |
@@ -9103,7 +9115,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CScripted2dEffects` | 5 | 0 | 5 | 0 |
 | `CScriptedBrainTaskEntry` | 1 | 0 | 1 | 0 |
 | `CScriptedBrainTaskStore` | 4 | 0 | 4 | 0 |
-| `CScriptsForBrains` | 7 | 0 | 7 | 0 |
+| `CScriptsForBrains` | 10 | 0 | 10 | 0 |
 | `CSetPiece` | 3 | 0 | 3 | 0 |
 | `CSetPieces` | 5 | 0 | 5 | 0 |
 | `CShadowCamera` | 19 | 0 | 19 | 0 |
@@ -9233,7 +9245,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexOpenPassengerDoor` | 4 | 0 | 4 | 0 |
 | `CTaskComplexPartner` | 1 | 0 | 1 | 0 |
 | `CTaskComplexPartnerChat` | 3 | 0 | 3 | 0 |
-| `CTaskComplexPartnerDeal` | 1 | 0 | 1 | 0 |
+| `CTaskComplexPartnerDeal` | 4 | 0 | 4 | 0 |
 | `CTaskComplexPartnerGreet` | 7 | 0 | 7 | 0 |
 | `CTaskComplexPartnerShove` | 2 | 0 | 2 | 0 |
 | `CTaskComplexPassObject` | 9 | 0 | 9 | 0 |
@@ -9286,7 +9298,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexWalkRoundBuildingAttempt` | 12 | 0 | 12 | 0 |
 | `CTaskComplexWalkRoundCar` | 13 | 0 | 13 | 0 |
 | `CTaskComplexWalkRoundFire` | 8 | 0 | 8 | 0 |
-| `CTaskComplexWalkRoundObject` | 1 | 0 | 1 | 0 |
+| `CTaskComplexWalkRoundObject` | 4 | 0 | 4 | 0 |
 | `CTaskComplexWander` | 14 | 0 | 14 | 0 |
 | `CTaskComplexWanderCop` | 9 | 0 | 9 | 0 |
 | `CTaskComplexWanderCriminal` | 6 | 0 | 6 | 0 |
@@ -9357,7 +9369,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleEvasiveStep` | 8 | 0 | 8 | 0 |
 | `CTaskSimpleFacial` | 5 | 0 | 5 | 0 |
 | `CTaskSimpleFall` | 6 | 0 | 6 | 0 |
-| `CTaskSimpleFight` | 9 | 0 | 9 | 0 |
+| `CTaskSimpleFight` | 12 | 0 | 12 | 0 |
 | `CTaskSimpleFightingControl` | 7 | 0 | 7 | 0 |
 | `CTaskSimpleFinishBrain` | 2 | 0 | 2 | 0 |
 | `CTaskSimpleGangDriveBy` | 8 | 0 | 8 | 0 |

@@ -222,13 +222,13 @@ class,function,address,source,origins
 (helpers y globales sin clase),CWaterLevel helper de envío de agua acumulada sin símbolo confirmado,0x006E7680,source/game_sa/WaterLevel.cpp:351; source/game_sa/WaterLevel.cpp:397; source/game_sa/WaterLevel.cpp:748,cohorte 499
 (helpers y globales sin clase),DIReleaseMouse,0x00746F70,source/game_sa/Pad.cpp:1506,cohorte 499 + envoltura en el código fuente
 (helpers y globales sin clase),ExeFree,,source/game_sa/RenderWare/D3DResourceSystem.cpp:70,envoltura en el código fuente
-(helpers y globales sin clase),FightChooseAttackAIExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:362,envoltura en el código fuente
-(helpers y globales sin clase),FightChooseAttackPlayerExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:358,envoltura en el código fuente
-(helpers y globales sin clase),FightFindTargetOnGroundExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:354,envoltura en el código fuente
-(helpers y globales sin clase),FightGetAvailableComboSetExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:350,envoltura en el código fuente
+(helpers y globales sin clase),FightChooseAttackAIExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:357,envoltura en el código fuente
+(helpers y globales sin clase),FightChooseAttackPlayerExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:353,envoltura en el código fuente
+(helpers y globales sin clase),FightFindTargetOnGroundExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:349,envoltura en el código fuente
+(helpers y globales sin clase),FightGetAvailableComboSetExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:345,envoltura en el código fuente
 (helpers y globales sin clase),FightHitObjExe,0x0061D400,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:278,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 (helpers y globales sin clase),FightHitPedExe,0x0061CBA0,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:273,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-(helpers y globales sin clase),FightStartAnimExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:366,envoltura en el código fuente
+(helpers y globales sin clase),FightStartAnimExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:361,envoltura en el código fuente
 (helpers y globales sin clase),FightStrikeDamageExe,0x0061C740,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:268,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 (helpers y globales sin clase),FindUpgradeCB,0x006D3370,source/game_sa/Entity/Vehicle/Vehicle.cpp:2539,cohorte nuevo 2026-10-17
 (helpers y globales sin clase),GetDXVersion,0x00745650,source/app/platform/win/WinPs.cpp:180,cohorte 499
@@ -404,9 +404,6 @@ CPlayerPed,SetInitialState,0x0060CD20,source/game_sa/Entity/Ped/PlayerPed.cpp:10
 CPlayerPed,SetRealMoveAnim,0x0060A9C0,source/game_sa/Entity/Ped/PlayerPed.cpp:820,cohorte 499 + envoltura en el código fuente
 CRemote,GivePlayerRemoteControlledCar,0x0045AB10,source/game_sa/Remote.cpp:10,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CRemote,TakeRemoteControlledCarFromPlayer,0x0045AE80,source/game_sa/Remote.cpp:5,cohorte 499 + envoltura en el código fuente
-CScriptsForBrains,CheckIfNewEntityNeedsScript,0x0046FF20,source/game_sa/ScriptsForBrains.cpp:58,cohorte 499
-CScriptsForBrains,RequestAttractorScriptBrainWithThisName,0x0046AA80,source/game_sa/ScriptsForBrains.cpp:66,cohorte 499
-CScriptsForBrains,StartNewStreamedScriptBrain,0x0046B270,source/game_sa/ScriptsForBrains.cpp:70,cohorte 499
 CSearchLight,IsSpottedEntity,0x00493900,source/game_sa/SearchLight.cpp:27,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CStats,BuildStatLine,0x00559230,source/game_sa/Stats.cpp:375,cohorte nuevo 2026-10-17
 CStats,ConstructStatLine,0x0055A780,source/game_sa/Stats.cpp:993,cohorte 499 + envoltura en el código fuente
@@ -433,15 +430,6 @@ CTaskComplexPartner,CreateFirstSubTask,0x00681F20,source/game_sa/Tasks/TaskTypes
 CTaskComplexPartner,CreateNextSubTask,0x00683AD0,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:68,cohorte nuevo 2026-10-17
 CTaskComplexPartner,RemoveStreamedAnims,0x00682370,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:84,cohorte nuevo 2026-10-17
 CTaskComplexPartner,StreamRequiredAnims,0x00682310,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:80,cohorte nuevo 2026-10-17
-CTaskComplexPartnerDeal,CreateFirstSubTask,0x006823B0,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp:46,cohorte nuevo 2026-10-17
-CTaskComplexPartnerDeal,GetPartnerSequence,0x00682440,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp:56,cohorte nuevo 2026-10-17
-CTaskComplexPartnerDeal,StreamRequiredAnims,0x006823C0,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp:51,cohorte nuevo 2026-10-17
-CTaskComplexWalkRoundObject,ControlSubTask,0x006575F0,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp:67,cohorte nuevo 2026-10-17
-CTaskComplexWalkRoundObject,CreateFirstSubTask,0x00657380,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp:75,cohorte nuevo 2026-10-17
-CTaskComplexWalkRoundObject,CreateNextSubTask,0x00657220,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp:71,cohorte nuevo 2026-10-17
-CTaskSimpleFight,LoadMeleeData,0x005BEDC0,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:39,cohorte 499
-CTaskSimpleFight,MakeAbortable,0x006239F0,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:222,cohorte nuevo 2026-10-17
-CTaskSimpleFight,ProcessPed,0x00629920,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:227,cohorte nuevo 2026-10-17
 CTaskSimpleSlideToCoord,ProcessPed,0x0066C4E0,source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp:54,cohorte nuevo 2026-10-17
 CTrainNode,GetLightingFromCollision,0x006F5F80,source/game_sa/Entity/Vehicle/Train.cpp:581,cohorte nuevo 2026-10-17
 CVehicle,AddReplacementUpgrade,0x006D3830,source/game_sa/Entity/Vehicle/Vehicle.cpp:2742,cohorte nuevo 2026-10-17

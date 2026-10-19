@@ -1565,3 +1565,14 @@ void __cdecl FxPrtVelAddCpp(const float* velAdd, float* vel);
 
 // --- Lote 30: FxEmitter_c::AddParticle(vector) (0x4A3EA0), prefijo FxAddParticle. Anadir al FINAL de X87Math.h ---
 unsigned int __cdecl FxAddParticleRotZByteCpp(float rotZ);  // byte bajo de _ftol2(rotZ * 0.5f)
+
+// --- Lote 31: CTaskComplexWalkRoundObject::ControlSubTask (0x6575F0), prefijo WalkRound. Anadir al FINAL de X87Math.h ---
+// Tramos x87 de 24 bits con exponente extendido (sin guardados intermedios de float). Los punteros apuntan a x, y, z consecutivos.
+// |a - b|^2 > 0.0625 (0x86F15C) con (dz*dz + dy*dy) + dx*dx, dx = a.x - b.x...; comparacion ordenada (con NaN da false).
+bool __cdecl WalkRoundMovedCpp(const float* start, const float* current);
+// (a.z*b.z + a.y*b.y) + a.x*b.x < 0.9 (0x86F160); comparacion ordenada (con NaN da false).
+bool __cdecl WalkRoundDotBelowCpp(const float* a, const float* b);
+
+// --- Lote 31: CTaskComplexWalkRoundObject::CreateFirstSubTask (0x657380), prefijo WalkRound. Anadir al FINAL de X87Math.h ---
+// (a.z*b.z + a.y*b.y) + a.x*b.x > 0.0 (0x86F420) sobre la x87 (24 bits, exponente extendido); comparacion ordenada (con NaN da false). Los punteros apuntan a x, y, z consecutivos.
+bool __cdecl WalkRoundDotPositiveCpp(const float* a, const float* b);

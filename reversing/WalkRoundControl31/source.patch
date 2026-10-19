@@ -1,0 +1,133 @@
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp b/source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp
+index 9f10843..1249ba4 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp
+@@ -19,13 +19,15 @@ END GENERATED HOOK STATUS */
+ #include "StdInc.h"
+ 
+ #include "TaskComplexWalkRoundObject.h"
+-// #include "PointRoute.h"
++#include "TaskSimpleStandStill.h"
++#include "X87Math.h"
+ 
+ void CTaskComplexWalkRoundObject::InjectHooks() {
+     RH_ScopedVirtualClass(CTaskComplexWalkRoundObject, 0x86F364, 11);
+     RH_ScopedCategory("Tasks/TaskTypes");
+ 
+     RH_ScopedInstall(Constructor, 0x655020);
++    RH_ScopedVMTInstall(ControlSubTask, 0x6575F0);
+ }
+ 
+ // 0x655020
+@@ -63,8 +65,53 @@ CTaskComplexWalkRoundObject* CTaskComplexWalkRoundObject::Constructor(int32 move
+     return this;
+ }
+ 
++// 0x6575F0
+ CTask* CTaskComplexWalkRoundObject::ControlSubTask(CPed* ped) {
+-    return plugin::CallMethodAndReturn<CTask*, 0x6575F0, CTaskComplexWalkRoundObject*, CPed*>(this, ped);
++    // Como el original: se aborta si no hay objeto, si venció el plazo de la ruta (comparación sin signo), si el contador del peatón
++    // supera 30 (0x86C938, con signo), o si el objeto se ha movido o girado; con la subtarea en reposo no se evalúa nada más
++    bool abort = false;
++    if (!m_object) {
++        abort = true;
++    } else {
++        if (m_pSubTask->GetTaskType() == TASK_COMPLEX_FOLLOW_POINT_ROUTE && field_2C) {
++            if (field_2D) {
++                field_24 = (int32)CTimer::GetTimeInMS();
++                field_2D = 0;
++            }
++            if (!(CTimer::GetTimeInMS() < (uint32)field_24 + (uint32)field_28)) {
++                abort = true;
++            }
++        }
++        if (!abort) {
++            if (ped->GetIntelligence()->m_AnotherStaticCounter > 30) {
++                abort = true;
++            } else if (m_pSubTask->GetTaskType() == TASK_SIMPLE_STAND_STILL) {
++                return m_pSubTask;
++            } else {
++                if (!m_object->m_matrix) {
++                    m_object->AllocateMatrix();                              // 0x54F560
++                    m_object->m_placement.UpdateMatrix(m_object->m_matrix);  // 0x54F1B0
++                }
++                const CMatrix& mat = *m_object->m_matrix;
++                const CVector& pos = m_object->GetPosition();
++                if (WalkRoundMovedCpp(&m_objectStartPos.x, &pos.x)) {                                       // |inicio - posición|² > 0.0625
++                    abort = true;
++                } else if (WalkRoundDotBelowCpp(&mat.GetForward().x, &m_objectStartForward.x)) {            // frente actual . inicial < 0.9
++                    abort = true;
++                } else if (WalkRoundDotBelowCpp(&m_objectStartRight.x, &mat.GetRight().x)) {                // derecha inicial . actual < 0.9
++                    abort = true;
++                } else {
++                    return m_pSubTask;
++                }
++            }
++        }
++    }
++
++    // Como el original (0x657718): si la subtarea se puede abortar, se crea la de reposo (CreateSubTask 0x655290, TASK_SIMPLE_STAND_STILL)
++    if (!m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT, nullptr)) {
++        return m_pSubTask;
++    }
++    return new CTaskSimpleStandStill(500, false, false, 8.0f);
+ }
+ 
+ CTask* CTaskComplexWalkRoundObject::CreateNextSubTask(CPed* ped) {
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h b/source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h
+index a93c4aa..d9fbb40 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h
++++ b/source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h
+@@ -15,7 +15,10 @@ public:
+     int32        field_28;
+     int8         field_2C;
+     int8         field_2D;
+-    int32        field_30;
++    // Como el original: el constructor (0x655020) no escribe estos campos; las uniones anónimas evitan el inicializador por defecto de CVector
++    union { CVector m_objectStartPos; };     // posición inicial del objeto
++    union { CVector m_objectStartForward; }; // frente inicial del objeto
++    union { CVector m_objectStartRight; };   // derecha inicial del objeto
+ 
+ public:
+     static constexpr auto Type = TASK_COMPLEX_WALK_ROUND_OBJECT;
+@@ -38,4 +41,4 @@ private:
+     CTaskComplexWalkRoundObject* Constructor(int32 moveState, const CVector& targetPoint, CEntity* object);
+ };
+ 
+-VALIDATE_SIZE(CTaskComplexWalkRoundObject, 0x34);
++VALIDATE_SIZE(CTaskComplexWalkRoundObject, 0x54);
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 8e81ebe..bf58d3b 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -13064,3 +13064,15 @@ __declspec(noinline) unsigned int __cdecl FxAddParticleRotZByteCpp(float rotZ) {
+     return static_cast<unsigned int>(static_cast<long long>(double(rotZ) * kFxAddParticleHalf)) & 0xFF;
+ }
+ #pragma float_control(pop)
++
++// --- Lote 31: CTaskComplexWalkRoundObject::ControlSubTask (0x6575F0), prefijo WalkRound. Anadir al FINAL de X87Math.cpp ---
++// 0x6576A7..0x6576D9: dx, dy, dz = inicio - actual (fsub en la x87); z*z + y*y, + x*x sin guardar; fcomp con 0.0625f: aborta si es mayor (ah & 0x41 == 0).
++// 0x6576DB..0x657716 / 0x657708: (z*z' + y*y') + x*x' sin guardar contra 0.9f (0x86F160); aborta solo con C0 (menor ordenado).
++#pragma float_control(precise, on, push)
++__declspec(noinline) bool __cdecl WalkRoundMovedCpp(const float* start, const float* current) {
++    return (((start[2] - current[2]) * (start[2] - current[2])) + ((start[1] - current[1]) * (start[1] - current[1]))) + ((start[0] - current[0]) * (start[0] - current[0])) > 0.0625f;
++}
++__declspec(noinline) bool __cdecl WalkRoundDotBelowCpp(const float* a, const float* b) {
++    return (a[2] * b[2] + a[1] * b[1]) + a[0] * b[0] < 0.9f;
++}
++#pragma float_control(pop)
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index 4aa1bac..af00a3a 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1565,3 +1565,10 @@ void __cdecl FxPrtVelAddCpp(const float* velAdd, float* vel);
+ 
+ // --- Lote 30: FxEmitter_c::AddParticle(vector) (0x4A3EA0), prefijo FxAddParticle. Anadir al FINAL de X87Math.h ---
+ unsigned int __cdecl FxAddParticleRotZByteCpp(float rotZ);  // byte bajo de _ftol2(rotZ * 0.5f)
++
++// --- Lote 31: CTaskComplexWalkRoundObject::ControlSubTask (0x6575F0), prefijo WalkRound. Anadir al FINAL de X87Math.h ---
++// Tramos x87 de 24 bits con exponente extendido (sin guardados intermedios de float). Los punteros apuntan a x, y, z consecutivos.
++// |a - b|^2 > 0.0625 (0x86F15C) con (dz*dz + dy*dy) + dx*dx, dx = a.x - b.x...; comparacion ordenada (con NaN da false).
++bool __cdecl WalkRoundMovedCpp(const float* start, const float* current);
++// (a.z*b.z + a.y*b.y) + a.x*b.x < 0.9 (0x86F160); comparacion ordenada (con NaN da false).
++bool __cdecl WalkRoundDotBelowCpp(const float* a, const float* b);

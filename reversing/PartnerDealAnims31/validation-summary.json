@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CTaskComplexPartnerDeal::StreamRequiredAnims": 4096
+  },
+  "covered_functions": {
+    "CTaskComplexPartnerDeal::StreamRequiredAnims": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wm-1 (HEAD 63d8ac6cb + parches del lote 31; ver artifacts/build-manifest.json), de sólo lectura y eliminado tras el registro. En el árbol principal las fuentes se fusionaron en tres vías con trabajo sin validar del lote 27 en los mismos archivos, por lo que sus hashes pueden diferir de los del manifiesto (normalizados a LF o no). Hook virtual (RH_ScopedVMTInstall) registrado como tipo V con original_address 0x006823C0. Colaboradores sustituidos por falsos idénticos en ambos lados: 0x0065E7F0, 0x004D3990, 0x004087E0, 0x004D3FB0 y 0x004D3FD0 (RemoveAnimBlockRef no tiene hook). La primera corrida (20261019-160503-927142) falló 4096/4096 por una compuerta mal planteada y no es evidencia. ",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/PartnerDealAnims31-20261019-161341-932780",
+  "summary_sha256": "c81c2f09287fa84c52b98901d674035ccf80907a2387b3cfc320043b26c77f60",
+  "result_txt_sha256": "cd07ad1cef421c79e13ef06817b3dde69d210c56767742271cf625dc2eb183d8",
+  "log_sha256": "f092dbff0a9c2f117ef191c95d18ca0370ddb1da947e8733b59a15129eefe3e3",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "a34389d83e6bdf3c18aabf55fcb25f222264e3f69572af771f6c916d5d1eea93",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp": "c735b90d54ecf5f612320c780165bd7ce3405776df52a151c2de0c61bd545305",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h": "df877a5eec42862774087651887ad29739f11844726e26dbf21754cbe661aadb",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "02f74c58ec3e129240e4d53c754e7b45500ecdec3acd27e30d3dd08a3f65cc12",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.h": "609b0839ebdfa401b89407b8096a94568c92f0eb14b9f15fd1c462d5e68868e4",
+      "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
+      "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b",
+      "source/game_sa/Animation/AnimBlock.h": "7863265e95d1a3a6831c870c659c16b62a4c25d7c57581b88bbd623d23fd7a27",
+      "source/game_sa/Streaming.cpp": "48313acbad9ed6f78f77272a6700e80623215eb4c32063936b9cd8967b2f443f",
+      "source/game_sa/Streaming.h": "0055e9284d015c283c2e31bf4b82a6e57fc44f0658b7d20e0e98cd7db9d4ebf7",
+      "source/game_sa/Tasks/Task.cpp": "d700418e6a00f573db2dc824d4a6d0bd325136ddf4f208589b74aef3d5f083c8",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/PartnerDealAnims31/LiveComparison.hpp": "b2f8401f2f56be13a4db9bc7d1cf0c19ae47c9508a9f7e24f7a58e0581ef6827",
+      "reversing/PartnerDealAnims31/Core.hpp": "a920a338713db6f774ba59de0f3c695b2e587797892832113613b22b3203aa95",
+      "reversing/PartnerDealAnims31/Fixtures.hpp": "782692f73d555d9d925ad8ccd4a4511a2b808d7e6d5c698a2b040b601553b781",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskComplexPartnerDeal
- * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 1/1 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -19,12 +19,19 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "TaskComplexPartnerDeal.h"
+#include "TaskComplexGangLeader.h"
+#include "TaskComplexSequence.h"
+#include "TaskComplexTurnToFaceEntityOrCoord.h"
+#include "TaskSimpleRunAnim.h"
 
 void CTaskComplexPartnerDeal::InjectHooks()
 {
     RH_ScopedVirtualClass(CTaskComplexPartnerDeal, 0x870754, 14);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedInstall(Constructor, 0x684190);
+    RH_ScopedVMTInstall(CreateFirstSubTask, 0x6823B0);
+    RH_ScopedVMTInstall(StreamRequiredAnims, 0x6823C0);
+    RH_ScopedVMTInstall(GetPartnerSequence, 0x682440);
 }
 
 CTaskComplexPartnerDeal::CTaskComplexPartnerDeal(const char* commandName, CPed* partner, bool leadSpeaker, float distanceMultiplier, CVector point) :
@@ -41,17 +48,44 @@ CTaskComplexPartnerDeal* CTaskComplexPartnerDeal::Constructor(const char* comman
     return this;
 }
 
+// 0x6823B0
 CTask* CTaskComplexPartnerDeal::CreateFirstSubTask(CPed* ped)
 {
-    return plugin::CallMethodAndReturn<CTask*, 0x6823B0, CTask*, CPed*>(this, ped);
+    return CTaskComplexPartner::CreateFirstSubTask(ped); // Como el original: salto directo a 0x681F20
 }
 
+// 0x6823C0
 void CTaskComplexPartnerDeal::StreamRequiredAnims()
 {
-    return plugin::CallMethod<0x6823C0, CTask*>(this);
+    // Como el original: sin referencia, se pide/referencia el bloque si hay que cargar las animaciones de bandas;
+    // con referencia, se suelta si ya no hay que cargarlas (el bloque cargado se compara con == 1)
+    if (reinterpret_cast<const uint8&>(m_requiredAnimsStreamedIn) == 0) { // Como el original: se prueba el byte entero
+        if (!CTaskComplexGangLeader::ShouldLoadGangAnims()) {
+            return;
+        }
+        const auto blkIdx = CAnimManager::GetAnimationBlockIndex(m_animBlockName);
+        if (reinterpret_cast<const uint8&>(CAnimManager::GetAnimBlocks()[blkIdx].IsLoaded) != 1) {
+            CStreaming::RequestModel(IFPToModelId(blkIdx), STREAMING_KEEP_IN_MEMORY);
+            return;
+        }
+        CAnimManager::AddAnimBlockRef(blkIdx);
+        m_requiredAnimsStreamedIn = true;
+    } else {
+        if (CTaskComplexGangLeader::ShouldLoadGangAnims()) {
+            return;
+        }
+        CAnimManager::RemoveAnimBlockRef(CAnimManager::GetAnimationBlockIndex(m_animBlockName));
+        m_requiredAnimsStreamedIn = false;
+    }
 }
 
+// 0x682440
 CTaskComplexSequence* CTaskComplexPartnerDeal::GetPartnerSequence()
 {
-    return plugin::CallMethodAndReturn<CTaskComplexSequence*, 0x682440, CTask*>(this);
+    auto* seq = new CTaskComplexSequence; // Como el original: sin inicialización por valor
+    seq->AddTask(new CTaskComplexTurnToFaceEntityOrCoord(m_partner, 0.5f, 0.02f)); // 0x86FC7C y 0x3CA3D70A
+    // Como el original: el byte m_leadSpeaker se prueba entero (cualquier valor distinto de 0 es verdadero)
+    const bool lead = reinterpret_cast<const uint8&>(m_leadSpeaker) != 0;
+    seq->AddTask(new CTaskSimpleRunAnim(ANIM_GROUP_GANGS, lead ? ANIM_ID_DEALER_DEAL : ANIM_ID_DRUGS_BUY, 4.0f, false));
+    return seq;
 }

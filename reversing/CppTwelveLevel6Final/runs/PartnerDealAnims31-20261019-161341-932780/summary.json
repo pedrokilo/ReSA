@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "a34389d83e6bdf3c18aabf55fcb25f222264e3f69572af771f6c916d5d1eea93",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "e9bfdac79df368547f7d4d12fae77c944dd8b9e4eb086ebb575e7b1760a416f6",
+    "scripts/gta-reversed.ini": "e9bfdac79df368547f7d4d12fae77c944dd8b9e4eb086ebb575e7b1760a416f6"
+  },
+  "pairs": 4096,
+  "pairs_per_function": {
+    "CTaskComplexPartnerDeal::StreamRequiredAnims": 4096
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "f092dbff0a9c2f117ef191c95d18ca0370ddb1da947e8733b59a15129eefe3e3",
+  "compare_dead_x87_registers": false,
+  "coverage": {
+    "family0": 256,
+    "path_no_load": 488,
+    "flag_zero": 2020,
+    "should_hi_bits": 4096,
+    "loaded_one": 1461,
+    "idx_other": 2270,
+    "stack_seed": 4096,
+    "residue_differs": 4096,
+    "family1": 256,
+    "path_add": 600,
+    "flag_changed": 1785,
+    "family2": 256,
+    "path_request": 932,
+    "loaded_zero": 1183,
+    "family3": 256,
+    "loaded_noncanon": 1452,
+    "loaded_odd_noncanon": 690,
+    "family4": 256,
+    "path_keep": 891,
+    "flag_one": 988,
+    "family5": 256,
+    "path_remove": 1185,
+    "family6": 256,
+    "flag_noncanon": 1088,
+    "family7": 256,
+    "family8": 256,
+    "idx_first": 780,
+    "family9": 256,
+    "idx_last": 511,
+    "family10": 256,
+    "idx_mid": 535,
+    "family11": 256,
+    "family12": 256,
+    "family13": 256,
+    "family14": 256,
+    "family15": 256
+  },
+  "coverage_method": "serialized_inputs_and_independent_oracle; no_instruction_branch_tracing",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

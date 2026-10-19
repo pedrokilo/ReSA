@@ -1,0 +1,36 @@
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp b/source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp
+index a0abc4645..475867935 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp
+@@ -19,12 +19,16 @@ END GENERATED HOOK STATUS */
+ #include "StdInc.h"
+ 
+ #include "TaskComplexPartnerDeal.h"
++#include "TaskComplexSequence.h"
++#include "TaskComplexTurnToFaceEntityOrCoord.h"
++#include "TaskSimpleRunAnim.h"
+ 
+ void CTaskComplexPartnerDeal::InjectHooks()
+ {
+     RH_ScopedVirtualClass(CTaskComplexPartnerDeal, 0x870754, 14);
+     RH_ScopedCategory("Tasks/TaskTypes");
+     RH_ScopedInstall(Constructor, 0x684190);
++    RH_ScopedVMTInstall(GetPartnerSequence, 0x682440);
+ }
+ 
+ CTaskComplexPartnerDeal::CTaskComplexPartnerDeal(const char* commandName, CPed* partner, bool leadSpeaker, float distanceMultiplier, CVector point) :
+@@ -51,7 +55,13 @@ void CTaskComplexPartnerDeal::StreamRequiredAnims()
+     return plugin::CallMethod<0x6823C0, CTask*>(this);
+ }
+ 
++// 0x682440
+ CTaskComplexSequence* CTaskComplexPartnerDeal::GetPartnerSequence()
+ {
+-    return plugin::CallMethodAndReturn<CTaskComplexSequence*, 0x682440, CTask*>(this);
++    auto* seq = new CTaskComplexSequence; // Como el original: sin inicialización por valor
++    seq->AddTask(new CTaskComplexTurnToFaceEntityOrCoord(m_partner, 0.5f, 0.02f)); // 0x86FC7C y 0x3CA3D70A
++    // Como el original: el byte m_leadSpeaker se prueba entero (cualquier valor distinto de 0 es verdadero)
++    const bool lead = reinterpret_cast<const uint8&>(m_leadSpeaker) != 0;
++    seq->AddTask(new CTaskSimpleRunAnim(ANIM_GROUP_GANGS, lead ? ANIM_ID_DEALER_DEAL : ANIM_ID_DRUGS_BUY, 4.0f, false));
++    return seq;
+ }

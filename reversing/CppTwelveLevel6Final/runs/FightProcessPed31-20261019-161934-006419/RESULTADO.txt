@@ -1,0 +1,3 @@
+APROBADO: FightProcessPed31
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fightprocessped31\20261019-161934-006419

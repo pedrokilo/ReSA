@@ -1,0 +1,97 @@
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp b/source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp
+index 1c84bd9..4cfa51b 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp
+@@ -39,6 +39,9 @@ END GENERATED HOOK STATUS */
+ #include "Models/PedModelInfo.h"
+ #include "PedIntelligence.h"
+ #include "World.h"
++#include "Entity/Ped/PlayerPed.h"
++#include "PlayerPedData.h"
++#include "Events/Event.h"
+ 
+ // 0x61C470
+ CTaskSimpleFight::CTaskSimpleFight(CEntity* entity, int32 nCommand, uint32 nIdlePeriod) : CTaskSimple() {
+@@ -235,11 +238,6 @@ void CTaskSimpleFight::LoadMeleeData() {
+     plugin::Call<0x5BEDC0>();
+ }
+ 
+-// 0x6239F0
+-bool CTaskSimpleFight::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
+-    return plugin::CallMethodAndReturn<bool, 0x6239F0, CTaskSimpleFight*, CPed*, eAbortPriority, const CEvent*>(this, ped, priority, event);
+-}
+-
+ // 0x629920
+ bool CTaskSimpleFight::ProcessPed(CPed* ped) {
+     return plugin::CallMethodAndReturn<bool, 0x629920, CTaskSimpleFight*, CPed*>(this, ped);
+@@ -299,6 +297,62 @@ bool FightStrikeBigHit(const uint8* row, int32 move) {
+ }
+ } // namespace
+ 
++namespace {
++// --- MakeAbortable (0x6239F0) ---
++using FightAnimCallback = void (*)(CAnimBlendAssociation*, void*);
++
++// Callback de "borrado" que deja el EXE en las asociaciones (0x4D1390) y callback del final de la animacion de combate (0x61DAE0, cdecl (asociacion, tarea)).
++const auto FightDefaultAnimCB = reinterpret_cast<FightAnimCallback>(0x4D1390);
++
++constexpr float FightBlendOutAbort = std::bit_cast<float>(0xC47A0000u); // -1000.0f
++
++// 0x61C9B0 (ret 4)
++void FightFindTargetOnGroundExe(CTaskSimpleFight* task, CPed* ped) {
++    plugin::CallMethod<0x61C9B0, CTaskSimpleFight*, CPed*>(task, ped);
++}
++} // namespace
++
++// 0x6239F0: con prioridad ocioso solo pide terminar (comando 1) y no aborta; con urgente/inmediata rechaza los eventos de prioridad <= 0x1F y la 0x3C, suelta las animaciones (la de
++// golpe se desvanece sola con delta -1000 si es inmediata; la de espera vuelve a la animacion de reposo si sigue visible), pone a cero el movimiento de pelea del jugador y se marca terminada.
++bool CTaskSimpleFight::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
++    if (priority != ABORT_PRIORITY_URGENT && priority != ABORT_PRIORITY_IMMEDIATE) {
++        m_nNextCommand = 1;
++        return false;
++    }
++    if (event) {
++        // Ranura 2 de la vtable de CEvent (call [vtable+8]) = GetEventPriority (la 1 es GetEventType); se pide dos veces, como el original
++        if (event->GetEventPriority() <= 0x1F) {
++            return false;
++        }
++        if (event->GetEventPriority() == 0x3C) {
++            return false;
++        }
++    }
++    if (m_pAnim) {
++        if (priority == ABORT_PRIORITY_IMMEDIATE) {
++            m_pAnim->m_BlendDelta = FightBlendOutAbort;
++        }
++        m_pAnim->SetDeleteCallback(FightDefaultAnimCB, nullptr);
++        m_pAnim = nullptr;
++    }
++    if (m_pIdleAnim) {
++        m_pIdleAnim->SetDeleteCallback(FightDefaultAnimCB, nullptr);
++        // fcomp ; test ah,41h ; jne: peso > 0 ; fcomp ; test ah,1 ; jne: delta >= 0 (con NaN no se cumple)
++        if (m_pIdleAnim->m_BlendAmount > 0.f && m_pIdleAnim->m_BlendDelta >= 0.f) {
++            CAnimManager::BlendAnimation(reinterpret_cast<RpClump*>(ped->GetRwObject()), ped->m_nAnimGroup, static_cast<AnimationId>(3), priority == ABORT_PRIORITY_IMMEDIATE ? 1000.f : 16.f);
++        }
++        m_pIdleAnim = nullptr;
++    }
++    if (ped && ped->IsPlayer()) {
++        CPlayerPedData* const playerData = ped->GetPlayerData(); // sin comprobar nulo, como el EXE
++        playerData->m_vecFightMovement.x = 0.f;
++        playerData->m_vecFightMovement.y = 0.f;
++        FightFindTargetOnGroundExe(this, ped); // 0x61C9B0
++    }
++    m_bIsFinished = true;
++    return true;
++}
++
+ // 0x61D5F0 (ret 4): deja listo el CColModel estatico del golpe (una esfera de radio `radius` centrada en el origen; caja [-radius, radius]). `this` no se usa, como en el EXE.
+ // El EXE arma la caja con fld/fchs/fst: el minimo es -radius pasando por ST0 (un NaN senalizante sale silenciado, con el signo cambiado); el resto se copia en crudo.
+ void CTaskSimpleFight::FightSetUpCol(float radius) {
+@@ -525,6 +579,7 @@ void CTaskSimpleFight::InjectHooks() {
+     RH_ScopedInstall(FightSetUpCol, 0x61D5F0);
+     RH_ScopedInstall(FightHitCar, 0x61D0B0);
+     RH_ScopedInstall(FightStrike, 0x6240B0);
++    RH_ScopedVMTInstall(MakeAbortable, 0x6239F0);
+ 
+ }
+ 

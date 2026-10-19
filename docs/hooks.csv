@@ -8701,3 +8701,15 @@ CCamera,ProcessShake-float,0x00516560,1,0,1,S
 FxEmitter_c,AddParticle-vector,0x00000000,1,0,1,V
 FxEmitter_c,AddParticle-matrix,0x00000000,1,0,1,V
 FxEmitter_c,CreateParticle,0x004A2580,1,0,1,S
+CScriptsForBrains,CheckIfNewEntityNeedsScript,0x0046FF20,1,0,1,S
+CScriptsForBrains,RequestAttractorScriptBrainWithThisName,0x0046AA80,1,0,1,S
+CScriptsForBrains,StartNewStreamedScriptBrain,0x0046B270,1,0,1,S
+CTaskComplexPartnerDeal,CreateFirstSubTask,0x00000000,1,0,1,V
+CTaskComplexPartnerDeal,StreamRequiredAnims,0x00000000,1,0,1,V
+CTaskComplexPartnerDeal,GetPartnerSequence,0x00000000,1,0,1,V
+CTaskComplexWalkRoundObject,ControlSubTask,0x00000000,1,0,1,V
+CTaskComplexWalkRoundObject,CreateFirstSubTask,0x00000000,1,0,1,V
+CTaskComplexWalkRoundObject,CreateNextSubTask,0x00000000,1,0,1,V
+CTaskSimpleFight,LoadMeleeData,0x005BEDC0,1,0,1,S
+CTaskSimpleFight,MakeAbortable,0x00000000,1,0,1,V
+CTaskSimpleFight,ProcessPed,0x00000000,1,0,1,V

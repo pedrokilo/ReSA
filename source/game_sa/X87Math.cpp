@@ -13064,3 +13064,23 @@ __declspec(noinline) unsigned int __cdecl FxAddParticleRotZByteCpp(float rotZ) {
     return static_cast<unsigned int>(static_cast<long long>(double(rotZ) * kFxAddParticleHalf)) & 0xFF;
 }
 #pragma float_control(pop)
+
+// --- Lote 31: CTaskComplexWalkRoundObject::ControlSubTask (0x6575F0), prefijo WalkRound. Anadir al FINAL de X87Math.cpp ---
+// 0x6576A7..0x6576D9: dx, dy, dz = inicio - actual (fsub en la x87); z*z + y*y, + x*x sin guardar; fcomp con 0.0625f: aborta si es mayor (ah & 0x41 == 0).
+// 0x6576DB..0x657716 / 0x657708: (z*z' + y*y') + x*x' sin guardar contra 0.9f (0x86F160); aborta solo con C0 (menor ordenado).
+#pragma float_control(precise, on, push)
+__declspec(noinline) bool __cdecl WalkRoundMovedCpp(const float* start, const float* current) {
+    return (((start[2] - current[2]) * (start[2] - current[2])) + ((start[1] - current[1]) * (start[1] - current[1]))) + ((start[0] - current[0]) * (start[0] - current[0])) > 0.0625f;
+}
+__declspec(noinline) bool __cdecl WalkRoundDotBelowCpp(const float* a, const float* b) {
+    return (a[2] * b[2] + a[1] * b[1]) + a[0] * b[0] < 0.9f;
+}
+#pragma float_control(pop)
+
+// --- Lote 31: CTaskComplexWalkRoundObject::CreateFirstSubTask (0x657380), prefijo WalkRound. Anadir al FINAL de X87Math.cpp ---
+// 0x6574C1..0x6574E7: (dz*fz + dy*fy) + dx*fx sin guardar contra 0.0f (0x86F420): mayor ordenado (con NaN da false).
+#pragma float_control(precise, on, push)
+__declspec(noinline) bool __cdecl WalkRoundDotPositiveCpp(const float* a, const float* b) {
+    return (a[2] * b[2] + a[1] * b[1]) + a[0] * b[0] > 0.0f;
+}
+#pragma float_control(pop)

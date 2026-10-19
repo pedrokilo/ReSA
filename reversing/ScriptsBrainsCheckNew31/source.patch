@@ -1,0 +1,39 @@
+diff --git a/source/game_sa/ScriptsForBrains.cpp b/source/game_sa/ScriptsForBrains.cpp
+--- a/source/game_sa/ScriptsForBrains.cpp
++++ b/source/game_sa/ScriptsForBrains.cpp
+@@ -27,2 +27,3 @@
+     RH_ScopedInstall(Init, 0x46A8C0);
++    RH_ScopedInstall(CheckIfNewEntityNeedsScript, 0x46FF20);
+     RH_ScopedInstall(MarkAttractorScriptBrainWithThisNameAsNoLongerNeeded, 0x46AAE0);
+@@ -57,4 +58,30 @@
+ 
++// 0x46FF20
+ void CScriptsForBrains::CheckIfNewEntityNeedsScript(CEntity* entity, int8 attachType, void* unused) {
+-    plugin::CallMethod<0x46FF20, CScriptsForBrains*, CEntity*, int8, void*>(this, entity, attachType, unused);
++    UNUSED(unused);
++    // Como el original: tipo 0 = ped (0x800000 = ya tiene cerebro, 0x1000000 = esperando a que cargue); el resto, objeto (0x300000).
++    if (attachType == 0) {
++        const auto* ped = static_cast<CPed*>(entity);
++        if (ped->bHasAScriptBrain || ped->bWaitingForScriptBrainToLoad) {
++            return;
++        }
++    } else if (static_cast<CObject*>(entity)->m_nObjectFlags & 0x300000) {
++        return;
++    }
++
++    // Recorre los 70 cerebros; el primero que coincide en tipo y modelo (16 bits) y supera la tirada arranca/solicita el script y termina.
++    for (uint8 i = 0; i < m_aScriptForBrains.size(); i++) {
++        const auto& brain = m_aScriptForBrains[i];
++        if (brain.m_TypeOfBrain != attachType || static_cast<uint16>(brain.m_PedModelOrPedGeneratorIndex) != static_cast<uint16>(entity->m_nModelIndex)) {
++            continue;
++        }
++        // Como el original: rand del EXE (0x821B1E) & 0xFFFF, * 2^-15 (0x858B14), * 100.0 (0x858628), truncado (_ftol2).
++        // El producto es exacto en float (k < 65536, k * 100 < 2^24), asi que no depende de la precision del x87.
++        const auto exeRand = reinterpret_cast<int(__cdecl*)()>(0x821B1E);
++        const int32 roll = static_cast<int32>(static_cast<float>(static_cast<uint32>(exeRand()) & 0xFFFFu) * std::bit_cast<float>(0x38000000u) * 100.0f);
++        if (roll < static_cast<int32>(brain.m_PercentageChance)) {
++            StartOrRequestNewStreamedScriptBrain(i, entity, attachType, true);
++            return;
++        }
++    }
+ }
