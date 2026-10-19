@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: FxEmitter_c
- * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 1/1 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -34,10 +34,11 @@ void FxEmitter_c::InjectHooks() {
     // RH_ScopedInstall(Init_Reversed, 0x4A2550);
     // RH_ScopedInstall(Update_Reversed, 0x4A4460); // bad
     // RH_ScopedInstall(Reset_Reversed, 0x4A2570);
-    // RH_ScopedOverloadedInstall(AddParticle_Reversed, "matrix", 0x4A3EA0, void(FxEmitter_c::*)(RwMatrix*, CVector*, float, FxPrtMult_c*, float, float, bool));
+    // La entrada 0x4A3EA0 es la sobrecarga con vector de posicion (vtable +0x14); la de matriz es 0x4A4050 (+0x10).
+    RH_ScopedVMTOverloadedInstall(AddParticle, "vector", 0x4A3EA0, void(FxEmitter_c::*)(const CVector&, const CVector&, float, const FxPrtMult_c&, float, float, bool));
     // RH_ScopedOverloadedInstall(AddParticle_Reversed, "", 0x4A4050, void(FxEmitter_c::*)(CVector*, CVector*, float, FxPrtMult_c*, float, float, bool));
     RH_ScopedInstall(CreateParticles, 0x4A41E0);
-    // RH_ScopedInstall(CreateParticle, 0x4A2580);
+    RH_ScopedInstall(CreateParticle, 0x4A2580);
 }
 
 
@@ -61,44 +62,48 @@ void FxEmitter_c::Reset() {
     m_fEmissionIntensity = 0.0f;
 }
 
-// 0x4A3EA0
+// 0x4A3EA0 (vtable +0x14)
+// ProcessEmissionInfo(0, 0, longitud, useConstTime), tres matrices del pool (A: resultado, B: mundo, C: identidad en `pos`), RwMatrixUpdate(C), B = C o C * padre,
+// una cuarta del pool = GetRWMatrix del prim (se destruye tras A = D * B), CreateParticle(emision, A, &vel, ...) y, si rotZ >= 0 (ordenado), m_RotZ = byte bajo de _ftol2(rotZ * 0.5f).
+// Destruye C, B, A en ese orden. Ningun llamador del EXE lee EAX/ECX/EDX.
 void FxEmitter_c::AddParticle(const CVector& pos, const CVector& vel, float timeSince, const FxPrtMult_c& fxMults, float rotZ, float brightness, bool createLocal) {
-    return plugin::CallMethod<0x4A3EA0, FxEmitter_c*, const CVector*, const CVector*, float, const FxPrtMult_c*, float, float, bool>(this, &pos, &vel, timeSince, &fxMults, rotZ, brightness,
-                                                                                                                   createLocal);
-
-    // todo:
     EmissionInfo_t emission;
     m_PrimBP->m_FxInfoManager.ProcessEmissionInfo(0.0f, 0.0f, m_System->m_SystemBP->m_fLength, m_System->m_UseConstTime, &emission);
 
-    auto mat1 = g_fxMan.FxRwMatrixCreate();
-    auto mat0 = g_fxMan.FxRwMatrixCreate();
-    auto mat  = g_fxMan.FxRwMatrixCreate();
+    RwMatrix* const mat0 = g_fxMan.FxRwMatrixCreate();
+    RwMatrix* const mat1 = g_fxMan.FxRwMatrixCreate();
+    RwMatrix* const mat  = g_fxMan.FxRwMatrixCreate();
 
-    RwMatrixSetIdentity(mat);
-    RwV3dAssign(RwMatrixGetPos(mat), &pos);
-
+    // 0x4A3EF7..0x4A3F44: identidad (right.x = up.y = at.z = 1, el resto de las columnas a 0), flags |= 0x20003 (identidad + ortonormal) y posicion = pos. No se tocan los rellenos.
+    const uint32 flags = mat->flags;
+    mat->right = { 1.0f, 0.0f, 0.0f };
+    mat->up    = { 0.0f, 1.0f, 0.0f };
+    mat->at    = { 0.0f, 0.0f, 1.0f };
+    mat->pos   = { 0.0f, 0.0f, 0.0f };
+    mat->flags = flags | 0x20003;
+    mat->pos   = pos;
     RwMatrixUpdate(mat);
+
     if (m_System->m_ParentMatrix) {
-        RwMatrixMultiply(mat0, mat, m_System->m_ParentMatrix);
-    }
-    else {
-        mat0 = mat;
+        RwMatrixMultiply(mat1, mat, m_System->m_ParentMatrix);
+    } else {
+        std::memcpy(mat1, mat, sizeof(RwMatrix));
     }
 
-    auto mat2 = g_fxMan.FxRwMatrixCreate();
-    m_PrimBP->GetRWMatrix(*mat2);
-    RwMatrixMultiply(mat1, mat2, mat0);
-    g_fxMan.FxRwMatrixDestroy(mat2);
+    RwMatrix* const primMat = g_fxMan.FxRwMatrixCreate();
+    m_PrimBP->GetRWMatrix(*primMat);
+    RwMatrixMultiply(mat0, primMat, mat1);
+    g_fxMan.FxRwMatrixDestroy(primMat);
 
-    if (auto* particle = CreateParticle(emission, *mat1, &vel, timeSince, fxMults, brightness, createLocal)) {
+    if (auto* const particle = CreateParticle(emission, *mat0, &vel, timeSince, fxMults, brightness, createLocal)) {
         if (rotZ >= 0.0f) {
-            particle->m_RotZ = (uint8)(rotZ / 2.0f); // todo: int8/uint8 conversion
+            particle->m_RotZ = static_cast<int8>(FxAddParticleRotZByteCpp(rotZ));
         }
     }
 
     g_fxMan.FxRwMatrixDestroy(mat);
-    g_fxMan.FxRwMatrixDestroy(mat0);
     g_fxMan.FxRwMatrixDestroy(mat1);
+    g_fxMan.FxRwMatrixDestroy(mat0);
 }
 
 // 0x4A4050
@@ -161,13 +166,11 @@ void FxEmitter_c::CreateParticles(float currentTime, float deltaTime) {
     RwMatrixMultiply(mat, mat2, mat1);
     g_fxMan.FxRwMatrixDestroy(mat2);
 
-    // 0x4A43B0..0x4A4416: el EXE vuelve a convertir la intensidad (_ftol2) tras cada particula. CreateParticle (0x4A2580) sigue siendo la del EXE: la reconstruccion de
-    // FxEmitter_c::CreateParticle de este archivo esta incompleta (todo) y no se llama desde aqui hasta que se valide.
+    // 0x4A43B0..0x4A4416: el EXE vuelve a convertir la intensidad (_ftol2) tras cada particula. CreateParticle (0x4A2580) ya esta en C++ (lote 30).
     for (int32 step = 0; step < FxEmitterTruncateCpp(&m_fEmissionIntensity); ++step) {
         FxPrtMult_c prtMult;
         const float timeSince = FxEmitterTimeSinceCpp(step, &m_fEmissionIntensity, deltaTime);
-        plugin::CallMethodAndReturn<FxEmitterPrt_c*, 0x4A2580, FxEmitter_c*, const EmissionInfo_t*, RwMatrix*, const CVector*, float, const FxPrtMult_c*, float, bool>(
-            this, &emission, mat, nullptr, timeSince, &prtMult, 1.2f, m_System->m_createLocal);
+        CreateParticle(emission, *mat, nullptr, timeSince, prtMult, 1.2f, m_System->m_createLocal);
     }
     FxEmitterTakeWholeCpp(&m_fEmissionIntensity);
 
@@ -175,105 +178,103 @@ void FxEmitter_c::CreateParticles(float currentTime, float deltaTime) {
     g_fxMan.FxRwMatrixDestroy(mat);
 }
 
-// 0x4A2580
+// rand() del CRT del EXE (0x821B1E): el del juego avanza la misma semilla que el resto del EXE, no el de la DLL. `% 10000` es el idiv del EXE (el resultado de rand es >= 0).
+static int FxEmitterExeRemainder() {
+    return reinterpret_cast<int(__cdecl*)()>(0x821B1E)() % 10000;
+}
+
+// 0x4A2580 (thiscall, ret 1Ch). Orden de los rand() del EXE (0x821B1E, todos `% 10000`): vida, tres bytes aleatorios, rotacion, [GetRWMatrix si createLocal], posicion (3; esfera con radio > 0: un cuarto),
+// y, sin velocidad impuesta, dos angulos y un factor de velocidad (este ultimo tras RotateVecIntoVec). Las tiradas no tocan la x87, asi que se piden aqui y los ayudantes FxPrt* (X87Math.cpp)
+// reproducen las secuencias x87 de 24 bits con los restos. Ningun llamador del EXE lee ECX/EDX; EAX = la particula (o 0) lo leen 0x4A3FDF y 0x4A417D.
 FxEmitterPrt_c* FxEmitter_c::CreateParticle(const EmissionInfo_t& emissionInfo, RwMatrix& wldMat, const CVector* velOverride, float timeSince, const FxPrtMult_c& fxMults, float brightness, bool createLocal) {
-    //return plugin::CallMethodAndReturn<FxEmitterPrt_c*, 0x4A2580, FxEmitter_c*, EmissionInfo_t*, RwMatrix*, CVector*, float, FxPrtMult_c*, float, bool>(this, &emissionInfo, &wldMat, velOverride, timeSince, &fxMults, brightness, createLocal);
-
-    // todo:
-    auto* particle = [&]() -> FxEmitterPrt_c* {
-        auto* prt = g_fxMan.GetParticle(0);
-        if (!prt) {
-            if (!m_System->m_MustCreateParticles)
-                return nullptr;
-
-            g_fxMan.FreeUpParticle();
-            prt = g_fxMan.GetParticle(0);
+    // 0x4A2589..0x4A25BF: GetParticle(0); sin hueco, solo si el sistema exige crear (m_MustCreateParticles) se libera una de otro sistema y se vuelve a pedir.
+    Particle_c* particle = g_fxMan.GetParticle(0);
+    if (!particle) {
+        if (!m_System->m_MustCreateParticles) {
+            return nullptr;
         }
-        return reinterpret_cast<FxEmitterPrt_c*>(prt);
-    }();
+        g_fxMan.FreeUpParticle();
+        particle = g_fxMan.GetParticle(0);
+        if (!particle) {
+            return nullptr;
+        }
+    }
+    auto* const prt = static_cast<FxEmitterPrt_c*>(particle);
+    auto* const bytes = reinterpret_cast<uint8*>(prt);
 
-    particle->m_fCurrentLife = 0.0f;
-    particle->m_fTotalLife = (((float)(CGeneral::GetRandomNumber() % 10'000) / 5'000.0f - 1.0f) * emissionInfo.m_fLifeBias + emissionInfo.m_fLife) * fxMults.m_fLife;
-    particle->m_System = m_System;
+    // 0x4A25C7..0x4A2600
+    const int32 lifeRem = FxEmitterExeRemainder();
+    prt->m_fCurrentLife = 0.0f;
+    FxPrtLifeCpp(lifeRem, emissionInfo.m_fLifeBias, emissionInfo.m_fLife, fxMults.m_fLife, &prt->m_fTotalLife);
+    prt->m_System = m_System;
 
-    particle->m_MultColor = CRGBA{fxMults.m_Color};
+    // 0x4A2609..0x4A266B: rojo, verde, azul, alfa, tamano y rotacion (byte bajo de _ftol2(x * 255.0f)).
+    bytes[0x2C] = static_cast<uint8>(FxPrtColorByteCpp(fxMults.m_Color.red));
+    bytes[0x2D] = static_cast<uint8>(FxPrtColorByteCpp(fxMults.m_Color.green));
+    bytes[0x2E] = static_cast<uint8>(FxPrtColorByteCpp(fxMults.m_Color.blue));
+    bytes[0x2F] = static_cast<uint8>(FxPrtColorByteCpp(fxMults.m_Color.alpha));
+    bytes[0x30] = static_cast<uint8>(FxPrtColorByteCpp(fxMults.m_fSize));
+    bytes[0x31] = static_cast<uint8>(FxPrtColorByteCpp(fxMults.m_Rot));
+    bytes[0x37] = createLocal;
+    // 0x4A2675..0x4A26FF
+    bytes[0x32] = static_cast<uint8>(FxPrtRandByteCpp(FxEmitterExeRemainder()));
+    bytes[0x33] = static_cast<uint8>(FxPrtRandByteCpp(FxEmitterExeRemainder()));
+    bytes[0x34] = static_cast<uint8>(FxPrtRandByteCpp(FxEmitterExeRemainder()));
+    bytes[0x35] = static_cast<uint8>(FxPrtBrightnessByteCpp(brightness));
+    // 0x4A2702..0x4A2735
+    const int32 rotationRem = FxEmitterExeRemainder();
+    bytes[0x36] = 0xFF;
+    FxPrtRotationCpp(rotationRem, emissionInfo.m_fRotationMinAngle, emissionInfo.m_fRotationMaxAngle, &prt->m_CurrentRotation);
 
-    particle->m_MultSize = fxMults.m_fSize;
-    particle->m_MultRot = fxMults.m_Rot;
-
-    particle->m_bLocalToSystem = createLocal;
-
-    particle->m_RandR = CGeneral::GetRandomNumberInRange(0, 256);
-    particle->m_RandG = CGeneral::GetRandomNumberInRange(0, 256);
-    particle->m_RandB = CGeneral::GetRandomNumberInRange(0, 256);
-    particle->m_Brightness = brightness;
-
-    particle->m_RotZ = -1;
-    particle->m_CurrentRotation = CGeneral::GetRandomNumberInRange(0.0f, 1.0f) * (emissionInfo.m_fRotationMaxAngle - emissionInfo.m_fRotationMinAngle) + emissionInfo.m_fRotationMinAngle;
-
-    if (createLocal) {
+    // 0x4A2738..0x4A2740: con la bandera local la matriz de trabajo es la del prim.
+    if (bytes[0x37]) {
         m_PrimBP->GetRWMatrix(wldMat);
     }
 
-    CVector vec;
-    if (approxEqual(emissionInfo.m_fRadius, 0.0f, 0.001f)) {
-        vec = CVector{
-            CGeneral::GetRandomNumberInRange(0.0f, 1.0f) * (emissionInfo.m_SizeMax.x - emissionInfo.m_SizeMin.x) + emissionInfo.m_SizeMin.x,
-            CGeneral::GetRandomNumberInRange(0.0f, 1.0f) * (emissionInfo.m_SizeMax.y - emissionInfo.m_SizeMin.y) + emissionInfo.m_SizeMin.y,
-            CGeneral::GetRandomNumberInRange(0.0f, 1.0f) * (emissionInfo.m_SizeMax.z - emissionInfo.m_SizeMin.z) + emissionInfo.m_SizeMin.z,
-        };
+    // 0x4A2743..0x4A28B6: posicion. |radio| < 0.001 (o NaN): caja; si no, esfera. x87 de 24 bits en FxPrtBoxPositionCpp / FxPrtSpherePositionCpp.
+    const float* const matrix = reinterpret_cast<const float*>(&wldMat);
+    float* const position = &prt->m_Pos.x;
+    if (!(std::fabs(static_cast<double>(emissionInfo.m_fRadius)) >= static_cast<double>(0.001f))) { // fld; fabs; fcomp qword [0x85A7C8]; test ah, 1
+        const int32 remX = FxEmitterExeRemainder();
+        const int32 remY = FxEmitterExeRemainder();
+        const int32 remZ = FxEmitterExeRemainder();
+        FxPrtBoxPositionCpp(remX, remY, remZ, &emissionInfo.m_SizeMin.x, &emissionInfo.m_SizeMax.x, &emissionInfo.m_Pos.x, matrix, position);
     } else {
-        vec = CVector{
-            CGeneral::GetRandomNumberInRange(0.0f, 2.0f) - 1.0f,
-            CGeneral::GetRandomNumberInRange(0.0f, 2.0f) - 1.0f,
-            CGeneral::GetRandomNumberInRange(0.0f, 2.0f) - 1.0f,
-        };
-
-        float radius;
-        auto invDist = 1.0f / vec.Magnitude();
-        if (emissionInfo.m_fRadius < 0.0f) { // todo: check comp.
-            radius = invDist * emissionInfo.m_fRadius;
-        } else {
-            radius = (invDist * CGeneral::GetRandomNumberInRange(0.0f, 1.0f)) * emissionInfo.m_fRadius;
-        }
-        vec *= radius;
+        const int32 remX = FxEmitterExeRemainder();
+        const int32 remY = FxEmitterExeRemainder();
+        const int32 remZ = FxEmitterExeRemainder();
+        const bool useExtra = !(emissionInfo.m_fRadius < 0.0f); // radio > 0: un cuarto rand()
+        const int32 remExtra = useExtra ? FxEmitterExeRemainder() : 0;
+        FxPrtSpherePositionCpp(remX, remY, remZ, useExtra, remExtra, emissionInfo.m_fRadius, &emissionInfo.m_Pos.x, matrix, position);
     }
-    vec += emissionInfo.m_Pos;
 
-    particle->m_Pos = vec.z * wldMat.at + vec.y * wldMat.up + vec.x * wldMat.right + wldMat.pos;
-
+    // 0x4A2915..0x4A2AD0: velocidad.
     if (velOverride) {
-        particle->m_Velocity = *velOverride;
+        std::memcpy(&prt->m_Velocity, velOverride, sizeof(CVector));
     } else {
-        auto randomAngle = CGeneral::GetRandomNumberInRange(0.0f, TWO_PI);
-        auto minAngle = DegreesToRadians(emissionInfo.m_fAngleMin);
-        auto maxAngle = DegreesToRadians(emissionInfo.m_fAngleMax);
-
-        auto randomAngleBetweenMinMax = lerp(minAngle, maxAngle, CGeneral::GetRandomNumberInRange(0.0f, 1.0f));
-
-        CVector randomizedAngleVec{
-            CMaths::GetCosFast(randomAngle) * CMaths::GetSinFast(randomAngleBetweenMinMax),
-            CMaths::GetCosFast(randomAngleBetweenMinMax),
-            CMaths::GetSinFast(randomAngle) * CMaths::GetSinFast(randomAngleBetweenMinMax)
-        };
-
+        const int32 angleRem = FxEmitterExeRemainder();
+        const int32 betweenRem = FxEmitterExeRemainder();
+        CVector randomizedAngleVec;
+        FxPrtDirectionCpp(angleRem, betweenRem, emissionInfo.m_fAngleMin, emissionInfo.m_fAngleMax, reinterpret_cast<const float*>(0xBB3E00), &randomizedAngleVec.x); // tabla de senos (0xBB3E00)
         CVector vectorsIn;
-        CVector vectorsOut;
-        if (emissionInfo.m_Direction.x <= 10.0f) {
-            vectorsIn = emissionInfo.m_Direction;
-            vectorsIn.Normalise();
+        if (!(emissionInfo.m_Direction.x > 10.0f)) { // fcomp [10.0f]; test ah, 41h; jne: direccion (menor, igual o NaN), normalizada con RwV3dNormalize (0x7ED9B0)
+            std::memcpy(&vectorsIn, &emissionInfo.m_Direction, sizeof(CVector));
+            RwV3dNormalize(&vectorsIn, &vectorsIn);
         } else {
-            vectorsIn = particle->m_Pos;
+            std::memcpy(&vectorsIn, &prt->m_Pos, sizeof(CVector));
         }
+        CVector vectorsOut;
         RwV3dTransformVectors(&vectorsOut, &vectorsIn, 1, &wldMat);
-        CVector v38;
-        RotateVecIntoVec(v38, randomizedAngleVec, vectorsOut);
-        particle->m_Velocity = v38 * ((CGeneral::GetRandomNumberInRange(0.0f, 2.0f) - 1.0f) * emissionInfo.m_fSpeedBias + emissionInfo.m_Speed);
+        CVector rotated;
+        RotateVecIntoVec(rotated, randomizedAngleVec, vectorsOut);
+        const int32 speedRem = FxEmitterExeRemainder();
+        FxPrtSpeedCpp(speedRem, emissionInfo.m_fSpeedBias, emissionInfo.m_Speed, &rotated.x, &prt->m_Velocity.x);
     }
 
-    particle->m_Velocity += m_System->m_VelAdd;
-    static_cast<FxEmitterBP_c*>(m_PrimBP)->UpdateParticle(timeSince, particle);
-    m_PrimBP->m_Particles.AddItem(particle);
+    // 0x4A2AD2..0x4A2B09
+    FxPrtVelAddCpp(&m_System->m_VelAdd.x, &prt->m_Velocity.x);
+    static_cast<FxEmitterBP_c*>(m_PrimBP)->UpdateParticle(timeSince, prt);
+    m_PrimBP->m_Particles.AddItem(prt);
 
-    return particle;
+    return prt;
 }

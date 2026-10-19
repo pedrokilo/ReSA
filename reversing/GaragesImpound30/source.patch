@@ -1,0 +1,89 @@
+diff --git a/source/game_sa/Garages.cpp b/source/game_sa/Garages.cpp
+index af6e029..86b6c9d 100644
+--- a/source/game_sa/Garages.cpp
++++ b/source/game_sa/Garages.cpp
+@@ -45,7 +45,7 @@ void CGarages::InjectHooks() {
+     RH_ScopedInstall(ActivateGarage, 0x447CD0);
+     RH_ScopedInstall(DeActivateGarage, 0x447CB0);
+     RH_ScopedInstall(SetTargetCarForMissionGarage, 0x447C40);
+-    // RH_ScopedInstall(StoreCarInNearestImpoundingGarage, 0x44A3C0);
++    RH_ScopedInstall(StoreCarInNearestImpoundingGarage, 0x44A3C0);
+     RH_ScopedInstall(TriggerMessage, 0x447B80);
+     RH_ScopedInstall(PrintMessages, 0x447790);
+     RH_ScopedInstall(ChangeGarageType, 0x4476D0);
+@@ -586,8 +586,35 @@ bool CGarages::Save() {
+ }
+ 
+ // 0x44A3C0
++// Como el original (0x44A3C0..0x44A4C6): entre los garajes de embargo (tipos 0x21..0x23) elige el mas cercano en XY (el primero con distancia estrictamente menor; distancia inicial 0x47C34FF3)
++// y guarda el coche en el primer hueco del escondite asociado, contando solo las tres primeras ranuras (modelo > 0); con las tres ocupadas desplaza la 1 a la 0 y la 2 a la 1 y usa la 2.
++// La distancia sale de X87Math.cpp (GarageImpoundCloserCpp: sqrt(dy*dy + dx*dx) sin redondear antes de comparar). Sus dos llamadores del EXE no leen EAX/ECX/EDX.
+ void CGarages::StoreCarInNearestImpoundingGarage(CVehicle* vehicle) {
+-    plugin::Call<0x44A3C0, CVehicle*>(vehicle);
++    int32 best    = -1;
++    float minDist = std::bit_cast<float>(0x47C34FF3u);
++    for (uint32 i = 0; i < static_cast<uint32>(NumGarages); i++) {
++        const uint8 type = static_cast<uint8>(aGarages[i].m_nType);
++        if (type < 0x21 || type > 0x23)
++            continue;
++        if (GarageImpoundCloserCpp(&aGarages[i].m_vPosn.x, &vehicle->GetPosition().x, &minDist)) {
++            best = static_cast<int32>(i);
++        }
++    }
++
++    if (best < 0)
++        return;
++
++    CStoredCar* const stored = GetStoredCarsInSafehouse(FindSafeHouseIndexForGarageType(aGarages[best].m_nType));
++    int32 count = 0;
++    if (stored[0].m_wModelIndex > 0) count = 1;
++    if (stored[1].m_wModelIndex > 0) count++;
++    if (stored[2].m_wModelIndex > 0) count++;
++    if (count == 3) {
++        std::memcpy(&stored[0], &stored[1], sizeof(CStoredCar));
++        std::memcpy(&stored[1], &stored[2], sizeof(CStoredCar));
++        count = 2;
++    }
++    stored[count].StoreCar(vehicle);
+ }
+ 
+ // unused
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 0e5aebc..46c9500 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -12839,3 +12839,21 @@ __declspec(noinline) void __cdecl QuatSlerpTCpp(float* out, const float* from, c
+     QuatSlerpTCalcThetaCpp(from, to, &theta, &invSin);
+     QuaternionSlerpCpp(out, from, to, theta, invSin, t);
+ }
++
++// --- CGarages::AddOne (0x4471E0) y CGarages::StoreCarInNearestImpoundingGarage (0x44A3C0), lote 30, prefijo Garage ---
++// Cada funcion es noinline: la secuencia x87 (fld/fadd/fsub/fstp, fsqrt, fdiv) no cambia al insertarse en el llamador (que se compila con SSE).
++// La raiz va aparte y noinline: con /fp:fast el compilador cambiaria sqrt(s) < m por s < m*m y quitaria el FSQRT.
++static __declspec(noinline) double __cdecl GarageRootCpp(double dy, double dx) {
++    return sqrt(dy * dy + dx * dx);
++}
++
++__declspec(noinline) bool __cdecl GarageImpoundCloserCpp(const float* garage, const float* vehicle, float* minDistance) {
++    const double dx = double(vehicle[0]) - double(garage[0]);
++    const double dy = double(vehicle[1]) - double(garage[1]);
++    const double distance = GarageRootCpp(dy, dx);
++    if (distance < double(*minDistance)) {
++        *minDistance = float(distance);
++        return true;
++    }
++    return false;
++}
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index f6e1972..cb82df0 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1523,3 +1523,8 @@ void __cdecl QuaternionFromEulerCpp(float* q, float ax, float ay, float az);
+ // --- CQuaternion::Slerp(from, to, t) (0x59C630), prefijo QuatSlerpT. Anadir al FINAL de X87Math.h ---
+ // CalcTheta (0x4D00E0, con el _CIacos del EXE en FlcX87) y luego QuaternionSlerpCpp (0x59C300) con (theta, 1/sin(theta), t).
+ void __cdecl QuatSlerpTCpp(float* out, const float* from, const float* to, float t);
++
++// --- CGarages::AddOne (0x4471E0) y CGarages::StoreCarInNearestImpoundingGarage (0x44A3C0), lote 30, prefijo Garage ---
++// Distancia XY entre garaje y vehiculo (garage/vehicle apuntan a x, y): d = sqrt((vy - gy)^2 + (vx - gx)^2) sin redondear; si d < *minDistance (comparacion ordenada: con NaN no) guarda
++// *minDistance = float(d) y devuelve true (0x44A3FB..0x44A43D).
++bool __cdecl GarageImpoundCloserCpp(const float* garage, const float* vehicle, float* minDistance);

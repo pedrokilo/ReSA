@@ -1,0 +1,342 @@
+diff --git a/source/game_sa/Fx/FxEmitter.cpp b/source/game_sa/Fx/FxEmitter.cpp
+index 6136b7e..c977d2e 100644
+--- a/source/game_sa/Fx/FxEmitter.cpp
++++ b/source/game_sa/Fx/FxEmitter.cpp
+@@ -39,3 +39,3 @@ void FxEmitter_c::InjectHooks() {
+     RH_ScopedInstall(CreateParticles, 0x4A41E0);
+-    // RH_ScopedInstall(CreateParticle, 0x4A2580);
++    RH_ScopedInstall(CreateParticle, 0x4A2580);
+ }
+@@ -163,4 +163,3 @@ void FxEmitter_c::CreateParticles(float currentTime, float deltaTime) {
+ 
+-    // 0x4A43B0..0x4A4416: el EXE vuelve a convertir la intensidad (_ftol2) tras cada particula. CreateParticle (0x4A2580) sigue siendo la del EXE: la reconstruccion de
+-    // FxEmitter_c::CreateParticle de este archivo esta incompleta (todo) y no se llama desde aqui hasta que se valide.
++    // 0x4A43B0..0x4A4416: el EXE vuelve a convertir la intensidad (_ftol2) tras cada particula. CreateParticle (0x4A2580) ya esta en C++ (lote 30).
+     for (int32 step = 0; step < FxEmitterTruncateCpp(&m_fEmissionIntensity); ++step) {
+@@ -168,4 +167,3 @@ void FxEmitter_c::CreateParticles(float currentTime, float deltaTime) {
+         const float timeSince = FxEmitterTimeSinceCpp(step, &m_fEmissionIntensity, deltaTime);
+-        plugin::CallMethodAndReturn<FxEmitterPrt_c*, 0x4A2580, FxEmitter_c*, const EmissionInfo_t*, RwMatrix*, const CVector*, float, const FxPrtMult_c*, float, bool>(
+-            this, &emission, mat, nullptr, timeSince, &prtMult, 1.2f, m_System->m_createLocal);
++        CreateParticle(emission, *mat, nullptr, timeSince, prtMult, 1.2f, m_System->m_createLocal);
+     }
+@@ -177,39 +175,52 @@ void FxEmitter_c::CreateParticles(float currentTime, float deltaTime) {
+ 
+-// 0x4A2580
+-FxEmitterPrt_c* FxEmitter_c::CreateParticle(const EmissionInfo_t& emissionInfo, RwMatrix& wldMat, const CVector* velOverride, float timeSince, const FxPrtMult_c& fxMults, float brightness, bool createLocal) {
+-    //return plugin::CallMethodAndReturn<FxEmitterPrt_c*, 0x4A2580, FxEmitter_c*, EmissionInfo_t*, RwMatrix*, CVector*, float, FxPrtMult_c*, float, bool>(this, &emissionInfo, &wldMat, velOverride, timeSince, &fxMults, brightness, createLocal);
++// rand() del CRT del EXE (0x821B1E): el del juego avanza la misma semilla que el resto del EXE, no el de la DLL. `% 10000` es el idiv del EXE (el resultado de rand es >= 0).
++static int FxEmitterExeRemainder() {
++    return reinterpret_cast<int(__cdecl*)()>(0x821B1E)() % 10000;
++}
+ 
+-    // todo:
+-    auto* particle = [&]() -> FxEmitterPrt_c* {
+-        auto* prt = g_fxMan.GetParticle(0);
+-        if (!prt) {
+-            if (!m_System->m_MustCreateParticles)
+-                return nullptr;
+-
+-            g_fxMan.FreeUpParticle();
+-            prt = g_fxMan.GetParticle(0);
++// 0x4A2580 (thiscall, ret 1Ch). Orden de los rand() del EXE (0x821B1E, todos `% 10000`): vida, tres bytes aleatorios, rotacion, [GetRWMatrix si createLocal], posicion (3; esfera con radio > 0: un cuarto),
++// y, sin velocidad impuesta, dos angulos y un factor de velocidad (este ultimo tras RotateVecIntoVec). Las tiradas no tocan la x87, asi que se piden aqui y los ayudantes FxPrt* (X87Math.cpp)
++// reproducen las secuencias x87 de 24 bits con los restos. Ningun llamador del EXE lee ECX/EDX; EAX = la particula (o 0) lo leen 0x4A3FDF y 0x4A417D.
++FxEmitterPrt_c* FxEmitter_c::CreateParticle(const EmissionInfo_t& emissionInfo, RwMatrix& wldMat, const CVector* velOverride, float timeSince, const FxPrtMult_c& fxMults, float brightness, bool createLocal) {
++    // 0x4A2589..0x4A25BF: GetParticle(0); sin hueco, solo si el sistema exige crear (m_MustCreateParticles) se libera una de otro sistema y se vuelve a pedir.
++    Particle_c* particle = g_fxMan.GetParticle(0);
++    if (!particle) {
++        if (!m_System->m_MustCreateParticles) {
++            return nullptr;
+         }
+-        return reinterpret_cast<FxEmitterPrt_c*>(prt);
+-    }();
+-
+-    particle->m_fCurrentLife = 0.0f;
+-    particle->m_fTotalLife = (((float)(CGeneral::GetRandomNumber() % 10'000) / 5'000.0f - 1.0f) * emissionInfo.m_fLifeBias + emissionInfo.m_fLife) * fxMults.m_fLife;
+-    particle->m_System = m_System;
+-
+-    particle->m_MultColor = CRGBA{fxMults.m_Color};
+-
+-    particle->m_MultSize = fxMults.m_fSize;
+-    particle->m_MultRot = fxMults.m_Rot;
+-
+-    particle->m_bLocalToSystem = createLocal;
+-
+-    particle->m_RandR = CGeneral::GetRandomNumberInRange(0, 256);
+-    particle->m_RandG = CGeneral::GetRandomNumberInRange(0, 256);
+-    particle->m_RandB = CGeneral::GetRandomNumberInRange(0, 256);
+-    particle->m_Brightness = brightness;
+-
+-    particle->m_RotZ = -1;
+-    particle->m_CurrentRotation = CGeneral::GetRandomNumberInRange(0.0f, 1.0f) * (emissionInfo.m_fRotationMaxAngle - emissionInfo.m_fRotationMinAngle) + emissionInfo.m_fRotationMinAngle;
+-
+-    if (createLocal) {
++        g_fxMan.FreeUpParticle();
++        particle = g_fxMan.GetParticle(0);
++        if (!particle) {
++            return nullptr;
++        }
++    }
++    auto* const prt = static_cast<FxEmitterPrt_c*>(particle);
++    auto* const bytes = reinterpret_cast<uint8*>(prt);
++
++    // 0x4A25C7..0x4A2600
++    const int32 lifeRem = FxEmitterExeRemainder();
++    prt->m_fCurrentLife = 0.0f;
++    FxPrtLifeCpp(lifeRem, emissionInfo.m_fLifeBias, emissionInfo.m_fLife, fxMults.m_fLife, &prt->m_fTotalLife);
++    prt->m_System = m_System;
++
++    // 0x4A2609..0x4A266B: rojo, verde, azul, alfa, tamano y rotacion (byte bajo de _ftol2(x * 255.0f)).
++    bytes[0x2C] = static_cast<uint8>(FxPrtColorByteCpp(fxMults.m_Color.red));
++    bytes[0x2D] = static_cast<uint8>(FxPrtColorByteCpp(fxMults.m_Color.green));
++    bytes[0x2E] = static_cast<uint8>(FxPrtColorByteCpp(fxMults.m_Color.blue));
++    bytes[0x2F] = static_cast<uint8>(FxPrtColorByteCpp(fxMults.m_Color.alpha));
++    bytes[0x30] = static_cast<uint8>(FxPrtColorByteCpp(fxMults.m_fSize));
++    bytes[0x31] = static_cast<uint8>(FxPrtColorByteCpp(fxMults.m_Rot));
++    bytes[0x37] = createLocal;
++    // 0x4A2675..0x4A26FF
++    bytes[0x32] = static_cast<uint8>(FxPrtRandByteCpp(FxEmitterExeRemainder()));
++    bytes[0x33] = static_cast<uint8>(FxPrtRandByteCpp(FxEmitterExeRemainder()));
++    bytes[0x34] = static_cast<uint8>(FxPrtRandByteCpp(FxEmitterExeRemainder()));
++    bytes[0x35] = static_cast<uint8>(FxPrtBrightnessByteCpp(brightness));
++    // 0x4A2702..0x4A2735
++    const int32 rotationRem = FxEmitterExeRemainder();
++    bytes[0x36] = 0xFF;
++    FxPrtRotationCpp(rotationRem, emissionInfo.m_fRotationMinAngle, emissionInfo.m_fRotationMaxAngle, &prt->m_CurrentRotation);
++
++    // 0x4A2738..0x4A2740: con la bandera local la matriz de trabajo es la del prim.
++    if (bytes[0x37]) {
+         m_PrimBP->GetRWMatrix(wldMat);
+@@ -217,63 +228,48 @@ FxEmitterPrt_c* FxEmitter_c::CreateParticle(const EmissionInfo_t& emissionInfo,
+ 
+-    CVector vec;
+-    if (approxEqual(emissionInfo.m_fRadius, 0.0f, 0.001f)) {
+-        vec = CVector{
+-            CGeneral::GetRandomNumberInRange(0.0f, 1.0f) * (emissionInfo.m_SizeMax.x - emissionInfo.m_SizeMin.x) + emissionInfo.m_SizeMin.x,
+-            CGeneral::GetRandomNumberInRange(0.0f, 1.0f) * (emissionInfo.m_SizeMax.y - emissionInfo.m_SizeMin.y) + emissionInfo.m_SizeMin.y,
+-            CGeneral::GetRandomNumberInRange(0.0f, 1.0f) * (emissionInfo.m_SizeMax.z - emissionInfo.m_SizeMin.z) + emissionInfo.m_SizeMin.z,
+-        };
++    // 0x4A2743..0x4A28B6: posicion. |radio| < 0.001 (o NaN): caja; si no, esfera. x87 de 24 bits en FxPrtBoxPositionCpp / FxPrtSpherePositionCpp.
++    const float* const matrix = reinterpret_cast<const float*>(&wldMat);
++    float* const position = &prt->m_Pos.x;
++    if (!(std::fabs(static_cast<double>(emissionInfo.m_fRadius)) >= static_cast<double>(0.001f))) { // fld; fabs; fcomp qword [0x85A7C8]; test ah, 1
++        const int32 remX = FxEmitterExeRemainder();
++        const int32 remY = FxEmitterExeRemainder();
++        const int32 remZ = FxEmitterExeRemainder();
++        FxPrtBoxPositionCpp(remX, remY, remZ, &emissionInfo.m_SizeMin.x, &emissionInfo.m_SizeMax.x, &emissionInfo.m_Pos.x, matrix, position);
+     } else {
+-        vec = CVector{
+-            CGeneral::GetRandomNumberInRange(0.0f, 2.0f) - 1.0f,
+-            CGeneral::GetRandomNumberInRange(0.0f, 2.0f) - 1.0f,
+-            CGeneral::GetRandomNumberInRange(0.0f, 2.0f) - 1.0f,
+-        };
+-
+-        float radius;
+-        auto invDist = 1.0f / vec.Magnitude();
+-        if (emissionInfo.m_fRadius < 0.0f) { // todo: check comp.
+-            radius = invDist * emissionInfo.m_fRadius;
+-        } else {
+-            radius = (invDist * CGeneral::GetRandomNumberInRange(0.0f, 1.0f)) * emissionInfo.m_fRadius;
+-        }
+-        vec *= radius;
++        const int32 remX = FxEmitterExeRemainder();
++        const int32 remY = FxEmitterExeRemainder();
++        const int32 remZ = FxEmitterExeRemainder();
++        const bool useExtra = !(emissionInfo.m_fRadius < 0.0f); // radio > 0: un cuarto rand()
++        const int32 remExtra = useExtra ? FxEmitterExeRemainder() : 0;
++        FxPrtSpherePositionCpp(remX, remY, remZ, useExtra, remExtra, emissionInfo.m_fRadius, &emissionInfo.m_Pos.x, matrix, position);
+     }
+-    vec += emissionInfo.m_Pos;
+-
+-    particle->m_Pos = vec.z * wldMat.at + vec.y * wldMat.up + vec.x * wldMat.right + wldMat.pos;
+ 
++    // 0x4A2915..0x4A2AD0: velocidad.
+     if (velOverride) {
+-        particle->m_Velocity = *velOverride;
++        std::memcpy(&prt->m_Velocity, velOverride, sizeof(CVector));
+     } else {
+-        auto randomAngle = CGeneral::GetRandomNumberInRange(0.0f, TWO_PI);
+-        auto minAngle = DegreesToRadians(emissionInfo.m_fAngleMin);
+-        auto maxAngle = DegreesToRadians(emissionInfo.m_fAngleMax);
+-
+-        auto randomAngleBetweenMinMax = lerp(minAngle, maxAngle, CGeneral::GetRandomNumberInRange(0.0f, 1.0f));
+-
+-        CVector randomizedAngleVec{
+-            CMaths::GetCosFast(randomAngle) * CMaths::GetSinFast(randomAngleBetweenMinMax),
+-            CMaths::GetCosFast(randomAngleBetweenMinMax),
+-            CMaths::GetSinFast(randomAngle) * CMaths::GetSinFast(randomAngleBetweenMinMax)
+-        };
+-
++        const int32 angleRem = FxEmitterExeRemainder();
++        const int32 betweenRem = FxEmitterExeRemainder();
++        CVector randomizedAngleVec;
++        FxPrtDirectionCpp(angleRem, betweenRem, emissionInfo.m_fAngleMin, emissionInfo.m_fAngleMax, reinterpret_cast<const float*>(0xBB3E00), &randomizedAngleVec.x); // tabla de senos (0xBB3E00)
+         CVector vectorsIn;
+-        CVector vectorsOut;
+-        if (emissionInfo.m_Direction.x <= 10.0f) {
+-            vectorsIn = emissionInfo.m_Direction;
+-            vectorsIn.Normalise();
++        if (!(emissionInfo.m_Direction.x > 10.0f)) { // fcomp [10.0f]; test ah, 41h; jne: direccion (menor, igual o NaN), normalizada con RwV3dNormalize (0x7ED9B0)
++            std::memcpy(&vectorsIn, &emissionInfo.m_Direction, sizeof(CVector));
++            RwV3dNormalize(&vectorsIn, &vectorsIn);
+         } else {
+-            vectorsIn = particle->m_Pos;
++            std::memcpy(&vectorsIn, &prt->m_Pos, sizeof(CVector));
+         }
++        CVector vectorsOut;
+         RwV3dTransformVectors(&vectorsOut, &vectorsIn, 1, &wldMat);
+-        CVector v38;
+-        RotateVecIntoVec(v38, randomizedAngleVec, vectorsOut);
+-        particle->m_Velocity = v38 * ((CGeneral::GetRandomNumberInRange(0.0f, 2.0f) - 1.0f) * emissionInfo.m_fSpeedBias + emissionInfo.m_Speed);
++        CVector rotated;
++        RotateVecIntoVec(rotated, randomizedAngleVec, vectorsOut);
++        const int32 speedRem = FxEmitterExeRemainder();
++        FxPrtSpeedCpp(speedRem, emissionInfo.m_fSpeedBias, emissionInfo.m_Speed, &rotated.x, &prt->m_Velocity.x);
+     }
+ 
+-    particle->m_Velocity += m_System->m_VelAdd;
+-    static_cast<FxEmitterBP_c*>(m_PrimBP)->UpdateParticle(timeSince, particle);
+-    m_PrimBP->m_Particles.AddItem(particle);
++    // 0x4A2AD2..0x4A2B09
++    FxPrtVelAddCpp(&m_System->m_VelAdd.x, &prt->m_Velocity.x);
++    static_cast<FxEmitterBP_c*>(m_PrimBP)->UpdateParticle(timeSince, prt);
++    m_PrimBP->m_Particles.AddItem(prt);
+ 
+-    return particle;
++    return prt;
+ }
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 0e5aebc..ab810a6 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -12841 +12841,111 @@ __declspec(noinline) void __cdecl QuatSlerpTCpp(float* out, const float* from, c
+ }
++
++// --- Lote 30: FxEmitter_c::CreateParticle (0x4A2580) y FxEmitter_c::AddParticle(vector) (0x4A3EA0), prefijo FxPrt. Anadir al FINAL de X87Math.cpp ---
++// Tramos x87 de 24 bits (PC24 del proceso) de CreateParticle; los rand() (EXE 0x821B1E) y los colaboradores se llaman fuera, en FxEmitter.cpp, y aqui llega solo el resto
++// `rand() % 10000` (idiv, siempre >= 0). Valores que el EXE deja en un registro de la x87 (el z de la posicion, la escala de la esfera, los angulos) se mantienen en `double`
++// (24 bits de mantisa, exponente extendido); lo que el EXE guarda con fstp dword se guarda como float. Cada ayudante es noinline y las sumas/productos van con
++// float_control(precise, on) (sin reasociar); la raiz cuadrada va fuera de esa region (con precise sale como llamada a la CRT).
++static constexpr float kFxPrtRand1 = std::bit_cast<float>(0x38D1B717u);      // 0x858FC4: 0.0001f
++static constexpr float kFxPrtRand2 = std::bit_cast<float>(0x3951B717u);      // 0x85A7D0: 0.0002f
++static constexpr float kFxPrtOne = 1.0f;                                     // 0x858624
++static constexpr float kFxPrtByteScale = 255.0f;                             // 0x859AAC
++static constexpr float kFxPrtPercent = 100.0f;                               // 0x858628
++static constexpr float kFxPrtTwoPi = std::bit_cast<float>(0x40C90FD0u);      // 0x85A7C0
++static constexpr float kFxPrtDegToRad = std::bit_cast<float>(0x3C8EFA2Eu);   // 0x85A7BC
++static constexpr float kFxPrtTableScale = std::bit_cast<float>(0x4222F983u); // 0x85A778
++static constexpr float kFxPrtQuarter = 64.0f;                                // 0x859A44
++static constexpr double kFxPrtOneD = 1.0;                                    // qword 0x85A310
++
++// Indice de la tabla de senos: _ftol2 del EXE (EAX = palabra baja del entero de 64 bits truncado); el llamador aplica `and eax, 0FFh`.
++static __declspec(noinline) unsigned int FxPrtFtolLow(double v) { return static_cast<unsigned int>(static_cast<long long>(v)); }
++
++#pragma float_control(precise, on, push)
++// 0x4A25C7..0x4A2600: ((rem * 0.0002f - 1.0f) * lifeBias + life) * multLife; fstp dword [esi+8].
++__declspec(noinline) void __cdecl FxPrtLifeCpp(int rem, float lifeBias, float life, float multLife, float* out) {
++    const double r = double(rem) * kFxPrtRand2 - kFxPrtOne;
++    *out = float((r * lifeBias + life) * multLife);
++}
++// 0x4A2609..0x4A266B y 0x4A266E..0x4A26FF: byte bajo de _ftol2(value * escala).
++__declspec(noinline) unsigned int __cdecl FxPrtColorByteCpp(float value) { return FxPrtFtolLow(double(value) * kFxPrtByteScale) & 0xFF; }
++__declspec(noinline) unsigned int __cdecl FxPrtBrightnessByteCpp(float value) { return FxPrtFtolLow(double(value) * kFxPrtPercent) & 0xFF; }
++// 0x4A267B..0x4A26C4: byte bajo de _ftol2((rem * 0.0001f) * 255.0f).
++__declspec(noinline) unsigned int __cdecl FxPrtRandByteCpp(int rem) { return FxPrtFtolLow(double(rem) * kFxPrtRand1 * kFxPrtByteScale) & 0xFF; }
++// 0x4A2707..0x4A2735: (rem * 0.0001f) * (rotMax - rotMin) + rotMin; fstp dword [esi+38].
++__declspec(noinline) void __cdecl FxPrtRotationCpp(int rem, float rotMin, float rotMax, float* out) {
++    const double t = double(rem) * kFxPrtRand1;
++    *out = float(t * (double(rotMax) - rotMin) + rotMin);
++}
++// 0x4A28B6..0x4A2912: (z' * at + y' * up) + x' * right + pos con x' = float(x) + off.x, y' = float(y) + off.y, z' = z + off.z (z sin pasar por float).
++// mat = right {0}, up {0x10 = 4 floats}, at {0x20 = 8}, pos {0x30 = 12}.
++static __declspec(noinline) void FxPrtTransformTail(float vx, float vy, double vz, const float* off, const float* mat, float* out) {
++    const double x = double(vx) + off[0];
++    const double y = double(vy) + off[1];
++    const double z = vz + off[2];
++    out[0] = float(((z * mat[8] + y * mat[4]) + x * mat[0]) + mat[12]);
++    out[1] = float(((z * mat[9] + y * mat[5]) + x * mat[1]) + mat[13]);
++    out[2] = float(((z * mat[10] + y * mat[6]) + x * mat[2]) + mat[14]);
++}
++// 0x4A283C..0x4A28B6: caja. Cada eje: (rem * 0.0001f) * (max - min) + min; x e y se guardan como float, z queda en el registro.
++__declspec(noinline) void __cdecl FxPrtBoxPositionCpp(int remX, int remY, int remZ, const float* sizeMin, const float* sizeMax, const float* off, const float* mat, float* out) {
++    const float vx = float((double(remX) * kFxPrtRand1) * (double(sizeMax[0]) - sizeMin[0]) + sizeMin[0]);
++    const float vy = float((double(remY) * kFxPrtRand1) * (double(sizeMax[1]) - sizeMin[1]) + sizeMin[1]);
++    const double vz = (double(remZ) * kFxPrtRand1) * (double(sizeMax[2]) - sizeMin[2]) + sizeMin[2];
++    FxPrtTransformTail(vx, vy, vz, off, mat, out);
++}
++// 0x4A27C8..0x4A27F2: (c*c + b*b) + a*a (sin raiz).
++static __declspec(noinline) double FxPrtSphereSum(float a, float b, float c) { return (double(c) * c + double(b) * b) + double(a) * a; }
++#pragma float_control(pop)
++// 1.0 / fsqrt(suma) (fsqrt, fdivr qword [0x85A310]); fuera de la region precise.
++static __declspec(noinline) double FxPrtSphereInverse(double sum) { return kFxPrtOneD / sqrt(sum); }
++#pragma float_control(precise, on, push)
++// Esfera: a, b, c = float(rem * 0.0002f - 1.0f); invDist = 1/|(a,b,c)|; si radio < 0 la escala es invDist * radio; si no, ((rem4 * 0.0001f) * float(invDist)) * radio.
++// x = float(a * escala), y = float(b * escala), z = escala * c (registro). useExtra / remExtra: el cuarto rand() solo existe si radio > 0 (el llamador decide).
++__declspec(noinline) void __cdecl FxPrtSpherePositionCpp(int remX, int remY, int remZ, bool useExtra, int remExtra, float radius, const float* off, const float* mat, float* out) {
++    const float a = float(double(remX) * kFxPrtRand2 - kFxPrtOne);
++    const float b = float(double(remY) * kFxPrtRand2 - kFxPrtOne);
++    const float c = float(double(remZ) * kFxPrtRand2 - kFxPrtOne);
++    const double inverse = FxPrtSphereInverse(FxPrtSphereSum(a, b, c));
++    double scale;
++    if (useExtra) {
++        const float inverseFloat = float(inverse);
++        scale = (double(remExtra) * kFxPrtRand1) * inverseFloat;
++    } else {
++        scale = inverse;
++    }
++    scale = scale * radius;
++    const float vx = float(double(a) * scale);
++    const float vy = float(double(b) * scale);
++    const double vz = scale * c;
++    FxPrtTransformTail(vx, vy, vz, off, mat, out);
++}
++// 0x4A2931..0x4A2A13: angulos. randomAngle = float((remA * 0.0001f) * 6.28318f); minRad = float(angleMin * 0.0174533f); ang = (remB * 0.0001f) * (angleMax * 0.0174533f - minRad) + minRad (registro).
++// prodB = ang * 40.7437; sinB = tabla[ftol2(prodB) & 255]; prodA = randomAngle * 40.7437 (y float(prodA) guardado);
++// out = { tabla[ftol2(prodA + 64) & 255] * sinB, tabla[ftol2(prodB + 64) & 255], tabla[ftol2(float(prodA)) & 255] * sinB }.
++__declspec(noinline) void __cdecl FxPrtDirectionCpp(int remA, int remB, float angleMin, float angleMax, const float* table, float* out) {
++    const float randomAngle = float((double(remA) * kFxPrtRand1) * kFxPrtTwoPi);
++    const float minRad = float(double(angleMin) * kFxPrtDegToRad);
++    const double t = double(remB) * kFxPrtRand1;
++    const double maxRad = double(angleMax) * kFxPrtDegToRad;
++    const double ang = t * (maxRad - minRad) + minRad;
++    const double prodB = ang * kFxPrtTableScale;
++    const float sinB = table[FxPrtFtolLow(prodB) & 0xFF];
++    const double prodA = double(randomAngle) * kFxPrtTableScale;
++    const float prodAStored = float(prodA);
++    out[0] = float(table[FxPrtFtolLow(prodA + kFxPrtQuarter) & 0xFF] * double(sinB));
++    out[1] = table[FxPrtFtolLow(prodB + kFxPrtQuarter) & 0xFF];
++    out[2] = float(table[FxPrtFtolLow(double(prodAStored)) & 0xFF] * double(sinB));
++}
++// 0x4A2A8C..0x4A2ACD: k = ((rem * 0.0002f - 1.0f) * speedBias) + speed; vel = float(dir * k) por componente.
++__declspec(noinline) void __cdecl FxPrtSpeedCpp(int rem, float speedBias, float speed, const float* dir, float* vel) {
++    const double k = (double(rem) * kFxPrtRand2 - kFxPrtOne) * speedBias + speed;
++    vel[0] = float(double(dir[0]) * k);
++    vel[1] = float(double(dir[1]) * k);
++    vel[2] = float(double(dir[2]) * k);
++}
++// 0x4A2AD2..0x4A2AF7: vel[i] = float(velAdd[i] + vel[i]) (fld velAdd; fadd [vel]; fstp [vel]).
++__declspec(noinline) void __cdecl FxPrtVelAddCpp(const float* velAdd, float* vel) {
++    vel[0] = float(double(velAdd[0]) + vel[0]);
++    vel[1] = float(double(velAdd[1]) + vel[1]);
++    vel[2] = float(double(velAdd[2]) + vel[2]);
++}
++#pragma float_control(pop)
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index f6e1972..90576d9 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1525 +1525,14 @@ void __cdecl QuaternionFromEulerCpp(float* q, float ax, float ay, float az);
+ void __cdecl QuatSlerpTCpp(float* out, const float* from, const float* to, float t);
++
++// --- Lote 30: FxEmitter_c::CreateParticle (0x4A2580) y FxEmitter_c::AddParticle(vector) (0x4A3EA0), prefijo FxPrt. Anadir al FINAL de X87Math.h ---
++// Tramos x87 de 24 bits; los rand() del EXE (0x821B1E) se llaman en FxEmitter.cpp y aqui llegan los restos `rand() % 10000`. Ver el bloque homonimo de X87Math.cpp.
++void __cdecl FxPrtLifeCpp(int rem, float lifeBias, float life, float multLife, float* out);
++unsigned int __cdecl FxPrtColorByteCpp(float value);       // byte bajo de _ftol2(value * 255.0f)
++unsigned int __cdecl FxPrtBrightnessByteCpp(float value);  // byte bajo de _ftol2(value * 100.0f)
++unsigned int __cdecl FxPrtRandByteCpp(int rem);            // byte bajo de _ftol2((rem * 0.0001f) * 255.0f)
++void __cdecl FxPrtRotationCpp(int rem, float rotMin, float rotMax, float* out);
++void __cdecl FxPrtBoxPositionCpp(int remX, int remY, int remZ, const float* sizeMin, const float* sizeMax, const float* off, const float* mat, float* out);
++void __cdecl FxPrtSpherePositionCpp(int remX, int remY, int remZ, bool useExtra, int remExtra, float radius, const float* off, const float* mat, float* out);
++void __cdecl FxPrtDirectionCpp(int remA, int remB, float angleMin, float angleMax, const float* table, float* out);
++void __cdecl FxPrtSpeedCpp(int rem, float speedBias, float speed, const float* dir, float* vel);
++void __cdecl FxPrtVelAddCpp(const float* velAdd, float* vel);

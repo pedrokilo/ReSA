@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CCustomBuildingDNPipeline
- * Reconstrucción: COMPLETA — 14/14 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 16/16 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 14/14 entradas.
+ * Validación registrada: 16/16 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -272,13 +272,134 @@ uint32 CCustomBuildingDNPipeline::UsesThisPipeline(RpAtomic* atomic) {
 }
 
 // 0x5D7120
+// Callback de RpGeometryForAllMaterials (el recorrido solo lee EAX: devuelve siempre el material para no cortar el bucle). El segundo argumento no se usa.
+// Pone a cero la palabra +0x10 del material (la de banderas: el campo `specular` de las propiedades de superficie). Si el material tiene SOLO el efecto MatFX de mapa de
+// entorno (== 2, no una mascara), pide el dato de entorno propio (SetFxEnvTexture 0x5D9570: duplica el falso si hace falta) y le pone la textura del primer pase de MatFX
+// (+4 de los datos de MatFX), que queda con filtro lineal (byte 0x50 = 2) y direccionamiento envolvente (byte 0x51 = 0x11). Despues vuelve a leer el puntero del dato de
+// entorno (no el resultado de SetFxEnvTexture) y deja en la palabra +0x10 el bit 0 = (brillo(byte +4) * (1/255) != 0 && textura(+8) != nullptr), conservando los bits 3..31.
 RpMaterial* CCustomBuildingDNPipeline::CustomPipeMaterialSetup(RpMaterial* material, void* data) {
-    return plugin::CallAndReturn<RpMaterial*, 0x5D7120, RpMaterial*, void*>(material, data);
+    auto* const raw   = reinterpret_cast<uint8*>(material);
+    auto&       flags = *reinterpret_cast<uint32*>(raw + 0x10);
+    flags = 0;
+    if (RpMatFXMaterialGetEffects(material) == rpMATFXEFFECTENVMAP) {
+        if (auto* const envData = SetFxEnvTexture(reinterpret_cast<CustomEnvMapPipeMaterialData**>(raw + CCustomCarEnvMapPipeline::ms_envMapPluginOffset))) {
+            auto* const matFxData = *reinterpret_cast<uint8**>(raw + MatFXMaterialDataOffset);
+            auto* const texture   = *reinterpret_cast<uint8**>(matFxData + 4);
+            envData->Texture = reinterpret_cast<RwTexture*>(texture);
+            if (texture) {
+                texture[0x51] = 0x11;
+                texture[0x50] = 2;
+            }
+        }
+    }
+    uint32 hasEnvMap = 0;
+    if (auto* const envData = *reinterpret_cast<uint8**>(raw + CCustomCarEnvMapPipeline::ms_envMapPluginOffset)) {
+        if (static_cast<float>(envData[4]) * StaticRef<float>(0x859A3C) /* 1/255 */ != 0.0f && *reinterpret_cast<void**>(envData + 8)) {
+            hasEnvMap = 1;
+        }
+    }
+    flags = (flags & 0xFFFFFFF8u) | hasEnvMap;
+    return material;
+}
+
+// 0xC02C28 - matriz de textura del mapa de entorno de esta tubería (solo se escribe la diagonal; no es la 0xC02C70 de CCustomBuildingPipeline)
+static inline auto& DNEnvMapTexMatrix = StaticRef<D3DMATRIX>(0xC02C28);
+
+// Colaboradores sin versión en C++ equivalente: por dirección del EXE, como el original (el banco los sustituye por falsos trazados).
+static void DNSetIndices(void* indexBuffer) { ((void(__cdecl*)(void*))0x7FA1C0)(indexBuffer); }
+static void DNSetVertexDeclaration(void* declaration) { ((void(__cdecl*)(void*))0x7F9F70)(declaration); }
+static void DNVertexAlphaEnable(RwBool enable) { ((void(__cdecl*)(RwBool))0x7FE0A0)(enable); }
+static void DNInstanceDataRender(RxD3D9ResEntryHeader* header, RxD3D9InstanceData* mesh) { ((void(__cdecl*)(RxD3D9ResEntryHeader*, RxD3D9InstanceData*))0x5DA640)(header, mesh); }
+static void DNInstanceDataRenderLighting(RxD3D9ResEntryHeader* header, RxD3D9InstanceData* mesh, uint32 rxGeoFlags, RwTexture* texture) {
+    ((void(__cdecl*)(RxD3D9ResEntryHeader*, RxD3D9InstanceData*, uint32, RwTexture*))0x5DA6A0)(header, mesh, rxGeoFlags, texture);
 }
 
 // 0x5D6480
+// Callback de dibujo de la tubería (cdecl, void; sus llamadores no leen EAX/ECX/EDX). Estructura como la de CCustomBuildingPipeline::CustomPipeRenderCB, con estas diferencias:
+// solo el bit 0 de la palabra +0x10 del material activa el mapa de entorno; la matriz de textura es la global 0xC02C28; COLORARG2 de la etapa 1 es DIFFUSE (0) y no TFACTOR.
 void CCustomBuildingDNPipeline::CustomPipeRenderCB(RwResEntry* entry, void* object, uint8 type, uint32 flags) {
-    plugin::Call<0x5D6480, RwResEntry*, void*, uint8, uint32>(entry, object, type, flags);
+    _rwD3D9EnableClippingIfNeeded(object, type);
+
+    DWORD isLightingEnabled = 0;
+    RwD3D9GetRenderState(D3DRS_LIGHTING, &isLightingEnabled);
+
+    const bool geoHasNoLighting = !isLightingEnabled && !(flags & rxGEOMETRY_PRELIT);
+    if (geoHasNoLighting) {
+        RwD3D9SetTexture(nullptr, 0);
+        RwD3D9SetRenderState(D3DRS_TEXTUREFACTOR, 0xFF000000);
+        RwD3D9SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG2);
+        RwD3D9SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_TFACTOR);
+        RwD3D9SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_SELECTARG2);
+        RwD3D9SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_TFACTOR);
+    }
+
+    auto* const header = reinterpret_cast<RxD3D9ResEntryHeader*>(entry + 1);
+    auto* const meshes = reinterpret_cast<RxD3D9InstanceData*>(header + 1);
+
+    if (header->indexBuffer) {
+        DNSetIndices(header->indexBuffer);
+    }
+    _rwD3D9SetStreams(header->vertexStream, header->useOffsets);
+    DNSetVertexDeclaration(header->vertexDeclaration);
+
+    // Como el original: el número de mallas se compara con signo (jle) y se lee una sola vez.
+    for (int32 i = 0, numMeshes = (int32)header->numMeshes; i < numMeshes; i++) {
+        auto* const mesh     = &meshes[i];
+        auto* const material = reinterpret_cast<uint8*>(mesh->material);
+        const bool  hasEnv   = (material[0x10] & 1) != 0;
+        auto* const envData  = *reinterpret_cast<uint8**>(material + CCustomCarEnvMapPipeline::ms_envMapPluginOffset);
+
+        RwD3D9SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_DISABLE);
+        RwD3D9SetTextureStageState(2, D3DTSS_COLOROP, D3DTOP_DISABLE);
+
+        if (hasEnv) {
+            RwRenderStateSet(rwRENDERSTATETEXTUREADDRESS, RWRSTATE(rwTEXTUREADDRESSWRAP));
+
+            // Como el original: la escala (bytes con signo) * 0.125 va a la diagonal de la matriz de textura global.
+            DNEnvMapTexMatrix._11 = (float)(int8)envData[0] * 0.125f;
+            DNEnvMapTexMatrix._44 = 1.0f;
+            DNEnvMapTexMatrix._33 = 1.0f;
+            DNEnvMapTexMatrix._22 = (float)(int8)envData[1] * 0.125f;
+
+            RwD3D9SetTexture(*reinterpret_cast<RwTexture**>(envData + 8), 1);
+
+            // Como el original: brillo (byte) * (1/255) * 254 truncado (_ftol2) y saturado a 255 (comparación con signo); factor opaco con el brillo en R, G y B.
+            int32 shininess = (int32)((float)envData[4] * StaticRef<float>(0x859A3C) * StaticRef<float>(0x86BE90));
+            if (shininess > 255) {
+                shininess = 255;
+            }
+            const uint32 shine = (uint8)shininess;
+            RwD3D9SetRenderState(D3DRS_TEXTUREFACTOR, 0xFF000000u | (shine << 16) | (shine << 8) | shine);
+
+            RwD3D9SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_MULTIPLYADD);
+            RwD3D9SetTextureStageState(1, D3DTSS_COLORARG0, D3DTA_CURRENT);
+            RwD3D9SetTextureStageState(1, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+            RwD3D9SetTextureStageState(1, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+            RwD3D9SetTextureStageState(1, D3DTSS_ALPHAOP, D3DTOP_SELECTARG2);
+            RwD3D9SetTextureStageState(1, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+            RwD3D9SetTextureStageState(1, D3DTSS_ALPHAARG2, D3DTA_CURRENT);
+            RwD3D9SetTextureStageState(1, D3DTSS_TEXCOORDINDEX, 1 | D3DTSS_TCI_CAMERASPACENORMAL);
+            RwD3D9SetTextureStageState(1, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_DISABLE);
+            RwD3D9SetTextureStageState(2, D3DTSS_COLOROP, D3DTOP_DISABLE);
+        }
+
+        // Como el original: alfa por vértice si la malla lo tiene o el material no es opaco (función interna 0x7FE0A0).
+        DNVertexAlphaEnable(mesh->vertexAlpha || mesh->material->color.alpha != 0xFF);
+
+        if (geoHasNoLighting) {
+            DNInstanceDataRender(header, mesh);
+        } else {
+            if (isLightingEnabled) {
+                RwD3D9SetSurfaceProperties(&mesh->material->surfaceProps, &mesh->material->color, flags);
+            }
+            DNInstanceDataRenderLighting(header, mesh, flags, mesh->material->texture);
+        }
+    }
+
+    RwD3D9SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_DISABLE);
+    RwD3D9SetTextureStageState(1, D3DTSS_ALPHAOP, D3DTOP_DISABLE);
+    RwD3D9SetTextureStageState(1, D3DTSS_TEXCOORDINDEX, 1);
+    RwD3D9SetTextureStageState(1, D3DTSS_TEXTURETRANSFORMFLAGS, 0);
 }
 
 // 0x5D6E90
@@ -374,4 +495,6 @@ void CCustomBuildingDNPipeline::InjectHooks() {
     RH_ScopedInstall(CreateCustomObjPipe, 0x5D6750);
     RH_ScopedInstall(CustomPipeAtomicSetup, 0x5D71C0);
     RH_ScopedInstall(SetFxEnvTexture, 0x5D9570);
+    RH_ScopedInstall(CustomPipeMaterialSetup, 0x5D7120);
+    RH_ScopedInstall(CustomPipeRenderCB, 0x5D6480);
 }

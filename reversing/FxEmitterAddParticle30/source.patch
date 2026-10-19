@@ -1,0 +1,101 @@
+diff --git a/source/game_sa/Fx/FxEmitter.cpp b/source/game_sa/Fx/FxEmitter.cpp
+index 6136b7e..7310e58 100644
+--- a/source/game_sa/Fx/FxEmitter.cpp
++++ b/source/game_sa/Fx/FxEmitter.cpp
+@@ -36,3 +36,4 @@ void FxEmitter_c::InjectHooks() {
+     // RH_ScopedInstall(Reset_Reversed, 0x4A2570);
+-    // RH_ScopedOverloadedInstall(AddParticle_Reversed, "matrix", 0x4A3EA0, void(FxEmitter_c::*)(RwMatrix*, CVector*, float, FxPrtMult_c*, float, float, bool));
++    // La entrada 0x4A3EA0 es la sobrecarga con vector de posicion (vtable +0x14); la de matriz es 0x4A4050 (+0x10).
++    RH_ScopedVMTOverloadedInstall(AddParticle, "vector", 0x4A3EA0, void(FxEmitter_c::*)(const CVector&, const CVector&, float, const FxPrtMult_c&, float, float, bool));
+     // RH_ScopedOverloadedInstall(AddParticle_Reversed, "", 0x4A4050, void(FxEmitter_c::*)(CVector*, CVector*, float, FxPrtMult_c*, float, float, bool));
+@@ -63,8 +64,7 @@ void FxEmitter_c::Reset() {
+ 
+-// 0x4A3EA0
++// 0x4A3EA0 (vtable +0x14)
++// ProcessEmissionInfo(0, 0, longitud, useConstTime), tres matrices del pool (A: resultado, B: mundo, C: identidad en `pos`), RwMatrixUpdate(C), B = C o C * padre,
++// una cuarta del pool = GetRWMatrix del prim (se destruye tras A = D * B), CreateParticle(emision, A, &vel, ...) y, si rotZ >= 0 (ordenado), m_RotZ = byte bajo de _ftol2(rotZ * 0.5f).
++// Destruye C, B, A en ese orden. Ningun llamador del EXE lee EAX/ECX/EDX.
+ void FxEmitter_c::AddParticle(const CVector& pos, const CVector& vel, float timeSince, const FxPrtMult_c& fxMults, float rotZ, float brightness, bool createLocal) {
+-    return plugin::CallMethod<0x4A3EA0, FxEmitter_c*, const CVector*, const CVector*, float, const FxPrtMult_c*, float, float, bool>(this, &pos, &vel, timeSince, &fxMults, rotZ, brightness,
+-                                                                                                                   createLocal);
+-
+-    // todo:
+     EmissionInfo_t emission;
+@@ -72,25 +72,30 @@ void FxEmitter_c::AddParticle(const CVector& pos, const CVector& vel, float time
+ 
+-    auto mat1 = g_fxMan.FxRwMatrixCreate();
+-    auto mat0 = g_fxMan.FxRwMatrixCreate();
+-    auto mat  = g_fxMan.FxRwMatrixCreate();
+-
+-    RwMatrixSetIdentity(mat);
+-    RwV3dAssign(RwMatrixGetPos(mat), &pos);
+-
++    RwMatrix* const mat0 = g_fxMan.FxRwMatrixCreate();
++    RwMatrix* const mat1 = g_fxMan.FxRwMatrixCreate();
++    RwMatrix* const mat  = g_fxMan.FxRwMatrixCreate();
++
++    // 0x4A3EF7..0x4A3F44: identidad (right.x = up.y = at.z = 1, el resto de las columnas a 0), flags |= 0x20003 (identidad + ortonormal) y posicion = pos. No se tocan los rellenos.
++    const uint32 flags = mat->flags;
++    mat->right = { 1.0f, 0.0f, 0.0f };
++    mat->up    = { 0.0f, 1.0f, 0.0f };
++    mat->at    = { 0.0f, 0.0f, 1.0f };
++    mat->pos   = { 0.0f, 0.0f, 0.0f };
++    mat->flags = flags | 0x20003;
++    mat->pos   = pos;
+     RwMatrixUpdate(mat);
++
+     if (m_System->m_ParentMatrix) {
+-        RwMatrixMultiply(mat0, mat, m_System->m_ParentMatrix);
+-    }
+-    else {
+-        mat0 = mat;
++        RwMatrixMultiply(mat1, mat, m_System->m_ParentMatrix);
++    } else {
++        std::memcpy(mat1, mat, sizeof(RwMatrix));
+     }
+ 
+-    auto mat2 = g_fxMan.FxRwMatrixCreate();
+-    m_PrimBP->GetRWMatrix(*mat2);
+-    RwMatrixMultiply(mat1, mat2, mat0);
+-    g_fxMan.FxRwMatrixDestroy(mat2);
++    RwMatrix* const primMat = g_fxMan.FxRwMatrixCreate();
++    m_PrimBP->GetRWMatrix(*primMat);
++    RwMatrixMultiply(mat0, primMat, mat1);
++    g_fxMan.FxRwMatrixDestroy(primMat);
+ 
+-    if (auto* particle = CreateParticle(emission, *mat1, &vel, timeSince, fxMults, brightness, createLocal)) {
++    if (auto* const particle = CreateParticle(emission, *mat0, &vel, timeSince, fxMults, brightness, createLocal)) {
+         if (rotZ >= 0.0f) {
+-            particle->m_RotZ = (uint8)(rotZ / 2.0f); // todo: int8/uint8 conversion
++            particle->m_RotZ = static_cast<int8>(FxAddParticleRotZByteCpp(rotZ));
+         }
+@@ -99,4 +104,4 @@ void FxEmitter_c::AddParticle(const CVector& pos, const CVector& vel, float time
+     g_fxMan.FxRwMatrixDestroy(mat);
+-    g_fxMan.FxRwMatrixDestroy(mat0);
+     g_fxMan.FxRwMatrixDestroy(mat1);
++    g_fxMan.FxRwMatrixDestroy(mat0);
+ }
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 0e5aebc..52018e7 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -12841 +12841,10 @@ __declspec(noinline) void __cdecl QuatSlerpTCpp(float* out, const float* from, c
+ }
++
++// --- Lote 30: FxEmitter_c::AddParticle(vector) (0x4A3EA0), prefijo FxAddParticle. Anadir al FINAL de X87Math.cpp ---
++// 0x4A3FFE..0x4A4010: fld [rotZ]; fmul dword [0x858B8C] (0.5f); call _ftol2; mov [particula+0x36], al. Devuelve el byte bajo (el producto queda a 24 bits en la x87 y _ftol2 trunca a 64 bits).
++static constexpr float kFxAddParticleHalf = 0.5f;
++#pragma float_control(precise, on, push)
++__declspec(noinline) unsigned int __cdecl FxAddParticleRotZByteCpp(float rotZ) {
++    return static_cast<unsigned int>(static_cast<long long>(double(rotZ) * kFxAddParticleHalf)) & 0xFF;
++}
++#pragma float_control(pop)
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index f6e1972..e17fff0 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1525 +1525,4 @@ void __cdecl QuaternionFromEulerCpp(float* q, float ax, float ay, float az);
+ void __cdecl QuatSlerpTCpp(float* out, const float* from, const float* to, float t);
++
++// --- Lote 30: FxEmitter_c::AddParticle(vector) (0x4A3EA0), prefijo FxAddParticle. Anadir al FINAL de X87Math.h ---
++unsigned int __cdecl FxAddParticleRotZByteCpp(float rotZ);  // byte bajo de _ftol2(rotZ * 0.5f)

@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "pairs": 6144,
+  "differences": 0,
+  "registered_pairs": 6144,
+  "registered_functions": 1,
+  "functions": {
+    "CCustomBuildingDNPipeline::CustomPipeRenderCB": 6144
+  },
+  "covered_functions": {
+    "CCustomBuildingDNPipeline::CustomPipeRenderCB": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wc-b (HEAD c5318699a + parches del lote 30; ver artifacts/build-manifest.json), de sólo lectura y eliminado tras el registro. El árbol principal tiene además trabajo sin validar del lote 27 en archivos vecinos, fusionado en tres vías, por lo que los hashes del manifiesto (normalizados a LF) de las fuentes probadas de esta función coinciden con los del árbol principal; los archivos con hash distinto sin normalizar sólo difieren por finales de línea (CRLF). Resultado: 6144 pares, cero diferencias. La función figuraba sin dirección en envolturas-pendientes.csv; su dirección es 0x5D6480 (confirmada por la referencia cruzada de CreateCustomObjPipe). Colaboradores sustituidos por falsos trazados idénticos en ambos lados: _rwD3D9EnableClippingIfNeeded, RwD3D9GetRenderState/SetTexture/SetRenderState/SetTextureStageState/SetSurfaceProperties, _rwD3D9SetStreams, SetIndices, SetVertexDeclaration, el fpRenderStateSet del motor, 0x7FE0A0 y las funciones de dibujo 0x5DA640/0x5DA6A0; no se valida su cuerpo. La conversión float->int se ejecuta de verdad (_ftol2 0x821B40 en el EXE). EAX/ECX/EDX sólo registrados.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/CBDNRenderCB30-20261019-023022-940433",
+  "summary_sha256": "b482841e33558fb44eda720d87cf19db6ae96a966d9f058d77ca9f23fdedaa02",
+  "result_txt_sha256": "47999adc387cd51143430933ac1917db03f9889d6d9a75b2065012adac2f4245",
+  "log_sha256": "d37cb0bc67096bf0fbea7a0d9166a923722bd785cbbd5bcc673325bc6b80dd92",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "272a043ae0c34adda704896d9aaee9e34bf5f790e2ed6a608ca35396bf05859b",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "2cc6a71f9ceeb30343d69c66645df4f2a7eddc19ea9c007a11043c0425dde7cc",
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4",
+      "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
+      "source/game_sa/RenderWare/rw/rpworld.cpp": "78738b50d2616ffc0563ac741a3fccc6838a1c9c684c14a07c0a01e3fabbb827",
+      "source/game_sa/RenderWare/rw/rwcore.cpp": "1e3ec4315a13758ab253bc531fd68b2e975bff93916d932cb536ae1f74dbf74e",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/CBDNRenderCB30/LiveComparison.hpp": "c474539e5c01769e28899ddff72f33fe663363a534eb16dcb532d4a1044f6e48",
+      "reversing/CBDNRenderCB30/Core.hpp": "2665bd93a0c392fb9ac9957f73ed5440154401ea478300641789d33497fda8f9",
+      "reversing/CBDNRenderCB30/Fixtures.hpp": "e771acddfca66b261bd67f7682b606bbb8b862220e0553382081cda87176f33d",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

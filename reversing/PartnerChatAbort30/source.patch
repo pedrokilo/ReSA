@@ -1,0 +1,28 @@
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.cpp b/source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.cpp
+--- a/source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.cpp
+@@ -24,6 +24,7 @@
+     RH_ScopedVirtualClass(CTaskComplexPartnerChat, 0x8707C4, 14);
+     RH_ScopedCategory("Tasks/TaskTypes");
+     RH_ScopedInstall(Constructor, 0x684290);
++    RH_ScopedVMTInstall(MakeAbortable, 0x682C60);
+ }
+ 
+ // 0x684290
+@@ -56,7 +57,15 @@
+ 
+ // 0x682C60
+ bool CTaskComplexPartnerChat::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
+-    return plugin::CallMethodAndReturn<bool, 0x682C60, CTask*, CPed*, int32, const CEvent*>(this, ped, priority, event);
++    if (!m_pSubTask->MakeAbortable(ped, priority, event)) { // Como el original: sin comprobar nullptr
++        return false;
++    }
++    // Como el original: ambos bytes se prueban enteros (cualquier valor distinto de 0 cuenta como verdadero)
++    if (m_conversationEnabled && m_pedConversationLoaded) {
++        CAEPedSpeechAudioEntity::ReleasePedConversation();
++        m_pedConversationLoaded = false;
++    }
++    return true;
+ }
+ 
+ // 0x684380

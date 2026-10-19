@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CGarages::AddOne": 4096
+  },
+  "covered_functions": {
+    "CGarages::AddOne": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauracion verificadas. Evidencia limitada a los fixtures del banco, no integracion universal ni independencia transitiva del EXE. Alcance por funcion en README del banco. Sin colaboradores sustituidos: el EXE llama a strncpy (0x821F40, real) y la DLL al strncpy de su CRT (mismo resultado: copia como mucho 7 caracteres y rellena con ceros). Fuentes probadas compiladas desde el worktree D:/Original/wc-b (HEAD c5318699a + parches del lote 30; ver artifacts/build-manifest.json), de sólo lectura y eliminado tras el registro. El árbol principal tiene además trabajo sin validar del lote 27 en archivos vecinos, fusionado en tres vías, por lo que difieren de verdad, y sólo fuera del cuerpo probado, Garages.h (el árbol principal cambia el retorno de AddOne a int32; la sonda conserva void, firma que el banco ejerce) y Garage.cpp (el árbol principal convierte a C++ otras funciones de CGarage, lote 27); el resto coincide (módulo CRLF). Las sumas, restas, la raíz y las divisiones usan GarageSumDiffCpp / GarageDiffCpp / GarageNormalizeCpp de X87Math.cpp. Oráculo con comodín donde un empate de NaN con signos opuestos sólo exige EXE == DLL; sNaN en operandos de memoria cubierto. EAX/ECX/EDX sólo registrados (ningún llamador los lee). Si el retorno int32 del árbol principal debe validarse, requiere nueva corrida.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/GaragesAddOne30-20261019-023125-949212",
+  "summary_sha256": "04eb7c84ecbb4cc8972d7e4fc00baf75e88f4b684d602ec0294fac54d8b19bd1",
+  "result_txt_sha256": "242884f86b133fe8df50a8f29285ea6348b0c7e0430d03658f231017321c59d6",
+  "log_sha256": "c8d718400d9d23dfef4af05588a288e174383d59509d12ea4d6f112257e67410",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "9477a8ef3ea791bfc3a617edf9de31eb8dbb72d726dbc82731bf52552a2c760f",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Garages.cpp": "8fdc34cb92d37cdb0a44903cd7234108d3be7035e7dc9ae105d430857a1a257c",
+      "source/game_sa/Garages.h": "f71fc96fd17d9d22cba76e913da868dea9b8359fe466eea9465241a3f093f658",
+      "source/game_sa/Garage.cpp": "5eac0ad4506e40d50817a5b0df3f1452861567454194b2756ea4b9bbe237c436",
+      "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a",
+      "source/game_sa/X87Math.cpp": "30c95b55b36b9e753257fcc316b798c77b0c425f0b6278e472c22b24df55c45f",
+      "source/game_sa/X87Math.h": "41da5c307f800d79ce74fb2a850e2a4bbf775d9907d9c9780beee017fae395a7",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/GaragesAddOne30/LiveComparison.hpp": "52dc0279b965043e7551ca606794950b7379a40e06e1de4f0e28544b16a3943f",
+      "reversing/GaragesAddOne30/Core.hpp": "d31ca2dc3a7474fbe77f06289d7fa381cc2c6aee23a49cd075808064f483508c",
+      "reversing/GaragesAddOne30/Fixtures.hpp": "cfa8857e5fe223d44b2403ff8461ff5a78d35e9cc029651e3bbda1774f6638e2",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

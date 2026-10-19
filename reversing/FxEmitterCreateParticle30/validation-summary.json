@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "FxEmitter_c::CreateParticle": 4096
+  },
+  "covered_functions": {
+    "FxEmitter_c::CreateParticle": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wc-b (HEAD c5318699a + parches del lote 30; ver artifacts/build-manifest.json), de sólo lectura y eliminado tras el registro. El árbol principal tiene además trabajo sin validar del lote 27 en archivos vecinos, fusionado en tres vías, por lo que los hashes del manifiesto (normalizados a LF) de las fuentes probadas de esta función coinciden con los del árbol principal; los archivos con hash distinto sin normalizar sólo difieren por finales de línea (CRLF). rand() del EXE se llama por dirección (0x821B1E) y los colaboradores (GetParticle, FreeUpParticle, GetRWMatrix, RwV3dNormalize, RwV3dTransformVectors, RotateVecIntoVec, UpdateParticle) están sustituidos por stubs idénticos en ambos lados (no se validan sus cuerpos). EAX (la partícula) se compara; ECX/EDX sólo registrados. NaN de las fixtures siempre silenciosos (sNaN no cubierto); los empates de NaN con signos opuestos (3 casos con comodín) sólo exigen EXE == DLL.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/FxEmitterCreateParticle30-20261019-023511-980996",
+  "summary_sha256": "a90f40ceee615f2a7da4a3d5fbf58a55f67ee2311e501311cf6b78168411d92b",
+  "result_txt_sha256": "a6ca6021cf385f92d06fd116983f7974a8835b0fdcc2659fd3ea6c09d2b8bfec",
+  "log_sha256": "e477a3695c9c9672f7a403b8388eb5eccc3f1bb70b05fddc6059e457a00c9f3c",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "8a0d56f0b4262ae1c848a17b851a789f1392e537086bc33153404b4722808da8",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Fx/FxEmitter.cpp": "698c0e02eff5f4191f021f5f1aba57b4f62beff4f042c1d0b1e1670708dbc445",
+      "source/game_sa/Fx/FxEmitter.h": "96dbd9a2fac41759e7abf278f60a2b8a7bce62d2e05ea4f3c77cb5b542ff08d6",
+      "source/game_sa/X87Math.cpp": "30c95b55b36b9e753257fcc316b798c77b0c425f0b6278e472c22b24df55c45f",
+      "source/game_sa/X87Math.h": "41da5c307f800d79ce74fb2a850e2a4bbf775d9907d9c9780beee017fae395a7",
+      "source/game_sa/Fx/FxManager.cpp": "8ad17f1c5c416b0caa461b7c789a32a0e872b4607d4e1c0ec79808e4f185a877",
+      "source/game_sa/Fx/FxPrimBP.cpp": "a50405dd75d0be3083d46acb0d40613a1950f6a1f1a31165c9dc087f64dd8159",
+      "source/game_sa/Fx/FxEmitterBP.cpp": "1a8661dc93fb50d1e66ded53c81c621496a1df41b8bdc377cbe45b1ca9106755",
+      "source/game_sa/Fx/Fx.cpp": "3c356608df2bff44b04e412e46512ec4d52a6b7cd759428304668546fadc52fa",
+      "source/game_sa/RenderWare/rw/rwplcore.cpp": "74a39f7114cb16465ed166f0b7642bcac0faf8e32a51d997fdc5d6ab27169394",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/FxEmitterCreateParticle30/LiveComparison.hpp": "b6a6438a52efb3dc91087cee9f61b74b7ff6d42fdd67bd50994b4309760cddeb",
+      "reversing/FxEmitterCreateParticle30/Core.hpp": "85253792df50586bb47c964870da7a1595732a22e57c2f01cdd341ca0699a6c7",
+      "reversing/FxEmitterCreateParticle30/Fixtures.hpp": "14cbbfc1c3e9eb55073bac7e22bfe3b5b652b3f35427240d6c27de6a74e6ae21",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

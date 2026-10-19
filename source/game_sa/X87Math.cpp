@@ -12839,3 +12839,228 @@ __declspec(noinline) void __cdecl QuatSlerpTCpp(float* out, const float* from, c
     QuatSlerpTCalcThetaCpp(from, to, &theta, &invSin);
     QuaternionSlerpCpp(out, from, to, theta, invSin, t);
 }
+
+// ======================================================================================================================== CCamera::UpdateSoundDistances (0x515BD0; lote 30, prefijo CamSound)
+// 0x515C48..0x515CFC. Los productos y sumas llevan 24 bits de mantisa y exponente extendido (PC = 24): se calculan en double sin pasar por float salvo donde el EXE hace fstp.
+__declspec(noinline) void __cdecl CamSoundPointCpp(const float* forward, float scale, const float* position, float extra, float* point, float* rayEnd) {
+    volatile double offsetX = double(forward[0]) * double(scale);
+    volatile double offsetY = double(forward[1]) * double(scale);
+    volatile double offsetZ = double(forward[2]) * double(scale);
+    volatile float zStored = float(offsetZ);                          // 0x515C71 fstp [esp+14h]
+    volatile float pointX = float(offsetX + double(position[0]));     // 0x515CA7..0x515CA9
+    volatile float pointY = float(offsetY + double(position[1]));     // 0x515CAD..0x515CB0
+    volatile float pointZ = float(double(zStored) + double(position[2]));   // 0x515CB4..0x515CCC
+    point[0] = pointX;
+    point[1] = pointY;
+    point[2] = pointZ;
+    volatile float end = float(double(pointZ) + double(extra));      // 0x515CEC..0x515CFC y 0x515D1B
+    *rayEnd = end;
+}
+__declspec(noinline) float __cdecl CamSoundHeightCpp(float colPointZ, float pointZ) {
+    volatile float height = float(double(colPointZ) - double(pointZ));
+    return height;
+}
+__declspec(noinline) float __cdecl CamSoundBlendCpp(int phasePlusOne, float sixth, float one, float previous, float current) {
+    volatile double t = double(phasePlusOne) * double(sixth);
+    volatile double inverse = double(one) - t;
+    volatile double scaledPrevious = inverse * double(previous);
+    volatile double scaledCurrent = t * double(current);
+    volatile float result = float(scaledPrevious + scaledCurrent);
+    return result;
+}
+
+// ======================================================================================================================== CCamera::ProcessShake (0x516560; lote 30, prefijo CamShake)
+// Secuencia x87 de 0x516994..0x516ACF sobre FlcX87; las llamadas al EXE son 0x59C810 (FlcMatInvMul3x3), 0x59C910 (FlcVecNormalise) y 0x59C730 (FlcVecCross).
+void __cdecl CamShakeOrientCpp(float* front, float* up, const float* matrix, float angleZ, float intensity) {
+    static const float zero = 0.0f;                                   // 0x858B50
+    FlcX87 fp;
+    float angle;
+    fp.Fld(angleZ); fp.Fmul(intensity); fp.Fstp(angle);               // 0x516994..0x5169AA
+    float turned[3];
+    FlcMatInvMul3x3(fp, turned, matrix, front);                       // 0x5169AE: 0x59C810(out, front, matrix)
+    memcpy(front, turned, 12);
+    FlcVecNormalise(fp, front);                                       // 0x5169CE
+    fp.Fld(angle); fp.Fsin(); fp.Fstp(up[0]);                         // 0x5169D3..0x5169EF
+    memset(&up[1], 0, 4);
+    fp.Fld(angle); fp.Fcos(); fp.Fstp(up[2]);                         // 0x5169F3..0x516A07
+    float side[3];
+    FlcVecCross(fp, side, front, up);                                 // 0x516A12: 0x59C730(out, front, up)
+    FlcVecNormalise(fp, side);                                        // 0x516A1E
+    float crossed[3];
+    FlcVecCross(fp, crossed, side, front);                            // 0x516A2E: 0x59C730(out, side, front)
+    memcpy(up, crossed, 12);
+    // 0x516A33..0x516A70: solo si front.x y front.y son ambos iguales a 0 (fcomp; test ah,44h; jp: seguir solo con C3 = 1 y C2 = 0)
+    const auto equalsZero = [&](const float& value) {
+        fp.Fld(value);
+        fp.FcomMem(zero, true);
+        const unsigned ah = fp.Ah() & 0x44u;
+        return ah == 0x40u || ah == 0x04u;
+    };
+    if (equalsZero(front[0]) && equalsZero(front[1])) {
+        const unsigned tiny = 0x38D1B717u;
+        memcpy(&front[0], &tiny, 4);
+        memcpy(&front[1], &tiny, 4);
+    }
+    float right[3];
+    FlcVecCross(fp, right, front, up);                                // 0x516A81
+    FlcVecNormalise(fp, right);                                       // 0x516A99
+    FlcVecCross(fp, crossed, right, front);                           // 0x516AB1
+    memcpy(up, crossed, 12);
+    fp.Commit();
+}
+
+// --- CGarages::AddOne (0x4471E0) y CGarages::StoreCarInNearestImpoundingGarage (0x44A3C0), lote 30, prefijo Garage ---
+// Cada funcion es noinline: la secuencia x87 (fld/fadd/fsub/fstp, fsqrt, fdiv) no cambia al insertarse en el llamador (que se compila con SSE).
+__declspec(noinline) float __cdecl GarageSumDiffCpp(float a, float b, float c) {
+    volatile float result = float((double(a) + double(b)) - double(c));
+    return result;
+}
+
+__declspec(noinline) float __cdecl GarageDiffCpp(float a, float b) {
+    volatile float result = float(double(a) - double(b));
+    return result;
+}
+
+__declspec(noinline) void __cdecl GarageNormalizeCpp(float x, float y, float* outX, float* outY, float* length) {
+    const double s = sqrt(double(y) * double(y) + double(x) * double(x));
+    volatile float stored = float(s);
+    *length = stored;
+    *outX = float(double(x) / s);
+    const double divisor = stored;
+    *outY = float(double(y) / divisor);
+}
+
+// La raiz va aparte y noinline: con /fp:fast el compilador cambiaria sqrt(s) < m por s < m*m y quitaria el FSQRT.
+static __declspec(noinline) double __cdecl GarageRootCpp(double dy, double dx) {
+    return sqrt(dy * dy + dx * dx);
+}
+
+__declspec(noinline) bool __cdecl GarageImpoundCloserCpp(const float* garage, const float* vehicle, float* minDistance) {
+    const double dx = double(vehicle[0]) - double(garage[0]);
+    const double dy = double(vehicle[1]) - double(garage[1]);
+    const double distance = GarageRootCpp(dy, dx);
+    if (distance < double(*minDistance)) {
+        *minDistance = float(distance);
+        return true;
+    }
+    return false;
+}
+
+// --- Lote 30: FxEmitter_c::CreateParticle (0x4A2580) y FxEmitter_c::AddParticle(vector) (0x4A3EA0), prefijo FxPrt. Anadir al FINAL de X87Math.cpp ---
+// Tramos x87 de 24 bits (PC24 del proceso) de CreateParticle; los rand() (EXE 0x821B1E) y los colaboradores se llaman fuera, en FxEmitter.cpp, y aqui llega solo el resto
+// `rand() % 10000` (idiv, siempre >= 0). Valores que el EXE deja en un registro de la x87 (el z de la posicion, la escala de la esfera, los angulos) se mantienen en `double`
+// (24 bits de mantisa, exponente extendido); lo que el EXE guarda con fstp dword se guarda como float. Cada ayudante es noinline y las sumas/productos van con
+// float_control(precise, on) (sin reasociar); la raiz cuadrada va fuera de esa region (con precise sale como llamada a la CRT).
+static constexpr float kFxPrtRand1 = std::bit_cast<float>(0x38D1B717u);      // 0x858FC4: 0.0001f
+static constexpr float kFxPrtRand2 = std::bit_cast<float>(0x3951B717u);      // 0x85A7D0: 0.0002f
+static constexpr float kFxPrtOne = 1.0f;                                     // 0x858624
+static constexpr float kFxPrtByteScale = 255.0f;                             // 0x859AAC
+static constexpr float kFxPrtPercent = 100.0f;                               // 0x858628
+static constexpr float kFxPrtTwoPi = std::bit_cast<float>(0x40C90FD0u);      // 0x85A7C0
+static constexpr float kFxPrtDegToRad = std::bit_cast<float>(0x3C8EFA2Eu);   // 0x85A7BC
+static constexpr float kFxPrtTableScale = std::bit_cast<float>(0x4222F983u); // 0x85A778
+static constexpr float kFxPrtQuarter = 64.0f;                                // 0x859A44
+static constexpr double kFxPrtOneD = 1.0;                                    // qword 0x85A310
+
+// Indice de la tabla de senos: _ftol2 del EXE (EAX = palabra baja del entero de 64 bits truncado); el llamador aplica `and eax, 0FFh`.
+static __declspec(noinline) unsigned int FxPrtFtolLow(double v) { return static_cast<unsigned int>(static_cast<long long>(v)); }
+
+#pragma float_control(precise, on, push)
+// 0x4A25C7..0x4A2600: ((rem * 0.0002f - 1.0f) * lifeBias + life) * multLife; fstp dword [esi+8].
+__declspec(noinline) void __cdecl FxPrtLifeCpp(int rem, float lifeBias, float life, float multLife, float* out) {
+    const double r = double(rem) * kFxPrtRand2 - kFxPrtOne;
+    *out = float((r * lifeBias + life) * multLife);
+}
+// 0x4A2609..0x4A266B y 0x4A266E..0x4A26FF: byte bajo de _ftol2(value * escala).
+__declspec(noinline) unsigned int __cdecl FxPrtColorByteCpp(float value) { return FxPrtFtolLow(double(value) * kFxPrtByteScale) & 0xFF; }
+__declspec(noinline) unsigned int __cdecl FxPrtBrightnessByteCpp(float value) { return FxPrtFtolLow(double(value) * kFxPrtPercent) & 0xFF; }
+// 0x4A267B..0x4A26C4: byte bajo de _ftol2((rem * 0.0001f) * 255.0f).
+__declspec(noinline) unsigned int __cdecl FxPrtRandByteCpp(int rem) { return FxPrtFtolLow(double(rem) * kFxPrtRand1 * kFxPrtByteScale) & 0xFF; }
+// 0x4A2707..0x4A2735: (rem * 0.0001f) * (rotMax - rotMin) + rotMin; fstp dword [esi+38].
+__declspec(noinline) void __cdecl FxPrtRotationCpp(int rem, float rotMin, float rotMax, float* out) {
+    const double t = double(rem) * kFxPrtRand1;
+    *out = float(t * (double(rotMax) - rotMin) + rotMin);
+}
+// 0x4A28B6..0x4A2912: (z' * at + y' * up) + x' * right + pos con x' = float(x) + off.x, y' = float(y) + off.y, z' = z + off.z (z sin pasar por float).
+// mat = right {0}, up {0x10 = 4 floats}, at {0x20 = 8}, pos {0x30 = 12}.
+static __declspec(noinline) void FxPrtTransformTail(float vx, float vy, double vz, const float* off, const float* mat, float* out) {
+    const double x = double(vx) + off[0];
+    const double y = double(vy) + off[1];
+    const double z = vz + off[2];
+    out[0] = float(((z * mat[8] + y * mat[4]) + x * mat[0]) + mat[12]);
+    out[1] = float(((z * mat[9] + y * mat[5]) + x * mat[1]) + mat[13]);
+    out[2] = float(((z * mat[10] + y * mat[6]) + x * mat[2]) + mat[14]);
+}
+// 0x4A283C..0x4A28B6: caja. Cada eje: (rem * 0.0001f) * (max - min) + min; x e y se guardan como float, z queda en el registro.
+__declspec(noinline) void __cdecl FxPrtBoxPositionCpp(int remX, int remY, int remZ, const float* sizeMin, const float* sizeMax, const float* off, const float* mat, float* out) {
+    const float vx = float((double(remX) * kFxPrtRand1) * (double(sizeMax[0]) - sizeMin[0]) + sizeMin[0]);
+    const float vy = float((double(remY) * kFxPrtRand1) * (double(sizeMax[1]) - sizeMin[1]) + sizeMin[1]);
+    const double vz = (double(remZ) * kFxPrtRand1) * (double(sizeMax[2]) - sizeMin[2]) + sizeMin[2];
+    FxPrtTransformTail(vx, vy, vz, off, mat, out);
+}
+// 0x4A27C8..0x4A27F2: (c*c + b*b) + a*a (sin raiz).
+static __declspec(noinline) double FxPrtSphereSum(float a, float b, float c) { return (double(c) * c + double(b) * b) + double(a) * a; }
+#pragma float_control(pop)
+// 1.0 / fsqrt(suma) (fsqrt, fdivr qword [0x85A310]); fuera de la region precise.
+static __declspec(noinline) double FxPrtSphereInverse(double sum) { return kFxPrtOneD / sqrt(sum); }
+#pragma float_control(precise, on, push)
+// Esfera: a, b, c = float(rem * 0.0002f - 1.0f); invDist = 1/|(a,b,c)|; si radio < 0 la escala es invDist * radio; si no, ((rem4 * 0.0001f) * float(invDist)) * radio.
+// x = float(a * escala), y = float(b * escala), z = escala * c (registro). useExtra / remExtra: el cuarto rand() solo existe si radio > 0 (el llamador decide).
+__declspec(noinline) void __cdecl FxPrtSpherePositionCpp(int remX, int remY, int remZ, bool useExtra, int remExtra, float radius, const float* off, const float* mat, float* out) {
+    const float a = float(double(remX) * kFxPrtRand2 - kFxPrtOne);
+    const float b = float(double(remY) * kFxPrtRand2 - kFxPrtOne);
+    const float c = float(double(remZ) * kFxPrtRand2 - kFxPrtOne);
+    const double inverse = FxPrtSphereInverse(FxPrtSphereSum(a, b, c));
+    double scale;
+    if (useExtra) {
+        const float inverseFloat = float(inverse);
+        scale = (double(remExtra) * kFxPrtRand1) * inverseFloat;
+    } else {
+        scale = inverse;
+    }
+    scale = scale * radius;
+    const float vx = float(double(a) * scale);
+    const float vy = float(double(b) * scale);
+    const double vz = scale * c;
+    FxPrtTransformTail(vx, vy, vz, off, mat, out);
+}
+// 0x4A2931..0x4A2A13: angulos. randomAngle = float((remA * 0.0001f) * 6.28318f); minRad = float(angleMin * 0.0174533f); ang = (remB * 0.0001f) * (angleMax * 0.0174533f - minRad) + minRad (registro).
+// prodB = ang * 40.7437; sinB = tabla[ftol2(prodB) & 255]; prodA = randomAngle * 40.7437 (y float(prodA) guardado);
+// out = { tabla[ftol2(prodA + 64) & 255] * sinB, tabla[ftol2(prodB + 64) & 255], tabla[ftol2(float(prodA)) & 255] * sinB }.
+__declspec(noinline) void __cdecl FxPrtDirectionCpp(int remA, int remB, float angleMin, float angleMax, const float* table, float* out) {
+    const float randomAngle = float((double(remA) * kFxPrtRand1) * kFxPrtTwoPi);
+    const float minRad = float(double(angleMin) * kFxPrtDegToRad);
+    const double t = double(remB) * kFxPrtRand1;
+    const double maxRad = double(angleMax) * kFxPrtDegToRad;
+    const double ang = t * (maxRad - minRad) + minRad;
+    const double prodB = ang * kFxPrtTableScale;
+    const float sinB = table[FxPrtFtolLow(prodB) & 0xFF];
+    const double prodA = double(randomAngle) * kFxPrtTableScale;
+    const float prodAStored = float(prodA);
+    out[0] = float(table[FxPrtFtolLow(prodA + kFxPrtQuarter) & 0xFF] * double(sinB));
+    out[1] = table[FxPrtFtolLow(prodB + kFxPrtQuarter) & 0xFF];
+    out[2] = float(table[FxPrtFtolLow(double(prodAStored)) & 0xFF] * double(sinB));
+}
+// 0x4A2A8C..0x4A2ACD: k = ((rem * 0.0002f - 1.0f) * speedBias) + speed; vel = float(dir * k) por componente.
+__declspec(noinline) void __cdecl FxPrtSpeedCpp(int rem, float speedBias, float speed, const float* dir, float* vel) {
+    const double k = (double(rem) * kFxPrtRand2 - kFxPrtOne) * speedBias + speed;
+    vel[0] = float(double(dir[0]) * k);
+    vel[1] = float(double(dir[1]) * k);
+    vel[2] = float(double(dir[2]) * k);
+}
+// 0x4A2AD2..0x4A2AF7: vel[i] = float(velAdd[i] + vel[i]) (fld velAdd; fadd [vel]; fstp [vel]).
+__declspec(noinline) void __cdecl FxPrtVelAddCpp(const float* velAdd, float* vel) {
+    vel[0] = float(double(velAdd[0]) + vel[0]);
+    vel[1] = float(double(velAdd[1]) + vel[1]);
+    vel[2] = float(double(velAdd[2]) + vel[2]);
+}
+#pragma float_control(pop)
+
+// --- Lote 30: FxEmitter_c::AddParticle(vector) (0x4A3EA0), prefijo FxAddParticle. Anadir al FINAL de X87Math.cpp ---
+// 0x4A3FFE..0x4A4010: fld [rotZ]; fmul dword [0x858B8C] (0.5f); call _ftol2; mov [particula+0x36], al. Devuelve el byte bajo (el producto queda a 24 bits en la x87 y _ftol2 trunca a 64 bits).
+static constexpr float kFxAddParticleHalf = 0.5f;
+#pragma float_control(precise, on, push)
+__declspec(noinline) unsigned int __cdecl FxAddParticleRotZByteCpp(float rotZ) {
+    return static_cast<unsigned int>(static_cast<long long>(double(rotZ) * kFxAddParticleHalf)) & 0xFF;
+}
+#pragma float_control(pop)

@@ -1,0 +1,3 @@
+APROBADO: CameraShake30
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-camerashake30\20261019-023347-221301

@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "pairs": 5120,
+  "differences": 0,
+  "registered_pairs": 5120,
+  "registered_functions": 1,
+  "functions": {
+    "CCustomBuildingDNPipeline::CustomPipeMaterialSetup": 5120
+  },
+  "covered_functions": {
+    "CCustomBuildingDNPipeline::CustomPipeMaterialSetup": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wc-b (HEAD c5318699a + parches del lote 30; ver artifacts/build-manifest.json), de sólo lectura y eliminado tras el registro. El árbol principal tiene además trabajo sin validar del lote 27 en archivos vecinos, fusionado en tres vías, por lo que los hashes del manifiesto (normalizados a LF) de las fuentes probadas de esta función coinciden con los del árbol principal; los archivos con hash distinto sin normalizar sólo difieren por finales de línea (CRLF). Resultado: 5120 pares, cero diferencias. Colaborador sustituido por un falso trazado idéntico en ambos lados: CCustomBuildingDNPipeline::SetFxEnvTexture (0x5D9570; no se valida su cuerpo, que ya tiene su propio banco); RpMatFXMaterialGetEffects (0x812140) se ejecuta de verdad. EAX (el material) exigido; ECX/EDX sólo registrados.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/CBDNMaterialSetup30-20261019-022932-867513",
+  "summary_sha256": "774a4fce1ef810de7dec546006956efc703d8627fb3b907ea46779ccfd10a36e",
+  "result_txt_sha256": "7d85596fdd7f7bff33130f7ac31ae6cd845f2d068fef9e9f0874a8dc48548c05",
+  "log_sha256": "83782c83407889e1c6e2aebaef71c34fc8c8b62f8759481073d3d5fca01a980e",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "feca126587887fbb498230553df68fdad0f8f15808f81e3dd103c179dd692750",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "2cc6a71f9ceeb30343d69c66645df4f2a7eddc19ea9c007a11043c0425dde7cc",
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4",
+      "source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h": "e25ad7cef9a978d9912fee8e43806cfdc14418edbcf05b84ee8279610ad94baa",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/CBDNMaterialSetup30/LiveComparison.hpp": "c3d70323f5cb2e595bcb778d419e4aa97afebf8a7a1b45803819dce8ae4520d0",
+      "reversing/CBDNMaterialSetup30/Core.hpp": "14eb49ac6e253ceded5f4210c09fb50d6b20fea181ba1068ba383356233845c4",
+      "reversing/CBDNMaterialSetup30/Fixtures.hpp": "ff09666e788b443fd7aad94fdc7d0e1359ae1e8c9658d3566ccd5e31f462fd02",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

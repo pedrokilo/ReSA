@@ -1,0 +1,116 @@
+diff --git a/source/game_sa/Camera.cpp b/source/game_sa/Camera.cpp
+index c215f9c58..328f343c5 100644
+--- a/source/game_sa/Camera.cpp
++++ b/source/game_sa/Camera.cpp
+@@ -189,6 +189,7 @@ void CCamera::InjectHooks() {
+     RH_ScopedInstall(CalculateGroundHeight, 0x514B80);
+     RH_ScopedInstall(CalculateFrustumPlanes, 0x514D60);
+     RH_ScopedInstall(CalculateDerivedValues, 0x5150E0);
++    RH_ScopedInstall(UpdateSoundDistances, 0x515BD0);
+     RH_ScopedInstall(ImproveNearClip, 0x516B20);
+     RH_ScopedInstall(SetCameraUpForMirror, 0x51A560);
+     RH_ScopedInstall(RestoreCameraAfterMirror, 0x51A5A0);
+@@ -1431,9 +1432,48 @@ void CCamera::UpdateAimingCoors(const CVector& aimingTargetCoors) {
+     m_vecAimingTargetCoors = aimingTargetCoors;
+ }
+ 
++namespace {
++// Campo de CCamera por desplazamiento del EXE (los que el encabezado todavia no nombra: +0x158 m_fSoundDistUp, +0x15C/+0x160 valor nuevo/anterior, +0x958 objetivo, +0x984 vector hacia delante de m_mCameraMatrix).
++template<typename T>
++T& CameraRawField(CCamera* camera, uint32 offset) {
++    return *reinterpret_cast<T*>(reinterpret_cast<uint8*>(camera) + offset);
++}
++}
++
+ // 0x515BD0
++// Altura del sonido sobre el suelo: cada 12 fotogramas lanza un rayo vertical (edificios y dummies) desde la posicion de la camara mas un desplazamiento
++// (el vector hacia delante x0.5 si el modo de la camara activa es de los de persona/jugador y el objetivo es un ped, x5 en el resto) y guarda la distancia al suelo (20 si no toca nada);
++// todos los fotogramas interpola entre el valor anterior y el nuevo con (resto + 1) / 6 (0x85F0A0 = 0x3E2AAAAB). Aritmetica x87 de 24 bits en X87Math.cpp (CamSound*).
+ void CCamera::UpdateSoundDistances() {
+-    plugin::CallMethod<0x515BD0, CCamera*>(this);
++    float scale = StaticRef<float>(0x858C80); // 5.0f
++    switch (static_cast<int16>(GetActiveCam().m_nMode)) {
++    case 0x10: case 0x07: case 0x27: case 0x28: case 0x34: case 0x2A: case 0x2B:
++    case 0x29: case 0x2D: case 0x2E: case 0x22: case 0x08: case 0x33:
++        if (CameraRawField<CEntity*>(this, 0x958)->GetIsTypePed()) {
++            scale = StaticRef<float>(0x858B8C); // 0.5f
++        }
++        break;
++    default:
++        break;
++    }
++
++    CVector point;
++    float rayEnd;
++    CamSoundPointCpp(&CameraRawField<float>(this, 0x984), scale, &GetPosition().x, StaticRef<float>(0x858BA4) /* 20.0f */, &point.x, &rayEnd);
++
++    const uint16 phase = static_cast<uint16>(CTimer::GetFrameCounter() % 12u);
++    if (phase == 0) {
++        CameraRawField<uint32>(this, 0x160) = CameraRawField<uint32>(this, 0x15C); // mov edx,[esi+15Ch] / mov [esi+160h],edx: copia de 32 bits
++        CColPoint colPoint;
++        CEntity*  hitEntity;
++        if (CWorld::ProcessVerticalLine(point, rayEnd, colPoint, hitEntity, true, false, false, false, true, false, nullptr)) {
++            CameraRawField<float>(this, 0x15C) = CamSoundHeightCpp(colPoint.m_vecPoint.z, point.z);
++        } else {
++            CameraRawField<uint32>(this, 0x15C) = 0x41A00000u; // mov [esi+15Ch],41A00000h (20.0f)
++        }
++    }
++    CameraRawField<float>(this, 0x158) = CamSoundBlendCpp(static_cast<int32>(static_cast<int16>(phase)) + 1, StaticRef<float>(0x85F0A0),
++        StaticRef<float>(0x858624) /* 1.0f */, CameraRawField<float>(this, 0x160), CameraRawField<float>(this, 0x15C));
+ }
+ 
+ // unused
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 0e5aebc69..0c497122f 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -12839,3 +12839,32 @@ __declspec(noinline) void __cdecl QuatSlerpTCpp(float* out, const float* from, c
+     QuatSlerpTCalcThetaCpp(from, to, &theta, &invSin);
+     QuaternionSlerpCpp(out, from, to, theta, invSin, t);
+ }
++
++// ======================================================================================================================== CCamera::UpdateSoundDistances (0x515BD0; lote 30, prefijo CamSound)
++// 0x515C48..0x515CFC. Los productos y sumas llevan 24 bits de mantisa y exponente extendido (PC = 24): se calculan en double sin pasar por float salvo donde el EXE hace fstp.
++__declspec(noinline) void __cdecl CamSoundPointCpp(const float* forward, float scale, const float* position, float extra, float* point, float* rayEnd) {
++    volatile double offsetX = double(forward[0]) * double(scale);
++    volatile double offsetY = double(forward[1]) * double(scale);
++    volatile double offsetZ = double(forward[2]) * double(scale);
++    volatile float zStored = float(offsetZ);                          // 0x515C71 fstp [esp+14h]
++    volatile float pointX = float(offsetX + double(position[0]));     // 0x515CA7..0x515CA9
++    volatile float pointY = float(offsetY + double(position[1]));     // 0x515CAD..0x515CB0
++    volatile float pointZ = float(double(zStored) + double(position[2]));   // 0x515CB4..0x515CCC
++    point[0] = pointX;
++    point[1] = pointY;
++    point[2] = pointZ;
++    volatile float end = float(double(pointZ) + double(extra));      // 0x515CEC..0x515CFC y 0x515D1B
++    *rayEnd = end;
++}
++__declspec(noinline) float __cdecl CamSoundHeightCpp(float colPointZ, float pointZ) {
++    volatile float height = float(double(colPointZ) - double(pointZ));
++    return height;
++}
++__declspec(noinline) float __cdecl CamSoundBlendCpp(int phasePlusOne, float sixth, float one, float previous, float current) {
++    volatile double t = double(phasePlusOne) * double(sixth);
++    volatile double inverse = double(one) - t;
++    volatile double scaledPrevious = inverse * double(previous);
++    volatile double scaledCurrent = t * double(current);
++    volatile float result = float(scaledPrevious + scaledCurrent);
++    return result;
++}
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index f6e1972c4..fe6b2e9b6 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1523,3 +1523,12 @@ void __cdecl QuaternionFromEulerCpp(float* q, float ax, float ay, float az);
+ // --- CQuaternion::Slerp(from, to, t) (0x59C630), prefijo QuatSlerpT. Anadir al FINAL de X87Math.h ---
+ // CalcTheta (0x4D00E0, con el _CIacos del EXE en FlcX87) y luego QuaternionSlerpCpp (0x59C300) con (theta, 1/sin(theta), t).
+ void __cdecl QuatSlerpTCpp(float* out, const float* from, const float* to, float t);
++
++// --- CCamera::UpdateSoundDistances (0x515BD0; lote 30, prefijo CamSound) ---
++// 0x515C48..0x515CFC: offset = forward * scale (cada producto a 24 bits; el de z se guarda como float antes de sumarlo); point = offset + position (x, y y z, cada suma a 24 bits y guardada como float);
++// *rayEnd = point.z + extra (fadd a 24 bits, fstp float). `position` = GetPosition() (matriz o posicion propia), scale = 0,5f (ped) o 5,0f (0x858B8C / 0x858C80), extra = 20,0f (0x858BA4).
++void __cdecl CamSoundPointCpp(const float* forward, float scale, const float* position, float extra, float* point, float* rayEnd);
++// 0x515D2F..0x515D37: colPointZ - pointZ (fsub a 24 bits, fstp float).
++float __cdecl CamSoundHeightCpp(float colPointZ, float pointZ);
++// 0x515D49..0x515D74: t = fild(phase + 1) * sixth (0x85F0A0, 24 bits); result = ((one - t) * previous) + (t * current), cada operacion a 24 bits en el x87, un solo fstp float al final.
++float __cdecl CamSoundBlendCpp(int phasePlusOne, float sixth, float one, float previous, float current);

@@ -22,8 +22,10 @@
 //   FxEmitter_c::CreateParticles    0x4A41E0  (thiscall, float, float; ret 8)                                         4096 pares
 // Los objetos son arenas propios del banco (Arenas.hpp). Colaboradores de CreateParticles (sustituidos en AMBOS lados por los mismos stubs trazados con EntryPatch en la direccion
 // del EXE y en la entrada del envoltorio de la DLL): FxInfoManager_c::ProcessEmissionInfo (0x4A4960), FxManager_c::FxRwMatrixCreate (0x4A9440) y FxRwMatrixDestroy (0x4A9460),
-// FxPrimBP_c::GetRWMatrix (0x4A9DC0), RwMatrixUpdate (0x7F18A0) y RwMatrixMultiply (0x7F18B0); FxEmitter_c::CreateParticle (0x4A2580) es una funcion del EXE sin reconstruir que la DLL
-// llama por direccion (un solo parche). El constructor de FxPrtMult_c (0x4AB270 en el EXE, el de la DLL en el candidato) y _ftol2 (0x821B40 en el EXE; el del CRT de la DLL mas los
+// FxPrimBP_c::GetRWMatrix (0x4A9DC0), RwMatrixUpdate (0x7F18A0) y RwMatrixMultiply (0x7F18B0); FxEmitter_c::CreateParticle (0x4A2580) esta reconstruida en C++ (lote 30, hook RH) y la DLL
+// la llama en C++: se sustituye en AMBOS lados (en 0x4A2580 y en el CUERPO real de la DLL, resuelto con su hook ENCENDIDO) por el mismo stub trazado. Con ese hook apagado la entrada de la
+// DLL salta al EXE y con el hook encendido el EXE salta a la DLL; por eso el hook de CreateParticle se enciende SOLO durante cada llamada de CreateParticles (parches creados con el hook
+// encendido, destruidos antes de apagarlo) y el resto del tiempo queda apagado como el de CreateParticles. El constructor de FxPrtMult_c (0x4AB270 en el EXE, el de la DLL en el candidato) y _ftol2 (0x821B40 en el EXE; el del CRT de la DLL mas los
 // ayudantes de X87Math en el candidato) se ejecutan de verdad. La traza (tipo, argumentos como desplazamientos en el arena, bits de los floats y hashes de las estructuras) forma
 // parte de la comparacion. Las globales del juego que lee el EXE (CWeather::Wind/Rain, 0xC812F0 y 0xC81324) se guardan y restauran.
 namespace Dependencies22CLive {
@@ -121,6 +123,10 @@ inline RwMatrix* __cdecl StubRwMatrixMultiply(RwMatrix* d,const RwMatrix* a,cons
  trace.insert(trace.end(),{6u,Off(d),Off(a),Off(b),Fnv(a,0x40),Fnv(b,0x40)});auto* w=reinterpret_cast<uint32*>(d);const uint32 h=Fnv(a,0x40)^(Fnv(b,0x40)*31u);for(uint32 i=0;i<16;++i)w[i]=h+i;return d;}
 inline void* __fastcall StubCreateParticle(FxEmitter_c* self,void*,const EmissionInfo_t* em,RwMatrix* wld,const CVector* vel,float timeSince,const FxPrtMult_c* mult,float brightness,bool createLocal){
  trace.insert(trace.end(),{8u,Off(self),Fnv(em,sizeof(EmissionInfo_t)),Off(wld),Fnv(wld,0x40),uint32(vel?1u:0u),Bits(timeSince),Fnv(mult,sizeof(FxPrtMult_c)),Bits(brightness),uint32(createLocal?1u:0u)});return nullptr;}
+inline ReversibleHooks::ReversibleHook::Base* FindHook(const char* cls,const char* fn){
+ ReversibleHooks::ReversibleHook::Base* found{};
+ ReversibleHooks::GetRootCategory().ForEachCategory([&](auto& category){if(category.Name()==cls)for(auto& hook:category.Items())if(hook->Name()==fn)found=hook.get();});
+ return found;}
 inline uintptr_t Entry(auto member){return Resolve(std::bit_cast<uintptr_t>(member));}
 
 inline void Update(){
@@ -132,17 +138,22 @@ inline void Update(){
  // Rutas RH: se construyen antes que nada; cada constructor deja su hook apagado.
  OriginalDependencies499::HookRoute wrap("CCam","WrapAngle",0x509BE0,OriginalDependencies499::HookRoute::RegisteredTarget{});
  OriginalDependencies499::HookRoute create("FxEmitter_c","CreateParticles",0x4A41E0,&FxEmitter_c::CreateParticles);
+ // CreateParticle (0x4A2580): su ruta resuelve el cuerpo real de la DLL con el hook encendido y lo deja apagado; Restore() devuelve estado y bloqueo originales.
+ OriginalDependencies499::HookRoute particle("FxEmitter_c","CreateParticle",0x4A2580,&FxEmitter_c::CreateParticle);
+ auto* const particleHook=FindHook("FxEmitter_c","CreateParticle");
+ const uintptr_t particleBody=particle.Body(),particleSymbol=Resolve(std::bit_cast<uintptr_t>(&FxEmitter_c::CreateParticle)); // con el hook apagado la entrada de la DLL salta al EXE: se resuelve a 0x4A2580
  // Entradas de la DLL de los colaboradores (se resuelven saltando los E9 de enlace incremental) y direcciones del EXE.
  const uintptr_t peiDll=Entry(&FxInfoManager_c::ProcessEmissionInfo),createMatDll=Entry(&FxManager_c::FxRwMatrixCreate),destroyMatDll=Entry(&FxManager_c::FxRwMatrixDestroy),
   getRwDll=Entry(&FxPrimBP_c::GetRWMatrix),updateDll=Resolve(uintptr_t(&RwMatrixUpdate)),multiplyDll=Resolve(uintptr_t(&RwMatrixMultiply));
- const uintptr_t exeEntries[]{0x4A4960,0x4A9440,0x4A9460,0x4A9DC0,0x7F18A0,0x7F18B0,0x4A2580};
+ const uintptr_t exeEntries[]{0x4A4960,0x4A9440,0x4A9460,0x4A9DC0,0x7F18A0,0x7F18B0};
  const uintptr_t dllEntries[]{peiDll,createMatDll,destroyMatDll,getRwDll,updateDll,multiplyDll};
  bool collaboratorsOK=true;for(uintptr_t at:dllEntries)collaboratorsOK&=ModuleOf(at)==asi;
- // CreateParticle (0x4A2580) debe ser, hoy, el codigo del EXE sin hook (la DLL lo llama por direccion).
- collaboratorsOK&=!ReversingProbe::JumpsToDll(0x4A2580)&&ModuleOf(Resolve(0x4A2580))==gameExe;
+ // CreateParticle (0x4A2580): hook registrado, cuerpo real en el ASI y, con el hook apagado, EXE sin salto a la DLL y entrada de la DLL saltando al EXE.
+ collaboratorsOK&=particle.Registered()&&particleHook&&ModuleOf(particleBody)==asi&&!ReversingProbe::JumpsToDll(0x4A2580)&&ModuleOf(Resolve(0x4A2580))==gameExe&&particleSymbol==0x4A2580;
  bool ready=wrap.Registered()&&create.Registered()&&collaboratorsOK&&ModuleOf(wrap.Body())==asi&&ModuleOf(create.Body())==asi;
+ // Las tres primeras vigilancias (WrapAngle, CreateParticles, CreateParticle) se toman con los hooks apagados y, tras Restore(), pueden quedar encendidas: no se reexaminan despues.
  std::vector<Watch> watches;
- for(uintptr_t at:{uintptr_t(0x509BE0),uintptr_t(0x4A41E0)})watches.emplace_back(at,16);
+ for(uintptr_t at:{uintptr_t(0x509BE0),uintptr_t(0x4A41E0),uintptr_t(0x4A2580),std::bit_cast<uintptr_t>(&FxEmitter_c::CreateParticle)})watches.emplace_back(at,16);
  for(uintptr_t at:exeEntries)watches.emplace_back(at,16);
  for(uintptr_t at:dllEntries)watches.emplace_back(at,16);
  auto watchesIntact=[&]{return std::ranges::all_of(watches,[](const auto& w){return w.Intact();});};
@@ -154,8 +165,9 @@ inline void Update(){
  constexpr unsigned total=kWrapCases+kCreateCases;
  Write({{"event","begin"},{"registered_hook",ready},{"functions",2},{"pairs",total},{"cases",{{"Wrap",kWrapCases},{"Create",kCreateCases}}},
   {"compare_dead_x87_registers",kCompareDeadX87Registers},{"collaborators_stubbed",true},
-  {"collaborators",{{"exe",std::vector<uintptr_t>(std::begin(exeEntries),std::end(exeEntries))},{"dll",std::vector<uintptr_t>(std::begin(dllEntries),std::end(dllEntries))}}},
-  {"watched_entries",watched},{"bodies",{{"Wrap",wrap.Body()},{"Create",create.Body()}}},{"asi_module",asi},{"original_module",gameExe},
+  {"collaborators",{{"exe",std::vector<uintptr_t>(std::begin(exeEntries),std::end(exeEntries))},{"dll",std::vector<uintptr_t>(std::begin(dllEntries),std::end(dllEntries))},
+   {"create_particle_exe",0x4A2580},{"create_particle_dll_body",particleBody},{"create_particle_entry_hook_off",particleSymbol}}},
+  {"watched_entries",watched},{"bodies",{{"Wrap",wrap.Body()},{"Create",create.Body()},{"CreateParticle",particleBody}}},{"asi_module",asi},{"original_module",gameExe},
   {"initial_fp",Hex(uintptr_t(savedFP.data()),108)},{"initial_mxcsr",savedMXCSR},{"initial_wind",savedWind},{"initial_rain",savedRain}});
  int pairs{};bool passed=ready;
  auto prepare=[&]{RestoreFloatingState();PrimeX87();_controlfp(_PC_24|_RC_NEAR,_MCW_PC|_MCW_RC);};
@@ -204,18 +216,27 @@ inline void Update(){
  for(unsigned scenario=0;scenario<kCreateCases&&ready;++scenario){
   const auto fx=Create(scenario);Run runs[2];json rows[2];
   for(int side=0;side<2;++side){
-   const bool candidate=side==1;prepare();
+   const bool candidate=side==1;prepare();bool particleRouteOK=true;
    uint8* base=createBytes.data()+16;memset(createBytes.data(),0xA5,16);memset(base+kCpArena,0xA5,16);BuildCreate(base,fx);
    BuildEmission(emissionSource.data(),fx);trace.clear();traceBase=base;matrixCount=0;createCalled=false;
    *reinterpret_cast<uint32*>(&CWeather::Wind)=fx.wind;*reinterpret_cast<uint32*>(&CWeather::Rain)=fx.rain;
    const uint32 emitter=Ptr(base,kCpEmitter);float currentTime,deltaTime;memcpy(&currentTime,&fx.time,4);memcpy(&deltaTime,&fx.delta,4);
    uint32 timeBits,deltaBits;memcpy(&timeBits,&currentTime,4);memcpy(&deltaBits,&deltaTime,4);
    runs[side]=Execute(create,candidate,0x4A41E0,[&]{
-    ReversingProbe::EntryPatch pei0(0x4A4960,&StubProcessEmissionInfo),createExe(0x4A9440,&StubCreate),destroyExe(0x4A9460,&StubDestroy),getRwExe(0x4A9DC0,&StubGetRWMatrix),
-     updateExe(0x7F18A0,&StubRwMatrixUpdate),multiplyExe(0x7F18B0,&StubRwMatrixMultiply),particleExe(0x4A2580,&StubCreateParticle),
-     pei1(peiDll,&StubProcessEmissionInfo),createDll(createMatDll,&StubCreate),destroyDll(destroyMatDll,&StubDestroy),getRwDll2(getRwDll,&StubGetRWMatrix),
-     updateDll2(updateDll,&StubRwMatrixUpdate),multiplyDll2(multiplyDll,&StubRwMatrixMultiply);
-    return GateThis2(0x4A41E0,emitter,timeBits,deltaBits);});
+    // Hook de CreateParticle ENCENDIDO solo aqui: 0x4A2580 salta a la DLL y el cuerpo de la DLL es el real; ambos reciben el mismo stub (bytes guardados con el hook encendido).
+    particleHook->State(true);
+    const bool particleRoute=ReversingProbe::JumpsToDll(0x4A2580)&&Resolve(std::bit_cast<uintptr_t>(&FxEmitter_c::CreateParticle))==particleBody;
+    Reg r{};
+    {
+     ReversingProbe::EntryPatch pei0(0x4A4960,&StubProcessEmissionInfo),createExe(0x4A9440,&StubCreate),destroyExe(0x4A9460,&StubDestroy),getRwExe(0x4A9DC0,&StubGetRWMatrix),
+      updateExe(0x7F18A0,&StubRwMatrixUpdate),multiplyExe(0x7F18B0,&StubRwMatrixMultiply),particleExe(0x4A2580,&StubCreateParticle),particleDll(particleBody,&StubCreateParticle),
+      pei1(peiDll,&StubProcessEmissionInfo),createDll(createMatDll,&StubCreate),destroyDll(destroyMatDll,&StubDestroy),getRwDll2(getRwDll,&StubGetRWMatrix),
+      updateDll2(updateDll,&StubRwMatrixUpdate),multiplyDll2(multiplyDll,&StubRwMatrixMultiply);
+     r=GateThis2(0x4A41E0,emitter,timeBits,deltaBits);
+    }
+    particleHook->State(false);   // tras destruir los parches (restauran los bytes con el hook encendido) y antes de comparar las vigilancias
+    particleRouteOK&=particleRoute;
+    return r;});
    *reinterpret_cast<uint32*>(&CWeather::Wind)=savedWind;*reinterpret_cast<uint32*>(&CWeather::Rain)=savedRain;
    const uint32 cls=FpOpcodeClass(runs[side].ip);const uintptr_t where=ModuleOf(runs[side].ip);
    // Salida pronta (sin matrices): la ultima x87 es una comparacion fcomp m32; si llega al final, el fstp m32 de la intensidad.
@@ -225,7 +246,7 @@ inline void Update(){
      {"min_wind",fx.minWind},{"max_wind",fx.maxWind},{"min_rain",fx.minRain},{"max_rain",fx.maxRain},{"delta",fx.delta},{"time",fx.time},{"parent",fx.parent},{"create_local",fx.createLocal},
      {"flags_other",fx.flagsOther},{"emission_fill",fx.emissionFill},{"benign",fx.benign},{"guarded",fx.guarded}}},
     {"base",uintptr_t(base)},{"state",Hex(uintptr_t(createBytes.data()),createBytes.size())},{"trace",trace},{"intensity",Get32(base,kCpEmitter+0x10)},{"continued",continued}};
-   finishRun(out,runs[side],ipOK);rows[side]=out;
+   finishRun(out,runs[side],ipOK);out["route_ok"]=out["route_ok"]==true&&particleRouteOK;rows[side]=out;
   }
   emitPair("FxEmitter_c::CreateParticles",scenario,rows[0],rows[1],runs[0],runs[1],failuresCreate);
  }
@@ -233,8 +254,8 @@ inline void Update(){
 
  // Las vigilancias se tomaron con los dos hooks apagados (el constructor de HookRoute los apaga): se comprueban ANTES de Restore(), que vuelve a encenderlos.
  const bool entriesIntactBefore=watchesIntact();
- bool stateRestored=entriesIntactBefore&&globalsRestored();stateRestored&=wrap.Restore();stateRestored&=create.Restore();
- for(size_t i=2;i<watches.size();++i)stateRestored&=watches[i].Intact();
+ bool stateRestored=entriesIntactBefore&&globalsRestored();stateRestored&=wrap.Restore();stateRestored&=create.Restore();stateRestored&=particle.Restore();
+ for(size_t i=4;i<watches.size();++i)stateRestored&=watches[i].Intact();
  RestoreFloatingState();stateRestored&=FloatingStateRestored();
  Write({{"event","global_state_final"},{"floating_state",Hex(uintptr_t(savedFP.data()),108)},{"mxcsr",ReadMXCSR()},{"state_restored",stateRestored},{"watched_intact",entriesIntactBefore},
   {"wind",*reinterpret_cast<uint32*>(&CWeather::Wind)},{"rain",*reinterpret_cast<uint32*>(&CWeather::Rain)}});

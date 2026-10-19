@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CCamera::UpdateSoundDistances": 4096
+  },
+  "covered_functions": {
+    "CCamera::UpdateSoundDistances": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wc-b (HEAD c5318699a + parches del lote 30; ver artifacts/build-manifest.json), de sólo lectura y eliminado tras el registro. El árbol principal tiene además trabajo sin validar del lote 27 en archivos vecinos, fusionado en tres vías, por lo que los hashes del manifiesto (normalizados a LF) de las fuentes probadas de esta función coinciden con los del árbol principal; los archivos con hash distinto sin normalizar sólo difieren por finales de línea (CRLF). Corridas previas colgadas en el caso 100 (20261019-023247-105369 y 023609-548293) y una fallida por nombres de clave del layout en run_local (20261019-092509-796177) no son evidencia; Fixtures.hpp se cambió tras el cuelgue y la evidencia es la corrida 20261019-092639-148643. CCamera::UpdateSoundDistances llama una sola vez, cada 12 fotogramas, a CWorld::ProcessVerticalLine (0x5674E0), sustituido por un falso idéntico en la dirección del EXE y en el cuerpo de la DLL (el banco compara la traza de argumentos). Aritmética x87 de 24 bits con exponente extendido en CamSoundPointCpp/CamSoundHeightCpp/CamSoundBlendCpp (X87Math.cpp). Los llamadores del EXE (0x52C9B6 en CCamera::Process) no leen EAX/ECX/EDX: sólo registrados. NaN siempre silenciosos (sNaN no cubierto); los empates de NaN con signos opuestos (comodín del oráculo) sólo exigen EXE == DLL.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/CameraSoundDist30-20261019-092639-148643",
+  "summary_sha256": "529b90b9ddc24eac83e4fa2d378225ce5e5683bedb15f8f6cbfa3182e4ff248f",
+  "result_txt_sha256": "25c6db1f8e819fb9e32530aeee9202b1f616ea2874ab207fb3f6e371f0ee2a21",
+  "log_sha256": "f33b0af2eb788303308e67925ad7600c4b9fa8273d78948372fe442617a62456",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "fb63ccf6e6461461fe7c82f9f96df86a002bbfad77f67d9d05e6e78efc4a3976",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Camera.cpp": "bef66c37765d2411919068d4336b813ef924531cf0b3d0180996050bf15f50ea",
+      "source/game_sa/Camera.h": "70b662752b8d18c81762ea8f8a7d36f50d507c5e3b28cac8c3ed05e57172bb63",
+      "source/game_sa/World.cpp": "0066108864b6c6c3aa13ac5a68da99749b177bd94605ebc3a2c14580018340bd",
+      "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+      "source/game_sa/X87Math.cpp": "30c95b55b36b9e753257fcc316b798c77b0c425f0b6278e472c22b24df55c45f",
+      "source/game_sa/X87Math.h": "41da5c307f800d79ce74fb2a850e2a4bbf775d9907d9c9780beee017fae395a7",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/CameraSoundDist30/LiveComparison.hpp": "fd54df79a371454d873db64eaba21e6f563e3c34dd4e2fb7a73b717ca2079c45",
+      "reversing/CameraSoundDist30/Core.hpp": "f316bb03e29f74faf1486c3143335acdf694a8b36ce60da1695831da173eb8e2",
+      "reversing/CameraSoundDist30/Fixtures.hpp": "4a0415cc1379d354c08274a8145ce464db7304f40a7807dd34b945e4adda405e",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

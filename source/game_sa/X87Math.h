@@ -1523,3 +1523,45 @@ void __cdecl QuaternionFromEulerCpp(float* q, float ax, float ay, float az);
 // --- CQuaternion::Slerp(from, to, t) (0x59C630), prefijo QuatSlerpT. Anadir al FINAL de X87Math.h ---
 // CalcTheta (0x4D00E0, con el _CIacos del EXE en FlcX87) y luego QuaternionSlerpCpp (0x59C300) con (theta, 1/sin(theta), t).
 void __cdecl QuatSlerpTCpp(float* out, const float* from, const float* to, float t);
+
+// --- CCamera::UpdateSoundDistances (0x515BD0; lote 30, prefijo CamSound) ---
+// 0x515C48..0x515CFC: offset = forward * scale (cada producto a 24 bits; el de z se guarda como float antes de sumarlo); point = offset + position (x, y y z, cada suma a 24 bits y guardada como float);
+// *rayEnd = point.z + extra (fadd a 24 bits, fstp float). `position` = GetPosition() (matriz o posicion propia), scale = 0,5f (ped) o 5,0f (0x858B8C / 0x858C80), extra = 20,0f (0x858BA4).
+void __cdecl CamSoundPointCpp(const float* forward, float scale, const float* position, float extra, float* point, float* rayEnd);
+// 0x515D2F..0x515D37: colPointZ - pointZ (fsub a 24 bits, fstp float).
+float __cdecl CamSoundHeightCpp(float colPointZ, float pointZ);
+// 0x515D49..0x515D74: t = fild(phase + 1) * sixth (0x85F0A0, 24 bits); result = ((one - t) * previous) + (t * current), cada operacion a 24 bits en el x87, un solo fstp float al final.
+float __cdecl CamSoundBlendCpp(int phasePlusOne, float sixth, float one, float previous, float current);
+
+// --- CCamera::ProcessShake (0x516560; lote 30, prefijo CamShake) ---
+// 0x516994..0x516ACF tras CHandShaker::Process (que hace el llamador): angle = float(angleZ * intensity); front = float(front * matriz) (0x59C810) y Normalise (0x59C910); up = {sin(angle), 0, cos(angle)};
+// side = front x up, normalizado; up = side x front; si front.x == 0 y front.y == 0 (fcomp con 0x858B50) ambos pasan a 0x38D1B717; right = front x up, normalizado; up = right x front.
+// Todo sobre la maquina FlcX87 (24 bits, exponente extendido); `matrix` = CMatrix de la entrada de la tabla (right, flags, forward, pad, up, ...).
+void __cdecl CamShakeOrientCpp(float* front, float* up, const float* matrix, float angleZ, float intensity);
+
+// --- CGarages::AddOne (0x4471E0) y CGarages::StoreCarInNearestImpoundingGarage (0x44A3C0), lote 30, prefijo Garage ---
+// (a + b) - c con la x87 (24 bits de mantisa, exponente extendido) y un solo guardado a float: cuarta esquina del garaje (fld, fadd, fsub, fstp).
+float __cdecl GarageSumDiffCpp(float a, float b, float c);
+// a - b con la x87 y un solo guardado a float (direcciones del garaje: frontX - x1, x2 - x1...).
+float __cdecl GarageDiffCpp(float a, float b);
+// Normaliza (x, y): s = sqrt(y*y + x*x) sin redondear; *length = float(s); *outX = float(x / s) con s en registro; *outY = float(y / *length) con el float guardado (0x4474E8..0x447570).
+void __cdecl GarageNormalizeCpp(float x, float y, float* outX, float* outY, float* length);
+// Distancia XY entre garaje y vehiculo (garage/vehicle apuntan a x, y): d = sqrt((vy - gy)^2 + (vx - gx)^2) sin redondear; si d < *minDistance (comparacion ordenada: con NaN no) guarda
+// *minDistance = float(d) y devuelve true (0x44A3FB..0x44A43D).
+bool __cdecl GarageImpoundCloserCpp(const float* garage, const float* vehicle, float* minDistance);
+
+// --- Lote 30: FxEmitter_c::CreateParticle (0x4A2580) y FxEmitter_c::AddParticle(vector) (0x4A3EA0), prefijo FxPrt. Anadir al FINAL de X87Math.h ---
+// Tramos x87 de 24 bits; los rand() del EXE (0x821B1E) se llaman en FxEmitter.cpp y aqui llegan los restos `rand() % 10000`. Ver el bloque homonimo de X87Math.cpp.
+void __cdecl FxPrtLifeCpp(int rem, float lifeBias, float life, float multLife, float* out);
+unsigned int __cdecl FxPrtColorByteCpp(float value);       // byte bajo de _ftol2(value * 255.0f)
+unsigned int __cdecl FxPrtBrightnessByteCpp(float value);  // byte bajo de _ftol2(value * 100.0f)
+unsigned int __cdecl FxPrtRandByteCpp(int rem);            // byte bajo de _ftol2((rem * 0.0001f) * 255.0f)
+void __cdecl FxPrtRotationCpp(int rem, float rotMin, float rotMax, float* out);
+void __cdecl FxPrtBoxPositionCpp(int remX, int remY, int remZ, const float* sizeMin, const float* sizeMax, const float* off, const float* mat, float* out);
+void __cdecl FxPrtSpherePositionCpp(int remX, int remY, int remZ, bool useExtra, int remExtra, float radius, const float* off, const float* mat, float* out);
+void __cdecl FxPrtDirectionCpp(int remA, int remB, float angleMin, float angleMax, const float* table, float* out);
+void __cdecl FxPrtSpeedCpp(int rem, float speedBias, float speed, const float* dir, float* vel);
+void __cdecl FxPrtVelAddCpp(const float* velAdd, float* vel);
+
+// --- Lote 30: FxEmitter_c::AddParticle(vector) (0x4A3EA0), prefijo FxAddParticle. Anadir al FINAL de X87Math.h ---
+unsigned int __cdecl FxAddParticleRotZByteCpp(float rotZ);  // byte bajo de _ftol2(rotZ * 0.5f)

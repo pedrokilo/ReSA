@@ -1,0 +1,3 @@
+APROBADO: CBDNMaterialSetup30
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cbdnmatsetup30\20261019-022932-867513

@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CCamera
- * Reconstrucción: COMPLETA — 116/116 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 118/118 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 116/116 entradas.
+ * Validación registrada: 118/118 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -36,6 +36,7 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleDuck.h"
 #include "Hud.h"
 #include "X87Math.h"
+#include "HandShaker.h"
 
 auto& TheCamera = StaticRef<CCamera>(0xB6F028);
 auto& gbModelViewer = StaticRef<bool>(0xBA6728);
@@ -189,6 +190,7 @@ void CCamera::InjectHooks() {
     RH_ScopedInstall(CalculateGroundHeight, 0x514B80);
     RH_ScopedInstall(CalculateFrustumPlanes, 0x514D60);
     RH_ScopedInstall(CalculateDerivedValues, 0x5150E0);
+    RH_ScopedInstall(UpdateSoundDistances, 0x515BD0);
     RH_ScopedInstall(ImproveNearClip, 0x516B20);
     RH_ScopedInstall(SetCameraUpForMirror, 0x51A560);
     RH_ScopedInstall(RestoreCameraAfterMirror, 0x51A5A0);
@@ -207,7 +209,7 @@ void CCamera::InjectHooks() {
     RH_ScopedOverloadedInstall(ProcessVectorMoveLinear, "1", 0x5164A0, void(CCamera::*)());
     RH_ScopedOverloadedInstall(ProcessFOVLerp, "0", 0x50D510, void(CCamera::*)(float));
     RH_ScopedOverloadedInstall(ProcessFOVLerp, "1", 0x516500, void(CCamera::*)());
-    //RH_ScopedOverloadedInstall(ProcessJiggle, "0", 0x516560, { .reversed = false });
+    RH_ScopedOverloadedInstall(ProcessShake, "float", 0x516560, CVector*(CCamera::*)(float));
 
     RH_ScopedGlobalInstall(CamShakeNoPos, 0x50A970);
 }
@@ -1431,9 +1433,48 @@ void CCamera::UpdateAimingCoors(const CVector& aimingTargetCoors) {
     m_vecAimingTargetCoors = aimingTargetCoors;
 }
 
+namespace {
+// Campo de CCamera por desplazamiento del EXE (los que el encabezado todavia no nombra: +0x158 m_fSoundDistUp, +0x15C/+0x160 valor nuevo/anterior, +0x958 objetivo, +0x984 vector hacia delante de m_mCameraMatrix).
+template<typename T>
+T& CameraRawField(CCamera* camera, uint32 offset) {
+    return *reinterpret_cast<T*>(reinterpret_cast<uint8*>(camera) + offset);
+}
+}
+
 // 0x515BD0
+// Altura del sonido sobre el suelo: cada 12 fotogramas lanza un rayo vertical (edificios y dummies) desde la posicion de la camara mas un desplazamiento
+// (el vector hacia delante x0.5 si el modo de la camara activa es de los de persona/jugador y el objetivo es un ped, x5 en el resto) y guarda la distancia al suelo (20 si no toca nada);
+// todos los fotogramas interpola entre el valor anterior y el nuevo con (resto + 1) / 6 (0x85F0A0 = 0x3E2AAAAB). Aritmetica x87 de 24 bits en X87Math.cpp (CamSound*).
 void CCamera::UpdateSoundDistances() {
-    plugin::CallMethod<0x515BD0, CCamera*>(this);
+    float scale = StaticRef<float>(0x858C80); // 5.0f
+    switch (static_cast<int16>(GetActiveCam().m_nMode)) {
+    case 0x10: case 0x07: case 0x27: case 0x28: case 0x34: case 0x2A: case 0x2B:
+    case 0x29: case 0x2D: case 0x2E: case 0x22: case 0x08: case 0x33:
+        if (CameraRawField<CEntity*>(this, 0x958)->GetIsTypePed()) {
+            scale = StaticRef<float>(0x858B8C); // 0.5f
+        }
+        break;
+    default:
+        break;
+    }
+
+    CVector point;
+    float rayEnd;
+    CamSoundPointCpp(&CameraRawField<float>(this, 0x984), scale, &GetPosition().x, StaticRef<float>(0x858BA4) /* 20.0f */, &point.x, &rayEnd);
+
+    const uint16 phase = static_cast<uint16>(CTimer::GetFrameCounter() % 12u);
+    if (phase == 0) {
+        CameraRawField<uint32>(this, 0x160) = CameraRawField<uint32>(this, 0x15C); // mov edx,[esi+15Ch] / mov [esi+160h],edx: copia de 32 bits
+        CColPoint colPoint;
+        CEntity*  hitEntity;
+        if (CWorld::ProcessVerticalLine(point, rayEnd, colPoint, hitEntity, true, false, false, false, true, false, nullptr)) {
+            CameraRawField<float>(this, 0x15C) = CamSoundHeightCpp(colPoint.m_vecPoint.z, point.z);
+        } else {
+            CameraRawField<uint32>(this, 0x15C) = 0x41A00000u; // mov [esi+15Ch],41A00000h (20.0f)
+        }
+    }
+    CameraRawField<float>(this, 0x158) = CamSoundBlendCpp(static_cast<int32>(static_cast<int16>(phase)) + 1, StaticRef<float>(0x85F0A0),
+        StaticRef<float>(0x858624) /* 1.0f */, CameraRawField<float>(this, 0x160), CameraRawField<float>(this, 0x15C));
 }
 
 // unused
@@ -1982,7 +2023,41 @@ void CCamera::ProcessShake() {
 // shakeIntensity not used
 // 0x516560
 CVector* CCamera::ProcessShake(float intensity) {
-    return plugin::CallMethodAndReturn<CVector*, 0x516560, CCamera*, float>(this, intensity);
+    (void)intensity; // el EXE ignora el argumento y lee m_fShakeIntensity (+0xC90)
+
+    // Tabla de parametros de temblor (0xB6ECA0, entradas de 0x94 bytes): el EXE la rellena la primera vez (guarda 0xB70048), en este orden.
+    if (!StaticRef<bool>(0xB70048)) {
+        const auto put = [](uintptr_t address, uint32 bits) { StaticRef<uint32>(address) = bits; };
+        put(0xB6ED40, 0x3CA3D70A); put(0xB6ED44, 0x3CA3D70A); put(0xB6ED4C, 0x3951B717); put(0xB6ED48, 0x3C23D70A);
+        put(0xB6ED50, 0x3951B717); put(0xB6ED64, 0x3FA66666); put(0xB6ED54, 0x38D1B717); put(0xB6ED68, 0x3FA66666);
+        put(0xB6EDD4, 0x3CA3D70A); put(0xB6ED6C, 0x3FB33333); put(0xB6EDD8, 0x3CA3D70A); put(0xB6EDE0, 0x3951B717);
+        put(0xB6EDDC, 0x3D23D70A); put(0xB6EDE4, 0x3951B717); put(0xB6EDF8, 0x3FA66666); put(0xB6EDE8, 0x38D1B717);
+        put(0xB6EDFC, 0x3FA66666); put(0xB6EE68, 0x3CA3D70A); put(0xB6EE6C, 0x3CA3D70A); put(0xB6EE00, 0x3FB33333);
+        put(0xB6EE70, 0x3C23D70A); put(0xB6EE74, 0x3951B717);
+        StaticRef<bool>(0xB70048) = true;
+        put(0xB6EDB8, 0x3E99999A); put(0xB6EDBC, 0x3F800000); put(0xB6EDC0, 0x0000000F); put(0xB6EDC4, 0x3A83126F);
+        put(0xB6EE4C, 0x3E99999A); put(0xB6EE50, 0x3F800000); put(0xB6EE54, 0x00000014); put(0xB6EE58, 0x3A83126F);
+        put(0xB6EE78, 0x3951B717); put(0xB6EE7C, 0x38D1B717);
+        put(0xB6EE8C, 0x3FA66666); put(0xB6EE90, 0x3FA66666); put(0xB6EE94, 0x3FB33333);
+        put(0xB6EEFC, 0x3CA3D70A); put(0xB6EF00, 0x3CA3D70A); put(0xB6EF04, 0x3C23D70A);
+        put(0xB6EF08, 0x3951B717); put(0xB6EF0C, 0x3951B717);
+        put(0xB6EF10, 0x38D1B717); put(0xB6EF20, 0x3FA66666);
+        put(0xB6EF24, 0x3FA66666); put(0xB6EF28, 0x3FB33333); put(0xB6EF7C, 0x00000014);
+        put(0xB6EF90, 0x3CA3D70A); put(0xB6EF94, 0x3CA3D70A); put(0xB6EF98, 0x3C23D70A);
+        put(0xB6EF9C, 0x3951B717); put(0xB6EFA0, 0x3951B717); put(0xB6EFA4, 0x38D1B717);
+        put(0xB6EEE0, 0x3E99999A); put(0xB6EEE4, 0x3F800000); put(0xB6EEE8, 0x0000000A); put(0xB6EEEC, 0x3A03126F);
+        put(0xB6EF74, 0x3E99999A); put(0xB6EF78, 0x3F800000); put(0xB6EF80, 0x3B03126F);
+        put(0xB6EFB4, 0x3FA66666); put(0xB6EFB8, 0x3FA66666); put(0xB6EFBC, 0x3FB33333);
+        put(0xB6F008, 0x3E99999A); put(0xB6F00C, 0x3F800000); put(0xB6F010, 0x00000002); put(0xB6F014, 0x3B449BA6);
+    }
+
+    CCam& cam = GetActiveCam();
+    // Entrada de la tabla de CHandShaker (0xB6ECA0, 0x94 bytes) por m_nShakeType sin comprobar el rango, como el EXE (imul de 32 bits).
+    auto* const shaker = reinterpret_cast<CHandShaker*>(uintptr_t(0xB6ECA0) + uint32(m_nShakeType) * 0x94u);
+    shaker->Process(m_fShakeIntensity); // 0x50D930 (C++)
+    // 0x516994..0x516ACF: ang.z * intensidad, front * m_resultMat, up = {sin, 0, cos}, ortonormalizacion (x87 de 24 bits, CamShakeOrientCpp en X87Math.cpp).
+    CamShakeOrientCpp(&cam.m_vecFront.x, &cam.m_vecUp.x, reinterpret_cast<const float*>(&shaker->m_resultMat), shaker->m_ang.z, m_fShakeIntensity);
+    return nullptr; // el EXE devuelve un puntero a un temporal de su pila; ningun llamador lo lee
 }
 
 // inlined - 0x52B845

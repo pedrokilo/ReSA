@@ -1,0 +1,6 @@
+# python reversing/Dependencies25A/residue_scan.py 0x4A3EA0  (llamadas directas): sin resultados (la funcion solo se invoca por la vtable de FxEmitter_c, 0x85A7A4 + 0x14)
+
+# Llamadas virtuales a [reg+0x14] relacionadas con FxSystem_c::AddParticle: 0x4AA191 y 0x4AA516 (barrido capstone de .text, ver vscan en el informe).
+# 0x4AA191: tras el call -> movsx ecx,byte ptr [edi+1Bh]; inc esi; cmp esi,ecx; jl -> ECX escrito antes de leerse; EAX y EDX no se leen.
+# 0x4AA516: tras el call -> mov eax,[esp+34h]; mov ecx,[esp+14h]; mov edx,[ecx+8]; movsx ecx,byte ptr [edx+1Bh] -> EAX, ECX y EDX escritos antes de leerse.
+# Resto de llamadas call [reg+0x14] del EXE: pertenecen a otras clases (no usan la vtable 0x85A7A4); no se han analizado una a una.

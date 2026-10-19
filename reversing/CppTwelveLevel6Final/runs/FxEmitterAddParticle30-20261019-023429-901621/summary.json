@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "513d6f2d5e0cffe1b9f8434895159e5b9fb8a245f0cb0403683c68de5948f475",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "e9bfdac79df368547f7d4d12fae77c944dd8b9e4eb086ebb575e7b1760a416f6",
+    "scripts/gta-reversed.ini": "e9bfdac79df368547f7d4d12fae77c944dd8b9e4eb086ebb575e7b1760a416f6"
+  },
+  "pairs": 4096,
+  "pairs_per_function": {
+    "FxEmitter_c::AddParticle(vector)": 4096
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "5430949255101cf9bd4657683d2ed9119d557a4bdef8df8c02e579f82549776d",
+  "compare_dead_x87_registers": false,
+  "coverage": {
+    "residue_differs": 4096,
+    "particle": 3054,
+    "rot_written": 1909,
+    "useconst": 2114,
+    "fam0": 512,
+    "local": 2039,
+    "fam1": 512,
+    "rot_nonzero": 670,
+    "fam2": 512,
+    "parent": 2768,
+    "fam3": 512,
+    "fam4": 512,
+    "rot_skipped": 1145,
+    "rot_nan": 186,
+    "fam5": 512,
+    "fam6": 512,
+    "fam7": 512,
+    "rot_neg": 1418,
+    "no_particle": 1042
+  },
+  "coverage_method": "serialized_inputs_and_independent_oracle; no_instruction_branch_tracing",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

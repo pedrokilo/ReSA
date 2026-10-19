@@ -1,0 +1,3 @@
+APROBADO: CameraSoundDist30
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-camerasounddist30\20261019-092639-148643

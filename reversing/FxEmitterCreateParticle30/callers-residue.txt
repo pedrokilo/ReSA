@@ -1,0 +1,8 @@
+# python reversing/Dependencies25A/residue_scan.py 0x4A2580  (llamadas directas desde el EXE; formato: direccion, 'call', registros leidos tras el call, llamadas posteriores con registros sin escribir)
+('0x4a3fdf', 'call', ['eax'], ['CALL@4a400b:unwritten=ecx,edx', 'CALL@4a4019:unwritten=edx'])
+('0x4a417d', 'call', ['eax'], ['CALL@4a41a9:unwritten=ecx,edx', 'CALL@4a41b7:unwritten=edx'])
+('0x4a4402', 'call', [], ['CALL@4a440f:unwritten=ecx,edx'])
+
+# Lectura a mano: 0x4A3FDF (AddParticle vector, ahora C++) y 0x4A417D (AddParticle matriz, sigue en el EXE) leen EAX (la particula: mov ebp,eax / mov esi,eax) y nada mas.
+# Las marcas unwritten=ecx,edx de 0x4A400B / 0x4A41A9 son del call a _ftol2 (0x821B40), que escribe EDX y ECX antes de leerlos (ver 0x821B57, 0x821B6C): el residuo no entra en ningun resultado.
+# 0x4A4402 era CreateParticles (ahora C++ con llamada directa a CreateParticle): no lee EAX ni ECX/EDX.

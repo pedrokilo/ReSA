@@ -1,0 +1,126 @@
+diff --git a/source/game_sa/Camera.cpp b/source/game_sa/Camera.cpp
+index c215f9c58..a5de99df6 100644
+--- a/source/game_sa/Camera.cpp
++++ b/source/game_sa/Camera.cpp
+@@ -36,6 +36,7 @@ END GENERATED HOOK STATUS */
+ #include "TaskSimpleDuck.h"
+ #include "Hud.h"
+ #include "X87Math.h"
++#include "HandShaker.h"
+ 
+ auto& TheCamera = StaticRef<CCamera>(0xB6F028);
+ auto& gbModelViewer = StaticRef<bool>(0xBA6728);
+@@ -207,7 +208,7 @@ void CCamera::InjectHooks() {
+     RH_ScopedOverloadedInstall(ProcessVectorMoveLinear, "1", 0x5164A0, void(CCamera::*)());
+     RH_ScopedOverloadedInstall(ProcessFOVLerp, "0", 0x50D510, void(CCamera::*)(float));
+     RH_ScopedOverloadedInstall(ProcessFOVLerp, "1", 0x516500, void(CCamera::*)());
+-    //RH_ScopedOverloadedInstall(ProcessJiggle, "0", 0x516560, { .reversed = false });
++    RH_ScopedOverloadedInstall(ProcessShake, "float", 0x516560, CVector*(CCamera::*)(float));
+ 
+     RH_ScopedGlobalInstall(CamShakeNoPos, 0x50A970);
+ }
+@@ -1982,7 +1983,41 @@ void CCamera::ProcessShake() {
+ // shakeIntensity not used
+ // 0x516560
+ CVector* CCamera::ProcessShake(float intensity) {
+-    return plugin::CallMethodAndReturn<CVector*, 0x516560, CCamera*, float>(this, intensity);
++    (void)intensity; // el EXE ignora el argumento y lee m_fShakeIntensity (+0xC90)
++
++    // Tabla de parametros de temblor (0xB6ECA0, entradas de 0x94 bytes): el EXE la rellena la primera vez (guarda 0xB70048), en este orden.
++    if (!StaticRef<bool>(0xB70048)) {
++        const auto put = [](uintptr_t address, uint32 bits) { StaticRef<uint32>(address) = bits; };
++        put(0xB6ED40, 0x3CA3D70A); put(0xB6ED44, 0x3CA3D70A); put(0xB6ED4C, 0x3951B717); put(0xB6ED48, 0x3C23D70A);
++        put(0xB6ED50, 0x3951B717); put(0xB6ED64, 0x3FA66666); put(0xB6ED54, 0x38D1B717); put(0xB6ED68, 0x3FA66666);
++        put(0xB6EDD4, 0x3CA3D70A); put(0xB6ED6C, 0x3FB33333); put(0xB6EDD8, 0x3CA3D70A); put(0xB6EDE0, 0x3951B717);
++        put(0xB6EDDC, 0x3D23D70A); put(0xB6EDE4, 0x3951B717); put(0xB6EDF8, 0x3FA66666); put(0xB6EDE8, 0x38D1B717);
++        put(0xB6EDFC, 0x3FA66666); put(0xB6EE68, 0x3CA3D70A); put(0xB6EE6C, 0x3CA3D70A); put(0xB6EE00, 0x3FB33333);
++        put(0xB6EE70, 0x3C23D70A); put(0xB6EE74, 0x3951B717);
++        StaticRef<bool>(0xB70048) = true;
++        put(0xB6EDB8, 0x3E99999A); put(0xB6EDBC, 0x3F800000); put(0xB6EDC0, 0x0000000F); put(0xB6EDC4, 0x3A83126F);
++        put(0xB6EE4C, 0x3E99999A); put(0xB6EE50, 0x3F800000); put(0xB6EE54, 0x00000014); put(0xB6EE58, 0x3A83126F);
++        put(0xB6EE78, 0x3951B717); put(0xB6EE7C, 0x38D1B717);
++        put(0xB6EE8C, 0x3FA66666); put(0xB6EE90, 0x3FA66666); put(0xB6EE94, 0x3FB33333);
++        put(0xB6EEFC, 0x3CA3D70A); put(0xB6EF00, 0x3CA3D70A); put(0xB6EF04, 0x3C23D70A);
++        put(0xB6EF08, 0x3951B717); put(0xB6EF0C, 0x3951B717);
++        put(0xB6EF10, 0x38D1B717); put(0xB6EF20, 0x3FA66666);
++        put(0xB6EF24, 0x3FA66666); put(0xB6EF28, 0x3FB33333); put(0xB6EF7C, 0x00000014);
++        put(0xB6EF90, 0x3CA3D70A); put(0xB6EF94, 0x3CA3D70A); put(0xB6EF98, 0x3C23D70A);
++        put(0xB6EF9C, 0x3951B717); put(0xB6EFA0, 0x3951B717); put(0xB6EFA4, 0x38D1B717);
++        put(0xB6EEE0, 0x3E99999A); put(0xB6EEE4, 0x3F800000); put(0xB6EEE8, 0x0000000A); put(0xB6EEEC, 0x3A03126F);
++        put(0xB6EF74, 0x3E99999A); put(0xB6EF78, 0x3F800000); put(0xB6EF80, 0x3B03126F);
++        put(0xB6EFB4, 0x3FA66666); put(0xB6EFB8, 0x3FA66666); put(0xB6EFBC, 0x3FB33333);
++        put(0xB6F008, 0x3E99999A); put(0xB6F00C, 0x3F800000); put(0xB6F010, 0x00000002); put(0xB6F014, 0x3B449BA6);
++    }
++
++    CCam& cam = GetActiveCam();
++    // Entrada de la tabla de CHandShaker (0xB6ECA0, 0x94 bytes) por m_nShakeType sin comprobar el rango, como el EXE (imul de 32 bits).
++    auto* const shaker = reinterpret_cast<CHandShaker*>(uintptr_t(0xB6ECA0) + uint32(m_nShakeType) * 0x94u);
++    shaker->Process(m_fShakeIntensity); // 0x50D930 (C++)
++    // 0x516994..0x516ACF: ang.z * intensidad, front * m_resultMat, up = {sin, 0, cos}, ortonormalizacion (x87 de 24 bits, CamShakeOrientCpp en X87Math.cpp).
++    CamShakeOrientCpp(&cam.m_vecFront.x, &cam.m_vecUp.x, reinterpret_cast<const float*>(&shaker->m_resultMat), shaker->m_ang.z, m_fShakeIntensity);
++    return nullptr; // el EXE devuelve un puntero a un temporal de su pila; ningun llamador lo lee
+ }
+ 
+ // inlined - 0x52B845
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 0e5aebc69..eb9c0c5c7 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -12839,3 +12839,43 @@ __declspec(noinline) void __cdecl QuatSlerpTCpp(float* out, const float* from, c
+     QuatSlerpTCalcThetaCpp(from, to, &theta, &invSin);
+     QuaternionSlerpCpp(out, from, to, theta, invSin, t);
+ }
++
++// ======================================================================================================================== CCamera::ProcessShake (0x516560; lote 30, prefijo CamShake)
++// Secuencia x87 de 0x516994..0x516ACF sobre FlcX87; las llamadas al EXE son 0x59C810 (FlcMatInvMul3x3), 0x59C910 (FlcVecNormalise) y 0x59C730 (FlcVecCross).
++void __cdecl CamShakeOrientCpp(float* front, float* up, const float* matrix, float angleZ, float intensity) {
++    static const float zero = 0.0f;                                   // 0x858B50
++    FlcX87 fp;
++    float angle;
++    fp.Fld(angleZ); fp.Fmul(intensity); fp.Fstp(angle);               // 0x516994..0x5169AA
++    float turned[3];
++    FlcMatInvMul3x3(fp, turned, matrix, front);                       // 0x5169AE: 0x59C810(out, front, matrix)
++    memcpy(front, turned, 12);
++    FlcVecNormalise(fp, front);                                       // 0x5169CE
++    fp.Fld(angle); fp.Fsin(); fp.Fstp(up[0]);                         // 0x5169D3..0x5169EF
++    memset(&up[1], 0, 4);
++    fp.Fld(angle); fp.Fcos(); fp.Fstp(up[2]);                         // 0x5169F3..0x516A07
++    float side[3];
++    FlcVecCross(fp, side, front, up);                                 // 0x516A12: 0x59C730(out, front, up)
++    FlcVecNormalise(fp, side);                                        // 0x516A1E
++    float crossed[3];
++    FlcVecCross(fp, crossed, side, front);                            // 0x516A2E: 0x59C730(out, side, front)
++    memcpy(up, crossed, 12);
++    // 0x516A33..0x516A70: solo si front.x y front.y son ambos iguales a 0 (fcomp; test ah,44h; jp: seguir solo con C3 = 1 y C2 = 0)
++    const auto equalsZero = [&](const float& value) {
++        fp.Fld(value);
++        fp.FcomMem(zero, true);
++        const unsigned ah = fp.Ah() & 0x44u;
++        return ah == 0x40u || ah == 0x04u;
++    };
++    if (equalsZero(front[0]) && equalsZero(front[1])) {
++        const unsigned tiny = 0x38D1B717u;
++        memcpy(&front[0], &tiny, 4);
++        memcpy(&front[1], &tiny, 4);
++    }
++    float right[3];
++    FlcVecCross(fp, right, front, up);                                // 0x516A81
++    FlcVecNormalise(fp, right);                                       // 0x516A99
++    FlcVecCross(fp, crossed, right, front);                           // 0x516AB1
++    memcpy(up, crossed, 12);
++    fp.Commit();
++}
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index f6e1972c4..3c83f9c48 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1523,3 +1523,9 @@ void __cdecl QuaternionFromEulerCpp(float* q, float ax, float ay, float az);
+ // --- CQuaternion::Slerp(from, to, t) (0x59C630), prefijo QuatSlerpT. Anadir al FINAL de X87Math.h ---
+ // CalcTheta (0x4D00E0, con el _CIacos del EXE en FlcX87) y luego QuaternionSlerpCpp (0x59C300) con (theta, 1/sin(theta), t).
+ void __cdecl QuatSlerpTCpp(float* out, const float* from, const float* to, float t);
++
++// --- CCamera::ProcessShake (0x516560; lote 30, prefijo CamShake) ---
++// 0x516994..0x516ACF tras CHandShaker::Process (que hace el llamador): angle = float(angleZ * intensity); front = float(front * matriz) (0x59C810) y Normalise (0x59C910); up = {sin(angle), 0, cos(angle)};
++// side = front x up, normalizado; up = side x front; si front.x == 0 y front.y == 0 (fcomp con 0x858B50) ambos pasan a 0x38D1B717; right = front x up, normalizado; up = right x front.
++// Todo sobre la maquina FlcX87 (24 bits, exponente extendido); `matrix` = CMatrix de la entrada de la tabla (right, flags, forward, pad, up, ...).
++void __cdecl CamShakeOrientCpp(float* front, float* up, const float* matrix, float angleZ, float intensity);

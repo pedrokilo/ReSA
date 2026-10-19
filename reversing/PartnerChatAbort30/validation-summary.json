@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "pairs": 4608,
+  "differences": 0,
+  "registered_pairs": 4608,
+  "registered_functions": 1,
+  "functions": {
+    "CTaskComplexPartnerChat::MakeAbortable": 4608
+  },
+  "covered_functions": {
+    "CTaskComplexPartnerChat::MakeAbortable": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wc-b (HEAD c5318699a + parches del lote 30; ver artifacts/build-manifest.json), de sólo lectura y eliminado tras el registro. El árbol principal tiene además trabajo sin validar del lote 27 en archivos vecinos, fusionado en tres vías, por lo que difieren de verdad, y sólo fuera del cuerpo probado, TaskComplexPartner.h: el árbol principal añade la declaración virtual pura GetPartnerSequence() en la base, ausente en la sonda; el resto coincide (módulo CRLF). Hook virtual (RH_ScopedVMTInstall) registrado como tipo V con original_address 0x00682C60. Ningún colaborador está sustituido: CTask::operator new, los constructores, AddTask y RegisterReference son los ya reconstruidos en C++ y enganchados, por lo que el lado EXE también los ejecuta (no se validan sus cuerpos aquí). EAX/ECX/EDX sólo registrados (0x683B46 los sobrescribe; sólo AL es retorno).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/PartnerChatAbort30-20261019-022730-927920",
+  "summary_sha256": "ac24a674c81c3dd2b84c81fe2c4de650d92fb454176fd8f31b8412b3bdd78d5a",
+  "result_txt_sha256": "5824432bc73e2d1bd3128db5259644fabcb6f960db59e2233de5eb76892535bf",
+  "log_sha256": "e84614d83507a708c1673ce465332262c69fdc7d7a581916b38e5a50912449e1",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "49809cf7d737c61d21efec8c9206f31006bac188e83d03e88897a2bbb16af00d",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.cpp": "09ef0507154f3f2eccee8eaa64d432738304f0e3abef1b6e33a30a03fd502e5e",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.h": "a57cf305ac36c1c3ead10a722f68f1e94c7d354fb391d9e1d7f57ed4d3326db8",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+      "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+      "source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.cpp": "a3c7d4aa3c86160ab799c8504b7ca4df37c5975515ae5e09467cc53a91d654e0",
+      "source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h": "aa2cd825b020c405c0be47f15b583812b4b3f4cd5cecd5e01cabfb0976d587f1",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/PartnerChatAbort30/LiveComparison.hpp": "35252108d13aede763a5b146bd6de2edb9931186578a6ceb3e7897b54de5f781",
+      "reversing/PartnerChatAbort30/Core.hpp": "f92a5a02a3879edd52b008f412890ebbd9fcc3688e37d893c22bdcb854706804",
+      "reversing/PartnerChatAbort30/Fixtures.hpp": "9c12154f602337c7a980ddb5c16277e1abcd216a2fc89235e2a4cda421303740",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

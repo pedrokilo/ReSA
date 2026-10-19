@@ -8690,3 +8690,13 @@ CQuaternion,Multiply,0x0059C270,1,0,1,S
 CQuaternion,Get-euler,0x0059C160,1,0,1,S
 CQuaternion,Set-euler,0x0059C530,1,0,1,S
 CQuaternion,Slerp-t,0x0059C630,1,0,1,S
+CTaskComplexPartnerChat,MakeAbortable,0x00000000,1,0,1,V
+CTaskComplexPartnerChat,GetPartnerSequence,0x00000000,1,0,1,V
+CCustomBuildingDNPipeline,CustomPipeMaterialSetup,0x005D7120,1,0,1,S
+CCustomBuildingDNPipeline,CustomPipeRenderCB,0x005D6480,1,0,1,S
+CGarages,AddOne,0x004471E0,1,0,1,S
+CGarages,StoreCarInNearestImpoundingGarage,0x0044A3C0,1,0,1,S
+CCamera,UpdateSoundDistances,0x00515BD0,1,0,1,S
+CCamera,ProcessShake-float,0x00516560,1,0,1,S
+FxEmitter_c,AddParticle-vector,0x00000000,1,0,1,V
+FxEmitter_c,CreateParticle,0x004A2580,1,0,1,S

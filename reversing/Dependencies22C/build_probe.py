@@ -8,6 +8,6 @@ from probe_build import build
 if __name__=='__main__':
     print(json.dumps(build(Path(__file__).parent,'dependencies22c','Dependencies22CLive',
         ['source/game_sa/Cam.cpp','source/game_sa/Cam.h','source/game_sa/Fx/FxEmitter.cpp','source/game_sa/Fx/FxEmitter.h','source/game_sa/X87Math.cpp','source/game_sa/X87Math.h',
-         'source/game_sa/Fx/FxManager.cpp','source/game_sa/Fx/FxPrimBP.cpp','source/game_sa/Fx/FxInfoManager.cpp','source/game_sa/Fx/FxPrtMult.cpp','source/game_sa/RenderWare/rw/rwplcore.cpp',
+         'source/game_sa/Fx/FxEmitterBP.cpp','source/game_sa/Fx/FxEmitterBP.h','source/game_sa/Fx/Fx.cpp','source/game_sa/Fx/FxManager.cpp','source/game_sa/Fx/FxPrimBP.cpp','source/game_sa/Fx/FxInfoManager.cpp','source/game_sa/Fx/FxPrtMult.cpp','source/game_sa/RenderWare/rw/rwplcore.cpp',
          'source/InjectHooksMain.cpp','reversing/OriginalDependencies499/HookRoute.hpp','reversing/Dependencies22C/Fixtures.hpp','reversing/Dependencies22C/Arenas.hpp',
          'source/reversiblehooks/ReversibleHook/Simple.h','source/reversiblehooks/ReversibleHook/Simple.cpp'])))

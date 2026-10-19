@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "FxEmitter_c::AddParticle(vector)": 4096
+  },
+  "covered_functions": {
+    "FxEmitter_c::AddParticle(vector)": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wc-b (HEAD c5318699a + parches del lote 30; ver artifacts/build-manifest.json), de sólo lectura y eliminado tras el registro. El árbol principal tiene además trabajo sin validar del lote 27 en archivos vecinos, fusionado en tres vías, por lo que los hashes del manifiesto (normalizados a LF) de las fuentes probadas de esta función coinciden con los del árbol principal; los archivos con hash distinto sin normalizar sólo difieren por finales de línea (CRLF). Hook virtual (RH_ScopedVMTOverloadedInstall, sobrecarga vector) registrado como tipo V con original_address 0x004A3EA0. Colaboradores sustituidos por stubs idénticos en ambos lados (no se validan sus cuerpos). EAX/ECX/EDX sólo registrados. NaN de las fixtures siempre silenciosos (sNaN no cubierto); los empates de NaN con signos opuestos sólo exigen EXE == DLL.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/FxEmitterAddParticle30-20261019-023429-901621",
+  "summary_sha256": "49789d22f38a9f89a4ee69c8c6723f605013f09de3e6e8170f6969a9190f1aae",
+  "result_txt_sha256": "68a1a5148ef7cd46986db20c2fd4c778929d4e1a5a3b2455f9e1ed74b20c0ec2",
+  "log_sha256": "5430949255101cf9bd4657683d2ed9119d557a4bdef8df8c02e579f82549776d",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "513d6f2d5e0cffe1b9f8434895159e5b9fb8a245f0cb0403683c68de5948f475",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Fx/FxEmitter.cpp": "698c0e02eff5f4191f021f5f1aba57b4f62beff4f042c1d0b1e1670708dbc445",
+      "source/game_sa/Fx/FxEmitter.h": "96dbd9a2fac41759e7abf278f60a2b8a7bce62d2e05ea4f3c77cb5b542ff08d6",
+      "source/game_sa/X87Math.cpp": "30c95b55b36b9e753257fcc316b798c77b0c425f0b6278e472c22b24df55c45f",
+      "source/game_sa/X87Math.h": "41da5c307f800d79ce74fb2a850e2a4bbf775d9907d9c9780beee017fae395a7",
+      "source/game_sa/Fx/FxManager.cpp": "8ad17f1c5c416b0caa461b7c789a32a0e872b4607d4e1c0ec79808e4f185a877",
+      "source/game_sa/Fx/FxPrimBP.cpp": "a50405dd75d0be3083d46acb0d40613a1950f6a1f1a31165c9dc087f64dd8159",
+      "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
+      "source/game_sa/RenderWare/rw/rwplcore.cpp": "74a39f7114cb16465ed166f0b7642bcac0faf8e32a51d997fdc5d6ab27169394",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/FxEmitterAddParticle30/LiveComparison.hpp": "6eb53772eba20a3d4d32bd0d8d94ffb6e6d9a0ab465303e63c129eeff9eab5b6",
+      "reversing/FxEmitterAddParticle30/Core.hpp": "2b092b96f036613564812e5a5379aeaf85f0fbfb036c239322e08a5c3e782095",
+      "reversing/FxEmitterAddParticle30/Fixtures.hpp": "4cf8fbe85df7bfcd89826c7b3c7322bf5d79937cd6615e7588df46bdee2ed219",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

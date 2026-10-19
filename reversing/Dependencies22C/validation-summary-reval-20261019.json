@@ -1,0 +1,53 @@
+{
+  "passed": true,
+  "pairs": 6144,
+  "differences": 0,
+  "registered_pairs": 6144,
+  "registered_functions": 2,
+  "functions": {
+    "CCam::WrapAngle": 2048,
+    "FxEmitter_c::CreateParticles": 4096
+  },
+  "covered_functions": {
+    "CCam::WrapAngle": true,
+    "FxEmitter_c::CreateParticles": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. REVALIDACIÓN 19/10/2026: re-ejecución completa del banco (6144 pares, 0 diferencias, 2 funciones: CCam::WrapAngle 2048 y FxEmitter_c::CreateParticles 4096) tras pasar FxEmitter_c::CreateParticle (0x4A2580) a C++ (lote 30). El banco se adaptó (LiveComparison.hpp, build_probe.py, run_local.py): CreateParticle se sustituye por el mismo stub trazado en AMBOS lados, en la dirección del EXE y en el cuerpo real de la DLL (resuelto con el hook de CreateParticle encendido; los parches se crean encendido y se destruyen antes de apagarlo y la ruta se exige en route_ok), de modo que sigue probándose CreateParticles y no CreateParticle (que tiene su banco FxEmitterCreateParticle30). Sonda compilada desde el worktree D:/Original/wc-b (HEAD c5318699a + parches del lote 30; ver artifacts/build-manifest.json), de sólo lectura y eliminado tras el registro. El árbol principal tiene además trabajo sin validar del lote 27 en archivos vecinos, fusionado en tres vías; los hashes del manifiesto de las fuentes de esta evidencia coinciden con los del árbol principal (sin normalizar o normalizados a LF; FxEmitterBP.cpp/.h y FxPrimBP.cpp sólo difieren por finales de línea CRLF).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Dependencies22C-20261019-024104-781451",
+  "bank_pairs": 6144,
+  "bank_functions": 2,
+  "summary_sha256": "c4b4e13516ef27233f0f89d46d56f18f9341308adf759825b297213ef3cacaf4",
+  "result_txt_sha256": "08753c09cf66b2f361b60336e16cdf167b36216131a66a91d2fa4f1b845d5d7b",
+  "log_sha256": "ab30ab1f73dad18e103597cb7ce2edd52fc3ff1c8c961505e5a97f5f69177fe3",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "1b980ad2a035eff71edd2444999acf48ae715b41decafb11969a781ac4d60928",
+  "manifest": {
+    "tested_sources": {
+      "source/game_sa/Cam.cpp": "8228cb158cc83a6fb966c77f46116cf623f0f8654cc6cfc3e1b345c458c254fa",
+      "source/game_sa/Cam.h": "2b90b10dd174deb53e54c93e77f5d9447b0904760f180f14960e9c33856deeb2",
+      "source/game_sa/Fx/FxEmitter.cpp": "698c0e02eff5f4191f021f5f1aba57b4f62beff4f042c1d0b1e1670708dbc445",
+      "source/game_sa/Fx/FxEmitter.h": "96dbd9a2fac41759e7abf278f60a2b8a7bce62d2e05ea4f3c77cb5b542ff08d6",
+      "source/game_sa/X87Math.cpp": "30c95b55b36b9e753257fcc316b798c77b0c425f0b6278e472c22b24df55c45f",
+      "source/game_sa/X87Math.h": "41da5c307f800d79ce74fb2a850e2a4bbf775d9907d9c9780beee017fae395a7",
+      "source/game_sa/Fx/FxEmitterBP.cpp": "1a8661dc93fb50d1e66ded53c81c621496a1df41b8bdc377cbe45b1ca9106755",
+      "source/game_sa/Fx/FxEmitterBP.h": "56a2a609dd12fc61d2218966cc0cbbd306e68a0a6e6a00068b81df6438c2875a",
+      "source/game_sa/Fx/Fx.cpp": "3c356608df2bff44b04e412e46512ec4d52a6b7cd759428304668546fadc52fa",
+      "source/game_sa/Fx/FxManager.cpp": "8ad17f1c5c416b0caa461b7c789a32a0e872b4607d4e1c0ec79808e4f185a877",
+      "source/game_sa/Fx/FxPrimBP.cpp": "a50405dd75d0be3083d46acb0d40613a1950f6a1f1a31165c9dc087f64dd8159",
+      "source/game_sa/Fx/FxInfoManager.cpp": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e",
+      "source/game_sa/Fx/FxPrtMult.cpp": "d2bd71102b4aa42f1fe48cbce478b753e7fcc3b8c94058a301b97fd2cbe775d4",
+      "source/game_sa/RenderWare/rw/rwplcore.cpp": "74a39f7114cb16465ed166f0b7642bcac0faf8e32a51d997fdc5d6ab27169394",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Dependencies22C/Fixtures.hpp": "3a30a7bb06c535a32f73ccd6d5225b40af6f9a4cde93826091ccd2637ca4ca1d",
+      "reversing/Dependencies22C/Arenas.hpp": "8cc63086d4d917f71c31a362e7f1eee00c54b930050d8e49eea154e2c41603aa",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,691 entradas reversed=1**, de 8,691 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,701 entradas reversed=1**, de 8,701 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8691 |
+| `validated=1` · evidencia aprobada vinculada | 8701 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8691 |
+| Evidencia histórica vinculada; revisión pendiente | 8701 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -1296,7 +1296,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCam | `RotCamIfInFrontCar` | [Resumen](../reversing/CamRotate355/validation-summary.json) |
 | CCam | `Using3rdPersonMouseCam` | [Resumen](../reversing/CamCore355/validation-summary.json) |
 | CCam | `WellBufferMe` | [Resumen](../reversing/CamHud1/validation-summary.json) |
-| CCam | `WrapAngle` | [Resumen](../reversing/Dependencies22C/validation-summary.json) |
+| CCam | `WrapAngle` | [Resumen](../reversing/Dependencies22C/validation-summary-reval-20261019.json) |
 | CCamera | `AddShakeSimple` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
 | CCamera | `AllowShootingWith2PlayersInCar` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
 | CCamera | `ApplyVehicleCameraTweaks` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
@@ -1364,6 +1364,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCamera | `ProcessObbeCinemaCameraPlane` | [Resumen](../reversing/Dependencies21B/validation-summary.json) |
 | CCamera | `ProcessObbeCinemaCameraTrain` | [Resumen](../reversing/Dependencies21B/validation-summary.json) |
 | CCamera | `ProcessScriptedCommands` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `ProcessShake-float` | [Resumen](../reversing/CameraShake30/validation-summary.json) |
 | CCamera | `ProcessVectorMoveLinear-0` | [Resumen](../reversing/CameraLinear355/validation-summary.json) |
 | CCamera | `ProcessVectorMoveLinear-1` | [Resumen](../reversing/CameraLinear355/validation-summary.json) |
 | CCamera | `ProcessVectorTrackLinear-0` | [Resumen](../reversing/CameraLinear355/validation-summary.json) |
@@ -1409,6 +1410,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCamera | `TakeControlWithSpline` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
 | CCamera | `TryToStartNewCamMode` | [Resumen](../reversing/CameraNewMode355/validation-summary.json) |
 | CCamera | `UpdateAimingCoors` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `UpdateSoundDistances` | [Resumen](../reversing/CameraSoundDist30/validation-summary.json) |
 | CCamera | `UpdateTargetEntity` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
 | CCamera | `Using1stPersonWeaponMode` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
 | CCamera | `VectorMoveLinear` | [Resumen](../reversing/CameraLinear355/validation-summary.json) |
@@ -1975,6 +1977,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCustomBuildingDNPipeline | `CreateCustomObjPipe` | [Resumen](../reversing/Render14/validation-summary.json) |
 | CCustomBuildingDNPipeline | `CreatePipe` | [Resumen](../reversing/Render14/validation-summary.json) |
 | CCustomBuildingDNPipeline | `CustomPipeAtomicSetup` | [Resumen](../reversing/Render14/validation-summary.json) |
+| CCustomBuildingDNPipeline | `CustomPipeMaterialSetup` | [Resumen](../reversing/CBDNMaterialSetup30/validation-summary.json) |
+| CCustomBuildingDNPipeline | `CustomPipeRenderCB` | [Resumen](../reversing/CBDNRenderCB30/validation-summary.json) |
 | CCustomBuildingDNPipeline | `DestroyPipe` | [Resumen](../reversing/Render14/validation-summary.json) |
 | CCustomBuildingDNPipeline | `ExtraVertColourPluginAttach` | [Resumen](../reversing/Render14/validation-summary.json) |
 | CCustomBuildingDNPipeline | `NVCPipelineProcess` | [Resumen](../reversing/Render14/validation-summary.json) |
@@ -2831,6 +2835,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CGarage | `OpenThisGarage` | [Resumen](../reversing/Data23/validation-summary.json) |
 | CGarage | `StoreAndRemoveCarsForThisHideOut` | [Resumen](../reversing/Data23/validation-summary.json) |
 | CGarages | `ActivateGarage` | [Resumen](../reversing/Garages21/validation-summary.json) |
+| CGarages | `AddOne` | [Resumen](../reversing/GaragesAddOne30/validation-summary.json) |
 | CGarages | `AllRespraysCloseOrOpen` | [Resumen](../reversing/Garages21/validation-summary.json) |
 | CGarages | `ChangeGarageType` | [Resumen](../reversing/Garages21/validation-summary.json) |
 | CGarages | `CloseHideOutGaragesBeforeSave` | [Resumen](../reversing/Garages21/validation-summary.json) |
@@ -2852,6 +2857,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CGarages | `Save` | [Resumen](../reversing/Garages21/validation-summary.json) |
 | CGarages | `SetTargetCarForMissionGarage` | [Resumen](../reversing/Garages21/validation-summary.json) |
 | CGarages | `Shutdown` | [Resumen](../reversing/Garages21/validation-summary.json) |
+| CGarages | `StoreCarInNearestImpoundingGarage` | [Resumen](../reversing/GaragesImpound30/validation-summary.json) |
 | CGarages | `TriggerMessage` | [Resumen](../reversing/Garages21/validation-summary.json) |
 | CGarages | `Update` | [Resumen](../reversing/Garages21/validation-summary.json) |
 | CGeneral | `GetATanOfXY` | [Resumen](../reversing/Core9/validation-summary.json) |
@@ -5878,6 +5884,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexOpenPassengerDoor | `GetTaskType` | [Resumen](../reversing/CTasks61a/validation-summary.json) |
 | CTaskComplexPartner | `Constructor` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
 | CTaskComplexPartnerChat | `Constructor` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
+| CTaskComplexPartnerChat | `GetPartnerSequence` | [Resumen](../reversing/PartnerChatSeq30/validation-summary.json) |
+| CTaskComplexPartnerChat | `MakeAbortable` | [Resumen](../reversing/PartnerChatAbort30/validation-summary.json) |
 | CTaskComplexPartnerDeal | `Constructor` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
 | CTaskComplexPartnerGreet | `Clone` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
 | CTaskComplexPartnerGreet | `Constructor` | [Resumen](../reversing/CTasks7b/validation-summary.json) |
@@ -8108,7 +8116,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | FxEmitterBP_c | `Update` | [Resumen](../reversing/FxEmitterCore355/validation-summary.json) |
 | FxEmitterBP_c | `UpdateParticle` | [Resumen](../reversing/FxEmitterParticle355/validation-summary.json) |
 | FxEmitterPrt_c | `operator new[]` | [Resumen](../reversing/Pools56/validation-summary.json) |
-| FxEmitter_c | `CreateParticles` | [Resumen](../reversing/Dependencies22C/validation-summary.json) |
+| FxEmitter_c | `AddParticle-vector` | [Resumen](../reversing/FxEmitterAddParticle30/validation-summary.json) |
+| FxEmitter_c | `CreateParticle` | [Resumen](../reversing/FxEmitterCreateParticle30/validation-summary.json) |
+| FxEmitter_c | `CreateParticles` | [Resumen](../reversing/Dependencies22C/validation-summary-reval-20261019.json) |
 | FxFrustumInfo_c | `IsCollision` | [Resumen](../reversing/DependenciesWorldLeaf3/validation-summary.json) |
 | FxInfoManager_c | `AddFxInfo` | [Resumen](../reversing/Misc8/validation-summary.json) |
 | FxInfoManager_c | `Load` | [Resumen](../reversing/FxInfoLoad28/validation-summary.json) |
@@ -8802,7 +8812,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CBulletInfo` | 4 | 0 | 4 | 0 |
 | `CBulletTraces` | 5 | 0 | 5 | 0 |
 | `CCam` | 48 | 0 | 48 | 0 |
-| `CCamera` | 116 | 0 | 116 | 0 |
+| `CCamera` | 118 | 0 | 118 | 0 |
 | `CCarAI` | 25 | 0 | 25 | 0 |
 | `CCarCtrl` | 30 | 0 | 30 | 0 |
 | `CCarEnterExit` | 32 | 0 | 32 | 0 |
@@ -8845,7 +8855,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CCullZones` | 21 | 0 | 21 | 0 |
 | `CCurrentVehicle` | 2 | 0 | 2 | 0 |
 | `CCurves` | 6 | 0 | 6 | 0 |
-| `CCustomBuildingDNPipeline` | 14 | 0 | 14 | 0 |
+| `CCustomBuildingDNPipeline` | 16 | 0 | 16 | 0 |
 | `CCustomBuildingPipeline` | 7 | 0 | 7 | 0 |
 | `CCustomBuildingRenderer` | 7 | 0 | 7 | 0 |
 | `CCustomCarEnvMapPipeline` | 37 | 0 | 37 | 0 |
@@ -8952,7 +8962,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CGangWars` | 35 | 0 | 35 | 0 |
 | `CGangs` | 8 | 0 | 8 | 0 |
 | `CGarage` | 8 | 0 | 8 | 0 |
-| `CGarages` | 24 | 0 | 24 | 0 |
+| `CGarages` | 26 | 0 | 26 | 0 |
 | `CGeneral` | 9 | 0 | 9 | 0 |
 | `CGenericGameStorage` | 19 | 0 | 19 | 0 |
 | `CGlass` | 19 | 0 | 19 | 0 |
@@ -9221,7 +9231,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexOpenDriverDoor` | 4 | 0 | 4 | 0 |
 | `CTaskComplexOpenPassengerDoor` | 4 | 0 | 4 | 0 |
 | `CTaskComplexPartner` | 1 | 0 | 1 | 0 |
-| `CTaskComplexPartnerChat` | 1 | 0 | 1 | 0 |
+| `CTaskComplexPartnerChat` | 3 | 0 | 3 | 0 |
 | `CTaskComplexPartnerDeal` | 1 | 0 | 1 | 0 |
 | `CTaskComplexPartnerGreet` | 7 | 0 | 7 | 0 |
 | `CTaskComplexPartnerShove` | 2 | 0 | 2 | 0 |
@@ -9465,7 +9475,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `FurnitureSubGroup_c` | 3 | 0 | 3 | 0 |
 | `FxEmitterBP_c` | 9 | 0 | 9 | 0 |
 | `FxEmitterPrt_c` | 1 | 0 | 1 | 0 |
-| `FxEmitter_c` | 1 | 0 | 1 | 0 |
+| `FxEmitter_c` | 3 | 0 | 3 | 0 |
 | `FxFrustumInfo_c` | 1 | 0 | 1 | 0 |
 | `FxInfoManager_c` | 5 | 0 | 5 | 0 |
 | `FxManager_c` | 25 | 0 | 25 | 0 |

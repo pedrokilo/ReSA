@@ -1,0 +1,181 @@
+diff --git a/source/game_sa/Garages.cpp b/source/game_sa/Garages.cpp
+index af6e029..c38e909 100644
+--- a/source/game_sa/Garages.cpp
++++ b/source/game_sa/Garages.cpp
+@@ -30,7 +30,7 @@ void CGarages::InjectHooks() {
+     RH_ScopedInstall(Init, 0x447120);
+     RH_ScopedInstall(Init_AfterRestart, 0x448B60);
+     RH_ScopedInstall(Shutdown, 0x4471B0);
+-    // RH_ScopedInstall(AddOne, 0x4471E0);
++    RH_ScopedInstall(AddOne, 0x4471E0);
+     RH_ScopedInstall(CloseHideOutGaragesBeforeSave, 0x44A170);
+     RH_ScopedInstall(PlayerArrestedOrDied, 0x449E60);
+     RH_ScopedInstall(AllRespraysCloseOrOpen, 0x448B30);
+@@ -45,7 +45,7 @@ void CGarages::InjectHooks() {
+     RH_ScopedInstall(ActivateGarage, 0x447CD0);
+     RH_ScopedInstall(DeActivateGarage, 0x447CB0);
+     RH_ScopedInstall(SetTargetCarForMissionGarage, 0x447C40);
+-    // RH_ScopedInstall(StoreCarInNearestImpoundingGarage, 0x44A3C0);
++    RH_ScopedInstall(StoreCarInNearestImpoundingGarage, 0x44A3C0);
+     RH_ScopedInstall(TriggerMessage, 0x447B80);
+     RH_ScopedInstall(PrintMessages, 0x447790);
+     RH_ScopedInstall(ChangeGarageType, 0x4476D0);
+@@ -167,8 +167,56 @@ void CGarages::GivePlayerDetonator() {
+ // 0x2	door goes in
+ // 0x4	camera follow players
+ // TODO...
++// Como el original (0x4471E0..0x4475F3): no comprueba el limite de garajes y `a10` no se lee. Los limites son min/max con `a < b ? a : b` / `a > b ? a : b` (el orden de los operandos decide
++// el resultado con NaN) sobre x1, frontX, x2 y la cuarta esquina (frontX + x2) - x1, guardada como float; el EXE los pasa por la x87 (fld/fstp), asi que un NaN senal sale silencioso.
++// Las sumas y restas, la raiz y las divisiones se hacen en X87Math.cpp (24 bits de mantisa con exponente extendido, como el EXE).
++static float GarageQuietNan(float value) {
++    uint32 bits = std::bit_cast<uint32>(value);
++    if ((bits & 0x7F800000u) == 0x7F800000u && (bits & 0x007FFFFFu) != 0) {
++        bits |= 0x00400000u;
++    }
++    return std::bit_cast<float>(bits);
++}
++
+ void CGarages::AddOne(float x1, float y1, float z1, float frontX, float frontY, float x2, float y2, float z2, uint8 type, uint32 a10, char* name, uint32 argFlags) {
+-    return plugin::Call<0x4471E0, float, float, float, float, float, float, float, float, uint8, uint32, char*, uint32>(x1, y1, z1, frontX, frontY, x2, y2, z2, type, a10, name, argFlags);
++    CGarage& garage = aGarages[NumGarages];
++
++    const float cornerX = GarageSumDiffCpp(frontX, x2, x1);
++    float       minX    = x1 < frontX ? x1 : frontX;
++    minX                = minX < x2 ? minX : x2;
++    garage.m_fLeftCoord = GarageQuietNan(minX < cornerX ? minX : cornerX);
++    float maxX           = x1 > frontX ? x1 : frontX;
++    maxX                 = maxX > x2 ? maxX : x2;
++    garage.m_fRightCoord = GarageQuietNan(maxX > cornerX ? maxX : cornerX);
++
++    const float cornerY  = GarageSumDiffCpp(frontY, y2, y1);
++    float       minY     = y1 < frontY ? y1 : frontY;
++    minY                 = minY < y2 ? minY : y2;
++    garage.m_fFrontCoord = GarageQuietNan(minY < cornerY ? minY : cornerY);
++    float maxY           = y1 > frontY ? y1 : frontY;
++    maxY                 = maxY > y2 ? maxY : y2;
++    garage.m_fBackCoord  = GarageQuietNan(maxY > cornerY ? maxY : cornerY);
++
++    garage.m_vPosn.x = x1;
++    garage.m_vPosn.y = y1;
++    garage.m_vPosn.z = z1;
++    const float dirAx = GarageDiffCpp(frontX, x1);
++    const float dirAy = GarageDiffCpp(frontY, y1);
++    const float dirBx = GarageDiffCpp(x2, x1);
++    const float dirBy = GarageDiffCpp(y2, y1);
++    garage.m_fTopZ = z2;
++
++    GarageNormalizeCpp(dirAx, dirAy, &garage.m_vDirectionA.x, &garage.m_vDirectionA.y, &garage.m_fWidth);
++    GarageNormalizeCpp(dirBx, dirBy, &garage.m_vDirectionB.x, &garage.m_vDirectionB.y, &garage.m_fHeight);
++
++    garage.m_nType         = static_cast<eGarageType>(type);
++    garage.m_nOriginalType = static_cast<eGarageType>(type);
++    strncpy(garage.m_anName, name, 7);
++
++    garage.m_bDoorOpensUp         = (argFlags & 1) != 0;
++    garage.m_bDoorGoesIn          = (argFlags & 2) != 0;
++    garage.m_bCameraFollowsPlayer = (argFlags & 4) != 0;
++    NumGarages++;
+ }
+ 
+ // 0x44A170
+@@ -586,8 +634,35 @@ bool CGarages::Save() {
+ }
+ 
+ // 0x44A3C0
++// Como el original (0x44A3C0..0x44A4C6): entre los garajes de embargo (tipos 0x21..0x23) elige el mas cercano en XY (el primero con distancia estrictamente menor; distancia inicial 0x47C34FF3)
++// y guarda el coche en el primer hueco del escondite asociado, contando solo las tres primeras ranuras (modelo > 0); con las tres ocupadas desplaza la 1 a la 0 y la 2 a la 1 y usa la 2.
++// La distancia sale de X87Math.cpp (GarageImpoundCloserCpp: sqrt(dy*dy + dx*dx) sin redondear antes de comparar). Sus dos llamadores del EXE no leen EAX/ECX/EDX.
+ void CGarages::StoreCarInNearestImpoundingGarage(CVehicle* vehicle) {
+-    plugin::Call<0x44A3C0, CVehicle*>(vehicle);
++    int32 best    = -1;
++    float minDist = std::bit_cast<float>(0x47C34FF3u);
++    for (uint32 i = 0; i < static_cast<uint32>(NumGarages); i++) {
++        const uint8 type = static_cast<uint8>(aGarages[i].m_nType);
++        if (type < 0x21 || type > 0x23)
++            continue;
++        if (GarageImpoundCloserCpp(&aGarages[i].m_vPosn.x, &vehicle->GetPosition().x, &minDist)) {
++            best = static_cast<int32>(i);
++        }
++    }
++
++    if (best < 0)
++        return;
++
++    CStoredCar* const stored = GetStoredCarsInSafehouse(FindSafeHouseIndexForGarageType(aGarages[best].m_nType));
++    int32 count = 0;
++    if (stored[0].m_wModelIndex > 0) count = 1;
++    if (stored[1].m_wModelIndex > 0) count++;
++    if (stored[2].m_wModelIndex > 0) count++;
++    if (count == 3) {
++        std::memcpy(&stored[0], &stored[1], sizeof(CStoredCar));
++        std::memcpy(&stored[1], &stored[2], sizeof(CStoredCar));
++        count = 2;
++    }
++    stored[count].StoreCar(vehicle);
+ }
+ 
+ // unused
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 0e5aebc..e2a7d91 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -12839,3 +12839,40 @@ __declspec(noinline) void __cdecl QuatSlerpTCpp(float* out, const float* from, c
+     QuatSlerpTCalcThetaCpp(from, to, &theta, &invSin);
+     QuaternionSlerpCpp(out, from, to, theta, invSin, t);
+ }
++
++// --- CGarages::AddOne (0x4471E0) y CGarages::StoreCarInNearestImpoundingGarage (0x44A3C0), lote 30, prefijo Garage ---
++// Cada funcion es noinline: la secuencia x87 (fld/fadd/fsub/fstp, fsqrt, fdiv) no cambia al insertarse en el llamador (que se compila con SSE).
++__declspec(noinline) float __cdecl GarageSumDiffCpp(float a, float b, float c) {
++    volatile float result = float((double(a) + double(b)) - double(c));
++    return result;
++}
++
++__declspec(noinline) float __cdecl GarageDiffCpp(float a, float b) {
++    volatile float result = float(double(a) - double(b));
++    return result;
++}
++
++__declspec(noinline) void __cdecl GarageNormalizeCpp(float x, float y, float* outX, float* outY, float* length) {
++    const double s = sqrt(double(y) * double(y) + double(x) * double(x));
++    volatile float stored = float(s);
++    *length = stored;
++    *outX = float(double(x) / s);
++    const double divisor = stored;
++    *outY = float(double(y) / divisor);
++}
++
++// La raiz va aparte y noinline: con /fp:fast el compilador cambiaria sqrt(s) < m por s < m*m y quitaria el FSQRT.
++static __declspec(noinline) double __cdecl GarageRootCpp(double dy, double dx) {
++    return sqrt(dy * dy + dx * dx);
++}
++
++__declspec(noinline) bool __cdecl GarageImpoundCloserCpp(const float* garage, const float* vehicle, float* minDistance) {
++    const double dx = double(vehicle[0]) - double(garage[0]);
++    const double dy = double(vehicle[1]) - double(garage[1]);
++    const double distance = GarageRootCpp(dy, dx);
++    if (distance < double(*minDistance)) {
++        *minDistance = float(distance);
++        return true;
++    }
++    return false;
++}
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index f6e1972..9befbb0 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1523,3 +1523,14 @@ void __cdecl QuaternionFromEulerCpp(float* q, float ax, float ay, float az);
+ // --- CQuaternion::Slerp(from, to, t) (0x59C630), prefijo QuatSlerpT. Anadir al FINAL de X87Math.h ---
+ // CalcTheta (0x4D00E0, con el _CIacos del EXE en FlcX87) y luego QuaternionSlerpCpp (0x59C300) con (theta, 1/sin(theta), t).
+ void __cdecl QuatSlerpTCpp(float* out, const float* from, const float* to, float t);
++
++// --- CGarages::AddOne (0x4471E0) y CGarages::StoreCarInNearestImpoundingGarage (0x44A3C0), lote 30, prefijo Garage ---
++// (a + b) - c con la x87 (24 bits de mantisa, exponente extendido) y un solo guardado a float: cuarta esquina del garaje (fld, fadd, fsub, fstp).
++float __cdecl GarageSumDiffCpp(float a, float b, float c);
++// a - b con la x87 y un solo guardado a float (direcciones del garaje: frontX - x1, x2 - x1...).
++float __cdecl GarageDiffCpp(float a, float b);
++// Normaliza (x, y): s = sqrt(y*y + x*x) sin redondear; *length = float(s); *outX = float(x / s) con s en registro; *outY = float(y / *length) con el float guardado (0x4474E8..0x447570).
++void __cdecl GarageNormalizeCpp(float x, float y, float* outX, float* outY, float* length);
++// Distancia XY entre garaje y vehiculo (garage/vehicle apuntan a x, y): d = sqrt((vy - gy)^2 + (vx - gx)^2) sin redondear; si d < *minDistance (comparacion ordenada: con NaN no) guarda
++// *minDistance = float(d) y devuelve true (0x44A3FB..0x44A43D).
++bool __cdecl GarageImpoundCloserCpp(const float* garage, const float* vehicle, float* minDistance);

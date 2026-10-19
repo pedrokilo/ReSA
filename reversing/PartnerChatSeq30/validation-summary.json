@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "pairs": 4608,
+  "differences": 0,
+  "registered_pairs": 4608,
+  "registered_functions": 1,
+  "functions": {
+    "CTaskComplexPartnerChat::GetPartnerSequence": 4608
+  },
+  "covered_functions": {
+    "CTaskComplexPartnerChat::GetPartnerSequence": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wc-b (HEAD c5318699a + parches del lote 30; ver artifacts/build-manifest.json), de sólo lectura y eliminado tras el registro. El árbol principal tiene además trabajo sin validar del lote 27 en archivos vecinos, fusionado en tres vías, por lo que difieren de verdad, y sólo fuera del cuerpo probado, TaskComplexPartner.h (declaración virtual pura GetPartnerSequence() en la base, ausente en la sonda) y PedIntelligence.cpp (el árbol principal convierte a C++ otras funciones de CPedIntelligence, lote 27, que la sonda llama al EXE); el resto coincide (módulo CRLF). Hook virtual (RH_ScopedVMTInstall) registrado como tipo V con original_address 0x00684380. Ningún colaborador está sustituido: CTask::operator new, los constructores, AddTask, RegisterReference, FindTaskByType y las tareas de secuencia son los ya reconstruidos y enganchados, por lo que el lado EXE también los ejecuta (no se validan sus cuerpos aquí). EAX/ECX/EDX sólo registrados (0x683B46 los sobrescribe).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/PartnerChatSeq30-20261019-022826-308189",
+  "summary_sha256": "57a624222e38d0edac9d4e8009f4f4f02c7f6824961a746f1c701c9150453b4b",
+  "result_txt_sha256": "ca274acf412de9c93d90da3127e175847fee5623cbf423540721c8ea43e091e5",
+  "log_sha256": "c4781ac8111ab0006d21aaa72a6d888190ad812a60878bd1dac864fda87c201a",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "719e5946afc1dbf632055569305d665eb895e7a022ddcfe751952cebf106caaa",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.cpp": "09ef0507154f3f2eccee8eaa64d432738304f0e3abef1b6e33a30a03fd502e5e",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.h": "a57cf305ac36c1c3ead10a722f68f1e94c7d354fb391d9e1d7f57ed4d3326db8",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d",
+      "source/game_sa/Tasks/TaskComplexSequence.cpp": "3497ea85aebba258669ea20dbd06fd3628f1e443bca554bfbdd257f1984d5df5",
+      "source/game_sa/Tasks/TaskComplexSequence.h": "9d2404579563e19da54b6c829f3f98129484cc3d10c6c2732e5845d5660926aa",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexTurnToFaceEntityOrCoord.cpp": "921d5f3f7fe35d7c4bc106ea20c88a25b50577a3296ee6a50937860b5a450a81",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexTurnToFaceEntityOrCoord.h": "c457da7020506df591768909a62af77e2ea43356744d84edb2b771de336ae71f",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp": "43fd9a84ae99e1ce5a13dc9aa4dd1dc3b3b2063ccdb73bdb031283e2b38c74b9",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexChat.h": "de62e8ce6761237f32ad24eb30d5e0a21e77dedebb599bc3f8cbdd70998f306c",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp": "5d14c0b128ed6ebd3608b7a440c8b54a14b344912968d26f46d0427932bfa4f7",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleChat.h": "ab3e34e1f33a22c7fadf358fa164241e936226fa2505f31a47f168a63f2687c7",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleRunTimedAnim.cpp": "9b4633f32eff98aae1a36998c8e58db6a56ac44e89ec1077448a3c9ded32e353",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleRunTimedAnim.h": "f52e3d472105eaeca32e1dfa0eddf1ba3ab64e9d7a5a528ca94622aeaebefc8f",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2f9cb5c6c456a1e72832973a6f4575cb00329ba46a16f0683d9ec0bf5d067e9d",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "8dbf353c2ae9ea97c24e4193546199c38cc79b3539edfadbcd3bf9cc70e37006",
+      "source/game_sa/Tasks/Task.cpp": "d700418e6a00f573db2dc824d4a6d0bd325136ddf4f208589b74aef3d5f083c8",
+      "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
+      "source/game_sa/PedIntelligence.cpp": "17d279e4063dd028f638fdcc5f1cce4d3fb8c2f527702de06c4e65ac3961c639",
+      "source/game_sa/PedIntelligence.h": "3cdb1dfdd718c5dc92a273bb06a8db7642606f9c456d76bde75c16c02325abe6",
+      "source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h": "aa2cd825b020c405c0be47f15b583812b4b3f4cd5cecd5e01cabfb0976d587f1",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/PartnerChatSeq30/LiveComparison.hpp": "ed339816a96c125028ebc31dc2d6f7686074f35f15c25953011b5afe3a06bfb1",
+      "reversing/PartnerChatSeq30/Core.hpp": "3611ee49cc91d60f7cca75f5e0642ddcdc297823beb28ca358af7af017436514",
+      "reversing/PartnerChatSeq30/Fixtures.hpp": "7dc9d802ad57d72ea268d01f2ec1f2f68795d6f0814fa65232c14814ac4a60f8",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

@@ -54,6 +54,8 @@ def analyze(path):
         raise RuntimeError('Numero de casos inesperado')
     if begin[0]['pairs'] != sum(EXPECTED.values()):
         raise RuntimeError('Numero de pares inesperado')
+    if set(begin[0]['bodies']) != {'Wrap', 'Create', 'CreateParticle'}:
+        raise RuntimeError('Faltan cuerpos RH (CreateParticle debe resolverse con su hook encendido)')
     for name, body in begin[0]['bodies'].items():
         if not body:
             raise RuntimeError('Cuerpo RH sin resolver: ' + name)

@@ -1,0 +1,46 @@
+diff --git a/source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp b/source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp
+index 0a730ca6a..e496fc3db 100644
+--- a/source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp
++++ b/source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp
+@@ -272,8 +272,34 @@ uint32 CCustomBuildingDNPipeline::UsesThisPipeline(RpAtomic* atomic) {
+ }
+ 
+ // 0x5D7120
++// Callback de RpGeometryForAllMaterials (el recorrido solo lee EAX: devuelve siempre el material para no cortar el bucle). El segundo argumento no se usa.
++// Pone a cero la palabra +0x10 del material (la de banderas: el campo `specular` de las propiedades de superficie). Si el material tiene SOLO el efecto MatFX de mapa de
++// entorno (== 2, no una mascara), pide el dato de entorno propio (SetFxEnvTexture 0x5D9570: duplica el falso si hace falta) y le pone la textura del primer pase de MatFX
++// (+4 de los datos de MatFX), que queda con filtro lineal (byte 0x50 = 2) y direccionamiento envolvente (byte 0x51 = 0x11). Despues vuelve a leer el puntero del dato de
++// entorno (no el resultado de SetFxEnvTexture) y deja en la palabra +0x10 el bit 0 = (brillo(byte +4) * (1/255) != 0 && textura(+8) != nullptr), conservando los bits 3..31.
+ RpMaterial* CCustomBuildingDNPipeline::CustomPipeMaterialSetup(RpMaterial* material, void* data) {
+-    return plugin::CallAndReturn<RpMaterial*, 0x5D7120, RpMaterial*, void*>(material, data);
++    auto* const raw   = reinterpret_cast<uint8*>(material);
++    auto&       flags = *reinterpret_cast<uint32*>(raw + 0x10);
++    flags = 0;
++    if (RpMatFXMaterialGetEffects(material) == rpMATFXEFFECTENVMAP) {
++        if (auto* const envData = SetFxEnvTexture(reinterpret_cast<CustomEnvMapPipeMaterialData**>(raw + CCustomCarEnvMapPipeline::ms_envMapPluginOffset))) {
++            auto* const matFxData = *reinterpret_cast<uint8**>(raw + MatFXMaterialDataOffset);
++            auto* const texture   = *reinterpret_cast<uint8**>(matFxData + 4);
++            envData->Texture = reinterpret_cast<RwTexture*>(texture);
++            if (texture) {
++                texture[0x51] = 0x11;
++                texture[0x50] = 2;
++            }
++        }
++    }
++    uint32 hasEnvMap = 0;
++    if (auto* const envData = *reinterpret_cast<uint8**>(raw + CCustomCarEnvMapPipeline::ms_envMapPluginOffset)) {
++        if (static_cast<float>(envData[4]) * StaticRef<float>(0x859A3C) /* 1/255 */ != 0.0f && *reinterpret_cast<void**>(envData + 8)) {
++            hasEnvMap = 1;
++        }
++    }
++    flags = (flags & 0xFFFFFFF8u) | hasEnvMap;
++    return material;
+ }
+ 
+ // 0x5D6480
+@@ -374,4 +400,5 @@ void CCustomBuildingDNPipeline::InjectHooks() {
+     RH_ScopedInstall(CreateCustomObjPipe, 0x5D6750);
+     RH_ScopedInstall(CustomPipeAtomicSetup, 0x5D71C0);
+     RH_ScopedInstall(SetFxEnvTexture, 0x5D9570);
++    RH_ScopedInstall(CustomPipeMaterialSetup, 0x5D7120);
+ }

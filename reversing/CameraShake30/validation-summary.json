@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CCamera::ProcessShake": 4096
+  },
+  "covered_functions": {
+    "CCamera::ProcessShake": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wc-b (HEAD c5318699a + parches del lote 30; ver artifacts/build-manifest.json), de sólo lectura y eliminado tras el registro. El árbol principal tiene además trabajo sin validar del lote 27 en archivos vecinos, fusionado en tres vías, por lo que los hashes del manifiesto (normalizados a LF) de las fuentes probadas de esta función coinciden con los del árbol principal; los archivos con hash distinto sin normalizar sólo difieren por finales de línea (CRLF). CCamera::ProcessShake(float) llama una vez a CHandShaker::Process (0x50D930), sustituido por un falso idéntico en la dirección del EXE y en el cuerpo de la DLL (el banco compara la traza y toda la tabla de CHandShaker). Las llamadas del EXE a 0x59C810/0x59C910/0x59C730 se comparan contra la secuencia FlcX87 de CamShakeOrientCpp (X87Math.cpp). El fsin/fcos del hardware con |ángulo| entre 2^20 y 2^63 es impreciso y el oráculo lo deja como comodín (sólo EXE == DLL). Los dos llamadores del EXE (0x51A72B y 0x52BA68) no leen EAX/ECX/EDX: sólo registrados; el EXE devuelve un puntero a un temporal de su pila y la DLL devuelve nullptr. NaN siempre silenciosos (sNaN no cubierto); los empates de NaN con signos opuestos sólo exigen EXE == DLL.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/CameraShake30-20261019-023347-221301",
+  "summary_sha256": "318be27414a4bbf8507477ef9c52f528c23469f9f95e54613cf816c07d2a95e9",
+  "result_txt_sha256": "b2a2a1f38f300484da0fa6aaa00d133da92ac84db276df74f288a43d1f7470c7",
+  "log_sha256": "9c02ab28331eb408fbc78cb562adcbe8af8cad4430ddf8a3f64a56c3f1ec9f0e",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "dfcbf7262ddfcfee4ae44a1dc0c5007b45d449b1905ec6b86755d38627a1e477",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Camera.cpp": "bef66c37765d2411919068d4336b813ef924531cf0b3d0180996050bf15f50ea",
+      "source/game_sa/Camera.h": "70b662752b8d18c81762ea8f8a7d36f50d507c5e3b28cac8c3ed05e57172bb63",
+      "source/game_sa/HandShaker.cpp": "941d350967f72aeffcf6aac6ff845cf576fdc48aaaccb5c40c775aeb7f29f4a8",
+      "source/game_sa/HandShaker.h": "9caaf427c7bec144be3c3fc9ba8f07fadd0fa987a848f7fe2562e8e1aaa746de",
+      "source/game_sa/X87Math.cpp": "30c95b55b36b9e753257fcc316b798c77b0c425f0b6278e472c22b24df55c45f",
+      "source/game_sa/X87Math.h": "41da5c307f800d79ce74fb2a850e2a4bbf775d9907d9c9780beee017fae395a7",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/CameraShake30/LiveComparison.hpp": "b613bc922036745a9e1d8f236a690143136d5570486f36196902badaa54cc8cc",
+      "reversing/CameraShake30/Core.hpp": "b343d7018f3837d0f480e1e6ae76246f6b956907884cf5af24d73a7a223586a3",
+      "reversing/CameraShake30/Fixtures.hpp": "7ff3ebbda0244f8522df11390462de1d8f6798c8d1f8502fe76e2f30f54f7ffb",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

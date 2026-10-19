@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CGarages::StoreCarInNearestImpoundingGarage": 4096
+  },
+  "covered_functions": {
+    "CGarages::StoreCarInNearestImpoundingGarage": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauracion verificadas. Evidencia limitada a los fixtures del banco, no integracion universal ni independencia transitiva del EXE. Alcance por funcion en README del banco. Colaboradores sustituidos por falsos idénticos en ambos lados: CGarages::FindSafeHouseIndexForGarageType (0x4489F0) y CStoredCar::StoreCar (0x449760); no se valida aquí su cuerpo. Fuentes probadas compiladas desde el worktree D:/Original/wc-b (HEAD c5318699a + parches del lote 30; ver artifacts/build-manifest.json), de sólo lectura y eliminado tras el registro. El árbol principal tiene además trabajo sin validar del lote 27 en archivos vecinos, fusionado en tres vías, por lo que difieren de verdad, y sólo fuera del cuerpo probado, Garages.h (retorno de AddOne a int32, ajeno a esta función) y Garage.cpp (funciones de CGarage convertidas a C++ en el lote 27); el resto coincide (módulo CRLF). Colaboradores sustituidos por falsos idénticos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): CGarages::FindSafeHouseIndexForGarageType (0x4489F0) y CStoredCar::StoreCar (0x449760); no se valida aquí su cuerpo. La distancia usa GarageImpoundCloserCpp de X87Math.cpp. EAX/ECX/EDX sólo registrados.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/GaragesImpound30-20261019-023204-678434",
+  "summary_sha256": "34ea31ce0fb74782ee01f5d05420074cddd7eecace895ff4ee324638a11eca5e",
+  "result_txt_sha256": "597c83ecf3f41de6621bf6050d7ed26bfa42ff10569cf0506983aa366647f114",
+  "log_sha256": "bacb674ab8552780e5c2a5d79361ce710efdf265918a207c2126e0dc9a281809",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "aa3eeae56be567a11bbd5165531214b74707b6cd657770f5a28ae3242ace9a20",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Garages.cpp": "8fdc34cb92d37cdb0a44903cd7234108d3be7035e7dc9ae105d430857a1a257c",
+      "source/game_sa/Garages.h": "f71fc96fd17d9d22cba76e913da868dea9b8359fe466eea9465241a3f093f658",
+      "source/game_sa/Garage.cpp": "5eac0ad4506e40d50817a5b0df3f1452861567454194b2756ea4b9bbe237c436",
+      "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a",
+      "source/game_sa/X87Math.cpp": "30c95b55b36b9e753257fcc316b798c77b0c425f0b6278e472c22b24df55c45f",
+      "source/game_sa/X87Math.h": "41da5c307f800d79ce74fb2a850e2a4bbf775d9907d9c9780beee017fae395a7",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/GaragesImpound30/LiveComparison.hpp": "b961dd132f5978ec39fb515f2d139473ae55f7ed58459d8dc22524f0cb5bdd66",
+      "reversing/GaragesImpound30/Core.hpp": "b0d74cb1e1e4254b76220982bf4f99defbad377dd6f23e1f786fbcc1ff66c6ed",
+      "reversing/GaragesImpound30/Fixtures.hpp": "2df4e8342938a34ef32727ed05c2ae5fd4ae14efcccf22d03e9c3b0600595611",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

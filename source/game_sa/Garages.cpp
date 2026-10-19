@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CGarages
- * Reconstrucción: COMPLETA — 24/24 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 26/26 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 24/24 entradas.
+ * Validación registrada: 26/26 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -30,7 +30,7 @@ void CGarages::InjectHooks() {
     RH_ScopedInstall(Init, 0x447120);
     RH_ScopedInstall(Init_AfterRestart, 0x448B60);
     RH_ScopedInstall(Shutdown, 0x4471B0);
-    // RH_ScopedInstall(AddOne, 0x4471E0);
+    RH_ScopedInstall(AddOne, 0x4471E0);
     RH_ScopedInstall(CloseHideOutGaragesBeforeSave, 0x44A170);
     RH_ScopedInstall(PlayerArrestedOrDied, 0x449E60);
     RH_ScopedInstall(AllRespraysCloseOrOpen, 0x448B30);
@@ -45,7 +45,7 @@ void CGarages::InjectHooks() {
     RH_ScopedInstall(ActivateGarage, 0x447CD0);
     RH_ScopedInstall(DeActivateGarage, 0x447CB0);
     RH_ScopedInstall(SetTargetCarForMissionGarage, 0x447C40);
-    // RH_ScopedInstall(StoreCarInNearestImpoundingGarage, 0x44A3C0);
+    RH_ScopedInstall(StoreCarInNearestImpoundingGarage, 0x44A3C0);
     RH_ScopedInstall(TriggerMessage, 0x447B80);
     RH_ScopedInstall(PrintMessages, 0x447790);
     RH_ScopedInstall(ChangeGarageType, 0x4476D0);
@@ -167,8 +167,56 @@ void CGarages::GivePlayerDetonator() {
 // 0x2	door goes in
 // 0x4	camera follow players
 // TODO...
+// Como el original (0x4471E0..0x4475F3): no comprueba el limite de garajes y `a10` no se lee. Los limites son min/max con `a < b ? a : b` / `a > b ? a : b` (el orden de los operandos decide
+// el resultado con NaN) sobre x1, frontX, x2 y la cuarta esquina (frontX + x2) - x1, guardada como float; el EXE los pasa por la x87 (fld/fstp), asi que un NaN senal sale silencioso.
+// Las sumas y restas, la raiz y las divisiones se hacen en X87Math.cpp (24 bits de mantisa con exponente extendido, como el EXE).
+static float GarageQuietNan(float value) {
+    uint32 bits = std::bit_cast<uint32>(value);
+    if ((bits & 0x7F800000u) == 0x7F800000u && (bits & 0x007FFFFFu) != 0) {
+        bits |= 0x00400000u;
+    }
+    return std::bit_cast<float>(bits);
+}
+
 void CGarages::AddOne(float x1, float y1, float z1, float frontX, float frontY, float x2, float y2, float z2, uint8 type, uint32 a10, char* name, uint32 argFlags) {
-    return plugin::Call<0x4471E0, float, float, float, float, float, float, float, float, uint8, uint32, char*, uint32>(x1, y1, z1, frontX, frontY, x2, y2, z2, type, a10, name, argFlags);
+    CGarage& garage = aGarages[NumGarages];
+
+    const float cornerX = GarageSumDiffCpp(frontX, x2, x1);
+    float       minX    = x1 < frontX ? x1 : frontX;
+    minX                = minX < x2 ? minX : x2;
+    garage.m_fLeftCoord = GarageQuietNan(minX < cornerX ? minX : cornerX);
+    float maxX           = x1 > frontX ? x1 : frontX;
+    maxX                 = maxX > x2 ? maxX : x2;
+    garage.m_fRightCoord = GarageQuietNan(maxX > cornerX ? maxX : cornerX);
+
+    const float cornerY  = GarageSumDiffCpp(frontY, y2, y1);
+    float       minY     = y1 < frontY ? y1 : frontY;
+    minY                 = minY < y2 ? minY : y2;
+    garage.m_fFrontCoord = GarageQuietNan(minY < cornerY ? minY : cornerY);
+    float maxY           = y1 > frontY ? y1 : frontY;
+    maxY                 = maxY > y2 ? maxY : y2;
+    garage.m_fBackCoord  = GarageQuietNan(maxY > cornerY ? maxY : cornerY);
+
+    garage.m_vPosn.x = x1;
+    garage.m_vPosn.y = y1;
+    garage.m_vPosn.z = z1;
+    const float dirAx = GarageDiffCpp(frontX, x1);
+    const float dirAy = GarageDiffCpp(frontY, y1);
+    const float dirBx = GarageDiffCpp(x2, x1);
+    const float dirBy = GarageDiffCpp(y2, y1);
+    garage.m_fTopZ = z2;
+
+    GarageNormalizeCpp(dirAx, dirAy, &garage.m_vDirectionA.x, &garage.m_vDirectionA.y, &garage.m_fWidth);
+    GarageNormalizeCpp(dirBx, dirBy, &garage.m_vDirectionB.x, &garage.m_vDirectionB.y, &garage.m_fHeight);
+
+    garage.m_nType         = static_cast<eGarageType>(type);
+    garage.m_nOriginalType = static_cast<eGarageType>(type);
+    strncpy(garage.m_anName, name, 7);
+
+    garage.m_bDoorOpensUp         = (argFlags & 1) != 0;
+    garage.m_bDoorGoesIn          = (argFlags & 2) != 0;
+    garage.m_bCameraFollowsPlayer = (argFlags & 4) != 0;
+    NumGarages++;
 }
 
 // 0x44A170
@@ -586,8 +634,35 @@ bool CGarages::Save() {
 }
 
 // 0x44A3C0
+// Como el original (0x44A3C0..0x44A4C6): entre los garajes de embargo (tipos 0x21..0x23) elige el mas cercano en XY (el primero con distancia estrictamente menor; distancia inicial 0x47C34FF3)
+// y guarda el coche en el primer hueco del escondite asociado, contando solo las tres primeras ranuras (modelo > 0); con las tres ocupadas desplaza la 1 a la 0 y la 2 a la 1 y usa la 2.
+// La distancia sale de X87Math.cpp (GarageImpoundCloserCpp: sqrt(dy*dy + dx*dx) sin redondear antes de comparar). Sus dos llamadores del EXE no leen EAX/ECX/EDX.
 void CGarages::StoreCarInNearestImpoundingGarage(CVehicle* vehicle) {
-    plugin::Call<0x44A3C0, CVehicle*>(vehicle);
+    int32 best    = -1;
+    float minDist = std::bit_cast<float>(0x47C34FF3u);
+    for (uint32 i = 0; i < static_cast<uint32>(NumGarages); i++) {
+        const uint8 type = static_cast<uint8>(aGarages[i].m_nType);
+        if (type < 0x21 || type > 0x23)
+            continue;
+        if (GarageImpoundCloserCpp(&aGarages[i].m_vPosn.x, &vehicle->GetPosition().x, &minDist)) {
+            best = static_cast<int32>(i);
+        }
+    }
+
+    if (best < 0)
+        return;
+
+    CStoredCar* const stored = GetStoredCarsInSafehouse(FindSafeHouseIndexForGarageType(aGarages[best].m_nType));
+    int32 count = 0;
+    if (stored[0].m_wModelIndex > 0) count = 1;
+    if (stored[1].m_wModelIndex > 0) count++;
+    if (stored[2].m_wModelIndex > 0) count++;
+    if (count == 3) {
+        std::memcpy(&stored[0], &stored[1], sizeof(CStoredCar));
+        std::memcpy(&stored[1], &stored[2], sizeof(CStoredCar));
+        count = 2;
+    }
+    stored[count].StoreCar(vehicle);
 }
 
 // unused
