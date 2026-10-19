@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-19 15:57 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-19 20:18 UTC
 
 ## Objetivo y dimensiones de progreso
 
@@ -387,9 +387,9 @@ Destinos originales explícitos que `source/` sigue referenciando y que no estab
 | Nivel | Juego | de ellas pendientes | Biblioteca | de ellas pendientes |
 | --- | ---: | ---: | ---: | ---: |
 | 1 Muy fácil | 9 | 1 | 77 | 1 |
-| 2 Fácil | 25 | 24 | 104 | 104 |
-| 3 Media | 75 | 69 | 69 | 69 |
-| 4 Difícil | 57 | 55 | 23 | 23 |
+| 2 Fácil | 25 | 23 | 104 | 104 |
+| 3 Media | 75 | 66 | 69 | 69 |
+| 4 Difícil | 57 | 54 | 23 | 23 |
 | 5 Muy difícil | 19 | 19 | 6 | 6 |
 
 <details>
@@ -417,7 +417,7 @@ Destinos originales explícitos que `source/` sigue referenciando y que no estab
 | 16 | 3 Media | wrapper | CQuaternion::Get | `0x0059C230` | 57 | ✅ validada |
 | 49 | 2 Fácil | embedded_call | helper sin símbolo confirmado (usado por CDecisionMakerTypes::InjectHooks) | `0x00606060` | 59 | pendiente |
 | 9 | 2 Fácil | wrapper | FindUpgradeCB | `0x006D3370` | 61 | pendiente |
-| 27 | 2 Fácil | wrapper | CTaskComplexPartnerChat::MakeAbortable | `0x00682C60` | 65 | pendiente |
+| 27 | 2 Fácil | wrapper | CTaskComplexPartnerChat::MakeAbortable | `0x00682C60` | 65 | ✅ validada |
 | 55 | 3 Media | wrapper | CCarCtrl::SteerAIPlaneTowardsTargetCoors | `0x00423790` | 75 | pendiente |
 | 90 | 2 Fácil | wrapper | CCarCtrl::GetAIPlaneToDoDogFightAgainstPlayer | `0x0042F370` | 76 | pendiente |
 | 19 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CameraObbeCinemaCycle) | `0x0050B830` | 77 | pendiente |
@@ -466,7 +466,7 @@ Destinos originales explícitos que `source/` sigue referenciando y que no estab
 | 98 | 3 Media | wrapper | CCarCtrl::SteerAIHeliTowardsTargetCoors | `0x0042A630` | 244 | pendiente |
 | 121 | 3 Media | wrapper | CCarCtrl::GetAIPlaneToAttackPlayer | `0x00429780` | 261 | pendiente |
 | 114 | 3 Media | wrapper | D3DResourceSystem::DestroyIndexBuffer | `0x00730D30` | 263 | pendiente |
-| 61 | 3 Media | wrapper | CTaskComplexPartnerShove::GetPartnerSequence | `0x00683120` | 275 | pendiente |
+| 61 | 3 Media | wrapper | CTaskComplexPartnerShove::GetPartnerSequence | `0x00683120` | 275 | ✅ validada |
 | 107 | 3 Media | wrapper | CGarage::IsEntityEntirelyOutside | `0x00448D30` | 281 | pendiente |
 | 115 | 3 Media | wrapper | CTaskComplexFollowPedFootsteps::CreateNextSubTask | `0x00694EE0` | 283 | pendiente |
 | 99 | 3 Media | wrapper | CTaskSimpleFight::MakeAbortable | `0x006239F0` | 284 | pendiente |
@@ -492,10 +492,10 @@ Destinos originales explícitos que `source/` sigue referenciando y que no estab
 | 88 | 3 Media | wrapper | CCarCtrl::SlowCarDownForObjectsSectorList | `0x0042D4F0` | 391 | pendiente |
 | 145 | 3 Media | wrapper | RsSavePresetView | `0x00619FA0` | 393 | pendiente |
 | 68 | 3 Media | embedded_call | CHeli::CHeli | `0x006C4190` | 398 | pendiente |
-| 104 | 3 Media | embedded_call | FxEmitter_c::AddParticle | `0x004A4050` | 400 | pendiente |
+| 104 | 3 Media | embedded_call | FxEmitter_c::AddParticle | `0x004A4050` | 400 | ✅ validada |
 | 112 | 3 Media | wrapper | CCarCtrl::SlowCarDownForCarsSectorList | `0x00432420` | 413 | pendiente |
 | 142 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CDecisionMakerTypes::InjectHooks) | `0x004650F0` | 415 | pendiente |
-| 106 | 3 Media | embedded_call | FxEmitter_c::AddParticle | `0x004A3EA0` | 418 | pendiente |
+| 106 | 3 Media | embedded_call | FxEmitter_c::AddParticle | `0x004A3EA0` | 418 | ✅ validada |
 | 108 | 3 Media | wrapper | CVehicle::AddReplacementUpgrade | `0x006D3830` | 423 | pendiente |
 | 149 | 3 Media | wrapper | D3DResourceSystem::DestroyTexture | `0x00730B70` | 439 | pendiente |
 | 54 | 3 Media | wrapper | CVehicle::ScanAndMarkTargetForHeatSeekingMissile | `0x006E0400` | 445 | pendiente |
@@ -532,7 +532,7 @@ Destinos originales explícitos que `source/` sigue referenciando y que no estab
 | 128 | 4 Difícil | wrapper | CCarCtrl::SteerAICarParkPerpendicular | `0x00433EA0` | 800 | pendiente |
 | 141 | 4 Difícil | wrapper | CCarCtrl::WeaveForObject | `0x00426BC0` | 803 | pendiente |
 | 168 | 4 Difícil | wrapper | CTaskComplexKillPedOnFoot::CreateNextSubTask | `0x0062B150` | 831 | pendiente |
-| 139 | 4 Difícil | wrapper | CTaskComplexPartnerChat::GetPartnerSequence | `0x00684380` | 836 | pendiente |
+| 139 | 4 Difícil | wrapper | CTaskComplexPartnerChat::GetPartnerSequence | `0x00684380` | 836 | ✅ validada |
 | 123 | 4 Difícil | wrapper | CCarCtrl::SteerAICarWithPhysicsHeadingForTarget | `0x00433280` | 841 | pendiente |
 | 93 | 4 Difícil | wrapper | CCarCtrl::FindLinksToGoWithTheseNodes | `0x0042B470` | 862 | pendiente |
 | 138 | 4 Difícil | wrapper | CHeli::GenerateHeli | `0x006C6520` | 867 | pendiente |

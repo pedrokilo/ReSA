@@ -1,6 +1,7 @@
 """Generate the progress dashboard from recorded hook flags (not test coverage)."""
 import argparse
 import csv
+import json
 import datetime
 import os
 from dataclasses import dataclass
@@ -31,11 +32,28 @@ def difficulty_section(root, input_path):
     with source.open(encoding='utf-8-sig', newline='') as stream:
         items = list(csv.DictReader(stream))
     state = {}
+    virtual_rows = {}
     with open(input_path, encoding='utf-8-sig', newline='') as stream:
         for row in csv.DictReader(stream):
             if row['reversed'] == '1':
                 try:
-                    state[int(row['address'], 16)] = row['validated'] == '1'
+                    address = int(row['address'], 16)
+                except ValueError:
+                    continue
+                if address:
+                    state[address] = row['validated'] == '1'
+                else:
+                    # Los virtuales figuran en hooks.csv con direccion 0x00000000: su direccion del EXE esta en el registro de validacion.
+                    virtual_rows[(row['class'], row['fn_name'])] = row['validated'] == '1'
+    registry = root / 'reversing/validation-registry.json'
+    if virtual_rows and registry.exists():
+        for entry in json.loads(registry.read_text(encoding='utf-8')).get('functions', []):
+            hook = entry.get('hook', {})
+            key = (hook.get('class'), hook.get('fn_name'))
+            original = entry.get('evidence', {}).get('original_address', '')
+            if key in virtual_rows and original:
+                try:
+                    state[int(original, 16)] = virtual_rows[key]
                 except ValueError:
                     pass
 
