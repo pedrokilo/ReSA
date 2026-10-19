@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CQuaternion
- * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 4/4 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -33,6 +33,7 @@ void CQuaternion::InjectHooks() {
     RH_ScopedCategory("Core");
 
     RH_ScopedOverloadedInstall(Get, "matrix", 0x59C080, void (CQuaternion::*)(RwMatrix*) const);
+    RH_ScopedOverloadedInstall(Get, "axis-angle", 0x59C230, void (CQuaternion::*)(RwV3d*, float*));
     RH_ScopedOverloadedInstall(Set, "matrix", 0x59C3E0, void (CQuaternion::*)(const RwMatrix&));
     RH_ScopedOverloadedInstall(Set, "axis-angle", 0x59C600, void (CQuaternion::*)(RwV3d*, float));
     RH_ScopedOverloadedInstall(Slerp, "halftheta", 0x59C300, void (CQuaternion::*)(const CQuaternion&, const CQuaternion&, float, float, float));
@@ -49,9 +50,10 @@ void CQuaternion::Get(float* x, float* y, float* z) {
     ((void(__thiscall*)(CQuaternion*, float*, float*, float*))0x59C160)(this, x, y, z);
 }
 
-// Quat to axis & angle
+// Quat to axis & angle (0x59C230): *angle = float(acos(2w)) con el _CIacos del EXE (0x822380; dominio |2w| <= 1, fuera de el NaN indefinido y errno = 33) y
+// axis = {x, y, z} / sin(acos(2w)), con 1/sin sin redondear a float; secuencia x87 de 24 bits en la maquina FlcX87 (QuaternionGetAxisAngleCpp, X87Math).
 void CQuaternion::Get(RwV3d* axis, float* angle) {
-    ((void(__thiscall*)(CQuaternion*, RwV3d*, float*))0x59C230)(this, axis, angle);
+    QuaternionGetAxisAngleCpp(&x, &axis->x, angle);
 }
 
 // Stores result of quat multiplication

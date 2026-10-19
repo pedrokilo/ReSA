@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "pairs": 128,
+  "differences": 0,
+  "registered_pairs": 128,
+  "registered_functions": 1,
+  "functions": {
+    "CTaskSimpleJetPack::DropJetPack": 128
+  },
+  "covered_functions": {
+    "CTaskSimpleJetPack::DropJetPack": true
+  },
+  "scope": "MakeAbortable es un override virtual controlado; RNG determinista y parcheado temporalmente. Consulta real de colisión por coordenadas y GenerateNewOne real o controlado; fallo inyectado en la mitad de los casos. Sin validación de vuelo completo con jetpack, render de modelos, recogida de pickups, FX ni audio. REVALIDACIÓN 18/10/2026 (corrida 20261018-222926-929586, 128 pares: 64 con generador real y 64 con generador controlado, 32 generaciones reales por lado). Sonda compilada desde el worktree D:/Original/gta-wt-b29 (HEAD 29305c78d; fuentes de artifacts/build-manifest.json idénticas al árbol principal). Cambios del banco: hook de GenerateNewOne alternado por lado (apagado en el original, encendido en el candidato), falso también en Body(&CPickups::GenerateNewOne_ExeAbi), compuerta gen_route_ok y trazas orig_trace/cand_trace. Las corridas 20261018-222055-435337, 222447-230287 y 222805-633217 fueron fallos del propio banco (falso sólo en 0x456F20 sin interceptar la DLL; el apagado del hook hacía saltar la entrada de GenerateNewOne_ExeAbi a 0x456F20; compuerta de rutas que exigía una generación por par cuando 96 pares abortan antes) y no son evidencia.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/CTaskSimpleJetPack-20261018-222926-929586",
+  "real_generator_pairs": 64,
+  "controlled_generator_pairs": 64,
+  "candidate_calls": 128,
+  "summary_sha256": "c7a7e0f5af739bf73cac3e196cdb8ba8ac75a8feda0b1476419d98071a915ffa",
+  "result_txt_sha256": "dfd1834835f5baf939865014d500752d084e9b2c4fd5f2486f7633657e52a7bb",
+  "log_sha256": "6f05f183fa589fc292552a6742b5ada26f7ca6099edd6ee7bd5802e4b47ab38d",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "131de8b2a23e6e0fe0e91a7df3647e96691c0aefc6fef46c4b07f97534194660",
+  "manifest": {
+    "tested_sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleJetPack.cpp": "402c8e3f6a36610529c03053248c11f4ee030a171301d5794911590a6262bb1d",
+      "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+      "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+      "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
+    }
+  }
+}

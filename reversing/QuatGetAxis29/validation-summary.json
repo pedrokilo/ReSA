@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CQuaternion::Get(RwV3d*, float*)": 4096
+  },
+  "covered_functions": {
+    "CQuaternion::Get(RwV3d*, float*)": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas = árbol principal (Quaternion.cpp/.h, X87Math.cpp/.h, InjectHooksMain.cpp, CMakeLists.txt idénticos byte a byte), compiladas desde el worktree D:/Original/gta-wt-b29 (HEAD 29305c78d + parche de QuatGetAxis29; ver artifacts/build-manifest.json). CQuaternion::Get(RwV3d*, float*) sin colaboradores sustituidos; usa el _CIacos del EXE a través de FlcX87 (X87Math.cpp). Caso 2w == -1 (fldpi de 64 bits) con eje desconocido en el oráculo: sólo EXE == DLL. errno comparado EXE/DLL. El oráculo independiente se relajó a 2 ulp en los floats de salida porque acos del CRT del EXE y fsin no se modelan al ulp; la comparación EXE == DLL es estricta bit a bit en los 4096 pares. La primera corrida (20261018-221739-268232) se rechazó sólo por ese oráculo y no es evidencia. NaN siempre silenciosos (sNaN no cubierto); los empates de NaN sólo exigen EXE == DLL. EAX/ECX/EDX sólo registrados; ningún llamador del EXE. La clase CQuaternion conserva otras funciones pendientes (Multiply, Set(x,y,z), Slerp(t), Conjugate y Get(float*,float*,float*) 0x59C160, sin llamadores): este banco no la completa.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/QuatGetAxis29-20261018-222018-607411",
+  "summary_sha256": "c75fb273a8591038d97dd3b868feb8c33ca78678caf520857d454a8803071339",
+  "result_txt_sha256": "5ea38fe3e770577b56b987ef11ab2055a551c715f22ed8108ee17177fbbf188b",
+  "log_sha256": "2bc0a378b91979c122b670d557299c926891584b29cc5813d80f959e1dec54ce",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "2890ba07e720eee349ca1bd79b067e3a95cc92896fefd268b78e95f75dc73af1",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Core/Quaternion.cpp": "62a7506ea937fd2d5ea9fdd9e33ffd31ed7009543518f702e9adbc6d558da707",
+      "source/game_sa/Core/Quaternion.h": "48db9873122fa6bfad1c9a50ba0ac91c3a7c4d5a80e984984ec10f5f4bf38dec",
+      "source/game_sa/X87Math.cpp": "1ad8a09262e750b0b378c46a689bcbf61fc8f445db354c628e4ff82dcfa09b90",
+      "source/game_sa/X87Math.h": "cc7d89472a470eca85b82a4dab533baf6b55cc4ef18c5f48e7b8c8d062ab7a78",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/QuatGetAxis29/LiveComparison.hpp": "c499a3d46913be890001d0e97a0954d89e9c78e0ac09c9361435de97aa0ac21e",
+      "reversing/QuatGetAxis29/Core.hpp": "69e9bc5668e696328210c82743c1c71e41ad483d20ba17136d17a8f82138e0d4",
+      "reversing/QuatGetAxis29/Fixtures.hpp": "e32b63e5ecd4f4d0f18c157b187c8c137553f302cc4b2bfbee7e70ea95ee415f",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

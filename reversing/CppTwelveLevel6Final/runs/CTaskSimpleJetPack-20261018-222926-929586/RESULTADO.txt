@@ -1,0 +1,3 @@
+APROBADO: CTaskSimpleJetPack::DropJetPack
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-jetpack\20261018-222926-929586

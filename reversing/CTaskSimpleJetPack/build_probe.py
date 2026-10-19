@@ -14,6 +14,8 @@ CMAKE = ROOT/'reversing/CVehicle/conan-cache/p/cmake20ac4e0137fee/p/bin/cmake.ex
 def main():
     paths = [ROOT/'source/game_sa/Tasks/TaskTypes/TaskSimpleJetPack.cpp', ROOT/'source/game_sa/Game.cpp']
     saved = {p: p.read_bytes() for p in paths}
+    # Fuentes de solo lectura que definen el cuerpo C++ comparado (GenerateNewOne y GenerateNewOne_ExeAbi): se enlazan al manifiesto, no se modifican.
+    bound = [ROOT/'source/game_sa/Pickups.cpp', ROOT/'source/game_sa/Pickups.h']
     artifacts = HERE/'artifacts'; artifacts.mkdir(exist_ok=True)
     try:
         for p, data in saved.items():
@@ -34,7 +36,7 @@ def main():
         for ext in ('asi','pdb'):
             dest = artifacts/f'gta_reversed-jetpack-probe.{ext}'
             shutil.copy2(ROOT/f'bin/Debug/gta_reversed.{ext}', dest); hashes[ext] = digest(dest)
-        manifest = dict(binaries=hashes, sources={str(p.relative_to(ROOT)):hashlib.sha256(data).hexdigest() for p,data in saved.items()}, instrumentation={p.name:digest(p) for p in (HERE/'Probe.hpp',HERE/'LiveComparison.hpp',HERE/'build_probe.py')})
+        manifest = dict(binaries=hashes, sources={**{str(p.relative_to(ROOT)):hashlib.sha256(data).hexdigest() for p,data in saved.items()}, **{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in bound}}, instrumentation={p.name:digest(p) for p in (HERE/'Probe.hpp',HERE/'LiveComparison.hpp',HERE/'build_probe.py')})
         (artifacts/'build-manifest.json').write_text(json.dumps(manifest,indent=2))
         print(json.dumps(hashes))
     finally:

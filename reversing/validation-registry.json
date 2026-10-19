@@ -229,19 +229,37 @@
         "type": "S"
       },
       "evidence": {
-        "path": "reversing/CTaskSimpleJetPack/validation-summary.json",
-        "sha256": "ec1dcf08d030d256c543101e666588e476cba334974be10de12f1d71db8415d2",
+        "path": "reversing/CTaskSimpleJetPack/validation-summary-reval-20261018.json",
+        "sha256": "2e25fe67e7a147863e960feeb1e74e426d56b21a37a45f9b3ef991d2d954c31b",
         "passed_path": [
-          "passed"
+          "covered_functions",
+          "CTaskSimpleJetPack::DropJetPack"
         ],
         "pairs": 128,
-        "original_address": "0x67B660"
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
-      "tested_sources": {},
-      "source_provenance": null,
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleJetPack.cpp": "402c8e3f6a36610529c03053248c11f4ee030a171301d5794911590a6262bb1d",
+        "source/game_sa/Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
+      },
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "dependency_review": null,
-      "scope": "MakeAbortable is a controlled virtual override; RNG is deterministic and temporarily patched. Real coordinate collision query and GenerateNewOne; failure injected for half of the cases. No full jetpack flight, model rendering, pickup collection, FX or audio validation.",
-      "review_reference": "reversing/CTaskSimpleJetPack/README.md"
+      "scope": "MakeAbortable es un override virtual controlado; RNG determinista y parcheado temporalmente. Consulta real de colisi\u00f3n por coordenadas y GenerateNewOne real o controlado; fallo inyectado en la mitad de los casos. Sin validaci\u00f3n de vuelo completo con jetpack, render de modelos, recogida de pickups, FX ni audio. REVALIDACI\u00d3N 18/10/2026 (corrida 20261018-222926-929586, 128 pares: 64 con generador real y 64 con generador controlado, 32 generaciones reales por lado). Sonda compilada desde el worktree D:/Original/gta-wt-b29 (HEAD 29305c78d; fuentes de artifacts/build-manifest.json id\u00e9nticas al \u00e1rbol principal). Cambios del banco: hook de GenerateNewOne alternado por lado (apagado en el original, encendido en el candidato), falso tambi\u00e9n en Body(&CPickups::GenerateNewOne_ExeAbi), compuerta gen_route_ok y trazas orig_trace/cand_trace. Las corridas 20261018-222055-435337, 222447-230287 y 222805-633217 fueron fallos del propio banco (falso s\u00f3lo en 0x456F20 sin interceptar la DLL; el apagado del hook hac\u00eda saltar la entrada de GenerateNewOne_ExeAbi a 0x456F20; compuerta de rutas que exig\u00eda una generaci\u00f3n por par cuando 96 pares abortan antes) y no son evidencia.",
+      "review_reference": "reversing/CTaskSimpleJetPack/README.md",
+      "previous_evidence": {
+        "evidence": {
+          "path": "reversing/CTaskSimpleJetPack/validation-summary.json",
+          "sha256": "ec1dcf08d030d256c543101e666588e476cba334974be10de12f1d71db8415d2",
+          "passed_path": [
+            "passed"
+          ],
+          "pairs": 128,
+          "original_address": "0x67B660"
+        },
+        "review_reference": "reversing/CTaskSimpleJetPack/README.md"
+      }
     },
     {
       "hook": {
@@ -170193,8 +170211,8 @@
         "type": "S"
       },
       "evidence": {
-        "path": "reversing/FileLoader47/validation-summary.json",
-        "sha256": "1b59ceec9d67c5a81fdc75ece7e4cb2c299ca2a5a7139ce99cb140b9ab4856fa",
+        "path": "reversing/FileLoader47/validation-summary-reval-20261018.json",
+        "sha256": "75298d3b1b68b85ebd23bfe783bc7cb97cae5ed3781f948fbf3d588e9d850fef",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadPickup"
@@ -170203,13 +170221,28 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/FileLoader.cpp": "b75ca97ec3722cc3613fa92a4376ba361baf0818df783ae24583ffce1e54b61a",
-        "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984"
+        "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+        "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
       },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-095618-262131).",
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "dependency_review": null,
-      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 11968 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/FileLoader47/README.md"
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. REVALIDACI\u00d3N 18/10/2026, corrida aislada con FILELOADER47_ONLY=CFileLoader::LoadPickup (256 pares). Sonda compilada desde el worktree D:/Original/gta-wt-b29 (HEAD 29305c78d; ver artifacts/build-manifest.json); fuentes id\u00e9nticas al \u00e1rbol principal. Cambios del banco: pPickup se parchea tambi\u00e9n en Body(&CPickups::GenerateNewOne_ExeAbi) (GenerateNewOne es ahora un envoltorio) y l2dfx tambi\u00e9n en Body(&CFileLoader::Load2dEffect) (ahora C++ enganchado). Las otras 46 funciones del banco NO se han repetido con las fuentes actuales (FileLoader.cpp cambi\u00f3): conservan la evidencia anterior y quedan pendientes de la corrida completa (11968 pares).",
+      "review_reference": "reversing/FileLoader47/README.md",
+      "previous_evidence": {
+        "evidence": {
+          "path": "reversing/FileLoader47/validation-summary.json",
+          "sha256": "1b59ceec9d67c5a81fdc75ece7e4cb2c299ca2a5a7139ce99cb140b9ab4856fa",
+          "passed_path": [
+            "covered_functions",
+            "CFileLoader::LoadPickup"
+          ],
+          "pairs": 256,
+          "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+        },
+        "review_reference": "reversing/FileLoader47/README.md"
+      }
     },
     {
       "hook": {
@@ -501508,8 +501541,8 @@
         "type": "S"
       },
       "evidence": {
-        "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "path": "reversing/PickWeap1/validation-summary-reval-20261018.json",
+        "sha256": "4aa6299580aa19d71b481dc33a1c741fa1fec2b84969c6c79179cced852e6de1",
         "passed_path": [
           "covered_functions",
           "CPickups::CreateSomeMoney"
@@ -501518,15 +501551,28 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
-      "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "dependency_review": null,
-      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 11020 isolated CPU pairs for 60 pending functions of CPickups, CWeapon, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture (seed = case index) in both legs and compares the return value, the bytes of the fake objects, the touched global ranges, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Traced doubles get NO credit. Only the own part of each function is validated. Source tested == current working tree at registration (class sources match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Limits: CWeapon::Fire compares al!=0 (the EXE returns a garbage raw bl, 0x742794/0x7429FB, the DLL returns bool); fake pickup pool at 0x9788C0 (copied and restored), fake weapons/peds/vehicles and temporary swaps of Players[0].m_pPed, camera matrix, vehicle pool, pellet col data, g_fx.m_GunShell and ModelInfo, always restored; fixtures do not make the EXE read uninitialised locals; padding and uninitialised bytes masked. NOT covered by the bank and NOT registered: CWeapon::FireSniper, DoBulletImpact, TakePhotograph, FireInstantHitFromCar2, GenerateDamageEvent, FireProjectile, DoWeaponEffect, FireOneInstantHitRound, ProcessLineOfSight and CPickups::Update (real event group, bullet array, FX systems, real pools and world; see the bank README). Function-specific: Corpus 192; source reviewed against the EXE and corrected before the run where needed (see git diff); fake pickup pool (0x9788C0) copied and restored, fake weapons/peds/vehicles; float literals read from the EXE with std::bit_cast; fsin/fcos/fpatan by __asm.",
-      "review_reference": "reversing/PickWeap1/README.md"
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. REVALIDACI\u00d3N 18/10/2026. Sonda compilada desde el worktree D:/Original/gta-wt-b29 (HEAD 29305c78d; ver artifacts/build-manifest.json); fuentes del banco id\u00e9nticas al \u00e1rbol principal (Pickups.cpp/.h, Weapon.cpp) salvo Weapon.h, que s\u00f3lo difiere en finales de l\u00ednea (CRLF frente a LF). CPickups::GenerateNewOne es ahora un envoltorio de GenerateNewOne_ExeAbi: el banco parchea el falso de GenerateNewOne en 0x456F20 y en Body(&CPickups::GenerateNewOne_ExeAbi), y activa el hook de GenerateNewOne s\u00f3lo en el lado candidato (compuerta gen_route_ok). La corrida completa ejecut\u00f3 las 60 funciones del banco (11020 pares, todo igual), pero su summary s\u00f3lo da el resultado global y los pares por funci\u00f3n: s\u00f3lo CreateSomeMoney (192) y GenerateNewOne_WeaponType (128) pasan a esta evidencia; las otras 58 conservan la evidencia anterior (corrida 20261009-162447-757920).",
+      "review_reference": "reversing/PickWeap1/README.md",
+      "previous_evidence": {
+        "evidence": {
+          "path": "reversing/PickWeap1/validation-summary.json",
+          "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+          "passed_path": [
+            "covered_functions",
+            "CPickups::CreateSomeMoney"
+          ],
+          "pairs": 192,
+          "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+        },
+        "review_reference": "reversing/PickWeap1/README.md"
+      }
     },
     {
       "hook": {
@@ -501676,8 +501722,8 @@
         "type": "S"
       },
       "evidence": {
-        "path": "reversing/PickWeap1/validation-summary.json",
-        "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+        "path": "reversing/PickWeap1/validation-summary-reval-20261018.json",
+        "sha256": "4aa6299580aa19d71b481dc33a1c741fa1fec2b84969c6c79179cced852e6de1",
         "passed_path": [
           "covered_functions",
           "CPickups::GenerateNewOne_WeaponType"
@@ -501686,15 +501732,28 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Pickups.cpp": "daaf4760eff5a8a959df8985bbc7c56f73a5ea82488a556c77c1f1b2552f9949",
-        "source/game_sa/Pickups.h": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0",
-        "source/game_sa/Weapon.cpp": "eb04c6f85c30a405dac023c363c13dd5b9a10789515e9e64d4e2b24836e6dfe8",
-        "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6"
+        "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+        "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+        "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+        "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
       },
-      "source_provenance": "Exact compiled PickWeap1 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 11020-row log reaudited offline in streaming and preserved gzipped with the original hash.",
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "dependency_review": null,
-      "scope": "Simple pair bench inside the full game with a loaded save (original with the function hook off vs candidate with the hook on), 11020 isolated CPU pairs for 60 pending functions of CPickups, CWeapon, ALL pairs equal, pair counts equal to the bank table, passed=true globally, natural \"complete\" event with state_restored, saves unchanged, configs restored. Each case rebuilds the same deterministic fixture (seed = case index) in both legs and compares the return value, the bytes of the fake objects, the touched global ranges, the x87 control word (24 bits) and the whole trace of doubled collaborators with raw arguments; foreign threads ignored. Traced doubles get NO credit. Only the own part of each function is validated. Source tested == current working tree at registration (class sources match the probe build manifest). Historical evidence approved with explicit limits; no current dependency accreditation. Limits: CWeapon::Fire compares al!=0 (the EXE returns a garbage raw bl, 0x742794/0x7429FB, the DLL returns bool); fake pickup pool at 0x9788C0 (copied and restored), fake weapons/peds/vehicles and temporary swaps of Players[0].m_pPed, camera matrix, vehicle pool, pellet col data, g_fx.m_GunShell and ModelInfo, always restored; fixtures do not make the EXE read uninitialised locals; padding and uninitialised bytes masked. NOT covered by the bank and NOT registered: CWeapon::FireSniper, DoBulletImpact, TakePhotograph, FireInstantHitFromCar2, GenerateDamageEvent, FireProjectile, DoWeaponEffect, FireOneInstantHitRound, ProcessLineOfSight and CPickups::Update (real event group, bullet array, FX systems, real pools and world; see the bank README). Function-specific: Corpus 128; source reviewed against the EXE and corrected before the run where needed (see git diff); fake pickup pool (0x9788C0) copied and restored, fake weapons/peds/vehicles; float literals read from the EXE with std::bit_cast; fsin/fcos/fpatan by __asm.",
-      "review_reference": "reversing/PickWeap1/README.md"
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. REVALIDACI\u00d3N 18/10/2026. Sonda compilada desde el worktree D:/Original/gta-wt-b29 (HEAD 29305c78d; ver artifacts/build-manifest.json); fuentes del banco id\u00e9nticas al \u00e1rbol principal (Pickups.cpp/.h, Weapon.cpp) salvo Weapon.h, que s\u00f3lo difiere en finales de l\u00ednea (CRLF frente a LF). CPickups::GenerateNewOne es ahora un envoltorio de GenerateNewOne_ExeAbi: el banco parchea el falso de GenerateNewOne en 0x456F20 y en Body(&CPickups::GenerateNewOne_ExeAbi), y activa el hook de GenerateNewOne s\u00f3lo en el lado candidato (compuerta gen_route_ok). La corrida completa ejecut\u00f3 las 60 funciones del banco (11020 pares, todo igual), pero su summary s\u00f3lo da el resultado global y los pares por funci\u00f3n: s\u00f3lo CreateSomeMoney (192) y GenerateNewOne_WeaponType (128) pasan a esta evidencia; las otras 58 conservan la evidencia anterior (corrida 20261009-162447-757920).",
+      "review_reference": "reversing/PickWeap1/README.md",
+      "previous_evidence": {
+        "evidence": {
+          "path": "reversing/PickWeap1/validation-summary.json",
+          "sha256": "20f485e6dadafd0887254ae827f20f73af0fd55a48e860603f40a7d1ee82e74d",
+          "passed_path": [
+            "covered_functions",
+            "CPickups::GenerateNewOne_WeaponType"
+          ],
+          "pairs": 128,
+          "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+        },
+        "review_reference": "reversing/PickWeap1/README.md"
+      }
     },
     {
       "hook": {
@@ -538081,6 +538140,42 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Colaboradores sustituidos por falsos trazados id\u00e9nticos en ambos lados: ReadLine (0x4AB250, flujo sint\u00e9tico con sem\u00e1ntica de fgets), FxMemoryPool_c::GetMem (0x4A9CA0), FxInfoManager_c::AddFxInfo (0x4A7B00) y el Load virtual de FxInfo_c (falso); no se valida aqu\u00ed el cuerpo real de esos colaboradores. sscanf: la funci\u00f3n llama al sscanf del EXE por direcci\u00f3n (0x8220AD, CRT est\u00e1tico del juego), igual en ambos lados. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/gta-wt-b28 (HEAD de6ed4a4d + source.patch de cada banco + tres arreglos posteriores; ver artifacts/build-manifest.json); id\u00e9nticas al \u00e1rbol principal salvo FxMemoryPool.cpp/.h (s\u00f3lo finales de l\u00ednea, CRLF frente a LF). sscanf: Load llama al sscanf del EXE por direcci\u00f3n (0x8220AD, CRT est\u00e1tico del juego) en ambos lados, como CFileLoader::Load2dEffect; no se sonde\u00f3 el CRT de la DLL. Colaboradores sustituidos por falsos trazados id\u00e9nticos: ReadLine, FxMemoryPool_c::GetMem, FxInfoManager_c::AddFxInfo y el Load virtual de FxInfo_c.",
       "review_reference": "reversing/FxInfoLoad28/README.md"
+    },
+    {
+      "hook": {
+        "class": "CQuaternion",
+        "fn_name": "Get-axis-angle",
+        "address": "0x0059C230",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/QuatGetAxis29/validation-summary.json",
+        "sha256": "c0e93b0ba88c738d4b0fd73f9d3b6f9b8fb7d1e9eca684cc40df89d4cfe7ad3d",
+        "passed_path": [
+          "covered_functions",
+          "CQuaternion::Get(RwV3d*, float*)"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+        "source/game_sa/Core/Quaternion.cpp": "62a7506ea937fd2d5ea9fdd9e33ffd31ed7009543518f702e9adbc6d558da707",
+        "source/game_sa/Core/Quaternion.h": "48db9873122fa6bfad1c9a50ba0ac91c3a7c4d5a80e984984ec10f5f4bf38dec",
+        "source/game_sa/X87Math.cpp": "1ad8a09262e750b0b378c46a689bcbf61fc8f445db354c628e4ff82dcfa09b90",
+        "source/game_sa/X87Math.h": "cc7d89472a470eca85b82a4dab533baf6b55cc4ef18c5f48e7b8c8d062ab7a78",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/QuatGetAxis29/LiveComparison.hpp": "c499a3d46913be890001d0e97a0954d89e9c78e0ac09c9361435de97aa0ac21e",
+        "reversing/QuatGetAxis29/Core.hpp": "69e9bc5668e696328210c82743c1c71e41ad483d20ba17136d17a8f82138e0d4",
+        "reversing/QuatGetAxis29/Fixtures.hpp": "e32b63e5ecd4f4d0f18c157b187c8c137553f302cc4b2bfbee7e70ea95ee415f",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas = \u00e1rbol principal (Quaternion.cpp/.h, X87Math.cpp/.h, InjectHooksMain.cpp, CMakeLists.txt id\u00e9nticos byte a byte), compiladas desde el worktree D:/Original/gta-wt-b29 (HEAD 29305c78d + parche de QuatGetAxis29; ver artifacts/build-manifest.json). CQuaternion::Get(RwV3d*, float*) sin colaboradores sustituidos; usa el _CIacos del EXE a trav\u00e9s de FlcX87 (X87Math.cpp). Caso 2w == -1 (fldpi de 64 bits) con eje desconocido en el or\u00e1culo: s\u00f3lo EXE == DLL. errno comparado EXE/DLL. El or\u00e1culo independiente se relaj\u00f3 a 2 ulp en los floats de salida porque acos del CRT del EXE y fsin no se modelan al ulp; la comparaci\u00f3n EXE == DLL es estricta bit a bit en los 4096 pares. La primera corrida (20261018-221739-268232) se rechaz\u00f3 s\u00f3lo por ese or\u00e1culo y no es evidencia. NaN siempre silenciosos (sNaN no cubierto); los empates de NaN s\u00f3lo exigen EXE == DLL. EAX/ECX/EDX s\u00f3lo registrados; ning\u00fan llamador del EXE. La clase CQuaternion conserva otras funciones pendientes (Multiply, Set(x,y,z), Slerp(t), Conjugate y Get(float*,float*,float*) 0x59C160, sin llamadores): este banco no la completa.",
+      "review_reference": "reversing/QuatGetAxis29/README.md"
     }
   ]
 }

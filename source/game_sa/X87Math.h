@@ -471,6 +471,9 @@ float __cdecl RpNanSkinZCorrectCpp(float z, float bonePosZ);
 // CQuaternion::Get(RwMatrix*) del EXE (0x59C080): q = {x, y, z, w}; escribe right (m[0..2]), up (m[4..6]) y at (m[8..10]) de la RwMatrix. 2·z se guarda como float, 2·x y 2·y quedan en registros,
 // y 2·y·w y 2·z·w no se redondean a float antes de sumarse (exponente extendido).
 void __cdecl RpNanQuatToMatrixCpp(const float* q, float* m);
+// CQuaternion::Get(RwV3d*, float*) del EXE (0x59C230): q = {x, y, z, w}; *angle = float(acos(2w)) (_CIacos 0x822380) y axis = (1 / sin(acos(2w))) · {x, y, z} con cada producto redondeado a float;
+// 2w, el acos y el seno no se redondean a float, y las lecturas del cuaternion y escrituras de angle/axis siguen el orden del EXE (pueden solaparse). Fuera de |2w| <= 1 el acos del CRT da el indefinido y errno = 33.
+void __cdecl QuaternionGetAxisAngleCpp(const float* q, float* axis, float* angle);
 // Lote RpUpdate (RpAnimBlendClumpUpdateAnimations, 0x4D34F0; w20). Cadenas x87 sin guardar entre operaciones (cada operación redondea a 24 bits; un solo fstp a float).
 // 0x4D3578..0x4D3585: fld total; fdiv speed; fmul blend; fadd acc.
 float __cdecl RpUpdateSyncAccumCpp(float total, float speed, float blend, float acc);

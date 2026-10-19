@@ -9843,5 +9843,19 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ llamando al sscanf del EXE por direccion (0x8220AD, CRT estatico del juego) y a los colaboradores del juego (ReadLine, GetMem, AddFxInfo, Load virtual) sustituidos por falsos trazados idénticos en ambos lados. Banco FxInfoLoad28 con 4608 pares y cero diferencias; EAX/ECX/EDX sólo registrados (el único llamador, 0x5C2403, no los lee). Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas desde el worktree D:/Original/gta-wt-b28 (HEAD de6ed4a4d + source.patch de cada banco + tres arreglos posteriores; ver artifacts/build-manifest.json); idénticas al árbol principal salvo FxMemoryPool.cpp/.h (sólo finales de línea, CRLF frente a LF). sscanf: Load llama al sscanf del EXE por dirección (0x8220AD, CRT estático del juego) en ambos lados, como CFileLoader::Load2dEffect; no se sondeó el CRT de la DLL. Colaboradores sustituidos por falsos trazados idénticos: ReadLine, FxMemoryPool_c::GetMem, FxInfoManager_c::AddFxInfo y el Load virtual de FxInfo_c."
+  },
+  "0x0059C230": {
+    "identity": "CQuaternion::Get(RwV3d*, float*)",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Core/Quaternion.cpp",
+    "bank": "QuatGetAxis29",
+    "run": "20261018-222018-607411",
+    "pairs": 4096,
+    "own_pairs": 4096,
+    "audit": "reversing/CppTwelveLevel6Final/runs/QuatGetAxis29-20261018-222018-607411/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE por la función (QuaternionGetAxisAngleCpp de X87Math.cpp sobre la máquina FlcX87 con el _CIacos del EXE; sin colaboradores sustituidos). Banco QuatGetAxis29 con 4096 pares y cero diferencias; EAX/ECX/EDX sólo registrados (la función no tiene llamadores en el EXE). Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas = árbol principal (Quaternion.cpp/.h, X87Math.cpp/.h, InjectHooksMain.cpp, CMakeLists.txt idénticos byte a byte), compiladas desde el worktree D:/Original/gta-wt-b29 (HEAD 29305c78d + parche de QuatGetAxis29; ver artifacts/build-manifest.json). CQuaternion::Get(RwV3d*, float*) sin colaboradores sustituidos; usa el _CIacos del EXE a través de FlcX87 (X87Math.cpp). Caso 2w == -1 (fldpi de 64 bits) con eje desconocido en el oráculo: sólo EXE == DLL. errno comparado EXE/DLL. El oráculo independiente se relajó a 2 ulp en los floats de salida porque acos del CRT del EXE y fsin no se modelan al ulp; la comparación EXE == DLL es estricta bit a bit en los 4096 pares. La primera corrida (20261018-221739-268232) se rechazó sólo por ese oráculo y no es evidencia. NaN siempre silenciosos (sNaN no cubierto); los empates de NaN sólo exigen EXE == DLL. EAX/ECX/EDX sólo registrados; ningún llamador del EXE. La clase CQuaternion conserva otras funciones pendientes (Multiply, Set(x,y,z), Slerp(t), Conjugate y Get(float*,float*,float*) 0x59C160, sin llamadores): este banco no la completa."
   }
 }

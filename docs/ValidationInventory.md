@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,685 entradas reversed=1**, de 8,685 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,686 entradas reversed=1**, de 8,686 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8685 |
+| `validated=1` · evidencia aprobada vinculada | 8686 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8685 |
+| Evidencia histórica vinculada; revisión pendiente | 8686 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -2623,7 +2623,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CFileLoader | `LoadPathHeader` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
 | CFileLoader | `LoadPedObject` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
 | CFileLoader | `LoadPedPathNode` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
-| CFileLoader | `LoadPickup` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
+| CFileLoader | `LoadPickup` | [Resumen](../reversing/FileLoader47/validation-summary-reval-20261018.json) |
 | CFileLoader | `LoadScene` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
 | CFileLoader | `LoadStuntJump` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
 | CFileLoader | `LoadTXDParent` | [Resumen](../reversing/FileLoader47/validation-summary.json) |
@@ -4071,7 +4071,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPickup | `Update` | [Resumen](../reversing/World12/validation-summary.json) |
 | CPickups | `AddToCollectedPickupsArray` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CPickups | `CreatePickupCoorsCloseToCoors-` | [Resumen](../reversing/PickupsPending/validation-summary.json) |
-| CPickups | `CreateSomeMoney` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
+| CPickups | `CreateSomeMoney` | [Resumen](../reversing/PickWeap1/validation-summary-reval-20261018.json) |
 | CPickups | `DetonateMinesHitByGunShot` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CPickups | `DoCollectableEffects` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CPickups | `DoMineEffects` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
@@ -4079,7 +4079,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPickups | `DoPickUpEffects` | [Resumen](../reversing/PickupsPending/validation-summary.json) |
 | CPickups | `FindPickUpForThisObject` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CPickups | `GenerateNewOne` | [Resumen](../reversing/PickupsGenNew28/validation-summary.json) |
-| CPickups | `GenerateNewOne_WeaponType` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
+| CPickups | `GenerateNewOne_WeaponType` | [Resumen](../reversing/PickWeap1/validation-summary-reval-20261018.json) |
 | CPickups | `GetActualPickupIndex` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CPickups | `GetNewUniquePickupIndex` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CPickups | `GetUniquePickupIndex` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
@@ -4459,6 +4459,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CQuadTreeNode<T> | `GetAllMatching-vec` | [Resumen](../reversing/Sys12/validation-summary.json) |
 | CQuadTreeNode<T> | `InSector` | [Resumen](../reversing/Sys12/validation-summary.json) |
 | CQuadTreeNode<T> | `InitPool` | [Resumen](../reversing/Sys12/validation-summary.json) |
+| CQuaternion | `Get-axis-angle` | [Resumen](../reversing/QuatGetAxis29/validation-summary.json) |
 | CQuaternion | `Get-matrix` | [Resumen](../reversing/QuatGet28/validation-summary.json) |
 | CQuaternion | `Set-axis-angle` | [Resumen](../reversing/DependenciesMathLeaf3/validation-summary.json) |
 | CQuaternion | `Set-matrix` | [Resumen](../reversing/DependenciesMathLeaf3/validation-summary.json) |
@@ -6926,7 +6927,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleJetPack | `Constructor` | [Resumen](../reversing/CTasks14b/validation-summary.json) |
 | CTaskSimpleJetPack | `Destructor` | [Resumen](../reversing/CTasks14b/validation-summary.json) |
 | CTaskSimpleJetPack | `DoJetPackEffect` | [Resumen](../reversing/CTasks14b/validation-summary.json) |
-| CTaskSimpleJetPack | `DropJetPack` | [Resumen](../reversing/CTaskSimpleJetPack/validation-summary.json) |
+| CTaskSimpleJetPack | `DropJetPack` | [Resumen](../reversing/CTaskSimpleJetPack/validation-summary-reval-20261018.json) |
 | CTaskSimpleJetPack | `GetTaskType` | [Resumen](../reversing/CTasks14b/validation-summary.json) |
 | CTaskSimpleJetPack | `MakeAbortable` | [Resumen](../reversing/CTasks14b/validation-summary.json) |
 | CTaskSimpleJetPack | `ProcessAnims` | [Resumen](../reversing/CTasks14b/validation-summary.json) |
@@ -9066,7 +9067,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPtrNodeSingleLinkPool` | 1 | 0 | 1 | 0 |
 | `CQuadBike` | 12 | 0 | 12 | 0 |
 | `CQuadTreeNode<T>` | 12 | 0 | 12 | 0 |
-| `CQuaternion` | 4 | 0 | 4 | 0 |
+| `CQuaternion` | 5 | 0 | 5 | 0 |
 | `CRT` | 6 | 0 | 6 | 0 |
 | `CRadar` | 65 | 0 | 65 | 0 |
 | `CRealTimeShadow` | 9 | 0 | 9 | 0 |

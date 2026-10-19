@@ -157,6 +157,9 @@ inline void Update() {
     std::string only; { std::ifstream f(dir/"pickweap1-only.txt"); if(f)std::getline(f,only); }
     std::array<ReversibleHooks::ReversibleHook::Base*,fns.size()> hooks{};
     for(size_t f=0;f<fns.size();++f)if(!(hooks[f]=FindHook(fns[f].cls,fns[f].name))){Write({{"event","error"},{"reason","hook not found"},{"function",std::string(fns[f].cls)+"::"+fns[f].name}});return;}
+    // hook "GenerateNewOne" (0x456F20 -> GenerateNewOne_ExeAbi): apagado en el lado original, encendido en el candidato (el falso va en ambas direcciones)
+    auto* genHook=FindHook("CPickups","GenerateNewOne");
+    if(!genHook){Write({{"event","error"},{"reason","hook not found"},{"function","CPickups::GenerateNewOne"}});return;}
 
     // --- cuerpos de la DLL de los colaboradores (se calculan TODOS antes de crear ningun EntryPatch) ---
     D.clearBlip=Body(static_cast<void(*)(eBlipType,int32)>(&CRadar::ClearBlipForEntity));
@@ -184,6 +187,7 @@ inline void Update() {
     D.fSetCentre=Body(&CFont::SetCentreSize); D.fSetColor=Body(&CFont::SetColor); D.fSetStyle=Body(&CFont::SetFontStyle); D.fPrint=Body(&CFont::PrintString);
     D.insertNum=Body(&CMessages::InsertNumberInString);
     D.pickOyster=Body(&CPickups::PickedUpOyster); D.pickHorse=Body(&CPickups::PickedUpHorseShoe);
+    D.generateNewOne=Body(&CPickups::GenerateNewOne_ExeAbi);   // cuerpo real (sigue E9) ANTES de crear ningun EntryPatch
     D.addRef=Body(&CBaseModelInfo::AddRef); D.removeRef=Body(&CBaseModelInfo::RemoveRef); D.fxKill=Body(&FxSystem_c::Kill);
     D.shotInfoInit=Body(&CShotInfo::Initialise); D.shotInfoShutdown=Body(&CShotInfo::Shutdown); D.shotInfoUpdate=Body(&CShotInfo::Update);
     D.explInit=Body(&CExplosion::Initialise); D.explShutdown=Body(&CExplosion::Shutdown); D.explUpdate=Body(&CExplosion::Update);
@@ -220,7 +224,7 @@ inline void Update() {
             {"shadow",D.shadow},{"corona",D.corona},{"getRandom",D.getRandom},{"groundZ",D.groundZ},{"audio",D.audio},{"incStat",D.incStat},{"getStat",D.getStat},{"trigMsg",D.trigMsg},{"pctProgress",D.pctProgress},
             {"fov",D.fov},{"sphereVis",D.sphereVis},{"updHealth",D.updHealth},{"resetSprint",D.resetSprint},{"getWanted",D.getWanted},{"setWanted",D.setWanted},{"fSetProp",D.fSetProp},{"fSetBack",D.fSetBack},
             {"fSetScale",D.fSetScale},{"fSetOrient",D.fSetOrient},{"fSetCentre",D.fSetCentre},{"fSetColor",D.fSetColor},{"fSetStyle",D.fSetStyle},{"fPrint",D.fPrint},{"insertNum",D.insertNum},{"pickOyster",D.pickOyster},
-            {"pickHorse",D.pickHorse},{"addRef",D.addRef},{"removeRef",D.removeRef},{"fxKill",D.fxKill},{"shotInfoInit",D.shotInfoInit},{"shotInfoShutdown",D.shotInfoShutdown},{"shotInfoUpdate",D.shotInfoUpdate},
+            {"pickHorse",D.pickHorse},{"generateNewOne",D.generateNewOne},{"addRef",D.addRef},{"removeRef",D.removeRef},{"fxKill",D.fxKill},{"shotInfoInit",D.shotInfoInit},{"shotInfoShutdown",D.shotInfoShutdown},{"shotInfoUpdate",D.shotInfoUpdate},
             {"explInit",D.explInit},{"explShutdown",D.explShutdown},{"explUpdate",D.explUpdate},{"projInit",D.projInit},{"projShutdown",D.projShutdown},{"projUpdate",D.projUpdate},{"bulletInit",D.bulletInit},
             {"bulletShutdown",D.bulletShutdown},{"bulletUpdate",D.bulletUpdate},{"weaponInfoInit",D.weaponInfoInit},{"weaponInfoShutdown",D.weaponInfoShutdown},{"removeColVolumes",D.removeColVolumes},
             {"getWeaponSkill",D.getWeaponSkill},{"evaluateTarget",D.evaluateTarget},{"getIsOnScreen",D.getIsOnScreen},{"addParticle",D.addParticle},{"findObjectsInRange",D.findObjectsInRange},{"canSeeEntity",D.canSeeEntity},
@@ -242,6 +246,8 @@ inline void Update() {
 
     std::array<bool,fns.size()> enabled{},locked{};
     for(size_t f=0;f<fns.size();++f){enabled[f]=hooks[f]->Hooked();locked[f]=hooks[f]->Locked();hooks[f]->LockState(false);}
+    const bool genEnabled=genHook->Hooked(), genLocked=genHook->Locked(); genHook->LockState(false);
+    bool genRouteOk=true;   // por lado: ruta del hook GenerateNewOne segun el lado, y entradas 0x456F20 / cuerpo ExeAbi intactas al volver del caso
 
     // disposicion de campos de la DLL frente a los desplazamientos del EXE
     bool layoutOk=true;
@@ -285,12 +291,15 @@ inline void Update() {
             auto run=[&](bool candidate)->json {
                 uint32 stt=uint32(i)*2654435761u^uint32(f*0x9E3779B9u)^0x2B7Au; if(!stt)stt=1; Rng r{stt};
                 trace=json::array(); gRng=&r; ApplyWeaponMi();
-                hooks[f]->State(candidate);
+                hooks[f]->State(candidate); genHook->State(candidate);
+                const auto gen0=ReversingProbe::Bytes(reinterpret_cast<void*>(0x456F20),16), gen1=ReversingProbe::Bytes(reinterpret_cast<void*>(D.generateNewOne),16);
+                genRouteOk&=ReversingProbe::JumpsToDll(0x456F20)==candidate;
                 const bool switches= ReversingProbe::JumpsToDll(fn.address)==candidate;   // despues de State(), no antes
                 json out={{"switches",switches}};
                 _controlfp(_PC_24,_MCW_PC);                  // x87 a 24 bits como el juego
                 out["state"]=RunCase(nm,r);
                 const unsigned fp=_controlfp(0,0); _controlfp(savedFP,_MCW_PC|_MCW_RC);
+                genRouteOk&=ReversingProbe::Bytes(reinterpret_cast<void*>(0x456F20),16)==gen0&&ReversingProbe::Bytes(reinterpret_cast<void*>(D.generateNewOne),16)==gen1;
                 out["fp"]=fp; out["trace"]=trace;
                 RestoreRegions(); gRng=nullptr;
                 return out;
@@ -308,9 +317,12 @@ inline void Update() {
         Write({{"event","function_summary"},{"function",full},{"failures",failures},{"cases",fn.cases}});
     }
     for(size_t f=0;f<fns.size();++f){hooks[f]->State(enabled[f]);hooks[f]->LockState(locked[f]);}
+    genHook->State(genEnabled); genHook->LockState(genLocked);
     RestoreRegions();
     bool restored=RegionsRestored()&&_controlfp(0,0)==savedFP;
     for(size_t f=0;f<fns.size();++f)restored&=hooks[f]->Hooked()==enabled[f]&&hooks[f]->Locked()==locked[f];
-    Write({{"event",passed ? "complete":"error"},{"pairs",pair},{"layout_ok",layoutOk},{"state_restored",restored}});
+    restored&=genHook->Hooked()==genEnabled&&genHook->Locked()==genLocked;
+    passed&=genRouteOk;
+    Write({{"event",passed ? "complete":"error"},{"pairs",pair},{"layout_ok",layoutOk},{"gen_route_ok",genRouteOk},{"state_restored",restored}});
 }
 }

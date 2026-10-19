@@ -1,7 +1,7 @@
 {
   "scope": "source/game_sa and source/app (WindowedMode.cpp included as the documented NOTSA assembly exception, reported separately), definitions in cpp/h/hpp/inc; all preprocessing branches",
   "totals": {
-    "source_definition_count": 18125,
+    "source_definition_count": 18127,
     "groups": 1487,
     "assembly_occurrences": 0,
     "naked_declarations": 0,
@@ -20,12 +20,12 @@
     "body_parse_errors": 303,
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 443,
-    "historical_catalog_rows": 8689,
+    "historical_catalog_rows": 8690,
     "catalog_rows_without_unambiguous_source_match_in_scope": 0,
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 20,
-    "catalog_rows_linked_by_hook_address": 156,
-    "validated_reconstructed_own_cpp_definitions": 9998,
+    "catalog_rows_linked_by_hook_address": 157,
+    "validated_reconstructed_own_cpp_definitions": 9999,
     "validated_reconstructed_own_asm_definitions": 0,
     "wrapper_definitions": 148
   },
@@ -379,7 +379,7 @@
     "source/game_sa/Core/PtrNodeSingleLink.cpp": "528196f1de7dcda0eddec42ac87c004ae6bb5a3c190e4627f2f66ca1c4e0288c",
     "source/game_sa/Core/PtrNodeSingleLink.h": "b977d4e2f277809a7d1f4bd46e0763381fa1a836065905ea9a85fd8488df1f09",
     "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
-    "source/game_sa/Core/Quaternion.cpp": "c0f0dcbd5fc45b67cd45031b53ae4149c5f7712cfd84eb0529a4257fcc01053a",
+    "source/game_sa/Core/Quaternion.cpp": "d8dbd1646f5d5111f70aba3252aec8283cbd976f46fce1f915f95966ab3e064f",
     "source/game_sa/Core/Quaternion.h": "48db9873122fa6bfad1c9a50ba0ac91c3a7c4d5a80e984984ec10f5f4bf38dec",
     "source/game_sa/Core/Rect.cpp": "f234c9ab59e9822bb3cf095a2093d2c5206aca736f44063c23bbd52eb43abeae",
     "source/game_sa/Core/Rect.h": "e7b704bfc6028faa25c61da1f5203788bafe0bb23dce706a20e16e96077421ca",
@@ -2224,17 +2224,17 @@
     "source/game_sa/World.cpp": "0066108864b6c6c3aa13ac5a68da99749b177bd94605ebc3a2c14580018340bd",
     "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c",
     "source/game_sa/World_Helper.cpp": "331f33ad029ba5a963ac2b15dbe384298d36075b3b0eef2adedeb72454f5a033",
-    "source/game_sa/X87Math.cpp": "26b2c8771fe218cb9c102acb4b73c68c5ed7dc90953f5a6ce9a1fbe40126920a",
-    "source/game_sa/X87Math.h": "c6b5f413d16b9f83c4707ce877024fcb7ba83d805f37dfed100e45715a14862f",
+    "source/game_sa/X87Math.cpp": "1ad8a09262e750b0b378c46a689bcbf61fc8f445db354c628e4ff82dcfa09b90",
+    "source/game_sa/X87Math.h": "cc7d89472a470eca85b82a4dab533baf6b55cc4ef18c5f48e7b8c8d062ab7a78",
     "source/game_sa/Zone.cpp": "efb2c9fa14a6744d59fb142a8c8497719d7e9bf976ca3aebca78cc33caffa14a",
     "source/game_sa/Zone.h": "6e68b4a81ee271b97e3ed2b1ce9a6fcc1ff87dd54ab7790cb908fb14c5624d93",
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "d33b2fb65c2345d0ed3c91b9a9ffb9bc094e21639055450bb81fdff484b8f6a2",
+    "hooks.csv": "a4154dd3d5f422a5841112207d32ec957b82397cc652acc7636b5573db6ac86c",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "8961457d9886a4dda5959327f1bd707e3a1b0f20625f6aa7c3a18a06fe6b6f30",
+  "migration_registry_sha256": "e506b7673df2840e47ad6d713dac61feff4170fea07e2dbc6f9e3f4726cb8660",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

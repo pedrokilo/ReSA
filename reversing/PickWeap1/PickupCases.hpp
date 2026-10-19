@@ -18,7 +18,7 @@ struct DllBodies {
     uintptr_t clearBlip{}, worldRemove{}, processGunShot{}, getTaskJetPack{}, saveData{}, loadData{}, shadow{}, corona{}, getRandom{}, groundZ{};
     uintptr_t audio{}, incStat{}, getStat{}, trigMsg{}, pctProgress{}, fov{}, sphereVis{}, updHealth{}, resetSprint{}, getWanted{}, setWanted{};
     uintptr_t fSetProp{}, fSetBack{}, fSetScale{}, fSetOrient{}, fSetCentre{}, fSetColor{}, fSetStyle{}, fPrint{}, insertNum{};
-    uintptr_t pickOyster{}, pickHorse{};
+    uintptr_t pickOyster{}, pickHorse{}, generateNewOne{};   // generateNewOne = cuerpo de CPickups::GenerateNewOne_ExeAbi (C++ directo desde 18/10/2026)
     // CWeapon (WeaponCases.hpp)
     uintptr_t addRef{}, removeRef{}, fxKill{}, shotInfoInit{}, shotInfoShutdown{}, shotInfoUpdate{}, explInit{}, explShutdown{}, explUpdate{};
     uintptr_t projInit{}, projShutdown{}, projUpdate{}, bulletInit{}, bulletShutdown{}, bulletUpdate{}, weaponInfoInit{}, weaponInfoShutdown{}, removeColVolumes{};
@@ -122,6 +122,8 @@ inline json PickState(const std::vector<uint8>& before){
 inline std::vector<uint8> PickBefore(){ return ReversingProbe::Bytes(reinterpret_cast<void*>(kPickups),620*0x20); }
 inline void AddRemoveStubs(Patches& P){
     P.Add(0x587C60,S_ClearBlip); P.Add(D.clearBlip,S_ClearBlip); P.Add(0x563280,S_WorldRemove); P.Add(D.worldRemove,S_WorldRemove); }
+// GenerateNewOne es C++ directo: el envoltorio CPickups::GenerateNewOne llama a GenerateNewOne_ExeAbi (cuerpo enganchado en 0x456F20), asi que el falso va en la direccion del EXE Y en ese cuerpo.
+inline void AddGenerateStub(Patches& P){ P.Add(0x456F20,S_GenerateNewOne); P.Add(D.generateNewOne,S_GenerateNewOne); }
 inline void AddRandStubs(Patches& P){ P.Add(0x821B1E,S_RandExe); P.Add(D.getRandom,S_RandDll); }
 inline void AddStatStubs(Patches& P){
     P.Add(0x55C180,S_IncStat); P.Add(D.incStat,S_IncStat); P.Add(0x558E40,S_GetStat); P.Add(D.getStat,S_GetStat);
@@ -335,7 +337,7 @@ inline json CaseCreateSomeMoney(Rng& r){
     FillPickups(r,40,false); FillPickGlobals(r); gGenerateCounter=0;
     CVector c{r.unit(-200,200),r.unit(-200,200),r.unit(-20,100)}; const int32 amount=r.pickI({1,19,20,39,40,99,100,139,140,500,5000,100000,int64_t(r.below(3000))});
     AtA<int16>(0x8CD59C)=int16(r.pickI({0,100,1212,19999}));
-    Patches P; AddRandStubs(P); P.Add(0x5696C0,S_GroundZ); P.Add(D.groundZ,S_GroundZ); P.Add(0x456F20,S_GenerateNewOne);
+    Patches P; AddRandStubs(P); P.Add(0x5696C0,S_GroundZ); P.Add(D.groundZ,S_GroundZ); AddGenerateStub(P);
     const auto before=PickBefore();
     reinterpret_cast<void(__cdecl*)(CVector,int32)>(0x458970)(c,amount);
     return PickState(before); }
@@ -343,7 +345,7 @@ inline json CaseGenerateWeapon(Rng& r){
     FillPickups(r,40,false); FillPickGlobals(r); gGenerateCounter=0;
     CVector c{r.unit(-200,200),r.unit(-200,200),r.unit(-20,100)};
     const int32 wt=r.pickI({0,22,24,28,30,34,35,38,41,43,45,46,int64_t(r.below(47))}); char msgBuf[8]{};
-    Patches P; P.Add(0x456F20,S_GenerateNewOne);
+    Patches P; AddGenerateStub(P);
     const auto before=PickBefore();
     const int32 res=reinterpret_cast<int32(__cdecl*)(CVector,int32,int32,uint32,uint32,char*)>(0x457380)(c,wt,int32(1+r.below(22)),r.below(500),r.below(2),r.pct(50) ? msgBuf : nullptr);
     json o=PickState(before); o["res"]=res; return o; }

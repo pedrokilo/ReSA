@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "pairs": 320,
+  "differences": 0,
+  "registered_pairs": 320,
+  "registered_functions": 2,
+  "functions": {
+    "CPickups::CreateSomeMoney": 192,
+    "CPickups::GenerateNewOne_WeaponType": 128
+  },
+  "covered_functions": {
+    "CPickups::CreateSomeMoney": true,
+    "CPickups::GenerateNewOne_WeaponType": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. REVALIDACIÓN 18/10/2026. Sonda compilada desde el worktree D:/Original/gta-wt-b29 (HEAD 29305c78d; ver artifacts/build-manifest.json); fuentes del banco idénticas al árbol principal (Pickups.cpp/.h, Weapon.cpp) salvo Weapon.h, que sólo difiere en finales de línea (CRLF frente a LF). CPickups::GenerateNewOne es ahora un envoltorio de GenerateNewOne_ExeAbi: el banco parchea el falso de GenerateNewOne en 0x456F20 y en Body(&CPickups::GenerateNewOne_ExeAbi), y activa el hook de GenerateNewOne sólo en el lado candidato (compuerta gen_route_ok). La corrida completa ejecutó las 60 funciones del banco (11020 pares, todo igual), pero su summary sólo da el resultado global y los pares por función: sólo CreateSomeMoney (192) y GenerateNewOne_WeaponType (128) pasan a esta evidencia; las otras 58 conservan la evidencia anterior (corrida 20261009-162447-757920).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/PickWeap1-20261018-221822-133087",
+  "bank_pairs": 11020,
+  "bank_functions": 60,
+  "summary_sha256": "e6bd0048125d82264ea488d8d36b8d1d150565842d578ea322688e8fe4ca78d0",
+  "result_txt_sha256": "90eeff5d282fda0ea51cd8ca46ffc184d28dc8f2f2b81e3a216e015366166523",
+  "log_sha256": "d10e94f687a3746ca1850569e41e1f2401acaba8d8bfd8a34d0e9a93ef400330",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "89f7d81bb964ac7a3fffcd392a91198dc7a538853e779e8376caf831c9368739",
+  "manifest": {
+    "tested_sources": {
+      "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+      "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b",
+      "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
+      "source/game_sa/Weapon.h": "bb2f7131930ab89775bbf420ca3409d1a2949a0ac9460e34e94464f9129dcfed"
+    }
+  }
+}

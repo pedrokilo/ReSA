@@ -2454,6 +2454,55 @@ __declspec(noinline) void __cdecl RpNanQuatToMatrixCpp(const float* q, float* m)
 }
 #pragma float_control(pop)
 
+// --- CQuaternion::Get(RwV3d*, float*) (0x59C230) ---
+// El EXE: fld w ; fadd st,st ; call _CIacos (0x822380) ; fld st ; fstp [angle] ; fsin ; fdivr [1.0] ; (fld st ; fmul [q.x] ; fstp [axis.x]) ; idem y ;  fmul [q.z] ; fstp [axis.z].
+// Se ejecuta en la maquina FlcX87 (la misma que reproduce _CIacos del EXE, incluidos errno = 33 y el indefinido del dominio). Unica salvedad: acos(-1) es fldpi de 64 bits
+// (sin banderas de inexacto) y fsin lo recibe con los 64 bits; FlcX87::Fsin lo pasaria a double, asi que ese caso (2w == -1) calcula el seno de pi + (pi_64 - pi_53) con el
+// x87 real a 64 bits de precision (la suma no se redondea a double: ST0 llega a fsin) y lo apila ya como valor de registro.
+static __declspec(noinline) double ExtendedPiSinCpp() {
+    // pi_64 = 0xC90FDAA22168C235 * 2^-62 = kPiHi + kPiLo, exacto: kPiHi es el double mas cercano (0x400921FB54442D18) y kPiLo = pi_64 - kPiHi (11 bits significativos).
+    static const volatile double kPiHi = 0x1.921fb54442d18p+1;                  // 0x400921FB54442D18
+    static const volatile double kPiLo = 0x1.1a80000000000p-53;   // 3CA1A80000000000 = pi_64 - kPiHi (exacto)
+    unsigned previous = 0, ignored = 0;
+    __control87_2(0, 0, &previous, nullptr);
+    __control87_2(_PC_64, _MCW_PC, &ignored, nullptr);
+    const double result = sin(kPiHi + kPiLo);
+    __control87_2(previous, _MCW_PC, &ignored, nullptr);
+    return result;
+}
+
+__declspec(noinline) void __cdecl QuaternionGetAxisAngleCpp(const float* q, float* axis, float* angle) {
+    static const float kOne = 1.0f;   // [0x858624]
+    FlcX87 fp;
+    fp.Fld(q[3]);                           // 59C233 fld [esi + 0xC]
+    fp.Arith('+', 0, 0, 0, false);          // 59C236 fadd st(0), st(0)
+    FlcCrtAcos(fp);                         // 59C238 call 0x822380
+    fp.FldSt(0);                            // 59C23D fld st(0)
+    fp.Fstp(*angle);                        // 59C243 fstp [angle]
+    const FlcExt top = fp.St(0);
+    if (top.kind == FLC_NORMAL && top.neg == 0 && top.sig == 0xC90FDAA22168C235ull && top.exp == 1) {
+        const double sine = ExtendedPiSinCpp();   // fsin de pi de 64 bits (fldpi sin redondeo a 53 bits)
+        fp.Pop();
+        fp.FldExt(FlcFromDoubleExact(sine));
+        fp.state |= FLC_PE;
+        fp.cc &= ~FLC_C2;
+        fp.c1 = false;
+        fp.lastClass = 3;
+    } else {
+        fp.Fsin();                          // 59C249 fsin
+    }
+    fp.Fdivr(kOne);                         // 59C24B fdivr [0x858624]
+    fp.FldSt(0);                            // 59C251
+    fp.Fmul(q[0]);                          // 59C253 fmul [esi]
+    fp.Fstp(axis[0]);                       // 59C255 fstp [eax]
+    fp.FldSt(0);                            // 59C257
+    fp.Fmul(q[1]);                          // 59C259 fmul [esi + 4]
+    fp.Fstp(axis[1]);                       // 59C25C fstp [eax + 4]
+    fp.Fmul(q[2]);                          // 59C25F fmul [esi + 8]
+    fp.Fstp(axis[2]);                       // 59C263 fstp [eax + 8]
+    fp.Commit();
+}
+
 
 // --- RpAnimBlendClumpUpdateAnimations (0x4D34F0; lote w20) ---
 // Una sola expresión y sin reasociar (precise): la x87 de 24 bits redondea cada operación; en doubles de SSE el resultado solo se redondea al final y difiere.

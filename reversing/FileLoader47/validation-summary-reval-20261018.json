@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "pairs": 256,
+  "differences": 0,
+  "registered_pairs": 256,
+  "registered_functions": 1,
+  "functions": {
+    "CFileLoader::LoadPickup": 256
+  },
+  "covered_functions": {
+    "CFileLoader::LoadPickup": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. REVALIDACIÓN 18/10/2026, corrida aislada con FILELOADER47_ONLY=CFileLoader::LoadPickup (256 pares). Sonda compilada desde el worktree D:/Original/gta-wt-b29 (HEAD 29305c78d; ver artifacts/build-manifest.json); fuentes idénticas al árbol principal. Cambios del banco: pPickup se parchea también en Body(&CPickups::GenerateNewOne_ExeAbi) (GenerateNewOne es ahora un envoltorio) y l2dfx también en Body(&CFileLoader::Load2dEffect) (ahora C++ enganchado). Las otras 46 funciones del banco NO se han repetido con las fuentes actuales (FileLoader.cpp cambió): conservan la evidencia anterior y quedan pendientes de la corrida completa (11968 pares).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/FileLoader47-20261018-222127-695707",
+  "bank_pairs": 256,
+  "bank_functions": 1,
+  "summary_sha256": "6f85e8796f63eaa7b5b2db60f7bd166b8fd63bcae130ad6de0e3aeccb6a73993",
+  "result_txt_sha256": "1d1ea539df4a06afdf4ff664029e96ed0deaa4a49fe70654bcb7cc17363592dd",
+  "log_sha256": "4e6bc28957333ea9dba2a1a1885ba007fdd82fd7f3e0955ed9445c2e3875165b",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "380215a28132fd03d0661d17a54f8c223f7e87d7e40f7aa40c68a051edbf6b19",
+  "manifest": {
+    "tested_sources": {
+      "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
+      "source/game_sa/FileLoader.h": "3631492ab243ec973a7ab8d1119f5a06161edc81ae5583f7a068e78c6fabe984",
+      "source/game_sa/Pickups.cpp": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2",
+      "source/game_sa/Pickups.h": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
+    }
+  }
+}

@@ -8684,3 +8684,4 @@ CRealTimeShadow,SetupForThisEntity,0x00706520,1,0,1,S
 CSprite2d,AddToBuffer,0x00728200,1,0,1,S
 CTaskComplexPartnerShove,GetPartnerSequence,0x00000000,1,0,1,V
 FxInfoManager_c,Load,0x005C0B70,1,0,1,S
+CQuaternion,Get-axis-angle,0x0059C230,1,0,1,S

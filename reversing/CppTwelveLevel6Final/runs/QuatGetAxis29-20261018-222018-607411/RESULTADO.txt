@@ -1,0 +1,3 @@
+APROBADO: QuatGetAxis29
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-quatgetaxis29\20261018-222018-607411
