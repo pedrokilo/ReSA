@@ -129,7 +129,7 @@ def section(root):
              f'ya reemplazadas** (varias filas son sobrescrituras virtuales que comparten cuerpo).', '',
              '| Región del EXE | Funciones | Bytes de código | Reemplazadas por C++ (funciones) | Reemplazadas (bytes) |', '| --- | ---: | ---: | --- | --- |']
     tf = tb = rf = rb = 0
-    for key in sorted(reg, key=lambda k: reg[k]['functions'] - reg[k]['replaced']):
+    for key in sorted(reg, key=lambda k: -reg[k]['replaced'] / reg[k]['functions']):
         r = reg[key]
         lines.append(f"| {names[key]} | {r['functions']:,} | {r['bytes']:,} | `{_bar(r['replaced'], r['functions'])}` {r['replaced']:,} · {r['replaced']/r['functions']:.1%} | "
                      f"`{_bar(r['replaced_bytes'], r['bytes'])}` {r['replaced_bytes']/r['bytes']:.1%} |")
@@ -189,11 +189,10 @@ def _pending_list(root):
         ordered = sorted(grp.items(), key=lambda kv: (len(kv[1]), kv[0]))
         if key == 'juego':
             lines += [f'#### {title}: {counts[key]} funciones en {len(ordered)} clases o grupos', '',
-                      'Orden: de menos a más funciones pendientes. Cada clase lista todas sus funciones con la dirección del EXE a la que aún llaman.', '',
-                      '| Clase o grupo | Pendientes |', '| --- | ---: |'] + [f'| [{c}](#{_anchor(c)}) | {len(f)} |' for c, f in ordered] + ['']
+                      '| Clase o grupo | Pendientes | Funciones (dirección en el EXE) |', '| --- | ---: | --- |']
             for cls, fns in ordered:
-                lines += [f'<a id="{_anchor(cls)}"></a>', '', f'##### {cls} · {len(fns)}', '', '| Función | Dirección en el EXE |', '| --- | --- |']
-                lines += [f'| `{fn}` | `{addr}` |' for fn, addr in sorted(fns, key=lambda x: x[1])] + ['']
+                lines.append(f'| {cls} | {len(fns)} | ' + '<br>'.join(f'`{fn}` {addr}' for fn, addr in sorted(fns, key=lambda x: x[1])) + ' |')
+            lines.append('')
             continue
         lines += [f'#### {title}: {counts[key]}', '', '| Clase o grupo | Funciones | Pendientes |', '| --- | ---: | --- |']
         for cls, fns in ordered:
