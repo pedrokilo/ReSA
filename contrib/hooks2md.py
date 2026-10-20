@@ -6,6 +6,7 @@ import datetime
 import os
 from dataclasses import dataclass
 from pathlib import Path
+import exe_coverage
 from validation_registry import evaluate
 from source_status import read_classes, source_index, update_comments
 from urllib.parse import quote
@@ -182,6 +183,7 @@ def generate(input_path, output_path, update_source_status=False):
         "**Migración de ensamblador a C++:** en `source/game_sa` ya no queda ningún `__asm` ni función `naked`: todo lo reconstruido está escrito en C++, con resultados validados contra el EXE dentro del juego. Regla del proyecto: todo lo que se reconstruya va en C++, dos archivos por clase (`.cpp` y `.h`) y sin duplicados ([proceso](../reversing/CppOnlyMigration/PROCESO.md)). Historial y excepciones documentadas: [estado de la migración](../reversing/CppOnlyMigration/README.md) · [FILES.md](../reversing/CppOnlyMigration/FILES.md)."
         if asm_total == 0 else
         "**Migración de ensamblador a C++:** algunas clases ya reconstruidas y validadas todavía contienen ensamblador en su fuente (`__asm` o funciones `naked`), porque se reconstruyeron conservando exactamente el comportamiento del EXE. Pasarán por un proceso de conversión de ensamblador a C++ que conserve resultados idénticos y se vuelva a validar dentro del juego. Hasta entonces, «reconstruida y validada» no implica «escrita en C++». Regla del proyecto: todo lo que se reconstruya va en C++, dos archivos por clase (`.cpp` y `.h`) y sin duplicados ([proceso](../reversing/CppOnlyMigration/PROCESO.md)). Lista de archivos pendientes: [FILES.md](../reversing/CppOnlyMigration/FILES.md) · [estado de la migración](../reversing/CppOnlyMigration/README.md).")
+    _dep_row = exe_coverage.dependency_row(root)
     lines = ["# Progreso del reversing", "",
              "[Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)", "",
              f"> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** {now}", "",
@@ -191,7 +193,7 @@ def generate(input_path, output_path, update_source_status=False):
              "| --- | --- | --- |",
              f"| Clases completas | `{'█' * round(20*len(full)/class_total)}{'░' * (20-round(20*len(full)/class_total))}` | {len(full)}/{class_total} · {len(full)/class_total:.2%} |",
              f"| Clases validadas (de las completas) | `{'█' * round(20*len(validated_classes)/len(full))}{'░' * (20-round(20*len(validated_classes)/len(full)))}` | {len(validated_classes)}/{len(full)} · {len(validated_classes)/len(full):.2%} |",
-             f"| Funciones reconstruidas | `{'█' * round(20*reversed_count/(total+pending_functions))}{'░' * (20-round(20*reversed_count/(total+pending_functions)))}` | {reversed_count:,}/{total+pending_functions:,} · {reversed_count/(total+pending_functions):.2%} |",
+             f"| Entradas de catálogo reconstruidas (ver [cobertura real del EXE](#cobertura-exe)) | `{'█' * round(20*reversed_count/(total+pending_functions))}{'░' * (20-round(20*reversed_count/(total+pending_functions)))}` | {reversed_count:,}/{total+pending_functions:,} · {reversed_count/(total+pending_functions):.2%} |",
              f"| Funciones validadas (de las reconstruidas) | `{'█' * round(20*validated_count/reversed_count)}{'░' * (20-round(20*validated_count/reversed_count))}` | {validated_count:,}/{reversed_count:,} · {validated_count/reversed_count:.2%} |", *cpp_row, "",
              "Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL." + (" La última barra cuenta, de las funciones reconstruidas, las que tienen fuente identificada y sin `__asm` ni `naked`; las entradas sin fuente identificada de forma inequívoca no se cuentan como C++. El detalle está en [ImplementacionesDelJuego.md](ImplementacionesDelJuego.md)." if cpp_row else ""), "",
              migration_text, "",
@@ -202,7 +204,7 @@ def generate(input_path, output_path, update_source_status=False):
              "| Dimensión | Estado actual | Qué hay que hacer |",
              "| --- | --- | --- |",
              f"| Validaciones vigentes para el árbol actual | {validation['current']}/{validated_count:,} validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). |",
-             "| Dependencias de funciones originales eliminadas | No medido | Auditar, para cada función reconstruida, las llamadas directas y transitivas que todavía saltan a código del EXE (`plugin::Call*`, direcciones fijas, hooks sin reconstruir) y contar las que ya no dependen de ninguna. |", "",
+             f"| Dependencias de funciones originales eliminadas | {_dep_row or 'No medido'} | Resolver las llamadas indirectas (tablas de punteros, callbacks) para convertir la cota inferior en un valor exacto, y eliminar o sustituir las dependencias directas que quedan. |", "",
              f"**Validación consolidada parcialmente:** {validation['documented']} funciones con evidencia aprobada vinculada, {validation['source_matches']} con fuentes registradas coincidentes y {validation['current']} con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).", "",
              "## Vista general", "",
              "| Clases validadas | Completas por validar | Funciones validadas | Reconstruidas por validar | Funciones por reconstruir |",
@@ -216,6 +218,7 @@ def generate(input_path, output_path, update_source_status=False):
     repo, sha = os.environ.get("GITHUB_REPO_URL"), os.environ.get("GITHUB_SHA")
     if repo and sha and sha != "unknown":
         lines += [f"Generación de CI: [{sha[:12]}]({repo}/commit/{sha}).", ""]
+    lines += exe_coverage.section(root)
     lines += ['<a id="completas"></a>', f"## 🟢 Completas · {len(full)} clases", "",
               "Orden alfabético. El número entre paréntesis indica funciones registradas; ✅ indica entradas con validated=1 y 🔒 indica hooks cuya conmutación sigue bloqueada. Los bloqueos no son pendientes de validación.", "",
               "<details>", "<summary>Mostrar catálogo de clases completas</summary>", "",

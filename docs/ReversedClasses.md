@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-19 23:24 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-20 00:05 UTC
 
 ## Objetivo y dimensiones de progreso
 
@@ -12,7 +12,7 @@ La [hoja de ruta de ReSA](ProjectRoadmap.md) define una reconstrucción funciona
 | --- | --- | --- |
 | Clases completas | `███████████████████░` | 780/818 · 95.35% |
 | Clases validadas (de las completas) | `████████████████████` | 780/780 · 100.00% |
-| Funciones reconstruidas | `███████████████████░` | 8,715/9,200 · 94.73% |
+| Entradas de catálogo reconstruidas (ver [cobertura real del EXE](#cobertura-exe)) | `███████████████████░` | 8,715/9,200 · 94.73% |
 | Funciones validadas (de las reconstruidas) | `████████████████████` | 8,715/8,715 · 100.00% |
 | Funciones reconstruidas escritas solo en C++ (sin ensamblador) | `████████████████████` | 8,714/8,715 · 99.99% |
 
@@ -29,7 +29,7 @@ Estas dimensiones todavía no tienen un porcentaje útil: indican el trabajo que
 | Dimensión | Estado actual | Qué hay que hacer |
 | --- | --- | --- |
 | Validaciones vigentes para el árbol actual | 0/8,715 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). |
-| Dependencias de funciones originales eliminadas | No medido | Auditar, para cada función reconstruida, las llamadas directas y transitivas que todavía saltan a código del EXE (`plugin::Call*`, direcciones fijas, hooks sin reconstruir) y contar las que ya no dependen de ninguna. |
+| Dependencias de funciones originales eliminadas | Medido (cota inferior): 1,185 funciones del EXE siguen llamándose directamente desde código ya reemplazado (917 del juego, 210 RenderWare/D3D, 58 CRT); cierre transitivo del juego: 1,234 funciones / 344,572 bytes. Ver [Cobertura real del EXE](#cobertura-exe) | Resolver las llamadas indirectas (tablas de punteros, callbacks) para convertir la cota inferior en un valor exacto, y eliminar o sustituir las dependencias directas que quedan. |
 
 **Validación consolidada parcialmente:** 8715 funciones con evidencia aprobada vinculada, 470 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
 
@@ -46,6 +46,35 @@ Reconstrucción por clases: 780 completas, 15 parciales y 23 sin revertir de 818
 
 > [!NOTE]
 > Los porcentajes de reconstrucción miden entradas registradas como `reversed`; los de validación, entradas con evidencia aprobada (`validated=1`). Ninguno mide estabilidad del juego. Una clase completa puede conservar hooks bloqueados o funciones todavía no registradas.
+
+<a id="cobertura-exe"></a>
+
+## Cobertura real del EXE (estimación)
+
+Las barras de arriba miden **filas del catálogo** (`hooks.csv`), no el EXE. Esta sección mide el propio ejecutable original con el análisis estático ([MemoryMap](MemoryMap/README.md): 17,765 entradas de función detectadas y 3.72 MB de cuerpos de función), cruzado con el catálogo, el registro de validación y las envolturas pendientes. 8,715 filas reconstruidas equivalen a **8,693 funciones distintas del EXE ya reemplazadas** (varias filas son sobrescrituras virtuales que comparten cuerpo).
+
+| Región del EXE | Funciones | Bytes de código | Reemplazadas por C++ (funciones) | Reemplazadas (bytes) |
+| --- | ---: | ---: | --- | --- |
+| Juego y plataforma (0x401000–0x74FFFF) | 11,804 | 3,007,877 | `███████████████░░░░░` 8,623 · 73.1% | `████████████████░░░░` 81.9% |
+| RenderWare y D3D (0x750000–0x81FFFF) | 1,889 | 600,971 | `█░░░░░░░░░░░░░░░░░░░` 61 · 3.2% | `░░░░░░░░░░░░░░░░░░░░` 0.3% |
+| CRT/MSVC y runtime (0x820000 en adelante) | 4,072 | 115,711 | `░░░░░░░░░░░░░░░░░░░░` 9 · 0.2% | `░░░░░░░░░░░░░░░░░░░░` 0.2% |
+| **Total** | **17,765** | **3,724,559** | `██████████░░░░░░░░░░` 8,693 · 48.9% | `█████████████░░░░░░░` 66.2% |
+
+**Qué significa para un ejecutable independiente.** No hace falta reconstruir las 17,765 funciones: RenderWare/D3D y el CRT son bibliotecas enlazadas dentro del EXE (5,961 entradas, 19% de los bytes) que se sustituirían enlazando una implementación equivalente, no reescribiéndolas desde el original. El trabajo propio del proyecto es el código del juego (11,804 funciones, 81% de los bytes), y de él ya está reemplazado el **82% de los bytes** (73% de las funciones: las que quedan son más pequeñas que la media). Entre las 11,804 entradas del juego hay 1,835 de 16 bytes o menos (stubs, thunks y helpers).
+
+### Lo que falta del código del juego: 3,181 funciones, 545 KB
+
+| Grupo | Funciones | Bytes | Lectura |
+| --- | ---: | ---: | --- |
+| A. Llamadas directamente desde código ya reemplazado (cierre transitivo) | 1,234 | 344,572 | **Trabajo necesario**: la DLL sigue dependiendo de ellas. Es el piso para la independencia. |
+| B. Métodos virtuales (en una vtable) no alcanzados por llamada directa | 933 | 59,721 | Probablemente necesarios: se ejecutan por despacho virtual. |
+| C. Llamadas directas solo desde código aún no reemplazado | 580 | 79,452 | Dependen de reconstruir antes A y B; parte puede ser código muerto. |
+| D. Sin llamadas directas ni vtable | 434 | 61,347 | Código muerto o alcanzado por tablas de punteros, callbacks o scripts: hay que revisarlo, no contarlo sin más. |
+
+Del código reemplazado, **1,185 funciones del EXE siguen llamándose directamente** (917 del juego, 210 de RenderWare/D3D y 58 del CRT). Esa es la lista corta de dependencias reales del original que hay que eliminar o sustituir.
+
+> [!NOTE]
+> **Cotas y límites.** Es un análisis estático: hay 6,004 llamadas indirectas sin resolver que no están en el grafo, así que A es una **cota inferior** del trabajo. La partición por regiones usa la dirección, no una clasificación función a función. «Reemplazada» significa que el hook existe y pasó su banco; no acredita independencia del EXE ni que la validación siga vigente para el árbol actual. Se regenera con `contrib/exe_coverage.py` al sincronizar la documentación.
 
 <a id="completas"></a>
 ## 🟢 Completas · 780 clases
