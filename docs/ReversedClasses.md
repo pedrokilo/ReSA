@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-20 00:22 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-20 01:17 UTC
 
 ## Objetivo y dimensiones de progreso
 
@@ -77,6 +77,812 @@ Del código reemplazado, **1,185 funciones del EXE siguen llamándose directamen
 
 > [!NOTE]
 > **Cotas y límites.** Es un análisis estático: hay 6,004 llamadas indirectas sin resolver que no están en el grafo, así que A es una **cota inferior** del trabajo. La partición por regiones usa la dirección, no una clasificación función a función. «Reemplazada» significa que el hook existe y pasó su banco; no acredita independencia del EXE ni que la validación siga vigente para el árbol actual. Se regenera con `contrib/exe_coverage.py` al sincronizar la documentación.
+
+<a id="no-en-cpp"></a>
+
+### Funciones que ya tenemos y aún no están en C++: 485
+
+Son envolturas: la DLL ya tiene la función y su hook, pero el cuerpo todavía llama al EXE original. Están separadas en tres secciones: **código del juego (284)**, que es el trabajo propio del proyecto, y las bibliotecas RenderWare/D3D (192) y CRT (9), que se sustituirían enlazando equivalentes. Las funciones del EXE sin nombre ni hook (el resto de lo que falta) están en el [mapa del código del juego](JuegoExe/README.md). Fuente: [envolturas-pendientes.csv](implementaciones/envolturas-pendientes.csv).
+
+#### Código del juego: 284 funciones en 34 clases o grupos
+
+Orden: más funciones pendientes primero. Cada clase lista todas sus funciones con la dirección del EXE a la que aún llaman.
+
+| Clase o grupo | Pendientes |
+| --- | ---: |
+| [CCarCtrl](#env-ccarctrl) | 80 |
+| [(helpers y globales sin clase)](#env-helpers-y-globales-sin-clase) | 67 |
+| [CVehicle](#env-cvehicle) | 17 |
+| [Fx_c](#env-fx-c) | 17 |
+| [CPlayerPed](#env-cplayerped) | 13 |
+| [CHeli](#env-cheli) | 11 |
+| [CGarage](#env-cgarage) | 10 |
+| [D3DResourceSystem](#env-d3dresourcesystem) | 7 |
+| [CPathFind](#env-cpathfind) | 6 |
+| [CTaskComplexFollowPedFootsteps](#env-ctaskcomplexfollowpedfootsteps) | 5 |
+| [CTaskComplexKillPedOnFoot](#env-ctaskcomplexkillpedonfoot) | 5 |
+| [CWaterLevel](#env-cwaterlevel) | 5 |
+| [CAutomobile](#env-cautomobile) | 4 |
+| [CPed](#env-cped) | 4 |
+| [CStats](#env-cstats) | 4 |
+| [CTaskComplexLeaveCar](#env-ctaskcomplexleavecar) | 4 |
+| [CTaskComplexPartner](#env-ctaskcomplexpartner) | 4 |
+| [CMissionCleanup](#env-cmissioncleanup) | 2 |
+| [CRemote](#env-cremote) | 2 |
+| [CStoredCar](#env-cstoredcar) | 2 |
+| [CWorldScan](#env-cworldscan) | 2 |
+| [CCollisionEventScanner](#env-ccollisioneventscanner) | 1 |
+| [CEventScanner](#env-ceventscanner) | 1 |
+| [CMemoryHeap](#env-cmemoryheap) | 1 |
+| [CMentalState](#env-cmentalstate) | 1 |
+| [CPedStuckChecker](#env-cpedstuckchecker) | 1 |
+| [CSearchLight](#env-csearchlight) | 1 |
+| [CTaskSimpleSlideToCoord](#env-ctasksimpleslidetocoord) | 1 |
+| [CTrainNode](#env-ctrainnode) | 1 |
+| [CVehiclePotentialCollisionScanner](#env-cvehiclepotentialcollisionscanner) | 1 |
+| [FxInterpInfo255_c](#env-fxinterpinfo255-c) | 1 |
+| [FxInterpInfo32_c](#env-fxinterpinfo32-c) | 1 |
+| [FxInterpInfoFloat_c](#env-fxinterpinfofloat-c) | 1 |
+| [FxInterpInfoU255_c](#env-fxinterpinfou255-c) | 1 |
+
+<a id="env-ccarctrl"></a>
+
+##### CCarCtrl · 80
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `SetUpDriverAndPassengersForVehicle` | `0x004217C0` |
+| `ThisVehicleShouldTryNotToTurn` | `0x00421FE0` |
+| `FindPathDirection` | `0x00422090` |
+| `SwitchBetweenPhysicsAndGhost` | `0x004222A0` |
+| `FindSpeedMultiplier` | `0x004224E0` |
+| `StopCarIfNodesAreInvalid` | `0x00422590` |
+| `FindPercDependingOnDistToLink` | `0x00422620` |
+| `FindIntersection2Lines` | `0x004226F0` |
+| `ClitargetOrientationToLink` | `0x00422760` |
+| `SteerAICarBlockingPlayerForwardAndBack` | `0x00422B20` |
+| `FlyAIPlaneInCertainDirection` | `0x00423000` |
+| `SteerAIPlaneTowardsTargetCoors` | `0x00423790` |
+| `SteerAIPlaneToFollowEntity` | `0x004237F0` |
+| `SteerAIPlaneToCrashAndBurn` | `0x00423880` |
+| `SteerAIHeliToCrashAndBurn` | `0x004238E0` |
+| `FlyAIHeliToTarget_FixedOrientation` | `0x00423940` |
+| `GenerateCarCreationCoors2` | `0x00424210` |
+| `ChooseModel` | `0x00424CE0` |
+| `PossiblyRemoveVehicle` | `0x00424F80` |
+| `SlowCarDownForPedsSectorList` | `0x00425440` |
+| `TestCollisionBetween2MovingRects` | `0x00425B30` |
+| `TestCollisionBetween2MovingRects_OnlyFrontBumper` | `0x00425F70` |
+| `WeaveForOtherCar` | `0x00426350` |
+| `WeaveForObject` | `0x00426BC0` |
+| `PickNextNodeToChaseCar` | `0x00426EF0` |
+| `PickNextNodeToFollowPath` | `0x00427740` |
+| `DealWithBend_Racing` | `0x00428040` |
+| `SteerAICarWithPhysicsTryingToBlockTarget_Stop` | `0x00428990` |
+| `SteerAIBoatWithPhysicsHeadingForTarget` | `0x00428BE0` |
+| `SteerAIBoatWithPhysicsAttackingPlayer` | `0x00428DE0` |
+| `SteerAIBoatWithPhysicsCirclingPlayer` | `0x00429090` |
+| `TriggerDogFightMoves` | `0x00429300` |
+| `TestWhetherToFirePlaneGuns` | `0x00429520` |
+| `GetAIPlaneToAttackPlayer` | `0x00429780` |
+| `GetAIPlaneToDoDogFight` | `0x00429890` |
+| `FlyAIHeliInCertainDirection` | `0x00429A70` |
+| `SteerAIHeliTowardsTargetCoors` | `0x0042A630` |
+| `GetAIHeliToFlyInDirection` | `0x0042A730` |
+| `SteerAIHeliToFollowEntity` | `0x0042A750` |
+| `SteerAIHeliAsPoliceHeli` | `0x0042AAD0` |
+| `SteerAIHeliFlyingAwayFromPlayer` | `0x0042ACB0` |
+| `SteerAIHeliToLand` | `0x0042AD30` |
+| `SteerAIHeliToKeepEntityInView` | `0x0042AEB0` |
+| `FireHeliRocketsAtTarget` | `0x0042B270` |
+| `FindLinksToGoWithTheseNodes` | `0x0042B470` |
+| `GenerateOneEmergencyServicesCar` | `0x0042B7D0` |
+| `FindNodesThisCarIsNearestTo` | `0x0042BD20` |
+| `CreatePoliceChase` | `0x0042C2B0` |
+| `CreateConvoy` | `0x0042C740` |
+| `ScanForPedDanger` | `0x0042CE40` |
+| `SlowCarDownForOtherCar` | `0x0042D0E0` |
+| `SlowCarDownForObjectsSectorList` | `0x0042D4F0` |
+| `WeaveThroughCarsSectorList` | `0x0042D680` |
+| `WeaveThroughPedsSectorList` | `0x0042D7E0` |
+| `WeaveThroughObjectsSectorList` | `0x0042D950` |
+| `IsThisAnAppropriateNode` | `0x0042DAB0` |
+| `PickNextNodeRandomly` | `0x0042DE80` |
+| `DragCarToPoint` | `0x0042EC90` |
+| `GetAIPlaneToDoDogFightAgainstPlayer` | `0x0042F370` |
+| `GetAIHeliToAttackPlayer` | `0x0042F3C0` |
+| `JoinCarWithRoadSystem` | `0x0042F5A0` |
+| `JoinCarWithRoadSystemGotoCoors` | `0x0042F870` |
+| `ReconsiderRoute` | `0x0042FC40` |
+| `GenerateOneRandomCar` | `0x00430050` |
+| `SlowCarDownForCarsSectorList` | `0x00432420` |
+| `FindAngleToWeaveThroughTraffic` | `0x004325C0` |
+| `PickNextNodeAccordingStrategy` | `0x00432B10` |
+| `SteerAICarWithPhysicsFollowPreRecordedPath` | `0x00432DD0` |
+| `SteerAICarWithPhysicsHeadingForTarget` | `0x00433280` |
+| `SteerAICarWithPhysicsTryingToBlockTarget` | `0x004335E0` |
+| `SteerAICarTowardsPointInEscort` | `0x004336D0` |
+| `SteerAICarParkParallel` | `0x00433BA0` |
+| `SteerAICarParkPerpendicular` | `0x00433EA0` |
+| `SetCoordsOfScriptCar` | `0x004342A0` |
+| `FindMaximumSpeedForThisCarInTraffic` | `0x00434400` |
+| `SteerAICarWithPhysicsFollowPath` | `0x00434900` |
+| `SteerAICarWithPhysicsFollowPath_Racing` | `0x00435830` |
+| `UpdateCarOnRails` | `0x00436540` |
+| `SteerAICarWithPhysics_OnlyMission` | `0x00436A90` |
+| `SteerAICarWithPhysics` | `0x00437C20` |
+
+<a id="env-helpers-y-globales-sin-clase"></a>
+
+##### (helpers y globales sin clase) · 67
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `_rwD3D9SetStreams` | `` |
+| `_rwObjectHasFrameSetFrame` | `` |
+| `CameraControlGarageDoors` | `` |
+| `ComputeTargetDoorToExit` | `` |
+| `ExeFree` | `` |
+| `FightChooseAttackAIExe` | `` |
+| `FightChooseAttackPlayerExe` | `` |
+| `FightFindTargetOnGroundExe` | `` |
+| `FightGetAvailableComboSetExe` | `` |
+| `FightStartAnimExe` | `` |
+| `GetFirstTextureCallback` | `` |
+| `IndexDataBufferGetTotalDataSize` | `` |
+| `IndexDataBufferPop` | `` |
+| `IndexDataBufferResize` | `` |
+| `operator delete` | `` |
+| `operator delete[]` | `` |
+| `operator new` | `` |
+| `operator new[]` | `` |
+| `RpClumpGtaCancelStream` | `` |
+| `RpClumpGtaStreamRead1` | `` |
+| `RpClumpGtaStreamRead2` | `` |
+| `RpMaterialUVAnimApplyUpdate` | `` |
+| `RwEngineGetVideoModeInfo` | `` |
+| `RwTexDictionaryGtaStreamRead1` | `` |
+| `RwTexDictionaryGtaStreamRead2` | `` |
+| `RwTextureRead` | `` |
+| `RxLockedPipeAddFragment` | `` |
+| `StencilTransformPoints` | `` |
+| `TextureBufferGetTotalDataSize` | `` |
+| `TextureBufferPop` | `` |
+| `TextureBufferPush` | `` |
+| `TextureBufferPushWithoutIncreasingCounter` | `` |
+| `TextureBufferResize` | `` |
+| `TextureBufferSetup` | `` |
+| `Selector de modelo de ped para ataque de bandas, sin símbolo confirmado` | `0x00406E80` |
+| `CGarage unnamed camera door helper` | `0x00449FF0` |
+| `CPathFind generador de coordenadas de ped sin símbolo confirmado` | `0x0044E790` |
+| `CAEMFDecoder helper abrir movie/media sonido` | `0x004E7990` |
+| `CAEMFDecoder helper obtener formato media` | `0x004E7A80` |
+| `CCam helper arrest camera de from/initialise sin símbolo confirmado` | `0x00512EF0` |
+| `CCamera unnamed geometry helper` | `0x00514030` |
+| `CCam unnamed arrest cop-source helper` | `0x00515D80` |
+| `CCam helper copSource alternativo=true sin símbolo confirmado` | `0x00516010` |
+| `GetMillisecondTime` | `0x005617C0` |
+| `TransformPoint` | `0x0059C890` |
+| `RsLoadPresetViews` | `0x00619D60` |
+| `RsSavePresetView` | `0x00619FA0` |
+| `helper sin símbolo confirmado` | `0x0061A3D0` |
+| `FightStrikeDamageExe` | `0x0061C740` |
+| `FightHitPedExe` | `0x0061CBA0` |
+| `FightHitObjExe` | `0x0061D400` |
+| `CTaskSimpleGangDriveBy helper de animación sin símbolo confirmado` | `0x00627B20` |
+| `CTaskSimpleGangDriveBy helper para shooter sin símbolo confirmado` | `0x00627CC0` |
+| `CreateRouteTask` | `0x00655140` |
+| `RemoveUpgradeCB` | `0x006D3300` |
+| `FindUpgradeCB` | `0x006D3370` |
+| `CWaterLevel helper de agua distante` | `0x006E6870` |
+| `CWaterLevel helper de agua cercana` | `0x006E6A10` |
+| `CWaterLevel helper de envío de agua acumulada sin símbolo confirmado` | `0x006E7680` |
+| `Creación de objeto toalla para sunbathe sin símbolo confirmado` | `0x006EABA0` |
+| `CFont helper de impresión de segmento sin símbolo confirmado` | `0x00719B40` |
+| `RwTextureGtaStreamRead` | `0x00730E60` |
+| `RwTexDictionaryGtaStreamRead` | `0x00730FC0` |
+| `RpClumpGetBoundingSphere` | `0x00734FC0` |
+| `SkinGetBonePositionsToTable` | `0x00735360` |
+| `GetDXVersion` | `0x00745650` |
+| `DIReleaseMouse` | `0x00746F70` |
+
+<a id="env-cvehicle"></a>
+
+##### CVehicle · 17
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `AddReplacementUpgrade` | `0x006D3830` |
+| `ProcessBikeWheel` | `0x006D73B0` |
+| `InflictDamage` | `0x006D7C90` |
+| `AddSingleWheelParticles` | `0x006DE880` |
+| `RemoveVehicleUpgrade` | `0x006DF930` |
+| `AddUpgrade` | `0x006DFA20` |
+| `UpdateTrailerLink` | `0x006DFC50` |
+| `UpdateTractorLink` | `0x006E0050` |
+| `ScanAndMarkTargetForHeatSeekingMissile` | `0x006E0400` |
+| `FireHeatSeakingMissile` | `0x006E05C0` |
+| `PossiblyDropFreeFallBombForPlayer` | `0x006E07E0` |
+| `ProcessSirenAndHorn` | `0x006E0950` |
+| `AddVehicleUpgrade` | `0x006E3290` |
+| `GetPlaneWeaponFiringStatus` | `0x006E3440` |
+| `ProcessWeapons` | `0x006E3950` |
+| `FireFixedMachineGuns` | `0x0073DF00` |
+| `DoDriveByShootings` | `0x00741FD0` |
+
+<a id="env-fx-c"></a>
+
+##### Fx_c · 17
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `AddBlood` | `0x0049EB00` |
+| `AddWood` | `0x0049EE10` |
+| `AddSparks` | `0x0049F040` |
+| `AddTyreBurst` | `0x0049F300` |
+| `AddBulletImpact` | `0x0049F3D0` |
+| `AddPunchImpact` | `0x0049F670` |
+| `AddDebris` | `0x0049F750` |
+| `AddGlass` | `0x0049F970` |
+| `AddWheelSpray` | `0x0049FB30` |
+| `AddWheelGrass` | `0x0049FF20` |
+| `AddWheelGravel` | `0x004A0170` |
+| `AddWheelMud` | `0x004A03C0` |
+| `AddWheelSand` | `0x004A0610` |
+| `AddWheelDust` | `0x004A09C0` |
+| `TriggerWaterHydrant` | `0x004A0D70` |
+| `TriggerGunshot` | `0x004A0DE0` |
+| `TriggerTankFire` | `0x004A0FA0` |
+
+<a id="env-cplayerped"></a>
+
+##### CPlayerPed · 13
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `ProcessAnimGroups` | `0x006098F0` |
+| `SetRealMoveAnim` | `0x0060A9C0` |
+| `Compute3rdPersonMouseTarget` | `0x0060B650` |
+| `DrawTriangleForMouseRecruitPed` | `0x0060BA80` |
+| `KeepAreaAroundPlayerClear` | `0x0060C1E0` |
+| `MakeThisPedJoinOurGroup` | `0x0060C840` |
+| `PlayerWantsToAttack` | `0x0060CC50` |
+| `SetInitialState` | `0x0060CD20` |
+| `EvaluateNeighbouringTarget` | `0x0060D1C0` |
+| `ProcessGroupBehaviour` | `0x0060D350` |
+| `ProcessWeaponSwitch` | `0x0060D850` |
+| `FindWeaponLockOnTarget` | `0x0060DC50` |
+| `FindNextWeaponLockOnTarget` | `0x0060E530` |
+
+<a id="env-cheli"></a>
+
+##### CHeli · 11
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `CHeli` | `0x006C4190` |
+| `FindSwatPositionRelativeToHeli` | `0x006C4760` |
+| `ProcessControlInputs` | `0x006C4830` |
+| `ProcessFlyingCarStuff` | `0x006C4E60` |
+| `PreRender` | `0x006C5420` |
+| `SearchLightCone` | `0x006C58E0` |
+| `GenerateHeli` | `0x006C6520` |
+| `SendDownSwat` | `0x006C69C0` |
+| `BlowUpCar` | `0x006C6D30` |
+| `ProcessControl` | `0x006C7050` |
+| `UpdateHelis` | `0x006C79A0` |
+
+<a id="env-cgarage"></a>
+
+##### CGarage · 10
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `TidyUpGarage` | `` |
+| `TidyUpGarageClose` | `` |
+| `InitDoorsAtStart` | `0x00447600` |
+| `PlayerArrestedOrDied` | `0x004486C0` |
+| `IsEntityEntirelyInside3D` | `0x00448BE0` |
+| `IsEntityEntirelyOutside` | `0x00448D30` |
+| `RemoveCarsBlockingDoorNotInside` | `0x00449690` |
+| `IsStaticPlayerCarEntirelyInside` | `0x0044A830` |
+| `IsGarageEmpty` | `0x0044A9C0` |
+| `Update` | `0x0044AA50` |
+
+<a id="env-d3dresourcesystem"></a>
+
+##### D3DResourceSystem · 7
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `CreateTexture` | `0x00730510` |
+| `CreateIndexBuffer` | `0x007306A0` |
+| `Init` | `0x00730830` |
+| `CancelBuffering` | `0x00730900` |
+| `Shutdown` | `0x00730A00` |
+| `DestroyTexture` | `0x00730B70` |
+| `DestroyIndexBuffer` | `0x00730D30` |
+
+<a id="env-cpathfind"></a>
+
+##### CPathFind · 6
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `GeneratePedCreationCoors_Interior` | `0x0044ECA0` |
+| `FindNodeClosestToCoors` | `0x0044F460` |
+| `FindNthNodeClosestToCoors` | `0x0044F8C0` |
+| `FindParkingNodeInArea` | `0x004513F0` |
+| `FindNextNodeWandering` | `0x00451B70` |
+| `CompleteNewInterior` | `0x00452270` |
+
+<a id="env-ctaskcomplexfollowpedfootsteps"></a>
+
+##### CTaskComplexFollowPedFootsteps · 5
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `MakeAbortable` | `0x00694ED0` |
+| `CreateNextSubTask` | `0x00694EE0` |
+| `CreateFirstSubTask` | `0x00695000` |
+| `ControlSubTask` | `0x00695090` |
+| `CreateSubTask` | `0x00695E40` |
+
+<a id="env-ctaskcomplexkillpedonfoot"></a>
+
+##### CTaskComplexKillPedOnFoot · 5
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `MakeAbortable` | `0x00625E40` |
+| `CreateSubTask` | `0x00625E70` |
+| `ControlSubTask` | `0x00626260` |
+| `CreateNextSubTask` | `0x0062B150` |
+| `CreateFirstSubTask` | `0x0062B490` |
+
+<a id="env-cwaterlevel"></a>
+
+##### CWaterLevel · 5
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `TestLineAgainstWater` | `0x006E61B0` |
+| `FillQuadsAndTrianglesList` | `0x006E7B30` |
+| `GetWaterDepth` | `0x006EA960` |
+| `RenderHighDetailWaterRectangle` | `0x006EB810` |
+| `RenderHighDetailWaterTriangle` | `0x006EDDC0` |
+
+<a id="env-cautomobile"></a>
+
+##### CAutomobile · 4
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `HasCarStoppedBecauseOfLight` | `0x0044D520` |
+| `Render` | `0x006A2B10` |
+| `UpdateWheelMatrix` | `0x006AA290` |
+| `PreRender` | `0x006AAB50` |
+
+<a id="env-cped"></a>
+
+##### CPed · 4
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `ProcessEntityCollision` | `0x005E2530` |
+| `SpecialEntityPreCollisionStuff` | `0x005E3C30` |
+| `SpecialEntityCalcCollisionSteps` | `0x005E3E90` |
+| `ProcessControl` | `0x005E8CD0` |
+
+<a id="env-cstats"></a>
+
+##### CStats · 4
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `FindLeastFavoriteRadioStation` | `0x00559010` |
+| `BuildStatLine` | `0x00559230` |
+| `ConstructStatLine` | `0x0055A780` |
+| `UpdateRespectStat` | `0x0055BC50` |
+
+<a id="env-ctaskcomplexleavecar"></a>
+
+##### CTaskComplexLeaveCar · 4
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `MakeAbortable` | `0x00641100` |
+| `CreateSubTask` | `0x00641530` |
+| `CreateNextSubTask` | `0x006419F0` |
+| `CreateFirstSubTask` | `0x00641FC0` |
+
+<a id="env-ctaskcomplexpartner"></a>
+
+##### CTaskComplexPartner · 4
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `StreamRequiredAnims` | `0x00682310` |
+| `RemoveStreamedAnims` | `0x00682370` |
+| `CreateNextSubTask` | `0x00683AD0` |
+| `ControlSubTask` | `0x006840D0` |
+
+<a id="env-cmissioncleanup"></a>
+
+##### CMissionCleanup · 2
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `CheckIfCollisionHasLoadedForMissionObjects` | `0x004652D0` |
+| `Process` | `0x00468560` |
+
+<a id="env-cremote"></a>
+
+##### CRemote · 2
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `GivePlayerRemoteControlledCar` | `0x0045AB10` |
+| `TakeRemoteControlledCarFromPlayer` | `0x0045AE80` |
+
+<a id="env-cstoredcar"></a>
+
+##### CStoredCar · 2
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `RestoreCar` | `0x00447E40` |
+| `StoreCar` | `0x00449760` |
+
+<a id="env-cworldscan"></a>
+
+##### CWorldScan · 2
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `SetExtraRectangleToScan` | `` |
+| `ScanWorld` | `0x0072CAE0` |
+
+<a id="env-ccollisioneventscanner"></a>
+
+##### CCollisionEventScanner · 1
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `ScanForCollisionEvents` | `0x00604500` |
+
+<a id="env-ceventscanner"></a>
+
+##### CEventScanner · 1
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `ScanForEvents` | `0x00607E30` |
+
+<a id="env-cmemoryheap"></a>
+
+##### CMemoryHeap · 1
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `IntegrityCheck` | `` |
+
+<a id="env-cmentalstate"></a>
+
+##### CMentalState · 1
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `Process` | `0x006008A0` |
+
+<a id="env-cpedstuckchecker"></a>
+
+##### CPedStuckChecker · 1
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `TestPedStuck` | `0x00602C00` |
+
+<a id="env-csearchlight"></a>
+
+##### CSearchLight · 1
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `IsSpottedEntity` | `0x00493900` |
+
+<a id="env-ctasksimpleslidetocoord"></a>
+
+##### CTaskSimpleSlideToCoord · 1
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `ProcessPed` | `0x0066C4E0` |
+
+<a id="env-ctrainnode"></a>
+
+##### CTrainNode · 1
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `GetLightingFromCollision` | `0x006F5F80` |
+
+<a id="env-cvehiclepotentialcollisionscanner"></a>
+
+##### CVehiclePotentialCollisionScanner · 1
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `ScanForVehiclePotentialCollisionEvents` | `0x00603720` |
+
+<a id="env-fxinterpinfo255-c"></a>
+
+##### FxInterpInfo255_c · 1
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `GetVal` | `` |
+
+<a id="env-fxinterpinfo32-c"></a>
+
+##### FxInterpInfo32_c · 1
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `GetVal` | `` |
+
+<a id="env-fxinterpinfofloat-c"></a>
+
+##### FxInterpInfoFloat_c · 1
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `GetVal` | `0x004A8470` |
+
+<a id="env-fxinterpinfou255-c"></a>
+
+##### FxInterpInfoU255_c · 1
+
+| Función | Dirección en el EXE |
+| --- | --- |
+| `GetVal` | `` |
+
+#### RenderWare y D3D (biblioteca): 192
+
+| Clase o grupo | Funciones | Pendientes |
+| --- | ---: | --- |
+| (biblioteca) RenderWare SDK | 134 | `RpAtomicGetWorldBoundingSphere` 0x00749330, `RpClumpForAllCameras` 0x00749BB0, `RpClumpForAllLights` 0x00749C00, `RpClumpRemoveLight` 0x0074A520, `RpGeometryAddMorphTargets` 0x0074C310, `RpGeometryStreamRead` 0x0074D190 … y 128 más |
+| (biblioteca) Controlador D3D9 de RenderWare | 58 | `_rxD3D9VideoMemoryRasterListRestore` 0x004CC970, `_rwD3D9RasterConvertToNonPalettized` 0x004CD250, `_rpD3D9AddDynamicGeometry` 0x0074E970, `_rpD3D9RemoveDynamicGeometry` 0x0074E9E0, `_rpD3D9VertexDeclarationInstWeights` 0x00752320, `_rpD3D9VertexDeclarationInstV3d` 0x00752AD0 … y 52 más |
+
+<details>
+<summary>Lista completa: renderware y d3d (biblioteca)</summary>
+
+**(biblioteca) RenderWare SDK** (134)
+
+- `RpAtomicGetWorldBoundingSphere` — 0x00749330
+- `RpClumpForAllCameras` — 0x00749BB0
+- `RpClumpForAllLights` — 0x00749C00
+- `RpClumpRemoveLight` — 0x0074A520
+- `RpGeometryAddMorphTargets` — 0x0074C310
+- `RpGeometryStreamRead` — 0x0074D190
+- `_rpMaterialSetDefaultSurfaceProperties` — 0x0074D870
+- `RpMaterialStreamRead` — 0x0074DD30
+- `RpMaterialStreamGetSize` — 0x0074E010
+- `_rpMaterialListStreamGetSize` — 0x0074E450
+- `_rpMaterialListStreamRead` — 0x0074E600
+- `_rpWorldSectorDeinstanceAll` — 0x0074ECA0
+- `_rpWorldSectorDestroyRecurse` — 0x0074ED50
+- `_rpSectorDefaultRenderCallBack` — 0x0074EEC0
+- `RpWorldUnlock` — 0x0074F210
+- `RpWorldSectorGetWorld` — 0x0074F4E0
+- `RpWorldForAllMaterials` — 0x0074FBC0
+- `RpWorldForAllWorldSectors` — 0x0074FC70
+- `RpWorldAddClump` — 0x00751300
+- `RpLightForAllWorldSectors` — 0x007519F0
+- `RpLightStreamRead` — 0x00751F00
+- `_rpBuildMeshCreate` — 0x00758A90
+- `_rpBuildMeshDestroy` — 0x00758B80
+- `_rpMeshDestroy` — 0x00758BC0
+- `_rpBuildMeshAddTriangle` — 0x00758C00
+- `_rpMeshHeaderForAllMeshes` — 0x00758D30
+- `_rpMeshWrite` — 0x00758D70
+- `_rpMeshRead` — 0x00758EC0
+- `_rpMeshSize` — 0x00759090
+- `_rpTriListMeshGenerate` — 0x0075D530
+- `_rpMeshOptimise` — 0x0075D970
+- `RpWorldSetDefaultSectorPipeline` — 0x0075E270
+- `RpAtomicSetDefaultPipeline` — 0x0075E2A0
+- `RpHAnimHierarchyCreate` — 0x007C4C30
+- `RpHAnimKeyFrameStreamRead` — 0x007C64C0
+- `_rpSkinInitialize` — 0x007C8740
+- `_rpSkinSplitDataCreate` — 0x007C8A70
+- `_rpSkinSplitDataDestroy` — 0x007C8B10
+- `_rpUVAnimCustomDataStreamRead` — 0x007CBF70
+- `_rpUVAnimCustomDataStreamWrite` — 0x007CBFD0
+- `RpUVAnimDestroy` — 0x007CC0C0
+- `RpMaterialSetUVAnim` — 0x007CC3B0
+- `RtAnimInterpolatorCreate` — 0x007CD520
+- `RtAnimInterpolatorAddAnimTime` — 0x007CD8D0
+- `RtDictSchemaInit` — 0x007CED40
+- `_rtDictDestruct` — 0x007CEF60
+- `RtDictFindNamedEntry` — 0x007CEFE0
+- `RtDictForAllEntries` — 0x007CF060
+- `RtDictRemoveEntry` — 0x007CF0C0
+- `RtDictStreamWrite` — 0x007CF490
+- `RtDictSchemaForAllDictionaries` — 0x007CF5B0
+- `RtPNGImageRead` — 0x007CF9B0
+- `_rwStreamWriteVersionedChunkHeader` — 0x007ED270
+- `RwStreamWriteReal` — 0x007ED3D0
+- `RwStreamReadReal` — 0x007ED4F0
+- `RwStreamReadInt32` — 0x007ED540
+- `_rwSqrt` — 0x007EDB30
+- `_rwInvSqrt` — 0x007EDB90
+- `RwIm3DSetTransformPipeline` — 0x007EFAC0
+- `RwIm3DSetRenderPipeline` — 0x007EFB10
+- `_rwFramePurgeClone` — 0x007F01A0
+- `RwFrameDestroyHierarchy` — 0x007F08A0
+- `RwFrameAddChildNoUpdate` — 0x007F09C0
+- `_rwMatrixDeterminant` — 0x007F1450
+- `_rwMatrixOrthogonalError` — 0x007F14A0
+- `_rwMatrixNormalError` — 0x007F1500
+- `_rwMatrixIdentityError` — 0x007F1590
+- `RwMatrixOptimize` — 0x007F17E0
+- `RwMatrixRotateOneMinusCosineSine` — 0x007F1D00
+- `RwEngineGetCurrentVideoMode` — 0x007F2D20
+- `RwTextureSetMaskName` — 0x007F3910
+- `RwRasterGetNumLevels` — 0x007FB160
+- `RwFreeListDestroy` — 0x00801B80
+- `RwFreeListPurge` — 0x00801E00
+- `RwFreeListForAllUsed` — 0x00801E90
+- `RwFreeListPurgeAllFreeLists` — 0x00801F90
+- `RwImageFreePixels` — 0x00802860
+- `RwImageMakeMask` — 0x00802A20
+- `RwImageApplyMask` — 0x00802AF0
+- `RwImageRead` — 0x00802FD0
+- `RwImageReadMaskedImage` — 0x008035C0
+- `RwImageGammaCorrect` — 0x00803E30
+- `RwImageSetGamma` — 0x00803FE0
+- `RwTextureStreamGetSize` — 0x008045A0
+- `RwTextureStreamWrite` — 0x008045E0
+- `RwTextureStreamRead` — 0x008046E0
+- `_rxPipelineClose` — 0x00804F60
+- `_rxPipelineOpen` — 0x00804FE0
+- `RxPipelineExecute` — 0x00805710
+- `RxPipelineNodeCloneDefinition` — 0x008059C0
+- `_rwFrameListStreamRead` — 0x00807970
+- `RwResourcesFreeResEntry` — 0x00807DE0
+- `_rwResourcesPurge` — 0x00807E50
+- `RwResourcesEmptyArena` — 0x008081F0
+- `_rwPluginRegistryAddPlugin` — 0x008084A0
+- `_rwPluginRegistryInitObject` — 0x008086E0
+- `_rwPluginRegistryDeInitObject` — 0x00808740
+- `_rwPluginRegistryCopyObject` — 0x00808770
+- `RwErrorSet` — 0x00808820
+- `RwErrorGet` — 0x00808880
+- `_rwPluginRegistryAddPluginStream` — 0x008088E0
+- `_rwPluginRegistryAddPlgnStrmlwysCB` — 0x00808920
+- `_rwPluginRegistryAddPlgnStrmRightsCB` — 0x00808950
+- `_rwPluginRegistryReadDataChunks` — 0x00808980
+- `_rwPluginRegistryInvokeRights` — 0x00808AB0
+- `_rwPluginRegistryGetSize` — 0x00808B00
+- `_rwPluginRegistryWriteDataChunks` — 0x00808B40
+- `_rwPluginRegistrySkipDataChunks` — 0x00808C10
+- `RwCameraStreamRead` — 0x00808DE0
+- `RwBBoxCalculate` — 0x00808F60
+- `_rwSListCreate` — 0x00809160
+- `_rwSListGetNewEntry` — 0x00809240
+- `_rwSListDestroy` — 0x00809440
+- `_rwFrameSyncDirty` — 0x00809550
+- `_rwFrameSyncHierarchyLTM` — 0x008097D0
+- `RxHeapFree` — 0x008098B0
+- `_rxHeapReset` — 0x00809EC0
+- `RxHeapDestroy` — 0x00809F30
+- `RxHeapCreate` — 0x00809F90
+- `_rwStringOpen` — 0x0080A240
+- `_rwStringStreamWrite` — 0x0080A4A0
+- `_rwStringStreamFindAndRead` — 0x0080A510
+- `RwPalQuantAddImage` — 0x0080AA80
+- `RwPalQuantResolvePalette` — 0x0080AF60
+- `RwPalQuantMatchImage` — 0x0080BF20
+- `RwPalQuantInit` — 0x0080C470
+- `RwPalQuantTerm` — 0x0080C520
+- `RwImageResample` — 0x0080C600
+- `RwImageCreateResample` — 0x0080CD10
+- `RxRenderStateVectorSetDefaultRenderStateVector` — 0x0080EA40
+- `_rxPacketDestroy` — 0x0080F070
+- `RpMatFXMaterialSetBumpMapTexture` — 0x00812160
+- `RpMatFXMaterialSetDualBlendModes` — 0x008128C0
+- `RpMatFXMaterialSetUVTransformMatrices` — 0x008129E0
+
+**(biblioteca) Controlador D3D9 de RenderWare** (58)
+
+- `_rxD3D9VideoMemoryRasterListRestore` — 0x004CC970
+- `_rwD3D9RasterConvertToNonPalettized` — 0x004CD250
+- `_rpD3D9AddDynamicGeometry` — 0x0074E970
+- `_rpD3D9RemoveDynamicGeometry` — 0x0074E9E0
+- `_rpD3D9VertexDeclarationInstWeights` — 0x00752320
+- `_rpD3D9VertexDeclarationInstV3d` — 0x00752AD0
+- `_rpD3D9VertexDeclarationInstV3dMorph` — 0x00753B60
+- `_rpD3D9VertexDeclarationInstV2d` — 0x007544E0
+- `_rpD3D9VertexDeclarationInstColor` — 0x00754AE0
+- `_rpD3D9VertexDeclarationInstIndicesRemap` — 0x00754C80
+- `_rpD3D9VertexDeclarationInstTangent` — 0x00754E20
+- `_rpD3D9VertexDeclarationUnInstV3d` — 0x007551F0
+- `_rpD3D9VertexDeclarationUnInstV2d` — 0x007555E0
+- `_rpD3D9GetMinMaxValuesV2d` — 0x007558F0
+- `_rpD3D9FindFormatV2d` — 0x00755AA0
+- `_rwD3D9LightsOpen` — 0x00755D80
+- `_rwD3D9LightsClose` — 0x00755FE0
+- `_rpD3D9VertexShaderCachePurge` — 0x0075EE60
+- `_rpD3D9VertexShaderSetEnvMatrix` — 0x00761A10
+- `_rpD3D9VertexShaderSetBumpMatrix` — 0x00761B70
+- `_rwD3D9VSSetActiveWorldMatrix` — 0x00764650
+- `_rwD3D9VSGetComposedTransformMatrix` — 0x007646E0
+- `_rwD3D9VSGetWorldViewTransposedMatrix` — 0x00764730
+- `_rwD3D9VSGetInverseWorldMatrix` — 0x007647B0
+- `_rwD3D9VSGetWorldMultiplyTransposeMatrix` — 0x00764960
+- `_rwD3D9VSGetWorldViewMultiplyTransposeMatrix` — 0x007649D0
+- `_rwD3D9VSGetWorldNormalizedMultiplyTransposeMatrix` — 0x00764A70
+- `_rwD3D9VSGetWorldNormalizedViewMultiplyTransposeMatrix` — 0x00764B50
+- `_rwD3D9VSGetWorldNormalizedTransposeMatrix` — 0x00764C60
+- `_rwD3D9VSGetNormalInLocalSpace` — 0x00764D30
+- `_rwD3D9VSGetPointInLocalSpace` — 0x00764E70
+- `_rwD3D9VSGetRadiusInLocalSpace` — 0x00764F60
+- `RwD3D9CreateVertexBuffer` — 0x007F5500
+- `RwD3D9DestroyVertexBuffer` — 0x007F56A0
+- `_rwD3D9DynamicVertexBufferRestore` — 0x007F58D0
+- `RwD3D9DynamicVertexBufferCreate` — 0x007F5A00
+- `RwD3D9DynamicVertexBufferLock` — 0x007F5B10
+- `_rwD3D9SetRenderTarget` — 0x007F5F20
+- `_rwD3D9DeviceReleaseVideoMemory` — 0x007F7F70
+- `RwD3D9CameraAttachWindow` — 0x007F8D70
+- `RwD3D9DeviceSupportsDXTTexture` — 0x007F9C30
+- `RwD3D9SetRenderTarget` — 0x007F9E90
+- `_rwD3D9SetVertexShader` — 0x007F9FB0
+- `_rwD3D9SetPixelShader` — 0x007F9FF0
+- `RwD3D9SetStreamSource` — 0x007FA030
+- `_rwD3D9DrawIndexedPrimitive` — 0x007FA320
+- `RwD3D9GetTransform` — 0x007FA4F0
+- `RwD3D9SetTransformWorld` — 0x007FA520
+- `RwD3D9CreateVertexDeclaration` — 0x007FAA30
+- `RwD3D9DeleteVertexDeclaration` — 0x007FAC10
+- `RwD3D9CameraIsSphereFullyInsideFrustum` — 0x007FAD30
+- `RwD3D9CameraIsBBoxFullyInsideFrustum` — 0x007FAD90
+- `_rwD3D9Im2DRenderOpen` — 0x007FB480
+- `_rwD3D9RenderStateFlushCache` — 0x007FC200
+- `RwD3D9SetSamplerState` — 0x007FC3C0
+- `RwD3D9SetMaterial` — 0x007FC430
+- `_rwD3D9RenderStateReset` — 0x007FD100
+- `_rwD3D9Im3DRenderOpen` — 0x0080E020
+
+</details>
+
+#### CRT y runtime (biblioteca): 9
+
+| Clase o grupo | Funciones | Pendientes |
+| --- | ---: | --- |
+| (biblioteca) CRT / runtime estático | 7 | `helper sin símbolo confirmado` 0x008219F0, `_sscanf` 0x008220AD, `_pow` 0x008220F0, `_free` 0x0082413F, `Realloc` 0x00824269, `__stbuf` 0x00827DEC … y 1 más |
+| (biblioteca) QuickTime/QTML | 2 | `QuickTime runtime shutdown helper` 0x00819770, `QuickTime dispatch thunk` 0x00819840 |
+
+<details>
+<summary>Lista completa: crt y runtime (biblioteca)</summary>
+
+**(biblioteca) CRT / runtime estático** (7)
+
+- `helper sin símbolo confirmado` — 0x008219F0
+- `_sscanf` — 0x008220AD
+- `_pow` — 0x008220F0
+- `_free` — 0x0082413F
+- `Realloc` — 0x00824269
+- `__stbuf` — 0x00827DEC
+- `__ftbuf` — 0x00827E74
+
+**(biblioteca) QuickTime/QTML** (2)
+
+- `QuickTime runtime shutdown helper` — 0x00819770
+- `QuickTime dispatch thunk` — 0x00819840
+
+</details>
 
 <a id="completas"></a>
 ## 🟢 Completas · 780 clases

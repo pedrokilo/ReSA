@@ -153,6 +153,58 @@ def section(root):
               f'> [!NOTE]\n> **Cotas y límites.** Es un análisis estático: hay {d["indirect_call_sites"]:,} llamadas indirectas sin resolver que no están en el grafo, así que A es una **cota inferior** del trabajo. '
               'La partición por regiones usa la dirección, no una clasificación función a función. «Reemplazada» significa que el hook existe y pasó su banco; no acredita independencia del EXE ni '
               'que la validación siga vigente para el árbol actual. Se regenera con `contrib/exe_coverage.py` al sincronizar la documentación.', '']
+    lines += _pending_list(root)
+    return lines
+
+
+def _anchor(name):
+    return 'env-' + ''.join(ch.lower() if ch.isalnum() else '-' for ch in name).strip('-')
+
+
+def _pending_list(root):
+    """Funciones catalogadas que aún llaman al EXE (envolturas): son las que «tenemos» pero todavía no están en C++."""
+    path = Path(root) / 'docs/implementaciones/envolturas-pendientes.csv'
+    if not path.exists():
+        return []
+    groups = defaultdict(list)
+    for r in _rows(path):
+        groups[r['class']].append((r['function'], r['address']))
+    def kind(cls):
+        if not cls.startswith('(biblioteca)'):
+            return 'juego'
+        return 'crt' if ('CRT' in cls or 'QuickTime' in cls) else 'renderware'
+    parts = {'juego': ('Código del juego', {}), 'renderware': ('RenderWare y D3D (biblioteca)', {}), 'crt': ('CRT y runtime (biblioteca)', {})}
+    for cls, fns in groups.items():
+        parts[kind(cls)][1][cls] = fns
+    total = sum(len(v) for v in groups.values())
+    counts = {k: sum(len(v) for v in parts[k][1].values()) for k in parts}
+    lines = ['<a id="no-en-cpp"></a>', '', f'### Funciones que ya tenemos y aún no están en C++: {total:,}', '',
+             'Son envolturas: la DLL ya tiene la función y su hook, pero el cuerpo todavía llama al EXE original. Están separadas en tres secciones: '
+             f'**código del juego ({counts["juego"]})**, que es el trabajo propio del proyecto, y las bibliotecas RenderWare/D3D ({counts["renderware"]}) y CRT ({counts["crt"]}), que se sustituirían enlazando equivalentes. '
+             'Las funciones del EXE sin nombre ni hook (el resto de lo que falta) están en el [mapa del código del juego](JuegoExe/README.md). Fuente: [envolturas-pendientes.csv](implementaciones/envolturas-pendientes.csv).', '']
+    for key in ('juego', 'renderware', 'crt'):
+        title, grp = parts[key]
+        if not grp:
+            continue
+        ordered = sorted(grp.items(), key=lambda kv: (-len(kv[1]), kv[0]))
+        if key == 'juego':
+            lines += [f'#### {title}: {counts[key]} funciones en {len(ordered)} clases o grupos', '',
+                      'Orden: más funciones pendientes primero. Cada clase lista todas sus funciones con la dirección del EXE a la que aún llaman.', '',
+                      '| Clase o grupo | Pendientes |', '| --- | ---: |'] + [f'| [{c}](#{_anchor(c)}) | {len(f)} |' for c, f in ordered] + ['']
+            for cls, fns in ordered:
+                lines += [f'<a id="{_anchor(cls)}"></a>', '', f'##### {cls} · {len(fns)}', '', '| Función | Dirección en el EXE |', '| --- | --- |']
+                lines += [f'| `{fn}` | `{addr}` |' for fn, addr in sorted(fns, key=lambda x: x[1])] + ['']
+            continue
+        lines += [f'#### {title}: {counts[key]}', '', '| Clase o grupo | Funciones | Pendientes |', '| --- | ---: | --- |']
+        for cls, fns in ordered:
+            fns = sorted(fns, key=lambda x: x[1])
+            shown = ', '.join(f'`{fn}` {addr}' for fn, addr in fns[:6])
+            more = f' … y {len(fns) - 6} más' if len(fns) > 6 else ''
+            lines.append(f'| {cls} | {len(fns)} | {shown}{more} |')
+        lines += ['', '<details>', f'<summary>Lista completa: {title.lower()}</summary>', '']
+        for cls, fns in ordered:
+            lines += [f'**{cls}** ({len(fns)})', ''] + [f'- `{fn}` — {addr}' for fn, addr in sorted(fns, key=lambda x: x[1])] + ['']
+        lines += ['</details>', '']
     return lines
 
 
