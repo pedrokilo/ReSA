@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-20 00:05 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-20 00:22 UTC
 
 ## Objetivo y dimensiones de progreso
 
@@ -63,6 +63,8 @@ Las barras de arriba miden **filas del catálogo** (`hooks.csv`), no el EXE. Est
 **Qué significa para un ejecutable independiente.** No hace falta reconstruir las 17,765 funciones: RenderWare/D3D y el CRT son bibliotecas enlazadas dentro del EXE (5,961 entradas, 19% de los bytes) que se sustituirían enlazando una implementación equivalente, no reescribiéndolas desde el original. El trabajo propio del proyecto es el código del juego (11,804 funciones, 81% de los bytes), y de él ya está reemplazado el **82% de los bytes** (73% de las funciones: las que quedan son más pequeñas que la media). Entre las 11,804 entradas del juego hay 1,835 de 16 bytes o menos (stubs, thunks y helpers).
 
 ### Lo que falta del código del juego: 3,181 funciones, 545 KB
+
+Mapa completo de las funciones del juego, con lista por estado, bloque de direcciones y módulo estimado: [JuegoExe](JuegoExe/README.md).
 
 | Grupo | Funciones | Bytes | Lectura |
 | --- | ---: | ---: | --- |

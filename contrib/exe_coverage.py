@@ -41,7 +41,7 @@ def _hex(value):
         return 0
 
 
-def compute(root):
+def compute(root, internals=False):
     root = Path(root)
     mm = root / 'docs/MemoryMap'
     funcs = {}
@@ -105,6 +105,8 @@ def compute(root):
     out['game_remaining_total'] = dict(functions=len(game), bytes=sum(funcs[x]['size'] for x in game))
     out['game_tiny_helpers_le16'] = sum(1 for va in funcs if region(va) == 'juego' and funcs[va]['size'] <= 16)
     out['direct_dependencies_total'] = len(direct)
+    if internals:
+        return out, dict(funcs=funcs, covered=covered, pending=pending, reach=reach, direct=direct, vtable_targets=vtable_targets, groups=groups)
     return out
 
 
@@ -140,6 +142,7 @@ def section(root):
               f'({reg["juego"]["replaced"]/reg["juego"]["functions"]:.0%} de las funciones: las que quedan son más pequeñas que la media). Entre las {reg["juego"]["functions"]:,} entradas del juego hay {d["game_tiny_helpers_le16"]:,} de 16 bytes o menos (stubs, thunks y helpers).', '']
     g, t = d['game_remaining'], d['game_remaining_total']
     lines += [f'### Lo que falta del código del juego: {t["functions"]:,} funciones, {t["bytes"]/1e3:,.0f} KB', '',
+              'Mapa completo de las funciones del juego, con lista por estado, bloque de direcciones y módulo estimado: [JuegoExe](JuegoExe/README.md).', '',
               '| Grupo | Funciones | Bytes | Lectura |', '| --- | ---: | ---: | --- |',
               f'| A. Llamadas directamente desde código ya reemplazado (cierre transitivo) | {g["A"]["functions"]:,} | {g["A"]["bytes"]:,} | **Trabajo necesario**: la DLL sigue dependiendo de ellas. Es el piso para la independencia. |',
               f'| B. Métodos virtuales (en una vtable) no alcanzados por llamada directa | {g["B"]["functions"]:,} | {g["B"]["bytes"]:,} | Probablemente necesarios: se ejecutan por despacho virtual. |',
