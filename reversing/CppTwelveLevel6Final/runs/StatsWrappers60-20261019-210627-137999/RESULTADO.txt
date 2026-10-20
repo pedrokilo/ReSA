@@ -1,0 +1,3 @@
+APROBADO: StatsWrappers60
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-statswrappers60\20261019-210627-137999

@@ -1,0 +1,3 @@
+APROBADO: PartnerControl60
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-partnercontrol60\20261019-210407-199606

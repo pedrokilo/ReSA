@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "pairs": 14336,
+  "differences": 0,
+  "registered_pairs": 14336,
+  "registered_functions": 3,
+  "functions": {
+    "CPed::ProcessControl": 6144,
+    "CPed::SpecialEntityPreCollisionStuff": 4096,
+    "CPed::SpecialEntityCalcCollisionSteps": 4096
+  },
+  "covered_functions": {
+    "CPed::ProcessControl": true,
+    "CPed::SpecialEntityPreCollisionStuff": true,
+    "CPed::SpecialEntityCalcCollisionSteps": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el arbol de integracion D:/Original/wi (HEAD 6e01296af + fuentes del lote 60 de los worktrees wc-1..wc-6, con correcciones de depuracion posteriores al primer banco).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/PedWrappers60-20261019-212145-886233",
+  "summary_sha256": "600ce257197314f5bbd48c5231649218a9d75f2a632b8ea839f50c5beeea5ae6",
+  "result_txt_sha256": "9b1c63c5410b1b4b748d971167ccc1391d89aa0f98989697280257c5c6e5b92f",
+  "log_sha256": "19872e9c6e99ea5889f0da949d28c6cb8dd4f112e118fd0cf6f4d58b211430a5",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "629bec581e0d940fb78a14b0d6b5355e880d12d5c100b267ae76f92437ef0bdf",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Entity/Ped/Ped.cpp": "031109cde2b2b37849cf2bbbd7fce0eb040d1a70dbd954d6953dc9fa88a6661a",
+      "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+      "source/game_sa/X87Math.cpp": "9935da0b804efdbd00d2ed5c767f2b27ba2a92810b8de1b5c2906a240d55108b",
+      "source/game_sa/X87Math.h": "f9efe7f7e2e75560945ec1d45fa09e5de28dd5f1211d18d31d81b383b5b65d8d",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/PedWrappers60/LiveComparison.hpp": "b44db8cf90d56a3f051a263f5bff3fe9ba85763a1b8ba7e62016e9b0b3ebded9",
+      "reversing/PedWrappers60/Core.hpp": "6ec360cdb156f6a3b99ca1f0eec868e42cfffdc1eb369503fba9c1f4eda80430",
+      "reversing/PedWrappers60/Arenas.hpp": "bf0f74318188d77b43a68d53c5ac3bf72155ff7f9e22f4411c43a1ad512c861c",
+      "reversing/PedWrappers60/Fixtures.hpp": "f943621c1e98d2c614247cc4bbfbd7c40886a804665db31268037deabe9f69a3",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

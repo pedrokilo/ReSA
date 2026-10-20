@@ -1,0 +1,81 @@
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp b/source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp
+index 76aafd4..ed41e9e 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp
+@@ -21,12 +21,14 @@ END GENERATED HOOK STATUS */
+ #include "TaskComplexPartner.h"
+ #include "TaskComplexPartnerChat.h"
+ #include "TaskSimpleStandStill.h"
++#include "IKChainManager.h"
+ 
+ void CTaskComplexPartner::InjectHooks() {
+     RH_ScopedVirtualClass(CTaskComplexPartner, 0x870664, 14);
+     RH_ScopedCategory("Tasks/TaskTypes");
+     RH_ScopedInstall(Constructor, 0x681E70);
+     RH_ScopedVMTInstall(CreateFirstSubTask, 0x681F20);
++    RH_ScopedVMTInstall(ControlSubTask, 0x6840D0);
+ }
+ 
+ // 0x681E70
+@@ -67,6 +69,23 @@ CTaskComplexPartner* CTaskComplexPartner::Constructor(const char* commandName, C
+     return this;
+ }
+ 
++namespace {
++// Como el original: los bytes bool (+0x58, +0x5C, +0x5D, +0x6E) se prueban enteros (`test al,al`), también los no canónicos
++uint8 PartnerByte(const bool& flag) {
++    return reinterpret_cast<const uint8&>(flag);
++}
++
++// Tarea equivalente del compañero (CTaskManager::FindActiveTaskByType 0x681740 con el mismo tipo)
++CTaskComplexPartner* PartnerTaskOfPartner(const CTaskComplexPartner& task) {
++    return static_cast<CTaskComplexPartner*>(task.m_partner->GetIntelligence()->GetTaskManager().FindActiveTaskByType((eTaskType)task.m_taskId));
++}
++
++// Como el original: los métodos de la base usan el word en +0x70, que pertenece a las clases derivadas (todas miden >= 0x74)
++int16& PartnerCounter70(CTaskComplexPartner& task) {
++    return *reinterpret_cast<int16*>(reinterpret_cast<uint8*>(&task) + 0x70);
++}
++} // namespace
++
+ CTask* CTaskComplexPartner::CreateNextSubTask(CPed* ped) {
+     return plugin::CallMethodAndReturn<CTask*, 0x683AD0, CTaskComplexPartner*, CPed*>(this, ped);
+ }
+@@ -96,8 +115,36 @@ CTask* CTaskComplexPartner::CreateFirstSubTask(CPed* ped) {
+     return ::new (mem) CTaskSimpleStandStill(50, false, false, 8.0f);
+ }
+ 
++// 0x6840D0
+ CTask* CTaskComplexPartner::ControlSubTask(CPed* ped) {
+-    return plugin::CallMethodAndReturn<CTask*, 0x6840D0, CTaskComplexPartner*, CPed*>(this, ped);
++    // Como el original: sin abortar mientras el compañero siga con la misma tarea apuntando a este peatón (o, en los estados <= 1 con signo, mientras haya compañero)
++    bool checkAbort = true;
++    if ((int8)m_partnerState <= 1 && m_partner && !PartnerByte(m_taskCompleted)) {
++        checkAbort = false;
++    } else if (m_partner) {
++        auto* const other = PartnerTaskOfPartner(*this);
++        if (other && other->m_partner == ped && !PartnerByte(m_taskCompleted)) {
++            checkAbort = false;
++        }
++    }
++    if (checkAbort && m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT, nullptr)) {
++        return nullptr;
++    }
++
++    if (m_pSubTask->GetTaskType() == TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL) {
++        auto& counter = PartnerCounter70(*this); // word con signo (cmp ...,96h / jle)
++        counter++;
++        if (counter > 150 && m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT, nullptr)) {
++            return nullptr;
++        }
++    }
++
++    ped->DropEntityThatThisPedIsHolding(true);
++    StreamRequiredAnims();
++    if (g_ikChainMan.IsLooking(ped)) {
++        g_ikChainMan.AbortLookAt(ped, 500);
++    }
++    return m_pSubTask;
+ }
+ 
+ void CTaskComplexPartner::StreamRequiredAnims() {

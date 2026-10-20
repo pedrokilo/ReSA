@@ -267,10 +267,7 @@ class,function,address,source,origins
 (helpers y globales sin clase),TextureBufferResize,,source/game_sa/RenderWare/D3DResourceSystem.cpp:86,envoltura en el código fuente
 (helpers y globales sin clase),TextureBufferSetup,,source/game_sa/RenderWare/D3DResourceSystem.cpp:77,envoltura en el código fuente
 (helpers y globales sin clase),TransformPoint,0x0059C890,source/game_sa/Entity/Vehicle/Plane.cpp:618,cohorte nuevo 2026-10-17
-CAutomobile,HasCarStoppedBecauseOfLight,0x0044D520,source/game_sa/Entity/Vehicle/Automobile.cpp:7233,cohorte 499
-CAutomobile,PreRender,0x006AAB50,source/game_sa/Entity/Vehicle/Automobile.cpp:7124,cohorte 499 + envoltura en el código fuente
-CAutomobile,Render,0x006A2B10,source/game_sa/Entity/Vehicle/Automobile.cpp:7129,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CAutomobile,UpdateWheelMatrix,0x006AA290,source/game_sa/Entity/Vehicle/Automobile.cpp:6272,cohorte 499
+CAutomobile,PreRender,0x006AAB50,source/game_sa/Entity/Vehicle/Automobile.cpp:7345,cohorte 499 + envoltura en el código fuente
 CCarCtrl,ChooseModel,0x00424CE0,source/game_sa/CarCtrl.cpp:184,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CCarCtrl,ClitargetOrientationToLink,0x00422760,source/game_sa/CarCtrl.cpp:223,cohorte nuevo 2026-10-17
 CCarCtrl,CreateConvoy,0x0042C740,source/game_sa/CarCtrl.cpp:398,cohorte nuevo 2026-10-17 + envoltura en el código fuente
@@ -384,10 +381,7 @@ CPathFind,FindNodeClosestToCoors,0x0044F460,source/game_sa/PathFind.cpp:843,coho
 CPathFind,FindNthNodeClosestToCoors,0x0044F8C0,source/game_sa/PathFind.cpp:350,cohorte 499
 CPathFind,FindParkingNodeInArea,0x004513F0,source/game_sa/PathFind.cpp:1083,cohorte nuevo 2026-10-17
 CPathFind,GeneratePedCreationCoors_Interior,0x0044ECA0,source/game_sa/PathFind.cpp:322,cohorte 499
-CPed,ProcessControl,0x005E8CD0,source/game_sa/Entity/Ped/Ped.cpp:4423,cohorte 499 + envoltura en el código fuente
-CPed,ProcessEntityCollision,0x005E2530,source/game_sa/Entity/Ped/Ped.cpp:4713,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CPed,SpecialEntityCalcCollisionSteps,0x005E3E90,source/game_sa/Entity/Ped/Ped.cpp:4468,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CPed,SpecialEntityPreCollisionStuff,0x005E3C30,source/game_sa/Entity/Ped/Ped.cpp:4454,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CPed,ProcessEntityCollision,0x005E2530,source/game_sa/Entity/Ped/Ped.cpp:5131,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CPedStuckChecker,TestPedStuck,0x00602C00,source/game_sa/PedStuckChecker.cpp:5,cohorte 499 + envoltura en el código fuente
 CPlayerPed,Compute3rdPersonMouseTarget,0x0060B650,source/game_sa/Entity/Ped/PlayerPed.cpp:883,cohorte 499 + envoltura en el código fuente
 CPlayerPed,DrawTriangleForMouseRecruitPed,0x0060BA80,source/game_sa/Entity/Ped/PlayerPed.cpp:889,cohorte 499 + envoltura en el código fuente
@@ -405,10 +399,6 @@ CPlayerPed,SetRealMoveAnim,0x0060A9C0,source/game_sa/Entity/Ped/PlayerPed.cpp:82
 CRemote,GivePlayerRemoteControlledCar,0x0045AB10,source/game_sa/Remote.cpp:10,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CRemote,TakeRemoteControlledCarFromPlayer,0x0045AE80,source/game_sa/Remote.cpp:5,cohorte 499 + envoltura en el código fuente
 CSearchLight,IsSpottedEntity,0x00493900,source/game_sa/SearchLight.cpp:27,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CStats,BuildStatLine,0x00559230,source/game_sa/Stats.cpp:375,cohorte nuevo 2026-10-17
-CStats,ConstructStatLine,0x0055A780,source/game_sa/Stats.cpp:993,cohorte 499 + envoltura en el código fuente
-CStats,FindLeastFavoriteRadioStation,0x00559010,source/game_sa/Stats.cpp:344,cohorte nuevo 2026-10-17
-CStats,UpdateRespectStat,0x0055BC50,source/game_sa/Stats.cpp:628,cohorte 499
 CStoredCar,RestoreCar,0x00447E40,source/game_sa/Garage.cpp:495,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CStoredCar,StoreCar,0x00449760,source/game_sa/Garage.cpp:490,cohorte 499 + envoltura en el código fuente
 CTaskComplexFollowPedFootsteps,ControlSubTask,0x00695090,source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp:81,cohorte nuevo 2026-10-17
@@ -425,10 +415,6 @@ CTaskComplexLeaveCar,CreateFirstSubTask,0x00641FC0,source/game_sa/Tasks/TaskType
 CTaskComplexLeaveCar,CreateNextSubTask,0x006419F0,source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp:59,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CTaskComplexLeaveCar,CreateSubTask,0x00641530,source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp:92,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CTaskComplexLeaveCar,MakeAbortable,0x00641100,source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp:54,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CTaskComplexPartner,ControlSubTask,0x006840D0,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:76,cohorte nuevo 2026-10-17
-CTaskComplexPartner,CreateNextSubTask,0x00683AD0,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:68,cohorte nuevo 2026-10-17
-CTaskComplexPartner,RemoveStreamedAnims,0x00682370,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:84,cohorte nuevo 2026-10-17
-CTaskComplexPartner,StreamRequiredAnims,0x00682310,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp:80,cohorte nuevo 2026-10-17
 CTaskSimpleSlideToCoord,ProcessPed,0x0066C4E0,source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp:54,cohorte nuevo 2026-10-17
 CTrainNode,GetLightingFromCollision,0x006F5F80,source/game_sa/Entity/Vehicle/Train.cpp:581,cohorte nuevo 2026-10-17
 CVehicle,AddReplacementUpgrade,0x006D3830,source/game_sa/Entity/Vehicle/Vehicle.cpp:2742,cohorte nuevo 2026-10-17

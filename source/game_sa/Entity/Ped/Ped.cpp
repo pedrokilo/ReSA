@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CPed
- * Reconstrucción: COMPLETA — 145/145 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 148/148 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 145/145 entradas.
+ * Validación registrada: 148/148 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -196,10 +196,10 @@ void CPed::InjectHooks() {
 
     RH_ScopedVMTInstall(SetModelIndex, 0x5E4880);
     RH_ScopedVMTInstall(DeleteRwObject, 0x5DEBF0);
-    //RH_ScopedVirtualInstall(ProcessControl, 0x5E8CD0, { .reversed = false });
+    RH_ScopedVMTInstall(ProcessControl, 0x5E8CD0);
     RH_ScopedVMTInstall(Teleport, 0x5E4110);
-    //RH_ScopedVirtualInstall(SpecialEntityPreCollisionStuff, 0x5E3C30, { .reversed = false });
-    //RH_ScopedVirtualInstall(SpecialEntityCalcCollisionSteps, 0x5E3E90, { .reversed = false });
+    RH_ScopedVMTInstall(SpecialEntityPreCollisionStuff, 0x5E3C30);
+    RH_ScopedVMTInstall(SpecialEntityCalcCollisionSteps, 0x5E3E90);
     RH_ScopedVMTInstall(PreRender, 0x5E8A20);
     RH_ScopedVMTInstall(Render, 0x5E7680);
     RH_ScopedVMTInstall(SetupLighting, 0x553F00);
@@ -4417,13 +4417,299 @@ void CPed::DeleteRwObject()
     CEntity::DeleteRwObject();
 }
 
+namespace {
+// rand() del CRT del EXE (0x821B1E): avanza la semilla del juego (la rand() de la DLL no).
+int PedCtlExeRand() {
+    return reinterpret_cast<int(__cdecl*)()>(0x821B1E)();
+}
+
+// Matriz de CColPoint que 0x5E8F26 pasa a CCollision::ProcessColModels (no es CWorld::m_aTempColPts, que esta en 0xB9ACD0).
+constexpr uintptr_t kPedCtlColPoints = 0xC092A8;
+
+// 0x5E9007..0x5E9054 y 0x5E9060..0x5E90AB: temporizador del fogonazo de un arma. alpha > 0 (con signo); limite = progreso * ms (imul de 32 bits; la comparacion es sin signo
+// con alpha extendido con signo); si alpha > limite se resta progreso * ms (solo cuentan los 16 bits bajos); si no, 0.
+// ms = 32 bits bajos del _ftol2 de (paso * 0.02f) * 1000.f.
+void PedCtlGunflashTimer(int16& alpha, int16 progress) {
+    if (alpha <= 0) {
+        return;
+    }
+    const uint32 ms = FightCtlElapsedCpp(CTimer::GetTimeStep());
+    const uint32 limit = static_cast<uint32>(static_cast<int32>(progress)) * ms;
+    if (static_cast<uint32>(static_cast<int32>(alpha)) > limit) {
+        alpha = static_cast<int16>(static_cast<uint16>(alpha) - static_cast<uint16>(limit));
+    } else {
+        alpha = 0;
+    }
+}
+} // namespace
+
 /*!
 * @addr 0x5E8CD0
 */
 void CPed::ProcessControl()
 {
-    // El control del ped en cada frame continúa delegado al ejecutable original.
-    plugin::CallMethod<0x5E8CD0, CPed*>(this);
+    // Como el original: las palabras de banderas (0x46C, 0x470, 0x474, 0x478) se leen y se escriben enteras, con las copias previas que usa el EXE.
+    static_assert(offsetof(CPed, m_pIntelligence) == 0x47C && offsetof(CPed, m_pPlayerData) == 0x480 && offsetof(CPed, m_nCreatedBy) == 0x484, "las banderas del peaton ocupan 0x46C..0x47B");
+    static_assert(offsetof(CPed, m_nPedType) == 0x598 && offsetof(CPed, m_nPedState) == 0x530 && offsetof(CPed, m_nMoveState) == 0x534 && offsetof(CPed, field_588) == 0x588, "ped +0x530 +0x534 +0x588 +0x598");
+    static_assert(offsetof(CPed, m_nWeaponGunflashAlphaMP1) == 0x504 && offsetof(CPed, m_nWeaponGunflashAlphaMP2) == 0x508 && offsetof(CPed, m_pWeaponObject) == 0x4F4, "ped +0x4F4 +0x504 +0x508");
+    static_assert(offsetof(CPed, field_72F) == 0x72F && offsetof(CPed, m_standingOnEntity) == 0x568 && offsetof(CPed, m_pVehicle) == 0x58C, "ped +0x568 +0x58C +0x72F");
+    auto* const raw = reinterpret_cast<uint8*>(this);
+    auto& flags46C = *reinterpret_cast<uint32*>(raw + 0x46C);
+    auto& flags470 = *reinterpret_cast<uint32*>(raw + 0x470);
+    auto& flags474 = *reinterpret_cast<uint32*>(raw + 0x474);
+    auto& flags478 = *reinterpret_cast<uint32*>(raw + 0x478);
+
+    // 0x5E8CD9
+    m_pedAudio.Service();
+
+    // 0x5E8CE4..0x5E8DE6: llama de la molotov (solo los jugadores 0 y 1). El EXE no comprueba el rango de la ranura de arma.
+    if (m_nPedType == PED_TYPE_PLAYER1 || m_nPedType == PED_TYPE_PLAYER2) {
+        CWeapon& weapon = m_aWeapons.data()[static_cast<int8>(m_nActiveWeaponSlot)];
+        if (weapon.m_Type == WEAPON_MOLOTOV) {
+            bool showFlame = !bDontRender && m_bIsVisible;
+            if (showFlame && (m_nPhysicalFlags & PHYSICAL_SUBMERGED_IN_WATER) && GetIntelligence()->GetTaskSwim()) {
+                showFlame = false;
+            }
+            if (showFlame && !m_pWeaponObject) {
+                showFlame = false;
+            }
+            if (showFlame) {
+                if (!weapon.m_FxSystem) {
+                    // 0x734A40, 0x7C51A0 (hueso 0x18) y 0x7C5120, en ese orden: matriz = array + indice * 0x40
+                    auto* const hierarchy = GetAnimHierarchyFromSkinClump(GetRpClump());
+                    const auto boneIndex = RpHAnimIDGetIndex(hierarchy, BONE_R_HAND);
+                    RwMatrix* const matrix = RpHAnimHierarchyGetMatrixArray(hierarchy) + boneIndex;
+                    const CVector origin{0.0f, 0.0f, 0.0f};
+                    weapon.m_FxSystem = g_fxMan.CreateFxSystem("molotov_flame", origin, matrix, false); // 0x4A9BE0
+                    if (weapon.m_FxSystem) {
+                        weapon.m_FxSystem->SetLocalParticles(true); // 0x4AA910
+                        weapon.m_FxSystem->CopyParentMatrix();      // 0x4AA890
+                        weapon.m_FxSystem->Play();                  // 0x4AA2F0
+                    }
+                }
+            } else if (weapon.m_FxSystem) {
+                g_fxMan.DestroyFxSystem(weapon.m_FxSystem); // 0x4A9810
+                weapon.m_FxSystem = nullptr;
+            }
+        }
+    }
+
+    // 0x5E8DE6: bUsedForReplay (bit 21 de 0x478) termina aqui (sin el servicio del audio del arma)
+    if (flags478 & 0x200000) {
+        return;
+    }
+
+    // 0x5E8DF6: bPartOfAttackWave (bit 12 de 0x474): termina si no esta en el mundo normal o si el jugador esta por encima de 950.0f (0x858F4C)
+    if (flags474 & 0x1000) {
+        if (static_cast<int32>(CGame::currArea) != 0) {
+            return;
+        }
+        const CVector playerPos = FindPlayerCoors(-1);
+        if (playerPos.z > 950.0f) {
+            return;
+        }
+    }
+
+    // 0x5E8E31
+    if (((CTimer::m_FrameCounter + static_cast<uint8>(m_nRandomSeed)) & 0x1F) == 0) {
+        PruneReferences();
+    }
+
+    // 0x5E8E49: transparencia (bFadeOut = bit 3 de 0x470)
+    {
+        int32 alpha = CVisibilityPlugins::GetClumpAlpha(GetRpClump());
+        if (flags470 & 0x8) {
+            alpha -= 8;
+            if (alpha < 0) {
+                alpha = 0;
+            }
+        } else if (alpha < 255) {
+            alpha += 16;
+            if (alpha > 255) {
+                alpha = 255;
+            }
+        }
+        CVisibilityPlugins::SetClumpAlpha(GetRpClump(), alpha);
+    }
+
+    // 0x5E8E89: bKnockedOffBike (bit 31 de 0x470). Las pruebas de 0x470 usan la copia leida aqui (edi).
+    const uint32 flagsB = flags470;
+    if (static_cast<int32>(flagsB) < 0) {
+        if (((flags46C & 0x1) || (flagsB & 0x80000))   // bIsStanding o bIsDrowning
+            && !m_standingOnEntity
+            && !(flagsB & 0x200000)                    // bHeadStuckInCollision
+            && std::bit_cast<uint32>(field_588) == 0x47C34FFFu
+            && PedCtlSqMagBelowCpp(&m_vecMoveSpeed.x, 0.01f)) // 0x858C58
+        {
+            if (auto* const vehicle = m_pVehicle) {
+                CColModel* const vehicleCol = CModelInfo::ms_modelInfoPtrs[static_cast<int16>(vehicle->m_nModelIndex)]->GetColModel();
+                CColModel* const pedCol = CModelInfo::ms_modelInfoPtrs[static_cast<int16>(m_nModelIndex)]->GetColModel();
+                if (!CCollision::ProcessColModels(*m_matrix, *pedCol, *vehicle->m_matrix, *vehicleCol, *reinterpret_cast<std::array<CColPoint, 32>*>(kPedCtlColPoints), nullptr, nullptr, false)) {
+                    flags470 &= 0x7FFFFFFFu;
+                    m_pEntityIgnoredCollision = nullptr;
+                }
+            } else {
+                flags470 = flagsB & 0x7FFFFFFFu;
+            }
+        }
+    }
+
+    // 0x5E8F54: bHeadStuckInCollision (bit 21 de 0x470) con bit 8 de 0x478: se quita cuando z + 1.5f (0x858CE8) < field_588
+    {
+        const uint32 flagsNow = flags470;
+        if ((flagsNow & 0x200000) && (flags478 & 0x100)) {
+            if (PedCtlRaisedBelowCpp(GetPosition().z, field_588)) {
+                flags470 = flagsNow & 0xFFDFFFFFu;
+            }
+        }
+    }
+
+    // 0x5E8F9E: se leen las cinco palabras y luego se escriben limpias (el EXE conserva la copia limpia de 0x470 para 0x5E90B4)
+    const uint32 prevFlags46C = flags46C;
+    const uint32 prevFlags470 = flags470;
+    const uint32 prevPhysical = m_nPhysicalFlags;
+    const uint32 prevFlags474 = flags474;
+    const uint32 prevFlags478 = flags478;
+    const uint32 cleanFlags470 = prevFlags470 & 0xFFF7FFFFu; // bIsDrowning
+    flags46C = prevFlags46C & 0xFFFEFFFDu;                   // bWasStanding, bFiringWeapon
+    flags470 = cleanFlags470;
+    m_nPhysicalFlags = prevPhysical & 0xFFFFFEFFu;           // PHYSICAL_SUBMERGED_IN_WATER
+    flags474 = prevFlags474 & 0x7FFFFFFEu;                   // bDonePositionOutOfCollision, bPushOtherPeds
+    flags478 = prevFlags478 & 0xFFEFBEFFu;                   // bits 8, 14 y 20
+    field_588 = std::bit_cast<float>(0x47C34FFFu);
+
+    // 0x5E9007 / 0x5E9054: fogonazos de las dos manos
+    PedCtlGunflashTimer(m_nWeaponGunflashAlphaMP1, m_nWeaponGunFlashAlphaProgMP1);
+    PedCtlGunflashTimer(m_nWeaponGunflashAlphaMP2, m_nWeaponGunFlashAlphaProgMP2);
+
+    // 0x5E90AB: si no esta de pie, se escribe la copia limpia de 0x470 sin bHeadStuckInCollision
+    if (!(flags46C & 0x1)) {
+        flags470 = cleanFlags470 & 0xFFDFFFFFu;
+    }
+
+    // 0x5E90C3: peaton de mision que no es el jugador pero es miembro de su grupo: se quita el bit 8 de 0x478
+    if (m_nCreatedBy == PED_MISSION && FindPlayerPed(-1) != this) {
+        CPlayerPed* const player = FindPlayerPed(-1);
+        // Como el original (0x5E90E3..0x5E90FA): ecx = 0xC09928 + grupo * 0x2D4, o sea la direccion de la pertenencia (CPedGroup::m_groupMembership, +8 dentro de la CPedGroup que empieza en 0xC09920)
+        const auto& group = CPedGroups::GetGroup(player->GetPlayerData()->m_nPlayerGroup);
+        if (group.GetMembership().IsMember(this)) {
+            flags478 &= 0xFFFFFEFFu;
+        }
+    }
+
+    // 0x5E910D
+    ProcessBuoyancy();
+
+    // 0x5E9114: datos de jugador: humedad segun el porcentaje de agua cubierta
+    if (auto* const playerData = m_pPlayerData) {
+        if ((m_nPhysicalFlags & PHYSICAL_SUBMERGED_IN_WATER) && playerData->m_nWaterCoverPerc > 0x32) {
+            if (static_cast<int8>(playerData->m_nWetness) < 100) {
+                playerData->m_nWetness = static_cast<uint8>(playerData->m_nWetness + 1);
+            }
+        } else if (static_cast<int8>(playerData->m_nWetness) > 0) {
+            playerData->m_nWetness = static_cast<uint8>(playerData->m_nWetness - 1);
+        }
+    }
+
+    // 0x5E9152: de pie sobre una entidad en posicion segura o sobre un tren: se pospone el control y termina aqui
+    if (bIsStanding && !CWorld::bForceProcessControl && m_standingOnEntity) {
+        CEntity* const ground = m_standingOnEntity;
+        if (ground->m_bIsInSafePosition || (ground->GetIsTypeVehicle() && static_cast<CVehicle*>(ground)->m_nVehicleSubType == VEHICLE_TYPE_TRAIN)) {
+            m_bWasPostponed = true;
+            return;
+        }
+    }
+
+    // 0x5E919E
+    GetIntelligence()->ProcessFirst();
+    const bool standing = bIsStanding;
+    // 0x5E91B4: velocidad vertical mayor que 0.25 (double 0x862E38): con datos de jugador se fija a 0.25f, si no se amortigua con pow(0.95f, paso) (qword 0x86C3C8)
+    if (!standing && m_vecMoveSpeed.z > 0.25) {
+        if (m_pPlayerData) {
+            m_vecMoveSpeed.z = 0.25f;
+        } else {
+            PedCtlDecaySpeedCpp(&m_vecMoveSpeed.x, CTimer::GetTimeStep());
+        }
+    }
+
+    // 0x5E920D: sin movimiento ni nada que procesar y no es jugador: se omite la fisica
+    const bool skipPhysics = m_nPedType != PED_TYPE_PLAYER1 && m_nPedType != PED_TYPE_PLAYER2
+        && standing
+        && m_vecMoveSpeed.x == 0.0f && m_vecMoveSpeed.y == 0.0f && m_vecMoveSpeed.z == 0.0f
+        && (m_nMoveState == PEDMOVE_STILL || m_nMoveState == PEDMOVE_NONE)
+        && m_vecAnimMovingShiftLocal.x == 0.0f && m_vecAnimMovingShiftLocal.y == 0.0f
+        && m_nPedState != PEDSTATE_JUMP
+        && !bIsInTheAir
+        && !m_standingOnEntity;
+    if (skipPhysics) {
+        SkipPhysics(); // 0x5433B0
+    } else {
+        CPhysical::ProcessControl(); // 0x5485E0
+    }
+
+    // 0x5E92BF
+    RequestDelayedWeapon();
+    PlayFootSteps();
+    flags474 &= 0xFFEF7FFFu; // bTestForBlockedPositions, bFallenDown
+    GetIntelligence()->Process();
+    if (m_nPedState != PEDSTATE_DEAD) {
+        CalculateNewVelocity();
+    }
+    UpdatePosition();
+    SetMoveAnim(); // virtual (ranura 23)
+
+    // 0x5E9300
+    flags474 &= 0xFFF0FFFFu; // bRightArmBlocked, bLeftArmBlocked, bDuckRightArmBlocked, bMidriffBlockedForJump
+
+    // Gotas de sangre: sangrando (bit 18 de 0x46C) o con el contador de 0x72F, con sangre permitida y fuera de vehiculo; cada 4 fotogramas y cerca de la camara
+    if (((flags46C & 0x40000) || field_72F != 0) && CLocalisation::Blood() && !(flags46C & 0x100)) {
+        if (field_72F != 0) {
+            --field_72F;
+        }
+        if ((CTimer::m_FrameCounter & 3) == 0) {
+            const CVector& cameraPos = TheCamera.GetPosition();
+            const CVector& pedPos = GetPosition();
+            if (PedCtlBloodNearCpp(&pedPos.x, &cameraPos.x)) {
+                const int r1 = PedCtlExeRand();
+                const int r2 = PedCtlExeRand();
+                const int r3 = PedCtlExeRand();
+                float size = 0.0f;
+                CVector dropPos;
+                PedCtlBloodSpawnCpp(r1, r2, r3, &m_matrix->GetPosition().x, &size, &dropPos.x);
+                const int r4 = PedCtlExeRand();
+                CShadows::AddPermanentShadow(1, gpBloodPoolTex, &dropPos, size, 0.0f, 0.0f, -size, 0xFF, 0xC8, 0, 0, 4.0f, static_cast<uint32>((r4 & 0xFFF) + 0x7D0), 1.0f); // 0x706F60
+            }
+        }
+    }
+
+    // 0x5E9473: contador de peatones segun si esta en un vehiculo (sin vehiculo se quita bInVehicle)
+    {
+        const uint32 flagsNow = flags46C;
+        if (flagsNow & 0x100) {
+            if (m_pVehicle) {
+                CPopulation::UpdatePedCount(this, true);
+            } else {
+                flags46C = flagsNow & 0xFFFFFEFFu;
+            }
+        } else {
+            CPopulation::UpdatePedCount(this, false);
+        }
+    }
+
+    // 0x5E94A3: peaton drogado (bit 10 de 0x478): frase cada 0x4000 fotogramas segun su semilla
+    if (((static_cast<uint16>(m_nRandomSeed) + CTimer::m_FrameCounter) & 0x3FFF) == 0 && (flags478 & 0x400)) {
+        Say(CTX_GLOBAL_DRUGGED_CHAT, 0, 1.0f, false, false, false); // 0x5EFFE0, frase 0x51
+    }
+
+    // 0x5E94DA: motosierra en reposo (sin atacar, fuera de vehiculo y sin nadar)
+    if (m_aWeapons.data()[static_cast<int8>(m_nActiveWeaponSlot)].m_Type == WEAPON_CHAINSAW
+        && m_nPedState != PEDSTATE_ATTACK
+        && !(flags46C & 0x100)
+        && !GetIntelligence()->GetTaskSwim())
+    {
+        m_weaponAudio.AddAudioEvent(AE_WEAPON_CHAINSAW_IDLE); // 0x4E69F0, evento 0x99
+    }
+    m_weaponAudio.Service();
 }
 
 /*!
@@ -4458,8 +4744,123 @@ void CPed::SpecialEntityPreCollisionStuff(CPhysical* colPhysical,
                                           bool& bCollidedEntityUnableToMove,
                                           bool& bThisOrCollidedEntityStuck)
 {
-    // La preparación de colisión propia del ped continúa delegada al ejecutable original.
-    plugin::CallMethod<0x5E3C30, CPed*, CPhysical*, bool, bool&, bool&, bool&, bool&>(this, colPhysical, bIgnoreStuckCheck, bCollisionDisabled, bCollidedEntityCollisionIgnored, bCollidedEntityUnableToMove, bThisOrCollidedEntityStuck);
+    // Como el original (0x5E3C30). Salidas del EXE: 0x5E3E61 marca el peaton con la bandera fisica 0x1000 y sigue con la cola; 0x5E3E64 va directo a la cola.
+    enum class Exit { SetFlagThenTail, Tail };
+    constexpr uint32 kFlag = 0x1000;
+    auto& flags470 = *reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(this) + 0x470);
+    static_assert(offsetof(CPed, m_nPedType) == 0x598 && offsetof(CPed, m_pVehicle) == 0x58C, "ped +0x58C +0x598");
+
+    const Exit exit = [&]() -> Exit {
+        const auto colType = colPhysical->GetType();
+        if (colType == ENTITY_TYPE_VEHICLE) {
+            // bKnockedOffBike (bit 31 de 0x470) y el vehiculo es el del peaton
+            if (static_cast<int32>(flags470) < 0 && m_pVehicle == colPhysical) {
+                bCollisionDisabled = true;
+                return Exit::Tail;
+            }
+        }
+
+        // 0x5E3C65, 0x5E3E4C: entidad ignorada en cualquiera de los dos sentidos
+        if (m_pEntityIgnoredCollision == colPhysical || colPhysical->m_pEntityIgnoredCollision == this) {
+            bCollidedEntityCollisionIgnored = true;
+            // bKnockedUpIntoAir (bit 4 de 0x470) sin bKnockedOffBike: no se marca el peaton
+            if ((flags470 & 0x10) && static_cast<int32>(flags470) >= 0) {
+                return Exit::Tail;
+            }
+            return Exit::SetFlagThenTail;
+        }
+
+        // 0x5E3C7D: pegado a la otra entidad, o ambos pegados a algo
+        CEntity* const myAttachedTo = m_pAttachedTo;
+        if (myAttachedTo == colPhysical) {
+            bCollisionDisabled = true;
+            return Exit::Tail;
+        }
+        CEntity* const otherAttachedTo = colPhysical->m_pAttachedTo;
+        if (otherAttachedTo == this) {
+            bCollisionDisabled = true;
+            return Exit::Tail;
+        }
+        if (myAttachedTo && otherAttachedTo) {
+            bCollisionDisabled = true;
+            return Exit::Tail;
+        }
+
+        // 0x5E3CAD
+        const uint32 otherFlags = colPhysical->m_nPhysicalFlags;
+        if (otherFlags & PHYSICAL_DISABLE_MOVE_FORCE) {
+            if ((otherFlags & PHYSICAL_DISABLE_COLLISION_FORCE) || (otherFlags & 0x40000000u)) {
+                bCollidedEntityUnableToMove = true;
+                return Exit::SetFlagThenTail;
+            }
+            if (bIgnoreStuckCheck) {
+                bCollisionDisabled = true;
+                return Exit::SetFlagThenTail;
+            }
+            if (m_bIsStuck || colPhysical->m_bIsStuck) {
+                bThisOrCollidedEntityStuck = true;
+            }
+            return Exit::SetFlagThenTail;
+        }
+
+        // 0x5E3D07
+        if (otherFlags & (PHYSICAL_INFINITE_MASS | PHYSICAL_DISABLE_Z)) {
+            if (bIgnoreStuckCheck) {
+                bCollidedEntityCollisionIgnored = true;
+                return Exit::SetFlagThenTail;
+            }
+            if (m_bIsStuck || colPhysical->m_bIsStuck) {
+                bThisOrCollidedEntityStuck = true;
+            }
+            return Exit::SetFlagThenTail;
+        }
+
+        if (colType == ENTITY_TYPE_OBJECT) {
+            auto* const object = static_cast<CObject*>(colPhysical);
+            // farola (bit 8 de m_nObjectFlags) caida: eje "arriba" de la matriz por debajo de 0.66f (0x85BA50)
+            if ((object->m_nObjectFlags & 0x100) && object->m_matrix->GetUp().z < 0.66f) {
+                bCollidedEntityCollisionIgnored = true;
+                return Exit::SetFlagThenTail;
+            }
+            // modelo 0x156 por debajo del peaton
+            if (object->m_nModelIndex == 0x156 && object->m_matrix->GetPosition().z < m_matrix->GetPosition().z) {
+                bCollidedEntityCollisionIgnored = true;
+                return Exit::SetFlagThenTail;
+            }
+            // 0x5E3D69: m_fUprootLimit > 0 (o bDisableCollisionForce) y casi sin velocidad
+            if (object->m_pObjectInfo->m_fUprootLimit > 0.0f || (otherFlags & PHYSICAL_DISABLE_COLLISION_FORCE)) {
+                if (std::fabs(object->m_vecMoveSpeed.x) < 0.001f && std::fabs(object->m_vecMoveSpeed.y) < 0.001f && std::fabs(object->m_vecMoveSpeed.z) < 0.001f) {
+                    bCollidedEntityUnableToMove = true;
+                    return Exit::Tail;
+                }
+            }
+            if (colPhysical->m_bIsStuck) {
+                bCollidedEntityUnableToMove = true;
+            }
+            return Exit::Tail;
+        }
+
+        // 0x5E3DE1: modelos 0x1B9, 0x234 y 0x252 se ignoran
+        const uint16 colModel = colPhysical->m_nModelIndex;
+        if (colModel == 0x1B9 || colModel == 0x234 || colModel == 0x252) {
+            bCollidedEntityCollisionIgnored = true;
+            return Exit::SetFlagThenTail;
+        }
+        if (colPhysical->m_bIsStuck) {
+            bCollidedEntityUnableToMove = true;
+        }
+        return Exit::Tail;
+    }();
+
+    if (exit == Exit::SetFlagThenTail) {
+        m_nPhysicalFlags |= kFlag;
+    }
+    // 0x5E3E64: los jugadores (tipos 0 y 1) que escalan (CPedIntelligence::GetTaskClimb, 0x601180) tambien se marcan
+    if (m_nPedType == PED_TYPE_PLAYER1 || m_nPedType == PED_TYPE_PLAYER2) {
+        if (GetIntelligence()->GetTaskClimb()) {
+            m_nPhysicalFlags |= kFlag;
+        }
+    }
 }
 
 /*!
@@ -4467,8 +4868,25 @@ void CPed::SpecialEntityPreCollisionStuff(CPhysical* colPhysical,
 */
 uint8 CPed::SpecialEntityCalcCollisionSteps(bool& bProcessCollisionBeforeSettingTimeStep, bool& unk2)
 {
-    // La selección de pasos de colisión continúa delegada al ejecutable original.
-    return plugin::CallMethodAndReturn<uint8, 0x5E3E90, CPed*, bool&, bool&>(this, bProcessCollisionBeforeSettingTimeStep, unk2);
+    // Como el original (0x5E3E90): ninguno de los dos parametros se lee. Devuelve AL; el EXE deja en EAX el entero de _ftol2.
+    UNUSED(bProcessCollisionBeforeSettingTimeStep);
+    UNUSED(unk2);
+    static_assert(offsetof(CPed, m_pPlayerData) == 0x480 && offsetof(CPed, m_standingOnEntity) == 0x568, "ped +0x480 +0x568");
+    if (m_pAttachedTo) {
+        return 1;
+    }
+    const float timeStep = CTimer::GetTimeStep();
+    const bool hasPlayerData = m_pPlayerData != nullptr;
+    // Sin datos de jugador: la velocidad al cuadrado por paso al cuadrado por debajo de 0.09f (o NaN) deja un solo paso
+    if (!hasPlayerData && PedCtlStepsSlowCpp(&m_vecMoveSpeed.x, timeStep)) {
+        return 1;
+    }
+    const int mode = !hasPlayerData ? 0 : (m_standingOnEntity ? 1 : 2);
+    const uint32 steps = PedCtlStepsCpp(&m_vecMoveSpeed.x, timeStep, mode);
+    if (!m_pPlayerData) {
+        m_fElasticity = PedCtlDoubleFloatCpp(m_fElasticity); // fadd st(0),st(0): el EXE duplica la elasticidad con el x87 (un denormal no se vacia a 0 como con el SSE del juego)
+    }
+    return static_cast<uint8>(steps);
 }
 
 /*!

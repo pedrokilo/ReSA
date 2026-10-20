@@ -1576,3 +1576,47 @@ bool __cdecl WalkRoundDotBelowCpp(const float* a, const float* b);
 // --- Lote 31: CTaskComplexWalkRoundObject::CreateFirstSubTask (0x657380), prefijo WalkRound. Anadir al FINAL de X87Math.h ---
 // (a.z*b.z + a.y*b.y) + a.x*b.x > 0.0 (0x86F420) sobre la x87 (24 bits, exponente extendido); comparacion ordenada (con NaN da false). Los punteros apuntan a x, y, z consecutivos.
 bool __cdecl WalkRoundDotPositiveCpp(const float* a, const float* b);
+
+// --- Lote 28: CAutomobile::PreRender (0x6AAB50), prefijo AutoPre. Anadir al FINAL de X87Math.h ---
+// Tramos x87 de 24 bits con exponente extendido (sin guardados intermedios de float). Los punteros apuntan a x, y, z consecutivos.
+float __cdecl AutoPreForwardSpeedCpp(const float* move, const float* forward, float divisor);          // float(((mz*fz + my*fy) + mx*fx) / divisor)
+float __cdecl AutoPreSpeedMagnitudeCpp(const float* move);                                              // float(sqrt((x*x + y*y) + z*z))
+float __cdecl AutoPreSuspensionHeightCpp(float spring, float line, float comp, float startZ, float prevPos); // altura suavizada de una rueda (0x6AABBB..0x6AADC9)
+void __cdecl AutoPreDoublePlusCpp(const float* v, const float* p, float* out);                          // out = float((v + v) + p) por componente
+unsigned int __cdecl AutoPreScaleByteCpp(unsigned int value, float multiplier);                         // byte bajo de _ftol2((value * multiplier) * 0.1f)
+unsigned int __cdecl AutoPreFadeByteCpp(unsigned int value, float fade);                                // byte bajo de _ftol2((value * fade) * 0.01f)
+unsigned int __cdecl AutoPreCoronaByteCpp(float multiplier);                                            // byte bajo de _ftol2(multiplier * 10.0f)
+bool __cdecl AutoPreDotNegativeCpp(const float* a, const float* b);                                     // (a.z*b.z + a.y*b.y) + a.x*b.x < 0.0
+float __cdecl AutoPreWheelRotationCpp(float timeStep, float speed, float rotation);                     // float(timeStep * speed + rotation)
+float __cdecl AutoPreMixerPropCpp(unsigned int misc, int divisor, float timeStep, float prop);          // hormigonera 0x6AC46C..0x6AC4B2
+float __cdecl AutoPreTowAngleCpp(unsigned int misc, float k, unsigned int divisor);                     // float((misc * k) / divisor)
+float __cdecl AutoPreHarvesterPropCpp(const float* move, const float* forward, float prop, float timeStep); // cosechadora 0x6AC7B5..0x6AC898
+float __cdecl AutoPreClampedAsinCpp(float rightZ, float limit);                                         // asin(rightZ) acotado a [-limit, limit] como el EXE
+void __cdecl AutoPreTowAnglesCpp(const float* hitch, const float* bar, const float* forward, const float* right, float divisor, float negAngle, float* angleA, float* angleB); // camion grua 0x6AC5A4..0x6AC64F
+float __cdecl AutoPreAxleTiltCpp(float wheelPos, float lineZ, float upper, float lineAxis, float matrixPos);   // (wheelPos - (lineZ - upper)) / (lineAxis - matrixPos)
+float __cdecl AutoPreForkliftZCpp(unsigned int misc, float k, float restZ);                             // float(misc * k + restZ)
+
+// Lote 28 (cont.): Multiply3x3 (0x59C790) y MultiplyMatrixWithVector (0x59C890) con la pila x87. `m` = inicio de la matriz (right, forward, up, posicion cada 4 floats).
+void __cdecl AutoPreMultiply3x3Cpp(const float* m, const float* v, float* out);
+void __cdecl AutoPreMultiplyMatrixWithVectorCpp(const float* m, const float* v, float* out);
+float __cdecl AutoPreMulCpp(float a, float b);   // float(a * b) con el producto en la pila x87 (24 bits, exponente extendido) y un fstp float
+float __cdecl AutoPreAddCpp(float a, float b);   // float(a + b) en la pila x87 (dos NaN: conserva el de mayor mantisa)
+float __cdecl AutoPreSubCpp(float a, float b);   // float(a - b) en la pila x87
+// --- Lote 60: CPed::ProcessControl (0x5E8CD0) y CPed::SpecialEntityCalcCollisionSteps (0x5E3E90), prefijo PedCtl. Anadir al FINAL de X87Math.h ---
+// Tramos x87 de 24 bits con exponente extendido; los punteros de vector apuntan a x, y, z consecutivos.
+bool __cdecl PedCtlSqMagBelowCpp(const float* v, float limit);                    // (x*x + y*y) + z*z < limit (ordenado; con NaN da false)
+void __cdecl PedCtlDecaySpeedCpp(float* v, float step);                           // v *= float(pow(0.95f, step)) con el producto de cada componente redondeado a float
+bool __cdecl PedCtlRaisedBelowCpp(float z, float limit);                          // z + 1.5f < limit (ordenado)
+bool __cdecl PedCtlBloodNearCpp(const float* ped, const float* camera);           // |ped - camera|^2 (restas guardadas como float) < 2500.0f
+void __cdecl PedCtlBloodSpawnCpp(int r1, int r2, int r3, const float* pos, float* outSize, float* outPos); // tamano y posicion de la gota de sangre (0x5E93AC..0x5E9427)
+bool __cdecl PedCtlStepsSlowCpp(const float* v, float step);                      // !(((x*x + y*y) + z*z) * paso * paso >= 0.09f)
+unsigned int __cdecl PedCtlStepsCpp(const float* v, float step, int mode);        // pasos de colision (32 bits bajos de _ftol2); mode 0/1/2 segun datos de jugador y entidad bajo los pies
+float __cdecl PedCtlDoubleFloatCpp(float v);                                      // v + v con el x87 (fadd st(0),st; no vacia los denormales como el SSE con FTZ del juego)
+// --- Lote 60: CStats::UpdateRespectStat (0x55BC50), ConstructStatLine (0x55A780) y BuildStatLine (0x559230), prefijo Stw60. Anadir al FINAL de X87Math.h ---
+// Tramos x87 de 24 bits con exponente extendido (cada operacion redondea a 24 bits; ver X87Math.cpp). UpdateRespectStat: primera mitad (hasta los dos float guardados en pila) y segunda (tras 0x49CDA0).
+void __cdecl Stw60RespectPartialCpp(float respect, int missions, int total, float girlfriend, float territory, int money, float* partialOut, float* moneyOut);
+float __cdecl Stw60RespectFinishCpp(int tagged, float moneyPart, float partial, float w1, float w2);
+// ConstructStatLine / BuildStatLine: ftol(fild(value) * k); ST0 * k como double; max(0, a - b) como double.
+int __cdecl Stw60ScaledFtolCpp(int value, float k);
+double __cdecl Stw60MulCpp(double v, float k);
+double __cdecl Stw60SubClampCpp(float a, float b);

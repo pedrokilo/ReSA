@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "pairs": 24576,
+  "differences": 0,
+  "registered_pairs": 24576,
+  "registered_functions": 4,
+  "functions": {
+    "CStats::FindLeastFavoriteRadioStation": 4096,
+    "CStats::BuildStatLine": 6144,
+    "CStats::UpdateRespectStat": 6144,
+    "CStats::ConstructStatLine": 8192
+  },
+  "covered_functions": {
+    "CStats::FindLeastFavoriteRadioStation": true,
+    "CStats::BuildStatLine": true,
+    "CStats::UpdateRespectStat": true,
+    "CStats::ConstructStatLine": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el arbol de integracion D:/Original/wi (HEAD 6e01296af + fuentes del lote 60 de los worktrees wc-1..wc-6). Colaboradores sustituidos por falsos identicos en ambos lados (23 entradas; no se validan sus cuerpos reales ni el formato real del sprintf del EXE, que el falso sustituye por una representacion fija): GetStatValue, CLocalisation::Metric / GermanGame, PopulateFavoriteRadioStationList, FindMost/FindLeast, GetPercentageProgress, ConvertToMins/Secs, BuildStatLine (dentro de ConstructStatLine), CText::Get, GxtCharToAscii (0x69F7E0), GxtCharStrcpy, 0x719240, AsciiToGxtChar, sprintf del EXE (0x821BB5), GetRadioStationNameKey, FindPlayerPed, CPed::GetWeaponSkill, GetPercentageTagged, CheckForThreshold, DisplayScriptStatUpdateMessage y CheckForStatsMessage. EAX/ECX/EDX solo registrados (los llamadores del EXE de FindLeast y ConstructStatLine leen solo EAX).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/StatsWrappers60-20261019-210627-137999",
+  "summary_sha256": "a1c12571fab6aa04173f086cd9f77b9f8bc4c13fbe6d89a5aba9a7e2bf4ba078",
+  "result_txt_sha256": "aba88f285ccf9dac835c8a11ab0a22ceb926db5540afe74561743f9d901ba13e",
+  "log_sha256": "3b75cd973708c82a0fd7250d65d7be783a84751805b6fc5b7e2af74cdec3aea6",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "f0aefc9ab58390c2e138348c91fa9c099f553e273c98d3d7515f1ddf76690d7c",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Stats.cpp": "fd0432cf50410c45598b8814bb68a759924ecb49bd907dcbe8ec411978991e30",
+      "source/game_sa/Stats.h": "6be0a2376936a21144df72891577f531373c1c9698742cafdae298a4587232e3",
+      "source/game_sa/X87Math.cpp": "9935da0b804efdbd00d2ed5c767f2b27ba2a92810b8de1b5c2906a240d55108b",
+      "source/game_sa/X87Math.h": "f9efe7f7e2e75560945ec1d45fa09e5de28dd5f1211d18d31d81b383b5b65d8d",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/StatsWrappers60/LiveComparison.hpp": "5c1ac443d8bce2f200fb4449c0181611e4de5549cbf564f8cb974cee8ad5243d",
+      "reversing/StatsWrappers60/Core.hpp": "f0b467c310932b2c7beb24beec062395f8db9df5dbfbf93e0d8f139982842a2e",
+      "reversing/StatsWrappers60/Gate.hpp": "007e395eaa021cd4fb7a15c3db19cd31c749b50ad91b8133f724c496f8d3ba04",
+      "reversing/StatsWrappers60/Cases.hpp": "623bee20c5733d7e9131ff87726c4f1006f1a32c64213b207bbd7b45a1f1d60e",
+      "reversing/StatsWrappers60/Fakes.hpp": "bea945ac2c333cb5d448f2b4ccf740ccbeefaa7ac8ab994a8baebe8cf475dd00",
+      "reversing/StatsWrappers60/Fixtures.hpp": "111572eb59a289102d09c0b5776fe6c01ea6e57c512b47f4daa3cc40ea2362c7",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

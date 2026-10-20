@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CAutomobile
- * Reconstrucción: COMPLETA — 99/99 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 102/102 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 99/99 entradas.
+ * Validación registrada: 102/102 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -174,6 +174,9 @@ void CAutomobile::InjectHooks()
     RH_ScopedInstall(SetDoorDamage, 0x6B1600);
     RH_ScopedInstall(TowTruckControl, 0x6A40F0);
     RH_ScopedInstall(ProcessCarOnFireAndExplode, 0x6A7090);
+    RH_ScopedInstall(HasCarStoppedBecauseOfLight, 0x44D520);
+    RH_ScopedInstall(UpdateWheelMatrix, 0x6AA290);
+    RH_ScopedVMTInstall(Render, 0x6A2B10);
 
     RH_ScopedVMTInstall(Fix, 0x6A3440);
     RH_ScopedVMTInstall(DoBurstAndSoftGroundRatios, 0x6A47F0);
@@ -6080,8 +6083,227 @@ CObject* CAutomobile::RemoveBonnetInPedCollision() {
 }
 
 // 0x6AA290
+// Como el original (0x6AA290..0x6AAB2F): coloca el nodo de rueda `nodeIndex` (2..7) sobre una CMatrix local unida a frame->modelling: escala de la rueda,
+// direccion (m_fSteerAngle / m_f2ndSteerAngle), giro (m_wheelRotation) y, segun el eje, inclinacion (asin / atan2) o efectos de agua y arena.
+// `flags`: bit 0 = sin inclinacion, bit 1 = rueda reflejada (sin direccion), bit 2 = sin giro de -pi/2 sobre el agua, bit 3 = sin particulas.
+// Cada operacion float del EXE se redondea a 24 bits (x87 con control de precision sencillo): aqui son operaciones float una a una; fsin, fpatan y
+// _CIasin (0x821E70) se hacen con los ayudantes x87 de X87Math. Los valores que el EXE deja en registro conservan el exponente extendido: no se
+// reproduce (solo importaria con desbordamientos intermedios).
 void CAutomobile::UpdateWheelMatrix(int32 nodeIndex, int32 flags) {
-    ((void(__thiscall*)(CAutomobile*, int32, int32))0x6AA290)(this, nodeIndex, flags); // TODO: Reverse
+    constexpr float kPi = std::bit_cast<float>(0x40490FDBu); // 0x858CB8
+
+    RwFrame* const frame = m_aCarNodes.data()[nodeIndex]; // 6AA2B6: indice sin comprobar (esi + ebp*4 + 0x648)
+    if (!frame) {
+        return;
+    }
+    // 6AA2DE: tabla de modelos con el word +0x22 con signo; se lee antes de mirar el nodo
+    auto* const mi = static_cast<CVehicleModelInfo*>(CModelInfo::ms_modelInfoPtrs[static_cast<int16>(m_nModelIndex)]);
+    if (static_cast<uint32>(nodeIndex) - 2u > 5u) { // 6AA2EC: tabla de saltos 6AAB34 (solo 2..7)
+        return;
+    }
+
+    // ---- 6AA307..6AA47E: rueda, signo y angulo de direccion del nodo (CAR_WHEEL_RF=2, RM=3, RB=4, LF=5, LM=6, LB=7)
+    bool  front = false;      // [esp+14h]
+    bool  rear = false;       // bl
+    float sign;               // [esp+18h]
+    int32 wheel;              // edi
+    float steer;              // [esp+10h]
+    bool  steerFixed = false; // 6AA474 / 6AA47E: el angulo ya es pi o 0 y no pasa por 6AA3CB
+    switch (nodeIndex) {
+    case CAR_WHEEL_LF: // 6AA307
+        wheel = 0;
+        sign  = -1.0f;
+        front = true;
+        if (handlingFlags.bSteerRearwheels) {
+            steer      = kPi;
+            steerFixed = true;
+        } else {
+            steer = m_fSteerAngle;
+        }
+        break;
+    case CAR_WHEEL_RF: // 6AA330
+        wheel = 2;
+        sign  = 1.0f;
+        front = true;
+        if (handlingFlags.bSteerRearwheels) {
+            steer      = 0.0f;
+            steerFixed = true;
+        } else {
+            steer = m_fSteerAngle;
+        }
+        break;
+    case CAR_WHEEL_LM: // 6AA357
+    case CAR_WHEEL_LB:
+        wheel = 1;
+        sign  = -1.0f;
+        rear  = true;
+        if (handlingFlags.bSteerRearwheels) {
+            steer = -m_fSteerAngle;
+        } else if (handlingFlags.bHbRearwheelSteer) {
+            steer = m_f2ndSteerAngle;
+        } else {
+            steer      = kPi;
+            steerFixed = true;
+        }
+        break;
+    default: // CAR_WHEEL_RM, CAR_WHEEL_RB: 6AA392
+        wheel = 3;
+        sign  = 1.0f;
+        rear  = true;
+        if (handlingFlags.bSteerRearwheels) {
+            steer = -m_fSteerAngle;
+        } else if (handlingFlags.bHbRearwheelSteer) {
+            steer = m_f2ndSteerAngle;
+        } else {
+            steer      = 0.0f;
+            steerFixed = true;
+        }
+        break;
+    }
+    // ---- 6AA3CB..6AA47E: reduce la direccion del lado contrario (x0,6) y desplaza pi en las ruedas izquierdas.
+    // `test ah,44h; jnp` solo salta con steer == 0; las comparaciones ordenadas son falsas con NaN (el EXE tampoco multiplica con NaN).
+    if (!steerFixed) {
+        if (!(steer == 0.0f) && !(flags & 2)) {
+            const bool negativeSide = sign < 0.0f;
+            const bool scaleIt      = (negativeSide == rear) ? (steer > 0.0f) : (steer < 0.0f);
+            if (scaleIt) {
+                steer = 0.6f * steer; // 0x871048
+            }
+            if (negativeSide) {
+                steer = steer + kPi;
+            }
+        } else {
+            steer = sign < 0.0f ? kPi : 0.0f;
+        }
+    }
+
+    // ---- 6AA486: CMatrix local unida al modelling del nodo
+    CMatrix matrix;
+    matrix.Attach(&frame->modelling, false);
+
+    // ---- 6AA495: [esp+24h..2Ch] = (pos.x, pos.y, m_wheelPosition[rueda])
+    CVector offset{matrix.GetPosition().x, matrix.GetPosition().y, m_wheelPosition.data()[wheel]};
+
+    // ---- 6AA4C6..6AA515: escala de la rueda ([esp+1Ch]) y factor x (st0)
+    float wheelSize = m_fWheelScale; // [esi+458h]
+    float xScale;
+    if (mi->m_nWheelModelIndex == -1) {
+        if (rear) {
+            wheelSize = (mi->m_fWheelSizeRear / mi->m_fWheelSizeFront) * wheelSize;
+        }
+        xScale = mi->m_fWheelSizeFront / (m_fWheelScale * 0.7f); // 0x858CB0
+    } else {
+        xScale    = 1.0f;
+        wheelSize = rear ? mi->m_fWheelSizeRear : mi->m_fWheelSizeFront;
+    }
+
+    // ---- 6AA515..6AA5A8: cosechadora (532, nodos 6 y 3) y modelo 513 (nodo 5)
+    const int16 model = static_cast<int16>(m_nModelIndex);
+    if (model == MODEL_COMBINE && (nodeIndex == 6 || nodeIndex == 3)) {
+        wheelSize = 1.7f / mi->m_fWheelSizeFront;                      // 0x8D31D4
+        offset.z  = (1.7f - mi->m_fWheelSizeRear) * 0.45f + offset.z; // 0x8D31D0
+        steer     = (sign < 0.0f ? steer - kPi : steer) * 0.5f;
+        if (sign < 0.0f) {
+            steer = steer + kPi;
+        }
+    } else if (model == 0x201 && nodeIndex == 5) {
+        steer = 0.0f;
+    }
+
+    // ---- 6AA5A8..6AA65E: anchura de las ruedas segun handling.cfg
+    const uint32 hf = m_nHandlingFlagsIntValue; // [esi+38Ch]
+    if (static_cast<int32>(m_nVehicleSubType) == VEHICLE_TYPE_MTRUCK || static_cast<int32>(m_nVehicleSubType) == VEHICLE_TYPE_QUAD) {
+        xScale = 1.0f;
+    } else if (rear && (hf & 0xF000)) {
+        if (hf & 0x1000) {
+            xScale *= 0.65f; // 0x858F50
+        } else if (hf & 0x2000) {
+            xScale *= 0.8f; // 0x858C98
+        } else if (hf & 0x4000) {
+            xScale *= 1.1f; // 0x858F14
+        } else {
+            xScale *= 1.25f; // 0x8595F0
+        }
+    } else if (front && (hf & 0x0F00)) {
+        if (hf & 0x100) {
+            xScale *= 0.65f;
+        } else if (hf & 0x200) {
+            xScale *= 0.8f;
+        } else if (hf & 0x400) {
+            xScale *= 1.1f;
+        } else {
+            xScale *= 1.25f;
+        }
+    }
+    if (model == MODEL_KART) { // 6AA651
+        xScale *= 3.0f;        // 0x87104C
+    }
+
+    // ---- 6AA65E..6AA6D1: escala y giro
+    matrix.SetScale(xScale * wheelSize, wheelSize, wheelSize);
+    if (static_cast<int32>(m_nVehicleSubType) == VEHICLE_TYPE_HELI) {
+        matrix.Rotate(CVector{0.0f, 0.0f, steer});
+    } else {
+        const auto  status = m_damageManager.GetWheelStatus(static_cast<eCarWheel>(wheel)); // 0x6C21B0
+        const float angle  = sign * m_wheelRotation.data()[wheel];
+        // rueda pinchada (estado 1): oscilacion sin(angulo) * 0,3 sobre el eje z (fsin sin redondear antes de multiplicar)
+        const float z = static_cast<int32>(status) == 1 ? TrigCompoundSinMulAdd(angle, 0.3f, steer) : steer; // 0x858C24
+        matrix.Rotate(CVector{angle, 0.0f, z});
+    }
+
+    // ---- 6AA6D6..6AAAC7: inclinacion del eje
+    const bool monsterOrHydraulic = autoFlags.bIsMonsterTruck || handlingFlags.bHydraulicInst; // +0x868 bit 7 y +0x38C & 0x20000
+    uint32     modelFlags         = 0;
+    bool       solidAxle          = monsterOrHydraulic;
+    if (!solidAxle) {
+        modelFlags = m_pHandlingData->m_nModelFlags; // [[esi+384h]+0CCh]
+        solidAxle  = (front && (modelFlags & 0x20000)) || (rear && (modelFlags & 0x200000)); // AXLE_F_SOLID / AXLE_R_SOLID
+    }
+    if (solidAxle) { // 6AAA8F: atan2 de la diferencia de alturas con la rueda del mismo eje
+        const int32 other   = wheel > 1 ? wheel - 2 : wheel + 2;
+        const float twoAbsY = std::fabs(offset.y) * 2.0f;
+        const float diff    = ((m_wheelPosition.data()[wheel] - m_wheelPosition.data()[other]) * sign) * -1.0f; // 0x858C1C
+        matrix.RotateY(TrigAtan2Cpp(diff, twoAbsY));
+    } else if ((CCheat::IsActive(CHEAT_CARS_ON_WATER) || model == MODEL_VORTEX) && m_fWheelsSuspensionCompressionPrev.data()[wheel] < 1.0f && !vehicleFlags.bIsDrowning) {
+        // 6AA751..6AA904: sobre el agua
+        if (!(flags & 4)) {
+            matrix.RotateY(sign * std::bit_cast<float>(0xBFC90FDBu)); // 0x859998 (-pi/2)
+        }
+        if (!(flags & 8)) {
+            const FxPrtMult_c waterMults{1.0f, 1.0f, 1.0f, 0.2f, 0.5f, 0.0f, 0.05f}; // 0x4AB290
+            const CColPoint&  contact  = m_wheelColPoint.data()[wheel];
+            const CVector     position = contact.m_vecPoint;
+            const CVector     right{sign * GetRight().x, sign * GetRight().y, sign * GetRight().z};                  // 0x40FE90
+            const CVector     half{0.5f * m_vecMoveSpeed.x, 0.5f * m_vecMoveSpeed.y, 0.5f * m_vecMoveSpeed.z};      // 0x40FE90
+            CVector           velocity{half.x + right.x, half.y + right.y, half.z + right.z};                        // 0x40FE30
+            if (g_surfaceInfos.IsWater(contact.m_nSurfaceTypeB)) { // 0x55E710
+                if (((CTimer::GetFrameCounter() - 1u) & 1u) != 0u) {
+                    velocity.z = velocity.z + 2.0f; // 0x858CA0
+                    g_fx.m_WaterSplash->AddParticle(position, velocity, 0.0f, waterMults, -1.0f, 1.2f, 0.6f, false); // 0x4AA440
+                } else {
+                    g_fx.m_SmokeHuge->AddParticle(position, velocity, 0.0f, waterMults, -1.0f, 1.2f, 0.6f, false);
+                }
+            } else if (g_surfaceInfos.IsSand(contact.m_nSurfaceTypeB)) { // 0x55E6F0
+                const FxPrtMult_c sandMults{0.81f, 0.67f, 0.57f, 0.35f, 0.5f, 0.0f, 0.05f};
+                g_fx.m_Sand->AddParticle(position, velocity, 0.0f, sandMults, -1.0f, 1.2f, 0.6f, false);
+            }
+        }
+    } else if (!(flags & 1) && !(front && (modelFlags & 0x10000)) && !(rear && (modelFlags & 0x100000))) { // AXLE_F_NOTILT / AXLE_R_NOTILT
+        // 6AA936..6AAAC7: inclinacion = asin(-(z + alturaDelantera - tamano/2) * signo), limitada a [-1, 1]
+        const float raised   = offset.z + m_fFrontHeightAboveRoad;      // [esi+898h]
+        const float height   = raised - mi->GetWheelSize(front) * 0.5f; // 0x6A06F0
+        const bool  reversed = (front && (modelFlags & 0x80000)) || (rear && (modelFlags & 0x800000)); // AXLE_F_REVERSE / AXLE_R_REVERSE
+        const float arg      = (height * -1.0f) * sign;
+        const float clamped  = arg > 1.0f ? 1.0f : (arg < -1.0f ? -1.0f : arg);
+        const float angle    = CnvAsinFloatCpp(clamped); // _CIasin (0x821E70)
+        matrix.RotateY(reversed ? -angle : angle);
+    }
+
+    // ---- 6AAAD0: posicion final = posicion de la matriz + (x, y, z)
+    matrix.GetPosition().x = matrix.GetPosition().x + offset.x;
+    matrix.GetPosition().y = matrix.GetPosition().y + offset.y;
+    matrix.GetPosition().z = matrix.GetPosition().z + offset.z;
+    matrix.UpdateRW(); // 0x59BBB0
 }
 
 // 0x6ADEF0
@@ -7042,7 +7264,59 @@ void CAutomobile::FireTruckControl(CFire* fire) {
 
 // 0x44D520
 bool CAutomobile::HasCarStoppedBecauseOfLight() {
-    return ((bool(__thiscall*)(CAutomobile*))0x44D520)(this); // TODO: Reverse
+    // Como el original (0x44D520..0x44D77C): solo aplica con estado SIMPLE (2) o PHYSICS (3) (byte +0x36 >> 3); recorre los enlaces del nodo
+    // actual buscando el que lleva al nodo inicial de la ruta y despues los del nodo final buscando el que lleva al actual; devuelve true si el enlace
+    // de carretera correspondiente tiene el semaforo en estado distinto de 0 (byte +0xC & 3). Sin comprobaciones de rango (como el EXE): el area se usa
+    // tal cual como indice. Solo AL lo lee el llamador (0x6A382C: `test al, al`).
+    const auto status = static_cast<uint8>(GetStatus());
+    if (status != STATUS_SIMPLE && status != STATUS_PHYSICS) {
+        return false;
+    }
+
+    auto&            paths = ThePaths;
+    const CNodeAddress cur   = m_autoPilot.m_currentAddress;     // +0x390
+    const CNodeAddress start = m_autoPilot.m_startingRouteNode;  // +0x394
+    const CNodeAddress end   = m_autoPilot.m_endingRouteNode;    // +0x398
+
+    // Recorre los enlaces de `from` buscando uno igual a `target` cuyo enlace de carretera (area<<10 | indice) tenga el semaforo activo
+    const auto ScanLinks = [&paths](const CNodeAddress& from, const CNodeAddress& target) -> bool {
+        const CPathNode* const node = &paths.m_pPathNodes[from.m_wAreaId][from.m_wNodeId];
+        for (int32 i = 0; i < static_cast<int32>(node->m_nNumLinks); i++) {
+            const int32 idx = static_cast<int32>(node->m_wBaseLinkId) + i;
+            const CNodeAddress& link = paths.m_pNodeLinks[from.m_wAreaId][idx];
+            if (link.m_wAreaId != target.m_wAreaId || link.m_wNodeId != target.m_wNodeId) {
+                continue;
+            }
+            const uint16 naviRaw  = *reinterpret_cast<const uint16*>(&paths.m_pNaviLinks[from.m_wAreaId][idx]);
+            const uint32 naviArea = naviRaw >> 10u;
+            if (paths.m_pPathNodes[naviArea] == nullptr) {
+                continue;
+            }
+            const auto* const naviNode = reinterpret_cast<const uint8*>(paths.m_pNaviNodes[naviArea]) + (naviRaw & 0x3FFu) * sizeof(CCarPathLink);
+            if (naviNode[0xC] & 3) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    if (paths.m_pPathNodes[cur.m_wAreaId] == nullptr) {
+        return false;
+    }
+    if (paths.m_pPathNodes[start.m_wAreaId] == nullptr) {
+        return false;
+    }
+    if (ScanLinks(cur, start)) {
+        return true;
+    }
+
+    if (end.m_wAreaId == static_cast<uint16>(-1)) {
+        return false;
+    }
+    if (paths.m_pPathNodes[end.m_wAreaId] == nullptr) {
+        return false;
+    }
+    return ScanLinks(end, cur);
 }
 
 /*!
@@ -7073,8 +7347,81 @@ void CAutomobile::PreRender() {
 }
 
 // 0x6A2B10
+// Como el original (0x6A2B10..0x6A2EFC): guarda el estado de render 30 (ALPHATESTFUNCTIONREF) y lo pone a 1; con el truco del coche invisible solo se
+// dibujan las ruedas (nodos 4, 7, 2, 5 y, si existen, 3 y 6), con GetFirstObject llamado dos veces por nodo y el renderCallBack de la primera;
+// si no, CVehicle::Render. El Rhino (432) desplaza los nodos 7 y 4 para las orugas de las 8 lineas de colision 4..11. Despues restaura el estado
+// y dibuja los haces de los faros delanteros.
 void CAutomobile::Render() {
-    plugin::CallMethod<0x6A2B10, CAutomobile*>(this);
+    m_nTimeTillWeNeedThisCar = CTimer::GetTimeInMS() + 3000u; // 6A2B20: [B7CB84] + 0xBB8 -> [esi+4D0]
+
+    int32 savedAlphaRef = 1; // 6A2B34: la variable vale 1 antes de la llamada a RenderStateGet
+    RwRenderStateGet(rwRENDERSTATEALPHATESTFUNCTIONREF, &savedAlphaRef);
+    RwRenderStateSet(rwRENDERSTATEALPHATESTFUNCTIONREF, RWRSTATE(1));
+
+    // GetFirstObject se llama dos veces por nodo (la primera da el atomico, la segunda su argumento)
+    const auto RenderFirstAtomic = [](RwFrame* frame) {
+        auto* const atomic = reinterpret_cast<RpAtomic*>(GetFirstObject(frame));
+        atomic->renderCallBack(reinterpret_cast<RpAtomic*>(GetFirstObject(frame)));
+    };
+
+    if (CCheat::IsActive(CHEAT_INVISIBLE_CAR)) {
+        // 6A2B5B..6A2C20
+        RenderFirstAtomic(m_aCarNodes[CAR_WHEEL_RB]); // [esi+658h] = nodo 4
+        RenderFirstAtomic(m_aCarNodes[CAR_WHEEL_LB]); // [esi+664h] = nodo 7
+        RenderFirstAtomic(m_aCarNodes[CAR_WHEEL_RF]); // [esi+650h] = nodo 2
+        RenderFirstAtomic(m_aCarNodes[CAR_WHEEL_LF]); // [esi+65Ch] = nodo 5
+        if (m_aCarNodes[CAR_WHEEL_RM]) {              // [esi+654h] = nodo 3
+            RenderFirstAtomic(m_aCarNodes[CAR_WHEEL_RM]);
+        }
+        if (m_aCarNodes[CAR_WHEEL_LM]) {              // [esi+660h] = nodo 6
+            RenderFirstAtomic(m_aCarNodes[CAR_WHEEL_LM]);
+        }
+    } else {
+        CVehicle::Render(); // 6A2C24: 0x6D0E60
+    }
+
+    if (static_cast<int16>(m_nModelIndex) == MODEL_RHINO) {
+        // 6A2C35..6A2E86: orugas del Rhino. Las 8 lineas de colision 4..11 (suspension) mueven el nodo 7 (las 4 primeras) o el nodo 4
+        const auto* const colData = GetColModel()->m_pColData; // 0x535300 y +0x2C
+        const auto RawFloat = [this](size_t offset) { return *reinterpret_cast<const float*>(reinterpret_cast<const uint8*>(this) + offset); };
+        const float tracks[8]{RawFloat(0x618), RawFloat(0x61C), RawFloat(0x624), RawFloat(0x628), RawFloat(0x630), RawFloat(0x634), RawFloat(0x63C), RawFloat(0x640)};
+        for (int32 i = 0; i < 8; i++) {
+            const float ratio = (m_aSuspensionLineLength[0] - m_aSuspensionSpringLength[0]) / m_aSuspensionLineLength[0]; // 888h, 878h
+            float       v     = tracks[i] - ratio;
+            if (0.0f > v) { // fcomp 0.0 + test ah,41h: solo sustituye si v < 0 (con NaN se queda)
+                v = 0.0f;
+            }
+            const float  u    = 1.0f - v;
+            const auto*  line = reinterpret_cast<const float*>(reinterpret_cast<const uint8*>(colData->m_pLines) + 0x80 + i * 0x20); // inicio en +0, fin en +0x10
+            const float  sx   = u * line[0];
+            const float  sy   = u * line[1];
+            const float  ez   = v * line[6];
+            const float  x    = v * line[4] + sx;
+            const float  y    = v * line[5] + sy;
+            const float  z    = ez + u * line[2];
+            RwFrame* const node = i < 4 ? m_aCarNodes[CAR_WHEEL_LB] : m_aCarNodes[CAR_WHEEL_RB]; // [esi+664h] / [esi+658h]
+            RwV3d move{x - node->modelling.pos.x, y - node->modelling.pos.y, z - node->modelling.pos.z};
+            RwMatrixTranslate(&node->modelling, &move, rwCOMBINEPOSTCONCAT);
+            RwFrameUpdateObjects(node);
+            RenderFirstAtomic(i < 4 ? m_aCarNodes[CAR_WHEEL_LB] : m_aCarNodes[CAR_WHEEL_RB]);
+            move.x = move.x * -1.0f; // 0x858C1C
+            move.y = move.y * -1.0f;
+            move.z = move.z * -1.0f;
+            RwMatrixTranslate(&(i < 4 ? m_aCarNodes[CAR_WHEEL_LB] : m_aCarNodes[CAR_WHEEL_RB])->modelling, &move, rwCOMBINEPOSTCONCAT);
+        }
+    }
+
+    RwRenderStateSet(rwRENDERSTATEALPHATESTFUNCTIONREF, RWRSTATE(savedAlphaRef));
+
+    const auto model = static_cast<int16>(m_nModelIndex);
+    if (model != MODEL_RCBANDIT && model != -2 && model != MODEL_RHINO && !vehicleFlags.bIsRCVehicle && GetVehicleAppearance() != VEHICLE_APPEARANCE_HELI) {
+        if (m_renderLights.m_bRightFront) { // [esi+584h] bit 0
+            DoHeadLightBeam(DUMMY_LIGHT_FRONT_MAIN, *m_matrix, true); // 0x6E0E20
+        }
+        if (m_renderLights.m_bLeftFront) {  // [esi+584h] bit 1
+            DoHeadLightBeam(DUMMY_LIGHT_FRONT_MAIN, *m_matrix, false);
+        }
+    }
 }
 
 // 0x6A9CA0

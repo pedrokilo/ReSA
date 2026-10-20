@@ -2,7 +2,7 @@
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-561 funciones, 71,608 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+558 funciones, 70,907 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -23,7 +23,6 @@
 | `0x004C9F90` | 744 | CWeaponModelInfo | baja | 1 (0) |  |
 | `0x005C9790` | 704 | FxEmitterBP_c | baja | 2 (0) |  |
 | `0x004CAAE0` | 673 | CWeaponModelInfo | baja | 1 (0) |  |
-| `0x00681FE0` | 658 | CTaskComplexPartner | baja | 1 (0) |  |
 | `0x004F4320` | 645 | CAEUserRadioTrackManager | alta | 1 (0) |  |
 | `0x00670B00` | 631 | CTaskComplexTurnToFaceEntityOrCoord | baja | 6 (0) |  |
 | `0x005CB8C0` | 599 | FxEmitterBP_c | baja | 1 (0) |  |
@@ -354,7 +353,6 @@
 | `0x0046A7E0` | 33 | CTheScripts | alta | 1 (0) |  |
 | `0x004EFD30` | 33 | CAESoundManager | baja | 1 (0) |  |
 | `0x004F63B0` | 33 | CAEVehicleAudioEntity | alta | 2 (0) |  |
-| `0x006822B0` | 33 | CTaskComplexPartner | baja | 3 (0) |  |
 | `0x00470070` | 32 | CTaskComplexGoToPointAndStandStill | baja | 2 (0) |  |
 | `0x005C6B90` | 31 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x0043EF00` | 30 | CEntryExitManager | alta | 3 (0) |  |
@@ -502,7 +500,6 @@
 | `0x0053F910` | 10 | CPad | alta | 2 (0) |  |
 | `0x005CF810` | 10 | FxEmitterBP_c | baja | 2 (0) |  |
 | `0x005CF830` | 10 | FxEmitterBP_c | baja | 1 (0) |  |
-| `0x0066B150` | 10 | CTaskComplexWanderStandard | baja | 1 (0) |  |
 | `0x00402DC5` | 9 | CEntity | baja | 4 (0) |  |
 | `0x005F6450` | 9 | CEventPlayerCommandToGroupAttack | baja | 1 (0) |  |
 | `0x005F6480` | 9 | CPedGroupDefaultTaskAllocatorFollowAnyMeans | baja | 1 (0) |  |

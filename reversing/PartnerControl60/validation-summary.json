@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CTaskComplexPartner::ControlSubTask": 4096
+  },
+  "covered_functions": {
+    "CTaskComplexPartner::ControlSubTask": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el arbol de integracion D:/Original/wi (HEAD 6e01296af + fuentes del lote 60 de los worktrees wc-1..wc-6, con correcciones de depuracion posteriores al primer banco).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/PartnerControl60-20261019-210407-199606",
+  "summary_sha256": "c1a4fc4388f30b5077e88b751217dbd454d879983df1ae76dc9dd808fc3c8ecf",
+  "result_txt_sha256": "e7836955263c2046ff8a4f285dfdf977a0a858e435317799e26ece023e70ec72",
+  "log_sha256": "c825d6a6e53641bbca97e732d801c3d2c0bee845b46c55e07d055ec5d27784ea",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "c51bd6378c0eefd620b0300c810c8068ac6774f743c1f10e4ce2b3f19c5d872a",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "1863dc94a2290dfed2147f6f04ee9f4646aafa3d537d8065d914355275e93c93",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "1b1dd13e31a922224ade7730eeb2cc40d9cad8cc4015ceb66bc685917462630d",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h": "df877a5eec42862774087651887ad29739f11844726e26dbf21754cbe661aadb",
+      "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+      "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
+      "source/game_sa/Ragdoll/IKChainManager.cpp": "c2e0c7d3f0c686cd3308e881771fe6862804a29da5238c8a2087e3941ef7a255",
+      "source/game_sa/Ragdoll/IKChainManager.h": "5b9ccff23eeba87ab4aed02aa2c598a5b6f51ee35813e45dd06777e325455b8d",
+      "source/game_sa/Entity/Ped/Ped.cpp": "4212d1797e77f5d50949306b8211868b1f1afb1aa9f15485d8b7e29cb7cb77b3",
+      "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+      "source/game_sa/Tasks/Task.cpp": "d700418e6a00f573db2dc824d4a6d0bd325136ddf4f208589b74aef3d5f083c8",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/PartnerControl60/LiveComparison.hpp": "29339dce5b90184b857d8f080681365fdc4a6ad35e7bb9176567b00e56e2ba10",
+      "reversing/PartnerControl60/Core.hpp": "742f757f399e7865390b7d1e507540bb4b0ae87a68814df2a9ceb5f540b80661",
+      "reversing/PartnerControl60/Fixtures.hpp": "c2b3f6ce69eaf8a35c68eb81cd256657d23427b9c2d77b48f0818d99dbf97b9a",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

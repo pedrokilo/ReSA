@@ -13084,3 +13084,362 @@ __declspec(noinline) bool __cdecl WalkRoundDotPositiveCpp(const float* a, const 
     return (a[2] * b[2] + a[1] * b[1]) + a[0] * b[0] > 0.0f;
 }
 #pragma float_control(pop)
+
+// --- Lote 28: CAutomobile::PreRender (0x6AAB50), prefijo AutoPre. Anadir al FINAL de X87Math.cpp (usa ExeAsinDoubleCpp, ya definido arriba) ---
+// Cada ayudante reproduce un tramo x87 del EXE: 24 bits de mantisa por operacion (el proceso corre el x87 a 24 bits) y exponente extendido hasta el fstp;
+// los float que el EXE guarda en pila con fstp son `volatile float`. Las operaciones de memoria (fadd [m], fmul [m]) son una operacion double con un solo redondeo.
+static constexpr float kAutoPreTenth = std::bit_cast<float>(0x3DCCCCCDu);      // 0x858B1C = 0.1f
+static constexpr float kAutoPreHundredth = std::bit_cast<float>(0x3C23D70Au);  // 0x858C58 = 0.01f
+static constexpr float kAutoPreTen = std::bit_cast<float>(0x41200000u);        // 0x85862C = 10.0f
+static constexpr float kAutoPreHalf = std::bit_cast<float>(0x3F000000u);       // 0x858B8C = 0.5f
+static constexpr float kAutoPreFiftieth = std::bit_cast<float>(0x3CA3D70Au);   // 0x871054 = 0.02f
+static constexpr float kAutoPreTwoPi = std::bit_cast<float>(0x40C90FDBu);      // 0x858CBC = 6.2831855f
+static constexpr float kAutoPreMinusOne = std::bit_cast<float>(0xBF800000u);   // 0x858C1C = -1.0f
+static __declspec(noinline) double AutoPreSqrt(double value) {
+    return sqrt(value); // fuera de precise: fsqrt en linea
+}
+
+#pragma float_control(precise, on, push)
+// 0x6AADCF..0x6AADF6: (mz*fz + my*fy) + mx*fx sin guardar, / divisor, fstp float.
+__declspec(noinline) float __cdecl AutoPreForwardSpeedCpp(const float* move, const float* forward, float divisor) {
+    const double dot = (double(move[2]) * double(forward[2]) + double(move[1]) * double(forward[1])) + double(move[0]) * double(forward[0]);
+    volatile float result = float(dot / double(divisor));
+    return result;
+}
+
+// 0x6AADFA..0x6AAE1B: (x*x + y*y) + z*z sin guardar, fsqrt (24 bits), fstp float.
+__declspec(noinline) float __cdecl AutoPreSpeedMagnitudeCpp(const float* move) {
+    const double sum = (double(move[0]) * double(move[0]) + double(move[1]) * double(move[1])) + double(move[2]) * double(move[2]);
+    volatile float result = float(AutoPreSqrt(sum));
+    return result;
+}
+
+// 0x6AABBB..0x6AADC9 (una de las cuatro ruedas): r = 1 - spring/line (queda en la pila); t = (comp - r) / (1 - r) se guarda como float;
+// h = startZ [- t * spring si t > 0]; se suaviza (h - prev) * 0.75 + prev si comp no es < 1.0 o h no es > prev (comparaciones ordenadas); fstp float.
+__declspec(noinline) float __cdecl AutoPreSuspensionHeightCpp(float spring, float line, float comp, float startZ, float prevPos) {
+    const double r = 1.0 - double(spring) / double(line);
+    volatile float t = float((double(comp) - r) / (1.0 - r));
+    double h = double(startZ);
+    if (double(t) > 0.0) {
+        h = h - double(t) * double(spring);
+    }
+    if (!(double(comp) < 1.0) || !(h > double(prevPos))) {
+        h = (h - double(prevPos)) * 0.75 + double(prevPos);
+    }
+    volatile float result = float(h);
+    return result;
+}
+
+// 0x6AB186..0x6AB2B7 y 0x6AB715..0x6AB7A1: el EXE duplica (fadd st(0),st(0)) cada componente; el doble de y y de x se guarda como float (fstp) antes de sumarlo con p
+// y el de z queda en la pila (fadd [p.z] directo): out = (float(2*v.x) + p.x, float(2*v.y) + p.y, 2*v.z + p.z), cada suma con un solo redondeo a float. out no debe solaparse con v ni p.
+__declspec(noinline) void __cdecl AutoPreDoublePlusCpp(const float* v, const float* p, float* out) {
+    volatile float doubledY = float(double(v[1]) + double(v[1]));
+    volatile float doubledX = float(double(v[0]) + double(v[0]));
+    volatile float z = float((double(v[2]) + double(v[2])) + double(p[2]));
+    volatile float y = float(double(doubledY) + double(p[1]));
+    volatile float x = float(double(doubledX) + double(p[0]));
+    out[0] = x;
+    out[1] = y;
+    out[2] = z;
+}
+
+// 0x6AB823..0x6AB8B2: byte bajo de _ftol2((value * multiplier) * 0.1f) con value entero (fild).
+__declspec(noinline) unsigned int __cdecl AutoPreScaleByteCpp(unsigned int value, float multiplier) {
+    const double product = double(value) * double(multiplier);
+    const double scaled = product * double(kAutoPreTenth); // 0x858B1C = 0.1f
+    return static_cast<unsigned int>(static_cast<long long>(scaled)) & 0xFF;
+}
+
+// 0x6AB660..0x6AB711: byte bajo de _ftol2((value * fade) * 0.01f) con value entero y fade = fild (entero 0..511).
+__declspec(noinline) unsigned int __cdecl AutoPreFadeByteCpp(unsigned int value, float fade) {
+    const double product = double(value) * double(fade);
+    const double scaled = product * double(kAutoPreHundredth); // 0x858C58 = 0.01f
+    return static_cast<unsigned int>(static_cast<long long>(scaled)) & 0xFF;
+}
+
+// 0x6ABADB..0x6ABAEA: byte bajo de _ftol2(multiplier * 10.0f) (fld; fmul [0x85862C]).
+__declspec(noinline) unsigned int __cdecl AutoPreCoronaByteCpp(float multiplier) {
+    const double scaled = double(multiplier) * double(kAutoPreTen);
+    return static_cast<unsigned int>(static_cast<long long>(scaled)) & 0xFF;
+}
+
+// 0x6ABBFC..0x6ABC1C: (a.z*b.z + a.y*b.y) + a.x*b.x < 0.0 sobre la pila x87 (comparacion ordenada: con NaN da false).
+__declspec(noinline) bool __cdecl AutoPreDotNegativeCpp(const float* a, const float* b) {
+    return (a[2] * b[2] + a[1] * b[1]) + a[0] * b[0] < 0.0f;
+}
+
+// 0x6ABF97..0x6ABFA3: float(timeStep * speed + rotation) (fld; fmul [speed]; fadd [rotation]; fstp).
+__declspec(noinline) float __cdecl AutoPreWheelRotationCpp(float timeStep, float speed, float rotation) {
+    volatile float result = float(double(timeStep) * double(speed) + double(rotation));
+    return result;
+}
+
+// 0x6AC46C..0x6AC4B2 (hormigonera): fild misc; fidiv divisor; + 0.5; * timeStep; * 0.02f (0x871054); + prop; fst float. Devuelve el float guardado.
+__declspec(noinline) float __cdecl AutoPreMixerPropCpp(unsigned int misc, int divisor, float timeStep, float prop) {
+    const double ratio = double(misc) / double(divisor);
+    const double sum = ratio + double(kAutoPreHalf);
+    const double scaled = (sum * double(timeStep)) * double(kAutoPreFiftieth);
+    volatile float result = float(scaled + double(prop));
+    return result;
+}
+
+// 0x6AC4F0..0x6AC53D y 0x6AC6F9..0x6AC70B (camion grua y tractor): (misc * k) / divisor con fild y fidiv; fstp float.
+__declspec(noinline) float __cdecl AutoPreTowAngleCpp(unsigned int misc, float k, unsigned int divisor) {
+    volatile float result = float((double(misc) * double(k)) / double(divisor));
+    return result;
+}
+
+// 0x6AC7B5..0x6AC898 (cosechadora): si prop > 2pi (0x858CBC) se resta 2pi y se guarda como float; dot = (mz*fz + my*fy) + mx*fx (se recalcula igual en cada rama);
+// val = dot > 0.1f ? 0.1f : (0.0f > dot ? 0.0f : dot); resultado float(prop - val * timeStep) (fmul; fsubr [prop]; fst float).
+__declspec(noinline) float __cdecl AutoPreHarvesterPropCpp(const float* move, const float* forward, float prop, float timeStep) {
+    const double twoPi = double(kAutoPreTwoPi);
+    if (double(prop) > twoPi) {
+        volatile float wrapped = float(double(prop) - twoPi);
+        prop = wrapped;
+    }
+    const double dot = (double(move[2]) * double(forward[2]) + double(move[1]) * double(forward[1])) + double(move[0]) * double(forward[0]);
+    double val;
+    if (dot > double(kAutoPreTenth)) {
+        val = double(kAutoPreTenth);
+    } else if (0.0 > dot) {
+        val = 0.0;
+    } else {
+        val = dot;
+    }
+    volatile float result = float(double(prop) - val * double(timeStep));
+    return result;
+}
+
+// 0x6AC9A7..0x6AC9EF: asin(rightZ) (_CIasin 0x821E70, ST0 sin redondear); fst float; si asin > limit -> limit; si no, si el float guardado < -limit -> -limit; si no el float.
+__declspec(noinline) float __cdecl AutoPreClampedAsinCpp(float rightZ, float limit) {
+    const double angle = ExeAsinDoubleCpp(double(rightZ));
+    volatile float stored = float(angle);
+    if (angle > double(limit)) {
+        return limit;
+    }
+    if (double(stored) < -double(limit)) {
+        return -limit;
+    }
+    return stored;
+}
+
+// 0x6AC5A4..0x6AC64F (camion grua con remolque): d = hitch - bar (fsub; fstp float por componente); dot = (dz*fz + dy*fy) + dx*fx; / divisor (fstp float);
+// angleA = float(asin(ratio) + negAngle); segunda: (dz*rz + dy*ry) + dx*rx; v = (-1.0f / divisor) * dot (fstp float); angleB = float(asin(v)).
+__declspec(noinline) void __cdecl AutoPreTowAnglesCpp(const float* hitch, const float* bar, const float* forward, const float* right, float divisor, float negAngle, float* angleA, float* angleB) {
+    volatile float dx = float(double(hitch[0]) - double(bar[0]));
+    volatile float dy = float(double(hitch[1]) - double(bar[1]));
+    volatile float dz = float(double(hitch[2]) - double(bar[2]));
+    const double dotForward = (double(dz) * double(forward[2]) + double(dy) * double(forward[1])) + double(dx) * double(forward[0]);
+    volatile float ratio = float(dotForward / double(divisor));
+    volatile float first = float(ExeAsinDoubleCpp(double(ratio)) + double(negAngle));
+    const double dotRight = (double(dz) * double(right[2]) + double(dy) * double(right[1])) + double(dx) * double(right[0]);
+    const double scale = double(kAutoPreMinusOne) / double(divisor); // fld -1.0f (0x858C1C); fdiv [divisor]
+    volatile float sideValue = float(scale * dotRight);
+    volatile float second = float(ExeAsinDoubleCpp(double(sideValue)));
+    *angleA = first;
+    *angleB = second;
+}
+
+// 0x6AC373..0x6AC39B y 0x6ACB39..0x6ACB60 (vehiculos con ejes inclinables): (wheelPos - (lineZ - upper)) / (lineAxis - matrixPos), fstp float.
+__declspec(noinline) float __cdecl AutoPreAxleTiltCpp(float wheelPos, float lineZ, float upper, float lineAxis, float matrixPos) {
+    const double denominator = double(lineAxis) - double(matrixPos);
+    const double numerator = double(wheelPos) - (double(lineZ) - double(upper));
+    volatile float result = float(numerator / denominator);
+    return result;
+}
+
+// 0x6AC763..0x6AC77E (montacargas): misc * k + restZ (fild; fmul; fadd [restZ]; fstp float).
+__declspec(noinline) float __cdecl AutoPreForkliftZCpp(unsigned int misc, float k, float restZ) {
+    volatile float result = float(double(misc) * double(k) + double(restZ));
+    return result;
+}
+#pragma float_control(pop)
+
+// Lote 28 (cont.): 0x59C790 (Multiply3x3) y 0x59C890 (MultiplyMatrixWithVector) con la pila x87: tres productos sumados sin guardar (24 bits de mantisa, exponente extendido) y fstp float.
+// Las ordenes de suma del EXE: x = (up.x*v.z + fwd.x*v.y) + right.x*v.x; y = (up.y*v.z + right.y*v.x) + fwd.y*v.y; z = (up.z*v.z + right.z*v.x) + fwd.z*v.y; la segunda suma ademas la posicion.
+// `m` apunta al inicio de la matriz (right en m[0..2], forward en m[4..6], up en m[8..10], posicion en m[12..14]); out no debe solaparse con m ni v.
+#pragma float_control(precise, on, push)
+__declspec(noinline) void __cdecl AutoPreMultiply3x3Cpp(const float* m, const float* v, float* out) {
+    volatile float x = float((double(m[8]) * double(v[2]) + double(m[4]) * double(v[1])) + double(m[0]) * double(v[0]));
+    volatile float y = float((double(m[9]) * double(v[2]) + double(m[1]) * double(v[0])) + double(m[5]) * double(v[1]));
+    volatile float z = float((double(m[10]) * double(v[2]) + double(m[2]) * double(v[0])) + double(m[6]) * double(v[1]));
+    out[0] = x;
+    out[1] = y;
+    out[2] = z;
+}
+__declspec(noinline) void __cdecl AutoPreMultiplyMatrixWithVectorCpp(const float* m, const float* v, float* out) {
+    volatile float x = float(((double(m[8]) * double(v[2]) + double(m[4]) * double(v[1])) + double(m[0]) * double(v[0])) + double(m[12]));
+    volatile float y = float(((double(m[9]) * double(v[2]) + double(m[1]) * double(v[0])) + double(m[5]) * double(v[1])) + double(m[13]));
+    volatile float z = float(((double(m[10]) * double(v[2]) + double(m[2]) * double(v[0])) + double(m[6]) * double(v[1])) + double(m[14]));
+    out[0] = x;
+    out[1] = y;
+    out[2] = z;
+}
+#pragma float_control(pop)
+
+// Producto de dos floats en la pila x87 con 24 bits de mantisa y exponente extendido y un fstp float posterior: con resultados subnormales el segundo redondeo puede diferir del
+// producto SSE directo (CAutomobile::PreRender: timeStep * 0.3f en 0x6AC2D3, lodMultiplier * 150.0f de las coronas).
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl AutoPreMulCpp(float a, float b) {
+    volatile float result = float(double(a) * double(b));
+    return result;
+}
+#pragma float_control(pop)
+
+// Suma y resta de dos floats cargados de memoria en la pila x87 (fld a; fadd/fsub [b]; fstp): con dos NaN silenciosos distintos el x87 conserva el de mayor mantisa (SSE devolveria el
+// primer operando); con un solo NaN, o con inf - inf, coincide con SSE. CAutomobile::PreRender (velocidad relativa de la rueda, fuerzas, posicion de la cadera oscilante, panel de la grua).
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl AutoPreAddCpp(float a, float b) {
+    volatile float result = float(double(a) + double(b));
+    return result;
+}
+__declspec(noinline) float __cdecl AutoPreSubCpp(float a, float b) {
+    volatile float result = float(double(a) - double(b));
+    return result;
+}
+#pragma float_control(pop)
+
+// --- Lote 60: CPed::ProcessControl (0x5E8CD0) y CPed::SpecialEntityCalcCollisionSteps (0x5E3E90), prefijo PedCtl. Anadir al FINAL de X87Math.cpp ---
+// Todo en la x87 a 24 bits con exponente extendido (sin guardados intermedios de float salvo los que hace el EXE) y sin reasociar (precise).
+#pragma float_control(precise, on, push)
+// 0x5E8ED6..0x5E8EE9: CVector::SquaredMagnitude (0x406DA0) = (x*x + y*y) + z*z sin guardar, contra el limite (fcomp; test ah,5; jp): menor ordenado (con NaN da false).
+__declspec(noinline) bool __cdecl PedCtlSqMagBelowCpp(const float* v, float limit) {
+    return (v[0] * v[0] + v[1] * v[1]) + v[2] * v[2] < limit;
+}
+// 0x5E91D7..0x5E9204: factor = float(pow(0.95f (qword 0x86C3C8), paso)) (fstp dword) y CVector::operator*(float) (0x40FEC0): cada producto se redondea a float.
+__declspec(noinline) void __cdecl PedCtlDecaySpeedCpp(float* v, float step) {
+    const volatile float factor = float(ExeCompatiblePowCpp(0.949999988079071, double(step)));
+    const float f = factor;
+    const float z = f * v[2];
+    const float y = f * v[1];
+    const float x = f * v[0];
+    v[0] = x;
+    v[1] = y;
+    v[2] = z;
+}
+// 0x5E8F7C..0x5E8F90: (z + 1.5f (0x858CE8)) < limite, la suma sin guardar; menor ordenado (con NaN da false).
+__declspec(noinline) bool __cdecl PedCtlRaisedBelowCpp(float z, float limit) {
+    return z + 1.5f < limit;
+}
+// 0x5E938C..0x5E93A6: CVector::operator-(a, b) (0x40FE60) guarda cada resta como float; luego 0x406DA0 ((dx*dx + dy*dy) + dz*dz) frente a 2500.0f (0x8598B0): menor ordenado.
+__declspec(noinline) bool __cdecl PedCtlBloodNearCpp(const float* ped, const float* camera) {
+    const volatile float dx = ped[0] - camera[0];
+    const volatile float dy = ped[1] - camera[1];
+    const volatile float dz = ped[2] - camera[2];
+    const float x = dx;
+    const float y = dy;
+    const float z = dz;
+    return (x * x + y * y) + z * z < 2500.0f;
+}
+// 0x5E93AC..0x5E9427: tamano = float(float(r1 & 0x7F) * 0.0015f (0x863E38) + 0.15f (0x858FCC)); x = float(float(((r2 & 0x7F) - 0x40)) * k (dword 0x86C3C0) + pos.x);
+// y igual con r3 y pos.y; z = float(pos.z + 1.0f (0x858624)). Cada fild lee un entero pequeno (exacto); un redondeo a 24 bits por operacion.
+__declspec(noinline) void __cdecl PedCtlBloodSpawnCpp(int r1, int r2, int r3, const float* pos, float* outSize, float* outPos) {
+    const float scale = std::bit_cast<float>(0x3AC49BA6u);   // 0x863E38
+    const float base = std::bit_cast<float>(0x3E19999Au);    // 0x858FCC
+    const float spread = std::bit_cast<float>(0x3BE56042u);  // 0x86C3C0
+    const int a = (r1 & 0x7F);
+    const int b = (r2 & 0x7F) - 0x40;
+    const int c = (r3 & 0x7F) - 0x40;
+    *outSize = static_cast<float>(a) * scale + base;
+    outPos[0] = static_cast<float>(b) * spread + pos[0];
+    outPos[1] = static_cast<float>(c) * spread + pos[1];
+    outPos[2] = pos[2] + 1.0f;
+}
+// 0x5E3EB4..0x5E3EE9: ((x*x + y*y) + z*z) * paso * paso (sin guardar) < 0.09f (0x85B324) con fcomp; test dl, ah (C0): menor O no ordenado, es decir !(v >= 0.09f).
+__declspec(noinline) bool __cdecl PedCtlStepsSlowCpp(const float* v, float step) {
+    return !((((v[0] * v[0] + v[1] * v[1]) + v[2] * v[2]) * step * step) >= 0.09f);
+}
+#pragma float_control(pop)
+
+// 0x5E3EEF..0x5E3FBE: d = fsqrt((x*x + y*y) + z*z) * paso; mode 0 (sin datos de jugador): ceil(d * 5.0f) -> _ftol2; mode 1 (jugador de pie sobre una entidad): c = ceil(d * 6.6666665f (0x866FBC)),
+// c < 4.0 -> 4; mode 2 (jugador sin entidad): c = ceil(d * 3.3333333f (0x859F60)), c < 2.0 -> 2. Devuelve los 32 bits bajos del entero de 64 bits de _ftol2 (NaN/fuera de rango: 0).
+#pragma float_control(precise, on, push)
+__declspec(noinline) unsigned int __cdecl PedCtlStepsCpp(const float* v, float step, int mode) {
+    const double distance = sqrt(double((v[0] * v[0] + v[1] * v[1]) + v[2] * v[2])) * step;
+    double scaled;
+    double minimum;
+    if (mode == 0) {
+        scaled = distance * 5.0f;      // 0x858C80
+        minimum = -1.0;
+    } else if (mode == 1) {
+        scaled = distance * 6.6666665f; // 0x866FBC
+        minimum = 4.0;                  // 0x858B90
+    } else {
+        scaled = distance * 3.3333333f; // 0x859F60
+        minimum = 2.0;                  // 0x858CA0
+    }
+    const double ceiled = StatsCeilDouble(static_cast<double>(static_cast<float>(scaled)));
+    if (mode != 0 && ceiled < minimum) {
+        return static_cast<unsigned int>(static_cast<long long>(minimum));
+    }
+    return static_cast<unsigned int>(static_cast<long long>(ceiled));
+}
+#pragma float_control(pop)
+
+// 0x5E3FC8..0x5E3FD6 (SpecialEntityCalcCollisionSteps): fld [esi+9Ch]; fadd st(0),st; fstp [esi+9Ch]. Con el x87 un denormal se duplica tal cual; el SSE del juego (MXCSR con FTZ) lo dejaria en 0.
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl PedCtlDoubleFloatCpp(float v) {
+    return v + v;
+}
+#pragma float_control(pop)
+
+// --- Lote 60: CStats::UpdateRespectStat (0x55BC50), ConstructStatLine (0x55A780) y BuildStatLine (0x559230), prefijo Stw60. Anadir al FINAL de X87Math.cpp ---
+// Tramos x87 de 24 bits con exponente extendido (cada operacion se redondea; los float que el EXE guarda con fstp dword se devuelven como float, el resto como double sin redondear a float).
+// Constantes del EXE (floats): 0x858EE8 = 0.4f, 0x858C4C = 1000.0f, 0x863E10 = 0.36f, 0x858B10 = 0.03f, 0x858CC4 = 0.2f, 0x864314 = 1250.0f, 0x858C28 = 0.05f, 0x864310 = 1e-7f.
+// Los literales float de abajo son exactamente las constantes del EXE (comprobado en tiempo de compilacion; std::bit_cast en las funciones no se inserta en linea con float_control(precise)).
+static_assert(std::bit_cast<unsigned int>(0.4f) == 0x3ECCCCCDu && std::bit_cast<unsigned int>(1000.0f) == 0x447A0000u && std::bit_cast<unsigned int>(0.36f) == 0x3EB851ECu &&
+              std::bit_cast<unsigned int>(0.03f) == 0x3CF5C28Fu && std::bit_cast<unsigned int>(0.2f) == 0x3E4CCCCDu && std::bit_cast<unsigned int>(1250.0f) == 0x449C4000u &&
+              std::bit_cast<unsigned int>(0.05f) == 0x3D4CCCCDu && std::bit_cast<unsigned int>(1e-7f) == 0x33D6BF95u, "constantes de CStats::UpdateRespectStat");
+#pragma float_control(precise, on, push)
+// 0x55BC73..0x55BD33: parte hasta los dos float que el EXE guarda en pila. partialOut = [esp+0x14] (fstp dword), moneyOut = [esp] (fstp dword o 1.0f). `total` es el entero de CStats [0xB791B0]
+// (se cambia por 1 si es menor que 1: fcomp 1.0; test ah,41h; jne). El territorio menos 0.2 se deja en 0.0 si es menor (NaN se conserva).
+__declspec(noinline) void __cdecl Stw60RespectPartialCpp(float respect, int missions, int total, float girlfriend, float territory, int money, float* partialOut, float* moneyOut) {
+    const double a = double(respect) * 0.4f;  // fld [0xB79490]; fmul [0x858EE8]
+    const double b = double(missions) * 1000.0f;  // fild [0xB791A0]; fmul [0x858C4C]
+    double c = double(total);  // fild [0xB791B0]
+    if (1.0 > c) {
+        c = 1.0;  // fld [0x858624]; fcomp st(1); test ah,41h; jne -> fstp st(0); fld [0x858624]
+    }
+    double sum = a + (b / c) * 0.36f;  // fxch; fdiv; fmul [0x863E10]; faddp st(2),st
+    sum = sum + double(girlfriend) * 0.03f;  // fld [0xB79484]; fmul [0x858B10]; faddp st(2),st
+    double t = double(territory) - 0.2f;  // fld [0x96AB9C]; fsub [0x858CC4]
+    if (0.0 > t) {
+        t = 0.0;  // fld [0x858B50]; fcomp st(1); test ah,41h; jne -> fstp st(0); fld [0x858B50]
+    }
+    *partialOut = float((t * 1250.0f) * 0.05f + sum);  // fmul [0x864314]; fmul [0x858C28]; fadd st,st(1); fstp dword [esp+0x14]
+    const double m = double(money) * 1e-7f;  // fild [eax+0xB7CE50]; fmul [0x864310]
+    *moneyOut = (1.0 < m) ? 1.0f : float(m);  // fcomp; test ah,5; jp -> fstp dword [esp] ; si no, [esp] = 1.0f
+}
+// 0x55BD55..0x55BD9E: tras GetPercentageTagged. Devuelve el float que queda en [esp+0x14] (0.0f si la suma sin redondear es menor que 0.0; NaN se conserva); el trucaje de la trampa de
+// 1000.0f (byte 0x96917F) lo aplica el llamador. w1 / w2 son los floats de 0xB793DC / 0xB79488 y tagged el entero que devuelve 0x49CDA0 (x10 con lea/shl, con envoltura).
+__declspec(noinline) float __cdecl Stw60RespectFinishCpp(int tagged, float moneyPart, float partial, float w1, float w2) {
+    const int scaled = static_cast<int>(static_cast<unsigned int>(tagged) * 10u);  // lea eax,[eax+eax*4]; shl eax,1
+    const double x = double(scaled) * 0.05f;  // fild; fmul [0x858C28]
+    double z = (double(moneyPart) * 1000.0f) * 0.05f;  // fld [esp]; fmul [0x858C4C]; fmul [0x858C28]
+    z = z + double(partial);  // fadd dword [esp+0x14]
+    z = z + double(w1) * 0.03f;  // fld [esp+8]; fmul [0x858B10]; faddp st(1),st
+    z = z + double(w2) * 0.03f;  // fld [esp+0xC]; fmul [0x858B10]; faddp st(1),st
+    const double total = x + z;  // faddp st(1),st
+    float result = float(total);  // fst dword [esp+0x14]
+    if (total < 0.0) {
+        result = 0.0f;  // fcomp [0x858B50]; test ah,5; jp -> sin cambio ; si no, [esp+0x14] = 0
+    }
+    return result;
+}
+// ftol(fild(value) * k) con un redondeo a 24 bits (ConstructStatLine: horas y minutos de vuelo / jetpack con k = [0x863FD0]).
+__declspec(noinline) int __cdecl Stw60ScaledFtolCpp(int value, float k) {
+    return static_cast<int>(static_cast<long long>(double(value) * k));
+}
+// ST0 * k a 24 bits, devuelto como double (el EXE lo guarda con fstp qword): v es un float o un entero exacto cargado por GetStatValue (fld / fild).
+__declspec(noinline) double __cdecl Stw60MulCpp(double v, float k) {
+    return v * k;
+}
+// 0x55AECB..0x55AEF4: [0xB7940C] - [0xB79414] (fsub), 0.0 si es menor que 0.0 (fcom; test ah,5; jp); NaN se conserva. Se devuelve como double (fstp qword).
+__declspec(noinline) double __cdecl Stw60SubClampCpp(float a, float b) {
+    double t = double(a) - double(b);
+    if (t < 0.0) {
+        t = 0.0;
+    }
+    return t;
+}
+#pragma float_control(pop)

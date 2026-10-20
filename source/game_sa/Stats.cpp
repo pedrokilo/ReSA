@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CStats
- * Reconstrucción: COMPLETA — 47/47 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 51/51 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 47/47 entradas.
+ * Validación registrada: 51/51 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -38,6 +38,8 @@ END GENERATED HOOK STATUS */
 #include "FileLoader.h"
 #include "GameLogic.h"
 #include "WeaponInfo.h"
+#include "GangWars.h"
+#include "TagManager.h"
 #include "X87Math.h"
 
 namespace {
@@ -196,6 +198,10 @@ void CStats::InjectHooks() {
     RH_ScopedInstall(IsStatFloat, 0x558E30);
     /*RH_ScopedInstall(GetFullFavoriteRadioStationList, 0x558F90); - different return type*/
     RH_ScopedInstall(FindCriminalRatingNumber, 0x559080);
+    RH_ScopedInstall(FindLeastFavoriteRadioStation, 0x559010);
+    RH_ScopedInstall(BuildStatLine, 0x559230);
+    RH_ScopedInstall(ConstructStatLine, 0x55A780);
+    RH_ScopedInstall(UpdateRespectStat, 0x55BC50);
     RH_ScopedInstall(GetPercentageProgress, 0x5591E0);
     RH_ScopedInstall(ConvertToMins, 0x559540);
     RH_ScopedInstall(ConvertToSecs, 0x559560);
@@ -341,7 +347,18 @@ uint32 __declspec(safebuffers) __cdecl StatsFindMostFavoriteExe() {
 
 // 0x559010
 int32 CStats::FindLeastFavoriteRadioStation() {
-    return plugin::CallAndReturn<int32, 0x559010>();
+    // Como el original (0x559010..0x55907D): estaciones 1..12 (el EXE las recorre desenrolladas de 6 en 6 con la primera como minimo inicial);
+    // gana la primera estrictamente menor (con signo). Solo EAX (el indice); ningun llamador del EXE lee ECX/EDX (0x55B3A3 usa solo EAX).
+    int32 least = FavoriteRadioStationList.data()[1];
+    int32 index = 1;
+    for (int32 i = 1; i < 13; ++i) {
+        const int32 time = FavoriteRadioStationList.data()[i];
+        if (time < least) {
+            least = time;
+            index = i;
+        }
+    }
+    return index;
 }
 
 // 0x559080
@@ -371,8 +388,124 @@ float CStats::GetPercentageProgress() {
 }
 
 // 0x559230
+namespace {
+// --- Lote 60: BuildStatLine (0x559230) y ConstructStatLine (0x55A780) ---
+// Formato de las lineas: el sprintf del CRT estatico del EXE (0x821BB5), igual que el sscanf (0x8220AD) en este archivo: el de la DLL formatea distinto en los limites
+// (%.2f de NaN / inf / empates exactos). GxtCharToAscii (0x69F7E0, buffer estatico 0xC1BDD0, sin reconstruir como funcion de uso general) y la funcion que quita las marcas '~'
+// del texto (0x719240) tambien van por direccion; los colaboradores reconstruidos (CText::Get, GxtCharStrcpy, AsciiToGxtChar, GetStatValue...) se llaman en C++.
+using ExeSprintfFn = int(__cdecl*)(char*, const char*, ...);
+template<class... Args>
+int StatsExeSprintf(char* dst, const char* format, Args... args) {
+    return reinterpret_cast<ExeSprintfFn>(0x821BB5)(dst, format, args...);
+}
+const char* StatsGxtToAscii(const GxtChar* text) {
+    return reinterpret_cast<const char*(__cdecl*)(const GxtChar*, uint8)>(0x69F7E0)(text, 0);
+}
+void StatsStripTags(GxtChar* text) {
+    reinterpret_cast<void(__cdecl*)(GxtChar*)>(0x719240)(text);
+}
+
+// Cola comun de las lineas (0x5594D7 en BuildStatLine con la clave de la linea; 0x55A8D4 en ConstructStatLine con gString): el texto de la clave a gGxtString (sin marcas) y gString2 a gGxtString2.
+void StatsLineTail(const char* key) {
+    const GxtChar* const text = TheText.Get(key);
+    GxtCharStrcpy(gGxtString, text);
+    StatsStripTags(gGxtString);
+    AsciiToGxtChar(gString2, gGxtString2);
+}
+// Cola 0x55B68F: el texto de la clave a gGxtString2 (el llamador pone antes gGxtString[0] = 0).
+void StatsLineTailKey(const char* key) {
+    const GxtChar* const text = TheText.Get(key);
+    GxtCharStrcpy(gGxtString2, text);
+}
+}
+
 void CStats::BuildStatLine(char* line, void* pValue1, int32 metrics, void* pValue2, int32 type) {
-    plugin::Call<0x559230, char*, void*, int32, void*, int32>(line, pValue1, metrics, pValue2, type);
+    // Como el original (0x559230..0x55950E): sin linea no hace nada; si no, vacia gString2 y la rellena segun `type` (1 = h:mm / m:ss) o segun `metrics` (con segundo valor solo
+    // 0, 1 y 3; con uno solo 0..9); al final convierte el texto de la clave a gGxtString (sin marcas) y gString2 a gGxtString2. Los punteros se leen sin comprobar (type == 1 los
+    // desreferencia siempre). Los reales pasan al sprintf como double (fld + fstp qword: un sNaN sale silenciado, igual que cvtss2sd).
+    if (!line) {
+        return;
+    }
+    gString2[0] = '\0';
+    if (type == 1) {
+        const int32 value2 = *static_cast<int32*>(pValue2);                      // mov eax,[eax]
+        const int32 value1 = *static_cast<int32*>(pValue1);                      // mov ecx,[edx]
+        StatsExeSprintf(gString2, value2 < 10 ? "%d:0%d" : "%d:%d", value1, value2);   // cmp eax,0Ah; jge: 0x863EB4 si >= 10, 0x863EBC si no
+    } else if (pValue2) {
+        switch (metrics) {
+        case 0: {   // 0x559314
+            const int32 value2 = *static_cast<int32*>(pValue2);
+            const int32 value1 = *static_cast<int32*>(pValue1);
+            const char* const of = StatsGxtToAscii(TheText.Get("FEST_OO"));
+            StatsExeSprintf(gString2, " %d %s %d", value1, of, value2);
+            break;
+        }
+        case 1: {   // 0x5592C7
+            const float value2 = *static_cast<float*>(pValue2);
+            const uint32 value1Bits = *static_cast<uint32*>(pValue1);          // mov edx,[ecx] (copia cruda; se carga con fld mas tarde)
+            const char* const of = StatsGxtToAscii(TheText.Get("FEST_OO"));
+            StatsExeSprintf(gString2, "%.2f %s %.2f", static_cast<double>(std::bit_cast<float>(value1Bits)), of, static_cast<double>(value2));
+            break;
+        }
+        case 3: {   // 0x55927A
+            const float value2 = *static_cast<float*>(pValue2);
+            const uint32 value1Bits = *static_cast<uint32*>(pValue1);
+            const char* const of = StatsGxtToAscii(TheText.Get("FEST_OO"));
+            StatsExeSprintf(gString2, "$%.2f %s $%.2f", static_cast<double>(std::bit_cast<float>(value1Bits)), of, static_cast<double>(value2));
+            break;
+        }
+        default:
+            break;
+        }
+    } else if (pValue1 && static_cast<uint32>(metrics) <= 9) {                      // test eax,eax; je ; cmp ecx,9; ja
+        switch (metrics) {
+        case 0:
+            StatsExeSprintf(gString2, "%d", *static_cast<int32*>(pValue1));
+            break;
+        case 1:
+            StatsExeSprintf(gString2, "%.2f", static_cast<double>(*static_cast<float*>(pValue1)));
+            break;
+        case 2:
+            StatsExeSprintf(gString2, "%0.2f%%", static_cast<double>(*static_cast<float*>(pValue1)));
+            break;
+        case 3:
+            StatsExeSprintf(gString2, "$%.2f", static_cast<double>(*static_cast<float*>(pValue1)));
+            break;
+        case 4:
+            StatsExeSprintf(gString2, "%d|", *static_cast<int32*>(pValue1));
+            break;
+        case 5: {   // peso: el EXE pasa un double a "%dkgs" (el sprintf lee solo los 32 bits bajos del double)
+            const int32 value = *static_cast<int32*>(pValue1);
+            if (CLocalisation::Metric()) {
+                StatsExeSprintf(gString2, "%dkgs", Stw60MulCpp(static_cast<double>(value), std::bit_cast<float>(0x3EE83E42u)));   // fild; fmul [0x863F0C]
+            } else {
+                StatsExeSprintf(gString2, "%dlbs", value);
+            }
+            break;
+        }
+        case 6: {   // el valor se lee como float, despues del texto de "ST_MILE"
+            const uint32 valueBits = *static_cast<uint32*>(pValue1);
+            const char* const mile = StatsGxtToAscii(TheText.Get("ST_MILE"));
+            StatsExeSprintf(gString2, "%.2f %s", static_cast<double>(std::bit_cast<float>(valueBits)), mile);
+            break;
+        }
+        case 7:
+            StatsExeSprintf(gString2, "%.2fm", static_cast<double>(*static_cast<float*>(pValue1)));
+            break;
+        case 8:     // pies: metros * 3.3333333f (0x859F60) en la x87
+            StatsExeSprintf(gString2, "%.2fft", Stw60MulCpp(static_cast<double>(*static_cast<float*>(pValue1)), std::bit_cast<float>(0x40555555u)));
+            break;
+        case 9: {
+            const int32 value = *static_cast<int32*>(pValue1);
+            const char* const secs = StatsGxtToAscii(TheText.Get("ST_SECS"));
+            StatsExeSprintf(gString2, "%d %s", value, secs);
+            break;
+        }
+        default:
+            break;
+        }
+    }
+    StatsLineTail(line);   // 0x5594D7
 }
 
 // 0x559540
@@ -885,8 +1018,571 @@ __declspec(safebuffers) GxtChar* CStats::FindCriminalRatingString() {
 #pragma runtime_checks("", restore)
 
 // 0x55A780
+namespace {
+// Tablas de lineas de 0x55A780 (6 bytes por entrada: int16 estadistica, uint8 formato, uint8 "siempre", uint8 "especial", uint8 sin uso; terminan en -99). Estan en los datos
+// del EXE y se leen vivas (el banco las sustituye para ejercitar formatos que las tablas reales no usan).
+constexpr uintptr_t kStatLineTables[7] = { 0x8CD8A0, 0x8CD938, 0x8CD9B0, 0x8CD9D8, 0x8CDA70, 0x8CDAC8, 0x8CDBF8 };
+constexpr uintptr_t kStatLineTableDefault = 0x8CDE08;
+
+// 0x55B6F8: con el juego aleman se omiten las estadisticas cuyo byte bajo esta entre 167 y 209 con 0 en la tabla (las del tipo SafeToShowThisStat).
+constexpr uint8 kStatLineGermanKeep[43] = { 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0 };
+
+// 0x55B784: estadistica especial (0..0xF3) -> numero de manejador (13 = sin manejador, se omite).
+int32 StatLineSpecialHandler(uint32 id) {
+    switch (id) {
+    case 0:   return 0;
+    case 143: return 1;
+    case 144: return 2;
+    case 145: return 3;
+    case 164: return 4;
+    case 169: return 5;
+    case 173: return 6;
+    case 174: return 7;
+    case 175: return 8;
+    case 213: return 9;
+    case 231: return 10;
+    case 241: return 11;
+    case 243: return 12;
+    default:  return 13;
+    }
+}
+
+// Lectura cruda de la estadistica entera: fild [id*4 + 0xB78E20] (id de 16 bits sin signo; 82..119 caen en otras tablas del juego).
+int32 StatLineRawInt(uint16 id) {
+    return *reinterpret_cast<const int32*>(0xB78E20u + static_cast<uintptr_t>(id) * 4u);
+}
+// Lo que GetStatValue (0x558E40) deja en ST0 en el EXE: el float de la estadistica (fld) o el entero EXACTO (fild). La funcion de la DLL devuelve float, asi que el entero (82 o mas) se
+// lee de la tabla; la llamada se hace igualmente (el EXE la hace y el banco traza las llamadas).
+double StatLineValue(uint16 id) {
+    const float value = CStats::GetStatValue(static_cast<eStats>(id));
+    return id < CStats::FIRST_UNUSED_STAT ? static_cast<double>(value) : static_cast<double>(StatLineRawInt(id));
+}
+// call 0x821B40 (_ftol2) sobre ST0: palabra baja del entero truncado a 64 bits.
+int32 StatLineFtol(double value) {
+    return static_cast<int32>(static_cast<int64>(value));
+}
+// Lectura directa de 0x55A7F9 / 0x55AABF: fld [id*4 + 0xB79380] o fild [id*4 + 0xB78E20] seguido de _ftol2 (sin GetStatValue).
+int32 StatLineArrayFtol(uint16 id) {
+    return id < CStats::FIRST_UNUSED_STAT ? StatsFtol(CStats::StatTypesFloat.data()[id]) : StatLineRawInt(id);
+}
+
+enum class StatLineResult { Skip, Next, Done };   // Skip = 0x55B5A6 (siguiente entrada), Next = 0x55B5A5 (cuenta una linea y sigue), Done = devuelve 0
+
+// 0x55AC1F: " %d %s %d" con "FEST_OO" (value1 de, value2); despues la cola comun.
+StatLineResult StatLineOutOf(int32 value1, int32 value2) {
+    gString2[0] = '\0';
+    const char* const of = StatsGxtToAscii(TheText.Get("FEST_OO"));
+    StatsExeSprintf(gString2, " %d %s %d", value1, of, value2);
+    StatsLineTail(gString);
+    return StatLineResult::Done;
+}
+// 0x55B60D: linea de cabecera (gString2 vacio) y cola comun.
+StatLineResult StatLineHeader() {
+    gString2[0] = '\0';
+    StatsLineTail(gString);
+    return StatLineResult::Done;
+}
+// 0x55A8C0 / 0x55B087 y 0x55A8D4: "%d" (o el formato dado) con un entero y cola comun.
+StatLineResult StatLineInt(const char* format, int32 value) {
+    gString2[0] = '\0';
+    StatsExeSprintf(gString2, format, value);
+    StatsLineTail(gString);
+    return StatLineResult::Done;
+}
+StatLineResult StatLineDouble(const char* format, double value) {
+    gString2[0] = '\0';
+    StatsExeSprintf(gString2, format, value);
+    StatsLineTail(gString);
+    return StatLineResult::Done;
+}
+// 0x55B68F precedido de gGxtString[0] = 0.
+StatLineResult StatLineKey(const char* key) {
+    gGxtString[0] = 0;
+    StatsLineTailKey(key);
+    return StatLineResult::Done;
+}
+// BuildStatLine(gString, &a, 0, &b, 1) y devuelve 0.
+StatLineResult StatLineClock(int32 hours, int32 minutes) {
+    int32 first = hours;
+    int32 second = minutes;
+    CStats::BuildStatLine(gString, &first, 0, &second, 1);
+    return StatLineResult::Done;
+}
+
+// Una entrada de la tabla (0x55A7E6..0x55B5A6). `count` = lineas contadas hasta ahora (esi), `wanted` = linea pedida (ebp).
+StatLineResult StatLineEntry(const uint8* entry, int32& count, const int32 wanted) {
+    const int16 id16 = *reinterpret_cast<const int16*>(entry);
+    const uint16 id = static_cast<uint16>(id16);
+    const int32 sid = id16;
+    const uint8 format = entry[2];
+    const uint8 always = entry[3];
+    const uint8 special = entry[4];
+    auto here = [&]() { return count == wanted; };
+
+    if (always == 0) {
+        // 0x55A7ED: solo se muestra si la estadistica es mayor que 0 (fcomp 0.0; test ah,41h; jne): un NaN la omite.
+        const bool positive = id < CStats::FIRST_UNUSED_STAT ? CStats::StatTypesFloat.data()[id] > 0.0f : StatLineRawInt(id) > 0;
+        if (!positive) {
+            return StatLineResult::Skip;
+        }
+    }
+    // 0x55A81D: clave "STAT%03d" en gString (con ceros a la izquierda hasta tres cifras).
+    StatsExeSprintf(gString, sid < 10 ? "STAT00%d" : (sid < 100 ? "STAT0%d" : "STAT%d"), sid);
+    if (CLocalisation::GermanGame()) {
+        const uint32 index = static_cast<uint32>(static_cast<uint8>(id16)) - 167u;
+        if (index <= 0x2A && kStatLineGermanKeep[index] == 0) {
+            return StatLineResult::Skip;
+        }
+    }
+    CStats::m_ThisStatIsABarChart = 0;
+    if (special == 0) {
+        switch (static_cast<uint32>(format) - 1u <= 9u ? format : 0) {
+        case 10: {   // 0x55A8A0: barra; muestra el valor entero
+            CStats::m_ThisStatIsABarChart = id16;
+            if (!here()) {
+                return StatLineResult::Next;
+            }
+            return StatLineInt("%d", StatLineFtol(StatLineValue(id)));
+        }
+        case 5: {    // 0x55A914: peso
+            if (!here()) {
+                return StatLineResult::Next;
+            }
+            const int32 value = StatLineFtol(StatLineValue(id));
+            gString2[0] = '\0';
+            if (CLocalisation::Metric()) {
+                StatsExeSprintf(gString2, "%dkgs", Stw60MulCpp(static_cast<double>(value), std::bit_cast<float>(0x3EE83E42u)));
+            } else {
+                StatsExeSprintf(gString2, "%dlbs", value);
+            }
+            StatsLineTail(gString);
+            return StatLineResult::Done;
+        }
+        case 3: {    // 0x55A95E: dinero
+            if (!here()) {
+                return StatLineResult::Next;
+            }
+            return StatLineDouble("$%.2f", StatLineValue(id));
+        }
+        case 4: {    // 0x55A97A
+            if (!here()) {
+                return StatLineResult::Next;
+            }
+            return StatLineInt("%d|", StatLineFtol(StatLineValue(id)));
+        }
+        case 9: {    // 0x55A998: minutos : segundos
+            if (!here()) {
+                return StatLineResult::Next;
+            }
+            int32 minutes = CStats::ConvertToMins(StatLineFtol(StatLineValue(id)));
+            int32 seconds = CStats::ConvertToSecs(StatLineFtol(StatLineValue(id)));
+            CStats::BuildStatLine(gString, &minutes, 0, &seconds, 1);
+            return StatLineResult::Done;
+        }
+        case 1: {    // 0x55A9EF
+            if (!here()) {
+                return StatLineResult::Next;
+            }
+            return StatLineDouble("%.2f", StatLineValue(id));
+        }
+        case 6: {    // 0x55AA0B: millas (el valor pasa por un float en la pila)
+            if (!here()) {
+                return StatLineResult::Next;
+            }
+            const float value = static_cast<float>(StatLineValue(id));
+            gString2[0] = '\0';
+            const char* const mile = StatsGxtToAscii(TheText.Get("ST_MILE"));
+            StatsExeSprintf(gString2, "%.2f %s", static_cast<double>(value), mile);
+            StatsLineTail(gString);
+            return StatLineResult::Done;
+        }
+        case 7: {    // 0x55AA63: metros o pies (Metric se consulta antes de comparar la linea)
+            if (CLocalisation::Metric()) {
+                if (!here()) {
+                    return StatLineResult::Next;
+                }
+                return StatLineDouble("%.2fm", StatLineValue(id));
+            }
+            if (!here()) {
+                return StatLineResult::Next;
+            }
+            return StatLineDouble("%.2fft", Stw60MulCpp(StatLineValue(id), std::bit_cast<float>(0x40555555u)));
+        }
+        default: {   // 0x55AAAA (formatos 0, 2, 8 y mayores de 10): "%d" del valor leido directamente de las tablas
+            if (!here()) {
+                return StatLineResult::Next;
+            }
+            return StatLineInt("%d", StatLineArrayFtol(id));
+        }
+        }
+    }
+
+    // --- estadisticas especiales (0x55AAD0) ---
+    if (sid > 0x101) {   // 0x55AE50: tabla de 18 entradas desde 320
+        switch (static_cast<uint32>(sid) - 0x140u) {
+        case 0: {    // 320: tiempo jugado (ms / 60000 con la division por multiplicacion del compilador)
+            const uint32 elapsed = StaticRef<uint32>(0xB7CB84);
+            const int32 total = static_cast<int32>(static_cast<uint32>((static_cast<uint64>(0x45E7B273u) * elapsed) >> 32) >> 14);
+            if (!here()) {
+                return StatLineResult::Next;
+            }
+            return StatLineClock(total / 60, total % 60);
+        }
+        case 2: {    // 322
+            if (!here()) {
+                return StatLineResult::Next;
+            }
+            return StatLineOutOf(StaticRef<int32>(0xA9AD74), StaticRef<int32>(0xA9AD70));
+        }
+        case 3: {    // 323: banda menos favorita (0xB78E90 + 7..14, el primero estrictamente mayor sin signo)
+            int32 best = 0;
+            uint32 largest = 0;
+            for (int32 i = 7; i < 15; ++i) {
+                const uint32 kills = CStats::PedsKilledOfThisType.data()[i];
+                if (kills > largest) {
+                    best = i;
+                    largest = kills;
+                }
+            }
+            if (best == 0) {
+                return StatLineResult::Skip;
+            }
+            if (here()) {
+                return StatLineHeader();
+            }
+            const uint32 gang = static_cast<uint32>(best - 7);
+            ++count;
+            static constexpr const char* kGangKeys[8] = { "ST_GNG0", "ST_GNG1", "ST_GNG2", "ST_GNG3", "ST_GNG4", "ST_GNG5", "ST_GNG6", "ST_GNG7" };
+            if (gang > 7) {
+                return StatLineResult::Skip;
+            }
+            if (!here()) {
+                return StatLineResult::Next;
+            }
+            return StatLineKey(kGangKeys[gang]);
+        }
+        case 4: {    // 324: suma de nueve contadores (0xB78EAC..0xB78ECC), con envoltura
+            if (!here()) {
+                return StatLineResult::Next;
+            }
+            uint32 sum = 0;
+            for (int32 i = 7; i < 16; ++i) {
+                sum += static_cast<uint32>(CStats::PedsKilledOfThisType.data()[i]);
+            }
+            return StatLineInt("%d", static_cast<int32>(sum));
+        }
+        case 5: {    // 325
+            if (!here()) {
+                return StatLineResult::Next;
+            }
+            return StatLineInt("%d", CStats::PedsKilledOfThisType.data()[20]);
+        }
+        case 6:      // 326: emisora mas escuchada
+        case 7: {    // 327: emisora menos escuchada
+            if (CStats::PopulateFavoriteRadioStationList()) {
+                return StatLineResult::Skip;
+            }
+            if (here()) {
+                return StatLineHeader();
+            }
+            ++count;
+            char name[32];
+            const eRadioID station = sid == 326 ? CStats::FindMostFavoriteRadioStation() : static_cast<eRadioID>(CStats::FindLeastFavoriteRadioStation());
+            AudioEngine.GetRadioStationNameKey(station, name);
+            if (!here()) {
+                return StatLineResult::Next;
+            }
+            return StatLineKey(name);
+        }
+        case 8: {    // 328: habilidad del arma actual
+            const uintptr_t ped = reinterpret_cast<uintptr_t>(FindPlayerPed(-1));
+            const int8 slot = *reinterpret_cast<const int8*>(ped + 0x718);
+            const uint16 type = *reinterpret_cast<const uint16*>(ped + static_cast<intptr_t>(slot) * 0x1C + 0x5A0);
+            uint8 skillSlot;                                                    // bl
+            if (type == 0x20) {
+                skillSlot = static_cast<uint8>(0x1C - 0x15);
+            } else if (type >= 0x16 && type <= 0x20) {
+                skillSlot = static_cast<uint8>(type - 0x15);
+            } else {
+                return StatLineResult::Skip;
+            }
+            if (here()) {
+                gString2[0] = '\0';
+                const uint16 stat = static_cast<uint16>(static_cast<uint16>(skillSlot) + 0x44);
+                StatsExeSprintf(gString2, "%d", StatLineFtol(StatLineValue(stat)));
+                StatsLineTail(gString);
+                return StatLineResult::Done;
+            }
+            ++count;
+            const uintptr_t ped2 = reinterpret_cast<uintptr_t>(FindPlayerPed(-1));
+            const int8 slot2 = *reinterpret_cast<const int8*>(ped2 + 0x718);
+            const int32 fullType = *reinterpret_cast<const int32*>(ped2 + static_cast<intptr_t>(slot2) * 0x1C + 0x5A0);
+            if (fullType == 0x20) {
+                skillSlot = 0xB;
+                StatsExeSprintf(gString, "STWE0%d", static_cast<int32>(skillSlot));
+            } else if (skillSlot < 10) {
+                StatsExeSprintf(gString, "STWE00%d", static_cast<int32>(skillSlot));
+            } else if (skillSlot < 100) {
+                StatsExeSprintf(gString, "STWE0%d", static_cast<int32>(skillSlot));
+            } else {
+                StatsExeSprintf(gString, "STWE%d", static_cast<int32>(skillSlot));
+            }
+            if (!here()) {
+                return StatLineResult::Next;
+            }
+            return StatLineKey(gString);
+        }
+        case 9: {    // 329: niveles de habilidad de las armas 22..31
+            if (here()) {
+                return StatLineHeader();
+            }
+            ++count;
+            for (uint16 weapon = 1; weapon < 0xB; ++weapon) {
+                StatsExeSprintf(gString, weapon < 10 ? "STWE00%d" : (weapon < 100 ? "STWE0%d" : "STWE%d"), static_cast<int32>(weapon));
+                const int32 type = weapon + 0x15;
+                const int32 skill = static_cast<int8>(static_cast<uint8>(FindPlayerPed(-1)->GetWeaponSkill(static_cast<eWeaponType>(type))));
+                StatsExeSprintf(gString2, skill == 1 ? "WS_STD" : (skill == 2 ? "WS_PRO" : "WS_POOR"));
+                if (here()) {
+                    GxtCharStrcpy(gGxtString, TheText.Get(gString));
+                    GxtCharStrcpy(gGxtString2, TheText.Get(gString2));
+                    return StatLineResult::Done;
+                }
+                ++count;
+            }
+            return StatLineResult::Skip;
+        }
+        case 10: {   // 330: ranking de piloto (horas : minutos de vuelo y 19 clasificaciones)
+            const int32 total = Stw60ScaledFtolCpp(StaticRef<int32>(0xB790C4), std::bit_cast<float>(0x378BCF65u));
+            const int32 hours = total / 60;
+            const int32 minutes = total % 60;
+            if (hours > 0 || minutes >= 5) {
+                if (here()) {
+                    return StatLineHeader();
+                }
+                ++count;
+            }
+            // 0x55B0D1: cada tramo comprueba (horas, minutos) y, si cuadra, devuelve la linea o cuenta una mas.
+            const char* key = nullptr;
+            if (hours <= 0) {
+                if (minutes < 5) {
+                    return StatLineResult::Skip;
+                }
+                if (minutes < 10) {
+                    key = "ST_PR01";
+                } else if (minutes < 20) {
+                    key = "ST_PR02";
+                } else if (minutes < 30) {
+                    key = "ST_PR03";
+                }
+            }
+            if (!key) {
+                if (hours <= 1 && minutes < 0) {
+                    key = "ST_PR04";
+                } else if (hours <= 1 && minutes < 30) {
+                    key = "ST_PR05";
+                } else if (hours <= 2 && minutes < 0) {
+                    key = "ST_PR06";
+                } else if (hours <= 2 && minutes < 30) {
+                    key = "ST_PR07";
+                } else if (hours <= 3 && minutes < 0) {
+                    key = "ST_PR08";
+                } else if (hours <= 3 && minutes < 30) {
+                    key = "ST_PR09";
+                } else if (hours <= 4 && minutes < 0) {
+                    key = "ST_PR10";
+                } else if (hours <= 5 && minutes < 0) {
+                    key = "ST_PR11";
+                } else if (hours <= 10 && minutes < 0) {
+                    key = "ST_PR12";
+                } else if (hours <= 20 && minutes < 0) {
+                    key = "ST_PR13";
+                } else if (hours <= 25 && minutes < 0) {
+                    key = "ST_PR14";
+                } else if (hours <= 30 && minutes < 0) {
+                    key = "ST_PR15";
+                } else if (hours <= 49 && minutes < 2) {
+                    key = "ST_PR16";
+                } else if (hours <= 50 && minutes < 0) {
+                    key = "ST_PR17";
+                } else if (hours <= 100 && minutes < 0) {
+                    key = "ST_PR18";
+                } else {
+                    key = "ST_PR19";
+                }
+            }
+            if (!here()) {
+                return StatLineResult::Next;
+            }
+            return StatLineKey(key);
+        }
+        case 11:     // 331..333: bandas mas fuertes
+        case 12:
+        case 13: {
+            const int32 gangValue = *reinterpret_cast<const int32*>(0x96A60Cu + static_cast<uintptr_t>(sid) * 4u);
+            const int32 gangLabel = *reinterpret_cast<const int32*>(0x96A600u + static_cast<uintptr_t>(sid) * 4u);
+            const int32 rank = sid - 331;
+            if (gangValue < 0) {
+                return StatLineResult::Skip;
+            }
+            StatsExeSprintf(gString2, "ST_GNG%d", gangValue);
+            StatsExeSprintf(gString, "ST_LAB%d", rank);
+            const GxtChar* const text = TheText.Get(gString);
+            if (here()) {
+                GxtCharStrcpy(gGxtString, text);
+                StatsLineTailKey(gString2);
+                return StatLineResult::Done;
+            }
+            ++count;
+            StatsExeSprintf(gString, "%d", gangLabel);
+            AsciiToGxtChar(gString, gGxtString2);
+            if (here()) {
+                gGxtString[0] = 0;
+                GxtCharStrcpy(gGxtString2, gGxtString2);
+                return StatLineResult::Done;
+            }
+            return StatLineResult::Next;
+        }
+        case 14: {   // 334: dinero perdido en el juego (0xB7940C - 0xB79414, minimo 0)
+            const double lost = Stw60SubClampCpp(StaticRef<float>(0xB7940C), StaticRef<float>(0xB79414));
+            if (!here()) {
+                return StatLineResult::Next;
+            }
+            return StatLineDouble("$%.2f", lost);
+        }
+        case 17: {   // 337: territorio bajo control
+            if (!here()) {
+                return StatLineResult::Next;
+            }
+            return StatLineDouble("%0.2f%%", Stw60MulCpp(static_cast<double>(StaticRef<float>(0x96AB9C)), std::bit_cast<float>(0x42C80000u)));
+        }
+        default:     // 321, 335, 336 y los que no estan en la tabla
+            return StatLineResult::Skip;
+        }
+    }
+    if (sid >= 0xFC) {   // 0x55AE07: 252..257 (progreso con las novias)
+        const bool positive = id < CStats::FIRST_UNUSED_STAT ? CStats::StatTypesFloat.data()[id] > 0.0f : StatLineRawInt(id) > 0;
+        if (!positive) {
+            return StatLineResult::Skip;
+        }
+        if (!here()) {
+            return StatLineResult::Next;
+        }
+        return StatLineDouble("%0.2f%%", StatLineValue(id));
+    }
+    if (static_cast<uint32>(sid) > 0xF3u) {
+        return StatLineResult::Skip;
+    }
+    switch (StatLineSpecialHandler(static_cast<uint32>(sid))) {
+    case 0: {    // 0x55AB1F: porcentaje de progreso
+        if (!here()) {
+            return StatLineResult::Next;
+        }
+        const double progress = CStats::GetPercentageProgress();
+        return StatLineDouble("%0.2f%%", progress);
+    }
+    case 1: {    // 0x55AC59: cabecera y linea de la mejor acrobacia insensata (por [0xB7905C])
+        if (here()) {
+            return StatLineHeader();
+        }
+        const int32 award = StatLineRawInt(143);
+        ++count;
+        static constexpr const char* kStuntKeys[8] = { "INSTUN", "PRINST", "DBINST", "DBPINS", "TRINST", "PRTRST", "QUINST", "PQUINS" };
+        const uint32 which = static_cast<uint32>(award) - 1u;
+        if (!here()) {
+            return StatLineResult::Next;
+        }
+        return StatLineKey(which <= 7u ? kStuntKeys[which] : "NOSTUC");
+    }
+    case 2:      // 0x55ABC6: saltos unicos encontrados de los hechos
+        if (!here()) {
+            return StatLineResult::Next;
+        }
+        return StatLineOutOf(*reinterpret_cast<const int32*>(0xB79060u), StaticRef<int32>(0xA9A89C));
+    case 3:      // 0x55ABE2
+        if (!here()) {
+            return StatLineResult::Next;
+        }
+        return StatLineOutOf(*reinterpret_cast<const int32*>(0xB79064u), StaticRef<int32>(0xA9A89C));
+    case 4: {    // 0x55AB02: blindaje del jugador (float de [0xB7CD98] + 0x548)
+        if (!here()) {
+            return StatLineResult::Next;
+        }
+        const uintptr_t player = StaticRef<uintptr_t>(0xB7CD98);
+        return StatLineInt("%d", StatsFtol(*reinterpret_cast<const float*>(player + 0x548)));
+    }
+    case 5: {    // 0x55AD5F: horas : minutos de [0xB790C4]
+        const int32 total = Stw60ScaledFtolCpp(StaticRef<int32>(0xB790C4), std::bit_cast<float>(0x378BCF65u));
+        if (!here()) {
+            return StatLineResult::Next;
+        }
+        return StatLineClock(total / 60, total % 60);
+    }
+    case 6: {    // 0x55ADAD: horas : minutos de [0xB790D4] (solo si alguno es positivo)
+        const int32 total = Stw60ScaledFtolCpp(StaticRef<int32>(0xB790D4), std::bit_cast<float>(0x378BCF65u));
+        const int32 hours = total / 60;
+        const int32 minutes = total % 60;
+        if (!(hours > 0 || minutes > 0)) {
+            return StatLineResult::Skip;
+        }
+        if (!here()) {
+            return StatLineResult::Next;
+        }
+        return StatLineClock(hours, minutes);
+    }
+    case 7:      // 0x55AB58: [0xB790D8] de 12
+        if (!here()) {
+            return StatLineResult::Next;
+        }
+        return StatLineOutOf(*reinterpret_cast<const int32*>(0xB790D8u), 12);
+    case 8:      // 0x55AB74: [0xB790DC] de 25
+        if (!here()) {
+            return StatLineResult::Next;
+        }
+        return StatLineOutOf(*reinterpret_cast<const int32*>(0xB790DCu), 25);
+    case 9:      // 0x55AB3C: [0xB79174] de 30
+        if (!here()) {
+            return StatLineResult::Next;
+        }
+        return StatLineOutOf(*reinterpret_cast<const int32*>(0xB79174u), 30);
+    case 10:     // 0x55AB90: [0xB791BC] de [0xB791C0]
+        if (!here()) {
+            return StatLineResult::Next;
+        }
+        return StatLineOutOf(*reinterpret_cast<const int32*>(0xB791BCu), *reinterpret_cast<const int32*>(0xB791C0u));
+    case 11:     // 0x55ABFE: [0xB791E4] de [0xB791E8]
+        if (!here()) {
+            return StatLineResult::Next;
+        }
+        return StatLineOutOf(*reinterpret_cast<const int32*>(0xB791E4u), *reinterpret_cast<const int32*>(0xB791E8u));
+    case 12:     // 0x55ABAB: [0xB791EC] de [0xB791F0]
+        if (!here()) {
+            return StatLineResult::Next;
+        }
+        return StatLineOutOf(*reinterpret_cast<const int32*>(0xB791ECu), *reinterpret_cast<const int32*>(0xB791F0u));
+    default:
+        return StatLineResult::Skip;
+    }
+}
+}
+
 int32 CStats::ConstructStatLine(int32 arg0, uint8 arg1) {
-    return plugin::CallAndReturn<int32, 0x55A780, int32, uint8>(arg0, arg1);
+    // Como el original (0x55A780..0x55B6D3): recorre la tabla de lineas elegida por arg1 (0..6; mayores usan la 0x8CDE08) hasta la entrada -99 contando las lineas que se muestran;
+    // la que coincide con arg0 se compone en gString / gString2 / gGxtString / gGxtString2 y se devuelve 0; si arg0 queda fuera devuelve el numero de lineas. Ningun llamador del EXE
+    // lee ECX/EDX (0x57494E y 0x57DFDA usan solo EAX).
+    const uint8* const table = reinterpret_cast<const uint8*>(arg1 <= 6 ? kStatLineTables[arg1] : kStatLineTableDefault);
+    int32 count = 0;
+    for (uint16 index = 0; *reinterpret_cast<const int16*>(table + static_cast<size_t>(index) * 6) != -99; ++index) {
+        switch (StatLineEntry(table + static_cast<size_t>(index) * 6, count, arg0)) {
+        case StatLineResult::Done:
+            return 0;
+        case StatLineResult::Next:
+            ++count;
+            break;
+        case StatLineResult::Skip:
+            break;
+        }
+    }
+    return count;
 }
 
 // 0x55B900
@@ -1003,7 +1699,63 @@ void CStats::DisplayScriptStatUpdateMessage(eStatUpdateState state, eStats stat,
 
 // 0x55BC50
 void CStats::UpdateRespectStat(uint8 arg0) {
-    plugin::Call<0x55BC50, uint8>(arg0);
+    // Como el original (0x55BC50..0x55BF1B). Los ultimos valores mostrados estan en 0x8CDEC4 (bajo) y 0x8CDEC8 (alto); -99.0f = sin valor. Con arg0 distinto de cero solo los reinicia.
+    // La aritmetica va en la x87 de 24 bits (Stw60RespectPartialCpp / Stw60RespectFinishCpp en X87Math): la primera mitad hasta los dos float guardados en pila, la segunda tras
+    // GetPercentageTagged (0x49CDA0). Ningun llamador del EXE lee EAX/ECX/EDX (0x442ADF y 0x573393 no los usan).
+    auto& shownLow = StaticRef<float>(0x8CDEC4);
+    auto& shownHigh = StaticRef<float>(0x8CDEC8);
+    constexpr float NO_VALUE = -99.0f;                                            // 0x86430C
+
+    if (arg0) {
+        shownHigh = NO_VALUE;
+        shownLow = NO_VALUE;
+        return;
+    }
+
+    float partial, moneyPart;
+    Stw60RespectPartialCpp(StatTypesFloat.data()[STAT_RESPECT], IntStat(STAT_RESPECT_MISSION), IntStat(STAT_RESPECT_MISSION_TOTAL), StatTypesFloat.data()[STAT_GIRLFRIEND_RESPECT],
+                           CGangWars::TerritoryUnderControlPercentage,
+                           CWorld::Players[CWorld::PlayerInFocus].m_nMoney, &partial, &moneyPart);
+    const float muscle = StatTypesFloat.data()[STAT_MUSCLE];                      // [0xB793DC] (copia cruda a la pila)
+    const float clothesRespect = StatTypesFloat.data()[STAT_CLOTHES_RESPECT];     // [0xB79488]
+    const int32 tagged = CTagManager::GetPercentageTagged();
+    float respect = Stw60RespectFinishCpp(tagged, moneyPart, partial, muscle, clothesRespect);
+    if (CCheat::m_aCheatsActive[CHEAT_MAX_RESPECT]) {
+        respect = 1000.0f;
+    }
+
+    if (StatsFtol(shownHigh) == StatsFtol(respect)) {
+        return;
+    }
+    StatTypesFloat.data()[STAT_TOTAL_RESPECT] = respect;                         // [0xB79480]
+    CheckForStatsMessage();
+
+    if (!(respect > shownLow) && !(shownHigh < 2.0f)) {
+        // 0x55BDFA: baja (o igual, o NaN) y el maximo mostrado ya es >= 2 (o NaN)
+        if (shownHigh != NO_VALUE && shownLow != NO_VALUE) {
+            if (CheckForThreshold(&shownLow, respect) || respect < 2.0f) {
+                DisplayScriptStatUpdateMessage(STAT_UPDATE_DECREASE, STAT_TOTAL_RESPECT, respect);
+            }
+        }
+        if (respect > shownHigh) {
+            shownLow = respect;
+            shownHigh = respect;
+        } else {
+            shownHigh = respect;
+        }
+        return;
+    }
+
+    // 0x55BE97: sube (o el maximo mostrado es < 2)
+    if (shownHigh != NO_VALUE && shownLow != NO_VALUE) {
+        if (CheckForThreshold(&shownLow, respect) || shownHigh < 2.0f) {
+            DisplayScriptStatUpdateMessage(STAT_UPDATE_INCREASE, STAT_TOTAL_RESPECT, respect);
+        }
+    }
+    if (respect < shownHigh) {
+        shownLow = respect;
+    }
+    shownHigh = respect;
 }
 
 // 0x55BF20

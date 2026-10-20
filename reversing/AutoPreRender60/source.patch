@@ -1,0 +1,886 @@
+diff --git a/source/game_sa/Entity/Vehicle/Automobile.cpp b/source/game_sa/Entity/Vehicle/Automobile.cpp
+index be646d8ad..97eeebb2e 100644
+--- a/source/game_sa/Entity/Vehicle/Automobile.cpp
++++ b/source/game_sa/Entity/Vehicle/Automobile.cpp
+@@ -32,6 +32,7 @@ END GENERATED HOOK STATUS */
+ #include "WaterCannons.h"
+ #include "Buoyancy.h"
+ #include "Skidmarks.h"
++#include "Shadows.h"
+ #include "CarCtrl.h"
+ #include "Glass.h"
+ #include "ModelIndices.h"
+@@ -175,6 +176,7 @@ void CAutomobile::InjectHooks()
+     RH_ScopedInstall(TowTruckControl, 0x6A40F0);
+     RH_ScopedInstall(ProcessCarOnFireAndExplode, 0x6A7090);
+ 
++    RH_ScopedVMTInstall(PreRender, 0x6AAB50);
+     RH_ScopedVMTInstall(Fix, 0x6A3440);
+     RH_ScopedVMTInstall(DoBurstAndSoftGroundRatios, 0x6A47F0);
+     RH_ScopedVMTInstall(PlayCarHorn, 0x6A3770);
+@@ -7067,9 +7069,608 @@ CBouncingPanel* CAutomobile::CheckIfExistsGetFree(eCarNodes nodeIdx) {
+     return nullptr;
+ }
+ 
++// ---------------------------------------------------------------------------------------------------------------------------------------
++// CAutomobile::PreRender (0x6AAB50..0x6ACCBA). Subfunciones privadas fieles al flujo del EXE (direcciones en los comentarios); los tramos x87 con
++// registros sin guardar van a los ayudantes AutoPre* de X87Math. Los modelos se comparan como en el EXE (cmp ax, imm16 sobre m_nModelIndex).
++// ---------------------------------------------------------------------------------------------------------------------------------------
++namespace {
++
++// 0x59C790 y 0x59C890 con la pila x87 (ayudantes AutoPre de X87Math)
++CVector AutoPreRenderMultiply3x3(const CMatrix& matrix, const CVector& v) {
++    CVector out;
++    AutoPreMultiply3x3Cpp(&matrix.GetRight().x, &v.x, &out.x);
++    return out;
++}
++CVector AutoPreRenderMultiplyMatrixWithVector(const CMatrix& matrix, const CVector& v) {
++    CVector out;
++    AutoPreMultiplyMatrixWithVectorCpp(&matrix.GetRight().x, &v.x, &out.x);
++    return out;
++}
++
++// 0x41CCB0 (CPlaceable::GetForward del EXE): forward de la matriz o (-sin h, cos h, 0) con fsin/fcos del x87 guardados en float
++CVector AutoPreRenderPlaceableForward(const CPlaceable& placeable) {
++    if (placeable.m_matrix) {
++        return placeable.m_matrix->GetForward();
++    }
++    const float heading = placeable.m_placement.m_fHeading;
++    return CVector{ -TrigSimpleSinCpp(heading), TrigSimpleCosCpp(heading), 0.f };
++}
++
++// 0x6AABA4..0x6AADCF: suspension de las cuatro ruedas (DoBurstAndSoftGroundRatios = virtual +0xD0, lineas de la ColData en 0x10 + 0x20 * rueda)
++void AutoPreRenderSuspension(CAutomobile& car, const CCollisionData* colData) {
++    car.DoBurstAndSoftGroundRatios();
++    for (size_t wheel = 0; wheel < 4; wheel++) {
++        car.m_wheelPosition[wheel] = AutoPreSuspensionHeightCpp(
++            car.m_aSuspensionSpringLength[wheel],
++            car.m_aSuspensionLineLength[wheel],
++            car.m_fWheelsSuspensionCompression[wheel],
++            colData->m_pLines[wheel].m_vecStart.z,
++            car.m_wheelPosition[wheel]
++        );
++    }
++}
++
++// 0x6AAE48..0x6AB06E (estado SIMPLE): posicion de contacto de cada rueda = matriz del coche * (x, y del marco de la rueda, posicion de la rueda * 1.5f).
++// Orden del EXE: nodo 4 (rueda 3), nodo 7 (rueda 1), nodo 2 (rueda 2), nodo 5 (rueda 0).
++void AutoPreRenderSimpleWheelPoints(CAutomobile& car) {
++    CMatrix frameMatrix; // CMatrix local sin matriz asociada
++    struct { eCarNodes node; size_t wheel; } static constexpr order[] = {
++        { CAR_WHEEL_RB, 3 }, { CAR_WHEEL_LB, 1 }, { CAR_WHEEL_RF, 2 }, { CAR_WHEEL_LF, 0 },
++    };
++    for (const auto& [node, wheel] : order) {
++        frameMatrix.Attach(&car.m_aCarNodes[node]->modelling, false);
++        const CVector local{ frameMatrix.GetPosition().x, frameMatrix.GetPosition().y, car.m_wheelPosition[wheel] * 1.5f };
++        car.m_wheelColPoint[wheel].m_vecPoint = AutoPreRenderMultiplyMatrixWithVector(*car.m_matrix, local);
++        car.m_wheelColPoint[wheel].m_nSurfaceTypeB = SURFACE_DEFAULT;
++    }
++}
++
++// 0x6AB088..0x6AB14E (estado 0..3): particulas de las cuatro ruedas
++void AutoPreRenderWheelParticles(CAutomobile& car, float speedMagnitude) {
++    const bool rearSkidding = car.m_WheelStates[1] == static_cast<tWheelState>(2) || car.m_WheelStates[3] == static_cast<tWheelState>(2);
++    for (size_t wheel = 0; wheel < 4; wheel++) {
++        uint32 flags = 0;
++        if ((wheel == 0 || wheel == 2) && !rearSkidding) {
++            flags = 4;
++        }
++        if (car.m_wheelSkidmarkBloodState[wheel]) {
++            flags += 1;
++        }
++        if (car.m_wheelSkidmarkMuddy[wheel]) {
++            flags += 2;
++        }
++        const float direction = wheel < 2 ? -1.f : 1.f;
++        const uint32 wheelStatus = static_cast<uint32>(car.m_damageManager.GetWheelStatus(static_cast<eCarWheel>(wheel))); // 0x6C21B0
++        car.AddSingleWheelParticles( // 0x6DE880
++            car.m_WheelStates[wheel],
++            wheelStatus,
++            car.m_fWheelsSuspensionCompressionPrev[wheel],
++            speedMagnitude,
++            &car.m_wheelColPoint[wheel],
++            &car.m_wheelColPoint[wheel].m_vecPoint,
++            direction,
++            static_cast<int32>(wheel),
++            static_cast<uint32>(car.m_wheelSkidmarkType[wheel]),
++            &car.m_wheelSkidmarkBloodState[wheel],
++            flags
++        );
++    }
++}
++
++// 0x6AB154..0x6AB2BC: particulas de las ruedas intermedias (nodo 3 presente): posicion de contacto de la rueda trasera + 2 * forward
++void AutoPreRenderMiddleWheelParticles(CAutomobile& car, float speedMagnitude) {
++    if (!car.m_aCarNodes[CAR_WHEEL_RM]) {
++        return;
++    }
++    struct { size_t wheel; int32 slot; } static constexpr order[] = { { 1, 5 }, { 3, 6 } };
++    for (const auto& [wheel, slot] : order) {
++        uint32 flags = 0;
++        if (car.m_wheelSkidmarkBloodState[wheel]) {
++            flags = 1;
++        }
++        if (car.m_wheelSkidmarkMuddy[wheel]) {
++            flags += 2;
++        }
++        CVector position;
++        AutoPreDoublePlusCpp(&car.m_matrix->GetForward().x, &car.m_wheelColPoint[wheel].m_vecPoint.x, &position.x);
++        const uint32 wheelStatus = static_cast<uint32>(car.m_damageManager.GetWheelStatus(static_cast<eCarWheel>(wheel)));
++        car.AddSingleWheelParticles(
++            car.m_WheelStates[wheel],
++            wheelStatus,
++            car.m_fWheelsSuspensionCompressionPrev[wheel],
++            speedMagnitude,
++            &car.m_wheelColPoint[wheel],
++            &position,
++            1.0f,
++            slot,
++            static_cast<uint32>(car.m_wheelSkidmarkType[wheel]),
++            &car.m_wheelSkidmarkBloodState[wheel],
++            flags
++        );
++    }
++}
++
++// 0x6AB2BC..0x6AB349: salpicaduras de lluvia y escape
++void AutoPreRenderRainAndExhaust(CAutomobile& car, float speedRatio) {
++    if (!CCullZones::CamNoRain() && !CCullZones::PlayerNoRain()
++        && fabsf(speedRatio) < 20.f
++        && CWeather::Rain > 0.02f
++        && StaticRef<int32>(0xB72914) == 0 // CGame::currArea
++    ) {
++        car.AddWaterSplashParticles(); // 0x6DDF60
++    }
++    if (car.vehicleFlags.bEngineOn
++        && !car.m_pHandlingData->m_bNoExhaust
++        && speedRatio < 130.f
++        && !car.vehicleFlags.bIsDrowning
++        && !car.vehicleFlags.bDisableParticles
++    ) {
++        car.AddExhaustParticles(); // 0x6DE240
++    }
++}
++
++// 0x6ABA84..0x6ABBAE (taxi 420 y cabbie 438): corona + luz puntual del cartel
++void AutoPreRenderTaxiLight(CAutomobile& car, const CVector& local) {
++    if (!car.autoFlags.bTaxiLight) {
++        return;
++    }
++    const CVector world = AutoPreRenderMultiplyMatrixWithVector(*car.m_matrix, local); // 0x59C890
++    const uint8 intensity = static_cast<uint8>(AutoPreCoronaByteCpp(StaticRef<float>(0xB7C4E4)));
++    CCoronas::RegisterCorona( // 0x6FC580
++        static_cast<uint32>(reinterpret_cast<uintptr_t>(&car) + 0x11), &car,
++        intensity, intensity, 0, 255, local, 0.8f, AutoPreMulCpp(StaticRef<float>(0xB6F118), 150.f),
++        static_cast<eCoronaType>(1), static_cast<eCoronaFlareType>(0), static_cast<eCoronaReflType>(1), static_cast<eCoronaLOSCheck>(0), static_cast<eCoronaTrail>(0),
++        0.f, false, 1.5f, false, 15.f, false, true
++    );
++    CPointLights::AddLight(0, world, CVector{ 0.f, 0.f, 0.f }, 10.f, 0.1f, 0.1f, 0.05f, 0, true, nullptr); // 0x7000E0
++}
++
++// 0x6ABBB3..0x6ABC6E (FBI Rancher 490): corona azul solo si el forward del coche apunta en contra del de la camara
++void AutoPreRenderRancherLight(CAutomobile& car) {
++    if (!car.vehicleFlags.bSirenOrAlarm) {
++        return;
++    }
++    const CVector local{ 0.f, 1.2f, 0.5f };
++    if (!(CTimer::GetTimeInMS() & 0x100)) {
++        return;
++    }
++    const CVector cameraForward = AutoPreRenderPlaceableForward(TheCamera);
++    if (!AutoPreDotNegativeCpp(&car.m_matrix->GetForward().x, &cameraForward.x)) {
++        return;
++    }
++    CCoronas::RegisterCorona(
++        static_cast<uint32>(reinterpret_cast<uintptr_t>(&car) + 0x15), &car,
++        0, 0, 255, 255, local, 0.4f, AutoPreMulCpp(StaticRef<float>(0xB6F118), 150.f),
++        static_cast<eCoronaType>(0), static_cast<eCoronaFlareType>(0), static_cast<eCoronaReflType>(0), static_cast<eCoronaLOSCheck>(0), static_cast<eCoronaTrail>(0),
++        0.f, false, 1.5f, false, 15.f, false, true
++    );
++}
++
++// 0x6AB374..0x6ABA7F (modelos 407, 416, 427, 596..599): luz puntual de la sirena y cuatro coronas por turno
++void AutoPreRenderEmergencyLights(CAutomobile& car) {
++    if (!car.vehicleFlags.bSirenOrAlarm) {
++        return;
++    }
++
++    // Puntos izquierdo (a) y derecho (b) de la barra de luces y cuatro bytes de color (al, dl, cl y el byte [esp+40h]); los casos 0..4 de 0x6ACD94
++    CVector a{}, b{};
++    uint8 al = 0, dl = 0, cl = 0, extra = 0;
++    switch (static_cast<int16>(car.m_nModelIndex)) {
++    case 407: a = CVector{ 0.9f, 3.2f, 1.3f }; b = CVector{ -0.9f, 3.2f, 1.3f }; al = 255; dl = 255; cl = 0;   extra = 255; break;
++    case 416: a = CVector{ 0.6f, 0.9f, 1.2f }; b = CVector{ -0.6f, 0.9f, 1.2f }; al = 255; dl = 255; cl = 255; extra = 255; break;
++    case 427: a = CVector{ 0.55f, 1.1f, 1.4f }; b = CVector{ -0.55f, 1.1f, 1.4f }; al = 255; dl = 0; cl = 255; extra = 0;   break;
++    case 596: case 597: case 598:
++              a = CVector{ 0.7f, -0.4f, 1.0f }; b = CVector{ -0.7f, -0.4f, 1.0f }; al = 255; dl = 0; cl = 255; extra = 0;   break;
++    case 599: a = CVector{ 0.7f, -0.1f, 1.2f }; b = CVector{ -0.7f, -0.1f, 1.2f }; al = 255; dl = 0; cl = 255; extra = 0;   break;
++    default: break; // caso 5 de la tabla (0x6AB5C6): sin colores
++    }
++
++    // 0x6AB5C6: color de la luz puntual segun la fase de 1024 ms
++    const uint32 timer = CTimer::GetTimeInMS();
++    uint32 phase = timer & 0x3FF;
++    uint32 c0, c1, c2;
++    if (phase < 0x200) {
++        c0 = al / 6;
++        c1 = 0;
++        c2 = 0;
++    } else {
++        c0 = dl / 6;
++        c1 = extra / 6;
++        c2 = cl / 6;
++    }
++    c0 &= 0xFF; // bl, [esp+13h], [esp+1Fh]: solo cuentan los bytes bajos
++    phase &= 0x1FF;
++    if (phase < 100) {
++        const float fade = static_cast<float>(static_cast<int32>(phase));
++        c0 = AutoPreFadeByteCpp(c0, fade);
++        c1 = AutoPreFadeByteCpp(c1, fade);
++        c2 = AutoPreFadeByteCpp(c2, fade);
++    } else if (phase > 0x19C) {
++        const float fade = static_cast<float>(static_cast<int32>(0x200 - phase));
++        c0 = AutoPreFadeByteCpp(c0, fade);
++        c1 = AutoPreFadeByteCpp(c1, fade);
++        c2 = AutoPreFadeByteCpp(c2, fade);
++    }
++
++    // 0x6AB715..0x6AB814: AddLight(0, posicion + 2 * up, 0, 10, c * 0.005f, ..., 0, true, nullptr)
++    const CVector& position = car.m_matrix ? car.m_matrix->GetPosition() : car.m_placement.m_vPosn;
++    CVector lightPosition;
++    AutoPreDoublePlusCpp(&car.m_matrix->GetUp().x, &position.x, &lightPosition.x);
++    CPointLights::AddLight(0, lightPosition, CVector{ 0.f, 0.f, 0.f }, 10.f,
++        static_cast<float>(c0) * 0.005f, static_cast<float>(c1) * 0.005f, static_cast<float>(c2) * 0.005f, 0, true, nullptr);
++
++    // 0x6AB823..0x6AB8B7: colores de las coronas = byte bajo de _ftol2((color * [0xB7C4E4]) * 0.1f); el segundo producto (M * 0.0f) vale siempre 0
++    const float coronaScale = StaticRef<float>(0xB7C4E4);
++    const uint8 coronaA = static_cast<uint8>(AutoPreScaleByteCpp(al, coronaScale));
++    const uint8 coronaB = static_cast<uint8>(AutoPreScaleByteCpp(dl, coronaScale));
++    const uint8 coronaD = static_cast<uint8>(AutoPreScaleByteCpp(extra, coronaScale));
++    const uint8 coronaC = static_cast<uint8>(AutoPreScaleByteCpp(cl, coronaScale));
++
++    // 0x6AB8E0..0x6ABA7F: cuatro luces repartidas entre b (i = 0) y a (i = 3)
++    for (uint32 i = 0; i < 4; i++) {
++        const float index = static_cast<float>(static_cast<int32>(i));
++        const float rest = 3.0f - index;
++        const uint32 selector = ((i * 0x40 + CTimer::GetTimeInMS()) >> 8) & 3;
++        const float bz = b.z * rest;
++        const float by = b.y * rest;
++        const float az = a.z * index;
++        const float ay = a.y * index;
++        const float ax = a.x * index;
++        const float qz = az + bz;
++        const float qy = ay + by;
++        const float qx = ax + rest * b.x;
++        const CVector local{ qx * 0.33333334f, qy * 0.33333334f, qz * 0.33333334f };
++        uint8 r, g, bl;
++        if (selector == 0) {
++            r = coronaA; g = 0; bl = 0;
++        } else if (selector == 2) {
++            r = coronaB; g = coronaD; bl = coronaC;
++        } else {
++            continue;
++        }
++        CCoronas::RegisterCorona(
++            static_cast<uint32>(reinterpret_cast<uintptr_t>(&car) + 0x15 + i), &car,
++            r, g, bl, 255, local, 0.4f, AutoPreMulCpp(StaticRef<float>(0xB6F118), 150.f),
++            static_cast<eCoronaType>(0), static_cast<eCoronaFlareType>(0), static_cast<eCoronaReflType>(0), static_cast<eCoronaLOSCheck>(0), static_cast<eCoronaTrail>(0),
++            0.f, false, 1.5f, false, 15.f, false, true
++        );
++    }
++}
++
++// 0x6AB350..0x6ABC71: luces por modelo (tabla de saltos 0x6ACCBC / bytes 0x6ACCD0)
++void AutoPreRenderModelLights(CAutomobile& car) {
++    switch (static_cast<int16>(car.m_nModelIndex)) {
++    case 407: case 416: case 427: case 596: case 597: case 598: case 599:
++        AutoPreRenderEmergencyLights(car);
++        break;
++    case 420: // taxi
++        AutoPreRenderTaxiLight(car, CVector{ 0.f, -0.4f, 0.95f });
++        break;
++    case 438: // cabbie
++        AutoPreRenderTaxiLight(car, CVector{ 0.f, 0.f, 0.85f });
++        break;
++    case 490: // FBI Rancher
++        AutoPreRenderRancherLight(car);
++        break;
++    default:
++        break;
++    }
++}
++
++// 0x6ABD4D..0x6ABE83: direcciones de las ruedas delanteras (front) y traseras (rear) segun la direccion y las banderas de manejo
++void AutoPreRenderWheelDirections(CAutomobile& car, CVector& front, CVector& rear) {
++    const float steer = car.m_fSteerAngle;
++    front = AutoPreRenderMultiply3x3(*car.m_matrix, CVector{ -TrigSimpleSinCpp(steer), TrigSimpleCosCpp(steer), 0.f }); // 0x59C790
++    rear = car.m_matrix->GetForward();
++    if (car.m_nHandlingFlagsIntValue & 0x20) { // bSteerRearwheels
++        front = car.m_matrix->GetForward();
++        rear = AutoPreRenderMultiply3x3(*car.m_matrix, CVector{ TrigSimpleSinCpp(steer), TrigSimpleCosCpp(steer), 0.f });
++    } else if ((car.m_nHandlingFlagsIntValue & 0x40) && car.m_f2ndSteerAngle != 0.f) { // bHbRearwheelSteer
++        const float steer2 = car.m_f2ndSteerAngle;
++        rear = AutoPreRenderMultiply3x3(*car.m_matrix, CVector{ -TrigSimpleSinCpp(steer2), TrigSimpleCosCpp(steer2), 0.f });
++    }
++}
++
++// 0x6ABE85..0x6ABFC0: rotacion de las cuatro ruedas
++void AutoPreRenderWheelRotation(CAutomobile& car, const CVehicleModelInfo& modelInfo, const CVector& front, const CVector& rear) {
++    const bool isHeli = car.m_pHandlingData->m_bIsHeli; // bit 25 de las banderas de modelo
++    for (size_t wheel = 0; wheel < 4; wheel++) {
++        if (!(car.m_WheelCounts[wheel] > 0.f)) {
++            continue;
++        }
++        if (isHeli && wheel != 0 && wheel != 2) {
++            continue;
++        }
++        const CVector& position = car.m_matrix ? car.m_matrix->GetPosition() : car.m_placement.m_vPosn;
++        const CVector contact = car.m_wheelColPoint[wheel].m_vecPoint;
++        const CVector relative{ AutoPreSubCpp(contact.x, position.x), AutoPreSubCpp(contact.y, position.y), AutoPreSubCpp(contact.z, position.z) };
++        const CVector speed = car.GetSpeed(relative); // 0x542CE0
++        const bool isFront = wheel == 0 || wheel == 2;
++        const float radius = (isFront ? modelInfo.m_fWheelSizeFront : modelInfo.m_fWheelSizeRear) * 0.5f;
++        car.m_wheelSpeed[wheel] = car.ProcessWheelRotation(car.m_WheelStates[wheel], isFront ? front : rear, speed, radius); // 0x6D1230
++        car.m_wheelRotation[wheel] = AutoPreWheelRotationCpp(CTimer::GetTimeStep(), car.m_wheelSpeed[wheel], car.m_wheelRotation[wheel]);
++    }
++}
++
++// 0x6ABFC6..0x6AC22D: matrices de las ruedas, puertas, paneles y cadera oscilante
++void AutoPreRenderBodyParts(CAutomobile& car, CMatrix& frameMatrix) {
++    const int32 wheelFlags = car.m_nModelIndex == 432 ? 7 : 0;
++    car.UpdateWheelMatrix(2, wheelFlags);
++    car.UpdateWheelMatrix(5, wheelFlags);
++    car.UpdateWheelMatrix(4, wheelFlags);
++    car.UpdateWheelMatrix(7, wheelFlags);
++    if (car.m_aCarNodes[CAR_WHEEL_RM]) {
++        car.UpdateWheelMatrix(3, wheelFlags);
++    }
++    if (car.m_aCarNodes[CAR_WHEEL_LM]) {
++        car.UpdateWheelMatrix(6, wheelFlags);
++    }
++    if (car.m_nModelIndex == 432) { // el Rhino salta puertas, paneles y cadera hasta 0x6AC232
++        return;
++    }
++
++    car.ProcessSwingingDoor(CAR_DOOR_LF, DOOR_LEFT_FRONT);      // 0x6A9D70 (10, 2)
++    car.ProcessSwingingDoor(CAR_DOOR_RF, DOOR_RIGHT_FRONT);     // (8, 3)
++    car.ProcessSwingingDoor(CAR_DOOR_LR, DOOR_LEFT_REAR);       // (11, 4)
++    car.ProcessSwingingDoor(CAR_DOOR_RR, DOOR_RIGHT_REAR);      // (9, 5)
++    car.ProcessSwingingDoor(CAR_BONNET, DOOR_BONNET);           // (16, 0)
++    car.ProcessSwingingDoor(CAR_BOOT, DOOR_BOOT);               // (17, 1)
++
++    // 0x6AC073..0x6AC0E0: tres paneles que rebotan (el indice de marco es un int16 con signo; < 0 = sin usar)
++    for (size_t panel = 0; panel < 3; panel++) {
++        auto& bouncing = car.m_panels[panel];
++        if (static_cast<int16>(bouncing.m_nFrameId) > -1) {
++            RwFrame* const frame = reinterpret_cast<RwFrame* const*>(car.m_aCarNodes.data())[static_cast<int16>(bouncing.m_nFrameId)];
++            bouncing.ProcessPanel(&car, frame, car.m_moveForce, car.m_turnForce, -1.f, -1.f); // 0x6F49A0
++        }
++    }
++
++    // 0x6AC0E2..0x6AC22D: cadera oscilante (nodo 1; nodo 21 en el modelo 544)
++    const eCarNodes chassisNode = car.m_nModelIndex == 544 ? CAR_MISC_B : CAR_CHASSIS;
++    if (car.m_swingingChassis.m_doorState == DOOR_HIT_MAX_END) {
++        if (RwFrame* const frame = car.m_aCarNodes[chassisNode]) {
++            frameMatrix.Attach(&frame->modelling, false);
++            const CVector savedPosition = frameMatrix.GetPosition();
++            const CVector rotated = AutoPreRenderMultiply3x3(*car.m_matrix, savedPosition); // 0x59C790
++            car.m_swingingChassis.Process(&car, car.m_moveForce, car.m_turnForce, rotated); // 0x6F4040
++            CVector orientation{ 0.f, 0.f, 0.f };
++            orientation[car.m_swingingChassis.m_axis] = car.m_swingingChassis.m_angle;
++            frameMatrix.SetRotate(orientation.x, orientation.y, orientation.z); // 0x59B120
++            if (car.m_nModelIndex == 544) {
++                frameMatrix.RotateX(static_cast<float>(car.m_wMiscComponentAngle) * -0.0001f); // 0x59B1E0
++            }
++            // SetRotate deja la posicion a cero y el EXE SUMA la guardada (fld; fadd; fstp por componente)
++            frameMatrix.GetPosition().x = AutoPreAddCpp(savedPosition.x, frameMatrix.GetPosition().x);
++            frameMatrix.GetPosition().y = AutoPreAddCpp(savedPosition.y, frameMatrix.GetPosition().y);
++            frameMatrix.GetPosition().z = AutoPreAddCpp(frameMatrix.GetPosition().z, savedPosition.z);
++            frameMatrix.UpdateRW(); // 0x59BBB0
++        }
++    }
++}
++
++// 0x6AC232..0x6AC297: fuerzas = velocidad + velocidad de friccion (movimiento y giro)
++void AutoPreRenderForces(CAutomobile& car) {
++    car.m_moveForce = CVector{
++        AutoPreAddCpp(car.m_vecMoveSpeed.x, car.m_vecFrictionMoveSpeed.x),
++        AutoPreAddCpp(car.m_vecMoveSpeed.y, car.m_vecFrictionMoveSpeed.y),
++        AutoPreAddCpp(car.m_vecMoveSpeed.z, car.m_vecFrictionMoveSpeed.z),
++    };
++    car.m_turnForce = CVector{
++        AutoPreAddCpp(car.m_vecTurnSpeed.x, car.m_vecFrictionTurnSpeed.x),
++        AutoPreAddCpp(car.m_vecTurnSpeed.y, car.m_vecFrictionTurnSpeed.y),
++        AutoPreAddCpp(car.m_vecTurnSpeed.z, car.m_vecFrictionTurnSpeed.z),
++    };
++}
++
++// 0x6AC2B0..0x6AC40C y 0x6ACADE..0x6ACBC0: ejes inclinables (BF Injection 424: nodos 21, 0, 22; Bandito 568 / Hotknife 434: nodos 20, 22, 21, 23)
++void AutoPreRenderTiltAxles(CAutomobile& car, CMatrix& frameMatrix, const CCollisionData* colData, const int32* nodes, size_t count, bool useY) {
++    for (size_t i = 0; i < count; i++) {
++        const int32 nodeId = nodes[i];
++        if (useY && nodeId == 0) {
++            continue;
++        }
++        RwFrame* const frame = car.m_aCarNodes.data()[nodeId];
++        if (!frame) {
++            continue;
++        }
++        frameMatrix.Attach(&frame->modelling, false);
++        const CColLine& line = colData->m_pLines[i];
++        const float upper = car.m_pHandlingData->m_fSuspensionUpperLimit; // offset 0xB8
++        if (useY) {
++            frameMatrix.GetForward().z = AutoPreAxleTiltCpp(car.m_wheelPosition[i], line.m_vecStart.z, upper, line.m_vecStart.y, frameMatrix.GetPosition().y);
++        } else {
++            frameMatrix.GetRight().z = AutoPreAxleTiltCpp(car.m_wheelPosition[i], line.m_vecStart.z, upper, line.m_vecStart.x, frameMatrix.GetPosition().x);
++        }
++        frameMatrix.UpdateRW();
++    }
++}
++
++// 0x6AC2B0..0x6AC40C (modelo 424)
++void AutoPreRenderBfInjection(CAutomobile& car, CMatrix& frameMatrix, const CCollisionData* colData, CVehicleModelInfo& modelInfo) {
++    const float angle = AutoPreMulCpp(CTimer::GetTimeStep(), fabsf(car.m_GasPedal) > 0.f ? 0.5f : 0.3f);
++    car.SetComponentRotation(car.m_aCarNodes[CAR_MISC_A], AXIS_Y, angle, false); // 0x6DBA30
++    car.SetComponentRotation(car.m_aCarNodes[CAR_MISC_E], AXIS_Y, AutoPreMulCpp(angle, 1.5f), false);
++    (void)car.GetColModel(); // 0x535300 (el EXE no usa el resultado)
++    static constexpr int32 nodes[] = { 21, 0, 22 }; // 0x8D31F0
++    AutoPreRenderTiltAxles(car, frameMatrix, colData, nodes, 3, true);
++    CVector wheelPosition;
++    modelInfo.GetWheelPosn(1, wheelPosition, false); // 0x4C7D20
++    car.SetTransmissionRotation(car.m_aCarNodes[CAR_MISC_D], car.m_wheelPosition[1], car.m_wheelPosition[3], wheelPosition, false); // 0x6DBBB0
++}
++
++// 0x6AC507..0x6AC6D4 (modelo 525): brazo de la grua
++void AutoPreRenderTowTruck(CAutomobile& car, CMatrix& frameMatrix) {
++    const float towAngle = AutoPreTowAngleCpp(car.m_wMiscComponentAngle, StaticRef<float>(0x8D3144), StaticRef<uint16>(0x8D313C));
++    car.SetComponentRotation(car.m_aCarNodes[CAR_MISC_A], AXIS_X, towAngle, true);
++    if (car.m_pVehicleBeingTowed) {
++        const float negAngle = towAngle * -1.0f; // fmul por -1.0f (0x858C1C)
++        CVector hitch, bar;
++        if (!car.m_pVehicleBeingTowed->GetTowHitchPos(hitch, true, &car)) { // virtual +0xEC
++            return;
++        }
++        if (!car.GetTowBarPos(bar, true, car.m_pVehicleBeingTowed)) {       // virtual +0xF0
++            return;
++        }
++        float angleA, angleB;
++        AutoPreTowAnglesCpp(&hitch.x, &bar.x, &car.m_matrix->GetForward().x, &car.m_matrix->GetRight().x, StaticRef<float>(0x8D3148), negAngle, &angleA, &angleB);
++        car.SetComponentRotation(car.m_aCarNodes[CAR_MISC_B], AXIS_X, angleA, true);
++        car.SetComponentRotation(car.m_aCarNodes[CAR_MISC_B], AXIS_Y, angleB, false);
++    } else {
++        car.SetComponentRotation(car.m_aCarNodes[CAR_MISC_B], AXIS_X, -towAngle, true);
++        if (car.m_panels[0].m_nFrameId == 21) {
++            frameMatrix.Attach(&car.m_aCarNodes[CAR_MISC_B]->modelling, false);
++            frameMatrix.GetUp().y = AutoPreAddCpp(frameMatrix.GetUp().y, car.m_panels[0].m_vecRotation.x);
++            frameMatrix.GetUp().x = AutoPreAddCpp(frameMatrix.GetUp().x, car.m_panels[0].m_vecRotation.y);
++            frameMatrix.UpdateRW();
++        }
++    }
++}
++
++// 0x6AC71C..0x6AC7A6 (modelo 530): horquilla del montacargas
++void AutoPreRenderForklift(CAutomobile& car, CMatrix& frameMatrix) {
++    const auto* const forkliftInfo = reinterpret_cast<CBaseModelInfo* const*>(0xA9B0C8)[530];
++    RwFrame* const rest = CClumpModelInfo::GetFrameFromId(forkliftInfo->GetRpClump(), 0x14); // 0x4C53C0 sobre [ms_modelInfoPtrs[530] + 0x1C]
++    const float restX = rest->modelling.pos.x;
++    const float restY = rest->modelling.pos.y;
++    const float restZ = AutoPreForkliftZCpp(car.m_wMiscComponentAngle, 0.0006f, rest->modelling.pos.z);
++    frameMatrix.Attach(&car.m_aCarNodes[CAR_MISC_A]->modelling, false);
++    frameMatrix.SetTranslateOnly(CVector{ restX, restY, restZ }); // 0x59AF80
++    frameMatrix.UpdateRW();
++}
++
++// 0x6AC7AB..0x6ACA32 (modelo 532): cosechadora
++void AutoPreRenderHarvester(CAutomobile& car, CMatrix& frameMatrix, CVehicleModelInfo& modelInfo) {
++    car.m_fPropRotate = AutoPreHarvesterPropCpp(&car.m_vecMoveSpeed.x, &car.m_matrix->GetForward().x, car.m_fPropRotate, CTimer::GetTimeStep());
++    car.SetComponentRotation(car.m_aCarNodes[CAR_MISC_B], AXIS_X, car.m_fPropRotate, true);
++
++    CVector wheelPosition;
++    modelInfo.GetWheelPosn(0, wheelPosition, false); // 0x4C7D20
++    frameMatrix.Attach(&car.m_aCarNodes[CAR_MISC_A]->modelling, false);
++    float angleX, angleY;
++    VehicleTransmissionAnglesCpp(car.m_wheelPosition[0], car.m_wheelPosition[2], frameMatrix.GetPosition().y, &wheelPosition.x, true, &angleX, &angleY);
++    car.SetComponentRotation(car.m_aCarNodes[CAR_MISC_A], AXIS_X, angleX, true);
++    car.SetComponentRotation(car.m_aCarNodes[CAR_MISC_A], AXIS_Y, angleY, false);
++
++    float tilt = 0.f;
++    if (car.m_matrix->GetUp().z > 0.f && car.m_nGettingInFlags == 0 && car.m_nGettingOutFlags == 0) {
++        tilt = AutoPreClampedAsinCpp(car.m_matrix->GetRight().z, StaticRef<float>(0x8D31EC));
++    }
++    car.m_fDoomVerticalRotation = AutomobileWheelSpinAudioCpp(StaticRef<float>(0x8D31E8), CTimer::GetTimeStep(), car.m_fDoomVerticalRotation, tilt);
++    car.SetComponentRotation(car.m_aCarNodes[CAR_CHASSIS], AXIS_Y, car.m_fDoomVerticalRotation, true);
++}
++
++// 0x6AC297..0x6ACBC7: movimiento de los componentes propios de cada modelo
++void AutoPreRenderModelComponents(CAutomobile& car, CMatrix& frameMatrix, const CCollisionData* colData, CVehicleModelInfo& modelInfo) {
++    const int16 model = static_cast<int16>(car.m_nModelIndex);
++    const float misc = static_cast<float>(car.m_wMiscComponentAngle);
++    auto& nodes = car.m_aCarNodes;
++
++    if (model == 424) {
++        AutoPreRenderBfInjection(car, frameMatrix, colData, modelInfo);
++    } else if (model == 486) { // 0x1E6
++        car.SetComponentRotation(nodes[CAR_MISC_A], AXIS_X, misc * 0.0002f, true);
++    } else if (model == 524) { // 0x20C
++        if (car.GetStatus() != STATUS_WRECKED) {
++            car.SetComponentRotation(nodes[CAR_MISC_A], AXIS_X, StaticRef<float>(0x871050), true);
++            car.m_fPropRotate = AutoPreMixerPropCpp(car.m_wMiscComponentAngle, StaticRef<int16>(0x8D314C), CTimer::GetTimeStep(), car.m_fPropRotate);
++            car.SetComponentRotation(nodes[CAR_MISC_B], AXIS_Y, car.m_fPropRotate, true);
++            car.SetComponentRotation(nodes[CAR_MISC_B], AXIS_X, StaticRef<float>(0x871050), false);
++        }
++    } else if (model == 443) { // 0x1BB
++        car.SetComponentRotation(nodes[CAR_MISC_A], AXIS_X, misc * -0.0001f, true);
++    } else if (model == 525) { // 0x20D
++        AutoPreRenderTowTruck(car, frameMatrix);
++    } else if (model == 531) { // 0x213
++        car.SetComponentRotation(nodes[CAR_MISC_A], AXIS_X, AutoPreTowAngleCpp(car.m_wMiscComponentAngle, StaticRef<float>(0x8D3144), StaticRef<uint16>(0x8D313C)), true);
++    } else if (model == 530 && nodes[CAR_MISC_A]) { // 0x212
++        AutoPreRenderForklift(car, frameMatrix);
++    } else if (model == 532) { // 0x214
++        AutoPreRenderHarvester(car, frameMatrix, modelInfo);
++    } else if (model == 568 || model == 434) { // 0x238, 0x1B2
++        (void)car.GetColModel();
++        static constexpr int32 axleNodes[] = { 20, 22, 21, 23 }; // 0x8D31D8
++        AutoPreRenderTiltAxles(car, frameMatrix, colData, axleNodes, 4, false);
++        car.SetComponentRotation(nodes[CAR_MISC_E], AXIS_Y, AutoPreMulCpp(CTimer::GetTimeStep(), fabsf(car.m_GasPedal) > 0.f ? 0.5f : 0.3f), false);
++    } else if (model == 432 || model == 601) { // 0x1B0, 0x259
++        car.SetComponentRotation(nodes[CAR_MISC_A], AXIS_Z, car.m_fDoomVerticalRotation, true);
++        car.SetComponentRotation(nodes[CAR_MISC_B], AXIS_X, car.m_fDoomHorizontalRotation, true);
++    } else if (model == 407) { // 0x197
++        car.SetComponentRotation(nodes[CAR_MISC_A], AXIS_X, car.m_fDoomHorizontalRotation, true);
++        car.SetComponentRotation(nodes[CAR_MISC_A], AXIS_Z, car.m_fDoomVerticalRotation, false);
++    } else if (model == 477) { // 0x1DD
++        car.SetComponentRotation(nodes[CAR_MISC_A], AXIS_X, car.m_fPropRotate, true);
++    }
++}
++
++// 0x6ACBC7..0x6ACC8B: visual de la hidraulica
++void AutoPreRenderHydraulics(CAutomobile& car, CVehicleModelInfo& modelInfo) {
++    if (car.m_nModelIndex != 495
++        && !((car.m_nHandlingFlagsIntValue & 0x10000) && (car.m_nHandlingFlagsIntValue & 0x20000) && car.m_nVehicleSubType == 0)) {
++        return;
++    }
++    CVector wheelPosition;
++    modelInfo.GetWheelPosn(0, wheelPosition, false); // 0x4C7D20
++    car.SetTransmissionRotation(car.m_aCarNodes[CAR_MISC_A], car.m_wheelPosition[0], car.m_wheelPosition[2], wheelPosition, true); // 0x6DBBB0
++    modelInfo.GetWheelPosn(1, wheelPosition, false);
++    car.SetTransmissionRotation(car.m_aCarNodes[CAR_MISC_B], car.m_wheelPosition[1], car.m_wheelPosition[3], wheelPosition, false);
++}
++
++} // namespace
++
+ // 0x6AAB50
+ void CAutomobile::PreRender() {
+-    plugin::CallMethod<0x6AAB50, CAutomobile*>(this);
++    CVehicle::PreRender(); // 0x6D6480
++    if (StaticRef<bool>(0x969152)) { // CCheat::m_aCheatsActive[CHEAT_CARS_ON_WATER]
++        DoHoverSuspensionRatios();   // virtual +0x114
++    }
++    const CCollisionData* const colData = GetColModel()->m_pColData; // 0x535300; ColData en +0x2C (se guarda en [esp+70h])
++
++    if (vehicleFlags.bVehicleColProcessed && m_nVehicleSubType != VEHICLE_TYPE_MTRUCK) { // byte 0x42B bit 0 y [esi+594h] != 1
++        AutoPreRenderSuspension(*this, colData);
++    }
++
++    // 0x6AADCF..0x6AAE1B
++    const float speedRatio = AutoPreForwardSpeedCpp(&m_vecMoveSpeed.x, &m_matrix->GetForward().x, StaticRef<float>(0xC1BFF0));
++    const float speedMagnitude = AutoPreSpeedMagnitudeCpp(&m_vecMoveSpeed.x);
++
++    // 0x6AAE1F..0x6AB154: salta con el modelo 0xFFFE (-2), 539 o 441
++    if (m_nModelIndex != 0xFFFE && m_nModelIndex != 539 && m_nModelIndex != 441) {
++        if (static_cast<uint32>(GetStatus()) == STATUS_SIMPLE) { // byte 0x36 & 0xF8 == 0x10
++            AutoPreRenderSimpleWheelPoints(*this);
++        }
++        if (static_cast<uint32>(GetStatus()) <= STATUS_PHYSICS) { // byte 0x36 >> 3 en 0..3
++            AutoPreRenderWheelParticles(*this, speedMagnitude);
++        }
++    }
++    AutoPreRenderMiddleWheelParticles(*this, speedMagnitude);
++    AutoPreRenderRainAndExhaust(*this, speedRatio);
++    AddDamagedVehicleParticles(); // 0x6D2A80
++    AutoPreRenderModelLights(*this);
++
++    // 0x6ABC71..0x6ABCBE: luces del vehiculo (no en el Bandit RC 441, el modelo 0xFFFE, el Rhino 432, vehiculos RC ni helicopteros)
++    if (m_nModelIndex != 441 && m_nModelIndex != 0xFFFE && m_nModelIndex != 432 && !vehicleFlags.bIsRCVehicle && GetVehicleAppearance() != VEHICLE_APPEARANCE_HELI) {
++        DoVehicleLights(*m_matrix, (m_nModelIndex == 532 || m_nModelIndex == 471) ? static_cast<eVehicleLightsFlags>(0) : static_cast<eVehicleLightsFlags>(3)); // 0x6E1A60
++    }
++
++    // 0x6ABCBE..0x6ABCFD: sombra del vehiculo (no la del jugador en primera persona mirando adelante)
++    if (this != FindPlayerVehicle(-1, false) || !TheCamera.GetLookingForwardFirstPerson()) { // 0x56E0D0, 0x50AED0
++        CShadows::StoreShadowForVehicle(this, (vehicleFlags.bIsRCVehicle && m_nVehicleSubType != VEHICLE_TYPE_AUTOMOBILE) ? VEH_SHD_RC : VEH_SHD_CAR); // 0x70BDA0
++    }
++
++    // 0x6ABCFD..0x6ABD63
++    CMatrix frameMatrix; // segunda CMatrix local del EXE
++    auto& modelInfo = *reinterpret_cast<CVehicleModelInfo* const*>(0xA9B0C8)[static_cast<int16>(m_nModelIndex)]; // movsx; CModelInfo::ms_modelInfoPtrs
++    if (m_nModelIndex == 432) {
++        SetComponentRotation(m_aCarNodes[CAR_BONNET], AXIS_Z, m_fDoomVerticalRotation, true); // 0x6DBA30
++    }
++
++    CVector frontDirection, rearDirection;
++    AutoPreRenderWheelDirections(*this, frontDirection, rearDirection);
++    AutoPreRenderWheelRotation(*this, modelInfo, frontDirection, rearDirection);
++    AutoPreRenderBodyParts(*this, frameMatrix);
++    AutoPreRenderForces(*this);
++    AutoPreRenderModelComponents(*this, frameMatrix, colData, modelInfo);
++    AutoPreRenderHydraulics(*this, modelInfo);
+ }
+ 
+ // 0x6A2B10
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index f411f9e65..c2d0f2a6e 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -13084,3 +13084,217 @@ __declspec(noinline) bool __cdecl WalkRoundDotPositiveCpp(const float* a, const
+     return (a[2] * b[2] + a[1] * b[1]) + a[0] * b[0] > 0.0f;
+ }
+ #pragma float_control(pop)
++
++// --- Lote 28: CAutomobile::PreRender (0x6AAB50), prefijo AutoPre. Anadir al FINAL de X87Math.cpp (usa ExeAsinDoubleCpp, ya definido arriba) ---
++// Cada ayudante reproduce un tramo x87 del EXE: 24 bits de mantisa por operacion (el proceso corre el x87 a 24 bits) y exponente extendido hasta el fstp;
++// los float que el EXE guarda en pila con fstp son `volatile float`. Las operaciones de memoria (fadd [m], fmul [m]) son una operacion double con un solo redondeo.
++static constexpr float kAutoPreTenth = std::bit_cast<float>(0x3DCCCCCDu);      // 0x858B1C = 0.1f
++static constexpr float kAutoPreHundredth = std::bit_cast<float>(0x3C23D70Au);  // 0x858C58 = 0.01f
++static constexpr float kAutoPreTen = std::bit_cast<float>(0x41200000u);        // 0x85862C = 10.0f
++static constexpr float kAutoPreHalf = std::bit_cast<float>(0x3F000000u);       // 0x858B8C = 0.5f
++static constexpr float kAutoPreFiftieth = std::bit_cast<float>(0x3CA3D70Au);   // 0x871054 = 0.02f
++static constexpr float kAutoPreTwoPi = std::bit_cast<float>(0x40C90FDBu);      // 0x858CBC = 6.2831855f
++static constexpr float kAutoPreMinusOne = std::bit_cast<float>(0xBF800000u);   // 0x858C1C = -1.0f
++static __declspec(noinline) double AutoPreSqrt(double value) {
++    return sqrt(value); // fuera de precise: fsqrt en linea
++}
++
++#pragma float_control(precise, on, push)
++// 0x6AADCF..0x6AADF6: (mz*fz + my*fy) + mx*fx sin guardar, / divisor, fstp float.
++__declspec(noinline) float __cdecl AutoPreForwardSpeedCpp(const float* move, const float* forward, float divisor) {
++    const double dot = (double(move[2]) * double(forward[2]) + double(move[1]) * double(forward[1])) + double(move[0]) * double(forward[0]);
++    volatile float result = float(dot / double(divisor));
++    return result;
++}
++
++// 0x6AADFA..0x6AAE1B: (x*x + y*y) + z*z sin guardar, fsqrt (24 bits), fstp float.
++__declspec(noinline) float __cdecl AutoPreSpeedMagnitudeCpp(const float* move) {
++    const double sum = (double(move[0]) * double(move[0]) + double(move[1]) * double(move[1])) + double(move[2]) * double(move[2]);
++    volatile float result = float(AutoPreSqrt(sum));
++    return result;
++}
++
++// 0x6AABBB..0x6AADC9 (una de las cuatro ruedas): r = 1 - spring/line (queda en la pila); t = (comp - r) / (1 - r) se guarda como float;
++// h = startZ [- t * spring si t > 0]; se suaviza (h - prev) * 0.75 + prev si comp no es < 1.0 o h no es > prev (comparaciones ordenadas); fstp float.
++__declspec(noinline) float __cdecl AutoPreSuspensionHeightCpp(float spring, float line, float comp, float startZ, float prevPos) {
++    const double r = 1.0 - double(spring) / double(line);
++    volatile float t = float((double(comp) - r) / (1.0 - r));
++    double h = double(startZ);
++    if (double(t) > 0.0) {
++        h = h - double(t) * double(spring);
++    }
++    if (!(double(comp) < 1.0) || !(h > double(prevPos))) {
++        h = (h - double(prevPos)) * 0.75 + double(prevPos);
++    }
++    volatile float result = float(h);
++    return result;
++}
++
++// 0x6AB186..0x6AB2B7 y 0x6AB715..0x6AB7A1: el EXE duplica (fadd st(0),st(0)) cada componente; el doble de y y de x se guarda como float (fstp) antes de sumarlo con p
++// y el de z queda en la pila (fadd [p.z] directo): out = (float(2*v.x) + p.x, float(2*v.y) + p.y, 2*v.z + p.z), cada suma con un solo redondeo a float. out no debe solaparse con v ni p.
++__declspec(noinline) void __cdecl AutoPreDoublePlusCpp(const float* v, const float* p, float* out) {
++    volatile float doubledY = float(double(v[1]) + double(v[1]));
++    volatile float doubledX = float(double(v[0]) + double(v[0]));
++    volatile float z = float((double(v[2]) + double(v[2])) + double(p[2]));
++    volatile float y = float(double(doubledY) + double(p[1]));
++    volatile float x = float(double(doubledX) + double(p[0]));
++    out[0] = x;
++    out[1] = y;
++    out[2] = z;
++}
++
++// 0x6AB823..0x6AB8B2: byte bajo de _ftol2((value * multiplier) * 0.1f) con value entero (fild).
++__declspec(noinline) unsigned int __cdecl AutoPreScaleByteCpp(unsigned int value, float multiplier) {
++    const double product = double(value) * double(multiplier);
++    const double scaled = product * double(kAutoPreTenth); // 0x858B1C = 0.1f
++    return static_cast<unsigned int>(static_cast<long long>(scaled)) & 0xFF;
++}
++
++// 0x6AB660..0x6AB711: byte bajo de _ftol2((value * fade) * 0.01f) con value entero y fade = fild (entero 0..511).
++__declspec(noinline) unsigned int __cdecl AutoPreFadeByteCpp(unsigned int value, float fade) {
++    const double product = double(value) * double(fade);
++    const double scaled = product * double(kAutoPreHundredth); // 0x858C58 = 0.01f
++    return static_cast<unsigned int>(static_cast<long long>(scaled)) & 0xFF;
++}
++
++// 0x6ABADB..0x6ABAEA: byte bajo de _ftol2(multiplier * 10.0f) (fld; fmul [0x85862C]).
++__declspec(noinline) unsigned int __cdecl AutoPreCoronaByteCpp(float multiplier) {
++    const double scaled = double(multiplier) * double(kAutoPreTen);
++    return static_cast<unsigned int>(static_cast<long long>(scaled)) & 0xFF;
++}
++
++// 0x6ABBFC..0x6ABC1C: (a.z*b.z + a.y*b.y) + a.x*b.x < 0.0 sobre la pila x87 (comparacion ordenada: con NaN da false).
++__declspec(noinline) bool __cdecl AutoPreDotNegativeCpp(const float* a, const float* b) {
++    return (a[2] * b[2] + a[1] * b[1]) + a[0] * b[0] < 0.0f;
++}
++
++// 0x6ABF97..0x6ABFA3: float(timeStep * speed + rotation) (fld; fmul [speed]; fadd [rotation]; fstp).
++__declspec(noinline) float __cdecl AutoPreWheelRotationCpp(float timeStep, float speed, float rotation) {
++    volatile float result = float(double(timeStep) * double(speed) + double(rotation));
++    return result;
++}
++
++// 0x6AC46C..0x6AC4B2 (hormigonera): fild misc; fidiv divisor; + 0.5; * timeStep; * 0.02f (0x871054); + prop; fst float. Devuelve el float guardado.
++__declspec(noinline) float __cdecl AutoPreMixerPropCpp(unsigned int misc, int divisor, float timeStep, float prop) {
++    const double ratio = double(misc) / double(divisor);
++    const double sum = ratio + double(kAutoPreHalf);
++    const double scaled = (sum * double(timeStep)) * double(kAutoPreFiftieth);
++    volatile float result = float(scaled + double(prop));
++    return result;
++}
++
++// 0x6AC4F0..0x6AC53D y 0x6AC6F9..0x6AC70B (camion grua y tractor): (misc * k) / divisor con fild y fidiv; fstp float.
++__declspec(noinline) float __cdecl AutoPreTowAngleCpp(unsigned int misc, float k, unsigned int divisor) {
++    volatile float result = float((double(misc) * double(k)) / double(divisor));
++    return result;
++}
++
++// 0x6AC7B5..0x6AC898 (cosechadora): si prop > 2pi (0x858CBC) se resta 2pi y se guarda como float; dot = (mz*fz + my*fy) + mx*fx (se recalcula igual en cada rama);
++// val = dot > 0.1f ? 0.1f : (0.0f > dot ? 0.0f : dot); resultado float(prop - val * timeStep) (fmul; fsubr [prop]; fst float).
++__declspec(noinline) float __cdecl AutoPreHarvesterPropCpp(const float* move, const float* forward, float prop, float timeStep) {
++    const double twoPi = double(kAutoPreTwoPi);
++    if (double(prop) > twoPi) {
++        volatile float wrapped = float(double(prop) - twoPi);
++        prop = wrapped;
++    }
++    const double dot = (double(move[2]) * double(forward[2]) + double(move[1]) * double(forward[1])) + double(move[0]) * double(forward[0]);
++    double val;
++    if (dot > double(kAutoPreTenth)) {
++        val = double(kAutoPreTenth);
++    } else if (0.0 > dot) {
++        val = 0.0;
++    } else {
++        val = dot;
++    }
++    volatile float result = float(double(prop) - val * double(timeStep));
++    return result;
++}
++
++// 0x6AC9A7..0x6AC9EF: asin(rightZ) (_CIasin 0x821E70, ST0 sin redondear); fst float; si asin > limit -> limit; si no, si el float guardado < -limit -> -limit; si no el float.
++__declspec(noinline) float __cdecl AutoPreClampedAsinCpp(float rightZ, float limit) {
++    const double angle = ExeAsinDoubleCpp(double(rightZ));
++    volatile float stored = float(angle);
++    if (angle > double(limit)) {
++        return limit;
++    }
++    if (double(stored) < -double(limit)) {
++        return -limit;
++    }
++    return stored;
++}
++
++// 0x6AC5A4..0x6AC64F (camion grua con remolque): d = hitch - bar (fsub; fstp float por componente); dot = (dz*fz + dy*fy) + dx*fx; / divisor (fstp float);
++// angleA = float(asin(ratio) + negAngle); segunda: (dz*rz + dy*ry) + dx*rx; v = (-1.0f / divisor) * dot (fstp float); angleB = float(asin(v)).
++__declspec(noinline) void __cdecl AutoPreTowAnglesCpp(const float* hitch, const float* bar, const float* forward, const float* right, float divisor, float negAngle, float* angleA, float* angleB) {
++    volatile float dx = float(double(hitch[0]) - double(bar[0]));
++    volatile float dy = float(double(hitch[1]) - double(bar[1]));
++    volatile float dz = float(double(hitch[2]) - double(bar[2]));
++    const double dotForward = (double(dz) * double(forward[2]) + double(dy) * double(forward[1])) + double(dx) * double(forward[0]);
++    volatile float ratio = float(dotForward / double(divisor));
++    volatile float first = float(ExeAsinDoubleCpp(double(ratio)) + double(negAngle));
++    const double dotRight = (double(dz) * double(right[2]) + double(dy) * double(right[1])) + double(dx) * double(right[0]);
++    const double scale = double(kAutoPreMinusOne) / double(divisor); // fld -1.0f (0x858C1C); fdiv [divisor]
++    volatile float sideValue = float(scale * dotRight);
++    volatile float second = float(ExeAsinDoubleCpp(double(sideValue)));
++    *angleA = first;
++    *angleB = second;
++}
++
++// 0x6AC373..0x6AC39B y 0x6ACB39..0x6ACB60 (vehiculos con ejes inclinables): (wheelPos - (lineZ - upper)) / (lineAxis - matrixPos), fstp float.
++__declspec(noinline) float __cdecl AutoPreAxleTiltCpp(float wheelPos, float lineZ, float upper, float lineAxis, float matrixPos) {
++    const double denominator = double(lineAxis) - double(matrixPos);
++    const double numerator = double(wheelPos) - (double(lineZ) - double(upper));
++    volatile float result = float(numerator / denominator);
++    return result;
++}
++
++// 0x6AC763..0x6AC77E (montacargas): misc * k + restZ (fild; fmul; fadd [restZ]; fstp float).
++__declspec(noinline) float __cdecl AutoPreForkliftZCpp(unsigned int misc, float k, float restZ) {
++    volatile float result = float(double(misc) * double(k) + double(restZ));
++    return result;
++}
++#pragma float_control(pop)
++
++// Lote 28 (cont.): 0x59C790 (Multiply3x3) y 0x59C890 (MultiplyMatrixWithVector) con la pila x87: tres productos sumados sin guardar (24 bits de mantisa, exponente extendido) y fstp float.
++// Las ordenes de suma del EXE: x = (up.x*v.z + fwd.x*v.y) + right.x*v.x; y = (up.y*v.z + right.y*v.x) + fwd.y*v.y; z = (up.z*v.z + right.z*v.x) + fwd.z*v.y; la segunda suma ademas la posicion.
++// `m` apunta al inicio de la matriz (right en m[0..2], forward en m[4..6], up en m[8..10], posicion en m[12..14]); out no debe solaparse con m ni v.
++#pragma float_control(precise, on, push)
++__declspec(noinline) void __cdecl AutoPreMultiply3x3Cpp(const float* m, const float* v, float* out) {
++    volatile float x = float((double(m[8]) * double(v[2]) + double(m[4]) * double(v[1])) + double(m[0]) * double(v[0]));
++    volatile float y = float((double(m[9]) * double(v[2]) + double(m[1]) * double(v[0])) + double(m[5]) * double(v[1]));
++    volatile float z = float((double(m[10]) * double(v[2]) + double(m[2]) * double(v[0])) + double(m[6]) * double(v[1]));
++    out[0] = x;
++    out[1] = y;
++    out[2] = z;
++}
++__declspec(noinline) void __cdecl AutoPreMultiplyMatrixWithVectorCpp(const float* m, const float* v, float* out) {
++    volatile float x = float(((double(m[8]) * double(v[2]) + double(m[4]) * double(v[1])) + double(m[0]) * double(v[0])) + double(m[12]));
++    volatile float y = float(((double(m[9]) * double(v[2]) + double(m[1]) * double(v[0])) + double(m[5]) * double(v[1])) + double(m[13]));
++    volatile float z = float(((double(m[10]) * double(v[2]) + double(m[2]) * double(v[0])) + double(m[6]) * double(v[1])) + double(m[14]));
++    out[0] = x;
++    out[1] = y;
++    out[2] = z;
++}
++#pragma float_control(pop)
++
++// Producto de dos floats en la pila x87 con 24 bits de mantisa y exponente extendido y un fstp float posterior: con resultados subnormales el segundo redondeo puede diferir del
++// producto SSE directo (CAutomobile::PreRender: timeStep * 0.3f en 0x6AC2D3, lodMultiplier * 150.0f de las coronas).
++#pragma float_control(precise, on, push)
++__declspec(noinline) float __cdecl AutoPreMulCpp(float a, float b) {
++    volatile float result = float(double(a) * double(b));
++    return result;
++}
++#pragma float_control(pop)
++
++// Suma y resta de dos floats cargados de memoria en la pila x87 (fld a; fadd/fsub [b]; fstp): con dos NaN silenciosos distintos el x87 conserva el de mayor mantisa (SSE devolveria el
++// primer operando); con un solo NaN, o con inf - inf, coincide con SSE. CAutomobile::PreRender (velocidad relativa de la rueda, fuerzas, posicion de la cadera oscilante, panel de la grua).
++#pragma float_control(precise, on, push)
++__declspec(noinline) float __cdecl AutoPreAddCpp(float a, float b) {
++    volatile float result = float(double(a) + double(b));
++    return result;
++}
++__declspec(noinline) float __cdecl AutoPreSubCpp(float a, float b) {
++    volatile float result = float(double(a) - double(b));
++    return result;
++}
++#pragma float_control(pop)
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index d88bb240f..da4e1aa9f 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1576,3 +1576,29 @@ bool __cdecl WalkRoundDotBelowCpp(const float* a, const float* b);
+ // --- Lote 31: CTaskComplexWalkRoundObject::CreateFirstSubTask (0x657380), prefijo WalkRound. Anadir al FINAL de X87Math.h ---
+ // (a.z*b.z + a.y*b.y) + a.x*b.x > 0.0 (0x86F420) sobre la x87 (24 bits, exponente extendido); comparacion ordenada (con NaN da false). Los punteros apuntan a x, y, z consecutivos.
+ bool __cdecl WalkRoundDotPositiveCpp(const float* a, const float* b);
++
++// --- Lote 28: CAutomobile::PreRender (0x6AAB50), prefijo AutoPre. Anadir al FINAL de X87Math.h ---
++// Tramos x87 de 24 bits con exponente extendido (sin guardados intermedios de float). Los punteros apuntan a x, y, z consecutivos.
++float __cdecl AutoPreForwardSpeedCpp(const float* move, const float* forward, float divisor);          // float(((mz*fz + my*fy) + mx*fx) / divisor)
++float __cdecl AutoPreSpeedMagnitudeCpp(const float* move);                                              // float(sqrt((x*x + y*y) + z*z))
++float __cdecl AutoPreSuspensionHeightCpp(float spring, float line, float comp, float startZ, float prevPos); // altura suavizada de una rueda (0x6AABBB..0x6AADC9)
++void __cdecl AutoPreDoublePlusCpp(const float* v, const float* p, float* out);                          // out = float((v + v) + p) por componente
++unsigned int __cdecl AutoPreScaleByteCpp(unsigned int value, float multiplier);                         // byte bajo de _ftol2((value * multiplier) * 0.1f)
++unsigned int __cdecl AutoPreFadeByteCpp(unsigned int value, float fade);                                // byte bajo de _ftol2((value * fade) * 0.01f)
++unsigned int __cdecl AutoPreCoronaByteCpp(float multiplier);                                            // byte bajo de _ftol2(multiplier * 10.0f)
++bool __cdecl AutoPreDotNegativeCpp(const float* a, const float* b);                                     // (a.z*b.z + a.y*b.y) + a.x*b.x < 0.0
++float __cdecl AutoPreWheelRotationCpp(float timeStep, float speed, float rotation);                     // float(timeStep * speed + rotation)
++float __cdecl AutoPreMixerPropCpp(unsigned int misc, int divisor, float timeStep, float prop);          // hormigonera 0x6AC46C..0x6AC4B2
++float __cdecl AutoPreTowAngleCpp(unsigned int misc, float k, unsigned int divisor);                     // float((misc * k) / divisor)
++float __cdecl AutoPreHarvesterPropCpp(const float* move, const float* forward, float prop, float timeStep); // cosechadora 0x6AC7B5..0x6AC898
++float __cdecl AutoPreClampedAsinCpp(float rightZ, float limit);                                         // asin(rightZ) acotado a [-limit, limit] como el EXE
++void __cdecl AutoPreTowAnglesCpp(const float* hitch, const float* bar, const float* forward, const float* right, float divisor, float negAngle, float* angleA, float* angleB); // camion grua 0x6AC5A4..0x6AC64F
++float __cdecl AutoPreAxleTiltCpp(float wheelPos, float lineZ, float upper, float lineAxis, float matrixPos);   // (wheelPos - (lineZ - upper)) / (lineAxis - matrixPos)
++float __cdecl AutoPreForkliftZCpp(unsigned int misc, float k, float restZ);                             // float(misc * k + restZ)
++
++// Lote 28 (cont.): Multiply3x3 (0x59C790) y MultiplyMatrixWithVector (0x59C890) con la pila x87. `m` = inicio de la matriz (right, forward, up, posicion cada 4 floats).
++void __cdecl AutoPreMultiply3x3Cpp(const float* m, const float* v, float* out);
++void __cdecl AutoPreMultiplyMatrixWithVectorCpp(const float* m, const float* v, float* out);
++float __cdecl AutoPreMulCpp(float a, float b);   // float(a * b) con el producto en la pila x87 (24 bits, exponente extendido) y un fstp float
++float __cdecl AutoPreAddCpp(float a, float b);   // float(a + b) en la pila x87 (dos NaN: conserva el de mayor mantisa)
++float __cdecl AutoPreSubCpp(float a, float b);   // float(a - b) en la pila x87

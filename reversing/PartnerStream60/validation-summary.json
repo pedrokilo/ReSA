@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CTaskComplexPartner::StreamRequiredAnims": 4096
+  },
+  "covered_functions": {
+    "CTaskComplexPartner::StreamRequiredAnims": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el arbol de integracion D:/Original/wi (HEAD 6e01296af + fuentes del lote 60 de los worktrees wc-1..wc-6, con correcciones de depuracion posteriores al primer banco).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/PartnerStream60-20261019-210141-312096",
+  "summary_sha256": "4a628ec8d83cf84cacb2ac45fe1247289735008aa037a7dc0f5156ada987cdd9",
+  "result_txt_sha256": "df2035d2e3d95124f0a07783b0d3ba7bf2696cb1eeed1e3fe314bc13fe38c761",
+  "log_sha256": "fab90d403d076ef5f9f71f9d69cb57fa343940c0f4a1f74b8157e51b328a11d5",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "65b00ed80d2b9786af6de0f881bb10231ed16c11b50712fa19d0733337396f1b",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "1863dc94a2290dfed2147f6f04ee9f4646aafa3d537d8065d914355275e93c93",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "1b1dd13e31a922224ade7730eeb2cc40d9cad8cc4015ceb66bc685917462630d",
+      "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
+      "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b",
+      "source/game_sa/Animation/AnimBlock.h": "7863265e95d1a3a6831c870c659c16b62a4c25d7c57581b88bbd623d23fd7a27",
+      "source/game_sa/Streaming.cpp": "48313acbad9ed6f78f77272a6700e80623215eb4c32063936b9cd8967b2f443f",
+      "source/game_sa/Streaming.h": "0055e9284d015c283c2e31bf4b82a6e57fc44f0658b7d20e0e98cd7db9d4ebf7",
+      "source/game_sa/Tasks/Task.cpp": "d700418e6a00f573db2dc824d4a6d0bd325136ddf4f208589b74aef3d5f083c8",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/PartnerStream60/LiveComparison.hpp": "dce09d010d8797ac737c6b6e167fd5c1a6f028b22b18cbbf0ab4a6160b87a9c6",
+      "reversing/PartnerStream60/Core.hpp": "e3cb1e2e74a022e55ea4560157cfc3a043054bb1cf2f3d15f51af57f384d45b4",
+      "reversing/PartnerStream60/Fixtures.hpp": "495e01bdf4613d88f0835dd4f9755ef8c4b8ef9203a5c51ce02f64bc1bdc9655",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

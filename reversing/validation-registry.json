@@ -536388,6 +536388,584 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wp-1 (HEAD 48c452e1f + TaskComplexPartner.cpp con CTaskComplexPartner::CreateFirstSubTask en C++; ver artifacts/build-manifest.json), de s\u00f3lo lectura y eliminado tras el registro. En el \u00e1rbol principal TaskComplexPartner.cpp/.h se fusionaron en tres v\u00edas con trabajo sin validar del lote 27 (y TaskComplexPartnerChat.cpp y AEPedSpeechAudioEntity.cpp difieren tambi\u00e9n del manifiesto), por lo que sus hashes pueden diferir de los del manifiesto (normalizados a LF o no). Hook virtual (RH_ScopedVMTInstall) registrado como tipo V con original_address 0x00681F20. Sustituidos por falsos id\u00e9nticos en ambos lados: RequestPedConversation (0x4E50E0), StopPlayingHandSignal (0x5E0480) y CTask::operator new (0x61A5A0); el constructor de CTaskSimpleStandStill es real en ambos lados. EAX/ECX/EDX s\u00f3lo registrados (\u00fanico consumo: EAX por la maquinaria virtual de CTaskComplex). La corrida previa 20261019-171228-759788 fall\u00f3 por un desajuste del or\u00e1culo del propio banco y no es evidencia.",
       "review_reference": "reversing/PartnerFirstSub31/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexPartner",
+        "fn_name": "StreamRequiredAnims",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/PartnerStream60/validation-summary.json",
+        "sha256": "49f2954c81b973aaa5a62a01bb50ee2a74ed4df714ef9f78067dcbb8df3552de",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexPartner::StreamRequiredAnims"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00682310"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "1863dc94a2290dfed2147f6f04ee9f4646aafa3d537d8065d914355275e93c93",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "1b1dd13e31a922224ade7730eeb2cc40d9cad8cc4015ceb66bc685917462630d",
+        "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
+        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b",
+        "source/game_sa/Animation/AnimBlock.h": "7863265e95d1a3a6831c870c659c16b62a4c25d7c57581b88bbd623d23fd7a27",
+        "source/game_sa/Streaming.cpp": "48313acbad9ed6f78f77272a6700e80623215eb4c32063936b9cd8967b2f443f",
+        "source/game_sa/Streaming.h": "0055e9284d015c283c2e31bf4b82a6e57fc44f0658b7d20e0e98cd7db9d4ebf7",
+        "source/game_sa/Tasks/Task.cpp": "d700418e6a00f573db2dc824d4a6d0bd325136ddf4f208589b74aef3d5f083c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/PartnerStream60/LiveComparison.hpp": "dce09d010d8797ac737c6b6e167fd5c1a6f028b22b18cbbf0ab4a6160b87a9c6",
+        "reversing/PartnerStream60/Core.hpp": "e3cb1e2e74a022e55ea4560157cfc3a043054bb1cf2f3d15f51af57f384d45b4",
+        "reversing/PartnerStream60/Fixtures.hpp": "495e01bdf4613d88f0835dd4f9755ef8c4b8ef9203a5c51ce02f64bc1bdc9655",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el arbol de integracion D:/Original/wi (HEAD 6e01296af + fuentes del lote 60 de los worktrees wc-1..wc-6, con correcciones de depuracion posteriores al primer banco).",
+      "review_reference": "reversing/PartnerStream60/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexPartner",
+        "fn_name": "RemoveStreamedAnims",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/PartnerRemove60/validation-summary.json",
+        "sha256": "585cd808a3738296ba2f18245ff68cd73cce29839e816016b615c2a7d6f6fee0",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexPartner::RemoveStreamedAnims"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00682370"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "1863dc94a2290dfed2147f6f04ee9f4646aafa3d537d8065d914355275e93c93",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "1b1dd13e31a922224ade7730eeb2cc40d9cad8cc4015ceb66bc685917462630d",
+        "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
+        "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b",
+        "source/game_sa/Animation/AnimBlock.h": "7863265e95d1a3a6831c870c659c16b62a4c25d7c57581b88bbd623d23fd7a27",
+        "source/game_sa/Streaming.cpp": "48313acbad9ed6f78f77272a6700e80623215eb4c32063936b9cd8967b2f443f",
+        "source/game_sa/Streaming.h": "0055e9284d015c283c2e31bf4b82a6e57fc44f0658b7d20e0e98cd7db9d4ebf7",
+        "source/game_sa/Tasks/Task.cpp": "d700418e6a00f573db2dc824d4a6d0bd325136ddf4f208589b74aef3d5f083c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/PartnerRemove60/LiveComparison.hpp": "3d63aabaa8a12232c8a196d4f6fc202813692b58de0836229012a139ec36fdce",
+        "reversing/PartnerRemove60/Core.hpp": "5fd92efe50bdca863047a63c8fd73e114b27c0a063e5d55eca8e7236718d1384",
+        "reversing/PartnerRemove60/Fixtures.hpp": "0806b64671d26f3795b4d09899222c783bba7f5134c854b874330ed7b871ecbb",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el arbol de integracion D:/Original/wi (HEAD 6e01296af + fuentes del lote 60 de los worktrees wc-1..wc-6, con correcciones de depuracion posteriores al primer banco).",
+      "review_reference": "reversing/PartnerRemove60/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexPartner",
+        "fn_name": "ControlSubTask",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/PartnerControl60/validation-summary.json",
+        "sha256": "d59aa560f5f948d059ded47038196c519c82fc15b29078173fe36d964b977e1c",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexPartner::ControlSubTask"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006840D0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "1863dc94a2290dfed2147f6f04ee9f4646aafa3d537d8065d914355275e93c93",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "1b1dd13e31a922224ade7730eeb2cc40d9cad8cc4015ceb66bc685917462630d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h": "df877a5eec42862774087651887ad29739f11844726e26dbf21754cbe661aadb",
+        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
+        "source/game_sa/Ragdoll/IKChainManager.cpp": "c2e0c7d3f0c686cd3308e881771fe6862804a29da5238c8a2087e3941ef7a255",
+        "source/game_sa/Ragdoll/IKChainManager.h": "5b9ccff23eeba87ab4aed02aa2c598a5b6f51ee35813e45dd06777e325455b8d",
+        "source/game_sa/Entity/Ped/Ped.cpp": "4212d1797e77f5d50949306b8211868b1f1afb1aa9f15485d8b7e29cb7cb77b3",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Tasks/Task.cpp": "d700418e6a00f573db2dc824d4a6d0bd325136ddf4f208589b74aef3d5f083c8",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/PartnerControl60/LiveComparison.hpp": "29339dce5b90184b857d8f080681365fdc4a6ad35e7bb9176567b00e56e2ba10",
+        "reversing/PartnerControl60/Core.hpp": "742f757f399e7865390b7d1e507540bb4b0ae87a68814df2a9ceb5f540b80661",
+        "reversing/PartnerControl60/Fixtures.hpp": "c2b3f6ce69eaf8a35c68eb81cd256657d23427b9c2d77b48f0818d99dbf97b9a",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el arbol de integracion D:/Original/wi (HEAD 6e01296af + fuentes del lote 60 de los worktrees wc-1..wc-6, con correcciones de depuracion posteriores al primer banco).",
+      "review_reference": "reversing/PartnerControl60/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexPartner",
+        "fn_name": "CreateNextSubTask",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/PartnerNext60/validation-summary.json",
+        "sha256": "fbfbcf7968b0336f4ba029fb11fe2a65b1bbc229d33ae5678df88ab2dd868b7e",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexPartner::CreateNextSubTask"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00683AD0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "1863dc94a2290dfed2147f6f04ee9f4646aafa3d537d8065d914355275e93c93",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "1b1dd13e31a922224ade7730eeb2cc40d9cad8cc4015ceb66bc685917462630d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h": "df877a5eec42862774087651887ad29739f11844726e26dbf21754cbe661aadb",
+        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
+        "source/game_sa/General.cpp": "7b6b28991efbd0a1e8b1a4d6a09a077e870a161df158fa38fb23c5ef1d1264f5",
+        "source/game_sa/General.h": "392cf3dca613f3a5e5caa859b0a5d80a10ca5a5d01bf2c300b62119137a056ff",
+        "source/game_sa/X87Math.cpp": "9935da0b804efdbd00d2ed5c767f2b27ba2a92810b8de1b5c2906a240d55108b",
+        "source/game_sa/X87Math.h": "f9efe7f7e2e75560945ec1d45fa09e5de28dd5f1211d18d31d81b383b5b65d8d",
+        "source/game_sa/Tasks/Task.cpp": "d700418e6a00f573db2dc824d4a6d0bd325136ddf4f208589b74aef3d5f083c8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2f9cb5c6c456a1e72832973a6f4575cb00329ba46a16f0683d9ec0bf5d067e9d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "4edd32b27d4cba511632ae0f11ce9f69ad4452726952553d07694be7f14b0fd2",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "44a066a672764618f93fc20abbc8099b1f785180ddb437b4ce49e0f2fd2011dd",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "0eaf10e15bed49090db67f0b03bac2b2d00b33294883b4dbc5617e137c3ba6b7",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexTurnToFaceEntityOrCoord.cpp": "921d5f3f7fe35d7c4bc106ea20c88a25b50577a3296ee6a50937860b5a450a81",
+        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/PartnerNext60/LiveComparison.hpp": "abfa1a6be77329def6e4b0a9a7029ca8f71b7a02a538be940cae3c0fa4335328",
+        "reversing/PartnerNext60/Core.hpp": "2262d988e238dccecf7ea6f080ab21038f8fec36306fb4d0073b37f0b212eb65",
+        "reversing/PartnerNext60/Fixtures.hpp": "e04dfc7ece2a28291093aa1b6c836b0ee2c9200d754e3b542ca52e418b97dc52",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el arbol de integracion D:/Original/wi (HEAD 6e01296af + fuentes del lote 60 de los worktrees wc-1..wc-6, con correcciones de depuracion posteriores al primer banco).",
+      "review_reference": "reversing/PartnerNext60/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStats",
+        "fn_name": "FindLeastFavoriteRadioStation",
+        "address": "0x00559010",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/StatsWrappers60/validation-summary.json",
+        "sha256": "1900bddb172a492879f0f27453768c1c0924ffd2adaf7bb67377819d9f8c044f",
+        "passed_path": [
+          "covered_functions",
+          "CStats::FindLeastFavoriteRadioStation"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+        "source/game_sa/Stats.cpp": "fd0432cf50410c45598b8814bb68a759924ecb49bd907dcbe8ec411978991e30",
+        "source/game_sa/Stats.h": "6be0a2376936a21144df72891577f531373c1c9698742cafdae298a4587232e3",
+        "source/game_sa/X87Math.cpp": "9935da0b804efdbd00d2ed5c767f2b27ba2a92810b8de1b5c2906a240d55108b",
+        "source/game_sa/X87Math.h": "f9efe7f7e2e75560945ec1d45fa09e5de28dd5f1211d18d31d81b383b5b65d8d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/StatsWrappers60/LiveComparison.hpp": "5c1ac443d8bce2f200fb4449c0181611e4de5549cbf564f8cb974cee8ad5243d",
+        "reversing/StatsWrappers60/Core.hpp": "f0b467c310932b2c7beb24beec062395f8db9df5dbfbf93e0d8f139982842a2e",
+        "reversing/StatsWrappers60/Gate.hpp": "007e395eaa021cd4fb7a15c3db19cd31c749b50ad91b8133f724c496f8d3ba04",
+        "reversing/StatsWrappers60/Cases.hpp": "623bee20c5733d7e9131ff87726c4f1006f1a32c64213b207bbd7b45a1f1d60e",
+        "reversing/StatsWrappers60/Fakes.hpp": "bea945ac2c333cb5d448f2b4ccf740ccbeefaa7ac8ab994a8baebe8cf475dd00",
+        "reversing/StatsWrappers60/Fixtures.hpp": "111572eb59a289102d09c0b5776fe6c01ea6e57c512b47f4daa3cc40ea2362c7",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el arbol de integracion D:/Original/wi (HEAD 6e01296af + fuentes del lote 60 de los worktrees wc-1..wc-6). Colaboradores sustituidos por falsos identicos en ambos lados (23 entradas; no se validan sus cuerpos reales ni el formato real del sprintf del EXE, que el falso sustituye por una representacion fija): GetStatValue, CLocalisation::Metric / GermanGame, PopulateFavoriteRadioStationList, FindMost/FindLeast, GetPercentageProgress, ConvertToMins/Secs, BuildStatLine (dentro de ConstructStatLine), CText::Get, GxtCharToAscii (0x69F7E0), GxtCharStrcpy, 0x719240, AsciiToGxtChar, sprintf del EXE (0x821BB5), GetRadioStationNameKey, FindPlayerPed, CPed::GetWeaponSkill, GetPercentageTagged, CheckForThreshold, DisplayScriptStatUpdateMessage y CheckForStatsMessage. EAX/ECX/EDX solo registrados (los llamadores del EXE de FindLeast y ConstructStatLine leen solo EAX).",
+      "review_reference": "reversing/StatsWrappers60/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStats",
+        "fn_name": "BuildStatLine",
+        "address": "0x00559230",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/StatsWrappers60/validation-summary.json",
+        "sha256": "1900bddb172a492879f0f27453768c1c0924ffd2adaf7bb67377819d9f8c044f",
+        "passed_path": [
+          "covered_functions",
+          "CStats::BuildStatLine"
+        ],
+        "pairs": 6144,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+        "source/game_sa/Stats.cpp": "fd0432cf50410c45598b8814bb68a759924ecb49bd907dcbe8ec411978991e30",
+        "source/game_sa/Stats.h": "6be0a2376936a21144df72891577f531373c1c9698742cafdae298a4587232e3",
+        "source/game_sa/X87Math.cpp": "9935da0b804efdbd00d2ed5c767f2b27ba2a92810b8de1b5c2906a240d55108b",
+        "source/game_sa/X87Math.h": "f9efe7f7e2e75560945ec1d45fa09e5de28dd5f1211d18d31d81b383b5b65d8d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/StatsWrappers60/LiveComparison.hpp": "5c1ac443d8bce2f200fb4449c0181611e4de5549cbf564f8cb974cee8ad5243d",
+        "reversing/StatsWrappers60/Core.hpp": "f0b467c310932b2c7beb24beec062395f8db9df5dbfbf93e0d8f139982842a2e",
+        "reversing/StatsWrappers60/Gate.hpp": "007e395eaa021cd4fb7a15c3db19cd31c749b50ad91b8133f724c496f8d3ba04",
+        "reversing/StatsWrappers60/Cases.hpp": "623bee20c5733d7e9131ff87726c4f1006f1a32c64213b207bbd7b45a1f1d60e",
+        "reversing/StatsWrappers60/Fakes.hpp": "bea945ac2c333cb5d448f2b4ccf740ccbeefaa7ac8ab994a8baebe8cf475dd00",
+        "reversing/StatsWrappers60/Fixtures.hpp": "111572eb59a289102d09c0b5776fe6c01ea6e57c512b47f4daa3cc40ea2362c7",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el arbol de integracion D:/Original/wi (HEAD 6e01296af + fuentes del lote 60 de los worktrees wc-1..wc-6). Colaboradores sustituidos por falsos identicos en ambos lados (23 entradas; no se validan sus cuerpos reales ni el formato real del sprintf del EXE, que el falso sustituye por una representacion fija): GetStatValue, CLocalisation::Metric / GermanGame, PopulateFavoriteRadioStationList, FindMost/FindLeast, GetPercentageProgress, ConvertToMins/Secs, BuildStatLine (dentro de ConstructStatLine), CText::Get, GxtCharToAscii (0x69F7E0), GxtCharStrcpy, 0x719240, AsciiToGxtChar, sprintf del EXE (0x821BB5), GetRadioStationNameKey, FindPlayerPed, CPed::GetWeaponSkill, GetPercentageTagged, CheckForThreshold, DisplayScriptStatUpdateMessage y CheckForStatsMessage. EAX/ECX/EDX solo registrados (los llamadores del EXE de FindLeast y ConstructStatLine leen solo EAX).",
+      "review_reference": "reversing/StatsWrappers60/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStats",
+        "fn_name": "UpdateRespectStat",
+        "address": "0x0055BC50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/StatsWrappers60/validation-summary.json",
+        "sha256": "1900bddb172a492879f0f27453768c1c0924ffd2adaf7bb67377819d9f8c044f",
+        "passed_path": [
+          "covered_functions",
+          "CStats::UpdateRespectStat"
+        ],
+        "pairs": 6144,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+        "source/game_sa/Stats.cpp": "fd0432cf50410c45598b8814bb68a759924ecb49bd907dcbe8ec411978991e30",
+        "source/game_sa/Stats.h": "6be0a2376936a21144df72891577f531373c1c9698742cafdae298a4587232e3",
+        "source/game_sa/X87Math.cpp": "9935da0b804efdbd00d2ed5c767f2b27ba2a92810b8de1b5c2906a240d55108b",
+        "source/game_sa/X87Math.h": "f9efe7f7e2e75560945ec1d45fa09e5de28dd5f1211d18d31d81b383b5b65d8d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/StatsWrappers60/LiveComparison.hpp": "5c1ac443d8bce2f200fb4449c0181611e4de5549cbf564f8cb974cee8ad5243d",
+        "reversing/StatsWrappers60/Core.hpp": "f0b467c310932b2c7beb24beec062395f8db9df5dbfbf93e0d8f139982842a2e",
+        "reversing/StatsWrappers60/Gate.hpp": "007e395eaa021cd4fb7a15c3db19cd31c749b50ad91b8133f724c496f8d3ba04",
+        "reversing/StatsWrappers60/Cases.hpp": "623bee20c5733d7e9131ff87726c4f1006f1a32c64213b207bbd7b45a1f1d60e",
+        "reversing/StatsWrappers60/Fakes.hpp": "bea945ac2c333cb5d448f2b4ccf740ccbeefaa7ac8ab994a8baebe8cf475dd00",
+        "reversing/StatsWrappers60/Fixtures.hpp": "111572eb59a289102d09c0b5776fe6c01ea6e57c512b47f4daa3cc40ea2362c7",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el arbol de integracion D:/Original/wi (HEAD 6e01296af + fuentes del lote 60 de los worktrees wc-1..wc-6). Colaboradores sustituidos por falsos identicos en ambos lados (23 entradas; no se validan sus cuerpos reales ni el formato real del sprintf del EXE, que el falso sustituye por una representacion fija): GetStatValue, CLocalisation::Metric / GermanGame, PopulateFavoriteRadioStationList, FindMost/FindLeast, GetPercentageProgress, ConvertToMins/Secs, BuildStatLine (dentro de ConstructStatLine), CText::Get, GxtCharToAscii (0x69F7E0), GxtCharStrcpy, 0x719240, AsciiToGxtChar, sprintf del EXE (0x821BB5), GetRadioStationNameKey, FindPlayerPed, CPed::GetWeaponSkill, GetPercentageTagged, CheckForThreshold, DisplayScriptStatUpdateMessage y CheckForStatsMessage. EAX/ECX/EDX solo registrados (los llamadores del EXE de FindLeast y ConstructStatLine leen solo EAX).",
+      "review_reference": "reversing/StatsWrappers60/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStats",
+        "fn_name": "ConstructStatLine",
+        "address": "0x0055A780",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/StatsWrappers60/validation-summary.json",
+        "sha256": "1900bddb172a492879f0f27453768c1c0924ffd2adaf7bb67377819d9f8c044f",
+        "passed_path": [
+          "covered_functions",
+          "CStats::ConstructStatLine"
+        ],
+        "pairs": 8192,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+        "source/game_sa/Stats.cpp": "fd0432cf50410c45598b8814bb68a759924ecb49bd907dcbe8ec411978991e30",
+        "source/game_sa/Stats.h": "6be0a2376936a21144df72891577f531373c1c9698742cafdae298a4587232e3",
+        "source/game_sa/X87Math.cpp": "9935da0b804efdbd00d2ed5c767f2b27ba2a92810b8de1b5c2906a240d55108b",
+        "source/game_sa/X87Math.h": "f9efe7f7e2e75560945ec1d45fa09e5de28dd5f1211d18d31d81b383b5b65d8d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/StatsWrappers60/LiveComparison.hpp": "5c1ac443d8bce2f200fb4449c0181611e4de5549cbf564f8cb974cee8ad5243d",
+        "reversing/StatsWrappers60/Core.hpp": "f0b467c310932b2c7beb24beec062395f8db9df5dbfbf93e0d8f139982842a2e",
+        "reversing/StatsWrappers60/Gate.hpp": "007e395eaa021cd4fb7a15c3db19cd31c749b50ad91b8133f724c496f8d3ba04",
+        "reversing/StatsWrappers60/Cases.hpp": "623bee20c5733d7e9131ff87726c4f1006f1a32c64213b207bbd7b45a1f1d60e",
+        "reversing/StatsWrappers60/Fakes.hpp": "bea945ac2c333cb5d448f2b4ccf740ccbeefaa7ac8ab994a8baebe8cf475dd00",
+        "reversing/StatsWrappers60/Fixtures.hpp": "111572eb59a289102d09c0b5776fe6c01ea6e57c512b47f4daa3cc40ea2362c7",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el arbol de integracion D:/Original/wi (HEAD 6e01296af + fuentes del lote 60 de los worktrees wc-1..wc-6). Colaboradores sustituidos por falsos identicos en ambos lados (23 entradas; no se validan sus cuerpos reales ni el formato real del sprintf del EXE, que el falso sustituye por una representacion fija): GetStatValue, CLocalisation::Metric / GermanGame, PopulateFavoriteRadioStationList, FindMost/FindLeast, GetPercentageProgress, ConvertToMins/Secs, BuildStatLine (dentro de ConstructStatLine), CText::Get, GxtCharToAscii (0x69F7E0), GxtCharStrcpy, 0x719240, AsciiToGxtChar, sprintf del EXE (0x821BB5), GetRadioStationNameKey, FindPlayerPed, CPed::GetWeaponSkill, GetPercentageTagged, CheckForThreshold, DisplayScriptStatUpdateMessage y CheckForStatsMessage. EAX/ECX/EDX solo registrados (los llamadores del EXE de FindLeast y ConstructStatLine leen solo EAX).",
+      "review_reference": "reversing/StatsWrappers60/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAutomobile",
+        "fn_name": "HasCarStoppedBecauseOfLight",
+        "address": "0x0044D520",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/AutomobileWrappers60/validation-summary.json",
+        "sha256": "fab454ea7914be55886bbbefbe4ada8cf6e75c501783cfa462a7e0557ba14aa1",
+        "passed_path": [
+          "covered_functions",
+          "CAutomobile::HasCarStoppedBecauseOfLight"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "bc6158d00c806a64c776c6016634cc89ed88ebf95c273df917ef3b3901fbca10",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
+        "source/game_sa/X87Math.cpp": "9935da0b804efdbd00d2ed5c767f2b27ba2a92810b8de1b5c2906a240d55108b",
+        "source/game_sa/X87Math.h": "f9efe7f7e2e75560945ec1d45fa09e5de28dd5f1211d18d31d81b383b5b65d8d",
+        "source/game_sa/Pathfind.h": "f9d2e152051e5755f7f6a4783b6d727b6f63cdb2ecac303eef9d19aacc5cf5e4",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/AutomobileWrappers60/LiveComparison.hpp": "23ce356524223ba46c76e8fe723d825a6cc2afe71073247827793c52bda7c316",
+        "reversing/AutomobileWrappers60/Core.hpp": "4561d49e8b886530ff098c21309390cb842ac82f0fa30fcab359c581f14f5b30",
+        "reversing/AutomobileWrappers60/Fixtures.hpp": "257f5d20ee59f23795a3e11f3e504a0b56688056a531b1e5bf24806b0f073c22",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el arbol de integracion D:/Original/wi (HEAD 6e01296af + fuentes del lote 60 de los worktrees wc-1..wc-6, con correcciones de depuracion posteriores al primer banco).",
+      "review_reference": "reversing/AutomobileWrappers60/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAutomobile",
+        "fn_name": "Render",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/AutomobileWrappers60/validation-summary.json",
+        "sha256": "fab454ea7914be55886bbbefbe4ada8cf6e75c501783cfa462a7e0557ba14aa1",
+        "passed_path": [
+          "covered_functions",
+          "CAutomobile::Render"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "bc6158d00c806a64c776c6016634cc89ed88ebf95c273df917ef3b3901fbca10",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
+        "source/game_sa/X87Math.cpp": "9935da0b804efdbd00d2ed5c767f2b27ba2a92810b8de1b5c2906a240d55108b",
+        "source/game_sa/X87Math.h": "f9efe7f7e2e75560945ec1d45fa09e5de28dd5f1211d18d31d81b383b5b65d8d",
+        "source/game_sa/Pathfind.h": "f9d2e152051e5755f7f6a4783b6d727b6f63cdb2ecac303eef9d19aacc5cf5e4",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/AutomobileWrappers60/LiveComparison.hpp": "23ce356524223ba46c76e8fe723d825a6cc2afe71073247827793c52bda7c316",
+        "reversing/AutomobileWrappers60/Core.hpp": "4561d49e8b886530ff098c21309390cb842ac82f0fa30fcab359c581f14f5b30",
+        "reversing/AutomobileWrappers60/Fixtures.hpp": "257f5d20ee59f23795a3e11f3e504a0b56688056a531b1e5bf24806b0f073c22",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el arbol de integracion D:/Original/wi (HEAD 6e01296af + fuentes del lote 60 de los worktrees wc-1..wc-6, con correcciones de depuracion posteriores al primer banco).",
+      "review_reference": "reversing/AutomobileWrappers60/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAutomobile",
+        "fn_name": "UpdateWheelMatrix",
+        "address": "0x006AA290",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/AutomobileWrappers60/validation-summary.json",
+        "sha256": "fab454ea7914be55886bbbefbe4ada8cf6e75c501783cfa462a7e0557ba14aa1",
+        "passed_path": [
+          "covered_functions",
+          "CAutomobile::UpdateWheelMatrix"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "bc6158d00c806a64c776c6016634cc89ed88ebf95c273df917ef3b3901fbca10",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
+        "source/game_sa/X87Math.cpp": "9935da0b804efdbd00d2ed5c767f2b27ba2a92810b8de1b5c2906a240d55108b",
+        "source/game_sa/X87Math.h": "f9efe7f7e2e75560945ec1d45fa09e5de28dd5f1211d18d31d81b383b5b65d8d",
+        "source/game_sa/Pathfind.h": "f9d2e152051e5755f7f6a4783b6d727b6f63cdb2ecac303eef9d19aacc5cf5e4",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/AutomobileWrappers60/LiveComparison.hpp": "23ce356524223ba46c76e8fe723d825a6cc2afe71073247827793c52bda7c316",
+        "reversing/AutomobileWrappers60/Core.hpp": "4561d49e8b886530ff098c21309390cb842ac82f0fa30fcab359c581f14f5b30",
+        "reversing/AutomobileWrappers60/Fixtures.hpp": "257f5d20ee59f23795a3e11f3e504a0b56688056a531b1e5bf24806b0f073c22",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el arbol de integracion D:/Original/wi (HEAD 6e01296af + fuentes del lote 60 de los worktrees wc-1..wc-6, con correcciones de depuracion posteriores al primer banco).",
+      "review_reference": "reversing/AutomobileWrappers60/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "ProcessControl",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/PedWrappers60/validation-summary.json",
+        "sha256": "eca5511869e2841d4b3fde0fd4cd42ca0528e49c578e210350267e8088d7c34e",
+        "passed_path": [
+          "covered_functions",
+          "CPed::ProcessControl"
+        ],
+        "pairs": 6144,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x005E8CD0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+        "source/game_sa/Entity/Ped/Ped.cpp": "031109cde2b2b37849cf2bbbd7fce0eb040d1a70dbd954d6953dc9fa88a6661a",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/X87Math.cpp": "9935da0b804efdbd00d2ed5c767f2b27ba2a92810b8de1b5c2906a240d55108b",
+        "source/game_sa/X87Math.h": "f9efe7f7e2e75560945ec1d45fa09e5de28dd5f1211d18d31d81b383b5b65d8d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/PedWrappers60/LiveComparison.hpp": "b44db8cf90d56a3f051a263f5bff3fe9ba85763a1b8ba7e62016e9b0b3ebded9",
+        "reversing/PedWrappers60/Core.hpp": "6ec360cdb156f6a3b99ca1f0eec868e42cfffdc1eb369503fba9c1f4eda80430",
+        "reversing/PedWrappers60/Arenas.hpp": "bf0f74318188d77b43a68d53c5ac3bf72155ff7f9e22f4411c43a1ad512c861c",
+        "reversing/PedWrappers60/Fixtures.hpp": "f943621c1e98d2c614247cc4bbfbd7c40886a804665db31268037deabe9f69a3",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el arbol de integracion D:/Original/wi (HEAD 6e01296af + fuentes del lote 60 de los worktrees wc-1..wc-6, con correcciones de depuracion posteriores al primer banco).",
+      "review_reference": "reversing/PedWrappers60/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SpecialEntityPreCollisionStuff",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/PedWrappers60/validation-summary.json",
+        "sha256": "eca5511869e2841d4b3fde0fd4cd42ca0528e49c578e210350267e8088d7c34e",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SpecialEntityPreCollisionStuff"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x005E3C30"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+        "source/game_sa/Entity/Ped/Ped.cpp": "031109cde2b2b37849cf2bbbd7fce0eb040d1a70dbd954d6953dc9fa88a6661a",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/X87Math.cpp": "9935da0b804efdbd00d2ed5c767f2b27ba2a92810b8de1b5c2906a240d55108b",
+        "source/game_sa/X87Math.h": "f9efe7f7e2e75560945ec1d45fa09e5de28dd5f1211d18d31d81b383b5b65d8d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/PedWrappers60/LiveComparison.hpp": "b44db8cf90d56a3f051a263f5bff3fe9ba85763a1b8ba7e62016e9b0b3ebded9",
+        "reversing/PedWrappers60/Core.hpp": "6ec360cdb156f6a3b99ca1f0eec868e42cfffdc1eb369503fba9c1f4eda80430",
+        "reversing/PedWrappers60/Arenas.hpp": "bf0f74318188d77b43a68d53c5ac3bf72155ff7f9e22f4411c43a1ad512c861c",
+        "reversing/PedWrappers60/Fixtures.hpp": "f943621c1e98d2c614247cc4bbfbd7c40886a804665db31268037deabe9f69a3",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el arbol de integracion D:/Original/wi (HEAD 6e01296af + fuentes del lote 60 de los worktrees wc-1..wc-6, con correcciones de depuracion posteriores al primer banco).",
+      "review_reference": "reversing/PedWrappers60/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SpecialEntityCalcCollisionSteps",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/PedWrappers60/validation-summary.json",
+        "sha256": "eca5511869e2841d4b3fde0fd4cd42ca0528e49c578e210350267e8088d7c34e",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SpecialEntityCalcCollisionSteps"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x005E3E90"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+        "source/game_sa/Entity/Ped/Ped.cpp": "031109cde2b2b37849cf2bbbd7fce0eb040d1a70dbd954d6953dc9fa88a6661a",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/X87Math.cpp": "9935da0b804efdbd00d2ed5c767f2b27ba2a92810b8de1b5c2906a240d55108b",
+        "source/game_sa/X87Math.h": "f9efe7f7e2e75560945ec1d45fa09e5de28dd5f1211d18d31d81b383b5b65d8d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/PedWrappers60/LiveComparison.hpp": "b44db8cf90d56a3f051a263f5bff3fe9ba85763a1b8ba7e62016e9b0b3ebded9",
+        "reversing/PedWrappers60/Core.hpp": "6ec360cdb156f6a3b99ca1f0eec868e42cfffdc1eb369503fba9c1f4eda80430",
+        "reversing/PedWrappers60/Arenas.hpp": "bf0f74318188d77b43a68d53c5ac3bf72155ff7f9e22f4411c43a1ad512c861c",
+        "reversing/PedWrappers60/Fixtures.hpp": "f943621c1e98d2c614247cc4bbfbd7c40886a804665db31268037deabe9f69a3",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el arbol de integracion D:/Original/wi (HEAD 6e01296af + fuentes del lote 60 de los worktrees wc-1..wc-6, con correcciones de depuracion posteriores al primer banco).",
+      "review_reference": "reversing/PedWrappers60/README.md"
     }
   ]
 }

@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CTaskComplexPartner::CreateNextSubTask": 4096
+  },
+  "covered_functions": {
+    "CTaskComplexPartner::CreateNextSubTask": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el arbol de integracion D:/Original/wi (HEAD 6e01296af + fuentes del lote 60 de los worktrees wc-1..wc-6, con correcciones de depuracion posteriores al primer banco).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/PartnerNext60-20261019-210511-110629",
+  "summary_sha256": "0254ec08cbc6da959e1f27e411b880bdd137436de1262934ed5eaa014251739d",
+  "result_txt_sha256": "6c112eb243fac895c4598c0cc45c8fcb963cf5be185cd9ed99536eab234439b5",
+  "log_sha256": "7b210bb873c410b1fada4ddc9528334180a050c54a112ad1a769f39273abefd0",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "b9ade3f07aed1eae850dc8040956a960a877ea91aacd676e4d6eea1c24816776",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
+      "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "1863dc94a2290dfed2147f6f04ee9f4646aafa3d537d8065d914355275e93c93",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "1b1dd13e31a922224ade7730eeb2cc40d9cad8cc4015ceb66bc685917462630d",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h": "df877a5eec42862774087651887ad29739f11844726e26dbf21754cbe661aadb",
+      "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+      "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
+      "source/game_sa/General.cpp": "7b6b28991efbd0a1e8b1a4d6a09a077e870a161df158fa38fb23c5ef1d1264f5",
+      "source/game_sa/General.h": "392cf3dca613f3a5e5caa859b0a5d80a10ca5a5d01bf2c300b62119137a056ff",
+      "source/game_sa/X87Math.cpp": "9935da0b804efdbd00d2ed5c767f2b27ba2a92810b8de1b5c2906a240d55108b",
+      "source/game_sa/X87Math.h": "f9efe7f7e2e75560945ec1d45fa09e5de28dd5f1211d18d31d81b383b5b65d8d",
+      "source/game_sa/Tasks/Task.cpp": "d700418e6a00f573db2dc824d4a6d0bd325136ddf4f208589b74aef3d5f083c8",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2f9cb5c6c456a1e72832973a6f4575cb00329ba46a16f0683d9ec0bf5d067e9d",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp": "4edd32b27d4cba511632ae0f11ce9f69ad4452726952553d07694be7f14b0fd2",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "44a066a672764618f93fc20abbc8099b1f785180ddb437b4ce49e0f2fd2011dd",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "0eaf10e15bed49090db67f0b03bac2b2d00b33294883b4dbc5617e137c3ba6b7",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexTurnToFaceEntityOrCoord.cpp": "921d5f3f7fe35d7c4bc106ea20c88a25b50577a3296ee6a50937860b5a450a81",
+      "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/PartnerNext60/LiveComparison.hpp": "abfa1a6be77329def6e4b0a9a7029ca8f71b7a02a538be940cae3c0fa4335328",
+      "reversing/PartnerNext60/Core.hpp": "2262d988e238dccecf7ea6f080ab21038f8fec36306fb4d0073b37f0b212eb65",
+      "reversing/PartnerNext60/Fixtures.hpp": "e04dfc7ece2a28291093aa1b6c836b0ee2c9200d754e3b542ca52e418b97dc52",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

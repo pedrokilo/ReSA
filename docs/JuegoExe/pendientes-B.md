@@ -2,10 +2,11 @@
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-911 funciones, 38,541 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+912 funciones, 39,546 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| `0x006A2B10` | 1005 | CAutomobile | alta | 0 (0) | sí |
 | `0x00670E20` | 968 | CTaskComplexTurnToFaceEntityOrCoord | baja | 0 (0) | sí |
 | `0x00693610` | 958 | CTaskSimpleHoldEntity | baja | 0 (0) | sí |
 | `0x005347D0` | 763 | CEntity | alta | 0 (0) | sí |

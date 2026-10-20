@@ -1,0 +1,42 @@
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp b/source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp
+index 76aafd4..111e755 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp
+@@ -27,6 +27,7 @@ void CTaskComplexPartner::InjectHooks() {
+     RH_ScopedCategory("Tasks/TaskTypes");
+     RH_ScopedInstall(Constructor, 0x681E70);
+     RH_ScopedVMTInstall(CreateFirstSubTask, 0x681F20);
++    RH_ScopedVMTInstall(RemoveStreamedAnims, 0x682370);
+ }
+ 
+ // 0x681E70
+@@ -67,6 +68,14 @@ CTaskComplexPartner* CTaskComplexPartner::Constructor(const char* commandName, C
+     return this;
+ }
+ 
++namespace {
++// Como el original: los bytes bool (+0x58, +0x5C, +0x5D, +0x6E) se prueban enteros (`test al,al`), también los no canónicos
++uint8 PartnerByte(const bool& flag) {
++    return reinterpret_cast<const uint8&>(flag);
++}
++
++} // namespace
++
+ CTask* CTaskComplexPartner::CreateNextSubTask(CPed* ped) {
+     return plugin::CallMethodAndReturn<CTask*, 0x683AD0, CTaskComplexPartner*, CPed*>(this, ped);
+ }
+@@ -104,6 +113,13 @@ void CTaskComplexPartner::StreamRequiredAnims() {
+     return plugin::CallMethod<0x682310, CTaskComplexPartner*>(this);
+ }
+ 
++// 0x682370
+ void CTaskComplexPartner::RemoveStreamedAnims() {
+-    return plugin::CallMethod<0x682370, CTask*>(this);
++    if (!PartnerByte(m_requiredAnimsStreamedIn)) {
++        return;
++    }
++    if (m_animBlockName[0] != '\0') {
++        CAnimManager::RemoveAnimBlockRef(CAnimManager::GetAnimationBlockIndex(m_animBlockName));
++    }
++    m_requiredAnimsStreamedIn = false;
+ }

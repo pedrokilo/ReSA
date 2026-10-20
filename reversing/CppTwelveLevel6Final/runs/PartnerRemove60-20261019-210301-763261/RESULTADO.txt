@@ -1,0 +1,3 @@
+APROBADO: PartnerRemove60
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-partnerremove60\20261019-210301-763261

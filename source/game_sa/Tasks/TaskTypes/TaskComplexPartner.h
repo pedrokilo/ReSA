@@ -39,6 +39,7 @@ public:
     CTask*       ControlSubTask(CPed* ped) override;
     virtual void StreamRequiredAnims();
     virtual void RemoveStreamedAnims();
+    virtual CTaskComplexSequence* GetPartnerSequence() = 0; // ranura 13 (en la vtable de la base 0x870664 es _purecall)
 
 private:
     friend void InjectHooksMain();
