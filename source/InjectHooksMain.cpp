@@ -756,6 +756,7 @@ void InjectHooksMain() {
     CEventScanner::InjectHooks();
     CVehiclePotentialCollisionScanner::InjectHooks();
     CPedStuckChecker::InjectHooks();
+    CCollisionEventScanner::InjectHooks();
     CEventSource::InjectHooks();
     CPedIntelligence::InjectHooks();
     CPedGroupIntelligence::InjectHooks();

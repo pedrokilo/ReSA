@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,743 entradas reversed=1**, de 8,743 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,772 entradas reversed=1**, de 8,772 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8743 |
+| `validated=1` · evidencia aprobada vinculada | 8772 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8743 |
+| Evidencia histórica vinculada; revisión pendiente | 8772 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -1817,6 +1817,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCollisionData | `RemoveCollisionVolumes` | [Resumen](../reversing/Data8a/validation-summary.json) |
 | CCollisionData | `RemoveTrianglePlanes` | [Resumen](../reversing/Data8a/validation-summary.json) |
 | CCollisionData | `SetLinkPtr` | [Resumen](../reversing/Data8a/validation-summary.json) |
+| CCollisionEventScanner | `ScanForCollisionEvents` | [Resumen](../reversing/CollisionScan61/validation-summary.json) |
 | CCollisionPlugin | `PluginAttach` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CCollisionPlugin | `SetModelInfo` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CColourSet | `Constructor` | [Resumen](../reversing/Misc70/validation-summary.json) |
@@ -3519,21 +3520,27 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPathFind | `AddRandomOffsetToNodePosition` | [Resumen](../reversing/DependenciesVehicleLeaf5/validation-summary.json) |
 | CPathFind | `AreNodesLoadedForArea` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `CalcRoadDensity` | [Resumen](../reversing/DependenciesPathDensity13/validation-summary.json) |
+| CPathFind | `CompleteNewInterior` | [Resumen](../reversing/PathFind62/validation-summary.json) |
 | CPathFind | `ComputeRoute` | [Resumen](../reversing/PathFindPending/validation-summary.json) |
 | CPathFind | `CountNeighboursToBeSwitchedOff` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `DoPathSearch` | [Resumen](../reversing/PathFindPending/validation-summary.json) |
 | CPathFind | `FindLinkBetweenNodes` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `FindNearestExteriorNodeToInteriorNode` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `FindNextNodeWandering` | [Resumen](../reversing/PathFind62/validation-summary.json) |
+| CPathFind | `FindNodeClosestToCoors` | [Resumen](../reversing/PathFind62/validation-summary.json) |
 | CPathFind | `FindNodeClosestToCoorsFavourDirection` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `FindNodeCoorsForScript-LinkedNode` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `FindNodeCoorsForScript-TwoNodes` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `FindNodeOrientationForCarPlacement` | [Resumen](../reversing/DependenciesPathOrientation14/validation-summary.json) |
+| CPathFind | `FindNthNodeClosestToCoors` | [Resumen](../reversing/PathFind62/validation-summary.json) |
+| CPathFind | `FindParkingNodeInArea` | [Resumen](../reversing/PathFind62/validation-summary.json) |
 | CPathFind | `FindRegionForCoors` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `FindStartPointOfRegion-` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `FindXCoorsForRegion` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `FindXRegionForCoors` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `FindYCoorsForRegion` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `FindYRegionForCoors` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `GeneratePedCreationCoors_Interior` | [Resumen](../reversing/PathFind62/validation-summary.json) |
 | CPathFind | `GetPathNode` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `HaveRequestedNodesBeenLoaded` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `Init` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
@@ -5575,6 +5582,11 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexFollowNodeRoute | `SetTarget` | [Resumen](../reversing/Route19/validation-summary.json) |
 | CTaskComplexFollowNodeRoute | `StopTimer` | [Resumen](../reversing/Route19/validation-summary.json) |
 | CTaskComplexFollowPedFootsteps | `Constructor` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
+| CTaskComplexFollowPedFootsteps | `ControlSubTask` | [Resumen](../reversing/FollowFootsteps62/validation-summary.json) |
+| CTaskComplexFollowPedFootsteps | `CreateFirstSubTask` | [Resumen](../reversing/FollowFootsteps62/validation-summary.json) |
+| CTaskComplexFollowPedFootsteps | `CreateNextSubTask` | [Resumen](../reversing/FollowFootsteps62/validation-summary.json) |
+| CTaskComplexFollowPedFootsteps | `CreateSubTask` | [Resumen](../reversing/FollowFootsteps62/validation-summary.json) |
+| CTaskComplexFollowPedFootsteps | `MakeAbortable` | [Resumen](../reversing/FollowFootsteps62/validation-summary.json) |
 | CTaskComplexFollowPointRoute | `CalcBlendRatio` | [Resumen](../reversing/CTasks13/validation-summary.json) |
 | CTaskComplexFollowPointRoute | `CalcGoToTaskType` | [Resumen](../reversing/CTasks13/validation-summary.json) |
 | CTaskComplexFollowPointRoute | `Clone` | [Resumen](../reversing/CTasks13/validation-summary.json) |
@@ -5783,6 +5795,11 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexKillPedGroupOnFoot | `Destructor` | [Resumen](../reversing/CTasks9b/validation-summary.json) |
 | CTaskComplexKillPedGroupOnFoot | `GetTaskType` | [Resumen](../reversing/CTasks9b/validation-summary.json) |
 | CTaskComplexKillPedOnFoot | `Constructor` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
+| CTaskComplexKillPedOnFoot | `ControlSubTask` | [Resumen](../reversing/KillPedOnFoot62/validation-summary.json) |
+| CTaskComplexKillPedOnFoot | `CreateFirstSubTask` | [Resumen](../reversing/KillPedOnFoot62/validation-summary.json) |
+| CTaskComplexKillPedOnFoot | `CreateNextSubTask` | [Resumen](../reversing/KillPedOnFoot62/validation-summary.json) |
+| CTaskComplexKillPedOnFoot | `CreateSubTask` | [Resumen](../reversing/KillPedOnFoot62/validation-summary.json) |
+| CTaskComplexKillPedOnFoot | `MakeAbortable` | [Resumen](../reversing/KillPedOnFoot62/validation-summary.json) |
 | CTaskComplexKillPedOnFootArmed | `Clone` | [Resumen](../reversing/TaskWave2A/validation-summary.json) |
 | CTaskComplexKillPedOnFootArmed | `Constructor` | [Resumen](../reversing/TaskWave2A/validation-summary.json) |
 | CTaskComplexKillPedOnFootArmed | `ControlSubTask` | [Resumen](../reversing/TaskWave2A/validation-summary.json) |
@@ -7899,7 +7916,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CWaterLevel | `BlockHit` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CWaterLevel | `CalculateWavesOnlyForCoordinate` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CWaterLevel | `CalculateWavesOnlyForCoordinate2Native` | [Resumen](../reversing/DependenciesWorld9/validation-summary.json) |
+| CWaterLevel | `FillQuadsAndTrianglesList` | [Resumen](../reversing/WaterLevel62/validation-summary.json) |
 | CWaterLevel | `FindNearestWaterAndItsFlow` | [Resumen](../reversing/WaterNearest355/validation-summary.json) |
+| CWaterLevel | `GetWaterDepth` | [Resumen](../reversing/WaterLevel62/validation-summary.json) |
 | CWaterLevel | `GetWaterLevel-` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CWaterLevel | `GetWaterLevelNoWaves` | [Resumen](../reversing/WaterQuery355/validation-summary.json) |
 | CWaterLevel | `GetWaterLevelNoWavesForQuad` | [Resumen](../reversing/DependenciesWorldWaterPath6/validation-summary.json) |
@@ -7911,6 +7930,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CWaterLevel | `RenderFlatWaterRectangle_OneLayer` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CWaterLevel | `RenderFlatWaterTriangle` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CWaterLevel | `RenderFlatWaterTriangle_OneLayer` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
+| CWaterLevel | `RenderHighDetailWaterRectangle` | [Resumen](../reversing/WaterLevel62/validation-summary.json) |
+| CWaterLevel | `RenderHighDetailWaterTriangle` | [Resumen](../reversing/WaterLevel62/validation-summary.json) |
 | CWaterLevel | `RenderWakeSegment` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CWaterLevel | `RenderWater` | [Resumen](../reversing/WaterRender355/validation-summary.json) |
 | CWaterLevel | `RenderWaterFog` | [Resumen](../reversing/WaterFog355/validation-summary.json) |
@@ -7924,6 +7945,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CWaterLevel | `SplitWaterRectangleAlongYLine` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CWaterLevel | `SplitWaterTriangleAlongXLine` | [Resumen](../reversing/GfxWave2/validation-summary-b.json) |
 | CWaterLevel | `SplitWaterTriangleAlongYLine` | [Resumen](../reversing/WaterWave4/validation-summary.json) |
+| CWaterLevel | `TestLineAgainstWater` | [Resumen](../reversing/WaterLevel62/validation-summary.json) |
 | CWaterLevel | `WaterLevelInitialise` | [Resumen](../reversing/WaterWave4/validation-summary.json) |
 | CWeapon | `AddGunshell` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
 | CWeapon | `CanBeUsedFor2Player-Method` | [Resumen](../reversing/PickWeap1/validation-summary.json) |
@@ -8124,7 +8146,14 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | Common | `TransformPoint` | [Resumen](../reversing/DependenciesMathSprite2/validation-summary.json) |
 | Common | `TransformPoints` | [Resumen](../reversing/DependenciesMathSprite2/validation-summary.json) |
 | Common | `WriteRaster` | [Resumen](../reversing/Core9/validation-summary.json) |
+| D3DResourceSystem | `CancelBuffering` | [Resumen](../reversing/D3DResource62/validation-summary.json) |
+| D3DResourceSystem | `CreateIndexBuffer` | [Resumen](../reversing/D3DResource62/validation-summary.json) |
+| D3DResourceSystem | `CreateTexture` | [Resumen](../reversing/D3DResource62/validation-summary.json) |
+| D3DResourceSystem | `DestroyIndexBuffer` | [Resumen](../reversing/D3DResource62/validation-summary.json) |
+| D3DResourceSystem | `DestroyTexture` | [Resumen](../reversing/D3DResource62/validation-summary.json) |
+| D3DResourceSystem | `Init` | [Resumen](../reversing/D3DResource62/validation-summary.json) |
 | D3DResourceSystem | `SetUseD3DResourceBuffering` | [Resumen](../reversing/DependenciesWorld4/validation-summary.json) |
+| D3DResourceSystem | `Shutdown` | [Resumen](../reversing/D3DResource62/validation-summary.json) |
 | D3DResourceSystem | `TidyUpD3DIndexBuffers` | [Resumen](../reversing/Dependencies21F/validation-summary.json) |
 | D3DResourceSystem | `TidyUpD3DTextures` | [Resumen](../reversing/Dependencies21F/validation-summary.json) |
 | FurnitureGroup_c | `AddFurniture` | [Resumen](../reversing/Misc6/validation-summary.json) |
@@ -8878,6 +8907,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CColTrianglePlane` | 2 | 0 | 2 | 0 |
 | `CCollision` | 61 | 0 | 61 | 0 |
 | `CCollisionData` | 8 | 0 | 8 | 0 |
+| `CCollisionEventScanner` | 1 | 0 | 1 | 0 |
 | `CCollisionPlugin` | 2 | 0 | 2 | 0 |
 | `CColourSet` | 2 | 0 | 2 | 0 |
 | `CCompressedMatrixNotAligned` | 2 | 0 | 2 | 0 |
@@ -9063,7 +9093,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `COnscreenTimer` | 6 | 0 | 6 | 0 |
 | `CPPTriPlantBuffer` | 7 | 0 | 7 | 0 |
 | `CPad` | 79 | 0 | 79 | 0 |
-| `CPathFind` | 60 | 0 | 60 | 0 |
+| `CPathFind` | 66 | 0 | 66 | 0 |
 | `CPathNode` | 1 | 0 | 1 | 0 |
 | `CPed` | 149 | 0 | 149 | 0 |
 | `CPedAttractor` | 20 | 0 | 20 | 0 |
@@ -9232,7 +9262,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexFollowLeaderAnyMeans` | 8 | 0 | 8 | 0 |
 | `CTaskComplexFollowLeaderInFormation` | 7 | 0 | 7 | 0 |
 | `CTaskComplexFollowNodeRoute` | 19 | 0 | 19 | 0 |
-| `CTaskComplexFollowPedFootsteps` | 1 | 0 | 1 | 0 |
+| `CTaskComplexFollowPedFootsteps` | 6 | 0 | 6 | 0 |
 | `CTaskComplexFollowPointRoute` | 13 | 0 | 13 | 0 |
 | `CTaskComplexGangFollower` | 8 | 0 | 8 | 0 |
 | `CTaskComplexGangJoinRespond` | 7 | 0 | 7 | 0 |
@@ -9260,7 +9290,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexKillCriminal` | 11 | 0 | 11 | 0 |
 | `CTaskComplexKillPedFromBoat` | 7 | 0 | 7 | 0 |
 | `CTaskComplexKillPedGroupOnFoot` | 9 | 0 | 9 | 0 |
-| `CTaskComplexKillPedOnFoot` | 1 | 0 | 1 | 0 |
+| `CTaskComplexKillPedOnFoot` | 6 | 0 | 6 | 0 |
 | `CTaskComplexKillPedOnFootArmed` | 11 | 0 | 11 | 0 |
 | `CTaskComplexKillPedOnFootMelee` | 10 | 0 | 10 | 0 |
 | `CTaskComplexKillPedOnFootStealth` | 7 | 0 | 7 | 0 |
@@ -9507,7 +9537,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CWanted` | 33 | 0 | 33 | 0 |
 | `CWaterCannon` | 5 | 0 | 5 | 0 |
 | `CWaterCannons` | 4 | 0 | 4 | 0 |
-| `CWaterLevel` | 33 | 0 | 33 | 0 |
+| `CWaterLevel` | 38 | 0 | 38 | 0 |
 | `CWeapon` | 41 | 0 | 41 | 0 |
 | `CWeaponEffects` | 9 | 0 | 9 | 0 |
 | `CWeaponInfo` | 10 | 0 | 10 | 0 |
@@ -9519,7 +9549,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `C_PcSave` | 5 | 0 | 5 | 0 |
 | `CdStream` | 9 | 0 | 9 | 0 |
 | `Common` | 11 | 0 | 11 | 0 |
-| `D3DResourceSystem` | 3 | 0 | 3 | 0 |
+| `D3DResourceSystem` | 10 | 0 | 10 | 0 |
 | `FurnitureGroup_c` | 6 | 0 | 6 | 0 |
 | `FurnitureManager_c` | 7 | 0 | 7 | 0 |
 | `FurnitureSubGroup_c` | 3 | 0 | 3 | 0 |

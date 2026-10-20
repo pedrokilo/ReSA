@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "pairs": 20480,
+  "differences": 0,
+  "registered_pairs": 20480,
+  "registered_functions": 5,
+  "functions": {
+    "CWaterLevel::FillQuadsAndTrianglesList": 4096,
+    "CWaterLevel::GetWaterDepth": 4096,
+    "CWaterLevel::RenderHighDetailWaterRectangle": 4096,
+    "CWaterLevel::RenderHighDetailWaterTriangle": 4096,
+    "CWaterLevel::TestLineAgainstWater": 4096
+  },
+  "covered_functions": {
+    "CWaterLevel::FillQuadsAndTrianglesList": true,
+    "CWaterLevel::GetWaterDepth": true,
+    "CWaterLevel::RenderHighDetailWaterRectangle": true,
+    "CWaterLevel::RenderHighDetailWaterTriangle": true,
+    "CWaterLevel::TestLineAgainstWater": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/we-4 (HEAD 0ac292a76 + fuentes del lote 62). Colaboradores sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL; no se validan sus cuerpos reales): AddToQuadsAndTrianglesList (0x6E5750, sin reconstruir) en FillQuadsAndTrianglesList; CWaterLevel::GetWaterLevelNoWaves (0x6E8580) y GetGroundLevel (0x6EA8A0, sin reconstruir) en GetWaterDepth; CCamera::IsSphereVisible (0x420C40), SetUpWaterFog (0x6EA9F0), RenderHighDetailWaterRectangle_OneLayer (0x6E91D0, sin reconstruir), SplitWaterRectangleAlongXLine (0x6E73A0) y RenderWaterRectangle (0x6EC5D0) en RenderHighDetailWaterRectangle; IsSphereVisible, RenderHighDetailWaterTriangle_OneLayer (0x6E8780, sin reconstruir) y SplitWaterTriangleAlongXLine (0x6ECF00) en RenderHighDetailWaterTriangle. Las funciones de render NO se prueban contra una GPU: se comparan las llamadas a los colaboradores (que son los que escriben vertices y llaman a RenderWare) con sus argumentos exactos, en orden. El lerp (0x6E5280) NO se sustituye: la DLL usa el de WaterLevel.h y el EXE el suyo, y sus resultados se comparan en los argumentos de RenderWaterRectangle; los CRenPar de lerp se generan sin denormales (el SSE del juego vacia los denormales, el x87 no). TestLineAgainstWater y FillQuadsAndTrianglesList se prueban con un atlas de agua sintetico escrito en las tablas reales del juego (guardadas y restauradas en cada caso). Los indices de vertice 0xFFFF leen una ventana de 20 bytes anterior a m_aVertices (guardada y restaurada). GetWaterDepth: cuando GetGroundLevel devuelve true sin escribir, el EXE leeria basura de pila (no se prueba). EAX/ECX/EDX solo registrados; el AL de salida si se compara.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/WaterLevel62-20261020-011525-476082",
+  "summary_sha256": "1f54990d191b8033561a23040abc58a02dc4740bcc10af37f09ec135f8f9c06a",
+  "result_txt_sha256": "410640aa9a7c5570c5cb44918eb529856d42252b04e4999b1fd26276cd363a02",
+  "log_sha256": "debb9f70e529ac69695a35e8b48c7c3e01a63847723c4ec56ec6ce73f56d29d8",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "aeb342e65e6d3dd3215c1e23700d2d3a9260b1f4be71a1ca71c5e4ae13b13f1e",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/game_sa/WaterLevel.cpp": "c12b8faee145744966f9d0bf997af0435cee9c69805c833bee0793a309e42db6",
+      "source/game_sa/WaterLevel.h": "c3199aa76139e05b93b1f76c9ef98e435c2cc231ceb593a0594be2b8ebf2319c",
+      "source/game_sa/X87Math.cpp": "a54c7a4fc93bd013e8d3449f308057608434f546db26379cc3ae26180ddd493b",
+      "source/game_sa/X87Math.h": "18a04173f5b0140f5bd034f2ee61a1e0dfe36331721ce6c2e74bf627b9bdfefe",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/WaterLevel62/LiveComparison.hpp": "9cd1f09e58236513b5fb97e1267f08fb6496f56592d4570bfc034c6f01562645",
+      "reversing/WaterLevel62/Core.hpp": "2f144517c4845436b14f58458cf67bb7cf368f259230b27fd6dafa58a919e6de",
+      "reversing/WaterLevel62/Cases.hpp": "bb241ffa0f5f7215dd03a35a3332dcc487e91425924d6cbaaa60f478e1b96d17",
+      "reversing/WaterLevel62/Fixtures.hpp": "3d5b17d1e3b626e21a7f6dd0102213684383b115a4e7e562357c987f11a46bbd",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

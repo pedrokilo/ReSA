@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "pairs": 20480,
+  "differences": 0,
+  "registered_pairs": 20480,
+  "registered_functions": 5,
+  "functions": {
+    "CTaskComplexFollowPedFootsteps::ControlSubTask": 4096,
+    "CTaskComplexFollowPedFootsteps::CreateSubTask": 4096,
+    "CTaskComplexFollowPedFootsteps::CreateNextSubTask": 4096,
+    "CTaskComplexFollowPedFootsteps::CreateFirstSubTask": 4096,
+    "CTaskComplexFollowPedFootsteps::MakeAbortable": 4096
+  },
+  "covered_functions": {
+    "CTaskComplexFollowPedFootsteps::ControlSubTask": true,
+    "CTaskComplexFollowPedFootsteps::CreateSubTask": true,
+    "CTaskComplexFollowPedFootsteps::CreateNextSubTask": true,
+    "CTaskComplexFollowPedFootsteps::CreateFirstSubTask": true,
+    "CTaskComplexFollowPedFootsteps::MakeAbortable": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/we-2 (HEAD 0ac292a76 + las cinco funciones de CTaskComplexFollowPedFootsteps y la entrada de compilacion por archivo de TaskComplexFollowPedFootsteps.cpp en source/CMakeLists.txt: /O2 /Oi /arch:IA32 /fp:fast /Zi).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/FollowFootsteps62-20261020-011057-590170",
+  "summary_sha256": "27611f25c100d54b6daafd44ce955be178552617405c69704995e3059dc67d86",
+  "result_txt_sha256": "d77f81f5b785c150f693f2c2aeedffe031c577868573edfd780fa89448b1cf26",
+  "log_sha256": "2e1bee0df24fbb5b732d56e90f7182f4c2b883bdfcb39ead1a7cb821757f1a11",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "dee2783f197008c479f3baa3691f1567f81f33aaa54f429dda39d67b4a3ea897",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp": "4e3e1f20b5f596926bddba01980c14e5cd57648768c6bf4034e05e0780d2e61f",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.h": "3bbb2f813aa745b1a94fc59be5324d308c11036f6a01b0689d81e549a250d93b",
+      "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+      "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
+      "source/game_sa/Tasks/Task.cpp": "d700418e6a00f573db2dc824d4a6d0bd325136ddf4f208589b74aef3d5f083c8",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp": "ecf60ff4f3431570d6dbaadf89d3edc5e76d457ccf16751f8b33339a345f67d6",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2f9cb5c6c456a1e72832973a6f4575cb00329ba46a16f0683d9ec0bf5d067e9d",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleHitHead.cpp": "e998b4659c758823ec124d6f14918bf2b4a4b8c57e46c69443e68907d30d1d3b",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "4ff179753854f13c4ecb0f03f265c3329f2fe4f62720afabe2e74dc2d4bbad90",
+      "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
+      "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+      "source/game_sa/World.cpp": "0066108864b6c6c3aa13ac5a68da99749b177bd94605ebc3a2c14580018340bd",
+      "source/game_sa/Core/Vector.cpp": "79876b134e317dba1705147a63e44c0404317244f7e43e1e4eb749005ef27e96",
+      "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/FollowFootsteps62/LiveComparison.hpp": "313fa4c748d2b03bcab0408d365c6cc2f04e03fe2d1b470957a92ffa1aac8d07",
+      "reversing/FollowFootsteps62/Core.hpp": "17bb13f42c23164d46035491e9b0b595b7ff6a1ac1fdd56a478c05047e1501bb",
+      "reversing/FollowFootsteps62/Fixtures.hpp": "0950c01c8942211cf30e321851fa1b173487fe27643e04e2f9a3451e3384d711",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

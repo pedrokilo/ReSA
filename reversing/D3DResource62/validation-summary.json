@@ -1,0 +1,56 @@
+{
+  "passed": true,
+  "pairs": 28672,
+  "differences": 0,
+  "registered_pairs": 28672,
+  "registered_functions": 7,
+  "functions": {
+    "D3DResourceSystem::CancelBuffering": 4096,
+    "D3DResourceSystem::CreateIndexBuffer": 4096,
+    "D3DResourceSystem::CreateTexture": 4096,
+    "D3DResourceSystem::DestroyIndexBuffer": 4096,
+    "D3DResourceSystem::DestroyTexture": 4096,
+    "D3DResourceSystem::Init": 4096,
+    "D3DResourceSystem::Shutdown": 4096
+  },
+  "covered_functions": {
+    "D3DResourceSystem::CancelBuffering": true,
+    "D3DResourceSystem::CreateIndexBuffer": true,
+    "D3DResourceSystem::CreateTexture": true,
+    "D3DResourceSystem::DestroyIndexBuffer": true,
+    "D3DResourceSystem::DestroyTexture": true,
+    "D3DResourceSystem::Init": true,
+    "D3DResourceSystem::Shutdown": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/we-5 (HEAD 0ac292a76 + fuente del lote 62). NO se inicializa ni se destruye el dispositivo D3D real: durante cada llamada _RwD3DDevice (0xC97C28) apunta a un dispositivo falso y todos los recursos (texturas e index buffers) son objetos COM falsos con tablas de metodos propias (Release, GetLevelCount, GetLevelDesc, GetDesc, CreateTexture, CreateIndexBuffer); el estado real de las caches (0xC87C60..0xC87FE8 y el byte 0x8D6084) se guarda antes de cada lado, se sustituye por el del caso y se restaura justo despues. Colaboradores del EXE sin reconstruir sustituidos por falsos identicos en ambos lados (no se validan sus cuerpos reales): D3DTextureBuffer::Pop (0x72FF60), Setup (0x72FE80), Push (0x72FFF0), PushWithoutIncreasingCounter (0x730AD0), Resize (0x730020), D3DIndexDataBuffer::Pop (0x730270), Resize (0x730330) y el new/delete del EXE (0x82119A / 0x8214BD, solo en el hilo del banco y con la ventana armada; fuera de ella reenvian al codigo real). Los falsos de Resize solo cambian la capacidad segun el modo del caso; los de Pop devuelven el recurso del caso sin sacarlo de la pila. Init, Shutdown y CancelBuffering se ejercitan con pilas/recursos falsos (nunca con los reales del juego). EAX/ECX/EDX solo registrados, salvo EAX (HRESULT) de CreateTexture y CreateIndexBuffer, que los llamadores del EXE (0x4CB935, 0x4CD9FE, 0x4C997C) si leen. No se prueba CreateIndexBuffer con numIndices >= 0x80000001 (grupo negativo: el EXE indexa fuera del arreglo).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/D3DResource62-20261020-011728-861645",
+  "summary_sha256": "f8ba7b299e9a4ccd4ec17b6f93d402ceb4c43148edc20a7e9a40183a3e766601",
+  "result_txt_sha256": "057f7d7d4b79d77e33711028563291effe5ef8c0d4f39532461d078a1b95ee4b",
+  "log_sha256": "bec2f53626be3140b8de752de7d10a66b47aaa8af9a8feb3ab2cca00f8badec7",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "312e31ab199e499df45d52d85b75121c2f13694feaaf9ef40ee6e02a80c3b4b6",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
+      "source/game_sa/RenderWare/D3DResourceSystem.cpp": "3aa1530d1ab0627ad3f141a9e6b548c90e2994e6ecdff00015ab31c465421e25",
+      "source/game_sa/RenderWare/D3DResourceSystem.h": "8c5f48b2eafc4f2d8bc3e17076c68a5cc5a4a56781f803be492e522e3cdf249c",
+      "source/game_sa/RenderWare/D3DTextureBuffer.cpp": "cd912fe5906fc0e8c9aa290c80dd6ddb4f131822a4177cb829987c3c362ef33d",
+      "source/game_sa/RenderWare/D3DTextureBuffer.h": "c2e8c435d3fa9b7869483c2be90252caa411e71f9eb8d944bf28c625cb4bd3d6",
+      "source/game_sa/RenderWare/D3DIndexDataBuffer.cpp": "cd912fe5906fc0e8c9aa290c80dd6ddb4f131822a4177cb829987c3c362ef33d",
+      "source/game_sa/RenderWare/D3DIndexDataBuffer.h": "9741408d35194a224bf796f47ddde649e3a61dcccf523f2716a3386000d3971b",
+      "source/game_sa/MemoryMgr.cpp": "8edba44feb8e34f5567afbf09d045c3a8b97579290277cd043cef4c04be95ebd",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/D3DResource62/LiveComparison.hpp": "a0ca471c272f8ef391c3f8e62439cdbf7b8c1c10891449b5f297647c16e3c181",
+      "reversing/D3DResource62/Core.hpp": "777c1109dc7bd0df1af23b44d28af1d94fa1405439c9ffd3474b2a03397d84c4",
+      "reversing/D3DResource62/Fixtures.hpp": "46875d782b8a6d82cf168469fbb8c56a93f0f7f39dfa011508c92e9d80e1f710",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

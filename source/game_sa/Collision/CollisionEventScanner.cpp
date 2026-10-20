@@ -1,8 +1,311 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CCollisionEventScanner
+ * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 1/1 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 #include "StdInc.h"
 
 #include "CollisionEventScanner.h"
 
-void CCollisionEventScanner::ScanForCollisionEvents(CPed* victim, CEventGroup* eventGroup)
-{
-    plugin::CallMethod<0x604500, CCollisionEventScanner*, CPed*, CEventGroup*>(this, victim, eventGroup);
+#include "Entity/Ped/Ped.h"
+#include "Entity/Vehicle/Vehicle.h"
+#include "Entity/Object/Object.h"
+#include "Entity/Building.h"
+#include "Collision/ColModel.h"
+#include "Events/EventGroup.h"
+#include "Events/EventDamage.h"
+#include "Events/EventVehicleCollision.h"
+#include "Events/EventPedCollisionWithPed.h"
+#include "Events/EventPedCollisionWithPlayer.h"
+#include "Events/EventPlayerCollisionWithPed.h"
+#include "Events/EventObjectCollision.h"
+#include "Events/EventBuildingCollision.h"
+#include "Events/EventSoundQuiet.h"
+#include "Events/EventAcquaintancePedHate.h"
+#include "PedDamageResponseCalculator.h"
+#include "PedGeometryAnalyser.h"
+#include "PedIntelligence.h"
+#include "PedClothesDesc.h"
+#include "PlayerPedData.h"
+#include "PedType.h"
+#include "Tasks/TaskTypes/TaskSimpleGoTo.h"
+#include "Weapon.h"
+#include "General.h"
+#include "Timer.h"
+#include "RwHelper.h"
+#include "X87Math.h"
+
+void CCollisionEventScanner::InjectHooks() {
+    RH_ScopedClass(CCollisionEventScanner);
+    RH_ScopedCategoryGlobal();
+
+    RH_ScopedInstall(ScanForCollisionEvents, 0x604500);
+}
+
+namespace {
+// Tiempos de la ultima senal de ruido (estaticos del original: 0xC0B1B0 y 0xC0B1B4)
+auto& s_lastNoiseTimeA = StaticRef<uint32>(0xC0B1B0);
+auto& s_lastNoiseTimeB = StaticRef<uint32>(0xC0B1B4);
+
+// 0x40FDB0 (producto escalar en el orden del EXE: (a.z*b.z + a.y*b.y) + a.x*b.x; cada operacion se redondea a float)
+float Dot(const CVector& a, const CVector& b) {
+    const float z = a.z * b.z;
+    const float y = a.y * b.y;
+    const float x = a.x * b.x;
+    return (z + y) + x;
+}
+
+// 0x59C890 (matriz * vector en el orden del EXE)
+CVector TransformPoint(const CMatrix& m, const CVector& v) {
+    CVector r;
+    r.x = (((m.GetUp().x * v.z) + (m.GetForward().x * v.y)) + (m.GetRight().x * v.x)) + m.GetPosition().x;
+    r.y = (((m.GetUp().y * v.z) + (m.GetRight().y * v.x)) + (m.GetForward().y * v.y)) + m.GetPosition().y;
+    r.z = (((m.GetUp().z * v.z) + (m.GetRight().z * v.x)) + (m.GetForward().z * v.y)) + m.GetPosition().z;
+    return r;
+}
+
+// _ftol2 (0x821B40): float -> int64 truncado; solo se usa el dword bajo
+int32 FtolLow(float value) {
+    return static_cast<int32>(static_cast<int64>(value));
+}
+
+// Producto punto del impacto con el desplazamiento de la animacion: (y*sy) + (x*sx)
+float ImpactDotMoveShift(const CPed* ped) {
+    const float y = ped->m_vecLastCollisionImpactVelocity.y * ped->m_vecAnimMovingShift.y;
+    const float x = ped->m_vecLastCollisionImpactVelocity.x * ped->m_vecAnimMovingShift.x;
+    return y + x;
+}
+
+// 0x420800 con a = 0: max(0, value) (el segundo si no es mayor, tambien con NaN)
+float ClampBelowZero(float value) {
+    return (0.0f > value) ? 0.0f : value;
+}
+
+// Evento de dano por atropello con el peaton sujeto a un vehiculo (bloque repetido en el original, 0x604925 y 0x604A17)
+void DamageFromAttachedVehicle(CPed* victim, CVehicle* vehicle) {
+    const int32 hitSide         = CPedGeometryAnalyser::ComputePedHitSide(*victim, *vehicle);
+    const float damageIntensity = victim->m_fDamageIntensity;
+    CPedDamageResponseCalculator calculator{ vehicle, damageIntensity, WEAPON_RAMMEDBYCAR, static_cast<ePedPieceTypes>(3), false };
+    CEventDamage event{ vehicle, CTimer::GetTimeInMS(), WEAPON_RAMMEDBYCAR, static_cast<ePedPieceTypes>(3), static_cast<uint8>(hitSide), false, victim->bInVehicle };
+    if (event.AffectsPed(victim)) {
+        calculator.ComputeDamageResponse(victim, event.m_damageResponse, true);
+    }
+}
+} // namespace
+
+// 0x604500
+// Como el original (x87 a 24 bits: cada operacion se redondea a float; los atan2 usan los ayudantes de X87Math). Busca el evento de colision que corresponde a la
+// entidad que ha danado al peaton (edificio, vehiculo, peaton u objeto) y lo anade al grupo; al final siempre borra m_bAlreadyHitByCar.
+void CCollisionEventScanner::ScanForCollisionEvents(CPed* victim, CEventGroup* eventGroup) {
+    CEntity* const damager = victim->m_pDamageEntity;
+    // 0x604523: se sale con entidad nula o intensidad exactamente 0 (con NaN sigue)
+    if (damager && victim->m_fDamageIntensity != 0.0f) {
+        CTask* const     task      = victim->GetIntelligence()->GetTaskManager().GetSimplestActiveTask();
+        const eMoveState moveState = (task && CTask::IsGoToTask(task)) ? static_cast<CTaskSimpleGoTo*>(task)->m_moveState : PEDMOVE_STILL;
+
+        const auto Piece = [&] { return static_cast<int16>(victim->m_nPieceType); };
+
+        switch (damager->GetType()) {
+        case ENTITY_TYPE_BUILDING: {
+            CEventBuildingCollision event{ Piece(), victim->m_fDamageIntensity, static_cast<CBuilding*>(damager), victim->m_vecLastCollisionImpactVelocity, victim->m_vecLastCollisionPosn, static_cast<int16>(moveState) };
+            eventGroup->Add(&event, false);
+            break;
+        }
+        case ENTITY_TYPE_VEHICLE: {
+            if (m_bAlreadyHitByCar) {
+                break;
+            }
+            auto* const    vehicle = static_cast<CVehicle*>(damager);
+            const CVector& speed   = vehicle->m_vecMoveSpeed;
+            const float    speedSq = (speed.x * speed.x + speed.y * speed.y) + speed.z * speed.z; // 0x406DA0
+            // 0x86C920 / 0x86C924 (con y sin vehiculo remolcado): el mismo valor, 0x3B23D70B (un ulp por encima de 0.0025f)
+            constexpr float kSpeedLimitSq = std::bit_cast<float>(0x3B23D70Bu);
+
+            // 0x6045D8: tren con la colision de fuerza desactivada contra un peaton quieto y atascado
+            if (vehicle->m_nVehicleSubType == VEHICLE_TYPE_TRAIN && (vehicle->m_nPhysicalFlags & 4) && victim->m_bIsStuck && victim->bIsStanding && !victim->m_standingOnEntity
+                && speedSq > 0.0001f) {
+                victim->KillPedWithCar(vehicle, 15.0f, false);
+            }
+
+            if (speedSq > kSpeedLimitSq) {
+                // 0x604637
+                float damage = victim->m_fDamageIntensity;
+                if (victim->bIsStanding) {
+                    const float dot = ImpactDotMoveShift(victim);
+                    if (dot < 0.0f) {
+                        const float value = dot * victim->m_fMass + damage;
+                        damage            = ClampBelowZero(value);
+                    }
+                }
+                if (victim->IsPlayer()) {
+                    if (damage > 20.0f) {
+                        damage = 20.0f;
+                    }
+                    const float   heading = vehicle->GetHeading();
+                    const CVector boxMin  = vehicle->GetColModel()->m_boundBox.m_vecMin;
+                    const CVector boxMax  = vehicle->GetColModel()->m_boundBox.m_vecMax;
+                    const CVector sum{ boxMin.x + boxMax.x, boxMin.y + boxMax.y, boxMax.z + boxMin.z };
+                    const float   half = 1.0f / 2.0f; // 0x4119D0: 1.0 / 2.0
+                    const CVector halfSum{ sum.x * half, sum.y * half, sum.z * half };
+                    const CVector center = TransformPoint(*vehicle->m_matrix, halfSum);
+
+                    const CVector toCenter = center - victim->GetPosition();
+                    const float   relative = CGeneral::LimitRadianAngle(Atan2FromCpp(-toCenter.x, toCenter.y, heading));
+                    const float   boxAngle = TrigAtan2Cpp(boxMax.x - boxMin.x, boxMax.y - boxMin.y);
+
+                    CVector away = victim->GetPosition() - vehicle->GetPosition();
+                    away.Normalise();
+
+                    const float absRelative = std::fabs(relative);
+                    float       value;
+                    if (absRelative < boxAngle || absRelative > (3.1415927f - boxAngle)) {
+                        // 0x6048DF: impacto de frente o por detras: componente de la velocidad en la direccion de alejamiento
+                        value = (away.y * speed.y + away.z * speed.z) + away.x * speed.x;
+                    } else if (relative > 0.0f) {
+                        const CVector negRight{ -1.0f * vehicle->m_matrix->GetRight().x, -1.0f * vehicle->m_matrix->GetRight().y, -1.0f * vehicle->m_matrix->GetRight().z };
+                        value = Dot(negRight, speed);
+                    } else {
+                        // 0x604886: la comprobacion contra el vector adelante del peaton (0x6048BE) no cambia el resultado
+                        value = Dot(vehicle->m_matrix->GetRight(), speed);
+                    }
+                    if (value > 0.1f) {
+                        victim->KillPedWithCar(vehicle, damage, false);
+                    }
+                } else {
+                    // 0x604925
+                    if (victim->m_pAttachedTo && victim->m_pAttachedTo->GetType() == ENTITY_TYPE_VEHICLE) {
+                        DamageFromAttachedVehicle(victim, vehicle);
+                    } else {
+                        victim->KillPedWithCar(vehicle, victim->m_fDamageIntensity, false);
+                    }
+                }
+            } else {
+                // 0x604A17
+                if (victim->m_pAttachedTo && victim->m_pAttachedTo->GetType() == ENTITY_TYPE_VEHICLE) {
+                    DamageFromAttachedVehicle(victim, vehicle);
+                } else if (!victim->IsPlayer()) {
+                    const eMoveState victimMove = victim->GetIntelligence()->GetMoveStateFromGoToTask();
+                    CEventVehicleCollision event{ Piece(), victim->m_fDamageIntensity, vehicle, victim->m_vecLastCollisionImpactVelocity, victim->m_vecLastCollisionPosn, static_cast<int8>(victimMove), 0 };
+                    eventGroup->Add(&event, false);
+                }
+            }
+            break;
+        }
+        case ENTITY_TYPE_PED: {
+            auto* const      other     = static_cast<CPed*>(damager);
+            const eMoveState otherMove = other->GetIntelligence()->GetMoveStateFromGoToTask();
+            const CVector&   impactVel = victim->m_vecLastCollisionImpactVelocity;
+            const CVector&   impactPos = victim->m_vecLastCollisionPosn;
+            if (victim->IsPlayer()) {
+                CEventPlayerCollisionWithPed event{ Piece(), victim->m_fDamageIntensity, other, impactVel, impactPos, moveState, otherMove };
+                eventGroup->Add(&event, false);
+                other->Say(static_cast<eGlobalSpeechContext>(0x1C), 0, 1.0f, false, false, false);
+            } else if (other->IsPlayer()) {
+                CEventPedCollisionWithPlayer event{ Piece(), victim->m_fDamageIntensity, other, impactVel, impactPos, moveState, otherMove };
+                eventGroup->Add(&event, false);
+                victim->GetIntelligence()->IncrementAngerAtPlayer(1);
+                victim->Say(static_cast<eGlobalSpeechContext>(0x1C), 0, 1.0f, false, false, false);
+                const uint32 hated = victim->m_acquaintance.GetAcquaintances(ACQUAINTANCE_HATE);
+                if (hated & CPedType::GetPedFlag(other->m_nPedType)) {
+                    CEventAcquaintancePedHate hate{ other };
+                    eventGroup->Add(&hate, false);
+                }
+            } else {
+                CEventPedCollisionWithPed event{ Piece(), victim->m_fDamageIntensity, other, impactVel, impactPos, moveState, otherMove };
+                eventGroup->Add(&event, false);
+            }
+
+            // 0x604D3E: el otro peaton, si no ha sido danado por nadie, recibe el evento inverso (con el impacto invertido)
+            if (other->m_pDamageEntity) {
+                break;
+            }
+            const CVector reverseVel{ impactVel.x * -1.0f, impactVel.y * -1.0f, impactVel.z * -1.0f };
+            CEventGroup&  otherGroup = other->GetIntelligence()->GetEventGroup();
+            if (other->IsPlayer()) {
+                CEventPlayerCollisionWithPed event{ Piece(), victim->m_fDamageIntensity, victim, reverseVel, impactPos, moveState, otherMove };
+                otherGroup.Add(&event, false);
+            } else if (victim->IsPlayer()) {
+                CEventPedCollisionWithPlayer event{ Piece(), victim->m_fDamageIntensity, victim, reverseVel, impactPos, moveState, otherMove };
+                otherGroup.Add(&event, false);
+                other->GetIntelligence()->IncrementAngerAtPlayer(1);
+                const uint32 hated = other->m_acquaintance.GetAcquaintances(ACQUAINTANCE_HATE);
+                if (hated & CPedType::GetPedFlag(victim->m_nPedType)) {
+                    CEventAcquaintancePedHate hate{ victim };
+                    other->GetIntelligence()->GetEventGroup().Add(&hate, false);
+                }
+            } else {
+                CEventPedCollisionWithPed event{ Piece(), victim->m_fDamageIntensity, victim, reverseVel, impactPos, moveState, otherMove };
+                otherGroup.Add(&event, false);
+            }
+            break;
+        }
+        case ENTITY_TYPE_OBJECT: {
+            auto* const object   = static_cast<CObject*>(damager);
+            const bool  standing = victim->bIsStanding;
+            float       damage   = victim->m_fDamageIntensity;
+            if (standing && !object->GetIsStatic()) {
+                const float dot = ImpactDotMoveShift(victim);
+                if (dot < 0.0f) {
+                    const float value = dot * victim->m_fMass + damage;
+                    damage            = ClampBelowZero(value);
+                }
+            }
+            const float limit = victim->GetPlayerData() ? 2.0f : 1.0f; // 0x8D23AC / 0x8D23B0
+            if (damage > limit && !object->GetIsStatic() && standing && damager != victim->m_pContactEntity
+                && !(object->m_pAttachedTo && damager == object->m_pAttachedTo)) {
+                // 0x605036: golpe fuerte contra un objeto suelto: dano por caida con la direccion local inversa al impacto
+                damage = damage / limit * 10.0f;
+                const int32 direction = victim->GetLocalDirection(CVector2D{ -victim->m_vecLastCollisionImpactVelocity.x, -victim->m_vecLastCollisionImpactVelocity.y });
+                CWeapon::GenerateDamageEvent(victim, victim->m_pDamageEntity, WEAPON_FALL, FtolLow(damage), static_cast<ePedPieceTypes>(3), static_cast<uint8>(direction));
+                victim->m_pEntityIgnoredCollision = victim->m_pDamageEntity;
+            } else {
+                CEventObjectCollision event{ Piece(), victim->m_fDamageIntensity, object, victim->m_vecLastCollisionImpactVelocity, victim->m_vecLastCollisionPosn, static_cast<int16>(moveState) };
+                eventGroup->Add(&event, false);
+            }
+            break;
+        }
+        default:
+            break;
+        }
+
+        // 0x60515F: jugador con pasamontanas que choca contra un edificio u objeto: ruido silencioso
+        if (CPlayerPedData* const playerData = victim->GetPlayerData()) {
+            const eEntityType hitType = victim->m_pDamageEntity->GetType();
+            if ((hitType == ENTITY_TYPE_BUILDING || hitType == ENTITY_TYPE_OBJECT) && playerData->m_pPedClothesDesc->GetIsWearingBalaclava()) {
+                auto* const hit       = static_cast<CPhysical*>(victim->m_pDamageEntity);
+                float       level     = 0.0f;
+                bool        makeNoise = false;
+                if (hit->GetIsTypePhysical() && (hit->m_nPhysicalFlags & 0x20)) {
+                    if (std::fabs(hit->m_vecTurnSpeed.z) > 0.04f && CTimer::GetTimeInMS() > s_lastNoiseTimeB + 2000) {
+                        level            = 40.0f;
+                        s_lastNoiseTimeB = CTimer::GetTimeInMS();
+                        makeNoise        = true;
+                    }
+                } else if (victim->m_fDamageIntensity > 1.0f && CTimer::GetTimeInMS() > s_lastNoiseTimeA + 1000) {
+                    level            = (victim->m_fDamageIntensity > 3.0f) ? 40.0f : 30.0f;
+                    s_lastNoiseTimeA = CTimer::GetTimeInMS();
+                    makeNoise        = level > 0.0f;
+                }
+                if (makeNoise) {
+                    const CVector origin{ 0.0f, 0.0f, 0.0f };
+                    CEventSoundQuiet event{ victim, level, static_cast<uint32>(-1), origin };
+                    GetEventGlobalGroup()->Add(&event, false);
+                }
+            }
+        }
+    }
+    m_bAlreadyHitByCar = false;
 }

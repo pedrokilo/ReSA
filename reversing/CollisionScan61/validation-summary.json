@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CCollisionEventScanner::ScanForCollisionEvents": 4096
+  },
+  "covered_functions": {
+    "CCollisionEventScanner::ScanForCollisionEvents": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wd-3 (HEAD d349867fb + estos cambios; ver source.patch). Colaboradores sustituidos por falsos identicos en ambos lados y comparados en orden y argumentos: CEventGroup::Add, CTaskManager::GetSimplestActiveTask, CTask::IsGoToTask, CPedIntelligence::GetMoveStateFromGoToTask/IncrementAngerAtPlayer, CEntity::GetColModel/RegisterReference/CleanUpOldReference, CPed::IsPlayer/KillPedWithCar/Say/GetLocalDirection, CPlaceable::GetHeading, CGeneral::LimitRadianAngle, CVector::Normalise (por V*0.5), CEventDamage::AffectsPed (volcado del evento), CPedDamageResponseCalculator::ComputeDamageResponse, CPedGeometryAnalyser::ComputePedHitSide, CAcquaintance::GetAcquaintances, CPedType::GetPedFlag, CPedClothesDesc::GetIsWearingBalaclava, CWeapon::GenerateDamageEvent. Reales en ambos lados: constructores/destructores de eventos y del calculador, CEntity::GetIsStatic/GetIsTypePhysical, GetEventGlobalGroup y la aritmetica de vectores (el EXE ejecuta 0x406DA0/0x40FE60/0x40FE90/0x40FDB0/0x4119D0/0x59C890 y la DLL las operaciones equivalentes en C++). No se validan los cuerpos reales de los colaboradores sustituidos. Los fixtures evitan valores cuyos productos salen del rango de float (el x87 conserva exponente extendido) y denormales. EAX/ECX/EDX solo registrados: el unico llamador del EXE (CPedIntelligence::Process, 0x6073D7) no los lee.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/CollisionScan61-20261020-012111-565491",
+  "summary_sha256": "77ffe0d13f292a6e48f301b42ae7ea641d157cfb03f838c3fa09124ea225b974",
+  "result_txt_sha256": "192fc3b7f2c7de31f8c8f9dbf7db74aec1c17eb44793cd8429dbf9b21a66e110",
+  "log_sha256": "e8046b3d92d2426fc705f015ed9d2826ccddeb60ba68d8f40b94e127eabe3eda",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "098b241a06abd11004b810f76b11f4ad8d2dcf0d47a981b4a1cd033405ebf37c",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
+      "source/game_sa/Collision/CollisionEventScanner.cpp": "119d51b181eabe80b7b4810db33db76e07f05bfaea9e0741b0450da7fb8b8036",
+      "source/game_sa/Collision/CollisionEventScanner.h": "faf1be848806f18188a173620ed9d50aa9ab6a84bee8395bcd8dcfad8cc4fc37",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/CollisionScan61/LiveComparison.hpp": "a0816dfcf381ae577d677cd11350ed30dde0b5ba76c10ef0254853bdc7f542e4",
+      "reversing/CollisionScan61/Core.hpp": "7e55267bb158fd085017288b4fc0f00040f348782c0aac10013b9f6278f0f5c3",
+      "reversing/CollisionScan61/Fixtures.hpp": "ead983e9732e45806073de0db636b401dc37bd4c1079bc63f33dff921ecebe00",
+      "reversing/CollisionScan61/CaseColl.hpp": "81fc8f9eecc8d77a3a7655b2323afe24b88af61d95bfa9192d69c6b71b6ed42a",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

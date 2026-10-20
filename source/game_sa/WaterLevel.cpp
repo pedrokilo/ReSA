@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CWaterLevel
- * Reconstrucción: COMPLETA — 33/33 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 38/38 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 33/33 entradas.
+ * Validación registrada: 38/38 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -72,6 +72,12 @@ void CWaterLevel::InjectHooks() {
     RH_ScopedGlobalInstall(RenderWater, 0x6EF650);
     RH_ScopedGlobalInstall(AddWaveToResult, 0x6E81E0);
     RH_ScopedGlobalInstall(SetCameraRange, 0x6E9C80);
+
+    RH_ScopedGlobalInstall(FillQuadsAndTrianglesList, 0x6E7B30);
+    RH_ScopedGlobalInstall(GetWaterDepth, 0x6EA960);
+    RH_ScopedGlobalInstall(RenderHighDetailWaterRectangle, 0x6EB810);
+    RH_ScopedGlobalInstall(RenderHighDetailWaterTriangle, 0x6EDDC0);
+    RH_ScopedGlobalInstall(TestLineAgainstWater, 0x6E61B0);
 }
 
 // NOTSA (codigo de 0x6EAEB9..0x6EB5E9). Transcripcion de la lectura de water.dat del EXE, que usa el sscanf del CRT del EXE (0x8220AD).
@@ -719,8 +725,51 @@ void CWaterLevel::RenderFlatWaterRectangle_OneLayer(int32 minX, int32 maxX, int3
     nIdx += 6;
 }
 
+// 0x6EB810
 void CWaterLevel::RenderHighDetailWaterRectangle(int32 minX, int32 maxX, int32 Y1, int32 Y2, CRenPar P1, CRenPar P2, CRenPar P3, CRenPar P4) {
-    plugin::Call<0x6EB810>(minX, maxX, Y1, Y2, P1, P2, P3, P4);
+    // Como el original (0x6EB827..0x6EB8DC): esfera de visibilidad con centro ((minX + maxX) / 2, (Y1 + Y2) / 2, P1.z) y radio sqrt(hy^2 + hx^2) (x87 de 24 bits en X87Math).
+    float center[3], radius;
+    Water62RectSphereCpp(minX, maxX, Y1, Y2, center, &radius);
+    center[2] = P1.z;
+    // Como el original (0x6EB8A5..0x6EB8D6): IsSphereVisible con la matriz inversa de la camara y, si el espejo esta activo (0xB6F998), con la del espejo (0xB6FABC).
+    if (!TheCamera.IsSphereVisible(CVector{ center[0], center[1], center[2] }, radius)) {
+        return;
+    }
+
+    // Como el original (0x6EB8DC..0x6EB93C): el menor de Y1 / Y2 va a un lado y el mayor a otro (con Y1 == Y2 el mayor es Y1), mitades con division truncada y productos con envoltura.
+    const int32 minY = Y1 < Y2 ? Y1 : Y2;
+    const int32 maxY = Y1 < Y2 ? Y2 : Y1;
+    const int32 halfX = int32(uint32(maxX) - uint32(minX)) / 2;
+    const int32 halfY = int32(uint32(maxY) - uint32(minY)) / 2;
+    const int32 twiceArea = int32(uint32(halfY) * uint32(halfX) * 2u);
+    const int32 triangular = int32(uint32(halfY + 1) * uint32(halfX + 1));
+    if (int32(uint32(twiceArea) * 3u) < 0x1000 && triangular < 0x800) {
+        // Como el original (0x6EB948..0x6EBB07): primero SetUpWaterFog, luego las dos capas.
+        SetUpWaterFog(minX, minY, maxX, maxY);
+        for (int32 layer = 0; layer < 2; ++layer) {
+            plugin::Call<0x6E91D0, int32, int32, int32, int32, CRenPar, CRenPar, CRenPar, CRenPar, int32, int32, int32, int32, int32>(
+                minX, maxX, Y1, Y2, P1, P2, P3, P4, layer, twiceArea, triangular, halfX, halfY);   // RenderHighDetailWaterRectangle_OneLayer (sin reconstruir)
+        }
+        return;
+    }
+    if (halfX > halfY) {   // Como el original (0x6EBB08..0x6EBBDB): rectangulo ancho -> se parte en X
+        SplitWaterRectangleAlongXLine(minX + (halfX / 2) * 2, minX, maxX, Y1, Y2, P1, P2, P3, P4);
+        return;
+    }
+    // Como el original (0x6EBBDC..0x6EBEBA): parte en Y (el codigo de SplitWaterRectangleAlongYLine va en linea): t = fild(splitY - Y1) / fidiv(Y2 - Y1) redondeado a float
+    // y las dos mitades se pintan con RenderWaterRectangle. Los dos lerp se repiten para la segunda mitad (son puros).
+    const int32 splitY = minY + (halfY / 2) * 2;
+    const float t = Water62SplitRatioCpp(int32(uint32(splitY) - uint32(Y1)), int32(uint32(Y2) - uint32(Y1)));
+    {
+        const CRenPar P13 = lerp(P1, P3, t);
+        const CRenPar P24 = lerp(P2, P4, t);
+        RenderWaterRectangle(minX, maxX, Y1, splitY, P1, P2, P13, P24);
+    }
+    {
+        const CRenPar P13 = lerp(P1, P3, t);
+        const CRenPar P24 = lerp(P2, P4, t);
+        RenderWaterRectangle(minX, maxX, splitY, Y2, P13, P24, P3, P4);
+    }
 }
 
 // 0x6E73A0
@@ -935,10 +984,20 @@ bool CWaterLevel::GetWaterLevelNoWaves(CVector pos, float * pOutWaterLevel, floa
     return false;
 }
 
+// 0x6EA960
 bool CWaterLevel::GetWaterDepth(const CVector& vecPos, float* pOutWaterDepth, float* pOutWaterLevel, float* pOutGroundLevel)
 {
-    return plugin::CallAndReturn<bool, 0x6EA960, const CVector&, float*, float*, float*>
-        (vecPos, pOutWaterDepth, pOutWaterLevel, pOutGroundLevel);
+    // Como el original (0x6EA96C..0x6EA97F): GetWaterLevelNoWaves(x, y, z, &nivel, nullptr, nullptr). El nivel se recibe en la ranura de pila del primer argumento del EXE
+    // (que antes contenia el puntero vecPos): si el colaborador devuelve true sin escribirlo, el EXE lee esos bits.
+    uint32 levelSlot = uint32(uintptr_t(&vecPos));
+    if (!GetWaterLevelNoWaves(CVector{ vecPos.x, vecPos.y, vecPos.z }, reinterpret_cast<float*>(&levelSlot), nullptr, nullptr)) {
+        return false;
+    }
+    // Como el original (0x6EA986..0x6EA998): GetGroundLevel(&vecPos, &suelo, nullptr, 30.0f) (0x6EA8A0, sin reconstruir); si falla se usa -100.0f (0x859014).
+    float groundSlot{};
+    const bool foundGround = plugin::CallAndReturn<bool, 0x6EA8A0, const CVector*, float*, void*, float>(&vecPos, &groundSlot, nullptr, 30.0f);
+    Water62DepthStoreCpp(&levelSlot, foundGround ? &groundSlot : nullptr, pOutWaterDepth, reinterpret_cast<uint32*>(pOutWaterLevel), pOutGroundLevel);
+    return true;
 }
 
 // 0x6E7760
@@ -1147,8 +1206,31 @@ void CWaterLevel::ScanThroughBlocks() {
     CWorldScan::ScanWorld(scanPts, 5, BlockHit);
 }
 
+// 0x6EDDC0
 void CWaterLevel::RenderHighDetailWaterTriangle(int32 X1, int32 Y1, CRenPar P1, int32 X2, int32 Y2, CRenPar P2, int32 X3, int32 Y3, CRenPar P3) {
-    plugin::CallAndReturn<void, 0x6EDDC0, int32, int32, CRenPar, int32, int32, CRenPar, int32, int32, CRenPar>(X1, Y1, P1, X2, Y2, P2, X3, Y3, P3);
+    // Como el original (0x6EDDDF..0x6EDE6B): esfera con centro (suma de X / 3, suma de Y / 3, P1.z) y radio (X2 - X1) * 0.71f (puede ser negativo) en x87 de 24 bits (X87Math);
+    // IsSphereVisible con la matriz de la camara y, con el espejo activo, con la del espejo.
+    float center[3], radius;
+    Water62TriSphereCpp(X1, X2, X3, Y1, Y2, Y3, center, &radius);
+    center[2] = P1.z;
+    if (!TheCamera.IsSphereVisible(CVector{ center[0], center[1], center[2] }, radius)) {
+        return;
+    }
+
+    // Como el original (0x6EDE71..0x6EDEB0): mitad del ancho (division truncada), su cuadrado y la suma 1 + 2 + .. + (mitad + 1) (0 si mitad + 1 < 1), todo con envoltura de 32 bits.
+    const int32 halfW = int32(uint32(X2) - uint32(X1)) / 2;
+    const int32 halfSquared = int32(uint32(halfW) * uint32(halfW));
+    const int32 n = int32(uint32(halfW) + 1u);
+    const int32 triangular = n >= 1 ? int32(uint32((uint64(n) * (uint64(n) + 1u)) / 2u)) : 0;
+    if (int32(uint32(halfSquared) * 3u) < 0x1000 && triangular < 0x800) {
+        for (int32 layer = 0; layer < 2; ++layer) {
+            plugin::Call<0x6E8780, int32, int32, CRenPar, int32, int32, CRenPar, int32, int32, CRenPar, int32, int32, int32, int32>(
+                X1, Y1, P1, X2, Y2, P2, X3, Y3, P3, layer, halfSquared, triangular, halfW);   // RenderHighDetailWaterTriangle_OneLayer (sin reconstruir)
+        }
+        return;
+    }
+    // Como el original (0x6EDFEF..0x6EE07F): triangulo grande -> se parte en X en X1 + 2 * (mitad / 2)
+    SplitWaterTriangleAlongXLine(X1 + (halfW / 2) * 2, X1, Y1, P1, X2, Y2, P2, X3, Y3, P3);
 }
 
 namespace {
@@ -1375,8 +1457,41 @@ void CWaterLevel::AddWaterLevelTriangle(int32 X1, int32 Y1, CRenPar P1, int32 X2
     NumWaterTriangles++;
 }
 
+// 0x6E7B30
 void CWaterLevel::FillQuadsAndTrianglesList() {
-    plugin::Call<0x6E7B30>();
+    // Como el original: 12 x 12 bloques de 500 unidades; el bloque (a, b) cubre x en [a * 500 - 3000, +500) e y en [b * 500 - 3000, +500). Todo son enteros pequenos (exactos en la x87).
+    // Los vertices se indexan con el indice de 16 bits extendido con signo y sin comprobar el limite.
+    const auto vertexOf = [](uint16 index) -> const CWaterVertex& { return *(m_aVertices.data() + int16(index)); };
+    for (int32 a = 0; a < NUM_WATER_BLOCKS_ROWCOL; ++a) {
+        const int32 xLo = a * WATER_BLOCK_SIZE - 3000, xHi = xLo + WATER_BLOCK_SIZE;
+        for (int32 b = 0; b < NUM_WATER_BLOCKS_ROWCOL; ++b) {
+            const int32 yLo = b * WATER_BLOCK_SIZE - 3000, yHi = yLo + WATER_BLOCK_SIZE;
+            // Como el original (0x6E7B64..0x6E7C25): el numero de cuadrilateros se vuelve a leer tras cada indice (la funcion llamada podria cambiarlo); el primero se prueba antes de entrar.
+            if (int32(NumWaterQuads) > 0) {
+                for (int32 i = 0; ; ) {
+                    const CWaterQuad& quad = *(WaterQuads.data() + i);
+                    if (vertexOf(quad.verts[1]).x > xLo && vertexOf(quad.verts[0]).x < xHi && vertexOf(quad.verts[2]).y > yLo && vertexOf(quad.verts[0]).y < yHi) {
+                        plugin::Call<0x6E5750, int32, int32, int32, int32>(a, b, i, 1);   // AddToQuadsAndTrianglesList (sin reconstruir)
+                    }
+                    ++i;
+                    if (!(i < int32(NumWaterQuads))) {
+                        break;
+                    }
+                }
+            }
+            // Como el original (0x6E7C2B..0x6E7CFA): el numero de triangulos se lee una vez; x de los vertices 0 y 1, y menor / mayor de las y de los vertices 0 y 2 (comparados como int16).
+            const int32 numTriangles = int32(NumWaterTriangles);
+            for (int32 i = 0; i < numTriangles; ++i) {
+                const CWaterTriangle& tri = *(WaterTriangles.data() + i);
+                const int16 y0 = vertexOf(tri.verts[0]).y, y2 = vertexOf(tri.verts[2]).y;
+                const int32 yMin = y0 < y2 ? y0 : y2;
+                const int32 yMax = y0 <= y2 ? y2 : y0;
+                if (vertexOf(tri.verts[1]).x > xLo && vertexOf(tri.verts[0]).x < xHi && yMax > yLo && yMin < yHi) {
+                    plugin::Call<0x6E5750, int32, int32, int32, int32>(a, b, i, 2);
+                }
+            }
+        }
+    }
 }
 
 // 0x6E9C80
@@ -1407,9 +1522,14 @@ CWaterVertex CWaterPolygon<NumVerts>::GetVertex(uint16 idx) const {
     return CWaterLevel::m_aVertices[verts[idx]];
 }
 
-// External collaborator; reconstruction is outside the current pending scope.
+// 0x6E61B0: la aritmetica x87 (limites, bloques por _ftol2, cruce con z = 0 y prueba de caja) esta en X87Math (Water62TestLineCpp). Solo se prueban los bloques de cuadrilatero
+// unico y los de combinacion (los de triangulo unico no); fuera de la cuadricula basta con que el cruce caiga en el mismo bloque. *intersection se escribe en cada candidato.
 bool CWaterLevel::TestLineAgainstWater(CVector from, CVector to, CVector* intersection) {
-    return plugin::CallAndReturn<bool, 0x6E61B0, CVector, CVector, CVector*>(from, to, intersection);
+    static_assert(sizeof(PolyInfo) == sizeof(uint16) && sizeof(CWaterQuad) == 5 * sizeof(uint16));
+    return Water62TestLineCpp(
+        &from.x, &to.x, &intersection->x,
+        reinterpret_cast<const uint16*>(&m_BlockPolyInfo), reinterpret_cast<const uint16*>(m_PolyCombos.data()),
+        reinterpret_cast<const uint16*>(WaterQuads.data()), reinterpret_cast<const WaterLevelVertexCpp*>(m_aVertices.data()));
 }
 
 namespace {

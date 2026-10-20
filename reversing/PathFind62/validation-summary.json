@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "pairs": 24576,
+  "differences": 0,
+  "registered_pairs": 24576,
+  "registered_functions": 6,
+  "functions": {
+    "CPathFind::FindNodeClosestToCoors": 4096,
+    "CPathFind::FindNthNodeClosestToCoors": 4096,
+    "CPathFind::FindNextNodeWandering": 4096,
+    "CPathFind::CompleteNewInterior": 4096,
+    "CPathFind::FindParkingNodeInArea": 4096,
+    "CPathFind::GeneratePedCreationCoors_Interior": 4096
+  },
+  "covered_functions": {
+    "CPathFind::FindNodeClosestToCoors": true,
+    "CPathFind::FindNthNodeClosestToCoors": true,
+    "CPathFind::FindNextNodeWandering": true,
+    "CPathFind::CompleteNewInterior": true,
+    "CPathFind::FindParkingNodeInArea": true,
+    "CPathFind::GeneratePedCreationCoors_Interior": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/we-1 (HEAD 0ac292a76 + fuente del lote 62). El objeto this es una arena propia (nunca ThePaths). Colaboradores sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL; no se validan sus cuerpos reales): la busqueda por region 0x44F2C0 (sin reconstruir) en FindNodeClosestToCoors; FindNodeClosestToCoors (0x44F460, con su hook encendido) en FindNthNodeClosestToCoors y FindNextNodeWandering; CMemoryMgr::Malloc (0x72F420), 0x450FB0 (sin reconstruir) y AddDynamicLinkBetween2Nodes_For1Node (0x44E000) en CompleteNewInterior; rand() del CRT del EXE (0x821B1E, sin reconstruir) y CWorld::FindGroundZFor3DCoord (0x5696C0) en GeneratePedCreationCoors_Interior. CPathNode::GetPosition (0x420A10) y CPathFind::FindRegionForCoors (0x44D830) se ejecutan con codigo real. Limites: la mitad de nodo (m_wNodeId) de un CNodeAddress invalido devuelto por FindNodeClosestToCoors es residuo de pila en el EXE (la DLL deja -1) y no se compara (ningun llamador la lee); los argumentos bool/uint16 se prueban con valores que caben en su tipo (el EXE reenvia dwords completos al colaborador, la DLL reenvia el valor ya truncado); FindNextNodeWandering con puntero de origen nulo solo se prueba cuando no encuentra nodo (el EXE escribe en *origen sin comprobarlo). EAX/ECX/EDX solo registrados; EAX = puntero de retorno oculto y AL de bool si se comparan.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/PathFind62-20261020-010615-333868",
+  "summary_sha256": "4c85732f8c63aceddb531bf6419f64be2db83f7d47bb729b5afb9e8e087d093d",
+  "result_txt_sha256": "f23821fc9bdfc969bda1002774ab79a8197579ebc694b2aff6f9db034d840466",
+  "log_sha256": "d0832a55ac2ae7dd179f67138d82434b1cabbe4a879a20a1930ab19b67ff084b",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "34d9a647453d16b7e66ddfac093c554f860bc68bdc7990b26897629df43cf26e",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
+      "source/game_sa/PathFind.cpp": "b1660ff5fbda3d692177e1bf2c0f908db35475a9a8b59ca59df744174d19177b",
+      "source/game_sa/PathFind.h": "f9d2e152051e5755f7f6a4783b6d727b6f63cdb2ecac303eef9d19aacc5cf5e4",
+      "source/game_sa/MemoryMgr.cpp": "8edba44feb8e34f5567afbf09d045c3a8b97579290277cd043cef4c04be95ebd",
+      "source/game_sa/World.cpp": "0066108864b6c6c3aa13ac5a68da99749b177bd94605ebc3a2c14580018340bd",
+      "source/game_sa/X87Math.cpp": "a54c7a4fc93bd013e8d3449f308057608434f546db26379cc3ae26180ddd493b",
+      "source/game_sa/X87Math.h": "18a04173f5b0140f5bd034f2ee61a1e0dfe36331721ce6c2e74bf627b9bdfefe",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/PathFind62/LiveComparison.hpp": "5a35986937cc08ec5dbf6b9b722a6e8d3409d9d9fe93b228bf3dc3aa4ec9f5ee",
+      "reversing/PathFind62/Core.hpp": "3c7b5f4a415c772e15d5ca9cada075766b41a85932ec3a2617a25825b8c6c595",
+      "reversing/PathFind62/Cases.hpp": "0fb8b4249339a7b84d8aecd98861aa12ff89b1c9f538ff5ae6a5ca4bc1ca1dde",
+      "reversing/PathFind62/Fixtures.hpp": "824e2653f29f066e34ea720fea1d581eca5db93a2f64a07f9ebf1128acd7759f",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

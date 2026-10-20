@@ -1633,3 +1633,14 @@ float __cdecl PecFallDamageCpp(float speed2d, float soft, float lim, float vz); 
 bool __cdecl SlideToCoordShiftCpp(const float* pos, const float* target, float speed, const float* right, const float* forward, float* shift);
 // current - aiming sin redondear a float (argumento de CGeneral::LimitRadianAngle).
 float __cdecl SlideToCoordAngleDeltaCpp(float current, float aiming);
+
+// --- Lote 62: CPathFind::FindNodeClosestToCoors (0x44F460), prefijo PathFind. Anadir al FINAL de X87Math.h ---
+// a - b con el fsub del x87 y un solo guardado a float: conserva los denormales del resultado (SSE con FTZ los vaciaria a cero).
+float __cdecl PathFindSubCpp(float a, float b);
+// --- Lote 62: CWaterLevel (GetWaterDepth, RenderHighDetailWaterRectangle/Triangle, TestLineAgainstWater), prefijo Water62. Anadir al FINAL de X87Math.h ---
+// Tramos x87 de 24 bits con exponente extendido (ver X87Math.cpp). Los vectores apuntan a x, y, z consecutivos.
+void __cdecl Water62DepthStoreCpp(const unsigned int* levelSlot, const float* groundSlot, float* outDepth, unsigned int* outLevel, float* outGround); // groundSlot null: -100.0f
+void __cdecl Water62RectSphereCpp(int minX, int maxX, int y1, int y2, float* center, float* radius);                                                       // escribe center[0], center[1]
+void __cdecl Water62TriSphereCpp(int x1, int x2, int x3, int y1, int y2, int y3, float* center, float* radius);                                           // escribe center[0], center[1]
+float __cdecl Water62SplitRatioCpp(int num, int den);                                                                                                       // float(num / den) con un solo redondeo
+bool __cdecl Water62TestLineCpp(const float* from, const float* to, float* out, const unsigned short* blocks, const unsigned short* combos, const unsigned short* quads, const WaterLevelVertexCpp* verts);

@@ -33,7 +33,7 @@ public:
     static void TidyUpD3DIndexBuffers(uint32 count);
     static void TidyUpD3DTextures(uint32 count);
     static int32 CreateIndexBuffer(uint32 numIndices, uint32 format, void** ppIndexBuffer);
-    static int32 CreateTexture(int32 width, int32 height, uint32 format, void** ppTexture);
+    static int32 CreateTexture(int32 width, int32 height, int32 levels, uint32 format, void** ppTexture);
     static void DestroyIndexBuffer(void* pIndexBuffer);
     static void DestroyTexture(void* texture);
 };

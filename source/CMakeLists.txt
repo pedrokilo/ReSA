@@ -180,6 +180,14 @@ if(MSVC)
         SKIP_PRECOMPILE_HEADERS ON
         SKIP_UNITY_BUILD_INCLUSION ON
     )
+    # CTaskComplexFollowPedFootsteps::ControlSubTask/CreateFirstSubTask/CreateNextSubTask (0x695090, 0x695000, 0x694EE0): aritmetica x87 del EXE
+    # (sumas de cuadrados, raiz, comparaciones ordenadas con NaN); el archivo de la clase se compila asi.
+    set_source_files_properties(game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp PROPERTIES
+        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
     # CTask::Destructor (0x61A3A0) es `mov [ecx], 0x86D48C; ret`: sus 259 llamadores del EXE (148 con `jmp` final) conservan EAX, ECX y EDX, asi que el cuerpo
     # no puede llevar marco ni comprobaciones. Se optimiza por pragma, que solo actua con /Zi y sin comprobaciones de ejecucion.
     set_source_files_properties(game_sa/Tasks/Task.cpp PROPERTIES

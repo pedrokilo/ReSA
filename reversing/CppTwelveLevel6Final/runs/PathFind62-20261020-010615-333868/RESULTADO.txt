@@ -1,0 +1,3 @@
+APROBADO: PathFind62
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-pathfind62\20261020-010615-333868

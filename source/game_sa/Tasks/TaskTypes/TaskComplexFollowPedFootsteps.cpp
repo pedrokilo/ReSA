@@ -6,26 +6,43 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskComplexFollowPedFootsteps
- * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 1/1 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
+// Este archivo se compila completo con /O2 /Oi /arch:IA32 /fp:fast /Zi, sin PCH ni unity (ver source/CMakeLists.txt):
+// ControlSubTask, CreateFirstSubTask y CreateNextSubTask necesitan el x87 del EXE (palabra de control de 24 bits).
+#ifdef _MSC_VER
+#pragma warning(push, 0)
+#endif
 #include "StdInc.h"
 
 #include "TaskComplexFollowPedFootsteps.h"
-// #include "PointRoute.h"
+#include "PedGeometryAnalyser.h"
+#include "TaskSimpleGoToPoint.h"
+#include "TaskSimpleStandStill.h"
+#include "TaskSimpleHitHead.h"
+#include "SeekEntity/TaskComplexSeekEntityStandard.h"
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 void CTaskComplexFollowPedFootsteps::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexFollowPedFootsteps, 0x870CC0, 12);
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x694E20);
+    RH_ScopedVMTInstall(MakeAbortable, 0x694ED0);
+    RH_ScopedVMTInstall(CreateNextSubTask, 0x694EE0);
+    RH_ScopedVMTInstall(CreateFirstSubTask, 0x695000);
+    RH_ScopedVMTInstall(ControlSubTask, 0x695090);
+    RH_ScopedVMTInstall(CreateSubTask, 0x695E40);
 }
 
 // 0x694E20
@@ -65,22 +82,232 @@ CTaskComplexFollowPedFootsteps::~CTaskComplexFollowPedFootsteps() {
     m_pointRoute = nullptr;
 }
 
+namespace {
+// Los cuadrados se calculan como el x87 del EXE con la palabra de control de 24 bits (fld + fmul redondea el producto a float)
+constexpr float kNearSq = 1.4f * 1.4f;   // 0x870C20
+constexpr float kFarSq  = 8.0f * 8.0f;   // 0x870C38
+constexpr float kStepSq = 0.35f * 0.35f; // 0x870C24
+constexpr float kRunSq  = 3.5f * 3.5f;   // 0x870C2C
+
+// Sumas de cuadrados con el orden y la asociación del EXE; /fp:fast las reasociaría, así que van en funciones aparte con float_control(precise, on)
+#pragma float_control(precise, on, push)
+// 0x406DA0: (x² + y²) + z²
+__declspec(noinline) float FootstepsSquaredMagnitude(const CVector& v) {
+    return (v.x * v.x + v.y * v.y) + v.z * v.z;
+}
+// 0x694F6E (CreateNextSubTask): (z² + x²) + y²
+__declspec(noinline) float FootstepsDistSqZXY(const CVector& d) {
+    return (d.z * d.z + d.x * d.x) + d.y * d.y;
+}
+// 0x69503B (CreateFirstSubTask): (x² + z²) + y²
+__declspec(noinline) float FootstepsDistSqXZY(const CVector& d) {
+    return (d.x * d.x + d.z * d.z) + d.y * d.y;
+}
+// 0x695424: (w.y·v.y + w.x·v.x) + w.z·v.z
+__declspec(noinline) float FootstepsDot(const CVector& w, const CVector& v) {
+    return (w.y * v.y + w.x * v.x) + w.z * v.z;
+}
+// 0x6951EA: sqrt(y² + x²)
+__declspec(noinline) float FootstepsDist2D(const CVector& d) {
+    return std::sqrt(d.y * d.y + d.x * d.x);
+}
+#pragma float_control(pop)
+
+// CTaskManager::GetSimplestActiveTask (0x6819D0) se define en línea en TaskManager.h: con /O2 se expandiría y el EXE y la DLL dejarían de hacer la misma llamada.
+// Se invoca por un puntero a miembro volátil (llamada indirecta, sin expansión).
+CTask* (CTaskManager::* volatile s_getSimplestActiveTask)() = &CTaskManager::GetSimplestActiveTask;
+
+// 0x5F13A0 (CPointRoute: quitar la entrada idx desplazando las siguientes y decrementando el contador)
+void FootstepsRouteRemove(CPointRoute& route, int32 idx) {
+    const int32 last = (int32)route.m_NumEntries - 1;
+    for (int32 i = idx; i < last; i++) {
+        route.m_Entries.data()[i] = route.m_Entries.data()[i + 1];
+    }
+    route.m_NumEntries--;
+}
+} // namespace
+
+// 0x694ED0
 bool CTaskComplexFollowPedFootsteps::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
-    return plugin::CallMethodAndReturn<bool, 0x694ED0, CTaskComplexFollowPedFootsteps*, CPed*, eAbortPriority, const CEvent*>(this, ped, priority, event);
+    return m_pSubTask->MakeAbortable(ped, priority, event); // Como el original: sin comprobar nullptr
 }
 
+// 0x694EE0
 CTask* CTaskComplexFollowPedFootsteps::CreateNextSubTask(CPed* ped) {
-    return plugin::CallMethodAndReturn<CTask*, 0x694EE0, CTaskComplexFollowPedFootsteps*, CPed*>(this, ped);
+    if (!m_targetPed) {
+        return CreateSubTask(TASK_FINISHED, ped);
+    }
+
+    switch (m_pSubTask->GetTaskType()) {
+    case TASK_NONE:
+        return CreateSubTask(TASK_FINISHED, ped);
+    case TASK_SIMPLE_STAND_STILL:
+    case TASK_SIMPLE_GO_TO_POINT:
+        // Como el original: sigue con el siguiente punto de la ruta mientras queden
+        if (m_pointRoute && m_pointRoute->m_NumEntries != 0) {
+            return CreateSubTask(TASK_SIMPLE_GO_TO_POINT, ped);
+        }
+        return CreateSubTask(TASK_SIMPLE_STAND_STILL, ped);
+    case TASK_SIMPLE_HIT_HEAD:
+        return CreateSubTask(TASK_SIMPLE_STAND_STILL, ped);
+    case TASK_COMPLEX_SEEK_ENTITY: {
+        // Como el original: (objetivo - peatón), suma (z² + x²) + y² y comparación estricta con 0x870C20 (1.4, sin elevar al cuadrado)
+        const CVector& a      = m_targetPed->GetPosition();
+        const CVector& b      = ped->GetPosition();
+        const CVector  d{ a.x - b.x, a.y - b.y, a.z - b.z };
+        return CreateSubTask(FootstepsDistSqZXY(d) > 1.4f ? TASK_COMPLEX_SEEK_ENTITY : TASK_SIMPLE_STAND_STILL, ped);
+    }
+    default:
+        return CreateSubTask(TASK_FINISHED, ped);
+    }
 }
 
+// 0x695000
 CTask* CTaskComplexFollowPedFootsteps::CreateFirstSubTask(CPed* ped) {
-    return plugin::CallMethodAndReturn<CTask*, 0x695000, CTaskComplexFollowPedFootsteps*, CPed*>(this, ped);
+    if (!m_targetPed) {
+        return CreateSubTask(TASK_FINISHED, ped);
+    }
+
+    // Como el original: (objetivo - peatón), suma (x² + z²) + y² y comparación estricta con 0x870C20 (1.4)
+    const CVector& a      = m_targetPed->GetPosition();
+    const CVector& b      = ped->GetPosition();
+    const CVector  d{ a.x - b.x, a.y - b.y, a.z - b.z };
+    return CreateSubTask(FootstepsDistSqXZY(d) > 1.4f ? TASK_COMPLEX_SEEK_ENTITY : TASK_SIMPLE_STAND_STILL, ped);
 }
 
+// 0x695090
 CTask* CTaskComplexFollowPedFootsteps::ControlSubTask(CPed* ped) {
-    return plugin::CallMethodAndReturn<CTask*, 0x695090, CTaskComplexFollowPedFootsteps*, CPed*>(this, ped);
+    CTask* const subTask = m_pSubTask;
+
+    eTaskType newType;
+    if (!m_targetPed || !m_pointRoute || !m_targetPed->IsAlive()) {
+        newType = TASK_FINISHED;
+    } else if (m_pSubTask->GetTaskType() == TASK_COMPLEX_SEEK_ENTITY) {
+        return subTask;
+    } else if (m_targetPed->bInVehicle) {
+        newType = TASK_COMPLEX_SEEK_ENTITY;
+    } else if (ped->GetIntelligence()->m_AnotherStaticCounter > 30) { // 0x86C938
+        newType = TASK_SIMPLE_HIT_HEAD;
+    } else {
+        const uint32 now = CTimer::GetTimeInMS();
+        if (now - m_lineOfSightCheckTimer > 500) {
+            m_lineOfSightCheckTimer = now;
+            // Como el original: `and al, 1` sobre el AL que devuelve la función (un bool no canónico no activa el indicador si su bit 0 es cero); con `bool` el compilador
+            // da por hecho que AL es 0 o 1 y elimina la máscara, así que el retorno pasa por memoria volátil y se lee como byte
+            volatile bool clear = CWorld::GetIsLineOfSightClear(ped->GetPosition(), m_targetPed->GetPosition(), true, false, false, true, false, false, false);
+            m_updateGoToPoint       = (reinterpret_cast<const volatile uint8&>(clear) & 1) != 0;
+        }
+
+        // Como el original: D = objetivo - peatón; |D|² = (x² + y²) + z², distancia 2D = sqrt(y² + x²)
+        const CVector targetPos = m_targetPed->GetPosition();
+        const CVector D         = targetPos - ped->GetPosition();
+        const float   sqMag     = FootstepsSquaredMagnitude(D);
+        const float   dist2D    = FootstepsDist2D(D);
+
+        if (kNearSq > sqMag && m_pSubTask->GetTaskType() != TASK_SIMPLE_STAND_STILL) {
+            // Muy cerca (0x870C20 al cuadrado): con línea de visión limpia se vacía la ruta y se queda quieto
+            if (!m_updateGoToPoint) {
+                return subTask;
+            }
+            m_pointRoute->m_NumEntries = 0;
+            newType                    = TASK_SIMPLE_STAND_STILL;
+        } else if (kFarSq < sqMag) { // 0x870C38; con NaN no entra (jnp tras test ah,5)
+            newType = TASK_COMPLEX_SEEK_ENTITY;
+        } else if (dist2D < 1.0f && std::fabs(D.z) > 2.0f) { // 0x858624 y 0x858CA0
+            newType = TASK_COMPLEX_SEEK_ENTITY;
+        } else {
+            if (m_updateGoToPoint) {
+                m_pointRoute->m_NumEntries = 0;
+                m_pointRoute->AddUnlessFull(m_targetPed->GetPosition());
+                m_subTaskCreateCheckTimer = CTimer::GetTimeInMS() - 332;
+                // Como el original: dos llamadas a 0x6819D0 (GetSimplestActiveTask), una antes de IsGoToTask y otra para UpdatePoint
+                CTaskManager& taskMgr   = ped->GetIntelligence()->GetTaskManager();
+                const auto    getSimplest = s_getSimplestActiveTask;
+                CTask*        simplest  = (taskMgr.*getSimplest)();
+                if (CTask::IsGoToTask(simplest)) {
+                    simplest = (taskMgr.*getSimplest)();
+                    static_cast<CTaskSimpleGoToPoint*>(simplest)->UpdatePoint(m_targetPed->GetPosition(), 0.5f, false); // 0x86FC78
+                }
+            }
+
+            if (CTimer::GetTimeInMS() - m_subTaskCreateCheckTimer < 166u || (int32)m_pointRoute->m_NumEntries >= 8) {
+                if (m_pSubTask->GetTaskType() != TASK_SIMPLE_STAND_STILL || (int32)m_pointRoute->m_NumEntries <= 1) {
+                    return subTask;
+                }
+                newType = TASK_SIMPLE_GO_TO_POINT;
+            } else {
+                m_subTaskCreateCheckTimer = CTimer::GetTimeInMS();
+
+                CPointRoute* const route = m_pointRoute;
+                if (route->m_NumEntries == 0) {
+                    route->AddUnlessFull(targetPos);
+                } else {
+                    const int32   n    = (int32)route->m_NumEntries;
+                    const CVector last = route->m_Entries.data()[n - 1];
+                    CVector       v{ targetPos.x - last.x, targetPos.y - last.y, targetPos.z - last.z };
+                    if (kStepSq < FootstepsSquaredMagnitude(v)) { // 0x870C24
+                        if ((int32)route->m_NumEntries >= 2) {
+                            const CVector prev = route->m_Entries.data()[(int32)route->m_NumEntries - 2];
+                            CVector       w{ last.x - prev.x, last.y - prev.y, last.z - prev.z };
+                            w.Normalise();
+                            v.Normalise();
+                            const float dot = FootstepsDot(w, v);
+                            if (dot >= 0.95f) { // 0x858EF0; con NaN no se elimina (test ah,1 -> C0)
+                                FootstepsRouteRemove(*route, (int32)route->m_NumEntries - 1);
+                            }
+                        }
+                        route->AddUnlessFull(targetPos);
+                    }
+                }
+
+                // Como el original: suma de |punto_i - punto_0|² (i >= 1, siempre contra el primer punto) y después |peatón - objetivo|²
+                const CVector first = m_pointRoute->m_Entries.data()[0];
+                float         total = 0.f;
+                for (int32 i = 1; i < (int32)m_pointRoute->m_NumEntries; i++) {
+                    const CVector& e = m_pointRoute->m_Entries.data()[i];
+                    const CVector  d{ e.x - first.x, e.y - first.y, e.z - first.z };
+                    total = FootstepsSquaredMagnitude(d) + total;
+                }
+                const CVector pd = ped->GetPosition() - m_targetPed->GetPosition();
+                total            = FootstepsSquaredMagnitude(pd) + total;
+                m_moveState      = kRunSq < total ? PEDMOVE_RUN : PEDMOVE_WALK; // 0x870C2C
+                if (m_pSubTask->GetTaskType() == TASK_SIMPLE_GO_TO_POINT) {
+                    static_cast<CTaskSimpleGoToPoint*>(m_pSubTask)->m_moveState = (eMoveState)m_moveState;
+                }
+                return subTask;
+            }
+        }
+    }
+
+    if (m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT, nullptr)) {
+        return CreateSubTask(newType, ped);
+    }
+    return subTask;
 }
 
+// 0x695E40
 CTask* CTaskComplexFollowPedFootsteps::CreateSubTask(eTaskType taskType, CPed* ped) {
-    return plugin::CallMethodAndReturn<CTask*, 0x695E40, CTaskComplexFollowPedFootsteps*, eTaskType, CPed*>(this, taskType, ped);
+    if (!m_targetPed || !m_pointRoute) {
+        return nullptr;
+    }
+
+    switch (taskType) {
+    case TASK_SIMPLE_GO_TO_POINT: {
+        // Como el original: toma el primer punto, lo elimina de la ruta y crea el movimiento hacia él
+        const CVector pt = m_pointRoute->m_Entries.data()[0];
+        FootstepsRouteRemove(*m_pointRoute, 0);
+        return new CTaskSimpleGoToPoint((eMoveState)m_moveState, pt, 0.01f, false, false); // 0x870C28
+    }
+    case TASK_SIMPLE_STAND_STILL:
+        return new CTaskSimpleStandStill(10000, false, false, 8.0f);
+    case TASK_SIMPLE_HIT_HEAD:
+        return new CTaskSimpleHitHead();
+    case TASK_COMPLEX_SEEK_ENTITY: {
+        // Como el original: 1.0 (0x85BACC), por 4.0 (0x858B90) si el objetivo va en un vehículo; 2.0 y 2.0 (0x859E30/34)
+        const float maxDist = m_targetPed->bInVehicle ? 1.0f * 4.0f : 1.0f;
+        return new CTaskComplexSeekEntityStandard(m_targetPed, 50000, 1000, maxDist, 2.0f, 2.0f, true, true);
+    }
+    default: // TASK_FINISHED y cualquier otro tipo
+        return nullptr;
+    }
 }
