@@ -1644,3 +1644,12 @@ void __cdecl Water62RectSphereCpp(int minX, int maxX, int y1, int y2, float* cen
 void __cdecl Water62TriSphereCpp(int x1, int x2, int x3, int y1, int y2, int y3, float* center, float* radius);                                           // escribe center[0], center[1]
 float __cdecl Water62SplitRatioCpp(int num, int den);                                                                                                       // float(num / den) con un solo redondeo
 bool __cdecl Water62TestLineCpp(const float* from, const float* to, float* out, const unsigned short* blocks, const unsigned short* combos, const unsigned short* quads, const WaterLevelVertexCpp* verts);
+
+// --- Lote 63: CGarage (IsEntityEntirelyOutside 0x448D30 y IsStaticPlayerCarEntirelyInside 0x44A830), prefijo Garage63. Anadir al FINAL de X87Math.h ---
+// IsEntityEntirelyOutside 0x448D30..0x448DB0: true si la posicion pos = {x, y, z} queda ESTRICTAMENTE dentro del rectangulo del garaje ampliado en radius en x e y
+// (g = el CGarage como floats: izquierda g[10], derecha g[11], frente g[12], fondo g[13]): izq - r < x, r + der > x, frente - r < y y r + fondo > y, cada suma/resta con el x87 a 24 bits
+// sin guardar a float; con NaN la comparacion es falsa (el EXE pasa a la fase de esferas).
+bool __cdecl Garage63InsideRectStrictCpp(const float* g, float radius, const float* pos);
+// IsStaticPlayerCarEntirelyInside 0x44A913..0x44A9A4: velocidad speed = {x, y, z} del vehiculo. Cada componente pasa por el |v| del EXE (fchs solo si v < 0 ordenado, asi -0.0 y NaN se conservan)
+// y debe cumplir !(|v| > 0.01f); despues !((vz*vz + vy*vy) + vx*vx > 0.0001f), con los productos y sumas del x87 a 24 bits (la comparacion con NaN no rechaza).
+bool __cdecl Garage63StaticSpeedCpp(const float* speed);

@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,772 entradas reversed=1**, de 8,772 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,781 entradas reversed=1**, de 8,781 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8772 |
+| `validated=1` · evidencia aprobada vinculada | 8781 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8772 |
+| Evidencia histórica vinculada; revisión pendiente | 8781 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -2835,11 +2835,20 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CGarage | `BuildRotatedDoorMatrix` | [Resumen](../reversing/Data23/validation-summary.json) |
 | CGarage | `CloseThisGarage` | [Resumen](../reversing/Data23/validation-summary.json) |
 | CGarage | `EntityHasASphereWayOutsideGarage` | [Resumen](../reversing/DependenciesGarageSphere15/validation-summary.json) |
+| CGarage | `InitDoorsAtStart` | [Resumen](../reversing/Garage63/validation-summary.json) |
+| CGarage | `IsEntityEntirelyInside3D` | [Resumen](../reversing/Garage63/validation-summary.json) |
+| CGarage | `IsEntityEntirelyOutside` | [Resumen](../reversing/Garage63/validation-summary.json) |
 | CGarage | `IsEntityTouching3D` | [Resumen](../reversing/DependenciesWorld15/validation-summary.json) |
+| CGarage | `IsGarageEmpty` | [Resumen](../reversing/Garage63/validation-summary.json) |
 | CGarage | `IsPointInsideGarage-point` | [Resumen](../reversing/DependenciesGarage2/validation-summary.json) |
 | CGarage | `IsPointInsideGarage-radius` | [Resumen](../reversing/DependenciesGarage2/validation-summary.json) |
+| CGarage | `IsStaticPlayerCarEntirelyInside` | [Resumen](../reversing/Garage63/validation-summary.json) |
 | CGarage | `OpenThisGarage` | [Resumen](../reversing/Data23/validation-summary.json) |
+| CGarage | `PlayerArrestedOrDied` | [Resumen](../reversing/Garage63/validation-summary.json) |
+| CGarage | `RemoveCarsBlockingDoorNotInside` | [Resumen](../reversing/Garage63/validation-summary.json) |
 | CGarage | `StoreAndRemoveCarsForThisHideOut` | [Resumen](../reversing/Data23/validation-summary.json) |
+| CGarage | `TidyUpGarage` | [Resumen](../reversing/Garage63/validation-summary.json) |
+| CGarage | `TidyUpGarageClose` | [Resumen](../reversing/Garage63/validation-summary.json) |
 | CGarages | `ActivateGarage` | [Resumen](../reversing/Garages21/validation-summary.json) |
 | CGarages | `AddOne` | [Resumen](../reversing/GaragesAddOne30/validation-summary.json) |
 | CGarages | `AllRespraysCloseOrOpen` | [Resumen](../reversing/Garages21/validation-summary.json) |
@@ -9034,7 +9043,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CGamma` | 2 | 0 | 2 | 0 |
 | `CGangWars` | 35 | 0 | 35 | 0 |
 | `CGangs` | 8 | 0 | 8 | 0 |
-| `CGarage` | 8 | 0 | 8 | 0 |
+| `CGarage` | 17 | 0 | 17 | 0 |
 | `CGarages` | 26 | 0 | 26 | 0 |
 | `CGeneral` | 9 | 0 | 9 | 0 |
 | `CGenericGameStorage` | 19 | 0 | 19 | 0 |

@@ -8771,3 +8771,12 @@ D3DResourceSystem,DestroyIndexBuffer,0x00730D30,1,0,1,S
 D3DResourceSystem,DestroyTexture,0x00730B70,1,0,1,S
 D3DResourceSystem,Init,0x00730830,1,0,1,S
 D3DResourceSystem,Shutdown,0x00730A00,1,0,1,S
+CGarage,InitDoorsAtStart,0x00447600,1,0,1,S
+CGarage,PlayerArrestedOrDied,0x004486C0,1,0,1,S
+CGarage,IsEntityEntirelyInside3D,0x00448BE0,1,0,1,S
+CGarage,IsEntityEntirelyOutside,0x00448D30,1,0,1,S
+CGarage,IsStaticPlayerCarEntirelyInside,0x0044A830,1,0,1,S
+CGarage,IsGarageEmpty,0x0044A9C0,1,0,1,S
+CGarage,RemoveCarsBlockingDoorNotInside,0x00449690,1,0,1,S
+CGarage,TidyUpGarage,0x00449C50,1,0,1,S
+CGarage,TidyUpGarageClose,0x00449D10,1,0,1,S

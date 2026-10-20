@@ -1,0 +1,86 @@
+{
+ "CGarage::InitDoorsAtStart": {
+  "type_closed": 1050,
+  "type_out": 553,
+  "type0": 80,
+  "type_open": 363,
+  "type13": 81
+ },
+ "CGarage::PlayerArrestedOrDied": {
+  "type_a": 1054,
+  "state_hi": 1078,
+  "type_out": 553,
+  "changed": 362,
+  "type_b": 440,
+  "state0": 221
+ },
+ "CGarage::IsEntityEntirelyInside3D": {
+  "result1": 766,
+  "spheres": 1546,
+  "nomat": 929,
+  "nsph_zero": 398,
+  "early": 782,
+  "result0": 1282,
+  "loops": 404,
+  "hasmat": 1118,
+  "nocol": 50,
+  "reentry": 136,
+  "reentry_changed": 102,
+  "nsph_neg": 90
+ },
+ "CGarage::IsEntityEntirelyOutside": {
+  "early": 1070,
+  "result0": 1636,
+  "spheres": 1533,
+  "nomat": 972,
+  "result1": 411,
+  "hasmat": 1075,
+  "nsph_zero": 414,
+  "nsph_neg": 83,
+  "alloc": 375,
+  "loops": 242,
+  "nocol": 54
+ },
+ "CGarage::IsStaticPlayerCarEntirelyInside": {
+  "result0": 1886,
+  "speed_fail": 894,
+  "type_other": 541,
+  "result1": 162,
+  "reached_in3d": 308,
+  "noveh": 266,
+  "task": 421
+ },
+ "CGarage::IsGarageEmpty": {
+  "result0": 1652,
+  "cnt_ge8": 1008,
+  "cnt16": 128,
+  "result1": 396,
+  "cnt_le0": 290,
+  "cnt_neg": 147
+ },
+ "CGarage::RemoveCarsBlockingDoorNotInside": {
+  "none": 1531,
+  "locked_skip": 1327,
+  "ev_ge4": 1714,
+  "removed": 517,
+  "pool1": 79
+ },
+ "CGarage::TidyUpGarage": {
+  "removed": 1108,
+  "pool_ge5": 1284,
+  "none": 939,
+  "multi": 493,
+  "pool1": 76
+ },
+ "CGarage::TidyUpGarageClose": {
+  "none": 1600,
+  "state_other": 1809,
+  "pool_ge5": 1255,
+  "removed": 448,
+  "state0": 239,
+  "pool1": 74,
+  "multi": 83,
+  "reentry": 46,
+  "reentry_changed": 27
+ }
+}

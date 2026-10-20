@@ -13722,3 +13722,40 @@ __declspec(noinline) bool __cdecl Water62TestLineCpp(const float* from, const fl
     return false;
 }
 #pragma float_control(pop)
+
+// =====================================================================================================================================
+// Lote 63 (Garage.cpp), prefijo Garage63. Anadido AL FINAL de X87Math.cpp.
+// Mismo criterio que GarageEntityNearCpp: intermedios `double` (la x87 a 24 bits redondea cada operacion y no guarda a float entre ellas).
+// =====================================================================================================================================
+#pragma float_control(precise, on, push)
+__declspec(noinline) bool __cdecl Garage63InsideRectStrictCpp(const float* g, float radius, const float* pos) {
+    const double r = radius;
+    if (!(double(g[10]) - r < double(pos[0]))) return false;  // izquierda - r < x
+    if (!(r + double(g[11]) > double(pos[0]))) return false;  // r + derecha > x
+    if (!(double(g[12]) - r < double(pos[1]))) return false;  // frente - r < y
+    if (!(r + double(g[13]) > double(pos[1]))) return false;  // r + fondo > y
+    return true;
+}
+
+// |v| del EXE: fcomp contra 0.0; fchs solo si v < 0 (ordenado). -0.0 y NaN no se invierten.
+static __forceinline double Garage63AbsLikeExe(float v) {
+    double d = v;
+    if (d < 0.0) {
+        d = -d;
+    }
+    return d;
+}
+
+__declspec(noinline) bool __cdecl Garage63StaticSpeedCpp(const float* speed) {
+    const double ax = Garage63AbsLikeExe(speed[0]);
+    if (ax > double(0.01f)) return false;
+    const double ay = Garage63AbsLikeExe(speed[1]);
+    if (ay > double(0.01f)) return false;
+    const double az = Garage63AbsLikeExe(speed[2]);
+    if (az > double(0.01f)) return false;
+    const double sumZY = az * az + ay * ay;  // fld st0; fmul st,st(1) -> z*z; y*y; faddp
+    const double sum = sumZY + ax * ax;      // + x*x
+    if (sum > double(0.0001f)) return false;
+    return true;
+}
+#pragma float_control(pop)

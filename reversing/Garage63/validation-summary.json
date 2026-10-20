@@ -1,0 +1,57 @@
+{
+  "passed": true,
+  "pairs": 36864,
+  "differences": 0,
+  "registered_pairs": 36864,
+  "registered_functions": 9,
+  "functions": {
+    "CGarage::InitDoorsAtStart": 4096,
+    "CGarage::PlayerArrestedOrDied": 4096,
+    "CGarage::IsEntityEntirelyInside3D": 4096,
+    "CGarage::IsEntityEntirelyOutside": 4096,
+    "CGarage::IsStaticPlayerCarEntirelyInside": 4096,
+    "CGarage::IsGarageEmpty": 4096,
+    "CGarage::RemoveCarsBlockingDoorNotInside": 4096,
+    "CGarage::TidyUpGarage": 4096,
+    "CGarage::TidyUpGarageClose": 4096
+  },
+  "covered_functions": {
+    "CGarage::InitDoorsAtStart": true,
+    "CGarage::PlayerArrestedOrDied": true,
+    "CGarage::IsEntityEntirelyInside3D": true,
+    "CGarage::IsEntityEntirelyOutside": true,
+    "CGarage::IsStaticPlayerCarEntirelyInside": true,
+    "CGarage::IsGarageEmpty": true,
+    "CGarage::RemoveCarsBlockingDoorNotInside": true,
+    "CGarage::TidyUpGarage": true,
+    "CGarage::TidyUpGarageClose": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wf-1 (HEAD 35e7b9d4b + fuente del lote 63). Todos los colaboradores se sustituyen por falsos identicos en ambos lados (no se validan sus cuerpos): GetColModel (0x535300), GetMatrix (0x411990), AllocateMatrix (0x54F560), CSimpleTransform::UpdateMatrix (0x54F1B0), la transformacion 0x59C890, CGarage::IsPointInsideGarage punto (0x448740) y radio (0x4487D0; ECX/EDX intactos como el EXE), IsEntityTouching3D (0x448EE0), CWorld::FindObjectsIntersectingCube (0x568DD0), FindPlayerVehicle (0x56E0D0), FindPlayerPed (0x56E210), CTaskManager::FindActiveTaskByType (0x681740), CVehicle::CanBeDeleted (0x6D1180), CWorld::Remove (0x563280), IsEntityEntirelyInside3D (0x448BE0, solo para IsStaticPlayerCarEntirelyInside) y el destructor virtual (tabla de metodos falsa). Entidades, matrices, CColModel/CCollisionData, esferas, pool de vehiculos (ds:[0xB74494] sustituido por un pool privado durante cada llamada), jugador y TaskManager son objetos falsos del banco; ningun vehiculo, garaje ni pool reales se tocan. Update (0x44AA50) NO esta reconstruida. PlayerArrestedOrDied conserva ECX y EDX (el bucle de 0x449E60 los lee); en el resto solo AL en las funciones bool y ECX/EDX/EAX de salida solo se registran. No se prueban los vehiculos de TidyUpGarage con matriz nula y sin estado WRECKED, ni los de TidyUpGarageClose sin CCollisionData (el EXE desreferencia sin comprobar).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Garage63-20261020-094034-099900",
+  "summary_sha256": "e038e4af10cf4caf347307b3c1ef1ff0b70fb7f77e4f8d51c0a73fcff0e3801c",
+  "result_txt_sha256": "ee5f1f59cf1033f59943abded2ff14bacf38dbccf8333aaa60d6e9f45d21d9af",
+  "log_sha256": "337ea133e2030a2638aa404272b0ef4c1c8c3ce2a92a7592fa6359450c16a035",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "563a4867040d328cb487a4e757b4159b137d84b5e562c9fefeedf4804680f630",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
+      "source/game_sa/Garage.cpp": "e1be37c075e2ff74b7e4077da9f6eefff9e6a5ccf3aef2b0a32291a6b7c344e2",
+      "source/game_sa/Garage.h": "e5a2b5a02b44d335604c9a6f84691f6996ae8735bc58bdb4e47ae7e18eddd691",
+      "source/game_sa/X87Math.cpp": "f14103820ed0a82905366596ecb5346b76f4063b5aacd8667dac88b885b5d43c",
+      "source/game_sa/X87Math.h": "aaf86dcca2ee254568424228e05a156aad6c3c0419aedb66e2de7289bdfde85a",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Garage63/LiveComparison.hpp": "12e8c980cf07ed3d5c43275c41e64b961806436bde228c6b03615b26ce9558aa",
+      "reversing/Garage63/Core.hpp": "afaa47cdc49d7c23397b505ca4c0066b77b1ac0522c12376295efb02999cedb2",
+      "reversing/Garage63/Fixtures.hpp": "c210f68ffa0c2b9bade0dd76357cf0e293029b9da270b91463c760513bc2506e",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

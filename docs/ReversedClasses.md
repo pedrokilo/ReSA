@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-20 07:25 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-20 15:46 UTC
 
 ## Objetivo y dimensiones de progreso
 
@@ -12,15 +12,15 @@ La [hoja de ruta de ReSA](ProjectRoadmap.md) define una reconstrucción funciona
 | --- | --- | --- |
 | Clases completas | `████████████████████` | 801/818 · 97.92% |
 | Clases validadas (de las completas) | `████████████████████` | 801/801 · 100.00% |
-| Entradas de catálogo reconstruidas (ver [cobertura real del EXE](#cobertura-exe)) | `███████████████████░` | 8,772/9,200 · 95.35% |
-| Funciones validadas (de las reconstruidas) | `████████████████████` | 8,772/8,772 · 100.00% |
-| Funciones reconstruidas escritas solo en C++ (sin ensamblador) | `████████████████████` | 8,771/8,772 · 99.99% |
+| Entradas de catálogo reconstruidas (ver [cobertura real del EXE](#cobertura-exe)) | `███████████████████░` | 8,781/9,200 · 95.45% |
+| Funciones validadas (de las reconstruidas) | `████████████████████` | 8,781/8,781 · 100.00% |
+| Funciones reconstruidas escritas solo en C++ (sin ensamblador) | `████████████████████` | 8,780/8,781 · 99.99% |
 
 Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL. La última barra cuenta, de las funciones reconstruidas, las que tienen fuente identificada y sin `__asm` ni `naked`; las entradas sin fuente identificada de forma inequívoca no se cuentan como C++. El detalle está en [ImplementacionesDelJuego.md](ImplementacionesDelJuego.md).
 
 **Migración de ensamblador a C++:** en `source/game_sa` ya no queda ningún `__asm` ni función `naked`: todo lo reconstruido está escrito en C++, con resultados validados contra el EXE dentro del juego. Regla del proyecto: todo lo que se reconstruya va en C++, dos archivos por clase (`.cpp` y `.h`) y sin duplicados ([proceso](../reversing/CppOnlyMigration/PROCESO.md)). Historial y excepciones documentadas: [estado de la migración](../reversing/CppOnlyMigration/README.md) · [FILES.md](../reversing/CppOnlyMigration/FILES.md).
 
-Hay 8,772 entradas catalogadas, 0 bloqueadas y 8,772 sin bloqueo. No constituyen un inventario exhaustivo del EXE. Desbloqueada no significa validada, activa ni independiente. No se deducen hooks eliminados del contador de locks. Las extensiones o adaptaciones NOTSA (4, en [hooks_notsa.csv](hooks_notsa.csv)) quedan fuera de la cuenta.
+Hay 8,781 entradas catalogadas, 0 bloqueadas y 8,781 sin bloqueo. No constituyen un inventario exhaustivo del EXE. Desbloqueada no significa validada, activa ni independiente. No se deducen hooks eliminados del contador de locks. Las extensiones o adaptaciones NOTSA (4, en [hooks_notsa.csv](hooks_notsa.csv)) quedan fuera de la cuenta.
 
 ### Siguientes mediciones
 
@@ -28,19 +28,19 @@ Estas dimensiones todavía no tienen un porcentaje útil: indican el trabajo que
 
 | Dimensión | Estado actual | Qué hay que hacer |
 | --- | --- | --- |
-| Validaciones vigentes para el árbol actual | 0/8,772 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). |
-| Dependencias de funciones originales eliminadas | Medido (cota inferior): 1,195 funciones del EXE siguen llamándose directamente desde código ya reemplazado (927 del juego, 210 RenderWare/D3D, 58 CRT); cierre transitivo del juego: 1,214 funciones / 304,902 bytes. Ver [Cobertura real del EXE](#cobertura-exe) | Resolver las llamadas indirectas (tablas de punteros, callbacks) para convertir la cota inferior en un valor exacto, y eliminar o sustituir las dependencias directas que quedan. |
+| Validaciones vigentes para el árbol actual | 0/8,781 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). |
+| Dependencias de funciones originales eliminadas | Medido (cota inferior): 1,192 funciones del EXE siguen llamándose directamente desde código ya reemplazado (924 del juego, 210 RenderWare/D3D, 58 CRT); cierre transitivo del juego: 1,207 funciones / 303,465 bytes. Ver [Cobertura real del EXE](#cobertura-exe) | Resolver las llamadas indirectas (tablas de punteros, callbacks) para convertir la cota inferior en un valor exacto, y eliminar o sustituir las dependencias directas que quedan. |
 
-**Validación consolidada parcialmente:** 8772 funciones con evidencia aprobada vinculada, 470 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
+**Validación consolidada parcialmente:** 8781 funciones con evidencia aprobada vinculada, 470 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
 
 ## Vista general
 
 | Clases validadas | Completas por validar | Funciones validadas | Reconstruidas por validar | Funciones por reconstruir |
 | :---: | :---: | :---: | :---: | :---: |
-| **801 / 801** | **0 / 801** | **8,772 / 8,772** | **0 / 8,772** | **428 / 9,200** |
-| 100.00% | 0.00% | 100.00% | 0.00% | 4.65% |
+| **801 / 801** | **0 / 801** | **8,781 / 8,781** | **0 / 8,781** | **419 / 9,200** |
+| 100.00% | 0.00% | 100.00% | 0.00% | 4.55% |
 
-Reconstrucción por clases: 801 completas, 7 parciales y 10 sin revertir de 818 (incluye 428 funciones del juego con envoltura al EXE aún sin reconstruir, en 17 clases o grupos).
+Reconstrucción por clases: 801 completas, 7 parciales y 10 sin revertir de 818 (incluye 419 funciones del juego con envoltura al EXE aún sin reconstruir, en 17 clases o grupos).
 
 **Ir a:** [Completas](#completas) · [Parciales](#parciales) · [Sin revertir](#sin-revertir) · [Cohorte nuevo por dificultad](#cohorte-nuevo) · [Cómo leer y actualizar](#metodo)
 
@@ -51,18 +51,18 @@ Reconstrucción por clases: 801 completas, 7 parciales y 10 sin revertir de 818 
 
 ## Cobertura real del EXE (estimación)
 
-Las barras de arriba miden **filas del catálogo** (`hooks.csv`), no el EXE. Esta sección mide el propio ejecutable original con el análisis estático ([MemoryMap](MemoryMap/README.md): 17,765 entradas de función detectadas y 3.72 MB de cuerpos de función), cruzado con el catálogo, el registro de validación y las envolturas pendientes. 8,772 filas reconstruidas equivalen a **8,745 funciones distintas del EXE ya reemplazadas** (varias filas son sobrescrituras virtuales que comparten cuerpo).
+Las barras de arriba miden **filas del catálogo** (`hooks.csv`), no el EXE. Esta sección mide el propio ejecutable original con el análisis estático ([MemoryMap](MemoryMap/README.md): 17,765 entradas de función detectadas y 3.72 MB de cuerpos de función), cruzado con el catálogo, el registro de validación y las envolturas pendientes. 8,781 filas reconstruidas equivalen a **8,752 funciones distintas del EXE ya reemplazadas** (varias filas son sobrescrituras virtuales que comparten cuerpo).
 
 | Región del EXE | Funciones | Bytes de código | Reemplazadas por C++ (funciones) | Reemplazadas (bytes) |
 | --- | ---: | ---: | --- | --- |
-| Juego y plataforma (0x401000–0x74FFFF) | 11,804 | 3,007,877 | `███████████████░░░░░` 8,675 · 73.5% | `█████████████████░░░` 83.7% |
+| Juego y plataforma (0x401000–0x74FFFF) | 11,804 | 3,007,877 | `███████████████░░░░░` 8,682 · 73.6% | `█████████████████░░░` 83.7% |
 | RenderWare y D3D (0x750000–0x81FFFF) | 1,889 | 600,971 | `█░░░░░░░░░░░░░░░░░░░` 61 · 3.2% | `░░░░░░░░░░░░░░░░░░░░` 0.3% |
 | CRT/MSVC y runtime (0x820000 en adelante) | 4,072 | 115,711 | `░░░░░░░░░░░░░░░░░░░░` 9 · 0.2% | `░░░░░░░░░░░░░░░░░░░░` 0.2% |
-| **Total** | **17,765** | **3,724,559** | `██████████░░░░░░░░░░` 8,745 · 49.2% | `██████████████░░░░░░` 67.6% |
+| **Total** | **17,765** | **3,724,559** | `██████████░░░░░░░░░░` 8,752 · 49.3% | `██████████████░░░░░░` 67.7% |
 
-**Qué significa para un ejecutable independiente.** No hace falta reconstruir las 17,765 funciones: RenderWare/D3D y el CRT son bibliotecas enlazadas dentro del EXE (5,961 entradas, 19% de los bytes) que se sustituirían enlazando una implementación equivalente, no reescribiéndolas desde el original. El trabajo propio del proyecto es el código del juego (11,804 funciones, 81% de los bytes), y de él ya está reemplazado el **84% de los bytes** (73% de las funciones: las que quedan son más pequeñas que la media). Entre las 11,804 entradas del juego hay 1,835 de 16 bytes o menos (stubs, thunks y helpers).
+**Qué significa para un ejecutable independiente.** No hace falta reconstruir las 17,765 funciones: RenderWare/D3D y el CRT son bibliotecas enlazadas dentro del EXE (5,961 entradas, 19% de los bytes) que se sustituirían enlazando una implementación equivalente, no reescribiéndolas desde el original. El trabajo propio del proyecto es el código del juego (11,804 funciones, 81% de los bytes), y de él ya está reemplazado el **84% de los bytes** (74% de las funciones: las que quedan son más pequeñas que la media). Entre las 11,804 entradas del juego hay 1,835 de 16 bytes o menos (stubs, thunks y helpers).
 
-### Lo que falta del código del juego: 3,129 funciones, 491 KB
+### Lo que falta del código del juego: 3,122 funciones, 490 KB
 
 Mapa completo de las funciones del juego, con lista por estado, bloque de direcciones y módulo estimado: [JuegoExe](JuegoExe/README.md).
 
@@ -71,30 +71,30 @@ Mapa completo de las funciones del juego, con lista por estado, bloque de direcc
 | D. Sin llamadas directas ni vtable | 433 | 60,777 | Código muerto o alcanzado por tablas de punteros, callbacks o scripts: hay que revisarlo, no contarlo sin más. |
 | C. Llamadas directas solo desde código aún no reemplazado | 563 | 76,153 | Dependen de reconstruir antes A y B; parte puede ser código muerto. |
 | B. Métodos virtuales (en una vtable) no alcanzados por llamada directa | 919 | 49,432 | Probablemente necesarios: se ejecutan por despacho virtual. |
-| A. Llamadas directamente desde código ya reemplazado (cierre transitivo) | 1,214 | 304,902 | **Trabajo necesario**: la DLL sigue dependiendo de ellas. Es el piso para la independencia. |
+| A. Llamadas directamente desde código ya reemplazado (cierre transitivo) | 1,207 | 303,465 | **Trabajo necesario**: la DLL sigue dependiendo de ellas. Es el piso para la independencia. |
 
-Del código reemplazado, **1,195 funciones del EXE siguen llamándose directamente** (927 del juego, 210 de RenderWare/D3D y 58 del CRT). Esa es la lista corta de dependencias reales del original que hay que eliminar o sustituir.
+Del código reemplazado, **1,192 funciones del EXE siguen llamándose directamente** (924 del juego, 210 de RenderWare/D3D y 58 del CRT). Esa es la lista corta de dependencias reales del original que hay que eliminar o sustituir.
 
 > [!NOTE]
 > **Cotas y límites.** Es un análisis estático: hay 6,004 llamadas indirectas sin resolver que no están en el grafo, así que A es una **cota inferior** del trabajo. La partición por regiones usa la dirección, no una clasificación función a función. «Reemplazada» significa que el hook existe y pasó su banco; no acredita independencia del EXE ni que la validación siga vigente para el árbol actual. Se regenera con `contrib/exe_coverage.py` al sincronizar la documentación.
 
 <a id="no-en-cpp"></a>
 
-### Funciones que ya tenemos y aún no están en C++: 428
+### Funciones que ya tenemos y aún no están en C++: 419
 
-Son envolturas: la DLL ya tiene la función y su hook, pero el cuerpo todavía llama al EXE original. Están separadas en tres secciones: **código del juego (227)**, que es el trabajo propio del proyecto, y las bibliotecas RenderWare/D3D (192) y CRT (9), que se sustituirían enlazando equivalentes. Las funciones del EXE sin nombre ni hook (el resto de lo que falta) están en el [mapa del código del juego](JuegoExe/README.md). Fuente: [envolturas-pendientes.csv](implementaciones/envolturas-pendientes.csv).
+Son envolturas: la DLL ya tiene la función y su hook, pero el cuerpo todavía llama al EXE original. Están separadas en tres secciones: **código del juego (218)**, que es el trabajo propio del proyecto, y las bibliotecas RenderWare/D3D (192) y CRT (9), que se sustituirían enlazando equivalentes. Las funciones del EXE sin nombre ni hook (el resto de lo que falta) están en el [mapa del código del juego](JuegoExe/README.md). Fuente: [envolturas-pendientes.csv](implementaciones/envolturas-pendientes.csv).
 
-#### Código del juego: 227 funciones en 13 clases o grupos
+#### Código del juego: 218 funciones en 13 clases o grupos
 
 | Clase o grupo | Pendientes | Funciones (dirección en el EXE) |
 | --- | ---: | --- |
+| CGarage | 1 | `Update` 0x0044AA50 |
 | CMissionCleanup | 2 | `CheckIfCollisionHasLoadedForMissionObjects` 0x004652D0<br>`Process` 0x00468560 |
 | CRemote | 2 | `GivePlayerRemoteControlledCar` 0x0045AB10<br>`TakeRemoteControlledCarFromPlayer` 0x0045AE80 |
 | CStoredCar | 2 | `RestoreCar` 0x00447E40<br>`StoreCar` 0x00449760 |
 | CWorldScan | 2 | `SetExtraRectangleToScan` <br>`ScanWorld` 0x0072CAE0 |
 | D3DResourceSystem | 2 | `GetTotalIndexDataSize` <br>`GetTotalPixelsSize`  |
 | CTaskComplexLeaveCar | 4 | `MakeAbortable` 0x00641100<br>`CreateSubTask` 0x00641530<br>`CreateNextSubTask` 0x006419F0<br>`CreateFirstSubTask` 0x00641FC0 |
-| CGarage | 10 | `TidyUpGarage` <br>`TidyUpGarageClose` <br>`InitDoorsAtStart` 0x00447600<br>`PlayerArrestedOrDied` 0x004486C0<br>`IsEntityEntirelyInside3D` 0x00448BE0<br>`IsEntityEntirelyOutside` 0x00448D30<br>`RemoveCarsBlockingDoorNotInside` 0x00449690<br>`IsStaticPlayerCarEntirelyInside` 0x0044A830<br>`IsGarageEmpty` 0x0044A9C0<br>`Update` 0x0044AA50 |
 | CHeli | 11 | `CHeli` 0x006C4190<br>`FindSwatPositionRelativeToHeli` 0x006C4760<br>`ProcessControlInputs` 0x006C4830<br>`ProcessFlyingCarStuff` 0x006C4E60<br>`PreRender` 0x006C5420<br>`SearchLightCone` 0x006C58E0<br>`GenerateHeli` 0x006C6520<br>`SendDownSwat` 0x006C69C0<br>`BlowUpCar` 0x006C6D30<br>`ProcessControl` 0x006C7050<br>`UpdateHelis` 0x006C79A0 |
 | CPlayerPed | 13 | `ProcessAnimGroups` 0x006098F0<br>`SetRealMoveAnim` 0x0060A9C0<br>`Compute3rdPersonMouseTarget` 0x0060B650<br>`DrawTriangleForMouseRecruitPed` 0x0060BA80<br>`KeepAreaAroundPlayerClear` 0x0060C1E0<br>`MakeThisPedJoinOurGroup` 0x0060C840<br>`PlayerWantsToAttack` 0x0060CC50<br>`SetInitialState` 0x0060CD20<br>`EvaluateNeighbouringTarget` 0x0060D1C0<br>`ProcessGroupBehaviour` 0x0060D350<br>`ProcessWeaponSwitch` 0x0060D850<br>`FindWeaponLockOnTarget` 0x0060DC50<br>`FindNextWeaponLockOnTarget` 0x0060E530 |
 | CVehicle | 17 | `AddReplacementUpgrade` 0x006D3830<br>`ProcessBikeWheel` 0x006D73B0<br>`InflictDamage` 0x006D7C90<br>`AddSingleWheelParticles` 0x006DE880<br>`RemoveVehicleUpgrade` 0x006DF930<br>`AddUpgrade` 0x006DFA20<br>`UpdateTrailerLink` 0x006DFC50<br>`UpdateTractorLink` 0x006E0050<br>`ScanAndMarkTargetForHeatSeekingMissile` 0x006E0400<br>`FireHeatSeakingMissile` 0x006E05C0<br>`PossiblyDropFreeFallBombForPlayer` 0x006E07E0<br>`ProcessSirenAndHorn` 0x006E0950<br>`AddVehicleUpgrade` 0x006E3290<br>`GetPlaneWeaponFiringStatus` 0x006E3440<br>`ProcessWeapons` 0x006E3950<br>`FireFixedMachineGuns` 0x0073DF00<br>`DoDriveByShootings` 0x00741FD0 |
@@ -628,8 +628,8 @@ Incluye las clases del catálogo que ya tienen todas sus entradas reconstruidas 
 
 | Clase | Revertidas / total | Pendientes | Envolturas al EXE | Avance | Validated | Locked |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| [CGarage](../source/game_sa/Garage.cpp) | 17/17 | **0** | **1** | 100.00% | 17 | 0 |
 | [D3DResourceSystem](../source/game_sa/RenderWare/D3DResourceSystem.cpp) | 10/10 | **0** | **2** | 100.00% | 10 | 0 |
-| [CGarage](../source/game_sa/Garage.cpp) | 8/8 | **0** | **10** | 100.00% | 8 | 0 |
 | [CHeli](../source/game_sa/Entity/Vehicle/Heli.cpp) | 11/11 | **0** | **11** | 100.00% | 11 | 0 |
 | [CPlayerPed](../source/game_sa/Entity/Ped/PlayerPed.cpp) | 52/52 | **0** | **13** | 100.00% | 52 | 0 |
 | [CVehicle](../source/game_sa/Entity/Vehicle/Vehicle.cpp) | 149/149 | **0** | **17** | 100.00% | 149 | 0 |
@@ -663,7 +663,7 @@ Destinos originales explícitos que `source/` sigue referenciando y que no estab
 | --- | ---: | ---: | ---: | ---: |
 | 1 Muy fácil | 9 | 1 | 77 | 1 |
 | 2 Fácil | 25 | 15 | 104 | 104 |
-| 3 Media | 75 | 49 | 69 | 69 |
+| 3 Media | 75 | 45 | 69 | 69 |
 | 4 Difícil | 57 | 46 | 23 | 23 |
 | 5 Muy difícil | 19 | 16 | 6 | 6 |
 
@@ -713,7 +713,7 @@ Destinos originales explícitos que `source/` sigue referenciando y que no estab
 | 38 | 2 Fácil | wrapper | CreateRouteTask | `0x00655140` | 130 | pendiente |
 | 15 | 2 Fácil | wrapper | CCarCtrl::StopCarIfNodesAreInvalid | `0x00422590` | 137 | pendiente |
 | 25 | 2 Fácil | embedded_call | CHeli::FindSwatPositionRelativeToHeli | `0x006C4760` | 141 | pendiente |
-| 28 | 3 Media | embedded_call | CGarage::IsGarageEmpty | `0x0044A9C0` | 141 | pendiente |
+| 28 | 3 Media | embedded_call | CGarage::IsGarageEmpty | `0x0044A9C0` | 141 | ✅ validada |
 | 59 | 3 Media | wrapper | CCarCtrl::SteerAIPlaneToFollowEntity | `0x004237F0` | 141 | pendiente |
 | 65 | 3 Media | wrapper | CTaskComplexFollowPedFootsteps::CreateFirstSubTask | `0x00695000` | 141 | ✅ validada |
 | 30 | 3 Media | wrapper | CCustomBuildingDNPipeline::CustomPipeMaterialSetup | `0x005D7120` | 149 | ✅ validada |
@@ -742,14 +742,14 @@ Destinos originales explícitos que `source/` sigue referenciando y que no estab
 | 121 | 3 Media | wrapper | CCarCtrl::GetAIPlaneToAttackPlayer | `0x00429780` | 261 | pendiente |
 | 114 | 3 Media | wrapper | D3DResourceSystem::DestroyIndexBuffer | `0x00730D30` | 263 | ✅ validada |
 | 61 | 3 Media | wrapper | CTaskComplexPartnerShove::GetPartnerSequence | `0x00683120` | 275 | ✅ validada |
-| 107 | 3 Media | wrapper | CGarage::IsEntityEntirelyOutside | `0x00448D30` | 281 | pendiente |
+| 107 | 3 Media | wrapper | CGarage::IsEntityEntirelyOutside | `0x00448D30` | 281 | ✅ validada |
 | 115 | 3 Media | wrapper | CTaskComplexFollowPedFootsteps::CreateNextSubTask | `0x00694EE0` | 283 | ✅ validada |
 | 99 | 3 Media | wrapper | CTaskSimpleFight::MakeAbortable | `0x006239F0` | 284 | ✅ validada |
 | 130 | 3 Media | wrapper | CCarCtrl::PickNextNodeAccordingStrategy | `0x00432B10` | 321 | pendiente |
 | 46 | 3 Media | embedded_call | FxInterpInfoFloat_c::GetVal | `0x004A8470` | 330 | ✅ validada |
 | 52 | 3 Media | wrapper | CVehicle::AddUpgrade | `0x006DFA20` | 333 | pendiente |
 | 77 | 3 Media | embedded_call | CDecision::MakeDecision | `0x006040D0` | 333 | ✅ validada |
-| 84 | 3 Media | wrapper | CGarage::IsEntityEntirelyInside3D | `0x00448BE0` | 333 | pendiente |
+| 84 | 3 Media | wrapper | CGarage::IsEntityEntirelyInside3D | `0x00448BE0` | 333 | ✅ validada |
 | 80 | 3 Media | wrapper | CCarCtrl::WeaveThroughCarsSectorList | `0x0042D680` | 341 | pendiente |
 | 129 | 3 Media | wrapper | CTaskComplexWalkRoundObject::ControlSubTask | `0x006575F0` | 341 | ✅ validada |
 | 136 | 3 Media | wrapper | CTaskComplexWalkRoundObject::CreateNextSubTask | `0x00657220` | 341 | ✅ validada |
@@ -762,7 +762,7 @@ Destinos originales explícitos que `source/` sigue referenciando y que no estab
 | 83 | 3 Media | wrapper | CCarCtrl::SteerAIHeliToLand | `0x0042AD30` | 370 | pendiente |
 | 60 | 3 Media | wrapper | SkinGetBonePositionsToTable | `0x00735360` | 381 | pendiente |
 | 66 | 3 Media | wrapper | RpClumpGetBoundingSphere | `0x00734FC0` | 384 | pendiente |
-| 92 | 3 Media | wrapper | CGarage::IsStaticPlayerCarEntirelyInside | `0x0044A830` | 386 | pendiente |
+| 92 | 3 Media | wrapper | CGarage::IsStaticPlayerCarEntirelyInside | `0x0044A830` | 386 | ✅ validada |
 | 51 | 3 Media | wrapper | CPlayerPed::EvaluateNeighbouringTarget | `0x0060D1C0` | 388 | pendiente |
 | 88 | 3 Media | wrapper | CCarCtrl::SlowCarDownForObjectsSectorList | `0x0042D4F0` | 391 | pendiente |
 | 145 | 3 Media | wrapper | RsSavePresetView | `0x00619FA0` | 393 | pendiente |

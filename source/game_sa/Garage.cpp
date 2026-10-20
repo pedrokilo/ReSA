@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CGarage
- * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 17/17 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 8/8 entradas.
+ * Validación registrada: 17/17 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -39,6 +39,13 @@ __declspec(safebuffers) uint32 __fastcall GarageIsPointInsideRadiusRegs(CGarage*
     const bool inside = GarageInsideRadiusCpp(reinterpret_cast<const float*>(self), &point.x, radius);
     return ResidueRegsCpp(static_cast<uint32>(reinterpret_cast<uintptr_t>(self)), entryEdx, inside ? 1u : 0u);
 }
+
+// 0x4486C0: ECX = this y EDX de entrada. Como el original: ECX y EDX quedan intactos (el bucle de 0x449E60 los usa de contador y de valor a traves de la llamada: `add ecx,0D8h` y el
+// `mov [0x96C01C],edx` final); la funcion no devuelve nada (EAX es residuo que ningun llamador lee). No es static: el banco Garage63 declara su direccion como destino del hook.
+__declspec(safebuffers) uint32 __fastcall GaragePlayerArrestedOrDiedRegs(CGarage* self, uint32 entryEdx) {
+    self->PlayerArrestedOrDied();
+    return ResidueRegsCpp(static_cast<uint32>(reinterpret_cast<uintptr_t>(self)), entryEdx, 0u);
+}
 #pragma runtime_checks("", restore)
 
 void CGarage::InjectHooks() {
@@ -46,22 +53,23 @@ void CGarage::InjectHooks() {
     RH_ScopedCategoryGlobal();
 
     RH_ScopedInstall(BuildRotatedDoorMatrix, 0x4479F0);
-    // RH_ScopedInstall(TidyUpGarageClose, 0x449D10);
-    // RH_ScopedInstall(TidyUpGarage, 0x449C50);
+    RH_ScopedInstall(TidyUpGarageClose, 0x449D10);
+    RH_ScopedInstall(TidyUpGarage, 0x449C50);
     RH_ScopedInstall(StoreAndRemoveCarsForThisHideOut, 0x449900);
     RH_ScopedInstall(EntityHasASphereWayOutsideGarage, 0x449050);
-    // RH_ScopedInstall(RemoveCarsBlockingDoorNotInside, 0x449690);
+    RH_ScopedInstall(RemoveCarsBlockingDoorNotInside, 0x449690);
     RH_ScopedInstall(IsEntityTouching3D, 0x448EE0);
-    // RH_ScopedInstall(IsEntityEntirelyOutside, 0x448D30);
-    // RH_ScopedInstall(IsStaticPlayerCarEntirelyInside, 0x44A830);
-    // RH_ScopedInstall(IsEntityEntirelyInside3D, 0x448BE0);
+    RH_ScopedInstall(IsEntityEntirelyOutside, 0x448D30);
+    RH_ScopedInstall(IsStaticPlayerCarEntirelyInside, 0x44A830);
+    RH_ScopedInstall(IsEntityEntirelyInside3D, 0x448BE0);
     RH_ScopedNamedGlobalInstall(GarageIsPointInsideRegs, "IsPointInsideGarage-point", 0x448740); // EDX/ECX del EXE: ver GarageIsPointInsideRegs
-    // RH_ScopedInstall(PlayerArrestedOrDied, 0x4486C0);
+    RH_ScopedNamedGlobalInstall(GaragePlayerArrestedOrDiedRegs, "PlayerArrestedOrDied", 0x4486C0); // ECX/EDX del EXE: ver GaragePlayerArrestedOrDiedRegs
     RH_ScopedInstall(OpenThisGarage, 0x447D50);
     RH_ScopedInstall(CloseThisGarage, 0x447D70);
-    // RH_ScopedInstall(InitDoorsAtStart, 0x447600);
+    RH_ScopedInstall(InitDoorsAtStart, 0x447600);
     RH_ScopedNamedGlobalInstall(GarageIsPointInsideRadiusRegs, "IsPointInsideGarage-radius", 0x4487D0); // ECX/EDX del EXE: ver GarageIsPointInsideRadiusRegs
     // RH_ScopedInstall(Update, 0x44AA50);
+    RH_ScopedInstall(IsGarageEmpty, 0x44A9C0);
 }
 
 // 0x4479F0
@@ -79,13 +87,73 @@ void CGarage::BuildRotatedDoorMatrix(CEntity* entity, float fDoorPosition) {
 }
 
 // 0x449D10
+// Como el original (0x449D10..0x449E5C): recorre el pool de vehiculos (ds:[0xB74494], leido una vez) desde el indice size-1 hasta el 1 (el 0 no se mira; con size == 1 no hay vuelta y
+// con size == 0 el contador sin signo da la vuelta, como el `dec`/`je` del EXE). Solo toca vehiculos tipo 0 o 9 (m_nVehicleType) en estado WRECKED (bits 3..7 del byte +0x36 == 0x28)
+// que IsEntityTouching3D da por dentro. Con la puerta cerrada (estado 0) se elimina sin mas; si no, se eliminan si alguna de sus esferas de colision (centro transformado con
+// 0x59C890 y la matriz del vehiculo, que NO se crea) queda fuera del garaje (IsPointInsideGarage(centro, radio de la esfera)); sin esferas no se elimina. Eliminar es CWorld::Remove
+// (0x563280) y el destructor virtual con flag 1. El pool, el puntero de estados y el de objetos se releen en cada vuelta.
 void CGarage::TidyUpGarageClose() {
-    plugin::CallMethod<0x449D10, CGarage*>(this);
+    auto* const pool = GetVehiclePool();
+    uint32 index = static_cast<uint32>(pool->GetSize()) - 1u;
+    if (index == 0)
+        return;
+    for (; index != 0; --index) {
+        CVehicle* const vehicle = pool->GetAt(index);
+        if (!vehicle)
+            continue;
+        if (vehicle->m_nVehicleType != VEHICLE_TYPE_AUTOMOBILE && vehicle->m_nVehicleType != VEHICLE_TYPE_BIKE)
+            continue;
+        if (vehicle->GetStatus() != STATUS_WRECKED)
+            continue;
+        if (!IsEntityTouching3D(vehicle))
+            continue;
+        bool remove = true;
+        if (m_nDoorState != GARAGE_DOOR_CLOSED) {
+            remove = false;
+            CCollisionData* const data = vehicle->GetColModel()->m_pColData;
+            if (static_cast<int16>(data->m_nNumSpheres) <= 0)
+                continue;
+            CColSphere* spheres = data->m_pSpheres;
+            int32       sphereIndex = 0;
+            do {
+                CVector        transformed;
+                CVector* const point = plugin::CallAndReturn<CVector*, 0x59C890, CVector*, CMatrix*, CVector*>(&transformed, vehicle->m_matrix, &spheres[sphereIndex].m_vecCenter);
+                spheres = data->m_pSpheres;
+                if (!IsPointInsideGarage(*point, spheres[sphereIndex].m_fRadius))
+                    remove = true;
+                ++sphereIndex;
+            } while (sphereIndex < static_cast<int16>(data->m_nNumSpheres));
+        }
+        if (remove) {
+            CWorld::Remove(vehicle);
+            delete vehicle;
+        }
+    }
 }
 
 // 0x449C50
+// Como el original (0x449C50..0x449D0A): mismo recorrido (size-1 hasta 1, ranuras ocupadas, tipo 0 o 9) pero la posicion del vehiculo (matriz o m_placement) debe estar dentro del garaje
+// (IsPointInsideGarage(posicion)) y el vehiculo se elimina si esta WRECKED o, si no, si la componente z del eje "up" de su matriz (+0x28; el puntero de matriz se lee antes de la llamada y
+// se conserva: el EXE no lo comprueba) es menor que 0.5f (comparacion ordenada: con NaN no se elimina).
 void CGarage::TidyUpGarage() {
-    plugin::CallMethod<0x449C50, CGarage*>(this);
+    auto* const pool = GetVehiclePool();
+    uint32 index = static_cast<uint32>(pool->GetSize()) - 1u;
+    if (index == 0)
+        return;
+    for (; index != 0; --index) {
+        CVehicle* const vehicle = pool->GetAt(index);
+        if (!vehicle)
+            continue;
+        if (vehicle->m_nVehicleType != VEHICLE_TYPE_AUTOMOBILE && vehicle->m_nVehicleType != VEHICLE_TYPE_BIKE)
+            continue;
+        CMatrixLink* const matrix = vehicle->m_matrix;
+        if (!IsPointInsideGarage(vehicle->GetPosition()))
+            continue;
+        if (vehicle->GetStatus() != STATUS_WRECKED && !(matrix->GetUp().z < 0.5f))
+            continue;
+        CWorld::Remove(vehicle);
+        delete vehicle;
+    }
 }
 
 // 0x449900
@@ -141,15 +209,34 @@ bool CGarage::EntityHasASphereWayOutsideGarage(CEntity* entity, float fRadius) {
 }
 
 // 0x449690
+// Como el original (0x449690..0x44973E): recorre el pool de vehiculos (ds:[0xB74494], tamano leido una vez) del ultimo indice al primero (ranuras libres fuera) y elimina el primero que
+// IsEntityTouching3D da por tocando, cuya posicion queda fuera del garaje (IsPointInsideGarage), que no esta bloqueado por script (bit 3 del byte +0x428 = bIsLocked) y cuyo
+// CanBeDeleted (0x6D1180) es cierto: CWorld::Remove (0x563280) y destructor virtual con flag 1; despues termina.
 void CGarage::RemoveCarsBlockingDoorNotInside() {
-    plugin::CallMethod<0x449690, CGarage*>(this);
+    auto* const pool = GetVehiclePool();
+    for (uint32 i = static_cast<uint32>(pool->GetSize()); i != 0; --i) {
+        CVehicle* const vehicle = pool->GetAt(i - 1);
+        if (!vehicle)
+            continue;
+        if (!IsEntityTouching3D(vehicle))
+            continue;
+        if (IsPointInsideGarage(vehicle->GetPosition()))
+            continue;
+        if (vehicle->vehicleFlags.bIsLocked)
+            continue;
+        if (!vehicle->CanBeDeleted())
+            continue;
+        CWorld::Remove(vehicle);
+        delete vehicle;
+        return;
+    }
 }
 
 // 0x448EE0
 // Como el original (0x448EE0..0x449041): radio = esfera delimitadora del CColModel del modelo (no el de CEntity::GetColModel), rechazo por caja ampliada con los seis
 // limites del garaje (GarageEntityNearCpp, x87) y, para cada esfera de colision, centro transformado con 0x59C890 (por su direccion) e
 // IsPointInsideGarage(centro, radio de la esfera).
-bool CGarage::IsEntityTouching3D(CEntity* entity) {
+__declspec(noinline) bool CGarage::IsEntityTouching3D(CEntity* entity) {
     const float radius = CModelInfo::GetModelInfo(static_cast<int32>(static_cast<int16>(entity->m_nModelIndex)))->GetColModel()->GetBoundRadius();
     if (!GarageEntityNearCpp(reinterpret_cast<const float*>(this), radius, &entity->GetPosition().x))
         return false;
@@ -172,30 +259,111 @@ bool CGarage::IsEntityTouching3D(CEntity* entity) {
 }
 
 // 0x448D30
+// Como el original (0x448D30..0x449041): si la posicion queda ESTRICTAMENTE dentro del rectangulo del garaje ampliado en `radius` en x e y (Garage63InsideRectStrictCpp, x87; con NaN
+// no) la entidad no esta fuera. Si no, para cada esfera de colision (contador int16 releido en cada vuelta) la matriz se crea si falta (AllocateMatrix 0x54F560 + UpdateMatrix 0x54F1B0 en
+// cada vuelta, como el EXE), el centro se transforma con 0x59C890 y la entidad NO esta fuera si IsPointInsideGarage(centro, radius + radio de la esfera) (suma con el x87 guardada como float).
 bool CGarage::IsEntityEntirelyOutside(CEntity* entity, float radius) {
-    return plugin::CallMethodAndReturn<bool, 0x448D30, CGarage*, CEntity*, float>(this, entity, radius);
+    if (Garage63InsideRectStrictCpp(reinterpret_cast<const float*>(this), radius, &entity->GetPosition().x))
+        return false;
+
+    CCollisionData* const data = entity->GetColModel()->m_pColData;
+    if (!data || static_cast<int16>(data->m_nNumSpheres) <= 0)
+        return true;
+
+    int16 index = 0;
+    do {
+        if (!entity->m_matrix) {
+            entity->AllocateMatrix();
+            entity->m_placement.UpdateMatrix(entity->m_matrix);
+        }
+        CColSphere* const sphere = &data->m_pSpheres[index];
+        CVector           transformed;
+        CVector* const    point = plugin::CallAndReturn<CVector*, 0x59C890, CVector*, CMatrix*, CVector*>(&transformed, entity->m_matrix, &sphere->m_vecCenter);
+        const float       sphereRadius = RpNanAddCpp(radius, data->m_pSpheres[index].m_fRadius);
+        if (IsPointInsideGarage(*point, sphereRadius))
+            return false;
+        ++index;
+    } while (index < static_cast<int16>(data->m_nNumSpheres));
+    return true;
 }
 
 // 0x44A830
+// Como el original (0x44A830..0x44A9B1): hace falta FindPlayerVehicle(-1, false) (el EXE lo vuelve a pedir en cada comprobacion), de tipo coche o moto (m_nVehicleType 0 o 9), sin tarea
+// activa de tipo 0x2C0 en el jugador, con la posicion dentro del rectangulo del garaje (solo fallan las comparaciones ordenadas: izq/frente por debajo, der/fondo por encima) y casi
+// quieto (Garage63StaticSpeedCpp: |v| por eje no mayor que 0.01f y |v|^2 no mayor que 0.0001f con el x87); el resultado es IsEntityEntirelyInside3D(vehiculo, 0.0f).
 bool CGarage::IsStaticPlayerCarEntirelyInside() {
-    return plugin::CallMethodAndReturn<bool, 0x44A830, CGarage*>(this);
+    if (!FindPlayerVehicle(-1, false))
+        return false;
+    if (FindPlayerVehicle(-1, false)->m_nVehicleType != VEHICLE_TYPE_AUTOMOBILE) {
+        if (FindPlayerVehicle(-1, false)->m_nVehicleType != VEHICLE_TYPE_BIKE)
+            return false;
+    }
+    if (FindPlayerPed(-1)->GetTaskManager().FindActiveTaskByType(static_cast<eTaskType>(0x2C0)))
+        return false;
+
+    CVehicle* const vehicle = FindPlayerVehicle(-1, false);
+    const CVector&  position = vehicle->GetPosition();
+    if (position.x < m_fLeftCoord)
+        return false;
+    if (position.x > m_fRightCoord)
+        return false;
+    if (position.y < m_fFrontCoord)
+        return false;
+    if (position.y > m_fBackCoord)
+        return false;
+    if (!Garage63StaticSpeedCpp(&vehicle->m_vecMoveSpeed.x))
+        return false;
+    return IsEntityEntirelyInside3D(vehicle, 0.0f);
 }
 
 // 0x448BE0
+// Como el original (0x448BE0..0x448D2A): la posicion debe estar dentro de la caja del garaje ampliada en `radius` (los seis limites, mismo x87 y comparaciones que IsEntityTouching3D:
+// GarageEntityNearCpp; con NaN pasan) y, si hay datos de colision con esferas (contador int16 releido en cada vuelta), cada esfera debe cumplir
+// IsPointInsideGarage(centro transformado con GetMatrix + 0x59C890, radius - radio de la esfera) (resta del x87 guardada como float).
 bool CGarage::IsEntityEntirelyInside3D(CEntity* entity, float radius) {
-    return plugin::CallMethodAndReturn<bool, 0x448BE0, CGarage*, CEntity*, float>(this, entity, radius);
+    if (!GarageEntityNearCpp(reinterpret_cast<const float*>(this), radius, &entity->GetPosition().x))
+        return false;
+
+    CCollisionData* const data = entity->GetColModel()->m_pColData;
+    if (!data || static_cast<int16>(data->m_nNumSpheres) <= 0)
+        return true;
+
+    int16 index = 0;
+    do {
+        CColSphere* const sphere = &data->m_pSpheres[index];
+        CMatrix&          matrix = entity->GetMatrix();
+        CVector           transformed;
+        CVector* const    point = plugin::CallAndReturn<CVector*, 0x59C890, CVector*, CMatrix*, CVector*>(&transformed, &matrix, &sphere->m_vecCenter);
+        const float       sphereRadius = GarageDiffCpp(radius, data->m_pSpheres[index].m_fRadius);
+        if (!IsPointInsideGarage(*point, sphereRadius))
+            return false;
+        ++index;
+    } while (index < static_cast<int16>(data->m_nNumSpheres));
+    return true;
 }
 
 // 0x448740
 // Version de la DLL (las llamadas desde C++ no leen el residuo de registros); el hook del EXE es GarageIsPointInsideRegs.
-bool CGarage::IsPointInsideGarage(CVector point) {
+__declspec(noinline) bool CGarage::IsPointInsideGarage(CVector point) {
     uint32 ecxUnused = 0;
     return GarageInsidePointCpp(reinterpret_cast<const float*>(this), &point.x, &ecxUnused);
 }
 
 // 0x4486C0
-eGarageDoorState CGarage::PlayerArrestedOrDied() {
-    return plugin::CallMethodAndReturn<eGarageDoorState, 0x4486C0, CGarage*>(this);
+// Como el original (0x4486C0..0x4486FB; no devuelve nada): segun m_nType (indice = tipo - 1 sin signo, solo 0..0x2C), en los tipos 2..5 y 13 la puerta pasa a "abriendo" (3) si estaba en
+// 0, 2 o 3; en los demas tipos 1..45 pasa a "cerrando" (2) si estaba en 1, 2 o 3. Con otros tipos no hace nada.
+void CGarage::PlayerArrestedOrDied() {
+    const uint32 index = static_cast<uint32>(m_nType) - 1u;
+    if (index > 0x2C)
+        return;
+    const uint8 state = static_cast<uint8>(m_nDoorState);
+    if ((index >= 1 && index <= 4) || index == 12) {
+        if (state == 0 || (state > 1 && state <= 3))
+            m_nDoorState = static_cast<eGarageDoorState>(3);
+    } else {
+        if (state != 0 && state <= 3)
+            m_nDoorState = static_cast<eGarageDoorState>(2);
+    }
 }
 
 // 0x447D50
@@ -215,13 +383,27 @@ void CGarage::CloseThisGarage() {
 }
 
 // 0x447600
+// Como el original (0x447600..0x44763C): m_nFlags = (m_nFlags & 0x39) | 0x40, estado 0 y m_nTimeToOpen 0; despues, con indice = tipo - 1 (sin signo, solo 0..0x2C): los tipos 2..5
+// ponen estado 1 y posicion de puerta 1.0f, el tipo 13 no toca nada mas y los demas ponen estado 0 y posicion 0.0f. Con otros tipos (0 o mayores de 45) solo quedan los tres primeros cambios.
 void CGarage::InitDoorsAtStart() {
-    plugin::CallMethod<0x447600, CGarage*>(this);
+    m_nFlags = static_cast<uint8>((m_nFlags & 0x39) | 0x40);
+    m_nDoorState = GARAGE_DOOR_CLOSED;
+    m_nTimeToOpen = 0;
+    const uint32 index = static_cast<uint32>(m_nType) - 1u;
+    if (index > 0x2C)
+        return;
+    if (index >= 1 && index <= 4) {
+        m_nDoorState = GARAGE_DOOR_OPEN;
+        m_fDoorPosition = 1.0f;
+    } else if (index != 12) {
+        m_nDoorState = GARAGE_DOOR_CLOSED;
+        m_fDoorPosition = 0.0f;
+    }
 }
 
 // 0x4487D0
 // Version de la DLL; el hook del EXE es GarageIsPointInsideRadiusRegs.
-bool CGarage::IsPointInsideGarage(CVector point, float radius) {
+__declspec(noinline) bool CGarage::IsPointInsideGarage(CVector point, float radius) {
     return GarageInsideRadiusCpp(reinterpret_cast<const float*>(this), &point.x, radius);
 }
 
@@ -256,25 +438,26 @@ bool CGarage::IsHideOut() const {
 }
 
 // 0x44A9C0
+// Como el original (0x44A9C0..0x44AA4C): esquinas A = (izquierda, frente, z) y B = (derecha, fondo, topZ) en la pila (izquierda y derecha se copian como enteros, las demas pasan por
+// el x87), CWorld::FindObjectsIntersectingCube(A, B, &cuenta, 16, lista, false, true, true, false, false) y el garaje esta vacio si ninguna entidad de la lista (contador int16, de la
+// primera a la ultima) toca el garaje segun IsEntityTouching3D; sin entidades (contador <= 0) esta vacio.
 bool CGarage::IsGarageEmpty() {
-    return plugin::CallMethodAndReturn<bool, 0x44A9C0, CGarage*>(this);
+    const CVector cornerA = { m_fLeftCoord, m_fFrontCoord, m_vPosn.z };
+    const CVector cornerB = { m_fRightCoord, m_fBackCoord, m_fTopZ };
 
-    CVector cornerA = { m_fLeftCoord, m_fFrontCoord, m_vPosn.z };
-    CVector cornerB = { m_fRightCoord, m_fBackCoord, m_fTopZ   };
-
-    int16 outCount[2];
+    int16    outCount[2];
     CEntity* outEntities[16];
     CWorld::FindObjectsIntersectingCube(cornerA, cornerB, outCount, static_cast<int16>(std::size(outEntities)), outEntities, false, true, true, false, false);
     if (outCount[0] <= 0)
         return true;
 
     int16 entityIndex = 0;
-
-    while (!IsEntityTouching3D(outEntities[entityIndex])) {
-        if (++entityIndex >= outCount[0])
-            return true;
-    }
-    return false;
+    do {
+        if (IsEntityTouching3D(outEntities[entityIndex]))
+            return false;
+        ++entityIndex;
+    } while (entityIndex < outCount[0]);
+    return true;
 }
 
 /*
