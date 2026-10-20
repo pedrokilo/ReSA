@@ -74,6 +74,10 @@
 #include "FxFrustumInfo.h"
 #include "FxEmitterPrt.h"
 #include "FxEmitterBP.h"
+#include "FxInterpInfoFloat.h"
+#include "FxInterpInfoU255.h"
+#include "FxInterpInfo32.h"
+#include "FxInterpInfo255.h"
 #include "FxEmitter.h"
 #include "Fx.h"
 
@@ -149,6 +153,8 @@
 #include "Ragdoll/BoneNode.h"
 #include "Ragdoll/BoneNodeManager.h"
 #include "TheScripts.h"
+#include "SearchLight.h"
+#include "TrainNode.h"
 #include "RunningScript.h"
 #include "Scripted2dEffects.h"
 #include "ScriptResourceManager.h"
@@ -713,6 +719,7 @@ void InjectHooksMain() {
     CReferences::InjectHooks();
     CPopulation::InjectHooks();
     CMemoryMgr::InjectHooks();
+    CMemoryHeap::InjectHooks();
     CModelInfo::InjectHooks();
     CBaseModelInfo::InjectHooks();
     CAtomicModelInfo::InjectHooks();
@@ -745,6 +752,10 @@ void InjectHooksMain() {
     CPed::InjectHooks();
     CPedSaveStructure::InjectHooks();
     CAttractorScanner::InjectHooks();
+    CMentalState::InjectHooks();
+    CEventScanner::InjectHooks();
+    CVehiclePotentialCollisionScanner::InjectHooks();
+    CPedStuckChecker::InjectHooks();
     CEventSource::InjectHooks();
     CPedIntelligence::InjectHooks();
     CPedGroupIntelligence::InjectHooks();
@@ -1480,6 +1491,10 @@ void InjectHooksMain() {
         FxPrimBP_c::InjectHooks();
         FxMemoryPool_c::InjectHooks();
         FxInfoManager_c::InjectHooks();
+        FxInterpInfoFloat_c::InjectHooks();
+        FxInterpInfoU255_c::InjectHooks();
+        FxInterpInfo32_c::InjectHooks();
+        FxInterpInfo255_c::InjectHooks();
         FxManager_c::InjectHooks();
         // ReversibleHooks::Install("FxFrustumInfo_c", "IsCollision", 0x4AA030, &FxFrustumInfo_c::IsCollision);
         FxEmitterPrt_c::InjectHooks();
@@ -1499,6 +1514,7 @@ void InjectHooksMain() {
         CQuadBike::InjectHooks();
         CTrailer::InjectHooks();
         CTrain::InjectHooks();
+        CTrainNode::InjectHooks();
         CVehicle::InjectHooks();
     };
 
@@ -1515,6 +1531,7 @@ void InjectHooksMain() {
         CScriptsForBrains::InjectHooks();
         CRunningScript::InjectHooks();
         CTheScripts::InjectHooks();
+        CSearchLight::InjectHooks();
         CStreamedScripts::InjectHooks();
         CScripted2dEffects::InjectHooks();
         CScriptResourceManager::InjectHooks();

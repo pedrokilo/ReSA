@@ -36,6 +36,7 @@ public:
 class CVehiclePotentialCollisionScanner {
 public:
     CTaskTimer m_timer;
+    static void InjectHooks();
     void ScanForVehiclePotentialCollisionEvents(const CPed& ped, CEntity** entities, int32 count);
 };
 
@@ -73,6 +74,8 @@ public:
     static inline auto& m_sDeadPedWalkingTimer = StaticRef<uint32>(0xC0B038);
 
 public:
+    static void InjectHooks();
+
     CEventScanner();
     ~CEventScanner() = default;
 

@@ -1,3 +1,21 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CMemoryHeap
+ * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 1/1 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 #include "StdInc.h"
 
 #include "MemoryHeap.h"
@@ -21,6 +39,13 @@ inline HeapBlockDesc* GetBlockDesc(void* mem) {
 inline HeapFreeBlockDesc* GetFreeBlockDesc(void* mem) {
     assert(mem);
     return (HeapFreeBlockDesc*)GetBlockDesc(mem);
+}
+
+void CMemoryHeap::InjectHooks() {
+    RH_ScopedClass(CMemoryHeap);
+    RH_ScopedCategory("Memory");
+
+    RH_ScopedInstall(IntegrityCheck, 0x72E8E0);
 }
 
 // 0x72E860
@@ -327,8 +352,30 @@ uint32 CMemoryHeap::GetSizeOfHoles() {
 }
 
 // 0x72E8E0
+// Recorre las listas de bloques libres, las listas de tamanos comunes, todos los bloques contiguos acumulando el uso por memId
+// y la cadena m_PrevBlock del ultimo bloque. No escribe en el monton: solo falla (bucle infinito o acceso invalido) si el
+// monton esta corrupto. Los punteros y el acumulador son volatile para que un build optimizado no elimine los recorridos.
 void CMemoryHeap::IntegrityCheck() {
-    plugin::CallMethod<0x72E8E0, CMemoryHeap*>(this);
+    for (HeapFreeBlockDesc* volatile free = m_FreeListBegin.m_Next; free != &m_FreeListEnd; free = free->m_Next) {
+    }
+
+    if (m_paCommonSizes) {
+        for (auto i = 0; i < CORE_COMMON_SIZE_COUNT; ++i) {
+            for (HeapFreeBlockDesc* volatile free = m_paCommonSizes[i].m_ListStart.m_Next; free != &m_paCommonSizes[i].m_ListEnd; free = free->m_Next) {
+            }
+        }
+    }
+
+    // Como el original: 20 acumuladores a cero; el indice es el memId con signo (-1 se omite) sin comprobar el rango.
+    volatile uint32 usedByMemId[20]{};
+    for (HeapBlockDesc* block = m_FirstBlock; block != m_LastBlock; block = block->_GetNextLocatedBlock()) {
+        if (block->m_bInUse && block->m_nMemId != -1) {
+            usedByMemId[block->m_nMemId] = usedByMemId[block->m_nMemId] + (block->m_nSize + sizeof(HeapBlockDesc));
+        }
+    }
+
+    for (HeapBlockDesc* volatile block = m_LastBlock->m_PrevBlock; block; block = block->m_PrevBlock) {
+    }
 }
 
 void* CMemoryHeap::MoveHeapBlock(HeapFreeBlockDesc* free, HeapBlockDesc* used) {

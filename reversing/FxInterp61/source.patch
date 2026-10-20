@@ -1,0 +1,387 @@
+diff --git a/source/CMakeLists.txt b/source/CMakeLists.txt
+index e1a4df0b9..3ba0e84ca 100644
+--- a/source/CMakeLists.txt
++++ b/source/CMakeLists.txt
+@@ -78,6 +78,31 @@ if(MSVC)
+         SKIP_PRECOMPILE_HEADERS ON
+         SKIP_UNITY_BUILD_INCLUSION ON
+     )
++    # FxInterpInfo{Float,U255,32,255}_c::GetVal (0x4A8470, 0x4A8800, 0x4A89C0, 0x4A8B80): aritmetica x87 del EXE (FxInterpInfo_c::InterpolateKeys); el archivo de cada clase se compila asi.
++    set_source_files_properties(game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp PROPERTIES
++        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
++        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
++        SKIP_PRECOMPILE_HEADERS ON
++        SKIP_UNITY_BUILD_INCLUSION ON
++    )
++    set_source_files_properties(game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.cpp PROPERTIES
++        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
++        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
++        SKIP_PRECOMPILE_HEADERS ON
++        SKIP_UNITY_BUILD_INCLUSION ON
++    )
++    set_source_files_properties(game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp PROPERTIES
++        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
++        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
++        SKIP_PRECOMPILE_HEADERS ON
++        SKIP_UNITY_BUILD_INCLUSION ON
++    )
++    set_source_files_properties(game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp PROPERTIES
++        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
++        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
++        SKIP_PRECOMPILE_HEADERS ON
++        SKIP_UNITY_BUILD_INCLUSION ON
++    )
+     # Shared scalar x87 helpers (sin/cos, ordered comparisons, shadow sqrt/fade); callers retain their own options.
+     set_source_files_properties(game_sa/X87Math.cpp PROPERTIES
+         COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+diff --git a/source/InjectHooksMain.cpp b/source/InjectHooksMain.cpp
+index 1e7f69146..68efaea88 100644
+--- a/source/InjectHooksMain.cpp
++++ b/source/InjectHooksMain.cpp
+@@ -74,6 +74,10 @@
+ #include "FxFrustumInfo.h"
+ #include "FxEmitterPrt.h"
+ #include "FxEmitterBP.h"
++#include "FxInterpInfoFloat.h"
++#include "FxInterpInfoU255.h"
++#include "FxInterpInfo32.h"
++#include "FxInterpInfo255.h"
+ #include "FxEmitter.h"
+ #include "Fx.h"
+ 
+@@ -1480,6 +1484,10 @@ void InjectHooksMain() {
+         FxPrimBP_c::InjectHooks();
+         FxMemoryPool_c::InjectHooks();
+         FxInfoManager_c::InjectHooks();
++        FxInterpInfoFloat_c::InjectHooks();
++        FxInterpInfoU255_c::InjectHooks();
++        FxInterpInfo32_c::InjectHooks();
++        FxInterpInfo255_c::InjectHooks();
+         FxManager_c::InjectHooks();
+         // ReversibleHooks::Install("FxFrustumInfo_c", "IsCollision", 0x4AA030, &FxFrustumInfo_c::IsCollision);
+         FxEmitterPrt_c::InjectHooks();
+diff --git a/source/game_sa/Fx/Blueprints/Interp/FxInterpInfo.h b/source/game_sa/Fx/Blueprints/Interp/FxInterpInfo.h
+index ce91e1739..f79e0fa9c 100644
+--- a/source/game_sa/Fx/Blueprints/Interp/FxInterpInfo.h
++++ b/source/game_sa/Fx/Blueprints/Interp/FxInterpInfo.h
+@@ -14,4 +14,92 @@ public:
+     ~FxInterpInfo_c() = default; // 0x4A8430
+ 
+     virtual void Load(FILESTREAM file) = 0;
++
++protected:
++    // Cuerpo comun de los cuatro GetVal(float* outValues, float delta) del EXE (Float 0x4A8470, U255 0x4A8800, 32 0x4A89C0, 255 0x4A8B80).
++    // Cada subclase lo instancia con el tipo de su tabla de claves y su escala (claves enteras: clave * escala; Float: sin escala).
++    // Aritmetica x87 del EXE: los tiempos (uint16 * 1/256), el plegado del tiempo, t y las claves se evaluan en registro con exponente
++    // extendido (aqui `double`: con la palabra de control a 24 bits cada operacion se redondea a 24 bits, igual que el EXE); solo se
++    // guardan como float el tiempo plegado, t y cada salida. Las copias de claves float (1 clave / ultima clave) son bit a bit (mov).
++    // El EXE relee m_nCount como un solo byte con signo (`movsx byte ptr [esi+6]`).
++    template <typename TKey>
++    void InterpolateKeys(TKey* const* keys, float* outValues, float delta, float scale) const;
++
++    // _ftol2 (0x821B40) usado como `(int)q`: trunca hacia cero a 64 bits y devuelve los 32 bits bajos; NaN, infinitos y |q| >= 2^63 dan 0.
++    static int32 TruncateLow32(double q) {
++        const uint64 bits = std::bit_cast<uint64>(q);
++        const int32  exponent = int32((bits >> 52) & 0x7FF) - 1023;
++        if (exponent < 0 || exponent >= 63) {
++            return 0;
++        }
++        const uint64 mantissa = (bits & 0xFFFFFFFFFFFFFull) | (1ull << 52);
++        uint64 magnitude = exponent >= 52 ? mantissa << (exponent - 52) : mantissa >> (52 - exponent);
++        if (bits >> 63) {
++            magnitude = 0 - magnitude;
++        }
++        return int32(uint32(magnitude));
++    }
+ };
++
++template <typename TKey>
++void FxInterpInfo_c::InterpolateKeys(TKey* const* keys, float* outValues, float delta, float scale) const {
++    constexpr double TIME_SCALE = 0.00390625; // 0x859AA0 = 1/256
++    const int32 numKeys = m_nNumKeys;
++    const int32 count   = int8(m_nCount);
++
++    const auto Key = [&](TKey key) -> double {
++        if constexpr (std::is_same_v<TKey, float>) {
++            return key;
++        } else {
++            return double(key) * double(scale);
++        }
++    };
++    const auto CopyKey = [&](int32 index) {
++        for (int32 i = 0; i < count; i++) {
++            if constexpr (std::is_same_v<TKey, float>) {
++                std::memcpy(&outValues[i], &keys[i][index], sizeof(float));
++            } else {
++                outValues[i] = float(Key(keys[i][index]));
++            }
++        }
++    };
++
++    if (numKeys == 1) {
++        CopyKey(0);
++        return;
++    }
++
++    volatile float time = delta; // el EXE lo guarda como float en la pila
++    if (m_bLooped) {
++        const double total = double(m_pTimes[numKeys - 1]) * TIME_SCALE;
++        const double ratio = double(delta) / total;
++        time               = float(double(delta) - double(TruncateLow32(ratio)) * total);
++    }
++
++    int32  next     = 1;
++    double nextTime = 0.0;
++    for (; next < numKeys; next++) {
++        nextTime = double(m_pTimes[next]) * TIME_SCALE;
++        if (double(float(time)) < nextTime) { // fcomp ordenado: con NaN no corta
++            break;
++        }
++    }
++    if (next >= numKeys) {
++        CopyKey(numKeys - 1);
++        return;
++    }
++
++    const double prevTime = double(m_pTimes[next - 1]) * TIME_SCALE;
++    volatile float t = float((double(float(time)) - prevTime) / (nextTime - prevTime));
++    for (int32 i = 0; i < count; i++) {
++        if constexpr (std::is_same_v<TKey, float>) {
++            // Expresion en float, sin intermedios en double: el EXE hace fld clave[i]; fsub clave[i-1] (operando de memoria); fmul t; fadd clave[i-1] (memoria), y con un NaN
++            // senalizador en memoria el x87 prefiere el NaN silencioso del otro operando (si fueran dos registros ganaria el de mayor significando).
++            outValues[i] = (keys[i][next] - keys[i][next - 1]) * t + keys[i][next - 1];
++        } else {
++            const double prev = Key(keys[i][next - 1]);
++            const double cur  = Key(keys[i][next]);
++            outValues[i]      = float((cur - prev) * double(float(t)) + prev);
++        }
++    }
++}
+diff --git a/source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp b/source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp
+index 5eead2750..a7d94a8e1 100644
+--- a/source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp
++++ b/source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp
+@@ -1,7 +1,21 @@
++// Este archivo se compila con /O2 /Oi /arch:IA32 /fp:fast /Zi, sin PCH ni unity (ver source/CMakeLists.txt): GetVal usa la aritmetica x87 del EXE.
++#ifdef _MSC_VER
++#pragma warning(push, 0)
++#endif
+ #include "StdInc.h"
+ 
+ #include "FxInterpInfo255.h"
+ #include "FxManager.h"
++#ifdef _MSC_VER
++#pragma warning(pop)
++#endif
++
++void FxInterpInfo255_c::InjectHooks() {
++    RH_ScopedClass(FxInterpInfo255_c);
++    RH_ScopedCategory("Fx");
++
++    RH_ScopedInstall(GetVal, 0x4A8B80);
++}
+ 
+ // 0x4A8B50
+ FxInterpInfo255_c::FxInterpInfo255_c() : FxInterpInfo_c() {
+@@ -38,5 +52,5 @@ void FxInterpInfo255_c::Allocate(int32 count) {
+ 
+ // 0x4A8B80
+ void FxInterpInfo255_c::GetVal(float* outValues, float delta) {
+-    plugin::CallMethod<0x4A8B80, FxInterpInfo255_c*, float*, float>(this, outValues, delta);
++    InterpolateKeys(m_Keys, outValues, delta, 0.0078125f);
+ }
+diff --git a/source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.h b/source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.h
+index e4c39252f..08e7dfeb9 100644
+--- a/source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.h
++++ b/source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.h
+@@ -7,6 +7,8 @@ protected:
+     int16** m_Keys;
+ 
+ public:
++    static void InjectHooks();
++
+     FxInterpInfo255_c();
+     ~FxInterpInfo255_c() = default; // 0x4A8B70
+ 
+diff --git a/source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp b/source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp
+index cdb6686fc..37cb75d70 100644
+--- a/source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp
++++ b/source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp
+@@ -1,7 +1,21 @@
++// Este archivo se compila con /O2 /Oi /arch:IA32 /fp:fast /Zi, sin PCH ni unity (ver source/CMakeLists.txt): GetVal usa la aritmetica x87 del EXE.
++#ifdef _MSC_VER
++#pragma warning(push, 0)
++#endif
+ #include "StdInc.h"
+ 
+ #include "FxInterpInfo32.h"
+ #include "FxManager.h"
++#ifdef _MSC_VER
++#pragma warning(pop)
++#endif
++
++void FxInterpInfo32_c::InjectHooks() {
++    RH_ScopedClass(FxInterpInfo32_c);
++    RH_ScopedCategory("Fx");
++
++    RH_ScopedInstall(GetVal, 0x4A89C0);
++}
+ 
+ // 0x4A8990
+ FxInterpInfo32_c::FxInterpInfo32_c() : FxInterpInfo_c() {
+@@ -38,5 +52,5 @@ void FxInterpInfo32_c::Allocate(int32 count) {
+ 
+ // 0x4A89C0
+ void FxInterpInfo32_c::GetVal(float* outValues, float delta) {
+-    plugin::CallMethod<0x4A89C0, FxInterpInfo32_c*, float*, float>(this, outValues, delta);
++    InterpolateKeys(m_Keys, outValues, delta, 0.0010000000474974513f);
+ }
+diff --git a/source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.h b/source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.h
+index 6488a7409..526d72e20 100644
+--- a/source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.h
++++ b/source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.h
+@@ -7,6 +7,8 @@ protected:
+     int16** m_Keys;
+ 
+ public:
++    static void InjectHooks();
++
+     FxInterpInfo32_c();
+     ~FxInterpInfo32_c() = default; // 0x4A89B0
+ 
+diff --git a/source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp b/source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp
+index b4cb3754f..a92df9fa6 100644
+--- a/source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp
++++ b/source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp
+@@ -1,7 +1,21 @@
++// Este archivo se compila con /O2 /Oi /arch:IA32 /fp:fast /Zi, sin PCH ni unity (ver source/CMakeLists.txt): GetVal usa la aritmetica x87 del EXE.
++#ifdef _MSC_VER
++#pragma warning(push, 0)
++#endif
+ #include "StdInc.h"
+ 
+ #include "FxInterpInfoFloat.h"
+ #include "FxManager.h"
++#ifdef _MSC_VER
++#pragma warning(pop)
++#endif
++
++void FxInterpInfoFloat_c::InjectHooks() {
++    RH_ScopedClass(FxInterpInfoFloat_c);
++    RH_ScopedCategory("Fx");
++
++    RH_ScopedOverloadedInstall(GetVal, "values", 0x4A8470, void (FxInterpInfoFloat_c::*)(float*, float));
++}
+ 
+ // 0x4A8440
+ FxInterpInfoFloat_c::FxInterpInfoFloat_c() : FxInterpInfo_c() {
+@@ -43,49 +57,5 @@ float FxInterpInfoFloat_c::GetVal(int32 attrib, float time, float deltaTime) {
+ 
+ // 0x4A8470
+ void FxInterpInfoFloat_c::GetVal(float* outValues, float delta) {
+-    return plugin::CallMethod<0x4A8470, FxInterpInfoFloat_c*, float*, float>(this, outValues, delta);
+-
+-    if (m_nNumKeys == 1) {
+-        for (auto i = 0; i < m_nCount; i++) {
+-            outValues[i] = *m_Keys[i];
+-        }
+-        return;
+-    }
+-
+-    if (m_bLooped) {
+-        auto totalTime = (float)m_pTimes[m_nNumKeys - 1] / 256.0f;
+-        delta = delta - (delta / totalTime) * totalTime;
+-    }
+-
+-    if (m_nNumKeys <= 1) {
+-        for (auto j = 0; j < m_nCount; j++) {
+-            outValues[j] = m_Keys[j][m_nNumKeys - 1];
+-        }
+-        return;
+-    }
+-
+-    int v8 = 1;
+-    float v11;
+-    uint16* v10 = m_pTimes + 1;
+-    while (true) {
+-        v11 = (float)*v10 / 256.0f;
+-        if (delta < v11)
+-            break;
+-        ++v8;
+-        ++v10;
+-        if (v8 >= m_nNumKeys) {
+-            for (auto j = 0; j < m_nCount; j++) {
+-                outValues[j] = m_Keys[j][m_nNumKeys - 1];
+-            }
+-            return;
+-        }
+-    }
+-
+-    int v13 = 0;
+-    float v14 = (float)m_pTimes[v8 - 1] / 256.0f;
+-    float a3a;
+-    float* v15;
+-    for (a3a = (delta - v14) / (v11 - v14); v13 < m_nCount; outValues[v13 - 1] = (v15[v8] - v15[v8 - 1]) * a3a + v15[v8 - 1]) {
+-        v15 = m_Keys[v13++];
+-    }
++    InterpolateKeys(m_Keys, outValues, delta, 0.0f);
+ }
+diff --git a/source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.h b/source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.h
+index 84c9055e9..e85a7b378 100644
+--- a/source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.h
++++ b/source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.h
+@@ -7,6 +7,8 @@ protected:
+     float** m_Keys;
+ 
+ public:
++    static void InjectHooks();
++
+     FxInterpInfoFloat_c();
+     ~FxInterpInfoFloat_c() = default; // 0x4A8460
+ 
+diff --git a/source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.cpp b/source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.cpp
+index 8e8706394..da9bfbdcb 100644
+--- a/source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.cpp
++++ b/source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.cpp
+@@ -1,7 +1,21 @@
++// Este archivo se compila con /O2 /Oi /arch:IA32 /fp:fast /Zi, sin PCH ni unity (ver source/CMakeLists.txt): GetVal usa la aritmetica x87 del EXE.
++#ifdef _MSC_VER
++#pragma warning(push, 0)
++#endif
+ #include "StdInc.h"
+ 
+ #include "FxInterpInfoU255.h"
+ #include "FxManager.h"
++#ifdef _MSC_VER
++#pragma warning(pop)
++#endif
++
++void FxInterpInfoU255_c::InjectHooks() {
++    RH_ScopedClass(FxInterpInfoU255_c);
++    RH_ScopedCategory("Fx");
++
++    RH_ScopedInstall(GetVal, 0x4A8800);
++}
+ 
+ // 0x4A87D0
+ FxInterpInfoU255_c::FxInterpInfoU255_c() : FxInterpInfo_c() {
+@@ -38,5 +52,5 @@ void FxInterpInfoU255_c::Allocate(int32 count) {
+ 
+ // 0x4A8800
+ void FxInterpInfoU255_c::GetVal(float* outValues, float delta) {
+-    plugin::CallMethod<0x4A8800, FxInterpInfoU255_c*, float*, float>(this, outValues, delta);
++    InterpolateKeys(m_Keys, outValues, delta, 0.00390625f);
+ }
+diff --git a/source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.h b/source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.h
+index 62156529d..9e9233a1f 100644
+--- a/source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.h
++++ b/source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.h
+@@ -7,6 +7,8 @@ protected:
+     uint16** m_Keys;
+ 
+ public:
++    static void InjectHooks();
++
+     FxInterpInfoU255_c();
+     ~FxInterpInfoU255_c() = default; // 0x4A87F0
+ 

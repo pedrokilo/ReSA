@@ -1,0 +1,678 @@
+diff --git a/source/InjectHooksMain.cpp b/source/InjectHooksMain.cpp
+index 1e7f69146..cc687707b 100644
+--- a/source/InjectHooksMain.cpp
++++ b/source/InjectHooksMain.cpp
+@@ -745,6 +745,10 @@ void InjectHooksMain() {
+     CPed::InjectHooks();
+     CPedSaveStructure::InjectHooks();
+     CAttractorScanner::InjectHooks();
++    CMentalState::InjectHooks();
++    CEventScanner::InjectHooks();
++    CVehiclePotentialCollisionScanner::InjectHooks();
++    CPedStuckChecker::InjectHooks();
+     CEventSource::InjectHooks();
+     CPedIntelligence::InjectHooks();
+     CPedGroupIntelligence::InjectHooks();
+diff --git a/source/game_sa/Events/EventLowAngerAtPlayer.h b/source/game_sa/Events/EventLowAngerAtPlayer.h
+index b4f1ead67..585c056ee 100644
+--- a/source/game_sa/Events/EventLowAngerAtPlayer.h
++++ b/source/game_sa/Events/EventLowAngerAtPlayer.h
+@@ -6,6 +6,7 @@
+ 
+ 
+ class NOTSA_EXPORT_VTABLE CEventLowAngerAtPlayer : public CEventEditableResponse {
++public:
+     CEventLowAngerAtPlayer() = default;
+     ~CEventLowAngerAtPlayer() override = default;
+ 
+diff --git a/source/game_sa/Events/EventScanner.cpp b/source/game_sa/Events/EventScanner.cpp
+index 06220abf1..a3b72f8df 100644
+--- a/source/game_sa/Events/EventScanner.cpp
++++ b/source/game_sa/Events/EventScanner.cpp
+@@ -2,6 +2,26 @@
+ 
+ #include "EventScanner.h"
+ 
++#include "Events/EventPotentialWalkIntoVehicle.h"
++#include "Tasks/TaskTypes/TaskSimpleGoTo.h"
++#include "PedGeometryAnalyser.h"
++#include "Events/EventInAir.h"
++#include "Events/EventOnFire.h"
++#include "Events/EventAreaCodes.h"
++#include "Events/EventEscalator.h"
++#include "Events/EventPedEnteredMyVehicle.h"
++#include "Events/EventDamage.h"
++#include "Tasks/TaskTypes/TaskComplexKillPedOnFoot.h"
++#include "Fire.h"
++#include "Weapon.h"
++
++void CEventScanner::InjectHooks() {
++    RH_ScopedClass(CEventScanner);
++    RH_ScopedCategoryGlobal();
++
++    RH_ScopedInstall(ScanForEvents, 0x607E30);
++}
++
+ // 0x605300
+ CEventScanner::CEventScanner() {
+     // Como el original: los temporizadores quedan a cero (inicializadores de miembro); el escáner de atractores
+@@ -24,7 +44,102 @@ void CEventScanner::Clear() {
+ 
+ // 0x607E30
+ void CEventScanner::ScanForEvents(CPed& ped) {
+-    plugin::CallMethod<0x607E30, CEventScanner*, CPed&>(this, ped);
++    // Como el original: no escanea hasta que la hora (sin signo) supera m_nNextScanTime, y no lo actualiza
++    if (CTimer::GetTimeInMS() <= m_nNextScanTime) {
++        return;
++    }
++    CPedIntelligence* intel = ped.GetIntelligence();
++
++    // Escaneres: los reconstruidos se llaman en C++; el resto por direccion del EXE
++    m_vehiclePotentialCollisionScanner.ScanForVehiclePotentialCollisionEvents(ped, intel->GetVehicleEntities(), 16);
++    // 0x606580: funcion sin `this` (el EXE le deja en ECX la direccion del argumento); recibe el peaton y el peaton mas cercano del escaner de peatones
++    reinterpret_cast<void(__stdcall*)(CPed*, CEntity*)>(0x606580)(&ped, intel->m_pedScanner.GetClosestPedInRange());
++    plugin::CallMethod<0x606890, CObjectPotentialCollisionScanner*, CPed*>(&m_objectPotentialCollisionScanner, &ped);                              // ScanForObjectPotentialCollisionEvents
++    plugin::CallMethod<0x607D80, CPedAcquaintanceScanner*, CPed*, CEntity**, int32>(&m_pedAcquaintanceScanner, &ped, intel->GetPedEntities(), 16);  // ScanForPedAcquaintances
++    plugin::CallMethod<0x6060A0, CAttractorScanner*, CPed*>(&m_attractorScanner, &ped);                                                              // ScanForAttractors
++    plugin::CallMethod<0x603E70, CNearbyFireScanner*, CPed*>(&m_nearbyFireScanner, &ped);                                                            // ScanForNearbyFires
++    intel->m_mentalState.Process(&ped);
++
++    // En el aire: evento CEventInAir si no esta de pie y (la bandera dice que esta en el aire o la geometria lo dice); si esta de pie con la bandera puesta
++    // y el evento actual no es CEventInAir se baja la bandera
++    if (!ped.bIsStanding && (ped.bIsInTheAir || CPedGeometryAnalyser::IsInAir(ped))) {
++        CEventInAir event;
++        intel->GetEventGroup().Add(&event, false);
++    } else if (ped.bIsInTheAir) {
++        auto& history = intel->m_eventHandler.GetHistory();
++        if (!history.GetCurrentEvent() || history.GetCurrentEvent()->GetEventType() != EVENT_IN_AIR) {
++            ped.bIsInTheAir = false;
++        }
++    }
++
++    // En llamas
++    if (ped.m_pFire) {
++        CEventOnFire event;
++        bool addEvent = true;
++        if (!ped.IsPlayer()) {
++            if (CTask* task = intel->GetTaskManager().GetSimplestActiveTask()) {
++                // Como el original: si la tarea no se puede abortar, el dano de fuego se genera directamente en lugar de anadir el evento
++                if (!task->MakeAbortable(&ped, ABORT_PRIORITY_URGENT, &event)) {
++                    addEvent = false;
++                    CWeapon::GenerateDamageEvent(&ped, ped.m_pFire->GetEntityStartedFire(), static_cast<eWeaponType>(0x25), 5, static_cast<ePedPieceTypes>(3), 0);
++                }
++            }
++        }
++        if (addEvent) {
++            intel->GetEventGroup().Add(&event, false);
++        }
++    }
++
++    plugin::CallMethod<0x603BF0, CSexyPedScanner*, CPed*, CEntity**, int32>(&m_sexyPedScanner, &ped, intel->GetPedEntities(), 16);                 // ScanForSexyPeds
++
++    // Objetivo de una tarea de matar (4, 3, 1, 2 en ese orden) en otra area: CEventAreaCodes
++    {
++        CPedIntelligence* intel2 = ped.GetIntelligence();
++        CTaskManager& taskMgr = intel2->m_TaskMgr;
++        CTask* task = taskMgr.FindTaskByType(static_cast<ePrimaryTasks>(4), static_cast<eTaskType>(1000));
++        if (!task) { task = taskMgr.FindTaskByType(static_cast<ePrimaryTasks>(3), static_cast<eTaskType>(1000)); }
++        if (!task) { task = taskMgr.FindTaskByType(static_cast<ePrimaryTasks>(1), static_cast<eTaskType>(1000)); }
++        if (!task) { task = taskMgr.FindTaskByType(static_cast<ePrimaryTasks>(2), static_cast<eTaskType>(1000)); }
++        if (task) {
++            if (CPed* target = static_cast<CTaskComplexKillPedOnFoot*>(task)->m_target) {
++                CEntity* targetContact = target->m_pContactEntity;
++                if (targetContact && ped.m_pContactEntity) {
++                    if (targetContact->GetAreaCode() != ped.m_pContactEntity->GetAreaCode()) {
++                        CEventAreaCodes event(target);
++                        ped.GetIntelligence()->GetEventGroup().Add(&event, false);
++                    }
++                }
++            }
++        }
++    }
++
++    // Sobre una escalera mecanica (el indice de modelo del contacto, con signo, igual a alguno de los dos modelos): CEventEscalator
++    if (ped.m_pContactEntity) {
++        const int32 contactModel = static_cast<int16>(ped.m_pContactEntity->m_nModelIndex);
++        if (static_cast<int32>(StaticRef<uint16>(0x8CD674)) == contactModel || static_cast<int32>(StaticRef<uint16>(0x8CD678)) == contactModel) {
++            CEventEscalator event;
++            ped.GetIntelligence()->GetEventGroup().Add(&event, false);
++        }
++    }
++
++    // En un barco (sin ser el jugador) cuyo vehiculo es el que pisa el jugador: CEventPedEnteredMyVehicle (con tarea 0x2C2)
++    if (ped.bInVehicle && ped.m_pVehicle && ped.m_pVehicle->m_nVehicleType == VEHICLE_TYPE_BOAT && !ped.IsPlayer()) {
++        CVehicle* vehicle = ped.m_pVehicle;
++        if (FindPlayerPed(-1)->m_pContactEntity == vehicle) {
++            CEventPedEnteredMyVehicle event(FindPlayerPed(-1), vehicle, static_cast<eTargetDoor>(10));
++            event.m_TaskId = static_cast<eTaskType>(0x2C2);
++            ped.GetIntelligence()->GetEventGroup().Add(&event, false);
++        }
++    }
++
++    // Peaton vivo con la salud en 0 o menos: dano de ahogamiento cada 2 segundos si no tiene ya un evento de dano
++    if (ped.m_fHealth <= 0.0f && ped.IsAlive() && CTimer::GetTimeInMS() > m_sDeadPedWalkingTimer) {
++        CEventDamage event(nullptr, 0, static_cast<eWeaponType>(0x37), static_cast<ePedPieceTypes>(3), 0, false, false);
++        if (!ped.GetIntelligence()->GetEventGroup().HasEventOfType(&event)) {
++            CWeapon::GenerateDamageEvent(&ped, nullptr, static_cast<eWeaponType>(0x36), 10, static_cast<ePedPieceTypes>(3), 0);
++            m_sDeadPedWalkingTimer = CTimer::GetTimeInMS() + 2000;
++        }
++    }
+ }
+ 
+ // 0x6053D0
+@@ -41,7 +156,116 @@ void CEventScanner::ScanForEventsNow(const CPed& ped, bool bDontScan) {
+     scanner->ScanForVehiclePotentialCollisionEvents(ped, ped.GetIntelligence()->GetVehicleEntities(), 16);
+ }
+ 
++void CVehiclePotentialCollisionScanner::InjectHooks() {
++    RH_ScopedClass(CVehiclePotentialCollisionScanner);
++    RH_ScopedCategoryGlobal();
++
++    RH_ScopedInstall(ScanForVehiclePotentialCollisionEvents, 0x603720);
++}
++
+ // 0x603720
++// Como el original, solo se usa `ped`: `entities` y `count` se empujan en la pila pero la funcion no los lee (`ret 0Ch`)
+ void CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents(const CPed& ped, CEntity** entities, int32 count) {
+-    plugin::CallMethod<0x603720, CVehiclePotentialCollisionScanner*, const CPed&, CEntity**, int32>(this, ped, entities, count);
++    // Como el original: CTaskTimer en linea. Si no estaba arrancado se arranca con 500 ms (y se sigue); si estaba detenido se reinicia el inicio;
++    // si ya vencio (unsigned: hora >= inicio + intervalo) se rearranca con 500 ms y se escanea. Los booleanos se leen como bytes (!= 0).
++    uint32 now = CTimer::GetTimeInMS();
++    if (!m_timer.m_bStarted) {
++        m_timer.m_nStartTime = now;
++        m_timer.m_bStarted   = true;
++        m_timer.m_nInterval  = 500;
++    }
++    if (m_timer.m_bStopped) {
++        m_timer.m_nStartTime = CTimer::GetTimeInMS();
++        m_timer.m_bStopped   = false;
++    }
++    now = CTimer::GetTimeInMS();
++    if (!(now >= m_timer.m_nStartTime + static_cast<uint32>(m_timer.m_nInterval))) {
++        return;
++    }
++    m_timer.m_nStartTime = now;
++    m_timer.m_nInterval  = 500;
++    m_timer.m_bStarted   = true;
++
++    CPedIntelligence* intel = ped.GetIntelligence();
++    CTask* task = intel->GetTaskManager().GetSimplestActiveTask();
++    if (!task || !CTask::IsGoToTask(task)) {
++        return;
++    }
++    CVehicle* vehicle = intel->m_vehicleScanner.GetClosestVehicleInRange();
++    if (!vehicle) {
++        return;
++    }
++
++    // Como el original: diferencia peaton - vehiculo (posiciones de la matriz o del placement)
++    const CVector& vehPos = vehicle->GetPosition();
++    const CVector& pedPos = ped.GetPosition();
++    const CVector  diff{ pedPos.x - vehPos.x, pedPos.y - vehPos.y, pedPos.z - vehPos.z };
++
++    // Las dos esquinas de la caja delimitadora del vehiculo en el mundo (la matriz del vehiculo se usa sin comprobar nulo, como el EXE)
++    CColModel* colModel = vehicle->GetColModel();
++    const CMatrix& matrix = *vehicle->m_matrix;
++    CVector corner1, corner2;
++    corner1.FromMultiply(matrix, colModel->m_boundBox.m_vecMin);
++    corner2.FromMultiply(matrix, colModel->m_boundBox.m_vecMax);
++
++    // Como el original (x87 a 24 bits: cada operacion se redondea a float; las sumas se agrupan como en el EXE):
++    // d2 = -(U.z*c2.z + U.y*c2.y + U.x*c2.x) con U el eje "arriba" (+0x20) y d1 = -(c1.y*h.y + c1.z*h.z + h.x*c1.x) con h = U * -1
++    const CVector up = matrix.GetUp();
++    const float t2a = up.z * corner2.z;
++    const float t2b = up.y * corner2.y;
++    const float t2c = t2a + t2b;
++    const float t2d = up.x * corner2.x;
++    const float d2  = -(t2c + t2d);
++    const float hz  = up.z * -1.0f;
++    const float hy  = up.y * -1.0f;
++    const float hx  = up.x * -1.0f;
++    const float t1a = corner1.y * hy;
++    const float t1b = corner1.z * hz;
++    const float t1c = t1a + t1b;
++    const float t1d = hx * corner1.x;
++    const float d1  = -(t1c + t1d);
++
++    // Como el original: la posicion del peaton se vuelve a leer
++    const CVector& p = ped.GetPosition();
++    const float s1a = up.z * p.z;
++    const float s1b = up.y * p.y;
++    const float s1c = s1a + s1b;
++    const float s1d = up.x * p.x;
++    const float side1 = (s1c + s1d) + d2;
++    bool inside = false;
++    if (side1 < 0.5f) {   // fcomp + test ah,5 + jp: NaN y >= 0.5 no cumplen
++        const float s2a = hy * p.y;
++        const float s2b = hz * p.z;
++        const float s2c = s2a + s2b;
++        const float s2d = hx * p.x;
++        const float side2 = (s2c + s2d) + d1;
++        inside = side2 < 0.5f;
++    }
++
++    // Como el original: el limite es 5.0 (10.0 = 5.0 + 5.0 si el vehiculo es un tren)
++    float limit = (vehicle->m_nVehicleSubType == VEHICLE_TYPE_TRAIN) ? 5.0f + 5.0f : 5.0f;
++    if (!inside) {
++        return;
++    }
++    // Como el original: la comprobacion de distancia (|diff|^2 < limite^2) se salta si el peaton acaba de dejar un coche
++    if (!ped.bHasJustLeftCar) {
++        const float sq = (diff.x * diff.x + diff.y * diff.y) + diff.z * diff.z;   // CVector::SquaredMagnitude (0x406DA0)
++        const float limitSq = limit * limit;
++        if (!(limitSq > sq)) {
++            return;
++        }
++    }
++
++    // Como el original: la misma variable que guardaba el limite recibe la distancia (puesta a 0 antes de la llamada)
++    float distance = 0.0f;
++    const CVector& targetPoint = static_cast<CTaskSimpleGoTo*>(task)->m_vecTargetPoint;
++    if (CPedGeometryAnalyser::GetIsLineOfSightClear(ped, targetPoint, *vehicle, distance)) {
++        return;
++    }
++    if (!(distance > 0.5f)) {
++        return;
++    }
++    const eMoveState moveState = intel->GetMoveStateFromGoToTask();
++    CEventPotentialWalkIntoVehicle event(vehicle, moveState);
++    intel->GetEventGroup().Add(&event, false);
+ }
+diff --git a/source/game_sa/Events/EventScanner.h b/source/game_sa/Events/EventScanner.h
+index 2c0443962..9f7acfd0a 100644
+--- a/source/game_sa/Events/EventScanner.h
++++ b/source/game_sa/Events/EventScanner.h
+@@ -36,6 +36,7 @@ public:
+ class CVehiclePotentialCollisionScanner {
+ public:
+     CTaskTimer m_timer;
++    static void InjectHooks();
+     void ScanForVehiclePotentialCollisionEvents(const CPed& ped, CEntity** entities, int32 count);
+ };
+ 
+@@ -73,6 +74,8 @@ public:
+     static inline auto& m_sDeadPedWalkingTimer = StaticRef<uint32>(0xC0B038);
+ 
+ public:
++    static void InjectHooks();
++
+     CEventScanner();
+     ~CEventScanner() = default;
+ 
+diff --git a/source/game_sa/MentalHealth.cpp b/source/game_sa/MentalHealth.cpp
+index befe0b3cd..93d10dec7 100644
+--- a/source/game_sa/MentalHealth.cpp
++++ b/source/game_sa/MentalHealth.cpp
+@@ -1,6 +1,11 @@
+ #include "StdInc.h"
+ #include "MentalHealth.h"
+ 
++#include "Events/EventHealthLow.h"
++#include "Events/EventHealthReallyLow.h"
++#include "Events/EventHighAngerAtPlayer.h"
++#include "Events/EventLowAngerAtPlayer.h"
++
+ // Como el original: operacion local; 0x421050 recibe CPedIntelligence*, no este this.
+ void CMentalState::IncrementAnger(int32 anger) {
+     if (!m_AngerTimer.m_bStarted) return;
+@@ -17,7 +22,67 @@ void CMentalState::IncrementAnger(int32 anger) {
+     m_AngerAtPlayer = static_cast<uint8>(m_AngerAtPlayer + static_cast<uint8>(anger));
+ }
+ 
++void CMentalState::InjectHooks() {
++    RH_ScopedClass(CMentalState);
++    RH_ScopedCategoryGlobal();
++
++    RH_ScopedInstall(Process, 0x6008A0);
++}
++
++// Como el original: float -> int64 truncado (_ftol2, 0x821B40) y solo se guarda el byte bajo.
++static uint8 HealthByte(float value) {
++    return static_cast<uint8>(static_cast<int64>(value));
++}
++
+ // 0x6008A0
+-void CMentalState::Process() {
+-    plugin::CallMethod<0x6008A0, CMentalState*>(this);
++void CMentalState::Process(CPed* ped) {
++    // Como el original: la salud del peaton se lee siempre; la del vehiculo solo si va en uno y tiene vehiculo
++    m_pedHealth = HealthByte(ped->m_fHealth);
++    if (ped->bInVehicle && ped->m_pVehicle) {
++        m_vehicleHealth = HealthByte(ped->m_pVehicle->m_fHealth);
++    }
++
++    // Como el original: el evento se construye en la pila, se anade al grupo del peaton con Add(&evento, false) y se destruye
++    const auto AddEvent = [&](auto event) {
++        ped->GetIntelligence()->GetEventGroup().Add(&event, false);
++    };
++
++    if (!ped->bInVehicle) {
++        if (m_oldPedHealth >= 50) {
++            if (m_pedHealth < 10) {
++                AddEvent(CEventHealthReallyLow{});
++            } else if (m_pedHealth < 50) {
++                AddEvent(CEventHealthLow{});
++            }
++        } else if (m_oldPedHealth >= 10 && m_pedHealth < 10) {
++            AddEvent(CEventHealthReallyLow{});
++        }
++    } else {
++        // Como el original: se compara con 600 y 300 un byte (0..255): ninguna de estas ramas llega a cumplirse, pero se conservan
++        const int32 oldVehicle = m_oldVehicleHealth;
++        const int32 vehicle    = m_vehicleHealth;
++        if (oldVehicle >= 600) {
++            if (vehicle < 300) {
++                AddEvent(CEventHealthReallyLow{});
++            } else if (vehicle < 600) {
++                AddEvent(CEventHealthLow{});
++            }
++        } else if (oldVehicle >= 300 && vehicle < 300) {
++            AddEvent(CEventHealthReallyLow{});
++        }
++    }
++
++    if (m_LastAngerAtPlayer <= 3) {
++        if (m_AngerAtPlayer > 6) {
++            AddEvent(CEventHighAngerAtPlayer{});
++        } else if (m_AngerAtPlayer > 3) {
++            AddEvent(CEventLowAngerAtPlayer{});
++        }
++    } else if (m_LastAngerAtPlayer <= 6 && m_AngerAtPlayer > 6) {
++        AddEvent(CEventHighAngerAtPlayer{});
++    }
++
++    m_LastAngerAtPlayer = m_AngerAtPlayer;
++    m_oldPedHealth      = m_pedHealth;
++    m_oldVehicleHealth  = m_vehicleHealth;
+ }
+diff --git a/source/game_sa/MentalHealth.h b/source/game_sa/MentalHealth.h
+index 122d38f23..7de16c306 100644
+--- a/source/game_sa/MentalHealth.h
++++ b/source/game_sa/MentalHealth.h
+@@ -4,8 +4,12 @@
+ 
+ #include "TaskTimer.h"
+ 
++class CPed;
++
+ class CMentalState {
+ public:
++    static void InjectHooks();
++
+     uint8      m_AngerAtPlayer;
+     uint8      m_LastAngerAtPlayer;
+ 
+@@ -22,6 +26,6 @@ public:
+     ~CMentalState() = default;
+ 
+     void IncrementAnger(int32 anger);
+-    void Process();
++    void Process(CPed* ped);
+ };
+ VALIDATE_SIZE(CMentalState, 0x14);
+diff --git a/source/game_sa/PedStuckChecker.cpp b/source/game_sa/PedStuckChecker.cpp
+index ab4993faf..b082585be 100644
+--- a/source/game_sa/PedStuckChecker.cpp
++++ b/source/game_sa/PedStuckChecker.cpp
+@@ -2,7 +2,245 @@
+ 
+ #include "PedStuckChecker.h"
+ 
+-bool CPedStuckChecker::TestPedStuck(CPed* ped, CEventGroup* eventGroup)
+-{
+-    return plugin::CallMethodAndReturn<bool, 0x602C00, CPedStuckChecker*, CPed*, CEventGroup*>(this, ped, eventGroup);
++#include "Events/EventStuckInAir.h"
++#include "Events/EventInWater.h"
++#include "Events/EventGroup.h"
++#include "General.h"
++#include "Timer.h"
++
++void CPedStuckChecker::InjectHooks() {
++    RH_ScopedClass(CPedStuckChecker);
++    RH_ScopedCategoryGlobal();
++
++    RH_ScopedInstall(TestPedStuck, 0x602C00);
++}
++
++// 0x602C00
++// Como el original (x87 a 24 bits: cada operacion se redondea a float; las comparaciones ordenadas dan falso con NaN).
++// `m_radius` cuenta fotogramas desde el ultimo punto sin atasco; cuando el peaton lleva muchos fotogramas sin avanzar, o choca de lado contra un edificio, se declara
++// atascado (`m_state` = 1) o se le recoloca (`m_state` = 2); con estado distinto de 0 se anade CEventStuckInAir salvo que haya un CEventInWater con aceleracion > 1.
++bool CPedStuckChecker::TestPedStuck(CPed* ped, CEventGroup* eventGroup) {
++    CVector   V{};      // desplazamiento desde el ultimo punto sin atasco
++    CVector   A{};      // vector de trabajo (origen de la sonda vertical / direccion perpendicular)
++    CColPoint colPoint1{}, colPoint2{};
++    CEntity*  hitEntity{};
++    float     counterF{}, f14{}, f10{};
++    int32     side = 0;
++    uint16    counter{};
++
++    // 603459: sin colision, sujeto a otra entidad o muerto/muriendo: se reinicia
++    if (!ped->m_bUsesCollision || ped->m_pAttachedTo != nullptr || ped->m_nPedState == PEDSTATE_DIE || ped->m_nPedState == PEDSTATE_DEAD) {
++        m_radius = 0;
++        m_state  = PED_STUCK_STATE_NONE;
++        return false;
++    }
++
++    // 602F6E: de pie o estaba de pie
++    if (ped->bIsStanding || ped->bWasStanding) {
++        goto reset_counter;
++    }
++    // 602C76: salvo que haya recibido dano de una entidad con intensidad > 0, hace falta ser jugador y estar atascado (bIsStuck)
++    if (!ped->m_pDamageEntity || !(ped->m_fDamageIntensity > 0.0f)) {
++        if (!ped->IsPlayer()) {
++            goto reset_counter;
++        }
++        if (!ped->m_bIsStuck) {
++            goto reset_counter;
++        }
++    }
++    // 602CAF: nadando, con jetpack o escalando no se comprueba
++    if (ped->GetIntelligence()->GetTaskSwim()) {
++        goto reset_counter;
++    }
++    if (ped->GetIntelligence()->GetTaskJetPack()) {
++        goto reset_counter;
++    }
++    if (ped->GetIntelligence()->GetTaskClimb()) {
++        goto reset_counter;
++    }
++
++    // 602CE8: contador de fotogramas y desplazamiento
++    counter = m_radius;
++    if (counter <= 10000 && counter != 0) {
++        V        = ped->GetPosition() - m_lastNonStuckPoint;
++        m_radius = static_cast<uint16>(counter + 1);
++    } else {
++        m_radius            = 1;
++        m_state             = PED_STUCK_STATE_NONE;
++        m_lastNonStuckPoint = ped->GetPosition();
++    }
++
++    {
++        // 602D6C: tope inferior del paso de tiempo (0.01); NaN pasa tal cual
++        const auto StepClamp = []() -> float {
++            const float step = CTimer::ms_fTimeStep;
++            return (0.01f > step) ? 0.01f : step;
++        };
++        counterF = static_cast<float>(static_cast<int32>(m_radius));   // fild + fstp: el contador ya actualizado
++        {
++            const float s     = StepClamp();
++            const float limit = 50.0f / (4.0f * s);
++            if (counterF > limit) {
++                const float sq = V.SquaredMagnitude();
++                if (counterF * 0.01f > sq) {
++                    goto stuck_probe;
++                }
++            }
++        }
++        // 602DD6
++        {
++            const uint8 numCollided = ped->m_nNumEntitiesCollided;
++            if (numCollided > 1) {
++                const float s      = StepClamp();
++                const float limit2 = 50.0f / (s + s);
++                if (counterF > limit2) {
++                    if (counterF * 0.004f > std::fabs(V.z)) {
++                        goto stuck_probe;
++                    }
++                }
++                goto check_state;
++            }
++            if (numCollided != 1) {
++                goto check_state;
++            }
++            CEntity* collided = ped->m_apCollidedEntities[0];
++            if (!collided || collided->GetType() != ENTITY_TYPE_BUILDING) {
++                goto check_state;
++            }
++            const float s      = StepClamp();
++            const float limit2 = 50.0f / (s + s);
++            if (!(counterF > limit2)) {
++                goto check_state;
++            }
++            if (!(counterF * 0.004f > std::fabs(V.z))) {
++                goto check_state;
++            }
++            goto wall_probe;
++        }
++    }
++
++stuck_probe:
++    // 602E40: solo cada 8 fotogramas (segun el id del peaton); entre medias queda marcado como atascado
++    if (((CTimer::m_FrameCounter + static_cast<uint8>(ped->m_nRandomSeed) + 3) & 7) != 0) {
++        m_state = PED_STUCK_STATE_STUCK;
++        goto check_state;
++    }
++    {
++        A                = ped->GetPosition();
++        A.z              = A.z + 1.0f;
++        const float zEnd = ped->GetPosition().z - 1.0f;
++        if (!CWorld::ProcessVerticalLine(A, zEnd, colPoint1, hitEntity, true, true, false, true, false, false, nullptr)) {
++            goto check_state;
++        }
++        if (ped->bHeadStuckInCollision) {
++            if (!(colPoint1.m_vecPoint.z + 1.0f < ped->GetPosition().z)) {
++                goto set_standing;
++            }
++        }
++        // 602EFA: con dano de un peaton y velocidad de impacto vertical alta no se recoloca
++        if (ped->m_fDamageIntensity > 0.0f && ped->m_pDamageEntity && ped->m_pDamageEntity->GetType() == ENTITY_TYPE_PED
++            && ped->m_vecLastCollisionImpactVelocity.z > 0.3f) {
++            goto set_standing;
++        }
++        A.z = colPoint1.m_vecPoint.z + 1.0f;
++        ped->SetPosn(A);
++        if (ped->bHeadStuckInCollision) {
++            ped->bHeadStuckInCollision = false;
++        }
++    }
++set_standing:
++    ped->bIsStanding = true;
++
++reset_counter:
++    m_radius = 0;
++    m_state  = PED_STUCK_STATE_NONE;
++    goto check_state;
++
++wall_probe:
++    // 603048: choque lateral contra un edificio: se sondea el suelo a ambos lados (perpendicular al desplazamiento)
++    {
++        A = CVector{ -V.y, V.x, 1.0f };
++        A.Normalise();
++        {
++            const CVector origin = ped->GetPosition() + A;
++            f14                  = 5001.0f;  // 0x459C4800
++            if (CWorld::ProcessVerticalLine(origin, -20.0f, colPoint1, hitEntity, true, false, false, false, false, false, nullptr)) {
++                const CVector& p      = ped->GetPosition();
++                const CVector  target = p + A;
++                if (CWorld::GetIsLineOfSightClear(p, target, true, true, false, true, false, false, false)) {
++                    f14 = colPoint1.m_vecPoint.z;
++                }
++            }
++        }
++        {
++            const CVector origin = ped->GetPosition() - A;
++            f10                  = 5002.0f;  // 0x459C5000
++            if (CWorld::ProcessVerticalLine(origin, -20.0f, colPoint2, hitEntity, true, false, false, false, false, false, nullptr)) {
++                const CVector& p      = ped->GetPosition();
++                const CVector  target = p - A;
++                if (CWorld::GetIsLineOfSightClear(p, target, true, true, false, true, false, false, false)) {
++                    f10 = colPoint2.m_vecPoint.z;
++                }
++            }
++        }
++
++        side = 0;
++        if (f14 > 5000.0f && f10 > 5000.0f) {
++            side = -1;
++        } else {
++            if ((ped->GetPosition().z - 1.0f < f14) && (f14 < 5000.0f) && ((f10 < 5001.0f) || (f14 < f10))) {
++                side = 1;
++            } else if ((ped->GetPosition().z - 1.0f < f10) && (f10 < 5001.0f)) {
++                side = 2;
++            }
++            if (side != 0 && !ped->bHeadStuckInCollision) {
++                const bool skipMove = ped->m_fDamageIntensity > 0.0f && ped->m_pDamageEntity && ped->m_pDamageEntity->GetType() == ENTITY_TYPE_PED
++                                      && ped->m_vecLastCollisionImpactVelocity.z > 0.3f;
++                if (!skipMove) {
++                    ped->SetPosn(side == 2 ? colPoint2.m_vecPoint : colPoint1.m_vecPoint);
++                    CVector& pos = ped->GetPosition();
++                    pos.z        = pos.z + 1.0f;
++                }
++            }
++        }
++
++        // 6032D7: si el lado 1 queda mas bajo se invierte la direccion; fuerza hacia el lado elegido
++        if (f14 < f10) {
++            A.x = A.x * -1.0f;
++            A.y = A.y * -1.0f;
++            A.z = A.z * -1.0f;
++        }
++        A.z = 1.0f;
++        ped->ApplyMoveForce(CVector{ A.x * 4.0f, A.y * 4.0f, 4.0f });
++        if (side > -1) {
++            const CVector delta{ A.x * 0.25f, A.y * 0.25f, A.z * 0.25f };
++            ped->SetPosn(ped->GetPosition() + delta);
++            const float angle       = CGeneral::GetRadianAngleBetweenPoints(A.x, A.y, 0.0f, 0.0f);
++            ped->m_fCurrentRotation = angle;
++            const float limited     = CGeneral::LimitRadianAngle(angle);
++            ped->m_fCurrentRotation = limited;
++            ped->m_fAimingRotation  = limited;
++            ped->SetOrientation(0.0f, 0.0f, limited);
++        }
++        m_state = PED_STUCK_STATE_WAS_STUCK;
++    }
++
++check_state:
++    // 602F76: sin estado de atasco no hay evento
++    if (m_state == PED_STUCK_STATE_NONE) {
++        return false;
++    }
++    // 602F80: un CEventInWater con aceleracion > 1 evita el evento (y baja la bandera de "de pie")
++    if (eventGroup->GetEventOfType(EVENT_IN_WATER)) {
++        const auto* water = static_cast<CEventInWater*>(eventGroup->GetEventOfType(EVENT_IN_WATER));
++        if (water->m_acceleration > 1.0f) {
++            ped->bIsStanding = false;
++            return false;
++        }
++    }
++    {
++        CEventStuckInAir event(ped);
++        eventGroup->Add(&event, false);
++    }
++    return true;
+ }
+diff --git a/source/game_sa/PedStuckChecker.h b/source/game_sa/PedStuckChecker.h
+index f7463d509..e2f855a93 100644
+--- a/source/game_sa/PedStuckChecker.h
++++ b/source/game_sa/PedStuckChecker.h
+@@ -18,6 +18,8 @@ public:
+     ePedStuckState m_state;
+ 
+ public:
++    static void InjectHooks();
++
+     CPedStuckChecker() { // inlined 0x607292
+         m_radius = 0;
+         m_state = PED_STUCK_STATE_NONE;

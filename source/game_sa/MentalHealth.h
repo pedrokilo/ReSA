@@ -4,8 +4,12 @@
 
 #include "TaskTimer.h"
 
+class CPed;
+
 class CMentalState {
 public:
+    static void InjectHooks();
+
     uint8      m_AngerAtPlayer;
     uint8      m_LastAngerAtPlayer;
 
@@ -22,6 +26,6 @@ public:
     ~CMentalState() = default;
 
     void IncrementAnger(int32 anger);
-    void Process();
+    void Process(CPed* ped);
 };
 VALIDATE_SIZE(CMentalState, 0x14);

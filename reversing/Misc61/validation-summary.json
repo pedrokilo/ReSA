@@ -1,0 +1,56 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 4,
+  "functions": {
+    "CMemoryHeap::IntegrityCheck": 4096,
+    "CSearchLight::IsSpottedEntity": 4096,
+    "CTaskSimpleSlideToCoord::ProcessPed": 4096,
+    "CTrainNode::GetLightingFromCollision": 4096
+  },
+  "covered_functions": {
+    "CMemoryHeap::IntegrityCheck": true,
+    "CSearchLight::IsSpottedEntity": true,
+    "CTaskSimpleSlideToCoord::ProcessPed": true,
+    "CTrainNode::GetLightingFromCollision": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wd-4 (HEAD d349867fb + fuentes del lote 61). Colaboradores sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL; no se validan sus cuerpos reales): GetActualScriptThingIndex (0x4839A0) y 0x493280 (sin reconstruir) en IsSpottedEntity; CTaskSimpleRunNamedAnim::ProcessPed (0x61BF20), CTaskSimpleStandStill::ProcessPed (0x62F370) y CGeneral::LimitRadianAngle (0x53CB50) en ProcessPed (el constructor/destructor de CTaskSimpleStandStill, CPed::IsPlayer y la llamada virtual MakeAbortable de la tarea primaria se ejecutan con codigo real o con una vtable falsa trazada); CWorld::ProcessVerticalLine (0x5674E0) en GetLightingFromCollision. CMemoryHeap::IntegrityCheck se prueba sobre un monton falso con cada estructura en su propia pagina PAGE_GUARD (orden de primera lectura); memId fuera de [-1, 19] en un bloque en uso no se prueba (el EXE escribe fuera del arreglo local). GetLightingFromCollision: el hook apunta a un envoltorio con la ABI del EXE (AL) porque MSVC devuelve tColLighting por puntero oculto. ProcessPed se prueba con CPed/CMatrix/CPedIntelligence falsos (solo los campos que leen el EXE y la DLL). EAX/ECX/EDX solo registrados; el AL de salida si se compara.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Misc61-20261019-232904-294324",
+  "summary_sha256": "bac5626dd5b0f522918c71b44279ad964bb2bcfbf730ec778b32554bc9c0206d",
+  "result_txt_sha256": "1dcf34826e8b63fc362da5a8c9b1e4b10659103eaf470c6cfcea41cbb46f488e",
+  "log_sha256": "f365e225ef4c586bbaaf74976eff5ff59b9dda260027987ae368cdab50ec8a68",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "1ff1cffcec329bc061abda150ac1b53a658f2bbcde4e592ae9b0660440165d80",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "835f85b3d43b06cb44adf8b90635bddc669ce2662c16fa4bd265bbfe6c5cfdf5",
+      "source/InjectHooksMain.cpp": "576edc2831edbc1897f7a9b34ce067c5702e8912f6a68c81f515b3e5f8926540",
+      "source/game_sa/Memory/MemoryHeap.cpp": "b118630c2137ea48605db97eaa7fb44269a16acf7e2a4d28c17b0fd0f356b1d8",
+      "source/game_sa/Memory/MemoryHeap.h": "c10f1b3d918843678e5e34c039589b928118e28cb0bada60bfe7d7eaa3a112ee",
+      "source/game_sa/SearchLight.cpp": "cd3e91b4b8682a21f7ac513ca9d5a12902c09088e49fc286606102cd3ea7045d",
+      "source/game_sa/SearchLight.h": "cadd965808044668a3de68f1c6b700ae171011a0674bf5d5f055083b71e1c556",
+      "source/game_sa/TrainNode.cpp": "669e1b427a784df26cdc247e166d7e15a9ee87f1e30e4d75ec984c268c11b7b1",
+      "source/game_sa/TrainNode.h": "45998683b6ea7b2616058184dc62c0e210d943ca52f875d05da168fcb0eb09d8",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "0d4a1740ac8b10dc6f9dae03d0221378b9bfd71fd746be7f8379993d516ec03a",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "5d1eb7ba3ef63b8555030d95a1fa6e391d1d1c522c779b0c71db02b85db7f159",
+      "source/game_sa/X87Math.cpp": "a574b7b5bf9032fd8caa08e54b343ab8713af479eee36f3247e50e6a099f3dae",
+      "source/game_sa/X87Math.h": "e0eb905c906f44936ccc2b37ae7c6f346c334d72abb1f069e48d6ac0810e3f6d",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Misc61/LiveComparison.hpp": "ef10d09f7424cea9e546951de6159ecc0b74a92dfb6944830a35dcbda1331d72",
+      "reversing/Misc61/Core.hpp": "b0f7c77b28f09e93cf29489e0e3fd8da5a6342adb1b3bf15e89ef15b680ac412",
+      "reversing/Misc61/Cases.hpp": "177f517a7d4481d1072aa68fe388d29f9222e660d2b8c7b812c7be7137d62504",
+      "reversing/Misc61/Fixtures.hpp": "8ae08eff9601818adb651a6baa3d17dd2ab4ffd095580b88751cf88b9e8fc269",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

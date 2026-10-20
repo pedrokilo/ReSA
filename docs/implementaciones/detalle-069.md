@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 19/10/2026 (Ciudad de México):** 795 grupos / 8729 funciones reconstruidas; 8729 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 19/10/2026 (Ciudad de México):** 807 grupos / 8743 funciones reconstruidas; 8743 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -7,6 +7,14 @@
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-1361"></a>
+
+## RwObjectNameIdAssocation
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| AsFlagsUnion() | [source/game_sa/RwObjectNameIdAssocation.h:81](../../source/game_sa/RwObjectNameIdAssocation.h#L81) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1362"></a>
 
 ## RwPlCore
 
@@ -27,7 +35,7 @@
 | RwEngineGetPluginOffset(RwUInt32 pluginID) | [source/game_sa/RenderWare/rw/rwplcore.cpp:410](../../source/game_sa/RenderWare/rw/rwplcore.cpp#L410) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: RwPlCore::RwEngineGetPluginOffset 0x007F2BE0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * RwStreamWriteInt32(RwStream* stream, const RwInt32* ints, RwUInt32 numBytes) | [source/game_sa/RenderWare/rw/rwplcore.cpp:539](../../source/game_sa/RenderWare/rw/rwplcore.cpp#L539) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: RwPlCore::RwStreamWriteInt32 0x007ED460 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1362"></a>
+<a id="grupo-1363"></a>
 
 ## SArray
 
@@ -54,7 +62,7 @@
 | * Allocate(size_t n) | [source/game_sa/Core/SArray.h:119](../../source/game_sa/Core/SArray.h#L119) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Deallocate(T* p) | [source/game_sa/Core/SArray.h:120](../../source/game_sa/Core/SArray.h#L120) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1363"></a>
+<a id="grupo-1364"></a>
 
 ## Securom
 
@@ -64,7 +72,7 @@
 | SecuromDisplayInit() | [source/app/securom/Securom.cpp:37](../../source/app/securom/Securom.cpp#L37) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Securom::SecuromDisplayInit 0x00744A70 | 0 / 0 | Posible dato fijo trapDisplay: source/app/securom/Securom.cpp:24 (0x00C8CDE8); Posible dato fijo triggerDisplay: source/app/securom/Securom.cpp:25 (0x00C8CE68) |
 | SecuromStateDisplay() | [source/app/securom/Securom.cpp:43](../../source/app/securom/Securom.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Securom::SecuromStateDisplay 0x00744AE0 | 0 / 0 | Posible dato fijo trapDisplay: source/app/securom/Securom.cpp:24 (0x00C8CDE8); Posible dato fijo triggerDisplay: source/app/securom/Securom.cpp:25 (0x00C8CE68) |
 
-<a id="grupo-1364"></a>
+<a id="grupo-1365"></a>
 
 ## SurfaceInfo
 
@@ -72,7 +80,7 @@
 | --- | --- | --- | --- | --- | --- |
 | Read(const char* line) | [source/game_sa/SurfaceInfo_c.h:64](../../source/game_sa/SurfaceInfo_c.h#L64) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1365"></a>
+<a id="grupo-1366"></a>
 
 ## SurfaceInfos_c
 
@@ -131,7 +139,7 @@
 | SurfaceInfos_c::GetAdhesiveLimit(CColPoint* colPoint) | [source/game_sa/SurfaceInfos_c.cpp:696](../../source/game_sa/SurfaceInfos_c.cpp#L696) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: SurfaceInfos_c::GetAdhesiveLimit 0x0055EB50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsAudioGravelConcreteOrTile(SurfaceId id) | [source/game_sa/SurfaceInfos_c.h:73](../../source/game_sa/SurfaceInfos_c.h#L73) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1366"></a>
+<a id="grupo-1367"></a>
 
 ## TList_c
 
@@ -159,7 +167,7 @@
 | end() | [source/game_sa/Core/List_c.h:267](../../source/game_sa/Core/List_c.h#L267) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsEmpty() const | [source/game_sa/Core/List_c.h:269](../../source/game_sa/Core/List_c.h#L269) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1367"></a>
+<a id="grupo-1368"></a>
 
 ## TList_c::BaseIterator
 
@@ -175,7 +183,7 @@
 | operator==(const BaseIterator&lt;Y&gt;& lhs, const BaseIterator&lt;Y&gt;& rhs) | [source/game_sa/Core/List_c.h:38](../../source/game_sa/Core/List_c.h#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | operator!=(const BaseIterator&lt;Y&gt;& lhs, const BaseIterator&lt;Y&gt;& rhs) | [source/game_sa/Core/List_c.h:39](../../source/game_sa/Core/List_c.h#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1368"></a>
+<a id="grupo-1369"></a>
 
 ## UpgradePosnDesc
 
@@ -184,7 +192,7 @@
 | UpgradePosnDesc() | [source/game_sa/Models/VehicleModelInfo.h:124](../../source/game_sa/Models/VehicleModelInfo.h#L124) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ~UpgradePosnDesc() | [source/game_sa/Models/VehicleModelInfo.h:125](../../source/game_sa/Models/VehicleModelInfo.h#L125) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1369"></a>
+<a id="grupo-1370"></a>
 
 ## UpsideDownCar
 
@@ -193,7 +201,7 @@
 | UpsideDownCar() | [source/game_sa/UpsideDownCarCheck.h:15](../../source/game_sa/UpsideDownCarCheck.h#L15) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Clear() | [source/game_sa/UpsideDownCarCheck.h:19](../../source/game_sa/UpsideDownCarCheck.h#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1370"></a>
+<a id="grupo-1371"></a>
 
 ## VideoMode
 
@@ -204,7 +212,7 @@
 | SetVideoMode(int32 mode) | [source/app/platform/win/VideoMode.cpp:108](../../source/app/platform/win/VideoMode.cpp#L108) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: VideoMode::SetVideoMode 0x00745C70 | 0 / 0 | Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040); Posible dato fijo Scene: source/game_sa/Scene.cpp:3 (0x00C17038); Posible dato fijo gVideoModes: source/app/platform/win/VideoMode.h:46 (0x00C920D0) |
 | IsVideoModeExclusive() | [source/app/platform/win/VideoMode.cpp:119](../../source/app/platform/win/VideoMode.cpp#L119) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: VideoMode::IsVideoModeExclusive 0x00745CA0 | 0 / 0 | Posible dato fijo gCurrentVideoMode: source/app/platform/win/VideoMode.h:48 (0x008D6220) |
 
-<a id="grupo-1371"></a>
+<a id="grupo-1372"></a>
 
 ## VideoPlayer
 
@@ -219,7 +227,7 @@
 | Play(int32 nCmdShow, const char* path) | [source/app/platform/win/VideoPlayer/VideoPlayer.cpp:123](../../source/app/platform/win/VideoPlayer/VideoPlayer.cpp#L123) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: VideoPlayer::Play 0x00747660 | 0 / 0 | Posible dato fijo pvGraphBuilder: source/app/platform/win/VideoPlayer/VideoPlayer.cpp:28 (0x00C920D4); Posible dato fijo pvMediaControl: source/app/platform/win/VideoPlayer/VideoPlayer.cpp:29 (0x00C920D8); Posible dato fijo pvMediaEvent: source/app/platform/win/VideoPlayer/VideoPlayer.cpp:30 (0x00C920DC); Posible dato fijo pvMediaSeeking: source/app/platform/win/VideoPlayer/VideoPlayer.cpp:32 (0x00C920E4); Posible dato fijo pvVideoWindow: source/app/platform/win/VideoPlayer/VideoPlayer.cpp:31 (0x00C920E0) |
 | GetMediaControl() -&gt; IMediaControl* | [source/app/platform/win/VideoPlayer/VideoPlayer.cpp:202](../../source/app/platform/win/VideoPlayer/VideoPlayer.cpp#L202) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo pvMediaControl: source/app/platform/win/VideoPlayer/VideoPlayer.cpp:29 (0x00C920D8) |
 
-<a id="grupo-1372"></a>
+<a id="grupo-1373"></a>
 
 ## WaterCreatureManager_c
 
@@ -236,7 +244,7 @@
 | WaterCreatureManager_c::Update(float deltaTime) | [source/game_sa/WaterCreatureManager_c.cpp:151](../../source/game_sa/WaterCreatureManager_c.cpp#L151) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: WaterCreatureManager_c::Update 0x006E4F10 | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
 | & GetCreatureInfo(uint32/*eWaterCreatureType*/ type) | [source/game_sa/WaterCreatureManager_c.h:62](../../source/game_sa/WaterCreatureManager_c.h#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_waterCreatureInfos: source/game_sa/WaterCreatureManager_c.h:37 (0x008D3698) |
 
-<a id="grupo-1373"></a>
+<a id="grupo-1374"></a>
 
 ## WaterCreature_c
 
@@ -251,7 +259,7 @@
 | IsJellyfish() const | [source/game_sa/WaterCreature_c.h:49](../../source/game_sa/WaterCreature_c.h#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsSmallFish() const | [source/game_sa/WaterCreature_c.h:50](../../source/game_sa/WaterCreature_c.h#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1374"></a>
+<a id="grupo-1375"></a>
 
 ## Win
 
@@ -265,7 +273,7 @@
 | GTATranslateKey(RsKeyCodes* ck, LPARAM lParam, UINT vk) | [source/app/platform/win/WinPlatform.cpp:83](../../source/app/platform/win/WinPlatform.cpp#L83) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Win::GTATranslateKey 0x00747820 | 0 / 0 | Posible dato fijo s_OSStatus: source/app/platform/win/WinPlatform.h:40 (0x00C8CF68) |
 | __MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) | [source/app/platform/win/WndProc.cpp:49](../../source/app/platform/win/WndProc.cpp#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: Win::__MainWndProc 0x00747EB0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo AEAudioHardware: source/game_sa/Audio/Hardware/AEAudioHardware.cpp:30 (0x00B5F8B8); Posible dato fijo CameraResizeRejectedDword: source/app/platform/win/WndProc.cpp:44 (0x00C9246C); Posible dato fijo ForegroundAppDword: source/app/platform/win/WndProc.cpp:42 (0x008D621C); Posible dato fijo FrontEndMenuManager: source/game_sa/MenuManager.cpp:40 (0x00BA6748); Posible dato fijo Pads: source/game_sa/Pad.h:111 (0x00B73458); Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040); Posible dato fijo RwInitializedDword: source/app/platform/win/WndProc.cpp:41 (0x00C920E8); Posible dato fijo WindowedDword: source/app/platform/win/WndProc.cpp:43 (0x00C920CC); Posible dato fijo gGameState: source/app/app.h:19 (0x00C8D4C0); Posible dato fijo gbGammaChanged: source/game_sa/Gamma.h:23 (0x00C920C8); Posible dato fijo ms_GammaTable: source/game_sa/Gamma.h:6 (0x00C8DAC8); Posible dato fijo ms_SavedGamma: source/game_sa/Gamma.h:5 (0x00C8D4C8); Posible dato fijo ms_running: source/game_sa/CutsceneMgr.h:77 (0x00B5F851) |
 
-<a id="grupo-1375"></a>
+<a id="grupo-1376"></a>
 
 ## WinInput
 
@@ -286,7 +294,7 @@
 | IsKeyPressed(unsigned int keyCode) | [source/app/platform/win/WinInput.cpp:321](../../source/app/platform/win/WinInput.cpp#L321) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsKeyDown(unsigned int keyCode) | [source/app/platform/win/WinInput.cpp:325](../../source/app/platform/win/WinInput.cpp#L325) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1376"></a>
+<a id="grupo-1377"></a>
 
 ## cBuoyancy
 
@@ -303,7 +311,7 @@
 | cBuoyancy::FindWaterLevel(const CVector& vecInitialZPos, CVector* outVecOffset, tWaterLevel* outInWaterState) | [source/game_sa/Buoyancy.cpp:546](../../source/game_sa/Buoyancy.cpp#L546) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: cBuoyancy::FindWaterLevel 0x006C2810 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | cBuoyancy::FindWaterLevelNorm(const CVector& vecInitialZPos, CVector* outVecOffset, tWaterLevel* outInWaterState, CVector* outVecNormal) | [source/game_sa/Buoyancy.cpp:566](../../source/game_sa/Buoyancy.cpp#L566) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: cBuoyancy::FindWaterLevelNorm 0x006C28C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1377"></a>
+<a id="grupo-1378"></a>
 
 ## cHandlingDataMgr
 
@@ -325,7 +333,7 @@
 | cHandlingDataMgr::ConvertBikeDataToGameUnits(tBikeHandlingData* bikeHandling) | [source/game_sa/cHandlingDataMgr.cpp:469](../../source/game_sa/cHandlingDataMgr.cpp#L469) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: cHandlingDataMgr::ConvertBikeDataToGameUnits 0x006F5290 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | cHandlingDataMgr::FindExactWord(const char* name, const char* nameTable, uint32 entrySize, uint32 entryCount) | [source/game_sa/cHandlingDataMgr.cpp:477](../../source/game_sa/cHandlingDataMgr.cpp#L477) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: cHandlingDataMgr::FindExactWord 0x006F4F30 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1378"></a>
+<a id="grupo-1379"></a>
 
 ## cTransmission
 
@@ -337,7 +345,7 @@
 | cTransmission::CalculateGearForSimpleCar(float speed, uint8& currentGear) | [source/game_sa/cTransmission.cpp:93](../../source/game_sa/cTransmission.cpp#L93) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: cTransmission::CalculateGearForSimpleCar 0x006D0530 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | cTransmission::CalculateDriveAcceleration(const float& gasPedal, uint8& currentGear, float& gearChangeCount, float& velocity, float* a6, float* a7, uint8 allWheelsOnGround, uint8 handlingCheat) | [source/game_sa/cTransmission.cpp:112](../../source/game_sa/cTransmission.cpp#L112) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: cTransmission::CalculateDriveAcceleration 0x006D05E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1379"></a>
+<a id="grupo-1380"></a>
 
 ## detail
 
@@ -348,14 +356,3 @@
 | ScriptWidthScale(uint8 width) | [source/game_sa/PathFind.cpp:826](../../source/game_sa/PathFind.cpp#L826) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ScriptOffsetPos(const CVector& nodePos, float px, float py, float scale) | [source/game_sa/PathFind.cpp:829](../../source/game_sa/PathFind.cpp#L829) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetCoorsOfRegion(size_t p, size_t nareas) | [source/game_sa/PathFind.cpp:2022](../../source/game_sa/PathFind.cpp#L2022) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1380"></a>
-
-## details
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| * CPtrNodeDoubleLink__operator_new(size_t sz) | [source/game_sa/Core/PtrNodeDoubleLink.cpp:4](../../source/game_sa/Core/PtrNodeDoubleLink.cpp#L4) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPtrNodeDoubleLink__operator_delete(void* data, size_t sz) | [source/game_sa/Core/PtrNodeDoubleLink.cpp:9](../../source/game_sa/Core/PtrNodeDoubleLink.cpp#L9) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CPtrNodeSingleLink__operator_new(size_t sz) | [source/game_sa/Core/PtrNodeSingleLink.cpp:4](../../source/game_sa/Core/PtrNodeSingleLink.cpp#L4) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CPtrNodeSingleLink__operator_delete(void* data, size_t sz) | [source/game_sa/Core/PtrNodeSingleLink.cpp:9](../../source/game_sa/Core/PtrNodeSingleLink.cpp#L9) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

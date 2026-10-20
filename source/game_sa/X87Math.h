@@ -1349,16 +1349,12 @@ void __cdecl VehHeadTailRangeStoreCpp(const float* lodMultiplier, float* range);
 void __cdecl VehHeadTailHeadCoronaCpp(const float* magnitude, const float* sqrtDot, const float* lodMultiplier, bool train, bool halogen, bool inlinedCopy,
                                       float* size, float* range, unsigned int* red, unsigned int* blue);
 
-// =====================================================================================================================================================
-// g23b: CVehicle::FlyingControl (0x6D85F0). Maquina x87 de software y funciones auxiliares del EXE como secuencias x87. Anadir AL FINAL de X87Math.h.
-// =====================================================================================================================================================
-// ============================================================================================================================================================
-// g23b: maquina x87 de software (CVehicle::FlyingControl, 0x6D85F0).
+// // g23b: CVehicle::FlyingControl (0x6D85F0). Maquina x87 de software y funciones auxiliares del EXE como secuencias x87. Anadir AL FINAL de X87Math.h.
+// // // g23b: maquina x87 de software (CVehicle::FlyingControl, 0x6D85F0).
 // Reproduce, solo con aritmetica entera, las instrucciones x87 que ejecuta el EXE a precision de 24 bits (palabra de control 0x7F del juego): valores de 64 bits de mantisa,
 // reglas de NaN del x87, banderas acumuladas (IE DE ZE OE UE PE), C0..C3 y C1, y los registros de la pila con el residuo que el EXE deja en los que quedan por debajo de la cima.
 // No ejecuta ninguna instruccion de coma flotante (ni x87 ni SSE) al calcular: el hardware solo interviene en FlcX87::Commit (deja el estado final) y en fsin/fcos/fpatan/pow/asin/acos.
-// ============================================================================================================================================================
-
+// 
 struct FlcExt {
     unsigned long long sig;   // mantisa con bit entero (bit 63 = 1 en normales y NaN; en NaN el bit 62 es el de "silenciado"); 0 para cero
     int                exp;   // exponente sin sesgo: valor = sig * 2^(exp - 63)
@@ -1620,3 +1616,20 @@ float __cdecl Stw60RespectFinishCpp(int tagged, float moneyPart, float partial, 
 int __cdecl Stw60ScaledFtolCpp(int value, float k);
 double __cdecl Stw60MulCpp(double v, float k);
 double __cdecl Stw60SubClampCpp(float a, float b);
+// --- Lote 61: CPed::ProcessEntityCollision (0x5E2530), prefijo Pec. Anadir al FINAL de X87Math.h ---
+// Tramos x87 de 24 bits con exponente extendido (ver X87Math.cpp); los vectores apuntan a x, y, z consecutivos.
+void __cdecl PecStaticNormalCpp(float* v, const float* speed, bool player);       // normal contra un estatico (solo x, y)
+void __cdecl PecExtraPointCpp(const float* n, const float* pos, float* point);    // punto = pos - n * 0.35f
+void __cdecl PecCeilLinesCpp(float s0z, float s0r, float k10, float* startZ, float* endZ); // lineas de techo
+float __cdecl PecBrightnessCpp(unsigned int lighting, float mix, float step, float gBright, float previous, bool player);
+bool __cdecl PecDotAboveCpp(const float* n, const float* v);                      // ((ny*vy) + (nz*vz)) + (nx*vx) > 0.0
+bool __cdecl PecCeilFitsCpp(float lpz, float k10, float f588);                    // ((lpz + k10) + 1.0f) > f588
+float __cdecl PecCeilZCpp(float lpz, float k10, float f588);                      // (f588 - k10 < lpz + 1.0f) ? f588 - k10 : lpz + 1.0f
+bool __cdecl PecAddGreaterCpp(float a, float b, float c);                         // (a + b) > c
+float __cdecl PecSpeed2dCpp(float vx, float vy, float limit, bool* over);         // sqrt(vy*vy + vx*vx) como float; *over = sin redondear > limit
+float __cdecl PecFallDamageCpp(float speed2d, float soft, float lim, float vz);   // dano por caida
+// --- Lote 61: CTaskSimpleSlideToCoord::ProcessPed (0x66C4E0), prefijo SlideToCoord. Anadir al FINAL de X87Math.h ---
+// Distancia al cuadrado al destino y desplazamiento local del ped (x87 a 24 bits, ver X87Math.cpp). Devuelve true si la suma es estrictamente menor que 0.05f^2 (false con NaN).
+bool __cdecl SlideToCoordShiftCpp(const float* pos, const float* target, float speed, const float* right, const float* forward, float* shift);
+// current - aiming sin redondear a float (argumento de CGeneral::LimitRadianAngle).
+float __cdecl SlideToCoordAngleDeltaCpp(float current, float aiming);

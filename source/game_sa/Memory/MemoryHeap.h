@@ -34,6 +34,8 @@ public:
      */
     CMemoryHeap();
 
+    static void InjectHooks();
+
     /**
      * Initialize memory heap class instance
      *

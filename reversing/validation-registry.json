@@ -536966,6 +536966,701 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el arbol de integracion D:/Original/wi (HEAD 6e01296af + fuentes del lote 60 de los worktrees wc-1..wc-6, con correcciones de depuracion posteriores al primer banco).",
       "review_reference": "reversing/PedWrappers60/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAutomobile",
+        "fn_name": "PreRender",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/AutoPreRender60/validation-summary.json",
+        "sha256": "1bd10680170b053bc2b320aaff66d349b339103c6cedf47f6760d2197261a458",
+        "passed_path": [
+          "covered_functions",
+          "CAutomobile::PreRender"
+        ],
+        "pairs": 8192,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006AAB50"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "835f85b3d43b06cb44adf8b90635bddc669ce2662c16fa4bd265bbfe6c5cfdf5",
+        "source/InjectHooksMain.cpp": "576edc2831edbc1897f7a9b34ce067c5702e8912f6a68c81f515b3e5f8926540",
+        "source/game_sa/Entity/Vehicle/Automobile.cpp": "f39468d5eebc8dab45563e1490e4851aa1148150a60cf8d6fb80e62bb0aca420",
+        "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
+        "source/game_sa/X87Math.cpp": "a574b7b5bf9032fd8caa08e54b343ab8713af479eee36f3247e50e6a099f3dae",
+        "source/game_sa/X87Math.h": "e0eb905c906f44936ccc2b37ae7c6f346c334d72abb1f069e48d6ac0810e3f6d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/AutoPreRender60/LiveComparison.hpp": "68164cbe4c5484c6b33c7e26bc0fcd9e88b98b55163abdf44111cbbe64640bce",
+        "reversing/AutoPreRender60/Core.hpp": "4c86074e6501c0b7d03ac04a18b40de77cef3cc924a533b7c588171795f794ff",
+        "reversing/AutoPreRender60/Fixtures.hpp": "a427ebe805ed28e818bc436c9cc9201ebbc0144aebdf9a7bf512f3fec884ad52",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wd-1 (HEAD d349867fb + source.patch de CAutomobile::PreRender; los ayudantes AutoPre* de X87Math ya estaban en HEAD).",
+      "review_reference": "reversing/AutoPreRender60/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "ProcessEntityCollision",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/PedEntityCollision60/validation-summary.json",
+        "sha256": "adb60a3c7766587569a96d92a0b92c52f8b7cb00b2bc361b12a04e21877a5edc",
+        "passed_path": [
+          "covered_functions",
+          "CPed::ProcessEntityCollision"
+        ],
+        "pairs": 6144,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x005E2530"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "835f85b3d43b06cb44adf8b90635bddc669ce2662c16fa4bd265bbfe6c5cfdf5",
+        "source/InjectHooksMain.cpp": "576edc2831edbc1897f7a9b34ce067c5702e8912f6a68c81f515b3e5f8926540",
+        "source/game_sa/Entity/Ped/Ped.cpp": "b36c400f572e5755677059cde6ab05c570d3c6de651cbffc2576e933be11a103",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/X87Math.cpp": "a574b7b5bf9032fd8caa08e54b343ab8713af479eee36f3247e50e6a099f3dae",
+        "source/game_sa/X87Math.h": "e0eb905c906f44936ccc2b37ae7c6f346c334d72abb1f069e48d6ac0810e3f6d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/PedEntityCollision60/LiveComparison.hpp": "c203cb131dca6a846e2e47e9761cf77e61afe2a2e1a176c851513c5500c0f0c3",
+        "reversing/PedEntityCollision60/Core.hpp": "30d870ea658c02627e3a2c79423b1d0642b2e2b153402ff35908c42a75c8e3dc",
+        "reversing/PedEntityCollision60/Fixtures.hpp": "ae42c765375dbc20c2981c8ee6bc8f99179fe0a11fdee6bd3220e9202e33bf60",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wd-2 (HEAD d349867fb + reversing/PedEntityCollision60/source.patch: Ped.cpp y bloque Lote 61 de X87Math.cpp/.h; sin otras fuentes tocadas), corrida 20261019-224121-079172. Los colaboradores sustituidos se validan en sus propios bancos; ECX/EDX solo registrados.",
+      "review_reference": "reversing/PedEntityCollision60/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMentalState",
+        "fn_name": "Process",
+        "address": "0x006008A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EventScanners61/validation-summary.json",
+        "sha256": "082fe918743f32088b87cef7f62890ce77e9fa1ec4d9bcfad4768783b668c62f",
+        "passed_path": [
+          "covered_functions",
+          "CMentalState::Process"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "835f85b3d43b06cb44adf8b90635bddc669ce2662c16fa4bd265bbfe6c5cfdf5",
+        "source/InjectHooksMain.cpp": "576edc2831edbc1897f7a9b34ce067c5702e8912f6a68c81f515b3e5f8926540",
+        "source/game_sa/MentalHealth.cpp": "a818ecad392ab18c54208709d43f503986c638fae7c12a0fd059442e46dc8648",
+        "source/game_sa/MentalHealth.h": "16ce7ad7b3630f81babd072c802c4d58964b52aefe56dcbd02e2f199d674ce61",
+        "source/game_sa/Events/EventScanner.cpp": "2bfcad551fb9b56991cd28c2bfaef5a6933ff607758c8fbad0d2faab65dd28ec",
+        "source/game_sa/Events/EventScanner.h": "63b79c9852b395bddd1acf409f494f6dde38a9b1e586ebf510a2ea4913973a15",
+        "source/game_sa/PedStuckChecker.cpp": "28227d36c9bd97ef1c9524a340b502f770f4a718010c0798396ffe35b1960b4f",
+        "source/game_sa/PedStuckChecker.h": "19f3f664659e8b74d327099406ea41ba0e85c6c32f7f6d6d1d439de86cfde73d",
+        "source/game_sa/Events/EventLowAngerAtPlayer.h": "3fb626b4b05d5dbe6cdf2e24944393d3da32128b04f225192996148c44c00243",
+        "source/game_sa/Events/EventHealthLow.h": "5efcf5c5c529aa0dbc7911f541a4ade2350a9a9585f2d5f0ba70eaaa88ff098d",
+        "source/game_sa/Events/EventHealthReallyLow.h": "57e66ee2f360ee0369adc8f9bf4b3e4f6a5bddc72bd9a4c13c8daafdd7b111e7",
+        "source/game_sa/Events/EventHighAngerAtPlayer.h": "a971fc40b2975b7f4f800b1b826dc2d5d561a4b28de521825bf1a1c633b88948",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
+        "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
+        "source/game_sa/Events/EventEditableResponse.cpp": "97bf3a2f93577812b193dd409bbbf378db048dcde158982f3d56b1eef7a3286e",
+        "source/game_sa/Events/EventInAir.cpp": "a6f6ad1025bed744e9eea67dd2981b5647b4a6f2396fc7f8241a35b7317ebb15",
+        "source/game_sa/Events/EventOnFire.cpp": "53620fb3691a519143d9a4c71b157a39468eae59e74ea9187a581910d7341701",
+        "source/game_sa/Events/EventAreaCodes.cpp": "4d49c404bc8f0af15ef0bbc1c7ceee88fd7ba00d330e73ad568a8d987808ba48",
+        "source/game_sa/Events/EventEscalator.cpp": "6e721fb11b4acf436a29f6de91fd5252f9e4962fe9e5a59be5b016fbb039aa49",
+        "source/game_sa/Events/EventPedEnteredMyVehicle.cpp": "54236c3552cc04c487339e09ac84bcb7ed8488d5690c4c53acd0241a74ed97e9",
+        "source/game_sa/Events/EventDamage.cpp": "7aff5ec64306c598d0b260a825beb535cef42932a7343d67cd32b3bcf0f31e9c",
+        "source/game_sa/Events/EventStuckInAir.cpp": "438125217433955634454e5268001d0939f545f23b980bba92774137b1d78807",
+        "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "26bfc70002622933a3d8127f2ea307e06eed66e54fa765b1ee6aa955826f29f6",
+        "source/game_sa/Tasks/Task.cpp": "d700418e6a00f573db2dc824d4a6d0bd325136ddf4f208589b74aef3d5f083c8",
+        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
+        "source/game_sa/PedGeometryAnalyser.cpp": "fa4da8480c2c639c2a78b9a16170e845ca5ba7391e866a789cc1c6303302b8da",
+        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
+        "source/game_sa/Entity/Ped/Ped.cpp": "b36c400f572e5755677059cde6ab05c570d3c6de651cbffc2576e933be11a103",
+        "source/game_sa/Core/Vector.cpp": "79876b134e317dba1705147a63e44c0404317244f7e43e1e4eb749005ef27e96",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/EventScanners61/LiveComparison.hpp": "c74c074e8bf70a80af39125bcd99f61b91ae8d0c7421089c694bbba7fd72052a",
+        "reversing/EventScanners61/Core.hpp": "d06f5151d25ae1b9801f1cbb30a0d1bb843718cc46b0dbbf92398b8427acbc31",
+        "reversing/EventScanners61/Fixtures.hpp": "9c55fecc2a77d3737415b9bf794703db8071fa9072f39f92e0b88612414b2025",
+        "reversing/EventScanners61/CaseMental.hpp": "6c5d794cb4f743482a3ed2192175393eb09b9f4106434ad6cab09e75da59828b",
+        "reversing/EventScanners61/CaseVpc.hpp": "465b7bb34ab976a2e6989e32cb14565963e438966c790635b420d63c035104ee",
+        "reversing/EventScanners61/CaseScan.hpp": "2bf81f76b0e065091fb9d94f3b1955a4e7fdc3fa16a6913a83d2aaf5a677dc9f",
+        "reversing/EventScanners61/CaseStuck.hpp": "cbc96e41189d265db632888a1fb15405dee6f39ab856677296d27ead610761f7",
+        "reversing/EventScanners61/FixVpc.hpp": "1b8aa2615497eedd14633018383e9dc21efdbc5c666bd0221c6cb258f9da9653",
+        "reversing/EventScanners61/FixScan.hpp": "f927046992d724c3a427e3a94d8fce23a92f6096905767e5c4bc7f9db7422bc8",
+        "reversing/EventScanners61/FixStuck.hpp": "6a7b0a95b8903385ef7e40ed96a87de9993b30b6b066390d7d11384faf0114bf",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wd-3 (HEAD d349867fb + estos cambios; ver source.patch). Colaboradores sustituidos por falsos identicos en ambos lados y comparados en orden y argumentos: CEventGroup::Add, CTaskManager::GetSimplestActiveTask/FindTaskByType, CTask::IsGoToTask, CEntity::GetColModel/RegisterReference/CleanUpOldReference, CPedGeometryAnalyser::GetIsLineOfSightClear/IsInAir, CPedIntelligence::GetMoveStateFromGoToTask/GetTaskSwim/GetTaskJetPack/GetTaskClimb, CMentalState::Process y CVehiclePotentialCollisionScanner::Scan (dentro de ScanForEvents), los seis escaneres sin reconstruir (0x606580, 0x606890, 0x607D80, 0x6060A0, 0x603E70, 0x603BF0), CEventHandlerHistory::GetCurrentEvent, CPed::IsPlayer/IsAlive, CWeapon::GenerateDamageEvent, FindPlayerPed, CEventGroup::HasEventOfType/GetEventOfType, CVector::Normalise (por A*0.5), CWorld::ProcessVerticalLine/GetIsLineOfSightClear, CPlaceable::SetPosn/SetOrientation, CPhysical::ApplyMoveForce, CGeneral::GetRadianAngleBetweenPoints/LimitRadianAngle; las llamadas virtuales van por vtables falsas de arena. No se validan sus cuerpos reales. Los fixtures evitan valores cuyos productos salen del rango de float (el x87 conserva exponente extendido) y denormales. EAX/ECX/EDX solo registrados; solo TestPedStuck tiene un llamador del EXE (0x6073C4) que lee EAX (AL) y se compara.",
+      "review_reference": "reversing/EventScanners61/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehiclePotentialCollisionScanner",
+        "fn_name": "ScanForVehiclePotentialCollisionEvents",
+        "address": "0x00603720",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EventScanners61/validation-summary.json",
+        "sha256": "082fe918743f32088b87cef7f62890ce77e9fa1ec4d9bcfad4768783b668c62f",
+        "passed_path": [
+          "covered_functions",
+          "CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "835f85b3d43b06cb44adf8b90635bddc669ce2662c16fa4bd265bbfe6c5cfdf5",
+        "source/InjectHooksMain.cpp": "576edc2831edbc1897f7a9b34ce067c5702e8912f6a68c81f515b3e5f8926540",
+        "source/game_sa/MentalHealth.cpp": "a818ecad392ab18c54208709d43f503986c638fae7c12a0fd059442e46dc8648",
+        "source/game_sa/MentalHealth.h": "16ce7ad7b3630f81babd072c802c4d58964b52aefe56dcbd02e2f199d674ce61",
+        "source/game_sa/Events/EventScanner.cpp": "2bfcad551fb9b56991cd28c2bfaef5a6933ff607758c8fbad0d2faab65dd28ec",
+        "source/game_sa/Events/EventScanner.h": "63b79c9852b395bddd1acf409f494f6dde38a9b1e586ebf510a2ea4913973a15",
+        "source/game_sa/PedStuckChecker.cpp": "28227d36c9bd97ef1c9524a340b502f770f4a718010c0798396ffe35b1960b4f",
+        "source/game_sa/PedStuckChecker.h": "19f3f664659e8b74d327099406ea41ba0e85c6c32f7f6d6d1d439de86cfde73d",
+        "source/game_sa/Events/EventLowAngerAtPlayer.h": "3fb626b4b05d5dbe6cdf2e24944393d3da32128b04f225192996148c44c00243",
+        "source/game_sa/Events/EventHealthLow.h": "5efcf5c5c529aa0dbc7911f541a4ade2350a9a9585f2d5f0ba70eaaa88ff098d",
+        "source/game_sa/Events/EventHealthReallyLow.h": "57e66ee2f360ee0369adc8f9bf4b3e4f6a5bddc72bd9a4c13c8daafdd7b111e7",
+        "source/game_sa/Events/EventHighAngerAtPlayer.h": "a971fc40b2975b7f4f800b1b826dc2d5d561a4b28de521825bf1a1c633b88948",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
+        "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
+        "source/game_sa/Events/EventEditableResponse.cpp": "97bf3a2f93577812b193dd409bbbf378db048dcde158982f3d56b1eef7a3286e",
+        "source/game_sa/Events/EventInAir.cpp": "a6f6ad1025bed744e9eea67dd2981b5647b4a6f2396fc7f8241a35b7317ebb15",
+        "source/game_sa/Events/EventOnFire.cpp": "53620fb3691a519143d9a4c71b157a39468eae59e74ea9187a581910d7341701",
+        "source/game_sa/Events/EventAreaCodes.cpp": "4d49c404bc8f0af15ef0bbc1c7ceee88fd7ba00d330e73ad568a8d987808ba48",
+        "source/game_sa/Events/EventEscalator.cpp": "6e721fb11b4acf436a29f6de91fd5252f9e4962fe9e5a59be5b016fbb039aa49",
+        "source/game_sa/Events/EventPedEnteredMyVehicle.cpp": "54236c3552cc04c487339e09ac84bcb7ed8488d5690c4c53acd0241a74ed97e9",
+        "source/game_sa/Events/EventDamage.cpp": "7aff5ec64306c598d0b260a825beb535cef42932a7343d67cd32b3bcf0f31e9c",
+        "source/game_sa/Events/EventStuckInAir.cpp": "438125217433955634454e5268001d0939f545f23b980bba92774137b1d78807",
+        "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "26bfc70002622933a3d8127f2ea307e06eed66e54fa765b1ee6aa955826f29f6",
+        "source/game_sa/Tasks/Task.cpp": "d700418e6a00f573db2dc824d4a6d0bd325136ddf4f208589b74aef3d5f083c8",
+        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
+        "source/game_sa/PedGeometryAnalyser.cpp": "fa4da8480c2c639c2a78b9a16170e845ca5ba7391e866a789cc1c6303302b8da",
+        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
+        "source/game_sa/Entity/Ped/Ped.cpp": "b36c400f572e5755677059cde6ab05c570d3c6de651cbffc2576e933be11a103",
+        "source/game_sa/Core/Vector.cpp": "79876b134e317dba1705147a63e44c0404317244f7e43e1e4eb749005ef27e96",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/EventScanners61/LiveComparison.hpp": "c74c074e8bf70a80af39125bcd99f61b91ae8d0c7421089c694bbba7fd72052a",
+        "reversing/EventScanners61/Core.hpp": "d06f5151d25ae1b9801f1cbb30a0d1bb843718cc46b0dbbf92398b8427acbc31",
+        "reversing/EventScanners61/Fixtures.hpp": "9c55fecc2a77d3737415b9bf794703db8071fa9072f39f92e0b88612414b2025",
+        "reversing/EventScanners61/CaseMental.hpp": "6c5d794cb4f743482a3ed2192175393eb09b9f4106434ad6cab09e75da59828b",
+        "reversing/EventScanners61/CaseVpc.hpp": "465b7bb34ab976a2e6989e32cb14565963e438966c790635b420d63c035104ee",
+        "reversing/EventScanners61/CaseScan.hpp": "2bf81f76b0e065091fb9d94f3b1955a4e7fdc3fa16a6913a83d2aaf5a677dc9f",
+        "reversing/EventScanners61/CaseStuck.hpp": "cbc96e41189d265db632888a1fb15405dee6f39ab856677296d27ead610761f7",
+        "reversing/EventScanners61/FixVpc.hpp": "1b8aa2615497eedd14633018383e9dc21efdbc5c666bd0221c6cb258f9da9653",
+        "reversing/EventScanners61/FixScan.hpp": "f927046992d724c3a427e3a94d8fce23a92f6096905767e5c4bc7f9db7422bc8",
+        "reversing/EventScanners61/FixStuck.hpp": "6a7b0a95b8903385ef7e40ed96a87de9993b30b6b066390d7d11384faf0114bf",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wd-3 (HEAD d349867fb + estos cambios; ver source.patch). Colaboradores sustituidos por falsos identicos en ambos lados y comparados en orden y argumentos: CEventGroup::Add, CTaskManager::GetSimplestActiveTask/FindTaskByType, CTask::IsGoToTask, CEntity::GetColModel/RegisterReference/CleanUpOldReference, CPedGeometryAnalyser::GetIsLineOfSightClear/IsInAir, CPedIntelligence::GetMoveStateFromGoToTask/GetTaskSwim/GetTaskJetPack/GetTaskClimb, CMentalState::Process y CVehiclePotentialCollisionScanner::Scan (dentro de ScanForEvents), los seis escaneres sin reconstruir (0x606580, 0x606890, 0x607D80, 0x6060A0, 0x603E70, 0x603BF0), CEventHandlerHistory::GetCurrentEvent, CPed::IsPlayer/IsAlive, CWeapon::GenerateDamageEvent, FindPlayerPed, CEventGroup::HasEventOfType/GetEventOfType, CVector::Normalise (por A*0.5), CWorld::ProcessVerticalLine/GetIsLineOfSightClear, CPlaceable::SetPosn/SetOrientation, CPhysical::ApplyMoveForce, CGeneral::GetRadianAngleBetweenPoints/LimitRadianAngle; las llamadas virtuales van por vtables falsas de arena. No se validan sus cuerpos reales. Los fixtures evitan valores cuyos productos salen del rango de float (el x87 conserva exponente extendido) y denormales. EAX/ECX/EDX solo registrados; solo TestPedStuck tiene un llamador del EXE (0x6073C4) que lee EAX (AL) y se compara.",
+      "review_reference": "reversing/EventScanners61/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventScanner",
+        "fn_name": "ScanForEvents",
+        "address": "0x00607E30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EventScanners61/validation-summary.json",
+        "sha256": "082fe918743f32088b87cef7f62890ce77e9fa1ec4d9bcfad4768783b668c62f",
+        "passed_path": [
+          "covered_functions",
+          "CEventScanner::ScanForEvents"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "835f85b3d43b06cb44adf8b90635bddc669ce2662c16fa4bd265bbfe6c5cfdf5",
+        "source/InjectHooksMain.cpp": "576edc2831edbc1897f7a9b34ce067c5702e8912f6a68c81f515b3e5f8926540",
+        "source/game_sa/MentalHealth.cpp": "a818ecad392ab18c54208709d43f503986c638fae7c12a0fd059442e46dc8648",
+        "source/game_sa/MentalHealth.h": "16ce7ad7b3630f81babd072c802c4d58964b52aefe56dcbd02e2f199d674ce61",
+        "source/game_sa/Events/EventScanner.cpp": "2bfcad551fb9b56991cd28c2bfaef5a6933ff607758c8fbad0d2faab65dd28ec",
+        "source/game_sa/Events/EventScanner.h": "63b79c9852b395bddd1acf409f494f6dde38a9b1e586ebf510a2ea4913973a15",
+        "source/game_sa/PedStuckChecker.cpp": "28227d36c9bd97ef1c9524a340b502f770f4a718010c0798396ffe35b1960b4f",
+        "source/game_sa/PedStuckChecker.h": "19f3f664659e8b74d327099406ea41ba0e85c6c32f7f6d6d1d439de86cfde73d",
+        "source/game_sa/Events/EventLowAngerAtPlayer.h": "3fb626b4b05d5dbe6cdf2e24944393d3da32128b04f225192996148c44c00243",
+        "source/game_sa/Events/EventHealthLow.h": "5efcf5c5c529aa0dbc7911f541a4ade2350a9a9585f2d5f0ba70eaaa88ff098d",
+        "source/game_sa/Events/EventHealthReallyLow.h": "57e66ee2f360ee0369adc8f9bf4b3e4f6a5bddc72bd9a4c13c8daafdd7b111e7",
+        "source/game_sa/Events/EventHighAngerAtPlayer.h": "a971fc40b2975b7f4f800b1b826dc2d5d561a4b28de521825bf1a1c633b88948",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
+        "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
+        "source/game_sa/Events/EventEditableResponse.cpp": "97bf3a2f93577812b193dd409bbbf378db048dcde158982f3d56b1eef7a3286e",
+        "source/game_sa/Events/EventInAir.cpp": "a6f6ad1025bed744e9eea67dd2981b5647b4a6f2396fc7f8241a35b7317ebb15",
+        "source/game_sa/Events/EventOnFire.cpp": "53620fb3691a519143d9a4c71b157a39468eae59e74ea9187a581910d7341701",
+        "source/game_sa/Events/EventAreaCodes.cpp": "4d49c404bc8f0af15ef0bbc1c7ceee88fd7ba00d330e73ad568a8d987808ba48",
+        "source/game_sa/Events/EventEscalator.cpp": "6e721fb11b4acf436a29f6de91fd5252f9e4962fe9e5a59be5b016fbb039aa49",
+        "source/game_sa/Events/EventPedEnteredMyVehicle.cpp": "54236c3552cc04c487339e09ac84bcb7ed8488d5690c4c53acd0241a74ed97e9",
+        "source/game_sa/Events/EventDamage.cpp": "7aff5ec64306c598d0b260a825beb535cef42932a7343d67cd32b3bcf0f31e9c",
+        "source/game_sa/Events/EventStuckInAir.cpp": "438125217433955634454e5268001d0939f545f23b980bba92774137b1d78807",
+        "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "26bfc70002622933a3d8127f2ea307e06eed66e54fa765b1ee6aa955826f29f6",
+        "source/game_sa/Tasks/Task.cpp": "d700418e6a00f573db2dc824d4a6d0bd325136ddf4f208589b74aef3d5f083c8",
+        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
+        "source/game_sa/PedGeometryAnalyser.cpp": "fa4da8480c2c639c2a78b9a16170e845ca5ba7391e866a789cc1c6303302b8da",
+        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
+        "source/game_sa/Entity/Ped/Ped.cpp": "b36c400f572e5755677059cde6ab05c570d3c6de651cbffc2576e933be11a103",
+        "source/game_sa/Core/Vector.cpp": "79876b134e317dba1705147a63e44c0404317244f7e43e1e4eb749005ef27e96",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/EventScanners61/LiveComparison.hpp": "c74c074e8bf70a80af39125bcd99f61b91ae8d0c7421089c694bbba7fd72052a",
+        "reversing/EventScanners61/Core.hpp": "d06f5151d25ae1b9801f1cbb30a0d1bb843718cc46b0dbbf92398b8427acbc31",
+        "reversing/EventScanners61/Fixtures.hpp": "9c55fecc2a77d3737415b9bf794703db8071fa9072f39f92e0b88612414b2025",
+        "reversing/EventScanners61/CaseMental.hpp": "6c5d794cb4f743482a3ed2192175393eb09b9f4106434ad6cab09e75da59828b",
+        "reversing/EventScanners61/CaseVpc.hpp": "465b7bb34ab976a2e6989e32cb14565963e438966c790635b420d63c035104ee",
+        "reversing/EventScanners61/CaseScan.hpp": "2bf81f76b0e065091fb9d94f3b1955a4e7fdc3fa16a6913a83d2aaf5a677dc9f",
+        "reversing/EventScanners61/CaseStuck.hpp": "cbc96e41189d265db632888a1fb15405dee6f39ab856677296d27ead610761f7",
+        "reversing/EventScanners61/FixVpc.hpp": "1b8aa2615497eedd14633018383e9dc21efdbc5c666bd0221c6cb258f9da9653",
+        "reversing/EventScanners61/FixScan.hpp": "f927046992d724c3a427e3a94d8fce23a92f6096905767e5c4bc7f9db7422bc8",
+        "reversing/EventScanners61/FixStuck.hpp": "6a7b0a95b8903385ef7e40ed96a87de9993b30b6b066390d7d11384faf0114bf",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wd-3 (HEAD d349867fb + estos cambios; ver source.patch). Colaboradores sustituidos por falsos identicos en ambos lados y comparados en orden y argumentos: CEventGroup::Add, CTaskManager::GetSimplestActiveTask/FindTaskByType, CTask::IsGoToTask, CEntity::GetColModel/RegisterReference/CleanUpOldReference, CPedGeometryAnalyser::GetIsLineOfSightClear/IsInAir, CPedIntelligence::GetMoveStateFromGoToTask/GetTaskSwim/GetTaskJetPack/GetTaskClimb, CMentalState::Process y CVehiclePotentialCollisionScanner::Scan (dentro de ScanForEvents), los seis escaneres sin reconstruir (0x606580, 0x606890, 0x607D80, 0x6060A0, 0x603E70, 0x603BF0), CEventHandlerHistory::GetCurrentEvent, CPed::IsPlayer/IsAlive, CWeapon::GenerateDamageEvent, FindPlayerPed, CEventGroup::HasEventOfType/GetEventOfType, CVector::Normalise (por A*0.5), CWorld::ProcessVerticalLine/GetIsLineOfSightClear, CPlaceable::SetPosn/SetOrientation, CPhysical::ApplyMoveForce, CGeneral::GetRadianAngleBetweenPoints/LimitRadianAngle; las llamadas virtuales van por vtables falsas de arena. No se validan sus cuerpos reales. Los fixtures evitan valores cuyos productos salen del rango de float (el x87 conserva exponente extendido) y denormales. EAX/ECX/EDX solo registrados; solo TestPedStuck tiene un llamador del EXE (0x6073C4) que lee EAX (AL) y se compara.",
+      "review_reference": "reversing/EventScanners61/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedStuckChecker",
+        "fn_name": "TestPedStuck",
+        "address": "0x00602C00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EventScanners61/validation-summary.json",
+        "sha256": "082fe918743f32088b87cef7f62890ce77e9fa1ec4d9bcfad4768783b668c62f",
+        "passed_path": [
+          "covered_functions",
+          "CPedStuckChecker::TestPedStuck"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "835f85b3d43b06cb44adf8b90635bddc669ce2662c16fa4bd265bbfe6c5cfdf5",
+        "source/InjectHooksMain.cpp": "576edc2831edbc1897f7a9b34ce067c5702e8912f6a68c81f515b3e5f8926540",
+        "source/game_sa/MentalHealth.cpp": "a818ecad392ab18c54208709d43f503986c638fae7c12a0fd059442e46dc8648",
+        "source/game_sa/MentalHealth.h": "16ce7ad7b3630f81babd072c802c4d58964b52aefe56dcbd02e2f199d674ce61",
+        "source/game_sa/Events/EventScanner.cpp": "2bfcad551fb9b56991cd28c2bfaef5a6933ff607758c8fbad0d2faab65dd28ec",
+        "source/game_sa/Events/EventScanner.h": "63b79c9852b395bddd1acf409f494f6dde38a9b1e586ebf510a2ea4913973a15",
+        "source/game_sa/PedStuckChecker.cpp": "28227d36c9bd97ef1c9524a340b502f770f4a718010c0798396ffe35b1960b4f",
+        "source/game_sa/PedStuckChecker.h": "19f3f664659e8b74d327099406ea41ba0e85c6c32f7f6d6d1d439de86cfde73d",
+        "source/game_sa/Events/EventLowAngerAtPlayer.h": "3fb626b4b05d5dbe6cdf2e24944393d3da32128b04f225192996148c44c00243",
+        "source/game_sa/Events/EventHealthLow.h": "5efcf5c5c529aa0dbc7911f541a4ade2350a9a9585f2d5f0ba70eaaa88ff098d",
+        "source/game_sa/Events/EventHealthReallyLow.h": "57e66ee2f360ee0369adc8f9bf4b3e4f6a5bddc72bd9a4c13c8daafdd7b111e7",
+        "source/game_sa/Events/EventHighAngerAtPlayer.h": "a971fc40b2975b7f4f800b1b826dc2d5d561a4b28de521825bf1a1c633b88948",
+        "source/game_sa/Events/EventGroup.cpp": "c7b360b926c2a136188ed6ae0bcf24d3f95fae79dea9b3fc8b4ed0a462fe7d07",
+        "source/game_sa/Events/EventGroup.h": "1f2644dbda6d1ced3fe4c7cf52035e821de647b54b452550bbd048106108bec4",
+        "source/game_sa/Events/EventEditableResponse.cpp": "97bf3a2f93577812b193dd409bbbf378db048dcde158982f3d56b1eef7a3286e",
+        "source/game_sa/Events/EventInAir.cpp": "a6f6ad1025bed744e9eea67dd2981b5647b4a6f2396fc7f8241a35b7317ebb15",
+        "source/game_sa/Events/EventOnFire.cpp": "53620fb3691a519143d9a4c71b157a39468eae59e74ea9187a581910d7341701",
+        "source/game_sa/Events/EventAreaCodes.cpp": "4d49c404bc8f0af15ef0bbc1c7ceee88fd7ba00d330e73ad568a8d987808ba48",
+        "source/game_sa/Events/EventEscalator.cpp": "6e721fb11b4acf436a29f6de91fd5252f9e4962fe9e5a59be5b016fbb039aa49",
+        "source/game_sa/Events/EventPedEnteredMyVehicle.cpp": "54236c3552cc04c487339e09ac84bcb7ed8488d5690c4c53acd0241a74ed97e9",
+        "source/game_sa/Events/EventDamage.cpp": "7aff5ec64306c598d0b260a825beb535cef42932a7343d67cd32b3bcf0f31e9c",
+        "source/game_sa/Events/EventStuckInAir.cpp": "438125217433955634454e5268001d0939f545f23b980bba92774137b1d78807",
+        "source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp": "26bfc70002622933a3d8127f2ea307e06eed66e54fa765b1ee6aa955826f29f6",
+        "source/game_sa/Tasks/Task.cpp": "d700418e6a00f573db2dc824d4a6d0bd325136ddf4f208589b74aef3d5f083c8",
+        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+        "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
+        "source/game_sa/PedGeometryAnalyser.cpp": "fa4da8480c2c639c2a78b9a16170e845ca5ba7391e866a789cc1c6303302b8da",
+        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
+        "source/game_sa/Entity/Ped/Ped.cpp": "b36c400f572e5755677059cde6ab05c570d3c6de651cbffc2576e933be11a103",
+        "source/game_sa/Core/Vector.cpp": "79876b134e317dba1705147a63e44c0404317244f7e43e1e4eb749005ef27e96",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/EventScanners61/LiveComparison.hpp": "c74c074e8bf70a80af39125bcd99f61b91ae8d0c7421089c694bbba7fd72052a",
+        "reversing/EventScanners61/Core.hpp": "d06f5151d25ae1b9801f1cbb30a0d1bb843718cc46b0dbbf92398b8427acbc31",
+        "reversing/EventScanners61/Fixtures.hpp": "9c55fecc2a77d3737415b9bf794703db8071fa9072f39f92e0b88612414b2025",
+        "reversing/EventScanners61/CaseMental.hpp": "6c5d794cb4f743482a3ed2192175393eb09b9f4106434ad6cab09e75da59828b",
+        "reversing/EventScanners61/CaseVpc.hpp": "465b7bb34ab976a2e6989e32cb14565963e438966c790635b420d63c035104ee",
+        "reversing/EventScanners61/CaseScan.hpp": "2bf81f76b0e065091fb9d94f3b1955a4e7fdc3fa16a6913a83d2aaf5a677dc9f",
+        "reversing/EventScanners61/CaseStuck.hpp": "cbc96e41189d265db632888a1fb15405dee6f39ab856677296d27ead610761f7",
+        "reversing/EventScanners61/FixVpc.hpp": "1b8aa2615497eedd14633018383e9dc21efdbc5c666bd0221c6cb258f9da9653",
+        "reversing/EventScanners61/FixScan.hpp": "f927046992d724c3a427e3a94d8fce23a92f6096905767e5c4bc7f9db7422bc8",
+        "reversing/EventScanners61/FixStuck.hpp": "6a7b0a95b8903385ef7e40ed96a87de9993b30b6b066390d7d11384faf0114bf",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wd-3 (HEAD d349867fb + estos cambios; ver source.patch). Colaboradores sustituidos por falsos identicos en ambos lados y comparados en orden y argumentos: CEventGroup::Add, CTaskManager::GetSimplestActiveTask/FindTaskByType, CTask::IsGoToTask, CEntity::GetColModel/RegisterReference/CleanUpOldReference, CPedGeometryAnalyser::GetIsLineOfSightClear/IsInAir, CPedIntelligence::GetMoveStateFromGoToTask/GetTaskSwim/GetTaskJetPack/GetTaskClimb, CMentalState::Process y CVehiclePotentialCollisionScanner::Scan (dentro de ScanForEvents), los seis escaneres sin reconstruir (0x606580, 0x606890, 0x607D80, 0x6060A0, 0x603E70, 0x603BF0), CEventHandlerHistory::GetCurrentEvent, CPed::IsPlayer/IsAlive, CWeapon::GenerateDamageEvent, FindPlayerPed, CEventGroup::HasEventOfType/GetEventOfType, CVector::Normalise (por A*0.5), CWorld::ProcessVerticalLine/GetIsLineOfSightClear, CPlaceable::SetPosn/SetOrientation, CPhysical::ApplyMoveForce, CGeneral::GetRadianAngleBetweenPoints/LimitRadianAngle; las llamadas virtuales van por vtables falsas de arena. No se validan sus cuerpos reales. Los fixtures evitan valores cuyos productos salen del rango de float (el x87 conserva exponente extendido) y denormales. EAX/ECX/EDX solo registrados; solo TestPedStuck tiene un llamador del EXE (0x6073C4) que lee EAX (AL) y se compara.",
+      "review_reference": "reversing/EventScanners61/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMemoryHeap",
+        "fn_name": "IntegrityCheck",
+        "address": "0x0072E8E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Misc61/validation-summary.json",
+        "sha256": "1e01941cb9348f0988f14356c99efedef7fa2d2f731837499d74de33d66d5e42",
+        "passed_path": [
+          "covered_functions",
+          "CMemoryHeap::IntegrityCheck"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "835f85b3d43b06cb44adf8b90635bddc669ce2662c16fa4bd265bbfe6c5cfdf5",
+        "source/InjectHooksMain.cpp": "576edc2831edbc1897f7a9b34ce067c5702e8912f6a68c81f515b3e5f8926540",
+        "source/game_sa/Memory/MemoryHeap.cpp": "b118630c2137ea48605db97eaa7fb44269a16acf7e2a4d28c17b0fd0f356b1d8",
+        "source/game_sa/Memory/MemoryHeap.h": "c10f1b3d918843678e5e34c039589b928118e28cb0bada60bfe7d7eaa3a112ee",
+        "source/game_sa/SearchLight.cpp": "cd3e91b4b8682a21f7ac513ca9d5a12902c09088e49fc286606102cd3ea7045d",
+        "source/game_sa/SearchLight.h": "cadd965808044668a3de68f1c6b700ae171011a0674bf5d5f055083b71e1c556",
+        "source/game_sa/TrainNode.cpp": "669e1b427a784df26cdc247e166d7e15a9ee87f1e30e4d75ec984c268c11b7b1",
+        "source/game_sa/TrainNode.h": "45998683b6ea7b2616058184dc62c0e210d943ca52f875d05da168fcb0eb09d8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "0d4a1740ac8b10dc6f9dae03d0221378b9bfd71fd746be7f8379993d516ec03a",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "5d1eb7ba3ef63b8555030d95a1fa6e391d1d1c522c779b0c71db02b85db7f159",
+        "source/game_sa/X87Math.cpp": "a574b7b5bf9032fd8caa08e54b343ab8713af479eee36f3247e50e6a099f3dae",
+        "source/game_sa/X87Math.h": "e0eb905c906f44936ccc2b37ae7c6f346c334d72abb1f069e48d6ac0810e3f6d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Misc61/LiveComparison.hpp": "ef10d09f7424cea9e546951de6159ecc0b74a92dfb6944830a35dcbda1331d72",
+        "reversing/Misc61/Core.hpp": "b0f7c77b28f09e93cf29489e0e3fd8da5a6342adb1b3bf15e89ef15b680ac412",
+        "reversing/Misc61/Cases.hpp": "177f517a7d4481d1072aa68fe388d29f9222e660d2b8c7b812c7be7137d62504",
+        "reversing/Misc61/Fixtures.hpp": "8ae08eff9601818adb651a6baa3d17dd2ab4ffd095580b88751cf88b9e8fc269",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wd-4 (HEAD d349867fb + fuentes del lote 61). Colaboradores sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL; no se validan sus cuerpos reales): GetActualScriptThingIndex (0x4839A0) y 0x493280 (sin reconstruir) en IsSpottedEntity; CTaskSimpleRunNamedAnim::ProcessPed (0x61BF20), CTaskSimpleStandStill::ProcessPed (0x62F370) y CGeneral::LimitRadianAngle (0x53CB50) en ProcessPed (el constructor/destructor de CTaskSimpleStandStill, CPed::IsPlayer y la llamada virtual MakeAbortable de la tarea primaria se ejecutan con codigo real o con una vtable falsa trazada); CWorld::ProcessVerticalLine (0x5674E0) en GetLightingFromCollision. CMemoryHeap::IntegrityCheck se prueba sobre un monton falso con cada estructura en su propia pagina PAGE_GUARD (orden de primera lectura); memId fuera de [-1, 19] en un bloque en uso no se prueba (el EXE escribe fuera del arreglo local). GetLightingFromCollision: el hook apunta a un envoltorio con la ABI del EXE (AL) porque MSVC devuelve tColLighting por puntero oculto. ProcessPed se prueba con CPed/CMatrix/CPedIntelligence falsos (solo los campos que leen el EXE y la DLL). EAX/ECX/EDX solo registrados; el AL de salida si se compara.",
+      "review_reference": "reversing/Misc61/README.md"
+    },
+    {
+      "hook": {
+        "class": "CSearchLight",
+        "fn_name": "IsSpottedEntity",
+        "address": "0x00493900",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Misc61/validation-summary.json",
+        "sha256": "1e01941cb9348f0988f14356c99efedef7fa2d2f731837499d74de33d66d5e42",
+        "passed_path": [
+          "covered_functions",
+          "CSearchLight::IsSpottedEntity"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "835f85b3d43b06cb44adf8b90635bddc669ce2662c16fa4bd265bbfe6c5cfdf5",
+        "source/InjectHooksMain.cpp": "576edc2831edbc1897f7a9b34ce067c5702e8912f6a68c81f515b3e5f8926540",
+        "source/game_sa/Memory/MemoryHeap.cpp": "b118630c2137ea48605db97eaa7fb44269a16acf7e2a4d28c17b0fd0f356b1d8",
+        "source/game_sa/Memory/MemoryHeap.h": "c10f1b3d918843678e5e34c039589b928118e28cb0bada60bfe7d7eaa3a112ee",
+        "source/game_sa/SearchLight.cpp": "cd3e91b4b8682a21f7ac513ca9d5a12902c09088e49fc286606102cd3ea7045d",
+        "source/game_sa/SearchLight.h": "cadd965808044668a3de68f1c6b700ae171011a0674bf5d5f055083b71e1c556",
+        "source/game_sa/TrainNode.cpp": "669e1b427a784df26cdc247e166d7e15a9ee87f1e30e4d75ec984c268c11b7b1",
+        "source/game_sa/TrainNode.h": "45998683b6ea7b2616058184dc62c0e210d943ca52f875d05da168fcb0eb09d8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "0d4a1740ac8b10dc6f9dae03d0221378b9bfd71fd746be7f8379993d516ec03a",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "5d1eb7ba3ef63b8555030d95a1fa6e391d1d1c522c779b0c71db02b85db7f159",
+        "source/game_sa/X87Math.cpp": "a574b7b5bf9032fd8caa08e54b343ab8713af479eee36f3247e50e6a099f3dae",
+        "source/game_sa/X87Math.h": "e0eb905c906f44936ccc2b37ae7c6f346c334d72abb1f069e48d6ac0810e3f6d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Misc61/LiveComparison.hpp": "ef10d09f7424cea9e546951de6159ecc0b74a92dfb6944830a35dcbda1331d72",
+        "reversing/Misc61/Core.hpp": "b0f7c77b28f09e93cf29489e0e3fd8da5a6342adb1b3bf15e89ef15b680ac412",
+        "reversing/Misc61/Cases.hpp": "177f517a7d4481d1072aa68fe388d29f9222e660d2b8c7b812c7be7137d62504",
+        "reversing/Misc61/Fixtures.hpp": "8ae08eff9601818adb651a6baa3d17dd2ab4ffd095580b88751cf88b9e8fc269",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wd-4 (HEAD d349867fb + fuentes del lote 61). Colaboradores sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL; no se validan sus cuerpos reales): GetActualScriptThingIndex (0x4839A0) y 0x493280 (sin reconstruir) en IsSpottedEntity; CTaskSimpleRunNamedAnim::ProcessPed (0x61BF20), CTaskSimpleStandStill::ProcessPed (0x62F370) y CGeneral::LimitRadianAngle (0x53CB50) en ProcessPed (el constructor/destructor de CTaskSimpleStandStill, CPed::IsPlayer y la llamada virtual MakeAbortable de la tarea primaria se ejecutan con codigo real o con una vtable falsa trazada); CWorld::ProcessVerticalLine (0x5674E0) en GetLightingFromCollision. CMemoryHeap::IntegrityCheck se prueba sobre un monton falso con cada estructura en su propia pagina PAGE_GUARD (orden de primera lectura); memId fuera de [-1, 19] en un bloque en uso no se prueba (el EXE escribe fuera del arreglo local). GetLightingFromCollision: el hook apunta a un envoltorio con la ABI del EXE (AL) porque MSVC devuelve tColLighting por puntero oculto. ProcessPed se prueba con CPed/CMatrix/CPedIntelligence falsos (solo los campos que leen el EXE y la DLL). EAX/ECX/EDX solo registrados; el AL de salida si se compara.",
+      "review_reference": "reversing/Misc61/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleSlideToCoord",
+        "fn_name": "ProcessPed",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Misc61/validation-summary.json",
+        "sha256": "1e01941cb9348f0988f14356c99efedef7fa2d2f731837499d74de33d66d5e42",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleSlideToCoord::ProcessPed"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x0066C4E0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "835f85b3d43b06cb44adf8b90635bddc669ce2662c16fa4bd265bbfe6c5cfdf5",
+        "source/InjectHooksMain.cpp": "576edc2831edbc1897f7a9b34ce067c5702e8912f6a68c81f515b3e5f8926540",
+        "source/game_sa/Memory/MemoryHeap.cpp": "b118630c2137ea48605db97eaa7fb44269a16acf7e2a4d28c17b0fd0f356b1d8",
+        "source/game_sa/Memory/MemoryHeap.h": "c10f1b3d918843678e5e34c039589b928118e28cb0bada60bfe7d7eaa3a112ee",
+        "source/game_sa/SearchLight.cpp": "cd3e91b4b8682a21f7ac513ca9d5a12902c09088e49fc286606102cd3ea7045d",
+        "source/game_sa/SearchLight.h": "cadd965808044668a3de68f1c6b700ae171011a0674bf5d5f055083b71e1c556",
+        "source/game_sa/TrainNode.cpp": "669e1b427a784df26cdc247e166d7e15a9ee87f1e30e4d75ec984c268c11b7b1",
+        "source/game_sa/TrainNode.h": "45998683b6ea7b2616058184dc62c0e210d943ca52f875d05da168fcb0eb09d8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "0d4a1740ac8b10dc6f9dae03d0221378b9bfd71fd746be7f8379993d516ec03a",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "5d1eb7ba3ef63b8555030d95a1fa6e391d1d1c522c779b0c71db02b85db7f159",
+        "source/game_sa/X87Math.cpp": "a574b7b5bf9032fd8caa08e54b343ab8713af479eee36f3247e50e6a099f3dae",
+        "source/game_sa/X87Math.h": "e0eb905c906f44936ccc2b37ae7c6f346c334d72abb1f069e48d6ac0810e3f6d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Misc61/LiveComparison.hpp": "ef10d09f7424cea9e546951de6159ecc0b74a92dfb6944830a35dcbda1331d72",
+        "reversing/Misc61/Core.hpp": "b0f7c77b28f09e93cf29489e0e3fd8da5a6342adb1b3bf15e89ef15b680ac412",
+        "reversing/Misc61/Cases.hpp": "177f517a7d4481d1072aa68fe388d29f9222e660d2b8c7b812c7be7137d62504",
+        "reversing/Misc61/Fixtures.hpp": "8ae08eff9601818adb651a6baa3d17dd2ab4ffd095580b88751cf88b9e8fc269",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wd-4 (HEAD d349867fb + fuentes del lote 61). Colaboradores sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL; no se validan sus cuerpos reales): GetActualScriptThingIndex (0x4839A0) y 0x493280 (sin reconstruir) en IsSpottedEntity; CTaskSimpleRunNamedAnim::ProcessPed (0x61BF20), CTaskSimpleStandStill::ProcessPed (0x62F370) y CGeneral::LimitRadianAngle (0x53CB50) en ProcessPed (el constructor/destructor de CTaskSimpleStandStill, CPed::IsPlayer y la llamada virtual MakeAbortable de la tarea primaria se ejecutan con codigo real o con una vtable falsa trazada); CWorld::ProcessVerticalLine (0x5674E0) en GetLightingFromCollision. CMemoryHeap::IntegrityCheck se prueba sobre un monton falso con cada estructura en su propia pagina PAGE_GUARD (orden de primera lectura); memId fuera de [-1, 19] en un bloque en uso no se prueba (el EXE escribe fuera del arreglo local). GetLightingFromCollision: el hook apunta a un envoltorio con la ABI del EXE (AL) porque MSVC devuelve tColLighting por puntero oculto. ProcessPed se prueba con CPed/CMatrix/CPedIntelligence falsos (solo los campos que leen el EXE y la DLL). EAX/ECX/EDX solo registrados; el AL de salida si se compara.",
+      "review_reference": "reversing/Misc61/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTrainNode",
+        "fn_name": "GetLightingFromCollision",
+        "address": "0x006F5F80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Misc61/validation-summary.json",
+        "sha256": "1e01941cb9348f0988f14356c99efedef7fa2d2f731837499d74de33d66d5e42",
+        "passed_path": [
+          "covered_functions",
+          "CTrainNode::GetLightingFromCollision"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "835f85b3d43b06cb44adf8b90635bddc669ce2662c16fa4bd265bbfe6c5cfdf5",
+        "source/InjectHooksMain.cpp": "576edc2831edbc1897f7a9b34ce067c5702e8912f6a68c81f515b3e5f8926540",
+        "source/game_sa/Memory/MemoryHeap.cpp": "b118630c2137ea48605db97eaa7fb44269a16acf7e2a4d28c17b0fd0f356b1d8",
+        "source/game_sa/Memory/MemoryHeap.h": "c10f1b3d918843678e5e34c039589b928118e28cb0bada60bfe7d7eaa3a112ee",
+        "source/game_sa/SearchLight.cpp": "cd3e91b4b8682a21f7ac513ca9d5a12902c09088e49fc286606102cd3ea7045d",
+        "source/game_sa/SearchLight.h": "cadd965808044668a3de68f1c6b700ae171011a0674bf5d5f055083b71e1c556",
+        "source/game_sa/TrainNode.cpp": "669e1b427a784df26cdc247e166d7e15a9ee87f1e30e4d75ec984c268c11b7b1",
+        "source/game_sa/TrainNode.h": "45998683b6ea7b2616058184dc62c0e210d943ca52f875d05da168fcb0eb09d8",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "0d4a1740ac8b10dc6f9dae03d0221378b9bfd71fd746be7f8379993d516ec03a",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "5d1eb7ba3ef63b8555030d95a1fa6e391d1d1c522c779b0c71db02b85db7f159",
+        "source/game_sa/X87Math.cpp": "a574b7b5bf9032fd8caa08e54b343ab8713af479eee36f3247e50e6a099f3dae",
+        "source/game_sa/X87Math.h": "e0eb905c906f44936ccc2b37ae7c6f346c334d72abb1f069e48d6ac0810e3f6d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Misc61/LiveComparison.hpp": "ef10d09f7424cea9e546951de6159ecc0b74a92dfb6944830a35dcbda1331d72",
+        "reversing/Misc61/Core.hpp": "b0f7c77b28f09e93cf29489e0e3fd8da5a6342adb1b3bf15e89ef15b680ac412",
+        "reversing/Misc61/Cases.hpp": "177f517a7d4481d1072aa68fe388d29f9222e660d2b8c7b812c7be7137d62504",
+        "reversing/Misc61/Fixtures.hpp": "8ae08eff9601818adb651a6baa3d17dd2ab4ffd095580b88751cf88b9e8fc269",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wd-4 (HEAD d349867fb + fuentes del lote 61). Colaboradores sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL; no se validan sus cuerpos reales): GetActualScriptThingIndex (0x4839A0) y 0x493280 (sin reconstruir) en IsSpottedEntity; CTaskSimpleRunNamedAnim::ProcessPed (0x61BF20), CTaskSimpleStandStill::ProcessPed (0x62F370) y CGeneral::LimitRadianAngle (0x53CB50) en ProcessPed (el constructor/destructor de CTaskSimpleStandStill, CPed::IsPlayer y la llamada virtual MakeAbortable de la tarea primaria se ejecutan con codigo real o con una vtable falsa trazada); CWorld::ProcessVerticalLine (0x5674E0) en GetLightingFromCollision. CMemoryHeap::IntegrityCheck se prueba sobre un monton falso con cada estructura en su propia pagina PAGE_GUARD (orden de primera lectura); memId fuera de [-1, 19] en un bloque en uso no se prueba (el EXE escribe fuera del arreglo local). GetLightingFromCollision: el hook apunta a un envoltorio con la ABI del EXE (AL) porque MSVC devuelve tColLighting por puntero oculto. ProcessPed se prueba con CPed/CMatrix/CPedIntelligence falsos (solo los campos que leen el EXE y la DLL). EAX/ECX/EDX solo registrados; el AL de salida si se compara.",
+      "review_reference": "reversing/Misc61/README.md"
+    },
+    {
+      "hook": {
+        "class": "FxInterpInfoFloat_c",
+        "fn_name": "GetVal-values",
+        "address": "0x004A8470",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FxInterp61/validation-summary.json",
+        "sha256": "d6e07422d82d3acfe160dcdede96e3469590b0218f538e0617c9d83c28702e14",
+        "passed_path": [
+          "covered_functions",
+          "FxInterpInfoFloat_c::GetVal"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "835f85b3d43b06cb44adf8b90635bddc669ce2662c16fa4bd265bbfe6c5cfdf5",
+        "source/InjectHooksMain.cpp": "576edc2831edbc1897f7a9b34ce067c5702e8912f6a68c81f515b3e5f8926540",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo.h": "a949bb93f619a4c2c30243b3285f359fb4692f71af90247dcd0e9bfa359e310a",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo.cpp": "c637883f82ed9c7484e4f6b31fc642caf0de9106979a6162918ecc97bc613d44",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp": "d61fd6740e4c21ec874ea39329b65b90374feebf6950012315e5d750c08be8fa",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.h": "17c2cacd9f3f0586e195297e5c6d52009dc73ba36a27d341e3b8151d00e46a6d",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.cpp": "2bffa03fc4b2cfe6a3b40fa9138e35fbb70183fb0c4ec5bbe6b44c752f0f938d",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.h": "c4731e619eac4039eee9eac298e8d227dba665d31326c58d791675a56374827b",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp": "8839ee4bb78eed01ea382439181c6aa619ffce7e98acae930c1133afa1a4e6e9",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.h": "e5b0453f98737d888b59749d173b5956e8427bf00d782970683e40cad9a46ef1",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp": "8bc54dc7fec3100c0f378ba5d7e072b6b6842787b0bd8be2a8828b0e291e48e8",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.h": "c0aa7e5cd320095a816043b59aa861b37ed2d39fee9f6fb47d138bca9b7c975e",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/FxInterp61/LiveComparison.hpp": "3575c06badeed69bae8e9d3ae31dd9d6ca531953638d69f21d62f1a4c1cc9819",
+        "reversing/FxInterp61/Core.hpp": "c7dea3509e15a4b1c7ac5be2247310d7804babc72969b38bddb5f14652a682e4",
+        "reversing/FxInterp61/Fixtures.hpp": "68cbc81b0a5f23ff23a51e870af0571959a7329571982d5d02b02fa3e4fe4a7d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Cuatro GetVal sin colaboradores del juego (el EXE llama a _ftol2 0x821B40, la DLL reproduce su truncado en C++ con enteros). Cuerpo comun FxInterpInfo_c::InterpolateKeys (plantilla en FxInterpInfo.h) compilado con /O2 /Oi /arch:IA32 /fp:fast en cada archivo de clase; aritmetica x87 con la palabra de control a 24 bits (el banco la fija). NaN de las claves siempre silenciosos en las rutas aritmeticas (los sNaN solo en copias bit a bit y como delta); empates de NaN con signos opuestos solo exigen EXE == DLL. EAX/ECX/EDX solo registrados (ningun llamador del EXE los lee). Corrida aprobada = 20261019-220613-349774 (la mas reciente); corridas previas solo como nota: 20261019-215548-734922 fallo (NaN senalizadores en claves Float, defecto de la primera version de la fuente, corregido) y 20261019-215958-064546 paso las comparaciones pero con un minimo de cobertura mal calibrado. Fuentes probadas compiladas desde el worktree D:/Original/wd-5 (HEAD d349867fb + source.patch; ver artifacts/build-manifest.json).",
+      "review_reference": "reversing/FxInterp61/README.md"
+    },
+    {
+      "hook": {
+        "class": "FxInterpInfoU255_c",
+        "fn_name": "GetVal",
+        "address": "0x004A8800",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FxInterp61/validation-summary.json",
+        "sha256": "d6e07422d82d3acfe160dcdede96e3469590b0218f538e0617c9d83c28702e14",
+        "passed_path": [
+          "covered_functions",
+          "FxInterpInfoU255_c::GetVal"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "835f85b3d43b06cb44adf8b90635bddc669ce2662c16fa4bd265bbfe6c5cfdf5",
+        "source/InjectHooksMain.cpp": "576edc2831edbc1897f7a9b34ce067c5702e8912f6a68c81f515b3e5f8926540",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo.h": "a949bb93f619a4c2c30243b3285f359fb4692f71af90247dcd0e9bfa359e310a",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo.cpp": "c637883f82ed9c7484e4f6b31fc642caf0de9106979a6162918ecc97bc613d44",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp": "d61fd6740e4c21ec874ea39329b65b90374feebf6950012315e5d750c08be8fa",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.h": "17c2cacd9f3f0586e195297e5c6d52009dc73ba36a27d341e3b8151d00e46a6d",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.cpp": "2bffa03fc4b2cfe6a3b40fa9138e35fbb70183fb0c4ec5bbe6b44c752f0f938d",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.h": "c4731e619eac4039eee9eac298e8d227dba665d31326c58d791675a56374827b",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp": "8839ee4bb78eed01ea382439181c6aa619ffce7e98acae930c1133afa1a4e6e9",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.h": "e5b0453f98737d888b59749d173b5956e8427bf00d782970683e40cad9a46ef1",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp": "8bc54dc7fec3100c0f378ba5d7e072b6b6842787b0bd8be2a8828b0e291e48e8",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.h": "c0aa7e5cd320095a816043b59aa861b37ed2d39fee9f6fb47d138bca9b7c975e",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/FxInterp61/LiveComparison.hpp": "3575c06badeed69bae8e9d3ae31dd9d6ca531953638d69f21d62f1a4c1cc9819",
+        "reversing/FxInterp61/Core.hpp": "c7dea3509e15a4b1c7ac5be2247310d7804babc72969b38bddb5f14652a682e4",
+        "reversing/FxInterp61/Fixtures.hpp": "68cbc81b0a5f23ff23a51e870af0571959a7329571982d5d02b02fa3e4fe4a7d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Cuatro GetVal sin colaboradores del juego (el EXE llama a _ftol2 0x821B40, la DLL reproduce su truncado en C++ con enteros). Cuerpo comun FxInterpInfo_c::InterpolateKeys (plantilla en FxInterpInfo.h) compilado con /O2 /Oi /arch:IA32 /fp:fast en cada archivo de clase; aritmetica x87 con la palabra de control a 24 bits (el banco la fija). NaN de las claves siempre silenciosos en las rutas aritmeticas (los sNaN solo en copias bit a bit y como delta); empates de NaN con signos opuestos solo exigen EXE == DLL. EAX/ECX/EDX solo registrados (ningun llamador del EXE los lee). Corrida aprobada = 20261019-220613-349774 (la mas reciente); corridas previas solo como nota: 20261019-215548-734922 fallo (NaN senalizadores en claves Float, defecto de la primera version de la fuente, corregido) y 20261019-215958-064546 paso las comparaciones pero con un minimo de cobertura mal calibrado. Fuentes probadas compiladas desde el worktree D:/Original/wd-5 (HEAD d349867fb + source.patch; ver artifacts/build-manifest.json).",
+      "review_reference": "reversing/FxInterp61/README.md"
+    },
+    {
+      "hook": {
+        "class": "FxInterpInfo32_c",
+        "fn_name": "GetVal",
+        "address": "0x004A89C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FxInterp61/validation-summary.json",
+        "sha256": "d6e07422d82d3acfe160dcdede96e3469590b0218f538e0617c9d83c28702e14",
+        "passed_path": [
+          "covered_functions",
+          "FxInterpInfo32_c::GetVal"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "835f85b3d43b06cb44adf8b90635bddc669ce2662c16fa4bd265bbfe6c5cfdf5",
+        "source/InjectHooksMain.cpp": "576edc2831edbc1897f7a9b34ce067c5702e8912f6a68c81f515b3e5f8926540",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo.h": "a949bb93f619a4c2c30243b3285f359fb4692f71af90247dcd0e9bfa359e310a",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo.cpp": "c637883f82ed9c7484e4f6b31fc642caf0de9106979a6162918ecc97bc613d44",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp": "d61fd6740e4c21ec874ea39329b65b90374feebf6950012315e5d750c08be8fa",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.h": "17c2cacd9f3f0586e195297e5c6d52009dc73ba36a27d341e3b8151d00e46a6d",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.cpp": "2bffa03fc4b2cfe6a3b40fa9138e35fbb70183fb0c4ec5bbe6b44c752f0f938d",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.h": "c4731e619eac4039eee9eac298e8d227dba665d31326c58d791675a56374827b",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp": "8839ee4bb78eed01ea382439181c6aa619ffce7e98acae930c1133afa1a4e6e9",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.h": "e5b0453f98737d888b59749d173b5956e8427bf00d782970683e40cad9a46ef1",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp": "8bc54dc7fec3100c0f378ba5d7e072b6b6842787b0bd8be2a8828b0e291e48e8",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.h": "c0aa7e5cd320095a816043b59aa861b37ed2d39fee9f6fb47d138bca9b7c975e",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/FxInterp61/LiveComparison.hpp": "3575c06badeed69bae8e9d3ae31dd9d6ca531953638d69f21d62f1a4c1cc9819",
+        "reversing/FxInterp61/Core.hpp": "c7dea3509e15a4b1c7ac5be2247310d7804babc72969b38bddb5f14652a682e4",
+        "reversing/FxInterp61/Fixtures.hpp": "68cbc81b0a5f23ff23a51e870af0571959a7329571982d5d02b02fa3e4fe4a7d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Cuatro GetVal sin colaboradores del juego (el EXE llama a _ftol2 0x821B40, la DLL reproduce su truncado en C++ con enteros). Cuerpo comun FxInterpInfo_c::InterpolateKeys (plantilla en FxInterpInfo.h) compilado con /O2 /Oi /arch:IA32 /fp:fast en cada archivo de clase; aritmetica x87 con la palabra de control a 24 bits (el banco la fija). NaN de las claves siempre silenciosos en las rutas aritmeticas (los sNaN solo en copias bit a bit y como delta); empates de NaN con signos opuestos solo exigen EXE == DLL. EAX/ECX/EDX solo registrados (ningun llamador del EXE los lee). Corrida aprobada = 20261019-220613-349774 (la mas reciente); corridas previas solo como nota: 20261019-215548-734922 fallo (NaN senalizadores en claves Float, defecto de la primera version de la fuente, corregido) y 20261019-215958-064546 paso las comparaciones pero con un minimo de cobertura mal calibrado. Fuentes probadas compiladas desde el worktree D:/Original/wd-5 (HEAD d349867fb + source.patch; ver artifacts/build-manifest.json).",
+      "review_reference": "reversing/FxInterp61/README.md"
+    },
+    {
+      "hook": {
+        "class": "FxInterpInfo255_c",
+        "fn_name": "GetVal",
+        "address": "0x004A8B80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FxInterp61/validation-summary.json",
+        "sha256": "d6e07422d82d3acfe160dcdede96e3469590b0218f538e0617c9d83c28702e14",
+        "passed_path": [
+          "covered_functions",
+          "FxInterpInfo255_c::GetVal"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "835f85b3d43b06cb44adf8b90635bddc669ce2662c16fa4bd265bbfe6c5cfdf5",
+        "source/InjectHooksMain.cpp": "576edc2831edbc1897f7a9b34ce067c5702e8912f6a68c81f515b3e5f8926540",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo.h": "a949bb93f619a4c2c30243b3285f359fb4692f71af90247dcd0e9bfa359e310a",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo.cpp": "c637883f82ed9c7484e4f6b31fc642caf0de9106979a6162918ecc97bc613d44",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp": "d61fd6740e4c21ec874ea39329b65b90374feebf6950012315e5d750c08be8fa",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.h": "17c2cacd9f3f0586e195297e5c6d52009dc73ba36a27d341e3b8151d00e46a6d",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.cpp": "2bffa03fc4b2cfe6a3b40fa9138e35fbb70183fb0c4ec5bbe6b44c752f0f938d",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.h": "c4731e619eac4039eee9eac298e8d227dba665d31326c58d791675a56374827b",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp": "8839ee4bb78eed01ea382439181c6aa619ffce7e98acae930c1133afa1a4e6e9",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.h": "e5b0453f98737d888b59749d173b5956e8427bf00d782970683e40cad9a46ef1",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp": "8bc54dc7fec3100c0f378ba5d7e072b6b6842787b0bd8be2a8828b0e291e48e8",
+        "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.h": "c0aa7e5cd320095a816043b59aa861b37ed2d39fee9f6fb47d138bca9b7c975e",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/FxInterp61/LiveComparison.hpp": "3575c06badeed69bae8e9d3ae31dd9d6ca531953638d69f21d62f1a4c1cc9819",
+        "reversing/FxInterp61/Core.hpp": "c7dea3509e15a4b1c7ac5be2247310d7804babc72969b38bddb5f14652a682e4",
+        "reversing/FxInterp61/Fixtures.hpp": "68cbc81b0a5f23ff23a51e870af0571959a7329571982d5d02b02fa3e4fe4a7d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Cuatro GetVal sin colaboradores del juego (el EXE llama a _ftol2 0x821B40, la DLL reproduce su truncado en C++ con enteros). Cuerpo comun FxInterpInfo_c::InterpolateKeys (plantilla en FxInterpInfo.h) compilado con /O2 /Oi /arch:IA32 /fp:fast en cada archivo de clase; aritmetica x87 con la palabra de control a 24 bits (el banco la fija). NaN de las claves siempre silenciosos en las rutas aritmeticas (los sNaN solo en copias bit a bit y como delta); empates de NaN con signos opuestos solo exigen EXE == DLL. EAX/ECX/EDX solo registrados (ningun llamador del EXE los lee). Corrida aprobada = 20261019-220613-349774 (la mas reciente); corridas previas solo como nota: 20261019-215548-734922 fallo (NaN senalizadores en claves Float, defecto de la primera version de la fuente, corregido) y 20261019-215958-064546 paso las comparaciones pero con un minimo de cobertura mal calibrado. Fuentes probadas compiladas desde el worktree D:/Original/wd-5 (HEAD d349867fb + source.patch; ver artifacts/build-manifest.json).",
+      "review_reference": "reversing/FxInterp61/README.md"
     }
   ]
 }

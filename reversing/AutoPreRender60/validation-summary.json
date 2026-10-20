@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "pairs": 8192,
+  "differences": 0,
+  "registered_pairs": 8192,
+  "registered_functions": 1,
+  "functions": {
+    "CAutomobile::PreRender": 8192
+  },
+  "covered_functions": {
+    "CAutomobile::PreRender": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wd-1 (HEAD d349867fb + source.patch de CAutomobile::PreRender; los ayudantes AutoPre* de X87Math ya estaban en HEAD).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/AutoPreRender60-20261019-231517-975869",
+  "summary_sha256": "346a1f182c7119467711c582f0745bf8b6d1b71fbfc5334c852cabf974faac56",
+  "result_txt_sha256": "7f6366518f3624633f871295fabad3b81ca5b13f423f2f143d488494e3ebef4f",
+  "log_sha256": "db3f3c5e49190fc8a9b7b783a4dad120e7cc1650eb9736cd4d4b4f0a336b886c",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "4fcc33aa6318c992535b3d3a6315870ebeb01b84001abf4c3c0d2067213465b9",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "835f85b3d43b06cb44adf8b90635bddc669ce2662c16fa4bd265bbfe6c5cfdf5",
+      "source/InjectHooksMain.cpp": "576edc2831edbc1897f7a9b34ce067c5702e8912f6a68c81f515b3e5f8926540",
+      "source/game_sa/Entity/Vehicle/Automobile.cpp": "f39468d5eebc8dab45563e1490e4851aa1148150a60cf8d6fb80e62bb0aca420",
+      "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
+      "source/game_sa/X87Math.cpp": "a574b7b5bf9032fd8caa08e54b343ab8713af479eee36f3247e50e6a099f3dae",
+      "source/game_sa/X87Math.h": "e0eb905c906f44936ccc2b37ae7c6f346c334d72abb1f069e48d6ac0810e3f6d",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/AutoPreRender60/LiveComparison.hpp": "68164cbe4c5484c6b33c7e26bc0fcd9e88b98b55163abdf44111cbbe64640bce",
+      "reversing/AutoPreRender60/Core.hpp": "4c86074e6501c0b7d03ac04a18b40de77cef3cc924a533b7c588171795f794ff",
+      "reversing/AutoPreRender60/Fixtures.hpp": "a427ebe805ed28e818bc436c9cc9201ebbc0144aebdf9a7bf512f3fec884ad52",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

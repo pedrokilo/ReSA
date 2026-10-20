@@ -1,5 +1,5 @@
 diff --git a/source/game_sa/Entity/Vehicle/Automobile.cpp b/source/game_sa/Entity/Vehicle/Automobile.cpp
-index be646d8ad..97eeebb2e 100644
+index 0d55c9583..89d111284 100644
 --- a/source/game_sa/Entity/Vehicle/Automobile.cpp
 +++ b/source/game_sa/Entity/Vehicle/Automobile.cpp
 @@ -32,6 +32,7 @@ END GENERATED HOOK STATUS */
@@ -10,15 +10,15 @@ index be646d8ad..97eeebb2e 100644
  #include "CarCtrl.h"
  #include "Glass.h"
  #include "ModelIndices.h"
-@@ -175,6 +176,7 @@ void CAutomobile::InjectHooks()
-     RH_ScopedInstall(TowTruckControl, 0x6A40F0);
-     RH_ScopedInstall(ProcessCarOnFireAndExplode, 0x6A7090);
+@@ -178,6 +179,7 @@ void CAutomobile::InjectHooks()
+     RH_ScopedInstall(UpdateWheelMatrix, 0x6AA290);
+     RH_ScopedVMTInstall(Render, 0x6A2B10);
  
 +    RH_ScopedVMTInstall(PreRender, 0x6AAB50);
      RH_ScopedVMTInstall(Fix, 0x6A3440);
      RH_ScopedVMTInstall(DoBurstAndSoftGroundRatios, 0x6A47F0);
      RH_ScopedVMTInstall(PlayCarHorn, 0x6A3770);
-@@ -7067,9 +7069,608 @@ CBouncingPanel* CAutomobile::CheckIfExistsGetFree(eCarNodes nodeIdx) {
+@@ -7341,9 +7343,608 @@ CBouncingPanel* CAutomobile::CheckIfExistsGetFree(eCarNodes nodeIdx) {
      return nullptr;
  }
  
@@ -72,7 +72,7 @@ index be646d8ad..97eeebb2e 100644
 +    };
 +    for (const auto& [node, wheel] : order) {
 +        frameMatrix.Attach(&car.m_aCarNodes[node]->modelling, false);
-+        const CVector local{ frameMatrix.GetPosition().x, frameMatrix.GetPosition().y, car.m_wheelPosition[wheel] * 1.5f };
++        const CVector local{ frameMatrix.GetPosition().x, frameMatrix.GetPosition().y, AutoPreMulCpp(car.m_wheelPosition[wheel], 1.5f) }; // fld; fmul [1.5f]; fstp: x87 (un subnormal no se vacia a 0 como con SSE FTZ)
 +        car.m_wheelColPoint[wheel].m_vecPoint = AutoPreRenderMultiplyMatrixWithVector(*car.m_matrix, local);
 +        car.m_wheelColPoint[wheel].m_nSurfaceTypeB = SURFACE_DEFAULT;
 +    }
@@ -339,7 +339,7 @@ index be646d8ad..97eeebb2e 100644
 +        const CVector relative{ AutoPreSubCpp(contact.x, position.x), AutoPreSubCpp(contact.y, position.y), AutoPreSubCpp(contact.z, position.z) };
 +        const CVector speed = car.GetSpeed(relative); // 0x542CE0
 +        const bool isFront = wheel == 0 || wheel == 2;
-+        const float radius = (isFront ? modelInfo.m_fWheelSizeFront : modelInfo.m_fWheelSizeRear) * 0.5f;
++        const float radius = AutoPreMulCpp(isFront ? modelInfo.m_fWheelSizeFront : modelInfo.m_fWheelSizeRear, 0.5f); // fld; fmul [0.5f]; fstp: x87 (un tamano subnormal no se vacia a 0 como con SSE FTZ)
 +        car.m_wheelSpeed[wheel] = car.ProcessWheelRotation(car.m_WheelStates[wheel], isFront ? front : rear, speed, radius); // 0x6D1230
 +        car.m_wheelRotation[wheel] = AutoPreWheelRotationCpp(CTimer::GetTimeStep(), car.m_wheelSpeed[wheel], car.m_wheelRotation[wheel]);
 +    }
@@ -628,259 +628,3 @@ index be646d8ad..97eeebb2e 100644
  }
  
  // 0x6A2B10
-diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
-index f411f9e65..c2d0f2a6e 100644
---- a/source/game_sa/X87Math.cpp
-+++ b/source/game_sa/X87Math.cpp
-@@ -13084,3 +13084,217 @@ __declspec(noinline) bool __cdecl WalkRoundDotPositiveCpp(const float* a, const
-     return (a[2] * b[2] + a[1] * b[1]) + a[0] * b[0] > 0.0f;
- }
- #pragma float_control(pop)
-+
-+// --- Lote 28: CAutomobile::PreRender (0x6AAB50), prefijo AutoPre. Anadir al FINAL de X87Math.cpp (usa ExeAsinDoubleCpp, ya definido arriba) ---
-+// Cada ayudante reproduce un tramo x87 del EXE: 24 bits de mantisa por operacion (el proceso corre el x87 a 24 bits) y exponente extendido hasta el fstp;
-+// los float que el EXE guarda en pila con fstp son `volatile float`. Las operaciones de memoria (fadd [m], fmul [m]) son una operacion double con un solo redondeo.
-+static constexpr float kAutoPreTenth = std::bit_cast<float>(0x3DCCCCCDu);      // 0x858B1C = 0.1f
-+static constexpr float kAutoPreHundredth = std::bit_cast<float>(0x3C23D70Au);  // 0x858C58 = 0.01f
-+static constexpr float kAutoPreTen = std::bit_cast<float>(0x41200000u);        // 0x85862C = 10.0f
-+static constexpr float kAutoPreHalf = std::bit_cast<float>(0x3F000000u);       // 0x858B8C = 0.5f
-+static constexpr float kAutoPreFiftieth = std::bit_cast<float>(0x3CA3D70Au);   // 0x871054 = 0.02f
-+static constexpr float kAutoPreTwoPi = std::bit_cast<float>(0x40C90FDBu);      // 0x858CBC = 6.2831855f
-+static constexpr float kAutoPreMinusOne = std::bit_cast<float>(0xBF800000u);   // 0x858C1C = -1.0f
-+static __declspec(noinline) double AutoPreSqrt(double value) {
-+    return sqrt(value); // fuera de precise: fsqrt en linea
-+}
-+
-+#pragma float_control(precise, on, push)
-+// 0x6AADCF..0x6AADF6: (mz*fz + my*fy) + mx*fx sin guardar, / divisor, fstp float.
-+__declspec(noinline) float __cdecl AutoPreForwardSpeedCpp(const float* move, const float* forward, float divisor) {
-+    const double dot = (double(move[2]) * double(forward[2]) + double(move[1]) * double(forward[1])) + double(move[0]) * double(forward[0]);
-+    volatile float result = float(dot / double(divisor));
-+    return result;
-+}
-+
-+// 0x6AADFA..0x6AAE1B: (x*x + y*y) + z*z sin guardar, fsqrt (24 bits), fstp float.
-+__declspec(noinline) float __cdecl AutoPreSpeedMagnitudeCpp(const float* move) {
-+    const double sum = (double(move[0]) * double(move[0]) + double(move[1]) * double(move[1])) + double(move[2]) * double(move[2]);
-+    volatile float result = float(AutoPreSqrt(sum));
-+    return result;
-+}
-+
-+// 0x6AABBB..0x6AADC9 (una de las cuatro ruedas): r = 1 - spring/line (queda en la pila); t = (comp - r) / (1 - r) se guarda como float;
-+// h = startZ [- t * spring si t > 0]; se suaviza (h - prev) * 0.75 + prev si comp no es < 1.0 o h no es > prev (comparaciones ordenadas); fstp float.
-+__declspec(noinline) float __cdecl AutoPreSuspensionHeightCpp(float spring, float line, float comp, float startZ, float prevPos) {
-+    const double r = 1.0 - double(spring) / double(line);
-+    volatile float t = float((double(comp) - r) / (1.0 - r));
-+    double h = double(startZ);
-+    if (double(t) > 0.0) {
-+        h = h - double(t) * double(spring);
-+    }
-+    if (!(double(comp) < 1.0) || !(h > double(prevPos))) {
-+        h = (h - double(prevPos)) * 0.75 + double(prevPos);
-+    }
-+    volatile float result = float(h);
-+    return result;
-+}
-+
-+// 0x6AB186..0x6AB2B7 y 0x6AB715..0x6AB7A1: el EXE duplica (fadd st(0),st(0)) cada componente; el doble de y y de x se guarda como float (fstp) antes de sumarlo con p
-+// y el de z queda en la pila (fadd [p.z] directo): out = (float(2*v.x) + p.x, float(2*v.y) + p.y, 2*v.z + p.z), cada suma con un solo redondeo a float. out no debe solaparse con v ni p.
-+__declspec(noinline) void __cdecl AutoPreDoublePlusCpp(const float* v, const float* p, float* out) {
-+    volatile float doubledY = float(double(v[1]) + double(v[1]));
-+    volatile float doubledX = float(double(v[0]) + double(v[0]));
-+    volatile float z = float((double(v[2]) + double(v[2])) + double(p[2]));
-+    volatile float y = float(double(doubledY) + double(p[1]));
-+    volatile float x = float(double(doubledX) + double(p[0]));
-+    out[0] = x;
-+    out[1] = y;
-+    out[2] = z;
-+}
-+
-+// 0x6AB823..0x6AB8B2: byte bajo de _ftol2((value * multiplier) * 0.1f) con value entero (fild).
-+__declspec(noinline) unsigned int __cdecl AutoPreScaleByteCpp(unsigned int value, float multiplier) {
-+    const double product = double(value) * double(multiplier);
-+    const double scaled = product * double(kAutoPreTenth); // 0x858B1C = 0.1f
-+    return static_cast<unsigned int>(static_cast<long long>(scaled)) & 0xFF;
-+}
-+
-+// 0x6AB660..0x6AB711: byte bajo de _ftol2((value * fade) * 0.01f) con value entero y fade = fild (entero 0..511).
-+__declspec(noinline) unsigned int __cdecl AutoPreFadeByteCpp(unsigned int value, float fade) {
-+    const double product = double(value) * double(fade);
-+    const double scaled = product * double(kAutoPreHundredth); // 0x858C58 = 0.01f
-+    return static_cast<unsigned int>(static_cast<long long>(scaled)) & 0xFF;
-+}
-+
-+// 0x6ABADB..0x6ABAEA: byte bajo de _ftol2(multiplier * 10.0f) (fld; fmul [0x85862C]).
-+__declspec(noinline) unsigned int __cdecl AutoPreCoronaByteCpp(float multiplier) {
-+    const double scaled = double(multiplier) * double(kAutoPreTen);
-+    return static_cast<unsigned int>(static_cast<long long>(scaled)) & 0xFF;
-+}
-+
-+// 0x6ABBFC..0x6ABC1C: (a.z*b.z + a.y*b.y) + a.x*b.x < 0.0 sobre la pila x87 (comparacion ordenada: con NaN da false).
-+__declspec(noinline) bool __cdecl AutoPreDotNegativeCpp(const float* a, const float* b) {
-+    return (a[2] * b[2] + a[1] * b[1]) + a[0] * b[0] < 0.0f;
-+}
-+
-+// 0x6ABF97..0x6ABFA3: float(timeStep * speed + rotation) (fld; fmul [speed]; fadd [rotation]; fstp).
-+__declspec(noinline) float __cdecl AutoPreWheelRotationCpp(float timeStep, float speed, float rotation) {
-+    volatile float result = float(double(timeStep) * double(speed) + double(rotation));
-+    return result;
-+}
-+
-+// 0x6AC46C..0x6AC4B2 (hormigonera): fild misc; fidiv divisor; + 0.5; * timeStep; * 0.02f (0x871054); + prop; fst float. Devuelve el float guardado.
-+__declspec(noinline) float __cdecl AutoPreMixerPropCpp(unsigned int misc, int divisor, float timeStep, float prop) {
-+    const double ratio = double(misc) / double(divisor);
-+    const double sum = ratio + double(kAutoPreHalf);
-+    const double scaled = (sum * double(timeStep)) * double(kAutoPreFiftieth);
-+    volatile float result = float(scaled + double(prop));
-+    return result;
-+}
-+
-+// 0x6AC4F0..0x6AC53D y 0x6AC6F9..0x6AC70B (camion grua y tractor): (misc * k) / divisor con fild y fidiv; fstp float.
-+__declspec(noinline) float __cdecl AutoPreTowAngleCpp(unsigned int misc, float k, unsigned int divisor) {
-+    volatile float result = float((double(misc) * double(k)) / double(divisor));
-+    return result;
-+}
-+
-+// 0x6AC7B5..0x6AC898 (cosechadora): si prop > 2pi (0x858CBC) se resta 2pi y se guarda como float; dot = (mz*fz + my*fy) + mx*fx (se recalcula igual en cada rama);
-+// val = dot > 0.1f ? 0.1f : (0.0f > dot ? 0.0f : dot); resultado float(prop - val * timeStep) (fmul; fsubr [prop]; fst float).
-+__declspec(noinline) float __cdecl AutoPreHarvesterPropCpp(const float* move, const float* forward, float prop, float timeStep) {
-+    const double twoPi = double(kAutoPreTwoPi);
-+    if (double(prop) > twoPi) {
-+        volatile float wrapped = float(double(prop) - twoPi);
-+        prop = wrapped;
-+    }
-+    const double dot = (double(move[2]) * double(forward[2]) + double(move[1]) * double(forward[1])) + double(move[0]) * double(forward[0]);
-+    double val;
-+    if (dot > double(kAutoPreTenth)) {
-+        val = double(kAutoPreTenth);
-+    } else if (0.0 > dot) {
-+        val = 0.0;
-+    } else {
-+        val = dot;
-+    }
-+    volatile float result = float(double(prop) - val * double(timeStep));
-+    return result;
-+}
-+
-+// 0x6AC9A7..0x6AC9EF: asin(rightZ) (_CIasin 0x821E70, ST0 sin redondear); fst float; si asin > limit -> limit; si no, si el float guardado < -limit -> -limit; si no el float.
-+__declspec(noinline) float __cdecl AutoPreClampedAsinCpp(float rightZ, float limit) {
-+    const double angle = ExeAsinDoubleCpp(double(rightZ));
-+    volatile float stored = float(angle);
-+    if (angle > double(limit)) {
-+        return limit;
-+    }
-+    if (double(stored) < -double(limit)) {
-+        return -limit;
-+    }
-+    return stored;
-+}
-+
-+// 0x6AC5A4..0x6AC64F (camion grua con remolque): d = hitch - bar (fsub; fstp float por componente); dot = (dz*fz + dy*fy) + dx*fx; / divisor (fstp float);
-+// angleA = float(asin(ratio) + negAngle); segunda: (dz*rz + dy*ry) + dx*rx; v = (-1.0f / divisor) * dot (fstp float); angleB = float(asin(v)).
-+__declspec(noinline) void __cdecl AutoPreTowAnglesCpp(const float* hitch, const float* bar, const float* forward, const float* right, float divisor, float negAngle, float* angleA, float* angleB) {
-+    volatile float dx = float(double(hitch[0]) - double(bar[0]));
-+    volatile float dy = float(double(hitch[1]) - double(bar[1]));
-+    volatile float dz = float(double(hitch[2]) - double(bar[2]));
-+    const double dotForward = (double(dz) * double(forward[2]) + double(dy) * double(forward[1])) + double(dx) * double(forward[0]);
-+    volatile float ratio = float(dotForward / double(divisor));
-+    volatile float first = float(ExeAsinDoubleCpp(double(ratio)) + double(negAngle));
-+    const double dotRight = (double(dz) * double(right[2]) + double(dy) * double(right[1])) + double(dx) * double(right[0]);
-+    const double scale = double(kAutoPreMinusOne) / double(divisor); // fld -1.0f (0x858C1C); fdiv [divisor]
-+    volatile float sideValue = float(scale * dotRight);
-+    volatile float second = float(ExeAsinDoubleCpp(double(sideValue)));
-+    *angleA = first;
-+    *angleB = second;
-+}
-+
-+// 0x6AC373..0x6AC39B y 0x6ACB39..0x6ACB60 (vehiculos con ejes inclinables): (wheelPos - (lineZ - upper)) / (lineAxis - matrixPos), fstp float.
-+__declspec(noinline) float __cdecl AutoPreAxleTiltCpp(float wheelPos, float lineZ, float upper, float lineAxis, float matrixPos) {
-+    const double denominator = double(lineAxis) - double(matrixPos);
-+    const double numerator = double(wheelPos) - (double(lineZ) - double(upper));
-+    volatile float result = float(numerator / denominator);
-+    return result;
-+}
-+
-+// 0x6AC763..0x6AC77E (montacargas): misc * k + restZ (fild; fmul; fadd [restZ]; fstp float).
-+__declspec(noinline) float __cdecl AutoPreForkliftZCpp(unsigned int misc, float k, float restZ) {
-+    volatile float result = float(double(misc) * double(k) + double(restZ));
-+    return result;
-+}
-+#pragma float_control(pop)
-+
-+// Lote 28 (cont.): 0x59C790 (Multiply3x3) y 0x59C890 (MultiplyMatrixWithVector) con la pila x87: tres productos sumados sin guardar (24 bits de mantisa, exponente extendido) y fstp float.
-+// Las ordenes de suma del EXE: x = (up.x*v.z + fwd.x*v.y) + right.x*v.x; y = (up.y*v.z + right.y*v.x) + fwd.y*v.y; z = (up.z*v.z + right.z*v.x) + fwd.z*v.y; la segunda suma ademas la posicion.
-+// `m` apunta al inicio de la matriz (right en m[0..2], forward en m[4..6], up en m[8..10], posicion en m[12..14]); out no debe solaparse con m ni v.
-+#pragma float_control(precise, on, push)
-+__declspec(noinline) void __cdecl AutoPreMultiply3x3Cpp(const float* m, const float* v, float* out) {
-+    volatile float x = float((double(m[8]) * double(v[2]) + double(m[4]) * double(v[1])) + double(m[0]) * double(v[0]));
-+    volatile float y = float((double(m[9]) * double(v[2]) + double(m[1]) * double(v[0])) + double(m[5]) * double(v[1]));
-+    volatile float z = float((double(m[10]) * double(v[2]) + double(m[2]) * double(v[0])) + double(m[6]) * double(v[1]));
-+    out[0] = x;
-+    out[1] = y;
-+    out[2] = z;
-+}
-+__declspec(noinline) void __cdecl AutoPreMultiplyMatrixWithVectorCpp(const float* m, const float* v, float* out) {
-+    volatile float x = float(((double(m[8]) * double(v[2]) + double(m[4]) * double(v[1])) + double(m[0]) * double(v[0])) + double(m[12]));
-+    volatile float y = float(((double(m[9]) * double(v[2]) + double(m[1]) * double(v[0])) + double(m[5]) * double(v[1])) + double(m[13]));
-+    volatile float z = float(((double(m[10]) * double(v[2]) + double(m[2]) * double(v[0])) + double(m[6]) * double(v[1])) + double(m[14]));
-+    out[0] = x;
-+    out[1] = y;
-+    out[2] = z;
-+}
-+#pragma float_control(pop)
-+
-+// Producto de dos floats en la pila x87 con 24 bits de mantisa y exponente extendido y un fstp float posterior: con resultados subnormales el segundo redondeo puede diferir del
-+// producto SSE directo (CAutomobile::PreRender: timeStep * 0.3f en 0x6AC2D3, lodMultiplier * 150.0f de las coronas).
-+#pragma float_control(precise, on, push)
-+__declspec(noinline) float __cdecl AutoPreMulCpp(float a, float b) {
-+    volatile float result = float(double(a) * double(b));
-+    return result;
-+}
-+#pragma float_control(pop)
-+
-+// Suma y resta de dos floats cargados de memoria en la pila x87 (fld a; fadd/fsub [b]; fstp): con dos NaN silenciosos distintos el x87 conserva el de mayor mantisa (SSE devolveria el
-+// primer operando); con un solo NaN, o con inf - inf, coincide con SSE. CAutomobile::PreRender (velocidad relativa de la rueda, fuerzas, posicion de la cadera oscilante, panel de la grua).
-+#pragma float_control(precise, on, push)
-+__declspec(noinline) float __cdecl AutoPreAddCpp(float a, float b) {
-+    volatile float result = float(double(a) + double(b));
-+    return result;
-+}
-+__declspec(noinline) float __cdecl AutoPreSubCpp(float a, float b) {
-+    volatile float result = float(double(a) - double(b));
-+    return result;
-+}
-+#pragma float_control(pop)
-diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
-index d88bb240f..da4e1aa9f 100644
---- a/source/game_sa/X87Math.h
-+++ b/source/game_sa/X87Math.h
-@@ -1576,3 +1576,29 @@ bool __cdecl WalkRoundDotBelowCpp(const float* a, const float* b);
- // --- Lote 31: CTaskComplexWalkRoundObject::CreateFirstSubTask (0x657380), prefijo WalkRound. Anadir al FINAL de X87Math.h ---
- // (a.z*b.z + a.y*b.y) + a.x*b.x > 0.0 (0x86F420) sobre la x87 (24 bits, exponente extendido); comparacion ordenada (con NaN da false). Los punteros apuntan a x, y, z consecutivos.
- bool __cdecl WalkRoundDotPositiveCpp(const float* a, const float* b);
-+
-+// --- Lote 28: CAutomobile::PreRender (0x6AAB50), prefijo AutoPre. Anadir al FINAL de X87Math.h ---
-+// Tramos x87 de 24 bits con exponente extendido (sin guardados intermedios de float). Los punteros apuntan a x, y, z consecutivos.
-+float __cdecl AutoPreForwardSpeedCpp(const float* move, const float* forward, float divisor);          // float(((mz*fz + my*fy) + mx*fx) / divisor)
-+float __cdecl AutoPreSpeedMagnitudeCpp(const float* move);                                              // float(sqrt((x*x + y*y) + z*z))
-+float __cdecl AutoPreSuspensionHeightCpp(float spring, float line, float comp, float startZ, float prevPos); // altura suavizada de una rueda (0x6AABBB..0x6AADC9)
-+void __cdecl AutoPreDoublePlusCpp(const float* v, const float* p, float* out);                          // out = float((v + v) + p) por componente
-+unsigned int __cdecl AutoPreScaleByteCpp(unsigned int value, float multiplier);                         // byte bajo de _ftol2((value * multiplier) * 0.1f)
-+unsigned int __cdecl AutoPreFadeByteCpp(unsigned int value, float fade);                                // byte bajo de _ftol2((value * fade) * 0.01f)
-+unsigned int __cdecl AutoPreCoronaByteCpp(float multiplier);                                            // byte bajo de _ftol2(multiplier * 10.0f)
-+bool __cdecl AutoPreDotNegativeCpp(const float* a, const float* b);                                     // (a.z*b.z + a.y*b.y) + a.x*b.x < 0.0
-+float __cdecl AutoPreWheelRotationCpp(float timeStep, float speed, float rotation);                     // float(timeStep * speed + rotation)
-+float __cdecl AutoPreMixerPropCpp(unsigned int misc, int divisor, float timeStep, float prop);          // hormigonera 0x6AC46C..0x6AC4B2
-+float __cdecl AutoPreTowAngleCpp(unsigned int misc, float k, unsigned int divisor);                     // float((misc * k) / divisor)
-+float __cdecl AutoPreHarvesterPropCpp(const float* move, const float* forward, float prop, float timeStep); // cosechadora 0x6AC7B5..0x6AC898
-+float __cdecl AutoPreClampedAsinCpp(float rightZ, float limit);                                         // asin(rightZ) acotado a [-limit, limit] como el EXE
-+void __cdecl AutoPreTowAnglesCpp(const float* hitch, const float* bar, const float* forward, const float* right, float divisor, float negAngle, float* angleA, float* angleB); // camion grua 0x6AC5A4..0x6AC64F
-+float __cdecl AutoPreAxleTiltCpp(float wheelPos, float lineZ, float upper, float lineAxis, float matrixPos);   // (wheelPos - (lineZ - upper)) / (lineAxis - matrixPos)
-+float __cdecl AutoPreForkliftZCpp(unsigned int misc, float k, float restZ);                             // float(misc * k + restZ)
-+
-+// Lote 28 (cont.): Multiply3x3 (0x59C790) y MultiplyMatrixWithVector (0x59C890) con la pila x87. `m` = inicio de la matriz (right, forward, up, posicion cada 4 floats).
-+void __cdecl AutoPreMultiply3x3Cpp(const float* m, const float* v, float* out);
-+void __cdecl AutoPreMultiplyMatrixWithVectorCpp(const float* m, const float* v, float* out);
-+float __cdecl AutoPreMulCpp(float a, float b);   // float(a * b) con el producto en la pila x87 (24 bits, exponente extendido) y un fstp float
-+float __cdecl AutoPreAddCpp(float a, float b);   // float(a + b) en la pila x87 (dos NaN: conserva el de mayor mantisa)
-+float __cdecl AutoPreSubCpp(float a, float b);   // float(a - b) en la pila x87

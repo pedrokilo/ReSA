@@ -13443,3 +13443,145 @@ __declspec(noinline) double __cdecl Stw60SubClampCpp(float a, float b) {
     return t;
 }
 #pragma float_control(pop)
+
+// --- Lote 61: CPed::ProcessEntityCollision (0x5E2530), prefijo Pec. Anadir al FINAL de X87Math.cpp ---
+// Tramos x87 de 24 bits con exponente extendido: lo que el EXE deja en registros entre operaciones no pasa por float (no se desborda ni vacia los denormales como el SSE con FTZ del juego);
+// los float que guarda con fstp dword se devuelven como float. Constantes del EXE: 0x858CDC = 0.001f, 0x858624 = 1.0f, 0x858F9C = 0.35f, 0x858F10 = 0.033333335f, 0x86C298 = 100.0f,
+// 0x86C29C = 400.0f, 0x86C2A0 = -0.6f, 0x858C1C = -1.0f.
+static_assert(std::bit_cast<unsigned int>(0.001f) == 0x3A83126Fu && std::bit_cast<unsigned int>(0.35f) == 0x3EB33333u && std::bit_cast<unsigned int>(100.0f) == 0x42C80000u &&
+              std::bit_cast<unsigned int>(400.0f) == 0x43C80000u && std::bit_cast<unsigned int>(-0.6f) == 0xBF19999Au && std::bit_cast<unsigned int>(1.0f / 30.0f) == 0x3D088889u,
+              "constantes de CPed::ProcessEntityCollision");
+#pragma float_control(precise, on, push)
+// 0x5E33F9..0x5E34B1: normal de un punto contra un estatico. player (z < -0.99 y pieza 2): -1/max(sqrt(vx*vx + vy*vy), 0.001) * velocidad (x, y); si no, (x, y) /= sqrt(y*y + x*x) salvo longitud 0.
+// El reciproco queda en ST0 (sin redondear a float); cada producto se guarda como float. speed apunta a la velocidad del ped (x, y); v a la normal (x, y, z): solo se escriben x e y.
+__declspec(noinline) void __cdecl PecStaticNormalCpp(float* v, const float* speed, bool player) {
+    if (player) {
+        double s = sqrt(double(speed[0]) * speed[0] + double(speed[1]) * speed[1]);   // fld y; fld x; x*x; y*y; faddp
+        if (s < 0.001f) {
+            s = 0.001f;   // fcom; test ah,5; jp: sustituye solo si es menor (NaN se conserva)
+        }
+        const double inv = -1.0f / s;   // fdivr [0x858C1C]
+        v[0] = float(inv * speed[0]);
+        v[1] = float(inv * speed[1]);
+    } else {
+        const double len = sqrt(double(v[1]) * v[1] + double(v[0]) * v[0]);   // fld y; fmul y; fld x; fmul x; faddp
+        if (!(len == 0.0)) {   // fcom 0.0; test ah,44h; jnp: salta solo con igualdad exacta
+            const double inv = 1.0f / len;   // fdivr [0x858624]
+            v[0] = float(double(v[0]) * inv);
+            v[1] = float(double(v[1]) * inv);
+        }
+    }
+}
+// 0x5E3535..0x5E3599: punto = posicion - normal * 0.35f; el producto de z se guarda como float (fstp [esp+30h]), los de x e y quedan en la pila.
+__declspec(noinline) void __cdecl PecExtraPointCpp(const float* n, const float* pos, float* point) {
+    const double nx = double(n[0]) * 0.35f;
+    const double ny = double(n[1]) * 0.35f;
+    const float nz = float(double(n[2]) * 0.35f);
+    point[0] = float(double(pos[0]) - nx);
+    point[1] = float(double(pos[1]) - ny);
+    point[2] = float(double(pos[2]) - nz);
+}
+// 0x5E2716..0x5E2765: lineas de techo. t = (c0z - r0) + 1.0f queda en la pila; start.z = k10 - t; end.z = t + k10 (k10 ya guardado como float).
+__declspec(noinline) void __cdecl PecCeilLinesCpp(float s0z, float s0r, float k10, float* startZ, float* endZ) {
+    const double t = (double(s0z) - s0r) + 1.0f;
+    *startZ = float(double(k10) - t);
+    *endZ = float(t + k10);
+}
+// 0x5E299A..0x5E2A55: brillo del suelo. day/night = (lighting & 0xF | lighting >> 4) * 0.033333335f; x = (1.0f - mix) * day + mix * night; jugador: t = paso * brillo global;
+// x * t + (1.0f - t) * previo; si no, x. Todo en la pila x87 y un fstp float.
+__declspec(noinline) float __cdecl PecBrightnessCpp(unsigned int lighting, float mix, float step, float gBright, float previous, bool player) {
+    const float k = 1.0f / 30.0f;   // 0x858F10 = 0x3D088889
+    const double t = double(step) * gBright;   // fld paso; fmul [0x8D21E4] (solo se usa con jugador)
+    const double day = double(int(lighting & 0xF)) * k;
+    const double night = double(int(lighting >> 4)) * k;
+    const double x = (1.0f - double(mix)) * day + double(mix) * night;
+    if (player) {
+        return float(x * t + (1.0f - t) * previous);
+    }
+    return float(x);
+}
+// 0x5E2BAA..0x5E2BE7: producto escalar ((ny*vy) + (nz*vz)) + (nx*vx) > 0.0 (ordenado).
+__declspec(noinline) bool __cdecl PecDotAboveCpp(const float* n, const float* v) {
+    const double d = (double(n[1]) * v[1] + double(n[2]) * v[2]) + double(n[0]) * v[0];
+    return d > 0.0;
+}
+// 0x5E2C10..0x5E2C25: ((lpz + k10) + 1.0f) > f588 (ordenado).
+__declspec(noinline) bool __cdecl PecCeilFitsCpp(float lpz, float k10, float f588) {
+    return ((double(lpz) + k10) + 1.0f) > double(f588);
+}
+// 0x5E2C2B..0x5E2C77: z = (c < top) ? c : top con c = f588 - k10 (guardado como float) y top = lpz + 1.0f.
+__declspec(noinline) float __cdecl PecCeilZCpp(float lpz, float k10, float f588) {
+    const double top = double(lpz) + 1.0f;
+    const double c = double(f588) - k10;   // fst dword [esp+18h]: se guarda como float, pero la comparacion usa el valor de la pila
+    if (c < top) {
+        return float(c);
+    }
+    return float(top);
+}
+// 0x5E316A..: (k10 + z) > lp1z (ordenado).
+__declspec(noinline) bool __cdecl PecAddGreaterCpp(float a, float b, float c) {
+    return (double(a) + b) > double(c);
+}
+// 0x5E2DB6..0x5E2DD9: velocidad horizontal sqrt(y*y + x*x) (queda en ST0); *over = ST0 > limit (ordenado); se devuelve como float (fst dword [esp+14h]).
+__declspec(noinline) float __cdecl PecSpeed2dCpp(float vx, float vy, float limit, bool* over) {
+    const double s = sqrt(double(vy) * vy + double(vx) * vx);
+    *over = s > double(limit);
+    return float(s);
+}
+// 0x5E2E47..0x5E2EA6: dano por caida. a = max(speed2d - soft, 0) * 100; b = max(lim - vz, 0) * 400; dano = b + a (float); 500.0f si vz < -0.6f.
+__declspec(noinline) float __cdecl PecFallDamageCpp(float speed2d, float soft, float lim, float vz) {
+    double a = double(speed2d) - soft;
+    if (0.0 > a) {
+        a = 0.0;
+    }
+    a = a * 100.0f;
+    double b = double(lim) - vz;
+    if (0.0 > b) {
+        b = 0.0;
+    }
+    b = b * 400.0f;
+    float damage = float(b + a);
+    if (vz < -0.6f) {
+        damage = 500.0f;
+    }
+    return damage;
+}
+#pragma float_control(pop)
+
+// --- Lote 61: CTaskSimpleSlideToCoord::ProcessPed (0x66C4E0), prefijo SlideToCoord. Anadir al FINAL de X87Math.cpp ---
+// Tramos x87 de 24 bits con exponente extendido: lo que el EXE deja en registro se calcula como double (cada operacion redondea a 24 bits) y solo lo que guarda con fstp dword se redondea a float.
+#pragma float_control(precise, on, push)
+// 0x66C5B8..0x66C66E (distancia y desplazamiento). pos = posicion del ped (x, y, z), target = m_SlideToPos, speed = m_Speed; right / forward = filas de la matriz del ped (solo se leen si hay que deslizar).
+// Suma (dy*dy + dx*dx) con dx = px - tx y dy = py - ty. Si no es >= 0.05f*0.05f (menor, o NaN: `fcompp; test ah,1; jne`) el desplazamiento es {0, 0}; si no, shift = {V.right, V.forward} con
+// V = (tx - px, ty - py, tz - pz) * speed. dz y V.x se guardan como float (fstp dword), V.z se guarda tambien (fst dword) y V.y queda en registro.
+// Devuelve true si la suma es estrictamente menor que 0.05f*0.05f (comparacion ordenada: con NaN devuelve false, como `fcompp; test ah,5; jp`).
+__declspec(noinline) bool __cdecl SlideToCoordShiftCpp(const float* pos, const float* target, float speed, const float* right, const float* forward, float* shift) {
+    const double dx = double(pos[0]) - target[0];  // fld [pos]; fsub [esi+64h]
+    const double dy = double(pos[1]) - target[1];  // fld [pos+4]; fsub [esi+68h]
+    const double sum = dy * dy + dx * dx;
+    static const volatile float kReach = 0.05f;  // 0x86FD10
+    const double reachSq = double(kReach) * kReach;
+    if (sum >= reachSq) {
+        const double d1 = double(target[0]) - pos[0];  // fld [esi+64h]; fsub [eax]
+        const double d2 = double(target[1]) - pos[1];
+        const double d3 = double(target[2]) - pos[2];
+        volatile float d3f = float(d3);                        // fstp [esp+14h]
+        volatile float v1f = float(d1 * speed);                // fmul [esp+48h]; fstp [esp+0Ch]
+        const double v2 = d2 * speed;                          // queda en registro
+        const double v3 = double(d3f) * speed;                 // fld [esp+14h]; fmul [esp+48h]
+        volatile float v3f = float(v3);                        // fst [esp+14h] (v3 sigue en registro)
+        const double forwardDot = (v3 * forward[2] + v2 * forward[1]) + double(v1f) * forward[0];
+        const double rightDot = (double(v3f) * right[2] + v2 * right[1]) + double(v1f) * right[0];
+        shift[0] = float(rightDot);                            // fstp [edi+4D8h]
+        shift[1] = float(forwardDot);                          // fstp [edi+4DCh]
+        return false;
+    }
+    shift[0] = 0.0f;
+    shift[1] = 0.0f;
+    return sum < reachSq;
+}
+// 0x66C6C3..0x66C6D2: fld aiming; fld current; fsub st,st(1); fstp [esp] (argumento de CGeneral::LimitRadianAngle). Se devuelve la resta sin redondear; el llamador la guarda como float.
+__declspec(noinline) float __cdecl SlideToCoordAngleDeltaCpp(float current, float aiming) {
+    return current - aiming;
+}
+#pragma float_control(pop)

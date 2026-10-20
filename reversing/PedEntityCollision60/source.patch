@@ -1,5 +1,5 @@
 diff --git a/source/game_sa/Entity/Ped/Ped.cpp b/source/game_sa/Entity/Ped/Ped.cpp
-index 88e2722f4..c8fdef562 100644
+index 3c787d605..a5310ebb5 100644
 --- a/source/game_sa/Entity/Ped/Ped.cpp
 +++ b/source/game_sa/Entity/Ped/Ped.cpp
 @@ -54,6 +54,13 @@ END GENERATED HOOK STATUS */
@@ -25,7 +25,7 @@ index 88e2722f4..c8fdef562 100644
      RH_ScopedVMTInstall(SetMoveAnim, 0x5E4A00);
      RH_ScopedVMTInstall(Save, 0x5D5730);
      RH_ScopedVMTInstall(Load, 0x5D4640);
-@@ -4707,12 +4714,472 @@ void CPed::FlagToDestroyWhenNextProcessed() {
+@@ -5125,12 +5132,428 @@ void CPed::FlagToDestroyWhenNextProcessed() {
      SetPedState(IsCreatedByMission() ? PEDSTATE_DEAD : PEDSTATE_NONE);
  }
  
@@ -72,7 +72,7 @@ index 88e2722f4..c8fdef562 100644
 +    constexpr float kWallNormalZ = -0.867f;     // 0x86C32C
 +    constexpr float kNoGround = 99999.992f;     // 0x86C328 (valor inicial de field_588)
 +
-+    const float gravityStep = CTimer::ms_fTimeStep * -0.15f; // 0x86C330
++    const float gravityStep = AutoPreMulCpp(CTimer::ms_fTimeStep, -0.15f); // 0x86C330 (fmul + fstp float)
 +
 +    // Col model del ped (ms_modelInfoPtrs[(int16)idx] -> +0x14 -> datos +0x2C)
 +    CColModel* ourCol = CModelInfo::ms_modelInfoPtrs[static_cast<int16>(m_nModelIndex)]->m_pColModel;
@@ -117,17 +117,13 @@ index 88e2722f4..c8fdef562 100644
 +        colData->m_pLines[0].m_vecEnd.z = -1.0f;
 +        useLines = true;
 +        if (bWasStanding) {
-+            colData->m_pLines[0].m_vecEnd.z = gravityStep + colData->m_pLines[0].m_vecEnd.z;
++            colData->m_pLines[0].m_vecEnd.z = AutoPreAddCpp(gravityStep, colData->m_pLines[0].m_vecEnd.z);
 +        }
 +        const CColSphere* spheres = colData->m_pSpheres;
-+        k10 = spheres[2].m_fRadius + spheres[2].m_vecCenter.z;
++        k10 = AutoPreAddCpp(spheres[2].m_fRadius, spheres[2].m_vecCenter.z);
 +        if (bCheckColAboveHead) {
-+            float t = spheres[0].m_vecCenter.z - spheres[0].m_fRadius;
-+            colData->m_pLines[1].m_vecStart.z = k10;
-+            t = t + kOne;
-+            colData->m_pLines[1].m_vecStart.z = colData->m_pLines[1].m_vecStart.z - t;
-+            colData->m_pLines[1].m_vecEnd.z = k10;
-+            colData->m_pLines[1].m_vecEnd.z = t + colData->m_pLines[1].m_vecEnd.z;
++            // t = (c0.z - r0) + 1.0f queda en la pila x87 (X87Math.cpp): start.z = k10 - t, end.z = t + k10
++            PecCeilLinesCpp(spheres[0].m_vecCenter.z, spheres[0].m_fRadius, k10, &colData->m_pLines[1].m_vecStart.z, &colData->m_pLines[1].m_vecEnd.z);
 +            colData->m_nNumLines = 2;
 +            ourCol->m_boundSphere.m_fRadius = colData->m_pLines[1].m_vecEnd.z;
 +            ourCol->m_boundBox.m_vecMax.z = colData->m_pLines[1].m_vecEnd.z;
@@ -164,7 +160,7 @@ index 88e2722f4..c8fdef562 100644
 +        maxTouch,
 +        flagDontShift
 +    );
-+    const float startZ = m_matrix->m_pos.z; // [esp+5Ch]
++    const float startZ = m_matrix->GetPosition().z; // [esp+5Ch]
 +
 +    if (useLines) {
 +        colData->m_nNumLines = 0;
@@ -178,8 +174,8 @@ index 88e2722f4..c8fdef562 100644
 +            const CColPoint& lp1 = lineCPs[1];
 +
 +            bool skipGround = false; // salto a 0x5E2D06
-+            if (wasStandingNow && !((lp0.m_vecPoint.z + kOne) > m_matrix->m_pos.z)) {
-+                if (!boatFlag || !((lp0.m_vecPoint.z + 3.0f) > m_matrix->m_pos.z)) {
++            if (wasStandingNow && !((lp0.m_vecPoint.z + kOne) > m_matrix->GetPosition().z)) {
++                if (!boatFlag || !((lp0.m_vecPoint.z + 3.0f) > m_matrix->GetPosition().z)) {
 +                    skipGround = true;
 +                }
 +            }
@@ -195,18 +191,9 @@ index 88e2722f4..c8fdef562 100644
 +
 +                // brillo del suelo (0x5E299A..0x5E2A5B)
 +                {
-+                    const uint8 lighting = lp0.m_nLightingB.value;
-+                    const float k = std::bit_cast<float>(0x3D088889u); // 0x858F10
-+                    const float dayK = static_cast<float>(lighting & 0xF) * k;
-+                    const float nightK = static_cast<float>(lighting >> 4) * k;
-+                    const float mix = StaticRef<float>(0x8D12C0);
-+                    const float x = ((kOne - mix) * dayK) + (mix * nightK);
-+                    if (m_nPedType == PED_TYPE_PLAYER1 || m_nPedType == PED_TYPE_PLAYER2) {
-+                        const float t = CTimer::ms_fTimeStep * StaticRef<float>(0x8D21E4);
-+                        m_fContactSurfaceBrightness = (x * t) + ((kOne - t) * m_fContactSurfaceBrightness);
-+                    } else {
-+                        m_fContactSurfaceBrightness = x;
-+                    }
++                    // todo en la pila x87 (X87Math.cpp): 0x8D12C0 = mezcla dia/noche, 0x8D21E4 = factor de suavizado del jugador
++                    const bool player = m_nPedType == PED_TYPE_PLAYER1 || m_nPedType == PED_TYPE_PLAYER2;
++                    m_fContactSurfaceBrightness = PecBrightnessCpp(lp0.m_nLightingB.value, StaticRef<float>(0x8D12C0), CTimer::ms_fTimeStep, StaticRef<float>(0x8D21E4), m_fContactSurfaceBrightness, player);
 +                }
 +
 +                // entidad de contacto (0x5E2A5B..0x5E2B4C)
@@ -215,9 +202,9 @@ index 88e2722f4..c8fdef562 100644
 +                    entity->RegisterReference(&m_standingOnEntity);
 +                    const CVector& ePos = entity->GetPosition();
 +                    m_pContactEntity = entity;
-+                    const float dz = lp0.m_vecPoint.z - ePos.z;
-+                    const float dy = lp0.m_vecPoint.y - ePos.y;
-+                    const float dx = lp0.m_vecPoint.x - ePos.x;
++                    const float dz = AutoPreSubCpp(lp0.m_vecPoint.z, ePos.z);
++                    const float dy = AutoPreSubCpp(lp0.m_vecPoint.y, ePos.y);
++                    const float dx = AutoPreSubCpp(lp0.m_vecPoint.x, ePos.x);
 +                    field_56C.x = dx;
 +                    field_56C.y = dy;
 +                    field_56C.z = dz;
@@ -244,12 +231,11 @@ index 88e2722f4..c8fdef562 100644
 +                // 0x5E2B9C..0x5E2CC6
 +                const bool headStuck = bHeadStuckInCollision;
 +                bool goto2C9F = false;
-+                if (headStuck && !((lp0.m_vecPoint.z + kOne) < m_matrix->m_pos.z)) {
++                if (headStuck && !((lp0.m_vecPoint.z + kOne) < m_matrix->GetPosition().z)) {
 +                    if (type != ENTITY_TYPE_BUILDING) {
 +                        goto2C9F = true;
 +                    } else {
-+                        const float dot = ((lp0.m_vecNormal.y * m_vecMoveSpeed.y) + (lp0.m_vecNormal.z * m_vecMoveSpeed.z)) + (lp0.m_vecNormal.x * m_vecMoveSpeed.x);
-+                        if (!(dot > 0.0f)) {
++                        if (!PecDotAboveCpp(&lp0.m_vecNormal.x, &m_vecMoveSpeed.x)) { // ((ny*vy) + (nz*vz)) + (nx*vx) > 0.0
 +                            goto2C9F = true;
 +                        }
 +                    }
@@ -259,16 +245,14 @@ index 88e2722f4..c8fdef562 100644
 +                }
 +                if (!goto2C9F) {
 +                    if (field_588 < kNoGround) {
-+                        const float top = lp0.m_vecPoint.z + kOne;
-+                        if (((lp0.m_vecPoint.z + k10) + kOne) > field_588) {
-+                            const float c = field_588 - k10;
++                        if (PecCeilFitsCpp(lp0.m_vecPoint.z, k10, field_588)) { // ((lp.z + k10) + 1.0f) > field_588
 +                            bestNormal = lp0.m_vecNormal;
-+                            m_matrix->m_pos.z = (c < top) ? c : top;
++                            m_matrix->GetPosition().z = PecCeilZCpp(lp0.m_vecPoint.z, k10, field_588); // min(field_588 - k10, lp.z + 1.0f)
 +                        } else {
-+                            m_matrix->m_pos.z = top;
++                            m_matrix->GetPosition().z = AutoPreAddCpp(lp0.m_vecPoint.z, kOne);
 +                        }
 +                    } else {
-+                        m_matrix->m_pos.z = lp0.m_vecPoint.z + kOne;
++                        m_matrix->GetPosition().z = AutoPreAddCpp(lp0.m_vecPoint.z, kOne);
 +                        if (bHeadStuckInCollision) {
 +                            bHeadStuckInCollision = false;
 +                        }
@@ -291,20 +275,20 @@ index 88e2722f4..c8fdef562 100644
 +                limitSpeed = limitSpeed + limitSpeed;
 +                limitZ = limitZ * 1.5f; // 0x858CE8
 +            }
-+            CAnimBlendAssociation* fallAnim = RpAnimBlendClumpGetAssociation(reinterpret_cast<RpClump*>(m_pRwObject), static_cast<uint32>(ANIM_ID_FALL_FALL));
++            CAnimBlendAssociation* fallAnim = RpAnimBlendClumpGetAssociation(GetRpClump(), static_cast<uint32>(ANIM_ID_FALL_FALL));
 +            CVector v = m_vecMoveSpeed;
 +            if (type > 1 && type < 5) {
 +                const auto* phys = static_cast<CPhysical*>(entity);
-+                v.x = v.x - phys->m_vecMoveSpeed.x;
-+                v.y = v.y - phys->m_vecMoveSpeed.y;
-+                v.z = v.z - phys->m_vecMoveSpeed.z;
++                v.x = AutoPreSubCpp(v.x, phys->m_vecMoveSpeed.x);
++                v.y = AutoPreSubCpp(v.y, phys->m_vecMoveSpeed.y);
++                v.z = AutoPreSubCpp(v.z, phys->m_vecMoveSpeed.z);
 +            }
 +
 +            if (!bWasStanding) {
-+                const float speed2d = std::sqrt((v.y * v.y) + (v.x * v.x));
-+                k10 = speed2d;
++                bool over = false;
++                const float speed2d = PecSpeed2dCpp(v.x, v.y, limitSpeed, &over); // sqrt(y*y + x*x) en la pila x87; over = sin redondear > limitSpeed
 +                bool strong = false;
-+                if (speed2d > limitSpeed && !bPushedAlongByCar) {
++                if (over && !bPushedAlongByCar) {
 +                    strong = true;
 +                } else if (v.z < limitZ) {
 +                    strong = true;
@@ -322,23 +306,11 @@ index 88e2722f4..c8fdef562 100644
 +                    } else {
 +                        soft = 0.25f;   // 0x3E800000
 +                    }
-+                    float a = speed2d - soft;
-+                    if (0.0f > a) {
-+                        a = 0.0f;
-+                    }
-+                    a = a * 100.0f;     // 0x86C298
-+                    float b = lim - v.z;
-+                    if (0.0f > b) {
-+                        b = 0.0f;
-+                    }
-+                    b = b * 400.0f;     // 0x86C29C
-+                    float damage = b + a;
-+                    if (v.z < -0.6f) {  // 0x86C2A0
-+                        damage = 500.0f;
-+                    }
++                    // max(speed2d - soft, 0) * 100 (0x86C298) + max(lim - vz, 0) * 400 (0x86C29C); 500.0f si vz < -0.6f (0x86C2A0): X87Math.cpp
++                    const float damage = PecFallDamageCpp(speed2d, soft, lim, v.z);
 +                    uint8 direction = 2;
 +                    if (v.x > 0.01f || v.x < -0.01f || v.y > 0.01f || v.y < -0.01f) {
-+                        const CVector2D local{ v.x * -1.0f, v.y * -1.0f };
++                        const CVector2D local{ AutoPreMulCpp(v.x, -1.0f), AutoPreMulCpp(v.y, -1.0f) }; // 0x858C1C = -1.0f
 +                        direction = static_cast<uint8>(GetLocalDirection(local));
 +                    }
 +                    PecDamageEvent(this, entity, damage, direction);
@@ -350,7 +322,7 @@ index 88e2722f4..c8fdef562 100644
 +            // 0x5E3099
 +            bIsStanding = true;
 +            m_vecMoveSpeed.z = 0.0f;
-+            if ((startZ + 0.1f) < m_matrix->m_pos.z) {
++            if ((startZ + 0.1f) < m_matrix->GetPosition().z) {
 +                if (colData->m_nNumLines == 0
 +                    && (m_nPedType == PED_TYPE_PLAYER1 || m_nPedType == PED_TYPE_PLAYER2)) {
 +                    if (!entity->m_matrix) {
@@ -373,8 +345,8 @@ index 88e2722f4..c8fdef562 100644
 +                if (!entity->GetIsTypePhysical() || (static_cast<CPhysical*>(entity)->m_nPhysicalFlags & 8)) {
 +                    field_588 = lineCPs[1].m_vecPoint.z;
 +                    if (bIsStanding) {
-+                        if ((k10 + GetPosition().z) > lineCPs[1].m_vecPoint.z) {
-+                            m_matrix->m_pos.z = lineCPs[1].m_vecPoint.z - k10;
++                        if (PecAddGreaterCpp(k10, GetPosition().z, lineCPs[1].m_vecPoint.z)) {
++                            m_matrix->GetPosition().z = AutoPreSubCpp(lineCPs[1].m_vecPoint.z, k10);
 +                        }
 +                    }
 +                }
@@ -403,7 +375,7 @@ index 88e2722f4..c8fdef562 100644
 +                bRightArmBlocked = true;
 +            } else if (cp.m_nPieceTypeA == 5 && okA && okB) {
 +                bLeftArmBlocked = true;
-+            } else if (cp.m_nPieceTypeA == 8 && okA && okB) {
++            } else if (cp.m_nPieceTypeA == 8 && okA) {
 +                bDuckRightArmBlocked = true;
 +            } else if (cp.m_nPieceTypeA == 4 && jump) {
 +                bMidriffBlockedForJump = true;
@@ -420,7 +392,7 @@ index 88e2722f4..c8fdef562 100644
 +            && (static_cast<CPhysical*>(entity)->m_nPhysicalFlags & 4)
 +            && cp.m_vecNormal.z < 0.0f) {
 +            cp.m_vecNormal.z = 0.0f;
-+            cp.m_vecNormal.Normalise();
++            (void)PathFindNormaliseStatusCpp(&cp.m_vecNormal.x); // CVector::Normalise del EXE (0x59C910) en x87 exacto (X87Math.cpp)
 +        }
 +        ++i;
 +    }
@@ -440,25 +412,15 @@ index 88e2722f4..c8fdef562 100644
 +            CColPoint& cp = colPoints[i];
 +            CVector v = cp.m_vecNormal;
 +            if (v.z < -0.99f && cp.m_nPieceTypeA == 2 && (m_nPedType == PED_TYPE_PLAYER1 || m_nPedType == PED_TYPE_PLAYER2)) {
-+                float s = std::sqrt((m_vecMoveSpeed.x * m_vecMoveSpeed.x) + (m_vecMoveSpeed.y * m_vecMoveSpeed.y));
-+                if (s < 0.001f) {
-+                    s = 0.001f;
-+                }
-+                const float inv = -1.0f / s;
-+                v.x = inv * m_vecMoveSpeed.x;
-+                v.y = inv * m_vecMoveSpeed.y;
-+                m_matrix->m_pos.z = m_matrix->m_pos.z - 0.05f;
++                // -1.0f / max(sqrt(vx*vx + vy*vy), 0.001f) * velocidad, con el reciproco en la pila x87 (X87Math.cpp)
++                PecStaticNormalCpp(&v.x, &m_vecMoveSpeed.x, true);
++                m_matrix->GetPosition().z = AutoPreSubCpp(m_matrix->GetPosition().z, 0.05f); // 0x858C28
 +                bHeadStuckInCollision = true;
 +                bHitSteepSlope = true;
 +            } else {
-+                const float len = std::sqrt((v.y * v.y) + (v.x * v.x));
-+                if (!(len == 0.0f)) {
-+                    const float inv = kOne / len;
-+                    v.x = v.x * inv;
-+                    v.y = v.y * inv;
-+                }
++                PecStaticNormalCpp(&v.x, nullptr, false); // (x, y) *= 1.0f / sqrt(y*y + x*x) salvo longitud 0 (X87Math.cpp)
 +            }
-+            v.Normalise();
++            (void)PathFindNormaliseStatusCpp(&v.x); // 0x59C910
 +            cp.m_vecNormal = v;
 +            if (g_surfaceInfos.IsSteepSlope(cp.m_nSurfaceTypeB)) {
 +                bHitSteepSlope = true;
@@ -472,14 +434,8 @@ index 88e2722f4..c8fdef562 100644
 +        cp.m_vecNormal.y = bestNormal.y;
 +        cp.m_vecNormal.x = bestNormal.x;
 +        cp.m_vecNormal.z = 0.0f;
-+        cp.m_vecNormal.Normalise();
-+        const CVector& pos = GetPosition();
-+        const float nx = cp.m_vecNormal.x * 0.35f; // 0x858F9C
-+        const float ny = cp.m_vecNormal.y * 0.35f;
-+        const float nz = cp.m_vecNormal.z * 0.35f;
-+        cp.m_vecPoint.x = pos.x - nx;
-+        cp.m_vecPoint.y = pos.y - ny;
-+        cp.m_vecPoint.z = pos.z - nz;
++        (void)PathFindNormaliseStatusCpp(&cp.m_vecNormal.x); // 0x59C910
++        PecExtraPointCpp(&cp.m_vecNormal.x, &GetPosition().x, &cp.m_vecPoint.x); // punto = posicion - normal * 0.35f (0x858F9C), X87Math.cpp
 +        ++numCPs;
 +        bHitSteepSlope = true;
 +    }
@@ -500,3 +456,135 @@ index 88e2722f4..c8fdef562 100644
  }
  
  // NOTSA
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index a480868fd..46ff3f010 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -13443,3 +13443,107 @@ __declspec(noinline) double __cdecl Stw60SubClampCpp(float a, float b) {
+     return t;
+ }
+ #pragma float_control(pop)
++
++// --- Lote 61: CPed::ProcessEntityCollision (0x5E2530), prefijo Pec. Anadir al FINAL de X87Math.cpp ---
++// Tramos x87 de 24 bits con exponente extendido: lo que el EXE deja en registros entre operaciones no pasa por float (no se desborda ni vacia los denormales como el SSE con FTZ del juego);
++// los float que guarda con fstp dword se devuelven como float. Constantes del EXE: 0x858CDC = 0.001f, 0x858624 = 1.0f, 0x858F9C = 0.35f, 0x858F10 = 0.033333335f, 0x86C298 = 100.0f,
++// 0x86C29C = 400.0f, 0x86C2A0 = -0.6f, 0x858C1C = -1.0f.
++static_assert(std::bit_cast<unsigned int>(0.001f) == 0x3A83126Fu && std::bit_cast<unsigned int>(0.35f) == 0x3EB33333u && std::bit_cast<unsigned int>(100.0f) == 0x42C80000u &&
++              std::bit_cast<unsigned int>(400.0f) == 0x43C80000u && std::bit_cast<unsigned int>(-0.6f) == 0xBF19999Au && std::bit_cast<unsigned int>(1.0f / 30.0f) == 0x3D088889u,
++              "constantes de CPed::ProcessEntityCollision");
++#pragma float_control(precise, on, push)
++// 0x5E33F9..0x5E34B1: normal de un punto contra un estatico. player (z < -0.99 y pieza 2): -1/max(sqrt(vx*vx + vy*vy), 0.001) * velocidad (x, y); si no, (x, y) /= sqrt(y*y + x*x) salvo longitud 0.
++// El reciproco queda en ST0 (sin redondear a float); cada producto se guarda como float. speed apunta a la velocidad del ped (x, y); v a la normal (x, y, z): solo se escriben x e y.
++__declspec(noinline) void __cdecl PecStaticNormalCpp(float* v, const float* speed, bool player) {
++    if (player) {
++        double s = sqrt(double(speed[0]) * speed[0] + double(speed[1]) * speed[1]);   // fld y; fld x; x*x; y*y; faddp
++        if (s < 0.001f) {
++            s = 0.001f;   // fcom; test ah,5; jp: sustituye solo si es menor (NaN se conserva)
++        }
++        const double inv = -1.0f / s;   // fdivr [0x858C1C]
++        v[0] = float(inv * speed[0]);
++        v[1] = float(inv * speed[1]);
++    } else {
++        const double len = sqrt(double(v[1]) * v[1] + double(v[0]) * v[0]);   // fld y; fmul y; fld x; fmul x; faddp
++        if (!(len == 0.0)) {   // fcom 0.0; test ah,44h; jnp: salta solo con igualdad exacta
++            const double inv = 1.0f / len;   // fdivr [0x858624]
++            v[0] = float(double(v[0]) * inv);
++            v[1] = float(double(v[1]) * inv);
++        }
++    }
++}
++// 0x5E3535..0x5E3599: punto = posicion - normal * 0.35f; el producto de z se guarda como float (fstp [esp+30h]), los de x e y quedan en la pila.
++__declspec(noinline) void __cdecl PecExtraPointCpp(const float* n, const float* pos, float* point) {
++    const double nx = double(n[0]) * 0.35f;
++    const double ny = double(n[1]) * 0.35f;
++    const float nz = float(double(n[2]) * 0.35f);
++    point[0] = float(double(pos[0]) - nx);
++    point[1] = float(double(pos[1]) - ny);
++    point[2] = float(double(pos[2]) - nz);
++}
++// 0x5E2716..0x5E2765: lineas de techo. t = (c0z - r0) + 1.0f queda en la pila; start.z = k10 - t; end.z = t + k10 (k10 ya guardado como float).
++__declspec(noinline) void __cdecl PecCeilLinesCpp(float s0z, float s0r, float k10, float* startZ, float* endZ) {
++    const double t = (double(s0z) - s0r) + 1.0f;
++    *startZ = float(double(k10) - t);
++    *endZ = float(t + k10);
++}
++// 0x5E299A..0x5E2A55: brillo del suelo. day/night = (lighting & 0xF | lighting >> 4) * 0.033333335f; x = (1.0f - mix) * day + mix * night; jugador: t = paso * brillo global;
++// x * t + (1.0f - t) * previo; si no, x. Todo en la pila x87 y un fstp float.
++__declspec(noinline) float __cdecl PecBrightnessCpp(unsigned int lighting, float mix, float step, float gBright, float previous, bool player) {
++    const float k = 1.0f / 30.0f;   // 0x858F10 = 0x3D088889
++    const double t = double(step) * gBright;   // fld paso; fmul [0x8D21E4] (solo se usa con jugador)
++    const double day = double(int(lighting & 0xF)) * k;
++    const double night = double(int(lighting >> 4)) * k;
++    const double x = (1.0f - double(mix)) * day + double(mix) * night;
++    if (player) {
++        return float(x * t + (1.0f - t) * previous);
++    }
++    return float(x);
++}
++// 0x5E2BAA..0x5E2BE7: producto escalar ((ny*vy) + (nz*vz)) + (nx*vx) > 0.0 (ordenado).
++__declspec(noinline) bool __cdecl PecDotAboveCpp(const float* n, const float* v) {
++    const double d = (double(n[1]) * v[1] + double(n[2]) * v[2]) + double(n[0]) * v[0];
++    return d > 0.0;
++}
++// 0x5E2C10..0x5E2C25: ((lpz + k10) + 1.0f) > f588 (ordenado).
++__declspec(noinline) bool __cdecl PecCeilFitsCpp(float lpz, float k10, float f588) {
++    return ((double(lpz) + k10) + 1.0f) > double(f588);
++}
++// 0x5E2C2B..0x5E2C77: z = (c < top) ? c : top con c = f588 - k10 (guardado como float) y top = lpz + 1.0f.
++__declspec(noinline) float __cdecl PecCeilZCpp(float lpz, float k10, float f588) {
++    const double top = double(lpz) + 1.0f;
++    const double c = double(f588) - k10;   // fst dword [esp+18h]: se guarda como float, pero la comparacion usa el valor de la pila
++    if (c < top) {
++        return float(c);
++    }
++    return float(top);
++}
++// 0x5E316A..: (k10 + z) > lp1z (ordenado).
++__declspec(noinline) bool __cdecl PecAddGreaterCpp(float a, float b, float c) {
++    return (double(a) + b) > double(c);
++}
++// 0x5E2DB6..0x5E2DD9: velocidad horizontal sqrt(y*y + x*x) (queda en ST0); *over = ST0 > limit (ordenado); se devuelve como float (fst dword [esp+14h]).
++__declspec(noinline) float __cdecl PecSpeed2dCpp(float vx, float vy, float limit, bool* over) {
++    const double s = sqrt(double(vy) * vy + double(vx) * vx);
++    *over = s > double(limit);
++    return float(s);
++}
++// 0x5E2E47..0x5E2EA6: dano por caida. a = max(speed2d - soft, 0) * 100; b = max(lim - vz, 0) * 400; dano = b + a (float); 500.0f si vz < -0.6f.
++__declspec(noinline) float __cdecl PecFallDamageCpp(float speed2d, float soft, float lim, float vz) {
++    double a = double(speed2d) - soft;
++    if (0.0 > a) {
++        a = 0.0;
++    }
++    a = a * 100.0f;
++    double b = double(lim) - vz;
++    if (0.0 > b) {
++        b = 0.0;
++    }
++    b = b * 400.0f;
++    float damage = float(b + a);
++    if (vz < -0.6f) {
++        damage = 500.0f;
++    }
++    return damage;
++}
++#pragma float_control(pop)
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index fbf29182f..f48ca77be 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1620,3 +1620,15 @@ float __cdecl Stw60RespectFinishCpp(int tagged, float moneyPart, float partial,
+ int __cdecl Stw60ScaledFtolCpp(int value, float k);
+ double __cdecl Stw60MulCpp(double v, float k);
+ double __cdecl Stw60SubClampCpp(float a, float b);
++// --- Lote 61: CPed::ProcessEntityCollision (0x5E2530), prefijo Pec. Anadir al FINAL de X87Math.h ---
++// Tramos x87 de 24 bits con exponente extendido (ver X87Math.cpp); los vectores apuntan a x, y, z consecutivos.
++void __cdecl PecStaticNormalCpp(float* v, const float* speed, bool player);       // normal contra un estatico (solo x, y)
++void __cdecl PecExtraPointCpp(const float* n, const float* pos, float* point);    // punto = pos - n * 0.35f
++void __cdecl PecCeilLinesCpp(float s0z, float s0r, float k10, float* startZ, float* endZ); // lineas de techo
++float __cdecl PecBrightnessCpp(unsigned int lighting, float mix, float step, float gBright, float previous, bool player);
++bool __cdecl PecDotAboveCpp(const float* n, const float* v);                      // ((ny*vy) + (nz*vz)) + (nx*vx) > 0.0
++bool __cdecl PecCeilFitsCpp(float lpz, float k10, float f588);                    // ((lpz + k10) + 1.0f) > f588
++float __cdecl PecCeilZCpp(float lpz, float k10, float f588);                      // (f588 - k10 < lpz + 1.0f) ? f588 - k10 : lpz + 1.0f
++bool __cdecl PecAddGreaterCpp(float a, float b, float c);                         // (a + b) > c
++float __cdecl PecSpeed2dCpp(float vx, float vy, float limit, bool* over);         // sqrt(vy*vy + vx*vx) como float; *over = sin redondear > limit
++float __cdecl PecFallDamageCpp(float speed2d, float soft, float lim, float vz);   // dano por caida

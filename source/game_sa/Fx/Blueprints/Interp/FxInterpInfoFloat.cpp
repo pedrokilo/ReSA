@@ -1,7 +1,39 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: FxInterpInfoFloat_c
+ * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 1/1 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
+// Este archivo se compila con /O2 /Oi /arch:IA32 /fp:fast /Zi, sin PCH ni unity (ver source/CMakeLists.txt): GetVal usa la aritmetica x87 del EXE.
+#ifdef _MSC_VER
+#pragma warning(push, 0)
+#endif
 #include "StdInc.h"
 
 #include "FxInterpInfoFloat.h"
 #include "FxManager.h"
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+
+void FxInterpInfoFloat_c::InjectHooks() {
+    RH_ScopedClass(FxInterpInfoFloat_c);
+    RH_ScopedCategory("Fx");
+
+    RH_ScopedOverloadedInstall(GetVal, "values", 0x4A8470, void (FxInterpInfoFloat_c::*)(float*, float));
+}
 
 // 0x4A8440
 FxInterpInfoFloat_c::FxInterpInfoFloat_c() : FxInterpInfo_c() {
@@ -43,49 +75,5 @@ float FxInterpInfoFloat_c::GetVal(int32 attrib, float time, float deltaTime) {
 
 // 0x4A8470
 void FxInterpInfoFloat_c::GetVal(float* outValues, float delta) {
-    return plugin::CallMethod<0x4A8470, FxInterpInfoFloat_c*, float*, float>(this, outValues, delta);
-
-    if (m_nNumKeys == 1) {
-        for (auto i = 0; i < m_nCount; i++) {
-            outValues[i] = *m_Keys[i];
-        }
-        return;
-    }
-
-    if (m_bLooped) {
-        auto totalTime = (float)m_pTimes[m_nNumKeys - 1] / 256.0f;
-        delta = delta - (delta / totalTime) * totalTime;
-    }
-
-    if (m_nNumKeys <= 1) {
-        for (auto j = 0; j < m_nCount; j++) {
-            outValues[j] = m_Keys[j][m_nNumKeys - 1];
-        }
-        return;
-    }
-
-    int v8 = 1;
-    float v11;
-    uint16* v10 = m_pTimes + 1;
-    while (true) {
-        v11 = (float)*v10 / 256.0f;
-        if (delta < v11)
-            break;
-        ++v8;
-        ++v10;
-        if (v8 >= m_nNumKeys) {
-            for (auto j = 0; j < m_nCount; j++) {
-                outValues[j] = m_Keys[j][m_nNumKeys - 1];
-            }
-            return;
-        }
-    }
-
-    int v13 = 0;
-    float v14 = (float)m_pTimes[v8 - 1] / 256.0f;
-    float a3a;
-    float* v15;
-    for (a3a = (delta - v14) / (v11 - v14); v13 < m_nCount; outValues[v13 - 1] = (v15[v8] - v15[v8 - 1]) * a3a + v15[v8 - 1]) {
-        v15 = m_Keys[v13++];
-    }
+    InterpolateKeys(m_Keys, outValues, delta, 0.0f);
 }

@@ -1,7 +1,39 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: FxInterpInfo32_c
+ * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 1/1 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
+// Este archivo se compila con /O2 /Oi /arch:IA32 /fp:fast /Zi, sin PCH ni unity (ver source/CMakeLists.txt): GetVal usa la aritmetica x87 del EXE.
+#ifdef _MSC_VER
+#pragma warning(push, 0)
+#endif
 #include "StdInc.h"
 
 #include "FxInterpInfo32.h"
 #include "FxManager.h"
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+
+void FxInterpInfo32_c::InjectHooks() {
+    RH_ScopedClass(FxInterpInfo32_c);
+    RH_ScopedCategory("Fx");
+
+    RH_ScopedInstall(GetVal, 0x4A89C0);
+}
 
 // 0x4A8990
 FxInterpInfo32_c::FxInterpInfo32_c() : FxInterpInfo_c() {
@@ -38,5 +70,5 @@ void FxInterpInfo32_c::Allocate(int32 count) {
 
 // 0x4A89C0
 void FxInterpInfo32_c::GetVal(float* outValues, float delta) {
-    plugin::CallMethod<0x4A89C0, FxInterpInfo32_c*, float*, float>(this, outValues, delta);
+    InterpolateKeys(m_Keys, outValues, delta, 0.0010000000474974513f);
 }

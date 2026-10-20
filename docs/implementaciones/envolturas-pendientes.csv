@@ -267,7 +267,6 @@ class,function,address,source,origins
 (helpers y globales sin clase),TextureBufferResize,,source/game_sa/RenderWare/D3DResourceSystem.cpp:86,envoltura en el código fuente
 (helpers y globales sin clase),TextureBufferSetup,,source/game_sa/RenderWare/D3DResourceSystem.cpp:77,envoltura en el código fuente
 (helpers y globales sin clase),TransformPoint,0x0059C890,source/game_sa/Entity/Vehicle/Plane.cpp:618,cohorte nuevo 2026-10-17
-CAutomobile,PreRender,0x006AAB50,source/game_sa/Entity/Vehicle/Automobile.cpp:7345,cohorte 499 + envoltura en el código fuente
 CCarCtrl,ChooseModel,0x00424CE0,source/game_sa/CarCtrl.cpp:184,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CCarCtrl,ClitargetOrientationToLink,0x00422760,source/game_sa/CarCtrl.cpp:223,cohorte nuevo 2026-10-17
 CCarCtrl,CreateConvoy,0x0042C740,source/game_sa/CarCtrl.cpp:398,cohorte nuevo 2026-10-17 + envoltura en el código fuente
@@ -349,7 +348,6 @@ CCarCtrl,WeaveThroughCarsSectorList,0x0042D680,source/game_sa/CarCtrl.cpp:2554,c
 CCarCtrl,WeaveThroughObjectsSectorList,0x0042D950,source/game_sa/CarCtrl.cpp:2560,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CCarCtrl,WeaveThroughPedsSectorList,0x0042D7E0,source/game_sa/CarCtrl.cpp:2566,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CCollisionEventScanner,ScanForCollisionEvents,0x00604500,source/game_sa/Collision/CollisionEventScanner.cpp:5,cohorte 499 + envoltura en el código fuente
-CEventScanner,ScanForEvents,0x00607E30,source/game_sa/Events/EventScanner.cpp:26,cohorte 499 + envoltura en el código fuente
 CGarage,InitDoorsAtStart,0x00447600,source/game_sa/Garage.cpp:165,cohorte 499
 CGarage,IsEntityEntirelyInside3D,0x00448BE0,source/game_sa/Garage.cpp:186,cohorte nuevo 2026-10-17
 CGarage,IsEntityEntirelyOutside,0x00448D30,source/game_sa/Garage.cpp:176,cohorte nuevo 2026-10-17
@@ -371,8 +369,6 @@ CHeli,ProcessFlyingCarStuff,0x006C4E60,source/game_sa/Entity/Vehicle/Heli.cpp:45
 CHeli,SearchLightCone,0x006C58E0,source/game_sa/Entity/Vehicle/Heli.cpp:218,cohorte 499
 CHeli,SendDownSwat,0x006C69C0,source/game_sa/Entity/Vehicle/Heli.cpp:260,cohorte nuevo 2026-10-17
 CHeli,UpdateHelis,0x006C79A0,source/game_sa/Entity/Vehicle/Heli.cpp:267,cohorte 499
-CMemoryHeap,IntegrityCheck,,source/game_sa/Memory/MemoryHeap.cpp:330,envoltura en el código fuente
-CMentalState,Process,0x006008A0,source/game_sa/MentalHealth.cpp:21,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CMissionCleanup,CheckIfCollisionHasLoadedForMissionObjects,0x004652D0,source/game_sa/MissionCleanup.cpp:113,cohorte 499
 CMissionCleanup,Process,0x00468560,source/game_sa/MissionCleanup.cpp:31,cohorte nuevo 2026-10-17
 CPathFind,CompleteNewInterior,0x00452270,source/game_sa/Interior/InteriorGroup_c.cpp:237,cohorte 499
@@ -381,8 +377,6 @@ CPathFind,FindNodeClosestToCoors,0x0044F460,source/game_sa/PathFind.cpp:843,coho
 CPathFind,FindNthNodeClosestToCoors,0x0044F8C0,source/game_sa/PathFind.cpp:350,cohorte 499
 CPathFind,FindParkingNodeInArea,0x004513F0,source/game_sa/PathFind.cpp:1083,cohorte nuevo 2026-10-17
 CPathFind,GeneratePedCreationCoors_Interior,0x0044ECA0,source/game_sa/PathFind.cpp:322,cohorte 499
-CPed,ProcessEntityCollision,0x005E2530,source/game_sa/Entity/Ped/Ped.cpp:5131,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CPedStuckChecker,TestPedStuck,0x00602C00,source/game_sa/PedStuckChecker.cpp:5,cohorte 499 + envoltura en el código fuente
 CPlayerPed,Compute3rdPersonMouseTarget,0x0060B650,source/game_sa/Entity/Ped/PlayerPed.cpp:883,cohorte 499 + envoltura en el código fuente
 CPlayerPed,DrawTriangleForMouseRecruitPed,0x0060BA80,source/game_sa/Entity/Ped/PlayerPed.cpp:889,cohorte 499 + envoltura en el código fuente
 CPlayerPed,EvaluateNeighbouringTarget,0x0060D1C0,source/game_sa/Entity/Ped/PlayerPed.cpp:1105,cohorte nuevo 2026-10-17
@@ -398,7 +392,6 @@ CPlayerPed,SetInitialState,0x0060CD20,source/game_sa/Entity/Ped/PlayerPed.cpp:10
 CPlayerPed,SetRealMoveAnim,0x0060A9C0,source/game_sa/Entity/Ped/PlayerPed.cpp:820,cohorte 499 + envoltura en el código fuente
 CRemote,GivePlayerRemoteControlledCar,0x0045AB10,source/game_sa/Remote.cpp:10,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CRemote,TakeRemoteControlledCarFromPlayer,0x0045AE80,source/game_sa/Remote.cpp:5,cohorte 499 + envoltura en el código fuente
-CSearchLight,IsSpottedEntity,0x00493900,source/game_sa/SearchLight.cpp:27,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CStoredCar,RestoreCar,0x00447E40,source/game_sa/Garage.cpp:495,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CStoredCar,StoreCar,0x00449760,source/game_sa/Garage.cpp:490,cohorte 499 + envoltura en el código fuente
 CTaskComplexFollowPedFootsteps,ControlSubTask,0x00695090,source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp:81,cohorte nuevo 2026-10-17
@@ -415,8 +408,6 @@ CTaskComplexLeaveCar,CreateFirstSubTask,0x00641FC0,source/game_sa/Tasks/TaskType
 CTaskComplexLeaveCar,CreateNextSubTask,0x006419F0,source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp:59,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CTaskComplexLeaveCar,CreateSubTask,0x00641530,source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp:92,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CTaskComplexLeaveCar,MakeAbortable,0x00641100,source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp:54,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CTaskSimpleSlideToCoord,ProcessPed,0x0066C4E0,source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp:54,cohorte nuevo 2026-10-17
-CTrainNode,GetLightingFromCollision,0x006F5F80,source/game_sa/Entity/Vehicle/Train.cpp:581,cohorte nuevo 2026-10-17
 CVehicle,AddReplacementUpgrade,0x006D3830,source/game_sa/Entity/Vehicle/Vehicle.cpp:2742,cohorte nuevo 2026-10-17
 CVehicle,AddSingleWheelParticles,0x006DE880,source/game_sa/Entity/Vehicle/Vehicle.cpp:4787,cohorte 499
 CVehicle,AddUpgrade,0x006DFA20,source/game_sa/Entity/Vehicle/Vehicle.cpp:7267,cohorte nuevo 2026-10-17
@@ -434,7 +425,6 @@ CVehicle,RemoveVehicleUpgrade,0x006DF930,source/game_sa/Entity/Vehicle/Vehicle.c
 CVehicle,ScanAndMarkTargetForHeatSeekingMissile,0x006E0400,source/game_sa/Entity/Vehicle/Vehicle.cpp:7282,cohorte nuevo 2026-10-17
 CVehicle,UpdateTractorLink,0x006E0050,source/game_sa/Entity/Vehicle/Vehicle.cpp:4837,cohorte 499
 CVehicle,UpdateTrailerLink,0x006DFC50,source/game_sa/Entity/Vehicle/Vehicle.cpp:4832,cohorte 499
-CVehiclePotentialCollisionScanner,ScanForVehiclePotentialCollisionEvents,0x00603720,source/game_sa/Events/EventScanner.cpp:45,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CWaterLevel,FillQuadsAndTrianglesList,0x006E7B30,source/game_sa/WaterLevel.cpp:1378,cohorte 499 + envoltura en el código fuente
 CWaterLevel,GetWaterDepth,0x006EA960,source/game_sa/WaterLevel.cpp:938,cohorte 499 + envoltura en el código fuente
 CWaterLevel,RenderHighDetailWaterRectangle,0x006EB810,source/game_sa/WaterLevel.cpp:722,cohorte 499 + envoltura en el código fuente
@@ -466,7 +456,3 @@ Fx_c,AddWood,0x0049EE10,source/game_sa/Fx/Fx.cpp:292,cohorte nuevo 2026-10-17
 Fx_c,TriggerGunshot,0x004A0DE0,source/game_sa/Fx/Fx.cpp:348,cohorte 499
 Fx_c,TriggerTankFire,0x004A0FA0,source/game_sa/Fx/Fx.cpp:353,cohorte 499
 Fx_c,TriggerWaterHydrant,0x004A0D70,source/game_sa/Fx/Fx.cpp:343,cohorte 499
-FxInterpInfo255_c,GetVal,,source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp:40,envoltura en el código fuente
-FxInterpInfo32_c,GetVal,,source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp:40,envoltura en el código fuente
-FxInterpInfoFloat_c,GetVal,0x004A8470,source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp:40,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-FxInterpInfoU255_c,GetVal,,source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.cpp:40,envoltura en el código fuente

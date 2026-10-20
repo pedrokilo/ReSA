@@ -1,0 +1,3 @@
+APROBADO: AutoPreRender60
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-autoprerender60\20261019-231517-975869

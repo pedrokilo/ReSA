@@ -78,6 +78,31 @@ if(MSVC)
         SKIP_PRECOMPILE_HEADERS ON
         SKIP_UNITY_BUILD_INCLUSION ON
     )
+    # FxInterpInfo{Float,U255,32,255}_c::GetVal (0x4A8470, 0x4A8800, 0x4A89C0, 0x4A8B80): aritmetica x87 del EXE (FxInterpInfo_c::InterpolateKeys); el archivo de cada clase se compila asi.
+    set_source_files_properties(game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp PROPERTIES
+        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
+    set_source_files_properties(game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.cpp PROPERTIES
+        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
+    set_source_files_properties(game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp PROPERTIES
+        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
+    set_source_files_properties(game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp PROPERTIES
+        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
     # Shared scalar x87 helpers (sin/cos, ordered comparisons, shadow sqrt/fade); callers retain their own options.
     set_source_files_properties(game_sa/X87Math.cpp PROPERTIES
         COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"

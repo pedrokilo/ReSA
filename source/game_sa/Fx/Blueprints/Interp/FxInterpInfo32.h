@@ -7,6 +7,8 @@ protected:
     int16** m_Keys;
 
 public:
+    static void InjectHooks();
+
     FxInterpInfo32_c();
     ~FxInterpInfo32_c() = default; // 0x4A89B0
 

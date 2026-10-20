@@ -1,0 +1,53 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 4,
+  "functions": {
+    "FxInterpInfoFloat_c::GetVal": 4096,
+    "FxInterpInfoU255_c::GetVal": 4096,
+    "FxInterpInfo32_c::GetVal": 4096,
+    "FxInterpInfo255_c::GetVal": 4096
+  },
+  "covered_functions": {
+    "FxInterpInfoFloat_c::GetVal": true,
+    "FxInterpInfoU255_c::GetVal": true,
+    "FxInterpInfo32_c::GetVal": true,
+    "FxInterpInfo255_c::GetVal": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Cuatro GetVal sin colaboradores del juego (el EXE llama a _ftol2 0x821B40, la DLL reproduce su truncado en C++ con enteros). Cuerpo comun FxInterpInfo_c::InterpolateKeys (plantilla en FxInterpInfo.h) compilado con /O2 /Oi /arch:IA32 /fp:fast en cada archivo de clase; aritmetica x87 con la palabra de control a 24 bits (el banco la fija). NaN de las claves siempre silenciosos en las rutas aritmeticas (los sNaN solo en copias bit a bit y como delta); empates de NaN con signos opuestos solo exigen EXE == DLL. EAX/ECX/EDX solo registrados (ningun llamador del EXE los lee). Corrida aprobada = 20261019-220613-349774 (la mas reciente); corridas previas solo como nota: 20261019-215548-734922 fallo (NaN senalizadores en claves Float, defecto de la primera version de la fuente, corregido) y 20261019-215958-064546 paso las comparaciones pero con un minimo de cobertura mal calibrado. Fuentes probadas compiladas desde el worktree D:/Original/wd-5 (HEAD d349867fb + source.patch; ver artifacts/build-manifest.json).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/FxInterp61-20261019-232500-729721",
+  "summary_sha256": "a93e8ceb119002545896262ed741fbbb7da1f48f4220c5b97a396000c98de07a",
+  "result_txt_sha256": "0b64f90fe60605863475cc14965c00b8c3060d8df8f69476d2d0135ee526197c",
+  "log_sha256": "197f95a87416998e875105d5312424dfdd79c6b392ee06059446eab8ee202303",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "cec2cd79b8a01c9a9a974cccaa7710265873fed73afedee83d78d26a3944a0ce",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "835f85b3d43b06cb44adf8b90635bddc669ce2662c16fa4bd265bbfe6c5cfdf5",
+      "source/InjectHooksMain.cpp": "576edc2831edbc1897f7a9b34ce067c5702e8912f6a68c81f515b3e5f8926540",
+      "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo.h": "a949bb93f619a4c2c30243b3285f359fb4692f71af90247dcd0e9bfa359e310a",
+      "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo.cpp": "c637883f82ed9c7484e4f6b31fc642caf0de9106979a6162918ecc97bc613d44",
+      "source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp": "d61fd6740e4c21ec874ea39329b65b90374feebf6950012315e5d750c08be8fa",
+      "source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.h": "17c2cacd9f3f0586e195297e5c6d52009dc73ba36a27d341e3b8151d00e46a6d",
+      "source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.cpp": "2bffa03fc4b2cfe6a3b40fa9138e35fbb70183fb0c4ec5bbe6b44c752f0f938d",
+      "source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.h": "c4731e619eac4039eee9eac298e8d227dba665d31326c58d791675a56374827b",
+      "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp": "8839ee4bb78eed01ea382439181c6aa619ffce7e98acae930c1133afa1a4e6e9",
+      "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.h": "e5b0453f98737d888b59749d173b5956e8427bf00d782970683e40cad9a46ef1",
+      "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp": "8bc54dc7fec3100c0f378ba5d7e072b6b6842787b0bd8be2a8828b0e291e48e8",
+      "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.h": "c0aa7e5cd320095a816043b59aa861b37ed2d39fee9f6fb47d138bca9b7c975e",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/FxInterp61/LiveComparison.hpp": "3575c06badeed69bae8e9d3ae31dd9d6ca531953638d69f21d62f1a4c1cc9819",
+      "reversing/FxInterp61/Core.hpp": "c7dea3509e15a4b1c7ac5be2247310d7804babc72969b38bddb5f14652a682e4",
+      "reversing/FxInterp61/Fixtures.hpp": "68cbc81b0a5f23ff23a51e870af0571959a7329571982d5d02b02fa3e4fe4a7d",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

@@ -1,3 +1,21 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CTrainNode
+ * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 1/1 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 /*
     Plugin-SDK file
     Authors: GTA Community. See more here
@@ -7,6 +25,13 @@
 #include "StdInc.h"
 
 #include "TrainNode.h"
+
+void CTrainNode::InjectHooks() {
+    RH_ScopedClass(CTrainNode);
+    RH_ScopedCategory("Vehicle");
+
+    RH_ScopedNamedInstall(GetLightingFromCollisionExeAbi, "GetLightingFromCollision", 0x6F5F80);
+}
 
 // 0x6F5370
 CTrainNode::CTrainNode() {
@@ -60,19 +85,27 @@ float CTrainNode::GetDistanceFromStart() const {
 }
 
 // 0x6F5F80
+// Iluminacion de la superficie bajo el nodo: se calcula una sola vez con una linea vertical hacia abajo (solo edificios) y se cachea
+// el byte de iluminacion del lado B del punto de colision. Sin colision devuelve 0x48 (dia 8, noche 4) sin cachear.
 tColLighting CTrainNode::GetLightingFromCollision() {
-    if ( m_bSurfLightingFound ) {
+    if (m_bSurfLightingFound) {
         return m_nSurfaceLighting;
     }
 
-    CColPoint cp{};
-    CEntity* entity{};
-    auto pos = GetPosn();
+    CColPoint cp;
+    CEntity*  entity;
+    CVector   pos = GetPosn();
     pos.z += 1.0f;
-    if (!CWorld::ProcessVerticalLine(pos, -1000.0f, cp, entity, true)) {
+    if (!CWorld::ProcessVerticalLine(pos, -1000.0f, cp, entity, true, false, false, false, false, false, nullptr)) {
         return tColLighting{ 0x48 };
     }
-    m_nSurfaceLighting = {};
+
+    m_nSurfaceLighting   = cp.m_nLightingB;
     m_bSurfLightingFound = true;
-    return {};
+    return m_nSurfaceLighting;
+}
+
+// 0x6F5F80 (destino del hook)
+uint8 CTrainNode::GetLightingFromCollisionExeAbi() {
+    return GetLightingFromCollision().value;
 }

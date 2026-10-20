@@ -1,16 +1,36 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CTaskSimpleSlideToCoord
+ * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 1/1 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 #include "StdInc.h"
 
 #include "TaskSimpleSlideToCoord.h"
 #include "TaskSimpleStandStill.h"
+#include "General.h"
+#include "X87Math.h"
 
 void CTaskSimpleSlideToCoord::InjectHooks() {
-    // + RH_ScopedVirtualClass(CTaskSimpleSlideToCoord, 0x86FFEC, 9); // todo (Pirulax): Make it working
-    // + RH_ScopedCategory("Tasks/TaskTypes");
+    RH_ScopedVirtualClass(CTaskSimpleSlideToCoord, 0x86FFEC, 9);
+    RH_ScopedCategory("Tasks/TaskTypes");
 
     // + RH_ScopedOverloadedInstall(Constructor, "NoAnim", 0x66C3E0, CTaskSimpleSlideToCoord*(CTaskSimpleSlideToCoord::*)(CVector const&, float, float));
     // + RH_ScopedOverloadedInstall(Constructor, "Anim", 0x66C450, CTaskSimpleSlideToCoord*(CTaskSimpleSlideToCoord::*)(CVector const&, float, float, char const*, char const*, int32, float, bool, int32));
     // + RH_ScopedVmtInstall(MakeAbortable, 0x66C4D0);
-    // RH_ScopedVmtInstall(ProcessPed, 0x66C4E0);
+    RH_ScopedVMTInstall(ProcessPed, 0x66C4E0);
 }
 
 // 0x66C3E0
@@ -50,54 +70,53 @@ bool CTaskSimpleSlideToCoord::MakeAbortable(CPed* ped, eAbortPriority priority, 
 }
 
 // 0x66C4E0
+// m_Timer (+0x7C) es el instante limite en ms (-1 = aun no fijado): 2000 ms tras el primer paso si no hay animacion y 500 ms tras
+// la primera pasada correcta de la animacion. El resto desliza al ped hacia m_SlideToPos y termina al vencer el plazo o al
+// llegar (a menos de 0.05) con el ritmo de rotacion dentro de 0.1.
 bool CTaskSimpleSlideToCoord::ProcessPed(CPed* ped) {
-    return plugin::CallMethodAndReturn<bool, 0x66C4E0, CTaskSimpleSlideToCoord*, CPed*>(this, ped); // untested/review
+    bool animOk = true;
+    if (m_bRunningAnim) {
+        animOk = CTaskSimpleRunNamedAnim::ProcessPed(ped);
+    }
 
-    const bool hasSuccessfullyProcessedRunAnim = m_bRunningAnim ? CTaskSimpleRunNamedAnim::ProcessPed(ped) : true; // Yeah could be simplified, but this is easier to understand.
-
-    if (m_Time == (uint32)-1) {
-        if (m_bRunningAnim) {
-            if (hasSuccessfullyProcessedRunAnim) {
-                m_Time = CTimer::GetTimeInMS() + 500;
-            }
-        } else {
-            m_Time = CTimer::GetTimeInMS() + 2000;
+    if (m_Timer == -1) {
+        if (!m_bRunningAnim) {
+            m_Timer = int32(CTimer::GetTimeInMS() + 2000);
+        } else if (animOk) {
+            m_Timer = int32(CTimer::GetTimeInMS() + 500);
         }
     }
 
-    // The same standstill stuff has been used in `CTaskSimpleWaitUntilPedIsOutCar` as well.. weird.
+    // Mismo bloque de "quedarse quieto" que CTaskSimpleWaitUntilPedIsOutCar.
     if (m_bFirstTime) {
-        m_bFirstTime = false;
-
         CTaskSimpleStandStill standStillTask{ STAND_STILL_TIME };
         standStillTask.ProcessPed(ped);
         if (ped->IsPlayer()) {
             ped->GetTaskManager().GetTaskPrimary(TASK_PRIMARY_DEFAULT)->MakeAbortable(ped, ABORT_PRIORITY_IMMEDIATE, nullptr);
         }
         ped->m_fAimingRotation = m_fAimingRotation;
+        m_bFirstTime = false;
     }
 
-    const auto pedToSlidePosDir = (m_SlideToPos - ped->GetPosition()) * m_Speed; // Originally they calculated this twice, but thats a waste of performance, so.. :D
-    const auto pedToSlidePosDistSq2D = pedToSlidePosDir.SquaredMagnitude2D();
-    if (pedToSlidePosDir.SquaredMagnitude2D() < sq(0.05f)) {
-        ped->m_vecAnimMovingShiftLocal = CVector2D{};
-    } else {
-        const auto& pedMat = ped->GetMatrix();
-        ped->m_vecAnimMovingShiftLocal = {
-            DotProduct(pedToSlidePosDir, pedMat.GetForward()), // Originally Y was calculated first, but I swapped it!
-            DotProduct(pedToSlidePosDir, pedMat.GetRight())
-        };
-    }
+    // Aritmetica x87 del EXE (24 bits, sin guardar intermedios): X87Math.cpp. Solo se toca la matriz si hay que deslizar.
+    const CVector& pedPos = ped->GetPosition();
+    float shift[2];
+    const bool reached = SlideToCoordShiftCpp(
+        &pedPos.x, &m_SlideToPos.x, m_Speed,
+        ped->m_matrix ? &ped->m_matrix->GetRight().x : nullptr,
+        ped->m_matrix ? &ped->m_matrix->GetForward().x : nullptr,
+        shift
+    );
+    ped->m_vecAnimMovingShiftLocal.x = shift[0];
+    ped->m_vecAnimMovingShiftLocal.y = shift[1];
 
-    if (m_Time < CTimer::GetTimeInMS()) {
+    if (uint32(m_Timer) < CTimer::GetTimeInMS()) {
         return true;
     }
 
-    if (hasSuccessfullyProcessedRunAnim && pedToSlidePosDistSq2D < sq(0.05f)) {
-        if (std::abs(ped->m_fCurrentRotation - ped->m_fAimingRotation) < 0.1f) {
-            return true;
-        }
+    if (!animOk || !reached) {
+        return false;
     }
 
-    return false;
+    return std::abs(CGeneral::LimitRadianAngle(SlideToCoordAngleDeltaCpp(ped->m_fCurrentRotation, ped->m_fAimingRotation))) < 0.1f;
 }

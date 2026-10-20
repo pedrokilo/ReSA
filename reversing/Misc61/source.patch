@@ -1,0 +1,377 @@
+diff --git a/source/InjectHooksMain.cpp b/source/InjectHooksMain.cpp
+index 1e7f69146..f12336824 100644
+--- a/source/InjectHooksMain.cpp
++++ b/source/InjectHooksMain.cpp
+@@ -149,6 +149,8 @@
+ #include "Ragdoll/BoneNode.h"
+ #include "Ragdoll/BoneNodeManager.h"
+ #include "TheScripts.h"
++#include "SearchLight.h"
++#include "TrainNode.h"
+ #include "RunningScript.h"
+ #include "Scripted2dEffects.h"
+ #include "ScriptResourceManager.h"
+@@ -713,6 +715,7 @@ void InjectHooksMain() {
+     CReferences::InjectHooks();
+     CPopulation::InjectHooks();
+     CMemoryMgr::InjectHooks();
++    CMemoryHeap::InjectHooks();
+     CModelInfo::InjectHooks();
+     CBaseModelInfo::InjectHooks();
+     CAtomicModelInfo::InjectHooks();
+@@ -1499,6 +1502,7 @@ void InjectHooksMain() {
+         CQuadBike::InjectHooks();
+         CTrailer::InjectHooks();
+         CTrain::InjectHooks();
++        CTrainNode::InjectHooks();
+         CVehicle::InjectHooks();
+     };
+ 
+@@ -1515,6 +1519,7 @@ void InjectHooksMain() {
+         CScriptsForBrains::InjectHooks();
+         CRunningScript::InjectHooks();
+         CTheScripts::InjectHooks();
++        CSearchLight::InjectHooks();
+         CStreamedScripts::InjectHooks();
+         CScripted2dEffects::InjectHooks();
+         CScriptResourceManager::InjectHooks();
+diff --git a/source/game_sa/Memory/MemoryHeap.cpp b/source/game_sa/Memory/MemoryHeap.cpp
+index 4e9d84f84..617753717 100644
+--- a/source/game_sa/Memory/MemoryHeap.cpp
++++ b/source/game_sa/Memory/MemoryHeap.cpp
+@@ -23,6 +23,13 @@ inline HeapFreeBlockDesc* GetFreeBlockDesc(void* mem) {
+     return (HeapFreeBlockDesc*)GetBlockDesc(mem);
+ }
+ 
++void CMemoryHeap::InjectHooks() {
++    RH_ScopedClass(CMemoryHeap);
++    RH_ScopedCategory("Memory");
++
++    RH_ScopedInstall(IntegrityCheck, 0x72E8E0);
++}
++
+ // 0x72E860
+ CMemoryHeap::CMemoryHeap() {
+     m_FirstBlock = nullptr;
+@@ -327,8 +334,30 @@ uint32 CMemoryHeap::GetSizeOfHoles() {
+ }
+ 
+ // 0x72E8E0
++// Recorre las listas de bloques libres, las listas de tamanos comunes, todos los bloques contiguos acumulando el uso por memId
++// y la cadena m_PrevBlock del ultimo bloque. No escribe en el monton: solo falla (bucle infinito o acceso invalido) si el
++// monton esta corrupto. Los punteros y el acumulador son volatile para que un build optimizado no elimine los recorridos.
+ void CMemoryHeap::IntegrityCheck() {
+-    plugin::CallMethod<0x72E8E0, CMemoryHeap*>(this);
++    for (HeapFreeBlockDesc* volatile free = m_FreeListBegin.m_Next; free != &m_FreeListEnd; free = free->m_Next) {
++    }
++
++    if (m_paCommonSizes) {
++        for (auto i = 0; i < CORE_COMMON_SIZE_COUNT; ++i) {
++            for (HeapFreeBlockDesc* volatile free = m_paCommonSizes[i].m_ListStart.m_Next; free != &m_paCommonSizes[i].m_ListEnd; free = free->m_Next) {
++            }
++        }
++    }
++
++    // Como el original: 20 acumuladores a cero; el indice es el memId con signo (-1 se omite) sin comprobar el rango.
++    volatile uint32 usedByMemId[20]{};
++    for (HeapBlockDesc* block = m_FirstBlock; block != m_LastBlock; block = block->_GetNextLocatedBlock()) {
++        if (block->m_bInUse && block->m_nMemId != -1) {
++            usedByMemId[block->m_nMemId] = usedByMemId[block->m_nMemId] + (block->m_nSize + sizeof(HeapBlockDesc));
++        }
++    }
++
++    for (HeapBlockDesc* volatile block = m_LastBlock->m_PrevBlock; block; block = block->m_PrevBlock) {
++    }
+ }
+ 
+ void* CMemoryHeap::MoveHeapBlock(HeapFreeBlockDesc* free, HeapBlockDesc* used) {
+diff --git a/source/game_sa/Memory/MemoryHeap.h b/source/game_sa/Memory/MemoryHeap.h
+index 4fec28882..232f6f316 100644
+--- a/source/game_sa/Memory/MemoryHeap.h
++++ b/source/game_sa/Memory/MemoryHeap.h
+@@ -34,6 +34,8 @@ public:
+      */
+     CMemoryHeap();
+ 
++    static void InjectHooks();
++
+     /**
+      * Initialize memory heap class instance
+      *
+diff --git a/source/game_sa/SearchLight.cpp b/source/game_sa/SearchLight.cpp
+index a7943b95f..e6dcb2fd5 100644
+--- a/source/game_sa/SearchLight.cpp
++++ b/source/game_sa/SearchLight.cpp
+@@ -1,7 +1,12 @@
+ #include "StdInc.h"
+ #include "SearchLight.h"
+ 
+-void CSearchLight::InjectHooks() {}
++void CSearchLight::InjectHooks() {
++    RH_ScopedClass(CSearchLight);
++    RH_ScopedCategory("Scripts");
++
++    RH_ScopedInstall(IsSpottedEntity, 0x493900);
++}
+ 
+ void CSearchLight::SetTravelToPoint() {
+     assert(0);
+@@ -25,5 +30,13 @@ void CSearchLight::GetOnEntity() {
+ 
+ // 0x493900
+ bool CSearchLight::IsSpottedEntity(uint32 index, const CEntity& entity) {
+-    return plugin::CallAndReturn < bool, 0x493900, uint32, const CEntity&>(index, entity);
++    const auto searchLightIdx = CTheScripts::GetActualScriptThingIndex(index, SCRIPT_THING_SEARCH_LIGHT);
++    if (searchLightIdx < 0) {
++        return false;
++    }
++
++    // El EXE copia la posicion (matriz o placement) a una variable local y llama a 0x493280 (cdecl: posicion, indice; sin reconstruir todavia).
++    // Como el original, devuelve 1/0 segun AL (no pasa el byte tal cual).
++    CVector pos = entity.GetPosition();
++    return plugin::CallAndReturn<uint8, 0x493280, CVector*, int32>(&pos, searchLightIdx) != 0;
+ }
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp b/source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp
+index 736cad294..9a1fed600 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp
+@@ -2,15 +2,17 @@
+ 
+ #include "TaskSimpleSlideToCoord.h"
+ #include "TaskSimpleStandStill.h"
++#include "General.h"
++#include "X87Math.h"
+ 
+ void CTaskSimpleSlideToCoord::InjectHooks() {
+-    // + RH_ScopedVirtualClass(CTaskSimpleSlideToCoord, 0x86FFEC, 9); // todo (Pirulax): Make it working
+-    // + RH_ScopedCategory("Tasks/TaskTypes");
++    RH_ScopedVirtualClass(CTaskSimpleSlideToCoord, 0x86FFEC, 9);
++    RH_ScopedCategory("Tasks/TaskTypes");
+ 
+     // + RH_ScopedOverloadedInstall(Constructor, "NoAnim", 0x66C3E0, CTaskSimpleSlideToCoord*(CTaskSimpleSlideToCoord::*)(CVector const&, float, float));
+     // + RH_ScopedOverloadedInstall(Constructor, "Anim", 0x66C450, CTaskSimpleSlideToCoord*(CTaskSimpleSlideToCoord::*)(CVector const&, float, float, char const*, char const*, int32, float, bool, int32));
+     // + RH_ScopedVmtInstall(MakeAbortable, 0x66C4D0);
+-    // RH_ScopedVmtInstall(ProcessPed, 0x66C4E0);
++    RH_ScopedVMTInstall(ProcessPed, 0x66C4E0);
+ }
+ 
+ // 0x66C3E0
+@@ -50,54 +52,53 @@ bool CTaskSimpleSlideToCoord::MakeAbortable(CPed* ped, eAbortPriority priority,
+ }
+ 
+ // 0x66C4E0
++// m_Timer (+0x7C) es el instante limite en ms (-1 = aun no fijado): 2000 ms tras el primer paso si no hay animacion y 500 ms tras
++// la primera pasada correcta de la animacion. El resto desliza al ped hacia m_SlideToPos y termina al vencer el plazo o al
++// llegar (a menos de 0.05) con el ritmo de rotacion dentro de 0.1.
+ bool CTaskSimpleSlideToCoord::ProcessPed(CPed* ped) {
+-    return plugin::CallMethodAndReturn<bool, 0x66C4E0, CTaskSimpleSlideToCoord*, CPed*>(this, ped); // untested/review
+-
+-    const bool hasSuccessfullyProcessedRunAnim = m_bRunningAnim ? CTaskSimpleRunNamedAnim::ProcessPed(ped) : true; // Yeah could be simplified, but this is easier to understand.
++    bool animOk = true;
++    if (m_bRunningAnim) {
++        animOk = CTaskSimpleRunNamedAnim::ProcessPed(ped);
++    }
+ 
+-    if (m_Time == (uint32)-1) {
+-        if (m_bRunningAnim) {
+-            if (hasSuccessfullyProcessedRunAnim) {
+-                m_Time = CTimer::GetTimeInMS() + 500;
+-            }
+-        } else {
+-            m_Time = CTimer::GetTimeInMS() + 2000;
++    if (m_Timer == -1) {
++        if (!m_bRunningAnim) {
++            m_Timer = int32(CTimer::GetTimeInMS() + 2000);
++        } else if (animOk) {
++            m_Timer = int32(CTimer::GetTimeInMS() + 500);
+         }
+     }
+ 
+-    // The same standstill stuff has been used in `CTaskSimpleWaitUntilPedIsOutCar` as well.. weird.
++    // Mismo bloque de "quedarse quieto" que CTaskSimpleWaitUntilPedIsOutCar.
+     if (m_bFirstTime) {
+-        m_bFirstTime = false;
+-
+         CTaskSimpleStandStill standStillTask{ STAND_STILL_TIME };
+         standStillTask.ProcessPed(ped);
+         if (ped->IsPlayer()) {
+             ped->GetTaskManager().GetTaskPrimary(TASK_PRIMARY_DEFAULT)->MakeAbortable(ped, ABORT_PRIORITY_IMMEDIATE, nullptr);
+         }
+         ped->m_fAimingRotation = m_fAimingRotation;
++        m_bFirstTime = false;
+     }
+ 
+-    const auto pedToSlidePosDir = (m_SlideToPos - ped->GetPosition()) * m_Speed; // Originally they calculated this twice, but thats a waste of performance, so.. :D
+-    const auto pedToSlidePosDistSq2D = pedToSlidePosDir.SquaredMagnitude2D();
+-    if (pedToSlidePosDir.SquaredMagnitude2D() < sq(0.05f)) {
+-        ped->m_vecAnimMovingShiftLocal = CVector2D{};
+-    } else {
+-        const auto& pedMat = ped->GetMatrix();
+-        ped->m_vecAnimMovingShiftLocal = {
+-            DotProduct(pedToSlidePosDir, pedMat.GetForward()), // Originally Y was calculated first, but I swapped it!
+-            DotProduct(pedToSlidePosDir, pedMat.GetRight())
+-        };
+-    }
+-
+-    if (m_Time < CTimer::GetTimeInMS()) {
++    // Aritmetica x87 del EXE (24 bits, sin guardar intermedios): X87Math.cpp. Solo se toca la matriz si hay que deslizar.
++    const CVector& pedPos = ped->GetPosition();
++    float shift[2];
++    const bool reached = SlideToCoordShiftCpp(
++        &pedPos.x, &m_SlideToPos.x, m_Speed,
++        ped->m_matrix ? &ped->m_matrix->GetRight().x : nullptr,
++        ped->m_matrix ? &ped->m_matrix->GetForward().x : nullptr,
++        shift
++    );
++    ped->m_vecAnimMovingShiftLocal.x = shift[0];
++    ped->m_vecAnimMovingShiftLocal.y = shift[1];
++
++    if (uint32(m_Timer) < CTimer::GetTimeInMS()) {
+         return true;
+     }
+ 
+-    if (hasSuccessfullyProcessedRunAnim && pedToSlidePosDistSq2D < sq(0.05f)) {
+-        if (std::abs(ped->m_fCurrentRotation - ped->m_fAimingRotation) < 0.1f) {
+-            return true;
+-        }
++    if (!animOk || !reached) {
++        return false;
+     }
+ 
+-    return false;
++    return std::abs(CGeneral::LimitRadianAngle(SlideToCoordAngleDeltaCpp(ped->m_fCurrentRotation, ped->m_fAimingRotation))) < 0.1f;
+ }
+diff --git a/source/game_sa/TrainNode.cpp b/source/game_sa/TrainNode.cpp
+index b382cb6dd..bd6bbfc9d 100644
+--- a/source/game_sa/TrainNode.cpp
++++ b/source/game_sa/TrainNode.cpp
+@@ -8,6 +8,13 @@
+ 
+ #include "TrainNode.h"
+ 
++void CTrainNode::InjectHooks() {
++    RH_ScopedClass(CTrainNode);
++    RH_ScopedCategory("Vehicle");
++
++    RH_ScopedNamedInstall(GetLightingFromCollisionExeAbi, "GetLightingFromCollision", 0x6F5F80);
++}
++
+ // 0x6F5370
+ CTrainNode::CTrainNode() {
+     m_bSurfLightingFound = false;
+@@ -60,19 +67,27 @@ float CTrainNode::GetDistanceFromStart() const {
+ }
+ 
+ // 0x6F5F80
++// Iluminacion de la superficie bajo el nodo: se calcula una sola vez con una linea vertical hacia abajo (solo edificios) y se cachea
++// el byte de iluminacion del lado B del punto de colision. Sin colision devuelve 0x48 (dia 8, noche 4) sin cachear.
+ tColLighting CTrainNode::GetLightingFromCollision() {
+-    if ( m_bSurfLightingFound ) {
++    if (m_bSurfLightingFound) {
+         return m_nSurfaceLighting;
+     }
+ 
+-    CColPoint cp{};
+-    CEntity* entity{};
+-    auto pos = GetPosn();
++    CColPoint cp;
++    CEntity*  entity;
++    CVector   pos = GetPosn();
+     pos.z += 1.0f;
+-    if (!CWorld::ProcessVerticalLine(pos, -1000.0f, cp, entity, true)) {
++    if (!CWorld::ProcessVerticalLine(pos, -1000.0f, cp, entity, true, false, false, false, false, false, nullptr)) {
+         return tColLighting{ 0x48 };
+     }
+-    m_nSurfaceLighting = {};
++
++    m_nSurfaceLighting   = cp.m_nLightingB;
+     m_bSurfLightingFound = true;
+-    return {};
++    return m_nSurfaceLighting;
++}
++
++// 0x6F5F80 (destino del hook)
++uint8 CTrainNode::GetLightingFromCollisionExeAbi() {
++    return GetLightingFromCollision().value;
+ }
+diff --git a/source/game_sa/TrainNode.h b/source/game_sa/TrainNode.h
+index 364215dfb..9960edeb5 100644
+--- a/source/game_sa/TrainNode.h
++++ b/source/game_sa/TrainNode.h
+@@ -18,6 +18,8 @@ public:
+     bool m_bSurfLightingFound;
+ 
+ public:
++    static void InjectHooks();
++
+     CTrainNode();
+ 
+     void SetX(float X);
+@@ -30,5 +32,9 @@ public:
+     void SetDistanceFromStart(float dist);
+     [[nodiscard]] float GetDistanceFromStart() const;
+     tColLighting GetLightingFromCollision();
++
++private:
++    // Envoltorio con la ABI del EXE (0x6F5F80 devuelve el byte en AL; tColLighting tiene constructor y MSVC lo devuelve por puntero oculto): es el destino del hook.
++    uint8 GetLightingFromCollisionExeAbi();
+ };
+ VALIDATE_SIZE(CTrainNode, 0xA);
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index a480868fd..f667d86d5 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -13443,3 +13443,40 @@ __declspec(noinline) double __cdecl Stw60SubClampCpp(float a, float b) {
+     return t;
+ }
+ #pragma float_control(pop)
++// --- Lote 61: CTaskSimpleSlideToCoord::ProcessPed (0x66C4E0), prefijo SlideToCoord. Anadir al FINAL de X87Math.cpp ---
++// Tramos x87 de 24 bits con exponente extendido: lo que el EXE deja en registro se calcula como double (cada operacion redondea a 24 bits) y solo lo que guarda con fstp dword se redondea a float.
++#pragma float_control(precise, on, push)
++// 0x66C5B8..0x66C66E (distancia y desplazamiento). pos = posicion del ped (x, y, z), target = m_SlideToPos, speed = m_Speed; right / forward = filas de la matriz del ped (solo se leen si hay que deslizar).
++// Suma (dy*dy + dx*dx) con dx = px - tx y dy = py - ty. Si no es >= 0.05f*0.05f (menor, o NaN: `fcompp; test ah,1; jne`) el desplazamiento es {0, 0}; si no, shift = {V.right, V.forward} con
++// V = (tx - px, ty - py, tz - pz) * speed. dz y V.x se guardan como float (fstp dword), V.z se guarda tambien (fst dword) y V.y queda en registro.
++// Devuelve true si la suma es estrictamente menor que 0.05f*0.05f (comparacion ordenada: con NaN devuelve false, como `fcompp; test ah,5; jp`).
++__declspec(noinline) bool __cdecl SlideToCoordShiftCpp(const float* pos, const float* target, float speed, const float* right, const float* forward, float* shift) {
++    const double dx = double(pos[0]) - target[0];  // fld [pos]; fsub [esi+64h]
++    const double dy = double(pos[1]) - target[1];  // fld [pos+4]; fsub [esi+68h]
++    const double sum = dy * dy + dx * dx;
++    static const volatile float kReach = 0.05f;  // 0x86FD10
++    const double reachSq = double(kReach) * kReach;
++    if (sum >= reachSq) {
++        const double d1 = double(target[0]) - pos[0];  // fld [esi+64h]; fsub [eax]
++        const double d2 = double(target[1]) - pos[1];
++        const double d3 = double(target[2]) - pos[2];
++        volatile float d3f = float(d3);                        // fstp [esp+14h]
++        volatile float v1f = float(d1 * speed);                // fmul [esp+48h]; fstp [esp+0Ch]
++        const double v2 = d2 * speed;                          // queda en registro
++        const double v3 = double(d3f) * speed;                 // fld [esp+14h]; fmul [esp+48h]
++        volatile float v3f = float(v3);                        // fst [esp+14h] (v3 sigue en registro)
++        const double forwardDot = (v3 * forward[2] + v2 * forward[1]) + double(v1f) * forward[0];
++        const double rightDot = (double(v3f) * right[2] + v2 * right[1]) + double(v1f) * right[0];
++        shift[0] = float(rightDot);                            // fstp [edi+4D8h]
++        shift[1] = float(forwardDot);                          // fstp [edi+4DCh]
++        return false;
++    }
++    shift[0] = 0.0f;
++    shift[1] = 0.0f;
++    return sum < reachSq;
++}
++// 0x66C6C3..0x66C6D2: fld aiming; fld current; fsub st,st(1); fstp [esp] (argumento de CGeneral::LimitRadianAngle). Se devuelve la resta sin redondear; el llamador la guarda como float.
++__declspec(noinline) float __cdecl SlideToCoordAngleDeltaCpp(float current, float aiming) {
++    return current - aiming;
++}
++#pragma float_control(pop)
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index fbf29182f..40202a3d7 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1620,3 +1620,8 @@ float __cdecl Stw60RespectFinishCpp(int tagged, float moneyPart, float partial,
+ int __cdecl Stw60ScaledFtolCpp(int value, float k);
+ double __cdecl Stw60MulCpp(double v, float k);
+ double __cdecl Stw60SubClampCpp(float a, float b);
++// --- Lote 61: CTaskSimpleSlideToCoord::ProcessPed (0x66C4E0), prefijo SlideToCoord. Anadir al FINAL de X87Math.h ---
++// Distancia al cuadrado al destino y desplazamiento local del ped (x87 a 24 bits, ver X87Math.cpp). Devuelve true si la suma es estrictamente menor que 0.05f^2 (false con NaN).
++bool __cdecl SlideToCoordShiftCpp(const float* pos, const float* target, float speed, const float* right, const float* forward, float* shift);
++// current - aiming sin redondear a float (argumento de CGeneral::LimitRadianAngle).
++float __cdecl SlideToCoordAngleDeltaCpp(float current, float aiming);

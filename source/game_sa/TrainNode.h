@@ -18,6 +18,8 @@ public:
     bool m_bSurfLightingFound;
 
 public:
+    static void InjectHooks();
+
     CTrainNode();
 
     void SetX(float X);
@@ -30,5 +32,9 @@ public:
     void SetDistanceFromStart(float dist);
     [[nodiscard]] float GetDistanceFromStart() const;
     tColLighting GetLightingFromCollision();
+
+private:
+    // Envoltorio con la ABI del EXE (0x6F5F80 devuelve el byte en AL; tColLighting tiene constructor y MSVC lo devuelve por puntero oculto): es el destino del hook.
+    uint8 GetLightingFromCollisionExeAbi();
 };
 VALIDATE_SIZE(CTrainNode, 0xA);
