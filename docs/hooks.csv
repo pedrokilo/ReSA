@@ -8780,3 +8780,4 @@ CGarage,IsGarageEmpty,0x0044A9C0,1,0,1,S
 CGarage,RemoveCarsBlockingDoorNotInside,0x00449690,1,0,1,S
 CGarage,TidyUpGarage,0x00449C50,1,0,1,S
 CGarage,TidyUpGarageClose,0x00449D10,1,0,1,S
+CGarage,Update,0x0044AA50,1,0,1,S

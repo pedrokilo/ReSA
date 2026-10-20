@@ -538903,7 +538903,7 @@
       },
       "evidence": {
         "path": "reversing/Garage63/validation-summary.json",
-        "sha256": "818cff54f536821cdd584ec1e9be138a49ed65c9b0b783852d12be40821882f8",
+        "sha256": "f119ba732d74134d38af54fd83bf257faeb66e02789e41cd4ad0d916caaf8031",
         "passed_path": [
           "covered_functions",
           "CGarage::InitDoorsAtStart"
@@ -538914,10 +538914,10 @@
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
         "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
-        "source/game_sa/Garage.cpp": "e1be37c075e2ff74b7e4077da9f6eefff9e6a5ccf3aef2b0a32291a6b7c344e2",
+        "source/game_sa/Garage.cpp": "11bba5844d1357ce4a0e637408be5c2c3499b6748a09162820d0500d97a7919e",
         "source/game_sa/Garage.h": "e5a2b5a02b44d335604c9a6f84691f6996ae8735bc58bdb4e47ae7e18eddd691",
-        "source/game_sa/X87Math.cpp": "f14103820ed0a82905366596ecb5346b76f4063b5aacd8667dac88b885b5d43c",
-        "source/game_sa/X87Math.h": "aaf86dcca2ee254568424228e05a156aad6c3c0419aedb66e2de7289bdfde85a",
+        "source/game_sa/X87Math.cpp": "398b34ced5eac5d80b23d3e64f82da4a33dc2a24f053e98f02ef26da9613380b",
+        "source/game_sa/X87Math.h": "b5ce4c6108c8c2010eeebb19239c285dd983a55f9f2d774b36668472a9111857",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Garage63/LiveComparison.hpp": "12e8c980cf07ed3d5c43275c41e64b961806436bde228c6b03615b26ce9558aa",
         "reversing/Garage63/Core.hpp": "afaa47cdc49d7c23397b505ca4c0066b77b1ac0522c12376295efb02999cedb2",
@@ -538939,7 +538939,7 @@
       },
       "evidence": {
         "path": "reversing/Garage63/validation-summary.json",
-        "sha256": "818cff54f536821cdd584ec1e9be138a49ed65c9b0b783852d12be40821882f8",
+        "sha256": "f119ba732d74134d38af54fd83bf257faeb66e02789e41cd4ad0d916caaf8031",
         "passed_path": [
           "covered_functions",
           "CGarage::PlayerArrestedOrDied"
@@ -538950,10 +538950,10 @@
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
         "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
-        "source/game_sa/Garage.cpp": "e1be37c075e2ff74b7e4077da9f6eefff9e6a5ccf3aef2b0a32291a6b7c344e2",
+        "source/game_sa/Garage.cpp": "11bba5844d1357ce4a0e637408be5c2c3499b6748a09162820d0500d97a7919e",
         "source/game_sa/Garage.h": "e5a2b5a02b44d335604c9a6f84691f6996ae8735bc58bdb4e47ae7e18eddd691",
-        "source/game_sa/X87Math.cpp": "f14103820ed0a82905366596ecb5346b76f4063b5aacd8667dac88b885b5d43c",
-        "source/game_sa/X87Math.h": "aaf86dcca2ee254568424228e05a156aad6c3c0419aedb66e2de7289bdfde85a",
+        "source/game_sa/X87Math.cpp": "398b34ced5eac5d80b23d3e64f82da4a33dc2a24f053e98f02ef26da9613380b",
+        "source/game_sa/X87Math.h": "b5ce4c6108c8c2010eeebb19239c285dd983a55f9f2d774b36668472a9111857",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Garage63/LiveComparison.hpp": "12e8c980cf07ed3d5c43275c41e64b961806436bde228c6b03615b26ce9558aa",
         "reversing/Garage63/Core.hpp": "afaa47cdc49d7c23397b505ca4c0066b77b1ac0522c12376295efb02999cedb2",
@@ -538975,7 +538975,7 @@
       },
       "evidence": {
         "path": "reversing/Garage63/validation-summary.json",
-        "sha256": "818cff54f536821cdd584ec1e9be138a49ed65c9b0b783852d12be40821882f8",
+        "sha256": "f119ba732d74134d38af54fd83bf257faeb66e02789e41cd4ad0d916caaf8031",
         "passed_path": [
           "covered_functions",
           "CGarage::IsEntityEntirelyInside3D"
@@ -538986,10 +538986,10 @@
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
         "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
-        "source/game_sa/Garage.cpp": "e1be37c075e2ff74b7e4077da9f6eefff9e6a5ccf3aef2b0a32291a6b7c344e2",
+        "source/game_sa/Garage.cpp": "11bba5844d1357ce4a0e637408be5c2c3499b6748a09162820d0500d97a7919e",
         "source/game_sa/Garage.h": "e5a2b5a02b44d335604c9a6f84691f6996ae8735bc58bdb4e47ae7e18eddd691",
-        "source/game_sa/X87Math.cpp": "f14103820ed0a82905366596ecb5346b76f4063b5aacd8667dac88b885b5d43c",
-        "source/game_sa/X87Math.h": "aaf86dcca2ee254568424228e05a156aad6c3c0419aedb66e2de7289bdfde85a",
+        "source/game_sa/X87Math.cpp": "398b34ced5eac5d80b23d3e64f82da4a33dc2a24f053e98f02ef26da9613380b",
+        "source/game_sa/X87Math.h": "b5ce4c6108c8c2010eeebb19239c285dd983a55f9f2d774b36668472a9111857",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Garage63/LiveComparison.hpp": "12e8c980cf07ed3d5c43275c41e64b961806436bde228c6b03615b26ce9558aa",
         "reversing/Garage63/Core.hpp": "afaa47cdc49d7c23397b505ca4c0066b77b1ac0522c12376295efb02999cedb2",
@@ -539011,7 +539011,7 @@
       },
       "evidence": {
         "path": "reversing/Garage63/validation-summary.json",
-        "sha256": "818cff54f536821cdd584ec1e9be138a49ed65c9b0b783852d12be40821882f8",
+        "sha256": "f119ba732d74134d38af54fd83bf257faeb66e02789e41cd4ad0d916caaf8031",
         "passed_path": [
           "covered_functions",
           "CGarage::IsEntityEntirelyOutside"
@@ -539022,10 +539022,10 @@
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
         "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
-        "source/game_sa/Garage.cpp": "e1be37c075e2ff74b7e4077da9f6eefff9e6a5ccf3aef2b0a32291a6b7c344e2",
+        "source/game_sa/Garage.cpp": "11bba5844d1357ce4a0e637408be5c2c3499b6748a09162820d0500d97a7919e",
         "source/game_sa/Garage.h": "e5a2b5a02b44d335604c9a6f84691f6996ae8735bc58bdb4e47ae7e18eddd691",
-        "source/game_sa/X87Math.cpp": "f14103820ed0a82905366596ecb5346b76f4063b5aacd8667dac88b885b5d43c",
-        "source/game_sa/X87Math.h": "aaf86dcca2ee254568424228e05a156aad6c3c0419aedb66e2de7289bdfde85a",
+        "source/game_sa/X87Math.cpp": "398b34ced5eac5d80b23d3e64f82da4a33dc2a24f053e98f02ef26da9613380b",
+        "source/game_sa/X87Math.h": "b5ce4c6108c8c2010eeebb19239c285dd983a55f9f2d774b36668472a9111857",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Garage63/LiveComparison.hpp": "12e8c980cf07ed3d5c43275c41e64b961806436bde228c6b03615b26ce9558aa",
         "reversing/Garage63/Core.hpp": "afaa47cdc49d7c23397b505ca4c0066b77b1ac0522c12376295efb02999cedb2",
@@ -539047,7 +539047,7 @@
       },
       "evidence": {
         "path": "reversing/Garage63/validation-summary.json",
-        "sha256": "818cff54f536821cdd584ec1e9be138a49ed65c9b0b783852d12be40821882f8",
+        "sha256": "f119ba732d74134d38af54fd83bf257faeb66e02789e41cd4ad0d916caaf8031",
         "passed_path": [
           "covered_functions",
           "CGarage::IsStaticPlayerCarEntirelyInside"
@@ -539058,10 +539058,10 @@
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
         "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
-        "source/game_sa/Garage.cpp": "e1be37c075e2ff74b7e4077da9f6eefff9e6a5ccf3aef2b0a32291a6b7c344e2",
+        "source/game_sa/Garage.cpp": "11bba5844d1357ce4a0e637408be5c2c3499b6748a09162820d0500d97a7919e",
         "source/game_sa/Garage.h": "e5a2b5a02b44d335604c9a6f84691f6996ae8735bc58bdb4e47ae7e18eddd691",
-        "source/game_sa/X87Math.cpp": "f14103820ed0a82905366596ecb5346b76f4063b5aacd8667dac88b885b5d43c",
-        "source/game_sa/X87Math.h": "aaf86dcca2ee254568424228e05a156aad6c3c0419aedb66e2de7289bdfde85a",
+        "source/game_sa/X87Math.cpp": "398b34ced5eac5d80b23d3e64f82da4a33dc2a24f053e98f02ef26da9613380b",
+        "source/game_sa/X87Math.h": "b5ce4c6108c8c2010eeebb19239c285dd983a55f9f2d774b36668472a9111857",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Garage63/LiveComparison.hpp": "12e8c980cf07ed3d5c43275c41e64b961806436bde228c6b03615b26ce9558aa",
         "reversing/Garage63/Core.hpp": "afaa47cdc49d7c23397b505ca4c0066b77b1ac0522c12376295efb02999cedb2",
@@ -539083,7 +539083,7 @@
       },
       "evidence": {
         "path": "reversing/Garage63/validation-summary.json",
-        "sha256": "818cff54f536821cdd584ec1e9be138a49ed65c9b0b783852d12be40821882f8",
+        "sha256": "f119ba732d74134d38af54fd83bf257faeb66e02789e41cd4ad0d916caaf8031",
         "passed_path": [
           "covered_functions",
           "CGarage::IsGarageEmpty"
@@ -539094,10 +539094,10 @@
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
         "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
-        "source/game_sa/Garage.cpp": "e1be37c075e2ff74b7e4077da9f6eefff9e6a5ccf3aef2b0a32291a6b7c344e2",
+        "source/game_sa/Garage.cpp": "11bba5844d1357ce4a0e637408be5c2c3499b6748a09162820d0500d97a7919e",
         "source/game_sa/Garage.h": "e5a2b5a02b44d335604c9a6f84691f6996ae8735bc58bdb4e47ae7e18eddd691",
-        "source/game_sa/X87Math.cpp": "f14103820ed0a82905366596ecb5346b76f4063b5aacd8667dac88b885b5d43c",
-        "source/game_sa/X87Math.h": "aaf86dcca2ee254568424228e05a156aad6c3c0419aedb66e2de7289bdfde85a",
+        "source/game_sa/X87Math.cpp": "398b34ced5eac5d80b23d3e64f82da4a33dc2a24f053e98f02ef26da9613380b",
+        "source/game_sa/X87Math.h": "b5ce4c6108c8c2010eeebb19239c285dd983a55f9f2d774b36668472a9111857",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Garage63/LiveComparison.hpp": "12e8c980cf07ed3d5c43275c41e64b961806436bde228c6b03615b26ce9558aa",
         "reversing/Garage63/Core.hpp": "afaa47cdc49d7c23397b505ca4c0066b77b1ac0522c12376295efb02999cedb2",
@@ -539119,7 +539119,7 @@
       },
       "evidence": {
         "path": "reversing/Garage63/validation-summary.json",
-        "sha256": "818cff54f536821cdd584ec1e9be138a49ed65c9b0b783852d12be40821882f8",
+        "sha256": "f119ba732d74134d38af54fd83bf257faeb66e02789e41cd4ad0d916caaf8031",
         "passed_path": [
           "covered_functions",
           "CGarage::RemoveCarsBlockingDoorNotInside"
@@ -539130,10 +539130,10 @@
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
         "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
-        "source/game_sa/Garage.cpp": "e1be37c075e2ff74b7e4077da9f6eefff9e6a5ccf3aef2b0a32291a6b7c344e2",
+        "source/game_sa/Garage.cpp": "11bba5844d1357ce4a0e637408be5c2c3499b6748a09162820d0500d97a7919e",
         "source/game_sa/Garage.h": "e5a2b5a02b44d335604c9a6f84691f6996ae8735bc58bdb4e47ae7e18eddd691",
-        "source/game_sa/X87Math.cpp": "f14103820ed0a82905366596ecb5346b76f4063b5aacd8667dac88b885b5d43c",
-        "source/game_sa/X87Math.h": "aaf86dcca2ee254568424228e05a156aad6c3c0419aedb66e2de7289bdfde85a",
+        "source/game_sa/X87Math.cpp": "398b34ced5eac5d80b23d3e64f82da4a33dc2a24f053e98f02ef26da9613380b",
+        "source/game_sa/X87Math.h": "b5ce4c6108c8c2010eeebb19239c285dd983a55f9f2d774b36668472a9111857",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Garage63/LiveComparison.hpp": "12e8c980cf07ed3d5c43275c41e64b961806436bde228c6b03615b26ce9558aa",
         "reversing/Garage63/Core.hpp": "afaa47cdc49d7c23397b505ca4c0066b77b1ac0522c12376295efb02999cedb2",
@@ -539155,7 +539155,7 @@
       },
       "evidence": {
         "path": "reversing/Garage63/validation-summary.json",
-        "sha256": "818cff54f536821cdd584ec1e9be138a49ed65c9b0b783852d12be40821882f8",
+        "sha256": "f119ba732d74134d38af54fd83bf257faeb66e02789e41cd4ad0d916caaf8031",
         "passed_path": [
           "covered_functions",
           "CGarage::TidyUpGarage"
@@ -539166,10 +539166,10 @@
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
         "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
-        "source/game_sa/Garage.cpp": "e1be37c075e2ff74b7e4077da9f6eefff9e6a5ccf3aef2b0a32291a6b7c344e2",
+        "source/game_sa/Garage.cpp": "11bba5844d1357ce4a0e637408be5c2c3499b6748a09162820d0500d97a7919e",
         "source/game_sa/Garage.h": "e5a2b5a02b44d335604c9a6f84691f6996ae8735bc58bdb4e47ae7e18eddd691",
-        "source/game_sa/X87Math.cpp": "f14103820ed0a82905366596ecb5346b76f4063b5aacd8667dac88b885b5d43c",
-        "source/game_sa/X87Math.h": "aaf86dcca2ee254568424228e05a156aad6c3c0419aedb66e2de7289bdfde85a",
+        "source/game_sa/X87Math.cpp": "398b34ced5eac5d80b23d3e64f82da4a33dc2a24f053e98f02ef26da9613380b",
+        "source/game_sa/X87Math.h": "b5ce4c6108c8c2010eeebb19239c285dd983a55f9f2d774b36668472a9111857",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Garage63/LiveComparison.hpp": "12e8c980cf07ed3d5c43275c41e64b961806436bde228c6b03615b26ce9558aa",
         "reversing/Garage63/Core.hpp": "afaa47cdc49d7c23397b505ca4c0066b77b1ac0522c12376295efb02999cedb2",
@@ -539191,7 +539191,7 @@
       },
       "evidence": {
         "path": "reversing/Garage63/validation-summary.json",
-        "sha256": "818cff54f536821cdd584ec1e9be138a49ed65c9b0b783852d12be40821882f8",
+        "sha256": "f119ba732d74134d38af54fd83bf257faeb66e02789e41cd4ad0d916caaf8031",
         "passed_path": [
           "covered_functions",
           "CGarage::TidyUpGarageClose"
@@ -539202,10 +539202,10 @@
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
         "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
-        "source/game_sa/Garage.cpp": "e1be37c075e2ff74b7e4077da9f6eefff9e6a5ccf3aef2b0a32291a6b7c344e2",
+        "source/game_sa/Garage.cpp": "11bba5844d1357ce4a0e637408be5c2c3499b6748a09162820d0500d97a7919e",
         "source/game_sa/Garage.h": "e5a2b5a02b44d335604c9a6f84691f6996ae8735bc58bdb4e47ae7e18eddd691",
-        "source/game_sa/X87Math.cpp": "f14103820ed0a82905366596ecb5346b76f4063b5aacd8667dac88b885b5d43c",
-        "source/game_sa/X87Math.h": "aaf86dcca2ee254568424228e05a156aad6c3c0419aedb66e2de7289bdfde85a",
+        "source/game_sa/X87Math.cpp": "398b34ced5eac5d80b23d3e64f82da4a33dc2a24f053e98f02ef26da9613380b",
+        "source/game_sa/X87Math.h": "b5ce4c6108c8c2010eeebb19239c285dd983a55f9f2d774b36668472a9111857",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Garage63/LiveComparison.hpp": "12e8c980cf07ed3d5c43275c41e64b961806436bde228c6b03615b26ce9558aa",
         "reversing/Garage63/Core.hpp": "afaa47cdc49d7c23397b505ca4c0066b77b1ac0522c12376295efb02999cedb2",
@@ -539217,6 +539217,42 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wf-1 (HEAD 35e7b9d4b + fuente del lote 63). Todos los colaboradores se sustituyen por falsos identicos en ambos lados (no se validan sus cuerpos): GetColModel (0x535300), GetMatrix (0x411990), AllocateMatrix (0x54F560), CSimpleTransform::UpdateMatrix (0x54F1B0), la transformacion 0x59C890, CGarage::IsPointInsideGarage punto (0x448740) y radio (0x4487D0; ECX/EDX intactos como el EXE), IsEntityTouching3D (0x448EE0), CWorld::FindObjectsIntersectingCube (0x568DD0), FindPlayerVehicle (0x56E0D0), FindPlayerPed (0x56E210), CTaskManager::FindActiveTaskByType (0x681740), CVehicle::CanBeDeleted (0x6D1180), CWorld::Remove (0x563280), IsEntityEntirelyInside3D (0x448BE0, solo para IsStaticPlayerCarEntirelyInside) y el destructor virtual (tabla de metodos falsa). Entidades, matrices, CColModel/CCollisionData, esferas, pool de vehiculos (ds:[0xB74494] sustituido por un pool privado durante cada llamada), jugador y TaskManager son objetos falsos del banco; ningun vehiculo, garaje ni pool reales se tocan. Update (0x44AA50) NO esta reconstruida. PlayerArrestedOrDied conserva ECX y EDX (el bucle de 0x449E60 los lee); en el resto solo AL en las funciones bool y ECX/EDX/EAX de salida solo se registran. No se prueban los vehiculos de TidyUpGarage con matriz nula y sin estado WRECKED, ni los de TidyUpGarageClose sin CCollisionData (el EXE desreferencia sin comprobar).",
       "review_reference": "reversing/Garage63/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarage",
+        "fn_name": "Update",
+        "address": "0x0044AA50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/GarageUpdate63/validation-summary.json",
+        "sha256": "3ed68c8fa9e433e15cde043675724a80010d52fc9ac16c84d8d65b44ee793dc1",
+        "passed_path": [
+          "covered_functions",
+          "CGarage::Update"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
+        "source/game_sa/Garage.cpp": "11bba5844d1357ce4a0e637408be5c2c3499b6748a09162820d0500d97a7919e",
+        "source/game_sa/Garage.h": "e5a2b5a02b44d335604c9a6f84691f6996ae8735bc58bdb4e47ae7e18eddd691",
+        "source/game_sa/X87Math.cpp": "398b34ced5eac5d80b23d3e64f82da4a33dc2a24f053e98f02ef26da9613380b",
+        "source/game_sa/X87Math.h": "b5ce4c6108c8c2010eeebb19239c285dd983a55f9f2d774b36668472a9111857",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/GarageUpdate63/LiveComparison.hpp": "922b937bca8d6052786c8f7db5715968b5052772a527454a5f3f9c09917b8996",
+        "reversing/GarageUpdate63/Core.hpp": "5ada0736b2e2f3939630ef70060883d1a40a25d518d98c023c17f5fb19e60bb4",
+        "reversing/GarageUpdate63/Fixtures.hpp": "a40d9408a54940f07b61d8cc1e67f1bf31c461b2936c7817bfc66664ee8b7a04",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wf-1 (HEAD 35e7b9d4b + parche del banco Garage63 + fuente del lote 63b). Los 47 colaboradores se sustituyen por falsos identicos en ambos lados (parche en la entrada del EXE y en el cuerpo de la DLL cuando tienen hook; no se validan sus cuerpos): FindPlayerVehicle/Ped/Coors/Wanted, CGarage::IsEntityEntirelyInside3D/Outside/IsStaticPlayerCarEntirelyInside/IsGarageEmpty/IsEntityTouching3D/RemoveCarsBlockingDoorNotInside/StoreAndRemoveCarsForThisHideOut, SlideDoorOpen/Closed, IsPlayerOutsideGarage, IsAnyCarBlockingDoor, CountCarsWithCenterPointWithinGarage, IsAnyOtherPed/CarTouchingGarage, ThrowCarsNearDoorOutOfGarage, CalcDistToGarageRectangleSquared, Restore/NeatlyLineUp/Store*Impounding, FindDoorsWithGarage, CGarages::TriggerMessage/FindSafeHouseIndexForGarageType/CountCarsInHideoutGarage/IsCarSprayable/GivePlayerDetonator, CWorld::CallOffChaseForArea, CStats::IncrementStat/GetStatValue/SetStatValue, CAudioEngine::ReportFrontendAudioEvent, CStreaming::RequestModel, CHud::SetHelpMessage, CText::Get, CWanted::ClearWantedLevelAndGoOnParole, CVehicle::GetRemapIndex/SetRemap/GetVehicleAppearance/Fix(virtual)/DestroyVehicleAndDriverAndPassengers, CVehicleModelInfo::ChooseVehicleColour, FxSystem_c::AddParticle, CGeneral::GetRandomNumberInRange<float> y rand del CRT del EXE (0x821B1E). Jugador, vehiculos, matrices y CWanted son objetos falsos del banco; el estado real que lee/escribe la funcion (reloj, contador de fotogramas, jugador en foco y su dinero, banderas de CGarages, camara, mando 0 y tienda de bombas) se fija por caso y se restaura. El garaje es privado: ninguno real se toca. Ningun llamador del EXE lee EAX/ECX/EDX (0x44C910 solo usa ESI/EDI); solo se registran. Los NaN de las fixtures son siempre silenciosos; no se prueban los caminos en que el EXE desreferencia sin comprobar (matriz nula del vehiculo del jugador en la rama de reparacion, IsStaticPlayerCarEntirelyInside verdadero sin vehiculo).",
+      "review_reference": "reversing/GarageUpdate63/README.md"
     }
   ]
 }

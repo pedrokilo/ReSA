@@ -13758,4 +13758,29 @@ __declspec(noinline) bool __cdecl Garage63StaticSpeedCpp(const float* speed) {
     if (sum > double(0.0001f)) return false;
     return true;
 }
+__declspec(noinline) double __cdecl Garage63CenterDistSqCpp(const float* g, float x1, float x2, float y3, float y4) {
+    const double halfY = (double(g[12]) + double(g[13])) * 0.5;
+    volatile float dy1 = float(double(y3) - halfY);
+    const double dy2 = double(y4) - halfY;
+    const double t = dy2 * double(dy1);
+    const double halfX = (double(g[11]) + double(g[10])) * 0.5;
+    const double dx2 = double(x2) - halfX;
+    const double dx1 = double(x1) - halfX;
+    const double p = dx2 * dx1;
+    return t + p;
+}
+
+__declspec(noinline) double __cdecl Garage63DoorDistSqCpp(float d0x, float v0x, float d1x, float v1x, float d2y, float v2y, float d3y, float v3y) {
+    const double a = double(d3y) - double(v3y);
+    const double b = double(d2y) - double(v2y);
+    const double t = a * b;
+    const double dx1 = double(d1x) - double(v1x);
+    const double dx0 = double(d0x) - double(v0x);
+    const double p = dx1 * dx0;
+    return t + p;
+}
+
+__declspec(noinline) bool __cdecl Garage63TopMinus2GreaterCpp(float topZ, float z) {
+    return double(topZ) - 2.0 > double(z);
+}
 #pragma float_control(pop)

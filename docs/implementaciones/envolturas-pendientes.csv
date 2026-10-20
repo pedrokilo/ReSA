@@ -231,6 +231,20 @@ class,function,address,source,origins
 (helpers y globales sin clase),FightStartAnimExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:361,envoltura en el código fuente
 (helpers y globales sin clase),FightStrikeDamageExe,0x0061C740,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:268,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 (helpers y globales sin clase),FindUpgradeCB,0x006D3370,source/game_sa/Entity/Vehicle/Vehicle.cpp:2539,cohorte nuevo 2026-10-17
+(helpers y globales sin clase),GaCalcDistToRectSq,,source/game_sa/Garage.cpp:432,envoltura en el código fuente
+(helpers y globales sin clase),GaCountCarsCenterWithin,,source/game_sa/Garage.cpp:428,envoltura en el código fuente
+(helpers y globales sin clase),GaFindDoorsWithGarage,,source/game_sa/Garage.cpp:437,envoltura en el código fuente
+(helpers y globales sin clase),GaIsAnyCarBlockingDoor,,source/game_sa/Garage.cpp:427,envoltura en el código fuente
+(helpers y globales sin clase),GaIsAnyOtherCarTouching,,source/game_sa/Garage.cpp:430,envoltura en el código fuente
+(helpers y globales sin clase),GaIsAnyOtherPedTouching,,source/game_sa/Garage.cpp:429,envoltura en el código fuente
+(helpers y globales sin clase),GaIsPlayerOutside,,source/game_sa/Garage.cpp:426,envoltura en el código fuente
+(helpers y globales sin clase),GaNeatlyLineUp,,source/game_sa/Garage.cpp:434,envoltura en el código fuente
+(helpers y globales sin clase),GaRestoreHideOut,,source/game_sa/Garage.cpp:433,envoltura en el código fuente
+(helpers y globales sin clase),GaRestoreImpounding,,source/game_sa/Garage.cpp:435,envoltura en el código fuente
+(helpers y globales sin clase),GaSlideDoorClosed,,source/game_sa/Garage.cpp:425,envoltura en el código fuente
+(helpers y globales sin clase),GaSlideDoorOpen,,source/game_sa/Garage.cpp:424,envoltura en el código fuente
+(helpers y globales sin clase),GaStoreAndRemoveImpounding,,source/game_sa/Garage.cpp:436,envoltura en el código fuente
+(helpers y globales sin clase),GaThrowCarsNearDoorOut,,source/game_sa/Garage.cpp:431,envoltura en el código fuente
 (helpers y globales sin clase),GetDXVersion,0x00745650,source/app/platform/win/WinPs.cpp:180,cohorte 499
 (helpers y globales sin clase),GetFirstTextureCallback,,source/game_sa/RenderWare/rw/rwtexdict.cpp:17,envoltura en el código fuente
 (helpers y globales sin clase),GetMillisecondTime,0x005617C0,source/game_sa/Timer.cpp:53,cohorte 499 + envoltura en el código fuente
@@ -345,7 +359,6 @@ CCarCtrl,WeaveForOtherCar,0x00426350,source/game_sa/CarCtrl.cpp:2548,cohorte nue
 CCarCtrl,WeaveThroughCarsSectorList,0x0042D680,source/game_sa/CarCtrl.cpp:2554,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CCarCtrl,WeaveThroughObjectsSectorList,0x0042D950,source/game_sa/CarCtrl.cpp:2560,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CCarCtrl,WeaveThroughPedsSectorList,0x0042D7E0,source/game_sa/CarCtrl.cpp:2566,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CGarage,Update,0x0044AA50,source/game_sa/Garage.cpp:411,cohorte 499 + envoltura en el código fuente
 CHeli,BlowUpCar,0x006C6D30,source/game_sa/Entity/Vehicle/Heli.cpp:300,cohorte nuevo 2026-10-17
 CHeli,CHeli,0x006C4190,source/game_sa/Entity/Vehicle/Plane.cpp:558,cohorte nuevo 2026-10-17
 CHeli,FindSwatPositionRelativeToHeli,0x006C4760,source/game_sa/Entity/Vehicle/Heli.cpp:179,cohorte nuevo 2026-10-17
@@ -374,8 +387,8 @@ CPlayerPed,SetInitialState,0x0060CD20,source/game_sa/Entity/Ped/PlayerPed.cpp:10
 CPlayerPed,SetRealMoveAnim,0x0060A9C0,source/game_sa/Entity/Ped/PlayerPed.cpp:820,cohorte 499 + envoltura en el código fuente
 CRemote,GivePlayerRemoteControlledCar,0x0045AB10,source/game_sa/Remote.cpp:10,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CRemote,TakeRemoteControlledCarFromPlayer,0x0045AE80,source/game_sa/Remote.cpp:5,cohorte 499 + envoltura en el código fuente
-CStoredCar,RestoreCar,0x00447E40,source/game_sa/Garage.cpp:547,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CStoredCar,StoreCar,0x00449760,source/game_sa/Garage.cpp:542,cohorte 499 + envoltura en el código fuente
+CStoredCar,RestoreCar,0x00447E40,source/game_sa/Garage.cpp:1471,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CStoredCar,StoreCar,0x00449760,source/game_sa/Garage.cpp:1466,cohorte 499 + envoltura en el código fuente
 CTaskComplexLeaveCar,CreateFirstSubTask,0x00641FC0,source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp:64,cohorte 499 + envoltura en el código fuente
 CTaskComplexLeaveCar,CreateNextSubTask,0x006419F0,source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp:59,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CTaskComplexLeaveCar,CreateSubTask,0x00641530,source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp:92,cohorte nuevo 2026-10-17 + envoltura en el código fuente

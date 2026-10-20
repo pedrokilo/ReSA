@@ -1653,3 +1653,12 @@ bool __cdecl Garage63InsideRectStrictCpp(const float* g, float radius, const flo
 // IsStaticPlayerCarEntirelyInside 0x44A913..0x44A9A4: velocidad speed = {x, y, z} del vehiculo. Cada componente pasa por el |v| del EXE (fchs solo si v < 0 ordenado, asi -0.0 y NaN se conservan)
 // y debe cumplir !(|v| > 0.01f); despues !((vz*vz + vy*vy) + vx*vx > 0.0001f), con los productos y sumas del x87 a 24 bits (la comparacion con NaN no rechaza).
 bool __cdecl Garage63StaticSpeedCpp(const float* speed);
+
+// --- Lote 63b: CGarage::Update (0x44AA50), prefijo Garage63. Anadir al FINAL de X87Math.h ---
+// 0x44B80F..0x44B88C (y las otras cuatro ramas con el mismo tramo): distancia^2 del jugador al centro del garaje, con los x87 a 24 bits sin guardar a float salvo dy1 (fstp dword):
+// dy1 = y3 - (frente + fondo) * 0.5 (float), t = (y4 - mitad) * dy1, p = (x2 - mitad_x) * (x1 - mitad_x) con mitad_x = (derecha + izquierda) * 0.5; devuelve t + p. g = el CGarage como floats.
+double __cdecl Garage63CenterDistSqCpp(const float* g, float x1, float x2, float y3, float y4);
+// 0x44BFF5..0x44C032 / 0x44C0EC..0x44C12D: ((d3y - v3y) * (d2y - v2y)) + ((d1x - v1x) * (d0x - v0x)), cada resta y producto a 24 bits.
+double __cdecl Garage63DoorDistSqCpp(float d0x, float v0x, float d1x, float v1x, float d2y, float v2y, float d3y, float v3y);
+// 0x44C3F1..0x44C3FD: topZ - 2.0f (x87, sin guardar) > z (comparacion ordenada).
+bool __cdecl Garage63TopMinus2GreaterCpp(float topZ, float z);

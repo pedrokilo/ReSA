@@ -5,7 +5,7 @@
     "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
     "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
   },
-  "executed_probe_sha256": "563a4867040d328cb487a4e757b4159b137d84b5e562c9fefeedf4804680f630",
+  "executed_probe_sha256": "c114b91e51cf4ba04c0a58b17f264672e5a8da72346545e4686bd548a7e4b7b2",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "config_hashes_before": {
     "gta-reversed.ini": "e9bfdac79df368547f7d4d12fae77c944dd8b9e4eb086ebb575e7b1760a416f6",
@@ -25,7 +25,7 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "337ea133e2030a2638aa404272b0ef4c1c8c3ce2a92a7592fa6359450c16a035",
+  "log_sha256": "aacfb566efc51de96a3f48822279dd985c47347f42cc5a53754b06dc2d719731",
   "compare_dead_x87_registers": false,
   "coverage": {
     "CGarage::InitDoorsAtStart": {
