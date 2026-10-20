@@ -104,7 +104,7 @@ def write(root):
          '(se sustituyen enlazando bibliotecas equivalentes). Generado por `contrib/game_function_map.py`; cotas y método en `contrib/exe_coverage.py`.', '',
          '## Estado', '']
     body = []
-    for k in ORDER:
+    for k in sorted('ABCD', key=lambda k: (len(by[k]), k)) + ['envoltura', 'reemplazada']:
         v = by[k]
         body.append([STATUS[k], f'{len(v):,}', f'{len(v)/n:.1%}', f'{sum(x["size"] for x in v):,}', f'{sum(x["size"] for x in v)/nb:.1%}'])
     L += _tbl(['Estado', 'Funciones', '% func.', 'Bytes', '% bytes'], body)
@@ -112,12 +112,13 @@ def write(root):
           f'hay {out["indirect_call_sites"]:,} llamadas indirectas sin resolver. Las envolturas pendientes (que ya tienen hook pero llaman al EXE) se cuentan aparte, por eso A–D suman menos que en la tabla de cobertura de ReversedClasses. Listas: ' +
           ' · '.join(f'[{k}](pendientes-{k}.md)' for k in 'ABCD') + '.', '',
           '## Por bloque de direcciones (64 KB)', '',
+          'Ordenados de menos a más funciones que faltan.', '',
           'El código se enlaza por unidad de compilación, así que cada bloque suele corresponder a pocos módulos. Útil para ver dónde queda trabajo.', '']
     blocks = defaultdict(list)
     for r in rows:
         blocks[r['va'] // BLOCK].append(r)
     body = []
-    for b in sorted(blocks):
+    for b in sorted(blocks, key=lambda b: (sum(1 for x in blocks[b] if x['status'] in 'ABCD'), b)):
         v = blocks[b]
         rep = sum(1 for x in v if x['status'] == 'reemplazada')
         miss = [x for x in v if x['status'] in 'ABCD']
@@ -126,7 +127,7 @@ def write(root):
                      ', '.join(f'{m} ({c})' for m, c in top) or '—'])
     L += _tbl(['Bloque', 'Funciones', 'Reemplazadas', 'Faltan', 'Bytes que faltan', 'Módulos con más faltantes (estimado)'], body)
     L += ['', '## Por módulo (estimado)', '',
-          'Módulos con más bytes por reconstruir. Para funciones sin nombre el módulo es la heurística de vecindad descrita arriba; la columna «Confianza alta» cuenta las faltantes cuyo '
+          'Los 60 módulos con más bytes por reconstruir, ordenados de menos a más bytes que faltan. Para funciones sin nombre el módulo es la heurística de vecindad descrita arriba; la columna «Confianza alta» cuenta las faltantes cuyo '
           'módulo coincide en ambos vecinos.', '']
     mods = defaultdict(lambda: [0, 0, 0, 0, 0])
     for r in rows:
@@ -138,7 +139,7 @@ def write(root):
             m[2] += 1
             m[3] += r['size']
             m[4] += r['confidence'] == 'alta'
-    top = sorted(mods.items(), key=lambda kv: -kv[1][3])[:60]
+    top = sorted(sorted(mods.items(), key=lambda kv: -kv[1][3])[:60], key=lambda kv: (kv[1][3], kv[0]))
     L += _tbl(['Módulo', 'Funciones', 'Reemplazadas', 'Faltan', 'Bytes que faltan', 'Confianza alta'],
               [[m, f'{v[0]:,}', f'{v[1]:,}', f'{v[2]:,}', f'{v[3]:,}', f'{v[4]:,}'] for m, v in top])
     L += ['', f'Mostrados los 60 primeros de {len(mods):,} módulos; el resto está en el CSV.', '',

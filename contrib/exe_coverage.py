@@ -129,7 +129,7 @@ def section(root):
              f'ya reemplazadas** (varias filas son sobrescrituras virtuales que comparten cuerpo).', '',
              '| Región del EXE | Funciones | Bytes de código | Reemplazadas por C++ (funciones) | Reemplazadas (bytes) |', '| --- | ---: | ---: | --- | --- |']
     tf = tb = rf = rb = 0
-    for key, _ in REGIONS:
+    for key in sorted(reg, key=lambda k: reg[k]['functions'] - reg[k]['replaced']):
         r = reg[key]
         lines.append(f"| {names[key]} | {r['functions']:,} | {r['bytes']:,} | `{_bar(r['replaced'], r['functions'])}` {r['replaced']:,} · {r['replaced']/r['functions']:.1%} | "
                      f"`{_bar(r['replaced_bytes'], r['bytes'])}` {r['replaced_bytes']/r['bytes']:.1%} |")
@@ -143,11 +143,11 @@ def section(root):
     g, t = d['game_remaining'], d['game_remaining_total']
     lines += [f'### Lo que falta del código del juego: {t["functions"]:,} funciones, {t["bytes"]/1e3:,.0f} KB', '',
               'Mapa completo de las funciones del juego, con lista por estado, bloque de direcciones y módulo estimado: [JuegoExe](JuegoExe/README.md).', '',
-              '| Grupo | Funciones | Bytes | Lectura |', '| --- | ---: | ---: | --- |',
-              f'| A. Llamadas directamente desde código ya reemplazado (cierre transitivo) | {g["A"]["functions"]:,} | {g["A"]["bytes"]:,} | **Trabajo necesario**: la DLL sigue dependiendo de ellas. Es el piso para la independencia. |',
-              f'| B. Métodos virtuales (en una vtable) no alcanzados por llamada directa | {g["B"]["functions"]:,} | {g["B"]["bytes"]:,} | Probablemente necesarios: se ejecutan por despacho virtual. |',
+              '| Grupo (de menos a más funciones) | Funciones | Bytes | Lectura |', '| --- | ---: | ---: | --- |',
+              f'| D. Sin llamadas directas ni vtable | {g["D"]["functions"]:,} | {g["D"]["bytes"]:,} | Código muerto o alcanzado por tablas de punteros, callbacks o scripts: hay que revisarlo, no contarlo sin más. |',
               f'| C. Llamadas directas solo desde código aún no reemplazado | {g["C"]["functions"]:,} | {g["C"]["bytes"]:,} | Dependen de reconstruir antes A y B; parte puede ser código muerto. |',
-              f'| D. Sin llamadas directas ni vtable | {g["D"]["functions"]:,} | {g["D"]["bytes"]:,} | Código muerto o alcanzado por tablas de punteros, callbacks o scripts: hay que revisarlo, no contarlo sin más. |', '',
+              f'| B. Métodos virtuales (en una vtable) no alcanzados por llamada directa | {g["B"]["functions"]:,} | {g["B"]["bytes"]:,} | Probablemente necesarios: se ejecutan por despacho virtual. |',
+              f'| A. Llamadas directamente desde código ya reemplazado (cierre transitivo) | {g["A"]["functions"]:,} | {g["A"]["bytes"]:,} | **Trabajo necesario**: la DLL sigue dependiendo de ellas. Es el piso para la independencia. |', '',
               f'Del código reemplazado, **{d["direct_dependencies_total"]:,} funciones del EXE siguen llamándose directamente** ({reg["juego"]["direct_dependencies"]:,} del juego, {reg["renderware"]["direct_dependencies"]:,} de RenderWare/D3D y '
               f'{reg["crt"]["direct_dependencies"]:,} del CRT). Esa es la lista corta de dependencias reales del original que hay que eliminar o sustituir.', '',
               f'> [!NOTE]\n> **Cotas y límites.** Es un análisis estático: hay {d["indirect_call_sites"]:,} llamadas indirectas sin resolver que no están en el grafo, así que A es una **cota inferior** del trabajo. '
@@ -186,10 +186,10 @@ def _pending_list(root):
         title, grp = parts[key]
         if not grp:
             continue
-        ordered = sorted(grp.items(), key=lambda kv: (-len(kv[1]), kv[0]))
+        ordered = sorted(grp.items(), key=lambda kv: (len(kv[1]), kv[0]))
         if key == 'juego':
             lines += [f'#### {title}: {counts[key]} funciones en {len(ordered)} clases o grupos', '',
-                      'Orden: más funciones pendientes primero. Cada clase lista todas sus funciones con la dirección del EXE a la que aún llaman.', '',
+                      'Orden: de menos a más funciones pendientes. Cada clase lista todas sus funciones con la dirección del EXE a la que aún llaman.', '',
                       '| Clase o grupo | Pendientes |', '| --- | ---: |'] + [f'| [{c}](#{_anchor(c)}) | {len(f)} |' for c, f in ordered] + ['']
             for cls, fns in ordered:
                 lines += [f'<a id="{_anchor(cls)}"></a>', '', f'##### {cls} · {len(fns)}', '', '| Función | Dirección en el EXE |', '| --- | --- |']
