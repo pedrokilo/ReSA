@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 17/10/2026 (Ciudad de México):** 795 grupos / 8670 funciones reconstruidas; 8670 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 19/10/2026 (Ciudad de México):** 795 grupos / 8729 funciones reconstruidas; 8729 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -168,13 +168,21 @@
 
 <a id="grupo-1035"></a>
 
+## Globales y helpers: source/game_sa/AutoPilot.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| SubtractRoundedOnce(double a, double b) | [source/game_sa/AutoPilot.cpp:76](../../source/game_sa/AutoPilot.cpp#L76) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1036"></a>
+
 ## Globales y helpers: source/game_sa/Birds.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | GetMaxDistance(eBirdsBiome biome) | [source/game_sa/Birds.cpp:65](../../source/game_sa/Birds.cpp#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1036"></a>
+<a id="grupo-1037"></a>
 
 ## Globales y helpers: source/game_sa/BouncingPanel.cpp
 
@@ -184,7 +192,7 @@
 | Multiply3x3_VM_59C810(const CVector& v, const CMatrix& m) | [source/game_sa/BouncingPanel.cpp:61](../../source/game_sa/BouncingPanel.cpp#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | MultiplyByPow(CVector& pos, float damp, float step) | [source/game_sa/BouncingPanel.cpp:71](../../source/game_sa/BouncingPanel.cpp#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1037"></a>
+<a id="grupo-1038"></a>
 
 ## Globales y helpers: source/game_sa/BreakObject_c.cpp
 
@@ -192,7 +200,7 @@
 | --- | --- | --- | --- | --- | --- |
 | MatrixTimesPoint59C890(const CMatrix& m, const CVector& v) | [source/game_sa/BreakObject_c.cpp:49](../../source/game_sa/BreakObject_c.cpp#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1038"></a>
+<a id="grupo-1039"></a>
 
 ## Globales y helpers: source/game_sa/BrightLights.cpp
 
@@ -200,19 +208,10 @@
 | --- | --- | --- | --- | --- | --- |
 | BrightFtolByte(float f) | [source/game_sa/BrightLights.cpp:34](../../source/game_sa/BrightLights.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1039"></a>
+<a id="grupo-1040"></a>
 
 ## Globales y helpers: source/game_sa/BulletTraces.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| PlayFrontEndSoundForTrace(const CVector& fromWorldSpace, const CVector& toWorldSpace) | [source/game_sa/BulletTraces.cpp:62](../../source/game_sa/BulletTraces.cpp#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:40 (0x00B6F028) |
-
-<a id="grupo-1040"></a>
-
-## Globales y helpers: source/game_sa/Buoyancy.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| BuoyancyMultiply3x3(const CMatrix& m, const CVector& v) | [source/game_sa/Buoyancy.cpp:32](../../source/game_sa/Buoyancy.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| BuoyancyMultiplyPoint(const CMatrix& m, const CVector& v) | [source/game_sa/Buoyancy.cpp:41](../../source/game_sa/Buoyancy.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| PlayFrontEndSoundForTrace(const CVector& fromWorldSpace, const CVector& toWorldSpace) | [source/game_sa/BulletTraces.cpp:62](../../source/game_sa/BulletTraces.cpp#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo AudioEngine: source/game_sa/Audio/AudioEngine.cpp:31 (0x00B6BC90); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |

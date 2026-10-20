@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-20 03:26 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-20 03:31 UTC
 
 ## Objetivo y dimensiones de progreso
 
