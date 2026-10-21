@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CAEMFDecoder
- * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 12/12 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 10/10 entradas.
+ * Validación registrada: 12/12 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -26,6 +26,93 @@ END GENERATED HOOK STATUS */
 
 #include "AEMFDecoder.h"
 #include "X87Math.h"
+
+// 0x4E7990
+// Como el original: NativePathNameToFSSpec (0x818970, resultado ignorado) y FSpGetFInfo-like (0x81DAA0) sobre el FSSpec local; OpenMovieFile (0x81B680, permiso 1),
+// NewMovieFromFile (0x81AB80) y CloseMovieFile (0x81A9E0, SIEMPRE tras NewMovieFromFile, antes de mirar su error); luego la primera pista 'soun' (0x81BC60) y su media
+// (0x81A0E0). Devuelve el OSErr de 16 bits (el llamador, 0x4E7CB0, solo mira AX): -2009 sin pista de sonido, -2008 sin media. Con error antes de la pista no escribe nada en
+// las salidas; con pista escribe media y pelicula (la media se escribe aunque sea nula).
+int16 __cdecl AEMFOpenSoundMedia(char* filename, void** outMovie, void** outMedia) {
+    uint8 fsSpec[0x46];            // FSSpec: lo rellena 0x818970
+    uint8 fileInfo[0x10];          // FInfo: lo rellena 0x81DAA0
+    void* movie        = nullptr;  // como el original: puesto a 0 antes de 0x818970
+    int32 resourceId   = 0;        // como el original: puesto a 0 antes de OpenMovieFile (NewMovieFromFile lo escribe como short)
+    int16 refNum       = 0;        // OpenMovieFile lo escribe como short; el EXE lo pasa como dword (los 16 bits altos son basura de la pila: no observables)
+    uint8 dataRefChanged;
+
+    plugin::CallAndReturn<int32, 0x818970, char*, void*, int32>(filename, fsSpec, 0);
+    if (const int32 err = plugin::CallAndReturn<int32, 0x81DAA0, void*, void*>(fsSpec, fileInfo); static_cast<int16>(err) != 0) {
+        return static_cast<int16>(err);
+    }
+    if (const int32 err = plugin::CallAndReturn<int32, 0x81B680, void*, int16*, int32>(fsSpec, &refNum, 1); static_cast<int16>(err) != 0) {
+        return static_cast<int16>(err);
+    }
+
+    const int32 movieErr = plugin::CallAndReturn<int32, 0x81AB80, void**, int32, int32*, char*, int32, uint8*>(&movie, refNum, &resourceId, nullptr, 1, &dataRefChanged);
+    plugin::CallAndReturn<int32, 0x81A9E0, int32>(refNum);
+    int16 result = static_cast<int16>(movieErr);
+    if (result != 0) {
+        return result;
+    }
+
+    void* const track = plugin::CallAndReturn<void*, 0x81BC60, void*, int32, uint32, int32>(movie, 1, 0x736F756E /* 'soun' */, 1);
+    if (!track) {
+        return static_cast<int16>(0xF827); // -2009
+    }
+
+    void* const media = plugin::CallAndReturn<void*, 0x81A0E0, void*>(track);
+    *outMedia = media;
+    if (!media) {
+        result = static_cast<int16>(0xF828); // -2008
+    }
+    *outMovie = movie;
+    return result;
+}
+
+// 0x4E7A80
+// Como el original: NewHandle(0) (0x818DB0) y GetMediaSampleDescription (0x81A300, indice 1) sobre la media; el OSErr sale de GetMoviesError (0x819860). Sin error: otro NewHandle(0),
+// GetSoundDescriptionExtension 'wave' (0x81C600) y, si lo hay, copia de la extension a un puntero propio (GetHandleSize 0x8192B0, HLock 0x818F90, NewPtr 0x818E70 -> *outAtom,
+// MemError 0x818D70 pasa a ser el resultado, BlockMoveData 0x819390, HUnlock 0x818FB0) y se rellena `info` desde la descripcion (releyendo el handle en cada campo). Al final se liberan
+// el handle de la extension y el de la descripcion (0x819270). Devuelve el OSErr de 16 bits (el llamador solo mira AX).
+// El EXE tiene un hueco de pila sin inicializar (`push ecx`) que usa como handle de la extension: si GetMoviesError falla, se pasa a DisposeHandle lo que hubiera en ECX
+// al entrar; el unico llamador (0x4E7CB0) llega con ECX = la media, y eso reproduce esta funcion.
+int16 __cdecl AEMFGetMediaSoundFormat(void* media, void** outDecompressionAtom, CAEMFDecoder::tQTSoundFormatInfo* info) {
+    void* extension = media; // hueco de pila del EXE (ECX de entrada = la media en el unico llamador)
+
+    void* const description = plugin::CallAndReturn<void*, 0x818DB0, int32>(0);
+    plugin::CallAndReturn<int32, 0x81A300, void*, int32, void*>(media, 1, description);
+    int32 err = plugin::CallAndReturn<int32, 0x819860>();
+    if (static_cast<int16>(err) == 0) {
+        extension = plugin::CallAndReturn<void*, 0x818DB0, int32>(0);
+        if (const int32 waveErr = plugin::CallAndReturn<int32, 0x81C600, void*, void**, uint32>(description, &extension, 0x77617665 /* 'wave' */); static_cast<int16>(waveErr) == 0) {
+            const int32 size = plugin::CallAndReturn<int32, 0x8192B0, void*>(extension);
+            plugin::CallAndReturn<int32, 0x818F90, void*>(extension);
+            void* const copy = plugin::CallAndReturn<void*, 0x818E70, int32>(size);
+            *outDecompressionAtom = copy;
+            err = plugin::CallAndReturn<int32, 0x818D70>();
+            plugin::CallAndReturn<int32, 0x819390, void*, void*, int32>(*static_cast<void**>(extension), *outDecompressionAtom, size); // el EXE relee *outAtom tras MemError
+            plugin::CallAndReturn<int32, 0x818FB0, void*>(extension);
+        } else {
+            err = 0;
+        }
+
+        // Como el original: cada campo vuelve a leer el handle de la descripcion.
+        const auto desc = [&]() { return *static_cast<uint8* const*>(description); };
+        info->format        = *reinterpret_cast<const uint32*>(desc() + 4);
+        info->numChannels   = *reinterpret_cast<const int16*>(desc() + 0x18);
+        info->sampleSize    = *reinterpret_cast<const int16*>(desc() + 0x1A);
+        info->sampleRate    = *reinterpret_cast<const uint32*>(desc() + 0x20);
+        info->compressionID = *reinterpret_cast<const int16*>(desc() + 0x1C);
+    }
+
+    if (extension) {
+        plugin::Call<0x819270, void*>(extension);
+    }
+    if (description) {
+        plugin::Call<0x819270, void*>(description);
+    }
+    return static_cast<int16>(err);
+}
 
 // 0x4e7770
 // Como el original: sólo escribe el nombre, el flag, la película, la media y la pista; el resto del objeto queda
@@ -233,6 +320,8 @@ void CAEMFDecoder::InjectHooks() {
     RH_ScopedVMTInstall(SetCursor, 0x4e78e0);
     RH_ScopedVMTInstall(GetSampleRate, 0x4e78c0);
     RH_ScopedVMTInstall(GetStreamID, 0x4e77b0);
+    RH_ScopedNamedGlobalInstall(AEMFOpenSoundMedia, "OpenSoundMedia", 0x4E7990);
+    RH_ScopedNamedGlobalInstall(AEMFGetMediaSoundFormat, "GetMediaSoundFormat", 0x4E7A80);
 }
 
 CAEMFDecoder* CAEMFDecoder::Constructor(char* filename, int32 trackID) {

@@ -92,3 +92,7 @@ private:
 };
 
 VALIDATE_SIZE(CAEMFDecoder, 0xc4);
+
+// Ayudantes del EXE sin clase, de los que Initialise (0x4E7CB0) depende. Los llama por su direccion (0x4E7990 / 0x4E7A80); ambos devuelven el OSErr de 16 bits en AX.
+int16 __cdecl AEMFOpenSoundMedia(char* filename, void** outMovie, void** outMedia);                                                      // 0x4E7990
+int16 __cdecl AEMFGetMediaSoundFormat(void* media, void** outDecompressionAtom, CAEMFDecoder::tQTSoundFormatInfo* info);               // 0x4E7A80

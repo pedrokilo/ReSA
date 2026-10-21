@@ -42,8 +42,8 @@ void RsSetNextPresetView(RwCamera* camera);
 void RsSetPreviousPresetView(RwCamera* camera);
 void RsDestroyPresetViews();
 void* RsGetPresetViewDescription();
-void RsLoadPresetViews();
-void RsSavePresetView();
+bool RsLoadPresetViews();
+bool RsSavePresetView(RwCamera* camera);
 
 RwImage* RsGrabScreen(RwCamera* camera);
 

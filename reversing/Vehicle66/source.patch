@@ -1,0 +1,268 @@
+diff --git a/source/game_sa/Entity/Vehicle/Vehicle.cpp b/source/game_sa/Entity/Vehicle/Vehicle.cpp
+index 41a512c06..f660ee38f 100644
+--- a/source/game_sa/Entity/Vehicle/Vehicle.cpp
++++ b/source/game_sa/Entity/Vehicle/Vehicle.cpp
+@@ -308,14 +308,14 @@ void CVehicle::InjectHooks() {
+     RH_ScopedInstall(AddExhaustParticles, 0x6DE240);
+     // RH_ScopedInstall(AddSingleWheelParticles, 0x6DE880);
+     RH_ScopedInstall(GetSpecialColModel, 0x6DF3D0);
+-    // RH_ScopedInstall(RemoveVehicleUpgrade, 0x6DF930);
+-    // RH_ScopedInstall(AddUpgrade, 0x6DFA20);
++    RH_ScopedInstall(RemoveVehicleUpgrade, 0x6DF930);
++    RH_ScopedInstall(AddUpgrade, 0x6DFA20);
+     // RH_ScopedInstall(UpdateTrailerLink, 0x6DFC50);
+     // RH_ScopedInstall(UpdateTractorLink, 0x6E0050);
+     // RH_ScopedInstall(ScanAndMarkTargetForHeatSeekingMissile, 0x6E0400);
+     // RH_ScopedInstall(FireHeatSeakingMissile, 0x6E05C0);
+-    // RH_ScopedInstall(PossiblyDropFreeFallBombForPlayer, 0x6E07E0);
+-    // RH_ScopedInstall(ProcessSirenAndHorn, 0x6E0950);
++    RH_ScopedInstall(PossiblyDropFreeFallBombForPlayer, 0x6E07E0);
++    RH_ScopedInstall(ProcessSirenAndHorn, 0x6E0950);
+     RH_ScopedInstall(DoHeadLightEffect, 0x6E0A50);
+     RH_ScopedInstall(DoHeadLightReflectionSingle, 0x6E1440);
+     RH_ScopedInstall(DoHeadLightReflectionTwin, 0x6E1600);
+@@ -324,7 +324,7 @@ void CVehicle::InjectHooks() {
+     RH_ScopedInstall(DoVehicleLights, 0x6E1A60);
+     RH_ScopedInstall(FillVehicleWithPeds, 0x6E2900);
+     RH_ScopedInstall(DoBladeCollision, 0x6E2E50);
+-    // RH_ScopedInstall(AddVehicleUpgrade, 0x6E3290);
++    RH_ScopedInstall(AddVehicleUpgrade, 0x6E3290);
+     RH_ScopedInstall(SetupUpgradesAfterLoad, 0x6E3400);
+     // RH_ScopedInstall(GetPlaneWeaponFiringStatus, 0x6E3440);
+     // RH_ScopedInstall(ProcessWeapons, 0x6E3950);
+@@ -7299,12 +7299,82 @@ bool CVehicle::GetSpecialColModel() {
+ 
+ // 0x6DF930
+ void CVehicle::RemoveVehicleUpgrade(int32 upgradeModelIndex) {
+-    ((void(__thiscall*)(CVehicle*, int32))0x6DF930)(this, upgradeModelIndex);
++    // Como el original (0x6DF930..0x6DFA1D): si ClearVehicleUpgradeFlags (0x6D3210) lo resuelve termina; si no, quita el componente del modelo (marco de reemplazo con bUsesVehDummy
++    // o atomos con RemoveUpgradeCB, que se pasa con el CarMod como valor en 'data') y el del modelo enlazado (ms_linkedUpgrades), y limpia la mejora de m_anUpgrades.
++    CBaseModelInfo* const upgradeInfo = CModelInfo::ms_modelInfoPtrs[upgradeModelIndex];
++    if (ClearVehicleUpgradeFlags(upgradeModelIndex, upgradeInfo->CarMod)) {
++        return;
++    }
++
++    const int32 linkedModelIndex = CVehicleModelInfo::ms_linkedUpgrades.FindOtherUpgrade(static_cast<int16>(upgradeModelIndex));
++
++    const int32 carMod = upgradeInfo->CarMod;
++    if (upgradeInfo->bUsesVehDummy) {
++        RemoveReplacementUpgrade(carMod);
++        if (carMod == 2) {
++            m_fWheelScale = 1.0f;
++            RemoveReplacementUpgrade(5);
++            RemoveReplacementUpgrade(4);
++            RemoveReplacementUpgrade(7);
++        }
++    } else {
++        RpClumpForAllAtomics(GetRpClump(), RemoveUpgradeCB, std::bit_cast<void*>(carMod));
++    }
++
++    if (linkedModelIndex != -1) {
++        CBaseModelInfo* const linkedInfo = CModelInfo::ms_modelInfoPtrs[linkedModelIndex];
++        const int32 linkedCarMod = linkedInfo->CarMod;
++        if (linkedInfo->bUsesVehDummy) {
++            RemoveReplacementUpgrade(linkedCarMod);
++        } else {
++            RpClumpForAllAtomics(GetRpClump(), RemoveUpgradeCB, std::bit_cast<void*>(linkedCarMod));
++        }
++    }
++
++    // El EXE recorre las 15 ranuras (0x43A, int16 con signo extendido) y borra todas las que coinciden
++    for (auto& upgrade : m_anUpgrades) {
++        if (upgrade == upgradeModelIndex) {
++            upgrade = -1;
++        }
++    }
+ }
+ 
+ // 0x6DFA20
+ void CVehicle::AddUpgrade(int32 modelIndex, int32 upgradeIndex) {
+-    ((void(__thiscall*)(CVehicle*, int32, int32))0x6DFA20)(this, modelIndex, upgradeIndex);
++    // Como el original (0x6DFA20..0x6DFB6A): quita los atomos de mejora previos del indice, crea el atomo de la mejora en el marco padre y, salvo si el padre es el componente 1,
++    // una segunda copia (danada) con el descriptor alterno (0->3, 1->4, 2->5, 6->7, 12->13 si su padre != -1); deja visible el marco y reaplica la matricula.
++    auto* const vehicleInfo = static_cast<CVehicleModelInfo*>(CModelInfo::ms_modelInfoPtrs[static_cast<int16>(m_nModelIndex)]);
++    CBaseModelInfo* const upgradeInfo = CModelInfo::ms_modelInfoPtrs[modelIndex];
++    const UpgradePosnDesc* desc = vehicleInfo->m_pVehicleStruct->m_aUpgrades.data() + upgradeIndex;
++
++    RwFrame* const frame = CClumpModelInfo::GetFrameFromId(GetRpClump(), desc->m_nParentComponentId);
++    RpClumpForAllAtomics(GetRpClump(), RemoveUpgradeCB, std::bit_cast<void*>(upgradeIndex));
++    CreateUpgradeAtomic(upgradeInfo, desc, frame, false);
++
++    if (desc->m_nParentComponentId == 1) {
++        return;
++    }
++
++    // El EXE relee m_pVehicleStruct del modelo del vehiculo en cada rama
++    const UpgradePosnDesc* const upgrades = vehicleInfo->m_pVehicleStruct->m_aUpgrades.data();
++    switch (upgradeIndex) {
++    case 0:  if (upgrades[3].m_nParentComponentId  != -1) desc = &upgrades[3];  break;
++    case 1:  if (upgrades[4].m_nParentComponentId  != -1) desc = &upgrades[4];  break;
++    case 2:  if (upgrades[5].m_nParentComponentId  != -1) desc = &upgrades[5];  break;
++    case 6:  if (upgrades[7].m_nParentComponentId  != -1) desc = &upgrades[7];  break;
++    case 12: if (upgrades[13].m_nParentComponentId != -1) desc = &upgrades[13]; break;
++    default: break;
++    }
++
++    CreateUpgradeAtomic(upgradeInfo, desc, frame, true);
++
++    if (frame) {
++        RwFrameForAllObjects(frame, static_cast<RwObjectCallBack>(SetVehicleAtomicVisibilityCB), std::bit_cast<void*>(1));
++        RwFrameForAllChildren(frame, static_cast<RwFrameCallBack>(SetVehicleAtomicVisibilityCB), std::bit_cast<void*>(1));
++    }
++
++    auto* const info = static_cast<CVehicleModelInfo*>(CModelInfo::ms_modelInfoPtrs[static_cast<int16>(m_nModelIndex)]);
++    CCustomCarPlateMgr::SetupClumpAfterVehicleUpgrade(GetRpClump(), info->m_pPlateMaterial, info->m_nPlateType);
+ }
+ 
+ // 0x6DFC50
+@@ -7329,12 +7399,69 @@ void CVehicle::FireHeatSeakingMissile(CEntity* targetEntity, eOrdnanceType type,
+ 
+ // 0x6E07E0
+ void CVehicle::PossiblyDropFreeFallBombForPlayer(eOrdnanceType type, bool arg1) {
+-    ((void(__thiscall*)(CVehicle*, eOrdnanceType, bool))0x6E07E0)(this, type, arg1);
++    // Como el original (0x6E07E0..0x6E0944): con arg1 respeta el intervalo del arma (GetPlaneOrdnanceRateOfFire); suelta una bomba (arma 21) en la posicion de la ordenanza alternando el
++    // lado (m_nOrdnanceCycleIndex 0/1), hace vibrar el mando 0/1 si el conductor es el jugador y anota la hora del disparo (0x4FC para el tipo 1, 0x500 para los demas).
++    const uint32 lastFiringTime = type == static_cast<eOrdnanceType>(1) ? m_nProjectileWeaponFiringTime : m_nAdditionalProjectileWeaponFiringTime;
++    if (arg1 && CTimer::GetTimeInMS() <= GetPlaneOrdnanceRateOfFire(type) + lastFiringTime) {
++        return;
++    }
++
++    // El EXE lee la posicion (matriz + 0x30, o la del placeable si no hay matriz) ANTES de pedir la de la ordenanza; la direccion que pasa es matriz + 0x10 sin comprobar nulo
++    const CVector position = GetPosition();
++    const CVector ordnance = GetPlaneOrdnancePosition(type);
++
++    const bool    secondSide = m_nOrdnanceCycleIndex != 0;
++    const CVector spawn{ position.x + (secondSide ? -ordnance.x : ordnance.x), ordnance.y + position.y, ordnance.z + position.z };
++    m_nOrdnanceCycleIndex = secondSide ? 0 : 1;
++
++    const auto* const direction = reinterpret_cast<const CVector*>(reinterpret_cast<uintptr_t>(m_matrix) + 0x10);
++    CProjectileInfo::AddProjectile(this, static_cast<eWeaponType>(21), spawn, 0.0f, direction, nullptr);
++
++    if (m_pDriver && m_pDriver->IsPlayer()) {
++        const auto pedType = m_pDriver->m_nPedType;
++        if (pedType == PED_TYPE_PLAYER1 || pedType == PED_TYPE_PLAYER2) {
++            CPad::GetPad(pedType)->StartShake(240, 160, 0);
++        }
++    }
++
++    if (type == static_cast<eOrdnanceType>(1)) {
++        m_nProjectileWeaponFiringTime = CTimer::GetTimeInMS();
++    } else {
++        m_nAdditionalProjectileWeaponFiringTime = CTimer::GetTimeInMS();
++    }
+ }
+ 
+ // 0x6E0950
+ void CVehicle::ProcessSirenAndHorn(bool arg0) {
+-    ((void(__thiscall*)(CVehicle*, bool))0x6E0950)(this, arg0);
++    // Como el original (0x6E0950..0x6E0A43): con sirena (UsesSiren, 0x6D8470) lee el historial de bocina del pad 0 (bHornHistory/iCurrHornHistory; el indice es un byte sin acotar a 5) y
++    // decide m_HornCounter: con la entrada actual pulsada vale 1 si las de (i+4)%5 e (i+3)%5 tambien lo estan; con la actual suelta, si (i+4)%5 esta pulsada e (i+1)%5 suelta, queda a 0 y
++    // conmuta bSirenOrAlarm; en cualquier otro caso 0. Sin sirena y con arg0: salvo alarma activa (distinta de 0 y 0xFFFF) en un vehiculo no destruido, copia GetHorn() del pad 0.
++    if (UsesSiren()) {
++        CPad& pad = CPad::Pads[0];
++        const int32 index = static_cast<uint8>(pad.iCurrHornHistory);
++        const char* const history = pad.bHornHistory.data();
++        if (history[index] == 0) {
++            if (history[(index + 4) % 5] == 0 || history[(index + 1) % 5] != 0) {
++                m_HornCounter = 0;
++                return;
++            }
++            m_HornCounter = 0;
++            vehicleFlags.bSirenOrAlarm = !vehicleFlags.bSirenOrAlarm;
++            return;
++        }
++        if (history[(index + 4) % 5] == 0 || history[(index + 3) % 5] == 0) {
++            m_HornCounter = 0;
++            return;
++        }
++        m_HornCounter = 1;
++        return;
++    }
++
++    if (!arg0 || !CanUpdateHornCounter()) {
++        return;
++    }
++
++    m_HornCounter = CPad::Pads[0].GetHorn() ? 1 : 0;
+ }
+ 
+ // Cuerpo de DoHeadLightEffect (0x6E0A50) y de las dos copias en linea que DoVehicleLights (0x6E1A60) trae con lightId = 1 (el EXE no llama a 0x6E0A50 para ellas). Las dos son la misma
+@@ -7866,8 +7993,63 @@ bool CVehicle::DoBladeCollision(CVector pos, CMatrix& matrix, int16 rotorType, f
+ }
+ 
+ // 0x6E3290
+-void CVehicle::AddVehicleUpgrade(int32 modelId) {
+-    ((void(__thiscall*)(CVehicle*, int32))0x6E3290)(this, modelId);
++int32 CVehicle::AddVehicleUpgrade(int32 modelId) {
++    // Como el original (0x6E3290..0x6E33FC): si SetVehicleUpgradeFlags (0x6D30E0) lo resuelve no toca el modelo; si no, pone el componente como reemplazo (bUsesVehDummy: GetReplacementUpgrade
++    // + AddReplacementUpgrade, y con el componente 2 la escala de rueda y los componentes 5, 4 y 7 mas la habilidad todoterreno) o como mejora (GetUpgrade + AddUpgrade), y lo mismo para el
++    // modelo enlazado. Al final el primer hueco de m_anUpgrades igual a la mejora sustituida (que se borra del resto) o libre recibe el modelo nuevo.
++    // Devuelve la mejora sustituida (-1 si no hay): el EXE la deja en EAX y el llamador de 0x4985DA la guarda en una global (0xA43C78).
++    CBaseModelInfo* const upgradeInfo = CModelInfo::ms_modelInfoPtrs[modelId];
++    int32 replacedModelIndex = -1;
++    if (!SetVehicleUpgradeFlags(modelId, upgradeInfo->CarMod, replacedModelIndex)) {
++        const int32 linkedModelIndex = CVehicleModelInfo::ms_linkedUpgrades.FindOtherUpgrade(static_cast<int16>(modelId));
++        const int32 carMod = upgradeInfo->CarMod;
++        if (upgradeInfo->bUsesVehDummy) {
++            replacedModelIndex = GetReplacementUpgrade(carMod);
++            AddReplacementUpgrade(modelId, carMod);
++            if (carMod == 2) {
++                m_fWheelScale = static_cast<CVehicleModelInfo*>(CModelInfo::ms_modelInfoPtrs[static_cast<int16>(m_nModelIndex)])->m_fWheelSizeFront;
++                AddReplacementUpgrade(modelId, 5);
++                AddReplacementUpgrade(modelId, 4);
++                AddReplacementUpgrade(modelId, 7);
++                if (m_nVehicleSubType == VEHICLE_TYPE_AUTOMOBILE) {
++                    if (modelId == static_cast<int32>(static_cast<uint16>(ModelIndices::MI_OFFROAD_WHEEL))) {
++                        handlingFlags.bOffroadAbility = true;
++                    } else if (!m_pHandlingData->m_bOffroadAbility) {
++                        handlingFlags.bOffroadAbility = false;
++                    }
++                }
++            }
++        } else {
++            replacedModelIndex = GetUpgrade(carMod);
++            AddUpgrade(modelId, carMod);
++        }
++
++        if (linkedModelIndex != -1) {
++            CBaseModelInfo* const linkedInfo = CModelInfo::ms_modelInfoPtrs[linkedModelIndex];
++            const int32 linkedCarMod = linkedInfo->CarMod;
++            if (linkedInfo->bUsesVehDummy) {
++                AddReplacementUpgrade(linkedModelIndex, linkedCarMod);
++            } else {
++                AddUpgrade(linkedModelIndex, linkedCarMod);
++            }
++        }
++    }
++
++    int32 newValue = modelId;
++    for (auto& upgrade : m_anUpgrades) {
++        bool store = false;
++        if (upgrade == replacedModelIndex) {
++            upgrade = -1;
++            store   = true;
++        } else if (upgrade == -1) {
++            store = true;
++        }
++        if (store) {
++            upgrade  = static_cast<int16>(newValue);
++            newValue = -1;
++        }
++    }
++    return replacedModelIndex;
+ }
+ 
+ // 0x6E3400
+diff --git a/source/game_sa/Entity/Vehicle/Vehicle.h b/source/game_sa/Entity/Vehicle/Vehicle.h
+index e2687e115..fc1463b37 100644
+--- a/source/game_sa/Entity/Vehicle/Vehicle.h
++++ b/source/game_sa/Entity/Vehicle/Vehicle.h
+@@ -659,7 +659,7 @@ public:
+ 
+     void FillVehicleWithPeds(bool bSetClothesToAfro);
+     bool DoBladeCollision(CVector pos, CMatrix& matrix, int16 rotorType, float radius, float damageMult);
+-    void AddVehicleUpgrade(int32 modelId);
++    int32 AddVehicleUpgrade(int32 modelId); // devuelve la mejora sustituida (EAX del EXE: lo lee 0x4985DA)
+     void SetupUpgradesAfterLoad();
+     void GetPlaneWeaponFiringStatus(bool& status, eOrdnanceType& ordnanceType);
+     void ProcessWeapons();

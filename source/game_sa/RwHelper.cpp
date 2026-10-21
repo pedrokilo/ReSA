@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: RwHelper
- * Reconstrucción: COMPLETA — 30/30 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 33/33 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 30/30 entradas.
+ * Validación registrada: 33/33 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -43,6 +43,8 @@ void RwHelperInjectHooks() {
     RH_ScopedGlobalInstall(RwTexDictionaryFindHashNamedTexture, 0x734E50);
     RH_ScopedGlobalInstall(GetFirstTexture, 0x734940);
     RH_ScopedGlobalInstall(RwTexDictionaryGtaStreamRead, 0x730FC0);
+    RH_ScopedGlobalInstall(RwTextureGtaStreamRead, 0x730E60);
+    RH_ScopedGlobalInstall(SkinGetBonePositionsToTable, 0x735360);
     RH_ScopedGlobalInstall(RpGeometryReplaceOldMaterialWithNewMaterial, 0x734DE0);
     RH_ScopedGlobalInstall(GetAnimHierarchyFromClump, 0x734B10);
     RH_ScopedGlobalInstall(AtomicRemoveAnimFromSkinCB, 0x734B90);
@@ -57,6 +59,7 @@ void RwHelperInjectHooks() {
     RH_ScopedGlobalInstall(forceLinearFilteringMatTexturesCB, 0x734D60);
     RH_ScopedGlobalInstall(SetFilterModeOnAtomicsTextures, 0x734D80);
     RH_ScopedGlobalInstall(RemoveRefsCB, 0x7226D0);
+    RH_ScopedGlobalInstall(RpClumpGetBoundingSphere, 0x734FC0);
 }
 
 // 0x4ABA50
@@ -348,9 +351,44 @@ RwTexture* RwTexDictionaryFindHashNamedTexture(RwTexDictionary* dictionary, uint
     return nullptr;
 }
 
-// 0x734FC0
+// 0x734FC0 (cdecl, ret): esfera envolvente de un clump. Guarda el byte bajo de bUseLTM en el global 0x8D60BC (lo leen los dos callbacks); sin clump o sin esfera devuelve 0 sin tocar
+// nada mas. Pone la esfera a 0; con RpClumpGetNumAtomics < 1 devuelve 0 (la esfera ya a cero). Centro = suma de los centros de los atomos (callback 0x734970: centro de la esfera de cada
+// atomo transformado por la LTM del marco del atomo, o por su matriz local si el global es 0) dividida entre float(numero de atomos) (x87: 1/n a 24 bits y un producto por componente, en
+// el orden x, y, z); radio = maximo de |centro - centro del atomo| + radio del atomo (callback 0x734ED0, con el radio inicial a 0). Despues el centro se transforma con la inversa (0x7F2070,
+// RwMatrixInvert) de la LTM del marco del clump (global distinto de 0) o de su matriz local (marco + 0x10). Los dos callbacks siguen siendo codigo del EXE (se pasan por direccion).
+// Ningun llamador del EXE lee ECX/EDX; EAX es el clump (o 0).
 RpClump* RpClumpGetBoundingSphere(RpClump* clump, RwSphere* sphere, bool bUseLTM) {
-    return ((RpClump * (__cdecl*)(RpClump*, RwSphere*, bool))0x734FC0)(clump, sphere, bUseLTM);
+    auto& useLtm = StaticRef<uint8>(0x8D60BC);
+    useLtm = std::bit_cast<uint8>(bUseLTM);
+    if (!clump || !sphere) {
+        return nullptr;
+    }
+    sphere->center.x = 0.0f;
+    sphere->center.y = 0.0f;
+    sphere->radius = 0.0f;
+    sphere->center.z = 0.0f;
+    const RwInt32 numAtomics = RpClumpGetNumAtomics(clump);
+    if (numAtomics < 1) {
+        return nullptr;
+    }
+    RwV3d sum{};
+    RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(0x734970), &sum);
+    Hp66ClumpScaleCenterCpp(&sum.x, numAtomics);
+    RwSphere local{ sum, 0.0f };
+    RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(0x734ED0), &local);
+    auto* const frame = reinterpret_cast<RwFrame*>(clump->object.parent);
+    RwMatrix matrix;
+    if (useLtm) {
+        RwMatrixInvert(&matrix, RwFrameGetLTM(frame));
+    } else {
+        RwMatrixInvert(&matrix, &frame->modelling);
+    }
+    RwV3dTransformPoints(&local.center, &local.center, 1, &matrix);
+    sphere->radius = local.radius;
+    sphere->center.x = local.center.x;
+    sphere->center.y = local.center.y;
+    sphere->center.z = local.center.z;
+    return clump;
 }
 
 // 0x735140
@@ -364,8 +402,52 @@ void SkinSetBonePositions(RpClump* clump) {
 }
 
 // 0x735360
+// Como el original: con tabla nula no hace nada. Si no, busca el primer atomo del clump (RpClumpForAllAtomics con el callback 0x734810) y su RpSkin (RpSkinGeometryGetSkin, sin
+// comprobar nulos: un clump sin atomos revienta, como en el EXE), pide la jerarquia (callback 0x734A20), pone table[0] a cero y recorre los huesos 1..n-1 (n = RpSkinGetNumBones,
+// con signo). Para cada hueso i: copia la matriz piel-a-hueso i, la invierte (RwMatrixInvert), copia la del hueso padre (la matriz se vuelve a pedir con RpSkinGetSkinToBoneMatrices
+// antes de cada copia) y table[i] = RwV3dTransformPoints(posicion de la inversa, matriz del padre). El padre sale de las banderas del nodo i de la jerarquia (pNodeInfo[i], 0x10 bytes):
+// con PUSH (2) se apila el padre actual, con POP (1) el nuevo padre es el desapilado y, sin POP, el nuevo padre es i. La pila del EXE (32 enteros, nunca inicializada) arranca con el
+// puntero en su primera posicion: un POP sin PUSH previo lee basura de la pila (no definido; aqui 0).
 void SkinGetBonePositionsToTable(RpClump* clump, RwV3d* table) {
-    ((void(__cdecl*)(RpClump*, RwV3d*))0x735360)(clump, table);
+    if (!table) {
+        return;
+    }
+
+    RpAtomic* atomic = nullptr;
+    RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(0x734810), &atomic); // GetFirstAtomicCallback
+    RpSkin* const skin = RpSkinGeometryGetSkin(RpAtomicGetGeometry(atomic));
+
+    RpHAnimHierarchy* hierarchy = nullptr;
+    RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(0x734A20), &hierarchy); // SkinAtomicGetHAnimHierarchCB
+
+    table[0].x = 0.0f;
+    table[0].y = 0.0f;
+    table[0].z = 0.0f;
+
+    const int32 numBones = static_cast<int32>(RpSkinGetNumBones(skin));
+    int32  parent = 0;
+    int32  stack[33]{};
+    int32* stackTop = stack;
+    for (int32 bone = 1; bone < numBones; ++bone) {
+        RwMatrix boneMatrix = RpSkinGetSkinToBoneMatrices(skin)[bone];
+        RwMatrix inverse;
+        RwMatrixInvert(&inverse, &boneMatrix);
+
+        // Como el original: el indice del padre se multiplica por 64 con 32 bits (shl esi,6) sobre el puntero devuelto
+        const auto* const parentSource = reinterpret_cast<const RwMatrix*>(reinterpret_cast<const uint8*>(RpSkinGetSkinToBoneMatrices(skin)) + (static_cast<uint32>(parent) << 6));
+        RwMatrix parentMatrix = *parentSource;
+        RwV3dTransformPoints(&table[bone], &inverse.pos, 1, &parentMatrix);
+
+        const RwInt32 flags = hierarchy->pNodeInfo[bone].flags;
+        if (flags & rpHANIMPUSHPARENTMATRIX) {
+            *++stackTop = parent;
+        }
+        if (flags & rpHANIMPOPPARENTMATRIX) {
+            parent = *stackTop--;
+        } else {
+            parent = bone;
+        }
+    }
 }
 
 // 0x7226D0

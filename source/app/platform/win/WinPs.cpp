@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: Ps
- * Reconstrucción: COMPLETA — 22/22 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 23/23 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 22/22 entradas.
+ * Validación registrada: 23/23 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -85,6 +85,62 @@ static BOOL CheckDirectSound() {
     ds->Release();
 
     return result;
+}
+
+// 0x745650
+// Como el original: devuelve 0 si no puede cargar DDRAW.DLL, ni obtener DirectDrawCreateEx, ni crear el objeto (HRESULT < 0); en cada fallo avisa con OutputDebugStringA (texto con "\r\n")
+// y libera lo cargado. Con el objeto creado lo libera (Release, ranura 2) y comprueba D3D8.DLL (0x700), dpnhpast.dll (0x800) y D3D9.DLL (0x801); con todo cargado devuelve 0x900.
+// Las bibliotecas se descargan en el orden del EXE: dpnhpast (con el valor devuelto, aunque sea nulo), DDRAW, D3D8 y, si cargo, D3D9 (sin ningun otro efecto).
+static DWORD GetDXVersion() {
+    const HMODULE ddraw = LoadLibraryA("DDRAW.DLL");
+    if (!ddraw) {
+        OutputDebugStringA("Please check you have installed Direct X 9 correctly : Couldn't LoadLibrary DDraw\r\n");
+        return 0;
+    }
+
+    using DirectDrawCreateExFn = HRESULT(WINAPI*)(GUID*, LPVOID*, REFIID, IUnknown*);
+    const auto createEx = reinterpret_cast<DirectDrawCreateExFn>(GetProcAddress(ddraw, "DirectDrawCreateEx"));
+    if (!createEx) {
+        FreeLibrary(ddraw);
+        OutputDebugStringA("Please check you have installed Direct X 9 correctly : Couldn't GetProcAddress DirectDrawCreateEx\r\n");
+        return 0;
+    }
+
+    IUnknown* directDraw = nullptr; // Como el original: hueco de pila sin inicializar (solo se usa si createEx tiene exito)
+    if (createEx(nullptr, reinterpret_cast<LPVOID*>(&directDraw), IID_IDirectDraw7, nullptr) < 0) {
+        FreeLibrary(ddraw);
+        OutputDebugStringA("Please check you have installed Direct X 9 correctly : Couldn't DirectDrawCreateEx\r\n");
+        return 0;
+    }
+    directDraw->Release();
+
+    const HMODULE d3d8 = LoadLibraryA("D3D8.DLL");
+    if (!d3d8) {
+        FreeLibrary(ddraw);
+        OutputDebugStringA("Please check you have installed Direct X 9 correctly : Couldn't LoadLibrary D3D8.DLL\r\n");
+        return 0x700;
+    }
+
+    const HMODULE dpnhpast = LoadLibraryA("dpnhpast.dll");
+    if (!dpnhpast) {
+        FreeLibrary(dpnhpast); // Como el original: FreeLibrary(NULL)
+        FreeLibrary(ddraw);
+        FreeLibrary(d3d8);
+        OutputDebugStringA("Please check you have installed Direct X 9 correctly : Couldn't LoadLibrary dpnhpast.dll\r\n");
+        return 0x800;
+    }
+
+    const HMODULE d3d9 = LoadLibraryA("D3D9.DLL");
+    FreeLibrary(dpnhpast);
+    FreeLibrary(ddraw);
+    FreeLibrary(d3d8);
+    if (!d3d9) {
+        OutputDebugStringA("Please check you have installed Direct X 9 correctly : Couldn't LoadLibrary D3D9.DLL\r\n");
+        return 0x801;
+    }
+
+    FreeLibrary(d3d9);
+    return 0x900;
 }
 
 // 0x7465B0
@@ -563,4 +619,5 @@ void WinPsInjectHooks() {
     RH_ScopedGlobalInstall(InitialiseLanguage, 0x7465B0);
     RH_ScopedGlobalInstall(CheckDirectSound, 0x745840);
     RH_ScopedGlobalInstall(GetVideoMemInfo, 0x7455E0);
+    RH_ScopedGlobalInstall(GetDXVersion, 0x745650);
 }

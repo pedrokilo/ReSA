@@ -1,0 +1,412 @@
+diff --git a/source/app/platform/platform.cpp b/source/app/platform/platform.cpp
+index c81df1de8..b23fe2f77 100644
+--- a/source/app/platform/platform.cpp
++++ b/source/app/platform/platform.cpp
+@@ -83,6 +83,7 @@ void RsInjectHooks() {
+     RH_ScopedGlobalInstall(RsWarningMessage, 0x619B30);
+     RH_ScopedGlobalInstall(RsEventHandler, 0x619B60);
+     RH_ScopedGlobalInstall(RsRwInitialize, 0x619C90);
++    RH_ScopedGlobalInstall(RsSavePresetView, 0x619FA0);
+ }
+ 
+ static auto& KeysShifted = StaticRef<std::array<uint8, 256>>(0x8D2D00);
+diff --git a/source/app/platform/platform.h b/source/app/platform/platform.h
+index 65e5f7fb9..990802261 100644
+--- a/source/app/platform/platform.h
++++ b/source/app/platform/platform.h
+@@ -42,8 +42,8 @@ void RsSetNextPresetView(RwCamera* camera);
+ void RsSetPreviousPresetView(RwCamera* camera);
+ void RsDestroyPresetViews();
+ void* RsGetPresetViewDescription();
+-void RsLoadPresetViews();
+-void RsSavePresetView();
++bool RsLoadPresetViews();
++bool RsSavePresetView(RwCamera* camera);
+ 
+ RwImage* RsGrabScreen(RwCamera* camera);
+ 
+diff --git a/source/app/platform/preset_view.cpp b/source/app/platform/preset_view.cpp
+index c5e005cb4..38bb16d18 100644
+--- a/source/app/platform/preset_view.cpp
++++ b/source/app/platform/preset_view.cpp
+@@ -1,6 +1,7 @@
+ #include "StdInc.h"
+ 
+ #include "platform.h"
++#include "X87Math.h"
+ 
+ struct PresetView {
+     CVector m_Translation;
+@@ -117,12 +118,61 @@ void* RsGetPresetViewDescription() {
+     return pv->m_Description;
+ }
+ 
+-// 0x619D60
+-void RsLoadPresetViews() {
+-    plugin::Call<0x619D60>();
++// 0x619D60 (devuelve NumPresetViews != 0 en EAX: 0 o 1)
++bool RsLoadPresetViews() {
++    return plugin::CallAndReturn<bool, 0x619D60>();
+ }
+ 
++// Funciones de fichero de RenderWare (RwFileFunctions, 11 punteros en RwEngineInstance + 0xC4: RwOsGetFileInterface, 0x804130)
++struct PresetViewFileFunctions {
++    void*  fexist;
++    void*  (__cdecl* fopen)(const char* path, const char* mode); // +4
++    int32  (__cdecl* fclose)(void* file);                        // +8
++    void*  fread;
++    void*  fwrite;
++    void*  fgets;
++    int32  (__cdecl* fputs)(const char* text, void* file);       // +0x18
++    void*  rest[4];
++};
++static_assert(sizeof(PresetViewFileFunctions) == sizeof(RwGlobals::fileFuncs));
++static_assert(offsetof(RwCamera, nearPlane) == 0x80 && offsetof(RwCamera, farPlane) == 0x84);
++
+ // 0x619FA0
+-void RsSavePresetView() {
+-    plugin::Call<0x619FA0>();
++// Anade al fichero ./views.txt la vista actual de la camara (posicion, rotX, rotY, plano cercano y lejano y el nombre "View<N>"), recarga las vistas y selecciona la ultima.
++// Como el original: ningun llamador del EXE (la funcion no tiene llamadas directas ni punteros); devuelve lo que devuelve RsLoadPresetViews (0 si falla algo).
++bool RsSavePresetView(RwCamera* camera) {
++    // RwOsGetFileInterface (0x804130) = RwEngineInstance + 0xC4 (nunca nulo)
++    auto* const files = reinterpret_cast<PresetViewFileFunctions*>(&RwEngineInstance->fileFuncs[0]);
++    if (!files) {
++        return false;
++    }
++
++    char* const path = psPathnameCreate(ViewsFileName);
++    void* const file = files->fopen(path, "a"); // 0x863A2C
++    psPathnameDestroy(path);
++    if (!file) {
++        RsErrorMessage("Cannot open preset view file"); // el EXE lo tiene expandido en linea (aviso de teclado 0x420 + psErrorMessage)
++        return false;
++    }
++
++    // Ayudante usercall 0x619910 (X87Math.cpp)
++    float pos[3], rotX, rotY;
++    Hp66PresetViewAnglesCpp(reinterpret_cast<const float*>(RwFrameGetLTM(RwCameraGetFrame(camera))), reinterpret_cast<float(__cdecl*)(void*, const void*)>(&RwV3dNormalize), pos, &rotX, &rotY);
++
++    char line[0x400];
++    rwsprintf(line, "%0.6f %0.6f %0.6f  %0.6f %0.6f  %0.6f %0.6f %s%d\n", // 0x86D440
++              double(pos[0]), double(pos[1]), double(pos[2]), double(rotX), double(rotY), double(camera->nearPlane), double(camera->farPlane), "View", NumPresetViews);
++    (void)rwstrlen(line); // el EXE llama a strlen y no usa el resultado
++
++    bool loaded = false;
++    if (files->fputs(line, file) <= 0) {
++        RsErrorMessage("Cannot write to preset view file");
++    } else {
++        loaded = RsLoadPresetViews();
++        if (loaded) {
++            RsSetPresetView(camera, NumPresetViews - 1);
++        }
++    }
++    files->fclose(file);
++    return loaded;
+ }
+diff --git a/source/game_sa/Entity/Ped/PlayerPed.cpp b/source/game_sa/Entity/Ped/PlayerPed.cpp
+index 466440c1d..d703997e3 100644
+--- a/source/game_sa/Entity/Ped/PlayerPed.cpp
++++ b/source/game_sa/Entity/Ped/PlayerPed.cpp
+@@ -103,10 +103,12 @@ void CPlayerPed::InjectHooks() {
+     RH_ScopedInstall(DoesTargetHaveToBeBroken, 0x60C0C0);
+     RH_ScopedInstall(SetPlayerMoveBlendRatio, 0x60C520);
+     RH_ScopedInstall(FindPedToAttack, 0x60C5F0);
++    RH_ScopedInstall(PlayerWantsToAttack, 0x60CC50);
+     RH_ScopedInstall(ForceGroupToAlwaysFollow, 0x60C7C0);
+     RH_ScopedInstall(ForceGroupToNeverFollow, 0x60C800);
+     RH_ScopedOverloadedInstall(MakeChangesForNewWeapon, "BySlot", 0x60D000, void(CPlayerPed::*)(uint32));
+     RH_ScopedInstall(EvaluateTarget, 0x60D020);
++    RH_ScopedInstall(EvaluateNeighbouringTarget, 0x60D1C0);
+     RH_ScopedInstall(PlayerHasJustAttackedSomeone, 0x60D5A0);
+     RH_ScopedInstall(SetupPlayerPed, 0x60D790);
+ 
+@@ -1034,7 +1036,44 @@ void CPlayerPed::MakeThisPedJoinOurGroup(CPed* ped) {
+ 
+ // 0x60CC50
+ bool CPlayerPed::PlayerWantsToAttack() {
+-    return plugin::CallMethodAndReturn<bool, 0x60CC50, CPlayerPed *>(this);
++    // Como el original (0x60CC50..0x60CD17): el grupo del jugador se indexa sin comprobar el rango (imul 0x2D4 + 0xC09920) y la funcion no deja un valor definido en EAX
++    // (el unico llamador del EXE, 0x685A7A via 0x60D5A0, no lo lee): se devuelve false.
++    auto& group = CPedGroups::ms_groups.data()[GetPlayerData()->m_nPlayerGroup];
++    if (group.GetMembership().CountMembersExcludingLeader() < 1) {
++        return false;
++    }
++    if (!group.m_bMembersEnterLeadersVehicle) {
++        return false;
++    }
++    group.GetIntelligence().ReportAllBarScriptTasksFinished();
++
++    // Objetivo: el fijado o, con raton en tercera persona y sin fijar, el del raton
++    CEntity* target = m_pTargetedObject;
++    if (CCamera::m_bUseMouse3rdPerson && !target) {
++        target = m_p3rdPersonMouseTarget;
++    }
++
++    CPed* victim = nullptr;
++    if (target) {
++        if (target->GetType() == ENTITY_TYPE_PED) {
++            victim = static_cast<CPed*>(target);
++        } else {
++            if (CTagManager::IsTag(*target)) {
++                return false;
++            }
++            if (target->GetType() == ENTITY_TYPE_OBJECT && static_cast<CObject*>(target)->CanBeTargetted()) {
++                return false;
++            }
++        }
++    }
++    if (!victim) {
++        victim = FindPedToAttack();
++    }
++    if (!victim) {
++        return false;
++    }
++    group.PlayerGaveCommand_Attack(this, victim);
++    return false;
+ }
+ 
+ // 0x60CD20
+@@ -1102,7 +1141,45 @@ void CPlayerPed::EvaluateTarget(CEntity* target, CEntity *& outTarget, float & o
+ 
+ // 0x60D1C0
+ void CPlayerPed::EvaluateNeighbouringTarget(CEntity* target, CEntity** outTarget, float* outTargetPriority, float maxDistance, float arg4, bool arg5) {
+-    plugin::CallMethod<0x60D1C0, CPlayerPed *, CEntity*, CEntity**, float*, float, float, bool>(this, target, outTarget, outTargetPriority, maxDistance, arg4, arg5);
++    // Como el original (0x60D1C0..0x60D341): distancia (z2 + y2) + x2 con la x87 a 24 bits (X87Math.cpp); NaN sale
++    if (!Hp66NeighbourInRangeCpp(&target->GetPosition().x, &GetPosition().x, maxDistance))
++        return;
++
++    // Como el original (movsx eax, byte [this+0x718]; imul eax, eax, 0x1C; lea edx, [eax+this+0x5A0]): ranura con signo y sin comprobar el rango (GetActiveWeapon() si lo comprueba)
++    if (DoesTargetHaveToBeBroken(target, &m_aWeapons.data()[static_cast<int8>(m_nActiveWeaponSlot)]))
++        return;
++
++    // Rumbo respecto a la camara (no al jugador): GetATanOfXY (0x53CC70) deja el angulo en ST0 y el EXE le resta arg4 sin redondear antes
++    const CVector& targetPos = target->GetPosition();
++    const CVector& camPos    = TheCamera.GetPosition();
++    float angle = Hp66NeighbourAngleCpp(&CGeneral::GetATanOfXY, &targetPos.x, &camPos.x, arg4);
++    // Normalizado a [-pi, pi] sin recorte: los bucles del EXE no terminan con |angulo| infinito (como el original)
++    if (angle > PLAYER_PI) {
++        do {
++            angle -= PLAYER_TWO_PI;
++        } while (angle > PLAYER_PI);
++    }
++    if (angle < -PLAYER_PI) {
++        do {
++            angle += PLAYER_TWO_PI;
++        } while (angle < -PLAYER_PI);
++    }
++
++    const float absAngle = angle < 0.0f ? -angle : angle; // fchs solo si es menor que 0 (-0 y NaN se conservan)
++    if (!(absAngle < 0.8726646304130554f)) // 0x86D1D0 (50 grados); NaN tambien sale
++        return;
++
++    // Prioridad: -100000.0 (0x86D1E8) salvo en el lado elegido (arg5 = derecha: angulo > 0, prioridad -angulo; si no, izquierda: angulo < 0, prioridad angulo)
++    float priority;
++    if (arg5) {
++        priority = angle > 0.0f ? -angle : -100000.0f;
++    } else {
++        priority = angle < 0.0f ? angle : -100000.0f;
++    }
++    if (priority > *outTargetPriority) { // comparacion ordenada: con NaN no entra
++        *outTarget         = target;
++        *outTargetPriority = priority;
++    }
+ }
+ 
+ // 0x60D350
+diff --git a/source/game_sa/Fx/Fx.cpp b/source/game_sa/Fx/Fx.cpp
+index d5dc15e64..d85581cfd 100644
+--- a/source/game_sa/Fx/Fx.cpp
++++ b/source/game_sa/Fx/Fx.cpp
+@@ -62,7 +62,7 @@ void Fx_c::InjectHooks() {
+     // RH_ScopedInstall(AddSparks, 0x49F040);
+     RH_ScopedInstall(AddTyreBurst, 0x49F300);
+     // RH_ScopedInstall(AddBulletImpact, 0x49F3D0);
+-    // RH_ScopedInstall(AddPunchImpact, 0x49F670);
++    RH_ScopedInstall(AddPunchImpact, 0x49F670);
+     // RH_ScopedInstall(AddDebris, 0x49F750);
+     // RH_ScopedInstall(AddGlass, 0x49F970);
+     // RH_ScopedInstall(AddWheelSpray, 0x49FB30);
+@@ -321,7 +321,13 @@ void Fx_c::AddBulletImpact(const CVector& posn, const CVector& direction, int32
+ 
+ // 0x49F670
+ void Fx_c::AddPunchImpact(const CVector& pos, const CVector& velocity, int32 num) {
+-    ((void(__thiscall*)(Fx_c*, const CVector&, const CVector&, int32))0x49F670)(this, pos, velocity, num);
++    // Como el original: ni `this` ni `num` se usan; dos particulas de humo en el sistema global (g_fx.m_SmokeII3expand, 0xA9AE24, recargado en cada llamada), la segunda con tiempo 0.05f.
++    if (!IsFxWithinCameraRange(pos, 625.0f)) {
++        return;
++    }
++    const FxPrtMult_c mult(1.0f, 1.0f, 1.0f, 0.4f, 0.1f, 0.0f, 0.1f); // 0x4AB290
++    g_fx.m_SmokeII3expand->AddParticle(pos, velocity, 0.0f, mult, -1.0f, 1.2f, 0.6f, false);
++    g_fx.m_SmokeII3expand->AddParticle(pos, velocity, 0.05f, mult, -1.0f, 1.2f, 0.6f, false);
+ }
+ 
+ // 0x49F750
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp b/source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp
+index ba3cef606..9f5f6a1b9 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp
+@@ -27,6 +27,7 @@ void CTaskSimpleGangDriveBy::InjectHooks() {
+     RH_ScopedCategory("Tasks/TaskTypes");
+ 
+     RH_ScopedInstall(Constructor, 0x6217D0);
++    RH_ScopedInstall(HasClearLineOfSight, 0x621B10);
+     RH_ScopedInstall(PlayerTarget, 0x621960);
+     RH_ScopedInstall(AITarget, 0x627600);
+     RH_ScopedInstall(AimGun, 0x628350);
+@@ -355,6 +356,38 @@ void CTaskSimpleGangDriveBy::PlayerTarget(CPed* ped) {
+     }
+ }
+ 
++// 0x621B10
++// Como el original: comprueba la linea de vision entre el ped y el punto de mira como mucho cada 1750..2250 ms (m_nLOSCheckTime) y la deja en m_nLOSBlocked; devuelve !m_nLOSBlocked.
++bool CTaskSimpleGangDriveBy::HasClearLineOfSight(CPed* ped, const CVector* aimPoint) {
++    if (CTimer::m_snTimeInMilliseconds > m_nLOSCheckTime) { // comparacion sin signo (jbe del EXE)
++        m_nLOSBlocked = false;
++        if (CEntity* const ignored = m_pTargetEntity) {
++            // Origen: x copiado tal cual, y cargado y guardado por la x87 (un NaN senalizante sale silenciado) y z + 0.5f (0x858B8C)
++            const float* const pos = &ped->GetPosition().x;
++            CVector origin;
++            uint32  yBits;
++            std::memcpy(&yBits, &pos[1], sizeof(yBits));
++            if ((yBits & 0x7F800000u) == 0x7F800000u && (yBits & 0x7FFFFFu) != 0) {
++                yBits |= 0x400000u;
++            }
++            origin.x = pos[0];
++            std::memcpy(&origin.y, &yBits, sizeof(yBits));
++            origin.z = pos[2] + 0.5f;
++
++            CWorld::pIgnoreEntity = ignored;
++            if (!CWorld::GetIsLineOfSightClear(origin, *aimPoint, true, false, false, false, false, true, false)) {
++                m_nLOSBlocked = true;
++            }
++            CWorld::pIgnoreEntity = nullptr;
++        }
++        // Proxima comprobacion: ahora - ftol(-500 * (rand() & 0xFFFF) / 32768) + 1750; rand es el del EXE (0x821B1E, avanza la semilla del juego) y _ftol2 toma los 32 bits bajos
++        const int32 r        = reinterpret_cast<int32(__cdecl*)()>(0x821B1E)() & 0xFFFF;
++        const int32 jitter   = static_cast<int32>(static_cast<int64>((double(r) * double(3.0517578125e-05f)) * double(-500.0f))); // 0x858B14, 0x85AB78
++        m_nLOSCheckTime = CTimer::m_snTimeInMilliseconds - static_cast<uint32>(jitter) + 1750u;
++    }
++    return reinterpret_cast<const uint8&>(m_nLOSBlocked) == 0;
++}
++
+ // 0x627600
+ void CTaskSimpleGangDriveBy::AITarget(CPed* ped) {
+     const float weaponRange = m_pWeaponInfo->m_fWeaponRange;
+@@ -409,7 +442,7 @@ void CTaskSimpleGangDriveBy::AITarget(CPed* ped) {
+     const float* pos = &ped->GetPosition().x;
+     CVector aimPoint;
+     GangDriveByAimPointCpp(geometry, pos, &aimPoint.x);
+-    if (!plugin::CallMethodAndReturn<bool, 0x621B10>(this, ped, &aimPoint)) { // linea de vision / alcance (dependencia sin catalogar)
++    if (!HasClearLineOfSight(ped, &aimPoint)) { // linea de vision hasta el punto de mira (0x621B10)
+         m_bInRangeToShoot = false;
+         return;
+     }
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h b/source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h
+index 50c15eb7e..3e1374f80 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h
++++ b/source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h
+@@ -71,6 +71,7 @@ public:
+     bool ProcessPed(CPed* ped) override;
+ 
+     // Ayudantes de ProcessPed (antes llamadas por direccion al EXE).
++    bool HasClearLineOfSight(CPed* ped, const CVector* aimPoint); // 0x621B10: linea de vision del ped al punto de mira (cacheada en m_nLOSBlocked / m_nLOSCheckTime)
+     void PlayerTarget(CPed* ped); // 0x621960: objetivo del jugador (camara de apuntado), elige la animacion de disparo segun el cuadrante
+     void AITarget(CPed* ped);     // 0x627600: objetivo de un NPC (distancias, rangos, lado/cuadrante segun el estilo)
+     void AimGun(CPed* ped);       // 0x628350: apunta el arma con CPedIK::PointGunInDirection hacia el objetivo (no dispara: dispara 0x627CC0)
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 0fc345e30..5eac162a7 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -15119,3 +15119,71 @@ __declspec(noinline) void __cdecl Hp65MatrixTimesPointCpp(const float* m, const
+     out[2] = z;
+ }
+ #pragma float_control(pop)
++
++// --- Lote 66 (Helpers66A), prefijo Hp66 ---
++#pragma float_control(precise, on, push)
++// 0x60D201: fsqrt a 24 bits (fuera de linea para que /fp:fast no lo convierta en una comparacion de cuadrados).
++static __declspec(noinline) double __cdecl Hp66Sqrt(double value) {
++    return sqrt(value);
++}
++// 0x60D1E1..0x60D20F (CPlayerPed::EvaluateNeighbouringTarget): fld [objetivo.x]; fsub [yo.x] ... (tres restas), (dz*dz + dy*dy) + dx*dx, fsqrt, fcomp [maxDistance]; test ah,41h.
++__declspec(noinline) bool __cdecl Hp66NeighbourInRangeCpp(const float* target, const float* self, float maxDistance) {
++    const double dx = double(target[0]) - double(self[0]);
++    const double dy = double(target[1]) - double(self[1]);
++    const double dz = double(target[2]) - double(self[2]);
++    const double distance = Hp66Sqrt((dz * dz + dy * dy) + dx * dx);
++    return distance <= double(maxDistance);
++}
++// 0x60D26F..0x60D288: fld [target.y]; fsub [camera.y]; fstp [esp+4]; fld [target.x]; fsub [camera.x]; fstp [esp]; call 0x53CC70; fsub [compensation].
++__declspec(noinline) float __cdecl Hp66NeighbourAngleCpp(float (__cdecl* atanFn)(float, float), const float* target, const float* camera, float compensation) {
++    volatile float dy = float(double(target[1]) - double(camera[1]));
++    volatile float dx = float(double(target[0]) - double(camera[0]));
++    const double angle = double(atanFn(dx, dy));
++    volatile float result = float(angle - double(compensation));
++    return result;
++}
++// Ejes constantes del EXE (0x8D2E00 = X, 0x8D2E0C = Y, 0x8D2E18 = Z): volatile para que no se simplifiquen los productos por cero (0 * inf = NaN).
++static volatile const float Hp66AxisX[3] = { 1.0f, 0.0f, 0.0f };
++static volatile const float Hp66AxisY[3] = { 0.0f, 1.0f, 0.0f };
++static volatile const float Hp66AxisZ[3] = { 0.0f, 0.0f, 1.0f };
++__declspec(noinline) void __cdecl Hp66PresetViewAnglesCpp(const float* ltm, float (__cdecl* normalize)(void*, const void*), float* outPos, float* outRotX, float* outRotY) {
++    // pos = ltm.pos (copia de dwords)
++    memcpy(outPos, ltm + 12, 3 * sizeof(float));
++    // d = (Y.x * at.x + Y.y * at.y) + Y.z * at.z, guardado como float; > 1 -> 1; el float releido < -1 -> -1 (NaN no se recorta)
++    const double dotY = (double(Hp66AxisY[0]) * double(ltm[8]) + double(Hp66AxisY[1]) * double(ltm[9])) + double(Hp66AxisY[2]) * double(ltm[10]);
++    volatile float stored = float(dotY);
++    if (dotY > 1.0) {
++        stored = 1.0f;
++    } else if (stored < -1.0f) {
++        stored = -1.0f;
++    }
++    const float clampedY = stored;
++    // rotX = 90 - acos(d) * 57.29578 (0x859878), un solo redondeo a float
++    const double pitch = ExeAcosDoubleCpp(double(clampedY)) * double(57.2957763671875f);
++    *outRotX = float(double(90.0f) - pitch);
++    // t = at - Y * d (cada producto y cada resta redondeados a float), normalizado en el sitio
++    float t[3];
++    volatile float prod[3];
++    prod[0] = float(double(Hp66AxisY[0]) * double(clampedY));
++    prod[1] = float(double(Hp66AxisY[1]) * double(clampedY));
++    prod[2] = float(double(Hp66AxisY[2]) * double(clampedY));
++    t[0] = float(double(ltm[8]) - double(prod[0]));
++    t[1] = float(double(ltm[9]) - double(prod[1]));
++    t[2] = float(double(ltm[10]) - double(prod[2]));
++    (void)normalize(t, t);
++    // rotY = acos(clamp(Z . t)) * 57.29578 (el valor sin recortar se compara sin redondear); signo segun X . t
++    double dotZ = (double(Hp66AxisZ[1]) * double(t[1]) + double(Hp66AxisZ[0]) * double(t[0])) + double(Hp66AxisZ[2]) * double(t[2]);
++    if (dotZ > 1.0) {
++        dotZ = 1.0;
++    } else if (dotZ < -1.0) {
++        dotZ = -1.0;
++    }
++    const double yaw = ExeAcosDoubleCpp(dotZ) * double(57.2957763671875f);
++    volatile float rotY = float(yaw);
++    const double dotX = (double(Hp66AxisX[1]) * double(t[1]) + double(Hp66AxisX[0]) * double(t[0])) + double(Hp66AxisX[2]) * double(t[2]);
++    if (dotX < 0.0) {
++        rotY = float(-yaw);
++    }
++    *outRotY = rotY;
++}
++#pragma float_control(pop)
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index e01f48669..420775b5c 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1831,3 +1831,15 @@ void __cdecl StoredCarUnpackForwardCpp(int x, int y, int z, float* out);
+ // m = inicio de la matriz (right en m[0..2], forward en m[4..6], up en m[8..10], posicion en m[12..14]); out puede solaparse con m o v (se calculan las tres componentes antes de escribir).
+ // Igual que AutoPreMultiplyMatrixWithVectorCpp, pero reproduce la seleccion de NaN de la x87 del EXE (operandos de memoria de fmul/fadd, faddp entre registros) cuando algun elemento leido es NaN.
+ void __cdecl Hp65MatrixTimesPointCpp(const float* m, const float* v, float* out);
++
++// --- Lote 66 (Helpers66A), prefijo Hp66 ---
++// CPlayerPed::EvaluateNeighbouringTarget (0x60D1C0): true si sqrt((dz2 + dy2) + dx2) <= maxDistance con la x87 a 24 bits y exponente extendido, d = objetivo - jugador
++// (los punteros apuntan a x, y, z consecutivos). Con NaN da false (comparacion ordenada).
++bool __cdecl Hp66NeighbourInRangeCpp(const float* target, const float* self, float maxDistance);
++// 0x60D263..0x60D288: dx = objetivo.x - camara.x y dy = objetivo.y - camara.y (cada uno redondeado a float), atanFn(dx, dy) (GetATanOfXY, 0x53CC70, valor en ST0) menos
++// compensation en un solo redondeo a float.
++float __cdecl Hp66NeighbourAngleCpp(float (__cdecl* atanFn)(float, float), const float* target, const float* camera, float compensation);
++// RsSavePresetView (0x619FA0), ayudante usercall 0x619910 (EAX = camara, EDI = &pos, EBX = &rotY, [esp+4] = &rotX): con la matriz global del marco (RwMatrix: at = ltm[8..10], pos = ltm[12..14]):
++// pos = ltm.pos; rotX = 90 - acos(clamp(Y . at)) * 57.29578; t = at - Y * (Y . at) normalizado en el sitio con normalize (RwV3dNormalize, 0x7ED9B0);
++// rotY = acos(clamp(Z . t)) * 57.29578, negativo si X . t < 0. acos = _CIacos del EXE (ExeAcosDoubleCpp).
++void __cdecl Hp66PresetViewAnglesCpp(const float* ltm, float (__cdecl* normalize)(void*, const void*), float* outPos, float* outRotX, float* outRotY);

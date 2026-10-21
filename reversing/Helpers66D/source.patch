@@ -1,0 +1,397 @@
+diff --git a/source/game_sa/Cam.cpp b/source/game_sa/Cam.cpp
+index 0c87e12b1..16d26b182 100644
+--- a/source/game_sa/Cam.cpp
++++ b/source/game_sa/Cam.cpp
+@@ -263,6 +263,7 @@ void CCam::InjectHooks() {
+     RH_ScopedInstall(DoCamBump, 0x50CB30);
+     RH_ScopedInstall(Finalise_DW_CineyCams, 0x50DD70);
+     RH_ScopedInstall(GetCoreDataForDWCineyCamMode, 0x517130);
++    RH_ScopedInstall(GetArrestCamCopSourceSide, 0x516010);
+     RH_ScopedInstall(GetLookFromLampPostPos, 0x5161A0);
+     RH_ScopedInstall(GetVectorsReadyForRW, 0x509CE0);
+     RH_ScopedInstall(Get_TwoPlayer_AimVector, 0x513E40);
+@@ -939,6 +940,31 @@ void CCam::Process() {
+     if (StaticRef<bool>(0xB6FCB4)) { m_vecFront=StaticRef<CVector>(0xB6FCA8)-m_vecSource;m_vecFront.Normalise();GetVectorsReadyForRW();StaticRef<bool>(0xB6FCB4)=false; }
+ }
+ 
++// 0x516010 (thiscall, ECX = this sin usar, cuatro argumentos en pila, `ret 10h`): posicion de la camara de arresto para la secuencia alternativa (el ayudante 0x515D80 es el normal).
++// Falla (false) si `target` o `cop` son nulos (target no se usa mas). v = (dest.x - cop.x, dest.y - cop.y, 0) normalizado con CVector::Normalise (0x59C910); source = dest + 5.0 * v
++// (la z con el producto guardado como float); c = CrossProduct(v, (0, 0, 1)) (0x59C730); source.xy += 10.0 * c; source.z = dest.z + 5.0; si CWorld::FindGroundZFor3DCoord(source)
++// encuentra suelo, source.z = 0.7 + suelo. Siempre true al llegar al final. Aritmetica x87 del EXE en X87Math.cpp (Hp66CopSource*). Ningun llamador del EXE lee EAX/ECX/EDX (solo AL).
++bool CCam::GetArrestCamCopSourceSide(CEntity* target, CPed* cop, const CVector* dest, CVector* source) {
++    if (!target || !cop) {
++        return false;
++    }
++    const CVector& copPosition = cop->GetPosition();
++    CVector direction;
++    Hp66CopSourceDeltaCpp(&dest->x, &copPosition.x, &direction.x);
++    direction.Normalise();
++    Hp66CopSourceBaseCpp(&direction.x, &dest->x, &source->x);
++    CVector side;
++    CVector up{ 0.0f, 0.0f, 1.0f };
++    CrossProduct(&side, &direction, &up);
++    Hp66CopSourceSideCpp(&side.x, &dest->x, &source->x);
++    bool found = false;
++    const float ground = CWorld::FindGroundZFor3DCoord(CVector{ source->x, source->y, source->z }, &found, nullptr);
++    if (found) {
++        Hp66CopSourceSnapCpp(ground, &source->z);
++    }
++    return true;
++}
++
+ // 0x518500
+ bool CCam::ProcessArrestCamOne() {
+     m_fFOV=45.0f;auto* target=StaticRef<CEntity*>(0xB6F980);auto& mode=StaticRef<int32>(0xB6EC58);auto& tracked=StaticRef<CEntity*>(0xB6EC5C);
+@@ -946,7 +972,7 @@ bool CCam::ProcessArrestCamOne() {
+     const auto playerCop=[&](){CPed* result=nullptr;if(FindPlayerPed(-1)){auto* player=FindPlayerPed(-1);if(*reinterpret_cast<CEntity**>(*reinterpret_cast<uint8**>(reinterpret_cast<uint8*>(player)+0x480)+8)){player=FindPlayerPed(-1);result=*reinterpret_cast<CPed**>(*reinterpret_cast<uint8**>(reinterpret_cast<uint8*>(player)+0x480)+8);}}return result;};
+     const auto geometry=[&](const CVector& position){m_vecSource=position;CVector copy=position;plugin::CallMethod<0x514030>(&TheCamera,&copy,&dest,&m_vecSource,m_fFOV);};
+     const auto axes=[&](){m_vecFront=dest-m_vecSource;m_vecFront.Normalise();m_vecUp=CVector{0,0,1};CVector side=CrossProduct(m_vecFront,m_vecUp);side.Normalise();m_vecUp=CrossProduct(side,m_vecFront);};
+-    const auto copSource=[&](CPed* from,bool alternate){return alternate?plugin::CallMethodAndReturn<bool,0x516010>(this,target,from,&dest,&source):plugin::CallMethodAndReturn<bool,0x515D80>(this,target,from,&dest,&source);};
++    const auto copSource=[&](CPed* from,bool alternate){return alternate?GetArrestCamCopSourceSide(target,from,&dest,&source):plugin::CallMethodAndReturn<bool,0x515D80>(this,target,from,&dest,&source);};
+     const auto cheese=[&](CPed* from,bool initialise){return plugin::CallMethodAndReturn<bool,0x512EF0>(this,from,initialise);};
+     if(m_bResetStatics){
+         mode=0;CPed* actor=nullptr;std::array<int32,6> sequence;sequence.fill(-1);
+diff --git a/source/game_sa/Cam.h b/source/game_sa/Cam.h
+index 16b8f88f7..07d8d1814 100644
+--- a/source/game_sa/Cam.h
++++ b/source/game_sa/Cam.h
+@@ -142,6 +142,7 @@ public:
+     void Finalise_DW_CineyCams(const CVector& src, const CVector& dest, float roll, float fov, float nearClip, float shakeDegree);
+     void GetCoreDataForDWCineyCamMode(CEntity*& entity, CVehicle*& vehicle, CVector& dest, CVector& src, CVector& targetUp, CVector& targetRight, CVector& targetFwd, CVector& targetVel, float& targetSpeed, CVector& targetAngVel, float& targetAngSpeed, CColSphere& colSphere);
+     bool GetLookFromLampPostPos(CEntity* target, CPed* cop, const CVector& vecTarget, CVector& vecSource);
++    bool GetArrestCamCopSourceSide(CEntity* target, CPed* cop, const CVector* dest, CVector* source); // 0x516010
+     void GetVectorsReadyForRW();
+     CEntity* Get_TwoPlayer_AimVector(CVector&); // Como el original (0x513E40): devuelve la entidad apuntada (o nullptr) en EAX
+     bool IsTimeToExitThisDWCineyCamMode(int32 camId, const CVector& src, const CVector& dst, float t, bool lineOfSightCheck);
+diff --git a/source/game_sa/Camera.cpp b/source/game_sa/Camera.cpp
+index 25f9784ec..1fade7ca9 100644
+--- a/source/game_sa/Camera.cpp
++++ b/source/game_sa/Camera.cpp
+@@ -3575,7 +3575,7 @@ void CameraControlChooseJump(CCamera& camera, bool stairs, bool wasArrested, boo
+     }
+ }
+ void CameraControlGarageDoors(CGarage* garage, CObject*& first, CObject*& second) {
+-    plugin::CallMethod<0x449FF0, CGarage*, CObject**, CObject**>(garage, &first, &second);
++    garage->FindDoorsWithGarage(&first, &second);
+ }
+ float CameraControlZoneExtent(const CAttributeZone* zone) {
+     const auto xExtent = std::abs(static_cast<int32>(zone->zoneDef.m_vec1X))
+diff --git a/source/game_sa/Entity/Vehicle/Heli.cpp b/source/game_sa/Entity/Vehicle/Heli.cpp
+index 7a23d102f..fddbfa661 100644
+--- a/source/game_sa/Entity/Vehicle/Heli.cpp
++++ b/source/game_sa/Entity/Vehicle/Heli.cpp
+@@ -25,6 +25,8 @@ END GENERATED HOOK STATUS */
+ #include "StdInc.h"
+ #include "X87Math.h"
+ 
++extern "C" double __cdecl GeneralRandomInRangeDblCpp(int random, float min, float max); // X87Math.cpp (0x41BD90 sin el redondeo a float final)
++
+ // Envoltorio con la ABI del EXE de CHeli::FindSwatPositionRelativeToHeli (0x6C4760: thiscall con puntero oculto, ret 8). El EXE no toca EDX (el llamador de 0x6C7844 lo
+ // conserva a traves de la llamada), deja EAX = puntero oculto y ECX = this en los casos 0..3 o 0 en el defecto. Termina en ResidueRegsCpp, que no toca registros.
+ #pragma runtime_checks("", off)
+@@ -38,6 +40,7 @@ void CHeli::InjectHooks() {
+     RH_ScopedVirtualClass(CHeli, 0x871680, 71);
+     RH_ScopedCategory("Vehicle");
+ 
++    RH_ScopedInstall(Constructor, 0x6C4190);
+     RH_ScopedInstall(InitHelis, 0x6C4560);
+     RH_ScopedInstall(AddHeliSearchLight, 0x6C45B0);
+     RH_ScopedInstall(Pre_SearchLightCone, 0x6C4650);
+@@ -52,7 +55,8 @@ void CHeli::InjectHooks() {
+     RH_ScopedVMTInstall(SetUpWheelColModel, 0x6C4320);
+ }
+ 
+-// 0x6C4190
++// 0x6C4190: thiscall, ECX = this, (modelIndex, createdBy), `ret 8`; llama a CAutomobile::CAutomobile(modelIndex, createdBy, true) (0x6B0A90), fija el tipo y los campos del helicoptero y deja
++// EAX = this (lo leen los llamadores del EXE; ECX/EDX no). Hook `Constructor` como el de CProjectile; Plane.cpp ya no lo llama por direccion.
+ CHeli::CHeli(int32 modelIndex, eVehicleCreatedBy createdBy) : CAutomobile(modelIndex, createdBy, true) {
+     m_nVehicleSubType = VEHICLE_TYPE_HELI;
+ 
+@@ -77,7 +81,7 @@ CHeli::CHeli(int32 modelIndex, eVehicleCreatedBy createdBy) : CAutomobile(modelI
+ 
+     if (modelIndex == MODEL_HUNTER) {
+         m_damageManager.SetDoorStatus(DOOR_LEFT_FRONT, DAMSTATE_OK);
+-        m_doors[DOOR_LEFT_FRONT].Init((3.0f * PI) / 10.0f, 0.0f, DOOR_AXIS_NEG_X, DOOR_AXIS_Y, DOOR_EXTRA_BASED);
++        m_doors[DOOR_LEFT_FRONT].Init(std::bit_cast<float>(0x3F71463Bu) /* 0x6C4254: no es (3*PI)/10 en float */, 0.0f, DOOR_AXIS_NEG_X, DOOR_AXIS_Y, DOOR_EXTRA_BASED);
+     }
+ 
+     m_nNumSwatOccupants = 4;
+@@ -85,6 +89,11 @@ CHeli::CHeli(int32 modelIndex, eVehicleCreatedBy createdBy) : CAutomobile(modelI
+ 
+     m_nSearchLightTimer = CTimer::GetTimeInMS();
+ 
++    // el EXE pone a cero 0x9C0..0x9EF (field_9C0, f9CC, f9D0, la lista de particulas y los dos historiales)
++    field_9C0 = CVector{ 0.0f, 0.0f, 0.0f };
++    f9CC = 0;
++    f9D0 = 0;
++    m_pParticlesList = nullptr;
+     m_aSearchLightHistoryX.fill(0.0f);
+     m_aSearchLightHistoryY.fill(0.0f);
+ 
+@@ -99,7 +108,8 @@ CHeli::CHeli(int32 modelIndex, eVehicleCreatedBy createdBy) : CAutomobile(modelI
+ 
+     field_9B8 = 0;
+     m_bSearchLightEnabled = false;
+-    field_A14 = CGeneral::GetRandomNumberInRange(2.f, 8.f);
++    // rand() del CRT del EXE (0x821B1E: avanza la semilla del juego; la rand() de la DLL no) y el lerp x87 del EXE (rnd * (1/32767) * 6.0 + 2.0, sin redondear antes del fstp)
++    field_A14 = static_cast<float>(GeneralRandomInRangeDblCpp(reinterpret_cast<int32(__cdecl*)()>(0x821B1E)(), 2.0f, 8.0f));
+ }
+ 
+ // 0x6C4340
+diff --git a/source/game_sa/Entity/Vehicle/Plane.cpp b/source/game_sa/Entity/Vehicle/Plane.cpp
+index 1f87947dd..2228b0520 100644
+--- a/source/game_sa/Entity/Vehicle/Plane.cpp
++++ b/source/game_sa/Entity/Vehicle/Plane.cpp
+@@ -555,7 +555,7 @@ void CPlane::DoPlaneGenerationAndRemoval(){
+  if(GenPlane_ModelIndex==497){
+   FindPlaneCreationCoors(&coordinates,&target,&heading,&height,false);
+   auto* storage=plugin::CallAndReturn<void*,0x6E2D50>(0xA18);
+-  auto* vehicle=storage?reinterpret_cast<CVehicle*(__thiscall*)(void*,int32,int32)>(0x6C4190)(storage,GenPlane_ModelIndex,1):nullptr;
++  CVehicle* vehicle=storage?::new(storage) CHeli(GenPlane_ModelIndex,RANDOM_VEHICLE):nullptr;
+   vehicle->SetPosn(coordinates);PlaneGenerationHeading355(vehicle,heading);CCarCtrl::JoinCarWithRoadSystem(vehicle);
+   auto* bytes=reinterpret_cast<uint8*>(vehicle);*reinterpret_cast<float*>(bytes+0x84C)=std::bit_cast<float>(0x3E6147AEu);vehicle->SetStatus(STATUS_PHYSICS);CWorld::Add(vehicle);
+   *reinterpret_cast<float*>(bytes+0x9B0)=height;bytes[0x3BA]=38;*reinterpret_cast<float*>(bytes+0x9B4)=heading;*reinterpret_cast<float*>(bytes+0x9A8)=height;
+diff --git a/source/game_sa/Garage.cpp b/source/game_sa/Garage.cpp
+index 045c19e29..8c038db22 100644
+--- a/source/game_sa/Garage.cpp
++++ b/source/game_sa/Garage.cpp
+@@ -71,6 +71,7 @@ void CGarage::InjectHooks() {
+     RH_ScopedNamedGlobalInstall(GarageIsPointInsideRadiusRegs, "IsPointInsideGarage-radius", 0x4487D0); // ECX/EDX del EXE: ver GarageIsPointInsideRadiusRegs
+     RH_ScopedInstall(Update, 0x44AA50);
+     RH_ScopedInstall(IsGarageEmpty, 0x44A9C0);
++    RH_ScopedInstall(FindDoorsWithGarage, 0x449FF0);
+ }
+ 
+ // 0x4479F0
+@@ -434,7 +435,7 @@ inline bool  GaRestoreHideOut(CGarage* g, CStoredCar* cars) { return plugin::Cal
+ inline void  GaNeatlyLineUp(CGarage* g, CStoredCar* cars) { plugin::CallMethod<0x448330, CGarage*, CStoredCar*>(g, cars); }
+ inline bool  GaRestoreImpounding(CGarage* g, CStoredCar* cars) { return plugin::CallMethodAndReturn<bool, 0x4485C0, CGarage*, CStoredCar*>(g, cars); }
+ inline void  GaStoreAndRemoveImpounding(CGarage* g, CStoredCar* cars, int32 maxSlot) { plugin::CallMethod<0x449A50, CGarage*, CStoredCar*, int32>(g, cars, maxSlot); }
+-inline void  GaFindDoorsWithGarage(CGarage* g, CObject** first, CObject** second) { plugin::CallMethod<0x449FF0, CGarage*, CObject**, CObject**>(g, first, second); }
++inline void  GaFindDoorsWithGarage(CGarage* g, CObject** first, CObject** second) { g->FindDoorsWithGarage(first, second); }
+ inline int32& GaMoney() { return *reinterpret_cast<int32*>(0xB7CE50 + static_cast<uint32>(CWorld::PlayerInFocus) * 0x190u); }   // CPlayerInfo::m_nMoney del jugador en foco
+ inline CStoredCar* GaStoredCars(eGarageType type) { return reinterpret_cast<CStoredCar*>(0x96ABD8 + static_cast<uint32>(CGarages::FindSafeHouseIndexForGarageType(type)) * 0x100u); }
+ inline void GaAudio(uint32 event) { AudioEngine.ReportFrontendAudioEvent(static_cast<eAudioEvents>(event), 0.0f, 1.0f); }
+@@ -1361,6 +1362,59 @@ bool CGarage::IsHideOut() const {
+     }
+ }
+ 
++// 0x449FF0 (thiscall, ECX = this, `ret 8`): busca las dos puertas (objetos del garaje) mas cercanas a una esquina del garaje. Pone *segunda y *primera a nulo; la esquina es
++// (x + dirA.x * w/2 + dirB.x * h/2, y + dirA.y * w/2 + dirB.y * h/2) con el x87 del EXE (Hp66GarageCornerCpp). Recorre el pool de objetos (0xB7449C: objetos, banderas, tamano) de
++// la ultima ranura a la primera; salta las ranuras libres (bit 7 de la bandera), los punteros nulos y los objetos cuyo byte +0x147 no es el indice del garaje (low byte de
++// (this - 0x96C048) / 0xD8 (sizeof(CGarage)) con division con signo). Distancia plana a la esquina (Hp66GarageDistanceCpp, float); se mantienen dos mejores: con la primera vacia el objeto pasa a ser
++// la primera; si no, si su distancia es menor que la de la primera pasa a ser la primera y la anterior la segunda; si no (incluye NaN), si la segunda esta vacia o la distancia es
++// menor que la de la segunda pasa a ser la segunda. Distancias iniciales 99999.9 (0x85999C / 0x47C34FF3). Ningun llamador del EXE lee EAX/ECX/EDX.
++void CGarage::FindDoorsWithGarage(CObject** ppFirstDoor, CObject** ppSecondDoor) {
++    *ppSecondDoor = nullptr;
++    *ppFirstDoor = nullptr;
++    const uint8* const pool = StaticRef<const uint8*>(0xB7449C);
++    float corner[2];
++    Hp66GarageCornerCpp(reinterpret_cast<const float*>(this), corner);
++    const int32 garageIndex = static_cast<int32>(reinterpret_cast<uint32>(this) - 0x96C048u) / 0xD8;
++    const uint8 garageByte = static_cast<uint8>(garageIndex);
++    float firstDistance = std::bit_cast<float>(0x47C34FF3u);
++    float secondDistance = std::bit_cast<float>(0x47C34FF3u);
++    int32 slot = *reinterpret_cast<const int32*>(pool + 8);
++    if (slot == 0) {
++        return;
++    }
++    uint32 offset = static_cast<uint32>(slot) * 0x19Cu;
++    do {
++        --slot;
++        offset -= 0x19Cu;
++        const uint8* const flags = *reinterpret_cast<const uint8* const*>(pool + 4);
++        if (flags[slot] & 0x80) {
++            continue;
++        }
++        const uint8* const objectBase = *reinterpret_cast<const uint8* const*>(pool);
++        CObject* const object = reinterpret_cast<CObject*>(const_cast<uint8*>(objectBase) + offset);
++        if (!object) {
++            continue;
++        }
++        if (*(reinterpret_cast<const uint8*>(object) + 0x147) != garageByte) {
++            continue;
++        }
++        const float* const position = object->m_matrix ? reinterpret_cast<const float*>(reinterpret_cast<const uint8*>(object->m_matrix) + 0x30) : &object->m_placement.m_vPosn.x;
++        const float distance = Hp66GarageDistanceCpp(corner[0], corner[1], position);
++        if (!*ppFirstDoor) {
++            firstDistance = distance;
++            *ppFirstDoor = object;
++        } else if (distance < firstDistance) {
++            secondDistance = firstDistance;
++            *ppSecondDoor = *ppFirstDoor;
++            firstDistance = distance;
++            *ppFirstDoor = object;
++        } else if (!*ppSecondDoor || distance < secondDistance) {
++            *ppSecondDoor = object;
++            secondDistance = distance;
++        }
++    } while (slot != 0);
++}
++
+ // 0x44A9C0
+ // Como el original (0x44A9C0..0x44AA4C): esquinas A = (izquierda, frente, z) y B = (derecha, fondo, topZ) en la pila (izquierda y derecha se copian como enteros, las demas pasan por
+ // el x87), CWorld::FindObjectsIntersectingCube(A, B, &cuenta, 16, lista, false, true, true, false, false) y el garaje esta vacio si ninguna entidad de la lista (contador int16, de la
+diff --git a/source/game_sa/RwHelper.cpp b/source/game_sa/RwHelper.cpp
+index 8305e173b..f2c137787 100644
+--- a/source/game_sa/RwHelper.cpp
++++ b/source/game_sa/RwHelper.cpp
+@@ -57,6 +57,7 @@ void RwHelperInjectHooks() {
+     RH_ScopedGlobalInstall(forceLinearFilteringMatTexturesCB, 0x734D60);
+     RH_ScopedGlobalInstall(SetFilterModeOnAtomicsTextures, 0x734D80);
+     RH_ScopedGlobalInstall(RemoveRefsCB, 0x7226D0);
++    RH_ScopedGlobalInstall(RpClumpGetBoundingSphere, 0x734FC0);
+ }
+ 
+ // 0x4ABA50
+@@ -348,9 +349,44 @@ RwTexture* RwTexDictionaryFindHashNamedTexture(RwTexDictionary* dictionary, uint
+     return nullptr;
+ }
+ 
+-// 0x734FC0
++// 0x734FC0 (cdecl, ret): esfera envolvente de un clump. Guarda el byte bajo de bUseLTM en el global 0x8D60BC (lo leen los dos callbacks); sin clump o sin esfera devuelve 0 sin tocar
++// nada mas. Pone la esfera a 0; con RpClumpGetNumAtomics < 1 devuelve 0 (la esfera ya a cero). Centro = suma de los centros de los atomos (callback 0x734970: centro de la esfera de cada
++// atomo transformado por la LTM del marco del atomo, o por su matriz local si el global es 0) dividida entre float(numero de atomos) (x87: 1/n a 24 bits y un producto por componente, en
++// el orden x, y, z); radio = maximo de |centro - centro del atomo| + radio del atomo (callback 0x734ED0, con el radio inicial a 0). Despues el centro se transforma con la inversa (0x7F2070,
++// RwMatrixInvert) de la LTM del marco del clump (global distinto de 0) o de su matriz local (marco + 0x10). Los dos callbacks siguen siendo codigo del EXE (se pasan por direccion).
++// Ningun llamador del EXE lee ECX/EDX; EAX es el clump (o 0).
+ RpClump* RpClumpGetBoundingSphere(RpClump* clump, RwSphere* sphere, bool bUseLTM) {
+-    return ((RpClump * (__cdecl*)(RpClump*, RwSphere*, bool))0x734FC0)(clump, sphere, bUseLTM);
++    auto& useLtm = StaticRef<uint8>(0x8D60BC);
++    useLtm = std::bit_cast<uint8>(bUseLTM);
++    if (!clump || !sphere) {
++        return nullptr;
++    }
++    sphere->center.x = 0.0f;
++    sphere->center.y = 0.0f;
++    sphere->radius = 0.0f;
++    sphere->center.z = 0.0f;
++    const RwInt32 numAtomics = RpClumpGetNumAtomics(clump);
++    if (numAtomics < 1) {
++        return nullptr;
++    }
++    RwV3d sum{};
++    RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(0x734970), &sum);
++    Hp66ClumpScaleCenterCpp(&sum.x, numAtomics);
++    RwSphere local{ sum, 0.0f };
++    RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(0x734ED0), &local);
++    auto* const frame = reinterpret_cast<RwFrame*>(clump->object.parent);
++    RwMatrix matrix;
++    if (useLtm) {
++        RwMatrixInvert(&matrix, RwFrameGetLTM(frame));
++    } else {
++        RwMatrixInvert(&matrix, &frame->modelling);
++    }
++    RwV3dTransformPoints(&local.center, &local.center, 1, &matrix);
++    sphere->radius = local.radius;
++    sphere->center.x = local.center.x;
++    sphere->center.y = local.center.y;
++    sphere->center.z = local.center.z;
++    return clump;
+ }
+ 
+ // 0x735140
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 0fc345e30..9525c33a3 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -15119,3 +15119,74 @@ __declspec(noinline) void __cdecl Hp65MatrixTimesPointCpp(const float* m, const
+     out[2] = z;
+ }
+ #pragma float_control(pop)
++
++// --- Lote 66 (Helpers66D): RpClumpGetBoundingSphere (0x734FC0), CGarage::FindDoorsWithGarage (0x449FF0), CCam::GetArrestCamCopSourceAlternate (0x516010). Prefijo Hp66 ---
++// Todo en x87 de 24 bits con exponente extendido: lo que el EXE guarda con fstp dword va por un volatile float (redondeo a float, subnormales incluidos); lo que deja en el registro va por double
++// (con la palabra de control del juego, 24 bits, cada operacion redondea a 24 bits como la x87 del EXE).
++__declspec(noinline) void __cdecl Hp66ClumpScaleCenterCpp(float* center, int count) {
++    volatile float n = static_cast<float>(count);          // fild dword; fst dword [esp+70h]: el divisor es el float guardado
++    volatile float inv = 1.0f / n;                         // fld1; fdiv dword [n]
++    volatile float x = static_cast<float>(static_cast<double>(center[0]) * static_cast<double>(inv));
++    center[0] = x;
++    volatile float y = static_cast<float>(static_cast<double>(center[1]) * static_cast<double>(inv));
++    center[1] = y;
++    volatile float z = static_cast<float>(static_cast<double>(center[2]) * static_cast<double>(inv));
++    center[2] = z;
++}
++
++__declspec(noinline) void __cdecl Hp66GarageCornerCpp(const float* garage, float* out) {
++    const double hw = static_cast<double>(garage[8]) * 0.5;                                        // fmul dword [0.5]
++    volatile float t1 = static_cast<float>(static_cast<double>(garage[3]) * hw);                    // fstp [esp+14h]
++    volatile float ax = static_cast<float>(static_cast<double>(t1) + static_cast<double>(garage[0])); // fadd st,st(3); fstp [esp+14h]
++    const double ay = static_cast<double>(garage[4]) * hw + static_cast<double>(garage[1]);        // queda en el registro
++    const double hh = static_cast<double>(garage[9]) * 0.5;
++    volatile float t2 = static_cast<float>(static_cast<double>(garage[5]) * hh);                    // fstp [esp+20h]
++    volatile float px = static_cast<float>(static_cast<double>(t2) + static_cast<double>(ax));      // fld [esp+20h]; fadd [esp+14h]; fstp [esp+14h]
++    volatile float py = static_cast<float>(static_cast<double>(garage[6]) * hh + ay);               // fadd st,st(1); fstp [esp+18h]
++    out[0] = px;
++    out[1] = py;
++}
++
++__declspec(noinline) float __cdecl Hp66GarageDistanceCpp(float px, float py, const float* position) {
++    const double dx = static_cast<double>(px) - static_cast<double>(position[0]);                   // fld [esp+18h]; fsub dword [pos]
++    const double dy = static_cast<double>(py) - static_cast<double>(position[1]);
++    const double sum = dy * dy + dx * dx;                                                           // faddp st(1),st
++    volatile float distance = static_cast<float>(sqrt(sum));                                        // fsqrt; fstp dword
++    return distance;
++}
++
++__declspec(noinline) void __cdecl Hp66CopSourceDeltaCpp(const float* dest, const float* position, float* v) {
++    volatile float x = static_cast<float>(static_cast<double>(dest[0]) - static_cast<double>(position[0]));
++    volatile float y = static_cast<float>(static_cast<double>(dest[1]) - static_cast<double>(position[1]));
++    v[0] = x;
++    v[1] = y;
++    v[2] = 0.0f;
++}
++
++__declspec(noinline) void __cdecl Hp66CopSourceBaseCpp(const float* v, const float* dest, float* source) {
++    constexpr double k = 5.0;                                                                       // 0x8CC7F0
++    volatile float cz = static_cast<float>(k * static_cast<double>(v[2]));                           // fstp [esp+28h]
++    volatile float sx = static_cast<float>(k * static_cast<double>(v[0]) + static_cast<double>(dest[0]));
++    volatile float sy = static_cast<float>(k * static_cast<double>(v[1]) + static_cast<double>(dest[1]));
++    volatile float sz = static_cast<float>(static_cast<double>(cz) + static_cast<double>(dest[2]));
++    source[0] = sx;
++    source[1] = sy;
++    source[2] = sz;
++}
++
++__declspec(noinline) void __cdecl Hp66CopSourceSideCpp(const float* c, const float* dest, float* source) {
++    constexpr double k = 10.0;                                                                      // 0x8CC7F4
++    const double kx = k * static_cast<double>(c[0]);
++    const double ky = k * static_cast<double>(c[1]);
++    volatile float sx = static_cast<float>(kx + static_cast<double>(source[0]));
++    volatile float sy = static_cast<float>(ky + static_cast<double>(source[1]));
++    volatile float sz = static_cast<float>(static_cast<double>(dest[2]) + 5.0);                     // 0x858C80
++    source[0] = sx;
++    source[1] = sy;
++    source[2] = sz;
++}
++
++__declspec(noinline) void __cdecl Hp66CopSourceSnapCpp(float ground, float* sourceZ) {
++    volatile float z = static_cast<float>(static_cast<double>(std::bit_cast<float>(0x3F333333u)) + static_cast<double>(ground));  // fld [0x8CC7F8]; fadd st,st(1)
++    *sourceZ = z;
++}
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index e01f48669..949686cbb 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1831,3 +1831,20 @@ void __cdecl StoredCarUnpackForwardCpp(int x, int y, int z, float* out);
+ // m = inicio de la matriz (right en m[0..2], forward en m[4..6], up en m[8..10], posicion en m[12..14]); out puede solaparse con m o v (se calculan las tres componentes antes de escribir).
+ // Igual que AutoPreMultiplyMatrixWithVectorCpp, pero reproduce la seleccion de NaN de la x87 del EXE (operandos de memoria de fmul/fadd, faddp entre registros) cuando algun elemento leido es NaN.
+ void __cdecl Hp65MatrixTimesPointCpp(const float* m, const float* v, float* out);
++
++// --- Lote 66 (Helpers66D): RpClumpGetBoundingSphere (0x734FC0), CGarage::FindDoorsWithGarage (0x449FF0), CCam::GetArrestCamCopSourceAlternate (0x516010). Prefijo Hp66. Anadido al FINAL ---
++// 0x735025..0x7350B4: center[i] = float(center[i] * inv) con inv = 1.0 / float(count) (fild + fst dword, fdiv de 24 bits), en el orden x, y, z (cada producto a 24 bits y luego fstp a float).
++void __cdecl Hp66ClumpScaleCenterCpp(float* center, int count);
++// 0x44A010..0x44A09E: esquina de la puerta: out = (x + dirAx*hw + dirBx*hh, y + dirAy*hw + dirBy*hh) con hw = width*0.5, hh = height*0.5 y los redondeos a float del EXE (T1, Ax, T2 se guardan; Ay y dirBy*hh no).
++// garage = inicio del CGarage (x en [0], y en [1], dirA en [3..4], dirB en [5..6], width en [8], height en [9]).
++void __cdecl Hp66GarageCornerCpp(const float* garage, float* out);
++// 0x44A0ED..0x44A10F: distancia sqrt((py - o.y)^2 + (px - o.x)^2) a 24 bits, guardada como float (se devuelve ya redondeada a float).
++float __cdecl Hp66GarageDistanceCpp(float px, float py, const float* position);
++// 0x516048..0x516071: v = (dest.x - pos.x, dest.y - pos.y, 0), cada resta guardada como float.
++void __cdecl Hp66CopSourceDeltaCpp(const float* dest, const float* position, float* v);
++// 0x516080..0x5160D9: source = dest + 5.0 * v: x e y con el producto a 24 bits sin guardar; z = float(float(5.0 * v.z) + dest.z).
++void __cdecl Hp66CopSourceBaseCpp(const float* v, const float* dest, float* source);
++// 0x5160FC..0x51614C: source.xy += 10.0 * c (productos a 24 bits, sumas guardadas como float), source.z = dest.z + 5.0; args = (x, y, z) de source tal como los empuja el EXE para FindGroundZFor3DCoord.
++void __cdecl Hp66CopSourceSideCpp(const float* c, const float* dest, float* source);
++// 0x516173..0x51617B: *sourceZ = float(0.7f [0x8CC7F8] + ground), con ground tal como lo deja el colaborador en ST0 (aqui un float).
++void __cdecl Hp66CopSourceSnapCpp(float ground, float* sourceZ);

@@ -555,7 +555,7 @@ void CPlane::DoPlaneGenerationAndRemoval(){
  if(GenPlane_ModelIndex==497){
   FindPlaneCreationCoors(&coordinates,&target,&heading,&height,false);
   auto* storage=plugin::CallAndReturn<void*,0x6E2D50>(0xA18);
-  auto* vehicle=storage?reinterpret_cast<CVehicle*(__thiscall*)(void*,int32,int32)>(0x6C4190)(storage,GenPlane_ModelIndex,1):nullptr;
+  CVehicle* vehicle=storage?::new(storage) CHeli(GenPlane_ModelIndex,RANDOM_VEHICLE):nullptr;
   vehicle->SetPosn(coordinates);PlaneGenerationHeading355(vehicle,heading);CCarCtrl::JoinCarWithRoadSystem(vehicle);
   auto* bytes=reinterpret_cast<uint8*>(vehicle);*reinterpret_cast<float*>(bytes+0x84C)=std::bit_cast<float>(0x3E6147AEu);vehicle->SetStatus(STATUS_PHYSICS);CWorld::Add(vehicle);
   *reinterpret_cast<float*>(bytes+0x9B0)=height;bytes[0x3BA]=38;*reinterpret_cast<float*>(bytes+0x9B4)=heading;*reinterpret_cast<float*>(bytes+0x9A8)=height;

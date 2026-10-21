@@ -1,0 +1,407 @@
+diff --git a/source/app/platform/win/WinPs.cpp b/source/app/platform/win/WinPs.cpp
+index b1b6300d2..bf01a4004 100644
+--- a/source/app/platform/win/WinPs.cpp
++++ b/source/app/platform/win/WinPs.cpp
+@@ -87,6 +87,62 @@ static BOOL CheckDirectSound() {
+     return result;
+ }
+ 
++// 0x745650
++// Como el original: devuelve 0 si no puede cargar DDRAW.DLL, ni obtener DirectDrawCreateEx, ni crear el objeto (HRESULT < 0); en cada fallo avisa con OutputDebugStringA (texto con "\r\n")
++// y libera lo cargado. Con el objeto creado lo libera (Release, ranura 2) y comprueba D3D8.DLL (0x700), dpnhpast.dll (0x800) y D3D9.DLL (0x801); con todo cargado devuelve 0x900.
++// Las bibliotecas se descargan en el orden del EXE: dpnhpast (con el valor devuelto, aunque sea nulo), DDRAW, D3D8 y, si cargo, D3D9 (sin ningun otro efecto).
++static DWORD GetDXVersion() {
++    const HMODULE ddraw = LoadLibraryA("DDRAW.DLL");
++    if (!ddraw) {
++        OutputDebugStringA("Please check you have installed Direct X 9 correctly : Couldn't LoadLibrary DDraw\r\n");
++        return 0;
++    }
++
++    using DirectDrawCreateExFn = HRESULT(WINAPI*)(GUID*, LPVOID*, REFIID, IUnknown*);
++    const auto createEx = reinterpret_cast<DirectDrawCreateExFn>(GetProcAddress(ddraw, "DirectDrawCreateEx"));
++    if (!createEx) {
++        FreeLibrary(ddraw);
++        OutputDebugStringA("Please check you have installed Direct X 9 correctly : Couldn't GetProcAddress DirectDrawCreateEx\r\n");
++        return 0;
++    }
++
++    IUnknown* directDraw = nullptr; // Como el original: hueco de pila sin inicializar (solo se usa si createEx tiene exito)
++    if (createEx(nullptr, reinterpret_cast<LPVOID*>(&directDraw), IID_IDirectDraw7, nullptr) < 0) {
++        FreeLibrary(ddraw);
++        OutputDebugStringA("Please check you have installed Direct X 9 correctly : Couldn't DirectDrawCreateEx\r\n");
++        return 0;
++    }
++    directDraw->Release();
++
++    const HMODULE d3d8 = LoadLibraryA("D3D8.DLL");
++    if (!d3d8) {
++        FreeLibrary(ddraw);
++        OutputDebugStringA("Please check you have installed Direct X 9 correctly : Couldn't LoadLibrary D3D8.DLL\r\n");
++        return 0x700;
++    }
++
++    const HMODULE dpnhpast = LoadLibraryA("dpnhpast.dll");
++    if (!dpnhpast) {
++        FreeLibrary(dpnhpast); // Como el original: FreeLibrary(NULL)
++        FreeLibrary(ddraw);
++        FreeLibrary(d3d8);
++        OutputDebugStringA("Please check you have installed Direct X 9 correctly : Couldn't LoadLibrary dpnhpast.dll\r\n");
++        return 0x800;
++    }
++
++    const HMODULE d3d9 = LoadLibraryA("D3D9.DLL");
++    FreeLibrary(dpnhpast);
++    FreeLibrary(ddraw);
++    FreeLibrary(d3d8);
++    if (!d3d9) {
++        OutputDebugStringA("Please check you have installed Direct X 9 correctly : Couldn't LoadLibrary D3D9.DLL\r\n");
++        return 0x801;
++    }
++
++    FreeLibrary(d3d9);
++    return 0x900;
++}
++
+ // 0x7465B0
+ static void InitialiseLanguage() {
+     const auto sysDefaultLCID = PRIMARYLANGID(GetSystemDefaultLCID());
+@@ -563,4 +619,5 @@ void WinPsInjectHooks() {
+     RH_ScopedGlobalInstall(InitialiseLanguage, 0x7465B0);
+     RH_ScopedGlobalInstall(CheckDirectSound, 0x745840);
+     RH_ScopedGlobalInstall(GetVideoMemInfo, 0x7455E0);
++    RH_ScopedGlobalInstall(GetDXVersion, 0x745650);
+ }
+diff --git a/source/game_sa/Audio/Loaders/AEMFDecoder.cpp b/source/game_sa/Audio/Loaders/AEMFDecoder.cpp
+index d31b606f9..6546d2535 100644
+--- a/source/game_sa/Audio/Loaders/AEMFDecoder.cpp
++++ b/source/game_sa/Audio/Loaders/AEMFDecoder.cpp
+@@ -27,6 +27,93 @@ END GENERATED HOOK STATUS */
+ #include "AEMFDecoder.h"
+ #include "X87Math.h"
+ 
++// 0x4E7990
++// Como el original: NativePathNameToFSSpec (0x818970, resultado ignorado) y FSpGetFInfo-like (0x81DAA0) sobre el FSSpec local; OpenMovieFile (0x81B680, permiso 1),
++// NewMovieFromFile (0x81AB80) y CloseMovieFile (0x81A9E0, SIEMPRE tras NewMovieFromFile, antes de mirar su error); luego la primera pista 'soun' (0x81BC60) y su media
++// (0x81A0E0). Devuelve el OSErr de 16 bits (el llamador, 0x4E7CB0, solo mira AX): -2009 sin pista de sonido, -2008 sin media. Con error antes de la pista no escribe nada en
++// las salidas; con pista escribe media y pelicula (la media se escribe aunque sea nula).
++int16 __cdecl AEMFOpenSoundMedia(char* filename, void** outMovie, void** outMedia) {
++    uint8 fsSpec[0x46];            // FSSpec: lo rellena 0x818970
++    uint8 fileInfo[0x10];          // FInfo: lo rellena 0x81DAA0
++    void* movie        = nullptr;  // como el original: puesto a 0 antes de 0x818970
++    int32 resourceId   = 0;        // como el original: puesto a 0 antes de OpenMovieFile (NewMovieFromFile lo escribe como short)
++    int16 refNum       = 0;        // OpenMovieFile lo escribe como short; el EXE lo pasa como dword (los 16 bits altos son basura de la pila: no observables)
++    uint8 dataRefChanged;
++
++    plugin::CallAndReturn<int32, 0x818970, char*, void*, int32>(filename, fsSpec, 0);
++    if (const int32 err = plugin::CallAndReturn<int32, 0x81DAA0, void*, void*>(fsSpec, fileInfo); static_cast<int16>(err) != 0) {
++        return static_cast<int16>(err);
++    }
++    if (const int32 err = plugin::CallAndReturn<int32, 0x81B680, void*, int16*, int32>(fsSpec, &refNum, 1); static_cast<int16>(err) != 0) {
++        return static_cast<int16>(err);
++    }
++
++    const int32 movieErr = plugin::CallAndReturn<int32, 0x81AB80, void**, int32, int32*, char*, int32, uint8*>(&movie, refNum, &resourceId, nullptr, 1, &dataRefChanged);
++    plugin::CallAndReturn<int32, 0x81A9E0, int32>(refNum);
++    int16 result = static_cast<int16>(movieErr);
++    if (result != 0) {
++        return result;
++    }
++
++    void* const track = plugin::CallAndReturn<void*, 0x81BC60, void*, int32, uint32, int32>(movie, 1, 0x736F756E /* 'soun' */, 1);
++    if (!track) {
++        return static_cast<int16>(0xF827); // -2009
++    }
++
++    void* const media = plugin::CallAndReturn<void*, 0x81A0E0, void*>(track);
++    *outMedia = media;
++    if (!media) {
++        result = static_cast<int16>(0xF828); // -2008
++    }
++    *outMovie = movie;
++    return result;
++}
++
++// 0x4E7A80
++// Como el original: NewHandle(0) (0x818DB0) y GetMediaSampleDescription (0x81A300, indice 1) sobre la media; el OSErr sale de GetMoviesError (0x819860). Sin error: otro NewHandle(0),
++// GetSoundDescriptionExtension 'wave' (0x81C600) y, si lo hay, copia de la extension a un puntero propio (GetHandleSize 0x8192B0, HLock 0x818F90, NewPtr 0x818E70 -> *outAtom,
++// MemError 0x818D70 pasa a ser el resultado, BlockMoveData 0x819390, HUnlock 0x818FB0) y se rellena `info` desde la descripcion (releyendo el handle en cada campo). Al final se liberan
++// el handle de la extension y el de la descripcion (0x819270). Devuelve el OSErr de 16 bits (el llamador solo mira AX).
++// El EXE tiene un hueco de pila sin inicializar (`push ecx`) que usa como handle de la extension: si GetMoviesError falla, se pasa a DisposeHandle lo que hubiera en ECX
++// al entrar; el unico llamador (0x4E7CB0) llega con ECX = la media, y eso reproduce esta funcion.
++int16 __cdecl AEMFGetMediaSoundFormat(void* media, void** outDecompressionAtom, CAEMFDecoder::tQTSoundFormatInfo* info) {
++    void* extension = media; // hueco de pila del EXE (ECX de entrada = la media en el unico llamador)
++
++    void* const description = plugin::CallAndReturn<void*, 0x818DB0, int32>(0);
++    plugin::CallAndReturn<int32, 0x81A300, void*, int32, void*>(media, 1, description);
++    int32 err = plugin::CallAndReturn<int32, 0x819860>();
++    if (static_cast<int16>(err) == 0) {
++        extension = plugin::CallAndReturn<void*, 0x818DB0, int32>(0);
++        if (const int32 waveErr = plugin::CallAndReturn<int32, 0x81C600, void*, void**, uint32>(description, &extension, 0x77617665 /* 'wave' */); static_cast<int16>(waveErr) == 0) {
++            const int32 size = plugin::CallAndReturn<int32, 0x8192B0, void*>(extension);
++            plugin::CallAndReturn<int32, 0x818F90, void*>(extension);
++            void* const copy = plugin::CallAndReturn<void*, 0x818E70, int32>(size);
++            *outDecompressionAtom = copy;
++            err = plugin::CallAndReturn<int32, 0x818D70>();
++            plugin::CallAndReturn<int32, 0x819390, void*, void*, int32>(*static_cast<void**>(extension), *outDecompressionAtom, size); // el EXE relee *outAtom tras MemError
++            plugin::CallAndReturn<int32, 0x818FB0, void*>(extension);
++        } else {
++            err = 0;
++        }
++
++        // Como el original: cada campo vuelve a leer el handle de la descripcion.
++        const auto desc = [&]() { return *static_cast<uint8* const*>(description); };
++        info->format        = *reinterpret_cast<const uint32*>(desc() + 4);
++        info->numChannels   = *reinterpret_cast<const int16*>(desc() + 0x18);
++        info->sampleSize    = *reinterpret_cast<const int16*>(desc() + 0x1A);
++        info->sampleRate    = *reinterpret_cast<const uint32*>(desc() + 0x20);
++        info->compressionID = *reinterpret_cast<const int16*>(desc() + 0x1C);
++    }
++
++    if (extension) {
++        plugin::Call<0x819270, void*>(extension);
++    }
++    if (description) {
++        plugin::Call<0x819270, void*>(description);
++    }
++    return static_cast<int16>(err);
++}
++
+ // 0x4e7770
+ // Como el original: sólo escribe el nombre, el flag, la película, la media y la pista; el resto del objeto queda
+ // sin escribir hasta Initialise().
+@@ -233,6 +320,8 @@ void CAEMFDecoder::InjectHooks() {
+     RH_ScopedVMTInstall(SetCursor, 0x4e78e0);
+     RH_ScopedVMTInstall(GetSampleRate, 0x4e78c0);
+     RH_ScopedVMTInstall(GetStreamID, 0x4e77b0);
++    RH_ScopedNamedGlobalInstall(AEMFOpenSoundMedia, "OpenSoundMedia", 0x4E7990);
++    RH_ScopedNamedGlobalInstall(AEMFGetMediaSoundFormat, "GetMediaSoundFormat", 0x4E7A80);
+ }
+ 
+ CAEMFDecoder* CAEMFDecoder::Constructor(char* filename, int32 trackID) {
+diff --git a/source/game_sa/Audio/Loaders/AEMFDecoder.h b/source/game_sa/Audio/Loaders/AEMFDecoder.h
+index 2c444717e..4070f66e8 100644
+--- a/source/game_sa/Audio/Loaders/AEMFDecoder.h
++++ b/source/game_sa/Audio/Loaders/AEMFDecoder.h
+@@ -92,3 +92,7 @@ private:
+ };
+ 
+ VALIDATE_SIZE(CAEMFDecoder, 0xc4);
++
++// Ayudantes del EXE sin clase, de los que Initialise (0x4E7CB0) depende. Los llama por su direccion (0x4E7990 / 0x4E7A80); ambos devuelven el OSErr de 16 bits en AX.
++int16 __cdecl AEMFOpenSoundMedia(char* filename, void** outMovie, void** outMedia);                                                      // 0x4E7990
++int16 __cdecl AEMFGetMediaSoundFormat(void* media, void** outDecompressionAtom, CAEMFDecoder::tQTSoundFormatInfo* info);               // 0x4E7A80
+diff --git a/source/game_sa/Game.cpp b/source/game_sa/Game.cpp
+index adcce34ba..1e7cc1e93 100644
+--- a/source/game_sa/Game.cpp
++++ b/source/game_sa/Game.cpp
+@@ -17,6 +17,7 @@
+ END GENERATED HOOK STATUS */
+ 
+ #include "StdInc.h"
++#include "../../reversing/Helpers65D/LiveComparison.hpp"
+ 
+ #include "UIRenderer.h"
+ 
+@@ -706,6 +707,7 @@ void CGame::InitialiseWhenRestarting() {
+ 
+ // 0x53BEE0
+ void CGame::Process() {
++    Hp65Live::Update();
+     ZoneScoped;
+ 
+     CPad::UpdatePads();
+diff --git a/source/game_sa/RenderWare/rw/rwtexdict.cpp b/source/game_sa/RenderWare/rw/rwtexdict.cpp
+index eadd50a0a..3d6a9798a 100644
+--- a/source/game_sa/RenderWare/rw/rwtexdict.cpp
++++ b/source/game_sa/RenderWare/rw/rwtexdict.cpp
+@@ -1,6 +1,9 @@
+ #include "StdInc.h"
+ 
+ #include "rwtexdict.h"
++#include "rpanisot.h"
++#include "X87Math.h"
++#include <platform/win/WinPlatform.h>
+ 
+ // 0x734940: el EXE recorre la lista del diccionario con RwTexDictionaryForAllTextures (0x7F3730) y un callback (0x734930) que guarda la primera textura y devuelve 0
+ // (detiene el recorrido); es decir, devuelve la primera textura de la lista o nulo si esta vacia. Aqui se lee el primer enlace del centinela directamente, como
+@@ -18,8 +21,56 @@ RwTexture* GetFirstTextureCallback(RwTexture* texture, void* data) {
+     return plugin::CallAndReturn<RwTexture*, 0x734930, RwTexture*, void*>(texture, data);
+ }
+ 
++// Como el original: contadores de depuracion del tiempo medio de lectura de texturas (se actualizan solo con el juego en marcha, gGameState == 8).
++static auto& s_textureReadCount   = StaticRef<int32>(0xC87FF0);
++static auto& s_textureReadAverage = StaticRef<float>(0xC87FEC);
++
++// 0x730E60: lee una textura nativa de un stream RenderWare. Busca el chunk rwID_TEXTURENATIVE (0x15) y llama a stdFunc[rwSTANDARDNATIVETEXTUREREAD] (RwEngineInstance + 0xB0) con
++// (stream, &textura, longitud); si falla, nulo. Mide el tiempo: marca de inicio = CTimer::GetCurrentTimeInCycles (0x561A80) / GetCyclesPerMillisecond (0x561A40) como cociente
++// float (Rt66TextureReadStartCpp), y con gGameState == 8 una vez leida (aunque la textura salga nula) actualiza la media incremental en 0xC87FEC / 0xC87FF0
++// (Rt66TextureReadEndCpp, x87 a 24 bits). Luego, con textura: filtro NEAREST (1) -> LINEAR (2) y MIPNEAREST (3) -> MIPLINEAR (4) en el byte bajo de filterAddressing y,
++// con anisotropia soportada, calidad de efectos >= alta (2) y anisotropia de la textura >= 1 (byte con signo), le pone la anisotropia maxima del dispositivo.
+ RwTexture* RwTextureGtaStreamRead(RwStream* stream) {
+-    return plugin::CallAndReturn<RwTexture*, 0x730E60, RwStream*>(stream);
++    static_assert(offsetof(RwGlobals, stdFunc) + rwSTANDARDNATIVETEXTUREREAD * sizeof(RwStandardFunc) == 0xB0);
++
++    RwUInt32 length;
++    RwUInt32 version;
++    if (!RwStreamFindChunk(stream, rwID_TEXTURENATIVE, &length, &version)) {
++        return nullptr;
++    }
++
++    const uint32 startTime    = CTimer::GetCurrentTimeInCycles();
++    const uint32 startDivider = CTimer::GetCyclesPerMillisecond();
++    const float  startRatio   = Rt66TextureReadStartCpp(startTime, startDivider);
++
++    RwTexture* texture = nullptr; // Como el original: sin inicializar (la lectura nativa lo escribe)
++    if (!RwEngineInstance->stdFunc[rwSTANDARDNATIVETEXTUREREAD](stream, &texture, static_cast<RwInt32>(length))) {
++        return nullptr;
++    }
++
++    if (gGameState == 8) {
++        const uint32 endTime    = CTimer::GetCurrentTimeInCycles();
++        const uint32 endDivider = CTimer::GetCyclesPerMillisecond();
++        Rt66TextureReadEndCpp(endTime, endDivider, startRatio, &s_textureReadCount, &s_textureReadAverage);
++    }
++
++    if (!texture) {
++        return nullptr;
++    }
++
++    auto* const filter = reinterpret_cast<uint8*>(&texture->filterAddressing);
++    if (*filter == rwFILTERNEAREST) {
++        *filter = rwFILTERLINEAR;
++    } else if (*filter == rwFILTERMIPNEAREST) {
++        *filter = rwFILTERMIPLINEAR;
++    }
++
++    if (anisotropySupportedByGFX) {
++        if (RpAnisotTextureGetMaxAnisotropy(texture) >= 1 && g_fx.GetFxQuality() >= FX_QUALITY_HIGH) {
++            RpAnisotTextureSetMaxAnisotropy(texture, RpAnisotGetMaxSupportedMaxAnisotropy());
++        }
++    }
++    return texture;
+ }
+ 
+ // 0x730FC0: lee un diccionario de texturas de GTA. Busca el chunk STRUCT (rwID_STRUCT = 1) y lee su contenido en un marco local de 12 bytes (palabra 0 = contador de texturas
+diff --git a/source/game_sa/RwHelper.cpp b/source/game_sa/RwHelper.cpp
+index 8305e173b..f66949a5b 100644
+--- a/source/game_sa/RwHelper.cpp
++++ b/source/game_sa/RwHelper.cpp
+@@ -43,6 +43,8 @@ void RwHelperInjectHooks() {
+     RH_ScopedGlobalInstall(RwTexDictionaryFindHashNamedTexture, 0x734E50);
+     RH_ScopedGlobalInstall(GetFirstTexture, 0x734940);
+     RH_ScopedGlobalInstall(RwTexDictionaryGtaStreamRead, 0x730FC0);
++    RH_ScopedGlobalInstall(RwTextureGtaStreamRead, 0x730E60);
++    RH_ScopedGlobalInstall(SkinGetBonePositionsToTable, 0x735360);
+     RH_ScopedGlobalInstall(RpGeometryReplaceOldMaterialWithNewMaterial, 0x734DE0);
+     RH_ScopedGlobalInstall(GetAnimHierarchyFromClump, 0x734B10);
+     RH_ScopedGlobalInstall(AtomicRemoveAnimFromSkinCB, 0x734B90);
+@@ -364,8 +366,52 @@ void SkinSetBonePositions(RpClump* clump) {
+ }
+ 
+ // 0x735360
++// Como el original: con tabla nula no hace nada. Si no, busca el primer atomo del clump (RpClumpForAllAtomics con el callback 0x734810) y su RpSkin (RpSkinGeometryGetSkin, sin
++// comprobar nulos: un clump sin atomos revienta, como en el EXE), pide la jerarquia (callback 0x734A20), pone table[0] a cero y recorre los huesos 1..n-1 (n = RpSkinGetNumBones,
++// con signo). Para cada hueso i: copia la matriz piel-a-hueso i, la invierte (RwMatrixInvert), copia la del hueso padre (la matriz se vuelve a pedir con RpSkinGetSkinToBoneMatrices
++// antes de cada copia) y table[i] = RwV3dTransformPoints(posicion de la inversa, matriz del padre). El padre sale de las banderas del nodo i de la jerarquia (pNodeInfo[i], 0x10 bytes):
++// con PUSH (2) se apila el padre actual, con POP (1) el nuevo padre es el desapilado y, sin POP, el nuevo padre es i. La pila del EXE (32 enteros, nunca inicializada) arranca con el
++// puntero en su primera posicion: un POP sin PUSH previo lee basura de la pila (no definido; aqui 0).
+ void SkinGetBonePositionsToTable(RpClump* clump, RwV3d* table) {
+-    ((void(__cdecl*)(RpClump*, RwV3d*))0x735360)(clump, table);
++    if (!table) {
++        return;
++    }
++
++    RpAtomic* atomic = nullptr;
++    RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(0x734810), &atomic); // GetFirstAtomicCallback
++    RpSkin* const skin = RpSkinGeometryGetSkin(RpAtomicGetGeometry(atomic));
++
++    RpHAnimHierarchy* hierarchy = nullptr;
++    RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(0x734A20), &hierarchy); // SkinAtomicGetHAnimHierarchCB
++
++    table[0].x = 0.0f;
++    table[0].y = 0.0f;
++    table[0].z = 0.0f;
++
++    const int32 numBones = static_cast<int32>(RpSkinGetNumBones(skin));
++    int32  parent = 0;
++    int32  stack[33]{};
++    int32* stackTop = stack;
++    for (int32 bone = 1; bone < numBones; ++bone) {
++        RwMatrix boneMatrix = RpSkinGetSkinToBoneMatrices(skin)[bone];
++        RwMatrix inverse;
++        RwMatrixInvert(&inverse, &boneMatrix);
++
++        // Como el original: el indice del padre se multiplica por 64 con 32 bits (shl esi,6) sobre el puntero devuelto
++        const auto* const parentSource = reinterpret_cast<const RwMatrix*>(reinterpret_cast<const uint8*>(RpSkinGetSkinToBoneMatrices(skin)) + (static_cast<uint32>(parent) << 6));
++        RwMatrix parentMatrix = *parentSource;
++        RwV3dTransformPoints(&table[bone], &inverse.pos, 1, &parentMatrix);
++
++        const RwInt32 flags = hierarchy->pNodeInfo[bone].flags;
++        if (flags & rpHANIMPUSHPARENTMATRIX) {
++            *++stackTop = parent;
++        }
++        if (flags & rpHANIMPOPPARENTMATRIX) {
++            parent = *stackTop--;
++        } else {
++            parent = bone;
++        }
++    }
+ }
+ 
+ // 0x7226D0
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 0fc345e30..499ad1a39 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -15119,3 +15119,37 @@ __declspec(noinline) void __cdecl Hp65MatrixTimesPointCpp(const float* m, const
+     out[2] = z;
+ }
+ #pragma float_control(pop)
++
++// --- Lote 66C (Helpers66C): RwTextureGtaStreamRead (0x730E60), prefijo Rt66 ---
++#pragma float_control(precise, on, push)
++namespace {
++// fild dword; test eax,eax / jge; fadd dword [0x858C54] (2^32): entero sin signo; con el bit alto puesto el resultado se redondea a 24 bits (la suma de la x87).
++double Rt66Unsigned(unsigned int value) {
++    double d = static_cast<double>(static_cast<int>(value));
++    if (static_cast<int>(value) < 0) {
++        d += 4294967296.0f;
++    }
++    return d;
++}
++} // namespace
++__declspec(noinline) float __cdecl Rt66TextureReadStartCpp(unsigned int time, unsigned int divider) {
++    volatile float startTime = static_cast<float>(Rt66Unsigned(time)); // fstp dword [esp+8]
++    const double dividerValue = Rt66Unsigned(divider);
++    volatile float ratio = static_cast<float>(static_cast<double>(startTime) / dividerValue); // fdivr dword [esp+8]; fstp dword
++    return ratio;
++}
++__declspec(noinline) void __cdecl Rt66TextureReadEndCpp(unsigned int time, unsigned int divider, float startRatio, int* count, float* average) {
++    volatile float endTime = static_cast<float>(Rt66Unsigned(time)); // fstp dword [esp+8]
++    const double dividerValue = Rt66Unsigned(divider);
++    const double ratio = static_cast<double>(endTime) / dividerValue;           // fdivr dword [esp+8]
++    const int previous = *count;
++    const int next = previous + 1;
++    const double elapsed = ratio - static_cast<double>(startRatio);               // fsub dword [startRatio]
++    *count = next;
++    const double scaled = static_cast<double>(previous) * static_cast<double>(*average); // fild [count]; fmul dword [average]
++    const double sum = scaled + elapsed;                                          // fadd st,st(1)
++    const double mean = sum / static_cast<double>(next);                          // fidiv dword [next]
++    volatile float stored = static_cast<float>(mean);                             // fstp dword [average]
++    *average = stored;
++}
++#pragma float_control(pop)
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index e01f48669..8d8fa4a2a 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1831,3 +1831,9 @@ void __cdecl StoredCarUnpackForwardCpp(int x, int y, int z, float* out);
+ // m = inicio de la matriz (right en m[0..2], forward en m[4..6], up en m[8..10], posicion en m[12..14]); out puede solaparse con m o v (se calculan las tres componentes antes de escribir).
+ // Igual que AutoPreMultiplyMatrixWithVectorCpp, pero reproduce la seleccion de NaN de la x87 del EXE (operandos de memoria de fmul/fadd, faddp entre registros) cuando algun elemento leido es NaN.
+ void __cdecl Hp65MatrixTimesPointCpp(const float* m, const float* v, float* out);
++
++// --- Lote 66C (Helpers66C): RwTextureGtaStreamRead (0x730E60), prefijo Rt66. Anadido al FINAL de X87Math.h ---
++// 0x730E85..0x730ECC: (float)tiempo / divisor, ambos enteros SIN signo (fild + fadd 2^32 [0x858C54] si el bit alto esta puesto, con un redondeo a 24 bits), cociente x87 de 24 bits guardado como float.
++float __cdecl Rt66TextureReadStartCpp(unsigned int time, unsigned int divider);
++// 0x730EE6..0x730F47: ((previo * media) + (tiempo / divisor - inicio)) / (previo + 1) con un redondeo a 24 bits por operacion (sin guardar entre ellas); *count = previo + 1, *average = float del resultado.
++void __cdecl Rt66TextureReadEndCpp(unsigned int time, unsigned int divider, float startRatio, int* count, float* average);

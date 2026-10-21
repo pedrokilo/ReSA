@@ -1,0 +1,66 @@
+{
+ "CPlayerPed::PlayerWantsToAttack": {
+  "count_fail": 276,
+  "group_nonzero": 2155,
+  "flag_fail": 244,
+  "attack_direct": 635,
+  "report_called": 1937,
+  "istag_exit": 471,
+  "object_exit": 195,
+  "attack_found": 729,
+  "mouse_target_used": 170,
+  "mouse_target_ignored": 169,
+  "target_beats_mouse": 212,
+  "find_null": 101
+ },
+ "CPlayerPed::EvaluateNeighbouringTarget": {
+  "out_of_range": 698,
+  "flag_high_bits": 352,
+  "cam_matrix": 798,
+  "max_nan": 159,
+  "broken_exit": 276,
+  "atan_called": 1483,
+  "angle_above_pi": 147,
+  "angle_outside_50": 473,
+  "flag_left": 725,
+  "stored": 422,
+  "angle_below_minus_pi": 140,
+  "not_stored_priority": 500,
+  "flag_right": 757,
+  "angle_nan": 121,
+  "tiny_positions": 174
+ },
+ "CTaskSimpleGangDriveBy::HasClearLineOfSight": {
+  "skipped": 819,
+  "result_clear": 1424,
+  "no_target": 406,
+  "signed_trap": 348,
+  "blocked_byte_odd": 643,
+  "result_blocked": 1033,
+  "checked_target": 1231,
+  "matrix": 433,
+  "nan_pos": 310,
+  "y_snan": 119
+ },
+ "Fx_c::AddPunchImpact": {
+  "in_range": 1258,
+  "matrix_camera": 966,
+  "out_of_range": 1199,
+  "nan_distance": 250,
+  "denormal": 268
+ },
+ "RsSavePresetView": {
+  "open_fail": 153,
+  "kb_used": 198,
+  "write_fail": 153,
+  "loaded": 2150,
+  "load_zero": 558,
+  "create_null": 297,
+  "set_view": 1591,
+  "clamp_hi": 207,
+  "clamp_lo": 190,
+  "nan_at": 172,
+  "inf_at": 174,
+  "denormal_at": 174
+ }
+}

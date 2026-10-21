@@ -15119,3 +15119,176 @@ __declspec(noinline) void __cdecl Hp65MatrixTimesPointCpp(const float* m, const 
     out[2] = z;
 }
 #pragma float_control(pop)
+
+// --- Lote 66 (Helpers66A), prefijo Hp66 ---
+#pragma float_control(precise, on, push)
+// 0x60D201: fsqrt a 24 bits (fuera de linea para que /fp:fast no lo convierta en una comparacion de cuadrados).
+static __declspec(noinline) double __cdecl Hp66Sqrt(double value) {
+    return sqrt(value);
+}
+// 0x60D1E1..0x60D20F (CPlayerPed::EvaluateNeighbouringTarget): fld [objetivo.x]; fsub [yo.x] ... (tres restas), (dz*dz + dy*dy) + dx*dx, fsqrt, fcomp [maxDistance]; test ah,41h.
+__declspec(noinline) bool __cdecl Hp66NeighbourInRangeCpp(const float* target, const float* self, float maxDistance) {
+    const double dx = double(target[0]) - double(self[0]);
+    const double dy = double(target[1]) - double(self[1]);
+    const double dz = double(target[2]) - double(self[2]);
+    const double distance = Hp66Sqrt((dz * dz + dy * dy) + dx * dx);
+    return distance <= double(maxDistance);
+}
+// 0x60D26F..0x60D288: fld [target.y]; fsub [camera.y]; fstp [esp+4]; fld [target.x]; fsub [camera.x]; fstp [esp]; call 0x53CC70; fsub [compensation].
+__declspec(noinline) float __cdecl Hp66NeighbourAngleCpp(float (__cdecl* atanFn)(float, float), const float* target, const float* camera, float compensation) {
+    volatile float dy = float(double(target[1]) - double(camera[1]));
+    volatile float dx = float(double(target[0]) - double(camera[0]));
+    const double angle = double(atanFn(dx, dy));
+    volatile float result = float(angle - double(compensation));
+    return result;
+}
+// Ejes constantes del EXE (0x8D2E00 = X, 0x8D2E0C = Y, 0x8D2E18 = Z): volatile para que no se simplifiquen los productos por cero (0 * inf = NaN).
+static volatile const float Hp66AxisX[3] = { 1.0f, 0.0f, 0.0f };
+static volatile const float Hp66AxisY[3] = { 0.0f, 1.0f, 0.0f };
+static volatile const float Hp66AxisZ[3] = { 0.0f, 0.0f, 1.0f };
+__declspec(noinline) void __cdecl Hp66PresetViewAnglesCpp(const float* ltm, float (__cdecl* normalize)(void*, const void*), float* outPos, float* outRotX, float* outRotY) {
+    // pos = ltm.pos (copia de dwords)
+    memcpy(outPos, ltm + 12, 3 * sizeof(float));
+    // d = (Y.x * at.x + Y.y * at.y) + Y.z * at.z, guardado como float; > 1 -> 1; el float releido < -1 -> -1 (NaN no se recorta)
+    const double dotY = (double(Hp66AxisY[0]) * double(ltm[8]) + double(Hp66AxisY[1]) * double(ltm[9])) + double(Hp66AxisY[2]) * double(ltm[10]);
+    volatile float stored = float(dotY);
+    if (dotY > 1.0) {
+        stored = 1.0f;
+    } else if (stored < -1.0f) {
+        stored = -1.0f;
+    }
+    const float clampedY = stored;
+    // rotX = 90 - acos(d) * 57.29578 (0x859878), un solo redondeo a float
+    const double pitch = ExeAcosDoubleCpp(double(clampedY)) * double(57.2957763671875f);
+    *outRotX = float(double(90.0f) - pitch);
+    // t = at - Y * d (cada producto y cada resta redondeados a float), normalizado en el sitio
+    float t[3];
+    volatile float prod[3];
+    prod[0] = float(double(Hp66AxisY[0]) * double(clampedY));
+    prod[1] = float(double(Hp66AxisY[1]) * double(clampedY));
+    prod[2] = float(double(Hp66AxisY[2]) * double(clampedY));
+    t[0] = float(double(ltm[8]) - double(prod[0]));
+    t[1] = float(double(ltm[9]) - double(prod[1]));
+    t[2] = float(double(ltm[10]) - double(prod[2]));
+    (void)normalize(t, t);
+    // rotY = acos(clamp(Z . t)) * 57.29578 (el valor sin recortar se compara sin redondear); signo segun X . t
+    double dotZ = (double(Hp66AxisZ[1]) * double(t[1]) + double(Hp66AxisZ[0]) * double(t[0])) + double(Hp66AxisZ[2]) * double(t[2]);
+    if (dotZ > 1.0) {
+        dotZ = 1.0;
+    } else if (dotZ < -1.0) {
+        dotZ = -1.0;
+    }
+    const double yaw = ExeAcosDoubleCpp(dotZ) * double(57.2957763671875f);
+    volatile float rotY = float(yaw);
+    const double dotX = (double(Hp66AxisX[1]) * double(t[1]) + double(Hp66AxisX[0]) * double(t[0])) + double(Hp66AxisX[2]) * double(t[2]);
+    if (dotX < 0.0) {
+        rotY = float(-yaw);
+    }
+    *outRotY = rotY;
+}
+#pragma float_control(pop)
+
+// --- Lote 66C (Helpers66C): RwTextureGtaStreamRead (0x730E60), prefijo Rt66 ---
+#pragma float_control(precise, on, push)
+namespace {
+// fild dword; test eax,eax / jge; fadd dword [0x858C54] (2^32): entero sin signo; con el bit alto puesto el resultado se redondea a 24 bits (la suma de la x87).
+double Rt66Unsigned(unsigned int value) {
+    double d = static_cast<double>(static_cast<int>(value));
+    if (static_cast<int>(value) < 0) {
+        d += 4294967296.0f;
+    }
+    return d;
+}
+} // namespace
+__declspec(noinline) float __cdecl Rt66TextureReadStartCpp(unsigned int time, unsigned int divider) {
+    volatile float startTime = static_cast<float>(Rt66Unsigned(time)); // fstp dword [esp+8]
+    const double dividerValue = Rt66Unsigned(divider);
+    volatile float ratio = static_cast<float>(static_cast<double>(startTime) / dividerValue); // fdivr dword [esp+8]; fstp dword
+    return ratio;
+}
+__declspec(noinline) void __cdecl Rt66TextureReadEndCpp(unsigned int time, unsigned int divider, float startRatio, int* count, float* average) {
+    volatile float endTime = static_cast<float>(Rt66Unsigned(time)); // fstp dword [esp+8]
+    const double dividerValue = Rt66Unsigned(divider);
+    const double ratio = static_cast<double>(endTime) / dividerValue;           // fdivr dword [esp+8]
+    const int previous = *count;
+    const int next = previous + 1;
+    const double elapsed = ratio - static_cast<double>(startRatio);               // fsub dword [startRatio]
+    *count = next;
+    const double scaled = static_cast<double>(previous) * static_cast<double>(*average); // fild [count]; fmul dword [average]
+    const double sum = scaled + elapsed;                                          // fadd st,st(1)
+    const double mean = sum / static_cast<double>(next);                          // fidiv dword [next]
+    volatile float stored = static_cast<float>(mean);                             // fstp dword [average]
+    *average = stored;
+}
+#pragma float_control(pop)
+
+// --- Lote 66 (Helpers66D): RpClumpGetBoundingSphere (0x734FC0), CGarage::FindDoorsWithGarage (0x449FF0), CCam::GetArrestCamCopSourceAlternate (0x516010). Prefijo Hp66 ---
+// Todo en x87 de 24 bits con exponente extendido: lo que el EXE guarda con fstp dword va por un volatile float (redondeo a float, subnormales incluidos); lo que deja en el registro va por double
+// (con la palabra de control del juego, 24 bits, cada operacion redondea a 24 bits como la x87 del EXE).
+__declspec(noinline) void __cdecl Hp66ClumpScaleCenterCpp(float* center, int count) {
+    volatile float n = static_cast<float>(count);          // fild dword; fst dword [esp+70h]: el divisor es el float guardado
+    volatile float inv = 1.0f / n;                         // fld1; fdiv dword [n]
+    volatile float x = static_cast<float>(static_cast<double>(center[0]) * static_cast<double>(inv));
+    center[0] = x;
+    volatile float y = static_cast<float>(static_cast<double>(center[1]) * static_cast<double>(inv));
+    center[1] = y;
+    volatile float z = static_cast<float>(static_cast<double>(center[2]) * static_cast<double>(inv));
+    center[2] = z;
+}
+
+__declspec(noinline) void __cdecl Hp66GarageCornerCpp(const float* garage, float* out) {
+    const double hw = static_cast<double>(garage[8]) * 0.5;                                        // fmul dword [0.5]
+    volatile float t1 = static_cast<float>(static_cast<double>(garage[3]) * hw);                    // fstp [esp+14h]
+    volatile float ax = static_cast<float>(static_cast<double>(t1) + static_cast<double>(garage[0])); // fadd st,st(3); fstp [esp+14h]
+    const double ay = static_cast<double>(garage[4]) * hw + static_cast<double>(garage[1]);        // queda en el registro
+    const double hh = static_cast<double>(garage[9]) * 0.5;
+    volatile float t2 = static_cast<float>(static_cast<double>(garage[5]) * hh);                    // fstp [esp+20h]
+    volatile float px = static_cast<float>(static_cast<double>(t2) + static_cast<double>(ax));      // fld [esp+20h]; fadd [esp+14h]; fstp [esp+14h]
+    volatile float py = static_cast<float>(static_cast<double>(garage[6]) * hh + ay);               // fadd st,st(1); fstp [esp+18h]
+    out[0] = px;
+    out[1] = py;
+}
+
+__declspec(noinline) float __cdecl Hp66GarageDistanceCpp(float px, float py, const float* position) {
+    const double dx = static_cast<double>(px) - static_cast<double>(position[0]);                   // fld [esp+18h]; fsub dword [pos]
+    const double dy = static_cast<double>(py) - static_cast<double>(position[1]);
+    const double sum = dy * dy + dx * dx;                                                           // faddp st(1),st
+    volatile float distance = static_cast<float>(sqrt(sum));                                        // fsqrt; fstp dword
+    return distance;
+}
+
+__declspec(noinline) void __cdecl Hp66CopSourceDeltaCpp(const float* dest, const float* position, float* v) {
+    volatile float x = static_cast<float>(static_cast<double>(dest[0]) - static_cast<double>(position[0]));
+    volatile float y = static_cast<float>(static_cast<double>(dest[1]) - static_cast<double>(position[1]));
+    v[0] = x;
+    v[1] = y;
+    v[2] = 0.0f;
+}
+
+__declspec(noinline) void __cdecl Hp66CopSourceBaseCpp(const float* v, const float* dest, float* source) {
+    constexpr double k = 5.0;                                                                       // 0x8CC7F0
+    volatile float cz = static_cast<float>(k * static_cast<double>(v[2]));                           // fstp [esp+28h]
+    volatile float sx = static_cast<float>(k * static_cast<double>(v[0]) + static_cast<double>(dest[0]));
+    volatile float sy = static_cast<float>(k * static_cast<double>(v[1]) + static_cast<double>(dest[1]));
+    volatile float sz = static_cast<float>(static_cast<double>(cz) + static_cast<double>(dest[2]));
+    source[0] = sx;
+    source[1] = sy;
+    source[2] = sz;
+}
+
+__declspec(noinline) void __cdecl Hp66CopSourceSideCpp(const float* c, const float* dest, float* source) {
+    constexpr double k = 10.0;                                                                      // 0x8CC7F4
+    const double kx = k * static_cast<double>(c[0]);
+    const double ky = k * static_cast<double>(c[1]);
+    volatile float sx = static_cast<float>(kx + static_cast<double>(source[0]));
+    volatile float sy = static_cast<float>(ky + static_cast<double>(source[1]));
+    volatile float sz = static_cast<float>(static_cast<double>(dest[2]) + 5.0);                     // 0x858C80
+    source[0] = sx;
+    source[1] = sy;
+    source[2] = sz;
+}
+
+__declspec(noinline) void __cdecl Hp66CopSourceSnapCpp(float ground, float* sourceZ) {
+    volatile float z = static_cast<float>(static_cast<double>(std::bit_cast<float>(0x3F333333u)) + static_cast<double>(ground));  // fld [0x8CC7F8]; fadd st,st(1)
+    *sourceZ = z;
+}

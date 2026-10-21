@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 21/10/2026 (Ciudad de México):** 818 grupos / 8882 funciones reconstruidas; 8882 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 21/10/2026 (Ciudad de México):** 818 grupos / 8901 funciones reconstruidas; 8901 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Implementaciones del juego: C++, ensamblador y dependencia del EXE
@@ -8,7 +8,7 @@ Este documento distingue el lenguaje de la fuente, la reconstrucción, la valida
 
 El inventario asigna **0 apariciones de ensamblador** a **0 definiciones con cuerpo** y **0 declaraciones naked** a **0 definiciones**. No queda ninguna aparición sin ubicación. Las funciones mixtas se cuentan en «con ensamblador»; naked es una marca adicional que no se suma como otra función.
 
-De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 18482 definiciones en 1496 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
+De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 18502 definiciones en 1496 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
 
 ## Cómo leer la tabla
 
@@ -60,7 +60,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CAEFireAudioEntity](implementaciones/detalle-002.md#grupo-29) · [source/game_sa/Audio/Entities/AEFireAudioEntity.cpp](../source/game_sa/Audio/Entities/AEFireAudioEntity.cpp) | 7 | 0 | 1 | 0 | 0 |
 | [CAEFrontendAudioEntity](implementaciones/detalle-002.md#grupo-30) · [source/game_sa/Audio/Entities/AEFrontendAudioEntity.cpp](../source/game_sa/Audio/Entities/AEFrontendAudioEntity.cpp) | 6 | 0 | 1 | 0 | 0 |
 | [CAEGlobalWeaponAudioEntity](implementaciones/detalle-002.md#grupo-31) · [source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp](../source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp) | 7 | 0 | 3 | 0 | 0 |
-| [CAEMFDecoder](implementaciones/detalle-002.md#grupo-32) · [source/game_sa/Audio/Loaders/AEMFDecoder.cpp](../source/game_sa/Audio/Loaders/AEMFDecoder.cpp) | 10 | 0 | 4 | 0 | 0 |
+| [CAEMFDecoder](implementaciones/detalle-002.md#grupo-32) · [source/game_sa/Audio/Loaders/AEMFDecoder.cpp](../source/game_sa/Audio/Loaders/AEMFDecoder.cpp) | 12 | 0 | 4 | 0 | 0 |
 | [CAEMP3BankLoader](implementaciones/detalle-002.md#grupo-33) · [source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp](../source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp), [source/game_sa/Audio/Loaders/AEMP3BankLoader.h](../source/game_sa/Audio/Loaders/AEMP3BankLoader.h) | 13 | 0 | 4 | 0 | 0 |
 | [CAEMP3TrackLoader](implementaciones/detalle-002.md#grupo-34) · [source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp](../source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp), [source/game_sa/Audio/Loaders/AEMP3TrackLoader.h](../source/game_sa/Audio/Loaders/AEMP3TrackLoader.h) | 7 | 0 | 3 | 0 | 0 |
 | [CAEPedAudioEntity](implementaciones/detalle-002.md#grupo-35) · [source/game_sa/Audio/Entities/AEPedAudioEntity.cpp](../source/game_sa/Audio/Entities/AEPedAudioEntity.cpp) | 20 | 0 | 2 | 0 | 0 |
@@ -128,7 +128,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CBulletInfo](implementaciones/detalle-005.md#grupo-97) · [source/game_sa/BulletInfo.cpp](../source/game_sa/BulletInfo.cpp) | 4 | 0 | 3 | 0 | 0 |
 | [CBulletTrace](implementaciones/detalle-005.md#grupo-98) · [source/game_sa/BulletTrace.h](../source/game_sa/BulletTrace.h) | 0 | 0 | 3 | 0 | 0 |
 | [CBulletTraces](implementaciones/detalle-005.md#grupo-99) · [source/game_sa/BulletTraces.cpp](../source/game_sa/BulletTraces.cpp), [source/game_sa/BulletTraces.h](../source/game_sa/BulletTraces.h) | 5 | 0 | 3 | 0 | 0 |
-| [CCam](implementaciones/detalle-005.md#grupo-100) · [source/game_sa/Cam.cpp](../source/game_sa/Cam.cpp), [source/game_sa/Cam.h](../source/game_sa/Cam.h) | 51 | 0 | 5 | 0 | 0 |
+| [CCam](implementaciones/detalle-005.md#grupo-100) · [source/game_sa/Cam.cpp](../source/game_sa/Cam.cpp), [source/game_sa/Cam.h](../source/game_sa/Cam.h) | 52 | 0 | 5 | 0 | 0 |
 | [CCamera](implementaciones/detalle-006.md#grupo-101) · [source/game_sa/Camera.cpp](../source/game_sa/Camera.cpp), [source/game_sa/Camera.h](../source/game_sa/Camera.h) | 122 | 0 | 13 | 0 | 0 |
 | [CCarAI](implementaciones/detalle-006.md#grupo-102) · [source/game_sa/CarAI.cpp](../source/game_sa/CarAI.cpp) | 25 | 0 | 1 | 0 | 0 |
 | [CCarCtrl](implementaciones/detalle-006.md#grupo-103) · [source/game_sa/CarCtrl.cpp](../source/game_sa/CarCtrl.cpp) | 91 | 0 | 21 | 0 | 0 |
@@ -323,7 +323,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CGangWars](implementaciones/detalle-015.md#grupo-292) · [source/game_sa/GangWars.cpp](../source/game_sa/GangWars.cpp), [source/game_sa/GangWars.h](../source/game_sa/GangWars.h) | 36 | 0 | 3 | 0 | 0 |
 | [CGangWarsSaveStructure](implementaciones/detalle-015.md#grupo-293) · [source/game_sa/GangWarsSaveStructure.cpp](../source/game_sa/GangWarsSaveStructure.cpp) | 0 | 0 | 2 | 0 | 0 |
 | [CGangs](implementaciones/detalle-015.md#grupo-294) · [source/game_sa/Gangs.cpp](../source/game_sa/Gangs.cpp) | 8 | 0 | 1 | 0 | 0 |
-| [CGarage](implementaciones/detalle-015.md#grupo-295) · [source/game_sa/Garage.cpp](../source/game_sa/Garage.cpp), [source/game_sa/Garage.h](../source/game_sa/Garage.h) | 18 | 0 | 7 | 0 | 0 |
+| [CGarage](implementaciones/detalle-015.md#grupo-295) · [source/game_sa/Garage.cpp](../source/game_sa/Garage.cpp), [source/game_sa/Garage.h](../source/game_sa/Garage.h) | 19 | 0 | 7 | 0 | 0 |
 | [CGarages](implementaciones/detalle-015.md#grupo-296) · [source/game_sa/Garages.cpp](../source/game_sa/Garages.cpp), [source/game_sa/Garages.h](../source/game_sa/Garages.h) | 27 | 0 | 14 | 0 | 0 |
 | [CGeneral](implementaciones/detalle-015.md#grupo-297) · [source/game_sa/General.cpp](../source/game_sa/General.cpp), [source/game_sa/General.h](../source/game_sa/General.h) | 10 | 0 | 13 | 0 | 0 |
 | [CGenericGameStorage](implementaciones/detalle-015.md#grupo-298) · [source/game_sa/GenericGameStorage.cpp](../source/game_sa/GenericGameStorage.cpp), [source/game_sa/GenericGameStorage.h](../source/game_sa/GenericGameStorage.h) | 22 | 0 | 2 | 0 | 0 |
@@ -333,7 +333,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CGroupEventHandler](implementaciones/detalle-016.md#grupo-302) · [source/game_sa/Events/GroupEventHandler.cpp](../source/game_sa/Events/GroupEventHandler.cpp) | 32 | 0 | 1 | 0 | 0 |
 | [CHandObject](implementaciones/detalle-016.md#grupo-303) · [source/game_sa/Entity/Object/HandObject.cpp](../source/game_sa/Entity/Object/HandObject.cpp) | 3 | 0 | 2 | 0 | 0 |
 | [CHandShaker](implementaciones/detalle-016.md#grupo-304) · [source/game_sa/HandShaker.cpp](../source/game_sa/HandShaker.cpp), [source/game_sa/HandShaker.h](../source/game_sa/HandShaker.h) | 3 | 0 | 2 | 0 | 0 |
-| [CHeli](implementaciones/detalle-016.md#grupo-305) · [source/game_sa/Entity/Vehicle/Heli.cpp](../source/game_sa/Entity/Vehicle/Heli.cpp), [source/game_sa/Entity/Vehicle/Heli.h](../source/game_sa/Entity/Vehicle/Heli.h) | 12 | 0 | 17 | 0 | 0 |
+| [CHeli](implementaciones/detalle-016.md#grupo-305) · [source/game_sa/Entity/Vehicle/Heli.cpp](../source/game_sa/Entity/Vehicle/Heli.cpp), [source/game_sa/Entity/Vehicle/Heli.h](../source/game_sa/Entity/Vehicle/Heli.h) | 14 | 0 | 15 | 0 | 0 |
 | [CHud](implementaciones/detalle-016.md#grupo-306) · [source/game_sa/Hud.cpp](../source/game_sa/Hud.cpp) | 39 | 0 | 4 | 0 | 0 |
 | [CHudColours](implementaciones/detalle-016.md#grupo-307) · [source/game_sa/HudColours.cpp](../source/game_sa/HudColours.cpp) | 6 | 0 | 1 | 0 | 0 |
 | [CIdleCam](implementaciones/detalle-016.md#grupo-308) · [source/game_sa/IdleCam.cpp](../source/game_sa/IdleCam.cpp), [source/game_sa/IdleCam.h](../source/game_sa/IdleCam.h) | 14 | 0 | 4 | 0 | 0 |
@@ -464,7 +464,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CPlantSurfPropMgr](implementaciones/detalle-022.md#grupo-433) · [source/game_sa/PlantSurfPropMgr.cpp](../source/game_sa/PlantSurfPropMgr.cpp) | 4 | 0 | 2 | 0 | 0 |
 | [CPlayerInfo](implementaciones/detalle-022.md#grupo-434) · [source/game_sa/PlayerInfo.cpp](../source/game_sa/PlayerInfo.cpp) | 31 | 0 | 2 | 0 | 0 |
 | [CPlayerInfoSaveStructure](implementaciones/detalle-022.md#grupo-435) · [source/game_sa/PlayerInfo.h](../source/game_sa/PlayerInfo.h) | 0 | 0 | 2 | 0 | 0 |
-| [CPlayerPed](implementaciones/detalle-022.md#grupo-436) · [source/game_sa/Entity/Ped/PlayerPed.cpp](../source/game_sa/Entity/Ped/PlayerPed.cpp), [source/game_sa/Entity/Ped/PlayerPed.h](../source/game_sa/Entity/Ped/PlayerPed.h) | 53 | 0 | 17 | 0 | 0 |
+| [CPlayerPed](implementaciones/detalle-022.md#grupo-436) · [source/game_sa/Entity/Ped/PlayerPed.cpp](../source/game_sa/Entity/Ped/PlayerPed.cpp), [source/game_sa/Entity/Ped/PlayerPed.h](../source/game_sa/Entity/Ped/PlayerPed.h) | 55 | 0 | 15 | 0 | 0 |
 | [CPlayerPedData](implementaciones/detalle-022.md#grupo-437) · [source/game_sa/PlayerPedData.cpp](../source/game_sa/PlayerPedData.cpp) | 6 | 0 | 2 | 0 | 0 |
 | [CPlayerRelationshipRecorder](implementaciones/detalle-022.md#grupo-438) · [source/game_sa/PlayerRelationshipRecorder.cpp](../source/game_sa/PlayerRelationshipRecorder.cpp) | 1 | 0 | 8 | 0 | 0 |
 | [CPlayerSkin](implementaciones/detalle-022.md#grupo-439) · [source/game_sa/Entity/Ped/PlayerSkin.cpp](../source/game_sa/Entity/Ped/PlayerSkin.cpp) | 4 | 0 | 1 | 0 | 0 |
@@ -814,7 +814,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CTaskSimpleFight](implementaciones/detalle-040.md#grupo-783) · [source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp](../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp), [source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h](../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h) | 13 | 0 | 5 | 0 | 0 |
 | [CTaskSimpleFightingControl](implementaciones/detalle-040.md#grupo-784) · [source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp](../source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp), [source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h](../source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h) | 8 | 0 | 3 | 0 | 0 |
 | [CTaskSimpleFinishBrain](implementaciones/detalle-040.md#grupo-785) · [source/game_sa/Tasks/TaskTypes/TaskSimpleFinishBrain.cpp](../source/game_sa/Tasks/TaskTypes/TaskSimpleFinishBrain.cpp), [source/game_sa/Tasks/TaskTypes/TaskSimpleFinishBrain.h](../source/game_sa/Tasks/TaskTypes/TaskSimpleFinishBrain.h) | 2 | 0 | 2 | 0 | 0 |
-| [CTaskSimpleGangDriveBy](implementaciones/detalle-040.md#grupo-786) · [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp](../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp), [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h](../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h) | 8 | 0 | 3 | 0 | 0 |
+| [CTaskSimpleGangDriveBy](implementaciones/detalle-040.md#grupo-786) · [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp](../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp), [source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h](../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h) | 9 | 0 | 3 | 0 | 0 |
 | [CTaskSimpleGetUp](implementaciones/detalle-040.md#grupo-787) · [source/game_sa/Tasks/TaskTypes/TaskSimpleGetUp.cpp](../source/game_sa/Tasks/TaskTypes/TaskSimpleGetUp.cpp), [source/game_sa/Tasks/TaskTypes/TaskSimpleGetUp.h](../source/game_sa/Tasks/TaskTypes/TaskSimpleGetUp.h) | 6 | 0 | 4 | 0 | 0 |
 | [CTaskSimpleGiveCPR](implementaciones/detalle-040.md#grupo-788) · [source/game_sa/Tasks/TaskTypes/TaskSimpleGiveCPR.cpp](../source/game_sa/Tasks/TaskTypes/TaskSimpleGiveCPR.cpp), [source/game_sa/Tasks/TaskTypes/TaskSimpleGiveCPR.h](../source/game_sa/Tasks/TaskTypes/TaskSimpleGiveCPR.h) | 7 | 0 | 3 | 0 | 0 |
 | [CTaskSimpleGoTo](implementaciones/detalle-040.md#grupo-789) · [source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp](../source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp), [source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h](../source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h) | 4 | 0 | 6 | 0 | 0 |
@@ -914,7 +914,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CUserDisplay](implementaciones/detalle-045.md#grupo-883) · [source/game_sa/UserDisplay.cpp](../source/game_sa/UserDisplay.cpp) | 2 | 0 | 1 | 0 | 0 |
 | [CVector](implementaciones/detalle-045.md#grupo-884) · [source/game_sa/Core/Vector.cpp](../source/game_sa/Core/Vector.cpp), [source/game_sa/Core/Vector.h](../source/game_sa/Core/Vector.h) | 0 | 0 | 48 | 0 | 0 |
 | [CVector2D](implementaciones/detalle-045.md#grupo-885) · [source/game_sa/Core/Vector2D.cpp](../source/game_sa/Core/Vector2D.cpp), [source/game_sa/Core/Vector2D.h](../source/game_sa/Core/Vector2D.h) | 0 | 0 | 39 | 0 | 0 |
-| [CVehicle](implementaciones/detalle-045.md#grupo-886) · [source/game_sa/Entity/Vehicle/Vehicle.cpp](../source/game_sa/Entity/Vehicle/Vehicle.cpp), [source/game_sa/Entity/Vehicle/Vehicle.h](../source/game_sa/Entity/Vehicle/Vehicle.h) | 149 | 0 | 122 | 0 | 0 |
+| [CVehicle](implementaciones/detalle-045.md#grupo-886) · [source/game_sa/Entity/Vehicle/Vehicle.cpp](../source/game_sa/Entity/Vehicle/Vehicle.cpp), [source/game_sa/Entity/Vehicle/Vehicle.h](../source/game_sa/Entity/Vehicle/Vehicle.h) | 154 | 0 | 117 | 0 | 0 |
 | [CVehicleAnimGroup](implementaciones/detalle-045.md#grupo-887) · [source/game_sa/VehicleAnimGroupData.cpp](../source/game_sa/VehicleAnimGroupData.cpp), [source/game_sa/VehicleAnimGroupData.h](../source/game_sa/VehicleAnimGroupData.h) | 5 | 0 | 7 | 0 | 0 |
 | [CVehicleAnimGroupData](implementaciones/detalle-045.md#grupo-888) · [source/game_sa/VehicleAnimGroupData.cpp](../source/game_sa/VehicleAnimGroupData.cpp), [source/game_sa/VehicleAnimGroupData.h](../source/game_sa/VehicleAnimGroupData.h) | 5 | 0 | 5 | 0 | 0 |
 | [CVehicleModelInfo](implementaciones/detalle-045.md#grupo-889) · [source/game_sa/Models/VehicleModelInfo.cpp](../source/game_sa/Models/VehicleModelInfo.cpp), [source/game_sa/Models/VehicleModelInfo.h](../source/game_sa/Models/VehicleModelInfo.h) | 73 | 0 | 28 | 0 | 0 |
@@ -1020,7 +1020,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [FxSphere_c](implementaciones/detalle-050.md#grupo-989) · [source/game_sa/Fx/FxSphere.cpp](../source/game_sa/Fx/FxSphere.cpp), [source/game_sa/Fx/FxSphere.h](../source/game_sa/Fx/FxSphere.h) | 5 | 0 | 3 | 0 | 0 |
 | [FxSystemBP_c](implementaciones/detalle-050.md#grupo-990) · [source/game_sa/Fx/FxSystemBP.cpp](../source/game_sa/Fx/FxSystemBP.cpp), [source/game_sa/Fx/FxSystemBP.h](../source/game_sa/Fx/FxSystemBP.h) | 10 | 0 | 5 | 0 | 0 |
 | [FxSystem_c](implementaciones/detalle-050.md#grupo-991) · [source/game_sa/Fx/FxSystem.cpp](../source/game_sa/Fx/FxSystem.cpp), [source/game_sa/Fx/FxSystem.h](../source/game_sa/Fx/FxSystem.h) | 35 | 0 | 7 | 0 | 0 |
-| [Fx_c](implementaciones/detalle-050.md#grupo-992) · [source/game_sa/Fx/Fx.cpp](../source/game_sa/Fx/Fx.cpp) | 12 | 0 | 30 | 0 | 0 |
+| [Fx_c](implementaciones/detalle-050.md#grupo-992) · [source/game_sa/Fx/Fx.cpp](../source/game_sa/Fx/Fx.cpp) | 13 | 0 | 29 | 0 | 0 |
 | [Game](implementaciones/detalle-050.md#grupo-993) · [source/app/app_game.cpp](../source/app/app_game.cpp) | 12 | 0 | 0 | 0 | 0 |
 | [Globales y helpers: source/app/app.cpp](implementaciones/detalle-050.md#grupo-994) · [source/app/app.cpp](../source/app/app.cpp) | 0 | 0 | 3 | 0 | 0 |
 | [Globales y helpers: source/app/app_camera.cpp](implementaciones/detalle-050.md#grupo-995) · [source/app/app_camera.cpp](../source/app/app_camera.cpp) | 0 | 0 | 2 | 0 | 0 |
@@ -1029,7 +1029,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [Globales y helpers: source/app/app_input.cpp](implementaciones/detalle-050.md#grupo-998) · [source/app/app_input.cpp](../source/app/app_input.cpp) | 0 | 0 | 4 | 0 | 0 |
 | [Globales y helpers: source/app/app_light.cpp](implementaciones/detalle-050.md#grupo-999) · [source/app/app_light.cpp](../source/app/app_light.cpp) | 2 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/app/platform/platform.cpp](implementaciones/detalle-050.md#grupo-1000) · [source/app/platform/platform.cpp](../source/app/platform/platform.cpp) | 0 | 0 | 6 | 0 | 0 |
-| [Globales y helpers: source/app/platform/preset_view.cpp](implementaciones/detalle-051.md#grupo-1001) · [source/app/platform/preset_view.cpp](../source/app/platform/preset_view.cpp) | 0 | 0 | 7 | 0 | 0 |
+| [Globales y helpers: source/app/platform/preset_view.cpp](implementaciones/detalle-051.md#grupo-1001) · [source/app/platform/preset_view.cpp](../source/app/platform/preset_view.cpp) | 0 | 0 | 6 | 0 | 0 |
 | [Globales y helpers: source/app/platform/win/VideoMode.cpp](implementaciones/detalle-051.md#grupo-1002) · [source/app/platform/win/VideoMode.cpp](../source/app/platform/win/VideoMode.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/app/platform/win/VideoModeSelectDialog.cpp](implementaciones/detalle-051.md#grupo-1003) · [source/app/platform/win/VideoModeSelectDialog.cpp](../source/app/platform/win/VideoModeSelectDialog.cpp) | 0 | 0 | 11 | 0 | 0 |
 | [Globales y helpers: source/app/platform/win/WinMain.cpp](implementaciones/detalle-051.md#grupo-1004) · [source/app/platform/win/WinMain.cpp](../source/app/platform/win/WinMain.cpp) | 0 | 0 | 7 | 0 | 0 |
@@ -1242,11 +1242,11 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [Globales y helpers: source/game_sa/RenderWare/rw/rwcore.cpp](implementaciones/detalle-061.md#grupo-1211) · [source/game_sa/RenderWare/rw/rwcore.cpp](../source/game_sa/RenderWare/rw/rwcore.cpp) | 0 | 0 | 268 | 0 | 0 |
 | [Globales y helpers: source/game_sa/RenderWare/rw/rwplcore.cpp](implementaciones/detalle-061.md#grupo-1212) · [source/game_sa/RenderWare/rw/rwplcore.cpp](../source/game_sa/RenderWare/rw/rwplcore.cpp) | 0 | 0 | 106 | 0 | 0 |
 | [Globales y helpers: source/game_sa/RenderWare/rw/rwplcore.h](implementaciones/detalle-061.md#grupo-1213) · [source/game_sa/RenderWare/rw/rwplcore.h](../source/game_sa/RenderWare/rw/rwplcore.h) | 0 | 0 | 2 | 0 | 0 |
-| [Globales y helpers: source/game_sa/RenderWare/rw/rwtexdict.cpp](implementaciones/detalle-061.md#grupo-1214) · [source/game_sa/RenderWare/rw/rwtexdict.cpp](../source/game_sa/RenderWare/rw/rwtexdict.cpp) | 0 | 0 | 6 | 0 | 0 |
+| [Globales y helpers: source/game_sa/RenderWare/rw/rwtexdict.cpp](implementaciones/detalle-061.md#grupo-1214) · [source/game_sa/RenderWare/rw/rwtexdict.cpp](../source/game_sa/RenderWare/rw/rwtexdict.cpp) | 0 | 0 | 5 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Renderer.cpp](implementaciones/detalle-061.md#grupo-1215) · [source/game_sa/Renderer.cpp](../source/game_sa/Renderer.cpp) | 0 | 0 | 8 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Replay.cpp](implementaciones/detalle-061.md#grupo-1216) · [source/game_sa/Replay.cpp](../source/game_sa/Replay.cpp) | 0 | 0 | 14 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Restart.cpp](implementaciones/detalle-061.md#grupo-1217) · [source/game_sa/Restart.cpp](../source/game_sa/Restart.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [Globales y helpers: source/game_sa/RwHelper.cpp](implementaciones/detalle-061.md#grupo-1218) · [source/game_sa/RwHelper.cpp](../source/game_sa/RwHelper.cpp) | 0 | 0 | 8 | 0 | 0 |
+| [Globales y helpers: source/game_sa/RwHelper.cpp](implementaciones/detalle-061.md#grupo-1218) · [source/game_sa/RwHelper.cpp](../source/game_sa/RwHelper.cpp) | 0 | 0 | 6 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Scripts/Commands/BasicCommands.cpp](implementaciones/detalle-061.md#grupo-1219) · [source/game_sa/Scripts/Commands/BasicCommands.cpp](../source/game_sa/Scripts/Commands/BasicCommands.cpp) | 0 | 0 | 27 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Scripts/Commands/CLEO/CLEOGameCommands.cpp](implementaciones/detalle-061.md#grupo-1220) · [source/game_sa/Scripts/Commands/CLEO/CLEOGameCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEOGameCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Scripts/Commands/CLEO/CLEOMemoryCommands.cpp](implementaciones/detalle-062.md#grupo-1221) · [source/game_sa/Scripts/Commands/CLEO/CLEOMemoryCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEOMemoryCommands.cpp) | 0 | 0 | 7 | 0 | 0 |
@@ -1346,7 +1346,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [Globales y helpers: source/game_sa/Weather.cpp](implementaciones/detalle-066.md#grupo-1315) · [source/game_sa/Weather.cpp](../source/game_sa/Weather.cpp) | 0 | 0 | 8 | 0 | 0 |
 | [Globales y helpers: source/game_sa/World.cpp](implementaciones/detalle-066.md#grupo-1316) · [source/game_sa/World.cpp](../source/game_sa/World.cpp) | 0 | 0 | 18 | 0 | 0 |
 | [Globales y helpers: source/game_sa/World_Helper.cpp](implementaciones/detalle-066.md#grupo-1317) · [source/game_sa/World_Helper.cpp](../source/game_sa/World_Helper.cpp) | 0 | 0 | 4 | 0 | 0 |
-| [Globales y helpers: source/game_sa/X87Math.cpp](implementaciones/detalle-066.md#grupo-1318) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 1014 | 0 | 1 | 0 | 0 |
+| [Globales y helpers: source/game_sa/X87Math.cpp](implementaciones/detalle-066.md#grupo-1318) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 1028 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/cHandlingDataMgr.cpp](implementaciones/detalle-066.md#grupo-1319) · [source/game_sa/cHandlingDataMgr.cpp](../source/game_sa/cHandlingDataMgr.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/common.cpp](implementaciones/detalle-066.md#grupo-1320) · [source/game_sa/common.cpp](../source/game_sa/common.cpp) | 3 | 0 | 10 | 0 | 0 |
 | [Globales y helpers: source/game_sa/common.h](implementaciones/detalle-067.md#grupo-1321) · [source/game_sa/common.h](../source/game_sa/common.h) | 0 | 0 | 26 | 0 | 0 |
@@ -1377,7 +1377,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [PointLightsShadow](implementaciones/detalle-068.md#grupo-1346) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 8 | 0 | 0 | 0 | 0 |
 | [ProcObjectMan_c](implementaciones/detalle-068.md#grupo-1347) · [source/game_sa/Plant/ProcObjectMan.cpp](../source/game_sa/Plant/ProcObjectMan.cpp) | 8 | 0 | 1 | 0 | 0 |
 | [ProcSurfaceInfo_c](implementaciones/detalle-068.md#grupo-1348) · [source/game_sa/Plant/ProcSurfaceInfo.cpp](../source/game_sa/Plant/ProcSurfaceInfo.cpp) | 4 | 0 | 2 | 0 | 0 |
-| [Ps](implementaciones/detalle-068.md#grupo-1349) · [source/app/platform/win/WinPs.cpp](../source/app/platform/win/WinPs.cpp) | 22 | 0 | 0 | 0 | 0 |
+| [Ps](implementaciones/detalle-068.md#grupo-1349) · [source/app/platform/win/WinPs.cpp](../source/app/platform/win/WinPs.cpp) | 23 | 0 | 0 | 0 | 0 |
 | [RenderBuffer](implementaciones/detalle-068.md#grupo-1350) · [source/game_sa/RenderBuffer.cpp](../source/game_sa/RenderBuffer.cpp) | 5 | 0 | 7 | 0 | 0 |
 | [RenderInfo_t](implementaciones/detalle-068.md#grupo-1351) · [source/game_sa/Fx/RenderInfo.h](../source/game_sa/Fx/RenderInfo.h) | 0 | 0 | 3 | 0 | 0 |
 | [RenderWare](implementaciones/detalle-068.md#grupo-1352) · [source/app/platform/win/WindowedMode.cpp](../source/app/platform/win/WindowedMode.cpp) | 0 | 0 | 8 | 0 | 0 |
@@ -1389,11 +1389,11 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [RpSkin](implementaciones/detalle-068.md#grupo-1358) · [source/game_sa/RenderWare/rw/rpskin.cpp](../source/game_sa/RenderWare/rw/rpskin.cpp) | 1 | 0 | 0 | 0 | 0 |
 | [RpUVAnim](implementaciones/detalle-068.md#grupo-1359) · [source/game_sa/RenderWare/rw/rpuvanim.cpp](../source/game_sa/RenderWare/rw/rpuvanim.cpp) | 2 | 0 | 0 | 0 | 0 |
 | [RpWorld](implementaciones/detalle-068.md#grupo-1360) · [source/game_sa/RenderWare/rw/rpworld.cpp](../source/game_sa/RenderWare/rw/rpworld.cpp) | 21 | 0 | 0 | 0 | 0 |
-| [Rs](implementaciones/detalle-069.md#grupo-1361) · [source/app/platform/platform.cpp](../source/app/platform/platform.cpp) | 28 | 0 | 0 | 0 | 0 |
+| [Rs](implementaciones/detalle-069.md#grupo-1361) · [source/app/platform/platform.cpp](../source/app/platform/platform.cpp), [source/app/platform/preset_view.cpp](../source/app/platform/preset_view.cpp) | 29 | 0 | 0 | 0 | 0 |
 | [RtAnim](implementaciones/detalle-069.md#grupo-1362) · [source/game_sa/RenderWare/rw/rtanim.cpp](../source/game_sa/RenderWare/rw/rtanim.cpp) | 3 | 0 | 1 | 0 | 0 |
 | [RtDict](implementaciones/detalle-069.md#grupo-1363) · [source/game_sa/RenderWare/rw/rtdict.cpp](../source/game_sa/RenderWare/rw/rtdict.cpp) | 2 | 0 | 0 | 0 | 0 |
 | [RwCore](implementaciones/detalle-069.md#grupo-1364) · [source/game_sa/RenderWare/rw/rwcore.cpp](../source/game_sa/RenderWare/rw/rwcore.cpp) | 29 | 0 | 0 | 0 | 0 |
-| [RwHelper](implementaciones/detalle-069.md#grupo-1365) · [source/game_sa/RenderWare/rw/rwtexdict.cpp](../source/game_sa/RenderWare/rw/rwtexdict.cpp), [source/game_sa/RwHelper.cpp](../source/game_sa/RwHelper.cpp) | 30 | 0 | 0 | 0 | 0 |
+| [RwHelper](implementaciones/detalle-069.md#grupo-1365) · [source/game_sa/RenderWare/rw/rwtexdict.cpp](../source/game_sa/RenderWare/rw/rwtexdict.cpp), [source/game_sa/RwHelper.cpp](../source/game_sa/RwHelper.cpp) | 33 | 0 | 0 | 0 | 0 |
 | [RwObjectNameIdAssocation](implementaciones/detalle-069.md#grupo-1366) · [source/game_sa/RwObjectNameIdAssocation.h](../source/game_sa/RwObjectNameIdAssocation.h) | 0 | 0 | 1 | 0 | 0 |
 | [RwPlCore](implementaciones/detalle-069.md#grupo-1367) · [source/game_sa/RenderWare/rw/rwplcore.cpp](../source/game_sa/RenderWare/rw/rwplcore.cpp) | 14 | 0 | 0 | 0 | 0 |
 | [SArray](implementaciones/detalle-069.md#grupo-1368) · [source/game_sa/Core/SArray.h](../source/game_sa/Core/SArray.h) | 0 | 0 | 20 | 0 | 0 |

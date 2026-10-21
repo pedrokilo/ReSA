@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CPlayerPed
- * Reconstrucción: COMPLETA — 52/52 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 54/54 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 52/52 entradas.
+ * Validación registrada: 54/54 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -103,10 +103,12 @@ void CPlayerPed::InjectHooks() {
     RH_ScopedInstall(DoesTargetHaveToBeBroken, 0x60C0C0);
     RH_ScopedInstall(SetPlayerMoveBlendRatio, 0x60C520);
     RH_ScopedInstall(FindPedToAttack, 0x60C5F0);
+    RH_ScopedInstall(PlayerWantsToAttack, 0x60CC50);
     RH_ScopedInstall(ForceGroupToAlwaysFollow, 0x60C7C0);
     RH_ScopedInstall(ForceGroupToNeverFollow, 0x60C800);
     RH_ScopedOverloadedInstall(MakeChangesForNewWeapon, "BySlot", 0x60D000, void(CPlayerPed::*)(uint32));
     RH_ScopedInstall(EvaluateTarget, 0x60D020);
+    RH_ScopedInstall(EvaluateNeighbouringTarget, 0x60D1C0);
     RH_ScopedInstall(PlayerHasJustAttackedSomeone, 0x60D5A0);
     RH_ScopedInstall(SetupPlayerPed, 0x60D790);
 
@@ -1034,7 +1036,44 @@ void CPlayerPed::MakeThisPedJoinOurGroup(CPed* ped) {
 
 // 0x60CC50
 bool CPlayerPed::PlayerWantsToAttack() {
-    return plugin::CallMethodAndReturn<bool, 0x60CC50, CPlayerPed *>(this);
+    // Como el original (0x60CC50..0x60CD17): el grupo del jugador se indexa sin comprobar el rango (imul 0x2D4 + 0xC09920) y la funcion no deja un valor definido en EAX
+    // (el unico llamador del EXE, 0x685A7A via 0x60D5A0, no lo lee): se devuelve false.
+    auto& group = CPedGroups::ms_groups.data()[GetPlayerData()->m_nPlayerGroup];
+    if (group.GetMembership().CountMembersExcludingLeader() < 1) {
+        return false;
+    }
+    if (!group.m_bMembersEnterLeadersVehicle) {
+        return false;
+    }
+    group.GetIntelligence().ReportAllBarScriptTasksFinished();
+
+    // Objetivo: el fijado o, con raton en tercera persona y sin fijar, el del raton
+    CEntity* target = m_pTargetedObject;
+    if (CCamera::m_bUseMouse3rdPerson && !target) {
+        target = m_p3rdPersonMouseTarget;
+    }
+
+    CPed* victim = nullptr;
+    if (target) {
+        if (target->GetType() == ENTITY_TYPE_PED) {
+            victim = static_cast<CPed*>(target);
+        } else {
+            if (CTagManager::IsTag(*target)) {
+                return false;
+            }
+            if (target->GetType() == ENTITY_TYPE_OBJECT && static_cast<CObject*>(target)->CanBeTargetted()) {
+                return false;
+            }
+        }
+    }
+    if (!victim) {
+        victim = FindPedToAttack();
+    }
+    if (!victim) {
+        return false;
+    }
+    group.PlayerGaveCommand_Attack(this, victim);
+    return false;
 }
 
 // 0x60CD20
@@ -1102,7 +1141,45 @@ void CPlayerPed::EvaluateTarget(CEntity* target, CEntity *& outTarget, float & o
 
 // 0x60D1C0
 void CPlayerPed::EvaluateNeighbouringTarget(CEntity* target, CEntity** outTarget, float* outTargetPriority, float maxDistance, float arg4, bool arg5) {
-    plugin::CallMethod<0x60D1C0, CPlayerPed *, CEntity*, CEntity**, float*, float, float, bool>(this, target, outTarget, outTargetPriority, maxDistance, arg4, arg5);
+    // Como el original (0x60D1C0..0x60D341): distancia (z2 + y2) + x2 con la x87 a 24 bits (X87Math.cpp); NaN sale
+    if (!Hp66NeighbourInRangeCpp(&target->GetPosition().x, &GetPosition().x, maxDistance))
+        return;
+
+    // Como el original (movsx eax, byte [this+0x718]; imul eax, eax, 0x1C; lea edx, [eax+this+0x5A0]): ranura con signo y sin comprobar el rango (GetActiveWeapon() si lo comprueba)
+    if (DoesTargetHaveToBeBroken(target, &m_aWeapons.data()[static_cast<int8>(m_nActiveWeaponSlot)]))
+        return;
+
+    // Rumbo respecto a la camara (no al jugador): GetATanOfXY (0x53CC70) deja el angulo en ST0 y el EXE le resta arg4 sin redondear antes
+    const CVector& targetPos = target->GetPosition();
+    const CVector& camPos    = TheCamera.GetPosition();
+    float angle = Hp66NeighbourAngleCpp(&CGeneral::GetATanOfXY, &targetPos.x, &camPos.x, arg4);
+    // Normalizado a [-pi, pi] sin recorte: los bucles del EXE no terminan con |angulo| infinito (como el original)
+    if (angle > PLAYER_PI) {
+        do {
+            angle -= PLAYER_TWO_PI;
+        } while (angle > PLAYER_PI);
+    }
+    if (angle < -PLAYER_PI) {
+        do {
+            angle += PLAYER_TWO_PI;
+        } while (angle < -PLAYER_PI);
+    }
+
+    const float absAngle = angle < 0.0f ? -angle : angle; // fchs solo si es menor que 0 (-0 y NaN se conservan)
+    if (!(absAngle < 0.8726646304130554f)) // 0x86D1D0 (50 grados); NaN tambien sale
+        return;
+
+    // Prioridad: -100000.0 (0x86D1E8) salvo en el lado elegido (arg5 = derecha: angulo > 0, prioridad -angulo; si no, izquierda: angulo < 0, prioridad angulo)
+    float priority;
+    if (arg5) {
+        priority = angle > 0.0f ? -angle : -100000.0f;
+    } else {
+        priority = angle < 0.0f ? angle : -100000.0f;
+    }
+    if (priority > *outTargetPriority) { // comparacion ordenada: con NaN no entra
+        *outTarget         = target;
+        *outTargetPriority = priority;
+    }
 }
 
 // 0x60D350

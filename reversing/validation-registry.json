@@ -542886,6 +542886,757 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wr-4 (HEAD 633dceef0). operator*(CMatrix,CVector) 0x59C890: aritmetica x87 pura (AutoPreMultiplyMatrixWithVectorCpp), sin colaboradores; se comparan EAX (= destino), el destino, la matriz y el punto, con destino distinto y solapado con el punto o con la matriz. CreateRouteTask 0x655140: CTask::operator new 0x61A5A0 y CPointRoute::operator new 0x41B7C0 sustituidos por falsos identicos; el constructor de CTaskComplexFollowPointRoute (0x671510) corre de verdad en ambos lados y se compara byte a byte el objeto construido y la ruta copiada. RwTexDictionaryGtaStreamRead 0x730FC0: los siete colaboradores RenderWare (RwStreamFindChunk 0x7ED2D0, RwStreamRead 0x7EC9D0, RwTexDictionaryCreate 0x7F3600, RwTextureGtaStreamRead 0x730E60, RwTexDictionaryAddTexture 0x7F3980, ForAllTextures 0x7F3730, Destroy 0x7F36A0) sustituidos por falsos; no se prueban longitudes de chunk 0 ni 1 (el EXE usa bytes viejos de su pila). FightStrikeDamageExe 0x61C740: CPed::IsPlayer 0x5DF8F0 y CStats::GetFatAndMuscleModifier 0x559AF0 sustituidos; la tabla de combos 0xC170D0 se sobrescribe con bytes del caso y se restaura; el resultado float de ST0 se compara en el estado x87. Ningun llamador del EXE lee EAX/ECX/EDX de salida salvo EAX como valor de retorno (matriz * punto, CreateRouteTask, RwTexDictionaryGtaStreamRead), que el banco compara.",
       "review_reference": "reversing/Helpers65D/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPlayerPed",
+        "fn_name": "PlayerWantsToAttack",
+        "address": "0x0060CC50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Helpers66A/validation-summary.json",
+        "sha256": "d0ae1b47a5c77dc86175eea213827fe9020c01d56b2c989ee27e55d14a640666",
+        "passed_path": [
+          "covered_functions",
+          "CPlayerPed::PlayerWantsToAttack"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "source/game_sa/Entity/Ped/PlayerPed.cpp": "041fec75b2b9e64a88a340966c9468007c80d523ac81343bfb5ea388005544d7",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "894c95b997d3425a536af63f2ea6fdac61028a743f8054d2ca45a0a13a0c153f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "c70092337b87b360403e703da0c4b8cb7cebd12635ff2df3d1a2669ee60de3ed",
+        "source/game_sa/Fx/Fx.cpp": "5a429e7ecb73ed54ca2abe3026146e166e0e12c6f723697b8a257c8b05767f0a",
+        "source/app/platform/preset_view.cpp": "1b1183a7d1988468eed7a1b33625263e993838aaf24da2c9b0f9770816f59c47",
+        "source/app/platform/platform.cpp": "aa60d77979b42cca85ed349ca8029885f523f17bf67b726625ed8eaef93c0b77",
+        "source/app/platform/platform.h": "1091cd92bd802d7b5e385aeb9dd4dd28c576a75aed98b0d210542bc4b297ab74",
+        "source/game_sa/X87Math.cpp": "4e243ee60a1b3d80f0389ff398119200ca58b204ddc4a243efa669d00c21a591",
+        "source/game_sa/X87Math.h": "1b672930eec6ebf8dc5c785ca2d44be6ced57909db44a8fcc80cc68816474a7d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Helpers66A/LiveComparison.hpp": "464b61dc1b9754befccd9aa92536786ea835d01c5cc1a6c5ac7ce9c6c08219f6",
+        "reversing/Helpers66A/Core.hpp": "8fb0e2624ab833e3a700e6a896d4a27234ba8a965cefeb237a3b23e217b8d7bd",
+        "reversing/Helpers66A/Cases.hpp": "9f692d08c93f66bfedd01f8735ce963f055fdf132598f4b9e42672c246f11fcc",
+        "reversing/Helpers66A/Fixtures.hpp": "26daed8ee4940ae2cfffb1929d05dcdb6911e98db41c108aa7f52ebed98e3353",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wu-1 (HEAD 5765c0b5f). PlayerWantsToAttack 0x60CC50: CPedGroupMembership::CountMembersExcludingLeader 0x5F6AA0, CPedGroupIntelligence::ReportAllBarScriptTasksFinished 0x5F8780, CTagManager::IsTag 0x49CCE0, CObject::CanBeTargetted 0x59F320, CPlayerPed::FindPedToAttack 0x60C5F0 y CPedGroup::PlayerGaveCommand_Attack 0x5F7CC0 sustituidos por falsos identicos; el EAX de salida no se compara (la funcion no lo define y el unico llamador, 0x60D5A0 -> 0x685A7A, no lo lee). EvaluateNeighbouringTarget 0x60D1C0: CPlayerPed::DoesTargetHaveToBeBroken 0x60C0C0 y CGeneral::GetATanOfXY 0x53CC70 sustituidos; compensacion y rumbo finitos o NaN (con +-inf el bucle de normalizacion del propio EXE no termina). HasClearLineOfSight 0x621B10: CWorld::GetIsLineOfSightClear 0x56A490 y rand() del EXE 0x821B1E sustituidos; solo AL se compara (unico llamador 0x62780F: test al,al). AddPunchImpact 0x49F670: FxSystem_c::AddParticle 0x4AA440 sustituido; el constructor FxPrtMult_c 0x4AB290 corre de verdad. RsSavePresetView 0x619FA0 (sin llamadores en el EXE; incluye el ayudante usercall 0x619910): se sustituyen psPathnameCreate 0x745470, psPathnameDestroy 0x7454E0, psErrorMessage 0x7451D0, RwFrameGetLTM 0x7F0990, RwV3dNormalize 0x7ED9B0, RsLoadPresetViews 0x619D60, RsSetPresetView 0x619780 y las entradas fopen/fclose/fputs/sprintf/strlen de la tabla de RenderWare (RwEngineInstance +0xC4/+0xF0/+0x120); RsErrorMessage 0x619B00 y RsKeyboardEventHandler 0x619560 corren de verdad. La declaracion pasa de void RsSavePresetView() a bool RsSavePresetView(RwCamera*) y RsLoadPresetViews de void a bool.",
+      "review_reference": "reversing/Helpers66A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPlayerPed",
+        "fn_name": "EvaluateNeighbouringTarget",
+        "address": "0x0060D1C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Helpers66A/validation-summary.json",
+        "sha256": "d0ae1b47a5c77dc86175eea213827fe9020c01d56b2c989ee27e55d14a640666",
+        "passed_path": [
+          "covered_functions",
+          "CPlayerPed::EvaluateNeighbouringTarget"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "source/game_sa/Entity/Ped/PlayerPed.cpp": "041fec75b2b9e64a88a340966c9468007c80d523ac81343bfb5ea388005544d7",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "894c95b997d3425a536af63f2ea6fdac61028a743f8054d2ca45a0a13a0c153f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "c70092337b87b360403e703da0c4b8cb7cebd12635ff2df3d1a2669ee60de3ed",
+        "source/game_sa/Fx/Fx.cpp": "5a429e7ecb73ed54ca2abe3026146e166e0e12c6f723697b8a257c8b05767f0a",
+        "source/app/platform/preset_view.cpp": "1b1183a7d1988468eed7a1b33625263e993838aaf24da2c9b0f9770816f59c47",
+        "source/app/platform/platform.cpp": "aa60d77979b42cca85ed349ca8029885f523f17bf67b726625ed8eaef93c0b77",
+        "source/app/platform/platform.h": "1091cd92bd802d7b5e385aeb9dd4dd28c576a75aed98b0d210542bc4b297ab74",
+        "source/game_sa/X87Math.cpp": "4e243ee60a1b3d80f0389ff398119200ca58b204ddc4a243efa669d00c21a591",
+        "source/game_sa/X87Math.h": "1b672930eec6ebf8dc5c785ca2d44be6ced57909db44a8fcc80cc68816474a7d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Helpers66A/LiveComparison.hpp": "464b61dc1b9754befccd9aa92536786ea835d01c5cc1a6c5ac7ce9c6c08219f6",
+        "reversing/Helpers66A/Core.hpp": "8fb0e2624ab833e3a700e6a896d4a27234ba8a965cefeb237a3b23e217b8d7bd",
+        "reversing/Helpers66A/Cases.hpp": "9f692d08c93f66bfedd01f8735ce963f055fdf132598f4b9e42672c246f11fcc",
+        "reversing/Helpers66A/Fixtures.hpp": "26daed8ee4940ae2cfffb1929d05dcdb6911e98db41c108aa7f52ebed98e3353",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wu-1 (HEAD 5765c0b5f). PlayerWantsToAttack 0x60CC50: CPedGroupMembership::CountMembersExcludingLeader 0x5F6AA0, CPedGroupIntelligence::ReportAllBarScriptTasksFinished 0x5F8780, CTagManager::IsTag 0x49CCE0, CObject::CanBeTargetted 0x59F320, CPlayerPed::FindPedToAttack 0x60C5F0 y CPedGroup::PlayerGaveCommand_Attack 0x5F7CC0 sustituidos por falsos identicos; el EAX de salida no se compara (la funcion no lo define y el unico llamador, 0x60D5A0 -> 0x685A7A, no lo lee). EvaluateNeighbouringTarget 0x60D1C0: CPlayerPed::DoesTargetHaveToBeBroken 0x60C0C0 y CGeneral::GetATanOfXY 0x53CC70 sustituidos; compensacion y rumbo finitos o NaN (con +-inf el bucle de normalizacion del propio EXE no termina). HasClearLineOfSight 0x621B10: CWorld::GetIsLineOfSightClear 0x56A490 y rand() del EXE 0x821B1E sustituidos; solo AL se compara (unico llamador 0x62780F: test al,al). AddPunchImpact 0x49F670: FxSystem_c::AddParticle 0x4AA440 sustituido; el constructor FxPrtMult_c 0x4AB290 corre de verdad. RsSavePresetView 0x619FA0 (sin llamadores en el EXE; incluye el ayudante usercall 0x619910): se sustituyen psPathnameCreate 0x745470, psPathnameDestroy 0x7454E0, psErrorMessage 0x7451D0, RwFrameGetLTM 0x7F0990, RwV3dNormalize 0x7ED9B0, RsLoadPresetViews 0x619D60, RsSetPresetView 0x619780 y las entradas fopen/fclose/fputs/sprintf/strlen de la tabla de RenderWare (RwEngineInstance +0xC4/+0xF0/+0x120); RsErrorMessage 0x619B00 y RsKeyboardEventHandler 0x619560 corren de verdad. La declaracion pasa de void RsSavePresetView() a bool RsSavePresetView(RwCamera*) y RsLoadPresetViews de void a bool.",
+      "review_reference": "reversing/Helpers66A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleGangDriveBy",
+        "fn_name": "HasClearLineOfSight",
+        "address": "0x00621B10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Helpers66A/validation-summary.json",
+        "sha256": "d0ae1b47a5c77dc86175eea213827fe9020c01d56b2c989ee27e55d14a640666",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleGangDriveBy::HasClearLineOfSight"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "source/game_sa/Entity/Ped/PlayerPed.cpp": "041fec75b2b9e64a88a340966c9468007c80d523ac81343bfb5ea388005544d7",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "894c95b997d3425a536af63f2ea6fdac61028a743f8054d2ca45a0a13a0c153f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "c70092337b87b360403e703da0c4b8cb7cebd12635ff2df3d1a2669ee60de3ed",
+        "source/game_sa/Fx/Fx.cpp": "5a429e7ecb73ed54ca2abe3026146e166e0e12c6f723697b8a257c8b05767f0a",
+        "source/app/platform/preset_view.cpp": "1b1183a7d1988468eed7a1b33625263e993838aaf24da2c9b0f9770816f59c47",
+        "source/app/platform/platform.cpp": "aa60d77979b42cca85ed349ca8029885f523f17bf67b726625ed8eaef93c0b77",
+        "source/app/platform/platform.h": "1091cd92bd802d7b5e385aeb9dd4dd28c576a75aed98b0d210542bc4b297ab74",
+        "source/game_sa/X87Math.cpp": "4e243ee60a1b3d80f0389ff398119200ca58b204ddc4a243efa669d00c21a591",
+        "source/game_sa/X87Math.h": "1b672930eec6ebf8dc5c785ca2d44be6ced57909db44a8fcc80cc68816474a7d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Helpers66A/LiveComparison.hpp": "464b61dc1b9754befccd9aa92536786ea835d01c5cc1a6c5ac7ce9c6c08219f6",
+        "reversing/Helpers66A/Core.hpp": "8fb0e2624ab833e3a700e6a896d4a27234ba8a965cefeb237a3b23e217b8d7bd",
+        "reversing/Helpers66A/Cases.hpp": "9f692d08c93f66bfedd01f8735ce963f055fdf132598f4b9e42672c246f11fcc",
+        "reversing/Helpers66A/Fixtures.hpp": "26daed8ee4940ae2cfffb1929d05dcdb6911e98db41c108aa7f52ebed98e3353",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wu-1 (HEAD 5765c0b5f). PlayerWantsToAttack 0x60CC50: CPedGroupMembership::CountMembersExcludingLeader 0x5F6AA0, CPedGroupIntelligence::ReportAllBarScriptTasksFinished 0x5F8780, CTagManager::IsTag 0x49CCE0, CObject::CanBeTargetted 0x59F320, CPlayerPed::FindPedToAttack 0x60C5F0 y CPedGroup::PlayerGaveCommand_Attack 0x5F7CC0 sustituidos por falsos identicos; el EAX de salida no se compara (la funcion no lo define y el unico llamador, 0x60D5A0 -> 0x685A7A, no lo lee). EvaluateNeighbouringTarget 0x60D1C0: CPlayerPed::DoesTargetHaveToBeBroken 0x60C0C0 y CGeneral::GetATanOfXY 0x53CC70 sustituidos; compensacion y rumbo finitos o NaN (con +-inf el bucle de normalizacion del propio EXE no termina). HasClearLineOfSight 0x621B10: CWorld::GetIsLineOfSightClear 0x56A490 y rand() del EXE 0x821B1E sustituidos; solo AL se compara (unico llamador 0x62780F: test al,al). AddPunchImpact 0x49F670: FxSystem_c::AddParticle 0x4AA440 sustituido; el constructor FxPrtMult_c 0x4AB290 corre de verdad. RsSavePresetView 0x619FA0 (sin llamadores en el EXE; incluye el ayudante usercall 0x619910): se sustituyen psPathnameCreate 0x745470, psPathnameDestroy 0x7454E0, psErrorMessage 0x7451D0, RwFrameGetLTM 0x7F0990, RwV3dNormalize 0x7ED9B0, RsLoadPresetViews 0x619D60, RsSetPresetView 0x619780 y las entradas fopen/fclose/fputs/sprintf/strlen de la tabla de RenderWare (RwEngineInstance +0xC4/+0xF0/+0x120); RsErrorMessage 0x619B00 y RsKeyboardEventHandler 0x619560 corren de verdad. La declaracion pasa de void RsSavePresetView() a bool RsSavePresetView(RwCamera*) y RsLoadPresetViews de void a bool.",
+      "review_reference": "reversing/Helpers66A/README.md"
+    },
+    {
+      "hook": {
+        "class": "Fx_c",
+        "fn_name": "AddPunchImpact",
+        "address": "0x0049F670",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Helpers66A/validation-summary.json",
+        "sha256": "d0ae1b47a5c77dc86175eea213827fe9020c01d56b2c989ee27e55d14a640666",
+        "passed_path": [
+          "covered_functions",
+          "Fx_c::AddPunchImpact"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "source/game_sa/Entity/Ped/PlayerPed.cpp": "041fec75b2b9e64a88a340966c9468007c80d523ac81343bfb5ea388005544d7",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "894c95b997d3425a536af63f2ea6fdac61028a743f8054d2ca45a0a13a0c153f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "c70092337b87b360403e703da0c4b8cb7cebd12635ff2df3d1a2669ee60de3ed",
+        "source/game_sa/Fx/Fx.cpp": "5a429e7ecb73ed54ca2abe3026146e166e0e12c6f723697b8a257c8b05767f0a",
+        "source/app/platform/preset_view.cpp": "1b1183a7d1988468eed7a1b33625263e993838aaf24da2c9b0f9770816f59c47",
+        "source/app/platform/platform.cpp": "aa60d77979b42cca85ed349ca8029885f523f17bf67b726625ed8eaef93c0b77",
+        "source/app/platform/platform.h": "1091cd92bd802d7b5e385aeb9dd4dd28c576a75aed98b0d210542bc4b297ab74",
+        "source/game_sa/X87Math.cpp": "4e243ee60a1b3d80f0389ff398119200ca58b204ddc4a243efa669d00c21a591",
+        "source/game_sa/X87Math.h": "1b672930eec6ebf8dc5c785ca2d44be6ced57909db44a8fcc80cc68816474a7d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Helpers66A/LiveComparison.hpp": "464b61dc1b9754befccd9aa92536786ea835d01c5cc1a6c5ac7ce9c6c08219f6",
+        "reversing/Helpers66A/Core.hpp": "8fb0e2624ab833e3a700e6a896d4a27234ba8a965cefeb237a3b23e217b8d7bd",
+        "reversing/Helpers66A/Cases.hpp": "9f692d08c93f66bfedd01f8735ce963f055fdf132598f4b9e42672c246f11fcc",
+        "reversing/Helpers66A/Fixtures.hpp": "26daed8ee4940ae2cfffb1929d05dcdb6911e98db41c108aa7f52ebed98e3353",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wu-1 (HEAD 5765c0b5f). PlayerWantsToAttack 0x60CC50: CPedGroupMembership::CountMembersExcludingLeader 0x5F6AA0, CPedGroupIntelligence::ReportAllBarScriptTasksFinished 0x5F8780, CTagManager::IsTag 0x49CCE0, CObject::CanBeTargetted 0x59F320, CPlayerPed::FindPedToAttack 0x60C5F0 y CPedGroup::PlayerGaveCommand_Attack 0x5F7CC0 sustituidos por falsos identicos; el EAX de salida no se compara (la funcion no lo define y el unico llamador, 0x60D5A0 -> 0x685A7A, no lo lee). EvaluateNeighbouringTarget 0x60D1C0: CPlayerPed::DoesTargetHaveToBeBroken 0x60C0C0 y CGeneral::GetATanOfXY 0x53CC70 sustituidos; compensacion y rumbo finitos o NaN (con +-inf el bucle de normalizacion del propio EXE no termina). HasClearLineOfSight 0x621B10: CWorld::GetIsLineOfSightClear 0x56A490 y rand() del EXE 0x821B1E sustituidos; solo AL se compara (unico llamador 0x62780F: test al,al). AddPunchImpact 0x49F670: FxSystem_c::AddParticle 0x4AA440 sustituido; el constructor FxPrtMult_c 0x4AB290 corre de verdad. RsSavePresetView 0x619FA0 (sin llamadores en el EXE; incluye el ayudante usercall 0x619910): se sustituyen psPathnameCreate 0x745470, psPathnameDestroy 0x7454E0, psErrorMessage 0x7451D0, RwFrameGetLTM 0x7F0990, RwV3dNormalize 0x7ED9B0, RsLoadPresetViews 0x619D60, RsSetPresetView 0x619780 y las entradas fopen/fclose/fputs/sprintf/strlen de la tabla de RenderWare (RwEngineInstance +0xC4/+0xF0/+0x120); RsErrorMessage 0x619B00 y RsKeyboardEventHandler 0x619560 corren de verdad. La declaracion pasa de void RsSavePresetView() a bool RsSavePresetView(RwCamera*) y RsLoadPresetViews de void a bool.",
+      "review_reference": "reversing/Helpers66A/README.md"
+    },
+    {
+      "hook": {
+        "class": "Rs",
+        "fn_name": "RsSavePresetView",
+        "address": "0x00619FA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Helpers66A/validation-summary.json",
+        "sha256": "d0ae1b47a5c77dc86175eea213827fe9020c01d56b2c989ee27e55d14a640666",
+        "passed_path": [
+          "covered_functions",
+          "RsSavePresetView"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "source/game_sa/Entity/Ped/PlayerPed.cpp": "041fec75b2b9e64a88a340966c9468007c80d523ac81343bfb5ea388005544d7",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "894c95b997d3425a536af63f2ea6fdac61028a743f8054d2ca45a0a13a0c153f",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "c70092337b87b360403e703da0c4b8cb7cebd12635ff2df3d1a2669ee60de3ed",
+        "source/game_sa/Fx/Fx.cpp": "5a429e7ecb73ed54ca2abe3026146e166e0e12c6f723697b8a257c8b05767f0a",
+        "source/app/platform/preset_view.cpp": "1b1183a7d1988468eed7a1b33625263e993838aaf24da2c9b0f9770816f59c47",
+        "source/app/platform/platform.cpp": "aa60d77979b42cca85ed349ca8029885f523f17bf67b726625ed8eaef93c0b77",
+        "source/app/platform/platform.h": "1091cd92bd802d7b5e385aeb9dd4dd28c576a75aed98b0d210542bc4b297ab74",
+        "source/game_sa/X87Math.cpp": "4e243ee60a1b3d80f0389ff398119200ca58b204ddc4a243efa669d00c21a591",
+        "source/game_sa/X87Math.h": "1b672930eec6ebf8dc5c785ca2d44be6ced57909db44a8fcc80cc68816474a7d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Helpers66A/LiveComparison.hpp": "464b61dc1b9754befccd9aa92536786ea835d01c5cc1a6c5ac7ce9c6c08219f6",
+        "reversing/Helpers66A/Core.hpp": "8fb0e2624ab833e3a700e6a896d4a27234ba8a965cefeb237a3b23e217b8d7bd",
+        "reversing/Helpers66A/Cases.hpp": "9f692d08c93f66bfedd01f8735ce963f055fdf132598f4b9e42672c246f11fcc",
+        "reversing/Helpers66A/Fixtures.hpp": "26daed8ee4940ae2cfffb1929d05dcdb6911e98db41c108aa7f52ebed98e3353",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wu-1 (HEAD 5765c0b5f). PlayerWantsToAttack 0x60CC50: CPedGroupMembership::CountMembersExcludingLeader 0x5F6AA0, CPedGroupIntelligence::ReportAllBarScriptTasksFinished 0x5F8780, CTagManager::IsTag 0x49CCE0, CObject::CanBeTargetted 0x59F320, CPlayerPed::FindPedToAttack 0x60C5F0 y CPedGroup::PlayerGaveCommand_Attack 0x5F7CC0 sustituidos por falsos identicos; el EAX de salida no se compara (la funcion no lo define y el unico llamador, 0x60D5A0 -> 0x685A7A, no lo lee). EvaluateNeighbouringTarget 0x60D1C0: CPlayerPed::DoesTargetHaveToBeBroken 0x60C0C0 y CGeneral::GetATanOfXY 0x53CC70 sustituidos; compensacion y rumbo finitos o NaN (con +-inf el bucle de normalizacion del propio EXE no termina). HasClearLineOfSight 0x621B10: CWorld::GetIsLineOfSightClear 0x56A490 y rand() del EXE 0x821B1E sustituidos; solo AL se compara (unico llamador 0x62780F: test al,al). AddPunchImpact 0x49F670: FxSystem_c::AddParticle 0x4AA440 sustituido; el constructor FxPrtMult_c 0x4AB290 corre de verdad. RsSavePresetView 0x619FA0 (sin llamadores en el EXE; incluye el ayudante usercall 0x619910): se sustituyen psPathnameCreate 0x745470, psPathnameDestroy 0x7454E0, psErrorMessage 0x7451D0, RwFrameGetLTM 0x7F0990, RwV3dNormalize 0x7ED9B0, RsLoadPresetViews 0x619D60, RsSetPresetView 0x619780 y las entradas fopen/fclose/fputs/sprintf/strlen de la tabla de RenderWare (RwEngineInstance +0xC4/+0xF0/+0x120); RsErrorMessage 0x619B00 y RsKeyboardEventHandler 0x619560 corren de verdad. La declaracion pasa de void RsSavePresetView() a bool RsSavePresetView(RwCamera*) y RsLoadPresetViews de void a bool.",
+      "review_reference": "reversing/Helpers66A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "RemoveVehicleUpgrade",
+        "address": "0x006DF930",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Vehicle66/validation-summary.json",
+        "sha256": "4882294031539c6cc8a77f1389b2a6cc58d639424a57993d440cb16fb74b6055",
+        "passed_path": [
+          "covered_functions",
+          "RemoveVehicleUpgrade"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "052c659fec398d91838dbe856d3ddb2c0c3eb6e126b93fdbabfc5f789d2447af",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "6c3fcb2d694b21e229e4884e1dcc18e79b1d84320aa797c8eb1dca14b442309e",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Vehicle66/LiveComparison.hpp": "3ef7fe2bed777417b76249232dd7ebef9370cfcf93868f91e38ed442ae7020a4",
+        "reversing/Vehicle66/Core.hpp": "64d0d525400647b71dc7d76b27908e422aaa9594176226575c231b68ce6899ce",
+        "reversing/Vehicle66/Fixtures.hpp": "7960bf410e4615913ac87f3e3109a25899bae3de65359899edf51aceec2c26dc",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wu-2 (HEAD 5765c0b5f + Vehicle.cpp/Vehicle.h del lote 66). Colaboradores sustituidos por falsos identicos en ambos lados (parche en la entrada del EXE y, si la DLL tiene hook, en el cuerpo de la DLL; no se validan sus cuerpos): ClearVehicleUpgradeFlags (0x6D3210), FindOtherUpgrade (0x4C74D0), RemoveReplacementUpgrade (0x6D39E0), RpClumpForAllAtomics (0x749B70), GetFrameFromId (0x4C53C0), CreateUpgradeAtomic (0x6D3510), RwFrameForAllObjects (0x7F1200), RwFrameForAllChildren (0x7F0DC0), SetupClumpAfterVehicleUpgrade (0x6FDFE0), SetVehicleUpgradeFlags (0x6D30E0), GetReplacementUpgrade (0x6D3A50), AddReplacementUpgrade (0x6D3830), GetUpgrade (0x6D3650), AddUpgrade (0x6DFA20, para AddVehicleUpgrade), GetPlaneOrdnanceRateOfFire (0x6D4590), GetPlaneOrdnancePosition (0x6D46E0), CProjectileInfo::AddProjectile (0x737C80), CPad::StartShake (0x53F920), UsesSiren (0x6D8470) y CPad::GetHorn (0x53FEE0). CPed::IsPlayer y CPad::GetPad se ejecutan de verdad. Vehiculo, model infos (instalados en ms_modelInfoPtrs[15..19]), estructura del vehiculo, manejabilidad, conductor y matriz son FALSOS en una arena; se escriben y restauran MI_OFFROAD_WHEEL (0x8CD758), la region del historial de bocina del pad 0 (0xB73569, 0x100 bytes) y CTimer (0xB7CB84). Se exige EAX de AddVehicleUpgrade (la mejora sustituida; el llamador 0x4985DA la guarda en 0xA43C78); de las demas funciones ningun llamador del EXE lee EAX/ECX/EDX. Los float de la ordenanza/posicion del bombardeo no incluyen denormales (MXCSR FTZ del juego) ni dos NaN en una suma.",
+      "review_reference": "reversing/Vehicle66/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "AddUpgrade",
+        "address": "0x006DFA20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Vehicle66/validation-summary.json",
+        "sha256": "4882294031539c6cc8a77f1389b2a6cc58d639424a57993d440cb16fb74b6055",
+        "passed_path": [
+          "covered_functions",
+          "AddUpgrade"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "052c659fec398d91838dbe856d3ddb2c0c3eb6e126b93fdbabfc5f789d2447af",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "6c3fcb2d694b21e229e4884e1dcc18e79b1d84320aa797c8eb1dca14b442309e",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Vehicle66/LiveComparison.hpp": "3ef7fe2bed777417b76249232dd7ebef9370cfcf93868f91e38ed442ae7020a4",
+        "reversing/Vehicle66/Core.hpp": "64d0d525400647b71dc7d76b27908e422aaa9594176226575c231b68ce6899ce",
+        "reversing/Vehicle66/Fixtures.hpp": "7960bf410e4615913ac87f3e3109a25899bae3de65359899edf51aceec2c26dc",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wu-2 (HEAD 5765c0b5f + Vehicle.cpp/Vehicle.h del lote 66). Colaboradores sustituidos por falsos identicos en ambos lados (parche en la entrada del EXE y, si la DLL tiene hook, en el cuerpo de la DLL; no se validan sus cuerpos): ClearVehicleUpgradeFlags (0x6D3210), FindOtherUpgrade (0x4C74D0), RemoveReplacementUpgrade (0x6D39E0), RpClumpForAllAtomics (0x749B70), GetFrameFromId (0x4C53C0), CreateUpgradeAtomic (0x6D3510), RwFrameForAllObjects (0x7F1200), RwFrameForAllChildren (0x7F0DC0), SetupClumpAfterVehicleUpgrade (0x6FDFE0), SetVehicleUpgradeFlags (0x6D30E0), GetReplacementUpgrade (0x6D3A50), AddReplacementUpgrade (0x6D3830), GetUpgrade (0x6D3650), AddUpgrade (0x6DFA20, para AddVehicleUpgrade), GetPlaneOrdnanceRateOfFire (0x6D4590), GetPlaneOrdnancePosition (0x6D46E0), CProjectileInfo::AddProjectile (0x737C80), CPad::StartShake (0x53F920), UsesSiren (0x6D8470) y CPad::GetHorn (0x53FEE0). CPed::IsPlayer y CPad::GetPad se ejecutan de verdad. Vehiculo, model infos (instalados en ms_modelInfoPtrs[15..19]), estructura del vehiculo, manejabilidad, conductor y matriz son FALSOS en una arena; se escriben y restauran MI_OFFROAD_WHEEL (0x8CD758), la region del historial de bocina del pad 0 (0xB73569, 0x100 bytes) y CTimer (0xB7CB84). Se exige EAX de AddVehicleUpgrade (la mejora sustituida; el llamador 0x4985DA la guarda en 0xA43C78); de las demas funciones ningun llamador del EXE lee EAX/ECX/EDX. Los float de la ordenanza/posicion del bombardeo no incluyen denormales (MXCSR FTZ del juego) ni dos NaN en una suma.",
+      "review_reference": "reversing/Vehicle66/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "AddVehicleUpgrade",
+        "address": "0x006E3290",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Vehicle66/validation-summary.json",
+        "sha256": "4882294031539c6cc8a77f1389b2a6cc58d639424a57993d440cb16fb74b6055",
+        "passed_path": [
+          "covered_functions",
+          "AddVehicleUpgrade"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "052c659fec398d91838dbe856d3ddb2c0c3eb6e126b93fdbabfc5f789d2447af",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "6c3fcb2d694b21e229e4884e1dcc18e79b1d84320aa797c8eb1dca14b442309e",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Vehicle66/LiveComparison.hpp": "3ef7fe2bed777417b76249232dd7ebef9370cfcf93868f91e38ed442ae7020a4",
+        "reversing/Vehicle66/Core.hpp": "64d0d525400647b71dc7d76b27908e422aaa9594176226575c231b68ce6899ce",
+        "reversing/Vehicle66/Fixtures.hpp": "7960bf410e4615913ac87f3e3109a25899bae3de65359899edf51aceec2c26dc",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wu-2 (HEAD 5765c0b5f + Vehicle.cpp/Vehicle.h del lote 66). Colaboradores sustituidos por falsos identicos en ambos lados (parche en la entrada del EXE y, si la DLL tiene hook, en el cuerpo de la DLL; no se validan sus cuerpos): ClearVehicleUpgradeFlags (0x6D3210), FindOtherUpgrade (0x4C74D0), RemoveReplacementUpgrade (0x6D39E0), RpClumpForAllAtomics (0x749B70), GetFrameFromId (0x4C53C0), CreateUpgradeAtomic (0x6D3510), RwFrameForAllObjects (0x7F1200), RwFrameForAllChildren (0x7F0DC0), SetupClumpAfterVehicleUpgrade (0x6FDFE0), SetVehicleUpgradeFlags (0x6D30E0), GetReplacementUpgrade (0x6D3A50), AddReplacementUpgrade (0x6D3830), GetUpgrade (0x6D3650), AddUpgrade (0x6DFA20, para AddVehicleUpgrade), GetPlaneOrdnanceRateOfFire (0x6D4590), GetPlaneOrdnancePosition (0x6D46E0), CProjectileInfo::AddProjectile (0x737C80), CPad::StartShake (0x53F920), UsesSiren (0x6D8470) y CPad::GetHorn (0x53FEE0). CPed::IsPlayer y CPad::GetPad se ejecutan de verdad. Vehiculo, model infos (instalados en ms_modelInfoPtrs[15..19]), estructura del vehiculo, manejabilidad, conductor y matriz son FALSOS en una arena; se escriben y restauran MI_OFFROAD_WHEEL (0x8CD758), la region del historial de bocina del pad 0 (0xB73569, 0x100 bytes) y CTimer (0xB7CB84). Se exige EAX de AddVehicleUpgrade (la mejora sustituida; el llamador 0x4985DA la guarda en 0xA43C78); de las demas funciones ningun llamador del EXE lee EAX/ECX/EDX. Los float de la ordenanza/posicion del bombardeo no incluyen denormales (MXCSR FTZ del juego) ni dos NaN en una suma.",
+      "review_reference": "reversing/Vehicle66/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "PossiblyDropFreeFallBombForPlayer",
+        "address": "0x006E07E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Vehicle66/validation-summary.json",
+        "sha256": "4882294031539c6cc8a77f1389b2a6cc58d639424a57993d440cb16fb74b6055",
+        "passed_path": [
+          "covered_functions",
+          "PossiblyDropFreeFallBombForPlayer"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "052c659fec398d91838dbe856d3ddb2c0c3eb6e126b93fdbabfc5f789d2447af",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "6c3fcb2d694b21e229e4884e1dcc18e79b1d84320aa797c8eb1dca14b442309e",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Vehicle66/LiveComparison.hpp": "3ef7fe2bed777417b76249232dd7ebef9370cfcf93868f91e38ed442ae7020a4",
+        "reversing/Vehicle66/Core.hpp": "64d0d525400647b71dc7d76b27908e422aaa9594176226575c231b68ce6899ce",
+        "reversing/Vehicle66/Fixtures.hpp": "7960bf410e4615913ac87f3e3109a25899bae3de65359899edf51aceec2c26dc",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wu-2 (HEAD 5765c0b5f + Vehicle.cpp/Vehicle.h del lote 66). Colaboradores sustituidos por falsos identicos en ambos lados (parche en la entrada del EXE y, si la DLL tiene hook, en el cuerpo de la DLL; no se validan sus cuerpos): ClearVehicleUpgradeFlags (0x6D3210), FindOtherUpgrade (0x4C74D0), RemoveReplacementUpgrade (0x6D39E0), RpClumpForAllAtomics (0x749B70), GetFrameFromId (0x4C53C0), CreateUpgradeAtomic (0x6D3510), RwFrameForAllObjects (0x7F1200), RwFrameForAllChildren (0x7F0DC0), SetupClumpAfterVehicleUpgrade (0x6FDFE0), SetVehicleUpgradeFlags (0x6D30E0), GetReplacementUpgrade (0x6D3A50), AddReplacementUpgrade (0x6D3830), GetUpgrade (0x6D3650), AddUpgrade (0x6DFA20, para AddVehicleUpgrade), GetPlaneOrdnanceRateOfFire (0x6D4590), GetPlaneOrdnancePosition (0x6D46E0), CProjectileInfo::AddProjectile (0x737C80), CPad::StartShake (0x53F920), UsesSiren (0x6D8470) y CPad::GetHorn (0x53FEE0). CPed::IsPlayer y CPad::GetPad se ejecutan de verdad. Vehiculo, model infos (instalados en ms_modelInfoPtrs[15..19]), estructura del vehiculo, manejabilidad, conductor y matriz son FALSOS en una arena; se escriben y restauran MI_OFFROAD_WHEEL (0x8CD758), la region del historial de bocina del pad 0 (0xB73569, 0x100 bytes) y CTimer (0xB7CB84). Se exige EAX de AddVehicleUpgrade (la mejora sustituida; el llamador 0x4985DA la guarda en 0xA43C78); de las demas funciones ningun llamador del EXE lee EAX/ECX/EDX. Los float de la ordenanza/posicion del bombardeo no incluyen denormales (MXCSR FTZ del juego) ni dos NaN en una suma.",
+      "review_reference": "reversing/Vehicle66/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "ProcessSirenAndHorn",
+        "address": "0x006E0950",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Vehicle66/validation-summary.json",
+        "sha256": "4882294031539c6cc8a77f1389b2a6cc58d639424a57993d440cb16fb74b6055",
+        "passed_path": [
+          "covered_functions",
+          "ProcessSirenAndHorn"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "052c659fec398d91838dbe856d3ddb2c0c3eb6e126b93fdbabfc5f789d2447af",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "6c3fcb2d694b21e229e4884e1dcc18e79b1d84320aa797c8eb1dca14b442309e",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Vehicle66/LiveComparison.hpp": "3ef7fe2bed777417b76249232dd7ebef9370cfcf93868f91e38ed442ae7020a4",
+        "reversing/Vehicle66/Core.hpp": "64d0d525400647b71dc7d76b27908e422aaa9594176226575c231b68ce6899ce",
+        "reversing/Vehicle66/Fixtures.hpp": "7960bf410e4615913ac87f3e3109a25899bae3de65359899edf51aceec2c26dc",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wu-2 (HEAD 5765c0b5f + Vehicle.cpp/Vehicle.h del lote 66). Colaboradores sustituidos por falsos identicos en ambos lados (parche en la entrada del EXE y, si la DLL tiene hook, en el cuerpo de la DLL; no se validan sus cuerpos): ClearVehicleUpgradeFlags (0x6D3210), FindOtherUpgrade (0x4C74D0), RemoveReplacementUpgrade (0x6D39E0), RpClumpForAllAtomics (0x749B70), GetFrameFromId (0x4C53C0), CreateUpgradeAtomic (0x6D3510), RwFrameForAllObjects (0x7F1200), RwFrameForAllChildren (0x7F0DC0), SetupClumpAfterVehicleUpgrade (0x6FDFE0), SetVehicleUpgradeFlags (0x6D30E0), GetReplacementUpgrade (0x6D3A50), AddReplacementUpgrade (0x6D3830), GetUpgrade (0x6D3650), AddUpgrade (0x6DFA20, para AddVehicleUpgrade), GetPlaneOrdnanceRateOfFire (0x6D4590), GetPlaneOrdnancePosition (0x6D46E0), CProjectileInfo::AddProjectile (0x737C80), CPad::StartShake (0x53F920), UsesSiren (0x6D8470) y CPad::GetHorn (0x53FEE0). CPed::IsPlayer y CPad::GetPad se ejecutan de verdad. Vehiculo, model infos (instalados en ms_modelInfoPtrs[15..19]), estructura del vehiculo, manejabilidad, conductor y matriz son FALSOS en una arena; se escriben y restauran MI_OFFROAD_WHEEL (0x8CD758), la region del historial de bocina del pad 0 (0xB73569, 0x100 bytes) y CTimer (0xB7CB84). Se exige EAX de AddVehicleUpgrade (la mejora sustituida; el llamador 0x4985DA la guarda en 0xA43C78); de las demas funciones ningun llamador del EXE lee EAX/ECX/EDX. Los float de la ordenanza/posicion del bombardeo no incluyen denormales (MXCSR FTZ del juego) ni dos NaN en una suma.",
+      "review_reference": "reversing/Vehicle66/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAEMFDecoder",
+        "fn_name": "OpenSoundMedia",
+        "address": "0x004E7990",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Helpers66C/validation-summary.json",
+        "sha256": "3eccd474917980dde8003b45058e5ed75e858ddc4ba842aabf7c68f768eef5f7",
+        "passed_path": [
+          "covered_functions",
+          "AEMFOpenSoundMedia"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "011f02f476080375780f765bd13088c7dffd797b9915f16716ea9f5e11b06f9b",
+        "source/game_sa/Audio/Loaders/AEMFDecoder.h": "1a698c328766bde2c8f74a229eef4c7bdda5d7a7f6d884b3e7115d7cd96d62b9",
+        "source/app/platform/win/WinPs.cpp": "b68117e104c521f9970ac9df7b44371b40b24c2b9b88a1fccda7d033a3eea8aa",
+        "source/game_sa/RenderWare/rw/rwtexdict.cpp": "7558733246b7aa83fda0378b66eda9fe0b276a2da321317b477f588ba1caaa1e",
+        "source/game_sa/RwHelper.cpp": "168a5adbb5e14b1ec2562bee13ed4e356b6f15a7940730f0db514cb0eaa553d0",
+        "source/game_sa/X87Math.cpp": "4e243ee60a1b3d80f0389ff398119200ca58b204ddc4a243efa669d00c21a591",
+        "source/game_sa/X87Math.h": "1b672930eec6ebf8dc5c785ca2d44be6ced57909db44a8fcc80cc68816474a7d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Helpers66C/LiveComparison.hpp": "a9ee9814ca4ddca7c1b51080c144c3ae7bfbd4a36e2c174b2db33ccea960e8f0",
+        "reversing/Helpers66C/Core.hpp": "982898c93b416c1dd898186c784cfa03925cb9a61ee8f08947b3dc02103ab3f5",
+        "reversing/Helpers66C/Cases.hpp": "a3109a528de65687e57078792f59325e219cf14f1baf03e0f25f23fc0366e3fc",
+        "reversing/Helpers66C/Fixtures.hpp": "733363b0edbbdeb6c469366ff1182ea809911d9b717d355d263769cef1b01199",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wu-3 (HEAD 5765c0b5f). AEMFOpenSoundMedia 0x4E7990 y AEMFGetMediaSoundFormat 0x4E7A80: las 7 y 11 funciones de pegamento QuickTime del EXE (0x818xxx-0x81DAA0) sustituidas por falsos identicos en ambos lados (nunca se abre un medio real); el segundo se llama con ECX = la media, como su unico llamador (0x4E7CB0), porque el EXE usa ese ECX de entrada como handle de extension sin inicializar en la ruta de error; los 16 bits altos de refNum (basura de pila del EXE) se enmascaran. GetDXVersion 0x745650: LoadLibraryA, GetProcAddress, FreeLibrary y OutputDebugStringA sustituidos en las ranuras de importacion del EXE y de la DLL; DirectDrawCreateEx y el Release del objeto son falsos. RwTextureGtaStreamRead 0x730E60: RwStreamFindChunk, CTimer (2), RpAnisot (3) y la ranura stdFunc[NATIVETEXTUREREAD] de RwEngineInstance sustituidos; gGameState, contadores 0xC87FEC/0xC87FF0, anisotropia 0xC87FFC y calidad g_fx+0x54 se escriben por caso y se restauran; la media incremental en x87 de 24 bits se compara en bits. SkinGetBonePositionsToTable 0x735360: RpClumpForAllAtomics, RpSkinGeometryGetSkin, RpSkinGetNumBones, RpSkinGetSkinToBoneMatrices, RwMatrixInvert y RwV3dTransformPoints sustituidos; sin POP sin PUSH previo y con profundidad de pila <= 24 (el EXE usa una pila de 32 enteros sin inicializar). Los llamadores del EXE solo leen AX (QuickTime) o EAX (GetDXVersion, RwTextureGtaStreamRead); nadie lee ECX/EDX de salida.",
+      "review_reference": "reversing/Helpers66C/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAEMFDecoder",
+        "fn_name": "GetMediaSoundFormat",
+        "address": "0x004E7A80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Helpers66C/validation-summary.json",
+        "sha256": "3eccd474917980dde8003b45058e5ed75e858ddc4ba842aabf7c68f768eef5f7",
+        "passed_path": [
+          "covered_functions",
+          "AEMFGetMediaSoundFormat"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "011f02f476080375780f765bd13088c7dffd797b9915f16716ea9f5e11b06f9b",
+        "source/game_sa/Audio/Loaders/AEMFDecoder.h": "1a698c328766bde2c8f74a229eef4c7bdda5d7a7f6d884b3e7115d7cd96d62b9",
+        "source/app/platform/win/WinPs.cpp": "b68117e104c521f9970ac9df7b44371b40b24c2b9b88a1fccda7d033a3eea8aa",
+        "source/game_sa/RenderWare/rw/rwtexdict.cpp": "7558733246b7aa83fda0378b66eda9fe0b276a2da321317b477f588ba1caaa1e",
+        "source/game_sa/RwHelper.cpp": "168a5adbb5e14b1ec2562bee13ed4e356b6f15a7940730f0db514cb0eaa553d0",
+        "source/game_sa/X87Math.cpp": "4e243ee60a1b3d80f0389ff398119200ca58b204ddc4a243efa669d00c21a591",
+        "source/game_sa/X87Math.h": "1b672930eec6ebf8dc5c785ca2d44be6ced57909db44a8fcc80cc68816474a7d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Helpers66C/LiveComparison.hpp": "a9ee9814ca4ddca7c1b51080c144c3ae7bfbd4a36e2c174b2db33ccea960e8f0",
+        "reversing/Helpers66C/Core.hpp": "982898c93b416c1dd898186c784cfa03925cb9a61ee8f08947b3dc02103ab3f5",
+        "reversing/Helpers66C/Cases.hpp": "a3109a528de65687e57078792f59325e219cf14f1baf03e0f25f23fc0366e3fc",
+        "reversing/Helpers66C/Fixtures.hpp": "733363b0edbbdeb6c469366ff1182ea809911d9b717d355d263769cef1b01199",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wu-3 (HEAD 5765c0b5f). AEMFOpenSoundMedia 0x4E7990 y AEMFGetMediaSoundFormat 0x4E7A80: las 7 y 11 funciones de pegamento QuickTime del EXE (0x818xxx-0x81DAA0) sustituidas por falsos identicos en ambos lados (nunca se abre un medio real); el segundo se llama con ECX = la media, como su unico llamador (0x4E7CB0), porque el EXE usa ese ECX de entrada como handle de extension sin inicializar en la ruta de error; los 16 bits altos de refNum (basura de pila del EXE) se enmascaran. GetDXVersion 0x745650: LoadLibraryA, GetProcAddress, FreeLibrary y OutputDebugStringA sustituidos en las ranuras de importacion del EXE y de la DLL; DirectDrawCreateEx y el Release del objeto son falsos. RwTextureGtaStreamRead 0x730E60: RwStreamFindChunk, CTimer (2), RpAnisot (3) y la ranura stdFunc[NATIVETEXTUREREAD] de RwEngineInstance sustituidos; gGameState, contadores 0xC87FEC/0xC87FF0, anisotropia 0xC87FFC y calidad g_fx+0x54 se escriben por caso y se restauran; la media incremental en x87 de 24 bits se compara en bits. SkinGetBonePositionsToTable 0x735360: RpClumpForAllAtomics, RpSkinGeometryGetSkin, RpSkinGetNumBones, RpSkinGetSkinToBoneMatrices, RwMatrixInvert y RwV3dTransformPoints sustituidos; sin POP sin PUSH previo y con profundidad de pila <= 24 (el EXE usa una pila de 32 enteros sin inicializar). Los llamadores del EXE solo leen AX (QuickTime) o EAX (GetDXVersion, RwTextureGtaStreamRead); nadie lee ECX/EDX de salida.",
+      "review_reference": "reversing/Helpers66C/README.md"
+    },
+    {
+      "hook": {
+        "class": "Ps",
+        "fn_name": "GetDXVersion",
+        "address": "0x00745650",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Helpers66C/validation-summary.json",
+        "sha256": "3eccd474917980dde8003b45058e5ed75e858ddc4ba842aabf7c68f768eef5f7",
+        "passed_path": [
+          "covered_functions",
+          "GetDXVersion"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "011f02f476080375780f765bd13088c7dffd797b9915f16716ea9f5e11b06f9b",
+        "source/game_sa/Audio/Loaders/AEMFDecoder.h": "1a698c328766bde2c8f74a229eef4c7bdda5d7a7f6d884b3e7115d7cd96d62b9",
+        "source/app/platform/win/WinPs.cpp": "b68117e104c521f9970ac9df7b44371b40b24c2b9b88a1fccda7d033a3eea8aa",
+        "source/game_sa/RenderWare/rw/rwtexdict.cpp": "7558733246b7aa83fda0378b66eda9fe0b276a2da321317b477f588ba1caaa1e",
+        "source/game_sa/RwHelper.cpp": "168a5adbb5e14b1ec2562bee13ed4e356b6f15a7940730f0db514cb0eaa553d0",
+        "source/game_sa/X87Math.cpp": "4e243ee60a1b3d80f0389ff398119200ca58b204ddc4a243efa669d00c21a591",
+        "source/game_sa/X87Math.h": "1b672930eec6ebf8dc5c785ca2d44be6ced57909db44a8fcc80cc68816474a7d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Helpers66C/LiveComparison.hpp": "a9ee9814ca4ddca7c1b51080c144c3ae7bfbd4a36e2c174b2db33ccea960e8f0",
+        "reversing/Helpers66C/Core.hpp": "982898c93b416c1dd898186c784cfa03925cb9a61ee8f08947b3dc02103ab3f5",
+        "reversing/Helpers66C/Cases.hpp": "a3109a528de65687e57078792f59325e219cf14f1baf03e0f25f23fc0366e3fc",
+        "reversing/Helpers66C/Fixtures.hpp": "733363b0edbbdeb6c469366ff1182ea809911d9b717d355d263769cef1b01199",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wu-3 (HEAD 5765c0b5f). AEMFOpenSoundMedia 0x4E7990 y AEMFGetMediaSoundFormat 0x4E7A80: las 7 y 11 funciones de pegamento QuickTime del EXE (0x818xxx-0x81DAA0) sustituidas por falsos identicos en ambos lados (nunca se abre un medio real); el segundo se llama con ECX = la media, como su unico llamador (0x4E7CB0), porque el EXE usa ese ECX de entrada como handle de extension sin inicializar en la ruta de error; los 16 bits altos de refNum (basura de pila del EXE) se enmascaran. GetDXVersion 0x745650: LoadLibraryA, GetProcAddress, FreeLibrary y OutputDebugStringA sustituidos en las ranuras de importacion del EXE y de la DLL; DirectDrawCreateEx y el Release del objeto son falsos. RwTextureGtaStreamRead 0x730E60: RwStreamFindChunk, CTimer (2), RpAnisot (3) y la ranura stdFunc[NATIVETEXTUREREAD] de RwEngineInstance sustituidos; gGameState, contadores 0xC87FEC/0xC87FF0, anisotropia 0xC87FFC y calidad g_fx+0x54 se escriben por caso y se restauran; la media incremental en x87 de 24 bits se compara en bits. SkinGetBonePositionsToTable 0x735360: RpClumpForAllAtomics, RpSkinGeometryGetSkin, RpSkinGetNumBones, RpSkinGetSkinToBoneMatrices, RwMatrixInvert y RwV3dTransformPoints sustituidos; sin POP sin PUSH previo y con profundidad de pila <= 24 (el EXE usa una pila de 32 enteros sin inicializar). Los llamadores del EXE solo leen AX (QuickTime) o EAX (GetDXVersion, RwTextureGtaStreamRead); nadie lee ECX/EDX de salida.",
+      "review_reference": "reversing/Helpers66C/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "RwTextureGtaStreamRead",
+        "address": "0x00730E60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Helpers66C/validation-summary.json",
+        "sha256": "3eccd474917980dde8003b45058e5ed75e858ddc4ba842aabf7c68f768eef5f7",
+        "passed_path": [
+          "covered_functions",
+          "RwTextureGtaStreamRead"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "011f02f476080375780f765bd13088c7dffd797b9915f16716ea9f5e11b06f9b",
+        "source/game_sa/Audio/Loaders/AEMFDecoder.h": "1a698c328766bde2c8f74a229eef4c7bdda5d7a7f6d884b3e7115d7cd96d62b9",
+        "source/app/platform/win/WinPs.cpp": "b68117e104c521f9970ac9df7b44371b40b24c2b9b88a1fccda7d033a3eea8aa",
+        "source/game_sa/RenderWare/rw/rwtexdict.cpp": "7558733246b7aa83fda0378b66eda9fe0b276a2da321317b477f588ba1caaa1e",
+        "source/game_sa/RwHelper.cpp": "168a5adbb5e14b1ec2562bee13ed4e356b6f15a7940730f0db514cb0eaa553d0",
+        "source/game_sa/X87Math.cpp": "4e243ee60a1b3d80f0389ff398119200ca58b204ddc4a243efa669d00c21a591",
+        "source/game_sa/X87Math.h": "1b672930eec6ebf8dc5c785ca2d44be6ced57909db44a8fcc80cc68816474a7d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Helpers66C/LiveComparison.hpp": "a9ee9814ca4ddca7c1b51080c144c3ae7bfbd4a36e2c174b2db33ccea960e8f0",
+        "reversing/Helpers66C/Core.hpp": "982898c93b416c1dd898186c784cfa03925cb9a61ee8f08947b3dc02103ab3f5",
+        "reversing/Helpers66C/Cases.hpp": "a3109a528de65687e57078792f59325e219cf14f1baf03e0f25f23fc0366e3fc",
+        "reversing/Helpers66C/Fixtures.hpp": "733363b0edbbdeb6c469366ff1182ea809911d9b717d355d263769cef1b01199",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wu-3 (HEAD 5765c0b5f). AEMFOpenSoundMedia 0x4E7990 y AEMFGetMediaSoundFormat 0x4E7A80: las 7 y 11 funciones de pegamento QuickTime del EXE (0x818xxx-0x81DAA0) sustituidas por falsos identicos en ambos lados (nunca se abre un medio real); el segundo se llama con ECX = la media, como su unico llamador (0x4E7CB0), porque el EXE usa ese ECX de entrada como handle de extension sin inicializar en la ruta de error; los 16 bits altos de refNum (basura de pila del EXE) se enmascaran. GetDXVersion 0x745650: LoadLibraryA, GetProcAddress, FreeLibrary y OutputDebugStringA sustituidos en las ranuras de importacion del EXE y de la DLL; DirectDrawCreateEx y el Release del objeto son falsos. RwTextureGtaStreamRead 0x730E60: RwStreamFindChunk, CTimer (2), RpAnisot (3) y la ranura stdFunc[NATIVETEXTUREREAD] de RwEngineInstance sustituidos; gGameState, contadores 0xC87FEC/0xC87FF0, anisotropia 0xC87FFC y calidad g_fx+0x54 se escriben por caso y se restauran; la media incremental en x87 de 24 bits se compara en bits. SkinGetBonePositionsToTable 0x735360: RpClumpForAllAtomics, RpSkinGeometryGetSkin, RpSkinGetNumBones, RpSkinGetSkinToBoneMatrices, RwMatrixInvert y RwV3dTransformPoints sustituidos; sin POP sin PUSH previo y con profundidad de pila <= 24 (el EXE usa una pila de 32 enteros sin inicializar). Los llamadores del EXE solo leen AX (QuickTime) o EAX (GetDXVersion, RwTextureGtaStreamRead); nadie lee ECX/EDX de salida.",
+      "review_reference": "reversing/Helpers66C/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "SkinGetBonePositionsToTable",
+        "address": "0x00735360",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Helpers66C/validation-summary.json",
+        "sha256": "3eccd474917980dde8003b45058e5ed75e858ddc4ba842aabf7c68f768eef5f7",
+        "passed_path": [
+          "covered_functions",
+          "SkinGetBonePositionsToTable"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "011f02f476080375780f765bd13088c7dffd797b9915f16716ea9f5e11b06f9b",
+        "source/game_sa/Audio/Loaders/AEMFDecoder.h": "1a698c328766bde2c8f74a229eef4c7bdda5d7a7f6d884b3e7115d7cd96d62b9",
+        "source/app/platform/win/WinPs.cpp": "b68117e104c521f9970ac9df7b44371b40b24c2b9b88a1fccda7d033a3eea8aa",
+        "source/game_sa/RenderWare/rw/rwtexdict.cpp": "7558733246b7aa83fda0378b66eda9fe0b276a2da321317b477f588ba1caaa1e",
+        "source/game_sa/RwHelper.cpp": "168a5adbb5e14b1ec2562bee13ed4e356b6f15a7940730f0db514cb0eaa553d0",
+        "source/game_sa/X87Math.cpp": "4e243ee60a1b3d80f0389ff398119200ca58b204ddc4a243efa669d00c21a591",
+        "source/game_sa/X87Math.h": "1b672930eec6ebf8dc5c785ca2d44be6ced57909db44a8fcc80cc68816474a7d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Helpers66C/LiveComparison.hpp": "a9ee9814ca4ddca7c1b51080c144c3ae7bfbd4a36e2c174b2db33ccea960e8f0",
+        "reversing/Helpers66C/Core.hpp": "982898c93b416c1dd898186c784cfa03925cb9a61ee8f08947b3dc02103ab3f5",
+        "reversing/Helpers66C/Cases.hpp": "a3109a528de65687e57078792f59325e219cf14f1baf03e0f25f23fc0366e3fc",
+        "reversing/Helpers66C/Fixtures.hpp": "733363b0edbbdeb6c469366ff1182ea809911d9b717d355d263769cef1b01199",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wu-3 (HEAD 5765c0b5f). AEMFOpenSoundMedia 0x4E7990 y AEMFGetMediaSoundFormat 0x4E7A80: las 7 y 11 funciones de pegamento QuickTime del EXE (0x818xxx-0x81DAA0) sustituidas por falsos identicos en ambos lados (nunca se abre un medio real); el segundo se llama con ECX = la media, como su unico llamador (0x4E7CB0), porque el EXE usa ese ECX de entrada como handle de extension sin inicializar en la ruta de error; los 16 bits altos de refNum (basura de pila del EXE) se enmascaran. GetDXVersion 0x745650: LoadLibraryA, GetProcAddress, FreeLibrary y OutputDebugStringA sustituidos en las ranuras de importacion del EXE y de la DLL; DirectDrawCreateEx y el Release del objeto son falsos. RwTextureGtaStreamRead 0x730E60: RwStreamFindChunk, CTimer (2), RpAnisot (3) y la ranura stdFunc[NATIVETEXTUREREAD] de RwEngineInstance sustituidos; gGameState, contadores 0xC87FEC/0xC87FF0, anisotropia 0xC87FFC y calidad g_fx+0x54 se escriben por caso y se restauran; la media incremental en x87 de 24 bits se compara en bits. SkinGetBonePositionsToTable 0x735360: RpClumpForAllAtomics, RpSkinGeometryGetSkin, RpSkinGetNumBones, RpSkinGetSkinToBoneMatrices, RwMatrixInvert y RwV3dTransformPoints sustituidos; sin POP sin PUSH previo y con profundidad de pila <= 24 (el EXE usa una pila de 32 enteros sin inicializar). Los llamadores del EXE solo leen AX (QuickTime) o EAX (GetDXVersion, RwTextureGtaStreamRead); nadie lee ECX/EDX de salida.",
+      "review_reference": "reversing/Helpers66C/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "RpClumpGetBoundingSphere",
+        "address": "0x00734FC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Helpers66D/validation-summary.json",
+        "sha256": "b4d1ef223176af1ea41fc368e6c4d5039a537c9d416b6d15bc15f091da577292",
+        "passed_path": [
+          "covered_functions",
+          "RwHelper::RpClumpGetBoundingSphere"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "source/game_sa/X87Math.cpp": "4e243ee60a1b3d80f0389ff398119200ca58b204ddc4a243efa669d00c21a591",
+        "source/game_sa/X87Math.h": "1b672930eec6ebf8dc5c785ca2d44be6ced57909db44a8fcc80cc68816474a7d",
+        "source/game_sa/RwHelper.cpp": "168a5adbb5e14b1ec2562bee13ed4e356b6f15a7940730f0db514cb0eaa553d0",
+        "source/game_sa/RwHelper.h": "33dec5298509d965fd0dc193ca7e96dad3c190934ab91fd7634af4530021c63a",
+        "source/game_sa/Garage.cpp": "3a7fbd74d1c7a83b2f839d489842271432c36057908bb54fe944bf0d06626dad",
+        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Camera.cpp": "789a7ed89a1dc81c1e70e661dd7c73a975c53c0f79758cb05188a27f0544073d",
+        "source/game_sa/Cam.cpp": "f3d9b1066cbb2a3e713fd0b35aa53b44687f39bfefc61a936bd9acdcdd8f376d",
+        "source/game_sa/Cam.h": "5557bbadb0c1bf5eee8c31c19dfb00230c00622da8d0dc6f7a0bf4e725f58ac5",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "3563647cf07d76757db2efff3ef2ef8f9d89a17657a0ec2008bcd81228327c24",
+        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "6d35dbdcf9fed86218c5eec0b19ddb95b33c837470d1e63bb48c54e69be0b841",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Helpers66D/LiveComparison.hpp": "49ef597cecead8ffa14f891cd9bbe523d31d791bdbeed946b5a29ab35554db75",
+        "reversing/Helpers66D/Core.hpp": "427bc73d5d4ce5eac3948e7b4a567fe579fd0461016321f66fa1bae2695ea8fe",
+        "reversing/Helpers66D/Fixtures.hpp": "91817fed679f9c89bda33dbe7edc76a83f3d78b852a2d37ce54ae3cac400ab27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wu-4 (HEAD 5765c0b5f + source.patch del lote 66D; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: RpClumpGetNumAtomics 0x7498E0, RpClumpForAllAtomics 0x749B70 (los callbacks 0x734970 y 0x734ED0 siguen siendo codigo del EXE y no se ejecutan: el falso escribe lo que dicta el caso), RwFrameGetLTM 0x7F0990, RwMatrixInvert 0x7F2070, RwV3dTransformPoints 0x7EDD90; CVector::Normalise 0x59C910, CrossProduct 0x59C730, CWorld::FindGroundZFor3DCoord 0x5696C0; CAutomobile::CAutomobile 0x6B0A90, CDamageManager::SetDoorStatus 0x6C21C0 y el rand() del CRT del EXE 0x821B1E. El pool de objetos (0xB7449C), el byte bUseLTM (0x8D60BC) y el temporizador (0xB7CB84) se fijan por caso y se restauran. Ningun llamador del EXE lee ECX/EDX; EAX = this (constructor), EAX = clump (esfera) y AL (camara) se exigen. createdBy del constructor solo se prueba en 0..255 (eVehicleCreatedBy es uint8: el EXE reenvia el dword completo al constructor base).",
+      "review_reference": "reversing/Helpers66D/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarage",
+        "fn_name": "FindDoorsWithGarage",
+        "address": "0x00449FF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Helpers66D/validation-summary.json",
+        "sha256": "b4d1ef223176af1ea41fc368e6c4d5039a537c9d416b6d15bc15f091da577292",
+        "passed_path": [
+          "covered_functions",
+          "CGarage::FindDoorsWithGarage"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "source/game_sa/X87Math.cpp": "4e243ee60a1b3d80f0389ff398119200ca58b204ddc4a243efa669d00c21a591",
+        "source/game_sa/X87Math.h": "1b672930eec6ebf8dc5c785ca2d44be6ced57909db44a8fcc80cc68816474a7d",
+        "source/game_sa/RwHelper.cpp": "168a5adbb5e14b1ec2562bee13ed4e356b6f15a7940730f0db514cb0eaa553d0",
+        "source/game_sa/RwHelper.h": "33dec5298509d965fd0dc193ca7e96dad3c190934ab91fd7634af4530021c63a",
+        "source/game_sa/Garage.cpp": "3a7fbd74d1c7a83b2f839d489842271432c36057908bb54fe944bf0d06626dad",
+        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Camera.cpp": "789a7ed89a1dc81c1e70e661dd7c73a975c53c0f79758cb05188a27f0544073d",
+        "source/game_sa/Cam.cpp": "f3d9b1066cbb2a3e713fd0b35aa53b44687f39bfefc61a936bd9acdcdd8f376d",
+        "source/game_sa/Cam.h": "5557bbadb0c1bf5eee8c31c19dfb00230c00622da8d0dc6f7a0bf4e725f58ac5",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "3563647cf07d76757db2efff3ef2ef8f9d89a17657a0ec2008bcd81228327c24",
+        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "6d35dbdcf9fed86218c5eec0b19ddb95b33c837470d1e63bb48c54e69be0b841",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Helpers66D/LiveComparison.hpp": "49ef597cecead8ffa14f891cd9bbe523d31d791bdbeed946b5a29ab35554db75",
+        "reversing/Helpers66D/Core.hpp": "427bc73d5d4ce5eac3948e7b4a567fe579fd0461016321f66fa1bae2695ea8fe",
+        "reversing/Helpers66D/Fixtures.hpp": "91817fed679f9c89bda33dbe7edc76a83f3d78b852a2d37ce54ae3cac400ab27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wu-4 (HEAD 5765c0b5f + source.patch del lote 66D; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: RpClumpGetNumAtomics 0x7498E0, RpClumpForAllAtomics 0x749B70 (los callbacks 0x734970 y 0x734ED0 siguen siendo codigo del EXE y no se ejecutan: el falso escribe lo que dicta el caso), RwFrameGetLTM 0x7F0990, RwMatrixInvert 0x7F2070, RwV3dTransformPoints 0x7EDD90; CVector::Normalise 0x59C910, CrossProduct 0x59C730, CWorld::FindGroundZFor3DCoord 0x5696C0; CAutomobile::CAutomobile 0x6B0A90, CDamageManager::SetDoorStatus 0x6C21C0 y el rand() del CRT del EXE 0x821B1E. El pool de objetos (0xB7449C), el byte bUseLTM (0x8D60BC) y el temporizador (0xB7CB84) se fijan por caso y se restauran. Ningun llamador del EXE lee ECX/EDX; EAX = this (constructor), EAX = clump (esfera) y AL (camara) se exigen. createdBy del constructor solo se prueba en 0..255 (eVehicleCreatedBy es uint8: el EXE reenvia el dword completo al constructor base).",
+      "review_reference": "reversing/Helpers66D/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCam",
+        "fn_name": "GetArrestCamCopSourceSide",
+        "address": "0x00516010",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Helpers66D/validation-summary.json",
+        "sha256": "b4d1ef223176af1ea41fc368e6c4d5039a537c9d416b6d15bc15f091da577292",
+        "passed_path": [
+          "covered_functions",
+          "CCam::GetArrestCamCopSourceSide"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "source/game_sa/X87Math.cpp": "4e243ee60a1b3d80f0389ff398119200ca58b204ddc4a243efa669d00c21a591",
+        "source/game_sa/X87Math.h": "1b672930eec6ebf8dc5c785ca2d44be6ced57909db44a8fcc80cc68816474a7d",
+        "source/game_sa/RwHelper.cpp": "168a5adbb5e14b1ec2562bee13ed4e356b6f15a7940730f0db514cb0eaa553d0",
+        "source/game_sa/RwHelper.h": "33dec5298509d965fd0dc193ca7e96dad3c190934ab91fd7634af4530021c63a",
+        "source/game_sa/Garage.cpp": "3a7fbd74d1c7a83b2f839d489842271432c36057908bb54fe944bf0d06626dad",
+        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Camera.cpp": "789a7ed89a1dc81c1e70e661dd7c73a975c53c0f79758cb05188a27f0544073d",
+        "source/game_sa/Cam.cpp": "f3d9b1066cbb2a3e713fd0b35aa53b44687f39bfefc61a936bd9acdcdd8f376d",
+        "source/game_sa/Cam.h": "5557bbadb0c1bf5eee8c31c19dfb00230c00622da8d0dc6f7a0bf4e725f58ac5",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "3563647cf07d76757db2efff3ef2ef8f9d89a17657a0ec2008bcd81228327c24",
+        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "6d35dbdcf9fed86218c5eec0b19ddb95b33c837470d1e63bb48c54e69be0b841",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Helpers66D/LiveComparison.hpp": "49ef597cecead8ffa14f891cd9bbe523d31d791bdbeed946b5a29ab35554db75",
+        "reversing/Helpers66D/Core.hpp": "427bc73d5d4ce5eac3948e7b4a567fe579fd0461016321f66fa1bae2695ea8fe",
+        "reversing/Helpers66D/Fixtures.hpp": "91817fed679f9c89bda33dbe7edc76a83f3d78b852a2d37ce54ae3cac400ab27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wu-4 (HEAD 5765c0b5f + source.patch del lote 66D; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: RpClumpGetNumAtomics 0x7498E0, RpClumpForAllAtomics 0x749B70 (los callbacks 0x734970 y 0x734ED0 siguen siendo codigo del EXE y no se ejecutan: el falso escribe lo que dicta el caso), RwFrameGetLTM 0x7F0990, RwMatrixInvert 0x7F2070, RwV3dTransformPoints 0x7EDD90; CVector::Normalise 0x59C910, CrossProduct 0x59C730, CWorld::FindGroundZFor3DCoord 0x5696C0; CAutomobile::CAutomobile 0x6B0A90, CDamageManager::SetDoorStatus 0x6C21C0 y el rand() del CRT del EXE 0x821B1E. El pool de objetos (0xB7449C), el byte bUseLTM (0x8D60BC) y el temporizador (0xB7CB84) se fijan por caso y se restauran. Ningun llamador del EXE lee ECX/EDX; EAX = this (constructor), EAX = clump (esfera) y AL (camara) se exigen. createdBy del constructor solo se prueba en 0..255 (eVehicleCreatedBy es uint8: el EXE reenvia el dword completo al constructor base).",
+      "review_reference": "reversing/Helpers66D/README.md"
+    },
+    {
+      "hook": {
+        "class": "CHeli",
+        "fn_name": "Constructor",
+        "address": "0x006C4190",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Helpers66D/validation-summary.json",
+        "sha256": "b4d1ef223176af1ea41fc368e6c4d5039a537c9d416b6d15bc15f091da577292",
+        "passed_path": [
+          "covered_functions",
+          "CHeli::CHeli"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "source/game_sa/X87Math.cpp": "4e243ee60a1b3d80f0389ff398119200ca58b204ddc4a243efa669d00c21a591",
+        "source/game_sa/X87Math.h": "1b672930eec6ebf8dc5c785ca2d44be6ced57909db44a8fcc80cc68816474a7d",
+        "source/game_sa/RwHelper.cpp": "168a5adbb5e14b1ec2562bee13ed4e356b6f15a7940730f0db514cb0eaa553d0",
+        "source/game_sa/RwHelper.h": "33dec5298509d965fd0dc193ca7e96dad3c190934ab91fd7634af4530021c63a",
+        "source/game_sa/Garage.cpp": "3a7fbd74d1c7a83b2f839d489842271432c36057908bb54fe944bf0d06626dad",
+        "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+        "source/game_sa/Camera.cpp": "789a7ed89a1dc81c1e70e661dd7c73a975c53c0f79758cb05188a27f0544073d",
+        "source/game_sa/Cam.cpp": "f3d9b1066cbb2a3e713fd0b35aa53b44687f39bfefc61a936bd9acdcdd8f376d",
+        "source/game_sa/Cam.h": "5557bbadb0c1bf5eee8c31c19dfb00230c00622da8d0dc6f7a0bf4e725f58ac5",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "3563647cf07d76757db2efff3ef2ef8f9d89a17657a0ec2008bcd81228327c24",
+        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
+        "source/game_sa/Entity/Vehicle/Plane.cpp": "6d35dbdcf9fed86218c5eec0b19ddb95b33c837470d1e63bb48c54e69be0b841",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Helpers66D/LiveComparison.hpp": "49ef597cecead8ffa14f891cd9bbe523d31d791bdbeed946b5a29ab35554db75",
+        "reversing/Helpers66D/Core.hpp": "427bc73d5d4ce5eac3948e7b4a567fe579fd0461016321f66fa1bae2695ea8fe",
+        "reversing/Helpers66D/Fixtures.hpp": "91817fed679f9c89bda33dbe7edc76a83f3d78b852a2d37ce54ae3cac400ab27",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wu-4 (HEAD 5765c0b5f + source.patch del lote 66D; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: RpClumpGetNumAtomics 0x7498E0, RpClumpForAllAtomics 0x749B70 (los callbacks 0x734970 y 0x734ED0 siguen siendo codigo del EXE y no se ejecutan: el falso escribe lo que dicta el caso), RwFrameGetLTM 0x7F0990, RwMatrixInvert 0x7F2070, RwV3dTransformPoints 0x7EDD90; CVector::Normalise 0x59C910, CrossProduct 0x59C730, CWorld::FindGroundZFor3DCoord 0x5696C0; CAutomobile::CAutomobile 0x6B0A90, CDamageManager::SetDoorStatus 0x6C21C0 y el rand() del CRT del EXE 0x821B1E. El pool de objetos (0xB7449C), el byte bUseLTM (0x8D60BC) y el temporizador (0xB7CB84) se fijan por caso y se restauran. Ningun llamador del EXE lee ECX/EDX; EAX = this (constructor), EAX = clump (esfera) y AL (camara) se exigen. createdBy del constructor solo se prueba en 0..255 (eVehicleCreatedBy es uint8: el EXE reenvia el dword completo al constructor base).",
+      "review_reference": "reversing/Helpers66D/README.md"
     }
   ]
 }

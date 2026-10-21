@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 4,
+  "functions": {
+    "RwHelper::RpClumpGetBoundingSphere": 4096,
+    "CGarage::FindDoorsWithGarage": 4096,
+    "CCam::GetArrestCamCopSourceSide": 4096,
+    "CHeli::CHeli": 4096
+  },
+  "covered_functions": {
+    "RwHelper::RpClumpGetBoundingSphere": true,
+    "CGarage::FindDoorsWithGarage": true,
+    "CCam::GetArrestCamCopSourceSide": true,
+    "CHeli::CHeli": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wu-4 (HEAD 5765c0b5f + source.patch del lote 66D; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: RpClumpGetNumAtomics 0x7498E0, RpClumpForAllAtomics 0x749B70 (los callbacks 0x734970 y 0x734ED0 siguen siendo codigo del EXE y no se ejecutan: el falso escribe lo que dicta el caso), RwFrameGetLTM 0x7F0990, RwMatrixInvert 0x7F2070, RwV3dTransformPoints 0x7EDD90; CVector::Normalise 0x59C910, CrossProduct 0x59C730, CWorld::FindGroundZFor3DCoord 0x5696C0; CAutomobile::CAutomobile 0x6B0A90, CDamageManager::SetDoorStatus 0x6C21C0 y el rand() del CRT del EXE 0x821B1E. El pool de objetos (0xB7449C), el byte bUseLTM (0x8D60BC) y el temporizador (0xB7CB84) se fijan por caso y se restauran. Ningun llamador del EXE lee ECX/EDX; EAX = this (constructor), EAX = clump (esfera) y AL (camara) se exigen. createdBy del constructor solo se prueba en 0..255 (eVehicleCreatedBy es uint8: el EXE reenvia el dword completo al constructor base).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Helpers66D-20261021-114211-503042",
+  "summary_sha256": "8f8d4cf8e853cfe2298d9b23b8ded366554875f1f2daefc530611a752498816a",
+  "result_txt_sha256": "27539cc648ad5b439dae45f8fd7edb86015036b0c299e59146ec6f7bc10fa9fb",
+  "log_sha256": "ee365337df478ca404111e91ad525ba1dc58bd23b5bca224413046edaa94e870",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "da87d515c99b4ee6f9ab2862d7b3e4cc22de48eaafa99a11c69b62848007ddb5",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+      "source/game_sa/X87Math.cpp": "4e243ee60a1b3d80f0389ff398119200ca58b204ddc4a243efa669d00c21a591",
+      "source/game_sa/X87Math.h": "1b672930eec6ebf8dc5c785ca2d44be6ced57909db44a8fcc80cc68816474a7d",
+      "source/game_sa/RwHelper.cpp": "168a5adbb5e14b1ec2562bee13ed4e356b6f15a7940730f0db514cb0eaa553d0",
+      "source/game_sa/RwHelper.h": "33dec5298509d965fd0dc193ca7e96dad3c190934ab91fd7634af4530021c63a",
+      "source/game_sa/Garage.cpp": "3a7fbd74d1c7a83b2f839d489842271432c36057908bb54fe944bf0d06626dad",
+      "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+      "source/game_sa/Camera.cpp": "789a7ed89a1dc81c1e70e661dd7c73a975c53c0f79758cb05188a27f0544073d",
+      "source/game_sa/Cam.cpp": "f3d9b1066cbb2a3e713fd0b35aa53b44687f39bfefc61a936bd9acdcdd8f376d",
+      "source/game_sa/Cam.h": "5557bbadb0c1bf5eee8c31c19dfb00230c00622da8d0dc6f7a0bf4e725f58ac5",
+      "source/game_sa/Entity/Vehicle/Heli.cpp": "3563647cf07d76757db2efff3ef2ef8f9d89a17657a0ec2008bcd81228327c24",
+      "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
+      "source/game_sa/Entity/Vehicle/Plane.cpp": "6d35dbdcf9fed86218c5eec0b19ddb95b33c837470d1e63bb48c54e69be0b841",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Helpers66D/LiveComparison.hpp": "49ef597cecead8ffa14f891cd9bbe523d31d791bdbeed946b5a29ab35554db75",
+      "reversing/Helpers66D/Core.hpp": "427bc73d5d4ce5eac3948e7b4a567fe579fd0461016321f66fa1bae2695ea8fe",
+      "reversing/Helpers66D/Fixtures.hpp": "91817fed679f9c89bda33dbe7edc76a83f3d78b852a2d37ce54ae3cac400ab27",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CHeli
- * Reconstrucción: COMPLETA — 12/12 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 13/13 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 12/12 entradas.
+ * Validación registrada: 13/13 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -25,6 +25,8 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 #include "X87Math.h"
 
+extern "C" double __cdecl GeneralRandomInRangeDblCpp(int random, float min, float max); // X87Math.cpp (0x41BD90 sin el redondeo a float final)
+
 // Envoltorio con la ABI del EXE de CHeli::FindSwatPositionRelativeToHeli (0x6C4760: thiscall con puntero oculto, ret 8). El EXE no toca EDX (el llamador de 0x6C7844 lo
 // conserva a traves de la llamada), deja EAX = puntero oculto y ECX = this en los casos 0..3 o 0 en el defecto. Termina en ResidueRegsCpp, que no toca registros.
 #pragma runtime_checks("", off)
@@ -38,6 +40,7 @@ void CHeli::InjectHooks() {
     RH_ScopedVirtualClass(CHeli, 0x871680, 71);
     RH_ScopedCategory("Vehicle");
 
+    RH_ScopedInstall(Constructor, 0x6C4190);
     RH_ScopedInstall(InitHelis, 0x6C4560);
     RH_ScopedInstall(AddHeliSearchLight, 0x6C45B0);
     RH_ScopedInstall(Pre_SearchLightCone, 0x6C4650);
@@ -52,7 +55,8 @@ void CHeli::InjectHooks() {
     RH_ScopedVMTInstall(SetUpWheelColModel, 0x6C4320);
 }
 
-// 0x6C4190
+// 0x6C4190: thiscall, ECX = this, (modelIndex, createdBy), `ret 8`; llama a CAutomobile::CAutomobile(modelIndex, createdBy, true) (0x6B0A90), fija el tipo y los campos del helicoptero y deja
+// EAX = this (lo leen los llamadores del EXE; ECX/EDX no). Hook `Constructor` como el de CProjectile; Plane.cpp ya no lo llama por direccion.
 CHeli::CHeli(int32 modelIndex, eVehicleCreatedBy createdBy) : CAutomobile(modelIndex, createdBy, true) {
     m_nVehicleSubType = VEHICLE_TYPE_HELI;
 
@@ -77,7 +81,7 @@ CHeli::CHeli(int32 modelIndex, eVehicleCreatedBy createdBy) : CAutomobile(modelI
 
     if (modelIndex == MODEL_HUNTER) {
         m_damageManager.SetDoorStatus(DOOR_LEFT_FRONT, DAMSTATE_OK);
-        m_doors[DOOR_LEFT_FRONT].Init((3.0f * PI) / 10.0f, 0.0f, DOOR_AXIS_NEG_X, DOOR_AXIS_Y, DOOR_EXTRA_BASED);
+        m_doors[DOOR_LEFT_FRONT].Init(std::bit_cast<float>(0x3F71463Bu) /* 0x6C4254: no es (3*PI)/10 en float */, 0.0f, DOOR_AXIS_NEG_X, DOOR_AXIS_Y, DOOR_EXTRA_BASED);
     }
 
     m_nNumSwatOccupants = 4;
@@ -85,6 +89,11 @@ CHeli::CHeli(int32 modelIndex, eVehicleCreatedBy createdBy) : CAutomobile(modelI
 
     m_nSearchLightTimer = CTimer::GetTimeInMS();
 
+    // el EXE pone a cero 0x9C0..0x9EF (field_9C0, f9CC, f9D0, la lista de particulas y los dos historiales)
+    field_9C0 = CVector{ 0.0f, 0.0f, 0.0f };
+    f9CC = 0;
+    f9D0 = 0;
+    m_pParticlesList = nullptr;
     m_aSearchLightHistoryX.fill(0.0f);
     m_aSearchLightHistoryY.fill(0.0f);
 
@@ -99,7 +108,8 @@ CHeli::CHeli(int32 modelIndex, eVehicleCreatedBy createdBy) : CAutomobile(modelI
 
     field_9B8 = 0;
     m_bSearchLightEnabled = false;
-    field_A14 = CGeneral::GetRandomNumberInRange(2.f, 8.f);
+    // rand() del CRT del EXE (0x821B1E: avanza la semilla del juego; la rand() de la DLL no) y el lerp x87 del EXE (rnd * (1/32767) * 6.0 + 2.0, sin redondear antes del fstp)
+    field_A14 = static_cast<float>(GeneralRandomInRangeDblCpp(reinterpret_cast<int32(__cdecl*)()>(0x821B1E)(), 2.0f, 8.0f));
 }
 
 // 0x6C4340

@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: Fx_c
- * Reconstrucción: COMPLETA — 12/12 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 13/13 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 12/12 entradas.
+ * Validación registrada: 13/13 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -62,7 +62,7 @@ void Fx_c::InjectHooks() {
     // RH_ScopedInstall(AddSparks, 0x49F040);
     RH_ScopedInstall(AddTyreBurst, 0x49F300);
     // RH_ScopedInstall(AddBulletImpact, 0x49F3D0);
-    // RH_ScopedInstall(AddPunchImpact, 0x49F670);
+    RH_ScopedInstall(AddPunchImpact, 0x49F670);
     // RH_ScopedInstall(AddDebris, 0x49F750);
     // RH_ScopedInstall(AddGlass, 0x49F970);
     // RH_ScopedInstall(AddWheelSpray, 0x49FB30);
@@ -321,7 +321,13 @@ void Fx_c::AddBulletImpact(const CVector& posn, const CVector& direction, int32 
 
 // 0x49F670
 void Fx_c::AddPunchImpact(const CVector& pos, const CVector& velocity, int32 num) {
-    ((void(__thiscall*)(Fx_c*, const CVector&, const CVector&, int32))0x49F670)(this, pos, velocity, num);
+    // Como el original: ni `this` ni `num` se usan; dos particulas de humo en el sistema global (g_fx.m_SmokeII3expand, 0xA9AE24, recargado en cada llamada), la segunda con tiempo 0.05f.
+    if (!IsFxWithinCameraRange(pos, 625.0f)) {
+        return;
+    }
+    const FxPrtMult_c mult(1.0f, 1.0f, 1.0f, 0.4f, 0.1f, 0.0f, 0.1f); // 0x4AB290
+    g_fx.m_SmokeII3expand->AddParticle(pos, velocity, 0.0f, mult, -1.0f, 1.2f, 0.6f, false);
+    g_fx.m_SmokeII3expand->AddParticle(pos, velocity, 0.05f, mult, -1.0f, 1.2f, 0.6f, false);
 }
 
 // 0x49F750

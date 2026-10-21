@@ -3575,7 +3575,7 @@ void CameraControlChooseJump(CCamera& camera, bool stairs, bool wasArrested, boo
     }
 }
 void CameraControlGarageDoors(CGarage* garage, CObject*& first, CObject*& second) {
-    plugin::CallMethod<0x449FF0, CGarage*, CObject**, CObject**>(garage, &first, &second);
+    garage->FindDoorsWithGarage(&first, &second);
 }
 float CameraControlZoneExtent(const CAttributeZone* zone) {
     const auto xExtent = std::abs(static_cast<int32>(zone->zoneDef.m_vec1X))

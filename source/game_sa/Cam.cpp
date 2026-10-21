@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CCam
- * Reconstrucción: COMPLETA — 50/50 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 51/51 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 50/50 entradas.
+ * Validación registrada: 51/51 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -263,6 +263,7 @@ void CCam::InjectHooks() {
     RH_ScopedInstall(DoCamBump, 0x50CB30);
     RH_ScopedInstall(Finalise_DW_CineyCams, 0x50DD70);
     RH_ScopedInstall(GetCoreDataForDWCineyCamMode, 0x517130);
+    RH_ScopedInstall(GetArrestCamCopSourceSide, 0x516010);
     RH_ScopedInstall(GetLookFromLampPostPos, 0x5161A0);
     RH_ScopedInstall(GetVectorsReadyForRW, 0x509CE0);
     RH_ScopedInstall(Get_TwoPlayer_AimVector, 0x513E40);
@@ -939,6 +940,31 @@ void CCam::Process() {
     if (StaticRef<bool>(0xB6FCB4)) { m_vecFront=StaticRef<CVector>(0xB6FCA8)-m_vecSource;m_vecFront.Normalise();GetVectorsReadyForRW();StaticRef<bool>(0xB6FCB4)=false; }
 }
 
+// 0x516010 (thiscall, ECX = this sin usar, cuatro argumentos en pila, `ret 10h`): posicion de la camara de arresto para la secuencia alternativa (el ayudante 0x515D80 es el normal).
+// Falla (false) si `target` o `cop` son nulos (target no se usa mas). v = (dest.x - cop.x, dest.y - cop.y, 0) normalizado con CVector::Normalise (0x59C910); source = dest + 5.0 * v
+// (la z con el producto guardado como float); c = CrossProduct(v, (0, 0, 1)) (0x59C730); source.xy += 10.0 * c; source.z = dest.z + 5.0; si CWorld::FindGroundZFor3DCoord(source)
+// encuentra suelo, source.z = 0.7 + suelo. Siempre true al llegar al final. Aritmetica x87 del EXE en X87Math.cpp (Hp66CopSource*). Ningun llamador del EXE lee EAX/ECX/EDX (solo AL).
+bool CCam::GetArrestCamCopSourceSide(CEntity* target, CPed* cop, const CVector* dest, CVector* source) {
+    if (!target || !cop) {
+        return false;
+    }
+    const CVector& copPosition = cop->GetPosition();
+    CVector direction;
+    Hp66CopSourceDeltaCpp(&dest->x, &copPosition.x, &direction.x);
+    direction.Normalise();
+    Hp66CopSourceBaseCpp(&direction.x, &dest->x, &source->x);
+    CVector side;
+    CVector up{ 0.0f, 0.0f, 1.0f };
+    CrossProduct(&side, &direction, &up);
+    Hp66CopSourceSideCpp(&side.x, &dest->x, &source->x);
+    bool found = false;
+    const float ground = CWorld::FindGroundZFor3DCoord(CVector{ source->x, source->y, source->z }, &found, nullptr);
+    if (found) {
+        Hp66CopSourceSnapCpp(ground, &source->z);
+    }
+    return true;
+}
+
 // 0x518500
 bool CCam::ProcessArrestCamOne() {
     m_fFOV=45.0f;auto* target=StaticRef<CEntity*>(0xB6F980);auto& mode=StaticRef<int32>(0xB6EC58);auto& tracked=StaticRef<CEntity*>(0xB6EC5C);
@@ -946,7 +972,7 @@ bool CCam::ProcessArrestCamOne() {
     const auto playerCop=[&](){CPed* result=nullptr;if(FindPlayerPed(-1)){auto* player=FindPlayerPed(-1);if(*reinterpret_cast<CEntity**>(*reinterpret_cast<uint8**>(reinterpret_cast<uint8*>(player)+0x480)+8)){player=FindPlayerPed(-1);result=*reinterpret_cast<CPed**>(*reinterpret_cast<uint8**>(reinterpret_cast<uint8*>(player)+0x480)+8);}}return result;};
     const auto geometry=[&](const CVector& position){m_vecSource=position;CVector copy=position;plugin::CallMethod<0x514030>(&TheCamera,&copy,&dest,&m_vecSource,m_fFOV);};
     const auto axes=[&](){m_vecFront=dest-m_vecSource;m_vecFront.Normalise();m_vecUp=CVector{0,0,1};CVector side=CrossProduct(m_vecFront,m_vecUp);side.Normalise();m_vecUp=CrossProduct(side,m_vecFront);};
-    const auto copSource=[&](CPed* from,bool alternate){return alternate?plugin::CallMethodAndReturn<bool,0x516010>(this,target,from,&dest,&source):plugin::CallMethodAndReturn<bool,0x515D80>(this,target,from,&dest,&source);};
+    const auto copSource=[&](CPed* from,bool alternate){return alternate?GetArrestCamCopSourceSide(target,from,&dest,&source):plugin::CallMethodAndReturn<bool,0x515D80>(this,target,from,&dest,&source);};
     const auto cheese=[&](CPed* from,bool initialise){return plugin::CallMethodAndReturn<bool,0x512EF0>(this,from,initialise);};
     if(m_bResetStatics){
         mode=0;CPed* actor=nullptr;std::array<int32,6> sequence;sequence.fill(-1);

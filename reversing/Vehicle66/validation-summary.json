@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "pairs": 20480,
+  "differences": 0,
+  "registered_pairs": 20480,
+  "registered_functions": 5,
+  "functions": {
+    "RemoveVehicleUpgrade": 4096,
+    "AddUpgrade": 4096,
+    "AddVehicleUpgrade": 4096,
+    "PossiblyDropFreeFallBombForPlayer": 4096,
+    "ProcessSirenAndHorn": 4096
+  },
+  "covered_functions": {
+    "RemoveVehicleUpgrade": true,
+    "AddUpgrade": true,
+    "AddVehicleUpgrade": true,
+    "PossiblyDropFreeFallBombForPlayer": true,
+    "ProcessSirenAndHorn": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wu-2 (HEAD 5765c0b5f + Vehicle.cpp/Vehicle.h del lote 66). Colaboradores sustituidos por falsos identicos en ambos lados (parche en la entrada del EXE y, si la DLL tiene hook, en el cuerpo de la DLL; no se validan sus cuerpos): ClearVehicleUpgradeFlags (0x6D3210), FindOtherUpgrade (0x4C74D0), RemoveReplacementUpgrade (0x6D39E0), RpClumpForAllAtomics (0x749B70), GetFrameFromId (0x4C53C0), CreateUpgradeAtomic (0x6D3510), RwFrameForAllObjects (0x7F1200), RwFrameForAllChildren (0x7F0DC0), SetupClumpAfterVehicleUpgrade (0x6FDFE0), SetVehicleUpgradeFlags (0x6D30E0), GetReplacementUpgrade (0x6D3A50), AddReplacementUpgrade (0x6D3830), GetUpgrade (0x6D3650), AddUpgrade (0x6DFA20, para AddVehicleUpgrade), GetPlaneOrdnanceRateOfFire (0x6D4590), GetPlaneOrdnancePosition (0x6D46E0), CProjectileInfo::AddProjectile (0x737C80), CPad::StartShake (0x53F920), UsesSiren (0x6D8470) y CPad::GetHorn (0x53FEE0). CPed::IsPlayer y CPad::GetPad se ejecutan de verdad. Vehiculo, model infos (instalados en ms_modelInfoPtrs[15..19]), estructura del vehiculo, manejabilidad, conductor y matriz son FALSOS en una arena; se escriben y restauran MI_OFFROAD_WHEEL (0x8CD758), la region del historial de bocina del pad 0 (0xB73569, 0x100 bytes) y CTimer (0xB7CB84). Se exige EAX de AddVehicleUpgrade (la mejora sustituida; el llamador 0x4985DA la guarda en 0xA43C78); de las demas funciones ningun llamador del EXE lee EAX/ECX/EDX. Los float de la ordenanza/posicion del bombardeo no incluyen denormales (MXCSR FTZ del juego) ni dos NaN en una suma.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Vehicle66-20261021-113708-285101",
+  "summary_sha256": "cd7149308c8148f4a3524c8b42aeac6118822020c35d7363a71a764023feb4bb",
+  "result_txt_sha256": "6b502443d68afc5545a78092b0bb7a82c38afa819afa1ab307865e2e6a08a178",
+  "log_sha256": "6a2b1944271c98cd8ebc631ac96535d90a087f858206f9249a054a025a938f55",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "d009195020485405d37477010cf8409aa28034eef8135b62bd8765d02cd25123",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "052c659fec398d91838dbe856d3ddb2c0c3eb6e126b93fdbabfc5f789d2447af",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "6c3fcb2d694b21e229e4884e1dcc18e79b1d84320aa797c8eb1dca14b442309e",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Vehicle66/LiveComparison.hpp": "3ef7fe2bed777417b76249232dd7ebef9370cfcf93868f91e38ed442ae7020a4",
+      "reversing/Vehicle66/Core.hpp": "64d0d525400647b71dc7d76b27908e422aaa9594176226575c231b68ce6899ce",
+      "reversing/Vehicle66/Fixtures.hpp": "7960bf410e4615913ac87f3e3109a25899bae3de65359899edf51aceec2c26dc",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

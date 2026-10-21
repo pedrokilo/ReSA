@@ -249,7 +249,7 @@ inline void Update() {
         {0x734820,B(bit_cast<uintptr_t>(&GetFirstAtomic)),reinterpret_cast<void*>(&FakeFirstAtomic)},
         {0x7C7550,0,reinterpret_cast<void*>(&FakeSkin)},
         {0x734A40,B(bit_cast<uintptr_t>(&GetAnimHierarchyFromSkinClump)),reinterpret_cast<void*>(&FakeSkinHier)},
-        {0x735360,0,reinterpret_cast<void*>(&FakeBonePos)},
+        {0x735360,B(bit_cast<uintptr_t>(&SkinGetBonePositionsToTable)),reinterpret_cast<void*>(&FakeBonePos)},
         {0x732A20,B(bit_cast<uintptr_t>(&CVisibilityPlugins::GetFrameHierarchyId)),reinterpret_cast<void*>(&FakeHierId)},
         {0x4CEB70,B(bit_cast<uintptr_t>(&CAnimBlendAssociation::Start)),reinterpret_cast<void*>(&FakeStart)},
         {0x7CCE40,0,reinterpret_cast<void*>(&FakeAnimCreate)},{0x74BDD0,0,reinterpret_cast<void*>(&FakeRegPlugin)},

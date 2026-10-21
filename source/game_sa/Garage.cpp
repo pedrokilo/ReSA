@@ -6,10 +6,19 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CGarage
- * Reconstrucción: COMPLETA — 18/18 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 19/19 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 18/18 entradas.
+ * Validación registrada: 19/19 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ *
+ * ESTADO: CStoredCar
+ * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -71,6 +80,7 @@ void CGarage::InjectHooks() {
     RH_ScopedNamedGlobalInstall(GarageIsPointInsideRadiusRegs, "IsPointInsideGarage-radius", 0x4487D0); // ECX/EDX del EXE: ver GarageIsPointInsideRadiusRegs
     RH_ScopedInstall(Update, 0x44AA50);
     RH_ScopedInstall(IsGarageEmpty, 0x44A9C0);
+    RH_ScopedInstall(FindDoorsWithGarage, 0x449FF0);
 }
 
 // 0x4479F0
@@ -434,7 +444,7 @@ inline bool  GaRestoreHideOut(CGarage* g, CStoredCar* cars) { return plugin::Cal
 inline void  GaNeatlyLineUp(CGarage* g, CStoredCar* cars) { plugin::CallMethod<0x448330, CGarage*, CStoredCar*>(g, cars); }
 inline bool  GaRestoreImpounding(CGarage* g, CStoredCar* cars) { return plugin::CallMethodAndReturn<bool, 0x4485C0, CGarage*, CStoredCar*>(g, cars); }
 inline void  GaStoreAndRemoveImpounding(CGarage* g, CStoredCar* cars, int32 maxSlot) { plugin::CallMethod<0x449A50, CGarage*, CStoredCar*, int32>(g, cars, maxSlot); }
-inline void  GaFindDoorsWithGarage(CGarage* g, CObject** first, CObject** second) { plugin::CallMethod<0x449FF0, CGarage*, CObject**, CObject**>(g, first, second); }
+inline void  GaFindDoorsWithGarage(CGarage* g, CObject** first, CObject** second) { g->FindDoorsWithGarage(first, second); }
 inline int32& GaMoney() { return *reinterpret_cast<int32*>(0xB7CE50 + static_cast<uint32>(CWorld::PlayerInFocus) * 0x190u); }   // CPlayerInfo::m_nMoney del jugador en foco
 inline CStoredCar* GaStoredCars(eGarageType type) { return reinterpret_cast<CStoredCar*>(0x96ABD8 + static_cast<uint32>(CGarages::FindSafeHouseIndexForGarageType(type)) * 0x100u); }
 inline void GaAudio(uint32 event) { AudioEngine.ReportFrontendAudioEvent(static_cast<eAudioEvents>(event), 0.0f, 1.0f); }
@@ -1359,6 +1369,59 @@ bool CGarage::IsHideOut() const {
     default:
         return false;
     }
+}
+
+// 0x449FF0 (thiscall, ECX = this, `ret 8`): busca las dos puertas (objetos del garaje) mas cercanas a una esquina del garaje. Pone *segunda y *primera a nulo; la esquina es
+// (x + dirA.x * w/2 + dirB.x * h/2, y + dirA.y * w/2 + dirB.y * h/2) con el x87 del EXE (Hp66GarageCornerCpp). Recorre el pool de objetos (0xB7449C: objetos, banderas, tamano) de
+// la ultima ranura a la primera; salta las ranuras libres (bit 7 de la bandera), los punteros nulos y los objetos cuyo byte +0x147 no es el indice del garaje (low byte de
+// (this - 0x96C048) / 0xD8 (sizeof(CGarage)) con division con signo). Distancia plana a la esquina (Hp66GarageDistanceCpp, float); se mantienen dos mejores: con la primera vacia el objeto pasa a ser
+// la primera; si no, si su distancia es menor que la de la primera pasa a ser la primera y la anterior la segunda; si no (incluye NaN), si la segunda esta vacia o la distancia es
+// menor que la de la segunda pasa a ser la segunda. Distancias iniciales 99999.9 (0x85999C / 0x47C34FF3). Ningun llamador del EXE lee EAX/ECX/EDX.
+void CGarage::FindDoorsWithGarage(CObject** ppFirstDoor, CObject** ppSecondDoor) {
+    *ppSecondDoor = nullptr;
+    *ppFirstDoor = nullptr;
+    const uint8* const pool = StaticRef<const uint8*>(0xB7449C);
+    float corner[2];
+    Hp66GarageCornerCpp(reinterpret_cast<const float*>(this), corner);
+    const int32 garageIndex = static_cast<int32>(reinterpret_cast<uint32>(this) - 0x96C048u) / 0xD8;
+    const uint8 garageByte = static_cast<uint8>(garageIndex);
+    float firstDistance = std::bit_cast<float>(0x47C34FF3u);
+    float secondDistance = std::bit_cast<float>(0x47C34FF3u);
+    int32 slot = *reinterpret_cast<const int32*>(pool + 8);
+    if (slot == 0) {
+        return;
+    }
+    uint32 offset = static_cast<uint32>(slot) * 0x19Cu;
+    do {
+        --slot;
+        offset -= 0x19Cu;
+        const uint8* const flags = *reinterpret_cast<const uint8* const*>(pool + 4);
+        if (flags[slot] & 0x80) {
+            continue;
+        }
+        const uint8* const objectBase = *reinterpret_cast<const uint8* const*>(pool);
+        CObject* const object = reinterpret_cast<CObject*>(const_cast<uint8*>(objectBase) + offset);
+        if (!object) {
+            continue;
+        }
+        if (*(reinterpret_cast<const uint8*>(object) + 0x147) != garageByte) {
+            continue;
+        }
+        const float* const position = object->m_matrix ? reinterpret_cast<const float*>(reinterpret_cast<const uint8*>(object->m_matrix) + 0x30) : &object->m_placement.m_vPosn.x;
+        const float distance = Hp66GarageDistanceCpp(corner[0], corner[1], position);
+        if (!*ppFirstDoor) {
+            firstDistance = distance;
+            *ppFirstDoor = object;
+        } else if (distance < firstDistance) {
+            secondDistance = firstDistance;
+            *ppSecondDoor = *ppFirstDoor;
+            firstDistance = distance;
+            *ppFirstDoor = object;
+        } else if (!*ppSecondDoor || distance < secondDistance) {
+            *ppSecondDoor = object;
+            secondDistance = distance;
+        }
+    } while (slot != 0);
 }
 
 // 0x44A9C0

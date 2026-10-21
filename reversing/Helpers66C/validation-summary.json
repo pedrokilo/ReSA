@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "pairs": 20480,
+  "differences": 0,
+  "registered_pairs": 20480,
+  "registered_functions": 5,
+  "functions": {
+    "AEMFOpenSoundMedia": 4096,
+    "AEMFGetMediaSoundFormat": 4096,
+    "GetDXVersion": 4096,
+    "RwTextureGtaStreamRead": 4096,
+    "SkinGetBonePositionsToTable": 4096
+  },
+  "covered_functions": {
+    "AEMFOpenSoundMedia": true,
+    "AEMFGetMediaSoundFormat": true,
+    "GetDXVersion": true,
+    "RwTextureGtaStreamRead": true,
+    "SkinGetBonePositionsToTable": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wu-3 (HEAD 5765c0b5f). AEMFOpenSoundMedia 0x4E7990 y AEMFGetMediaSoundFormat 0x4E7A80: las 7 y 11 funciones de pegamento QuickTime del EXE (0x818xxx-0x81DAA0) sustituidas por falsos identicos en ambos lados (nunca se abre un medio real); el segundo se llama con ECX = la media, como su unico llamador (0x4E7CB0), porque el EXE usa ese ECX de entrada como handle de extension sin inicializar en la ruta de error; los 16 bits altos de refNum (basura de pila del EXE) se enmascaran. GetDXVersion 0x745650: LoadLibraryA, GetProcAddress, FreeLibrary y OutputDebugStringA sustituidos en las ranuras de importacion del EXE y de la DLL; DirectDrawCreateEx y el Release del objeto son falsos. RwTextureGtaStreamRead 0x730E60: RwStreamFindChunk, CTimer (2), RpAnisot (3) y la ranura stdFunc[NATIVETEXTUREREAD] de RwEngineInstance sustituidos; gGameState, contadores 0xC87FEC/0xC87FF0, anisotropia 0xC87FFC y calidad g_fx+0x54 se escriben por caso y se restauran; la media incremental en x87 de 24 bits se compara en bits. SkinGetBonePositionsToTable 0x735360: RpClumpForAllAtomics, RpSkinGeometryGetSkin, RpSkinGetNumBones, RpSkinGetSkinToBoneMatrices, RwMatrixInvert y RwV3dTransformPoints sustituidos; sin POP sin PUSH previo y con profundidad de pila <= 24 (el EXE usa una pila de 32 enteros sin inicializar). Los llamadores del EXE solo leen AX (QuickTime) o EAX (GetDXVersion, RwTextureGtaStreamRead); nadie lee ECX/EDX de salida.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Helpers66C-20261021-113931-402332",
+  "summary_sha256": "54fc69bf238fceab7083b19f2ac7489ad3ba78264bc59108ba3eaabe45772de7",
+  "result_txt_sha256": "f15e9fa2af4acba9f3879196bd6fbafc1155634e1fdd4499b9c9cd29d19c96ad",
+  "log_sha256": "d00805d10171f93ae280f95c76a09a9c941fcad547fc0221a609b3462e2869e9",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "ee035e982cedb2340a8f9a03ecda92a95720476b03ee5bfdf0c1f8ddad42ae82",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "011f02f476080375780f765bd13088c7dffd797b9915f16716ea9f5e11b06f9b",
+      "source/game_sa/Audio/Loaders/AEMFDecoder.h": "1a698c328766bde2c8f74a229eef4c7bdda5d7a7f6d884b3e7115d7cd96d62b9",
+      "source/app/platform/win/WinPs.cpp": "b68117e104c521f9970ac9df7b44371b40b24c2b9b88a1fccda7d033a3eea8aa",
+      "source/game_sa/RenderWare/rw/rwtexdict.cpp": "7558733246b7aa83fda0378b66eda9fe0b276a2da321317b477f588ba1caaa1e",
+      "source/game_sa/RwHelper.cpp": "168a5adbb5e14b1ec2562bee13ed4e356b6f15a7940730f0db514cb0eaa553d0",
+      "source/game_sa/X87Math.cpp": "4e243ee60a1b3d80f0389ff398119200ca58b204ddc4a243efa669d00c21a591",
+      "source/game_sa/X87Math.h": "1b672930eec6ebf8dc5c785ca2d44be6ced57909db44a8fcc80cc68816474a7d",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Helpers66C/LiveComparison.hpp": "a9ee9814ca4ddca7c1b51080c144c3ae7bfbd4a36e2c174b2db33ccea960e8f0",
+      "reversing/Helpers66C/Core.hpp": "982898c93b416c1dd898186c784cfa03925cb9a61ee8f08947b3dc02103ab3f5",
+      "reversing/Helpers66C/Cases.hpp": "a3109a528de65687e57078792f59325e219cf14f1baf03e0f25f23fc0366e3fc",
+      "reversing/Helpers66C/Fixtures.hpp": "733363b0edbbdeb6c469366ff1182ea809911d9b717d355d263769cef1b01199",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

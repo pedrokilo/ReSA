@@ -63,7 +63,7 @@ inline void Update() {
     env.stubs[2]={{Pair{0x7ED2D0,0,false},reinterpret_cast<void*>(&FakeFindChunk)},
                   {Pair{0x7EC9D0,0,false},reinterpret_cast<void*>(&FakeStreamRead)},
                   {Pair{0x7F3600,0,false},reinterpret_cast<void*>(&FakeCreateDict)},
-                  {Pair{0x730E60,0,false},reinterpret_cast<void*>(&FakeTexRead)},
+                  {Pair{0x730E60,DllBody(&RwTextureGtaStreamRead),true},reinterpret_cast<void*>(&FakeTexRead)},
                   {Pair{0x7F3980,0,false},reinterpret_cast<void*>(&FakeAddTex)},
                   {Pair{0x7F3730,0,false},reinterpret_cast<void*>(&FakeForAll)},
                   {Pair{0x7F36A0,0,false},reinterpret_cast<void*>(&FakeDestroyDict)}};

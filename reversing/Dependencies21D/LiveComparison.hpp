@@ -529,7 +529,7 @@ struct Fakes {
         Both(0x54F1B0, bit_cast<uintptr_t>(&CSimpleTransform::UpdateMatrix), FUpdate);
         Both(0x5FDC00, bit_cast<uintptr_t>(&CPedIK::PointGunInDirection), FPointGun);
         Both(0x571B70, bit_cast<uintptr_t>(static_cast<void (CEntity::*)(CEntity**)>(&CEntity::RegisterReference)), FRegisterReference);
-        ExeOnly(0x621B10, FLos); // la DLL lo llama por direccion (plugin::CallMethodAndReturn<bool, 0x621B10>): un solo parche
+        Both(0x621B10, bit_cast<uintptr_t>(&CTaskSimpleGangDriveBy::HasClearLineOfSight), FLos); // lote 66: 0x621B10 ya esta reconstruida (HasClearLineOfSight, con hook): AITarget de la DLL la llama directamente, asi que se parchea tambien su entrada
     }
 };
 

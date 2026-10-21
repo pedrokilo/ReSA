@@ -1,6 +1,9 @@
 #include "StdInc.h"
 
 #include "rwtexdict.h"
+#include "rpanisot.h"
+#include "X87Math.h"
+#include <platform/win/WinPlatform.h>
 
 // 0x734940: el EXE recorre la lista del diccionario con RwTexDictionaryForAllTextures (0x7F3730) y un callback (0x734930) que guarda la primera textura y devuelve 0
 // (detiene el recorrido); es decir, devuelve la primera textura de la lista o nulo si esta vacia. Aqui se lee el primer enlace del centinela directamente, como
@@ -18,8 +21,56 @@ RwTexture* GetFirstTextureCallback(RwTexture* texture, void* data) {
     return plugin::CallAndReturn<RwTexture*, 0x734930, RwTexture*, void*>(texture, data);
 }
 
+// Como el original: contadores de depuracion del tiempo medio de lectura de texturas (se actualizan solo con el juego en marcha, gGameState == 8).
+static auto& s_textureReadCount   = StaticRef<int32>(0xC87FF0);
+static auto& s_textureReadAverage = StaticRef<float>(0xC87FEC);
+
+// 0x730E60: lee una textura nativa de un stream RenderWare. Busca el chunk rwID_TEXTURENATIVE (0x15) y llama a stdFunc[rwSTANDARDNATIVETEXTUREREAD] (RwEngineInstance + 0xB0) con
+// (stream, &textura, longitud); si falla, nulo. Mide el tiempo: marca de inicio = CTimer::GetCurrentTimeInCycles (0x561A80) / GetCyclesPerMillisecond (0x561A40) como cociente
+// float (Rt66TextureReadStartCpp), y con gGameState == 8 una vez leida (aunque la textura salga nula) actualiza la media incremental en 0xC87FEC / 0xC87FF0
+// (Rt66TextureReadEndCpp, x87 a 24 bits). Luego, con textura: filtro NEAREST (1) -> LINEAR (2) y MIPNEAREST (3) -> MIPLINEAR (4) en el byte bajo de filterAddressing y,
+// con anisotropia soportada, calidad de efectos >= alta (2) y anisotropia de la textura >= 1 (byte con signo), le pone la anisotropia maxima del dispositivo.
 RwTexture* RwTextureGtaStreamRead(RwStream* stream) {
-    return plugin::CallAndReturn<RwTexture*, 0x730E60, RwStream*>(stream);
+    static_assert(offsetof(RwGlobals, stdFunc) + rwSTANDARDNATIVETEXTUREREAD * sizeof(RwStandardFunc) == 0xB0);
+
+    RwUInt32 length;
+    RwUInt32 version;
+    if (!RwStreamFindChunk(stream, rwID_TEXTURENATIVE, &length, &version)) {
+        return nullptr;
+    }
+
+    const uint32 startTime    = CTimer::GetCurrentTimeInCycles();
+    const uint32 startDivider = CTimer::GetCyclesPerMillisecond();
+    const float  startRatio   = Rt66TextureReadStartCpp(startTime, startDivider);
+
+    RwTexture* texture = nullptr; // Como el original: sin inicializar (la lectura nativa lo escribe)
+    if (!RwEngineInstance->stdFunc[rwSTANDARDNATIVETEXTUREREAD](stream, &texture, static_cast<RwInt32>(length))) {
+        return nullptr;
+    }
+
+    if (gGameState == 8) {
+        const uint32 endTime    = CTimer::GetCurrentTimeInCycles();
+        const uint32 endDivider = CTimer::GetCyclesPerMillisecond();
+        Rt66TextureReadEndCpp(endTime, endDivider, startRatio, &s_textureReadCount, &s_textureReadAverage);
+    }
+
+    if (!texture) {
+        return nullptr;
+    }
+
+    auto* const filter = reinterpret_cast<uint8*>(&texture->filterAddressing);
+    if (*filter == rwFILTERNEAREST) {
+        *filter = rwFILTERLINEAR;
+    } else if (*filter == rwFILTERMIPNEAREST) {
+        *filter = rwFILTERMIPLINEAR;
+    }
+
+    if (anisotropySupportedByGFX) {
+        if (RpAnisotTextureGetMaxAnisotropy(texture) >= 1 && g_fx.GetFxQuality() >= FX_QUALITY_HIGH) {
+            RpAnisotTextureSetMaxAnisotropy(texture, RpAnisotGetMaxSupportedMaxAnisotropy());
+        }
+    }
+    return texture;
 }
 
 // 0x730FC0: lee un diccionario de texturas de GTA. Busca el chunk STRUCT (rwID_STRUCT = 1) y lee su contenido en un marco local de 12 bytes (palabra 0 = contador de texturas

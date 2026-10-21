@@ -1831,3 +1831,38 @@ void __cdecl StoredCarUnpackForwardCpp(int x, int y, int z, float* out);
 // m = inicio de la matriz (right en m[0..2], forward en m[4..6], up en m[8..10], posicion en m[12..14]); out puede solaparse con m o v (se calculan las tres componentes antes de escribir).
 // Igual que AutoPreMultiplyMatrixWithVectorCpp, pero reproduce la seleccion de NaN de la x87 del EXE (operandos de memoria de fmul/fadd, faddp entre registros) cuando algun elemento leido es NaN.
 void __cdecl Hp65MatrixTimesPointCpp(const float* m, const float* v, float* out);
+
+// --- Lote 66 (Helpers66A), prefijo Hp66 ---
+// CPlayerPed::EvaluateNeighbouringTarget (0x60D1C0): true si sqrt((dz2 + dy2) + dx2) <= maxDistance con la x87 a 24 bits y exponente extendido, d = objetivo - jugador
+// (los punteros apuntan a x, y, z consecutivos). Con NaN da false (comparacion ordenada).
+bool __cdecl Hp66NeighbourInRangeCpp(const float* target, const float* self, float maxDistance);
+// 0x60D263..0x60D288: dx = objetivo.x - camara.x y dy = objetivo.y - camara.y (cada uno redondeado a float), atanFn(dx, dy) (GetATanOfXY, 0x53CC70, valor en ST0) menos
+// compensation en un solo redondeo a float.
+float __cdecl Hp66NeighbourAngleCpp(float (__cdecl* atanFn)(float, float), const float* target, const float* camera, float compensation);
+// RsSavePresetView (0x619FA0), ayudante usercall 0x619910 (EAX = camara, EDI = &pos, EBX = &rotY, [esp+4] = &rotX): con la matriz global del marco (RwMatrix: at = ltm[8..10], pos = ltm[12..14]):
+// pos = ltm.pos; rotX = 90 - acos(clamp(Y . at)) * 57.29578; t = at - Y * (Y . at) normalizado en el sitio con normalize (RwV3dNormalize, 0x7ED9B0);
+// rotY = acos(clamp(Z . t)) * 57.29578, negativo si X . t < 0. acos = _CIacos del EXE (ExeAcosDoubleCpp).
+void __cdecl Hp66PresetViewAnglesCpp(const float* ltm, float (__cdecl* normalize)(void*, const void*), float* outPos, float* outRotX, float* outRotY);
+
+// --- Lote 66C (Helpers66C): RwTextureGtaStreamRead (0x730E60), prefijo Rt66. Anadido al FINAL de X87Math.h ---
+// 0x730E85..0x730ECC: (float)tiempo / divisor, ambos enteros SIN signo (fild + fadd 2^32 [0x858C54] si el bit alto esta puesto, con un redondeo a 24 bits), cociente x87 de 24 bits guardado como float.
+float __cdecl Rt66TextureReadStartCpp(unsigned int time, unsigned int divider);
+// 0x730EE6..0x730F47: ((previo * media) + (tiempo / divisor - inicio)) / (previo + 1) con un redondeo a 24 bits por operacion (sin guardar entre ellas); *count = previo + 1, *average = float del resultado.
+void __cdecl Rt66TextureReadEndCpp(unsigned int time, unsigned int divider, float startRatio, int* count, float* average);
+
+// --- Lote 66 (Helpers66D): RpClumpGetBoundingSphere (0x734FC0), CGarage::FindDoorsWithGarage (0x449FF0), CCam::GetArrestCamCopSourceAlternate (0x516010). Prefijo Hp66. Anadido al FINAL ---
+// 0x735025..0x7350B4: center[i] = float(center[i] * inv) con inv = 1.0 / float(count) (fild + fst dword, fdiv de 24 bits), en el orden x, y, z (cada producto a 24 bits y luego fstp a float).
+void __cdecl Hp66ClumpScaleCenterCpp(float* center, int count);
+// 0x44A010..0x44A09E: esquina de la puerta: out = (x + dirAx*hw + dirBx*hh, y + dirAy*hw + dirBy*hh) con hw = width*0.5, hh = height*0.5 y los redondeos a float del EXE (T1, Ax, T2 se guardan; Ay y dirBy*hh no).
+// garage = inicio del CGarage (x en [0], y en [1], dirA en [3..4], dirB en [5..6], width en [8], height en [9]).
+void __cdecl Hp66GarageCornerCpp(const float* garage, float* out);
+// 0x44A0ED..0x44A10F: distancia sqrt((py - o.y)^2 + (px - o.x)^2) a 24 bits, guardada como float (se devuelve ya redondeada a float).
+float __cdecl Hp66GarageDistanceCpp(float px, float py, const float* position);
+// 0x516048..0x516071: v = (dest.x - pos.x, dest.y - pos.y, 0), cada resta guardada como float.
+void __cdecl Hp66CopSourceDeltaCpp(const float* dest, const float* position, float* v);
+// 0x516080..0x5160D9: source = dest + 5.0 * v: x e y con el producto a 24 bits sin guardar; z = float(float(5.0 * v.z) + dest.z).
+void __cdecl Hp66CopSourceBaseCpp(const float* v, const float* dest, float* source);
+// 0x5160FC..0x51614C: source.xy += 10.0 * c (productos a 24 bits, sumas guardadas como float), source.z = dest.z + 5.0; args = (x, y, z) de source tal como los empuja el EXE para FindGroundZFor3DCoord.
+void __cdecl Hp66CopSourceSideCpp(const float* c, const float* dest, float* source);
+// 0x516173..0x51617B: *sourceZ = float(0.7f [0x8CC7F8] + ground), con ground tal como lo deja el colaborador en ST0 (aqui un float).
+void __cdecl Hp66CopSourceSnapCpp(float ground, float* sourceZ);

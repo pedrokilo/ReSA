@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskSimpleGangDriveBy
- * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 8/8 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -27,6 +27,7 @@ void CTaskSimpleGangDriveBy::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x6217D0);
+    RH_ScopedInstall(HasClearLineOfSight, 0x621B10);
     RH_ScopedInstall(PlayerTarget, 0x621960);
     RH_ScopedInstall(AITarget, 0x627600);
     RH_ScopedInstall(AimGun, 0x628350);
@@ -355,6 +356,38 @@ void CTaskSimpleGangDriveBy::PlayerTarget(CPed* ped) {
     }
 }
 
+// 0x621B10
+// Como el original: comprueba la linea de vision entre el ped y el punto de mira como mucho cada 1750..2250 ms (m_nLOSCheckTime) y la deja en m_nLOSBlocked; devuelve !m_nLOSBlocked.
+bool CTaskSimpleGangDriveBy::HasClearLineOfSight(CPed* ped, const CVector* aimPoint) {
+    if (CTimer::m_snTimeInMilliseconds > m_nLOSCheckTime) { // comparacion sin signo (jbe del EXE)
+        m_nLOSBlocked = false;
+        if (CEntity* const ignored = m_pTargetEntity) {
+            // Origen: x copiado tal cual, y cargado y guardado por la x87 (un NaN senalizante sale silenciado) y z + 0.5f (0x858B8C)
+            const float* const pos = &ped->GetPosition().x;
+            CVector origin;
+            uint32  yBits;
+            std::memcpy(&yBits, &pos[1], sizeof(yBits));
+            if ((yBits & 0x7F800000u) == 0x7F800000u && (yBits & 0x7FFFFFu) != 0) {
+                yBits |= 0x400000u;
+            }
+            origin.x = pos[0];
+            std::memcpy(&origin.y, &yBits, sizeof(yBits));
+            origin.z = pos[2] + 0.5f;
+
+            CWorld::pIgnoreEntity = ignored;
+            if (!CWorld::GetIsLineOfSightClear(origin, *aimPoint, true, false, false, false, false, true, false)) {
+                m_nLOSBlocked = true;
+            }
+            CWorld::pIgnoreEntity = nullptr;
+        }
+        // Proxima comprobacion: ahora - ftol(-500 * (rand() & 0xFFFF) / 32768) + 1750; rand es el del EXE (0x821B1E, avanza la semilla del juego) y _ftol2 toma los 32 bits bajos
+        const int32 r        = reinterpret_cast<int32(__cdecl*)()>(0x821B1E)() & 0xFFFF;
+        const int32 jitter   = static_cast<int32>(static_cast<int64>((double(r) * double(3.0517578125e-05f)) * double(-500.0f))); // 0x858B14, 0x85AB78
+        m_nLOSCheckTime = CTimer::m_snTimeInMilliseconds - static_cast<uint32>(jitter) + 1750u;
+    }
+    return reinterpret_cast<const uint8&>(m_nLOSBlocked) == 0;
+}
+
 // 0x627600
 void CTaskSimpleGangDriveBy::AITarget(CPed* ped) {
     const float weaponRange = m_pWeaponInfo->m_fWeaponRange;
@@ -409,7 +442,7 @@ void CTaskSimpleGangDriveBy::AITarget(CPed* ped) {
     const float* pos = &ped->GetPosition().x;
     CVector aimPoint;
     GangDriveByAimPointCpp(geometry, pos, &aimPoint.x);
-    if (!plugin::CallMethodAndReturn<bool, 0x621B10>(this, ped, &aimPoint)) { // linea de vision / alcance (dependencia sin catalogar)
+    if (!HasClearLineOfSight(ped, &aimPoint)) { // linea de vision hasta el punto de mira (0x621B10)
         m_bInRangeToShoot = false;
         return;
     }
