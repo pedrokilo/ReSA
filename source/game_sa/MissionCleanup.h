@@ -42,6 +42,8 @@ public:
     int8 m_Count;
 
 public:
+    static void InjectHooks();
+
     // Default constructor
     CMissionCleanup();
 

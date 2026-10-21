@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "pairs": 8192,
+  "differences": 0,
+  "registered_pairs": 8192,
+  "registered_functions": 2,
+  "functions": {
+    "D3DResourceSystem::GetTotalPixelsSize": 4096,
+    "D3DResourceSystem::GetTotalIndexDataSize": 4096
+  },
+  "covered_functions": {
+    "D3DResourceSystem::GetTotalPixelsSize": true,
+    "D3DResourceSystem::GetTotalIndexDataSize": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wf-1 (HEAD 35e7b9d4b + fuente del lote 63). Los colaboradores D3DTextureBuffer::GetTotalDataSize (0x7300A0) y D3DIndexDataBuffer::GetTotalDataSize (0x7303B0), sin reconstruir, se sustituyen por falsos identicos en ambos lados (no se validan sus cuerpos reales): registran EN ORDEN su ECX (direccion del buffer) y devuelven el valor del caso; el falso puede reescribir una palabra del bloque de globales en la llamada k (el EXE lee el contador una sola vez). No se prueba un contador >= 2^31 ni valores que obliguen a recorrer miles de millones de buffers. Ningun llamador directo en el EXE (codigo muerto): EAX se compara, ECX/EDX solo se registran.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/D3DResource63-20261020-162742-980921",
+  "summary_sha256": "00d69447e532e5da020714c238f4cc1e4c9c1dc617a97a05692d835f9f104e8b",
+  "result_txt_sha256": "d0e94c9a73dabb1277c00dd2d56a7c5073856476c73bf4e559231170eb80c3dd",
+  "log_sha256": "3febce40c938f94478e390b044663c95dafc0ee22818cbacffe9eb6239c2ddb7",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "e255826f384881542ec5ca94d87489d29105cddf9c789d794e2823ae4ac3cf22",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "40839c96f91272f0052be484f87e2ecc558523026eb57808bf0d67dd137be848",
+      "source/game_sa/RenderWare/D3DResourceSystem.cpp": "db4da01658216b5d1df673d08208eae7f1e7448255b4a3c9d4770e557088b2a3",
+      "source/game_sa/RenderWare/D3DResourceSystem.h": "8c5f48b2eafc4f2d8bc3e17076c68a5cc5a4a56781f803be492e522e3cdf249c",
+      "source/game_sa/RenderWare/D3DTextureBuffer.cpp": "cd912fe5906fc0e8c9aa290c80dd6ddb4f131822a4177cb829987c3c362ef33d",
+      "source/game_sa/RenderWare/D3DTextureBuffer.h": "c2e8c435d3fa9b7869483c2be90252caa411e71f9eb8d944bf28c625cb4bd3d6",
+      "source/game_sa/RenderWare/D3DIndexDataBuffer.cpp": "cd912fe5906fc0e8c9aa290c80dd6ddb4f131822a4177cb829987c3c362ef33d",
+      "source/game_sa/RenderWare/D3DIndexDataBuffer.h": "9741408d35194a224bf796f47ddde649e3a61dcccf523f2716a3386000d3971b",
+      "source/game_sa/MemoryMgr.cpp": "8edba44feb8e34f5567afbf09d045c3a8b97579290277cd043cef4c04be95ebd",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/D3DResource63/LiveComparison.hpp": "347464c58ae1cd80dca25f75a5ce9c78fe182b86cc2eb011a4109fbd044289a2",
+      "reversing/D3DResource63/Core.hpp": "8275849117e436ca5a099ca413ee01a66feb22b22c11f2b931b86a4e874873d4",
+      "reversing/D3DResource63/Fixtures.hpp": "ac8486289cea27feccb9f5803445dad647826b84f9fcebe8486391c8600afc12",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

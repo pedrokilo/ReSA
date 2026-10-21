@@ -60,6 +60,7 @@ constexpr auto MAX_VISIBLE_SUPERLOD_PTRS = 50u;
 
 class CWorldScan {
 public:
+    static void InjectHooks();
     using tScanFunction = void(__cdecl*)(int32, int32);
     static void ScanWorld(CVector2D* points, int32 pointsCount, tScanFunction scanFunction);
     static void SetExtraRectangleToScan(float minX, float maxX, float minY, float maxY);

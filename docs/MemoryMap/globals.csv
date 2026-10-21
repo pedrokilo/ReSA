@@ -1038,178 +1038,185 @@ reference,0x00B6F0AC,0x0076F0AC,source/game_sa/Cam.cpp,3758,StaticRef<int32>(0xB
 reference,0x00B6F0B8,0x0076F0B8,source/game_sa/Cam.cpp,3759,StaticRef<int32>(0xB6F0B8) = 2;,source_global_reference
 reference,0x00B6F0C8,0x0076F0C8,source/game_sa/Cam.cpp,3760,StaticRef<uint32>(0xB6F0C8) = StaticRef<uint32>(0x8CC7A4);,source_global_reference
 reference,0x008CC7A4,0x004CC7A4,source/game_sa/Cam.cpp,3760,StaticRef<uint32>(0xB6F0C8) = StaticRef<uint32>(0x8CC7A4);,source_global_reference
-TheCamera,0x00B6F028,0x0076F028,source/game_sa/Camera.cpp,40,auto& TheCamera = StaticRef<CCamera>(0xB6F028);,source_global_reference
-gbModelViewer,0x00BA6728,0x007A6728,source/game_sa/Camera.cpp,41,auto& gbModelViewer = StaticRef<bool>(0xBA6728);,source_global_reference
-gbCineyCamMessageDisplayed,0x008CC381,0x004CC381,source/game_sa/Camera.cpp,42,auto& gbCineyCamMessageDisplayed = StaticRef<int8>(0x8CC381); // 2,source_global_reference
-gCameraDirection,0x008CC384,0x004CC384,source/game_sa/Camera.cpp,43,auto& gCameraDirection = StaticRef<int32>(0x8CC384);         // 3,source_global_reference
-gCameraMode,0x008CC388,0x004CC388,source/game_sa/Camera.cpp,44,auto& gCameraMode = StaticRef<eCamMode>(0x8CC388);        // -1,source_global_reference
-gLastTime2PlayerCameraWasOK,0x00B6EC24,0x0076EC24,source/game_sa/Camera.cpp,45,auto& gLastTime2PlayerCameraWasOK = StaticRef<uint32>(0xB6EC24);    // 0,source_global_reference
-gLastTime2PlayerCameraCollided,0x00B6EC28,0x0076EC28,source/game_sa/Camera.cpp,46,auto& gLastTime2PlayerCameraCollided = StaticRef<uint32>(0xB6EC28); // 0,source_global_reference
-gPlayerPedVisible,0x008CC380,0x004CC380,source/game_sa/Camera.cpp,47,auto& gPlayerPedVisible = StaticRef<bool>(0x8CC380); // true,source_global_reference
-gCurCamColVars,0x008CCB80,0x004CCB80,source/game_sa/Camera.cpp,48,auto& gCurCamColVars = StaticRef<uint8>(0x8CCB80);,source_global_reference
-gCurDistForCam,0x008CCB84,0x004CCB84,source/game_sa/Camera.cpp,49,auto& gCurDistForCam = StaticRef<float>(0x8CCB84);,source_global_reference
-gpCamColVars,0x00B6FE88,0x0076FE88,source/game_sa/Camera.cpp,50,auto& gpCamColVars = StaticRef<float*>(0xB6FE88);,source_global_reference
-gCamColVars,0x008CC8E0,0x004CC8E0,source/game_sa/Camera.cpp,51,auto& gCamColVars = StaticRef<float[28][6]>(0x8CC8E0);,source_global_reference
-m_fTargetCloseInDist,0x0086A46C,0x0046A46C,source/game_sa/Camera.cpp,286,m_aCams[0].m_fTargetCloseInDist = StaticRef<float>(0x86A46C) - StaticRef<float>(0x86A468);,source_global_reference
-m_fTargetCloseInDist,0x0086A468,0x0046A468,source/game_sa/Camera.cpp,286,m_aCams[0].m_fTargetCloseInDist = StaticRef<float>(0x86A46C) - StaticRef<float>(0x86A468);,source_global_reference
-m_fMinRealGroundDist,0x0086A468,0x0046A468,source/game_sa/Camera.cpp,289,m_aCams[0].m_fMinRealGroundDist = StaticRef<float>(0x86A468);,source_global_reference
-reference,0x00BA67A5,0x007A67A5,source/game_sa/Camera.cpp,370,if (!StaticRef<uint8>(0xBA67A5)) {,source_global_reference
-reference,0x00BA67A5,0x007A67A5,source/game_sa/Camera.cpp,379,if (StaticRef<uint8>(0xBA67A5) == 1) {,source_global_reference
-flags,0x00B6FFC0,0x0076FFC0,source/game_sa/Camera.cpp,750,auto& flags=StaticRef<uint32>(0xB6FFC0);,source_global_reference
-reference,0x00B6FFB4,0x0076FFB4,source/game_sa/Camera.cpp,754,"StaticRef<CVector>(0xB6FFB4-bit*12)=CVector{-99999.0f,-99999.0f,-99999.0f};",source_global_reference
-positionThreshold,0x008CCC7C,0x004CCC7C,source/game_sa/Camera.cpp,757,"const float positionThreshold=StaticRef<float>(0x8CCC7C),directionThreshold=StaticRef<float>(0x8CCC78);",source_global_reference
-positionThreshold,0x008CCC78,0x004CCC78,source/game_sa/Camera.cpp,757,"const float positionThreshold=StaticRef<float>(0x8CCC7C),directionThreshold=StaticRef<float>(0x8CCC78);",source_global_reference
-oldPosition,0x00B6FFB4,0x0076FFB4,source/game_sa/Camera.cpp,762,auto& oldPosition=StaticRef<CVector>(0xB6FFB4);,source_global_reference
-oldAt,0x00B6FFA8,0x0076FFA8,source/game_sa/Camera.cpp,763,auto& oldAt=StaticRef<CVector>(0xB6FFA8);,source_global_reference
-oldUp,0x00B6FF9C,0x0076FF9C,source/game_sa/Camera.cpp,764,auto& oldUp=StaticRef<CVector>(0xB6FF9C);,source_global_reference
-oldRight,0x00B6FF90,0x0076FF90,source/game_sa/Camera.cpp,765,auto& oldRight=StaticRef<CVector>(0xB6FF90);,source_global_reference
-reference,0x008CCC80,0x004CCC80,source/game_sa/Camera.cpp,1219,if (((speed.x * speed.x + speed.y * speed.y) + speed.z * speed.z) > StaticRef<float>(0x8CCC80)) {,source_global_reference
-denominator,0x00B6EC68,0x0076EC68,source/game_sa/Camera.cpp,1442,"const float base=gpCamColVars[4],denominator=StaticRef<float>(0xB6EC68),factor=StaticRef<float>(0x8CCC84),maximum=StaticRef<float>(0x858C24);",source_global_reference
-denominator,0x008CCC84,0x004CCC84,source/game_sa/Camera.cpp,1442,"const float base=gpCamColVars[4],denominator=StaticRef<float>(0xB6EC68),factor=StaticRef<float>(0x8CCC84),maximum=StaticRef<float>(0x858C24);",source_global_reference
-denominator,0x00858C24,0x00458C24,source/game_sa/Camera.cpp,1442,"const float base=gpCamColVars[4],denominator=StaticRef<float>(0xB6EC68),factor=StaticRef<float>(0x8CCC84),maximum=StaticRef<float>(0x858C24);",source_global_reference
-limit,0x008CCC88,0x004CCC88,source/game_sa/Camera.cpp,1530,const float limit = StaticRef<float>(0x8CCC88);,source_global_reference
-reference,0x00C3EFA0,0x0083EFA0,source/game_sa/Camera.cpp,1565,"return CameraSphereInFrustumCpp(&point.x, radius, &m_avecFrustumNormals[0].x, StaticRef<float>(0xC3EFA0), StaticRef<float>(0xC3EF9C));",source_global_reference
-reference,0x00C3EF9C,0x0083EF9C,source/game_sa/Camera.cpp,1565,"return CameraSphereInFrustumCpp(&point.x, radius, &m_avecFrustumNormals[0].x, StaticRef<float>(0xC3EFA0), StaticRef<float>(0xC3EF9C));",source_global_reference
-reference,0x008CCB98,0x004CCB98,source/game_sa/Camera.cpp,1598,? StaticRef<float>(0x8CCB98) - 0.5f,source_global_reference
-reference,0x008CCB94,0x004CCB94,source/game_sa/Camera.cpp,1599,: StaticRef<float>(0x8CCB94) - 1.0f;,source_global_reference
-reference,0x008CCB94,0x004CCB94,source/game_sa/Camera.cpp,1613,? StaticRef<float>(0x8CCB94) - 1.0f,source_global_reference
-reference,0x008CCB98,0x004CCB98,source/game_sa/Camera.cpp,1614,: StaticRef<float>(0x8CCB98) - 0.5f;,source_global_reference
-processed,0x00B6EC2D,0x0076EC2D,source/game_sa/Camera.cpp,1797,auto& processed = StaticRef<uint8>(0xB6EC2D);        // CCamera::bDidWeProcessAnyCinemaCam,source_global_reference
-cinemaActive,0x00B6EC34,0x0076EC34,source/game_sa/Camera.cpp,1798,auto& cinemaActive = StaticRef<uint8>(0xB6EC34);,source_global_reference
-messageCount,0x008CC381,0x004CC381,source/game_sa/Camera.cpp,1799,auto& messageCount = StaticRef<int8>(0x8CC381);      // gbCineyCamMessageDisplayed,source_global_reference
-reference,0x008CC471,0x004CC471,source/game_sa/Camera.cpp,1800,const auto step = [] { return int32(StaticRef<int8>(0x8CC471)); };,source_global_reference
-reference,0x00B7CB84,0x0077CB84,source/game_sa/Camera.cpp,1804,const auto now = [] { return StaticRef<uint32>(0xB7CB84); };   // CTimer::m_snTimeInMilliseconds,source_global_reference
-minimum,0x008CCF20,0x004CCF20,source/game_sa/Camera.cpp,2042,const float minimum = StaticRef<float>(0x8CCF20);,source_global_reference
-reference,0x00858CB8,0x00458CB8,source/game_sa/Camera.cpp,2085,while (headingChange >= StaticRef<float>(0x858CB8)) headingChange -= StaticRef<float>(0x858CBC);,source_global_reference
-reference,0x00858CBC,0x00458CBC,source/game_sa/Camera.cpp,2085,while (headingChange >= StaticRef<float>(0x858CB8)) headingChange -= StaticRef<float>(0x858CBC);,source_global_reference
-reference,0x00858CB8,0x00458CB8,source/game_sa/Camera.cpp,2086,while (headingChange < -StaticRef<float>(0x858CB8)) headingChange += StaticRef<float>(0x858CBC);,source_global_reference
-reference,0x00858CBC,0x00458CBC,source/game_sa/Camera.cpp,2086,while (headingChange < -StaticRef<float>(0x858CB8)) headingChange += StaticRef<float>(0x858CBC);,source_global_reference
-reference,0x00B70143,0x00770143,source/game_sa/Camera.cpp,2102,StaticRef<bool>(0xB70143) = false;,source_global_reference
-drunk,0x00C73C58,0x00873C58,source/game_sa/Camera.cpp,2157,const float drunk = StaticRef<float>(0xC73C58);,source_global_reference
-angle,0x00B6EC30,0x0076EC30,source/game_sa/Camera.cpp,2159,const float angle = StaticRef<float>(0xB6EC30) * StaticRef<float>(0x8595EC);,source_global_reference
-angle,0x008595EC,0x004595EC,source/game_sa/Camera.cpp,2159,const float angle = StaticRef<float>(0xB6EC30) * StaticRef<float>(0x8595EC);,source_global_reference
-reference,0x00B6EC30,0x0076EC30,source/game_sa/Camera.cpp,2165,StaticRef<float>(0xB6EC30) += 5.f;,source_global_reference
-reference,0x0086327C,0x0046327C,source/game_sa/Camera.cpp,2176,"if (amount > 0.f && int(m_nBlurType) != 1) m_nMotionBlurAddAlpha = uint32(std::min(150, 25 - CameraProcessTruncateProduct(shake, StaticRef<float>(0x86327C))));",source_global_reference
-reference,0x00B70142,0x00770142,source/game_sa/Camera.cpp,2179,StaticRef<bool>(0xB70142) = true;,source_global_reference
-reference,0x00B70142,0x00770142,source/game_sa/Camera.cpp,2180,} else if (StaticRef<bool>(0xB70142)) StaticRef<bool>(0xB70142) = false;,source_global_reference
-reference,0x00B70142,0x00770142,source/game_sa/Camera.cpp,2180,} else if (StaticRef<bool>(0xB70142)) StaticRef<bool>(0xB70142) = false;,source_global_reference
-reference,0x00B5F851,0x0075F851,source/game_sa/Camera.cpp,2183,m_fLODDistMultiplier = !StaticRef<bool>(0xB5F851) || StaticRef<bool>(0xB5F853) ? 70.f / CDraw::ms_fFOV : 1.f;,source_global_reference
-reference,0x00B5F853,0x0075F853,source/game_sa/Camera.cpp,2183,m_fLODDistMultiplier = !StaticRef<bool>(0xB5F851) || StaticRef<bool>(0xB5F853) ? 70.f / CDraw::ms_fFOV : 1.f;,source_global_reference
-reference,0x00C3EFA0,0x0083EFA0,source/game_sa/Camera.cpp,2188,StaticRef<float>(0xC3EFA0) = StaticRef<float>(uintptr_t(m_pRwCamera) + 0x80);,source_global_reference
-reference,0x00C3EF9C,0x0083EF9C,source/game_sa/Camera.cpp,2189,StaticRef<float>(0xC3EF9C) = StaticRef<float>(uintptr_t(m_pRwCamera) + 0x84);,source_global_reference
-reference,0x00858CB8,0x00458CB8,source/game_sa/Camera.cpp,2198,const float orientation = m_fOrientation + StaticRef<float>(0x858CB8);,source_global_reference
-lastCalcCamPos,0x00B70034,0x00770034,source/game_sa/Camera.cpp,2305,static auto& lastCalcCamPos    = StaticRef<CVector>(0xB70034);,source_global_reference
-exactGroundHeight,0x00B70030,0x00770030,source/game_sa/Camera.cpp,2306,static auto& exactGroundHeight = StaticRef<float>(0xB70030);,source_global_reference
-bbTopZ,0x00B7002C,0x0077002C,source/game_sa/Camera.cpp,2307,static auto& bbTopZ            = StaticRef<float>(0xB7002C);,source_global_reference
-bbBottomZ,0x00B70028,0x00770028,source/game_sa/Camera.cpp,2308,static auto& bbBottomZ         = StaticRef<float>(0xB70028);,source_global_reference
-initFlags,0x00B70040,0x00770040,source/game_sa/Camera.cpp,2311,auto& initFlags = StaticRef<uint32>(0xB70040);,source_global_reference
-height,0x00C17048,0x00817048,source/game_sa/Camera.cpp,2360,"const int32 height = StaticRef<int32>(0xC17048), width = StaticRef<int32>(0xC17044);",source_global_reference
-height,0x00C17044,0x00817044,source/game_sa/Camera.cpp,2360,"const int32 height = StaticRef<int32>(0xC17048), width = StaticRef<int32>(0xC17044);",source_global_reference
-nearClipValue,0x008CCD08,0x004CCD08,source/game_sa/Camera.cpp,2400,"if(distance>StaticRef<float>(0x8CCD08)){const float nearClipValue=StaticRef<float>(0x8CCD04)*gCurDistForCam;if(camera->nearPlane<nearClipValue)RwCameraSetNearClipPlane(camera,nearClipValue);}",source_global_reference
-nearClipValue,0x008CCD04,0x004CCD04,source/game_sa/Camera.cpp,2400,"if(distance>StaticRef<float>(0x8CCD08)){const float nearClipValue=StaticRef<float>(0x8CCD04)*gCurDistForCam;if(camera->nearPlane<nearClipValue)RwCameraSetNearClipPlane(camera,nearClipValue);}",source_global_reference
-reference,0x008CCD00,0x004CCD00,source/game_sa/Camera.cpp,2406,if(gCurDistForCam>StaticRef<float>(0x8CCD00)){,source_global_reference
-reference,0x008CCCFC,0x004CCCFC,source/game_sa/Camera.cpp,2408,if(activeCam->m_vecSource.z-ground>StaticRef<float>(0x8CCCFC)){,source_global_reference
-limit,0x008CCCF8,0x004CCCF8,source/game_sa/Camera.cpp,2409,"const float limit=StaticRef<float>(0x8CCCF8)*gCurDistForCam,value=distance*StaticRef<float>(0x8CCCF4);const float nearClipValue=value<limit?value:limit;",source_global_reference
-limit,0x008CCCF4,0x004CCCF4,source/game_sa/Camera.cpp,2409,"const float limit=StaticRef<float>(0x8CCCF8)*gCurDistForCam,value=distance*StaticRef<float>(0x8CCCF4);const float nearClipValue=value<limit?value:limit;",source_global_reference
-reference,0x008CCCF0,0x004CCCF0,source/game_sa/Camera.cpp,2412,"}else if(type==VEHICLE_TYPE_HELI)RwCameraSetNearClipPlane(camera,StaticRef<float>(0x8CCCF0));",source_global_reference
-reference,0x008CCCEC,0x004CCCEC,source/game_sa/Camera.cpp,2418,"if(found&&std::abs(water-source->z)<StaticRef<float>(0x8CCCEC))RwCameraSetNearClipPlane(camera,StaticRef<float>(0x8CCCE8));",source_global_reference
-reference,0x008CCCE8,0x004CCCE8,source/game_sa/Camera.cpp,2418,"if(found&&std::abs(water-source->z)<StaticRef<float>(0x8CCCEC))RwCameraSetNearClipPlane(camera,StaticRef<float>(0x8CCCE8));",source_global_reference
-reference,0x00B6F0F0,0x0076F0F0,source/game_sa/Camera.cpp,2419,"else if(*reinterpret_cast<const int16*>(reinterpret_cast<const uint8*>(swim)+0xA)==4&&StaticRef<int32>(0xB6F0F0)==1)RwCameraSetNearClipPlane(camera,StaticRef<float>(0x8CCCE4));",source_global_reference
-reference,0x008CCCE4,0x004CCCE4,source/game_sa/Camera.cpp,2419,"else if(*reinterpret_cast<const int16*>(reinterpret_cast<const uint8*>(swim)+0xA)==4&&StaticRef<int32>(0xB6F0F0)==1)RwCameraSetNearClipPlane(camera,StaticRef<float>(0x8CCCE4));",source_global_reference
-reference,0x008CCCFC,0x004CCCFC,source/game_sa/Camera.cpp,2421,if(GetRoughDistanceToGround()>StaticRef<float>(0x8CCCFC)){,source_global_reference
-limit,0x008CCCDC,0x004CCCDC,source/game_sa/Camera.cpp,2422,"const float value=delta.Magnitude()*StaticRef<float>(0x8CCCDC),limit=StaticRef<float>(0x8CCCE0)*gCurDistForCam;",source_global_reference
-limit,0x008CCCE0,0x004CCCE0,source/game_sa/Camera.cpp,2422,"const float value=delta.Magnitude()*StaticRef<float>(0x8CCCDC),limit=StaticRef<float>(0x8CCCE0)*gCurDistForCam;",source_global_reference
-fov,0x00B6F250,0x0076F250,source/game_sa/Camera.cpp,2428,const float fov=StaticRef<float>(0xB6F250+uint32(StaticRef<uint8>(0xB6F081))*sizeof(CCam));,source_global_reference
-fov,0x00B6F081,0x0076F081,source/game_sa/Camera.cpp,2428,const float fov=StaticRef<float>(0xB6F250+uint32(StaticRef<uint8>(0xB6F081))*sizeof(CCam));,source_global_reference
-radius,0x00B6EC6C,0x0076EC6C,source/game_sa/Camera.cpp,2429,"const float angle=(90.0f-fov*.5f)*std::bit_cast<float>(0x3C8EFA35u),radius=StaticRef<float>(0xB6EC6C);",source_global_reference
-cam,0x00B6F19C,0x0076F19C,source/game_sa/Camera.cpp,2432,const auto& cam=StaticRef<CCam>(0xB6F19C+uint32(active)*sizeof(CCam));,source_global_reference
-reference,0x008CCCD8,0x004CCCD8,source/game_sa/Camera.cpp,2437,if(sphere.m_Surface.m_nPiece==9)value-=StaticRef<float>(0x8CCCD8)*sphere.m_fRadius;,source_global_reference
-reference,0x008CCCD4,0x004CCCD4,source/game_sa/Camera.cpp,2441,if(minimum>limit)nearClipValue=limit;else nearClipValue=minimum<StaticRef<float>(0x8CCCD4)?StaticRef<float>(0x8CCCD4):minimum;,source_global_reference
-reference,0x008CCCD4,0x004CCCD4,source/game_sa/Camera.cpp,2441,if(minimum>limit)nearClipValue=limit;else nearClipValue=minimum<StaticRef<float>(0x8CCCD4)?StaticRef<float>(0x8CCCD4):minimum;,source_global_reference
-nearClipValue,0x008CCCD0,0x004CCCD0,source/game_sa/Camera.cpp,2442,if(nearClipValue>StaticRef<float>(0x8CCCD0))nearClipValue=StaticRef<float>(0x8CCCD0);,source_global_reference
-nearClipValue,0x008CCCD0,0x004CCCD0,source/game_sa/Camera.cpp,2442,if(nearClipValue>StaticRef<float>(0x8CCCD0))nearClipValue=StaticRef<float>(0x8CCCD0);,source_global_reference
-preMirrorMat,0x00B6FE40,0x0076FE40,source/game_sa/Camera.cpp,2449,static auto& preMirrorMat = StaticRef<CMatrix>(0xB6FE40);,source_global_reference
-clearance,0x008CC8C0,0x004CC8C0,source/game_sa/Camera.cpp,2515,float clearance = StaticRef<float>(0x8CC8C0);,source_global_reference
-clearance,0x008CC8C4,0x004CC8C4,source/game_sa/Camera.cpp,2517,"if (*reinterpret_cast<int32*>(reinterpret_cast<uint8*>(FindPlayerVehicle(-1, false)) + 0x590) == 5) clearance = StaticRef<float>(0x8CC8C4);",source_global_reference
-reference,0x00B74494,0x00774494,source/game_sa/Camera.cpp,2536,auto* pool = reinterpret_cast<void*>(StaticRef<uintptr_t>(0xB74494));,source_global_reference
-reference,0x00B6F059,0x0076F059,source/game_sa/Camera.cpp,2571,case 24: case 25: StaticRef<uint8>(0xB6F059) = 0; return false;,source_global_reference
-reference,0x008CCB90,0x004CCB90,source/game_sa/Camera.cpp,2650,float radius=length*gpCamColVars[0]*StaticRef<float>(0x8CCB90);,source_global_reference
-cachedModel,0x00B700F0,0x007700F0,source/game_sa/Camera.cpp,2656,auto& cachedModel=StaticRef<int32>(0xB700F0);,source_global_reference
-lowest,0x00B700EC,0x007700EC,source/game_sa/Camera.cpp,2657,auto& lowest=StaticRef<float>(0xB700EC);,source_global_reference
-radius,0x008CCE18,0x004CCE18,source/game_sa/Camera.cpp,2679,if(radius<StaticRef<float>(0x8CCE18))radius=StaticRef<float>(0x8CCE18);,source_global_reference
-radius,0x008CCE18,0x004CCE18,source/game_sa/Camera.cpp,2679,if(radius<StaticRef<float>(0x8CCE18))radius=StaticRef<float>(0x8CCE18);,source_global_reference
-minDistance,0x008CCE0C,0x004CCE0C,source/game_sa/Camera.cpp,2683,if(bike)minDistance=StaticRef<float>(0x8CCE0C);,source_global_reference
-reference,0x00B6EC6C,0x0076EC6C,source/game_sa/Camera.cpp,2684,StaticRef<float>(0xB6EC6C)=radius;,source_global_reference
-flags,0x00B700E8,0x007700E8,source/game_sa/Camera.cpp,2690,auto& flags=StaticRef<uint32>(0xB700E8);,source_global_reference
-previous,0x00B700DC,0x007700DC,source/game_sa/Camera.cpp,2691,auto& previous=StaticRef<CVector>(0xB700DC);,source_global_reference
-threshold,0x008CCE08,0x004CCE08,source/game_sa/Camera.cpp,2694,const float threshold=StaticRef<float>(0x8CCE08);,source_global_reference
-step,0x008CCE04,0x004CCE04,source/game_sa/Camera.cpp,2697,if(StaticRef<float>(0x8CCE04)<step)step=StaticRef<float>(0x8CCE04);,source_global_reference
-step,0x008CCE04,0x004CCE04,source/game_sa/Camera.cpp,2697,if(StaticRef<float>(0x8CCE04)<step)step=StaticRef<float>(0x8CCE04);,source_global_reference
-reference,0x008CCE00,0x004CCE00,source/game_sa/Camera.cpp,2704,"if(bike&&gCurDistForCam<StaticRef<float>(0x8CCE00))RwCameraSetNearClipPlane(Scene.m_pRwCamera,StaticRef<float>(0x8CCDFC));",source_global_reference
-reference,0x008CCDFC,0x004CCDFC,source/game_sa/Camera.cpp,2704,"if(bike&&gCurDistForCam<StaticRef<float>(0x8CCE00))RwCameraSetNearClipPlane(Scene.m_pRwCamera,StaticRef<float>(0x8CCDFC));",source_global_reference
-reference,0x00A43088,0x00643088,source/game_sa/Camera.cpp,2776,&& StaticRef<uint8>(0xA43088) != 1,source_global_reference
-reference,0x00B6EC34,0x0076EC34,source/game_sa/Camera.cpp,2780,|| (StaticRef<uint8>(0xB6EC34) == 1,source_global_reference
-reference,0x00B6EC34,0x0076EC34,source/game_sa/Camera.cpp,2808,StaticRef<uint8>(0xB6EC34) = 0;,source_global_reference
-player,0x00B7CD74,0x0077CD74,source/game_sa/Camera.cpp,2810,const auto player = StaticRef<uint8>(0xB7CD74);,source_global_reference
-requested,0x00B70140,0x00770140,source/game_sa/Camera.cpp,2834,auto& requested = StaticRef<uint16>(0xB70140);,source_global_reference
-player0,0x00B7CD98,0x0077CD98,source/game_sa/Camera.cpp,2836,auto* const player0 = StaticRef<CPed*>(0xB7CD98);,source_global_reference
-player1,0x00B7CF28,0x0077CF28,source/game_sa/Camera.cpp,2837,auto* const player1 = StaticRef<CPed*>(0xB7CF28);,source_global_reference
-activePlayer,0x00B7CD74,0x0077CD74,source/game_sa/Camera.cpp,2852,const auto activePlayer = StaticRef<uint8>(0xB7CD74);,source_global_reference
-arrestLatch,0x00B7013C,0x0077013C,source/game_sa/Camera.cpp,2854,auto& arrestLatch = StaticRef<uint8>(0xB7013C);,source_global_reference
-previousPedState,0x00B70138,0x00770138,source/game_sa/Camera.cpp,2861,auto& previousPedState = StaticRef<int32>(0xB70138);,source_global_reference
-reference,0x00B70134,0x00770134,source/game_sa/Camera.cpp,2868,StaticRef<uint32>(0xB70134) = 32;,source_global_reference
-requested,0x00B70134,0x00770134,source/game_sa/Camera.cpp,2871,requested = StaticRef<uint16>(0xB70134);,source_global_reference
-requested,0x00B70140,0x00770140,source/game_sa/Camera.cpp,2910,const auto requested = StaticRef<uint16>(0xB70140);,source_global_reference
-reference,0x00B6EC2E,0x0076EC2E,source/game_sa/Camera.cpp,2912,&& StaticRef<uint8>(0xB6EC2E) == 0) {,source_global_reference
-reference,0x00B70140,0x00770140,source/game_sa/Camera.cpp,2916,StaticRef<uint16>(0xB70140) = static_cast<uint16>(camera.m_nModeToGoTo);,source_global_reference
-requested,0x00B70140,0x00770140,source/game_sa/Camera.cpp,2930,auto& requested = StaticRef<uint16>(0xB70140);,source_global_reference
-reference,0x00B6EC2D,0x0076EC2D,source/game_sa/Camera.cpp,2974,StaticRef<uint8>(0xB6EC2D) = 0;,source_global_reference
-reference,0x008D5109,0x004D5109,source/game_sa/Camera.cpp,2977,StaticRef<uint8>(0x8D5109) = 0;,source_global_reference
-step,0x00B7CB5C,0x0077CB5C,source/game_sa/Camera.cpp,2997,const auto step = StaticRef<float>(0xB7CB5C) * StaticRef<float>(0x85A6F0);,source_global_reference
-step,0x0085A6F0,0x0045A6F0,source/game_sa/Camera.cpp,2997,const auto step = StaticRef<float>(0xB7CB5C) * StaticRef<float>(0x85A6F0);,source_global_reference
-requested,0x00B70140,0x00770140,source/game_sa/Camera.cpp,3008,auto& requested = StaticRef<uint16>(0xB70140);,source_global_reference
-m_fCarZoomBase,0x008CC3E0,0x004CC3E0,source/game_sa/Camera.cpp,3017,camera.m_fCarZoomBase = StaticRef<float[5]>(0x8CC3E0)[zoomIndex];,source_global_reference
-m_fCarZoomBase,0x008CC3F4,0x004CC3F4,source/game_sa/Camera.cpp,3019,camera.m_fCarZoomBase = StaticRef<float[5]>(0x8CC3F4)[zoomIndex];,source_global_reference
-m_fCarZoomBase,0x008CC408,0x004CC408,source/game_sa/Camera.cpp,3021,camera.m_fCarZoomBase = StaticRef<float[5]>(0x8CC408)[zoomIndex];,source_global_reference
-reference,0x008CCF14,0x004CCF14,source/game_sa/Camera.cpp,3068,"CameraControlStepZoom(camera.m_fPedZoomSmoothed, StaticRef<float>(0x8CCF14));",source_global_reference
-requested,0x00B70140,0x00770140,source/game_sa/Camera.cpp,3077,auto& requested = StaticRef<uint16>(0xB70140);,source_global_reference
-requested,0x00B70140,0x00770140,source/game_sa/Camera.cpp,3122,auto& requested = StaticRef<uint16>(0xB70140);,source_global_reference
-reference,0x00B6EC2E,0x0076EC2E,source/game_sa/Camera.cpp,3185,&& StaticRef<uint8>(0xB6EC2E) == 0) {,source_global_reference
-requested,0x00B70140,0x00770140,source/game_sa/Camera.cpp,3198,auto& requested = StaticRef<uint16>(0xB70140);,source_global_reference
-deadDistance,0x008CCF08,0x004CCF08,source/game_sa/Camera.cpp,3231,deadDistance = StaticRef<float>(0x8CCF08);,source_global_reference
-threshold,0x008CCF04,0x004CCF04,source/game_sa/Camera.cpp,3244,threshold = StaticRef<float>(0x8CCF04);,source_global_reference
-reference,0x00B7013D,0x0077013D,source/game_sa/Camera.cpp,3252,StaticRef<uint8>(0xB7013D) = 0;,source_global_reference
-reference,0x00B7013D,0x0077013D,source/game_sa/Camera.cpp,3255,if (StaticRef<uint8>(0xB7013D) == 0) {,source_global_reference
-reference,0x00B7013D,0x0077013D,source/game_sa/Camera.cpp,3266,StaticRef<uint8>(0xB7013D) = 1;,source_global_reference
-playerIndex,0x00B7CD74,0x0077CD74,source/game_sa/Camera.cpp,3271,const auto playerIndex = StaticRef<uint8>(0xB7CD74);,source_global_reference
-requested,0x00B70140,0x00770140,source/game_sa/Camera.cpp,3282,auto& requested = StaticRef<uint16>(0xB70140);,source_global_reference
-reference,0x00A43088,0x00643088,source/game_sa/Camera.cpp,3284,if (cycle && StaticRef<uint8>(0xA43088) != 1 && !camera.m_bWideScreenOn) {,source_global_reference
-reference,0x00A43088,0x00643088,source/game_sa/Camera.cpp,3310,if (cycle && StaticRef<uint8>(0xA43088) != 1 && !camera.m_bWideScreenOn,source_global_reference
-requested,0x00B70140,0x00770140,source/game_sa/Camera.cpp,3323,auto& requested = StaticRef<uint16>(0xB70140);,source_global_reference
-reference,0x00858CB8,0x00458CB8,source/game_sa/Camera.cpp,3365,if (heading > reference + StaticRef<float>(0x858CB8)) {,source_global_reference
-reference,0x00858CBC,0x00458CBC,source/game_sa/Camera.cpp,3366,heading -= StaticRef<float>(0x858CBC);,source_global_reference
-reference,0x00858CB8,0x00458CB8,source/game_sa/Camera.cpp,3367,} else if (heading < reference - StaticRef<float>(0x858CB8)) {,source_global_reference
-reference,0x00858CBC,0x00458CBC,source/game_sa/Camera.cpp,3368,heading += StaticRef<float>(0x858CBC);,source_global_reference
-requested,0x00B70140,0x00770140,source/game_sa/Camera.cpp,3386,auto& requested = StaticRef<uint16>(0xB70140);,source_global_reference
-reference,0x008CC46C,0x004CC46C,source/game_sa/Camera.cpp,3402,if (StaticRef<float>(0x8CC46C) * StaticRef<float>(0x8595EC),source_global_reference
-reference,0x008595EC,0x004595EC,source/game_sa/Camera.cpp,3402,if (StaticRef<float>(0x8CC46C) * StaticRef<float>(0x8595EC),source_global_reference
-reference,0x00B6F0FC,0x0076F0FC,source/game_sa/Camera.cpp,3407,if ((StaticRef<float>(0xB6F0FC) + 2.0f) * 1.5f < displacement.Magnitude()) {,source_global_reference
-reference,0x00B6EC2E,0x0076EC2E,source/game_sa/Camera.cpp,3411,if (StaticRef<uint8>(0xB6EC2E) != 0) {,source_global_reference
-reference,0x00858FE4,0x00458FE4,source/game_sa/Camera.cpp,3456,"ped->GetHeading() - StaticRef<float>(0x858FE4), cam.m_fHorizontalAngle",source_global_reference
-aimingJump,0x008CC46C,0x004CC46C,source/game_sa/Camera.cpp,3458,aimingJump = StaticRef<float>(0x8CC46C) * StaticRef<float>(0x8595EC),source_global_reference
-aimingJump,0x008595EC,0x004595EC,source/game_sa/Camera.cpp,3458,aimingJump = StaticRef<float>(0x8CC46C) * StaticRef<float>(0x8595EC),source_global_reference
-reference,0x00B6EC2E,0x0076EC2E,source/game_sa/Camera.cpp,3460,if (StaticRef<uint8>(0xB6EC2E) != 0) {,source_global_reference
-reference,0x00858FE4,0x00458FE4,source/game_sa/Camera.cpp,3470,"const auto angle = CGeneral::GetATanOfXY(cam.m_vecFront.x, cam.m_vecFront.y) - StaticRef<float>(0x858FE4);",source_global_reference
-reference,0x00858CB8,0x00458CB8,source/game_sa/Camera.cpp,3483,"cam.m_fTransitionBeta = CGeneral::GetATanOfXY(cam.m_vecFront.x, cam.m_vecFront.y) + StaticRef<float>(0x858CB8);",source_global_reference
-requested,0x00B70140,0x00770140,source/game_sa/Camera.cpp,3566,auto& requested = StaticRef<uint16>(0xB70140);,source_global_reference
+TheCamera,0x00B6F028,0x0076F028,source/game_sa/Camera.cpp,41,auto& TheCamera = StaticRef<CCamera>(0xB6F028);,source_global_reference
+gbModelViewer,0x00BA6728,0x007A6728,source/game_sa/Camera.cpp,42,auto& gbModelViewer = StaticRef<bool>(0xBA6728);,source_global_reference
+gbCineyCamMessageDisplayed,0x008CC381,0x004CC381,source/game_sa/Camera.cpp,43,auto& gbCineyCamMessageDisplayed = StaticRef<int8>(0x8CC381); // 2,source_global_reference
+gCameraDirection,0x008CC384,0x004CC384,source/game_sa/Camera.cpp,44,auto& gCameraDirection = StaticRef<int32>(0x8CC384);         // 3,source_global_reference
+gCameraMode,0x008CC388,0x004CC388,source/game_sa/Camera.cpp,45,auto& gCameraMode = StaticRef<eCamMode>(0x8CC388);        // -1,source_global_reference
+gLastTime2PlayerCameraWasOK,0x00B6EC24,0x0076EC24,source/game_sa/Camera.cpp,46,auto& gLastTime2PlayerCameraWasOK = StaticRef<uint32>(0xB6EC24);    // 0,source_global_reference
+gLastTime2PlayerCameraCollided,0x00B6EC28,0x0076EC28,source/game_sa/Camera.cpp,47,auto& gLastTime2PlayerCameraCollided = StaticRef<uint32>(0xB6EC28); // 0,source_global_reference
+gPlayerPedVisible,0x008CC380,0x004CC380,source/game_sa/Camera.cpp,48,auto& gPlayerPedVisible = StaticRef<bool>(0x8CC380); // true,source_global_reference
+gCurCamColVars,0x008CCB80,0x004CCB80,source/game_sa/Camera.cpp,49,auto& gCurCamColVars = StaticRef<uint8>(0x8CCB80);,source_global_reference
+gCurDistForCam,0x008CCB84,0x004CCB84,source/game_sa/Camera.cpp,50,auto& gCurDistForCam = StaticRef<float>(0x8CCB84);,source_global_reference
+gpCamColVars,0x00B6FE88,0x0076FE88,source/game_sa/Camera.cpp,51,auto& gpCamColVars = StaticRef<float*>(0xB6FE88);,source_global_reference
+gCamColVars,0x008CC8E0,0x004CC8E0,source/game_sa/Camera.cpp,52,auto& gCamColVars = StaticRef<float[28][6]>(0x8CC8E0);,source_global_reference
+m_fTargetCloseInDist,0x0086A46C,0x0046A46C,source/game_sa/Camera.cpp,288,m_aCams[0].m_fTargetCloseInDist = StaticRef<float>(0x86A46C) - StaticRef<float>(0x86A468);,source_global_reference
+m_fTargetCloseInDist,0x0086A468,0x0046A468,source/game_sa/Camera.cpp,288,m_aCams[0].m_fTargetCloseInDist = StaticRef<float>(0x86A46C) - StaticRef<float>(0x86A468);,source_global_reference
+m_fMinRealGroundDist,0x0086A468,0x0046A468,source/game_sa/Camera.cpp,291,m_aCams[0].m_fMinRealGroundDist = StaticRef<float>(0x86A468);,source_global_reference
+reference,0x00BA67A5,0x007A67A5,source/game_sa/Camera.cpp,372,if (!StaticRef<uint8>(0xBA67A5)) {,source_global_reference
+reference,0x00BA67A5,0x007A67A5,source/game_sa/Camera.cpp,381,if (StaticRef<uint8>(0xBA67A5) == 1) {,source_global_reference
+flags,0x00B6FFC0,0x0076FFC0,source/game_sa/Camera.cpp,752,auto& flags=StaticRef<uint32>(0xB6FFC0);,source_global_reference
+reference,0x00B6FFB4,0x0076FFB4,source/game_sa/Camera.cpp,756,"StaticRef<CVector>(0xB6FFB4-bit*12)=CVector{-99999.0f,-99999.0f,-99999.0f};",source_global_reference
+positionThreshold,0x008CCC7C,0x004CCC7C,source/game_sa/Camera.cpp,759,"const float positionThreshold=StaticRef<float>(0x8CCC7C),directionThreshold=StaticRef<float>(0x8CCC78);",source_global_reference
+positionThreshold,0x008CCC78,0x004CCC78,source/game_sa/Camera.cpp,759,"const float positionThreshold=StaticRef<float>(0x8CCC7C),directionThreshold=StaticRef<float>(0x8CCC78);",source_global_reference
+oldPosition,0x00B6FFB4,0x0076FFB4,source/game_sa/Camera.cpp,764,auto& oldPosition=StaticRef<CVector>(0xB6FFB4);,source_global_reference
+oldAt,0x00B6FFA8,0x0076FFA8,source/game_sa/Camera.cpp,765,auto& oldAt=StaticRef<CVector>(0xB6FFA8);,source_global_reference
+oldUp,0x00B6FF9C,0x0076FF9C,source/game_sa/Camera.cpp,766,auto& oldUp=StaticRef<CVector>(0xB6FF9C);,source_global_reference
+oldRight,0x00B6FF90,0x0076FF90,source/game_sa/Camera.cpp,767,auto& oldRight=StaticRef<CVector>(0xB6FF90);,source_global_reference
+reference,0x008CCC80,0x004CCC80,source/game_sa/Camera.cpp,1221,if (((speed.x * speed.x + speed.y * speed.y) + speed.z * speed.z) > StaticRef<float>(0x8CCC80)) {,source_global_reference
+scale,0x00858C80,0x00458C80,source/game_sa/Camera.cpp,1449,float scale = StaticRef<float>(0x858C80); // 5.0f,source_global_reference
+scale,0x00858B8C,0x00458B8C,source/game_sa/Camera.cpp,1454,scale = StaticRef<float>(0x858B8C); // 0.5f,source_global_reference
+reference,0x00858BA4,0x00458BA4,source/game_sa/Camera.cpp,1463,"CamSoundPointCpp(&CameraRawField<float>(this, 0x984), scale, &GetPosition().x, StaticRef<float>(0x858BA4) /* 20.0f */, &point.x, &rayEnd);",source_global_reference
+reference,0x0085F0A0,0x0045F0A0,source/game_sa/Camera.cpp,1476,"CameraRawField<float>(this, 0x158) = CamSoundBlendCpp(static_cast<int32>(static_cast<int16>(phase)) + 1, StaticRef<float>(0x85F0A0),",source_global_reference
+reference,0x00858624,0x00458624,source/game_sa/Camera.cpp,1477,"StaticRef<float>(0x858624) /* 1.0f */, CameraRawField<float>(this, 0x160), CameraRawField<float>(this, 0x15C));",source_global_reference
+denominator,0x00B6EC68,0x0076EC68,source/game_sa/Camera.cpp,1483,"const float base=gpCamColVars[4],denominator=StaticRef<float>(0xB6EC68),factor=StaticRef<float>(0x8CCC84),maximum=StaticRef<float>(0x858C24);",source_global_reference
+denominator,0x008CCC84,0x004CCC84,source/game_sa/Camera.cpp,1483,"const float base=gpCamColVars[4],denominator=StaticRef<float>(0xB6EC68),factor=StaticRef<float>(0x8CCC84),maximum=StaticRef<float>(0x858C24);",source_global_reference
+denominator,0x00858C24,0x00458C24,source/game_sa/Camera.cpp,1483,"const float base=gpCamColVars[4],denominator=StaticRef<float>(0xB6EC68),factor=StaticRef<float>(0x8CCC84),maximum=StaticRef<float>(0x858C24);",source_global_reference
+limit,0x008CCC88,0x004CCC88,source/game_sa/Camera.cpp,1571,const float limit = StaticRef<float>(0x8CCC88);,source_global_reference
+reference,0x00C3EFA0,0x0083EFA0,source/game_sa/Camera.cpp,1606,"return CameraSphereInFrustumCpp(&point.x, radius, &m_avecFrustumNormals[0].x, StaticRef<float>(0xC3EFA0), StaticRef<float>(0xC3EF9C));",source_global_reference
+reference,0x00C3EF9C,0x0083EF9C,source/game_sa/Camera.cpp,1606,"return CameraSphereInFrustumCpp(&point.x, radius, &m_avecFrustumNormals[0].x, StaticRef<float>(0xC3EFA0), StaticRef<float>(0xC3EF9C));",source_global_reference
+reference,0x008CCB98,0x004CCB98,source/game_sa/Camera.cpp,1639,? StaticRef<float>(0x8CCB98) - 0.5f,source_global_reference
+reference,0x008CCB94,0x004CCB94,source/game_sa/Camera.cpp,1640,: StaticRef<float>(0x8CCB94) - 1.0f;,source_global_reference
+reference,0x008CCB94,0x004CCB94,source/game_sa/Camera.cpp,1654,? StaticRef<float>(0x8CCB94) - 1.0f,source_global_reference
+reference,0x008CCB98,0x004CCB98,source/game_sa/Camera.cpp,1655,: StaticRef<float>(0x8CCB98) - 0.5f;,source_global_reference
+processed,0x00B6EC2D,0x0076EC2D,source/game_sa/Camera.cpp,1838,auto& processed = StaticRef<uint8>(0xB6EC2D);        // CCamera::bDidWeProcessAnyCinemaCam,source_global_reference
+cinemaActive,0x00B6EC34,0x0076EC34,source/game_sa/Camera.cpp,1839,auto& cinemaActive = StaticRef<uint8>(0xB6EC34);,source_global_reference
+messageCount,0x008CC381,0x004CC381,source/game_sa/Camera.cpp,1840,auto& messageCount = StaticRef<int8>(0x8CC381);      // gbCineyCamMessageDisplayed,source_global_reference
+reference,0x008CC471,0x004CC471,source/game_sa/Camera.cpp,1841,const auto step = [] { return int32(StaticRef<int8>(0x8CC471)); };,source_global_reference
+reference,0x00B7CB84,0x0077CB84,source/game_sa/Camera.cpp,1845,const auto now = [] { return StaticRef<uint32>(0xB7CB84); };   // CTimer::m_snTimeInMilliseconds,source_global_reference
+reference,0x00B70048,0x00770048,source/game_sa/Camera.cpp,2029,if (!StaticRef<bool>(0xB70048)) {,source_global_reference
+reference,0x00B70048,0x00770048,source/game_sa/Camera.cpp,2037,StaticRef<bool>(0xB70048) = true;,source_global_reference
+minimum,0x008CCF20,0x004CCF20,source/game_sa/Camera.cpp,2117,const float minimum = StaticRef<float>(0x8CCF20);,source_global_reference
+reference,0x00858CB8,0x00458CB8,source/game_sa/Camera.cpp,2160,while (headingChange >= StaticRef<float>(0x858CB8)) headingChange -= StaticRef<float>(0x858CBC);,source_global_reference
+reference,0x00858CBC,0x00458CBC,source/game_sa/Camera.cpp,2160,while (headingChange >= StaticRef<float>(0x858CB8)) headingChange -= StaticRef<float>(0x858CBC);,source_global_reference
+reference,0x00858CB8,0x00458CB8,source/game_sa/Camera.cpp,2161,while (headingChange < -StaticRef<float>(0x858CB8)) headingChange += StaticRef<float>(0x858CBC);,source_global_reference
+reference,0x00858CBC,0x00458CBC,source/game_sa/Camera.cpp,2161,while (headingChange < -StaticRef<float>(0x858CB8)) headingChange += StaticRef<float>(0x858CBC);,source_global_reference
+reference,0x00B70143,0x00770143,source/game_sa/Camera.cpp,2177,StaticRef<bool>(0xB70143) = false;,source_global_reference
+drunk,0x00C73C58,0x00873C58,source/game_sa/Camera.cpp,2232,const float drunk = StaticRef<float>(0xC73C58);,source_global_reference
+angle,0x00B6EC30,0x0076EC30,source/game_sa/Camera.cpp,2234,const float angle = StaticRef<float>(0xB6EC30) * StaticRef<float>(0x8595EC);,source_global_reference
+angle,0x008595EC,0x004595EC,source/game_sa/Camera.cpp,2234,const float angle = StaticRef<float>(0xB6EC30) * StaticRef<float>(0x8595EC);,source_global_reference
+reference,0x00B6EC30,0x0076EC30,source/game_sa/Camera.cpp,2240,StaticRef<float>(0xB6EC30) += 5.f;,source_global_reference
+reference,0x0086327C,0x0046327C,source/game_sa/Camera.cpp,2251,"if (amount > 0.f && int(m_nBlurType) != 1) m_nMotionBlurAddAlpha = uint32(std::min(150, 25 - CameraProcessTruncateProduct(shake, StaticRef<float>(0x86327C))));",source_global_reference
+reference,0x00B70142,0x00770142,source/game_sa/Camera.cpp,2254,StaticRef<bool>(0xB70142) = true;,source_global_reference
+reference,0x00B70142,0x00770142,source/game_sa/Camera.cpp,2255,} else if (StaticRef<bool>(0xB70142)) StaticRef<bool>(0xB70142) = false;,source_global_reference
+reference,0x00B70142,0x00770142,source/game_sa/Camera.cpp,2255,} else if (StaticRef<bool>(0xB70142)) StaticRef<bool>(0xB70142) = false;,source_global_reference
+reference,0x00B5F851,0x0075F851,source/game_sa/Camera.cpp,2258,m_fLODDistMultiplier = !StaticRef<bool>(0xB5F851) || StaticRef<bool>(0xB5F853) ? 70.f / CDraw::ms_fFOV : 1.f;,source_global_reference
+reference,0x00B5F853,0x0075F853,source/game_sa/Camera.cpp,2258,m_fLODDistMultiplier = !StaticRef<bool>(0xB5F851) || StaticRef<bool>(0xB5F853) ? 70.f / CDraw::ms_fFOV : 1.f;,source_global_reference
+reference,0x00C3EFA0,0x0083EFA0,source/game_sa/Camera.cpp,2263,StaticRef<float>(0xC3EFA0) = StaticRef<float>(uintptr_t(m_pRwCamera) + 0x80);,source_global_reference
+reference,0x00C3EF9C,0x0083EF9C,source/game_sa/Camera.cpp,2264,StaticRef<float>(0xC3EF9C) = StaticRef<float>(uintptr_t(m_pRwCamera) + 0x84);,source_global_reference
+reference,0x00858CB8,0x00458CB8,source/game_sa/Camera.cpp,2273,const float orientation = m_fOrientation + StaticRef<float>(0x858CB8);,source_global_reference
+lastCalcCamPos,0x00B70034,0x00770034,source/game_sa/Camera.cpp,2380,static auto& lastCalcCamPos    = StaticRef<CVector>(0xB70034);,source_global_reference
+exactGroundHeight,0x00B70030,0x00770030,source/game_sa/Camera.cpp,2381,static auto& exactGroundHeight = StaticRef<float>(0xB70030);,source_global_reference
+bbTopZ,0x00B7002C,0x0077002C,source/game_sa/Camera.cpp,2382,static auto& bbTopZ            = StaticRef<float>(0xB7002C);,source_global_reference
+bbBottomZ,0x00B70028,0x00770028,source/game_sa/Camera.cpp,2383,static auto& bbBottomZ         = StaticRef<float>(0xB70028);,source_global_reference
+initFlags,0x00B70040,0x00770040,source/game_sa/Camera.cpp,2386,auto& initFlags = StaticRef<uint32>(0xB70040);,source_global_reference
+height,0x00C17048,0x00817048,source/game_sa/Camera.cpp,2435,"const int32 height = StaticRef<int32>(0xC17048), width = StaticRef<int32>(0xC17044);",source_global_reference
+height,0x00C17044,0x00817044,source/game_sa/Camera.cpp,2435,"const int32 height = StaticRef<int32>(0xC17048), width = StaticRef<int32>(0xC17044);",source_global_reference
+nearClipValue,0x008CCD08,0x004CCD08,source/game_sa/Camera.cpp,2475,"if(distance>StaticRef<float>(0x8CCD08)){const float nearClipValue=StaticRef<float>(0x8CCD04)*gCurDistForCam;if(camera->nearPlane<nearClipValue)RwCameraSetNearClipPlane(camera,nearClipValue);}",source_global_reference
+nearClipValue,0x008CCD04,0x004CCD04,source/game_sa/Camera.cpp,2475,"if(distance>StaticRef<float>(0x8CCD08)){const float nearClipValue=StaticRef<float>(0x8CCD04)*gCurDistForCam;if(camera->nearPlane<nearClipValue)RwCameraSetNearClipPlane(camera,nearClipValue);}",source_global_reference
+reference,0x008CCD00,0x004CCD00,source/game_sa/Camera.cpp,2481,if(gCurDistForCam>StaticRef<float>(0x8CCD00)){,source_global_reference
+reference,0x008CCCFC,0x004CCCFC,source/game_sa/Camera.cpp,2483,if(activeCam->m_vecSource.z-ground>StaticRef<float>(0x8CCCFC)){,source_global_reference
+limit,0x008CCCF8,0x004CCCF8,source/game_sa/Camera.cpp,2484,"const float limit=StaticRef<float>(0x8CCCF8)*gCurDistForCam,value=distance*StaticRef<float>(0x8CCCF4);const float nearClipValue=value<limit?value:limit;",source_global_reference
+limit,0x008CCCF4,0x004CCCF4,source/game_sa/Camera.cpp,2484,"const float limit=StaticRef<float>(0x8CCCF8)*gCurDistForCam,value=distance*StaticRef<float>(0x8CCCF4);const float nearClipValue=value<limit?value:limit;",source_global_reference
+reference,0x008CCCF0,0x004CCCF0,source/game_sa/Camera.cpp,2487,"}else if(type==VEHICLE_TYPE_HELI)RwCameraSetNearClipPlane(camera,StaticRef<float>(0x8CCCF0));",source_global_reference
+reference,0x008CCCEC,0x004CCCEC,source/game_sa/Camera.cpp,2493,"if(found&&std::abs(water-source->z)<StaticRef<float>(0x8CCCEC))RwCameraSetNearClipPlane(camera,StaticRef<float>(0x8CCCE8));",source_global_reference
+reference,0x008CCCE8,0x004CCCE8,source/game_sa/Camera.cpp,2493,"if(found&&std::abs(water-source->z)<StaticRef<float>(0x8CCCEC))RwCameraSetNearClipPlane(camera,StaticRef<float>(0x8CCCE8));",source_global_reference
+reference,0x00B6F0F0,0x0076F0F0,source/game_sa/Camera.cpp,2494,"else if(*reinterpret_cast<const int16*>(reinterpret_cast<const uint8*>(swim)+0xA)==4&&StaticRef<int32>(0xB6F0F0)==1)RwCameraSetNearClipPlane(camera,StaticRef<float>(0x8CCCE4));",source_global_reference
+reference,0x008CCCE4,0x004CCCE4,source/game_sa/Camera.cpp,2494,"else if(*reinterpret_cast<const int16*>(reinterpret_cast<const uint8*>(swim)+0xA)==4&&StaticRef<int32>(0xB6F0F0)==1)RwCameraSetNearClipPlane(camera,StaticRef<float>(0x8CCCE4));",source_global_reference
+reference,0x008CCCFC,0x004CCCFC,source/game_sa/Camera.cpp,2496,if(GetRoughDistanceToGround()>StaticRef<float>(0x8CCCFC)){,source_global_reference
+limit,0x008CCCDC,0x004CCCDC,source/game_sa/Camera.cpp,2497,"const float value=delta.Magnitude()*StaticRef<float>(0x8CCCDC),limit=StaticRef<float>(0x8CCCE0)*gCurDistForCam;",source_global_reference
+limit,0x008CCCE0,0x004CCCE0,source/game_sa/Camera.cpp,2497,"const float value=delta.Magnitude()*StaticRef<float>(0x8CCCDC),limit=StaticRef<float>(0x8CCCE0)*gCurDistForCam;",source_global_reference
+fov,0x00B6F250,0x0076F250,source/game_sa/Camera.cpp,2503,const float fov=StaticRef<float>(0xB6F250+uint32(StaticRef<uint8>(0xB6F081))*sizeof(CCam));,source_global_reference
+fov,0x00B6F081,0x0076F081,source/game_sa/Camera.cpp,2503,const float fov=StaticRef<float>(0xB6F250+uint32(StaticRef<uint8>(0xB6F081))*sizeof(CCam));,source_global_reference
+radius,0x00B6EC6C,0x0076EC6C,source/game_sa/Camera.cpp,2504,"const float angle=(90.0f-fov*.5f)*std::bit_cast<float>(0x3C8EFA35u),radius=StaticRef<float>(0xB6EC6C);",source_global_reference
+cam,0x00B6F19C,0x0076F19C,source/game_sa/Camera.cpp,2507,const auto& cam=StaticRef<CCam>(0xB6F19C+uint32(active)*sizeof(CCam));,source_global_reference
+reference,0x008CCCD8,0x004CCCD8,source/game_sa/Camera.cpp,2512,if(sphere.m_Surface.m_nPiece==9)value-=StaticRef<float>(0x8CCCD8)*sphere.m_fRadius;,source_global_reference
+reference,0x008CCCD4,0x004CCCD4,source/game_sa/Camera.cpp,2516,if(minimum>limit)nearClipValue=limit;else nearClipValue=minimum<StaticRef<float>(0x8CCCD4)?StaticRef<float>(0x8CCCD4):minimum;,source_global_reference
+reference,0x008CCCD4,0x004CCCD4,source/game_sa/Camera.cpp,2516,if(minimum>limit)nearClipValue=limit;else nearClipValue=minimum<StaticRef<float>(0x8CCCD4)?StaticRef<float>(0x8CCCD4):minimum;,source_global_reference
+nearClipValue,0x008CCCD0,0x004CCCD0,source/game_sa/Camera.cpp,2517,if(nearClipValue>StaticRef<float>(0x8CCCD0))nearClipValue=StaticRef<float>(0x8CCCD0);,source_global_reference
+nearClipValue,0x008CCCD0,0x004CCCD0,source/game_sa/Camera.cpp,2517,if(nearClipValue>StaticRef<float>(0x8CCCD0))nearClipValue=StaticRef<float>(0x8CCCD0);,source_global_reference
+preMirrorMat,0x00B6FE40,0x0076FE40,source/game_sa/Camera.cpp,2524,static auto& preMirrorMat = StaticRef<CMatrix>(0xB6FE40);,source_global_reference
+clearance,0x008CC8C0,0x004CC8C0,source/game_sa/Camera.cpp,2590,float clearance = StaticRef<float>(0x8CC8C0);,source_global_reference
+clearance,0x008CC8C4,0x004CC8C4,source/game_sa/Camera.cpp,2592,"if (*reinterpret_cast<int32*>(reinterpret_cast<uint8*>(FindPlayerVehicle(-1, false)) + 0x590) == 5) clearance = StaticRef<float>(0x8CC8C4);",source_global_reference
+reference,0x00B74494,0x00774494,source/game_sa/Camera.cpp,2611,auto* pool = reinterpret_cast<void*>(StaticRef<uintptr_t>(0xB74494));,source_global_reference
+reference,0x00B6F059,0x0076F059,source/game_sa/Camera.cpp,2646,case 24: case 25: StaticRef<uint8>(0xB6F059) = 0; return false;,source_global_reference
+reference,0x008CCB90,0x004CCB90,source/game_sa/Camera.cpp,2725,float radius=length*gpCamColVars[0]*StaticRef<float>(0x8CCB90);,source_global_reference
+cachedModel,0x00B700F0,0x007700F0,source/game_sa/Camera.cpp,2731,auto& cachedModel=StaticRef<int32>(0xB700F0);,source_global_reference
+lowest,0x00B700EC,0x007700EC,source/game_sa/Camera.cpp,2732,auto& lowest=StaticRef<float>(0xB700EC);,source_global_reference
+radius,0x008CCE18,0x004CCE18,source/game_sa/Camera.cpp,2754,if(radius<StaticRef<float>(0x8CCE18))radius=StaticRef<float>(0x8CCE18);,source_global_reference
+radius,0x008CCE18,0x004CCE18,source/game_sa/Camera.cpp,2754,if(radius<StaticRef<float>(0x8CCE18))radius=StaticRef<float>(0x8CCE18);,source_global_reference
+minDistance,0x008CCE0C,0x004CCE0C,source/game_sa/Camera.cpp,2758,if(bike)minDistance=StaticRef<float>(0x8CCE0C);,source_global_reference
+reference,0x00B6EC6C,0x0076EC6C,source/game_sa/Camera.cpp,2759,StaticRef<float>(0xB6EC6C)=radius;,source_global_reference
+flags,0x00B700E8,0x007700E8,source/game_sa/Camera.cpp,2765,auto& flags=StaticRef<uint32>(0xB700E8);,source_global_reference
+previous,0x00B700DC,0x007700DC,source/game_sa/Camera.cpp,2766,auto& previous=StaticRef<CVector>(0xB700DC);,source_global_reference
+threshold,0x008CCE08,0x004CCE08,source/game_sa/Camera.cpp,2769,const float threshold=StaticRef<float>(0x8CCE08);,source_global_reference
+step,0x008CCE04,0x004CCE04,source/game_sa/Camera.cpp,2772,if(StaticRef<float>(0x8CCE04)<step)step=StaticRef<float>(0x8CCE04);,source_global_reference
+step,0x008CCE04,0x004CCE04,source/game_sa/Camera.cpp,2772,if(StaticRef<float>(0x8CCE04)<step)step=StaticRef<float>(0x8CCE04);,source_global_reference
+reference,0x008CCE00,0x004CCE00,source/game_sa/Camera.cpp,2779,"if(bike&&gCurDistForCam<StaticRef<float>(0x8CCE00))RwCameraSetNearClipPlane(Scene.m_pRwCamera,StaticRef<float>(0x8CCDFC));",source_global_reference
+reference,0x008CCDFC,0x004CCDFC,source/game_sa/Camera.cpp,2779,"if(bike&&gCurDistForCam<StaticRef<float>(0x8CCE00))RwCameraSetNearClipPlane(Scene.m_pRwCamera,StaticRef<float>(0x8CCDFC));",source_global_reference
+reference,0x00A43088,0x00643088,source/game_sa/Camera.cpp,2851,&& StaticRef<uint8>(0xA43088) != 1,source_global_reference
+reference,0x00B6EC34,0x0076EC34,source/game_sa/Camera.cpp,2855,|| (StaticRef<uint8>(0xB6EC34) == 1,source_global_reference
+reference,0x00B6EC34,0x0076EC34,source/game_sa/Camera.cpp,2883,StaticRef<uint8>(0xB6EC34) = 0;,source_global_reference
+player,0x00B7CD74,0x0077CD74,source/game_sa/Camera.cpp,2885,const auto player = StaticRef<uint8>(0xB7CD74);,source_global_reference
+requested,0x00B70140,0x00770140,source/game_sa/Camera.cpp,2909,auto& requested = StaticRef<uint16>(0xB70140);,source_global_reference
+player0,0x00B7CD98,0x0077CD98,source/game_sa/Camera.cpp,2911,auto* const player0 = StaticRef<CPed*>(0xB7CD98);,source_global_reference
+player1,0x00B7CF28,0x0077CF28,source/game_sa/Camera.cpp,2912,auto* const player1 = StaticRef<CPed*>(0xB7CF28);,source_global_reference
+activePlayer,0x00B7CD74,0x0077CD74,source/game_sa/Camera.cpp,2927,const auto activePlayer = StaticRef<uint8>(0xB7CD74);,source_global_reference
+arrestLatch,0x00B7013C,0x0077013C,source/game_sa/Camera.cpp,2929,auto& arrestLatch = StaticRef<uint8>(0xB7013C);,source_global_reference
+previousPedState,0x00B70138,0x00770138,source/game_sa/Camera.cpp,2936,auto& previousPedState = StaticRef<int32>(0xB70138);,source_global_reference
+reference,0x00B70134,0x00770134,source/game_sa/Camera.cpp,2943,StaticRef<uint32>(0xB70134) = 32;,source_global_reference
+requested,0x00B70134,0x00770134,source/game_sa/Camera.cpp,2946,requested = StaticRef<uint16>(0xB70134);,source_global_reference
+requested,0x00B70140,0x00770140,source/game_sa/Camera.cpp,2985,const auto requested = StaticRef<uint16>(0xB70140);,source_global_reference
+reference,0x00B6EC2E,0x0076EC2E,source/game_sa/Camera.cpp,2987,&& StaticRef<uint8>(0xB6EC2E) == 0) {,source_global_reference
+reference,0x00B70140,0x00770140,source/game_sa/Camera.cpp,2991,StaticRef<uint16>(0xB70140) = static_cast<uint16>(camera.m_nModeToGoTo);,source_global_reference
+requested,0x00B70140,0x00770140,source/game_sa/Camera.cpp,3005,auto& requested = StaticRef<uint16>(0xB70140);,source_global_reference
+reference,0x00B6EC2D,0x0076EC2D,source/game_sa/Camera.cpp,3049,StaticRef<uint8>(0xB6EC2D) = 0;,source_global_reference
+reference,0x008D5109,0x004D5109,source/game_sa/Camera.cpp,3052,StaticRef<uint8>(0x8D5109) = 0;,source_global_reference
+step,0x00B7CB5C,0x0077CB5C,source/game_sa/Camera.cpp,3072,const auto step = StaticRef<float>(0xB7CB5C) * StaticRef<float>(0x85A6F0);,source_global_reference
+step,0x0085A6F0,0x0045A6F0,source/game_sa/Camera.cpp,3072,const auto step = StaticRef<float>(0xB7CB5C) * StaticRef<float>(0x85A6F0);,source_global_reference
+requested,0x00B70140,0x00770140,source/game_sa/Camera.cpp,3083,auto& requested = StaticRef<uint16>(0xB70140);,source_global_reference
+m_fCarZoomBase,0x008CC3E0,0x004CC3E0,source/game_sa/Camera.cpp,3092,camera.m_fCarZoomBase = StaticRef<float[5]>(0x8CC3E0)[zoomIndex];,source_global_reference
+m_fCarZoomBase,0x008CC3F4,0x004CC3F4,source/game_sa/Camera.cpp,3094,camera.m_fCarZoomBase = StaticRef<float[5]>(0x8CC3F4)[zoomIndex];,source_global_reference
+m_fCarZoomBase,0x008CC408,0x004CC408,source/game_sa/Camera.cpp,3096,camera.m_fCarZoomBase = StaticRef<float[5]>(0x8CC408)[zoomIndex];,source_global_reference
+reference,0x008CCF14,0x004CCF14,source/game_sa/Camera.cpp,3143,"CameraControlStepZoom(camera.m_fPedZoomSmoothed, StaticRef<float>(0x8CCF14));",source_global_reference
+requested,0x00B70140,0x00770140,source/game_sa/Camera.cpp,3152,auto& requested = StaticRef<uint16>(0xB70140);,source_global_reference
+requested,0x00B70140,0x00770140,source/game_sa/Camera.cpp,3197,auto& requested = StaticRef<uint16>(0xB70140);,source_global_reference
+reference,0x00B6EC2E,0x0076EC2E,source/game_sa/Camera.cpp,3260,&& StaticRef<uint8>(0xB6EC2E) == 0) {,source_global_reference
+requested,0x00B70140,0x00770140,source/game_sa/Camera.cpp,3273,auto& requested = StaticRef<uint16>(0xB70140);,source_global_reference
+deadDistance,0x008CCF08,0x004CCF08,source/game_sa/Camera.cpp,3306,deadDistance = StaticRef<float>(0x8CCF08);,source_global_reference
+threshold,0x008CCF04,0x004CCF04,source/game_sa/Camera.cpp,3319,threshold = StaticRef<float>(0x8CCF04);,source_global_reference
+reference,0x00B7013D,0x0077013D,source/game_sa/Camera.cpp,3327,StaticRef<uint8>(0xB7013D) = 0;,source_global_reference
+reference,0x00B7013D,0x0077013D,source/game_sa/Camera.cpp,3330,if (StaticRef<uint8>(0xB7013D) == 0) {,source_global_reference
+reference,0x00B7013D,0x0077013D,source/game_sa/Camera.cpp,3341,StaticRef<uint8>(0xB7013D) = 1;,source_global_reference
+playerIndex,0x00B7CD74,0x0077CD74,source/game_sa/Camera.cpp,3346,const auto playerIndex = StaticRef<uint8>(0xB7CD74);,source_global_reference
+requested,0x00B70140,0x00770140,source/game_sa/Camera.cpp,3357,auto& requested = StaticRef<uint16>(0xB70140);,source_global_reference
+reference,0x00A43088,0x00643088,source/game_sa/Camera.cpp,3359,if (cycle && StaticRef<uint8>(0xA43088) != 1 && !camera.m_bWideScreenOn) {,source_global_reference
+reference,0x00A43088,0x00643088,source/game_sa/Camera.cpp,3385,if (cycle && StaticRef<uint8>(0xA43088) != 1 && !camera.m_bWideScreenOn,source_global_reference
+requested,0x00B70140,0x00770140,source/game_sa/Camera.cpp,3398,auto& requested = StaticRef<uint16>(0xB70140);,source_global_reference
+reference,0x00858CB8,0x00458CB8,source/game_sa/Camera.cpp,3440,if (heading > reference + StaticRef<float>(0x858CB8)) {,source_global_reference
+reference,0x00858CBC,0x00458CBC,source/game_sa/Camera.cpp,3441,heading -= StaticRef<float>(0x858CBC);,source_global_reference
+reference,0x00858CB8,0x00458CB8,source/game_sa/Camera.cpp,3442,} else if (heading < reference - StaticRef<float>(0x858CB8)) {,source_global_reference
+reference,0x00858CBC,0x00458CBC,source/game_sa/Camera.cpp,3443,heading += StaticRef<float>(0x858CBC);,source_global_reference
+requested,0x00B70140,0x00770140,source/game_sa/Camera.cpp,3461,auto& requested = StaticRef<uint16>(0xB70140);,source_global_reference
+reference,0x008CC46C,0x004CC46C,source/game_sa/Camera.cpp,3477,if (StaticRef<float>(0x8CC46C) * StaticRef<float>(0x8595EC),source_global_reference
+reference,0x008595EC,0x004595EC,source/game_sa/Camera.cpp,3477,if (StaticRef<float>(0x8CC46C) * StaticRef<float>(0x8595EC),source_global_reference
+reference,0x00B6F0FC,0x0076F0FC,source/game_sa/Camera.cpp,3482,if ((StaticRef<float>(0xB6F0FC) + 2.0f) * 1.5f < displacement.Magnitude()) {,source_global_reference
+reference,0x00B6EC2E,0x0076EC2E,source/game_sa/Camera.cpp,3486,if (StaticRef<uint8>(0xB6EC2E) != 0) {,source_global_reference
+reference,0x00858FE4,0x00458FE4,source/game_sa/Camera.cpp,3531,"ped->GetHeading() - StaticRef<float>(0x858FE4), cam.m_fHorizontalAngle",source_global_reference
+aimingJump,0x008CC46C,0x004CC46C,source/game_sa/Camera.cpp,3533,aimingJump = StaticRef<float>(0x8CC46C) * StaticRef<float>(0x8595EC),source_global_reference
+aimingJump,0x008595EC,0x004595EC,source/game_sa/Camera.cpp,3533,aimingJump = StaticRef<float>(0x8CC46C) * StaticRef<float>(0x8595EC),source_global_reference
+reference,0x00B6EC2E,0x0076EC2E,source/game_sa/Camera.cpp,3535,if (StaticRef<uint8>(0xB6EC2E) != 0) {,source_global_reference
+reference,0x00858FE4,0x00458FE4,source/game_sa/Camera.cpp,3545,"const auto angle = CGeneral::GetATanOfXY(cam.m_vecFront.x, cam.m_vecFront.y) - StaticRef<float>(0x858FE4);",source_global_reference
+reference,0x00858CB8,0x00458CB8,source/game_sa/Camera.cpp,3558,"cam.m_fTransitionBeta = CGeneral::GetATanOfXY(cam.m_vecFront.x, cam.m_vecFront.y) + StaticRef<float>(0x858CB8);",source_global_reference
 requested,0x00B70140,0x00770140,source/game_sa/Camera.cpp,3641,auto& requested = StaticRef<uint16>(0xB70140);,source_global_reference
-requested,0x00B70140,0x00770140,source/game_sa/Camera.cpp,3727,auto& requested = StaticRef<uint16>(0xB70140);,source_global_reference
-reference,0x00B7CB49,0x0077CB49,source/game_sa/Camera.cpp,3728,if (StaticRef<uint8>(0xB7CB49) == 0 && StaticRef<uint8>(0xB7CB48) == 0 && !m_bIdleOn) {,source_global_reference
-reference,0x00B7CB48,0x0077CB48,source/game_sa/Camera.cpp,3728,if (StaticRef<uint8>(0xB7CB49) == 0 && StaticRef<uint8>(0xB7CB48) == 0 && !m_bIdleOn) {,source_global_reference
-reference,0x008CC824,0x004CC824,source/game_sa/Camera.cpp,3738,if (StaticRef<int32>(0x8CC824) > 0) {,source_global_reference
-reference,0x008CC824,0x004CC824,source/game_sa/Camera.cpp,3739,requested = static_cast<uint16>(StaticRef<int32>(0x8CC824));,source_global_reference
-reference,0x008CC824,0x004CC824,source/game_sa/Camera.cpp,3740,StaticRef<int32>(0x8CC824) = -1;,source_global_reference
-m_fFractionInterToStopMoving,0x00B70044,0x00770044,source/game_sa/Camera.cpp,4054,m_fFractionInterToStopMoving  = StaticRef<float>(0xB70044); // 0x5157B4: dword_B70044 (estatico del EXE),source_global_reference
+requested,0x00B70140,0x00770140,source/game_sa/Camera.cpp,3716,auto& requested = StaticRef<uint16>(0xB70140);,source_global_reference
+requested,0x00B70140,0x00770140,source/game_sa/Camera.cpp,3802,auto& requested = StaticRef<uint16>(0xB70140);,source_global_reference
+reference,0x00B7CB49,0x0077CB49,source/game_sa/Camera.cpp,3803,if (StaticRef<uint8>(0xB7CB49) == 0 && StaticRef<uint8>(0xB7CB48) == 0 && !m_bIdleOn) {,source_global_reference
+reference,0x00B7CB48,0x0077CB48,source/game_sa/Camera.cpp,3803,if (StaticRef<uint8>(0xB7CB49) == 0 && StaticRef<uint8>(0xB7CB48) == 0 && !m_bIdleOn) {,source_global_reference
+reference,0x008CC824,0x004CC824,source/game_sa/Camera.cpp,3813,if (StaticRef<int32>(0x8CC824) > 0) {,source_global_reference
+reference,0x008CC824,0x004CC824,source/game_sa/Camera.cpp,3814,requested = static_cast<uint16>(StaticRef<int32>(0x8CC824));,source_global_reference
+reference,0x008CC824,0x004CC824,source/game_sa/Camera.cpp,3815,StaticRef<int32>(0x8CC824) = -1;,source_global_reference
+m_fFractionInterToStopMoving,0x00B70044,0x00770044,source/game_sa/Camera.cpp,4129,m_fFractionInterToStopMoving  = StaticRef<float>(0xB70044); // 0x5157B4: dword_B70044 (estatico del EXE),source_global_reference
 m_f3rdPersonCHairMultY,0x00B6EC10,0x0076EC10,source/game_sa/Camera.h,334,static inline auto& m_f3rdPersonCHairMultY = StaticRef<float>(0xB6EC10);,source_global_reference
 m_f3rdPersonCHairMultX,0x00B6EC14,0x0076EC14,source/game_sa/Camera.h,335,static inline auto& m_f3rdPersonCHairMultX = StaticRef<float>(0xB6EC14);,source_global_reference
 m_fMouseAccelVertical,0x00B6EC18,0x0076EC18,source/game_sa/Camera.h,336,static inline auto& m_fMouseAccelVertical = StaticRef<float>(0xB6EC18);,source_global_reference
@@ -1373,6 +1380,8 @@ bCamCollideWithObjects,0x008A5B15,0x004A5B15,source/game_sa/Collision/Collision.
 bCamCollideWithPeds,0x008A5B17,0x004A5B17,source/game_sa/Collision/Collision.h,28,static inline auto& bCamCollideWithPeds = StaticRef<bool>(0x8A5B17);             // = true,source_global_reference
 bCamCollideWithBuildings,0x008A5B16,0x004A5B16,source/game_sa/Collision/Collision.h,29,static inline auto& bCamCollideWithBuildings = StaticRef<bool>(0x8A5B16);        // = true,source_global_reference
 relVelCamCollisionVehiclesSqr,0x008A5B18,0x004A5B18,source/game_sa/Collision/Collision.h,30,static inline auto& relVelCamCollisionVehiclesSqr = StaticRef<float>(0x8A5B18); // = 0.01f,source_global_reference
+s_lastNoiseTimeA,0x00C0B1B0,0x0080B1B0,source/game_sa/Collision/CollisionEventScanner.cpp,60,auto& s_lastNoiseTimeA = StaticRef<uint32>(0xC0B1B0);,source_global_reference
+s_lastNoiseTimeB,0x00C0B1B4,0x0080B1B4,source/game_sa/Collision/CollisionEventScanner.cpp,61,auto& s_lastNoiseTimeB = StaticRef<uint32>(0xC0B1B4);,source_global_reference
 ms_pColPool,0x00965560,0x00565560,source/game_sa/Collision/ColStore.cpp,24,auto& ms_pColPool = StaticRef<CColPool*>(0x965560);,source_global_reference
 ms_pQuadTree,0x0096555C,0x0056555C,source/game_sa/Collision/ColStore.cpp,27,auto& ms_pQuadTree = StaticRef<ColTreeNode*>(0x96555C);,source_global_reference
 ms_vecCollisionNeeded,0x00965580,0x00565580,source/game_sa/Collision/ColStore.h,30,static inline auto& ms_vecCollisionNeeded = StaticRef<CVector>(0x965580);,source_global_reference
@@ -1573,24 +1582,26 @@ nNoTempObjects,0x00BB4A70,0x007B4A70,source/game_sa/Entity/Object/Object.h,94,st
 fDistToNearestTree,0x008D0A20,0x004D0A20,source/game_sa/Entity/Object/Object.h,95,static inline auto& fDistToNearestTree = StaticRef<float>(0x8D0A20);,source_global_reference
 bAircraftCarrierSamSiteDisabled,0x008D0A24,0x004D0A24,source/game_sa/Entity/Object/Object.h,96,static inline auto& bAircraftCarrierSamSiteDisabled = StaticRef<bool>(0x8D0A24);,source_global_reference
 bArea51SamSiteDisabled,0x00BB4A72,0x007B4A72,source/game_sa/Entity/Object/Object.h,97,static inline auto& bArea51SamSiteDisabled = StaticRef<bool>(0xBB4A72);,source_global_reference
-turnMinimum,0x0086C284,0x0046C284,source/game_sa/Entity/Ped/Ped.cpp,2520,const auto turnMinimum = StaticRef<float>(0x86C284);,source_global_reference
-turnAcceleration,0x0086C288,0x0046C288,source/game_sa/Entity/Ped/Ped.cpp,2521,const auto turnAcceleration = StaticRef<float>(0x86C288);,source_global_reference
-slopeBlend,0x0086C278,0x0046C278,source/game_sa/Entity/Ped/Ped.cpp,2522,const auto slopeBlend = StaticRef<float>(0x86C278);,source_global_reference
-slopeDecay,0x0086C280,0x0046C280,source/game_sa/Entity/Ped/Ped.cpp,2523,const auto slopeDecay = StaticRef<float>(0x86C280);,source_global_reference
-reference,0x00B72C70,0x00772C70,source/game_sa/Entity/Ped/Ped.cpp,2672,if (!StaticRef<uint8>(0xB72C70)) { // el EXE solo emite si este byte es 0,source_global_reference
-reference,0x0086C338,0x0046C338,source/game_sa/Entity/Ped/Ped.cpp,2691,"forward.x * StaticRef<float>(0x86C338), forward.y * StaticRef<float>(0x86C338),",source_global_reference
-reference,0x0086C338,0x0046C338,source/game_sa/Entity/Ped/Ped.cpp,2691,"forward.x * StaticRef<float>(0x86C338), forward.y * StaticRef<float>(0x86C338),",source_global_reference
-reference,0x0086C33C,0x0046C33C,source/game_sa/Entity/Ped/Ped.cpp,2692,"right.x * StaticRef<float>(0x86C33C), right.y * StaticRef<float>(0x86C33C),",source_global_reference
-reference,0x0086C33C,0x0046C33C,source/game_sa/Entity/Ped/Ped.cpp,2692,"right.x * StaticRef<float>(0x86C33C), right.y * StaticRef<float>(0x86C33C),",source_global_reference
-reference,0x0086C334,0x0046C334,source/game_sa/Entity/Ped/Ped.cpp,2700,"forward.x * StaticRef<float>(0x86C334), forward.y * StaticRef<float>(0x86C334),",source_global_reference
-reference,0x0086C334,0x0046C334,source/game_sa/Entity/Ped/Ped.cpp,2700,"forward.x * StaticRef<float>(0x86C334), forward.y * StaticRef<float>(0x86C334),",source_global_reference
-reference,0x008D21EC,0x004D21EC,source/game_sa/Entity/Ped/Ped.cpp,2721,splash.z += StaticRef<float>(0x8D21EC);,source_global_reference
-reference,0x008D21E8,0x004D21E8,source/game_sa/Entity/Ped/Ped.cpp,2722,splash += GetForwardVector() * StaticRef<float>(0x8D21E8);,source_global_reference
-reference,0x008D22AC,0x004D22AC,source/game_sa/Entity/Ped/Ped.cpp,4226,const float forceFactor = speed * (car->IsBike() ? StaticRef<float>(0x8D22AC) : StaticRef<float>(0x8D22A8));,source_global_reference
-reference,0x008D22A8,0x004D22A8,source/game_sa/Entity/Ped/Ped.cpp,4226,const float forceFactor = speed * (car->IsBike() ? StaticRef<float>(0x8D22AC) : StaticRef<float>(0x8D22A8));,source_global_reference
-reference,0x008D22A4,0x004D22A4,source/game_sa/Entity/Ped/Ped.cpp,4227,const auto point = offset * StaticRef<float>(0x8D22A4);,source_global_reference
-reference,0x008D22A0,0x004D22A0,source/game_sa/Entity/Ped/Ped.cpp,4228,"const float massScale = std::min(1.0f, car->m_fMass / StaticRef<float>(0x8D22A0));",source_global_reference
-reference,0x008D22A0,0x004D22A0,source/game_sa/Entity/Ped/Ped.cpp,4229,"const float force = std::min(car->m_fMass, StaticRef<float>(0x8D22A0)) * massScale * forceFactor;",source_global_reference
+turnMinimum,0x0086C284,0x0046C284,source/game_sa/Entity/Ped/Ped.cpp,2527,const auto turnMinimum = StaticRef<float>(0x86C284);,source_global_reference
+turnAcceleration,0x0086C288,0x0046C288,source/game_sa/Entity/Ped/Ped.cpp,2528,const auto turnAcceleration = StaticRef<float>(0x86C288);,source_global_reference
+slopeBlend,0x0086C278,0x0046C278,source/game_sa/Entity/Ped/Ped.cpp,2529,const auto slopeBlend = StaticRef<float>(0x86C278);,source_global_reference
+slopeDecay,0x0086C280,0x0046C280,source/game_sa/Entity/Ped/Ped.cpp,2530,const auto slopeDecay = StaticRef<float>(0x86C280);,source_global_reference
+reference,0x00B72C70,0x00772C70,source/game_sa/Entity/Ped/Ped.cpp,2679,if (!StaticRef<uint8>(0xB72C70)) { // el EXE solo emite si este byte es 0,source_global_reference
+reference,0x0086C338,0x0046C338,source/game_sa/Entity/Ped/Ped.cpp,2698,"forward.x * StaticRef<float>(0x86C338), forward.y * StaticRef<float>(0x86C338),",source_global_reference
+reference,0x0086C338,0x0046C338,source/game_sa/Entity/Ped/Ped.cpp,2698,"forward.x * StaticRef<float>(0x86C338), forward.y * StaticRef<float>(0x86C338),",source_global_reference
+reference,0x0086C33C,0x0046C33C,source/game_sa/Entity/Ped/Ped.cpp,2699,"right.x * StaticRef<float>(0x86C33C), right.y * StaticRef<float>(0x86C33C),",source_global_reference
+reference,0x0086C33C,0x0046C33C,source/game_sa/Entity/Ped/Ped.cpp,2699,"right.x * StaticRef<float>(0x86C33C), right.y * StaticRef<float>(0x86C33C),",source_global_reference
+reference,0x0086C334,0x0046C334,source/game_sa/Entity/Ped/Ped.cpp,2707,"forward.x * StaticRef<float>(0x86C334), forward.y * StaticRef<float>(0x86C334),",source_global_reference
+reference,0x0086C334,0x0046C334,source/game_sa/Entity/Ped/Ped.cpp,2707,"forward.x * StaticRef<float>(0x86C334), forward.y * StaticRef<float>(0x86C334),",source_global_reference
+reference,0x008D21EC,0x004D21EC,source/game_sa/Entity/Ped/Ped.cpp,2728,splash.z += StaticRef<float>(0x8D21EC);,source_global_reference
+reference,0x008D21E8,0x004D21E8,source/game_sa/Entity/Ped/Ped.cpp,2729,splash += GetForwardVector() * StaticRef<float>(0x8D21E8);,source_global_reference
+reference,0x008D22AC,0x004D22AC,source/game_sa/Entity/Ped/Ped.cpp,4233,const float forceFactor = speed * (car->IsBike() ? StaticRef<float>(0x8D22AC) : StaticRef<float>(0x8D22A8));,source_global_reference
+reference,0x008D22A8,0x004D22A8,source/game_sa/Entity/Ped/Ped.cpp,4233,const float forceFactor = speed * (car->IsBike() ? StaticRef<float>(0x8D22AC) : StaticRef<float>(0x8D22A8));,source_global_reference
+reference,0x008D22A4,0x004D22A4,source/game_sa/Entity/Ped/Ped.cpp,4234,const auto point = offset * StaticRef<float>(0x8D22A4);,source_global_reference
+reference,0x008D22A0,0x004D22A0,source/game_sa/Entity/Ped/Ped.cpp,4235,"const float massScale = std::min(1.0f, car->m_fMass / StaticRef<float>(0x8D22A0));",source_global_reference
+reference,0x008D22A0,0x004D22A0,source/game_sa/Entity/Ped/Ped.cpp,4236,"const float force = std::min(car->m_fMass, StaticRef<float>(0x8D22A0)) * massScale * forceFactor;",source_global_reference
+reference,0x008D12C0,0x004D12C0,source/game_sa/Entity/Ped/Ped.cpp,5297,"m_fContactSurfaceBrightness = PecBrightnessCpp(lp0.m_nLightingB.value, StaticRef<float>(0x8D12C0), CTimer::ms_fTimeStep, StaticRef<float>(0x8D21E4), m_fContactSurfaceBrightness, player);",source_global_reference
+reference,0x008D21E4,0x004D21E4,source/game_sa/Entity/Ped/Ped.cpp,5297,"m_fContactSurfaceBrightness = PecBrightnessCpp(lp0.m_nLightingB.value, StaticRef<float>(0x8D12C0), CTimer::ms_fTimeStep, StaticRef<float>(0x8D21E4), m_fContactSurfaceBrightness, player);",source_global_reference
 camFwd,0x00B6F9AC,0x0076F9AC,source/game_sa/Entity/Ped/PlayerPed.cpp,968,const auto& camFwd = StaticRef<CVector>(0xB6F9AC);,source_global_reference
 PLAYER_MAX_TARGET_VIEW_ANGLE,0x008D243C,0x004D243C,source/game_sa/Entity/Ped/PlayerPed.cpp,1052,static auto& PLAYER_MAX_TARGET_VIEW_ANGLE = StaticRef<float>(0x8D243C); // 140.0f,source_global_reference
 bHasDisplayedPlayerQuitEnterCarHelpText,0x00C0BC15,0x0080BC15,source/game_sa/Entity/Ped/PlayerPed.h,26,static inline auto& bHasDisplayedPlayerQuitEnterCarHelpText = StaticRef<bool>(0xC0BC15);,source_global_reference
@@ -1623,17 +1634,35 @@ SOFTCOL_CARLINE_SPEED_MULT,0x008CD79C,0x004CD79C,source/game_sa/Entity/Physical.
 TEST_ADD_AMBIENT_LIGHT_FRAC,0x008CD7B8,0x004CD7B8,source/game_sa/Entity/Physical.h,157,static inline auto& TEST_ADD_AMBIENT_LIGHT_FRAC = StaticRef<float>(0x8CD7B8);,source_global_reference
 HIGHSPEED_ELASTICITY_MULT_COPCAR,0x008CD784,0x004CD784,source/game_sa/Entity/Physical.h,158,static inline auto& HIGHSPEED_ELASTICITY_MULT_COPCAR = StaticRef<float>(0x8CD784);,source_global_reference
 fxDirection,0x00B73720,0x00773720,source/game_sa/Entity/Physical.h,159,static inline auto& fxDirection = StaticRef<CVector>(0xB73720);,source_global_reference
-aAutomobileColPoints,0x00C1BFF8,0x0081BFF8,source/game_sa/Entity/Vehicle/Automobile.cpp,50,"auto& aAutomobileColPoints = StaticRef<std::array<CColPoint, MAX_NUM_SUSP_LINES>>(0xC1BFF8);",source_global_reference
-reference,0x00C1BFEC,0x0081BFEC,source/game_sa/Entity/Vehicle/Automobile.cpp,876,traction = m_fCarTraction * m_pHandlingData->m_fTractionMultiplier * StaticRef<float>(0xC1BFEC);,source_global_reference
-traction,0x00C1BFEC,0x0081BFEC,source/game_sa/Entity/Vehicle/Automobile.cpp,878,traction = StaticRef<float>(0xC1BFEC) * m_pHandlingData->m_fTractionMultiplier;,source_global_reference
-reference,0x008D3214,0x004D3214,source/game_sa/Entity/Vehicle/Automobile.cpp,895,if (StaticRef<float>(0x8D3214) > 0.0f) {,source_global_reference
-reference,0x008D3214,0x004D3214,source/game_sa/Entity/Vehicle/Automobile.cpp,909,steerAngle = adhesive * traction * StaticRef<float>(0x8D3214) * 4.0f / (speedForward * speedForward);,source_global_reference
-reference,0x008595EC,0x004595EC,source/game_sa/Entity/Vehicle/Automobile.cpp,917,"m_fSteerAngle = AutomobileSteerFactorCpp(steerAngle, m_pHandlingData->m_fSteeringLock, StaticRef<float>(0x8595EC), m_fSteerAngle, steerOpposed);",source_global_reference
-reference,0x008D3210,0x004D3210,source/game_sa/Entity/Vehicle/Automobile.cpp,1122,"AutomobileHydraulicForceCpp(turnSpeedForward, CTimer::GetTimeStep(), StaticRef<float>(0x8D3210), StaticRef<float>(0x8D320C), &GetUp().x, m_fTurnMass, &force.x);",source_global_reference
-reference,0x008D320C,0x004D320C,source/game_sa/Entity/Vehicle/Automobile.cpp,1122,"AutomobileHydraulicForceCpp(turnSpeedForward, CTimer::GetTimeStep(), StaticRef<float>(0x8D3210), StaticRef<float>(0x8D320C), &GetUp().x, m_fTurnMass, &force.x);",source_global_reference
-reference,0x00C1C214,0x0081C214,source/game_sa/Entity/Vehicle/Automobile.cpp,2113,comprDelta = comprDelta - StaticRef<float>(0xC1C214);,source_global_reference
-base,0x00871064,0x00471064,source/game_sa/Entity/Vehicle/Automobile.cpp,2168,const float base = StaticRef<float>(0x871064);,source_global_reference
-s_signedSquareScratch,0x00C1C218,0x0081C218,source/game_sa/Entity/Vehicle/Automobile.cpp,2179,static auto& s_signedSquareScratch = StaticRef<float>(0xC1C218); // 0x6ADD00 fstp [0xC1C218],source_global_reference
+aAutomobileColPoints,0x00C1BFF8,0x0081BFF8,source/game_sa/Entity/Vehicle/Automobile.cpp,51,"auto& aAutomobileColPoints = StaticRef<std::array<CColPoint, MAX_NUM_SUSP_LINES>>(0xC1BFF8);",source_global_reference
+reference,0x00C1BFEC,0x0081BFEC,source/game_sa/Entity/Vehicle/Automobile.cpp,881,traction = m_fCarTraction * m_pHandlingData->m_fTractionMultiplier * StaticRef<float>(0xC1BFEC);,source_global_reference
+traction,0x00C1BFEC,0x0081BFEC,source/game_sa/Entity/Vehicle/Automobile.cpp,883,traction = StaticRef<float>(0xC1BFEC) * m_pHandlingData->m_fTractionMultiplier;,source_global_reference
+reference,0x008D3214,0x004D3214,source/game_sa/Entity/Vehicle/Automobile.cpp,900,if (StaticRef<float>(0x8D3214) > 0.0f) {,source_global_reference
+reference,0x008D3214,0x004D3214,source/game_sa/Entity/Vehicle/Automobile.cpp,914,steerAngle = adhesive * traction * StaticRef<float>(0x8D3214) * 4.0f / (speedForward * speedForward);,source_global_reference
+reference,0x008595EC,0x004595EC,source/game_sa/Entity/Vehicle/Automobile.cpp,922,"m_fSteerAngle = AutomobileSteerFactorCpp(steerAngle, m_pHandlingData->m_fSteeringLock, StaticRef<float>(0x8595EC), m_fSteerAngle, steerOpposed);",source_global_reference
+reference,0x008D3210,0x004D3210,source/game_sa/Entity/Vehicle/Automobile.cpp,1127,"AutomobileHydraulicForceCpp(turnSpeedForward, CTimer::GetTimeStep(), StaticRef<float>(0x8D3210), StaticRef<float>(0x8D320C), &GetUp().x, m_fTurnMass, &force.x);",source_global_reference
+reference,0x008D320C,0x004D320C,source/game_sa/Entity/Vehicle/Automobile.cpp,1127,"AutomobileHydraulicForceCpp(turnSpeedForward, CTimer::GetTimeStep(), StaticRef<float>(0x8D3210), StaticRef<float>(0x8D320C), &GetUp().x, m_fTurnMass, &force.x);",source_global_reference
+reference,0x00C1C214,0x0081C214,source/game_sa/Entity/Vehicle/Automobile.cpp,2118,comprDelta = comprDelta - StaticRef<float>(0xC1C214);,source_global_reference
+base,0x00871064,0x00471064,source/game_sa/Entity/Vehicle/Automobile.cpp,2173,const float base = StaticRef<float>(0x871064);,source_global_reference
+s_signedSquareScratch,0x00C1C218,0x0081C218,source/game_sa/Entity/Vehicle/Automobile.cpp,2184,static auto& s_signedSquareScratch = StaticRef<float>(0xC1C218); // 0x6ADD00 fstp [0xC1C218],source_global_reference
+reference,0x00B72914,0x00772914,source/game_sa/Entity/Vehicle/Automobile.cpp,7472,&& StaticRef<int32>(0xB72914) == 0 // CGame::currArea,source_global_reference
+reference,0x00B7C4E4,0x0077C4E4,source/game_sa/Entity/Vehicle/Automobile.cpp,7492,const uint8 intensity = static_cast<uint8>(AutoPreCoronaByteCpp(StaticRef<float>(0xB7C4E4)));,source_global_reference
+reference,0x00B6F118,0x0076F118,source/game_sa/Entity/Vehicle/Automobile.cpp,7495,"intensity, intensity, 0, 255, local, 0.8f, AutoPreMulCpp(StaticRef<float>(0xB6F118), 150.f),",source_global_reference
+reference,0x00B6F118,0x0076F118,source/game_sa/Entity/Vehicle/Automobile.cpp,7517,"0, 0, 255, 255, local, 0.4f, AutoPreMulCpp(StaticRef<float>(0xB6F118), 150.f),",source_global_reference
+coronaScale,0x00B7C4E4,0x0077C4E4,source/game_sa/Entity/Vehicle/Automobile.cpp,7577,const float coronaScale = StaticRef<float>(0xB7C4E4);,source_global_reference
+reference,0x00B6F118,0x0076F118,source/game_sa/Entity/Vehicle/Automobile.cpp,7607,"r, g, bl, 255, local, 0.4f, AutoPreMulCpp(StaticRef<float>(0xB6F118), 150.f),",source_global_reference
+reference,0x008D3144,0x004D3144,source/game_sa/Entity/Vehicle/Automobile.cpp,7777,"const float towAngle = AutoPreTowAngleCpp(car.m_wMiscComponentAngle, StaticRef<float>(0x8D3144), StaticRef<uint16>(0x8D313C));",source_global_reference
+reference,0x008D313C,0x004D313C,source/game_sa/Entity/Vehicle/Automobile.cpp,7777,"const float towAngle = AutoPreTowAngleCpp(car.m_wMiscComponentAngle, StaticRef<float>(0x8D3144), StaticRef<uint16>(0x8D313C));",source_global_reference
+reference,0x008D3148,0x004D3148,source/game_sa/Entity/Vehicle/Automobile.cpp,7789,"AutoPreTowAnglesCpp(&hitch.x, &bar.x, &car.m_matrix->GetForward().x, &car.m_matrix->GetRight().x, StaticRef<float>(0x8D3148), negAngle, &angleA, &angleB);",source_global_reference
+reference,0x008D31EC,0x004D31EC,source/game_sa/Entity/Vehicle/Automobile.cpp,7830,"tilt = AutoPreClampedAsinCpp(car.m_matrix->GetRight().z, StaticRef<float>(0x8D31EC));",source_global_reference
+reference,0x008D31E8,0x004D31E8,source/game_sa/Entity/Vehicle/Automobile.cpp,7832,"car.m_fDoomVerticalRotation = AutomobileWheelSpinAudioCpp(StaticRef<float>(0x8D31E8), CTimer::GetTimeStep(), car.m_fDoomVerticalRotation, tilt);",source_global_reference
+reference,0x00871050,0x00471050,source/game_sa/Entity/Vehicle/Automobile.cpp,7848,"car.SetComponentRotation(nodes[CAR_MISC_A], AXIS_X, StaticRef<float>(0x871050), true);",source_global_reference
+reference,0x008D314C,0x004D314C,source/game_sa/Entity/Vehicle/Automobile.cpp,7849,"car.m_fPropRotate = AutoPreMixerPropCpp(car.m_wMiscComponentAngle, StaticRef<int16>(0x8D314C), CTimer::GetTimeStep(), car.m_fPropRotate);",source_global_reference
+reference,0x00871050,0x00471050,source/game_sa/Entity/Vehicle/Automobile.cpp,7851,"car.SetComponentRotation(nodes[CAR_MISC_B], AXIS_X, StaticRef<float>(0x871050), false);",source_global_reference
+reference,0x008D3144,0x004D3144,source/game_sa/Entity/Vehicle/Automobile.cpp,7858,"car.SetComponentRotation(nodes[CAR_MISC_A], AXIS_X, AutoPreTowAngleCpp(car.m_wMiscComponentAngle, StaticRef<float>(0x8D3144), StaticRef<uint16>(0x8D313C)), true);",source_global_reference
+reference,0x008D313C,0x004D313C,source/game_sa/Entity/Vehicle/Automobile.cpp,7858,"car.SetComponentRotation(nodes[CAR_MISC_A], AXIS_X, AutoPreTowAngleCpp(car.m_wMiscComponentAngle, StaticRef<float>(0x8D3144), StaticRef<uint16>(0x8D313C)), true);",source_global_reference
+reference,0x00969152,0x00569152,source/game_sa/Entity/Vehicle/Automobile.cpp,7897,if (StaticRef<bool>(0x969152)) { // CCheat::m_aCheatsActive[CHEAT_CARS_ON_WATER],source_global_reference
+reference,0x00C1BFF0,0x0081BFF0,source/game_sa/Entity/Vehicle/Automobile.cpp,7907,"const float speedRatio = AutoPreForwardSpeedCpp(&m_vecMoveSpeed.x, &m_matrix->GetForward().x, StaticRef<float>(0xC1BFF0));",source_global_reference
 m_sAllTaxiLights,0x00C1BFD0,0x0081BFD0,source/game_sa/Entity/Vehicle/Automobile.h,135,static inline auto& m_sAllTaxiLights = StaticRef<bool>(0xC1BFD0);,source_global_reference
 vecHunterGunPos,0x008D3394,0x004D3394,source/game_sa/Entity/Vehicle/Automobile.h,136,"static inline auto& vecHunterGunPos = StaticRef<CVector>(0x8D3394); // { 0.0f, 4.8f, -1.3f }",source_global_reference
 matW2B,0x00C1C220,0x0081C220,source/game_sa/Entity/Vehicle/Automobile.h,137,static inline auto& matW2B = StaticRef<CMatrix>(0xC1C220);,source_global_reference
@@ -1869,132 +1898,132 @@ reference,0x00C0BC5C,0x0080BC5C,source/game_sa/Entity/Vehicle/Plane.cpp,539,if(!
 reference,0x00C81320,0x00881320,source/game_sa/Entity/Vehicle/Plane.cpp,539,if(!state&&StaticRef<int16>(0xC81314)!=0&&StaticRef<int16>(0xC81314)!=4&&!StaticRef<bool>(0xC0BC5C)&&StaticRef<int16>(0xC81320)!=19&&StaticRef<int16>(0xC8131C)!=19&&uint32(previous+200000u)<CTimer::GetTimeInMS()&&!CPlane::AreWeInNoBigPlaneZone()){,source_global_reference
 reference,0x00C8131C,0x0088131C,source/game_sa/Entity/Vehicle/Plane.cpp,539,if(!state&&StaticRef<int16>(0xC81314)!=0&&StaticRef<int16>(0xC81314)!=4&&!StaticRef<bool>(0xC0BC5C)&&StaticRef<int16>(0xC81320)!=19&&StaticRef<int16>(0xC8131C)!=19&&uint32(previous+200000u)<CTimer::GetTimeInMS()&&!CPlane::AreWeInNoBigPlaneZone()){,source_global_reference
 reference,0x008E4CD0,0x004E4CD0,source/game_sa/Entity/Vehicle/Plane.cpp,553,"if(StaticRef<uint8>(0x8E4CD0+uintptr_t(GenPlane_ModelIndex)*0x14)!=1){CStreaming::RequestModel(GenPlane_ModelIndex,8);return;}",source_global_reference
-reference,0x00858CBC,0x00458CBC,source/game_sa/Entity/Vehicle/Plane.cpp,663,"field_9C8 = PlanePropAngleCpp(CTimer::GetTimeStep(), m_fPropSpeed, field_9C8, StaticRef<float>(0x858CBC));",source_global_reference
-reference,0x00871928,0x00471928,source/game_sa/Entity/Vehicle/Plane.cpp,703,"original.y = PlaneFinOffsetCpp(finScale, *reinterpret_cast<const float*>(reinterpret_cast<const uint8*>(colModel) + 0x10), original.y, StaticRef<float>(0x871928));",source_global_reference
-reference,0x00871914,0x00471914,source/game_sa/Entity/Vehicle/Plane.cpp,713,"rotateNode(PlaneSurfaceAngleCpp(StaticRef<float>(0x871914), StaticRef<float>(0x8595EC), m_fLeftRightSkid, 0.f, 0));",source_global_reference
-reference,0x008595EC,0x004595EC,source/game_sa/Entity/Vehicle/Plane.cpp,713,"rotateNode(PlaneSurfaceAngleCpp(StaticRef<float>(0x871914), StaticRef<float>(0x8595EC), m_fLeftRightSkid, 0.f, 0));",source_global_reference
-reference,0x00871920,0x00471920,source/game_sa/Entity/Vehicle/Plane.cpp,725,"PlaneGearFactorsCpp(gear, StaticRef<float>(0x871920), StaticRef<float>(0x871924), &finScale, &finOffset);",source_global_reference
-reference,0x00871924,0x00471924,source/game_sa/Entity/Vehicle/Plane.cpp,725,"PlaneGearFactorsCpp(gear, StaticRef<float>(0x871920), StaticRef<float>(0x871924), &finScale, &finOffset);",source_global_reference
-reference,0x0087191C,0x0047191C,source/game_sa/Entity/Vehicle/Plane.cpp,729,"rotateNode(PlaneSurfaceAngleCpp(StaticRef<float>(0x87191C), StaticRef<float>(0x8595EC), m_fSteeringLeftRight, finOffset, 1));",source_global_reference
-reference,0x008595EC,0x004595EC,source/game_sa/Entity/Vehicle/Plane.cpp,729,"rotateNode(PlaneSurfaceAngleCpp(StaticRef<float>(0x87191C), StaticRef<float>(0x8595EC), m_fSteeringLeftRight, finOffset, 1));",source_global_reference
-reference,0x0087191C,0x0047191C,source/game_sa/Entity/Vehicle/Plane.cpp,735,"rotateNode(PlaneSurfaceAngleCpp(StaticRef<float>(0x87191C), StaticRef<float>(0x8595EC), m_fSteeringLeftRight, finOffset, 2));",source_global_reference
-reference,0x008595EC,0x004595EC,source/game_sa/Entity/Vehicle/Plane.cpp,735,"rotateNode(PlaneSurfaceAngleCpp(StaticRef<float>(0x87191C), StaticRef<float>(0x8595EC), m_fSteeringLeftRight, finOffset, 2));",source_global_reference
-reference,0x00871918,0x00471918,source/game_sa/Entity/Vehicle/Plane.cpp,743,"rotateNode(PlaneSurfaceAngleCpp(StaticRef<float>(0x871918), StaticRef<float>(0x8595EC), m_fSteeringUpDown, 0.f, 3));",source_global_reference
-reference,0x008595EC,0x004595EC,source/game_sa/Entity/Vehicle/Plane.cpp,743,"rotateNode(PlaneSurfaceAngleCpp(StaticRef<float>(0x871918), StaticRef<float>(0x8595EC), m_fSteeringUpDown, 0.f, 3));",source_global_reference
-reference,0x00871918,0x00471918,source/game_sa/Entity/Vehicle/Plane.cpp,746,"const float angle = PlaneSurfaceAngleCpp(StaticRef<float>(0x871918), StaticRef<float>(0x8595EC), m_fSteeringUpDown, 0.f, 0);",source_global_reference
-reference,0x008595EC,0x004595EC,source/game_sa/Entity/Vehicle/Plane.cpp,746,"const float angle = PlaneSurfaceAngleCpp(StaticRef<float>(0x871918), StaticRef<float>(0x8595EC), m_fSteeringUpDown, 0.f, 0);",source_global_reference
-secondValue,0x0087192C,0x0047192C,source/game_sa/Entity/Vehicle/Plane.cpp,785,firstValue = -StaticRef<float>(0x87192C); secondValue = StaticRef<float>(0x87192C);,source_global_reference
-secondValue,0x0087192C,0x0047192C,source/game_sa/Entity/Vehicle/Plane.cpp,785,firstValue = -StaticRef<float>(0x87192C); secondValue = StaticRef<float>(0x87192C);,source_global_reference
-secondValue,0x0087192C,0x0047192C,source/game_sa/Entity/Vehicle/Plane.cpp,789,firstValue = -StaticRef<float>(0x87192C); secondValue = StaticRef<float>(0x87192C);,source_global_reference
-secondValue,0x0087192C,0x0047192C,source/game_sa/Entity/Vehicle/Plane.cpp,789,firstValue = -StaticRef<float>(0x87192C); secondValue = StaticRef<float>(0x87192C);,source_global_reference
-thirdValue,0x00871938,0x00471938,source/game_sa/Entity/Vehicle/Plane.cpp,790,thirdValue = StaticRef<float>(0x871938);,source_global_reference
-firstValue,0x00871930,0x00471930,source/game_sa/Entity/Vehicle/Plane.cpp,794,firstValue = StaticRef<float>(0x871930); secondValue = StaticRef<float>(0x871930);,source_global_reference
-firstValue,0x00871930,0x00471930,source/game_sa/Entity/Vehicle/Plane.cpp,794,firstValue = StaticRef<float>(0x871930); secondValue = StaticRef<float>(0x871930);,source_global_reference
-thirdValue,0x00871934,0x00471934,source/game_sa/Entity/Vehicle/Plane.cpp,795,thirdValue = StaticRef<float>(0x871934); fourthValue = StaticRef<float>(0x871938);,source_global_reference
-thirdValue,0x00871938,0x00471938,source/game_sa/Entity/Vehicle/Plane.cpp,795,thirdValue = StaticRef<float>(0x871934); fourthValue = StaticRef<float>(0x871938);,source_global_reference
-firstValue,0x00871940,0x00471940,source/game_sa/Entity/Vehicle/Plane.cpp,799,firstValue = StaticRef<float>(0x871940); secondValue = StaticRef<float>(0x871940);,source_global_reference
-firstValue,0x00871940,0x00471940,source/game_sa/Entity/Vehicle/Plane.cpp,799,firstValue = StaticRef<float>(0x871940); secondValue = StaticRef<float>(0x871940);,source_global_reference
-firstValue,0x0087193C,0x0047193C,source/game_sa/Entity/Vehicle/Plane.cpp,803,firstValue = StaticRef<float>(0x87193C); secondValue = StaticRef<float>(0x87193C);,source_global_reference
-firstValue,0x0087193C,0x0047193C,source/game_sa/Entity/Vehicle/Plane.cpp,803,firstValue = StaticRef<float>(0x87193C); secondValue = StaticRef<float>(0x87193C);,source_global_reference
-reference,0x0087193C,0x0047193C,source/game_sa/Entity/Vehicle/Plane.cpp,804,thirdValue = -StaticRef<float>(0x87193C);,source_global_reference
-reference,0x00859EF8,0x00459EF8,source/game_sa/Entity/Vehicle/Plane.cpp,811,if (double(fourthValue) > StaticRef<double>(0x859EF8)) {,source_global_reference
-reference,0x00858FE4,0x00458FE4,source/game_sa/Entity/Vehicle/Plane.cpp,822,"const float nozzleAngle = PlaneNozzleAngleCpp(int32(m_wMiscComponentAngle), StaticRef<float>(0x858FE4), int32(int16(HARRIER_NOZZLE_ROTATE_LIMIT)));",source_global_reference
-reference,0x00858624,0x00458624,source/game_sa/Entity/Vehicle/Plane.cpp,828,"const float dustTime = PlaneDustTimeCpp(m_fAccelerationBreakStatus, StaticRef<float>(0x858624), StaticRef<float>(0x858B8C));",source_global_reference
-reference,0x00858B8C,0x00458B8C,source/game_sa/Entity/Vehicle/Plane.cpp,828,"const float dustTime = PlaneDustTimeCpp(m_fAccelerationBreakStatus, StaticRef<float>(0x858624), StaticRef<float>(0x858B8C));",source_global_reference
-reference,0x008D33FC,0x004D33FC,source/game_sa/Entity/Vehicle/Plane.cpp,898,"panels[i].ProcessPanel(this, nodes[int16(panels[i].m_nFrameId)], moveSum, turnSum, StaticRef<float>(0x8D33FC), StaticRef<float>(0x8D3400));",source_global_reference
-reference,0x008D3400,0x004D3400,source/game_sa/Entity/Vehicle/Plane.cpp,898,"panels[i].ProcessPanel(this, nodes[int16(panels[i].m_nFrameId)], moveSum, turnSum, StaticRef<float>(0x8D33FC), StaticRef<float>(0x8D3400));",source_global_reference
-reference,0x00859AEC,0x00459AEC,source/game_sa/Entity/Vehicle/Plane.cpp,910,"const unsigned int alphaBits = PlaneStreakAlphaCpp(&m_vecMoveSpeed.x, &m_matrix->GetUp().x, m_pFlyingHandlingData->m_fAttackLift, StaticRef<float>(0x859AEC), StaticRef<float>(0x85950C));",source_global_reference
-reference,0x0085950C,0x0045950C,source/game_sa/Entity/Vehicle/Plane.cpp,910,"const unsigned int alphaBits = PlaneStreakAlphaCpp(&m_vecMoveSpeed.x, &m_matrix->GetUp().x, m_pFlyingHandlingData->m_fAttackLift, StaticRef<float>(0x859AEC), StaticRef<float>(0x85950C));",source_global_reference
-reference,0x00858B1C,0x00458B1C,source/game_sa/Entity/Vehicle/Plane.cpp,913,"CVector end{RpNanSubCpp(wingTip.x, StaticRef<float>(0x858B1C)), wingTip.y, wingTip.z}; // W",source_global_reference
-reference,0x0085862C,0x0045862C,source/game_sa/Entity/Vehicle/Plane.cpp,933,"PlaneSmokeVelocityCpp(&m_vecMoveSpeed.x, StaticRef<float>(0x85862C), StaticRef<float>(0x858B3C), cropduster, &velocity.x);",source_global_reference
-reference,0x00858B3C,0x00458B3C,source/game_sa/Entity/Vehicle/Plane.cpp,933,"PlaneSmokeVelocityCpp(&m_vecMoveSpeed.x, StaticRef<float>(0x85862C), StaticRef<float>(0x858B3C), cropduster, &velocity.x);",source_global_reference
-reference,0x00858B38,0x00458B38,source/game_sa/Entity/Vehicle/Plane.cpp,975,const auto decrement = CTimer::GetTimeStep() * StaticRef<float>(0x858B38) * StaticRef<float>(0x859948);,source_global_reference
-reference,0x00859948,0x00459948,source/game_sa/Entity/Vehicle/Plane.cpp,975,const auto decrement = CTimer::GetTimeStep() * StaticRef<float>(0x858B38) * StaticRef<float>(0x859948);,source_global_reference
-mode,0x00C1CC04,0x0081CC04,source/game_sa/Entity/Vehicle/Plane.cpp,994,auto& mode=StaticRef<int32>(0xC1CC04);auto& mouseX=StaticRef<float>(0xB73424);auto& mouseY=StaticRef<float>(0xB73428);,source_global_reference
-mode,0x00B73424,0x00773424,source/game_sa/Entity/Vehicle/Plane.cpp,994,auto& mode=StaticRef<int32>(0xC1CC04);auto& mouseX=StaticRef<float>(0xB73424);auto& mouseY=StaticRef<float>(0xB73428);,source_global_reference
-mode,0x00B73428,0x00773428,source/game_sa/Entity/Vehicle/Plane.cpp,994,auto& mode=StaticRef<int32>(0xC1CC04);auto& mouseX=StaticRef<float>(0xB73424);auto& mouseY=StaticRef<float>(0xB73428);,source_global_reference
-reference,0x00B6EC2E,0x0076EC2E,source/game_sa/Entity/Vehicle/Plane.cpp,996,if(StaticRef<bool>(0xB6EC2E)&&StaticRef<bool>(0xC1CC03)){,source_global_reference
-reference,0x00C1CC03,0x0081CC03,source/game_sa/Entity/Vehicle/Plane.cpp,996,if(StaticRef<bool>(0xB6EC2E)&&StaticRef<bool>(0xC1CC03)){,source_global_reference
-reference,0x00871908,0x00471908,source/game_sa/Entity/Vehicle/Plane.cpp,1011,"(void)(void)CPad::GetPad(playerNum);m_fSteeringLeftRight=RpNanMulAddCpp(mouseX,StaticRef<float>(0x871908),m_fSteeringLeftRight);",source_global_reference
-reference,0x00871908,0x00471908,source/game_sa/Entity/Vehicle/Plane.cpp,1012,"(void)(void)CPad::GetPad(playerNum);m_fSteeringUpDown=RpNanMulAddCpp(mouseY,StaticRef<float>(0x871908),m_fSteeringUpDown);",source_global_reference
-reference,0x0087190C,0x0047190C,source/game_sa/Entity/Vehicle/Plane.cpp,1014,"if(std::abs(m_fSteeringLeftRight)<StaticRef<float>(0x87190C))PowScaleFloatCpp(&m_fSteeringLeftRight,StaticRef<float>(0x871910),CTimer::GetTimeStep());",source_global_reference
-reference,0x00871910,0x00471910,source/game_sa/Entity/Vehicle/Plane.cpp,1014,"if(std::abs(m_fSteeringLeftRight)<StaticRef<float>(0x87190C))PowScaleFloatCpp(&m_fSteeringLeftRight,StaticRef<float>(0x871910),CTimer::GetTimeStep());",source_global_reference
-reference,0x0087190C,0x0047190C,source/game_sa/Entity/Vehicle/Plane.cpp,1015,"if(std::abs(m_fSteeringUpDown)<StaticRef<float>(0x87190C))PowScaleFloatCpp(&m_fSteeringUpDown,StaticRef<float>(0x871910),CTimer::GetTimeStep());",source_global_reference
-reference,0x00871910,0x00471910,source/game_sa/Entity/Vehicle/Plane.cpp,1015,"if(std::abs(m_fSteeringUpDown)<StaticRef<float>(0x87190C))PowScaleFloatCpp(&m_fSteeringUpDown,StaticRef<float>(0x871910),CTimer::GetTimeStep());",source_global_reference
-reference,0x00858B88,0x00458B88,source/game_sa/Entity/Vehicle/Plane.cpp,1018,"m_fSteeringLeftRight=PlaneControlBlendCpp(m_fSteeringLeftRight,lr,StaticRef<float>(0x858B88),step,StaticRef<float>(0x858CC4));",source_global_reference
-reference,0x00858CC4,0x00458CC4,source/game_sa/Entity/Vehicle/Plane.cpp,1018,"m_fSteeringLeftRight=PlaneControlBlendCpp(m_fSteeringLeftRight,lr,StaticRef<float>(0x858B88),step,StaticRef<float>(0x858CC4));",source_global_reference
-reference,0x00858B88,0x00458B88,source/game_sa/Entity/Vehicle/Plane.cpp,1020,"m_fSteeringUpDown=PlaneControlBlendCpp(m_fSteeringUpDown,ud,StaticRef<float>(0x858B88),step,StaticRef<float>(0x858CC4));",source_global_reference
-reference,0x00858CC4,0x00458CC4,source/game_sa/Entity/Vehicle/Plane.cpp,1020,"m_fSteeringUpDown=PlaneControlBlendCpp(m_fSteeringUpDown,ud,StaticRef<float>(0x858B88),step,StaticRef<float>(0x858CC4));",source_global_reference
-reference,0x00858B88,0x00458B88,source/game_sa/Entity/Vehicle/Plane.cpp,1026,"const float target=float(axis)*StaticRef<float>(0x858B88);m_fLeftRightSkid=PlaneInputSkidCpp(m_fLeftRightSkid,target,step,StaticRef<float>(0x858CC4));",source_global_reference
-reference,0x00858CC4,0x00458CC4,source/game_sa/Entity/Vehicle/Plane.cpp,1026,"const float target=float(axis)*StaticRef<float>(0x858B88);m_fLeftRightSkid=PlaneInputSkidCpp(m_fLeftRightSkid,target,step,StaticRef<float>(0x858CC4));",source_global_reference
-reference,0x00858CC4,0x00458CC4,source/game_sa/Entity/Vehicle/Plane.cpp,1029,"m_fLeftRightSkid=PlaneInputSkidCpp(m_fLeftRightSkid,left?-1.f:right,CTimer::GetTimeStep(),StaticRef<float>(0x858CC4));",source_global_reference
-reference,0x00858B1C,0x00458B1C,source/game_sa/Entity/Vehicle/Plane.cpp,1031,"m_fSteerAngle=PlaneGroundSteerCpp(forwardSpeed,m_pHandlingData->m_fSteeringLock,m_fLeftRightSkid,StaticRef<float>(0x858B1C),StaticRef<float>(0x8595EC));",source_global_reference
-reference,0x008595EC,0x004595EC,source/game_sa/Entity/Vehicle/Plane.cpp,1031,"m_fSteerAngle=PlaneGroundSteerCpp(forwardSpeed,m_pHandlingData->m_fSteeringLock,m_fLeftRightSkid,StaticRef<float>(0x858B1C),StaticRef<float>(0x8595EC));",source_global_reference
-multiplier,0x00858CE8,0x00458CE8,source/game_sa/Entity/Vehicle/Plane.cpp,1033,const float multiplier=StaticRef<float>(0x858CE8);m_fSteerAngle*=multiplier;m_fLeftRightSkid*=multiplier;,source_global_reference
-reference,0x00859A3C,0x00459A3C,source/game_sa/Entity/Vehicle/Plane.cpp,1036,m_fAccelerationBreakStatus=float(accelerator-brake)*StaticRef<float>(0x859A3C);,source_global_reference
-reference,0x00871904,0x00471904,source/game_sa/Entity/Vehicle/Plane.cpp,1041,"if(m_fLandingGearStatus==0.f){bytes[0x5A5]=bytes[0x5A6]=bytes[0x5A7]=bytes[0x5A8]=2;m_fLandingGearStatus=RpNanMulAddCpp(CTimer::GetTimeStep(),StaticRef<float>(0x871904),m_fLandingGearStatus);}",source_global_reference
-reference,0x00871904,0x00471904,source/game_sa/Entity/Vehicle/Plane.cpp,1042,"else if(std::bit_cast<uint32>(m_fLandingGearStatus)==0x3F800000u)m_fLandingGearStatus=RpNanMulAddCpp(CTimer::GetTimeStep(),StaticRef<float>(0x871904),-1.f);",source_global_reference
-reference,0x00871904,0x00471904,source/game_sa/Entity/Vehicle/Plane.cpp,1045,"const bool complete=PlaneGearAdvanceCpp(&m_fLandingGearStatus,CTimer::GetTimeStep(),StaticRef<float>(0x871904),0.f);",source_global_reference
-reference,0x00871900,0x00471900,source/game_sa/Entity/Vehicle/Plane.cpp,1046,"if(complete){m_fLandingGearStatus=0.f;bytes[0x5A5]=bytes[0x5A6]=bytes[0x5A7]=bytes[0x5A8]=0;m_fAirResistance=PlaneGearResistanceCpp(m_pHandlingData->m_fDragMult,StaticRef<float>(0x871900),StaticRef<float>(0x858B8C));}",source_global_reference
-reference,0x00858B8C,0x00458B8C,source/game_sa/Entity/Vehicle/Plane.cpp,1046,"if(complete){m_fLandingGearStatus=0.f;bytes[0x5A5]=bytes[0x5A6]=bytes[0x5A7]=bytes[0x5A8]=0;m_fAirResistance=PlaneGearResistanceCpp(m_pHandlingData->m_fDragMult,StaticRef<float>(0x871900),StaticRef<float>(0x858B8C));}",source_global_reference
-reference,0x00871904,0x00471904,source/game_sa/Entity/Vehicle/Plane.cpp,1048,"if(PlaneGearAdvanceCpp(&m_fLandingGearStatus,CTimer::GetTimeStep(),StaticRef<float>(0x871904),1.f))SetGearUp();",source_global_reference
-reference,0x0085862C,0x0045862C,source/game_sa/Entity/Vehicle/Plane.cpp,1050,if(m_nModelIndex==520&&std::abs(CPad::GetPad(playerNum)->GetCarGunUpDown())>StaticRef<float>(0x85862C)){,source_global_reference
-reference,0x008D33DC,0x004D33DC,source/game_sa/Entity/Vehicle/Plane.cpp,1052,"float step=CTimer::GetTimeStep();const int32 firstAxis=CPad::GetPad(playerNum)->GetCarGunUpDown();const int32 first=int32(nozzle)+int16(PlaneNozzleChangeCpp(firstAxis,step,StaticRef<float>(0x8D33DC),StaticRef<float>(0x858B88)));",source_global_reference
-reference,0x00858B88,0x00458B88,source/game_sa/Entity/Vehicle/Plane.cpp,1052,"float step=CTimer::GetTimeStep();const int32 firstAxis=CPad::GetPad(playerNum)->GetCarGunUpDown();const int32 first=int32(nozzle)+int16(PlaneNozzleChangeCpp(firstAxis,step,StaticRef<float>(0x8D33DC),StaticRef<float>(0x858B88)));",source_global_reference
-reference,0x008D33DC,0x004D33DC,source/game_sa/Entity/Vehicle/Plane.cpp,1053,"if(first<0)nozzle=0;else{step=CTimer::GetTimeStep();const int32 secondAxis=CPad::GetPad(playerNum)->GetCarGunUpDown();nozzle=uint16(int32(nozzle)+int16(PlaneNozzleChangeCpp(secondAxis,step,StaticRef<float>(0x8D33DC),StaticRef<float>(0x858B88))));}",source_global_reference
-reference,0x00858B88,0x00458B88,source/game_sa/Entity/Vehicle/Plane.cpp,1053,"if(first<0)nozzle=0;else{step=CTimer::GetTimeStep();const int32 secondAxis=CPad::GetPad(playerNum)->GetCarGunUpDown();nozzle=uint16(int32(nozzle)+int16(PlaneNozzleChangeCpp(secondAxis,step,StaticRef<float>(0x8D33DC),StaticRef<float>(0x858B88))));}",source_global_reference
-reference,0x00858F9C,0x00458F9C,source/game_sa/Entity/Vehicle/Plane.cpp,1057,if(forwardSpeed>0.f&&CPad::GetPad(playerNum)->GetBrake()!=0){const int32 input=CPad::GetPad(playerNum)->GetBrake();m_BrakePedal=float(input)*StaticRef<float>(forwardSpeed>StaticRef<float>(0x858F9C)?0x871A70:0x859A3C);},source_global_reference
-reference,0x00858B1C,0x00458B1C,source/game_sa/Entity/Vehicle/Plane.cpp,1058,"else if(PlaneSpeedBelowCpp(&m_vecMoveSpeed.x,StaticRef<float>(0x858B1C))&&CPad::GetPad(playerNum)->GetBrake()<10&&CPad::GetPad(playerNum)->GetAccelerate()<10)m_BrakePedal=.5f;",source_global_reference
-reference,0x00871254,0x00471254,source/game_sa/Entity/Vehicle/Plane.cpp,1060,"if(CPad::GetPad(playerNum)->DisablePlayerControls){bytes[0x428]|=0x20;m_BrakePedal=1.f;m_GasPedal=0.f;FindPlayerPed(-1)->KeepAreaAroundPlayerClear();PlaneSpeedCapCpp(&m_vecMoveSpeed.x,StaticRef<float>(0x871254));}",source_global_reference
-reference,0x008D33E0,0x004D33E0,source/game_sa/Entity/Vehicle/Plane.cpp,1071,"m_planeDamageWave = std::bit_cast<int32>(uint32(m_planeDamageWave) + PlaneWaveAdvanceCpp(StaticRef<float>(0x8D33E0), CTimer::GetTimeStep(), waveRandom, StaticRef<float>(0x858C7C), StaticRef<float>(0x858B38), StaticRef<float>(0x858C4C)));",source_global_reference
-reference,0x00858C7C,0x00458C7C,source/game_sa/Entity/Vehicle/Plane.cpp,1071,"m_planeDamageWave = std::bit_cast<int32>(uint32(m_planeDamageWave) + PlaneWaveAdvanceCpp(StaticRef<float>(0x8D33E0), CTimer::GetTimeStep(), waveRandom, StaticRef<float>(0x858C7C), StaticRef<float>(0x858B38), StaticRef<float>(0x858C4C)));",source_global_reference
-reference,0x00858B38,0x00458B38,source/game_sa/Entity/Vehicle/Plane.cpp,1071,"m_planeDamageWave = std::bit_cast<int32>(uint32(m_planeDamageWave) + PlaneWaveAdvanceCpp(StaticRef<float>(0x8D33E0), CTimer::GetTimeStep(), waveRandom, StaticRef<float>(0x858C7C), StaticRef<float>(0x858B38), StaticRef<float>(0x858C4C)));",source_global_reference
-reference,0x00858C4C,0x00458C4C,source/game_sa/Entity/Vehicle/Plane.cpp,1071,"m_planeDamageWave = std::bit_cast<int32>(uint32(m_planeDamageWave) + PlaneWaveAdvanceCpp(StaticRef<float>(0x8D33E0), CTimer::GetTimeStep(), waveRandom, StaticRef<float>(0x858C7C), StaticRef<float>(0x858B38), StaticRef<float>(0x858C4C)));",source_global_reference
-reference,0x00859F80,0x00459F80,source/game_sa/Entity/Vehicle/Plane.cpp,1074,if (m_fHealth < StaticRef<float>(0x859F80) && status() == 0) {,source_global_reference
-reference,0x0086DAF4,0x0046DAF4,source/game_sa/Entity/Vehicle/Plane.cpp,1078,"if (PlaneRollCompareCpp(rollFn, this, StaticRef<float>(0x86DAF4), false)) lateral += .75f;",source_global_reference
-reference,0x00858FE4,0x00458FE4,source/game_sa/Entity/Vehicle/Plane.cpp,1079,"if (PlaneRollCompareCpp(rollFn, this, StaticRef<float>(0x858FE4), true)) up += .5f;",source_global_reference
-spread,0x008D344C,0x004D344C,source/game_sa/Entity/Vehicle/Plane.cpp,1092,const float spread = StaticRef<float>(0x8D344C);,source_global_reference
-reference,0x008D3448,0x004D3448,source/game_sa/Entity/Vehicle/Plane.cpp,1096,"random, damage, uint32(m_planeDamageWave), StaticRef<uint32>(0x8D3448), CTimer::GetTimeStep(),",source_global_reference
-reference,0x00858C7C,0x00458C7C,source/game_sa/Entity/Vehicle/Plane.cpp,1097,"StaticRef<float>(0x858C7C), StaticRef<float>(0x858CBC), StaticRef<float>(0x8D3444));",source_global_reference
-reference,0x00858CBC,0x00458CBC,source/game_sa/Entity/Vehicle/Plane.cpp,1097,"StaticRef<float>(0x858C7C), StaticRef<float>(0x858CBC), StaticRef<float>(0x8D3444));",source_global_reference
-reference,0x008D3444,0x004D3444,source/game_sa/Entity/Vehicle/Plane.cpp,1097,"StaticRef<float>(0x858C7C), StaticRef<float>(0x858CBC), StaticRef<float>(0x8D3444));",source_global_reference
-reference,0x00858CC4,0x00458CC4,source/game_sa/Entity/Vehicle/Plane.cpp,1106,"field(axis) = PlaneFlightDecayCpp(field(axis), damage, StaticRef<float>(0x858CC4), node == 16);",source_global_reference
-reference,0x00858C7C,0x00458C7C,source/game_sa/Entity/Vehicle/Plane.cpp,1109,"field(axis) = PlaneDamageNoiseCpp(field(axis), amplitude, random, squaredDamage, CTimer::GetTimeStep(), speed, StaticRef<float>(0x858C7C));",source_global_reference
-reference,0x00858C7C,0x00458C7C,source/game_sa/Entity/Vehicle/Plane.cpp,1117,"squaredDamage, CTimer::GetTimeStep(), speed, StaticRef<float>(0x858C7C));",source_global_reference
-reference,0x00858C24,0x00458C24,source/game_sa/Entity/Vehicle/Plane.cpp,1122,if (strength > 0.f && !(bytes[0x42B] & 0x40) && (speed > StaticRef<float>(0x858C24) || (CGeneral::GetRandomNumber() & 7) == 0)) {,source_global_reference
-cameraMatrix,0x00B6F03C,0x0076F03C,source/game_sa/Entity/Vehicle/Plane.cpp,1123,auto* cameraMatrix = StaticRef<CMatrix*>(0xB6F03C);,source_global_reference
-reference,0x00B6F02C,0x0076F02C,source/game_sa/Entity/Vehicle/Plane.cpp,1124,const CVector* cameraPosition = cameraMatrix ? &cameraMatrix->GetPosition() : &StaticRef<CVector>(0xB6F02C);,source_global_reference
-reference,0x00859AEC,0x00459AEC,source/game_sa/Entity/Vehicle/Plane.cpp,1125,"if ((PlaneDistanceBelowCpp(&GetPosition().x, &cameraPosition->x, StaticRef<float>(0x859AEC)) || status() == 0) && m_aCarNodes[node]) {",source_global_reference
-reference,0x00858C84,0x00458C84,source/game_sa/Entity/Vehicle/Plane.cpp,1131,"PlaneSmokeParticleVelocityCpp(&velocity.x, &m_vecMoveSpeed.x, StaticRef<float>(0x858C84), StaticRef<float>(0x858B40));",source_global_reference
-reference,0x00858B40,0x00458B40,source/game_sa/Entity/Vehicle/Plane.cpp,1131,"PlaneSmokeParticleVelocityCpp(&velocity.x, &m_vecMoveSpeed.x, StaticRef<float>(0x858C84), StaticRef<float>(0x858B40));",source_global_reference
-reference,0x00858C7C,0x00458C7C,source/game_sa/Entity/Vehicle/Plane.cpp,1132,"velocity.x = PlaneVelocityNoiseCpp(velocity.x, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C), StaticRef<float>(0x871A74), StaticRef<float>(0x858C20));",source_global_reference
-reference,0x00871A74,0x00471A74,source/game_sa/Entity/Vehicle/Plane.cpp,1132,"velocity.x = PlaneVelocityNoiseCpp(velocity.x, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C), StaticRef<float>(0x871A74), StaticRef<float>(0x858C20));",source_global_reference
-reference,0x00858C20,0x00458C20,source/game_sa/Entity/Vehicle/Plane.cpp,1132,"velocity.x = PlaneVelocityNoiseCpp(velocity.x, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C), StaticRef<float>(0x871A74), StaticRef<float>(0x858C20));",source_global_reference
-reference,0x00858C7C,0x00458C7C,source/game_sa/Entity/Vehicle/Plane.cpp,1133,"velocity.y = PlaneVelocityNoiseCpp(velocity.y, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C), StaticRef<float>(0x871A74), StaticRef<float>(0x858C20));",source_global_reference
-reference,0x00871A74,0x00471A74,source/game_sa/Entity/Vehicle/Plane.cpp,1133,"velocity.y = PlaneVelocityNoiseCpp(velocity.y, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C), StaticRef<float>(0x871A74), StaticRef<float>(0x858C20));",source_global_reference
-reference,0x00858C20,0x00458C20,source/game_sa/Entity/Vehicle/Plane.cpp,1133,"velocity.y = PlaneVelocityNoiseCpp(velocity.y, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C), StaticRef<float>(0x871A74), StaticRef<float>(0x858C20));",source_global_reference
-reference,0x00858C7C,0x00458C7C,source/game_sa/Entity/Vehicle/Plane.cpp,1134,"velocity.z = PlaneVelocityNoiseCpp(velocity.z, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C), StaticRef<float>(0x871A74), StaticRef<float>(0x858C20));",source_global_reference
-reference,0x00871A74,0x00471A74,source/game_sa/Entity/Vehicle/Plane.cpp,1134,"velocity.z = PlaneVelocityNoiseCpp(velocity.z, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C), StaticRef<float>(0x871A74), StaticRef<float>(0x858C20));",source_global_reference
-reference,0x00858C20,0x00458C20,source/game_sa/Entity/Vehicle/Plane.cpp,1134,"velocity.z = PlaneVelocityNoiseCpp(velocity.z, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C), StaticRef<float>(0x871A74), StaticRef<float>(0x858C20));",source_global_reference
-reference,0x00858C7C,0x00458C7C,source/game_sa/Entity/Vehicle/Plane.cpp,1135,"mults.m_fLife = IntTimesFloatCpp(CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C)); // EXE overwrites multiplier life at stack+0x98, 0x6CC003.",source_global_reference
-reference,0x00858C7C,0x00458C7C,source/game_sa/Entity/Vehicle/Plane.cpp,1136,"point.x = PlanePositionNoiseCpp(point.x, strength, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C));",source_global_reference
-reference,0x00858C7C,0x00458C7C,source/game_sa/Entity/Vehicle/Plane.cpp,1137,"point.y = PlanePositionNoiseCpp(point.y, strength, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C));",source_global_reference
-reference,0x00858C7C,0x00458C7C,source/game_sa/Entity/Vehicle/Plane.cpp,1138,"point.z = PlanePositionNoiseCpp(point.z, strength, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C));",source_global_reference
-reference,0x00858CDC,0x00458CDC,source/game_sa/Entity/Vehicle/Plane.cpp,1146,const float decrement = CTimer::GetTimeStep() * StaticRef<float>(0x858CDC);,source_global_reference
-reference,0x008D33D0,0x004D33D0,source/game_sa/Entity/Vehicle/Plane.cpp,1148,"if (m_fPropSpeed > StaticRef<float>(0x8D33D0)) m_fPropSpeed = PlaneFlightProductAddCpp(m_fPropSpeed, CTimer::GetTimeStep(), StaticRef<float>(0x859CD8), true);",source_global_reference
-reference,0x00859CD8,0x00459CD8,source/game_sa/Entity/Vehicle/Plane.cpp,1148,"if (m_fPropSpeed > StaticRef<float>(0x8D33D0)) m_fPropSpeed = PlaneFlightProductAddCpp(m_fPropSpeed, CTimer::GetTimeStep(), StaticRef<float>(0x859CD8), true);",source_global_reference
-reference,0x008D33D0,0x004D33D0,source/game_sa/Entity/Vehicle/Plane.cpp,1154,"float target = PlanePropellerTargetCpp(m_fAccelerationBreakStatus, StaticRef<float>(0x8D33D0), StaticRef<float>(0x8D33D4), StaticRef<float>(0x8D33CC));",source_global_reference
-reference,0x008D33D4,0x004D33D4,source/game_sa/Entity/Vehicle/Plane.cpp,1154,"float target = PlanePropellerTargetCpp(m_fAccelerationBreakStatus, StaticRef<float>(0x8D33D0), StaticRef<float>(0x8D33D4), StaticRef<float>(0x8D33CC));",source_global_reference
-reference,0x008D33CC,0x004D33CC,source/game_sa/Entity/Vehicle/Plane.cpp,1154,"float target = PlanePropellerTargetCpp(m_fAccelerationBreakStatus, StaticRef<float>(0x8D33D0), StaticRef<float>(0x8D33D4), StaticRef<float>(0x8D33CC));",source_global_reference
-reference,0x00858B38,0x00458B38,source/game_sa/Entity/Vehicle/Plane.cpp,1158,"target = PlaneCeilingTargetCpp(HeightAboveCeiling(GetPosition().z, flightModel), target, StaticRef<float>(0x858B38));",source_global_reference
-reference,0x00858CEC,0x00458CEC,source/game_sa/Entity/Vehicle/Plane.cpp,1159,"m_fAccelerationBreakStatus = PlaneCeilingAccelerationCpp(HeightAboveCeiling(GetPosition().z, flightModel), m_fAccelerationBreakStatus, StaticRef<float>(0x858CEC));",source_global_reference
-reference,0x008D33D8,0x004D33D8,source/game_sa/Entity/Vehicle/Plane.cpp,1163,"m_fPropSpeed = PlaneFloatBlendCpp(m_fPropSpeed, target, CTimer::GetTimeStep(), StaticRef<float>(0x8D33D8));",source_global_reference
-reference,0x008D33CC,0x004D33CC,source/game_sa/Entity/Vehicle/Plane.cpp,1170,"if (!(m_fPropSpeed > StaticRef<float>(0x8D33CC)) && !PlaneSpeedSquaredAboveCpp(&m_vecMoveSpeed.x, StaticRef<double>(0x859068))) return;",source_global_reference
-reference,0x00859068,0x00459068,source/game_sa/Entity/Vehicle/Plane.cpp,1170,"if (!(m_fPropSpeed > StaticRef<float>(0x8D33CC)) && !PlaneSpeedSquaredAboveCpp(&m_vecMoveSpeed.x, StaticRef<double>(0x859068))) return;",source_global_reference
-reference,0x008D33C8,0x004D33C8,source/game_sa/Entity/Vehicle/Plane.cpp,1171,if (m_nModelIndex == 520 && status() == 0 && int32(*reinterpret_cast<uint16*>(bytes + 0x86C)) >= int32(StaticRef<int16>(0x8D33C8))) {,source_global_reference
-modelInfo,0x00A9B76C,0x0069B76C,source/game_sa/Entity/Vehicle/Plane.cpp,1173,auto* modelInfo = StaticRef<uint8*>(0xA9B76C);,source_global_reference
-reference,0x00859EF8,0x00459EF8,source/game_sa/Entity/Vehicle/Plane.cpp,1175,if (double(m_fAccelerationBreakStatus) > StaticRef<double>(0x859EF8) || (bytes[0x960] < 4 && !(*reinterpret_cast<uint32*>(bytes + 0x40) & 0x08000000))),source_global_reference
-reference,0x008D341C,0x004D341C,source/game_sa/Entity/Vehicle/Plane.cpp,1176,"FlyingControl(eFlightModel(6), skid, up, -lateral, m_fAccelerationBreakStatus * StaticRef<float>(0x8D341C));",source_global_reference
+reference,0x00858CBC,0x00458CBC,source/game_sa/Entity/Vehicle/Plane.cpp,662,"field_9C8 = PlanePropAngleCpp(CTimer::GetTimeStep(), m_fPropSpeed, field_9C8, StaticRef<float>(0x858CBC));",source_global_reference
+reference,0x00871928,0x00471928,source/game_sa/Entity/Vehicle/Plane.cpp,702,"original.y = PlaneFinOffsetCpp(finScale, *reinterpret_cast<const float*>(reinterpret_cast<const uint8*>(colModel) + 0x10), original.y, StaticRef<float>(0x871928));",source_global_reference
+reference,0x00871914,0x00471914,source/game_sa/Entity/Vehicle/Plane.cpp,712,"rotateNode(PlaneSurfaceAngleCpp(StaticRef<float>(0x871914), StaticRef<float>(0x8595EC), m_fLeftRightSkid, 0.f, 0));",source_global_reference
+reference,0x008595EC,0x004595EC,source/game_sa/Entity/Vehicle/Plane.cpp,712,"rotateNode(PlaneSurfaceAngleCpp(StaticRef<float>(0x871914), StaticRef<float>(0x8595EC), m_fLeftRightSkid, 0.f, 0));",source_global_reference
+reference,0x00871920,0x00471920,source/game_sa/Entity/Vehicle/Plane.cpp,724,"PlaneGearFactorsCpp(gear, StaticRef<float>(0x871920), StaticRef<float>(0x871924), &finScale, &finOffset);",source_global_reference
+reference,0x00871924,0x00471924,source/game_sa/Entity/Vehicle/Plane.cpp,724,"PlaneGearFactorsCpp(gear, StaticRef<float>(0x871920), StaticRef<float>(0x871924), &finScale, &finOffset);",source_global_reference
+reference,0x0087191C,0x0047191C,source/game_sa/Entity/Vehicle/Plane.cpp,728,"rotateNode(PlaneSurfaceAngleCpp(StaticRef<float>(0x87191C), StaticRef<float>(0x8595EC), m_fSteeringLeftRight, finOffset, 1));",source_global_reference
+reference,0x008595EC,0x004595EC,source/game_sa/Entity/Vehicle/Plane.cpp,728,"rotateNode(PlaneSurfaceAngleCpp(StaticRef<float>(0x87191C), StaticRef<float>(0x8595EC), m_fSteeringLeftRight, finOffset, 1));",source_global_reference
+reference,0x0087191C,0x0047191C,source/game_sa/Entity/Vehicle/Plane.cpp,734,"rotateNode(PlaneSurfaceAngleCpp(StaticRef<float>(0x87191C), StaticRef<float>(0x8595EC), m_fSteeringLeftRight, finOffset, 2));",source_global_reference
+reference,0x008595EC,0x004595EC,source/game_sa/Entity/Vehicle/Plane.cpp,734,"rotateNode(PlaneSurfaceAngleCpp(StaticRef<float>(0x87191C), StaticRef<float>(0x8595EC), m_fSteeringLeftRight, finOffset, 2));",source_global_reference
+reference,0x00871918,0x00471918,source/game_sa/Entity/Vehicle/Plane.cpp,742,"rotateNode(PlaneSurfaceAngleCpp(StaticRef<float>(0x871918), StaticRef<float>(0x8595EC), m_fSteeringUpDown, 0.f, 3));",source_global_reference
+reference,0x008595EC,0x004595EC,source/game_sa/Entity/Vehicle/Plane.cpp,742,"rotateNode(PlaneSurfaceAngleCpp(StaticRef<float>(0x871918), StaticRef<float>(0x8595EC), m_fSteeringUpDown, 0.f, 3));",source_global_reference
+reference,0x00871918,0x00471918,source/game_sa/Entity/Vehicle/Plane.cpp,745,"const float angle = PlaneSurfaceAngleCpp(StaticRef<float>(0x871918), StaticRef<float>(0x8595EC), m_fSteeringUpDown, 0.f, 0);",source_global_reference
+reference,0x008595EC,0x004595EC,source/game_sa/Entity/Vehicle/Plane.cpp,745,"const float angle = PlaneSurfaceAngleCpp(StaticRef<float>(0x871918), StaticRef<float>(0x8595EC), m_fSteeringUpDown, 0.f, 0);",source_global_reference
+secondValue,0x0087192C,0x0047192C,source/game_sa/Entity/Vehicle/Plane.cpp,784,firstValue = -StaticRef<float>(0x87192C); secondValue = StaticRef<float>(0x87192C);,source_global_reference
+secondValue,0x0087192C,0x0047192C,source/game_sa/Entity/Vehicle/Plane.cpp,784,firstValue = -StaticRef<float>(0x87192C); secondValue = StaticRef<float>(0x87192C);,source_global_reference
+secondValue,0x0087192C,0x0047192C,source/game_sa/Entity/Vehicle/Plane.cpp,788,firstValue = -StaticRef<float>(0x87192C); secondValue = StaticRef<float>(0x87192C);,source_global_reference
+secondValue,0x0087192C,0x0047192C,source/game_sa/Entity/Vehicle/Plane.cpp,788,firstValue = -StaticRef<float>(0x87192C); secondValue = StaticRef<float>(0x87192C);,source_global_reference
+thirdValue,0x00871938,0x00471938,source/game_sa/Entity/Vehicle/Plane.cpp,789,thirdValue = StaticRef<float>(0x871938);,source_global_reference
+firstValue,0x00871930,0x00471930,source/game_sa/Entity/Vehicle/Plane.cpp,793,firstValue = StaticRef<float>(0x871930); secondValue = StaticRef<float>(0x871930);,source_global_reference
+firstValue,0x00871930,0x00471930,source/game_sa/Entity/Vehicle/Plane.cpp,793,firstValue = StaticRef<float>(0x871930); secondValue = StaticRef<float>(0x871930);,source_global_reference
+thirdValue,0x00871934,0x00471934,source/game_sa/Entity/Vehicle/Plane.cpp,794,thirdValue = StaticRef<float>(0x871934); fourthValue = StaticRef<float>(0x871938);,source_global_reference
+thirdValue,0x00871938,0x00471938,source/game_sa/Entity/Vehicle/Plane.cpp,794,thirdValue = StaticRef<float>(0x871934); fourthValue = StaticRef<float>(0x871938);,source_global_reference
+firstValue,0x00871940,0x00471940,source/game_sa/Entity/Vehicle/Plane.cpp,798,firstValue = StaticRef<float>(0x871940); secondValue = StaticRef<float>(0x871940);,source_global_reference
+firstValue,0x00871940,0x00471940,source/game_sa/Entity/Vehicle/Plane.cpp,798,firstValue = StaticRef<float>(0x871940); secondValue = StaticRef<float>(0x871940);,source_global_reference
+firstValue,0x0087193C,0x0047193C,source/game_sa/Entity/Vehicle/Plane.cpp,802,firstValue = StaticRef<float>(0x87193C); secondValue = StaticRef<float>(0x87193C);,source_global_reference
+firstValue,0x0087193C,0x0047193C,source/game_sa/Entity/Vehicle/Plane.cpp,802,firstValue = StaticRef<float>(0x87193C); secondValue = StaticRef<float>(0x87193C);,source_global_reference
+reference,0x0087193C,0x0047193C,source/game_sa/Entity/Vehicle/Plane.cpp,803,thirdValue = -StaticRef<float>(0x87193C);,source_global_reference
+reference,0x00859EF8,0x00459EF8,source/game_sa/Entity/Vehicle/Plane.cpp,810,if (double(fourthValue) > StaticRef<double>(0x859EF8)) {,source_global_reference
+reference,0x00858FE4,0x00458FE4,source/game_sa/Entity/Vehicle/Plane.cpp,821,"const float nozzleAngle = PlaneNozzleAngleCpp(int32(m_wMiscComponentAngle), StaticRef<float>(0x858FE4), int32(int16(HARRIER_NOZZLE_ROTATE_LIMIT)));",source_global_reference
+reference,0x00858624,0x00458624,source/game_sa/Entity/Vehicle/Plane.cpp,827,"const float dustTime = PlaneDustTimeCpp(m_fAccelerationBreakStatus, StaticRef<float>(0x858624), StaticRef<float>(0x858B8C));",source_global_reference
+reference,0x00858B8C,0x00458B8C,source/game_sa/Entity/Vehicle/Plane.cpp,827,"const float dustTime = PlaneDustTimeCpp(m_fAccelerationBreakStatus, StaticRef<float>(0x858624), StaticRef<float>(0x858B8C));",source_global_reference
+reference,0x008D33FC,0x004D33FC,source/game_sa/Entity/Vehicle/Plane.cpp,897,"panels[i].ProcessPanel(this, nodes[int16(panels[i].m_nFrameId)], moveSum, turnSum, StaticRef<float>(0x8D33FC), StaticRef<float>(0x8D3400));",source_global_reference
+reference,0x008D3400,0x004D3400,source/game_sa/Entity/Vehicle/Plane.cpp,897,"panels[i].ProcessPanel(this, nodes[int16(panels[i].m_nFrameId)], moveSum, turnSum, StaticRef<float>(0x8D33FC), StaticRef<float>(0x8D3400));",source_global_reference
+reference,0x00859AEC,0x00459AEC,source/game_sa/Entity/Vehicle/Plane.cpp,909,"const unsigned int alphaBits = PlaneStreakAlphaCpp(&m_vecMoveSpeed.x, &m_matrix->GetUp().x, m_pFlyingHandlingData->m_fAttackLift, StaticRef<float>(0x859AEC), StaticRef<float>(0x85950C));",source_global_reference
+reference,0x0085950C,0x0045950C,source/game_sa/Entity/Vehicle/Plane.cpp,909,"const unsigned int alphaBits = PlaneStreakAlphaCpp(&m_vecMoveSpeed.x, &m_matrix->GetUp().x, m_pFlyingHandlingData->m_fAttackLift, StaticRef<float>(0x859AEC), StaticRef<float>(0x85950C));",source_global_reference
+reference,0x00858B1C,0x00458B1C,source/game_sa/Entity/Vehicle/Plane.cpp,912,"CVector end{RpNanSubCpp(wingTip.x, StaticRef<float>(0x858B1C)), wingTip.y, wingTip.z}; // W",source_global_reference
+reference,0x0085862C,0x0045862C,source/game_sa/Entity/Vehicle/Plane.cpp,932,"PlaneSmokeVelocityCpp(&m_vecMoveSpeed.x, StaticRef<float>(0x85862C), StaticRef<float>(0x858B3C), cropduster, &velocity.x);",source_global_reference
+reference,0x00858B3C,0x00458B3C,source/game_sa/Entity/Vehicle/Plane.cpp,932,"PlaneSmokeVelocityCpp(&m_vecMoveSpeed.x, StaticRef<float>(0x85862C), StaticRef<float>(0x858B3C), cropduster, &velocity.x);",source_global_reference
+reference,0x00858B38,0x00458B38,source/game_sa/Entity/Vehicle/Plane.cpp,974,const auto decrement = CTimer::GetTimeStep() * StaticRef<float>(0x858B38) * StaticRef<float>(0x859948);,source_global_reference
+reference,0x00859948,0x00459948,source/game_sa/Entity/Vehicle/Plane.cpp,974,const auto decrement = CTimer::GetTimeStep() * StaticRef<float>(0x858B38) * StaticRef<float>(0x859948);,source_global_reference
+mode,0x00C1CC04,0x0081CC04,source/game_sa/Entity/Vehicle/Plane.cpp,993,auto& mode=StaticRef<int32>(0xC1CC04);auto& mouseX=StaticRef<float>(0xB73424);auto& mouseY=StaticRef<float>(0xB73428);,source_global_reference
+mode,0x00B73424,0x00773424,source/game_sa/Entity/Vehicle/Plane.cpp,993,auto& mode=StaticRef<int32>(0xC1CC04);auto& mouseX=StaticRef<float>(0xB73424);auto& mouseY=StaticRef<float>(0xB73428);,source_global_reference
+mode,0x00B73428,0x00773428,source/game_sa/Entity/Vehicle/Plane.cpp,993,auto& mode=StaticRef<int32>(0xC1CC04);auto& mouseX=StaticRef<float>(0xB73424);auto& mouseY=StaticRef<float>(0xB73428);,source_global_reference
+reference,0x00B6EC2E,0x0076EC2E,source/game_sa/Entity/Vehicle/Plane.cpp,995,if(StaticRef<bool>(0xB6EC2E)&&StaticRef<bool>(0xC1CC03)){,source_global_reference
+reference,0x00C1CC03,0x0081CC03,source/game_sa/Entity/Vehicle/Plane.cpp,995,if(StaticRef<bool>(0xB6EC2E)&&StaticRef<bool>(0xC1CC03)){,source_global_reference
+reference,0x00871908,0x00471908,source/game_sa/Entity/Vehicle/Plane.cpp,1010,"(void)(void)CPad::GetPad(playerNum);m_fSteeringLeftRight=RpNanMulAddCpp(mouseX,StaticRef<float>(0x871908),m_fSteeringLeftRight);",source_global_reference
+reference,0x00871908,0x00471908,source/game_sa/Entity/Vehicle/Plane.cpp,1011,"(void)(void)CPad::GetPad(playerNum);m_fSteeringUpDown=RpNanMulAddCpp(mouseY,StaticRef<float>(0x871908),m_fSteeringUpDown);",source_global_reference
+reference,0x0087190C,0x0047190C,source/game_sa/Entity/Vehicle/Plane.cpp,1013,"if(std::abs(m_fSteeringLeftRight)<StaticRef<float>(0x87190C))PowScaleFloatCpp(&m_fSteeringLeftRight,StaticRef<float>(0x871910),CTimer::GetTimeStep());",source_global_reference
+reference,0x00871910,0x00471910,source/game_sa/Entity/Vehicle/Plane.cpp,1013,"if(std::abs(m_fSteeringLeftRight)<StaticRef<float>(0x87190C))PowScaleFloatCpp(&m_fSteeringLeftRight,StaticRef<float>(0x871910),CTimer::GetTimeStep());",source_global_reference
+reference,0x0087190C,0x0047190C,source/game_sa/Entity/Vehicle/Plane.cpp,1014,"if(std::abs(m_fSteeringUpDown)<StaticRef<float>(0x87190C))PowScaleFloatCpp(&m_fSteeringUpDown,StaticRef<float>(0x871910),CTimer::GetTimeStep());",source_global_reference
+reference,0x00871910,0x00471910,source/game_sa/Entity/Vehicle/Plane.cpp,1014,"if(std::abs(m_fSteeringUpDown)<StaticRef<float>(0x87190C))PowScaleFloatCpp(&m_fSteeringUpDown,StaticRef<float>(0x871910),CTimer::GetTimeStep());",source_global_reference
+reference,0x00858B88,0x00458B88,source/game_sa/Entity/Vehicle/Plane.cpp,1017,"m_fSteeringLeftRight=PlaneControlBlendCpp(m_fSteeringLeftRight,lr,StaticRef<float>(0x858B88),step,StaticRef<float>(0x858CC4));",source_global_reference
+reference,0x00858CC4,0x00458CC4,source/game_sa/Entity/Vehicle/Plane.cpp,1017,"m_fSteeringLeftRight=PlaneControlBlendCpp(m_fSteeringLeftRight,lr,StaticRef<float>(0x858B88),step,StaticRef<float>(0x858CC4));",source_global_reference
+reference,0x00858B88,0x00458B88,source/game_sa/Entity/Vehicle/Plane.cpp,1019,"m_fSteeringUpDown=PlaneControlBlendCpp(m_fSteeringUpDown,ud,StaticRef<float>(0x858B88),step,StaticRef<float>(0x858CC4));",source_global_reference
+reference,0x00858CC4,0x00458CC4,source/game_sa/Entity/Vehicle/Plane.cpp,1019,"m_fSteeringUpDown=PlaneControlBlendCpp(m_fSteeringUpDown,ud,StaticRef<float>(0x858B88),step,StaticRef<float>(0x858CC4));",source_global_reference
+reference,0x00858B88,0x00458B88,source/game_sa/Entity/Vehicle/Plane.cpp,1025,"const float target=float(axis)*StaticRef<float>(0x858B88);m_fLeftRightSkid=PlaneInputSkidCpp(m_fLeftRightSkid,target,step,StaticRef<float>(0x858CC4));",source_global_reference
+reference,0x00858CC4,0x00458CC4,source/game_sa/Entity/Vehicle/Plane.cpp,1025,"const float target=float(axis)*StaticRef<float>(0x858B88);m_fLeftRightSkid=PlaneInputSkidCpp(m_fLeftRightSkid,target,step,StaticRef<float>(0x858CC4));",source_global_reference
+reference,0x00858CC4,0x00458CC4,source/game_sa/Entity/Vehicle/Plane.cpp,1028,"m_fLeftRightSkid=PlaneInputSkidCpp(m_fLeftRightSkid,left?-1.f:right,CTimer::GetTimeStep(),StaticRef<float>(0x858CC4));",source_global_reference
+reference,0x00858B1C,0x00458B1C,source/game_sa/Entity/Vehicle/Plane.cpp,1030,"m_fSteerAngle=PlaneGroundSteerCpp(forwardSpeed,m_pHandlingData->m_fSteeringLock,m_fLeftRightSkid,StaticRef<float>(0x858B1C),StaticRef<float>(0x8595EC));",source_global_reference
+reference,0x008595EC,0x004595EC,source/game_sa/Entity/Vehicle/Plane.cpp,1030,"m_fSteerAngle=PlaneGroundSteerCpp(forwardSpeed,m_pHandlingData->m_fSteeringLock,m_fLeftRightSkid,StaticRef<float>(0x858B1C),StaticRef<float>(0x8595EC));",source_global_reference
+multiplier,0x00858CE8,0x00458CE8,source/game_sa/Entity/Vehicle/Plane.cpp,1032,const float multiplier=StaticRef<float>(0x858CE8);m_fSteerAngle*=multiplier;m_fLeftRightSkid*=multiplier;,source_global_reference
+reference,0x00859A3C,0x00459A3C,source/game_sa/Entity/Vehicle/Plane.cpp,1035,m_fAccelerationBreakStatus=float(accelerator-brake)*StaticRef<float>(0x859A3C);,source_global_reference
+reference,0x00871904,0x00471904,source/game_sa/Entity/Vehicle/Plane.cpp,1040,"if(m_fLandingGearStatus==0.f){bytes[0x5A5]=bytes[0x5A6]=bytes[0x5A7]=bytes[0x5A8]=2;m_fLandingGearStatus=RpNanMulAddCpp(CTimer::GetTimeStep(),StaticRef<float>(0x871904),m_fLandingGearStatus);}",source_global_reference
+reference,0x00871904,0x00471904,source/game_sa/Entity/Vehicle/Plane.cpp,1041,"else if(std::bit_cast<uint32>(m_fLandingGearStatus)==0x3F800000u)m_fLandingGearStatus=RpNanMulAddCpp(CTimer::GetTimeStep(),StaticRef<float>(0x871904),-1.f);",source_global_reference
+reference,0x00871904,0x00471904,source/game_sa/Entity/Vehicle/Plane.cpp,1044,"const bool complete=PlaneGearAdvanceCpp(&m_fLandingGearStatus,CTimer::GetTimeStep(),StaticRef<float>(0x871904),0.f);",source_global_reference
+reference,0x00871900,0x00471900,source/game_sa/Entity/Vehicle/Plane.cpp,1045,"if(complete){m_fLandingGearStatus=0.f;bytes[0x5A5]=bytes[0x5A6]=bytes[0x5A7]=bytes[0x5A8]=0;m_fAirResistance=PlaneGearResistanceCpp(m_pHandlingData->m_fDragMult,StaticRef<float>(0x871900),StaticRef<float>(0x858B8C));}",source_global_reference
+reference,0x00858B8C,0x00458B8C,source/game_sa/Entity/Vehicle/Plane.cpp,1045,"if(complete){m_fLandingGearStatus=0.f;bytes[0x5A5]=bytes[0x5A6]=bytes[0x5A7]=bytes[0x5A8]=0;m_fAirResistance=PlaneGearResistanceCpp(m_pHandlingData->m_fDragMult,StaticRef<float>(0x871900),StaticRef<float>(0x858B8C));}",source_global_reference
+reference,0x00871904,0x00471904,source/game_sa/Entity/Vehicle/Plane.cpp,1047,"if(PlaneGearAdvanceCpp(&m_fLandingGearStatus,CTimer::GetTimeStep(),StaticRef<float>(0x871904),1.f))SetGearUp();",source_global_reference
+reference,0x0085862C,0x0045862C,source/game_sa/Entity/Vehicle/Plane.cpp,1049,if(m_nModelIndex==520&&std::abs(CPad::GetPad(playerNum)->GetCarGunUpDown())>StaticRef<float>(0x85862C)){,source_global_reference
+reference,0x008D33DC,0x004D33DC,source/game_sa/Entity/Vehicle/Plane.cpp,1051,"float step=CTimer::GetTimeStep();const int32 firstAxis=CPad::GetPad(playerNum)->GetCarGunUpDown();const int32 first=int32(nozzle)+int16(PlaneNozzleChangeCpp(firstAxis,step,StaticRef<float>(0x8D33DC),StaticRef<float>(0x858B88)));",source_global_reference
+reference,0x00858B88,0x00458B88,source/game_sa/Entity/Vehicle/Plane.cpp,1051,"float step=CTimer::GetTimeStep();const int32 firstAxis=CPad::GetPad(playerNum)->GetCarGunUpDown();const int32 first=int32(nozzle)+int16(PlaneNozzleChangeCpp(firstAxis,step,StaticRef<float>(0x8D33DC),StaticRef<float>(0x858B88)));",source_global_reference
+reference,0x008D33DC,0x004D33DC,source/game_sa/Entity/Vehicle/Plane.cpp,1052,"if(first<0)nozzle=0;else{step=CTimer::GetTimeStep();const int32 secondAxis=CPad::GetPad(playerNum)->GetCarGunUpDown();nozzle=uint16(int32(nozzle)+int16(PlaneNozzleChangeCpp(secondAxis,step,StaticRef<float>(0x8D33DC),StaticRef<float>(0x858B88))));}",source_global_reference
+reference,0x00858B88,0x00458B88,source/game_sa/Entity/Vehicle/Plane.cpp,1052,"if(first<0)nozzle=0;else{step=CTimer::GetTimeStep();const int32 secondAxis=CPad::GetPad(playerNum)->GetCarGunUpDown();nozzle=uint16(int32(nozzle)+int16(PlaneNozzleChangeCpp(secondAxis,step,StaticRef<float>(0x8D33DC),StaticRef<float>(0x858B88))));}",source_global_reference
+reference,0x00858F9C,0x00458F9C,source/game_sa/Entity/Vehicle/Plane.cpp,1056,if(forwardSpeed>0.f&&CPad::GetPad(playerNum)->GetBrake()!=0){const int32 input=CPad::GetPad(playerNum)->GetBrake();m_BrakePedal=float(input)*StaticRef<float>(forwardSpeed>StaticRef<float>(0x858F9C)?0x871A70:0x859A3C);},source_global_reference
+reference,0x00858B1C,0x00458B1C,source/game_sa/Entity/Vehicle/Plane.cpp,1057,"else if(PlaneSpeedBelowCpp(&m_vecMoveSpeed.x,StaticRef<float>(0x858B1C))&&CPad::GetPad(playerNum)->GetBrake()<10&&CPad::GetPad(playerNum)->GetAccelerate()<10)m_BrakePedal=.5f;",source_global_reference
+reference,0x00871254,0x00471254,source/game_sa/Entity/Vehicle/Plane.cpp,1059,"if(CPad::GetPad(playerNum)->DisablePlayerControls){bytes[0x428]|=0x20;m_BrakePedal=1.f;m_GasPedal=0.f;FindPlayerPed(-1)->KeepAreaAroundPlayerClear();PlaneSpeedCapCpp(&m_vecMoveSpeed.x,StaticRef<float>(0x871254));}",source_global_reference
+reference,0x008D33E0,0x004D33E0,source/game_sa/Entity/Vehicle/Plane.cpp,1070,"m_planeDamageWave = std::bit_cast<int32>(uint32(m_planeDamageWave) + PlaneWaveAdvanceCpp(StaticRef<float>(0x8D33E0), CTimer::GetTimeStep(), waveRandom, StaticRef<float>(0x858C7C), StaticRef<float>(0x858B38), StaticRef<float>(0x858C4C)));",source_global_reference
+reference,0x00858C7C,0x00458C7C,source/game_sa/Entity/Vehicle/Plane.cpp,1070,"m_planeDamageWave = std::bit_cast<int32>(uint32(m_planeDamageWave) + PlaneWaveAdvanceCpp(StaticRef<float>(0x8D33E0), CTimer::GetTimeStep(), waveRandom, StaticRef<float>(0x858C7C), StaticRef<float>(0x858B38), StaticRef<float>(0x858C4C)));",source_global_reference
+reference,0x00858B38,0x00458B38,source/game_sa/Entity/Vehicle/Plane.cpp,1070,"m_planeDamageWave = std::bit_cast<int32>(uint32(m_planeDamageWave) + PlaneWaveAdvanceCpp(StaticRef<float>(0x8D33E0), CTimer::GetTimeStep(), waveRandom, StaticRef<float>(0x858C7C), StaticRef<float>(0x858B38), StaticRef<float>(0x858C4C)));",source_global_reference
+reference,0x00858C4C,0x00458C4C,source/game_sa/Entity/Vehicle/Plane.cpp,1070,"m_planeDamageWave = std::bit_cast<int32>(uint32(m_planeDamageWave) + PlaneWaveAdvanceCpp(StaticRef<float>(0x8D33E0), CTimer::GetTimeStep(), waveRandom, StaticRef<float>(0x858C7C), StaticRef<float>(0x858B38), StaticRef<float>(0x858C4C)));",source_global_reference
+reference,0x00859F80,0x00459F80,source/game_sa/Entity/Vehicle/Plane.cpp,1073,if (m_fHealth < StaticRef<float>(0x859F80) && status() == 0) {,source_global_reference
+reference,0x0086DAF4,0x0046DAF4,source/game_sa/Entity/Vehicle/Plane.cpp,1077,"if (PlaneRollCompareCpp(rollFn, this, StaticRef<float>(0x86DAF4), false)) lateral += .75f;",source_global_reference
+reference,0x00858FE4,0x00458FE4,source/game_sa/Entity/Vehicle/Plane.cpp,1078,"if (PlaneRollCompareCpp(rollFn, this, StaticRef<float>(0x858FE4), true)) up += .5f;",source_global_reference
+spread,0x008D344C,0x004D344C,source/game_sa/Entity/Vehicle/Plane.cpp,1091,const float spread = StaticRef<float>(0x8D344C);,source_global_reference
+reference,0x008D3448,0x004D3448,source/game_sa/Entity/Vehicle/Plane.cpp,1095,"random, damage, uint32(m_planeDamageWave), StaticRef<uint32>(0x8D3448), CTimer::GetTimeStep(),",source_global_reference
+reference,0x00858C7C,0x00458C7C,source/game_sa/Entity/Vehicle/Plane.cpp,1096,"StaticRef<float>(0x858C7C), StaticRef<float>(0x858CBC), StaticRef<float>(0x8D3444));",source_global_reference
+reference,0x00858CBC,0x00458CBC,source/game_sa/Entity/Vehicle/Plane.cpp,1096,"StaticRef<float>(0x858C7C), StaticRef<float>(0x858CBC), StaticRef<float>(0x8D3444));",source_global_reference
+reference,0x008D3444,0x004D3444,source/game_sa/Entity/Vehicle/Plane.cpp,1096,"StaticRef<float>(0x858C7C), StaticRef<float>(0x858CBC), StaticRef<float>(0x8D3444));",source_global_reference
+reference,0x00858CC4,0x00458CC4,source/game_sa/Entity/Vehicle/Plane.cpp,1105,"field(axis) = PlaneFlightDecayCpp(field(axis), damage, StaticRef<float>(0x858CC4), node == 16);",source_global_reference
+reference,0x00858C7C,0x00458C7C,source/game_sa/Entity/Vehicle/Plane.cpp,1108,"field(axis) = PlaneDamageNoiseCpp(field(axis), amplitude, random, squaredDamage, CTimer::GetTimeStep(), speed, StaticRef<float>(0x858C7C));",source_global_reference
+reference,0x00858C7C,0x00458C7C,source/game_sa/Entity/Vehicle/Plane.cpp,1116,"squaredDamage, CTimer::GetTimeStep(), speed, StaticRef<float>(0x858C7C));",source_global_reference
+reference,0x00858C24,0x00458C24,source/game_sa/Entity/Vehicle/Plane.cpp,1121,if (strength > 0.f && !(bytes[0x42B] & 0x40) && (speed > StaticRef<float>(0x858C24) || (CGeneral::GetRandomNumber() & 7) == 0)) {,source_global_reference
+cameraMatrix,0x00B6F03C,0x0076F03C,source/game_sa/Entity/Vehicle/Plane.cpp,1122,auto* cameraMatrix = StaticRef<CMatrix*>(0xB6F03C);,source_global_reference
+reference,0x00B6F02C,0x0076F02C,source/game_sa/Entity/Vehicle/Plane.cpp,1123,const CVector* cameraPosition = cameraMatrix ? &cameraMatrix->GetPosition() : &StaticRef<CVector>(0xB6F02C);,source_global_reference
+reference,0x00859AEC,0x00459AEC,source/game_sa/Entity/Vehicle/Plane.cpp,1124,"if ((PlaneDistanceBelowCpp(&GetPosition().x, &cameraPosition->x, StaticRef<float>(0x859AEC)) || status() == 0) && m_aCarNodes[node]) {",source_global_reference
+reference,0x00858C84,0x00458C84,source/game_sa/Entity/Vehicle/Plane.cpp,1130,"PlaneSmokeParticleVelocityCpp(&velocity.x, &m_vecMoveSpeed.x, StaticRef<float>(0x858C84), StaticRef<float>(0x858B40));",source_global_reference
+reference,0x00858B40,0x00458B40,source/game_sa/Entity/Vehicle/Plane.cpp,1130,"PlaneSmokeParticleVelocityCpp(&velocity.x, &m_vecMoveSpeed.x, StaticRef<float>(0x858C84), StaticRef<float>(0x858B40));",source_global_reference
+reference,0x00858C7C,0x00458C7C,source/game_sa/Entity/Vehicle/Plane.cpp,1131,"velocity.x = PlaneVelocityNoiseCpp(velocity.x, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C), StaticRef<float>(0x871A74), StaticRef<float>(0x858C20));",source_global_reference
+reference,0x00871A74,0x00471A74,source/game_sa/Entity/Vehicle/Plane.cpp,1131,"velocity.x = PlaneVelocityNoiseCpp(velocity.x, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C), StaticRef<float>(0x871A74), StaticRef<float>(0x858C20));",source_global_reference
+reference,0x00858C20,0x00458C20,source/game_sa/Entity/Vehicle/Plane.cpp,1131,"velocity.x = PlaneVelocityNoiseCpp(velocity.x, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C), StaticRef<float>(0x871A74), StaticRef<float>(0x858C20));",source_global_reference
+reference,0x00858C7C,0x00458C7C,source/game_sa/Entity/Vehicle/Plane.cpp,1132,"velocity.y = PlaneVelocityNoiseCpp(velocity.y, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C), StaticRef<float>(0x871A74), StaticRef<float>(0x858C20));",source_global_reference
+reference,0x00871A74,0x00471A74,source/game_sa/Entity/Vehicle/Plane.cpp,1132,"velocity.y = PlaneVelocityNoiseCpp(velocity.y, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C), StaticRef<float>(0x871A74), StaticRef<float>(0x858C20));",source_global_reference
+reference,0x00858C20,0x00458C20,source/game_sa/Entity/Vehicle/Plane.cpp,1132,"velocity.y = PlaneVelocityNoiseCpp(velocity.y, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C), StaticRef<float>(0x871A74), StaticRef<float>(0x858C20));",source_global_reference
+reference,0x00858C7C,0x00458C7C,source/game_sa/Entity/Vehicle/Plane.cpp,1133,"velocity.z = PlaneVelocityNoiseCpp(velocity.z, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C), StaticRef<float>(0x871A74), StaticRef<float>(0x858C20));",source_global_reference
+reference,0x00871A74,0x00471A74,source/game_sa/Entity/Vehicle/Plane.cpp,1133,"velocity.z = PlaneVelocityNoiseCpp(velocity.z, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C), StaticRef<float>(0x871A74), StaticRef<float>(0x858C20));",source_global_reference
+reference,0x00858C20,0x00458C20,source/game_sa/Entity/Vehicle/Plane.cpp,1133,"velocity.z = PlaneVelocityNoiseCpp(velocity.z, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C), StaticRef<float>(0x871A74), StaticRef<float>(0x858C20));",source_global_reference
+reference,0x00858C7C,0x00458C7C,source/game_sa/Entity/Vehicle/Plane.cpp,1134,"mults.m_fLife = IntTimesFloatCpp(CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C)); // EXE overwrites multiplier life at stack+0x98, 0x6CC003.",source_global_reference
+reference,0x00858C7C,0x00458C7C,source/game_sa/Entity/Vehicle/Plane.cpp,1135,"point.x = PlanePositionNoiseCpp(point.x, strength, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C));",source_global_reference
+reference,0x00858C7C,0x00458C7C,source/game_sa/Entity/Vehicle/Plane.cpp,1136,"point.y = PlanePositionNoiseCpp(point.y, strength, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C));",source_global_reference
+reference,0x00858C7C,0x00458C7C,source/game_sa/Entity/Vehicle/Plane.cpp,1137,"point.z = PlanePositionNoiseCpp(point.z, strength, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C));",source_global_reference
+reference,0x00858CDC,0x00458CDC,source/game_sa/Entity/Vehicle/Plane.cpp,1145,const float decrement = CTimer::GetTimeStep() * StaticRef<float>(0x858CDC);,source_global_reference
+reference,0x008D33D0,0x004D33D0,source/game_sa/Entity/Vehicle/Plane.cpp,1147,"if (m_fPropSpeed > StaticRef<float>(0x8D33D0)) m_fPropSpeed = PlaneFlightProductAddCpp(m_fPropSpeed, CTimer::GetTimeStep(), StaticRef<float>(0x859CD8), true);",source_global_reference
+reference,0x00859CD8,0x00459CD8,source/game_sa/Entity/Vehicle/Plane.cpp,1147,"if (m_fPropSpeed > StaticRef<float>(0x8D33D0)) m_fPropSpeed = PlaneFlightProductAddCpp(m_fPropSpeed, CTimer::GetTimeStep(), StaticRef<float>(0x859CD8), true);",source_global_reference
+reference,0x008D33D0,0x004D33D0,source/game_sa/Entity/Vehicle/Plane.cpp,1153,"float target = PlanePropellerTargetCpp(m_fAccelerationBreakStatus, StaticRef<float>(0x8D33D0), StaticRef<float>(0x8D33D4), StaticRef<float>(0x8D33CC));",source_global_reference
+reference,0x008D33D4,0x004D33D4,source/game_sa/Entity/Vehicle/Plane.cpp,1153,"float target = PlanePropellerTargetCpp(m_fAccelerationBreakStatus, StaticRef<float>(0x8D33D0), StaticRef<float>(0x8D33D4), StaticRef<float>(0x8D33CC));",source_global_reference
+reference,0x008D33CC,0x004D33CC,source/game_sa/Entity/Vehicle/Plane.cpp,1153,"float target = PlanePropellerTargetCpp(m_fAccelerationBreakStatus, StaticRef<float>(0x8D33D0), StaticRef<float>(0x8D33D4), StaticRef<float>(0x8D33CC));",source_global_reference
+reference,0x00858B38,0x00458B38,source/game_sa/Entity/Vehicle/Plane.cpp,1157,"target = PlaneCeilingTargetCpp(HeightAboveCeiling(GetPosition().z, flightModel), target, StaticRef<float>(0x858B38));",source_global_reference
+reference,0x00858CEC,0x00458CEC,source/game_sa/Entity/Vehicle/Plane.cpp,1158,"m_fAccelerationBreakStatus = PlaneCeilingAccelerationCpp(HeightAboveCeiling(GetPosition().z, flightModel), m_fAccelerationBreakStatus, StaticRef<float>(0x858CEC));",source_global_reference
+reference,0x008D33D8,0x004D33D8,source/game_sa/Entity/Vehicle/Plane.cpp,1162,"m_fPropSpeed = PlaneFloatBlendCpp(m_fPropSpeed, target, CTimer::GetTimeStep(), StaticRef<float>(0x8D33D8));",source_global_reference
+reference,0x008D33CC,0x004D33CC,source/game_sa/Entity/Vehicle/Plane.cpp,1169,"if (!(m_fPropSpeed > StaticRef<float>(0x8D33CC)) && !PlaneSpeedSquaredAboveCpp(&m_vecMoveSpeed.x, StaticRef<double>(0x859068))) return;",source_global_reference
+reference,0x00859068,0x00459068,source/game_sa/Entity/Vehicle/Plane.cpp,1169,"if (!(m_fPropSpeed > StaticRef<float>(0x8D33CC)) && !PlaneSpeedSquaredAboveCpp(&m_vecMoveSpeed.x, StaticRef<double>(0x859068))) return;",source_global_reference
+reference,0x008D33C8,0x004D33C8,source/game_sa/Entity/Vehicle/Plane.cpp,1170,if (m_nModelIndex == 520 && status() == 0 && int32(*reinterpret_cast<uint16*>(bytes + 0x86C)) >= int32(StaticRef<int16>(0x8D33C8))) {,source_global_reference
+modelInfo,0x00A9B76C,0x0069B76C,source/game_sa/Entity/Vehicle/Plane.cpp,1172,auto* modelInfo = StaticRef<uint8*>(0xA9B76C);,source_global_reference
+reference,0x00859EF8,0x00459EF8,source/game_sa/Entity/Vehicle/Plane.cpp,1174,if (double(m_fAccelerationBreakStatus) > StaticRef<double>(0x859EF8) || (bytes[0x960] < 4 && !(*reinterpret_cast<uint32*>(bytes + 0x40) & 0x08000000))),source_global_reference
+reference,0x008D341C,0x004D341C,source/game_sa/Entity/Vehicle/Plane.cpp,1175,"FlyingControl(eFlightModel(6), skid, up, -lateral, m_fAccelerationBreakStatus * StaticRef<float>(0x8D341C));",source_global_reference
 GenPlane_ModelIndex,0x00C1CAD8,0x0081CAD8,source/game_sa/Entity/Vehicle/Plane.h,74,static inline auto& GenPlane_ModelIndex = StaticRef<int32>(0xC1CAD8);,source_global_reference
 GenPlane_Status,0x00C1CADC,0x0081CADC,source/game_sa/Entity/Vehicle/Plane.h,75,static inline auto& GenPlane_Status = StaticRef<uint32>(0xC1CADC);,source_global_reference
 GenPlane_LastTimeGenerated,0x00C1CAE0,0x0081CAE0,source/game_sa/Entity/Vehicle/Plane.h,76,static inline auto& GenPlane_LastTimeGenerated = StaticRef<uint32>(0xC1CAE0);,source_global_reference
@@ -2119,14 +2148,16 @@ ms_numVisibleEntities,0x0096A7DC,0x0056A7DC,source/game_sa/EntryExitManager.h,37
 deletingEscalator,0x00C6E98C,0x0086E98C,source/game_sa/Escalator.cpp,38,auto& deletingEscalator = StaticRef<bool>(0xC6E98C);,source_global_reference
 aEscalators,0x00C6E9A8,0x0086E9A8,source/game_sa/Escalators.h,20,"static inline auto& aEscalators = StaticRef<std::array<CEscalator, NUM_ESCALATORS>>(0xC6E9A8);",source_global_reference
 ms_fGunShotSenseRangeForRiot2,0x008A625C,0x004A625C,source/game_sa/Events/EventGunShot.h,13,static inline auto& ms_fGunShotSenseRangeForRiot2 = StaticRef<float>(0x8A625C);,source_global_reference
+reference,0x008CD674,0x004CD674,source/game_sa/Events/EventScanner.cpp,146,if (static_cast<int32>(StaticRef<uint16>(0x8CD674)) == contactModel || static_cast<int32>(StaticRef<uint16>(0x8CD678)) == contactModel) {,source_global_reference
+reference,0x008CD678,0x004CD678,source/game_sa/Events/EventScanner.cpp,146,if (static_cast<int32>(StaticRef<uint16>(0x8CD674)) == contactModel || static_cast<int32>(StaticRef<uint16>(0x8CD678)) == contactModel) {,source_global_reference
 ms_fThresholdDotProduct,0x00C0B034,0x0080B034,source/game_sa/Events/EventScanner.h,16,static inline auto& ms_fThresholdDotProduct = StaticRef<float>(0xC0B034);,source_global_reference
-m_sDeadPedWalkingTimer,0x00C0B038,0x0080B038,source/game_sa/Events/EventScanner.h,73,static inline auto& m_sDeadPedWalkingTimer = StaticRef<uint32>(0xC0B038);,source_global_reference
+m_sDeadPedWalkingTimer,0x00C0B038,0x0080B038,source/game_sa/Events/EventScanner.h,74,static inline auto& m_sDeadPedWalkingTimer = StaticRef<uint32>(0xC0B038);,source_global_reference
 m_ExplosionAudioEntity,0x00C888D0,0x008888D0,source/game_sa/Explosion.h,56,static inline auto& m_ExplosionAudioEntity = StaticRef<CAEExplosionAudioEntity>(0xC888D0);,source_global_reference
 aExplosions,0x00C88950,0x00888950,source/game_sa/Explosion.h,57,"static inline auto& aExplosions = StaticRef<std::array<CExplosion, 16>>(0xC88950);",source_global_reference
 gAtomicModelId,0x00B71840,0x00771840,source/game_sa/FileLoader.cpp,49,auto& gAtomicModelId = StaticRef<uint32>(0xB71840);,source_global_reference
-buffer,0x00BC40D8,0x007C40D8,source/game_sa/FileLoader.cpp,560,auto& buffer = StaticRef<uint8[0x8000]>(0xBC40D8); // 32 kB,source_global_reference
-reference,0x00B4EA28,0x0074EA28,source/game_sa/FileLoader.cpp,1495,const auto numGroups = (int32)StaticRef<uint32>(0xB4EA28) /* CAnimManager::ms_numAnimAssocDefinitions */;,source_global_reference
-reference,0x00B4EA28,0x0074EA28,source/game_sa/FileLoader.cpp,1526,for (int32 i = 0; i < (int32)StaticRef<uint32>(0xB4EA28) /* CAnimManager::ms_numAnimAssocDefinitions */; i++) {,source_global_reference
+buffer,0x00BC40D8,0x007C40D8,source/game_sa/FileLoader.cpp,561,auto& buffer = StaticRef<uint8[0x8000]>(0xBC40D8); // 32 kB,source_global_reference
+reference,0x00B4EA28,0x0074EA28,source/game_sa/FileLoader.cpp,1671,const auto numGroups = (int32)StaticRef<uint32>(0xB4EA28) /* CAnimManager::ms_numAnimAssocDefinitions */;,source_global_reference
+reference,0x00B4EA28,0x0074EA28,source/game_sa/FileLoader.cpp,1702,for (int32 i = 0; i < (int32)StaticRef<uint32>(0xB4EA28) /* CAnimManager::ms_numAnimAssocDefinitions */; i++) {,source_global_reference
 ms_line,0x00B71848,0x00771848,source/game_sa/FileLoader.h,68,static inline auto& ms_line = StaticRef<char[512]>(0xB71848);,source_global_reference
 user_tracks_dir_path,0x00C92168,0x00892168,source/game_sa/FileMgr.cpp,33,auto& user_tracks_dir_path = StaticRef<char[256]>(0xc92168);,source_global_reference
 user_gallery_dir_path,0x00C92268,0x00892268,source/game_sa/FileMgr.cpp,34,auto& user_gallery_dir_path = StaticRef<char[256]>(0xc92268);,source_global_reference
@@ -2259,6 +2290,10 @@ bIsPlayerOnAMission,0x0096ABA0,0x0056ABA0,source/game_sa/GangWars.h,79,static in
 CoorsOfPlayerAtStartOfWar,0x0096ABBC,0x0056ABBC,source/game_sa/GangWars.h,80,static inline auto& CoorsOfPlayerAtStartOfWar = StaticRef<CVector>(0x96ABBC);,source_global_reference
 PointOfAttack,0x0096ABC8,0x0056ABC8,source/game_sa/GangWars.h,81,static inline auto& PointOfAttack = StaticRef<CVector>(0x96ABC8);,source_global_reference
 PedPickCursor,0x0096ABD4,0x0056ABD4,source/game_sa/GangWars.h,83,static inline auto& PedPickCursor = StaticRef<int32>(0x96ABD4);,source_global_reference
+reference,0x00B6F844,0x0076F844,source/game_sa/Garage.cpp,490,StaticRef<CGarage*>(0xB6F844) = this;,source_global_reference
+reference,0x00B6F848,0x0076F848,source/game_sa/Garage.cpp,494,StaticRef<CGarage*>(0xB6F848) = this;,source_global_reference
+reference,0x00B6F844,0x0076F844,source/game_sa/Garage.cpp,500,StaticRef<CGarage*>(0xB6F844) = this;,source_global_reference
+reference,0x00A9AE20,0x0069AE20,source/game_sa/Garage.cpp,689,"StaticRef<FxSystem_c*>(0xA9AE20)->AddParticle(position, velocity, 0.0f, mult, -1.0f, 1.2f, 0.6f, false);",source_global_reference
 LastUpdatedGarageId,0x0096EA78,0x0056EA78,source/game_sa/Garages.cpp,24,static auto& LastUpdatedGarageId = StaticRef<uint32>(0x96EA78);,source_global_reference
 aCarsInSafeHouse,0x0096ABD8,0x0056ABD8,source/game_sa/Garages.h,21,static inline auto& aCarsInSafeHouse = StaticRef<CStoredCar[MAX_NUM_SAFEHOUSES][MAX_CARS_IN_SAFEHOUSE]>(0x96ABD8);,source_global_reference
 aGarages,0x0096C048,0x0056C048,source/game_sa/Garages.h,22,static inline auto& aGarages = StaticRef<CGarage[MAX_NUM_GARAGES]>(0x96C048);,source_global_reference
@@ -2801,12 +2836,13 @@ DontWanderGiven,0x0096EC40,0x0056EC40,source/game_sa/PathFind.cpp,138,"auto& Don
 aInteriorNodeLinkedToExterior,0x0096EA98,0x0056EA98,source/game_sa/PathFind.cpp,140,"auto& aInteriorNodeLinkedToExterior = StaticRef<std::array<int32, NUM_PATH_INTERIOR_AREAS>>(0x96EA98);",source_global_reference
 aExteriorNodeLinkedTo,0x00977B7C,0x00577B7C,source/game_sa/PathFind.cpp,141,"auto& aExteriorNodeLinkedTo = StaticRef<std::array<CNodeAddress, NUM_PATH_INTERIOR_AREAS>>(0x977B7C);",source_global_reference
 aNodesToBeCleared,0x00972CD0,0x00572CD0,source/game_sa/PathFind.cpp,143,"auto& aNodesToBeCleared = StaticRef<std::array<CNodeAddress, 5000>>(0x972CD0);",source_global_reference
-InteriorIDBeingBuilt,0x0096EF88,0x0056EF88,source/game_sa/PathFind.h,223,static inline auto& InteriorIDBeingBuilt = StaticRef<int32>(0x96EF88);,source_global_reference
-bInteriorBeingBuilt,0x0096F031,0x0056F031,source/game_sa/PathFind.h,224,static inline auto& bInteriorBeingBuilt = StaticRef<bool>(0x96F031);,source_global_reference
-NumNodesGiven,0x0096EF80,0x0056EF80,source/game_sa/PathFind.h,225,static inline auto& NumNodesGiven = StaticRef<uint32>(0x96EF80);,source_global_reference
-NumLinksToExteriorNodes,0x0096EAB8,0x0056EAB8,source/game_sa/PathFind.h,226,static inline auto& NumLinksToExteriorNodes = StaticRef<int32>(0x96EAB8);,source_global_reference
-NewInteriorSlot,0x0096EF84,0x0056EF84,source/game_sa/PathFind.h,227,static inline auto& NewInteriorSlot = StaticRef<int32>(0x96EF84);,source_global_reference
-ThePaths,0x0096F050,0x0056F050,source/game_sa/PathFind.h,619,static inline auto& ThePaths = StaticRef<CPathFind>(0x96F050);,source_global_reference
+s_parkingNodeCursor,0x00977B9C,0x00577B9C,source/game_sa/PathFind.cpp,144,auto& s_parkingNodeCursor = StaticRef<int32>(0x977B9C); // 0x4513F0: indice del nodo de aparcamiento que se devuelve,source_global_reference
+InteriorIDBeingBuilt,0x0096EF88,0x0056EF88,source/game_sa/PathFind.h,226,static inline auto& InteriorIDBeingBuilt = StaticRef<int32>(0x96EF88);,source_global_reference
+bInteriorBeingBuilt,0x0096F031,0x0056F031,source/game_sa/PathFind.h,227,static inline auto& bInteriorBeingBuilt = StaticRef<bool>(0x96F031);,source_global_reference
+NumNodesGiven,0x0096EF80,0x0056EF80,source/game_sa/PathFind.h,228,static inline auto& NumNodesGiven = StaticRef<uint32>(0x96EF80);,source_global_reference
+NumLinksToExteriorNodes,0x0096EAB8,0x0056EAB8,source/game_sa/PathFind.h,229,static inline auto& NumLinksToExteriorNodes = StaticRef<int32>(0x96EAB8);,source_global_reference
+NewInteriorSlot,0x0096EF84,0x0056EF84,source/game_sa/PathFind.h,230,static inline auto& NewInteriorSlot = StaticRef<int32>(0x96EF84);,source_global_reference
+ThePaths,0x0096F050,0x0056F050,source/game_sa/PathFind.h,622,static inline auto& ThePaths = StaticRef<CPathFind>(0x96F050);,source_global_reference
 manager,0x00C09840,0x00809840,source/game_sa/PedAttractorManager.cpp,74,auto& manager = StaticRef<CPedAttractorManager*>(0xC09840);,source_global_reference
 ms_damageFactor,0x008A6260,0x004A6260,source/game_sa/PedDamageResponseCalculator.h,17,static inline auto& ms_damageFactor = StaticRef<float>(0x8A6260);,source_global_reference
 ScriptReferenceIndex,0x00C098D0,0x008098D0,source/game_sa/PedGroups.h,16,"static inline auto& ScriptReferenceIndex = StaticRef<std::array<uint16, 8>>(0xC098D0);",source_global_reference
@@ -2834,9 +2870,13 @@ aPickUpsCollected,0x00978628,0x00578628,source/game_sa/Pickups.h,35,"static inli
 NumMessages,0x00978678,0x00578678,source/game_sa/Pickups.h,36,static inline auto& NumMessages = StaticRef<uint16>(0x978678);,source_global_reference
 aMessages,0x00978680,0x00578680,source/game_sa/Pickups.h,37,"static inline auto& aMessages = StaticRef<std::array<tPickupMessage, MAX_PICKUP_MESSAGES>>(0x978680);",source_global_reference
 aPickUps,0x009788C0,0x005788C0,source/game_sa/Pickups.h,38,"static inline auto& aPickUps = StaticRef<std::array<CPickup, MAX_NUM_PICKUPS>>(0x9788C0);",source_global_reference
-CollectPickupBuffer,0x0097D644,0x0057D644,source/game_sa/Pickups.h,140,static inline auto& CollectPickupBuffer = StaticRef<int32>(0x97D644);,source_global_reference
+CollectPickupBuffer,0x0097D644,0x0057D644,source/game_sa/Pickups.h,141,static inline auto& CollectPickupBuffer = StaticRef<int32>(0x97D644);,source_global_reference
 s_Magic1,0x00C02C14,0x00802C14,source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp,24,auto& s_Magic1 = StaticRef<uint32>(0xC02C14);,source_global_reference
 s_Magic2,0x00C02C18,0x00802C18,source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp,25,auto& s_Magic2 = StaticRef<uint32>(0xC02C18);,source_global_reference
+reference,0x00859A3C,0x00459A3C,source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp,297,if (static_cast<float>(envData[4]) * StaticRef<float>(0x859A3C) /* 1/255 */ != 0.0f && *reinterpret_cast<void**>(envData + 8)) {,source_global_reference
+DNEnvMapTexMatrix,0x00C02C28,0x00802C28,source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp,306,static inline auto& DNEnvMapTexMatrix = StaticRef<D3DMATRIX>(0xC02C28);,source_global_reference
+reference,0x00859A3C,0x00459A3C,source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp,367,int32 shininess = (int32)((float)envData[4] * StaticRef<float>(0x859A3C) * StaticRef<float>(0x86BE90));,source_global_reference
+reference,0x0086BE90,0x0046BE90,source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp,367,int32 shininess = (int32)((float)envData[4] * StaticRef<float>(0x859A3C) * StaticRef<float>(0x86BE90));,source_global_reference
 m_fDNBalanceParam,0x008D12C0,0x004D12C0,source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h,24,static inline auto& m_fDNBalanceParam = StaticRef<float>(0x8D12C0); // 1.0f,source_global_reference
 ms_extraVertColourPluginOffset,0x008D12BC,0x004D12BC,source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h,25,static inline auto& ms_extraVertColourPluginOffset = StaticRef<uint32>(0x8D12BC); // -1,source_global_reference
 ObjPipeline,0x00C02C1C,0x00802C1C,source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h,26,static inline auto& ObjPipeline = StaticRef<RxPipeline*>(0xC02C1C);,source_global_reference
@@ -2860,10 +2900,10 @@ m_gSpecMapPipeMatDataPool,0x00C02D30,0x00802D30,source/game_sa/Pipelines/CustomC
 g_GameLight,0x00C02CB0,0x00802CB0,source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h,154,static inline auto& g_GameLight = StaticRef<D3DLIGHT9>(0xC02CB0);,source_global_reference
 aArray,0x00C713A8,0x008713A8,source/game_sa/PlaneTrails.h,13,"static inline auto& aArray = StaticRef<std::array<CPlaneTrail, 3>>(0xC713A8);",source_global_reference
 g_procObjMan,0x00BB7CB0,0x007B7CB0,source/game_sa/Plant/ProcObjectMan.h,50,static inline auto& g_procObjMan = StaticRef<ProcObjectMan_c>(0xBB7CB0);,source_global_reference
-nUpdateEntCache,0x00C09171,0x00809171,source/game_sa/PlantMgr.cpp,346,static auto& nUpdateEntCache = StaticRef<uint8>(0xC09171);,source_global_reference
-nLocTriSkipCounter,0x00C09170,0x00809170,source/game_sa/PlantMgr.cpp,347,static auto& nLocTriSkipCounter = StaticRef<uint8>(0xC09170);,source_global_reference
-calculateTimer,0x00C0916C,0x0080916C,source/game_sa/PlantMgr.cpp,398,static auto& calculateTimer = StaticRef<uint32>(0xC0916C);,source_global_reference
-RandomSeed,0x00C09168,0x00809168,source/game_sa/PlantMgr.cpp,399,static auto& RandomSeed = StaticRef<uint32>(0xC09168); // Como el original: se escribe y se lee como dword,source_global_reference
+nUpdateEntCache,0x00C09171,0x00809171,source/game_sa/PlantMgr.cpp,374,static auto& nUpdateEntCache = StaticRef<uint8>(0xC09171);,source_global_reference
+nLocTriSkipCounter,0x00C09170,0x00809170,source/game_sa/PlantMgr.cpp,375,static auto& nLocTriSkipCounter = StaticRef<uint8>(0xC09170);,source_global_reference
+calculateTimer,0x00C0916C,0x0080916C,source/game_sa/PlantMgr.cpp,426,static auto& calculateTimer = StaticRef<uint32>(0xC0916C);,source_global_reference
+RandomSeed,0x00C09168,0x00809168,source/game_sa/PlantMgr.cpp,427,static auto& RandomSeed = StaticRef<uint32>(0xC09168); // Como el original: se escribe y se lee como dword,source_global_reference
 PC_PlantTextureTab,0x00C039A0,0x008039A0,source/game_sa/PlantMgr.h,20,static inline auto& PC_PlantTextureTab = StaticRef<RwTexture*[4][4]>(0xC039A0);,source_global_reference
 PC_PlantModelsTab,0x00C039F0,0x008039F0,source/game_sa/PlantMgr.h,21,static inline auto& PC_PlantModelsTab = StaticRef<RpAtomic*[4][4]>(0xC039F0);,source_global_reference
 m_scanCode,0x00C03980,0x00803980,source/game_sa/PlantMgr.h,23,static inline auto& m_scanCode = StaticRef<int16>(0xC03980);,source_global_reference
@@ -3176,6 +3216,11 @@ mapYouAreHereTimer,0x00BAA358,0x007AA358,source/game_sa/Radar.cpp,1085,static au
 mapYouAreHereDisplay,0x008D0930,0x004D0930,source/game_sa/Radar.cpp,1086,static auto& mapYouAreHereDisplay = StaticRef<bool>(0x8D0930);,source_global_reference
 g_RadarGangResetOverlay,0x00BAA36C,0x007AA36C,source/game_sa/Radar.cpp,1789,static auto& g_RadarGangResetOverlay = StaticRef<uint32>(0xBAA36C); // bool?,source_global_reference
 g_RadarGangOverlay,0x00BAA35C,0x007AA35C,source/game_sa/Radar.cpp,1790,static auto& g_RadarGangOverlay = StaticRef<CRect>(0xBAA35C);,source_global_reference
+airstripFlashDone,0x00BAA370,0x007AA370,source/game_sa/Radar.cpp,2053,static auto& airstripFlashDone  = StaticRef<bool>(0xBAA370);,source_global_reference
+airstripFlashTime,0x00BAA374,0x007AA374,source/game_sa/Radar.cpp,2054,static auto& airstripFlashTime  = StaticRef<uint32>(0xBAA374);,source_global_reference
+airstripFlashEnd,0x00BAA378,0x007AA378,source/game_sa/Radar.cpp,2055,static auto& airstripFlashEnd   = StaticRef<int16>(0xBAA378);,source_global_reference
+airstripFlashStep,0x00BAA37C,0x007AA37C,source/game_sa/Radar.cpp,2056,static auto& airstripFlashStep  = StaticRef<int16>(0xBAA37C);,source_global_reference
+airstripFlashGuard,0x00BAA380,0x007AA380,source/game_sa/Radar.cpp,2057,static auto& airstripFlashGuard = StaticRef<uint32>(0xBAA380);,source_global_reference
 m_fRadarOrientation,0x00BA8310,0x007A8310,source/game_sa/Radar.h,206,static inline auto& m_fRadarOrientation = StaticRef<float>(0xBA8310);,source_global_reference
 cachedCos,0x00BA8308,0x007A8308,source/game_sa/Radar.h,207,static inline auto& cachedCos = StaticRef<float>(0xBA8308);,source_global_reference
 cachedSin,0x00BA830C,0x007A830C,source/game_sa/Radar.h,208,static inline auto& cachedSin = StaticRef<float>(0xBA830C);,source_global_reference
@@ -3197,6 +3242,7 @@ s_bLimitBones,0x008D2BD2,0x004D2BD2,source/game_sa/Ragdoll/IKChain.cpp,233,stati
 g_ikChainMan,0x00C15448,0x00815448,source/game_sa/Ragdoll/IKChainManager.cpp,29,auto& g_ikChainMan = StaticRef<IKChainManager_c>(0xC15448);,source_global_reference
 s_MaxRange,0x00866BEC,0x00466BEC,source/game_sa/Ragdoll/IKChainManager.cpp,132,static auto& s_MaxRange = StaticRef<float>(0x866BEC); // 999.0f,source_global_reference
 s_bDisableLookAts,0x00C1542C,0x0081542C,source/game_sa/Ragdoll/IKChainManager.cpp,267,static auto& s_bDisableLookAts = StaticRef<bool>(0xC1542C); // Como el original: solo se lee aquí,source_global_reference
+reference,0x00858F14,0x00458F14,source/game_sa/RealTimeShadow.cpp,129,"m_camera.SetFrustum(FloatTimesFloatCpp(m_boundingSphere.m_fRadius, StaticRef<float>(0x858F14)) /* 1.1f: fmul del x87, conserva denormales */);",source_global_reference
 g_realTimeShadowMan,0x00C40350,0x00840350,source/game_sa/RealTimeShadowManager.cpp,24,auto& g_realTimeShadowMan = StaticRef<CRealTimeShadowManager>(0xC40350);,source_global_reference
 aRefs,0x00B9B9A8,0x0079B9A8,source/game_sa/References.h,15,static inline auto& aRefs = StaticRef<CReference[MAX_NUM_REFERENCES]>(0xB9B9A8);,source_global_reference
 pEmptyList,0x00BA1768,0x007A1768,source/game_sa/References.h,16,static inline auto& pEmptyList = StaticRef<CReference*>(0xBA1768);,source_global_reference
@@ -3206,30 +3252,30 @@ reference,0x00C4B954,0x0084B954,source/game_sa/RenderBuffer.cpp,28,auto& s_TempI
 reference,0x00C4B950,0x0084B950,source/game_sa/RenderBuffer.cpp,29,auto& s_TempVtxStored{ StaticRef<int32>(0xC4B950) };,source_global_reference
 gnRendererModelRequestFlags,0x00B745C4,0x007745C4,source/game_sa/Renderer.cpp,36,auto& gnRendererModelRequestFlags = StaticRef<uint32>(0xB745C4);,source_global_reference
 gpOutEntitiesForGetObjectsInFrustum,0x00B76854,0x00776854,source/game_sa/Renderer.cpp,37,auto& gpOutEntitiesForGetObjectsInFrustum = StaticRef<CEntity**>(0xB76854);,source_global_reference
-reference,0x00B76894,0x00776894,source/game_sa/Renderer.cpp,1046,StaticRef<uint32>(0xB76894) |= 3u;,source_global_reference
-lastCameraPosition,0x00B76888,0x00776888,source/game_sa/Renderer.cpp,1075,static auto& lastCameraPosition = StaticRef<CVector>(0xB76888);,source_global_reference
-lastCameraForward,0x00B7687C,0x0077687C,source/game_sa/Renderer.cpp,1076,static auto& lastCameraForward = StaticRef<CVector>(0xB7687C);,source_global_reference
-bCameraHasNotMoved,0x00B745C8,0x007745C8,source/game_sa/Renderer.cpp,1077,static auto& bCameraHasNotMoved = StaticRef<bool>(0xB745C8); // sin uso en el EXE,source_global_reference
-ms_bRenderTunnels,0x00B745C0,0x007745C0,source/game_sa/Renderer.h,70,static inline auto& ms_bRenderTunnels = StaticRef<bool>(0xB745C0);,source_global_reference
-ms_bRenderOutsideTunnels,0x00B745C1,0x007745C1,source/game_sa/Renderer.h,71,static inline auto& ms_bRenderOutsideTunnels = StaticRef<bool>(0xB745C1);,source_global_reference
-ms_pLodDontRenderList,0x00B745CC,0x007745CC,source/game_sa/Renderer.h,72,static inline auto& ms_pLodDontRenderList = StaticRef<tRenderListEntry*>(0xB745CC);,source_global_reference
-ms_pLodRenderList,0x00B745D0,0x007745D0,source/game_sa/Renderer.h,73,static inline auto& ms_pLodRenderList = StaticRef<tRenderListEntry*>(0xB745D0);,source_global_reference
-m_pFirstPersonVehicle,0x00B745D4,0x007745D4,source/game_sa/Renderer.h,74,static inline auto& m_pFirstPersonVehicle = StaticRef<CVehicle*>(0xB745D4);,source_global_reference
-ms_aInVisibleEntityPtrs,0x00B745D8,0x007745D8,source/game_sa/Renderer.h,75,static inline auto& ms_aInVisibleEntityPtrs = StaticRef<CEntity*[MAX_INVISIBLE_ENTITY_PTRS]>(0xB745D8);,source_global_reference
-ms_aVisibleSuperLodPtrs,0x00B74830,0x00774830,source/game_sa/Renderer.h,76,static inline auto& ms_aVisibleSuperLodPtrs = StaticRef<CEntity*[MAX_VISIBLE_SUPERLOD_PTRS]>(0xB74830);,source_global_reference
-ms_aVisibleLodPtrs,0x00B748F8,0x007748F8,source/game_sa/Renderer.h,77,static inline auto& ms_aVisibleLodPtrs = StaticRef<CEntity*[MAX_VISIBLE_LOD_PTRS]>(0xB748F8);,source_global_reference
-ms_aVisibleEntityPtrs,0x00B75898,0x00775898,source/game_sa/Renderer.h,78,static inline auto& ms_aVisibleEntityPtrs = StaticRef<CEntity*[MAX_VISIBLE_ENTITY_PTRS]>(0xB75898);,source_global_reference
-ms_nNoOfVisibleSuperLods,0x00B76838,0x00776838,source/game_sa/Renderer.h,79,static inline auto& ms_nNoOfVisibleSuperLods = StaticRef<int32>(0xB76838);,source_global_reference
-ms_nNoOfInVisibleEntities,0x00B7683C,0x0077683C,source/game_sa/Renderer.h,80,static inline auto& ms_nNoOfInVisibleEntities = StaticRef<int32>(0xB7683C);,source_global_reference
-ms_nNoOfVisibleLods,0x00B76840,0x00776840,source/game_sa/Renderer.h,81,static inline auto& ms_nNoOfVisibleLods = StaticRef<int32>(0xB76840);,source_global_reference
-ms_nNoOfVisibleEntities,0x00B76844,0x00776844,source/game_sa/Renderer.h,82,static inline auto& ms_nNoOfVisibleEntities = StaticRef<int32>(0xB76844);,source_global_reference
-ms_fFarClipPlane,0x00B76848,0x00776848,source/game_sa/Renderer.h,83,static inline auto& ms_fFarClipPlane = StaticRef<float>(0xB76848);,source_global_reference
-ms_fCameraHeading,0x00B7684C,0x0077684C,source/game_sa/Renderer.h,84,static inline auto& ms_fCameraHeading = StaticRef<float>(0xB7684C);,source_global_reference
-m_loadingPriority,0x00B76850,0x00776850,source/game_sa/Renderer.h,85,static inline auto& m_loadingPriority = StaticRef<bool>(0xB76850);,source_global_reference
-ms_bInTheSky,0x00B76851,0x00776851,source/game_sa/Renderer.h,86,static inline auto& ms_bInTheSky = StaticRef<bool>(0xB76851);,source_global_reference
-ms_vecCameraPosition,0x00B76870,0x00776870,source/game_sa/Renderer.h,87,static inline auto& ms_vecCameraPosition = StaticRef<CVector>(0xB76870);,source_global_reference
-ms_lodDistScale,0x008CD800,0x004CD800,source/game_sa/Renderer.h,88,static inline auto& ms_lodDistScale = StaticRef<float>(0x8CD800); // default 1.2,source_global_reference
-ms_lowLodDistScale,0x008CD804,0x004CD804,source/game_sa/Renderer.h,89,static inline auto& ms_lowLodDistScale = StaticRef<float>(0x8CD804); // default 1.0,source_global_reference
+reference,0x00B76894,0x00776894,source/game_sa/Renderer.cpp,1351,StaticRef<uint32>(0xB76894) |= 3u;,source_global_reference
+lastCameraPosition,0x00B76888,0x00776888,source/game_sa/Renderer.cpp,1380,static auto& lastCameraPosition = StaticRef<CVector>(0xB76888);,source_global_reference
+lastCameraForward,0x00B7687C,0x0077687C,source/game_sa/Renderer.cpp,1381,static auto& lastCameraForward = StaticRef<CVector>(0xB7687C);,source_global_reference
+bCameraHasNotMoved,0x00B745C8,0x007745C8,source/game_sa/Renderer.cpp,1382,static auto& bCameraHasNotMoved = StaticRef<bool>(0xB745C8); // sin uso en el EXE,source_global_reference
+ms_bRenderTunnels,0x00B745C0,0x007745C0,source/game_sa/Renderer.h,71,static inline auto& ms_bRenderTunnels = StaticRef<bool>(0xB745C0);,source_global_reference
+ms_bRenderOutsideTunnels,0x00B745C1,0x007745C1,source/game_sa/Renderer.h,72,static inline auto& ms_bRenderOutsideTunnels = StaticRef<bool>(0xB745C1);,source_global_reference
+ms_pLodDontRenderList,0x00B745CC,0x007745CC,source/game_sa/Renderer.h,73,static inline auto& ms_pLodDontRenderList = StaticRef<tRenderListEntry*>(0xB745CC);,source_global_reference
+ms_pLodRenderList,0x00B745D0,0x007745D0,source/game_sa/Renderer.h,74,static inline auto& ms_pLodRenderList = StaticRef<tRenderListEntry*>(0xB745D0);,source_global_reference
+m_pFirstPersonVehicle,0x00B745D4,0x007745D4,source/game_sa/Renderer.h,75,static inline auto& m_pFirstPersonVehicle = StaticRef<CVehicle*>(0xB745D4);,source_global_reference
+ms_aInVisibleEntityPtrs,0x00B745D8,0x007745D8,source/game_sa/Renderer.h,76,static inline auto& ms_aInVisibleEntityPtrs = StaticRef<CEntity*[MAX_INVISIBLE_ENTITY_PTRS]>(0xB745D8);,source_global_reference
+ms_aVisibleSuperLodPtrs,0x00B74830,0x00774830,source/game_sa/Renderer.h,77,static inline auto& ms_aVisibleSuperLodPtrs = StaticRef<CEntity*[MAX_VISIBLE_SUPERLOD_PTRS]>(0xB74830);,source_global_reference
+ms_aVisibleLodPtrs,0x00B748F8,0x007748F8,source/game_sa/Renderer.h,78,static inline auto& ms_aVisibleLodPtrs = StaticRef<CEntity*[MAX_VISIBLE_LOD_PTRS]>(0xB748F8);,source_global_reference
+ms_aVisibleEntityPtrs,0x00B75898,0x00775898,source/game_sa/Renderer.h,79,static inline auto& ms_aVisibleEntityPtrs = StaticRef<CEntity*[MAX_VISIBLE_ENTITY_PTRS]>(0xB75898);,source_global_reference
+ms_nNoOfVisibleSuperLods,0x00B76838,0x00776838,source/game_sa/Renderer.h,80,static inline auto& ms_nNoOfVisibleSuperLods = StaticRef<int32>(0xB76838);,source_global_reference
+ms_nNoOfInVisibleEntities,0x00B7683C,0x0077683C,source/game_sa/Renderer.h,81,static inline auto& ms_nNoOfInVisibleEntities = StaticRef<int32>(0xB7683C);,source_global_reference
+ms_nNoOfVisibleLods,0x00B76840,0x00776840,source/game_sa/Renderer.h,82,static inline auto& ms_nNoOfVisibleLods = StaticRef<int32>(0xB76840);,source_global_reference
+ms_nNoOfVisibleEntities,0x00B76844,0x00776844,source/game_sa/Renderer.h,83,static inline auto& ms_nNoOfVisibleEntities = StaticRef<int32>(0xB76844);,source_global_reference
+ms_fFarClipPlane,0x00B76848,0x00776848,source/game_sa/Renderer.h,84,static inline auto& ms_fFarClipPlane = StaticRef<float>(0xB76848);,source_global_reference
+ms_fCameraHeading,0x00B7684C,0x0077684C,source/game_sa/Renderer.h,85,static inline auto& ms_fCameraHeading = StaticRef<float>(0xB7684C);,source_global_reference
+m_loadingPriority,0x00B76850,0x00776850,source/game_sa/Renderer.h,86,static inline auto& m_loadingPriority = StaticRef<bool>(0xB76850);,source_global_reference
+ms_bInTheSky,0x00B76851,0x00776851,source/game_sa/Renderer.h,87,static inline auto& ms_bInTheSky = StaticRef<bool>(0xB76851);,source_global_reference
+ms_vecCameraPosition,0x00B76870,0x00776870,source/game_sa/Renderer.h,88,static inline auto& ms_vecCameraPosition = StaticRef<CVector>(0xB76870);,source_global_reference
+ms_lodDistScale,0x008CD800,0x004CD800,source/game_sa/Renderer.h,89,static inline auto& ms_lodDistScale = StaticRef<float>(0x8CD800); // default 1.2,source_global_reference
+ms_lowLodDistScale,0x008CD804,0x004CD804,source/game_sa/Renderer.h,90,static inline auto& ms_lowLodDistScale = StaticRef<float>(0x8CD804); // default 1.0,source_global_reference
 RwInitialized,0x00C920E8,0x008920E8,source/game_sa/RenderWare/RenderWare.h,22,static inline auto& RwInitialized = StaticRef<bool>(0xC920E8);,source_global_reference
 RwEngineInstance,0x00C97B24,0x00897B24,source/game_sa/RenderWare/RenderWare.h,23,static inline auto& RwEngineInstance =  StaticRef<RwGlobals*>(0xC97B24);,source_global_reference
 RsGlobal,0x00C17040,0x00817040,source/game_sa/RenderWare/RenderWare.h,24,static inline auto& RsGlobal =  StaticRef<RsGlobalType>(0xC17040);,source_global_reference
@@ -3529,6 +3575,20 @@ nextBufferVertex,0x00C8045C,0x0088045C,source/game_sa/Sprite2d.h,21,static inlin
 NearScreenZ,0x00C80460,0x00880460,source/game_sa/Sprite2d.h,22,static inline auto& NearScreenZ = StaticRef<float>(0xC80460);,source_global_reference
 RecipNearClip,0x00C80464,0x00880464,source/game_sa/Sprite2d.h,23,static inline auto& RecipNearClip = StaticRef<float>(0xC80464);,source_global_reference
 maVertices,0x00C80468,0x00880468,source/game_sa/Sprite2d.h,24,"static inline auto& maVertices = StaticRef<std::array<RwIm2DVertex, 8>>(0xC80468);",source_global_reference
+elapsed,0x00B7CB84,0x0077CB84,source/game_sa/Stats.cpp,1224,const uint32 elapsed = StaticRef<uint32>(0xB7CB84);,source_global_reference
+reference,0x00A9AD74,0x0069AD74,source/game_sa/Stats.cpp,1235,"return StatLineOutOf(StaticRef<int32>(0xA9AD74), StaticRef<int32>(0xA9AD70));",source_global_reference
+reference,0x00A9AD70,0x0069AD70,source/game_sa/Stats.cpp,1235,"return StatLineOutOf(StaticRef<int32>(0xA9AD74), StaticRef<int32>(0xA9AD70));",source_global_reference
+reference,0x00B790C4,0x007790C4,source/game_sa/Stats.cpp,1355,"const int32 total = Stw60ScaledFtolCpp(StaticRef<int32>(0xB790C4), std::bit_cast<float>(0x378BCF65u));",source_global_reference
+reference,0x00B7940C,0x0077940C,source/game_sa/Stats.cpp,1446,"const double lost = Stw60SubClampCpp(StaticRef<float>(0xB7940C), StaticRef<float>(0xB79414));",source_global_reference
+reference,0x00B79414,0x00779414,source/game_sa/Stats.cpp,1446,"const double lost = Stw60SubClampCpp(StaticRef<float>(0xB7940C), StaticRef<float>(0xB79414));",source_global_reference
+reference,0x0096AB9C,0x0056AB9C,source/game_sa/Stats.cpp,1456,"return StatLineDouble(""%0.2f%%"", Stw60MulCpp(static_cast<double>(StaticRef<float>(0x96AB9C)), std::bit_cast<float>(0x42C80000u)));",source_global_reference
+reference,0x00A9A89C,0x0069A89C,source/game_sa/Stats.cpp,1500,"return StatLineOutOf(*reinterpret_cast<const int32*>(0xB79060u), StaticRef<int32>(0xA9A89C));",source_global_reference
+reference,0x00A9A89C,0x0069A89C,source/game_sa/Stats.cpp,1505,"return StatLineOutOf(*reinterpret_cast<const int32*>(0xB79064u), StaticRef<int32>(0xA9A89C));",source_global_reference
+player,0x00B7CD98,0x0077CD98,source/game_sa/Stats.cpp,1510,const uintptr_t player = StaticRef<uintptr_t>(0xB7CD98);,source_global_reference
+reference,0x00B790C4,0x007790C4,source/game_sa/Stats.cpp,1514,"const int32 total = Stw60ScaledFtolCpp(StaticRef<int32>(0xB790C4), std::bit_cast<float>(0x378BCF65u));",source_global_reference
+reference,0x00B790D4,0x007790D4,source/game_sa/Stats.cpp,1521,"const int32 total = Stw60ScaledFtolCpp(StaticRef<int32>(0xB790D4), std::bit_cast<float>(0x378BCF65u));",source_global_reference
+shownLow,0x008CDEC4,0x004CDEC4,source/game_sa/Stats.cpp,1705,auto& shownLow = StaticRef<float>(0x8CDEC4);,source_global_reference
+shownHigh,0x008CDEC8,0x004CDEC8,source/game_sa/Stats.cpp,1706,auto& shownHigh = StaticRef<float>(0x8CDEC8);,source_global_reference
 StatMessage,0x00B78200,0x00778200,source/game_sa/Stats.h,44,"static inline auto& StatMessage = StaticRef<std::array<tStatMessage, 128>>(0xB78200);",source_global_reference
 TotalNumStatMessages,0x00B794D0,0x007794D0,source/game_sa/Stats.h,45,static inline auto& TotalNumStatMessages = StaticRef<uint32>(0xB794D0);,source_global_reference
 LastMissionPassedName,0x00B78A00,0x00778A00,source/game_sa/Stats.h,46,static inline auto& LastMissionPassedName = StaticRef<char[8]>(0xB78A00);,source_global_reference
@@ -3538,6 +3598,7 @@ PedsKilledOfThisType,0x00B78E90,0x00778E90,source/game_sa/Stats.h,49,"static inl
 StatReactionValue,0x00B78F10,0x00778F10,source/game_sa/Stats.h,50,"static inline auto& StatReactionValue = StaticRef<std::array<float, 59>>(0xB78F10);",source_global_reference
 StatTypesInt,0x00B79000,0x00779000,source/game_sa/Stats.h,51,"static inline auto& StatTypesInt = StaticRef<std::array<int32, 223>>(0xB79000);",source_global_reference
 StatTypesFloat,0x00B79380,0x00779380,source/game_sa/Stats.h,52,"static inline auto& StatTypesFloat = StaticRef<std::array<float, 82>>(0xB79380);",source_global_reference
+m_ThisStatIsABarChart,0x00B794CC,0x007794CC,source/game_sa/Stats.h,53,static inline auto& m_ThisStatIsABarChart = StaticRef<int16>(0xB794CC);,source_global_reference
 bStatUpdateMessageDisplayed,0x00B794D4,0x007794D4,source/game_sa/Stats.h,54,static inline auto& bStatUpdateMessageDisplayed = StaticRef<bool>(0xB794D4);,source_global_reference
 m_SprintStaminaCounter,0x00B794D8,0x007794D8,source/game_sa/Stats.h,55,static inline auto& m_SprintStaminaCounter = StaticRef<uint32>(0xB794D8);,source_global_reference
 m_CycleStaminaCounter,0x00B794DC,0x007794DC,source/game_sa/Stats.h,56,static inline auto& m_CycleStaminaCounter = StaticRef<uint32>(0xB794DC);,source_global_reference
@@ -3684,6 +3745,8 @@ ms_StandUpColModel,0x00C19548,0x00819548,source/game_sa/Tasks/TaskTypes/TaskSimp
 ms_VaultColModel,0x00C19578,0x00819578,source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,35,auto& ms_VaultColModel    = StaticRef<CColModel>(0xC19578);,source_global_reference
 ms_FindEdgeColModel,0x00C195A8,0x008195A8,source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,36,auto& ms_FindEdgeColModel = StaticRef<CColModel>(0xC195A8);,source_global_reference
 m_nMaxPlayerDownTime,0x008D2EF4,0x004D2EF4,source/game_sa/Tasks/TaskTypes/TaskSimpleFall.h,15,static inline auto& m_nMaxPlayerDownTime = StaticRef<uint32>(0x8D2EF4);,source_global_reference
+reference,0x00B4EA28,0x0074EA28,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,449,"for (int32 group = 0; group < static_cast<int32>(StaticRef<uint32>(0xB4EA28)); ++group) { // el EXE relee el contador de grupos (0xB4EA28, privado en CAnimManager) en cada vuelta y compara con signo",source_global_reference
+front,0x00B6F32C,0x0076F32C,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,787,const CVector& front = StaticRef<CVector>(0xB6F32C);,source_global_reference
 m_aComboData,0x00C170D0,0x008170D0,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h,60,"static inline auto& m_aComboData = StaticRef<std::array<CMeleeInfo, 12>>(0xC170D0);",source_global_reference
 FightControlAttackInterval,0x008D2E4C,0x004D2E4C,source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp,31,static auto& FightControlAttackInterval = StaticRef<uint32>(0x8D2E4C);,source_global_reference
 FightControlIdleTime,0x008D2E50,0x004D2E50,source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp,32,static auto& FightControlIdleTime = StaticRef<float>(0x8D2E50);,source_global_reference
@@ -3890,53 +3953,53 @@ m_auRenderIndices,0x00C80700,0x00880700,source/game_sa/WaterCannon.h,19,"static 
 aCannons,0x00C80740,0x00880740,source/game_sa/WaterCannons.h,10,"static inline auto& aCannons = StaticRef<std::array<CWaterCannon, 3>>(0xC80740);",source_global_reference
 g_waterCreatureMan,0x00C1DF30,0x0081DF30,source/game_sa/WaterCreatureManager_c.cpp,23,auto& g_waterCreatureMan = StaticRef<WaterCreatureManager_c>(0xC1DF30);,source_global_reference
 ms_waterCreatureInfos,0x008D3698,0x004D3698,source/game_sa/WaterCreatureManager_c.h,37,static inline auto& ms_waterCreatureInfos = StaticRef<tWaterCreatureInfo[NUM_WATER_CREATURE_INFOS]>(0x8D3698); // Access using GetCreatureInfo(),source_global_reference
-reference,0x00859018,0x00459018,source/game_sa/WaterLevel.cpp,279,"return { StaticRef<float>(0x859018), StaticRef<float>(0xC21184), StaticRef<float>(0xC21180), StaticRef<uint8>(0x8D3808) };",source_global_reference
-reference,0x00C21184,0x00821184,source/game_sa/WaterLevel.cpp,279,"return { StaticRef<float>(0x859018), StaticRef<float>(0xC21184), StaticRef<float>(0xC21180), StaticRef<uint8>(0x8D3808) };",source_global_reference
-reference,0x00C21180,0x00821180,source/game_sa/WaterLevel.cpp,279,"return { StaticRef<float>(0x859018), StaticRef<float>(0xC21184), StaticRef<float>(0xC21180), StaticRef<uint8>(0x8D3808) };",source_global_reference
-reference,0x008D3808,0x004D3808,source/game_sa/WaterLevel.cpp,279,"return { StaticRef<float>(0x859018), StaticRef<float>(0xC21184), StaticRef<float>(0xC21180), StaticRef<uint8>(0x8D3808) };",source_global_reference
-reference,0x00858CEC,0x00458CEC,source/game_sa/WaterLevel.cpp,281,"return { StaticRef<float>(0x858CEC), StaticRef<float>(0xC2117C), StaticRef<float>(0xC21178), StaticRef<uint8>(0x8D380C) };",source_global_reference
-reference,0x00C2117C,0x0082117C,source/game_sa/WaterLevel.cpp,281,"return { StaticRef<float>(0x858CEC), StaticRef<float>(0xC2117C), StaticRef<float>(0xC21178), StaticRef<uint8>(0x8D380C) };",source_global_reference
-reference,0x00C21178,0x00821178,source/game_sa/WaterLevel.cpp,281,"return { StaticRef<float>(0x858CEC), StaticRef<float>(0xC2117C), StaticRef<float>(0xC21178), StaticRef<uint8>(0x8D380C) };",source_global_reference
-reference,0x008D380C,0x004D380C,source/game_sa/WaterLevel.cpp,281,"return { StaticRef<float>(0x858CEC), StaticRef<float>(0xC2117C), StaticRef<float>(0xC21178), StaticRef<uint8>(0x8D380C) };",source_global_reference
-nVtx,0x00C4B950,0x0084B950,source/game_sa/WaterLevel.cpp,308,auto& nVtx = StaticRef<int32>(0xC4B950);,source_global_reference
-nIdx,0x00C4B954,0x0084B954,source/game_sa/WaterLevel.cpp,309,auto& nIdx = StaticRef<int32>(0xC4B954);,source_global_reference
-nVtx,0x00C4B950,0x0084B950,source/game_sa/WaterLevel.cpp,349,auto& nVtx = StaticRef<int32>(0xC4B950);,source_global_reference
-nIdx,0x00C4B954,0x0084B954,source/game_sa/WaterLevel.cpp,350,auto& nIdx = StaticRef<int32>(0xC4B954);,source_global_reference
-reference,0x00872028,0x00472028,source/game_sa/WaterLevel.cpp,351,const float angle = float(CTimer::GetTimeInMS() & 0xFFFu) * StaticRef<float>(0x872028);,source_global_reference
-reference,0x008D390C,0x004D390C,source/game_sa/WaterLevel.cpp,352,const float* mults = &StaticRef<float>(0x8D390C); // 5 floats consecutivos (0x8D390C..0x8D391C),source_global_reference
-uvShiftX,0x00C228D4,0x008228D4,source/game_sa/WaterLevel.cpp,354,"const float uvShiftX = StaticRef<float>(0xC228D4), uvShiftY = StaticRef<float>(0xC228D8);",source_global_reference
-uvShiftX,0x00C228D8,0x008228D8,source/game_sa/WaterLevel.cpp,354,"const float uvShiftX = StaticRef<float>(0xC228D4), uvShiftY = StaticRef<float>(0xC228D8);",source_global_reference
-nVtx,0x00C4B950,0x0084B950,source/game_sa/WaterLevel.cpp,697,auto& nVtx = StaticRef<int32>(0xC4B950);,source_global_reference
-nIdx,0x00C4B954,0x0084B954,source/game_sa/WaterLevel.cpp,698,auto& nIdx = StaticRef<int32>(0xC4B954);,source_global_reference
-insideFade,0x00C228EC,0x008228EC,source/game_sa/WaterLevel.cpp,961,auto& insideFade = StaticRef<float>(0xC228EC);,source_global_reference
-insideHold,0x00C228F0,0x008228F0,source/game_sa/WaterLevel.cpp,962,auto& insideHold = StaticRef<float>(0xC228F0);,source_global_reference
-fadeSpeed,0x008D37F0,0x004D37F0,source/game_sa/WaterLevel.cpp,963,const float fadeSpeed = StaticRef<float>(0x8D37F0);,source_global_reference
-insideColor,0x008D37EC,0x004D37EC,source/game_sa/WaterLevel.cpp,981,const auto insideColor = StaticRef<CRGBA>(0x8D37EC);,source_global_reference
-color,0x008D37E8,0x004D37E8,source/game_sa/WaterLevel.cpp,996,const auto color = StaticRef<CRGBA>(0x8D37E8);,source_global_reference
-reference,0x00BB3E00,0x007B3E00,source/game_sa/WaterLevel.cpp,1047,"const float* WaterSinTable() { return StaticRef<std::array<float, 256>>(0xBB3E00).data(); }",source_global_reference
-reference,0x008D3924,0x004D3924,source/game_sa/WaterLevel.cpp,1065,"WaterLevelWaveColorGlareCpp(&vecNormal.x, StaticRef<float>(0x8D3924), StaticRef<float>(0x8D3920), CWeather::SunGlare, &colorMult, &glare);",source_global_reference
-reference,0x008D3920,0x004D3920,source/game_sa/WaterLevel.cpp,1065,"WaterLevelWaveColorGlareCpp(&vecNormal.x, StaticRef<float>(0x8D3924), StaticRef<float>(0x8D3920), CWeather::SunGlare, &colorMult, &glare);",source_global_reference
-reference,0x008D392C,0x004D392C,source/game_sa/WaterLevel.cpp,1159,"WaterLevelShiftsAdvanceCpp(CTimer::GetTimeStep(), CWaterLevel::m_CurrentFlow.x, CWaterLevel::m_CurrentFlow.y, StaticRef<float>(0x8D392C), shifts);",source_global_reference
-reference,0x00859018,0x00459018,source/game_sa/WaterLevel.cpp,1162,"CWaterLevel::TextureShiftSecondU = WaterLevelSinMulMulAddCpp(angleA, CWeather::Wavyness, StaticRef<float>(0x859018), shifts[0]); // 0xC21184",source_global_reference
-reference,0x00859018,0x00459018,source/game_sa/WaterLevel.cpp,1163,"CWaterLevel::TextureShiftSecondV = WaterLevelCosMulMulAddCpp(angleA, CWeather::Wavyness, StaticRef<float>(0x859018), shifts[1]); // 0xC21180",source_global_reference
-reference,0x00C2117C,0x0082117C,source/game_sa/WaterLevel.cpp,1165,"StaticRef<uint32>(0xC2117C) = StaticRef<uint32>(0x8D382C);                                         // copia de los bits (mov eax,[0x8D382C]; mov [0xC2117C],eax)",source_global_reference
-reference,0x008D382C,0x004D382C,source/game_sa/WaterLevel.cpp,1165,"StaticRef<uint32>(0xC2117C) = StaticRef<uint32>(0x8D382C);                                         // copia de los bits (mov eax,[0x8D382C]; mov [0xC2117C],eax)",source_global_reference
-firstNoise,0x008D3928,0x004D3928,source/game_sa/WaterLevel.cpp,1166,const float firstNoise = StaticRef<float>(0x8D3928);,source_global_reference
-reference,0x00C21174,0x00821174,source/game_sa/WaterLevel.cpp,1171,"StaticRef<float>(0xC21174) = WaterLevelNoiseFirstCpp(randomA, noiseScale, firstNoise);",source_global_reference
-secondNoise,0x008D3928,0x004D3928,source/game_sa/WaterLevel.cpp,1172,const float secondNoise = StaticRef<float>(0x8D3928);,source_global_reference
-reference,0x00C21174,0x00821174,source/game_sa/WaterLevel.cpp,1174,"StaticRef<float>(0xC21174) = TrigCompoundSinMulAdd(angleB, StaticRef<float>(0x8D3834), StaticRef<float>(0xC21174));",source_global_reference
-reference,0x008D3834,0x004D3834,source/game_sa/WaterLevel.cpp,1174,"StaticRef<float>(0xC21174) = TrigCompoundSinMulAdd(angleB, StaticRef<float>(0x8D3834), StaticRef<float>(0xC21174));",source_global_reference
-reference,0x00C21174,0x00821174,source/game_sa/WaterLevel.cpp,1174,"StaticRef<float>(0xC21174) = TrigCompoundSinMulAdd(angleB, StaticRef<float>(0x8D3834), StaticRef<float>(0xC21174));",source_global_reference
-reference,0x00C21170,0x00821170,source/game_sa/WaterLevel.cpp,1175,"StaticRef<float>(0xC21170) = WaterLevelNoiseSecondCpp(randomB, noiseScale, secondNoise, cosineSpill, StaticRef<float>(0x8D3834));",source_global_reference
-reference,0x008D3834,0x004D3834,source/game_sa/WaterLevel.cpp,1175,"StaticRef<float>(0xC21170) = WaterLevelNoiseSecondCpp(randomB, noiseScale, secondNoise, cosineSpill, StaticRef<float>(0x8D3834));",source_global_reference
-reference,0x008D3934,0x004D3934,source/game_sa/WaterLevel.cpp,1197,const bool distant = std::sqrt(dx * dx + dy * dy) >= StaticRef<float>(0x8D3934);,source_global_reference
-reference,0x008D3930,0x004D3930,source/game_sa/WaterLevel.cpp,1222,"RwRenderStateSet(rwRENDERSTATETEXTUREADDRESS, RWRSTATE(StaticRef<uint32>(0x8D3930)));",source_global_reference
-reference,0x00B7C508,0x0077C508,source/game_sa/WaterLevel.cpp,1225,WaterColor.r = lowByte(StaticRef<float>(0xB7C508));,source_global_reference
-reference,0x00B7C50C,0x0077C50C,source/game_sa/WaterLevel.cpp,1226,WaterColor.g = lowByte(StaticRef<float>(0xB7C50C));,source_global_reference
-reference,0x00B7C510,0x0077C510,source/game_sa/WaterLevel.cpp,1227,WaterColor.b = lowByte(StaticRef<float>(0xB7C510));,source_global_reference
-reference,0x00B7C514,0x0077C514,source/game_sa/WaterLevel.cpp,1229,WaterLayerAlpha[1] = uint32(int64(double(StaticRef<float>(0xB7C514)) * 0.5));,source_global_reference
-reference,0x00C228DC,0x008228DC,source/game_sa/WaterLevel.cpp,1248,if (StaticRef<bool>(0xC228DC)) {,source_global_reference
-reference,0x00B7C514,0x0077C514,source/game_sa/WaterLevel.cpp,1252,WaterColor.a = lowByte(StaticRef<float>(0xB7C514));,source_global_reference
+reference,0x00859018,0x00459018,source/game_sa/WaterLevel.cpp,285,"return { StaticRef<float>(0x859018), StaticRef<float>(0xC21184), StaticRef<float>(0xC21180), StaticRef<uint8>(0x8D3808) };",source_global_reference
+reference,0x00C21184,0x00821184,source/game_sa/WaterLevel.cpp,285,"return { StaticRef<float>(0x859018), StaticRef<float>(0xC21184), StaticRef<float>(0xC21180), StaticRef<uint8>(0x8D3808) };",source_global_reference
+reference,0x00C21180,0x00821180,source/game_sa/WaterLevel.cpp,285,"return { StaticRef<float>(0x859018), StaticRef<float>(0xC21184), StaticRef<float>(0xC21180), StaticRef<uint8>(0x8D3808) };",source_global_reference
+reference,0x008D3808,0x004D3808,source/game_sa/WaterLevel.cpp,285,"return { StaticRef<float>(0x859018), StaticRef<float>(0xC21184), StaticRef<float>(0xC21180), StaticRef<uint8>(0x8D3808) };",source_global_reference
+reference,0x00858CEC,0x00458CEC,source/game_sa/WaterLevel.cpp,287,"return { StaticRef<float>(0x858CEC), StaticRef<float>(0xC2117C), StaticRef<float>(0xC21178), StaticRef<uint8>(0x8D380C) };",source_global_reference
+reference,0x00C2117C,0x0082117C,source/game_sa/WaterLevel.cpp,287,"return { StaticRef<float>(0x858CEC), StaticRef<float>(0xC2117C), StaticRef<float>(0xC21178), StaticRef<uint8>(0x8D380C) };",source_global_reference
+reference,0x00C21178,0x00821178,source/game_sa/WaterLevel.cpp,287,"return { StaticRef<float>(0x858CEC), StaticRef<float>(0xC2117C), StaticRef<float>(0xC21178), StaticRef<uint8>(0x8D380C) };",source_global_reference
+reference,0x008D380C,0x004D380C,source/game_sa/WaterLevel.cpp,287,"return { StaticRef<float>(0x858CEC), StaticRef<float>(0xC2117C), StaticRef<float>(0xC21178), StaticRef<uint8>(0x8D380C) };",source_global_reference
+nVtx,0x00C4B950,0x0084B950,source/game_sa/WaterLevel.cpp,314,auto& nVtx = StaticRef<int32>(0xC4B950);,source_global_reference
+nIdx,0x00C4B954,0x0084B954,source/game_sa/WaterLevel.cpp,315,auto& nIdx = StaticRef<int32>(0xC4B954);,source_global_reference
+nVtx,0x00C4B950,0x0084B950,source/game_sa/WaterLevel.cpp,355,auto& nVtx = StaticRef<int32>(0xC4B950);,source_global_reference
+nIdx,0x00C4B954,0x0084B954,source/game_sa/WaterLevel.cpp,356,auto& nIdx = StaticRef<int32>(0xC4B954);,source_global_reference
+reference,0x00872028,0x00472028,source/game_sa/WaterLevel.cpp,357,const float angle = float(CTimer::GetTimeInMS() & 0xFFFu) * StaticRef<float>(0x872028);,source_global_reference
+reference,0x008D390C,0x004D390C,source/game_sa/WaterLevel.cpp,358,const float* mults = &StaticRef<float>(0x8D390C); // 5 floats consecutivos (0x8D390C..0x8D391C),source_global_reference
+uvShiftX,0x00C228D4,0x008228D4,source/game_sa/WaterLevel.cpp,360,"const float uvShiftX = StaticRef<float>(0xC228D4), uvShiftY = StaticRef<float>(0xC228D8);",source_global_reference
+uvShiftX,0x00C228D8,0x008228D8,source/game_sa/WaterLevel.cpp,360,"const float uvShiftX = StaticRef<float>(0xC228D4), uvShiftY = StaticRef<float>(0xC228D8);",source_global_reference
+nVtx,0x00C4B950,0x0084B950,source/game_sa/WaterLevel.cpp,703,auto& nVtx = StaticRef<int32>(0xC4B950);,source_global_reference
+nIdx,0x00C4B954,0x0084B954,source/game_sa/WaterLevel.cpp,704,auto& nIdx = StaticRef<int32>(0xC4B954);,source_global_reference
+insideFade,0x00C228EC,0x008228EC,source/game_sa/WaterLevel.cpp,1020,auto& insideFade = StaticRef<float>(0xC228EC);,source_global_reference
+insideHold,0x00C228F0,0x008228F0,source/game_sa/WaterLevel.cpp,1021,auto& insideHold = StaticRef<float>(0xC228F0);,source_global_reference
+fadeSpeed,0x008D37F0,0x004D37F0,source/game_sa/WaterLevel.cpp,1022,const float fadeSpeed = StaticRef<float>(0x8D37F0);,source_global_reference
+insideColor,0x008D37EC,0x004D37EC,source/game_sa/WaterLevel.cpp,1040,const auto insideColor = StaticRef<CRGBA>(0x8D37EC);,source_global_reference
+color,0x008D37E8,0x004D37E8,source/game_sa/WaterLevel.cpp,1055,const auto color = StaticRef<CRGBA>(0x8D37E8);,source_global_reference
+reference,0x00BB3E00,0x007B3E00,source/game_sa/WaterLevel.cpp,1106,"const float* WaterSinTable() { return StaticRef<std::array<float, 256>>(0xBB3E00).data(); }",source_global_reference
+reference,0x008D3924,0x004D3924,source/game_sa/WaterLevel.cpp,1124,"WaterLevelWaveColorGlareCpp(&vecNormal.x, StaticRef<float>(0x8D3924), StaticRef<float>(0x8D3920), CWeather::SunGlare, &colorMult, &glare);",source_global_reference
+reference,0x008D3920,0x004D3920,source/game_sa/WaterLevel.cpp,1124,"WaterLevelWaveColorGlareCpp(&vecNormal.x, StaticRef<float>(0x8D3924), StaticRef<float>(0x8D3920), CWeather::SunGlare, &colorMult, &glare);",source_global_reference
+reference,0x008D392C,0x004D392C,source/game_sa/WaterLevel.cpp,1241,"WaterLevelShiftsAdvanceCpp(CTimer::GetTimeStep(), CWaterLevel::m_CurrentFlow.x, CWaterLevel::m_CurrentFlow.y, StaticRef<float>(0x8D392C), shifts);",source_global_reference
+reference,0x00859018,0x00459018,source/game_sa/WaterLevel.cpp,1244,"CWaterLevel::TextureShiftSecondU = WaterLevelSinMulMulAddCpp(angleA, CWeather::Wavyness, StaticRef<float>(0x859018), shifts[0]); // 0xC21184",source_global_reference
+reference,0x00859018,0x00459018,source/game_sa/WaterLevel.cpp,1245,"CWaterLevel::TextureShiftSecondV = WaterLevelCosMulMulAddCpp(angleA, CWeather::Wavyness, StaticRef<float>(0x859018), shifts[1]); // 0xC21180",source_global_reference
+reference,0x00C2117C,0x0082117C,source/game_sa/WaterLevel.cpp,1247,"StaticRef<uint32>(0xC2117C) = StaticRef<uint32>(0x8D382C);                                         // copia de los bits (mov eax,[0x8D382C]; mov [0xC2117C],eax)",source_global_reference
+reference,0x008D382C,0x004D382C,source/game_sa/WaterLevel.cpp,1247,"StaticRef<uint32>(0xC2117C) = StaticRef<uint32>(0x8D382C);                                         // copia de los bits (mov eax,[0x8D382C]; mov [0xC2117C],eax)",source_global_reference
+firstNoise,0x008D3928,0x004D3928,source/game_sa/WaterLevel.cpp,1248,const float firstNoise = StaticRef<float>(0x8D3928);,source_global_reference
+reference,0x00C21174,0x00821174,source/game_sa/WaterLevel.cpp,1253,"StaticRef<float>(0xC21174) = WaterLevelNoiseFirstCpp(randomA, noiseScale, firstNoise);",source_global_reference
+secondNoise,0x008D3928,0x004D3928,source/game_sa/WaterLevel.cpp,1254,const float secondNoise = StaticRef<float>(0x8D3928);,source_global_reference
+reference,0x00C21174,0x00821174,source/game_sa/WaterLevel.cpp,1256,"StaticRef<float>(0xC21174) = TrigCompoundSinMulAdd(angleB, StaticRef<float>(0x8D3834), StaticRef<float>(0xC21174));",source_global_reference
+reference,0x008D3834,0x004D3834,source/game_sa/WaterLevel.cpp,1256,"StaticRef<float>(0xC21174) = TrigCompoundSinMulAdd(angleB, StaticRef<float>(0x8D3834), StaticRef<float>(0xC21174));",source_global_reference
+reference,0x00C21174,0x00821174,source/game_sa/WaterLevel.cpp,1256,"StaticRef<float>(0xC21174) = TrigCompoundSinMulAdd(angleB, StaticRef<float>(0x8D3834), StaticRef<float>(0xC21174));",source_global_reference
+reference,0x00C21170,0x00821170,source/game_sa/WaterLevel.cpp,1257,"StaticRef<float>(0xC21170) = WaterLevelNoiseSecondCpp(randomB, noiseScale, secondNoise, cosineSpill, StaticRef<float>(0x8D3834));",source_global_reference
+reference,0x008D3834,0x004D3834,source/game_sa/WaterLevel.cpp,1257,"StaticRef<float>(0xC21170) = WaterLevelNoiseSecondCpp(randomB, noiseScale, secondNoise, cosineSpill, StaticRef<float>(0x8D3834));",source_global_reference
+reference,0x008D3934,0x004D3934,source/game_sa/WaterLevel.cpp,1279,const bool distant = std::sqrt(dx * dx + dy * dy) >= StaticRef<float>(0x8D3934);,source_global_reference
+reference,0x008D3930,0x004D3930,source/game_sa/WaterLevel.cpp,1304,"RwRenderStateSet(rwRENDERSTATETEXTUREADDRESS, RWRSTATE(StaticRef<uint32>(0x8D3930)));",source_global_reference
+reference,0x00B7C508,0x0077C508,source/game_sa/WaterLevel.cpp,1307,WaterColor.r = lowByte(StaticRef<float>(0xB7C508));,source_global_reference
+reference,0x00B7C50C,0x0077C50C,source/game_sa/WaterLevel.cpp,1308,WaterColor.g = lowByte(StaticRef<float>(0xB7C50C));,source_global_reference
+reference,0x00B7C510,0x0077C510,source/game_sa/WaterLevel.cpp,1309,WaterColor.b = lowByte(StaticRef<float>(0xB7C510));,source_global_reference
+reference,0x00B7C514,0x0077C514,source/game_sa/WaterLevel.cpp,1311,WaterLayerAlpha[1] = uint32(int64(double(StaticRef<float>(0xB7C514)) * 0.5));,source_global_reference
+reference,0x00C228DC,0x008228DC,source/game_sa/WaterLevel.cpp,1330,if (StaticRef<bool>(0xC228DC)) {,source_global_reference
+reference,0x00B7C514,0x0077C514,source/game_sa/WaterLevel.cpp,1334,WaterColor.a = lowByte(StaticRef<float>(0xB7C514));,source_global_reference
 m_nWaterConfiguration,0x00C228A0,0x008228A0,source/game_sa/WaterLevel.h,79,static inline auto& m_nWaterConfiguration = StaticRef<uint32>(0xC228A0);,source_global_reference
 m_nWaterTimeOffset,0x00C228A4,0x008228A4,source/game_sa/WaterLevel.h,80,static inline auto& m_nWaterTimeOffset = StaticRef<uint32>(0xC228A4);,source_global_reference
 m_bWaterFog,0x008D37D4,0x004D37D4,source/game_sa/WaterLevel.h,81,static inline auto& m_bWaterFog = StaticRef<bool>(0x8D37D4);,source_global_reference

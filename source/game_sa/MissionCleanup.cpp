@@ -8,6 +8,78 @@
 
 #include "MissionCleanup.h"
 
+#include "TheZones.h"
+#include "GangWars.h"
+#include "Garages.h"
+#include "Pickups.h"
+#include "RoadBlocks.h"
+#include "Streaming.h"
+#include "PathFind.h"
+#include "VehicleRecording.h"
+#include "Camera.h"
+#include "PostEffects.h"
+#include "TimeCycle.h"
+#include "Audio/AudioEngine.h"
+#include "Weather.h"
+#include "3dMarkers.h"
+#include "PedGroups.h"
+#include "PedGroupIntelligence.h"
+#include "DecisionMakers/DecisionMakerTypesFileLoader.h"
+#include "GameLogic.h"
+#include "Restart.h"
+#include "FireManager.h"
+#include "StuckCarCheck.h"
+#include "PedType.h"
+#include "Scripts/TheScripts.h"
+#include "Scripts/Scripted2dEffects.h"
+#include "Tasks/TaskManager.h"
+#include "Tasks/TaskComplexSequence.h"
+#include "Tasks/TaskSequences.h"
+#include "Entity/Vehicle/Train.h"
+#include "Entity/Vehicle/Plane.h"
+#include "Entity/Vehicle/Automobile.h"
+#include "Entity/Vehicle/Bike.h"
+#include "Fx/FxSystem.h"
+#include "Hud.h"
+#include "Pad.h"
+#include "PlayerInfo.h"
+#include "World.h"
+#include "Collision/ColStore.h"
+#include "IplStore.h"
+#include "Entity/Physical.h"
+#include "Entity/Ped/PlayerPed.h"
+#include "PedIntelligence.h"
+
+static_assert(offsetof(CPedIntelligence, m_TaskMgr) == 0x4);
+
+void CMissionCleanup::InjectHooks() {
+    RH_ScopedClass(CMissionCleanup);
+    RH_ScopedCategoryGlobal();
+
+    RH_ScopedInstall(Process, 0x468560);
+    RH_ScopedInstall(CheckIfCollisionHasLoadedForMissionObjects, 0x4652D0);
+}
+
+namespace {
+// Acceso crudo a la memoria del EXE (sin comprobaciones), como el original.
+template<typename T> T& Raw(uintptr_t address) { return *reinterpret_cast<T*>(address); }
+template<typename T> T& RawAt(void* base, uintptr_t offset) { return *reinterpret_cast<T*>(reinterpret_cast<uint8*>(base) + offset); }
+
+// 0x468ABF.. / 0x4652D0..: handle de pool -> entidad. Compara `flags[handle >> 8]` con el byte bajo del handle (el byte de banderas completo, incluido el bit de libre)
+// y devuelve `base + (handle >> 8) * tamano`, sin comprobar el rango del indice. nullptr si el byte no coincide.
+void* PoolEntity(uintptr_t poolGlobal, int32 handle, int32 entitySize) {
+    uint8* const pool    = Raw<uint8*>(poolGlobal);
+    uint8* const objects = Raw<uint8*>(reinterpret_cast<uintptr_t>(pool));
+    uint8* const flags   = Raw<uint8*>(reinterpret_cast<uintptr_t>(pool) + 4);
+    const int32  slot    = handle >> 8;
+    if (flags[slot] != static_cast<uint8>(handle)) {
+        return nullptr;
+    }
+    return objects + slot * entitySize;
+}
+constexpr uintptr_t kVehiclePool = 0xB74494, kPedPool = 0xB74490, kObjectPool = 0xB7449C;
+}
+
 CMissionCleanup::CMissionCleanup() {
     Init();
 }
@@ -28,7 +100,274 @@ void CMissionCleanup::Init() {
  * @addr 0x468560
  */
 void CMissionCleanup::Process() {
-    ((void(__thiscall*)(CMissionCleanup*))0x468560)(this);
+    // 0x468571..0x4685A7
+    if (Raw<uint8>(0xA4448A) != 0) {
+        const uint8 mode = Raw<uint8>(0xB7CE74);
+        Raw<uint8>(0xA4448A) = 0;
+        if (mode != 2 && mode != 1) {
+            TheCamera.Fade(0.5f, static_cast<eFadeFlag>(1));
+            RawAt<uint8>(CPad::GetPad(0), 0x10E) &= 0xDF;
+        }
+    }
+    // 0x4685A7..0x4685F1
+    CTrain::DisableRandomTrains(false);
+    CTrain::ReleaseMissionTrains();
+    CPlane::SwitchAmbientPlanes(true);
+    const uint8 gangColours = Raw<uint8>(0x96AB91);
+    Raw<uint32>(0x8D2530) = 0x3F800000;
+    Raw<uint32>(0x8A5B20) = 0x3F800000;
+    if (gangColours != 0) {
+        const bool disable = Raw<uint8>(0x96AB90) == 0;
+        Raw<uint8>(0x96AB91) = 0;
+        CTheZones::FillZonesWithGangColours(disable);
+    }
+    // 0x4685F1..0x468664
+    Raw<int32>(0x8D2534) = -1;
+    Raw<uint8>(0x96AB93) = 0;
+    CGangWars::ClearSpecificZonesToTriggerGangWar();
+    Raw<uint8>(0xC0FCB2) = 0;
+    Raw<uint8>(0xC0FCB3) = 0;
+    Raw<uint8>(0xC0FCB4) = 0;
+    Raw<uint8>(0x96C008) = 0;
+    CGarages::AllRespraysCloseOrOpen(true);
+    Raw<uint8>(0xC87ACD) = 0;
+    RawAt<uint32>(FindPlayerWanted(-1), 0x14) = 0x3F800000;
+    CPickups::RemoveMissionPickUps();
+    CRoadBlocks::ClearScriptRoadBlocks();
+    CStreaming::DisableCopBikes(false);
+    Raw<uint8>(0xB72994) = 1;
+    Raw<uint8>(0xBB4A72) = 0;
+    Raw<uint8>(0x8D0A24) = 1;
+    // 0x468664..0x4686FE
+    ThePaths.ReleaseRequestedNodes();
+    ThePaths.UnMarkAllRoadNodesAsDontWander();
+    ThePaths.TidyUpNodeSwitchesAfterMission();
+    CVehicleRecording::RemoveAllRecordingsThatArentUsed();
+    TheCamera.SetWideScreenOff();
+    Raw<uint16>(0xB6F06E) = 0x32;
+    Raw<uint16>(0xB6F070) = 0x31;
+    Raw<uint16>(0xB6F072) = 3;
+    Raw<uint16>(0xB6F074) = 0x30;
+    Raw<uint8>(0xB6F06D) = 0;
+    Raw<uint8>(0xB6FD18) = 0;
+    TheCamera.InitialiseScriptableComponents();
+    TheCamera.ResetDuckingSystem(nullptr);
+    Raw<uint32>(0x8CCB84) = 0x3F800000;
+    Raw<uint8>(0xB6EC2C) = 0;
+    Raw<uint8>(0x96A8A8) = 0;
+    Raw<uint32>(0xA44490) = 0;
+    Raw<uint8>(0xC7C70C) = 0;
+    Raw<uint8>(0xC7C70D) = 0;
+    CPostEffects::ScriptResetForEffects();
+    const bool noExtraColour = Raw<int32>(0xB72914) == 0;
+    Raw<uint8>(0x96A7C8) = 0;
+    if (noExtraColour) {
+        CTimeCycle::StopExtraColour(false);
+    }
+    // 0x468715..0x468755
+    for (uint16 slot = 0; slot < 4; ++slot) {
+        AudioEngine.ClearMissionAudio(static_cast<uint8>(slot));
+    }
+    CWeather::ReleaseWeather();
+    Raw<uint32>(0xB728E0) = 0x1869F;
+    for (int32 slot = 0; slot < 10; ++slot) {
+        CStreaming::SetMissionDoesntRequireSpecialChar(slot);
+    }
+    CTheScripts::ClearAllSuppressedCarModels();
+    // 0x46875A..0x4687FA
+    Raw<int32>(0xA4448C) = -1;
+    Raw<uint8>(0x9654B0) = 0;
+    Raw<uint16>(0xBAB1DC) = 0xFFFF;
+    Raw<uint8>(0xBAA3FB) = 0;
+    Raw<uint8>(0xBAA3F9) = 0;
+    Raw<uint8>(0xBAA3F8) = 0;
+    Raw<uint8>(0xBAA3FA) = 0;
+    Raw<uint8>(0xBA677C) = 0;
+    Raw<uint8>(0xA444A3) = 0;
+    Raw<uint8>(0xA444A2) = 0;
+    Raw<uint8>(0xA444A1) = 0;
+    C3dMarkers::ForceRender(false);
+    Raw<uint8>(0xA444A0) = 1;
+    Raw<uint32>(0xA4449C) = 0;
+    Raw<uint32>(0xA44498) = 0;
+    Raw<uint8>(0xA44496) = 1;
+    Raw<uint8>(0xA44495) = 1;
+    Raw<uint8>(0xA44494) = 1;
+    Raw<uint8>(0xBA18D9) = 0;
+    Raw<uint8>(0xA44B66) = 0;
+    Raw<uint16>(0xA44B64) = 0;
+    Raw<uint16>(0xA44B60) = 0;
+    Raw<uint8>(0xA44489) = 1;
+    Raw<uint8>(0xA44488) = 1;
+    // 0x468801..0x468871: grupo del jugador (CPedGroups::ms_groups + idx * 0x2D4; sin comprobar el indice)
+    const uintptr_t groupOffset = static_cast<uintptr_t>(RawAt<int32>(RawAt<void*>(Raw<void*>(0xB7CD98), 0x480), 0x38) * 0x2D4);
+    auto* const intelligence = reinterpret_cast<CPedGroupIntelligence*>(uintptr_t(0xC09950) + groupOffset);
+    intelligence->SetDefaultTaskAllocatorType(static_cast<ePedGroupDefaultTaskAllocatorType>(1));
+    intelligence->SetGroupDecisionMakerType(static_cast<eDecisionMakerType>(-1));
+    Raw<uint32>(uintptr_t(0xC0994C) + groupOffset) = Raw<uint32>(0x86C6C0);
+    RawAt<uint32>(RawAt<void*>(Raw<void*>(0xB7CD98), 0x480), 0x34) &= 0xFFFFFEFF;
+    Raw<CPlayerPed*>(0xB7CD98)->ForceGroupToAlwaysFollow(false);
+    Raw<CPlayerPed*>(0xB7CD98)->ForceGroupToNeverFollow(false);
+    Raw<CPlayerPed*>(0xB7CD98)->MakePlayerGroupReappear();
+    // 0x46886B..0x468928
+    RawAt<uint8>(RawAt<void*>(Raw<void*>(0xB7CD98), 0x480), 0x43) = 0x63;
+    RawAt<uint32>(Raw<void*>(0xB7CD98), 0x734) = 0x3F800000;
+    Raw<uint8>(0xB7CDDD) = 1;
+    Raw<uint8>(0xB7CDDE) = 0;
+    Raw<CPlayerPed*>(0xB7CD98)->EnablePedSpeech();
+    Raw<CPlayerPed*>(0xB7CD98)->EnablePedSpeechForScriptSpeech();
+    CPad::GetPad(0)->SetDrunkInputDelay(0);
+    for (uintptr_t offset = 0x118; offset <= 0x11F; ++offset) {
+        RawAt<uint8>(CPad::GetPad(0), offset) = 0;
+    }
+    Raw<uint8>(0xB7CEEB) = 1;
+    // 0x46892F..0x468966
+    {
+        auto* const intel = RawAt<CPedIntelligence*>(Raw<void*>(0xB7CD98), 0x47C);
+        CTask* const task = intel->m_TaskMgr.FindTaskByType(static_cast<ePrimaryTasks>(3), static_cast<eTaskType>(0x640));
+        if (task && task->GetTaskType() == static_cast<eTaskType>(0x640)) {
+            ((void(__thiscall*)(CTask*, CPed*))0x634A40)(task, Raw<CPed*>(0xB7CD98));
+        }
+    }
+    // 0x468966..0x4689B6
+    Raw<uint8>(0xC1CC00) = 0;
+    Raw<uint8>(0xC1CC01) = 0;
+    CGameLogic::ClearSkip(true);
+    {
+        const uint8 mode = Raw<uint8>(0x96A8B0);
+        if (mode != 2 && mode != 1
+            && RawAt<int32>(FindPlayerPed(-1), 0x530) != 0x37
+            && RawAt<int32>(FindPlayerPed(-1), 0x530) != 0x36) {
+            CRestart::ClearRespawnPointForDurationOfMission();
+        }
+    }
+    // 0x4689B6..0x468A16
+    Raw<uint8>(0xA444A5) = 0;
+    gFireManager.ClearAllScriptFireFlags();
+    Raw<int32>(0xA447EC) = -1;
+    Raw<uint8>(0xA447F0) = 1;
+    for (uintptr_t entry = 0xA4892C; entry < 0xA4892C + 6 * 8; entry += 8) {
+        Raw<int32>(entry) = -1;
+        Raw<int32>(entry + 4) = 0;
+    }
+    CTheScripts::StuckCars.Init();
+    const bool skipCamera = Raw<uint8>(0xA444A8) != 0;
+    Raw<uint8>(0x8CDE56) = 1;
+    Raw<uint32>(0x8A625C) = 0xBF800000;
+    Raw<uint32>(0x8D0934) = 0x43480000;
+    Raw<uint8>(0xC1CC18) = 0;
+    if (!skipCamera) {
+        const uint8 focus = Raw<uint8>(0xB7CD74);
+        if (Raw<int32>(uintptr_t(0xB7CE48) + static_cast<uintptr_t>(static_cast<int32>(focus) * 0x190)) == 0) {
+            TheCamera.Restore();
+        }
+        void* playerData = RawAt<void*>(Raw<void*>(0xB7CD98), 0x480);
+        uint8* wanted = playerData ? Raw<uint8*>(reinterpret_cast<uintptr_t>(playerData)) : nullptr;
+        wanted[0x1E] &= 0xFE;
+        playerData = RawAt<void*>(Raw<void*>(0xB7CD98), 0x480);
+        wanted = playerData ? Raw<uint8*>(reinterpret_cast<uintptr_t>(playerData)) : nullptr;
+        wanted[0x1E] &= 0xFB;
+        CWorld::Players[0].MakePlayerSafe(false, 10000.0f);
+        CHud::SetHelpMessage(nullptr, true, false, false);
+    }
+    // 0x468A92..0x468CA8: entradas de la lista; RemoveEntityFromList relee tipo y handle (los CleanUp pueden tocar la lista)
+    for (auto& entity : m_Objects) {
+        if (entity.type == 0) {
+            continue;
+        }
+        switch (static_cast<uint8>(entity.type)) {
+        case MISSION_CLEANUP_ENTITY_TYPE_VEHICLE:
+            if (auto* const veh = PoolEntity(kVehiclePool, entity.handle, 0xA18)) {
+                CTheScripts::CleanUpThisVehicle(static_cast<CVehicle*>(veh));
+            }
+            break;
+        case MISSION_CLEANUP_ENTITY_TYPE_PED:
+            if (auto* const p = PoolEntity(kPedPool, entity.handle, 0x7C4)) {
+                CTheScripts::CleanUpThisPed(static_cast<CPed*>(p));
+            }
+            break;
+        case MISSION_CLEANUP_ENTITY_TYPE_OBJECT:
+            if (auto* const obj = PoolEntity(kObjectPool, entity.handle, 0x19C)) {
+                CTheScripts::CleanUpThisObject(static_cast<CObject*>(obj));
+            }
+            break;
+        case MISSION_CLEANUP_ENTITY_TYPE_PARTICLE: {
+            const int32 idx = CTheScripts::GetActualScriptThingIndex(entity.handle, SCRIPT_THING_EFFECT_SYSTEM);
+            if (idx >= 0) {
+                if (auto* const fx = Raw<FxSystem_c*>(uintptr_t(0xA44114) + static_cast<uintptr_t>(idx * 8))) {
+                    fx->Kill();
+                    CTheScripts::RemoveScriptEffectSystem(entity.handle);
+                }
+            }
+            break;
+        }
+        case MISSION_CLEANUP_ENTITY_TYPE_GROUP: {
+            const int32 idx = CTheScripts::GetActualScriptThingIndex(entity.handle, SCRIPT_THING_PED_GROUP);
+            if (idx >= 0) {
+                CPedGroups::RemoveGroup(idx);
+            }
+            break;
+        }
+        case MISSION_CLEANUP_ENTITY_TYPE_PED_QUEUE: {
+            const int32 idx = CTheScripts::GetActualScriptThingIndex(entity.handle, SCRIPT_THING_2D_EFFECT);
+            if (idx >= 0) {
+                Raw<uint8>(uintptr_t(0xC3A1A0) + static_cast<uintptr_t>(idx)) = 0;
+            }
+            break;
+        }
+        case MISSION_CLEANUP_ENTITY_TYPE_TASK_SEQUENCE: {
+            const int32 idx = CTheScripts::GetActualScriptThingIndex(entity.handle, SCRIPT_THING_SEQUENCE_TASK);
+            if (idx >= 0) {
+                auto* const sequence = reinterpret_cast<CTaskComplexSequence*>(uintptr_t(0xC178F0) + static_cast<uintptr_t>(idx * 0x40));
+                if (RawAt<int32>(sequence, 0x3C) == 0) {
+                    RawAt<uint8>(sequence, 0x38) = 0;
+                    sequence->Flush();
+                } else {
+                    RawAt<uint8>(sequence, 0x38) = 1;
+                }
+                Raw<uint8>(uintptr_t(0xC17898) + static_cast<uintptr_t>(idx)) = 0;
+                Raw<uint8>(uintptr_t(0xA43F68) + static_cast<uintptr_t>(idx * 4)) = 0;
+            }
+            break;
+        }
+        case MISSION_CLEANUP_ENTITY_TYPE_DECISION_MAKER: {
+            const int32 idx = CTheScripts::GetActualScriptThingIndex(entity.handle, SCRIPT_THING_DECISION_MAKER);
+            if (idx >= 0) {
+                CDecisionMakerTypesFileLoader::UnloadDecisionMaker(static_cast<eDecisionTypes>(idx));
+            }
+            break;
+        }
+        case MISSION_CLEANUP_ENTITY_TYPE_SEARCHLIGHT:
+            if (CTheScripts::GetActualScriptThingIndex(entity.handle, SCRIPT_THING_SEARCH_LIGHT) >= 0) {
+                CTheScripts::RemoveScriptSearchLight(entity.handle);
+            }
+            break;
+        case MISSION_CLEANUP_ENTITY_TYPE_CHECKPOINT:
+            if (CTheScripts::GetActualScriptThingIndex(entity.handle, SCRIPT_THING_CHECKPOINT) >= 0) {
+                CTheScripts::RemoveScriptCheckpoint(entity.handle);
+            }
+            break;
+        case MISSION_CLEANUP_ENTITY_TYPE_TXD:
+            CTheScripts::RemoveScriptTextureDictionary();
+            break;
+        default:
+            break;
+        }
+        RemoveEntityFromList(entity.handle, static_cast<MissionCleanUpEntityType>(static_cast<uint8>(entity.type)));
+    }
+    // 0x468CB2..0x468D0C
+    for (int32 pedType = 0; pedType < 0x18; ++pedType) {
+        for (int32 other = 0x18; other <= 0x1F; ++other) {
+            for (int32 id = 0; id < 5; ++id) {
+                CPedType::ClearPedTypeAsAcquaintance(static_cast<AcquaintanceId>(id), static_cast<ePedType>(pedType), static_cast<int32>(CPedType::GetPedFlag(static_cast<ePedType>(other))));
+            }
+        }
+    }
+    for (int32 other = 0x18; other <= 0x1F; ++other) {
+        for (int32 id = 0; id < 5; ++id) {
+            CPedType::ClearPedTypeAcquaintances(static_cast<AcquaintanceId>(id), static_cast<ePedType>(other));
+        }
+    }
 }
 
 /* Finds a free entity, returns NULL if no free entity can be found.
@@ -110,7 +449,48 @@ void CMissionCleanup::RemoveEntityFromList(int32 handle, MissionCleanUpEntityTyp
 void CMissionCleanup::CheckIfCollisionHasLoadedForMissionObjects() {
     ZoneScoped;
 
-    ((void(__thiscall*)(CMissionCleanup*))0x4652D0)(this);
+    // Mismo orden que el EXE (0x4652EC..0x46548B): entradas de vehiculo, peaton y objeto de la lista; para cada una, entidad del pool (comprobando el byte de banderas),
+    // bit 0x40000 (esperando colision), colision (CColStore) y IPLs cargados en su posicion y, entonces, se limpia el bit y se pasa a la lista de movimiento.
+    for (auto& entity : m_Objects) {
+        void* ent{};
+        switch (static_cast<uint8>(entity.type)) {
+        case MISSION_CLEANUP_ENTITY_TYPE_VEHICLE: ent = PoolEntity(kVehiclePool, entity.handle, 0xA18); break;
+        case MISSION_CLEANUP_ENTITY_TYPE_PED:     ent = PoolEntity(kPedPool, entity.handle, 0x7C4); break;
+        case MISSION_CLEANUP_ENTITY_TYPE_OBJECT:  ent = PoolEntity(kObjectPool, entity.handle, 0x19C); break;
+        default: continue;
+        }
+        if (!ent || (RawAt<uint32>(ent, 0x1C) & 0x40000) == 0) {
+            continue;
+        }
+        // posicion: matriz + 0x30 si la hay, si no la posicion de la entidad (+4); area en +0x2F
+        const auto Position = [&]() -> const CVector& {
+            void* const matrix = RawAt<void*>(ent, 0x14);
+            return matrix ? RawAt<const CVector>(matrix, 0x30) : RawAt<const CVector>(ent, 4);
+        };
+        if (!CColStore::HasCollisionLoaded(Position(), static_cast<eAreaCodes>(RawAt<uint8>(ent, 0x2F)))) {
+            continue;
+        }
+        if (!CIplStore::HaveIplsLoaded(Position(), static_cast<int32>(RawAt<uint8>(ent, 0x2F)))) {
+            continue;
+        }
+        RawAt<uint32>(ent, 0x1C) &= 0xFFFBFFFF;
+        if (!static_cast<CEntity*>(ent)->GetIsStatic()) {
+            static_cast<CPhysical*>(ent)->AddToMovingList();
+        }
+        if (static_cast<uint8>(entity.type) == MISSION_CLEANUP_ENTITY_TYPE_VEHICLE) {
+            switch (RawAt<int32>(ent, 0x590)) {
+            case 0:
+            case 11:
+                static_cast<CAutomobile*>(ent)->PlaceOnRoadProperly();
+                break;
+            case 9:
+                static_cast<CBike*>(ent)->PlaceOnRoadProperly();
+                break;
+            default:
+                break;
+            }
+        }
+    }
 }
 
 // NOTSA

@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 2,
+  "functions": {
+    "CMissionCleanup::Process": 2048,
+    "CMissionCleanup::CheckIfCollisionHasLoadedForMissionObjects": 2048
+  },
+  "covered_functions": {
+    "CMissionCleanup::Process": true,
+    "CMissionCleanup::CheckIfCollisionHasLoadedForMissionObjects": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wg-1 (HEAD df26d6fe7 + fuente del banco MissionCleanup64). Los colaboradores se sustituyen por falsos identicos en ambos lados (parche en la entrada del EXE y en el cuerpo de la DLL cuando tienen cuerpo en la DLL; no se validan sus cuerpos): en Process, 58 (CCamera::Fade/Restore/..., CTrain, CPlane, CTheZones, CGangWars, CGarages, CPickups, CRoadBlocks, CStreaming, CPathFind, CVehicleRecording, CPostEffects, CTimeCycle, CAudioEngine, CWeather, C3dMarkers, CPedGroupIntelligence, CPlayerPed, CPed, CTaskManager::FindTaskByType, 0x634A40, CGameLogic, CRestart, CFireManager, CStuckCarCheck, CPlayerInfo::MakePlayerSafe, CHud::SetHelpMessage, CTheScripts, FxSystem_c::Kill, CPedGroups::RemoveGroup, CTaskComplexSequence::Flush, CDecisionMakerTypesFileLoader, CPedType, FindPlayerPed/Wanted y CMissionCleanup::RemoveEntityFromList); en CheckIf, 6 (CColStore::HasCollisionLoaded, CIplStore::HaveIplsLoaded, CEntity::GetIsStatic, CPhysical::AddToMovingList, CAutomobile/CBike::PlaceOnRoadProperly). Las ~100 escrituras a globales del EXE se comparan byte a byte (regiones reales con relleno distinto por caso) y se restauran; jugador, pools, entidades, secuencias y grupos son objetos falsos del banco o filas de las tablas del EXE con indices 0..3. Los unicos llamadores del EXE (0x469471, 0x46A058) no leen EAX/ECX/EDX: solo se registran. No se prueban los caminos en que el EXE desreferencia sin comprobar (jugador sin datos de jugador o sin CWanted, handles con indice fuera del pool, indices de scripts mayores que 3). CPad::GetPad/SetDrunkInputDelay no se sustituyen (se ejecutan reales en ambos lados sobre el mando 0, comparado byte a byte).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/MissionCleanup64-20261020-162902-137155",
+  "summary_sha256": "54e6ebea2672e1da7eb72c9c5f197f248b29e0cd8f287ac9cd8d49c79fff1d19",
+  "result_txt_sha256": "3a666adff793406a58c2ad5a1dac472eb074150fd1a4d3f4dc7328c11fb3ccbe",
+  "log_sha256": "14612f185e5e802df91b31d020c9ac2ba62b8604e681de412118be8b26c2a4d0",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "6a2d6104ddf4309e29f914b7479b4de9b433faecae49cb57e28ddcb60b8c988b",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "40839c96f91272f0052be484f87e2ecc558523026eb57808bf0d67dd137be848",
+      "source/game_sa/MissionCleanup.cpp": "487a7ee86fcde3eb1efd6c247697aa89d16b17a19557ed36bf082d85df879832",
+      "source/game_sa/MissionCleanup.h": "88be26d878d19a8f5897ba98e583fa247d70e2589b7617473225bd4a66dda2a7",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/MissionCleanup64/LiveComparison.hpp": "e35295ce52a939762f1e092dfd01e88213ed8268f1ccc4c4e304f5b33ab7b0e6",
+      "reversing/MissionCleanup64/Core.hpp": "3a463a93eae99c5b5e55c2dbaa74935154ae77fbcdb7f4a2bb45f4407e72ab32",
+      "reversing/MissionCleanup64/Fixtures.hpp": "63d83595b012a331993c6555dab6455306dfd1cacb5658e622722d28a0087a69",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

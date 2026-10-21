@@ -13784,3 +13784,37 @@ __declspec(noinline) bool __cdecl Garage63TopMinus2GreaterCpp(float topZ, float 
     return double(topZ) - 2.0 > double(z);
 }
 #pragma float_control(pop)
+
+// --- Lote 64 (Remote64): CRemote::GivePlayerRemoteControlledCar (0x45AB10). Anadido al FINAL de X87Math.cpp ---
+// 0x45ABF5..0x45AC13: GetDistanceFromCentreOfMassToBaseOfModel deja la distancia en ST0, `fadd [z]` le suma el suelo (z ya guardado como float) y `fstp` la guarda como float: el registro T-1
+// queda con la suma (24 bits). El otro uso de la x87 de la funcion (z + 2.0f) lo sobrescribe el retorno de FindGroundZFor3DCoord.
+__declspec(noinline) void __cdecl RemoteGiveGroundZCpp(float groundZ, float distance, float* out) {
+    volatile float sum = distance + groundZ;
+    *out = sum;
+    X87PlantStmt1Cpp(double(sum));
+}
+
+// --- Lote 64: CStoredCar (StoreCar 0x449760, RestoreCar 0x447E40), prefijo StoredCar ---
+#pragma float_control(precise, on, push)
+__declspec(noinline) Ftol2Regs __cdecl StoredCarPackAxisCpp(float axis, unsigned int ecxAtCall) {
+    const double v = static_cast<double>(axis) * 100.0f; // fld dword; fmul dword [0x858628]; sin fstp: _ftol2 recibe ST0
+    volatile long long truncated = static_cast<long long>(v); // PE/IE del fistp
+    (void)truncated;
+    return Ftol2RegsDblCpp(v, ecxAtCall);
+}
+
+__declspec(noinline) void __cdecl StoredCarUnpackForwardCpp(int x, int y, int z, float* out) {
+    volatile float fx = static_cast<float>(static_cast<double>(x) * 0.01f); // fild; fmul dword [0x858C58]
+    volatile float fy = static_cast<float>(static_cast<double>(y) * 0.01f);
+    volatile float fz = static_cast<float>(static_cast<double>(z) * 0.01f);
+    const double dx = fx, dy = fy, dz = fz;
+    out[0] = fx;
+    out[1] = fy;
+    out[2] = fz;
+    // registros muertos del EXE (de T-4 a T-1), con los valores ya redondeados a 24 bits
+    X87PlantStmt4Cpp(dy);
+    X87PlantStmt3Cpp(dz);
+    X87PlantStmt2Cpp(dy);
+    X87PlantStmt1Cpp(-dx);
+}
+#pragma float_control(pop)

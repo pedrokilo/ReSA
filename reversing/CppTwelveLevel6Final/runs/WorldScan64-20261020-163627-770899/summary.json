@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "2aa3480783022b109f537511800fefddddece4cc923d6f4f91edd4dbe5e503e9",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "e9bfdac79df368547f7d4d12fae77c944dd8b9e4eb086ebb575e7b1760a416f6",
+    "scripts/gta-reversed.ini": "e9bfdac79df368547f7d4d12fae77c944dd8b9e4eb086ebb575e7b1760a416f6"
+  },
+  "pairs": 8192,
+  "pairs_per_function": {
+    "CWorldScan::ScanWorld": 4096,
+    "CWorldScan::SetExtraRectangleToScan": 4096
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "18d91f513f37421142dd908cb82597d3075d3cfcf78829ea58e117e739485005",
+  "compare_dead_x87_registers": false,
+  "coverage": {
+    "CWorldScan::ScanWorld": {
+      "cells_some": 3950,
+      "hull3": 1549,
+      "row_single": 3950,
+      "family0": 293,
+      "stack_seed": 4096,
+      "hull4": 2064,
+      "family1": 293,
+      "family2": 293,
+      "hull5": 337,
+      "extra_flushed": 818,
+      "cells_gt50": 1344,
+      "pre_extras": 1121,
+      "family3": 293,
+      "family4": 293,
+      "family5": 293,
+      "family6": 293,
+      "dedup": 642,
+      "family7": 293,
+      "extra_removed": 665,
+      "family8": 292,
+      "family9": 292,
+      "family10": 292,
+      "family11": 292,
+      "family12": 292,
+      "family13": 292,
+      "hull2": 146,
+      "hull_lt3": 146
+    },
+    "CWorldScan::SetExtraRectangleToScan": {
+      "added_0": 1317,
+      "family0": 512,
+      "stack_seed": 4096,
+      "added_2_4": 1759,
+      "family1": 512,
+      "added_1": 1020,
+      "pre_count": 755,
+      "family2": 512,
+      "family3": 512,
+      "family4": 512,
+      "family5": 512,
+      "family6": 512,
+      "family7": 512
+    }
+  },
+  "coverage_method": "serialized_inputs_and_independent_oracle; no_instruction_branch_tracing",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

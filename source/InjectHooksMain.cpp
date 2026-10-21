@@ -62,6 +62,8 @@
 
 #include "Garage.h"
 #include "Garages.h"
+#include "MissionCleanup.h"
+#include "Remote.h"
 
 // FX
 #include "FxSystemBP.h"
@@ -738,6 +740,7 @@ void InjectHooksMain() {
     CEntity::InjectHooks();
     CPhysical::InjectHooks();
     CRenderer::InjectHooks();
+    CWorldScan::InjectHooks();
     CDummy::InjectHooks();
     CDummyObject::InjectHooks();
     CObject::InjectHooks();
@@ -809,7 +812,10 @@ void InjectHooksMain() {
     COccluder::InjectHooks();
     CActiveOccluder::InjectHooks();
     CGarage::InjectHooks();
+    CStoredCar::InjectHooks();
     CGarages::InjectHooks();
+    CMissionCleanup::InjectHooks();
+    CRemote::InjectHooks();
     CPostEffects::InjectHooks();
     CIniFile::InjectHooks();
     CStencilShadowObject::InjectHooks();

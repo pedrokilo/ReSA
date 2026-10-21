@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "pairs": 12288,
+  "differences": 0,
+  "registered_pairs": 12288,
+  "registered_functions": 2,
+  "functions": {
+    "CStoredCar::StoreCar": 4096,
+    "CStoredCar::RestoreCar": 8192
+  },
+  "covered_functions": {
+    "CStoredCar::StoreCar": true,
+    "CStoredCar::RestoreCar": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wg-3 (HEAD df26d6fe7 + fuente del lote 64). Los colaboradores se sustituyen por falsos identicos en ambos lados (parche en la entrada del EXE y en el cuerpo de la DLL cuando tienen hook; no se validan sus cuerpos): StoreCar: CVehicle::GetRemapIndex; RestoreCar: CStreaming::RequestModel/RequestVehicleUpgrade/HasVehicleUpgradeLoaded, operator new (0x6E2D50), los nueve constructores de vehiculo (0x6B0A90, 0x6C8D60, 0x6CE370, 0x6C4190, 0x6C8E20, 0x6F2940, 0x6BF430, 0x6BF820, 0x6D03A0), CVehicle::SetupUpgradesAfterLoad y CVehicle::SetRemap. El vehiculo origen/nuevo, sus matrices y los CModelInfo son objetos del banco; el estado real que lee/escribe (ms_compsToUse 0x8A6458/9 y, de cuatro modelos de prueba, su byte de estado de carga y su CModelInfo) se fija por caso y se restaura. Ningun llamador del EXE lee EAX/ECX/EDX de StoreCar; los de RestoreCar solo leen EAX (se compara el vehiculo devuelto), ECX/EDX solo se registran. Se comparan tambien los registros x87 muertos. No se prueban los caminos en que el EXE desreferencia sin comprobar: matriz nula del vehiculo en StoreCar, reserva nula (operator new) o matriz nula del vehiculo nuevo en RestoreCar; por lo mismo, la rama de posicion en placement (+4) de ambas queda sin cubrir. Los modelos de RestoreCar son siempre cuatro indices de prueba (5000..5003).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/StoredCar64-20261020-163340-979603",
+  "summary_sha256": "9a1a883708088e88309f2e76e849bb2cf98a905d312c14656c54859587017d23",
+  "result_txt_sha256": "6497f6e0f418158df24112337f3c24ac5af79b730c7f81a120edb0240bf830a7",
+  "log_sha256": "f5a0a83aebe6f44e661bbdf8f5d33194ac3a88b58d3cc60336ad861dd8961609",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "b27216a4bb741ffd3de06de0d204cae9d85d1d9088b49ac69296ad9026775f82",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "40839c96f91272f0052be484f87e2ecc558523026eb57808bf0d67dd137be848",
+      "source/game_sa/Garage.cpp": "36e4ca85c9ea3cde6b02e3c2cdd837bbc5e813554c78010a0f6eda7812395d21",
+      "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+      "source/game_sa/X87Math.cpp": "700583c16051dd6cf29a8b5631490b1789ec65c489d3d02deed7671955e4eef0",
+      "source/game_sa/X87Math.h": "d62b2f5d121ff4e18c7bcf7ef4bea5c091fd948de1a209be8c8998be33220036",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/StoredCar64/LiveComparison.hpp": "4e53fb27941d5fe61a9c250e0aecde73bddd348de414e81b23701ff567438fce",
+      "reversing/StoredCar64/Core.hpp": "1be5238bf8016ebae3a14d3fde4fa0be5adc5099cad2f45ae2a94bd249e333c8",
+      "reversing/StoredCar64/Fixtures.hpp": "e69aba961271f0231163476477ac54e2d3826df6a543dfef8ebdd2038e3c7405",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

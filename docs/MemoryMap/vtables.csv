@@ -37,11 +37,11 @@ CHandObject,0x00866EE0,0x00466EE0,23,source/game_sa/Entity/Object/HandObject.cpp
 CObject,0x00866F60,0x00466F60,23,source/game_sa/Entity/Object/Object.cpp,91,source_vtable_reference
 CCivilianPed,0x0086C0A8,0x0046C0A8,26,source/game_sa/Entity/Ped/CivilianPed.cpp,26,source_vtable_reference
 CCopPed,0x0086C120,0x0046C120,26,source/game_sa/Entity/Ped/CopPed.cpp,27,source_vtable_reference
-CPed,0x0086C358,0x0046C358,26,source/game_sa/Entity/Ped/Ped.cpp,59,source_vtable_reference
+CPed,0x0086C358,0x0046C358,26,source/game_sa/Entity/Ped/Ped.cpp,66,source_vtable_reference
 CPlayerPed,0x0086D168,0x0046D168,26,source/game_sa/Entity/Ped/PlayerPed.cpp,59,source_vtable_reference
 CPhysical,0x00863BA0,0x00463BA0,23,source/game_sa/Entity/Physical.cpp,39,source_vtable_reference
 CPlaceable,0x00863C40,0x00463C40,1,source/game_sa/Entity/Placeable.cpp,36,source_vtable_reference
-CAutomobile,0x00871120,0x00471120,71,source/game_sa/Entity/Vehicle/Automobile.cpp,117,source_vtable_reference
+CAutomobile,0x00871120,0x00471120,71,source/game_sa/Entity/Vehicle/Automobile.cpp,118,source_vtable_reference
 CBike,0x00871360,0x00471360,67,source/game_sa/Entity/Vehicle/Bike.cpp,51,source_vtable_reference
 CBmx,0x00871528,0x00471528,67,source/game_sa/Entity/Vehicle/Bmx.cpp,61,source_vtable_reference
 CBoat,0x008721A0,0x004721A0,66,source/game_sa/Entity/Vehicle/Boat.cpp,76,source_vtable_reference
@@ -205,7 +205,7 @@ CTaskComplexFollowLeaderAnyMeans,0x00870C68,0x00470C68,11,source/game_sa/Tasks/T
 CTaskComplexFollowLeaderInFormation,0x00870C3C,0x00470C3C,11,source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp,31,source_vtable_reference
 CTaskComplexFollowNodeRoute,0x008700A8,0x004700A8,11,source/game_sa/Tasks/TaskTypes/TaskComplexFollowNodeRoute.cpp,33,source_vtable_reference
 CTaskComplexFollowPatrolRoute,0x00870114,0x00470114,11,source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp,6,source_vtable_reference
-CTaskComplexFollowPedFootsteps,0x00870CC0,0x00470CC0,12,source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp,25,source_vtable_reference
+CTaskComplexFollowPedFootsteps,0x00870CC0,0x00470CC0,12,source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp,37,source_vtable_reference
 CTaskComplexFollowPointRoute,0x00870078,0x00470078,11,source/game_sa/Tasks/TaskTypes/TaskComplexFollowPointRoute.cpp,31,source_vtable_reference
 CTaskComplexGangFollower,0x0086F938,0x0046F938,11,source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp,41,source_vtable_reference
 CTaskComplexGangJoinRespond,0x0086FB5C,0x0046FB5C,11,source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.cpp,28,source_vtable_reference
@@ -235,7 +235,7 @@ CTaskComplexKillAllThreats,0x0086DA1C,0x0046DA1C,11,source/game_sa/Tasks/TaskTyp
 CTaskComplexKillCriminal,0x00870A00,0x00470A00,11,source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.cpp,36,source_vtable_reference
 CTaskComplexKillPedFromBoat,0x0086DA98,0x0046DA98,11,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp,25,source_vtable_reference
 CTaskComplexKillPedGroupOnFoot,0x0086DA48,0x0046DA48,11,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedGroupOnFoot.cpp,26,source_vtable_reference
-CTaskComplexKillPedOnFoot,0x0086D894,0x0046D894,11,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp,24,source_vtable_reference
+CTaskComplexKillPedOnFoot,0x0086D894,0x0046D894,11,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp,43,source_vtable_reference
 CTaskComplexKillPedOnFootArmed,0x0086D918,0x0046D918,11,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp,34,source_vtable_reference
 CTaskComplexKillPedOnFootMelee,0x0086D8EC,0x0046D8EC,11,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootMelee.cpp,33,source_vtable_reference
 CTaskComplexKillPedOnFootStealth,0x0086D8C0,0x0046D8C0,11,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp,28,source_vtable_reference
@@ -253,11 +253,11 @@ CTaskComplexObserveTrafficLightsAndAchieveHeading,0x0086DFC4,0x0046DFC4,11,sourc
 CTaskComplexOnFire,0x0086E308,0x0046E308,11,source/game_sa/Tasks/TaskTypes/TaskComplexOnFire.cpp,25,source_vtable_reference
 CTaskComplexOpenDriverDoor,0x0086EB0C,0x0046EB0C,12,source/game_sa/Tasks/TaskTypes/TaskComplexOpenDriverDoor.cpp,24,source_vtable_reference
 CTaskComplexOpenPassengerDoor,0x0086EB3C,0x0046EB3C,12,source/game_sa/Tasks/TaskTypes/TaskComplexOpenPassengerDoor.cpp,24,source_vtable_reference
-CTaskComplexPartner,0x00870664,0x00470664,14,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp,24,source_vtable_reference
-CTaskComplexPartnerChat,0x008707C4,0x004707C4,14,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.cpp,24,source_vtable_reference
-CTaskComplexPartnerDeal,0x00870754,0x00470754,14,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp,25,source_vtable_reference
+CTaskComplexPartner,0x00870664,0x00470664,14,source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp,33,source_vtable_reference
+CTaskComplexPartnerChat,0x008707C4,0x004707C4,14,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.cpp,29,source_vtable_reference
+CTaskComplexPartnerDeal,0x00870754,0x00470754,14,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp,29,source_vtable_reference
 CTaskComplexPartnerGreet,0x0087078C,0x0047078C,14,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp,31,source_vtable_reference
-CTaskComplexPartnerShove,0x00870800,0x00470800,14,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerShove.cpp,25,source_vtable_reference
+CTaskComplexPartnerShove,0x00870800,0x00470800,14,source/game_sa/Tasks/TaskTypes/TaskComplexPartnerShove.cpp,28,source_vtable_reference
 CTaskComplexPassObject,0x0086FB18,0x0046FB18,11,source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp,27,source_vtable_reference
 CTaskComplexPlayHandSignalAnim,0x0086D5DC,0x0046D5DC,11,source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp,27,source_vtable_reference
 CTaskComplexPolicePursuit,0x008709D4,0x004709D4,11,source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp,29,source_vtable_reference
@@ -304,7 +304,7 @@ CTaskComplexWalkAlongsidePed,0x008706CC,0x004706CC,11,source/game_sa/Tasks/TaskT
 CTaskComplexWalkRoundBuildingAttempt,0x0086F334,0x0046F334,11,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp,32,source_vtable_reference
 CTaskComplexWalkRoundCar,0x0086F308,0x0046F308,11,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundCar.cpp,29,source_vtable_reference
 CTaskComplexWalkRoundFire,0x0086F3E8,0x0046F3E8,11,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundFire.cpp,24,source_vtable_reference
-CTaskComplexWalkRoundObject,0x0086F364,0x0046F364,11,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp,25,source_vtable_reference
+CTaskComplexWalkRoundObject,0x0086F364,0x0046F364,11,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp,29,source_vtable_reference
 CTaskComplexWander,0x0086FE84,0x0046FE84,15,source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp,39,source_vtable_reference
 CTaskComplexWanderCop,0x00859C80,0x00459C80,15,source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp,27,source_vtable_reference
 CTaskComplexWanderCriminal,0x0085A23C,0x0045A23C,15,source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.cpp,27,source_vtable_reference
@@ -367,7 +367,7 @@ CTaskSimpleEvasiveDive,0x0086F244,0x0046F244,9,source/game_sa/Tasks/TaskTypes/Ta
 CTaskSimpleEvasiveStep,0x0086F1F4,0x0046F1F4,9,source/game_sa/Tasks/TaskTypes/TaskSimpleEvasiveStep.cpp,24,source_vtable_reference
 CTaskSimpleFacial,0x00870AB8,0x00470AB8,9,source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp,24,source_vtable_reference
 CTaskSimpleFall,0x00870430,0x00470430,9,source/game_sa/Tasks/TaskTypes/TaskSimpleFall.cpp,25,source_vtable_reference
-CTaskSimpleFight,0x0086D684,0x0046D684,9,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,515,source_vtable_reference
+CTaskSimpleFight,0x0086D684,0x0046D684,9,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,1008,source_vtable_reference
 CTaskSimpleFightingControl,0x0086D700,0x0046D700,9,source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp,38,source_vtable_reference
 CTaskSimpleFinishBrain,0x00859D20,0x00459D20,9,source/game_sa/Tasks/TaskTypes/TaskSimpleFinishBrain.cpp,23,source_vtable_reference
 CTaskSimpleGangDriveBy,0x0086D944,0x0046D944,9,source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp,26,source_vtable_reference
@@ -423,6 +423,7 @@ CTaskSimpleSetStayInSamePlace,0x0086DD50,0x0046DD50,9,source/game_sa/Tasks/TaskT
 CTaskSimpleShakeFist,0x00870A94,0x00470A94,9,source/game_sa/Tasks/TaskTypes/TaskSimpleShakeFist.cpp,23,source_vtable_reference
 CTaskSimpleSitDown,0x0086DEF4,0x0046DEF4,9,source/game_sa/Tasks/TaskTypes/TaskSimpleSitDown.cpp,23,source_vtable_reference
 CTaskSimpleSitIdle,0x0086DF18,0x0046DF18,9,source/game_sa/Tasks/TaskTypes/TaskSimpleSitIdle.cpp,24,source_vtable_reference
+CTaskSimpleSlideToCoord,0x0086FFEC,0x0046FFEC,9,source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp,27,source_vtable_reference
 CTaskSimpleStandStill,0x0086DD2C,0x0046DD2C,9,source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp,25,source_vtable_reference
 CTaskSimpleStandUp,0x0086DF3C,0x0046DF3C,9,source/game_sa/Tasks/TaskTypes/TaskSimpleStandUp.cpp,23,source_vtable_reference
 CTaskSimpleStealthKill,0x0086DA74,0x0046DA74,9,source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp,25,source_vtable_reference
