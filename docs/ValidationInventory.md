@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,845 entradas reversed=1**, de 8,845 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,855 entradas reversed=1**, de 8,855 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8845 |
+| `validated=1` · evidencia aprobada vinculada | 8855 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8845 |
+| Evidencia histórica vinculada; revisión pendiente | 8855 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -3372,6 +3372,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CMirrors | `Init` | [Resumen](../reversing/Mirrors/validation-summary.json) |
 | CMirrors | `RenderMirrorBuffer` | [Resumen](../reversing/Mirrors/validation-summary.json) |
 | CMirrors | `ShutDown` | [Resumen](../reversing/Mirrors/validation-summary.json) |
+| CMissionCleanup | `CheckIfCollisionHasLoadedForMissionObjects` | [Resumen](../reversing/MissionCleanup64/validation-summary.json) |
+| CMissionCleanup | `Process` | [Resumen](../reversing/MissionCleanup64/validation-summary.json) |
 | CMissionTextOffsets | `Load` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CModelInfo | `AddAtomicModel` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CModelInfo | `AddClumpModel` | [Resumen](../reversing/Small2/validation-summary.json) |
@@ -4669,6 +4671,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CRegisteredCorona | `Update` | [Resumen](../reversing/Misc56/validation-summary.json) |
 | CRegisteredMotionBlurStreak | `Render` | [Resumen](../reversing/Misc70/validation-summary.json) |
 | CRegisteredMotionBlurStreak | `Update` | [Resumen](../reversing/Misc70/validation-summary.json) |
+| CRemote | `GivePlayerRemoteControlledCar` | [Resumen](../reversing/Remote64/validation-summary.json) |
+| CRemote | `TakeRemoteControlledCarFromPlayer` | [Resumen](../reversing/Remote64/validation-summary.json) |
 | CRenderer | `AddEntityToRenderList` | [Resumen](../reversing/Renderer33/validation-summary.json) |
 | CRenderer | `AddToLodDontRenderList` | [Resumen](../reversing/Renderer33/validation-summary.json) |
 | CRenderer | `AddToLodRenderList` | [Resumen](../reversing/Renderer33/validation-summary.json) |
@@ -5084,6 +5088,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CStencilShadows | `SunSetPositionFromEntity` | [Resumen](../reversing/Misc61b/validation-summary.json) |
 | CStencilShadows | `UpdateHierarchy` | [Resumen](../reversing/Misc61b/validation-summary.json) |
 | CStencilShadows | `sub_710CC0` | [Resumen](../reversing/Misc61b/validation-summary.json) |
+| CStoredCar | `RestoreCar` | [Resumen](../reversing/StoredCar64/validation-summary.json) |
+| CStoredCar | `StoreCar` | [Resumen](../reversing/StoredCar64/validation-summary.json) |
 | CStreamedScripts | `FindStreamedScript` | [Resumen](../reversing/Sys12/validation-summary.json) |
 | CStreamedScripts | `FindStreamedScriptQuiet` | [Resumen](../reversing/Sys12/validation-summary.json) |
 | CStreamedScripts | `GetProperIndexFromIndexUsedByScript` | [Resumen](../reversing/Sys12/validation-summary.json) |
@@ -8193,6 +8199,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CWorld | `TriggerExplosion` | [Resumen](../reversing/WldE/validation-summary.json) |
 | CWorld | `TriggerExplosionSectorList<CPtrListDoubleLink<CPhysical*>>` | [Resumen](../reversing/WldE/validation-summary.json) |
 | CWorld | `UseDetonator` | [Resumen](../reversing/WldE/validation-summary.json) |
+| CWorldScan | `ScanWorld` | [Resumen](../reversing/WorldScan64/validation-summary.json) |
+| CWorldScan | `SetExtraRectangleToScan` | [Resumen](../reversing/WorldScan64/validation-summary.json) |
 | CZoneDef | `GetCenter` | [Resumen](../reversing/Dependencies21E/validation-summary.json) |
 | C_PcSave | `DeleteSlot` | [Resumen](../reversing/PcSave/validation-summary.json) |
 | C_PcSave | `GenerateGameFilename` | [Resumen](../reversing/PcSave/validation-summary.json) |
@@ -8224,6 +8232,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | D3DResourceSystem | `CreateTexture` | [Resumen](../reversing/D3DResource62/validation-summary.json) |
 | D3DResourceSystem | `DestroyIndexBuffer` | [Resumen](../reversing/D3DResource62/validation-summary.json) |
 | D3DResourceSystem | `DestroyTexture` | [Resumen](../reversing/D3DResource62/validation-summary.json) |
+| D3DResourceSystem | `GetTotalIndexDataSize` | [Resumen](../reversing/D3DResource63/validation-summary.json) |
+| D3DResourceSystem | `GetTotalPixelsSize` | [Resumen](../reversing/D3DResource63/validation-summary.json) |
 | D3DResourceSystem | `Init` | [Resumen](../reversing/D3DResource62/validation-summary.json) |
 | D3DResourceSystem | `SetUseD3DResourceBuffering` | [Resumen](../reversing/DependenciesWorld4/validation-summary.json) |
 | D3DResourceSystem | `Shutdown` | [Resumen](../reversing/D3DResource62/validation-summary.json) |
@@ -9148,6 +9158,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CMenuSystem` | 21 | 0 | 21 | 0 |
 | `CMessages` | 28 | 0 | 28 | 0 |
 | `CMirrors` | 8 | 0 | 8 | 0 |
+| `CMissionCleanup` | 2 | 0 | 2 | 0 |
 | `CMissionTextOffsets` | 1 | 0 | 1 | 0 |
 | `CModelInfo` | 29 | 0 | 29 | 0 |
 | `CMonsterTruck` | 11 | 0 | 11 | 0 |
@@ -9240,6 +9251,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CReferences` | 4 | 0 | 4 | 0 |
 | `CRegisteredCorona` | 1 | 0 | 1 | 0 |
 | `CRegisteredMotionBlurStreak` | 2 | 0 | 2 | 0 |
+| `CRemote` | 2 | 0 | 2 | 0 |
 | `CRenderer` | 33 | 0 | 33 | 0 |
 | `CReplay` | 47 | 0 | 47 | 0 |
 | `CRestart` | 11 | 0 | 11 | 0 |
@@ -9270,6 +9282,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CStats` | 51 | 0 | 51 | 0 |
 | `CStencilShadowObject` | 3 | 0 | 3 | 0 |
 | `CStencilShadows` | 13 | 0 | 13 | 0 |
+| `CStoredCar` | 2 | 0 | 2 | 0 |
 | `CStreamedScripts` | 12 | 0 | 12 | 0 |
 | `CStreaming` | 94 | 0 | 94 | 0 |
 | `CStreamingInfo` | 7 | 0 | 7 | 0 |
@@ -9618,11 +9631,12 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CWeather` | 13 | 0 | 13 | 0 |
 | `CWindModifiers` | 2 | 0 | 2 | 0 |
 | `CWorld` | 95 | 0 | 95 | 0 |
+| `CWorldScan` | 2 | 0 | 2 | 0 |
 | `CZoneDef` | 1 | 0 | 1 | 0 |
 | `C_PcSave` | 5 | 0 | 5 | 0 |
 | `CdStream` | 9 | 0 | 9 | 0 |
 | `Common` | 11 | 0 | 11 | 0 |
-| `D3DResourceSystem` | 10 | 0 | 10 | 0 |
+| `D3DResourceSystem` | 12 | 0 | 12 | 0 |
 | `FurnitureGroup_c` | 6 | 0 | 6 | 0 |
 | `FurnitureManager_c` | 7 | 0 | 7 | 0 |
 | `FurnitureSubGroup_c` | 3 | 0 | 3 | 0 |

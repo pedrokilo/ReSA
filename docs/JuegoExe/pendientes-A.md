@@ -1,16 +1,16 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 21/10/2026 (Ciudad de México):** 808 grupos / 8845 funciones reconstruidas; 8845 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 21/10/2026 (Ciudad de México):** 812 grupos / 8855 funciones reconstruidas; 8855 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo A: Falta: llamada desde código ya reemplazado
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-1,029 funciones, 143,043 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+1,032 funciones, 143,099 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| `0x0053FB70` | 16 | CPad | alta | 747 (682) |  |
+| `0x0053FB70` | 16 | CPad | alta | 747 (692) |  |
 | `0x0059C910` | 81 | CQuaternion | baja | 457 (403) |  |
 | `0x0054F1B0` | 42 | CMatrixLinkList | baja | 353 (341) |  |
 | `0x007170C0` | 32 | CClouds | baja | 253 (244) |  |
@@ -42,7 +42,7 @@
 | `0x004A8DF0` | 50 | FxInfoManager_c | baja | 41 (40) |  |
 | `0x004EF660` | 24 | CAESoundManager | baja | 82 (38) |  |
 | `0x00404330` | 25 | CRect | baja | 37 (36) |  |
-| `0x0059B020` | 51 | CMaths | baja | 40 (34) |  |
+| `0x0059B020` | 51 | CMaths | baja | 40 (35) |  |
 | `0x0059C050` | 33 | CCompressedMatrixNotAligned | baja | 37 (33) |  |
 | `0x004D3FD0` | 17 | CAnimManager | alta | 45 (33) |  |
 | `0x0059BCF0` | 30 | CCompressedMatrixNotAligned | baja | 32 (30) |  |
@@ -202,6 +202,7 @@
 | `0x00668D50` | 292 | CTaskComplexGoToPointAndStandStillAndAchieveHeading | alta | 4 (4) |  |
 | `0x0072D850` | 273 | CCullZones | alta | 4 (4) |  |
 | `0x00654840` | 257 | CTaskComplexWalkRoundBuildingAttempt | alta | 4 (4) |  |
+| `0x004654B0` | 226 | CTheScripts | baja | 22 (4) |  |
 | `0x00502F80` | 223 | CAEWaterCannonAudioEntity | alta | 4 (4) |  |
 | `0x006497F0` | 192 | CTaskSimpleWaitUntilPedIsInCar | baja | 4 (4) |  |
 | `0x00640430` | 131 | CTaskComplexOpenPassengerDoor | baja | 5 (4) |  |
@@ -328,7 +329,6 @@
 | `0x005DA6A0` | 236 | CCustomCarEnvMapPipeline | baja | 3 (2) |  |
 | `0x005A1DF0` | 230 | CObjectPool | baja | 2 (2) |  |
 | `0x0044A660` | 226 | CObject | baja | 2 (2) |  |
-| `0x004654B0` | 226 | CTheScripts | baja | 22 (2) |  |
 | `0x00747300` | 210 | CGamma | baja | 2 (2) |  |
 | `0x0049ABD0` | 184 | CShopping | alta | 2 (2) |  |
 | `0x006E5750` | 182 | WaterCreatureManager_c | baja | 2 (2) |  |
@@ -764,6 +764,7 @@
 | `0x00710BA0` | 30 | CStencilShadows | alta | 1 (1) |  |
 | `0x0065E710` | 29 | CTaskComplexGangLeader | alta | 1 (1) |  |
 | `0x0049C3B0` | 28 | CShopping | baja | 1 (1) |  |
+| `0x00634A40` | 28 | CTaskComplexUseClosestFreeScriptedAttractor | baja | 2 (1) |  |
 | `0x00407000` | 26 | CPopulation | baja | 1 (1) |  |
 | `0x004A1320` | 26 | Fx_c | baja | 1 (1) |  |
 | `0x0053BC60` | 26 | CGame | alta | 1 (1) |  |
@@ -791,6 +792,7 @@
 | `0x006A06F0` | 20 | CEventVehicleDamageCollision | baja | 1 (1) |  |
 | `0x004B4AA0` | 19 | CEventPotentialWalkIntoObject | baja | 1 (1) |  |
 | `0x00538AD0` | 19 | CFileMgr | baja | 1 (1) |  |
+| `0x0040B490` | 18 | CStreaming | alta | 2 (1) |  |
 | `0x00463640` | 18 | CTaskComplexSequence | baja | 1 (1) |  |
 | `0x004A1900` | 18 | FxEmitterBP_c | alta | 1 (1) |  |
 | `0x00537A10` | 18 | CFileLoader | baja | 1 (1) |  |
@@ -826,6 +828,7 @@
 | `0x004A9F50` | 10 | FxPrimBP_c | baja | 1 (1) |  |
 | `0x004E7850` | 10 | CAEMFDecoder | alta | 1 (1) |  |
 | `0x00532240` | 10 | CCrime | baja | 1 (1) |  |
+| `0x0053F910` | 10 | CPad | alta | 2 (1) |  |
 | `0x0066B150` | 10 | CTaskComplexWanderStandard | baja | 1 (1) |  |
 | `0x006040C0` | 8 | CEntityScanner | baja | 7 (1) |  |
 | `0x0041BCE0` | 7 | CBridge | baja | 1 (1) |  |
