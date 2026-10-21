@@ -8771,6 +8771,8 @@ D3DResourceSystem,DestroyIndexBuffer,0x00730D30,1,0,1,S
 D3DResourceSystem,DestroyTexture,0x00730B70,1,0,1,S
 D3DResourceSystem,Init,0x00730830,1,0,1,S
 D3DResourceSystem,Shutdown,0x00730A00,1,0,1,S
+D3DResourceSystem,GetTotalPixelsSize,0x00730660,1,0,1,S
+D3DResourceSystem,GetTotalIndexDataSize,0x007307F0,1,0,1,S
 CGarage,InitDoorsAtStart,0x00447600,1,0,1,S
 CGarage,PlayerArrestedOrDied,0x004486C0,1,0,1,S
 CGarage,IsEntityEntirelyInside3D,0x00448BE0,1,0,1,S
@@ -8844,3 +8846,11 @@ CCarCtrl,ReconsiderRoute,0x0042FC40,1,0,1,S
 CCarCtrl,FindLinksToGoWithTheseNodes,0x0042B470,1,0,1,S
 CCarCtrl,ChooseModel,0x00424CE0,1,0,1,S
 CCarCtrl,IsThisAnAppropriateNode,0x0042DAB0,1,0,1,S
+CMissionCleanup,Process,0x00468560,1,0,1,S
+CMissionCleanup,CheckIfCollisionHasLoadedForMissionObjects,0x004652D0,1,0,1,S
+CRemote,GivePlayerRemoteControlledCar,0x0045AB10,1,0,1,S
+CRemote,TakeRemoteControlledCarFromPlayer,0x0045AE80,1,0,1,S
+CStoredCar,StoreCar,0x00449760,1,0,1,S
+CStoredCar,RestoreCar,0x00447E40,1,0,1,S
+CWorldScan,ScanWorld,0x0072CAE0,1,0,1,S
+CWorldScan,SetExtraRectangleToScan,0x0072D5E0,1,0,1,S

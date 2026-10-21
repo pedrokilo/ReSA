@@ -1,0 +1,351 @@
+diff --git a/source/InjectHooksMain.cpp b/source/InjectHooksMain.cpp
+index ceecf6f37..88f566d51 100644
+--- a/source/InjectHooksMain.cpp
++++ b/source/InjectHooksMain.cpp
+@@ -738,6 +738,7 @@ void InjectHooksMain() {
+     CEntity::InjectHooks();
+     CPhysical::InjectHooks();
+     CRenderer::InjectHooks();
++    CWorldScan::InjectHooks();
+     CDummy::InjectHooks();
+     CDummyObject::InjectHooks();
+     CObject::InjectHooks();
+diff --git a/source/game_sa/Renderer.cpp b/source/game_sa/Renderer.cpp
+index 2de129805..c90e0856c 100644
+--- a/source/game_sa/Renderer.cpp
++++ b/source/game_sa/Renderer.cpp
+@@ -100,14 +100,319 @@ void CRenderer::InjectHooks()
+ 
+ }
+ 
+-void CWorldScan::ScanWorld(CVector2D *points, int32 pointsCount, tScanFunction scanFunction)
++void CWorldScan::InjectHooks()
+ {
+-    plugin::Call<0x72CAE0,CVector2D*, int32, tScanFunction>(points,pointsCount, scanFunction);
++    RH_ScopedClass(CWorldScan);
++    RH_ScopedCategoryGlobal();
++
++    RH_ScopedInstall(ScanWorld, 0x72CAE0);
++    RH_ScopedInstall(SetExtraRectangleToScan, 0x72D5E0);
+ }
+ 
++namespace {
++// Como el original: floor del CRT (0x8219F0) sobre el valor como double y _ftol2 (0x821B40): trunca a 64 bits y se usa el dword bajo.
++int32 WsFloorToInt(float f) {
++    return static_cast<int32>(static_cast<int64>(std::floor(static_cast<double>(f))));
++}
++// Como el original: ceil del CRT (0x823820) y _ftol2 (0x821B40).
++int32 WsCeilToInt(float f) {
++    return static_cast<int32>(static_cast<int64>(std::ceil(static_cast<double>(f))));
++}
++// Celdas extra por escanear (0xC81598 = Y[4], 0xC815A8 = X[4], 0xC815B8 = contador). El EXE no comprueba el desbordamiento: se indexa con punteros crudos.
++int32* const WsExtraY = reinterpret_cast<int32*>(0xC81598);
++int32* const WsExtraX = reinterpret_cast<int32*>(0xC815A8);
++int32& WsExtraCount = *reinterpret_cast<int32*>(0xC815B8);
++} // namespace
++
++// 0x72CAE0
++// Como el original: relleno de un poligono convexo (de 3 a 5 puntos en coordenadas de sector) fila a fila con la estructura de saltos del EXE
++// (etiquetas L_xxxx con las direcciones). Quita duplicados (desplazando el arreglo del llamador), toma el punto mas bajo, ordena por envoltura de
++// regalo con GetATanOfXY (0x53CC70), recorre los bordes izquierdo y derecho y llama scanFunction(x, y) por celda; las celdas extra de
++// SetExtraRectangleToScan ya visitadas se quitan y las restantes se escanean al final.
++void CWorldScan::ScanWorld(CVector2D* points, int32 pointsCount, tScanFunction scanFunction)
++{
++    constexpr float kTwoPi = std::bit_cast<float>(0x40C90FDBu);      // 0x858CBC
++    constexpr float kAngleInit = std::bit_cast<float>(0x47C34FF3u);  // [esp+34h] inicial
++    uint8 visited[8]{};      // [esp+38h..3Ch]: un byte por punto
++    struct { float x, y; } hull[5]; // [esp+40h]
++    int32 n = pointsCount;
++    int32 hullCount;
++
++    // Fase 1 (0x72CAE0..0x72CBA3): quita los puntos repetidos
++    if (n - 1 > 0) {
++        int32 i = 1;
++        do {
++            if (i < n) {
++                int32 last = n - 1;
++                int32 j = i;
++                do {
++                    if (points[i - 1].x == points[j].x && points[i - 1].y == points[j].y) {
++                        if (j < last) {
++                            for (int32 k = 0; k < last - j; ++k) {
++                                points[j + k].x = points[j + k + 1].x;
++                                points[j + k].y = points[j + k + 1].y;
++                            }
++                        }
++                        n--; last--; j--;
++                    }
++                    j++;
++                } while (j < n);
++            }
++            i++;
++        } while (i - 1 < n - 1);
++    }
++
++    // Fase 2 (0x72CBA3..0x72CC37): punto de menor y (el primero si hay empate)
++    int32 lowest = 0;
++    {
++        float minY = points[0].y;
++        for (int32 i = 1; i < n; ++i) {
++            if (minY > points[i].y) { minY = points[i].y; lowest = i; }
++        }
++    }
++    visited[lowest] = 1;
++    hull[0].x = points[lowest].x;
++    hull[0].y = points[lowest].y;
++    int32 cand = 0;                       // ebx: el EXE lo deja con los bytes de "visited" si ningun angulo mejora
++    std::memcpy(&cand, visited, 4);
++    hullCount = 1;
++    float angleSum = 0.0f;                // [esp+30h]
++    int32 cur = lowest;                   // edi
++    // 0x72CC64: envoltura de regalo
++    for (;;) {
++        float minAngle = kAngleInit;      // [esp+34h]
++        for (int32 s = 0; s < n; ++s) {
++            if (s == cur) continue;
++            float a = CGeneral::GetATanOfXY(points[s].x - points[cur].x, points[s].y - points[cur].y) - angleSum;
++            if (a < 0.0f) {
++                do { a = a + kTwoPi; } while (a < 0.0f);
++            }
++            while (a >= kTwoPi) a = a - kTwoPi;
++            if (a < minAngle) { minAngle = a; cand = s; }
++        }
++        if (visited[cand]) break;
++        angleSum = minAngle + angleSum;
++        hull[hullCount].x = points[cand].x;
++        hull[hullCount].y = points[cand].y;
++        hullCount++;
++        visited[cand] = 1;
++        cur = cand;
++    }
++    if (hullCount < 3) return;            // 0x72CD56
++
++    // 0x72CD5C: filas minima y maxima
++    const int32 C = hullCount;
++    int32 minIdx = 0;
++    float maxY = hull[0].y;               // [esp+18h]
++    float minY = hull[0].y;
++    for (int32 i = 1; i < C; ++i) {
++        if (minY > hull[i].y) { minY = hull[i].y; minIdx = i; }
++        else if (hull[i].y > maxY) maxY = hull[i].y;
++    }
++    const int32 rowFirst = WsFloorToInt(minY);
++    const int32 rowLast = WsFloorToInt(maxY);
++    int32 minX = 9999;                    // [esp+10h]
++    int32 maxX = -9999;                   // [esp+0Ch]
++    int32 y = rowFirst;                   // [esp+28h]
++
++    // Cadena izquierda (0x72CEC0)
++    int32 leftCur = 0, leftNext = minIdx;
++    {
++        int32 steps = 0;
++        for (;;) {
++            steps++;
++            leftCur = leftNext;
++            leftNext--;
++            if (leftNext < 0) leftNext = C - 1;
++            if (static_cast<double>(minX) > static_cast<double>(hull[leftCur].x)) minX = WsFloorToInt(hull[leftCur].x);
++            const int32 rowNext = WsFloorToInt(hull[leftNext].y);
++            const int32 rowCur = WsFloorToInt(hull[leftCur].y);
++            if (!(rowCur == rowNext && steps < C)) break;
++        }
++    }
++    // Cadena derecha (0x72CF47)
++    int32 rightCur = 0, rightNext = minIdx;
++    {
++        int32 steps = 0;
++        for (;;) {
++            steps++;
++            rightCur = rightNext;
++            rightNext++;
++            if (rightNext == C) rightNext = 0;
++            if (static_cast<double>(maxX) < static_cast<double>(hull[rightCur].x)) maxX = WsFloorToInt(hull[rightCur].x);
++            const int32 rowNext = WsFloorToInt(hull[rightNext].y);
++            const int32 rowCur = WsFloorToInt(hull[rightCur].y);
++            if (!(rowCur == rowNext && steps < C)) break;
++        }
++    }
++    // 0x72CFC1: pendientes y x en la primera fila
++    float slopeR = (hull[rightNext].x - hull[rightCur].x) / (hull[rightNext].y - hull[rightCur].y);
++    float xRight = (std::ceil(hull[rightCur].y) - hull[rightCur].y) * slopeR + hull[rightCur].x;
++    float slopeL = (hull[leftNext].x - hull[leftCur].x) / (hull[leftNext].y - hull[leftCur].y);
++    float xLeft = (std::ceil(hull[leftCur].y) - hull[leftCur].y) * slopeL + hull[leftCur].x;
++    if (rowFirst != rowLast) {
++        if (slopeL < 0.0f) {
++            const int32 f = WsFloorToInt(xLeft);
++            if (minX > f) minX = f;
++        }
++        if (slopeR >= 0.0f) {
++            const int32 f = WsFloorToInt(xRight);
++            if (maxX < f) maxX = f;
++        }
++    }
++    if (y > rowLast) goto L_D593;
++
++L_D0F0:
++    {
++        int32 x = minX;
++        if (x <= maxX) {
++            do {
++                scanFunction(x, y);
++                int32 count = WsExtraCount;
++                int32 e = 0;
++                if (count > 0) {
++                    int32 lastExtra = count - 1;
++                    do {
++                        if (x == WsExtraX[e] && y == WsExtraY[e]) {
++                            if (e < lastExtra) {
++                                const int32 words = lastExtra - e;
++                                for (int32 k = 0; k < words; ++k) WsExtraY[e + k] = WsExtraY[e + k + 1];
++                                for (int32 k = 0; k < words; ++k) WsExtraX[e + k] = WsExtraX[e + k + 1];
++                                count = WsExtraCount;
++                            }
++                            count--;
++                            lastExtra--;
++                            WsExtraCount = count;
++                            e = 4;
++                        }
++                        e++;
++                    } while (e < count);
++                }
++                x++;
++            } while (x <= maxX);
++        }
++    }
++    // L_D1B8: siguiente fila
++    xRight = slopeR + xRight;
++    y++;
++    xLeft = slopeL + xLeft;
++    {
++        const int32 rowLeftNext = WsFloorToInt(hull[leftNext].y);
++        const bool slopeLNegative = slopeL < 0.0f;     // estado de la fcomp de 0x72D1FA
++        if (y != rowLeftNext) goto L_D380;
++        if (y == rowLast) goto L_D329;
++        // L_D214
++        minX = WsFloorToInt(slopeLNegative ? hull[leftNext].x : xLeft - slopeL);
++        {
++            int32 edi;
++            do {
++                // L_D240
++                edi = leftNext;
++                leftNext--;
++                if (leftNext < 0) leftNext = C - 1;
++                xLeft = hull[edi].x;
++                if (minX > WsFloorToInt(xLeft)) minX = WsFloorToInt(xLeft);
++            } while (y == WsFloorToInt(hull[leftNext].y));   // L_D28E
++            slopeL = (hull[leftNext].x - hull[edi].x) / (hull[leftNext].y - hull[edi].y);
++            xLeft = (std::ceil(hull[edi].y) - hull[edi].y) * slopeL + xLeft;
++            if (slopeL < 0.0f) {
++                if (minX > WsFloorToInt(xLeft)) minX = WsFloorToInt(xLeft);
++            }
++        }
++        goto L_D3AC;
++    L_D329:
++        if (!slopeLNegative) {
++            minX = WsFloorToInt(xLeft - slopeL);        // L_D376
++        } else {
++            int32 v, w;
++            do {
++                v = WsFloorToInt(hull[leftNext].x);
++                leftNext--;
++                minX = v;
++                if (leftNext < 0) leftNext = C - 1;
++                w = WsFloorToInt(hull[leftNext].x);
++            } while (v > w);
++        }
++        goto L_D3AC;
++    L_D380:
++        minX = WsFloorToInt(slopeLNegative ? xLeft : xLeft - slopeL);
++    }
++L_D3AC:
++    {
++        const int32 rowRightNext = WsFloorToInt(hull[rightNext].y);
++        const bool slopeRNonNegative = slopeR >= 0.0f;   // estado de la fcomp de 0x72D3CF
++        if (y != rowRightNext) goto L_D559;
++        if (y == rowLast) goto L_D50A;
++        // L_D3EB
++        maxX = WsFloorToInt(slopeRNonNegative ? hull[rightNext].x : xRight - slopeR);
++        {
++            int32 edi, esi = rightNext;
++            do {
++                // L_D420
++                edi = esi;
++                esi++;
++                rightNext = esi;
++                if (esi == C) rightNext = 0;
++                xRight = hull[edi].x;
++                if (maxX < WsFloorToInt(xRight)) maxX = WsFloorToInt(xRight);
++                esi = rightNext;
++            } while (y == WsFloorToInt(hull[esi].y));       // L_D473
++            slopeR = (hull[esi].x - hull[edi].x) / (hull[esi].y - hull[edi].y);
++            xRight = (std::ceil(hull[edi].y) - hull[edi].y) * slopeR + xRight;
++            if (slopeR >= 0.0f) {
++                if (maxX < WsFloorToInt(xRight)) maxX = WsFloorToInt(xRight);
++            }
++        }
++        goto L_D585;
++    L_D50A:
++        if (!slopeRNonNegative) goto L_D566;
++        {
++            int32 edi = rightNext, v, w;
++            do {
++                v = WsFloorToInt(hull[edi].x);
++                edi++;
++                maxX = v;
++                if (edi == C) edi = 0;
++                w = WsFloorToInt(hull[edi].x);
++            } while (v < w);
++            rightNext = edi;
++        }
++        goto L_D585;
++    L_D566:
++        maxX = WsFloorToInt(xRight - slopeR);
++        goto L_D585;
++    L_D559:
++        if (!slopeRNonNegative) goto L_D566;
++        maxX = WsFloorToInt(xRight);
++    }
++L_D585:
++    if (y <= rowLast) goto L_D0F0;
++L_D593:
++    for (int32 i = 0; i < WsExtraCount; ++i) {
++        scanFunction(WsExtraX[i], WsExtraY[i]);
++    }
++    WsExtraCount = 0;
++}
++
++// 0x72D5E0
++// Como el original: apila en las tablas de celdas extra (sin comprobar el limite de 4) las celdas de floor(minX)..ceil(maxX) x floor(minY)..ceil(maxY).
+ void CWorldScan::SetExtraRectangleToScan(float minX, float maxX, float minY, float maxY)
+ {
+-    plugin::Call<0x72D5E0, float, float, float, float>(minX, maxX, minY, maxY);
++    int32 xi = WsFloorToInt(minX);
++    if (xi >= WsCeilToInt(maxX)) return;
++    do {
++        int32 yi = WsFloorToInt(minY);
++        if (yi < WsCeilToInt(maxY)) {
++            do {
++                const int32 idx = WsExtraCount;
++                WsExtraY[idx] = yi;
++                WsExtraX[idx] = xi;
++                WsExtraCount = idx + 1;
++                yi++;
++            } while (yi < WsCeilToInt(maxY));
++        }
++        xi++;
++    } while (xi < WsCeilToInt(maxX));
+ }
+ 
+ void CRenderer::Init() {
+diff --git a/source/game_sa/Renderer.h b/source/game_sa/Renderer.h
+index 5900d94a1..039978caa 100644
+--- a/source/game_sa/Renderer.h
++++ b/source/game_sa/Renderer.h
+@@ -60,6 +60,7 @@ constexpr auto MAX_VISIBLE_SUPERLOD_PTRS = 50u;
+ 
+ class CWorldScan {
+ public:
++    static void InjectHooks();
+     using tScanFunction = void(__cdecl*)(int32, int32);
+     static void ScanWorld(CVector2D* points, int32 pointsCount, tScanFunction scanFunction);
+     static void SetExtraRectangleToScan(float minX, float maxX, float minY, float maxY);

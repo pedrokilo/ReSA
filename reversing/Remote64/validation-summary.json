@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "pairs": 12288,
+  "differences": 0,
+  "registered_pairs": 12288,
+  "registered_functions": 2,
+  "functions": {
+    "CRemote::GivePlayerRemoteControlledCar": 8192,
+    "CRemote::TakeRemoteControlledCarFromPlayer": 4096
+  },
+  "covered_functions": {
+    "CRemote::GivePlayerRemoteControlledCar": true,
+    "CRemote::TakeRemoteControlledCarFromPlayer": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wg-2 (HEAD df26d6fe7 + fuente del lote 64). Los colaboradores se sustituyen por falsos identicos en ambos lados (parche en la entrada del EXE y en el cuerpo de la DLL cuando lo hay; no se validan sus cuerpos). Give: CModelInfo::IsHeliModel/IsPlaneModel, operador new del pool de vehiculos (0x6E2D50), constructores de CHeli/CPlane/CAutomobile, CWorld::FindGroundZFor3DCoord, CEntity::GetDistanceFromCentreOfMassToBaseOfModel, CMatrix::SetRotateZOnly, CCarCtrl::JoinCarWithRoadSystem, CWorld::Add, FindPlayerVehicle, CEntity::RegisterReference, CCamera::TakeControl/SetZoomValueCamStringScript. Take: CVehicle::SetVehicleCreatedBy y CMissionCleanup::RemoveEntityFromList. Vehiculos, matrices y pool de vehiculos son objetos falsos del banco; el estado real que se lee/escribe (jugador en foco, reloj, puntero del pool y dos CPlayerInfo) se fija por caso y se restaura. kCompareDeadX87Registers=true (el registro muerto T-1 de Give se contrasta ademas con el oraculo). Ningun llamador del EXE (0x48AAB8, 0x56EA4B, 0x6B4BE8, 0x6B4C26) lee EAX/ECX/EDX. No se prueban los caminos en que el EXE desreferencia sin comprobar: operador new nulo en Give y vehiculo remoto nulo en Take.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Remote64-20261020-163128-161478",
+  "summary_sha256": "b6e134165d91bf2abb84fc36298ddd4f01890fe8930cd458adc543bef5d5b1f3",
+  "result_txt_sha256": "7aa65f1717a2cbd7ee32464f6fd735e3a8112fd177fac37f1d121d20a8cd5742",
+  "log_sha256": "6132ca32aadeef1c3802420eeeb2f028b2ae78c4236701eeb025f776740f02dd",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "4cc945b1993d8a5102c82de7205cb6847cd51216510f2ce1909ffc8af983ae2e",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "40839c96f91272f0052be484f87e2ecc558523026eb57808bf0d67dd137be848",
+      "source/game_sa/Remote.cpp": "d31258d476803fb128bddb8304457dff5026dcb551d3a62b8daefb16cde6adad",
+      "source/game_sa/Remote.h": "d6f7fad19b59655ab5312e80284884b545ec66f296cc6338d8e81669efdc2134",
+      "source/game_sa/X87Math.cpp": "700583c16051dd6cf29a8b5631490b1789ec65c489d3d02deed7671955e4eef0",
+      "source/game_sa/X87Math.h": "d62b2f5d121ff4e18c7bcf7ef4bea5c091fd948de1a209be8c8998be33220036",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Remote64/LiveComparison.hpp": "108665881c5c2950b55c65aba326e5d24f1ab95c94c53e932b4a40ace4c9eb05",
+      "reversing/Remote64/Core.hpp": "21c42d57fcb94462369d46a3fc2e9fe940dc316939f70f78f9eac26069d20de7",
+      "reversing/Remote64/Fixtures.hpp": "cad2e3da58b283954451929c34c72ad1bd5b0990a7a6c7015d0d90fb7e0dcb7e",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

@@ -1,0 +1,59 @@
+diff --git a/source/game_sa/RenderWare/D3DResourceSystem.cpp b/source/game_sa/RenderWare/D3DResourceSystem.cpp
+index ca62344f2..d7aa6761f 100644
+--- a/source/game_sa/RenderWare/D3DResourceSystem.cpp
++++ b/source/game_sa/RenderWare/D3DResourceSystem.cpp
+@@ -56,6 +56,8 @@ void D3DResourceSystem::InjectHooks() {
+     RH_ScopedInstall(DestroyTexture, 0x730B70);
+     RH_ScopedInstall(Init, 0x730830);
+     RH_ScopedInstall(Shutdown, 0x730A00);
++    RH_ScopedInstall(GetTotalIndexDataSize, 0x7307F0);
++    RH_ScopedInstall(GetTotalPixelsSize, 0x730660);
+ }
+ 
+ namespace {
+@@ -106,6 +108,12 @@ inline D3DTextureBuffer* TextureBufferAt(int32 index) {
+ inline D3DIndexDataBuffer* IndexDataBufferAt(int32 index) {
+     return reinterpret_cast<D3DIndexDataBuffer*>(reinterpret_cast<uintptr_t>(&D3DResourceSystem::IndexDataBuffers[0]) + static_cast<uint32>(index) * sizeof(D3DIndexDataBuffer));
+ }
++inline uint32 TextureBufferGetTotalDataSize(D3DTextureBuffer* buffer) { // 0x7300A0
++    return plugin::CallMethodAndReturn<uint32, 0x7300A0, D3DTextureBuffer*>(buffer);
++}
++inline uint32 IndexDataBufferGetTotalDataSize(D3DIndexDataBuffer* buffer) { // 0x7303B0
++    return plugin::CallMethodAndReturn<uint32, 0x7303B0, D3DIndexDataBuffer*>(buffer);
++}
+ inline void StoreResource(void* array, int32 index, void* resource) {
+     static_cast<void**>(array)[index] = resource;
+ }
+@@ -154,13 +162,30 @@ void D3DResourceSystem::CancelBuffering() {
+ }
+ 
+ // 0x7307F0
++// Suma D3DIndexDataBuffer::GetTotalDataSize (0x7303B0, del EXE) de los 16 buffers por tamano, del ultimo (0xC87FB0) al primero (0xC87E48), y despues la del generico (0xC87FC8).
++// El EXE no devuelve nada mas que la suma (EAX); ningun llamador directo (codigo muerto en el EXE).
+ uint32 D3DResourceSystem::GetTotalIndexDataSize() {
+-    return plugin::CallAndReturn<uint32, 0x7307F0>();
++    uint32 total = 0;
++    for (int32 i = 15; i >= 0; --i) {
++        total += IndexDataBufferGetTotalDataSize(IndexDataBufferAt(i));
++    }
++    return IndexDataBufferGetTotalDataSize(&IndexDataBuffer) + total;
+ }
+ 
+ // 0x730660
++// Suma D3DTextureBuffer::GetTotalDataSize (0x7300A0, del EXE) de los NumTextureBuffers buffers, del ultimo al primero. El contador se lee una sola vez (ebx) y el bucle es un
++// `dec`/`jne` sin signo: con 0 no hay llamadas. El primer puntero es 0xC87C68 + n * 0x1C con la aritmetica de 32 bits del EXE (sin comprobar el rango). Ningun llamador directo.
+ uint32 D3DResourceSystem::GetTotalPixelsSize() {
+-    return plugin::CallAndReturn<uint32, 0x730660>();
++    uint32 count = NumTextureBuffers;
++    uint32 total = 0;
++    uintptr_t buffer = reinterpret_cast<uintptr_t>(&TextureBuffers[0]) + count * static_cast<uint32>(sizeof(D3DTextureBuffer));
++    if (count) {
++        do {
++            buffer -= sizeof(D3DTextureBuffer);
++            total += TextureBufferGetTotalDataSize(reinterpret_cast<D3DTextureBuffer*>(buffer));
++        } while (--count);
++    }
++    return total;
+ }
+ 
+ // 0x730830

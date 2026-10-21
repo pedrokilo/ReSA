@@ -83,6 +83,8 @@ struct CStoredCar {
     uint8   _pad1;
 
 public:
+    static void InjectHooks();
+
     void      StoreCar(CVehicle* vehicle); // 0x449760
     CVehicle* RestoreCar();                // 0x447E40
 

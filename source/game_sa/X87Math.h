@@ -1816,3 +1816,13 @@ float __cdecl Cc63bCruiseSpeedCpp(unsigned int cruise, float multiplier);       
 float __cdecl Cc63bTrafficSpeedCpp(unsigned int cruise, float multiplier, float maxSpeed);  // (fild(cruise) * multiplier + maxSpeed) * 0.5f, resultado en ST0
 bool __cdecl Cc63bRandBelowEighthCpp(int randValue);                                        // fild(randValue) * (1/32767, 0x858C7C) < 0.125f (SetUpDriverAndPassengersForVehicle)
 float __cdecl Cc63bAddFloatCpp(float a, float b);                                           // a + b (24 bits), resultado en ST0 (SetCoordsOfScriptCar)
+// --- Lote 64 (Remote64): CRemote::GivePlayerRemoteControlledCar (0x45AB10). Anadido al FINAL de X87Math.h ---
+// 0x45ABF5..0x45AC13: *out = float(groundZ + distance) (fld [distance]; fadd [groundZ]; fstp), 24 bits como la x87 del EXE; deja la suma en el registro x87 muerto T-1.
+void __cdecl RemoteGiveGroundZCpp(float groundZ, float distance, float* out);
+
+// --- Lote 64: CStoredCar (StoreCar 0x449760, RestoreCar 0x447E40), prefijo StoredCar. Anadir al FINAL de X87Math.h ---
+// StoreCar: _ftol2 de (eje * 100.0f [0x858628]) con el producto a 24 bits sin guardar a float; ecxAtCall = ECX en la llamada (la matriz del vehiculo); devuelve EAX/ECX/EDX con que sale _ftol2.
+Ftol2Regs __cdecl StoredCarPackAxisCpp(float axis, unsigned int ecxAtCall);
+// RestoreCar (0x448119..0x448180): x' = x * 0.01f [0x858C58], y', z' con fild del byte con signo y fmul (24 bits); out = {x', y', z'}. Deja los registros x87 muertos del EXE:
+// T-4 = y', T-3 = z', T-2 = y', T-1 = -x' (fld st(2)/fstp, fld st(1)/fstp, fstp, fstp, fchs/fstp).
+void __cdecl StoredCarUnpackForwardCpp(int x, int y, int z, float* out);

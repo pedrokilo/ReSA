@@ -1461,13 +1461,190 @@ void CSaveGarage::CopyGarageOutOfSaveGarage(CGarage& g) const {
     strcpy(g.m_anName, m_anName); // Como el original: strcpy (sin relleno 0xFE de depuración)
 }
 
-// todo move
+void CStoredCar::InjectHooks() {
+    RH_ScopedClass(CStoredCar);
+    RH_ScopedCategoryGlobal();
+
+    RH_ScopedInstall(StoreCar, 0x449760);
+    RH_ScopedInstall(RestoreCar, 0x447E40);
+}
+
+namespace {
+// fld dword + fstp dword del x87: un NaN senalizador sale silenciado (bit 22); el resto de patrones (subnormales incluidos) se conserva.
+inline uint32 GaX87QuietFloatBits(uint32 bits) {
+    return (bits & 0x7F800000u) == 0x7F800000u && (bits & 0x007FFFFFu) ? (bits | 0x00400000u) : bits;
+}
+// operator new (0x6E2D50) + constructor del vehiculo (thiscall (modelo, 1)); una reserva nula no se construye (el EXE se cae despues al usar el vehiculo).
+template<uint32 Size, uint32 Constructor> inline CVehicle* GaConstructStored(uint32 model) {
+    void* const memory = plugin::CallAndReturn<void*, 0x6E2D50, uint32>(Size);
+    return memory ? plugin::CallMethodAndReturn<CVehicle*, Constructor, CVehicle*, int32, int32>(static_cast<CVehicle*>(memory), static_cast<int32>(model), 1) : nullptr;
+}
+}
+
 // 0x449760
+// Como el original (0x449760..0x4498F8): posicion de la matriz (+0x30) o del placement (+4) copiada como palabras; avance (matriz +0x10/+0x14/+0x18) por 100.0f [0x858628] truncado con
+// _ftol2 y guardado como byte; colores, radio, modelo, banderas de fisica empaquetadas, tipo de bomba (solo si el tipo del vehiculo es 0 o 9), 15 mejoras y remapeo (0x6D0B70, por su
+// direccion). Como el EXE, la matriz del vehiculo se desreferencia sin comprobar para el avance.
 void CStoredCar::StoreCar(CVehicle* vehicle) {
-    plugin::CallMethod<0x449760, CStoredCar*, CVehicle*>(this, vehicle);
+    m_wModelIndex = GaField<uint16>(vehicle, 0x22);
+
+    const uint32* const pos = GaField<const uint8*>(vehicle, 0x14) ? reinterpret_cast<const uint32*>(GaField<const uint8*>(vehicle, 0x14) + 0x30) : &GaField<uint32>(vehicle, 0x04);
+    GaField<uint32>(this, 0x00) = pos[0];
+    GaField<uint32>(this, 0x04) = pos[1];
+    GaField<uint32>(this, 0x08) = pos[2];
+
+    const float* const forward = reinterpret_cast<const float*>(GaField<const uint8*>(vehicle, 0x14) + 0x10);
+    const uint32 matrixAddress = GaField<uint32>(vehicle, 0x14);
+    m_nPackedForwardX = static_cast<uint8>(StoredCarPackAxisCpp(forward[0], matrixAddress).eax);
+    m_nPackedForwardY = static_cast<uint8>(StoredCarPackAxisCpp(forward[1], matrixAddress).eax);
+    m_nPackedForwardZ = static_cast<uint8>(StoredCarPackAxisCpp(forward[2], matrixAddress).eax);
+
+    m_nPrimaryColor    = GaField<uint8>(vehicle, 0x434);
+    m_nSecondaryColor  = GaField<uint8>(vehicle, 0x435);
+    m_nTertiaryColor   = GaField<uint8>(vehicle, 0x436);
+    m_nQuaternaryColor = GaField<uint8>(vehicle, 0x437);
+    m_nRadioStation    = GaField<uint8>(vehicle, 0x1D2);
+    m_nHandlingFlags   = GaField<uint32>(vehicle, 0x38C);
+    m_anCompsToUse[0]  = GaField<uint8>(vehicle, 0x438);
+    m_anCompsToUse[1]  = GaField<uint8>(vehicle, 0x439);
+
+    // m_nStoredCarFlags (+0x10) y el relleno (+0x11): palabra de 16 bits como el EXE (el relleno queda en 0)
+    const uint32 physicalFlags = GaField<uint32>(vehicle, 0x40);
+    uint8        flags         = 0;
+    if (physicalFlags & 0x40000)  flags = 1;
+    if (physicalFlags & 0x80000)  flags |= 2;
+    if (physicalFlags & 0x800000) flags |= 4;
+    if (physicalFlags & 0x100000) flags |= 8;
+    if (physicalFlags & 0x200000) flags |= 0x10;
+    if (GaField<uint8>(vehicle, 0x42E) & 0x10) flags |= 0x20;
+    if (GaField<uint32>(vehicle, 0x38C) & 0x20000) flags |= 0x40;
+    if (GaField<uint32>(vehicle, 0x38C) & 0x80000) flags |= 0x80;
+    m_nStoredCarFlags = flags;
+    _pad0             = 0;
+
+    const uint32 vehicleType = GaField<uint32>(vehicle, 0x590);
+    if (vehicleType == 0 || vehicleType == 9)
+        m_nBombType = GaField<uint8>(vehicle, 0x4A8) & 7;
+
+    for (auto i = 0; i < 15; i++)
+        m_awCarMods[i] = GaField<int16>(vehicle, 0x43A + 2 * i);
+
+    m_nPaintJob    = static_cast<uint8>(plugin::CallMethodAndReturn<uint32, 0x6D0B70, CVehicle*>(vehicle)); // CVehicle::GetRemapIndex
+    m_nNitroBoosts = GaField<uint8>(vehicle, 0x48A);
 }
 
 // 0x447E40
+// Como el original (0x447E40..0x4482FD): pide el modelo (flags 8) y cada mejora; si el modelo (byte de estado 1 en 0x8E4CC8 + 20 * modelo + 8) o alguna mejora no estan cargados devuelve 0.
+// Si lo estan, fija CVehicleModelInfo::ms_compsToUse (0x8A6458/9), reserva (0x6E2D50) y construye el vehiculo segun el tipo del modelo (tabla 0x448300: tipo - 1 sin signo; 6..8 y fuera de
+// rango: coche), lo coloca (posicion con fld/fstp: un NaN senalizador sale silenciado), pone el avance (byte con signo * 0.01f [0x858C58]) y su perpendicular, y copia banderas, colores,
+// mejoras y remapeo (0x6E3400 y 0x6D0C00 por su direccion). Tambien deja el byte +0x36 en (+0x36 & 7) | 0x20 y las filas up de la matriz (+0x20/+0x24/+0x28) en (0, 0, 1). Como el EXE, no comprueba la reserva ni la matriz del vehiculo nuevo (el EXE se cae); devuelve el vehiculo.
 CVehicle* CStoredCar::RestoreCar() {
-    return plugin::CallMethodAndReturn<CVehicle*, 0x447E40, CStoredCar*>(this);
+    const uint32 model = m_wModelIndex;
+    plugin::Call<0x4087E0, int32, int32>(static_cast<int32>(model), 8); // CStreaming::RequestModel
+
+    for (auto i = 0; i < 15; i++) {
+        if (m_awCarMods[i] != static_cast<int16>(0xFFFF))
+            plugin::Call<0x408C70, int32, int32>(static_cast<int32>(m_awCarMods[i]), 0); // CStreaming::RequestVehicleUpgrade
+    }
+
+    if (*reinterpret_cast<const uint8*>(0x8E4CD0 + model * 20) != 1)
+        return nullptr;
+
+    for (auto i = 0; i < 15; i++) {
+        if (m_awCarMods[i] != static_cast<int16>(0xFFFF)) {
+            if (!plugin::CallAndReturn<bool, 0x407820, int32>(static_cast<int32>(m_awCarMods[i]))) // CStreaming::HasVehicleUpgradeLoaded
+                return nullptr;
+        }
+    }
+
+    *reinterpret_cast<uint8*>(0x8A6459) = m_anCompsToUse[1];
+    *reinterpret_cast<uint8*>(0x8A6458) = m_anCompsToUse[0];
+
+    const uint32 vehicleType = GaField<uint32>(reinterpret_cast<const void*>(reinterpret_cast<const uint32*>(0xA9B0C8)[model]), 0x3C);
+    const uint32 index       = vehicleType - 1;
+    CVehicle*    vehicle;
+    switch (index > 10 ? 99u : index) {
+    case 0:  vehicle = GaConstructStored<0x99C, 0x6C8D60>(model); break;
+    case 1:  vehicle = GaConstructStored<0x9BC, 0x6CE370>(model); break;
+    case 2:  vehicle = GaConstructStored<0xA18, 0x6C4190>(model); break;
+    case 3:  vehicle = GaConstructStored<0xA04, 0x6C8E20>(model); break;
+    case 4:  vehicle = GaConstructStored<0x7E8, 0x6F2940>(model); break;
+    case 8:
+        vehicle = GaConstructStored<0x814, 0x6BF430>(model);
+        GaField<uint8>(vehicle, 0x614) |= 0x10;
+        break;
+    case 9:
+        vehicle = GaConstructStored<0x838, 0x6BF820>(model);
+        GaField<uint8>(vehicle, 0x614) |= 0x10;
+        break;
+    case 10: vehicle = GaConstructStored<0x9F4, 0x6D03A0>(model); break;
+    default: {
+        void* const memory = plugin::CallAndReturn<void*, 0x6E2D50, uint32>(0x988);
+        vehicle = memory ? plugin::CallMethodAndReturn<CVehicle*, 0x6B0A90, CVehicle*, int32, int32, int32>(static_cast<CVehicle*>(memory), static_cast<int32>(model), 1, 1) : nullptr;
+        break;
+    }
+    }
+
+    // posicion: matriz + 0x30 si existe, si no placement + 4 (fld/fstp)
+    {
+        uint8* const  matrix = GaField<uint8*>(vehicle, 0x14);
+        uint32* const dst    = matrix ? reinterpret_cast<uint32*>(matrix + 0x30) : &GaField<uint32>(vehicle, 0x04);
+        dst[0] = GaX87QuietFloatBits(GaField<uint32>(this, 0x00));
+        dst[1] = GaX87QuietFloatBits(GaField<uint32>(this, 0x04));
+        dst[2] = GaX87QuietFloatBits(GaField<uint32>(this, 0x08));
+    }
+
+    // avance = byte con signo * 0.01f y su perpendicular (y, -x, 0); la matriz se desreferencia sin comprobar
+    float forward[3];
+    StoredCarUnpackForwardCpp(static_cast<int8>(m_nPackedForwardX), static_cast<int8>(m_nPackedForwardY), static_cast<int8>(m_nPackedForwardZ), forward);
+    {
+        float* const m = GaField<float*>(vehicle, 0x14);
+        m[4] = forward[0];
+        m[5] = forward[1];
+        m[6] = forward[2];
+        m[0] = forward[1];
+        m[1] = -forward[0];
+        m[2] = 0.0f;
+        GaField<uint8>(vehicle, 0x36) = static_cast<uint8>((GaField<uint8>(vehicle, 0x36) & 7) | 0x20);
+        m[8]  = 0.0f;
+        m[9]  = 0.0f;
+        m[10] = 1.0f;
+    }
+
+    GaField<uint32>(vehicle, 0x460) = 0;
+    GaField<uint8>(vehicle, 0x1D2)  = m_nRadioStation;
+    GaField<uint32>(vehicle, 0x38C) = m_nHandlingFlags;
+    GaField<uint8>(vehicle, 0x428) &= 0x7F;
+    GaField<uint8>(vehicle, 0x42A) |= 2;
+    GaField<uint32>(vehicle, 0x4F8) = 1;
+    if (GaField<uint32>(vehicle, 0x590) == 0) {
+        uint8& bomb = GaField<uint8>(vehicle, 0x4A8);
+        bomb        = static_cast<uint8>((bomb & ~7u) | (m_nBombType & 7u));
+    }
+    if (m_nStoredCarFlags & 0x01) GaField<uint32>(vehicle, 0x40) |= 0x40000;
+    if (m_nStoredCarFlags & 0x02) GaField<uint32>(vehicle, 0x40) |= 0x80000;
+    if (m_nStoredCarFlags & 0x04) GaField<uint32>(vehicle, 0x40) |= 0x800000;
+    if (m_nStoredCarFlags & 0x08) GaField<uint32>(vehicle, 0x40) |= 0x100000;
+    if (m_nStoredCarFlags & 0x10) GaField<uint32>(vehicle, 0x40) |= 0x200000;
+    if (m_nStoredCarFlags & 0x20) {
+        GaField<uint8>(vehicle, 0x42E) |= 0x10;
+        GaField<uint8>(vehicle, 0x1BE) = 1;
+    }
+    if (m_nStoredCarFlags & 0x40) GaField<uint32>(vehicle, 0x38C) |= 0x20000;
+    if (m_nStoredCarFlags & 0x80) GaField<uint32>(vehicle, 0x38C) |= 0x80000;
+
+    for (auto i = 0; i < 15; i++)
+        GaField<int16>(vehicle, 0x43A + 2 * i) = m_awCarMods[i];
+
+    plugin::CallMethod<0x6E3400, CVehicle*>(vehicle);                                         // CVehicle::SetupUpgradesAfterLoad
+    plugin::CallMethod<0x6D0C00, CVehicle*, int32>(vehicle, static_cast<int8>(m_nPaintJob)); // CVehicle::SetRemap
+
+    GaField<uint8>(vehicle, 0x428) &= 0xEF;
+    GaField<uint8>(vehicle, 0x48A)  = m_nNitroBoosts;
+    GaField<uint8>(vehicle, 0x434)  = m_nPrimaryColor;
+    GaField<uint8>(vehicle, 0x435)  = m_nSecondaryColor;
+    GaField<uint8>(vehicle, 0x436)  = m_nTertiaryColor;
+    GaField<uint8>(vehicle, 0x42F) |= 4;
+    GaField<uint8>(vehicle, 0x437)  = m_nQuaternaryColor;
+    return vehicle;
 }

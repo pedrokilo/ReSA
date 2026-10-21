@@ -913,7 +913,7 @@
   },
   {
     "file": "source/game_sa/AutoPilot.cpp",
-    "sha256": "b5863ccfbe89c651c25ff43715b03d62b689d3bb7c67618bb8e5b9e17a490736"
+    "sha256": "9ab488d95595d619c3d4bd21ed44b4b63518baac507f4e8e544100002f0aa2ce"
   },
   {
     "file": "source/game_sa/AutoPilot.h",
@@ -1017,7 +1017,7 @@
   },
   {
     "file": "source/game_sa/Camera.cpp",
-    "sha256": "daeb1c75d7021ab1961541d4b4b4d2d3c2af3a532243ef0149485a6448d47841"
+    "sha256": "6c341fa3001c2029d6eb13f77f489f708490c7fab4004f007fa5f01c12fd9bfa"
   },
   {
     "file": "source/game_sa/Camera.h",
@@ -1201,11 +1201,11 @@
   },
   {
     "file": "source/game_sa/Collision/CollisionEventScanner.cpp",
-    "sha256": "4ab09f9bfa902a974176764a9d1a5ae7ce57e0ecb811bec195827018e001ddec"
+    "sha256": "913b1bbc6ae6204727f44217e65f9184cabf872587d6d57ba0fa41961a9d7726"
   },
   {
     "file": "source/game_sa/Collision/CollisionEventScanner.h",
-    "sha256": "83389ae59546810ec0a0daca0cb2f9bc25b2fcbd1d9a1b900f2ed4fe0e430b1e"
+    "sha256": "faf1be848806f18188a173620ed9d50aa9ab6a84bee8395bcd8dcfad8cc4fc37"
   },
   {
     "file": "source/game_sa/Collision/ColModel.cpp",
@@ -1489,7 +1489,7 @@
   },
   {
     "file": "source/game_sa/Core/Quaternion.cpp",
-    "sha256": "751bc9dc8f27bdd55773b3324507bb59f96f962c3e1ddb1a5ca835671f79ae81"
+    "sha256": "99c2886fc9d518a412ee2b25368308ad77966e7439ac0e8a0f800423c47a4c8d"
   },
   {
     "file": "source/game_sa/Core/Quaternion.h",
@@ -1677,11 +1677,11 @@
   },
   {
     "file": "source/game_sa/DecisionMakers/Decision.cpp",
-    "sha256": "68f3b4bd31bfe9e41bb71c862dc081849cd699306c24dc85f49bc4416cbf9b1c"
+    "sha256": "de65b3b169d449ffcb3a2c0535412f64a0f958333ddbfa87ce8fef83938bcca5"
   },
   {
     "file": "source/game_sa/DecisionMakers/Decision.h",
-    "sha256": "515b6b7e9b2f16e3c2245f4bd6b78edf7b64aaa8d256cc279cb562077280fec9"
+    "sha256": "9de4d4419340191367031aed272c07295989f190b53acebba73258f5915a2f1a"
   },
   {
     "file": "source/game_sa/DecisionMakers/DecisionMaker.cpp",
@@ -1693,7 +1693,7 @@
   },
   {
     "file": "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp",
-    "sha256": "aa55cd46aa61f33247583c91c270640cecf5c85b7e6dd2e80492d2a47a682105"
+    "sha256": "6c31093e8833997db93ae2ee831b11d8646f8fee5a5b0e945706caabd01613e8"
   },
   {
     "file": "source/game_sa/DecisionMakers/DecisionMakerTypes.h",
@@ -1805,11 +1805,11 @@
   },
   {
     "file": "source/game_sa/Entity/Object/Object.cpp",
-    "sha256": "0313eda8110b995fe7df8c968c6e4bf01e075e61ebca0ab666cb3f760d47ef11"
+    "sha256": "332048d36055afd95ee7e6d66b3b0c804f36b775bce06f595a2d06cd19001161"
   },
   {
     "file": "source/game_sa/Entity/Object/Object.h",
-    "sha256": "f03b35af984aea8002242d44d264f4e959b1b4a0fe2bf0dff5e5d1e833fc3750"
+    "sha256": "9d7d334b6ed29e45385456a7b936f6340e4ba2d804b805e9a937e58663511dd7"
   },
   {
     "file": "source/game_sa/Entity/Object/Projectile.cpp",
@@ -1845,7 +1845,7 @@
   },
   {
     "file": "source/game_sa/Entity/Ped/Ped.cpp",
-    "sha256": "9276709c6c47677beccd39d2607a65945d14de5ca81cb5da1208ce94e4774b00"
+    "sha256": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade"
   },
   {
     "file": "source/game_sa/Entity/Ped/Ped.h",
@@ -1853,7 +1853,7 @@
   },
   {
     "file": "source/game_sa/Entity/Ped/PedSaveStructure.cpp",
-    "sha256": "9af3d06e2e4ba1512f2e81386c112412b5d058ad1b3a2103eec74a7d268b62c1"
+    "sha256": "5f58ccddfb1db70c9778c2f287d24ac9bb2eb9432155bd07a55d6dd05d961975"
   },
   {
     "file": "source/game_sa/Entity/Ped/PedSaveStructure.h",
@@ -1897,7 +1897,7 @@
   },
   {
     "file": "source/game_sa/Entity/Vehicle/Automobile.cpp",
-    "sha256": "433a2eb653b14d4254b31f3ed1a6972c3a9baa0dd54b806d0945d803481e86a5"
+    "sha256": "f2e2afdbf6e5a4ef7820f6baf0cf529ebc5e6ea59361e3cd4f342dd0be7ef5cb"
   },
   {
     "file": "source/game_sa/Entity/Vehicle/Automobile.h",
@@ -1945,7 +1945,7 @@
   },
   {
     "file": "source/game_sa/Entity/Vehicle/Plane.cpp",
-    "sha256": "7f8836d3ff17d688fae3c6cd139bda97a03e9f70d742368336ffefc0f74e801e"
+    "sha256": "92f0707dcad234635641f9c1c6a5024f2b97b38fdceb0162387b8c6da9e19215"
   },
   {
     "file": "source/game_sa/Entity/Vehicle/Plane.h",
@@ -2629,7 +2629,7 @@
   },
   {
     "file": "source/game_sa/Events/EventLowAngerAtPlayer.h",
-    "sha256": "44b6ffff4b1a45af2d8bf9f5255f2238920d51ec9e89920f3b4335446923f63d"
+    "sha256": "3fb626b4b05d5dbe6cdf2e24944393d3da32128b04f225192996148c44c00243"
   },
   {
     "file": "source/game_sa/Events/EventNewGangMember.cpp",
@@ -2793,11 +2793,11 @@
   },
   {
     "file": "source/game_sa/Events/EventScanner.cpp",
-    "sha256": "ae9ee7743033036af81177540d07282775bc3894aaffc13524272534bb44295a"
+    "sha256": "1c851286738dace139b9c9c70eec75bf12bcab4c4d9bdeb80537370d598628ef"
   },
   {
     "file": "source/game_sa/Events/EventScanner.h",
-    "sha256": "5701dcd53098b74507adee5d1d09cd64c7183a827115c2721f17f33acfb61e4b"
+    "sha256": "63b79c9852b395bddd1acf409f494f6dde38a9b1e586ebf510a2ea4913973a15"
   },
   {
     "file": "source/game_sa/Events/EventScriptCommand.cpp",
@@ -3013,7 +3013,7 @@
   },
   {
     "file": "source/game_sa/FileLoader.cpp",
-    "sha256": "abf7102c6ba1af439c62e680e8569db45ca69f416f749df653fdd43481d79df5"
+    "sha256": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607"
   },
   {
     "file": "source/game_sa/FileLoader.h",
@@ -3377,39 +3377,39 @@
   },
   {
     "file": "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo.h",
-    "sha256": "32617790e9d9c960f94aa48a5c64bc70696c6f000181ffd91db45eb9fd042cbd"
+    "sha256": "a949bb93f619a4c2c30243b3285f359fb4692f71af90247dcd0e9bfa359e310a"
   },
   {
     "file": "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp",
-    "sha256": "e9810eded9535e096f3c1a1bb923957ee2e1aeca2c187c7e8e6f8d8c9f0c7f55"
+    "sha256": "b002cbdcd2deb2c292735d5d609ca312022c23560d6efd107cbc413e4141c797"
   },
   {
     "file": "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.h",
-    "sha256": "306ef4d03badc5df7953c9bb72096dde2348e9c49c1d50c682bb30f90c75946c"
+    "sha256": "c0aa7e5cd320095a816043b59aa861b37ed2d39fee9f6fb47d138bca9b7c975e"
   },
   {
     "file": "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp",
-    "sha256": "757832f6d5cac39e3de627d811f5d57be518c6dce9e5b48debd7f50d31059450"
+    "sha256": "9eb3a040dad9e1cebdfcd81bdaa3842df41fd6e882c78e5a8702c7245364b453"
   },
   {
     "file": "source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.h",
-    "sha256": "668f1f8434ad0c9d236eb1b084be65fd04a2ef2994389aed85afe13d1b1dc651"
+    "sha256": "e5b0453f98737d888b59749d173b5956e8427bf00d782970683e40cad9a46ef1"
   },
   {
     "file": "source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp",
-    "sha256": "0c39417e43421e07c40fe8c69052d426880d71a7b0e7ee5c697b828b01a9e98c"
+    "sha256": "a42da978009a0ec0d992e30016c86fb88090230bdb010b6fb085b086742bb3ce"
   },
   {
     "file": "source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.h",
-    "sha256": "4d103553154fd67a511a8bb684956910409cc710dc97c91be843bdac29ddc3d5"
+    "sha256": "17c2cacd9f3f0586e195297e5c6d52009dc73ba36a27d341e3b8151d00e46a6d"
   },
   {
     "file": "source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.cpp",
-    "sha256": "345010abb7dc53645d6058430b6aa06db28d2fadee72e3745111420f6158fbc9"
+    "sha256": "873e258609570cf69e9b0a526da138a8cc3c03b526f4b40dc013cd5146ed6948"
   },
   {
     "file": "source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.h",
-    "sha256": "c8ddff181ba210bab306a4ef3eea743b59cf30457b25be243b9c146cf5cbeffe"
+    "sha256": "c4731e619eac4039eee9eac298e8d227dba665d31326c58d791675a56374827b"
   },
   {
     "file": "source/game_sa/Fx/CarFXRenderer.cpp",
@@ -3445,7 +3445,7 @@
   },
   {
     "file": "source/game_sa/Fx/FxEmitter.cpp",
-    "sha256": "1c9a5dd672a9347a50acebd524ab3eafefc81f87d836107e1db67c756a187221"
+    "sha256": "0ad0c3cf33c4623fc1d6f8d2a90fee9cdd12a1ac278ef9987203bf67925f961c"
   },
   {
     "file": "source/game_sa/Fx/FxEmitter.h",
@@ -3477,7 +3477,7 @@
   },
   {
     "file": "source/game_sa/Fx/FxInfoManager.cpp",
-    "sha256": "3a80e9363873e383e0c430e2a8e3c5b46659c94d5a31db3911ca02dfddccfed9"
+    "sha256": "313e9fc4c568356846c32679ac9af2e58a38f177965918b16d8129820fdd057e"
   },
   {
     "file": "source/game_sa/Fx/FxInfoManager.h",
@@ -3629,15 +3629,15 @@
   },
   {
     "file": "source/game_sa/Garage.cpp",
-    "sha256": "5eac0ad4506e40d50817a5b0df3f1452861567454194b2756ea4b9bbe237c436"
+    "sha256": "36e4ca85c9ea3cde6b02e3c2cdd837bbc5e813554c78010a0f6eda7812395d21"
   },
   {
     "file": "source/game_sa/Garage.h",
-    "sha256": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a"
+    "sha256": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d"
   },
   {
     "file": "source/game_sa/Garages.cpp",
-    "sha256": "7e2fb8ffd228bf3555c4449ecc37d690df8ebd1ae2b4f47abf105c609b37540f"
+    "sha256": "00d50a1d456143b7574ae3ea3bea69e95113fddb4eaaa92b1f573af312296ba7"
   },
   {
     "file": "source/game_sa/Garages.h",
@@ -3821,7 +3821,7 @@
   },
   {
     "file": "source/game_sa/Interior/InteriorGroup_c.cpp",
-    "sha256": "36aedfc920cb221dd4df4ddb0ea88fc23a540413bd884208be8bcb51b5c80540"
+    "sha256": "51416cdac987cf9be67a9d357c92c6e7397436b970e68f95f20c922d06b5181a"
   },
   {
     "file": "source/game_sa/Interior/InteriorGroup_c.h",
@@ -3945,11 +3945,11 @@
   },
   {
     "file": "source/game_sa/Memory/MemoryHeap.cpp",
-    "sha256": "c4506127e3efab85a4aed399357e2fa3900019686765dbd2252e816dc11131dc"
+    "sha256": "bcd49acf61d0c5a850d2bd3900a9139aaba790d24a997659c6e432de4e0ac482"
   },
   {
     "file": "source/game_sa/Memory/MemoryHeap.h",
-    "sha256": "2bb60d57ad75d69bf38c3ab901c894b4245022ac2607a35c20c32d74c95014c6"
+    "sha256": "c10f1b3d918843678e5e34c039589b928118e28cb0bada60bfe7d7eaa3a112ee"
   },
   {
     "file": "source/game_sa/MemoryMgr.cpp",
@@ -3961,11 +3961,11 @@
   },
   {
     "file": "source/game_sa/MentalHealth.cpp",
-    "sha256": "6f578c45bdee22c7e9123270339409cfcc388b02e909ad0e36a802b25b832829"
+    "sha256": "0d33e6eae51aade08fb7d2e40d57226181b85eabb601e5e042d0d88d8f6c1dbe"
   },
   {
     "file": "source/game_sa/MentalHealth.h",
-    "sha256": "c9b74ff07a375324f1f7a114ceb54ccb0612769e1ee0706e14dfd52b2958f86e"
+    "sha256": "16ce7ad7b3630f81babd072c802c4d58964b52aefe56dcbd02e2f199d674ce61"
   },
   {
     "file": "source/game_sa/MenuManager.cpp",
@@ -4001,11 +4001,11 @@
   },
   {
     "file": "source/game_sa/MissionCleanup.cpp",
-    "sha256": "81afbb7979d53f3ab55461df633e59abee23af348f3108519acb610a777f5ba4"
+    "sha256": "487a7ee86fcde3eb1efd6c247697aa89d16b17a19557ed36bf082d85df879832"
   },
   {
     "file": "source/game_sa/MissionCleanup.h",
-    "sha256": "e888e5bc3c81a7dda29c08dca3c6a9376a8b552d39d8b321ee66dd40f1bff682"
+    "sha256": "88be26d878d19a8f5897ba98e583fa247d70e2589b7617473225bd4a66dda2a7"
   },
   {
     "file": "source/game_sa/ModelIndices.cpp",
@@ -4237,11 +4237,11 @@
   },
   {
     "file": "source/game_sa/PathFind.cpp",
-    "sha256": "2a20d5686c67a7a6c39a8cb43fd7476bb53f2743eae27d2009c1daa3ae73babb"
+    "sha256": "22aee463a73f9a507622610106e8d160ad7a996d4522b3a71071ba21439fec6e"
   },
   {
     "file": "source/game_sa/PathFind.h",
-    "sha256": "1937fc23e3c44aa8e867fa78ca1d0495684f066dd278f1b7d4bd9d62ed0891af"
+    "sha256": "f9d2e152051e5755f7f6a4783b6d727b6f63cdb2ecac303eef9d19aacc5cf5e4"
   },
   {
     "file": "source/game_sa/PedAttractorManager.cpp",
@@ -4373,7 +4373,7 @@
   },
   {
     "file": "source/game_sa/PedStats.cpp",
-    "sha256": "fa30407710521d6717829c349d584a3855ddf073726770d93f0140c87ed785fa"
+    "sha256": "46a3ecb1704baa823f22fd69c4a4f39bfbc937966d88d48f2353614000b863c9"
   },
   {
     "file": "source/game_sa/PedStats.h",
@@ -4381,11 +4381,11 @@
   },
   {
     "file": "source/game_sa/PedStuckChecker.cpp",
-    "sha256": "ea98df81e0f636a5049cf8d30320b19af47ebe2ce98eedc9dd775716f2fe9d1a"
+    "sha256": "16ae473c4e6cc7b064862d8a469cd8ce914cb9407c0110ab79c68c3f1b2cac33"
   },
   {
     "file": "source/game_sa/PedStuckChecker.h",
-    "sha256": "e6bb24f8b72ebb2daa4f1a015b8a8e321715b3c0844b6771adf0b589d474e17e"
+    "sha256": "19f3f664659e8b74d327099406ea41ba0e85c6c32f7f6d6d1d439de86cfde73d"
   },
   {
     "file": "source/game_sa/PedTaskPair.cpp",
@@ -4413,15 +4413,15 @@
   },
   {
     "file": "source/game_sa/Pickups.cpp",
-    "sha256": "618f47f158ee697f87ceabd0f3efd6d4f4853728108af6b70c0d1a6800903738"
+    "sha256": "ff21363d978027add09d89f5a1b733de393e8c3467e547c13c0cfe34b35a35b2"
   },
   {
     "file": "source/game_sa/Pickups.h",
-    "sha256": "38e596290820f1cd9b4dbdff6e3425095f67b8412536f11d6b76f32bded1f7c0"
+    "sha256": "6f9e29294ac4f853440015eae03cc3e4d6013e28847c1b3663f6427ed98f361b"
   },
   {
     "file": "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp",
-    "sha256": "8c80be4e05d996fcb5d564f64b12158bb815861f4b7f1f9d3472ca52d01a9831"
+    "sha256": "e7f0b000b8567ba68b9bb747f74176867953711807660a7f65d0ebc753947e35"
   },
   {
     "file": "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h",
@@ -4533,7 +4533,7 @@
   },
   {
     "file": "source/game_sa/PlantMgr.cpp",
-    "sha256": "ad158af5fcdf1b431d6c7f8e0850123960abe980b364074adf23abcfa1dfc3a8"
+    "sha256": "af7bf5b2ab22be1e5315f9d746a1e120c3d3e6c7354da4a5446db4a02438a1c2"
   },
   {
     "file": "source/game_sa/PlantMgr.h",
@@ -4745,7 +4745,7 @@
   },
   {
     "file": "source/game_sa/Population.cpp",
-    "sha256": "c9ec77af168b2fc9af9687743617b2088d867fb3a2041f14262d39cce74fabd5"
+    "sha256": "1b6c9ca51e887e49d791bd988a5cc037416808d5a15de4f9d989dcafddd20f77"
   },
   {
     "file": "source/game_sa/Population.h",
@@ -4785,11 +4785,11 @@
   },
   {
     "file": "source/game_sa/Radar.cpp",
-    "sha256": "64610f13284ed4d457ecf4037ee90f596e760bf7f651840464acc9e3271eb837"
+    "sha256": "f45353ae1033c154eb49a030facd7fd87d54b85c2d0bc6e7610a1ed0b1cac826"
   },
   {
     "file": "source/game_sa/Radar.h",
-    "sha256": "417da2902642dd4a9126ab949d3ae7ca5f2481fd4863d05d51b3016820081150"
+    "sha256": "37241ab2f505642088b569348800dc5cc9779a0a952d0d56a4941524a06bb511"
   },
   {
     "file": "source/game_sa/Ragdoll/BoneInfo.h",
@@ -4845,7 +4845,7 @@
   },
   {
     "file": "source/game_sa/RealTimeShadow.cpp",
-    "sha256": "78c7502d672b594e10c299a00a9812345f039987d38fa7eb7eb83135beeac7d6"
+    "sha256": "faf8df8f54c646c8109ef43ac43d85d0ebb6679f4beb2359f0f2aa26455208fa"
   },
   {
     "file": "source/game_sa/RealTimeShadow.h",
@@ -4889,11 +4889,11 @@
   },
   {
     "file": "source/game_sa/Remote.cpp",
-    "sha256": "888dec6b193a941495435283c8e8d113d700a7664bace9a0605eb0f9f3496e9c"
+    "sha256": "d31258d476803fb128bddb8304457dff5026dcb551d3a62b8daefb16cde6adad"
   },
   {
     "file": "source/game_sa/Remote.h",
-    "sha256": "f5fa547fa22a259f62e5f11e8fbb5ef340d4b67077d53c51ec39ecd59067f137"
+    "sha256": "d6f7fad19b59655ab5312e80284884b545ec66f296cc6338d8e81669efdc2134"
   },
   {
     "file": "source/game_sa/RenderBuffer.cpp",
@@ -4905,11 +4905,11 @@
   },
   {
     "file": "source/game_sa/Renderer.cpp",
-    "sha256": "dbdfc4643917110bccdb12ad5fe8e71fcd668c3b280d6b9a68196130050f645e"
+    "sha256": "71f1e63daa98ffa8adf715e621c338f09976817620c84280d607fa1d0260632e"
   },
   {
     "file": "source/game_sa/Renderer.h",
-    "sha256": "e9c8f0150cc156a91a3284dec78840231fab1acc19527164c869968754e2f0ab"
+    "sha256": "de44b1277677e277311af0db0eb4271a7ec8df8e5a1f9b8db344bc1150e4cd97"
   },
   {
     "file": "source/game_sa/RenderWare/D3DIndexDataBuffer.cpp",
@@ -4921,11 +4921,11 @@
   },
   {
     "file": "source/game_sa/RenderWare/D3DResourceSystem.cpp",
-    "sha256": "27c44bcfcccd03f20e1ca73a5f901314924dd20f3bb1624f7997df63aa38d4b1"
+    "sha256": "db4da01658216b5d1df673d08208eae7f1e7448255b4a3c9d4770e557088b2a3"
   },
   {
     "file": "source/game_sa/RenderWare/D3DResourceSystem.h",
-    "sha256": "31666e8e366ecc5af1a0f006078e4d35c7cd71836e571ea1f776cedd8ee82b53"
+    "sha256": "8c5f48b2eafc4f2d8bc3e17076c68a5cc5a4a56781f803be492e522e3cdf249c"
   },
   {
     "file": "source/game_sa/RenderWare/D3DTextureBuffer.cpp",
@@ -5581,7 +5581,7 @@
   },
   {
     "file": "source/game_sa/ScriptsForBrains.cpp",
-    "sha256": "fc59ff6972ea79be09384e92bc7ae822ce911825cf83fdcd711e1b8017162219"
+    "sha256": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92"
   },
   {
     "file": "source/game_sa/ScriptsForBrains.h",
@@ -5589,7 +5589,7 @@
   },
   {
     "file": "source/game_sa/SearchLight.cpp",
-    "sha256": "3d66ab5a8b28fc20af31cdec2a45b0e0c74caa4b0cb68372a615c5d2e1d34bf8"
+    "sha256": "41308e3437263bad8e052210135434d2bf1650a32e3a0146a712ff117d7051da"
   },
   {
     "file": "source/game_sa/SearchLight.h",
@@ -5713,7 +5713,7 @@
   },
   {
     "file": "source/game_sa/Sprite2d.cpp",
-    "sha256": "0571bf6189af9202885340bc1953834897e0929c6df805c267137f88c7fd0825"
+    "sha256": "1ef8433a65c8f353d7fed09a9aaeed731e25feae3f1dadd9b367f123b5252e3a"
   },
   {
     "file": "source/game_sa/Sprite2d.h",
@@ -5721,11 +5721,11 @@
   },
   {
     "file": "source/game_sa/Stats.cpp",
-    "sha256": "1425bb2fce064d1d23853dbf4f395191977ba45dd4200e6e287fc0c7dcfcfcf7"
+    "sha256": "5519aba8edb52315eda102ac98f1cb07f519719c667edcdea5cfabccb1771063"
   },
   {
     "file": "source/game_sa/Stats.h",
-    "sha256": "06ea5fa42ae006428bd2d2fe505f68e7f2506cd207f46d6b96f57c930abf1e44"
+    "sha256": "6be0a2376936a21144df72891577f531373c1c9698742cafdae298a4587232e3"
   },
   {
     "file": "source/game_sa/StencilShadowObject.cpp",
@@ -6581,7 +6581,7 @@
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp",
-    "sha256": "4b7da0b76ddb666c55d5d61e06fd0829d67c09dc643c7b5e53ce9d6d8016bdb1"
+    "sha256": "e2a04026f583f60df24935be1993f3cc2659136d01a7db6737921c42c73f1267"
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.h",
@@ -6825,7 +6825,7 @@
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp",
-    "sha256": "655c8a35cfa159f7004d66ceb4914ad21c2734c39d73a916496e4cd05a01e643"
+    "sha256": "65a5588fb14f2bd40b317aa9005246eb38f7cd714a8009832a91912fdcd219d2"
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.h",
@@ -6969,15 +6969,15 @@
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp",
-    "sha256": "379f0da6428f35ed1f21248198410d40e1cda6dd57bba6c9b97d14814bd5e6dd"
+    "sha256": "a44886775546da45de5e6a16bdbca517145fb57b979ece4de7737ea638e7b105"
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h",
-    "sha256": "b7dbcd99aba41becf383fb341968e9d13ac31f341505d8694f55f57761313b6d"
+    "sha256": "1b1dd13e31a922224ade7730eeb2cc40d9cad8cc4015ceb66bc685917462630d"
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.cpp",
-    "sha256": "4de67f37646233c7669df94320c1fad17a0c233dce15d06172271056e4df8098"
+    "sha256": "c91e2d8c8b9a13106b0c26a24e73b61018d06a796930459740ecea49407e9486"
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.h",
@@ -6985,7 +6985,7 @@
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp",
-    "sha256": "c24f374ab0c7712d102e64775f152fc02c7b40ea51795f788f8eb92300cbffc8"
+    "sha256": "0f67f34e82ef5bf8daf8475ec099a36034b751327921ace97f37ecb0ad2b026b"
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.h",
@@ -7001,7 +7001,7 @@
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerShove.cpp",
-    "sha256": "4511a0ed7630f74abce112d957011f8b359a79181d5a575294d076837ac23189"
+    "sha256": "3e0afd777fdda3874b1ced37ddc79d2815470bf5d02698a7208d280e60655e14"
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerShove.h",
@@ -7393,11 +7393,11 @@
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp",
-    "sha256": "124846dfff167982363059a705ae41a5571a1248f246d82210940d8f51856ce4"
+    "sha256": "fd37484be836f805da8c27f843c7e83900c65b973a7fa7c321a5d4dffd53eabe"
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h",
-    "sha256": "d906f18160ffbebaace8ff46fc5c9f132a53e249ec08275787feaca6054672e2"
+    "sha256": "8ecb300df3689b30f889a0c6a8e1d823da3617e917795c32d03842700ab36679"
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp",
@@ -7913,7 +7913,7 @@
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp",
-    "sha256": "8f80f23ca800fc17efbb7e46b7c505bb1b39971e086168655cee3c1f489e50fa"
+    "sha256": "fcc2066fb3e4b7a1a2a2794b25ed79c681d01ab85150fd077e3c506ad3f3c71b"
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h",
@@ -8393,7 +8393,7 @@
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp",
-    "sha256": "788e7a8b3d40f382bbb1a9caad0be5a271aa78971d24e54a384a1d677e49c5bf"
+    "sha256": "e45411b7ceff42cf89bb263f6000a57e31b2703c26d893e2be830537098a2f23"
   },
   {
     "file": "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h",
@@ -8673,11 +8673,11 @@
   },
   {
     "file": "source/game_sa/TrainNode.cpp",
-    "sha256": "b9719d0bcab9557b4a4be2e7bae53c0c8d356d62e6b0f84753278e98f515bef5"
+    "sha256": "cd84b0aa8aae3896960c841134a01f3ba24194d89e9fc0ad58eb063c48d1fd12"
   },
   {
     "file": "source/game_sa/TrainNode.h",
-    "sha256": "b13b62e15e7c59772b8ace67f5b3d12ff3df602b4ea7cbc20b887e6e40585c75"
+    "sha256": "45998683b6ea7b2616058184dc62c0e210d943ca52f875d05da168fcb0eb09d8"
   },
   {
     "file": "source/game_sa/tTransmissionGear.h",
@@ -8805,7 +8805,7 @@
   },
   {
     "file": "source/game_sa/WaterLevel.cpp",
-    "sha256": "b03ddfda81980115e6e8f99adcdfe7d0e4e235ab81584a4dcff40db7a69a7417"
+    "sha256": "e214cccdc4d9f155516b2faacd13896ae136d5296e7d0c3141750f3b228fcecd"
   },
   {
     "file": "source/game_sa/WaterLevel.h",
@@ -8865,11 +8865,11 @@
   },
   {
     "file": "source/game_sa/X87Math.cpp",
-    "sha256": "37411f250da69e698a85ee3b0ce3026b179bd90f9573a6d24ba3d61e9e83de45"
+    "sha256": "700583c16051dd6cf29a8b5631490b1789ec65c489d3d02deed7671955e4eef0"
   },
   {
     "file": "source/game_sa/X87Math.h",
-    "sha256": "7697e71e5b0400de633932af4da1ad66ba01044b0c2c841efdf2398d8a65a52b"
+    "sha256": "d62b2f5d121ff4e18c7bcf7ef4bea5c091fd948de1a209be8c8998be33220036"
   },
   {
     "file": "source/game_sa/Zone.cpp",
@@ -8889,7 +8889,7 @@
   },
   {
     "file": "source/InjectHooksMain.cpp",
-    "sha256": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b"
+    "sha256": "40839c96f91272f0052be484f87e2ecc558523026eb57808bf0d67dd137be848"
   },
   {
     "file": "source/InjectHooksMain.h",

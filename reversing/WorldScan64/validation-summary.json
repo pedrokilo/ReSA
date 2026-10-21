@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 8192,
+  "differences": 0,
+  "registered_pairs": 8192,
+  "registered_functions": 2,
+  "functions": {
+    "CWorldScan::ScanWorld": 4096,
+    "CWorldScan::SetExtraRectangleToScan": 4096
+  },
+  "covered_functions": {
+    "CWorldScan::ScanWorld": true,
+    "CWorldScan::SetExtraRectangleToScan": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wg-4 (HEAD df26d6fe7 + fuente del lote 64). CGeneral::GetATanOfXY (0x53CC70) se sustituye por un falso identico en ambos lados (parche en la entrada del EXE y en el cuerpo de la DLL; no se valida su cuerpo): atan2 de double redondeado a float, registra EN ORDEN sus argumentos. La devolucion de llamada scanFunction es un falso del banco que registra (x, y). Las celdas extra (0xC81598/0xC815A8/0xC815B8) se fijan por caso y se restauran. floor/ceil/_ftol2 del CRT (0x8219F0, 0x823820, 0x821B40) se ejecutan reales en ambos lados. Alcance: 2 a 5 puntos finitos (sin NaN/infinitos, |coord| < 700), a lo sumo 4 celdas extra (el EXE no comprueba el limite). No se prueban los caminos en que el EXE desreferencia sin comprobar (n < 2, mas de 5 puntos, NaN en las coordenadas). Ningun llamador del EXE lee EAX/ECX/EDX de ScanWorld (0x554E94, 0x55555E, 0x555664, 0x555C9B, 0x6E6E8C) y SetExtraRectangleToScan no tiene llamadores (codigo muerto): solo se registran.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/WorldScan64-20261020-163627-770899",
+  "summary_sha256": "2030eacf3b916a6f80215b77972b52b88bf83de3a2f99bb8cde702522201c122",
+  "result_txt_sha256": "cad5daed2996f768990eaabc9eb89772bb5759590fda1c5959be3f82b5d43c8e",
+  "log_sha256": "18d91f513f37421142dd908cb82597d3075d3cfcf78829ea58e117e739485005",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "2aa3480783022b109f537511800fefddddece4cc923d6f4f91edd4dbe5e503e9",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "40839c96f91272f0052be484f87e2ecc558523026eb57808bf0d67dd137be848",
+      "source/game_sa/Renderer.cpp": "71f1e63daa98ffa8adf715e621c338f09976817620c84280d607fa1d0260632e",
+      "source/game_sa/Renderer.h": "de44b1277677e277311af0db0eb4271a7ec8df8e5a1f9b8db344bc1150e4cd97",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/WorldScan64/LiveComparison.hpp": "1d14030fcfb4c412a31979430724baeb0042998f2de417347643ef302c3e4ff0",
+      "reversing/WorldScan64/Core.hpp": "bb27844879ebb80badec9a52dbf408e8e356e458c4043a70b6fc33de66502585",
+      "reversing/WorldScan64/Fixtures.hpp": "d31dbd8b59b68cc086d90bea5397d0a13870b7f303b28f1563fcc12b0f41a408",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}
