@@ -15,6 +15,9 @@ import json
 from collections import defaultdict
 from pathlib import Path
 
+# Clases del catálogo que son bibliotecas enlazadas en el EXE (RenderWare y CRT): ReversedClasses.md no las cuenta; solo aparecen en la tabla de cobertura.
+LIBRARY_CLASSES = frozenset({'CRT', 'RpHAnim', 'RpSkin', 'RpUVAnim', 'RpWorld', 'RtAnim', 'RtDict', 'RwCore', 'RwPlCore'})
+
 # Límites de región (ver la nota del módulo).
 GAME_END = 0x750000      # 0x401000..0x74FFFF: código del juego y capa de plataforma (Win, input, D3D de arranque)
 RW_END = 0x820000        # 0x750000..0x81FFFF: RenderWare y envoltorios D3D
@@ -144,18 +147,18 @@ def section(root):
     reg = d['regions']
     names = dict(REGIONS)
     lines = ['<a id="cobertura-exe"></a>', '', '## Cobertura real del EXE (estimación)', '',
-             'Las barras de arriba miden **filas del catálogo** (`hooks.csv`), no el EXE. Esta sección mide el propio ejecutable original con el análisis estático '
+             'Esta tabla es la única parte del informe que habla de lo que no es código del juego: sirve para aclarar qué queda fuera de la meta. Las dos primeras barras de progreso salen de aquí (región del juego); las demás miden filas del catálogo (`hooks.csv`). Se mide el propio ejecutable original con el análisis estático '
              f'([MemoryMap](MemoryMap/README.md): {d["ghidra_entries"]:,} entradas de función detectadas y {d["body_bytes"]/1e6:.2f} MB de cuerpos de función), cruzado con '
              f'el catálogo, el registro de validación y las envolturas pendientes. {d["catalogue_rows_reversed"]:,} filas reconstruidas equivalen a **{d["distinct_exe_functions_replaced"]:,} funciones distintas del EXE '
              f'ya reemplazadas** (varias filas son sobrescrituras virtuales que comparten cuerpo).', '',
-             '| Región del EXE | Funciones | Bytes de código | Reemplazadas por C++ (funciones) | Reemplazadas (bytes) |', '| --- | ---: | ---: | --- | --- |']
+             '| Región del EXE | Funciones | Bytes de código | Reemplazadas por C++ (funciones) | Reemplazadas (bytes) | Funciones llamadas directamente desde código ya reemplazado |', '| --- | ---: | ---: | --- | --- | ---: |']
     tf = tb = rf = rb = 0
     for key in sorted(reg, key=lambda k: -reg[k]['replaced'] / reg[k]['functions']):
         r = reg[key]
         lines.append(f"| {names[key]} | {r['functions']:,} | {r['bytes']:,} | `{_bar(r['replaced'], r['functions'])}` {r['replaced']:,} · {r['replaced']/r['functions']:.1%} | "
-                     f"`{_bar(r['replaced_bytes'], r['bytes'])}` {r['replaced_bytes']/r['bytes']:.1%} |")
+                     f"`{_bar(r['replaced_bytes'], r['bytes'])}` {r['replaced_bytes']/r['bytes']:.1%} | {r['direct_dependencies']:,} |")
         tf += r['functions']; tb += r['bytes']; rf += r['replaced']; rb += r['replaced_bytes']
-    lines.append(f"| **Total** | **{tf:,}** | **{tb:,}** | `{_bar(rf, tf)}` {rf:,} · {rf/tf:.1%} | `{_bar(rb, tb)}` {rb/tb:.1%} |")
+    lines.append(f"| **Total** | **{tf:,}** | **{tb:,}** | `{_bar(rf, tf)}` {rf:,} · {rf/tf:.1%} | `{_bar(rb, tb)}` {rb/tb:.1%} | **{d['direct_dependencies_total']:,}** |")
     lines += ['', '**Qué significa para un ejecutable independiente.** No hace falta reconstruir las ' f'{tf:,} funciones: RenderWare/D3D y el CRT son bibliotecas '
               f'enlazadas dentro del EXE ({reg["renderware"]["functions"] + reg["crt"]["functions"]:,} entradas, {(reg["renderware"]["bytes"] + reg["crt"]["bytes"])/tb:.0%} de los bytes) que se sustituirían '
               'enlazando una implementación equivalente, no reescribiéndolas desde el original. El trabajo propio del proyecto es el código del juego '
@@ -171,8 +174,7 @@ def section(root):
                   ('B', f'| B. Métodos virtuales (en una vtable) no alcanzados por llamada directa | {g["B"]["functions"]:,} | {g["B"]["bytes"]:,} | Probablemente necesarios: se ejecutan por despacho virtual. |'),
                   ('A', f'| A. Llamadas directamente desde código ya reemplazado (cierre transitivo) | {g["A"]["functions"]:,} | {g["A"]["bytes"]:,} | **Trabajo necesario**: la DLL sigue dependiendo de ellas. Es el piso para la independencia. |'),
               )), key=lambda kv: -kv[0])], '',
-              f'Del código reemplazado, **{d["direct_dependencies_total"]:,} funciones del EXE siguen llamándose directamente** ({reg["juego"]["direct_dependencies"]:,} del juego, {reg["renderware"]["direct_dependencies"]:,} de RenderWare/D3D y '
-              f'{reg["crt"]["direct_dependencies"]:,} del CRT). Esa es la lista corta de dependencias reales del original que hay que eliminar o sustituir.', '',
+              f'Del código del juego ya reemplazado, **{reg["juego"]["direct_dependencies"]:,} funciones del juego siguen llamándose directamente desde el EXE**. Esa es la lista corta de dependencias reales que hay que eliminar. Las que caen en RenderWare/D3D o el CRT se muestran solo en la última columna de la tabla de cobertura.', '',
               f'> [!NOTE]\n> **Cotas y límites.** Es un análisis estático: hay {d["indirect_call_sites"]:,} llamadas indirectas sin resolver que no están en el grafo, así que A es una **cota inferior** del trabajo. '
               'La partición por regiones usa la dirección, no una clasificación función a función. «Reemplazada» significa que el hook existe y pasó su banco; no acredita independencia del EXE ni '
               'que la validación siga vigente para el árbol actual. Se regenera con `contrib/exe_coverage.py` al sincronizar la documentación.', '']
@@ -217,15 +219,17 @@ def _pending_list(root):
     parts = {'juego': ('Código del juego', {}), 'renderware': ('RenderWare y D3D (biblioteca)', {}), 'crt': ('CRT y runtime (biblioteca)', {})}
     for cls, fns in groups.items():
         parts[kind(cls)][1][cls] = fns
-    total_fns = sum(len(v) for v in groups.values())
+    library_total = counts_lib = sum(len(v) for k in ('renderware', 'crt') for v in parts[k][1].values())
+    parts['renderware'] = parts['renderware'][0], {}
+    parts['crt'] = parts['crt'][0], {}
+    total_fns = sum(len(v) for v in parts['juego'][1].values())
     counts = {k: sum(len(v) for v in parts[k][1].values()) for k in parts}
-    lines = ['<a id="no-en-cpp"></a>', '', f'### Funciones que ya tenemos y aún no están en C++: {total_fns:,}', '',
-             'Son envolturas: la DLL ya tiene la función y su hook, pero el cuerpo todavía llama al EXE original. Están separadas en tres secciones: '
-             f'**código del juego ({counts["juego"]})**, que es el trabajo propio del proyecto, y las bibliotecas RenderWare/D3D ({counts["renderware"]}) y CRT ({counts["crt"]}), que se sustituirían enlazando equivalentes. '
+    lines = ['<a id="no-en-cpp"></a>', '', f'### Funciones del juego que ya tenemos y aún no están en C++: {total_fns:,}', '',
+             'Son envolturas: la DLL ya tiene la función y su hook, pero el cuerpo todavía llama al EXE original. Solo se listan funciones del juego, que son la meta del proyecto. '
              'Todas las tablas van **de mayor a menor tamaño**: «Bytes» es la suma de los cuerpos de las funciones pendientes (análisis estático) y «Tamaño» clasifica la función más grande de la fila '
              '(muy grande ≥ 2.000 B, grande 500–1.999 B, mediana 100–499 B, pequeña < 100 B; una instrucción x86 ocupa entre 1 y 15 bytes, unos 3–4 de media). '
              'Las funciones del EXE sin nombre ni hook (el resto de lo que falta) están en el [mapa del código del juego](JuegoExe/README.md). Fuente: [envolturas-pendientes.csv](implementaciones/envolturas-pendientes.csv).', '']
-    for key in ('juego', 'renderware', 'crt'):
+    for key in ('juego',):
         title, grp = parts[key]
         if not grp:
             continue
@@ -247,14 +251,13 @@ def _pending_list(root):
     return lines
 
 def dependency_row(root):
-    """Texto de la fila «Dependencias de funciones originales eliminadas» de la tabla de siguientes mediciones."""
+    """Texto de la fila «Dependencias de funciones originales eliminadas» (solo código del juego)."""
     if not (Path(root) / 'docs/MemoryMap/binary_functions.csv').exists():
         return None
     d = compute(root)
     reg = d['regions']
-    return (f"Medido (cota inferior): {d['direct_dependencies_total']:,} funciones del EXE siguen llamándose directamente desde código ya reemplazado "
-            f"({reg['juego']['direct_dependencies']:,} del juego, {reg['renderware']['direct_dependencies']:,} RenderWare/D3D, {reg['crt']['direct_dependencies']:,} CRT); "
-            f"cierre transitivo del juego: {d['game_remaining']['A']['functions']:,} funciones / {d['game_remaining']['A']['bytes']:,} bytes. Ver [Cobertura real del EXE](#cobertura-exe)")
+    return (f"Medido (cota inferior): {reg['juego']['direct_dependencies']:,} funciones del juego siguen llamándose directamente desde código del juego ya reemplazado; "
+            f"cierre transitivo: {d['game_remaining']['A']['functions']:,} funciones / {d['game_remaining']['A']['bytes']:,} bytes. Ver [Cobertura real del EXE](#cobertura-exe)")
 
 
 if __name__ == '__main__':

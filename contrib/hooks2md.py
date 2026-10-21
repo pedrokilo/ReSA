@@ -68,20 +68,20 @@ def difficulty_section(root, input_path):
     def cell(text):
         return str(text).replace('|', '\\|').replace('<', '&lt;').replace('>', '&gt;')
 
+    items = [r for r in items if r['categoria'] == 'juego']   # el informe solo trata el código del juego; las bibliotecas aparecen únicamente en la tabla de cobertura
     levels = sorted({r['nivel'] for r in items})
     lines = ['', '<a id="cohorte-nuevo"></a>', '## 📋 Cohorte nuevo (17/10/2026): lista por dificultad', '',
-             'Destinos originales explícitos que `source/` sigue referenciando y que no estaban reconstruidos ni validados el 17/10/2026, las dos listas completas van ordenadas de menor a mayor tamaño en bytes (la columna «Rango» conserva la posición por dificultad, de menor a mayor: 1 es la más fácil) '
-             '(juego: puntuación de tamaño y riesgos —llamadas sin catalogar, indirectas, x87, tablas de saltos y SEH—; biblioteca: solo tamaño). '
+             'Destinos originales explícitos que `source/` sigue referenciando y que no estaban reconstruidos ni validados el 17/10/2026, la lista completa va ordenada de mayor a menor tamaño en bytes (la columna «Rango» conserva la posición por dificultad, de menor a mayor: 1 es la más fácil) '
+             '(puntuación de tamaño y riesgos —llamadas sin catalogar, indirectas, x87, tablas de saltos y SEH—). Solo se listan funciones del juego. '
              f'Lista completa y descargable: [lista-por-dificultad.csv](../{source.relative_to(root).as_posix()}) · metodología: [README del cohorte](../reversing/OriginalDependencies2026-10-17/README.md). '
              'La columna «Estado» se calcula con el catálogo actual: una dirección con fila reversed=1 en hooks.csv figura como reconstruida o validada.', '',
-             '| Nivel | Juego | de ellas pendientes | Biblioteca | de ellas pendientes |', '| --- | ---: | ---: | ---: | ---: |']
+             '| Nivel | Funciones del juego | de ellas pendientes |', '| --- | ---: | ---: |']
     for level in levels:
-        game = [r for r in items if r['nivel'] == level and r['categoria'] == 'juego']
-        lib = [r for r in items if r['nivel'] == level and r['categoria'] == 'biblioteca']
-        lines.append(f"| {cell(level)} | {len(game)} | {sum(status(r) == 'pendiente' for r in game)} | {len(lib)} | {sum(status(r) == 'pendiente' for r in lib)} |")
-    for categoria, titulo in (('juego', 'Funciones del juego'), ('biblioteca', 'Bibliotecas (RenderWare, controlador D3D9, CRT, QuickTime)')):
-        rows = sorted((r for r in items if r['categoria'] == categoria), key=lambda r: (int(r['bytes']), int(r['rango'])))
-        lines += ['', '<details>', f'<summary>{titulo} ({len(rows)}), de menor a mayor tamaño en bytes</summary>', '',
+        game = [r for r in items if r['nivel'] == level]
+        lines.append(f"| {cell(level)} | {len(game)} | {sum(status(r) == 'pendiente' for r in game)} |")
+    for categoria, titulo in (('juego', 'Funciones del juego'),):
+        rows = sorted((r for r in items if r['categoria'] == categoria), key=lambda r: (-int(r['bytes']), int(r['rango'])))
+        lines += ['', '<details>', f'<summary>{titulo} ({len(rows)}), de mayor a menor tamaño en bytes</summary>', '',
                   '| Rango | Nivel | Subcategoría | Función | Dirección | Bytes | Estado |', '| ---: | --- | --- | --- | --- | ---: | --- |']
         for r in rows:
             lines.append(f"| {r['rango']} | {cell(r['nivel'])} | {cell(r['subcategoria'])} | {cell(r['identity'])} | `{r['address']}` | {r['bytes']} | {status(r)} |")
@@ -116,6 +116,12 @@ def generate(input_path, output_path, update_source_status=False):
             item.validated += int(row["validated"])
     if not classes:
         raise ValueError("hooks.csv no contiene funciones")
+    # El informe trata solo el código del juego: las clases de RenderWare y del CRT se excluyen de todas las listas y cuentas
+    # (solo se mencionan en la tabla de cobertura del EXE). La comprobación de evidencia usa todo el catálogo.
+    validated_count_all = sum(c.validated for c in classes.values())
+    library_rows = sum(classes[n].total for n in classes if n in exe_coverage.LIBRARY_CLASSES)
+    for _n in [n for n in classes if n in exe_coverage.LIBRARY_CLASSES]:
+        del classes[_n]
     ordered = sorted(classes.values(), key=lambda c: c.name.casefold())
     # Funciones del juego que siguen delegando en el EXE (docs/implementaciones/envolturas-pendientes.csv, contrib/pending_wrappers.py).
     # Una clase del catálogo con envolturas pendientes ya no es «completa»: pasa a parciales. Las clases con envolturas que no figuran
@@ -126,6 +132,8 @@ def generate(input_path, output_path, update_source_status=False):
     if wrappers_file.exists():
         with wrappers_file.open(encoding='utf-8-sig', newline='') as stream:
             for row in csv.DictReader(stream):
+                if row['class'].startswith('(biblioteca)'):
+                    continue   # RenderWare, controlador D3D9, CRT y QuickTime: fuera del informe
                 wrappers.setdefault(row['class'], []).append(row['function'])
                 wrap_addrs.setdefault(row['class'], []).append(row.get('address', ''))
     wrap_count = {name: len(fns) for name, fns in wrappers.items()}
@@ -160,9 +168,9 @@ def generate(input_path, output_path, update_source_status=False):
     if notsa_file.exists():
         with notsa_file.open(encoding='utf-8-sig', newline='') as stream:
             notsa_count = sum(1 for _ in csv.DictReader(stream))
-    if validated_count != validation['documented']:
+    if validated_count_all != validation['documented']:
         raise ValueError(
-            f"hooks.csv validated=1 ({validated_count}) no coincide con evidencia aprobada "
+            f"hooks.csv validated=1 ({validated_count_all}) no coincide con evidencia aprobada "
             f"({validation['documented']}). Ejecuta: python contrib/sync_validated_flags.py"
         )
     # Funciones reconstruidas del catálogo cuyo cuerpo fuente (inventario de implementaciones) está escrito solo en C++, sin __asm ni naked.
@@ -177,6 +185,8 @@ def generate(input_path, output_path, update_source_status=False):
             linked = {}
             for row in csv.DictReader(stream):
                 if row['reversed'] == '1' and row['catalog'] == Path(input_path).name:  # solo hooks.csv; hooks_notsa.csv queda fuera
+                    if row['catalog_identity'].split('::')[0] in exe_coverage.LIBRARY_CLASSES:
+                        continue
                     key = (row['catalog_identity'], row['catalog_address'])
                     linked[key] = linked.get(key, True) and row['language'] == 'C++'
         shared_file = Path(input_path).with_name('implementaciones') / 'catalogo-cuerpo-compartido.csv'
@@ -184,11 +194,23 @@ def generate(input_path, output_path, update_source_status=False):
             with shared_file.open(encoding='utf-8-sig', newline='') as stream:
                 for row in csv.DictReader(stream):
                     if row['reversed'] == '1' and row['catalog'] == Path(input_path).name:
+                        if row['catalog_identity'].split('::')[0] in exe_coverage.LIBRARY_CLASSES:
+                            continue
                         key = (row['catalog_identity'], row['catalog_address'])
                         linked[key] = linked.get(key, True) and row['language'] == 'C++'
         cpp_only = sum(linked.values())
-    cpp_row = ([f"| Funciones reconstruidas escritas solo en C++ (sin ensamblador) | `{'█' * round(20*cpp_only/cpp_total)}{'░' * (20-round(20*cpp_only/cpp_total))}` | {cpp_only:,}/{cpp_total:,} · {cpp_only/cpp_total:.2%} |"]
+    cpp_row = ([f"| Entradas del juego reconstruidas escritas solo en C++ (sin ensamblador) | `{'█' * round(20*cpp_only/cpp_total)}{'░' * (20-round(20*cpp_only/cpp_total))}` | {cpp_only:,}/{cpp_total:,} · {cpp_only/cpp_total:.2%} |"]
                if inventory.exists() and cpp_total else [])
+    try:
+        _cov = exe_coverage.compute(root)['regions']['juego']
+    except (OSError, KeyError):
+        _cov = None
+    def _bar(part, whole):
+        n = round(20 * part / whole) if whole else 0
+        return '█' * n + '░' * (20 - n)
+    cov_rows = ([f"| Funciones del juego reemplazadas por C++ en el EXE (meta del proyecto) | `{_bar(_cov['replaced'], _cov['functions'])}` | {_cov['replaced']:,}/{_cov['functions']:,} · {_cov['replaced']/_cov['functions']:.2%} |",
+                 f"| Bytes de código del juego reemplazados | `{_bar(_cov['replaced_bytes'], _cov['bytes'])}` | {_cov['replaced_bytes']:,}/{_cov['bytes']:,} · {_cov['replaced_bytes']/_cov['bytes']:.2%} |"]
+                if _cov else [])
     now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     asm_total = None
     summary_path = Path(input_path).with_name('implementaciones') / 'resumen.json'
@@ -205,16 +227,19 @@ def generate(input_path, output_path, update_source_status=False):
              "[Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)", "",
              f"> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** {now}", "",
              "## Objetivo y dimensiones de progreso", "",
-             "La [hoja de ruta de ReSA](ProjectRoadmap.md) define una reconstrucción funcionalmente equivalente, validada y progresivamente independiente del EXE, seguida de un ejecutable propio. Completar este catálogo es un hito intermedio hacia **ReSA — Zero Original Function Dependency**.", "",
+             "La [hoja de ruta de ReSA](ProjectRoadmap.md) define una reconstrucción funcionalmente equivalente, validada y progresivamente independiente del EXE, seguida de un ejecutable propio. "
+             + (f"**La meta de este informe es completar todas las funciones del juego** ({_cov['functions']:,} funciones y {_cov['bytes']/1e6:.2f} MB de código en el EXE: el código propio del juego y su capa de plataforma). " if _cov else "**La meta de este informe es completar todas las funciones del juego.** ")
+             + "RenderWare, Direct3D y el CRT son bibliotecas enlazadas dentro del EXE: no forman parte de la meta, no se cuentan en las tablas y solo aparecen en la tabla de [cobertura real del EXE](#cobertura-exe) para aclarar qué queda fuera. Completar el juego es un hito hacia **ReSA — Zero Original Function Dependency**.", "",
              "| Dimensión | Progreso | Medición |",
              "| --- | --- | --- |",
-             f"| Clases completas | `{'█' * round(20*len(full)/class_total)}{'░' * (20-round(20*len(full)/class_total))}` | {len(full)}/{class_total} · {len(full)/class_total:.2%} |",
-             f"| Clases validadas (de las completas) | `{'█' * round(20*len(validated_classes)/len(full))}{'░' * (20-round(20*len(validated_classes)/len(full)))}` | {len(validated_classes)}/{len(full)} · {len(validated_classes)/len(full):.2%} |",
-             f"| Entradas de catálogo reconstruidas (ver [cobertura real del EXE](#cobertura-exe)) | `{'█' * round(20*reversed_count/(total+pending_functions))}{'░' * (20-round(20*reversed_count/(total+pending_functions)))}` | {reversed_count:,}/{total+pending_functions:,} · {reversed_count/(total+pending_functions):.2%} |",
-             f"| Funciones validadas (de las reconstruidas) | `{'█' * round(20*validated_count/reversed_count)}{'░' * (20-round(20*validated_count/reversed_count))}` | {validated_count:,}/{reversed_count:,} · {validated_count/reversed_count:.2%} |", *cpp_row, "",
-             "Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL." + (" La última barra cuenta, de las funciones reconstruidas, las que tienen fuente identificada y sin `__asm` ni `naked`; las entradas sin fuente identificada de forma inequívoca no se cuentan como C++. El detalle está en [ImplementacionesDelJuego.md](ImplementacionesDelJuego.md)." if cpp_row else ""), "",
+             *cov_rows,
+             f"| Clases del juego completas | `{'█' * round(20*len(full)/class_total)}{'░' * (20-round(20*len(full)/class_total))}` | {len(full)}/{class_total} · {len(full)/class_total:.2%} |",
+             f"| Clases del juego validadas (de las completas) | `{'█' * round(20*len(validated_classes)/len(full))}{'░' * (20-round(20*len(validated_classes)/len(full)))}` | {len(validated_classes)}/{len(full)} · {len(validated_classes)/len(full):.2%} |",
+             f"| Entradas de catálogo del juego reconstruidas | `{'█' * round(20*reversed_count/(total+pending_functions))}{'░' * (20-round(20*reversed_count/(total+pending_functions)))}` | {reversed_count:,}/{total+pending_functions:,} · {reversed_count/(total+pending_functions):.2%} |",
+             f"| Entradas del juego validadas (de las reconstruidas) | `{'█' * round(20*validated_count/reversed_count)}{'░' * (20-round(20*validated_count/reversed_count))}` | {validated_count:,}/{reversed_count:,} · {validated_count/reversed_count:.2%} |", *cpp_row, "",
+             "Las dos primeras filas miden el propio EXE (análisis estático, ver [cobertura real del EXE](#cobertura-exe)) y son la medida del avance hacia la meta; las demás miden las entradas del catálogo, que solo conoce una parte del código del juego, por eso su porcentaje es mayor. Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL." + (" La última barra cuenta, de las funciones reconstruidas, las que tienen fuente identificada y sin `__asm` ni `naked`; las entradas sin fuente identificada de forma inequívoca no se cuentan como C++. El detalle está en [ImplementacionesDelJuego.md](ImplementacionesDelJuego.md)." if cpp_row else ""), "",
              migration_text, "",
-             f"Hay {total:,} entradas catalogadas, {locked:,} bloqueadas y {total-locked:,} sin bloqueo. No constituyen un inventario exhaustivo del EXE. Desbloqueada no significa validada, activa ni independiente. No se deducen hooks eliminados del contador de locks."
+             f"Hay {total:,} entradas catalogadas del juego, {locked:,} bloqueadas y {total-locked:,} sin bloqueo. No constituyen un inventario exhaustivo del código del juego; las filas de RenderWare y del CRT del catálogo ({library_rows}) quedan fuera de este informe. Desbloqueada no significa validada, activa ni independiente. No se deducen hooks eliminados del contador de locks."
              + (f" Las extensiones o adaptaciones NOTSA ({notsa_count}, en [hooks_notsa.csv](hooks_notsa.csv)) quedan fuera de la cuenta." if notsa_count else ""), "",
              "### Siguientes mediciones", "",
              "Estas dimensiones todavía no tienen un porcentaje útil: indican el trabajo que falta para poder medirlas.", "",
@@ -222,7 +247,7 @@ def generate(input_path, output_path, update_source_status=False):
              "| --- | --- | --- |",
              f"| Validaciones vigentes para el árbol actual | {validation['current']}/{validated_count:,} validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). |",
              f"| Dependencias de funciones originales eliminadas | {_dep_row or 'No medido'} | Resolver las llamadas indirectas (tablas de punteros, callbacks) para convertir la cota inferior en un valor exacto, y eliminar o sustituir las dependencias directas que quedan. |", "",
-             f"**Validación consolidada parcialmente:** {validation['documented']} funciones con evidencia aprobada vinculada, {validation['source_matches']} con fuentes registradas coincidentes y {validation['current']} con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).", "",
+             f"**Validación consolidada parcialmente:** {validated_count} funciones del juego con evidencia aprobada vinculada, {validation['source_matches']} con fuentes registradas coincidentes y {validation['current']} con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).", "",
              "## Vista general", "",
              "| Clases validadas | Completas por validar | Funciones validadas | Reconstruidas por validar | Funciones por reconstruir |",
              "| :---: | :---: | :---: | :---: | :---: |",
