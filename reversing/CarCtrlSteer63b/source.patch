@@ -1,0 +1,137 @@
+diff --git a/source/game_sa/CarCtrl.cpp b/source/game_sa/CarCtrl.cpp
+index 8ed964e..5a498c4 100644
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -34,6 +34,7 @@ END GENERATED HOOK STATUS */
+ #include "TrafficLights.h"
+ #include "TheScripts.h"
+ #include "GangWars.h"
++#include "VehicleRecording.h"
+ #include "Game.h"
+ #include "General.h"
+ #include "GameLogic.h"
+@@ -86,6 +87,7 @@ void CCarCtrl::InjectHooks()
+     RH_ScopedInstall(FindMaxSteerAngle, 0x427FE0);
+     RH_ScopedInstall(GenerateRandomCars, 0x4341C0);
+     RH_ScopedInstall(ClearInterestingVehicleList, 0x423F00);
++    RH_ScopedInstall(SteerAICarWithPhysicsFollowPreRecordedPath, 0x432DD0);
+     RH_ScopedInstall(RegisterVehicleOfInterest, 0x423DE0);
+     RH_ScopedInstall(FindSequenceElement, 0x421770);
+     RH_ScopedInstall(SwitchVehicleToRealPhysics, 0x423FC0);
+@@ -1046,7 +1048,115 @@ void CCarCtrl::SteerAICarWithPhysicsFollowPath_Racing(CVehicle* vehicle, float*
+ 
+ // 0x432DD0
+ void CCarCtrl::SteerAICarWithPhysicsFollowPreRecordedPath(CVehicle* vehicle, float* arg2, float* arg3, float* arg4, bool* arg5) {
+-    plugin::Call<0x432DD0, CVehicle*, float*, float*, float*, bool*>(vehicle, arg2, arg3, arg4, arg5);
++    // arg2 = giro, arg3 = acelerador, arg4 = freno, arg5 = freno de mano. Constantes del EXE: pi (0x858CB8), 2*pi (0x858CBC)
++    constexpr float kPi = std::bit_cast<float>(0x40490FDBu);
++    constexpr float kTwoPi = std::bit_cast<float>(0x40C90FDBu);
++    constexpr float kPackedVelocity = std::bit_cast<float>(0x38800100u); // 0x858EAC: 1/16383.5
++    // Mision 0xB: reproduccion terminada (no hay una constante en eCarMission usada por el original en este punto)
++    const auto stop = [&] {
++        *arg4 = 0.0f;
++        *arg3 = 0.0f;
++        *arg2 = 0.0f;
++        *arg5 = false;
++        vehicle->m_autoPilot.m_nCarMission = static_cast<eCarMission>(0xB);
++    };
++
++    const int32 id = vehicle->m_autoPilot.m_vehicleRecordingId; // int8: negativo = sin reproduccion
++    if (id < 0) {
++        stop();
++        return;
++    }
++    // Los arrays del EXE (16 entradas) se leen sin comprobar el indice, como el original
++    const auto at = [id](auto& arr) -> auto& { return arr.data()[id]; };
++    uint8* const base = reinterpret_cast<uint8*>(at(CVehicleRecording::pPlaybackBuffer));
++    if (!base) {
++        stop();
++        return;
++    }
++    if (at(CVehicleRecording::bPlaybackPaused)) {
++        *arg3 = 0.0f;
++        *arg2 = 0.0f;
++        *arg4 = 0.5f;
++        *arg5 = false;
++        return;
++    }
++
++    // El registro actual (rec) se fija ahora y NO se actualiza al avanzar: el giro y la velocidad usan siempre ese primer registro (el original conserva el puntero en EBX)
++    const int32 startOffset = at(CVehicleRecording::PlaybackIndex);
++    const uint8* const rec = base + startOffset;
++    const auto distanceTo = [&](const uint8* frame, uint32 at) {
++        const CVector& pos = vehicle->GetPosition();
++        const float x = *reinterpret_cast<const float*>(frame + at);
++        const float y = *reinterpret_cast<const float*>(frame + at + 4);
++        const float z = *reinterpret_cast<const float*>(frame + at + 8);
++        const float dx = pos.x - x;
++        const float dy = pos.y - y;
++        const float dz = pos.z - z;
++        return std::sqrt((dz * dz + dy * dy) + dx * dx);
++    };
++    float nearDistance = distanceTo(rec, 0x14);
++    float nextDistance = distanceTo(rec, 0x34);
++    // Avanza mientras el vehiculo este a menos de 10 m del registro o mas cerca del siguiente
++    while (nearDistance < 10.0f || nextDistance < nearDistance) { // 0x85862C
++        int32& offset = at(CVehicleRecording::PlaybackIndex);
++        const uint32 next = static_cast<uint32>(offset) + 0x20u;
++        const uint32 limit = static_cast<uint32>(at(CVehicleRecording::PlaybackBufferSize)) - 0x20u;
++        offset = static_cast<int32>(next);
++        if (next >= limit) {
++            CVehicleRecording::StopPlaybackWithIndex(id);
++            vehicle->m_autoPilot.m_vehicleRecordingId = -1;
++            stop();
++            return;
++        }
++        nearDistance = distanceTo(base + next, 0x14);
++        nextDistance = distanceTo(base + next, 0x34);
++    }
++
++    // Giro: rumbo del vehiculo (top de la matriz, sin comprobar nulo) y rumbo al registro, corregido con 0x4325C0
++    const CVector& forward = vehicle->m_matrix->GetForward();
++    const float vehicleHeading = CGeneral::GetATanOfXY(forward.x, forward.y);
++    const CVector& pos = vehicle->GetPosition();
++    const float recX = *reinterpret_cast<const float*>(rec + 0x14);
++    const float recY = *reinterpret_cast<const float*>(rec + 0x18);
++    const float headingToRecord = CGeneral::GetATanOfXY(recX - pos.x, recY - pos.y);
++    float diff = FindAngleToWeaveThroughTraffic(vehicle, nullptr, headingToRecord, vehicleHeading, 2.0f) - vehicleHeading;
++    while (diff < -kPi) {
++        diff += kTwoPi;
++    }
++    while (diff > kPi) {
++        diff -= kTwoPi;
++    }
++    const float maxSteer = FindMaxSteerAngle(vehicle);
++    if (diff < -maxSteer) {
++        diff = -maxSteer;
++    }
++    if (diff > maxSteer) {
++        diff = maxSteer;
++    }
++
++    // Velocidad objetivo: |velocidad del registro| * multiplicador de reproduccion * 60, con suelo de 5 en los primeros 0x320 bytes
++    const float recordVelocityX = static_cast<float>(*reinterpret_cast<const int16*>(rec + 6)) * kPackedVelocity;
++    const float recordVelocityY = static_cast<float>(*reinterpret_cast<const int16*>(rec + 4)) * kPackedVelocity;
++    float target = std::sqrt(recordVelocityY * recordVelocityY + recordVelocityX * recordVelocityX) * at(CVehicleRecording::PlaybackSpeed) * GAME_SPEED_TO_CAR_AI_SPEED;
++    if (!(static_cast<uint32>(at(CVehicleRecording::PlaybackIndex)) > 0x320u)) {
++        if (!(target > 5.0f)) { // 0x858C80
++            target = 5.0f;
++        }
++    }
++    *arg4 = 0.0f;
++    const CVector& moveSpeed = vehicle->m_vecMoveSpeed;
++    const float currentSpeed = std::sqrt(moveSpeed.x * moveSpeed.x + moveSpeed.y * moveSpeed.y) * GAME_SPEED_TO_CAR_AI_SPEED;
++    const float error = target - currentSpeed;
++    if (error > 0.0f) {
++        const float scaled = error * (currentSpeed < 2.0f ? 0.25f : 0.125f); // 0x858CA0, 0x858C84, 0x858C48
++        *arg3 = 1.0f < scaled ? 1.0f : scaled;
++    } else {
++        const float scaled = error * -0.05f; // 0x85901C
++        *arg3 = 0.0f;
++        *arg4 = 0.5f < scaled ? 0.5f : scaled; // 0x858B8C
++    }
++    *arg2 = diff;
++    *arg5 = false;
+ }
+ 
+ // 0x433280

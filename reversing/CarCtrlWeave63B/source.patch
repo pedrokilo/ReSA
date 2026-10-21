@@ -1,0 +1,335 @@
+diff --git a/source/game_sa/CarCtrl.cpp b/source/game_sa/CarCtrl.cpp
+index 171a39c..ec26c1f 100644
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -40,6 +40,7 @@ END GENERATED HOOK STATUS */
+ #include "CutsceneMgr.h"
+ #include "TheCarGenerators.h"
+ #include "eAreaCodes.h"
++#include "Events/EventPotentialGetRunOver.h"
+ 
+ #include <reversiblebugfixes/Bugs.hpp>
+ #ifdef _MSC_VER
+@@ -97,6 +98,12 @@ void CCarCtrl::InjectHooks()
+     RH_ScopedInstall(SlowCarDownForOtherCar, 0x42D0E0);
+     RH_ScopedInstall(WeaveForOtherCar, 0x426350);
+     RH_ScopedInstall(WeaveForObject, 0x426BC0);
++    RH_ScopedInstall(SlowCarDownForCarsSectorList<CPtrListDoubleLink<CVehicle*>>, 0x432420);
++    RH_ScopedInstall(SlowCarDownForObjectsSectorList<CPtrListDoubleLink<CObject*>>, 0x42D4F0);
++    RH_ScopedInstall(SlowCarDownForPedsSectorList<CPtrListDoubleLink<CPed*>>, 0x425440);
++    RH_ScopedInstall(WeaveThroughCarsSectorList<CPtrListDoubleLink<CVehicle*>>, 0x42D680);
++    RH_ScopedInstall(WeaveThroughPedsSectorList<CPtrListDoubleLink<CPed*>>, 0x42D7E0);
++    RH_ScopedInstall(WeaveThroughObjectsSectorList<CPtrListDoubleLink<CObject*>>, 0x42D950);
+ }
+ 
+ // 0x4212E0
+@@ -949,7 +956,32 @@ CVector WvMatrixTimesVector(const CMatrix* matrix, const CVector& vector) {
+ // 0x432420
+ template<typename PtrListType>
+ void CCarCtrl::SlowCarDownForCarsSectorList(PtrListType& ptrList, CVehicle* vehicle, float arg3, float arg4, float arg5, float arg6, float* arg7, float arg8) {
+-    plugin::Call<0x432420, PtrListType&, CVehicle*, float, float, float, float, float*, float>(ptrList, vehicle, arg3, arg4, arg5, arg6, arg7, arg8);
++    // Como el original: aritmetica de float (x87 a 24 bits), nodos leidos antes de cada llamada, matriz del vehiculo sin comprobar nulo.
++    // arg3/arg5 = x minimo/maximo y arg4/arg6 = y minimo/maximo del rectangulo.
++    for (auto* node = ptrList.GetNode(); node;) {
++        CEntity* const entity = static_cast<CEntity*>(node->Item);
++        node = node->Next;
++
++        if (entity == vehicle || entity->IsScanCodeCurrent() || !entity->GetUsesCollision()) {
++            continue;
++        }
++        entity->SetScanCode(CWorld::ms_nCurrentScanCode);
++
++        const CVector centre = entity->GetBoundCentre(); // 0x534250
++        if (!(centre.x > arg3) || !(centre.x < arg5) || !(centre.y > arg4) || !(centre.y < arg6)) {
++            continue;
++        }
++        const CVector& vehiclePosition = vehicle->GetPosition();
++        if (!(std::fabs(centre.z - vehiclePosition.z) < 10.0f)) { // 0x85862C
++            continue;
++        }
++        const CMatrix& matrix = *vehicle->m_matrix;
++        const float distance = CCollision::DistAlongLine2D(vehiclePosition.x, vehiclePosition.y, matrix.GetForward().x, matrix.GetForward().y, centre.x, centre.y); // 0x412A80
++        if (!(std::fabs(centre.z - (distance * matrix.GetForward().z + vehicle->GetPosition().z)) < 3.0f)) { // 0x41CCB0: forward de la matriz
++            continue;
++        }
++        SlowCarDownForOtherCar(entity, vehicle, arg7, arg8); // 0x42D0E0
++    }
+ }
+ 
+ // 0x426220
+@@ -983,7 +1015,38 @@ void CCarCtrl::SlowCarDownForObject(CEntity* entity, CVehicle* vehicle, float* a
+ // 0x42D4F0
+ template<typename PtrListType>
+ void CCarCtrl::SlowCarDownForObjectsSectorList(PtrListType& ptrList, CVehicle* vehicle, float arg3, float arg4, float arg5, float arg6, float* arg7, float arg8) {
+-    plugin::Call<0x42D4F0, PtrListType&, CVehicle*, float, float, float, float, float*, float>(ptrList, vehicle, arg3, arg4, arg5, arg6, arg7, arg8);
++    // Como el original: igual que la de coches, pero solo para tres modelos de barrera y el codigo de exploracion se marca antes de mirar el modelo
++    for (auto* node = ptrList.GetNode(); node;) {
++        CEntity* const entity = static_cast<CEntity*>(node->Item);
++        node = node->Next;
++
++        if (entity->IsScanCodeCurrent()) {
++            continue;
++        }
++        entity->SetScanCode(CWorld::ms_nCurrentScanCode);
++
++        const int32 modelIndex = static_cast<int16>(entity->m_nModelIndex);
++        if (modelIndex != int32(uint16(eModelID(ModelIndices::MI_ROADWORKBARRIER1)))      // 0x8CD57C
++            && modelIndex != int32(uint16(eModelID(ModelIndices::MI_ROADBLOCKFUCKEDCAR1))) // 0x8CD580
++            && modelIndex != int32(uint16(eModelID(ModelIndices::MI_ROADBLOCKFUCKEDCAR2)))) { // 0x8CD584
++            continue;
++        }
++
++        const CVector centre = entity->GetBoundCentre(); // 0x534250
++        if (!(centre.x > arg3) || !(centre.x < arg5) || !(centre.y > arg4) || !(centre.y < arg6)) {
++            continue;
++        }
++        const CVector& vehiclePosition = vehicle->GetPosition();
++        if (!(std::fabs(centre.z - vehiclePosition.z) < 10.0f)) { // 0x85862C
++            continue;
++        }
++        const CMatrix& matrix = *vehicle->m_matrix;
++        const float distance = CCollision::DistAlongLine2D(vehiclePosition.x, vehiclePosition.y, matrix.GetForward().x, matrix.GetForward().y, centre.x, centre.y); // 0x412A80
++        if (!(std::fabs(centre.z - (distance * matrix.GetForward().z + vehicle->GetPosition().z)) < 3.0f)) { // 0x41CCB0: forward de la matriz
++            continue;
++        }
++        SlowCarDownForObject(entity, vehicle, arg7, arg8); // 0x426220
++    }
+ }
+ 
+ // 0x42D0E0
+@@ -1118,8 +1181,144 @@ void CCarCtrl::SlowCarDownForOtherCar(CEntity* car1, CVehicle* car2, float* arg3
+ 
+ // 0x425440
+ template<typename PtrListType>
+-void CCarCtrl::SlowCarDownForPedsSectorList(PtrListType& PtrList, CVehicle* vehicle, float arg3, float arg4, float arg5, float arg6, float* arg7, float arg8) {
+-    plugin::Call<0x425440, PtrListType&, CVehicle*, float, float, float, float, float*, float>(PtrList, vehicle, arg3, arg4, arg5, arg6, arg7, arg8);
++void CCarCtrl::SlowCarDownForPedsSectorList(PtrListType& ptrList, CVehicle* vehicle, float arg3, float arg4, float arg5, float arg6, float* arg7, float arg8) {
++    // Como el original: aritmetica de float (x87 a 24 bits), nodos leidos antes de cada llamada, matriz del vehiculo sin comprobar nulo. arg3/arg5 = x minimo/maximo,
++    // arg4/arg6 = y minimo/maximo. El ancho (halfWidth) es una variable local que persiste (y, para tipo 9, se multiplica por 1.6 en cada peaton que llega hasta ahi).
++    float halfWidth = CModelInfo::GetModelInfo(static_cast<int16>(vehicle->m_nModelIndex))->GetColModel()->GetBoundingBox().m_vecMax.x;
++    const CMatrix& matrix = *vehicle->m_matrix;
++    const CVector& moveSpeed = vehicle->m_vecMoveSpeed;
++    const float forwardSpeed = (matrix.GetForward().z * moveSpeed.z + matrix.GetForward().y * moveSpeed.y) + matrix.GetForward().x * moveSpeed.x;
++    const float lookAhead = forwardSpeed * 200.0f;                 // 0x858A48
++    const float lookSide  = std::fabs(forwardSpeed) * 50.0f;       // 0x858B40
++    bool special;
++    if (vehicle == FindPlayerVehicle(-1, false)) { // 0x56E0D0
++        special = true;
++    } else {
++        const int32 vehicleType = static_cast<int32>(vehicle->m_nVehicleType);
++        const uint8 style = static_cast<uint8>(vehicle->m_autoPilot.m_nCarDrivingStyle);
++        if (vehicleType == 6 || vehicleType == 4 || vehicleType == 3) {
++            special = true;
++        } else if (style != 0 && style != 6) {
++            special = true;
++        } else {
++            special = (WvRaw<uint8>(vehicle, 0x36) & 0xF8) == 0x18;
++        }
++    }
++    const float halfLength = CModelInfo::GetModelInfo(static_cast<int16>(vehicle->m_nModelIndex))->GetColModel()->GetBoundingBox().m_vecMax.y;
++
++    for (auto* node = ptrList.GetNode(); node;) {
++        CEntity* const entity = static_cast<CEntity*>(node->Item);
++        node = node->Next;
++
++        if (entity->IsScanCodeCurrent() || !entity->GetUsesCollision()) {
++            continue;
++        }
++        entity->SetScanCode(CWorld::ms_nCurrentScanCode);
++
++        const CVector position = entity->GetPosition();
++        if (!(position.x > arg3) || !(position.x < arg5) || !(position.y > arg4) || !(position.y < arg6)) {
++            continue;
++        }
++        if (!(std::fabs(position.z - vehicle->GetPosition().z) < 6.0f)) { // 0x858B44
++            continue;
++        }
++        const float distance = CCollision::DistAlongLine2D(vehicle->GetPosition().x, vehicle->GetPosition().y, matrix.GetForward().x, matrix.GetForward().y, position.x, position.y); // 0x412A80
++        if (!(std::fabs(position.z - (distance * matrix.GetForward().z + vehicle->GetPosition().z)) < 3.0f)) { // 0x41CCB0: forward de la matriz
++            continue;
++        }
++        const CVector& vehiclePosition = vehicle->GetPosition();
++        const float relativeZ = position.z - vehiclePosition.z;
++        const float relativeY = position.y - vehiclePosition.y;
++        const float relativeX = position.x - vehiclePosition.x;
++        const float projectedForward = (relativeY * matrix.GetForward().y + relativeZ * matrix.GetForward().z) + relativeX * matrix.GetForward().x;
++
++        const uint8 drivingStyle = static_cast<uint8>(vehicle->m_autoPilot.m_nCarDrivingStyle);
++        if (drivingStyle == 0 || drivingStyle == 4 || drivingStyle == 1 || drivingStyle == 6) {
++            do {
++                if (entity == FindPlayerPed(-1)) { // 0x56E210
++                    if (CWorld::Players[CWorld::PlayerInFocus].m_pLastTargetVehicle == vehicle) {
++                        break;
++                    }
++                }
++                if (!(projectedForward > halfLength)) {
++                    break;
++                }
++                const float ahead = projectedForward - halfLength;
++                if (!(ahead < lookAhead)) {
++                    break;
++                }
++                const float lateral = std::fabs((relativeY * matrix.GetRight().y + relativeZ * matrix.GetRight().z) + relativeX * matrix.GetRight().x);
++                if (static_cast<int32>(vehicle->m_nVehicleType) == 9) {
++                    halfWidth = halfWidth * std::bit_cast<float>(0x3FCCCCCDu); // 0x858FA8 (1.6f)
++                }
++                if (!(lateral <= halfWidth + 0.5f)) {
++                    break;
++                }
++                if (!(ahead < 13.0f)) { // 0x858CE4
++                    break;
++                }
++                const float shifted = ahead - 1.0f;
++                const float clamped = (0.0f > shifted) ? 0.0f : shifted;
++                const float scaled  = (std::bit_cast<float>(0x3D9D89D9u) * clamped) * arg8; // 0x858FA4
++                const float wanted  = (1.0f > scaled) ? 1.0f : scaled;
++                if (!(wanted > *arg7)) {
++                    *arg7 = wanted;
++                }
++                vehicle->m_autoPilot.m_nCarCtrlFlags |= 2;
++                if (ahead < 4.0f) { // 0x858B90
++                    vehicle->m_autoPilot.m_nTempAction     = TEMPACT_WAIT;
++                    vehicle->m_autoPilot.m_nTempActionTime = CTimer::GetTimeInMS() + 4000;
++                }
++                if (ahead < 2.5f) { // 0x858FA0
++                    vehicle->m_autoPilot.m_nTempAction     = TEMPACT_BRAKE;
++                    vehicle->m_autoPilot.m_nTempActionTime = CTimer::GetTimeInMS() + 4000;
++                }
++            } while (false);
++        }
++
++        // 0x425926
++        if (entity->GetType() != ENTITY_TYPE_PED) {
++            continue;
++        }
++        CPed* const ped = static_cast<CPed*>(entity);
++        if (vehicle == FindPlayerVehicle(-1, false)) {
++            if (WvRaw<uint32>(vehicle, 0x514) != 0) {
++                const CVector difference = ped->GetPosition() - vehicle->GetPosition(); // 0x40FE60
++                if (difference.SquaredMagnitude() < 49.0f) { // 0x406DA0, 0x858D04
++                    CEventPotentialGetRunOver event(vehicle); // 0x4AE1A0
++                    ped->GetEventGroup().Add(&event, false);  // 0x4AB420; ~CEventPotentialGetRunOver = 0x4AE270
++                }
++            }
++        }
++        if (!special) {
++            continue;
++        }
++        if (forwardSpeed == 0.0f) {
++            continue;
++        }
++        if (((projectedForward < 0.0f) ? -1 : 1) != ((forwardSpeed < 0.0f) ? -1 : 1)) {
++            continue;
++        }
++        const float absProjected = std::fabs(projectedForward);
++        if (!(absProjected > halfLength)) {
++            continue;
++        }
++        if (!(std::fabs(forwardSpeed) > std::bit_cast<float>(0x3D4CCCCDu))) { // 0x406D10, 0x86C8CC (0.05f)
++            continue;
++        }
++        if (!((absProjected - halfLength) < lookSide)) {
++            continue;
++        }
++        const float lateral2 = std::fabs((relativeY * matrix.GetRight().y + relativeZ * matrix.GetRight().z) + relativeX * matrix.GetRight().x);
++        if (!(lateral2 <= halfWidth + std::bit_cast<float>(0x3EB33333u))) { // 0x858F9C (0.35f)
++            continue;
++        }
++        CEventPotentialGetRunOver event(vehicle);
++        ped->GetEventGroup().Add(&event, false);
++        if (vehicle->m_pDriver && vehicle->m_pDriver->IsPlayer()) { // 0x5DF8F0
++            ped->GetIntelligence()->IncrementAngerAtPlayer(2);       // 0x421050
++        }
++    }
+ }
+ 
+ // 0x434790
+@@ -1780,19 +1979,85 @@ void CCarCtrl::WeaveForOtherCar(CEntity* entity, CVehicle* vehicle, float* arg3,
+ // 0x42D680
+ template<typename PtrListType>
+ void CCarCtrl::WeaveThroughCarsSectorList(PtrListType& ptrList, CVehicle* vehicle, CPhysical* physical, float arg4, float arg5, float arg6, float arg7, float* arg8, float* arg9) {
+-    plugin::Call<0x42D680, PtrListType&, CVehicle*, CPhysical*, float, float, float, float, float*, float*>(ptrList, vehicle, physical, arg4, arg5, arg6, arg7, arg8, arg9);
++    // Como el original: arg4/arg6 = x minimo/maximo y arg5/arg7 = y minimo/maximo del rectangulo; matrices sin comprobar nulo (la del vehiculo)
++    for (auto* node = ptrList.GetNode(); node;) {
++        CEntity* const entity = static_cast<CEntity*>(node->Item);
++        node = node->Next;
++
++        if (entity->IsScanCodeCurrent() || !entity->GetUsesCollision() || entity == physical) {
++            continue;
++        }
++        entity->SetScanCode(CWorld::ms_nCurrentScanCode);
++
++        const CVector centre = entity->GetBoundCentre(); // 0x534250
++        if (!(centre.x > arg4) || !(centre.x < arg6) || !(centre.y > arg5) || !(centre.y < arg7)) {
++            continue;
++        }
++        if (!(std::fabs(entity->GetPosition().z - vehicle->GetPosition().z) < 8.0f)) { // 0x859000
++            continue;
++        }
++        if (entity == vehicle) {
++            continue;
++        }
++        if ((WvRaw<uint8>(vehicle, 0x42B) & 8) && (WvRaw<uint8>(entity, 0x42B) & 8)) {
++            continue;
++        }
++        WeaveForOtherCar(entity, vehicle, arg8, arg9); // 0x426350
++    }
+ }
+ 
+ // 0x42D950
+ template<typename PtrListType>
+ void CCarCtrl::WeaveThroughObjectsSectorList(PtrListType& ptrList, CVehicle* vehicle, float arg3, float arg4, float arg5, float arg6, float* arg7, float* arg8) {
+-    plugin::Call<0x42D950, PtrListType&, CVehicle*, float, float, float, float, float*, float*>(ptrList, vehicle, arg3, arg4, arg5, arg6, arg7, arg8);
++    // Como el original: se usa la posicion del objeto y solo pasan los que estan casi verticales (up.z > 0.9)
++    for (auto* node = ptrList.GetNode(); node;) {
++        CEntity* const entity = static_cast<CEntity*>(node->Item);
++        node = node->Next;
++
++        if (entity->IsScanCodeCurrent() || !entity->GetUsesCollision()) {
++            continue;
++        }
++        entity->SetScanCode(CWorld::ms_nCurrentScanCode);
++
++        const CVector& position = entity->GetPosition();
++        if (!(position.x > arg3) || !(position.x < arg5) || !(position.y > arg4) || !(position.y < arg6)) {
++            continue;
++        }
++        if (!(std::fabs(position.z - vehicle->GetPosition().z) < 8.0f)) { // 0x859000
++            continue;
++        }
++        if (!(entity->GetMatrix().GetUp().z > std::bit_cast<float>(0x3F666666u))) { // 0x411990, 0x858C20 (0.9f)
++            continue;
++        }
++        WeaveForObject(entity, vehicle, arg7, arg8); // 0x426BC0
++    }
+ }
+ 
+ // 0x42D7E0
+ template<typename PtrListType>
+ void CCarCtrl::WeaveThroughPedsSectorList(PtrListType& ptrList, CVehicle* vehicle, CPhysical* physical, float arg4, float arg5, float arg6, float arg7, float* arg8, float* arg9) {
+-    plugin::Call<0x42D7E0, PtrListType&, CVehicle*, CPhysical*, float, float, float, float, float*, float*>(ptrList, vehicle, physical, arg4, arg5, arg6, arg7, arg8, arg9);
++    // Como el original: se usa la posicion del peaton (no su centro) y 0x426970 (WeaveForPed, sin catalogar) se llama por su direccion
++    for (auto* node = ptrList.GetNode(); node;) {
++        CEntity* const entity = static_cast<CEntity*>(node->Item);
++        node = node->Next;
++
++        if (entity->IsScanCodeCurrent() || !entity->GetUsesCollision() || entity == physical) {
++            continue;
++        }
++        entity->SetScanCode(CWorld::ms_nCurrentScanCode);
++
++        const CVector& position = entity->GetPosition();
++        if (!(position.x > arg4) || !(position.x < arg6) || !(position.y > arg5) || !(position.y < arg7)) {
++            continue;
++        }
++        if (!(std::fabs(position.z - vehicle->GetPosition().z) < 4.0f)) { // 0x858B90
++            continue;
++        }
++        if (WvRaw<CEntity*>(entity, 0x584) == vehicle || WvRaw<CEntity*>(entity, 0xFC) == vehicle) {
++            continue;
++        }
++        plugin::Call<0x426970, CEntity*, CVehicle*, float*, float*>(entity, vehicle, arg8, arg9);
++    }
+ }
+ 
+ // 0x427FE0

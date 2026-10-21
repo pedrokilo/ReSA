@@ -1,0 +1,158 @@
+diff --git a/source/game_sa/CarCtrl.cpp b/source/game_sa/CarCtrl.cpp
+index fbd7a6b..593d9d7 100644
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -57,6 +57,13 @@ static CVector (CPathNode::* volatile const cc63GetNodePosition)() const = &CPat
+ // Ayudantes x87 de la tanda 3 (definidos al final de X87Math.cpp; declarados aqui para no recompilar todo el proyecto al tocar X87Math.h).
+ float __cdecl Cc63cLinkDistanceCpp(int node2X, int node2Y, int node1X, int node1Y);                               // JoinCarWithRoadSystem: distancia entre dos nodos (x, y enteros de 16 bits / 8)
+ bool __cdecl Cc63cDotNegativeCpp(int node1X, int node1Y, int node3X, int node3Y, float forwardX, float forwardY);  // JoinCarWithRoadSystem: producto escalar con el vector adelante < 0
++// Ayudantes x87 de la tanda 5 (ChooseModel), definidos al final de X87Math.cpp.
++int __cdecl Cc63eTotalCpp(float a, float b, float c, float d);                                // ftol2(((a + b) + c) + d)
++bool __cdecl Cc63eRollFailsCpp(int randValue);                                                // ftol2(fild(r & 0xFFFF) * (1/65536) * 100.0f) != 0
++float __cdecl Cc63eRatioCpp(int randValue);                                                   // fild(r) * 0x38000100 guardado como float
++bool __cdecl Cc63eTierExceedsCpp(float a, float b, float c, int count, float total, float roll);  // (a [+ b [+ c]]) / total > roll, ordenada
++int __cdecl Cc63ePickRollCpp(int randValue, int total);                                       // ftol2((fild(r & 0xFFFF) * (1/65536)) * total)
++int __cdecl Cc63eGroupRollCpp(int randValue);                                                 // ftol2(fild(r & 0xFFFF) * (1/65536) * 23.0f)
+ 
+ auto& apCarsToKeep = StaticRef<CVehicle*[2]>(0x969084);
+ auto& aCarsToKeepTime = StaticRef<std::array<uint32, 2>>(0x96907C);
+@@ -106,6 +113,8 @@ void CCarCtrl::InjectHooks()
+     // Lote 63 (parte C, tanda 4)
+     RH_ScopedInstall(ReconsiderRoute, 0x42FC40);
+     RH_ScopedInstall(FindLinksToGoWithTheseNodes, 0x42B470);
++    // Lote 63 (parte C, tanda 5)
++    RH_ScopedInstall(ChooseModel, 0x424CE0);
+     RH_ScopedInstall(JoinCarWithRoadAccordingToMission, 0x432CB0);
+     RH_ScopedInstall(PossiblyFireHSMissile, 0x429600);
+     RH_ScopedInstall(PruneVehiclesOfInterest, 0x423F10);
+@@ -210,7 +219,82 @@ eModelID CCarCtrl::ChooseGangCarModel(eGangID loadedCarGroupId) {
+ 
+ // 0x424CE0
+ int32 CCarCtrl::ChooseModel(int32* arg1) {
+-    return plugin::CallAndReturn<int32, 0x424CE0, int32*>(arg1);
++    // Como el original (0x424CE0..0x424F7F). rand es el del EXE (0x821B1E). Suma de las cuatro densidades (CPopCycle 0xC0BC30..3C, float, x87 24 bits) truncada con _ftol2; <= 0 -> -1.
++    // Con el byte 0x96917A: un rand & 0xFFFF * 1/65536 * 100.0f truncado distinto de 0 -> -1. Se sortea f = rand (sin enmascarar) * 0x38000100 como float y t = (float)total y la
++    // categoria es la primera cuyo acumulado / t supera a f: dealers (0x19: el modelo es [0xC0F240] si esta cargado, si no -1), pandillas (con el byte 0x96915B tambien),
++    // policia (13: ni guerra de pandillas ni coches de policia prohibidos -> ChoosePoliceCarModel(0)) u otros (0: [0xA4448C] o PickRandomCar(true, false)).
++    const auto exeRand = reinterpret_cast<int(__cdecl*)()>(0x821B1E);
++    const int32 total = Cc63eTotalCpp(CPopCycle::m_NumOther_Cars, CPopCycle::m_NumCops_Cars, CPopCycle::m_NumGangs_Cars, CPopCycle::m_NumDealers_Cars);
++    if (total <= 0) {
++        return -1;
++    }
++    if (StaticRef<uint8>(0x96917A)) {
++        if (Cc63eRollFailsCpp(exeRand())) {
++            return -1;
++        }
++    }
++    volatile float roll = Cc63eRatioCpp(exeRand());
++    const uint8 flag = StaticRef<uint8>(0x96915B);
++    volatile float totalFloat = static_cast<float>(total);
++    const auto loaded = [](int32 model) { return StaticRef<uint8>(0x8E4CD0 + static_cast<uintptr_t>(model) * 20) == 1; };
++    if (Cc63eTierExceedsCpp(CPopCycle::m_NumDealers_Cars, 0.0f, 0.0f, 1, totalFloat, roll) && !flag) {
++        *arg1 = 0x19;
++        const int32 model = StaticRef<uint16>(0xC0F240);
++        return loaded(model) ? model : -1;
++    }
++    if (Cc63eTierExceedsCpp(CPopCycle::m_NumGangs_Cars, CPopCycle::m_NumDealers_Cars, 0.0f, 2, totalFloat, roll) || flag) {
++        if (CPopulation::m_bDontCreateRandomGangMembers) {
++            return -1;
++        }
++        const uint8* strength = CPopCycle::m_pCurrZoneInfo->GangStrength;
++        const int32 sum = strength[8] + strength[9] + strength[7] + strength[6] + strength[5] + strength[4] + strength[3] + strength[2] + strength[1] + strength[0];
++        int32 gang = 0;
++        if (sum <= 0) {
++            return -1;
++        }
++        int32 pick = Cc63ePickRollCpp(exeRand(), sum);
++        strength = CPopCycle::m_pCurrZoneInfo->GangStrength;
++        if (strength[0] < pick) {
++            int32 current = strength[0];
++            do {
++                pick -= current;
++                current = strength[gang + 1];
++                ++gang;
++            } while (current < pick);
++        }
++        if (StaticRef<uint8>(0x96915B)) {
++            gang = reinterpret_cast<int32(__cdecl*)(int32, int32)>(0x407180)(0, 9);
++        }
++        *arg1 = gang + 14;
++        if (CPopulation::PickGangCar(static_cast<eGangID>(gang)) < 0) {
++            return -1;
++        }
++        const uintptr_t row = static_cast<uintptr_t>(gang) * 23;
++        for (int32 tries = 0; tries < 10; tries++) {
++            int32 index;
++            do {
++                index = static_cast<int32>(row) + Cc63eGroupRollCpp(exeRand());
++            } while (StaticRef<uint16>(0xC0F074 + static_cast<uintptr_t>(index) * 2) == 2000);
++            const int32 model = StaticRef<uint16>(0xC0F074 + static_cast<uintptr_t>(index) * 2);
++            if (loaded(model)) {
++                return model;
++            }
++        }
++        return -1;
++    }
++    if (!Cc63eTierExceedsCpp(CPopCycle::m_NumCops_Cars, CPopCycle::m_NumGangs_Cars, CPopCycle::m_NumDealers_Cars, 3, totalFloat, roll)) {
++        *arg1 = 0;
++        const int32 model = StaticRef<int32>(0xA4448C);
++        if (model != -1) {
++            return model;
++        }
++        return CPopulation::m_AppropriateLoadedCars.PickRandomCar(true, false);
++    }
++    if (CGangWars::GangWarFightingGoingOn() || CPopulation::m_bDontCreateRandomCops) {
++        return -1;
++    }
++    *arg1 = 13;
++    return ChoosePoliceCarModel(0);
+ }
+ 
+ int32 CCarCtrl::ChoosePoliceCarModel(uint32 ignoreLvpd1Model) {
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index d4e273d..91f97ca 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -13941,3 +13941,42 @@ bool __cdecl Cc63cDotNegativeCpp(int node1X, int node1Y, int node3X, int node3Y,
+     const double dot = a + b;
+     return dot < 0.0;
+ }
++
++// --- Lote 63: CCarCtrl (parte C, tanda 5), prefijo Cc63e. Anadir al FINAL de X87Math.cpp (se declaran en CarCtrl.cpp, no en X87Math.h) ---
++// CCarCtrl::ChooseModel (0x424CE0): la suma de las cuatro densidades se hace en x87 con un redondeo a 24 bits por operacion y se trunca con _ftol2 (int64; NaN/infinito/enorme dan 0 en el dword bajo).
++int __cdecl Cc63eTotalCpp(float a, float b, float c, float d) {
++    const double sum = ((double(a) + double(b)) + double(c)) + double(d);
++    return int(__int64(sum));
++}
++// 0x424D0C..0x424D3A: fild(rand & 0xFFFF) * (1/65536, 0x858B14) * 100.0f (0x858628), _ftol2 != 0.
++bool __cdecl Cc63eRollFailsCpp(int randValue) {
++    const double v = (double(randValue & 0xFFFF) * 3.0517578125e-05) * 100.0;
++    return int(__int64(v)) != 0;
++}
++// 0x424D3C..0x424D55: fild(rand) * 0x38000100 (0x858C7C) guardado como float (fstp dword).
++float __cdecl Cc63eRatioCpp(int randValue) {
++    volatile float stored = float(double(randValue) * 3.0518509447574615e-05);
++    return stored;
++}
++// 0x424D61..0x424D6F, 0x424DA3..0x424DBF, 0x424DCD..0x424DE9: (a [+ b [+ c]]) / total (float guardado) con un redondeo a 24 bits por operacion, comparado (ordenado) con el sorteo.
++bool __cdecl Cc63eTierExceedsCpp(float a, float b, float c, int count, float total, float roll) {
++    double numerator = double(a);
++    if (count >= 2) {
++        numerator = numerator + double(b);
++    }
++    if (count >= 3) {
++        numerator = numerator + double(c);
++    }
++    const double quotient = numerator / double(total);
++    return quotient > double(roll);
++}
++// 0x424EBE..0x424ED0: fild(rand & 0xFFFF) * (1/65536) y fimul por el total, _ftol2.
++int __cdecl Cc63ePickRollCpp(int randValue, int total) {
++    const double v = (double(randValue & 0xFFFF) * 3.0517578125e-05) * double(total);
++    return int(__int64(v));
++}
++// 0x424F2D..0x424F46: fild(rand & 0xFFFF) * (1/65536) * 23.0f (0x858F84), _ftol2.
++int __cdecl Cc63eGroupRollCpp(int randValue) {
++    const double v = (double(randValue & 0xFFFF) * 3.0517578125e-05) * 23.0;
++    return int(__int64(v));
++}

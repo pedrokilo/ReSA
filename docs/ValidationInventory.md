@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,782 entradas reversed=1**, de 8,782 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,845 entradas reversed=1**, de 8,845 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8782 |
+| `validated=1` · evidencia aprobada vinculada | 8845 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8782 |
+| Evidencia histórica vinculada; revisión pendiente | 8845 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -1447,33 +1447,96 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCarCtrl | `ChooseBoatModel` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
 | CCarCtrl | `ChooseCarModelToLoad` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
 | CCarCtrl | `ChooseGangCarModel` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `ChooseModel` | [Resumen](../reversing/CarCtrlRest63E/validation-summary.json) |
 | CCarCtrl | `ChoosePoliceCarModel` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
 | CCarCtrl | `ClearInterestingVehicleList` | [Resumen](../reversing/DependenciesCarCtrl2/validation-summary.json) |
 | CCarCtrl | `CreateCarForScript` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `DealWithBend_Racing` | [Resumen](../reversing/CarCtrlSteer63f/validation-summary.json) |
 | CCarCtrl | `FindGhostRoadHeight` | [Resumen](../reversing/DependenciesWorld14/validation-summary.json) |
+| CCarCtrl | `FindIntersection2Lines` | [Resumen](../reversing/CarCtrlRest63/validation-summary.json) |
+| CCarCtrl | `FindLinksToGoWithTheseNodes` | [Resumen](../reversing/CarCtrlRest63D/validation-summary.json) |
 | CCarCtrl | `FindMaxSteerAngle` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `FindMaximumSpeedForThisCarInTraffic` | [Resumen](../reversing/CarCtrlRest63B/validation-summary.json) |
+| CCarCtrl | `FindPathDirection` | [Resumen](../reversing/CarCtrlRest63/validation-summary.json) |
+| CCarCtrl | `FindPercDependingOnDistToLink` | [Resumen](../reversing/CarCtrlRest63/validation-summary.json) |
 | CCarCtrl | `FindSequenceElement` | [Resumen](../reversing/DependenciesCarCtrl2/validation-summary.json) |
+| CCarCtrl | `FindSpeedMultiplier` | [Resumen](../reversing/CarCtrlRest63/validation-summary.json) |
 | CCarCtrl | `FindSpeedMultiplierWithSpeedFromNodes` | [Resumen](../reversing/DependenciesVehicleLeaf5/validation-summary.json) |
+| CCarCtrl | `FireHeliRocketsAtTarget` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
+| CCarCtrl | `FlyAIHeliInCertainDirection` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
+| CCarCtrl | `FlyAIHeliToTarget_FixedOrientation` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
+| CCarCtrl | `FlyAIPlaneInCertainDirection` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
 | CCarCtrl | `GenerateRandomCars` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `GetAIHeliToAttackPlayer` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
+| CCarCtrl | `GetAIHeliToFlyInDirection` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
+| CCarCtrl | `GetAIPlaneToAttackPlayer` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
+| CCarCtrl | `GetAIPlaneToDoDogFight` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
+| CCarCtrl | `GetAIPlaneToDoDogFightAgainstPlayer` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
 | CCarCtrl | `GetNewVehicleDependingOnCarModel` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
 | CCarCtrl | `Init` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
 | CCarCtrl | `InitSequence` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
 | CCarCtrl | `IsAnyoneParking` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `IsThisAnAppropriateNode` | [Resumen](../reversing/CarCtrlRest63F/validation-summary.json) |
 | CCarCtrl | `IsThisVehicleInteresting` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
 | CCarCtrl | `JoinCarWithRoadAccordingToMission` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `JoinCarWithRoadSystem` | [Resumen](../reversing/CarCtrlRest63C/validation-summary.json) |
+| CCarCtrl | `JoinCarWithRoadSystemGotoCoors` | [Resumen](../reversing/CarCtrlRest63C/validation-summary.json) |
 | CCarCtrl | `Native_00424100` | [Resumen](../reversing/DependenciesWorld10/validation-summary.json) |
+| CCarCtrl | `PickNextNodeAccordingStrategy` | [Resumen](../reversing/CarCtrlRest63C/validation-summary.json) |
 | CCarCtrl | `PossiblyFireHSMissile` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
 | CCarCtrl | `PruneVehiclesOfInterest` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
 | CCarCtrl | `ReInit` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `ReconsiderRoute` | [Resumen](../reversing/CarCtrlRest63D/validation-summary.json) |
 | CCarCtrl | `RegisterVehicleOfInterest` | [Resumen](../reversing/DependenciesCarCtrl2/validation-summary.json) |
 | CCarCtrl | `RemoveCarsIfThePoolGetsFull` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
 | CCarCtrl | `RemoveDistantCars` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
 | CCarCtrl | `RemoveFromInterestingVehicleList` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `ScanForPedDanger` | [Resumen](../reversing/CarCtrlRest63B/validation-summary.json) |
 | CCarCtrl | `ScriptGenerateOneEmergencyServicesCar` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `SetCoordsOfScriptCar` | [Resumen](../reversing/CarCtrlRest63B/validation-summary.json) |
+| CCarCtrl | `SetUpDriverAndPassengersForVehicle` | [Resumen](../reversing/CarCtrlRest63B/validation-summary.json) |
+| CCarCtrl | `SlowCarDownForCarsSectorList<CPtrListDoubleLink<CVehicle*>>` | [Resumen](../reversing/CarCtrlWeave63B/validation-summary.json) |
 | CCarCtrl | `SlowCarDownForObject` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `SlowCarDownForObjectsSectorList<CPtrListDoubleLink<CObject*>>` | [Resumen](../reversing/CarCtrlWeave63B/validation-summary.json) |
+| CCarCtrl | `SlowCarDownForOtherCar` | [Resumen](../reversing/CarCtrlWeave63A/validation-summary.json) |
+| CCarCtrl | `SlowCarDownForPedsSectorList<CPtrListDoubleLink<CPed*>>` | [Resumen](../reversing/CarCtrlWeave63B/validation-summary.json) |
 | CCarCtrl | `SlowCarOnRailsDownForTrafficAndLights` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `SteerAIBoatWithPhysicsAttackingPlayer` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
+| CCarCtrl | `SteerAIBoatWithPhysicsCirclingPlayer` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
+| CCarCtrl | `SteerAIBoatWithPhysicsHeadingForTarget` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
+| CCarCtrl | `SteerAICarBlockingPlayerForwardAndBack` | [Resumen](../reversing/CarCtrlSteer63d/validation-summary.json) |
+| CCarCtrl | `SteerAICarParkParallel` | [Resumen](../reversing/CarCtrlSteer63e/validation-summary.json) |
+| CCarCtrl | `SteerAICarParkPerpendicular` | [Resumen](../reversing/CarCtrlSteer63e/validation-summary.json) |
+| CCarCtrl | `SteerAICarTowardsPointInEscort` | [Resumen](../reversing/CarCtrlSteer63c/validation-summary.json) |
+| CCarCtrl | `SteerAICarWithPhysicsFollowPreRecordedPath` | [Resumen](../reversing/CarCtrlSteer63b/validation-summary.json) |
+| CCarCtrl | `SteerAICarWithPhysicsHeadingForTarget` | [Resumen](../reversing/CarCtrlSteer63/validation-summary.json) |
+| CCarCtrl | `SteerAICarWithPhysicsTryingToBlockTarget` | [Resumen](../reversing/CarCtrlSteer63/validation-summary.json) |
+| CCarCtrl | `SteerAICarWithPhysicsTryingToBlockTarget_Stop` | [Resumen](../reversing/CarCtrlSteer63/validation-summary.json) |
+| CCarCtrl | `SteerAIHeliAsPoliceHeli` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
+| CCarCtrl | `SteerAIHeliFlyingAwayFromPlayer` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
+| CCarCtrl | `SteerAIHeliToCrashAndBurn` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
+| CCarCtrl | `SteerAIHeliToFollowEntity` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
+| CCarCtrl | `SteerAIHeliToKeepEntityInView` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
+| CCarCtrl | `SteerAIHeliToLand` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
+| CCarCtrl | `SteerAIHeliTowardsTargetCoors` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
+| CCarCtrl | `SteerAIPlaneToCrashAndBurn` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
+| CCarCtrl | `SteerAIPlaneToFollowEntity` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
+| CCarCtrl | `SteerAIPlaneTowardsTargetCoors` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
+| CCarCtrl | `StopCarIfNodesAreInvalid` | [Resumen](../reversing/CarCtrlRest63/validation-summary.json) |
+| CCarCtrl | `SwitchBetweenPhysicsAndGhost` | [Resumen](../reversing/CarCtrlRest63/validation-summary.json) |
 | CCarCtrl | `SwitchVehicleToRealPhysics` | [Resumen](../reversing/DependenciesCarCtrl4/validation-summary.json) |
+| CCarCtrl | `TestCollisionBetween2MovingRects` | [Resumen](../reversing/CarCtrlWeave63A/validation-summary.json) |
+| CCarCtrl | `TestCollisionBetween2MovingRects_OnlyFrontBumper` | [Resumen](../reversing/CarCtrlWeave63A/validation-summary.json) |
+| CCarCtrl | `TestWhetherToFirePlaneGuns` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
+| CCarCtrl | `ThisVehicleShouldTryNotToTurn` | [Resumen](../reversing/CarCtrlRest63/validation-summary.json) |
+| CCarCtrl | `TriggerDogFightMoves` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
 | CCarCtrl | `UpdateCarCount` | [Resumen](../reversing/DependenciesCarCtrl4/validation-summary.json) |
+| CCarCtrl | `UpdateCarOnRails` | [Resumen](../reversing/CarCtrlWeave63C/validation-summary.json) |
+| CCarCtrl | `WeaveForObject` | [Resumen](../reversing/CarCtrlWeave63A/validation-summary.json) |
+| CCarCtrl | `WeaveForOtherCar` | [Resumen](../reversing/CarCtrlWeave63A/validation-summary.json) |
+| CCarCtrl | `WeaveThroughCarsSectorList<CPtrListDoubleLink<CVehicle*>>` | [Resumen](../reversing/CarCtrlWeave63B/validation-summary.json) |
+| CCarCtrl | `WeaveThroughObjectsSectorList<CPtrListDoubleLink<CObject*>>` | [Resumen](../reversing/CarCtrlWeave63B/validation-summary.json) |
+| CCarCtrl | `WeaveThroughPedsSectorList<CPtrListDoubleLink<CPed*>>` | [Resumen](../reversing/CarCtrlWeave63B/validation-summary.json) |
 | CCarEnterExit | `AddInCarAnim` | [Resumen](../reversing/MiscWave2/validation-summary.json) |
 | CCarEnterExit | `CarHasDoorToClose` | [Resumen](../reversing/MiscWave2/validation-summary.json) |
 | CCarEnterExit | `CarHasDoorToOpen` | [Resumen](../reversing/MiscWave2/validation-summary.json) |
@@ -8895,7 +8958,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CCam` | 48 | 0 | 48 | 0 |
 | `CCamera` | 118 | 0 | 118 | 0 |
 | `CCarAI` | 25 | 0 | 25 | 0 |
-| `CCarCtrl` | 30 | 0 | 30 | 0 |
+| `CCarCtrl` | 93 | 0 | 93 | 0 |
 | `CCarEnterExit` | 32 | 0 | 32 | 0 |
 | `CCarFXRenderer` | 10 | 0 | 10 | 0 |
 | `CCarGenerator` | 8 | 0 | 8 | 0 |

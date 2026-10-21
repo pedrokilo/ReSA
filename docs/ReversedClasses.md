@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-20 16:34 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-21 06:05 UTC
 
 ## Objetivo y dimensiones de progreso
 
@@ -12,15 +12,15 @@ La [hoja de ruta de ReSA](ProjectRoadmap.md) define una reconstrucción funciona
 | --- | --- | --- |
 | Clases completas | `████████████████████` | 802/818 · 98.04% |
 | Clases validadas (de las completas) | `████████████████████` | 802/802 · 100.00% |
-| Entradas de catálogo reconstruidas (ver [cobertura real del EXE](#cobertura-exe)) | `███████████████████░` | 8,782/9,214 · 95.31% |
-| Funciones validadas (de las reconstruidas) | `████████████████████` | 8,782/8,782 · 100.00% |
-| Funciones reconstruidas escritas solo en C++ (sin ensamblador) | `████████████████████` | 8,781/8,782 · 99.99% |
+| Entradas de catálogo reconstruidas (ver [cobertura real del EXE](#cobertura-exe)) | `███████████████████░` | 8,845/9,215 · 95.98% |
+| Funciones validadas (de las reconstruidas) | `████████████████████` | 8,845/8,845 · 100.00% |
+| Funciones reconstruidas escritas solo en C++ (sin ensamblador) | `████████████████████` | 8,844/8,845 · 99.99% |
 
 Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL. La última barra cuenta, de las funciones reconstruidas, las que tienen fuente identificada y sin `__asm` ni `naked`; las entradas sin fuente identificada de forma inequívoca no se cuentan como C++. El detalle está en [ImplementacionesDelJuego.md](ImplementacionesDelJuego.md).
 
 **Migración de ensamblador a C++:** en `source/game_sa` ya no queda ningún `__asm` ni función `naked`: todo lo reconstruido está escrito en C++, con resultados validados contra el EXE dentro del juego. Regla del proyecto: todo lo que se reconstruya va en C++, dos archivos por clase (`.cpp` y `.h`) y sin duplicados ([proceso](../reversing/CppOnlyMigration/PROCESO.md)). Historial y excepciones documentadas: [estado de la migración](../reversing/CppOnlyMigration/README.md) · [FILES.md](../reversing/CppOnlyMigration/FILES.md).
 
-Hay 8,782 entradas catalogadas, 0 bloqueadas y 8,782 sin bloqueo. No constituyen un inventario exhaustivo del EXE. Desbloqueada no significa validada, activa ni independiente. No se deducen hooks eliminados del contador de locks. Las extensiones o adaptaciones NOTSA (4, en [hooks_notsa.csv](hooks_notsa.csv)) quedan fuera de la cuenta.
+Hay 8,845 entradas catalogadas, 0 bloqueadas y 8,845 sin bloqueo. No constituyen un inventario exhaustivo del EXE. Desbloqueada no significa validada, activa ni independiente. No se deducen hooks eliminados del contador de locks. Las extensiones o adaptaciones NOTSA (4, en [hooks_notsa.csv](hooks_notsa.csv)) quedan fuera de la cuenta.
 
 ### Siguientes mediciones
 
@@ -28,19 +28,19 @@ Estas dimensiones todavía no tienen un porcentaje útil: indican el trabajo que
 
 | Dimensión | Estado actual | Qué hay que hacer |
 | --- | --- | --- |
-| Validaciones vigentes para el árbol actual | 0/8,782 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). |
-| Dependencias de funciones originales eliminadas | Medido (cota inferior): 1,205 funciones del EXE siguen llamándose directamente desde código ya reemplazado (937 del juego, 210 RenderWare/D3D, 58 CRT); cierre transitivo del juego: 1,206 funciones / 295,912 bytes. Ver [Cobertura real del EXE](#cobertura-exe) | Resolver las llamadas indirectas (tablas de punteros, callbacks) para convertir la cota inferior en un valor exacto, y eliminar o sustituir las dependencias directas que quedan. |
+| Validaciones vigentes para el árbol actual | 0/8,845 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). |
+| Dependencias de funciones originales eliminadas | Medido (cota inferior): 1,209 funciones del EXE siguen llamándose directamente desde código ya reemplazado (941 del juego, 210 RenderWare/D3D, 58 CRT); cierre transitivo del juego: 1,143 funciones / 254,964 bytes. Ver [Cobertura real del EXE](#cobertura-exe) | Resolver las llamadas indirectas (tablas de punteros, callbacks) para convertir la cota inferior en un valor exacto, y eliminar o sustituir las dependencias directas que quedan. |
 
-**Validación consolidada parcialmente:** 8782 funciones con evidencia aprobada vinculada, 470 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
+**Validación consolidada parcialmente:** 8845 funciones con evidencia aprobada vinculada, 470 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
 
 ## Vista general
 
 | Clases validadas | Completas por validar | Funciones validadas | Reconstruidas por validar | Funciones por reconstruir |
 | :---: | :---: | :---: | :---: | :---: |
-| **802 / 802** | **0 / 802** | **8,782 / 8,782** | **0 / 8,782** | **432 / 9,214** |
-| 100.00% | 0.00% | 100.00% | 0.00% | 4.69% |
+| **802 / 802** | **0 / 802** | **8,845 / 8,845** | **0 / 8,845** | **370 / 9,215** |
+| 100.00% | 0.00% | 100.00% | 0.00% | 4.02% |
 
-Reconstrucción por clases: 802 completas, 6 parciales y 10 sin revertir de 818 (incluye 432 funciones del juego con envoltura al EXE aún sin reconstruir, en 16 clases o grupos).
+Reconstrucción por clases: 802 completas, 6 parciales y 10 sin revertir de 818 (incluye 370 funciones del juego con envoltura al EXE aún sin reconstruir, en 16 clases o grupos).
 
 **Ir a:** [Completas](#completas) · [Parciales](#parciales) · [Sin revertir](#sin-revertir) · [Cohorte nuevo por dificultad](#cohorte-nuevo) · [Cómo leer y actualizar](#metodo)
 
@@ -51,18 +51,18 @@ Reconstrucción por clases: 802 completas, 6 parciales y 10 sin revertir de 818 
 
 ## Cobertura real del EXE (estimación)
 
-Las barras de arriba miden **filas del catálogo** (`hooks.csv`), no el EXE. Esta sección mide el propio ejecutable original con el análisis estático ([MemoryMap](MemoryMap/README.md): 17,765 entradas de función detectadas y 3.72 MB de cuerpos de función), cruzado con el catálogo, el registro de validación y las envolturas pendientes. 8,782 filas reconstruidas equivalen a **8,753 funciones distintas del EXE ya reemplazadas** (varias filas son sobrescrituras virtuales que comparten cuerpo).
+Las barras de arriba miden **filas del catálogo** (`hooks.csv`), no el EXE. Esta sección mide el propio ejecutable original con el análisis estático ([MemoryMap](MemoryMap/README.md): 17,765 entradas de función detectadas y 3.72 MB de cuerpos de función), cruzado con el catálogo, el registro de validación y las envolturas pendientes. 8,845 filas reconstruidas equivalen a **8,816 funciones distintas del EXE ya reemplazadas** (varias filas son sobrescrituras virtuales que comparten cuerpo).
 
 | Región del EXE | Funciones | Bytes de código | Reemplazadas por C++ (funciones) | Reemplazadas (bytes) |
 | --- | ---: | ---: | --- | --- |
-| Juego y plataforma (0x401000–0x74FFFF) | 11,804 | 3,007,877 | `███████████████░░░░░` 8,683 · 73.6% | `█████████████████░░░` 84.0% |
+| Juego y plataforma (0x401000–0x74FFFF) | 11,804 | 3,007,877 | `███████████████░░░░░` 8,746 · 74.1% | `█████████████████░░░` 85.3% |
 | RenderWare y D3D (0x750000–0x81FFFF) | 1,889 | 600,971 | `█░░░░░░░░░░░░░░░░░░░` 61 · 3.2% | `░░░░░░░░░░░░░░░░░░░░` 0.3% |
 | CRT/MSVC y runtime (0x820000 en adelante) | 4,072 | 115,711 | `░░░░░░░░░░░░░░░░░░░░` 9 · 0.2% | `░░░░░░░░░░░░░░░░░░░░` 0.2% |
-| **Total** | **17,765** | **3,724,559** | `██████████░░░░░░░░░░` 8,753 · 49.3% | `██████████████░░░░░░` 67.9% |
+| **Total** | **17,765** | **3,724,559** | `██████████░░░░░░░░░░` 8,816 · 49.6% | `██████████████░░░░░░` 69.0% |
 
-**Qué significa para un ejecutable independiente.** No hace falta reconstruir las 17,765 funciones: RenderWare/D3D y el CRT son bibliotecas enlazadas dentro del EXE (5,961 entradas, 19% de los bytes) que se sustituirían enlazando una implementación equivalente, no reescribiéndolas desde el original. El trabajo propio del proyecto es el código del juego (11,804 funciones, 81% de los bytes), y de él ya está reemplazado el **84% de los bytes** (74% de las funciones: las que quedan son más pequeñas que la media). Entre las 11,804 entradas del juego hay 1,835 de 16 bytes o menos (stubs, thunks y helpers).
+**Qué significa para un ejecutable independiente.** No hace falta reconstruir las 17,765 funciones: RenderWare/D3D y el CRT son bibliotecas enlazadas dentro del EXE (5,961 entradas, 19% de los bytes) que se sustituirían enlazando una implementación equivalente, no reescribiéndolas desde el original. El trabajo propio del proyecto es el código del juego (11,804 funciones, 81% de los bytes), y de él ya está reemplazado el **85% de los bytes** (74% de las funciones: las que quedan son más pequeñas que la media). Entre las 11,804 entradas del juego hay 1,835 de 16 bytes o menos (stubs, thunks y helpers).
 
-### Lo que falta del código del juego: 3,121 funciones, 482 KB
+### Lo que falta del código del juego: 3,058 funciones, 441 KB
 
 Mapa completo de las funciones del juego, con lista por estado, bloque de direcciones y módulo estimado: [JuegoExe](JuegoExe/README.md).
 
@@ -71,20 +71,20 @@ Mapa completo de las funciones del juego, con lista por estado, bloque de direcc
 | D. Sin llamadas directas ni vtable | 433 | 60,777 | Código muerto o alcanzado por tablas de punteros, callbacks o scripts: hay que revisarlo, no contarlo sin más. |
 | C. Llamadas directas solo desde código aún no reemplazado | 563 | 76,153 | Dependen de reconstruir antes A y B; parte puede ser código muerto. |
 | B. Métodos virtuales (en una vtable) no alcanzados por llamada directa | 919 | 49,432 | Probablemente necesarios: se ejecutan por despacho virtual. |
-| A. Llamadas directamente desde código ya reemplazado (cierre transitivo) | 1,206 | 295,912 | **Trabajo necesario**: la DLL sigue dependiendo de ellas. Es el piso para la independencia. |
+| A. Llamadas directamente desde código ya reemplazado (cierre transitivo) | 1,143 | 254,964 | **Trabajo necesario**: la DLL sigue dependiendo de ellas. Es el piso para la independencia. |
 
-Del código reemplazado, **1,205 funciones del EXE siguen llamándose directamente** (937 del juego, 210 de RenderWare/D3D y 58 del CRT). Esa es la lista corta de dependencias reales del original que hay que eliminar o sustituir.
+Del código reemplazado, **1,209 funciones del EXE siguen llamándose directamente** (941 del juego, 210 de RenderWare/D3D y 58 del CRT). Esa es la lista corta de dependencias reales del original que hay que eliminar o sustituir.
 
 > [!NOTE]
 > **Cotas y límites.** Es un análisis estático: hay 6,004 llamadas indirectas sin resolver que no están en el grafo, así que A es una **cota inferior** del trabajo. La partición por regiones usa la dirección, no una clasificación función a función. «Reemplazada» significa que el hook existe y pasó su banco; no acredita independencia del EXE ni que la validación siga vigente para el árbol actual. Se regenera con `contrib/exe_coverage.py` al sincronizar la documentación.
 
 <a id="no-en-cpp"></a>
 
-### Funciones que ya tenemos y aún no están en C++: 432
+### Funciones que ya tenemos y aún no están en C++: 370
 
-Son envolturas: la DLL ya tiene la función y su hook, pero el cuerpo todavía llama al EXE original. Están separadas en tres secciones: **código del juego (231)**, que es el trabajo propio del proyecto, y las bibliotecas RenderWare/D3D (192) y CRT (9), que se sustituirían enlazando equivalentes. Las funciones del EXE sin nombre ni hook (el resto de lo que falta) están en el [mapa del código del juego](JuegoExe/README.md). Fuente: [envolturas-pendientes.csv](implementaciones/envolturas-pendientes.csv).
+Son envolturas: la DLL ya tiene la función y su hook, pero el cuerpo todavía llama al EXE original. Están separadas en tres secciones: **código del juego (169)**, que es el trabajo propio del proyecto, y las bibliotecas RenderWare/D3D (192) y CRT (9), que se sustituirían enlazando equivalentes. Las funciones del EXE sin nombre ni hook (el resto de lo que falta) están en el [mapa del código del juego](JuegoExe/README.md). Fuente: [envolturas-pendientes.csv](implementaciones/envolturas-pendientes.csv).
 
-#### Código del juego: 231 funciones en 12 clases o grupos
+#### Código del juego: 169 funciones en 12 clases o grupos
 
 | Clase o grupo | Pendientes | Funciones (dirección en el EXE) |
 | --- | ---: | --- |
@@ -98,8 +98,8 @@ Son envolturas: la DLL ya tiene la función y su hook, pero el cuerpo todavía l
 | CPlayerPed | 13 | `ProcessAnimGroups` 0x006098F0<br>`SetRealMoveAnim` 0x0060A9C0<br>`Compute3rdPersonMouseTarget` 0x0060B650<br>`DrawTriangleForMouseRecruitPed` 0x0060BA80<br>`KeepAreaAroundPlayerClear` 0x0060C1E0<br>`MakeThisPedJoinOurGroup` 0x0060C840<br>`PlayerWantsToAttack` 0x0060CC50<br>`SetInitialState` 0x0060CD20<br>`EvaluateNeighbouringTarget` 0x0060D1C0<br>`ProcessGroupBehaviour` 0x0060D350<br>`ProcessWeaponSwitch` 0x0060D850<br>`FindWeaponLockOnTarget` 0x0060DC50<br>`FindNextWeaponLockOnTarget` 0x0060E530 |
 | CVehicle | 17 | `AddReplacementUpgrade` 0x006D3830<br>`ProcessBikeWheel` 0x006D73B0<br>`InflictDamage` 0x006D7C90<br>`AddSingleWheelParticles` 0x006DE880<br>`RemoveVehicleUpgrade` 0x006DF930<br>`AddUpgrade` 0x006DFA20<br>`UpdateTrailerLink` 0x006DFC50<br>`UpdateTractorLink` 0x006E0050<br>`ScanAndMarkTargetForHeatSeekingMissile` 0x006E0400<br>`FireHeatSeakingMissile` 0x006E05C0<br>`PossiblyDropFreeFallBombForPlayer` 0x006E07E0<br>`ProcessSirenAndHorn` 0x006E0950<br>`AddVehicleUpgrade` 0x006E3290<br>`GetPlaneWeaponFiringStatus` 0x006E3440<br>`ProcessWeapons` 0x006E3950<br>`FireFixedMachineGuns` 0x0073DF00<br>`DoDriveByShootings` 0x00741FD0 |
 | Fx_c | 17 | `AddBlood` 0x0049EB00<br>`AddWood` 0x0049EE10<br>`AddSparks` 0x0049F040<br>`AddTyreBurst` 0x0049F300<br>`AddBulletImpact` 0x0049F3D0<br>`AddPunchImpact` 0x0049F670<br>`AddDebris` 0x0049F750<br>`AddGlass` 0x0049F970<br>`AddWheelSpray` 0x0049FB30<br>`AddWheelGrass` 0x0049FF20<br>`AddWheelGravel` 0x004A0170<br>`AddWheelMud` 0x004A03C0<br>`AddWheelSand` 0x004A0610<br>`AddWheelDust` 0x004A09C0<br>`TriggerWaterHydrant` 0x004A0D70<br>`TriggerGunshot` 0x004A0DE0<br>`TriggerTankFire` 0x004A0FA0 |
+| CCarCtrl | 18 | `GenerateEmergencyServicesCar` <br>`ClitargetOrientationToLink` 0x00422760<br>`GenerateCarCreationCoors2` 0x00424210<br>`PossiblyRemoveVehicle` 0x00424F80<br>`PickNextNodeToChaseCar` 0x00426EF0<br>`PickNextNodeToFollowPath` 0x00427740<br>`GenerateOneEmergencyServicesCar` 0x0042B7D0<br>`FindNodesThisCarIsNearestTo` 0x0042BD20<br>`CreatePoliceChase` 0x0042C2B0<br>`CreateConvoy` 0x0042C740<br>`PickNextNodeRandomly` 0x0042DE80<br>`DragCarToPoint` 0x0042EC90<br>`GenerateOneRandomCar` 0x00430050<br>`FindAngleToWeaveThroughTraffic` 0x004325C0<br>`SteerAICarWithPhysicsFollowPath` 0x00434900<br>`SteerAICarWithPhysicsFollowPath_Racing` 0x00435830<br>`SteerAICarWithPhysics_OnlyMission` 0x00436A90<br>`SteerAICarWithPhysics` 0x00437C20 |
 | (helpers y globales sin clase) | 79 | `_rwD3D9SetStreams` <br>`_rwObjectHasFrameSetFrame` <br>`CameraControlGarageDoors` <br>`ComputeTargetDoorToExit` <br>`ExeFree` <br>`FightChooseAttackAIExe` <br>`FightChooseAttackPlayerExe` <br>`FightFindTargetOnGroundExe` <br>`FightGetAvailableComboSetExe` <br>`FightStartAnimExe` <br>`GaCalcDistToRectSq` <br>`GaCountCarsCenterWithin` <br>`GaFindDoorsWithGarage` <br>`GaIsAnyCarBlockingDoor` <br>`GaIsAnyOtherCarTouching` <br>`GaIsAnyOtherPedTouching` <br>`GaIsPlayerOutside` <br>`GaNeatlyLineUp` <br>`GaRestoreHideOut` <br>`GaRestoreImpounding` <br>`GaSlideDoorClosed` <br>`GaSlideDoorOpen` <br>`GaStoreAndRemoveImpounding` <br>`GaThrowCarsNearDoorOut` <br>`GetFirstTextureCallback` <br>`IndexDataBufferPop` <br>`IndexDataBufferResize` <br>`operator delete` <br>`operator delete[]` <br>`operator new` <br>`operator new[]` <br>`RpClumpGtaCancelStream` <br>`RpClumpGtaStreamRead1` <br>`RpClumpGtaStreamRead2` <br>`RpMaterialUVAnimApplyUpdate` <br>`RwEngineGetVideoModeInfo` <br>`RwTexDictionaryGtaStreamRead1` <br>`RwTexDictionaryGtaStreamRead2` <br>`RwTextureRead` <br>`RxLockedPipeAddFragment` <br>`StencilTransformPoints` <br>`TextureBufferPop` <br>`TextureBufferPush` <br>`TextureBufferPushWithoutIncreasingCounter` <br>`TextureBufferResize` <br>`TextureBufferSetup` <br>`Selector de modelo de ped para ataque de bandas, sin símbolo confirmado` 0x00406E80<br>`CGarage unnamed camera door helper` 0x00449FF0<br>`CPathFind generador de coordenadas de ped sin símbolo confirmado` 0x0044E790<br>`CAEMFDecoder helper abrir movie/media sonido` 0x004E7990<br>`CAEMFDecoder helper obtener formato media` 0x004E7A80<br>`CCam helper arrest camera de from/initialise sin símbolo confirmado` 0x00512EF0<br>`CCamera unnamed geometry helper` 0x00514030<br>`CCam unnamed arrest cop-source helper` 0x00515D80<br>`CCam helper copSource alternativo=true sin símbolo confirmado` 0x00516010<br>`GetMillisecondTime` 0x005617C0<br>`TransformPoint` 0x0059C890<br>`RsLoadPresetViews` 0x00619D60<br>`RsSavePresetView` 0x00619FA0<br>`helper sin símbolo confirmado` 0x0061A3D0<br>`FightStrikeDamageExe` 0x0061C740<br>`FightHitPedExe` 0x0061CBA0<br>`FightHitObjExe` 0x0061D400<br>`CTaskSimpleGangDriveBy helper de animación sin símbolo confirmado` 0x00627B20<br>`CTaskSimpleGangDriveBy helper para shooter sin símbolo confirmado` 0x00627CC0<br>`CreateRouteTask` 0x00655140<br>`RemoveUpgradeCB` 0x006D3300<br>`FindUpgradeCB` 0x006D3370<br>`CWaterLevel helper de agua distante` 0x006E6870<br>`CWaterLevel helper de agua cercana` 0x006E6A10<br>`CWaterLevel helper de envío de agua acumulada sin símbolo confirmado` 0x006E7680<br>`Creación de objeto toalla para sunbathe sin símbolo confirmado` 0x006EABA0<br>`CFont helper de impresión de segmento sin símbolo confirmado` 0x00719B40<br>`RwTextureGtaStreamRead` 0x00730E60<br>`RwTexDictionaryGtaStreamRead` 0x00730FC0<br>`RpClumpGetBoundingSphere` 0x00734FC0<br>`SkinGetBonePositionsToTable` 0x00735360<br>`GetDXVersion` 0x00745650<br>`DIReleaseMouse` 0x00746F70 |
-| CCarCtrl | 80 | `SetUpDriverAndPassengersForVehicle` 0x004217C0<br>`ThisVehicleShouldTryNotToTurn` 0x00421FE0<br>`FindPathDirection` 0x00422090<br>`SwitchBetweenPhysicsAndGhost` 0x004222A0<br>`FindSpeedMultiplier` 0x004224E0<br>`StopCarIfNodesAreInvalid` 0x00422590<br>`FindPercDependingOnDistToLink` 0x00422620<br>`FindIntersection2Lines` 0x004226F0<br>`ClitargetOrientationToLink` 0x00422760<br>`SteerAICarBlockingPlayerForwardAndBack` 0x00422B20<br>`FlyAIPlaneInCertainDirection` 0x00423000<br>`SteerAIPlaneTowardsTargetCoors` 0x00423790<br>`SteerAIPlaneToFollowEntity` 0x004237F0<br>`SteerAIPlaneToCrashAndBurn` 0x00423880<br>`SteerAIHeliToCrashAndBurn` 0x004238E0<br>`FlyAIHeliToTarget_FixedOrientation` 0x00423940<br>`GenerateCarCreationCoors2` 0x00424210<br>`ChooseModel` 0x00424CE0<br>`PossiblyRemoveVehicle` 0x00424F80<br>`SlowCarDownForPedsSectorList` 0x00425440<br>`TestCollisionBetween2MovingRects` 0x00425B30<br>`TestCollisionBetween2MovingRects_OnlyFrontBumper` 0x00425F70<br>`WeaveForOtherCar` 0x00426350<br>`WeaveForObject` 0x00426BC0<br>`PickNextNodeToChaseCar` 0x00426EF0<br>`PickNextNodeToFollowPath` 0x00427740<br>`DealWithBend_Racing` 0x00428040<br>`SteerAICarWithPhysicsTryingToBlockTarget_Stop` 0x00428990<br>`SteerAIBoatWithPhysicsHeadingForTarget` 0x00428BE0<br>`SteerAIBoatWithPhysicsAttackingPlayer` 0x00428DE0<br>`SteerAIBoatWithPhysicsCirclingPlayer` 0x00429090<br>`TriggerDogFightMoves` 0x00429300<br>`TestWhetherToFirePlaneGuns` 0x00429520<br>`GetAIPlaneToAttackPlayer` 0x00429780<br>`GetAIPlaneToDoDogFight` 0x00429890<br>`FlyAIHeliInCertainDirection` 0x00429A70<br>`SteerAIHeliTowardsTargetCoors` 0x0042A630<br>`GetAIHeliToFlyInDirection` 0x0042A730<br>`SteerAIHeliToFollowEntity` 0x0042A750<br>`SteerAIHeliAsPoliceHeli` 0x0042AAD0<br>`SteerAIHeliFlyingAwayFromPlayer` 0x0042ACB0<br>`SteerAIHeliToLand` 0x0042AD30<br>`SteerAIHeliToKeepEntityInView` 0x0042AEB0<br>`FireHeliRocketsAtTarget` 0x0042B270<br>`FindLinksToGoWithTheseNodes` 0x0042B470<br>`GenerateOneEmergencyServicesCar` 0x0042B7D0<br>`FindNodesThisCarIsNearestTo` 0x0042BD20<br>`CreatePoliceChase` 0x0042C2B0<br>`CreateConvoy` 0x0042C740<br>`ScanForPedDanger` 0x0042CE40<br>`SlowCarDownForOtherCar` 0x0042D0E0<br>`SlowCarDownForObjectsSectorList` 0x0042D4F0<br>`WeaveThroughCarsSectorList` 0x0042D680<br>`WeaveThroughPedsSectorList` 0x0042D7E0<br>`WeaveThroughObjectsSectorList` 0x0042D950<br>`IsThisAnAppropriateNode` 0x0042DAB0<br>`PickNextNodeRandomly` 0x0042DE80<br>`DragCarToPoint` 0x0042EC90<br>`GetAIPlaneToDoDogFightAgainstPlayer` 0x0042F370<br>`GetAIHeliToAttackPlayer` 0x0042F3C0<br>`JoinCarWithRoadSystem` 0x0042F5A0<br>`JoinCarWithRoadSystemGotoCoors` 0x0042F870<br>`ReconsiderRoute` 0x0042FC40<br>`GenerateOneRandomCar` 0x00430050<br>`SlowCarDownForCarsSectorList` 0x00432420<br>`FindAngleToWeaveThroughTraffic` 0x004325C0<br>`PickNextNodeAccordingStrategy` 0x00432B10<br>`SteerAICarWithPhysicsFollowPreRecordedPath` 0x00432DD0<br>`SteerAICarWithPhysicsHeadingForTarget` 0x00433280<br>`SteerAICarWithPhysicsTryingToBlockTarget` 0x004335E0<br>`SteerAICarTowardsPointInEscort` 0x004336D0<br>`SteerAICarParkParallel` 0x00433BA0<br>`SteerAICarParkPerpendicular` 0x00433EA0<br>`SetCoordsOfScriptCar` 0x004342A0<br>`FindMaximumSpeedForThisCarInTraffic` 0x00434400<br>`SteerAICarWithPhysicsFollowPath` 0x00434900<br>`SteerAICarWithPhysicsFollowPath_Racing` 0x00435830<br>`UpdateCarOnRails` 0x00436540<br>`SteerAICarWithPhysics_OnlyMission` 0x00436A90<br>`SteerAICarWithPhysics` 0x00437C20 |
 
 #### RenderWare y D3D (biblioteca): 192
 
@@ -633,7 +633,7 @@ Incluye las clases del catálogo que ya tienen todas sus entradas reconstruidas 
 | [CPlayerPed](../source/game_sa/Entity/Ped/PlayerPed.cpp) | 52/52 | **0** | **13** | 100.00% | 52 | 0 |
 | [CVehicle](../source/game_sa/Entity/Vehicle/Vehicle.cpp) | 149/149 | **0** | **17** | 100.00% | 149 | 0 |
 | [Fx_c](../source/game_sa/Fx/Fx.cpp) | 9/9 | **0** | **17** | 100.00% | 9 | 0 |
-| [CCarCtrl](../source/game_sa/CarCtrl.cpp) | 30/30 | **0** | **80** | 100.00% | 30 | 0 |
+| [CCarCtrl](../source/game_sa/CarCtrl.cpp) | 93/93 | **0** | **18** | 100.00% | 93 | 0 |
 
 <a id="sin-revertir"></a>
 ## 🔴 Sin revertir · 10 clases
@@ -661,10 +661,10 @@ Destinos originales explícitos que `source/` sigue referenciando y que no estab
 | Nivel | Juego | de ellas pendientes | Biblioteca | de ellas pendientes |
 | --- | ---: | ---: | ---: | ---: |
 | 1 Muy fácil | 9 | 1 | 77 | 1 |
-| 2 Fácil | 25 | 15 | 104 | 104 |
-| 3 Media | 75 | 45 | 69 | 69 |
-| 4 Difícil | 57 | 46 | 23 | 23 |
-| 5 Muy difícil | 19 | 16 | 6 | 6 |
+| 2 Fácil | 25 | 10 | 104 | 104 |
+| 3 Media | 75 | 22 | 69 | 69 |
+| 4 Difícil | 57 | 24 | 23 | 23 |
+| 5 Muy difícil | 19 | 11 | 6 | 6 |
 
 <details>
 <summary>Funciones del juego (185), de menor a mayor tamaño en bytes</summary>
@@ -675,11 +675,11 @@ Destinos originales explícitos que `source/` sigue referenciando y que no estab
 | 1 | 1 Muy fácil | embedded_call | helper sin símbolo confirmado (usado por FightUnwind) | `0x0061A3A0` | 7 | ✅ validada |
 | 20 | 2 Fácil | wrapper | CTaskComplexFollowPedFootsteps::MakeAbortable | `0x00694ED0` | 8 | ✅ validada |
 | 10 | 2 Fácil | embedded_call | helper sin símbolo confirmado (usado por CHud::DrawVitalStats) | `0x00406CE0` | 19 | pendiente |
-| 47 | 2 Fácil | wrapper | CCarCtrl::GetAIHeliToFlyInDirection | `0x0042A730` | 28 | pendiente |
+| 47 | 2 Fácil | wrapper | CCarCtrl::GetAIHeliToFlyInDirection | `0x0042A730` | 28 | ✅ validada |
 | 2 | 1 Muy fácil | embedded_call | CPool&lt;CVehicle&gt;::GetAt (acceso por índice a la ranura de 0xA18 bytes) | `0x0041CC10` | 31 | ✅ validada |
 | 4 | 1 Muy fácil | wrapper | CPedGroups::RemoveAllFollowersFromGroup | `0x005FB8A0` | 32 | ✅ validada |
 | 5 | 1 Muy fácil | wrapper | CDecisionMakerTypes::FlushDecisionMakerEventResponse | `0x00604490` | 35 | ✅ validada |
-| 13 | 2 Fácil | wrapper | CCarCtrl::ThisVehicleShouldTryNotToTurn | `0x00421FE0` | 38 | pendiente |
+| 13 | 2 Fácil | wrapper | CCarCtrl::ThisVehicleShouldTryNotToTurn | `0x00421FE0` | 38 | ✅ validada |
 | 3 | 1 Muy fácil | wrapper | CAutoPilot::RemoveOnePathNode | `0x0041B950` | 45 | ✅ validada |
 | 6 | 1 Muy fácil | wrapper | CGarages::CountCarsInHideoutGarage | `0x0044A210` | 47 | ✅ validada |
 | 24 | 2 Fácil | wrapper | CTaskComplexKillPedOnFoot::MakeAbortable | `0x00625E40` | 48 | ✅ validada |
@@ -692,34 +692,34 @@ Destinos originales explícitos que `source/` sigue referenciando y que no estab
 | 49 | 2 Fácil | embedded_call | helper sin símbolo confirmado (usado por CDecisionMakerTypes::InjectHooks) | `0x00606060` | 59 | pendiente |
 | 9 | 2 Fácil | wrapper | FindUpgradeCB | `0x006D3370` | 61 | pendiente |
 | 27 | 2 Fácil | wrapper | CTaskComplexPartnerChat::MakeAbortable | `0x00682C60` | 65 | ✅ validada |
-| 55 | 3 Media | wrapper | CCarCtrl::SteerAIPlaneTowardsTargetCoors | `0x00423790` | 75 | pendiente |
-| 90 | 2 Fácil | wrapper | CCarCtrl::GetAIPlaneToDoDogFightAgainstPlayer | `0x0042F370` | 76 | pendiente |
+| 55 | 3 Media | wrapper | CCarCtrl::SteerAIPlaneTowardsTargetCoors | `0x00423790` | 75 | ✅ validada |
+| 90 | 2 Fácil | wrapper | CCarCtrl::GetAIPlaneToDoDogFightAgainstPlayer | `0x0042F370` | 76 | ✅ validada |
 | 19 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CameraObbeCinemaCycle) | `0x0050B830` | 77 | pendiente |
-| 7 | 2 Fácil | wrapper | CCarCtrl::SteerAIPlaneToCrashAndBurn | `0x00423880` | 81 | pendiente |
+| 7 | 2 Fácil | wrapper | CCarCtrl::SteerAIPlaneToCrashAndBurn | `0x00423880` | 81 | ✅ validada |
 | 42 | 2 Fácil | embedded_call | helper sin símbolo confirmado (usado por WaitForPedUnwind) | `0x0061A3D0` | 85 | pendiente |
-| 17 | 3 Media | wrapper | CCarCtrl::SteerAIHeliToCrashAndBurn | `0x004238E0` | 89 | pendiente |
+| 17 | 3 Media | wrapper | CCarCtrl::SteerAIHeliToCrashAndBurn | `0x004238E0` | 89 | ✅ validada |
 | 53 | 2 Fácil | wrapper | CSearchLight::IsSpottedEntity | `0x00493900` | 90 | ✅ validada |
 | 18 | 2 Fácil | wrapper | CTaskComplexPartner::StreamRequiredAnims | `0x00682310` | 93 | ✅ validada |
-| 21 | 3 Media | wrapper | CCarCtrl::FindIntersection2Lines | `0x004226F0` | 100 | pendiente |
+| 21 | 3 Media | wrapper | CCarCtrl::FindIntersection2Lines | `0x004226F0` | 100 | ✅ validada |
 | 87 | 2 Fácil | embedded_call | helper sin símbolo confirmado (usado por CAEUserRadioTrackManager::WriteUserTracksFile) | `0x004F4620` | 102 | pendiente |
 | 34 | 2 Fácil | wrapper | RemoveUpgradeCB | `0x006D3300` | 108 | pendiente |
 | 35 | 2 Fácil | embedded_call | helper sin símbolo confirmado (usado por CTaskSimpleCarDrive::StartRollingDoor) | `0x0063C840` | 108 | pendiente |
 | 11 | 2 Fácil | wrapper | CStats::FindLeastFavoriteRadioStation | `0x00559010` | 110 | ✅ validada |
 | 62 | 2 Fácil | wrapper | CTaskComplexPartnerDeal::StreamRequiredAnims | `0x006823C0` | 113 | ✅ validada |
-| 63 | 3 Media | wrapper | CCarCtrl::SteerAIHeliFlyingAwayFromPlayer | `0x0042ACB0` | 122 | pendiente |
+| 63 | 3 Media | wrapper | CCarCtrl::SteerAIHeliFlyingAwayFromPlayer | `0x0042ACB0` | 122 | ✅ validada |
 | 23 | 3 Media | embedded_call | TransformPoint | `0x0059C890` | 124 | pendiente |
 | 70 | 2 Fácil | embedded_call | helper sin símbolo confirmado (usado por ProcessPlayerVehicleInteraction) | `0x006919C0` | 126 | pendiente |
 | 38 | 2 Fácil | wrapper | CreateRouteTask | `0x00655140` | 130 | pendiente |
-| 15 | 2 Fácil | wrapper | CCarCtrl::StopCarIfNodesAreInvalid | `0x00422590` | 137 | pendiente |
+| 15 | 2 Fácil | wrapper | CCarCtrl::StopCarIfNodesAreInvalid | `0x00422590` | 137 | ✅ validada |
 | 25 | 2 Fácil | embedded_call | CHeli::FindSwatPositionRelativeToHeli | `0x006C4760` | 141 | pendiente |
 | 28 | 3 Media | embedded_call | CGarage::IsGarageEmpty | `0x0044A9C0` | 141 | ✅ validada |
-| 59 | 3 Media | wrapper | CCarCtrl::SteerAIPlaneToFollowEntity | `0x004237F0` | 141 | pendiente |
+| 59 | 3 Media | wrapper | CCarCtrl::SteerAIPlaneToFollowEntity | `0x004237F0` | 141 | ✅ validada |
 | 65 | 3 Media | wrapper | CTaskComplexFollowPedFootsteps::CreateFirstSubTask | `0x00695000` | 141 | ✅ validada |
 | 30 | 3 Media | wrapper | CCustomBuildingDNPipeline::CustomPipeMaterialSetup | `0x005D7120` | 149 | ✅ validada |
 | 85 | 3 Media | wrapper | D3DResourceSystem::CreateIndexBuffer | `0x007306A0` | 153 | ✅ validada |
 | 29 | 3 Media | embedded_call | CTrainNode::GetLightingFromCollision | `0x006F5F80` | 161 | ✅ validada |
 | 31 | 3 Media | wrapper | FightStrikeDamageExe | `0x0061C740` | 164 | pendiente |
-| 26 | 3 Media | wrapper | CCarCtrl::FindSpeedMultiplier | `0x004224E0` | 167 | pendiente |
+| 26 | 3 Media | wrapper | CCarCtrl::FindSpeedMultiplier | `0x004224E0` | 167 | ✅ validada |
 | 76 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CProjectileInfo::AddProjectile) | `0x005A4030` | 167 | pendiente |
 | 45 | 3 Media | wrapper | CTaskComplexPartner::CreateFirstSubTask | `0x00681F20` | 177 | ✅ validada |
 | 22 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CCam::Process_DW_HeliChaseCam) | `0x0050E180` | 184 | pendiente |
@@ -729,106 +729,106 @@ Destinos originales explícitos que `source/` sigue referenciando y que no estab
 | 37 | 3 Media | wrapper | CPlayerPed::PlayerWantsToAttack | `0x0060CC50` | 200 | pendiente |
 | 39 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CTaskSimpleGangDriveBy::AITarget) | `0x00621B10` | 201 | pendiente |
 | 79 | 3 Media | wrapper | D3DResourceSystem::CreateTexture | `0x00730510` | 204 | ✅ validada |
-| 32 | 3 Media | wrapper | CCarCtrl::FindPercDependingOnDistToLink | `0x00422620` | 208 | pendiente |
-| 36 | 3 Media | wrapper | CCarCtrl::SwitchBetweenPhysicsAndGhost | `0x004222A0` | 208 | pendiente |
+| 32 | 3 Media | wrapper | CCarCtrl::FindPercDependingOnDistToLink | `0x00422620` | 208 | ✅ validada |
+| 36 | 3 Media | wrapper | CCarCtrl::SwitchBetweenPhysicsAndGhost | `0x004222A0` | 208 | ✅ validada |
 | 72 | 3 Media | wrapper | Fx_c::AddPunchImpact | `0x0049F670` | 209 | pendiente |
-| 67 | 3 Media | wrapper | CCarCtrl::TestWhetherToFirePlaneGuns | `0x00429520` | 214 | pendiente |
+| 67 | 3 Media | wrapper | CCarCtrl::TestWhetherToFirePlaneGuns | `0x00429520` | 214 | ✅ validada |
 | 74 | 3 Media | wrapper | diPadInit | `0x007485C0` | 214 | ✅ validada |
 | 33 | 3 Media | wrapper | CQuaternion::Get | `0x0059C080` | 215 | ✅ validada |
 | 41 | 3 Media | wrapper | CPlantMgr::AtomicCreatePrelitIfNeeded | `0x005DD100` | 221 | ✅ validada |
-| 71 | 3 Media | wrapper | CCarCtrl::SteerAICarWithPhysicsTryingToBlockTarget | `0x004335E0` | 240 | pendiente |
-| 98 | 3 Media | wrapper | CCarCtrl::SteerAIHeliTowardsTargetCoors | `0x0042A630` | 244 | pendiente |
-| 121 | 3 Media | wrapper | CCarCtrl::GetAIPlaneToAttackPlayer | `0x00429780` | 261 | pendiente |
+| 71 | 3 Media | wrapper | CCarCtrl::SteerAICarWithPhysicsTryingToBlockTarget | `0x004335E0` | 240 | ✅ validada |
+| 98 | 3 Media | wrapper | CCarCtrl::SteerAIHeliTowardsTargetCoors | `0x0042A630` | 244 | ✅ validada |
+| 121 | 3 Media | wrapper | CCarCtrl::GetAIPlaneToAttackPlayer | `0x00429780` | 261 | ✅ validada |
 | 114 | 3 Media | wrapper | D3DResourceSystem::DestroyIndexBuffer | `0x00730D30` | 263 | ✅ validada |
 | 61 | 3 Media | wrapper | CTaskComplexPartnerShove::GetPartnerSequence | `0x00683120` | 275 | ✅ validada |
 | 107 | 3 Media | wrapper | CGarage::IsEntityEntirelyOutside | `0x00448D30` | 281 | ✅ validada |
 | 115 | 3 Media | wrapper | CTaskComplexFollowPedFootsteps::CreateNextSubTask | `0x00694EE0` | 283 | ✅ validada |
 | 99 | 3 Media | wrapper | CTaskSimpleFight::MakeAbortable | `0x006239F0` | 284 | ✅ validada |
-| 130 | 3 Media | wrapper | CCarCtrl::PickNextNodeAccordingStrategy | `0x00432B10` | 321 | pendiente |
+| 130 | 3 Media | wrapper | CCarCtrl::PickNextNodeAccordingStrategy | `0x00432B10` | 321 | ✅ validada |
 | 46 | 3 Media | embedded_call | FxInterpInfoFloat_c::GetVal | `0x004A8470` | 330 | ✅ validada |
 | 52 | 3 Media | wrapper | CVehicle::AddUpgrade | `0x006DFA20` | 333 | pendiente |
 | 77 | 3 Media | embedded_call | CDecision::MakeDecision | `0x006040D0` | 333 | ✅ validada |
 | 84 | 3 Media | wrapper | CGarage::IsEntityEntirelyInside3D | `0x00448BE0` | 333 | ✅ validada |
-| 80 | 3 Media | wrapper | CCarCtrl::WeaveThroughCarsSectorList | `0x0042D680` | 341 | pendiente |
+| 80 | 3 Media | wrapper | CCarCtrl::WeaveThroughCarsSectorList | `0x0042D680` | 341 | ✅ validada |
 | 129 | 3 Media | wrapper | CTaskComplexWalkRoundObject::ControlSubTask | `0x006575F0` | 341 | ✅ validada |
 | 136 | 3 Media | wrapper | CTaskComplexWalkRoundObject::CreateNextSubTask | `0x00657220` | 341 | ✅ validada |
 | 64 | 3 Media | wrapper | CPed::SpecialEntityCalcCollisionSteps | `0x005E3E90` | 342 | ✅ validada |
-| 82 | 3 Media | wrapper | CCarCtrl::WeaveThroughObjectsSectorList | `0x0042D950` | 343 | pendiente |
+| 82 | 3 Media | wrapper | CCarCtrl::WeaveThroughObjectsSectorList | `0x0042D950` | 343 | ✅ validada |
 | 75 | 3 Media | wrapper | CTaskComplexPartnerDeal::GetPartnerSequence | `0x00682440` | 344 | ✅ validada |
-| 81 | 3 Media | wrapper | CCarCtrl::WeaveThroughPedsSectorList | `0x0042D7E0` | 346 | pendiente |
+| 81 | 3 Media | wrapper | CCarCtrl::WeaveThroughPedsSectorList | `0x0042D7E0` | 346 | ✅ validada |
 | 102 | 3 Media | wrapper | RwTextureGtaStreamRead | `0x00730E60` | 347 | pendiente |
 | 89 | 3 Media | wrapper | CVehicle::PossiblyDropFreeFallBombForPlayer | `0x006E07E0` | 359 | pendiente |
-| 83 | 3 Media | wrapper | CCarCtrl::SteerAIHeliToLand | `0x0042AD30` | 370 | pendiente |
+| 83 | 3 Media | wrapper | CCarCtrl::SteerAIHeliToLand | `0x0042AD30` | 370 | ✅ validada |
 | 60 | 3 Media | wrapper | SkinGetBonePositionsToTable | `0x00735360` | 381 | pendiente |
 | 66 | 3 Media | wrapper | RpClumpGetBoundingSphere | `0x00734FC0` | 384 | pendiente |
 | 92 | 3 Media | wrapper | CGarage::IsStaticPlayerCarEntirelyInside | `0x0044A830` | 386 | ✅ validada |
 | 51 | 3 Media | wrapper | CPlayerPed::EvaluateNeighbouringTarget | `0x0060D1C0` | 388 | pendiente |
-| 88 | 3 Media | wrapper | CCarCtrl::SlowCarDownForObjectsSectorList | `0x0042D4F0` | 391 | pendiente |
+| 88 | 3 Media | wrapper | CCarCtrl::SlowCarDownForObjectsSectorList | `0x0042D4F0` | 391 | ✅ validada |
 | 145 | 3 Media | wrapper | RsSavePresetView | `0x00619FA0` | 393 | pendiente |
 | 68 | 3 Media | embedded_call | CHeli::CHeli | `0x006C4190` | 398 | pendiente |
 | 104 | 3 Media | embedded_call | FxEmitter_c::AddParticle | `0x004A4050` | 400 | ✅ validada |
-| 112 | 3 Media | wrapper | CCarCtrl::SlowCarDownForCarsSectorList | `0x00432420` | 413 | pendiente |
+| 112 | 3 Media | wrapper | CCarCtrl::SlowCarDownForCarsSectorList | `0x00432420` | 413 | ✅ validada |
 | 142 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CDecisionMakerTypes::InjectHooks) | `0x004650F0` | 415 | pendiente |
 | 106 | 3 Media | embedded_call | FxEmitter_c::AddParticle | `0x004A3EA0` | 418 | ✅ validada |
 | 108 | 3 Media | wrapper | CVehicle::AddReplacementUpgrade | `0x006D3830` | 423 | pendiente |
 | 149 | 3 Media | wrapper | D3DResourceSystem::DestroyTexture | `0x00730B70` | 439 | ✅ validada |
 | 54 | 3 Media | wrapper | CVehicle::ScanAndMarkTargetForHeatSeekingMissile | `0x006E0400` | 445 | pendiente |
-| 117 | 3 Media | wrapper | CCarCtrl::GetAIPlaneToDoDogFight | `0x00429890` | 472 | pendiente |
-| 126 | 3 Media | wrapper | CCarCtrl::GetAIHeliToAttackPlayer | `0x0042F3C0` | 472 | pendiente |
-| 91 | 3 Media | wrapper | CCarCtrl::SteerAIHeliAsPoliceHeli | `0x0042AAD0` | 475 | pendiente |
+| 117 | 3 Media | wrapper | CCarCtrl::GetAIPlaneToDoDogFight | `0x00429890` | 472 | ✅ validada |
+| 126 | 3 Media | wrapper | CCarCtrl::GetAIHeliToAttackPlayer | `0x0042F3C0` | 472 | ✅ validada |
+| 91 | 3 Media | wrapper | CCarCtrl::SteerAIHeliAsPoliceHeli | `0x0042AAD0` | 475 | ✅ validada |
 | 56 | 3 Media | embedded_call | CPathFind::FindParkingNodeInArea | `0x004513F0` | 476 | ✅ validada |
 | 110 | 3 Media | wrapper | CTaskComplexFollowPedFootsteps::CreateSubTask | `0x00695E40` | 488 | ✅ validada |
 | 119 | 3 Media | wrapper | FightHitObjExe | `0x0061D400` | 494 | pendiente |
-| 57 | 3 Media | wrapper | CCarCtrl::SteerAIBoatWithPhysicsHeadingForTarget | `0x00428BE0` | 497 | pendiente |
-| 58 | 4 Difícil | wrapper | CCarCtrl::FireHeliRocketsAtTarget | `0x0042B270` | 506 | pendiente |
-| 73 | 4 Difícil | wrapper | CCarCtrl::FindPathDirection | `0x00422090` | 515 | pendiente |
-| 105 | 4 Difícil | wrapper | CCarCtrl::TriggerDogFightMoves | `0x00429300` | 526 | pendiente |
+| 57 | 3 Media | wrapper | CCarCtrl::SteerAIBoatWithPhysicsHeadingForTarget | `0x00428BE0` | 497 | ✅ validada |
+| 58 | 4 Difícil | wrapper | CCarCtrl::FireHeliRocketsAtTarget | `0x0042B270` | 506 | ✅ validada |
+| 73 | 4 Difícil | wrapper | CCarCtrl::FindPathDirection | `0x00422090` | 515 | ✅ validada |
+| 105 | 4 Difícil | wrapper | CCarCtrl::TriggerDogFightMoves | `0x00429300` | 526 | ✅ validada |
 | 97 | 4 Difícil | wrapper | CVehicle::FireHeatSeakingMissile | `0x006E05C0` | 529 | pendiente |
 | 133 | 4 Difícil | wrapper | CRemote::GivePlayerRemoteControlledCar | `0x0045AB10` | 548 | pendiente |
 | 109 | 4 Difícil | wrapper | Fx_c::AddWood | `0x0049EE10` | 549 | pendiente |
 | 146 | 4 Difícil | wrapper | RsLoadPresetViews | `0x00619D60` | 552 | pendiente |
 | 116 | 4 Difícil | embedded_call | CTaskSimpleSlideToCoord::ProcessPed | `0x0066C4E0` | 570 | ✅ validada |
-| 94 | 4 Difícil | wrapper | CCarCtrl::SteerAICarWithPhysicsTryingToBlockTarget_Stop | `0x00428990` | 583 | pendiente |
+| 94 | 4 Difícil | wrapper | CCarCtrl::SteerAICarWithPhysicsTryingToBlockTarget_Stop | `0x00428990` | 583 | ✅ validada |
 | 69 | 4 Difícil | embedded_call | CPed::SpecialEntityPreCollisionStuff | `0x005E3C30` | 603 | ✅ validada |
 | 125 | 4 Difícil | embedded_call | helper sin símbolo confirmado (usado por CWeaponEffects::Render) | `0x0056EF90` | 608 | pendiente |
-| 101 | 4 Difícil | wrapper | CCarCtrl::SteerAIBoatWithPhysicsCirclingPlayer | `0x00429090` | 613 | pendiente |
+| 101 | 4 Difícil | wrapper | CCarCtrl::SteerAIBoatWithPhysicsCirclingPlayer | `0x00429090` | 613 | ✅ validada |
 | 153 | 4 Difícil | wrapper | CTaskComplexWalkRoundObject::CreateFirstSubTask | `0x00657380` | 620 | ✅ validada |
 | 127 | 4 Difícil | wrapper | CMentalState::Process | `0x006008A0` | 646 | ✅ validada |
-| 78 | 4 Difícil | wrapper | CCarCtrl::TestCollisionBetween2MovingRects_OnlyFrontBumper | `0x00425F70` | 672 | pendiente |
-| 96 | 4 Difícil | wrapper | CCarCtrl::ChooseModel | `0x00424CE0` | 672 | pendiente |
-| 111 | 4 Difícil | wrapper | CCarCtrl::SteerAIBoatWithPhysicsAttackingPlayer | `0x00428DE0` | 684 | pendiente |
+| 78 | 4 Difícil | wrapper | CCarCtrl::TestCollisionBetween2MovingRects_OnlyFrontBumper | `0x00425F70` | 672 | ✅ validada |
+| 96 | 4 Difícil | wrapper | CCarCtrl::ChooseModel | `0x00424CE0` | 672 | ✅ validada |
+| 111 | 4 Difícil | wrapper | CCarCtrl::SteerAIBoatWithPhysicsAttackingPlayer | `0x00428DE0` | 684 | ✅ validada |
 | 159 | 4 Difícil | wrapper | CStats::BuildStatLine | `0x00559230` | 735 | ✅ validada |
-| 131 | 4 Difícil | wrapper | CCarCtrl::SteerAICarBlockingPlayerForwardAndBack | `0x00422B20` | 745 | pendiente |
-| 134 | 4 Difícil | wrapper | CCarCtrl::SteerAICarParkParallel | `0x00433BA0` | 762 | pendiente |
+| 131 | 4 Difícil | wrapper | CCarCtrl::SteerAICarBlockingPlayerForwardAndBack | `0x00422B20` | 745 | ✅ validada |
+| 134 | 4 Difícil | wrapper | CCarCtrl::SteerAICarParkParallel | `0x00433BA0` | 762 | ✅ validada |
 | 95 | 4 Difícil | embedded_call | helper sin símbolo confirmado (usado por CPlayerInfo::Process) | `0x0056EC80` | 776 | pendiente |
 | 150 | 4 Difícil | wrapper | CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents | `0x00603720` | 777 | ✅ validada |
 | 113 | 4 Difícil | wrapper | CHeli::BlowUpCar | `0x006C6D30` | 795 | pendiente |
-| 128 | 4 Difícil | wrapper | CCarCtrl::SteerAICarParkPerpendicular | `0x00433EA0` | 800 | pendiente |
-| 141 | 4 Difícil | wrapper | CCarCtrl::WeaveForObject | `0x00426BC0` | 803 | pendiente |
+| 128 | 4 Difícil | wrapper | CCarCtrl::SteerAICarParkPerpendicular | `0x00433EA0` | 800 | ✅ validada |
+| 141 | 4 Difícil | wrapper | CCarCtrl::WeaveForObject | `0x00426BC0` | 803 | ✅ validada |
 | 168 | 4 Difícil | wrapper | CTaskComplexKillPedOnFoot::CreateNextSubTask | `0x0062B150` | 831 | ✅ validada |
 | 139 | 4 Difícil | wrapper | CTaskComplexPartnerChat::GetPartnerSequence | `0x00684380` | 836 | ✅ validada |
-| 123 | 4 Difícil | wrapper | CCarCtrl::SteerAICarWithPhysicsHeadingForTarget | `0x00433280` | 841 | pendiente |
-| 93 | 4 Difícil | wrapper | CCarCtrl::FindLinksToGoWithTheseNodes | `0x0042B470` | 862 | pendiente |
+| 123 | 4 Difícil | wrapper | CCarCtrl::SteerAICarWithPhysicsHeadingForTarget | `0x00433280` | 841 | ✅ validada |
+| 93 | 4 Difícil | wrapper | CCarCtrl::FindLinksToGoWithTheseNodes | `0x0042B470` | 862 | ✅ validada |
 | 138 | 4 Difícil | wrapper | CHeli::GenerateHeli | `0x006C6520` | 867 | pendiente |
 | 160 | 4 Difícil | wrapper | CHeli::SendDownSwat | `0x006C69C0` | 869 | pendiente |
-| 137 | 4 Difícil | wrapper | CCarCtrl::SteerAIHeliToFollowEntity | `0x0042A750` | 896 | pendiente |
+| 137 | 4 Difícil | wrapper | CCarCtrl::SteerAIHeliToFollowEntity | `0x0042A750` | 896 | ✅ validada |
 | 103 | 4 Difícil | wrapper | CCarCtrl::ClitargetOrientationToLink | `0x00422760` | 918 | pendiente |
-| 156 | 4 Difícil | wrapper | CCarCtrl::IsThisAnAppropriateNode | `0x0042DAB0` | 932 | pendiente |
-| 118 | 4 Difícil | wrapper | CCarCtrl::SteerAIHeliToKeepEntityInView | `0x0042AEB0` | 939 | pendiente |
+| 156 | 4 Difícil | wrapper | CCarCtrl::IsThisAnAppropriateNode | `0x0042DAB0` | 932 | ✅ validada |
+| 118 | 4 Difícil | wrapper | CCarCtrl::SteerAIHeliToKeepEntityInView | `0x0042AEB0` | 939 | ✅ validada |
 | 157 | 4 Difícil | wrapper | CVehicle::GetPlaneWeaponFiringStatus | `0x006E3440` | 944 | pendiente |
 | 151 | 4 Difícil | wrapper | CAutomobile::Render | `0x006A2B10` | 1005 | pendiente |
 | 158 | 4 Difícil | wrapper | CPlayerPed::MakeThisPedJoinOurGroup | `0x0060C840` | 1029 | pendiente |
-| 144 | 4 Difícil | wrapper | CCarCtrl::SlowCarDownForOtherCar | `0x0042D0E0` | 1032 | pendiente |
+| 144 | 4 Difícil | wrapper | CCarCtrl::SlowCarDownForOtherCar | `0x0042D0E0` | 1032 | ✅ validada |
 | 172 | 4 Difícil | wrapper | CTaskComplexLeaveCar::MakeAbortable | `0x00641100` | 1069 | pendiente |
-| 100 | 4 Difícil | wrapper | CCarCtrl::TestCollisionBetween2MovingRects | `0x00425B30` | 1081 | pendiente |
+| 100 | 4 Difícil | wrapper | CCarCtrl::TestCollisionBetween2MovingRects | `0x00425B30` | 1081 | ✅ validada |
 | 165 | 4 Difícil | wrapper | CCarCtrl::CreatePoliceChase | `0x0042C2B0` | 1161 | pendiente |
-| 120 | 4 Difícil | wrapper | CCarCtrl::FlyAIHeliToTarget_FixedOrientation | `0x00423940` | 1167 | pendiente |
+| 120 | 4 Difícil | wrapper | CCarCtrl::FlyAIHeliToTarget_FixedOrientation | `0x00423940` | 1167 | ✅ validada |
 | 152 | 4 Difícil | wrapper | CCarCtrl::CreateConvoy | `0x0042C740` | 1168 | pendiente |
-| 122 | 4 Difícil | wrapper | CCarCtrl::SteerAICarWithPhysicsFollowPreRecordedPath | `0x00432DD0` | 1177 | pendiente |
+| 122 | 4 Difícil | wrapper | CCarCtrl::SteerAICarWithPhysicsFollowPreRecordedPath | `0x00432DD0` | 1177 | ✅ validada |
 | 180 | 4 Difícil | wrapper | CHeli::PreRender | `0x006C5420` | 1204 | pendiente |
 | 135 | 4 Difícil | wrapper | CStoredCar::RestoreCar | `0x00447E40` | 1211 | pendiente |
 | 143 | 4 Difícil | wrapper | CTaskComplexLeaveCar::CreateSubTask | `0x00641530` | 1214 | pendiente |
-| 132 | 4 Difícil | wrapper | CCarCtrl::SteerAICarTowardsPointInEscort | `0x004336D0` | 1223 | pendiente |
+| 132 | 4 Difícil | wrapper | CCarCtrl::SteerAICarTowardsPointInEscort | `0x004336D0` | 1223 | ✅ validada |
 | 164 | 4 Difícil | wrapper | FightHitPedExe | `0x0061CBA0` | 1289 | pendiente |
 | 124 | 4 Difícil | wrapper | CCarCtrl::FindNodesThisCarIsNearestTo | `0x0042BD20` | 1323 | pendiente |
 | 154 | 4 Difícil | wrapper | CCarCtrl::FindAngleToWeaveThroughTraffic | `0x004325C0` | 1339 | pendiente |
@@ -838,18 +838,18 @@ Destinos originales explícitos que `source/` sigue referenciando y que no estab
 | 177 | 4 Difícil | wrapper | __MainWndProc | `0x00747EB0` | 1458 | ✅ validada |
 | 161 | 4 Difícil | wrapper | CHeli::ProcessFlyingCarStuff | `0x006C4E60` | 1467 | pendiente |
 | 171 | 5 Muy difícil | wrapper | CTaskComplexPartner::CreateNextSubTask | `0x00683AD0` | 1521 | ✅ validada |
-| 167 | 5 Muy difícil | wrapper | CCarCtrl::WeaveForOtherCar | `0x00426350` | 1558 | pendiente |
+| 167 | 5 Muy difícil | wrapper | CCarCtrl::WeaveForOtherCar | `0x00426350` | 1558 | ✅ validada |
 | 173 | 5 Muy difícil | wrapper | CHeli::ProcessControlInputs | `0x006C4830` | 1571 | pendiente |
 | 147 | 5 Muy difícil | wrapper | CCarCtrl::DragCarToPoint | `0x0042EC90` | 1748 | pendiente |
-| 166 | 5 Muy difícil | wrapper | CCarCtrl::SlowCarDownForPedsSectorList | `0x00425440` | 1761 | pendiente |
+| 166 | 5 Muy difícil | wrapper | CCarCtrl::SlowCarDownForPedsSectorList | `0x00425440` | 1761 | ✅ validada |
 | 176 | 5 Muy difícil | wrapper | CTaskSimpleFight::ProcessPed | `0x00629920` | 1907 | ✅ validada |
-| 140 | 5 Muy difícil | wrapper | CCarCtrl::FlyAIPlaneInCertainDirection | `0x00423000` | 1917 | pendiente |
+| 140 | 5 Muy difícil | wrapper | CCarCtrl::FlyAIPlaneInCertainDirection | `0x00423000` | 1917 | ✅ validada |
 | 179 | 5 Muy difícil | wrapper | CMissionCleanup::Process | `0x00468560` | 1955 | pendiente |
 | 155 | 5 Muy difícil | wrapper | CCarCtrl::PickNextNodeToChaseCar | `0x00426EF0` | 2111 | pendiente |
 | 163 | 5 Muy difícil | wrapper | CCarCtrl::PickNextNodeToFollowPath | `0x00427740` | 2193 | pendiente |
 | 175 | 5 Muy difícil | wrapper | CHeli::ProcessControl | `0x006C7050` | 2352 | pendiente |
-| 169 | 5 Muy difícil | wrapper | CCarCtrl::DealWithBend_Racing | `0x00428040` | 2361 | pendiente |
-| 162 | 5 Muy difícil | wrapper | CCarCtrl::FlyAIHeliInCertainDirection | `0x00429A70` | 2994 | pendiente |
+| 169 | 5 Muy difícil | wrapper | CCarCtrl::DealWithBend_Racing | `0x00428040` | 2361 | ✅ validada |
+| 162 | 5 Muy difícil | wrapper | CCarCtrl::FlyAIHeliInCertainDirection | `0x00429A70` | 2994 | ✅ validada |
 | 181 | 5 Muy difícil | wrapper | CCarCtrl::SteerAICarWithPhysicsFollowPath_Racing | `0x00435830` | 3320 | pendiente |
 | 184 | 5 Muy difícil | embedded_call | helper sin símbolo confirmado (usado por CameraObbeCinemaCycle) | `0x0051D770` | 3445 | pendiente |
 | 170 | 5 Muy difícil | wrapper | CCarCtrl::PickNextNodeRandomly | `0x0042DE80` | 3591 | pendiente |

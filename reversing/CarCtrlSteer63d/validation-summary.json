@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CCarCtrl::SteerAICarBlockingPlayerForwardAndBack": 4096
+  },
+  "covered_functions": {
+    "CCarCtrl::SteerAICarBlockingPlayerForwardAndBack": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wh-2 (HEAD df26d6fe7 + parche del banco). Los colaboradores se sustituyen por falsos identicos en ambos lados (parche en la entrada del EXE y en el cuerpo de la DLL cuando tienen hook; no se validan sus cuerpos): FindPlayerSpeed, FindPlayerEntity, FindPlayerCoors, CPlaceable::AllocateMatrix y CSimpleTransform::UpdateMatrix. CVector::Normalise (0x59C910) NO se sustituye: corre de verdad en el EXE (hook apagado) y en la DLL. El vehiculo, su matriz, la entidad del jugador (con o sin matriz) y su velocidad son objetos del banco. Ningun llamador del EXE lee EAX/ECX/EDX (ver README); solo se registran. Limites: NaN silenciosos; la entidad del jugador existe siempre (el EXE la desreferencia sin comprobar).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/CarCtrlSteer63d-20261020-232248-974597",
+  "summary_sha256": "6a7789e7a5fc46665c7b251d318068be28ec7b4ebbc1a4bd5a277da410a53cdf",
+  "result_txt_sha256": "c6013b8bf77f21a70c98a1223d09a8068b0685de357748b91e597089882321a3",
+  "log_sha256": "0ac308000d295ace35976d79ce81342317bae712481fde5953d265eba58c7218",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "38500151e70b17b411b32444ae75f4e6a8aecd7ab95beb4536e26cff31d2d326",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
+      "source/game_sa/CarCtrl.cpp": "a2a8c49829a45039c8275decb586a4c845db8c1781e27770afe5194ffb6c9588",
+      "source/game_sa/CarCtrl.h": "839c30f512d0d453d3c5ede12522b5104f7788fab874bf9cf8802b98ee09b49d",
+      "source/game_sa/X87Math.cpp": "544d7f4d9ff0cc13613206d60f611801b59da379cd8b4ae4e9afcc410f63fc58",
+      "source/game_sa/X87Math.h": "d2933f31fbe910a6ba6ee6e3abe717e599e5e8bf865a5fc5af98c1b102d97065",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/CarCtrlSteer63d/LiveComparison.hpp": "10604d2f7e87cd0866e32e3cb0905da8239171638e5cac45a0a359d4fbc2c7b9",
+      "reversing/CarCtrlSteer63d/Core.hpp": "e0b481a4388323a9cfe618eb64badf9a48a8ff8cdf918c4d748bca3e32a05c0f",
+      "reversing/CarCtrlSteer63d/Fixtures.hpp": "6187f45ded6edfabc0ce2129863f837946bc1aaa6375b020661af3615c23ce51",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

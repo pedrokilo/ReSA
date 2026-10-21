@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "pairs": 12288,
+  "differences": 0,
+  "registered_pairs": 12288,
+  "registered_functions": 3,
+  "functions": {
+    "CCarCtrl::PickNextNodeAccordingStrategy": 4096,
+    "CCarCtrl::JoinCarWithRoadSystem": 4096,
+    "CCarCtrl::JoinCarWithRoadSystemGotoCoors": 4096
+  },
+  "covered_functions": {
+    "CCarCtrl::PickNextNodeAccordingStrategy": true,
+    "CCarCtrl::JoinCarWithRoadSystem": true,
+    "CCarCtrl::JoinCarWithRoadSystemGotoCoors": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wh-4 (HEAD df26d6fe7 + fuentes del lote 63 parte C, tandas 1 a 3). Colaboradores sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y, si tienen hook activo, en el cuerpo de la DLL; no se validan sus cuerpos reales): FindPlayerCoors 0x56E010, FindPlayerVehicle 0x56E0D0 y las envolturas PickNextNodeToChaseCar 0x426EF0, PickNextNodeToFollowPath 0x427740 y PickNextNodeRandomly 0x42DE80 en PickNextNodeAccordingStrategy (el EXE empuja ademas un dword sobrante, el vehiculo del jugador o el objetivo, que la funcion llamada ignora); CPathFind::FindNodeClosestToCoorsFavourDirection 0x44FCE0 (devolucion por puntero oculto) y FindLinksToGoWithTheseNodes 0x42B470 (envoltura plugin::Call) en JoinCarWithRoadSystem; CPathFind::DoPathSearch 0x4515D0 (19 dwords de pila), RemoveBadStartNode 0x44E4F0 (sin reconstruir; por direccion), CAutoPilot::RemoveOnePathNode 0x41B950, FindLinksToGoWithTheseNodes 0x42B470 y JoinCarWithRoadSystem 0x42F5A0 (con el hook apagado fuera de su propia prueba, cuerpo de la DLL parcheado) en JoinCarWithRoadSystemGotoCoors. Los nodos, enlaces y areas de ThePaths son sinteticos (arenas con guardas; ThePaths.m_pPathNodes/m_pNodeLinks guardados y restaurados). Los bool de pila de DoPathSearch se registran con su byte bajo. JoinCarWithRoadSystem solo se prueba con matriz valida, como el EXE (que la desreferencia sin comprobarla); JoinCarWithRoadSystemGotoCoors con y sin matriz. Ningun llamador del EXE lee EAX/ECX/EDX de salida salvo AL de las dos funciones bool (que el banco compara).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/CarCtrlRest63C-20261020-235751-967776",
+  "summary_sha256": "aa795305e669c0330ef3914cd70e9800c6d7b1e9595d518390741ff785a4ecb0",
+  "result_txt_sha256": "7b852daecca410873727087aab7ce38ddb9332208917c517f26a0b750a603095",
+  "log_sha256": "d61bb18ce265bf8968be24e6e2652c47d5fffc98302c269d181024be493e0365",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "1333305943a297f1320c429484e298036ae58a01a96c1f57e28143748fcb7899",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/game_sa/CarCtrl.cpp": "a2a8c49829a45039c8275decb586a4c845db8c1781e27770afe5194ffb6c9588",
+      "source/game_sa/CarCtrl.h": "839c30f512d0d453d3c5ede12522b5104f7788fab874bf9cf8802b98ee09b49d",
+      "source/game_sa/X87Math.cpp": "544d7f4d9ff0cc13613206d60f611801b59da379cd8b4ae4e9afcc410f63fc58",
+      "source/game_sa/X87Math.h": "d2933f31fbe910a6ba6ee6e3abe717e599e5e8bf865a5fc5af98c1b102d97065",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/CarCtrlRest63C/LiveComparison.hpp": "0bf3dcc6ac14c170f595155c879ed721a74ba0753fb5694d28a82d61f73652f2",
+      "reversing/CarCtrlRest63C/Core.hpp": "1be54a0d7f4ef654db1b487b00718bbd594510b074b6d897a8d1c5763d496161",
+      "reversing/CarCtrlRest63C/Cases.hpp": "a88307833aa175fdd36a11b4d07e2e76e9cc9786251369206146a5cd35aa8b4e",
+      "reversing/CarCtrlRest63C/Fixtures.hpp": "4fc1278b4502f8243dbcae839bdf991ee9851e368bdcbdf11fd98700f4976b57",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

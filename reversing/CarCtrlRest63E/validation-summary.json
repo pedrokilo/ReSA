@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CCarCtrl::ChooseModel": 4096
+  },
+  "covered_functions": {
+    "CCarCtrl::ChooseModel": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wh-4 (HEAD df26d6fe7 + fuentes del lote 63 parte C, tandas 1 a 5). Colaboradores sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y, si tienen hook, en el cuerpo de la DLL; no se validan sus cuerpos reales): rand del CRT del EXE 0x821B1E (sin hook), CGangWars::GangWarFightingGoingOn 0x443AC0, CCarCtrl::ChoosePoliceCarModel 0x421980, CLoadedCarGroup::PickRandomCar 0x611C50, CPopulation::PickGangCar 0x614490 y la funcion de 0x407180 (GetRandomNumberInRange_int32 de General.cpp). Las globales (CPopCycle::m_Num*_Cars, flags 0x96915B/0x96917A, 0xC0F240, tabla 0xC0F074, 0xC0FCB2/B4, estado de carga 0x8E4CD0 para los modelos 0..599, 0xA4448C y CPopCycle::m_pCurrZoneInfo) se escriben y restauran en cada caso; los valores de retorno de los colaboradores de modelo se acotan al rango de int16 extendido con signo. El unico llamador del EXE (0x43022A) lee EAX, que el banco compara entero.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/CarCtrlRest63E-20261020-234227-992176",
+  "summary_sha256": "0388e856470f4d07da35e92711341c021e8dc61fba88175bac589b204749b058",
+  "result_txt_sha256": "fccecdfa3b3ba3b2462f197507569fe53dac6a6c25fae71571c214d00526d8d2",
+  "log_sha256": "d0b835cd54d004decbe557c8675657ee9b7b83e594398b12b343d68df26424de",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "e5a1e71589307387c39e27124e93ad2a4dcb7f31b06df901762627182e0ef76b",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/game_sa/CarCtrl.cpp": "a2a8c49829a45039c8275decb586a4c845db8c1781e27770afe5194ffb6c9588",
+      "source/game_sa/CarCtrl.h": "839c30f512d0d453d3c5ede12522b5104f7788fab874bf9cf8802b98ee09b49d",
+      "source/game_sa/X87Math.cpp": "544d7f4d9ff0cc13613206d60f611801b59da379cd8b4ae4e9afcc410f63fc58",
+      "source/game_sa/X87Math.h": "d2933f31fbe910a6ba6ee6e3abe717e599e5e8bf865a5fc5af98c1b102d97065",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/CarCtrlRest63E/LiveComparison.hpp": "ec399c2f3c07815bddec8a77a778ab1d1b91ec151f1d62a4e36d020c8ffdbe77",
+      "reversing/CarCtrlRest63E/Core.hpp": "ea253e90313ad531fe457a772d7bf2ed7753339ad7037e4050bb5b789559e8c4",
+      "reversing/CarCtrlRest63E/Cases.hpp": "3136817217bc4f7584b7c2e236976721d36a64af46374caf00956c000ee08e68",
+      "reversing/CarCtrlRest63E/Fixtures.hpp": "cac0d98edbf3fbd7ede1c863f4a475797715b88c53237aef9b0c944d604950ee",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

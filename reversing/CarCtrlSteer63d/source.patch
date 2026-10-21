@@ -1,0 +1,90 @@
+diff --git a/source/game_sa/CarCtrl.cpp b/source/game_sa/CarCtrl.cpp
+index 8ed964e..f8440c8 100644
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -88,6 +88,7 @@ void CCarCtrl::InjectHooks()
+     RH_ScopedInstall(ClearInterestingVehicleList, 0x423F00);
+     RH_ScopedInstall(RegisterVehicleOfInterest, 0x423DE0);
+     RH_ScopedInstall(FindSequenceElement, 0x421770);
++    RH_ScopedInstall(SteerAICarBlockingPlayerForwardAndBack, 0x422B20);
+     RH_ScopedInstall(SwitchVehicleToRealPhysics, 0x423FC0);
+     RH_ScopedInstall(UpdateCarCount, 0x424000);
+     RH_ScopedInstall(FindSpeedMultiplierWithSpeedFromNodes, 0x424130);
+@@ -1011,7 +1012,76 @@ void CCarCtrl::SteerAIBoatWithPhysicsHeadingForTarget(CVehicle* vehicle, float a
+ 
+ // 0x422B20
+ void CCarCtrl::SteerAICarBlockingPlayerForwardAndBack(CVehicle* vehicle, float* arg2, float* arg3, float* arg4, bool* arg5) {
+-    plugin::Call<0x422B20, CVehicle*, float*, float*, float*, bool*>(vehicle, arg2, arg3, arg4, arg5);
++    // arg2 = giro (siempre 0), arg3 = acelerador, arg4 = freno, arg5 = freno de mano. El vehiculo se coloca delante o detras del jugador segun su velocidad lateral.
++    *arg2 = 0.0f;
++    *arg5 = false;
++
++    // Velocidad del jugador (copia) mas 0.1 x el avance de su entidad (sin comprobar nulo la entidad; la matriz se crea si falta)
++    const CVector playerSpeed = FindPlayerSpeed(-1);
++    CEntity* const playerEntity = FindPlayerEntity(-1);
++    if (!playerEntity->m_matrix) {
++        playerEntity->AllocateMatrix();                                     // 0x54F560
++        playerEntity->m_placement.UpdateMatrix(playerEntity->m_matrix);     // 0x54F1B0
++    }
++    const CVector& playerForward = playerEntity->m_matrix->GetForward();
++    const float playerForwardX = playerForward.x * 0.1f; // 0x858B1C
++    const float playerForwardY = playerForward.y * 0.1f;
++    const float playerVelocityX = playerForwardX + playerSpeed.x;
++    const float playerVelocityY = playerSpeed.y + playerForwardY;
++
++    // Ejes del vehiculo en el plano (derecha y avance), normalizados con z = 0
++    const CMatrix& matrix = *vehicle->m_matrix;
++    CVector right{ matrix.GetRight().x, matrix.GetRight().y, 0.0f };
++    right.Normalise(); // 0x59C910
++    CVector forward{ matrix.GetForward().x, matrix.GetForward().y, 0.0f };
++    forward.Normalise();
++
++    // Desplazamiento del jugador respecto al vehiculo, proyectado sobre el eje derecho (A) y velocidad lateral del jugador (C, 0.01 si es 0)
++    const CVector& pos = vehicle->GetPosition();
++    const CVector playerPos = FindPlayerCoors(-1); // 0x56E010
++    const float dx = playerPos.x - pos.x;
++    const float dy = playerPos.y - pos.y;
++    const float dz = playerPos.z - pos.z;
++    const float lateralOffset = (right.y * dy + dx * right.x) + dz * right.z;
++    float lateralSpeed = (right.y * playerVelocityY + right.x * playerVelocityX) + right.z * 0.0f;
++    if (lateralSpeed == 0.0f) {
++        lateralSpeed = 0.01f; // 0x858C58
++    }
++    const float t = -(lateralOffset / lateralSpeed);
++    if (t < 0.0f) {
++        *arg3 = 0.0f;
++        *arg4 = 0.0f;
++        return;
++    }
++
++    // Posicion del jugador (segunda llamada) frente al avance del vehiculo
++    const CVector& pos2 = vehicle->GetPosition();
++    const CVector playerPos2 = FindPlayerCoors(-1);
++    const float dx2 = playerPos2.x - pos2.x;
++    const float dy2 = playerPos2.y - pos2.y;
++    const float dz2 = playerPos2.z - pos2.z;
++    const CVector& moveSpeed = vehicle->m_vecMoveSpeed;
++    const float vehicleForwardSpeed = (forward.y * moveSpeed.y + forward.z * moveSpeed.z) + forward.x * moveSpeed.x;
++    const float playerForwardSpeed = (forward.y * playerVelocityY + forward.x * playerVelocityX) + forward.z * 0.0f;
++    const float ahead = (forward.y * dy2 + dx2 * forward.x) + dz2 * forward.z;
++    const float gap = (playerForwardSpeed * t + ahead) - vehicleForwardSpeed * t;
++    if (gap > 0.0f) {
++        const float scaled = gap * 0.1f;
++        *arg3 = 1.0f < scaled ? 1.0f : scaled;
++        *arg4 = 0.0f;
++    } else if (vehicleForwardSpeed > 0.0f) {
++        const float scaled = gap * -0.1f; // 0x858EF4
++        *arg3 = 0.0f;
++        const float brake = 1.0f < scaled ? 1.0f : scaled;
++        *arg4 = brake;
++        if (brake > 0.95f) { // 0x858EF0
++            *arg5 = true;
++        }
++    } else {
++        const float scaled = gap * 0.1f;
++        *arg3 = -1.0f > scaled ? -1.0f : scaled; // 0x858C1C
++        *arg4 = 0.0f;
++    }
+ }
+ 
+ // 0x433BA0

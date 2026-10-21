@@ -1,0 +1,171 @@
+diff --git a/source/game_sa/CarCtrl.cpp b/source/game_sa/CarCtrl.cpp
+index 8ed964e..5bd5940 100644
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -40,6 +40,7 @@ END GENERATED HOOK STATUS */
+ #include "CutsceneMgr.h"
+ #include "TheCarGenerators.h"
+ #include "eAreaCodes.h"
++#include "Tasks/TaskTypes/TaskComplexLeaveAnyCar.h"
+ 
+ #include <reversiblebugfixes/Bugs.hpp>
+ #ifdef _MSC_VER
+@@ -89,6 +90,8 @@ void CCarCtrl::InjectHooks()
+     RH_ScopedInstall(RegisterVehicleOfInterest, 0x423DE0);
+     RH_ScopedInstall(FindSequenceElement, 0x421770);
+     RH_ScopedInstall(SwitchVehicleToRealPhysics, 0x423FC0);
++    RH_ScopedInstall(SteerAICarParkParallel, 0x433BA0);
++    RH_ScopedInstall(SteerAICarParkPerpendicular, 0x433EA0);
+     RH_ScopedInstall(UpdateCarCount, 0x424000);
+     RH_ScopedInstall(FindSpeedMultiplierWithSpeedFromNodes, 0x424130);
+ }
+@@ -1014,14 +1017,147 @@ void CCarCtrl::SteerAICarBlockingPlayerForwardAndBack(CVehicle* vehicle, float*
+     plugin::Call<0x422B20, CVehicle*, float*, float*, float*, bool*>(vehicle, arg2, arg3, arg4, arg5);
+ }
+ 
++namespace {
++// Como el original (0x433DF5..0x433E49 y 0x4340C7..0x434173): al aparcar, el conductor y cada pasajero reciben una tarea CTaskComplexLeaveAnyCar(0, true, false) en la ranura primaria
++// 3 (SetTask 0x681AF0). Se reserva con CTask::operator new (0x61A5A0) y, si el pool esta agotado (nulo), no se construye y se asigna una tarea nula.
++CTask* ParkNewLeaveAnyCarTask() {
++    void* const mem = CTask::operator new(sizeof(CTaskComplexLeaveAnyCar));
++    return mem ? ::new (mem) CTaskComplexLeaveAnyCar(0, true, false) : nullptr;
++}
++
++// CTaskManager::SetTask (0x681AF0) esta definido en linea en la cabecera: se llama por la direccion del EXE, como el original
++void ParkSetPrimaryTask(CPed* ped, CTask* task) {
++    reinterpret_cast<void(__thiscall*)(CTaskManager*, CTask*, ePrimaryTasks, bool)>(0x681AF0)(&ped->GetTaskManager(), task, TASK_PRIMARY_PRIMARY, false);
++}
++
++void ParkOccupantsLeave(CVehicle* vehicle) {
++    if (vehicle->m_pDriver) {
++        CTask* const task = ParkNewLeaveAnyCarTask();
++        ParkSetPrimaryTask(vehicle->m_pDriver, task);
++    }
++    for (auto i = 0; i < 8; i++) { // m_apPassengers (+0x464), leidos con .data(): el EXE recorre las 8 ranuras
++        if (CPed* const passenger = vehicle->m_apPassengers.data()[i]) {
++            CTask* const task = ParkNewLeaveAnyCarTask();
++            ParkSetPrimaryTask(passenger, task);
++        }
++    }
++}
++
++// Nodo de la direccion (sin comprobar el indice; el area ya se comprobo)
++CPathNode* ParkNode(CNodeAddress address) {
++    return ThePaths.m_pPathNodes[address.m_wAreaId] + address.m_wNodeId;
++}
++} // namespace
++
+ // 0x433BA0
+ void CCarCtrl::SteerAICarParkParallel(CVehicle* vehicle, float* arg2, float* arg3, float* arg4, bool* arg5) {
+-    plugin::Call<0x433BA0, CVehicle*, float*, float*, float*, bool*>(vehicle, arg2, arg3, arg4, arg5);
++    // arg2 = giro, arg3 = acelerador, arg4 = freno, arg5 = freno de mano (los rellena HeadingForTarget). m_currentAddress (+0x390) y m_startingRouteNode (+0x394)
++    auto& autoPilot = vehicle->m_autoPilot;
++    const CNodeAddress startAddress = autoPilot.m_startingRouteNode;
++    if (!ThePaths.m_pPathNodes[startAddress.m_wAreaId]) {
++        autoPilot.m_nCarMission = static_cast<eCarMission>(0xB);
++        *arg4 = 0.0f;
++        *arg3 = 0.0f;
++        *arg2 = 0.0f;
++        return;
++    }
++    const CNodeAddress currentAddress = autoPilot.m_currentAddress;
++    if (!ThePaths.m_pPathNodes[currentAddress.m_wAreaId]) {
++        autoPilot.m_nCarMission = static_cast<eCarMission>(0xB);
++        *arg4 = 0.0f;
++        *arg3 = 0.0f;
++        *arg2 = 0.0f;
++        return;
++    }
++    CPathNode* const startNode = ParkNode(startAddress);
++    CPathNode* const currentNode = ParkNode(currentAddress);
++
++    // Mision 0x2E: el punto de aparcado esta 1 m por delante del nodo inicial, en la direccion del nodo actual al inicial; si no, es el propio nodo inicial
++    CVector target;
++    if (autoPilot.m_nCarMission == static_cast<eCarMission>(0x2E)) {
++        const CVector currentPos = currentNode->GetPosition();
++        const CVector startPos = startNode->GetPosition();
++        CVector direction{ startPos.x - currentPos.x, startPos.y - currentPos.y, startPos.z - currentPos.z };
++        direction.Normalise(); // 0x59C910
++        const CVector startPos2 = startNode->GetPosition();
++        target = CVector{ direction.x + startPos2.x, direction.y + startPos2.y, direction.z + startPos2.z };
++    } else {
++        target = startNode->GetPosition();
++    }
++    SteerAICarWithPhysicsHeadingForTarget(vehicle, nullptr, target.x, target.y, arg2, arg3, arg4, arg5);
++    autoPilot.m_nCruiseSpeed = std::min<uint8>(autoPilot.m_nCruiseSpeed, 8);
++
++    const CVector& pos = vehicle->GetPosition();
++    const float dx = target.x - pos.x;
++    const float dy = target.y - pos.y;
++    const float distance = std::sqrt(dx * dx + dy * dy);
++    if (autoPilot.m_nCarMission == static_cast<eCarMission>(0x2E)) {
++        if (distance < 4.0f) { // 0x858B90
++            autoPilot.m_nCarMission = static_cast<eCarMission>(0x32);
++        }
++        return;
++    }
++    if (!(distance < 2.0f)) { // 0x858CA0
++        return;
++    }
++    autoPilot.m_nCarMission = static_cast<eCarMission>(0xB);
++    vehicle->vehicleFlags.bEngineOn = false;  // flags (+0x428) &= 0xAF: motor (0x10) y luces (0x40)
++    vehicle->vehicleFlags.bLightsOn = false;
++    ParkOccupantsLeave(vehicle);
+ }
+ 
+ // 0x433EA0
+ void CCarCtrl::SteerAICarParkPerpendicular(CVehicle* vehicle, float* arg2, float* arg3, float* arg4, bool* arg5) {
+-    plugin::Call<0x433EA0, CVehicle*, float*, float*, float*, bool*>(vehicle, arg2, arg3, arg4, arg5);
++    // arg2 = giro, arg3 = acelerador, arg4 = freno, arg5 = freno de mano (los rellena HeadingForTarget). m_currentAddress (+0x390) y m_startingRouteNode (+0x394)
++    auto& autoPilot = vehicle->m_autoPilot;
++    const CNodeAddress startAddress = autoPilot.m_startingRouteNode;
++    if (!ThePaths.m_pPathNodes[startAddress.m_wAreaId]) {
++        autoPilot.m_nCarMission = static_cast<eCarMission>(0xB);
++        *arg4 = 0.0f;
++        *arg3 = 0.0f;
++        *arg2 = 0.0f;
++        return;
++    }
++    const CNodeAddress currentAddress = autoPilot.m_currentAddress;
++    if (!ThePaths.m_pPathNodes[currentAddress.m_wAreaId]) {
++        autoPilot.m_nCarMission = static_cast<eCarMission>(0xB);
++        *arg4 = 0.0f;
++        *arg3 = 0.0f;
++        *arg2 = 0.0f;
++        return;
++    }
++    CPathNode* const startNode = ParkNode(startAddress);
++    CPathNode* const currentNode = ParkNode(currentAddress);
++
++    // Mision 0x2D: si el vehiculo esta a menos de 6 m de la recta nodo inicial - nodo actual pasa a la 0x31; mientras siga en la 0x2D apunta al nodo actual, si no al inicial
++    if (autoPilot.m_nCarMission == static_cast<eCarMission>(0x2D)) {
++        const CVector startPos = startNode->GetPosition();
++        const CVector currentPos = currentNode->GetPosition();
++        const CVector lineStart{ startPos.x, startPos.y, 0.0f };
++        const CVector lineEnd{ currentPos.x, currentPos.y, 0.0f };
++        const CVector& pos = vehicle->GetPosition();
++        const CVector point{ pos.x, pos.y, 0.0f };
++        if (CCollision::DistToMathematicalLine(&lineStart, &lineEnd, &point) < 6.0f) { // 0x412970, 0x858B44
++            autoPilot.m_nCarMission = static_cast<eCarMission>(0x31);
++        }
++    }
++    const CVector target = (autoPilot.m_nCarMission == static_cast<eCarMission>(0x2D)) ? currentNode->GetPosition() : startNode->GetPosition();
++    SteerAICarWithPhysicsHeadingForTarget(vehicle, nullptr, target.x, target.y, arg2, arg3, arg4, arg5);
++    autoPilot.m_nCruiseSpeed = std::min<uint8>(autoPilot.m_nCruiseSpeed, 8);
++
++    // Distancia al nodo inicial (no al punto de mira): a menos de 2 m aparca
++    const CVector& pos = vehicle->GetPosition();
++    const CVector startPos = startNode->GetPosition();
++    const float dx = startPos.x - pos.x;
++    const float dy = startPos.y - pos.y;
++    if (!(std::sqrt(dx * dx + dy * dy) < 2.0f)) { // 0x858CA0
++        return;
++    }
++    autoPilot.m_nMovementFlags |= 2;
++    autoPilot.m_nCarMission = static_cast<eCarMission>(0xB);
++    vehicle->vehicleFlags.bEngineOn = false;  // flags (+0x428) &= 0xAF: motor (0x10) y luces (0x40)
++    vehicle->vehicleFlags.bLightsOn = false;
++    ParkOccupantsLeave(vehicle);
+ }
+ 
+ // 0x4336D0

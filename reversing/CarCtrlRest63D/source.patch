@@ -1,0 +1,176 @@
+diff --git a/source/game_sa/CarCtrl.cpp b/source/game_sa/CarCtrl.cpp
+index 827f35a..fbd7a6b 100644
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -103,6 +103,9 @@ void CCarCtrl::InjectHooks()
+     RH_ScopedInstall(PickNextNodeAccordingStrategy, 0x432B10);
+     RH_ScopedInstall(JoinCarWithRoadSystem, 0x42F5A0);
+     RH_ScopedInstall(JoinCarWithRoadSystemGotoCoors, 0x42F870);
++    // Lote 63 (parte C, tanda 4)
++    RH_ScopedInstall(ReconsiderRoute, 0x42FC40);
++    RH_ScopedInstall(FindLinksToGoWithTheseNodes, 0x42B470);
+     RH_ScopedInstall(JoinCarWithRoadAccordingToMission, 0x432CB0);
+     RH_ScopedInstall(PossiblyFireHSMissile, 0x429600);
+     RH_ScopedInstall(PruneVehiclesOfInterest, 0x423F10);
+@@ -365,7 +368,80 @@ void CCarCtrl::FindIntersection2Lines(float arg1, float arg2, float arg3, float
+ 
+ // 0x42B470
+ void CCarCtrl::FindLinksToGoWithTheseNodes(CVehicle* vehicle) {
+-    plugin::Call<0x42B470, CVehicle*>(vehicle);
++    // Como el original (0x42B470..0x42B7CD). Si la palabra +0x45E del vehiculo no es 0: srand del EXE (0x821B11). cur = +0x390, start = +0x394 (direcciones de nodo); NINGUN area se comprueba salvo
++    // la del enlace candidato. base = int16 +0x10 del nodo actual. Se busca (hasta 12 enlaces, contador de 16 bits con signo) el indice i de enlaces[base + i] igual a start; +0x3A6 (siguiente enlace de
++    // carretera) = m_pNaviLinks[area][base + i]. +0x3B6 = -1 si cur < start (area y luego nodo, sin signo; iguales -> 1). Con un solo enlace el indice es 0; con ninguno 0; si no se elige el enlace (no igual a
++    // start y con el area cargada) mas cercano al vehiculo segun CCollision::DistToLine(posicion del nodo actual, posicion del enlace, posicion del vehiculo) (posiciones = enteros de 16 bits / 8 exactos;
++    // `<` ordenado contra 1000000.0f / el mejor) y, sin ninguno, 0. +0x3A4 (enlace actual) = m_pNaviLinks[area][base + indice] y +0x3B5 = -1 si el enlace elegido < cur (iguales -> 1).
++    auto* const raw = reinterpret_cast<uint8*>(vehicle);
++    auto& autoPilot = vehicle->m_autoPilot;
++    {
++        const uint16 seed = *reinterpret_cast<const uint16*>(raw + 0x45E);
++        if (seed) {
++            reinterpret_cast<void(__cdecl*)(uint32)>(0x821B11)(seed);
++        }
++    }
++    const auto nodeAt = [](CNodeAddress address) { return reinterpret_cast<const uint8*>(ThePaths.m_pPathNodes[address.m_wAreaId]) + static_cast<size_t>(address.m_wNodeId) * 0x1C; };
++    const auto baseOf = [&](CNodeAddress address) { return static_cast<int32>(*reinterpret_cast<const int16*>(nodeAt(address) + 0x10)); };
++    const auto numLinksOf = [&](CNodeAddress address) { return static_cast<int32>(nodeAt(address)[0x18] & 0x0F); };
++    const CNodeAddress cur = autoPilot.m_currentAddress;
++    const CNodeAddress* const links = ThePaths.m_pNodeLinks[cur.m_wAreaId];
++    int16 index = 0;
++    do {
++        const CNodeAddress& link = links[baseOf(cur) + index];
++        if (link.m_wAreaId == autoPilot.m_startingRouteNode.m_wAreaId && link.m_wNodeId == autoPilot.m_startingRouteNode.m_wNodeId) {
++            break;
++        }
++        ++index;
++    } while (index < 12);
++    autoPilot.m_nNextPathNodeInfo = ThePaths.m_pNaviLinks[cur.m_wAreaId][baseOf(cur) + index];
++    {
++        const CNodeAddress current = autoPilot.m_currentAddress;
++        const CNodeAddress start = autoPilot.m_startingRouteNode;
++        const bool below = current.m_wAreaId < start.m_wAreaId || (current.m_wAreaId == start.m_wAreaId && current.m_wNodeId < start.m_wNodeId);
++        autoPilot._smthNext = below ? -1 : 1;
++    }
++    int32 chosen;
++    if (numLinksOf(cur) == 1) {
++        chosen = 0;
++    } else {
++        chosen = -1;
++        float best = std::bit_cast<float>(0x497423FEu);
++        if (numLinksOf(cur) != 0) {
++            for (int32 k = 0; ; ) {
++                const CNodeAddress here = autoPilot.m_currentAddress;
++                const CNodeAddress link = links[baseOf(here) + k];
++                bool skip = link.m_wAreaId == autoPilot.m_startingRouteNode.m_wAreaId && link.m_wNodeId == autoPilot.m_startingRouteNode.m_wNodeId;
++                if (!skip && ThePaths.m_pPathNodes[link.m_wAreaId]) {
++                    const uint8* const from = nodeAt(here);
++                    const uint8* const to = nodeAt(link);
++                    const CVector fromPos{ static_cast<float>(*reinterpret_cast<const int16*>(from + 8)) * 0.125f, static_cast<float>(*reinterpret_cast<const int16*>(from + 0xA)) * 0.125f,
++                                           static_cast<float>(*reinterpret_cast<const int16*>(from + 0xC)) * 0.125f };
++                    const CVector toPos{ static_cast<float>(*reinterpret_cast<const int16*>(to + 8)) * 0.125f, static_cast<float>(*reinterpret_cast<const int16*>(to + 0xA)) * 0.125f,
++                                         static_cast<float>(*reinterpret_cast<const int16*>(to + 0xC)) * 0.125f };
++                    const float distance = CCollision::DistToLine(fromPos, toPos, vehicle->GetPosition());
++                    if (distance < best) {
++                        best = distance;
++                        chosen = k;
++                    }
++                }
++                ++k;
++                if (!(k < numLinksOf(autoPilot.m_currentAddress))) {
++                    break;
++                }
++            }
++        }
++        if (chosen < 0) {
++            chosen = 0;
++        }
++    }
++    autoPilot.m_nCurrentPathNodeInfo = ThePaths.m_pNaviLinks[autoPilot.m_currentAddress.m_wAreaId][baseOf(autoPilot.m_currentAddress) + chosen];
++    {
++        const CNodeAddress* const chosenLink = &ThePaths.m_pNodeLinks[autoPilot.m_currentAddress.m_wAreaId][baseOf(autoPilot.m_currentAddress) + chosen];
++        const CNodeAddress current = autoPilot.m_currentAddress;
++        const bool below = chosenLink->m_wAreaId < current.m_wAreaId || (chosenLink->m_wAreaId == current.m_wAreaId && chosenLink->m_wNodeId < current.m_wNodeId);
++        autoPilot._smthCurr = below ? -1 : 1;
++    }
+ }
+ 
+ // 0x434400
+@@ -991,7 +1067,78 @@ void CCarCtrl::PruneVehiclesOfInterest() {
+ 
+ // 0x42FC40
+ void CCarCtrl::ReconsiderRoute(CVehicle* vehicle) {
+-    plugin::Call<0x42FC40, CVehicle*>(vehicle);
++    // Como el original (0x42FC40..0x42FF96). Solo actua si (semilla + tiempo anterior) / 2000 != (semilla + tiempo actual) / 2000 (division por constante magica 0x10624DD3, sin signo) y la mision
++    // (int8 +0x3BA; tabla de bytes 0x42FFA0) es una de 2, 4, 8, 15, 17, 43, 52, 54, 61; si no, solo se pone a 0 el contador (+0x3C5). Pide los dos nodos mas cercanos (FindNodesThisCarIsNearestTo, EXE) y no
++    // hace nada si no hay primero; sale (contador a 0) si la ruta ya los incluye (6 condiciones sobre actual/siguiente/final); incrementa el contador (byte; <= 4 sale sin ponerlo a 0); busca el
++    // destino (2, 4, 43: FindPlayerCoors(-1); 8: +0x3EC; 15, 17, 52, 54, 61: posicion del objetivo +0x41C) y, si DoPathSearch (solo distancia, nodo de origen = segundo) da < 90000.0f y mas de 1 nodo,
++    // actual = primero, siguiente = segundo, FindLinksToGoWithTheseNodes, un DoPathSearch completo (+0x3F8, +0x418) y RemoveOnePathNode.
++    auto& autoPilot = vehicle->m_autoPilot;
++    {
++        const uint32 seed = vehicle->m_nRandomSeed;
++        const uint32 previous = seed + CTimer::m_snPreviousTimeInMilliseconds;
++        const uint32 current = seed + CTimer::m_snTimeInMilliseconds;
++        const auto slot = [](uint32 value) { return static_cast<uint32>((static_cast<uint64>(0x10624DD3u) * value) >> 32) >> 7; };
++        if (slot(previous) == slot(current)) {
++            return;
++        }
++    }
++    const int32 mission = static_cast<int8>(autoPilot.m_nCarMission);
++    int32 kind = -1; // 0: jugador, 1: destino, 2: objetivo
++    switch (mission) {
++    case 2: case 4: case 43: kind = 0; break;
++    case 8: kind = 1; break;
++    case 15: case 17: case 52: case 54: case 61: kind = 2; break;
++    default: break;
++    }
++    if (kind < 0) {
++        autoPilot.m_ucCarMissionModeCounter = 0;
++        return;
++    }
++    CNodeAddress first, second;
++    first.m_wAreaId = 0xFFFF;
++    second.m_wAreaId = 0xFFFF;
++    FindNodesThisCarIsNearestTo(vehicle, first, second);
++    if (first.m_wAreaId == 0xFFFF) {
++        return;
++    }
++    const auto clear = [&] { autoPilot.m_ucCarMissionModeCounter = 0; };
++    const CNodeAddress current = autoPilot.m_currentAddress;
++    if (current == first && autoPilot.m_startingRouteNode == second) { return clear(); }
++    if (current == second && autoPilot.m_startingRouteNode == first) { return clear(); }
++    if (autoPilot.m_endingRouteNode == first && current == second) { return clear(); }
++    if (autoPilot.m_endingRouteNode == second && current == first) { return clear(); }
++    if (current == second) { return clear(); }
++    if (autoPilot.m_endingRouteNode == second) { return clear(); }
++    const uint8 counter = ++autoPilot.m_ucCarMissionModeCounter;
++    if (counter <= 4) {
++        return;
++    }
++    CVector target;
++    switch (kind) {
++    case 0: { const CVector player = FindPlayerCoors(-1); std::memcpy(&target, &player, sizeof(CVector)); break; }
++    case 1: std::memcpy(&target, &autoPilot.m_vecDestinationCoors, sizeof(CVector)); break;
++    default: {
++        const CEntity* const entity = autoPilot.m_TargetEntity;
++        const CVector& position = entity->GetPosition();
++        std::memcpy(&target, &position, sizeof(CVector));
++        break;
++    }
++    }
++    const bool isVortex = static_cast<int16>(vehicle->m_nModelIndex) == 0x21B;
++    int16 count;
++    float distance;
++    ThePaths.DoPathSearch(static_cast<ePathType>(0), vehicle->GetPosition(), second, target, nullptr, count, 0, &distance, std::bit_cast<float>(0x497423FEu), nullptr,
++                          std::bit_cast<float>(0x497423FEu), autoPilot.carCtrlFlags.bCantGoAgainstTraffic, autoPilot.m_currentAddress, isVortex, false);
++    if (!(distance < 90000.0f) || count < 2) {
++        return clear();
++    }
++    autoPilot.m_currentAddress = first;
++    autoPilot.m_startingRouteNode = second;
++    FindLinksToGoWithTheseNodes(vehicle);
++    ThePaths.DoPathSearch(static_cast<ePathType>(0), vehicle->GetPosition(), second, target, autoPilot.m_aPathFindNodesInfo.data(), reinterpret_cast<int16&>(autoPilot.m_nPathFindNodesCount), 8, nullptr,
++                          std::bit_cast<float>(0x497423FEu), nullptr, std::bit_cast<float>(0x497423FEu), autoPilot.carCtrlFlags.bCantGoAgainstTraffic, autoPilot.m_currentAddress, isVortex, false);
++    autoPilot.RemoveOnePathNode();
++    clear();
+ }
+ 
+ // 0x423DE0

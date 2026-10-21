@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CCarCtrl::SteerAICarWithPhysicsFollowPreRecordedPath": 4096
+  },
+  "covered_functions": {
+    "CCarCtrl::SteerAICarWithPhysicsFollowPreRecordedPath": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wh-2 (HEAD df26d6fe7 + parche del banco). Los colaboradores se sustituyen por falsos identicos en ambos lados (parche en la entrada del EXE y en el cuerpo de la DLL cuando tienen hook; no se validan sus cuerpos): CGeneral::GetATanOfXY (el falso devuelve un double sin redondear en ST0), CCarCtrl::FindAngleToWeaveThroughTraffic, FindMaxSteerAngle y CVehicleRecording::StopPlaybackWithIndex. El vehiculo, su matriz y la grabacion (ventana de 12 registros de 32 bytes) son objetos del banco; los arrays de CVehicleRecording del EXE (0x97D6C0..0x97D880: pausa, multiplicador de velocidad, tamano, contador, bufer) se fijan por caso y se restauran. Ningun llamador del EXE lee EAX/ECX/EDX (ver README); solo se registran. Limites: NaN silenciosos, sin rumbos infinitos ni enormes (bucles de normalizacion), posiciones basura que desbordan el float en los cuadrados se tratan como el float de la DLL (el x87 conservaria el rango), indice de reproduccion siempre 0..15 o negativo.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/CarCtrlSteer63b-20261020-232010-265434",
+  "summary_sha256": "9c9fcebde6b0296b31760f36e5f0eff555a0ded940e81499dbd1e14f1f5e55d3",
+  "result_txt_sha256": "e05ef054f2c2ea45c799dc008f6e42880ca21e8338b53cfda9d13d3702ba64d5",
+  "log_sha256": "830575c0aecda0eaab715ddf2ec208e763268bfff8223e66360ab3d9a6b27efa",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "05f0cad0c01579a9c27e6a9cafac526f6729740d86feefaaa2c67bc6937042c2",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
+      "source/game_sa/CarCtrl.cpp": "a2a8c49829a45039c8275decb586a4c845db8c1781e27770afe5194ffb6c9588",
+      "source/game_sa/CarCtrl.h": "839c30f512d0d453d3c5ede12522b5104f7788fab874bf9cf8802b98ee09b49d",
+      "source/game_sa/X87Math.cpp": "544d7f4d9ff0cc13613206d60f611801b59da379cd8b4ae4e9afcc410f63fc58",
+      "source/game_sa/X87Math.h": "d2933f31fbe910a6ba6ee6e3abe717e599e5e8bf865a5fc5af98c1b102d97065",
+      "source/game_sa/VehicleRecording.cpp": "da54f472c71c2e4c21730efc7bac51d0ddf26963b76e26eb79fbb446bd671f40",
+      "source/game_sa/VehicleRecording.h": "8115943bef0359d40cea5db8adfb683ca5483205c140e51dba71caa858147eca",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/CarCtrlSteer63b/LiveComparison.hpp": "2104acf5a5791438340b790cbbc336a53013f1fc5d482a6838e4d6320eed2d30",
+      "reversing/CarCtrlSteer63b/Core.hpp": "ecef7e47e94eed56a8fba06e76b2dd91d1ef8877099ca2b4f39244902fba719d",
+      "reversing/CarCtrlSteer63b/Fixtures.hpp": "30c63a74b4bff195cbac0fba24aeafd5f8ee9c6f9315395137042929274efbc9",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

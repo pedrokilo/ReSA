@@ -1,0 +1,140 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "330eb2c3e9f9ccc78cc00bcdc8f3a84bd10ead733881afe28e4a7e23289abc2d",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "e9bfdac79df368547f7d4d12fae77c944dd8b9e4eb086ebb575e7b1760a416f6",
+    "scripts/gta-reversed.ini": "e9bfdac79df368547f7d4d12fae77c944dd8b9e4eb086ebb575e7b1760a416f6"
+  },
+  "pairs": 16384,
+  "pairs_per_function": {
+    "CCarCtrl::SetUpDriverAndPassengersForVehicle": 4096,
+    "CCarCtrl::SetCoordsOfScriptCar": 4096,
+    "CCarCtrl::ScanForPedDanger": 4096,
+    "CCarCtrl::FindMaximumSpeedForThisCarInTraffic": 4096
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "5cd26e745e2bd0c67f887f8f9998a5c3a2955134617c881faf42c7a2f3b12937",
+  "compare_dead_x87_registers": false,
+  "families": {
+    "CCarCtrl::SetUpDriverAndPassengersForVehicle": {
+      "0": 256,
+      "1": 256,
+      "2": 256,
+      "3": 256,
+      "4": 256,
+      "5": 256,
+      "6": 256,
+      "7": 256,
+      "8": 256,
+      "9": 256,
+      "10": 256,
+      "11": 256,
+      "12": 256,
+      "13": 256,
+      "14": 256,
+      "15": 256
+    },
+    "CCarCtrl::SetCoordsOfScriptCar": {
+      "0": 256,
+      "1": 256,
+      "2": 256,
+      "3": 256,
+      "4": 256,
+      "5": 256,
+      "6": 256,
+      "7": 256,
+      "8": 256,
+      "9": 256,
+      "10": 256,
+      "11": 256,
+      "12": 256,
+      "13": 256,
+      "14": 256,
+      "15": 256
+    },
+    "CCarCtrl::ScanForPedDanger": {
+      "0": 256,
+      "1": 256,
+      "2": 256,
+      "3": 256,
+      "4": 256,
+      "5": 256,
+      "6": 256,
+      "7": 256,
+      "8": 256,
+      "9": 256,
+      "10": 256,
+      "11": 256,
+      "12": 256,
+      "13": 256,
+      "14": 256,
+      "15": 256
+    },
+    "CCarCtrl::FindMaximumSpeedForThisCarInTraffic": {
+      "0": 256,
+      "1": 256,
+      "2": 256,
+      "3": 256,
+      "4": 256,
+      "5": 256,
+      "6": 256,
+      "7": 256,
+      "8": 256,
+      "9": 256,
+      "10": 256,
+      "11": 256,
+      "12": 256,
+      "13": 256,
+      "14": 256,
+      "15": 256
+    }
+  },
+  "branch_coverage": {
+    "CCarCtrl::SetUpDriverAndPassengersForVehicle": {
+      "driver_give": 1539,
+      "seat_calls": 2311,
+      "seat_calls_2plus": 1136,
+      "is_car_true_anim": 2699,
+      "rand_calls_5plus": 927,
+      "update_stat": 2068,
+      "passenger_give": 787,
+      "no_seats": 1785,
+      "van_clamp": 2134
+    },
+    "CCarCtrl::SetCoordsOfScriptCar": {
+      "distance": 2297,
+      "join": 3532,
+      "no_place": 1934,
+      "ground_z": 1782,
+      "boat": 564,
+      "auto": 1084,
+      "bike": 514
+    },
+    "CCarCtrl::ScanForPedDanger": {
+      "list_calls": 3328,
+      "player_called": 4096,
+      "multi_sector": 2325,
+      "many_calls": 669,
+      "no_list_calls": 768,
+      "clear_scan": 80
+    },
+    "CCarCtrl::FindMaximumSpeedForThisCarInTraffic": {
+      "no_list_calls": 1739,
+      "list_calls": 2357,
+      "multi_sector": 1627,
+      "cars_list": 2051,
+      "objects_list": 2357,
+      "many_calls": 1492,
+      "clear_scan": 51
+    }
+  },
+  "saves_unchanged": true,
+  "configs_restored": true
+}

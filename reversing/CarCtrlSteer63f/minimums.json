@@ -1,0 +1,19 @@
+{
+ "chain3": 408,
+ "chain4": 248,
+ "clamp11": 461,
+ "far": 627,
+ "intersect": 912,
+ "inv1": 59,
+ "inv2": 82,
+ "loop_hi": 252,
+ "loop_lo": 248,
+ "near_limit": 753,
+ "parallel": 33,
+ "small_angle": 178,
+ "to_b": 821,
+ "to_pos": 124,
+ "unloaded": 115,
+ "wide": 232,
+ "wide_small": 40
+}

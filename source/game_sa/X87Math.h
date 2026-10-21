@@ -1662,3 +1662,157 @@ double __cdecl Garage63CenterDistSqCpp(const float* g, float x1, float x2, float
 double __cdecl Garage63DoorDistSqCpp(float d0x, float v0x, float d1x, float v1x, float d2y, float v2y, float d3y, float v3y);
 // 0x44C3F1..0x44C3FD: topZ - 2.0f (x87, sin guardar) > z (comparacion ordenada).
 bool __cdecl Garage63TopMinus2GreaterCpp(float topZ, float z);
+
+// --- Lote 63 (CarCtrl aire: CCarCtrl::*Heli*, *Plane*, *Boat*, DogFight), prefijo CcAir. Anadir al FINAL de X87Math.h ---
+// Cada ayudante reproduce un tramo x87 de 24 bits con exponente extendido (cada operacion redondea a 24 bits; solo lo que el EXE guarda con fstp dword pasa a float).
+float __cdecl CcAirSubF(float a, float b);                    // fld a; fsub b; fstp dword
+float __cdecl CcAirAddF(float a, float b);                    // fld a; fadd b; fstp dword
+float __cdecl CcAirNegF(float a);                             // fld a; fchs; fstp dword (un SNaN sale silenciado)
+float __cdecl CcAirHorizDist(const float* a, const float* b); // fstp dword( fsqrt( (a.y-b.y)*(a.y-b.y) + (a.x-b.x)*(a.x-b.x) ) ), a y b = {x, y, z}
+double __cdecl CcAirSpeed2D(const float* v);                  // fsqrt(v.x*v.x + v.y*v.y) SIN guardar a float (queda en ST0 y se compara con un float)
+// 0x429520 / 0x429300: dz, dy, dx = a - b (registro, 24 bits); dx, dy y dz se guardan a float en out[0..2] (el vector que el EXE normaliza despues); distancia = fsqrt((dx_float^2 + dy^2) + dz^2) con dy y dz
+// del registro (sin pasar por float); devuelve distancia < limit (comparacion ordenada).
+bool __cdecl CcAirDiffDistLess(const float* a, const float* b, float limit, float* out);
+// ((dir.z*fwd.z) + (dir.y*fwd.y)) + (dir.x*fwd.x) con el x87; devuelve el producto > thr sin guardarlo a float (TestWhetherToFirePlaneGuns) ...
+bool __cdecl CcAirDirDotGreater(const float* dir, const float* fwd, float thr);
+// ... o guardado a float (TriggerDogFightMoves, fstp dword)
+float __cdecl CcAirDirDotF(const float* dir, const float* fwd);
+// |a - b| del EXE: d = a - b; si d < 0 (ordenado) -(a - b); devuelve |d| < limit (NaN: false)
+bool __cdecl CcAirAbsDiffLess(float a, float b, float limit);
+// out[i] = float(v[i] * k) (fmul y fstp dword por componente)
+void __cdecl CcAirScale3(const float* v, float k, float* out);
+// 0x429780 GetAIPlaneToAttackPlayer: x' = coors.x + scaled.x, y' = coors.y + scaled.y, z' = coors.z + scaled.z (registros); out[2] = float(z'), out[1] = float(y' - planePos.y), out[0] = float(x' - planePos.x)
+void __cdecl CcAirAttackAim(const float* scaled, const float* coors, const float* planePos, float* out);
+// 0x429890 GetAIPlaneToDoDogFight: A, B = speed.x * 50, speed.y * 50 (registros), C = float(speed.z * 50); out[0] = float(A + pos.x), out[1] = float(B + pos.y), out[2] = float(C + pos.z)
+void __cdecl CcAirDogAim(const float* speed, const float* pos, float* out);
+// float( ((r * (1/32767)) * 600.0) + base - 300.0 ) con el x87 (0x429961..0x429977)
+float __cdecl CcAirDogRandOffset(int r, float base);
+// fsqrt((a.y-b.y)^2 + (a.x-b.x)^2) sin guardar a float (queda en ST0 y se compara con un float)
+double __cdecl CcAirHorizDistD(const float* a, const float* b);
+// 0x42A750 SteerAIHeliToFollowEntity: desplazamiento del destino por el eje adelante del objetivo: m = double(mult); x = float(fwd.x * m + dest.x) (sin redondear el producto a float);
+// y = float(float(fwd.y * m) + dest.y); z = float(float(m * 0.0) + dest.z)  (m * 0.0 conserva el signo de m)
+void __cdecl CcAirFollowOffset(const float* fwd, int mult, float* dest);
+// 0x42AEB0 SteerAIHeliToKeepEntityInView. true si r = fsqrt((t.y-s.y)^2 + (t.x-s.x)^2) > 2 * td (ordenado); *distF = float(r) (fst dword)
+bool __cdecl CcAirViewFar(const float* t, const float* s, unsigned int td, float* distF);
+// diff = rotated - hv normalizado a [-pi, pi] (bucles del EXE); skid = diff * -1.0; *raw = float(skid) (primer guardado), *clamped = skid < 1.0 ? (-1.0 > skid ? -1.0 : skid) : 1.0 (NaN -> 1.0)
+void __cdecl CcAirViewSkid(float rotated, float hv, float* raw, float* clamped);
+// err = maxAlt - (vz * 100 + z); resultado = float(err * (err > 0 ? 0.1 : 0.2) + 0.3)
+float __cdecl CcAirViewBrake1(float maxAlt, float vz, float z);
+// v = (r - 7) * 0.002 + prev; resultado = v < 1.0 ? (0.0 > v ? 0.0 : v) : 1.0 (NaN -> 1.0)
+float __cdecl CcAirViewBrake2(int r, float prev);
+// 0x42B1B5..: out = 0.5 si 0.5*td > distF; -0.5 si distF > td; si no float((vz*right.z + vy*right.y) + right.x*vx); v = velocidad {x, y, z}
+void __cdecl CcAirViewLeftRight(float distF, unsigned int td, const float* v, const float* right, float* out);
+// 0x42B219..: si distF < 1.5*td (ordenado) *out = float((vz*fwd.z + vy*fwd.y) + vx*fwd.x) y devuelve true
+bool __cdecl CcAirViewUpDown(float distF, unsigned int td, const float* v, const float* fwd, float* out);
+// 0x42F3C0 GetAIHeliToAttackPlayer: float(fsqrt( ((dy - pos.y) * Ly) + ((ax - pos.x) * (bx - pos.x)) )) con Ly = float(cy - pos.y)
+float __cdecl CcAirHeliAttackDist(float ax, float bx, float cy, float dy, const float* pos);
+// Lanchas (SteerAIBoatWithPhysics*, 0x428BE0 / 0x428DE0 / 0x429090). fwd = {x, y} del eje adelante de la matriz: len = fsqrt(y*y + x*x); si len == 0 (ordenado) out = {1.0, y en bruto};
+// si no inv = 1.0 / len y out = {float(inv * x), float(inv * y)} (NaN entra en esta rama)
+void __cdecl CcAirBoatForward(const float* fwd, float* out);
+// diff = headingT - headingB normalizado a [-pi, pi] (primero el bucle de -pi y despues el de +pi); mode 0 (HeadingForTarget) lo limita a [-0.5, 0.5] (NaN se conserva).
+// err = cruise - fsqrt(vy*vy + vx*vx) * 60.0; con err > 0 (o NaN) *throttle = ratio = err / cruise > 0.25 ? 1.0 : float(1.0 - (0.25 - ratio) * 4.0); si no -0.1 (o -0.2 si err < -5.0) y,
+// en mode 0, steer = steer * -1.0. *steer = float(steer) (mode 0) o float(diff) (mode 1). Devuelve diff (mode 1: el valor del registro, sin guardar a float).
+double __cdecl CcAirBoatSteerThrottle(float headingT, float headingB, const float* vel, unsigned int cruise, int mode, float* steer, float* throttle);
+// 0x428DE0: distancia coors - pos con ((dz^2 + dy^2) + dx^2), *distF = float(dist), devuelve (dist * 0.05 < 2.0) ? float(dist * 0.05) : 2.0
+float __cdecl CcAirBoatAttackLead(const float* coors, const float* pos, float* distF);
+// x = float(((lead * speed.x) * 60.0) + coors.x); ypart = float((lead * speed.y) * 60.0); dy = float((ypart + coors.y) - pos.y)
+float __cdecl CcAirBoatLeadX(float lead, const float* speed, const float* coors);
+float __cdecl CcAirBoatLeadYPart(float lead, const float* speed);
+float __cdecl CcAirBoatLeadDy(float ypart, const float* coors, const float* pos);
+// 0x429090 CirclingPlayer: v = vector normalizado {x, y}; out = odd ? {float(y * -12.0), float(-x * -12.0)} : {float(y * 26.0), float(-x * 26.0)}
+void __cdecl CcAirCirclingVec(const float* v, int odd, float* out);
+// out = {float((vec.x + coors.x) - pos.x), float((vec.y + coors.y) - pos.y)} con las sumas en registro
+void __cdecl CcAirCirclingAim(const float* vec, const float* coors, const float* pos, float* out);
+// 0x42B270 FireHeliRocketsAtTarget. Distancia lanzador - objetivo = fsqrt(((dz^2 + dy^2) + dx^2)) con d = lanzador - objetivo (registros): true si < 80.0
+bool __cdecl CcAirRocketsInRange(const float* launcher, const float* target);
+// punto = posicion del lanzador + eje adelante (cada componente guardada a float; la suma es pos + fwd para x y fwd + pos para y y z)
+void __cdecl CcAirRocketsPoint(const float* launcher, const float* fwd, float* out);
+// posicion de salida del cohete: odd = bit 0 de ((tiempo * 0x10624DD3) >> 32) >> 4. x4 = fwd.x*4 + pos.x y y4 = float(fwd.y*4) + pos.y en registro, z4 = float(float(fwd.z*4) + pos.z);
+// desplazamiento lateral = right * 1.5 (x y z a float, y en registro); con odd cada componente se niega y se guarda a float; out = {float(ox + x4), float(oy + y4), float(oz + z4)}
+void __cdecl CcAirRocketsMuzzle(const float* launcher, const float* fwd, const float* right, int odd, float* out);
+// 0x423940 FlyAIHeliToTarget_FixedOrientation
+// out = {float(float(speed.x * 50) + pos.x), float(float(speed.y * 50) + pos.y), float(speed.z * 50 + pos.z)} (z en registro)
+void __cdecl CcAirFixedStart(const float* speed, const float* pos, float* out);
+// *cosOut = float(fcos(angle)), *sinOut = float(fsin(angle)) (instrucciones x87 de precision completa)
+void __cdecl CcAirSinCos(float angle, float* cosOut, float* sinOut);
+// out = {float(dir.x * 60 + start.x), float(dir.y * 60 + start.y), float(float(dir.z * 60) + start.z)}
+void __cdecl CcAirFixedEnd(const float* dir, const float* start, float* out);
+// v = hitZ + minAlt; devuelve cur si v < cur (ordenado) y float(v) si no
+float __cdecl CcAirFixedMaxAlt(float hitZ, float minAlt, float cur);
+// err = maxAlt - (vz * 100 + posZ); float(err * (err > 0 ? 0.1 : 0.2))
+float __cdecl CcAirFixedBrake(float vz, float posZ, float maxAlt);
+// resto de FlyAIHeliToTarget_FixedOrientation tras la ultima llamada del EXE. out[0] = freno final (+0x998), out[1] y out[2] = +0x98C sin limitar y limitado, out[3] y out[4] = +0x994,
+// out[5] y out[6] = +0x990. r = rand() & 0xF; vel = {x, y, z}, right/fwd = ejes de la matriz, pos/dest = {x, y}
+void __cdecl CcAirFixedControls(float orientation, float ownHeading, float brake, int r, const float* vel, const float* right, const float* fwd, const float* pos, const float* dest, float* out);
+// 0x423000 FlyAIPlaneInCertainDirection.
+// d = h0 - target normalizado a [-pi, pi] (bucle de +pi y despues el de -pi); *limit = |d| < 0.5236 ? 0 : float(d * 1.5)
+void __cdecl CcAirPlaneLimitCalc(float h0, float target, float* limit);
+// candidato n (1..19): s = float((n / 2) * (n impar ? 0.2618 : -0.2618)), t = float(s + target); *inRange = (s < 0 && s > limit) || (s > 0 && s < limit)
+void __cdecl CcAirPlaneCand(int n, float target, float limit, float* s, float* t, int* inRange);
+// float(s * 1.1 + heading)
+float __cdecl CcAirPlaneAccept(float s, float heading);
+// v = clearance + minAlt; devuelve float(v) si v > maxAlt (ordenado) y maxAlt si no
+float __cdecl CcAirPlaneRaise(float clearance, float minAlt, float maxAlt);
+// float((fwd.y * vy + fwd.x * vx) * 60)
+float __cdecl CcAirPlaneSpeed60(const float* fwd, const float* vel);
+// +0x98C final: v < 1.0 ? (v > -1.0 ? v : -1.0) : 1.0 (NaN -> 1.0)
+float __cdecl CcAirPlaneClamp98C(float v);
+// float(vz * 100 + posZ)
+float __cdecl CcAirPlanePz(float vz, float posZ);
+// fase aerea: a = asin del EXE de fwd.z; pitch = float((a - prev9BC) * (100 / step) + a); *new9BC = float(a); altErr = clamp((max9AC - pz) * 0.0333, [-0.4, 0.4]) (NaN -> 0.4),
+// limitado a 0.25 si speed60 < v28; *out98C = float((altErr - pitch) * g50)
+void __cdecl CcAirPlaneAir(float fwdZ, float prev9BC, float step, float g50, float alt9AC, float pz, float speed60, float v28, float* new9BC, float* out98C);
+// resto tras la fase de suelo o aerea. ground: bl. out[0] = +0x988, out[1] = +0x990, out[2] = +0x99C (balanceo en bruto), out[3] = +0x98C, *rollUsed = 1 si se calculo el balanceo
+void __cdecl CcAirPlaneFinish(int ground, float f9B8, float limit, float f9A4, float c98C, float old99C, int bit7, float v28, float speed60, float step, float g4C, float g48, float g44,
+                              const float* matrix, float* out);
+// 0x429A70 FlyAIHeliInCertainDirection
+// true si float(byteVal) > dist y fsqrt(vx^2 + vy^2) < 0.01 (mision HELI_NEWS_BEHAVIOUR)
+bool __cdecl CcAirHeliNews(unsigned int byteVal, float dist, const float* vel);
+// v = bl ? minAlt * 0.5 + hitZ : hitZ + minAlt; devuelve cur si cur > v y float(v) si no
+float __cdecl CcAirHeliRaise1(int bl, float minAlt, float hitZ, float cur);
+// float(fsqrt(vy^2 + vx^2) * 100 + (bit7 ? 5.0 : 30.0))
+float __cdecl CcAirHeliLookahead(const float* vel, int bit7);
+// out = {float(cosv * L + base.x), float(sinv * L + base.y), float(float(L * 0.0) + base.z)}
+void __cdecl CcAirHeliAhead(float cosv, float sinv, float L, const float* base, float* out);
+// punto lateral a 10 unidades: right = {x, y, z}; derecha (left = 0): {X10 + pos.x, Y10 + pos.y, float(Z10) + pos.z}; izquierda: {pos.x - X10, pos.y - Y10, pos.z - float(Z10)} con X10 = x * 10, Y10 = y * 10 (registros) y Z10 = z * 10 (float)
+void __cdecl CcAirHeliSide(const float* right, const float* pos, int left, float* out);
+// fsqrt(((col.z - base.z)^2 + (col.y - base.y)^2) + (col.x - base.x)^2) sin guardar a float
+double __cdecl CcAirHeliHitDist(const float* col, const float* base);
+// v = (r - 7) * 0.002 + prev; *m = float(v - 0.5); devuelve v < 1.0 ? (float(v) < -0.3 ? -0.3 : float(v)) : 1.0
+float __cdecl CcAirHeliBrake2(int r, float prev, float* m);
+// d = a2 - h1 normalizado a [-pi, pi] (primero el bucle de +pi); s = d * -2.0 limitado a [-1, 1] (NaN -> 1.0)
+float __cdecl CcAirHeliSkid(float a2, float h1);
+// punto de aproximacion: X = vx * 50 + pos.x; Y = float(vy * 50) + pos.y; dd = float(X - dest.x); e = fsqrt((Y - dest.y)^2 + dd^2) - float(byteVal);
+// con e < 0 devuelve false; si no *out = float((e * -0.8) / (30.0 - float(byteVal))) y true
+bool __cdecl CcAirHeliApproach(const float* vel, const float* pos, const float* dest, unsigned int byteVal, float* out);
+// d2 = h1 - a2 normalizado (primero -pi); absd = |d2|; q = max(1.0 - 2.122066 * absd, 0); *out = float(q * cur); si absd > pi/2 y ((vz*fz + vy*fy) + fx*vx) > 0: *out = 0.3
+void __cdecl CcAirHeliTurnLimit(float h1, float a2, float cur, const float* vel, const float* fwd, float* out);
+// c = m < 1.0 ? m : 1.0; devuelve float((1.0 - c) * cur)
+float __cdecl CcAirHeliScale(float m, float cur);
+// w = (cruise - ((vz*fz + vy*fy) + vx*fx) * 60) * 0.1 limitado a [0, 1]; value = (-w < cur) ? cur : -w; *stored = float(value); devuelve value (registro)
+double __cdecl CcAirHeliSpeedCtl(unsigned int cruise, const float* vel, const float* fwd, float cur, float* stored);
+// k = (mult * step) * 0.001; vel += {fx * k, fy * k, k * 0.0} (fy * k y k * 0.0 pasan por float antes de sumarse)
+void __cdecl CcAirHeliDecay(int mult, float step, const float* fwd, float* vel);
+// 2 * (((n.y * vy) + (n.z * vz)) + n.x * vx)
+float __cdecl CcAirHeliForwardDot(const float* n, const float* vel);
+// v < 1.0 ? (-1.0 > v ? -1.0 : v) : 1.0
+float __cdecl CcAirHeliClamp990(float v);
+// --- Lote 63c: CCarCtrl::SteerAICarWithPhysicsHeadingForTarget (0x433280), prefijo CarCtrlSteer63. Anadir al FINAL de X87Math.h ---
+// GetATanOfXY(x, y) - hf (0x433479..0x43347E): el fpatan de 0x53CC70 se resta SIN redondear a float antes; devuelve el resultado de 24 bits.
+float __cdecl CarCtrlSteer63AtanMinusCpp(float x, float y, float hf);
+
+// --- Lote 63f: CCarCtrl::DealWithBend_Racing (0x428040), prefijo CarCtrlSteer63. Anadir al FINAL de X87Math.h ---
+// hf - GetATanOfXY(x, y) (0x4283A6, fsubr): el fpatan de 0x53CC70 se resta SIN redondear a float antes.
+float __cdecl CarCtrlSteer63AtanRsubCpp(float x, float y, float hf);
+// --- Lote 63: CCarCtrl (parte C: FindIntersection2Lines, FindSpeedMultiplier, FindPercDependingOnDistToLink, FindPathDirection...), prefijo Cc63. Anadir al FINAL de X87Math.h ---
+// Tramos x87 de 24 bits con exponente extendido (ver X87Math.cpp).
+void __cdecl Cc63Intersection2LinesCpp(float a1, float a2, float a3, float a4, float a5, float a6, float a7, float a8, float* out1, float* out2); // 0x4226F0; no toca EDX
+float __cdecl Cc63SpeedMultiplierCpp(float a1, float a2, float a3, float a4);                                                                      // 0x4224E0
+float __cdecl Cc63PercDistCpp(float px, float py, int linkX, int linkY);                                                                           // 0x422620 (tramo aritmetico)
+int __cdecl Cc63PathDirectionCpp(float p2xA, float p1xB, float p2yC, float p1yD, float p3xE, float p2xF, float p3yG, float p2yH, bool* flag);     // 0x422090 (tramo aritmetico)
+// --- Lote 63: CCarCtrl (parte C, tanda 2), prefijo Cc63b. Anadir al FINAL de X87Math.h ---
+int __cdecl Cc63bSectorCpp(float coordinate);                                               // ftol2(floor(coordinate * 0.02f + 60.0f)) (32 bits bajos); FindMaximumSpeedForThisCarInTraffic / ScanForPedDanger
+float __cdecl Cc63bCruiseSpeedCpp(unsigned int cruise, float multiplier);                   // fild(cruise) * multiplier (24 bits), resultado en ST0
+float __cdecl Cc63bTrafficSpeedCpp(unsigned int cruise, float multiplier, float maxSpeed);  // (fild(cruise) * multiplier + maxSpeed) * 0.5f, resultado en ST0
+bool __cdecl Cc63bRandBelowEighthCpp(int randValue);                                        // fild(randValue) * (1/32767, 0x858C7C) < 0.125f (SetUpDriverAndPassengersForVehicle)
+float __cdecl Cc63bAddFloatCpp(float a, float b);                                           // a + b (24 bits), resultado en ST0 (SetCoordsOfScriptCar)

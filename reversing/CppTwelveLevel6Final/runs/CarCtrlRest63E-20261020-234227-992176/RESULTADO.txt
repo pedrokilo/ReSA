@@ -1,0 +1,3 @@
+APROBADO: CarCtrlRest63E
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-carctrlrest63e\20261020-234227-992176

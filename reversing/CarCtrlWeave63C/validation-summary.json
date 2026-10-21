@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "pairs": 4096,
+  "differences": 0,
+  "registered_pairs": 4096,
+  "registered_functions": 1,
+  "functions": {
+    "CCarCtrl::UpdateCarOnRails": 4096
+  },
+  "covered_functions": {
+    "CCarCtrl::UpdateCarOnRails": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wh-3 (HEAD df26d6fe7 + fuente del lote 63 parte B2). Falsos identicos en ambos lados para 0x422590, 0x432B10 (avanza el tramo y field_C), SlowCarOnRailsDownForTrafficAndLights (0x434790), CAutoPilot::ModifySpeed (0x41B980), CCurves::CalcCurvePoint (0x43C900) y 0x42EC90 (sin reconstruir); Normalise del EXE (0x59C910) y CCarPathLink::OneWayLaneOffset (0x44DB00 / inline) se ejecutan de verdad. Los enlaces de carretera son dos areas de ThePaths.m_pNaviNodes sustituidas durante la corrida y restauradas. El cociente now-field_C / escala se hace en double y se redondea una vez a float (doble redondeo posible solo en empates exactos, como en CAutoPilot::ModifySpeed).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/CarCtrlWeave63C-20261020-234540-793790",
+  "summary_sha256": "bdd2d87f937951ae722e3dd0437a09e95b65cf2c27680f076a6337abf36ba553",
+  "result_txt_sha256": "2fca0f1119331599c76533cc02bfb1fd4e82e91d336d5ca16783a4578ac54946",
+  "log_sha256": "194001009df9f729aec00df5df6d5774397fa0a8779da9f088d87bf760d03810",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "490092b5b7bbf7e460652b9aba9bee39e2c053474de125beb547d838d70bd4df",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
+      "source/game_sa/CarCtrl.cpp": "a2a8c49829a45039c8275decb586a4c845db8c1781e27770afe5194ffb6c9588",
+      "source/game_sa/CarCtrl.h": "839c30f512d0d453d3c5ede12522b5104f7788fab874bf9cf8802b98ee09b49d",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/CarCtrlWeave63C/LiveComparison.hpp": "cc317ffd80ac9c748122b4fab234e5fd7d4496e6bfd274aa2fe8497d3602f393",
+      "reversing/CarCtrlWeave63C/Core.hpp": "f251c76ce100f813fb2ff2155478b4864c8580cc6958e2ee31696c7da7639ccb",
+      "reversing/CarCtrlWeave63C/Fixtures.hpp": "999a0d09c444639e9e8657a87b5629c17bd595b9a7312101460208dac66b4456",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

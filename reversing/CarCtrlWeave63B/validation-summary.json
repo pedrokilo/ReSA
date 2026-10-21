@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "pairs": 24576,
+  "differences": 0,
+  "registered_pairs": 24576,
+  "registered_functions": 6,
+  "functions": {
+    "CCarCtrl::SlowCarDownForCarsSectorList": 4096,
+    "CCarCtrl::SlowCarDownForObjectsSectorList": 4096,
+    "CCarCtrl::SlowCarDownForPedsSectorList": 4096,
+    "CCarCtrl::WeaveThroughCarsSectorList": 4096,
+    "CCarCtrl::WeaveThroughObjectsSectorList": 4096,
+    "CCarCtrl::WeaveThroughPedsSectorList": 4096
+  },
+  "covered_functions": {
+    "CCarCtrl::SlowCarDownForCarsSectorList": true,
+    "CCarCtrl::SlowCarDownForObjectsSectorList": true,
+    "CCarCtrl::SlowCarDownForPedsSectorList": true,
+    "CCarCtrl::WeaveThroughCarsSectorList": true,
+    "CCarCtrl::WeaveThroughObjectsSectorList": true,
+    "CCarCtrl::WeaveThroughPedsSectorList": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wh-3 (HEAD df26d6fe7 + fuente del lote 63 parte B2). Falsos identicos en ambos lados para GetBoundCentre (0x534250), DistAlongLine2D (0x412A80), SlowCarDownForOtherCar (0x42D0E0), SlowCarDownForObject (0x426220), WeaveForOtherCar (0x426350), WeaveForObject (0x426BC0), WeaveForPed (0x426970, sin reconstruir), GetMatrix (0x411990), FindPlayerVehicle/Ped (0x56E0D0/0x56E210), RegisterReference/CleanUpOldReference (0x571B70/0x571A00), CEventGroup::Add (0x4AB420), CPed::IsPlayer (0x5DF8F0) e IncrementAngerAtPlayer (0x421050); el constructor y el destructor de CEventPotentialGetRunOver (0x4AE1A0/0x4AE270) se ejecutan de verdad en cada lado y el falso de Add registra sus campos. Las listas, entidades, matrices, col models, inteligencia de peaton, el reloj, el codigo de exploracion (0xB7CD78) y Players[foco].m_pLastTargetVehicle son objetos/estado del banco, restaurados al terminar. Los hooks de plantilla se registran con el nombre `Funcion<CPtrListDoubleLink<T*>>` (una instanciacion por tipo de lista de sector real). Oraculo: numero de llamadas a GetBoundCentre; la verdad es el EXE.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/CarCtrlWeave63B-20261020-233007-192279",
+  "summary_sha256": "69ad8a9228bfbdeb33e603434115da65a3e5afd53cfc275c58042dbb89f4d5d4",
+  "result_txt_sha256": "4e3d8c093a1c5e3333039e110480a6fdfb1a8267901376138bbb4f1e59543013",
+  "log_sha256": "9e7f1144a6426c44bb698e66d0e7d1cfcbf01ae5f23ac4c9f316725151ba1330",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "86d6cb125521a24693fe5287e93982a68c673d84a7fc576c8a26de06a463922e",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
+      "source/game_sa/CarCtrl.cpp": "a2a8c49829a45039c8275decb586a4c845db8c1781e27770afe5194ffb6c9588",
+      "source/game_sa/CarCtrl.h": "839c30f512d0d453d3c5ede12522b5104f7788fab874bf9cf8802b98ee09b49d",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/CarCtrlWeave63B/LiveComparison.hpp": "dcca7e6b52b4a9410781d77b70e4b2863c1a794624d2e9a46338161298d9d844",
+      "reversing/CarCtrlWeave63B/Core.hpp": "430ce385ad5355fcb78ed7d8fe7f988f9253b2e07b56de423b0c4efc242131be",
+      "reversing/CarCtrlWeave63B/Fixtures.hpp": "64763397912d53fd4105cadcf32d01c228b4c99e6e26fdec903f6c04fb2eb7b7",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

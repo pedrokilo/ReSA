@@ -1,0 +1,2022 @@
+diff --git a/source/game_sa/CarCtrl.cpp b/source/game_sa/CarCtrl.cpp
+index 8ed964ec3..9b8e1b340 100644
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -40,6 +40,9 @@ END GENERATED HOOK STATUS */
+ #include "CutsceneMgr.h"
+ #include "TheCarGenerators.h"
+ #include "eAreaCodes.h"
++#include "X87Math.h"
++#include "TaskComplexWander.h"
++#include "PedIntelligence.h"
+ 
+ #include <reversiblebugfixes/Bugs.hpp>
+ #ifdef _MSC_VER
+@@ -49,6 +52,13 @@ END GENERATED HOOK STATUS */
+ auto& apCarsToKeep = StaticRef<CVehicle*[2]>(0x969084);
+ auto& aCarsToKeepTime = StaticRef<std::array<uint32, 2>>(0x96907C);
+ 
++// Lote 63 (aire): colaboradores del EXE sin reconstruir que se llaman por direccion (los bancos los sustituyen por falsos identicos).
++// CVector::Normalise (0x59C910, thiscall, in situ; deja la x87 vacia) y rand() del CRT del EXE (0x821B1E: avanza la semilla del juego, la rand() de la DLL no).
++static void CarCtrlAirExeNormalise(CVector* v) { reinterpret_cast<void(__thiscall*)(CVector*)>(0x59C910)(v); }
++static int CarCtrlAirExeRand() { return reinterpret_cast<int(__cdecl*)()>(0x821B1E)(); }
++// Funcion del EXE sin reconstruir que llama SteerAIBoatWithPhysicsAttackingPlayer con el modelo 430 (0x73DF00, thiscall sobre el vehiculo)
++static void CarCtrlAirExeBoatSpecial(CVehicle* boat) { reinterpret_cast<void(__thiscall*)(CVehicle*)>(0x73DF00)(boat); }
++
+ // 0x424100: XOR AL,AL; RET. Conserva EAX alto, ECX/EDX y los registros no volátiles. Función suelta (alias de dirección):
+ // CCarCtrl es sólo el dueño de la instrumentación. Optimizada por pragma para que el cuerpo mida 3 bytes como el del EXE.
+ #pragma optimize("gty", on)
+@@ -76,6 +86,31 @@ void CCarCtrl::InjectHooks()
+     RH_ScopedInstall(IsThisVehicleInteresting, 0x423EA0);
+     RH_ScopedInstall(JoinCarWithRoadAccordingToMission, 0x432CB0);
+     RH_ScopedInstall(PossiblyFireHSMissile, 0x429600);
++    // Lote 63 (aire): helicopteros, aviones y combate aereo
++    RH_ScopedInstall(GetAIHeliToFlyInDirection, 0x42A730);
++    RH_ScopedInstall(GetAIPlaneToDoDogFightAgainstPlayer, 0x42F370);
++    RH_ScopedInstall(SteerAIHeliToCrashAndBurn, 0x4238E0);
++    RH_ScopedInstall(SteerAIPlaneToCrashAndBurn, 0x423880);
++    RH_ScopedInstall(SteerAIPlaneTowardsTargetCoors, 0x423790);
++    RH_ScopedInstall(SteerAIPlaneToFollowEntity, 0x4237F0);
++    RH_ScopedInstall(SteerAIHeliTowardsTargetCoors, 0x42A630);
++    RH_ScopedInstall(SteerAIHeliFlyingAwayFromPlayer, 0x42ACB0);
++    RH_ScopedInstall(SteerAIHeliToLand, 0x42AD30);
++    RH_ScopedInstall(SteerAIHeliAsPoliceHeli, 0x42AAD0);
++    RH_ScopedInstall(TestWhetherToFirePlaneGuns, 0x429520);
++    RH_ScopedInstall(TriggerDogFightMoves, 0x429300);
++    RH_ScopedInstall(GetAIPlaneToAttackPlayer, 0x429780);
++    RH_ScopedInstall(GetAIPlaneToDoDogFight, 0x429890);
++    RH_ScopedInstall(SteerAIHeliToFollowEntity, 0x42A750);
++    RH_ScopedInstall(SteerAIHeliToKeepEntityInView, 0x42AEB0);
++    RH_ScopedInstall(GetAIHeliToAttackPlayer, 0x42F3C0);
++    RH_ScopedInstall(FireHeliRocketsAtTarget, 0x42B270);
++    RH_ScopedInstall(FlyAIHeliToTarget_FixedOrientation, 0x423940);
++    RH_ScopedInstall(FlyAIPlaneInCertainDirection, 0x423000);
++    RH_ScopedInstall(FlyAIHeliInCertainDirection, 0x429A70);
++    RH_ScopedInstall(SteerAIBoatWithPhysicsHeadingForTarget, 0x428BE0);
++    RH_ScopedInstall(SteerAIBoatWithPhysicsAttackingPlayer, 0x428DE0);
++    RH_ScopedInstall(SteerAIBoatWithPhysicsCirclingPlayer, 0x429090);
+     RH_ScopedInstall(PruneVehiclesOfInterest, 0x423F10);
+     RH_ScopedInstall(RemoveCarsIfThePoolGetsFull, 0x4322B0);
+     RH_ScopedInstall(RemoveDistantCars, 0x42CD10);
+@@ -424,22 +459,274 @@ float CCarCtrl::FindGhostRoadHeight(CVehicle* vehicle) {
+ 
+ // 0x42B270
+ void CCarCtrl::FireHeliRocketsAtTarget(CAutomobile* entityLauncher, CEntity* entity) {
+-    plugin::Call<0x42B270, CAutomobile*, CEntity*>(entityLauncher, entity);
++    // Como el original: solo con arma 4 o 0 y cuando cambia el cubo de 250 ms del reloj ((t * 0x10624DD3) >> 32) >> 4 entre el fotograma anterior y el actual; el objetivo debe estar a menos
++    // de 80.0 y a menos de 7.0 de la recta lanzador -> lanzador + eje adelante (CCollision::DistToMathematicalLine); entonces lanza un cohete (WEAPON_ROCKET) desde la posicion del lanzador
++    // + adelante * 4 + derecha * 1.5 (signo segun la paridad del cubo), hacia el eje adelante (m_matrix del lanzador, sin comprobar nulo)
++    const uint8 weapon = static_cast<uint8>(entityLauncher->m_nVehicleWeaponInUse);
++    if (weapon != 4 && weapon != 0) {
++        return;
++    }
++    const auto bucket = [](uint32 time) { return static_cast<uint32>((static_cast<uint64>(time) * 0x10624DD3ull) >> 32) >> 4; };
++    const uint32 previousBucket = bucket(CTimer::m_snPreviousTimeInMilliseconds);
++    if (bucket(CTimer::GetTimeInMS()) == previousBucket) {
++        return;
++    }
++    if (!CcAirRocketsInRange(&entityLauncher->GetPosition().x, &entity->GetPosition().x)) {
++        return;
++    }
++    CMatrix& matrix = *entityLauncher->m_matrix;
++    CVector point;
++    CcAirRocketsPoint(&entityLauncher->GetPosition().x, &matrix.GetForward().x, &point.x);
++    if (!(CCollision::DistToMathematicalLine(&entityLauncher->GetPosition(), &point, &entity->GetPosition()) < 7.0f)) {
++        return;
++    }
++    const bool odd = (bucket(CTimer::GetTimeInMS()) & 1) != 0;
++    CVector position;
++    CcAirRocketsMuzzle(&entityLauncher->GetPosition().x, &matrix.GetForward().x, &matrix.GetRight().x, odd, &position.x);
++    CProjectileInfo::AddProjectile(entityLauncher, WEAPON_ROCKET, position, 1.0f, &matrix.GetForward(), nullptr);
+ }
+ 
+ // 0x429A70
+ void CCarCtrl::FlyAIHeliInCertainDirection(CHeli* heli, float arg2, float arg3, bool arg4) {
+-    plugin::Call<0x429A70, CHeli*, float, float, bool>(heli, arg2, arg3, arg4);
++    // Como el original (m_matrix del helicoptero se usa sin comprobar nulo): en mision HELI_NEWS_BEHAVIOUR (0x29), con el byte +0x3DF > arg3 y velocidad horizontal < 0.01, el rumbo gira pi/2 y
++    // se anota "news"; una vez por cada 500 ms de reloj (con la semilla del helicoptero) lanza rayos: uno hacia delante en (cos, sin, -1), otro de longitud velocidad * 100 + (5 o 30) y, si choca,
++    // mira 10 unidades a cada lado para elegir el giro (+0x994) y marca +0x9B8. Despues calcula freno (+0x998), deslizamiento (+0x98C) y el mando longitudinal (+0x990)
++    auto& autoPilot = heli->m_autoPilot;
++    const auto byteAt = [heli](size_t offset) { return *(reinterpret_cast<const uint8*>(heli) + offset); };
++    char& byte9B8 = reinterpret_cast<char&>(heli->field_9B8);
++    bool news = false;
++    float heading = arg2;
++    if (autoPilot.m_nCarMission == MISSION_HELI_NEWS_BEHAVIOUR) {
++        if (CcAirHeliNews(byteAt(0x3DF), arg3, &heli->m_vecMoveSpeed.x)) {
++            news = true;
++            heading = CcAirAddF(heading, std::bit_cast<float>(0x3FC90FDBu)); // + pi/2 (0x858FE4)
++        }
++    }
++    const uint32 seed = heli->m_nRandomSeed;
++    const uint32 previous = (CTimer::m_snPreviousTimeInMilliseconds + seed) % 500u;
++    const uint32 current = (CTimer::GetTimeInMS() + seed) % 500u;
++    if (current < previous) {
++        heli->field_9AC = heli->m_fMaxAltitude; // 0x9A8 -> 0x9AC
++        CVector start;
++        CcAirFixedStart(&heli->m_vecMoveSpeed.x, &heli->GetPosition().x, &start.x);
++        CVector direction;
++        CcAirSinCos(heading, &direction.x, &direction.y);
++        direction.z = -1.0f;
++        const float cosRaw = direction.x, sinRaw = direction.y;
++        CarCtrlAirExeNormalise(&direction);
++        CVector end;
++        CcAirFixedEnd(&direction.x, &start.x, &end.x);
++        CColPoint colPoint;
++        CEntity* entity;
++        if (CWorld::ProcessLineOfSight(start, end, colPoint, entity, true, false, false, false, false, false, false, true)) {
++            heli->field_9AC = CcAirHeliRaise1(news, heli->m_fMinAltitude, colPoint.m_vecPoint.z, heli->field_9AC);
++        }
++        const float lookahead = CcAirHeliLookahead(&heli->m_vecMoveSpeed.x, (byteAt(0x42C) & 0x80) != 0);
++        byte9B8 = 1;
++        CVector ahead;
++        CcAirHeliAhead(cosRaw, sinRaw, lookahead, &start.x, &ahead.x);
++        if (!CWorld::ProcessLineOfSight(start, ahead, colPoint, entity, true, false, false, false, false, false, false, true)) {
++            byte9B8 = 0;
++            heli->m_fSteeringLeftRight = 0.0f; // 0x994
++        } else {
++            const CMatrix& matrix = *heli->m_matrix;
++            CVector right = matrix.GetRight();
++            right.z = 0.0f;
++            CarCtrlAirExeNormalise(&right);
++            CVector sideStart;
++            CcAirHeliSide(&right.x, &heli->GetPosition().x, 0, &sideStart.x);
++            CVector sideEnd;
++            CcAirHeliAhead(cosRaw, sinRaw, lookahead, &sideStart.x, &sideEnd.x);
++            float rightFree = 1000.0f;
++            if (CWorld::ProcessLineOfSight(heli->GetPosition(), sideStart, colPoint, entity, true, false, false, false, false, false, false, true)) {
++                rightFree = 0.0f;
++            } else if (CWorld::ProcessLineOfSight(sideStart, sideEnd, colPoint, entity, true, false, false, false, false, false, false, true)) {
++                rightFree = static_cast<float>(CcAirHeliHitDist(&colPoint.m_vecPoint.x, &sideStart.x));
++            }
++            CcAirHeliSide(&right.x, &heli->GetPosition().x, 1, &sideStart.x);
++            CcAirHeliAhead(cosRaw, sinRaw, lookahead, &sideStart.x, &sideEnd.x);
++            double leftFree = 1000.0f;
++            if (CWorld::ProcessLineOfSight(heli->GetPosition(), sideStart, colPoint, entity, true, false, false, false, false, false, false, true)) {
++                leftFree = 0.0f;
++            } else if (CWorld::ProcessLineOfSight(sideStart, sideEnd, colPoint, entity, true, false, false, false, false, false, false, true)) {
++                leftFree = CcAirHeliHitDist(&colPoint.m_vecPoint.x, &sideStart.x);
++            }
++            heli->m_fSteeringLeftRight = (leftFree > rightFree) ? 0.5f : -0.5f; // 0x994
++        }
++    }
++    if (autoPilot.m_nCarMission == MISSION_HELI_LAND_TOUCHING_DOWN) {
++        byte9B8 = 0;
++        heli->m_fSteeringLeftRight = 0.0f;
++    }
++    const CMatrix& matrix = *heli->m_matrix;
++    const float ownHeading = CGeneral::GetATanOfXY(matrix.GetForward().x, matrix.GetForward().y);
++    heli->m_fAccelerationBreakStatus = 0.0f; // 0x998
++    heli->m_fAccelerationBreakStatus = CcAirFixedBrake(heli->m_vecMoveSpeed.z, heli->GetPosition().z, heli->field_9AC);
++    const int random = CarCtrlAirExeRand() & 0xF;
++    float m;
++    heli->m_fAccelerationBreakStatus = CcAirHeliBrake2(random, heli->m_fAccelerationBreakStatus, &m);
++    heli->m_fLeftRightSkid = CcAirHeliSkid(heading, ownHeading); // 0x98C
++    if (arg3 > 60.0f || !arg4) {
++        heli->m_fSteeringUpDown = std::bit_cast<float>(0xBF4CCCCDu); // 0x990: -0.8f
++    } else {
++        float approach;
++        if (CcAirHeliApproach(&heli->m_vecMoveSpeed.x, &heli->GetPosition().x, &autoPilot.m_vecDestinationCoors.x, byteAt(0x3DF), &approach)) {
++            heli->m_fSteeringUpDown = approach;
++        }
++    }
++    if (heli->m_fSteeringUpDown < 0.0f) {
++        float limited;
++        CcAirHeliTurnLimit(ownHeading, heading, heli->m_fSteeringUpDown, &heli->m_vecMoveSpeed.x, &matrix.GetForward().x, &limited);
++        heli->m_fSteeringUpDown = limited;
++    }
++    if (m > 0.0f) {
++        heli->m_fSteeringUpDown = CcAirHeliScale(m, heli->m_fSteeringUpDown);
++    }
++    if (heli->m_fSteeringUpDown < 0.0f) {
++        float stored;
++        const double value = CcAirHeliSpeedCtl(byteAt(0x3D0), &heli->m_vecMoveSpeed.x, &matrix.GetForward().x, heli->m_fSteeringUpDown, &stored);
++        heli->m_fSteeringUpDown = stored;
++        if (byteAt(0x3D9) != 0 && value < std::bit_cast<float>(0xBE4CCCCDu) && byte9B8 == 0) { // -0.2f (0x858FDC)
++            CcAirHeliDecay(static_cast<int8>(byteAt(0x3D9)), CTimer::ms_fTimeStep, &matrix.GetForward().x, &heli->m_vecMoveSpeed.x);
++        }
++    }
++    if (byte9B8 != 0) {
++        CVector forward2D = matrix.GetForward();
++        forward2D.z = 0.0f;
++        CarCtrlAirExeNormalise(&forward2D);
++        heli->m_fSteeringUpDown = CcAirHeliForwardDot(&forward2D.x, &heli->m_vecMoveSpeed.x);
++    }
++    heli->m_fSteeringUpDown = CcAirHeliClamp990(heli->m_fSteeringUpDown);
+ }
+ 
+ // 0x423940
+ void CCarCtrl::FlyAIHeliToTarget_FixedOrientation(CHeli* heli, float Orientation, CVector posn) {
+-    plugin::Call<0x423940, CHeli*, float, CVector>(heli, Orientation, posn);
++    // Como el original (el EXE recibe ademas un cuarto argumento, true, que no lee): una vez por cada 500 ms de reloj (con la semilla del helicoptero) copia la altitud maxima (+0x9A8 -> +0x9AC),
++    // lanza un rayo desde la posicion + velocidad x 50 en la direccion (cos, sin, -1) normalizada x 60 y, si choca, +0x9AC = max(+0x9AC, z del choque + altitud minima +0x9B0).
++    // Despues calcula el freno (+0x998), el deslizamiento (+0x98C) y los mandos lateral (+0x994) y longitudinal (+0x990) hacia el destino (m_matrix sin comprobar nulo)
++    const uint32 seed = heli->m_nRandomSeed;
++    const uint32 previous = (CTimer::m_snPreviousTimeInMilliseconds + seed) % 500u;
++    const uint32 current = (CTimer::GetTimeInMS() + seed) % 500u;
++    if (current < previous) {
++        heli->field_9AC = heli->m_fMaxAltitude;
++        CVector start;
++        CcAirFixedStart(&heli->m_vecMoveSpeed.x, &heli->GetPosition().x, &start.x);
++        CVector direction;
++        CcAirSinCos(Orientation, &direction.x, &direction.y);
++        direction.z = -1.0f;
++        CarCtrlAirExeNormalise(&direction);
++        CVector end;
++        CcAirFixedEnd(&direction.x, &start.x, &end.x);
++        CColPoint colPoint;
++        CEntity* entity;
++        if (CWorld::ProcessLineOfSight(start, end, colPoint, entity, true, false, false, false, false, false, false, true)) {
++            heli->field_9AC = CcAirFixedMaxAlt(colPoint.m_vecPoint.z, heli->m_fMinAltitude, heli->field_9AC);
++        }
++    }
++    const CMatrix& matrix = *heli->m_matrix;
++    const float ownHeading = CGeneral::GetATanOfXY(matrix.GetForward().x, matrix.GetForward().y);
++    heli->m_fAccelerationBreakStatus = 0.0f; // 0x998
++    heli->m_fAccelerationBreakStatus = CcAirFixedBrake(heli->m_vecMoveSpeed.z, heli->GetPosition().z, heli->field_9AC);
++    const int random = CarCtrlAirExeRand() & 0xF;
++    float out[7];
++    CcAirFixedControls(Orientation, ownHeading, heli->m_fAccelerationBreakStatus, random, &heli->m_vecMoveSpeed.x, &matrix.GetRight().x, &matrix.GetForward().x, &heli->GetPosition().x, &posn.x, out);
++    heli->m_fAccelerationBreakStatus = out[0];
++    heli->m_fLeftRightSkid = out[1]; // 0x98C (sin limitar y limitado)
++    heli->m_fLeftRightSkid = out[2];
++    heli->m_fSteeringLeftRight = out[3]; // 0x994
++    heli->m_fSteeringLeftRight = out[4];
++    heli->m_fSteeringUpDown = out[5]; // 0x990
++    heli->m_fSteeringUpDown = out[6];
+ }
+ 
+ // 0x423000
+ void CCarCtrl::FlyAIPlaneInCertainDirection(CPlane* pPlane) {
+-    plugin::Call<0x423000, CPlane*>(pPlane);
++    // Como el original. Una vez por segundo de reloj (con la semilla del avion) sondea rumbos alternativos con la funcion 0x422F80 del EXE (dos pasadas sobre 19 candidatos a +-15 grados) y fija
++    // +0x9B8 (rumbo) y +0x9AC (altitud); despues calcula, segun el avion lleve mas o menos de 4 s sin tocar el suelo, los mandos de cabeceo (+0x98C), alabeo (+0x988), timon (+0x990) y
++    // aceleracion (+0x994). El local del limite de rumbo del bloque periodico comparte la posicion de pila ([esp+0x10]) con el rumbo propio que se guarda despues, y el segundo es el que
++    // leen los mandos (rumbo deseado +0x9B8 menos rumbo propio). m_matrix se usa sin comprobar nulo
++    CPlane* const plane = pPlane;
++    const uint32 seed = plane->m_nRandomSeed;
++    const uint32 previous = (CTimer::m_snPreviousTimeInMilliseconds + seed) % 1000u;
++    const uint32 current = (CTimer::GetTimeInMS() + seed) % 1000u;
++    if (current < previous) {
++        float target;
++        const CMatrix& matrix = *plane->m_matrix;
++        const float ownHeading = CGeneral::GetATanOfXY(matrix.GetForward().x, matrix.GetForward().y);
++        target = plane->m_planeHeading;
++        switch (plane->m_autoPilot.m_nTempAction) {
++        case TEMPACT_PLANE_FLY_STRAIGHT:
++            target = ownHeading;
++            break;
++        case TEMPACT_PLANE_SHARP_LEFT:
++            target = CcAirSubF(ownHeading, 2.0f);
++            break;
++        case TEMPACT_PLANE_SHARP_RIGHT:
++            target = CcAirAddF(2.0f, ownHeading);
++            break;
++        default:
++            break;
++        }
++        plane->m_altitude = std::bit_cast<float>(0x43FA0000u); // 0x9AC: 500.0f
++        plane->m_planeHeadingPrev = CcAirAddF(plane->m_planeHeading, std::bit_cast<float>(0x40490FDBu)); // 0x9B8
++        float limit;
++        CcAirPlaneLimitCalc(ownHeading, target, &limit);
++        for (int pass = 0; pass < 2; ++pass) {
++            for (int n = 1; n < 20; ++n) {
++                float s, t;
++                int inRange;
++                CcAirPlaneCand(n, target, limit, &s, &t, &inRange);
++                if (pass == 0 ? !inRange : inRange != 0) {
++                    continue;
++                }
++                const float clearance = reinterpret_cast<float(__cdecl*)(CPlane*, float)>(0x422F80)(plane, t);
++                if (!(clearance < 150.0f)) {
++                    continue;
++                }
++                plane->m_planeHeadingPrev = CcAirPlaneAccept(s, plane->m_planeHeading); // 0x9B8
++                plane->m_altitude = CcAirPlaneRaise(clearance, plane->m_minAltitude, plane->m_maxAltitude); // 0x9AC
++                break;
++            }
++        }
++    }
++    const uint8 flags42C = *(reinterpret_cast<const uint8*>(plane) + 0x42C);
++    const float v28 = (flags42C & 0x80) ? *reinterpret_cast<const float*>(0x8A5B54) : 32.0f;
++    const CMatrix& matrix = *plane->m_matrix;
++    const float ownHeading2 = CGeneral::GetATanOfXY(matrix.GetForward().x, matrix.GetForward().y);
++    const float speed60 = CcAirPlaneSpeed60(&matrix.GetForward().x, &plane->m_vecMoveSpeed.x);
++    const auto& compression = plane->m_fWheelsSuspensionCompression;
++    if (compression[0] < 1.0f || compression[1] < 1.0f || compression[2] < 1.0f || compression[3] < 1.0f) {
++        plane->m_nStartedFlyingTime = CTimer::GetTimeInMS(); // 0x9C0
++    }
++    const bool ground = (CTimer::GetTimeInMS() - plane->m_nStartedFlyingTime) <= 4000u;
++    if (!ground) {
++        if (std::bit_cast<uint32>(plane->m_fLandingGearStatus) != 0x3F800000u) {
++            plane->SetGearUp();
++        }
++        const float pz = CcAirPlanePz(plane->m_vecMoveSpeed.z, plane->GetPosition().z);
++        float new9BC, out98C;
++        CcAirPlaneAir(matrix.GetForward().z, plane->m_forwardZ, CTimer::ms_fTimeStep, *reinterpret_cast<const float*>(0x8A5B50), plane->m_altitude, pz, speed60, v28, &new9BC, &out98C);
++        plane->m_forwardZ = new9BC; // 0x9BC
++        plane->m_fSteeringUpDown = out98C; // 0x98C
++    } else {
++        plane->m_fSteeringUpDown = (speed60 < v28) ? 0.0f : std::bit_cast<float>(0x3ECCCCCDu);
++    }
++    float out[4];
++    CcAirPlaneFinish(ground, plane->m_planeHeadingPrev, ownHeading2, plane->m_planeCreationHeading, plane->m_fSteeringUpDown, plane->m_fSteeringFactor, (flags42C & 0x80) != 0, v28, speed60,
++                     CTimer::ms_fTimeStep, *reinterpret_cast<const float*>(0x8A5B4C), *reinterpret_cast<const float*>(0x8A5B48), *reinterpret_cast<const float*>(0x8A5B44), &matrix.GetRight().x, out);
++    plane->m_fLeftRightSkid = out[0]; // 0x988
++    if (!ground) {
++        plane->m_fSteeringFactor = out[2]; // 0x99C: balanceo en bruto
++    }
++    plane->m_fSteeringLeftRight = out[1]; // 0x990
++    plane->m_fSteeringUpDown = CcAirPlaneClamp98C(out[3]); // 0x98C, limitado a [-1, 1]
++    plane->m_fAccelerationBreakStatus = plane->m_fAccelerationBreakStatusPrev; // 0x994 = 0x998 (copia de 32 bits)
++    if (plane->m_autoPilot.m_nTempAction == TEMPACT_PLANE_FLY_UP) {
++        plane->m_fSteeringUpDown = 1.0f;
++        if (speed60 < 20.0) {
++            plane->m_autoPilot.m_nTempAction = TEMPACT_NONE;
++        }
++    }
+ }
+ 
+ // 0x424210
+@@ -504,27 +791,120 @@ void CCarCtrl::GenerateRandomCars() {
+ 
+ // 0x42F3C0
+ void CCarCtrl::GetAIHeliToAttackPlayer(CAutomobile* automobile) {
+-    plugin::Call<0x42F3C0, CAutomobile*>(automobile);
++    // Como el original: ocho llamadas a FindPlayerCoors(-1) y cada una aporta un dato distinto (x del rumbo, y del rumbo, x e y de la distancia, z a +0x9A8, destino +0x3EC);
++    // en mision HELI_ATTACK_PLAYER (23) a menos de 15.0 pasa a la 56 y suma 50.0 a la distancia; en la 56 a mas de 18.0 vuelve a la 23 y suma pi al rumbo;
++    // despues FlyAIHeliInCertainDirection(rumbo, distancia, false), TestWhetherToFirePlaneGuns y FireHeliRocketsAtTarget contra FindPlayerEntity(-1)
++    auto* const heli = static_cast<CHeli*>(automobile);
++    auto& autoPilot = heli->m_autoPilot;
++    const CVector c1 = FindPlayerCoors(-1);
++    const CVector c2 = FindPlayerCoors(-1);
++    const float hy = CcAirSubF(c2.y, heli->GetPosition().y);
++    const float hx = CcAirSubF(c1.x, heli->GetPosition().x);
++    float heading = CGeneral::GetATanOfXY(hx, hy);
++    const CVector c3 = FindPlayerCoors(-1);
++    const CVector c4 = FindPlayerCoors(-1);
++    const CVector c5 = FindPlayerCoors(-1);
++    const CVector c6 = FindPlayerCoors(-1);
++    float distance = CcAirHeliAttackDist(c3.x, c4.x, c5.y, c6.y, &heli->GetPosition().x);
++    const CVector c7 = FindPlayerCoors(-1);
++    heli->m_fMaxAltitude = c7.z; // 0x9A8
++    const CVector c8 = FindPlayerCoors(-1);
++    autoPilot.m_vecDestinationCoors = c8; // 0x3EC
++    const auto mission = autoPilot.m_nCarMission;
++    if (mission == MISSION_HELI_ATTACK_PLAYER) {
++        if (distance < 15.0f) {
++            autoPilot.m_nCarMission = MISSION_HELI_ATTACK_PLAYER_FLY_AWAY;
++        }
++        distance = CcAirAddF(distance, 50.0f);
++    } else if (mission == MISSION_HELI_ATTACK_PLAYER_FLY_AWAY) {
++        if (distance > 18.0f) {
++            autoPilot.m_nCarMission = MISSION_HELI_ATTACK_PLAYER;
++        }
++        heading = CcAirAddF(heading, std::bit_cast<float>(0x40490FDBu));
++    }
++    FlyAIHeliInCertainDirection(heli, heading, distance, false);
++    TestWhetherToFirePlaneGuns(heli, FindPlayerEntity(-1));
++    FireHeliRocketsAtTarget(heli, FindPlayerEntity(-1));
+ }
+ 
+ // 0x42A730
+ void CCarCtrl::GetAIHeliToFlyInDirection(CAutomobile* automobile) {
+-    plugin::Call<0x42A730, CAutomobile*>(automobile);
++    // Como el original: pasa +0x9B4 (CHeli::field_9B4, copia de 32 bits), 1000.0f y false
++    auto* const heli = static_cast<CHeli*>(automobile);
++    FlyAIHeliInCertainDirection(heli, heli->field_9B4, 1000.0f, false);
+ }
+ 
+ // 0x429780
+ void CCarCtrl::GetAIPlaneToAttackPlayer(CAutomobile* automobile) {
+-    plugin::Call<0x429780, CAutomobile*>(automobile);
++    // Como el original: apunta al jugador adelantado por su velocidad x 50.0 (FindPlayerSpeed y despues FindPlayerCoors); rumbo = GetATanOfXY a +0x9B4, altitud maxima = z en bruto
++    // a +0x9A8; despues FlyAIPlaneInCertainDirection y, con el vehiculo del jugador (FindPlayerVehicle se llama en cada uso), TriggerDogFightMoves solo si es un avion,
++    // TestWhetherToFirePlaneGuns y PossiblyFireHSMissile
++    auto* const plane = static_cast<CPlane*>(automobile);
++    float scaled[3];
++    CcAirScale3(&FindPlayerSpeed(-1).x, std::bit_cast<float>(0x42480000u), scaled); // 50.0f (0x858B40)
++    const CVector playerCoors = FindPlayerCoors(-1);
++    float aim[3];
++    CcAirAttackAim(scaled, &playerCoors.x, &plane->GetPosition().x, aim);
++    plane->m_planeHeading = CGeneral::GetATanOfXY(aim[0], aim[1]); // 0x9B4
++    plane->m_maxAltitude = aim[2]; // 0x9A8
++    FlyAIPlaneInCertainDirection(plane);
++    if (FindPlayerVehicle(-1, false)) {
++        if (FindPlayerVehicle(-1, false)->GetVehicleAppearance() == VEHICLE_APPEARANCE_PLANE) {
++            TriggerDogFightMoves(plane, FindPlayerVehicle(-1, false));
++        }
++    }
++    TestWhetherToFirePlaneGuns(plane, FindPlayerVehicle(-1, false));
++    PossiblyFireHSMissile(plane, FindPlayerVehicle(-1, false));
+ }
+ 
+ // 0x429890
+ void CCarCtrl::GetAIPlaneToDoDogFight(CAutomobile* automobile) {
+-    plugin::Call<0x429890, CAutomobile*>(automobile);
++    // Como el original: el objetivo (+0x41C) se lee una vez al principio y se usa tambien al final. Punto de mira = posicion del objetivo + su velocidad x 50.0.
++    // Con +0x425 (int8) distinto de 1 apunta al punto de mira y, con rand() & 0x3FF == 500, pasa a +0x425 = 1 y fija un destino aleatorio (x, y = mira + rand * 600 / 32767 - 300; z = mira.z + 50);
++    // con +0x425 == 1 apunta al destino (+0x3EC) y lo suelta (+0x425 = 0) a menos de 50.0
++    auto* const plane = static_cast<CPlane*>(automobile);
++    auto& autoPilot = plane->m_autoPilot;
++    CVehicle* const target = autoPilot.m_TargetEntity;
++    float aim[3];
++    CcAirDogAim(&target->m_vecMoveSpeed.x, &target->GetPosition().x, aim);
++    if (reinterpret_cast<const int8&>(autoPilot.m_bPlaneDogfightSomething) != 1) {
++        const float dy = CcAirSubF(aim[1], plane->GetPosition().y);
++        const float dx = CcAirSubF(aim[0], plane->GetPosition().x);
++        plane->m_planeHeading = CGeneral::GetATanOfXY(dx, dy); // 0x9B4
++        plane->m_maxAltitude = aim[2]; // 0x9A8
++        if ((CarCtrlAirExeRand() & 0x3FF) == 500) {
++            autoPilot.m_bPlaneDogfightSomething = true; // 0x425
++            const int randX = CarCtrlAirExeRand();
++            autoPilot.m_vecDestinationCoors.x = CcAirDogRandOffset(randX, aim[0]);
++            const int randY = CarCtrlAirExeRand();
++            autoPilot.m_vecDestinationCoors.y = CcAirDogRandOffset(randY, aim[1]);
++            autoPilot.m_vecDestinationCoors.z = CcAirAddF(aim[2], std::bit_cast<float>(0x42480000u)); // + 50.0f
++        }
++    } else {
++        const CVector& dest = autoPilot.m_vecDestinationCoors;
++        const float dy = CcAirSubF(dest.y, plane->GetPosition().y);
++        const float dx = CcAirSubF(dest.x, plane->GetPosition().x);
++        plane->m_planeHeading = CGeneral::GetATanOfXY(dx, dy); // 0x9B4
++        plane->m_maxAltitude = dest.z; // 0x9A8
++        if (CcAirHorizDistD(&dest.x, &plane->GetPosition().x) < 50.0f) {
++            autoPilot.m_bPlaneDogfightSomething = false;
++        }
++    }
++    FlyAIPlaneInCertainDirection(plane);
++    TestWhetherToFirePlaneGuns(plane, target);
++    PossiblyFireHSMissile(plane, target);
+ }
+ 
+ // 0x42F370
+ void CCarCtrl::GetAIPlaneToDoDogFightAgainstPlayer(CAutomobile* automobile) {
+-    plugin::Call<0x42F370, CAutomobile*>(automobile);
++    // Como el original: FindPlayerVehicle se llama dos veces (la primera solo comprueba); sin vehiculo el objetivo es el jugador (FindPlayerPed).
++    // El final es una llamada en cola a GetAIPlaneToDoDogFight (0x429890).
++    if (FindPlayerVehicle(-1, false)) {
++        automobile->m_autoPilot.m_TargetEntity = FindPlayerVehicle(-1, false);
++    } else {
++        automobile->m_autoPilot.m_TargetEntity = reinterpret_cast<CVehicle*>(FindPlayerPed(-1));
++    }
++    GetAIPlaneToDoDogFight(automobile);
+ }
+ 
+ // 0x421440
+@@ -996,17 +1376,73 @@ void CCarCtrl::SlowCarOnRailsDownForTrafficAndLights(CVehicle* vehicle) {
+ 
+ // 0x428DE0
+ void CCarCtrl::SteerAIBoatWithPhysicsAttackingPlayer(CVehicle* vehicle, float* arg2, float* arg3, float* arg4, bool* arg5) {
+-    plugin::Call<0x428DE0, CVehicle*, float*, float*, float*, bool*>(vehicle, arg2, arg3, arg4, arg5);
++    // Como el original: apunta por delante del jugador (su posicion + velocidad x factor de distancia x 60.0; FindPlayerCoors y FindPlayerSpeed se llaman en el orden del EXE);
++    // *arg2 = diferencia de rumbo normalizada, *arg3 = acelerador/freno, *arg4 = 0, *arg5 = false; con el modelo 430, a menos de 40.0 del jugador y diferencia < 0.15 llama a 0x73DF00
++    const CVector& position = vehicle->GetPosition();
++    const CVector coors1 = FindPlayerCoors(-1);
++    float distance;
++    const float lead = CcAirBoatAttackLead(&coors1.x, &position.x, &distance);
++    float forward[2];
++    CcAirBoatForward(&vehicle->m_matrix->GetForward().x, forward);
++    const CVector& speed1 = FindPlayerSpeed(-1);
++    const CVector coors2 = FindPlayerCoors(-1);
++    const float leadX = CcAirBoatLeadX(lead, &speed1.x, &coors2.x);
++    const CVector& speed2 = FindPlayerSpeed(-1);
++    const float leadYPart = CcAirBoatLeadYPart(lead, &speed2.x);
++    const CVector coors3 = FindPlayerCoors(-1);
++    const float dy = CcAirBoatLeadDy(leadYPart, &coors3.x, &vehicle->GetPosition().x);
++    const float dx = CcAirSubF(leadX, vehicle->GetPosition().x);
++    const float headingToTarget = CGeneral::GetATanOfXY(dx, dy);
++    const float ownHeading = CGeneral::GetATanOfXY(forward[0], forward[1]);
++    const double diff = CcAirBoatSteerThrottle(headingToTarget, ownHeading, &vehicle->m_vecMoveSpeed.x, vehicle->m_autoPilot.m_nCruiseSpeed, 1, arg2, arg3);
++    *arg4 = 0.0f;
++    *arg5 = false;
++    if (vehicle->m_nModelIndex == 430) {
++        if (distance < 40.0f) {
++            if (diff < std::bit_cast<float>(0x3E19999Au)) { // 0.15f (0x858FCC)
++                CarCtrlAirExeBoatSpecial(vehicle);
++            }
++        }
++    }
+ }
+ 
+ // 0x429090
+ void CCarCtrl::SteerAIBoatWithPhysicsCirclingPlayer(CVehicle* vehicle, float* arg2, float* arg3, float* arg4, bool* arg5) {
+-    plugin::Call<0x429090, CVehicle*, float*, float*, float*, bool*>(vehicle, arg2, arg3, arg4, arg5);
++    // Como el original: vector del jugador a la lancha (z = 0) normalizado por 0x59C910 y girado 90 grados con modulo 26.0 (bit 0 de m_nRandomSeed a 0) o -12.0 (a 1), sumado a la posicion del jugador
++    // (segunda llamada a FindPlayerCoors); mismo calculo de rumbo y de acelerador que AttackingPlayer; *arg4 = 0, *arg5 = false
++    const CVector& position = vehicle->GetPosition();
++    const CVector coors1 = FindPlayerCoors(-1);
++    CVector toBoat;
++    toBoat.y = CcAirSubF(coors1.y, position.y);
++    toBoat.x = CcAirSubF(coors1.x, position.x);
++    toBoat.z = 0.0f;
++    CarCtrlAirExeNormalise(&toBoat);
++    float rotated[2];
++    CcAirCirclingVec(&toBoat.x, (vehicle->m_nRandomSeed & 1) != 0, rotated);
++    const CVector coors2 = FindPlayerCoors(-1);
++    float forward[2];
++    CcAirBoatForward(&vehicle->m_matrix->GetForward().x, forward);
++    float aim[2];
++    CcAirCirclingAim(rotated, &coors2.x, &vehicle->GetPosition().x, aim);
++    const float headingToTarget = CGeneral::GetATanOfXY(aim[0], aim[1]);
++    const float ownHeading = CGeneral::GetATanOfXY(forward[0], forward[1]);
++    CcAirBoatSteerThrottle(headingToTarget, ownHeading, &vehicle->m_vecMoveSpeed.x, vehicle->m_autoPilot.m_nCruiseSpeed, 1, arg2, arg3);
++    *arg4 = 0.0f;
++    *arg5 = false;
+ }
+ 
+ // 0x428BE0
+ void CCarCtrl::SteerAIBoatWithPhysicsHeadingForTarget(CVehicle* vehicle, float arg2, float arg3, float* arg4, float* arg5, float* arg6) {
+-    plugin::Call<0x428BE0, CVehicle*, float, float, float*, float*, float*>(vehicle, arg2, arg3, arg4, arg5, arg6);
++    // Como el original: el eje adelante se toma de m_matrix (sin comprobar nulo) y se normaliza en 2D; rumbo hacia (arg2, arg3) menos el rumbo de la lancha, normalizado a [-pi, pi] y limitado
++    // a [-0.5, 0.5] en *arg4 (cambiado de signo al frenar); *arg5 = acelerador/freno segun la velocidad frente a +0x3D0 (crucero); *arg6 = 0
++    float forward[2];
++    CcAirBoatForward(&vehicle->m_matrix->GetForward().x, forward);
++    const float dy = CcAirSubF(arg3, vehicle->GetPosition().y);
++    const float dx = CcAirSubF(arg2, vehicle->GetPosition().x);
++    const float headingToTarget = CGeneral::GetATanOfXY(dx, dy);
++    const float ownHeading = CGeneral::GetATanOfXY(forward[0], forward[1]);
++    CcAirBoatSteerThrottle(headingToTarget, ownHeading, &vehicle->m_vecMoveSpeed.x, vehicle->m_autoPilot.m_nCruiseSpeed, 0, arg4, arg5);
++    *arg6 = 0.0f;
+ }
+ 
+ // 0x422B20
+@@ -1071,52 +1507,259 @@ void CCarCtrl::SteerAICarWithPhysics_OnlyMission(CVehicle* vehicle, float* arg2,
+ 
+ // 0x42AAD0
+ void CCarCtrl::SteerAIHeliAsPoliceHeli(CAutomobile* automobile) {
+-    plugin::Call<0x42AAD0, CAutomobile*>(automobile);
++    // Como el original: el objetivo (+0x41C) se lee sin comprobar nulo y se relee tras GetATanOfXY; altitud maxima = max(z del objetivo, 6.0) (NaN -> 6.0) y,
++    // si la distancia horizontal es > 50.0, max(altitud, 25.0); destino = posicion del objetivo (copia en bruto); si la salud (+0x4C0) < 230.0, mision HELI_FLY_AWAY_FROM_PLAYER (0x2A)
++    auto* const heli = static_cast<CHeli*>(automobile);
++    auto& autoPilot = heli->m_autoPilot;
++    CVehicle* target = autoPilot.m_TargetEntity;
++    const CVector& targetPos = target->GetPosition();
++    const CVector& pos = heli->GetPosition();
++    const float dy = CcAirSubF(targetPos.y, pos.y);
++    const float dx = CcAirSubF(targetPos.x, pos.x);
++    const float heading = CGeneral::GetATanOfXY(dx, dy);
++    target = autoPilot.m_TargetEntity;
++    const float dist = CcAirHorizDist(&target->GetPosition().x, &heli->GetPosition().x);
++    float altitude = target->GetPosition().z;
++    if (!(altitude > 6.0f)) {
++        altitude = 6.0f;
++    }
++    heli->m_fMaxAltitude = altitude; // 0x9A8
++    if (dist > 50.0f) {
++        if (!(altitude > 25.0f)) {
++            altitude = 25.0f;
++        }
++        heli->m_fMaxAltitude = altitude;
++    }
++    autoPilot.m_vecDestinationCoors = target->GetPosition(); // 0x3EC
++    FlyAIHeliInCertainDirection(heli, heading, dist, true);
++    if (heli->m_fHealth < 230.0f) {
++        autoPilot.m_nCarMission = MISSION_HELI_FLY_AWAY_FROM_PLAYER;
++    }
+ }
+ 
+ // 0x42ACB0
+ void CCarCtrl::SteerAIHeliFlyingAwayFromPlayer(CAutomobile* automobile) {
+-    plugin::Call<0x42ACB0, CAutomobile*>(automobile);
++    // Como el original: dos llamadas a FindPlayerCoors(-1); x sale de la primera e y de la segunda. El rumbo es GetATanOfXY + pi (0x858CB8) con un solo guardado a float
++    auto* const heli = static_cast<CHeli*>(automobile);
++    const CVector& pos = heli->GetPosition();
++    const CVector playerPos1 = FindPlayerCoors(-1);
++    const CVector playerPos2 = FindPlayerCoors(-1);
++    const float dy = CcAirSubF(playerPos2.y, pos.y);
++    const float dx = CcAirSubF(playerPos1.x, pos.x);
++    const float heading = CcAirAddF(CGeneral::GetATanOfXY(dx, dy), std::bit_cast<float>(0x40490FDBu));
++    FlyAIHeliInCertainDirection(heli, heading, 1000.0f, false);
+ }
+ 
+ // 0x4238E0
+ void CCarCtrl::SteerAIHeliToCrashAndBurn(CAutomobile* automobile) {
+-    plugin::Call<0x4238E0, CAutomobile*>(automobile);
++    // Como el original: el bit 0 de m_nRandomSeed (word en +0x20) decide el signo; con bit 0 copia field_A14 en bruto (mov) y sin el bit lo niega con la x87 (fchs)
++    auto* const heli = static_cast<CHeli*>(automobile);
++    const bool odd = (heli->m_nRandomSeed & 1) != 0;
++    heli->m_fSteeringUpDown = std::bit_cast<float>(0xBE99999Au); // 0x990: -0.3f
++    heli->m_fLeftRightSkid = odd ? heli->field_A14 : CcAirNegF(heli->field_A14); // 0x98C
++    heli->m_fAccelerationBreakStatus = -0.5f; // 0x998
++    heli->m_fSteeringLeftRight = odd ? 1.0f : -1.0f; // 0x994
+ }
+ 
+ // 0x42A750
+ void CCarCtrl::SteerAIHeliToFollowEntity(CAutomobile* automobile) {
+-    plugin::Call<0x42A750, CAutomobile*>(automobile);
++    // Como el original: destino (+0x3EC) = posicion del objetivo (+0x41C, sin comprobar nulo), desplazada por su eje adelante x el multiplicador con signo +0x3DA si es distinto de 0
++    // (crea la matriz del objetivo si falta); rumbo hacia el destino y distancia horizontal al objetivo; altitud maxima = max(z del objetivo, 6.0) y, a mas de 50.0, max(altitud, 25.0);
++    // con +0x954 >= 0 (ordenado) FlyAIHeliToTarget_FixedOrientation(posicion del objetivo) o si no FlyAIHeliInCertainDirection(rumbo, distancia, true); con bDoTargetCatchupCheck y a menos de 25.0 el
++    // objetivo pasa a conducir en crucero (vehiculo en estado 2 o 3) o a esprintar (ped con tarea Wander); con bHeliFollowTarget y 50 s desde la creacion pasa a HELI_FLY_AWAY_FROM_PLAYER
++    auto* const heli = static_cast<CHeli*>(automobile);
++    auto& autoPilot = heli->m_autoPilot;
++    CVehicle* target = autoPilot.m_TargetEntity;
++    autoPilot.m_vecDestinationCoors = target->GetPosition();
++    if (autoPilot.field_4A != 0) {
++        if (!target->m_matrix) {
++            target->AllocateMatrix();
++            target->m_placement.UpdateMatrix(target->m_matrix);
++        }
++        CcAirFollowOffset(&target->m_matrix->GetForward().x, static_cast<int8>(autoPilot.field_4A), &autoPilot.m_vecDestinationCoors.x);
++    }
++    const CVector& dest = autoPilot.m_vecDestinationCoors;
++    const float dy = CcAirSubF(dest.y, heli->GetPosition().y);
++    const float dx = CcAirSubF(dest.x, heli->GetPosition().x);
++    const float heading = CGeneral::GetATanOfXY(dx, dy);
++    target = autoPilot.m_TargetEntity;
++    const float dist = CcAirHorizDist(&target->GetPosition().x, &heli->GetPosition().x);
++    float altitude = target->GetPosition().z;
++    if (!(altitude > 6.0f)) {
++        altitude = 6.0f;
++    }
++    heli->m_fMaxAltitude = altitude; // 0x9A8
++    if (dist > 50.0f) {
++        if (!(altitude > 25.0f)) {
++            altitude = 25.0f;
++        }
++        heli->m_fMaxAltitude = altitude;
++    }
++    if (heli->m_fForcedOrientation >= 0.0f) {
++        FlyAIHeliToTarget_FixedOrientation(heli, heli->m_fForcedOrientation, target->GetPosition());
++    } else {
++        FlyAIHeliInCertainDirection(heli, heading, dist, true);
++    }
++    if (autoPilot.carCtrlFlags.bDoTargetCatchupCheck) {
++        CVehicle* const entity = autoPilot.m_TargetEntity;
++        if (CcAirHorizDistD(&heli->GetPosition().x, &entity->GetPosition().x) < 25.0f) {
++            if (entity->GetType() == ENTITY_TYPE_VEHICLE) {
++                const auto status = entity->GetStatus();
++                if (status == STATUS_SIMPLE || status == STATUS_PHYSICS) {
++                    entity->SetStatus(STATUS_PHYSICS);
++                    entity->m_autoPilot.m_nCarMission = MISSION_CRUISE;                // 0x3BA
++                    entity->m_autoPilot.m_nCruiseSpeed = 100;                          // 0x3D0
++                    entity->m_autoPilot.m_nCarDrivingStyle = DRIVING_STYLE_AVOID_CARS; // 0x3B9
++                }
++            } else if (entity->GetType() == ENTITY_TYPE_PED) {
++                // Como el original: el "vehiculo" objetivo es un ped; su CTaskManager esta en m_pIntelligence + 4
++                auto* const ped = reinterpret_cast<CPed*>(entity);
++                if (CTask* const task = ped->GetTaskManager().GetActiveTask()) {
++                    if (task->GetTaskType() == TASK_COMPLEX_WANDER) {
++                        static_cast<CTaskComplexWander*>(task)->m_nMoveState = PEDMOVE_SPRINT;
++                    }
++                }
++            }
++            autoPilot.carCtrlFlags.bDoTargetCatchupCheck = false;
++        }
++    }
++    if (autoPilot.carCtrlFlags.bHeliFollowTarget) {
++        if (CTimer::GetTimeInMS() > heli->m_nCreationTime + 50000u) {
++            autoPilot.carCtrlFlags.bHeliFollowTarget = false;
++            autoPilot.m_nCarMission = MISSION_HELI_FLY_AWAY_FROM_PLAYER;
++        }
++    }
++    if (autoPilot.m_nCarMission == MISSION_HELI_NEWS_BEHAVIOUR) {
++        if (heli->m_fHealth < 300.0f) {
++            autoPilot.m_nCarMission = MISSION_HELI_FLY_AWAY_FROM_PLAYER;
++        }
++    }
+ }
+ 
+ // 0x42AEB0
+ void CCarCtrl::SteerAIHeliToKeepEntityInView(CAutomobile* automobile) {
+-    plugin::Call<0x42AEB0, CAutomobile*>(automobile);
++    // Como el original: rumbo hacia el objetivo (+0x41C) y distancia horizontal; a mas del doble de +0x3D8 (byte) sigue al objetivo con SteerAIHeliToFollowEntity; si no, mantiene el
++    // objetivo de lado: deslizamiento (+0x98C) con la diferencia entre rumbo + pi/2 y el rumbo del helicoptero normalizada y limitada a [-1, 1]; altitud maxima (+0x9A8, +0x9AC) = z del
++    // objetivo + 15.0 y destino = su posicion; freno/aceleracion (+0x998) con ganancia 0.1/0.2 + 0.3, mas una rand() & 0xF del EXE, limitado a [0, 1]; mandos +0x994 y +0x990 segun la
++    // distancia (m_matrix del helicoptero se usa sin comprobar nulo)
++    auto* const heli = static_cast<CHeli*>(automobile);
++    auto& autoPilot = heli->m_autoPilot;
++    CVehicle* target = autoPilot.m_TargetEntity;
++    const float dy = CcAirSubF(target->GetPosition().y, heli->GetPosition().y);
++    const float dx = CcAirSubF(target->GetPosition().x, heli->GetPosition().x);
++    const float heading = CGeneral::GetATanOfXY(dx, dy);
++    target = autoPilot.m_TargetEntity;
++    float distance;
++    if (CcAirViewFar(&target->GetPosition().x, &heli->GetPosition().x, autoPilot.m_ucHeliTargetDist, &distance)) {
++        SteerAIHeliToFollowEntity(heli);
++        return;
++    }
++    const CMatrix& matrix = *heli->m_matrix;
++    const float rotated = CcAirAddF(heading, std::bit_cast<float>(0x3FC90FDBu)); // + pi/2 (0x858FE4)
++    const float ownHeading = CGeneral::GetATanOfXY(matrix.GetForward().x, matrix.GetForward().y);
++    float skidRaw, skid;
++    CcAirViewSkid(rotated, ownHeading, &skidRaw, &skid);
++    heli->m_fLeftRightSkid = skidRaw; // 0x98C: el EXE guarda dos veces (sin limitar y limitado)
++    heli->m_fLeftRightSkid = skid;
++    target = autoPilot.m_TargetEntity;
++    heli->m_fMaxAltitude = CcAirAddF(target->GetPosition().z, 15.0f); // 0x9A8
++    autoPilot.m_vecDestinationCoors = target->GetPosition();
++    heli->field_9AC = heli->m_fMaxAltitude; // 0x9AC
++    heli->m_fAccelerationBreakStatus = std::bit_cast<float>(0x3E99999Au); // 0x998
++    heli->m_fAccelerationBreakStatus = CcAirViewBrake1(heli->m_fMaxAltitude, heli->m_vecMoveSpeed.z, heli->GetPosition().z);
++    const int random = CarCtrlAirExeRand() & 0xF;
++    heli->m_fAccelerationBreakStatus = CcAirViewBrake2(random, heli->m_fAccelerationBreakStatus);
++    CcAirViewLeftRight(distance, autoPilot.m_ucHeliTargetDist, &heli->m_vecMoveSpeed.x, &heli->m_matrix->GetRight().x, &heli->m_fSteeringLeftRight);
++    heli->m_fSteeringUpDown = 0.0f; // 0x990
++    float upDown;
++    if (CcAirViewUpDown(distance, autoPilot.m_ucHeliTargetDist, &heli->m_vecMoveSpeed.x, &heli->m_matrix->GetForward().x, &upDown)) {
++        heli->m_fSteeringUpDown = upDown;
++    }
+ }
+ 
+ // 0x42AD30
+ void CCarCtrl::SteerAIHeliToLand(CAutomobile* automobile) {
+-    plugin::Call<0x42AD30, CAutomobile*>(automobile);
++    // Como el original: vuela hacia el destino (+0x3EC) con FlyAIHeliInCertainDirection(heli, rumbo, distancia, true); si la distancia es < 10.0 y la velocidad horizontal < 0.05
++    // (comparaciones ordenadas) pone las altitudes (+0x9B0, +0x9A8) a 0 y, si alguna compresion de rueda (+0x7D4..) es < 1.0, los cuatro mandos (+0x998, +0x98C, +0x990, +0x994) a 0
++    auto* const heli = static_cast<CHeli*>(automobile);
++    const CVector& dest = heli->m_autoPilot.m_vecDestinationCoors;
++    const CVector& pos = heli->GetPosition();
++    const float dy = CcAirSubF(dest.y, pos.y);
++    const float dx = CcAirSubF(dest.x, pos.x);
++    const float heading = CGeneral::GetATanOfXY(dx, dy);
++    const float dist = CcAirHorizDist(&dest.x, &heli->GetPosition().x);
++    FlyAIHeliInCertainDirection(heli, heading, dist, true);
++    if (!(dist < 10.0f)) {
++        return;
++    }
++    if (!(CcAirSpeed2D(&heli->m_vecMoveSpeed.x) < std::bit_cast<float>(0x3D4CCCCDu))) { // 0.05f (0x858C28)
++        return;
++    }
++    heli->m_fMinAltitude = 0.0f; // 0x9B0
++    heli->m_fMaxAltitude = 0.0f; // 0x9A8
++    const auto& compression = heli->m_fWheelsSuspensionCompression; // 0x7D4
++    if (compression[0] < 1.0f || compression[1] < 1.0f || compression[2] < 1.0f || compression[3] < 1.0f) {
++        heli->m_fAccelerationBreakStatus = 0.0f; // 0x998
++        heli->m_fLeftRightSkid = 0.0f;           // 0x98C
++        heli->m_fSteeringUpDown = 0.0f;          // 0x990
++        heli->m_fSteeringLeftRight = 0.0f;       // 0x994
++    }
+ }
+ 
+ // 0x42A630
+ void CCarCtrl::SteerAIHeliTowardsTargetCoors(CAutomobile* automobile) {
+-    plugin::Call<0x42A630, CAutomobile*>(automobile);
++    // Como el original: con orientacion forzada (+0x954 >= 0, comparacion ordenada: NaN no entra) vuela con FlyAIHeliToTarget_FixedOrientation pasando el destino por valor;
++    // si no, rumbo con GetATanOfXY (y, x restados con la x87) y distancia horizontal en float a FlyAIHeliInCertainDirection(heli, rumbo, distancia, true)
++    auto* const heli = static_cast<CHeli*>(automobile);
++    const CVector& dest = heli->m_autoPilot.m_vecDestinationCoors; // 0x3EC
++    if (heli->m_fForcedOrientation >= 0.0f) {
++        FlyAIHeliToTarget_FixedOrientation(heli, heli->m_fForcedOrientation, dest);
++        return;
++    }
++    const CVector& pos = heli->GetPosition();
++    const float dy = CcAirSubF(dest.y, pos.y);
++    const float dx = CcAirSubF(dest.x, pos.x);
++    const float heading = CGeneral::GetATanOfXY(dx, dy);
++    const float dist = CcAirHorizDist(&dest.x, &heli->GetPosition().x);
++    FlyAIHeliInCertainDirection(heli, heading, dist, true);
+ }
+ 
+ // 0x423880
+ void CCarCtrl::SteerAIPlaneToCrashAndBurn(CAutomobile* automobile) {
+-    plugin::Call<0x423880, CAutomobile*>(automobile);
++    // Como el original: el bit 0 de m_nRandomSeed (word en +0x20) decide el signo de +0x988 y +0x990; +0x98C = -0.3f y +0x994 = 0
++    auto* const plane = static_cast<CPlane*>(automobile);
++    const bool odd = (plane->m_nRandomSeed & 1) != 0;
++    plane->m_fSteeringUpDown = std::bit_cast<float>(0xBE99999Au); // 0x98C: -0.3f
++    plane->m_fLeftRightSkid = odd ? 1.0f : -1.0f;                  // 0x988
++    plane->m_fAccelerationBreakStatus = 0.0f;                      // 0x994
++    plane->m_fSteeringLeftRight = odd ? 1.0f : -1.0f;              // 0x990
+ }
+ 
+ // 0x4237F0
+ void CCarCtrl::SteerAIPlaneToFollowEntity(CAutomobile* automobile) {
+-    plugin::Call<0x4237F0, CAutomobile*>(automobile);
++    // Como el original: el objetivo (+0x41C) se lee sin comprobar nulo y se vuelve a leer tras GetATanOfXY; la altitud maxima (+0x9A8) es la z del objetivo copiada en bruto
++    auto* const plane = static_cast<CPlane*>(automobile);
++    const CVector& targetPos = plane->m_autoPilot.m_TargetEntity->GetPosition();
++    const CVector& pos = plane->GetPosition();
++    const float dy = CcAirSubF(targetPos.y, pos.y);
++    const float dx = CcAirSubF(targetPos.x, pos.x);
++    const float heading = CGeneral::GetATanOfXY(dx, dy);
++    CVehicle* const target = plane->m_autoPilot.m_TargetEntity;
++    plane->m_planeHeading = heading; // 0x9B4
++    plane->m_maxAltitude = target->GetPosition().z; // 0x9A8
++    FlyAIPlaneInCertainDirection(plane);
+ }
+ 
+ // 0x423790
+ void CCarCtrl::SteerAIPlaneTowardsTargetCoors(CAutomobile* automobile) {
+-    plugin::Call<0x423790, CAutomobile*>(automobile);
++    // Como el original: y y x (en ese orden) se restan con la x87 y se guardan a float; el rumbo va a +0x9B4
++    auto* const plane = static_cast<CPlane*>(automobile);
++    const CVector& dest = plane->m_autoPilot.m_vecDestinationCoors; // 0x3EC
++    const CVector& pos = plane->GetPosition();
++    const float dy = CcAirSubF(dest.y, pos.y);
++    const float dx = CcAirSubF(dest.x, pos.x);
++    plane->m_planeHeading = CGeneral::GetATanOfXY(dx, dy); // 0x9B4
++    FlyAIPlaneInCertainDirection(plane);
+ }
+ 
+ // 0x422590
+@@ -1152,7 +1795,26 @@ float CCarCtrl::TestCollisionBetween2MovingRects_OnlyFrontBumper(CVehicle* vehic
+ 
+ // 0x429520
+ void CCarCtrl::TestWhetherToFirePlaneGuns(CVehicle* vehicle, CEntity* target) {
+-    plugin::Call<0x429520, CVehicle*, CEntity*>(vehicle, target);
++    // Como el original: apaga bFireGun y solo sigue con arma 0 o 1 y objetivo no nulo; distancia < 150.0 (dz, dy, dx = objetivo - vehiculo con el x87), direccion normalizada por 0x59C910
++    // y bFireGun si dir . adelante > 0.8 (m_matrix del vehiculo se usa sin comprobar nulo)
++    vehicle->vehicleFlags.bFireGun = false;
++    const uint8 weapon = static_cast<uint8>(vehicle->m_nVehicleWeaponInUse);
++    if (weapon != 0 && weapon != 1) {
++        return;
++    }
++    if (!target) {
++        return;
++    }
++    const CVector& vehiclePos = vehicle->GetPosition();
++    const CVector& targetPos = target->GetPosition();
++    CVector dir;
++    if (!CcAirDiffDistLess(&targetPos.x, &vehiclePos.x, 150.0f, &dir.x)) {
++        return;
++    }
++    CarCtrlAirExeNormalise(&dir);
++    if (CcAirDirDotGreater(&dir.x, &vehicle->m_matrix->GetForward().x, std::bit_cast<float>(0x3F4CCCCDu))) { // 0.8f (0x858C98)
++        vehicle->vehicleFlags.bFireGun = true;
++    }
+ }
+ 
+ // 0x421FE0
+@@ -1162,7 +1824,52 @@ bool CCarCtrl::ThisVehicleShouldTryNotToTurn(CVehicle* vehicle) {
+ 
+ // 0x429300
+ void CCarCtrl::TriggerDogFightMoves(CVehicle* vehicle1, CVehicle* vehicle2) {
+-    plugin::Call<0x429300, CVehicle*, CVehicle*>(vehicle1, vehicle2);
++    // Como el original: solo sin accion temporal; distancia < 70.0 (dz, dy, dx = vehiculo1 - vehiculo2), direccion normalizada por 0x59C910, producto con el eje adelante de vehiculo2
++    // (m_matrix sin comprobar nulo) guardado a float, |dz| < 15.0 y rand() & 0xFF (del EXE): 12..15 eligen la accion (dot > 0, 0, 0 y 0.7) y su duracion con una segunda rand()
++    auto& autoPilot = vehicle1->m_autoPilot;
++    if (autoPilot.m_nTempAction != TEMPACT_NONE) {
++        return;
++    }
++    CVector dir;
++    if (!CcAirDiffDistLess(&vehicle1->GetPosition().x, &vehicle2->GetPosition().x, std::bit_cast<float>(0x428C0000u), &dir.x)) { // 70.0f (0x858CE0)
++        return;
++    }
++    CarCtrlAirExeNormalise(&dir);
++    const float dot = CcAirDirDotF(&dir.x, &vehicle2->m_matrix->GetForward().x);
++    if (!CcAirAbsDiffLess(vehicle1->GetPosition().z, vehicle2->GetPosition().z, 15.0f)) {
++        return;
++    }
++    switch (CarCtrlAirExeRand() & 0xFF) {
++    case 12:
++        if (!(dot > 0.0f)) {
++            return;
++        }
++        autoPilot.m_nTempAction = TEMPACT_PLANE_FLY_STRAIGHT;
++        autoPilot.m_nTempActionTime = static_cast<uint32>(CarCtrlAirExeRand() & 0x3FF) + CTimer::GetTimeInMS() + 0x5DC;
++        return;
++    case 13:
++        if (!(dot > 0.0f)) {
++            return;
++        }
++        autoPilot.m_nTempAction = TEMPACT_PLANE_SHARP_LEFT;
++        break;
++    case 14:
++        if (!(dot > 0.0f)) {
++            return;
++        }
++        autoPilot.m_nTempAction = TEMPACT_PLANE_SHARP_RIGHT;
++        break;
++    case 15:
++        if (!(dot > std::bit_cast<float>(0x3F333333u))) { // 0.7f (0x858CB0)
++            return;
++        }
++        autoPilot.m_nTempAction = TEMPACT_PLANE_FLY_UP;
++        autoPilot.m_nTempActionTime = static_cast<uint32>(CarCtrlAirExeRand() & 0x7FF) + CTimer::GetTimeInMS() + 0xBB8;
++        return;
++    default:
++        return;
++    }
++    autoPilot.m_nTempActionTime = static_cast<uint32>(CarCtrlAirExeRand() & 0x1FF) + CTimer::GetTimeInMS() + 0x2BC;
+ }
+ 
+ // 0x424000
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 2e5b59623..fb94b5db1 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -13784,3 +13784,980 @@ __declspec(noinline) bool __cdecl Garage63TopMinus2GreaterCpp(float topZ, float
+     return double(topZ) - 2.0 > double(z);
+ }
+ #pragma float_control(pop)
++
++// =====================================================================================================================================
++// Lote 63 (CarCtrl aire: CCarCtrl::*Heli*, *Plane*, *Boat*, DogFight), prefijo CcAir. Anadido AL FINAL de X87Math.cpp.
++// La x87 a 24 bits redondea cada operacion y solo los fstp dword (volatile float) pasan a float: los intermedios son double. Los operandos que el EXE usa DESDE MEMORIA
++// (fadd/fsub/fmul dword ptr [..]) se escriben como float (el compilador emite el operando de memoria) y los que carga con fld como double: un SNaN en memoria frente a un QNaN
++// en ST(0) devuelve el QNaN del registro (con double(x) el fld lo silenciaria y ganaria el de mayor mantisa).
++// =====================================================================================================================================
++// Instrucciones x87 de precision completa sueltas (fsqrt / fpatan / fsin / fcos): fuera de las regiones `precise` el compilador las emite en linea; dentro saldrian como llamadas a la CRT
++// (que difieren del EXE con NaN). Los ayudantes de abajo las llaman en lugar de sqrt / atan2 / sin / cos.
++__declspec(noinline) double __cdecl CcAirFsqrt(double x) { return sqrt(x); }
++__declspec(noinline) double __cdecl CcAirFpatan(double y, double x) { return atan2(y, x); }
++__declspec(noinline) double __cdecl CcAirFsin(double x) { return sin(x); }
++__declspec(noinline) double __cdecl CcAirFcos(double x) { return cos(x); }
++#pragma float_control(precise, on, push)
++__declspec(noinline) float __cdecl CcAirSubF(float a, float b) {
++    volatile float result = a - b;
++    return result;
++}
++__declspec(noinline) float __cdecl CcAirAddF(float a, float b) {
++    volatile float result = a + b;
++    return result;
++}
++__declspec(noinline) float __cdecl CcAirNegF(float a) {
++    volatile float result = -a;
++    return result;
++}
++__declspec(noinline) float __cdecl CcAirHorizDist(const float* a, const float* b) {
++    const double dy = double(a[1]) - b[1];
++    const double dx = double(a[0]) - b[0];
++    const double sum = dy * dy + dx * dx;
++    volatile float result = float(CcAirFsqrt(sum));
++    return result;
++}
++__declspec(noinline) double __cdecl CcAirSpeed2D(const float* v) {
++    const double x2 = double(v[0]) * double(v[0]);
++    const double y2 = double(v[1]) * double(v[1]);
++    return CcAirFsqrt(x2 + y2);
++}
++__declspec(noinline) bool __cdecl CcAirDiffDistLess(const float* a, const float* b, float limit, float* out) {
++    const double dz = double(a[2]) - b[2];
++    const double dy = double(a[1]) - b[1];
++    const double dx = double(a[0]) - b[0];
++    volatile float fx = float(dx);
++    volatile float fy = float(dy);
++    volatile float fz = float(dz);
++    out[0] = fx;
++    out[1] = fy;
++    out[2] = fz;
++    const float fxl = fx;
++    const double x2 = double(fxl) * fxl;
++    const double y2 = dy * dy;
++    const double z2 = dz * dz;
++    const double sum = (x2 + y2) + z2;
++    const double dist = CcAirFsqrt(sum);
++    return dist < double(limit);
++}
++__declspec(noinline) bool __cdecl CcAirDirDotGreater(const float* dir, const float* fwd, float thr) {
++    const double z = double(dir[2]) * fwd[2];
++    const double y = double(dir[1]) * fwd[1];
++    const double zy = z + y;
++    const double x = double(dir[0]) * fwd[0];
++    const double dot = zy + x;
++    return dot > double(thr);
++}
++__declspec(noinline) float __cdecl CcAirDirDotF(const float* dir, const float* fwd) {
++    const double z = double(dir[2]) * fwd[2];
++    const double y = double(dir[1]) * fwd[1];
++    const double zy = z + y;
++    const double x = double(dir[0]) * fwd[0];
++    volatile float dot = float(zy + x);
++    return dot;
++}
++__declspec(noinline) bool __cdecl CcAirAbsDiffLess(float a, float b, float limit) {
++    const double d = double(a) - b;
++    double value = double(a) - b;
++    if (d < 0.0) {
++        value = -(double(a) - b);
++    }
++    return value < double(limit);
++}
++__declspec(noinline) void __cdecl CcAirScale3(const float* v, float k, float* out) {
++    for (int i = 0; i < 3; ++i) {
++        volatile float r = float(double(v[i]) * k);
++        out[i] = r;
++    }
++}
++__declspec(noinline) void __cdecl CcAirAttackAim(const float* scaled, const float* coors, const float* planePos, float* out) {
++    const double xr = double(scaled[0]) + coors[0];
++    const double yr = double(scaled[1]) + coors[1];
++    const double zr = double(scaled[2]) + coors[2];
++    volatile float z = float(zr);
++    out[2] = z;
++    volatile float y = float(yr - planePos[1]);
++    out[1] = y;
++    volatile float x = float(xr - planePos[0]);
++    out[0] = x;
++}
++__declspec(noinline) void __cdecl CcAirDogAim(const float* speed, const float* pos, float* out) {
++    const double A = double(speed[0]) * 50.0f;
++    const double B = double(speed[1]) * 50.0f;
++    const double C = double(speed[2]) * 50.0f;
++    volatile float cf = float(C);
++    volatile float x = float(A + pos[0]);
++    volatile float y = float(B + pos[1]);
++    const float cfl = cf;
++    volatile float z = float(double(cfl) + pos[2]);
++    out[0] = x;
++    out[1] = y;
++    out[2] = z;
++}
++__declspec(noinline) float __cdecl CcAirDogRandOffset(int r, float base) {
++    double t = double(r);
++    t = t * std::bit_cast<float>(0x38000100u);
++    t = t * 600.0f;
++    t = t + base;
++    t = t - 300.0f;
++    volatile float result = float(t);
++    return result;
++}
++__declspec(noinline) double __cdecl CcAirHorizDistD(const float* a, const float* b) {
++    const double dy = double(a[1]) - b[1];
++    const double dx = double(a[0]) - b[0];
++    const double sum = dy * dy + dx * dx;
++    return CcAirFsqrt(sum);
++}
++__declspec(noinline) void __cdecl CcAirFollowOffset(const float* fwd, int mult, float* dest) {
++    const double m = double(mult);
++    const double a = double(fwd[0]) * m;
++    const double b = double(fwd[1]) * m;
++    volatile float offY = float(b);
++    volatile float offZ = float(m * 0.0f);
++    volatile float x = float(a + dest[0]);
++    dest[0] = x;
++    const float offYl = offY;
++    volatile float y = float(double(offYl) + dest[1]);
++    dest[1] = y;
++    const float offZl = offZ;
++    volatile float z = float(double(offZl) + dest[2]);
++    dest[2] = z;
++}
++__declspec(noinline) bool __cdecl CcAirViewFar(const float* t, const float* s, unsigned int td, float* distF) {
++    const double dy = double(t[1]) - s[1];
++    const double dy2 = dy * dy;
++    const double dx = double(t[0]) - s[0];
++    const double sum = dy2 + dx * dx;
++    const double r = CcAirFsqrt(sum);
++    volatile float stored = float(r);
++    *distF = stored;
++    const double limit = double(td) + double(td);
++    return r > limit;
++}
++__declspec(noinline) void __cdecl CcAirViewSkid(float rotated, float hv, float* raw, float* clamped) {
++    const double kPi = double(std::bit_cast<float>(0x40490FDBu));
++    const double kNegPi = double(std::bit_cast<float>(0xC0490FDBu));
++    const double kTwoPi = double(std::bit_cast<float>(0x40C90FDBu));
++    double diff = rotated - double(hv);
++    while (diff > kPi) {
++        diff = diff - kTwoPi;
++    }
++    while (diff < kNegPi) {
++        diff = diff + kTwoPi;
++    }
++    double skid = diff * -1.0f;
++    volatile float first = float(skid);
++    *raw = first;
++    if (skid < 1.0) {
++        if (-1.0 > skid) {
++            skid = -1.0;
++        }
++    } else {
++        skid = 1.0;
++    }
++    volatile float second = float(skid);
++    *clamped = second;
++}
++__declspec(noinline) float __cdecl CcAirViewBrake1(float maxAlt, float vz, float z) {
++    const double predicted = double(vz) * 100.0f + z;
++    const double err = double(maxAlt) - predicted;
++    const double gain = (err > 0.0) ? double(std::bit_cast<float>(0x3DCCCCCDu)) : double(std::bit_cast<float>(0x3E4CCCCDu));
++    const double v = err * gain + std::bit_cast<float>(0x3E99999Au);
++    volatile float result = float(v);
++    return result;
++}
++__declspec(noinline) float __cdecl CcAirViewBrake2(int r, float prev) {
++    double v = (double(r) - 7.0f) * std::bit_cast<float>(0x3B03126Fu) + prev;
++    if (v < 1.0) {
++        if (0.0 > v) {
++            v = 0.0;
++        }
++    } else {
++        v = 1.0;
++    }
++    volatile float result = float(v);
++    return result;
++}
++__declspec(noinline) void __cdecl CcAirViewLeftRight(float distF, unsigned int td, const float* v, const float* right, float* out) {
++    const double tdd = double(td);
++    const double half = 0.5f * tdd;
++    if (half > double(distF)) {
++        *out = 0.5f;
++    } else if (double(distF) > tdd) {
++        *out = -0.5f;
++    } else {
++        const double z = double(v[2]) * right[2];
++        const double y = double(v[1]) * right[1];
++        const double zy = z + y;
++        const double x = double(right[0]) * v[0];
++        volatile float result = float(zy + x);
++        *out = result;
++    }
++}
++__declspec(noinline) bool __cdecl CcAirViewUpDown(float distF, unsigned int td, const float* v, const float* fwd, float* out) {
++    const double limit = 1.5f * double(td);
++    if (!(double(distF) < limit)) {
++        return false;
++    }
++    const double z = double(v[2]) * fwd[2];
++    const double y = double(v[1]) * fwd[1];
++    const double zy = z + y;
++    const double x = double(v[0]) * fwd[0];
++    volatile float result = float(zy + x);
++    *out = result;
++    return true;
++}
++__declspec(noinline) float __cdecl CcAirHeliAttackDist(float ax, float bx, float cy, float dy, const float* pos) {
++    volatile float ly = float(double(cy) - pos[1]);
++    const float lyl = ly;
++    const double t = (double(dy) - pos[1]) * lyl;
++    const double u = double(ax) - pos[0];
++    const double w = double(bx) - pos[0];
++    const double p = u * w;
++    const double sum = t + p;
++    volatile float result = float(CcAirFsqrt(sum));
++    return result;
++}
++#pragma float_control(pop)
++
++#pragma float_control(precise, on, push)
++__declspec(noinline) void __cdecl CcAirBoatForward(const float* fwd, float* out) {
++    const double fy2 = double(fwd[1]) * fwd[1];
++    const double fx2 = double(fwd[0]) * double(fwd[0]);
++    const double len = CcAirFsqrt(fy2 + fx2);
++    if (len == 0.0) {
++        out[0] = 1.0f;
++        out[1] = fwd[1];
++    } else {
++        const double inv = 1.0f / len;
++        volatile float nx = float(inv * double(fwd[0]));
++        out[0] = nx;
++        volatile float ny = float(inv * fwd[1]);
++        out[1] = ny;
++    }
++}
++__declspec(noinline) double __cdecl CcAirBoatSteerThrottle(float headingT, float headingB, const float* vel, unsigned int cruise, int mode, float* steer, float* throttle) {
++    const double kPi = double(std::bit_cast<float>(0x40490FDBu));
++    const double kNegPi = double(std::bit_cast<float>(0xC0490FDBu));
++    const double kTwoPi = double(std::bit_cast<float>(0x40C90FDBu));
++    double diff = headingT - double(headingB);
++    while (diff < kNegPi) {
++        diff = diff + kTwoPi;
++    }
++    while (diff > kPi) {
++        diff = diff - kTwoPi;
++    }
++    const double raw = diff;
++    double st = diff;
++    if (mode == 0) {
++        if (st < -0.5f) {
++            st = -0.5f;
++        } else if (st > 0.5f) {
++            st = 0.5f;
++        }
++    }
++    const float cruiseF = float(cruise);
++    const double speed = CcAirFsqrt(double(vel[1]) * vel[1] + double(vel[0]) * vel[0]);
++    const double err = cruiseF - speed * 60.0f;
++    if (!(err <= 0.0)) {
++        const double ratio = err / cruiseF;
++        if (ratio > 0.25f) {
++            *throttle = 1.0f;
++        } else {
++            const double t = 0.25f - ratio;
++            volatile float r = float(1.0f - t * 4.0f);
++            *throttle = r;
++        }
++    } else {
++        *throttle = std::bit_cast<float>(0xBDCCCCCDu);
++        if (err < -5.0f) {
++            *throttle = std::bit_cast<float>(0xBE4CCCCDu);
++        }
++        if (mode == 0) {
++            st = st * -1.0f;
++        }
++    }
++    volatile float stored = float(st);
++    *steer = stored;
++    return raw;
++}
++__declspec(noinline) float __cdecl CcAirBoatAttackLead(const float* coors, const float* pos, float* distF) {
++    const double dx = double(coors[0]) - pos[0];
++    const double dy = double(coors[1]) - pos[1];
++    const double dz = double(coors[2]) - pos[2];
++    const double dz2 = dz * dz;
++    const double dy2 = dy * dy;
++    const double s1 = dz2 + dy2;
++    const double dx2 = dx * dx;
++    const double dist = CcAirFsqrt(s1 + dx2);
++    volatile float stored = float(dist);
++    *distF = stored;
++    const double scaled = dist * std::bit_cast<float>(0x3D4CCCCDu);
++    if (scaled < 2.0f) {
++        volatile float v = float(scaled);
++        return v;
++    }
++    return 2.0f;
++}
++__declspec(noinline) float __cdecl CcAirBoatLeadX(float lead, const float* speed, const float* coors) {
++    const double a = double(lead) * speed[0];
++    const double b = a * 60.0f;
++    volatile float x = float(b + coors[0]);
++    return x;
++}
++__declspec(noinline) float __cdecl CcAirBoatLeadYPart(float lead, const float* speed) {
++    const double a = double(lead) * speed[1];
++    volatile float y = float(a * 60.0f);
++    return y;
++}
++__declspec(noinline) float __cdecl CcAirBoatLeadDy(float ypart, const float* coors, const float* pos) {
++    const double y = double(ypart) + coors[1];
++    volatile float dy = float(y - pos[1]);
++    return dy;
++}
++__declspec(noinline) void __cdecl CcAirCirclingVec(const float* v, int odd, float* out) {
++    const double nx = -double(v[0]);
++    const double y = double(v[1]);
++    const float k = odd ? std::bit_cast<float>(0xC1400000u) : std::bit_cast<float>(0x41D00000u);
++    volatile float ox = float(y * k);
++    out[0] = ox;
++    volatile float oy = float(nx * k);
++    out[1] = oy;
++}
++__declspec(noinline) void __cdecl CcAirCirclingAim(const float* vec, const float* coors, const float* pos, float* out) {
++    const double x = double(vec[0]) + coors[0];
++    const double y = double(vec[1]) + coors[1];
++    volatile float dy = float(y - pos[1]);
++    out[1] = dy;
++    volatile float dx = float(x - pos[0]);
++    out[0] = dx;
++}
++#pragma float_control(pop)
++
++#pragma float_control(precise, on, push)
++__declspec(noinline) bool __cdecl CcAirRocketsInRange(const float* launcher, const float* target) {
++    const double dx = double(launcher[0]) - target[0];
++    const double dy = double(launcher[1]) - target[1];
++    const double dz = double(launcher[2]) - target[2];
++    const double dz2 = dz * dz;
++    const double dy2 = dy * dy;
++    const double s1 = dz2 + dy2;
++    const double dx2 = dx * dx;
++    const double dist = CcAirFsqrt(s1 + dx2);
++    return dist < 80.0f;
++}
++__declspec(noinline) void __cdecl CcAirRocketsPoint(const float* launcher, const float* fwd, float* out) {
++    const double z = double(fwd[2]) + launcher[2];
++    const double y = double(fwd[1]) + launcher[1];
++    const double x = double(launcher[0]) + fwd[0];
++    volatile float fx = float(x);
++    volatile float fy = float(y);
++    volatile float fz = float(z);
++    out[0] = fx;
++    out[1] = fy;
++    out[2] = fz;
++}
++__declspec(noinline) void __cdecl CcAirRocketsMuzzle(const float* launcher, const float* fwd, const float* right, int odd, float* out) {
++    const double fx4 = double(fwd[0]) * 4.0f;
++    volatile float fy4 = float(double(fwd[1]) * 4.0f);
++    volatile float fz4 = float(double(fwd[2]) * 4.0f);
++    const double x4 = fx4 + launcher[0];
++    const float fy4l = fy4;
++    const double y4 = double(fy4l) + launcher[1];
++    const float fz4l = fz4;
++    volatile float z4 = float(double(fz4l) + launcher[2]);
++    volatile float rx = float(double(right[0]) * 1.5f);
++    const double ry = double(right[1]) * 1.5f;
++    volatile float rz = float(double(right[2]) * 1.5f);
++    double ox, oy, oz;
++    if (odd) {
++        const float rxl = rx;
++        volatile float nx = float(-double(rxl));
++        volatile float ny = float(-ry);
++        const float rzl = rz;
++        volatile float nz = float(-double(rzl));
++        const float nxl = nx, nyl = ny, nzl = nz;
++        ox = nxl;
++        oy = nyl;
++        oz = nzl;
++    } else {
++        const float rxl = rx, rzl = rz;
++        ox = rxl;
++        oy = ry;
++        oz = rzl;
++    }
++    volatile float px = float(ox + x4);
++    volatile float py = float(oy + y4);
++    const float z4l = z4;
++    volatile float pz = float(oz + z4l);
++    out[0] = px;
++    out[1] = py;
++    out[2] = pz;
++}
++#pragma float_control(pop)
++
++#pragma float_control(precise, on, push)
++__declspec(noinline) void __cdecl CcAirFixedStart(const float* speed, const float* pos, float* out) {
++    volatile float sx = float(double(speed[0]) * 50.0f);
++    volatile float sy = float(double(speed[1]) * 50.0f);
++    const double sz = double(speed[2]) * 50.0f;
++    const double z = sz + pos[2];
++    const float syl = sy;
++    const double y = double(syl) + pos[1];
++    const float sxl = sx;
++    const double x = double(sxl) + pos[0];
++    volatile float fx = float(x);
++    volatile float fy = float(y);
++    volatile float fz = float(z);
++    out[0] = fx;
++    out[1] = fy;
++    out[2] = fz;
++}
++__declspec(noinline) void __cdecl CcAirSinCos(float angle, float* cosOut, float* sinOut) {
++    volatile float cs = float(CcAirFcos(double(angle)));
++    *cosOut = cs;
++    volatile float sn = float(CcAirFsin(double(angle)));
++    *sinOut = sn;
++}
++__declspec(noinline) void __cdecl CcAirFixedEnd(const float* dir, const float* start, float* out) {
++    const double nx = double(dir[0]) * 60.0f;
++    const double ny = double(dir[1]) * 60.0f;
++    const double nz = double(dir[2]) * 60.0f;
++    volatile float nzf = float(nz);
++    volatile float ex = float(nx + start[0]);
++    out[0] = ex;
++    volatile float ey = float(ny + start[1]);
++    out[1] = ey;
++    const float nzl = nzf;
++    volatile float ez = float(double(nzl) + start[2]);
++    out[2] = ez;
++}
++__declspec(noinline) float __cdecl CcAirFixedMaxAlt(float hitZ, float minAlt, float cur) {
++    const double v = double(hitZ) + minAlt;
++    if (v < double(cur)) {
++        return cur;
++    }
++    volatile float result = float(v);
++    return result;
++}
++__declspec(noinline) float __cdecl CcAirFixedBrake(float vz, float posZ, float maxAlt) {
++    const double predicted = double(vz) * 100.0f + posZ;
++    const double err = maxAlt - predicted;
++    const double gain = (err > 0.0) ? double(std::bit_cast<float>(0x3DCCCCCDu)) : double(std::bit_cast<float>(0x3E4CCCCDu));
++    volatile float result = float(err * gain);
++    return result;
++}
++__declspec(noinline) void __cdecl CcAirFixedControls(float orientation, float ownHeading, float brake, int r, const float* vel, const float* right, const float* fwd, const float* pos, const float* dest, float* out) {
++    const double kPi = double(std::bit_cast<float>(0x40490FDBu));
++    const double kNegPi = double(std::bit_cast<float>(0xC0490FDBu));
++    const double kTwoPi = double(std::bit_cast<float>(0x40C90FDBu));
++    // freno (+0x998): (r - 7) * 0.002 + freno, limitado a [-0.3, 1.0]
++    double v = (double(r) - 7.0f) * std::bit_cast<float>(0x3B03126Fu) + brake;
++    volatile float brakeRaw = float(v);
++    if (v < 1.0) {
++        if (std::bit_cast<float>(0xBE99999Au) > v) {
++            v = std::bit_cast<float>(0xBE99999Au);
++        }
++    } else {
++        v = 1.0;
++    }
++    volatile float brakeFinal = float(v);
++    out[0] = brakeFinal;
++    (void)brakeRaw;
++    // deslizamiento (+0x98C): (orientacion - rumbo) normalizado a [-pi, pi] por -0.5, limitado a [-1, 1]
++    double d = double(orientation) - ownHeading;
++    while (d > kPi) {
++        d = d - kTwoPi;
++    }
++    while (d < kNegPi) {
++        d = d + kTwoPi;
++    }
++    double s = d * -0.5f;
++    volatile float skidRaw = float(s);
++    out[1] = skidRaw;
++    if (s < 1.0) {
++        if (-1.0f > s) {
++            s = -1.0f;
++        }
++    } else {
++        s = 1.0;
++    }
++    volatile float skidClamped = float(s);
++    out[2] = skidClamped;
++    // errores lateral y longitudinal respecto al destino
++    const double ddx = double(dest[0]) - pos[0];
++    const double ddy = double(dest[1]) - pos[1];
++    volatile float vr = float((double(vel[2]) * right[2] + double(vel[1]) * right[1]) + double(right[0]) * vel[0]);
++    volatile float vf = float((double(vel[2]) * fwd[2] + double(vel[1]) * fwd[1]) + double(vel[0]) * fwd[0]);
++    const float vrl = vr, vfl = vf;
++    const double rs1 = ddy * right[1] + ddx * right[0];
++    const double rs2 = rs1 + double(right[2]) * 0.0f;
++    volatile float errR = float(rs2 + double(vrl) * 80.0f);
++    const double fs1 = ddy * fwd[1] + ddx * fwd[0];
++    const double fs2 = fs1 + double(fwd[2]) * 0.0f;
++    const double errF = fs2 + double(vfl) * 80.0f;
++    const float errRl = errR;
++    const double absR = (errRl < 0.0f) ? -double(errRl) : double(errRl);
++    volatile float lat;
++    if (absR < 5.0f) {
++        lat = vrl;
++    } else {
++        lat = float(double(errRl) * -0.02);
++    }
++    out[3] = lat;
++    const float latl = lat;
++    double lv = latl;
++    if (lv < 0.75f) {
++        if (-0.75f > lv) {
++            lv = -0.75f;
++        }
++    } else {
++        lv = 0.75f;
++    }
++    volatile float latClamped = float(lv);
++    out[4] = latClamped;
++    const double absF = (errF < 0.0) ? -errF : errF;
++    volatile float ctl;
++    if (absF < 5.0f) {
++        ctl = vfl;
++    } else {
++        ctl = float(errF * -0.015);
++    }
++    out[5] = ctl;
++    const float ctll = ctl;
++    if (ctll < 0.5f) {
++        if (-0.5f > ctll) {
++            out[6] = -0.5f;
++        } else {
++            out[6] = ctll;
++        }
++    } else {
++        out[6] = 0.5f;
++    }
++}
++#pragma float_control(pop)
++
++#pragma float_control(precise, on, push)
++__declspec(noinline) void __cdecl CcAirPlaneLimitCalc(float h0, float target, float* limit) {
++    const double kPi = double(std::bit_cast<float>(0x40490FDBu));
++    const double kNegPi = double(std::bit_cast<float>(0xC0490FDBu));
++    const double kTwoPi = double(std::bit_cast<float>(0x40C90FDBu));
++    double d = double(h0) - target;
++    while (d > kPi) {
++        d = d - kTwoPi;
++    }
++    while (d < kNegPi) {
++        d = d + kTwoPi;
++    }
++    const double a = (d < 0.0) ? -d : d;
++    if (a < std::bit_cast<float>(0x3F060A92u)) {
++        *limit = 0.0f;
++    } else {
++        volatile float r = float(d * 1.5f);
++        *limit = r;
++    }
++}
++__declspec(noinline) void __cdecl CcAirPlaneCand(int n, float target, float limit, float* s, float* t, int* inRange) {
++    const int half = n / 2;
++    const bool odd = (n & 1) != 0;
++    volatile float sv = float(double(half) * (odd ? std::bit_cast<float>(0x3E860A92u) : std::bit_cast<float>(0xBE860A92u)));
++    *s = sv;
++    const float sl = sv;
++    volatile float tv = float(double(sl) + target);
++    *t = tv;
++    bool ok = false;
++    if (sl < 0.0f) {
++        if (sl > limit) {
++            ok = true;
++        }
++    }
++    if (!ok) {
++        if (sl > 0.0f) {
++            if (sl < limit) {
++                ok = true;
++            }
++        }
++    }
++    *inRange = ok ? 1 : 0;
++}
++__declspec(noinline) float __cdecl CcAirPlaneAccept(float s, float heading) {
++    volatile float r = float(double(s) * 1.1f + heading);
++    return r;
++}
++__declspec(noinline) float __cdecl CcAirPlaneRaise(float clearance, float minAlt, float maxAlt) {
++    const double v = double(clearance) + minAlt;
++    if (v > double(maxAlt)) {
++        volatile float r = float(v);
++        return r;
++    }
++    return maxAlt;
++}
++__declspec(noinline) float __cdecl CcAirPlaneSpeed60(const float* fwd, const float* vel) {
++    const double a = double(fwd[1]) * vel[1];
++    const double b = double(fwd[0]) * vel[0];
++    volatile float r = float((a + b) * 60.0f);
++    return r;
++}
++__declspec(noinline) float __cdecl CcAirPlaneClamp98C(float v) {
++    if (v < 1.0f) {
++        if (v > -1.0f) {
++            return v;
++        }
++        return -1.0f;
++    }
++    return 1.0f;
++}
++__declspec(noinline) float __cdecl CcAirPlanePz(float vz, float posZ) {
++    volatile float r = float(double(vz) * 100.0f + posZ);
++    return r;
++}
++__declspec(noinline) void __cdecl CcAirPlaneAir(float fwdZ, float prev9BC, float step, float g50, float alt9AC, float pz, float speed60, float v28, float* new9BC, float* out98C) {
++    const double a = ExeAsinDoubleCpp(double(fwdZ));
++    const double q = 100.0f / step;
++    const double x = (a - prev9BC) * q;
++    volatile float pitch = float(x + a);
++    volatile float na = float(a);
++    *new9BC = na;
++    double altErr = (double(alt9AC) - pz) * std::bit_cast<float>(0x3D088889u);
++    if (altErr < std::bit_cast<float>(0x3ECCCCCDu)) {
++        if (!(altErr > std::bit_cast<float>(0xBECCCCCDu))) {
++            altErr = std::bit_cast<float>(0xBECCCCCDu);
++        }
++    } else {
++        altErr = std::bit_cast<float>(0x3ECCCCCDu);
++    }
++    if (speed60 < v28) {
++        if (!(altErr < 0.25f)) {
++            altErr = 0.25f;
++        }
++    }
++    const float pitchl = pitch;
++    volatile float r = float((altErr - pitchl) * g50);
++    *out98C = r;
++}
++__declspec(noinline) void __cdecl CcAirPlaneFinish(int ground, float f9B8, float limit, float f9A4, float c98C, float old99C, int bit7, float v28, float speed60, float step, float g4C, float g48, float g44,
++                                                  const float* matrix, float* out) {
++    const double kPi = double(std::bit_cast<float>(0x40490FDBu));
++    const double kNegPi = double(std::bit_cast<float>(0xC0490FDBu));
++    const double kTwoPi = double(std::bit_cast<float>(0x40C90FDBu));
++    double dd = double(f9B8) - limit;
++    while (dd < kNegPi) {
++        dd = dd + kTwoPi;
++    }
++    while (dd > kPi) {
++        dd = dd - kTwoPi;
++    }
++    out[3] = c98C;
++    out[2] = old99C;
++    if (ground) {
++        double y = -(double(f9A4) - limit) * 10.0f;
++        if (1.0f < y) {
++            y = 1.0f;
++        } else if (-1.0f > y) {
++            y = -1.0f;
++        }
++        volatile float yf = float(y);
++        out[0] = yf;
++        out[1] = 0.0f;
++        return;
++    }
++    double y1 = -dd * 1.5f;
++    if (std::bit_cast<float>(0x3F666666u) < y1) {
++        y1 = std::bit_cast<float>(0x3F666666u);
++    } else if (std::bit_cast<float>(0xBF666666u) > y1) {
++        y1 = std::bit_cast<float>(0xBF666666u);
++    }
++    if (bit7) {
++        if (std::bit_cast<float>(0x3F333333u) < y1) {
++            y1 = std::bit_cast<float>(0x3F333333u);
++        } else if (std::bit_cast<float>(0xBF333333u) > y1) {
++            y1 = std::bit_cast<float>(0xBF333333u);
++        }
++    }
++    const double absY = (y1 >= 0.0 || y1 != y1) ? y1 : -y1;
++    double z0;
++    if (absY < std::bit_cast<float>(0x3DCCCCCDu)) {
++        volatile float o = float(y1 * 4.0f);
++        out[0] = o;
++        z0 = 0.0f;
++    } else {
++        volatile float o = float(y1);
++        out[0] = o;
++        z0 = -y1;
++    }
++    const double t1 = double(v28) * std::bit_cast<float>(0x3F99999Au);
++    double z1;
++    if (speed60 < t1) {
++        const double e1 = t1 - speed60;
++        const double h = double(v28) * 0.5f;
++        double q = 1.0f - e1 / h;
++        if (0.0f > q) {
++            q = 0.0f;
++        }
++        z1 = z0 * q;
++    } else {
++        z1 = z0;
++    }
++    const double r2 = CcAirFsqrt(double(matrix[0]) * double(matrix[0]) + double(matrix[1]) * matrix[1]);
++    double rr = r2;
++    if (matrix[10] < 0.0f) {
++        rr = rr * -1.0f; // fmul [0x858C1C]: con NaN conserva el signo (fchs lo cambiaria)
++    }
++    volatile float roll = float(CcAirFpatan(double(matrix[2]), rr));
++    out[2] = roll;
++    const double tt = (1.0f > step) ? 1.0f : double(step);
++    const double kk = double(g4C) / tt;
++    const float rolll = roll;
++    const double xx = (double(rolll) - old99C) * kk;
++    const double ww = xx + rolll;
++    double zp = z1 - ww;
++    while (zp > kPi) {
++        zp = zp - kTwoPi;
++    }
++    while (zp < kNegPi) {
++        zp = zp + kTwoPi;
++    }
++    double zpp = zp * g48;
++    if (zpp < 1.0f) {
++        if (!(zpp > -1.0f)) {
++            zpp = -1.0f;
++        }
++    } else {
++        zpp = 1.0f;
++    }
++    volatile float steer = float(zpp);
++    out[1] = steer;
++    double k2 = double(g44) * rolll;
++    if (k2 < 0.0) {
++        k2 = -k2;
++    }
++    volatile float n98C = float(k2 + c98C);
++    out[3] = n98C;
++    const double cc = c98C;
++    if (cc < 0.0) {
++        const double hh = cc * 0.5f;
++        const float n98Cl = n98C;
++        if (hh > n98Cl) {
++            out[3] = n98Cl;
++        } else {
++            volatile float hv = float(hh);
++            out[3] = hv;
++        }
++    }
++}
++#pragma float_control(pop)
++
++#pragma float_control(precise, on, push)
++__declspec(noinline) bool __cdecl CcAirHeliNews(unsigned int byteVal, float dist, const float* vel) {
++    if (!(double(byteVal) > double(dist))) {
++        return false;
++    }
++    const double x2 = double(vel[0]) * double(vel[0]);
++    const double y2 = double(vel[1]) * double(vel[1]);
++    return CcAirFsqrt(x2 + y2) < std::bit_cast<float>(0x3C23D70Au);
++}
++__declspec(noinline) float __cdecl CcAirHeliRaise1(int bl, float minAlt, float hitZ, float cur) {
++    const double v = bl ? (double(minAlt) * 0.5f + hitZ) : (double(hitZ) + minAlt);
++    if (cur > v) {
++        return cur;
++    }
++    volatile float r = float(v);
++    return r;
++}
++__declspec(noinline) float __cdecl CcAirHeliLookahead(const float* vel, int bit7) {
++    const double vy2 = double(vel[1]) * vel[1];
++    const double vx2 = double(vel[0]) * vel[0];
++    const double speed = CcAirFsqrt(vy2 + vx2);
++    const double scaled = speed * 100.0f;
++    volatile float r = float(scaled + (bit7 ? 5.0f : 30.0f));
++    return r;
++}
++__declspec(noinline) void __cdecl CcAirHeliAhead(float cosv, float sinv, float L, const float* base, float* out) {
++    const double X = double(cosv) * L;
++    const double Y = double(sinv) * L;
++    volatile float Zf = float(double(L) * 0.0f);
++    volatile float ox = float(X + base[0]);
++    out[0] = ox;
++    volatile float oy = float(Y + base[1]);
++    out[1] = oy;
++    const float Zl = Zf;
++    volatile float oz = float(double(Zl) + base[2]);
++    out[2] = oz;
++}
++__declspec(noinline) void __cdecl CcAirHeliSide(const float* right, const float* pos, int left, float* out) {
++    const double X10 = double(right[0]) * 10.0f;
++    const double Y10 = double(right[1]) * 10.0f;
++    volatile float Z10 = float(double(right[2]) * 10.0f);
++    const float Z10l = Z10;
++    if (!left) {
++        volatile float ox = float(X10 + pos[0]);
++        out[0] = ox;
++        volatile float oy = float(Y10 + pos[1]);
++        out[1] = oy;
++        volatile float oz = float(double(Z10l) + pos[2]);
++        out[2] = oz;
++    } else {
++        volatile float ox = float(double(pos[0]) - X10);
++        out[0] = ox;
++        volatile float oy = float(double(pos[1]) - Y10);
++        out[1] = oy;
++        volatile float oz = float(double(pos[2]) - Z10l);
++        out[2] = oz;
++    }
++}
++__declspec(noinline) double __cdecl CcAirHeliHitDist(const float* col, const float* base) {
++    const double dx = double(col[0]) - base[0];
++    const double dy = double(col[1]) - base[1];
++    const double dz = double(col[2]) - base[2];
++    const double dz2 = dz * dz;
++    const double dy2 = dy * dy;
++    const double s1 = dz2 + dy2;
++    const double dx2 = dx * dx;
++    return CcAirFsqrt(s1 + dx2);
++}
++__declspec(noinline) float __cdecl CcAirHeliBrake2(int r, float prev, float* m) {
++    const double v = (double(r) - 7.0f) * std::bit_cast<float>(0x3B03126Fu) + prev;
++    volatile float mv = float(v - 0.5f);
++    *m = mv;
++    volatile float vf = float(v);
++    if (v < 1.0) {
++        const float vfl = vf;
++        if (std::bit_cast<float>(0xBE99999Au) > vfl) {
++            return std::bit_cast<float>(0xBE99999Au);
++        }
++        return vfl;
++    }
++    return 1.0f;
++}
++__declspec(noinline) float __cdecl CcAirHeliSkid(float a2, float h1) {
++    const double kPi = double(std::bit_cast<float>(0x40490FDBu));
++    const double kNegPi = double(std::bit_cast<float>(0xC0490FDBu));
++    const double kTwoPi = double(std::bit_cast<float>(0x40C90FDBu));
++    double d = double(a2) - h1;
++    while (d > kPi) {
++        d = d - kTwoPi;
++    }
++    while (d < kNegPi) {
++        d = d + kTwoPi;
++    }
++    double s = d * -2.0f;
++    if (s < 1.0) {
++        if (-1.0f > s) {
++            s = -1.0f;
++        }
++    } else {
++        s = 1.0;
++    }
++    volatile float r = float(s);
++    return r;
++}
++__declspec(noinline) bool __cdecl CcAirHeliApproach(const float* vel, const float* pos, const float* dest, unsigned int byteVal, float* out) {
++    const double sx = double(vel[0]) * 50.0f;
++    volatile float sy = float(double(vel[1]) * 50.0f);
++    const double X = sx + pos[0];
++    const float syl = sy;
++    const double Y = double(syl) + pos[1];
++    volatile float bf = float(byteVal);
++    volatile float ddx = float(X - dest[0]);
++    const double ddy = Y - dest[1];
++    const double ddy2 = ddy * ddy;
++    const float ddxl = ddx;
++    const double ddx2 = double(ddxl) * ddxl;
++    const float bfl = bf;
++    const double e = CcAirFsqrt(ddy2 + ddx2) - bfl;
++    if (e < 0.0) {
++        return false;
++    }
++    volatile float r = float((e * -0.8f) / (30.0f - double(bfl)));
++    *out = r;
++    return true;
++}
++__declspec(noinline) void __cdecl CcAirHeliTurnLimit(float h1, float a2, float cur, const float* vel, const float* fwd, float* out) {
++    const double kPi = double(std::bit_cast<float>(0x40490FDBu));
++    const double kNegPi = double(std::bit_cast<float>(0xC0490FDBu));
++    const double kTwoPi = double(std::bit_cast<float>(0x40C90FDBu));
++    double d2 = double(h1) - a2;
++    while (d2 < kNegPi) {
++        d2 = d2 + kTwoPi;
++    }
++    while (d2 > kPi) {
++        d2 = d2 - kTwoPi;
++    }
++    const double absd = (d2 < 0.0) ? -d2 : d2;
++    double q = 1.0f - std::bit_cast<float>(0x4007CFEDu) * absd;
++    if (0.0f > q) {
++        q = 0.0f;
++    }
++    volatile float r = float(q * cur);
++    *out = r;
++    if (absd > std::bit_cast<float>(0x3FC90FDBu)) {
++        const double z = double(vel[2]) * fwd[2];
++        const double y = double(vel[1]) * fwd[1];
++        const double zy = z + y;
++        const double x = double(fwd[0]) * vel[0];
++        if (zy + x > 0.0f) {
++            *out = std::bit_cast<float>(0x3E99999Au);
++        }
++    }
++}
++__declspec(noinline) float __cdecl CcAirHeliScale(float m, float cur) {
++    const double c = (m < 1.0f) ? double(m) : double(1.0f);
++    volatile float r = float((1.0f - c) * cur);
++    return r;
++}
++__declspec(noinline) double __cdecl CcAirHeliSpeedCtl(unsigned int cruise, const float* vel, const float* fwd, float cur, float* stored) {
++    const double cruiseD = double(cruise);
++    const double z = double(vel[2]) * fwd[2];
++    const double y = double(vel[1]) * fwd[1];
++    const double zy = z + y;
++    const double x = double(vel[0]) * fwd[0];
++    const double vf60 = (zy + x) * 60.0f;
++    double w = (cruiseD - vf60) * std::bit_cast<float>(0x3DCCCCCDu);
++    if (1.0f < w) {
++        w = 1.0f;
++    } else if (0.0f > w) {
++        w = 0.0f;
++    }
++    const double neg = -w;
++    double value = neg;
++    if (neg < cur) {
++        value = cur;
++    }
++    volatile float s = float(value);
++    *stored = s;
++    return value;
++}
++__declspec(noinline) void __cdecl CcAirHeliDecay(int mult, float step, const float* fwd, float* vel) {
++    const double k = (double(mult) * step) * std::bit_cast<float>(0x3A83126Fu);
++    const double fxk = double(fwd[0]) * k;
++    volatile float fyk = float(double(fwd[1]) * k);
++    volatile float k0 = float(k * 0.0f);
++    volatile float nx = float(fxk + vel[0]);
++    const float fykl = fyk;
++    volatile float ny = float(double(fykl) + vel[1]);
++    const float k0l = k0;
++    volatile float nz = float(double(k0l) + vel[2]);
++    vel[0] = nx;
++    vel[1] = ny;
++    vel[2] = nz;
++}
++__declspec(noinline) float __cdecl CcAirHeliForwardDot(const float* n, const float* vel) {
++    const double a = double(n[1]) * vel[1];
++    const double b = double(n[2]) * vel[2];
++    const double ab = a + b;
++    const double c = double(n[0]) * vel[0];
++    const double s = ab + c;
++    volatile float r = float(s + s);
++    return r;
++}
++__declspec(noinline) float __cdecl CcAirHeliClamp990(float v) {
++    if (v < 1.0f) {
++        if (-1.0f > v) {
++            return -1.0f;
++        }
++        return v;
++    }
++    return 1.0f;
++}
++#pragma float_control(pop)
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index d6a3c99b4..4bc828412 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1662,3 +1662,138 @@ double __cdecl Garage63CenterDistSqCpp(const float* g, float x1, float x2, float
+ double __cdecl Garage63DoorDistSqCpp(float d0x, float v0x, float d1x, float v1x, float d2y, float v2y, float d3y, float v3y);
+ // 0x44C3F1..0x44C3FD: topZ - 2.0f (x87, sin guardar) > z (comparacion ordenada).
+ bool __cdecl Garage63TopMinus2GreaterCpp(float topZ, float z);
++
++// --- Lote 63 (CarCtrl aire: CCarCtrl::*Heli*, *Plane*, *Boat*, DogFight), prefijo CcAir. Anadir al FINAL de X87Math.h ---
++// Cada ayudante reproduce un tramo x87 de 24 bits con exponente extendido (cada operacion redondea a 24 bits; solo lo que el EXE guarda con fstp dword pasa a float).
++float __cdecl CcAirSubF(float a, float b);                    // fld a; fsub b; fstp dword
++float __cdecl CcAirAddF(float a, float b);                    // fld a; fadd b; fstp dword
++float __cdecl CcAirNegF(float a);                             // fld a; fchs; fstp dword (un SNaN sale silenciado)
++float __cdecl CcAirHorizDist(const float* a, const float* b); // fstp dword( fsqrt( (a.y-b.y)*(a.y-b.y) + (a.x-b.x)*(a.x-b.x) ) ), a y b = {x, y, z}
++double __cdecl CcAirSpeed2D(const float* v);                  // fsqrt(v.x*v.x + v.y*v.y) SIN guardar a float (queda en ST0 y se compara con un float)
++// 0x429520 / 0x429300: dz, dy, dx = a - b (registro, 24 bits); dx, dy y dz se guardan a float en out[0..2] (el vector que el EXE normaliza despues); distancia = fsqrt((dx_float^2 + dy^2) + dz^2) con dy y dz
++// del registro (sin pasar por float); devuelve distancia < limit (comparacion ordenada).
++bool __cdecl CcAirDiffDistLess(const float* a, const float* b, float limit, float* out);
++// ((dir.z*fwd.z) + (dir.y*fwd.y)) + (dir.x*fwd.x) con el x87; devuelve el producto > thr sin guardarlo a float (TestWhetherToFirePlaneGuns) ...
++bool __cdecl CcAirDirDotGreater(const float* dir, const float* fwd, float thr);
++// ... o guardado a float (TriggerDogFightMoves, fstp dword)
++float __cdecl CcAirDirDotF(const float* dir, const float* fwd);
++// |a - b| del EXE: d = a - b; si d < 0 (ordenado) -(a - b); devuelve |d| < limit (NaN: false)
++bool __cdecl CcAirAbsDiffLess(float a, float b, float limit);
++// out[i] = float(v[i] * k) (fmul y fstp dword por componente)
++void __cdecl CcAirScale3(const float* v, float k, float* out);
++// 0x429780 GetAIPlaneToAttackPlayer: x' = coors.x + scaled.x, y' = coors.y + scaled.y, z' = coors.z + scaled.z (registros); out[2] = float(z'), out[1] = float(y' - planePos.y), out[0] = float(x' - planePos.x)
++void __cdecl CcAirAttackAim(const float* scaled, const float* coors, const float* planePos, float* out);
++// 0x429890 GetAIPlaneToDoDogFight: A, B = speed.x * 50, speed.y * 50 (registros), C = float(speed.z * 50); out[0] = float(A + pos.x), out[1] = float(B + pos.y), out[2] = float(C + pos.z)
++void __cdecl CcAirDogAim(const float* speed, const float* pos, float* out);
++// float( ((r * (1/32767)) * 600.0) + base - 300.0 ) con el x87 (0x429961..0x429977)
++float __cdecl CcAirDogRandOffset(int r, float base);
++// fsqrt((a.y-b.y)^2 + (a.x-b.x)^2) sin guardar a float (queda en ST0 y se compara con un float)
++double __cdecl CcAirHorizDistD(const float* a, const float* b);
++// 0x42A750 SteerAIHeliToFollowEntity: desplazamiento del destino por el eje adelante del objetivo: m = double(mult); x = float(fwd.x * m + dest.x) (sin redondear el producto a float);
++// y = float(float(fwd.y * m) + dest.y); z = float(float(m * 0.0) + dest.z)  (m * 0.0 conserva el signo de m)
++void __cdecl CcAirFollowOffset(const float* fwd, int mult, float* dest);
++// 0x42AEB0 SteerAIHeliToKeepEntityInView. true si r = fsqrt((t.y-s.y)^2 + (t.x-s.x)^2) > 2 * td (ordenado); *distF = float(r) (fst dword)
++bool __cdecl CcAirViewFar(const float* t, const float* s, unsigned int td, float* distF);
++// diff = rotated - hv normalizado a [-pi, pi] (bucles del EXE); skid = diff * -1.0; *raw = float(skid) (primer guardado), *clamped = skid < 1.0 ? (-1.0 > skid ? -1.0 : skid) : 1.0 (NaN -> 1.0)
++void __cdecl CcAirViewSkid(float rotated, float hv, float* raw, float* clamped);
++// err = maxAlt - (vz * 100 + z); resultado = float(err * (err > 0 ? 0.1 : 0.2) + 0.3)
++float __cdecl CcAirViewBrake1(float maxAlt, float vz, float z);
++// v = (r - 7) * 0.002 + prev; resultado = v < 1.0 ? (0.0 > v ? 0.0 : v) : 1.0 (NaN -> 1.0)
++float __cdecl CcAirViewBrake2(int r, float prev);
++// 0x42B1B5..: out = 0.5 si 0.5*td > distF; -0.5 si distF > td; si no float((vz*right.z + vy*right.y) + right.x*vx); v = velocidad {x, y, z}
++void __cdecl CcAirViewLeftRight(float distF, unsigned int td, const float* v, const float* right, float* out);
++// 0x42B219..: si distF < 1.5*td (ordenado) *out = float((vz*fwd.z + vy*fwd.y) + vx*fwd.x) y devuelve true
++bool __cdecl CcAirViewUpDown(float distF, unsigned int td, const float* v, const float* fwd, float* out);
++// 0x42F3C0 GetAIHeliToAttackPlayer: float(fsqrt( ((dy - pos.y) * Ly) + ((ax - pos.x) * (bx - pos.x)) )) con Ly = float(cy - pos.y)
++float __cdecl CcAirHeliAttackDist(float ax, float bx, float cy, float dy, const float* pos);
++// Lanchas (SteerAIBoatWithPhysics*, 0x428BE0 / 0x428DE0 / 0x429090). fwd = {x, y} del eje adelante de la matriz: len = fsqrt(y*y + x*x); si len == 0 (ordenado) out = {1.0, y en bruto};
++// si no inv = 1.0 / len y out = {float(inv * x), float(inv * y)} (NaN entra en esta rama)
++void __cdecl CcAirBoatForward(const float* fwd, float* out);
++// diff = headingT - headingB normalizado a [-pi, pi] (primero el bucle de -pi y despues el de +pi); mode 0 (HeadingForTarget) lo limita a [-0.5, 0.5] (NaN se conserva).
++// err = cruise - fsqrt(vy*vy + vx*vx) * 60.0; con err > 0 (o NaN) *throttle = ratio = err / cruise > 0.25 ? 1.0 : float(1.0 - (0.25 - ratio) * 4.0); si no -0.1 (o -0.2 si err < -5.0) y,
++// en mode 0, steer = steer * -1.0. *steer = float(steer) (mode 0) o float(diff) (mode 1). Devuelve diff (mode 1: el valor del registro, sin guardar a float).
++double __cdecl CcAirBoatSteerThrottle(float headingT, float headingB, const float* vel, unsigned int cruise, int mode, float* steer, float* throttle);
++// 0x428DE0: distancia coors - pos con ((dz^2 + dy^2) + dx^2), *distF = float(dist), devuelve (dist * 0.05 < 2.0) ? float(dist * 0.05) : 2.0
++float __cdecl CcAirBoatAttackLead(const float* coors, const float* pos, float* distF);
++// x = float(((lead * speed.x) * 60.0) + coors.x); ypart = float((lead * speed.y) * 60.0); dy = float((ypart + coors.y) - pos.y)
++float __cdecl CcAirBoatLeadX(float lead, const float* speed, const float* coors);
++float __cdecl CcAirBoatLeadYPart(float lead, const float* speed);
++float __cdecl CcAirBoatLeadDy(float ypart, const float* coors, const float* pos);
++// 0x429090 CirclingPlayer: v = vector normalizado {x, y}; out = odd ? {float(y * -12.0), float(-x * -12.0)} : {float(y * 26.0), float(-x * 26.0)}
++void __cdecl CcAirCirclingVec(const float* v, int odd, float* out);
++// out = {float((vec.x + coors.x) - pos.x), float((vec.y + coors.y) - pos.y)} con las sumas en registro
++void __cdecl CcAirCirclingAim(const float* vec, const float* coors, const float* pos, float* out);
++// 0x42B270 FireHeliRocketsAtTarget. Distancia lanzador - objetivo = fsqrt(((dz^2 + dy^2) + dx^2)) con d = lanzador - objetivo (registros): true si < 80.0
++bool __cdecl CcAirRocketsInRange(const float* launcher, const float* target);
++// punto = posicion del lanzador + eje adelante (cada componente guardada a float; la suma es pos + fwd para x y fwd + pos para y y z)
++void __cdecl CcAirRocketsPoint(const float* launcher, const float* fwd, float* out);
++// posicion de salida del cohete: odd = bit 0 de ((tiempo * 0x10624DD3) >> 32) >> 4. x4 = fwd.x*4 + pos.x y y4 = float(fwd.y*4) + pos.y en registro, z4 = float(float(fwd.z*4) + pos.z);
++// desplazamiento lateral = right * 1.5 (x y z a float, y en registro); con odd cada componente se niega y se guarda a float; out = {float(ox + x4), float(oy + y4), float(oz + z4)}
++void __cdecl CcAirRocketsMuzzle(const float* launcher, const float* fwd, const float* right, int odd, float* out);
++// 0x423940 FlyAIHeliToTarget_FixedOrientation
++// out = {float(float(speed.x * 50) + pos.x), float(float(speed.y * 50) + pos.y), float(speed.z * 50 + pos.z)} (z en registro)
++void __cdecl CcAirFixedStart(const float* speed, const float* pos, float* out);
++// *cosOut = float(fcos(angle)), *sinOut = float(fsin(angle)) (instrucciones x87 de precision completa)
++void __cdecl CcAirSinCos(float angle, float* cosOut, float* sinOut);
++// out = {float(dir.x * 60 + start.x), float(dir.y * 60 + start.y), float(float(dir.z * 60) + start.z)}
++void __cdecl CcAirFixedEnd(const float* dir, const float* start, float* out);
++// v = hitZ + minAlt; devuelve cur si v < cur (ordenado) y float(v) si no
++float __cdecl CcAirFixedMaxAlt(float hitZ, float minAlt, float cur);
++// err = maxAlt - (vz * 100 + posZ); float(err * (err > 0 ? 0.1 : 0.2))
++float __cdecl CcAirFixedBrake(float vz, float posZ, float maxAlt);
++// resto de FlyAIHeliToTarget_FixedOrientation tras la ultima llamada del EXE. out[0] = freno final (+0x998), out[1] y out[2] = +0x98C sin limitar y limitado, out[3] y out[4] = +0x994,
++// out[5] y out[6] = +0x990. r = rand() & 0xF; vel = {x, y, z}, right/fwd = ejes de la matriz, pos/dest = {x, y}
++void __cdecl CcAirFixedControls(float orientation, float ownHeading, float brake, int r, const float* vel, const float* right, const float* fwd, const float* pos, const float* dest, float* out);
++// 0x423000 FlyAIPlaneInCertainDirection.
++// d = h0 - target normalizado a [-pi, pi] (bucle de +pi y despues el de -pi); *limit = |d| < 0.5236 ? 0 : float(d * 1.5)
++void __cdecl CcAirPlaneLimitCalc(float h0, float target, float* limit);
++// candidato n (1..19): s = float((n / 2) * (n impar ? 0.2618 : -0.2618)), t = float(s + target); *inRange = (s < 0 && s > limit) || (s > 0 && s < limit)
++void __cdecl CcAirPlaneCand(int n, float target, float limit, float* s, float* t, int* inRange);
++// float(s * 1.1 + heading)
++float __cdecl CcAirPlaneAccept(float s, float heading);
++// v = clearance + minAlt; devuelve float(v) si v > maxAlt (ordenado) y maxAlt si no
++float __cdecl CcAirPlaneRaise(float clearance, float minAlt, float maxAlt);
++// float((fwd.y * vy + fwd.x * vx) * 60)
++float __cdecl CcAirPlaneSpeed60(const float* fwd, const float* vel);
++// +0x98C final: v < 1.0 ? (v > -1.0 ? v : -1.0) : 1.0 (NaN -> 1.0)
++float __cdecl CcAirPlaneClamp98C(float v);
++// float(vz * 100 + posZ)
++float __cdecl CcAirPlanePz(float vz, float posZ);
++// fase aerea: a = asin del EXE de fwd.z; pitch = float((a - prev9BC) * (100 / step) + a); *new9BC = float(a); altErr = clamp((max9AC - pz) * 0.0333, [-0.4, 0.4]) (NaN -> 0.4),
++// limitado a 0.25 si speed60 < v28; *out98C = float((altErr - pitch) * g50)
++void __cdecl CcAirPlaneAir(float fwdZ, float prev9BC, float step, float g50, float alt9AC, float pz, float speed60, float v28, float* new9BC, float* out98C);
++// resto tras la fase de suelo o aerea. ground: bl. out[0] = +0x988, out[1] = +0x990, out[2] = +0x99C (balanceo en bruto), out[3] = +0x98C, *rollUsed = 1 si se calculo el balanceo
++void __cdecl CcAirPlaneFinish(int ground, float f9B8, float limit, float f9A4, float c98C, float old99C, int bit7, float v28, float speed60, float step, float g4C, float g48, float g44,
++                              const float* matrix, float* out);
++// 0x429A70 FlyAIHeliInCertainDirection
++// true si float(byteVal) > dist y fsqrt(vx^2 + vy^2) < 0.01 (mision HELI_NEWS_BEHAVIOUR)
++bool __cdecl CcAirHeliNews(unsigned int byteVal, float dist, const float* vel);
++// v = bl ? minAlt * 0.5 + hitZ : hitZ + minAlt; devuelve cur si cur > v y float(v) si no
++float __cdecl CcAirHeliRaise1(int bl, float minAlt, float hitZ, float cur);
++// float(fsqrt(vy^2 + vx^2) * 100 + (bit7 ? 5.0 : 30.0))
++float __cdecl CcAirHeliLookahead(const float* vel, int bit7);
++// out = {float(cosv * L + base.x), float(sinv * L + base.y), float(float(L * 0.0) + base.z)}
++void __cdecl CcAirHeliAhead(float cosv, float sinv, float L, const float* base, float* out);
++// punto lateral a 10 unidades: right = {x, y, z}; derecha (left = 0): {X10 + pos.x, Y10 + pos.y, float(Z10) + pos.z}; izquierda: {pos.x - X10, pos.y - Y10, pos.z - float(Z10)} con X10 = x * 10, Y10 = y * 10 (registros) y Z10 = z * 10 (float)
++void __cdecl CcAirHeliSide(const float* right, const float* pos, int left, float* out);
++// fsqrt(((col.z - base.z)^2 + (col.y - base.y)^2) + (col.x - base.x)^2) sin guardar a float
++double __cdecl CcAirHeliHitDist(const float* col, const float* base);
++// v = (r - 7) * 0.002 + prev; *m = float(v - 0.5); devuelve v < 1.0 ? (float(v) < -0.3 ? -0.3 : float(v)) : 1.0
++float __cdecl CcAirHeliBrake2(int r, float prev, float* m);
++// d = a2 - h1 normalizado a [-pi, pi] (primero el bucle de +pi); s = d * -2.0 limitado a [-1, 1] (NaN -> 1.0)
++float __cdecl CcAirHeliSkid(float a2, float h1);
++// punto de aproximacion: X = vx * 50 + pos.x; Y = float(vy * 50) + pos.y; dd = float(X - dest.x); e = fsqrt((Y - dest.y)^2 + dd^2) - float(byteVal);
++// con e < 0 devuelve false; si no *out = float((e * -0.8) / (30.0 - float(byteVal))) y true
++bool __cdecl CcAirHeliApproach(const float* vel, const float* pos, const float* dest, unsigned int byteVal, float* out);
++// d2 = h1 - a2 normalizado (primero -pi); absd = |d2|; q = max(1.0 - 2.122066 * absd, 0); *out = float(q * cur); si absd > pi/2 y ((vz*fz + vy*fy) + fx*vx) > 0: *out = 0.3
++void __cdecl CcAirHeliTurnLimit(float h1, float a2, float cur, const float* vel, const float* fwd, float* out);
++// c = m < 1.0 ? m : 1.0; devuelve float((1.0 - c) * cur)
++float __cdecl CcAirHeliScale(float m, float cur);
++// w = (cruise - ((vz*fz + vy*fy) + vx*fx) * 60) * 0.1 limitado a [0, 1]; value = (-w < cur) ? cur : -w; *stored = float(value); devuelve value (registro)
++double __cdecl CcAirHeliSpeedCtl(unsigned int cruise, const float* vel, const float* fwd, float cur, float* stored);
++// k = (mult * step) * 0.001; vel += {fx * k, fy * k, k * 0.0} (fy * k y k * 0.0 pasan por float antes de sumarse)
++void __cdecl CcAirHeliDecay(int mult, float step, const float* fwd, float* vel);
++// 2 * (((n.y * vy) + (n.z * vz)) + n.x * vx)
++float __cdecl CcAirHeliForwardDot(const float* n, const float* vel);
++// v < 1.0 ? (-1.0 > v ? -1.0 : v) : 1.0
++float __cdecl CcAirHeliClamp990(float v);

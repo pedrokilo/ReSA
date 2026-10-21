@@ -1,0 +1,250 @@
+diff --git a/source/game_sa/CarCtrl.cpp b/source/game_sa/CarCtrl.cpp
+index 6dea001..867cdb9 100644
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -90,6 +90,11 @@ void CCarCtrl::InjectHooks()
+     RH_ScopedInstall(StopCarIfNodesAreInvalid, 0x422590);
+     RH_ScopedInstall(FindPercDependingOnDistToLink, 0x422620);
+     RH_ScopedNamedGlobalInstall(Cc63Intersection2LinesCpp, "FindIntersection2Lines", 0x4226F0);
++    // Lote 63 (parte C, tanda 2)
++    RH_ScopedInstall(SetUpDriverAndPassengersForVehicle, 0x4217C0);
++    RH_ScopedInstall(ScanForPedDanger, 0x42CE40);
++    RH_ScopedInstall(SetCoordsOfScriptCar, 0x4342A0);
++    RH_ScopedInstall(FindMaximumSpeedForThisCarInTraffic, 0x434400);
+     RH_ScopedInstall(JoinCarWithRoadAccordingToMission, 0x432CB0);
+     RH_ScopedInstall(PossiblyFireHSMissile, 0x429600);
+     RH_ScopedInstall(PruneVehiclesOfInterest, 0x423F10);
+@@ -357,7 +362,58 @@ void CCarCtrl::FindLinksToGoWithTheseNodes(CVehicle* vehicle) {
+ 
+ // 0x434400
+ float CCarCtrl::FindMaximumSpeedForThisCarInTraffic(CVehicle* vehicle) {
+-    return plugin::CallAndReturn<float, 0x434400, CVehicle*>(vehicle);
++    // Como el original (0x434400..0x434783). +0x3B9 es el estilo de conduccion (byte), +0x3D0 la velocidad de crucero (byte) y +0x3D4 su multiplicador (float).
++    // Estilos 2, 3 y 5: devuelve crucero * multiplicador sin mas. Si no, caja de +-14.0f (0x859030) alrededor del vehiculo en sectores del mundo (ftol2 de floor(v * 0.02f + 60.0f);
++    // el minimo se acota por abajo a 0 y el maximo por arriba a 0x77, cada uno sin acotar el otro lado), nuevo codigo de escaneo, y para cada sector repetido (y exterior, x interior;
++    // indice ((y & 15) << 4) + (x & 15)) llama, por este orden, a SlowCarDownForCarsSectorList (salvo estilo 6), ...PedsSectorList y ...ObjectsSectorList con (x1, y1, x2, y2,
++    // &maxSpeed, crucero * multiplicador recalculado en cada llamada). Despues marca bWarnedPeds y devuelve maxSpeed (estilos 0 y 4) o (crucero * multiplicador + maxSpeed) * 0.5f.
++    auto& autoPilot = vehicle->m_autoPilot;
++    const auto cruiseSpeed = [&] { return Cc63bCruiseSpeedCpp(autoPilot.m_nCruiseSpeed, autoPilot.m_SpeedMult); };
++    {
++        const uint8 style = static_cast<uint8>(autoPilot.m_nCarDrivingStyle);
++        if (style == 2 || style == 3 || style == 5) {
++            return cruiseSpeed();
++        }
++    }
++    constexpr float range = 14.0f; // 0x859030
++    const CVector& position = vehicle->GetPosition();
++    const float x1 = position.x - range;
++    const float x2 = position.x + range;
++    const float y1 = position.y - range;
++    const float y2 = position.y + range;
++    const int32 xMinRaw = Cc63bSectorCpp(x1);
++    const int32 xMin = xMinRaw > 0 ? xMinRaw : 0;
++    const int32 yMinRaw = Cc63bSectorCpp(y1);
++    const int32 yMin = yMinRaw > 0 ? yMinRaw : 0;
++    const int32 xMaxRaw = Cc63bSectorCpp(x2);
++    const int32 xMax = xMaxRaw < 0x77 ? xMaxRaw : 0x77;
++    const int32 yMaxRaw = Cc63bSectorCpp(y2);
++    const int32 yMax = yMaxRaw < 0x77 ? yMaxRaw : 0x77;
++    CWorld::AdvanceCurrentScanCode();
++    float maxSpeed = cruiseSpeed();
++    for (int32 y = yMin; y <= yMax; y++) {
++        for (int32 x = xMin; x <= xMax; x++) {
++            CRepeatSector& sector = CWorld::GetRepeatSector(x, y);
++            if (static_cast<uint8>(autoPilot.m_nCarDrivingStyle) != 6) {
++                const float arg8 = cruiseSpeed();
++                SlowCarDownForCarsSectorList(sector.Vehicles, vehicle, x1, y1, x2, y2, &maxSpeed, arg8);
++            }
++            {
++                const float arg8 = cruiseSpeed();
++                SlowCarDownForPedsSectorList(sector.Peds, vehicle, x1, y1, x2, y2, &maxSpeed, arg8);
++            }
++            {
++                const float arg8 = cruiseSpeed();
++                SlowCarDownForObjectsSectorList(sector.Objects, vehicle, x1, y1, x2, y2, &maxSpeed, arg8);
++            }
++        }
++    }
++    vehicle->vehicleFlags.bWarnedPeds = true;
++    const uint8 style = static_cast<uint8>(autoPilot.m_nCarDrivingStyle);
++    if (style == 0 || style == 4) {
++        return maxSpeed;
++    }
++    return Cc63bTrafficSpeedCpp(autoPilot.m_nCruiseSpeed, autoPilot.m_SpeedMult, maxSpeed);
+ }
+ 
+ // 0x42BD20
+@@ -935,7 +991,36 @@ void CCarCtrl::RemoveFromInterestingVehicleList(CVehicle* vehicle) {
+ 
+ // 0x42CE40
+ void CCarCtrl::ScanForPedDanger(CVehicle* vehicle) {
+-    plugin::Call<0x42CE40, CVehicle*>(vehicle);
++    // Como el original (0x42CE40..0x42D0CD): radio 44.0f (0x858FF8) si es el vehiculo del jugador (FindPlayerVehicle(-1, 0)) y 11.0f (0x858FBC) si no; se guarda el bit
++    // bHonkAtPed (+0x3DB bit 1) y se restaura al final. Misma caja, mismos sectores y mismo orden que FindMaximumSpeedForThisCarInTraffic, pero solo con la lista de peatones
++    // (repeatSector + 4) y velocidad inicial = crucero (byte +0x3D0) como float.
++    auto& autoPilot = vehicle->m_autoPilot;
++    const float range = vehicle == FindPlayerVehicle(-1, false) ? 44.0f : 11.0f;
++    const bool honk = autoPilot.carCtrlFlags.bHonkAtPed;
++    const CVector& position = vehicle->GetPosition();
++    const float x1 = position.x - range;
++    const float x2 = range + position.x;
++    const float y1 = position.y - range;
++    const float y2 = range + position.y;
++    const int32 xMinRaw = Cc63bSectorCpp(x1);
++    const int32 xMin = xMinRaw > 0 ? xMinRaw : 0;
++    const int32 yMinRaw = Cc63bSectorCpp(y1);
++    const int32 yMin = yMinRaw > 0 ? yMinRaw : 0;
++    const int32 xMaxRaw = Cc63bSectorCpp(x2);
++    const int32 xMax = xMaxRaw < 0x77 ? xMaxRaw : 0x77;
++    const int32 yMaxRaw = Cc63bSectorCpp(y2);
++    const int32 yMax = yMaxRaw < 0x77 ? yMaxRaw : 0x77;
++    CWorld::AdvanceCurrentScanCode();
++    float speed = static_cast<float>(autoPilot.m_nCruiseSpeed);
++    for (int32 y = yMin; y <= yMax; y++) {
++        for (int32 x = xMin; x <= xMax; x++) {
++            CRepeatSector& sector = CWorld::GetRepeatSector(x, y);
++            const float arg8 = static_cast<float>(autoPilot.m_nCruiseSpeed);
++            SlowCarDownForPedsSectorList(sector.Peds, vehicle, x1, y1, x2, y2, &speed, arg8);
++        }
++    }
++    vehicle->vehicleFlags.bWarnedPeds = true;
++    autoPilot.carCtrlFlags.bHonkAtPed = honk;
+ }
+ 
+ // 0x42FBC0
+@@ -952,12 +1037,84 @@ bool CCarCtrl::ScriptGenerateOneEmergencyServicesCar(uint32 modelId, CVector pos
+ 
+ // 0x4342A0
+ void CCarCtrl::SetCoordsOfScriptCar(CVehicle* vehicle, float x, float y, float z, uint8 arg5, uint8 arg6) {
+-    plugin::Call<0x4342A0, CVehicle*, float, float, float, uint8, uint8>(vehicle, x, y, z, arg5, arg6);
++    // Como el original (0x4342A0..0x4343FC). El manejador del vehiculo (CPools::GetVehicleRef inlinado en el EXE) se calcula sin comprobar que el puntero pertenezca al pool:
++    // indice = (vehiculo - almacenamiento) / 0xA18 con signo y manejador = (indice << 8) + byte de estado. z <= -100.0f (0x859014; con NaN no) se sustituye por la altura del suelo en
++    // (x, y); arg6 != 0 suma la distancia del centro de masas a la base del modelo. Teleport virtual (ranura 14) con arg5 como `clearOrientation`; el barco (+0x590 == 5) solo despeja
++    // el espacio y pone la accion temporal (+0x3BB) a 0; los demas colocan sobre la carretera (automovil y remolque: 0 y 11; moto: 9), despejan, se unen a la carretera segun la mision.
++    const uint8* const pool = reinterpret_cast<const uint8*>(GetVehiclePool());
++    const intptr_t storage = *reinterpret_cast<const intptr_t*>(pool);
++    const uint8* const slotStates = *reinterpret_cast<const uint8* const*>(pool + 4);
++    const int32 index = static_cast<int32>(reinterpret_cast<intptr_t>(vehicle) - storage) / 0xA18;
++    const int32 handle = slotStates[index] + (index << 8);
++    if (z <= -100.0f) {
++        z = CWorld::FindGroundZForCoord(x, y);
++    }
++    if (arg6) {
++        z = Cc63bAddFloatCpp(vehicle->GetDistanceFromCentreOfMassToBaseOfModel(), z);
++    }
++    vehicle->SetIsStatic(false);
++    CTheScripts::StuckCars.ClearStuckFlagForCar(handle);
++    CVector position{ x, y, z };
++    vehicle->Teleport(position, std::bit_cast<bool>(arg5)); // el EXE empuja el byte tal cual (no lo normaliza a 0/1)
++    if (vehicle->m_nVehicleType == VEHICLE_TYPE_BOAT) {
++        CTheScripts::ClearSpaceForMissionEntity(position, vehicle);
++        vehicle->m_autoPilot.m_nTempAction = TEMPACT_NONE;
++        return;
++    }
++    const int32 type = vehicle->m_nVehicleType;
++    if (type == VEHICLE_TYPE_AUTOMOBILE || type == VEHICLE_TYPE_TRAILER) {
++        static_cast<CAutomobile*>(vehicle)->PlaceOnRoadProperly();
++    } else if (type == VEHICLE_TYPE_BIKE) {
++        static_cast<CBike*>(vehicle)->PlaceOnRoadProperly();
++    }
++    CTheScripts::ClearSpaceForMissionEntity(position, vehicle);
++    JoinCarWithRoadAccordingToMission(vehicle);
++    vehicle->m_autoPilot.m_nTempAction = TEMPACT_NONE;
+ }
+ 
+ // 0x4217C0
+ void CCarCtrl::SetUpDriverAndPassengersForVehicle(CVehicle* vehicle, int32 arg2, int32 arg3, bool arg4, bool arg5, int32 passengersNum) {
+-    plugin::Call<0x4217C0, CVehicle*, int32, int32, bool, bool, int32>(vehicle, arg2, arg3, arg4, arg5, passengersNum);
++    // Como el original (0x4217C0..0x4218F2). arg2 = tipo de peaton (14..23 = bandas), arg3 = minimo de pasajeros. rand es el del EXE (0x821B1E, no la de la DLL).
++    // El conductor (+0x460, sin comprobar nulo) y cada pasajero de banda sostienen un objeto (word 0x8CD72C) si rand() < 0x3FFF. Cada pasajero extra hasta el maximo
++    // (byte +0x488) se anade con probabilidad 1/8 (rand * 0x858C7C < 0.125f); en los coches con la animacion de furgoneta ("van", 0x858EE0) como mucho 1.
++    const auto exeRand = reinterpret_cast<int(__cdecl*)()>(0x821B1E);
++    const uint16 heldModel = StaticRef<uint16>(0x8CD72C);
++    vehicle->SetUpDriver(arg2, arg4, arg5);
++    if (arg2 >= 14 && arg2 <= 23 && exeRand() < 0x3FFF) {
++        vehicle->m_pDriver->GiveObjectToPedToHold(heldModel, 1);
++    }
++    int32 limit = passengersNum;
++    if (static_cast<int32>(vehicle->m_nMaxPassengers) < limit) {
++        limit = vehicle->m_nMaxPassengers;
++    }
++    int32 count = arg3;
++    if (count < limit) {
++        for (int32 remaining = limit - count; remaining != 0; --remaining) {
++            count += Cc63bRandBelowEighthCpp(exeRand()) ? 1 : 0;
++        }
++        if (count >= limit) {
++            count = limit;
++        }
++    } else {
++        count = limit;
++    }
++    const int32 modelIndex = static_cast<int16>(vehicle->m_nModelIndex);
++    if (CModelInfo::IsCarModel(modelIndex)) {
++        const int32 vanBlockIndex = CAnimManager::GetAnimationBlockIndex("van");
++        if (CModelInfo::ms_modelInfoPtrs[modelIndex]->GetAnimFileIndex() == vanBlockIndex && count >= 1) {
++            count = 1;
++        }
++    }
++    for (int32 seat = 0; seat < count; seat++) {
++        CPed* const passenger = vehicle->SetupPassenger(seat, arg2, arg4, arg5);
++        if (!passenger) {
++            continue;
++        }
++        passenger->UpdateStatEnteringVehicle();
++        if (arg2 >= 14 && arg2 <= 23 && exeRand() < 0x3FFF) {
++            passenger->GiveObjectToPedToHold(heldModel, 1);
++        }
++    }
+ }
+ 
+ // 0x432420
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 7978fb7..00e08b3 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -13882,3 +13882,30 @@ int __cdecl Cc63PathDirectionCpp(float p2xA, float p1xB, float p2yC, float p1yD,
+     }
+     return double(cross) > 0.0 ? 4 : 2;
+ }
++
++// --- Lote 63: CCarCtrl (parte C, tanda 2), prefijo Cc63b. Anadir al FINAL de X87Math.cpp ---
++// 0x43444D.. / 0x42CED8..: v = coordinate * 0.02f (0x858B38) + 60.0f (0x858B34) con un redondeo a 24 bits por operacion, guardado como float (fst dword) y convertido con floor
++// y _ftol2 (int64 truncado; NaN, infinito o |v| >= 2^63 dan 0x8000000000000000, cuyo dword bajo es 0).
++int __cdecl Cc63bSectorCpp(float coordinate) {
++    volatile float scaled = float(double(coordinate) * 0.019999999552965164 + 60.0);
++    return int(__int64(floor(double(scaled))));
++}
++// 0x4345DD..0x4345FE: movzx byte + fild + fmul dword [multiplicador]: resultado en ST0 (24 bits).
++float __cdecl Cc63bCruiseSpeedCpp(unsigned int cruise, float multiplier) {
++    return float(double(cruise) * double(multiplier));
++}
++// 0x434744..0x43475D: (fild(cruise) * multiplier) + maxSpeed (24 bits) y * 0.5f (0x858B8C), resultado en ST0.
++float __cdecl Cc63bTrafficSpeedCpp(unsigned int cruise, float multiplier, float maxSpeed) {
++    const double product = double(cruise) * double(multiplier);
++    const double sum = product + double(maxSpeed);
++    return float(sum * 0.5);
++}
++// 0x421831..0x42184B: fild(rand) * 0x38000100 (1/32767) comparado con 0.125f (0x858C48): menor (ordenada) -> true.
++bool __cdecl Cc63bRandBelowEighthCpp(int randValue) {
++    const double scaled = double(randValue) * 3.0518509447574615e-05;
++    return scaled < 0.125;
++}
++// 0x434308: fadd dword [z] sobre la distancia del centro de masas (resultado en ST0 y luego fstp dword).
++float __cdecl Cc63bAddFloatCpp(float a, float b) {
++    return float(double(a) + double(b));
++}
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index 22840ad..bbe3a31 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1668,3 +1668,9 @@ void __cdecl Cc63Intersection2LinesCpp(float a1, float a2, float a3, float a4, f
+ float __cdecl Cc63SpeedMultiplierCpp(float a1, float a2, float a3, float a4);                                                                      // 0x4224E0
+ float __cdecl Cc63PercDistCpp(float px, float py, int linkX, int linkY);                                                                           // 0x422620 (tramo aritmetico)
+ int __cdecl Cc63PathDirectionCpp(float p2xA, float p1xB, float p2yC, float p1yD, float p3xE, float p2xF, float p3yG, float p2yH, bool* flag);     // 0x422090 (tramo aritmetico)
++// --- Lote 63: CCarCtrl (parte C, tanda 2), prefijo Cc63b. Anadir al FINAL de X87Math.h ---
++int __cdecl Cc63bSectorCpp(float coordinate);                                               // ftol2(floor(coordinate * 0.02f + 60.0f)) (32 bits bajos); FindMaximumSpeedForThisCarInTraffic / ScanForPedDanger
++float __cdecl Cc63bCruiseSpeedCpp(unsigned int cruise, float multiplier);                   // fild(cruise) * multiplier (24 bits), resultado en ST0
++float __cdecl Cc63bTrafficSpeedCpp(unsigned int cruise, float multiplier, float maxSpeed);  // (fild(cruise) * multiplier + maxSpeed) * 0.5f, resultado en ST0
++bool __cdecl Cc63bRandBelowEighthCpp(int randValue);                                        // fild(randValue) * (1/32767, 0x858C7C) < 0.125f (SetUpDriverAndPassengersForVehicle)
++float __cdecl Cc63bAddFloatCpp(float a, float b);                                           // a + b (24 bits), resultado en ST0 (SetCoordsOfScriptCar)

@@ -1,0 +1,131 @@
+diff --git a/source/game_sa/CarCtrl.cpp b/source/game_sa/CarCtrl.cpp
+index 8ed964e..b66a979 100644
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -33,6 +33,7 @@ END GENERATED HOOK STATUS */
+ #include "CarCtrl.h"
+ #include "TrafficLights.h"
+ #include "TheScripts.h"
++#include "X87Math.h"
+ #include "GangWars.h"
+ #include "Game.h"
+ #include "General.h"
+@@ -87,6 +88,7 @@ void CCarCtrl::InjectHooks()
+     RH_ScopedInstall(GenerateRandomCars, 0x4341C0);
+     RH_ScopedInstall(ClearInterestingVehicleList, 0x423F00);
+     RH_ScopedInstall(RegisterVehicleOfInterest, 0x423DE0);
++    RH_ScopedInstall(SteerAICarTowardsPointInEscort, 0x4336D0);
+     RH_ScopedInstall(FindSequenceElement, 0x421770);
+     RH_ScopedInstall(SwitchVehicleToRealPhysics, 0x423FC0);
+     RH_ScopedInstall(UpdateCarCount, 0x424000);
+@@ -1026,7 +1028,109 @@ void CCarCtrl::SteerAICarParkPerpendicular(CVehicle* vehicle, float* arg2, float
+ 
+ // 0x4336D0
+ void CCarCtrl::SteerAICarTowardsPointInEscort(CVehicle* vehicle1, CVehicle* vehicle2, float arg3, float arg4, float* arg5, float* arg6, float* arg7, bool* arg8) {
+-    plugin::Call<0x4336D0, CVehicle*, CVehicle*, float, float, float*, float*, float*, bool*>(vehicle1, vehicle2, arg3, arg4, arg5, arg6, arg7, arg8);
++    // vehicle1 conduce hacia un punto (arg3, arg4) en el sistema del vehiculo escoltado (vehicle2). arg5 = giro, arg6 = acelerador, arg7 = freno, arg8 = freno de mano.
++    constexpr float kPi = std::bit_cast<float>(0x40490FDBu);    // 0x858CB8
++    constexpr float kTwoPi = std::bit_cast<float>(0x40C90FDBu); // 0x858CBC
++
++    // Punto del escoltado en el mundo (0x59C890, matriz x vector con z = 0) mas su velocidad: matriz sin comprobar nulo, como el EXE
++    const float local[3]{ arg3, arg4, 0.0f };
++    float world[3];
++    AutoPreMultiplyMatrixWithVectorCpp(&vehicle2->m_matrix->GetRight().x, local, world);
++    const CVector& escortSpeed = vehicle2->m_vecMoveSpeed;
++    const float targetX = escortSpeed.x + world[0];
++    const float targetY = escortSpeed.y + world[1];
++    *arg8 = false;
++
++    // Direccion de avance del vehiculo 1 normalizada (longitud 0: (1, y))
++    const CVector& forward = vehicle1->m_matrix->GetForward();
++    float forwardX = forward.x;
++    float forwardY = forward.y;
++    const float forwardLength = std::sqrt(forwardY * forwardY + forwardX * forwardX);
++    if (forwardLength == 0.0f) {
++        forwardX = 1.0f;
++    } else {
++        const float inverse = 1.0f / forwardLength;
++        forwardX = inverse * forwardX;
++        forwardY = inverse * forwardY;
++    }
++
++    // Punto de mira 3 m por delante en la direccion "top" del escoltado (0x858B3C = 3.0)
++    const CVector& escortForward = vehicle2->m_matrix->GetForward();
++    const float aimX = escortForward.x * 3.0f + targetX;
++    const float aimY = escortForward.y * 3.0f + targetY;
++    const CVector& pos = vehicle1->GetPosition();
++    const float headingToAim = CGeneral::GetATanOfXY(aimX - pos.x, aimY - pos.y);
++    const float vehicleHeading = CGeneral::GetATanOfXY(forwardX, forwardY);
++    float diff = FindAngleToWeaveThroughTraffic(vehicle1, nullptr, headingToAim, vehicleHeading, 1.0f) - vehicleHeading;
++    while (diff < -kPi) {
++        diff += kTwoPi;
++    }
++    while (diff > kPi) {
++        diff -= kTwoPi;
++    }
++    const float maxSteer = FindMaxSteerAngle(vehicle1);
++    if (diff < -maxSteer) {
++        diff = -maxSteer;
++    }
++    if (diff > maxSteer) {
++        diff = maxSteer;
++    }
++
++    // El EXE calcula tambien el rumbo al punto sin proyeccion y descarta el resultado (la llamada se conserva)
++    const CVector& pos2 = vehicle1->GetPosition();
++    CGeneral::GetATanOfXY(targetX - pos2.x, targetY - pos2.y);
++
++    // Proyeccion del vector al punto sobre el avance y distancia
++    const CVector& pos3 = vehicle1->GetPosition();
++    const float dot = (targetY - pos3.y) * forwardY + (targetX - pos3.x) * forwardX;
++    const float distance = std::sqrt((targetY - pos3.y) * (targetY - pos3.y) + (targetX - pos3.x) * (targetX - pos3.x));
++
++    // Velocidad deseada
++    float desired;
++    if (dot > 0.5f) { // 0x858B8C
++        const float escortSpeed60 = std::sqrt((escortSpeed.x * escortSpeed.x + escortSpeed.y * escortSpeed.y) + escortSpeed.z * escortSpeed.z) * GAME_SPEED_TO_CAR_AI_SPEED;
++        if (distance < 15.0f) { // 0x858B48
++            const float ahead = (dot - 0.5f) - 0.1f; // 0x858B1C
++            const float margin = 4.0f < ahead ? 4.0f : ahead; // 0x858B90
++            const float scaledDistance = distance * 3.5f; // 0x859028
++            const float sum = escortSpeed60 + margin;
++            desired = sum > scaledDistance ? sum : scaledDistance;
++        } else {
++            desired = 300.0f; // 0x858FD8
++        }
++        const float limit = escortSpeed60 + 10.0f; // 0x85862C
++        if (!(desired < limit)) {
++            desired = limit;
++        }
++    } else {
++        if (distance < 15.0f) {
++            // Detras y cerca: sin giro ni acelerador; freno fuerte si esta muy detras (< -3, 0x859024)
++            *arg5 = 0.0f;
++            *arg6 = 0.0f;
++            *arg7 = dot < -3.0f ? 1.0f : 0.1f;
++            return;
++        }
++        desired = 8.0f; // 0x859000
++    }
++
++    // Aceleracion / freno: (deseada - |v| * 60)
++    const CVector& moveSpeed = vehicle1->m_vecMoveSpeed;
++    *arg7 = 0.0f;
++    const float currentSpeed = std::sqrt((moveSpeed.z * moveSpeed.z + moveSpeed.y * moveSpeed.y) + moveSpeed.x * moveSpeed.x) * GAME_SPEED_TO_CAR_AI_SPEED;
++    const float error = desired - currentSpeed;
++    if (error > 0.0f) {
++        if (currentSpeed < 25.0f) { // 0x858FE8
++            const float scaled = error * 0.1f;
++            *arg6 = 1.0f < scaled ? 1.0f : scaled;
++        } else {
++            *arg6 = 1.0f;
++        }
++    } else {
++        const float scaled = error * -0.05f; // 0x85901C
++        *arg6 = 0.0f;
++        *arg7 = 0.5f < scaled ? 0.5f : scaled;
++    }
++    *arg5 = diff;
+ }
+ 
+ // 0x437C20

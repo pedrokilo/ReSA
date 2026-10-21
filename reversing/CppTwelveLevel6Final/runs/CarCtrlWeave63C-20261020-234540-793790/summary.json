@@ -1,0 +1,65 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "490092b5b7bbf7e460652b9aba9bee39e2c053474de125beb547d838d70bd4df",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "e9bfdac79df368547f7d4d12fae77c944dd8b9e4eb086ebb575e7b1760a416f6",
+    "scripts/gta-reversed.ini": "e9bfdac79df368547f7d4d12fae77c944dd8b9e4eb086ebb575e7b1760a416f6"
+  },
+  "pairs": 4096,
+  "pairs_per_function": {
+    "CCarCtrl::UpdateCarOnRails": 4096
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "194001009df9f729aec00df5df6d5774397fa0a8779da9f088d87bf760d03810",
+  "compare_dead_x87_registers": false,
+  "coverage": {
+    "CCarCtrl::UpdateCarOnRails": {
+      "path_1_3_2_5_6": 1249,
+      "sub10": 1105,
+      "ev_422590": 4096,
+      "ev_432b10": 1427,
+      "ev_slow_rails": 2626,
+      "ev_curve": 2317,
+      "ev_42ec90": 2317,
+      "chg_E_17": 2415,
+      "chg_E_18": 2421,
+      "chg_E_19": 2400,
+      "chg_E_231": 558,
+      "chg_E_233": 337,
+      "family0": 342,
+      "stack_seed": 4096,
+      "path_1_3_5_6": 1068,
+      "family1": 342,
+      "same_link": 1049,
+      "chg_none": 1165,
+      "family2": 342,
+      "path_1_4": 1055,
+      "ev_modify": 1055,
+      "family3": 342,
+      "family4": 341,
+      "family5": 341,
+      "family6": 341,
+      "path_1": 415,
+      "family7": 341,
+      "family8": 341,
+      "family9": 341,
+      "family10": 341,
+      "family11": 341,
+      "path_1_3": 131,
+      "chg_E_235": 156,
+      "chg_E_236": 156,
+      "chg_E_238": 156,
+      "path_1_3_2": 178
+    }
+  },
+  "coverage_method": "serialized_inputs_independent_oracle_for_pure_functions_and_observed_events; no_instruction_branch_tracing",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

@@ -1,7 +1,7 @@
 {
   "scope": "source/game_sa and source/app (WindowedMode.cpp included as the documented NOTSA assembly exception, reported separately), definitions in cpp/h/hpp/inc; all preprocessing branches",
   "totals": {
-    "source_definition_count": 18332,
+    "source_definition_count": 18428,
     "groups": 1491,
     "assembly_occurrences": 0,
     "naked_declarations": 0,
@@ -20,14 +20,14 @@
     "body_parse_errors": 303,
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 443,
-    "historical_catalog_rows": 8786,
+    "historical_catalog_rows": 8849,
     "catalog_rows_without_unambiguous_source_match_in_scope": 1,
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 20,
-    "catalog_rows_linked_by_hook_address": 161,
-    "validated_reconstructed_own_cpp_definitions": 10194,
+    "catalog_rows_linked_by_hook_address": 167,
+    "validated_reconstructed_own_cpp_definitions": 10345,
     "validated_reconstructed_own_asm_definitions": 0,
-    "wrapper_definitions": 136
+    "wrapper_definitions": 107
   },
   "source_sha256": {
     "source/app/app.cpp": "4717fcefd64b864f51910ae3ab7b4b3bc0966838f9cddaaca5727ee06c47ac16",
@@ -266,7 +266,7 @@
     "source/game_sa/CamPathSplines.h": "1ab5480a6512ae7544a2d70385ffd34030c874b8af093911c8b318e1c50102e5",
     "source/game_sa/CarAI.cpp": "2000725a71e60421c12d44b6a79bde072fd2d54672bc3a2bb030d7a91f6a96a2",
     "source/game_sa/CarAI.h": "e48563b339dd4eed69e7abb0a165b6fd8a5e9f22ecd35fc98dedd004dca54793",
-    "source/game_sa/CarCtrl.cpp": "61c67c2f08679326a9a083ac3349f36f8962ee6a2e92a6f25cb8073346898cd1",
+    "source/game_sa/CarCtrl.cpp": "a2a8c49829a45039c8275decb586a4c845db8c1781e27770afe5194ffb6c9588",
     "source/game_sa/CarCtrl.h": "839c30f512d0d453d3c5ede12522b5104f7788fab874bf9cf8802b98ee09b49d",
     "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
     "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
@@ -914,7 +914,7 @@
     "source/game_sa/GangWars.h": "9790db3a29cf70ace84a2f3b85476685194a0b23c42facb6ced08529cef3f1de",
     "source/game_sa/GangWarsSaveStructure.cpp": "ca73a3cb9f0a64ba3c7948017ee1407c06b4ad94d1154bed6bff473c834469d3",
     "source/game_sa/GangWarsSaveStructure.h": "9ed82dfdffec5eea07e79c273dc3e1e22d161433c23c604ed19b6d31d293d4e5",
-    "source/game_sa/Garage.cpp": "11bba5844d1357ce4a0e637408be5c2c3499b6748a09162820d0500d97a7919e",
+    "source/game_sa/Garage.cpp": "b473f05426f3bf1fea0484822711b07506bbd91fb40cb377bb5bc2a388f83196",
     "source/game_sa/Garage.h": "e5a2b5a02b44d335604c9a6f84691f6996ae8735bc58bdb4e47ae7e18eddd691",
     "source/game_sa/Garages.cpp": "00d50a1d456143b7574ae3ea3bea69e95113fddb4eaaa92b1f573af312296ba7",
     "source/game_sa/Garages.h": "f71fc96fd17d9d22cba76e913da868dea9b8359fe466eea9465241a3f093f658",
@@ -2224,17 +2224,17 @@
     "source/game_sa/World.cpp": "0066108864b6c6c3aa13ac5a68da99749b177bd94605ebc3a2c14580018340bd",
     "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c",
     "source/game_sa/World_Helper.cpp": "331f33ad029ba5a963ac2b15dbe384298d36075b3b0eef2adedeb72454f5a033",
-    "source/game_sa/X87Math.cpp": "398b34ced5eac5d80b23d3e64f82da4a33dc2a24f053e98f02ef26da9613380b",
-    "source/game_sa/X87Math.h": "b5ce4c6108c8c2010eeebb19239c285dd983a55f9f2d774b36668472a9111857",
+    "source/game_sa/X87Math.cpp": "544d7f4d9ff0cc13613206d60f611801b59da379cd8b4ae4e9afcc410f63fc58",
+    "source/game_sa/X87Math.h": "d2933f31fbe910a6ba6ee6e3abe717e599e5e8bf865a5fc5af98c1b102d97065",
     "source/game_sa/Zone.cpp": "efb2c9fa14a6744d59fb142a8c8497719d7e9bf976ca3aebca78cc33caffa14a",
     "source/game_sa/Zone.h": "6e68b4a81ee271b97e3ed2b1ce9a6fcc1ff87dd54ab7790cb908fb14c5624d93",
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "7916472b6b8569559a4326a83af038286e74bffbe62243c0e894e382b7ea6af9",
+    "hooks.csv": "d829432f114229c112e33de767fb0e5e9abff4fa6dd28985cfe85d13c343c64f",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "e75f45c93495b33d2e8acba2cfcd89d70b8b62860668d7439438d8c7e2b4a6fd",
+  "migration_registry_sha256": "3b93959770b510881b88efd69eabc04201a6f8ba6aa64ece5f622985aa73ac56",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

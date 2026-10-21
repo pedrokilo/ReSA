@@ -1,0 +1,21 @@
+{
+ "accel_a": 141,
+ "accel_b": 504,
+ "advance1": 138,
+ "advance2plus": 293,
+ "brake": 428,
+ "clamp_hi": 374,
+ "clamp_lo": 380,
+ "end": 516,
+ "floor": 318,
+ "late": 134,
+ "loop_hi": 229,
+ "loop_lo": 194,
+ "loop_near": 583,
+ "loop_next": 569,
+ "neg_id": 163,
+ "noadvance": 642,
+ "null_base": 115,
+ "paused": 180,
+ "steer": 1073
+}

@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 20/10/2026 (Ciudad de México):** 808 grupos / 8782 funciones reconstruidas; 8782 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 21/10/2026 (Ciudad de México):** 808 grupos / 8845 funciones reconstruidas; 8845 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo A: Falta: llamada desde código ya reemplazado
@@ -11,18 +11,18 @@
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | `0x0053FB70` | 16 | CPad | alta | 747 (682) |  |
-| `0x0059C910` | 81 | CQuaternion | baja | 457 (391) |  |
-| `0x0054F1B0` | 42 | CMatrixLinkList | baja | 353 (333) |  |
+| `0x0059C910` | 81 | CQuaternion | baja | 457 (403) |  |
+| `0x0054F1B0` | 42 | CMatrixLinkList | baja | 353 (341) |  |
 | `0x007170C0` | 32 | CClouds | baja | 253 (244) |  |
 | `0x0059ACD0` | 22 | CMaths | baja | 469 (213) |  |
-| `0x0040FE60` | 37 | CColSphere | alta | 257 (207) |  |
+| `0x0040FE60` | 37 | CColSphere | alta | 257 (211) |  |
+| `0x0061A3B0` | 17 | CPlayerRelationshipRecorder | baja | 230 (198) |  |
 | `0x0061A390` | 16 | CPlayerRelationshipRecorder | baja | 234 (197) |  |
-| `0x0061A3B0` | 17 | CPlayerRelationshipRecorder | baja | 230 (196) |  |
-| `0x0059C730` | 91 | CQuaternion | baja | 209 (191) |  |
+| `0x0059C730` | 91 | CQuaternion | baja | 209 (192) |  |
 | `0x004082C0` | 33 | CStreaming | baja | 194 (149) |  |
 | `0x0040FE90` | 37 | CColSphere | alta | 134 (126) |  |
-| `0x00406DA0` | 31 | CdStream | baja | 126 (116) |  |
-| `0x0059C790` | 115 | CQuaternion | baja | 129 (111) |  |
+| `0x00406DA0` | 31 | CdStream | baja | 126 (117) |  |
+| `0x0059C790` | 115 | CQuaternion | baja | 129 (115) |  |
 | `0x0040FEC0` | 37 | CColSphere | alta | 132 (103) |  |
 | `0x0040FE30` | 37 | CColSphere | alta | 99 (93) |  |
 | `0x0059BBC0` | 41 | CCompressedMatrixNotAligned | baja | 89 (83) |  |
@@ -36,9 +36,9 @@
 | `0x00420800` | 25 | CCarAI | baja | 54 (49) |  |
 | `0x0054EF40` | 77 | Common | baja | 52 (48) |  |
 | `0x0040EF50` | 52 | CColLine | baja | 48 (48) |  |
+| `0x0040FDB0` | 29 | CColSphere | alta | 55 (47) |  |
 | `0x006E5280` | 77 | WaterCreatureManager_c | baja | 46 (46) |  |
 | `0x00411A00` | 33 | CPlaceable | baja | 57 (46) |  |
-| `0x0040FDB0` | 29 | CColSphere | alta | 55 (46) |  |
 | `0x004A8DF0` | 50 | FxInfoManager_c | baja | 41 (40) |  |
 | `0x004EF660` | 24 | CAESoundManager | baja | 82 (38) |  |
 | `0x00404330` | 25 | CRect | baja | 37 (36) |  |
@@ -57,6 +57,7 @@
 | `0x0040FCF0` | 30 | CColModel | baja | 25 (25) |  |
 | `0x005A1EE0` | 11 | CObjectPool | baja | 26 (25) |  |
 | `0x0059B920` | 206 | CMaths | baja | 25 (23) |  |
+| `0x0041CCB0` | 70 | CCarAI | alta | 28 (23) |  |
 | `0x007491C0` | 47 | Win | baja | 24 (23) |  |
 | `0x0061A360` | 41 | CPlayerRelationshipRecorder | baja | 29 (23) |  |
 | `0x004AD420` | 1 | CPedDamageResponseCalculator | alta | 49 (22) |  |
@@ -65,7 +66,6 @@
 | `0x006E2D60` | 36 | CVehicle | alta | 21 (21) |  |
 | `0x004B5620` | 11 | CEventPool | baja | 54 (21) |  |
 | `0x004ADFD0` | 95 | CEventDamage | baja | 27 (20) |  |
-| `0x0041CCB0` | 70 | CCarAI | alta | 28 (20) |  |
 | `0x0059AE70` | 43 | CMaths | baja | 20 (20) |  |
 | `0x0074BF20` | 31 | Win | baja | 31 (20) |  |
 | `0x0059BE30` | 362 | CCompressedMatrixNotAligned | baja | 20 (19) |  |
@@ -96,10 +96,12 @@
 | `0x00733910` | 115 | CVisibilityPlugins | alta | 13 (13) |  |
 | `0x005A8080` | 78 | CPedClothesDesc | baja | 14 (13) |  |
 | `0x00638290` | 725 | CTaskComplexSunbathe | baja | 12 (12) |  |
+| `0x0044DB00` | 96 | CPathFind | alta | 24 (12) |  |
 | `0x004AF890` | 81 | CEventAcquaintancePed | alta | 21 (12) |  |
 | `0x006389F0` | 79 | CTaskComplexWaitForBus | baja | 27 (12) |  |
 | `0x00403D60` | 48 | CEntity | baja | 15 (12) |  |
 | `0x0048DF30` | 42 | CTaskSimpleCower | baja | 13 (12) |  |
+| `0x00420920` | 35 | CCarAI | baja | 14 (12) |  |
 | `0x00619440` | 5 | Rs | alta | 12 (12) |  |
 | `0x0074C800` | 595 | Win | baja | 14 (11) |  |
 | `0x0059B2C0` | 202 | CMaths | baja | 12 (11) |  |
@@ -185,11 +187,13 @@
 | `0x0059BB60` | 74 | CCompressedMatrixNotAligned | baja | 5 (5) |  |
 | `0x004CFB10` | 70 | CAnimBlendHierarchy | baja | 5 (5) |  |
 | `0x00733F40` | 63 | CVisibilityPlugins | alta | 5 (5) |  |
+| `0x0041CC70` | 59 | CCarAI | alta | 5 (5) |  |
 | `0x005A2CB0` | 59 | CObject | baja | 5 (5) |  |
 | `0x00499820` | 50 | CSetPiece | alta | 5 (5) |  |
 | `0x004D6CC0` | 40 | CAEAmbienceTrackManager | alta | 5 (5) |  |
 | `0x0074A4C0` | 33 | Win | baja | 6 (5) |  |
 | `0x004A8DD0` | 13 | FxInfoManager_c | baja | 20 (5) |  |
+| `0x00406D10` | 7 | CdStream | baja | 5 (5) |  |
 | `0x004A8DE0` | 1 | FxInfoManager_c | baja | 35 (5) |  |
 | `0x00624710` | 814 | CTaskComplexSeekCoverUntilTargetDead | baja | 4 (4) |  |
 | `0x005132D0` | 568 | CCam | alta | 4 (4) |  |
@@ -220,11 +224,9 @@
 | `0x006F5440` | 70 | cHandlingDataMgr | baja | 4 (4) |  |
 | `0x0059B0A0` | 62 | CMaths | baja | 4 (4) |  |
 | `0x0063A040` | 61 | CVehicleAnimGroupData | baja | 4 (4) |  |
-| `0x0041CC70` | 59 | CCarAI | alta | 5 (4) |  |
 | `0x00441130` | 54 | CEntryExitManager | baja | 8 (4) |  |
 | `0x004997E0` | 50 | CSetPiece | alta | 4 (4) |  |
 | `0x0048E180` | 48 | CTaskSimpleLookAbout | baja | 5 (4) |  |
-| `0x00420920` | 35 | CCarAI | baja | 14 (4) |  |
 | `0x006E8550` | 34 | CWaterLevel | alta | 4 (4) |  |
 | `0x004AB270` | 28 | FxSystem_c | baja | 6 (4) |  |
 | `0x0053EDC0` | 23 | App | baja | 4 (4) |  |
@@ -232,7 +234,6 @@
 | `0x00404090` | 11 | CBuildingPool | baja | 4 (4) |  |
 | `0x0069D980` | 11 | CTaskAllocatorPool | baja | 4 (4) |  |
 | `0x00407A30` | 10 | CStreaming | alta | 4 (4) |  |
-| `0x00406D10` | 7 | CdStream | baja | 5 (4) |  |
 | `0x005FFEE0` | 4 | CEntityScanner | baja | 4 (4) |  |
 | `0x0045BA90` | 1236 | CReplay | alta | 6 (3) |  |
 | `0x0045B730` | 857 | CReplay | alta | 6 (3) |  |
@@ -313,6 +314,7 @@
 | `0x00734640` | 1 | CVisibilityPlugins | baja | 3 (3) |  |
 | `0x006E91D0` | 1903 | CWaterLevel | alta | 2 (2) |  |
 | `0x006E8780` | 1856 | CWaterLevel | alta | 2 (2) |  |
+| `0x00421A50` | 1418 | CCarCtrl | alta | 2 (2) |  |
 | `0x0059AA40` | 591 | Interior_c | baja | 2 (2) |  |
 | `0x0059A840` | 510 | Interior_c | baja | 2 (2) |  |
 | `0x0061C9B0` | 486 | CTaskSimpleFight | baja | 4 (2) |  |
@@ -348,13 +350,13 @@
 | `0x005DBE40` | 104 | CPlantMgr | alta | 2 (2) |  |
 | `0x00731B80` | 104 | CTxdStore | alta | 2 (2) |  |
 | `0x0049C9E0` | 103 | CStuntJumpManager | alta | 2 (2) |  |
+| `0x004AE1A0` | 102 | CEventDamage | baja | 3 (2) |  |
 | `0x004B0700` | 102 | CEventKnockOffBike | baja | 7 (2) |  |
 | `0x005EE200` | 102 | CPedAttractorManager | baja | 2 (2) |  |
 | `0x005D93B0` | 101 | CCustomCarEnvMapPipeline | baja | 2 (2) |  |
 | `0x00447720` | 100 | CGarages | alta | 2 (2) |  |
 | `0x004AEB90` | 97 | CEventVehicleHitAndRun | baja | 5 (2) |  |
 | `0x005DE340` | 97 | CCopPed | baja | 6 (2) |  |
-| `0x0044DB00` | 96 | CPathFind | alta | 24 (2) |  |
 | `0x00449BA0` | 93 | CGarage | baja | 2 (2) |  |
 | `0x004AECD0` | 93 | CEventVehicleHitAndRun | baja | 3 (2) |  |
 | `0x005A1D10` | 90 | CObjectPool | baja | 5 (2) |  |
@@ -363,6 +365,7 @@
 | `0x0065DCF0` | 90 | CEventPassObject | baja | 5 (2) |  |
 | `0x0049C300` | 89 | CShopping | baja | 2 (2) |  |
 | `0x005DA640` | 82 | CCustomCarEnvMapPipeline | baja | 3 (2) |  |
+| `0x004AE270` | 81 | CEventDamage | baja | 5 (2) |  |
 | `0x004AED60` | 81 | CEventVehicleHitAndRun | baja | 5 (2) |  |
 | `0x004AF700` | 81 | CEventVehicleToSteal | alta | 5 (2) |  |
 | `0x004B0DA0` | 81 | CEventVehicleDied | alta | 5 (2) |  |
@@ -472,6 +475,7 @@
 | `0x0056EF90` | 608 | CPlayerInfo | baja | 1 (1) |  |
 | `0x00603E70` | 589 | CEntityScanner | baja | 1 (1) |  |
 | `0x0059B460` | 571 | CMaths | baja | 2 (1) |  |
+| `0x00426970` | 553 | CCarCtrl | alta | 1 (1) |  |
 | `0x00448330` | 531 | CGarage | alta | 1 (1) |  |
 | `0x0050D590` | 527 | CCamera | baja | 1 (1) |  |
 | `0x0072F180` | 418 | CCullZones | baja | 1 (1) |  |
@@ -482,6 +486,7 @@
 | `0x00449A50` | 319 | CGarage | baja | 1 (1) |  |
 | `0x0055D0E0` | 314 | CStats | baja | 1 (1) |  |
 | `0x0074F610` | 288 | Win | baja | 1 (1) |  |
+| `0x0044E4F0` | 285 | CPathFind | alta | 1 (1) |  |
 | `0x005D2620` | 282 | CVehicleSaveStructure | baja | 1 (1) |  |
 | `0x00669FF0` | 265 | CTaskComplexWander | baja | 1 (1) |  |
 | `0x005C7590` | 264 | FxEmitterBP_c | baja | 1 (1) |  |
@@ -559,6 +564,7 @@
 | `0x004ADEA0` | 120 | CEventDamage | baja | 3 (1) |  |
 | `0x004D66A0` | 118 | RpAnimBlend | alta | 1 (1) |  |
 | `0x005D8C50` | 118 | CCustomCarEnvMapPipeline | alta | 1 (1) |  |
+| `0x00422F80` | 117 | CCarCtrl | alta | 1 (1) |  |
 | `0x005C26B0` | 117 | FxEmitterBP_c | baja | 1 (1) |  |
 | `0x0045BFF0` | 116 | CReplay | alta | 1 (1) |  |
 | `0x0045C0D0` | 116 | CReplay | alta | 1 (1) |  |
@@ -862,7 +868,6 @@
 | `0x0072F4B0` | 1 | CMemoryMgr | alta | 2 (1) |  |
 | `0x00734610` | 1 | CVisibilityPlugins | baja | 1 (1) |  |
 | `0x00734620` | 1 | CVisibilityPlugins | baja | 1 (1) |  |
-| `0x00421A50` | 1418 | CCarCtrl | alta | 2 (0) |  |
 | `0x0061D6F0` | 993 | CTaskSimpleFight | baja | 3 (0) |  |
 | `0x0074B060` | 952 | Win | baja | 1 (0) |  |
 | `0x005C6BF0` | 801 | FxEmitterBP_c | baja | 2 (0) |  |
@@ -874,7 +879,6 @@
 | `0x005ECF10` | 645 | CPedAttractorManager | baja | 1 (0) |  |
 | `0x005EDA50` | 645 | CPedAttractorManager | baja | 1 (0) |  |
 | `0x00607A90` | 606 | CDecisionMakerTypesFileLoader | alta | 2 (0) |  |
-| `0x00426970` | 553 | CCarCtrl | alta | 1 (0) |  |
 | `0x0045C4B0` | 537 | CReplay | alta | 1 (0) |  |
 | `0x005C3700` | 531 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x0049E660` | 493 | CTrafficLights | baja | 2 (0) |  |
@@ -893,7 +897,6 @@
 | `0x0059CA10` | 307 | CQuaternion | baja | 1 (0) |  |
 | `0x0044F190` | 298 | CPathFind | alta | 1 (0) |  |
 | `0x005CF6D0` | 297 | FxEmitterBP_c | baja | 2 (0) |  |
-| `0x0044E4F0` | 285 | CPathFind | alta | 1 (0) |  |
 | `0x0044FA30` | 285 | CPathFind | alta | 1 (0) |  |
 | `0x005C30D0` | 259 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x005C7DF0` | 259 | FxEmitterBP_c | baja | 1 (0) |  |
@@ -933,13 +936,11 @@
 | `0x005ECCB0` | 122 | CPedAttractorManager | baja | 1 (0) |  |
 | `0x005CC8C0` | 121 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x005CC950` | 119 | FxEmitterBP_c | baja | 1 (0) |  |
-| `0x00422F80` | 117 | CCarCtrl | alta | 1 (0) |  |
 | `0x0074D6D0` | 117 | Win | baja | 1 (0) |  |
 | `0x005EDD90` | 111 | CPedAttractorManager | baja | 1 (0) |  |
 | `0x005CCDF0` | 110 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x005EDE50` | 109 | CPedAttractorManager | baja | 1 (0) |  |
 | `0x005C4380` | 108 | FxEmitterBP_c | baja | 1 (0) |  |
-| `0x004AE1A0` | 102 | CEventDamage | baja | 3 (0) |  |
 | `0x004F3A3E` | 102 | CAEUserRadioTrackManager | alta | 1 (0) |  |
 | `0x005CFA50` | 102 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x005C8620` | 100 | FxEmitterBP_c | baja | 2 (0) |  |
@@ -959,7 +960,6 @@
 | `0x005EEB00` | 85 | CPedAttractorManager | baja | 1 (0) |  |
 | `0x005EEBD0` | 85 | CPedAttractorManager | baja | 1 (0) |  |
 | `0x005C70D0` | 82 | FxEmitterBP_c | baja | 1 (0) |  |
-| `0x004AE270` | 81 | CEventDamage | baja | 5 (0) |  |
 | `0x004AE670` | 81 | CEventPotentialWalkIntoObject | baja | 3 (0) |  |
 | `0x004AE7A0` | 81 | CEventPotentialWalkIntoPed | alta | 3 (0) |  |
 | `0x005C63D0` | 81 | FxEmitterBP_c | baja | 1 (0) |  |

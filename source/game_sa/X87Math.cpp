@@ -13783,4 +13783,1212 @@ __declspec(noinline) double __cdecl Garage63DoorDistSqCpp(float d0x, float v0x, 
 __declspec(noinline) bool __cdecl Garage63TopMinus2GreaterCpp(float topZ, float z) {
     return double(topZ) - 2.0 > double(z);
 }
+
+// --- Lote 63c: CCarCtrl::SteerAICarWithPhysicsHeadingForTarget (0x433280), prefijo CarCtrlSteer63. Anadir al FINAL de X87Math.cpp ---
+// 0x433479..0x43347E: la ultima llamada a 0x53CC70 deja el fpatan SIN redondear en ST0 y el EXE le resta el rumbo del vehiculo (un float en memoria) antes de guardar el resultado:
+// GetATanOfXY(x, y) - hf con un solo redondeo (un float intermedio redondearia dos veces).
+namespace CGeneral { float GetATanOfXY(float x, float y); }
+__declspec(noinline) float __cdecl CarCtrlSteer63AtanMinusCpp(float x, float y, float hf) {
+    return CGeneral::GetATanOfXY(x, y) - hf;
+}
+
+// --- Lote 63f: CCarCtrl::DealWithBend_Racing (0x428040), prefijo CarCtrlSteer63. Anadir al FINAL de X87Math.cpp ---
+// 0x4283A6 (fsubr): hf - GetATanOfXY(x, y) con el fpatan de 0x53CC70 SIN redondear a float antes (un solo redondeo).
+__declspec(noinline) float __cdecl CarCtrlSteer63AtanRsubCpp(float x, float y, float hf) {
+    return hf - CGeneral::GetATanOfXY(x, y);
+}
 #pragma float_control(pop)
+
+// =====================================================================================================================================
+// Lote 63 (CarCtrl aire: CCarCtrl::*Heli*, *Plane*, *Boat*, DogFight), prefijo CcAir. Anadido AL FINAL de X87Math.cpp.
+// La x87 a 24 bits redondea cada operacion y solo los fstp dword (volatile float) pasan a float: los intermedios son double. Los operandos que el EXE usa DESDE MEMORIA
+// (fadd/fsub/fmul dword ptr [..]) se escriben como float (el compilador emite el operando de memoria) y los que carga con fld como double: un SNaN en memoria frente a un QNaN
+// en ST(0) devuelve el QNaN del registro (con double(x) el fld lo silenciaria y ganaria el de mayor mantisa).
+// =====================================================================================================================================
+// Instrucciones x87 de precision completa sueltas (fsqrt / fpatan / fsin / fcos): fuera de las regiones `precise` el compilador las emite en linea; dentro saldrian como llamadas a la CRT
+// (que difieren del EXE con NaN). Los ayudantes de abajo las llaman en lugar de sqrt / atan2 / sin / cos.
+__declspec(noinline) double __cdecl CcAirFsqrt(double x) { return sqrt(x); }
+__declspec(noinline) double __cdecl CcAirFpatan(double y, double x) { return atan2(y, x); }
+__declspec(noinline) double __cdecl CcAirFsin(double x) { return sin(x); }
+__declspec(noinline) double __cdecl CcAirFcos(double x) { return cos(x); }
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl CcAirSubF(float a, float b) {
+    volatile float result = a - b;
+    return result;
+}
+__declspec(noinline) float __cdecl CcAirAddF(float a, float b) {
+    volatile float result = a + b;
+    return result;
+}
+__declspec(noinline) float __cdecl CcAirNegF(float a) {
+    volatile float result = -a;
+    return result;
+}
+__declspec(noinline) float __cdecl CcAirHorizDist(const float* a, const float* b) {
+    const double dy = double(a[1]) - b[1];
+    const double dx = double(a[0]) - b[0];
+    const double sum = dy * dy + dx * dx;
+    volatile float result = float(CcAirFsqrt(sum));
+    return result;
+}
+__declspec(noinline) double __cdecl CcAirSpeed2D(const float* v) {
+    const double x2 = double(v[0]) * double(v[0]);
+    const double y2 = double(v[1]) * double(v[1]);
+    return CcAirFsqrt(x2 + y2);
+}
+__declspec(noinline) bool __cdecl CcAirDiffDistLess(const float* a, const float* b, float limit, float* out) {
+    const double dz = double(a[2]) - b[2];
+    const double dy = double(a[1]) - b[1];
+    const double dx = double(a[0]) - b[0];
+    volatile float fx = float(dx);
+    volatile float fy = float(dy);
+    volatile float fz = float(dz);
+    out[0] = fx;
+    out[1] = fy;
+    out[2] = fz;
+    const float fxl = fx;
+    const double x2 = double(fxl) * fxl;
+    const double y2 = dy * dy;
+    const double z2 = dz * dz;
+    const double sum = (x2 + y2) + z2;
+    const double dist = CcAirFsqrt(sum);
+    return dist < double(limit);
+}
+__declspec(noinline) bool __cdecl CcAirDirDotGreater(const float* dir, const float* fwd, float thr) {
+    const double z = double(dir[2]) * fwd[2];
+    const double y = double(dir[1]) * fwd[1];
+    const double zy = z + y;
+    const double x = double(dir[0]) * fwd[0];
+    const double dot = zy + x;
+    return dot > double(thr);
+}
+__declspec(noinline) float __cdecl CcAirDirDotF(const float* dir, const float* fwd) {
+    const double z = double(dir[2]) * fwd[2];
+    const double y = double(dir[1]) * fwd[1];
+    const double zy = z + y;
+    const double x = double(dir[0]) * fwd[0];
+    volatile float dot = float(zy + x);
+    return dot;
+}
+__declspec(noinline) bool __cdecl CcAirAbsDiffLess(float a, float b, float limit) {
+    const double d = double(a) - b;
+    double value = double(a) - b;
+    if (d < 0.0) {
+        value = -(double(a) - b);
+    }
+    return value < double(limit);
+}
+__declspec(noinline) void __cdecl CcAirScale3(const float* v, float k, float* out) {
+    for (int i = 0; i < 3; ++i) {
+        volatile float r = float(double(v[i]) * k);
+        out[i] = r;
+    }
+}
+__declspec(noinline) void __cdecl CcAirAttackAim(const float* scaled, const float* coors, const float* planePos, float* out) {
+    const double xr = double(scaled[0]) + coors[0];
+    const double yr = double(scaled[1]) + coors[1];
+    const double zr = double(scaled[2]) + coors[2];
+    volatile float z = float(zr);
+    out[2] = z;
+    volatile float y = float(yr - planePos[1]);
+    out[1] = y;
+    volatile float x = float(xr - planePos[0]);
+    out[0] = x;
+}
+__declspec(noinline) void __cdecl CcAirDogAim(const float* speed, const float* pos, float* out) {
+    const double A = double(speed[0]) * 50.0f;
+    const double B = double(speed[1]) * 50.0f;
+    const double C = double(speed[2]) * 50.0f;
+    volatile float cf = float(C);
+    volatile float x = float(A + pos[0]);
+    volatile float y = float(B + pos[1]);
+    const float cfl = cf;
+    volatile float z = float(double(cfl) + pos[2]);
+    out[0] = x;
+    out[1] = y;
+    out[2] = z;
+}
+__declspec(noinline) float __cdecl CcAirDogRandOffset(int r, float base) {
+    double t = double(r);
+    t = t * std::bit_cast<float>(0x38000100u);
+    t = t * 600.0f;
+    t = t + base;
+    t = t - 300.0f;
+    volatile float result = float(t);
+    return result;
+}
+__declspec(noinline) double __cdecl CcAirHorizDistD(const float* a, const float* b) {
+    const double dy = double(a[1]) - b[1];
+    const double dx = double(a[0]) - b[0];
+    const double sum = dy * dy + dx * dx;
+    return CcAirFsqrt(sum);
+}
+__declspec(noinline) void __cdecl CcAirFollowOffset(const float* fwd, int mult, float* dest) {
+    const double m = double(mult);
+    const double a = double(fwd[0]) * m;
+    const double b = double(fwd[1]) * m;
+    volatile float offY = float(b);
+    volatile float offZ = float(m * 0.0f);
+    volatile float x = float(a + dest[0]);
+    dest[0] = x;
+    const float offYl = offY;
+    volatile float y = float(double(offYl) + dest[1]);
+    dest[1] = y;
+    const float offZl = offZ;
+    volatile float z = float(double(offZl) + dest[2]);
+    dest[2] = z;
+}
+__declspec(noinline) bool __cdecl CcAirViewFar(const float* t, const float* s, unsigned int td, float* distF) {
+    const double dy = double(t[1]) - s[1];
+    const double dy2 = dy * dy;
+    const double dx = double(t[0]) - s[0];
+    const double sum = dy2 + dx * dx;
+    const double r = CcAirFsqrt(sum);
+    volatile float stored = float(r);
+    *distF = stored;
+    const double limit = double(td) + double(td);
+    return r > limit;
+}
+__declspec(noinline) void __cdecl CcAirViewSkid(float rotated, float hv, float* raw, float* clamped) {
+    const double kPi = double(std::bit_cast<float>(0x40490FDBu));
+    const double kNegPi = double(std::bit_cast<float>(0xC0490FDBu));
+    const double kTwoPi = double(std::bit_cast<float>(0x40C90FDBu));
+    double diff = rotated - double(hv);
+    while (diff > kPi) {
+        diff = diff - kTwoPi;
+    }
+    while (diff < kNegPi) {
+        diff = diff + kTwoPi;
+    }
+    double skid = diff * -1.0f;
+    volatile float first = float(skid);
+    *raw = first;
+    if (skid < 1.0) {
+        if (-1.0 > skid) {
+            skid = -1.0;
+        }
+    } else {
+        skid = 1.0;
+    }
+    volatile float second = float(skid);
+    *clamped = second;
+}
+__declspec(noinline) float __cdecl CcAirViewBrake1(float maxAlt, float vz, float z) {
+    const double predicted = double(vz) * 100.0f + z;
+    const double err = double(maxAlt) - predicted;
+    const double gain = (err > 0.0) ? double(std::bit_cast<float>(0x3DCCCCCDu)) : double(std::bit_cast<float>(0x3E4CCCCDu));
+    const double v = err * gain + std::bit_cast<float>(0x3E99999Au);
+    volatile float result = float(v);
+    return result;
+}
+__declspec(noinline) float __cdecl CcAirViewBrake2(int r, float prev) {
+    double v = (double(r) - 7.0f) * std::bit_cast<float>(0x3B03126Fu) + prev;
+    if (v < 1.0) {
+        if (0.0 > v) {
+            v = 0.0;
+        }
+    } else {
+        v = 1.0;
+    }
+    volatile float result = float(v);
+    return result;
+}
+__declspec(noinline) void __cdecl CcAirViewLeftRight(float distF, unsigned int td, const float* v, const float* right, float* out) {
+    const double tdd = double(td);
+    const double half = 0.5f * tdd;
+    if (half > double(distF)) {
+        *out = 0.5f;
+    } else if (double(distF) > tdd) {
+        *out = -0.5f;
+    } else {
+        const double z = double(v[2]) * right[2];
+        const double y = double(v[1]) * right[1];
+        const double zy = z + y;
+        const double x = double(right[0]) * v[0];
+        volatile float result = float(zy + x);
+        *out = result;
+    }
+}
+__declspec(noinline) bool __cdecl CcAirViewUpDown(float distF, unsigned int td, const float* v, const float* fwd, float* out) {
+    const double limit = 1.5f * double(td);
+    if (!(double(distF) < limit)) {
+        return false;
+    }
+    const double z = double(v[2]) * fwd[2];
+    const double y = double(v[1]) * fwd[1];
+    const double zy = z + y;
+    const double x = double(v[0]) * fwd[0];
+    volatile float result = float(zy + x);
+    *out = result;
+    return true;
+}
+__declspec(noinline) float __cdecl CcAirHeliAttackDist(float ax, float bx, float cy, float dy, const float* pos) {
+    volatile float ly = float(double(cy) - pos[1]);
+    const float lyl = ly;
+    const double t = (double(dy) - pos[1]) * lyl;
+    const double u = double(ax) - pos[0];
+    const double w = double(bx) - pos[0];
+    const double p = u * w;
+    const double sum = t + p;
+    volatile float result = float(CcAirFsqrt(sum));
+    return result;
+}
+#pragma float_control(pop)
+
+#pragma float_control(precise, on, push)
+__declspec(noinline) void __cdecl CcAirBoatForward(const float* fwd, float* out) {
+    const double fy2 = double(fwd[1]) * fwd[1];
+    const double fx2 = double(fwd[0]) * double(fwd[0]);
+    const double len = CcAirFsqrt(fy2 + fx2);
+    if (len == 0.0) {
+        out[0] = 1.0f;
+        out[1] = fwd[1];
+    } else {
+        const double inv = 1.0f / len;
+        volatile float nx = float(inv * double(fwd[0]));
+        out[0] = nx;
+        volatile float ny = float(inv * fwd[1]);
+        out[1] = ny;
+    }
+}
+__declspec(noinline) double __cdecl CcAirBoatSteerThrottle(float headingT, float headingB, const float* vel, unsigned int cruise, int mode, float* steer, float* throttle) {
+    const double kPi = double(std::bit_cast<float>(0x40490FDBu));
+    const double kNegPi = double(std::bit_cast<float>(0xC0490FDBu));
+    const double kTwoPi = double(std::bit_cast<float>(0x40C90FDBu));
+    double diff = headingT - double(headingB);
+    while (diff < kNegPi) {
+        diff = diff + kTwoPi;
+    }
+    while (diff > kPi) {
+        diff = diff - kTwoPi;
+    }
+    const double raw = diff;
+    double st = diff;
+    if (mode == 0) {
+        if (st < -0.5f) {
+            st = -0.5f;
+        } else if (st > 0.5f) {
+            st = 0.5f;
+        }
+    }
+    const float cruiseF = float(cruise);
+    const double speed = CcAirFsqrt(double(vel[1]) * vel[1] + double(vel[0]) * vel[0]);
+    const double err = cruiseF - speed * 60.0f;
+    if (!(err <= 0.0)) {
+        const double ratio = err / cruiseF;
+        if (ratio > 0.25f) {
+            *throttle = 1.0f;
+        } else {
+            const double t = 0.25f - ratio;
+            volatile float r = float(1.0f - t * 4.0f);
+            *throttle = r;
+        }
+    } else {
+        *throttle = std::bit_cast<float>(0xBDCCCCCDu);
+        if (err < -5.0f) {
+            *throttle = std::bit_cast<float>(0xBE4CCCCDu);
+        }
+        if (mode == 0) {
+            st = st * -1.0f;
+        }
+    }
+    volatile float stored = float(st);
+    *steer = stored;
+    return raw;
+}
+__declspec(noinline) float __cdecl CcAirBoatAttackLead(const float* coors, const float* pos, float* distF) {
+    const double dx = double(coors[0]) - pos[0];
+    const double dy = double(coors[1]) - pos[1];
+    const double dz = double(coors[2]) - pos[2];
+    const double dz2 = dz * dz;
+    const double dy2 = dy * dy;
+    const double s1 = dz2 + dy2;
+    const double dx2 = dx * dx;
+    const double dist = CcAirFsqrt(s1 + dx2);
+    volatile float stored = float(dist);
+    *distF = stored;
+    const double scaled = dist * std::bit_cast<float>(0x3D4CCCCDu);
+    if (scaled < 2.0f) {
+        volatile float v = float(scaled);
+        return v;
+    }
+    return 2.0f;
+}
+__declspec(noinline) float __cdecl CcAirBoatLeadX(float lead, const float* speed, const float* coors) {
+    const double a = double(lead) * speed[0];
+    const double b = a * 60.0f;
+    volatile float x = float(b + coors[0]);
+    return x;
+}
+__declspec(noinline) float __cdecl CcAirBoatLeadYPart(float lead, const float* speed) {
+    const double a = double(lead) * speed[1];
+    volatile float y = float(a * 60.0f);
+    return y;
+}
+__declspec(noinline) float __cdecl CcAirBoatLeadDy(float ypart, const float* coors, const float* pos) {
+    const double y = double(ypart) + coors[1];
+    volatile float dy = float(y - pos[1]);
+    return dy;
+}
+__declspec(noinline) void __cdecl CcAirCirclingVec(const float* v, int odd, float* out) {
+    const double nx = -double(v[0]);
+    const double y = double(v[1]);
+    const float k = odd ? std::bit_cast<float>(0xC1400000u) : std::bit_cast<float>(0x41D00000u);
+    volatile float ox = float(y * k);
+    out[0] = ox;
+    volatile float oy = float(nx * k);
+    out[1] = oy;
+}
+__declspec(noinline) void __cdecl CcAirCirclingAim(const float* vec, const float* coors, const float* pos, float* out) {
+    const double x = double(vec[0]) + coors[0];
+    const double y = double(vec[1]) + coors[1];
+    volatile float dy = float(y - pos[1]);
+    out[1] = dy;
+    volatile float dx = float(x - pos[0]);
+    out[0] = dx;
+}
+#pragma float_control(pop)
+
+#pragma float_control(precise, on, push)
+__declspec(noinline) bool __cdecl CcAirRocketsInRange(const float* launcher, const float* target) {
+    const double dx = double(launcher[0]) - target[0];
+    const double dy = double(launcher[1]) - target[1];
+    const double dz = double(launcher[2]) - target[2];
+    const double dz2 = dz * dz;
+    const double dy2 = dy * dy;
+    const double s1 = dz2 + dy2;
+    const double dx2 = dx * dx;
+    const double dist = CcAirFsqrt(s1 + dx2);
+    return dist < 80.0f;
+}
+__declspec(noinline) void __cdecl CcAirRocketsPoint(const float* launcher, const float* fwd, float* out) {
+    const double z = double(fwd[2]) + launcher[2];
+    const double y = double(fwd[1]) + launcher[1];
+    const double x = double(launcher[0]) + fwd[0];
+    volatile float fx = float(x);
+    volatile float fy = float(y);
+    volatile float fz = float(z);
+    out[0] = fx;
+    out[1] = fy;
+    out[2] = fz;
+}
+__declspec(noinline) void __cdecl CcAirRocketsMuzzle(const float* launcher, const float* fwd, const float* right, int odd, float* out) {
+    const double fx4 = double(fwd[0]) * 4.0f;
+    volatile float fy4 = float(double(fwd[1]) * 4.0f);
+    volatile float fz4 = float(double(fwd[2]) * 4.0f);
+    const double x4 = fx4 + launcher[0];
+    const float fy4l = fy4;
+    const double y4 = double(fy4l) + launcher[1];
+    const float fz4l = fz4;
+    volatile float z4 = float(double(fz4l) + launcher[2]);
+    volatile float rx = float(double(right[0]) * 1.5f);
+    const double ry = double(right[1]) * 1.5f;
+    volatile float rz = float(double(right[2]) * 1.5f);
+    double ox, oy, oz;
+    if (odd) {
+        const float rxl = rx;
+        volatile float nx = float(-double(rxl));
+        volatile float ny = float(-ry);
+        const float rzl = rz;
+        volatile float nz = float(-double(rzl));
+        const float nxl = nx, nyl = ny, nzl = nz;
+        ox = nxl;
+        oy = nyl;
+        oz = nzl;
+    } else {
+        const float rxl = rx, rzl = rz;
+        ox = rxl;
+        oy = ry;
+        oz = rzl;
+    }
+    volatile float px = float(ox + x4);
+    volatile float py = float(oy + y4);
+    const float z4l = z4;
+    volatile float pz = float(oz + z4l);
+    out[0] = px;
+    out[1] = py;
+    out[2] = pz;
+}
+#pragma float_control(pop)
+
+#pragma float_control(precise, on, push)
+__declspec(noinline) void __cdecl CcAirFixedStart(const float* speed, const float* pos, float* out) {
+    volatile float sx = float(double(speed[0]) * 50.0f);
+    volatile float sy = float(double(speed[1]) * 50.0f);
+    const double sz = double(speed[2]) * 50.0f;
+    const double z = sz + pos[2];
+    const float syl = sy;
+    const double y = double(syl) + pos[1];
+    const float sxl = sx;
+    const double x = double(sxl) + pos[0];
+    volatile float fx = float(x);
+    volatile float fy = float(y);
+    volatile float fz = float(z);
+    out[0] = fx;
+    out[1] = fy;
+    out[2] = fz;
+}
+__declspec(noinline) void __cdecl CcAirSinCos(float angle, float* cosOut, float* sinOut) {
+    volatile float cs = float(CcAirFcos(double(angle)));
+    *cosOut = cs;
+    volatile float sn = float(CcAirFsin(double(angle)));
+    *sinOut = sn;
+}
+__declspec(noinline) void __cdecl CcAirFixedEnd(const float* dir, const float* start, float* out) {
+    const double nx = double(dir[0]) * 60.0f;
+    const double ny = double(dir[1]) * 60.0f;
+    const double nz = double(dir[2]) * 60.0f;
+    volatile float nzf = float(nz);
+    volatile float ex = float(nx + start[0]);
+    out[0] = ex;
+    volatile float ey = float(ny + start[1]);
+    out[1] = ey;
+    const float nzl = nzf;
+    volatile float ez = float(double(nzl) + start[2]);
+    out[2] = ez;
+}
+__declspec(noinline) float __cdecl CcAirFixedMaxAlt(float hitZ, float minAlt, float cur) {
+    const double v = double(hitZ) + minAlt;
+    if (v < double(cur)) {
+        return cur;
+    }
+    volatile float result = float(v);
+    return result;
+}
+__declspec(noinline) float __cdecl CcAirFixedBrake(float vz, float posZ, float maxAlt) {
+    const double predicted = double(vz) * 100.0f + posZ;
+    const double err = maxAlt - predicted;
+    const double gain = (err > 0.0) ? double(std::bit_cast<float>(0x3DCCCCCDu)) : double(std::bit_cast<float>(0x3E4CCCCDu));
+    volatile float result = float(err * gain);
+    return result;
+}
+__declspec(noinline) void __cdecl CcAirFixedControls(float orientation, float ownHeading, float brake, int r, const float* vel, const float* right, const float* fwd, const float* pos, const float* dest, float* out) {
+    const double kPi = double(std::bit_cast<float>(0x40490FDBu));
+    const double kNegPi = double(std::bit_cast<float>(0xC0490FDBu));
+    const double kTwoPi = double(std::bit_cast<float>(0x40C90FDBu));
+    // freno (+0x998): (r - 7) * 0.002 + freno, limitado a [-0.3, 1.0]
+    double v = (double(r) - 7.0f) * std::bit_cast<float>(0x3B03126Fu) + brake;
+    volatile float brakeRaw = float(v);
+    if (v < 1.0) {
+        if (std::bit_cast<float>(0xBE99999Au) > v) {
+            v = std::bit_cast<float>(0xBE99999Au);
+        }
+    } else {
+        v = 1.0;
+    }
+    volatile float brakeFinal = float(v);
+    out[0] = brakeFinal;
+    (void)brakeRaw;
+    // deslizamiento (+0x98C): (orientacion - rumbo) normalizado a [-pi, pi] por -0.5, limitado a [-1, 1]
+    double d = double(orientation) - ownHeading;
+    while (d > kPi) {
+        d = d - kTwoPi;
+    }
+    while (d < kNegPi) {
+        d = d + kTwoPi;
+    }
+    double s = d * -0.5f;
+    volatile float skidRaw = float(s);
+    out[1] = skidRaw;
+    if (s < 1.0) {
+        if (-1.0f > s) {
+            s = -1.0f;
+        }
+    } else {
+        s = 1.0;
+    }
+    volatile float skidClamped = float(s);
+    out[2] = skidClamped;
+    // errores lateral y longitudinal respecto al destino
+    const double ddx = double(dest[0]) - pos[0];
+    const double ddy = double(dest[1]) - pos[1];
+    volatile float vr = float((double(vel[2]) * right[2] + double(vel[1]) * right[1]) + double(right[0]) * vel[0]);
+    volatile float vf = float((double(vel[2]) * fwd[2] + double(vel[1]) * fwd[1]) + double(vel[0]) * fwd[0]);
+    const float vrl = vr, vfl = vf;
+    const double rs1 = ddy * right[1] + ddx * right[0];
+    const double rs2 = rs1 + double(right[2]) * 0.0f;
+    volatile float errR = float(rs2 + double(vrl) * 80.0f);
+    const double fs1 = ddy * fwd[1] + ddx * fwd[0];
+    const double fs2 = fs1 + double(fwd[2]) * 0.0f;
+    const double errF = fs2 + double(vfl) * 80.0f;
+    const float errRl = errR;
+    const double absR = (errRl < 0.0f) ? -double(errRl) : double(errRl);
+    volatile float lat;
+    if (absR < 5.0f) {
+        lat = vrl;
+    } else {
+        lat = float(double(errRl) * -0.02);
+    }
+    out[3] = lat;
+    const float latl = lat;
+    double lv = latl;
+    if (lv < 0.75f) {
+        if (-0.75f > lv) {
+            lv = -0.75f;
+        }
+    } else {
+        lv = 0.75f;
+    }
+    volatile float latClamped = float(lv);
+    out[4] = latClamped;
+    const double absF = (errF < 0.0) ? -errF : errF;
+    volatile float ctl;
+    if (absF < 5.0f) {
+        ctl = vfl;
+    } else {
+        ctl = float(errF * -0.015);
+    }
+    out[5] = ctl;
+    const float ctll = ctl;
+    if (ctll < 0.5f) {
+        if (-0.5f > ctll) {
+            out[6] = -0.5f;
+        } else {
+            out[6] = ctll;
+        }
+    } else {
+        out[6] = 0.5f;
+    }
+}
+#pragma float_control(pop)
+
+#pragma float_control(precise, on, push)
+__declspec(noinline) void __cdecl CcAirPlaneLimitCalc(float h0, float target, float* limit) {
+    const double kPi = double(std::bit_cast<float>(0x40490FDBu));
+    const double kNegPi = double(std::bit_cast<float>(0xC0490FDBu));
+    const double kTwoPi = double(std::bit_cast<float>(0x40C90FDBu));
+    double d = double(h0) - target;
+    while (d > kPi) {
+        d = d - kTwoPi;
+    }
+    while (d < kNegPi) {
+        d = d + kTwoPi;
+    }
+    const double a = (d < 0.0) ? -d : d;
+    if (a < std::bit_cast<float>(0x3F060A92u)) {
+        *limit = 0.0f;
+    } else {
+        volatile float r = float(d * 1.5f);
+        *limit = r;
+    }
+}
+__declspec(noinline) void __cdecl CcAirPlaneCand(int n, float target, float limit, float* s, float* t, int* inRange) {
+    const int half = n / 2;
+    const bool odd = (n & 1) != 0;
+    volatile float sv = float(double(half) * (odd ? std::bit_cast<float>(0x3E860A92u) : std::bit_cast<float>(0xBE860A92u)));
+    *s = sv;
+    const float sl = sv;
+    volatile float tv = float(double(sl) + target);
+    *t = tv;
+    bool ok = false;
+    if (sl < 0.0f) {
+        if (sl > limit) {
+            ok = true;
+        }
+    }
+    if (!ok) {
+        if (sl > 0.0f) {
+            if (sl < limit) {
+                ok = true;
+            }
+        }
+    }
+    *inRange = ok ? 1 : 0;
+}
+__declspec(noinline) float __cdecl CcAirPlaneAccept(float s, float heading) {
+    volatile float r = float(double(s) * 1.1f + heading);
+    return r;
+}
+__declspec(noinline) float __cdecl CcAirPlaneRaise(float clearance, float minAlt, float maxAlt) {
+    const double v = double(clearance) + minAlt;
+    if (v > double(maxAlt)) {
+        volatile float r = float(v);
+        return r;
+    }
+    return maxAlt;
+}
+__declspec(noinline) float __cdecl CcAirPlaneSpeed60(const float* fwd, const float* vel) {
+    const double a = double(fwd[1]) * vel[1];
+    const double b = double(fwd[0]) * vel[0];
+    volatile float r = float((a + b) * 60.0f);
+    return r;
+}
+__declspec(noinline) float __cdecl CcAirPlaneClamp98C(float v) {
+    if (v < 1.0f) {
+        if (v > -1.0f) {
+            return v;
+        }
+        return -1.0f;
+    }
+    return 1.0f;
+}
+__declspec(noinline) float __cdecl CcAirPlanePz(float vz, float posZ) {
+    volatile float r = float(double(vz) * 100.0f + posZ);
+    return r;
+}
+__declspec(noinline) void __cdecl CcAirPlaneAir(float fwdZ, float prev9BC, float step, float g50, float alt9AC, float pz, float speed60, float v28, float* new9BC, float* out98C) {
+    const double a = ExeAsinDoubleCpp(double(fwdZ));
+    const double q = 100.0f / step;
+    const double x = (a - prev9BC) * q;
+    volatile float pitch = float(x + a);
+    volatile float na = float(a);
+    *new9BC = na;
+    double altErr = (double(alt9AC) - pz) * std::bit_cast<float>(0x3D088889u);
+    if (altErr < std::bit_cast<float>(0x3ECCCCCDu)) {
+        if (!(altErr > std::bit_cast<float>(0xBECCCCCDu))) {
+            altErr = std::bit_cast<float>(0xBECCCCCDu);
+        }
+    } else {
+        altErr = std::bit_cast<float>(0x3ECCCCCDu);
+    }
+    if (speed60 < v28) {
+        if (!(altErr < 0.25f)) {
+            altErr = 0.25f;
+        }
+    }
+    const float pitchl = pitch;
+    volatile float r = float((altErr - pitchl) * g50);
+    *out98C = r;
+}
+__declspec(noinline) void __cdecl CcAirPlaneFinish(int ground, float f9B8, float limit, float f9A4, float c98C, float old99C, int bit7, float v28, float speed60, float step, float g4C, float g48, float g44,
+                                                  const float* matrix, float* out) {
+    const double kPi = double(std::bit_cast<float>(0x40490FDBu));
+    const double kNegPi = double(std::bit_cast<float>(0xC0490FDBu));
+    const double kTwoPi = double(std::bit_cast<float>(0x40C90FDBu));
+    double dd = double(f9B8) - limit;
+    while (dd < kNegPi) {
+        dd = dd + kTwoPi;
+    }
+    while (dd > kPi) {
+        dd = dd - kTwoPi;
+    }
+    out[3] = c98C;
+    out[2] = old99C;
+    if (ground) {
+        double y = -(double(f9A4) - limit) * 10.0f;
+        if (1.0f < y) {
+            y = 1.0f;
+        } else if (-1.0f > y) {
+            y = -1.0f;
+        }
+        volatile float yf = float(y);
+        out[0] = yf;
+        out[1] = 0.0f;
+        return;
+    }
+    double y1 = -dd * 1.5f;
+    if (std::bit_cast<float>(0x3F666666u) < y1) {
+        y1 = std::bit_cast<float>(0x3F666666u);
+    } else if (std::bit_cast<float>(0xBF666666u) > y1) {
+        y1 = std::bit_cast<float>(0xBF666666u);
+    }
+    if (bit7) {
+        if (std::bit_cast<float>(0x3F333333u) < y1) {
+            y1 = std::bit_cast<float>(0x3F333333u);
+        } else if (std::bit_cast<float>(0xBF333333u) > y1) {
+            y1 = std::bit_cast<float>(0xBF333333u);
+        }
+    }
+    const double absY = (y1 >= 0.0 || y1 != y1) ? y1 : -y1;
+    double z0;
+    if (absY < std::bit_cast<float>(0x3DCCCCCDu)) {
+        volatile float o = float(y1 * 4.0f);
+        out[0] = o;
+        z0 = 0.0f;
+    } else {
+        volatile float o = float(y1);
+        out[0] = o;
+        z0 = -y1;
+    }
+    const double t1 = double(v28) * std::bit_cast<float>(0x3F99999Au);
+    double z1;
+    if (speed60 < t1) {
+        const double e1 = t1 - speed60;
+        const double h = double(v28) * 0.5f;
+        double q = 1.0f - e1 / h;
+        if (0.0f > q) {
+            q = 0.0f;
+        }
+        z1 = z0 * q;
+    } else {
+        z1 = z0;
+    }
+    const double r2 = CcAirFsqrt(double(matrix[0]) * double(matrix[0]) + double(matrix[1]) * matrix[1]);
+    double rr = r2;
+    if (matrix[10] < 0.0f) {
+        rr = rr * -1.0f; // fmul [0x858C1C]: con NaN conserva el signo (fchs lo cambiaria)
+    }
+    volatile float roll = float(CcAirFpatan(double(matrix[2]), rr));
+    out[2] = roll;
+    const double tt = (1.0f > step) ? 1.0f : double(step);
+    const double kk = double(g4C) / tt;
+    const float rolll = roll;
+    const double xx = (double(rolll) - old99C) * kk;
+    const double ww = xx + rolll;
+    double zp = z1 - ww;
+    while (zp > kPi) {
+        zp = zp - kTwoPi;
+    }
+    while (zp < kNegPi) {
+        zp = zp + kTwoPi;
+    }
+    double zpp = zp * g48;
+    if (zpp < 1.0f) {
+        if (!(zpp > -1.0f)) {
+            zpp = -1.0f;
+        }
+    } else {
+        zpp = 1.0f;
+    }
+    volatile float steer = float(zpp);
+    out[1] = steer;
+    double k2 = double(g44) * rolll;
+    if (k2 < 0.0) {
+        k2 = -k2;
+    }
+    volatile float n98C = float(k2 + c98C);
+    out[3] = n98C;
+    const double cc = c98C;
+    if (cc < 0.0) {
+        const double hh = cc * 0.5f;
+        const float n98Cl = n98C;
+        if (hh > n98Cl) {
+            out[3] = n98Cl;
+        } else {
+            volatile float hv = float(hh);
+            out[3] = hv;
+        }
+    }
+}
+#pragma float_control(pop)
+
+#pragma float_control(precise, on, push)
+__declspec(noinline) bool __cdecl CcAirHeliNews(unsigned int byteVal, float dist, const float* vel) {
+    if (!(double(byteVal) > double(dist))) {
+        return false;
+    }
+    const double x2 = double(vel[0]) * double(vel[0]);
+    const double y2 = double(vel[1]) * double(vel[1]);
+    return CcAirFsqrt(x2 + y2) < std::bit_cast<float>(0x3C23D70Au);
+}
+__declspec(noinline) float __cdecl CcAirHeliRaise1(int bl, float minAlt, float hitZ, float cur) {
+    const double v = bl ? (double(minAlt) * 0.5f + hitZ) : (double(hitZ) + minAlt);
+    if (cur > v) {
+        return cur;
+    }
+    volatile float r = float(v);
+    return r;
+}
+__declspec(noinline) float __cdecl CcAirHeliLookahead(const float* vel, int bit7) {
+    const double vy2 = double(vel[1]) * vel[1];
+    const double vx2 = double(vel[0]) * vel[0];
+    const double speed = CcAirFsqrt(vy2 + vx2);
+    const double scaled = speed * 100.0f;
+    volatile float r = float(scaled + (bit7 ? 5.0f : 30.0f));
+    return r;
+}
+__declspec(noinline) void __cdecl CcAirHeliAhead(float cosv, float sinv, float L, const float* base, float* out) {
+    const double X = double(cosv) * L;
+    const double Y = double(sinv) * L;
+    volatile float Zf = float(double(L) * 0.0f);
+    volatile float ox = float(X + base[0]);
+    out[0] = ox;
+    volatile float oy = float(Y + base[1]);
+    out[1] = oy;
+    const float Zl = Zf;
+    volatile float oz = float(double(Zl) + base[2]);
+    out[2] = oz;
+}
+__declspec(noinline) void __cdecl CcAirHeliSide(const float* right, const float* pos, int left, float* out) {
+    const double X10 = double(right[0]) * 10.0f;
+    const double Y10 = double(right[1]) * 10.0f;
+    volatile float Z10 = float(double(right[2]) * 10.0f);
+    const float Z10l = Z10;
+    if (!left) {
+        volatile float ox = float(X10 + pos[0]);
+        out[0] = ox;
+        volatile float oy = float(Y10 + pos[1]);
+        out[1] = oy;
+        volatile float oz = float(double(Z10l) + pos[2]);
+        out[2] = oz;
+    } else {
+        volatile float ox = float(double(pos[0]) - X10);
+        out[0] = ox;
+        volatile float oy = float(double(pos[1]) - Y10);
+        out[1] = oy;
+        volatile float oz = float(double(pos[2]) - Z10l);
+        out[2] = oz;
+    }
+}
+__declspec(noinline) double __cdecl CcAirHeliHitDist(const float* col, const float* base) {
+    const double dx = double(col[0]) - base[0];
+    const double dy = double(col[1]) - base[1];
+    const double dz = double(col[2]) - base[2];
+    const double dz2 = dz * dz;
+    const double dy2 = dy * dy;
+    const double s1 = dz2 + dy2;
+    const double dx2 = dx * dx;
+    return CcAirFsqrt(s1 + dx2);
+}
+__declspec(noinline) float __cdecl CcAirHeliBrake2(int r, float prev, float* m) {
+    const double v = (double(r) - 7.0f) * std::bit_cast<float>(0x3B03126Fu) + prev;
+    volatile float mv = float(v - 0.5f);
+    *m = mv;
+    volatile float vf = float(v);
+    if (v < 1.0) {
+        const float vfl = vf;
+        if (std::bit_cast<float>(0xBE99999Au) > vfl) {
+            return std::bit_cast<float>(0xBE99999Au);
+        }
+        return vfl;
+    }
+    return 1.0f;
+}
+__declspec(noinline) float __cdecl CcAirHeliSkid(float a2, float h1) {
+    const double kPi = double(std::bit_cast<float>(0x40490FDBu));
+    const double kNegPi = double(std::bit_cast<float>(0xC0490FDBu));
+    const double kTwoPi = double(std::bit_cast<float>(0x40C90FDBu));
+    double d = double(a2) - h1;
+    while (d > kPi) {
+        d = d - kTwoPi;
+    }
+    while (d < kNegPi) {
+        d = d + kTwoPi;
+    }
+    double s = d * -2.0f;
+    if (s < 1.0) {
+        if (-1.0f > s) {
+            s = -1.0f;
+        }
+    } else {
+        s = 1.0;
+    }
+    volatile float r = float(s);
+    return r;
+}
+__declspec(noinline) bool __cdecl CcAirHeliApproach(const float* vel, const float* pos, const float* dest, unsigned int byteVal, float* out) {
+    const double sx = double(vel[0]) * 50.0f;
+    volatile float sy = float(double(vel[1]) * 50.0f);
+    const double X = sx + pos[0];
+    const float syl = sy;
+    const double Y = double(syl) + pos[1];
+    volatile float bf = float(byteVal);
+    volatile float ddx = float(X - dest[0]);
+    const double ddy = Y - dest[1];
+    const double ddy2 = ddy * ddy;
+    const float ddxl = ddx;
+    const double ddx2 = double(ddxl) * ddxl;
+    const float bfl = bf;
+    const double e = CcAirFsqrt(ddy2 + ddx2) - bfl;
+    if (e < 0.0) {
+        return false;
+    }
+    volatile float r = float((e * -0.8f) / (30.0f - double(bfl)));
+    *out = r;
+    return true;
+}
+__declspec(noinline) void __cdecl CcAirHeliTurnLimit(float h1, float a2, float cur, const float* vel, const float* fwd, float* out) {
+    const double kPi = double(std::bit_cast<float>(0x40490FDBu));
+    const double kNegPi = double(std::bit_cast<float>(0xC0490FDBu));
+    const double kTwoPi = double(std::bit_cast<float>(0x40C90FDBu));
+    double d2 = double(h1) - a2;
+    while (d2 < kNegPi) {
+        d2 = d2 + kTwoPi;
+    }
+    while (d2 > kPi) {
+        d2 = d2 - kTwoPi;
+    }
+    const double absd = (d2 < 0.0) ? -d2 : d2;
+    double q = 1.0f - std::bit_cast<float>(0x4007CFEDu) * absd;
+    if (0.0f > q) {
+        q = 0.0f;
+    }
+    volatile float r = float(q * cur);
+    *out = r;
+    if (absd > std::bit_cast<float>(0x3FC90FDBu)) {
+        const double z = double(vel[2]) * fwd[2];
+        const double y = double(vel[1]) * fwd[1];
+        const double zy = z + y;
+        const double x = double(fwd[0]) * vel[0];
+        if (zy + x > 0.0f) {
+            *out = std::bit_cast<float>(0x3E99999Au);
+        }
+    }
+}
+__declspec(noinline) float __cdecl CcAirHeliScale(float m, float cur) {
+    const double c = (m < 1.0f) ? double(m) : double(1.0f);
+    volatile float r = float((1.0f - c) * cur);
+    return r;
+}
+__declspec(noinline) double __cdecl CcAirHeliSpeedCtl(unsigned int cruise, const float* vel, const float* fwd, float cur, float* stored) {
+    const double cruiseD = double(cruise);
+    const double z = double(vel[2]) * fwd[2];
+    const double y = double(vel[1]) * fwd[1];
+    const double zy = z + y;
+    const double x = double(vel[0]) * fwd[0];
+    const double vf60 = (zy + x) * 60.0f;
+    double w = (cruiseD - vf60) * std::bit_cast<float>(0x3DCCCCCDu);
+    if (1.0f < w) {
+        w = 1.0f;
+    } else if (0.0f > w) {
+        w = 0.0f;
+    }
+    const double neg = -w;
+    double value = neg;
+    if (neg < cur) {
+        value = cur;
+    }
+    volatile float s = float(value);
+    *stored = s;
+    return value;
+}
+__declspec(noinline) void __cdecl CcAirHeliDecay(int mult, float step, const float* fwd, float* vel) {
+    const double k = (double(mult) * step) * std::bit_cast<float>(0x3A83126Fu);
+    const double fxk = double(fwd[0]) * k;
+    volatile float fyk = float(double(fwd[1]) * k);
+    volatile float k0 = float(k * 0.0f);
+    volatile float nx = float(fxk + vel[0]);
+    const float fykl = fyk;
+    volatile float ny = float(double(fykl) + vel[1]);
+    const float k0l = k0;
+    volatile float nz = float(double(k0l) + vel[2]);
+    vel[0] = nx;
+    vel[1] = ny;
+    vel[2] = nz;
+}
+__declspec(noinline) float __cdecl CcAirHeliForwardDot(const float* n, const float* vel) {
+    const double a = double(n[1]) * vel[1];
+    const double b = double(n[2]) * vel[2];
+    const double ab = a + b;
+    const double c = double(n[0]) * vel[0];
+    const double s = ab + c;
+    volatile float r = float(s + s);
+    return r;
+}
+__declspec(noinline) float __cdecl CcAirHeliClamp990(float v) {
+    if (v < 1.0f) {
+        if (-1.0f > v) {
+            return -1.0f;
+        }
+        return v;
+    }
+    return 1.0f;
+}
+#pragma float_control(pop)
+// --- Lote 63: CCarCtrl (parte C), prefijo Cc63. Anadir al FINAL de X87Math.cpp ---
+// Tramos x87 de 24 bits con exponente extendido: lo que el EXE deja en registro es double (cada operacion redondea a 24 bits); solo lo que guarda con fstp dword o fst dword es float.
+static __declspec(noinline) double Cc63Root(double value) {
+    return sqrt(value);   // fsqrt aislado: con /fp:fast y `precise` en la misma funcion saldria como llamada a la CRT o reescrito
+}
+// 0x4226F0..0x422753 (CCarCtrl::FindIntersection2Lines). Recta 1 = (a1, a2) + t * (a3, a4); recta 2 = (a5, a6) con direccion (a7, a8). Si el determinante es exactamente 0 (comparacion
+// ordenada; con NaN se divide) t = 0.0 (0x858B50). t se queda en registro (sin redondear a float); se escribe out1 y despues out2.
+void __cdecl Cc63Intersection2LinesCpp(float a1, float a2, float a3, float a4, float a5, float a6, float a7, float a8, float* out1, float* out2) {
+    const double denominator = double(a3) * double(a8) - double(a4) * double(a7);
+    double t = 0.0;
+    if (denominator != 0.0) {
+        t = ((double(a5) - double(a1)) * double(a8) - (double(a6) - double(a2)) * double(a7)) / denominator;
+    }
+    *out1 = float(double(a3) * t + double(a1));
+    *out2 = float(t * double(a4) + double(a2));
+}
+// 0x4224E0..0x422586 (CCarCtrl::FindSpeedMultiplier). a1 se lleva a [-pi, pi] sumando/restando 2*pi en registro (24 bits por operacion); d = max(|a1| - a2, 0); r = a3 - a2;
+// v = 1 - (d / r) * (1 - a4), guardado a float (fstp); devuelve a4 si d > r (comparacion ordenada), si no float(v).
+float __cdecl Cc63SpeedMultiplierCpp(float a1, float a2, float a3, float a4) {
+    const double pi = 3.1415927410125732;      // 0x858CB8
+    const double twoPi = 6.2831854820251465;   // 0x858CBC
+    double angle = double(a1);
+    while (angle < -pi) {
+        angle += twoPi;
+    }
+    while (angle > pi) {
+        angle -= twoPi;
+    }
+    if (angle < 0.0) {
+        angle = -angle;
+    }
+    double d = angle - double(a2);
+    if (d < 0.0) {
+        d = 0.0;
+    }
+    const double r = double(a3) - double(a2);
+    const double q = d / r;
+    volatile float v = float(1.0 - q * (1.0 - double(a4)));
+    if (d > r) {
+        return a4;
+    }
+    return v;
+}
+// 0x42263F..0x4226EF (CCarCtrl::FindPercDependingOnDistToLink): dist = sqrt((Y - py)^2 + (X - px)^2) con X = linkX * 0.125, Y = linkY * 0.125 (24 bits por operacion). dist < 5 (en registro) -> 0.5;
+// con dist redondeado a float (fst dword): >= 15 o NaN -> 1.0, si no (dist - 5) * 0.05 + 0.5.
+float __cdecl Cc63PercDistCpp(float px, float py, int linkX, int linkY) {
+    const double scaleX = double(linkX) * 0.125;
+    const double scaleY = double(linkY) * 0.125;
+    const double dy = scaleY - double(py);
+    const double dyy = dy * dy;
+    const double dx = scaleX - double(px);
+    const double dxx = dx * dx;
+    const double dist = Cc63Root(dyy + dxx);
+    volatile float distSlot = float(dist);
+    if (dist < 5.0) {
+        return 0.5f;
+    }
+    if (!(double(distSlot) < 15.0)) {
+        return 1.0f;
+    }
+    return float((double(distSlot) - 5.0) * 0.05000000074505806 + 0.5);
+}
+// 0x4221C1..0x422292 (CCarCtrl::FindPathDirection): d21 = (p2xA - p1xB, p2yC - p1yD) y d32 = (p3xE - p2xF, p3yG - p2yH) se guardan como float; n21 = d21 / |d21| (nx21 se guarda
+// como float, ny21 queda en registro), n32 igual en registro; cross = nx21 * ny32 - nx32 * ny21 (guardado como float), dot = ny21 * ny32 + nx32 * nx21 (registro).
+// |d21| == 0 o |d32| == 0 -> 0; dot > 0.4 -> 1; dot < -0.3 -> *flag = true; despues 4 si cross > 0 (ordenada) y 2 si no.
+int __cdecl Cc63PathDirectionCpp(float p2xA, float p1xB, float p2yC, float p1yD, float p3xE, float p2xF, float p3yG, float p2yH, bool* flag) {
+    volatile float dx21 = float(double(p2xA) - double(p1xB));
+    volatile float dy21 = float(double(p2yC) - double(p1yD));
+    volatile float dx32 = float(double(p3xE) - double(p2xF));
+    volatile float dy32 = float(double(p3yG) - double(p2yH));
+    const double len21 = Cc63Root(double(dy21) * double(dy21) + double(dx21) * double(dx21));
+    if (len21 == 0.0) {
+        return 0;
+    }
+    const double inv21 = 1.0 / len21;
+    volatile float nx21 = float(double(dx21) * inv21);
+    const double ny21 = inv21 * double(dy21);
+    const double len32 = Cc63Root(double(dy32) * double(dy32) + double(dx32) * double(dx32));
+    if (len32 == 0.0) {
+        return 0;
+    }
+    const double inv32 = 1.0 / len32;
+    const double nx32 = double(dx32) * inv32;
+    const double ny32 = inv32 * double(dy32);
+    const double crossA = double(nx21) * ny32;
+    const double crossB = nx32 * ny21;
+    volatile float cross = float(crossA - crossB);
+    const double dotA = ny21 * ny32;
+    const double dotB = nx32 * double(nx21);
+    const double dot = dotA + dotB;
+    if (dot > 0.4000000059604645) {   // 0x858EE8
+        return 1;
+    }
+    if (dot < -0.30000001192092896) {   // 0x858EE4
+        *flag = true;
+    }
+    return double(cross) > 0.0 ? 4 : 2;
+}
+
+// --- Lote 63: CCarCtrl (parte C, tanda 2), prefijo Cc63b. Anadir al FINAL de X87Math.cpp ---
+// 0x43444D.. / 0x42CED8..: v = coordinate * 0.02f (0x858B38) + 60.0f (0x858B34) con un redondeo a 24 bits por operacion, guardado como float (fst dword) y convertido con floor
+// y _ftol2 (int64 truncado; NaN, infinito o |v| >= 2^63 dan 0x8000000000000000, cuyo dword bajo es 0).
+int __cdecl Cc63bSectorCpp(float coordinate) {
+    volatile float scaled = float(double(coordinate) * 0.019999999552965164 + 60.0);
+    return int(__int64(floor(double(scaled))));
+}
+// 0x4345DD..0x4345FE: movzx byte + fild + fmul dword [multiplicador]: resultado en ST0 (24 bits).
+float __cdecl Cc63bCruiseSpeedCpp(unsigned int cruise, float multiplier) {
+    return float(double(cruise) * double(multiplier));
+}
+// 0x434744..0x43475D: (fild(cruise) * multiplier) + maxSpeed (24 bits) y * 0.5f (0x858B8C), resultado en ST0.
+float __cdecl Cc63bTrafficSpeedCpp(unsigned int cruise, float multiplier, float maxSpeed) {
+    const double product = double(cruise) * double(multiplier);
+    const double sum = product + double(maxSpeed);
+    return float(sum * 0.5);
+}
+// 0x421831..0x42184B: fild(rand) * 0x38000100 (1/32767) comparado con 0.125f (0x858C48): menor (ordenada) -> true.
+bool __cdecl Cc63bRandBelowEighthCpp(int randValue) {
+    const double scaled = double(randValue) * 3.0518509447574615e-05;
+    return scaled < 0.125;
+}
+// 0x434308: fadd dword [z] sobre la distancia del centro de masas (resultado en ST0 y luego fstp dword).
+float __cdecl Cc63bAddFloatCpp(float a, float b) {
+    return float(double(a) + double(b));
+}
+
+// --- Lote 63: CCarCtrl (parte C, tanda 3), prefijo Cc63c. Anadir al FINAL de X87Math.cpp (se declaran en CarCtrl.cpp, no en X87Math.h) ---
+// 0x42F6A8..0x42F743 (JoinCarWithRoadSystem): X = fild(int16 x) * 0.125f, Y igual (x87 a 24 bits, un redondeo por operacion); distancia entre dos nodos de ruta = sqrt((X2 - X1)^2 + (Y2 - Y1)^2)
+// con la suma en ese orden (dx^2 + dy^2); el resultado queda en registro (sin pasar por float, que ya cabe en 24 bits).
+float __cdecl Cc63cLinkDistanceCpp(int node2X, int node2Y, int node1X, int node1Y) {
+    const double x2 = double(node2X) * 0.125;
+    const double x1 = double(node1X) * 0.125;
+    const double y2 = double(node2Y) * 0.125;
+    const double y1 = double(node1Y) * 0.125;
+    const double dx = x2 - x1;
+    const double dx2 = dx * dx;
+    const double dy = y2 - y1;
+    const double dy2 = dy * dy;
+    const double sum = dx2 + dy2;
+    return float(Cc63Root(sum));
+}
+// 0x42F77D..0x42F828 (JoinCarWithRoadSystem): adelante.x (ST0) pasa a 1.0 si adelante.x == 0 y adelante.y == 0 (comparaciones ordenadas; NaN no); dot = (X1 - X3) * adelante.x + (Y1 - Y3) * adelante.y
+// (24 bits por operacion) con X = fild * 0.125; se devuelve dot < 0 (ordenada).
+bool __cdecl Cc63cDotNegativeCpp(int node1X, int node1Y, int node3X, int node3Y, float forwardX, float forwardY) {
+    double fx = double(forwardX);
+    if (fx == 0.0 && double(forwardY) == 0.0) {
+        fx = 1.0;
+    }
+    const double x1 = double(node1X) * 0.125;
+    const double x3 = double(node3X) * 0.125;
+    const double y1 = double(node1Y) * 0.125;
+    const double y3 = double(node3Y) * 0.125;
+    const double a = (x1 - x3) * fx;
+    const double b = (y1 - y3) * double(forwardY);
+    const double dot = a + b;
+    return dot < 0.0;
+}
+
+// --- Lote 63: CCarCtrl (parte C, tanda 5), prefijo Cc63e. Anadir al FINAL de X87Math.cpp (se declaran en CarCtrl.cpp, no en X87Math.h) ---
+// CCarCtrl::ChooseModel (0x424CE0): la suma de las cuatro densidades se hace en x87 con un redondeo a 24 bits por operacion y se trunca con _ftol2 (int64; NaN/infinito/enorme dan 0 en el dword bajo).
+int __cdecl Cc63eTotalCpp(float a, float b, float c, float d) {
+    const double sum = ((double(a) + double(b)) + double(c)) + double(d);
+    return int(__int64(sum));
+}
+// 0x424D0C..0x424D3A: fild(rand & 0xFFFF) * (1/65536, 0x858B14) * 100.0f (0x858628), _ftol2 != 0.
+bool __cdecl Cc63eRollFailsCpp(int randValue) {
+    const double v = (double(randValue & 0xFFFF) * 3.0517578125e-05) * 100.0;
+    return int(__int64(v)) != 0;
+}
+// 0x424D3C..0x424D55: fild(rand) * 0x38000100 (0x858C7C) guardado como float (fstp dword).
+float __cdecl Cc63eRatioCpp(int randValue) {
+    volatile float stored = float(double(randValue) * 3.0518509447574615e-05);
+    return stored;
+}
+// 0x424D61..0x424D6F, 0x424DA3..0x424DBF, 0x424DCD..0x424DE9: (a [+ b [+ c]]) / total (float guardado) con un redondeo a 24 bits por operacion, comparado (ordenado) con el sorteo.
+bool __cdecl Cc63eTierExceedsCpp(float a, float b, float c, int count, float total, float roll) {
+    double numerator = double(a);
+    if (count >= 2) {
+        numerator = numerator + double(b);
+    }
+    if (count >= 3) {
+        numerator = numerator + double(c);
+    }
+    const double quotient = numerator / double(total);
+    return quotient > double(roll);
+}
+// 0x424EBE..0x424ED0: fild(rand & 0xFFFF) * (1/65536) y fimul por el total, _ftol2.
+int __cdecl Cc63ePickRollCpp(int randValue, int total) {
+    const double v = (double(randValue & 0xFFFF) * 3.0517578125e-05) * double(total);
+    return int(__int64(v));
+}
+// 0x424F2D..0x424F46: fild(rand & 0xFFFF) * (1/65536) * 23.0f (0x858F84), _ftol2.
+int __cdecl Cc63eGroupRollCpp(int randValue) {
+    const double v = (double(randValue & 0xFFFF) * 3.0517578125e-05) * 23.0;
+    return int(__int64(v));
+}
+
+// --- Lote 63: CCarCtrl (parte C, tanda 6), prefijo Cc63f. Anadir al FINAL de X87Math.cpp (se declaran en CarCtrl.cpp, no en X87Math.h) ---
+// CCarCtrl::IsThisAnAppropriateNode (0x42DAB0): v1 = nodo3 - punto y v2 = nodo3 - nodo2 (0x40FE60: z, y, x; cada resta redondeada a 24 bits y guardada como float); CrossProduct (0x59C730) con a = v2, b = v1:
+// z = a.x * b.y - b.x * a.y (productos y resta a 24 bits, guardado como float); el llamador compara ese float con 0 (menor, ordenado).
+bool __cdecl Cc63fCrossZNegativeCpp(const float* node3, const float* point, const float* node2) {
+    volatile float v1x = float(double(node3[0]) - double(point[0]));
+    volatile float v1y = float(double(node3[1]) - double(point[1]));
+    volatile float v2x = float(double(node3[0]) - double(node2[0]));
+    volatile float v2y = float(double(node3[1]) - double(node2[1]));
+    volatile float z = float(double(v2x) * double(v1y) - double(v1x) * double(v2y));
+    return z < 0.0f;
+}
+// DotProduct (0x40FDB0) de la derecha del vehiculo y v1 = nodo3 - punto: (a.z * b.z + a.y * b.y) + a.x * b.x a 24 bits, resultado en ST0 (sin guardar) comparado (menor, ordenado) con 0.
+bool __cdecl Cc63fRightDotNegativeCpp(const float* right, const float* node3, const float* point) {
+    volatile float v1x = float(double(node3[0]) - double(point[0]));
+    volatile float v1y = float(double(node3[1]) - double(point[1]));
+    volatile float v1z = float(double(node3[2]) - double(point[2]));
+    const double zy = double(right[2]) * double(v1z) + double(right[1]) * double(v1y);
+    const double dot = zy + double(right[0]) * double(v1x);
+    return dot < 0.0;
+}

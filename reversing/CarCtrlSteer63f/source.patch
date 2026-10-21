@@ -1,0 +1,261 @@
+diff --git a/source/game_sa/CarCtrl.cpp b/source/game_sa/CarCtrl.cpp
+index 8ed964e..9593c22 100644
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -37,6 +37,7 @@ END GENERATED HOOK STATUS */
+ #include "Game.h"
+ #include "General.h"
+ #include "GameLogic.h"
++#include "X87Math.h"
+ #include "CutsceneMgr.h"
+ #include "TheCarGenerators.h"
+ #include "eAreaCodes.h"
+@@ -90,6 +91,7 @@ void CCarCtrl::InjectHooks()
+     RH_ScopedInstall(FindSequenceElement, 0x421770);
+     RH_ScopedInstall(SwitchVehicleToRealPhysics, 0x423FC0);
+     RH_ScopedInstall(UpdateCarCount, 0x424000);
++    RH_ScopedInstall(DealWithBend_Racing, 0x428040);
+     RH_ScopedInstall(FindSpeedMultiplierWithSpeedFromNodes, 0x424130);
+ }
+ 
+@@ -315,7 +317,209 @@ bool CCarCtrl::CreatePoliceChase(CVehicle* vehicle, int32 arg2, CNodeAddress Nod
+ 
+ // 0x428040
+ bool CCarCtrl::DealWithBend_Racing(CVehicle* vehicle, CCarPathLinkAddress LinkAddress1, CCarPathLinkAddress LinkAddress2, CCarPathLinkAddress LinkAddress3, CCarPathLinkAddress LinkAddress4, char arg6, char arg7, char arg8, char arg9, float arg10, float* arg11, float* arg12, float* arg13, float* arg14, CVector* pos) {
+-    return plugin::CallAndReturn<bool, 0x428040, CVehicle*, CCarPathLinkAddress, CCarPathLinkAddress, CCarPathLinkAddress, CCarPathLinkAddress, int8, int8, int8, int8, float, float*, float*, float*, float*, CVector*>(vehicle, LinkAddress1, LinkAddress2, LinkAddress3, LinkAddress4, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, pos);
++    // Como el original: las direcciones de tramo se pasan en una palabra de pila (solo importan sus 16 bits bajos) y los tramos (CCarPathLink, 0xE bytes) se leen en crudo:
++    // posicion int16 en +0/+2 (x 0.125), direccion int8 en +8/+9 (x 0.01f, no /100), banderas de carriles en +0xB.
++    constexpr float kPi = std::bit_cast<float>(0x40490FDBu);    // 0x858CB8
++    constexpr float kTwoPi = std::bit_cast<float>(0x40C90FDBu); // 0x858CBC
++    const auto raw = [](const CCarPathLinkAddress& address) { return *reinterpret_cast<const uint16*>(&address); };
++    const auto i16 = [](const uint8* link, uint32 offset) { return static_cast<float>(*reinterpret_cast<const int16*>(link + offset)); };
++    const auto i8 = [](const uint8* link, uint32 offset) { return static_cast<float>(*reinterpret_cast<const int8*>(link + offset)); };
++    const auto position = [&](const uint8* link, uint32 offset) { return i16(link, offset) * 0.125f; }; // 0x858C48
++    const auto linkOf = [](uint16 address) { return reinterpret_cast<const uint8*>(ThePaths.m_pNaviNodes[address >> 10]) + (address & 0x3FFu) * 0xEu; };
++
++    if (raw(LinkAddress1) == 0xFFFF) {
++        return false;
++    }
++    if (raw(LinkAddress2) == 0xFFFF) {
++        return false;
++    }
++    // Moto (subtipo +0x594 == 10): umbrales de angulo y distancia distintos
++    const bool bike = *reinterpret_cast<const int32*>(reinterpret_cast<const uint8*>(vehicle) + 0x594) == 10;
++    const float angleMin = bike ? std::bit_cast<float>(0x3EB2B8C3u) : std::bit_cast<float>(0x3F060A92u);
++    const float angleWide = bike ? std::bit_cast<float>(0x3F32B8C3u) : std::bit_cast<float>(0x3F860A92u);
++    const float limit = bike ? 50.0f : 40.0f;
++    *arg12 = 1.0f;
++    if (!ThePaths.m_pPathNodes[raw(LinkAddress1) >> 10]) {
++        return false;
++    }
++    if (!ThePaths.m_pPathNodes[raw(LinkAddress2) >> 10]) {
++        return false;
++    }
++    const uint8* const link1 = linkOf(raw(LinkAddress1));
++    const uint8* link2 = linkOf(raw(LinkAddress2));
++
++    // Distancia del vehiculo al primer tramo (> 60: no hace nada)
++    const float link1X = position(link1, 0);
++    const float link1Y = position(link1, 2);
++    const CVector& vehiclePos = vehicle->GetPosition();
++    const float toLinkY = link1Y - vehiclePos.y;
++    const float toLinkX = link1X - vehiclePos.x;
++    *arg14 = std::sqrt(toLinkY * toLinkY + toLinkX * toLinkX);
++    if (*arg14 > 60.0f) { // 0x858B34
++        return false;
++    }
++
++    // Cadena de tramos: sigue con el 3.o y el 4.o mientras cada uno este a menos de 10 m del anterior; el multiplicador de direccion es el argumento 7, 8 o 9 segun el ultimo
++    const auto closeTo = [&](const uint8* a, const uint8* b) {
++        const float dy = position(a, 2) - position(b, 2);
++        const float dx = position(a, 0) - position(b, 0);
++        return dx * dx + dy * dy < 100.0f; // 0x858628
++    };
++    int8 select = static_cast<int8>(arg7);
++    if (raw(LinkAddress3) != 0xFFFF) {
++        const uint8* const link3 = linkOf(raw(LinkAddress3));
++        if (closeTo(link2, link3)) {
++            select = static_cast<int8>(arg8);
++            link2 = link3;
++        }
++        if (raw(LinkAddress4) != 0xFFFF) {
++            const uint8* const link4 = linkOf(raw(LinkAddress4));
++            if (closeTo(link2, link4)) {
++                select = static_cast<int8>(arg9);
++                link2 = link4;
++            }
++        }
++    }
++
++    const float endX = position(link2, 0);
++    const float endY = position(link2, 2);
++    const float multiplier1 = static_cast<float>(static_cast<int8>(arg6));
++    const float multiplier2 = static_cast<float>(select);
++    const float v1x = i8(link1, 8) * 0.01f * multiplier1; // 0x858C58
++    const float v1y = i8(link1, 9) * 0.01f * multiplier1;
++    const float v2x = i8(link2, 8) * 0.01f * multiplier2;
++    const float v2y = i8(link2, 9) * 0.01f * multiplier2;
++
++    // Diferencia de rumbo entre el avance del vehiculo y la direccion del ultimo tramo (el ultimo fpatan se resta SIN redondear, X87Math.cpp)
++    const CVector& top = vehicle->m_matrix->GetForward();
++    const float vehicleHeading = CGeneral::GetATanOfXY(top.x, top.y);
++    float diff = CarCtrlSteer63AtanRsubCpp(v2x, v2y, vehicleHeading);
++    while (diff > kPi) {
++        diff -= kTwoPi;
++    }
++    while (diff < -kPi) {
++        diff += kTwoPi;
++    }
++    const float absDiff = diff < 0.0f ? -diff : diff;
++    if (absDiff < angleMin) {
++        return false;
++    }
++    const auto lanes = [](const uint8* link) {
++        const uint8 flags = link[0xB];
++        return static_cast<int32>((flags >> 3) & 7) + static_cast<int32>(flags & 7);
++    };
++    if (lanes(link2) >= 4 && lanes(link1) >= 4) {
++        if (absDiff < angleWide) {
++            return false;
++        }
++    }
++    *arg13 = diff;
++
++    // Puntos de los carriles del primer tramo (Q: carriles opuestos, R: carriles del mismo sentido; 5.4 = 0x858C50) y el mas cercano al final del ultimo tramo
++    struct LanePoints {
++        float opposite0, opposite1, same0, same1;
++    };
++    const auto lanePoints = [](const uint8* link, float dirX, float dirY) -> LanePoints {
++        const float offset = reinterpret_cast<const CCarPathLink*>(link)->OneWayLaneOffset(); // 0x44DB00
++        const float opposite = static_cast<float>(link[0xB] & 7);
++        const float same = static_cast<float>((link[0xB] >> 3) & 7);
++        return {
++            ((offset + (opposite - 1.0f)) * dirY) * 5.4f,
++            ((offset + (opposite - 1.0f)) * dirX) * 5.4f,
++            ((offset + (same - 1.0f)) * dirY) * 5.4f,
++            ((offset + (same - 1.0f)) * dirX) * 5.4f,
++        };
++    };
++    const LanePoints first = lanePoints(link1, v1x, v1y);
++    const float q1x = first.opposite0 + link1X;
++    const float q1y = link1Y - first.opposite1;
++    const float r1x = link1X - first.same0;
++    const float r1y = first.same1 + link1Y;
++    const float a1 = q1y - endY;
++    const float b1 = q1x - endX;
++    const float c1 = r1y - endY;
++    const float d1 = r1x - endX;
++    float ax;
++    float ay;
++    float bx;
++    float by;
++    if (d1 * d1 + c1 * c1 > b1 * b1 + a1 * a1) {
++        ax = q1x;
++        ay = q1y;
++        bx = r1x;
++        by = r1y;
++    } else {
++        ax = r1x;
++        ay = r1y;
++        bx = q1x;
++        by = q1y;
++    }
++    // El segundo punto se acerca como mucho a 11 m del primero
++    {
++        const float dx = bx - ax;
++        const float dy = by - ay;
++        const float length = std::sqrt(dy * dy + dx * dx);
++        if (length > 11.0f) { // 0x858FBC
++            const float scale = 11.0f / length;
++            bx = scale * dx + ax;
++            by = scale * dy + ay;
++        }
++    }
++
++    // Puntos de los carriles del ultimo tramo y el mas cercano al primer tramo
++    const LanePoints last = lanePoints(link2, v2x, v2y);
++    const float q2x = last.opposite0 + endX;
++    const float q2y = endY - last.opposite1;
++    const float r2x = endX - last.same0;
++    const float r2y = last.same1 + endY;
++    const float a2 = q2y - link1Y;
++    const float b2 = q2x - link1X;
++    const float c2 = r2y - link1Y;
++    const float d2 = r2x - link1X;
++    float cx;
++    float cy;
++    if (d2 * d2 + c2 * c2 > b2 * b2 + a2 * a2) {
++        cx = q2x;
++        cy = q2y;
++    } else {
++        cx = r2x;
++        cy = r2y;
++    }
++
++    // Direcciones casi paralelas (|dx| < 0.1 y |dy| != 0): el punto es A; si no, interseccion de las dos rectas (0x4226F0)
++    const float directionDx = v1x - v2x;
++    const float directionDy = v1y - v2y;
++    const float absDx = directionDx < 0.0f ? -directionDx : directionDx;
++    const float absDy = directionDy < 0.0f ? -directionDy : directionDy;
++    if (absDx < 0.1f && !(absDy == 0.0f)) { // 0x858B1C, 0x858B50
++        pos->x = ax;
++        pos->y = ay;
++    } else {
++        FindIntersection2Lines(ax, ay, v1x, v1y, cx, cy, v2x, v2y, &pos->x, &pos->y);
++    }
++
++    // Factor de velocidad (arg12) segun la distancia y el giro; |giro x 0.6366| acotado a 1
++    const auto turn = [&] {
++        const float scaled = diff * 0.63661975f; // 0x858FB8
++        return 1.0f < (scaled < 0.0f ? -scaled : scaled) ? 1.0f : (scaled < 0.0f ? -scaled : scaled);
++    };
++    if (*arg14 < limit) {
++        *arg12 = 1.0f - ((limit - *arg14) / limit * turn()) * 0.6f; // 0x858CC8
++    }
++    float p = arg10 * 0.033333335f; // 0x858F10
++    if (1.0f < p) {
++        p = 1.0f;
++    } else if (0.2f > p) { // 0x858CC4
++        p = 0.2f;
++    }
++    const float threshold = p * turn() * 20.0f; // 0x858BA4
++    const CVector& pos2 = vehicle->GetPosition();
++    if (*arg14 < threshold) {
++        *arg11 = CGeneral::GetATanOfXY(pos->x - pos2.x, pos->y - pos2.y);
++    } else {
++        *arg11 = CGeneral::GetATanOfXY(bx - pos2.x, by - pos2.y);
++    }
++    return true;
+ }
+ 
+ // 0x42EC90
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 2e5b596..21ddaaf 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -13592,6 +13592,11 @@ __declspec(noinline) float __cdecl PathFindSubCpp(float a, float b) {
+     volatile float result = a - b;
+     return result;
+ }
++// --- Lote 63f: CCarCtrl::DealWithBend_Racing (0x428040), prefijo CarCtrlSteer63. Anadir al FINAL de X87Math.cpp ---
++// 0x4283A6 (fsubr): hf - GetATanOfXY(x, y) con el fpatan de 0x53CC70 SIN redondear a float antes (un solo redondeo).
++__declspec(noinline) float __cdecl CarCtrlSteer63AtanRsubCpp(float x, float y, float hf) {
++    return hf - CGeneral::GetATanOfXY(x, y);
++}
+ // --- Lote 62: CWaterLevel (GetWaterDepth, RenderHighDetailWaterRectangle/Triangle, TestLineAgainstWater), prefijo Water62. Anadir al FINAL de X87Math.cpp ---
+ // Tramos x87 de 24 bits con exponente extendido: lo que el EXE deja en registro se calcula como double (cada operacion redondea a 24 bits) y solo lo que guarda con fstp dword se redondea a float.
+ static __declspec(noinline) double Water62RootCpp(double value) {
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index d6a3c99..1a018b3 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1637,6 +1637,9 @@ float __cdecl SlideToCoordAngleDeltaCpp(float current, float aiming);
+ // --- Lote 62: CPathFind::FindNodeClosestToCoors (0x44F460), prefijo PathFind. Anadir al FINAL de X87Math.h ---
+ // a - b con el fsub del x87 y un solo guardado a float: conserva los denormales del resultado (SSE con FTZ los vaciaria a cero).
+ float __cdecl PathFindSubCpp(float a, float b);
++// --- Lote 63f: CCarCtrl::DealWithBend_Racing (0x428040), prefijo CarCtrlSteer63. Anadir al FINAL de X87Math.h ---
++// hf - GetATanOfXY(x, y) (0x4283A6, fsubr): el fpatan de 0x53CC70 se resta SIN redondear a float antes.
++float __cdecl CarCtrlSteer63AtanRsubCpp(float x, float y, float hf);
+ // --- Lote 62: CWaterLevel (GetWaterDepth, RenderHighDetailWaterRectangle/Triangle, TestLineAgainstWater), prefijo Water62. Anadir al FINAL de X87Math.h ---
+ // Tramos x87 de 24 bits con exponente extendido (ver X87Math.cpp). Los vectores apuntan a x, y, z consecutivos.
+ void __cdecl Water62DepthStoreCpp(const unsigned int* levelSlot, const float* groundSlot, float* outDepth, unsigned int* outLevel, float* outGround); // groundSlot null: -100.0f

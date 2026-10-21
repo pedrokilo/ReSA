@@ -1,0 +1,607 @@
+diff --git a/source/game_sa/CarCtrl.cpp b/source/game_sa/CarCtrl.cpp
+index 8ed964e..171a39c 100644
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -91,6 +91,12 @@ void CCarCtrl::InjectHooks()
+     RH_ScopedInstall(SwitchVehicleToRealPhysics, 0x423FC0);
+     RH_ScopedInstall(UpdateCarCount, 0x424000);
+     RH_ScopedInstall(FindSpeedMultiplierWithSpeedFromNodes, 0x424130);
++    // Lote 63, parte B2
++    RH_ScopedInstall(TestCollisionBetween2MovingRects, 0x425B30);
++    RH_ScopedInstall(TestCollisionBetween2MovingRects_OnlyFrontBumper, 0x425F70);
++    RH_ScopedInstall(SlowCarDownForOtherCar, 0x42D0E0);
++    RH_ScopedInstall(WeaveForOtherCar, 0x426350);
++    RH_ScopedInstall(WeaveForObject, 0x426BC0);
+ }
+ 
+ // 0x4212E0
+@@ -910,6 +916,36 @@ void CCarCtrl::SetUpDriverAndPassengersForVehicle(CVehicle* vehicle, int32 arg2,
+     plugin::Call<0x4217C0, CVehicle*, int32, int32, bool, bool, int32>(vehicle, arg2, arg3, arg4, arg5, passengersNum);
+ }
+ 
++namespace {
++// Ayudantes de Weave*, SlowCarDown* y TestCollisionBetween2MovingRects* (lote 63, parte B2)
++constexpr float kWvPi             = std::bit_cast<float>(0x40490FDBu); // 0x858CB8
++constexpr float kWvTwoPi          = std::bit_cast<float>(0x40C90FDBu); // 0x858CBC
++constexpr float kWvMargin         = std::bit_cast<float>(0x3E4CCCCDu); // 0x858CC4 (0.2f)
++constexpr float kWvStep           = std::bit_cast<float>(0x3DD67750u); // 0x858FAC (6 grados)
++constexpr float kWvSlowFactor     = std::bit_cast<float>(0x3F44EC4Fu); // 0x858FFC
++constexpr float kWvCarWidthScale  = std::bit_cast<float>(0x4019999Au); // 0x858FB0 (2.4f)
++constexpr float kWvCarWidthBase   = std::bit_cast<float>(0x3E99999Au); // 0x858C24 (0.3f)
++
++// El EXE lee estos campos de entidades de cualquier tipo sin comprobar el tipo (p. ej. +0x3BA, +0x41C, +0x42B, +0x46C, +0x58C)
++template<typename T>
++T& WvRaw(const void* base, uint32 offset) {
++    return *reinterpret_cast<T*>(reinterpret_cast<uintptr_t>(base) + offset);
++}
++
++// Colaboradores matematicos del EXE sin reconstruir: CMatrix * CVector (0x59C890) y Multiply3x3 (0x59C790)
++CVector WvMatrixTimesPoint(const CMatrix* matrix, const CVector& point) {
++    CVector result;
++    plugin::CallAndReturn<CVector*, 0x59C890, CVector*, const CMatrix*, const CVector*>(&result, matrix, &point);
++    return result;
++}
++
++CVector WvMatrixTimesVector(const CMatrix* matrix, const CVector& vector) {
++    CVector result;
++    plugin::CallAndReturn<CVector*, 0x59C790, CVector*, const CMatrix*, const CVector*>(&result, matrix, &vector);
++    return result;
++}
++} // namespace
++
+ // 0x432420
+ template<typename PtrListType>
+ void CCarCtrl::SlowCarDownForCarsSectorList(PtrListType& ptrList, CVehicle* vehicle, float arg3, float arg4, float arg5, float arg6, float* arg7, float arg8) {
+@@ -952,7 +988,132 @@ void CCarCtrl::SlowCarDownForObjectsSectorList(PtrListType& ptrList, CVehicle* v
+ 
+ // 0x42D0E0
+ void CCarCtrl::SlowCarDownForOtherCar(CEntity* car1, CVehicle* car2, float* arg3, float arg4) {
+-    plugin::Call<0x42D0E0, CEntity*, CVehicle*, float*, float>(car1, car2, arg3, arg4);
++    // Como el original: aritmetica de float (x87 a 24 bits); car2->m_matrix se usa sin comprobar nulo, car1 se trata como fisico/vehiculo sin mirar su tipo
++    // salvo donde el EXE lo comprueba.
++    const CMatrix& matrix2 = *car2->m_matrix;
++    float dirX2;
++    float dirY2 = matrix2.GetForward().y;
++    {
++        const float forwardX = matrix2.GetForward().x;
++        const float length   = std::sqrt(dirY2 * dirY2 + forwardX * forwardX);
++        if (length == 0.0f) {
++            dirX2 = 1.0f;
++        } else {
++            const float inverse = 1.0f / length;
++            dirX2 = inverse * forwardX;
++            dirY2 = inverse * dirY2;
++        }
++    }
++
++    const CVector& position1 = car1->GetPosition();
++    const CVector& position2 = car2->GetPosition();
++    const float side = (position1.y - position2.y) * dirY2 + (position1.x - position2.x) * dirX2;
++    if (side < 0.0f) {
++        return;
++    }
++
++    const CPhysical* const physical1 = car1->AsPhysical();
++    const float speedX    = physical1->m_vecMoveSpeed.x * 60.0f;
++    const float speedY    = physical1->m_vecMoveSpeed.y * 60.0f;
++    const float scaledDirX = dirX2 * arg4;
++    const float scaledDirY = dirY2 * arg4;
++
++    // Como el original: la matriz de car1 se comprueba (y se crea) dos veces seguidas
++    if (!car1->m_matrix) {
++        car1->AllocateMatrix();                         // 0x54F560
++        car1->m_placement.UpdateMatrix(car1->m_matrix); // 0x54F1B0
++    }
++    if (!car1->m_matrix) {
++        car1->AllocateMatrix();
++        car1->m_placement.UpdateMatrix(car1->m_matrix);
++    }
++    float dirY1 = car1->m_matrix->GetForward().y;
++    float dirX1;
++    {
++        const float forwardX = car1->m_matrix->GetForward().x;
++        const float length   = std::sqrt(dirY1 * dirY1 + forwardX * forwardX);
++        if (length == 0.0f) {
++            dirX1 = 1.0f;
++            dirY1 = car1->m_matrix->GetForward().y;
++        } else {
++            const float inverse = 1.0f / length;
++            dirX1 = inverse * forwardX;
++            dirY1 = inverse * dirY1;
++        }
++    }
++    CVector direction2{ dirX2, dirY2, 0.0f }; // A
++    CVector direction1{ dirX1, dirY1, 0.0f }; // B
++
++    const float relativeX = speedX - scaledDirX;
++    const float relativeY = speedY - scaledDirY;
++    const float forward   = TestCollisionBetween2MovingRects_OnlyFrontBumper(car1->AsVehicle(), car2, relativeX, relativeY, &direction2, &direction1);
++    const float backward  = TestCollisionBetween2MovingRects(car2, car1->AsVehicle(), -relativeX, -relativeY, &direction1, &direction2);
++    float time = forward < backward ? forward : backward;
++    if (!(time >= 0.0f)) {
++        return;
++    }
++
++    auto& autoPilot2 = car2->m_autoPilot;
++    if (time < 1.5f) {
++        autoPilot2.m_nCarCtrlFlags |= 1;
++        autoPilot2.m_ObstructingEntity = car1;
++        car1->RegisterReference(&autoPilot2.m_ObstructingEntity); // 0x571B70
++        const float reciprocal = 1.0f / arg4;
++        if (time < reciprocal) {
++            *arg3 = 0.0f;
++        } else if (time < 3.0f * reciprocal) {
++            *arg3 = *arg3 < 1.0f ? *arg3 : 1.0f;
++        } else {
++            const float scaled = (time - kWvMargin) * kWvSlowFactor; // 0x858CC4, 0x858FFC
++            time = scaled < 0.0f ? 0.0f : scaled;
++            const float limit = time * arg4;
++            if (!(limit > *arg3)) {
++                *arg3 = limit;
++            }
++        }
++    }
++
++    if (!(time >= 0.0f)) {
++        return;
++    }
++    if (!(time < 0.5f)) {
++        return;
++    }
++    if (car1->GetType() != ENTITY_TYPE_VEHICLE) {
++        return;
++    }
++    const uint32 now = CTimer::GetTimeInMS();
++    if (now - autoPilot2.m_nTimeSwitchedToRealPhysics <= 15000u) {
++        return;
++    }
++    if (now - car1->AsVehicle()->m_autoPilot.m_nTimeSwitchedToRealPhysics <= 15000u) {
++        return;
++    }
++
++    // Como el original: GetMatrix (0x411990) de car1 se llama dos veces y la matriz de car2 se lee dos veces sin comprobar nulo
++    const CMatrix* const matrix2First = car2->m_matrix;
++    const CMatrix&       matrix1First = car1->GetMatrix();
++    const CMatrix* const matrix2Second = car2->m_matrix;
++    const CMatrix&       matrix1Second = car1->GetMatrix();
++    const float dot = matrix1Second.GetForward().y * matrix2Second->GetForward().y + matrix1First.GetForward().x * matrix2First->GetForward().x;
++    if (car1 == FindPlayerVehicle(-1, false)) { // 0x56E0D0
++        return;
++    }
++    if (!(dot < -0.5f)) {
++        return;
++    }
++    if (!(reinterpret_cast<uintptr_t>(car2) < reinterpret_cast<uintptr_t>(car1))) {
++        return;
++    }
++    const float reduced = arg4 * kWvMargin;
++    if (!(reduced < *arg3)) {
++        *arg3 = reduced;
++    }
++    if (car2->GetStatus() == STATUS_SIMPLE) {
++        SwitchVehicleToRealPhysics(car2);
++    }
++    autoPilot2.m_nCarDrivingStyle = DRIVING_STYLE_AVOID_CARS;
++    autoPilot2.m_nTempActionTime  = CTimer::GetTimeInMS() + 1000;
+ }
+ 
+ // 0x425440
+@@ -1142,12 +1303,199 @@ void CCarCtrl::SwitchVehicleToRealPhysics(CVehicle* vehicle) {
+ 
+ // 0x425B30
+ float CCarCtrl::TestCollisionBetween2MovingRects(CVehicle* vehicle1, CVehicle* vehicle2, float arg3, float arg4, CVector* pos1, CVector* pos2) {
+-    return plugin::CallAndReturn<float, 0x425B30, CVehicle*, CVehicle*, float, float, CVector*, CVector*>(vehicle1, vehicle2, arg3, arg4, pos1, pos2);
++    // Como el original: cada operacion x87 va a 24 bits (palabra de control del juego), es decir, aritmetica de float. Los vehiculos, sus col models y
++    // las dos direcciones se usan sin comprobar nulos. El tiempo devuelto es el menor de los dos ejes (empieza en 1.0f).
++    const CVector& position1 = vehicle1->GetPosition();
++    const CVector& position2 = vehicle2->GetPosition();
++    const float deltaX = position1.x - position2.x;
++    const float deltaY = position1.y - position2.y;
++    const CBoundingBox& box2 = CModelInfo::GetModelInfo(static_cast<int16>(vehicle2->m_nModelIndex))->GetColModel()->GetBoundingBox();
++    const CBoundingBox& box1 = CModelInfo::GetModelInfo(static_cast<int16>(vehicle1->m_nModelIndex))->GetColModel()->GetBoundingBox();
++    const float halfX2     = box2.m_vecMax.x; // 0x0C
++    const float halfY2     = box2.m_vecMax.y; // 0x1C
++    const float negMinY2   = -box2.m_vecMin.y; // 0x20
++    const float halfY1     = box1.m_vecMax.y; // 0x24
++    const float halfX1     = box1.m_vecMax.x; // 0x28
++    const float moveAcross = arg3 * pos1->y - arg4 * pos1->x; // 0x34
++    const float moveAlong  = arg3 * pos1->x + arg4 * pos1->y; // 0x38
++
++    float best = 1.0f;
++    for (int32 pass = 0; pass < 2; pass++) {
++        float cornerA; // 0x3C
++        float cornerB; // 0x40
++        if (pass == 0) {
++            cornerA = (halfY1 * pos2->x + halfX1 * pos2->y) + deltaX;
++            cornerB = (halfY1 * pos2->y + deltaY) - halfX1 * pos2->x;
++        } else {
++            cornerA = (halfY1 * pos2->x + deltaX) - halfX1 * pos2->y;
++            cornerB = (halfX1 * pos2->x + halfY1 * pos2->y) + deltaY;
++        }
++
++        // Primer eje
++        float enter1 = 0.0f; // 0x10
++        float exit1;         // ST0 al terminar el eje
++        const float rel1 = cornerA * pos1->y - cornerB * pos1->x; // 0x50
++        if (rel1 > halfX2) {
++            if (moveAcross < 0.0f) {
++                const float inverse = 1.0f / moveAcross;
++                const float t = -((rel1 - halfX2) * inverse);
++                if (t < 1.0f) {
++                    enter1 = t;
++                    const float u = t - inverse * (halfX2 + halfX2);
++                    exit1 = u < 1.0f ? u : 1.0f;
++                } else {
++                    enter1 = 1.0f;
++                    exit1  = 1.0f;
++                }
++            } else {
++                enter1 = 1.0f;
++                exit1  = 1.0f;
++            }
++        } else if (-halfX2 > rel1) {
++            if (moveAcross > 0.0f) {
++                const float inverse = 1.0f / moveAcross;
++                const float t = -((rel1 + halfX2) * inverse);
++                if (t < 1.0f) {
++                    enter1 = t;
++                    const float u = inverse * (halfX2 + halfX2) + t;
++                    exit1 = u < 1.0f ? u : 1.0f;
++                } else {
++                    enter1 = 1.0f;
++                    exit1  = 1.0f;
++                }
++            } else {
++                enter1 = 1.0f;
++                exit1  = 1.0f;
++            }
++        } else {
++            if (moveAcross > 0.0f) {
++                exit1 = (halfX2 - rel1) / moveAcross;
++            } else if (moveAcross < 0.0f) {
++                exit1 = -((rel1 + halfX2) / moveAcross);
++            } else {
++                exit1 = 1.0f;
++            }
++        }
++
++        // Segundo eje: enter2 (pila) y exit2 (0x14)
++        float enter2;
++        float exit2 = 1.0f; // 0x14
++        const float rel2 = cornerB * pos1->y + cornerA * pos1->x; // 0x50
++        if (rel2 > halfY2) {
++            if (moveAlong < 0.0f) {
++                const float inverse = 1.0f / moveAlong;
++                const float v = -((rel2 - halfY2) * inverse);
++                if (v < 1.0f) {
++                    const float w = v - (negMinY2 + halfY2) * inverse;
++                    enter2 = v;
++                    exit2  = w < 1.0f ? w : 1.0f;
++                } else {
++                    enter2 = 1.0f;
++                }
++            } else {
++                enter2 = 1.0f;
++            }
++        } else if (-negMinY2 > rel2) {
++            if (moveAlong > 0.0f) {
++                const float inverse = 1.0f / moveAlong;
++                const float v = -((rel2 + negMinY2) * inverse);
++                if (v < 1.0f) {
++                    const float w = (negMinY2 + halfY2) * inverse + v;
++                    enter2 = v;
++                    exit2  = w < 1.0f ? w : 1.0f;
++                } else {
++                    enter2 = 1.0f;
++                }
++            } else {
++                enter2 = 1.0f;
++            }
++        } else {
++            enter2 = 0.0f;
++            if (moveAlong > 0.0f) {
++                exit2 = (halfY2 - rel2) / moveAlong;
++            } else if (moveAlong < 0.0f) {
++                exit2 = -((rel2 + negMinY2) / moveAlong);
++            }
++        }
++
++        const float enter = enter1 > enter2 ? enter1 : enter2; // 0x50
++        if (enter < exit1 && enter < exit2 && !(best < enter)) {
++            best = enter;
++        }
++    }
++    return best;
+ }
+ 
+ // 0x425F70
+ float CCarCtrl::TestCollisionBetween2MovingRects_OnlyFrontBumper(CVehicle* vehicle1, CVehicle* vehicle2, float arg3, float arg4, CVector* pos1, CVector* pos2) {
+-    return plugin::CallAndReturn<float, 0x425F70, CVehicle*, CVehicle*, float, float, CVector*, CVector*>(vehicle1, vehicle2, arg3, arg4, pos1, pos2);
++    // Como el original: aritmetica de float (x87 a 24 bits), nulos sin comprobar, ocho esquinas del vehiculo 1 desplazadas arg3/arg4 contra el rectangulo del 2.
++    const CVector& position1 = vehicle1->GetPosition();
++    const float x1 = position1.x;
++    const float y1 = position1.y;
++    const CBoundingBox& box2 = CModelInfo::GetModelInfo(static_cast<int16>(vehicle2->m_nModelIndex))->GetColModel()->GetBoundingBox();
++    const float halfX2 = box2.m_vecMax.x;
++    const float halfY2 = box2.m_vecMax.y;
++    const CBoundingBox& box1 = CModelInfo::GetModelInfo(static_cast<int16>(vehicle1->m_nModelIndex))->GetColModel()->GetBoundingBox();
++    const float halfY1   = box1.m_vecMax.y;
++    const float halfX1   = box1.m_vecMax.x;
++    const float negMinY1 = -box1.m_vecMin.y;
++    const CVector& position2 = vehicle2->GetPosition();
++    const float x2 = position2.x;
++    const float y2 = position2.y;
++
++    const float acrossFront = halfY2 * pos1->x;   // st(0) duplicado
++    const float halfX2Y     = halfX2 * pos1->y;
++    const float cornerAX    = (acrossFront + halfX2Y) + x2; // 0x20
++    const float halfY2Y     = halfY2 * pos1->y;
++    const float halfX2X     = halfX2 * pos1->x;
++    const float cornerAY    = (halfY2Y + y2) - halfX2X;     // 0x24
++    const float cornerBX    = (acrossFront + x2) - halfX2Y; // 0x38
++    const float cornerBY    = y2 + (halfX2X + halfY2Y);     // registro
++
++    float best = 1.0f; // 0x14
++    for (int32 corner = 0; corner < 4; corner++) {
++        float u;
++        float v;
++        switch (corner) {
++        case 0:
++            u = (halfX1 * pos2->y + halfY1 * pos2->x) + x1;
++            v = (halfY1 * pos2->y + y1) - halfX1 * pos2->x;
++            break;
++        case 1:
++            u = (halfY1 * pos2->x + x1) - halfX1 * pos2->y;
++            v = (halfY1 * pos2->y + halfX1 * pos2->x) + y1;
++            break;
++        case 2:
++            u = (x1 - negMinY1 * pos2->x) + halfX1 * pos2->y;
++            v = (y1 - negMinY1 * pos2->y) - halfX1 * pos2->x;
++            break;
++        default:
++            u = (x1 - negMinY1 * pos2->x) - halfX1 * pos2->y;
++            v = (y1 - negMinY1 * pos2->y) + halfX1 * pos2->x;
++            break;
++        }
++
++        const float movedU = u + arg3;
++        const float movedV = v + arg4;
++        const float before = (v - cornerAY) * pos1->y + (u - cornerAX) * pos1->x;           // 0x10
++        const float after  = (movedV - cornerAY) * pos1->y + (movedU - cornerAX) * pos1->x; // 0x1C
++        if (!(before > 0.0f)) {
++            continue;
++        }
++        if (!(after < 0.0f)) {
++            continue;
++        }
++        const float sideB = (cornerBX - u) * arg4 - (cornerBY - v) * arg3;
++        const float sideA = (cornerAX - u) * arg4 - (cornerAY - v) * arg3;
++        if (!(sideB * sideA < 0.0f)) {
++            continue;
++        }
++        const float time = before / (before - after);
++        if (!(best < time)) {
++            best = time;
++        }
++    }
++    return best;
+ }
+ 
+ // 0x429520
+@@ -1219,12 +1567,214 @@ void CCarCtrl::UpdateCarOnRails(CVehicle* vehicle) {
+ 
+ // 0x426BC0
+ void CCarCtrl::WeaveForObject(CEntity* entity, CVehicle* vehicle, float* arg3, float* arg4) {
+-    plugin::Call<0x426BC0, CEntity*, CVehicle*, float*, float*>(entity, vehicle, arg3, arg4);
++    // Como el original: aritmetica de float (x87 a 24 bits). Desplazamientos laterales y hacia delante (en el espacio del objeto) segun el modelo.
++    float sideOffset;    // 0x...-24
++    float forwardOffset; // 0x...-20
++    const int32 modelIndex = static_cast<int16>(entity->m_nModelIndex);
++    if (modelIndex == int32(uint16(eModelID(ModelIndices::MI_TRAFFICLIGHTS)))) { // 0x8CD4F4
++        sideOffset    = std::bit_cast<float>(0x403D3F7Du);
++        forwardOffset = std::bit_cast<float>(0x3E16872Bu);
++    } else if (modelIndex == int32(uint16(eModelID(ModelIndices::MI_SINGLESTREETLIGHTS1)))) { // 0x8CD518
++        sideOffset    = std::bit_cast<float>(0x3F3E76C9u);
++        forwardOffset = 0.0f;
++    } else if (modelIndex == int32(uint16(eModelID(ModelIndices::MI_SINGLESTREETLIGHTS2)))) { // 0x8CD51C
++        sideOffset    = std::bit_cast<float>(0x3D3020C5u);
++        forwardOffset = 0.0f;
++    } else if (modelIndex == int32(uint16(eModelID(ModelIndices::MI_SINGLESTREETLIGHTS3)))) { // 0x8CD520
++        sideOffset    = std::bit_cast<float>(0x3F924DD3u);
++        forwardOffset = std::bit_cast<float>(0x3E147AE1u);
++    } else if (modelIndex == int32(uint16(eModelID(ModelIndices::MI_DOUBLESTREETLIGHTS)))) { // 0x8CD524
++        sideOffset    = 0.0f;
++        forwardOffset = std::bit_cast<float>(0xBD449BA6u);
++    } else {
++        if (!CModelInfo::GetModelInfo(modelIndex)->SwaysInWind()) { // 0x4212C0
++            return;
++        }
++        sideOffset    = 0.0f;
++        forwardOffset = 0.0f;
++    }
++
++    // Como el original: la posicion se copia antes de crear la matriz y la matriz se comprueba (y se crea) en cuatro puntos
++    const CVector entityPosition = entity->GetPosition();
++    if (!entity->m_matrix) {
++        entity->AllocateMatrix();                         // 0x54F560
++        entity->m_placement.UpdateMatrix(entity->m_matrix); // 0x54F1B0
++    }
++    if (!entity->m_matrix) {
++        entity->AllocateMatrix();
++        entity->m_placement.UpdateMatrix(entity->m_matrix);
++    }
++    const float objectX = (forwardOffset * entity->m_matrix->GetForward().x + sideOffset * entity->m_matrix->GetRight().x) + entityPosition.x;
++    if (!entity->m_matrix) {
++        entity->AllocateMatrix();
++        entity->m_placement.UpdateMatrix(entity->m_matrix);
++    }
++    if (!entity->m_matrix) {
++        entity->AllocateMatrix();
++        entity->m_placement.UpdateMatrix(entity->m_matrix);
++    }
++    const float objectY = (sideOffset * entity->m_matrix->GetRight().y + forwardOffset * entity->m_matrix->GetForward().y) + entityPosition.y;
++
++    const CVector& vehiclePosition = vehicle->GetPosition();
++    const float deltaX = objectX - vehiclePosition.x;
++    const float deltaY = objectY - vehiclePosition.y;
++    const float angle  = CGeneral::GetATanOfXY(deltaX, deltaY); // 0x53CC70
++
++    const float halfWidth = CModelInfo::GetModelInfo(static_cast<int16>(vehicle->m_nModelIndex))->GetColModel()->GetBoundingBox().m_vecMax.x * kWvCarWidthScale + kWvCarWidthBase;
++    const float distance  = std::sqrt(deltaY * deltaY + deltaX * deltaX);
++    const float ratio     = halfWidth / distance;
++    const float margin    = ratio * 0.5f;
++
++    auto difference = [angle](float bound) {
++        float diff = angle - bound;
++        if (diff < -kWvPi) {
++            do {
++                diff += kWvTwoPi;
++            } while (diff < -kWvPi);
++        }
++        if (diff > kWvPi) {
++            do {
++                diff -= kWvTwoPi;
++            } while (diff > kWvPi);
++        }
++        if (diff < 0.0f) {
++            diff = -diff;
++        }
++        return diff;
++    };
++
++    if (difference(*arg3) < margin) {
++        float bound = angle - margin;
++        *arg3 = bound;
++        if (bound < -kWvPi) {
++            do {
++                bound += kWvTwoPi;
++            } while (bound < -kWvPi);
++            *arg3 = bound;
++        }
++    }
++    if (difference(*arg4) < margin) {
++        float bound = angle + margin;
++        *arg4 = bound;
++        if (bound > kWvPi) {
++            do {
++                bound -= kWvTwoPi;
++            } while (bound > kWvPi);
++            *arg4 = bound;
++        }
++    }
+ }
+ 
+ // 0x426350
+ void CCarCtrl::WeaveForOtherCar(CEntity* entity, CVehicle* vehicle, float* arg3, float* arg4) {
+-    plugin::Call<0x426350, CEntity*, CVehicle*, float*, float*>(entity, vehicle, arg3, arg4);
++    // Como el original: aritmetica de float (x87 a 24 bits); los campos de "entity" se leen por desplazamiento como si fuera un vehiculo, salvo donde el EXE
++    // comprueba el tipo, y la matriz del vehiculo y la de entity se usan sin comprobar nulo.
++    auto& autoPilot = vehicle->m_autoPilot;
++    CEntity* const target = autoPilot.m_TargetEntity;
++    if (autoPilot.m_nCarMission == MISSION_RAMPLAYER_CLOSE) {
++        if (entity == FindPlayerVehicle(-1, false)) { // 0x56E0D0
++            return;
++        }
++    }
++    const eCarMission mission = autoPilot.m_nCarMission;
++    if (mission == MISSION_RAMCAR_CLOSE) {
++        if (entity == target) {
++            return;
++        }
++    }
++    if (mission == MISSION_FOLLOWCAR_CLOSE) {
++        if (entity == target) {
++            return;
++        }
++        if (entity->GetType() == ENTITY_TYPE_VEHICLE && (WvRaw<uint8>(entity, 0x42B) & 8)) {
++            return;
++        }
++    }
++    if (mission == MISSION_KILLPED_CLOSE) {
++        if (entity->GetType() == ENTITY_TYPE_PED && (WvRaw<uint32>(entity, 0x46C) & 0x100) && WvRaw<CEntity*>(entity, 0x58C) == target) {
++            return;
++        }
++    }
++    const int8 entityMission = WvRaw<int8>(entity, 0x3BA);
++    if (entityMission == MISSION_PROTECTION_REAR || entityMission == MISSION_PROTECTION_FRONT || entityMission == MISSION_ESCORT_FRONT
++        || entityMission == MISSION_ESCORT_REAR || entityMission == MISSION_ESCORT_LEFT || entityMission == MISSION_ESCORT_RIGHT) {
++        if (WvRaw<CEntity*>(entity, 0x41C) == vehicle) {
++            return;
++        }
++    }
++
++    const CVector& entityPosition  = entity->GetPosition();
++    const CVector& vehiclePosition = vehicle->GetPosition();
++    const CMatrix& vehicleMatrix   = *vehicle->m_matrix;
++    const float deltaX = entityPosition.x - vehiclePosition.x; // 0x14 (en el EXE)
++    const float deltaY = entityPosition.y - vehiclePosition.y; // 0x3C
++    const float alongForward = deltaY * vehicleMatrix.GetForward().y + deltaX * vehicleMatrix.GetForward().x;
++    if (alongForward < 0.0f) {
++        return;
++    }
++    const float alongRight = deltaY * vehicleMatrix.GetRight().y + deltaX * vehicleMatrix.GetRight().x;
++
++    const CBoundingBox& vehicleBox = CModelInfo::GetModelInfo(static_cast<int16>(vehicle->m_nModelIndex))->GetColModel()->GetBoundingBox();
++
++    // Cuatro esquinas del rectangulo del vehiculo (con margen) y direcciones de sus lados
++    const float aheadY = alongForward > 0.0f ? vehicleBox.m_vecMax.y + kWvMargin : vehicleBox.m_vecMin.y - kWvMargin;
++    const CVector frontCorner{ vehicleBox.m_vecMin.x - kWvMargin, aheadY, 0.0f };
++    const CVector vehicleCorner1 = WvMatrixTimesPoint(vehicle->m_matrix, frontCorner); // 0x59C890
++    const float vehicleWidth = ((vehicleBox.m_vecMax.x + kWvMargin) - vehicleBox.m_vecMin.x) - kWvMargin;
++    const CVector vehicleSide1 = WvMatrixTimesVector(vehicle->m_matrix, CVector{ vehicleWidth, 0.0f, 0.0f }); // 0x59C790
++    const float sideX = alongRight > 0.0f ? vehicleBox.m_vecMax.x + kWvMargin : vehicleBox.m_vecMin.x - kWvMargin;
++    const CVector rearCorner{ sideX, vehicleBox.m_vecMin.y - kWvMargin, 0.0f };
++    const CVector vehicleCorner2 = WvMatrixTimesPoint(vehicle->m_matrix, rearCorner);
++    const float vehicleLength = ((vehicleBox.m_vecMax.y + kWvMargin) - vehicleBox.m_vecMin.y) - kWvMargin;
++    const CVector vehicleSide2 = WvMatrixTimesVector(vehicle->m_matrix, CVector{ 0.0f, vehicleLength, 0.0f });
++
++    // Como el original: la matriz de entity se lee sin comprobar nulo; los productos escalares usan su derecha y su adelante
++    const CMatrix& entityMatrix = *entity->m_matrix;
++    const float entityAlongRight   = deltaY * entityMatrix.GetRight().y + deltaX * entityMatrix.GetRight().x;
++    const float entityAlongForward = deltaY * entityMatrix.GetForward().y + deltaX * entityMatrix.GetForward().x;
++    const CBoundingBox& entityBox = CModelInfo::GetModelInfo(static_cast<int16>(entity->m_nModelIndex))->GetColModel()->GetBoundingBox();
++    const float entityAheadY = entityAlongForward < 0.0f ? entityBox.m_vecMax.y + kWvMargin : entityBox.m_vecMin.y - kWvMargin;
++    const CVector entityCorner1 = WvMatrixTimesPoint(entity->m_matrix, CVector{ entityBox.m_vecMin.x - kWvMargin, entityAheadY, 0.0f });
++    const float entityWidth = ((entityBox.m_vecMax.x + kWvMargin) - entityBox.m_vecMin.x) - kWvMargin;
++    const CVector entitySide1 = WvMatrixTimesVector(entity->m_matrix, CVector{ entityWidth, 0.0f, 0.0f });
++    const float entitySideX = entityAlongRight < 0.0f ? entityBox.m_vecMax.x + kWvMargin : entityBox.m_vecMin.x - kWvMargin;
++    const CVector entityCorner2 = WvMatrixTimesPoint(entity->m_matrix, CVector{ entitySideX, entityBox.m_vecMin.y - kWvMargin, 0.0f });
++    const float entityLength = ((entityBox.m_vecMax.y + kWvMargin) - entityBox.m_vecMin.y) - kWvMargin;
++    const CVector entitySide2 = WvMatrixTimesVector(entity->m_matrix, CVector{ 0.0f, entityLength, 0.0f });
++
++    const bool entityIsWider = vehicleBox.m_vecMax.x < entityBox.m_vecMax.x;
++    const float speed = std::sqrt(vehicle->m_vecMoveSpeed.x * vehicle->m_vecMoveSpeed.x + vehicle->m_vecMoveSpeed.y * vehicle->m_vecMoveSpeed.y);
++    // Como el original: el argumento 13 es un dword de pila cuyo byte bajo es la bandera y cuyos tres altos son restos del producto escalar entityAlongRight (0x426641)
++    const uint32 flagArgument = (std::bit_cast<uint32>(entityAlongRight) & 0xFFFFFF00u) | (entityIsWider ? 1u : 0u);
++    const float entitySpeedX = entity->AsPhysical()->m_vecMoveSpeed.x;
++    const float entitySpeedY = entity->AsPhysical()->m_vecMoveSpeed.y;
++
++    using SweepTest = bool(__cdecl*)(float, const CVector*, const CVector*, const CVector*, const CVector*, const CVector*, const CVector*, const CVector*, const CVector*, float, float, float, uint32);
++    const auto sweepTest = reinterpret_cast<SweepTest>(0x421A50);
++    for (int32 step = 0; step < 8;) {
++        if (!sweepTest(*arg3, &vehicleCorner1, &vehicleSide1, &vehicleCorner2, &vehicleSide2, &entityCorner1, &entitySide1, &entityCorner2, &entitySide2, entitySpeedX, entitySpeedY, speed, flagArgument)) {
++            break;
++        }
++        step++;
++        float value = *arg3 - kWvStep;
++        *arg3 = value;
++        if (value < 0.0f) {
++            value += kWvTwoPi;
++            *arg3 = value;
++        }
++    }
++    for (int32 step = 0; step < 8;) {
++        if (!sweepTest(*arg4, &vehicleCorner1, &vehicleSide1, &vehicleCorner2, &vehicleSide2, &entityCorner1, &entitySide1, &entityCorner2, &entitySide2, entitySpeedX, entitySpeedY, speed, flagArgument)) {
++            break;
++        }
++        step++;
++        float value = *arg4 + kWvStep;
++        *arg4 = value;
++        if (value > kWvTwoPi) {
++            value -= kWvTwoPi;
++            *arg4 = value;
++        }
++    }
+ }
+ 
+ // 0x42D680

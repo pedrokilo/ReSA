@@ -1,0 +1,120 @@
+diff --git a/source/game_sa/CarCtrl.cpp b/source/game_sa/CarCtrl.cpp
+index ec26c1f..94f8a1c 100644
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -41,6 +41,7 @@ END GENERATED HOOK STATUS */
+ #include "TheCarGenerators.h"
+ #include "eAreaCodes.h"
+ #include "Events/EventPotentialGetRunOver.h"
++#include "Curves.h"
+ 
+ #include <reversiblebugfixes/Bugs.hpp>
+ #ifdef _MSC_VER
+@@ -104,6 +105,7 @@ void CCarCtrl::InjectHooks()
+     RH_ScopedInstall(WeaveThroughCarsSectorList<CPtrListDoubleLink<CVehicle*>>, 0x42D680);
+     RH_ScopedInstall(WeaveThroughPedsSectorList<CPtrListDoubleLink<CPed*>>, 0x42D7E0);
+     RH_ScopedInstall(WeaveThroughObjectsSectorList<CPtrListDoubleLink<CObject*>>, 0x42D950);
++    RH_ScopedInstall(UpdateCarOnRails, 0x436540);
+ }
+ 
+ // 0x4212E0
+@@ -1761,7 +1763,98 @@ void CCarCtrl::UpdateCarCount(CVehicle* vehicle, uint8 bDecrease) {
+ 
+ // 0x436540
+ void CCarCtrl::UpdateCarOnRails(CVehicle* vehicle) {
+-    plugin::Call<0x436540, CVehicle*>(vehicle);
++    // Como el original: aritmetica de float (x87 a 24 bits). Los enteros entran por fild (exactos) y se calculan en double antes de redondear una vez a float.
++    // Colaboradores sin reconstruir (0x422590, 0x432B10, 0x42EC90, 0x59C910) por su direccion.
++    plugin::Call<0x422590, CVehicle*>(vehicle);
++    auto& autoPilot = vehicle->m_autoPilot;
++    if (WvRaw<uint8>(vehicle, 0x3DC) & 1) { // m_nMovementFlags.bIsStopped
++        return;
++    }
++
++    const int32 tempAction = static_cast<int8>(autoPilot.m_nTempAction);
++    if (tempAction == 1 || tempAction == 24) { // TEMPACT_WAIT, TEMPACT_BRAKE
++        vehicle->m_vecMoveSpeed = CVector{ 0.0f, 0.0f, 0.0f };
++        autoPilot.ModifySpeed(0.0f); // 0x41B980
++        if (CTimer::GetTimeInMS() > autoPilot.m_nTempActionTime) {
++            autoPilot.m_nTempAction = TEMPACT_NONE;
++            autoPilot.m_nTimeToStartMission = CTimer::GetTimeInMS(); // dos lecturas separadas del reloj, como el EXE
++            autoPilot.m_nTimeSwitchedToRealPhysics = CTimer::GetTimeInMS();
++        }
++        return;
++    }
++    if (tempAction == 12) { // TEMPACT_STUCKINTRAFFIC
++        vehicle->m_vecMoveSpeed = CVector{ 0.0f, 0.0f, 0.0f };
++        autoPilot.ModifySpeed(0.0f);
++        return;
++    }
++
++    SlowCarOnRailsDownForTrafficAndLights(vehicle); // 0x434790
++    uint32 now = CTimer::GetTimeInMS();
++    const int32 limit = static_cast<int32>(autoPilot.field_C) + static_cast<int32>(autoPilot.m_nSpeedScaleFactor);
++    if (limit < 0 || now >= static_cast<uint32>(limit)) {
++        plugin::Call<0x432B10, CVehicle*>(vehicle);
++        now = CTimer::GetTimeInMS();
++    }
++    if ((WvRaw<uint8>(vehicle, 0x36) & 0xF8) == 0x18) { // estado 3
++        return;
++    }
++
++    // Tiempo normalizado del tramo: (now - field_C) como entero con signo, +2^32 si es negativo (float), / m_nSpeedScaleFactor (fidiv)
++    const int32  elapsed  = static_cast<int32>(now - static_cast<uint32>(autoPilot.field_C));
++    const double elapsedD = elapsed < 0 ? static_cast<double>(static_cast<float>(static_cast<double>(elapsed) + 4294967296.0)) : static_cast<double>(elapsed);
++    const float  progress = static_cast<float>(elapsedD / static_cast<double>(static_cast<int32>(autoPilot.m_nSpeedScaleFactor)));
++
++    const uint16 currentAddress = *reinterpret_cast<const uint16*>(&autoPilot.m_nCurrentPathNodeInfo);
++    const uint16 nextAddress    = *reinterpret_cast<const uint16*>(&autoPilot.m_nNextPathNodeInfo);
++    CCarPathLink* const linkA = &(&ThePaths.m_pNaviNodes[0])[currentAddress >> 10][currentAddress & 0x3FF];
++    CCarPathLink* const linkB = &(&ThePaths.m_pNaviNodes[0])[nextAddress >> 10][nextAddress & 0x3FF];
++    const uint8* const a = reinterpret_cast<const uint8*>(linkA);
++    const uint8* const b = reinterpret_cast<const uint8*>(linkB);
++
++    const float laneA = static_cast<float>(autoPilot._smthCurr); // +0x3B5
++    const float laneB = static_cast<float>(autoPilot._smthNext); // +0x3B6
++    const float aDirX = (static_cast<float>(static_cast<int8>(a[8])) * std::bit_cast<float>(0x3C23D70Au)) * laneA; // 0x858C58 (0.01f)
++    const float aDirY = (static_cast<float>(static_cast<int8>(a[9])) * std::bit_cast<float>(0x3C23D70Au)) * laneA;
++    const float bDirX = (static_cast<float>(static_cast<int8>(b[8])) * std::bit_cast<float>(0x3C23D70Au)) * laneB;
++    const float bDirY = (static_cast<float>(static_cast<int8>(b[9])) * std::bit_cast<float>(0x3C23D70Au)) * laneB;
++
++    float widthA = (linkA->OneWayLaneOffset() + static_cast<float>(autoPilot.m_nCurrentLane)) * std::bit_cast<float>(0x40ACCCCDu); // 0x44DB00, 0x858C50 (5.4f)
++    float widthB = (linkB->OneWayLaneOffset() + static_cast<float>(autoPilot.m_nNextLane)) * std::bit_cast<float>(0x40ACCCCDu);
++    if (static_cast<int32>(vehicle->m_nVehicleSubType) == 10) {
++        widthA = widthA + std::bit_cast<float>(0x3FBA9FBFu); // 0x859010 (1.458f)
++        widthB = widthB + std::bit_cast<float>(0x3FBA9FBFu);
++    }
++
++    // Variacion pequena segun la semilla del vehiculo y la direccion del tramo (enteros de 3 bits - 3)
++    const uint32 seed = WvRaw<uint16>(vehicle, 0x20);
++    constexpr float kJitter = std::bit_cast<float>(0x3C1374BCu); // 0x859048 (0.009f)
++    const float jitterA1 = static_cast<float>(static_cast<int32>((seed + currentAddress) & 7) - 3) * kJitter;
++    const float jitterA2 = static_cast<float>(static_cast<int32>(((seed + currentAddress) >> 3) & 7) - 3) * kJitter;
++    const float jitterB1 = static_cast<float>(static_cast<int32>((seed + nextAddress) & 7) - 3) * kJitter;
++    const float jitterB2 = static_cast<float>(static_cast<int32>(((seed + nextAddress) >> 3) & 7) - 3) * kJitter;
++
++    CVector directionA{ jitterA1 + aDirX, jitterA2 + aDirY, 0.0f };
++    CVector directionB{ jitterB1 + bDirX, jitterB2 + bDirY, 0.0f };
++    plugin::CallMethod<0x59C910, CVector*>(&directionA); // CVector::Normalise del EXE
++    plugin::CallMethod<0x59C910, CVector*>(&directionB);
++
++    constexpr float kEighth = 0.125f; // 0x858C48
++    const CVector start{ static_cast<float>(reinterpret_cast<const int16*>(a)[0]) * kEighth + widthA * aDirY, static_cast<float>(reinterpret_cast<const int16*>(a)[1]) * kEighth - widthA * aDirX, 0.0f };
++    const CVector end{ static_cast<float>(reinterpret_cast<const int16*>(b)[0]) * kEighth + widthB * bDirY, static_cast<float>(reinterpret_cast<const int16*>(b)[1]) * kEighth - widthB * bDirX, 0.0f };
++
++    CVector position;
++    CVector speed;
++    CCurves::CalcCurvePoint(start, end, directionA, directionB, progress, static_cast<int32>(autoPilot.m_nSpeedScaleFactor), position, speed); // 0x43C900
++    position.z = 15.0f;
++    plugin::Call<0x42EC90, CVehicle*, CVector*>(vehicle, &position);
++
++    constexpr float kPerSecond = std::bit_cast<float>(0x3C888889u); // 0x859044 (1/60)
++    speed.x = speed.x * kPerSecond;
++    speed.y = speed.y * kPerSecond;
++    speed.z = speed.z * kPerSecond;
++    if (*reinterpret_cast<const uint16*>(&autoPilot.m_nCurrentPathNodeInfo) != *reinterpret_cast<const uint16*>(&autoPilot.m_nNextPathNodeInfo)) {
++        vehicle->m_vecMoveSpeed = speed;
++    }
+ }
+ 
+ // 0x426BC0

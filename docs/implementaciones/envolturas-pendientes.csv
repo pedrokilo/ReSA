@@ -279,86 +279,24 @@ class,function,address,source,origins
 (helpers y globales sin clase),TextureBufferResize,,source/game_sa/RenderWare/D3DResourceSystem.cpp:93,envoltura en el código fuente
 (helpers y globales sin clase),TextureBufferSetup,,source/game_sa/RenderWare/D3DResourceSystem.cpp:84,envoltura en el código fuente
 (helpers y globales sin clase),TransformPoint,0x0059C890,source/game_sa/Entity/Vehicle/Plane.cpp:618,cohorte nuevo 2026-10-17
-CCarCtrl,ChooseModel,0x00424CE0,source/game_sa/CarCtrl.cpp:184,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,ClitargetOrientationToLink,0x00422760,source/game_sa/CarCtrl.cpp:223,cohorte nuevo 2026-10-17
-CCarCtrl,CreateConvoy,0x0042C740,source/game_sa/CarCtrl.cpp:398,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,CreatePoliceChase,0x0042C2B0,source/game_sa/CarCtrl.cpp:403,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,DealWithBend_Racing,0x00428040,source/game_sa/CarCtrl.cpp:408,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,DragCarToPoint,0x0042EC90,source/game_sa/CarCtrl.cpp:413,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,FindAngleToWeaveThroughTraffic,0x004325C0,source/game_sa/CarCtrl.cpp:418,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,FindIntersection2Lines,0x004226F0,source/game_sa/CarCtrl.cpp:333,cohorte nuevo 2026-10-17
-CCarCtrl,FindLinksToGoWithTheseNodes,0x0042B470,source/game_sa/CarCtrl.cpp:436,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,FindMaximumSpeedForThisCarInTraffic,0x00434400,source/game_sa/CarCtrl.cpp:441,cohorte 499 + envoltura en el código fuente
-CCarCtrl,FindNodesThisCarIsNearestTo,0x0042BD20,source/game_sa/CarCtrl.cpp:446,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,FindPathDirection,0x00422090,source/game_sa/CarCtrl.cpp:353,cohorte nuevo 2026-10-17
-CCarCtrl,FindPercDependingOnDistToLink,0x00422620,source/game_sa/CarCtrl.cpp:358,cohorte nuevo 2026-10-17
-CCarCtrl,FindSpeedMultiplier,0x004224E0,source/game_sa/CarCtrl.cpp:377,cohorte nuevo 2026-10-17
-CCarCtrl,FireHeliRocketsAtTarget,0x0042B270,source/game_sa/CarCtrl.cpp:625,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,FlyAIHeliInCertainDirection,0x00429A70,source/game_sa/CarCtrl.cpp:630,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,FlyAIHeliToTarget_FixedOrientation,0x00423940,source/game_sa/CarCtrl.cpp:635,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,FlyAIPlaneInCertainDirection,0x00423000,source/game_sa/CarCtrl.cpp:640,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,GenerateCarCreationCoors2,0x00424210,source/game_sa/CarCtrl.cpp:645,cohorte 499 + envoltura en el código fuente
-CCarCtrl,GenerateOneEmergencyServicesCar,0x0042B7D0,source/game_sa/CarCtrl.cpp:712,cohorte 499 + envoltura en el código fuente
-CCarCtrl,GenerateOneRandomCar,0x00430050,source/game_sa/CarCtrl.cpp:717,cohorte 499 + envoltura en el código fuente
-CCarCtrl,GetAIHeliToAttackPlayer,0x0042F3C0,source/game_sa/CarCtrl.cpp:762,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,GetAIHeliToFlyInDirection,0x0042A730,source/game_sa/CarCtrl.cpp:512,cohorte nuevo 2026-10-17
-CCarCtrl,GetAIPlaneToAttackPlayer,0x00429780,source/game_sa/CarCtrl.cpp:774,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,GetAIPlaneToDoDogFight,0x00429890,source/game_sa/CarCtrl.cpp:779,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,GetAIPlaneToDoDogFightAgainstPlayer,0x0042F370,source/game_sa/CarCtrl.cpp:527,cohorte nuevo 2026-10-17
-CCarCtrl,IsThisAnAppropriateNode,0x0042DAB0,source/game_sa/CarCtrl.cpp:837,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,JoinCarWithRoadSystem,0x0042F5A0,source/game_sa/CarCtrl.cpp:583,cohorte 499
-CCarCtrl,JoinCarWithRoadSystemGotoCoors,0x0042F870,source/game_sa/CarCtrl.cpp:588,cohorte 499
-CCarCtrl,PickNextNodeAccordingStrategy,0x00432B10,source/game_sa/CarCtrl.cpp:667,cohorte nuevo 2026-10-17
-CCarCtrl,PickNextNodeRandomly,0x0042DE80,source/game_sa/CarCtrl.cpp:1103,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,PickNextNodeToChaseCar,0x00426EF0,source/game_sa/CarCtrl.cpp:1108,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,PickNextNodeToFollowPath,0x00427740,source/game_sa/CarCtrl.cpp:1113,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,PossiblyRemoveVehicle,0x00424F80,source/game_sa/CarCtrl.cpp:1151,cohorte 499 + envoltura en el código fuente
-CCarCtrl,ReconsiderRoute,0x0042FC40,source/game_sa/CarCtrl.cpp:673,cohorte 499
-CCarCtrl,ScanForPedDanger,0x0042CE40,source/game_sa/CarCtrl.cpp:791,cohorte 499
-CCarCtrl,SetCoordsOfScriptCar,0x004342A0,source/game_sa/CarCtrl.cpp:1475,cohorte 499 + envoltura en el código fuente
-CCarCtrl,SetUpDriverAndPassengersForVehicle,0x004217C0,source/game_sa/CarCtrl.cpp:813,cohorte 499
-CCarCtrl,SlowCarDownForCarsSectorList,0x00432420,source/game_sa/CarCtrl.cpp:1527,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,SlowCarDownForObjectsSectorList,0x0042D4F0,source/game_sa/CarCtrl.cpp:1561,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,SlowCarDownForOtherCar,0x0042D0E0,source/game_sa/CarCtrl.cpp:955,cohorte nuevo 2026-10-17
-CCarCtrl,SlowCarDownForPedsSectorList,0x00425440,source/game_sa/CarCtrl.cpp:1725,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,SteerAIBoatWithPhysicsAttackingPlayer,0x00428DE0,source/game_sa/CarCtrl.cpp:999,cohorte nuevo 2026-10-17
-CCarCtrl,SteerAIBoatWithPhysicsCirclingPlayer,0x00429090,source/game_sa/CarCtrl.cpp:1004,cohorte nuevo 2026-10-17
-CCarCtrl,SteerAIBoatWithPhysicsHeadingForTarget,0x00428BE0,source/game_sa/CarCtrl.cpp:1009,cohorte nuevo 2026-10-17
-CCarCtrl,SteerAICarBlockingPlayerForwardAndBack,0x00422B20,source/game_sa/CarCtrl.cpp:1867,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,SteerAICarParkParallel,0x00433BA0,source/game_sa/CarCtrl.cpp:1872,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,SteerAICarParkPerpendicular,0x00433EA0,source/game_sa/CarCtrl.cpp:1877,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,SteerAICarTowardsPointInEscort,0x004336D0,source/game_sa/CarCtrl.cpp:1882,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,SteerAICarWithPhysics,0x00437C20,source/game_sa/CarCtrl.cpp:1887,cohorte 499 + envoltura en el código fuente
-CCarCtrl,SteerAICarWithPhysics_OnlyMission,0x00436A90,source/game_sa/CarCtrl.cpp:2003,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,SteerAICarWithPhysicsFollowPath,0x00434900,source/game_sa/CarCtrl.cpp:1892,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,SteerAICarWithPhysicsFollowPath_Racing,0x00435830,source/game_sa/CarCtrl.cpp:1897,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,SteerAICarWithPhysicsFollowPreRecordedPath,0x00432DD0,source/game_sa/CarCtrl.cpp:1902,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,SteerAICarWithPhysicsHeadingForTarget,0x00433280,source/game_sa/CarCtrl.cpp:1907,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,SteerAICarWithPhysicsTryingToBlockTarget,0x004335E0,source/game_sa/CarCtrl.cpp:1912,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,SteerAICarWithPhysicsTryingToBlockTarget_Stop,0x00428990,source/game_sa/CarCtrl.cpp:1064,cohorte nuevo 2026-10-17
-CCarCtrl,SteerAIHeliAsPoliceHeli,0x0042AAD0,source/game_sa/CarCtrl.cpp:1074,cohorte nuevo 2026-10-17
-CCarCtrl,SteerAIHeliFlyingAwayFromPlayer,0x0042ACB0,source/game_sa/CarCtrl.cpp:1079,cohorte nuevo 2026-10-17
-CCarCtrl,SteerAIHeliToCrashAndBurn,0x004238E0,source/game_sa/CarCtrl.cpp:1084,cohorte nuevo 2026-10-17
-CCarCtrl,SteerAIHeliToFollowEntity,0x0042A750,source/game_sa/CarCtrl.cpp:1089,cohorte nuevo 2026-10-17
-CCarCtrl,SteerAIHeliToKeepEntityInView,0x0042AEB0,source/game_sa/CarCtrl.cpp:1094,cohorte nuevo 2026-10-17
-CCarCtrl,SteerAIHeliToLand,0x0042AD30,source/game_sa/CarCtrl.cpp:1099,cohorte nuevo 2026-10-17
-CCarCtrl,SteerAIHeliTowardsTargetCoors,0x0042A630,source/game_sa/CarCtrl.cpp:1104,cohorte nuevo 2026-10-17
-CCarCtrl,SteerAIPlaneToCrashAndBurn,0x00423880,source/game_sa/CarCtrl.cpp:1109,cohorte nuevo 2026-10-17
-CCarCtrl,SteerAIPlaneToFollowEntity,0x004237F0,source/game_sa/CarCtrl.cpp:1114,cohorte nuevo 2026-10-17
-CCarCtrl,SteerAIPlaneTowardsTargetCoors,0x00423790,source/game_sa/CarCtrl.cpp:1119,cohorte nuevo 2026-10-17
-CCarCtrl,StopCarIfNodesAreInvalid,0x00422590,source/game_sa/CarCtrl.cpp:1124,cohorte nuevo 2026-10-17
-CCarCtrl,SwitchBetweenPhysicsAndGhost,0x004222A0,source/game_sa/CarCtrl.cpp:1129,cohorte nuevo 2026-10-17
-CCarCtrl,TestCollisionBetween2MovingRects,0x00425B30,source/game_sa/CarCtrl.cpp:2383,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,TestCollisionBetween2MovingRects_OnlyFrontBumper,0x00425F70,source/game_sa/CarCtrl.cpp:2388,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,TestWhetherToFirePlaneGuns,0x00429520,source/game_sa/CarCtrl.cpp:1155,cohorte nuevo 2026-10-17
-CCarCtrl,ThisVehicleShouldTryNotToTurn,0x00421FE0,source/game_sa/CarCtrl.cpp:1160,cohorte nuevo 2026-10-17
-CCarCtrl,TriggerDogFightMoves,0x00429300,source/game_sa/CarCtrl.cpp:1165,cohorte nuevo 2026-10-17
-CCarCtrl,UpdateCarOnRails,0x00436540,source/game_sa/CarCtrl.cpp:2538,cohorte 499 + envoltura en el código fuente
-CCarCtrl,WeaveForObject,0x00426BC0,source/game_sa/CarCtrl.cpp:2543,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,WeaveForOtherCar,0x00426350,source/game_sa/CarCtrl.cpp:2548,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,WeaveThroughCarsSectorList,0x0042D680,source/game_sa/CarCtrl.cpp:2554,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,WeaveThroughObjectsSectorList,0x0042D950,source/game_sa/CarCtrl.cpp:2560,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,WeaveThroughPedsSectorList,0x0042D7E0,source/game_sa/CarCtrl.cpp:2566,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,ClitargetOrientationToLink,0x00422760,source/game_sa/CarCtrl.cpp:404,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,CreateConvoy,0x0042C740,source/game_sa/CarCtrl.cpp:489,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,CreatePoliceChase,0x0042C2B0,source/game_sa/CarCtrl.cpp:494,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,DragCarToPoint,0x0042EC90,source/game_sa/CarCtrl.cpp:706,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,FindAngleToWeaveThroughTraffic,0x004325C0,source/game_sa/CarCtrl.cpp:711,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,FindNodesThisCarIsNearestTo,0x0042BD20,source/game_sa/CarCtrl.cpp:856,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,GenerateCarCreationCoors2,0x00424210,source/game_sa/CarCtrl.cpp:1240,cohorte 499 + envoltura en el código fuente
+CCarCtrl,GenerateEmergencyServicesCar,,source/game_sa/CarCtrl.cpp:1245,envoltura en el código fuente
+CCarCtrl,GenerateOneEmergencyServicesCar,0x0042B7D0,source/game_sa/CarCtrl.cpp:1250,cohorte 499 + envoltura en el código fuente
+CCarCtrl,GenerateOneRandomCar,0x00430050,source/game_sa/CarCtrl.cpp:1255,cohorte 499 + envoltura en el código fuente
+CCarCtrl,PickNextNodeRandomly,0x0042DE80,source/game_sa/CarCtrl.cpp:1814,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,PickNextNodeToChaseCar,0x00426EF0,source/game_sa/CarCtrl.cpp:1819,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,PickNextNodeToFollowPath,0x00427740,source/game_sa/CarCtrl.cpp:1824,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,PossiblyRemoveVehicle,0x00424F80,source/game_sa/CarCtrl.cpp:1862,cohorte 499 + envoltura en el código fuente
+CCarCtrl,SteerAICarWithPhysics,0x00437C20,source/game_sa/CarCtrl.cpp:3048,cohorte 499 + envoltura en el código fuente
+CCarCtrl,SteerAICarWithPhysics_OnlyMission,0x00436A90,source/game_sa/CarCtrl.cpp:3368,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,SteerAICarWithPhysicsFollowPath,0x00434900,source/game_sa/CarCtrl.cpp:3053,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,SteerAICarWithPhysicsFollowPath_Racing,0x00435830,source/game_sa/CarCtrl.cpp:3058,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CHeli,BlowUpCar,0x006C6D30,source/game_sa/Entity/Vehicle/Heli.cpp:300,cohorte nuevo 2026-10-17
 CHeli,CHeli,0x006C4190,source/game_sa/Entity/Vehicle/Plane.cpp:558,cohorte nuevo 2026-10-17
 CHeli,FindSwatPositionRelativeToHeli,0x006C4760,source/game_sa/Entity/Vehicle/Heli.cpp:179,cohorte nuevo 2026-10-17

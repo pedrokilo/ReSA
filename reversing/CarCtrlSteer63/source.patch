@@ -1,0 +1,251 @@
+diff --git a/source/game_sa/CarCtrl.cpp b/source/game_sa/CarCtrl.cpp
+index 8ed964e..e6bc68d 100644
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -36,6 +36,7 @@ END GENERATED HOOK STATUS */
+ #include "GangWars.h"
+ #include "Game.h"
+ #include "General.h"
++#include "X87Math.h"
+ #include "GameLogic.h"
+ #include "CutsceneMgr.h"
+ #include "TheCarGenerators.h"
+@@ -84,6 +85,9 @@ void CCarCtrl::InjectHooks()
+     RH_ScopedInstall(SlowCarDownForObject, 0x426220);
+     RH_ScopedInstall(SlowCarOnRailsDownForTrafficAndLights, 0x434790);
+     RH_ScopedInstall(FindMaxSteerAngle, 0x427FE0);
++    RH_ScopedInstall(SteerAICarWithPhysicsTryingToBlockTarget_Stop, 0x428990);
++    RH_ScopedInstall(SteerAICarWithPhysicsHeadingForTarget, 0x433280);
++    RH_ScopedInstall(SteerAICarWithPhysicsTryingToBlockTarget, 0x4335E0);
+     RH_ScopedInstall(GenerateRandomCars, 0x4341C0);
+     RH_ScopedInstall(ClearInterestingVehicleList, 0x423F00);
+     RH_ScopedInstall(RegisterVehicleOfInterest, 0x423DE0);
+@@ -1050,18 +1054,195 @@ void CCarCtrl::SteerAICarWithPhysicsFollowPreRecordedPath(CVehicle* vehicle, flo
+ }
+ 
+ // 0x433280
+-void CCarCtrl::SteerAICarWithPhysicsHeadingForTarget(CVehicle* vehicle, CPhysical* target, float arg3, float arg4, float* arg5, float* arg6, float* arg7, bool* arg8) {
+-    plugin::Call<0x433280, CVehicle*, CPhysical*, float, float, float*, float*, float*, bool*>(vehicle, target, arg3, arg4, arg5, arg6, arg7, arg8);
++void CCarCtrl::SteerAICarWithPhysicsHeadingForTarget(CVehicle* vehicle, CPhysical* target, float x, float y, float* steer, float* accel, float* brake, bool* handbrake) {
++    // Como el original: tres constantes del EXE (-pi, pi y 2*pi: 0x858CC0, 0x858CB8, 0x858CBC)
++    constexpr float kPi = std::bit_cast<float>(0x40490FDBu);
++    constexpr float kTwoPi = std::bit_cast<float>(0x40C90FDBu);
++
++    *handbrake = false;
++
++    // Direccion de avance (columna "top" de la matriz, sin comprobar nulo como el EXE), normalizada: con longitud 0 queda (1, y)
++    const CVector& forward = vehicle->m_matrix->GetForward();
++    float forwardX = forward.x;
++    float forwardY = forward.y;
++    const float forwardLength = std::sqrt(forwardY * forwardY + forwardX * forwardX);
++    if (forwardLength == 0.0f) {
++        forwardX = 1.0f;
++    } else {
++        const float inverse = 1.0f / forwardLength;
++        forwardX = inverse * forwardX;
++        forwardY = inverse * forwardY;
++    }
++
++    // Rumbo hacia el objetivo y rumbo del vehiculo; dos llamadas a 0x53CC70 en este orden
++    const CVector& pos = vehicle->GetPosition();
++    const float headingToTarget = CGeneral::GetATanOfXY(x - pos.x, y - pos.y);
++    const float vehicleHeading = CGeneral::GetATanOfXY(forwardX, forwardY);
++
++    // Con los estilos 2, 5 y 6 el rumbo se corrige con FindAngleToWeaveThroughTraffic (0x4325C0)
++    const auto style = vehicle->m_autoPilot.m_nCarDrivingStyle;
++    const bool weave = style == 2 || style == 5 || style == 6;
++    float diff = (weave ? FindAngleToWeaveThroughTraffic(vehicle, target, headingToTarget, vehicleHeading, 1.0f) : headingToTarget) - vehicleHeading;
++
++    // Normaliza a [-pi, pi]
++    while (diff < -kPi) {
++        diff += kTwoPi;
++    }
++    while (diff > kPi) {
++        diff -= kTwoPi;
++    }
++
++    // Giro brusco a velocidad: freno de mano
++    const CVector& moveSpeed = vehicle->m_vecMoveSpeed;
++    const float speed = std::sqrt((moveSpeed.x * moveSpeed.x + moveSpeed.y * moveSpeed.y) + moveSpeed.z * moveSpeed.z);
++    if (speed > 0.3f) { // 0x858C24
++        if ((diff < 0.0f ? -diff : diff) > 0.7f) { // 0x858CB0
++            *handbrake = true;
++        }
++    }
++
++    // Limita el giro a +-FindMaxSteerAngle (0x427FE0)
++    const float maxSteer = FindMaxSteerAngle(vehicle);
++    if (diff < -maxSteer) {
++        diff = -maxSteer;
++    }
++    if (diff > maxSteer) {
++        diff = maxSteer;
++    }
++
++    // Segunda llamada a 0x53CC70 con la resta hecha por el x87 sin redondear antes (X87Math.cpp), y 0x4224E0 con (0.4, 1.2, 0.4)
++    const CVector& pos2 = vehicle->GetPosition();
++    const float angleError = CarCtrlSteer63AtanMinusCpp(x - pos2.x, y - pos2.y, vehicleHeading);
++    const float multiplier = FindSpeedMultiplier(angleError, 0.4f, 1.2f, 0.4f);
++
++    // Aceleracion/freno: (multiplicador * velocidad de crucero) - (|v| * 60), con |v| calculada en el orden z, y, x
++    const float speedForAi = std::sqrt((moveSpeed.z * moveSpeed.z + moveSpeed.y * moveSpeed.y) + moveSpeed.x * moveSpeed.x) * GAME_SPEED_TO_CAR_AI_SPEED;
++    *brake = 0.0f;
++    const float error = multiplier * static_cast<float>(vehicle->m_autoPilot.m_nCruiseSpeed) - speedForAi;
++    if (error > 0.0f) {
++        if (speedForAi < 25.0f) { // 0x858FE8
++            const float scaled = 0.1f * error; // 0x858B1C
++            *accel = 1.0f < scaled ? 1.0f : scaled;
++        } else {
++            *accel = 1.0f;
++        }
++        // Subtipo 10 (0x594) con error > 3 y temporizador (0x818) agotado: lo rearma a 10
++        if (*reinterpret_cast<int32*>(reinterpret_cast<uint8*>(vehicle) + 0x594) == 10 && error > 3.0f) {
++            float& timer = *reinterpret_cast<float*>(reinterpret_cast<uint8*>(vehicle) + 0x818);
++            if (timer <= 0.0f) {
++                timer = 10.0f;
++            }
++        }
++    } else {
++        const float scaled = error * -0.05f; // 0x85901C
++        *accel = 0.0f;
++        *brake = 0.5f < scaled ? 0.5f : scaled; // 0x858B8C
++    }
++    *steer = diff;
+ }
+ 
+ // 0x4335E0
+ void CCarCtrl::SteerAICarWithPhysicsTryingToBlockTarget(CVehicle* vehicle, CEntity* Unusued, float arg3, float arg4, float arg5, float arg6, float* arg7, float* arg8, float* arg9, bool* arg10) {
+-    plugin::Call<0x4335E0, CVehicle*, CEntity*, float, float, float, float, float*, float*, float*, bool*>(vehicle, Unusued, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10);
++    // (arg5, arg6) es la velocidad del objetivo: se limita a longitud 0.13 (0x859020) y se proyecta 60 fotogramas desde (arg3, arg4)
++    float directionX = arg5;
++    float directionY = arg6;
++    const float length = std::sqrt(directionX * directionX + directionY * directionY);
++    if (length > 0.13f) { // con NaN (comparacion desordenada) no escala, como el EXE
++        const float scale = 0.13f / length;
++        directionX = directionX * scale;
++        directionY = directionY * scale;
++    }
++    const float targetX = directionX * GAME_SPEED_TO_CAR_AI_SPEED + arg3;
++    const float targetY = directionY * GAME_SPEED_TO_CAR_AI_SPEED + arg4;
++    vehicle->m_autoPilot.m_nCarDrivingStyle = static_cast<eCarDrivingStyle>(2);
++    SteerAICarWithPhysicsHeadingForTarget(vehicle, nullptr, targetX, targetY, arg7, arg8, arg9, arg10);
++
++    // Cerca del punto (a menos de 5 m): alterna la mision 0x12 -> 0x13; cualquier otra -> 6
++    const CVector& pos = vehicle->GetPosition();
++    const float distanceSq = (targetY - pos.y) * (targetY - pos.y) + (targetX - pos.x) * (targetX - pos.x);
++    if (distanceSq < 25.0f) { // 0x858FE8
++        vehicle->m_autoPilot.m_nCarMission = static_cast<eCarMission>(vehicle->m_autoPilot.m_nCarMission == static_cast<eCarMission>(0x12) ? 0x13 : 6);
++    }
+ }
+ 
+ // 0x428990
+ void CCarCtrl::SteerAICarWithPhysicsTryingToBlockTarget_Stop(CVehicle* vehicle, float x, float y, float arg4, float arg5, float* arg6, float* arg7, float* arg8, bool* arg9) {
+-    plugin::Call<0x428990, CVehicle*, float, float, float, float, float*, float*, float*, bool*>(vehicle, x, y, arg4, arg5, arg6, arg7, arg8, arg9);
++    // Mision 0x13 (BLOCKCAR_HANDBRAKESTOP) / 0x12 (BLOCKCAR_CLOSE) / 5 y 6 (BLOCKPLAYER_*): se comparan por numero
++    *arg6 = 0.0f;
++    *arg7 = 0.0f;
++    *arg8 = 1.0f;
++    *arg9 = true;
++
++    auto& autoPilot = vehicle->m_autoPilot;
++    const CVector& pos = vehicle->GetPosition();
++    const float distanceSq = (pos.y - y) * (pos.y - y) + (pos.x - x) * (pos.x - x);
++
++    // Lejos (> 10 m): la mision pasa a su version "close" y no hace nada mas
++    if (distanceSq > 100.0f) { // 0x858628
++        autoPilot.m_nCarMission = static_cast<eCarMission>(autoPilot.m_nCarMission == static_cast<eCarMission>(0x13) ? 0x12 : 5);
++        return;
++    }
++
++    const auto tellOccupantsToLeave = [&] {
++        CCarAI::TellOccupantsToLeaveCar(vehicle); // 0x41C760
++        autoPilot.m_nCruiseSpeed = 0;
++        autoPilot.m_nCarMission = MISSION_NONE;
++    };
++
++    // El EXE vuelve a pedir FindPlayerVehicle(-1, false) cada vez que lo usa
++    const auto playerSpeedBelowLimit = [] {
++        const CVector& playerSpeed = FindPlayerVehicle(-1, false)->m_vecMoveSpeed;
++        const float magnitude = std::sqrt((playerSpeed.x * playerSpeed.x + playerSpeed.y * playerSpeed.y) + playerSpeed.z * playerSpeed.z);
++        return magnitude < 0.05f; // 0x858C28
++    };
++
++    if (autoPilot.m_nCarMission == static_cast<eCarMission>(0x13)) {
++        if (CPed* const driver = vehicle->m_pDriver) {
++            if (CTask* const task = driver->GetTaskManager().GetActiveTask()) { // 0x681720
++                if (task->GetTaskType() == TASK_COMPLEX_KILL_CRIMINAL) { // 0x451
++                    return;
++                }
++            }
++        }
++        const CVector& moveSpeed = vehicle->m_vecMoveSpeed;
++        if (!(moveSpeed.x * moveSpeed.x + moveSpeed.y * moveSpeed.y < 0.0001f)) { // 0x858FC4
++            return;
++        }
++        if (!(arg4 * arg4 + arg5 * arg5 < 0.0004f)) { // 0x858FC0
++            return;
++        }
++        if (!vehicle->vehicleFlags.bIsLawEnforcer) {
++            return;
++        }
++        tellOccupantsToLeave();
++        return;
++    }
++
++    if (FindPlayerVehicle(-1, false) && playerSpeedBelowLimit()) {
++        // temporizador (uint16) = trunc(paso de tiempo * 16.666... + temporizador)
++        const float next = CTimer::ms_fTimeStep * 16.666666f + static_cast<float>(static_cast<uint16>(vehicle->m_nCopsInCarTimer)); // 0x858CF0
++        vehicle->m_nCopsInCarTimer = static_cast<int16>(static_cast<int64>(next));
++    } else {
++        vehicle->m_nCopsInCarTimer = 0;
++    }
++
++    if (FindPlayerVehicle(-1, false)) {
++        if (!FindPlayerVehicle(-1, false)->IsUpsideDown()) { // 0x6D1D90
++            if (!playerSpeedBelowLimit()) {
++                return;
++            }
++            if (static_cast<uint16>(vehicle->m_nCopsInCarTimer) <= 0x9C4u) {
++                return;
++            }
++        }
++    }
++    if (!vehicle->vehicleFlags.bIsLawEnforcer) {
++        return;
++    }
++    if (!(distanceSq < 100.0f)) {
++        return;
++    }
++    tellOccupantsToLeave();
+ }
+ 
+ // 0x436A90
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 2e5b596..e18a298 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -13783,4 +13783,12 @@ __declspec(noinline) double __cdecl Garage63DoorDistSqCpp(float d0x, float v0x,
+ __declspec(noinline) bool __cdecl Garage63TopMinus2GreaterCpp(float topZ, float z) {
+     return double(topZ) - 2.0 > double(z);
+ }
++
++// --- Lote 63c: CCarCtrl::SteerAICarWithPhysicsHeadingForTarget (0x433280), prefijo CarCtrlSteer63. Anadir al FINAL de X87Math.cpp ---
++// 0x433479..0x43347E: la ultima llamada a 0x53CC70 deja el fpatan SIN redondear en ST0 y el EXE le resta el rumbo del vehiculo (un float en memoria) antes de guardar el resultado:
++// GetATanOfXY(x, y) - hf con un solo redondeo (un float intermedio redondearia dos veces).
++namespace CGeneral { float GetATanOfXY(float x, float y); }
++__declspec(noinline) float __cdecl CarCtrlSteer63AtanMinusCpp(float x, float y, float hf) {
++    return CGeneral::GetATanOfXY(x, y) - hf;
++}
+ #pragma float_control(pop)
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index d6a3c99..8fca8dc 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1662,3 +1662,7 @@ double __cdecl Garage63CenterDistSqCpp(const float* g, float x1, float x2, float
+ double __cdecl Garage63DoorDistSqCpp(float d0x, float v0x, float d1x, float v1x, float d2y, float v2y, float d3y, float v3y);
+ // 0x44C3F1..0x44C3FD: topZ - 2.0f (x87, sin guardar) > z (comparacion ordenada).
+ bool __cdecl Garage63TopMinus2GreaterCpp(float topZ, float z);
++
++// --- Lote 63c: CCarCtrl::SteerAICarWithPhysicsHeadingForTarget (0x433280), prefijo CarCtrlSteer63. Anadir al FINAL de X87Math.h ---
++// GetATanOfXY(x, y) - hf (0x433479..0x43347E): el fpatan de 0x53CC70 se resta SIN redondear a float antes; devuelve el resultado de 24 bits.
++float __cdecl CarCtrlSteer63AtanMinusCpp(float x, float y, float hf);

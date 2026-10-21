@@ -1,0 +1,3 @@
+APROBADO: CarCtrlWeave63C
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-carctrlweave63c\20261020-234540-793790

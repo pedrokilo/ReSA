@@ -1,0 +1,177 @@
+diff --git a/source/game_sa/CarCtrl.cpp b/source/game_sa/CarCtrl.cpp
+index 593d9d7..9316702 100644
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -64,6 +64,9 @@ float __cdecl Cc63eRatioCpp(int randValue);
+ bool __cdecl Cc63eTierExceedsCpp(float a, float b, float c, int count, float total, float roll);  // (a [+ b [+ c]]) / total > roll, ordenada
+ int __cdecl Cc63ePickRollCpp(int randValue, int total);                                       // ftol2((fild(r & 0xFFFF) * (1/65536)) * total)
+ int __cdecl Cc63eGroupRollCpp(int randValue);                                                 // ftol2(fild(r & 0xFFFF) * (1/65536) * 23.0f)
++// Ayudantes x87 de la tanda 6 (IsThisAnAppropriateNode), definidos al final de X87Math.cpp.
++bool __cdecl Cc63fCrossZNegativeCpp(const float* node3, const float* point, const float* node2);   // ((nodo3 - nodo2) x (nodo3 - punto)).z < 0 (CrossProduct 0x59C730 en el orden del EXE)
++bool __cdecl Cc63fRightDotNegativeCpp(const float* right, const float* node3, const float* point);  // DotProduct(derecha, nodo3 - punto) < 0 (0x40FDB0: suma en el orden z, y, x)
+ 
+ auto& apCarsToKeep = StaticRef<CVehicle*[2]>(0x969084);
+ auto& aCarsToKeepTime = StaticRef<std::array<uint32, 2>>(0x96907C);
+@@ -115,6 +118,8 @@ void CCarCtrl::InjectHooks()
+     RH_ScopedInstall(FindLinksToGoWithTheseNodes, 0x42B470);
+     // Lote 63 (parte C, tanda 5)
+     RH_ScopedInstall(ChooseModel, 0x424CE0);
++    // Lote 63 (parte C, tanda 6)
++    RH_ScopedInstall(IsThisAnAppropriateNode, 0x42DAB0);
+     RH_ScopedInstall(JoinCarWithRoadAccordingToMission, 0x432CB0);
+     RH_ScopedInstall(PossiblyFireHSMissile, 0x429600);
+     RH_ScopedInstall(PruneVehiclesOfInterest, 0x423F10);
+@@ -845,7 +850,123 @@ bool CCarCtrl::IsAnyoneParking() {
+ 
+ // 0x42DAB0
+ bool CCarCtrl::IsThisAnAppropriateNode(CVehicle* vehicle, CNodeAddress nodeAddress1, CNodeAddress nodeAddress2, CNodeAddress nodeAddress3, bool arg5) {
+-    return plugin::CallAndReturn<bool, 0x42DAB0, CVehicle*, CNodeAddress, CNodeAddress, CNodeAddress, bool>(vehicle, nodeAddress1, nodeAddress2, nodeAddress3, arg5);
++    // Como el original (0x42DAB0..0x42DE53). nodo3 sin cargar o igual al nodo1 -> false; el nodo2 se lee SIN comprobar su area. Los bytes +0x18 de los nodos 2 y 3 (bit 7 = agua; 0x10 y 0x20)
++    // y el byte +0x1A del 3 (>> 4 = tipo 1..10; el resto, tipo por defecto): si difiere el bit de agua y el modelo no es 539 (0x21B) -> false. Tipo 1: no de mision (+0x4A4 == 2), conductor
++    // (+0x460) sin byte +0x484 == 2, informacion del modelo (+0x4D) != 5 y, si !arg5, el producto vectorial z de ((nodo3 - nodo2) x (nodo3 - posicion)) no negativo; tipo 2: lo mismo pero sin la
++    // comprobacion del modelo al principio y con DotProduct(derecha del vehiculo, nodo3 - posicion) no negativo; los dos continuan con IsLawEnforcementVehicle, modelo != 5, conductor con +0x598 != 0x14,
++    // IsAnyoneParking y FindObjectsKindaColliding (radio 5.0f, solo vehiculos, maximo 2) sin objetos. Tipos 5 y 10: arg5 -> false y col.max.y (modelo +0x14, +0x14) < 2.0f -> false; tipos 8 y 9:
++    // arg5 -> false, +0x14 > 1.5f, +0x0C > 2.0f o +0x10 > 4.0f -> false. Los tipos 5, 8, 9 y 10 que sobreviven, y los demas, siguen con las banderas de nodo y devuelven !arg5.
++    auto* const raw = reinterpret_cast<uint8*>(vehicle);
++    CPathNode* const area3 = ThePaths.m_pPathNodes[nodeAddress3.m_wAreaId];
++    if (!area3) {
++        return false;
++    }
++    if (nodeAddress1.m_wAreaId == nodeAddress3.m_wAreaId && nodeAddress1.m_wNodeId == nodeAddress3.m_wNodeId) {
++        return false;
++    }
++    const uint8* const node2 = reinterpret_cast<const uint8*>(ThePaths.m_pPathNodes[nodeAddress2.m_wAreaId]) + static_cast<size_t>(nodeAddress2.m_wNodeId) * 0x1C;
++    const uint8* const node3 = reinterpret_cast<const uint8*>(area3) + static_cast<size_t>(nodeAddress3.m_wNodeId) * 0x1C;
++    const uint8 flags2 = node2[0x18];
++    const uint8 flags3 = node3[0x18];
++    if (((flags2 ^ flags3) & 0x80) && static_cast<int16>(vehicle->m_nModelIndex) != 0x21B) {
++        return false;
++    }
++    const auto modelInfo = [&] { return reinterpret_cast<const uint8*>(CModelInfo::ms_modelInfoPtrs[static_cast<int16>(vehicle->m_nModelIndex)]); };
++    const auto driver = [&] { return *reinterpret_cast<const uint8* const*>(raw + 0x460); };
++    const auto nodePosition = [](const uint8* node) {
++        return CVector{ static_cast<float>(*reinterpret_cast<const int16*>(node + 8)) * 0.125f, static_cast<float>(*reinterpret_cast<const int16*>(node + 0xA)) * 0.125f,
++                        static_cast<float>(*reinterpret_cast<const int16*>(node + 0xC)) * 0.125f };
++    };
++    const auto freeOfObjects = [&] {
++        const CVector position = nodePosition(node3);
++        int16 count;
++        CWorld::FindObjectsKindaColliding(position, 5.0f, true, &count, 2, nullptr, false, true, false, false, false);
++        return count == 0;
++    };
++    const auto commonTail = [&]() -> bool {
++        if (vehicle->IsLawEnforcementVehicle()) {
++            return false;
++        }
++        if (modelInfo()[0x4D] == 5) {
++            return false;
++        }
++        if (const uint8* const d = driver(); d && *reinterpret_cast<const int32*>(d + 0x598) == 0x14) {
++            return false;
++        }
++        if (IsAnyoneParking()) {
++            return false;
++        }
++        return freeOfObjects();
++    };
++    const uint32 kind = static_cast<uint32>(node3[0x1A] >> 4) - 1u;
++    bool useDefault = false;
++    if (kind == 0 || kind == 1) {
++        if (raw[0x4A4] == 2) {
++            return false;
++        }
++        if (const uint8* const d = driver(); d && d[0x484] == 2) {
++            return false;
++        }
++        if (kind == 0 && modelInfo()[0x4D] == 5) {
++            return false;
++        }
++        if (!arg5) {
++            const CVector position3 = nodePosition(node3);
++            const CVector position2 = nodePosition(node2);
++            const CVector& point = vehicle->GetPosition();
++            if (kind == 0) {
++                if (Cc63fCrossZNegativeCpp(&position3.x, &point.x, &position2.x)) {
++                    return false;
++                }
++            } else {
++                CVector right;
++                reinterpret_cast<CVector*(__thiscall*)(CVehicle*, CVector*)>(0x41CC70)(vehicle, &right);
++                if (Cc63fRightDotNegativeCpp(&right.x, &position3.x, &point.x)) {
++                    return false;
++                }
++            }
++        }
++        return commonTail();
++    } else if (kind == 4 || kind == 9) {
++        if (arg5) {
++            return false;
++        }
++        const float* const col = *reinterpret_cast<const float* const*>(modelInfo() + 0x14);
++        if (col[5] < 2.0f) {
++            return false;
++        }
++        useDefault = true;
++    } else if (kind == 7 || kind == 8) {
++        if (arg5) {
++            return false;
++        }
++        const float* const col = *reinterpret_cast<const float* const*>(modelInfo() + 0x14);
++        if (col[5] > 1.5f) {
++            return false;
++        }
++        if (col[3] > 2.0f) {
++            return false;
++        }
++        if (col[4] > 4.0f) {
++            return false;
++        }
++        useDefault = true;
++    } else {
++        useDefault = true;
++    }
++    (void)useDefault;
++    if (raw[0x4A4] == 2 && raw[0x3BA] == 1) {
++        if ((node3[0x19] & 4) && !(node2[0x19] & 4)) {
++            return false;
++        }
++    }
++    if ((flags3 & 0x10) && !(flags2 & 0x10)) {
++        return false;
++    }
++    if ((flags3 & 0x20) && !(flags2 & 0x20)) {
++        return false;
++    }
++    return !arg5;
+ }
+ 
+ // 0x423EA0
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 91f97ca..b498b35 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -13980,3 +13980,24 @@ int __cdecl Cc63eGroupRollCpp(int randValue) {
+     const double v = (double(randValue & 0xFFFF) * 3.0517578125e-05) * 23.0;
+     return int(__int64(v));
+ }
++
++// --- Lote 63: CCarCtrl (parte C, tanda 6), prefijo Cc63f. Anadir al FINAL de X87Math.cpp (se declaran en CarCtrl.cpp, no en X87Math.h) ---
++// CCarCtrl::IsThisAnAppropriateNode (0x42DAB0): v1 = nodo3 - punto y v2 = nodo3 - nodo2 (0x40FE60: z, y, x; cada resta redondeada a 24 bits y guardada como float); CrossProduct (0x59C730) con a = v2, b = v1:
++// z = a.x * b.y - b.x * a.y (productos y resta a 24 bits, guardado como float); el llamador compara ese float con 0 (menor, ordenado).
++bool __cdecl Cc63fCrossZNegativeCpp(const float* node3, const float* point, const float* node2) {
++    volatile float v1x = float(double(node3[0]) - double(point[0]));
++    volatile float v1y = float(double(node3[1]) - double(point[1]));
++    volatile float v2x = float(double(node3[0]) - double(node2[0]));
++    volatile float v2y = float(double(node3[1]) - double(node2[1]));
++    volatile float z = float(double(v2x) * double(v1y) - double(v1x) * double(v2y));
++    return z < 0.0f;
++}
++// DotProduct (0x40FDB0) de la derecha del vehiculo y v1 = nodo3 - punto: (a.z * b.z + a.y * b.y) + a.x * b.x a 24 bits, resultado en ST0 (sin guardar) comparado (menor, ordenado) con 0.
++bool __cdecl Cc63fRightDotNegativeCpp(const float* right, const float* node3, const float* point) {
++    volatile float v1x = float(double(node3[0]) - double(point[0]));
++    volatile float v1y = float(double(node3[1]) - double(point[1]));
++    volatile float v1z = float(double(node3[2]) - double(point[2]));
++    const double zy = double(right[2]) * double(v1z) + double(right[1]) * double(v1y);
++    const double dot = zy + double(right[0]) * double(v1x);
++    return dot < 0.0;
++}

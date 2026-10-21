@@ -1,0 +1,1166 @@
+diff --git a/source/game_sa/CarCtrl.cpp b/source/game_sa/CarCtrl.cpp
+index 8ed964ec3..931670289 100644
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -40,12 +40,34 @@ END GENERATED HOOK STATUS */
+ #include "CutsceneMgr.h"
+ #include "TheCarGenerators.h"
+ #include "eAreaCodes.h"
++#include "X87Math.h"
++#include "Collision/ColStore.h"
++#include "Entity/Vehicle/Automobile.h"
++#include "Entity/Vehicle/Bike.h"
++#include "DamageManager.h"
+ 
+ #include <reversiblebugfixes/Bugs.hpp>
+ #ifdef _MSC_VER
+ #pragma warning(pop)
+ #endif
+ 
++// CPathNode::GetPosition (0x420A10) se llama fuera de linea, una vez por lectura, como hace el EXE (puntero volatil: impide inlinearlo).
++static CVector (CPathNode::* volatile const cc63GetNodePosition)() const = &CPathNode::GetPosition;
++
++// Ayudantes x87 de la tanda 3 (definidos al final de X87Math.cpp; declarados aqui para no recompilar todo el proyecto al tocar X87Math.h).
++float __cdecl Cc63cLinkDistanceCpp(int node2X, int node2Y, int node1X, int node1Y);                               // JoinCarWithRoadSystem: distancia entre dos nodos (x, y enteros de 16 bits / 8)
++bool __cdecl Cc63cDotNegativeCpp(int node1X, int node1Y, int node3X, int node3Y, float forwardX, float forwardY);  // JoinCarWithRoadSystem: producto escalar con el vector adelante < 0
++// Ayudantes x87 de la tanda 5 (ChooseModel), definidos al final de X87Math.cpp.
++int __cdecl Cc63eTotalCpp(float a, float b, float c, float d);                                // ftol2(((a + b) + c) + d)
++bool __cdecl Cc63eRollFailsCpp(int randValue);                                                // ftol2(fild(r & 0xFFFF) * (1/65536) * 100.0f) != 0
++float __cdecl Cc63eRatioCpp(int randValue);                                                   // fild(r) * 0x38000100 guardado como float
++bool __cdecl Cc63eTierExceedsCpp(float a, float b, float c, int count, float total, float roll);  // (a [+ b [+ c]]) / total > roll, ordenada
++int __cdecl Cc63ePickRollCpp(int randValue, int total);                                       // ftol2((fild(r & 0xFFFF) * (1/65536)) * total)
++int __cdecl Cc63eGroupRollCpp(int randValue);                                                 // ftol2(fild(r & 0xFFFF) * (1/65536) * 23.0f)
++// Ayudantes x87 de la tanda 6 (IsThisAnAppropriateNode), definidos al final de X87Math.cpp.
++bool __cdecl Cc63fCrossZNegativeCpp(const float* node3, const float* point, const float* node2);   // ((nodo3 - nodo2) x (nodo3 - punto)).z < 0 (CrossProduct 0x59C730 en el orden del EXE)
++bool __cdecl Cc63fRightDotNegativeCpp(const float* right, const float* node3, const float* point);  // DotProduct(derecha, nodo3 - punto) < 0 (0x40FDB0: suma en el orden z, y, x)
++
+ auto& apCarsToKeep = StaticRef<CVehicle*[2]>(0x969084);
+ auto& aCarsToKeepTime = StaticRef<std::array<uint32, 2>>(0x96907C);
+ 
+@@ -74,6 +96,30 @@ void CCarCtrl::InjectHooks()
+     RH_ScopedInstall(GetNewVehicleDependingOnCarModel, 0x421440);
+     RH_ScopedInstall(IsAnyoneParking, 0x42C250);
+     RH_ScopedInstall(IsThisVehicleInteresting, 0x423EA0);
++    // Lote 63 (parte C)
++    RH_ScopedInstall(ThisVehicleShouldTryNotToTurn, 0x421FE0);
++    RH_ScopedInstall(FindPathDirection, 0x422090);
++    RH_ScopedInstall(SwitchBetweenPhysicsAndGhost, 0x4222A0);
++    RH_ScopedNamedGlobalInstall(Cc63SpeedMultiplierCpp, "FindSpeedMultiplier", 0x4224E0);
++    RH_ScopedInstall(StopCarIfNodesAreInvalid, 0x422590);
++    RH_ScopedInstall(FindPercDependingOnDistToLink, 0x422620);
++    RH_ScopedNamedGlobalInstall(Cc63Intersection2LinesCpp, "FindIntersection2Lines", 0x4226F0);
++    // Lote 63 (parte C, tanda 2)
++    RH_ScopedInstall(SetUpDriverAndPassengersForVehicle, 0x4217C0);
++    RH_ScopedInstall(ScanForPedDanger, 0x42CE40);
++    RH_ScopedInstall(SetCoordsOfScriptCar, 0x4342A0);
++    RH_ScopedInstall(FindMaximumSpeedForThisCarInTraffic, 0x434400);
++    // Lote 63 (parte C, tanda 3)
++    RH_ScopedInstall(PickNextNodeAccordingStrategy, 0x432B10);
++    RH_ScopedInstall(JoinCarWithRoadSystem, 0x42F5A0);
++    RH_ScopedInstall(JoinCarWithRoadSystemGotoCoors, 0x42F870);
++    // Lote 63 (parte C, tanda 4)
++    RH_ScopedInstall(ReconsiderRoute, 0x42FC40);
++    RH_ScopedInstall(FindLinksToGoWithTheseNodes, 0x42B470);
++    // Lote 63 (parte C, tanda 5)
++    RH_ScopedInstall(ChooseModel, 0x424CE0);
++    // Lote 63 (parte C, tanda 6)
++    RH_ScopedInstall(IsThisAnAppropriateNode, 0x42DAB0);
+     RH_ScopedInstall(JoinCarWithRoadAccordingToMission, 0x432CB0);
+     RH_ScopedInstall(PossiblyFireHSMissile, 0x429600);
+     RH_ScopedInstall(PruneVehiclesOfInterest, 0x423F10);
+@@ -178,7 +224,82 @@ eModelID CCarCtrl::ChooseGangCarModel(eGangID loadedCarGroupId) {
+ 
+ // 0x424CE0
+ int32 CCarCtrl::ChooseModel(int32* arg1) {
+-    return plugin::CallAndReturn<int32, 0x424CE0, int32*>(arg1);
++    // Como el original (0x424CE0..0x424F7F). rand es el del EXE (0x821B1E). Suma de las cuatro densidades (CPopCycle 0xC0BC30..3C, float, x87 24 bits) truncada con _ftol2; <= 0 -> -1.
++    // Con el byte 0x96917A: un rand & 0xFFFF * 1/65536 * 100.0f truncado distinto de 0 -> -1. Se sortea f = rand (sin enmascarar) * 0x38000100 como float y t = (float)total y la
++    // categoria es la primera cuyo acumulado / t supera a f: dealers (0x19: el modelo es [0xC0F240] si esta cargado, si no -1), pandillas (con el byte 0x96915B tambien),
++    // policia (13: ni guerra de pandillas ni coches de policia prohibidos -> ChoosePoliceCarModel(0)) u otros (0: [0xA4448C] o PickRandomCar(true, false)).
++    const auto exeRand = reinterpret_cast<int(__cdecl*)()>(0x821B1E);
++    const int32 total = Cc63eTotalCpp(CPopCycle::m_NumOther_Cars, CPopCycle::m_NumCops_Cars, CPopCycle::m_NumGangs_Cars, CPopCycle::m_NumDealers_Cars);
++    if (total <= 0) {
++        return -1;
++    }
++    if (StaticRef<uint8>(0x96917A)) {
++        if (Cc63eRollFailsCpp(exeRand())) {
++            return -1;
++        }
++    }
++    volatile float roll = Cc63eRatioCpp(exeRand());
++    const uint8 flag = StaticRef<uint8>(0x96915B);
++    volatile float totalFloat = static_cast<float>(total);
++    const auto loaded = [](int32 model) { return StaticRef<uint8>(0x8E4CD0 + static_cast<uintptr_t>(model) * 20) == 1; };
++    if (Cc63eTierExceedsCpp(CPopCycle::m_NumDealers_Cars, 0.0f, 0.0f, 1, totalFloat, roll) && !flag) {
++        *arg1 = 0x19;
++        const int32 model = StaticRef<uint16>(0xC0F240);
++        return loaded(model) ? model : -1;
++    }
++    if (Cc63eTierExceedsCpp(CPopCycle::m_NumGangs_Cars, CPopCycle::m_NumDealers_Cars, 0.0f, 2, totalFloat, roll) || flag) {
++        if (CPopulation::m_bDontCreateRandomGangMembers) {
++            return -1;
++        }
++        const uint8* strength = CPopCycle::m_pCurrZoneInfo->GangStrength;
++        const int32 sum = strength[8] + strength[9] + strength[7] + strength[6] + strength[5] + strength[4] + strength[3] + strength[2] + strength[1] + strength[0];
++        int32 gang = 0;
++        if (sum <= 0) {
++            return -1;
++        }
++        int32 pick = Cc63ePickRollCpp(exeRand(), sum);
++        strength = CPopCycle::m_pCurrZoneInfo->GangStrength;
++        if (strength[0] < pick) {
++            int32 current = strength[0];
++            do {
++                pick -= current;
++                current = strength[gang + 1];
++                ++gang;
++            } while (current < pick);
++        }
++        if (StaticRef<uint8>(0x96915B)) {
++            gang = reinterpret_cast<int32(__cdecl*)(int32, int32)>(0x407180)(0, 9);
++        }
++        *arg1 = gang + 14;
++        if (CPopulation::PickGangCar(static_cast<eGangID>(gang)) < 0) {
++            return -1;
++        }
++        const uintptr_t row = static_cast<uintptr_t>(gang) * 23;
++        for (int32 tries = 0; tries < 10; tries++) {
++            int32 index;
++            do {
++                index = static_cast<int32>(row) + Cc63eGroupRollCpp(exeRand());
++            } while (StaticRef<uint16>(0xC0F074 + static_cast<uintptr_t>(index) * 2) == 2000);
++            const int32 model = StaticRef<uint16>(0xC0F074 + static_cast<uintptr_t>(index) * 2);
++            if (loaded(model)) {
++                return model;
++            }
++        }
++        return -1;
++    }
++    if (!Cc63eTierExceedsCpp(CPopCycle::m_NumCops_Cars, CPopCycle::m_NumGangs_Cars, CPopCycle::m_NumDealers_Cars, 3, totalFloat, roll)) {
++        *arg1 = 0;
++        const int32 model = StaticRef<int32>(0xA4448C);
++        if (model != -1) {
++            return model;
++        }
++        return CPopulation::m_AppropriateLoadedCars.PickRandomCar(true, false);
++    }
++    if (CGangWars::GangWarFightingGoingOn() || CPopulation::m_bDontCreateRandomCops) {
++        return -1;
++    }
++    *arg1 = 13;
++    return ChoosePoliceCarModel(0);
+ }
+ 
+ int32 CCarCtrl::ChoosePoliceCarModel(uint32 ignoreLvpd1Model) {
+@@ -330,17 +451,142 @@ float CCarCtrl::FindAngleToWeaveThroughTraffic(CVehicle* vehicle, CPhysical* phy
+ 
+ // 0x4226F0
+ void CCarCtrl::FindIntersection2Lines(float arg1, float arg2, float arg3, float arg4, float arg5, float arg6, float arg7, float arg8, float* arg9, float* arg10) {
+-    plugin::Call<0x4226F0, float, float, float, float, float, float, float, float, float*, float*>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10);
++    // Aritmetica x87 de 24 bits en X87Math (Cc63Intersection2LinesCpp), que es tambien el destino del hook (conserva EDX como el EXE).
++    Cc63Intersection2LinesCpp(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10);
+ }
+ 
+ // 0x42B470
+ void CCarCtrl::FindLinksToGoWithTheseNodes(CVehicle* vehicle) {
+-    plugin::Call<0x42B470, CVehicle*>(vehicle);
++    // Como el original (0x42B470..0x42B7CD). Si la palabra +0x45E del vehiculo no es 0: srand del EXE (0x821B11). cur = +0x390, start = +0x394 (direcciones de nodo); NINGUN area se comprueba salvo
++    // la del enlace candidato. base = int16 +0x10 del nodo actual. Se busca (hasta 12 enlaces, contador de 16 bits con signo) el indice i de enlaces[base + i] igual a start; +0x3A6 (siguiente enlace de
++    // carretera) = m_pNaviLinks[area][base + i]. +0x3B6 = -1 si cur < start (area y luego nodo, sin signo; iguales -> 1). Con un solo enlace el indice es 0; con ninguno 0; si no se elige el enlace (no igual a
++    // start y con el area cargada) mas cercano al vehiculo segun CCollision::DistToLine(posicion del nodo actual, posicion del enlace, posicion del vehiculo) (posiciones = enteros de 16 bits / 8 exactos;
++    // `<` ordenado contra 1000000.0f / el mejor) y, sin ninguno, 0. +0x3A4 (enlace actual) = m_pNaviLinks[area][base + indice] y +0x3B5 = -1 si el enlace elegido < cur (iguales -> 1).
++    auto* const raw = reinterpret_cast<uint8*>(vehicle);
++    auto& autoPilot = vehicle->m_autoPilot;
++    {
++        const uint16 seed = *reinterpret_cast<const uint16*>(raw + 0x45E);
++        if (seed) {
++            reinterpret_cast<void(__cdecl*)(uint32)>(0x821B11)(seed);
++        }
++    }
++    const auto nodeAt = [](CNodeAddress address) { return reinterpret_cast<const uint8*>(ThePaths.m_pPathNodes[address.m_wAreaId]) + static_cast<size_t>(address.m_wNodeId) * 0x1C; };
++    const auto baseOf = [&](CNodeAddress address) { return static_cast<int32>(*reinterpret_cast<const int16*>(nodeAt(address) + 0x10)); };
++    const auto numLinksOf = [&](CNodeAddress address) { return static_cast<int32>(nodeAt(address)[0x18] & 0x0F); };
++    const CNodeAddress cur = autoPilot.m_currentAddress;
++    const CNodeAddress* const links = ThePaths.m_pNodeLinks[cur.m_wAreaId];
++    int16 index = 0;
++    do {
++        const CNodeAddress& link = links[baseOf(cur) + index];
++        if (link.m_wAreaId == autoPilot.m_startingRouteNode.m_wAreaId && link.m_wNodeId == autoPilot.m_startingRouteNode.m_wNodeId) {
++            break;
++        }
++        ++index;
++    } while (index < 12);
++    autoPilot.m_nNextPathNodeInfo = ThePaths.m_pNaviLinks[cur.m_wAreaId][baseOf(cur) + index];
++    {
++        const CNodeAddress current = autoPilot.m_currentAddress;
++        const CNodeAddress start = autoPilot.m_startingRouteNode;
++        const bool below = current.m_wAreaId < start.m_wAreaId || (current.m_wAreaId == start.m_wAreaId && current.m_wNodeId < start.m_wNodeId);
++        autoPilot._smthNext = below ? -1 : 1;
++    }
++    int32 chosen;
++    if (numLinksOf(cur) == 1) {
++        chosen = 0;
++    } else {
++        chosen = -1;
++        float best = std::bit_cast<float>(0x497423FEu);
++        if (numLinksOf(cur) != 0) {
++            for (int32 k = 0; ; ) {
++                const CNodeAddress here = autoPilot.m_currentAddress;
++                const CNodeAddress link = links[baseOf(here) + k];
++                bool skip = link.m_wAreaId == autoPilot.m_startingRouteNode.m_wAreaId && link.m_wNodeId == autoPilot.m_startingRouteNode.m_wNodeId;
++                if (!skip && ThePaths.m_pPathNodes[link.m_wAreaId]) {
++                    const uint8* const from = nodeAt(here);
++                    const uint8* const to = nodeAt(link);
++                    const CVector fromPos{ static_cast<float>(*reinterpret_cast<const int16*>(from + 8)) * 0.125f, static_cast<float>(*reinterpret_cast<const int16*>(from + 0xA)) * 0.125f,
++                                           static_cast<float>(*reinterpret_cast<const int16*>(from + 0xC)) * 0.125f };
++                    const CVector toPos{ static_cast<float>(*reinterpret_cast<const int16*>(to + 8)) * 0.125f, static_cast<float>(*reinterpret_cast<const int16*>(to + 0xA)) * 0.125f,
++                                         static_cast<float>(*reinterpret_cast<const int16*>(to + 0xC)) * 0.125f };
++                    const float distance = CCollision::DistToLine(fromPos, toPos, vehicle->GetPosition());
++                    if (distance < best) {
++                        best = distance;
++                        chosen = k;
++                    }
++                }
++                ++k;
++                if (!(k < numLinksOf(autoPilot.m_currentAddress))) {
++                    break;
++                }
++            }
++        }
++        if (chosen < 0) {
++            chosen = 0;
++        }
++    }
++    autoPilot.m_nCurrentPathNodeInfo = ThePaths.m_pNaviLinks[autoPilot.m_currentAddress.m_wAreaId][baseOf(autoPilot.m_currentAddress) + chosen];
++    {
++        const CNodeAddress* const chosenLink = &ThePaths.m_pNodeLinks[autoPilot.m_currentAddress.m_wAreaId][baseOf(autoPilot.m_currentAddress) + chosen];
++        const CNodeAddress current = autoPilot.m_currentAddress;
++        const bool below = chosenLink->m_wAreaId < current.m_wAreaId || (chosenLink->m_wAreaId == current.m_wAreaId && chosenLink->m_wNodeId < current.m_wNodeId);
++        autoPilot._smthCurr = below ? -1 : 1;
++    }
+ }
+ 
+ // 0x434400
+ float CCarCtrl::FindMaximumSpeedForThisCarInTraffic(CVehicle* vehicle) {
+-    return plugin::CallAndReturn<float, 0x434400, CVehicle*>(vehicle);
++    // Como el original (0x434400..0x434783). +0x3B9 es el estilo de conduccion (byte), +0x3D0 la velocidad de crucero (byte) y +0x3D4 su multiplicador (float).
++    // Estilos 2, 3 y 5: devuelve crucero * multiplicador sin mas. Si no, caja de +-14.0f (0x859030) alrededor del vehiculo en sectores del mundo (ftol2 de floor(v * 0.02f + 60.0f);
++    // el minimo se acota por abajo a 0 y el maximo por arriba a 0x77, cada uno sin acotar el otro lado), nuevo codigo de escaneo, y para cada sector repetido (y exterior, x interior;
++    // indice ((y & 15) << 4) + (x & 15)) llama, por este orden, a SlowCarDownForCarsSectorList (salvo estilo 6), ...PedsSectorList y ...ObjectsSectorList con (x1, y1, x2, y2,
++    // &maxSpeed, crucero * multiplicador recalculado en cada llamada). Despues marca bWarnedPeds y devuelve maxSpeed (estilos 0 y 4) o (crucero * multiplicador + maxSpeed) * 0.5f.
++    auto& autoPilot = vehicle->m_autoPilot;
++    const auto cruiseSpeed = [&] { return Cc63bCruiseSpeedCpp(autoPilot.m_nCruiseSpeed, autoPilot.m_SpeedMult); };
++    {
++        const uint8 style = static_cast<uint8>(autoPilot.m_nCarDrivingStyle);
++        if (style == 2 || style == 3 || style == 5) {
++            return cruiseSpeed();
++        }
++    }
++    constexpr float range = 14.0f; // 0x859030
++    const CVector& position = vehicle->GetPosition();
++    const float x1 = position.x - range;
++    const float x2 = position.x + range;
++    const float y1 = position.y - range;
++    const float y2 = position.y + range;
++    const int32 xMinRaw = Cc63bSectorCpp(x1);
++    const int32 xMin = xMinRaw > 0 ? xMinRaw : 0;
++    const int32 yMinRaw = Cc63bSectorCpp(y1);
++    const int32 yMin = yMinRaw > 0 ? yMinRaw : 0;
++    const int32 xMaxRaw = Cc63bSectorCpp(x2);
++    const int32 xMax = xMaxRaw < 0x77 ? xMaxRaw : 0x77;
++    const int32 yMaxRaw = Cc63bSectorCpp(y2);
++    const int32 yMax = yMaxRaw < 0x77 ? yMaxRaw : 0x77;
++    CWorld::AdvanceCurrentScanCode();
++    float maxSpeed = cruiseSpeed();
++    for (int32 y = yMin; y <= yMax; y++) {
++        for (int32 x = xMin; x <= xMax; x++) {
++            CRepeatSector& sector = CWorld::GetRepeatSector(x, y);
++            if (static_cast<uint8>(autoPilot.m_nCarDrivingStyle) != 6) {
++                const float arg8 = cruiseSpeed();
++                SlowCarDownForCarsSectorList(sector.Vehicles, vehicle, x1, y1, x2, y2, &maxSpeed, arg8);
++            }
++            {
++                const float arg8 = cruiseSpeed();
++                SlowCarDownForPedsSectorList(sector.Peds, vehicle, x1, y1, x2, y2, &maxSpeed, arg8);
++            }
++            {
++                const float arg8 = cruiseSpeed();
++                SlowCarDownForObjectsSectorList(sector.Objects, vehicle, x1, y1, x2, y2, &maxSpeed, arg8);
++            }
++        }
++    }
++    vehicle->vehicleFlags.bWarnedPeds = true;
++    const uint8 style = static_cast<uint8>(autoPilot.m_nCarDrivingStyle);
++    if (style == 0 || style == 4) {
++        return maxSpeed;
++    }
++    return Cc63bTrafficSpeedCpp(autoPilot.m_nCruiseSpeed, autoPilot.m_SpeedMult, maxSpeed);
+ }
+ 
+ // 0x42BD20
+@@ -350,12 +596,44 @@ void CCarCtrl::FindNodesThisCarIsNearestTo(CVehicle* vehicle, CNodeAddress& node
+ 
+ // 0x422090
+ int8 CCarCtrl::FindPathDirection(CNodeAddress nodeAddress1, CNodeAddress nodeAddress2, CNodeAddress nodeAddress3, bool* arg4) {
+-    return plugin::CallAndReturn<int8, 0x422090, CNodeAddress, CNodeAddress, CNodeAddress, bool*>(nodeAddress1, nodeAddress2, nodeAddress3, arg4);
++    // Como el original (0x422090..0x422292): *arg4 = false antes de nada; cualquier area 0xFFFF o sin cargar (en el orden 1, 2, 3) -> 0. CPathNode::GetPosition
++    // se llama fuera de linea ocho veces en este orden (nodo 2, 1, 2, 1, 3, 2, 3, 2) y cada vez solo se lee una coordenada; la aritmetica x87 esta en X87Math.
++    *arg4 = false;
++    if (nodeAddress1.m_wAreaId == 0xFFFF || nodeAddress2.m_wAreaId == 0xFFFF || nodeAddress3.m_wAreaId == 0xFFFF) {
++        return 0;
++    }
++    CPathNode* const area1 = ThePaths.m_pPathNodes[nodeAddress1.m_wAreaId];
++    if (!area1) {
++        return 0;
++    }
++    CPathNode* const area2 = ThePaths.m_pPathNodes[nodeAddress2.m_wAreaId];
++    if (!area2) {
++        return 0;
++    }
++    CPathNode* const area3 = ThePaths.m_pPathNodes[nodeAddress3.m_wAreaId];
++    if (!area3) {
++        return 0;
++    }
++    CPathNode* const node1 = area1 + nodeAddress1.m_wNodeId;
++    CPathNode* const node2 = area2 + nodeAddress2.m_wNodeId;
++    CPathNode* const node3 = area3 + nodeAddress3.m_wNodeId;
++    const float p2xA = (node2->*cc63GetNodePosition)().x;
++    const float p1xB = (node1->*cc63GetNodePosition)().x;
++    const float p2yC = (node2->*cc63GetNodePosition)().y;
++    const float p1yD = (node1->*cc63GetNodePosition)().y;
++    const float p3xE = (node3->*cc63GetNodePosition)().x;
++    const float p2xF = (node2->*cc63GetNodePosition)().x;
++    const float p3yG = (node3->*cc63GetNodePosition)().y;
++    const float p2yH = (node2->*cc63GetNodePosition)().y;
++    return static_cast<int8>(Cc63PathDirectionCpp(p2xA, p1xB, p2yC, p1yD, p3xE, p2xF, p3yG, p2yH, arg4));
+ }
+ 
+ // 0x422620
+ float CCarCtrl::FindPercDependingOnDistToLink(CVehicle* vehicle, CCarPathLinkAddress linkAddress) {
+-    return plugin::CallAndReturn<float, 0x422620, CVehicle*, CCarPathLinkAddress>(vehicle, linkAddress);
++    // Como el original (0x422620..0x4226EF): sin comprobar que el area este cargada; el enlace (14 bytes) guarda x, y como int16 en +0 y +2 (escala 0.125).
++    const auto* const link = reinterpret_cast<const int16*>(&ThePaths.m_pNaviNodes[linkAddress.m_wAreaId][linkAddress.m_wCarPathLinkId]);
++    const CVector& pos = vehicle->GetPosition();
++    return Cc63PercDistCpp(pos.x, pos.y, link[0], link[1]);
+ }
+ 
+ // 0x421770
+@@ -374,7 +652,8 @@ int32 CCarCtrl::FindSequenceElement(int32 arg1) {
+ 
+ // 0x4224E0
+ float CCarCtrl::FindSpeedMultiplier(float arg1, float arg2, float arg3, float arg4) {
+-    return plugin::CallAndReturn<float, 0x4224E0, float, float, float, float>(arg1, arg2, arg3, arg4);
++    // Aritmetica x87 de 24 bits en X87Math (Cc63SpeedMultiplierCpp), que es tambien el destino del hook.
++    return Cc63SpeedMultiplierCpp(arg1, arg2, arg3, arg4);
+ }
+ 
+ // 0x424130
+@@ -571,7 +850,123 @@ bool CCarCtrl::IsAnyoneParking() {
+ 
+ // 0x42DAB0
+ bool CCarCtrl::IsThisAnAppropriateNode(CVehicle* vehicle, CNodeAddress nodeAddress1, CNodeAddress nodeAddress2, CNodeAddress nodeAddress3, bool arg5) {
+-    return plugin::CallAndReturn<bool, 0x42DAB0, CVehicle*, CNodeAddress, CNodeAddress, CNodeAddress, bool>(vehicle, nodeAddress1, nodeAddress2, nodeAddress3, arg5);
++    // Como el original (0x42DAB0..0x42DE53). nodo3 sin cargar o igual al nodo1 -> false; el nodo2 se lee SIN comprobar su area. Los bytes +0x18 de los nodos 2 y 3 (bit 7 = agua; 0x10 y 0x20)
++    // y el byte +0x1A del 3 (>> 4 = tipo 1..10; el resto, tipo por defecto): si difiere el bit de agua y el modelo no es 539 (0x21B) -> false. Tipo 1: no de mision (+0x4A4 == 2), conductor
++    // (+0x460) sin byte +0x484 == 2, informacion del modelo (+0x4D) != 5 y, si !arg5, el producto vectorial z de ((nodo3 - nodo2) x (nodo3 - posicion)) no negativo; tipo 2: lo mismo pero sin la
++    // comprobacion del modelo al principio y con DotProduct(derecha del vehiculo, nodo3 - posicion) no negativo; los dos continuan con IsLawEnforcementVehicle, modelo != 5, conductor con +0x598 != 0x14,
++    // IsAnyoneParking y FindObjectsKindaColliding (radio 5.0f, solo vehiculos, maximo 2) sin objetos. Tipos 5 y 10: arg5 -> false y col.max.y (modelo +0x14, +0x14) < 2.0f -> false; tipos 8 y 9:
++    // arg5 -> false, +0x14 > 1.5f, +0x0C > 2.0f o +0x10 > 4.0f -> false. Los tipos 5, 8, 9 y 10 que sobreviven, y los demas, siguen con las banderas de nodo y devuelven !arg5.
++    auto* const raw = reinterpret_cast<uint8*>(vehicle);
++    CPathNode* const area3 = ThePaths.m_pPathNodes[nodeAddress3.m_wAreaId];
++    if (!area3) {
++        return false;
++    }
++    if (nodeAddress1.m_wAreaId == nodeAddress3.m_wAreaId && nodeAddress1.m_wNodeId == nodeAddress3.m_wNodeId) {
++        return false;
++    }
++    const uint8* const node2 = reinterpret_cast<const uint8*>(ThePaths.m_pPathNodes[nodeAddress2.m_wAreaId]) + static_cast<size_t>(nodeAddress2.m_wNodeId) * 0x1C;
++    const uint8* const node3 = reinterpret_cast<const uint8*>(area3) + static_cast<size_t>(nodeAddress3.m_wNodeId) * 0x1C;
++    const uint8 flags2 = node2[0x18];
++    const uint8 flags3 = node3[0x18];
++    if (((flags2 ^ flags3) & 0x80) && static_cast<int16>(vehicle->m_nModelIndex) != 0x21B) {
++        return false;
++    }
++    const auto modelInfo = [&] { return reinterpret_cast<const uint8*>(CModelInfo::ms_modelInfoPtrs[static_cast<int16>(vehicle->m_nModelIndex)]); };
++    const auto driver = [&] { return *reinterpret_cast<const uint8* const*>(raw + 0x460); };
++    const auto nodePosition = [](const uint8* node) {
++        return CVector{ static_cast<float>(*reinterpret_cast<const int16*>(node + 8)) * 0.125f, static_cast<float>(*reinterpret_cast<const int16*>(node + 0xA)) * 0.125f,
++                        static_cast<float>(*reinterpret_cast<const int16*>(node + 0xC)) * 0.125f };
++    };
++    const auto freeOfObjects = [&] {
++        const CVector position = nodePosition(node3);
++        int16 count;
++        CWorld::FindObjectsKindaColliding(position, 5.0f, true, &count, 2, nullptr, false, true, false, false, false);
++        return count == 0;
++    };
++    const auto commonTail = [&]() -> bool {
++        if (vehicle->IsLawEnforcementVehicle()) {
++            return false;
++        }
++        if (modelInfo()[0x4D] == 5) {
++            return false;
++        }
++        if (const uint8* const d = driver(); d && *reinterpret_cast<const int32*>(d + 0x598) == 0x14) {
++            return false;
++        }
++        if (IsAnyoneParking()) {
++            return false;
++        }
++        return freeOfObjects();
++    };
++    const uint32 kind = static_cast<uint32>(node3[0x1A] >> 4) - 1u;
++    bool useDefault = false;
++    if (kind == 0 || kind == 1) {
++        if (raw[0x4A4] == 2) {
++            return false;
++        }
++        if (const uint8* const d = driver(); d && d[0x484] == 2) {
++            return false;
++        }
++        if (kind == 0 && modelInfo()[0x4D] == 5) {
++            return false;
++        }
++        if (!arg5) {
++            const CVector position3 = nodePosition(node3);
++            const CVector position2 = nodePosition(node2);
++            const CVector& point = vehicle->GetPosition();
++            if (kind == 0) {
++                if (Cc63fCrossZNegativeCpp(&position3.x, &point.x, &position2.x)) {
++                    return false;
++                }
++            } else {
++                CVector right;
++                reinterpret_cast<CVector*(__thiscall*)(CVehicle*, CVector*)>(0x41CC70)(vehicle, &right);
++                if (Cc63fRightDotNegativeCpp(&right.x, &position3.x, &point.x)) {
++                    return false;
++                }
++            }
++        }
++        return commonTail();
++    } else if (kind == 4 || kind == 9) {
++        if (arg5) {
++            return false;
++        }
++        const float* const col = *reinterpret_cast<const float* const*>(modelInfo() + 0x14);
++        if (col[5] < 2.0f) {
++            return false;
++        }
++        useDefault = true;
++    } else if (kind == 7 || kind == 8) {
++        if (arg5) {
++            return false;
++        }
++        const float* const col = *reinterpret_cast<const float* const*>(modelInfo() + 0x14);
++        if (col[5] > 1.5f) {
++            return false;
++        }
++        if (col[3] > 2.0f) {
++            return false;
++        }
++        if (col[4] > 4.0f) {
++            return false;
++        }
++        useDefault = true;
++    } else {
++        useDefault = true;
++    }
++    (void)useDefault;
++    if (raw[0x4A4] == 2 && raw[0x3BA] == 1) {
++        if ((node3[0x19] & 4) && !(node2[0x19] & 4)) {
++            return false;
++        }
++    }
++    if ((flags3 & 0x10) && !(flags2 & 0x10)) {
++        return false;
++    }
++    if ((flags3 & 0x20) && !(flags2 & 0x20)) {
++        return false;
++    }
++    return !arg5;
+ }
+ 
+ // 0x423EA0
+@@ -654,17 +1049,150 @@ void CCarCtrl::JoinCarWithRoadAccordingToMission(CVehicle* vehicle) {
+ 
+ // 0x42F5A0
+ void CCarCtrl::JoinCarWithRoadSystem(CVehicle* vehicle) {
+-    plugin::Call<0x42F5A0, CVehicle*>(vehicle);
++    // Como el original (0x42F5A0..0x42F86B). Se borran las direcciones de nodo/enlace del piloto automatico (areas = 0xFFFF; contador de ruta = 0) y se busca el nodo mas cercano
++    // favoreciendo la direccion del vehiculo (FindNodeClosestToCoorsFavourDirection, matriz SIN comprobar nulo: lee +0x10/+0x14). Entre sus enlaces cargados se elige el mas cercano al propio
++    // nodo (distancia x87 de 24 bits en X87Math, comparacion ordenada `<` contra 1000000.0f, 0x497423FE) y, segun el signo del producto escalar (nodo - enlace) . adelante (adelante = 1.0f en x
++    // si ambos son 0), el piloto pasa a ir (nodo -> enlace) o (enlace -> nodo): +0x390 = actual, +0x394 = siguiente. Despues FindLinksToGoWithTheseNodes y se ponen a 0 los carriles.
++    auto& autoPilot = vehicle->m_autoPilot;
++    autoPilot.m_endingRouteNode.m_wAreaId = 0xFFFF;
++    autoPilot.m_currentAddress.m_wAreaId = 0xFFFF;
++    autoPilot.m_startingRouteNode.m_wAreaId = 0xFFFF;
++    *reinterpret_cast<uint16*>(reinterpret_cast<uint8*>(vehicle) + 0x3A4) = 0xFFFF; // m_nCurrentPathNodeInfo
++    *reinterpret_cast<uint16*>(reinterpret_cast<uint8*>(vehicle) + 0x3A8) = 0xFFFF; // m_nPreviousPathNodeInfo
++    *reinterpret_cast<uint16*>(reinterpret_cast<uint8*>(vehicle) + 0x3A6) = 0xFFFF; // m_nNextPathNodeInfo
++    autoPilot.m_nPathFindNodesCount = 0;
++    const CMatrix* const matrix = vehicle->m_matrix;
++    const float forwardX = matrix->GetForward().x;
++    const float forwardY = matrix->GetForward().y;
++    const CVector position = vehicle->GetPosition();
++    const CNodeAddress start = ThePaths.FindNodeClosestToCoorsFavourDirection(position, static_cast<ePathType>(0), CVector2D{ forwardX, forwardY });
++    if (start.m_wAreaId == 0xFFFF) {
++        return;
++    }
++    CPathNode* const startArea = ThePaths.m_pPathNodes[start.m_wAreaId];
++    if (!startArea) {
++        return;
++    }
++    const uint8* const startNode = reinterpret_cast<const uint8*>(startArea + start.m_wNodeId);
++    const int16 numLinks = startNode[0x18] & 0x0F;
++    float best = std::bit_cast<float>(0x497423FEu);
++    uint16 bestArea = 0xFFFF; // el dword completo solo es valido si el area no es 0xFFFF
++    uint32 bestLink = 0;
++    if (numLinks <= 0) {
++        return;
++    }
++    const uint32* links = reinterpret_cast<const uint32*>(ThePaths.m_pNodeLinks[start.m_wAreaId]) + *reinterpret_cast<const int16*>(startNode + 0x10);
++    const int startX = *reinterpret_cast<const int16*>(startNode + 8);
++    const int startY = *reinterpret_cast<const int16*>(startNode + 0xA);
++    for (int16 remaining = numLinks; remaining != 0; --remaining, ++links) {
++        const uint32 link = *links;
++        CPathNode* const linkArea = ThePaths.m_pPathNodes[link & 0xFFFF];
++        if (!linkArea) {
++            continue;
++        }
++        const uint8* const linkNode = reinterpret_cast<const uint8*>(linkArea) + (link >> 16) * 0x1C;
++        const float distance = Cc63cLinkDistanceCpp(*reinterpret_cast<const int16*>(linkNode + 8), *reinterpret_cast<const int16*>(linkNode + 0xA), startX, startY);
++        if (distance < best) {
++            best = distance;
++            bestLink = link;
++            bestArea = static_cast<uint16>(link);
++        }
++    }
++    if (bestArea == 0xFFFF) {
++        return;
++    }
++    const CMatrix* const matrix2 = vehicle->m_matrix;
++    const uint8* const bestNode = reinterpret_cast<const uint8*>(ThePaths.m_pPathNodes[bestArea]) + (bestLink >> 16) * 0x1C;
++    const bool negative = Cc63cDotNegativeCpp(startX, startY, *reinterpret_cast<const int16*>(bestNode + 8), *reinterpret_cast<const int16*>(bestNode + 0xA),
++                                              matrix2->GetForward().x, matrix2->GetForward().y);
++    uint32 current, next;
++    if (negative) {
++        current = std::bit_cast<uint32>(start);
++        next = bestLink;
++    } else {
++        current = bestLink;
++        next = std::bit_cast<uint32>(start);
++    }
++    autoPilot.m_endingRouteNode.m_wAreaId = 0xFFFF;
++    *reinterpret_cast<uint32*>(&autoPilot.m_currentAddress) = current;
++    *reinterpret_cast<uint32*>(&autoPilot.m_startingRouteNode) = next;
++    FindLinksToGoWithTheseNodes(vehicle);
++    autoPilot.m_nCurrentLane = 0;
++    autoPilot.m_nNextLane = 0;
+ }
+ 
+ // 0x42F870
+ bool CCarCtrl::JoinCarWithRoadSystemGotoCoors(CVehicle* vehicle, const CVector& posn, bool unused, bool bIsBoat) {
+-    return plugin::CallAndReturn<bool, 0x42F870, CVehicle*, const CVector&, bool, bool>(vehicle, posn, unused, bIsBoat);
++    // Como el original (0x42F870..0x42F9B6). El destino se copia tal cual (bits) a +0x3EC; DoPathSearch(tipo 0, posicion del vehiculo, [0x8A5F44] (direccion invalida), destino, ruta (+0x3F8), contador (+0x418),
++    // 8, sin distancia, 1000000.0f (0x497423FE), sin nodo de destino, 1000000.0f, bit 6 de +0x3DB, [0x8A5F44] (prohibido), modelo == 539 (0x21B), bIsBoat); RemoveBadStartNode (0x44E4F0, sin reconstruir:
++    // por direccion) con la posicion releida; si el contador (releido, con signo) es < 2: JoinCarWithRoadSystem y contador = 0 -> true; si no: actual = ruta[0] (+0x390), +0x398 (area) = 0xFFFF,
++    // RemoveOnePathNode, siguiente = ruta[0] (+0x394), RemoveOnePathNode, FindLinksToGoWithTheseNodes, carriles (+0x3B7, +0x3B8) = 0 -> false.
++    auto& autoPilot = vehicle->m_autoPilot;
++    std::memcpy(&autoPilot.m_vecDestinationCoors, &posn, sizeof(CVector));
++    const bool isVortex = static_cast<int16>(vehicle->m_nModelIndex) == 0x21B;
++    CNodeAddress* const nodes = autoPilot.m_aPathFindNodesInfo.data();
++    int16& count = reinterpret_cast<int16&>(autoPilot.m_nPathFindNodesCount);
++    const CNodeAddress invalidAddress = StaticRef<CNodeAddress>(0x8A5F44);
++    ThePaths.DoPathSearch(static_cast<ePathType>(0), vehicle->GetPosition(), invalidAddress, posn, nodes, count, 8, nullptr, std::bit_cast<float>(0x497423FEu), nullptr,
++                          std::bit_cast<float>(0x497423FEu), autoPilot.carCtrlFlags.bCantGoAgainstTraffic, StaticRef<CNodeAddress>(0x8A5F44), isVortex, bIsBoat);
++    plugin::CallMethod<0x44E4F0, CPathFind*, CVector, CNodeAddress*, int16*>(&ThePaths, vehicle->GetPosition(), nodes, &count);
++    if (count < 2) {
++        JoinCarWithRoadSystem(vehicle);
++        count = 0;
++        return true;
++    }
++    autoPilot.m_currentAddress = nodes[0];
++    autoPilot.m_endingRouteNode.m_wAreaId = 0xFFFF;
++    autoPilot.RemoveOnePathNode();
++    autoPilot.m_startingRouteNode = nodes[0];
++    autoPilot.RemoveOnePathNode();
++    FindLinksToGoWithTheseNodes(vehicle);
++    autoPilot.m_nCurrentLane = 0;
++    autoPilot.m_nNextLane = 0;
++    return false;
+ }
+ 
+ // 0x432B10
+ bool CCarCtrl::PickNextNodeAccordingStrategy(CVehicle* vehicle) {
+-    return plugin::CallAndReturn<bool, 0x432B10, CVehicle*>(vehicle);
++    // Como el original (0x432B10..0x432C50). De +0x394 (siguiente nodo de la ruta) se leen, SIN comprobar que el area este cargada, los bytes +0x19 y +0x1A del nodo:
++    // +0x3D1 = (byte19 >> 4) & 3 y, si byte1A >> 4 esta en 8..9, +0x3D1 = 0xFF. Segun la mision (int8 en +0x3BA; mision - 2 como sin signo <= 0x42, tabla de bytes en 0x432C64):
++    // misiones 2, 4 y 43 persiguen al jugador: FindPlayerCoors(-1), FindPlayerVehicle(-1, 0), FindPlayerCoors(-1), FindPlayerCoors(-1) y PickNextNodeToChaseCar(veh, x de la 1a, y de la 3a, z de la 2a)
++    // (el EXE empuja ademas el vehiculo del jugador como dword sobrante); 15, 17, 52, 54, 61 y 65..68 persiguen a +0x41C (objetivo, sin comprobar nulo) con su posicion;
++    // 8 y 12 siguen la ruta (PickNextNodeToFollowPath, su resultado); el resto: PickNextNodeRandomly y false.
++    auto& autoPilot = vehicle->m_autoPilot;
++    const CNodeAddress next = autoPilot.m_startingRouteNode;
++    const uint8* const nodeBase = reinterpret_cast<const uint8*>(ThePaths.m_pPathNodes[next.m_wAreaId] + next.m_wNodeId);
++    autoPilot.field_41 = static_cast<char>((nodeBase[0x19] >> 4) & 3);
++    {
++        const uint8* const nodeAgain = reinterpret_cast<const uint8*>(ThePaths.m_pPathNodes[next.m_wAreaId] + next.m_wNodeId);
++        const uint8 kind = nodeAgain[0x1A] >> 4;
++        if (kind >= 8 && kind <= 9) {
++            autoPilot.field_41 = static_cast<char>(0xFF);
++        }
++    }
++    const uint32 index = static_cast<uint32>(static_cast<int32>(static_cast<int8>(autoPilot.m_nCarMission)) - 2);
++    if (index <= 0x42) {
++        switch (index + 2) {
++        case 2: case 4: case 43: {
++            const CVector first = FindPlayerCoors(-1);
++            (void)FindPlayerVehicle(-1, false);
++            const CVector second = FindPlayerCoors(-1);
++            const CVector third = FindPlayerCoors(-1);
++            return PickNextNodeToChaseCar(vehicle, first.x, third.y, second.z);
++        }
++        case 15: case 17: case 52: case 54: case 61: case 65: case 66: case 67: case 68: {
++            CEntity* const target = autoPilot.m_TargetEntity;
++            const CVector position = target->GetPosition();
++            return PickNextNodeToChaseCar(vehicle, position.x, position.y, position.z);
++        }
++        case 8: case 12:
++            return PickNextNodeToFollowPath(vehicle);
++        default:
++            break;
++        }
++    }
++    PickNextNodeRandomly(vehicle);
++    return false;
+ }
+ 
+ // 0x421740
+@@ -744,7 +1272,78 @@ void CCarCtrl::PruneVehiclesOfInterest() {
+ 
+ // 0x42FC40
+ void CCarCtrl::ReconsiderRoute(CVehicle* vehicle) {
+-    plugin::Call<0x42FC40, CVehicle*>(vehicle);
++    // Como el original (0x42FC40..0x42FF96). Solo actua si (semilla + tiempo anterior) / 2000 != (semilla + tiempo actual) / 2000 (division por constante magica 0x10624DD3, sin signo) y la mision
++    // (int8 +0x3BA; tabla de bytes 0x42FFA0) es una de 2, 4, 8, 15, 17, 43, 52, 54, 61; si no, solo se pone a 0 el contador (+0x3C5). Pide los dos nodos mas cercanos (FindNodesThisCarIsNearestTo, EXE) y no
++    // hace nada si no hay primero; sale (contador a 0) si la ruta ya los incluye (6 condiciones sobre actual/siguiente/final); incrementa el contador (byte; <= 4 sale sin ponerlo a 0); busca el
++    // destino (2, 4, 43: FindPlayerCoors(-1); 8: +0x3EC; 15, 17, 52, 54, 61: posicion del objetivo +0x41C) y, si DoPathSearch (solo distancia, nodo de origen = segundo) da < 90000.0f y mas de 1 nodo,
++    // actual = primero, siguiente = segundo, FindLinksToGoWithTheseNodes, un DoPathSearch completo (+0x3F8, +0x418) y RemoveOnePathNode.
++    auto& autoPilot = vehicle->m_autoPilot;
++    {
++        const uint32 seed = vehicle->m_nRandomSeed;
++        const uint32 previous = seed + CTimer::m_snPreviousTimeInMilliseconds;
++        const uint32 current = seed + CTimer::m_snTimeInMilliseconds;
++        const auto slot = [](uint32 value) { return static_cast<uint32>((static_cast<uint64>(0x10624DD3u) * value) >> 32) >> 7; };
++        if (slot(previous) == slot(current)) {
++            return;
++        }
++    }
++    const int32 mission = static_cast<int8>(autoPilot.m_nCarMission);
++    int32 kind = -1; // 0: jugador, 1: destino, 2: objetivo
++    switch (mission) {
++    case 2: case 4: case 43: kind = 0; break;
++    case 8: kind = 1; break;
++    case 15: case 17: case 52: case 54: case 61: kind = 2; break;
++    default: break;
++    }
++    if (kind < 0) {
++        autoPilot.m_ucCarMissionModeCounter = 0;
++        return;
++    }
++    CNodeAddress first, second;
++    first.m_wAreaId = 0xFFFF;
++    second.m_wAreaId = 0xFFFF;
++    FindNodesThisCarIsNearestTo(vehicle, first, second);
++    if (first.m_wAreaId == 0xFFFF) {
++        return;
++    }
++    const auto clear = [&] { autoPilot.m_ucCarMissionModeCounter = 0; };
++    const CNodeAddress current = autoPilot.m_currentAddress;
++    if (current == first && autoPilot.m_startingRouteNode == second) { return clear(); }
++    if (current == second && autoPilot.m_startingRouteNode == first) { return clear(); }
++    if (autoPilot.m_endingRouteNode == first && current == second) { return clear(); }
++    if (autoPilot.m_endingRouteNode == second && current == first) { return clear(); }
++    if (current == second) { return clear(); }
++    if (autoPilot.m_endingRouteNode == second) { return clear(); }
++    const uint8 counter = ++autoPilot.m_ucCarMissionModeCounter;
++    if (counter <= 4) {
++        return;
++    }
++    CVector target;
++    switch (kind) {
++    case 0: { const CVector player = FindPlayerCoors(-1); std::memcpy(&target, &player, sizeof(CVector)); break; }
++    case 1: std::memcpy(&target, &autoPilot.m_vecDestinationCoors, sizeof(CVector)); break;
++    default: {
++        const CEntity* const entity = autoPilot.m_TargetEntity;
++        const CVector& position = entity->GetPosition();
++        std::memcpy(&target, &position, sizeof(CVector));
++        break;
++    }
++    }
++    const bool isVortex = static_cast<int16>(vehicle->m_nModelIndex) == 0x21B;
++    int16 count;
++    float distance;
++    ThePaths.DoPathSearch(static_cast<ePathType>(0), vehicle->GetPosition(), second, target, nullptr, count, 0, &distance, std::bit_cast<float>(0x497423FEu), nullptr,
++                          std::bit_cast<float>(0x497423FEu), autoPilot.carCtrlFlags.bCantGoAgainstTraffic, autoPilot.m_currentAddress, isVortex, false);
++    if (!(distance < 90000.0f) || count < 2) {
++        return clear();
++    }
++    autoPilot.m_currentAddress = first;
++    autoPilot.m_startingRouteNode = second;
++    FindLinksToGoWithTheseNodes(vehicle);
++    ThePaths.DoPathSearch(static_cast<ePathType>(0), vehicle->GetPosition(), second, target, autoPilot.m_aPathFindNodesInfo.data(), reinterpret_cast<int16&>(autoPilot.m_nPathFindNodesCount), 8, nullptr,
++                          std::bit_cast<float>(0x497423FEu), nullptr, std::bit_cast<float>(0x497423FEu), autoPilot.carCtrlFlags.bCantGoAgainstTraffic, autoPilot.m_currentAddress, isVortex, false);
++    autoPilot.RemoveOnePathNode();
++    clear();
+ }
+ 
+ // 0x423DE0
+@@ -885,7 +1484,36 @@ void CCarCtrl::RemoveFromInterestingVehicleList(CVehicle* vehicle) {
+ 
+ // 0x42CE40
+ void CCarCtrl::ScanForPedDanger(CVehicle* vehicle) {
+-    plugin::Call<0x42CE40, CVehicle*>(vehicle);
++    // Como el original (0x42CE40..0x42D0CD): radio 44.0f (0x858FF8) si es el vehiculo del jugador (FindPlayerVehicle(-1, 0)) y 11.0f (0x858FBC) si no; se guarda el bit
++    // bHonkAtPed (+0x3DB bit 1) y se restaura al final. Misma caja, mismos sectores y mismo orden que FindMaximumSpeedForThisCarInTraffic, pero solo con la lista de peatones
++    // (repeatSector + 4) y velocidad inicial = crucero (byte +0x3D0) como float.
++    auto& autoPilot = vehicle->m_autoPilot;
++    const float range = vehicle == FindPlayerVehicle(-1, false) ? 44.0f : 11.0f;
++    const bool honk = autoPilot.carCtrlFlags.bHonkAtPed;
++    const CVector& position = vehicle->GetPosition();
++    const float x1 = position.x - range;
++    const float x2 = range + position.x;
++    const float y1 = position.y - range;
++    const float y2 = range + position.y;
++    const int32 xMinRaw = Cc63bSectorCpp(x1);
++    const int32 xMin = xMinRaw > 0 ? xMinRaw : 0;
++    const int32 yMinRaw = Cc63bSectorCpp(y1);
++    const int32 yMin = yMinRaw > 0 ? yMinRaw : 0;
++    const int32 xMaxRaw = Cc63bSectorCpp(x2);
++    const int32 xMax = xMaxRaw < 0x77 ? xMaxRaw : 0x77;
++    const int32 yMaxRaw = Cc63bSectorCpp(y2);
++    const int32 yMax = yMaxRaw < 0x77 ? yMaxRaw : 0x77;
++    CWorld::AdvanceCurrentScanCode();
++    float speed = static_cast<float>(autoPilot.m_nCruiseSpeed);
++    for (int32 y = yMin; y <= yMax; y++) {
++        for (int32 x = xMin; x <= xMax; x++) {
++            CRepeatSector& sector = CWorld::GetRepeatSector(x, y);
++            const float arg8 = static_cast<float>(autoPilot.m_nCruiseSpeed);
++            SlowCarDownForPedsSectorList(sector.Peds, vehicle, x1, y1, x2, y2, &speed, arg8);
++        }
++    }
++    vehicle->vehicleFlags.bWarnedPeds = true;
++    autoPilot.carCtrlFlags.bHonkAtPed = honk;
+ }
+ 
+ // 0x42FBC0
+@@ -902,12 +1530,84 @@ bool CCarCtrl::ScriptGenerateOneEmergencyServicesCar(uint32 modelId, CVector pos
+ 
+ // 0x4342A0
+ void CCarCtrl::SetCoordsOfScriptCar(CVehicle* vehicle, float x, float y, float z, uint8 arg5, uint8 arg6) {
+-    plugin::Call<0x4342A0, CVehicle*, float, float, float, uint8, uint8>(vehicle, x, y, z, arg5, arg6);
++    // Como el original (0x4342A0..0x4343FC). El manejador del vehiculo (CPools::GetVehicleRef inlinado en el EXE) se calcula sin comprobar que el puntero pertenezca al pool:
++    // indice = (vehiculo - almacenamiento) / 0xA18 con signo y manejador = (indice << 8) + byte de estado. z <= -100.0f (0x859014; con NaN no) se sustituye por la altura del suelo en
++    // (x, y); arg6 != 0 suma la distancia del centro de masas a la base del modelo. Teleport virtual (ranura 14) con arg5 como `clearOrientation`; el barco (+0x590 == 5) solo despeja
++    // el espacio y pone la accion temporal (+0x3BB) a 0; los demas colocan sobre la carretera (automovil y remolque: 0 y 11; moto: 9), despejan, se unen a la carretera segun la mision.
++    const uint8* const pool = reinterpret_cast<const uint8*>(GetVehiclePool());
++    const intptr_t storage = *reinterpret_cast<const intptr_t*>(pool);
++    const uint8* const slotStates = *reinterpret_cast<const uint8* const*>(pool + 4);
++    const int32 index = static_cast<int32>(reinterpret_cast<intptr_t>(vehicle) - storage) / 0xA18;
++    const int32 handle = slotStates[index] + (index << 8);
++    if (z <= -100.0f) {
++        z = CWorld::FindGroundZForCoord(x, y);
++    }
++    if (arg6) {
++        z = Cc63bAddFloatCpp(vehicle->GetDistanceFromCentreOfMassToBaseOfModel(), z);
++    }
++    vehicle->SetIsStatic(false);
++    CTheScripts::StuckCars.ClearStuckFlagForCar(handle);
++    CVector position{ x, y, z };
++    vehicle->Teleport(position, std::bit_cast<bool>(arg5)); // el EXE empuja el byte tal cual (no lo normaliza a 0/1)
++    if (vehicle->m_nVehicleType == VEHICLE_TYPE_BOAT) {
++        CTheScripts::ClearSpaceForMissionEntity(position, vehicle);
++        vehicle->m_autoPilot.m_nTempAction = TEMPACT_NONE;
++        return;
++    }
++    const int32 type = vehicle->m_nVehicleType;
++    if (type == VEHICLE_TYPE_AUTOMOBILE || type == VEHICLE_TYPE_TRAILER) {
++        static_cast<CAutomobile*>(vehicle)->PlaceOnRoadProperly();
++    } else if (type == VEHICLE_TYPE_BIKE) {
++        static_cast<CBike*>(vehicle)->PlaceOnRoadProperly();
++    }
++    CTheScripts::ClearSpaceForMissionEntity(position, vehicle);
++    JoinCarWithRoadAccordingToMission(vehicle);
++    vehicle->m_autoPilot.m_nTempAction = TEMPACT_NONE;
+ }
+ 
+ // 0x4217C0
+ void CCarCtrl::SetUpDriverAndPassengersForVehicle(CVehicle* vehicle, int32 arg2, int32 arg3, bool arg4, bool arg5, int32 passengersNum) {
+-    plugin::Call<0x4217C0, CVehicle*, int32, int32, bool, bool, int32>(vehicle, arg2, arg3, arg4, arg5, passengersNum);
++    // Como el original (0x4217C0..0x4218F2). arg2 = tipo de peaton (14..23 = bandas), arg3 = minimo de pasajeros. rand es el del EXE (0x821B1E, no la de la DLL).
++    // El conductor (+0x460, sin comprobar nulo) y cada pasajero de banda sostienen un objeto (word 0x8CD72C) si rand() < 0x3FFF. Cada pasajero extra hasta el maximo
++    // (byte +0x488) se anade con probabilidad 1/8 (rand * 0x858C7C < 0.125f); en los coches con la animacion de furgoneta ("van", 0x858EE0) como mucho 1.
++    const auto exeRand = reinterpret_cast<int(__cdecl*)()>(0x821B1E);
++    const uint16 heldModel = StaticRef<uint16>(0x8CD72C);
++    vehicle->SetUpDriver(arg2, arg4, arg5);
++    if (arg2 >= 14 && arg2 <= 23 && exeRand() < 0x3FFF) {
++        vehicle->m_pDriver->GiveObjectToPedToHold(heldModel, 1);
++    }
++    int32 limit = passengersNum;
++    if (static_cast<int32>(vehicle->m_nMaxPassengers) < limit) {
++        limit = vehicle->m_nMaxPassengers;
++    }
++    int32 count = arg3;
++    if (count < limit) {
++        for (int32 remaining = limit - count; remaining != 0; --remaining) {
++            count += Cc63bRandBelowEighthCpp(exeRand()) ? 1 : 0;
++        }
++        if (count >= limit) {
++            count = limit;
++        }
++    } else {
++        count = limit;
++    }
++    const int32 modelIndex = static_cast<int16>(vehicle->m_nModelIndex);
++    if (CModelInfo::IsCarModel(modelIndex)) {
++        const int32 vanBlockIndex = CAnimManager::GetAnimationBlockIndex("van");
++        if (CModelInfo::ms_modelInfoPtrs[modelIndex]->GetAnimFileIndex() == vanBlockIndex && count >= 1) {
++            count = 1;
++        }
++    }
++    for (int32 seat = 0; seat < count; seat++) {
++        CPed* const passenger = vehicle->SetupPassenger(seat, arg2, arg4, arg5);
++        if (!passenger) {
++            continue;
++        }
++        passenger->UpdateStatEnteringVehicle();
++        if (arg2 >= 14 && arg2 <= 23 && exeRand() < 0x3FFF) {
++            passenger->GiveObjectToPedToHold(heldModel, 1);
++        }
++    }
+ }
+ 
+ // 0x432420
+@@ -1121,12 +1821,61 @@ void CCarCtrl::SteerAIPlaneTowardsTargetCoors(CAutomobile* automobile) {
+ 
+ // 0x422590
+ bool CCarCtrl::StopCarIfNodesAreInvalid(CVehicle* vehicle) {
+-    return plugin::CallAndReturn<bool, 0x422590, CVehicle*>(vehicle);
++    // Como el original (0x422590..0x422618): las direcciones de enlace (+0x3A4, +0x3A6) buscan el area con `>> 10`, las de nodo (+0x390, +0x394) con
++    // la palabra entera (sin acotar el indice); 0xFFFF o un area sin cargar en cualquiera de las cuatro marca el coche como parado (bit 0 de +0x3DC).
++    const auto* const areas = reinterpret_cast<CPathNode* const*>(&ThePaths.m_pPathNodes);
++    const auto* const raw = reinterpret_cast<const uint8*>(vehicle);
++    const auto word = [&](size_t offset) { return *reinterpret_cast<const uint16*>(raw + offset); };
++    const bool valid = word(0x3A4) != 0xFFFF && areas[word(0x3A4) >> 10]
++        && word(0x3A6) != 0xFFFF && areas[word(0x3A6) >> 10]
++        && word(0x390) != 0xFFFF && areas[word(0x390)]
++        && word(0x394) != 0xFFFF && areas[word(0x394)];
++    if (valid) {
++        return false;
++    }
++    vehicle->m_autoPilot.m_nMovementFlags |= 1; // +0x3DC: bIsStopped
++    return true;
+ }
+ 
+ // 0x4222A0
+ void CCarCtrl::SwitchBetweenPhysicsAndGhost(CVehicle* vehicle) {
+-    plugin::Call<0x4222A0, CVehicle*>(vehicle);
++    // Como el original (0x4222A0..0x42236C): solo coches de mision (+0x4A4 == 2) con el indicador 0x4000 de +0x40, y que no sean helicoptero,
++    // avion ni barco (+0x594 == 3, 4, 5). El estado son los 5 bits altos del byte +0x36: 3 (fisica) -> 0xC (fantasma) si el colisionado NO esta cargado
++    // en la posicion (CColStore::HasCollisionLoaded en +0x14 ? matriz + 0x30 : +4) y, en un automovil (+0x594 == 0), las cuatro ruedas a estado 0;
++    // 0xC -> 3 si esta cargado, y entonces PlaceOnRoadProperly del automovil (+0x590 == 0) o de la moto (+0x590 == 9).
++    const auto* const raw = reinterpret_cast<const uint8*>(vehicle);
++    if (!(*reinterpret_cast<const uint32*>(raw + 0x40) & 0x4000u) || raw[0x4A4] != 2) {
++        return;
++    }
++    const int32 subType = *reinterpret_cast<const int32*>(raw + 0x594);
++    if (subType == 5 || subType == 4 || subType == 3) {
++        return;
++    }
++    uint8& statusByte = *const_cast<uint8*>(raw + 0x36);
++    const uint32 status = static_cast<uint8>(statusByte >> 3);
++    if (status == 3) {
++        if (CColStore::HasCollisionLoaded(vehicle->GetPosition(), AREA_CODE_NORMAL_WORLD)) {
++            return;
++        }
++        statusByte = (statusByte & 7) | 0x60;
++        if (*reinterpret_cast<const int32*>(raw + 0x594) == 0) {
++            auto& damageManager = *reinterpret_cast<CDamageManager*>(const_cast<uint8*>(raw) + 0x5A0);
++            for (auto wheel = 0; wheel <= 3; wheel++) {
++                damageManager.SetWheelStatus(static_cast<eCarWheel>(wheel), static_cast<eCarWheelStatus>(0));
++            }
++        }
++    } else if (status == 0xC) {
++        if (!CColStore::HasCollisionLoaded(vehicle->GetPosition(), AREA_CODE_NORMAL_WORLD)) {
++            return;
++        }
++        statusByte = (statusByte & 7) | 0x18;
++        const int32 type = *reinterpret_cast<const int32*>(raw + 0x590);
++        if (type == 0) {
++            reinterpret_cast<CAutomobile*>(vehicle)->PlaceOnRoadProperly();
++        } else if (type == 9) {
++            reinterpret_cast<CBike*>(vehicle)->PlaceOnRoadProperly();
++        }
++    }
+ }
+ 
+ // 0x423FC0
+@@ -1157,7 +1906,14 @@ void CCarCtrl::TestWhetherToFirePlaneGuns(CVehicle* vehicle, CEntity* target) {
+ 
+ // 0x421FE0
+ bool CCarCtrl::ThisVehicleShouldTryNotToTurn(CVehicle* vehicle) {
+-    return plugin::CallAndReturn<bool, 0x421FE0, CVehicle*>(vehicle);
++    // Como el original (0x421FE0): tabla de 122 bytes (0x422010) indexada por modelo - 403 (movsx de 16 bits, comparacion sin signo contra 0x79) y
++    // salto a "true" o "false"; los unicos modelos con 0 son estos nueve: Linerunner, Dumper, Bus, Coach, Packer, Flatbed, Tanker, Roadtrain y Cement Truck.
++    switch (static_cast<int32>(static_cast<int16>(vehicle->m_nModelIndex))) {
++    case 403: case 406: case 431: case 437: case 443: case 455: case 514: case 515: case 524:
++        return true;
++    default:
++        return false;
++    }
+ }
+ 
+ // 0x429300
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 2e5b59623..b498b352f 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -13784,3 +13784,220 @@ __declspec(noinline) bool __cdecl Garage63TopMinus2GreaterCpp(float topZ, float
+     return double(topZ) - 2.0 > double(z);
+ }
+ #pragma float_control(pop)
++// --- Lote 63: CCarCtrl (parte C), prefijo Cc63. Anadir al FINAL de X87Math.cpp ---
++// Tramos x87 de 24 bits con exponente extendido: lo que el EXE deja en registro es double (cada operacion redondea a 24 bits); solo lo que guarda con fstp dword o fst dword es float.
++static __declspec(noinline) double Cc63Root(double value) {
++    return sqrt(value);   // fsqrt aislado: con /fp:fast y `precise` en la misma funcion saldria como llamada a la CRT o reescrito
++}
++// 0x4226F0..0x422753 (CCarCtrl::FindIntersection2Lines). Recta 1 = (a1, a2) + t * (a3, a4); recta 2 = (a5, a6) con direccion (a7, a8). Si el determinante es exactamente 0 (comparacion
++// ordenada; con NaN se divide) t = 0.0 (0x858B50). t se queda en registro (sin redondear a float); se escribe out1 y despues out2.
++void __cdecl Cc63Intersection2LinesCpp(float a1, float a2, float a3, float a4, float a5, float a6, float a7, float a8, float* out1, float* out2) {
++    const double denominator = double(a3) * double(a8) - double(a4) * double(a7);
++    double t = 0.0;
++    if (denominator != 0.0) {
++        t = ((double(a5) - double(a1)) * double(a8) - (double(a6) - double(a2)) * double(a7)) / denominator;
++    }
++    *out1 = float(double(a3) * t + double(a1));
++    *out2 = float(t * double(a4) + double(a2));
++}
++// 0x4224E0..0x422586 (CCarCtrl::FindSpeedMultiplier). a1 se lleva a [-pi, pi] sumando/restando 2*pi en registro (24 bits por operacion); d = max(|a1| - a2, 0); r = a3 - a2;
++// v = 1 - (d / r) * (1 - a4), guardado a float (fstp); devuelve a4 si d > r (comparacion ordenada), si no float(v).
++float __cdecl Cc63SpeedMultiplierCpp(float a1, float a2, float a3, float a4) {
++    const double pi = 3.1415927410125732;      // 0x858CB8
++    const double twoPi = 6.2831854820251465;   // 0x858CBC
++    double angle = double(a1);
++    while (angle < -pi) {
++        angle += twoPi;
++    }
++    while (angle > pi) {
++        angle -= twoPi;
++    }
++    if (angle < 0.0) {
++        angle = -angle;
++    }
++    double d = angle - double(a2);
++    if (d < 0.0) {
++        d = 0.0;
++    }
++    const double r = double(a3) - double(a2);
++    const double q = d / r;
++    volatile float v = float(1.0 - q * (1.0 - double(a4)));
++    if (d > r) {
++        return a4;
++    }
++    return v;
++}
++// 0x42263F..0x4226EF (CCarCtrl::FindPercDependingOnDistToLink): dist = sqrt((Y - py)^2 + (X - px)^2) con X = linkX * 0.125, Y = linkY * 0.125 (24 bits por operacion). dist < 5 (en registro) -> 0.5;
++// con dist redondeado a float (fst dword): >= 15 o NaN -> 1.0, si no (dist - 5) * 0.05 + 0.5.
++float __cdecl Cc63PercDistCpp(float px, float py, int linkX, int linkY) {
++    const double scaleX = double(linkX) * 0.125;
++    const double scaleY = double(linkY) * 0.125;
++    const double dy = scaleY - double(py);
++    const double dyy = dy * dy;
++    const double dx = scaleX - double(px);
++    const double dxx = dx * dx;
++    const double dist = Cc63Root(dyy + dxx);
++    volatile float distSlot = float(dist);
++    if (dist < 5.0) {
++        return 0.5f;
++    }
++    if (!(double(distSlot) < 15.0)) {
++        return 1.0f;
++    }
++    return float((double(distSlot) - 5.0) * 0.05000000074505806 + 0.5);
++}
++// 0x4221C1..0x422292 (CCarCtrl::FindPathDirection): d21 = (p2xA - p1xB, p2yC - p1yD) y d32 = (p3xE - p2xF, p3yG - p2yH) se guardan como float; n21 = d21 / |d21| (nx21 se guarda
++// como float, ny21 queda en registro), n32 igual en registro; cross = nx21 * ny32 - nx32 * ny21 (guardado como float), dot = ny21 * ny32 + nx32 * nx21 (registro).
++// |d21| == 0 o |d32| == 0 -> 0; dot > 0.4 -> 1; dot < -0.3 -> *flag = true; despues 4 si cross > 0 (ordenada) y 2 si no.
++int __cdecl Cc63PathDirectionCpp(float p2xA, float p1xB, float p2yC, float p1yD, float p3xE, float p2xF, float p3yG, float p2yH, bool* flag) {
++    volatile float dx21 = float(double(p2xA) - double(p1xB));
++    volatile float dy21 = float(double(p2yC) - double(p1yD));
++    volatile float dx32 = float(double(p3xE) - double(p2xF));
++    volatile float dy32 = float(double(p3yG) - double(p2yH));
++    const double len21 = Cc63Root(double(dy21) * double(dy21) + double(dx21) * double(dx21));
++    if (len21 == 0.0) {
++        return 0;
++    }
++    const double inv21 = 1.0 / len21;
++    volatile float nx21 = float(double(dx21) * inv21);
++    const double ny21 = inv21 * double(dy21);
++    const double len32 = Cc63Root(double(dy32) * double(dy32) + double(dx32) * double(dx32));
++    if (len32 == 0.0) {
++        return 0;
++    }
++    const double inv32 = 1.0 / len32;
++    const double nx32 = double(dx32) * inv32;
++    const double ny32 = inv32 * double(dy32);
++    const double crossA = double(nx21) * ny32;
++    const double crossB = nx32 * ny21;
++    volatile float cross = float(crossA - crossB);
++    const double dotA = ny21 * ny32;
++    const double dotB = nx32 * double(nx21);
++    const double dot = dotA + dotB;
++    if (dot > 0.4000000059604645) {   // 0x858EE8
++        return 1;
++    }
++    if (dot < -0.30000001192092896) {   // 0x858EE4
++        *flag = true;
++    }
++    return double(cross) > 0.0 ? 4 : 2;
++}
++
++// --- Lote 63: CCarCtrl (parte C, tanda 2), prefijo Cc63b. Anadir al FINAL de X87Math.cpp ---
++// 0x43444D.. / 0x42CED8..: v = coordinate * 0.02f (0x858B38) + 60.0f (0x858B34) con un redondeo a 24 bits por operacion, guardado como float (fst dword) y convertido con floor
++// y _ftol2 (int64 truncado; NaN, infinito o |v| >= 2^63 dan 0x8000000000000000, cuyo dword bajo es 0).
++int __cdecl Cc63bSectorCpp(float coordinate) {
++    volatile float scaled = float(double(coordinate) * 0.019999999552965164 + 60.0);
++    return int(__int64(floor(double(scaled))));
++}
++// 0x4345DD..0x4345FE: movzx byte + fild + fmul dword [multiplicador]: resultado en ST0 (24 bits).
++float __cdecl Cc63bCruiseSpeedCpp(unsigned int cruise, float multiplier) {
++    return float(double(cruise) * double(multiplier));
++}
++// 0x434744..0x43475D: (fild(cruise) * multiplier) + maxSpeed (24 bits) y * 0.5f (0x858B8C), resultado en ST0.
++float __cdecl Cc63bTrafficSpeedCpp(unsigned int cruise, float multiplier, float maxSpeed) {
++    const double product = double(cruise) * double(multiplier);
++    const double sum = product + double(maxSpeed);
++    return float(sum * 0.5);
++}
++// 0x421831..0x42184B: fild(rand) * 0x38000100 (1/32767) comparado con 0.125f (0x858C48): menor (ordenada) -> true.
++bool __cdecl Cc63bRandBelowEighthCpp(int randValue) {
++    const double scaled = double(randValue) * 3.0518509447574615e-05;
++    return scaled < 0.125;
++}
++// 0x434308: fadd dword [z] sobre la distancia del centro de masas (resultado en ST0 y luego fstp dword).
++float __cdecl Cc63bAddFloatCpp(float a, float b) {
++    return float(double(a) + double(b));
++}
++
++// --- Lote 63: CCarCtrl (parte C, tanda 3), prefijo Cc63c. Anadir al FINAL de X87Math.cpp (se declaran en CarCtrl.cpp, no en X87Math.h) ---
++// 0x42F6A8..0x42F743 (JoinCarWithRoadSystem): X = fild(int16 x) * 0.125f, Y igual (x87 a 24 bits, un redondeo por operacion); distancia entre dos nodos de ruta = sqrt((X2 - X1)^2 + (Y2 - Y1)^2)
++// con la suma en ese orden (dx^2 + dy^2); el resultado queda en registro (sin pasar por float, que ya cabe en 24 bits).
++float __cdecl Cc63cLinkDistanceCpp(int node2X, int node2Y, int node1X, int node1Y) {
++    const double x2 = double(node2X) * 0.125;
++    const double x1 = double(node1X) * 0.125;
++    const double y2 = double(node2Y) * 0.125;
++    const double y1 = double(node1Y) * 0.125;
++    const double dx = x2 - x1;
++    const double dx2 = dx * dx;
++    const double dy = y2 - y1;
++    const double dy2 = dy * dy;
++    const double sum = dx2 + dy2;
++    return float(Cc63Root(sum));
++}
++// 0x42F77D..0x42F828 (JoinCarWithRoadSystem): adelante.x (ST0) pasa a 1.0 si adelante.x == 0 y adelante.y == 0 (comparaciones ordenadas; NaN no); dot = (X1 - X3) * adelante.x + (Y1 - Y3) * adelante.y
++// (24 bits por operacion) con X = fild * 0.125; se devuelve dot < 0 (ordenada).
++bool __cdecl Cc63cDotNegativeCpp(int node1X, int node1Y, int node3X, int node3Y, float forwardX, float forwardY) {
++    double fx = double(forwardX);
++    if (fx == 0.0 && double(forwardY) == 0.0) {
++        fx = 1.0;
++    }
++    const double x1 = double(node1X) * 0.125;
++    const double x3 = double(node3X) * 0.125;
++    const double y1 = double(node1Y) * 0.125;
++    const double y3 = double(node3Y) * 0.125;
++    const double a = (x1 - x3) * fx;
++    const double b = (y1 - y3) * double(forwardY);
++    const double dot = a + b;
++    return dot < 0.0;
++}
++
++// --- Lote 63: CCarCtrl (parte C, tanda 5), prefijo Cc63e. Anadir al FINAL de X87Math.cpp (se declaran en CarCtrl.cpp, no en X87Math.h) ---
++// CCarCtrl::ChooseModel (0x424CE0): la suma de las cuatro densidades se hace en x87 con un redondeo a 24 bits por operacion y se trunca con _ftol2 (int64; NaN/infinito/enorme dan 0 en el dword bajo).
++int __cdecl Cc63eTotalCpp(float a, float b, float c, float d) {
++    const double sum = ((double(a) + double(b)) + double(c)) + double(d);
++    return int(__int64(sum));
++}
++// 0x424D0C..0x424D3A: fild(rand & 0xFFFF) * (1/65536, 0x858B14) * 100.0f (0x858628), _ftol2 != 0.
++bool __cdecl Cc63eRollFailsCpp(int randValue) {
++    const double v = (double(randValue & 0xFFFF) * 3.0517578125e-05) * 100.0;
++    return int(__int64(v)) != 0;
++}
++// 0x424D3C..0x424D55: fild(rand) * 0x38000100 (0x858C7C) guardado como float (fstp dword).
++float __cdecl Cc63eRatioCpp(int randValue) {
++    volatile float stored = float(double(randValue) * 3.0518509447574615e-05);
++    return stored;
++}
++// 0x424D61..0x424D6F, 0x424DA3..0x424DBF, 0x424DCD..0x424DE9: (a [+ b [+ c]]) / total (float guardado) con un redondeo a 24 bits por operacion, comparado (ordenado) con el sorteo.
++bool __cdecl Cc63eTierExceedsCpp(float a, float b, float c, int count, float total, float roll) {
++    double numerator = double(a);
++    if (count >= 2) {
++        numerator = numerator + double(b);
++    }
++    if (count >= 3) {
++        numerator = numerator + double(c);
++    }
++    const double quotient = numerator / double(total);
++    return quotient > double(roll);
++}
++// 0x424EBE..0x424ED0: fild(rand & 0xFFFF) * (1/65536) y fimul por el total, _ftol2.
++int __cdecl Cc63ePickRollCpp(int randValue, int total) {
++    const double v = (double(randValue & 0xFFFF) * 3.0517578125e-05) * double(total);
++    return int(__int64(v));
++}
++// 0x424F2D..0x424F46: fild(rand & 0xFFFF) * (1/65536) * 23.0f (0x858F84), _ftol2.
++int __cdecl Cc63eGroupRollCpp(int randValue) {
++    const double v = (double(randValue & 0xFFFF) * 3.0517578125e-05) * 23.0;
++    return int(__int64(v));
++}
++
++// --- Lote 63: CCarCtrl (parte C, tanda 6), prefijo Cc63f. Anadir al FINAL de X87Math.cpp (se declaran en CarCtrl.cpp, no en X87Math.h) ---
++// CCarCtrl::IsThisAnAppropriateNode (0x42DAB0): v1 = nodo3 - punto y v2 = nodo3 - nodo2 (0x40FE60: z, y, x; cada resta redondeada a 24 bits y guardada como float); CrossProduct (0x59C730) con a = v2, b = v1:
++// z = a.x * b.y - b.x * a.y (productos y resta a 24 bits, guardado como float); el llamador compara ese float con 0 (menor, ordenado).
++bool __cdecl Cc63fCrossZNegativeCpp(const float* node3, const float* point, const float* node2) {
++    volatile float v1x = float(double(node3[0]) - double(point[0]));
++    volatile float v1y = float(double(node3[1]) - double(point[1]));
++    volatile float v2x = float(double(node3[0]) - double(node2[0]));
++    volatile float v2y = float(double(node3[1]) - double(node2[1]));
++    volatile float z = float(double(v2x) * double(v1y) - double(v1x) * double(v2y));
++    return z < 0.0f;
++}
++// DotProduct (0x40FDB0) de la derecha del vehiculo y v1 = nodo3 - punto: (a.z * b.z + a.y * b.y) + a.x * b.x a 24 bits, resultado en ST0 (sin guardar) comparado (menor, ordenado) con 0.
++bool __cdecl Cc63fRightDotNegativeCpp(const float* right, const float* node3, const float* point) {
++    volatile float v1x = float(double(node3[0]) - double(point[0]));
++    volatile float v1y = float(double(node3[1]) - double(point[1]));
++    volatile float v1z = float(double(node3[2]) - double(point[2]));
++    const double zy = double(right[2]) * double(v1z) + double(right[1]) * double(v1y);
++    const double dot = zy + double(right[0]) * double(v1x);
++    return dot < 0.0;
++}
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index d6a3c99b4..bbe3a31cc 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1662,3 +1662,15 @@ double __cdecl Garage63CenterDistSqCpp(const float* g, float x1, float x2, float
+ double __cdecl Garage63DoorDistSqCpp(float d0x, float v0x, float d1x, float v1x, float d2y, float v2y, float d3y, float v3y);
+ // 0x44C3F1..0x44C3FD: topZ - 2.0f (x87, sin guardar) > z (comparacion ordenada).
+ bool __cdecl Garage63TopMinus2GreaterCpp(float topZ, float z);
++// --- Lote 63: CCarCtrl (parte C: FindIntersection2Lines, FindSpeedMultiplier, FindPercDependingOnDistToLink, FindPathDirection...), prefijo Cc63. Anadir al FINAL de X87Math.h ---
++// Tramos x87 de 24 bits con exponente extendido (ver X87Math.cpp).
++void __cdecl Cc63Intersection2LinesCpp(float a1, float a2, float a3, float a4, float a5, float a6, float a7, float a8, float* out1, float* out2); // 0x4226F0; no toca EDX
++float __cdecl Cc63SpeedMultiplierCpp(float a1, float a2, float a3, float a4);                                                                      // 0x4224E0
++float __cdecl Cc63PercDistCpp(float px, float py, int linkX, int linkY);                                                                           // 0x422620 (tramo aritmetico)
++int __cdecl Cc63PathDirectionCpp(float p2xA, float p1xB, float p2yC, float p1yD, float p3xE, float p2xF, float p3yG, float p2yH, bool* flag);     // 0x422090 (tramo aritmetico)
++// --- Lote 63: CCarCtrl (parte C, tanda 2), prefijo Cc63b. Anadir al FINAL de X87Math.h ---
++int __cdecl Cc63bSectorCpp(float coordinate);                                               // ftol2(floor(coordinate * 0.02f + 60.0f)) (32 bits bajos); FindMaximumSpeedForThisCarInTraffic / ScanForPedDanger
++float __cdecl Cc63bCruiseSpeedCpp(unsigned int cruise, float multiplier);                   // fild(cruise) * multiplier (24 bits), resultado en ST0
++float __cdecl Cc63bTrafficSpeedCpp(unsigned int cruise, float multiplier, float maxSpeed);  // (fild(cruise) * multiplier + maxSpeed) * 0.5f, resultado en ST0
++bool __cdecl Cc63bRandBelowEighthCpp(int randValue);                                        // fild(randValue) * (1/32767, 0x858C7C) < 0.125f (SetUpDriverAndPassengersForVehicle)
++float __cdecl Cc63bAddFloatCpp(float a, float b);                                           // a + b (24 bits), resultado en ST0 (SetCoordsOfScriptCar)

@@ -1,0 +1,16 @@
+{
+ "accel": 390,
+ "accel_lin": 70,
+ "ahead": 751,
+ "ahead_far": 321,
+ "ahead_near": 429,
+ "behind_far": 624,
+ "behind_near": 672,
+ "brake": 985,
+ "clamp_hi": 742,
+ "clamp_lo": 725,
+ "len0": 354,
+ "limited": 410,
+ "loop_hi": 439,
+ "loop_lo": 359
+}
