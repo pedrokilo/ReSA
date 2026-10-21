@@ -1,0 +1,143 @@
+diff --git a/source/game_sa/GangWars.cpp b/source/game_sa/GangWars.cpp
+index c96eb7421..de12a421f 100644
+--- a/source/game_sa/GangWars.cpp
++++ b/source/game_sa/GangWars.cpp
+@@ -40,10 +40,23 @@ END GENERATED HOOK STATUS */
+ #include "Pools/PedPool.h"
+ #include "X87Math.h"
+ 
++// 0x406E80 (cdecl, 3 argumentos de pila): modelo del peatón `slot` del grupo de peatones que el grupo de población `popcycleGroup` usa en la zona `worldZone`.
++// Desensamblado: g = dword [0x8D2540 + (3 * popcycleGroup + worldZone) * 4] (CPopulation::m_TranslationArray, 3 dwords por grupo);
++// modelo = movzx word [0xC0F358 + (g * 21 + slot) * 2] (CPopulation::m_PedGroups, 21 words por grupo de peatones). Sin comprobación de límites; el índice se calcula
++// con envoltura de 32 bits y el resultado sale cero-extendido en EAX (movzx). CreateAttackWave es el único llamador (lee EAX); ECX y EDX salen con residuos que nadie lee.
++static_assert(POPCYCLE_GROUP_BALLAS == 0x12 && POPCYCLE_TOTAL_GROUPS == 33);
++static int32 GetPopcycleGroupPedModel(int32 popcycleGroup, int32 slot, int32 worldZone) {
++    const uint32 translationIndex = uint32(popcycleGroup) * 3u + uint32(worldZone);
++    const uint32 pedGroup = *reinterpret_cast<const uint32*>(0x8D2540u + translationIndex * 4u);
++    const uint32 modelIndex = pedGroup * 21u + uint32(slot);
++    return *reinterpret_cast<const uint16*>(0xC0F358u + modelIndex * 2u);
++}
++
+ void CGangWars::InjectHooks() {
+     RH_ScopedClass(CGangWars);
+     RH_ScopedCategoryGlobal();
+ 
++    RH_ScopedGlobalInstall(GetPopcycleGroupPedModel, 0x406E80);
+     RH_ScopedInstall(InitAtStartOfGame, 0x443920);
+     RH_ScopedInstall(AddKillToProvocation, 0x443950);                  // ?
+     RH_ScopedInstall(AttackWaveOvercome, 0x445B30);
+@@ -275,7 +288,7 @@ bool CGangWars::CreateAttackWave(int32 warFerocity, int32 waveID) {
+         CStreaming::RequestModel(model, 8);
+     }
+     if (int32(Gang1) != Gang2 && !PedStreamedInForThisGang(static_cast<eGangID>(Gang2))) {
+-        const int32 model = plugin::CallAndReturn<int32, 0x406E80>(Gang2 + 0x12, 0, 0);
++        const int32 model = GetPopcycleGroupPedModel(Gang2 + POPCYCLE_GROUP_BALLAS, 0, 0);
+         CStreaming::RequestModel(model, 8);
+     }
+     int32 model1 = static_cast<int32>(reinterpret_cast<uintptr_t>(player)), model2 = model1;
+diff --git a/source/game_sa/Tasks/Task.cpp b/source/game_sa/Tasks/Task.cpp
+index 2edd42c30..f8ce2875f 100644
+--- a/source/game_sa/Tasks/Task.cpp
++++ b/source/game_sa/Tasks/Task.cpp
+@@ -45,6 +45,34 @@ void CTask::Destructor() {
+ #pragma optimize("", on)
+ #pragma runtime_checks("", restore)
+ 
++class CTaskComplex;
++
++namespace CTaskComplexBody {
++// 0x61A3D0 (thiscall, sin argumentos de pila): cuerpo no virtual de ~CTaskComplex. Deja la vtable de CTaskComplex del EXE (0x86D4CC), borra la subtarea (m_pSubTask,
++// +8) con su destructor virtual con borrado (`push 1; call [vtable]`) si no es nula, pone m_pSubTask a 0 y deja la vtable de CTask del EXE (0x86D48C). El EXE lo envuelve
++// en un marco SEH (sólo desenrolla); aquí se omite. Los llamadores (destructores de las tareas complejas, con `call` o `jmp`) no leen EAX, ECX ni EDX tras él.
++// __fastcall con un segundo registro sin usar equivale a thiscall sin argumentos de pila (`ret`).
++#pragma runtime_checks("", off)
++static void __fastcall Destructor(CTask* self, void* /*edx*/) {
++    uint32& vtable = *reinterpret_cast<uint32*>(self);
++    CTask*& subTask = *reinterpret_cast<CTask**>(reinterpret_cast<uint8*>(self) + 8);
++    vtable = 0x86D4CC;
++    if (CTask* const owned = subTask) {
++        delete owned;
++    }
++    subTask = nullptr;
++    vtable = 0x86D48C;
++}
++#pragma runtime_checks("", restore)
++
++static void InjectHooks() {
++    RH_ScopedClass(CTaskComplex);
++    RH_ScopedCategory("Tasks");
++
++    RH_ScopedGlobalInstall(Destructor, 0x61A3D0);
++}
++} // namespace CTaskComplexBody
++
+ // 0x61A5A0
+ void* CTask::operator new(size_t size) {
+     return GetTaskPool()->New();
+@@ -90,4 +118,6 @@ void CTask::InjectHooks() {
+     RH_ScopedInstall(operator new, 0x61A5A0);
+     RH_ScopedInstall(operator delete, 0x61A5B0);
+     RH_ScopedVMTInstall(StopTimer, 0x421180);
++
++    CTaskComplexBody::InjectHooks();
+ }
+diff --git a/source/game_sa/WaterLevel.cpp b/source/game_sa/WaterLevel.cpp
+index 7d99ce206..7a09f8f93 100644
+--- a/source/game_sa/WaterLevel.cpp
++++ b/source/game_sa/WaterLevel.cpp
+@@ -24,9 +24,28 @@ END GENERATED HOOK STATUS */
+ 
+ #define TRIANGLE_ARGS_OUT X1, Y1, P1, X2, Y2, P2, X3, Y3, P3
+ 
++// 0x6E7680 (cdecl, sin argumentos): envía al RenderWare el búfer temporal de vértices e índices del agua y lo vacía. Es RenderBuffer::RenderStuffInBuffer (0x707800) más
++// LittleTest (++g_nNumIm3dDrawCalls) cuando hay vértices pendientes, antes de RwIm3DTransform. Los contadores (0xC4B950 vértices, 0xC4B954 índices) son dwords; el original
++// compara el de vértices por igualdad con 0, pasa el resultado de RwIm3DTransform por `test eax, eax` completo y relee el de índices tras la transformación.
++// Llamadores del EXE: sólo las dos funciones `_OneLayer` de agua sin reconstruir, que no leen EAX/ECX/EDX (el EDX que ven es el del `cdq` posterior).
++static void FlushWaterRenderBuffer() {
++    auto& nVtx = StaticRef<int32>(0xC4B950);
++    auto& nIdx = StaticRef<int32>(0xC4B954);
++    if (nVtx != 0) {
++        LittleTest();
++        if (RwIm3DTransform(TempBufferVertices.m_3d, nVtx, nullptr, rwIM3D_VERTEXUV)) {
++            RwIm3DRenderIndexedPrimitive(rwPRIMTYPETRILIST, aTempBufferIndices, nIdx);
++            RwIm3DEnd();
++        }
++    }
++    nIdx = 0;
++    nVtx = 0;
++}
++
+ void CWaterLevel::InjectHooks() {
+     RH_ScopedClass(CWaterLevel);
+     RH_ScopedCategoryGlobal();
++    RH_ScopedGlobalInstall(FlushWaterRenderBuffer, 0x6E7680);
+     RH_ScopedInstall(CalculateWavesOnlyForCoordinate2Native, 0x6E7210);
+ 
+     RH_ScopedGlobalInstall(WaterLevelInitialise, 0x6EAE80);
+@@ -315,7 +334,7 @@ void CWaterLevel::RenderFlatWaterTriangle_OneLayer(int32 X1, int32 Y1, CRenPar P
+     auto& nIdx = StaticRef<int32>(0xC4B954);
+     // Como el original: umbrales 0xFFD / 0x7FD y vaciado con la funcion 0x6E7680 (con LittleTest).
+     if (nIdx >= 0xFFD || nVtx >= 0x7FD) {
+-        plugin::Call<0x6E7680>();
++        FlushWaterRenderBuffer();
+     }
+     const int32 base = nVtx;
+     const auto layer = GetWaterLayerParams(WaterLayer);
+@@ -361,7 +380,7 @@ void CWaterLevel::RenderWakeSegment(
+ 
+     for (int32 part = 0; part < 4; ++part) {
+         if (nIdx >= 0xFFA || nVtx >= 0x7FC) {
+-            plugin::Call<0x6E7680>();
++            FlushWaterRenderBuffer();
+         }
+         const int32 base = nVtx;
+         const float ta = float(part) * 0.25f, tb = float(part + 1) * 0.25f;
+@@ -704,7 +723,7 @@ void CWaterLevel::RenderFlatWaterRectangle_OneLayer(int32 minX, int32 maxX, int3
+     auto& nIdx = StaticRef<int32>(0xC4B954);
+     // Como el original: umbrales 0xFFA / 0x7FC y vaciado con la funcion 0x6E7680 (con LittleTest).
+     if (nIdx >= 0xFFA || nVtx >= 0x7FC) {
+-        plugin::Call<0x6E7680>();
++        FlushWaterRenderBuffer();
+     }
+     const int32 base = nVtx;
+     const auto layer = GetWaterLayerParams(WaterLayer);

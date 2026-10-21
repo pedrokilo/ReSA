@@ -541857,6 +541857,269 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wh-4 (HEAD df26d6fe7 + fuentes del lote 63 parte C, tandas 1 a 6). Colaboradores sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL; no se validan sus cuerpos reales): CVehicle::IsLawEnforcementVehicle 0x6D2370, CCarCtrl::IsAnyoneParking 0x42C250 y CWorld::FindObjectsKindaColliding 0x568B80 (11 argumentos de pila registrados). NO se sustituyen y se comparan de paso: los ayudantes de vector del EXE (0x40FE60, 0x59C730, 0x40FDB0, 0x420A10) frente a los equivalentes x87 de la DLL, y CPlaceable::GetRight 0x41CC70 (llamado por direccion; solo con matriz valida). Los nodos (ThePaths.m_pPathNodes) y CModelInfo::ms_modelInfoPtrs son sinteticos (arenas con guardas; guardados y restaurados); la informacion del modelo y su modelo de colision son objetos falsos con los campos leidos (+0x4D, +0x14; +0x0C, +0x10, +0x14). El nodo 2 siempre tiene el area cargada (el EXE la desreferencia sin comprobar). El unico llamador del EXE (0x42E18B) solo lee AL.",
       "review_reference": "reversing/CarCtrlRest63F/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTimer",
+        "fn_name": "GetMillisecondTime",
+        "address": "0x005617C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/SmallHelpers64A/validation-summary.json",
+        "sha256": "17e9c3d90c7f83f6c58e35d46c9272fb16711ed03f1b3c59658abc4c528227ee",
+        "passed_path": [
+          "covered_functions",
+          "GetMillisecondTime"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "40839c96f91272f0052be484f87e2ecc558523026eb57808bf0d67dd137be848",
+        "source/game_sa/Timer.cpp": "9f18565bba8ee3de2a4b4aef19ec055950e8631dd162888b3adbf573a9651964",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "source/game_sa/Pad.cpp": "575815725e907215bbe01d66b9941bcc59e01c25a0ef17ffb03d1d3ea2ea9430",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ff14095125bd699a078426dbf6e43de6f7221dcf08b1b8352dd8bb2930cc8619",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "ef1ec3e5a298cebb325f63b31cacb1c5f6b1fb207838ebc96ecfa79285bd71f9",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/SmallHelpers64A/LiveComparison.hpp": "6fadacaaa8a067e3b7b375bcd019223e1c5011aa3c322f8482c1fe0ec06b5ae8",
+        "reversing/SmallHelpers64A/Core.hpp": "06a0fd7e1921c2b01e126ab948c49787b841109281f698db073c5e73e867651b",
+        "reversing/SmallHelpers64A/Fixtures.hpp": "49d9cc4e420bb8d06a52f6910b8e70a711370e0985ea5e72d17b8ed0261b65de",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wp-1 (HEAD 1b13a6db4 + fuente del lote 64: Timer.cpp, Pad.cpp/h, Vehicle.cpp). Colaboradores sustituidos por falsos identicos en ambos lados (parche en la entrada del EXE y, si la DLL tiene hook, en el cuerpo de la DLL; no se validan sus cuerpos): RsTimer (0x619410); GetAtomicId (0x732370), GetModelInfo (0x732260), RpClumpRemoveAtomic (0x74A4C0), RpAtomicDestroy (0x749DC0), RwFrameDestroy (0x7F05A0) y CBaseModelInfo::RemoveRef (0x4C4BB0). DIReleaseMouse usa un dispositivo DirectInput FALSO (objeto COM con tabla virtual propia) y estructuras psGlobal falsas apuntadas por RsGlobal.ps solo durante la llamada: el dispositivo real y su psGlobal no se tocan. Se exigen EAX/EDX de GetMillisecondTime (CTimer::Suspend/Resume los leen) y EAX de los callbacks (RpClumpForAllAtomics hace test eax,eax); el resto de registros solo se registra. No se prueban los caminos en que el EXE desreferencia sin comprobar nulo (GetModelInfo nulo en la primera llamada, dispositivo nulo tras Unacquire).",
+      "review_reference": "reversing/SmallHelpers64A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPad",
+        "fn_name": "DIReleaseMouse",
+        "address": "0x00746F70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/SmallHelpers64A/validation-summary.json",
+        "sha256": "17e9c3d90c7f83f6c58e35d46c9272fb16711ed03f1b3c59658abc4c528227ee",
+        "passed_path": [
+          "covered_functions",
+          "DIReleaseMouse"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "40839c96f91272f0052be484f87e2ecc558523026eb57808bf0d67dd137be848",
+        "source/game_sa/Timer.cpp": "9f18565bba8ee3de2a4b4aef19ec055950e8631dd162888b3adbf573a9651964",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "source/game_sa/Pad.cpp": "575815725e907215bbe01d66b9941bcc59e01c25a0ef17ffb03d1d3ea2ea9430",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ff14095125bd699a078426dbf6e43de6f7221dcf08b1b8352dd8bb2930cc8619",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "ef1ec3e5a298cebb325f63b31cacb1c5f6b1fb207838ebc96ecfa79285bd71f9",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/SmallHelpers64A/LiveComparison.hpp": "6fadacaaa8a067e3b7b375bcd019223e1c5011aa3c322f8482c1fe0ec06b5ae8",
+        "reversing/SmallHelpers64A/Core.hpp": "06a0fd7e1921c2b01e126ab948c49787b841109281f698db073c5e73e867651b",
+        "reversing/SmallHelpers64A/Fixtures.hpp": "49d9cc4e420bb8d06a52f6910b8e70a711370e0985ea5e72d17b8ed0261b65de",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wp-1 (HEAD 1b13a6db4 + fuente del lote 64: Timer.cpp, Pad.cpp/h, Vehicle.cpp). Colaboradores sustituidos por falsos identicos en ambos lados (parche en la entrada del EXE y, si la DLL tiene hook, en el cuerpo de la DLL; no se validan sus cuerpos): RsTimer (0x619410); GetAtomicId (0x732370), GetModelInfo (0x732260), RpClumpRemoveAtomic (0x74A4C0), RpAtomicDestroy (0x749DC0), RwFrameDestroy (0x7F05A0) y CBaseModelInfo::RemoveRef (0x4C4BB0). DIReleaseMouse usa un dispositivo DirectInput FALSO (objeto COM con tabla virtual propia) y estructuras psGlobal falsas apuntadas por RsGlobal.ps solo durante la llamada: el dispositivo real y su psGlobal no se tocan. Se exigen EAX/EDX de GetMillisecondTime (CTimer::Suspend/Resume los leen) y EAX de los callbacks (RpClumpForAllAtomics hace test eax,eax); el resto de registros solo se registra. No se prueban los caminos en que el EXE desreferencia sin comprobar nulo (GetModelInfo nulo en la primera llamada, dispositivo nulo tras Unacquire).",
+      "review_reference": "reversing/SmallHelpers64A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "RemoveUpgradeCB",
+        "address": "0x006D3300",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/SmallHelpers64A/validation-summary.json",
+        "sha256": "17e9c3d90c7f83f6c58e35d46c9272fb16711ed03f1b3c59658abc4c528227ee",
+        "passed_path": [
+          "covered_functions",
+          "RemoveUpgradeCB"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "40839c96f91272f0052be484f87e2ecc558523026eb57808bf0d67dd137be848",
+        "source/game_sa/Timer.cpp": "9f18565bba8ee3de2a4b4aef19ec055950e8631dd162888b3adbf573a9651964",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "source/game_sa/Pad.cpp": "575815725e907215bbe01d66b9941bcc59e01c25a0ef17ffb03d1d3ea2ea9430",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ff14095125bd699a078426dbf6e43de6f7221dcf08b1b8352dd8bb2930cc8619",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "ef1ec3e5a298cebb325f63b31cacb1c5f6b1fb207838ebc96ecfa79285bd71f9",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/SmallHelpers64A/LiveComparison.hpp": "6fadacaaa8a067e3b7b375bcd019223e1c5011aa3c322f8482c1fe0ec06b5ae8",
+        "reversing/SmallHelpers64A/Core.hpp": "06a0fd7e1921c2b01e126ab948c49787b841109281f698db073c5e73e867651b",
+        "reversing/SmallHelpers64A/Fixtures.hpp": "49d9cc4e420bb8d06a52f6910b8e70a711370e0985ea5e72d17b8ed0261b65de",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wp-1 (HEAD 1b13a6db4 + fuente del lote 64: Timer.cpp, Pad.cpp/h, Vehicle.cpp). Colaboradores sustituidos por falsos identicos en ambos lados (parche en la entrada del EXE y, si la DLL tiene hook, en el cuerpo de la DLL; no se validan sus cuerpos): RsTimer (0x619410); GetAtomicId (0x732370), GetModelInfo (0x732260), RpClumpRemoveAtomic (0x74A4C0), RpAtomicDestroy (0x749DC0), RwFrameDestroy (0x7F05A0) y CBaseModelInfo::RemoveRef (0x4C4BB0). DIReleaseMouse usa un dispositivo DirectInput FALSO (objeto COM con tabla virtual propia) y estructuras psGlobal falsas apuntadas por RsGlobal.ps solo durante la llamada: el dispositivo real y su psGlobal no se tocan. Se exigen EAX/EDX de GetMillisecondTime (CTimer::Suspend/Resume los leen) y EAX de los callbacks (RpClumpForAllAtomics hace test eax,eax); el resto de registros solo se registra. No se prueban los caminos en que el EXE desreferencia sin comprobar nulo (GetModelInfo nulo en la primera llamada, dispositivo nulo tras Unacquire).",
+      "review_reference": "reversing/SmallHelpers64A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "FindUpgradeCB",
+        "address": "0x006D3370",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/SmallHelpers64A/validation-summary.json",
+        "sha256": "17e9c3d90c7f83f6c58e35d46c9272fb16711ed03f1b3c59658abc4c528227ee",
+        "passed_path": [
+          "covered_functions",
+          "FindUpgradeCB"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "40839c96f91272f0052be484f87e2ecc558523026eb57808bf0d67dd137be848",
+        "source/game_sa/Timer.cpp": "9f18565bba8ee3de2a4b4aef19ec055950e8631dd162888b3adbf573a9651964",
+        "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+        "source/game_sa/Pad.cpp": "575815725e907215bbe01d66b9941bcc59e01c25a0ef17ffb03d1d3ea2ea9430",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ff14095125bd699a078426dbf6e43de6f7221dcf08b1b8352dd8bb2930cc8619",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "ef1ec3e5a298cebb325f63b31cacb1c5f6b1fb207838ebc96ecfa79285bd71f9",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/SmallHelpers64A/LiveComparison.hpp": "6fadacaaa8a067e3b7b375bcd019223e1c5011aa3c322f8482c1fe0ec06b5ae8",
+        "reversing/SmallHelpers64A/Core.hpp": "06a0fd7e1921c2b01e126ab948c49787b841109281f698db073c5e73e867651b",
+        "reversing/SmallHelpers64A/Fixtures.hpp": "49d9cc4e420bb8d06a52f6910b8e70a711370e0985ea5e72d17b8ed0261b65de",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wp-1 (HEAD 1b13a6db4 + fuente del lote 64: Timer.cpp, Pad.cpp/h, Vehicle.cpp). Colaboradores sustituidos por falsos identicos en ambos lados (parche en la entrada del EXE y, si la DLL tiene hook, en el cuerpo de la DLL; no se validan sus cuerpos): RsTimer (0x619410); GetAtomicId (0x732370), GetModelInfo (0x732260), RpClumpRemoveAtomic (0x74A4C0), RpAtomicDestroy (0x749DC0), RwFrameDestroy (0x7F05A0) y CBaseModelInfo::RemoveRef (0x4C4BB0). DIReleaseMouse usa un dispositivo DirectInput FALSO (objeto COM con tabla virtual propia) y estructuras psGlobal falsas apuntadas por RsGlobal.ps solo durante la llamada: el dispositivo real y su psGlobal no se tocan. Se exigen EAX/EDX de GetMillisecondTime (CTimer::Suspend/Resume los leen) y EAX de los callbacks (RpClumpForAllAtomics hace test eax,eax); el resto de registros solo se registra. No se prueban los caminos en que el EXE desreferencia sin comprobar nulo (GetModelInfo nulo en la primera llamada, dispositivo nulo tras Unacquire).",
+      "review_reference": "reversing/SmallHelpers64A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGangWars",
+        "fn_name": "GetPopcycleGroupPedModel",
+        "address": "0x00406E80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/SmallHelpers64B/validation-summary.json",
+        "sha256": "d52e5143c02063610aab32dda39d726051c203b98e5e591559ebc1fc60bc9e21",
+        "passed_path": [
+          "covered_functions",
+          "GetPopcycleGroupPedModel"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/game_sa/GangWars.cpp": "fefa5aff06d9900233b2b6ee633fae3f4772f46645baa1a5d506fe0acb086a1d",
+        "source/game_sa/WaterLevel.cpp": "71f6e7b1e5613aef502f6b2c6f7353cf6799d869fc864afff1aba30e0f536fc1",
+        "source/game_sa/Tasks/Task.cpp": "a0b8f09bee231d8f4fa1cd5847473dfded1b44de5fe2364f340df28f4de2dda3",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
+        "source/game_sa/common.cpp": "33bc773c8312f7304a8ab6fef79450f0f925cffb2304a612e43fd6034dbfe20d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/SmallHelpers64B/LiveComparison.hpp": "32844320f4ad2dbdf7b2e419ee2b119b4f1795363915c3d236efaa8e8c322c93",
+        "reversing/SmallHelpers64B/Core.hpp": "ad88dfe1e70e374ff512be4486dbfe6eca99fd24b69e465a147426bb28b560a5",
+        "reversing/SmallHelpers64B/Cases.hpp": "173194c935ee6c6f595cc3d9b4c516b5a7a22431fa0231bf8a10f085b1fc45dc",
+        "reversing/SmallHelpers64B/Fixtures.hpp": "22062f1af82ec7ccb5e103736c56e04c4797f918f5576f00959f7b624a051910",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wp-2 (HEAD 1b13a6db4 + fuentes del lote 64B). Funciones sin simbolo confirmado: nombres asignados por el desensamblado. GetPopcycleGroupPedModel (0x406E80): tablas del juego (m_TranslationArray, m_PedGroups) sustituidas por contenido sintetico en ventanas guardadas y restauradas; sin colaboradores. FlushWaterRenderBuffer (0x6E7680): RwIm3DTransform (0x7EF450), RwIm3DRenderIndexedPrimitive (0x7EF550) y RwIm3DEnd (0x7EF520) sustituidos por falsos identicos en ambos lados (no se prueba contra una GPU; se comparan sus argumentos exactos, en orden, y el contador g_nNumIm3dDrawCalls que LittleTest incrementa, que NO se sustituye). CTaskComplex::Destructor (0x61A3D0): es el cuerpo no virtual de ~CTaskComplex (SEH omitido: el marco solo desenrolla); la subtarea es un objeto falso cuyo destructor virtual con borrado registra su llamada; ninguna tarea real se construye ni se destruye en el banco. EAX/ECX/EDX solo registrados salvo el EAX devuelto por GetPopcycleGroupPedModel.",
+      "review_reference": "reversing/SmallHelpers64B/README.md"
+    },
+    {
+      "hook": {
+        "class": "CWaterLevel",
+        "fn_name": "FlushWaterRenderBuffer",
+        "address": "0x006E7680",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/SmallHelpers64B/validation-summary.json",
+        "sha256": "d52e5143c02063610aab32dda39d726051c203b98e5e591559ebc1fc60bc9e21",
+        "passed_path": [
+          "covered_functions",
+          "FlushWaterRenderBuffer"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/game_sa/GangWars.cpp": "fefa5aff06d9900233b2b6ee633fae3f4772f46645baa1a5d506fe0acb086a1d",
+        "source/game_sa/WaterLevel.cpp": "71f6e7b1e5613aef502f6b2c6f7353cf6799d869fc864afff1aba30e0f536fc1",
+        "source/game_sa/Tasks/Task.cpp": "a0b8f09bee231d8f4fa1cd5847473dfded1b44de5fe2364f340df28f4de2dda3",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
+        "source/game_sa/common.cpp": "33bc773c8312f7304a8ab6fef79450f0f925cffb2304a612e43fd6034dbfe20d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/SmallHelpers64B/LiveComparison.hpp": "32844320f4ad2dbdf7b2e419ee2b119b4f1795363915c3d236efaa8e8c322c93",
+        "reversing/SmallHelpers64B/Core.hpp": "ad88dfe1e70e374ff512be4486dbfe6eca99fd24b69e465a147426bb28b560a5",
+        "reversing/SmallHelpers64B/Cases.hpp": "173194c935ee6c6f595cc3d9b4c516b5a7a22431fa0231bf8a10f085b1fc45dc",
+        "reversing/SmallHelpers64B/Fixtures.hpp": "22062f1af82ec7ccb5e103736c56e04c4797f918f5576f00959f7b624a051910",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wp-2 (HEAD 1b13a6db4 + fuentes del lote 64B). Funciones sin simbolo confirmado: nombres asignados por el desensamblado. GetPopcycleGroupPedModel (0x406E80): tablas del juego (m_TranslationArray, m_PedGroups) sustituidas por contenido sintetico en ventanas guardadas y restauradas; sin colaboradores. FlushWaterRenderBuffer (0x6E7680): RwIm3DTransform (0x7EF450), RwIm3DRenderIndexedPrimitive (0x7EF550) y RwIm3DEnd (0x7EF520) sustituidos por falsos identicos en ambos lados (no se prueba contra una GPU; se comparan sus argumentos exactos, en orden, y el contador g_nNumIm3dDrawCalls que LittleTest incrementa, que NO se sustituye). CTaskComplex::Destructor (0x61A3D0): es el cuerpo no virtual de ~CTaskComplex (SEH omitido: el marco solo desenrolla); la subtarea es un objeto falso cuyo destructor virtual con borrado registra su llamada; ninguna tarea real se construye ni se destruye en el banco. EAX/ECX/EDX solo registrados salvo el EAX devuelto por GetPopcycleGroupPedModel.",
+      "review_reference": "reversing/SmallHelpers64B/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplex",
+        "fn_name": "Destructor",
+        "address": "0x0061A3D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/SmallHelpers64B/validation-summary.json",
+        "sha256": "d52e5143c02063610aab32dda39d726051c203b98e5e591559ebc1fc60bc9e21",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplex::Destructor"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/game_sa/GangWars.cpp": "fefa5aff06d9900233b2b6ee633fae3f4772f46645baa1a5d506fe0acb086a1d",
+        "source/game_sa/WaterLevel.cpp": "71f6e7b1e5613aef502f6b2c6f7353cf6799d869fc864afff1aba30e0f536fc1",
+        "source/game_sa/Tasks/Task.cpp": "a0b8f09bee231d8f4fa1cd5847473dfded1b44de5fe2364f340df28f4de2dda3",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
+        "source/game_sa/common.cpp": "33bc773c8312f7304a8ab6fef79450f0f925cffb2304a612e43fd6034dbfe20d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/SmallHelpers64B/LiveComparison.hpp": "32844320f4ad2dbdf7b2e419ee2b119b4f1795363915c3d236efaa8e8c322c93",
+        "reversing/SmallHelpers64B/Core.hpp": "ad88dfe1e70e374ff512be4486dbfe6eca99fd24b69e465a147426bb28b560a5",
+        "reversing/SmallHelpers64B/Cases.hpp": "173194c935ee6c6f595cc3d9b4c516b5a7a22431fa0231bf8a10f085b1fc45dc",
+        "reversing/SmallHelpers64B/Fixtures.hpp": "22062f1af82ec7ccb5e103736c56e04c4797f918f5576f00959f7b624a051910",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wp-2 (HEAD 1b13a6db4 + fuentes del lote 64B). Funciones sin simbolo confirmado: nombres asignados por el desensamblado. GetPopcycleGroupPedModel (0x406E80): tablas del juego (m_TranslationArray, m_PedGroups) sustituidas por contenido sintetico en ventanas guardadas y restauradas; sin colaboradores. FlushWaterRenderBuffer (0x6E7680): RwIm3DTransform (0x7EF450), RwIm3DRenderIndexedPrimitive (0x7EF550) y RwIm3DEnd (0x7EF520) sustituidos por falsos identicos en ambos lados (no se prueba contra una GPU; se comparan sus argumentos exactos, en orden, y el contador g_nNumIm3dDrawCalls que LittleTest incrementa, que NO se sustituye). CTaskComplex::Destructor (0x61A3D0): es el cuerpo no virtual de ~CTaskComplex (SEH omitido: el marco solo desenrolla); la subtarea es un objeto falso cuyo destructor virtual con borrado registra su llamada; ninguna tarea real se construye ni se destruye en el banco. EAX/ECX/EDX solo registrados salvo el EAX devuelto por GetPopcycleGroupPedModel.",
+      "review_reference": "reversing/SmallHelpers64B/README.md"
     }
   ]
 }

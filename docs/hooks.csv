@@ -8854,3 +8854,10 @@ CStoredCar,StoreCar,0x00449760,1,0,1,S
 CStoredCar,RestoreCar,0x00447E40,1,0,1,S
 CWorldScan,ScanWorld,0x0072CAE0,1,0,1,S
 CWorldScan,SetExtraRectangleToScan,0x0072D5E0,1,0,1,S
+CTimer,GetMillisecondTime,0x005617C0,1,0,1,S
+CPad,DIReleaseMouse,0x00746F70,1,0,1,S
+CVehicle,RemoveUpgradeCB,0x006D3300,1,0,1,S
+CVehicle,FindUpgradeCB,0x006D3370,1,0,1,S
+CGangWars,GetPopcycleGroupPedModel,0x00406E80,1,0,1,S
+CWaterLevel,FlushWaterRenderBuffer,0x006E7680,1,0,1,S
+CTaskComplex,Destructor,0x0061A3D0,1,0,1,S

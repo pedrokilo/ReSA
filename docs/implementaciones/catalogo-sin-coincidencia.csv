@@ -1,2 +1,3 @@
 class,fn_name,address,reversed,locked,validated,type,catalog
 CTaskComplexPartnerGreet,CreateFirstSubTask,0x00000000,1,0,1,V,hooks.csv
+CTaskComplex,Destructor,0x0061A3D0,1,0,1,S,hooks.csv

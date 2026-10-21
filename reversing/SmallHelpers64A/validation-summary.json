@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 4,
+  "functions": {
+    "GetMillisecondTime": 4096,
+    "DIReleaseMouse": 4096,
+    "RemoveUpgradeCB": 4096,
+    "FindUpgradeCB": 4096
+  },
+  "covered_functions": {
+    "GetMillisecondTime": true,
+    "DIReleaseMouse": true,
+    "RemoveUpgradeCB": true,
+    "FindUpgradeCB": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wp-1 (HEAD 1b13a6db4 + fuente del lote 64: Timer.cpp, Pad.cpp/h, Vehicle.cpp). Colaboradores sustituidos por falsos identicos en ambos lados (parche en la entrada del EXE y, si la DLL tiene hook, en el cuerpo de la DLL; no se validan sus cuerpos): RsTimer (0x619410); GetAtomicId (0x732370), GetModelInfo (0x732260), RpClumpRemoveAtomic (0x74A4C0), RpAtomicDestroy (0x749DC0), RwFrameDestroy (0x7F05A0) y CBaseModelInfo::RemoveRef (0x4C4BB0). DIReleaseMouse usa un dispositivo DirectInput FALSO (objeto COM con tabla virtual propia) y estructuras psGlobal falsas apuntadas por RsGlobal.ps solo durante la llamada: el dispositivo real y su psGlobal no se tocan. Se exigen EAX/EDX de GetMillisecondTime (CTimer::Suspend/Resume los leen) y EAX de los callbacks (RpClumpForAllAtomics hace test eax,eax); el resto de registros solo se registra. No se prueban los caminos en que el EXE desreferencia sin comprobar nulo (GetModelInfo nulo en la primera llamada, dispositivo nulo tras Unacquire).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/SmallHelpers64A-20261021-022626-931269",
+  "summary_sha256": "cbac0b0536117af8aab0bd6d81891c50a5e08a4596c4c0ad9764cd77cd624a21",
+  "result_txt_sha256": "d0f460cfb83c0effa820b84c94d1baca7a1ec02a138f5adb2ef28a72eb15c943",
+  "log_sha256": "c8d72a2dcf81a4d2e675d311eab3c594a173e8190a5fb41efb5511073c0af95c",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "e8da173ff6bb57508af2673bfa605ed91423d9ff508d31e169a04b698ef22401",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "40839c96f91272f0052be484f87e2ecc558523026eb57808bf0d67dd137be848",
+      "source/game_sa/Timer.cpp": "9f18565bba8ee3de2a4b4aef19ec055950e8631dd162888b3adbf573a9651964",
+      "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
+      "source/game_sa/Pad.cpp": "575815725e907215bbe01d66b9941bcc59e01c25a0ef17ffb03d1d3ea2ea9430",
+      "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ff14095125bd699a078426dbf6e43de6f7221dcf08b1b8352dd8bb2930cc8619",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "ef1ec3e5a298cebb325f63b31cacb1c5f6b1fb207838ebc96ecfa79285bd71f9",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/SmallHelpers64A/LiveComparison.hpp": "6fadacaaa8a067e3b7b375bcd019223e1c5011aa3c322f8482c1fe0ec06b5ae8",
+      "reversing/SmallHelpers64A/Core.hpp": "06a0fd7e1921c2b01e126ab948c49787b841109281f698db073c5e73e867651b",
+      "reversing/SmallHelpers64A/Fixtures.hpp": "49d9cc4e420bb8d06a52f6910b8e70a711370e0985ea5e72d17b8ed0261b65de",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

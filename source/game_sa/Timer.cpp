@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTimer
- * Reconstrucción: COMPLETA — 13/13 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 14/14 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 13/13 entradas.
+ * Validación registrada: 14/14 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -46,13 +46,15 @@ void CTimer::InjectHooks()
     RH_ScopedInstall(GetIsSlowMotionActive, 0x561AD0);
     RH_ScopedInstall(UpdateVariables, 0x5618D0);
     RH_ScopedInstall(Update, 0x561B10);
+    RH_ScopedGlobalInstall(GetMillisecondTime, 0x5617C0);
 }
 
 // 64-bit RsTimer wrapper
 // 0x5617C0
+// Como el original (0x5617C0..0x5617C7): cdecl sin argumentos; llama a RsTimer (0x619410), pone EDX = 0 y devuelve EDX:EAX (los llamadores del EXE,
+// CTimer::Suspend/Resume/Update, guardan y restan el uint64 completo).
 uint64 GetMillisecondTime() {
-    return plugin::CallAndReturn<uint64, 0x5617C0>();
-    // return RsTimer();
+    return RsTimer();
 }
 
 // Como el original: el EXE comprueba el BOOL de QueryPerformanceFrequency (no la frecuencia) y solo usa la parte baja.

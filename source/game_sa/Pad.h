@@ -382,7 +382,7 @@ VALIDATE_SIZE(CPad, 0x134);
 int GetCurrentKeyPressed(RsKeyCodes& keys);
 
 // todo: move these fucks out
-IDirectInputDevice8* DIReleaseMouse();
+void DIReleaseMouse();
 void InitialiseMouse(bool exclusive);
 
 /*

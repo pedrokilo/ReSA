@@ -1,0 +1,127 @@
+diff --git a/source/game_sa/Entity/Vehicle/Vehicle.cpp b/source/game_sa/Entity/Vehicle/Vehicle.cpp
+index 07caeab04..a8f0f1422 100644
+--- a/source/game_sa/Entity/Vehicle/Vehicle.cpp
++++ b/source/game_sa/Entity/Vehicle/Vehicle.cpp
+@@ -342,8 +342,8 @@ void CVehicle::InjectHooks() {
+     // RH_ScopedGlobalInstall(SetCompAlphaCB, 0x6D2950);
+     RH_ScopedGlobalInstall(IsVehiclePointerValid, 0x6E38F0);
+     RH_ScopedGlobalInstall(IsValidModForVehicle, 0x49B010);
+-    // RH_ScopedGlobalInstall(RemoveUpgradeCB, 0x6D3300);
+-    // RH_ScopedGlobalInstall(FindUpgradeCB, 0x6D3370);
++    RH_ScopedGlobalInstall(RemoveUpgradeCB, 0x6D3300);
++    RH_ScopedGlobalInstall(FindUpgradeCB, 0x6D3370);
+     RH_ScopedGlobalOverloadedInstall(RemoveObjectsCB, "Object", 0x6D33B0, RwObject*(*)(RwObject*, void*));
+     RH_ScopedGlobalOverloadedInstall(RemoveObjectsCB, "Frame", 0x6D3420, RwFrame*(*)(RwFrame*, void*));
+     RH_ScopedGlobalInstall(CopyObjectsCB, 0x6D3450);
+@@ -2530,13 +2530,43 @@ bool CVehicle::ClearVehicleUpgradeFlags(int32 arg0, int32 modId) {
+ }
+ 
+ // 0x6D3300
++// Como el original (cdecl, callback de RpClumpForAllAtomics; siempre devuelve el atomo): solo actua sobre atomos con ATOMIC_UPGRADE (0x732370, una vez) cuyo modelo
++// (0x732260, primera llamada) tiene CarMod == 'data' (el identificador se pasa como valor, sin signo) y no usa VehDummy; entonces vuelve a pedir el modelo
++// (0x732260, segunda llamada), lee clump (+0x3C) y marco (+4), quita y destruye el atomo, destruye el marco SIEMPRE y libera una referencia del modelo si no es nulo.
+ RpAtomic* RemoveUpgradeCB(RpAtomic* atomic, void* data) {
+-    return ((RpAtomic * (__cdecl*)(RpAtomic*, void*))0x6D3300)(atomic, data);
++    if (!(CVisibilityPlugins::GetAtomicId(atomic) & ATOMIC_UPGRADE)) {
++        return atomic;
++    }
++    const CBaseModelInfo* const info = CVisibilityPlugins::GetModelInfo(atomic);
++    const uint32 carMod = info->CarMod;
++    const uint32 usesVehDummy = info->bUsesVehDummy;
++    if (reinterpret_cast<uint32>(data) != carMod || usesVehDummy) {
++        return atomic;
++    }
++    CBaseModelInfo* const owner = CVisibilityPlugins::GetModelInfo(atomic);
++    RpClump* const clump = atomic->clump;
++    RwFrame* const frame = RpAtomicGetFrame(atomic);
++    RpClumpRemoveAtomic(clump, atomic);
++    RpAtomicDestroy(atomic);
++    RwFrameDestroy(frame);
++    if (owner) {
++        owner->RemoveRef();
++    }
++    return atomic;
+ }
+ 
+ // 0x6D3370
++// Como el original (cdecl, callback de RpClumpForAllAtomics): un atomo con ATOMIC_UPGRADE (0x732370, una vez) cuyo modelo (0x732260) tiene CarMod == data[0]
++// (comparado sin signo) se guarda en data[1] y detiene el recorrido (devuelve nullptr); cualquier otro se devuelve para seguir.
+ RpAtomic* FindUpgradeCB(RpAtomic* atomic, void* data) {
+-    return ((RpAtomic * (__cdecl*)(RpAtomic*, void*))0x6D3370)(atomic, data);
++    if (CVisibilityPlugins::GetAtomicId(atomic) & ATOMIC_UPGRADE) {
++        const uint32 carMod = CVisibilityPlugins::GetModelInfo(atomic)->CarMod;
++        if (*static_cast<uint32*>(data) == carMod) {
++            static_cast<RpAtomic**>(data)[1] = atomic;
++            return nullptr;
++        }
++    }
++    return atomic;
+ }
+ 
+ // 0x6D33B0
+diff --git a/source/game_sa/Pad.cpp b/source/game_sa/Pad.cpp
+index d54d3aa68..b1c9de220 100644
+--- a/source/game_sa/Pad.cpp
++++ b/source/game_sa/Pad.cpp
+@@ -55,6 +55,7 @@ void CPad::InjectHooks() {
+     // CPad", 0x541D80, &CPad::Constructor);
+     // CPad~", 0x53ED60, &CPad::Destructor);
+     RH_ScopedGlobalInstall(GetCurrentKeyPressed, 0x541490);
++    RH_ScopedGlobalInstall(DIReleaseMouse, 0x746F70);
+     RH_ScopedInstall(Initialise, 0x541D90);
+     RH_ScopedInstall(ClearKeyBoardHistory, 0x53F1E0);
+     RH_ScopedInstall(ClearMouseHistory, 0x541BD0);
+@@ -1503,8 +1504,16 @@ int GetCurrentKeyPressed(RsKeyCodes& keys) {
+ }
+ #pragma runtime_checks("", restore)
+ 
+-IDirectInputDevice8* DIReleaseMouse() { // todo: wininput
+-    return plugin::CallAndReturn<IDirectInputDevice8*, 0x746F70>();
++// 0x746F70
++// Como el original: sin dispositivo no hace nada; si lo hay, Unacquire (vtbl+0x20), vuelve a leer PSGLOBAL(diMouse) y llama Release (vtbl+8), vuelve a leer y lo deja a nulo.
++// El EXE deja en EAX el retorno de Release (o 0), pero ningun llamador (0x576CCE, 0x576EBC, 0x576F8C) lo lee.
++void DIReleaseMouse() { // todo: wininput
++    if (!PSGLOBAL(diMouse)) {
++        return;
++    }
++    PSGLOBAL(diMouse)->Unacquire();
++    PSGLOBAL(diMouse)->Release();
++    PSGLOBAL(diMouse) = nullptr;
+ }
+ 
+ void InitialiseMouse(bool exclusive) {
+diff --git a/source/game_sa/Pad.h b/source/game_sa/Pad.h
+index f5edcde56..ef613fd7d 100644
+--- a/source/game_sa/Pad.h
++++ b/source/game_sa/Pad.h
+@@ -382,7 +382,7 @@ VALIDATE_SIZE(CPad, 0x134);
+ int GetCurrentKeyPressed(RsKeyCodes& keys);
+ 
+ // todo: move these fucks out
+-IDirectInputDevice8* DIReleaseMouse();
++void DIReleaseMouse();
+ void InitialiseMouse(bool exclusive);
+ 
+ /*
+diff --git a/source/game_sa/Timer.cpp b/source/game_sa/Timer.cpp
+index fac4fbe09..7967d44cc 100644
+--- a/source/game_sa/Timer.cpp
++++ b/source/game_sa/Timer.cpp
+@@ -46,13 +46,15 @@ void CTimer::InjectHooks()
+     RH_ScopedInstall(GetIsSlowMotionActive, 0x561AD0);
+     RH_ScopedInstall(UpdateVariables, 0x5618D0);
+     RH_ScopedInstall(Update, 0x561B10);
++    RH_ScopedGlobalInstall(GetMillisecondTime, 0x5617C0);
+ }
+ 
+ // 64-bit RsTimer wrapper
+ // 0x5617C0
++// Como el original (0x5617C0..0x5617C7): cdecl sin argumentos; llama a RsTimer (0x619410), pone EDX = 0 y devuelve EDX:EAX (los llamadores del EXE,
++// CTimer::Suspend/Resume/Update, guardan y restan el uint64 completo).
+ uint64 GetMillisecondTime() {
+-    return plugin::CallAndReturn<uint64, 0x5617C0>();
+-    // return RsTimer();
++    return RsTimer();
+ }
+ 
+ // Como el original: el EXE comprueba el BOOL de QueryPerformanceFrequency (no la frecuencia) y solo usa la parte baja.

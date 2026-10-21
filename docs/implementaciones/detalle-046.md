@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 21/10/2026 (Ciudad de México):** 812 grupos / 8855 funciones reconstruidas; 8855 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 21/10/2026 (Ciudad de México):** 813 grupos / 8862 funciones reconstruidas; 8862 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -8,6 +8,64 @@
 
 <a id="grupo-901"></a>
 
+## CWaterLevel
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CWaterLevel::InjectHooks() | [source/game_sa/WaterLevel.cpp:45](../../source/game_sa/WaterLevel.cpp#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWaterLevel::LoadDataFile() | [source/game_sa/WaterLevel.cpp:103](../../source/game_sa/WaterLevel.cpp#L103) | C++ · Cuerpo fuente con errores de análisis | Sin registro inequívoco | 0 / 0 | Posible dato fijo NumWaterQuads: source/game_sa/WaterLevel.h:99 (0x00C22888); Posible dato fijo NumWaterTriangles: source/game_sa/WaterLevel.h:98 (0x00C22884); Posible dato fijo NumWaterVertices: source/game_sa/WaterLevel.h:100 (0x00C2288C); Posible dato fijo m_nWaterConfiguration: source/game_sa/WaterLevel.h:79 (0x00C228A0) |
+| CWaterLevel::LoadTextures() | [source/game_sa/WaterLevel.cpp:174](../../source/game_sa/WaterLevel.cpp#L174) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo seabd32Raster: source/game_sa/WaterLevel.h:92 (0x00C228B0); Posible dato fijo texSeabd32: source/game_sa/WaterLevel.h:93 (0x00C228B4); Posible dato fijo texWaterclear256: source/game_sa/WaterLevel.h:90 (0x00C228AC); Posible dato fijo texWaterwake: source/game_sa/WaterLevel.h:96 (0x00C228BC); Posible dato fijo waterclear256Raster: source/game_sa/WaterLevel.h:89 (0x00C228A8); Posible dato fijo waterwakeRaster: source/game_sa/WaterLevel.h:95 (0x00C228B8) |
+| CWaterLevel::WaterLevelInitialise() | [source/game_sa/WaterLevel.cpp:192](../../source/game_sa/WaterLevel.cpp#L192) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::WaterLevelInitialise 0x006EAE80 | 0 / 0 | Posible dato fijo NumWaterQuads: source/game_sa/WaterLevel.h:99 (0x00C22888); Posible dato fijo NumWaterTriangles: source/game_sa/WaterLevel.h:98 (0x00C22884); Posible dato fijo NumWaterVertices: source/game_sa/WaterLevel.h:100 (0x00C2288C); Posible dato fijo NumWaterZonePolys: source/game_sa/WaterLevel.h:101 (0x00C215F0); Posible dato fijo m_BlockPolyInfo: source/game_sa/WaterLevel.h:176 (0x00C21B70) |
+| CWaterLevel::Shutdown() | [source/game_sa/WaterLevel.cpp:207](../../source/game_sa/WaterLevel.cpp#L207) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::Shutdown 0x006E59E0 | 0 / 0 | Posible dato fijo texSeabd32: source/game_sa/WaterLevel.h:93 (0x00C228B4); Posible dato fijo texWaterclear256: source/game_sa/WaterLevel.h:90 (0x00C228AC); Posible dato fijo texWaterwake: source/game_sa/WaterLevel.h:96 (0x00C228BC) |
+| CWaterLevel::AddWaveToResult(float x, float y, float* pfWaterLevel, float fUnkn1, float fUnkn2, CVector* pVecNormal) | [source/game_sa/WaterLevel.cpp:218](../../source/game_sa/WaterLevel.cpp#L218) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::AddWaveToResult 0x006E81E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWaterLevel::RenderWaterTriangle(int32 X1, int32 Y1, CRenPar P1, int32 X2, int32 Y2, CRenPar P2, int32 X3, int32 Y3, CRenPar P3) | [source/game_sa/WaterLevel.cpp:244](../../source/game_sa/WaterLevel.cpp#L244) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::RenderWaterTriangle 0x006EE240 | 0 / 0 | Posible dato fijo CameraRangeMaxX: source/game_sa/WaterLevel.h:108 (0x00C1F958); Posible dato fijo CameraRangeMaxY: source/game_sa/WaterLevel.h:105 (0x00C1F950); Posible dato fijo CameraRangeMinX: source/game_sa/WaterLevel.h:109 (0x00C1F95C); Posible dato fijo CameraRangeMinY: source/game_sa/WaterLevel.h:106 (0x00C1F954) |
+| CWaterLevel::GetWaterLayerTexInfo(int32 layer) -&gt; WaterLayerTexInfo | [source/game_sa/WaterLevel.cpp:259](../../source/game_sa/WaterLevel.cpp#L259) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TextureShiftFirstU: source/game_sa/WaterLevel.h:116 (0x00C2117C); Posible dato fijo TextureShiftFirstV: source/game_sa/WaterLevel.h:115 (0x00C21178); Posible dato fijo TextureShiftSecondU: source/game_sa/WaterLevel.h:119 (0x00C21184); Posible dato fijo TextureShiftSecondV: source/game_sa/WaterLevel.h:118 (0x00C21180) |
+| CWaterLevel::GetWaterColorForRendering(CRGBA real, DebugWaterColor debug, int32 WaterLayer) | [source/game_sa/WaterLevel.cpp:270](../../source/game_sa/WaterLevel.cpp#L270) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo WaterLayerAlpha: source/game_sa/WaterLevel.h:138 (0x008D3808) |
+| CWaterLevel::GetTextureUV(int32 X1, int32 Y1, int32 Y3, int32 WaterLayer) -&gt; TexUV | [source/game_sa/WaterLevel.cpp:281](../../source/game_sa/WaterLevel.cpp#L281) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWaterLevel::RenderFlatWaterTriangle_OneLayer(int32 X1, int32 Y1, CRenPar P1, int32 X2, int32 Y2, CRenPar P2, int32 X3, int32 Y3, CRenPar P3, int32 WaterLayer) | [source/game_sa/WaterLevel.cpp:332](../../source/game_sa/WaterLevel.cpp#L332) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::RenderFlatWaterTriangle_OneLayer 0x006E8ED0 | 0 / 0 | Posible dato fijo WaterColorTriangle: source/game_sa/WaterLevel.h:135 (0x00C21168); Posible dato fijo aTempBufferIndices: source/game_sa/common.h:286 (0x00C4B958) |
+| CWaterLevel::RenderFlatWaterTriangle(int32 X1, int32 Y1, CRenPar P1, int32 X2, int32 Y2, CRenPar P2, int32 X3, int32 Y3, CRenPar P3) | [source/game_sa/WaterLevel.cpp:356](../../source/game_sa/WaterLevel.cpp#L356) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::RenderFlatWaterTriangle 0x006EE080 | 0 / 0 | Posible dato fijo bSplitBigPolys: source/game_sa/WaterLevel.h:112 (0x008D37F4) |
+| CWaterLevel::RenderWakeSegment( const CVector2D& vecA, const CVector2D& vecB, const CVector2D& vecC, const CVector2D& vecD, const float& widthA, const float& widthB, const float& alphaA, const float& alphaB, const float& wakeZ ) | [source/game_sa/WaterLevel.cpp:367](../../source/game_sa/WaterLevel.cpp#L367) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWaterLevel::RenderWakeSegment 0x006EA260 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo TempBufferVertices: source/game_sa/common.h:287 (0x00C4D958); Posible dato fijo WindClipped: source/game_sa/Weather.h:42 (0x00C812EC); Posible dato fijo aTempBufferIndices: source/game_sa/common.h:286 (0x00C4B958) |
+| CWaterLevel::RenderBoatWakes() | [source/game_sa/WaterLevel.cpp:433](../../source/game_sa/WaterLevel.cpp#L433) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::RenderBoatWakes 0x006ED9A0 | 0 / 0 | Posible dato fijo TempBufferVertices: source/game_sa/common.h:287 (0x00C4D958); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo aTempBufferIndices: source/game_sa/common.h:286 (0x00C4B958); Posible dato fijo apFrameWakeGeneratingBoats: source/game_sa/Entity/Vehicle/Boat.h:75 (0x00C27994); Posible dato fijo uiTempBufferIndicesStored: source/game_sa/common.h:284 (0x00C4B954); Posible dato fijo uiTempBufferVerticesStored: source/game_sa/common.h:285 (0x00C4B950); Posible dato fijo waterwakeRaster: source/game_sa/WaterLevel.h:95 (0x00C228B8) |
+| CWaterLevel::SplitWaterTriangleAlongXLine(int32 splitAtX, int32 X1, int32 Y1, CRenPar P1, int32 X2, int32 Y2, CRenPar P2, int32 X3, int32 Y3, CRenPar P3) | [source/game_sa/WaterLevel.cpp:552](../../source/game_sa/WaterLevel.cpp#L552) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::SplitWaterTriangleAlongXLine 0x006ECF00 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWaterLevel::SplitWaterTriangleAlongYLine(int32 splitAtY, int32 X1, int32 Y1, CRenPar P1, int32 X2, int32 Y2, CRenPar P2, int32 X3, int32 Y3, CRenPar P3) | [source/game_sa/WaterLevel.cpp:635](../../source/game_sa/WaterLevel.cpp#L635) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::SplitWaterTriangleAlongYLine 0x006EE5A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWaterLevel::RenderWaterRectangle(int32 minX, int32 maxX, int32 Y1, int32 Y2, CRenPar P1, CRenPar P2, CRenPar P3, CRenPar P4) | [source/game_sa/WaterLevel.cpp:677](../../source/game_sa/WaterLevel.cpp#L677) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::RenderWaterRectangle 0x006EC5D0 | 0 / 0 | Posible dato fijo CameraRangeMaxX: source/game_sa/WaterLevel.h:108 (0x00C1F958); Posible dato fijo CameraRangeMaxY: source/game_sa/WaterLevel.h:105 (0x00C1F950); Posible dato fijo CameraRangeMinX: source/game_sa/WaterLevel.h:109 (0x00C1F95C); Posible dato fijo CameraRangeMinY: source/game_sa/WaterLevel.h:106 (0x00C1F954) |
+| CWaterLevel::RenderFlatWaterRectangle(int32 minX, int32 maxX, int32 Y1, int32 Y2, CRenPar P1, CRenPar P2, CRenPar P3, CRenPar P4) | [source/game_sa/WaterLevel.cpp:696](../../source/game_sa/WaterLevel.cpp#L696) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::RenderFlatWaterRectangle 0x006EBEC0 | 0 / 0 | Posible dato fijo bSplitBigPolys: source/game_sa/WaterLevel.h:112 (0x008D37F4) |
+| CWaterLevel::RenderFlatWaterRectangle_OneLayer(int32 minX, int32 maxX, int32 Y1, int32 Y2, CRenPar P1, CRenPar P2, CRenPar P3, CRenPar P4, int32 WaterLayer) | [source/game_sa/WaterLevel.cpp:721](../../source/game_sa/WaterLevel.cpp#L721) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::RenderFlatWaterRectangle_OneLayer 0x006E9940 | 0 / 0 | Posible dato fijo WaterColor: source/game_sa/WaterLevel.h:136 (0x00C2116C); Posible dato fijo aTempBufferIndices: source/game_sa/common.h:286 (0x00C4B958) |
+| CWaterLevel::RenderHighDetailWaterRectangle(int32 minX, int32 maxX, int32 Y1, int32 Y2, CRenPar P1, CRenPar P2, CRenPar P3, CRenPar P4) | [source/game_sa/WaterLevel.cpp:748](../../source/game_sa/WaterLevel.cpp#L748) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWaterLevel::RenderHighDetailWaterRectangle 0x006EB810 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Colaborador por dirección 0x006E91D0: fuera del catálogo consultado; ruta efectiva sin resolver; Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| CWaterLevel::SplitWaterRectangleAlongXLine(int32 splitAtX, int32 minX, int32 maxX, int32 Y1, int32 Y2, CRenPar P1, CRenPar P2, CRenPar P3, CRenPar P4) | [source/game_sa/WaterLevel.cpp:795](../../source/game_sa/WaterLevel.cpp#L795) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::SplitWaterRectangleAlongXLine 0x006E73A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWaterLevel::SplitWaterRectangleAlongYLine(int32 splitAtY, int32 minX, int32 maxX, int32 Y1, int32 Y2, CRenPar P1, CRenPar P2, CRenPar P3, CRenPar P4) | [source/game_sa/WaterLevel.cpp:817](../../source/game_sa/WaterLevel.cpp#L817) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::SplitWaterRectangleAlongYLine 0x006ED6D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWaterLevel::PreRenderWater() | [source/game_sa/WaterLevel.cpp:840](../../source/game_sa/WaterLevel.cpp#L840) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::PreRenderWater 0x006EB710 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWaterLevel::UpdateFlow() | [source/game_sa/WaterLevel.cpp:851](../../source/game_sa/WaterLevel.cpp#L851) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_CurrentDesiredFlow: source/game_sa/WaterLevel.h:141 (0x00C22898); Posible dato fijo m_CurrentFlow: source/game_sa/WaterLevel.h:140 (0x00C22890); Posible dato fijo m_FrameCounter: source/game_sa/Timer.h:31 (0x00B7CB4C) |
+| CWaterLevel::GetWaterLevel(float x, float y, float z, float& pOutWaterLevel, uint8 bTouchingWater, CVector* pVecNormals) | [source/game_sa/WaterLevel.cpp:876](../../source/game_sa/WaterLevel.cpp#L876) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::GetWaterLevel- 0x006EB690 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWaterLevel::SetUpWaterFog(int32 minX, int32 minY, int32 maxX, int32 maxY) | [source/game_sa/WaterLevel.cpp:893](../../source/game_sa/WaterLevel.cpp#L893) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::SetUpWaterFog 0x006EA9F0 | 0 / 0 | Posible dato fijo gWaterFogIndex: source/game_sa/WaterLevel.h:129 (0x00C228E4); Posible dato fijo gbPlayerIsInsideWaterFog: source/game_sa/WaterLevel.h:131 (0x00C228E8); Posible dato fijo m_bWaterFog: source/game_sa/WaterLevel.h:81 (0x008D37D4); Posible dato fijo m_fWaterFogHeight: source/game_sa/WaterLevel.h:130 (0x008D37E4); Posible dato fijo ms_WaterFog: source/game_sa/WaterLevel.h:128 (0x00C21188) |
+| CWaterLevel::FindNearestWaterAndItsFlow() | [source/game_sa/WaterLevel.cpp:927](../../source/game_sa/WaterLevel.cpp#L927) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::FindNearestWaterAndItsFlow 0x006E9D70 | 0 / 0 | Posible dato fijo NumWaterQuads: source/game_sa/WaterLevel.h:99 (0x00C22888); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo WaterQuads: source/game_sa/WaterLevel.h:182 (0x00C21C90); Posible dato fijo m_CurrentDesiredFlow: source/game_sa/WaterLevel.h:141 (0x00C22898); Posible dato fijo m_aVertices: source/game_sa/WaterLevel.h:103 (0x00C22910) |
+| CWaterLevel::GetWaterLevelNoWaves(CVector pos, float * pOutWaterLevel, float * pOutBigWaves, float * pOutSmallWaves) | [source/game_sa/WaterLevel.cpp:973](../../source/game_sa/WaterLevel.cpp#L973) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::GetWaterLevelNoWaves 0x006E8580 | 0 / 0 | Posible dato fijo WaterQuads: source/game_sa/WaterLevel.h:182 (0x00C21C90); Posible dato fijo WaterTriangles: source/game_sa/WaterLevel.h:179 (0x00C22854); Posible dato fijo m_BlockPolyInfo: source/game_sa/WaterLevel.h:176 (0x00C21B70); Posible dato fijo m_PolyCombos: source/game_sa/WaterLevel.h:186 (0x00C215F8) |
+| CWaterLevel::GetWaterDepth(const CVector& vecPos, float* pOutWaterDepth, float* pOutWaterLevel, float* pOutGroundLevel) | [source/game_sa/WaterLevel.cpp:1007](../../source/game_sa/WaterLevel.cpp#L1007) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWaterLevel::GetWaterDepth 0x006EA960 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Colaborador por dirección 0x006EA8A0: fuera del catálogo consultado; ruta efectiva sin resolver |
+| CWaterLevel::RenderWaterFog() | [source/game_sa/WaterLevel.cpp:1023](../../source/game_sa/WaterLevel.cpp#L1023) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::RenderWaterFog 0x006E7760 | 0 / 0 | Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040); Posible dato fijo TempBufferVertices: source/game_sa/common.h:287 (0x00C4D958); Posible dato fijo UnderWaterness: source/game_sa/Weather.h:49 (0x00C8132C); Posible dato fijo WaterFogFXControl: source/game_sa/Weather.h:36 (0x00C81338); Posible dato fijo gWaterFogIndex: source/game_sa/WaterLevel.h:129 (0x00C228E4); Posible dato fijo gbPlayerIsInsideWaterFog: source/game_sa/WaterLevel.h:131 (0x00C228E8); Posible dato fijo m_WaterFogDensity: source/game_sa/WaterLevel.h:83 (0x008D37E0); Posible dato fijo m_bWaterFog: source/game_sa/WaterLevel.h:81 (0x008D37D4); Posible dato fijo m_bWaterFogScript: source/game_sa/WaterLevel.h:82 (0x008D37D5); Posible dato fijo m_fWaterFXStartUnderWaterness: source/game_sa/PostEffects.h:110 (0x008D514C); Posible dato fijo m_fWaterFogHeight: source/game_sa/WaterLevel.h:130 (0x008D37E4); Posible dato fijo ms_WaterFog: source/game_sa/WaterLevel.h:128 (0x00C21188) |
+| CWaterLevel::CalculateWavesOnlyForCoordinate( int32 x, int32 y, float bigWavesAmplitude, float smallWavesAmplitude, float& outWave, float& colorMult, float& glare, CVector& vecNormal ) | [source/game_sa/WaterLevel.cpp:1129](../../source/game_sa/WaterLevel.cpp#L1129) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWaterLevel::CalculateWavesOnlyForCoordinate 0x006E6EF0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo SunGlare: source/game_sa/Weather.h:39 (0x00C812E0); Posible dato fijo Wavyness: source/game_sa/Weather.h:41 (0x00C812E8) |
+| CWaterLevel::MarkQuadsAndPolysToBeRendered(int32 blockX, int32 blockY, bool isInInterior) | [source/game_sa/WaterLevel.cpp:1147](../../source/game_sa/WaterLevel.cpp#L1147) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::MarkQuadsAndPolysToBeRendered 0x006E5810 | 0 / 0 | Posible dato fijo WaterQuads: source/game_sa/WaterLevel.h:182 (0x00C21C90); Posible dato fijo WaterTriangles: source/game_sa/WaterLevel.h:179 (0x00C22854); Posible dato fijo m_BlockPolyInfo: source/game_sa/WaterLevel.h:176 (0x00C21B70); Posible dato fijo m_PolyCombos: source/game_sa/WaterLevel.h:186 (0x00C215F8) |
+| CWaterLevel::CalculateWavesOnlyForCoordinate2Native(int32 x, int32 y, float bigWavesAmpl, float smallWavesAmpl, float* height) | [source/game_sa/WaterLevel.cpp:1184](../../source/game_sa/WaterLevel.cpp#L1184) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWaterLevel::CalculateWavesOnlyForCoordinate2Native 0x006E7210 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo Wavyness: source/game_sa/Weather.h:41 (0x00C812E8) |
+| CWaterLevel::CalculateWavesOnlyForCoordinate2(int32 x,int32 y,float* height,float bigWavesAmpl,float smallWavesAmpl) | [source/game_sa/WaterLevel.cpp:1195](../../source/game_sa/WaterLevel.cpp#L1195) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWaterLevel::BlockHit(int32 blockX, int32 blockY) | [source/game_sa/WaterLevel.cpp:1200](../../source/game_sa/WaterLevel.cpp#L1200) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::BlockHit 0x006E6CA0 | 0 / 0 | Posible dato fijo currArea: source/game_sa/Game.h:21 (0x00B72914); Posible dato fijo m_BlocksToBeRenderedOutsideWorldX: source/game_sa/WaterLevel.h:147 (0x00C21560); Posible dato fijo m_BlocksToBeRenderedOutsideWorldY: source/game_sa/WaterLevel.h:148 (0x00C214D0); Posible dato fijo m_NumBlocksOutsideWorldToBeRendered: source/game_sa/WaterLevel.h:146 (0x00C215EC) |
+| CWaterLevel::ScanThroughBlocks() | [source/game_sa/WaterLevel.cpp:1216](../../source/game_sa/WaterLevel.cpp#L1216) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::ScanThroughBlocks 0x006E6D10 | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo m_NumBlocksOutsideWorldToBeRendered: source/game_sa/WaterLevel.h:146 (0x00C215EC) |
+| CWaterLevel::RenderHighDetailWaterTriangle(int32 X1, int32 Y1, CRenPar P1, int32 X2, int32 Y2, CRenPar P2, int32 X3, int32 Y3, CRenPar P3) | [source/game_sa/WaterLevel.cpp:1229](../../source/game_sa/WaterLevel.cpp#L1229) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWaterLevel::RenderHighDetailWaterTriangle 0x006EDDC0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Colaborador por dirección 0x006E8780: fuera del catálogo consultado; ruta efectiva sin resolver; Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| CWaterLevel::RenderWater() | [source/game_sa/WaterLevel.cpp:1281](../../source/game_sa/WaterLevel.cpp#L1281) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::RenderWater 0x006EF650 | 0 / 0 | Colaborador por dirección 0x006E6870: fuera del catálogo consultado; ruta efectiva sin resolver; Colaborador por dirección 0x006E6A10: fuera del catálogo consultado; ruta efectiva sin resolver; Colaborador por dirección 0x00734650: App::DefinedState; ruta efectiva sin resolver; Posible dato fijo NumWaterQuads: source/game_sa/WaterLevel.h:99 (0x00C22888); Posible dato fijo NumWaterTriangles: source/game_sa/WaterLevel.h:98 (0x00C22884); Posible dato fijo TempBufferVertices: source/game_sa/common.h:287 (0x00C4D958); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo WaterColor: source/game_sa/WaterLevel.h:136 (0x00C2116C); Posible dato fijo WaterColorTriangle: source/game_sa/WaterLevel.h:135 (0x00C21168); Posible dato fijo WaterLayerAlpha: source/game_sa/WaterLevel.h:138 (0x008D3808); Posible dato fijo WaterQuads: source/game_sa/WaterLevel.h:182 (0x00C21C90); Posible dato fijo WaterTriangles: source/game_sa/WaterLevel.h:179 (0x00C22854); Posible dato fijo aTempBufferIndices: source/game_sa/common.h:286 (0x00C4B958); Posible dato fijo m_BlocksToBeRenderedOutsideWorldX: source/game_sa/WaterLevel.h:147 (0x00C21560); Posible dato fijo m_BlocksToBeRenderedOutsideWorldY: source/game_sa/WaterLevel.h:148 (0x00C214D0); Posible dato fijo m_NumBlocksOutsideWorldToBeRendered: source/game_sa/WaterLevel.h:146 (0x00C215EC); Posible dato fijo m_aVertices: source/game_sa/WaterLevel.h:103 (0x00C22910); Posible dato fijo seabd32Raster: source/game_sa/WaterLevel.h:92 (0x00C228B0); Posible dato fijo uiTempBufferIndicesStored: source/game_sa/common.h:284 (0x00C4B954); Posible dato fijo uiTempBufferVerticesStored: source/game_sa/common.h:285 (0x00C4B950); Posible dato fijo waterclear256Raster: source/game_sa/WaterLevel.h:89 (0x00C228A8) |
+| CWaterLevel::SyncWater() | [source/game_sa/WaterLevel.cpp:1372](../../source/game_sa/WaterLevel.cpp#L1372) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_nWaterTimeOffset: source/game_sa/WaterLevel.h:80 (0x00C228A4) |
+| CWaterLevel::IsPointUnderwaterNoWaves(const CVector& point) | [source/game_sa/WaterLevel.cpp:1377](../../source/game_sa/WaterLevel.cpp#L1377) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWaterLevel::GetWaterLevel(const CVector& pos, float& outWaterLevel, bool touchingWater, CVector* normals) | [source/game_sa/WaterLevel.cpp:1384](../../source/game_sa/WaterLevel.cpp#L1384) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::GetWaterLevel- 0x006EB690 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWaterLevel::AddWaterLevelVertex(int32 X, int32 Y, CRenPar P) | [source/game_sa/WaterLevel.cpp:1389](../../source/game_sa/WaterLevel.cpp#L1389) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::AddWaterLevelVertex 0x006E5A40 | 0 / 0 | Posible dato fijo NumWaterVertices: source/game_sa/WaterLevel.h:100 (0x00C2288C); Posible dato fijo m_aVertices: source/game_sa/WaterLevel.h:103 (0x00C22910) |
+| CWaterLevel::AddWaterLevelQuad(int32 X1, int32 Y1, CRenPar P1, int32 X2, int32 Y2, CRenPar P2, int32 X3, int32 Y3, CRenPar P3, int32 X4, int32 Y4, CRenPar P4, uint32 Flags) | [source/game_sa/WaterLevel.cpp:1411](../../source/game_sa/WaterLevel.cpp#L1411) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::AddWaterLevelQuad 0x006E7EF0 | 0 / 0 | Posible dato fijo NumWaterQuads: source/game_sa/WaterLevel.h:99 (0x00C22888); Posible dato fijo WaterQuads: source/game_sa/WaterLevel.h:182 (0x00C21C90); Posible dato fijo m_aVertices: source/game_sa/WaterLevel.h:103 (0x00C22910) |
+| CWaterLevel::AddWaterLevelTriangle(int32 X1, int32 Y1, CRenPar P1, int32 X2, int32 Y2, CRenPar P2, int32 X3, int32 Y3, CRenPar P3, uint32 Flags) | [source/game_sa/WaterLevel.cpp:1448](../../source/game_sa/WaterLevel.cpp#L1448) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::AddWaterLevelTriangle 0x006E7D40 | 0 / 0 | Posible dato fijo NumWaterTriangles: source/game_sa/WaterLevel.h:98 (0x00C22884); Posible dato fijo WaterTriangles: source/game_sa/WaterLevel.h:179 (0x00C22854); Posible dato fijo m_aVertices: source/game_sa/WaterLevel.h:103 (0x00C22910) |
+| CWaterLevel::FillQuadsAndTrianglesList() | [source/game_sa/WaterLevel.cpp:1480](../../source/game_sa/WaterLevel.cpp#L1480) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWaterLevel::FillQuadsAndTrianglesList 0x006E7B30 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Colaborador por dirección 0x006E5750: fuera del catálogo consultado; ruta efectiva sin resolver; Posible dato fijo NumWaterQuads: source/game_sa/WaterLevel.h:99 (0x00C22888); Posible dato fijo NumWaterTriangles: source/game_sa/WaterLevel.h:98 (0x00C22884); Posible dato fijo WaterQuads: source/game_sa/WaterLevel.h:182 (0x00C21C90); Posible dato fijo WaterTriangles: source/game_sa/WaterLevel.h:179 (0x00C22854); Posible dato fijo m_aVertices: source/game_sa/WaterLevel.h:103 (0x00C22910) |
+| CWaterLevel::SetCameraRange() | [source/game_sa/WaterLevel.cpp:1517](../../source/game_sa/WaterLevel.cpp#L1517) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::SetCameraRange 0x006E9C80 | 0 / 0 | Posible dato fijo CameraRangeMaxX: source/game_sa/WaterLevel.h:108 (0x00C1F958); Posible dato fijo CameraRangeMaxY: source/game_sa/WaterLevel.h:105 (0x00C1F950); Posible dato fijo CameraRangeMinX: source/game_sa/WaterLevel.h:109 (0x00C1F95C); Posible dato fijo CameraRangeMinY: source/game_sa/WaterLevel.h:106 (0x00C1F954); Posible dato fijo DETAILEDWATERDIST: source/game_sa/WaterLevel.h:111 (0x008D37D0); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| CWaterLevel::HandleBeachToysStuff() | [source/game_sa/WaterLevel.cpp:1535](../../source/game_sa/WaterLevel.cpp#L1535) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWaterLevel::TestLineAgainstWater(CVector from, CVector to, CVector* intersection) | [source/game_sa/WaterLevel.cpp:1546](../../source/game_sa/WaterLevel.cpp#L1546) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWaterLevel::TestLineAgainstWater 0x006E61B0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo WaterQuads: source/game_sa/WaterLevel.h:182 (0x00C21C90); Posible dato fijo m_BlockPolyInfo: source/game_sa/WaterLevel.h:176 (0x00C21B70); Posible dato fijo m_PolyCombos: source/game_sa/WaterLevel.h:186 (0x00C215F8); Posible dato fijo m_aVertices: source/game_sa/WaterLevel.h:103 (0x00C22910) |
+| CWaterLevel::GetWaterLevelNoWavesForQuad(const CWaterQuad* quad, float x, float y, float z, float* outLevel, float* outBigWaves, float* outSmallWaves) | [source/game_sa/WaterLevel.cpp:1563](../../source/game_sa/WaterLevel.cpp#L1563) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWaterLevel::GetWaterLevelNoWavesForQuad 0x006E5BB0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CWaterLevel::GetWaterLevelNoWavesForTriangle(const CWaterTriangle* triangle, float x, float y, float z, float* outLevel, float* outBigWaves, float* outSmallWaves) | [source/game_sa/WaterLevel.cpp:1569](../../source/game_sa/WaterLevel.cpp#L1569) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWaterLevel::GetWaterLevelNoWavesForTriangle 0x006E5E90 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CalculateWavesOnlyForCoordinate2_Direct( // TODO: Once the OG function is reversed, we should use this instead of it (once we've verified that the reversed version works as expected) int32 x, int32 y, float waterLevel, // "water level" from `GetWaterLevelNoWaves` float bigWavesAmpl, float smallWavesAmpl ) | [source/game_sa/WaterLevel.h:285](../../source/game_sa/WaterLevel.h#L285) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-902"></a>
+
 ## CWaterLevel::PolyInfo
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -15,7 +73,7 @@
 | Id() const | [source/game_sa/WaterLevel.h:166](../../source/game_sa/WaterLevel.h#L166) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_id: source/game_sa/MemoryMgr.h:101 (0x00C87B1C) |
 | Type() const | [source/game_sa/WaterLevel.h:167](../../source/game_sa/WaterLevel.h#L167) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-902"></a>
+<a id="grupo-903"></a>
 
 ## CWaterPolygon
 
@@ -25,15 +83,15 @@
 | IsInInterior() const | [source/game_sa/WaterLevel.h:49](../../source/game_sa/WaterLevel.h#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | DoMarkToBeRendered(bool isInInterior) | [source/game_sa/WaterLevel.h:51](../../source/game_sa/WaterLevel.h#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-903"></a>
+<a id="grupo-904"></a>
 
 ## CWaterPolygon&lt;NumVerts&gt;
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| CWaterPolygon&lt;NumVerts&gt;::GetVertex(uint16 idx) const | [source/game_sa/WaterLevel.cpp:1521](../../source/game_sa/WaterLevel.cpp#L1521) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_aVertices: source/game_sa/WaterLevel.h:103 (0x00C22910) |
+| CWaterPolygon&lt;NumVerts&gt;::GetVertex(uint16 idx) const | [source/game_sa/WaterLevel.cpp:1540](../../source/game_sa/WaterLevel.cpp#L1540) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_aVertices: source/game_sa/WaterLevel.h:103 (0x00C22910) |
 
-<a id="grupo-904"></a>
+<a id="grupo-905"></a>
 
 ## CWeapon
 
@@ -91,7 +149,7 @@
 | GetTotalAmmo() const noexcept | [source/game_sa/Weapon.h:133](../../source/game_sa/Weapon.h#L133) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor(eWeaponType weaponType, uint32 ammo) | [source/game_sa/Weapon.h:147](../../source/game_sa/Weapon.h#L147) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeapon::Constructor 0x0073B430 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-905"></a>
+<a id="grupo-906"></a>
 
 ## CWeaponEffects
 
@@ -108,7 +166,7 @@
 | CWeaponEffects::ClearCrossHairsImmediately() | [source/game_sa/WeaponEffects.cpp:116](../../source/game_sa/WeaponEffects.cpp#L116) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeaponEffects::ClearCrossHairsImmediately 0x00742CC0 | 0 / 0 | Posible dato fijo gCrossHair: source/game_sa/WeaponEffects.h:51 (0x00C8A838); Posible dato fijo m_bActive: source/game_sa/LoadingScreen.h:33 (0x00BAB318), source/game_sa/StuntJumpManager.h:30 (0x00A9A890) |
 | CWeaponEffects::Render() | [source/game_sa/WeaponEffects.cpp:125](../../source/game_sa/WeaponEffects.cpp#L125) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeaponEffects::Render 0x00742CF0 | 0 / 0 | Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98); Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo gCrossHair: source/game_sa/WeaponEffects.h:51 (0x00C8A838); Posible dato fijo gpCrossHairTex: source/game_sa/WeaponEffects.h:52 (0x00C8A818); Posible dato fijo gpCrossHairTexFlight: source/game_sa/WeaponEffects.h:53 (0x00C8A810); Posible dato fijo m_bActive: source/game_sa/LoadingScreen.h:33 (0x00BAB318), source/game_sa/StuntJumpManager.h:30 (0x00A9A890); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
 
-<a id="grupo-906"></a>
+<a id="grupo-907"></a>
 
 ## CWeaponInfo
 
@@ -136,7 +194,7 @@
 | GetWeaponInfo(CPed* ped, std::optional&lt;eWeaponSkill&gt; skill = {}) | [source/game_sa/WeaponInfo.h:145](../../source/game_sa/WeaponInfo.h#L145) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeaponInfo::GetWeaponInfo-original 0x00743C60 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | & GetAimingOffset() const | [source/game_sa/WeaponInfo.h:149](../../source/game_sa/WeaponInfo.h#L149) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_WeaponAimOffsets: source/game_sa/WeaponInfo.h:45 (0x00C8A8A8) |
 
-<a id="grupo-907"></a>
+<a id="grupo-908"></a>
 
 ## CWeaponModelInfo
 
@@ -150,7 +208,7 @@
 | SetWeaponInfo(eWeaponType weapon) | [source/game_sa/Models/WeaponModelInfo.h:33](../../source/game_sa/Models/WeaponModelInfo.h#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetWeaponInfo() | [source/game_sa/Models/WeaponModelInfo.h:34](../../source/game_sa/Models/WeaponModelInfo.h#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-908"></a>
+<a id="grupo-909"></a>
 
 ## CWeather
 
@@ -174,7 +232,7 @@
 | CWeather::IsRainy() | [source/game_sa/Weather.cpp:1013](../../source/game_sa/Weather.cpp#L1013) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWeather::IsRainy 0x004ABF50 | 0 / 0 | Posible dato fijo Rain: source/game_sa/Weather.h:46 (0x00C81324) |
 | IsUnderWater() | [source/game_sa/Weather.h:95](../../source/game_sa/Weather.h#L95) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo UnderWaterness: source/game_sa/Weather.h:49 (0x00C8132C) |
 
-<a id="grupo-909"></a>
+<a id="grupo-910"></a>
 
 ## CWindModifiers
 
@@ -184,7 +242,7 @@
 | CWindModifiers::RegisterOne(CVector vecPos, int32 iActive, float fPower) | [source/game_sa/WindModifiers.cpp:32](../../source/game_sa/WindModifiers.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWindModifiers::RegisterOne 0x0072C8B0 | 0 / 0 | Posible dato fijo Array: source/game_sa/WindModifiers.h:14 (0x00C81458); Posible dato fijo Number: source/game_sa/WindModifiers.h:13 (0x00C81450); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
 | CWindModifiers::FindWindModifier(CVector vecPos, float* outX, float* outY) | [source/game_sa/WindModifiers.cpp:52](../../source/game_sa/WindModifiers.cpp#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWindModifiers::FindWindModifier 0x0072C950 | 0 / 0 | Posible dato fijo Array: source/game_sa/WindModifiers.h:14 (0x00C81458); Posible dato fijo Number: source/game_sa/WindModifiers.h:13 (0x00C81450) |
 
-<a id="grupo-910"></a>
+<a id="grupo-911"></a>
 
 ## CWorld
 
@@ -319,7 +377,7 @@
 | FindPlayerHeading(int32 playerId) | [source/game_sa/World_Helper.cpp:129](../../source/game_sa/World_Helper.cpp#L129) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWorld::FindPlayerHeading 0x0056E450 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo PlayerInFocus: source/game_sa/World.h:56 (0x00B7CD74); Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
 | * FindPlayerWanted(int32 playerId) | [source/game_sa/World_Helper.cpp:153](../../source/game_sa/World_Helper.cpp#L153) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWorld::FindPlayerWanted 0x0056E230 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-911"></a>
+<a id="grupo-912"></a>
 
 ## CWorldScan
 
@@ -329,7 +387,7 @@
 | CWorldScan::ScanWorld(CVector2D* points, int32 pointsCount, tScanFunction scanFunction) | [source/game_sa/Renderer.cpp:141](../../source/game_sa/Renderer.cpp#L141) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWorldScan::ScanWorld 0x0072CAE0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo WsExtraCount: source/game_sa/Renderer.cpp:133 (0x00C815B8); Posible dato fijo WsExtraX: source/game_sa/Renderer.cpp:132 (0x00C815A8); Posible dato fijo WsExtraY: source/game_sa/Renderer.cpp:131 (0x00C81598) |
 | CWorldScan::SetExtraRectangleToScan(float minX, float maxX, float minY, float maxY) | [source/game_sa/Renderer.cpp:408](../../source/game_sa/Renderer.cpp#L408) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CWorldScan::SetExtraRectangleToScan 0x0072D5E0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo WsExtraCount: source/game_sa/Renderer.cpp:133 (0x00C815B8); Posible dato fijo WsExtraX: source/game_sa/Renderer.cpp:132 (0x00C815A8); Posible dato fijo WsExtraY: source/game_sa/Renderer.cpp:131 (0x00C81598) |
 
-<a id="grupo-912"></a>
+<a id="grupo-913"></a>
 
 ## CZone
 
@@ -341,7 +399,7 @@
 | GetRect() const | [source/game_sa/Zone.h:24](../../source/game_sa/Zone.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetBB() const | [source/game_sa/Zone.h:25](../../source/game_sa/Zone.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-913"></a>
+<a id="grupo-914"></a>
 
 ## CZoneDef
 
@@ -351,7 +409,7 @@
 | Init( const CVector& pos, float vec1X, float vec1Y, float minZ, float vec2X, float vec2Y, float maxZ ) | [source/game_sa/CullZones.h:82](../../source/game_sa/CullZones.h#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsPointWithin(const CVector& point) const | [source/game_sa/CullZones.h:104](../../source/game_sa/CullZones.h#L104) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-914"></a>
+<a id="grupo-915"></a>
 
 ## CZoneInfo
 
@@ -359,7 +417,7 @@
 | --- | --- | --- | --- | --- | --- |
 | GetSumOfGangDensity() const | [source/game_sa/ZoneInfo.h:53](../../source/game_sa/ZoneInfo.h#L53) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-915"></a>
+<a id="grupo-916"></a>
 
 ## C_PcSave
 
@@ -372,7 +430,7 @@
 | C_PcSave::SaveSlot(int32 slot) | [source/game_sa/C_PcSave.cpp:120](../../source/game_sa/C_PcSave.cpp#L120) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: C_PcSave::SaveSlot 0x00619060 | 0 / 0 | Posible dato fijo s_PcSaveHelper: source/game_sa/C_PcSave.h:42 (0x00C17034) |
 | C_PcSave::DeleteSlot(int32 slot) | [source/game_sa/C_PcSave.cpp:130](../../source/game_sa/C_PcSave.cpp#L130) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: C_PcSave::DeleteSlot 0x006190D0 | 0 / 0 | Posible dato fijo DefaultPCSaveFileName: source/game_sa/C_PcSave.h:27 (0x00C16F18); Posible dato fijo s_PcSaveHelper: source/game_sa/C_PcSave.h:42 (0x00C17034) |
 
-<a id="grupo-916"></a>
+<a id="grupo-917"></a>
 
 ## CdStream
 
@@ -388,7 +446,7 @@
 | CdStreamRemoveImages() | [source/game_sa/CdStreamInfo.cpp:285](../../source/game_sa/CdStreamInfo.cpp#L285) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CdStream::CdStreamRemoveImages 0x00406690 | 0 / 0 | Posible dato fijo gCdImageNames: source/game_sa/CdStreamInfo.cpp:22 (0x008E4098); Posible dato fijo gOpenStreamCount: source/game_sa/CdStreamInfo.cpp:26 (0x008E4094); Posible dato fijo gStreamCount: source/game_sa/CdStreamInfo.cpp:25 (0x008E4090); Posible dato fijo gStreamFileHandles: source/game_sa/CdStreamInfo.cpp:21 (0x008E4010) |
 | CdStreamShutdown() | [source/game_sa/CdStreamInfo.cpp:301](../../source/game_sa/CdStreamInfo.cpp#L301) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CdStream::CdStreamShutdown 0x00406370 | 0 / 0 | Posible dato fijo gCdStreams: source/game_sa/CdStreamInfo.cpp:24 (0x008E3FFC); Posible dato fijo gStreamCount: source/game_sa/CdStreamInfo.cpp:25 (0x008E4090); Posible dato fijo gStreamQueue: source/game_sa/CdStreamInfo.cpp:29 (0x008E3FEC); Posible dato fijo gStreamSemaphore: source/game_sa/CdStreamInfo.cpp:30 (0x008E4004); Posible dato fijo gStreamingInitialized: source/game_sa/CdStreamInfo.cpp:27 (0x008E3FE4); Posible dato fijo gStreamingThread: source/game_sa/CdStreamInfo.cpp:31 (0x008E4008) |
 
-<a id="grupo-917"></a>
+<a id="grupo-918"></a>
 
 ## CdStreamPos
 
@@ -396,7 +454,7 @@
 | --- | --- | --- | --- | --- | --- |
 | ToInt() const | [source/game_sa/CdStreamInfo.h:22](../../source/game_sa/CdStreamInfo.h#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-918"></a>
+<a id="grupo-919"></a>
 
 ## ColDef
 
@@ -405,7 +463,7 @@
 | * ColDef::operator new(unsigned size) | [source/game_sa/Collision/ColStore.cpp:39](../../source/game_sa/Collision/ColStore.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pColPool: source/game_sa/Collision/ColStore.cpp:24 (0x00965560) |
 | ColDef::operator delete(void* data) | [source/game_sa/Collision/ColStore.cpp:43](../../source/game_sa/Collision/ColStore.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pColPool: source/game_sa/Collision/ColStore.cpp:24 (0x00965560) |
 
-<a id="grupo-919"></a>
+<a id="grupo-920"></a>
 
 ## ColHelpers::FileHeader
 
@@ -414,12 +472,3 @@
 | GetTotalSize() const | [source/game_sa/Collision/ColHelpers.h:56](../../source/game_sa/Collision/ColHelpers.h#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetDataSize() const | [source/game_sa/Collision/ColHelpers.h:61](../../source/game_sa/Collision/ColHelpers.h#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetVersion() const | [source/game_sa/Collision/ColHelpers.h:66](../../source/game_sa/Collision/ColHelpers.h#L66) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-920"></a>
-
-## ColHelpers::FileHeader::FileInfo
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| GetVersion() const | [source/game_sa/Collision/ColHelpers.h:34](../../source/game_sa/Collision/ColHelpers.h#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsValid() const | [source/game_sa/Collision/ColHelpers.h:46](../../source/game_sa/Collision/ColHelpers.h#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

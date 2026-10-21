@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CVehicle
- * Reconstrucción: COMPLETA — 149/149 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 151/151 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 149/149 entradas.
+ * Validación registrada: 151/151 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -342,8 +342,8 @@ void CVehicle::InjectHooks() {
     // RH_ScopedGlobalInstall(SetCompAlphaCB, 0x6D2950);
     RH_ScopedGlobalInstall(IsVehiclePointerValid, 0x6E38F0);
     RH_ScopedGlobalInstall(IsValidModForVehicle, 0x49B010);
-    // RH_ScopedGlobalInstall(RemoveUpgradeCB, 0x6D3300);
-    // RH_ScopedGlobalInstall(FindUpgradeCB, 0x6D3370);
+    RH_ScopedGlobalInstall(RemoveUpgradeCB, 0x6D3300);
+    RH_ScopedGlobalInstall(FindUpgradeCB, 0x6D3370);
     RH_ScopedGlobalOverloadedInstall(RemoveObjectsCB, "Object", 0x6D33B0, RwObject*(*)(RwObject*, void*));
     RH_ScopedGlobalOverloadedInstall(RemoveObjectsCB, "Frame", 0x6D3420, RwFrame*(*)(RwFrame*, void*));
     RH_ScopedGlobalInstall(CopyObjectsCB, 0x6D3450);
@@ -2530,13 +2530,43 @@ bool CVehicle::ClearVehicleUpgradeFlags(int32 arg0, int32 modId) {
 }
 
 // 0x6D3300
+// Como el original (cdecl, callback de RpClumpForAllAtomics; siempre devuelve el atomo): solo actua sobre atomos con ATOMIC_UPGRADE (0x732370, una vez) cuyo modelo
+// (0x732260, primera llamada) tiene CarMod == 'data' (el identificador se pasa como valor, sin signo) y no usa VehDummy; entonces vuelve a pedir el modelo
+// (0x732260, segunda llamada), lee clump (+0x3C) y marco (+4), quita y destruye el atomo, destruye el marco SIEMPRE y libera una referencia del modelo si no es nulo.
 RpAtomic* RemoveUpgradeCB(RpAtomic* atomic, void* data) {
-    return ((RpAtomic * (__cdecl*)(RpAtomic*, void*))0x6D3300)(atomic, data);
+    if (!(CVisibilityPlugins::GetAtomicId(atomic) & ATOMIC_UPGRADE)) {
+        return atomic;
+    }
+    const CBaseModelInfo* const info = CVisibilityPlugins::GetModelInfo(atomic);
+    const uint32 carMod = info->CarMod;
+    const uint32 usesVehDummy = info->bUsesVehDummy;
+    if (reinterpret_cast<uint32>(data) != carMod || usesVehDummy) {
+        return atomic;
+    }
+    CBaseModelInfo* const owner = CVisibilityPlugins::GetModelInfo(atomic);
+    RpClump* const clump = atomic->clump;
+    RwFrame* const frame = RpAtomicGetFrame(atomic);
+    RpClumpRemoveAtomic(clump, atomic);
+    RpAtomicDestroy(atomic);
+    RwFrameDestroy(frame);
+    if (owner) {
+        owner->RemoveRef();
+    }
+    return atomic;
 }
 
 // 0x6D3370
+// Como el original (cdecl, callback de RpClumpForAllAtomics): un atomo con ATOMIC_UPGRADE (0x732370, una vez) cuyo modelo (0x732260) tiene CarMod == data[0]
+// (comparado sin signo) se guarda en data[1] y detiene el recorrido (devuelve nullptr); cualquier otro se devuelve para seguir.
 RpAtomic* FindUpgradeCB(RpAtomic* atomic, void* data) {
-    return ((RpAtomic * (__cdecl*)(RpAtomic*, void*))0x6D3370)(atomic, data);
+    if (CVisibilityPlugins::GetAtomicId(atomic) & ATOMIC_UPGRADE) {
+        const uint32 carMod = CVisibilityPlugins::GetModelInfo(atomic)->CarMod;
+        if (*static_cast<uint32*>(data) == carMod) {
+            static_cast<RpAtomic**>(data)[1] = atomic;
+            return nullptr;
+        }
+    }
+    return atomic;
 }
 
 // 0x6D33B0

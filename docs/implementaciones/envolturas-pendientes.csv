@@ -219,8 +219,6 @@ class,function,address,source,origins
 (helpers y globales sin clase),CTaskSimpleGangDriveBy helper para shooter sin símbolo confirmado,0x00627CC0,source/game_sa/Cam.cpp:2398; source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:185,cohorte 499
 (helpers y globales sin clase),CWaterLevel helper de agua cercana,0x006E6A10,source/game_sa/WaterLevel.cpp:1557,cohorte 499
 (helpers y globales sin clase),CWaterLevel helper de agua distante,0x006E6870,source/game_sa/WaterLevel.cpp:1556,cohorte 499
-(helpers y globales sin clase),CWaterLevel helper de envío de agua acumulada sin símbolo confirmado,0x006E7680,source/game_sa/WaterLevel.cpp:351; source/game_sa/WaterLevel.cpp:397; source/game_sa/WaterLevel.cpp:748,cohorte 499
-(helpers y globales sin clase),DIReleaseMouse,0x00746F70,source/game_sa/Pad.cpp:1506,cohorte 499 + envoltura en el código fuente
 (helpers y globales sin clase),ExeFree,,source/game_sa/RenderWare/D3DResourceSystem.cpp:79,envoltura en el código fuente
 (helpers y globales sin clase),FightChooseAttackAIExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:357,envoltura en el código fuente
 (helpers y globales sin clase),FightChooseAttackPlayerExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:353,envoltura en el código fuente
@@ -230,7 +228,6 @@ class,function,address,source,origins
 (helpers y globales sin clase),FightHitPedExe,0x0061CBA0,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:273,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 (helpers y globales sin clase),FightStartAnimExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:361,envoltura en el código fuente
 (helpers y globales sin clase),FightStrikeDamageExe,0x0061C740,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:268,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-(helpers y globales sin clase),FindUpgradeCB,0x006D3370,source/game_sa/Entity/Vehicle/Vehicle.cpp:2539,cohorte nuevo 2026-10-17
 (helpers y globales sin clase),GaCalcDistToRectSq,,source/game_sa/Garage.cpp:441,envoltura en el código fuente
 (helpers y globales sin clase),GaCountCarsCenterWithin,,source/game_sa/Garage.cpp:437,envoltura en el código fuente
 (helpers y globales sin clase),GaFindDoorsWithGarage,,source/game_sa/Garage.cpp:446,envoltura en el código fuente
@@ -247,8 +244,7 @@ class,function,address,source,origins
 (helpers y globales sin clase),GaThrowCarsNearDoorOut,,source/game_sa/Garage.cpp:440,envoltura en el código fuente
 (helpers y globales sin clase),GetDXVersion,0x00745650,source/app/platform/win/WinPs.cpp:180,cohorte 499
 (helpers y globales sin clase),GetFirstTextureCallback,,source/game_sa/RenderWare/rw/rwtexdict.cpp:17,envoltura en el código fuente
-(helpers y globales sin clase),GetMillisecondTime,0x005617C0,source/game_sa/Timer.cpp:53,cohorte 499 + envoltura en el código fuente
-(helpers y globales sin clase),helper sin símbolo confirmado,0x0061A3D0,source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp:25,cohorte nuevo 2026-10-17
+(helpers y globales sin clase),helper sin símbolo confirmado,0x0050B830,source/game_sa/Camera.cpp:1824,cohorte nuevo 2026-10-17
 (helpers y globales sin clase),IndexDataBufferGetTotalDataSize,,source/game_sa/RenderWare/D3DResourceSystem.cpp:114,envoltura en el código fuente
 (helpers y globales sin clase),IndexDataBufferPop,,source/game_sa/RenderWare/D3DResourceSystem.cpp:98,envoltura en el código fuente
 (helpers y globales sin clase),IndexDataBufferResize,,source/game_sa/RenderWare/D3DResourceSystem.cpp:101,envoltura en el código fuente
@@ -256,7 +252,6 @@ class,function,address,source,origins
 (helpers y globales sin clase),operator delete[],,source/game_sa/MemoryMgr.cpp:564,envoltura en el código fuente
 (helpers y globales sin clase),operator new,,source/game_sa/MemoryMgr.cpp:552,envoltura en el código fuente
 (helpers y globales sin clase),operator new[],,source/game_sa/MemoryMgr.cpp:556,envoltura en el código fuente
-(helpers y globales sin clase),RemoveUpgradeCB,0x006D3300,source/game_sa/Entity/Vehicle/Vehicle.cpp:2534,cohorte nuevo 2026-10-17
 (helpers y globales sin clase),RpClumpGetBoundingSphere,0x00734FC0,source/game_sa/RwHelper.cpp:338,cohorte nuevo 2026-10-17
 (helpers y globales sin clase),RpClumpGtaCancelStream,,source/game_sa/RenderWare/rw/rpworld.cpp:697,envoltura en el código fuente
 (helpers y globales sin clase),RpClumpGtaStreamRead1,,source/game_sa/RenderWare/rw/rwtexdict.cpp:37,envoltura en el código fuente
@@ -271,7 +266,6 @@ class,function,address,source,origins
 (helpers y globales sin clase),RwTextureGtaStreamRead,0x00730E60,source/game_sa/RenderWare/rw/rwtexdict.cpp:21,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 (helpers y globales sin clase),RwTextureRead,,source/game_sa/RenderWare/rw/rwcore.cpp:619,envoltura en el código fuente
 (helpers y globales sin clase),RxLockedPipeAddFragment,,source/game_sa/RenderWare/rw/rwcore.cpp:309,envoltura en el código fuente
-(helpers y globales sin clase),"Selector de modelo de ped para ataque de bandas, sin símbolo confirmado",0x00406E80,source/game_sa/GangWars.cpp:319,cohorte 499
 (helpers y globales sin clase),SkinGetBonePositionsToTable,0x00735360,source/game_sa/RwHelper.cpp:353,cohorte nuevo 2026-10-17
 (helpers y globales sin clase),StencilTransformPoints,,source/game_sa/StencilShadows.cpp:121,envoltura en el código fuente
 (helpers y globales sin clase),TextureBufferGetTotalDataSize,,source/game_sa/RenderWare/D3DResourceSystem.cpp:111,envoltura en el código fuente
@@ -331,13 +325,13 @@ CVehicle,AddReplacementUpgrade,0x006D3830,source/game_sa/Entity/Vehicle/Vehicle.
 CVehicle,AddSingleWheelParticles,0x006DE880,source/game_sa/Entity/Vehicle/Vehicle.cpp:4787,cohorte 499
 CVehicle,AddUpgrade,0x006DFA20,source/game_sa/Entity/Vehicle/Vehicle.cpp:7267,cohorte nuevo 2026-10-17
 CVehicle,AddVehicleUpgrade,0x006E3290,source/game_sa/Entity/Vehicle/Vehicle.cpp:5160,cohorte 499
-CVehicle,DoDriveByShootings,0x00741FD0,source/game_sa/Entity/Vehicle/Vehicle.cpp:8313,cohorte 499 + envoltura en el código fuente
-CVehicle,FireFixedMachineGuns,0x0073DF00,source/game_sa/Entity/Vehicle/Vehicle.cpp:8308,cohorte 499 + envoltura en el código fuente
+CVehicle,DoDriveByShootings,0x00741FD0,source/game_sa/Entity/Vehicle/Vehicle.cpp:8001,cohorte 499 + envoltura en el código fuente
+CVehicle,FireFixedMachineGuns,0x0073DF00,source/game_sa/Entity/Vehicle/Vehicle.cpp:7996,cohorte 499 + envoltura en el código fuente
 CVehicle,FireHeatSeakingMissile,0x006E05C0,source/game_sa/Entity/Vehicle/Vehicle.cpp:7287,cohorte nuevo 2026-10-17
 CVehicle,GetPlaneWeaponFiringStatus,0x006E3440,source/game_sa/Entity/Vehicle/Vehicle.cpp:7844,cohorte nuevo 2026-10-17
 CVehicle,InflictDamage,0x006D7C90,source/game_sa/Entity/Vehicle/Vehicle.cpp:3738,cohorte 499
 CVehicle,PossiblyDropFreeFallBombForPlayer,0x006E07E0,source/game_sa/Entity/Vehicle/Vehicle.cpp:7292,cohorte nuevo 2026-10-17
-CVehicle,ProcessBikeWheel,0x006D73B0,source/game_sa/Entity/Vehicle/Vehicle.cpp:3688,cohorte 499 + envoltura en el código fuente
+CVehicle,ProcessBikeWheel,0x006D73B0,source/game_sa/Entity/Vehicle/Vehicle.cpp:3718,cohorte 499 + envoltura en el código fuente
 CVehicle,ProcessSirenAndHorn,0x006E0950,source/game_sa/Entity/Vehicle/Vehicle.cpp:4857,cohorte 499
 CVehicle,ProcessWeapons,0x006E3950,source/game_sa/Entity/Vehicle/Vehicle.cpp:5196,cohorte 499
 CVehicle,RemoveVehicleUpgrade,0x006DF930,source/game_sa/Entity/Vehicle/Vehicle.cpp:4822,cohorte 499

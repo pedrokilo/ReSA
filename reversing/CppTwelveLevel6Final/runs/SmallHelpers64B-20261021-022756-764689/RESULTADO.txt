@@ -1,0 +1,3 @@
+APROBADO: SmallHelpers64B
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-smallhelpers64b\20261021-022756-764689

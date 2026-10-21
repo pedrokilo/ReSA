@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CGangWars
- * Reconstrucción: COMPLETA — 35/35 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 36/36 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 35/35 entradas.
+ * Validación registrada: 36/36 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -40,10 +40,23 @@ END GENERATED HOOK STATUS */
 #include "Pools/PedPool.h"
 #include "X87Math.h"
 
+// 0x406E80 (cdecl, 3 argumentos de pila): modelo del peatón `slot` del grupo de peatones que el grupo de población `popcycleGroup` usa en la zona `worldZone`.
+// Desensamblado: g = dword [0x8D2540 + (3 * popcycleGroup + worldZone) * 4] (CPopulation::m_TranslationArray, 3 dwords por grupo);
+// modelo = movzx word [0xC0F358 + (g * 21 + slot) * 2] (CPopulation::m_PedGroups, 21 words por grupo de peatones). Sin comprobación de límites; el índice se calcula
+// con envoltura de 32 bits y el resultado sale cero-extendido en EAX (movzx). CreateAttackWave es el único llamador (lee EAX); ECX y EDX salen con residuos que nadie lee.
+static_assert(POPCYCLE_GROUP_BALLAS == 0x12 && POPCYCLE_TOTAL_GROUPS == 33);
+static int32 GetPopcycleGroupPedModel(int32 popcycleGroup, int32 slot, int32 worldZone) {
+    const uint32 translationIndex = uint32(popcycleGroup) * 3u + uint32(worldZone);
+    const uint32 pedGroup = *reinterpret_cast<const uint32*>(0x8D2540u + translationIndex * 4u);
+    const uint32 modelIndex = pedGroup * 21u + uint32(slot);
+    return *reinterpret_cast<const uint16*>(0xC0F358u + modelIndex * 2u);
+}
+
 void CGangWars::InjectHooks() {
     RH_ScopedClass(CGangWars);
     RH_ScopedCategoryGlobal();
 
+    RH_ScopedGlobalInstall(GetPopcycleGroupPedModel, 0x406E80);
     RH_ScopedInstall(InitAtStartOfGame, 0x443920);
     RH_ScopedInstall(AddKillToProvocation, 0x443950);                  // ?
     RH_ScopedInstall(AttackWaveOvercome, 0x445B30);
@@ -275,7 +288,7 @@ bool CGangWars::CreateAttackWave(int32 warFerocity, int32 waveID) {
         CStreaming::RequestModel(model, 8);
     }
     if (int32(Gang1) != Gang2 && !PedStreamedInForThisGang(static_cast<eGangID>(Gang2))) {
-        const int32 model = plugin::CallAndReturn<int32, 0x406E80>(Gang2 + 0x12, 0, 0);
+        const int32 model = GetPopcycleGroupPedModel(Gang2 + POPCYCLE_GROUP_BALLAS, 0, 0);
         CStreaming::RequestModel(model, 8);
     }
     int32 model1 = static_cast<int32>(reinterpret_cast<uintptr_t>(player)), model2 = model1;

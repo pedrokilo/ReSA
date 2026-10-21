@@ -13,6 +13,15 @@
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ *
+ * ESTADO: CTaskComplex
+ * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 1/1 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -44,6 +53,34 @@ void CTask::Destructor() {
 }
 #pragma optimize("", on)
 #pragma runtime_checks("", restore)
+
+class CTaskComplex;
+
+namespace CTaskComplexBody {
+// 0x61A3D0 (thiscall, sin argumentos de pila): cuerpo no virtual de ~CTaskComplex. Deja la vtable de CTaskComplex del EXE (0x86D4CC), borra la subtarea (m_pSubTask,
+// +8) con su destructor virtual con borrado (`push 1; call [vtable]`) si no es nula, pone m_pSubTask a 0 y deja la vtable de CTask del EXE (0x86D48C). El EXE lo envuelve
+// en un marco SEH (sólo desenrolla); aquí se omite. Los llamadores (destructores de las tareas complejas, con `call` o `jmp`) no leen EAX, ECX ni EDX tras él.
+// __fastcall con un segundo registro sin usar equivale a thiscall sin argumentos de pila (`ret`).
+#pragma runtime_checks("", off)
+static void __fastcall Destructor(CTask* self, void* /*edx*/) {
+    uint32& vtable = *reinterpret_cast<uint32*>(self);
+    CTask*& subTask = *reinterpret_cast<CTask**>(reinterpret_cast<uint8*>(self) + 8);
+    vtable = 0x86D4CC;
+    if (CTask* const owned = subTask) {
+        delete owned;
+    }
+    subTask = nullptr;
+    vtable = 0x86D48C;
+}
+#pragma runtime_checks("", restore)
+
+static void InjectHooks() {
+    RH_ScopedClass(CTaskComplex);
+    RH_ScopedCategory("Tasks");
+
+    RH_ScopedGlobalInstall(Destructor, 0x61A3D0);
+}
+} // namespace CTaskComplexBody
 
 // 0x61A5A0
 void* CTask::operator new(size_t size) {
@@ -90,4 +127,6 @@ void CTask::InjectHooks() {
     RH_ScopedInstall(operator new, 0x61A5A0);
     RH_ScopedInstall(operator delete, 0x61A5B0);
     RH_ScopedVMTInstall(StopTimer, 0x421180);
+
+    CTaskComplexBody::InjectHooks();
 }

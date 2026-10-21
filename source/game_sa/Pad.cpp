@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CPad
- * Reconstrucción: COMPLETA — 79/79 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 80/80 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 79/79 entradas.
+ * Validación registrada: 80/80 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -55,6 +55,7 @@ void CPad::InjectHooks() {
     // CPad", 0x541D80, &CPad::Constructor);
     // CPad~", 0x53ED60, &CPad::Destructor);
     RH_ScopedGlobalInstall(GetCurrentKeyPressed, 0x541490);
+    RH_ScopedGlobalInstall(DIReleaseMouse, 0x746F70);
     RH_ScopedInstall(Initialise, 0x541D90);
     RH_ScopedInstall(ClearKeyBoardHistory, 0x53F1E0);
     RH_ScopedInstall(ClearMouseHistory, 0x541BD0);
@@ -1503,8 +1504,16 @@ int GetCurrentKeyPressed(RsKeyCodes& keys) {
 }
 #pragma runtime_checks("", restore)
 
-IDirectInputDevice8* DIReleaseMouse() { // todo: wininput
-    return plugin::CallAndReturn<IDirectInputDevice8*, 0x746F70>();
+// 0x746F70
+// Como el original: sin dispositivo no hace nada; si lo hay, Unacquire (vtbl+0x20), vuelve a leer PSGLOBAL(diMouse) y llama Release (vtbl+8), vuelve a leer y lo deja a nulo.
+// El EXE deja en EAX el retorno de Release (o 0), pero ningun llamador (0x576CCE, 0x576EBC, 0x576F8C) lo lee.
+void DIReleaseMouse() { // todo: wininput
+    if (!PSGLOBAL(diMouse)) {
+        return;
+    }
+    PSGLOBAL(diMouse)->Unacquire();
+    PSGLOBAL(diMouse)->Release();
+    PSGLOBAL(diMouse) = nullptr;
 }
 
 void InitialiseMouse(bool exclusive) {

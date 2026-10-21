@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "pairs": 12288,
+  "differences": 0,
+  "registered_pairs": 12288,
+  "registered_functions": 3,
+  "functions": {
+    "GetPopcycleGroupPedModel": 4096,
+    "FlushWaterRenderBuffer": 4096,
+    "CTaskComplex::Destructor": 4096
+  },
+  "covered_functions": {
+    "GetPopcycleGroupPedModel": true,
+    "FlushWaterRenderBuffer": true,
+    "CTaskComplex::Destructor": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wp-2 (HEAD 1b13a6db4 + fuentes del lote 64B). Funciones sin simbolo confirmado: nombres asignados por el desensamblado. GetPopcycleGroupPedModel (0x406E80): tablas del juego (m_TranslationArray, m_PedGroups) sustituidas por contenido sintetico en ventanas guardadas y restauradas; sin colaboradores. FlushWaterRenderBuffer (0x6E7680): RwIm3DTransform (0x7EF450), RwIm3DRenderIndexedPrimitive (0x7EF550) y RwIm3DEnd (0x7EF520) sustituidos por falsos identicos en ambos lados (no se prueba contra una GPU; se comparan sus argumentos exactos, en orden, y el contador g_nNumIm3dDrawCalls que LittleTest incrementa, que NO se sustituye). CTaskComplex::Destructor (0x61A3D0): es el cuerpo no virtual de ~CTaskComplex (SEH omitido: el marco solo desenrolla); la subtarea es un objeto falso cuyo destructor virtual con borrado registra su llamada; ninguna tarea real se construye ni se destruye en el banco. EAX/ECX/EDX solo registrados salvo el EAX devuelto por GetPopcycleGroupPedModel.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/SmallHelpers64B-20261021-022756-764689",
+  "summary_sha256": "245c837d790b29887302177ed2ca7ae87abdbd70e28fc95308471300bb8939e3",
+  "result_txt_sha256": "d7af070bcff1d1094c24e34ca47503468b5085df4c0d839f6664a47569ec1de9",
+  "log_sha256": "cbf077fc979151a2471a7b3bb4211a781d83c3cb329ce38fdd71f3f48f746cb1",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "b944a86fa441a2c0c1ed2a32e23647207121030dac15eac49448d1dbdf8e1810",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/game_sa/GangWars.cpp": "fefa5aff06d9900233b2b6ee633fae3f4772f46645baa1a5d506fe0acb086a1d",
+      "source/game_sa/WaterLevel.cpp": "71f6e7b1e5613aef502f6b2c6f7353cf6799d869fc864afff1aba30e0f536fc1",
+      "source/game_sa/Tasks/Task.cpp": "a0b8f09bee231d8f4fa1cd5847473dfded1b44de5fe2364f340df28f4de2dda3",
+      "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
+      "source/game_sa/common.cpp": "33bc773c8312f7304a8ab6fef79450f0f925cffb2304a612e43fd6034dbfe20d",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/SmallHelpers64B/LiveComparison.hpp": "32844320f4ad2dbdf7b2e419ee2b119b4f1795363915c3d236efaa8e8c322c93",
+      "reversing/SmallHelpers64B/Core.hpp": "ad88dfe1e70e374ff512be4486dbfe6eca99fd24b69e465a147426bb28b560a5",
+      "reversing/SmallHelpers64B/Cases.hpp": "173194c935ee6c6f595cc3d9b4c516b5a7a22431fa0231bf8a10f085b1fc45dc",
+      "reversing/SmallHelpers64B/Fixtures.hpp": "22062f1af82ec7ccb5e103736c56e04c4797f918f5576f00959f7b624a051910",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

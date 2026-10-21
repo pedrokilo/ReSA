@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CWaterLevel
- * Reconstrucción: COMPLETA — 38/38 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 39/39 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 38/38 entradas.
+ * Validación registrada: 39/39 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -24,9 +24,28 @@ END GENERATED HOOK STATUS */
 
 #define TRIANGLE_ARGS_OUT X1, Y1, P1, X2, Y2, P2, X3, Y3, P3
 
+// 0x6E7680 (cdecl, sin argumentos): envía al RenderWare el búfer temporal de vértices e índices del agua y lo vacía. Es RenderBuffer::RenderStuffInBuffer (0x707800) más
+// LittleTest (++g_nNumIm3dDrawCalls) cuando hay vértices pendientes, antes de RwIm3DTransform. Los contadores (0xC4B950 vértices, 0xC4B954 índices) son dwords; el original
+// compara el de vértices por igualdad con 0, pasa el resultado de RwIm3DTransform por `test eax, eax` completo y relee el de índices tras la transformación.
+// Llamadores del EXE: sólo las dos funciones `_OneLayer` de agua sin reconstruir, que no leen EAX/ECX/EDX (el EDX que ven es el del `cdq` posterior).
+static void FlushWaterRenderBuffer() {
+    auto& nVtx = StaticRef<int32>(0xC4B950);
+    auto& nIdx = StaticRef<int32>(0xC4B954);
+    if (nVtx != 0) {
+        LittleTest();
+        if (RwIm3DTransform(TempBufferVertices.m_3d, nVtx, nullptr, rwIM3D_VERTEXUV)) {
+            RwIm3DRenderIndexedPrimitive(rwPRIMTYPETRILIST, aTempBufferIndices, nIdx);
+            RwIm3DEnd();
+        }
+    }
+    nIdx = 0;
+    nVtx = 0;
+}
+
 void CWaterLevel::InjectHooks() {
     RH_ScopedClass(CWaterLevel);
     RH_ScopedCategoryGlobal();
+    RH_ScopedGlobalInstall(FlushWaterRenderBuffer, 0x6E7680);
     RH_ScopedInstall(CalculateWavesOnlyForCoordinate2Native, 0x6E7210);
 
     RH_ScopedGlobalInstall(WaterLevelInitialise, 0x6EAE80);
@@ -315,7 +334,7 @@ void CWaterLevel::RenderFlatWaterTriangle_OneLayer(int32 X1, int32 Y1, CRenPar P
     auto& nIdx = StaticRef<int32>(0xC4B954);
     // Como el original: umbrales 0xFFD / 0x7FD y vaciado con la funcion 0x6E7680 (con LittleTest).
     if (nIdx >= 0xFFD || nVtx >= 0x7FD) {
-        plugin::Call<0x6E7680>();
+        FlushWaterRenderBuffer();
     }
     const int32 base = nVtx;
     const auto layer = GetWaterLayerParams(WaterLayer);
@@ -361,7 +380,7 @@ void CWaterLevel::RenderWakeSegment(
 
     for (int32 part = 0; part < 4; ++part) {
         if (nIdx >= 0xFFA || nVtx >= 0x7FC) {
-            plugin::Call<0x6E7680>();
+            FlushWaterRenderBuffer();
         }
         const int32 base = nVtx;
         const float ta = float(part) * 0.25f, tb = float(part + 1) * 0.25f;
@@ -704,7 +723,7 @@ void CWaterLevel::RenderFlatWaterRectangle_OneLayer(int32 minX, int32 maxX, int3
     auto& nIdx = StaticRef<int32>(0xC4B954);
     // Como el original: umbrales 0xFFA / 0x7FC y vaciado con la funcion 0x6E7680 (con LittleTest).
     if (nIdx >= 0xFFA || nVtx >= 0x7FC) {
-        plugin::Call<0x6E7680>();
+        FlushWaterRenderBuffer();
     }
     const int32 base = nVtx;
     const auto layer = GetWaterLayerParams(WaterLayer);

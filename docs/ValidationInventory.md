@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,855 entradas reversed=1**, de 8,855 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,862 entradas reversed=1**, de 8,862 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8855 |
+| `validated=1` · evidencia aprobada vinculada | 8862 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8855 |
+| Evidencia histórica vinculada; revisión pendiente | 8862 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -2867,6 +2867,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CGangWars | `EndGangWar` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangWars | `GangWarFightingGoingOn` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangWars | `GangWarGoingOn` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
+| CGangWars | `GetPopcycleGroupPedModel` | [Resumen](../reversing/SmallHelpers64B/validation-summary.json) |
 | CGangWars | `InitAtStartOfGame` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangWars | `Load` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangWars | `MakeEnemyGainInfluenceInZone` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
@@ -3519,6 +3520,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPad | `ConversationYesJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `CycleWeaponLeftJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `CycleWeaponRightJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
+| CPad | `DIReleaseMouse` | [Resumen](../reversing/SmallHelpers64A/validation-summary.json) |
 | CPad | `DuckJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `ExitVehicleJustDown` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
 | CPad | `GetAccelerate` | [Resumen](../reversing/RequestedPadSelectors/validation-summary-51.json) |
@@ -5271,6 +5273,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskAllocatorPlayerCommandAttack | `GetType` | [Resumen](../reversing/PedTasks52/validation-summary.json) |
 | CTaskAllocatorPlayerCommandAttack | `ProcessGroup` | [Resumen](../reversing/PedTasks52/validation-summary.json) |
 | CTaskAllocatorPool | `New` | [Resumen](../reversing/Pools56/validation-summary.json) |
+| CTaskComplex | `Destructor` | [Resumen](../reversing/SmallHelpers64B/validation-summary.json) |
 | CTaskComplexArrestPed | `Constructor` | [Resumen](../reversing/RequestedArrestRemainingFour/validation-summary-Constructor.json) |
 | CTaskComplexArrestPed | `ControlSubTask` | [Resumen](../reversing/ArrestPending/validation-summary.json) |
 | CTaskComplexArrestPed | `CreateFirstSubTask` | [Resumen](../reversing/RequestedArrestRemainingFour/validation-summary-CreateFirstSubTask.json) |
@@ -7487,6 +7490,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTimer | `GetCyclesPerFrame` | [Resumen](../reversing/Sys13/validation-summary.json) |
 | CTimer | `GetCyclesPerMillisecond` | [Resumen](../reversing/Sys13/validation-summary.json) |
 | CTimer | `GetIsSlowMotionActive` | [Resumen](../reversing/Sys13/validation-summary.json) |
+| CTimer | `GetMillisecondTime` | [Resumen](../reversing/SmallHelpers64A/validation-summary.json) |
 | CTimer | `Initialise` | [Resumen](../reversing/Sys13/validation-summary.json) |
 | CTimer | `Resume` | [Resumen](../reversing/Sys13/validation-summary.json) |
 | CTimer | `Shutdown` | [Resumen](../reversing/Sys13/validation-summary.json) |
@@ -7644,6 +7648,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicle | `FillVehicleWithPeds` | [Resumen](../reversing/CVehB/validation-summary.json) |
 | CVehicle | `FindReplacementUpgradeCB` | [Resumen](../reversing/Dependencies25A/validation-summary.json) |
 | CVehicle | `FindTyreNearestPoint` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `FindUpgradeCB` | [Resumen](../reversing/SmallHelpers64A/validation-summary.json) |
 | CVehicle | `FirePlaneGuns` | [Resumen](../reversing/CVehE/validation-summary.json) |
 | CVehicle | `FireUnguidedMissile` | [Resumen](../reversing/CVehE/validation-summary.json) |
 | CVehicle | `FlyingControl` | [Resumen](../reversing/Dependencies23B/validation-summary.json) |
@@ -7705,6 +7710,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicle | `RemovePassenger` | [Resumen](../reversing/CVehB/validation-summary.json) |
 | CVehicle | `RemoveReplacementUpgrade` | [Resumen](../reversing/CVehC/validation-summary.json) |
 | CVehicle | `RemoveUpgrade` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `RemoveUpgradeCB` | [Resumen](../reversing/SmallHelpers64A/validation-summary.json) |
 | CVehicle | `RemoveWinch` | [Resumen](../reversing/CVehE/validation-summary.json) |
 | CVehicle | `Render` | [Resumen](../reversing/CVehD/validation-summary.json) |
 | CVehicle | `RenderDriverAndPassengers` | [Resumen](../reversing/CVehD/validation-summary.json) |
@@ -7997,6 +8003,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CWaterLevel | `CalculateWavesOnlyForCoordinate2Native` | [Resumen](../reversing/DependenciesWorld9/validation-summary.json) |
 | CWaterLevel | `FillQuadsAndTrianglesList` | [Resumen](../reversing/WaterLevel62/validation-summary.json) |
 | CWaterLevel | `FindNearestWaterAndItsFlow` | [Resumen](../reversing/WaterNearest355/validation-summary.json) |
+| CWaterLevel | `FlushWaterRenderBuffer` | [Resumen](../reversing/SmallHelpers64B/validation-summary.json) |
 | CWaterLevel | `GetWaterDepth` | [Resumen](../reversing/WaterLevel62/validation-summary.json) |
 | CWaterLevel | `GetWaterLevel-` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CWaterLevel | `GetWaterLevelNoWaves` | [Resumen](../reversing/WaterQuery355/validation-summary.json) |
@@ -9115,7 +9122,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CGame` | 22 | 0 | 22 | 0 |
 | `CGameLogic` | 27 | 0 | 27 | 0 |
 | `CGamma` | 2 | 0 | 2 | 0 |
-| `CGangWars` | 35 | 0 | 35 | 0 |
+| `CGangWars` | 36 | 0 | 36 | 0 |
 | `CGangs` | 8 | 0 | 8 | 0 |
 | `CGarage` | 18 | 0 | 18 | 0 |
 | `CGarages` | 26 | 0 | 26 | 0 |
@@ -9176,7 +9183,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `COnscreenCounterEntry` | 2 | 0 | 2 | 0 |
 | `COnscreenTimer` | 6 | 0 | 6 | 0 |
 | `CPPTriPlantBuffer` | 7 | 0 | 7 | 0 |
-| `CPad` | 79 | 0 | 79 | 0 |
+| `CPad` | 80 | 0 | 80 | 0 |
 | `CPathFind` | 66 | 0 | 66 | 0 |
 | `CPathNode` | 1 | 0 | 1 | 0 |
 | `CPed` | 149 | 0 | 149 | 0 |
@@ -9298,6 +9305,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskAllocatorKillThreatsDriveby` | 5 | 0 | 5 | 0 |
 | `CTaskAllocatorPlayerCommandAttack` | 3 | 0 | 3 | 0 |
 | `CTaskAllocatorPool` | 1 | 0 | 1 | 0 |
+| `CTaskComplex` | 1 | 0 | 1 | 0 |
 | `CTaskComplexArrestPed` | 7 | 0 | 7 | 0 |
 | `CTaskComplexAttractorPartnerWait` | 5 | 0 | 5 | 0 |
 | `CTaskComplexAvoidOtherPedWhileWandering` | 15 | 0 | 15 | 0 |
@@ -9603,7 +9611,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTimeCycle` | 20 | 0 | 20 | 0 |
 | `CTimeInfo` | 6 | 0 | 6 | 0 |
 | `CTimeModelInfo` | 2 | 0 | 2 | 0 |
-| `CTimer` | 13 | 0 | 13 | 0 |
+| `CTimer` | 14 | 0 | 14 | 0 |
 | `CTrafficLights` | 12 | 0 | 12 | 0 |
 | `CTrailer` | 13 | 0 | 13 | 0 |
 | `CTrain` | 40 | 0 | 40 | 0 |
@@ -9611,7 +9619,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTxdStore` | 26 | 0 | 26 | 0 |
 | `CUpsideDownCarCheck` | 5 | 0 | 5 | 0 |
 | `CUserDisplay` | 2 | 0 | 2 | 0 |
-| `CVehicle` | 149 | 0 | 149 | 0 |
+| `CVehicle` | 151 | 0 | 151 | 0 |
 | `CVehicleAnimGroup` | 5 | 0 | 5 | 0 |
 | `CVehicleAnimGroupData` | 5 | 0 | 5 | 0 |
 | `CVehicleModelInfo` | 75 | 0 | 75 | 0 |
@@ -9623,7 +9631,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CWanted` | 33 | 0 | 33 | 0 |
 | `CWaterCannon` | 5 | 0 | 5 | 0 |
 | `CWaterCannons` | 4 | 0 | 4 | 0 |
-| `CWaterLevel` | 38 | 0 | 38 | 0 |
+| `CWaterLevel` | 39 | 0 | 39 | 0 |
 | `CWeapon` | 41 | 0 | 41 | 0 |
 | `CWeaponEffects` | 9 | 0 | 9 | 0 |
 | `CWeaponInfo` | 10 | 0 | 10 | 0 |
