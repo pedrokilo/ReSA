@@ -121,12 +121,29 @@ def generate(input_path, output_path, update_source_status=False):
     # Una clase del catálogo con envolturas pendientes ya no es «completa»: pasa a parciales. Las clases con envolturas que no figuran
     # en el catálogo aparecen en «sin revertir» con su cantidad de envolturas.
     wrappers = {}
+    wrap_addrs = {}
     wrappers_file = Path(input_path).with_name('implementaciones') / 'envolturas-pendientes.csv'
     if wrappers_file.exists():
         with wrappers_file.open(encoding='utf-8-sig', newline='') as stream:
             for row in csv.DictReader(stream):
                 wrappers.setdefault(row['class'], []).append(row['function'])
+                wrap_addrs.setdefault(row['class'], []).append(row.get('address', ''))
     wrap_count = {name: len(fns) for name, fns in wrappers.items()}
+    # Tamaño (bytes del cuerpo según el análisis estático) de las envolturas pendientes por clase: suma y función más grande.
+    _sizes = exe_coverage.function_sizes(root)
+    def _wrap_sizes(name):
+        out = []
+        for addr in wrap_addrs.get(name, []):
+            try:
+                out.append(_sizes.get(int(addr, 16)))
+            except ValueError:
+                out.append(None)
+        return [x for x in out if x is not None]
+    wrap_bytes = {name: sum(_wrap_sizes(name)) for name in wrappers}
+    wrap_big = {name: (max(_wrap_sizes(name)) if _wrap_sizes(name) else None) for name in wrappers}
+    def _size_cells(name):
+        big = wrap_big.get(name)
+        return f"{wrap_bytes.get(name, 0):,} | {f'{big:,}' if big is not None else '—'} | {exe_coverage.size_label(big)}"
     pending_functions = sum(wrap_count.values())
     full = [c for c in ordered if not c.pending and not wrap_count.get(c.name)]
     partial = [c for c in ordered if c.reversed and (c.pending or wrap_count.get(c.name))]
@@ -239,19 +256,19 @@ def generate(input_path, output_path, update_source_status=False):
                 cells.append("")
         lines.append("| " + " | ".join(cells) + " |")
     lines += ["", "</details>", "", '<a id="parciales"></a>', f"## 🟡 Parciales · {len(partial)} clases", "",
-              "Orden de menor a mayor número de envolturas al EXE pendientes (a igualdad, de menor a mayor número de entradas pendientes y alfabético). Para decidir qué abordar primero, consultar la [cola de validación por niveles](ReversingPriorities.md).", "",
+              "Orden de mayor a menor tamaño de las envolturas al EXE pendientes (suma de bytes de sus cuerpos; a igualdad, alfabético). «Función más grande» y «Tamaño» (muy grande ≥ 2.000 B, grande 500–1.999 B, mediana 100–499 B, pequeña < 100 B) indican cuánto pesa la función más difícil de la clase. Para decidir qué abordar primero, consultar la [cola de validación por niveles](ReversingPriorities.md).", "",
               "Incluye las clases del catálogo que ya tienen todas sus entradas reconstruidas pero conservan funciones del juego que siguen delegando en el EXE (columna «Envolturas al EXE»): no cuentan como completas hasta reconstruirlas. Detalle por función en [envolturas-pendientes.csv](implementaciones/envolturas-pendientes.csv).", "",
-              "| Clase | Revertidas / total | Pendientes | Envolturas al EXE | Avance | Validated | Locked |", "| --- | ---: | ---: | ---: | ---: | ---: | ---: |"]
-    for c in sorted(partial, key=lambda c: (wrap_count.get(c.name, 0), c.pending, c.name.casefold())):
-        lines.append(f"| {class_link(c.name)} | {c.reversed}/{c.total} | **{c.pending}** | **{wrap_count.get(c.name, 0)}** | {c.reversed/c.total:.2%} | {c.validated} | {c.locked} |")
+              "| Clase | Revertidas / total | Pendientes | Envolturas al EXE | Bytes de envolturas | Función más grande (B) | Tamaño | Avance | Validated | Locked |", "| --- | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: | ---: |"]
+    for c in sorted(partial, key=lambda c: (-wrap_bytes.get(c.name, 0), c.name.casefold())):
+        lines.append(f"| {class_link(c.name)} | {c.reversed}/{c.total} | **{c.pending}** | **{wrap_count.get(c.name, 0)}** | {_size_cells(c.name)} | {c.reversed/c.total:.2%} | {c.validated} | {c.locked} |")
     lines += ["", '<a id="sin-revertir"></a>', f"## 🔴 Sin revertir · {len(empty) + len(uncatalogued)} clases", "",
-              "Clases o grupos sin ninguna entrada reconstruida en el catálogo. Las que figuran con envolturas al EXE no están en [hooks.csv](hooks.csv): sus funciones del juego se conocen por el código fuente o por las cohortes de dependencias y siguen delegando en el original.", "",
-              "| Clase | Revertidas / total | Pendientes | Envolturas al EXE | Avance | Validated | Locked |", "| --- | ---: | ---: | ---: | ---: | ---: | ---: |"]
-    for c in sorted(empty, key=lambda c: (wrap_count.get(c.name, 0), c.pending, c.name.casefold())):
-        lines.append(f"| {class_link(c.name)} | 0/{c.total} | **{c.pending}** | **{wrap_count.get(c.name, 0)}** | 0.00% | {c.validated} | {c.locked} |")
-    for name in sorted(uncatalogued, key=lambda n: (len(wrappers[n]), n.casefold())):
+              "Orden de mayor a menor tamaño de las envolturas pendientes. Clases o grupos sin ninguna entrada reconstruida en el catálogo. Las que figuran con envolturas al EXE no están en [hooks.csv](hooks.csv): sus funciones del juego se conocen por el código fuente o por las cohortes de dependencias y siguen delegando en el original.", "",
+              "| Clase | Revertidas / total | Pendientes | Envolturas al EXE | Bytes de envolturas | Función más grande (B) | Tamaño | Avance | Validated | Locked |", "| --- | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: | ---: |"]
+    for c in sorted(empty, key=lambda c: (-wrap_bytes.get(c.name, 0), c.name.casefold())):
+        lines.append(f"| {class_link(c.name)} | 0/{c.total} | **{c.pending}** | **{wrap_count.get(c.name, 0)}** | {_size_cells(c.name)} | 0.00% | {c.validated} | {c.locked} |")
+    for name in sorted(uncatalogued, key=lambda n: (-wrap_bytes.get(n, 0), n.casefold())):
         label = name.replace('<', '&lt;').replace('>', '&gt;').replace('|', '\\|')
-        lines.append(f"| {label} | 0/0 | — | **{len(wrappers[name])}** | 0.00% | 0 | 0 |")
+        lines.append(f"| {label} | 0/0 | — | **{len(wrappers[name])}** | {_size_cells(name)} | 0.00% | 0 | 0 |")
     lines += difficulty_section(root, input_path)
     lines += ["", '<a id="metodo"></a>', "## Cómo leer y actualizar", "",
               "- **Pendientes:** total menos revertidas. Cada fila del CSV cuenta como una entrada, incluidas sobrecargas y virtuales.",

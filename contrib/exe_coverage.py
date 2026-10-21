@@ -41,6 +41,27 @@ def _hex(value):
         return 0
 
 
+def function_sizes(root):
+    """{direccion: bytes} de cada funcion del analisis estatico (docs/MemoryMap/binary_functions.csv)."""
+    path = Path(root) / 'docs/MemoryMap/binary_functions.csv'
+    if not path.exists():
+        return {}
+    return {_hex(r['va']): int(r['body_bytes'] or 0) for r in _rows(path)}
+
+
+def size_label(size):
+    """Etiqueta de tamano por bytes de cuerpo de la funcion (instrucciones x86 de 1 a 15 bytes: ~3-4 bytes por instruccion de media)."""
+    if size is None:
+        return 'sin dato'
+    if size >= 2000:
+        return 'muy grande'
+    if size >= 500:
+        return 'grande'
+    if size >= 100:
+        return 'mediana'
+    return 'pequeña'
+
+
 def compute(root, internals=False):
     root = Path(root)
     mm = root / 'docs/MemoryMap'
@@ -143,11 +164,13 @@ def section(root):
     g, t = d['game_remaining'], d['game_remaining_total']
     lines += [f'### Lo que falta del código del juego: {t["functions"]:,} funciones, {t["bytes"]/1e3:,.0f} KB', '',
               'Mapa completo de las funciones del juego, con lista por estado, bloque de direcciones y módulo estimado: [JuegoExe](JuegoExe/README.md).', '',
-              '| Grupo (de menos a más funciones) | Funciones | Bytes | Lectura |', '| --- | ---: | ---: | --- |',
-              f'| D. Sin llamadas directas ni vtable | {g["D"]["functions"]:,} | {g["D"]["bytes"]:,} | Código muerto o alcanzado por tablas de punteros, callbacks o scripts: hay que revisarlo, no contarlo sin más. |',
-              f'| C. Llamadas directas solo desde código aún no reemplazado | {g["C"]["functions"]:,} | {g["C"]["bytes"]:,} | Dependen de reconstruir antes A y B; parte puede ser código muerto. |',
-              f'| B. Métodos virtuales (en una vtable) no alcanzados por llamada directa | {g["B"]["functions"]:,} | {g["B"]["bytes"]:,} | Probablemente necesarios: se ejecutan por despacho virtual. |',
-              f'| A. Llamadas directamente desde código ya reemplazado (cierre transitivo) | {g["A"]["functions"]:,} | {g["A"]["bytes"]:,} | **Trabajo necesario**: la DLL sigue dependiendo de ellas. Es el piso para la independencia. |', '',
+              '| Grupo (de mayor a menor tamaño) | Funciones | Bytes | Lectura |', '| --- | ---: | ---: | --- |',
+              *[row for _, row in sorted(((g[k]['bytes'], line) for k, line in (
+                  ('D', f'| D. Sin llamadas directas ni vtable | {g["D"]["functions"]:,} | {g["D"]["bytes"]:,} | Código muerto o alcanzado por tablas de punteros, callbacks o scripts: hay que revisarlo, no contarlo sin más. |'),
+                  ('C', f'| C. Llamadas directas solo desde código aún no reemplazado | {g["C"]["functions"]:,} | {g["C"]["bytes"]:,} | Dependen de reconstruir antes A y B; parte puede ser código muerto. |'),
+                  ('B', f'| B. Métodos virtuales (en una vtable) no alcanzados por llamada directa | {g["B"]["functions"]:,} | {g["B"]["bytes"]:,} | Probablemente necesarios: se ejecutan por despacho virtual. |'),
+                  ('A', f'| A. Llamadas directamente desde código ya reemplazado (cierre transitivo) | {g["A"]["functions"]:,} | {g["A"]["bytes"]:,} | **Trabajo necesario**: la DLL sigue dependiendo de ellas. Es el piso para la independencia. |'),
+              )), key=lambda kv: -kv[0])], '',
               f'Del código reemplazado, **{d["direct_dependencies_total"]:,} funciones del EXE siguen llamándose directamente** ({reg["juego"]["direct_dependencies"]:,} del juego, {reg["renderware"]["direct_dependencies"]:,} de RenderWare/D3D y '
               f'{reg["crt"]["direct_dependencies"]:,} del CRT). Esa es la lista corta de dependencias reales del original que hay que eliminar o sustituir.', '',
               f'> [!NOTE]\n> **Cotas y límites.** Es un análisis estático: hay {d["indirect_call_sites"]:,} llamadas indirectas sin resolver que no están en el grafo, así que A es una **cota inferior** del trabajo. '
@@ -166,46 +189,62 @@ def _pending_list(root):
     path = Path(root) / 'docs/implementaciones/envolturas-pendientes.csv'
     if not path.exists():
         return []
+    sizes = function_sizes(root)
     groups = defaultdict(list)
     for r in _rows(path):
-        groups[r['class']].append((r['function'], r['address']))
+        addr = _hex(r['address'])
+        groups[r['class']].append((r['function'], r['address'], sizes.get(addr) if addr else None))
+
+    def total(fns):
+        return sum(f[2] or 0 for f in fns)
+
+    def biggest(fns):
+        known = [f[2] for f in fns if f[2] is not None]
+        return max(known) if known else None
+
+    def order(item):
+        return (-total(item[1]), item[0])
+
+    def fn_text(fn):
+        name, addr, size = fn
+        return f'`{name}` {addr} · {size:,} B' if size is not None else f'`{name}` {addr or "sin dirección"}'
+
     def kind(cls):
         if not cls.startswith('(biblioteca)'):
             return 'juego'
         return 'crt' if ('CRT' in cls or 'QuickTime' in cls) else 'renderware'
+
     parts = {'juego': ('Código del juego', {}), 'renderware': ('RenderWare y D3D (biblioteca)', {}), 'crt': ('CRT y runtime (biblioteca)', {})}
     for cls, fns in groups.items():
         parts[kind(cls)][1][cls] = fns
-    total = sum(len(v) for v in groups.values())
+    total_fns = sum(len(v) for v in groups.values())
     counts = {k: sum(len(v) for v in parts[k][1].values()) for k in parts}
-    lines = ['<a id="no-en-cpp"></a>', '', f'### Funciones que ya tenemos y aún no están en C++: {total:,}', '',
+    lines = ['<a id="no-en-cpp"></a>', '', f'### Funciones que ya tenemos y aún no están en C++: {total_fns:,}', '',
              'Son envolturas: la DLL ya tiene la función y su hook, pero el cuerpo todavía llama al EXE original. Están separadas en tres secciones: '
              f'**código del juego ({counts["juego"]})**, que es el trabajo propio del proyecto, y las bibliotecas RenderWare/D3D ({counts["renderware"]}) y CRT ({counts["crt"]}), que se sustituirían enlazando equivalentes. '
+             'Todas las tablas van **de mayor a menor tamaño**: «Bytes» es la suma de los cuerpos de las funciones pendientes (análisis estático) y «Tamaño» clasifica la función más grande de la fila '
+             '(muy grande ≥ 2.000 B, grande 500–1.999 B, mediana 100–499 B, pequeña < 100 B; una instrucción x86 ocupa entre 1 y 15 bytes, unos 3–4 de media). '
              'Las funciones del EXE sin nombre ni hook (el resto de lo que falta) están en el [mapa del código del juego](JuegoExe/README.md). Fuente: [envolturas-pendientes.csv](implementaciones/envolturas-pendientes.csv).', '']
     for key in ('juego', 'renderware', 'crt'):
         title, grp = parts[key]
         if not grp:
             continue
-        ordered = sorted(grp.items(), key=lambda kv: (len(kv[1]), kv[0]))
-        if key == 'juego':
-            lines += [f'#### {title}: {counts[key]} funciones en {len(ordered)} clases o grupos', '',
-                      '| Clase o grupo | Pendientes | Funciones (dirección en el EXE) |', '| --- | ---: | --- |']
+        ordered = sorted(grp.items(), key=order)
+        lines += [f'#### {title}: {counts[key]} funciones en {len(ordered)} clases o grupos · {total([f for _, v in ordered for f in v]):,} bytes', '',
+                  '| Clase o grupo | Funciones | Bytes | Función más grande | Tamaño | Funciones (de mayor a menor) |', '| --- | ---: | ---: | ---: | --- | --- |']
+        for cls, fns in ordered:
+            fns = sorted(fns, key=lambda f: (-(f[2] if f[2] is not None else -1), f[1], f[0]))
+            big = biggest(fns)
+            shown = ', '.join(fn_text(f) for f in fns) if key == 'juego' else ', '.join(fn_text(f) for f in fns[:6]) + (f' … y {len(fns) - 6} más' if len(fns) > 6 else '')
+            lines.append(f'| {cls} | {len(fns)} | {total(fns):,} | {f"{big:,}" if big is not None else "—"} | {size_label(big)} | ' + (shown.replace(', `', '<br>`') if key == 'juego' else shown) + ' |')
+        if key != 'juego':
+            lines += ['', '<details>', f'<summary>Lista completa: {title.lower()}</summary>', '']
             for cls, fns in ordered:
-                lines.append(f'| {cls} | {len(fns)} | ' + '<br>'.join(f'`{fn}` {addr}' for fn, addr in sorted(fns, key=lambda x: x[1])) + ' |')
-            lines.append('')
-            continue
-        lines += [f'#### {title}: {counts[key]}', '', '| Clase o grupo | Funciones | Pendientes |', '| --- | ---: | --- |']
-        for cls, fns in ordered:
-            fns = sorted(fns, key=lambda x: x[1])
-            shown = ', '.join(f'`{fn}` {addr}' for fn, addr in fns[:6])
-            more = f' … y {len(fns) - 6} más' if len(fns) > 6 else ''
-            lines.append(f'| {cls} | {len(fns)} | {shown}{more} |')
-        lines += ['', '<details>', f'<summary>Lista completa: {title.lower()}</summary>', '']
-        for cls, fns in ordered:
-            lines += [f'**{cls}** ({len(fns)})', ''] + [f'- `{fn}` — {addr}' for fn, addr in sorted(fns, key=lambda x: x[1])] + ['']
-        lines += ['</details>', '']
+                fns = sorted(fns, key=lambda f: (-(f[2] if f[2] is not None else -1), f[1], f[0]))
+                lines += [f'**{cls}** ({len(fns)})', ''] + [f'- {fn_text(f)}' for f in fns] + ['']
+            lines += ['</details>']
+        lines += ['']
     return lines
-
 
 def dependency_row(root):
     """Texto de la fila «Dependencias de funciones originales eliminadas» de la tabla de siguientes mediciones."""
