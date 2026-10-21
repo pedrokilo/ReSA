@@ -15025,3 +15025,97 @@ __declspec(noinline) void __cdecl StoredCarUnpackForwardCpp(int x, int y, int z,
     X87PlantStmt1Cpp(-dx);
 }
 #pragma float_control(pop)
+
+// --- Lote 65 (Helpers65D): CMatrix * CVector (0x59C890) con la seleccion de NaN de la x87 ---
+// El EXE carga cada elemento de la matriz con `fld` (un NaN senalizante sale ya silenciado) y lo multiplica por el elemento del punto como OPERANDO DE MEMORIA (`fmul dword`: ahi el NaN
+// senalizante se conserva) y luego suma los productos entre registros (`faddp`) y la posicion como operando de memoria (`fadd dword`). Con dos NaN, la x87 devuelve el silencioso si el otro es
+// senalizante, y entre dos silenciosos el de mayor mantisa; con un solo NaN, ese; inf*0 e inf-inf dan el indefinido 0xFFC00000. La cadena en C++ pierde esa diferencia porque el compilador
+// elige que operando va a registro. Por eso, si algun elemento leido es NaN, la cuenta se hace con este modelo de la secuencia exacta del EXE; sin NaN se usa
+// AutoPreMultiplyMatrixWithVectorCpp (las operaciones numericas son las mismas: x87 con 24 bits de mantisa).
+#pragma float_control(precise, on, push)
+namespace {
+struct Hp65Value {
+    double d;
+    bool nan;
+    unsigned qbits; // bits float del NaN silencioso
+};
+bool Hp65IsNan(unsigned bits) { return (bits & 0x7F800000u) == 0x7F800000u && (bits & 0x7FFFFFu) != 0; }
+// Los bits se leen de la memoria: pasar el float por valor lo cargaria en la x87 y silenciaria un NaN senalizante.
+unsigned Hp65Bits(const float* p) { unsigned bits; memcpy(&bits, p, sizeof(bits)); return bits; }
+Hp65Value Hp65Load(const float* p) { // fld dword
+    const unsigned bits = Hp65Bits(p);
+    if (Hp65IsNan(bits)) {
+        return { 0.0, true, bits | 0x400000u };
+    }
+    return { double(*p), false, 0 };
+}
+Hp65Value Hp65Numeric(double d) {
+    if (d != d) {
+        return { 0.0, true, 0xFFC00000u }; // indefinido
+    }
+    return { d, false, 0 };
+}
+Hp65Value Hp65Larger(const Hp65Value& a, const Hp65Value& b) {
+    return (b.qbits & 0x7FFFFFu) > (a.qbits & 0x7FFFFFu) ? b : a;
+}
+// op de memoria (fmul/fadd dword [p]) sobre el registro a
+Hp65Value Hp65MemOp(const Hp65Value& a, const float* p, bool multiply) {
+    const unsigned bits = Hp65Bits(p);
+    const bool memNan = Hp65IsNan(bits);
+    if (a.nan && memNan) {
+        if (!(bits & 0x400000u)) {
+            return a; // senalizante en memoria: gana el silencioso del registro
+        }
+        return Hp65Larger(a, { 0.0, true, bits });
+    }
+    if (a.nan) {
+        return a;
+    }
+    if (memNan) {
+        return { 0.0, true, bits | 0x400000u };
+    }
+    return Hp65Numeric(multiply ? a.d * double(*p) : a.d + double(*p));
+}
+// faddp st(1), st entre registros
+Hp65Value Hp65RegAdd(const Hp65Value& a, const Hp65Value& b) {
+    if (a.nan && b.nan) {
+        return Hp65Larger(a, b);
+    }
+    if (a.nan) {
+        return a;
+    }
+    if (b.nan) {
+        return b;
+    }
+    return Hp65Numeric(a.d + b.d);
+}
+float Hp65Store(const Hp65Value& v) {
+    return v.nan ? std::bit_cast<float>(v.qbits) : float(v.d);
+}
+// una componente: (m[a]*p[2] + m[b]*p[i]) + m[c]*p[j]... segun el EXE: t0 = m[i0]*v[k0]; t1 = m[i1]*v[k1]; t2 = m[i2]*v[k2]; ((t0 + t1) + t2) + m[pos]
+float Hp65Component(const float* m, const float* v, int i0, int k0, int i1, int k1, int i2, int k2, int pos) {
+    Hp65Value r = Hp65MemOp(Hp65Load(m + i0), v + k0, true);
+    r = Hp65RegAdd(r, Hp65MemOp(Hp65Load(m + i1), v + k1, true));
+    r = Hp65RegAdd(r, Hp65MemOp(Hp65Load(m + i2), v + k2, true));
+    r = Hp65MemOp(r, m + pos, false);
+    return Hp65Store(r);
+}
+} // namespace
+__declspec(noinline) void __cdecl Hp65MatrixTimesPointCpp(const float* m, const float* v, float* out) {
+    static constexpr int words[] = { 0, 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14 };
+    bool anyNan = Hp65IsNan(Hp65Bits(v)) || Hp65IsNan(Hp65Bits(v + 1)) || Hp65IsNan(Hp65Bits(v + 2));
+    for (const int w : words) {
+        anyNan = anyNan || Hp65IsNan(Hp65Bits(m + w));
+    }
+    if (!anyNan) {
+        AutoPreMultiplyMatrixWithVectorCpp(m, v, out);
+        return;
+    }
+    const float x = Hp65Component(m, v, 8, 2, 4, 1, 0, 0, 12);
+    const float y = Hp65Component(m, v, 9, 2, 1, 0, 5, 1, 13);
+    const float z = Hp65Component(m, v, 10, 2, 2, 0, 6, 1, 14);
+    out[0] = x;
+    out[1] = y;
+    out[2] = z;
+}
+#pragma float_control(pop)

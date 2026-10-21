@@ -381,6 +381,7 @@ public:
     void ProcessObbeCinemaCameraPlane();
     void ProcessObbeCinemaCameraTrain();
     static void DontProcessObbeCinemaCamera();
+    static bool IsActiveCamUnderWater();
 
     void Restore();
     void RestoreCameraAfterMirror();

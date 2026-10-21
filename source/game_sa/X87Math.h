@@ -1826,3 +1826,8 @@ Ftol2Regs __cdecl StoredCarPackAxisCpp(float axis, unsigned int ecxAtCall);
 // RestoreCar (0x448119..0x448180): x' = x * 0.01f [0x858C58], y', z' con fild del byte con signo y fmul (24 bits); out = {x', y', z'}. Deja los registros x87 muertos del EXE:
 // T-4 = y', T-3 = z', T-2 = y', T-1 = -x' (fld st(2)/fstp, fld st(1)/fstp, fstp, fstp, fchs/fstp).
 void __cdecl StoredCarUnpackForwardCpp(int x, int y, int z, float* out);
+
+// --- Lote 65 (Helpers65D): CMatrix * CVector (0x59C890) ---
+// m = inicio de la matriz (right en m[0..2], forward en m[4..6], up en m[8..10], posicion en m[12..14]); out puede solaparse con m o v (se calculan las tres componentes antes de escribir).
+// Igual que AutoPreMultiplyMatrixWithVectorCpp, pero reproduce la seleccion de NaN de la x87 del EXE (operandos de memoria de fmul/fadd, faddp entre registros) cuando algun elemento leido es NaN.
+void __cdecl Hp65MatrixTimesPointCpp(const float* m, const float* v, float* out);

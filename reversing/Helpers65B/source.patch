@@ -1,0 +1,392 @@
+diff --git a/source/InjectHooksMain.cpp b/source/InjectHooksMain.cpp
+index 156af157e..54e0648dd 100644
+--- a/source/InjectHooksMain.cpp
++++ b/source/InjectHooksMain.cpp
+@@ -1301,7 +1301,7 @@ void InjectHooksMain() {
+         CTaskSimplePlayerOnFoot::InjectHooks();
+         CTaskComplexFollowPedFootsteps::InjectHooks();
+         CTaskComplexGetUpAndStandStill::InjectHooks();
+-        // CTaskComplexGoPickUpEntity::InjectHooks();
++        CTaskComplexGoPickUpEntity::InjectHooks();
+         CTaskSimpleDie__InjectHooks();
+         CTaskSimpleDuck::InjectHooks();
+         CTaskComplexPolicePursuit::InjectHooks();
+diff --git a/source/game_sa/Cam.cpp b/source/game_sa/Cam.cpp
+index d6e83e6a8..0019a00f6 100644
+--- a/source/game_sa/Cam.cpp
++++ b/source/game_sa/Cam.cpp
+@@ -155,10 +155,105 @@ static uint32 __declspec(safebuffers) __cdecl WrapAngleKeepEdx(float* angle) {
+ }
+ #pragma runtime_checks("", restore)
+ 
++// Parameter set of the DW heli chase cam: 0x9C bytes per entry in the table that ends at 0xB6FEC0 (Process_DW_HeliChaseCam picks one by `selection`).
++// Only the fields the two helpers below touch are named, by offset.
++struct DWHeliChaseParams {
++    uint8 pad00[0x18];
++    float f18, f1C, f20, f24, f28, f2C, f30, f34, f38, f3C;
++    uint8 b40; uint8 pad41[3];
++    int32 i44, i48;
++    uint8 pad4C[0x58 - 0x4C];
++    int32 i58;
++    uint8 b5C; uint8 pad5D[3];
++    int32 i60, i64;
++    float f68, f6C, f70, f74, f78, f7C;
++    uint8 b80, b81; uint8 pad82[6];
++    uint8 b88; uint8 pad89[0x94 - 0x89];
++    float f94; int32 i98;
++};
++static_assert(sizeof(DWHeliChaseParams) == 0x9C && offsetof(DWHeliChaseParams, f18) == 0x18 && offsetof(DWHeliChaseParams, b40) == 0x40 && offsetof(DWHeliChaseParams, i44) == 0x44
++    && offsetof(DWHeliChaseParams, i58) == 0x58 && offsetof(DWHeliChaseParams, b5C) == 0x5C && offsetof(DWHeliChaseParams, i60) == 0x60 && offsetof(DWHeliChaseParams, f68) == 0x68
++    && offsetof(DWHeliChaseParams, f7C) == 0x7C && offsetof(DWHeliChaseParams, b80) == 0x80 && offsetof(DWHeliChaseParams, b88) == 0x88 && offsetof(DWHeliChaseParams, f94) == 0x94
++    && offsetof(DWHeliChaseParams, i98) == 0x98);
++
++// 0x50E180 (thiscall, ECX = params): default values of the heli chase cam. The EXE leaves EAX = 0, ECX = this and EDX = 0x3C; the thunk at 0x5173F0 returns ECX, so it is kept.
++#pragma runtime_checks("", off)
++static uint32 __declspec(safebuffers) __fastcall ResetDWHeliChaseParams(DWHeliChaseParams* params, uint32 /*entryEdx*/) {
++    params->f18 = 50.0f;
++    params->f24 = 50.0f;
++    params->f1C = 30.0f;
++    params->f20 = 55.0f;
++    params->f28 = 0.05f;
++    params->f2C = 70.0f;
++    params->f30 = 22.0f;
++    params->f34 = 1.0f;
++    params->f38 = 0.0f;
++    params->f3C = 10.0f;
++    params->i48 = 30;
++    params->i58 = 8;
++    params->i60 = 60;
++    params->f68 = 100.0f;
++    params->f6C = 110.0f;
++    params->f70 = 10.0f;
++    params->f74 = 5.0f;
++    params->f78 = 12.0f;
++    params->f94 = 0.75f;
++    params->i98 = 4000;
++    params->b40 = 0;
++    params->b5C = 0;
++    params->b80 = 0;
++    params->b81 = 0;
++    params->f7C = 48.0f;
++    params->i64 = 60;
++    params->i44 = 30;
++    params->b88 = 0;
++    return ResidueRegsCpp(static_cast<uint32>(reinterpret_cast<uintptr_t>(params)), 0x3Cu, 0u);
++}
++#pragma runtime_checks("", restore)
++
++// 0x50E090 (thiscall, ECX = params): scales five parameters by rand() / 32767 * k + offset, using the CRT rand of the EXE (0x821B1E: the one that advances the game's seed). x87 at 24 bits
++// gives the same float steps as the SSE ones; only the last product can leave the normal range, so it goes through the x87 helper (the game runs with MXCSR FTZ, the x87 keeps denormals).
++static void __fastcall RandomiseDWHeliChaseParams(DWHeliChaseParams* params, uint32 /*entryEdx*/) {
++    const auto exeRand = reinterpret_cast<int32(__cdecl*)()>(0x821B1E);
++    constexpr float kOneOver32767 = std::bit_cast<float>(0x38000100u); // 0x858C7C
++    {
++        float t = static_cast<float>(exeRand()) * kOneOver32767;
++        t = t * 1.4f;
++        t = t + 0.1f;
++        params->f18 = FloatTimesFloatCpp(t, params->f18);
++    }
++    {
++        float t = static_cast<float>(exeRand()) * kOneOver32767;
++        t = t * 0.5f;
++        t = t + 0.5f;
++        params->f1C = FloatTimesFloatCpp(t, params->f1C);
++    }
++    {
++        float t = static_cast<float>(exeRand()) * kOneOver32767;
++        t = t * 0.5f;
++        t = t + 0.5f;
++        params->f20 = FloatTimesFloatCpp(t, params->f20);
++    }
++    {
++        float t = static_cast<float>(exeRand()) * kOneOver32767;
++        t = t * 0.5f;
++        t = t + 0.5f;
++        params->f24 = FloatTimesFloatCpp(t, params->f24);
++    }
++    {
++        float t = static_cast<float>(exeRand()) * kOneOver32767;
++        t = t * 1.5f;
++        t = t + 0.5f;
++        params->f28 = FloatTimesFloatCpp(t, params->f28);
++    }
++}
++
+ void CCam::InjectHooks() {
+     RH_ScopedClass(CCam);
+     RH_ScopedCategory("Camera");
+     RH_ScopedNamedGlobalInstall(WrapAngleKeepEdx, "WrapAngle", 0x509BE0);
++    RH_ScopedNamedGlobalInstall(ResetDWHeliChaseParams, "ResetDWHeliChaseParams", 0x50E180);
++    RH_ScopedNamedGlobalInstall(RandomiseDWHeliChaseParams, "RandomiseDWHeliChaseParams", 0x50E090);
+     RH_ScopedGlobalInstall(CameraPathInterpolateVector, 0x5B2090);
+     RH_ScopedGlobalInstall(CameraPathInterpolateScalar, 0x5B2330);
+ 
+@@ -2124,9 +2219,9 @@ bool CCam::Process_DW_HeliChaseCam(bool) {
+     if (StaticRef<int32>(0x8CC488) != 0x38 || StaticRef<uint32>(0x8CCB9C) < CTimer::GetFrameCounter() - 1u) {
+         StaticRef<int32>(0x8CC488) = 0x38; StaticRef<uint32>(0x8CCBA4) = StaticRef<uint32>(0x8CCBA8) + now;
+         StaticRef<uint32>(0x8CCBA0) = now; failed = 0;
+-        reinterpret_cast<void(__thiscall*)(void*)>(0x50E180)(reinterpret_cast<void*>(state));
++        ResetDWHeliChaseParams(reinterpret_cast<DWHeliChaseParams*>(state), 0u);
+         resetState();
+-        reinterpret_cast<void(__cdecl*)()>(0x50E090)();
++        RandomiseDWHeliChaseParams(reinterpret_cast<DWHeliChaseParams*>(state), 0u);
+         gHandShaker[0].Reset();
+         bool found = false;
+         for (int32 attempt = 0; attempt < integer(0x58); ++attempt) {
+diff --git a/source/game_sa/Camera.cpp b/source/game_sa/Camera.cpp
+index 5e681bd5e..825268158 100644
+--- a/source/game_sa/Camera.cpp
++++ b/source/game_sa/Camera.cpp
+@@ -87,9 +87,24 @@ CCam& CCamera::GetActiveCamera() {
+     return TheCamera.m_aCams[TheCamera.m_nActiveCam];
+ }
+ 
++VALIDATE_OFFSET(CCam, m_vecSource, 0x19C); // 0xB6F338 (the EXE address read by 0x50B830) - (TheCamera 0xB6F028 + m_aCams 0x174)
++
++// 0x50B830: true when the position of the active cam (m_aCams[m_nActiveCam].m_vecSource, no bounds check on the byte index like the EXE) has water
++// beneath or at it, i.e. GetWaterLevel(source, touching = true) succeeds and level >= source.z (an unordered NaN comparison also counts: the EXE
++// jumps on `test ah,5` with an even parity, which holds for C0 = C2 = 0 and for C0 = C2 = 1).
++bool CCamera::IsActiveCamUnderWater() {
++    const CCam& cam = TheCamera.m_aCams.data()[TheCamera.m_nActiveCam];
++    float level;
++    if (!CWaterLevel::GetWaterLevel(cam.m_vecSource.x, cam.m_vecSource.y, cam.m_vecSource.z, level, 1, nullptr)) {
++        return false;
++    }
++    return !(level < cam.m_vecSource.z);
++}
++
+ void CCamera::InjectHooks() {
+     RH_ScopedClass(CCamera);
+     RH_ScopedCategoryGlobal();
++    RH_ScopedInstall(IsActiveCamUnderWater, 0x50B830);
+ 
+     RH_ScopedOverloadedInstall(IsSphereVisible, "matrix", 0x420C40, bool(CCamera::*)(const CVector&,float,RwMatrix*));
+     RH_ScopedInstall(GetArrPosForVehicleType, 0x50AF00);
+@@ -1862,7 +1877,7 @@ void CameraObbeCinemaCycle(CCamera& camera, const ObbeCinemaKind& kind) {
+             cinemaActive = 1;
+         }
+     }
+-    if (check && !(kind.checkBusy && reinterpret_cast<bool(__cdecl*)()>(0x50B830)())) {
++    if (check && !(kind.checkBusy && CCamera::IsActiveCamUnderWater())) {
+         const int32 mode = table[index];
+         if (!isItTime(&camera, mode, int32(lastTime))) {
+             finish(index);
+@@ -2574,7 +2589,7 @@ bool CCamera::TryToStartNewCamMode(int32 camSequence) {
+     const auto boatBlocked = [this](CVehicle* vehicle) { return vehicle && *reinterpret_cast<int32*>(reinterpret_cast<uint8*>(vehicle) + 0x590) == 5 && m_pTargetEntity->m_nModelIndex != 460; };
+     const auto finish = [this](int32 mode) {
+         TakeControl(FindPlayerEntity(-1), static_cast<eCamMode>(mode), static_cast<eSwitchType>(2), 2);
+-        return !reinterpret_cast<bool(__cdecl*)()>(0x50B830)();
++        return !CCamera::IsActiveCamUnderWater();
+     };
+     const auto fixed = [this](const CVector& position) { SetCamPositionForFixedMode(position, CVector{0.f, 0.f, 0.f}); };
+     const auto clear = [](const CVector& position) { return CWorld::GetIsLineOfSightClear(FindPlayerCoors(-1), position, true, false, false, false, false, false, false); };
+@@ -2626,12 +2641,12 @@ bool CCamera::TryToStartNewCamMode(int32 camSequence) {
+             if (!(alignment > .8f)) continue;
+             if (camSequence == 7) {
+                 TakeControl(candidate, static_cast<eCamMode>(18), static_cast<eSwitchType>(2), 2);
+-                if (!reinterpret_cast<bool(__cdecl*)()>(0x50B830)()) return true;
++                if (!CCamera::IsActiveCamUnderWater()) return true;
+             } else {
+                 CVector position = candidate->GetMatrix().TransformVector(CVector{-1.4f, -2.3f, .3f}); position += candidate->GetPosition();
+                 if (!CWorld::GetIsLineOfSightClear(candidate->GetPosition(), position, true, false, false, false, false, false, false)) return false;
+                 TakeControl(candidate, static_cast<eCamMode>(14), static_cast<eSwitchType>(2), 2);
+-                if (!reinterpret_cast<bool(__cdecl*)()>(0x50B830)()) return true;
++                if (!CCamera::IsActiveCamUnderWater()) return true;
+             }
+         }
+         return false;
+@@ -2714,7 +2729,7 @@ bool CCamera::TryToStartNewCamMode(int32 camSequence) {
+     const float minimumDistance = camSequence == 1 ? 4.5f : camSequence == 2 || camSequence == 17 || camSequence == 19 ? 2.f : camSequence == 18 ? 1.f : 3.f;
+     if (delta.Magnitude() < minimumDistance) return false;
+     fixed(position);
+-    if (camSequence == 2) { TakeControl(FindPlayerEntity(-1), static_cast<eCamMode>(15), static_cast<eSwitchType>(2), 2); RwCameraSetNearClipPlane(Scene.m_pRwCamera, .15f); return !reinterpret_cast<bool(__cdecl*)()>(0x50B830)(); }
++    if (camSequence == 2) { TakeControl(FindPlayerEntity(-1), static_cast<eCamMode>(15), static_cast<eSwitchType>(2), 2); RwCameraSetNearClipPlane(Scene.m_pRwCamera, .15f); return !CCamera::IsActiveCamUnderWater(); }
+     return finish(15);
+ }
+ 
+diff --git a/source/game_sa/Camera.h b/source/game_sa/Camera.h
+index 9007b9b52..50334f5fa 100644
+--- a/source/game_sa/Camera.h
++++ b/source/game_sa/Camera.h
+@@ -381,6 +381,7 @@ public:
+     void ProcessObbeCinemaCameraPlane();
+     void ProcessObbeCinemaCameraTrain();
+     static void DontProcessObbeCinemaCamera();
++    static bool IsActiveCamUnderWater();
+ 
+     void Restore();
+     void RestoreCameraAfterMirror();
+diff --git a/source/game_sa/Entity/Vehicle/Heli.cpp b/source/game_sa/Entity/Vehicle/Heli.cpp
+index 204d5e781..7f921a903 100644
+--- a/source/game_sa/Entity/Vehicle/Heli.cpp
++++ b/source/game_sa/Entity/Vehicle/Heli.cpp
+@@ -23,6 +23,16 @@ END GENERATED HOOK STATUS */
+     Do not delete this comment block. Respect others' work!
+ */
+ #include "StdInc.h"
++#include "X87Math.h"
++
++// Envoltorio con la ABI del EXE de CHeli::FindSwatPositionRelativeToHeli (0x6C4760: thiscall con puntero oculto, ret 8). El EXE no toca EDX (el llamador de 0x6C7844 lo
++// conserva a traves de la llamada), deja EAX = puntero oculto y ECX = this en los casos 0..3 o 0 en el defecto. Termina en ResidueRegsCpp, que no toca registros.
++#pragma runtime_checks("", off)
++static uint32 __declspec(safebuffers) __fastcall FindSwatPositionRelativeToHeliExeAbi(CHeli* self, uint32 entryEdx, CVector* result, int32 swatNumber) {
++    *result = self->FindSwatPositionRelativeToHeli(swatNumber);
++    return ResidueRegsCpp(static_cast<uint32>(swatNumber) <= 3u ? static_cast<uint32>(reinterpret_cast<uintptr_t>(self)) : 0u, entryEdx, static_cast<uint32>(reinterpret_cast<uintptr_t>(result)));
++}
++#pragma runtime_checks("", restore)
+ 
+ void CHeli::InjectHooks() {
+     RH_ScopedVirtualClass(CHeli, 0x871680, 71);
+@@ -35,6 +45,7 @@ void CHeli::InjectHooks() {
+     RH_ScopedInstall(SwitchPoliceHelis, 0x6C4800);
+     RH_ScopedInstall(RenderAllHeliSearchLights, 0x6C7C50);
+     RH_ScopedInstall(TestSniperCollision, 0x6C6890);
++    RH_ScopedNamedGlobalInstall(FindSwatPositionRelativeToHeliExeAbi, "FindSwatPositionRelativeToHeli", 0x6C4760);
+     RH_ScopedVMTInstall(Render, 0x6C4400);
+     RH_ScopedVMTInstall(Fix, 0x6C4530);
+     RH_ScopedVMTInstall(BurstTyre, 0x6C4330);
+@@ -175,11 +186,8 @@ void CHeli::SpecialHeliPreRender() {
+ 
+ // 0x6C4760
+ CVector CHeli::FindSwatPositionRelativeToHeli(int32 swatNumber) {
+-    CVector result;
+-    ((void(__thiscall*)(CHeli*, CVector*, int32))0x6C4760)(this, &result, swatNumber);
+-    return result;
+-
+-    switch ( swatNumber ) {
++    // Offsets of the swat ropes: the EXE compares the index as unsigned (`cmp eax,3; ja`) and jumps through the table 0x6C47F0, which is in reverse order.
++    switch (static_cast<uint32>(swatNumber)) {
+     case 0:
+         return { -1.2f, -1.0f, -0.5f };
+     case 1:
+diff --git a/source/game_sa/PlayerInfoProcess.cpp.inc b/source/game_sa/PlayerInfoProcess.cpp.inc
+index b1354dd95..7ac9d0770 100644
+--- a/source/game_sa/PlayerInfoProcess.cpp.inc
++++ b/source/game_sa/PlayerInfoProcess.cpp.inc
+@@ -90,9 +90,9 @@ void ProcessPlayerVehicleInteraction(CPlayerInfo& p, uint32 playerIndex, CPad* p
+     if (simplest->GetTaskType() == TASK_SIMPLE_CLIMB || intelligence.GetTaskFighting() || (hold && hold->m_pEntityToHold)) return;
+     if (object) {
+         if (!abort()) return;
+-        // This separate task's constructor has not been reversed yet.
+-        auto* memory = CTask::operator new(sizeof(CTaskComplexGoPickUpEntity));
+-        auto* task = memory ? plugin::CallMethodAndReturn<CTask*, 0x6919C0>(static_cast<CTaskComplexGoPickUpEntity*>(memory), object, 81) : nullptr;
++        // The EXE checks the null of CTask::operator new (0x61A5A0) before constructing.
++        void* const memory = CTask::operator new(sizeof(CTaskComplexGoPickUpEntity));
++        CTask* const task = memory ? ::new (memory) CTaskComplexGoPickUpEntity(object, 81) : nullptr;
+         CEventScriptCommand event(TASK_PRIMARY_PRIMARY, task, false);
+         FindPlayerPed()->GetEventGroup().Add(&event, false);
+         return;
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp b/source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp
+new file mode 100644
+index 000000000..8b836e870
+--- /dev/null
++++ b/source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp
+@@ -0,0 +1,60 @@
++#include "StdInc.h"
++
++#include "TaskComplexGoPickUpEntity.h"
++
++#include "AnimManager.h"
++
++static_assert(TASK_COMPLEX_GO_PICKUP_ENTITY == 0x136); // GetTaskType del EXE (0x691A40)
++
++void CTaskComplexGoPickUpEntity::InjectHooks() {
++    RH_ScopedVirtualClass(CTaskComplexGoPickUpEntity, 0x870B98, 11);
++    RH_ScopedCategory("Tasks/TaskTypes");
++
++    RH_ScopedInstall(Constructor, 0x6919C0);
++    RH_ScopedInstall(Destructor, 0x691A50);
++}
++
++// 0x6919C0
++CTaskComplexGoPickUpEntity::CTaskComplexGoPickUpEntity(CEntity* entity, int32 animGroupId) : CTaskComplex() {
++    m_pEntity = entity;
++    m_vecPosition = CVector{ -999.0f, 0.0f, 0.0f };
++    m_vecPickupPosition = CVector{ -999.0f, 0.0f, 0.0f };
++    m_nAnimGroupId = animGroupId;
++    if (m_pEntity) {
++        m_pEntity->RegisterReference(&m_pEntity);
++    }
++    m_nTimePassedSinceLastSubTaskCreatedInMs = 0;
++    m_bAnimBlockReferenced = false;
++}
++
++// 0x691A50
++CTaskComplexGoPickUpEntity::~CTaskComplexGoPickUpEntity() {
++    if (m_pEntity) {
++        m_pEntity->CleanUpOldReference(&m_pEntity);
++    }
++    if (m_bAnimBlockReferenced) {
++        CAnimManager::RemoveAnimBlockRef(CAnimManager::GetAnimationBlockIndex(static_cast<AssocGroupId>(m_nAnimGroupId)));
++        m_bAnimBlockReferenced = false;
++    }
++}
++
++// 0x692C80: CTask::operator new (0x61A5A0) devuelve nulo si el pool esta agotado y el EXE lo comprueba antes de construir.
++CTask* CTaskComplexGoPickUpEntity::Clone() const {
++    void* const memory = CTask::operator new(sizeof(CTaskComplexGoPickUpEntity));
++    return memory ? ::new (memory) CTaskComplexGoPickUpEntity(m_pEntity, m_nAnimGroupId) : nullptr;
++}
++
++// 0x691AE0
++CTask* CTaskComplexGoPickUpEntity::CreateNextSubTask(CPed* ped) {
++    return plugin::CallMethodAndReturn<CTask*, 0x691AE0, CTask*, CPed*>(this, ped);
++}
++
++// 0x693610
++CTask* CTaskComplexGoPickUpEntity::CreateFirstSubTask(CPed* ped) {
++    return plugin::CallMethodAndReturn<CTask*, 0x693610, CTask*, CPed*>(this, ped);
++}
++
++// 0x691D50
++CTask* CTaskComplexGoPickUpEntity::ControlSubTask(CPed* ped) {
++    return plugin::CallMethodAndReturn<CTask*, 0x691D50, CTask*, CPed*>(this, ped);
++}
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h b/source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h
+index ca9a01513..2582be200 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h
++++ b/source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h
+@@ -3,11 +3,13 @@
+ #include "TaskComplex.h"
+ 
+ class CEntity;
++class CPed;
+ 
+-// Clase todavía no reconstruida: solo campos, sin funciones propias.
+ // Vtable 0x870B98 (11 entradas) verificado en gta_sa.exe:
+-//   [0] 0x6935F0 (dtor deleting)  [1] 0x692C80 Clone           [4] 0x691A40 GetTaskType
++//   [0] 0x6935F0 (dtor deleting, llama a 0x691A50)  [1] 0x692C80 Clone  [4] 0x691A40 GetTaskType (0x136)
++//   [6] 0x4211B0 MakeAbortable de CTaskComplex  [7] 0x61A430 SetSubTask de CTaskComplex
+ //   [8] 0x691AE0 CreateNextSubTask  [9] 0x693610 CreateFirstSubTask  [10] 0x691D50 ControlSubTask
++// Reconstruidos: constructor (0x6919C0), destructor (0x691A50), Clone y GetTaskType. Los tres virtuales de subtareas siguen en el EXE (reenvios).
+ class NOTSA_EXPORT_VTABLE CTaskComplexGoPickUpEntity : public CTaskComplex {
+ public:
+     static constexpr auto Type = TASK_COMPLEX_GO_PICKUP_ENTITY;
+@@ -20,14 +22,22 @@ public:
+     bool     m_bAnimBlockReferenced;
+     char     _pad[3];
+ 
++public:
++    CTaskComplexGoPickUpEntity(CEntity* entity, int32 animGroupId); // 0x6919C0
++    ~CTaskComplexGoPickUpEntity() override;                         // 0x691A50
++
++    CTask*    Clone() const override;                               // 0x692C80
++    eTaskType GetTaskType() const override { return Type; }        // 0x691A40
++    CTask*    CreateNextSubTask(CPed* ped) override;                // 0x691AE0
++    CTask*    CreateFirstSubTask(CPed* ped) override;               // 0x693610
++    CTask*    ControlSubTask(CPed* ped) override;                   // 0x691D50
++
+ private:
+     friend void InjectHooksMain();
+-    static void InjectHooks() {
+-        RH_ScopedVirtualClass(CTaskComplexGoPickUpEntity, 0x870B98, 11);
+-        RH_ScopedCategory("Tasks/TaskTypes");
++    static void InjectHooks();
+ 
+-        // TODO: instalar las funciones conforme se reconstruyan.
+-    }
++    CTaskComplexGoPickUpEntity* Constructor(CEntity* entity, int32 animGroupId) { this->CTaskComplexGoPickUpEntity::CTaskComplexGoPickUpEntity(entity, animGroupId); return this; }
++    CTaskComplexGoPickUpEntity* Destructor() { this->CTaskComplexGoPickUpEntity::~CTaskComplexGoPickUpEntity(); return this; }
+ };
+ 
+ VALIDATE_SIZE(CTaskComplexGoPickUpEntity, 0x34);

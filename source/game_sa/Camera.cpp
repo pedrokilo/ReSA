@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CCamera
- * Reconstrucción: COMPLETA — 118/118 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 119/119 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 118/118 entradas.
+ * Validación registrada: 119/119 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -87,9 +87,24 @@ CCam& CCamera::GetActiveCamera() {
     return TheCamera.m_aCams[TheCamera.m_nActiveCam];
 }
 
+VALIDATE_OFFSET(CCam, m_vecSource, 0x19C); // 0xB6F338 (the EXE address read by 0x50B830) - (TheCamera 0xB6F028 + m_aCams 0x174)
+
+// 0x50B830: true when the position of the active cam (m_aCams[m_nActiveCam].m_vecSource, no bounds check on the byte index like the EXE) has water
+// beneath or at it, i.e. GetWaterLevel(source, touching = true) succeeds and level >= source.z (an unordered NaN comparison also counts: the EXE
+// jumps on `test ah,5` with an even parity, which holds for C0 = C2 = 0 and for C0 = C2 = 1).
+bool CCamera::IsActiveCamUnderWater() {
+    const CCam& cam = TheCamera.m_aCams.data()[TheCamera.m_nActiveCam];
+    float level;
+    if (!CWaterLevel::GetWaterLevel(cam.m_vecSource.x, cam.m_vecSource.y, cam.m_vecSource.z, level, 1, nullptr)) {
+        return false;
+    }
+    return !(level < cam.m_vecSource.z);
+}
+
 void CCamera::InjectHooks() {
     RH_ScopedClass(CCamera);
     RH_ScopedCategoryGlobal();
+    RH_ScopedInstall(IsActiveCamUnderWater, 0x50B830);
 
     RH_ScopedOverloadedInstall(IsSphereVisible, "matrix", 0x420C40, bool(CCamera::*)(const CVector&,float,RwMatrix*));
     RH_ScopedInstall(GetArrPosForVehicleType, 0x50AF00);
@@ -1862,7 +1877,7 @@ void CameraObbeCinemaCycle(CCamera& camera, const ObbeCinemaKind& kind) {
             cinemaActive = 1;
         }
     }
-    if (check && !(kind.checkBusy && reinterpret_cast<bool(__cdecl*)()>(0x50B830)())) {
+    if (check && !(kind.checkBusy && CCamera::IsActiveCamUnderWater())) {
         const int32 mode = table[index];
         if (!isItTime(&camera, mode, int32(lastTime))) {
             finish(index);
@@ -2574,7 +2589,7 @@ bool CCamera::TryToStartNewCamMode(int32 camSequence) {
     const auto boatBlocked = [this](CVehicle* vehicle) { return vehicle && *reinterpret_cast<int32*>(reinterpret_cast<uint8*>(vehicle) + 0x590) == 5 && m_pTargetEntity->m_nModelIndex != 460; };
     const auto finish = [this](int32 mode) {
         TakeControl(FindPlayerEntity(-1), static_cast<eCamMode>(mode), static_cast<eSwitchType>(2), 2);
-        return !reinterpret_cast<bool(__cdecl*)()>(0x50B830)();
+        return !CCamera::IsActiveCamUnderWater();
     };
     const auto fixed = [this](const CVector& position) { SetCamPositionForFixedMode(position, CVector{0.f, 0.f, 0.f}); };
     const auto clear = [](const CVector& position) { return CWorld::GetIsLineOfSightClear(FindPlayerCoors(-1), position, true, false, false, false, false, false, false); };
@@ -2626,12 +2641,12 @@ bool CCamera::TryToStartNewCamMode(int32 camSequence) {
             if (!(alignment > .8f)) continue;
             if (camSequence == 7) {
                 TakeControl(candidate, static_cast<eCamMode>(18), static_cast<eSwitchType>(2), 2);
-                if (!reinterpret_cast<bool(__cdecl*)()>(0x50B830)()) return true;
+                if (!CCamera::IsActiveCamUnderWater()) return true;
             } else {
                 CVector position = candidate->GetMatrix().TransformVector(CVector{-1.4f, -2.3f, .3f}); position += candidate->GetPosition();
                 if (!CWorld::GetIsLineOfSightClear(candidate->GetPosition(), position, true, false, false, false, false, false, false)) return false;
                 TakeControl(candidate, static_cast<eCamMode>(14), static_cast<eSwitchType>(2), 2);
-                if (!reinterpret_cast<bool(__cdecl*)()>(0x50B830)()) return true;
+                if (!CCamera::IsActiveCamUnderWater()) return true;
             }
         }
         return false;
@@ -2714,7 +2729,7 @@ bool CCamera::TryToStartNewCamMode(int32 camSequence) {
     const float minimumDistance = camSequence == 1 ? 4.5f : camSequence == 2 || camSequence == 17 || camSequence == 19 ? 2.f : camSequence == 18 ? 1.f : 3.f;
     if (delta.Magnitude() < minimumDistance) return false;
     fixed(position);
-    if (camSequence == 2) { TakeControl(FindPlayerEntity(-1), static_cast<eCamMode>(15), static_cast<eSwitchType>(2), 2); RwCameraSetNearClipPlane(Scene.m_pRwCamera, .15f); return !reinterpret_cast<bool(__cdecl*)()>(0x50B830)(); }
+    if (camSequence == 2) { TakeControl(FindPlayerEntity(-1), static_cast<eCamMode>(15), static_cast<eSwitchType>(2), 2); RwCameraSetNearClipPlane(Scene.m_pRwCamera, .15f); return !CCamera::IsActiveCamUnderWater(); }
     return finish(15);
 }
 

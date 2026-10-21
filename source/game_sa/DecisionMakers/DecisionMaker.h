@@ -17,6 +17,8 @@ public:
     static void InjectHooks();
 
     CDecisionMaker();
+
+    void MakeDecision(int32 eventIndex, int32 eventSourceType, bool bIsPedInVehicle, int32 taskTypeToAvoid1, int32 taskTypeToAvoid2, int32 taskTypeToAvoid3, int32 taskTypeToSeek, int16& taskType, int16& facialTaskType);
 };
 
 VALIDATE_SIZE(CDecisionMaker, 0x99C);

@@ -56,6 +56,7 @@ public:
     void AddEventResponse(int32 decisionMakerIndex, eEventType eventType, eTaskType taskId, float* responseChances, int32* flags);
     void FlushDecisionMakerEventResponse(int32 decisionMakerIndex, eEventType eventId);
     void LoadEventIndices();
+    static void __stdcall ReadEventIndices(int32* indices, const char* fileName);
 
 public:
     int32                                                              m_NoOfDecisionMakers{};

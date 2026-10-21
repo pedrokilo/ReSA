@@ -611,11 +611,12 @@ static void PlaneQuaternionToMatrix(const CQuaternion& quaternion, RwMatrix* mat
     quaternion.Get(matrix);
 }
 
-// 0x59C890: CMatrix * CVector (sin reconstruir en el EXE, orden de sumas propio).
+// 0x59C890: CMatrix * CVector (reconstruida en Matrix.cpp, operator* "Vec": orden de sumas y redondeos del EXE). Sin comprobar el puntero a la matriz, como el EXE.
 static CVector PlaneTransformPoint(const CMatrix* matrix, const CVector& point) {
-    CVector result;
-    reinterpret_cast<CVector*(__cdecl*)(CVector*, const CMatrix*, const CVector*)>(0x59C890)(&result, matrix, &point);
-    return result;
+#pragma warning(push)
+#pragma warning(disable: 4996) // operator*(CMatrix, CVector) esta marcado [[deprecated]] para el codigo nuevo
+    return *matrix * point;
+#pragma warning(pop)
 }
 
 void CPlane::PreRender() {

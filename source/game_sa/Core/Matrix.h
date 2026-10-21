@@ -86,6 +86,7 @@ public:
 
 public:
     static void InjectHooks();
+    static void InjectHooksMultiplyVector(); // Solo operator*(CMatrix, CVector) 0x59C890 (el resto de CMatrix::InjectHooks sigue desactivado)
 
     auto& GetRight(this auto&& self) { return self.m_right; }
     CVector GetLeft() const { return -GetRight(); }

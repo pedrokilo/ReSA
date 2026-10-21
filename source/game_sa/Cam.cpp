@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CCam
- * Reconstrucción: COMPLETA — 48/48 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 50/50 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 48/48 entradas.
+ * Validación registrada: 50/50 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -155,10 +155,105 @@ static uint32 __declspec(safebuffers) __cdecl WrapAngleKeepEdx(float* angle) {
 }
 #pragma runtime_checks("", restore)
 
+// Parameter set of the DW heli chase cam: 0x9C bytes per entry in the table that ends at 0xB6FEC0 (Process_DW_HeliChaseCam picks one by `selection`).
+// Only the fields the two helpers below touch are named, by offset.
+struct DWHeliChaseParams {
+    uint8 pad00[0x18];
+    float f18, f1C, f20, f24, f28, f2C, f30, f34, f38, f3C;
+    uint8 b40; uint8 pad41[3];
+    int32 i44, i48;
+    uint8 pad4C[0x58 - 0x4C];
+    int32 i58;
+    uint8 b5C; uint8 pad5D[3];
+    int32 i60, i64;
+    float f68, f6C, f70, f74, f78, f7C;
+    uint8 b80, b81; uint8 pad82[6];
+    uint8 b88; uint8 pad89[0x94 - 0x89];
+    float f94; int32 i98;
+};
+static_assert(sizeof(DWHeliChaseParams) == 0x9C && offsetof(DWHeliChaseParams, f18) == 0x18 && offsetof(DWHeliChaseParams, b40) == 0x40 && offsetof(DWHeliChaseParams, i44) == 0x44
+    && offsetof(DWHeliChaseParams, i58) == 0x58 && offsetof(DWHeliChaseParams, b5C) == 0x5C && offsetof(DWHeliChaseParams, i60) == 0x60 && offsetof(DWHeliChaseParams, f68) == 0x68
+    && offsetof(DWHeliChaseParams, f7C) == 0x7C && offsetof(DWHeliChaseParams, b80) == 0x80 && offsetof(DWHeliChaseParams, b88) == 0x88 && offsetof(DWHeliChaseParams, f94) == 0x94
+    && offsetof(DWHeliChaseParams, i98) == 0x98);
+
+// 0x50E180 (thiscall, ECX = params): default values of the heli chase cam. The EXE leaves EAX = 0, ECX = this and EDX = 0x3C; the thunk at 0x5173F0 returns ECX, so it is kept.
+#pragma runtime_checks("", off)
+static uint32 __declspec(safebuffers) __fastcall ResetDWHeliChaseParams(DWHeliChaseParams* params, uint32 /*entryEdx*/) {
+    params->f18 = 50.0f;
+    params->f24 = 50.0f;
+    params->f1C = 30.0f;
+    params->f20 = 55.0f;
+    params->f28 = 0.05f;
+    params->f2C = 70.0f;
+    params->f30 = 22.0f;
+    params->f34 = 1.0f;
+    params->f38 = 0.0f;
+    params->f3C = 10.0f;
+    params->i48 = 30;
+    params->i58 = 8;
+    params->i60 = 60;
+    params->f68 = 100.0f;
+    params->f6C = 110.0f;
+    params->f70 = 10.0f;
+    params->f74 = 5.0f;
+    params->f78 = 12.0f;
+    params->f94 = 0.75f;
+    params->i98 = 4000;
+    params->b40 = 0;
+    params->b5C = 0;
+    params->b80 = 0;
+    params->b81 = 0;
+    params->f7C = 48.0f;
+    params->i64 = 60;
+    params->i44 = 30;
+    params->b88 = 0;
+    return ResidueRegsCpp(static_cast<uint32>(reinterpret_cast<uintptr_t>(params)), 0x3Cu, 0u);
+}
+#pragma runtime_checks("", restore)
+
+// 0x50E090 (thiscall, ECX = params): scales five parameters by rand() / 32767 * k + offset, using the CRT rand of the EXE (0x821B1E: the one that advances the game's seed). x87 at 24 bits
+// gives the same float steps as the SSE ones; only the last product can leave the normal range, so it goes through the x87 helper (the game runs with MXCSR FTZ, the x87 keeps denormals).
+static void __fastcall RandomiseDWHeliChaseParams(DWHeliChaseParams* params, uint32 /*entryEdx*/) {
+    const auto exeRand = reinterpret_cast<int32(__cdecl*)()>(0x821B1E);
+    constexpr float kOneOver32767 = std::bit_cast<float>(0x38000100u); // 0x858C7C
+    {
+        float t = static_cast<float>(exeRand()) * kOneOver32767;
+        t = t * 1.4f;
+        t = t + 0.1f;
+        params->f18 = FloatTimesFloatCpp(t, params->f18);
+    }
+    {
+        float t = static_cast<float>(exeRand()) * kOneOver32767;
+        t = t * 0.5f;
+        t = t + 0.5f;
+        params->f1C = FloatTimesFloatCpp(t, params->f1C);
+    }
+    {
+        float t = static_cast<float>(exeRand()) * kOneOver32767;
+        t = t * 0.5f;
+        t = t + 0.5f;
+        params->f20 = FloatTimesFloatCpp(t, params->f20);
+    }
+    {
+        float t = static_cast<float>(exeRand()) * kOneOver32767;
+        t = t * 0.5f;
+        t = t + 0.5f;
+        params->f24 = FloatTimesFloatCpp(t, params->f24);
+    }
+    {
+        float t = static_cast<float>(exeRand()) * kOneOver32767;
+        t = t * 1.5f;
+        t = t + 0.5f;
+        params->f28 = FloatTimesFloatCpp(t, params->f28);
+    }
+}
+
 void CCam::InjectHooks() {
     RH_ScopedClass(CCam);
     RH_ScopedCategory("Camera");
     RH_ScopedNamedGlobalInstall(WrapAngleKeepEdx, "WrapAngle", 0x509BE0);
+    RH_ScopedNamedGlobalInstall(ResetDWHeliChaseParams, "ResetDWHeliChaseParams", 0x50E180);
+    RH_ScopedNamedGlobalInstall(RandomiseDWHeliChaseParams, "RandomiseDWHeliChaseParams", 0x50E090);
     RH_ScopedGlobalInstall(CameraPathInterpolateVector, 0x5B2090);
     RH_ScopedGlobalInstall(CameraPathInterpolateScalar, 0x5B2330);
 
@@ -2124,9 +2219,9 @@ bool CCam::Process_DW_HeliChaseCam(bool) {
     if (StaticRef<int32>(0x8CC488) != 0x38 || StaticRef<uint32>(0x8CCB9C) < CTimer::GetFrameCounter() - 1u) {
         StaticRef<int32>(0x8CC488) = 0x38; StaticRef<uint32>(0x8CCBA4) = StaticRef<uint32>(0x8CCBA8) + now;
         StaticRef<uint32>(0x8CCBA0) = now; failed = 0;
-        reinterpret_cast<void(__thiscall*)(void*)>(0x50E180)(reinterpret_cast<void*>(state));
+        ResetDWHeliChaseParams(reinterpret_cast<DWHeliChaseParams*>(state), 0u);
         resetState();
-        reinterpret_cast<void(__cdecl*)()>(0x50E090)();
+        RandomiseDWHeliChaseParams(reinterpret_cast<DWHeliChaseParams*>(state), 0u);
         gHandShaker[0].Reset();
         bool found = false;
         for (int32 attempt = 0; attempt < integer(0x58); ++attempt) {

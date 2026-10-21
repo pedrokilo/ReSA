@@ -13,6 +13,15 @@
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ *
+ * ESTADO: UserTracksLegacyVector
+ * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 1/1 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -412,7 +421,7 @@ void CAEUserRadioTrackManager::WriteUserTracksThread_Unicode() {
  * Como el original: se salta todo lo que empieza por '.', baja a las carpetas con profundidad + 1 (hasta 15) y, solo
  * en el primer nivel, resuelve los .lnk (si apuntan a una carpeta la recorre con profundidad 1). La longitud de cada
  * ruta se guarda en 16 bits (movzx) y cada registro se reserva con el operator new del EXE y se añade con el
- * push_back del vector VC6 (0x4F4620).
+ * push_back del vector VC6 (UserTracksLegacyVector::PushBack, 0x4F4620).
  */
 int32 CAEUserRadioTrackManager::WriteUserTracksFile(const char* dir, UserTracksLegacyVector& offsets, FILE* file, uint32& currentLength, int32 depth) {
     if (notsa::bugfixes::CAEUserRadioTrackManager_UnicodeUserTracks) {
@@ -443,7 +452,7 @@ int32 CAEUserRadioTrackManager::WriteUserTracksFile(const char* dir, UserTracksL
         return std::pair{ record, pathLen };
     };
     const auto PushBack = [&offsets](tUserTracksInfo* record) {
-        plugin::CallMethod<0x4F4620, UserTracksLegacyVector*, tUserTracksInfo**>(&offsets, &record);
+        offsets.PushBack(record);
     };
 
     char* pattern = new char[lstrlenA(dir) + 6];
@@ -655,6 +664,28 @@ std::wstring CAEUserRadioTrackManager::ResolveShortcut(const std::wstring& path)
     return target;
 }
 
+// 0x4F4620: push_back del vector VC6 de elementos de 4 bytes (thiscall, ECX = vector, un argumento en pila: referencia al valor, ret 4). Con el almacenamiento reservado y
+// sitio libre (first != 0 y (last - first) / 4 < (end - first) / 4, cocientes con signo comparados sin signo) construye el elemento en `last` con 0x4F3B30 (cdecl:
+// destino, 1, &valor, this, &valor) y guarda en last la direccion leida ANTES de la llamada mas 4; si no (sin almacenamiento o lleno) llama a insert(last, 1, &valor)
+// del EXE (0x4F4320, thiscall, ret 0Ch), que reserva con el operator new del EXE y recoloca los punteros. Ningun llamador del EXE lee EAX/ECX/EDX.
+void UserTracksLegacyVector::PushBack(tUserTracksInfo* const& value) {
+    tUserTracksInfo** const begin = first;
+    int32 size = 0;
+    if (begin) {
+        size = static_cast<int32>(reinterpret_cast<uint32>(last) - reinterpret_cast<uint32>(begin)) >> 2;
+    }
+    if (begin) {
+        const int32 capacity = static_cast<int32>(reinterpret_cast<uint32>(end) - reinterpret_cast<uint32>(begin)) >> 2;
+        if (static_cast<uint32>(size) < static_cast<uint32>(capacity)) {
+            tUserTracksInfo** const slot = last;
+            plugin::Call<0x4F3B30, tUserTracksInfo**, uint32, tUserTracksInfo* const*, UserTracksLegacyVector*, tUserTracksInfo* const*>(slot, 1, &value, this, &value);
+            last = slot + 1;
+            return;
+        }
+    }
+    plugin::CallMethod<0x4F4320, UserTracksLegacyVector*, tUserTracksInfo**, uint32, tUserTracksInfo* const*>(this, last, 1, &value);
+}
+
 void CAEUserRadioTrackManager::InjectHooks() {
     RH_ScopedClass(CAEUserRadioTrackManager);
     RH_ScopedCategory("Audio/Managers");
@@ -674,4 +705,9 @@ void CAEUserRadioTrackManager::InjectHooks() {
     RH_ScopedOverloadedInstall(WriteUserTracksFile, "", 0x4f4690, int32 (CAEUserRadioTrackManager::*)(const char*, UserTracksLegacyVector&, FILE*, uint32&, int32));
     RH_ScopedInstall(WriteUserTracksThread, 0x4f4a20);
     RH_ScopedInstall(ScanUserTracks, 0x4f4ba0);
+
+    {
+        RH_ScopedClass(UserTracksLegacyVector);
+        RH_ScopedInstall(PushBack, 0x4F4620);
+    }
 }

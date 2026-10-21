@@ -1,0 +1,219 @@
+diff --git a/source/InjectHooksMain.cpp b/source/InjectHooksMain.cpp
+index 156af157e..517904881 100644
+--- a/source/InjectHooksMain.cpp
++++ b/source/InjectHooksMain.cpp
+@@ -744,6 +744,7 @@ void InjectHooksMain() {
+     CDummy::InjectHooks();
+     CDummyObject::InjectHooks();
+     CObject::InjectHooks();
++    CProjectile::InjectHooks();
+     CObjectData::InjectHooks();
+     CObjectSaveStructure::InjectHooks();
+     CCutsceneObject::InjectHooks();
+diff --git a/source/game_sa/Entity/Object/Projectile.cpp b/source/game_sa/Entity/Object/Projectile.cpp
+index abb412fe4..ed7f37bab 100644
+--- a/source/game_sa/Entity/Object/Projectile.cpp
++++ b/source/game_sa/Entity/Object/Projectile.cpp
+@@ -2,13 +2,21 @@
+ 
+ #include "Projectile.h"
+ 
++void CProjectile::InjectHooks() {
++    RH_ScopedClass(CProjectile);
++    RH_ScopedCategory("Entity/Object");
++
++    RH_ScopedInstall(Constructor, 0x5A4030);
++}
++
++// 0x5A4030
+ CProjectile::CProjectile(int32 modelId) : CObject() {
+     m_bTunnelTransition = true;
+     m_fMass = 1.0F;
+     m_fTurnMass = 1.0F;
+     m_fAirResistance = 0.99999F;
+     m_fElasticity = 0.75F;
+-    m_fBuoyancyConstant = 1.0F / 1250.0F; // 0.0008F
++    m_fBuoyancyConstant = std::bit_cast<float>(0x3A51B718u); // 0x3A51B718 (0.00080000004F) del EXE; 1.0F / 1250.0F da 0x3A51B717
+     CObject::SetIsStatic(false);
+     physicalFlags.bExplosionProof = true;
+     CEntity::SetModelIndex(modelId);
+diff --git a/source/game_sa/Entity/Object/Projectile.h b/source/game_sa/Entity/Object/Projectile.h
+index 37da9b225..367c70234 100644
+--- a/source/game_sa/Entity/Object/Projectile.h
++++ b/source/game_sa/Entity/Object/Projectile.h
+@@ -11,6 +11,13 @@
+ class NOTSA_EXPORT_VTABLE CProjectile : public CObject {
+ public:
+     CProjectile(int32 modelId);
++
++private:
++    friend void InjectHooksMain();
++    static void InjectHooks();
++
++    // Envoltura del hook del constructor CProjectile(int32) (0x5A4030, thiscall, ret 4): devuelve this en EAX como el EXE.
++    auto Constructor(int32 modelId) { this->CProjectile::CProjectile(modelId); return this; }
+ };
+ 
+ VALIDATE_SIZE(CProjectile, 0x17C);
+diff --git a/source/game_sa/Fx/Fx.cpp b/source/game_sa/Fx/Fx.cpp
+index 01edc25b3..479e2a75b 100644
+--- a/source/game_sa/Fx/Fx.cpp
++++ b/source/game_sa/Fx/Fx.cpp
+@@ -60,7 +60,7 @@ void Fx_c::InjectHooks() {
+     // RH_ScopedInstall(AddBlood, 0x49EB00);
+     // RH_ScopedInstall(AddWood, 0x49EE10);
+     // RH_ScopedInstall(AddSparks, 0x49F040);
+-    // RH_ScopedInstall(AddTyreBurst, 0x49F300);
++    RH_ScopedInstall(AddTyreBurst, 0x49F300);
+     // RH_ScopedInstall(AddBulletImpact, 0x49F3D0);
+     // RH_ScopedInstall(AddPunchImpact, 0x49F670);
+     // RH_ScopedInstall(AddDebris, 0x49F750);
+@@ -71,9 +71,9 @@ void Fx_c::InjectHooks() {
+     // RH_ScopedInstall(AddWheelMud, 0x4A03C0);
+     // RH_ScopedInstall(AddWheelSand, 0x4A0610);
+     // RH_ScopedInstall(AddWheelDust, 0x4A09C0);
+-    // RH_ScopedInstall(TriggerWaterHydrant, 0x4A0D70);
++    RH_ScopedInstall(TriggerWaterHydrant, 0x4A0D70);
+     // RH_ScopedInstall(TriggerGunshot, 0x4A0DE0);
+-    // RH_ScopedInstall(TriggerTankFire, 0x4A0FA0);
++    RH_ScopedInstall(TriggerTankFire, 0x4A0FA0);
+     RH_ScopedInstall(TriggerWaterSplash, 0x4A1070);
+     RH_ScopedInstall(TriggerBulletSplash, 0x4A10E0);
+     RH_ScopedInstall(TriggerFootSplash, 0x4A1150);
+@@ -137,14 +137,19 @@ void Fx_c::InitEntitySystems() {
+ }
+ 
+ // NOTSA
+-// Evita crear sistemas efímeros lejanos; los aceptados se reproducen una vez y se autodestruyen.
+-static void CreateFxWithinCameraRange(const char* name, const CVector& pos, float range) {
+-    // Como el original: (cámara - pos), suma x² + z² + y² y se descarta solo si es > rango (NaN crea el efecto).
++// Como el EXE (0x4A0D70, 0x4A0FA0, 0x49F300, 0x4A1070...): (camara - pos), suma x2 + z2 + y2 y se descarta solo si es > rango (NaN no descarta).
++static bool IsFxWithinCameraRange(const CVector& pos, float range) {
+     const auto& cam = TheCamera.GetPosition();
+     const float dx = cam.x - pos.x;
+     const float dy = cam.y - pos.y;
+     const float dz = cam.z - pos.z;
+-    if (!(dx * dx + dz * dz + dy * dy > range)) {
++    return !(dx * dx + dz * dz + dy * dy > range);
++}
++
++// NOTSA
++// Evita crear sistemas efimeros lejanos; los aceptados se reproducen una vez y se autodestruyen.
++static void CreateFxWithinCameraRange(const char* name, const CVector& pos, float range) {
++    if (IsFxWithinCameraRange(pos, range)) {
+         if (auto* fxSystem = g_fxMan.CreateFxSystem(name, pos, nullptr, false)) {
+             fxSystem->PlayAndKill();
+         }
+@@ -299,7 +304,14 @@ void Fx_c::AddSparks(const CVector& origin, const CVector& direction, float forc
+ 
+ // 0x49F300
+ void Fx_c::AddTyreBurst(const CVector& posn, const CVector& velocity) {
+-    ((void(__thiscall*)(Fx_c*, const CVector&, const CVector&))0x49F300)(this, posn, velocity);
++    // Como el original: usa el Fx_c global (g_fx, 0xA9AE00), no this; el humo se recarga de 0xA9AE24 en cada vuelta.
++    if (!IsFxWithinCameraRange(posn, 625.0f)) {
++        return;
++    }
++    const FxPrtMult_c mult(1.0f, 1.0f, 1.0f, 0.4f, 0.12f, 0.0f, 0.1f);
++    for (int32 i = 0; i < 4; ++i) {
++        g_fx.m_SmokeII3expand->AddParticle(posn, velocity, (float)i * 0.05f, mult, -1.0f, 1.2f, 0.6f, false);
++    }
+ }
+ 
+ // 0x49F3D0
+@@ -354,7 +366,7 @@ void Fx_c::AddWheelDust(CVehicle* vehicle, CVector pos, bool bWheelsSpinning, fl
+ 
+ // 0x4A0D70
+ void Fx_c::TriggerWaterHydrant(const CVector& pos) {
+-    ((void(__thiscall*)(Fx_c*, const CVector&))0x4A0D70)(this, pos);
++    CreateFxWithinCameraRange("water_hydrant", pos, 625.0f);
+ }
+ 
+ // 0x4A0DE0
+@@ -364,7 +376,17 @@ void Fx_c::TriggerGunshot(CEntity* entity, const CVector& origin, const CVector&
+ 
+ // 0x4A0FA0
+ void Fx_c::TriggerTankFire(const CVector& pos, const CVector& dir) {
+-    ((void(__thiscall*)(Fx_c*, const CVector&, const CVector&))0x4A0FA0)(this, pos, dir);
++    if (!IsFxWithinCameraRange(pos, 625.0f)) {
++        return;
++    }
++    RwMatrix* const matrix = g_fxMan.FxRwMatrixCreate();
++    CreateMatFromVec(matrix, &pos, &dir);
++    const CVector origin{ 0.0f, 0.0f, 0.0f };
++    if (FxSystem_c* const system = g_fxMan.CreateFxSystem("tank_fire", origin, matrix, false)) {
++        system->CopyParentMatrix();
++        system->PlayAndKill();
++    }
++    g_fxMan.FxRwMatrixDestroy(matrix);
+ }
+ 
+ // 0x4A1070
+diff --git a/source/game_sa/ProjectileInfo.cpp b/source/game_sa/ProjectileInfo.cpp
+index 4937d1b29..e206e57dd 100644
+--- a/source/game_sa/ProjectileInfo.cpp
++++ b/source/game_sa/ProjectileInfo.cpp
+@@ -154,8 +154,8 @@ bool CProjectileInfo::AddProjectile(CEntity* creator, eWeaponType projectileType
+     void* memory = CObject::operator new(sizeof(CProjectile)); CProjectile* projectile = nullptr;
+     if (memory) {
+         const int32 model = type == 58 ? StaticRef<int32>(0x8CD75C) : CWeaponInfo::GetWeaponInfo(projectileType, static_cast<eWeaponSkill>(1))->m_nModelId1;
+-        // Constructor de CProjectile, colaborador externo al cat�logo de CProjectileInfo.
+-        projectile = reinterpret_cast<CProjectile*(__thiscall*)(void*,int32)>(0x5A4030)(memory, model);
++        // Como el original: el pool devolvio memoria sin comprobar el constructor (CProjectile::CProjectile, 0x5A4030, ya en C++).
++        projectile = ::new(memory) CProjectile(model);
+     }
+     ms_apProjectile[index] = projectile;
+     if (!projectile) return false;
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.cpp b/source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.cpp
+index 7db42336e..96737f4ca 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.cpp
+@@ -60,6 +60,7 @@ void CTaskSimpleCarDrive::InjectHooks() {
+     RH_ScopedInstall(ProcessHeadBopping, 0x6428C0);
+     RH_ScopedInstall(ProcessArmBopping, 0x642AE0);
+     RH_ScopedInstall(ProcessBopping, 0x642E70);
++    RH_ScopedInstall(FinishAnimCloseDoorRollingCB, 0x63C840);
+     RH_ScopedVMTInstall(Clone, 0x63DC20);
+     RH_ScopedVMTInstall(GetTaskType, 0x63C450);
+     RH_ScopedVMTInstall(MakeAbortable, 0x63C670);
+@@ -178,8 +179,27 @@ static const RwV3d s_AxisZ{ 0.0f, 0.0f, 1.0f };
+ void CTaskSimpleCarDrive::StartRollingDoor(CPed* ped) {
+     const auto group = CVehicleAnimGroupData::GetVehicleAnimGroup(ped->m_pVehicle->m_pHandlingData->m_nAnimGroup).GetGroup(ANIM_ID_CAR_ROLLDOOR);
+     m_pAnimCloseDoorRolling = CAnimManager::AddAnimation(ped->GetRpClump(), group, ANIM_ID_CAR_ROLLDOOR);
+-    // Como el original: el callback de fin es la función del EXE 0x63C840 (sin catalogar)
+-    m_pAnimCloseDoorRolling->SetFinishCallback(reinterpret_cast<void(*)(CAnimBlendAssociation*, void*)>(0x63C840), this);
++    m_pAnimCloseDoorRolling->SetFinishCallback(FinishAnimCloseDoorRollingCB, this);
++}
++
++// 0x63C840 (sin catalogar): callback de fin de la animación de cerrar la puerta rodando; `data` es la tarea
++void CTaskSimpleCarDrive::FinishAnimCloseDoorRollingCB(CAnimBlendAssociation* anim, void* data) {
++    auto* const task = static_cast<CTaskSimpleCarDrive*>(data);
++    task->m_b20 = false;
++    CVehicle* vehicle = task->m_pVehicle;
++    task->m_pAnimCloseDoorRolling = nullptr;
++    if (!vehicle) {
++        return;
++    }
++    vehicle->ClearGettingOutFlags(1);
++    // Como el original: el vehículo y el conductor se vuelven a leer tras cada llamada
++    vehicle = task->m_pVehicle;
++    if (!vehicle->m_pDriver) {
++        return;
++    }
++    const auto group = CVehicleAnimGroupData::GetVehicleAnimGroup(vehicle->m_pHandlingData->m_nAnimGroup).GetGroup(ANIM_ID_CAR_ROLLDOOR);
++    vehicle = task->m_pVehicle;
++    vehicle->ProcessOpenDoor(vehicle->m_pDriver, 10, group, ANIM_ID_CAR_ROLLDOOR, 1.0f);
+ }
+ 
+ // 0x642760
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.h b/source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.h
+index 98e2a58ee..3aa48a1ee 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.h
++++ b/source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.h
+@@ -56,6 +56,7 @@ eTaskType GetTaskType() const override { return Type; }
+     void ProcessArmBopping(CPed* pPed, bool a3, float a4);
+     void ProcessBopping(CPed* ped, bool a3);
+     void StartRollingDoor(CPed* ped); // 0x642700 (sin catalogar)
++    static void FinishAnimCloseDoorRollingCB(CAnimBlendAssociation* anim, void* data); // 0x63C840 (sin catalogar)
+ 
+     [[nodiscard]] auto GetVehicle() const { return m_pVehicle; }
+ 

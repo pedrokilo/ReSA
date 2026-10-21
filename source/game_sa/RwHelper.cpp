@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: RwHelper
- * Reconstrucción: COMPLETA — 28/28 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 30/30 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 28/28 entradas.
+ * Validación registrada: 30/30 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -38,9 +38,11 @@ void RwHelperInjectHooks() {
     RH_ScopedGlobalInstall(GetFirstChild, 0x734900);
     RH_ScopedGlobalInstall(SkinAtomicGetHAnimHierarchCB, 0x734A20);
     RH_ScopedGlobalInstall(GetAnimHierarchyFromSkinClump, 0x734A40);
+    RH_ScopedGlobalInstall(GetAnimHierarchyFromFrameCallback, 0x734A70);
     RH_ScopedNamedGlobalInstall(GetAnimHierarchyFromFrameRegs, "GetAnimHierarchyFromFrame", 0x734AB0);
     RH_ScopedGlobalInstall(RwTexDictionaryFindHashNamedTexture, 0x734E50);
     RH_ScopedGlobalInstall(GetFirstTexture, 0x734940);
+    RH_ScopedGlobalInstall(RwTexDictionaryGtaStreamRead, 0x730FC0);
     RH_ScopedGlobalInstall(RpGeometryReplaceOldMaterialWithNewMaterial, 0x734DE0);
     RH_ScopedGlobalInstall(GetAnimHierarchyFromClump, 0x734B10);
     RH_ScopedGlobalInstall(AtomicRemoveAnimFromSkinCB, 0x734B90);
@@ -150,8 +152,8 @@ RwFrame* GetFirstChild(RwFrame* frame) {
 
 // 0x734A70 (callback de RwFrameForAllChildren, cdecl): si el marco tiene jerarquia (RpHAnimFrameGetHierarchy, 0x7C5160) la guarda en *data y detiene el
 // recorrido (nullptr); si no, recorre los hijos del marco con ella misma (RwFrameForAllChildren, 0x7F0DC0) y devuelve el marco para seguir con sus hermanos.
-// No se engancha: el unico llamador del EXE es GetAnimHierarchyFromFrame (0x734AB0), ya enganchada, y asi el cuerpo original de 0x734AB0 sigue usando el callback
-// nativo cuando su hook esta apagado. El iterador del EXE solo lee EAX a la vuelta.
+// Enganchada en 0x734A70: con el hook activo el cuerpo original de GetAnimHierarchyFromFrame (0x734AB0, hook apagado) llega a esta version por el salto de la entrada.
+// El iterador del EXE (RwFrameForAllChildren, 0x7F0DC0) solo lee EAX a la vuelta (nada lee ECX/EDX).
 RwFrame* GetAnimHierarchyFromFrameCallback(RwFrame* frame, void* data) {
     if (RpHAnimHierarchy* const hierarchy = RpHAnimFrameGetHierarchy(frame)) {
         *static_cast<RpHAnimHierarchy**>(data) = hierarchy;

@@ -154,8 +154,8 @@ bool CProjectileInfo::AddProjectile(CEntity* creator, eWeaponType projectileType
     void* memory = CObject::operator new(sizeof(CProjectile)); CProjectile* projectile = nullptr;
     if (memory) {
         const int32 model = type == 58 ? StaticRef<int32>(0x8CD75C) : CWeaponInfo::GetWeaponInfo(projectileType, static_cast<eWeaponSkill>(1))->m_nModelId1;
-        // Constructor de CProjectile, colaborador externo al cat�logo de CProjectileInfo.
-        projectile = reinterpret_cast<CProjectile*(__thiscall*)(void*,int32)>(0x5A4030)(memory, model);
+        // Como el original: el pool devolvio memoria sin comprobar el constructor (CProjectile::CProjectile, 0x5A4030, ya en C++).
+        projectile = ::new(memory) CProjectile(model);
     }
     ms_apProjectile[index] = projectile;
     if (!projectile) return false;

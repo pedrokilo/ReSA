@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskComplexWalkRoundObject
- * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 4/4 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexGoToPointAndStandStill.h"
 #include "TaskSimpleAchieveHeading.h"
 #include "TaskSimpleStandStill.h"
+#include "TaskComplexFollowPointRoute.h"
 #include "X87Math.h"
 
 void CTaskComplexWalkRoundObject::InjectHooks() {
@@ -30,6 +31,7 @@ void CTaskComplexWalkRoundObject::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x655020);
+    RH_ScopedInstall(CreateRouteTask, 0x655140);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x657220);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x657380);
     RH_ScopedVMTInstall(ControlSubTask, 0x6575F0);
@@ -203,6 +205,16 @@ CTask* CTaskComplexWalkRoundObject::CreateFirstSubTask(CPed* ped) {
     return new CTaskSimpleAchieveHeading(heading, 1.0f, 0.2f);
 }
 
+// 0x655140 (ret 4: el EXE no usa el peaton). Sin ruta (contador a cero) no crea nada; si no, reserva con CTask::operator new (0x61A5A0) y, con el pool agotado (nulo),
+// no construye y devuelve nulo (`test eax, eax; je`); el constructor 0x671510 recibe (movimiento, ruta, 0 = ONE_WAY, 0.5f [0x86FC98], 0.0f, true, false, false).
+// La ruta se lee sin comprobar el nulo, como el EXE.
 CTask* CTaskComplexWalkRoundObject::CreateRouteTask(CPed* ped) {
-    return plugin::CallMethodAndReturn<CTask*, 0x655140, CTaskComplexWalkRoundObject*, CPed*>(this, ped);
+    if (m_pointRoute->m_NumEntries == 0) {
+        return nullptr;
+    }
+    void* const memory = CTask::operator new(sizeof(CTaskComplexFollowPointRoute));
+    if (!memory) {
+        return nullptr;
+    }
+    return ::new (memory) CTaskComplexFollowPointRoute(static_cast<eMoveState>(m_moveState), *m_pointRoute, CTaskComplexFollowPointRoute::Mode::ONE_WAY, 0.5f, 0.0f, true, false, false);
 }

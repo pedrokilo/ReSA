@@ -1,0 +1,146 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "a6fedbb51f6be7b9534f597e0c2d17999ff2585377fc4e6ee6b24c23e669df8b",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "e9bfdac79df368547f7d4d12fae77c944dd8b9e4eb086ebb575e7b1760a416f6",
+    "scripts/gta-reversed.ini": "e9bfdac79df368547f7d4d12fae77c944dd8b9e4eb086ebb575e7b1760a416f6"
+  },
+  "pairs": 16384,
+  "pairs_per_function": {
+    "operator*(CMatrix,CVector)": 4096,
+    "CTaskComplexWalkRoundObject::CreateRouteTask": 4096,
+    "RwTexDictionaryGtaStreamRead": 4096,
+    "FightStrikeDamageExe": 4096
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "d24dfafb61687e4d145ec505d0d49fbaf2866e40daed1039f46c8b818e6393d7",
+  "compare_dead_x87_registers": false,
+  "families": {
+    "operator*(CMatrix,CVector)": {
+      "0": 256,
+      "1": 256,
+      "2": 256,
+      "3": 256,
+      "4": 256,
+      "5": 256,
+      "6": 256,
+      "7": 256,
+      "8": 256,
+      "9": 256,
+      "10": 256,
+      "11": 256,
+      "12": 256,
+      "13": 256,
+      "14": 256,
+      "15": 256
+    },
+    "CTaskComplexWalkRoundObject::CreateRouteTask": {
+      "0": 256,
+      "1": 256,
+      "2": 256,
+      "3": 256,
+      "4": 256,
+      "5": 256,
+      "6": 256,
+      "7": 256,
+      "8": 256,
+      "9": 256,
+      "10": 256,
+      "11": 256,
+      "12": 256,
+      "13": 256,
+      "14": 256,
+      "15": 256
+    },
+    "RwTexDictionaryGtaStreamRead": {
+      "0": 256,
+      "1": 256,
+      "2": 256,
+      "3": 256,
+      "4": 256,
+      "5": 256,
+      "6": 256,
+      "7": 256,
+      "8": 256,
+      "9": 256,
+      "10": 256,
+      "11": 256,
+      "12": 256,
+      "13": 256,
+      "14": 256,
+      "15": 256
+    },
+    "FightStrikeDamageExe": {
+      "0": 256,
+      "1": 256,
+      "2": 256,
+      "3": 256,
+      "4": 256,
+      "5": 256,
+      "6": 256,
+      "7": 256,
+      "8": 256,
+      "9": 256,
+      "10": 256,
+      "11": 256,
+      "12": 256,
+      "13": 256,
+      "14": 256,
+      "15": 256
+    }
+  },
+  "branch_coverage": {
+    "operator*(CMatrix,CVector)": {
+      "distinct": 2466,
+      "cancellation": 256,
+      "denormal_read": 341,
+      "alias_1": 368,
+      "inf_read": 251,
+      "alias_3": 380,
+      "nan_read": 536,
+      "negative_zero": 272,
+      "alias_2": 385,
+      "alias_4": 380,
+      "alias_5": 117
+    },
+    "CTaskComplexWalkRoundObject::CreateRouteTask": {
+      "no_route": 512,
+      "built": 3001,
+      "move_nonstd": 1077,
+      "task_null": 583,
+      "route_null": 405,
+      "nan_entries": 236
+    },
+    "RwTexDictionaryGtaStreamRead": {
+      "find_fail": 382,
+      "success": 1196,
+      "zero_count": 163,
+      "read_fail": 1930,
+      "len_overwrites_length": 662,
+      "multi_tex": 1011,
+      "len_over_frame": 460,
+      "tex_fail": 370,
+      "create_fail": 218
+    },
+    "FightStrikeDamageExe": {
+      "player_stat": 861,
+      "weapon_fist": 632,
+      "player_fixed": 838,
+      "weapon_knuckle": 525,
+      "attack_nan": 171,
+      "tiny_product": 23,
+      "weapon_other": 1240,
+      "huge_product": 109,
+      "stat_nan": 64
+    }
+  },
+  "saves_unchanged": true,
+  "configs_restored": true
+}

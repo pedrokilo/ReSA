@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskSimpleCarDrive
- * Reconstrucción: COMPLETA — 13/13 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 14/14 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 13/13 entradas.
+ * Validación registrada: 14/14 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -60,6 +60,7 @@ void CTaskSimpleCarDrive::InjectHooks() {
     RH_ScopedInstall(ProcessHeadBopping, 0x6428C0);
     RH_ScopedInstall(ProcessArmBopping, 0x642AE0);
     RH_ScopedInstall(ProcessBopping, 0x642E70);
+    RH_ScopedInstall(FinishAnimCloseDoorRollingCB, 0x63C840);
     RH_ScopedVMTInstall(Clone, 0x63DC20);
     RH_ScopedVMTInstall(GetTaskType, 0x63C450);
     RH_ScopedVMTInstall(MakeAbortable, 0x63C670);
@@ -178,8 +179,27 @@ static const RwV3d s_AxisZ{ 0.0f, 0.0f, 1.0f };
 void CTaskSimpleCarDrive::StartRollingDoor(CPed* ped) {
     const auto group = CVehicleAnimGroupData::GetVehicleAnimGroup(ped->m_pVehicle->m_pHandlingData->m_nAnimGroup).GetGroup(ANIM_ID_CAR_ROLLDOOR);
     m_pAnimCloseDoorRolling = CAnimManager::AddAnimation(ped->GetRpClump(), group, ANIM_ID_CAR_ROLLDOOR);
-    // Como el original: el callback de fin es la función del EXE 0x63C840 (sin catalogar)
-    m_pAnimCloseDoorRolling->SetFinishCallback(reinterpret_cast<void(*)(CAnimBlendAssociation*, void*)>(0x63C840), this);
+    m_pAnimCloseDoorRolling->SetFinishCallback(FinishAnimCloseDoorRollingCB, this);
+}
+
+// 0x63C840 (sin catalogar): callback de fin de la animación de cerrar la puerta rodando; `data` es la tarea
+void CTaskSimpleCarDrive::FinishAnimCloseDoorRollingCB(CAnimBlendAssociation* anim, void* data) {
+    auto* const task = static_cast<CTaskSimpleCarDrive*>(data);
+    task->m_b20 = false;
+    CVehicle* vehicle = task->m_pVehicle;
+    task->m_pAnimCloseDoorRolling = nullptr;
+    if (!vehicle) {
+        return;
+    }
+    vehicle->ClearGettingOutFlags(1);
+    // Como el original: el vehículo y el conductor se vuelven a leer tras cada llamada
+    vehicle = task->m_pVehicle;
+    if (!vehicle->m_pDriver) {
+        return;
+    }
+    const auto group = CVehicleAnimGroupData::GetVehicleAnimGroup(vehicle->m_pHandlingData->m_nAnimGroup).GetGroup(ANIM_ID_CAR_ROLLDOOR);
+    vehicle = task->m_pVehicle;
+    vehicle->ProcessOpenDoor(vehicle->m_pDriver, 10, group, ANIM_ID_CAR_ROLLDOOR, 1.0f);
 }
 
 // 0x642760

@@ -1,0 +1,53 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 4,
+  "functions": {
+    "operator*(CMatrix,CVector)": 4096,
+    "CTaskComplexWalkRoundObject::CreateRouteTask": 4096,
+    "RwTexDictionaryGtaStreamRead": 4096,
+    "FightStrikeDamageExe": 4096
+  },
+  "covered_functions": {
+    "operator*(CMatrix,CVector)": true,
+    "CTaskComplexWalkRoundObject::CreateRouteTask": true,
+    "RwTexDictionaryGtaStreamRead": true,
+    "FightStrikeDamageExe": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wr-4 (HEAD 633dceef0). operator*(CMatrix,CVector) 0x59C890: aritmetica x87 pura (AutoPreMultiplyMatrixWithVectorCpp), sin colaboradores; se comparan EAX (= destino), el destino, la matriz y el punto, con destino distinto y solapado con el punto o con la matriz. CreateRouteTask 0x655140: CTask::operator new 0x61A5A0 y CPointRoute::operator new 0x41B7C0 sustituidos por falsos identicos; el constructor de CTaskComplexFollowPointRoute (0x671510) corre de verdad en ambos lados y se compara byte a byte el objeto construido y la ruta copiada. RwTexDictionaryGtaStreamRead 0x730FC0: los siete colaboradores RenderWare (RwStreamFindChunk 0x7ED2D0, RwStreamRead 0x7EC9D0, RwTexDictionaryCreate 0x7F3600, RwTextureGtaStreamRead 0x730E60, RwTexDictionaryAddTexture 0x7F3980, ForAllTextures 0x7F3730, Destroy 0x7F36A0) sustituidos por falsos; no se prueban longitudes de chunk 0 ni 1 (el EXE usa bytes viejos de su pila). FightStrikeDamageExe 0x61C740: CPed::IsPlayer 0x5DF8F0 y CStats::GetFatAndMuscleModifier 0x559AF0 sustituidos; la tabla de combos 0xC170D0 se sobrescribe con bytes del caso y se restaura; el resultado float de ST0 se compara en el estado x87. Ningun llamador del EXE lee EAX/ECX/EDX de salida salvo EAX como valor de retorno (matriz * punto, CreateRouteTask, RwTexDictionaryGtaStreamRead), que el banco compara.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Helpers65D-20261021-033249-882136",
+  "summary_sha256": "88f2e31401b8b140fd6e6c7a72b3fe8a9f3070ca365c823d48483392f7f0642d",
+  "result_txt_sha256": "1e95227c0d9f9a9f5b8c469dc401c6d77430d2d738cbecbdc2396c387ac38574",
+  "log_sha256": "d24dfafb61687e4d145ec505d0d49fbaf2866e40daed1039f46c8b818e6393d7",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "a6fedbb51f6be7b9534f597e0c2d17999ff2585377fc4e6ee6b24c23e669df8b",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/game_sa/Core/Matrix.cpp": "65d79baa8307f553739cb97a8b749f1a8101d990d270efc7646cb5624dbb4a4e",
+      "source/game_sa/Core/Matrix.h": "78408ee4d7ffa23dca9cc946d5446275d28bb93e5d9c64b9dea2e4cec9152801",
+      "source/game_sa/X87Math.cpp": "0e699d8fafdef3eae742de4a23b0023b70cb66d7b362abc0b4cad386c62bfbd3",
+      "source/game_sa/X87Math.h": "a7ea332cad01108366596c861d7d6f78a2e587d5f946a354726374f2cef35364",
+      "source/InjectHooksMain.cpp": "3941819f8e3be4f3cadda67ecc6a811c90ebaa117c06c97171e242d0767332ee",
+      "source/game_sa/Entity/Vehicle/Plane.cpp": "90295fa48a2744c0175b6b1d0c82f4b0ea4591ced05a2961f9a3b865dbd9b86b",
+      "source/game_sa/RenderWare/rw/rwtexdict.cpp": "f219a1068bd79557322603d99b6ffb96a6131de96eb876b44dc8e28f5586ff09",
+      "source/game_sa/RwHelper.cpp": "545dae59fdfaf177cdab01084ca764be08dcf18ef87e38fae0dfe8a316017685",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "c104e39162941533f40f7024c27961890afd8626e10fa80642d6755445ea5e67",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "75a0739956f86658d8c95d66365303373da76fc5875b2352cf55b0dfd23a8d48",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Helpers65D/LiveComparison.hpp": "3465c5d3bbc4d39ffb19338ef976e4b0dd806c419438e5b0919897c4252242a2",
+      "reversing/Helpers65D/Core.hpp": "27f22fbe254e7d8375e2c7a6f5c06839521ca6398999d338555de0bcf5f7c82a",
+      "reversing/Helpers65D/Cases.hpp": "a5fc75c3178edf5f2c956a9035aab29da3698770ca08dad6ae6f2e2ffe4719b2",
+      "reversing/Helpers65D/Fixtures.hpp": "0d6a284033dbef45fda207c654a26dce332769626c0399f51709052e93b007f8",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

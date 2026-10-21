@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CDecisionMakerTypes
- * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 8/8 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -38,13 +38,14 @@ void CDecisionMakerTypes::InjectHooks() {
     RH_ScopedInstall(AddDecisionMaker, 0x607050);
     RH_ScopedInstall(RemoveDecisionMaker, 0x6043A0);
     RH_ScopedInstall(LoadEventIndices, 0x600840);
+    RH_ScopedInstall(ReadEventIndices, 0x5BB9F0);
     RH_ScopedInstall(FlushDecisionMakerEventResponse, 0x604490);
     RH_ScopedInstall(AddEventResponse, 0x6044C0);
 }
 
 // Registros de las funciones de este archivo (los bancos DependenciesDecisionPed7, DependenciesDecisionRelationship6 y DependenciesTask11
 // siembran EAX/ECX/EDX y comparan lo que sale):
-//  - Los colaboradores del EXE sin reconstruir (0x606060, 0x5BB9F0, operator new 0x82119A y el constructor 0x4650F0) no leen EAX/ECX/EDX
+//  - Los colaboradores del EXE sin reconstruir (operator new 0x82119A, operator delete 0x8214BD y el constructor 0x4650F0) no leen EAX/ECX/EDX
 //    de entrada antes de escribirlos, asi que su residuo de salida es independiente del llamador. Se llaman por direccion; cuando es lo ultimo que
 //    hace la funcion (MakeDecision, LoadEventIndices) no se ejecuta nada despues que toque ECX/EDX/EAX y el residuo del colaborador llega intacto
 //    al llamador del EXE. Sin comprobaciones de ejecucion (/RTC1 anade __RTC_CheckEsp tras las llamadas) ni cookie de /GS (safebuffers).
@@ -55,15 +56,11 @@ void CDecisionMakerTypes::InjectHooks() {
 //  - La salida de Add/Remove/GetInstance termina con ResidueRegsCpp(ECX, EDX, EAX) (lo vigila contrib/audit_register_residue.py, objeto DecisionMakerTypes).
 namespace {
 // Colaboradores del EXE sin reconstruir. Todos son thiscall/stdcall con parametros en pila (callee limpia), por eso se declaran __fastcall con un EDX explicito.
-constexpr uintptr_t kExeDecisionMany = 0x606060; // thiscall(CDecision* base, index, srcType, inVehicle, avoid1, avoid2, avoid3, seek, int16* task, int16* facial), ret 0x24
-constexpr uintptr_t kExeReadEvents   = 0x5BB9F0; // stdcall(int32* indices, const char* fileName), ret 8
 constexpr uintptr_t kExeOperatorNew  = 0x82119A; // cdecl(size_t)
 constexpr uintptr_t kExeOperatorDel  = 0x8214BD; // cdecl(void*)
 constexpr uintptr_t kExeConstruct    = 0x4650F0; // thiscall(CDecisionMakerTypes*), ret; EAX = this
 constexpr uintptr_t kExePedEventFile = 0x86CD44; // "PedEvent.txt"
 
-using ExeDecisionMany = void(__fastcall*)(void* base, uint32 edx, uint32 eventIndex, int32 sourceType, int32 inVehicle, int32 avoid1, int32 avoid2, int32 avoid3, int32 seek, int16* taskType, int16* facialTaskType);
-using ExeReadEvents   = void(__stdcall*)(int32* indices, const char* fileName);
 using ExeOperatorNew  = uint64(__cdecl*)(uint32 size);
 using ExeOperatorDel  = void(__cdecl*)(void* block);
 using ExeConstruct    = uint64(__fastcall*)(void* self, uint32 edx);
@@ -189,8 +186,8 @@ __declspec(safebuffers) CDecisionMakerTypes* CDecisionMakerTypes::GetInstance() 
 }
 
 // 0x606E70: ECX = this, 11 argumentos en pila (ret 2Ch). Elige el decision maker segun la inteligencia del ped (+0x47C): -2 = jugador (CDecision suelta),
-// -1 = aleatorio/mision segun el tipo de ped (+0x484, byte == 2) con la funcion 0x606060 (indice aparte) y cualquier otro valor = ranura propia
-// [id * 41 + indice]. Todas acaban en CDecision::MakeDecision (C++, 0x6040D0) o en 0x606060 (EXE) y no se ejecuta nada despues; ningun llamador del EXE lee EAX/ECX/EDX de salida.
+// -1 = aleatorio/mision segun el tipo de ped (+0x484, byte == 2) con CDecisionMaker::MakeDecision (0x606060, indice aparte) y cualquier otro valor = ranura propia
+// [id * 41 + indice]. Todas acaban en CDecision::MakeDecision (0x6040D0) o en CDecisionMaker::MakeDecision (0x606060), ambas en C++, y no se ejecuta nada despues; ningun llamador del EXE lee EAX/ECX/EDX de salida.
 __declspec(safebuffers) void CDecisionMakerTypes::MakeDecision(CPed* ped, eEventType eventType, int32 eventSourceType, bool bIsPedInVehicle, eTaskType taskTypeToAvoid1, eTaskType taskTypeToAvoid2, eTaskType taskTypeToAvoid3, eTaskType taskTypeToSeek, bool bUseInGroupDecisionMaker, int16& taskType, int16& facialTaskType) {
     uint8* const       base         = reinterpret_cast<uint8*>(this);
     const uint8* const pedBytes     = reinterpret_cast<const uint8*>(ped);
@@ -205,7 +202,7 @@ __declspec(safebuffers) void CDecisionMakerTypes::MakeDecision(CPed* ped, eEvent
     if (decisionMaker == -2) {
         reinterpret_cast<CDecision*>(base + kPlayerPed + eventIndex * kDecisionStride)->MakeDecision(eventSourceType, bIsPedInVehicle, static_cast<int32>(taskTypeToAvoid1), static_cast<int32>(taskTypeToAvoid2), static_cast<int32>(taskTypeToAvoid3), static_cast<int32>(taskTypeToSeek), *outTask, *outFacial);
     } else if (decisionMaker == -1) {
-        reinterpret_cast<ExeDecisionMany>(kExeDecisionMany)(base + (pedBytes[0x484] == 2 ? kMissionPed : kRandomPed), eventIndex, eventIndex, eventSourceType, static_cast<int32>(bIsPedInVehicle), static_cast<int32>(taskTypeToAvoid1), static_cast<int32>(taskTypeToAvoid2), static_cast<int32>(taskTypeToAvoid3), static_cast<int32>(taskTypeToSeek), outTask, outFacial);
+        reinterpret_cast<CDecisionMaker*>(base + (pedBytes[0x484] == 2 ? kMissionPed : kRandomPed))->MakeDecision(static_cast<int32>(eventIndex), eventSourceType, bIsPedInVehicle, static_cast<int32>(taskTypeToAvoid1), static_cast<int32>(taskTypeToAvoid2), static_cast<int32>(taskTypeToAvoid3), static_cast<int32>(taskTypeToSeek), *outTask, *outFacial);
     } else {
         reinterpret_cast<CDecision*>(base + 4 + (static_cast<uint32>(decisionMaker) * static_cast<uint32>(CDecision::MAX_NUM_DECISIONS) + eventIndex) * kDecisionStride)->MakeDecision(eventSourceType, bIsPedInVehicle, static_cast<int32>(taskTypeToAvoid1), static_cast<int32>(taskTypeToAvoid2), static_cast<int32>(taskTypeToAvoid3), static_cast<int32>(taskTypeToSeek), *outTask, *outFacial);
     }
@@ -320,15 +317,36 @@ void CDecisionMakerTypes::FlushDecisionMakerEventResponse(int32 decisionMakerInd
     reinterpret_cast<CDecision*>(static_cast<uintptr_t>(self + offset + 4u))->SetDefault();
 }
 
-// 0x600840: ECX = this. Lee data/decision/PedEvent.txt (cadena del EXE 0x86CD44) con 0x5BB9F0(this + 0xC034, nombre) (ret 8); es la ultima llamada y
-// su EAX/ECX/EDX de salida llegan tal cual al llamador (el colaborador escribe ECX, EDX y EAX antes de leerlos: no depende de los de entrada).
-// El colaborador deja en ECX una direccion de su propio marco (lea ecx,[esp+..]), asi que el ESP con que se le llama debe ser el del EXE
-// (ESP_entrada - 12, sin marco propio). Con el marco /Od de depuracion (84 bytes) ECX salia 84 bytes mas abajo: la funcion se optimiza por pragma
-// (CMakeLists.txt: /Zi y BasicRuntimeChecks=Default para este archivo) y compila a push; lea; push; mov eax,imm; call eax; ret.
-#pragma runtime_checks("", off)
-#pragma optimize("gty", on)
-__declspec(safebuffers) void CDecisionMakerTypes::LoadEventIndices() {
-    reinterpret_cast<ExeReadEvents>(kExeReadEvents)(reinterpret_cast<int32*>(reinterpret_cast<uint8*>(this) + kEventIndices), reinterpret_cast<const char*>(kExePedEventFile));
+// 0x600840: ECX = this. Lee data/decision/PedEvent.txt (cadena del EXE 0x86CD44) con ReadEventIndices (0x5BB9F0) sobre this + 0xC034 (m_EventIndices); es la ultima llamada.
+void CDecisionMakerTypes::LoadEventIndices() {
+    ReadEventIndices(m_EventIndices.data(), reinterpret_cast<const char*>(kExePedEventFile));
 }
-#pragma optimize("", on)
-#pragma runtime_checks("", restore)
+
+// 0x5BB9F0 (stdcall, ret 8): pone a cero los 96 enteros de `indices` y lee el archivo de eventos linea a linea desde data\decision\ (SetDir(""), SetDir("data\\decision\\"),
+// OpenFile(fileName, "r"), SetDir("")). Cada linea que no esta vacia (primer caracter distinto de 0 y de '\n') se analiza con el sscanf del EXE (0x8220AD, formato "%s %d":
+// nombre del evento, que se descarta, e indice) y guarda el numero de orden de la linea en indices[indice] (sin comprobar limites, como el EXE); las lineas vacias no cuentan.
+// El indice conserva su valor anterior si sscanf no lo escribe. Termina con CloseFile (el EXE no comprueba el resultado de OpenFile).
+void __stdcall CDecisionMakerTypes::ReadEventIndices(int32* indices, const char* fileName) {
+    for (int32 i = 0; i < 96; ++i) {
+        indices[i] = 0;
+    }
+    CFileMgr::SetDir("");
+    CFileMgr::SetDir("data\\decision\\");
+    FILESTREAM file = CFileMgr::OpenFile(fileName, "r");
+    CFileMgr::SetDir("");
+    const auto exeSscanf = reinterpret_cast<int(__cdecl*)(const char*, const char*, ...)>(0x8220AD); // sscanf del CRT estatico del juego
+    char  line[256];
+    char  eventName[240];
+    int32 index = 0;
+    int32 order = 0;
+    bool  more  = CFileMgr::ReadLine(file, line, 256);
+    while (more) {
+        if (line[0] != '\0' && line[0] != '\n') {
+            exeSscanf(line, "%s %d", eventName, &index);
+            indices[index] = order;
+            ++order;
+        }
+        more = CFileMgr::ReadLine(file, line, 256);
+    }
+    CFileMgr::CloseFile(file);
+}

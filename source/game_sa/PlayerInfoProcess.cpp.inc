@@ -90,9 +90,9 @@ void ProcessPlayerVehicleInteraction(CPlayerInfo& p, uint32 playerIndex, CPad* p
     if (simplest->GetTaskType() == TASK_SIMPLE_CLIMB || intelligence.GetTaskFighting() || (hold && hold->m_pEntityToHold)) return;
     if (object) {
         if (!abort()) return;
-        // This separate task's constructor has not been reversed yet.
-        auto* memory = CTask::operator new(sizeof(CTaskComplexGoPickUpEntity));
-        auto* task = memory ? plugin::CallMethodAndReturn<CTask*, 0x6919C0>(static_cast<CTaskComplexGoPickUpEntity*>(memory), object, 81) : nullptr;
+        // The EXE checks the null of CTask::operator new (0x61A5A0) before constructing.
+        void* const memory = CTask::operator new(sizeof(CTaskComplexGoPickUpEntity));
+        CTask* const task = memory ? ::new (memory) CTaskComplexGoPickUpEntity(object, 81) : nullptr;
         CEventScriptCommand event(TASK_PRIMARY_PRIMARY, task, false);
         FindPlayerPed()->GetEventGroup().Add(&event, false);
         return;

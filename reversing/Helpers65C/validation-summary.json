@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "pairs": 20480,
+  "differences": 0,
+  "registered_pairs": 20480,
+  "registered_functions": 5,
+  "functions": {
+    "Fx_c::TriggerWaterHydrant": 4096,
+    "Fx_c::TriggerTankFire": 4096,
+    "Fx_c::AddTyreBurst": 4096,
+    "CProjectile::CProjectile": 4096,
+    "CTaskSimpleCarDrive::FinishAnimCloseDoorRollingCB": 4096
+  },
+  "covered_functions": {
+    "Fx_c::TriggerWaterHydrant": true,
+    "Fx_c::TriggerTankFire": true,
+    "Fx_c::AddTyreBurst": true,
+    "CProjectile::CProjectile": true,
+    "CTaskSimpleCarDrive::FinishAnimCloseDoorRollingCB": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wr-3 (HEAD 633dceef0 + source.patch del lote 65C; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: FxManager_c::CreateFxSystem(name,CVector) 0x4A9BE0, FxSystem_c::PlayAndKill 0x4AA3D0, FxManager_c::FxRwMatrixCreate/Destroy 0x4A9440/0x4A9460, Fx_c::CreateMatFromVec 0x49E950, FxSystem_c::CopyParentMatrix 0x4AA890, FxSystem_c::AddParticle(v3d) 0x4AA440, CObject::CObject() 0x5A1D10, CObject::SetIsStatic 0x5A0760, CEntity::SetModelIndex 0x532AE0, CVehicle::ClearGettingOutFlags 0x6D3060, CVehicleAnimGroup::GetGroup 0x6E3B00 y la ranura 28 de la vtable del vehiculo (ProcessOpenDoor, falso en una vtable de arena); el banco compara la traza completa de esas llamadas, el objeto/matriz/tarea resultante y el resto de la arena. Ningun llamador del EXE lee EAX/ECX/EDX de las funciones Fx ni del callback (solo registrados); los tres llamadores de CProjectile::CProjectile leen EAX = this (exigido aparte). El vptr del constructor es el de la vtable de la DLL (como CObject/CPed). El callback es cdecl (el llamador retira los 8 bytes de argumentos). Fx.cpp se compila con las opciones SSE por defecto del proyecto: la distancia a la camara y el filtro `> 625.0` coinciden con el x87 del EXE salvo en el exponente extendido, que solo afecta a magnitudes que ya superan 625.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Helpers65C-20261021-033056-367868",
+  "summary_sha256": "4d5a838ad223e0cf133fea77419f53e3097def8de7285ff010cefd80cb5d2c93",
+  "result_txt_sha256": "db1df83d2b92a00acb70bf189098706354e523cab31fc1d55fc84699dd8f9eb7",
+  "log_sha256": "8085b990283c2e9c46df303cbaaed33ef5c1b363b925128f8ee692f69996da0e",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "9e8a4912d504ed931ab12f3105c4de11d8789701d75a1c786c0f25a41786d3f2",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "3941819f8e3be4f3cadda67ecc6a811c90ebaa117c06c97171e242d0767332ee",
+      "source/game_sa/Fx/Fx.cpp": "8de7c9c9ac04abc752a977257ce1418eee912c0c7cd8c8f3f271118fcf1daa4e",
+      "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
+      "source/game_sa/Entity/Object/Projectile.cpp": "265315f90bcf40ccd4147d512a3e0ce2e89e3219a71cbaa894a410a26b3b27d5",
+      "source/game_sa/Entity/Object/Projectile.h": "a5738a32e46f25f3aa927e010f9d14481bcee558a3e2b5c74491a12487249f01",
+      "source/game_sa/ProjectileInfo.cpp": "85a396d9ec2edb44ea5c40f6e4d07f3615f2ea07f5798bc8198ba897a52c5452",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.cpp": "27ee5bf63905477f4724600435d9980528d0dda1333351be6c11786c3198c196",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.h": "792fa1bb162c945b35c6a8effea31fc56e7dfa0872e32947675a618050631892",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Helpers65C/LiveComparison.hpp": "ce0273e82c9b3c89eb6299656b0a2f935ff5099998fc6e0a869c293ed4ae5fc7",
+      "reversing/Helpers65C/Core.hpp": "fd2683ef9d3509dccf6c135803e937aac14b6098208d395704ef8a95cafb46e5",
+      "reversing/Helpers65C/Fixtures.hpp": "3aca83f4aa2a1dc917c191466379de2398c09aec99e8e5aee98d63d5810ff993",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

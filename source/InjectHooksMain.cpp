@@ -705,6 +705,7 @@ void InjectHooksMain() {
     /****************************************************/
 
     CQuaternion::InjectHooks(); // Only the reconstructed Set dependencies.
+    CMatrix::InjectHooksMultiplyVector(); // Only operator*(CMatrix, CVector) 0x59C890.
     CMatrixLink::InjectHooks();
     CMatrixLinkList::InjectHooks();
     CEntryInfoNode::InjectHooks();
@@ -744,6 +745,7 @@ void InjectHooksMain() {
     CDummy::InjectHooks();
     CDummyObject::InjectHooks();
     CObject::InjectHooks();
+    CProjectile::InjectHooks();
     CObjectData::InjectHooks();
     CObjectSaveStructure::InjectHooks();
     CCutsceneObject::InjectHooks();
@@ -878,6 +880,7 @@ void InjectHooksMain() {
     CAutoPilot::InjectHooks();
     CLoadMonitor::InjectHooks();
     CDecisionMakerTypes::InjectHooks();
+    CDecisionMaker::InjectHooks();
     CPlayerRelationshipRecorder::InjectHooks();
     CDecisionMakerTypesFileLoader::InjectHooks();
     CDecision::InjectHooks();
@@ -1301,7 +1304,7 @@ void InjectHooksMain() {
         CTaskSimplePlayerOnFoot::InjectHooks();
         CTaskComplexFollowPedFootsteps::InjectHooks();
         CTaskComplexGetUpAndStandStill::InjectHooks();
-        // CTaskComplexGoPickUpEntity::InjectHooks();
+        CTaskComplexGoPickUpEntity::InjectHooks();
         CTaskSimpleDie__InjectHooks();
         CTaskSimpleDuck::InjectHooks();
         CTaskComplexPolicePursuit::InjectHooks();

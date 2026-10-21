@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskSimpleFight
- * Reconstrucción: COMPLETA — 12/12 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 13/13 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 12/12 entradas.
+ * Validación registrada: 13/13 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -43,6 +43,8 @@ END GENERATED HOOK STATUS */
 #include "FileLoader.h"
 #include "Entity/Ped/PlayerPed.h"
 #include "PlayerPedData.h"
+#include "Stats.h"
+#include "PedStats.h"
 #include "Events/Event.h"
 #include "AnimBlendHierarchy.h"
 #include "Camera.h"
@@ -255,6 +257,8 @@ constexpr float FightHitCarChainsawScale = std::bit_cast<float>(0x3A449BA6u); //
 constexpr float FightSparkForce         = std::bit_cast<float>(0x40A00000u); // 5.0f
 constexpr float FightSparkSpread        = std::bit_cast<float>(0x3E99999Au); // 0.3f
 constexpr float FightSparkLife          = std::bit_cast<float>(0x3F800000u); // 1.0f
+constexpr float FightStrikeDamageFixed = std::bit_cast<float>(0x42480000u); // 0x858B40 = 50.0f
+constexpr float FightStrikeKnuckleScale = std::bit_cast<float>(0x3FC00000u); // 0x858CE8 = 1.5f
 constexpr float FightSoundQuietLevel    = std::bit_cast<float>(0x42200000u); // 40.0f
 constexpr float FightAnimBlendOut       = std::bit_cast<float>(0xC0800000u); // -4.0f
 
@@ -262,11 +266,6 @@ constexpr float FightAnimBlendOut       = std::bit_cast<float>(0xC0800000u); // 
 uint32 FightActiveWeaponType(const CPed* ped) {
     const int32 slot = static_cast<int8>(ped->m_nActiveWeaponSlot);
     return *reinterpret_cast<const uint32*>(reinterpret_cast<const uint8*>(ped->m_aWeapons.data()) + slot * static_cast<int32>(sizeof(CWeapon)));
-}
-
-// 0x61C740 (ret 4): danio del golpe; el EXE lo deja en ST0 y los llamadores lo guardan como float. Sin reconstruir.
-float FightStrikeDamageExe(CTaskSimpleFight* task, CPed* ped) {
-    return plugin::CallMethodAndReturn<float, 0x61C740, CTaskSimpleFight*, CPed*>(task, ped);
 }
 
 // 0x61CBA0 (ret 0x14): golpe contra un ped; devuelve el ped golpeado (EAX) o null. Sin reconstruir.
@@ -289,6 +288,31 @@ const float* FightStrikeRadius(const uint8* row, int32 move) {
 }
 bool FightStrikeBigHit(const uint8* row, int32 move) {
     return row[0x50 + move] >= 4; // cmp byte [ecx+ebx+50h], 4 ; jb
+}
+
+// 0x61C740 (thiscall, ret 4; ECX = tarea, EDX sin uso): danio del golpe. Los llamadores del EXE lo reciben en ST0 (0x61D0EB lo guarda con fstp dword, 0x61CCF1 lo pasa a _ftol2) y
+// ninguno lee EAX/ECX/EDX; por eso es un __fastcall (ECX, EDX, pila) que limpia su argumento. Base = byte de la fila (combo - 4) * 0x88 + 0x55 + movimiento (ambos con signo, sin acotar)
+// de la tabla 0xC170D0, convertido a float. Jugador (CPed::IsPlayer, solo el AL): con el bit 1 del byte +0x34 de sus datos de jugador (m_pPlayerData, +0x480) devuelve 50.0f (0x858B40);
+// si no, CStats::GetFatAndMuscleModifier(4) * base. No jugador: segun el tipo de arma de la ranura activa (movsx del byte +0x718): 1 -> base * 1.5f (0x858CE8), 0 -> base * m_fAttackStrength
+// (+0x28 de las estadisticas +0x59C del ped) y cualquier otro -> base. Los productos van por x87 (Cc63bCruiseSpeedCpp: fild/fmul a 24 bits, resultado sin redondear a float en ST0).
+float __fastcall FightStrikeDamageExe(CTaskSimpleFight* task, uint32 /*edx*/, CPed* ped) {
+    const uint32 base = FightStrikeRow(task)[0x55 + static_cast<int32>(static_cast<int8>(task->m_nCurrentMove))];
+    if (ped->IsPlayer()) {
+        const auto* const playerData = reinterpret_cast<const uint8*>(ped->GetPlayerData());
+        if (playerData[0x34] & 2) {
+            return FightStrikeDamageFixed;
+        }
+        const float modifier = CStats::GetFatAndMuscleModifier(static_cast<eStatModAbilities>(4));
+        return Cc63bCruiseSpeedCpp(base, modifier);
+    }
+    const uint32 weaponType = FightActiveWeaponType(ped);
+    if (weaponType == 1) {
+        return Cc63bCruiseSpeedCpp(base, FightStrikeKnuckleScale);
+    }
+    if (weaponType == 0) {
+        return Cc63bCruiseSpeedCpp(base, ped->m_pStats->m_fAttackStrength);
+    }
+    return static_cast<float>(base);
 }
 } // namespace
 
@@ -818,7 +842,7 @@ void CTaskSimpleFight::FightSetUpCol(float radius) {
 // 0x61D0B0 (ret 0x18): golpe de un ped contra un vehiculo. Orden de llamadas, relecturas y operaciones x87 como el EXE.
 void CTaskSimpleFight::FightHitCar(CPed* ped, CVehicle* vehicle, CVector& posn1, CVector& posn2, int16 component, int8 surface) {
     const float health = vehicle->m_fHealth;                                   // 0x61D0D2
-    const float damage = FightStrikeDamageExe(this, ped);                      // 0x61D0EB: fstp dword
+    const float damage = FightStrikeDamageExe(this, 0, ped);                      // 0x61D0EB: fstp dword
     const auto  weaponType = static_cast<eWeaponType>(FightActiveWeaponType(ped));
 
     float scale = FightHitCarScale;                                            // 0x858C58
@@ -1015,6 +1039,8 @@ void CTaskSimpleFight::InjectHooks() {
     RH_ScopedNamedGlobalInstall(FightGetComboAnimGroupIDExe, "GetComboAnimGroupID", 0x4ABDA0);
     RH_ScopedNamedGlobalInstall(FightIsComboSetExe, "IsComboSet", 0x4ABDC0);
     RH_ScopedNamedGlobalInstall(FightIsHitComboSetExe, "IsHitComboSet", 0x4ABDF0);
+    // Como el original: __fastcall (ECX = tarea, EDX sin uso, argumento en la pila con `ret 4`) y resultado en ST0
+    RH_ScopedNamedGlobalInstall(FightStrikeDamageExe, "FightStrikeDamage", 0x61C740);
     RH_ScopedInstall(FightSetUpCol, 0x61D5F0);
     RH_ScopedInstall(FightHitCar, 0x61D0B0);
     RH_ScopedInstall(FightStrike, 0x6240B0);

@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "pairs": 20480,
+  "differences": 0,
+  "registered_pairs": 20480,
+  "registered_functions": 5,
+  "functions": {
+    "CHud::FloorFloat": 4096,
+    "RwHelper::GetAnimHierarchyFromFrameCallback": 4096,
+    "CDecisionMaker::MakeDecision": 4096,
+    "CDecisionMakerTypes::ReadEventIndices": 4096,
+    "UserTracksLegacyVector::PushBack": 4096
+  },
+  "covered_functions": {
+    "CHud::FloorFloat": true,
+    "RwHelper::GetAnimHierarchyFromFrameCallback": true,
+    "CDecisionMaker::MakeDecision": true,
+    "CDecisionMakerTypes::ReadEventIndices": true,
+    "UserTracksLegacyVector::PushBack": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wr-1 (HEAD 633dceef0 + fuente del lote 65). Los colaboradores se sustituyen por falsos identicos en ambos lados (no se validan sus cuerpos reales): el floor del CRT (0x8219F0), RpHAnimFrameGetHierarchy (0x7C5160) y RwFrameForAllChildren (0x7F0DC0), CDecision::MakeDecision (0x6040D0), CFileMgr::SetDir/OpenFile/ReadLine/CloseFile (sin E/S real) y el sscanf del EXE (0x8220AD), y 0x4F3B30/0x4F4320 del vector VC6. Ningun llamador del EXE lee EAX/ECX/EDX de salida: solo se registran (el EAX del callback 0x734A70 si se compara). FloorFloat prueba el envoltorio (argumento double exacto y ST0 devuelto sin cambios), no el floor real del CRT. No se prueba el indice previo sin inicializar de ReadEventIndices (basura de pila del EXE) ni la reserva y copia reales del vector.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Helpers65A-20261021-032708-247470",
+  "summary_sha256": "9a2866b968a29bb359528387bbe77f9b09b367108d6f127b0d2a8d601aec3173",
+  "result_txt_sha256": "163aa0a6baf468813a50d148fb04d79dd5e653f076a63b55526f23e2d0553ba4",
+  "log_sha256": "57169a479a8fd7488e1490cbccf673e24c479b26bca6ed603d722920f7fbb154",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "9e7cc25d594a1291e0917bcdf7c08a2adb3051598c249abfcf56d6e1c0ed6a57",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "3941819f8e3be4f3cadda67ecc6a811c90ebaa117c06c97171e242d0767332ee",
+      "source/game_sa/Hud.cpp": "53e397faeda280d096f5f38a0bdc1cad8862508947f644be3a0a21439fb3c976",
+      "source/game_sa/RwHelper.cpp": "545dae59fdfaf177cdab01084ca764be08dcf18ef87e38fae0dfe8a316017685",
+      "source/game_sa/RwHelper.h": "33dec5298509d965fd0dc193ca7e96dad3c190934ab91fd7634af4530021c63a",
+      "source/game_sa/DecisionMakers/DecisionMaker.cpp": "9de0c5b258bb2bbc0937046a1979ce01cb482a578ed1fa09029083c0623c6e64",
+      "source/game_sa/DecisionMakers/DecisionMaker.h": "52132a9fc1ffbd4bfbe8de2e1bac1c90c6e2066358c6220bf77786ec62ea58d0",
+      "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "8e52053ce7559debe8f47b328376154a6afa4e1b87f2b7c3f9092776b35ff2b5",
+      "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "a6fbb3a56d2f27f2d51175bc6bb6ffae4cab877123aa620cd5ff39b19d20c422",
+      "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "90dfc81e84978cb551abce063dddf0f28d8bc26d542e0cd0b90e41bb030e7bac",
+      "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "38e1692f8b417f5e42b666da730473decb41a24fa139593a16061be94d028fa8",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Helpers65A/LiveComparison.hpp": "2249e0b1d44ce9340f7bd20fac1bbfc035e819d98f79db2e1c1dd27a4d82cb59",
+      "reversing/Helpers65A/Core.hpp": "72bbfa0f24aa0da84344345f5881cf9d7b6223b1fa67b7a166dfe3545dbf2cdc",
+      "reversing/Helpers65A/Fixtures.hpp": "07e9186925a3d4edfd6b2fe588d0e2bd8f59c818fa157ecb81aa3d45ccb45be1",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

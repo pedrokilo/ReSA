@@ -1,0 +1,3 @@
+APROBADO: ayudantes del lote 65B (camara, heli chase, swat, GoPickUpEntity)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-helpers65b\20261021-032924-696004

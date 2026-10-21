@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CHeli
- * Reconstrucción: COMPLETA — 11/11 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 12/12 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 11/11 entradas.
+ * Validación registrada: 12/12 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -23,6 +23,16 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "X87Math.h"
+
+// Envoltorio con la ABI del EXE de CHeli::FindSwatPositionRelativeToHeli (0x6C4760: thiscall con puntero oculto, ret 8). El EXE no toca EDX (el llamador de 0x6C7844 lo
+// conserva a traves de la llamada), deja EAX = puntero oculto y ECX = this en los casos 0..3 o 0 en el defecto. Termina en ResidueRegsCpp, que no toca registros.
+#pragma runtime_checks("", off)
+static uint32 __declspec(safebuffers) __fastcall FindSwatPositionRelativeToHeliExeAbi(CHeli* self, uint32 entryEdx, CVector* result, int32 swatNumber) {
+    *result = self->FindSwatPositionRelativeToHeli(swatNumber);
+    return ResidueRegsCpp(static_cast<uint32>(swatNumber) <= 3u ? static_cast<uint32>(reinterpret_cast<uintptr_t>(self)) : 0u, entryEdx, static_cast<uint32>(reinterpret_cast<uintptr_t>(result)));
+}
+#pragma runtime_checks("", restore)
 
 void CHeli::InjectHooks() {
     RH_ScopedVirtualClass(CHeli, 0x871680, 71);
@@ -35,6 +45,7 @@ void CHeli::InjectHooks() {
     RH_ScopedInstall(SwitchPoliceHelis, 0x6C4800);
     RH_ScopedInstall(RenderAllHeliSearchLights, 0x6C7C50);
     RH_ScopedInstall(TestSniperCollision, 0x6C6890);
+    RH_ScopedNamedGlobalInstall(FindSwatPositionRelativeToHeliExeAbi, "FindSwatPositionRelativeToHeli", 0x6C4760);
     RH_ScopedVMTInstall(Render, 0x6C4400);
     RH_ScopedVMTInstall(Fix, 0x6C4530);
     RH_ScopedVMTInstall(BurstTyre, 0x6C4330);
@@ -175,11 +186,8 @@ void CHeli::SpecialHeliPreRender() {
 
 // 0x6C4760
 CVector CHeli::FindSwatPositionRelativeToHeli(int32 swatNumber) {
-    CVector result;
-    ((void(__thiscall*)(CHeli*, CVector*, int32))0x6C4760)(this, &result, swatNumber);
-    return result;
-
-    switch ( swatNumber ) {
+    // Offsets of the swat ropes: the EXE compares the index as unsigned (`cmp eax,3; ja`) and jumps through the table 0x6C47F0, which is in reverse order.
+    switch (static_cast<uint32>(swatNumber)) {
     case 0:
         return { -1.2f, -1.0f, -0.5f };
     case 1:

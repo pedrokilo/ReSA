@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: Fx_c
- * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 12/12 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 9/9 entradas.
+ * Validación registrada: 12/12 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -60,7 +60,7 @@ void Fx_c::InjectHooks() {
     // RH_ScopedInstall(AddBlood, 0x49EB00);
     // RH_ScopedInstall(AddWood, 0x49EE10);
     // RH_ScopedInstall(AddSparks, 0x49F040);
-    // RH_ScopedInstall(AddTyreBurst, 0x49F300);
+    RH_ScopedInstall(AddTyreBurst, 0x49F300);
     // RH_ScopedInstall(AddBulletImpact, 0x49F3D0);
     // RH_ScopedInstall(AddPunchImpact, 0x49F670);
     // RH_ScopedInstall(AddDebris, 0x49F750);
@@ -71,9 +71,9 @@ void Fx_c::InjectHooks() {
     // RH_ScopedInstall(AddWheelMud, 0x4A03C0);
     // RH_ScopedInstall(AddWheelSand, 0x4A0610);
     // RH_ScopedInstall(AddWheelDust, 0x4A09C0);
-    // RH_ScopedInstall(TriggerWaterHydrant, 0x4A0D70);
+    RH_ScopedInstall(TriggerWaterHydrant, 0x4A0D70);
     // RH_ScopedInstall(TriggerGunshot, 0x4A0DE0);
-    // RH_ScopedInstall(TriggerTankFire, 0x4A0FA0);
+    RH_ScopedInstall(TriggerTankFire, 0x4A0FA0);
     RH_ScopedInstall(TriggerWaterSplash, 0x4A1070);
     RH_ScopedInstall(TriggerBulletSplash, 0x4A10E0);
     RH_ScopedInstall(TriggerFootSplash, 0x4A1150);
@@ -137,14 +137,19 @@ void Fx_c::InitEntitySystems() {
 }
 
 // NOTSA
-// Evita crear sistemas efímeros lejanos; los aceptados se reproducen una vez y se autodestruyen.
-static void CreateFxWithinCameraRange(const char* name, const CVector& pos, float range) {
-    // Como el original: (cámara - pos), suma x² + z² + y² y se descarta solo si es > rango (NaN crea el efecto).
+// Como el EXE (0x4A0D70, 0x4A0FA0, 0x49F300, 0x4A1070...): (camara - pos), suma x2 + z2 + y2 y se descarta solo si es > rango (NaN no descarta).
+static bool IsFxWithinCameraRange(const CVector& pos, float range) {
     const auto& cam = TheCamera.GetPosition();
     const float dx = cam.x - pos.x;
     const float dy = cam.y - pos.y;
     const float dz = cam.z - pos.z;
-    if (!(dx * dx + dz * dz + dy * dy > range)) {
+    return !(dx * dx + dz * dz + dy * dy > range);
+}
+
+// NOTSA
+// Evita crear sistemas efimeros lejanos; los aceptados se reproducen una vez y se autodestruyen.
+static void CreateFxWithinCameraRange(const char* name, const CVector& pos, float range) {
+    if (IsFxWithinCameraRange(pos, range)) {
         if (auto* fxSystem = g_fxMan.CreateFxSystem(name, pos, nullptr, false)) {
             fxSystem->PlayAndKill();
         }
@@ -299,7 +304,14 @@ void Fx_c::AddSparks(const CVector& origin, const CVector& direction, float forc
 
 // 0x49F300
 void Fx_c::AddTyreBurst(const CVector& posn, const CVector& velocity) {
-    ((void(__thiscall*)(Fx_c*, const CVector&, const CVector&))0x49F300)(this, posn, velocity);
+    // Como el original: usa el Fx_c global (g_fx, 0xA9AE00), no this; el humo se recarga de 0xA9AE24 en cada vuelta.
+    if (!IsFxWithinCameraRange(posn, 625.0f)) {
+        return;
+    }
+    const FxPrtMult_c mult(1.0f, 1.0f, 1.0f, 0.4f, 0.12f, 0.0f, 0.1f);
+    for (int32 i = 0; i < 4; ++i) {
+        g_fx.m_SmokeII3expand->AddParticle(posn, velocity, (float)i * 0.05f, mult, -1.0f, 1.2f, 0.6f, false);
+    }
 }
 
 // 0x49F3D0
@@ -354,7 +366,7 @@ void Fx_c::AddWheelDust(CVehicle* vehicle, CVector pos, bool bWheelsSpinning, fl
 
 // 0x4A0D70
 void Fx_c::TriggerWaterHydrant(const CVector& pos) {
-    ((void(__thiscall*)(Fx_c*, const CVector&))0x4A0D70)(this, pos);
+    CreateFxWithinCameraRange("water_hydrant", pos, 625.0f);
 }
 
 // 0x4A0DE0
@@ -364,7 +376,17 @@ void Fx_c::TriggerGunshot(CEntity* entity, const CVector& origin, const CVector&
 
 // 0x4A0FA0
 void Fx_c::TriggerTankFire(const CVector& pos, const CVector& dir) {
-    ((void(__thiscall*)(Fx_c*, const CVector&, const CVector&))0x4A0FA0)(this, pos, dir);
+    if (!IsFxWithinCameraRange(pos, 625.0f)) {
+        return;
+    }
+    RwMatrix* const matrix = g_fxMan.FxRwMatrixCreate();
+    CreateMatFromVec(matrix, &pos, &dir);
+    const CVector origin{ 0.0f, 0.0f, 0.0f };
+    if (FxSystem_c* const system = g_fxMan.CreateFxSystem("tank_fire", origin, matrix, false)) {
+        system->CopyParentMatrix();
+        system->PlayAndKill();
+    }
+    g_fxMan.FxRwMatrixDestroy(matrix);
 }
 
 // 0x4A1070

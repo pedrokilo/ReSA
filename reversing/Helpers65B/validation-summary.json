@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "pairs": 27136,
+  "differences": 0,
+  "registered_pairs": 27136,
+  "registered_functions": 6,
+  "functions": {
+    "CCamera::IsActiveCamUnderWater": 4608,
+    "CCam::ResetDWHeliChaseParams": 4096,
+    "CCam::RandomiseDWHeliChaseParams": 6144,
+    "CHeli::FindSwatPositionRelativeToHeli": 4096,
+    "CTaskComplexGoPickUpEntity::Constructor": 4096,
+    "CTaskComplexGoPickUpEntity::Destructor": 4096
+  },
+  "covered_functions": {
+    "CCamera::IsActiveCamUnderWater": true,
+    "CCam::ResetDWHeliChaseParams": true,
+    "CCam::RandomiseDWHeliChaseParams": true,
+    "CHeli::FindSwatPositionRelativeToHeli": true,
+    "CTaskComplexGoPickUpEntity::Constructor": true,
+    "CTaskComplexGoPickUpEntity::Destructor": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wr-2 (HEAD 633dceef0 + fuente del lote 65B: CCamera::IsActiveCamUnderWater, ResetDWHeliChaseParams y RandomiseDWHeliChaseParams de CCam, CHeli::FindSwatPositionRelativeToHeli y constructor/destructor de CTaskComplexGoPickUpEntity). Colaboradores sustituidos por falsos identicos en ambos lados (no se validan sus cuerpos): CWaterLevel::GetWaterLevel (0x6EB690), rand del CRT del EXE (0x821B1E), CEntity::RegisterReference (0x571B70), CEntity::CleanUpOldReference (0x571A00), CAnimManager::RemoveAnimBlockRef (0x4D3FD0) y el destructor virtual de una subtarea falsa. Los ayudantes de CCam y el envoltorio de CHeli se instalan con RH_ScopedNamedGlobalInstall (funciones estaticas __fastcall que terminan en ResidueRegsCpp: el thunk 0x5173F0 lee ECX tras 0x50E180 y el llamador 0x6C7844 conserva EDX a traves de 0x6C4760). Entorno: FCW 0x7F (24 bits) y MXCSR 0x9F80 fijados por el banco. Aritmetica de Randomise acotada a rand() <= 32767. CreateNextSubTask/CreateFirstSubTask/ControlSubTask de la tarea siguen en el EXE (reenvio) y no se validan. Ningun llamador del EXE lee EAX/ECX/EDX salvo los indicados en el README (EAX de 0x50B830 en AL, ECX de 0x50E180, EAX/EDX de 0x6C4760, EAX de 0x6919C0).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Helpers65B-20261021-032924-696004",
+  "summary_sha256": "5bcd1823b98f2f3096a0ebb3fac3c6ee0da5a56f4fd5690383de7f1423a03f2e",
+  "result_txt_sha256": "1d6b005a8f9006f5c746a0ed1ed6e14e4b274462d84255b76c7fa9f9d0928890",
+  "log_sha256": "054116b01a9183e201797bbcb3a397cf52ed1c89d9531d336128fec2c0a74235",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "cdecbb3493ea279224f16b6bd2e643bb93e78ab8065991d8e6859d936dcf8eff",
+  "manifest": {
+    "tested_sources": {
+      "source/game_sa/Camera.cpp": "0f999d0839afcbbdc4b62f29c07ef9bfd8956bbf3756a3221a6ad9c3c748979c",
+      "source/game_sa/Camera.h": "5e4115efb5b1f2c0e9435740ca8a0554b554c3a22a9ef2a5dc2f30f0835b1a47",
+      "source/game_sa/Cam.cpp": "75df902d06100accbfc6417aed1d150798b58906b007e5ff37abcde023794e26",
+      "source/game_sa/Entity/Vehicle/Heli.cpp": "3c0664c39f19c0b476e65ce9d354ad6e1ab7d888bac054e87275bcc4123317b8",
+      "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp": "cde58aa7f7d5e9f6352964fca30a05bcb810d93fc774e6ca4e7c0b84fc1c2b8f",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h": "6a5775b8eef8c53c32cce7cb3af0d490edb757e5c3590983a0c0200082b00400",
+      "source/game_sa/PlayerInfoProcess.cpp.inc": "a3c4ca4439508d7c33a6c06a723039305cd475d6b62f47cf655085a698cb6f6c",
+      "source/InjectHooksMain.cpp": "3941819f8e3be4f3cadda67ecc6a811c90ebaa117c06c97171e242d0767332ee"
+    }
+  }
+}

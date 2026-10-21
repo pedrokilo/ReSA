@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CHud
- * Reconstrucción: COMPLETA — 38/38 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 39/39 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 38/38 entradas.
+ * Validación registrada: 39/39 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -43,6 +43,13 @@ inline float ExeFloat(uintptr_t address) {
 // fild maximumWidth/Height * 0x859520/0x859524 (x87 a 24 bits); el EXE multiplica despues por la constante de cada elemento.
 inline float StretchBaseX() { return (float)RsGlobal.maximumWidth * ExeFloat(0x859520); }
 inline float StretchBaseY() { return (float)RsGlobal.maximumHeight * ExeFloat(0x859524); }
+
+// 0x406CE0: floorf del CRT del EXE (cdecl, un float en pila). `fld dword [esp+4]; sub esp,8; fstp qword [esp]` lo amplia a double (exacto, NaN silenciados) y llama al floor
+// del CRT (0x8219F0, sin reconstruir, cdecl con un double) cuyo resultado queda en ST0 y se devuelve sin tocar (double: ni se redondea a float ni se pasa por SSE). Los
+// llamadores del EXE (0x4D8793, 0x570689.., 0x589BF5) solo leen ST0: la funcion no deja nada mas en EAX/ECX/EDX que dependa de ella.
+double FloorFloat(float value) {
+    return reinterpret_cast<double(__cdecl*)(double)>(0x8219F0)(static_cast<double>(value));
+}
 }
 
 void CHud::InjectHooks() {
@@ -53,6 +60,7 @@ void CHud::InjectHooks() {
     RH_ScopedInstall(ReInitialise, 0x588880);
     RH_ScopedInstall(Shutdown, 0x588850);
     RH_ScopedInstall(Draw, 0x58FAE0);
+    RH_ScopedGlobalInstall(FloorFloat, 0x406CE0);
     RH_ScopedInstall(GetRidOfAllHudMessages, 0x588A50);
     RH_ScopedInstall(GetYPosBasedOnHealth, 0x588B60);
     RH_ScopedInstall(HelpMessageDisplayed, 0x588B50);
@@ -1629,7 +1637,7 @@ void CHud::DrawVitalStats() {
         const float value = CStats::GetStatValue(stat);
         float progress = 1.f;
         if (value <= f(0x866BEC)) {
-            const float rounded = reinterpret_cast<float(__cdecl*)(float)>(0x406CE0)((reaction * f(0x858B1C) + value) / product);
+            const float rounded = static_cast<float>(FloorFloat((reaction * f(0x858B1C) + value) / product));
             progress = (rounded * product) * f(0x858CDC);
         }
         bar(progress * f(0x858628));

@@ -1,3 +1,21 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CMatrix
+ * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 1/1 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 /*
     Plugin-SDK file
     Authors: GTA Community. See more here
@@ -56,10 +74,22 @@ void CMatrix::InjectHooks()
     RH_ScopedInstall(operator+=, 0x59ADF0);
     RH_ScopedInstall(operator*=, 0x411A80);
     RH_ScopedGlobalOverloadedInstall(operator*, "Mat", 0x59BE30, CMatrix(*)(const CMatrix&, const CMatrix&));
-    //RH_ScopedGlobalOverloadedInstall(operator*, "Vec", 0x59C890, CVector(*)(const CMatrix&, const CVector&));
+    //RH_ScopedGlobalOverloadedInstall(operator*, "Vec", 0x59C890, CVector(*)(const CMatrix&, const CVector&)); // ver InjectHooksMultiplyVector
     RH_ScopedGlobalOverloadedInstall(operator+, "", 0x59BFA0, CMatrix(*)(const CMatrix&, const CMatrix&));
     RH_ScopedGlobalOverloadedInstall(Invert, "1", 0x59B920, CMatrix&(*)(CMatrix&, CMatrix&));
     RH_ScopedGlobalOverloadedInstall(Invert, "2", 0x59BDD0, CMatrix(*)(const CMatrix&));
+}
+
+// CMatrix::InjectHooks completo esta desactivado en InjectHooksMain (rendimiento); esta es la unica entrada de CMatrix que se instala (0x59C890 ya esta reconstruida con la x87 del EXE).
+void CMatrix::InjectHooksMultiplyVector()
+{
+    RH_ScopedClass(CMatrix);
+    RH_ScopedCategory("Core");
+
+#pragma warning(push)
+#pragma warning(disable: 4996) // operator*(CMatrix, CVector) esta marcado [[deprecated]] para el codigo nuevo, pero es el destino del hook
+    RH_ScopedGlobalOverloadedInstall(operator*, "Vec", 0x59C890, CVector(*)(const CMatrix&, const CVector&));
+#pragma warning(pop)
 }
 
 CMatrix::CMatrix(const CMatrix& matrix) {
@@ -396,8 +426,14 @@ CMatrix operator*(const CMatrix& a, const CMatrix& b)
     return result;
 }
 
+// 0x59C890 (cdecl; puntero de retorno oculto como primer argumento, EAX = destino): matriz * punto con las sumas, los redondeos a 24 bits y la seleccion de NaN de la x87 del EXE
+// (x = (up.x*z + fwd.x*y) + right.x*x + pos.x, y = (up.y*z + right.y*x) + fwd.y*y + pos.y, z = (up.z*z + right.z*x) + fwd.z*y + pos.z). El EXE calcula las tres
+// componentes antes de escribir ninguna: la salida puede solaparse con la matriz o con el punto (Hp65MatrixTimesPointCpp hace lo mismo con tres
+// variables locales). Los llamadores del EXE (225 leen EAX) no leen ECX ni EDX (ver reversing/Helpers65D/README.md).
 CVector operator*(const CMatrix& a, const CVector& b) {
-    return a.TransformPoint(b);
+    CVector result;
+    Hp65MatrixTimesPointCpp(reinterpret_cast<const float*>(&a), &b.x, &result.x);
+    return result;
 }
 
 CMatrix operator+(const CMatrix& a, const CMatrix& b)

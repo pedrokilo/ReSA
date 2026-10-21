@@ -1,0 +1,394 @@
+diff --git a/source/InjectHooksMain.cpp b/source/InjectHooksMain.cpp
+index 156af157e..b1110f157 100644
+--- a/source/InjectHooksMain.cpp
++++ b/source/InjectHooksMain.cpp
+@@ -705,6 +705,7 @@ void InjectHooksMain() {
+     /****************************************************/
+ 
+     CQuaternion::InjectHooks(); // Only the reconstructed Set dependencies.
++    CMatrix::InjectHooksMultiplyVector(); // Only operator*(CMatrix, CVector) 0x59C890.
+     CMatrixLink::InjectHooks();
+     CMatrixLinkList::InjectHooks();
+     CEntryInfoNode::InjectHooks();
+diff --git a/source/game_sa/Core/Matrix.cpp b/source/game_sa/Core/Matrix.cpp
+index 1eaff7fe5..d79f8901d 100644
+--- a/source/game_sa/Core/Matrix.cpp
++++ b/source/game_sa/Core/Matrix.cpp
+@@ -56,12 +56,24 @@ void CMatrix::InjectHooks()
+     RH_ScopedInstall(operator+=, 0x59ADF0);
+     RH_ScopedInstall(operator*=, 0x411A80);
+     RH_ScopedGlobalOverloadedInstall(operator*, "Mat", 0x59BE30, CMatrix(*)(const CMatrix&, const CMatrix&));
+-    //RH_ScopedGlobalOverloadedInstall(operator*, "Vec", 0x59C890, CVector(*)(const CMatrix&, const CVector&));
++    //RH_ScopedGlobalOverloadedInstall(operator*, "Vec", 0x59C890, CVector(*)(const CMatrix&, const CVector&)); // ver InjectHooksMultiplyVector
+     RH_ScopedGlobalOverloadedInstall(operator+, "", 0x59BFA0, CMatrix(*)(const CMatrix&, const CMatrix&));
+     RH_ScopedGlobalOverloadedInstall(Invert, "1", 0x59B920, CMatrix&(*)(CMatrix&, CMatrix&));
+     RH_ScopedGlobalOverloadedInstall(Invert, "2", 0x59BDD0, CMatrix(*)(const CMatrix&));
+ }
+ 
++// CMatrix::InjectHooks completo esta desactivado en InjectHooksMain (rendimiento); esta es la unica entrada de CMatrix que se instala (0x59C890 ya esta reconstruida con la x87 del EXE).
++void CMatrix::InjectHooksMultiplyVector()
++{
++    RH_ScopedClass(CMatrix);
++    RH_ScopedCategory("Core");
++
++#pragma warning(push)
++#pragma warning(disable: 4996) // operator*(CMatrix, CVector) esta marcado [[deprecated]] para el codigo nuevo, pero es el destino del hook
++    RH_ScopedGlobalOverloadedInstall(operator*, "Vec", 0x59C890, CVector(*)(const CMatrix&, const CVector&));
++#pragma warning(pop)
++}
++
+ CMatrix::CMatrix(const CMatrix& matrix) {
+     CMatrix::CopyOnlyMatrix(matrix);
+ }
+@@ -396,8 +408,14 @@ CMatrix operator*(const CMatrix& a, const CMatrix& b)
+     return result;
+ }
+ 
++// 0x59C890 (cdecl; puntero de retorno oculto como primer argumento, EAX = destino): matriz * punto con las sumas, los redondeos a 24 bits y la seleccion de NaN de la x87 del EXE
++// (x = (up.x*z + fwd.x*y) + right.x*x + pos.x, y = (up.y*z + right.y*x) + fwd.y*y + pos.y, z = (up.z*z + right.z*x) + fwd.z*y + pos.z). El EXE calcula las tres
++// componentes antes de escribir ninguna: la salida puede solaparse con la matriz o con el punto (Hp65MatrixTimesPointCpp hace lo mismo con tres
++// variables locales). Los llamadores del EXE (225 leen EAX) no leen ECX ni EDX (ver reversing/Helpers65D/README.md).
+ CVector operator*(const CMatrix& a, const CVector& b) {
+-    return a.TransformPoint(b);
++    CVector result;
++    Hp65MatrixTimesPointCpp(reinterpret_cast<const float*>(&a), &b.x, &result.x);
++    return result;
+ }
+ 
+ CMatrix operator+(const CMatrix& a, const CMatrix& b)
+diff --git a/source/game_sa/Core/Matrix.h b/source/game_sa/Core/Matrix.h
+index 7b7157df7..b31ecce2d 100644
+--- a/source/game_sa/Core/Matrix.h
++++ b/source/game_sa/Core/Matrix.h
+@@ -86,6 +86,7 @@ public:
+ 
+ public:
+     static void InjectHooks();
++    static void InjectHooksMultiplyVector(); // Solo operator*(CMatrix, CVector) 0x59C890 (el resto de CMatrix::InjectHooks sigue desactivado)
+ 
+     auto& GetRight(this auto&& self) { return self.m_right; }
+     CVector GetLeft() const { return -GetRight(); }
+diff --git a/source/game_sa/Entity/Vehicle/Plane.cpp b/source/game_sa/Entity/Vehicle/Plane.cpp
+index b03c4706c..1f87947dd 100644
+--- a/source/game_sa/Entity/Vehicle/Plane.cpp
++++ b/source/game_sa/Entity/Vehicle/Plane.cpp
+@@ -611,11 +611,12 @@ static void PlaneQuaternionToMatrix(const CQuaternion& quaternion, RwMatrix* mat
+     quaternion.Get(matrix);
+ }
+ 
+-// 0x59C890: CMatrix * CVector (sin reconstruir en el EXE, orden de sumas propio).
++// 0x59C890: CMatrix * CVector (reconstruida en Matrix.cpp, operator* "Vec": orden de sumas y redondeos del EXE). Sin comprobar el puntero a la matriz, como el EXE.
+ static CVector PlaneTransformPoint(const CMatrix* matrix, const CVector& point) {
+-    CVector result;
+-    reinterpret_cast<CVector*(__cdecl*)(CVector*, const CMatrix*, const CVector*)>(0x59C890)(&result, matrix, &point);
+-    return result;
++#pragma warning(push)
++#pragma warning(disable: 4996) // operator*(CMatrix, CVector) esta marcado [[deprecated]] para el codigo nuevo
++    return *matrix * point;
++#pragma warning(pop)
+ }
+ 
+ void CPlane::PreRender() {
+diff --git a/source/game_sa/RenderWare/rw/rwtexdict.cpp b/source/game_sa/RenderWare/rw/rwtexdict.cpp
+index 94c52ad14..eadd50a0a 100644
+--- a/source/game_sa/RenderWare/rw/rwtexdict.cpp
++++ b/source/game_sa/RenderWare/rw/rwtexdict.cpp
+@@ -22,8 +22,48 @@ RwTexture* RwTextureGtaStreamRead(RwStream* stream) {
+     return plugin::CallAndReturn<RwTexture*, 0x730E60, RwStream*>(stream);
+ }
+ 
++// 0x730FC0: lee un diccionario de texturas de GTA. Busca el chunk STRUCT (rwID_STRUCT = 1) y lee su contenido en un marco local de 12 bytes (palabra 0 = contador de texturas
++// en su word bajo; palabra 1 = longitud del chunk; palabra 2 = version, que el EXE pasa a RwStreamFindChunk): si la lectura no devuelve exactamente la longitud, devuelve nulo. La longitud se
++// RELEE del marco despues de leer (el EXE la recarga de la pila: una lectura de 5 a 12 bytes la pisa). Con una longitud mayor que el marco el EXE destroza su pila; aqui se lee a un bufer
++// aparte y se copian los 12 primeros bytes. Luego crea el diccionario (nulo -> nulo) y lee `contador` texturas con RwTextureGtaStreamRead (0x730E60) anadiendolas una a una; si alguna
++// falla, destruye las ya anadidas con RwTexDictionaryForAllTextures y el callback 0x730E50 (RwTextureDestroy y devuelve 0) y el diccionario, y devuelve nulo. El contador es un word
++// (dec word ptr): sin texturas devuelve el diccionario vacio. Con una longitud de 0 o 1 el EXE usa bytes viejos de su pila para el contador: no es un caso definido.
+ RwTexDictionary* RwTexDictionaryGtaStreamRead(RwStream* stream) {
+-    return plugin::CallAndReturn<RwTexDictionary*, 0x730FC0, RwStream*>(stream);
++    struct { uint32 header; uint32 length; uint32 version; } frame{};
++    if (!RwStreamFindChunk(stream, rwID_STRUCT, &frame.length, &frame.version)) {
++        return nullptr;
++    }
++    const uint32 length = frame.length;
++    uint32       bytesRead;
++    if (length <= sizeof(frame)) {
++        bytesRead = RwStreamRead(stream, &frame, length);
++    } else {
++        std::vector<uint8> buffer(length);
++        bytesRead = RwStreamRead(stream, buffer.data(), length);
++        std::memcpy(&frame, buffer.data(), sizeof(frame));
++    }
++    if (bytesRead != frame.length) {
++        return nullptr;
++    }
++
++    RwTexDictionary* const txd = RwTexDictionaryCreate();
++    if (!txd) {
++        return nullptr;
++    }
++    uint16 remaining = static_cast<uint16>(frame.header);
++    if (remaining != 0) {
++        do {
++            --remaining;
++            RwTexture* const texture = RwTextureGtaStreamRead(stream);
++            if (!texture) {
++                RwTexDictionaryForAllTextures(txd, reinterpret_cast<RwTextureCallBack>(0x730E50), nullptr);
++                RwTexDictionaryDestroy(txd);
++                return nullptr;
++            }
++            RwTexDictionaryAddTexture(txd, texture);
++        } while (remaining != 0);
++    }
++    return txd;
+ }
+ 
+ RwTexDictionary* RwTexDictionaryGtaStreamRead1(RwStream* stream) {
+diff --git a/source/game_sa/RwHelper.cpp b/source/game_sa/RwHelper.cpp
+index c8159d1d4..9739ae4e3 100644
+--- a/source/game_sa/RwHelper.cpp
++++ b/source/game_sa/RwHelper.cpp
+@@ -41,6 +41,7 @@ void RwHelperInjectHooks() {
+     RH_ScopedNamedGlobalInstall(GetAnimHierarchyFromFrameRegs, "GetAnimHierarchyFromFrame", 0x734AB0);
+     RH_ScopedGlobalInstall(RwTexDictionaryFindHashNamedTexture, 0x734E50);
+     RH_ScopedGlobalInstall(GetFirstTexture, 0x734940);
++    RH_ScopedGlobalInstall(RwTexDictionaryGtaStreamRead, 0x730FC0);
+     RH_ScopedGlobalInstall(RpGeometryReplaceOldMaterialWithNewMaterial, 0x734DE0);
+     RH_ScopedGlobalInstall(GetAnimHierarchyFromClump, 0x734B10);
+     RH_ScopedGlobalInstall(AtomicRemoveAnimFromSkinCB, 0x734B90);
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp b/source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp
+index f38d53753..63112e8ce 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp
+@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
+ #include "TaskComplexGoToPointAndStandStill.h"
+ #include "TaskSimpleAchieveHeading.h"
+ #include "TaskSimpleStandStill.h"
++#include "TaskComplexFollowPointRoute.h"
+ #include "X87Math.h"
+ 
+ void CTaskComplexWalkRoundObject::InjectHooks() {
+@@ -30,6 +31,7 @@ void CTaskComplexWalkRoundObject::InjectHooks() {
+     RH_ScopedCategory("Tasks/TaskTypes");
+ 
+     RH_ScopedInstall(Constructor, 0x655020);
++    RH_ScopedInstall(CreateRouteTask, 0x655140);
+     RH_ScopedVMTInstall(CreateNextSubTask, 0x657220);
+     RH_ScopedVMTInstall(CreateFirstSubTask, 0x657380);
+     RH_ScopedVMTInstall(ControlSubTask, 0x6575F0);
+@@ -203,6 +205,16 @@ CTask* CTaskComplexWalkRoundObject::CreateFirstSubTask(CPed* ped) {
+     return new CTaskSimpleAchieveHeading(heading, 1.0f, 0.2f);
+ }
+ 
++// 0x655140 (ret 4: el EXE no usa el peaton). Sin ruta (contador a cero) no crea nada; si no, reserva con CTask::operator new (0x61A5A0) y, con el pool agotado (nulo),
++// no construye y devuelve nulo (`test eax, eax; je`); el constructor 0x671510 recibe (movimiento, ruta, 0 = ONE_WAY, 0.5f [0x86FC98], 0.0f, true, false, false).
++// La ruta se lee sin comprobar el nulo, como el EXE.
+ CTask* CTaskComplexWalkRoundObject::CreateRouteTask(CPed* ped) {
+-    return plugin::CallMethodAndReturn<CTask*, 0x655140, CTaskComplexWalkRoundObject*, CPed*>(this, ped);
++    if (m_pointRoute->m_NumEntries == 0) {
++        return nullptr;
++    }
++    void* const memory = CTask::operator new(sizeof(CTaskComplexFollowPointRoute));
++    if (!memory) {
++        return nullptr;
++    }
++    return ::new (memory) CTaskComplexFollowPointRoute(static_cast<eMoveState>(m_moveState), *m_pointRoute, CTaskComplexFollowPointRoute::Mode::ONE_WAY, 0.5f, 0.0f, true, false, false);
+ }
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp b/source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp
+index 9d7e65067..48eedad36 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp
+@@ -43,6 +43,8 @@ END GENERATED HOOK STATUS */
+ #include "FileLoader.h"
+ #include "Entity/Ped/PlayerPed.h"
+ #include "PlayerPedData.h"
++#include "Stats.h"
++#include "PedStats.h"
+ #include "Events/Event.h"
+ #include "AnimBlendHierarchy.h"
+ #include "Camera.h"
+@@ -255,6 +257,8 @@ constexpr float FightHitCarChainsawScale = std::bit_cast<float>(0x3A449BA6u); //
+ constexpr float FightSparkForce         = std::bit_cast<float>(0x40A00000u); // 5.0f
+ constexpr float FightSparkSpread        = std::bit_cast<float>(0x3E99999Au); // 0.3f
+ constexpr float FightSparkLife          = std::bit_cast<float>(0x3F800000u); // 1.0f
++constexpr float FightStrikeDamageFixed = std::bit_cast<float>(0x42480000u); // 0x858B40 = 50.0f
++constexpr float FightStrikeKnuckleScale = std::bit_cast<float>(0x3FC00000u); // 0x858CE8 = 1.5f
+ constexpr float FightSoundQuietLevel    = std::bit_cast<float>(0x42200000u); // 40.0f
+ constexpr float FightAnimBlendOut       = std::bit_cast<float>(0xC0800000u); // -4.0f
+ 
+@@ -264,11 +268,6 @@ uint32 FightActiveWeaponType(const CPed* ped) {
+     return *reinterpret_cast<const uint32*>(reinterpret_cast<const uint8*>(ped->m_aWeapons.data()) + slot * static_cast<int32>(sizeof(CWeapon)));
+ }
+ 
+-// 0x61C740 (ret 4): danio del golpe; el EXE lo deja en ST0 y los llamadores lo guardan como float. Sin reconstruir.
+-float FightStrikeDamageExe(CTaskSimpleFight* task, CPed* ped) {
+-    return plugin::CallMethodAndReturn<float, 0x61C740, CTaskSimpleFight*, CPed*>(task, ped);
+-}
+-
+ // 0x61CBA0 (ret 0x14): golpe contra un ped; devuelve el ped golpeado (EAX) o null. Sin reconstruir.
+ CPed* FightHitPedExe(CTaskSimpleFight* task, CPed* creator, CPed* victim, CVector* posn1, CVector* posn2, uint32 component) {
+     return plugin::CallMethodAndReturn<CPed*, 0x61CBA0, CTaskSimpleFight*, CPed*, CPed*, CVector*, CVector*, uint32>(task, creator, victim, posn1, posn2, component);
+@@ -290,6 +289,31 @@ const float* FightStrikeRadius(const uint8* row, int32 move) {
+ bool FightStrikeBigHit(const uint8* row, int32 move) {
+     return row[0x50 + move] >= 4; // cmp byte [ecx+ebx+50h], 4 ; jb
+ }
++
++// 0x61C740 (thiscall, ret 4; ECX = tarea, EDX sin uso): danio del golpe. Los llamadores del EXE lo reciben en ST0 (0x61D0EB lo guarda con fstp dword, 0x61CCF1 lo pasa a _ftol2) y
++// ninguno lee EAX/ECX/EDX; por eso es un __fastcall (ECX, EDX, pila) que limpia su argumento. Base = byte de la fila (combo - 4) * 0x88 + 0x55 + movimiento (ambos con signo, sin acotar)
++// de la tabla 0xC170D0, convertido a float. Jugador (CPed::IsPlayer, solo el AL): con el bit 1 del byte +0x34 de sus datos de jugador (m_pPlayerData, +0x480) devuelve 50.0f (0x858B40);
++// si no, CStats::GetFatAndMuscleModifier(4) * base. No jugador: segun el tipo de arma de la ranura activa (movsx del byte +0x718): 1 -> base * 1.5f (0x858CE8), 0 -> base * m_fAttackStrength
++// (+0x28 de las estadisticas +0x59C del ped) y cualquier otro -> base. Los productos van por x87 (Cc63bCruiseSpeedCpp: fild/fmul a 24 bits, resultado sin redondear a float en ST0).
++float __fastcall FightStrikeDamageExe(CTaskSimpleFight* task, uint32 /*edx*/, CPed* ped) {
++    const uint32 base = FightStrikeRow(task)[0x55 + static_cast<int32>(static_cast<int8>(task->m_nCurrentMove))];
++    if (ped->IsPlayer()) {
++        const auto* const playerData = reinterpret_cast<const uint8*>(ped->GetPlayerData());
++        if (playerData[0x34] & 2) {
++            return FightStrikeDamageFixed;
++        }
++        const float modifier = CStats::GetFatAndMuscleModifier(static_cast<eStatModAbilities>(4));
++        return Cc63bCruiseSpeedCpp(base, modifier);
++    }
++    const uint32 weaponType = FightActiveWeaponType(ped);
++    if (weaponType == 1) {
++        return Cc63bCruiseSpeedCpp(base, FightStrikeKnuckleScale);
++    }
++    if (weaponType == 0) {
++        return Cc63bCruiseSpeedCpp(base, ped->m_pStats->m_fAttackStrength);
++    }
++    return static_cast<float>(base);
++}
+ } // namespace
+ 
+ namespace {
+@@ -818,7 +842,7 @@ void CTaskSimpleFight::FightSetUpCol(float radius) {
+ // 0x61D0B0 (ret 0x18): golpe de un ped contra un vehiculo. Orden de llamadas, relecturas y operaciones x87 como el EXE.
+ void CTaskSimpleFight::FightHitCar(CPed* ped, CVehicle* vehicle, CVector& posn1, CVector& posn2, int16 component, int8 surface) {
+     const float health = vehicle->m_fHealth;                                   // 0x61D0D2
+-    const float damage = FightStrikeDamageExe(this, ped);                      // 0x61D0EB: fstp dword
++    const float damage = FightStrikeDamageExe(this, 0, ped);                      // 0x61D0EB: fstp dword
+     const auto  weaponType = static_cast<eWeaponType>(FightActiveWeaponType(ped));
+ 
+     float scale = FightHitCarScale;                                            // 0x858C58
+@@ -1015,6 +1039,8 @@ void CTaskSimpleFight::InjectHooks() {
+     RH_ScopedNamedGlobalInstall(FightGetComboAnimGroupIDExe, "GetComboAnimGroupID", 0x4ABDA0);
+     RH_ScopedNamedGlobalInstall(FightIsComboSetExe, "IsComboSet", 0x4ABDC0);
+     RH_ScopedNamedGlobalInstall(FightIsHitComboSetExe, "IsHitComboSet", 0x4ABDF0);
++    // Como el original: __fastcall (ECX = tarea, EDX sin uso, argumento en la pila con `ret 4`) y resultado en ST0
++    RH_ScopedNamedGlobalInstall(FightStrikeDamageExe, "FightStrikeDamage", 0x61C740);
+     RH_ScopedInstall(FightSetUpCol, 0x61D5F0);
+     RH_ScopedInstall(FightHitCar, 0x61D0B0);
+     RH_ScopedInstall(FightStrike, 0x6240B0);
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index c659cd4c5..0fc345e30 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -15025,3 +15025,97 @@ __declspec(noinline) void __cdecl StoredCarUnpackForwardCpp(int x, int y, int z,
+     X87PlantStmt1Cpp(-dx);
+ }
+ #pragma float_control(pop)
++
++// --- Lote 65 (Helpers65D): CMatrix * CVector (0x59C890) con la seleccion de NaN de la x87 ---
++// El EXE carga cada elemento de la matriz con `fld` (un NaN senalizante sale ya silenciado) y lo multiplica por el elemento del punto como OPERANDO DE MEMORIA (`fmul dword`: ahi el NaN
++// senalizante se conserva) y luego suma los productos entre registros (`faddp`) y la posicion como operando de memoria (`fadd dword`). Con dos NaN, la x87 devuelve el silencioso si el otro es
++// senalizante, y entre dos silenciosos el de mayor mantisa; con un solo NaN, ese; inf*0 e inf-inf dan el indefinido 0xFFC00000. La cadena en C++ pierde esa diferencia porque el compilador
++// elige que operando va a registro. Por eso, si algun elemento leido es NaN, la cuenta se hace con este modelo de la secuencia exacta del EXE; sin NaN se usa
++// AutoPreMultiplyMatrixWithVectorCpp (las operaciones numericas son las mismas: x87 con 24 bits de mantisa).
++#pragma float_control(precise, on, push)
++namespace {
++struct Hp65Value {
++    double d;
++    bool nan;
++    unsigned qbits; // bits float del NaN silencioso
++};
++bool Hp65IsNan(unsigned bits) { return (bits & 0x7F800000u) == 0x7F800000u && (bits & 0x7FFFFFu) != 0; }
++// Los bits se leen de la memoria: pasar el float por valor lo cargaria en la x87 y silenciaria un NaN senalizante.
++unsigned Hp65Bits(const float* p) { unsigned bits; memcpy(&bits, p, sizeof(bits)); return bits; }
++Hp65Value Hp65Load(const float* p) { // fld dword
++    const unsigned bits = Hp65Bits(p);
++    if (Hp65IsNan(bits)) {
++        return { 0.0, true, bits | 0x400000u };
++    }
++    return { double(*p), false, 0 };
++}
++Hp65Value Hp65Numeric(double d) {
++    if (d != d) {
++        return { 0.0, true, 0xFFC00000u }; // indefinido
++    }
++    return { d, false, 0 };
++}
++Hp65Value Hp65Larger(const Hp65Value& a, const Hp65Value& b) {
++    return (b.qbits & 0x7FFFFFu) > (a.qbits & 0x7FFFFFu) ? b : a;
++}
++// op de memoria (fmul/fadd dword [p]) sobre el registro a
++Hp65Value Hp65MemOp(const Hp65Value& a, const float* p, bool multiply) {
++    const unsigned bits = Hp65Bits(p);
++    const bool memNan = Hp65IsNan(bits);
++    if (a.nan && memNan) {
++        if (!(bits & 0x400000u)) {
++            return a; // senalizante en memoria: gana el silencioso del registro
++        }
++        return Hp65Larger(a, { 0.0, true, bits });
++    }
++    if (a.nan) {
++        return a;
++    }
++    if (memNan) {
++        return { 0.0, true, bits | 0x400000u };
++    }
++    return Hp65Numeric(multiply ? a.d * double(*p) : a.d + double(*p));
++}
++// faddp st(1), st entre registros
++Hp65Value Hp65RegAdd(const Hp65Value& a, const Hp65Value& b) {
++    if (a.nan && b.nan) {
++        return Hp65Larger(a, b);
++    }
++    if (a.nan) {
++        return a;
++    }
++    if (b.nan) {
++        return b;
++    }
++    return Hp65Numeric(a.d + b.d);
++}
++float Hp65Store(const Hp65Value& v) {
++    return v.nan ? std::bit_cast<float>(v.qbits) : float(v.d);
++}
++// una componente: (m[a]*p[2] + m[b]*p[i]) + m[c]*p[j]... segun el EXE: t0 = m[i0]*v[k0]; t1 = m[i1]*v[k1]; t2 = m[i2]*v[k2]; ((t0 + t1) + t2) + m[pos]
++float Hp65Component(const float* m, const float* v, int i0, int k0, int i1, int k1, int i2, int k2, int pos) {
++    Hp65Value r = Hp65MemOp(Hp65Load(m + i0), v + k0, true);
++    r = Hp65RegAdd(r, Hp65MemOp(Hp65Load(m + i1), v + k1, true));
++    r = Hp65RegAdd(r, Hp65MemOp(Hp65Load(m + i2), v + k2, true));
++    r = Hp65MemOp(r, m + pos, false);
++    return Hp65Store(r);
++}
++} // namespace
++__declspec(noinline) void __cdecl Hp65MatrixTimesPointCpp(const float* m, const float* v, float* out) {
++    static constexpr int words[] = { 0, 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14 };
++    bool anyNan = Hp65IsNan(Hp65Bits(v)) || Hp65IsNan(Hp65Bits(v + 1)) || Hp65IsNan(Hp65Bits(v + 2));
++    for (const int w : words) {
++        anyNan = anyNan || Hp65IsNan(Hp65Bits(m + w));
++    }
++    if (!anyNan) {
++        AutoPreMultiplyMatrixWithVectorCpp(m, v, out);
++        return;
++    }
++    const float x = Hp65Component(m, v, 8, 2, 4, 1, 0, 0, 12);
++    const float y = Hp65Component(m, v, 9, 2, 1, 0, 5, 1, 13);
++    const float z = Hp65Component(m, v, 10, 2, 2, 0, 6, 1, 14);
++    out[0] = x;
++    out[1] = y;
++    out[2] = z;
++}
++#pragma float_control(pop)
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index 9554689c2..e01f48669 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1826,3 +1826,8 @@ Ftol2Regs __cdecl StoredCarPackAxisCpp(float axis, unsigned int ecxAtCall);
+ // RestoreCar (0x448119..0x448180): x' = x * 0.01f [0x858C58], y', z' con fild del byte con signo y fmul (24 bits); out = {x', y', z'}. Deja los registros x87 muertos del EXE:
+ // T-4 = y', T-3 = z', T-2 = y', T-1 = -x' (fld st(2)/fstp, fld st(1)/fstp, fstp, fstp, fchs/fstp).
+ void __cdecl StoredCarUnpackForwardCpp(int x, int y, int z, float* out);
++
++// --- Lote 65 (Helpers65D): CMatrix * CVector (0x59C890) ---
++// m = inicio de la matriz (right en m[0..2], forward en m[4..6], up en m[8..10], posicion en m[12..14]); out puede solaparse con m o v (se calculan las tres componentes antes de escribir).
++// Igual que AutoPreMultiplyMatrixWithVectorCpp, pero reproduce la seleccion de NaN de la x87 del EXE (operandos de memoria de fmul/fadd, faddp entre registros) cuando algun elemento leido es NaN.
++void __cdecl Hp65MatrixTimesPointCpp(const float* m, const float* v, float* out);

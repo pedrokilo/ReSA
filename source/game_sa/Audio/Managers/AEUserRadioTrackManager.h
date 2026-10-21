@@ -27,6 +27,8 @@ struct UserTracksLegacyVector {
     tUserTracksInfo** first{};
     tUserTracksInfo** last{};
     tUserTracksInfo** end{};
+
+    void PushBack(tUserTracksInfo* const& value); // 0x4F4620
 };
 VALIDATE_SIZE(UserTracksLegacyVector, 0x10);
 

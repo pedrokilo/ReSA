@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,862 entradas reversed=1**, de 8,862 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,882 entradas reversed=1**, de 8,882 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8862 |
+| `validated=1` · evidencia aprobada vinculada | 8882 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8862 |
+| Evidencia histórica vinculada; revisión pendiente | 8882 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -1297,6 +1297,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCam | `Process_Rocket` | [Resumen](../reversing/HudCamFinal2/validation-summary.json) |
 | CCam | `Process_SpecialFixedForSyphon` | [Resumen](../reversing/CamSyphon355/validation-summary.json) |
 | CCam | `Process_WheelCam` | [Resumen](../reversing/CamWheel355/validation-summary.json) |
+| CCam | `RandomiseDWHeliChaseParams` | [Resumen](../reversing/Helpers65B/validation-summary.json) |
+| CCam | `ResetDWHeliChaseParams` | [Resumen](../reversing/Helpers65B/validation-summary.json) |
 | CCam | `RotCamIfInFrontCar` | [Resumen](../reversing/CamRotate355/validation-summary.json) |
 | CCam | `Using3rdPersonMouseCam` | [Resumen](../reversing/CamCore355/validation-summary.json) |
 | CCam | `WellBufferMe` | [Resumen](../reversing/CamHud1/validation-summary.json) |
@@ -1352,6 +1354,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCamera | `InitCameraVehicleTweaks` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
 | CCamera | `InitialiseCameraForDebugMode` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
 | CCamera | `InitialiseScriptableComponents` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `IsActiveCamUnderWater` | [Resumen](../reversing/Helpers65B/validation-summary.json) |
 | CCamera | `IsExtraEntityToIgnore` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
 | CCamera | `IsSphereVisible-matrix` | [Resumen](../reversing/DependenciesWorldFxFont5/validation-summary.json) |
 | CCamera | `LerpFOV` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
@@ -2231,6 +2234,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CDecision | `MakeDecision` | [Resumen](../reversing/DecisionMakeDecision27/validation-summary.json) |
 | CDecision | `Set` | [Resumen](../reversing/DecisionPending/validation-summary.json) |
 | CDecision | `SetDefault` | [Resumen](../reversing/DecisionPending/validation-summary.json) |
+| CDecisionMaker | `MakeDecision` | [Resumen](../reversing/Helpers65A/validation-summary.json) |
 | CDecisionMakerTypes | `AddDecisionMaker` | [Resumen](../reversing/DependenciesDecisionRelationship6/validation-summary.json) |
 | CDecisionMakerTypes | `AddEventResponse` | [Resumen](../reversing/DecisionAdd27/validation-summary.json) |
 | CDecisionMakerTypes | `FlushDecisionMakerEventResponse` | [Resumen](../reversing/Dependencies25A/validation-summary.json) |
@@ -2238,6 +2242,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CDecisionMakerTypes | `LoadEventIndices` | [Resumen](../reversing/DependenciesDecisionRelationship6/validation-summary.json) |
 | CDecisionMakerTypes | `MakeDecision-Group` | [Resumen](../reversing/DecisionPedGroup27/validation-summary.json) |
 | CDecisionMakerTypes | `MakeDecision-Ped` | [Resumen](../reversing/DecisionPedGroup27/validation-summary.json) |
+| CDecisionMakerTypes | `ReadEventIndices` | [Resumen](../reversing/Helpers65A/validation-summary.json) |
 | CDecisionMakerTypes | `RemoveDecisionMaker` | [Resumen](../reversing/DependenciesDecisionRelationship6/validation-summary.json) |
 | CDecisionMakerTypesFileLoader | `GetGrpDMName` | [Resumen](../reversing/Audio7/validation-summary.json) |
 | CDecisionMakerTypesFileLoader | `GetPedDMName` | [Resumen](../reversing/Audio7/validation-summary.json) |
@@ -3044,6 +3049,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CHandShaker | `SetDefaults` | [Resumen](../reversing/World52/validation-summary.json) |
 | CHeli | `AddHeliSearchLight` | [Resumen](../reversing/Mix11/validation-summary.json) |
 | CHeli | `BurstTyre` | [Resumen](../reversing/Mix11/validation-summary.json) |
+| CHeli | `FindSwatPositionRelativeToHeli` | [Resumen](../reversing/Helpers65B/validation-summary.json) |
 | CHeli | `Fix` | [Resumen](../reversing/Mix11/validation-summary.json) |
 | CHeli | `InitHelis` | [Resumen](../reversing/Mix11/validation-summary.json) |
 | CHeli | `Post_SearchLightCone` | [Resumen](../reversing/Mix11/validation-summary.json) |
@@ -3074,6 +3080,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CHud | `DrawVitalStats` | [Resumen](../reversing/HudVitals355/validation-summary.json) |
 | CHud | `DrawWanted` | [Resumen](../reversing/HudWanted355/validation-summary.json) |
 | CHud | `DrawWeaponIcon` | [Resumen](../reversing/HudCamFinal2/validation-summary.json) |
+| CHud | `FloorFloat` | [Resumen](../reversing/Helpers65A/validation-summary.json) |
 | CHud | `GetRidOfAllHudMessages` | [Resumen](../reversing/CamHud1/validation-summary.json) |
 | CHud | `GetYPosBasedOnHealth` | [Resumen](../reversing/CamHud1/validation-summary.json) |
 | CHud | `HelpMessageDisplayed` | [Resumen](../reversing/CamHud1/validation-summary.json) |
@@ -3236,6 +3243,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CMaths | `GetCosFast` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CMaths | `GetSinFast` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CMaths | `InitMathsTables` | [Resumen](../reversing/Small2/validation-summary.json) |
+| CMatrix | `operator*-Vec` | [Resumen](../reversing/Helpers65D/validation-summary.json) |
 | CMatrixLink | `Insert` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CMatrixLink | `Remove` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CMatrixLinkList | `AddToList1` | [Resumen](../reversing/Small2/validation-summary.json) |
@@ -4523,6 +4531,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPostEffects | `SpeedFX` | [Resumen](../reversing/PostEffectsPending/validation-summary.json) |
 | CPostEffects | `UnderWaterRipple` | [Resumen](../reversing/FxPost1/validation-summary.json) |
 | CPostEffects | `Update` | [Resumen](../reversing/FxPost1/validation-summary.json) |
+| CProjectile | `Constructor` | [Resumen](../reversing/Helpers65C/validation-summary.json) |
 | CProjectileInfo | `AddProjectile` | [Resumen](../reversing/ProjectileAdd355/validation-summary.json) |
 | CProjectileInfo | `GetProjectileInfo` | [Resumen](../reversing/ProjectileCore355/validation-summary.json) |
 | CProjectileInfo | `Initialise` | [Resumen](../reversing/ProjectileCore355/validation-summary.json) |
@@ -5723,6 +5732,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexGetUpAndStandStill | `CreateFirstSubTask` | [Resumen](../reversing/CTasks43/validation-summary.json) |
 | CTaskComplexGetUpAndStandStill | `CreateNextSubTask` | [Resumen](../reversing/CTasks43/validation-summary.json) |
 | CTaskComplexGetUpAndStandStill | `CreateSubTask` | [Resumen](../reversing/CTasks43/validation-summary.json) |
+| CTaskComplexGoPickUpEntity | `Constructor` | [Resumen](../reversing/Helpers65B/validation-summary.json) |
+| CTaskComplexGoPickUpEntity | `Destructor` | [Resumen](../reversing/Helpers65B/validation-summary.json) |
 | CTaskComplexGoToAttractor | `Clone` | [Resumen](../reversing/AttractorTaskPending/validation-summary.json) |
 | CTaskComplexGoToAttractor | `Constructor` | [Resumen](../reversing/RequestedPreflightTasks/validation-summary.json) |
 | CTaskComplexGoToAttractor | `CreateFirstSubTask` | [Resumen](../reversing/AttractorTaskPending/validation-summary.json) |
@@ -6423,6 +6434,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexWalkRoundObject | `ControlSubTask` | [Resumen](../reversing/WalkRoundControl31/validation-summary.json) |
 | CTaskComplexWalkRoundObject | `CreateFirstSubTask` | [Resumen](../reversing/WalkRoundFirst31/validation-summary.json) |
 | CTaskComplexWalkRoundObject | `CreateNextSubTask` | [Resumen](../reversing/WalkRoundNext31/validation-summary.json) |
+| CTaskComplexWalkRoundObject | `CreateRouteTask` | [Resumen](../reversing/Helpers65D/validation-summary.json) |
 | CTaskComplexWander | `ComputeTargetHeading` | [Resumen](../reversing/CTasks14a/validation-summary.json) |
 | CTaskComplexWander | `ComputeTargetPos` | [Resumen](../reversing/CTasks14a/validation-summary.json) |
 | CTaskComplexWander | `Constructor` | [Resumen](../reversing/CTasks14a/validation-summary.json) |
@@ -6650,6 +6662,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleCarDrive | `Clone` | [Resumen](../reversing/CTasks61a/validation-summary.json) |
 | CTaskSimpleCarDrive | `Constructor` | [Resumen](../reversing/CTasks61a/validation-summary.json) |
 | CTaskSimpleCarDrive | `Destructor` | [Resumen](../reversing/CTasks61a/validation-summary.json) |
+| CTaskSimpleCarDrive | `FinishAnimCloseDoorRollingCB` | [Resumen](../reversing/Helpers65C/validation-summary.json) |
 | CTaskSimpleCarDrive | `GetTaskType` | [Resumen](../reversing/CTasks61a/validation-summary.json) |
 | CTaskSimpleCarDrive | `MakeAbortable` | [Resumen](../reversing/CTasks61a/validation-summary.json) |
 | CTaskSimpleCarDrive | `ProcessArmBopping` | [Resumen](../reversing/CTasks61a/validation-summary.json) |
@@ -6917,6 +6930,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleFight | `FightHitCar` | [Resumen](../reversing/Dependencies21C/validation-summary.json) |
 | CTaskSimpleFight | `FightSetUpCol` | [Resumen](../reversing/Dependencies21C/validation-summary.json) |
 | CTaskSimpleFight | `FightStrike` | [Resumen](../reversing/Dependencies21C/validation-summary.json) |
+| CTaskSimpleFight | `FightStrikeDamage` | [Resumen](../reversing/Helpers65D/validation-summary.json) |
 | CTaskSimpleFight | `GetComboAnimGroupID` | [Resumen](../reversing/DependenciesFightLeaf2/validation-summary.json) |
 | CTaskSimpleFight | `IsComboSet` | [Resumen](../reversing/DependenciesFightLeaf2/validation-summary.json) |
 | CTaskSimpleFight | `IsHitComboSet` | [Resumen](../reversing/DependenciesFightLeaf2/validation-summary.json) |
@@ -8367,6 +8381,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | FxSystem_c | `Stop` | [Resumen](../reversing/FxPost1/validation-summary.json) |
 | FxSystem_c | `Update` | [Resumen](../reversing/FxSystemPending/validation-summary.json) |
 | FxSystem_c | `UpdateBoundingBoxCB` | [Resumen](../reversing/FxSystemPending/validation-summary.json) |
+| Fx_c | `AddTyreBurst` | [Resumen](../reversing/Helpers65C/validation-summary.json) |
 | Fx_c | `CreateMatFromVec` | [Resumen](../reversing/DependenciesWorldFxFont5/validation-summary.json) |
 | Fx_c | `RenderAddTri_` | [Resumen](../reversing/Fx8/validation-summary.json) |
 | Fx_c | `RenderBegin` | [Resumen](../reversing/Fx8/validation-summary.json) |
@@ -8375,6 +8390,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | Fx_c | `RotateVecIntoVec` | [Resumen](../reversing/Fx8/validation-summary.json) |
 | Fx_c | `TriggerBulletSplash` | [Resumen](../reversing/Fx8/validation-summary.json) |
 | Fx_c | `TriggerFootSplash` | [Resumen](../reversing/Fx8/validation-summary.json) |
+| Fx_c | `TriggerTankFire` | [Resumen](../reversing/Helpers65C/validation-summary.json) |
+| Fx_c | `TriggerWaterHydrant` | [Resumen](../reversing/Helpers65C/validation-summary.json) |
 | Fx_c | `TriggerWaterSplash` | [Resumen](../reversing/Fx8/validation-summary.json) |
 | Game | `FrontendIdle` | [Resumen](../reversing/GameIdle/validation-summary.json) |
 | Game | `GameInit` | [Resumen](../reversing/Sys12/validation-summary.json) |
@@ -8744,6 +8761,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | RwHelper | `Get2DEffectAtomic` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
 | RwHelper | `GetAnimHierarchyFromClump` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
 | RwHelper | `GetAnimHierarchyFromFrame` | [Resumen](../reversing/DependenciesWorld12/validation-summary.json) |
+| RwHelper | `GetAnimHierarchyFromFrameCallback` | [Resumen](../reversing/Helpers65A/validation-summary.json) |
 | RwHelper | `GetAnimHierarchyFromSkinClump` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
 | RwHelper | `GetEventGlobalGroup` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
 | RwHelper | `GetFirstAtomic` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
@@ -8761,6 +8779,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | RwHelper | `RpClumpConvertGeometryToTS` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
 | RwHelper | `RpGeometryReplaceOldMaterialWithNewMaterial` | [Resumen](../reversing/Dependencies21G/validation-summary.json) |
 | RwHelper | `RwTexDictionaryFindHashNamedTexture` | [Resumen](../reversing/DependenciesWorld11/validation-summary.json) |
+| RwHelper | `RwTexDictionaryGtaStreamRead` | [Resumen](../reversing/Helpers65D/validation-summary.json) |
 | RwHelper | `SetFilterModeOnAtomicsTextures` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
 | RwHelper | `SetFilterModeOnClumpsTextures` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
 | RwHelper | `SkinAtomicGetHAnimHierarchCB` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
@@ -8831,6 +8850,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | SurfaceInfos_c | `MakesCarClean` | [Resumen](../reversing/Surface47/validation-summary.json) |
 | SurfaceInfos_c | `MakesCarDirty` | [Resumen](../reversing/Surface47/validation-summary.json) |
 | SurfaceInfos_c | `ProducesFootDust` | [Resumen](../reversing/Surface47/validation-summary.json) |
+| UserTracksLegacyVector | `PushBack` | [Resumen](../reversing/Helpers65A/validation-summary.json) |
 | VideoMode | `FreeVideoModeList` | [Resumen](../reversing/RenderVideo8/validation-summary.json) |
 | VideoMode | `GetVideoModeList` | [Resumen](../reversing/RenderVideo8/validation-summary.json) |
 | VideoMode | `IsVideoModeExclusive` | [Resumen](../reversing/RenderVideo8/validation-summary.json) |
@@ -8972,8 +8992,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CBuildingPool` | 1 | 0 | 1 | 0 |
 | `CBulletInfo` | 4 | 0 | 4 | 0 |
 | `CBulletTraces` | 5 | 0 | 5 | 0 |
-| `CCam` | 48 | 0 | 48 | 0 |
-| `CCamera` | 118 | 0 | 118 | 0 |
+| `CCam` | 50 | 0 | 50 | 0 |
+| `CCamera` | 119 | 0 | 119 | 0 |
 | `CCarAI` | 25 | 0 | 25 | 0 |
 | `CCarCtrl` | 93 | 0 | 93 | 0 |
 | `CCarEnterExit` | 32 | 0 | 32 | 0 |
@@ -9031,7 +9051,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CData` | 2 | 0 | 2 | 0 |
 | `CDebug` | 1 | 0 | 1 | 0 |
 | `CDecision` | 5 | 0 | 5 | 0 |
-| `CDecisionMakerTypes` | 8 | 0 | 8 | 0 |
+| `CDecisionMaker` | 1 | 0 | 1 | 0 |
+| `CDecisionMakerTypes` | 9 | 0 | 9 | 0 |
 | `CDecisionMakerTypesFileLoader` | 7 | 0 | 7 | 0 |
 | `CDirectory` | 10 | 0 | 10 | 0 |
 | `CDoor` | 6 | 0 | 6 | 0 |
@@ -9134,8 +9155,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CGroupEventHandler` | 32 | 0 | 32 | 0 |
 | `CHandObject` | 3 | 0 | 3 | 0 |
 | `CHandShaker` | 3 | 0 | 3 | 0 |
-| `CHeli` | 11 | 0 | 11 | 0 |
-| `CHud` | 38 | 0 | 38 | 0 |
+| `CHeli` | 12 | 0 | 12 | 0 |
+| `CHud` | 39 | 0 | 39 | 0 |
 | `CHudColours` | 5 | 0 | 5 | 0 |
 | `CIdleCam` | 14 | 0 | 14 | 0 |
 | `CInformFriendsEventQueue` | 4 | 0 | 4 | 0 |
@@ -9156,6 +9177,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CLodAtomicModelInfo` | 3 | 0 | 3 | 0 |
 | `CLodTimeModelInfo` | 2 | 0 | 2 | 0 |
 | `CMaths` | 3 | 0 | 3 | 0 |
+| `CMatrix` | 1 | 0 | 1 | 0 |
 | `CMatrixLink` | 2 | 0 | 2 | 0 |
 | `CMatrixLinkList` | 10 | 0 | 10 | 0 |
 | `CMemoryHeap` | 1 | 0 | 1 | 0 |
@@ -9244,6 +9266,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPopCycle` | 15 | 0 | 15 | 0 |
 | `CPopulation` | 67 | 0 | 67 | 0 |
 | `CPostEffects` | 38 | 0 | 38 | 0 |
+| `CProjectile` | 1 | 0 | 1 | 0 |
 | `CProjectileInfo` | 12 | 0 | 12 | 0 |
 | `CPtrNodeDoubleLinkPool` | 1 | 0 | 1 | 0 |
 | `CPtrNodeSingleLinkPool` | 1 | 0 | 1 | 0 |
@@ -9363,6 +9386,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexGangLeader` | 13 | 0 | 13 | 0 |
 | `CTaskComplexGetOnBoatSeat` | 8 | 0 | 8 | 0 |
 | `CTaskComplexGetUpAndStandStill` | 5 | 0 | 5 | 0 |
+| `CTaskComplexGoPickUpEntity` | 2 | 0 | 2 | 0 |
 | `CTaskComplexGoToAttractor` | 5 | 0 | 5 | 0 |
 | `CTaskComplexGoToBoatSteeringWheel` | 6 | 0 | 6 | 0 |
 | `CTaskComplexGoToCarDoorAndStandStill` | 11 | 0 | 11 | 0 |
@@ -9456,7 +9480,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexWalkRoundBuildingAttempt` | 12 | 0 | 12 | 0 |
 | `CTaskComplexWalkRoundCar` | 13 | 0 | 13 | 0 |
 | `CTaskComplexWalkRoundFire` | 8 | 0 | 8 | 0 |
-| `CTaskComplexWalkRoundObject` | 4 | 0 | 4 | 0 |
+| `CTaskComplexWalkRoundObject` | 5 | 0 | 5 | 0 |
 | `CTaskComplexWander` | 14 | 0 | 14 | 0 |
 | `CTaskComplexWanderCop` | 9 | 0 | 9 | 0 |
 | `CTaskComplexWanderCriminal` | 6 | 0 | 6 | 0 |
@@ -9490,7 +9514,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleCarAlign` | 10 | 0 | 10 | 0 |
 | `CTaskSimpleCarCloseDoorFromInside` | 10 | 0 | 10 | 0 |
 | `CTaskSimpleCarCloseDoorFromOutside` | 10 | 0 | 10 | 0 |
-| `CTaskSimpleCarDrive` | 13 | 0 | 13 | 0 |
+| `CTaskSimpleCarDrive` | 14 | 0 | 14 | 0 |
 | `CTaskSimpleCarDriveTimed` | 5 | 0 | 5 | 0 |
 | `CTaskSimpleCarFallOut` | 9 | 0 | 9 | 0 |
 | `CTaskSimpleCarGetIn` | 9 | 0 | 9 | 0 |
@@ -9527,7 +9551,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleEvasiveStep` | 8 | 0 | 8 | 0 |
 | `CTaskSimpleFacial` | 5 | 0 | 5 | 0 |
 | `CTaskSimpleFall` | 6 | 0 | 6 | 0 |
-| `CTaskSimpleFight` | 12 | 0 | 12 | 0 |
+| `CTaskSimpleFight` | 13 | 0 | 13 | 0 |
 | `CTaskSimpleFightingControl` | 7 | 0 | 7 | 0 |
 | `CTaskSimpleFinishBrain` | 2 | 0 | 2 | 0 |
 | `CTaskSimpleGangDriveBy` | 8 | 0 | 8 | 0 |
@@ -9663,7 +9687,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `FxSphere_c` | 4 | 0 | 4 | 0 |
 | `FxSystemBP_c` | 10 | 0 | 10 | 0 |
 | `FxSystem_c` | 35 | 0 | 35 | 0 |
-| `Fx_c` | 9 | 0 | 9 | 0 |
+| `Fx_c` | 12 | 0 | 12 | 0 |
 | `Game` | 12 | 0 | 12 | 0 |
 | `IKChainManager_c` | 17 | 0 | 17 | 0 |
 | `IKChain_c` | 20 | 0 | 20 | 0 |
@@ -9690,10 +9714,11 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `RtAnim` | 3 | 0 | 3 | 0 |
 | `RtDict` | 2 | 0 | 2 | 0 |
 | `RwCore` | 29 | 0 | 29 | 0 |
-| `RwHelper` | 28 | 0 | 28 | 0 |
+| `RwHelper` | 30 | 0 | 30 | 0 |
 | `RwPlCore` | 14 | 0 | 14 | 0 |
 | `Securom` | 2 | 0 | 2 | 0 |
 | `SurfaceInfos_c` | 47 | 0 | 47 | 0 |
+| `UserTracksLegacyVector` | 1 | 0 | 1 | 0 |
 | `VideoMode` | 4 | 0 | 4 | 0 |
 | `VideoPlayer` | 6 | 0 | 6 | 0 |
 | `WaterCreatureManager_c` | 7 | 0 | 7 | 0 |

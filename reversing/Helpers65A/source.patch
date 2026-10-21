@@ -1,0 +1,315 @@
+diff --git a/source/InjectHooksMain.cpp b/source/InjectHooksMain.cpp
+index 156af157e..95346b36c 100644
+--- a/source/InjectHooksMain.cpp
++++ b/source/InjectHooksMain.cpp
+@@ -878,6 +878,7 @@ void InjectHooksMain() {
+     CAutoPilot::InjectHooks();
+     CLoadMonitor::InjectHooks();
+     CDecisionMakerTypes::InjectHooks();
++    CDecisionMaker::InjectHooks();
+     CPlayerRelationshipRecorder::InjectHooks();
+     CDecisionMakerTypesFileLoader::InjectHooks();
+     CDecision::InjectHooks();
+diff --git a/source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp b/source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp
+index 9adf532c4..1591af783 100644
+--- a/source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp
++++ b/source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp
+@@ -412,7 +412,7 @@ void CAEUserRadioTrackManager::WriteUserTracksThread_Unicode() {
+  * Como el original: se salta todo lo que empieza por '.', baja a las carpetas con profundidad + 1 (hasta 15) y, solo
+  * en el primer nivel, resuelve los .lnk (si apuntan a una carpeta la recorre con profundidad 1). La longitud de cada
+  * ruta se guarda en 16 bits (movzx) y cada registro se reserva con el operator new del EXE y se añade con el
+- * push_back del vector VC6 (0x4F4620).
++ * push_back del vector VC6 (UserTracksLegacyVector::PushBack, 0x4F4620).
+  */
+ int32 CAEUserRadioTrackManager::WriteUserTracksFile(const char* dir, UserTracksLegacyVector& offsets, FILE* file, uint32& currentLength, int32 depth) {
+     if (notsa::bugfixes::CAEUserRadioTrackManager_UnicodeUserTracks) {
+@@ -443,7 +443,7 @@ int32 CAEUserRadioTrackManager::WriteUserTracksFile(const char* dir, UserTracksL
+         return std::pair{ record, pathLen };
+     };
+     const auto PushBack = [&offsets](tUserTracksInfo* record) {
+-        plugin::CallMethod<0x4F4620, UserTracksLegacyVector*, tUserTracksInfo**>(&offsets, &record);
++        offsets.PushBack(record);
+     };
+ 
+     char* pattern = new char[lstrlenA(dir) + 6];
+@@ -655,6 +655,28 @@ std::wstring CAEUserRadioTrackManager::ResolveShortcut(const std::wstring& path)
+     return target;
+ }
+ 
++// 0x4F4620: push_back del vector VC6 de elementos de 4 bytes (thiscall, ECX = vector, un argumento en pila: referencia al valor, ret 4). Con el almacenamiento reservado y
++// sitio libre (first != 0 y (last - first) / 4 < (end - first) / 4, cocientes con signo comparados sin signo) construye el elemento en `last` con 0x4F3B30 (cdecl:
++// destino, 1, &valor, this, &valor) y guarda en last la direccion leida ANTES de la llamada mas 4; si no (sin almacenamiento o lleno) llama a insert(last, 1, &valor)
++// del EXE (0x4F4320, thiscall, ret 0Ch), que reserva con el operator new del EXE y recoloca los punteros. Ningun llamador del EXE lee EAX/ECX/EDX.
++void UserTracksLegacyVector::PushBack(tUserTracksInfo* const& value) {
++    tUserTracksInfo** const begin = first;
++    int32 size = 0;
++    if (begin) {
++        size = static_cast<int32>(reinterpret_cast<uint32>(last) - reinterpret_cast<uint32>(begin)) >> 2;
++    }
++    if (begin) {
++        const int32 capacity = static_cast<int32>(reinterpret_cast<uint32>(end) - reinterpret_cast<uint32>(begin)) >> 2;
++        if (static_cast<uint32>(size) < static_cast<uint32>(capacity)) {
++            tUserTracksInfo** const slot = last;
++            plugin::Call<0x4F3B30, tUserTracksInfo**, uint32, tUserTracksInfo* const*, UserTracksLegacyVector*, tUserTracksInfo* const*>(slot, 1, &value, this, &value);
++            last = slot + 1;
++            return;
++        }
++    }
++    plugin::CallMethod<0x4F4320, UserTracksLegacyVector*, tUserTracksInfo**, uint32, tUserTracksInfo* const*>(this, last, 1, &value);
++}
++
+ void CAEUserRadioTrackManager::InjectHooks() {
+     RH_ScopedClass(CAEUserRadioTrackManager);
+     RH_ScopedCategory("Audio/Managers");
+@@ -674,4 +696,9 @@ void CAEUserRadioTrackManager::InjectHooks() {
+     RH_ScopedOverloadedInstall(WriteUserTracksFile, "", 0x4f4690, int32 (CAEUserRadioTrackManager::*)(const char*, UserTracksLegacyVector&, FILE*, uint32&, int32));
+     RH_ScopedInstall(WriteUserTracksThread, 0x4f4a20);
+     RH_ScopedInstall(ScanUserTracks, 0x4f4ba0);
++
++    {
++        RH_ScopedClass(UserTracksLegacyVector);
++        RH_ScopedInstall(PushBack, 0x4F4620);
++    }
+ }
+diff --git a/source/game_sa/Audio/Managers/AEUserRadioTrackManager.h b/source/game_sa/Audio/Managers/AEUserRadioTrackManager.h
+index 98d3c6eca..bb2ae2f84 100644
+--- a/source/game_sa/Audio/Managers/AEUserRadioTrackManager.h
++++ b/source/game_sa/Audio/Managers/AEUserRadioTrackManager.h
+@@ -27,6 +27,8 @@ struct UserTracksLegacyVector {
+     tUserTracksInfo** first{};
+     tUserTracksInfo** last{};
+     tUserTracksInfo** end{};
++
++    void PushBack(tUserTracksInfo* const& value); // 0x4F4620
+ };
+ VALIDATE_SIZE(UserTracksLegacyVector, 0x10);
+ 
+diff --git a/source/game_sa/DecisionMakers/DecisionMaker.cpp b/source/game_sa/DecisionMakers/DecisionMaker.cpp
+index d2f94511d..ef8db5677 100644
+--- a/source/game_sa/DecisionMakers/DecisionMaker.cpp
++++ b/source/game_sa/DecisionMakers/DecisionMaker.cpp
+@@ -2,9 +2,24 @@
+ 
+ #include "DecisionMaker.h"
+ 
++void CDecisionMaker::InjectHooks() {
++    RH_ScopedClass(CDecisionMaker);
++    RH_ScopedCategory("DecisionMakers");
++
++    RH_ScopedInstall(MakeDecision, 0x606060);
++}
++
+ // 0x4650A0
+ CDecisionMaker::CDecisionMaker() {
+     for (auto& decision : m_aDecisions) {
+         decision.SetDefault();
+     }
+ }
++
++// 0x606060: ECX = this (primera CDecision del decision maker), nueve argumentos en pila (ret 24h). Delega en CDecision::MakeDecision (0x6040D0) de la decision
++// this + eventIndex * 0x3C (imul de 32 bits que da la vuelta, sin comprobar limites) pasandole los otros ocho argumentos tal cual. CDecision::MakeDecision es la ultima
++// llamada; el unico llamador del EXE (CDecisionMakerTypes::MakeDecision para peds) no lee EAX/ECX/EDX despues.
++void CDecisionMaker::MakeDecision(int32 eventIndex, int32 eventSourceType, bool bIsPedInVehicle, int32 taskTypeToAvoid1, int32 taskTypeToAvoid2, int32 taskTypeToAvoid3, int32 taskTypeToSeek, int16& taskType, int16& facialTaskType) {
++    auto* const decision = reinterpret_cast<CDecision*>(reinterpret_cast<uint8*>(this) + static_cast<uint32>(eventIndex) * static_cast<uint32>(sizeof(CDecision)));
++    decision->MakeDecision(eventSourceType, bIsPedInVehicle, taskTypeToAvoid1, taskTypeToAvoid2, taskTypeToAvoid3, taskTypeToSeek, taskType, facialTaskType);
++}
+diff --git a/source/game_sa/DecisionMakers/DecisionMaker.h b/source/game_sa/DecisionMakers/DecisionMaker.h
+index 29679afc8..cc13067f4 100644
+--- a/source/game_sa/DecisionMakers/DecisionMaker.h
++++ b/source/game_sa/DecisionMakers/DecisionMaker.h
+@@ -17,6 +17,8 @@ public:
+     static void InjectHooks();
+ 
+     CDecisionMaker();
++
++    void MakeDecision(int32 eventIndex, int32 eventSourceType, bool bIsPedInVehicle, int32 taskTypeToAvoid1, int32 taskTypeToAvoid2, int32 taskTypeToAvoid3, int32 taskTypeToSeek, int16& taskType, int16& facialTaskType);
+ };
+ 
+ VALIDATE_SIZE(CDecisionMaker, 0x99C);
+diff --git a/source/game_sa/DecisionMakers/DecisionMakerTypes.cpp b/source/game_sa/DecisionMakers/DecisionMakerTypes.cpp
+index 5ce7adcaa..7081d6b25 100644
+--- a/source/game_sa/DecisionMakers/DecisionMakerTypes.cpp
++++ b/source/game_sa/DecisionMakers/DecisionMakerTypes.cpp
+@@ -38,13 +38,14 @@ void CDecisionMakerTypes::InjectHooks() {
+     RH_ScopedInstall(AddDecisionMaker, 0x607050);
+     RH_ScopedInstall(RemoveDecisionMaker, 0x6043A0);
+     RH_ScopedInstall(LoadEventIndices, 0x600840);
++    RH_ScopedInstall(ReadEventIndices, 0x5BB9F0);
+     RH_ScopedInstall(FlushDecisionMakerEventResponse, 0x604490);
+     RH_ScopedInstall(AddEventResponse, 0x6044C0);
+ }
+ 
+ // Registros de las funciones de este archivo (los bancos DependenciesDecisionPed7, DependenciesDecisionRelationship6 y DependenciesTask11
+ // siembran EAX/ECX/EDX y comparan lo que sale):
+-//  - Los colaboradores del EXE sin reconstruir (0x606060, 0x5BB9F0, operator new 0x82119A y el constructor 0x4650F0) no leen EAX/ECX/EDX
++//  - Los colaboradores del EXE sin reconstruir (operator new 0x82119A, operator delete 0x8214BD y el constructor 0x4650F0) no leen EAX/ECX/EDX
+ //    de entrada antes de escribirlos, asi que su residuo de salida es independiente del llamador. Se llaman por direccion; cuando es lo ultimo que
+ //    hace la funcion (MakeDecision, LoadEventIndices) no se ejecuta nada despues que toque ECX/EDX/EAX y el residuo del colaborador llega intacto
+ //    al llamador del EXE. Sin comprobaciones de ejecucion (/RTC1 anade __RTC_CheckEsp tras las llamadas) ni cookie de /GS (safebuffers).
+@@ -55,15 +56,11 @@ void CDecisionMakerTypes::InjectHooks() {
+ //  - La salida de Add/Remove/GetInstance termina con ResidueRegsCpp(ECX, EDX, EAX) (lo vigila contrib/audit_register_residue.py, objeto DecisionMakerTypes).
+ namespace {
+ // Colaboradores del EXE sin reconstruir. Todos son thiscall/stdcall con parametros en pila (callee limpia), por eso se declaran __fastcall con un EDX explicito.
+-constexpr uintptr_t kExeDecisionMany = 0x606060; // thiscall(CDecision* base, index, srcType, inVehicle, avoid1, avoid2, avoid3, seek, int16* task, int16* facial), ret 0x24
+-constexpr uintptr_t kExeReadEvents   = 0x5BB9F0; // stdcall(int32* indices, const char* fileName), ret 8
+ constexpr uintptr_t kExeOperatorNew  = 0x82119A; // cdecl(size_t)
+ constexpr uintptr_t kExeOperatorDel  = 0x8214BD; // cdecl(void*)
+ constexpr uintptr_t kExeConstruct    = 0x4650F0; // thiscall(CDecisionMakerTypes*), ret; EAX = this
+ constexpr uintptr_t kExePedEventFile = 0x86CD44; // "PedEvent.txt"
+ 
+-using ExeDecisionMany = void(__fastcall*)(void* base, uint32 edx, uint32 eventIndex, int32 sourceType, int32 inVehicle, int32 avoid1, int32 avoid2, int32 avoid3, int32 seek, int16* taskType, int16* facialTaskType);
+-using ExeReadEvents   = void(__stdcall*)(int32* indices, const char* fileName);
+ using ExeOperatorNew  = uint64(__cdecl*)(uint32 size);
+ using ExeOperatorDel  = void(__cdecl*)(void* block);
+ using ExeConstruct    = uint64(__fastcall*)(void* self, uint32 edx);
+@@ -189,8 +186,8 @@ __declspec(safebuffers) CDecisionMakerTypes* CDecisionMakerTypes::GetInstance()
+ }
+ 
+ // 0x606E70: ECX = this, 11 argumentos en pila (ret 2Ch). Elige el decision maker segun la inteligencia del ped (+0x47C): -2 = jugador (CDecision suelta),
+-// -1 = aleatorio/mision segun el tipo de ped (+0x484, byte == 2) con la funcion 0x606060 (indice aparte) y cualquier otro valor = ranura propia
+-// [id * 41 + indice]. Todas acaban en CDecision::MakeDecision (C++, 0x6040D0) o en 0x606060 (EXE) y no se ejecuta nada despues; ningun llamador del EXE lee EAX/ECX/EDX de salida.
++// -1 = aleatorio/mision segun el tipo de ped (+0x484, byte == 2) con CDecisionMaker::MakeDecision (0x606060, indice aparte) y cualquier otro valor = ranura propia
++// [id * 41 + indice]. Todas acaban en CDecision::MakeDecision (0x6040D0) o en CDecisionMaker::MakeDecision (0x606060), ambas en C++, y no se ejecuta nada despues; ningun llamador del EXE lee EAX/ECX/EDX de salida.
+ __declspec(safebuffers) void CDecisionMakerTypes::MakeDecision(CPed* ped, eEventType eventType, int32 eventSourceType, bool bIsPedInVehicle, eTaskType taskTypeToAvoid1, eTaskType taskTypeToAvoid2, eTaskType taskTypeToAvoid3, eTaskType taskTypeToSeek, bool bUseInGroupDecisionMaker, int16& taskType, int16& facialTaskType) {
+     uint8* const       base         = reinterpret_cast<uint8*>(this);
+     const uint8* const pedBytes     = reinterpret_cast<const uint8*>(ped);
+@@ -205,7 +202,7 @@ __declspec(safebuffers) void CDecisionMakerTypes::MakeDecision(CPed* ped, eEvent
+     if (decisionMaker == -2) {
+         reinterpret_cast<CDecision*>(base + kPlayerPed + eventIndex * kDecisionStride)->MakeDecision(eventSourceType, bIsPedInVehicle, static_cast<int32>(taskTypeToAvoid1), static_cast<int32>(taskTypeToAvoid2), static_cast<int32>(taskTypeToAvoid3), static_cast<int32>(taskTypeToSeek), *outTask, *outFacial);
+     } else if (decisionMaker == -1) {
+-        reinterpret_cast<ExeDecisionMany>(kExeDecisionMany)(base + (pedBytes[0x484] == 2 ? kMissionPed : kRandomPed), eventIndex, eventIndex, eventSourceType, static_cast<int32>(bIsPedInVehicle), static_cast<int32>(taskTypeToAvoid1), static_cast<int32>(taskTypeToAvoid2), static_cast<int32>(taskTypeToAvoid3), static_cast<int32>(taskTypeToSeek), outTask, outFacial);
++        reinterpret_cast<CDecisionMaker*>(base + (pedBytes[0x484] == 2 ? kMissionPed : kRandomPed))->MakeDecision(static_cast<int32>(eventIndex), eventSourceType, bIsPedInVehicle, static_cast<int32>(taskTypeToAvoid1), static_cast<int32>(taskTypeToAvoid2), static_cast<int32>(taskTypeToAvoid3), static_cast<int32>(taskTypeToSeek), *outTask, *outFacial);
+     } else {
+         reinterpret_cast<CDecision*>(base + 4 + (static_cast<uint32>(decisionMaker) * static_cast<uint32>(CDecision::MAX_NUM_DECISIONS) + eventIndex) * kDecisionStride)->MakeDecision(eventSourceType, bIsPedInVehicle, static_cast<int32>(taskTypeToAvoid1), static_cast<int32>(taskTypeToAvoid2), static_cast<int32>(taskTypeToAvoid3), static_cast<int32>(taskTypeToSeek), *outTask, *outFacial);
+     }
+@@ -320,15 +317,36 @@ void CDecisionMakerTypes::FlushDecisionMakerEventResponse(int32 decisionMakerInd
+     reinterpret_cast<CDecision*>(static_cast<uintptr_t>(self + offset + 4u))->SetDefault();
+ }
+ 
+-// 0x600840: ECX = this. Lee data/decision/PedEvent.txt (cadena del EXE 0x86CD44) con 0x5BB9F0(this + 0xC034, nombre) (ret 8); es la ultima llamada y
+-// su EAX/ECX/EDX de salida llegan tal cual al llamador (el colaborador escribe ECX, EDX y EAX antes de leerlos: no depende de los de entrada).
+-// El colaborador deja en ECX una direccion de su propio marco (lea ecx,[esp+..]), asi que el ESP con que se le llama debe ser el del EXE
+-// (ESP_entrada - 12, sin marco propio). Con el marco /Od de depuracion (84 bytes) ECX salia 84 bytes mas abajo: la funcion se optimiza por pragma
+-// (CMakeLists.txt: /Zi y BasicRuntimeChecks=Default para este archivo) y compila a push; lea; push; mov eax,imm; call eax; ret.
+-#pragma runtime_checks("", off)
+-#pragma optimize("gty", on)
+-__declspec(safebuffers) void CDecisionMakerTypes::LoadEventIndices() {
+-    reinterpret_cast<ExeReadEvents>(kExeReadEvents)(reinterpret_cast<int32*>(reinterpret_cast<uint8*>(this) + kEventIndices), reinterpret_cast<const char*>(kExePedEventFile));
++// 0x600840: ECX = this. Lee data/decision/PedEvent.txt (cadena del EXE 0x86CD44) con ReadEventIndices (0x5BB9F0) sobre this + 0xC034 (m_EventIndices); es la ultima llamada.
++void CDecisionMakerTypes::LoadEventIndices() {
++    ReadEventIndices(m_EventIndices.data(), reinterpret_cast<const char*>(kExePedEventFile));
++}
++
++// 0x5BB9F0 (stdcall, ret 8): pone a cero los 96 enteros de `indices` y lee el archivo de eventos linea a linea desde data\decision\ (SetDir(""), SetDir("data\\decision\\"),
++// OpenFile(fileName, "r"), SetDir("")). Cada linea que no esta vacia (primer caracter distinto de 0 y de '\n') se analiza con el sscanf del EXE (0x8220AD, formato "%s %d":
++// nombre del evento, que se descarta, e indice) y guarda el numero de orden de la linea en indices[indice] (sin comprobar limites, como el EXE); las lineas vacias no cuentan.
++// El indice conserva su valor anterior si sscanf no lo escribe. Termina con CloseFile (el EXE no comprueba el resultado de OpenFile).
++void __stdcall CDecisionMakerTypes::ReadEventIndices(int32* indices, const char* fileName) {
++    for (int32 i = 0; i < 96; ++i) {
++        indices[i] = 0;
++    }
++    CFileMgr::SetDir("");
++    CFileMgr::SetDir("data\\decision\\");
++    FILESTREAM file = CFileMgr::OpenFile(fileName, "r");
++    CFileMgr::SetDir("");
++    const auto exeSscanf = reinterpret_cast<int(__cdecl*)(const char*, const char*, ...)>(0x8220AD); // sscanf del CRT estatico del juego
++    char  line[256];
++    char  eventName[240];
++    int32 index = 0;
++    int32 order = 0;
++    bool  more  = CFileMgr::ReadLine(file, line, 256);
++    while (more) {
++        if (line[0] != '\0' && line[0] != '\n') {
++            exeSscanf(line, "%s %d", eventName, &index);
++            indices[index] = order;
++            ++order;
++        }
++        more = CFileMgr::ReadLine(file, line, 256);
++    }
++    CFileMgr::CloseFile(file);
+ }
+-#pragma optimize("", on)
+-#pragma runtime_checks("", restore)
+diff --git a/source/game_sa/DecisionMakers/DecisionMakerTypes.h b/source/game_sa/DecisionMakers/DecisionMakerTypes.h
+index f79d4c003..a68733a9d 100644
+--- a/source/game_sa/DecisionMakers/DecisionMakerTypes.h
++++ b/source/game_sa/DecisionMakers/DecisionMakerTypes.h
+@@ -56,6 +56,7 @@ public:
+     void AddEventResponse(int32 decisionMakerIndex, eEventType eventType, eTaskType taskId, float* responseChances, int32* flags);
+     void FlushDecisionMakerEventResponse(int32 decisionMakerIndex, eEventType eventId);
+     void LoadEventIndices();
++    static void __stdcall ReadEventIndices(int32* indices, const char* fileName);
+ 
+ public:
+     int32                                                              m_NoOfDecisionMakers{};
+diff --git a/source/game_sa/Hud.cpp b/source/game_sa/Hud.cpp
+index 26e68b24f..a7015b7d5 100644
+--- a/source/game_sa/Hud.cpp
++++ b/source/game_sa/Hud.cpp
+@@ -43,6 +43,13 @@ inline float ExeFloat(uintptr_t address) {
+ // fild maximumWidth/Height * 0x859520/0x859524 (x87 a 24 bits); el EXE multiplica despues por la constante de cada elemento.
+ inline float StretchBaseX() { return (float)RsGlobal.maximumWidth * ExeFloat(0x859520); }
+ inline float StretchBaseY() { return (float)RsGlobal.maximumHeight * ExeFloat(0x859524); }
++
++// 0x406CE0: floorf del CRT del EXE (cdecl, un float en pila). `fld dword [esp+4]; sub esp,8; fstp qword [esp]` lo amplia a double (exacto, NaN silenciados) y llama al floor
++// del CRT (0x8219F0, sin reconstruir, cdecl con un double) cuyo resultado queda en ST0 y se devuelve sin tocar (double: ni se redondea a float ni se pasa por SSE). Los
++// llamadores del EXE (0x4D8793, 0x570689.., 0x589BF5) solo leen ST0: la funcion no deja nada mas en EAX/ECX/EDX que dependa de ella.
++double FloorFloat(float value) {
++    return reinterpret_cast<double(__cdecl*)(double)>(0x8219F0)(static_cast<double>(value));
++}
+ }
+ 
+ void CHud::InjectHooks() {
+@@ -53,6 +60,7 @@ void CHud::InjectHooks() {
+     RH_ScopedInstall(ReInitialise, 0x588880);
+     RH_ScopedInstall(Shutdown, 0x588850);
+     RH_ScopedInstall(Draw, 0x58FAE0);
++    RH_ScopedGlobalInstall(FloorFloat, 0x406CE0);
+     RH_ScopedInstall(GetRidOfAllHudMessages, 0x588A50);
+     RH_ScopedInstall(GetYPosBasedOnHealth, 0x588B60);
+     RH_ScopedInstall(HelpMessageDisplayed, 0x588B50);
+@@ -1629,7 +1637,7 @@ void CHud::DrawVitalStats() {
+         const float value = CStats::GetStatValue(stat);
+         float progress = 1.f;
+         if (value <= f(0x866BEC)) {
+-            const float rounded = reinterpret_cast<float(__cdecl*)(float)>(0x406CE0)((reaction * f(0x858B1C) + value) / product);
++            const float rounded = static_cast<float>(FloorFloat((reaction * f(0x858B1C) + value) / product));
+             progress = (rounded * product) * f(0x858CDC);
+         }
+         bar(progress * f(0x858628));
+diff --git a/source/game_sa/RwHelper.cpp b/source/game_sa/RwHelper.cpp
+index c8159d1d4..4edee62ae 100644
+--- a/source/game_sa/RwHelper.cpp
++++ b/source/game_sa/RwHelper.cpp
+@@ -38,6 +38,7 @@ void RwHelperInjectHooks() {
+     RH_ScopedGlobalInstall(GetFirstChild, 0x734900);
+     RH_ScopedGlobalInstall(SkinAtomicGetHAnimHierarchCB, 0x734A20);
+     RH_ScopedGlobalInstall(GetAnimHierarchyFromSkinClump, 0x734A40);
++    RH_ScopedGlobalInstall(GetAnimHierarchyFromFrameCallback, 0x734A70);
+     RH_ScopedNamedGlobalInstall(GetAnimHierarchyFromFrameRegs, "GetAnimHierarchyFromFrame", 0x734AB0);
+     RH_ScopedGlobalInstall(RwTexDictionaryFindHashNamedTexture, 0x734E50);
+     RH_ScopedGlobalInstall(GetFirstTexture, 0x734940);
+@@ -150,8 +151,8 @@ RwFrame* GetFirstChild(RwFrame* frame) {
+ 
+ // 0x734A70 (callback de RwFrameForAllChildren, cdecl): si el marco tiene jerarquia (RpHAnimFrameGetHierarchy, 0x7C5160) la guarda en *data y detiene el
+ // recorrido (nullptr); si no, recorre los hijos del marco con ella misma (RwFrameForAllChildren, 0x7F0DC0) y devuelve el marco para seguir con sus hermanos.
+-// No se engancha: el unico llamador del EXE es GetAnimHierarchyFromFrame (0x734AB0), ya enganchada, y asi el cuerpo original de 0x734AB0 sigue usando el callback
+-// nativo cuando su hook esta apagado. El iterador del EXE solo lee EAX a la vuelta.
++// Enganchada en 0x734A70: con el hook activo el cuerpo original de GetAnimHierarchyFromFrame (0x734AB0, hook apagado) llega a esta version por el salto de la entrada.
++// El iterador del EXE (RwFrameForAllChildren, 0x7F0DC0) solo lee EAX a la vuelta (nada lee ECX/EDX).
+ RwFrame* GetAnimHierarchyFromFrameCallback(RwFrame* frame, void* data) {
+     if (RpHAnimHierarchy* const hierarchy = RpHAnimFrameGetHierarchy(frame)) {
+         *static_cast<RpHAnimHierarchy**>(data) = hierarchy;
+diff --git a/source/game_sa/RwHelper.h b/source/game_sa/RwHelper.h
+index a2d9c8895..83fc97e1d 100644
+--- a/source/game_sa/RwHelper.h
++++ b/source/game_sa/RwHelper.h
+@@ -20,7 +20,7 @@ RwFrame* GetFirstChild(RwFrame* frame);
+ RpAtomic* SkinAtomicGetHAnimHierarchCB(RpAtomic* atomic, void* data);
+ RpHAnimHierarchy* GetAnimHierarchyFromSkinClump(RpClump* clump);
+ RpHAnimHierarchy* GetAnimHierarchyFromFrame(RwFrame* frame);
+-RwFrame* GetAnimHierarchyFromFrameCallback(RwFrame* frame, void* data); // 0x734A70 del EXE (sin hook: solo lo usa GetAnimHierarchyFromFrame)
++RwFrame* GetAnimHierarchyFromFrameCallback(RwFrame* frame, void* data); // 0x734A70 del EXE (callback de RwFrameForAllChildren)
+ uint32 __fastcall GetAnimHierarchyFromFrameRegs(void* entryEcx, uint32 entryEdx); // hook de 0x734AB0: conserva ECX de entrada
+ RpHAnimHierarchy* GetAnimHierarchyFromClump(RpClump* clump);
+ RpAtomic* AtomicRemoveAnimFromSkinCB(RpAtomic* atomic, void* data);
