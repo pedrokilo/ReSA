@@ -1,6 +1,8 @@
 import json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import runtime_runner
+runtime_runner.GAME = Path('E:/JUEGOS/GTA San Andreas - CVehicle Test')
 from probe_build import build
 G='source/game_sa/'
 SOURCES=[G+p for p in ('Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp','Tasks/TaskTypes/TaskSimpleGangDriveBy.h','Animation/AnimBlendAssociation.cpp','Animation/AnimBlendAssociation.h','Animation/AnimBlendHierarchy.h','Events/EventDamage.h','WeaponInfo.h','Entity/Ped/Ped.h','Entity/Vehicle/Vehicle.h')]

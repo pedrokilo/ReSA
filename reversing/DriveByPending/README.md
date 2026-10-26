@@ -22,3 +22,7 @@ El banco compara retorno, bytes relevantes de fixtures y trazas ordenadas. Usa f
 
 Resultado final: **APROBADO**. 2.560 pares exactos. [Resumen y hashes](validation-summary.json); [informe completo](<D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-drive-by-pending\20261007-195931-567873/summary.json>). Esta aprobación cubre los fixtures y límites descritos arriba.
 <!-- END FINAL PENDING BATCH RESULT -->
+
+## 2026-10-26: SetupAnim sustituido en ambos lados
+
+El commit b0d3f19d7 (lote 67) reconstruyo y puso hook a `CTaskSimpleGangDriveBy::SetupAnim` (0x627B20), que el banco sustituia por un falso solo en la direccion del EXE. Desde entonces `MakeAbortable` y `ProcessPed` de la DLL llamaban al `SetupAnim` C++ real: faltaba el evento `setup` en la traza del candidato y los campos de la tarea diferian (el fallo era del banco, no de produccion). `LiveComparison.hpp` anade `EntryPatch sud(&CTaskSimpleGangDriveBy::SetupAnim, Setup)`, con el mismo falso (y la misma traza) que `su` en 0x627B20, igual que ya se hacia con AITarget/PlayerTarget/AimGun. Las compuertas (conmutacion del hook, cobertura, restauracion) no se tocaron y los casos siguen en 512 + 1024 + 1024. `SetupAnim` queda validado por su propio banco (LeaveCar67). Reejecucion: **APROBADO**, 2.560/2.560 pares iguales, 0 diferencias; evidencia en `E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-drive-by-pending\20261026-124641-249129`.
