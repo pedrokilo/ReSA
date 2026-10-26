@@ -20,7 +20,7 @@
   "log_sha256": "25e078328e5ee1aef677c621869014ecf81d5ae18cb0d4d8e4a20039bea9a74d",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-drive-by-pending\\20261007-195931-567873",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-drive-by-pending\\20261026-124641-249129",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskSimpleGangDriveBy::Clone": true,
@@ -29,28 +29,29 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "ac918223ff855e8e9e902c753c250bc02f3dd7715ac146384dcd198fa5cde8ba",
-      "pdb": "a7326a2281b9f9d521a2a19ca754af40cb586be13bf2984914bd766e1fbba01a"
+      "asi": "f94bfe338005af5ac13107b65769d48f7213d6eb6d04c6b757a23632e69c74c2",
+      "pdb": "8b566e1475799549f49c480c000762f6e1803dc68c9f02ab982a6e0acebdf195"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "4f1121a03a4176a539811d14e439d3d66e0944256121b3e42ef72694d608df2e",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "e5bab0d39861798628d71233106ece0b0582d9c94e729dfcb8b98210a4a94d78",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "d2820a1997fa723c84a25ac8f0a9aeb69f44dfa9ffc6a23070de5a3b1f746ac0",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "678f4edbfda3bed188b79d1d8155d536de80379deab68ac4d6cddf7e2ca286a9",
       "source/game_sa/Animation/AnimBlendAssociation.cpp": "48d69096df4497e826e3afa52fbd856fa1d122d6e6349521f6dda121551956b6",
       "source/game_sa/Animation/AnimBlendAssociation.h": "c9f3243ffe9626d3bf003debd8cfa6fe8762323601c6a1cdc1acc911d4fa21cd",
       "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
       "source/game_sa/Events/EventDamage.h": "0b039361cb2f917e475ce43c695640f08e57ad8c35dc0f79d988286d55b96e7d",
       "source/game_sa/WeaponInfo.h": "fe843e4192ec6ed6da8be6d5843ae6d4ed69ecf7558422dd099d30c9c201d00b",
       "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-      "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "f27a5f33549dfeb2ede6f677c75ab28eca64ab836b5c8f00148dbf74551fea8c",
-      "build_probe.py": "63ddf2eb7f742012ca3898b9073b9c45cbbb253d9d367fb7983eefd9dcce7d3b",
-      "run_local.py": "cf50922e1a4979b563f9700ac9ea042aeb1e8fdd4ae6957b57e38b9fa2ec18a4"
+      "LiveComparison.hpp": "ea3e236c65b5f6ce3aa46b81c751af08e7e2c70fb98dc3b7099fda762d6ce37e",
+      "build_probe.py": "fbd1b974db2d644f4205e201168a4afe0f28a8595eb7cf683e7f4041efabc211",
+      "run_local.py": "9fcc3ad868e59372e5f0eff46dbb2e5ec238bf6947bbaa6a5766d24701998135"
     }
   },
   "limitations": [
-    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego."
+    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

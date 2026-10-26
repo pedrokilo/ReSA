@@ -208231,7 +208231,7 @@
       },
       "evidence": {
         "path": "reversing/DriveByPending/validation-summary.json",
-        "sha256": "30674b914897ccca89ca6071ea36111214b7b4a7f2d764193403e0c024c50274",
+        "sha256": "f8886b18359b2b0ff5f6c7b84285b5fddda71387c04fbed311749faecf1963f3",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleGangDriveBy::Clone"
@@ -208240,15 +208240,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "4f1121a03a4176a539811d14e439d3d66e0944256121b3e42ef72694d608df2e",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "e5bab0d39861798628d71233106ece0b0582d9c94e729dfcb8b98210a4a94d78",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "d2820a1997fa723c84a25ac8f0a9aeb69f44dfa9ffc6a23070de5a3b1f746ac0",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "678f4edbfda3bed188b79d1d8155d536de80379deab68ac4d6cddf7e2ca286a9",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "48d69096df4497e826e3afa52fbd856fa1d122d6e6349521f6dda121551956b6",
         "source/game_sa/Animation/AnimBlendAssociation.h": "c9f3243ffe9626d3bf003debd8cfa6fe8762323601c6a1cdc1acc911d4fa21cd",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
         "source/game_sa/Events/EventDamage.h": "0b039361cb2f917e475ce43c695640f08e57ad8c35dc0f79d988286d55b96e7d",
         "source/game_sa/WeaponInfo.h": "fe843e4192ec6ed6da8be6d5843ae6d4ed69ecf7558422dd099d30c9c201d00b",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-195931-567873).",
       "dependency_review": null,
@@ -208264,7 +208264,7 @@
       },
       "evidence": {
         "path": "reversing/DriveByPending/validation-summary.json",
-        "sha256": "30674b914897ccca89ca6071ea36111214b7b4a7f2d764193403e0c024c50274",
+        "sha256": "f8886b18359b2b0ff5f6c7b84285b5fddda71387c04fbed311749faecf1963f3",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleGangDriveBy::MakeAbortable"
@@ -208273,15 +208273,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "4f1121a03a4176a539811d14e439d3d66e0944256121b3e42ef72694d608df2e",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "e5bab0d39861798628d71233106ece0b0582d9c94e729dfcb8b98210a4a94d78",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "d2820a1997fa723c84a25ac8f0a9aeb69f44dfa9ffc6a23070de5a3b1f746ac0",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "678f4edbfda3bed188b79d1d8155d536de80379deab68ac4d6cddf7e2ca286a9",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "48d69096df4497e826e3afa52fbd856fa1d122d6e6349521f6dda121551956b6",
         "source/game_sa/Animation/AnimBlendAssociation.h": "c9f3243ffe9626d3bf003debd8cfa6fe8762323601c6a1cdc1acc911d4fa21cd",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
         "source/game_sa/Events/EventDamage.h": "0b039361cb2f917e475ce43c695640f08e57ad8c35dc0f79d988286d55b96e7d",
         "source/game_sa/WeaponInfo.h": "fe843e4192ec6ed6da8be6d5843ae6d4ed69ecf7558422dd099d30c9c201d00b",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-195931-567873).",
       "dependency_review": null,
@@ -208297,7 +208297,7 @@
       },
       "evidence": {
         "path": "reversing/DriveByPending/validation-summary.json",
-        "sha256": "30674b914897ccca89ca6071ea36111214b7b4a7f2d764193403e0c024c50274",
+        "sha256": "f8886b18359b2b0ff5f6c7b84285b5fddda71387c04fbed311749faecf1963f3",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleGangDriveBy::ProcessPed"
@@ -208306,15 +208306,15 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "4f1121a03a4176a539811d14e439d3d66e0944256121b3e42ef72694d608df2e",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "e5bab0d39861798628d71233106ece0b0582d9c94e729dfcb8b98210a4a94d78",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "d2820a1997fa723c84a25ac8f0a9aeb69f44dfa9ffc6a23070de5a3b1f746ac0",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "678f4edbfda3bed188b79d1d8155d536de80379deab68ac4d6cddf7e2ca286a9",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "48d69096df4497e826e3afa52fbd856fa1d122d6e6349521f6dda121551956b6",
         "source/game_sa/Animation/AnimBlendAssociation.h": "c9f3243ffe9626d3bf003debd8cfa6fe8762323601c6a1cdc1acc911d4fa21cd",
         "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
         "source/game_sa/Events/EventDamage.h": "0b039361cb2f917e475ce43c695640f08e57ad8c35dc0f79d988286d55b96e7d",
         "source/game_sa/WeaponInfo.h": "fe843e4192ec6ed6da8be6d5843ae6d4ed69ecf7558422dd099d30c9c201d00b",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-195931-567873).",
       "dependency_review": null,
@@ -229055,7 +229055,7 @@
       },
       "evidence": {
         "path": "reversing/WaterRender355/validation-summary.json",
-        "sha256": "c10abab5f9956c341702fcca5b6d006b70ecff895e7e76302c72d68098084fd2",
+        "sha256": "1a00dcf0be72ee728e9f00206c757f658fb728bdb6e6e27592c667cd22620378",
         "passed_path": [
           "covered_functions",
           "CWaterLevel::RenderWater"
@@ -229064,27 +229064,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Camera.h": "9c821aac9d832dd894be472898974ecc9b1398e437f22b04c0190912f1f2dc29",
-        "source/game_sa/Collision/ColModel.h": "279eb38356de8e4d7e2525027243ce667cdd44c2e2bfd41e76d315df059ef205",
-        "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
-        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
-        "source/game_sa/Entity/Object/Object.h": "f03b35af984aea8002242d44d264f4e959b1b4a0fe2bf0dff5e5d1e833fc3750",
-        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Entity/Placeable.h": "39566380c1c727f446b167f044a749312eaaba6e62b79a552a863769bfeea4fc",
-        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
-        "source/game_sa/Formation.cpp": "1d82f3d8a40630f4896626d5f3137e5c9ae889947752a67eb7b56aea668bed69",
-        "source/game_sa/Formation.h": "4f78e323bfa94bd1eb3c537de4f784b75bd839af6b4936b44e77dd16d5df8659",
-        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
-        "source/game_sa/PedList.h": "f5ad189c530dbda2874b0c19336fde1bc509eba40acf93939dd3cc2f6f7a6433",
-        "source/game_sa/PointList.h": "1eab97924fde314ef6ff5e48f9d40075040b24e42e94beadd2cb6741e1463b86",
-        "source/game_sa/Pools/ObjectPool.h": "833e700558e62963f6716def8201758504b89c2f94d02e460acc5e35f0cb58cd",
-        "source/game_sa/Pools/VehiclePool.h": "9430baf7198222a21f4404c8314c9da0709d6c91f509d0a4938a6f1473e3df3a",
-        "source/game_sa/PostEffects.h": "49e72593a3044800e965673ec52541fd33fcc9cb7e9cfb56044427756e8d1543",
-        "source/game_sa/RGBA.h": "ab66a3bef4b0af6d30cf5f535eda15f9935eb28ca5df94c41b740c4cdad4e42a",
+        "source/game_sa/WaterLevel.cpp": "1be7203325eac4e85c4bdec32d37562a4cd79f6b41106165f2a40afa9f6ade8f",
+        "source/game_sa/WaterLevel.h": "c3b8b1743432c78ac4fea59d163f103efcf6d2203ef9707894cc0540f4bd04f5",
+        "source/game_sa/X87Math.cpp": "9c328578887864fb2a24d778e8d990de186133edf3f12531b35c50ac62b4d720",
+        "source/game_sa/X87Math.h": "4837956dba24eca9668da5b849bab3ebd654dc223ba8b49bfd769c0dded005aa",
+        "source/game_sa/PostEffects.h": "c1aa32edc1836e4370e6f860d3dbcaca8d2c5b713783c12b4ac522b4b1659914",
+        "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
         "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
-        "source/game_sa/WaterLevel.cpp": "33c3a5c8462577d1697bdd7667bf28dcca4720a9042a72596a2fe4cc3b13e73b",
-        "source/game_sa/WaterLevel.h": "4bb60aebd442b9352e84bfbedc2f25f63cca3f2c4604965a3e6755191ab57ade",
-        "source/game_sa/Weather.h": "2e1157e99a5d1c74402b94df44a72ff0d599dce975071bb87396ab5b19851852"
+        "source/game_sa/RGBA.h": "ab66a3bef4b0af6d30cf5f535eda15f9935eb28ca5df94c41b740c4cdad4e42a",
+        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/game_sa/Camera.h": "5e4115efb5b1f2c0e9435740ca8a0554b554c3a22a9ef2a5dc2f30f0835b1a47",
+        "source/game_sa/Core/Matrix.h": "7eab653c7bc89de926a1f9209e62b969001d277e051b77268742137c93c308a3"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261008-012157-621813).",
       "dependency_review": null,
@@ -527528,7 +527518,7 @@
       },
       "evidence": {
         "path": "reversing/DependenciesDecisionPed7/validation-summary.json",
-        "sha256": "ddf700e5ec75c80f65e541457fa403c59ebd12bd494fae319569b49ba5fa0f7d",
+        "sha256": "da8c9e34add021ad79b5695d5179d72eb09b04493020c0f62855e6fe4b7a3d70",
         "passed_path": [
           "covered_functions",
           "CPedPool::GetRef"
@@ -527537,39 +527527,39 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "bf0877261510aa7d3f60ddb25dfa95de0d783598ab5fbf677e7ab1571ce8f0ac",
-        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "9cd66af9084969827ff198f1cb9ec3f4947d0031ba670a547e7f295c2ab86ba2",
-        "source/game_sa/DecisionMakers/Decision.cpp": "e28de7b43d0893934d257c9886e57f92a691c0e38f0870c933f83df4a7f95ad1",
-        "source/game_sa/DecisionMakers/Decision.h": "515b6b7e9b2f16e3c2245f4bd6b78edf7b64aaa8d256cc279cb562077280fec9",
-        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "1918c5bdbd88420a0385edf9bf12ea7a6711ebba60feb0fc7b5f26790718bd8e",
-        "source/game_sa/DecisionMakers/DecisionMaker.h": "ab1b6facd5919f551b5fb4dfa4cfa2be7406d5b408223841907e40395ff5939d",
-        "source/game_sa/Pools/PedPool.h": "00e211fcbd5c4b1fa276fe781725e11c1c90c2e18a9fa3e5bae5706d9b2cb05b",
-        "source/game_sa/Pools/TaskPool.h": "c0873d69a474d40271eeba2c09e1d4aba91c3d9b38174068f809fddb8f168656",
-        "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe",
-        "source/game_sa/Pools.cpp": "44be32e7886bc6a2ccfd35c5081a6f1970f4104bd1a7ea56a39126405a71c517",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "479966c2e3f0ed9777eae9d45c1f51fcc82b4293a6c2da450f515bef9bdd1a46",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "d0c7d425e05c3868186081dbfa0804c4ef3fa4a92bffd71850a16bd0352e657e",
+        "source/game_sa/DecisionMakers/Decision.cpp": "de65b3b169d449ffcb3a2c0535412f64a0f958333ddbfa87ce8fef83938bcca5",
+        "source/game_sa/DecisionMakers/Decision.h": "9de4d4419340191367031aed272c07295989f190b53acebba73258f5915a2f1a",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "9b7771785d2a20378fceb904085d95ba08cd8896c0f9c736885489fae9f53921",
+        "source/game_sa/DecisionMakers/DecisionMaker.h": "52132a9fc1ffbd4bfbe8de2e1bac1c90c6e2066358c6220bf77786ec62ea58d0",
+        "source/game_sa/Pools/PedPool.h": "cb2ac3824b0b95207287831276c27101400af2fbd6663d8afce4114875de99f7",
+        "source/game_sa/Pools/TaskPool.h": "69ff1cd75564c116bddbfa02d85d12da356689ef459afa4cfddb19124a0db638",
+        "source/game_sa/Pools/Pools.h": "1a38f6b00064b093f890e33c6889661d6d5a145333e124bc406057337c7bef93",
+        "source/game_sa/Pools.cpp": "38b4dfcb66d2428ba80865b1e3d28f82ee464a8543e13443933715b92d8e07f6",
         "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
         "source/game_sa/Entity/Ped/CopPed.h": "d9a6e69e3462ea23401a519dc7be959f72700d31d82ba6c4fadd82e2256a1117",
-        "source/game_sa/PedIntelligence.cpp": "d4c28f40a0670cca99f1bbfb280f30d7e0bdda072fbb78a08820419f37528ff7",
-        "source/game_sa/PedIntelligence.h": "c18190fafe528ca4c7a185f12fac0f4ab348dee5aa411acd2e7349a13df55d91",
-        "source/game_sa/PedGroup.h": "a55bc27dcf3f1ca52c166e998c5a575eb1b5d47892075e058821d45cb6ac979f",
-        "source/game_sa/Events/EventScriptCommand.cpp": "0e526a219ac9b6fbc627fe48757197aa673e79a1e63733aadd928dd3f51068fd",
-        "source/game_sa/Events/EventScriptCommand.h": "c2b81d4dd609c9a0ab18ffa8106ecaf09b6be137a8c9d2c9e9a05ce24adf82b4",
-        "source/game_sa/Events/Event.cpp": "5fe3694504970e61686368410a06d09bb8c4a6f010cb9c09aa9112fa41f6b5d9",
+        "source/game_sa/PedIntelligence.cpp": "17d279e4063dd028f638fdcc5f1cce4d3fb8c2f527702de06c4e65ac3961c639",
+        "source/game_sa/PedIntelligence.h": "3cdb1dfdd718c5dc92a273bb06a8db7642606f9c456d76bde75c16c02325abe6",
+        "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
+        "source/game_sa/Events/EventScriptCommand.cpp": "8a0b75844d0c7e192ee0dd14f143d410503dd0c9f6312cfa5852892eefb6f993",
+        "source/game_sa/Events/EventScriptCommand.h": "4860ba0ad4eba054d5d0a708d9cf3c2c8a530425ced7a2e7666eb38975b6bb27",
+        "source/game_sa/Events/Event.cpp": "7d345ca705c07ef144fe8e6df508f4a841e6d647fa8e75d24bf5c80bd236786b",
         "source/game_sa/Events/Event.h": "03bdb8dc071929a39f1e8f44e51fddbe0390afd27ce80074fb8d36ad71c5cf99",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2f9cb5c6c456a1e72832973a6f4575cb00329ba46a16f0683d9ec0bf5d067e9d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "8dbf353c2ae9ea97c24e4193546199c38cc79b3539edfadbcd3bf9cc70e37006",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "5d1eb7ba3ef63b8555030d95a1fa6e391d1d1c522c779b0c71db02b85db7f159",
-        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
-        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "82e5cf364b04d162c72a61b2e86c80d01f0617c7b61d2d90aa17e819e05c39db",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
         "source/game_sa/Tasks/TaskTimer.cpp": "7085edb0e98b7a5235875a3631f9b10dfd218bd2c0d325170cba3f9e1a5dbc25",
         "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876",
         "source/game_sa/References.h": "bccdb97d415ae4fdb9c276161a92ba2b5433c837b3f0c70b98de40d67d178481",
-        "source/game_sa/Timer.cpp": "b78d6cc3da32af05334e109f01853c5c29b9be5774e552f832d6213f9d518e3c",
+        "source/game_sa/Timer.cpp": "f3cfbec0010eef16f722974547e7578df896015544b01246098a29a2038fafba",
         "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
-        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
-        "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
@@ -527585,7 +527575,7 @@
       },
       "evidence": {
         "path": "reversing/DependenciesDecisionPed7/validation-summary.json",
-        "sha256": "ddf700e5ec75c80f65e541457fa403c59ebd12bd494fae319569b49ba5fa0f7d",
+        "sha256": "da8c9e34add021ad79b5695d5179d72eb09b04493020c0f62855e6fe4b7a3d70",
         "passed_path": [
           "covered_functions",
           "CEventScriptCommand::Destructor"
@@ -527594,39 +527584,39 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "bf0877261510aa7d3f60ddb25dfa95de0d783598ab5fbf677e7ab1571ce8f0ac",
-        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "9cd66af9084969827ff198f1cb9ec3f4947d0031ba670a547e7f295c2ab86ba2",
-        "source/game_sa/DecisionMakers/Decision.cpp": "e28de7b43d0893934d257c9886e57f92a691c0e38f0870c933f83df4a7f95ad1",
-        "source/game_sa/DecisionMakers/Decision.h": "515b6b7e9b2f16e3c2245f4bd6b78edf7b64aaa8d256cc279cb562077280fec9",
-        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "1918c5bdbd88420a0385edf9bf12ea7a6711ebba60feb0fc7b5f26790718bd8e",
-        "source/game_sa/DecisionMakers/DecisionMaker.h": "ab1b6facd5919f551b5fb4dfa4cfa2be7406d5b408223841907e40395ff5939d",
-        "source/game_sa/Pools/PedPool.h": "00e211fcbd5c4b1fa276fe781725e11c1c90c2e18a9fa3e5bae5706d9b2cb05b",
-        "source/game_sa/Pools/TaskPool.h": "c0873d69a474d40271eeba2c09e1d4aba91c3d9b38174068f809fddb8f168656",
-        "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe",
-        "source/game_sa/Pools.cpp": "44be32e7886bc6a2ccfd35c5081a6f1970f4104bd1a7ea56a39126405a71c517",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "479966c2e3f0ed9777eae9d45c1f51fcc82b4293a6c2da450f515bef9bdd1a46",
+        "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "d0c7d425e05c3868186081dbfa0804c4ef3fa4a92bffd71850a16bd0352e657e",
+        "source/game_sa/DecisionMakers/Decision.cpp": "de65b3b169d449ffcb3a2c0535412f64a0f958333ddbfa87ce8fef83938bcca5",
+        "source/game_sa/DecisionMakers/Decision.h": "9de4d4419340191367031aed272c07295989f190b53acebba73258f5915a2f1a",
+        "source/game_sa/DecisionMakers/DecisionMaker.cpp": "9b7771785d2a20378fceb904085d95ba08cd8896c0f9c736885489fae9f53921",
+        "source/game_sa/DecisionMakers/DecisionMaker.h": "52132a9fc1ffbd4bfbe8de2e1bac1c90c6e2066358c6220bf77786ec62ea58d0",
+        "source/game_sa/Pools/PedPool.h": "cb2ac3824b0b95207287831276c27101400af2fbd6663d8afce4114875de99f7",
+        "source/game_sa/Pools/TaskPool.h": "69ff1cd75564c116bddbfa02d85d12da356689ef459afa4cfddb19124a0db638",
+        "source/game_sa/Pools/Pools.h": "1a38f6b00064b093f890e33c6889661d6d5a145333e124bc406057337c7bef93",
+        "source/game_sa/Pools.cpp": "38b4dfcb66d2428ba80865b1e3d28f82ee464a8543e13443933715b92d8e07f6",
         "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
         "source/game_sa/Entity/Ped/CopPed.h": "d9a6e69e3462ea23401a519dc7be959f72700d31d82ba6c4fadd82e2256a1117",
-        "source/game_sa/PedIntelligence.cpp": "d4c28f40a0670cca99f1bbfb280f30d7e0bdda072fbb78a08820419f37528ff7",
-        "source/game_sa/PedIntelligence.h": "c18190fafe528ca4c7a185f12fac0f4ab348dee5aa411acd2e7349a13df55d91",
-        "source/game_sa/PedGroup.h": "a55bc27dcf3f1ca52c166e998c5a575eb1b5d47892075e058821d45cb6ac979f",
-        "source/game_sa/Events/EventScriptCommand.cpp": "0e526a219ac9b6fbc627fe48757197aa673e79a1e63733aadd928dd3f51068fd",
-        "source/game_sa/Events/EventScriptCommand.h": "c2b81d4dd609c9a0ab18ffa8106ecaf09b6be137a8c9d2c9e9a05ce24adf82b4",
-        "source/game_sa/Events/Event.cpp": "5fe3694504970e61686368410a06d09bb8c4a6f010cb9c09aa9112fa41f6b5d9",
+        "source/game_sa/PedIntelligence.cpp": "17d279e4063dd028f638fdcc5f1cce4d3fb8c2f527702de06c4e65ac3961c639",
+        "source/game_sa/PedIntelligence.h": "3cdb1dfdd718c5dc92a273bb06a8db7642606f9c456d76bde75c16c02325abe6",
+        "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
+        "source/game_sa/Events/EventScriptCommand.cpp": "8a0b75844d0c7e192ee0dd14f143d410503dd0c9f6312cfa5852892eefb6f993",
+        "source/game_sa/Events/EventScriptCommand.h": "4860ba0ad4eba054d5d0a708d9cf3c2c8a530425ced7a2e7666eb38975b6bb27",
+        "source/game_sa/Events/Event.cpp": "7d345ca705c07ef144fe8e6df508f4a841e6d647fa8e75d24bf5c80bd236786b",
         "source/game_sa/Events/Event.h": "03bdb8dc071929a39f1e8f44e51fddbe0390afd27ce80074fb8d36ad71c5cf99",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2f9cb5c6c456a1e72832973a6f4575cb00329ba46a16f0683d9ec0bf5d067e9d",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "8dbf353c2ae9ea97c24e4193546199c38cc79b3539edfadbcd3bf9cc70e37006",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "5d1eb7ba3ef63b8555030d95a1fa6e391d1d1c522c779b0c71db02b85db7f159",
-        "source/game_sa/Tasks/Task.cpp": "054f7c0e3f406b4d0ed26679dbf8736db68733cd348280cfe0a1d35c4b7dcb84",
-        "source/game_sa/Tasks/Task.h": "a45b2bee8cb6adc7c1cd42b4a53c8b03dcc18e232fe4a6b7dacbda1e29391311",
+        "source/game_sa/Tasks/Task.cpp": "82e5cf364b04d162c72a61b2e86c80d01f0617c7b61d2d90aa17e819e05c39db",
+        "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
         "source/game_sa/Tasks/TaskTimer.cpp": "7085edb0e98b7a5235875a3631f9b10dfd218bd2c0d325170cba3f9e1a5dbc25",
         "source/game_sa/Tasks/TaskTimer.h": "6632e24a9604648d1ae90b000982ff110419c67bf13d86b4d77105aa895d4876",
         "source/game_sa/References.h": "bccdb97d415ae4fdb9c276161a92ba2b5433c837b3f0c70b98de40d67d178481",
-        "source/game_sa/Timer.cpp": "b78d6cc3da32af05334e109f01853c5c29b9be5774e552f832d6213f9d518e3c",
+        "source/game_sa/Timer.cpp": "f3cfbec0010eef16f722974547e7578df896015544b01246098a29a2038fafba",
         "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
-        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
-        "reversing/OriginalDependencies499/HookRoute.hpp": "82d7c39915d1eafcd5f964713a6c8a948dabb6275b16bafb514341f754029acf"
+        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
       },
       "dependency_review": null,
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",

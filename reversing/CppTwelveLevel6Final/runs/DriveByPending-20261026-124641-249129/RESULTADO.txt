@@ -1,0 +1,3 @@
+APROBADO: GangDriveBy pendientes
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-drive-by-pending\20261026-124641-249129

@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "b645a21c3a68c5770caa2a789b7afeb7dfc946330d51af500061770e9c53a481",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 8192,
+  "pairs_per_function": {
+    "CDecisionMakerTypes::MakeDecision-Ped": 2048,
+    "CDecisionMakerTypes::MakeDecision-Group": 2048,
+    "CPedPool::GetRef": 2048,
+    "CEventScriptCommand::Destructor": 2048
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "2a8d1ee62f8a8bb013a113f1c6d0a9fb23ec331b42ebe1ffb00b7fc8057fd666",
+  "saves_unchanged": true,
+  "configs_restored": true
+}
