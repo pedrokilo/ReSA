@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskSimpleGangDriveBy
- * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 9/9 entradas.
+ * Validación registrada: 10/10 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -31,6 +31,7 @@ void CTaskSimpleGangDriveBy::InjectHooks() {
     RH_ScopedInstall(PlayerTarget, 0x621960);
     RH_ScopedInstall(AITarget, 0x627600);
     RH_ScopedInstall(AimGun, 0x628350);
+    RH_ScopedInstall(SetupAnim, 0x627B20);
     RH_ScopedVMTInstall(GetTaskType, 0x6218B0);
     // Stubs hacia el original: activarlos provocaría recursión infinita.
     RH_ScopedVMTInstall(Clone, 0x6236D0);
@@ -99,8 +100,7 @@ bool CTaskSimpleGangDriveBy::MakeAbortable(CPed* ped, eAbortPriority priority, c
         return false;
     }
     m_nNextCommand = 7;
-    // SetUpAnim is a separate, uncatalogued dependency at 0x627B20.
-    if (plugin::CallMethodAndReturn<bool, 0x627B20>(this, ped)) {
+    if (SetupAnim(ped)) { // 0x627B20
         m_nLastCommand = m_nNextCommand;
         if (priority == ABORT_PRIORITY_IMMEDIATE) {
             m_pAnimAssoc->m_BlendDelta = -1000.0f;
@@ -175,7 +175,7 @@ bool CTaskSimpleGangDriveBy::ProcessPed(CPed* ped) {
             ped->AddWeaponModel(CWeaponInfo::GetWeaponInfo(ped->GetActiveWeapon().m_Type, eWeaponSkill::STD)->m_nModelId1);
         }
     }
-    // SetupAnim (0x627B20) y FireGun (0x627CC0) siguen siendo dependencias separadas sin catalogar.
+    // FireGun (0x627CC0) sigue siendo una dependencia separada sin catalogar.
     if (ped->IsPlayer()) {
         PlayerTarget(ped);
     } else {
@@ -190,7 +190,7 @@ bool CTaskSimpleGangDriveBy::ProcessPed(CPed* ped) {
     const auto crossed = [](const CAnimBlendAssociation* a, float t) {
         return a->m_CurrentTime > t && a->m_CurrentTime - a->m_TimeStep < t;
     };
-    if (plugin::CallMethodAndReturn<bool, 0x627B20>(this, ped)) {
+    if (SetupAnim(ped)) { // 0x627B20
         auto* a = m_pAnimAssoc;
         if (a->IsPlaying() && crossed(a, fireTime) && (m_nLastCommand == 2 || m_nLastCommand == 3)) {
             plugin::CallMethod<0x627CC0>(this, ped);
@@ -314,6 +314,73 @@ bool X87IsZero(float value) { return X87Le(value, 0.0f) && X87Ge(value, 0.0f); }
 CCam& ActiveCam() {
     return TheCamera.m_aCams.data()[TheCamera.m_nActiveCam];
 }
+}
+
+// 0x627B20
+// Como el original: asegura que el bloque de animaciones del grupo requerido esta cargado y referenciado y, cuando toca, sustituye la animacion actual por la requerida
+// (BlendAnimation con delta 4.0). Devuelve true si hay una animacion con peso de mezcla > 0.9 y delta >= 0.
+bool CTaskSimpleGangDriveBy::SetupAnim(CPed* ped) {
+    // Bloque del grupo: ms_aAnimAssocGroups[grupo].m_AnimBlock sin comprobar el indice (grupos de 0x14 bytes); si falta se busca por el nombre del bloque del grupo.
+    CAnimBlock* block = StaticRef<CAnimBlendAssocGroup*>(0xB4EA34)[m_nRequiredAnimGroup].m_AnimBlock;
+    if (!block) {
+        block = CAnimManager::GetAnimationBlock(CAnimManager::GetAnimBlockName(m_nRequiredAnimGroup));
+    }
+    const int32 blockIndex = static_cast<int32>(reinterpret_cast<uintptr_t>(block) - 0xB5D4A0u) >> 5; // (bloque - ms_aAnimBlocks) / 0x20, desplazamiento aritmetico
+    if (reinterpret_cast<const uint8&>(block->IsLoaded) != 1) { // el EXE compara el byte con 1
+        CStreaming::RequestModel(IFPToModelId(blockIndex), 8);
+        return false;
+    }
+    if (!reinterpret_cast<const uint8&>(m_bAnimsReferenced)) {
+        CAnimManager::AddAnimBlockRef(blockIndex);
+        m_bAnimsReferenced = true;
+    }
+    if (m_nRequiredAnimID == ANIM_ID_NO_ANIMATION_SET && !m_pAnimAssoc) {
+        return false;
+    }
+
+    bool replace;
+    if (!m_pAnimAssoc) {
+        replace = m_nAttackTimer <= 0 && reinterpret_cast<const uint8&>(m_bInWeaponRange) != 0;
+    } else if (static_cast<int32>(m_pAnimAssoc->m_AnimId) == m_nRequiredAnimID) {
+        replace = false;
+    } else {
+        replace = (m_nNextCommand == 1 || m_nNextCommand == 2 || m_nNextCommand == 3) && m_nLastCommand < 4;
+    }
+
+    if (replace) {
+        // Callback de borrado por defecto del EXE (0x4D1390) y callback del final de la animacion de la tarea (0x621BE0): se pasan por direccion
+        const auto defaultCB = reinterpret_cast<void(*)(CAnimBlendAssociation*, void*)>(0x4D1390);
+        const auto finishCB  = reinterpret_cast<void(*)(CAnimBlendAssociation*, void*)>(0x621BE0);
+        const bool hadAssoc  = m_pAnimAssoc != nullptr;
+        if (hadAssoc) {
+            m_pAnimAssoc->SetDeleteCallback(defaultCB, nullptr);
+            *reinterpret_cast<uint8*>(&m_pAnimAssoc->m_Flags) &= 0xFE; // el EXE usa un AND de byte sobre el byte bajo de las banderas
+        }
+        m_pAnimAssoc = CAnimManager::BlendAnimation(reinterpret_cast<RpClump*>(ped->GetRwObject()), m_nRequiredAnimGroup, static_cast<AnimationId>(m_nRequiredAnimID), 4.0f);
+        m_pAnimAssoc->SetDeleteCallback(finishCB, this);
+        if (m_nNextCommand == 3 && m_nBurstShots <= 1) {
+            m_nBurstShots = static_cast<char>(CGeneral::GetRandomIntInRange(2, static_cast<int16>(m_pWeaponInfo->m_nAmmoClip))); // 0x407180 (movsx de la palabra baja)
+        }
+        if (hadAssoc) {
+            m_pAnimAssoc->SetCurrentTime(StaticRef<float>(0x8D2E7C));
+            *reinterpret_cast<uint8*>(&m_pAnimAssoc->m_Flags) &= 0xFE;
+            m_nLastCommand = 1;
+            m_nNextCommand = 0;
+            if (!ped->IsPlayer()) {
+                m_nAttackTimer = 100;
+            }
+        } else {
+            m_nLastCommand = m_nNextCommand;
+            m_nNextCommand = 0;
+        }
+    }
+
+    const auto* assoc = m_pAnimAssoc;
+    if (!assoc) {
+        return false;
+    }
+    // fld/fcomp de la x87 (ordenadas: con NaN son falsas): peso > 0.9f (0x858C20) y delta >= 0.0f (0x858B50)
+    return X87Gt(assoc->m_BlendAmount, 0.9f) && X87Ge(assoc->m_BlendDelta, 0.0f);
 }
 
 // 0x621960

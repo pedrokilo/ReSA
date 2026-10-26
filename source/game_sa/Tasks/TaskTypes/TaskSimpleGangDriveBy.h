@@ -74,6 +74,7 @@ public:
     bool HasClearLineOfSight(CPed* ped, const CVector* aimPoint); // 0x621B10: linea de vision del ped al punto de mira (cacheada en m_nLOSBlocked / m_nLOSCheckTime)
     void PlayerTarget(CPed* ped); // 0x621960: objetivo del jugador (camara de apuntado), elige la animacion de disparo segun el cuadrante
     void AITarget(CPed* ped);     // 0x627600: objetivo de un NPC (distancias, rangos, lado/cuadrante segun el estilo)
+    bool SetupAnim(CPed* ped);    // 0x627B20: bloque de animaciones cargado/referenciado y animacion requerida (BlendAnimation); true si hay animacion con peso > 0.9 y delta >= 0
     void AimGun(CPed* ped);       // 0x628350: apunta el arma con CPedIK::PointGunInDirection hacia el objetivo (no dispara: dispara 0x627CC0)
 };
 VALIDATE_SIZE(CTaskSimpleGangDriveBy, 0x44);

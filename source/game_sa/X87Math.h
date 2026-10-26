@@ -1866,3 +1866,9 @@ void __cdecl Hp66CopSourceBaseCpp(const float* v, const float* dest, float* sour
 void __cdecl Hp66CopSourceSideCpp(const float* c, const float* dest, float* source);
 // 0x516173..0x51617B: *sourceZ = float(0.7f [0x8CC7F8] + ground), con ground tal como lo deja el colaborador en ST0 (aqui un float).
 void __cdecl Hp66CopSourceSnapCpp(float ground, float* sourceZ);
+
+
+// --- Lote 67W (Helpers67W): CWaterLevel::RenderSeaBedSegment (0x6E6870), prefijo Wl67. Anadido al FINAL ---
+// 0x6E6870..0x6E6958: coordenadas y UV del cuadrilatero del fondo marino: out = {px(minX), px(maxX), py(minY), py(maxY), minX*8, maxX*8, minY*8, maxY*8} con px(a) = (x + a)*500 - 3000 (x entero exacto para minX,
+// float(x) para maxX) y py(c) = (c + y)*500 - 3000 / (y + d)*500 - 3000, cada operacion a 24 bits y cada resultado guardado como float.
+void __cdecl Wl67SeaBedSegmentCpp(int x, int y, float minX, float maxX, float minY, float maxY, float* out);

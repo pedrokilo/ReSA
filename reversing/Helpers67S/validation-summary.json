@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 1,
+  "functions": {
+    "CDecisionMakerTypes::CDecisionMakerTypes": 16384
+  },
+  "covered_functions": {
+    "CDecisionMakerTypes::CDecisionMakerTypes": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-4 (HEAD 1ca520153 + source.patch del lote 67S; ver artifacts/build-manifest.json). El constructor reconstruido no llama al EXE: el hook de CDecision::SetDefault (0x600530) permanece ENCENDIDO en ambos lados (su cuerpo es de la DLL y tiene su propio banco); las entradas 0x821D30, 0x4650A0 y 0x6040C0 del EXE llevan trampas en el candidato que cuentan las llamadas (cero en los 16384 pares). Se compara el objeto de 0xF1C0 bytes completo (CRC-32, incluido m_EventIndices, que el constructor no toca), la arena fuera del objeto, la region de globales 0xC0AFD0..0xC0B03F (banderas de grupo, ScriptReferenceIndex, m_IsActive, instancia intacta) y EAX = this, ECX = fs:[0] de entrada, EDX = 0 (GetInstance toma el EDX del constructor como residuo propio). No se ejercita la excepcion dentro del constructor (el marco SEH del EXE solo destruye los CDecisionMaker construidos si un constructor lanzara; ninguno puede). GetInstance (0x4684F0) sigue llamando al constructor por su direccion del EXE (que ahora salta al hook); su banco no forma parte de este.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Helpers67S-20261026-091203-294853",
+  "summary_sha256": "83b0d6bd0d48a2e84ba3a93bff369f803f78b6c2d27b8dbcc73075930e745b2a",
+  "result_txt_sha256": "9a980121a80ac66ce08bca736f812412659278f66024c8a5d55ac34d28ce08dd",
+  "log_sha256": "ef1fcc9a6d8e7412496b32d1aa6a17b5f86ac0dc162fdebe3dffb9266e0c7ec2",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "2360395d5a9800a3cf45e03925786e78e8c32a4d64bc548ef8a97df5bbb9b525",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+      "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "e802e8ee1634351aba5fe37d43bed62a2967eb703b427d43bdd3c1f6bed89797",
+      "source/game_sa/DecisionMakers/DecisionMakerTypes.h": "d0c7d425e05c3868186081dbfa0804c4ef3fa4a92bffd71850a16bd0352e657e",
+      "source/game_sa/DecisionMakers/Decision.cpp": "de65b3b169d449ffcb3a2c0535412f64a0f958333ddbfa87ce8fef83938bcca5",
+      "source/game_sa/DecisionMakers/DecisionMaker.cpp": "9b7771785d2a20378fceb904085d95ba08cd8896c0f9c736885489fae9f53921",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Helpers67S/LiveComparison.hpp": "8d983c919d645c10e421d7140d790adbd45e9442fdc7586c13d9bdb5a9efbeb2",
+      "reversing/Helpers67S/Core.hpp": "abd0cb674cc77f9de5ee3096b743cc62ea88199e51f7ef774453fa3796588921",
+      "reversing/Helpers67S/Fixtures.hpp": "1116f12db3825e02126189e5b5be1416e904adecd05418ec3c37d6ba4c25adff",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

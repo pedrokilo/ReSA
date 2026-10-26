@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CWaterLevel
- * Reconstrucción: COMPLETA — 39/39 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 40/40 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 39/39 entradas.
+ * Validación registrada: 40/40 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -88,6 +88,7 @@ void CWaterLevel::InjectHooks() {
     RH_ScopedInstall(GetWaterLevelNoWavesForTriangle, 0x6E5E90);
     RH_ScopedGlobalInstall(RenderWaterFog, 0x6E7760);
     RH_ScopedGlobalInstall(CalculateWavesOnlyForCoordinate, 0x6E6EF0);
+    RH_ScopedGlobalInstall(RenderSeaBedSegment, 0x6E6870);
     RH_ScopedGlobalInstall(RenderWater, 0x6EF650);
     RH_ScopedGlobalInstall(AddWaveToResult, 0x6E81E0);
     RH_ScopedGlobalInstall(SetCameraRange, 0x6E9C80);
@@ -1277,6 +1278,38 @@ void WaterRenderShifts() {
 }
 }
 
+// 0x6E6870 (cdecl, `ret` del llamador: 6 argumentos): anade al bufer temporal de agua el cuadrilatero del fondo marino lejano del bloque (x, y) restringido a [minX,maxX] x [minY,maxY] (fracciones del bloque de
+// 500 unidades; origen -3000). Cuatro vertices z = -70, color 0xFF505050, UV = fraccion * 8, sin tocar las normales; seis indices (n, n+1, n+2, n+3, n+1, n+2) (el cuarto vertice usa el orden del EXE) y
+// los dos contadores (dwords, 0xC4B950 vertices y 0xC4B954 indices) avanzan 4 y 6. No comprueba el desbordamiento del bufer. Aritmetica x87 del EXE en X87Math.cpp (Wl67SeaBedSegmentCpp). Sus unicos
+// llamadores del EXE (0x6EF822 y 0x6EF861, dentro de RenderWater) no leen EAX/ECX/EDX tras la llamada.
+void CWaterLevel::RenderSeaBedSegment(int32 x, int32 y, float minX, float maxX, float minY, float maxY) {
+    float values[8];
+    Wl67SeaBedSegmentCpp(x, y, minX, maxX, minY, maxY, values);
+    auto& vertexCount = StaticRef<int32>(0xC4B950);
+    auto& indexCount = StaticRef<int32>(0xC4B954);
+    const int32 first = vertexCount;
+    const int32 firstIndex = indexCount;
+    const float xs[4]{values[0], values[0], values[1], values[1]};
+    const float ys[4]{values[2], values[3], values[2], values[3]};
+    const float us[4]{values[4], values[4], values[5], values[5]};
+    const float vs[4]{values[6], values[7], values[6], values[7]};
+    for (int32 k = 0; k < 4; ++k) {
+        RwIm3DVertex& vertex = TempBufferVertices.m_3d[first + k];
+        vertex.objVertex.x = xs[k];
+        vertex.objVertex.y = ys[k];
+        vertex.objVertex.z = std::bit_cast<float>(0xC28C0000u);
+        vertex.color = 0xFF505050u;
+        vertex.u = us[k];
+        vertex.v = vs[k];
+    }
+    const int32 order[6]{0, 1, 2, 3, 1, 2};
+    for (int32 k = 0; k < 6; ++k) {
+        aTempBufferIndices[firstIndex + k] = static_cast<RxVertexIndex>(first + order[k]);
+    }
+    vertexCount = first + 4;
+    indexCount = firstIndex + 6;
+}
+
 // 0x6EF650
 void CWaterLevel::RenderWater() {
     if (!CGame::CanSeeWaterFromCurrArea()) return;
@@ -1297,7 +1330,7 @@ void CWaterLevel::RenderWater() {
         const double dy = double(camera.y) - ((double(y) + 0.5) * 500.0 - 3000.0);
         const bool distant = std::sqrt(dx * dx + dy * dy) >= StaticRef<float>(0x8D3934);
         const auto segment = [&](float minX, float maxX, float minY, float maxY) {
-            if (distant) plugin::Call<0x6E6870, int32, int32, float, float, float, float>(x, y, minX, maxX, minY, maxY);
+            if (distant) RenderSeaBedSegment(x, y, minX, maxX, minY, maxY);
             else plugin::Call<0x6E6A10, int32, int32, float, float, float, float>(x, y, minX, maxX, minY, maxY);
         };
         if (x < 0 || x > 11 || y < 0 || y > 11) segment(0.0f,1.0f,0.0f,1.0f);

@@ -1,0 +1,134 @@
+diff --git a/source/game_sa/WaterLevel.cpp b/source/game_sa/WaterLevel.cpp
+index ae5fcb788..e66b7b61d 100644
+--- a/source/game_sa/WaterLevel.cpp
++++ b/source/game_sa/WaterLevel.cpp
+@@ -88,6 +88,7 @@ void CWaterLevel::InjectHooks() {
+     RH_ScopedInstall(GetWaterLevelNoWavesForTriangle, 0x6E5E90);
+     RH_ScopedGlobalInstall(RenderWaterFog, 0x6E7760);
+     RH_ScopedGlobalInstall(CalculateWavesOnlyForCoordinate, 0x6E6EF0);
++    RH_ScopedGlobalInstall(RenderSeaBedSegment, 0x6E6870);
+     RH_ScopedGlobalInstall(RenderWater, 0x6EF650);
+     RH_ScopedGlobalInstall(AddWaveToResult, 0x6E81E0);
+     RH_ScopedGlobalInstall(SetCameraRange, 0x6E9C80);
+@@ -1277,6 +1278,38 @@ void WaterRenderShifts() {
+ }
+ }
+ 
++// 0x6E6870 (cdecl, `ret` del llamador: 6 argumentos): anade al bufer temporal de agua el cuadrilatero del fondo marino lejano del bloque (x, y) restringido a [minX,maxX] x [minY,maxY] (fracciones del bloque de
++// 500 unidades; origen -3000). Cuatro vertices z = -70, color 0xFF505050, UV = fraccion * 8, sin tocar las normales; seis indices (n, n+1, n+2, n+3, n+1, n+2) (el cuarto vertice usa el orden del EXE) y
++// los dos contadores (dwords, 0xC4B950 vertices y 0xC4B954 indices) avanzan 4 y 6. No comprueba el desbordamiento del bufer. Aritmetica x87 del EXE en X87Math.cpp (Wl67SeaBedSegmentCpp). Sus unicos
++// llamadores del EXE (0x6EF822 y 0x6EF861, dentro de RenderWater) no leen EAX/ECX/EDX tras la llamada.
++void CWaterLevel::RenderSeaBedSegment(int32 x, int32 y, float minX, float maxX, float minY, float maxY) {
++    float values[8];
++    Wl67SeaBedSegmentCpp(x, y, minX, maxX, minY, maxY, values);
++    auto& vertexCount = StaticRef<int32>(0xC4B950);
++    auto& indexCount = StaticRef<int32>(0xC4B954);
++    const int32 first = vertexCount;
++    const int32 firstIndex = indexCount;
++    const float xs[4]{values[0], values[0], values[1], values[1]};
++    const float ys[4]{values[2], values[3], values[2], values[3]};
++    const float us[4]{values[4], values[4], values[5], values[5]};
++    const float vs[4]{values[6], values[7], values[6], values[7]};
++    for (int32 k = 0; k < 4; ++k) {
++        RwIm3DVertex& vertex = TempBufferVertices.m_3d[first + k];
++        vertex.objVertex.x = xs[k];
++        vertex.objVertex.y = ys[k];
++        vertex.objVertex.z = std::bit_cast<float>(0xC28C0000u);
++        vertex.color = 0xFF505050u;
++        vertex.u = us[k];
++        vertex.v = vs[k];
++    }
++    const int32 order[6]{0, 1, 2, 3, 1, 2};
++    for (int32 k = 0; k < 6; ++k) {
++        aTempBufferIndices[firstIndex + k] = static_cast<RxVertexIndex>(first + order[k]);
++    }
++    vertexCount = first + 4;
++    indexCount = firstIndex + 6;
++}
++
+ // 0x6EF650
+ void CWaterLevel::RenderWater() {
+     if (!CGame::CanSeeWaterFromCurrArea()) return;
+@@ -1297,7 +1330,7 @@ void CWaterLevel::RenderWater() {
+         const double dy = double(camera.y) - ((double(y) + 0.5) * 500.0 - 3000.0);
+         const bool distant = std::sqrt(dx * dx + dy * dy) >= StaticRef<float>(0x8D3934);
+         const auto segment = [&](float minX, float maxX, float minY, float maxY) {
+-            if (distant) plugin::Call<0x6E6870, int32, int32, float, float, float, float>(x, y, minX, maxX, minY, maxY);
++            if (distant) RenderSeaBedSegment(x, y, minX, maxX, minY, maxY);
+             else plugin::Call<0x6E6A10, int32, int32, float, float, float, float>(x, y, minX, maxX, minY, maxY);
+         };
+         if (x < 0 || x > 11 || y < 0 || y > 11) segment(0.0f,1.0f,0.0f,1.0f);
+diff --git a/source/game_sa/WaterLevel.h b/source/game_sa/WaterLevel.h
+index 24a3c3c51..c67796d32 100644
+--- a/source/game_sa/WaterLevel.h
++++ b/source/game_sa/WaterLevel.h
+@@ -249,6 +249,8 @@ public:
+     static void RenderBoatWakes();
+     static void SplitWaterTriangleAlongXLine(int32 a7, int32 a1, int32 a2, CRenPar a4, int32 a5, int32 a6, CRenPar arg18, int32 a8, int32 a9, CRenPar a10);
+ 
++    static void RenderSeaBedSegment(int32 x, int32 y, float minX, float maxX, float minY, float maxY); // 0x6E6870
++
+     static void RenderWaterRectangle(int32 minX, int32 maxX, int32 Y1, int32 Y2, CRenPar P1, CRenPar P2, CRenPar P3, CRenPar P4);
+     static void RenderFlatWaterRectangle(int32 minX, int32 maxX, int32 Y1, int32 Y2, CRenPar P1, CRenPar P2, CRenPar P3, CRenPar P4);
+     static void RenderFlatWaterRectangle_OneLayer(int32 minX, int32 maxX, int32 Y1, int32 Y2, CRenPar P1, CRenPar P2, CRenPar P3, CRenPar P4, int32 WaterLayer);
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 9bba66a1d..efe0b5459 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -15291,4 +15291,40 @@ __declspec(noinline) void __cdecl Hp66CopSourceSideCpp(const float* c, const flo
+ __declspec(noinline) void __cdecl Hp66CopSourceSnapCpp(float ground, float* sourceZ) {
+     volatile float z = static_cast<float>(static_cast<double>(std::bit_cast<float>(0x3F333333u)) + static_cast<double>(ground));  // fld [0x8CC7F8]; fadd st,st(1)
+     *sourceZ = z;
+-}
+\ No newline at end of file
++}
++
++// --- Lote 67W (Helpers67W): CWaterLevel::RenderSeaBedSegment (0x6E6870), prefijo Wl67 ---
++// Aritmetica x87 de 24 bits con exponente extendido. Lo que el EXE guarda con fst/fstp dword va por un volatile float (redondeo a float, subnormales incluidos); lo que usa del registro va por double.
++// out = {px(minX), px(maxX), py(minY), py(maxY), minX*8, maxX*8, minY*8, maxY*8}. El primer X entra como entero exacto (fild + fadd) y el segundo como el float guardado en la pila (fst [esp+0Ch]);
++// el Y entra como entero exacto en las dos sumas (queda en la pila x87).
++__declspec(noinline) void __cdecl Wl67SeaBedSegmentCpp(int x, int y, float minX, float maxX, float minY, float maxY, float* out) {
++    constexpr double kUv = 8.0;          // 0x859000
++    constexpr double kBlock = 500.0;     // 0x858B58
++    constexpr double kOrigin = 3000.0;   // 0x859A94
++    // /fp:fast distribuye (x + a) * 500 como x*500 + a*500: los pasos intermedios van por volatile double (cada uno ya esta redondeado a 24 bits, asi que el almacenamiento no cambia su valor).
++    volatile float uMin = static_cast<float>(static_cast<double>(minX) * kUv);
++    volatile float vMin = static_cast<float>(static_cast<double>(minY) * kUv);
++    volatile float xFloat = static_cast<float>(x);                                                    // fild dword; fst dword [esp+0Ch]
++    volatile double sumXMin = static_cast<double>(x) + static_cast<double>(minX);
++    volatile double scaledXMin = sumXMin * kBlock;
++    volatile float pxMin = static_cast<float>(scaledXMin - kOrigin);
++    volatile double sumYMin = static_cast<double>(minY) + static_cast<double>(y);
++    volatile double scaledYMin = sumYMin * kBlock;
++    volatile float pyMin = static_cast<float>(scaledYMin - kOrigin);
++    volatile float vMax = static_cast<float>(static_cast<double>(maxY) * kUv);
++    volatile double sumYMax = static_cast<double>(y) + static_cast<double>(maxY);
++    volatile double scaledYMax = sumYMax * kBlock;
++    volatile float pyMax = static_cast<float>(scaledYMax - kOrigin);
++    volatile float uMax = static_cast<float>(static_cast<double>(maxX) * kUv);
++    volatile double sumXMax = static_cast<double>(xFloat) + static_cast<double>(maxX);
++    volatile double scaledXMax = sumXMax * kBlock;
++    volatile float pxMax = static_cast<float>(scaledXMax - kOrigin);
++    out[0] = pxMin;
++    out[1] = pxMax;
++    out[2] = pyMin;
++    out[3] = pyMax;
++    out[4] = uMin;
++    out[5] = uMax;
++    out[6] = vMin;
++    out[7] = vMax;
++}
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index 70af28877..80d6f9ee2 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1866,3 +1866,9 @@ void __cdecl Hp66CopSourceBaseCpp(const float* v, const float* dest, float* sour
+ void __cdecl Hp66CopSourceSideCpp(const float* c, const float* dest, float* source);
+ // 0x516173..0x51617B: *sourceZ = float(0.7f [0x8CC7F8] + ground), con ground tal como lo deja el colaborador en ST0 (aqui un float).
+ void __cdecl Hp66CopSourceSnapCpp(float ground, float* sourceZ);
++
++
++// --- Lote 67W (Helpers67W): CWaterLevel::RenderSeaBedSegment (0x6E6870), prefijo Wl67. Anadido al FINAL ---
++// 0x6E6870..0x6E6958: coordenadas y UV del cuadrilatero del fondo marino: out = {px(minX), px(maxX), py(minY), py(maxY), minX*8, maxX*8, minY*8, maxY*8} con px(a) = (x + a)*500 - 3000 (x entero exacto para minX,
++// float(x) para maxX) y py(c) = (c + y)*500 - 3000 / (y + d)*500 - 3000, cada operacion a 24 bits y cada resultado guardado como float.
++void __cdecl Wl67SeaBedSegmentCpp(int x, int y, float minX, float maxX, float minY, float maxY, float* out);

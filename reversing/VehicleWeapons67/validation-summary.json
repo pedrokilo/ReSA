@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 1,
+  "functions": {
+    "ProcessWeapons": 16384
+  },
+  "covered_functions": {
+    "ProcessWeapons": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-1 (HEAD 1ca520153 + Vehicle.cpp/Vehicle.h del lote 67). Colaboradores sustituidos por falsos identicos en ambos lados (parche en la entrada del EXE y, si la DLL tiene hook, en el cuerpo de la DLL; no se validan sus cuerpos): FindPlayerVehicle (0x56E0D0), CWeaponEffects::ClearCrossHairImmediately (0x742CA0), GetPlaneWeaponFiringStatus (0x6E3440, sin hook: la DLL la llama por la direccion del EXE), SelectPlaneWeapon (0x6D4900; su falso conserva EDX como el original, del que ProcessWeapons depende), FirePlaneGuns (0x6D4D30), PossiblyDropFreeFallBombForPlayer (0x6E07E0), FireHeatSeakingMissile (0x6E05C0, sin hook), FireUnguidedMissile (0x6D5110), GetPlaneNumGuns (0x6D3F30) y FxSystem_c::SetMatrix (0x4AA630). Vehiculo (incluidos los campos del avion y del helicoptero), clump con su marco, lista de fogonazos y entidades son FALSOS en una arena; el banco no escribe ninguna global del juego. Los dos llamadores del EXE (0x6C7917 CHeli, 0x6C9348 CPlane) no leen EAX/ECX/EDX. GetPlaneWeaponFiringStatus pasa a devolver CEntity* (el original deja el objetivo en EAX y ProcessWeapons lo usa).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/VehicleWeapons67-20261026-090654-404276",
+  "summary_sha256": "4c74d723974a9b0f779fcec1c8f639fd8bfb687727ae447092d5ae0a9fd4c609",
+  "result_txt_sha256": "5ecf3fc7f985b6b1e713eef69c7ab1b7cb6ceeb128ad73d7a30e247bbece177e",
+  "log_sha256": "fa322866f637bebaea73693e74e07915294a4805bd66894dea692d4131bb2330",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "30609f6775fc165cc9f5b333cd23348f3c50e330d7f8ea245a78ec78469d80f8",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "fea588100221502cb613213ac575e63f757db8a3d9aea08044ba0e7b4a3c7d2b",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/VehicleWeapons67/LiveComparison.hpp": "8faaaaf75517c8f024bbd5b8216e4e19caeb5c3b0ec37cac04ca02afe82bb016",
+      "reversing/VehicleWeapons67/Core.hpp": "30f1b11cc9728da3770ea0d891f1060059966e723d6c51509a15dd917aa645b3",
+      "reversing/VehicleWeapons67/Fixtures.hpp": "ae71072f11a7fef1c68f09f549cf793a98e16b1c8c8685858414ef962b44e1da",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

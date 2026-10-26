@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 1,
+  "functions": {
+    "CWaterLevel::RenderSeaBedSegment": 16384
+  },
+  "covered_functions": {
+    "CWaterLevel::RenderSeaBedSegment": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-2 (HEAD 1ca520153 + source.patch del lote 67W; ver artifacts/build-manifest.json). La funcion no llama a ninguna otra: no hay colaboradores sustituidos. La aritmetica x87 de 24 bits vive en X87Math.cpp (Wl67SeaBedSegmentCpp). El banco guarda, rellena por caso y restaura la region del bufer temporal de agua [0xC4B950, 0xC5F958) (contadores, indices y vertices) y vigila 0x40 bytes a cada lado. Los contadores previos se prueban en 0..2044 (vertices) y 0..4090 (indices): la funcion no comprueba el desbordamiento del bufer y el banco no lo provoca. Los dos llamadores del EXE (0x6EF822, 0x6EF861) no leen EAX/ECX/EDX.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Helpers67W-20261026-090823-996861",
+  "summary_sha256": "6d708b2d9b2fc7700d1feacbbb0a74230e05d0db2bd882b26967481f6d64998a",
+  "result_txt_sha256": "c11e1dd8726baba43b71690489b293a5643334feec53ffb3519e6cd0987b1335",
+  "log_sha256": "6cdbf568558c100ff6e85ada4ef709d47b5bf2eac9868199879851c07872fc6b",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "8b64cd122afefae08bca0485f7d31e46e42ec7e420b2cc8fd323c5d346992fff",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+      "source/game_sa/X87Math.cpp": "9c328578887864fb2a24d778e8d990de186133edf3f12531b35c50ac62b4d720",
+      "source/game_sa/X87Math.h": "4837956dba24eca9668da5b849bab3ebd654dc223ba8b49bfd769c0dded005aa",
+      "source/game_sa/WaterLevel.cpp": "36484a2984fda0dab1072557589c8aa720b740b7642c80509ea5cf424d41fa0f",
+      "source/game_sa/WaterLevel.h": "c3b8b1743432c78ac4fea59d163f103efcf6d2203ef9707894cc0540f4bd04f5",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Helpers67W/LiveComparison.hpp": "c7b1a6c878bc683f0f3b84983b99497067af6ec577f97231eeddf19658af4d51",
+      "reversing/Helpers67W/Core.hpp": "36a8391a3aea03f23124ecd69a2fd588ca37182bb2b4bf3c4ca49e3010ad1e6c",
+      "reversing/Helpers67W/Fixtures.hpp": "c168cdf55e80f36a2cfcbfcefbbb4802dd70bab521fff81fc4d976ef5b00d060",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

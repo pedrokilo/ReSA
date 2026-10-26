@@ -15292,3 +15292,39 @@ __declspec(noinline) void __cdecl Hp66CopSourceSnapCpp(float ground, float* sour
     volatile float z = static_cast<float>(static_cast<double>(std::bit_cast<float>(0x3F333333u)) + static_cast<double>(ground));  // fld [0x8CC7F8]; fadd st,st(1)
     *sourceZ = z;
 }
+
+// --- Lote 67W (Helpers67W): CWaterLevel::RenderSeaBedSegment (0x6E6870), prefijo Wl67 ---
+// Aritmetica x87 de 24 bits con exponente extendido. Lo que el EXE guarda con fst/fstp dword va por un volatile float (redondeo a float, subnormales incluidos); lo que usa del registro va por double.
+// out = {px(minX), px(maxX), py(minY), py(maxY), minX*8, maxX*8, minY*8, maxY*8}. El primer X entra como entero exacto (fild + fadd) y el segundo como el float guardado en la pila (fst [esp+0Ch]);
+// el Y entra como entero exacto en las dos sumas (queda en la pila x87).
+__declspec(noinline) void __cdecl Wl67SeaBedSegmentCpp(int x, int y, float minX, float maxX, float minY, float maxY, float* out) {
+    constexpr double kUv = 8.0;          // 0x859000
+    constexpr double kBlock = 500.0;     // 0x858B58
+    constexpr double kOrigin = 3000.0;   // 0x859A94
+    // /fp:fast distribuye (x + a) * 500 como x*500 + a*500: los pasos intermedios van por volatile double (cada uno ya esta redondeado a 24 bits, asi que el almacenamiento no cambia su valor).
+    volatile float uMin = static_cast<float>(static_cast<double>(minX) * kUv);
+    volatile float vMin = static_cast<float>(static_cast<double>(minY) * kUv);
+    volatile float xFloat = static_cast<float>(x);                                                    // fild dword; fst dword [esp+0Ch]
+    volatile double sumXMin = static_cast<double>(x) + static_cast<double>(minX);
+    volatile double scaledXMin = sumXMin * kBlock;
+    volatile float pxMin = static_cast<float>(scaledXMin - kOrigin);
+    volatile double sumYMin = static_cast<double>(minY) + static_cast<double>(y);
+    volatile double scaledYMin = sumYMin * kBlock;
+    volatile float pyMin = static_cast<float>(scaledYMin - kOrigin);
+    volatile float vMax = static_cast<float>(static_cast<double>(maxY) * kUv);
+    volatile double sumYMax = static_cast<double>(y) + static_cast<double>(maxY);
+    volatile double scaledYMax = sumYMax * kBlock;
+    volatile float pyMax = static_cast<float>(scaledYMax - kOrigin);
+    volatile float uMax = static_cast<float>(static_cast<double>(maxX) * kUv);
+    volatile double sumXMax = static_cast<double>(xFloat) + static_cast<double>(maxX);
+    volatile double scaledXMax = sumXMax * kBlock;
+    volatile float pxMax = static_cast<float>(scaledXMax - kOrigin);
+    out[0] = pxMin;
+    out[1] = pxMax;
+    out[2] = pyMin;
+    out[3] = pyMax;
+    out[4] = uMin;
+    out[5] = uMax;
+    out[6] = vMin;
+    out[7] = vMax;
+}

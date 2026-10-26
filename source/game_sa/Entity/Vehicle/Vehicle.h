@@ -661,7 +661,7 @@ public:
     bool DoBladeCollision(CVector pos, CMatrix& matrix, int16 rotorType, float radius, float damageMult);
     int32 AddVehicleUpgrade(int32 modelId); // devuelve la mejora sustituida (EAX del EXE: lo lee 0x4985DA)
     void SetupUpgradesAfterLoad();
-    void GetPlaneWeaponFiringStatus(bool& status, eOrdnanceType& ordnanceType);
+    CEntity* GetPlaneWeaponFiringStatus(bool& status, eOrdnanceType& ordnanceType);
     void ProcessWeapons();
     void DoFixedMachineGuns();
     void FireFixedMachineGuns();

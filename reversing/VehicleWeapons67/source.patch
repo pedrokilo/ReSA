@@ -1,0 +1,132 @@
+diff --git a/source/game_sa/Entity/Vehicle/Vehicle.cpp b/source/game_sa/Entity/Vehicle/Vehicle.cpp
+index eb509dd89..16a6a0077 100644
+--- a/source/game_sa/Entity/Vehicle/Vehicle.cpp
++++ b/source/game_sa/Entity/Vehicle/Vehicle.cpp
+@@ -327,7 +327,7 @@ void CVehicle::InjectHooks() {
+     RH_ScopedInstall(AddVehicleUpgrade, 0x6E3290);
+     RH_ScopedInstall(SetupUpgradesAfterLoad, 0x6E3400);
+     // RH_ScopedInstall(GetPlaneWeaponFiringStatus, 0x6E3440);
+-    // RH_ScopedInstall(ProcessWeapons, 0x6E3950);
++    RH_ScopedInstall(ProcessWeapons, 0x6E3950);
+     RH_ScopedInstall(DoFixedMachineGuns, 0x73F400);
+     // RH_ScopedInstall(FireFixedMachineGuns, 0x73DF00);
+     // RH_ScopedInstall(DoDriveByShootings, 0x741FD0);
+@@ -8062,8 +8062,8 @@ void CVehicle::SetupUpgradesAfterLoad() {
+ }
+ 
+ // 0x6E3440
+-void CVehicle::GetPlaneWeaponFiringStatus(bool& status, eOrdnanceType& ordnanceType) {
+-    ((void(__thiscall*)(CVehicle*, bool&, eOrdnanceType&))0x6E3440)(this, status, ordnanceType);
++CEntity* CVehicle::GetPlaneWeaponFiringStatus(bool& status, eOrdnanceType& ordnanceType) {
++    return ((CEntity*(__thiscall*)(CVehicle*, bool&, eOrdnanceType&))0x6E3440)(this, status, ordnanceType);
+ }
+ 
+ 
+@@ -8154,7 +8154,93 @@ bool IsVehiclePointerValid(CVehicle* vehicle) {
+ 
+ // 0x6E3950
+ void CVehicle::ProcessWeapons() {
+-    ((void(__thiscall*)(CVehicle*))0x6E3950)(this);
++    // Como el original (0x6E3950). Desplazamientos: +0x594 m_nVehicleSubType, +0x40 banderas fisicas, +0x36 estado (bits 3..7), +0x42C bit 4 bFireGun, +0x513 arma en uso,
++    // +0x3BA mision del piloto automatico, +0x41C objetivo del piloto automatico, +0x9DC (avion) y +0xA0C (helicoptero) / +0x9D4 (avion) listas de fogonazos.
++    static_assert(offsetof(CVehicle, m_nVehicleSubType) == 0x594 && offsetof(CVehicle, m_nVehicleWeaponInUse) == 0x513);
++    static_assert(offsetof(CVehicle, m_autoPilot) + offsetof(CAutoPilot, m_nCarMission) == 0x3BA && offsetof(CVehicle, m_autoPilot) + offsetof(CAutoPilot, m_TargetEntity) == 0x41C);
++    static_assert(offsetof(CPlane, field_9DC) == 0x9DC && offsetof(CPlane, m_pGunParticles) == 0x9D4 && offsetof(CHeli, m_ppGunflashFx) == 0xA0C);
++
++    CEntity* target = nullptr;
++
++    if (m_nVehicleSubType == VEHICLE_TYPE_PLANE && this == FindPlayerVehicle(-1, false) && !AsPlane()->field_9DC) {
++        CWeaponEffects::ClearCrossHairImmediately(0);
++    }
++
++    if (m_nPhysicalFlags & PHYSICAL_DESTROYED) {
++        return;
++    }
++
++    // Como el original: bool y tipo de ordenanza empiezan a cero; solo los escribe GetPlaneWeaponFiringStatus (el bool, un solo byte)
++    bool firing = false;
++    eOrdnanceType ordnance = 0;
++    if (GetStatus() == STATUS_PLAYER || GetStatus() == STATUS_REMOTE_CONTROLLED) {
++        target = GetPlaneWeaponFiringStatus(firing, ordnance);
++        SelectPlaneWeapon(firing, ordnance);
++    } else if (vehicleFlags.bFireGun) {
++        firing = true;
++        ordnance = 1;
++        if (m_nModelIndex == MODEL_HYDRA && m_nVehicleWeaponInUse == CAR_WEAPON_LOCK_ON_ROCKET) {
++            ordnance = 2;
++        }
++    }
++
++    // Como el original: la tabla de saltos solo cubre las armas 1..4
++    switch (uint8(m_nVehicleWeaponInUse)) {
++    case CAR_WEAPON_HEAVY_GUN:
++        if (firing) {
++            FirePlaneGuns();
++        }
++        break;
++    case CAR_WEAPON_FREEFALL_BOMB:
++        if (ordnance) {
++            PossiblyDropFreeFallBombForPlayer(ordnance, true);
++        }
++        break;
++    case CAR_WEAPON_LOCK_ON_ROCKET:
++        if (ordnance) {
++            if (GetStatus() != STATUS_PLAYER && GetStatus() != STATUS_REMOTE_CONTROLLED) {
++                const auto mission = m_autoPilot.m_nCarMission;
++                if (mission == MISSION_PLANE_ATTACK_PLAYER || mission == MISSION_PLANE_ATTACK_PLAYER_POLICE || mission == MISSION_PLANE_DOG_FIGHT_PLAYER) {
++                    target = FindPlayerVehicle(-1, false);
++                } else {
++                    target = m_autoPilot.m_TargetEntity;
++                }
++            }
++            if (target) {
++                FireHeatSeakingMissile(target, ordnance, true);
++            }
++        }
++        break;
++    case CAR_WEAPON_DOUBLE_ROCKET:
++        if (ordnance) {
++            FireUnguidedMissile(ordnance, true);
++        }
++        break;
++    default:
++        break;
++    }
++
++    FxSystem_c** gunFx = nullptr;
++    if (m_nVehicleSubType == VEHICLE_TYPE_HELI) {
++        gunFx = AsHeli()->m_ppGunflashFx;
++    } else if (m_nVehicleSubType == VEHICLE_TYPE_PLANE) {
++        gunFx = AsPlane()->m_pGunParticles;
++    }
++    if (!gunFx) {
++        return;
++    }
++
++    // Como el original: GetPlaneNumGuns una sola vez; el objeto RenderWare se vuelve a leer en cada vuelta y no se comprueba su tipo ni el marco
++    const int32 numGuns = GetPlaneNumGuns();
++    for (int32 i = 0; i < numGuns; i++) {
++        if (FxSystem_c* const fx = gunFx[i]) {
++            RwMatrix* matrix = nullptr;
++            if (const auto* const rwObject = GetRwObject()) {
++                matrix = RwFrameGetMatrix(static_cast<RwFrame*>(rwObject->parent));
++            }
++            fx->SetMatrix(matrix);
++        }
++    }
+ }
+ 
+ // 0x73F400
+diff --git a/source/game_sa/Entity/Vehicle/Vehicle.h b/source/game_sa/Entity/Vehicle/Vehicle.h
+index fc1463b37..37d01fb88 100644
+--- a/source/game_sa/Entity/Vehicle/Vehicle.h
++++ b/source/game_sa/Entity/Vehicle/Vehicle.h
+@@ -661,7 +661,7 @@ public:
+     bool DoBladeCollision(CVector pos, CMatrix& matrix, int16 rotorType, float radius, float damageMult);
+     int32 AddVehicleUpgrade(int32 modelId); // devuelve la mejora sustituida (EAX del EXE: lo lee 0x4985DA)
+     void SetupUpgradesAfterLoad();
+-    void GetPlaneWeaponFiringStatus(bool& status, eOrdnanceType& ordnanceType);
++    CEntity* GetPlaneWeaponFiringStatus(bool& status, eOrdnanceType& ordnanceType);
+     void ProcessWeapons();
+     void DoFixedMachineGuns();
+     void FireFixedMachineGuns();

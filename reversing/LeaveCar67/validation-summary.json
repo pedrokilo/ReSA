@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 1,
+  "functions": {
+    "CTaskSimpleGangDriveBy::SetupAnim": 16384
+  },
+  "covered_functions": {
+    "CTaskSimpleGangDriveBy::SetupAnim": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-3 (HEAD 1ca520153 + TaskSimpleGangDriveBy.cpp/.h). CTaskSimpleGangDriveBy::SetupAnim 0x627B20 (thiscall, ret 4; ayudante de animacion de la tarea del tiroteo desde coche que llaman MakeAbortable 0x62D290 y ProcessPed 0x62D3B0; solo se lee AL: test al,al): CAnimManager::GetAnimBlockName 0x4D3A30, GetAnimationBlock(const char*) 0x4D3940, AddAnimBlockRef 0x4D3FB0 y BlendAnimation 0x4D4610, CStreaming::RequestModel 0x4087E0, CAnimBlendAssociation::SetDeleteCallback 0x4CEBC0 y SetCurrentTime 0x4CEA80, CPed::IsPlayer 0x5DF8F0 y rand() del EXE 0x821B1E sustituidos por falsos identicos en ambos lados; ms_aAnimAssocGroups (0xB4EA34) apunta a un arreglo falso de 256 grupos durante la llamada. Los callbacks 0x4D1390 y 0x621BE0 se pasan por direccion y no se ejecutan. Bloques del EXE con indice negativo (.rdata) para el desplazamiento aritmetico. La declaracion nueva es bool SetupAnim(CPed*) en TaskSimpleGangDriveBy.h; MakeAbortable y ProcessPed la llaman en C++ en lugar de por direccion.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/LeaveCar67-20261026-091000-667333",
+  "summary_sha256": "74c9a304a1d94a2dace20105e186701e14d071b523601b805598f3a82699ca85",
+  "result_txt_sha256": "864178f91852386c42e9be840f469a059463a7de972bc6fcb4718bef54d99411",
+  "log_sha256": "ebdf63562005da3adbef9911f4bcba1babce61a460278c471428d7409f7033f0",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "da4560f276cd4abe2808d4cd47517b40e5150fcac93ca21093b347c89890181b",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp": "98ba80c06684b4ad0d925d86ff57730591dd911ccd6278a38054c09325b2e672",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.h": "678f4edbfda3bed188b79d1d8155d536de80379deab68ac4d6cddf7e2ca286a9",
+      "source/game_sa/X87Math.cpp": "9c328578887864fb2a24d778e8d990de186133edf3f12531b35c50ac62b4d720",
+      "source/game_sa/X87Math.h": "4837956dba24eca9668da5b849bab3ebd654dc223ba8b49bfd769c0dded005aa",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/LeaveCar67/LiveComparison.hpp": "cc59b4bf1be694daf78425a930d3b2d7a7a5f217146d3ecda80dfb0daf1d195c",
+      "reversing/LeaveCar67/Core.hpp": "918e8ab3cf8f06efa4342a099c7759b01d636b2167ad139e9a35e836446ad97e",
+      "reversing/LeaveCar67/Fixtures.hpp": "603622ee5d2f6c63041f0b26bb774b9aff86a8977cafec9325785d8032766a18",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

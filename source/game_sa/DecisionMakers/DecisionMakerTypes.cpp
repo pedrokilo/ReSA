@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CDecisionMakerTypes
- * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 9/9 entradas.
+ * Validación registrada: 10/10 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -34,6 +34,7 @@ void CDecisionMakerTypes::InjectHooks() {
     RH_ScopedOverloadedInstall(MakeDecision, "Ped", 0x606E70, void(CDecisionMakerTypes::*)(CPed*, eEventType, int32, bool, eTaskType, eTaskType, eTaskType, eTaskType, bool, int16&, int16&));
     RH_ScopedOverloadedInstall(MakeDecision, "Group", 0x606F80, eTaskType(CDecisionMakerTypes::*)(CPedGroup*, eEventType, int32, bool, eTaskType, eTaskType, eTaskType, eTaskType));
 
+    RH_ScopedInstall(Constructor, 0x4650F0);
     RH_ScopedInstall(GetInstance, 0x4684F0);
     RH_ScopedInstall(AddDecisionMaker, 0x607050);
     RH_ScopedInstall(RemoveDecisionMaker, 0x6043A0);
@@ -45,7 +46,7 @@ void CDecisionMakerTypes::InjectHooks() {
 
 // Registros de las funciones de este archivo (los bancos DependenciesDecisionPed7, DependenciesDecisionRelationship6 y DependenciesTask11
 // siembran EAX/ECX/EDX y comparan lo que sale):
-//  - Los colaboradores del EXE sin reconstruir (operator new 0x82119A, operator delete 0x8214BD y el constructor 0x4650F0) no leen EAX/ECX/EDX
+//  - Los colaboradores del EXE sin reconstruir (operator new 0x82119A y operator delete 0x8214BD) no leen EAX/ECX/EDX
 //    de entrada antes de escribirlos, asi que su residuo de salida es independiente del llamador. Se llaman por direccion; cuando es lo ultimo que
 //    hace la funcion (MakeDecision, LoadEventIndices) no se ejecuta nada despues que toque ECX/EDX/EAX y el residuo del colaborador llega intacto
 //    al llamador del EXE. Sin comprobaciones de ejecucion (/RTC1 anade __RTC_CheckEsp tras las llamadas) ni cookie de /GS (safebuffers).
@@ -58,7 +59,7 @@ namespace {
 // Colaboradores del EXE sin reconstruir. Todos son thiscall/stdcall con parametros en pila (callee limpia), por eso se declaran __fastcall con un EDX explicito.
 constexpr uintptr_t kExeOperatorNew  = 0x82119A; // cdecl(size_t)
 constexpr uintptr_t kExeOperatorDel  = 0x8214BD; // cdecl(void*)
-constexpr uintptr_t kExeConstruct    = 0x4650F0; // thiscall(CDecisionMakerTypes*), ret; EAX = this
+constexpr uintptr_t kExeConstruct    = 0x4650F0; // thiscall(CDecisionMakerTypes*), ret; EAX = this. Reconstruido (CDecisionMakerTypes::Constructor, con hook): GetInstance lo alcanza por su direccion
 constexpr uintptr_t kExePedEventFile = 0x86CD44; // "PedEvent.txt"
 
 using ExeOperatorNew  = uint64(__cdecl*)(uint32 size);
@@ -96,6 +97,28 @@ static_assert(kDecisionStride == 0x3C && kMakerStride == 0x99C);
 
 inline uint32 AsU32(const void* p) { return static_cast<uint32>(reinterpret_cast<uintptr_t>(p)); }
 } // namespace
+
+// 0x4650F0: constructor (thiscall, ECX = this, sin argumentos en pila, `ret`). El EXE lo escribe asi: [this] = 0; `eh vector constructor iterator` (0x821D30) de 20 CDecisionMaker
+// (0x99C bytes) en this + 4 con el constructor 0x4650A0 (41 CDecision::CDecision 0x6040C0 = SetDefault y despues 41 SetDefault 0x600530); los cinco decision makers por defecto
+// (this + 0xC1B4, 0xCB50, 0xD4EC, 0xDE88, 0xE824) igual, en linea; y los globales: 0xC0AFE0 (20 bytes, banderas de grupo) = 0, 0xC0AFF4 (20 words, ScriptReferenceIndex) = 1 y
+// 0xC0B01C (20 bytes, m_IsActive) = 0. NO toca m_EventIndices (this + 0xC034, 0x180 bytes) ni la instancia (0xC0B030). El EXE lo envuelve en un marco de excepciones propio
+// que solo sirve para destruir los CDecisionMaker ya construidos si algun constructor lanzara (ninguno puede). Los constructores de los miembros son los de C++ (CDecisionMaker ->
+// CDecision -> SetDefault), no llaman al EXE.
+CDecisionMakerTypes::CDecisionMakerTypes() : m_NoOfDecisionMakers(0) {
+    static_assert(CDecisionMakerTypes::NUM_TYPES == 20);
+    std::memset(reinterpret_cast<void*>(kIsGroupFlags), 0, NUM_TYPES);
+    ScriptReferenceIndex.fill(1);
+    m_IsActive.fill(false);
+}
+
+// Envoltura del hook (0x4650F0): el EXE deja EAX = this, ECX = la cabeza anterior de la cadena de excepciones (fs:[0] de entrada, que restaura al salir) y EDX = 0 (xor edx,edx).
+// CDecisionMakerTypes::GetInstance (0x4684F0) toma el EDX del constructor como residuo propio; por eso se reproducen los tres. Termina en ResidueRegsCpp, que no toca registros.
+#pragma runtime_checks("", off)
+__declspec(safebuffers) CDecisionMakerTypes* CDecisionMakerTypes::Constructor() {
+    const uint32 head = __readfsdword(0);
+    this->CDecisionMakerTypes::CDecisionMakerTypes();
+    return reinterpret_cast<CDecisionMakerTypes*>(ResidueRegsCpp(head, 0u, AsU32(this)));
+}
 
 // 0x607050: ECX = this, tres argumentos en pila (ret 0Ch). Busca la primera ranura libre del rango [0,15) o [15,20) (mision), la marca como ocupada, guarda
 // el byte bajo del segundo argumento como bandera de grupo y copia las 41 CDecision con CDecision::From. Salida: ocupada -> EAX = indice, ECX = this,

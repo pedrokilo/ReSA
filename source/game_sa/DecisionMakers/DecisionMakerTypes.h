@@ -47,6 +47,9 @@ public:
 
     static void InjectHooks();
 
+    CDecisionMakerTypes(); // 0x4650F0 (hook `Constructor`)
+    CDecisionMakerTypes* Constructor();
+
     static CDecisionMakerTypes* GetInstance();
 
     int32 AddDecisionMaker(CDecisionMaker* decisionMaker, eDecisionTypes decisionMakerType, bool bDecisionMakerForMission);
@@ -61,10 +64,12 @@ public:
 public:
     int32                                                              m_NoOfDecisionMakers{};
     std::array<CDecisionMaker, +eDecisionMakerType::COUNT_TOTAL> m_DecisionMakers{};
-    std::array<int32, +eEventType::EVENT_TOTAL_NUM_EVENTS>                           m_EventIndices{};
+    std::array<int32, +eEventType::EVENT_TOTAL_NUM_EVENTS>                           m_EventIndices; // sin inicializar: el constructor del EXE (0x4650F0) no lo toca (LoadEventIndices lo rellena)
     CDecisionMaker m_DefaultRandomPedDecisionMaker{};
     CDecisionMaker m_DefaultMissionPedDecisionMaker{};
     CDecisionMaker m_DefaultPlayerPedDecisionMaker{};
     CDecisionMaker m_DefaultRandomPedGroupDecisionMaker{};
     CDecisionMaker m_DefaultMissionPedGroupDecisionMaker{};
 };
+
+VALIDATE_SIZE(CDecisionMakerTypes, 0xF1C0);
