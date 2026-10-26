@@ -1,0 +1,3 @@
+APROBADO: PickUpFirst68
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-pickupfirst68\20261026-142259-467039

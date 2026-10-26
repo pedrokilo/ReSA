@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 1,
+  "functions": {
+    "CTaskComplexGoPickUpEntity::CreateNextSubTask": 16384
+  },
+  "covered_functions": {
+    "CTaskComplexGoPickUpEntity::CreateNextSubTask": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-1 (HEAD 8ff5230a6 + TaskComplexGoPickUpEntity.cpp, source.patch). CTaskComplexGoPickUpEntity::CreateNextSubTask 0x691AE0 (virtual, thiscall, ret 4; EAX = tarea nueva o nulo): segun el tipo de la subtarea actual crea CTaskSimpleHoldEntity (secundaria, tras CTaskSimplePickUpEntity), CTaskSimplePickUpEntity (tras CTaskSimpleAchieveHeading) o CTaskSimpleAchieveHeading (tras CTaskComplexGoToPointAndStandStill). Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): CTask::operator new 0x61A5A0, CEntity::GetColModel 0x535300, CTaskManager::GetTaskSecondary 0x681810 y SetTaskSecondary 0x681B60, constructores de CTaskSimpleHoldEntity 0x6913A0 y CTaskSimplePickUpEntity 0x6917B0 (su cuerpo en la DLL se halla por la primera llamada de la envoltura del hook). El constructor de CTaskSimpleAchieveHeading 0x667E20 (sin hook) corre real en ambos lados y se compara el objeto. Fuera de cobertura: la rama de CTaskSimplePickUpEntity con el pool agotado (el EXE escribe en la direccion 0x40 y se cae; la DLL devuelve nulo).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/PickUpNext68-20261026-142054-930140",
+  "summary_sha256": "8a1dea8c0279b06d3a9c7b0591617043aa3537c54b89fedd253cb5dce8cece27",
+  "result_txt_sha256": "b0275b0d0d1531fafbc3fd3126b59a80ad3b873093ec6f776d638f5fe9146444",
+  "log_sha256": "8f1edd454c23992e38fadc4fa32e6fa22812cc8620ab9593d050140161ea28f0",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "62d88ae646d5e4f7cab0cc9869acc8cc1d3334ed27c95401570f2adc698f223f",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp": "c3da23de9108cdeba382bbbce1bd57a9fef1b8d6f9b5d93ef9a8cdec90c24a32",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h": "9ea9b04ee4f4382ab2d8389393da7c2f29979325968de0880eca628487b8c93e",
+      "source/game_sa/X87Math.cpp": "7b703b6ecdb4bbb9b38e5a5f6ac83d24d194ebe784cc41c52fdfe6ce1f795f41",
+      "source/game_sa/X87Math.h": "7487efb01e7af178d11d6b2a418623cda7ad46b7bbffc28c40f34fbaaebc02e1",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/PickUpNext68/LiveComparison.hpp": "0134437b06b03dbd14c0032c941d85f388c8e2e8a94a4bf23cdab8e3232cfaa8",
+      "reversing/PickUpNext68/Core.hpp": "f723d77b2e71d64c540c80112d8f604f420d77d0711344e2554d8434bdbb4609",
+      "reversing/PickUpNext68/Fixtures.hpp": "963f34c80fee545eb9f2d2e90758cf2b4e5c6c71fda0be035938ec6dbe012081",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,905 entradas reversed=1**, de 8,905 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,908 entradas reversed=1**, de 8,908 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8905 |
+| `validated=1` · evidencia aprobada vinculada | 8908 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8905 |
+| Evidencia histórica vinculada; revisión pendiente | 8908 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -5741,6 +5741,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexGetUpAndStandStill | `CreateNextSubTask` | [Resumen](../reversing/CTasks43/validation-summary.json) |
 | CTaskComplexGetUpAndStandStill | `CreateSubTask` | [Resumen](../reversing/CTasks43/validation-summary.json) |
 | CTaskComplexGoPickUpEntity | `Constructor` | [Resumen](../reversing/Helpers65B/validation-summary.json) |
+| CTaskComplexGoPickUpEntity | `ControlSubTask` | [Resumen](../reversing/PickUpControl68/validation-summary.json) |
+| CTaskComplexGoPickUpEntity | `CreateFirstSubTask` | [Resumen](../reversing/PickUpFirst68/validation-summary.json) |
+| CTaskComplexGoPickUpEntity | `CreateNextSubTask` | [Resumen](../reversing/PickUpNext68/validation-summary.json) |
 | CTaskComplexGoPickUpEntity | `Destructor` | [Resumen](../reversing/Helpers65B/validation-summary.json) |
 | CTaskComplexGoToAttractor | `Clone` | [Resumen](../reversing/AttractorTaskPending/validation-summary.json) |
 | CTaskComplexGoToAttractor | `Constructor` | [Resumen](../reversing/RequestedPreflightTasks/validation-summary.json) |
@@ -9409,7 +9412,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexGangLeader` | 13 | 0 | 13 | 0 |
 | `CTaskComplexGetOnBoatSeat` | 8 | 0 | 8 | 0 |
 | `CTaskComplexGetUpAndStandStill` | 5 | 0 | 5 | 0 |
-| `CTaskComplexGoPickUpEntity` | 2 | 0 | 2 | 0 |
+| `CTaskComplexGoPickUpEntity` | 5 | 0 | 5 | 0 |
 | `CTaskComplexGoToAttractor` | 5 | 0 | 5 | 0 |
 | `CTaskComplexGoToBoatSteeringWheel` | 6 | 0 | 6 | 0 |
 | `CTaskComplexGoToCarDoorAndStandStill` | 11 | 0 | 11 | 0 |

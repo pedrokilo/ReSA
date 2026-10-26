@@ -1,0 +1,91 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "4a765a1bbd58868fcf489f146fbde08534978dee79445f36415d9ff2fd5dd032",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 16384,
+  "pairs_per_function": {
+    "CTaskComplexGoPickUpEntity::ControlSubTask": 16384
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "32d52772845d1b154d98e9f324026bbe8af7a1994ee41b0eea0f7ed30e53f756",
+  "compare_dead_x87_registers": false,
+  "families": {
+    "CTaskComplexGoPickUpEntity::ControlSubTask": {
+      "0": 1024,
+      "1": 1024,
+      "2": 1024,
+      "3": 1024,
+      "4": 1024,
+      "5": 1024,
+      "6": 1024,
+      "7": 1024,
+      "8": 1024,
+      "9": 1024,
+      "10": 1024,
+      "11": 1024,
+      "12": 1024,
+      "13": 1024,
+      "14": 1024,
+      "15": 1024
+    }
+  },
+  "branch_coverage": {
+    "CTaskComplexGoPickUpEntity::ControlSubTask": {
+      "no_subtask": 1024,
+      "block_addref": 6952,
+      "block_addref_negative_index": 1307,
+      "result_null": 7084,
+      "block_request": 1670,
+      "block_request_by_name": 821,
+      "block_request_exe_block": 1232,
+      "block_by_name": 4207,
+      "type_other": 1024,
+      "result_subtask": 9300,
+      "block_already_referenced": 4681,
+      "pick_assoc": 1024,
+      "group_zero": 3081,
+      "pick_dropped": 1024,
+      "pick_dropped_byte_odd": 900,
+      "pick_in_time": 1009,
+      "block_request_group_block": 849,
+      "pick_abort": 1039,
+      "goto_abort_time": 1140,
+      "goto_no_playerdata": 1013,
+      "block_loaded_byte_odd": 1815,
+      "goto_no_pad": 1014,
+      "goto_stick_read": 7073,
+      "goto_jump_abort": 1134,
+      "goto_adjust_plus": 1394,
+      "goto_with_matrix": 3519,
+      "goto_stick_garbage_high_bits": 6303,
+      "goto_sprint_abort": 2747,
+      "goto_no_adjust": 4437,
+      "goto_without_matrix": 3554,
+      "goto_long_stick": 4201,
+      "goto_angle_return": 2576,
+      "goto_nan_angle": 740,
+      "goto_angle_abort": 1625,
+      "block_referenced_byte_odd": 4035,
+      "pick_abort_wrap": 181,
+      "goto_adjust_minus": 1242,
+      "goto_short_stick": 616,
+      "goto_adjust_plus_abort": 679,
+      "goto_nan_heading": 511,
+      "goto_adjust_minus_abort": 110,
+      "goto_abort_time_wrap": 193,
+      "type_other_high_bits": 159
+    }
+  },
+  "saves_unchanged": true,
+  "configs_restored": true
+}

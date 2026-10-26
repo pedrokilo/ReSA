@@ -8904,3 +8904,6 @@ CVehicle,ProcessWeapons,0x006E3950,1,0,1,S
 CWaterLevel,RenderSeaBedSegment,0x006E6870,1,0,1,S
 CTaskSimpleGangDriveBy,SetupAnim,0x00627B20,1,0,1,S
 CDecisionMakerTypes,Constructor,0x004650F0,1,0,1,S
+CTaskComplexGoPickUpEntity,CreateNextSubTask,0x00000000,1,0,1,V
+CTaskComplexGoPickUpEntity,CreateFirstSubTask,0x00000000,1,0,1,V
+CTaskComplexGoPickUpEntity,ControlSubTask,0x00000000,1,0,1,V

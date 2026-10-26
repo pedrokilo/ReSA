@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 1,
+  "functions": {
+    "CTaskComplexGoPickUpEntity::CreateFirstSubTask": 16384
+  },
+  "covered_functions": {
+    "CTaskComplexGoPickUpEntity::CreateFirstSubTask": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-2 (HEAD 8ff5230a6 de main + el unico cambio de produccion de source.patch: CreateFirstSubTask de TaskComplexGoPickUpEntity.cpp reconstruida en C++ con RH_ScopedVMTInstall; sin otros hooks nuevos encendidos).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/PickUpFirst68-20261026-142259-467039",
+  "summary_sha256": "de0d26ecc8856f93e298a40ddc5d04da601dea5a03cb99f27314dec028a8611c",
+  "result_txt_sha256": "af735d9ae189995b60a20a2d763c6d6fd9a5bf4cb6c1c05613fed5abef8b8f02",
+  "log_sha256": "e927529b410bc95b995412fe38601f7d631aa880895ef6a199483e2fc43d0a9e",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "03727ef35308c72796f022f96152119fbf76394621c6fd06261058bbd9695790",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp": "c3da23de9108cdeba382bbbce1bd57a9fef1b8d6f9b5d93ef9a8cdec90c24a32",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h": "9ea9b04ee4f4382ab2d8389393da7c2f29979325968de0880eca628487b8c93e",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "0eaf10e15bed49090db67f0b03bac2b2d00b33294883b4dbc5617e137c3ba6b7",
+      "source/game_sa/Entity/Placeable.cpp": "0030861304db9f417c8fd8b322a7be006ef4e5a099238c157e5dc0cf0d018e24",
+      "source/game_sa/SimpleTransform.cpp": "91cfe9e3ac4ceb4a2d63bca9a897a4d62b3ff298a32576300771df16a259c8c4",
+      "source/game_sa/Core/Matrix.cpp": "784eaf906539670019686e093ad784f305247312e9c20f5959f52e3a66677af8",
+      "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
+      "source/game_sa/Tasks/Task.cpp": "82e5cf364b04d162c72a61b2e86c80d01f0617c7b61d2d90aa17e819e05c39db",
+      "source/game_sa/X87Math.cpp": "7b703b6ecdb4bbb9b38e5a5f6ac83d24d194ebe784cc41c52fdfe6ce1f795f41",
+      "source/game_sa/X87Math.h": "7487efb01e7af178d11d6b2a418623cda7ad46b7bbffc28c40f34fbaaebc02e1",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/PickUpFirst68/LiveComparison.hpp": "70159c6725eae388ee93f5bb79c31602f8a0651d6442fc6aa410b0ca0c1bcb8f",
+      "reversing/PickUpFirst68/Core.hpp": "7d0f74e679bbd68eb5bbe013e451264d9b044f97fe70d5147f0130fb3cee09d5",
+      "reversing/PickUpFirst68/Fixtures.hpp": "5c264a86cbbb462d933bc30daadb0a088f4c90ae1612697550fbf4ee4d516c15",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

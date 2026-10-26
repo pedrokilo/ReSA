@@ -62,9 +62,9 @@ def main(src):
     for ID, ADDR, CLS, FN, SOURCE, KIND in FUNCS:
         if not any(r['hook']['class'] == CLS and r['hook']['fn_name'] == FN for r in data['functions']):
             evidence = {'path': out.relative_to(ROOT).as_posix(), 'sha256': sha(out), 'passed_path': ['covered_functions', ID],
-                        'pairs': int(ppf[ID]), 'original_exe_sha256': s['original_exe_sha256']}
+                        'pairs': int(ppf[ID]), 'original_exe_sha256': s['original_exe_sha256'], 'original_address': ADDR}
             data['functions'].append(dict(
-                hook={'class': CLS, 'fn_name': FN, 'address': ADDR, 'type': KIND},
+                hook={'class': CLS, 'fn_name': FN, 'address': '0x00000000' if KIND == 'V' else ADDR, 'type': KIND},
                 evidence=evidence, tested_sources=tested, dependency_review=None,
                 source_provenance='Fuente propia contrastada con EXE canónico y banco RH OFF/ON dentro del juego.',
                 scope=scope, review_reference=f'reversing/{BANK}/README.md'))
