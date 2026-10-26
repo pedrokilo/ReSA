@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 1,
+  "functions": {
+    "CTaskComplexLeaveCar::CreateFirstSubTask": 16384
+  },
+  "covered_functions": {
+    "CTaskComplexLeaveCar::CreateFirstSubTask": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-4 (HEAD 1e45e275d de main + el unico cambio de produccion de source.patch: CreateFirstSubTask de TaskComplexLeaveCar.cpp reconstruida en C++ con RH_ScopedVMTInstall; sin otros hooks nuevos encendidos). El constructor, el destructor, ControlSubTask y CreateSubTask 0x641530 de la clase NO estan hookeados en este HEAD: CreateFirstSubTask no llama a CreateSubTask.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/LeaveCarFirst70-20261026-170435-437689",
+  "summary_sha256": "9def9833d2516e8e49424a5a19fa3f485212ea3f0a13309cc3931fb39e85cdc4",
+  "result_txt_sha256": "c0c3943969e8a6c114025fbe906877da1f918ea488d5de81de76487328aef726",
+  "log_sha256": "14b51ea275564cd702f9bfac6f162bf51371ce9c75dc7cd256c14bef3443867c",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "7deb3d0d0d68fafde8b3e8edc0ea87477d7369705cfa85f257a23fa32a1e1fca",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "8f4faa1f3e867eafa650e4f72d62ad696124132b00b0c1d912c5c51419984a90",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "4f1284644245fbfc190363c8c425e9eaf7156935b32e42a0206184f116ab1649",
+      "source/game_sa/Tasks/Task.cpp": "82e5cf364b04d162c72a61b2e86c80d01f0617c7b61d2d90aa17e819e05c39db",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/LeaveCarFirst70/LiveComparison.hpp": "343238f11fadd78a1523f12e515d160d737026de6bd42c27ac6d3c68ac1d23c0",
+      "reversing/LeaveCarFirst70/Core.hpp": "0322e70fca7a77eb53e904b6498986e2c212a9d45bc6db915afae0cf3b68df66",
+      "reversing/LeaveCarFirst70/Fixtures.hpp": "f4fceb4c99de5dfa273e05ef0e374ff5b4ad2ec38ea5075c19a1ef816f89c8e1",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

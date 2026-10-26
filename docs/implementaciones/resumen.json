@@ -1,8 +1,8 @@
 {
   "scope": "source/game_sa and source/app (WindowedMode.cpp included as the documented NOTSA assembly exception, reported separately), definitions in cpp/h/hpp/inc; all preprocessing branches",
   "totals": {
-    "source_definition_count": 18515,
-    "groups": 1497,
+    "source_definition_count": 18520,
+    "groups": 1498,
     "assembly_occurrences": 0,
     "naked_declarations": 0,
     "definitions_with_assembly": 0,
@@ -17,17 +17,17 @@
       "source/app/platform/win/WindowedMode.cpp"
     ],
     "unassigned_occurrences": 0,
-    "body_parse_errors": 304,
+    "body_parse_errors": 305,
     "asm_bodies_with_parse_errors": 0,
-    "files_with_any_parse_errors": 444,
-    "historical_catalog_rows": 8917,
+    "files_with_any_parse_errors": 445,
+    "historical_catalog_rows": 8921,
     "catalog_rows_without_unambiguous_source_match_in_scope": 2,
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 20,
     "catalog_rows_linked_by_hook_address": 180,
-    "validated_reconstructed_own_cpp_definitions": 10458,
+    "validated_reconstructed_own_cpp_definitions": 10462,
     "validated_reconstructed_own_asm_definitions": 0,
-    "wrapper_definitions": 94
+    "wrapper_definitions": 90
   },
   "source_sha256": {
     "source/app/app.cpp": "4717fcefd64b864f51910ae3ab7b4b3bc0966838f9cddaaca5727ee06c47ac16",
@@ -412,7 +412,7 @@
     "source/game_sa/CurrentVehicle.h": "801eda24baf0bc0ebb88a57fed737b7ac6e8080ea172b93d73351f5f77addbd0",
     "source/game_sa/Curves.cpp": "d2a686c6f591667dd52cdae6bb695640b2639bdf38f4a9f942e329475991b373",
     "source/game_sa/Curves.h": "8625c0cdc242a1df1103a3ac40615a4863d8c089afce5523f94198a217587b54",
-    "source/game_sa/CustomCarPlateMgr.cpp": "a1ce102a186919f3480264e246210776c396953a4d81921129b94020100f4610",
+    "source/game_sa/CustomCarPlateMgr.cpp": "06a31a9eae6fba47da4d6cffe41d6a7a3986d446b4bd759cef74d6cce974072f",
     "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
     "source/game_sa/CustomRoadsignMgr.cpp": "6159ff224d801aaaa61321e2162ee98311b4574b8017d73e842dec70b57f6c08",
     "source/game_sa/CustomRoadsignMgr.h": "6d7902170dbd0837ee9133f56d4cfc954d66ca4c0660401ff10680deb9e596d4",
@@ -1092,7 +1092,7 @@
     "source/game_sa/PedGroups.h": "7d8028e72a95d1bada25d646618971afcac2ec09b6f1aa4096905a1fe8c27550",
     "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
     "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-    "source/game_sa/PedIntelligence.cpp": "ae96319258dae45090b829897eed3219ac196180f894c56f0645a0cc1c4ee543",
+    "source/game_sa/PedIntelligence.cpp": "db0023e4e7b54c2dcb58a7721f0040129b54aa524fb37b20092683972b4752ae",
     "source/game_sa/PedIntelligence.h": "3cdb1dfdd718c5dc92a273bb06a8db7642606f9c456d76bde75c16c02325abe6",
     "source/game_sa/PedList.cpp": "eff2ae62a71d8cf939812c2e973e57174043d06f1e0a6fcbb01c79538679bed7",
     "source/game_sa/PedList.h": "f5ad189c530dbda2874b0c19336fde1bc509eba40acf93939dd3cc2f6f7a6433",
@@ -1100,7 +1100,7 @@
     "source/game_sa/PedPlacement.h": "0f038fa32d9afb6d7f497aa0228f333e1d8adde1d46db74f124b57f9a9a35937",
     "source/game_sa/PedScanner.cpp": "fd4ed65853d1949704e9a9c595e8e0e30b79fefec3a478d147ad16436d8b2a02",
     "source/game_sa/PedScanner.h": "60543b8af93490e6f2925aff7134a8408b1a71403cfac3eddee79585e0cc60bc",
-    "source/game_sa/PedStats.cpp": "3c8fcc73be200683ecf3ba4a04512fe0d4db00767265700a74ff336808051215",
+    "source/game_sa/PedStats.cpp": "4ae96ce3596daf4b2f64b2ead625326d84d251123a81cacd948f23bccb59a1bc",
     "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
     "source/game_sa/PedStuckChecker.cpp": "16ae473c4e6cc7b064862d8a469cd8ce914cb9407c0110ab79c68c3f1b2cac33",
     "source/game_sa/PedStuckChecker.h": "19f3f664659e8b74d327099406ea41ba0e85c6c32f7f6d6d1d439de86cfde73d",
@@ -1727,7 +1727,7 @@
     "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
     "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveBoat.cpp": "58845c60209eaab124fc0ade46ca2ff0518edd773a1999937d837300ce565639",
     "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveBoat.h": "bff8f4d6f68cb8657068454a7a0e26271d551be965b08f1a65de862219c3388d",
-    "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "01e6a05c8b35009ead835917a49e4714e39926ff700afb5e3c10c3a63e5457af",
+    "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "8f4faa1f3e867eafa650e4f72d62ad696124132b00b0c1d912c5c51419984a90",
     "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "4f1284644245fbfc190363c8c425e9eaf7156935b32e42a0206184f116ab1649",
     "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.cpp": "0fe103bb271dce6d18b9d037d3f8536ff31daf2fb099e22eccf729943dd28c8f",
     "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.h": "92f769868e4efb4b9fe35710bf43348cc4b4632f0bf840fd984042b8654d975f",
@@ -2232,10 +2232,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "9d09af325101500f9daab6f9dbf51d75c88a25946aaea209b8055813c64b3adf",
+    "hooks.csv": "a49d9da1f2b0fdb202a9347d33aeb0745e9d3f1b11fdc764b57620a456961614",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "341ce8e8f2b8bc4547f100abe46ac3c185da126f03e5c15716d7547406c52832",
+  "migration_registry_sha256": "16042e69ec2c166cd25f54415bcf4d9af249575e77ed5f10722d59206d226dfd",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",
@@ -2542,6 +2542,7 @@
     "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h",
     "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h",
     "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveBoat.h",
+    "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp",
     "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndFlee.h",
     "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndWander.h",
     "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h",

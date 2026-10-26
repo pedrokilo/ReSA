@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 26/10/2026 (Ciudad de México):** 818 grupos / 8913 funciones reconstruidas; 8913 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 26/10/2026 (Ciudad de México):** 819 grupos / 8917 funciones reconstruidas; 8917 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo C: Falta: solo la llaman funciones aún no reemplazadas
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-535 funciones, 68,278 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+530 funciones, 67,770 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -112,7 +112,6 @@
 | `0x0061A6F0` | 159 | CTask | baja | 6 (0) |  |
 | `0x005CAB70` | 157 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x005CC050` | 157 | FxEmitterBP_c | baja | 1 (0) |  |
-| `0x0063BA00` | 157 | CTaskComplexStealCar | baja | 3 (0) |  |
 | `0x0066D4B0` | 155 | CTaskComplexInvestigateDisturbance | baja | 1 (0) |  |
 | `0x005CC1F0` | 153 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x00611F20` | 152 | CLoadedCarGroup | baja | 1 (0) |  |
@@ -142,7 +141,6 @@
 | `0x0074EB80` | 124 | Win | baja | 1 (0) |  |
 | `0x005A3090` | 122 | ProcSurfaceInfo_c | baja | 1 (0) |  |
 | `0x005A6FC0` | 122 | CClothesBuilder | baja | 4 (0) |  |
-| `0x0063BAE0` | 122 | CTaskComplexStealCar | baja | 2 (0) |  |
 | `0x00620B00` | 121 | CTaskSimpleBeHit | baja | 1 (0) |  |
 | `0x00670A70` | 121 | CTaskComplexTurnToFaceEntityOrCoord | baja | 2 (0) |  |
 | `0x00403B03` | 120 | CEntity | baja | 1 (0) |  |
@@ -183,14 +181,12 @@
 | `0x00508930` | 102 | CAudioZones | baja | 1 (0) |  |
 | `0x005C5560` | 102 | FxEmitterBP_c | baja | 18 (0) |  |
 | `0x00617FC0` | 102 | IKChain_c | baja | 1 (0) |  |
-| `0x00646CF0` | 101 | CTaskSimpleCarWaitForDoorNotToBeInUse | baja | 1 (0) |  |
 | `0x006592A0` | 99 | CTaskComplexMedicTreatInjuredPed | baja | 1 (0) |  |
 | `0x007486A0` | 99 | Win | baja | 1 (0) |  |
 | `0x0066CBB0` | 97 | CTaskComplexInvestigateDisturbance | baja | 1 (0) |  |
 | `0x006956D0` | 97 | CTaskComplexSeekEntityAnyMeansXYOffset | baja | 1 (0) |  |
 | `0x006594D0` | 96 | CTaskComplexUseSwatRope | alta | 1 (0) |  |
 | `0x004CECF0` | 94 | CAnimBlendStaticAssociation | baja | 1 (0) |  |
-| `0x00647710` | 94 | CTaskSimpleCarJumpOut | baja | 2 (0) |  |
 | `0x004CBE20` | 93 | CWeaponModelInfo | baja | 8 (0) |  |
 | `0x004CBF20` | 93 | CWeaponModelInfo | baja | 1 (0) |  |
 | `0x00653090` | 93 | CTaskSimpleHitHead | alta | 1 (0) |  |
@@ -334,7 +330,6 @@
 | `0x00706770` | 36 | CRealTimeShadow | baja | 1 (0) |  |
 | `0x004F3BA0` | 35 | CAEUserRadioTrackManager | alta | 8 (0) |  |
 | `0x007467D0` | 35 | VideoPlayer | baja | 1 (0) |  |
-| `0x0063BAB0` | 34 | CTaskComplexStealCar | baja | 2 (0) |  |
 | `0x0046A7E0` | 33 | CTheScripts | alta | 1 (0) |  |
 | `0x004EFD30` | 33 | CAESoundManager | baja | 1 (0) |  |
 | `0x004F63B0` | 33 | CAEVehicleAudioEntity | alta | 2 (0) |  |

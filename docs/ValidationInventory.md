@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,913 entradas reversed=1**, de 8,913 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,917 entradas reversed=1**, de 8,917 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8913 |
+| `validated=1` · evidencia aprobada vinculada | 8917 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8913 |
+| Evidencia histórica vinculada; revisión pendiente | 8917 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -5952,6 +5952,10 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexLeaveBoat | `CreateSubTask` | [Resumen](../reversing/CTasks8b/validation-summary.json) |
 | CTaskComplexLeaveBoat | `Destructor` | [Resumen](../reversing/CTasks8b/validation-summary.json) |
 | CTaskComplexLeaveBoat | `GetTaskType` | [Resumen](../reversing/CTasks8b/validation-summary.json) |
+| CTaskComplexLeaveCar | `CreateFirstSubTask` | [Resumen](../reversing/LeaveCarFirst70/validation-summary.json) |
+| CTaskComplexLeaveCar | `CreateNextSubTask` | [Resumen](../reversing/LeaveCarNext70/validation-summary.json) |
+| CTaskComplexLeaveCar | `CreateSubTask` | [Resumen](../reversing/LeaveCarSub70/validation-summary.json) |
+| CTaskComplexLeaveCar | `MakeAbortable` | [Resumen](../reversing/LeaveCarAbort70/validation-summary.json) |
 | CTaskComplexLeaveCarAndDie | `Clone` | [Resumen](../reversing/PedTasks52/validation-summary.json) |
 | CTaskComplexLeaveCarAndDie | `CreateFirstSubTask` | [Resumen](../reversing/PedTasks52/validation-summary.json) |
 | CTaskComplexLeaveCarAndDie | `GetTaskType` | [Resumen](../reversing/PedTasks52/validation-summary.json) |
@@ -9445,6 +9449,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexKillPedOnFootStealth` | 7 | 0 | 7 | 0 |
 | `CTaskComplexLeaveAnyCar` | 7 | 0 | 7 | 0 |
 | `CTaskComplexLeaveBoat` | 8 | 0 | 8 | 0 |
+| `CTaskComplexLeaveCar` | 4 | 0 | 4 | 0 |
 | `CTaskComplexLeaveCarAndDie` | 3 | 0 | 3 | 0 |
 | `CTaskComplexLeaveCarAndFlee` | 8 | 0 | 8 | 0 |
 | `CTaskComplexLeaveCarAndWander` | 8 | 0 | 8 | 0 |

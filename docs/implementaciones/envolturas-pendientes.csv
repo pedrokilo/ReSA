@@ -296,10 +296,6 @@ CPlayerPed,ProcessGroupBehaviour,0x0060D350,source/game_sa/Entity/Ped/PlayerPed.
 CPlayerPed,ProcessWeaponSwitch,0x0060D850,source/game_sa/Entity/Ped/PlayerPed.cpp:1213,cohorte 499 + envoltura en el código fuente
 CPlayerPed,SetInitialState,0x0060CD20,source/game_sa/Entity/Ped/PlayerPed.cpp:1080,cohorte 499 + envoltura en el código fuente
 CPlayerPed,SetRealMoveAnim,0x0060A9C0,source/game_sa/Entity/Ped/PlayerPed.cpp:820,cohorte 499 + envoltura en el código fuente
-CTaskComplexLeaveCar,CreateFirstSubTask,0x00641FC0,source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp:64,cohorte 499 + envoltura en el código fuente
-CTaskComplexLeaveCar,CreateNextSubTask,0x006419F0,source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp:59,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CTaskComplexLeaveCar,CreateSubTask,0x00641530,source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp:92,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CTaskComplexLeaveCar,MakeAbortable,0x00641100,source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp:54,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CVehicle,AddReplacementUpgrade,0x006D3830,source/game_sa/Entity/Vehicle/Vehicle.cpp:2742,cohorte nuevo 2026-10-17
 CVehicle,AddSingleWheelParticles,0x006DE880,source/game_sa/Entity/Vehicle/Vehicle.cpp:4787,cohorte 499
 CVehicle,DoDriveByShootings,0x00741FD0,source/game_sa/Entity/Vehicle/Vehicle.cpp:8269,cohorte 499 + envoltura en el código fuente

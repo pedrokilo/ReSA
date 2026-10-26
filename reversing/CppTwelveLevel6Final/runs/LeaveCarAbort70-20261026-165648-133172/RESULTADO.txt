@@ -1,0 +1,3 @@
+APROBADO: LeaveCarAbort70
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-leavecarabort70\20261026-165648-133172

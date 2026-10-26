@@ -544063,6 +544063,151 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wy-2 (HEAD 9a8eb46fa + source.patch). LoadPlatecharsetDat 0x6FDC00 (sin llamadores en el EXE; lee DATA/<archivo> linea a linea): los colaboradores de ARCHIVO CFileMgr::SetDir 0x5387D0, CFileMgr::OpenFile 0x538900, CFileLoader::LoadLine(FILESTREAM) 0x536F80 y CFileMgr::CloseFile 0x5389D0 (los cuatro con hook) se sustituyen por falsos identicos en ambos lados que registran sus argumentos en orden y entregan las lineas desde un buffer controlado: NO se prueba ninguna E/S de archivo real, ni el LoadLine real (que sanea caracteres de control y comas y salta los blancos iniciales; el banco entrega ademas lineas que ese LoadLine nunca produciria), ni PLATECHARSET.DAT ni ningun archivo del juego. strtok (0x82244B) y atoi (0x82258E) NO se sustituyen: el EXE usa su CRT y la DLL el strtok de su CRT y PlatecharAtoi (atoi con desbordamiento de 32 bits como el EXE; el atoi del CRT de la DLL satura y habria diferido), y el banco los compara de verdad. Una linea vacia o formada solo por espacios/tabuladores hace que el EXE llame a atoi(NULL) (acceso a la direccion 0): el banco nunca la genera y la DLL reproduce ese acceso sin probarlo. Solo AL se compara (la funcion no tiene llamadores); se compara la traza de los falsos, los dwords escritos, la arena completa y el buffer de linea tras strtok.",
       "review_reference": "reversing/PlateCharset69/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexLeaveCar",
+        "fn_name": "MakeAbortable",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/LeaveCarAbort70/validation-summary.json",
+        "sha256": "e4406f936737a62aeb48c99b2e01ecbfc261f33ee913dd7192eeaa6ada048d87",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexLeaveCar::MakeAbortable"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00641100"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "8f4faa1f3e867eafa650e4f72d62ad696124132b00b0c1d912c5c51419984a90",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "4f1284644245fbfc190363c8c425e9eaf7156935b32e42a0206184f116ab1649",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/LeaveCarAbort70/LiveComparison.hpp": "96dc6b2eda5269870e34dadb5b2db934a248640d6567be524a35b06c09f959ab",
+        "reversing/LeaveCarAbort70/Core.hpp": "b0703b00b8e3403ebf49c9514809c1331961ca11ff2ae87cc197a0101465438e",
+        "reversing/LeaveCarAbort70/Fixtures.hpp": "c037c288d53e502dc79032a575c7103fc2ac156b14b967f21dd5331bc4d10ca1",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wy-1 (HEAD 1e45e275d + TaskComplexLeaveCar.cpp, source.patch). CTaskComplexLeaveCar::MakeAbortable 0x641100 (virtual, ranura 6 de la vtable 0x86E828, thiscall, ret 0xC; AL = resultado): CVehicle::ClearGettingOutFlags 0x6D3060, CVector::Magnitude 0x4082C0, CPed::IsPlayer 0x5DF8F0, CWorld::ProcessVerticalLine 0x5674E0, CAnimManager::BlendAnimation(id) 0x4D4610, CCarEnterExit::ComputeTargetDoorToExit 0x64F110, y de las dos tareas temporales de la pila los constructores y destructores de CTaskSimpleCarCloseDoorFromOutside (0x6464F0 / 0x646570) y de CTaskSimpleCarSetPedOut (0x6478B0 / 0x647950, sin hook: el de la DLL tiene un 4o argumento) y sus MakeAbortable 0x64B020 / ProcessPed 0x647D10, sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL). GetTaskType y MakeAbortable de la subtarea, GetEventType del evento y GetNumContactWheels del vehiculo (vtable 55) van por vtables falsas de arena; CEventDamage::HasKilledPed (0x4ABCA0) corre real en ambos lados. La funcion no se probo con subtarea nula en las rutas de prioridad 1 y 2 (el EXE la desreferencia). CreateNextSubTask 0x6419F0, CreateFirstSubTask 0x641FC0 y CreateSubTask 0x641530 siguen en el EXE; el constructor, el destructor y ControlSubTask de la clase estan en C++ sin hook ni banco.",
+      "review_reference": "reversing/LeaveCarAbort70/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexLeaveCar",
+        "fn_name": "CreateNextSubTask",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/LeaveCarNext70/validation-summary.json",
+        "sha256": "3d68a284985de86900ea1844f1a26730af3a38617569a697175cdfb1cac11fd2",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexLeaveCar::CreateNextSubTask"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006419F0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "8f4faa1f3e867eafa650e4f72d62ad696124132b00b0c1d912c5c51419984a90",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "4f1284644245fbfc190363c8c425e9eaf7156935b32e42a0206184f116ab1649",
+        "source/game_sa/X87Math.cpp": "881fd3e06e424b3edf2511b85a2cbdc23484ad7fe81cfa0b621124ca7089ab4c",
+        "source/game_sa/X87Math.h": "e2be2c445a566df55494d01cc0465850165aef39d3383c2eedbafce90ddc115d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/LeaveCarNext70/LiveComparison.hpp": "38425539a549bfdacc5a72c99739a1d4bb9e4a1cd725e952fe2c283bf709bb53",
+        "reversing/LeaveCarNext70/Core.hpp": "efcaad505023aebe4310aedb2a3dac8ee572874fd9824397f8cc3d558f211e9d",
+        "reversing/LeaveCarNext70/Fixtures.hpp": "6c4f832327612b2945ed80fba71fc648e78f3a2bdd42aabd691992ac8dd81356",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wy-2 (HEAD 1e45e275d + TaskComplexLeaveCar.cpp, source.patch). CTaskComplexLeaveCar::CreateNextSubTask 0x6419F0 (virtual, thiscall, ret 4; EAX = tarea nueva o nulo): segun el tipo de la subtarea actual pide a CreateSubTask (0x641530) la siguiente (TASK_FINISHED, SET_PED_OUT, DIE, WAIT_TO_SLOW_DOWN, WAIT_FOR_DOOR_NOT_TO_BE_IN_USE, JUMP_OUT, GET_OUT, FORCE_PED_OUT, CLOSE_DOOR_FROM_OUTSIDE, SLOW_BE_DRAGGED_OUT, GET_UP_AND_STAND_STILL), reserva puertas y banderas del vehiculo y crea la utilidad CTaskUtilityLineUpPedWithCar. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): CreateSubTask 0x641530 (sin hook en este arbol: se parchea la envoltura de la DLL), operator new 0x82119A, constructor de CTaskUtilityLineUpPedWithCar 0x64FBB0, CPed::IsPlayer 0x5DF8F0 y SetPedState 0x5E4500, CCarEnterExit::ComputeDoorFlag 0x64E550, ComputeTargetDoorToExit 0x64F110, IsRoomForPedToLeaveCar 0x6504C0 y CarHasDoorToClose 0x64EE10, CVehicle::SetGettingOutFlags 0x6D3020, ClearGettingOutFlags 0x6D3060, IsPassenger 0x6D1BD0 e IsDriver 0x6D1C40, CDamageManager::GetDoorStatus_Component 0x6C2250 y SetDoorStatus_Component 0x6C21E0; CVehicle::CanPedStepOutCar se llama por la vtable falsa del vehiculo. Las ayudantes en linea del EXE (0x63BA00, 0x63BAB0, 0x63BAE0, 0x646CF0) corren reales en el EXE y son funciones locales en la DLL. Fuera de cobertura: en la rama GET_OUT la puerta se limita a 0..255 (CDamageManager de la DLL recibe la puerta como uint8, el EXE como dword; el juego solo usa 0..11); el residuo de registros (EAX/ECX/EDX) no se compara; los bytes altos del argumento de SetGettingOutFlags que deja el EXE (basura de pila) se enmascaran.",
+      "review_reference": "reversing/LeaveCarNext70/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexLeaveCar",
+        "fn_name": "CreateSubTask",
+        "address": "0x00641530",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/LeaveCarSub70/validation-summary.json",
+        "sha256": "6d29662f8ac6c6b8ced3e502d9168dcc1ccad33fb562759ef48323d2fded1344",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexLeaveCar::CreateSubTask"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00641530"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "8f4faa1f3e867eafa650e4f72d62ad696124132b00b0c1d912c5c51419984a90",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "4f1284644245fbfc190363c8c425e9eaf7156935b32e42a0206184f116ab1649",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/LeaveCarSub70/LiveComparison.hpp": "e78d90dd8f1501b75e65c048424e70a3ed200b6b85c43c64cecb8b4a1f104404",
+        "reversing/LeaveCarSub70/Core.hpp": "4482c4d03f21ab66610f9716fedededfb83599e0c4dd1407ff1a914f4252e9be",
+        "reversing/LeaveCarSub70/Fixtures.hpp": "ca6523573649bcc9d77b4b77d4cae0906ddf8ce891ad9e21fe6927018c1e0de9",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wy-3 (HEAD de main + TaskComplexLeaveCar.cpp, source.patch). CTaskComplexLeaveCar::CreateSubTask(eTaskType, CPed*) 0x641530 (no virtual, thiscall con dos argumentos en la pila, ret 8; EAX = tarea nueva o nulo): segun el tipo pedido reserva con CTask::operator new y construye la subtarea (Pause, GetUpAndStandStill, Die, LeaveBoat, CarDriveTimed, CarCloseDoorFromOutside, CarWaitToSlowDown con CPed::IsPlayer, CarWaitForDoorNotToBeInUse, CarGetOut, CarJumpOut, CarForcePedOut, CarSetPedOut, ComplexCarSlowBeDraggedOut) o devuelve nulo. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): CTask::operator new 0x61A5A0, CPed::IsPlayer 0x5DF8F0, CEntity::RegisterReference 0x571B70 y los constructores con hook; el de CTaskSimpleCarForcePedOut 0x647710 (sin clase reconstruida: la DLL lo llama por la direccion del EXE) solo en el EXE; el de CTaskSimpleCarSetPedOut 0x6478B0 (sin hook) corre real en ambos lados y se compara el objeto. La propia validez de los constructores y de los colaboradores no la prueba este banco.",
+      "review_reference": "reversing/LeaveCarSub70/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexLeaveCar",
+        "fn_name": "CreateFirstSubTask",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/LeaveCarFirst70/validation-summary.json",
+        "sha256": "3709909a91a9acfc1ce415e0a3b1f01b69c436901b4f51d1919625fd2238d22c",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexLeaveCar::CreateFirstSubTask"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00641FC0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "8f4faa1f3e867eafa650e4f72d62ad696124132b00b0c1d912c5c51419984a90",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "4f1284644245fbfc190363c8c425e9eaf7156935b32e42a0206184f116ab1649",
+        "source/game_sa/Tasks/Task.cpp": "82e5cf364b04d162c72a61b2e86c80d01f0617c7b61d2d90aa17e819e05c39db",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/LeaveCarFirst70/LiveComparison.hpp": "343238f11fadd78a1523f12e515d160d737026de6bd42c27ac6d3c68ac1d23c0",
+        "reversing/LeaveCarFirst70/Core.hpp": "0322e70fca7a77eb53e904b6498986e2c212a9d45bc6db915afae0cf3b68df66",
+        "reversing/LeaveCarFirst70/Fixtures.hpp": "f4fceb4c99de5dfa273e05ef0e374ff5b4ad2ec38ea5075c19a1ef816f89c8e1",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wy-4 (HEAD 1e45e275d de main + el unico cambio de produccion de source.patch: CreateFirstSubTask de TaskComplexLeaveCar.cpp reconstruida en C++ con RH_ScopedVMTInstall; sin otros hooks nuevos encendidos). El constructor, el destructor, ControlSubTask y CreateSubTask 0x641530 de la clase NO estan hookeados en este HEAD: CreateFirstSubTask no llama a CreateSubTask.",
+      "review_reference": "reversing/LeaveCarFirst70/README.md"
     }
   ]
 }

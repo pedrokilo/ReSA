@@ -8912,3 +8912,7 @@ CPedIntelligence,HasInterestingEntites,0x00602080,1,0,1,S
 CPedIntelligence,RemoveAllInterestingEntities,0x00602320,1,0,1,S
 CPedStats,FindIndexWithPedStat,0x00608940,1,0,1,S
 CCustomCarPlateMgr,LoadPlatecharsetDat,0x006FDC00,1,0,1,S
+CTaskComplexLeaveCar,MakeAbortable,0x00000000,1,0,1,V
+CTaskComplexLeaveCar,CreateNextSubTask,0x00000000,1,0,1,V
+CTaskComplexLeaveCar,CreateSubTask,0x00641530,1,0,1,S
+CTaskComplexLeaveCar,CreateFirstSubTask,0x00000000,1,0,1,V

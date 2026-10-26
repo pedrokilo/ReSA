@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 1,
+  "functions": {
+    "CTaskComplexLeaveCar::CreateNextSubTask": 16384
+  },
+  "covered_functions": {
+    "CTaskComplexLeaveCar::CreateNextSubTask": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-2 (HEAD 1e45e275d + TaskComplexLeaveCar.cpp, source.patch). CTaskComplexLeaveCar::CreateNextSubTask 0x6419F0 (virtual, thiscall, ret 4; EAX = tarea nueva o nulo): segun el tipo de la subtarea actual pide a CreateSubTask (0x641530) la siguiente (TASK_FINISHED, SET_PED_OUT, DIE, WAIT_TO_SLOW_DOWN, WAIT_FOR_DOOR_NOT_TO_BE_IN_USE, JUMP_OUT, GET_OUT, FORCE_PED_OUT, CLOSE_DOOR_FROM_OUTSIDE, SLOW_BE_DRAGGED_OUT, GET_UP_AND_STAND_STILL), reserva puertas y banderas del vehiculo y crea la utilidad CTaskUtilityLineUpPedWithCar. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): CreateSubTask 0x641530 (sin hook en este arbol: se parchea la envoltura de la DLL), operator new 0x82119A, constructor de CTaskUtilityLineUpPedWithCar 0x64FBB0, CPed::IsPlayer 0x5DF8F0 y SetPedState 0x5E4500, CCarEnterExit::ComputeDoorFlag 0x64E550, ComputeTargetDoorToExit 0x64F110, IsRoomForPedToLeaveCar 0x6504C0 y CarHasDoorToClose 0x64EE10, CVehicle::SetGettingOutFlags 0x6D3020, ClearGettingOutFlags 0x6D3060, IsPassenger 0x6D1BD0 e IsDriver 0x6D1C40, CDamageManager::GetDoorStatus_Component 0x6C2250 y SetDoorStatus_Component 0x6C21E0; CVehicle::CanPedStepOutCar se llama por la vtable falsa del vehiculo. Las ayudantes en linea del EXE (0x63BA00, 0x63BAB0, 0x63BAE0, 0x646CF0) corren reales en el EXE y son funciones locales en la DLL. Fuera de cobertura: en la rama GET_OUT la puerta se limita a 0..255 (CDamageManager de la DLL recibe la puerta como uint8, el EXE como dword; el juego solo usa 0..11); el residuo de registros (EAX/ECX/EDX) no se compara; los bytes altos del argumento de SetGettingOutFlags que deja el EXE (basura de pila) se enmascaran.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/LeaveCarNext70-20261026-165907-297512",
+  "summary_sha256": "939ccfb18f9439df31f6c48284023b3366233405a988470531717b66aa7d58a0",
+  "result_txt_sha256": "d9e34d648fcc9c4cb52c40c4802548a3f9835db99626f6424038a35ec0302529",
+  "log_sha256": "c497be7a8a048f86facffb9a7c4555a3e78062f489a92658c07fa0e6e4c08107",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "6683f939907c80b167acfa86ebf24db76763bf78f85d6c7f331ba6b0dda85190",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "8f4faa1f3e867eafa650e4f72d62ad696124132b00b0c1d912c5c51419984a90",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "4f1284644245fbfc190363c8c425e9eaf7156935b32e42a0206184f116ab1649",
+      "source/game_sa/X87Math.cpp": "881fd3e06e424b3edf2511b85a2cbdc23484ad7fe81cfa0b621124ca7089ab4c",
+      "source/game_sa/X87Math.h": "e2be2c445a566df55494d01cc0465850165aef39d3383c2eedbafce90ddc115d",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/LeaveCarNext70/LiveComparison.hpp": "38425539a549bfdacc5a72c99739a1d4bb9e4a1cd725e952fe2c283bf709bb53",
+      "reversing/LeaveCarNext70/Core.hpp": "efcaad505023aebe4310aedb2a3dac8ee572874fd9824397f8cc3d558f211e9d",
+      "reversing/LeaveCarNext70/Fixtures.hpp": "6c4f832327612b2945ed80fba71fc648e78f3a2bdd42aabd691992ac8dd81356",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

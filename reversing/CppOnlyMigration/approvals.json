@@ -13035,5 +13035,61 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ sin llamadas al EXE para la propia funcion (los colaboradores sin reconstruir se llaman por direccion y el banco los sustituye por falsos identicos en ambos lados). Banco Helpers66A con 16384 pares y cero diferencias; ECX/EDX solo registrados y EAX comparado donde un llamador lo lee. Sin cobertura exhaustiva mas alla de los fixtures del banco. Validado en el worktree D:/Original/wy-2 (HEAD 9a8eb46fa + source.patch). LoadPlatecharsetDat 0x6FDC00 (sin llamadores en el EXE; lee DATA/<archivo> linea a linea): los colaboradores de ARCHIVO CFileMgr::SetDir 0x5387D0, CFileMgr::OpenFile 0x538900, CFileLoader::LoadLine(FILESTREAM) 0x536F80 y CFileMgr::CloseFile 0x5389D0 (los cuatro con hook) se sustituyen por falsos identicos en ambos lados que registran sus argumentos en orden y entregan las lineas desde un buffer controlado: NO se prueba ninguna E/S de archivo real, ni el LoadLine real (que sanea caracteres de control y comas y salta los blancos iniciales; el banco entrega ademas lineas que ese LoadLine nunca produciria), ni PLATECHARSET.DAT ni ningun archivo del juego. strtok (0x82244B) y atoi (0x82258E) NO se sustituyen: el EXE usa su CRT y la DLL el strtok de su CRT y PlatecharAtoi (atoi con desbordamiento de 32 bits como el EXE; el atoi del CRT de la DLL satura y habria diferido), y el banco los compara de verdad. Una linea vacia o formada solo por espacios/tabuladores hace que el EXE llame a atoi(NULL) (acceso a la direccion 0): el banco nunca la genera y la DLL reproduce ese acceso sin probarlo. Solo AL se compara (la funcion no tiene llamadores); se compara la traza de los falsos, los dwords escritos, la arena completa y el buffer de linea tras strtok."
+  },
+  "0x00641100": {
+    "identity": "CTaskComplexLeaveCar::MakeAbortable",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp",
+    "bank": "LeaveCarAbort70",
+    "run": "20261026-165648-133172",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/LeaveCarAbort70-20261026-165648-133172/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE para la propia funcion (los colaboradores sin reconstruir se llaman por direccion y el banco los sustituye por falsos identicos en ambos lados). Banco LeaveCarAbort70 con 16384 pares y cero diferencias; ECX/EDX solo registrados y AL comparado (los llamadores virtuales leen AL). Sin cobertura exhaustiva mas alla de los fixtures del banco. Validado en el worktree D:/Original/wy-1 (HEAD 1e45e275d + TaskComplexLeaveCar.cpp, source.patch). CTaskComplexLeaveCar::MakeAbortable 0x641100 (virtual, ranura 6 de la vtable 0x86E828, thiscall, ret 0xC; AL = resultado): CVehicle::ClearGettingOutFlags 0x6D3060, CVector::Magnitude 0x4082C0, CPed::IsPlayer 0x5DF8F0, CWorld::ProcessVerticalLine 0x5674E0, CAnimManager::BlendAnimation(id) 0x4D4610, CCarEnterExit::ComputeTargetDoorToExit 0x64F110, y de las dos tareas temporales de la pila los constructores y destructores de CTaskSimpleCarCloseDoorFromOutside (0x6464F0 / 0x646570) y de CTaskSimpleCarSetPedOut (0x6478B0 / 0x647950, sin hook: el de la DLL tiene un 4o argumento) y sus MakeAbortable 0x64B020 / ProcessPed 0x647D10, sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL). GetTaskType y MakeAbortable de la subtarea, GetEventType del evento y GetNumContactWheels del vehiculo (vtable 55) van por vtables falsas de arena; CEventDamage::HasKilledPed (0x4ABCA0) corre real en ambos lados. La funcion no se probo con subtarea nula en las rutas de prioridad 1 y 2 (el EXE la desreferencia). CreateNextSubTask 0x6419F0, CreateFirstSubTask 0x641FC0 y CreateSubTask 0x641530 siguen en el EXE; el constructor, el destructor y ControlSubTask de la clase estan en C++ sin hook ni banco."
+  },
+  "0x006419F0": {
+    "identity": "CTaskComplexLeaveCar::CreateNextSubTask",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp",
+    "bank": "LeaveCarNext70",
+    "run": "20261026-165907-297512",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/LeaveCarNext70-20261026-165907-297512/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (CTaskComplexLeaveCar, tarea de bajarse de un vehiculo): CreateNextSubTask sin llamadas al EXE para esta función. El banco sustituye por falsos idénticos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL) los colaboradores con hook en HEAD y compara la secuencia de llamadas con sus argumentos, el objeto reservado construido por el constructor real de CTaskSimpleAchieveHeading, los cambios en las arenas del caso y el retorno. Banco LeaveCarNext70 con 16384 pares (16384 propios) y cero diferencias; EAX/ECX/EDX de salida: ver README del banco. Validado en el worktree D:/Original/wy-2 (HEAD 1e45e275d + TaskComplexLeaveCar.cpp, source.patch). CTaskComplexLeaveCar::CreateNextSubTask 0x6419F0 (virtual, thiscall, ret 4; EAX = tarea nueva o nulo): segun el tipo de la subtarea actual pide a CreateSubTask (0x641530) la siguiente (TASK_FINISHED, SET_PED_OUT, DIE, WAIT_TO_SLOW_DOWN, WAIT_FOR_DOOR_NOT_TO_BE_IN_USE, JUMP_OUT, GET_OUT, FORCE_PED_OUT, CLOSE_DOOR_FROM_OUTSIDE, SLOW_BE_DRAGGED_OUT, GET_UP_AND_STAND_STILL), reserva puertas y banderas del vehiculo y crea la utilidad CTaskUtilityLineUpPedWithCar. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): CreateSubTask 0x641530 (sin hook en este arbol: se parchea la envoltura de la DLL), operator new 0x82119A, constructor de CTaskUtilityLineUpPedWithCar 0x64FBB0, CPed::IsPlayer 0x5DF8F0 y SetPedState 0x5E4500, CCarEnterExit::ComputeDoorFlag 0x64E550, ComputeTargetDoorToExit 0x64F110, IsRoomForPedToLeaveCar 0x6504C0 y CarHasDoorToClose 0x64EE10, CVehicle::SetGettingOutFlags 0x6D3020, ClearGettingOutFlags 0x6D3060, IsPassenger 0x6D1BD0 e IsDriver 0x6D1C40, CDamageManager::GetDoorStatus_Component 0x6C2250 y SetDoorStatus_Component 0x6C21E0; CVehicle::CanPedStepOutCar se llama por la vtable falsa del vehiculo. Las ayudantes en linea del EXE (0x63BA00, 0x63BAB0, 0x63BAE0, 0x646CF0) corren reales en el EXE y son funciones locales en la DLL. Fuera de cobertura: en la rama GET_OUT la puerta se limita a 0..255 (CDamageManager de la DLL recibe la puerta como uint8, el EXE como dword; el juego solo usa 0..11); el residuo de registros (EAX/ECX/EDX) no se compara; los bytes altos del argumento de SetGettingOutFlags que deja el EXE (basura de pila) se enmascaran."
+  },
+  "0x00641530": {
+    "identity": "CTaskComplexLeaveCar::CreateSubTask",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp",
+    "bank": "LeaveCarSub70",
+    "run": "20261026-170202-507936",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/LeaveCarSub70-20261026-170202-507936/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (CTaskComplexLeaveCar, tarea de salir del coche): CreateSubTask sin llamadas al EXE para esta función. El banco sustituye por falsos idénticos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL) los colaboradores con hook en HEAD y compara la secuencia de llamadas con sus argumentos, el objeto reservado construido por el constructor real de CTaskSimpleCarSetPedOut, los cambios en las arenas del caso y el retorno. Banco LeaveCarSub70 con 16384 pares (16384 propios) y cero diferencias; EAX/ECX/EDX de salida: ver README del banco. Validado en el worktree D:/Original/wy-3 (HEAD de main + TaskComplexLeaveCar.cpp, source.patch). CTaskComplexLeaveCar::CreateSubTask(eTaskType, CPed*) 0x641530 (no virtual, thiscall con dos argumentos en la pila, ret 8; EAX = tarea nueva o nulo): segun el tipo pedido reserva con CTask::operator new y construye la subtarea (Pause, GetUpAndStandStill, Die, LeaveBoat, CarDriveTimed, CarCloseDoorFromOutside, CarWaitToSlowDown con CPed::IsPlayer, CarWaitForDoorNotToBeInUse, CarGetOut, CarJumpOut, CarForcePedOut, CarSetPedOut, ComplexCarSlowBeDraggedOut) o devuelve nulo. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): CTask::operator new 0x61A5A0, CPed::IsPlayer 0x5DF8F0, CEntity::RegisterReference 0x571B70 y los constructores con hook; el de CTaskSimpleCarForcePedOut 0x647710 (sin clase reconstruida: la DLL lo llama por la direccion del EXE) solo en el EXE; el de CTaskSimpleCarSetPedOut 0x6478B0 (sin hook) corre real en ambos lados y se compara el objeto. La propia validez de los constructores y de los colaboradores no la prueba este banco."
+  },
+  "0x00641FC0": {
+    "identity": "CTaskComplexLeaveCar::CreateFirstSubTask",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp",
+    "bank": "LeaveCarFirst70",
+    "run": "20261026-170435-437689",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/LeaveCarFirst70-20261026-170435-437689/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE para esta funcion salvo el printf del CRT del juego (0x821982), igual que el original (virtual, ranura 9 de la vtable 0x86E828): pausa indefinida (CTaskSimplePause(-1)) si el peaton esta arrestado y es el jugador o no esta en coche (con mensaje por printf); si es el conductor y lider de su grupo avisa con un CEventLeaderExitedCarAsDriver (CEventGroupEvent + AddEvent); no jugador -> SetRadioStation, jugador -> PlayerAboutToExitVehicleAsDriver del vehiculo del peaton; devuelve CTaskComplexLeaveBoat(vehiculo, 0) para un barco o CTaskSimpleCarDriveTimed(vehiculo, retardo) (o nulo con el pool de tareas agotado). El banco sustituye los colaboradores CPed::IsPlayer 0x5DF8F0, CTask::operator new 0x61A5A0, CPedGroups::GetPedsGroup 0x5F7E80, CPedGroupMembership::IsLeader 0x5F69C0, CEntity::RegisterReference 0x571B70, CPedGroupIntelligence::AddEvent 0x5F7470, CEntity::CleanUpOldReference 0x571A00, CPed::SetRadioStation 0x5DFD90 y PlayerAboutToExitVehicleAsDriver 0x4F5BA0 (con hook) y CEvent::operator new 0x4B5620 / operator delete 0x4B5630 (sin hook) por falsos identicos en ambos lados, y el printf 0x821982 solo en la direccion del EXE; compara la secuencia de llamadas con sus argumentos; los constructores 0x48E750, 0x63BB60, 0x5FF940 y 0x4B8300 y el CEventGroupEvent local son reales en ambos lados. Banco LeaveCarFirst70 con 16384 pares y cero diferencias; EAX/ECX/EDX de salida: ver README del banco. Validado en el worktree D:/Original/wy-4 (HEAD 1e45e275d de main + el unico cambio de produccion de source.patch: CreateFirstSubTask de TaskComplexLeaveCar.cpp reconstruida en C++ con RH_ScopedVMTInstall; sin otros hooks nuevos encendidos). El constructor, el destructor, ControlSubTask y CreateSubTask 0x641530 de la clase NO estan hookeados en este HEAD: CreateFirstSubTask no llama a CreateSubTask."
   }
 }
