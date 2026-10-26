@@ -221,19 +221,19 @@ class,function,address,source,origins
 (helpers y globales sin clase),FightHitObjExe,0x0061D400,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:277,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 (helpers y globales sin clase),FightHitPedExe,0x0061CBA0,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:272,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 (helpers y globales sin clase),FightStartAnimExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:385,envoltura en el código fuente
-(helpers y globales sin clase),GaCalcDistToRectSq,,source/game_sa/Garage.cpp:433,envoltura en el código fuente
-(helpers y globales sin clase),GaCountCarsCenterWithin,,source/game_sa/Garage.cpp:429,envoltura en el código fuente
-(helpers y globales sin clase),GaIsAnyCarBlockingDoor,,source/game_sa/Garage.cpp:428,envoltura en el código fuente
-(helpers y globales sin clase),GaIsAnyOtherCarTouching,,source/game_sa/Garage.cpp:431,envoltura en el código fuente
-(helpers y globales sin clase),GaIsAnyOtherPedTouching,,source/game_sa/Garage.cpp:430,envoltura en el código fuente
-(helpers y globales sin clase),GaIsPlayerOutside,,source/game_sa/Garage.cpp:427,envoltura en el código fuente
-(helpers y globales sin clase),GaNeatlyLineUp,,source/game_sa/Garage.cpp:435,envoltura en el código fuente
-(helpers y globales sin clase),GaRestoreHideOut,,source/game_sa/Garage.cpp:434,envoltura en el código fuente
-(helpers y globales sin clase),GaRestoreImpounding,,source/game_sa/Garage.cpp:436,envoltura en el código fuente
-(helpers y globales sin clase),GaSlideDoorClosed,,source/game_sa/Garage.cpp:426,envoltura en el código fuente
-(helpers y globales sin clase),GaSlideDoorOpen,,source/game_sa/Garage.cpp:425,envoltura en el código fuente
-(helpers y globales sin clase),GaStoreAndRemoveImpounding,,source/game_sa/Garage.cpp:437,envoltura en el código fuente
-(helpers y globales sin clase),GaThrowCarsNearDoorOut,,source/game_sa/Garage.cpp:432,envoltura en el código fuente
+(helpers y globales sin clase),GaCalcDistToRectSq,,source/game_sa/Garage.cpp:442,envoltura en el código fuente
+(helpers y globales sin clase),GaCountCarsCenterWithin,,source/game_sa/Garage.cpp:438,envoltura en el código fuente
+(helpers y globales sin clase),GaIsAnyCarBlockingDoor,,source/game_sa/Garage.cpp:437,envoltura en el código fuente
+(helpers y globales sin clase),GaIsAnyOtherCarTouching,,source/game_sa/Garage.cpp:440,envoltura en el código fuente
+(helpers y globales sin clase),GaIsAnyOtherPedTouching,,source/game_sa/Garage.cpp:439,envoltura en el código fuente
+(helpers y globales sin clase),GaIsPlayerOutside,,source/game_sa/Garage.cpp:436,envoltura en el código fuente
+(helpers y globales sin clase),GaNeatlyLineUp,,source/game_sa/Garage.cpp:444,envoltura en el código fuente
+(helpers y globales sin clase),GaRestoreHideOut,,source/game_sa/Garage.cpp:443,envoltura en el código fuente
+(helpers y globales sin clase),GaRestoreImpounding,,source/game_sa/Garage.cpp:445,envoltura en el código fuente
+(helpers y globales sin clase),GaSlideDoorClosed,,source/game_sa/Garage.cpp:435,envoltura en el código fuente
+(helpers y globales sin clase),GaSlideDoorOpen,,source/game_sa/Garage.cpp:434,envoltura en el código fuente
+(helpers y globales sin clase),GaStoreAndRemoveImpounding,,source/game_sa/Garage.cpp:446,envoltura en el código fuente
+(helpers y globales sin clase),GaThrowCarsNearDoorOut,,source/game_sa/Garage.cpp:441,envoltura en el código fuente
 (helpers y globales sin clase),GetFirstTextureCallback,,source/game_sa/RenderWare/rw/rwtexdict.cpp:20,envoltura en el código fuente
 (helpers y globales sin clase),helper sin símbolo confirmado,0x0051D770,source/game_sa/Camera.cpp:1806,cohorte nuevo 2026-10-17
 (helpers y globales sin clase),IndexDataBufferGetTotalDataSize,,source/game_sa/RenderWare/D3DResourceSystem.cpp:114,envoltura en el código fuente
