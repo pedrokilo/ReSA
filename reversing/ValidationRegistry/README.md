@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 17/10/2026 (Ciudad de México):** 795 grupos / 8670 funciones reconstruidas; 8670 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 26/10/2026 (Ciudad de México):** 818 grupos / 8905 funciones reconstruidas; 8905 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Registro de validación por función
@@ -18,11 +18,11 @@ La tabla conserva lo acreditado en aquellas revalidaciones. El estado actual se 
 | IKChain_c::SetupBones | 131 pares únicos | Sí | Acreditada para el alcance del banco |
 | RpAnimBlendClumpUpdateAnimations | 652 pares | Sí | Acreditada para el alcance del banco |
 
-Hay **8.573 funciones con `validated=1`** y **0 con vigencia confirmada para el árbol modificado**. La barra de vigencia es **0/8.573 · 0,00%**.
+Hay **8.729 funciones con `validated=1`** y **0 con vigencia confirmada para el árbol modificado**. La barra de vigencia es **0/8.729 · 0,00%**.
 
-**620 funciones conservan coincidencia de todas sus fuentes registradas.** La coincidencia de fuentes y la evidencia aprobada se consultan por función en el inventario. La revisión de dependencias es una condición adicional para acreditar vigencia; no se deduce de haber pasado un banco.
+**476 funciones conservan coincidencia de todas sus fuentes registradas.** La coincidencia de fuentes y la evidencia aprobada se consultan por función en el inventario. La revisión de dependencias es una condición adicional para acreditar vigencia; no se deduce de haber pasado un banco.
 
-El [inventario de todas las funciones reconstruidas](../../docs/ValidationInventory.md) clasifica las 8.573 entradas: 0 vigentes, 8.573 con evidencia histórica por revisar y 0 sin evidencia vinculada. Las 0 entradas pendientes de reconstrucción se contabilizan aparte. Sin evidencia vinculada no significa nunca probada ni fallida.
+El [inventario de todas las funciones reconstruidas](../../docs/ValidationInventory.md) clasifica las 8.729 entradas: 0 vigentes, 8.729 con evidencia histórica por revisar y 0 sin evidencia vinculada. Las 0 entradas pendientes de reconstrucción se contabilizan aparte. Sin evidencia vinculada no significa nunca probada ni fallida.
 
 ### Integridad del universo catalogado
 
