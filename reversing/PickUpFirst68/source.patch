@@ -1,0 +1,165 @@
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp b/source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp
+index 4cbba5890..1a3396ab5 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp
+@@ -21,6 +21,11 @@ END GENERATED HOOK STATUS */
+ #include "TaskComplexGoPickUpEntity.h"
+ 
+ #include "AnimManager.h"
++#include "ModelInfo.h"
++#include "Timer.h"
++#include "Entity/Physical.h"
++#include "TaskComplexGoToPointAndStandStill.h"
++#include "X87Math.h"
+ 
+ static_assert(TASK_COMPLEX_GO_PICKUP_ENTITY == 0x136); // GetTaskType del EXE (0x691A40)
+ 
+@@ -30,6 +35,8 @@ void CTaskComplexGoPickUpEntity::InjectHooks() {
+ 
+     RH_ScopedInstall(Constructor, 0x6919C0);
+     RH_ScopedInstall(Destructor, 0x691A50);
++
++    RH_ScopedVMTInstall(CreateFirstSubTask, 0x693610);
+ }
+ 
+ // 0x6919C0
+@@ -67,9 +74,73 @@ CTask* CTaskComplexGoPickUpEntity::CreateNextSubTask(CPed* ped) {
+     return plugin::CallMethodAndReturn<CTask*, 0x691AE0, CTask*, CPed*>(this, ped);
+ }
+ 
+-// 0x693610
++// 0x693610 (0x693610..0x6939CB, `ret 4`): orienta el objeto hacia el peaton, calcula el punto de recogida junto a su caja de colision y devuelve
++// CTaskComplexGoToPointAndStandStill(4, punto, 0.2f, 0.0f, false, true). Sin entidad devuelve nulo (antes no escribe nada). Los productos escalares siguen el orden
++// de sumas del EXE ((dz*z + dy*y) + dx*x); la matriz se pide por separado en cada uso (cada vez puede reservarla, como el codigo en linea del EXE).
+ CTask* CTaskComplexGoPickUpEntity::CreateFirstSubTask(CPed* ped) {
+-    return plugin::CallMethodAndReturn<CTask*, 0x693610, CTask*, CPed*>(this, ped);
++    CEntity* const entity = m_pEntity;
++    if (!entity) {
++        return nullptr;
++    }
++    m_nTimePassedSinceLastSubTaskCreatedInMs = CTimer::m_snTimeInMilliseconds;
++
++    // Como el original: vector del peaton al objeto (peaton - objeto), posicion de la matriz si existe (+0x30) o del placement (+4); la aritmetica va en X87Math.cpp (x87 a 24 bits, sin FTZ)
++    float delta[3]; // dx, dy, dz
++    GoPickUpDeltaCpp(&ped->GetPosition().x, &entity->GetPosition().x, delta);
++    const float dx = delta[0];
++    const float dy = delta[1];
++    const float dz = delta[2];
++
++    // Como el original: movsx del indice del modelo (ms_modelInfoPtrs 0xA9B0C8) -> CColModel (+0x14) -> caja (min +0, max +0xC)
++    const CBoundingBox& box = CModelInfo::ms_modelInfoPtrs[(int16)entity->m_nModelIndex]->GetColModel()->GetBoundingBox();
++    m_vecPosition.x = -0.2f;                                   // 0x870A74
++    GoPickUpNegMinusCpp(box.m_vecMin.y, 0.2f, &m_vecPosition.y); // -min.y - 0.2f (0x870A78)
++    m_vecPosition.z = -box.m_vecMin.z;
++
++    // Como el original: se orienta el objeto por su lado mas largo (2 * maxY < maxX, luego 2 * maxX < maxY, si no por la matriz)
++    if (GoPickUpDoubleLessCpp(box.m_vecMax.y, box.m_vecMax.x)) {
++        entity->SetHeading(TrigAtan2Cpp(-dx, dy));
++    } else if (GoPickUpDoubleLessCpp(box.m_vecMax.x, box.m_vecMax.y)) {
++        entity->SetHeading(Atan2MinusCpp(-dx, dy, std::bit_cast<float>(0x3FC90FDBu))); // 0x858FE4, fpatan menos pi/2 con un solo redondeo
++    } else if (entity->GetMatrix().GetUp().z < 0.9f) {                                  // 0x858C20; con NaN no entra
++        entity->SetHeading(entity->GetHeading()); // GetHeading guarda el fpatan como float, como `fstp` del EXE
++    }
++
++    // Como el original: los objetos se detienen y quedan estaticos
++    if (entity->GetIsTypeObject()) {
++        entity->AsPhysical()->m_vecMoveSpeed = CVector{ 0.0f, 0.0f, 0.0f };
++        entity->AsPhysical()->m_vecTurnSpeed = CVector{ 0.0f, 0.0f, 0.0f };
++        entity->SetIsStatic(true);
++    }
++    entity->UpdateRwMatrix();
++
++    // Como el original: la matriz se pide antes de cada producto escalar; derecha = (dz*z + dy*y) + dx*x guardada como float, frente igual sin guardar (X87Math.cpp)
++    const CMatrix& rightMat = entity->GetMatrix();
++    const CMatrix& forwardMat = entity->GetMatrix();
++    switch (GoPickUpRegionCpp(dz, dy, dx, &rightMat.GetRight().x, &forwardMat.GetForward().x)) {
++    case 0: // derecha > |frente|
++        m_vecPickupPosition.y = 0.0f;
++        m_vecPickupPosition.x = 0.4f + box.m_vecMax.x; // 0x870A7C
++        break;
++    case 1: // -|frente| > derecha
++        m_vecPickupPosition.y = 0.0f;
++        m_vecPickupPosition.x = box.m_vecMin.x - 0.4f;
++        break;
++    case 2: // frente > 0.0f (0x858B50)
++        m_vecPickupPosition.x = 0.0f;
++        m_vecPickupPosition.y = 0.4f + box.m_vecMax.y;
++        break;
++    default:
++        m_vecPickupPosition.x = 0.0f;
++        m_vecPickupPosition.y = box.m_vecMin.y - 0.4f;
++        break;
++    }
++    m_vecPickupPosition.z = box.m_vecMin.z + 1.0f; // 0x858624
++
++    // Como el original: punto de recogida en el mundo (0x59C890) y CTask::operator new (0x61A5A0) con comprobacion de nulo
++    const CVector target = entity->GetMatrix() * m_vecPickupPosition;
++    void* const memory = CTask::operator new(sizeof(CTaskComplexGoToPointAndStandStill));
++    return memory ? ::new (memory) CTaskComplexGoToPointAndStandStill(PEDMOVE_WALK, target, 0.2f, 0.0f, false, true) : nullptr;
+ }
+ 
+ // 0x691D50
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index efe0b5459..2b822ebd9 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -15328,3 +15328,41 @@ __declspec(noinline) void __cdecl Wl67SeaBedSegmentCpp(int x, int y, float minX,
+     out[6] = vMin;
+     out[7] = vMax;
+ }
++
++// --- Lote 68 (PickUpFirst68): CTaskComplexGoPickUpEntity::CreateFirstSubTask (0x693610), prefijo GoPickUp. Anadido al FINAL ---
++// El EXE hace aqui aritmetica x87 a 24 bits de mantisa con exponente extendido y MXCSR con FTZ en el codigo de la DLL (SSE): un producto o una suma diminutos (subnormales en float) dan 0 en SSE y
++// un valor distinto de cero en la x87, y eso cambia las comparaciones; por eso cada tramo va aqui (el archivo se compila con /arch:IA32). Los float que el EXE guarda en pila son `volatile float`.
++#pragma float_control(precise, on, push)
++// 0x69365F..0x693682: d = ped - entidad (z, y y x en ese orden), cada resta a 24 bits y guardada como float; out = {dx, dy, dz}.
++__declspec(noinline) void __cdecl GoPickUpDeltaCpp(const float* ped, const float* entity, float* out) {
++    volatile float dz = ped[2] - entity[2];
++    volatile float dy = ped[1] - entity[1];
++    volatile float dx = ped[0] - entity[0];
++    out[0] = dx;
++    out[1] = dy;
++    out[2] = dz;
++}
++// 0x6936AD..0x6936B7 y 0x6936EE..0x6936F8: 2 * a < b (fld; fadd st,st; fcomp; test ah,5): menor ordenado, con NaN da false.
++__declspec(noinline) bool __cdecl GoPickUpDoubleLessCpp(float a, float b) {
++    return a + a < b;
++}
++// 0x693697..0x6936A2: -v - k (fchs; fsub [0x870A78]) a 24 bits, guardado como float.
++__declspec(noinline) void __cdecl GoPickUpNegMinusCpp(float v, float k, float* out) {
++    *out = -v - k;
++}
++// 0x693859..0x6938FC: derecha = (dz*r.z + dy*r.y) + dx*r.x guardada como float, frente = (dz*f.z + dy*f.y) + dx*f.x sin guardar (24 bits, exponente extendido), a = |frente|.
++// 0 = derecha > a; 1 = -a > derecha; 2 = frente > 0.0f; 3 = el resto (comparaciones ordenadas de la x87: con NaN no se cumplen las de mayor).
++__declspec(noinline) int __cdecl GoPickUpRegionCpp(float dz, float dy, float dx, const float* right, const float* forward) {
++    // frente y |frente| van en double: el EXE los deja en registros de la x87 (24 bits de mantisa, exponente extendido) y un float los redondearia (subnormales); un double los guarda sin perdida
++    volatile float projRight = (dz * right[2] + dy * right[1]) + dx * right[0];
++    const double projForward = (dz * forward[2] + dy * forward[1]) + dx * forward[0];
++    const double absForward = projForward < 0.0 ? -projForward : projForward;
++    if (projRight > absForward) {
++        return 0;
++    }
++    if (-absForward > projRight) {
++        return 1;
++    }
++    return projForward > 0.0 ? 2 : 3;
++}
++#pragma float_control(pop)
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index 80d6f9ee2..f333e5497 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1872,3 +1872,13 @@ void __cdecl Hp66CopSourceSnapCpp(float ground, float* sourceZ);
+ // 0x6E6870..0x6E6958: coordenadas y UV del cuadrilatero del fondo marino: out = {px(minX), px(maxX), py(minY), py(maxY), minX*8, maxX*8, minY*8, maxY*8} con px(a) = (x + a)*500 - 3000 (x entero exacto para minX,
+ // float(x) para maxX) y py(c) = (c + y)*500 - 3000 / (y + d)*500 - 3000, cada operacion a 24 bits y cada resultado guardado como float.
+ void __cdecl Wl67SeaBedSegmentCpp(int x, int y, float minX, float maxX, float minY, float maxY, float* out);
++
++// --- Lote 68 (PickUpFirst68): CTaskComplexGoPickUpEntity::CreateFirstSubTask (0x693610) ---
++// 0x69365F..0x693682: out = {dx, dy, dz} = ped - entidad, cada resta a 24 bits y guardada como float.
++void __cdecl GoPickUpDeltaCpp(const float* ped, const float* entity, float* out);
++// 0x6936AD / 0x6936EE: 2 * a < b (menor ordenado; con NaN da false).
++bool __cdecl GoPickUpDoubleLessCpp(float a, float b);
++// 0x693697: *out = -v - k a 24 bits, guardado como float.
++void __cdecl GoPickUpNegMinusCpp(float v, float k, float* out);
++// 0x693859..0x6938FC: 0 = derecha > |frente|, 1 = -|frente| > derecha, 2 = frente > 0, 3 = otro (derecha guardada como float, frente sin guardar; ver X87Math.cpp).
++int __cdecl GoPickUpRegionCpp(float dz, float dy, float dx, const float* right, const float* forward);

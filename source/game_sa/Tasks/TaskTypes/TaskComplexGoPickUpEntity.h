@@ -9,7 +9,7 @@ class CPed;
 //   [0] 0x6935F0 (dtor deleting, llama a 0x691A50)  [1] 0x692C80 Clone  [4] 0x691A40 GetTaskType (0x136)
 //   [6] 0x4211B0 MakeAbortable de CTaskComplex  [7] 0x61A430 SetSubTask de CTaskComplex
 //   [8] 0x691AE0 CreateNextSubTask  [9] 0x693610 CreateFirstSubTask  [10] 0x691D50 ControlSubTask
-// Reconstruidos: constructor (0x6919C0), destructor (0x691A50), Clone y GetTaskType. Los tres virtuales de subtareas siguen en el EXE (reenvios).
+// Reconstruidos: constructor (0x6919C0), destructor (0x691A50), Clone, GetTaskType y ControlSubTask (0x691D50, virtual). CreateNextSubTask y CreateFirstSubTask siguen en el EXE (reenvios).
 class NOTSA_EXPORT_VTABLE CTaskComplexGoPickUpEntity : public CTaskComplex {
 public:
     static constexpr auto Type = TASK_COMPLEX_GO_PICKUP_ENTITY;

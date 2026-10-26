@@ -5,6 +5,8 @@ SetCurrentWeapon, Get/SetWeaponSkill, GetWeaponSlot, gun flash y entidad sujeta 
 import json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import runtime_runner
+runtime_runner.GAME = Path('E:/JUEGOS/GTA San Andreas - CVehicle Test')
 from probe_build import build
 SOURCES = [f'source/game_sa/Entity/Ped/Ped.{e}' for e in ('cpp', 'h')]
 SOURCES = [s for s in SOURCES if (Path(__file__).resolve().parents[2]/s).exists()]

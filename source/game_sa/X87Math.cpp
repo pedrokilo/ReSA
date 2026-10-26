@@ -1181,6 +1181,15 @@ __declspec(noinline) float __cdecl CarEnterExitHeadingDiffCpp(float dx, float dy
     return result;
 }
 
+// CTaskComplexGoPickUpEntity::ControlSubTask (0x691E87..0x691E9C): float(fpatan(-(target.x - pos.x), target.y - pos.y)). Las dos restas (fsub de 24 bits con el exponente extendido del x87)
+// se guardan con el valor exacto en un double: un resultado subnormal no se aplana a cero como en SSE y -(+0) sigue siendo -0. target y pos apuntan a x, y consecutivos.
+__declspec(noinline) float __cdecl PickUpEntityHeadingCpp(const float* target, const float* pos) {
+    volatile double dx = double(target[0]) - double(pos[0]);   // volatile: el compilador no puede reescribir -(a - b) como (b - a) (el signo de un cero cambia el cuadrante de fpatan)
+    volatile double dy = double(target[1]) - double(pos[1]);
+    volatile float result = float(atan2(-dx, dy));
+    return result;
+}
+
 // EDX de entrada de la función que lo llama, si es lo primero que ésta ejecuta: no tiene `return`, de modo que MSVC no escribe EAX ni EDX y sale
 // (`ret`, con o sin marco de pila); el llamador lo lee como mitad alta del resultado de 64 bits. Comportamiento sin definir en el lenguaje, vigilado
 // igual que EntryEaxCpp (comprobación de bytes al cargar la DLL y contrib/audit_register_residue.py).
@@ -15328,3 +15337,41 @@ __declspec(noinline) void __cdecl Wl67SeaBedSegmentCpp(int x, int y, float minX,
     out[6] = vMin;
     out[7] = vMax;
 }
+
+// --- Lote 68 (PickUpFirst68): CTaskComplexGoPickUpEntity::CreateFirstSubTask (0x693610), prefijo GoPickUp. Anadido al FINAL ---
+// El EXE hace aqui aritmetica x87 a 24 bits de mantisa con exponente extendido y MXCSR con FTZ en el codigo de la DLL (SSE): un producto o una suma diminutos (subnormales en float) dan 0 en SSE y
+// un valor distinto de cero en la x87, y eso cambia las comparaciones; por eso cada tramo va aqui (el archivo se compila con /arch:IA32). Los float que el EXE guarda en pila son `volatile float`.
+#pragma float_control(precise, on, push)
+// 0x69365F..0x693682: d = ped - entidad (z, y y x en ese orden), cada resta a 24 bits y guardada como float; out = {dx, dy, dz}.
+__declspec(noinline) void __cdecl GoPickUpDeltaCpp(const float* ped, const float* entity, float* out) {
+    volatile float dz = ped[2] - entity[2];
+    volatile float dy = ped[1] - entity[1];
+    volatile float dx = ped[0] - entity[0];
+    out[0] = dx;
+    out[1] = dy;
+    out[2] = dz;
+}
+// 0x6936AD..0x6936B7 y 0x6936EE..0x6936F8: 2 * a < b (fld; fadd st,st; fcomp; test ah,5): menor ordenado, con NaN da false.
+__declspec(noinline) bool __cdecl GoPickUpDoubleLessCpp(float a, float b) {
+    return a + a < b;
+}
+// 0x693697..0x6936A2: -v - k (fchs; fsub [0x870A78]) a 24 bits, guardado como float.
+__declspec(noinline) void __cdecl GoPickUpNegMinusCpp(float v, float k, float* out) {
+    *out = -v - k;
+}
+// 0x693859..0x6938FC: derecha = (dz*r.z + dy*r.y) + dx*r.x guardada como float, frente = (dz*f.z + dy*f.y) + dx*f.x sin guardar (24 bits, exponente extendido), a = |frente|.
+// 0 = derecha > a; 1 = -a > derecha; 2 = frente > 0.0f; 3 = el resto (comparaciones ordenadas de la x87: con NaN no se cumplen las de mayor).
+__declspec(noinline) int __cdecl GoPickUpRegionCpp(float dz, float dy, float dx, const float* right, const float* forward) {
+    // frente y |frente| van en double: el EXE los deja en registros de la x87 (24 bits de mantisa, exponente extendido) y un float los redondearia (subnormales); un double los guarda sin perdida
+    volatile float projRight = (dz * right[2] + dy * right[1]) + dx * right[0];
+    const double projForward = (dz * forward[2] + dy * forward[1]) + dx * forward[0];
+    const double absForward = projForward < 0.0 ? -projForward : projForward;
+    if (projRight > absForward) {
+        return 0;
+    }
+    if (-absForward > projRight) {
+        return 1;
+    }
+    return projForward > 0.0 ? 2 : 3;
+}
+#pragma float_control(pop)

@@ -1,0 +1,159 @@
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp b/source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp
+index 4cbba5890..290f5cd08 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp
+@@ -21,6 +21,14 @@ END GENERATED HOOK STATUS */
+ #include "TaskComplexGoPickUpEntity.h"
+ 
+ #include "AnimManager.h"
++#include "Streaming.h"
++#include "Timer.h"
++#include "Pad.h"
++#include "General.h"
++#include "X87Math.h"
++#include "Entity/Ped/PlayerPed.h"
++#include "TaskSimplePickUpEntity.h"
++#include "TaskComplexGoToPointAndStandStill.h"
+ 
+ static_assert(TASK_COMPLEX_GO_PICKUP_ENTITY == 0x136); // GetTaskType del EXE (0x691A40)
+ 
+@@ -30,6 +38,7 @@ void CTaskComplexGoPickUpEntity::InjectHooks() {
+ 
+     RH_ScopedInstall(Constructor, 0x6919C0);
+     RH_ScopedInstall(Destructor, 0x691A50);
++    RH_ScopedVMTInstall(ControlSubTask, 0x691D50);
+ }
+ 
+ // 0x6919C0
+@@ -74,5 +83,84 @@ CTask* CTaskComplexGoPickUpEntity::CreateFirstSubTask(CPed* ped) {
+ 
+ // 0x691D50
+ CTask* CTaskComplexGoPickUpEntity::ControlSubTask(CPed* ped) {
+-    return plugin::CallMethodAndReturn<CTask*, 0x691D50, CTask*, CPed*>(this, ped);
++    // Como el original: si el grupo de animaciones no esta referenciado se pide el bloque (indice = (bloque - 0xB5D4A0) >> 5, aritmetico) y,
++    // si ya esta cargado (byte IsLoaded distinto de 0), se anade la referencia; si no, se solicita al streaming (IFP + 0x63E7, flags 8).
++    if (m_nAnimGroupId && !reinterpret_cast<const uint8&>(m_bAnimBlockReferenced)) {
++        CAnimBlock* block = StaticRef<CAnimBlendAssocGroup*>(0xB4EA34)[m_nAnimGroupId].m_AnimBlock; // grupos de 0x14 bytes, sin comprobar el indice
++        if (!block) {
++            block = CAnimManager::GetAnimationBlock(CAnimManager::GetAnimBlockName(static_cast<AssocGroupId>(m_nAnimGroupId)));
++        }
++        const int32 blockIndex = static_cast<int32>(reinterpret_cast<uintptr_t>(block) - 0xB5D4A0u) >> 5;
++        if (reinterpret_cast<const uint8&>(block->IsLoaded)) {
++            CAnimManager::AddAnimBlockRef(blockIndex);
++            m_bAnimBlockReferenced = true;
++        } else {
++            CStreaming::RequestModel(IFPToModelId(blockIndex), STREAMING_KEEP_IN_MEMORY);
++        }
++    }
++
++    CTask* const subTask = m_pSubTask;
++    if (!subTask) {
++        return m_pSubTask;
++    }
++
++    const eTaskType subType = subTask->GetTaskType();
++    if (subType == TASK_SIMPLE_PICKUP_ENTITY) { // 0x134
++        const auto* const pickUp = static_cast<CTaskSimplePickUpEntity*>(m_pSubTask);
++        if (!pickUp->m_pAnimBlendAssociation && !reinterpret_cast<const uint8&>(pickUp->m_bEntityDropped)) {
++            if (CTimer::m_snTimeInMilliseconds > m_nTimePassedSinceLastSubTaskCreatedInMs + 8000u) { // 0x8D2FFC
++                m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT, nullptr);
++                return nullptr;
++            }
++        }
++        return m_pSubTask;
++    }
++    if (subType != TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL) { // 0x387
++        return m_pSubTask;
++    }
++
++    if (CTimer::m_snTimeInMilliseconds > m_nTimePassedSinceLastSubTaskCreatedInMs + 5000u) { // 0x8D2FF8
++        m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT, nullptr);
++        return nullptr;
++    }
++
++    if (!ped->GetPlayerData()) {
++        return m_pSubTask;
++    }
++    const auto* const goTo = static_cast<CTaskComplexGoToPointAndStandStill*>(m_pSubTask);
++    CPad* const pad = static_cast<CPlayerPed*>(ped)->GetPadFromPlayer(); // 0x609560
++    if (!pad) {
++        return m_pSubTask;
++    }
++
++    // Como el original: primero 0x53FD30 (arriba/abajo) y despues 0x53FC90 (izquierda/derecha), ambos convertidos a float exacto
++    const float walkUpDown    = static_cast<float>(static_cast<int32>(pad->GetPedWalkUpDown()));
++    const float walkLeftRight = static_cast<float>(static_cast<int32>(pad->GetPedWalkLeftRight()));
++    const float stickLength   = std::sqrt(walkUpDown * walkUpDown + walkLeftRight * walkLeftRight) * 0.0078125f; // 0x858B88 = 1/128
++
++    // Rumbo hacia el destino: atan2(-(destino.x - ped.x), destino.y - ped.y) (fpatan, un solo redondeo a float)
++    const CVector& pos = ped->GetPosition();
++    const float targetHeading = PickUpEntityHeadingCpp(&goTo->m_vecTargetPoint.x, &pos.x); // las restas y el fpatan en x87 (X87Math.cpp)
++
++    // Rumbo del stick relativo a la camara (0xB6F178), llevado al intervalo [rumbo - pi, rumbo + pi]
++    float stickHeading = CGeneral::GetRadianAngleBetweenPoints(0.0f, 0.0f, -walkLeftRight, walkUpDown) - StaticRef<float>(0xB6F178);
++    if (targetHeading + 3.14159274f < stickHeading) {          // 0x858CB8 = pi
++        stickHeading -= 6.28318548f;                           // 0x858CBC = 2 pi
++    } else if (targetHeading - 3.14159274f > stickHeading) {
++        stickHeading += 6.28318548f;
++    }
++
++    // Como el original: 0x540770 (salto) y, si no, 0x5407F0 (correr) abortan la subtarea
++    bool shouldAbort = pad->JumpJustDown() || pad->SprintJustDown();
++    if (!shouldAbort) {
++        if (!(stickLength > 0.75f)) { // 0x858F34
++            return m_pSubTask;
++        }
++        shouldAbort = (stickHeading - targetHeading) > 0.785398185f; // 0x859AB0 = pi / 4
++    }
++    if (!shouldAbort) {
++        return m_pSubTask;
++    }
++    m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT, nullptr);
++    return nullptr;
+ }
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h b/source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h
+index 2582be200..4ed52a6f6 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h
++++ b/source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.h
+@@ -9,7 +9,7 @@ class CPed;
+ //   [0] 0x6935F0 (dtor deleting, llama a 0x691A50)  [1] 0x692C80 Clone  [4] 0x691A40 GetTaskType (0x136)
+ //   [6] 0x4211B0 MakeAbortable de CTaskComplex  [7] 0x61A430 SetSubTask de CTaskComplex
+ //   [8] 0x691AE0 CreateNextSubTask  [9] 0x693610 CreateFirstSubTask  [10] 0x691D50 ControlSubTask
+-// Reconstruidos: constructor (0x6919C0), destructor (0x691A50), Clone y GetTaskType. Los tres virtuales de subtareas siguen en el EXE (reenvios).
++// Reconstruidos: constructor (0x6919C0), destructor (0x691A50), Clone, GetTaskType y ControlSubTask (0x691D50, virtual). CreateNextSubTask y CreateFirstSubTask siguen en el EXE (reenvios).
+ class NOTSA_EXPORT_VTABLE CTaskComplexGoPickUpEntity : public CTaskComplex {
+ public:
+     static constexpr auto Type = TASK_COMPLEX_GO_PICKUP_ENTITY;
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index efe0b5459..ffd91e1bd 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -1181,6 +1181,15 @@ __declspec(noinline) float __cdecl CarEnterExitHeadingDiffCpp(float dx, float dy
+     return result;
+ }
+ 
++// CTaskComplexGoPickUpEntity::ControlSubTask (0x691E87..0x691E9C): float(fpatan(-(target.x - pos.x), target.y - pos.y)). Las dos restas (fsub de 24 bits con el exponente extendido del x87)
++// se guardan con el valor exacto en un double: un resultado subnormal no se aplana a cero como en SSE y -(+0) sigue siendo -0. target y pos apuntan a x, y consecutivos.
++__declspec(noinline) float __cdecl PickUpEntityHeadingCpp(const float* target, const float* pos) {
++    volatile double dx = double(target[0]) - double(pos[0]);   // volatile: el compilador no puede reescribir -(a - b) como (b - a) (el signo de un cero cambia el cuadrante de fpatan)
++    volatile double dy = double(target[1]) - double(pos[1]);
++    volatile float result = float(atan2(-dx, dy));
++    return result;
++}
++
+ // EDX de entrada de la función que lo llama, si es lo primero que ésta ejecuta: no tiene `return`, de modo que MSVC no escribe EAX ni EDX y sale
+ // (`ret`, con o sin marco de pila); el llamador lo lee como mitad alta del resultado de 64 bits. Comportamiento sin definir en el lenguaje, vigilado
+ // igual que EntryEaxCpp (comprobación de bytes al cargar la DLL y contrib/audit_register_residue.py).
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index 80d6f9ee2..5e0481758 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -256,6 +256,8 @@ float __cdecl PlayerPedAtanMinusCpp(float (__cdecl* atanFn)(float, float), float
+ float __fastcall PlayerPedResidueFloatCpp(unsigned int ecxValue, unsigned int edxValue, float value);
+ // float(atan2(-dx, dy) - rumbo) con los dos fpatan sin redondear y un solo redondeo a float (CCarEnterExit::GetNearestCarDoor, 0x6529A4..0x6529D8); rumbo = atan2(-forward[0], forward[1]) si forward != nullptr (x, y consecutivos), si no el float heading.
+ float __cdecl CarEnterExitHeadingDiffCpp(float dx, float dy, const float* forward, float heading);
++// CTaskComplexGoPickUpEntity::ControlSubTask (0x691E87..0x691E9C): float(fpatan(-(target.x - pos.x), target.y - pos.y)) con las restas en x87 (24 bits, exponente extendido) y un solo redondeo a float; target y pos apuntan a x, y consecutivos.
++float __cdecl PickUpEntityHeadingCpp(const float* target, const float* pos);
+ // EDX con el que se entró a la función que lo llama, en la mitad alta del resultado de 64 bits (EDX:EAX), siempre que esa función lo invoque antes de tocar EDX (sin comprobaciones de ejecución ni cookie de /GS); uso: uint32(CarEnterExitEntryEdxCpp() >> 32) (envoltura de CCarEnterExit::ComputePassengerIndexFromCarDoor, 0x64F1E0).
+ unsigned long long __fastcall CarEnterExitEntryEdxCpp();
+ // Circular group placer: devuelve angleStep = 2pi/n (float) y escribe *radius = sqrt(0.5 / (1 - cos(angleStep))) con cada paso redondeado a float (EXE 0x5FCE80/0x5FD330).

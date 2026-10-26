@@ -1,0 +1,110 @@
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp b/source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp
+index 4cbba5890..19620fed2 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp
+@@ -21,6 +21,13 @@ END GENERATED HOOK STATUS */
+ #include "TaskComplexGoPickUpEntity.h"
+ 
+ #include "AnimManager.h"
++#include "TaskSimpleAchieveHeading.h"
++#include "TaskSimpleHoldEntity.h"
++#include "TaskSimplePickUpEntity.h"
++#include "TaskManager.h"
++#include "ColModel.h"
++#include "Timer.h"
++#include "X87Math.h"
+ 
+ static_assert(TASK_COMPLEX_GO_PICKUP_ENTITY == 0x136); // GetTaskType del EXE (0x691A40)
+ 
+@@ -30,6 +37,7 @@ void CTaskComplexGoPickUpEntity::InjectHooks() {
+ 
+     RH_ScopedInstall(Constructor, 0x6919C0);
+     RH_ScopedInstall(Destructor, 0x691A50);
++    RH_ScopedVMTInstall(CreateNextSubTask, 0x691AE0);
+ }
+ 
+ // 0x6919C0
+@@ -62,9 +70,82 @@ CTask* CTaskComplexGoPickUpEntity::Clone() const {
+     return memory ? ::new (memory) CTaskComplexGoPickUpEntity(m_pEntity, m_nAnimGroupId) : nullptr;
+ }
+ 
++// Redondeo a 24 bits de mantisa (a la mas cercana, empate al par) de un double con exponente sin limite, como la x87 con la palabra de control del juego (PC = 24 bits).
++// Solo por enteros: no usa float (SSE con FTZ vaciaria un resultado desnormal). Las sumas de dos floats en double y este redondeo equivalen a la suma de 24 bits (el doble redondeo es inocuo).
++static double X87Round24(double value) {
++    if (!(std::fabs(value) < HUGE_VAL) || value == 0.0) {
++        return value; // NaN, infinito o cero
++    }
++    uint64 bits = std::bit_cast<uint64>(value);
++    const uint64 low = bits & 0x1FFFFFFFull; // 29 bits que sobran de los 52 de la mantisa
++    bits &= ~0x1FFFFFFFull;
++    if (low > 0x10000000ull || (low == 0x10000000ull && (bits & (1ull << 29)))) {
++        bits += 1ull << 29; // el acarreo llega al exponente
++    }
++    return std::bit_cast<double>(bits);
++}
++
+ // 0x691AE0
++// Como el original: sin entidad no hay subtarea; el tipo de la subtarea actual decide la siguiente (la subtarea no se comprueba, el EXE la desreferencia).
++// Constantes de mezcla del EXE: 0x870A80 (0.6f), 0x870A84 (0x3E888889), 0x870A88 (0.2f) y 0x866CAC (0.55f).
+ CTask* CTaskComplexGoPickUpEntity::CreateNextSubTask(CPed* ped) {
+-    return plugin::CallMethodAndReturn<CTask*, 0x691AE0, CTask*, CPed*>(this, ped);
++    if (!m_pEntity) {
++        return nullptr;
++    }
++
++    switch (m_pSubTask->GetTaskType()) {
++    case TASK_SIMPLE_PICKUP_ENTITY: { // 0x134 -> 0x691CC3
++        m_nTimePassedSinceLastSubTaskCreatedInMs = CTimer::GetTimeInMS();
++        if (ped->GetTaskManager().GetTaskSecondary(TASK_SECONDARY_PARTIAL_ANIM)) {
++            return nullptr;
++        }
++        // CTask::operator new (0x61A5A0) devuelve nulo con el pool agotado; el EXE pasa ese nulo a SetTaskSecondary sin comprobarlo.
++        void* const memory = CTask::operator new(sizeof(CTaskSimpleHoldEntity));
++        CTask* const hold = memory
++            ? ::new (memory) CTaskSimpleHoldEntity(m_pEntity, &m_vecPosition, 6, 1, static_cast<AnimationId>(0x13E), static_cast<AssocGroupId>(0x51), false)
++            : nullptr;
++        ped->GetTaskManager().SetTaskSecondary(hold, TASK_SECONDARY_PARTIAL_ANIM);
++        return nullptr;
++    }
++    case TASK_SIMPLE_ACHIEVE_HEADING: { // 0x386 -> 0x691BCC
++        float blend = std::bit_cast<float>(0x3F19999Au); // [0x870A80]
++        if (m_nAnimGroupId == 0x51) {
++            const CVector& entityPos = m_pEntity->GetPosition();
++            const float    colMinZ   = m_pEntity->GetColModel()->m_boundBox.m_vecMin.z; // 0x535300; fld [colmodel+8]
++            const float    pedZ      = ped->GetPosition().z;
++            // fadd [pos+8] en la x87 a 24 bits con exponente extendido: la suma no se guarda como float (un resultado desnormal o que desborda el float se conserva, y SSE con FTZ lo vaciaria).
++            const double top = X87Round24(double(colMinZ) + double(entityPos.z));
++            if (top > double(pedZ)) {
++                m_nAnimGroupId = 0x53;
++                blend = std::bit_cast<float>(0x3E4CCCCDu); // [0x870A88]
++            } else if (double(pedZ) < X87Round24(double(std::bit_cast<float>(0x3F0CCCCDu)) + top)) { // 0x866CAC (0.55f) + top
++                m_nAnimGroupId = 0x52;
++                blend = std::bit_cast<float>(0x3E888889u); // [0x870A84]
++            }
++        }
++        void* const memory = CTask::operator new(sizeof(CTaskSimplePickUpEntity));
++        if (!memory) {
++            return nullptr; // El EXE escribe la posicion en la direccion 0x40 (nulo + 0x40) y se cae; aqui se devuelve nulo.
++        }
++        auto* const pickUp = ::new (memory) CTaskSimplePickUpEntity(m_pEntity, &m_vecPosition, 6, 1, static_cast<AnimationId>(0x13D), static_cast<AssocGroupId>(m_nAnimGroupId), blend);
++        std::memcpy(&pickUp->m_vecPickuposn, &m_vecPickupPosition, sizeof(CVector)); // tres dwords (ecx/edx/esi)
++        return pickUp;
++    }
++    case TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL: { // 0x387 -> 0x691B2E
++        const CVector& pedPos    = ped->GetPosition();
++        const CVector& entityPos = m_pEntity->GetPosition();
++        const float    dy        = AutoPreSubCpp(entityPos.y, pedPos.y); // fld; fsub; fstp dword en la x87 (conserva los desnormales)
++        const float    dx        = AutoPreSubCpp(entityPos.x, pedPos.x);
++        void* const memory = CTask::operator new(sizeof(CTaskSimpleAchieveHeading));
++        if (!memory) {
++            return nullptr;
++        }
++        // fpatan(-dx, dy) a precision completa, guardado como float
++        return ::new (memory) CTaskSimpleAchieveHeading(TrigAtan2Cpp(-dx, dy), 1.0f, std::bit_cast<float>(0x3A83126Fu));
++    }
++    default:
++        return nullptr;
++    }
+ }
+ 
+ // 0x693610

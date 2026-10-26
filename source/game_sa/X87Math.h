@@ -256,6 +256,8 @@ float __cdecl PlayerPedAtanMinusCpp(float (__cdecl* atanFn)(float, float), float
 float __fastcall PlayerPedResidueFloatCpp(unsigned int ecxValue, unsigned int edxValue, float value);
 // float(atan2(-dx, dy) - rumbo) con los dos fpatan sin redondear y un solo redondeo a float (CCarEnterExit::GetNearestCarDoor, 0x6529A4..0x6529D8); rumbo = atan2(-forward[0], forward[1]) si forward != nullptr (x, y consecutivos), si no el float heading.
 float __cdecl CarEnterExitHeadingDiffCpp(float dx, float dy, const float* forward, float heading);
+// CTaskComplexGoPickUpEntity::ControlSubTask (0x691E87..0x691E9C): float(fpatan(-(target.x - pos.x), target.y - pos.y)) con las restas en x87 (24 bits, exponente extendido) y un solo redondeo a float; target y pos apuntan a x, y consecutivos.
+float __cdecl PickUpEntityHeadingCpp(const float* target, const float* pos);
 // EDX con el que se entró a la función que lo llama, en la mitad alta del resultado de 64 bits (EDX:EAX), siempre que esa función lo invoque antes de tocar EDX (sin comprobaciones de ejecución ni cookie de /GS); uso: uint32(CarEnterExitEntryEdxCpp() >> 32) (envoltura de CCarEnterExit::ComputePassengerIndexFromCarDoor, 0x64F1E0).
 unsigned long long __fastcall CarEnterExitEntryEdxCpp();
 // Circular group placer: devuelve angleStep = 2pi/n (float) y escribe *radius = sqrt(0.5 / (1 - cos(angleStep))) con cada paso redondeado a float (EXE 0x5FCE80/0x5FD330).
@@ -1872,3 +1874,13 @@ void __cdecl Hp66CopSourceSnapCpp(float ground, float* sourceZ);
 // 0x6E6870..0x6E6958: coordenadas y UV del cuadrilatero del fondo marino: out = {px(minX), px(maxX), py(minY), py(maxY), minX*8, maxX*8, minY*8, maxY*8} con px(a) = (x + a)*500 - 3000 (x entero exacto para minX,
 // float(x) para maxX) y py(c) = (c + y)*500 - 3000 / (y + d)*500 - 3000, cada operacion a 24 bits y cada resultado guardado como float.
 void __cdecl Wl67SeaBedSegmentCpp(int x, int y, float minX, float maxX, float minY, float maxY, float* out);
+
+// --- Lote 68 (PickUpFirst68): CTaskComplexGoPickUpEntity::CreateFirstSubTask (0x693610) ---
+// 0x69365F..0x693682: out = {dx, dy, dz} = ped - entidad, cada resta a 24 bits y guardada como float.
+void __cdecl GoPickUpDeltaCpp(const float* ped, const float* entity, float* out);
+// 0x6936AD / 0x6936EE: 2 * a < b (menor ordenado; con NaN da false).
+bool __cdecl GoPickUpDoubleLessCpp(float a, float b);
+// 0x693697: *out = -v - k a 24 bits, guardado como float.
+void __cdecl GoPickUpNegMinusCpp(float v, float k, float* out);
+// 0x693859..0x6938FC: 0 = derecha > |frente|, 1 = -|frente| > derecha, 2 = frente > 0, 3 = otro (derecha guardada como float, frente sin guardar; ver X87Math.cpp).
+int __cdecl GoPickUpRegionCpp(float dz, float dy, float dx, const float* right, const float* forward);
