@@ -1,0 +1,155 @@
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp b/source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp
+index 53550b749..0091ff55a 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp
+@@ -1,10 +1,18 @@
+ #include "StdInc.h"
+ 
+ #include "TaskComplexLeaveCar.h"
++#include "TaskSimpleCarCloseDoorFromOutside.h"
++#include "TaskSimpleCarSetPedOut.h"
++#include "CarEnterExit.h"
++#include "EventDamage.h"
++#include "AnimManager.h"
++#include "World.h"
+ 
+ void CTaskComplexLeaveCar::InjectHooks() {
+     RH_ScopedVirtualClass(CTaskComplexLeaveCar, 0x86E828, 11);
+     RH_ScopedCategory("Tasks/TaskTypes");
++
++    RH_ScopedVMTInstall(MakeAbortable, 0x641100);
+ }
+ 
+ // 0x62F1A0
+@@ -52,7 +60,130 @@ CTaskComplexLeaveCar::CTaskComplexLeaveCar(const CTaskComplexLeaveCar& o) :
+ 
+ // 0x641100
+ bool CTaskComplexLeaveCar::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
+-    return plugin::CallMethodAndReturn<bool, 0x641100, CTask*, CPed*, int32, const CEvent*>(this, ped, priority, event);
++    // Como el original: sin vehiculo no hay nada que soltar
++    if (!m_pTargetVehicle) {
++        return true;
++    }
++
++    // Como el original: cada salida con exito suelta las banderas de puerta y el contador de ocupantes que esta tarea habia reservado
++    const auto ReleaseVehicle = [this] {
++        m_pTargetVehicle->ClearGettingOutFlags(m_nDoorFlagsSet);
++        m_nDoorFlagsSet = 0;
++        m_pTargetVehicle->m_nNumGettingIn -= m_nNumGettingInSet;
++        m_nNumGettingInSet = 0;
++    };
++
++    if (priority == ABORT_PRIORITY_IMMEDIATE) {
++        m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_IMMEDIATE, event); // Como el original: sin comprobar la subtarea ni el resultado
++        if (ped->bInVehicle) {
++            // Como el original (0x63BAB0): la puerta se calcula solo si aun no hay
++            if (!m_nTargetDoor) {
++                m_nTargetDoor = CCarEnterExit::ComputeTargetDoorToExit(m_pTargetVehicle, ped);
++            }
++            // Como el original: dos tareas temporales en la pila; se aborta la de cerrar la puerta y la de sacar al ped corre una vez. Llamadas directas (no virtuales), se destruyen en orden inverso
++            CTaskSimpleCarCloseDoorFromOutside closeDoor{ m_pTargetVehicle, static_cast<uint32>(m_nTargetDoor), nullptr };
++            closeDoor.CTaskSimpleCarCloseDoorFromOutside::MakeAbortable(ped, ABORT_PRIORITY_IMMEDIATE, event);
++            CTaskSimpleCarSetPedOut setPedOut{ m_pTargetVehicle, static_cast<eTargetDoor>(m_nTargetDoor), m_bSensibleLeaveCar, false };
++            setPedOut.CTaskSimpleCarSetPedOut::ProcessPed(ped);
++        }
++        ReleaseVehicle();
++        return true;
++    }
++
++    if (priority != ABORT_PRIORITY_URGENT) {
++        return false;
++    }
++
++    // Como el original: GetTaskType se vuelve a llamar en cada comprobacion (no se guarda el valor)
++    if (m_pSubTask->GetTaskType() == TASK_SIMPLE_DIE) {
++        if (m_pSubTask->GetTaskType() == TASK_SIMPLE_CAR_DRIVE_TIMED) {
++            return false;
++        }
++        const bool aborted = m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT, event);
++        if (aborted) {
++            ReleaseVehicle();
++        }
++        return aborted;
++    }
++
++    // Como el original (0x4ABCA0): el evento de dano solo cuenta si mato al ped
++    const auto EventKilledPed = [&] {
++        return event && event->GetEventType() == EVENT_DAMAGE && static_cast<const CEventDamage*>(event)->HasKilledPed();
++    };
++
++    if (m_pSubTask->GetTaskType() == TASK_SIMPLE_CAR_WAIT_TO_SLOW_DOWN && EventKilledPed()) {
++        const bool aborted = m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT, event);
++        if (aborted) {
++            ReleaseVehicle();
++        }
++        return aborted;
++    }
++
++    if (m_pSubTask->GetTaskType() == TASK_COMPLEX_GET_UP_AND_STAND_STILL && EventKilledPed()) {
++        const bool aborted = m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT, event);
++        if (aborted) {
++            ReleaseVehicle();
++        }
++        return aborted;
++    }
++
++    if (m_pSubTask->GetTaskType() == TASK_SIMPLE_CAR_JUMP_OUT) {
++        if (!event) {
++            return false;
++        }
++        if (event->GetEventType() == EVENT_IN_AIR || event->GetEventType() == EVENT_IN_WATER) {
++            if (event->GetEventType() == EVENT_IN_AIR) {
++                m_bIsInAir = true;
++            }
++            if (!m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT, event)) {
++                return false;
++            }
++
++            // Como el original: el arma activa se lee con signo (movsx) y el indice no se comprueba
++            float blendDelta;
++            if (ped->m_aWeapons.data()[static_cast<int8>(ped->m_nActiveWeaponSlot)].m_Type == WEAPON_PARACHUTE
++                && event->GetEventType() == EVENT_IN_AIR
++                && m_pTargetVehicle->GetNumContactWheels() == 0
++            ) {
++                // Como el original: un avion rapido salta sin mas comprobaciones; si no, solo un jugador sobre el suelo a menos de 10 m
++                bool fastPlane = false;
++                if (m_pTargetVehicle->m_nVehicleSubType == VEHICLE_TYPE_PLANE) {
++                    fastPlane = m_pTargetVehicle->m_vecMoveSpeed.Magnitude() > 0.2f; // flt_858CC4
++                }
++                if (!fastPlane) {
++                    if (!ped->IsPlayer()) {
++                        return false;
++                    }
++                    CColPoint colPoint;
++                    CEntity*  hitEntity;
++                    if (CWorld::ProcessVerticalLine(ped->GetPosition(), -10.0f, colPoint, hitEntity, true, false, false, false, true, false, nullptr)) {
++                        return false;
++                    }
++                }
++                blendDelta = 8.0f;
++            } else {
++                if (event->GetEventType() != EVENT_IN_WATER) {
++                    return false;
++                }
++                if (!(ped->m_vecMoveSpeed.z < -0.3f)) { // flt_858EE4; con NaN no entra
++                    return false;
++                }
++                blendDelta = 16.0f;
++            }
++            // Como el original: se pasa el objeto RW tal cual (GetRpClump comprobaria su tipo)
++            CAnimManager::BlendAnimation(reinterpret_cast<RpClump*>(ped->GetRwObject()), ANIM_GROUP_DEFAULT, ANIM_ID_FALL_FRONT, blendDelta);
++            return false;
++        }
++    }
++
++    // Como el original: resto de casos (y salto sin evento de aire/agua)
++    if (!event) {
++        return false;
++    }
++    if (m_pSubTask->GetTaskType() == TASK_SIMPLE_CAR_DRIVE_TIMED) {
++        return m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT, event);
++    }
++    return false;
+ }
+ 
+ // 0x6419F0

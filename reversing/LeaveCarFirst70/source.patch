@@ -1,0 +1,68 @@
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp b/source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp
+index 53550b749..0de7cf912 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp
+@@ -2,9 +2,18 @@
+ 
+ #include "TaskComplexLeaveCar.h"
+ 
++#include "TaskComplexLeaveBoat.h"
++#include "TaskSimpleCarDriveTimed.h"
++#include "TaskSimplePause.h"
++#include "EventGroupEvent.h"
++#include "EventLeaderExitedCarAsDriver.h"
++#include "PedGroups.h"
++
+ void CTaskComplexLeaveCar::InjectHooks() {
+     RH_ScopedVirtualClass(CTaskComplexLeaveCar, 0x86E828, 11);
+     RH_ScopedCategory("Tasks/TaskTypes");
++
++    RH_ScopedVMTInstall(CreateFirstSubTask, 0x641FC0);
+ }
+ 
+ // 0x62F1A0
+@@ -60,9 +69,42 @@ CTask* CTaskComplexLeaveCar::CreateNextSubTask(CPed* ped) {
+     return plugin::CallMethodAndReturn<CTask*, 0x6419F0, CTask*, CPed*>(this, ped);
+ }
+ 
+-// 0x641FC0
++// 0x641FC0 (0x641FC0..0x6421AC, `ret 4`, marco SEH propio): CTask::operator new (0x61A5A0) devuelve nulo con el pool agotado y el EXE lo comprueba antes de construir cada tarea.
+ CTask* CTaskComplexLeaveCar::CreateFirstSubTask(CPed* ped) {
+-    return plugin::CallMethodAndReturn<CTask*, 0x641FC0, CTask*, CPed*>(this, ped);
++    // Como el original: peaton arrestado (estado 0x3F o bandera +0x474 & 0x40) y jugador, o fuera del coche (con un mensaje por printf del CRT del juego, 0x821982): pausa indefinida
++    const bool arrested = ped->m_nPedState == PEDSTATE_ARRESTED || ped->bIsBeingArrested;
++    if (arrested && ped->IsPlayer()) {
++        void* const memory = CTask::operator new(sizeof(CTaskSimplePause));
++        return memory ? ::new (memory) CTaskSimplePause(-1) : nullptr;
++    }
++    if (!ped->bInVehicle) {
++        reinterpret_cast<int(__cdecl*)(const char*, ...)>(0x821982)("CTaskComplexLeaveCar - ped not in car");
++        void* const memory = CTask::operator new(sizeof(CTaskSimplePause));
++        return memory ? ::new (memory) CTaskSimplePause(-1) : nullptr;
++    }
++
++    CVehicle* const vehicle = m_pTargetVehicle;
++    if (vehicle->m_pDriver == ped) {
++        // Como el original: si el conductor es el lider de su grupo, el grupo recibe un CEventLeaderExitedCarAsDriver (reservado con CEvent::operator new 0x4B5620, tambien con comprobacion de nulo)
++        if (CPedGroup* const group = CPedGroups::GetPedsGroup(ped); group && group->GetMembership().IsLeader(ped)) {
++            void* const memory = CEvent::operator new(sizeof(CEventLeaderExitedCarAsDriver));
++            CEvent* const event = memory ? ::new (memory) CEventLeaderExitedCarAsDriver : nullptr; // Como el original (0x4B8300): sin inicializacion por valor (no se pone a cero el relleno del evento)
++            CEventGroupEvent groupEvent{ ped, event };
++            group->GetIntelligence().AddEvent(&groupEvent);
++        }
++        if (!ped->IsPlayer()) {
++            ped->SetRadioStation();
++        } else if (CVehicle* const pedVehicle = ped->m_pVehicle) {
++            pedVehicle->m_vehicleAudio.PlayerAboutToExitVehicleAsDriver();
++        }
++    }
++
++    if (vehicle->m_nVehicleType == VEHICLE_TYPE_BOAT) {
++        void* const memory = CTask::operator new(sizeof(CTaskComplexLeaveBoat));
++        return memory ? ::new (memory) CTaskComplexLeaveBoat(vehicle, 0) : nullptr;
++    }
++    void* const memory = CTask::operator new(sizeof(CTaskSimpleCarDriveTimed));
++    return memory ? ::new (memory) CTaskSimpleCarDriveTimed(vehicle, m_nDelayTime) : nullptr;
+ }
+ 
+ // 0x6421B0

@@ -1,0 +1,107 @@
+diff --git a/source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp b/source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp
+index 53550b749..af0cfebf2 100644
+--- a/source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp
++++ b/source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp
+@@ -2,9 +2,24 @@
+ 
+ #include "TaskComplexLeaveCar.h"
+ 
++#include "TaskSimplePause.h"
++#include "TaskComplexGetUpAndStandStill.h"
++#include "TaskSimpleDie.h"
++#include "TaskComplexLeaveBoat.h"
++#include "TaskSimpleCarDriveTimed.h"
++#include "TaskSimpleCarCloseDoorFromOutside.h"
++#include "TaskSimpleCarWaitToSlowDown.h"
++#include "TaskSimpleCarWaitForDoorNotToBeInUse.h"
++#include "TaskSimpleCarGetOut.h"
++#include "TaskSimpleCarJumpOut.h"
++#include "TaskSimpleCarSetPedOut.h"
++#include "TaskComplexCarSlowBeDraggedOut.h"
++
+ void CTaskComplexLeaveCar::InjectHooks() {
+     RH_ScopedVirtualClass(CTaskComplexLeaveCar, 0x86E828, 11);
+     RH_ScopedCategory("Tasks/TaskTypes");
++
++    RH_ScopedInstall(CreateSubTask, 0x641530);
+ }
+ 
+ // 0x62F1A0
+@@ -88,7 +103,76 @@ CTask* CTaskComplexLeaveCar::ControlSubTask(CPed* ped) {
+     return m_pSubTask;
+ }
+ 
++namespace {
++// Como el original (0x641530): cada rama reserva con CTask::operator new (0x61A5A0) y, si el pool esta agotado (nulo), no construye y devuelve nulo.
++template<class T, class... Args>
++CTask* NewLeaveCarSubTask(Args... args) {
++    void* const memory = CTask::operator new(sizeof(T));
++    if (!memory) {
++        return nullptr;
++    }
++    if constexpr (sizeof...(Args) == 0) {
++        return ::new (memory) T; // sin inicializacion por valor: el EXE no pone a cero el bloque antes del constructor
++    } else {
++        return ::new (memory) T(args...);
++    }
++}
++
++// Tamanos que reserva el EXE en cada rama
++static_assert(sizeof(CTaskSimplePause) == 0x18 && sizeof(CTaskComplexGetUpAndStandStill) == 0xC && sizeof(CTaskSimpleDie) == 0x28 && sizeof(CTaskComplexLeaveBoat) == 0x14
++    && sizeof(CTaskSimpleCarDriveTimed) == 0x70 && sizeof(CTaskSimpleCarCloseDoorFromOutside) == 0x1C && sizeof(CTaskSimpleCarWaitToSlowDown) == 0x14
++    && sizeof(CTaskSimpleCarWaitForDoorNotToBeInUse) == 0x14 && sizeof(CTaskSimpleCarGetOut) == 0x20 && sizeof(CTaskSimpleCarJumpOut) == 0x24
++    && sizeof(CTaskSimpleCarSetPedOut) == 0x18 && sizeof(CTaskComplexCarSlowBeDraggedOut) == 0x1C);
++} // namespace
++
+ // 0x641530
+ CTask* CTaskComplexLeaveCar::CreateSubTask(eTaskType taskType, CPed* ped) {
+-    return plugin::CallMethodAndReturn<CTask*, 0x641530, CTaskComplexLeaveCar*, eTaskType, CPed*>(this, taskType, ped);
++    switch (taskType) {
++    case TASK_SIMPLE_PAUSE:
++        return NewLeaveCarSubTask<CTaskSimplePause>(-1);
++    case TASK_COMPLEX_GET_UP_AND_STAND_STILL:
++        return NewLeaveCarSubTask<CTaskComplexGetUpAndStandStill>();
++    case TASK_SIMPLE_DIE:
++        return NewLeaveCarSubTask<CTaskSimpleDie>(static_cast<AssocGroupId>(0), static_cast<AnimationId>(m_nDieAnimID), m_fDieAnimBlendDelta, m_fDieAnimSpeed);
++    case TASK_COMPLEX_LEAVE_BOAT:
++        return NewLeaveCarSubTask<CTaskComplexLeaveBoat>(m_pTargetVehicle, 0u);
++    case TASK_SIMPLE_CAR_DRIVE_TIMED:
++        return NewLeaveCarSubTask<CTaskSimpleCarDriveTimed>(m_pTargetVehicle, m_nDelayTime);
++    case TASK_SIMPLE_CAR_CLOSE_DOOR_FROM_OUTSIDE:
++        return NewLeaveCarSubTask<CTaskSimpleCarCloseDoorFromOutside>(m_pTargetVehicle, static_cast<uint32>(m_nTargetDoor), m_pTaskUtilityLineUpPedWithCar);
++    case TASK_SIMPLE_CAR_WAIT_TO_SLOW_DOWN: {
++        using SlowDownType = CTaskSimpleCarWaitToSlowDown::SlowDownType;
++        if (m_bDie) {
++            return NewLeaveCarSubTask<CTaskSimpleCarWaitToSlowDown>(m_pTargetVehicle, SlowDownType::DONT_WAIT);
++        }
++        if (m_bSensibleLeaveCar) {
++            // IsPlayer (0x5DF8F0) se llama antes de reservar, como el original
++            const bool isPlayer = ped->IsPlayer();
++            return NewLeaveCarSubTask<CTaskSimpleCarWaitToSlowDown>(m_pTargetVehicle, isPlayer ? SlowDownType::SLOW_ENOUGH_TO_STEP_OR_JUMP : SlowDownType::SLOW_ENOUGH_TO_STEP);
++        }
++        return NewLeaveCarSubTask<CTaskSimpleCarWaitToSlowDown>(m_pTargetVehicle, SlowDownType::DONT_WAIT);
++    }
++    case TASK_SIMPLE_CAR_WAIT_FOR_DOOR_NOT_TO_BE_IN_USE:
++        return NewLeaveCarSubTask<CTaskSimpleCarWaitForDoorNotToBeInUse>(m_pTargetVehicle, static_cast<uint32>(m_nTargetDoor), 0u);
++    case TASK_SIMPLE_CAR_GET_OUT:
++        return NewLeaveCarSubTask<CTaskSimpleCarGetOut>(m_pTargetVehicle, static_cast<uint32>(m_nTargetDoor), m_pTaskUtilityLineUpPedWithCar);
++    case TASK_SIMPLE_CAR_JUMP_OUT:
++        return NewLeaveCarSubTask<CTaskSimpleCarJumpOut>(m_pTargetVehicle, static_cast<uint32>(m_nTargetDoor), m_pTaskUtilityLineUpPedWithCar);
++    case TASK_SIMPLE_CAR_FORCE_PED_OUT: {
++        // CTaskSimpleCarForcePedOut (0x10 bytes) aun no esta reconstruida: su constructor (0x647710, thiscall (vehiculo, puerta), ret 8) es del EXE
++        void* const memory = CTask::operator new(0x10);
++        if (!memory) {
++            return nullptr;
++        }
++        auto* const task = static_cast<CTask*>(memory);
++        plugin::CallMethod<0x647710, CTask*, CVehicle*, int32>(task, m_pTargetVehicle, m_nTargetDoor);
++        return task;
++    }
++    case TASK_SIMPLE_CAR_SET_PED_OUT:
++        return NewLeaveCarSubTask<CTaskSimpleCarSetPedOut>(m_pTargetVehicle, static_cast<eTargetDoor>(m_nTargetDoor), m_bSensibleLeaveCar);
++    case TASK_COMPLEX_CAR_SLOW_BE_DRAGGED_OUT:
++        return NewLeaveCarSubTask<CTaskComplexCarSlowBeDraggedOut>(m_pTargetVehicle, static_cast<eTargetDoor>(m_nTargetDoor), true);
++    default:
++        return nullptr;
++    }
+ }
