@@ -75,13 +75,14 @@ def difficulty_section(root, input_path):
              '(puntuación de tamaño y riesgos —llamadas sin catalogar, indirectas, x87, tablas de saltos y SEH—). Solo se listan funciones del juego. '
              f'Lista completa y descargable: [lista-por-dificultad.csv](../{source.relative_to(root).as_posix()}) · metodología: [README del cohorte](../reversing/OriginalDependencies2026-10-17/README.md). '
              'La columna «Estado» se calcula con el catálogo actual: una dirección con fila reversed=1 en hooks.csv figura como reconstruida o validada.', '',
-             '| Nivel | Funciones del juego | de ellas pendientes |', '| --- | ---: | ---: |']
+             'Las funciones ya validadas (`✅ validada`) no se listan: solo aparecen las pendientes y las reconstruidas por validar; en la tabla de niveles se cuentan aparte.', '',
+             '| Nivel | Funciones del juego | ya validadas (no se listan) | de ellas pendientes |', '| --- | ---: | ---: | ---: |']
     for level in levels:
         game = [r for r in items if r['nivel'] == level]
-        lines.append(f"| {cell(level)} | {len(game)} | {sum(status(r) == 'pendiente' for r in game)} |")
+        lines.append(f"| {cell(level)} | {len(game)} | {sum(status(r) == '✅ validada' for r in game)} | {sum(status(r) == 'pendiente' for r in game)} |")
     for categoria, titulo in (('juego', 'Funciones del juego'),):
-        rows = sorted((r for r in items if r['categoria'] == categoria), key=lambda r: (-int(r['bytes']), int(r['rango'])))
-        lines += ['', '<details>', f'<summary>{titulo} ({len(rows)}), de mayor a menor tamaño en bytes</summary>', '',
+        rows = sorted((r for r in items if r['categoria'] == categoria and status(r) != '✅ validada'), key=lambda r: (-int(r['bytes']), int(r['rango'])))
+        lines += ['', '<details>', f'<summary>{titulo} pendientes o por validar ({len(rows)}), de mayor a menor tamaño en bytes</summary>', '',
                   '| Rango | Nivel | Subcategoría | Función | Dirección | Bytes | Estado |', '| ---: | --- | --- | --- | --- | ---: | --- |']
         for r in rows:
             lines.append(f"| {r['rango']} | {cell(r['nivel'])} | {cell(r['subcategoria'])} | {cell(r['identity'])} | `{r['address']}` | {r['bytes']} | {status(r)} |")
