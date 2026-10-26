@@ -1,0 +1,53 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11437D90: 55                 push        ebp
+  11437D91: 8B EC              mov         ebp,esp
+  11437D93: 81 EC CC 00 00 00  sub         esp,0CCh
+  11437D99: 53                 push        ebx
+  11437D9A: 56                 push        esi
+  11437D9B: 57                 push        edi
+  11437D9C: 51                 push        ecx
+  11437D9D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  11437DA0: B9 03 00 00 00     mov         ecx,3
+  11437DA5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11437DAA: F3 AB              rep stos    dword ptr es:[edi]
+  11437DAC: 59                 pop         ecx
+  11437DAD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11437DB0: 83 7D 08 02        cmp         dword ptr [ebp+8],2
+  11437DB4: 72 2D              jb          11437DE3
+  11437DB6: 68 B8 5D 2B 13     push        132B5DB8h
+  11437DBB: 68 3C 26 2B 13     push        132B263Ch
+  11437DC0: 6A 00              push        0
+  11437DC2: 68 0D 02 00 00     push        20Dh
+  11437DC7: 68 E0 5D 2B 13     push        132B5DE0h
+  11437DCC: 6A 02              push        2
+  11437DCE: E8 65 14 C9 FF     call        110C9238
+  11437DD3: 83 C4 18           add         esp,18h
+  11437DD6: 83 F8 01           cmp         eax,1
+  11437DD9: 75 01              jne         11437DDC
+  11437DDB: CC                 int         3
+  11437DDC: B9 05 00 00 00     mov         ecx,5
+  11437DE1: CD 29              int         29h
+  11437DE3: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11437DE6: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11437DE9: 8D 04 C1           lea         eax,[ecx+eax*8]
+  11437DEC: 5F                 pop         edi
+  11437DED: 5E                 pop         esi
+  11437DEE: 5B                 pop         ebx
+  11437DEF: 81 C4 CC 00 00 00  add         esp,0CCh
+  11437DF5: 3B EC              cmp         ebp,esp
+  11437DF7: E8 DB 1C C7 FF     call        110A9AD7
+  11437DFC: 8B E5              mov         esp,ebp
+  11437DFE: 5D                 pop         ebp
+  11437DFF: C2 04 00           ret         4
+  11437E02: CC                 int         3
+
+  Summary
+
+     2208000 .text

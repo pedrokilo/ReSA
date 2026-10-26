@@ -1,0 +1,49 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1144FE50: 55                 push        ebp
+  1144FE51: 8B EC              mov         ebp,esp
+  1144FE53: 81 EC CC 00 00 00  sub         esp,0CCh
+  1144FE59: 53                 push        ebx
+  1144FE5A: 56                 push        esi
+  1144FE5B: 57                 push        edi
+  1144FE5C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1144FE5F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1144FE62: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1144FE65: 8B 51 04           mov         edx,dword ptr [ecx+4]
+  1144FE68: 89 10              mov         dword ptr [eax],edx
+  1144FE6A: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1144FE6D: 8B 40 04           mov         eax,dword ptr [eax+4]
+  1144FE70: 5F                 pop         edi
+  1144FE71: 5E                 pop         esi
+  1144FE72: 5B                 pop         ebx
+  1144FE73: 8B E5              mov         esp,ebp
+  1144FE75: 5D                 pop         ebp
+  1144FE76: C3                 ret
+  1144FE77: CC                 int         3
+  1144FE78: CC                 int         3
+  1144FE79: CC                 int         3
+  1144FE7A: CC                 int         3
+  1144FE7B: CC                 int         3
+  1144FE7C: CC                 int         3
+  1144FE7D: CC                 int         3
+  1144FE7E: CC                 int         3
+  1144FE7F: CC                 int         3
+  1144FE80: 55                 push        ebp
+  1144FE81: 8B EC              mov         ebp,esp
+  1144FE83: 81 EC CC 00 00 00  sub         esp,0CCh
+  1144FE89: 53                 push        ebx
+  1144FE8A: 56                 push        esi
+  1144FE8B: 57                 push        edi
+  1144FE8C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1144FE8F: 8B
+  1144FE90: 45                 inc         ebp
+
+  Summary
+
+     2208000 .text

@@ -1,0 +1,90 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1143E050: 55                 push        ebp
+  1143E051: 8B EC              mov         ebp,esp
+  1143E053: 81 EC F4 00 00 00  sub         esp,0F4h
+  1143E059: 53                 push        ebx
+  1143E05A: 56                 push        esi
+  1143E05B: 57                 push        edi
+  1143E05C: 8D 7D CC           lea         edi,[ebp-34h]
+  1143E05F: B9 0D 00 00 00     mov         ecx,0Dh
+  1143E064: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1143E069: F3 AB              rep stos    dword ptr es:[edi]
+  1143E06B: C7 45 F8 00 00 00  mov         dword ptr [ebp-8],0
+            00
+  1143E072: C7 45 EC 00 00 00  mov         dword ptr [ebp-14h],0
+            00
+  1143E079: E8 81 7C C8 FF     call        110C5CFF
+  1143E07E: 89 85 10 FF FF FF  mov         dword ptr [ebp+FFFFFF10h],eax
+  1143E084: 8D 45 EC           lea         eax,[ebp-14h]
+  1143E087: 50                 push        eax
+  1143E088: 8D 4D F8           lea         ecx,[ebp-8]
+  1143E08B: 51                 push        ecx
+  1143E08C: 8D 55 08           lea         edx,[ebp+8]
+  1143E08F: 52                 push        edx
+  1143E090: 8D 8D 18 FF FF FF  lea         ecx,[ebp+FFFFFF18h]
+  1143E096: E8 14 FE C8 FF     call        110CDEAF
+  1143E09B: 89 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],eax
+  1143E0A1: 8B 85 0C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF0Ch]
+  1143E0A7: 50                 push        eax
+  1143E0A8: 8B 8D 10 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF10h]
+  1143E0AE: E8 2A AC C9 FF     call        110D8CDD
+  1143E0B3: 90                 nop
+  1143E0B4: 83 7D EC 01        cmp         dword ptr [ebp-14h],1
+  1143E0B8: 75 0B              jne         1143E0C5
+  1143E0BA: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1143E0BD: 89 85 10 FF FF FF  mov         dword ptr [ebp+FFFFFF10h],eax
+  1143E0C3: EB 0A              jmp         1143E0CF
+  1143E0C5: C7 85 10 FF FF FF  mov         dword ptr [ebp+FFFFFF10h],0
+            00 00 00 00
+  1143E0CF: 8B 85 10 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF10h]
+  1143E0D5: 52                 push        edx
+  1143E0D6: 8B CD              mov         ecx,ebp
+  1143E0D8: 50                 push        eax
+  1143E0D9: 8D 15 FC E0 43 11  lea         edx,ds:[1143E0FCh]
+  1143E0DF: E8 5F 11 C7 FF     call        110AF243
+  1143E0E4: 58                 pop         eax
+  1143E0E5: 5A                 pop         edx
+  1143E0E6: 5F                 pop         edi
+  1143E0E7: 5E                 pop         esi
+  1143E0E8: 5B                 pop         ebx
+  1143E0E9: 81 C4 F4 00 00 00  add         esp,0F4h
+  1143E0EF: 3B EC              cmp         ebp,esp
+  1143E0F1: E8 E1 B9 C6 FF     call        110A9AD7
+  1143E0F6: 8B E5              mov         esp,ebp
+  1143E0F8: 5D                 pop         ebp
+  1143E0F9: C3                 ret
+  1143E0FA: 66 90              nop
+  1143E0FC: 02 00              add         al,byte ptr [eax]
+  1143E0FE: 00 00              add         byte ptr [eax],al
+  1143E100: 04 E1              add         al,0E1h
+  1143E102: 43                 inc         ebx
+  1143E103: 11 F8              adc         eax,edi
+  1143E105: FF
+  1143E106: FF
+  1143E107: FF 04 00           inc         dword ptr [eax+eax]
+  1143E10A: 00 00              add         byte ptr [eax],al
+  1143E10C: 21 E1              and         ecx,esp
+  1143E10E: 43                 inc         ebx
+  1143E10F: 11 EC              adc         esp,ebp
+  1143E111: FF
+  1143E112: FF
+  1143E113: FF 04 00           inc         dword ptr [eax+eax]
+  1143E116: 00 00              add         byte ptr [eax],al
+  1143E118: 1C E1              sbb         al,0E1h
+  1143E11A: 43                 inc         ebx
+  1143E11B: 11 68 69           adc         dword ptr [eax+69h],ebp
+  1143E11E: 74 73              je          1143E193
+  1143E120: 00 66 6F           add         byte ptr [esi+6Fh],ah
+  1143E123: 75 6E              jne         1143E193
+  1143E125: 64 00 CC           add         ah,cl
+
+  Summary
+
+     2208000 .text

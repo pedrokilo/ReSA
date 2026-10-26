@@ -1,0 +1,56 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11408D00: 55                 push        ebp
+  11408D01: 8B EC              mov         ebp,esp
+  11408D03: 81 EC CC 00 00 00  sub         esp,0CCh
+  11408D09: 53                 push        ebx
+  11408D0A: 56                 push        esi
+  11408D0B: 57                 push        edi
+  11408D0C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11408D0F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11408D12: 5F                 pop         edi
+  11408D13: 5E                 pop         esi
+  11408D14: 5B                 pop         ebx
+  11408D15: 8B E5              mov         esp,ebp
+  11408D17: 5D                 pop         ebp
+  11408D18: C2 04 00           ret         4
+  11408D1B: CC                 int         3
+  11408D1C: CC                 int         3
+  11408D1D: CC                 int         3
+  11408D1E: CC                 int         3
+  11408D1F: CC                 int         3
+  11408D20: CC                 int         3
+  11408D21: CC                 int         3
+  11408D22: CC                 int         3
+  11408D23: CC                 int         3
+  11408D24: CC                 int         3
+  11408D25: CC                 int         3
+  11408D26: CC                 int         3
+  11408D27: CC                 int         3
+  11408D28: CC                 int         3
+  11408D29: CC                 int         3
+  11408D2A: CC                 int         3
+  11408D2B: CC                 int         3
+  11408D2C: CC                 int         3
+  11408D2D: CC                 int         3
+  11408D2E: CC                 int         3
+  11408D2F: CC                 int         3
+  11408D30: 55                 push        ebp
+  11408D31: 8B EC              mov         ebp,esp
+  11408D33: 81 EC CC 00 00 00  sub         esp,0CCh
+  11408D39: 53                 push        ebx
+  11408D3A: 56                 push        esi
+  11408D3B: 57                 push        edi
+  11408D3C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11408D3F: 8B
+  11408D40: 45                 inc         ebp
+
+  Summary
+
+     2208000 .text

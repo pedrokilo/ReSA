@@ -1,0 +1,75 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11430EF0: 55                 push        ebp
+  11430EF1: 8B EC              mov         ebp,esp
+  11430EF3: 6A FF              push        0FFFFFFFFh
+  11430EF5: 68 F0 98 1B 13     push        131B98F0h
+  11430EFA: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  11430F00: 50                 push        eax
+  11430F01: 81 EC E8 00 00 00  sub         esp,0E8h
+  11430F07: 53                 push        ebx
+  11430F08: 56                 push        esi
+  11430F09: 57                 push        edi
+  11430F0A: 51                 push        ecx
+  11430F0B: 8D 7D CC           lea         edi,[ebp-34h]
+  11430F0E: B9 0A 00 00 00     mov         ecx,0Ah
+  11430F13: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11430F18: F3 AB              rep stos    dword ptr es:[edi]
+  11430F1A: 59                 pop         ecx
+  11430F1B: A1 80 12 8E 13     mov         eax,dword ptr ds:[138E1280h]
+  11430F20: 33 C5              xor         eax,ebp
+  11430F22: 50                 push        eax
+  11430F23: 8D 45 F4           lea         eax,[ebp-0Ch]
+  11430F26: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  11430F2C: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  11430F2F: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  11430F32: 89 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],eax
+  11430F38: 0F B6 8D 23 FF FF  movzx       ecx,byte ptr [ebp+FFFFFF23h]
+            FF
+  11430F3F: 51                 push        ecx
+  11430F40: 8B 8D 0C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF0Ch]
+  11430F46: E8 44 CA CB FF     call        110ED98F
+  11430F4B: 90                 nop
+  11430F4C: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  11430F4F: 89 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],eax
+  11430F55: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  11430F58: E8 41 64 C8 FF     call        110B739E
+  11430F5D: 50                 push        eax
+  11430F5E: 8D 8D 17 FF FF FF  lea         ecx,[ebp+FFFFFF17h]
+  11430F64: 51                 push        ecx
+  11430F65: E8 54 12 C8 FF     call        110B21BE
+  11430F6A: 83 C4 08           add         esp,8
+  11430F6D: 50                 push        eax
+  11430F6E: 8B 8D 0C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF0Ch]
+  11430F74: E8 6A 54 CA FF     call        110D63E3
+  11430F79: 90                 nop
+  11430F7A: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  11430F7D: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  11430F80: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  11430F87: 59                 pop         ecx
+  11430F88: 5F                 pop         edi
+  11430F89: 5E                 pop         esi
+  11430F8A: 5B                 pop         ebx
+  11430F8B: 81 C4 F4 00 00 00  add         esp,0F4h
+  11430F91: 3B EC              cmp         ebp,esp
+  11430F93: E8 3F 8B C7 FF     call        110A9AD7
+  11430F98: 8B E5              mov         esp,ebp
+  11430F9A: 5D                 pop         ebp
+  11430F9B: C3                 ret
+  11430F9C: CC                 int         3
+  11430F9D: CC                 int         3
+  11430F9E: CC                 int         3
+  11430F9F: CC                 int         3
+  11430FA0: CC                 int         3
+  11430FA1: CC                 int         3
+
+  Summary
+
+     2208000 .text

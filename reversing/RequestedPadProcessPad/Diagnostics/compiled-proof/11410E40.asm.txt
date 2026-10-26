@@ -1,0 +1,44 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11410E40: 55                 push        ebp
+  11410E41: 8B EC              mov         ebp,esp
+  11410E43: 81 EC C0 00 00 00  sub         esp,0C0h
+  11410E49: 53                 push        ebx
+  11410E4A: 56                 push        esi
+  11410E4B: 57                 push        edi
+  11410E4C: 8B FD              mov         edi,ebp
+  11410E4E: 33 C9              xor         ecx,ecx
+  11410E50: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11410E55: F3 AB              rep stos    dword ptr es:[edi]
+  11410E57: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  11410E5A: 8B 08              mov         ecx,dword ptr [eax]
+  11410E5C: 51                 push        ecx
+  11410E5D: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11410E60: E8 E8 89 CE FF     call        110F984D
+  11410E65: 5F                 pop         edi
+  11410E66: 5E                 pop         esi
+  11410E67: 5B                 pop         ebx
+  11410E68: 81 C4 C0 00 00 00  add         esp,0C0h
+  11410E6E: 3B EC              cmp         ebp,esp
+  11410E70: E8 62 8C C9 FF     call        110A9AD7
+  11410E75: 8B E5              mov         esp,ebp
+  11410E77: 5D                 pop         ebp
+  11410E78: C3                 ret
+  11410E79: CC                 int         3
+  11410E7A: CC                 int         3
+  11410E7B: CC                 int         3
+  11410E7C: CC                 int         3
+  11410E7D: CC                 int         3
+  11410E7E: CC                 int         3
+  11410E7F: CC                 int         3
+  11410E80: CC                 int         3
+
+  Summary
+
+     2208000 .text

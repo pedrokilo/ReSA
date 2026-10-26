@@ -1,0 +1,49 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11410720: 55                 push        ebp
+  11410721: 8B EC              mov         ebp,esp
+  11410723: 81 EC C0 00 00 00  sub         esp,0C0h
+  11410729: 53                 push        ebx
+  1141072A: 56                 push        esi
+  1141072B: 57                 push        edi
+  1141072C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1141072F: 5F                 pop         edi
+  11410730: 5E                 pop         esi
+  11410731: 5B                 pop         ebx
+  11410732: 8B E5              mov         esp,ebp
+  11410734: 5D                 pop         ebp
+  11410735: C3                 ret
+  11410736: CC                 int         3
+  11410737: CC                 int         3
+  11410738: CC                 int         3
+  11410739: CC                 int         3
+  1141073A: CC                 int         3
+  1141073B: CC                 int         3
+  1141073C: CC                 int         3
+  1141073D: CC                 int         3
+  1141073E: CC                 int         3
+  1141073F: CC                 int         3
+  11410740: 55                 push        ebp
+  11410741: 8B EC              mov         ebp,esp
+  11410743: 81 EC C0 00 00 00  sub         esp,0C0h
+  11410749: 53                 push        ebx
+  1141074A: 56                 push        esi
+  1141074B: 57                 push        edi
+  1141074C: 8B FD              mov         edi,ebp
+  1141074E: 33 C9              xor         ecx,ecx
+  11410750: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11410755: F3 AB              rep stos    dword ptr es:[edi]
+  11410757: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1141075A: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  1141075D: 8B 10              mov         edx,dword ptr [eax]
+  1141075F: 3B 11              cmp         edx,dword ptr [ecx]
+
+  Summary
+
+     2208000 .text

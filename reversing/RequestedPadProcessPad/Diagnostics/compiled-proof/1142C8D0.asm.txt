@@ -1,0 +1,51 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1142C8D0: 55                 push        ebp
+  1142C8D1: 8B EC              mov         ebp,esp
+  1142C8D3: 81 EC CC 00 00 00  sub         esp,0CCh
+  1142C8D9: 53                 push        ebx
+  1142C8DA: 56                 push        esi
+  1142C8DB: 57                 push        edi
+  1142C8DC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1142C8DF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1142C8E2: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1142C8E5: 89 08              mov         dword ptr [eax],ecx
+  1142C8E7: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1142C8EA: 5F                 pop         edi
+  1142C8EB: 5E                 pop         esi
+  1142C8EC: 5B                 pop         ebx
+  1142C8ED: 8B E5              mov         esp,ebp
+  1142C8EF: 5D                 pop         ebp
+  1142C8F0: C2 04 00           ret         4
+  1142C8F3: CC                 int         3
+  1142C8F4: CC                 int         3
+  1142C8F5: CC                 int         3
+  1142C8F6: CC                 int         3
+  1142C8F7: CC                 int         3
+  1142C8F8: CC                 int         3
+  1142C8F9: CC                 int         3
+  1142C8FA: CC                 int         3
+  1142C8FB: CC                 int         3
+  1142C8FC: CC                 int         3
+  1142C8FD: CC                 int         3
+  1142C8FE: CC                 int         3
+  1142C8FF: CC                 int         3
+  1142C900: 55                 push        ebp
+  1142C901: 8B EC              mov         ebp,esp
+  1142C903: 81 EC CC 00 00 00  sub         esp,0CCh
+  1142C909: 53                 push        ebx
+  1142C90A: 56                 push        esi
+  1142C90B: 57                 push        edi
+  1142C90C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1142C90F: 8B
+  1142C910: 45                 inc         ebp
+
+  Summary
+
+     2208000 .text

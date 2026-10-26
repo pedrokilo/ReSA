@@ -1,0 +1,90 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1144B140: 55                 push        ebp
+  1144B141: 8B EC              mov         ebp,esp
+  1144B143: 81 EC 08 01 00 00  sub         esp,108h
+  1144B149: 53                 push        ebx
+  1144B14A: 56                 push        esi
+  1144B14B: 57                 push        edi
+  1144B14C: 51                 push        ecx
+  1144B14D: 8D 7D B8           lea         edi,[ebp-48h]
+  1144B150: B9 12 00 00 00     mov         ecx,12h
+  1144B155: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1144B15A: F3 AB              rep stos    dword ptr es:[edi]
+  1144B15C: 59                 pop         ecx
+  1144B15D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1144B160: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1144B163: E8 36 C2 C6 FF     call        110B739E
+  1144B168: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  1144B16B: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1144B16E: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  1144B171: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1144B174: 83 C0 04           add         eax,4
+  1144B177: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  1144B17A: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1144B17D: 83 C0 08           add         eax,8
+  1144B180: 89 45 C8           mov         dword ptr [ebp-38h],eax
+  1144B183: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1144B186: 83 C0 0C           add         eax,0Ch
+  1144B189: 89 45 BC           mov         dword ptr [ebp-44h],eax
+  1144B18C: 8B 4D E0           mov         ecx,dword ptr [ebp-20h]
+  1144B18F: E8 9F 82 C6 FF     call        110B3433
+  1144B194: 90                 nop
+  1144B195: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1144B198: 83 38 00           cmp         dword ptr [eax],0
+  1144B19B: 74 35              je          1144B1D2
+  1144B19D: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1144B1A0: 50                 push        eax
+  1144B1A1: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  1144B1A4: 8B 11              mov         edx,dword ptr [ecx]
+  1144B1A6: 52                 push        edx
+  1144B1A7: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1144B1AA: 8B 08              mov         ecx,dword ptr [eax]
+  1144B1AC: 51                 push        ecx
+  1144B1AD: E8 8D 67 C6 FF     call        110B193F
+  1144B1B2: 83 C4 0C           add         esp,0Ch
+  1144B1B5: 8B 45 BC           mov         eax,dword ptr [ebp-44h]
+  1144B1B8: 8B 4D D4           mov         ecx,dword ptr [ebp-2Ch]
+  1144B1BB: 8B 10              mov         edx,dword ptr [eax]
+  1144B1BD: 2B 11              sub         edx,dword ptr [ecx]
+  1144B1BF: C1 FA 02           sar         edx,2
+  1144B1C2: 52                 push        edx
+  1144B1C3: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1144B1C6: 8B 08              mov         ecx,dword ptr [eax]
+  1144B1C8: 51                 push        ecx
+  1144B1C9: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1144B1CC: E8 3B 8E C8 FF     call        110D400C
+  1144B1D1: 90                 nop
+  1144B1D2: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1144B1D5: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1144B1D8: 89 08              mov         dword ptr [eax],ecx
+  1144B1DA: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  1144B1DD: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1144B1E0: 8D 14 81           lea         edx,[ecx+eax*4]
+  1144B1E3: 8B 45 C8           mov         eax,dword ptr [ebp-38h]
+  1144B1E6: 89 10              mov         dword ptr [eax],edx
+  1144B1E8: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  1144B1EB: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1144B1EE: 8D 14 81           lea         edx,[ecx+eax*4]
+  1144B1F1: 8B 45 BC           mov         eax,dword ptr [ebp-44h]
+  1144B1F4: 89 10              mov         dword ptr [eax],edx
+  1144B1F6: 5F                 pop         edi
+  1144B1F7: 5E                 pop         esi
+  1144B1F8: 5B                 pop         ebx
+  1144B1F9: 81 C4 08 01 00 00  add         esp,108h
+  1144B1FF: 3B EC              cmp         ebp,esp
+  1144B201: E8 D1 E8 C5 FF     call        110A9AD7
+  1144B206: 8B E5              mov         esp,ebp
+  1144B208: 5D                 pop         ebp
+  1144B209: C2 0C 00           ret         0Ch
+  1144B20C: CC                 int         3
+
+  Summary
+
+     2208000 .text

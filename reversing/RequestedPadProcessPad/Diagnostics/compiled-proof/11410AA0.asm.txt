@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11410AA0: 55                 push        ebp
+  11410AA1: 8B EC              mov         ebp,esp
+  11410AA3: 81 EC C0 00 00 00  sub         esp,0C0h
+  11410AA9: 53                 push        ebx
+  11410AAA: 56                 push        esi
+  11410AAB: 57                 push        edi
+  11410AAC: 8B FD              mov         edi,ebp
+  11410AAE: 33 C9              xor         ecx,ecx
+  11410AB0: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11410AB5: F3 AB              rep stos    dword ptr es:[edi]
+  11410AB7: EB 09              jmp         11410AC2
+  11410AB9: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11410ABC: 83 C0 04           add         eax,4
+  11410ABF: 89 45 08           mov         dword ptr [ebp+8],eax
+  11410AC2: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11410AC5: 3B 45 0C           cmp         eax,dword ptr [ebp+0Ch]
+  11410AC8: 74 2A              je          11410AF4
+  11410ACA: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11410ACD: 50                 push        eax
+  11410ACE: 8D 4D 14           lea         ecx,[ebp+14h]
+  11410AD1: 51                 push        ecx
+  11410AD2: E8 B6 E2 CA FF     call        110BED8D
+  11410AD7: 83 C4 08           add         esp,8
+  11410ADA: 50                 push        eax
+  11410ADB: 8D 55 10           lea         edx,[ebp+10h]
+  11410ADE: 52                 push        edx
+  11410ADF: E8 02 95 C9 FF     call        110A9FE6
+  11410AE4: 83 C4 08           add         esp,8
+  11410AE7: 0F B6 C0           movzx       eax,al
+  11410AEA: 85 C0              test        eax,eax
+  11410AEC: 75 04              jne         11410AF2
+  11410AEE: 32 C0              xor         al,al
+  11410AF0: EB 04              jmp         11410AF6
+  11410AF2: EB C5              jmp         11410AB9
+  11410AF4: B0 01              mov         al,1
+  11410AF6: 5F                 pop         edi
+  11410AF7: 5E                 pop         esi
+  11410AF8: 5B                 pop         ebx
+  11410AF9: 81 C4 C0 00 00 00  add         esp,0C0h
+  11410AFF: 3B EC              cmp         ebp,esp
+  11410B01: E8 D1 8F C9 FF     call        110A9AD7
+  11410B06: 8B E5              mov         esp,ebp
+  11410B08: 5D                 pop         ebp
+  11410B09: C3                 ret
+  11410B0A: CC                 int         3
+
+  Summary
+
+     2208000 .text

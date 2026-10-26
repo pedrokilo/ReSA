@@ -1,0 +1,46 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11432EF0: 55                 push        ebp
+  11432EF1: 8B EC              mov         ebp,esp
+  11432EF3: 81 EC CC 00 00 00  sub         esp,0CCh
+  11432EF9: 53                 push        ebx
+  11432EFA: 56                 push        esi
+  11432EFB: 57                 push        edi
+  11432EFC: 51                 push        ecx
+  11432EFD: 8D 7D F4           lea         edi,[ebp-0Ch]
+  11432F00: B9 03 00 00 00     mov         ecx,3
+  11432F05: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11432F0A: F3 AB              rep stos    dword ptr es:[edi]
+  11432F0C: 59                 pop         ecx
+  11432F0D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11432F10: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11432F13: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  11432F16: 51                 push        ecx
+  11432F17: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11432F1A: 8B 42 04           mov         eax,dword ptr [edx+4]
+  11432F1D: 50                 push        eax
+  11432F1E: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11432F21: 8B 11              mov         edx,dword ptr [ecx]
+  11432F23: 52                 push        edx
+  11432F24: E8 16 EA C7 FF     call        110B193F
+  11432F29: 83 C4 0C           add         esp,0Ch
+  11432F2C: 5F                 pop         edi
+  11432F2D: 5E                 pop         esi
+  11432F2E: 5B                 pop         ebx
+  11432F2F: 81 C4 CC 00 00 00  add         esp,0CCh
+  11432F35: 3B EC              cmp         ebp,esp
+  11432F37: E8 9B 6B C7 FF     call        110A9AD7
+  11432F3C: 8B E5              mov         esp,ebp
+  11432F3E: 5D                 pop         ebp
+  11432F3F: C3                 ret
+  11432F40: CC                 int         3
+
+  Summary
+
+     2208000 .text

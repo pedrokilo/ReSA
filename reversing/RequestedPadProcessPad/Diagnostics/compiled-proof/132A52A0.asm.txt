@@ -1,0 +1,45 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  132A52A0: 55                 push        ebp
+  132A52A1: 8B EC              mov         ebp,esp
+  132A52A3: 81 EC C0 00 00 00  sub         esp,0C0h
+  132A52A9: 53                 push        ebx
+  132A52AA: 56                 push        esi
+  132A52AB: 57                 push        edi
+  132A52AC: 8B FD              mov         edi,ebp
+  132A52AE: 33 C9              xor         ecx,ecx
+  132A52B0: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  132A52B5: F3 AB              rep stos    dword ptr es:[edi]
+  132A52B7: B9 D8 D2 8F 13     mov         ecx,138FD2D8h
+  132A52BC: E8 69 D0 E1 FD     call        110C232A
+  132A52C1: 90                 nop
+  132A52C2: 5F                 pop         edi
+  132A52C3: 5E                 pop         esi
+  132A52C4: 5B                 pop         ebx
+  132A52C5: 81 C4 C0 00 00 00  add         esp,0C0h
+  132A52CB: 3B EC              cmp         ebp,esp
+  132A52CD: E8 05 48 E0 FD     call        110A9AD7
+  132A52D2: 8B E5              mov         esp,ebp
+  132A52D4: 5D                 pop         ebp
+  132A52D5: C3                 ret
+  132A52D6: CC                 int         3
+  132A52D7: CC                 int         3
+  132A52D8: CC                 int         3
+  132A52D9: CC                 int         3
+  132A52DA: CC                 int         3
+  132A52DB: CC                 int         3
+  132A52DC: CC                 int         3
+  132A52DD: CC                 int         3
+  132A52DE: CC                 int         3
+  132A52DF: CC                 int         3
+  132A52E0: CC                 int         3
+
+  Summary
+
+     2208000 .text

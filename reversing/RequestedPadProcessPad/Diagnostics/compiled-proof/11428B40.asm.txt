@@ -1,0 +1,45 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11428B40: 55                 push        ebp
+  11428B41: 8B EC              mov         ebp,esp
+  11428B43: 81 EC C0 00 00 00  sub         esp,0C0h
+  11428B49: 53                 push        ebx
+  11428B4A: 56                 push        esi
+  11428B4B: 57                 push        edi
+  11428B4C: 8B FD              mov         edi,ebp
+  11428B4E: 33 C9              xor         ecx,ecx
+  11428B50: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11428B55: F3 AB              rep stos    dword ptr es:[edi]
+  11428B57: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  11428B5A: 50                 push        eax
+  11428B5B: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11428B5E: E8 B9 C7 CA FF     call        110D531C
+  11428B63: 5F                 pop         edi
+  11428B64: 5E                 pop         esi
+  11428B65: 5B                 pop         ebx
+  11428B66: 81 C4 C0 00 00 00  add         esp,0C0h
+  11428B6C: 3B EC              cmp         ebp,esp
+  11428B6E: E8 64 0F C8 FF     call        110A9AD7
+  11428B73: 8B E5              mov         esp,ebp
+  11428B75: 5D                 pop         ebp
+  11428B76: C3                 ret
+  11428B77: CC                 int         3
+  11428B78: CC                 int         3
+  11428B79: CC                 int         3
+  11428B7A: CC                 int         3
+  11428B7B: CC                 int         3
+  11428B7C: CC                 int         3
+  11428B7D: CC                 int         3
+  11428B7E: CC                 int         3
+  11428B7F: CC                 int         3
+  11428B80: CC                 int         3
+
+  Summary
+
+     2208000 .text

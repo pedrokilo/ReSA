@@ -1,0 +1,48 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1143F1B0: 55                 push        ebp
+  1143F1B1: 8B EC              mov         ebp,esp
+  1143F1B3: 81 EC CC 00 00 00  sub         esp,0CCh
+  1143F1B9: 53                 push        ebx
+  1143F1BA: 56                 push        esi
+  1143F1BB: 57                 push        edi
+  1143F1BC: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1143F1BF: B9 03 00 00 00     mov         ecx,3
+  1143F1C4: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1143F1C9: F3 AB              rep stos    dword ptr es:[edi]
+  1143F1CB: C7 85 38 FF FF FF  mov         dword ptr [ebp+FFFFFF38h],0
+            00 00 00 00
+  1143F1D5: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  1143F1D8: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  1143F1DB: 51                 push        ecx
+  1143F1DC: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  1143F1DF: 8B 02              mov         eax,dword ptr [edx]
+  1143F1E1: 50                 push        eax
+  1143F1E2: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1143F1E5: 51                 push        ecx
+  1143F1E6: E8 3C 92 C9 FF     call        110D8427
+  1143F1EB: 83 C4 0C           add         esp,0Ch
+  1143F1EE: 8B 95 38 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF38h]
+  1143F1F4: 83 CA 01           or          edx,1
+  1143F1F7: 89 95 38 FF FF FF  mov         dword ptr [ebp+FFFFFF38h],edx
+  1143F1FD: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1143F200: 5F                 pop         edi
+  1143F201: 5E                 pop         esi
+  1143F202: 5B                 pop         ebx
+  1143F203: 81 C4 CC 00 00 00  add         esp,0CCh
+  1143F209: 3B EC              cmp         ebp,esp
+  1143F20B: E8 C7 A8 C6 FF     call        110A9AD7
+  1143F210: 8B E5              mov         esp,ebp
+  1143F212: 5D                 pop         ebp
+  1143F213: C3                 ret
+  1143F214: CC                 int         3
+
+  Summary
+
+     2208000 .text

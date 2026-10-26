@@ -1,0 +1,50 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11406D70: 55                 push        ebp
+  11406D71: 8B EC              mov         ebp,esp
+  11406D73: 81 EC CC 00 00 00  sub         esp,0CCh
+  11406D79: 53                 push        ebx
+  11406D7A: 56                 push        esi
+  11406D7B: 57                 push        edi
+  11406D7C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11406D7F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11406D82: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  11406D85: 8B 11              mov         edx,dword ptr [ecx]
+  11406D87: 89 10              mov         dword ptr [eax],edx
+  11406D89: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11406D8C: 5F                 pop         edi
+  11406D8D: 5E                 pop         esi
+  11406D8E: 5B                 pop         ebx
+  11406D8F: 8B E5              mov         esp,ebp
+  11406D91: 5D                 pop         ebp
+  11406D92: C2 0C 00           ret         0Ch
+  11406D95: CC                 int         3
+  11406D96: CC                 int         3
+  11406D97: CC                 int         3
+  11406D98: CC                 int         3
+  11406D99: CC                 int         3
+  11406D9A: CC                 int         3
+  11406D9B: CC                 int         3
+  11406D9C: CC                 int         3
+  11406D9D: CC                 int         3
+  11406D9E: CC                 int         3
+  11406D9F: CC                 int         3
+  11406DA0: 55                 push        ebp
+  11406DA1: 8B EC              mov         ebp,esp
+  11406DA3: 81 EC DC 00 00 00  sub         esp,0DCh
+  11406DA9: 53                 push        ebx
+  11406DAA: 56                 push        esi
+  11406DAB: 57                 push        edi
+  11406DAC: 51                 push        ecx
+  11406DAD: 8D 7D E4           lea         edi,[ebp-1Ch]
+  11406DB0: B9
+
+  Summary
+
+     2208000 .text

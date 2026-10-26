@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  114399E0: 55                 push        ebp
+  114399E1: 8B EC              mov         ebp,esp
+  114399E3: 81 EC CC 00 00 00  sub         esp,0CCh
+  114399E9: 53                 push        ebx
+  114399EA: 56                 push        esi
+  114399EB: 57                 push        edi
+  114399EC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  114399EF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  114399F2: 8B 00              mov         eax,dword ptr [eax]
+  114399F4: 5F                 pop         edi
+  114399F5: 5E                 pop         esi
+  114399F6: 5B                 pop         ebx
+  114399F7: 8B E5              mov         esp,ebp
+  114399F9: 5D                 pop         ebp
+  114399FA: C3                 ret
+  114399FB: CC                 int         3
+  114399FC: CC                 int         3
+  114399FD: CC                 int         3
+  114399FE: CC                 int         3
+  114399FF: CC                 int         3
+  11439A00: CC                 int         3
+  11439A01: CC                 int         3
+  11439A02: CC                 int         3
+  11439A03: CC                 int         3
+  11439A04: CC                 int         3
+  11439A05: CC                 int         3
+  11439A06: CC                 int         3
+  11439A07: CC                 int         3
+  11439A08: CC                 int         3
+  11439A09: CC                 int         3
+  11439A0A: CC                 int         3
+  11439A0B: CC                 int         3
+  11439A0C: CC                 int         3
+  11439A0D: CC                 int         3
+  11439A0E: CC                 int         3
+  11439A0F: CC                 int         3
+  11439A10: 55                 push        ebp
+  11439A11: 8B EC              mov         ebp,esp
+  11439A13: 81 EC CC 00 00 00  sub         esp,0CCh
+  11439A19: 53                 push        ebx
+  11439A1A: 56                 push        esi
+  11439A1B: 57                 push        edi
+  11439A1C: 51                 push        ecx
+  11439A1D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  11439A20: B9
+
+  Summary
+
+     2208000 .text

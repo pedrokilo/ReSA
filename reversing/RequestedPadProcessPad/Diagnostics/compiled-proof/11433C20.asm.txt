@@ -1,0 +1,49 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11433C20: 55                 push        ebp
+  11433C21: 8B EC              mov         ebp,esp
+  11433C23: 81 EC D4 00 00 00  sub         esp,0D4h
+  11433C29: 53                 push        ebx
+  11433C2A: 56                 push        esi
+  11433C2B: 57                 push        edi
+  11433C2C: 51                 push        ecx
+  11433C2D: 8D 7D EC           lea         edi,[ebp-14h]
+  11433C30: B9 05 00 00 00     mov         ecx,5
+  11433C35: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11433C3A: F3 AB              rep stos    dword ptr es:[edi]
+  11433C3C: 59                 pop         ecx
+  11433C3D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11433C40: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11433C43: 83 38 00           cmp         dword ptr [eax],0
+  11433C46: 74 2C              je          11433C74
+  11433C48: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11433C4B: E8 E0 AB CB FF     call        110EE830
+  11433C50: 89 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],eax
+  11433C56: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11433C59: 8B 08              mov         ecx,dword ptr [eax]
+  11433C5B: 89 8D 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],ecx
+  11433C61: 8B 95 2C FF FF FF  mov         edx,dword ptr [ebp+FFFFFF2Ch]
+  11433C67: 52                 push        edx
+  11433C68: 8B 8D 30 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF30h]
+  11433C6E: E8 DC 15 CA FF     call        110D524F
+  11433C73: 90                 nop
+  11433C74: 5F                 pop         edi
+  11433C75: 5E                 pop         esi
+  11433C76: 5B                 pop         ebx
+  11433C77: 81 C4 D4 00 00 00  add         esp,0D4h
+  11433C7D: 3B EC              cmp         ebp,esp
+  11433C7F: E8 53 5E C7 FF     call        110A9AD7
+  11433C84: 8B E5              mov         esp,ebp
+  11433C86: 5D                 pop         ebp
+  11433C87: C3                 ret
+  11433C88: CC                 int         3
+
+  Summary
+
+     2208000 .text

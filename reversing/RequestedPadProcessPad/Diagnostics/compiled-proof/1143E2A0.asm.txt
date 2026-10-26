@@ -1,0 +1,159 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1143E2A0: 55                 push        ebp
+  1143E2A1: 8B EC              mov         ebp,esp
+  1143E2A3: 6A FF              push        0FFFFFFFFh
+  1143E2A5: 68 1C BF 1B 13     push        131BBF1Ch
+  1143E2AA: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  1143E2B0: 50                 push        eax
+  1143E2B1: 81 EC 68 01 00 00  sub         esp,168h
+  1143E2B7: 53                 push        ebx
+  1143E2B8: 56                 push        esi
+  1143E2B9: 57                 push        edi
+  1143E2BA: 8D BD 4C FF FF FF  lea         edi,[ebp+FFFFFF4Ch]
+  1143E2C0: B9 2A 00 00 00     mov         ecx,2Ah
+  1143E2C5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1143E2CA: F3 AB              rep stos    dword ptr es:[edi]
+  1143E2CC: A1 80 12 8E 13     mov         eax,dword ptr ds:[138E1280h]
+  1143E2D1: 33 C5              xor         eax,ebp
+  1143E2D3: 89 45 F0           mov         dword ptr [ebp-10h],eax
+  1143E2D6: 50                 push        eax
+  1143E2D7: 8D 45 F4           lea         eax,[ebp-0Ch]
+  1143E2DA: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  1143E2E0: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1143E2E3: 50                 push        eax
+  1143E2E4: E8 B6 02 C8 FF     call        110BE59F
+  1143E2E9: 83 C4 04           add         esp,4
+  1143E2EC: 89 45 E8           mov         dword ptr [ebp-18h],eax
+  1143E2EF: A1 C0 D2 8F 13     mov         eax,dword ptr ds:[138FD2C0h]
+  1143E2F4: 83 C0 01           add         eax,1
+  1143E2F7: A3 C0 D2 8F 13     mov         dword ptr ds:[138FD2C0h],eax
+  1143E2FC: 83 3D C0 D2 8F 13  cmp         dword ptr ds:[138FD2C0h],40h
+            40
+  1143E303: 76 11              jbe         1143E316
+  1143E305: C6 05 38 A0 83 13  mov         byte ptr ds:[1383A038h],0
+            00
+  1143E30C: B8 05 40 00 80     mov         eax,80004005h
+  1143E311: E9 2B 01 00 00     jmp         1143E441
+  1143E316: B9 D8 D2 8F 13     mov         ecx,138FD2D8h
+  1143E31B: E8 D3 33 CA FF     call        110E16F3
+  1143E320: 39 05 F0 D2 8F 13  cmp         dword ptr ds:[138FD2F0h],eax
+  1143E326: 73 35              jae         1143E35D
+  1143E328: A1 F0 D2 8F 13     mov         eax,dword ptr ds:[138FD2F0h]
+  1143E32D: 89 85 90 FE FF FF  mov         dword ptr [ebp+FFFFFE90h],eax
+  1143E333: 8B 0D F0 D2 8F 13  mov         ecx,dword ptr ds:[138FD2F0h]
+  1143E339: 83 C1 01           add         ecx,1
+  1143E33C: 89 0D F0 D2 8F 13  mov         dword ptr ds:[138FD2F0h],ecx
+  1143E342: 8B 95 90 FE FF FF  mov         edx,dword ptr [ebp+FFFFFE90h]
+  1143E348: 52                 push        edx
+  1143E349: B9 D8 D2 8F 13     mov         ecx,138FD2D8h
+  1143E34E: E8 E7 1F C9 FF     call        110D033A
+  1143E353: 8B 00              mov         eax,dword ptr [eax]
+  1143E355: 89 85 8C FE FF FF  mov         dword ptr [ebp+FFFFFE8Ch],eax
+  1143E35B: EB 0A              jmp         1143E367
+  1143E35D: C7 85 8C FE FF FF  mov         dword ptr [ebp+FFFFFE8Ch],0
+            00 00 00 00
+  1143E367: 8B 8D 8C FE FF FF  mov         ecx,dword ptr [ebp+FFFFFE8Ch]
+  1143E36D: 89 4D DC           mov         dword ptr [ebp-24h],ecx
+  1143E370: 68 10 AC 36 13     push        1336AC10h
+  1143E375: 8D 8D 98 FE FF FF  lea         ecx,[ebp+FFFFFE98h]
+  1143E37B: E8 4A 05 C7 FF     call        110AE8CA
+  1143E380: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  1143E387: 8D 45 E8           lea         eax,[ebp-18h]
+  1143E38A: 50                 push        eax
+  1143E38B: 8D 8D B0 FE FF FF  lea         ecx,[ebp+FFFFFEB0h]
+  1143E391: E8 8C 80 CB FF     call        110F6422
+  1143E396: C6 45 FC 01        mov         byte ptr [ebp-4],1
+  1143E39A: 8B 4D DC           mov         ecx,dword ptr [ebp-24h]
+  1143E39D: 89 8D 10 FF FF FF  mov         dword ptr [ebp+FFFFFF10h],ecx
+  1143E3A3: 8D 95 10 FF FF FF  lea         edx,[ebp+FFFFFF10h]
+  1143E3A9: 52                 push        edx
+  1143E3AA: 8D 8D C8 FE FF FF  lea         ecx,[ebp+FFFFFEC8h]
+  1143E3B0: E8 49 53 C7 FF     call        110B36FE
+  1143E3B5: C7 45 FC 02 00 00  mov         dword ptr [ebp-4],2
+            00
+  1143E3BC: 8D 85 E0 FE FF FF  lea         eax,[ebp+FFFFFEE0h]
+  1143E3C2: 50                 push        eax
+  1143E3C3: 8D 8D 98 FE FF FF  lea         ecx,[ebp+FFFFFE98h]
+  1143E3C9: 51                 push        ecx
+  1143E3CA: 8D 8D 00 FF FF FF  lea         ecx,[ebp+FFFFFF00h]
+  1143E3D0: E8 D5 64 C8 FF     call        110C48AA
+  1143E3D5: 8B 50 04           mov         edx,dword ptr [eax+4]
+  1143E3D8: 52                 push        edx
+  1143E3D9: 8B 00              mov         eax,dword ptr [eax]
+  1143E3DB: 50                 push        eax
+  1143E3DC: 8D 8D E8 FE FF FF  lea         ecx,[ebp+FFFFFEE8h]
+  1143E3E2: 51                 push        ecx
+  1143E3E3: E8 C9 9A C7 FF     call        110B7EB1
+  1143E3E8: 83 C4 0C           add         esp,0Ch
+  1143E3EB: 89 85 90 FE FF FF  mov         dword ptr [ebp+FFFFFE90h],eax
+  1143E3F1: 8B 95 90 FE FF FF  mov         edx,dword ptr [ebp+FFFFFE90h]
+  1143E3F7: 89 95 8C FE FF FF  mov         dword ptr [ebp+FFFFFE8Ch],edx
+  1143E3FD: C6 45 FC 03        mov         byte ptr [ebp-4],3
+  1143E401: 8B 85 8C FE FF FF  mov         eax,dword ptr [ebp+FFFFFE8Ch]
+  1143E407: 50                 push        eax
+  1143E408: B9 80 D2 8F 13     mov         ecx,138FD280h
+  1143E40D: E8 F0 34 C8 FF     call        110C1902
+  1143E412: C6 45 FC 02        mov         byte ptr [ebp-4],2
+  1143E416: 8D 8D E8 FE FF FF  lea         ecx,[ebp+FFFFFEE8h]
+  1143E41C: E8 29 95 CA FF     call        110E794A
+  1143E421: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  1143E428: 68 2C 61 0D 11     push        110D612Ch
+  1143E42D: 6A 03              push        3
+  1143E42F: 6A 18              push        18h
+  1143E431: 8D 8D 98 FE FF FF  lea         ecx,[ebp+FFFFFE98h]
+  1143E437: 51                 push        ecx
+  1143E438: E8 56 CD C6 FF     call        110AB193
+  1143E43D: 90                 nop
+  1143E43E: 8B 45 DC           mov         eax,dword ptr [ebp-24h]
+  1143E441: 52                 push        edx
+  1143E442: 8B CD              mov         ecx,ebp
+  1143E444: 50                 push        eax
+  1143E445: 8D 15 80 E4 43 11  lea         edx,ds:[1143E480h]
+  1143E44B: E8 F3 0D C7 FF     call        110AF243
+  1143E450: 58                 pop         eax
+  1143E451: 5A                 pop         edx
+  1143E452: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  1143E455: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  1143E45C: 59                 pop         ecx
+  1143E45D: 5F                 pop         edi
+  1143E45E: 5E                 pop         esi
+  1143E45F: 5B                 pop         ebx
+  1143E460: 8B 4D F0           mov         ecx,dword ptr [ebp-10h]
+  1143E463: 33 CD              xor         ecx,ebp
+  1143E465: E8 F0 9C C6 FF     call        110A815A
+  1143E46A: 81 C4 74 01 00 00  add         esp,174h
+  1143E470: 3B EC              cmp         ebp,esp
+  1143E472: E8 60 B6 C6 FF     call        110A9AD7
+  1143E477: 8B E5              mov         esp,ebp
+  1143E479: 5D                 pop         ebp
+  1143E47A: C2 04 00           ret         4
+  1143E47D: 0F 1F 00           nop         dword ptr [eax]
+  1143E480: 01 00              add         dword ptr [eax],eax
+  1143E482: 00 00              add         byte ptr [eax],al
+  1143E484: 88 E4              mov         ah,ah
+  1143E486: 43                 inc         ebx
+  1143E487: 11 E8              adc         eax,ebp
+  1143E489: FF
+  1143E48A: FF
+  1143E48B: FF 04 00           inc         dword ptr [eax+eax]
+  1143E48E: 00 00              add         byte ptr [eax],al
+  1143E490: 94                 xchg        eax,esp
+  1143E491: E4 43              in          al,43h
+  1143E493: 11 69 6E           adc         dword ptr [ecx+6Eh],ebp
+  1143E496: 64
+  1143E497: 65 78 00           js          1143E49A
+  1143E49A: CC                 int         3
+
+  Summary
+
+     2208000 .text

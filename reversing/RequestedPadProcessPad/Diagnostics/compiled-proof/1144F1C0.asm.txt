@@ -1,0 +1,87 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1144F1C0: 55                 push        ebp
+  1144F1C1: 8B EC              mov         ebp,esp
+  1144F1C3: 6A FF              push        0FFFFFFFFh
+  1144F1C5: 68 7D DE 1B 13     push        131BDE7Dh
+  1144F1CA: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  1144F1D0: 50                 push        eax
+  1144F1D1: 81 EC D8 00 00 00  sub         esp,0D8h
+  1144F1D7: 53                 push        ebx
+  1144F1D8: 56                 push        esi
+  1144F1D9: 57                 push        edi
+  1144F1DA: 51                 push        ecx
+  1144F1DB: 8D 7D DC           lea         edi,[ebp-24h]
+  1144F1DE: B9 06 00 00 00     mov         ecx,6
+  1144F1E3: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1144F1E8: F3 AB              rep stos    dword ptr es:[edi]
+  1144F1EA: 59                 pop         ecx
+  1144F1EB: A1 80 12 8E 13     mov         eax,dword ptr ds:[138E1280h]
+  1144F1F0: 33 C5              xor         eax,ebp
+  1144F1F2: 50                 push        eax
+  1144F1F3: 8D 45 F4           lea         eax,[ebp-0Ch]
+  1144F1F6: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  1144F1FC: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  1144F1FF: 6A 03              push        3
+  1144F201: 8D 4D E0           lea         ecx,[ebp-20h]
+  1144F204: E8 B2 55 C6 FF     call        110B47BB
+  1144F209: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  1144F210: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  1144F213: 50                 push        eax
+  1144F214: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1144F217: 51                 push        ecx
+  1144F218: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1144F21B: E8 D0 4A C9 FF     call        110E3CF0
+  1144F220: 90                 nop
+  1144F221: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  1144F228: 8D 4D E0           lea         ecx,[ebp-20h]
+  1144F22B: E8 07 07 C6 FF     call        110AF937
+  1144F230: 90                 nop
+  1144F231: 52                 push        edx
+  1144F232: 8B CD              mov         ecx,ebp
+  1144F234: 50                 push        eax
+  1144F235: 8D 15 64 F2 44 11  lea         edx,ds:[1144F264h]
+  1144F23B: E8 03 00 C6 FF     call        110AF243
+  1144F240: 58                 pop         eax
+  1144F241: 5A                 pop         edx
+  1144F242: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  1144F245: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  1144F24C: 59                 pop         ecx
+  1144F24D: 5F                 pop         edi
+  1144F24E: 5E                 pop         esi
+  1144F24F: 5B                 pop         ebx
+  1144F250: 81 C4 E4 00 00 00  add         esp,0E4h
+  1144F256: 3B EC              cmp         ebp,esp
+  1144F258: E8 7A A8 C5 FF     call        110A9AD7
+  1144F25D: 8B E5              mov         esp,ebp
+  1144F25F: 5D                 pop         ebp
+  1144F260: C2 08 00           ret         8
+  1144F263: 90                 nop
+  1144F264: 01 00              add         dword ptr [eax],eax
+  1144F266: 00 00              add         byte ptr [eax],al
+  1144F268: 6C                 ins         byte ptr es:[edi],dx
+  1144F269: F2 44              xacquire inc esp
+  1144F26B: 11 E0              adc         eax,esp
+  1144F26D: FF
+  1144F26E: FF
+  1144F26F: FF 04 00           inc         dword ptr [eax+eax]
+  1144F272: 00 00              add         byte ptr [eax],al
+  1144F274: 78 F2              js          1144F268
+  1144F276: 44                 inc         esp
+  1144F277: 11 5F 4C           adc         dword ptr [edi+4Ch],ebx
+  1144F27A: 6F                 outs        dx,dword ptr [esi]
+  1144F27B: 63 6B 00           arpl        word ptr [ebx],bp
+  1144F27E: CC                 int         3
+
+  Summary
+
+     2208000 .text

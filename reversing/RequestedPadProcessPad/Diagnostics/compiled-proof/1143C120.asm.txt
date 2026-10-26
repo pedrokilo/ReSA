@@ -1,0 +1,89 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1143C120: 55                 push        ebp
+  1143C121: 8B EC              mov         ebp,esp
+  1143C123: 6A FF              push        0FFFFFFFFh
+  1143C125: 68 50 A5 1B 13     push        131BA550h
+  1143C12A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  1143C130: 50                 push        eax
+  1143C131: 81 EC 04 01 00 00  sub         esp,104h
+  1143C137: 53                 push        ebx
+  1143C138: 56                 push        esi
+  1143C139: 57                 push        edi
+  1143C13A: 51                 push        ecx
+  1143C13B: 8D 7D B0           lea         edi,[ebp-50h]
+  1143C13E: B9 11 00 00 00     mov         ecx,11h
+  1143C143: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1143C148: F3 AB              rep stos    dword ptr es:[edi]
+  1143C14A: 59                 pop         ecx
+  1143C14B: A1 80 12 8E 13     mov         eax,dword ptr ds:[138E1280h]
+  1143C150: 33 C5              xor         eax,ebp
+  1143C152: 89 45 F0           mov         dword ptr [ebp-10h],eax
+  1143C155: 50                 push        eax
+  1143C156: 8D 45 F4           lea         eax,[ebp-0Ch]
+  1143C159: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  1143C15F: 89 4D E8           mov         dword ptr [ebp-18h],ecx
+  1143C162: 8B 45 E8           mov         eax,dword ptr [ebp-18h]
+  1143C165: 8B 08              mov         ecx,dword ptr [eax]
+  1143C167: 89 8D FC FE FF FF  mov         dword ptr [ebp+FFFFFEFCh],ecx
+  1143C16D: 6A 00              push        0
+  1143C16F: 6A 00              push        0
+  1143C171: 6A 20              push        20h
+  1143C173: 6A FF              push        0FFFFFFFFh
+  1143C175: 8D 95 04 FF FF FF  lea         edx,[ebp+FFFFFF04h]
+  1143C17B: 52                 push        edx
+  1143C17C: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1143C17F: E8 B8 F3 C9 FF     call        110DB53C
+  1143C184: 89 85 F8 FE FF FF  mov         dword ptr [ebp+FFFFFEF8h],eax
+  1143C18A: 8B 85 F8 FE FF FF  mov         eax,dword ptr [ebp+FFFFFEF8h]
+  1143C190: 89 85 F4 FE FF FF  mov         dword ptr [ebp+FFFFFEF4h],eax
+  1143C196: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  1143C19D: 8B 8D F4 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEF4h]
+  1143C1A3: 89 8D F0 FE FF FF  mov         dword ptr [ebp+FFFFFEF0h],ecx
+  1143C1A9: 8B 95 F0 FE FF FF  mov         edx,dword ptr [ebp+FFFFFEF0h]
+  1143C1AF: 52                 push        edx
+  1143C1B0: 8B 85 FC FE FF FF  mov         eax,dword ptr [ebp+FFFFFEFCh]
+  1143C1B6: 50                 push        eax
+  1143C1B7: E8 72 B1 C9 FF     call        110D732E
+  1143C1BC: 83 C4 08           add         esp,8
+  1143C1BF: 6A 0A              push        0Ah
+  1143C1C1: 50                 push        eax
+  1143C1C2: E8 CD D0 C6 FF     call        110A9294
+  1143C1C7: 83 C4 08           add         esp,8
+  1143C1CA: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  1143C1D1: 8D 8D 04 FF FF FF  lea         ecx,[ebp+FFFFFF04h]
+  1143C1D7: E8 61 B2 C8 FF     call        110C743D
+  1143C1DC: 90                 nop
+  1143C1DD: 8B 45 E8           mov         eax,dword ptr [ebp-18h]
+  1143C1E0: 8B 08              mov         ecx,dword ptr [eax]
+  1143C1E2: E8 5E 91 C8 FF     call        110C5345
+  1143C1E7: 90                 nop
+  1143C1E8: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  1143C1EB: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  1143C1F2: 59                 pop         ecx
+  1143C1F3: 5F                 pop         edi
+  1143C1F4: 5E                 pop         esi
+  1143C1F5: 5B                 pop         ebx
+  1143C1F6: 8B 4D F0           mov         ecx,dword ptr [ebp-10h]
+  1143C1F9: 33 CD              xor         ecx,ebp
+  1143C1FB: E8 5A BF C6 FF     call        110A815A
+  1143C200: 81 C4 10 01 00 00  add         esp,110h
+  1143C206: 3B EC              cmp         ebp,esp
+  1143C208: E8 CA D8 C6 FF     call        110A9AD7
+  1143C20D: 8B E5              mov         esp,ebp
+  1143C20F: 5D                 pop         ebp
+  1143C210: C2 04 00           ret         4
+  1143C213: CC                 int         3
+
+  Summary
+
+     2208000 .text

@@ -1,0 +1,48 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11442F90: 55                 push        ebp
+  11442F91: 8B EC              mov         ebp,esp
+  11442F93: 81 EC CC 00 00 00  sub         esp,0CCh
+  11442F99: 53                 push        ebx
+  11442F9A: 56                 push        esi
+  11442F9B: 57                 push        edi
+  11442F9C: 8D 7D F4           lea         edi,[ebp-0Ch]
+  11442F9F: B9 03 00 00 00     mov         ecx,3
+  11442FA4: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11442FA9: F3 AB              rep stos    dword ptr es:[edi]
+  11442FAB: C7 85 38 FF FF FF  mov         dword ptr [ebp+FFFFFF38h],0
+            00 00 00 00
+  11442FB5: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  11442FB8: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  11442FBB: 51                 push        ecx
+  11442FBC: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  11442FBF: 8B 02              mov         eax,dword ptr [edx]
+  11442FC1: 50                 push        eax
+  11442FC2: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11442FC5: 51                 push        ecx
+  11442FC6: E8 E2 75 C7 FF     call        110BA5AD
+  11442FCB: 83 C4 0C           add         esp,0Ch
+  11442FCE: 8B 95 38 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF38h]
+  11442FD4: 83 CA 01           or          edx,1
+  11442FD7: 89 95 38 FF FF FF  mov         dword ptr [ebp+FFFFFF38h],edx
+  11442FDD: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11442FE0: 5F                 pop         edi
+  11442FE1: 5E                 pop         esi
+  11442FE2: 5B                 pop         ebx
+  11442FE3: 81 C4 CC 00 00 00  add         esp,0CCh
+  11442FE9: 3B EC              cmp         ebp,esp
+  11442FEB: E8 E7 6A C6 FF     call        110A9AD7
+  11442FF0: 8B E5              mov         esp,ebp
+  11442FF2: 5D                 pop         ebp
+  11442FF3: C3                 ret
+  11442FF4: CC                 int         3
+
+  Summary
+
+     2208000 .text

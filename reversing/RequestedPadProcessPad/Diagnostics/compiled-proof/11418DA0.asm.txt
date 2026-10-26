@@ -1,0 +1,57 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11418DA0: 55                 push        ebp
+  11418DA1: 8B EC              mov         ebp,esp
+  11418DA3: 81 EC C0 00 00 00  sub         esp,0C0h
+  11418DA9: 53                 push        ebx
+  11418DAA: 56                 push        esi
+  11418DAB: 57                 push        edi
+  11418DAC: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11418DAF: 8B 00              mov         eax,dword ptr [eax]
+  11418DB1: 5F                 pop         edi
+  11418DB2: 5E                 pop         esi
+  11418DB3: 5B                 pop         ebx
+  11418DB4: 8B E5              mov         esp,ebp
+  11418DB6: 5D                 pop         ebp
+  11418DB7: C3                 ret
+  11418DB8: CC                 int         3
+  11418DB9: CC                 int         3
+  11418DBA: CC                 int         3
+  11418DBB: CC                 int         3
+  11418DBC: CC                 int         3
+  11418DBD: CC                 int         3
+  11418DBE: CC                 int         3
+  11418DBF: CC                 int         3
+  11418DC0: 55                 push        ebp
+  11418DC1: 8B EC              mov         ebp,esp
+  11418DC3: 81 EC C0 00 00 00  sub         esp,0C0h
+  11418DC9: 53                 push        ebx
+  11418DCA: 56                 push        esi
+  11418DCB: 57                 push        edi
+  11418DCC: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11418DCF: 8B 00              mov         eax,dword ptr [eax]
+  11418DD1: 5F                 pop         edi
+  11418DD2: 5E                 pop         esi
+  11418DD3: 5B                 pop         ebx
+  11418DD4: 8B E5              mov         esp,ebp
+  11418DD6: 5D                 pop         ebp
+  11418DD7: C3                 ret
+  11418DD8: CC                 int         3
+  11418DD9: CC                 int         3
+  11418DDA: CC                 int         3
+  11418DDB: CC                 int         3
+  11418DDC: CC                 int         3
+  11418DDD: CC                 int         3
+  11418DDE: CC                 int         3
+  11418DDF: CC                 int         3
+  11418DE0: 55                 push        ebp
+
+  Summary
+
+     2208000 .text

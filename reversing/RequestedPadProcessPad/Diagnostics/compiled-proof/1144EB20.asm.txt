@@ -1,0 +1,54 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1144EB20: 55                 push        ebp
+  1144EB21: 8B EC              mov         ebp,esp
+  1144EB23: 81 EC CC 00 00 00  sub         esp,0CCh
+  1144EB29: 53                 push        ebx
+  1144EB2A: 56                 push        esi
+  1144EB2B: 57                 push        edi
+  1144EB2C: 51                 push        ecx
+  1144EB2D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1144EB30: B9 03 00 00 00     mov         ecx,3
+  1144EB35: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1144EB3A: F3 AB              rep stos    dword ptr es:[edi]
+  1144EB3C: 59                 pop         ecx
+  1144EB3D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1144EB40: E8 6E 61 C9 FF     call        110E4CB3
+  1144EB45: 0F B6 C0           movzx       eax,al
+  1144EB48: 85 C0              test        eax,eax
+  1144EB4A: 74 13              je          1144EB5F
+  1144EB4C: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  1144EB4F: 50                 push        eax
+  1144EB50: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1144EB53: 51                 push        ecx
+  1144EB54: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1144EB57: E8 94 51 C9 FF     call        110E3CF0
+  1144EB5C: 90                 nop
+  1144EB5D: EB 11              jmp         1144EB70
+  1144EB5F: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  1144EB62: 50                 push        eax
+  1144EB63: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1144EB66: 51                 push        ecx
+  1144EB67: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1144EB6A: E8 A9 46 CA FF     call        110F3218
+  1144EB6F: 90                 nop
+  1144EB70: 5F                 pop         edi
+  1144EB71: 5E                 pop         esi
+  1144EB72: 5B                 pop         ebx
+  1144EB73: 81 C4 CC 00 00 00  add         esp,0CCh
+  1144EB79: 3B EC              cmp         ebp,esp
+  1144EB7B: E8 57 AF C5 FF     call        110A9AD7
+  1144EB80: 8B E5              mov         esp,ebp
+  1144EB82: 5D                 pop         ebp
+  1144EB83: C2 08 00           ret         8
+  1144EB86: CC                 int         3
+
+  Summary
+
+     2208000 .text

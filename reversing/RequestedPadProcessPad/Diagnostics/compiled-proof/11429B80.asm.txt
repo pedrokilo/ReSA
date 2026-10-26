@@ -1,0 +1,84 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11429B80: 55                 push        ebp
+  11429B81: 8B EC              mov         ebp,esp
+  11429B83: 6A FF              push        0FFFFFFFFh
+  11429B85: 68 F7 90 1B 13     push        131B90F7h
+  11429B8A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  11429B90: 50                 push        eax
+  11429B91: 81 EC E8 00 00 00  sub         esp,0E8h
+  11429B97: 53                 push        ebx
+  11429B98: 56                 push        esi
+  11429B99: 57                 push        edi
+  11429B9A: 8D 7D CC           lea         edi,[ebp-34h]
+  11429B9D: B9 0A 00 00 00     mov         ecx,0Ah
+  11429BA2: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11429BA7: F3 AB              rep stos    dword ptr es:[edi]
+  11429BA9: A1 80 12 8E 13     mov         eax,dword ptr ds:[138E1280h]
+  11429BAE: 33 C5              xor         eax,ebp
+  11429BB0: 50                 push        eax
+  11429BB1: 8D 45 F4           lea         eax,[ebp-0Ch]
+  11429BB4: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  11429BBA: C7 85 14 FF FF FF  mov         dword ptr [ebp+FFFFFF14h],0
+            00 00 00 00
+  11429BC4: 6A 34              push        34h
+  11429BC6: E8 73 87 C9 FF     call        110C233E
+  11429BCB: 83 C4 04           add         esp,4
+  11429BCE: 89 85 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],eax
+  11429BD4: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  11429BDB: 83 BD 20 FF FF FF  cmp         dword ptr [ebp+FFFFFF20h],0
+            00
+  11429BE2: 74 27              je          11429C0B
+  11429BE4: 8B 45 18           mov         eax,dword ptr [ebp+18h]
+  11429BE7: 50                 push        eax
+  11429BE8: 8B 4D 14           mov         ecx,dword ptr [ebp+14h]
+  11429BEB: 51                 push        ecx
+  11429BEC: 8B 55 10           mov         edx,dword ptr [ebp+10h]
+  11429BEF: 8B 02              mov         eax,dword ptr [edx]
+  11429BF1: 50                 push        eax
+  11429BF2: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  11429BF5: 8B 11              mov         edx,dword ptr [ecx]
+  11429BF7: 52                 push        edx
+  11429BF8: 8B 8D 20 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF20h]
+  11429BFE: E8 BB 23 CB FF     call        110DBFBE
+  11429C03: 89 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],eax
+  11429C09: EB 0A              jmp         11429C15
+  11429C0B: C7 85 0C FF FF FF  mov         dword ptr [ebp+FFFFFF0Ch],0
+            00 00 00 00
+  11429C15: 8B 85 0C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF0Ch]
+  11429C1B: 89 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],eax
+  11429C21: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  11429C28: 8B 8D 2C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF2Ch]
+  11429C2E: 51                 push        ecx
+  11429C2F: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11429C32: E8 FB 04 CB FF     call        110DA132
+  11429C37: 8B 95 14 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF14h]
+  11429C3D: 83 CA 01           or          edx,1
+  11429C40: 89 95 14 FF FF FF  mov         dword ptr [ebp+FFFFFF14h],edx
+  11429C46: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11429C49: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  11429C4C: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  11429C53: 59                 pop         ecx
+  11429C54: 5F                 pop         edi
+  11429C55: 5E                 pop         esi
+  11429C56: 5B                 pop         ebx
+  11429C57: 81 C4 F4 00 00 00  add         esp,0F4h
+  11429C5D: 3B EC              cmp         ebp,esp
+  11429C5F: E8 73 FE C7 FF     call        110A9AD7
+  11429C64: 8B E5              mov         esp,ebp
+  11429C66: 5D                 pop         ebp
+  11429C67: C3                 ret
+  11429C68: CC                 int         3
+
+  Summary
+
+     2208000 .text

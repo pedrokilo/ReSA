@@ -1,0 +1,50 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  113D39A0: 55                 push        ebp
+  113D39A1: 8B EC              mov         ebp,esp
+  113D39A3: 81 EC C0 00 00 00  sub         esp,0C0h
+  113D39A9: 53                 push        ebx
+  113D39AA: 56                 push        esi
+  113D39AB: 57                 push        edi
+  113D39AC: 69 45 08 34 01 00  imul        eax,dword ptr [ebp+8],134h
+            00
+  113D39B3: 03 05 D4 BF 8F 13  add         eax,dword ptr ds:[138FBFD4h]
+  113D39B9: 5F                 pop         edi
+  113D39BA: 5E                 pop         esi
+  113D39BB: 5B                 pop         ebx
+  113D39BC: 8B E5              mov         esp,ebp
+  113D39BE: 5D                 pop         ebp
+  113D39BF: C3                 ret
+  113D39C0: CC                 int         3
+  113D39C1: CC                 int         3
+  113D39C2: CC                 int         3
+  113D39C3: CC                 int         3
+  113D39C4: CC                 int         3
+  113D39C5: CC                 int         3
+  113D39C6: CC                 int         3
+  113D39C7: CC                 int         3
+  113D39C8: CC                 int         3
+  113D39C9: CC                 int         3
+  113D39CA: CC                 int         3
+  113D39CB: CC                 int         3
+  113D39CC: CC                 int         3
+  113D39CD: CC                 int         3
+  113D39CE: CC                 int         3
+  113D39CF: CC                 int         3
+  113D39D0: 55                 push        ebp
+  113D39D1: 8B EC              mov         ebp,esp
+  113D39D3: 81 EC C0 00 00 00  sub         esp,0C0h
+  113D39D9: 53                 push        ebx
+  113D39DA: 56                 push        esi
+  113D39DB: 57                 push        edi
+  113D39DC: A1 44 C3 8F 13     mov         eax,dword ptr ds:[138FC344h]
+
+  Summary
+
+     2208000 .text

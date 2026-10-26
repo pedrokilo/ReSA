@@ -1,0 +1,56 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1142CA10: 55                 push        ebp
+  1142CA11: 8B EC              mov         ebp,esp
+  1142CA13: 81 EC CC 00 00 00  sub         esp,0CCh
+  1142CA19: 53                 push        ebx
+  1142CA1A: 56                 push        esi
+  1142CA1B: 57                 push        edi
+  1142CA1C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1142CA1F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1142CA22: 5F                 pop         edi
+  1142CA23: 5E                 pop         esi
+  1142CA24: 5B                 pop         ebx
+  1142CA25: 8B E5              mov         esp,ebp
+  1142CA27: 5D                 pop         ebp
+  1142CA28: C2 04 00           ret         4
+  1142CA2B: CC                 int         3
+  1142CA2C: CC                 int         3
+  1142CA2D: CC                 int         3
+  1142CA2E: CC                 int         3
+  1142CA2F: CC                 int         3
+  1142CA30: CC                 int         3
+  1142CA31: CC                 int         3
+  1142CA32: CC                 int         3
+  1142CA33: CC                 int         3
+  1142CA34: CC                 int         3
+  1142CA35: CC                 int         3
+  1142CA36: CC                 int         3
+  1142CA37: CC                 int         3
+  1142CA38: CC                 int         3
+  1142CA39: CC                 int         3
+  1142CA3A: CC                 int         3
+  1142CA3B: CC                 int         3
+  1142CA3C: CC                 int         3
+  1142CA3D: CC                 int         3
+  1142CA3E: CC                 int         3
+  1142CA3F: CC                 int         3
+  1142CA40: 55                 push        ebp
+  1142CA41: 8B EC              mov         ebp,esp
+  1142CA43: 81 EC CC 00 00 00  sub         esp,0CCh
+  1142CA49: 53                 push        ebx
+  1142CA4A: 56                 push        esi
+  1142CA4B: 57                 push        edi
+  1142CA4C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1142CA4F: 8B
+  1142CA50: 45                 inc         ebp
+
+  Summary
+
+     2208000 .text

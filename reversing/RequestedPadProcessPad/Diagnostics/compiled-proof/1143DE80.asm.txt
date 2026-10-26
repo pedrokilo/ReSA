@@ -1,0 +1,44 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1143DE80: 55                 push        ebp
+  1143DE81: 8B EC              mov         ebp,esp
+  1143DE83: 81 EC CC 00 00 00  sub         esp,0CCh
+  1143DE89: 53                 push        ebx
+  1143DE8A: 56                 push        esi
+  1143DE8B: 57                 push        edi
+  1143DE8C: C7 45 F8 00 00 00  mov         dword ptr [ebp-8],0
+            00
+  1143DE93: EB 09              jmp         1143DE9E
+  1143DE95: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1143DE98: 83 C0 01           add         eax,1
+  1143DE9B: 89 45 F8           mov         dword ptr [ebp-8],eax
+  1143DE9E: 83 7D F8 10        cmp         dword ptr [ebp-8],10h
+  1143DEA2: 7D 20              jge         1143DEC4
+  1143DEA4: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1143DEA7: 0F B6 08           movzx       ecx,byte ptr [eax]
+  1143DEAA: 81 F9 E9 00 00 00  cmp         ecx,0E9h
+  1143DEB0: 75 12              jne         1143DEC4
+  1143DEB2: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1143DEB5: 8B 48 01           mov         ecx,dword ptr [eax+1]
+  1143DEB8: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  1143DEBB: 8D 44 0A 05        lea         eax,[edx+ecx+5]
+  1143DEBF: 89 45 08           mov         dword ptr [ebp+8],eax
+  1143DEC2: EB D1              jmp         1143DE95
+  1143DEC4: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1143DEC7: 5F                 pop         edi
+  1143DEC8: 5E                 pop         esi
+  1143DEC9: 5B                 pop         ebx
+  1143DECA: 8B E5              mov         esp,ebp
+  1143DECC: 5D                 pop         ebp
+  1143DECD: C3                 ret
+  1143DECE: CC                 int         3
+
+  Summary
+
+     2208000 .text

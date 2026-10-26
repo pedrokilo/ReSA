@@ -1,0 +1,47 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1142C970: 55                 push        ebp
+  1142C971: 8B EC              mov         ebp,esp
+  1142C973: 81 EC CC 00 00 00  sub         esp,0CCh
+  1142C979: 53                 push        ebx
+  1142C97A: 56                 push        esi
+  1142C97B: 57                 push        edi
+  1142C97C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1142C97F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1142C982: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1142C985: 89 08              mov         dword ptr [eax],ecx
+  1142C987: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1142C98A: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  1142C98D: 89 48 04           mov         dword ptr [eax+4],ecx
+  1142C990: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1142C993: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  1142C996: 89 48 08           mov         dword ptr [eax+8],ecx
+  1142C999: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1142C99C: 5F                 pop         edi
+  1142C99D: 5E                 pop         esi
+  1142C99E: 5B                 pop         ebx
+  1142C99F: 8B E5              mov         esp,ebp
+  1142C9A1: 5D                 pop         ebp
+  1142C9A2: C2 0C 00           ret         0Ch
+  1142C9A5: CC                 int         3
+  1142C9A6: CC                 int         3
+  1142C9A7: CC                 int         3
+  1142C9A8: CC                 int         3
+  1142C9A9: CC                 int         3
+  1142C9AA: CC                 int         3
+  1142C9AB: CC                 int         3
+  1142C9AC: CC                 int         3
+  1142C9AD: CC                 int         3
+  1142C9AE: CC                 int         3
+  1142C9AF: CC                 int         3
+  1142C9B0: CC                 int         3
+
+  Summary
+
+     2208000 .text

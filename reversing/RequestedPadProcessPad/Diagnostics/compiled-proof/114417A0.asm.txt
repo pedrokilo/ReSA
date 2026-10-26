@@ -1,0 +1,82 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  114417A0: 55                 push        ebp
+  114417A1: 8B EC              mov         ebp,esp
+  114417A3: 81 EC FC 00 00 00  sub         esp,0FCh
+  114417A9: 53                 push        ebx
+  114417AA: 56                 push        esi
+  114417AB: 57                 push        edi
+  114417AC: 8D 7D C4           lea         edi,[ebp-3Ch]
+  114417AF: B9 0F 00 00 00     mov         ecx,0Fh
+  114417B4: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  114417B9: F3 AB              rep stos    dword ptr es:[edi]
+  114417BB: 33 C0              xor         eax,eax
+  114417BD: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  114417C0: 89 01              mov         dword ptr [ecx],eax
+  114417C2: 89 41 04           mov         dword ptr [ecx+4],eax
+  114417C5: 89 41 08           mov         dword ptr [ecx+8],eax
+  114417C8: 89 41 0C           mov         dword ptr [ecx+0Ch],eax
+  114417CB: 89 41 10           mov         dword ptr [ecx+10h],eax
+  114417CE: 89 41 14           mov         dword ptr [ecx+14h],eax
+  114417D1: 89 41 18           mov         dword ptr [ecx+18h],eax
+  114417D4: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  114417D7: E8 FF 68 C8 FF     call        110C80DB
+  114417DC: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  114417DF: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  114417E2: D9 30              fnstenv     [eax]
+  114417E4: D9 20              fldenv      [eax]
+  114417E6: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  114417E9: 52                 push        edx
+  114417EA: 8B CD              mov         ecx,ebp
+  114417EC: 50                 push        eax
+  114417ED: 8D 15 10 18 44 11  lea         edx,ds:[11441810h]
+  114417F3: E8 4B DA C6 FF     call        110AF243
+  114417F8: 58                 pop         eax
+  114417F9: 5A                 pop         edx
+  114417FA: 5F                 pop         edi
+  114417FB: 5E                 pop         esi
+  114417FC: 5B                 pop         ebx
+  114417FD: 81 C4 FC 00 00 00  add         esp,0FCh
+  11441803: 3B EC              cmp         ebp,esp
+  11441805: E8 CD 82 C6 FF     call        110A9AD7
+  1144180A: 8B E5              mov         esp,ebp
+  1144180C: 5D                 pop         ebp
+  1144180D: C3                 ret
+  1144180E: 66 90              nop
+  11441810: 02 00              add         al,byte ptr [eax]
+  11441812: 00 00              add         byte ptr [eax],al
+  11441814: 18 18              sbb         byte ptr [eax],bl
+  11441816: 44                 inc         esp
+  11441817: 11 E0              adc         eax,esp
+  11441819: FF
+  1144181A: FF
+  1144181B: FF 1C 00           call        fword ptr [eax+eax]
+  1144181E: 00 00              add         byte ptr [eax],al
+  11441820: 3B 18              cmp         ebx,dword ptr [eax]
+  11441822: 44                 inc         esp
+  11441823: 11 C8              adc         eax,ecx
+  11441825: FF
+  11441826: FF
+  11441827: FF 04 00           inc         dword ptr [eax+eax]
+  1144182A: 00 00              add         byte ptr [eax],al
+  1144182C: 30 18              xor         byte ptr [eax],bl
+  1144182E: 44                 inc         esp
+  1144182F: 11 5F 24           adc         dword ptr [edi+24h],ebx
+  11441832: 41                 inc         ecx
+  11441833: 72 72              jb          114418A7
+  11441835: 61                 popad
+  11441836: 79 50              jns         11441888
+  11441838: 61                 popad
+  11441839: 64 00 69 6D        add         byte ptr fs:[ecx+6Dh],ch
+  1144183D: 61                 popad
+  1144183E: 67 65 00 CC        add         ah,cl
+
+  Summary
+
+     2208000 .text

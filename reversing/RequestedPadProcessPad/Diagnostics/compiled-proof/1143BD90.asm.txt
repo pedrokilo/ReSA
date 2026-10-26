@@ -1,0 +1,43 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1143BD90: 55                 push        ebp
+  1143BD91: 8B EC              mov         ebp,esp
+  1143BD93: 81 EC CC 00 00 00  sub         esp,0CCh
+  1143BD99: 53                 push        ebx
+  1143BD9A: 56                 push        esi
+  1143BD9B: 57                 push        edi
+  1143BD9C: 51                 push        ecx
+  1143BD9D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1143BDA0: B9 03 00 00 00     mov         ecx,3
+  1143BDA5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1143BDAA: F3 AB              rep stos    dword ptr es:[edi]
+  1143BDAC: 59                 pop         ecx
+  1143BDAD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1143BDB0: E8 D1 A0 C7 FF     call        110B5E86
+  1143BDB5: 0F B6 C0           movzx       eax,al
+  1143BDB8: 85 C0              test        eax,eax
+  1143BDBA: 74 0D              je          1143BDC9
+  1143BDBC: E8 DF 8A C8 FF     call        110C48A0
+  1143BDC1: 8B C8              mov         ecx,eax
+  1143BDC3: E8 43 9F C6 FF     call        110A5D0B
+  1143BDC8: 90                 nop
+  1143BDC9: 5F                 pop         edi
+  1143BDCA: 5E                 pop         esi
+  1143BDCB: 5B                 pop         ebx
+  1143BDCC: 81 C4 CC 00 00 00  add         esp,0CCh
+  1143BDD2: 3B EC              cmp         ebp,esp
+  1143BDD4: E8 FE DC C6 FF     call        110A9AD7
+  1143BDD9: 8B E5              mov         esp,ebp
+  1143BDDB: 5D                 pop         ebp
+  1143BDDC: C3                 ret
+  1143BDDD: CC                 int         3
+
+  Summary
+
+     2208000 .text

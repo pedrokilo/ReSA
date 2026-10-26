@@ -1,0 +1,55 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1145C9C0: 55                 push        ebp
+  1145C9C1: 8B EC              mov         ebp,esp
+  1145C9C3: 81 EC C0 00 00 00  sub         esp,0C0h
+  1145C9C9: 53                 push        ebx
+  1145C9CA: 56                 push        esi
+  1145C9CB: 57                 push        edi
+  1145C9CC: B8 FF FF FF 3F     mov         eax,3FFFFFFFh
+  1145C9D1: 5F                 pop         edi
+  1145C9D2: 5E                 pop         esi
+  1145C9D3: 5B                 pop         ebx
+  1145C9D4: 8B E5              mov         esp,ebp
+  1145C9D6: 5D                 pop         ebp
+  1145C9D7: C3                 ret
+  1145C9D8: CC                 int         3
+  1145C9D9: CC                 int         3
+  1145C9DA: CC                 int         3
+  1145C9DB: CC                 int         3
+  1145C9DC: CC                 int         3
+  1145C9DD: CC                 int         3
+  1145C9DE: CC                 int         3
+  1145C9DF: CC                 int         3
+  1145C9E0: 55                 push        ebp
+  1145C9E1: 8B EC              mov         ebp,esp
+  1145C9E3: 81 EC C0 00 00 00  sub         esp,0C0h
+  1145C9E9: 53                 push        ebx
+  1145C9EA: 56                 push        esi
+  1145C9EB: 57                 push        edi
+  1145C9EC: B8 FF FF FF 0F     mov         eax,0FFFFFFFh
+  1145C9F1: 5F                 pop         edi
+  1145C9F2: 5E                 pop         esi
+  1145C9F3: 5B                 pop         ebx
+  1145C9F4: 8B E5              mov         esp,ebp
+  1145C9F6: 5D                 pop         ebp
+  1145C9F7: C3                 ret
+  1145C9F8: CC                 int         3
+  1145C9F9: CC                 int         3
+  1145C9FA: CC                 int         3
+  1145C9FB: CC                 int         3
+  1145C9FC: CC                 int         3
+  1145C9FD: CC                 int         3
+  1145C9FE: CC                 int         3
+  1145C9FF: CC                 int         3
+  1145CA00: 55                 push        ebp
+
+  Summary
+
+     2208000 .text

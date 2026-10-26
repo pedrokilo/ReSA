@@ -1,0 +1,50 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  114012F0: 55                 push        ebp
+  114012F1: 8B EC              mov         ebp,esp
+  114012F3: 81 EC CC 00 00 00  sub         esp,0CCh
+  114012F9: 53                 push        ebx
+  114012FA: 56                 push        esi
+  114012FB: 57                 push        edi
+  114012FC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  114012FF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11401302: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  11401305: 8B 11              mov         edx,dword ptr [ecx]
+  11401307: 89 10              mov         dword ptr [eax],edx
+  11401309: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1140130C: 5F                 pop         edi
+  1140130D: 5E                 pop         esi
+  1140130E: 5B                 pop         ebx
+  1140130F: 8B E5              mov         esp,ebp
+  11401311: 5D                 pop         ebp
+  11401312: C2 08 00           ret         8
+  11401315: CC                 int         3
+  11401316: CC                 int         3
+  11401317: CC                 int         3
+  11401318: CC                 int         3
+  11401319: CC                 int         3
+  1140131A: CC                 int         3
+  1140131B: CC                 int         3
+  1140131C: CC                 int         3
+  1140131D: CC                 int         3
+  1140131E: CC                 int         3
+  1140131F: CC                 int         3
+  11401320: 55                 push        ebp
+  11401321: 8B EC              mov         ebp,esp
+  11401323: 81 EC CC 00 00 00  sub         esp,0CCh
+  11401329: 53                 push        ebx
+  1140132A: 56                 push        esi
+  1140132B: 57                 push        edi
+  1140132C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1140132F: 8B
+  11401330: 45                 inc         ebp
+
+  Summary
+
+     2208000 .text

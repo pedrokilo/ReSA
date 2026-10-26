@@ -1,0 +1,56 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  114601F0: 55                 push        ebp
+  114601F1: 8B EC              mov         ebp,esp
+  114601F3: 81 EC CC 00 00 00  sub         esp,0CCh
+  114601F9: 53                 push        ebx
+  114601FA: 56                 push        esi
+  114601FB: 57                 push        edi
+  114601FC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  114601FF: B8 0D 00 00 00     mov         eax,0Dh
+  11460204: 5F                 pop         edi
+  11460205: 5E                 pop         esi
+  11460206: 5B                 pop         ebx
+  11460207: 8B E5              mov         esp,ebp
+  11460209: 5D                 pop         ebp
+  1146020A: C3                 ret
+  1146020B: CC                 int         3
+  1146020C: CC                 int         3
+  1146020D: CC                 int         3
+  1146020E: CC                 int         3
+  1146020F: CC                 int         3
+  11460210: CC                 int         3
+  11460211: CC                 int         3
+  11460212: CC                 int         3
+  11460213: CC                 int         3
+  11460214: CC                 int         3
+  11460215: CC                 int         3
+  11460216: CC                 int         3
+  11460217: CC                 int         3
+  11460218: CC                 int         3
+  11460219: CC                 int         3
+  1146021A: CC                 int         3
+  1146021B: CC                 int         3
+  1146021C: CC                 int         3
+  1146021D: CC                 int         3
+  1146021E: CC                 int         3
+  1146021F: CC                 int         3
+  11460220: 55                 push        ebp
+  11460221: 8B EC              mov         ebp,esp
+  11460223: 81 EC CC 00 00 00  sub         esp,0CCh
+  11460229: 53                 push        ebx
+  1146022A: 56                 push        esi
+  1146022B: 57                 push        edi
+  1146022C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1146022F: B8
+  11460230: 4F                 dec         edi
+
+  Summary
+
+     2208000 .text

@@ -1,0 +1,83 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11450AF0: 55                 push        ebp
+  11450AF1: 8B EC              mov         ebp,esp
+  11450AF3: 81 EC 08 01 00 00  sub         esp,108h
+  11450AF9: 53                 push        ebx
+  11450AFA: 56                 push        esi
+  11450AFB: 57                 push        edi
+  11450AFC: 51                 push        ecx
+  11450AFD: 8D 7D B8           lea         edi,[ebp-48h]
+  11450B00: B9 12 00 00 00     mov         ecx,12h
+  11450B05: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11450B0A: F3 AB              rep stos    dword ptr es:[edi]
+  11450B0C: 59                 pop         ecx
+  11450B0D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11450B10: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11450B13: E8 86 68 C6 FF     call        110B739E
+  11450B18: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  11450B1B: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11450B1E: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  11450B21: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  11450B24: 83 C0 04           add         eax,4
+  11450B27: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  11450B2A: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  11450B2D: 83 C0 08           add         eax,8
+  11450B30: 89 45 C8           mov         dword ptr [ebp-38h],eax
+  11450B33: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  11450B36: 83 C0 0C           add         eax,0Ch
+  11450B39: 89 45 BC           mov         dword ptr [ebp-44h],eax
+  11450B3C: 8B 4D E0           mov         ecx,dword ptr [ebp-20h]
+  11450B3F: E8 EF 28 C6 FF     call        110B3433
+  11450B44: 90                 nop
+  11450B45: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  11450B48: 83 38 00           cmp         dword ptr [eax],0
+  11450B4B: 74 50              je          11450B9D
+  11450B4D: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  11450B50: 50                 push        eax
+  11450B51: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  11450B54: 8B 11              mov         edx,dword ptr [ecx]
+  11450B56: 52                 push        edx
+  11450B57: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  11450B5A: 8B 08              mov         ecx,dword ptr [eax]
+  11450B5C: 51                 push        ecx
+  11450B5D: E8 DD 0D C6 FF     call        110B193F
+  11450B62: 83 C4 0C           add         esp,0Ch
+  11450B65: 8B 45 BC           mov         eax,dword ptr [ebp-44h]
+  11450B68: 8B 4D D4           mov         ecx,dword ptr [ebp-2Ch]
+  11450B6B: 8B 10              mov         edx,dword ptr [eax]
+  11450B6D: 2B 11              sub         edx,dword ptr [ecx]
+  11450B6F: C1 FA 02           sar         edx,2
+  11450B72: 52                 push        edx
+  11450B73: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  11450B76: 8B 08              mov         ecx,dword ptr [eax]
+  11450B78: 51                 push        ecx
+  11450B79: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  11450B7C: E8 8B 34 C8 FF     call        110D400C
+  11450B81: 90                 nop
+  11450B82: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  11450B85: C7 00 00 00 00 00  mov         dword ptr [eax],0
+  11450B8B: 8B 45 C8           mov         eax,dword ptr [ebp-38h]
+  11450B8E: C7 00 00 00 00 00  mov         dword ptr [eax],0
+  11450B94: 8B 45 BC           mov         eax,dword ptr [ebp-44h]
+  11450B97: C7 00 00 00 00 00  mov         dword ptr [eax],0
+  11450B9D: 5F                 pop         edi
+  11450B9E: 5E                 pop         esi
+  11450B9F: 5B                 pop         ebx
+  11450BA0: 81 C4 08 01 00 00  add         esp,108h
+  11450BA6: 3B EC              cmp         ebp,esp
+  11450BA8: E8 2A 8F C5 FF     call        110A9AD7
+  11450BAD: 8B E5              mov         esp,ebp
+  11450BAF: 5D                 pop         ebp
+  11450BB0: C3                 ret
+  11450BB1: CC                 int         3
+
+  Summary
+
+     2208000 .text

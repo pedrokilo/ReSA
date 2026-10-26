@@ -1,0 +1,47 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1143C560: 55                 push        ebp
+  1143C561: 8B EC              mov         ebp,esp
+  1143C563: 81 EC DC 00 00 00  sub         esp,0DCh
+  1143C569: 53                 push        ebx
+  1143C56A: 56                 push        esi
+  1143C56B: 57                 push        edi
+  1143C56C: 51                 push        ecx
+  1143C56D: 8D 7D E4           lea         edi,[ebp-1Ch]
+  1143C570: B9 07 00 00 00     mov         ecx,7
+  1143C575: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1143C57A: F3 AB              rep stos    dword ptr es:[edi]
+  1143C57C: 59                 pop         ecx
+  1143C57D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1143C580: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1143C583: 89 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],eax
+  1143C589: 83 BD 2C FF FF FF  cmp         dword ptr [ebp+FFFFFF2Ch],0
+            00
+  1143C590: 74 15              je          1143C5A7
+  1143C592: 6A 01              push        1
+  1143C594: 8B 8D 2C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF2Ch]
+  1143C59A: E8 8D AF C9 FF     call        110D752C
+  1143C59F: 89 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],eax
+  1143C5A5: EB 0A              jmp         1143C5B1
+  1143C5A7: C7 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],0
+            00 00 00 00
+  1143C5B1: 5F                 pop         edi
+  1143C5B2: 5E                 pop         esi
+  1143C5B3: 5B                 pop         ebx
+  1143C5B4: 81 C4 DC 00 00 00  add         esp,0DCh
+  1143C5BA: 3B EC              cmp         ebp,esp
+  1143C5BC: E8 16 D5 C6 FF     call        110A9AD7
+  1143C5C1: 8B E5              mov         esp,ebp
+  1143C5C3: 5D                 pop         ebp
+  1143C5C4: C2 04 00           ret         4
+  1143C5C7: CC                 int         3
+
+  Summary
+
+     2208000 .text

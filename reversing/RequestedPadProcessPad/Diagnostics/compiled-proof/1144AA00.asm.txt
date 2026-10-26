@@ -1,0 +1,59 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1144AA00: 55                 push        ebp
+  1144AA01: 8B EC              mov         ebp,esp
+  1144AA03: 81 EC F0 00 00 00  sub         esp,0F0h
+  1144AA09: 53                 push        ebx
+  1144AA0A: 56                 push        esi
+  1144AA0B: 57                 push        edi
+  1144AA0C: 51                 push        ecx
+  1144AA0D: 8D 7D D0           lea         edi,[ebp-30h]
+  1144AA10: B9 0C 00 00 00     mov         ecx,0Ch
+  1144AA15: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1144AA1A: F3 AB              rep stos    dword ptr es:[edi]
+  1144AA1C: 59                 pop         ecx
+  1144AA1D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1144AA20: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1144AA23: E8 BB BA C7 FF     call        110C64E3
+  1144AA28: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  1144AA2B: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1144AA2E: E8 E4 93 C9 FF     call        110E3E17
+  1144AA33: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  1144AA36: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1144AA39: D1 E8              shr         eax,1
+  1144AA3B: B9 FF FF FF 3F     mov         ecx,3FFFFFFFh
+  1144AA40: 2B C8              sub         ecx,eax
+  1144AA42: 39 4D EC           cmp         dword ptr [ebp-14h],ecx
+  1144AA45: 76 07              jbe         1144AA4E
+  1144AA47: B8 FF FF FF 3F     mov         eax,3FFFFFFFh
+  1144AA4C: EB 1B              jmp         1144AA69
+  1144AA4E: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1144AA51: D1 E8              shr         eax,1
+  1144AA53: 03 45 EC           add         eax,dword ptr [ebp-14h]
+  1144AA56: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  1144AA59: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1144AA5C: 3B 45 08           cmp         eax,dword ptr [ebp+8]
+  1144AA5F: 73 05              jae         1144AA66
+  1144AA61: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1144AA64: EB 03              jmp         1144AA69
+  1144AA66: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  1144AA69: 5F                 pop         edi
+  1144AA6A: 5E                 pop         esi
+  1144AA6B: 5B                 pop         ebx
+  1144AA6C: 81 C4 F0 00 00 00  add         esp,0F0h
+  1144AA72: 3B EC              cmp         ebp,esp
+  1144AA74: E8 5E F0 C5 FF     call        110A9AD7
+  1144AA79: 8B E5              mov         esp,ebp
+  1144AA7B: 5D                 pop         ebp
+  1144AA7C: C2 04 00           ret         4
+  1144AA7F: CC                 int         3
+
+  Summary
+
+     2208000 .text

@@ -1,0 +1,223 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  11416BB0: 55                 push        ebp
+  11416BB1: 8B EC              mov         ebp,esp
+  11416BB3: 6A FF              push        0FFFFFFFFh
+  11416BB5: 68 C0 7C 1B 13     push        131B7CC0h
+  11416BBA: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  11416BC0: 50                 push        eax
+  11416BC1: 81 EC 78 01 00 00  sub         esp,178h
+  11416BC7: 53                 push        ebx
+  11416BC8: 56                 push        esi
+  11416BC9: 57                 push        edi
+  11416BCA: 51                 push        ecx
+  11416BCB: 8D BD 3C FF FF FF  lea         edi,[ebp+FFFFFF3Ch]
+  11416BD1: B9 2E 00 00 00     mov         ecx,2Eh
+  11416BD6: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11416BDB: F3 AB              rep stos    dword ptr es:[edi]
+  11416BDD: 59                 pop         ecx
+  11416BDE: A1 80 12 8E 13     mov         eax,dword ptr ds:[138E1280h]
+  11416BE3: 33 C5              xor         eax,ebp
+  11416BE5: 50                 push        eax
+  11416BE6: 8D 45 F4           lea         eax,[ebp-0Ch]
+  11416BE9: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  11416BEF: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  11416BF2: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  11416BF5: E8 A4 07 CA FF     call        110B739E
+  11416BFA: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  11416BFD: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  11416C00: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  11416C03: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  11416C06: 83 C0 04           add         eax,4
+  11416C09: 89 45 C8           mov         dword ptr [ebp-38h],eax
+  11416C0C: 8B 45 D4           mov         eax,dword ptr [ebp-2Ch]
+  11416C0F: 83 C0 08           add         eax,8
+  11416C12: 89 45 BC           mov         dword ptr [ebp-44h],eax
+  11416C15: 8B 45 C8           mov         eax,dword ptr [ebp-38h]
+  11416C18: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11416C1B: 2B 08              sub         ecx,dword ptr [eax]
+  11416C1D: C1 F9 02           sar         ecx,2
+  11416C20: 89 4D B0           mov         dword ptr [ebp-50h],ecx
+  11416C23: 8B 45 BC           mov         eax,dword ptr [ebp-44h]
+  11416C26: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  11416C29: 8B 10              mov         edx,dword ptr [eax]
+  11416C2B: 2B 11              sub         edx,dword ptr [ecx]
+  11416C2D: C1 FA 02           sar         edx,2
+  11416C30: 89 55 A4           mov         dword ptr [ebp-5Ch],edx
+  11416C33: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  11416C36: E8 DC D1 CC FF     call        110E3E17
+  11416C3B: 39 45 A4           cmp         dword ptr [ebp-5Ch],eax
+  11416C3E: 75 06              jne         11416C46
+  11416C40: E8 C0 50 CE FF     call        110FBD05
+  11416C45: 90                 nop
+  11416C46: 8B 45 A4           mov         eax,dword ptr [ebp-5Ch]
+  11416C49: 83 C0 01           add         eax,1
+  11416C4C: 89 45 98           mov         dword ptr [ebp-68h],eax
+  11416C4F: 8B 45 98           mov         eax,dword ptr [ebp-68h]
+  11416C52: 50                 push        eax
+  11416C53: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  11416C56: E8 F4 41 CA FF     call        110BAE4F
+  11416C5B: 89 45 8C           mov         dword ptr [ebp-74h],eax
+  11416C5E: 8D 45 8C           lea         eax,[ebp-74h]
+  11416C61: 50                 push        eax
+  11416C62: 8B 4D E0           mov         ecx,dword ptr [ebp-20h]
+  11416C65: 51                 push        ecx
+  11416C66: E8 C0 6A CA FF     call        110BD72B
+  11416C6B: 83 C4 08           add         esp,8
+  11416C6E: 89 45 80           mov         dword ptr [ebp-80h],eax
+  11416C71: 8B 45 B0           mov         eax,dword ptr [ebp-50h]
+  11416C74: 8B 4D 80           mov         ecx,dword ptr [ebp-80h]
+  11416C77: 8D 54 81 04        lea         edx,[ecx+eax*4+4]
+  11416C7B: 89 95 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],edx
+  11416C81: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  11416C84: 89 85 58 FF FF FF  mov         dword ptr [ebp+FFFFFF58h],eax
+  11416C8A: 8B 45 80           mov         eax,dword ptr [ebp-80h]
+  11416C8D: 89 85 5C FF FF FF  mov         dword ptr [ebp+FFFFFF5Ch],eax
+  11416C93: 8B 45 8C           mov         eax,dword ptr [ebp-74h]
+  11416C96: 89 85 60 FF FF FF  mov         dword ptr [ebp+FFFFFF60h],eax
+  11416C9C: 8B 85 74 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF74h]
+  11416CA2: 89 85 64 FF FF FF  mov         dword ptr [ebp+FFFFFF64h],eax
+  11416CA8: 8B 85 74 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF74h]
+  11416CAE: 89 85 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],eax
+  11416CB4: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  11416CBB: 8D 85 64 FF FF FF  lea         eax,[ebp+FFFFFF64h]
+  11416CC1: 89 85 4C FF FF FF  mov         dword ptr [ebp+FFFFFF4Ch],eax
+  11416CC7: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  11416CCA: 50                 push        eax
+  11416CCB: 8B 4D B0           mov         ecx,dword ptr [ebp-50h]
+  11416CCE: 8B 55 80           mov         edx,dword ptr [ebp-80h]
+  11416CD1: 8D 04 8A           lea         eax,[edx+ecx*4]
+  11416CD4: 50                 push        eax
+  11416CD5: E8 17 55 C9 FF     call        110AC1F1
+  11416CDA: 83 C4 04           add         esp,4
+  11416CDD: 50                 push        eax
+  11416CDE: 8B 4D E0           mov         ecx,dword ptr [ebp-20h]
+  11416CE1: 51                 push        ecx
+  11416CE2: E8 2F 6A CB FF     call        110CD716
+  11416CE7: 83 C4 0C           add         esp,0Ch
+  11416CEA: 8B 45 B0           mov         eax,dword ptr [ebp-50h]
+  11416CED: 8B 4D 80           mov         ecx,dword ptr [ebp-80h]
+  11416CF0: 8D 14 81           lea         edx,[ecx+eax*4]
+  11416CF3: 8B 85 4C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF4Ch]
+  11416CF9: 89 10              mov         dword ptr [eax],edx
+  11416CFB: 8B 45 BC           mov         eax,dword ptr [ebp-44h]
+  11416CFE: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11416D01: 3B 08              cmp         ecx,dword ptr [eax]
+  11416D03: 75 1E              jne         11416D23
+  11416D05: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  11416D08: 50                 push        eax
+  11416D09: 8B 4D 80           mov         ecx,dword ptr [ebp-80h]
+  11416D0C: 51                 push        ecx
+  11416D0D: 8B 55 BC           mov         edx,dword ptr [ebp-44h]
+  11416D10: 8B 02              mov         eax,dword ptr [edx]
+  11416D12: 50                 push        eax
+  11416D13: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  11416D16: 8B 11              mov         edx,dword ptr [ecx]
+  11416D18: 52                 push        edx
+  11416D19: E8 46 6E C9 FF     call        110ADB64
+  11416D1E: 83 C4 10           add         esp,10h
+  11416D21: EB 46              jmp         11416D69
+  11416D23: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  11416D26: 50                 push        eax
+  11416D27: 8B 4D 80           mov         ecx,dword ptr [ebp-80h]
+  11416D2A: 51                 push        ecx
+  11416D2B: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  11416D2E: 52                 push        edx
+  11416D2F: 8B 45 C8           mov         eax,dword ptr [ebp-38h]
+  11416D32: 8B 08              mov         ecx,dword ptr [eax]
+  11416D34: 51                 push        ecx
+  11416D35: E8 2A 6E C9 FF     call        110ADB64
+  11416D3A: 83 C4 10           add         esp,10h
+  11416D3D: 8B 85 4C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF4Ch]
+  11416D43: 8B 4D 80           mov         ecx,dword ptr [ebp-80h]
+  11416D46: 89 08              mov         dword ptr [eax],ecx
+  11416D48: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  11416D4B: 50                 push        eax
+  11416D4C: 8B 4D B0           mov         ecx,dword ptr [ebp-50h]
+  11416D4F: 8B 55 80           mov         edx,dword ptr [ebp-80h]
+  11416D52: 8D 44 8A 04        lea         eax,[edx+ecx*4+4]
+  11416D56: 50                 push        eax
+  11416D57: 8B 4D BC           mov         ecx,dword ptr [ebp-44h]
+  11416D5A: 8B 11              mov         edx,dword ptr [ecx]
+  11416D5C: 52                 push        edx
+  11416D5D: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11416D60: 50                 push        eax
+  11416D61: E8 FE 6D C9 FF     call        110ADB64
+  11416D66: 83 C4 10           add         esp,10h
+  11416D69: C7 85 5C FF FF FF  mov         dword ptr [ebp+FFFFFF5Ch],0
+            00 00 00 00
+  11416D73: 8B 45 8C           mov         eax,dword ptr [ebp-74h]
+  11416D76: 50                 push        eax
+  11416D77: 8B 4D 98           mov         ecx,dword ptr [ebp-68h]
+  11416D7A: 51                 push        ecx
+  11416D7B: 8B 55 80           mov         edx,dword ptr [ebp-80h]
+  11416D7E: 52                 push        edx
+  11416D7F: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  11416D82: E8 0C 03 C9 FF     call        110A7093
+  11416D87: 90                 nop
+  11416D88: 8B 45 B0           mov         eax,dword ptr [ebp-50h]
+  11416D8B: 8B 4D 80           mov         ecx,dword ptr [ebp-80h]
+  11416D8E: 8D 14 81           lea         edx,[ecx+eax*4]
+  11416D91: 89 95 80 FE FF FF  mov         dword ptr [ebp+FFFFFE80h],edx
+  11416D97: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  11416D9E: 8D 8D 58 FF FF FF  lea         ecx,[ebp+FFFFFF58h]
+  11416DA4: E8 DB C8 CB FF     call        110D3684
+  11416DA9: 8B 85 80 FE FF FF  mov         eax,dword ptr [ebp+FFFFFE80h]
+  11416DAF: 52                 push        edx
+  11416DB0: 8B CD              mov         ecx,ebp
+  11416DB2: 50                 push        eax
+  11416DB3: 8D 15 E4 6D 41 11  lea         edx,ds:[11416DE4h]
+  11416DB9: E8 85 84 C9 FF     call        110AF243
+  11416DBE: 58                 pop         eax
+  11416DBF: 5A                 pop         edx
+  11416DC0: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  11416DC3: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  11416DCA: 59                 pop         ecx
+  11416DCB: 5F                 pop         edi
+  11416DCC: 5E                 pop         esi
+  11416DCD: 5B                 pop         ebx
+  11416DCE: 81 C4 84 01 00 00  add         esp,184h
+  11416DD4: 3B EC              cmp         ebp,esp
+  11416DD6: E8 FC 2C C9 FF     call        110A9AD7
+  11416DDB: 8B E5              mov         esp,ebp
+  11416DDD: 5D                 pop         ebp
+  11416DDE: C2 08 00           ret         8
+  11416DE1: 0F 1F 00           nop         dword ptr [eax]
+  11416DE4: 02 00              add         al,byte ptr [eax]
+  11416DE6: 00 00              add         byte ptr [eax],al
+  11416DE8: EC                 in          al,dx
+  11416DE9: 6D                 ins         dword ptr es:[edi],dx
+  11416DEA: 41                 inc         ecx
+  11416DEB: 11 8C FF FF FF 04  adc         dword ptr [edi+edi*8+0004FFFFh],ecx
+            00
+  11416DF2: 00 00              add         byte ptr [eax],al
+  11416DF4: 0B 6E 41           or          ebp,dword ptr [esi+41h]
+  11416DF7: 11 58 FF           adc         dword ptr [eax-1],ebx
+  11416DFA: FF
+  11416DFB: FF 14 00           call        dword ptr [eax+eax]
+  11416DFE: 00 00              add         byte ptr [eax],al
+  11416E00: 04 6E              add         al,6Eh
+  11416E02: 41                 inc         ecx
+  11416E03: 11 5F 47           adc         dword ptr [edi+47h],ebx
+  11416E06: 75 61              jne         11416E69
+  11416E08: 72 64              jb          11416E6E
+  11416E0A: 00 5F 4E           add         byte ptr [edi+4Eh],bl
+  11416E0D: 65 77 63           ja          11416E73
+  11416E10: 61                 popad
+  11416E11: 70 61              jo          11416E74
+  11416E13: 63 69 74           arpl        word ptr [ecx+74h],bp
+  11416E16: 79 00              jns         11416E18
+  11416E18: CC                 int         3
+
+  Summary
+
+     2208000 .text

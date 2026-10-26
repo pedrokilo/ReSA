@@ -1,0 +1,80 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1140C320: 55                 push        ebp
+  1140C321: 8B EC              mov         ebp,esp
+  1140C323: 81 EC 08 01 00 00  sub         esp,108h
+  1140C329: 53                 push        ebx
+  1140C32A: 56                 push        esi
+  1140C32B: 57                 push        edi
+  1140C32C: 51                 push        ecx
+  1140C32D: 8D 7D B8           lea         edi,[ebp-48h]
+  1140C330: B9 12 00 00 00     mov         ecx,12h
+  1140C335: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1140C33A: F3 AB              rep stos    dword ptr es:[edi]
+  1140C33C: 59                 pop         ecx
+  1140C33D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1140C340: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1140C343: E8 10 F4 CC FF     call        110DB758
+  1140C348: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  1140C34B: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1140C34E: E8 3B 77 CD FF     call        110E3A8E
+  1140C353: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  1140C356: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  1140C359: E8 D8 87 C9 FF     call        110A4B36
+  1140C35E: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  1140C361: EB 09              jmp         1140C36C
+  1140C363: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1140C366: 83 C0 08           add         eax,8
+  1140C369: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  1140C36C: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1140C36F: 3B 45 D4           cmp         eax,dword ptr [ebp-2Ch]
+  1140C372: 74 55              je          1140C3C9
+  1140C374: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  1140C377: 89 45 C8           mov         dword ptr [ebp-38h],eax
+  1140C37A: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  1140C37D: E8 2F 3E CA FF     call        110B01B1
+  1140C382: 8B C8              mov         ecx,eax
+  1140C384: E8 2C D3 CC FF     call        110D96B5
+  1140C389: 85 C0              test        eax,eax
+  1140C38B: 75 3A              jne         1140C3C7
+  1140C38D: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  1140C390: E8 AA 9B CA FF     call        110B5F3F
+  1140C395: 89 45 BC           mov         dword ptr [ebp-44h],eax
+  1140C398: 8B 4D BC           mov         ecx,dword ptr [ebp-44h]
+  1140C39B: E8 2F B5 CB FF     call        110C78CF
+  1140C3A0: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1140C3A3: 8B 11              mov         edx,dword ptr [ecx]
+  1140C3A5: 3B 02              cmp         eax,dword ptr [edx]
+  1140C3A7: 75 1E              jne         1140C3C7
+  1140C3A9: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1140C3AC: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  1140C3AF: 8B 55 BC           mov         edx,dword ptr [ebp-44h]
+  1140C3B2: 89 11              mov         dword ptr [ecx],edx
+  1140C3B4: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1140C3B7: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  1140C3BA: 8B 11              mov         edx,dword ptr [ecx]
+  1140C3BC: 83 C2 01           add         edx,1
+  1140C3BF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1140C3C2: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  1140C3C5: 89 11              mov         dword ptr [ecx],edx
+  1140C3C7: EB 9A              jmp         1140C363
+  1140C3C9: 5F                 pop         edi
+  1140C3CA: 5E                 pop         esi
+  1140C3CB: 5B                 pop         ebx
+  1140C3CC: 81 C4 08 01 00 00  add         esp,108h
+  1140C3D2: 3B EC              cmp         ebp,esp
+  1140C3D4: E8 FE D6 C9 FF     call        110A9AD7
+  1140C3D9: 8B E5              mov         esp,ebp
+  1140C3DB: 5D                 pop         ebp
+  1140C3DC: C2 04 00           ret         4
+  1140C3DF: CC                 int         3
+
+  Summary
+
+     2208000 .text

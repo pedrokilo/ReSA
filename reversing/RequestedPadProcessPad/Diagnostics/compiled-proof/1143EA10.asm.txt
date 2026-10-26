@@ -1,0 +1,70 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadProcessPad\artifacts\gta_reversed-pad-process-pad.asi
+
+File Type: DLL
+
+  1143EA10: 55                 push        ebp
+  1143EA11: 8B EC              mov         ebp,esp
+  1143EA13: 81 EC D4 00 00 00  sub         esp,0D4h
+  1143EA19: 53                 push        ebx
+  1143EA1A: 56                 push        esi
+  1143EA1B: 57                 push        edi
+  1143EA1C: 8D 7D EC           lea         edi,[ebp-14h]
+  1143EA1F: B9 05 00 00 00     mov         ecx,5
+  1143EA24: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1143EA29: F3 AB              rep stos    dword ptr es:[edi]
+  1143EA2B: 6A 00              push        0
+  1143EA2D: B9 C4 D0 8F 13     mov         ecx,138FD0C4h
+  1143EA32: E8 60 89 C9 FF     call        110D7397
+  1143EA37: 39 45 08           cmp         dword ptr [ebp+8],eax
+  1143EA3A: 75 0C              jne         1143EA48
+  1143EA3C: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],0
+            00 00 00 00
+  1143EA46: EB 33              jmp         1143EA7B
+  1143EA48: 6A 01              push        1
+  1143EA4A: B9 C4 D0 8F 13     mov         ecx,138FD0C4h
+  1143EA4F: E8 43 89 C9 FF     call        110D7397
+  1143EA54: 39 45 08           cmp         dword ptr [ebp+8],eax
+  1143EA57: 75 0C              jne         1143EA65
+  1143EA59: C7 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],1
+            01 00 00 00
+  1143EA63: EB 0A              jmp         1143EA6F
+  1143EA65: C7 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],0FFFFFFFFh
+            FF FF FF FF
+  1143EA6F: 8B 85 2C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF2Ch]
+  1143EA75: 89 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],eax
+  1143EA7B: 8B 8D 30 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF30h]
+  1143EA81: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1143EA84: 0F B6 05 38 A0 83  movzx       eax,byte ptr ds:[1383A038h]
+            13
+  1143EA8B: 89 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],eax
+  1143EA91: 0F B6 0D 95 D2 8F  movzx       ecx,byte ptr ds:[138FD295h]
+            13
+  1143EA98: 39 4D F8           cmp         dword ptr [ebp-8],ecx
+  1143EA9B: 75 0C              jne         1143EAA9
+  1143EA9D: C7 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],1
+            01 00 00 00
+  1143EAA7: EB 0A              jmp         1143EAB3
+  1143EAA9: C7 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],0
+            00 00 00 00
+  1143EAB3: 8B 95 30 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF30h]
+  1143EAB9: 23 95 2C FF FF FF  and         edx,dword ptr [ebp+FFFFFF2Ch]
+  1143EABF: 88 15 38 A0 83 13  mov         byte ptr ds:[1383A038h],dl
+  1143EAC5: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1143EAC8: 5F                 pop         edi
+  1143EAC9: 5E                 pop         esi
+  1143EACA: 5B                 pop         ebx
+  1143EACB: 81 C4 D4 00 00 00  add         esp,0D4h
+  1143EAD1: 3B EC              cmp         ebp,esp
+  1143EAD3: E8 FF AF C6 FF     call        110A9AD7
+  1143EAD8: 8B E5              mov         esp,ebp
+  1143EADA: 5D                 pop         ebp
+  1143EADB: C3                 ret
+  1143EADC: CC                 int         3
+
+  Summary
+
+     2208000 .text
