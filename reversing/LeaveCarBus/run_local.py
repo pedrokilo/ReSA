@@ -2,7 +2,9 @@ import json,sys
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from runtime_runner import run_case,digest,terminal_event
-PROBE_HASH='fde5c53c6ef155011a29034b499624f3879838dce0c10cadee9ba24d4475f4ec'
+# 2026-10-26: el hash ya no esta fijo (el de la sonda de 17/10 no se puede reproducir tras cualquier cambio del arbol): se toma del manifiesto de la sonda recien compilada,
+# y run_case sigue exigiendo que el ASI ejecutado coincida exactamente con el.
+PROBE_HASH=json.loads((Path(__file__).parent/'artifacts'/'build-manifest.json').read_text(encoding='utf-8'))['binaries']['asi']
 REQUIRE_ENABLED=True
 COUNTS={fn:512 for fn in range(11)}
 def analyze(path):
