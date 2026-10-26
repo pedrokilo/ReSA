@@ -1,6 +1,8 @@
 import re,sys
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+import runtime_runner
+runtime_runner.GAME = Path('E:/JUEGOS/GTA San Andreas - CVehicle Test')
 from probe_case import main
 here=Path(__file__).parent
 source=(here/'LiveComparison.hpp').read_text(encoding='utf-8')
