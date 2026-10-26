@@ -73,6 +73,7 @@ void CPedIntelligence::InjectHooks()
     RH_ScopedInstall(RestorePedDecisionMakerType, 0x600BC0);
     RH_ScopedInstall(SetHearingRange, 0x600BE0);
     RH_ScopedInstall(SetSeeingRange, 0x600BF0);
+    RH_ScopedInstall(IsInHearingRange, 0x600C00);
     RH_ScopedInstall(IsInSeeingRange, 0x600C60);
     RH_ScopedInstall(FindRespectedFriendInInformRange, 0x600CF0);
     RH_ScopedInstall(IsRespondingToEvent, 0x600DB0);
@@ -109,8 +110,10 @@ void CPedIntelligence::InjectHooks()
     RH_ScopedInstall(FlushIntelligence, 0x601DA0);
     RH_ScopedInstall(TestForStealthKill, 0x601E00);
     RH_ScopedInstall(RecordEventForScript, 0x602050);
+    RH_ScopedInstall(HasInterestingEntites, 0x602080);
     RH_ScopedInstall(IsInterestingEntity, 0x6020A0);
     RH_ScopedInstall(LookAtInterestingEntities, 0x6020D0);
+    RH_ScopedInstall(RemoveAllInterestingEntities, 0x602320);
     RH_ScopedInstall(IsPedGoingForCarDoor, 0x602350);
     RH_ScopedInstall(CanSeeEntityWithLights, 0x605550);
     RH_ScopedInstall(ProcessStaticCounter, 0x605650);
@@ -202,7 +205,9 @@ void CPedIntelligence::SetSeeingRange(float range) {
 // Unused
 // 0x600C00
 bool CPedIntelligence::IsInHearingRange(const CVector& posn) {
-    return plugin::CallMethodAndReturn<bool, 0x600C00, CPedIntelligence*, const CVector&>(this, posn);
+    // 0x600C15..0x600C4C: x87 a 24 bits con exponente extendido, (z² + x²) + y² contra el rango², comparación ordenada (con NaN da false)
+    const CVector& pedPos = m_pPed->GetPosition();
+    return PedHearingRangeCpp(&posn.x, &pedPos.x, m_fHearingRange);
 }
 
 // 0x600C60
@@ -789,7 +794,12 @@ void CPedIntelligence::RecordEventForScript(int32 eventId, int32 eventPriority) 
 // typo: Entities
 // 0x602080
 bool CPedIntelligence::HasInterestingEntites() {
-    return plugin::CallMethodAndReturn<bool, 0x602080, CPedIntelligence*>(this);
+    for (CEntity* entity : m_apInterestingEntities) {
+        if (entity) {
+            return true;
+        }
+    }
+    return false;
 }
 
 // 0x6020A0
@@ -863,7 +873,12 @@ void CPedIntelligence::LookAtInterestingEntities() {
 // unused
 // 0x602320
 void CPedIntelligence::RemoveAllInterestingEntities() {
-    plugin::CallMethod<0x602320, CPedIntelligence*>(this);
+    for (CEntity*& entity : m_apInterestingEntities) {
+        if (entity) {
+            entity->CleanUpOldReference(&entity);
+        }
+        entity = nullptr;
+    }
 }
 
 // 0x602350

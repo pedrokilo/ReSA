@@ -32,6 +32,7 @@ void CPedStats::InjectHooks() {
     RH_ScopedInstall(Shutdown, 0x608850);
     RH_ScopedInstall(LoadPedStats, 0x5BB890);
     RH_ScopedInstall(GetPedStatType, 0x6088D0);
+    RH_ScopedInstall(FindIndexWithPedStat, 0x608940);
 }
 
 // 0x5BF9D0
@@ -143,6 +144,13 @@ CPedStat* CPedStats::GetPedStatByArrayIndex(uint32 statIndex) {
 
 // unused
 // 0x608940
-void CPedStats::FindIndexWithPedStat(void* a1) {
-    plugin::Call<0x608940>();
+int32 CPedStats::FindIndexWithPedStat(void* a1) {
+    // Como el original: compara el puntero con cada una de las 43 entradas (0x34 bytes) y devuelve 0 si ninguna coincide.
+    CPedStat* stat = ms_apPedStats;
+    for (int32 i = 0; i < 43; i++, stat++) {
+        if (a1 == static_cast<void*>(stat)) {
+            return i;
+        }
+    }
+    return 0;
 }

@@ -15375,3 +15375,16 @@ __declspec(noinline) int __cdecl GoPickUpRegionCpp(float dz, float dy, float dx,
     return projForward > 0.0 ? 2 : 3;
 }
 #pragma float_control(pop)
+
+// --- Lote 69 (PedLeaf69) ---
+#pragma float_control(precise, on, push)
+// 0x600C15..0x600C4C (CPedIntelligence::IsInHearingRange): d = posn - ped (tres restas a 24 bits), limite = rango * rango, suma (dz*dz + dx*dx) + dy*dy sin guardar
+// en float (exponente extendido) y limite > suma con comparacion ordenada (fcompp + test ah,41h): con NaN da false. posn y ped apuntan a x, y, z consecutivos.
+__declspec(noinline) bool __cdecl PedHearingRangeCpp(const float* posn, const float* ped, float range) {
+    const double dx = double(posn[0]) - double(ped[0]);
+    const double dy = double(posn[1]) - double(ped[1]);
+    const double dz = double(posn[2]) - double(ped[2]);
+    const double limit = double(range) * double(range);
+    return limit > (dz * dz + dx * dx) + dy * dy;
+}
+#pragma float_control(pop)

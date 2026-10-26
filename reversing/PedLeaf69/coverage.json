@@ -1,0 +1,54 @@
+{
+ "CPedIntelligence::IsInHearingRange": {
+  "in_range": 745,
+  "matrix": 1233,
+  "out_of_range": 1711,
+  "no_matrix": 1224,
+  "huge": 176,
+  "nan_input": 250,
+  "inf_input": 190,
+  "denormal_input": 207,
+  "negative_range": 433,
+  "tie": 150,
+  "order_sensitive": 34
+ },
+ "CPedIntelligence::HasInterestingEntites": {
+  "none": 354,
+  "neighbour_nonzero_only": 271,
+  "any": 2103,
+  "slot0": 1273,
+  "only_first": 274,
+  "slot1": 1269,
+  "slot2": 1296,
+  "only_last": 287,
+  "all_three": 464,
+  "raw_low_bytes_zero": 177
+ },
+ "CPedIntelligence::RemoveAllInterestingEntities": {
+  "none": 351,
+  "calls1": 854,
+  "slot0": 1282,
+  "neighbour_nonzero": 1478,
+  "slot1": 1272,
+  "slot2": 1266,
+  "raw_slot": 849,
+  "calls2": 788,
+  "duplicate": 448,
+  "gap_pattern": 268,
+  "calls3": 463
+ },
+ "CPedStats::FindIndexWithPedStat": {
+  "found": 979,
+  "found_mid": 532,
+  "arena_table": 1843,
+  "found_zero": 281,
+  "found_last": 165,
+  "not_found": 1478,
+  "just_past_end": 153,
+  "inside_entry": 357,
+  "before_table": 153,
+  "raw_arg": 460,
+  "null_table": 307,
+  "raw_table": 307
+ }
+}

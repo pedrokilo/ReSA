@@ -234,7 +234,7 @@ void InteriorGroup_c::SetupPaths() {
         if (best >= 3.0f) plugin::CallMethod<0x44DF60>(&ThePaths, unmatchedNodes[i]);
         else { matched[i] = matched[closest] = true; ThePaths.AddInteriorLink(unmatchedNodes[i], unmatchedNodes[closest]); }
     }
-    plugin::CallMethod<0x452270>(&ThePaths, static_cast<CNodeAddress*>(nullptr));
+    ThePaths.CompleteNewInterior(nullptr);
     m_pathSetupComplete = 1;
 }
 

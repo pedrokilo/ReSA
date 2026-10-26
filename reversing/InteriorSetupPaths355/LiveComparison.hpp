@@ -46,7 +46,7 @@ inline void Update() {
  EntryPatch li(0x44DED0,Link),lidll(bit_cast<uintptr_t>(&CPathFind::AddInteriorLink),Link);
  EntryPatch fi(0x450F30,Find),fidll(bit_cast<uintptr_t>(&CPathFind::FindNearestExteriorNodeToInteriorNode),Find);
  EntryPatch ex(0x44DF30,External),exdll(bit_cast<uintptr_t>(&CPathFind::AddInteriorLinkToExternalNode),External);
- EntryPatch re(0x44DF60,Remove),co(0x452270,Complete);
+ EntryPatch re(0x44DF60,Remove),co(0x452270,Complete),codll(bit_cast<uintptr_t>(&CPathFind::CompleteNewInterior),Complete); // 2026-10-26: SetupPaths llama ahora a CompleteNewInterior (con hook) directamente: el falso tambien va en el cuerpo de la DLL
  for(const auto& fn:fns){
   auto* hook=FindHook(fn.cls,fn.name);if(!hook){Write({{"event","error"},{"reason","missing hook"}});return;}
   const bool enabled=hook->Hooked(),locked=hook->Locked();hook->LockState(false);

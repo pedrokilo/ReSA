@@ -1884,3 +1884,7 @@ bool __cdecl GoPickUpDoubleLessCpp(float a, float b);
 void __cdecl GoPickUpNegMinusCpp(float v, float k, float* out);
 // 0x693859..0x6938FC: 0 = derecha > |frente|, 1 = -|frente| > derecha, 2 = frente > 0, 3 = otro (derecha guardada como float, frente sin guardar; ver X87Math.cpp).
 int __cdecl GoPickUpRegionCpp(float dz, float dy, float dx, const float* right, const float* forward);
+
+// --- Lote 69 (PedLeaf69): CPedIntelligence::IsInHearingRange (0x600C00) ---
+// 0x600C15..0x600C4C: rango² > (dz² + dx²) + dy² con d = posn - ped, todo a 24 bits con exponente extendido (comparación ordenada: con NaN da false).
+bool __cdecl PedHearingRangeCpp(const float* posn, const float* ped, float range);

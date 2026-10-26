@@ -1,0 +1,134 @@
+diff --git a/source/game_sa/PedIntelligence.cpp b/source/game_sa/PedIntelligence.cpp
+index c581b310d..037d9df46 100644
+--- a/source/game_sa/PedIntelligence.cpp
++++ b/source/game_sa/PedIntelligence.cpp
+@@ -73,6 +73,7 @@ void CPedIntelligence::InjectHooks()
+     RH_ScopedInstall(RestorePedDecisionMakerType, 0x600BC0);
+     RH_ScopedInstall(SetHearingRange, 0x600BE0);
+     RH_ScopedInstall(SetSeeingRange, 0x600BF0);
++    RH_ScopedInstall(IsInHearingRange, 0x600C00);
+     RH_ScopedInstall(IsInSeeingRange, 0x600C60);
+     RH_ScopedInstall(FindRespectedFriendInInformRange, 0x600CF0);
+     RH_ScopedInstall(IsRespondingToEvent, 0x600DB0);
+@@ -109,8 +110,10 @@ void CPedIntelligence::InjectHooks()
+     RH_ScopedInstall(FlushIntelligence, 0x601DA0);
+     RH_ScopedInstall(TestForStealthKill, 0x601E00);
+     RH_ScopedInstall(RecordEventForScript, 0x602050);
++    RH_ScopedInstall(HasInterestingEntites, 0x602080);
+     RH_ScopedInstall(IsInterestingEntity, 0x6020A0);
+     RH_ScopedInstall(LookAtInterestingEntities, 0x6020D0);
++    RH_ScopedInstall(RemoveAllInterestingEntities, 0x602320);
+     RH_ScopedInstall(IsPedGoingForCarDoor, 0x602350);
+     RH_ScopedInstall(CanSeeEntityWithLights, 0x605550);
+     RH_ScopedInstall(ProcessStaticCounter, 0x605650);
+@@ -202,7 +205,9 @@ void CPedIntelligence::SetSeeingRange(float range) {
+ // Unused
+ // 0x600C00
+ bool CPedIntelligence::IsInHearingRange(const CVector& posn) {
+-    return plugin::CallMethodAndReturn<bool, 0x600C00, CPedIntelligence*, const CVector&>(this, posn);
++    // 0x600C15..0x600C4C: x87 a 24 bits con exponente extendido, (z² + x²) + y² contra el rango², comparación ordenada (con NaN da false)
++    const CVector& pedPos = m_pPed->GetPosition();
++    return PedHearingRangeCpp(&posn.x, &pedPos.x, m_fHearingRange);
+ }
+ 
+ // 0x600C60
+@@ -789,7 +794,12 @@ void CPedIntelligence::RecordEventForScript(int32 eventId, int32 eventPriority)
+ // typo: Entities
+ // 0x602080
+ bool CPedIntelligence::HasInterestingEntites() {
+-    return plugin::CallMethodAndReturn<bool, 0x602080, CPedIntelligence*>(this);
++    for (CEntity* entity : m_apInterestingEntities) {
++        if (entity) {
++            return true;
++        }
++    }
++    return false;
+ }
+ 
+ // 0x6020A0
+@@ -863,7 +873,12 @@ void CPedIntelligence::LookAtInterestingEntities() {
+ // unused
+ // 0x602320
+ void CPedIntelligence::RemoveAllInterestingEntities() {
+-    plugin::CallMethod<0x602320, CPedIntelligence*>(this);
++    for (CEntity*& entity : m_apInterestingEntities) {
++        if (entity) {
++            entity->CleanUpOldReference(&entity);
++        }
++        entity = nullptr;
++    }
+ }
+ 
+ // 0x602350
+diff --git a/source/game_sa/PedStats.cpp b/source/game_sa/PedStats.cpp
+index 3c64126f7..842f5ff37 100644
+--- a/source/game_sa/PedStats.cpp
++++ b/source/game_sa/PedStats.cpp
+@@ -32,6 +32,7 @@ void CPedStats::InjectHooks() {
+     RH_ScopedInstall(Shutdown, 0x608850);
+     RH_ScopedInstall(LoadPedStats, 0x5BB890);
+     RH_ScopedInstall(GetPedStatType, 0x6088D0);
++    RH_ScopedInstall(FindIndexWithPedStat, 0x608940);
+ }
+ 
+ // 0x5BF9D0
+@@ -143,6 +144,13 @@ CPedStat* CPedStats::GetPedStatByArrayIndex(uint32 statIndex) {
+ 
+ // unused
+ // 0x608940
+-void CPedStats::FindIndexWithPedStat(void* a1) {
+-    plugin::Call<0x608940>();
++int32 CPedStats::FindIndexWithPedStat(void* a1) {
++    // Como el original: compara el puntero con cada una de las 43 entradas (0x34 bytes) y devuelve 0 si ninguna coincide.
++    CPedStat* stat = ms_apPedStats;
++    for (int32 i = 0; i < 43; i++, stat++) {
++        if (a1 == static_cast<void*>(stat)) {
++            return i;
++        }
++    }
++    return 0;
+ }
+diff --git a/source/game_sa/PedStats.h b/source/game_sa/PedStats.h
+index b084bb78c..9f05d4554 100644
+--- a/source/game_sa/PedStats.h
++++ b/source/game_sa/PedStats.h
+@@ -33,5 +33,5 @@ public:
+     static ePedStats GetPedStatType(const char* statName);
+     static CPedStat* GetPedStatInfo(const char* statName);
+     static CPedStat* GetPedStatByArrayIndex(uint32 statIndex);
+-    static void FindIndexWithPedStat(void* a1);
++    static int32 FindIndexWithPedStat(void* a1);
+ };
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index e0769846a..2fa34f1e8 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -15375,3 +15375,16 @@ __declspec(noinline) int __cdecl GoPickUpRegionCpp(float dz, float dy, float dx,
+     return projForward > 0.0 ? 2 : 3;
+ }
+ #pragma float_control(pop)
++
++// --- Lote 69 (PedLeaf69) ---
++#pragma float_control(precise, on, push)
++// 0x600C15..0x600C4C (CPedIntelligence::IsInHearingRange): d = posn - ped (tres restas a 24 bits), limite = rango * rango, suma (dz*dz + dx*dx) + dy*dy sin guardar
++// en float (exponente extendido) y limite > suma con comparacion ordenada (fcompp + test ah,41h): con NaN da false. posn y ped apuntan a x, y, z consecutivos.
++__declspec(noinline) bool __cdecl PedHearingRangeCpp(const float* posn, const float* ped, float range) {
++    const double dx = double(posn[0]) - double(ped[0]);
++    const double dy = double(posn[1]) - double(ped[1]);
++    const double dz = double(posn[2]) - double(ped[2]);
++    const double limit = double(range) * double(range);
++    return limit > (dz * dz + dx * dx) + dy * dy;
++}
++#pragma float_control(pop)
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index 963be74ed..d7651f740 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1884,3 +1884,7 @@ bool __cdecl GoPickUpDoubleLessCpp(float a, float b);
+ void __cdecl GoPickUpNegMinusCpp(float v, float k, float* out);
+ // 0x693859..0x6938FC: 0 = derecha > |frente|, 1 = -|frente| > derecha, 2 = frente > 0, 3 = otro (derecha guardada como float, frente sin guardar; ver X87Math.cpp).
+ int __cdecl GoPickUpRegionCpp(float dz, float dy, float dx, const float* right, const float* forward);
++
++// --- Lote 69 (PedLeaf69): CPedIntelligence::IsInHearingRange (0x600C00) ---
++// 0x600C15..0x600C4C: rango² > (dz² + dx²) + dy² con d = posn - ped, todo a 24 bits con exponente extendido (comparación ordenada: con NaN da false).
++bool __cdecl PedHearingRangeCpp(const float* posn, const float* ped, float range);

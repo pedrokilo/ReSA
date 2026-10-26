@@ -8,7 +8,7 @@ import subprocess
 import time
 from datetime import datetime
 from pathlib import Path
-GAME=Path(r'D:\JUEGOS\GTA San Andreas - CVehicle Test')
+GAME=Path(r'E:\JUEGOS\GTA San Andreas - CVehicle Test')  # el clon de pruebas vive en E:; los bancos antiguos que no fijaban la ruta apuntaban a D:\JUEGOS
 EXE_HASH='72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b'
 def digest(path):
     with path.open('rb') as f:return hashlib.file_digest(f,'sha256').hexdigest()

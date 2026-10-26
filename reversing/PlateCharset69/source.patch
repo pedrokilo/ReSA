@@ -1,0 +1,86 @@
+diff --git a/source/game_sa/CustomCarPlateMgr.cpp b/source/game_sa/CustomCarPlateMgr.cpp
+index 3d1b9da1b..fcb740ac0 100644
+--- a/source/game_sa/CustomCarPlateMgr.cpp
++++ b/source/game_sa/CustomCarPlateMgr.cpp
+@@ -29,6 +29,7 @@ void CCustomCarPlateMgr::InjectHooks() {
+     RH_ScopedInstall(GeneratePlateText, 0x6FD5B0);
+     RH_ScopedInstall(Shutdown, 0x6FD720);
+     RH_ScopedInstall(GetMapRegionPlateDesign, 0x6FD7A0);
++    RH_ScopedInstall(LoadPlatecharsetDat, 0x6FDC00);
+     RH_ScopedInstall(SetupMaterialPlatebackTexture, 0x6FDE50);
+     RH_ScopedInstall(CreatePlateTexture, 0x6FDEA0);
+     RH_ScopedInstall(SetupClumpAfterVehicleUpgrade, 0x6FDFE0);
+@@ -108,10 +109,72 @@ int8 CCustomCarPlateMgr::GetMapRegionPlateDesign() {
+     }
+ }
+ 
++// atoi del CRT del EXE (0x82258E -> 0x822506): salta los espacios en blanco de la configuracion regional "C" (9..13 y 32), signo opcional, y acumula los digitos con
++// desbordamiento de 32 bits (sin saturar, a diferencia del atoi del CRT de la DLL). No comprueba el puntero: con NULL accede a la direccion 0 como el EXE.
++static int32 PlatecharAtoi(const char* s) {
++    const auto IsSpace = [](uint8 c) { return c == ' ' || (c >= 9 && c <= 13); };
++    while (IsSpace((uint8)*s)) {
++        s++;
++    }
++    const char sign = *s++;
++    int32 c = sign;
++    if (sign == '-' || sign == '+') {
++        c = (uint8)*s++;
++    }
++    uint32 value = 0;
++    while (c >= '0' && c <= '9') {
++        value = value * 10 + (uint32)(c - '0');
++        c = (uint8)*s++;
++    }
++    return (int32)(sign == '-' ? 0u - value : value);
++}
++
+ // 0x6FDC00
+ // unused
++// Como el original (sin procedimiento propio; sin llamadores): lee DATA/<filename> linea a linea con CFileLoader::LoadLine. ";the end" termina (devuelve 1), las lineas que empiezan por ';'
++// se saltan y las demas se separan con " \t": el 1o, 2o y 3o campo (atoi limitado a 255 con la comparacion de 16 bits del original) forman el dword 0x80000000 | (3o << 16) | (2o << 8) | 1o.
++// Con menos de 3 campos devuelve 0 sin cerrar el archivo; al acabar el archivo cierra y devuelve 1. El primer strtok no se comprueba (una linea vacia o solo de separadores acaba en atoi(NULL), como el EXE).
+ int8 CCustomCarPlateMgr::LoadPlatecharsetDat(const char* filename, uint8* data) {
+-    return plugin::CallAndReturn<int8, 0x6FDC00, const char*, uint8*>(filename, data);
++    CFileMgr::SetDir("DATA");
++    const auto file = CFileMgr::OpenFile(filename, "r");
++    CFileMgr::SetDir("");
++
++    const auto Clamp8 = [](const char* token) -> uint8 {
++        const auto v = (uint16)PlatecharAtoi(token); // cmp ax, 0FFh ; jbe
++        return v > 0xFF ? 0xFF : (uint8)v;
++    };
++
++    auto* out = reinterpret_cast<uint32*>(data);
++    uint8 b0{}, b1{}, b2{}; // el EXE los deja sin inicializar, pero con 3 o mas campos se escriben los tres antes de usarlos
++    for (char* line = CFileLoader::LoadLine(file); line; line = CFileLoader::LoadLine(file)) {
++        if (!strcmp(line, ";the end")) { // repe cmpsb de 9 bytes (incluye el NUL)
++            break;
++        }
++        if (line[0] == ';') {
++            continue;
++        }
++
++        uint32 n = 0;
++        char* token = strtok(line, " \t");
++        do {
++            switch (n) {
++            case 0: b0 = Clamp8(token); break;
++            case 1: b1 = Clamp8(token); break;
++            case 2: b2 = Clamp8(token); break;
++            default: break;
++            }
++            token = strtok(nullptr, " \t");
++            n++;
++        } while (token);
++
++        if (n < 3) {
++            return 0;
++        }
++        *out++ = 0x80000000u | ((uint32)b2 << 16) | ((uint32)b1 << 8) | (uint32)b0;
++    }
++
++    CFileMgr::CloseFile(file);
++    return 1;
+ }
+ 
+ auto ResolvePlateType(uint8 plateType) {
