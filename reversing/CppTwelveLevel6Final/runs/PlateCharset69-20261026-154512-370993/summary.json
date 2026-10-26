@@ -1,0 +1,70 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "796af81f6f069af8810226c24e2796529272fa633a009240ce966cfb98a8bc53",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 16384,
+  "pairs_per_function": {
+    "CCustomCarPlateMgr::LoadPlatecharsetDat": 16384
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "4b1e24baa44fcf994616507b0898891cc30af879fc7e5ca48e96baf5922ce855",
+  "compare_dead_x87_registers": false,
+  "families": {
+    "0": 1024,
+    "1": 1024,
+    "2": 1024,
+    "3": 1024,
+    "4": 1024,
+    "5": 1024,
+    "6": 1024,
+    "7": 1024,
+    "8": 1024,
+    "9": 1024,
+    "10": 1024,
+    "11": 1024,
+    "12": 1024,
+    "13": 1024,
+    "14": 1024,
+    "15": 1024
+  },
+  "branch_coverage": {
+    "tab_sep": 12757,
+    "eof": 9855,
+    "ret_ok": 14307,
+    "words_ge1": 13694,
+    "neg_field": 7241,
+    "wrap32": 4480,
+    "end_line": 3652,
+    "comment": 3147,
+    "clamp_hi": 9272,
+    "unaligned": 5818,
+    "sign_plus": 6467,
+    "no_digits": 6551,
+    "high_byte": 4539,
+    "exact_255": 3959,
+    "extra_fields": 4521,
+    "short_line": 2077,
+    "ret_zero": 2077,
+    "name_empty": 1418,
+    "lead_sep": 4030,
+    "trail_sep": 4010,
+    "ws_prefix": 4626,
+    "words_ge38": 915,
+    "near_end": 1908,
+    "open_null": 800,
+    "lines_after_end": 1353
+  },
+  "coverage_method": "serialized_inputs_and_independent_oracle; no_instruction_branch_tracing",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

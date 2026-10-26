@@ -22,7 +22,7 @@
   "log_sha256": "ac5f9041f04d5802c880a0bd2b8e658b778802cfc3b1c6049159b84917f74dcb",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interior-control355\\20261007-210431-873664",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interior-control355\\20261026-154850-934815",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "InteriorGroup_c::Update": true,
@@ -33,26 +33,27 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "6bc375f34ca87e1201a41e6a75a093397d2fb72dbb859839c926ea77ac690eaa",
-      "pdb": "a5a6da29af5df7c2b21436b5becd293a2fe8d4722fd860bd8791b8ad28137316"
+      "asi": "e66dd6ee69f3107f201ef69629a8d9328320f8584b67f0b5a16b6408d4d82b11",
+      "pdb": "75a2231b43ba662969e777d16e5699c8dddfb13286dd5dd53c7d3cb35927b358"
     },
     "sources": {
-      "source/game_sa/Interior/InteriorGroup_c.cpp": "b58641c2fd5196e88d6b6ae13cde055828ac793a24f45450d896884097a162a2",
-      "source/game_sa/Interior/InteriorGroup_c.h": "7af15b0396c14c31ab991caa252a8a3ca71ec22e8e5c9e0a805aa823c780f131",
-      "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82",
+      "source/game_sa/Interior/InteriorGroup_c.cpp": "8734f9491742686d5be05b23dd6ae46ffc84449255abffad519997d863285858",
+      "source/game_sa/Interior/InteriorGroup_c.h": "bef3add045c251898f83d1f45ea0a9e5ad1ae6ee376355fa8145c744920f1cd7",
+      "source/game_sa/Interior/Interior_c.h": "e5bc2bd3ac5f8cdf6b4f5909829688a652f97d6a1f5e6d64a104f270a3767fec",
       "source/game_sa/Interior/InteriorInfo_t.h": "c14b863ca30e85df464bdf4b8b31ccd62e907d4d1e22b12a7ba13d4f43af0bb0"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "4b9e1ddef5255792281ca4b1021823dd3c93c3eb95f70d03205484d10943af70",
-      "build_probe.py": "2674517d509308fdf0e7b95d3e21bb0e32659633a04bb60512026be8416ffc03",
-      "run_local.py": "6e49b3c2ecca6fece75c247f040bc4f8054f8ad92752b5eb4d085057e03b114b"
+      "LiveComparison.hpp": "0941cd7b18fa9b1060a4f4e80807abff7ee22d6eeb2d25937877f0be28ddf3cf",
+      "build_probe.py": "f35501108312309e7bc67d26292c1552ab3fd71b44b6165a66c5f35758fd375d",
+      "run_local.py": "add6efda74975c28568dee3e129753d08d20a1f747a88c574b8af0d938dfa812"
     }
   },
   "limitations": [
     "Historical fixture approval of the archived build only. Current source hashes were intentionally not checked; this is not final replay approval.",
     "Equivalencia limitada a los fixtures documentados; colaboraciones aisladas simétricamente no acreditan su implementación ni una campaña integral de juego.",
     "Archived snapshot only: tested instrumentation hashes are preserved verbatim from the dated build manifest; current instrumentation was not certified. Current mismatches: []",
-    "Legacy runtime report lacks observed executed ASI/EXE hashes; provenance uses the dated archived manifest and verified binary/instrument hashes, not an observed execution hash."
+    "Legacy runtime report lacks observed executed ASI/EXE hashes; provenance uses the dated archived manifest and verified binary/instrument hashes, not an observed execution hash.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

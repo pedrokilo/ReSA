@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 4,
+  "functions": {
+    "CPedIntelligence::IsInHearingRange": 4096,
+    "CPedIntelligence::HasInterestingEntites": 4096,
+    "CPedIntelligence::RemoveAllInterestingEntities": 4096,
+    "CPedStats::FindIndexWithPedStat": 4096
+  },
+  "covered_functions": {
+    "CPedIntelligence::IsInHearingRange": true,
+    "CPedIntelligence::HasInterestingEntites": true,
+    "CPedIntelligence::RemoveAllInterestingEntities": true,
+    "CPedStats::FindIndexWithPedStat": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-1 (HEAD 9a8eb46fa + source.patch). Las cuatro funciones no tienen llamadores en el EXE (ni call, ni jmp ni punteros), por lo que solo se compara el valor de retorno: AL de IsInHearingRange 0x600C00 y HasInterestingEntites 0x602080, EAX completo de FindIndexWithPedStat 0x608940 (pasa de void a int32); EAX/ECX/EDX de salida restantes solo se registran. IsInHearingRange: rango^2 > (dz^2 + dx^2) + dy^2 en x87 a 24 bits con exponente extendido (helper PedHearingRangeCpp de X87Math.cpp); con NaN da falso. RemoveAllInterestingEntities 0x602320: CEntity::CleanUpOldReference 0x571A00 (con hook) sustituido por un falso identico en el EXE y en el cuerpo de la DLL, que registra entidad, ranura y valor de la ranura; la ranura se pone a cero despues de cada llamada. FindIndexWithPedStat: ms_apPedStats (0xC0BBEC) apuntado a una arena de 44 entradas, nulo o a un valor bruto durante la llamada y restaurado.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/PedLeaf69-20261026-154405-565970",
+  "summary_sha256": "0c9ffc6161832cc995b4e06180d4615a5372f6335b798883a42033dcbe38aab4",
+  "result_txt_sha256": "41ced2fe89de83c4980ad918292409bdb66267b1dfd3a14f6b28fcd75d0108ac",
+  "log_sha256": "bfeb516aa71cf3dcc48c8f0f8710607e74db07073e84dffb3e432415d52afef2",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "fd9acd572e58558888d5e0975896f9e6b0bdff44e8745796d7c911fa74a3151b",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+      "source/game_sa/PedIntelligence.cpp": "17e3d0cf64e51d127f3bfe339d37902db1f7f5e12ad0daa82e3bb26bc386efc4",
+      "source/game_sa/PedIntelligence.h": "3cdb1dfdd718c5dc92a273bb06a8db7642606f9c456d76bde75c16c02325abe6",
+      "source/game_sa/PedStats.cpp": "6e446da2feb82789ee298c48692ff4da3e4b10f677c007e5a44d205cffc67ead",
+      "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
+      "source/game_sa/X87Math.cpp": "881fd3e06e424b3edf2511b85a2cbdc23484ad7fe81cfa0b621124ca7089ab4c",
+      "source/game_sa/X87Math.h": "e2be2c445a566df55494d01cc0465850165aef39d3383c2eedbafce90ddc115d",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/PedLeaf69/LiveComparison.hpp": "2b35eda60524f591911767fcf45cd7a10540dde8c3b70501e7ccf5de3c04392a",
+      "reversing/PedLeaf69/Core.hpp": "5b0baf8167b3a07d2e6edd6db8e6dd854478c2e463fa3628db52917f1bf99ad4",
+      "reversing/PedLeaf69/Cases.hpp": "4db1979bb88af794f3157b3595d81d5304b3fa0f0e409f74bdeb9ddcd541b5e1",
+      "reversing/PedLeaf69/Fixtures.hpp": "6da6b9bf7c86ee2c93e8f0a669eb5e3b6552341688dd1f45aee0e92cc2716309",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

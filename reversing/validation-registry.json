@@ -216785,7 +216785,7 @@
       },
       "evidence": {
         "path": "reversing/InteriorControl355/validation-summary.json",
-        "sha256": "2b416f02b8fb6d3875570b6a1503cc252746f7d3bd8c5fd22d7ae84167241486",
+        "sha256": "df5ae7ef4c066464d25384166841d3e0d36aa7baed5f72498d010361d89d218b",
         "passed_path": [
           "covered_functions",
           "InteriorGroup_c::Update"
@@ -216794,9 +216794,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Interior/InteriorGroup_c.cpp": "b58641c2fd5196e88d6b6ae13cde055828ac793a24f45450d896884097a162a2",
-        "source/game_sa/Interior/InteriorGroup_c.h": "7af15b0396c14c31ab991caa252a8a3ca71ec22e8e5c9e0a805aa823c780f131",
-        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82",
+        "source/game_sa/Interior/InteriorGroup_c.cpp": "8734f9491742686d5be05b23dd6ae46ffc84449255abffad519997d863285858",
+        "source/game_sa/Interior/InteriorGroup_c.h": "bef3add045c251898f83d1f45ea0a9e5ad1ae6ee376355fa8145c744920f1cd7",
+        "source/game_sa/Interior/Interior_c.h": "e5bc2bd3ac5f8cdf6b4f5909829688a652f97d6a1f5e6d64a104f270a3767fec",
         "source/game_sa/Interior/InteriorInfo_t.h": "c14b863ca30e85df464bdf4b8b31ccd62e907d4d1e22b12a7ba13d4f43af0bb0"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-210431-873664).",
@@ -216813,7 +216813,7 @@
       },
       "evidence": {
         "path": "reversing/InteriorControl355/validation-summary.json",
-        "sha256": "2b416f02b8fb6d3875570b6a1503cc252746f7d3bd8c5fd22d7ae84167241486",
+        "sha256": "df5ae7ef4c066464d25384166841d3e0d36aa7baed5f72498d010361d89d218b",
         "passed_path": [
           "covered_functions",
           "InteriorGroup_c::SetupPeds"
@@ -216822,9 +216822,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Interior/InteriorGroup_c.cpp": "b58641c2fd5196e88d6b6ae13cde055828ac793a24f45450d896884097a162a2",
-        "source/game_sa/Interior/InteriorGroup_c.h": "7af15b0396c14c31ab991caa252a8a3ca71ec22e8e5c9e0a805aa823c780f131",
-        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82",
+        "source/game_sa/Interior/InteriorGroup_c.cpp": "8734f9491742686d5be05b23dd6ae46ffc84449255abffad519997d863285858",
+        "source/game_sa/Interior/InteriorGroup_c.h": "bef3add045c251898f83d1f45ea0a9e5ad1ae6ee376355fa8145c744920f1cd7",
+        "source/game_sa/Interior/Interior_c.h": "e5bc2bd3ac5f8cdf6b4f5909829688a652f97d6a1f5e6d64a104f270a3767fec",
         "source/game_sa/Interior/InteriorInfo_t.h": "c14b863ca30e85df464bdf4b8b31ccd62e907d4d1e22b12a7ba13d4f43af0bb0"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-210431-873664).",
@@ -216841,7 +216841,7 @@
       },
       "evidence": {
         "path": "reversing/InteriorControl355/validation-summary.json",
-        "sha256": "2b416f02b8fb6d3875570b6a1503cc252746f7d3bd8c5fd22d7ae84167241486",
+        "sha256": "df5ae7ef4c066464d25384166841d3e0d36aa7baed5f72498d010361d89d218b",
         "passed_path": [
           "covered_functions",
           "InteriorGroup_c::UpdatePeds"
@@ -216850,9 +216850,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Interior/InteriorGroup_c.cpp": "b58641c2fd5196e88d6b6ae13cde055828ac793a24f45450d896884097a162a2",
-        "source/game_sa/Interior/InteriorGroup_c.h": "7af15b0396c14c31ab991caa252a8a3ca71ec22e8e5c9e0a805aa823c780f131",
-        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82",
+        "source/game_sa/Interior/InteriorGroup_c.cpp": "8734f9491742686d5be05b23dd6ae46ffc84449255abffad519997d863285858",
+        "source/game_sa/Interior/InteriorGroup_c.h": "bef3add045c251898f83d1f45ea0a9e5ad1ae6ee376355fa8145c744920f1cd7",
+        "source/game_sa/Interior/Interior_c.h": "e5bc2bd3ac5f8cdf6b4f5909829688a652f97d6a1f5e6d64a104f270a3767fec",
         "source/game_sa/Interior/InteriorInfo_t.h": "c14b863ca30e85df464bdf4b8b31ccd62e907d4d1e22b12a7ba13d4f43af0bb0"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-210431-873664).",
@@ -216869,7 +216869,7 @@
       },
       "evidence": {
         "path": "reversing/InteriorControl355/validation-summary.json",
-        "sha256": "2b416f02b8fb6d3875570b6a1503cc252746f7d3bd8c5fd22d7ae84167241486",
+        "sha256": "df5ae7ef4c066464d25384166841d3e0d36aa7baed5f72498d010361d89d218b",
         "passed_path": [
           "covered_functions",
           "InteriorGroup_c::RemovePed"
@@ -216878,9 +216878,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Interior/InteriorGroup_c.cpp": "b58641c2fd5196e88d6b6ae13cde055828ac793a24f45450d896884097a162a2",
-        "source/game_sa/Interior/InteriorGroup_c.h": "7af15b0396c14c31ab991caa252a8a3ca71ec22e8e5c9e0a805aa823c780f131",
-        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82",
+        "source/game_sa/Interior/InteriorGroup_c.cpp": "8734f9491742686d5be05b23dd6ae46ffc84449255abffad519997d863285858",
+        "source/game_sa/Interior/InteriorGroup_c.h": "bef3add045c251898f83d1f45ea0a9e5ad1ae6ee376355fa8145c744920f1cd7",
+        "source/game_sa/Interior/Interior_c.h": "e5bc2bd3ac5f8cdf6b4f5909829688a652f97d6a1f5e6d64a104f270a3767fec",
         "source/game_sa/Interior/InteriorInfo_t.h": "c14b863ca30e85df464bdf4b8b31ccd62e907d4d1e22b12a7ba13d4f43af0bb0"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-210431-873664).",
@@ -216897,7 +216897,7 @@
       },
       "evidence": {
         "path": "reversing/InteriorControl355/validation-summary.json",
-        "sha256": "2b416f02b8fb6d3875570b6a1503cc252746f7d3bd8c5fd22d7ae84167241486",
+        "sha256": "df5ae7ef4c066464d25384166841d3e0d36aa7baed5f72498d010361d89d218b",
         "passed_path": [
           "covered_functions",
           "InteriorGroup_c::SetupOfficePeds"
@@ -216906,9 +216906,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Interior/InteriorGroup_c.cpp": "b58641c2fd5196e88d6b6ae13cde055828ac793a24f45450d896884097a162a2",
-        "source/game_sa/Interior/InteriorGroup_c.h": "7af15b0396c14c31ab991caa252a8a3ca71ec22e8e5c9e0a805aa823c780f131",
-        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82",
+        "source/game_sa/Interior/InteriorGroup_c.cpp": "8734f9491742686d5be05b23dd6ae46ffc84449255abffad519997d863285858",
+        "source/game_sa/Interior/InteriorGroup_c.h": "bef3add045c251898f83d1f45ea0a9e5ad1ae6ee376355fa8145c744920f1cd7",
+        "source/game_sa/Interior/Interior_c.h": "e5bc2bd3ac5f8cdf6b4f5909829688a652f97d6a1f5e6d64a104f270a3767fec",
         "source/game_sa/Interior/InteriorInfo_t.h": "c14b863ca30e85df464bdf4b8b31ccd62e907d4d1e22b12a7ba13d4f43af0bb0"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-210431-873664).",
@@ -217409,7 +217409,7 @@
       },
       "evidence": {
         "path": "reversing/InteriorSetupPaths355/validation-summary.json",
-        "sha256": "ef02a15d458568ae9b527803a4807b7306ae81d28f073422e44f02c344850b9e",
+        "sha256": "2d59fe61b00cd7b9bf5765cedc090bbdedf06ee29803adf7f524443927d26170",
         "passed_path": [
           "covered_functions",
           "InteriorGroup_c::SetupPaths"
@@ -217418,33 +217418,18 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/C_PcSave.h": "9ce5bfc6d6dcccef1cc786f6feaaedaf9e76671450786ccd543a5ecb3345f920",
-        "source/game_sa/Clock.cpp": "e30c3b2d2699e6058f58bb764576b7330e1762cf0d93068c6d107b7e7397ead5",
-        "source/game_sa/Core/KeyGen.cpp": "3bb96a07f76557a9114e32ee9377294c507214a2f5dc0ece5fc3b61893cbfe1d",
-        "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
-        "source/game_sa/Entity/Entity.cpp": "2b3152ce25c8910ea3624da17bff6eb8b6c75ac1331c8596c1ff879300f11108",
-        "source/game_sa/Entity/Placeable.cpp": "bf57b97b53cd9e8326d97de870b9934dd487effde705a3462061d883e052e16a",
-        "source/game_sa/General.cpp": "808742b15646ca279418ead9bff4e959207bebeb304f5a6918ae5bfdccd0d007",
-        "source/game_sa/GenericGameStorage.cpp": "455a7c3c9ade65feb79dbb6f33bc344da772f796ea5a7f2083f6fb5070289e5a",
-        "source/game_sa/GenericGameStorage.h": "01b1ede214c3871cac34a38c30fcc4578b85487f140c8b3e3ae95b7c230662d0",
-        "source/game_sa/Interior/InteriorGroup_c.cpp": "4469b4d9536b96b206b9dca7a8dbca73b2412be0de649e3e813d4ef080c9bfb4",
-        "source/game_sa/Interior/InteriorGroup_c.h": "80ad6d255a9d4aa13013bb714b3f2afd9eda5bd6029270db143ce1f811fc14db",
+        "source/game_sa/Interior/InteriorGroup_c.cpp": "8734f9491742686d5be05b23dd6ae46ffc84449255abffad519997d863285858",
+        "source/game_sa/Interior/InteriorGroup_c.h": "bef3add045c251898f83d1f45ea0a9e5ad1ae6ee376355fa8145c744920f1cd7",
+        "source/game_sa/Interior/Interior_c.h": "e5bc2bd3ac5f8cdf6b4f5909829688a652f97d6a1f5e6d64a104f270a3767fec",
         "source/game_sa/Interior/InteriorInfo_t.h": "c14b863ca30e85df464bdf4b8b31ccd62e907d4d1e22b12a7ba13d4f43af0bb0",
-        "source/game_sa/Interior/Interior_c.cpp": "e23c8b8ac31c0128b0fc90c65a1ade5c7209ffd12a7948bb7acb811edc257cd7",
-        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82",
-        "source/game_sa/Models/BaseModelInfo.h": "91bece0c4ec1c9f8772b17ba11dcbc9f8e75636292f995f735cbd06514419cc6",
-        "source/game_sa/Models/PedModelInfo.h": "feaecc2e78dfa36c4bab6e7f97f9015f2fe5f2d15731bf85b6f8347c60d9bda7",
+        "source/game_sa/PathFind.cpp": "22aee463a73f9a507622610106e8d160ad7a996d4522b3a71071ba21439fec6e",
+        "source/game_sa/PathFind.h": "f9d2e152051e5755f7f6a4783b6d727b6f63cdb2ecac303eef9d19aacc5cf5e4",
         "source/game_sa/NodeAddress.h": "a22f707c909a6cc7786132304de10096a7e9721036e76ced52df9786fe2f8bdd",
-        "source/game_sa/PathFind.cpp": "b57cf6b5365de50d90e410e41e75dc7bcd40d34065689b0289544494c927267c",
-        "source/game_sa/PathFind.h": "357ab650168e37e361b942ed271e2221605b075899dc0a8f273b30c59dd6f331",
-        "source/game_sa/PopCycle.cpp": "21bd0ae5cbb6a59be5917c4de6c032b82d9cf3e5659a57bec9ebedad6e709b68",
-        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2",
-        "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInHouse.cpp": "b5596c35c68a6b8b497a2eb60192158a535c4688a339b5f88ec09bf1aa3048b7",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInOffice.cpp": "f0dff0c2fbb75e39b1580168e5d7db54bd3bda3a723df9ad9c29aa4d1d043ce2",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInShop.cpp": "26f36be5908b61a071c564b62c19e05b65a7e3aef5c69acebcd4f2533429b0fa",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorShopKeeper.cpp": "187e8cbbb11ce30097cb6a89f1bdb1a56f33b16da80b8cde6bd241e5db97bf68",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "8ba48e693f9be5164939881cdcbf5f4f7d6d63d0709d43813092d598354736bf"
+        "source/game_sa/Core/Matrix.h": "7eab653c7bc89de926a1f9209e62b969001d277e051b77268742137c93c308a3",
+        "source/game_sa/Entity/Placeable.cpp": "0030861304db9f417c8fd8b322a7be006ef4e5a099238c157e5dc0cf0d018e24",
+        "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
+        "source/game_sa/SimpleTransform.cpp": "91cfe9e3ac4ceb4a2d63bca9a897a4d62b3ff298a32576300771df16a259c8c4",
+        "source/game_sa/Models/BaseModelInfo.h": "91bece0c4ec1c9f8772b17ba11dcbc9f8e75636292f995f735cbd06514419cc6"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261008-020256-734750).",
       "dependency_review": null,
@@ -543888,6 +543873,196 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wy-3 (HEAD 8ff5230a6 + TaskComplexGoPickUpEntity.cpp/.h, source.patch). CTaskComplexGoPickUpEntity::ControlSubTask 0x691D50 (virtual, ranura 10 de la vtable 0x870B98, thiscall, ret 4; EAX = subtarea o nulo si la aborta): CAnimManager::GetAnimBlockName 0x4D3A30, GetAnimationBlock(const char*) 0x4D3940 y AddAnimBlockRef 0x4D3FB0, CStreaming::RequestModel 0x4087E0, CPlayerPed::GetPadFromPlayer 0x609560, CPad::GetPedWalkUpDown 0x53FD30, GetPedWalkLeftRight 0x53FC90, JumpJustDown 0x540770 y SprintJustDown 0x5407F0 y CGeneral::GetRadianAngleBetweenPoints 0x53CBE0 sustituidos por falsos identicos en ambos lados; GetTaskType y MakeAbortable de la subtarea van por una vtable falsa de arena (ranuras 4 y 6). ms_aAnimAssocGroups (0xB4EA34), CTimer::m_snTimeInMilliseconds (0xB7CB84) y la orientacion de la camara (0xB6F178) se fijan por caso y se restauran. El atan2 del rumbo (fpatan) es el ayudante TrigAtan2Cpp de X87Math.cpp y NO se sustituye: se valida contra el fpatan del EXE. Los plazos 5000 (0x8D2FF8) y 8000 (0x8D2FFC) son constantes en C++. CreateNextSubTask 0x691AE0 y CreateFirstSubTask 0x693610 siguen en el EXE.",
       "review_reference": "reversing/PickUpControl68/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedIntelligence",
+        "fn_name": "IsInHearingRange",
+        "address": "0x00600C00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/PedLeaf69/validation-summary.json",
+        "sha256": "933414f05746c759c3ff3415b4046602e15795a7c8de425df948f5cd6cbb3070",
+        "passed_path": [
+          "covered_functions",
+          "CPedIntelligence::IsInHearingRange"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "source/game_sa/PedIntelligence.cpp": "17e3d0cf64e51d127f3bfe339d37902db1f7f5e12ad0daa82e3bb26bc386efc4",
+        "source/game_sa/PedIntelligence.h": "3cdb1dfdd718c5dc92a273bb06a8db7642606f9c456d76bde75c16c02325abe6",
+        "source/game_sa/PedStats.cpp": "6e446da2feb82789ee298c48692ff4da3e4b10f677c007e5a44d205cffc67ead",
+        "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
+        "source/game_sa/X87Math.cpp": "881fd3e06e424b3edf2511b85a2cbdc23484ad7fe81cfa0b621124ca7089ab4c",
+        "source/game_sa/X87Math.h": "e2be2c445a566df55494d01cc0465850165aef39d3383c2eedbafce90ddc115d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/PedLeaf69/LiveComparison.hpp": "2b35eda60524f591911767fcf45cd7a10540dde8c3b70501e7ccf5de3c04392a",
+        "reversing/PedLeaf69/Core.hpp": "5b0baf8167b3a07d2e6edd6db8e6dd854478c2e463fa3628db52917f1bf99ad4",
+        "reversing/PedLeaf69/Cases.hpp": "4db1979bb88af794f3157b3595d81d5304b3fa0f0e409f74bdeb9ddcd541b5e1",
+        "reversing/PedLeaf69/Fixtures.hpp": "6da6b9bf7c86ee2c93e8f0a669eb5e3b6552341688dd1f45aee0e92cc2716309",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wy-1 (HEAD 9a8eb46fa + source.patch). Las cuatro funciones no tienen llamadores en el EXE (ni call, ni jmp ni punteros), por lo que solo se compara el valor de retorno: AL de IsInHearingRange 0x600C00 y HasInterestingEntites 0x602080, EAX completo de FindIndexWithPedStat 0x608940 (pasa de void a int32); EAX/ECX/EDX de salida restantes solo se registran. IsInHearingRange: rango^2 > (dz^2 + dx^2) + dy^2 en x87 a 24 bits con exponente extendido (helper PedHearingRangeCpp de X87Math.cpp); con NaN da falso. RemoveAllInterestingEntities 0x602320: CEntity::CleanUpOldReference 0x571A00 (con hook) sustituido por un falso identico en el EXE y en el cuerpo de la DLL, que registra entidad, ranura y valor de la ranura; la ranura se pone a cero despues de cada llamada. FindIndexWithPedStat: ms_apPedStats (0xC0BBEC) apuntado a una arena de 44 entradas, nulo o a un valor bruto durante la llamada y restaurado.",
+      "review_reference": "reversing/PedLeaf69/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedIntelligence",
+        "fn_name": "HasInterestingEntites",
+        "address": "0x00602080",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/PedLeaf69/validation-summary.json",
+        "sha256": "933414f05746c759c3ff3415b4046602e15795a7c8de425df948f5cd6cbb3070",
+        "passed_path": [
+          "covered_functions",
+          "CPedIntelligence::HasInterestingEntites"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "source/game_sa/PedIntelligence.cpp": "17e3d0cf64e51d127f3bfe339d37902db1f7f5e12ad0daa82e3bb26bc386efc4",
+        "source/game_sa/PedIntelligence.h": "3cdb1dfdd718c5dc92a273bb06a8db7642606f9c456d76bde75c16c02325abe6",
+        "source/game_sa/PedStats.cpp": "6e446da2feb82789ee298c48692ff4da3e4b10f677c007e5a44d205cffc67ead",
+        "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
+        "source/game_sa/X87Math.cpp": "881fd3e06e424b3edf2511b85a2cbdc23484ad7fe81cfa0b621124ca7089ab4c",
+        "source/game_sa/X87Math.h": "e2be2c445a566df55494d01cc0465850165aef39d3383c2eedbafce90ddc115d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/PedLeaf69/LiveComparison.hpp": "2b35eda60524f591911767fcf45cd7a10540dde8c3b70501e7ccf5de3c04392a",
+        "reversing/PedLeaf69/Core.hpp": "5b0baf8167b3a07d2e6edd6db8e6dd854478c2e463fa3628db52917f1bf99ad4",
+        "reversing/PedLeaf69/Cases.hpp": "4db1979bb88af794f3157b3595d81d5304b3fa0f0e409f74bdeb9ddcd541b5e1",
+        "reversing/PedLeaf69/Fixtures.hpp": "6da6b9bf7c86ee2c93e8f0a669eb5e3b6552341688dd1f45aee0e92cc2716309",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wy-1 (HEAD 9a8eb46fa + source.patch). Las cuatro funciones no tienen llamadores en el EXE (ni call, ni jmp ni punteros), por lo que solo se compara el valor de retorno: AL de IsInHearingRange 0x600C00 y HasInterestingEntites 0x602080, EAX completo de FindIndexWithPedStat 0x608940 (pasa de void a int32); EAX/ECX/EDX de salida restantes solo se registran. IsInHearingRange: rango^2 > (dz^2 + dx^2) + dy^2 en x87 a 24 bits con exponente extendido (helper PedHearingRangeCpp de X87Math.cpp); con NaN da falso. RemoveAllInterestingEntities 0x602320: CEntity::CleanUpOldReference 0x571A00 (con hook) sustituido por un falso identico en el EXE y en el cuerpo de la DLL, que registra entidad, ranura y valor de la ranura; la ranura se pone a cero despues de cada llamada. FindIndexWithPedStat: ms_apPedStats (0xC0BBEC) apuntado a una arena de 44 entradas, nulo o a un valor bruto durante la llamada y restaurado.",
+      "review_reference": "reversing/PedLeaf69/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedIntelligence",
+        "fn_name": "RemoveAllInterestingEntities",
+        "address": "0x00602320",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/PedLeaf69/validation-summary.json",
+        "sha256": "933414f05746c759c3ff3415b4046602e15795a7c8de425df948f5cd6cbb3070",
+        "passed_path": [
+          "covered_functions",
+          "CPedIntelligence::RemoveAllInterestingEntities"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "source/game_sa/PedIntelligence.cpp": "17e3d0cf64e51d127f3bfe339d37902db1f7f5e12ad0daa82e3bb26bc386efc4",
+        "source/game_sa/PedIntelligence.h": "3cdb1dfdd718c5dc92a273bb06a8db7642606f9c456d76bde75c16c02325abe6",
+        "source/game_sa/PedStats.cpp": "6e446da2feb82789ee298c48692ff4da3e4b10f677c007e5a44d205cffc67ead",
+        "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
+        "source/game_sa/X87Math.cpp": "881fd3e06e424b3edf2511b85a2cbdc23484ad7fe81cfa0b621124ca7089ab4c",
+        "source/game_sa/X87Math.h": "e2be2c445a566df55494d01cc0465850165aef39d3383c2eedbafce90ddc115d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/PedLeaf69/LiveComparison.hpp": "2b35eda60524f591911767fcf45cd7a10540dde8c3b70501e7ccf5de3c04392a",
+        "reversing/PedLeaf69/Core.hpp": "5b0baf8167b3a07d2e6edd6db8e6dd854478c2e463fa3628db52917f1bf99ad4",
+        "reversing/PedLeaf69/Cases.hpp": "4db1979bb88af794f3157b3595d81d5304b3fa0f0e409f74bdeb9ddcd541b5e1",
+        "reversing/PedLeaf69/Fixtures.hpp": "6da6b9bf7c86ee2c93e8f0a669eb5e3b6552341688dd1f45aee0e92cc2716309",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wy-1 (HEAD 9a8eb46fa + source.patch). Las cuatro funciones no tienen llamadores en el EXE (ni call, ni jmp ni punteros), por lo que solo se compara el valor de retorno: AL de IsInHearingRange 0x600C00 y HasInterestingEntites 0x602080, EAX completo de FindIndexWithPedStat 0x608940 (pasa de void a int32); EAX/ECX/EDX de salida restantes solo se registran. IsInHearingRange: rango^2 > (dz^2 + dx^2) + dy^2 en x87 a 24 bits con exponente extendido (helper PedHearingRangeCpp de X87Math.cpp); con NaN da falso. RemoveAllInterestingEntities 0x602320: CEntity::CleanUpOldReference 0x571A00 (con hook) sustituido por un falso identico en el EXE y en el cuerpo de la DLL, que registra entidad, ranura y valor de la ranura; la ranura se pone a cero despues de cada llamada. FindIndexWithPedStat: ms_apPedStats (0xC0BBEC) apuntado a una arena de 44 entradas, nulo o a un valor bruto durante la llamada y restaurado.",
+      "review_reference": "reversing/PedLeaf69/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedStats",
+        "fn_name": "FindIndexWithPedStat",
+        "address": "0x00608940",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/PedLeaf69/validation-summary.json",
+        "sha256": "933414f05746c759c3ff3415b4046602e15795a7c8de425df948f5cd6cbb3070",
+        "passed_path": [
+          "covered_functions",
+          "CPedStats::FindIndexWithPedStat"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "source/game_sa/PedIntelligence.cpp": "17e3d0cf64e51d127f3bfe339d37902db1f7f5e12ad0daa82e3bb26bc386efc4",
+        "source/game_sa/PedIntelligence.h": "3cdb1dfdd718c5dc92a273bb06a8db7642606f9c456d76bde75c16c02325abe6",
+        "source/game_sa/PedStats.cpp": "6e446da2feb82789ee298c48692ff4da3e4b10f677c007e5a44d205cffc67ead",
+        "source/game_sa/PedStats.h": "89fd32307daea5752ee80ac218e97493d41c65912331f3ac0d3ccebc1d5063fa",
+        "source/game_sa/X87Math.cpp": "881fd3e06e424b3edf2511b85a2cbdc23484ad7fe81cfa0b621124ca7089ab4c",
+        "source/game_sa/X87Math.h": "e2be2c445a566df55494d01cc0465850165aef39d3383c2eedbafce90ddc115d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/PedLeaf69/LiveComparison.hpp": "2b35eda60524f591911767fcf45cd7a10540dde8c3b70501e7ccf5de3c04392a",
+        "reversing/PedLeaf69/Core.hpp": "5b0baf8167b3a07d2e6edd6db8e6dd854478c2e463fa3628db52917f1bf99ad4",
+        "reversing/PedLeaf69/Cases.hpp": "4db1979bb88af794f3157b3595d81d5304b3fa0f0e409f74bdeb9ddcd541b5e1",
+        "reversing/PedLeaf69/Fixtures.hpp": "6da6b9bf7c86ee2c93e8f0a669eb5e3b6552341688dd1f45aee0e92cc2716309",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wy-1 (HEAD 9a8eb46fa + source.patch). Las cuatro funciones no tienen llamadores en el EXE (ni call, ni jmp ni punteros), por lo que solo se compara el valor de retorno: AL de IsInHearingRange 0x600C00 y HasInterestingEntites 0x602080, EAX completo de FindIndexWithPedStat 0x608940 (pasa de void a int32); EAX/ECX/EDX de salida restantes solo se registran. IsInHearingRange: rango^2 > (dz^2 + dx^2) + dy^2 en x87 a 24 bits con exponente extendido (helper PedHearingRangeCpp de X87Math.cpp); con NaN da falso. RemoveAllInterestingEntities 0x602320: CEntity::CleanUpOldReference 0x571A00 (con hook) sustituido por un falso identico en el EXE y en el cuerpo de la DLL, que registra entidad, ranura y valor de la ranura; la ranura se pone a cero despues de cada llamada. FindIndexWithPedStat: ms_apPedStats (0xC0BBEC) apuntado a una arena de 44 entradas, nulo o a un valor bruto durante la llamada y restaurado.",
+      "review_reference": "reversing/PedLeaf69/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCustomCarPlateMgr",
+        "fn_name": "LoadPlatecharsetDat",
+        "address": "0x006FDC00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/PlateCharset69/validation-summary.json",
+        "sha256": "1f36af88d3ee0e8e7efd4ca542215944aa28383c02456a649d59f67574aeda14",
+        "passed_path": [
+          "covered_functions",
+          "CCustomCarPlateMgr::LoadPlatecharsetDat"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
+        "source/game_sa/CustomCarPlateMgr.cpp": "a1ce102a186919f3480264e246210776c396953a4d81921129b94020100f4610",
+        "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/PlateCharset69/LiveComparison.hpp": "73477f3a872ff2424b6b2e6f16e81b1690e80d1193c4b003a3df1d282165ae7d",
+        "reversing/PlateCharset69/Core.hpp": "b1a83842860fdc7cc3e57a57cf9e37855612aa1b7f745b25ff03ef05d3307ee0",
+        "reversing/PlateCharset69/Fixtures.hpp": "2f851d21731f9ec4c0397a5ca813bb20efc44bb56e547fba39205208a3b1c841",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wy-2 (HEAD 9a8eb46fa + source.patch). LoadPlatecharsetDat 0x6FDC00 (sin llamadores en el EXE; lee DATA/<archivo> linea a linea): los colaboradores de ARCHIVO CFileMgr::SetDir 0x5387D0, CFileMgr::OpenFile 0x538900, CFileLoader::LoadLine(FILESTREAM) 0x536F80 y CFileMgr::CloseFile 0x5389D0 (los cuatro con hook) se sustituyen por falsos identicos en ambos lados que registran sus argumentos en orden y entregan las lineas desde un buffer controlado: NO se prueba ninguna E/S de archivo real, ni el LoadLine real (que sanea caracteres de control y comas y salta los blancos iniciales; el banco entrega ademas lineas que ese LoadLine nunca produciria), ni PLATECHARSET.DAT ni ningun archivo del juego. strtok (0x82244B) y atoi (0x82258E) NO se sustituyen: el EXE usa su CRT y la DLL el strtok de su CRT y PlatecharAtoi (atoi con desbordamiento de 32 bits como el EXE; el atoi del CRT de la DLL satura y habria diferido), y el banco los compara de verdad. Una linea vacia o formada solo por espacios/tabuladores hace que el EXE llame a atoi(NULL) (acceso a la direccion 0): el banco nunca la genera y la DLL reproduce ese acceso sin probarlo. Solo AL se compara (la funcion no tiene llamadores); se compara la traza de los falsos, los dwords escritos, la arena completa y el buffer de linea tras strtok.",
+      "review_reference": "reversing/PlateCharset69/README.md"
     }
   ]
 }

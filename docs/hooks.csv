@@ -8907,3 +8907,8 @@ CDecisionMakerTypes,Constructor,0x004650F0,1,0,1,S
 CTaskComplexGoPickUpEntity,CreateNextSubTask,0x00000000,1,0,1,V
 CTaskComplexGoPickUpEntity,CreateFirstSubTask,0x00000000,1,0,1,V
 CTaskComplexGoPickUpEntity,ControlSubTask,0x00000000,1,0,1,V
+CPedIntelligence,IsInHearingRange,0x00600C00,1,0,1,S
+CPedIntelligence,HasInterestingEntites,0x00602080,1,0,1,S
+CPedIntelligence,RemoveAllInterestingEntities,0x00602320,1,0,1,S
+CPedStats,FindIndexWithPedStat,0x00608940,1,0,1,S
+CCustomCarPlateMgr,LoadPlatecharsetDat,0x006FDC00,1,0,1,S

@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,908 entradas reversed=1**, de 8,908 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,913 entradas reversed=1**, de 8,913 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8908 |
+| `validated=1` · evidencia aprobada vinculada | 8913 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8908 |
+| Evidencia histórica vinculada; revisión pendiente | 8913 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -2121,6 +2121,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCustomCarPlateMgr | `GeneratePlateText` | [Resumen](../reversing/Mix14/validation-summary.json) |
 | CCustomCarPlateMgr | `GetMapRegionPlateDesign` | [Resumen](../reversing/Mix14/validation-summary.json) |
 | CCustomCarPlateMgr | `Initialise` | [Resumen](../reversing/Mix14/validation-summary.json) |
+| CCustomCarPlateMgr | `LoadPlatecharsetDat` | [Resumen](../reversing/PlateCharset69/validation-summary.json) |
 | CCustomCarPlateMgr | `MaterialSetCarplateTextureCB` | [Resumen](../reversing/Mix14/validation-summary.json) |
 | CCustomCarPlateMgr | `MaterialUpgradeSetCarplateTextureCB` | [Resumen](../reversing/Mix14/validation-summary.json) |
 | CCustomCarPlateMgr | `RenderLicenseplateTextToRaster` | [Resumen](../reversing/Mix14/validation-summary.json) |
@@ -4027,9 +4028,11 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPedIntelligence | `GetTaskThrow` | [Resumen](../reversing/PedIntel52/validation-summary.json) |
 | CPedIntelligence | `GetTaskUseGun` | [Resumen](../reversing/PedIntel52/validation-summary.json) |
 | CPedIntelligence | `GetUsingParachute` | [Resumen](../reversing/PedIntel52/validation-summary.json) |
+| CPedIntelligence | `HasInterestingEntites` | [Resumen](../reversing/PedLeaf69/validation-summary.json) |
 | CPedIntelligence | `IncrementAngerAtPlayer` | [Resumen](../reversing/DependenciesTaskPed5/validation-summary.json) |
 | CPedIntelligence | `IsFriendlyWith` | [Resumen](../reversing/PedIntel52/validation-summary.json) |
 | CPedIntelligence | `IsInACarOrEnteringOne` | [Resumen](../reversing/PedIntel52/validation-summary.json) |
+| CPedIntelligence | `IsInHearingRange` | [Resumen](../reversing/PedLeaf69/validation-summary.json) |
 | CPedIntelligence | `IsInSeeingRange` | [Resumen](../reversing/PedIntel52/validation-summary.json) |
 | CPedIntelligence | `IsInterestingEntity` | [Resumen](../reversing/PedIntel52/validation-summary.json) |
 | CPedIntelligence | `IsPedGoingForCarDoor` | [Resumen](../reversing/PedIntel52/validation-summary.json) |
@@ -4043,6 +4046,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPedIntelligence | `ProcessFirst` | [Resumen](../reversing/PedIntel52/validation-summary.json) |
 | CPedIntelligence | `ProcessStaticCounter` | [Resumen](../reversing/PedIntel52/validation-summary.json) |
 | CPedIntelligence | `RecordEventForScript` | [Resumen](../reversing/PedIntel52/validation-summary.json) |
+| CPedIntelligence | `RemoveAllInterestingEntities` | [Resumen](../reversing/PedLeaf69/validation-summary.json) |
 | CPedIntelligence | `Respects` | [Resumen](../reversing/PedIntel52/validation-summary.json) |
 | CPedIntelligence | `RestorePedDecisionMakerType` | [Resumen](../reversing/PedIntel52/validation-summary.json) |
 | CPedIntelligence | `SetEffectInUse` | [Resumen](../reversing/PedIntel52/validation-summary.json) |
@@ -4094,6 +4098,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPedShelterAttractor | `ComputeAttractHeading` | [Resumen](../reversing/CTasks61c/validation-summary.json) |
 | CPedShelterAttractor | `ComputeAttractPos` | [Resumen](../reversing/CTasks61c/validation-summary.json) |
 | CPedShelterAttractor | `GetDisplacement` | [Resumen](../reversing/CTasks61c/validation-summary.json) |
+| CPedStats | `FindIndexWithPedStat` | [Resumen](../reversing/PedLeaf69/validation-summary.json) |
 | CPedStats | `GetPedStatType` | [Resumen](../reversing/Data23/validation-summary.json) |
 | CPedStats | `Initialise` | [Resumen](../reversing/Data23/validation-summary.json) |
 | CPedStats | `LoadPedStats` | [Resumen](../reversing/Data23/validation-summary.json) |
@@ -9067,7 +9072,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CCustomBuildingPipeline` | 7 | 0 | 7 | 0 |
 | `CCustomBuildingRenderer` | 7 | 0 | 7 | 0 |
 | `CCustomCarEnvMapPipeline` | 37 | 0 | 37 | 0 |
-| `CCustomCarPlateMgr` | 14 | 0 | 14 | 0 |
+| `CCustomCarPlateMgr` | 15 | 0 | 15 | 0 |
 | `CCustomRoadsignMgr` | 9 | 0 | 9 | 0 |
 | `CCutsceneMgr` | 35 | 0 | 35 | 0 |
 | `CCutsceneObject` | 6 | 0 | 6 | 0 |
@@ -9254,7 +9259,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPedGroupPlacer` | 4 | 0 | 4 | 0 |
 | `CPedGroups` | 11 | 0 | 11 | 0 |
 | `CPedIK` | 9 | 0 | 9 | 0 |
-| `CPedIntelligence` | 53 | 0 | 53 | 0 |
+| `CPedIntelligence` | 56 | 0 | 56 | 0 |
 | `CPedIntelligencePool` | 1 | 0 | 1 | 0 |
 | `CPedList` | 7 | 0 | 7 | 0 |
 | `CPedModelInfo` | 9 | 0 | 9 | 0 |
@@ -9264,7 +9269,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPedScriptedTaskRecord` | 5 | 0 | 5 | 0 |
 | `CPedScriptedTaskRecordData` | 8 | 0 | 8 | 0 |
 | `CPedShelterAttractor` | 4 | 0 | 4 | 0 |
-| `CPedStats` | 4 | 0 | 4 | 0 |
+| `CPedStats` | 5 | 0 | 5 | 0 |
 | `CPedStuckChecker` | 1 | 0 | 1 | 0 |
 | `CPedTaskPair` | 1 | 0 | 1 | 0 |
 | `CPedToPlayerConversations` | 3 | 0 | 3 | 0 |

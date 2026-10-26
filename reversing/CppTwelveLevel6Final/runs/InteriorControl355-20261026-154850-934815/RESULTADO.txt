@@ -1,0 +1,3 @@
+APROBADO: InteriorControl355
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-interior-control355\20261026-154850-934815
