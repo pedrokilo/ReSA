@@ -12867,5 +12867,61 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ sin llamadas al EXE por la función salvo los dos callbacks de la esfera (0x734970, 0x734ED0, que siguen siendo código del EXE; ver README del banco); los colaboradores se llaman en C++ y se sustituyen por falsos en el banco. Banco Helpers66D con 16384 pares y cero diferencias; EAX/ECX/EDX sólo registrados salvo EAX/AL que leen los llamadores. Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas desde el worktree D:/Original/wu-4 (HEAD 5765c0b5f + source.patch del lote 66D; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: RpClumpGetNumAtomics 0x7498E0, RpClumpForAllAtomics 0x749B70 (los callbacks 0x734970 y 0x734ED0 siguen siendo codigo del EXE y no se ejecutan: el falso escribe lo que dicta el caso), RwFrameGetLTM 0x7F0990, RwMatrixInvert 0x7F2070, RwV3dTransformPoints 0x7EDD90; CVector::Normalise 0x59C910, CrossProduct 0x59C730, CWorld::FindGroundZFor3DCoord 0x5696C0; CAutomobile::CAutomobile 0x6B0A90, CDamageManager::SetDoorStatus 0x6C21C0 y el rand() del CRT del EXE 0x821B1E. El pool de objetos (0xB7449C), el byte bUseLTM (0x8D60BC) y el temporizador (0xB7CB84) se fijan por caso y se restauran. Ningun llamador del EXE lee ECX/EDX; EAX = this (constructor), EAX = clump (esfera) y AL (camara) se exigen. createdBy del constructor solo se prueba en 0..255 (eVehicleCreatedBy es uint8: el EXE reenvia el dword completo al constructor base)."
+  },
+  "0x006E3950": {
+    "identity": "ProcessWeapons",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Entity/Vehicle/Vehicle.cpp",
+    "bank": "VehicleWeapons67",
+    "run": "20261026-090654-404276",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/VehicleWeapons67-20261026-090654-404276/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE para la propia funcion (los colaboradores sin reconstruir se llaman por direccion y el banco los sustituye por falsos identicos en ambos lados). Banco VehicleWeapons67 con 16384 pares y cero diferencias; EAX/ECX/EDX solo registrados (EAX de los HRESULT si se compara). Sin cobertura exhaustiva mas alla de los fixtures del banco. Validado en el worktree D:/Original/wy-1 (HEAD 1ca520153 + Vehicle.cpp/Vehicle.h del lote 67). Colaboradores sustituidos por falsos identicos en ambos lados (parche en la entrada del EXE y, si la DLL tiene hook, en el cuerpo de la DLL; no se validan sus cuerpos): FindPlayerVehicle (0x56E0D0), CWeaponEffects::ClearCrossHairImmediately (0x742CA0), GetPlaneWeaponFiringStatus (0x6E3440, sin hook: la DLL la llama por la direccion del EXE), SelectPlaneWeapon (0x6D4900; su falso conserva EDX como el original, del que ProcessWeapons depende), FirePlaneGuns (0x6D4D30), PossiblyDropFreeFallBombForPlayer (0x6E07E0), FireHeatSeakingMissile (0x6E05C0, sin hook), FireUnguidedMissile (0x6D5110), GetPlaneNumGuns (0x6D3F30) y FxSystem_c::SetMatrix (0x4AA630). Vehiculo (incluidos los campos del avion y del helicoptero), clump con su marco, lista de fogonazos y entidades son FALSOS en una arena; el banco no escribe ninguna global del juego. Los dos llamadores del EXE (0x6C7917 CHeli, 0x6C9348 CPlane) no leen EAX/ECX/EDX. GetPlaneWeaponFiringStatus pasa a devolver CEntity* (el original deja el objetivo en EAX y ProcessWeapons lo usa)."
+  },
+  "0x006E6870": {
+    "identity": "CWaterLevel::RenderSeaBedSegment",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/WaterLevel.cpp",
+    "bank": "Helpers67W",
+    "run": "20261026-090823-996861",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Helpers67W-20261026-090823-996861/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE y sin colaboradores (la aritmética x87 está en X87Math.cpp). Banco Helpers67W con 16384 pares y cero diferencias; EAX/ECX/EDX sólo registrados (los llamadores del EXE no los leen). Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-2 (HEAD 1ca520153 + source.patch del lote 67W; ver artifacts/build-manifest.json). La funcion no llama a ninguna otra: no hay colaboradores sustituidos. La aritmetica x87 de 24 bits vive en X87Math.cpp (Wl67SeaBedSegmentCpp). El banco guarda, rellena por caso y restaura la region del bufer temporal de agua [0xC4B950, 0xC5F958) (contadores, indices y vertices) y vigila 0x40 bytes a cada lado. Los contadores previos se prueban en 0..2044 (vertices) y 0..4090 (indices): la funcion no comprueba el desbordamiento del bufer y el banco no lo provoca. Los dos llamadores del EXE (0x6EF822, 0x6EF861) no leen EAX/ECX/EDX."
+  },
+  "0x00627B20": {
+    "identity": "CTaskSimpleGangDriveBy::SetupAnim",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp",
+    "bank": "LeaveCar67",
+    "run": "20261026-091000-667333",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/LeaveCar67-20261026-091000-667333/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE para la propia funcion (los colaboradores sin reconstruir se llaman por direccion y el banco los sustituye por falsos identicos en ambos lados). Banco LeaveCar67 con 16384 pares y cero diferencias; ECX/EDX solo registrados y EAX comparado donde un llamador lo lee. Sin cobertura exhaustiva mas alla de los fixtures del banco. Validado en el worktree D:/Original/wy-3 (HEAD 1ca520153 + TaskSimpleGangDriveBy.cpp/.h). CTaskSimpleGangDriveBy::SetupAnim 0x627B20 (thiscall, ret 4; ayudante de animacion de la tarea del tiroteo desde coche que llaman MakeAbortable 0x62D290 y ProcessPed 0x62D3B0; solo se lee AL: test al,al): CAnimManager::GetAnimBlockName 0x4D3A30, GetAnimationBlock(const char*) 0x4D3940, AddAnimBlockRef 0x4D3FB0 y BlendAnimation 0x4D4610, CStreaming::RequestModel 0x4087E0, CAnimBlendAssociation::SetDeleteCallback 0x4CEBC0 y SetCurrentTime 0x4CEA80, CPed::IsPlayer 0x5DF8F0 y rand() del EXE 0x821B1E sustituidos por falsos identicos en ambos lados; ms_aAnimAssocGroups (0xB4EA34) apunta a un arreglo falso de 256 grupos durante la llamada. Los callbacks 0x4D1390 y 0x621BE0 se pasan por direccion y no se ejecutan. Bloques del EXE con indice negativo (.rdata) para el desplazamiento aritmetico. La declaracion nueva es bool SetupAnim(CPed*) en TaskSimpleGangDriveBy.h; MakeAbortable y ProcessPed la llaman en C++ en lugar de por direccion."
+  },
+  "0x004650F0": {
+    "identity": "CDecisionMakerTypes::CDecisionMakerTypes",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp",
+    "bank": "Helpers67S",
+    "run": "20261026-091203-294853",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Helpers67S-20261026-091203-294853/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE (los constructores de CDecisionMaker/CDecision y SetDefault son C++ de la DLL; el banco lo comprueba con trampas en las cuatro entradas del EXE). Banco Helpers67S con 16384 pares y cero diferencias; EAX = this, ECX = fs:[0] de entrada y EDX = 0 exigidos. Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-4 (HEAD 1ca520153 + source.patch del lote 67S; ver artifacts/build-manifest.json). El constructor reconstruido no llama al EXE: el hook de CDecision::SetDefault (0x600530) permanece ENCENDIDO en ambos lados (su cuerpo es de la DLL y tiene su propio banco); las entradas 0x821D30, 0x4650A0 y 0x6040C0 del EXE llevan trampas en el candidato que cuentan las llamadas (cero en los 16384 pares). Se compara el objeto de 0xF1C0 bytes completo (CRC-32, incluido m_EventIndices, que el constructor no toca), la arena fuera del objeto, la region de globales 0xC0AFD0..0xC0B03F (banderas de grupo, ScriptReferenceIndex, m_IsActive, instancia intacta) y EAX = this, ECX = fs:[0] de entrada, EDX = 0 (GetInstance toma el EDX del constructor como residuo propio). No se ejercita la excepcion dentro del constructor (el marco SEH del EXE solo destruye los CDecisionMaker construidos si un constructor lanzara; ninguno puede). GetInstance (0x4684F0) sigue llamando al constructor por su direccion del EXE (que ahora salta al hook); su banco no forma parte de este."
   }
 }

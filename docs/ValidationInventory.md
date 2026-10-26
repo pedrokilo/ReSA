@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,901 entradas reversed=1**, de 8,901 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,905 entradas reversed=1**, de 8,905 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8901 |
+| `validated=1` · evidencia aprobada vinculada | 8905 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8901 |
+| Evidencia histórica vinculada; revisión pendiente | 8905 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -2240,6 +2240,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CDecisionMaker | `MakeDecision` | [Resumen](../reversing/Helpers65A/validation-summary.json) |
 | CDecisionMakerTypes | `AddDecisionMaker` | [Resumen](../reversing/DependenciesDecisionRelationship6/validation-summary.json) |
 | CDecisionMakerTypes | `AddEventResponse` | [Resumen](../reversing/DecisionAdd27/validation-summary.json) |
+| CDecisionMakerTypes | `Constructor` | [Resumen](../reversing/Helpers67S/validation-summary.json) |
 | CDecisionMakerTypes | `FlushDecisionMakerEventResponse` | [Resumen](../reversing/Dependencies25A/validation-summary.json) |
 | CDecisionMakerTypes | `GetInstance` | [Resumen](../reversing/DependenciesTask11/validation-summary.json) |
 | CDecisionMakerTypes | `LoadEventIndices` | [Resumen](../reversing/DependenciesDecisionRelationship6/validation-summary.json) |
@@ -6962,6 +6963,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleGangDriveBy | `MakeAbortable` | [Resumen](../reversing/DriveByPending/validation-summary.json) |
 | CTaskSimpleGangDriveBy | `PlayerTarget` | [Resumen](../reversing/Dependencies21D/validation-summary.json) |
 | CTaskSimpleGangDriveBy | `ProcessPed` | [Resumen](../reversing/DriveByPending/validation-summary.json) |
+| CTaskSimpleGangDriveBy | `SetupAnim` | [Resumen](../reversing/LeaveCar67/validation-summary.json) |
 | CTaskSimpleGetUp | `Constructor` | [Resumen](../reversing/STasks43/validation-summary.json) |
 | CTaskSimpleGetUp | `FinishGetUpAnimCB` | [Resumen](../reversing/STasks43/validation-summary.json) |
 | CTaskSimpleGetUp | `MakeAbortable` | [Resumen](../reversing/STasks43/validation-summary.json) |
@@ -7722,6 +7724,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicle | `ProcessDrivingAnims` | [Resumen](../reversing/CVehD/validation-summary.json) |
 | CVehicle | `ProcessOpenDoor` | [Resumen](../reversing/CVehD/validation-summary.json) |
 | CVehicle | `ProcessSirenAndHorn` | [Resumen](../reversing/Vehicle66/validation-summary.json) |
+| CVehicle | `ProcessWeapons` | [Resumen](../reversing/VehicleWeapons67/validation-summary.json) |
 | CVehicle | `ProcessWheel` | [Resumen](../reversing/CVehD/validation-summary.json) |
 | CVehicle | `ProcessWheelRotation` | [Resumen](../reversing/CVehD/validation-summary.json) |
 | CVehicle | `QueryPickedUpEntityWithWinch` | [Resumen](../reversing/CVehE/validation-summary.json) |
@@ -8045,6 +8048,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CWaterLevel | `RenderFlatWaterTriangle_OneLayer` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CWaterLevel | `RenderHighDetailWaterRectangle` | [Resumen](../reversing/WaterLevel62/validation-summary.json) |
 | CWaterLevel | `RenderHighDetailWaterTriangle` | [Resumen](../reversing/WaterLevel62/validation-summary.json) |
+| CWaterLevel | `RenderSeaBedSegment` | [Resumen](../reversing/Helpers67W/validation-summary.json) |
 | CWaterLevel | `RenderWakeSegment` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CWaterLevel | `RenderWater` | [Resumen](../reversing/WaterRender355/validation-summary.json) |
 | CWaterLevel | `RenderWaterFog` | [Resumen](../reversing/WaterFog355/validation-summary.json) |
@@ -9071,7 +9075,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CDebug` | 1 | 0 | 1 | 0 |
 | `CDecision` | 5 | 0 | 5 | 0 |
 | `CDecisionMaker` | 1 | 0 | 1 | 0 |
-| `CDecisionMakerTypes` | 9 | 0 | 9 | 0 |
+| `CDecisionMakerTypes` | 10 | 0 | 10 | 0 |
 | `CDecisionMakerTypesFileLoader` | 7 | 0 | 7 | 0 |
 | `CDirectory` | 10 | 0 | 10 | 0 |
 | `CDoor` | 6 | 0 | 6 | 0 |
@@ -9573,7 +9577,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleFight` | 13 | 0 | 13 | 0 |
 | `CTaskSimpleFightingControl` | 7 | 0 | 7 | 0 |
 | `CTaskSimpleFinishBrain` | 2 | 0 | 2 | 0 |
-| `CTaskSimpleGangDriveBy` | 9 | 0 | 9 | 0 |
+| `CTaskSimpleGangDriveBy` | 10 | 0 | 10 | 0 |
 | `CTaskSimpleGetUp` | 5 | 0 | 5 | 0 |
 | `CTaskSimpleGiveCPR` | 6 | 0 | 6 | 0 |
 | `CTaskSimpleGoTo` | 4 | 0 | 4 | 0 |
@@ -9662,7 +9666,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTxdStore` | 26 | 0 | 26 | 0 |
 | `CUpsideDownCarCheck` | 5 | 0 | 5 | 0 |
 | `CUserDisplay` | 2 | 0 | 2 | 0 |
-| `CVehicle` | 156 | 0 | 156 | 0 |
+| `CVehicle` | 157 | 0 | 157 | 0 |
 | `CVehicleAnimGroup` | 5 | 0 | 5 | 0 |
 | `CVehicleAnimGroupData` | 5 | 0 | 5 | 0 |
 | `CVehicleModelInfo` | 75 | 0 | 75 | 0 |
@@ -9674,7 +9678,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CWanted` | 33 | 0 | 33 | 0 |
 | `CWaterCannon` | 5 | 0 | 5 | 0 |
 | `CWaterCannons` | 4 | 0 | 4 | 0 |
-| `CWaterLevel` | 39 | 0 | 39 | 0 |
+| `CWaterLevel` | 40 | 0 | 40 | 0 |
 | `CWeapon` | 41 | 0 | 41 | 0 |
 | `CWeaponEffects` | 9 | 0 | 9 | 0 |
 | `CWeaponInfo` | 10 | 0 | 10 | 0 |

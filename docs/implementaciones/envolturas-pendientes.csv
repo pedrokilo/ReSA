@@ -209,10 +209,8 @@ class,function,address,source,origins
 (helpers y globales sin clase),ComputeTargetDoorToExit,,source/game_sa/Scripts/Commands/CharacterCommands.cpp:3287,envoltura en el código fuente
 (helpers y globales sin clase),CPathFind generador de coordenadas de ped sin símbolo confirmado,0x0044E790,source/game_sa/Population.cpp:2090,cohorte 499
 (helpers y globales sin clase),Creación de objeto toalla para sunbathe sin símbolo confirmado,0x006EABA0,source/game_sa/Population.cpp:2012; source/game_sa/Population.cpp:2026,cohorte 499
-(helpers y globales sin clase),CTaskSimpleGangDriveBy helper de animación sin símbolo confirmado,0x00627B20,source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:92; source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:182,cohorte 499
 (helpers y globales sin clase),CTaskSimpleGangDriveBy helper para shooter sin símbolo confirmado,0x00627CC0,source/game_sa/Cam.cpp:2398; source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:185,cohorte 499
 (helpers y globales sin clase),CWaterLevel helper de agua cercana,0x006E6A10,source/game_sa/WaterLevel.cpp:1557,cohorte 499
-(helpers y globales sin clase),CWaterLevel helper de agua distante,0x006E6870,source/game_sa/WaterLevel.cpp:1556,cohorte 499
 (helpers y globales sin clase),ExeFree,,source/game_sa/RenderWare/D3DResourceSystem.cpp:79,envoltura en el código fuente
 (helpers y globales sin clase),FightChooseAttackAIExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:381,envoltura en el código fuente
 (helpers y globales sin clase),FightChooseAttackPlayerExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:377,envoltura en el código fuente
@@ -307,13 +305,12 @@ CTaskComplexLeaveCar,CreateSubTask,0x00641530,source/game_sa/Tasks/TaskTypes/Tas
 CTaskComplexLeaveCar,MakeAbortable,0x00641100,source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp:54,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CVehicle,AddReplacementUpgrade,0x006D3830,source/game_sa/Entity/Vehicle/Vehicle.cpp:2742,cohorte nuevo 2026-10-17
 CVehicle,AddSingleWheelParticles,0x006DE880,source/game_sa/Entity/Vehicle/Vehicle.cpp:4787,cohorte 499
-CVehicle,DoDriveByShootings,0x00741FD0,source/game_sa/Entity/Vehicle/Vehicle.cpp:8183,cohorte 499 + envoltura en el código fuente
-CVehicle,FireFixedMachineGuns,0x0073DF00,source/game_sa/Entity/Vehicle/Vehicle.cpp:8178,cohorte 499 + envoltura en el código fuente
+CVehicle,DoDriveByShootings,0x00741FD0,source/game_sa/Entity/Vehicle/Vehicle.cpp:8269,cohorte 499 + envoltura en el código fuente
+CVehicle,FireFixedMachineGuns,0x0073DF00,source/game_sa/Entity/Vehicle/Vehicle.cpp:8264,cohorte 499 + envoltura en el código fuente
 CVehicle,FireHeatSeakingMissile,0x006E05C0,source/game_sa/Entity/Vehicle/Vehicle.cpp:7287,cohorte nuevo 2026-10-17
 CVehicle,GetPlaneWeaponFiringStatus,0x006E3440,source/game_sa/Entity/Vehicle/Vehicle.cpp:7844,cohorte nuevo 2026-10-17
 CVehicle,InflictDamage,0x006D7C90,source/game_sa/Entity/Vehicle/Vehicle.cpp:3738,cohorte 499
 CVehicle,ProcessBikeWheel,0x006D73B0,source/game_sa/Entity/Vehicle/Vehicle.cpp:3718,cohorte 499 + envoltura en el código fuente
-CVehicle,ProcessWeapons,0x006E3950,source/game_sa/Entity/Vehicle/Vehicle.cpp:5196,cohorte 499
 CVehicle,ScanAndMarkTargetForHeatSeekingMissile,0x006E0400,source/game_sa/Entity/Vehicle/Vehicle.cpp:7282,cohorte nuevo 2026-10-17
 CVehicle,UpdateTractorLink,0x006E0050,source/game_sa/Entity/Vehicle/Vehicle.cpp:4837,cohorte 499
 CVehicle,UpdateTrailerLink,0x006DFC50,source/game_sa/Entity/Vehicle/Vehicle.cpp:4832,cohorte 499

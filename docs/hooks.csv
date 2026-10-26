@@ -8900,3 +8900,7 @@ RwHelper,RpClumpGetBoundingSphere,0x00734FC0,1,0,1,S
 CGarage,FindDoorsWithGarage,0x00449FF0,1,0,1,S
 CCam,GetArrestCamCopSourceSide,0x00516010,1,0,1,S
 CHeli,Constructor,0x006C4190,1,0,1,S
+CVehicle,ProcessWeapons,0x006E3950,1,0,1,S
+CWaterLevel,RenderSeaBedSegment,0x006E6870,1,0,1,S
+CTaskSimpleGangDriveBy,SetupAnim,0x00627B20,1,0,1,S
+CDecisionMakerTypes,Constructor,0x004650F0,1,0,1,S
