@@ -298,7 +298,7 @@ inline json EventsJson() {
 inline void BuildArena(const Spec& s,unsigned n) {
     for(u32 i=0;i<kArenaWords;++i)Arena[i]=FillWord(s.fn,n,i);
     S8(oClump,2);   // RwObject.type = rpCLUMP
-    S16(oVeh+kVModel,kVehModelSlot);
+    S16(oVeh+kVModel,s.v[kVehIdx]);   // indice del model info del vehiculo (int16 con signo en el EXE; aqui siempre 0..19999)
     W(oVeh+kVHandling)=A(oHnd);
     W(oVeh+kVClump)=s.v[kClumpOn]?A(oClump):0u;
     W(oVMi+kMiPlateMat)=s.v[kPlateMat];
@@ -312,16 +312,25 @@ inline void BuildArena(const Spec& s,unsigned n) {
     ArenaInit=Arena;
 }
 
-// Globales que el banco escribe durante un caso: ms_modelInfoPtrs[15..19] y ms_bCreateDamagedVersion (0xA9B0B0, que la funcion deja a 0: se registra y se repone).
+// Globales que el banco escribe durante un caso: las ranuras del pool de ms_modelInfoPtrs (kSlotPool: 415 entradas DENTRO de la tabla de 20000; en cada caso se instalan los model infos falsos
+// en las ranuras v[kModel] y v[kVehIdx] y las demas conservan su valor) y ms_bCreateDamagedVersion (0xA9B0B0, que la funcion deja a 0: se registra y se repone).
 struct Globals {
-    std::array<u32,5> slots{};u8 dmg{};
-    static Globals Capture(){Globals g;for(u32 i=0;i<5;++i)g.slots[i]=reinterpret_cast<u32*>(kModelInfoPtrs)[kVehModelSlot+i];g.dmg=*reinterpret_cast<u8*>(kDamagedFlag);return g;}
-    void Apply()const{for(u32 i=0;i<5;++i)reinterpret_cast<u32*>(kModelInfoPtrs)[kVehModelSlot+i]=slots[i];*reinterpret_cast<u8*>(kDamagedFlag)=dmg;}
+    std::array<u32,kPoolSize> slots{};u8 dmg{};
+    static Globals Capture(){Globals g;for(u32 i=0;i<kPoolSize;++i)g.slots[i]=reinterpret_cast<u32*>(kModelInfoPtrs)[kSlotPool[i]];g.dmg=*reinterpret_cast<u8*>(kDamagedFlag);return g;}
+    void Apply()const{for(u32 i=0;i<kPoolSize;++i)reinterpret_cast<u32*>(kModelInfoPtrs)[kSlotPool[i]]=slots[i];*reinterpret_cast<u8*>(kDamagedFlag)=dmg;}
     bool operator==(const Globals& o)const{return slots==o.slots&&dmg==o.dmg;}
 };
+inline unsigned PoolPos(u32 index){
+    const auto it=std::lower_bound(kSlotPool.begin(),kSlotPool.end(),index);
+    return it!=kSlotPool.end()&&*it==index?unsigned(it-kSlotPool.begin()):kPoolSize;
+}
 inline Globals CaseGlobals(const Spec& s,const Globals& base){
     Globals g=base;
-    g.slots[0]=A(oVMi);for(u32 i=0;i<4;++i)g.slots[1+i]=A(oU0+0x40*i);
+    const unsigned pm=PoolPos(s.v[kModel]),pv=PoolPos(s.v[kVehIdx]);
+    if(pm<kPoolSize&&pv<kPoolSize&&pm!=pv){
+        g.slots[pv]=A(oVMi);                                // model info del vehiculo en [this+0x22]
+        g.slots[pm]=A(oU0+0x40*(s.v[kModel]&3));            // model info de la mejora en modelIndex
+    }
     g.dmg=u8(s.v[kDmgInit]);
     return g;
 }
@@ -375,7 +384,7 @@ inline void Run(Env& env,bool ready,const json& registered,const json& bodies,co
         {"direct_functions",json::array()},{"compare_dead_x87_registers",kCompareDeadX87Registers},{"compare_volatile_registers",kCompareVolatileRegisters},
         {"x87_comparison","fcw+top+ftw+valid_st; ignora FSW banderas/CC, FIP/FDP y registros vacios; MXCSR sin banderas"},{"collaborators_stubbed",true},
         {"collaborators",collaborators},{"watched_entries",watched},{"bodies",bodies},{"asi_module",env.asi},{"original_module",env.game},{"arena_size",kArenaSize},
-        {"initial_fp",HexBytes(savedFP.data(),108)},{"initial_mxcsr",savedMXCSR}});
+        {"initial_fp",HexBytes(savedFP.data(),108)},{"initial_mxcsr",savedMXCSR},{"mxcsr_ftz",(savedMXCSR&0x8000u)!=0},{"slot_pool",kPoolSize},{"num_model_infos",kNumModelInfos}});
     Totals totals;
     if(ready) {
         for(u32 fn=0;fn<kFns;++fn) {

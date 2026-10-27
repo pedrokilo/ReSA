@@ -2801,7 +2801,8 @@ void CVehicle::AddReplacementUpgrade(int32 modelIndex, int32 nodeId) {
             // Como el original: el marco del atomo nuevo recibe x = -2 * x del marco del componente (0x858B18 = -2.0f, leido tras la llamada)
             auto* const replacement = CreateReplacementAtomic(mi, frame, static_cast<eAtomicComponentFlag>(flags), false, true);
             auto* const matrix = RwFrameGetMatrix(RpAtomicGetFrame(replacement));
-            matrix->pos.x = RwFrameGetMatrix(frame)->pos.x * -2.0f;
+            // x87 del EXE (fld/fmul/fstp, 24 bits): los desnormales se conservan aunque el juego corra con MXCSR FTZ (ayudante de X87Math.cpp, compilado con /arch:IA32)
+            AddReplUpgradeExhaustXCpp(&RwFrameGetMatrix(frame)->pos.x, &matrix->pos.x);
             RwMatrixUpdate(matrix);
         }
     } else if (nodeId == 0xC || nodeId == 0xD) {

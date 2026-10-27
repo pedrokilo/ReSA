@@ -59,6 +59,10 @@ def analyze(path):
     b = begin[0]
     if b.get('compare_dead_x87_registers') is not False or b.get('compare_volatile_registers') is not False:
         raise RuntimeError('Configuracion de compuertas inesperada (ver README.md): x87 normalizado y ECX/EDX solo registrados')
+    if b.get('mxcsr_ftz') is not True or (b['initial_mxcsr'] & 0x8000) == 0:
+        raise RuntimeError('El banco no corre con MXCSR FTZ (estado del juego): los desnormales de x no se estarian probando como en el juego')
+    if b.get('slot_pool') != len(oracle.SLOT_POOL) or b.get('num_model_infos') != oracle.NUM_MODEL_INFOS:
+        raise RuntimeError('Pool de ranuras de ms_modelInfoPtrs inesperado')
     if b['pairs'] != sum(EXPECTED.values()) or b['cases'] != EXPECTED or b['functions'] != len(NAMES):
         raise RuntimeError('Numero de pares inesperado')
     if set(b['registered']) != set(HOOKS) or not all(b['registered'].values()) or set(b['bodies']) != set(HOOKS) or not all(b['bodies'].values()):
@@ -110,7 +114,7 @@ def analyze(path):
         raise RuntimeError('Final sin restauracion exacta')
     state = [r for r in rows if r['event'] == 'global_state_final']
     if len(state) != 1 or state[0]['floating_state'] != b['initial_fp'] or state[0]['watched_intact'] is not True or state[0]['state_restored'] is not True or state[0]['region_restored'] is not True:
-        raise RuntimeError('El x87, los hooks, las entradas vigiladas o las globales escritas por el banco (ms_modelInfoPtrs[15..19], ms_bCreateDamagedVersion) no se restauraron')
+        raise RuntimeError('El x87, los hooks, las entradas vigiladas o las globales escritas por el banco (las 415 ranuras del pool de ms_modelInfoPtrs, ms_bCreateDamagedVersion) no se restauraron')
     summary['compare_dead_x87_registers'] = False
     summary['coverage'] = cov
     summary['coverage_method'] = 'serialized_inputs_and_independent_oracle; no_instruction_branch_tracing'

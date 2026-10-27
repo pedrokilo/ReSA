@@ -1,4 +1,4 @@
-"""Compuertas del banco FightHitObj72 (lote 72): CTaskSimpleFight::FightHitObj (EXE 0x61D400, hook S), 16384 pares.
+"""Compuertas del banco FightHitObj72 (lote 72): CTaskSimpleFight::FightHitObj (EXE 0x61D400, hook S), 19864 pares.
 
 Ademas de la igualdad EXE/DLL fila a fila (probe_case.analyzer), exige hook S registrado y cuerpo en el ASI, todas las compuertas de ABI/ruta/DF/SEH/restauracion en AMBOS lados,
 fp_difference vacio, la cobertura por familia de las fixtures y la cobertura de ramas medida sobre las entradas y los eventos (coverage.json = minimos).
@@ -15,7 +15,9 @@ from probe_case import analyzer as common_analyzer
 HERE = Path(__file__).resolve().parent
 
 NAMES = ['CTaskSimpleFight::FightHitObj']
-CASES = 16384
+BASE_CASES = 16384
+FAMILY_SIZES = {16: 1024, 17: 1024, 18: 1176, 19: 256}   # familias nuevas (2026-10-26); las 16 primeras: 1024 cada una
+CASES = BASE_CASES + sum(FAMILY_SIZES.values())
 EXPECTED = {n: CASES for n in NAMES}
 GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh_restored', 'route_ok', 'collaborators_dll', 'globals_restored', 'floating_state_restored')
 HOOKS = {NAMES[0]: 0x61D400}
@@ -35,6 +37,14 @@ def is_inf(b):
     return (b & 0x7FFFFFFF) == 0x7F800000
 
 
+def is_snan(b):
+    return is_nan(b) and not b & 0x400000
+
+
+def nan_class(b):
+    return 'snan' if is_snan(b) else 'qnan'
+
+
 def f32(bits):
     return struct.unpack('<f', struct.pack('<I', bits))[0]
 
@@ -43,7 +53,11 @@ def is_denormal_bits(b):
     return (b & 0x7F800000) == 0 and (b & 0x7FFFFF) != 0
 
 
-def tally(inp, events, cov):
+def s32(v):
+    return v - (1 << 32) if v & 0x80000000 else v
+
+
+def tally(inp, events, cov, sets):
     """cobertura de ramas desde la entrada y la traza de eventos"""
     k = [e[0] for e in events]
     live = inp['effect'] < 0xC8 and inp['phys_flags'] & 4 == 0
@@ -99,6 +113,45 @@ def tally(inp, events, cov):
     add('surface_high', inp['surface'] >= 0x80)
     add('combo_negative', (inp['combo'] & 0x80000000) != 0 or (inp['move'] & 0x80000000) != 0)
 
+    # ---- 2026-10-26: NaN no canonicos (restas con dos NaN), un NaN, barridos de la tabla de sonidos y de la superficie
+    if ap:
+        p1e = [inp['mutp_x'], inp['mutp_y'], inp['mutp_z']] if inp['mut_posn1'] else [inp['p1_x'], inp['p1_y'], inp['p1_z']]
+        pos = [inp['pos_x'], inp['pos_y'], inp['pos_z']]
+        point = ap[0][5:8]
+        for a, b, r in zip(p1e, pos, point):
+            if is_nan(a) and is_nan(b):
+                add('sub_two_nan_axes')
+                add('sub_two_nan_qnan_qnan', not is_snan(a) and not is_snan(b))
+                add('sub_two_nan_snan_snan', is_snan(a) and is_snan(b))
+                add('sub_two_nan_mixed_type', is_snan(a) != is_snan(b))
+                add('sub_two_nan_same_sign', (a >> 31) == (b >> 31))
+                add('sub_two_nan_opposite_sign', (a >> 31) != (b >> 31))
+                add('sub_two_nan_same_significand', ((a | 0x400000) & 0x7FFFFF) == ((b | 0x400000) & 0x7FFFFF) and a != b)
+                add('sub_two_nan_p1_larger', ((a | 0x400000) & 0x7FFFFF) > ((b | 0x400000) & 0x7FFFFF))
+                add('sub_two_nan_pos_larger', ((b | 0x400000) & 0x7FFFFF) > ((a | 0x400000) & 0x7FFFFF))
+                add('sub_two_nan_result_from_p1', r == (a | 0x400000))
+                add('sub_two_nan_result_from_pos', r == (b | 0x400000))
+                add('sub_two_nan_result_other', r != (a | 0x400000) and r != (b | 0x400000))
+            elif is_nan(a) or is_nan(b):
+                add('sub_one_nan_noncanonical', (a if is_nan(a) else b) not in (0x7FC00000, 0xFFC00000))
+                add('sub_one_snan', is_snan(a) or is_snan(b))
+        add('sub_two_nan_case', any(is_nan(a) and is_nan(b) for a, b in zip(p1e, pos)))
+        add('force_normal_noncanonical_nan', any(is_nan(v) and v not in (0x7FC00000, 0xFFC00000) for v in (inp['n2_x'], inp['n2_y'], inp['n2_z'])))
+        add('force_normal_snan', any(is_snan(v) for v in (inp['n2_x'], inp['n2_y'], inp['n2_z'])))
+    add('damage_noncanonical_nan', is_nan(inp['damage']) and inp['damage'] not in (0x7FC00000, 0xFFC00000))
+    add('damage_snan', is_snan(inp['damage']))
+    add('mult_noncanonical_nan', live and is_nan(inp['mult']) and inp['mult'] not in (0x7FC00000, 0xFFC00000))
+    add('uproot_noncanonical_nan', live and is_nan(inp['uproot']) and inp['uproot'] not in (0x7FC00000, 0xFFC00000) and (inp['flags'] & 0x40004) != 0)
+    combo, move = s32(inp['combo']), s32(inp['move'])
+    sets['hit_grid'].add((combo, move)) if inp['family'] == 18 else None
+    if 4 <= combo <= 15 and 0 <= move <= 4:
+        sets['hit_real_pairs'].add((combo, move))
+    if -8 <= combo <= 15 and -8 <= move <= 40:
+        sets['hit_extended_pairs'].add((combo, move))
+    sets['surface_values'].add(inp['surface'])
+    add('surface_sweep_case', inp['family'] == 19)
+    add('grid_case', inp['family'] == 18)
+
 
 def analyze(path):
     path = Path(path)
@@ -130,6 +183,7 @@ def analyze(path):
     seen = {fn: set() for fn in NAMES}
     fam = {fn: {} for fn in NAMES}
     cov = {fn: {} for fn in NAMES}
+    sets = {fn: {k: set() for k in ('hit_grid', 'hit_real_pairs', 'hit_extended_pairs', 'surface_values')} for fn in NAMES}
     for row in rows:
         if row['event'].startswith('first_chance_av'):
             raise RuntimeError('Acceso invalido')
@@ -149,13 +203,20 @@ def analyze(path):
         f = row['input']['family']
         fam[fn][f] = fam[fn].get(f, 0) + 1
         obs = row['candidate']['observed']
-        tally(row['input'], obs['events'], cov[fn])
+        tally(row['input'], obs['events'], cov[fn], sets[fn])
     for fn in NAMES:
         if seen[fn] != set(range(CASES)):
             raise RuntimeError('Cobertura incompleta en ' + fn)
         short = {k: v for k, v in fam[fn].items() if v < 200}
-        if len(fam[fn]) != 16 or short:
+        expected_fam = {f: 1024 for f in range(16)}
+        expected_fam.update(FAMILY_SIZES)
+        if len(fam[fn]) != 20 or short or fam[fn] != expected_fam:
             raise RuntimeError('Cobertura por familia insuficiente en %s: %s' % (fn, fam[fn]))
+        # valores DISTINTOS cubiertos (barridos exhaustivos): se miden con conjuntos, no con contadores
+        cov[fn]['distinct_hit_grid_pairs'] = len(sets[fn]['hit_grid'])
+        cov[fn]['distinct_hit_real_pairs'] = len(sets[fn]['hit_real_pairs'])
+        cov[fn]['distinct_hit_extended_pairs'] = len(sets[fn]['hit_extended_pairs'])
+        cov[fn]['distinct_surface_values'] = len(sets[fn]['surface_values'])
         for key, minimum in COVER.get(fn, {}).items():
             if cov[fn].get(key, 0) < minimum:
                 raise RuntimeError('Cobertura de ramas insuficiente en %s: %s %d < %d' % (fn, key, cov[fn].get(key, 0), minimum))

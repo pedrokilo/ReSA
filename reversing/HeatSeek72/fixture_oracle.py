@@ -44,9 +44,11 @@ def expected(c):
         else:
             post_v ^= c['mut_tgt'] if c['tgt_kind'] == 2 else 0
         vflags_new = (post_v & ~1 & M32) | (c['vflags'] & 1)
-        visible = c['los'] & 1
+        # 6E054B `test al,al`: visible = AL != 0 (AL entero, no solo el bit 0); 6E0524 `movzx ecx,al; shl ecx,0x1F`: el estado guardado lleva solo el bit 0 de AL
+        al = c['los_al'] & 0xFF
+        visible = 1 if al != 0 else 0
         if plane:
-            pstate_new = (1 if c['time'] > 1 else 0) | (visible << 31)
+            pstate_new = (1 if c['time'] > 1 else 0) | ((al & 1) << 31)
     else:
         visible = ((c['pstate'] >> 31) & 1) if plane else 1
     if not visible:
@@ -86,12 +88,14 @@ def main(path):
         if c['tgt_kind'] == 1 and not tgt_changes:
             pass
         want = [veh_changes, tgt_changes, [], [], []]
+        # estado del avion y subtipo leidos por los miembros reales de CPlane (field_9E4 / m_nVehicleSubType); el subtipo no cambia
+        want_state, want_sub = ps, c['sub_type']
         for side in ('original', 'candidate'):
             o = row[side]['observed']
-            if o['eax'] != eax or o['events'] != ev or o['changes'] != want:
+            if o['eax'] != eax or o['events'] != ev or o['changes'] != want or o['plane_state'] != want_state or o['plane_sub'] != want_sub:
                 bad += 1
                 if bad <= 5:
-                    print('DIFIERE', side, row['case'], 'eax', o['eax'], eax, '\n  events', o['events'], '\n  model ', ev, '\n  changes', o['changes'], '\n  model  ', want)
+                    print('DIFIERE', side, row['case'], 'eax', o['eax'], eax, '\n  events', o['events'], '\n  model ', ev, '\n  changes', o['changes'], '\n  model  ', want, '\n  plane', o['plane_state'], want_state, o['plane_sub'], want_sub)
         checked += 1
     print('casos comprobados', checked, 'lados distintos del modelo', bad)
     return 1 if bad else 0

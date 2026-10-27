@@ -15409,3 +15409,12 @@ __declspec(noinline) float __cdecl FightHitObjDamageCpp(float damage) {
     return scaled;
 }
 #pragma float_control(pop)
+
+// --- Lote 72b (ReplUpgrade72b) ---
+#pragma float_control(precise, on, push)
+// 0x6D3946..0x6D3956 (CVehicle::AddReplacementUpgrade, nodo 0x13 con m_bDoubleExhaust): fld dword [x del marco del componente]; fmul dword [0x858B18] (-2.0f); fstp dword [x del marco nuevo].
+// Compilado con /arch:IA32 (x87): un desnormal de entrada da un desnormal de salida (exacto), no el cero que daria mulss con FTZ.
+__declspec(noinline) void __cdecl AddReplUpgradeExhaustXCpp(const float* x, float* out) {
+    *out = *x * std::bit_cast<float>(0xC0000000u);
+}
+#pragma float_control(pop)

@@ -8,7 +8,7 @@ from probe_build import build
 if __name__ == '__main__':
     print(json.dumps(build(Path(__file__).parent, 'replupgrade72', 'R72Live',
         ['source/CMakeLists.txt', 'source/InjectHooksMain.cpp',
-         'source/game_sa/Entity/Vehicle/Vehicle.cpp', 'source/game_sa/Entity/Vehicle/Vehicle.h',
+         'source/game_sa/Entity/Vehicle/Vehicle.cpp', 'source/game_sa/Entity/Vehicle/Vehicle.h', 'source/game_sa/X87Math.cpp', 'source/game_sa/X87Math.h',
          'reversing/OriginalDependencies499/HookRoute.hpp',
          'reversing/ReplUpgrade72/LiveComparison.hpp', 'reversing/ReplUpgrade72/Core.hpp', 'reversing/ReplUpgrade72/Fixtures.hpp',
          'source/reversiblehooks/ReversibleHook/Simple.h', 'source/reversiblehooks/ReversibleHook/Simple.cpp'])))

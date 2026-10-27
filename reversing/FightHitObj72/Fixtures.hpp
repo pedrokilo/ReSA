@@ -4,7 +4,7 @@
 //
 //   0 CTaskSimpleFight::FightHitObj  0x61D400  (CPed* creador, CObject* objeto, CVector* posn1, CVector* posn2, uint32 componente, uint32 superficie)   (hook CTaskSimpleFight / FightHitObj, tipo S)
 //
-// Todos los floats viajan como patrones de 32 bits sin signo. Reparto: familia = n % 16 (1024 casos por familia).
+// Todos los floats viajan como patrones de 32 bits sin signo. Reparto: n < 16384: familia = n % 16 (1024 casos por familia); despues las familias 16..19 (ver MakeExtra).
 #include <algorithm>
 #include <array>
 #include <bit>
@@ -24,8 +24,14 @@ using u32 = std::uint32_t;
 using i32 = std::int32_t;
 using u64 = std::uint64_t;
 
-constexpr unsigned kCases = 16384;
-constexpr unsigned kFamilies = 16;
+constexpr unsigned kBaseCases = 16384;     // familias 0..15 (n % 16), 1024 casos cada una
+constexpr unsigned kFamNan = 1024;         // familia 16: dos NaN no canonicos en la misma resta (posn1 - pos)
+constexpr unsigned kFamNanOne = 1024;      // familia 17: un solo NaN no canonico (resta, producto de la fuerza, danio, umbrales)
+constexpr unsigned kComboLo = 8, kComboN = 24, kMoveLo = 8, kMoveN = 49;   // combo -8..15, movimiento -8..40
+constexpr unsigned kFamGrid = kComboN * kMoveN;   // familia 18: barrido exhaustivo del indice de la tabla de sonidos (1176)
+constexpr unsigned kFamSurface = 256;      // familia 19: barrido exhaustivo de la superficie 0..255 con los 60 pares reales (combo 4..15, movimiento 0..4)
+constexpr unsigned kCases = kBaseCases + kFamNan + kFamNanOne + kFamGrid + kFamSurface;
+constexpr unsigned kFamilies = 20;
 constexpr unsigned kFunctions = 1;
 
 // Arenas: guarda + ventana + guarda (la ventana es el objeto)
@@ -117,10 +123,10 @@ struct C {
 // Ya se cumplen (o no) las tres puertas de la fuerza / del bloque de SetIsStatic?
 inline bool MultOk(u32 mult) { return F(mult) < 99.9f; }   // NaN da false
 
-inline C MakeC(unsigned n) {
+inline C BaseDefaults(unsigned n) {
     C c;
     c.n = n;
-    c.family = n % kFamilies;
+    c.family = n % 16;
     c.seed = Rand(n, 7);
     c.eax = SeedReg(n, 1); c.edx = SeedReg(n, 2); c.stack = StackSeed(n);
     const bool special = (n / 16) % 4 == 3;
@@ -152,6 +158,98 @@ inline C MakeC(unsigned n) {
         c.mutN[i] = World(n, 70 + i, false);
         c.mutP[i] = World(n, 80 + i, false);
     }
+    return c;
+}
+
+// Dos NaN en un mismo operando de la x87 (fsub): la unidad elige el de mayor significando (tras quitar la bandera de «silencioso» a los sNaN); con igual significando depende del signo.
+// NaN con signo, carga util y tipo (QNaN/SNaN) arbitrarios; `kind`: 0 QNaN, 1 SNaN, otro = aleatorio.
+inline u32 NanBits(u32 c, u32 k, u32 kind) {
+    const u32 r = Rand(c, k), s = Rand(c, k + 1);
+    u32 payload;
+    switch (s % 6) {
+    case 0: payload = 0; break;
+    case 1: payload = 1 + (r % 0xFF); break;
+    case 2: payload = 0x3FFFFFu; break;
+    case 3: payload = 0x200000u | (r & 0xFFu); break;
+    case 4: payload = 0x1FFFFFu; break;
+    default: payload = (r >> 3) & 0x3FFFFFu; break;
+    }
+    const bool quiet = kind == 0 ? true : kind == 1 ? false : ((r >> 30) & 1) != 0;
+    if (!quiet && payload == 0) payload = 1;   // un sNaN exige carga util distinta de cero
+    return ((r >> 31) << 31) | 0x7F800000u | (quiet ? 0x400000u : 0u) | payload;
+}
+inline u32 Quiet(u32 b) { return b | 0x400000u; }
+
+inline C MakeC(unsigned n);
+inline C MakeExtra(unsigned n) {
+    C c = BaseDefaults(n);
+    const unsigned j = n - kBaseCases;
+    if (j < kFamNan) {   // familia 16: dos NaN en la resta de la fuerza (posn1 - posicion del objeto); el bloque de la fuerza se cumple siempre
+        c.family = 16;
+        c.mutPosn1 = Rand(n, 200) % 4 == 0;
+        u32* effective = c.mutPosn1 ? c.mutP : c.p1;
+        for (int i = 0; i < 3; ++i) {
+            u32 a, b;
+            switch (Rand(n, 201 + i) % 10) {
+            case 0: a = NanBits(n, 210 + 4 * i, 0); b = NanBits(n, 211 + 4 * i, 0); break;                    // dos QNaN independientes
+            case 1: a = NanBits(n, 210 + 4 * i, 1); b = NanBits(n, 211 + 4 * i, 1); break;                    // dos sNaN
+            case 2: a = NanBits(n, 210 + 4 * i, 2); b = NanBits(n, 211 + 4 * i, 2); break;                    // al azar
+            case 3: a = NanBits(n, 210 + 4 * i, 2); b = a ^ 0x80000000u; break;                               // mismo significando, signo opuesto
+            case 4: a = NanBits(n, 210 + 4 * i, 2); b = a; break;                                              // bits identicos
+            case 5: b = NanBits(n, 210 + 4 * i, 0); a = (b & 0xFFBFFFFFu) | 0x00000000u; if ((a & 0x3FFFFFu) == 0) a |= 1u; break;   // sNaN con la misma carga util que un QNaN
+            case 6: a = NanBits(n, 210 + 4 * i, 0); b = (a & 0xFFBFFFFFu); if ((b & 0x3FFFFFu) == 0) b |= 1u; break;                   // QNaN contra sNaN
+            case 7: a = 0x7FC00000u | (Rand(n, 214 + i) & 0x3FFFFFu); b = 0x7FC00000u | (Rand(n, 215 + i) & 0x3FFFFFu); if (Rand(n, 216 + i) % 2) std::swap(a, b); break;   // QNaN positivos con cargas distintas
+            case 8: a = 0xFFC00000u | (Rand(n, 217 + i) & 0x3FFFFFu); b = 0x7FC00000u | (Rand(n, 218 + i) & 0x3FFFFFu); break;   // signos distintos, cargas distintas
+            default: a = NanBits(n, 210 + 4 * i, 2); b = RandFloat(n, 219 + i, -4, 11); if (Rand(n, 220 + i) % 2) std::swap(a, b); break;   // un solo NaN
+            }
+            effective[i] = a;
+            c.pos[i] = b;
+            // el posn1 original (si se muta) y la normal tambien llevan NaN no canonicos
+            if (c.mutPosn1) c.p1[i] = Rand(n, 221 + i) % 2 ? NanBits(n, 224 + i, 2) : c.p1[i];
+            if (Rand(n, 227 + i) % 3 == 0) c.n2[i] = NanBits(n, 228 + i, 2);
+        }
+        return c;
+    }
+    if (j < kFamNan + kFamNanOne) {   // familia 17: un solo NaN no canonico en cada operacion
+        c.family = 17;
+        const u32 r = Rand(n, 230) % 6;
+        if (r == 0) { for (int i = 0; i < 3; ++i) if (Rand(n, 231 + i) % 2) c.n2[i] = NanBits(n, 234 + i, 2); c.n2[Rand(n, 237) % 3] = NanBits(n, 238, 2); }   // producto de la fuerza
+        else if (r == 1) { c.damage = NanBits(n, 239, 2); }                                                                                                     // danio * 10
+        else if (r == 2) { for (int i = 0; i < 3; ++i) if (Rand(n, 240 + i) % 2) c.p1[i] = NanBits(n, 243 + i, 2); c.p1[Rand(n, 246) % 3] = NanBits(n, 247, 2); } // resta: solo posn1
+        else if (r == 3) { for (int i = 0; i < 3; ++i) if (Rand(n, 248 + i) % 2) c.pos[i] = NanBits(n, 251 + i, 2); c.pos[Rand(n, 254) % 3] = NanBits(n, 255, 2); } // resta: solo la posicion
+        else if (r == 4) {   // umbral de arranque NaN no canonico con el bloque de SetIsStatic habilitado, o multiplicador NaN no canonico
+            if (Rand(n, 256) % 2) { c.flags |= Rand(n, 257) % 2 ? 4u : 0x40000u; c.uproot = NanBits(n, 258, 2); }
+            else c.mult = NanBits(n, 259, 2);
+        } else {   // todo a la vez, incluida la normal copiada y mutada por FightStrikeDamage
+            c.damage = NanBits(n, 260, 2);
+            for (int i = 0; i < 3; ++i) { c.n2[i] = NanBits(n, 261 + i, 2); c.mutN[i] = NanBits(n, 264 + i, 2); }
+            c.mutNormal = Rand(n, 267) % 2;
+            c.p1[0] = NanBits(n, 268, 2); c.pos[1] = NanBits(n, 269, 2);
+        }
+        return c;
+    }
+    if (j < kFamNan + kFamNanOne + kFamGrid) {   // familia 18: cada indice de la tabla de sonidos (combo -8..15 x movimiento -8..40), sin NaN
+        c.family = 18;
+        const unsigned g = j - kFamNan - kFamNanOne;
+        c.combo = u32(i32(g / kMoveN) - i32(kComboLo));
+        c.move = u32(i32(g % kMoveN) - i32(kMoveLo));
+        c.surface = g % 256;
+        return c;
+    }
+    c.family = 19;   // familia 19: superficie 0..255 completa y los 60 pares reales (combo 4..15, movimiento 0..4)
+    const unsigned s = j - kFamNan - kFamNanOne - kFamGrid;
+    c.surface = s;
+    c.combo = 4 + s % 12;
+    c.move = (s / 12) % 5;
+    c.weaponType = s % 7 == 0 ? kChainsaw : c.weaponType;
+    return c;
+}
+
+inline C MakeC(unsigned n) {
+    if (n >= kBaseCases) return MakeExtra(n);
+    C c = BaseDefaults(n);
+    const bool special = (n / 16) % 4 == 3;
+    (void)special;
     const u32 inner = Rand(n, 90) % 2;   // 1: el objeto entra en el bloque de SetIsStatic (banderas 4 o 0x40000)
     auto setInner = [&] { const u32 r = Rand(n, 91) % 3; c.flags |= r == 0 ? 0x40000u : r == 1 ? 0x40004u : 4u; };
     // umbral de arranque <= 0: cero, cero negativo, negativos normales o desnormales

@@ -3,7 +3,7 @@
 // Solo C++ estandar (sin tipos del juego): las incluyen Core.hpp / LiveComparison.hpp y un programa autonomo de calibracion (fixture_mirror.py / fixture_mirror.cpp).
 //
 // El caso es un vector `v` de kVWords palabras (ver abajo) y los valores iniciales de EAX/EDX/pila (ECX = this). El vehiculo, su model info, los model infos de mejoras
-// (instalados en ms_modelInfoPtrs[15..19]), la manejabilidad, los marcos y los atomos FALSOS viven en una arena propia con guardas; los colaboradores se sustituyen por falsos
+// (instalados en ranuras de ms_modelInfoPtrs elegidas por el caso: 15..19, 0/1, 400..611, 1000..1193, 19998/19999), la manejabilidad, los marcos y los atomos FALSOS viven en una arena propia con guardas; los colaboradores se sustituyen por falsos
 // que registran sus argumentos en orden.
 #include <array>
 #include <cstddef>
@@ -39,6 +39,22 @@ constexpr u32 kMiPlateMat = 0x24, kMiPlateType = 0x31, kHndFlags = 0xCC;
 constexpr u32 kAtParent = 0x04, kAtGeometry = 0x18, kFrPosX = 0x40, kFrMatrix = 0x10;
 constexpr u32 kVehModelSlot = 15, kFirstUpgradeSlot = 16;
 constexpr u32 kModelInfoPtrs = 0xA9B0C8, kDamagedFlag = 0xA9B0B0;
+constexpr u32 kNumModelInfos = 20000;   // CModelInfo::NUM_MODEL_INFOS: la tabla ms_modelInfoPtrs (0xA9B0C8, 4 bytes por entrada) acaba en 0xACE948; el EXE no valida el indice (0x6D3875/0x6D3971)
+// Ranuras de la tabla que el banco guarda, sobrescribe con model infos falsos y repone: 0/1 (primeras), 15..19 (las del banco original), 400..611 (ids de vehiculos), 1000..1193 (ids de mejoras
+// de vehiculos, los que pasa AddVehicleUpgrade 0x6E3290) y 19998/19999 (ultimas entradas de la tabla). Todas DENTRO de la tabla; ninguna lectura/escritura fuera de ella.
+constexpr u32 kPoolSize = 2 + 5 + 212 + 194 + 2;
+constexpr std::array<u32, kPoolSize> MakeSlotPool() {
+    std::array<u32, kPoolSize> a{};
+    u32 k = 0;
+    a[k++] = 0; a[k++] = 1;
+    for (u32 i = 15; i <= 19; ++i) a[k++] = i;
+    for (u32 i = 400; i <= 611; ++i) a[k++] = i;
+    for (u32 i = 1000; i <= 1193; ++i) a[k++] = i;
+    a[k++] = 19998; a[k++] = 19999;
+    return a;
+}
+inline constexpr std::array<u32, kPoolSize> kSlotPool = MakeSlotPool();
+static_assert(kSlotPool.back() < kNumModelInfos, "pool dentro de la tabla");
 constexpr u64 kLabel = 0x100000000ull;   // marca de "puntero a la arena": kLabel + desplazamiento
 
 constexpr u32 Mix(u32 x) { x ^= x >> 16; x *= 0x7FEB352Du; x ^= x >> 15; x *= 0x846CA68Bu; x ^= x >> 16; return x; }
@@ -80,6 +96,29 @@ inline u32 FloatOf(Gen& g, u32 cls) {
     default: return sign | kQNaN | (g.R() & 0x1FFFFFu);
     }
 }
+// Valores especiales de x del componente (lote 72b; el juego corre con MXCSR FTZ y el EXE usa la x87): desnormales (mitad baja: el doble sigue siendo desnormal y mulss+FTZ lo vaciaria;
+// mitad alta: el doble es normal), limites 1 / 0x3FFFFF / 0x400000 / 0x7FFFFF, NaN senalizadores (bit 22 limpio, carga no nula) y silenciosos con cargas distintas, ceros con signo,
+// infinitos, normales minimos y maximos (el doble desborda).
+inline u32 SpecialX(Gen& g) {
+    const u32 sign = g.C(50) ? 0x80000000u : 0u;
+    switch (g.P(14)) {
+    case 0: return sign | (1u + g.P(0x7FFFFF));
+    case 1: return sign | (1u + g.P(0x3FFFFF));
+    case 2: return sign | (0x400000u + g.P(0x400000));
+    case 3: { static constexpr u32 e[]{1u, 2u, 0x3FFFFFu, 0x400000u, 0x400001u, 0x7FFFFFu}; return sign | e[g.P(6)]; }
+    case 4: return sign | 0x7F800000u | (1u + g.P(0x3FFFFF));
+    case 5: { static constexpr u32 e[]{1u, 2u, 0x200000u, 0x3FFFFFu}; return sign | 0x7F800000u | e[g.P(4)]; }
+    case 6: return sign | kQNaN | (g.R() & 0x3FFFFFu);
+    case 7: { static constexpr u32 e[]{0u, 1u, 0x200000u, 0x3FFFFFu}; return sign | kQNaN | e[g.P(4)]; }
+    case 8: return sign;
+    case 9: return sign | 0x7F800000u;
+    case 10: return sign | (0x00800000u + g.P(32));
+    case 11: return sign | (0x7F7FFFFFu - g.P(32));
+    case 12: return sign | (0x3F000000u + g.P(0x01000000));
+    default: return sign | (0x00FFFFFFu & g.R()) | 0x00800000u;
+    }
+}
+inline bool IsFiniteNonZero(u32 b) { const u32 e = (b >> 23) & 0xFF; return e != 0xFF && (b & 0x7FFFFFFFu) != 0; }
 inline u32 Ptrish(Gen& g) {   // clump / marco / material / geometria: nulo, pequeno o patron alto (nunca dentro de la arena)
     switch (g.P(4)) {
     case 0: return 0u;
@@ -93,9 +132,11 @@ inline u32 NonNullPtrish(Gen& g) { const u32 p = Ptrish(g); return p ? p : 0xA00
 // v[3] = puntero ajeno; v[4] = material de la matricula (+0x24 del model info del vehiculo); v[5] = tipo de matricula (+0x31, byte); v[6] = banderas de la manejabilidad (+0xCC);
 // v[7] = clump (+0x18): 0 nulo, 1 el clump falso; v[8] = 1: el falso de RwFrameForAllObjects(RemoveObjectsCB) escribe v[9] en `data`; v[10] = 1: el de ForAllChildren escribe v[11];
 // v[12] = marco original del atomo creado (AT0 +4); v[13] = geometria del atomo (AT0 +0x18); v[14] = byte que escribe el falso de RpGeometryForAllMaterials en `data` (hay material con alfa);
-// v[15] = retorno de AsDamageAtomicModelInfoPtr (EAX completo); v[16] = x del marco del componente (F0 +0x40, bits de float); v[17] = ms_bCreateDamagedVersion inicial (byte).
+// v[15] = retorno de AsDamageAtomicModelInfoPtr (EAX completo); v[16] = x del marco del componente (F0 +0x40, bits de float); v[17] = ms_bCreateDamagedVersion inicial (byte);
+// v[18] = indice (int16 de [this+0x22]) del model info del vehiculo en ms_modelInfoPtrs. v[0] = modelIndex: cualquier indice del pool (kSlotPool); el model info falso de la mejora es
+// U(v[0] & 3) de la arena y el del vehiculo VMi; v[0] != v[18].
 constexpr u32 kModel = 0, kNode = 1, kFrameKind = 2, kFrameOther = 3, kPlateMat = 4, kPlateType = 5, kHnd = 6, kClumpOn = 7, kObjWrites = 8, kObjValue = 9, kChWrites = 10, kChValue = 11,
-              kOldFrame = 12, kGeom = 13, kAlphaByte = 14, kDamageRet = 15, kPosX = 16, kDmgInit = 17;
+              kOldFrame = 12, kGeom = 13, kAlphaByte = 14, kDamageRet = 15, kPosX = 16, kDmgInit = 17, kVehIdx = 18;
 
 inline Spec MakeSpec(u32 fn, u32 n) {
     Spec s;
@@ -105,7 +146,7 @@ inline Spec MakeSpec(u32 fn, u32 n) {
     s.stack = StackSeed(n);
     s.eax = g.R(); s.edx = g.R();
     const u32 fam = s.family, sel = fam & 7;
-    s.v[kModel] = kFirstUpgradeSlot + g.P(4);
+    s.v[kModel] = kFirstUpgradeSlot + g.P(4);   // (el pool ampliado de indices se elige al final, con tiradas nuevas, para no alterar las demas)
     u32 node;
     switch (sel) {
     case 0: case 1: node = 0x13; break;
@@ -145,6 +186,30 @@ inline Spec MakeSpec(u32 fn, u32 n) {
     const u32 cls = fam >= 8 ? (g.C(60) ? 4u + g.P(2) : g.P(4)) : (g.C(10) ? 0u : g.C(30) ? 1u : g.C(60) ? 2u : 3u);
     s.v[kPosX] = FloatOf(g, cls);
     s.v[kDmgInit] = g.C(40) ? 0u : (g.C(50) ? 1u : g.P(256));
+    // ---- ampliacion 26/10/2026 (tiradas nuevas, despues de todas las anteriores)
+    // (a) indices de la tabla: legados 16..19 (30 %), ids de mejoras del juego 1000..1193 (40 %), extremos 1000/1193 (7 %), primeras y ultimas entradas (23 %: 0/1 y 19998/19999)
+    const u32 pk = g.P(100);
+    u32 model = s.v[kModel];
+    if (pk >= 30) {
+        if (pk < 70) model = 1000u + g.P(194);
+        else if (pk < 77) model = g.C(50) ? 1000u : 1193u;
+        else if (pk < 85) model = g.C(50) ? 0u : 1u;
+        else model = g.C(50) ? 19998u : 19999u;
+    }
+    s.v[kModel] = model;
+    const u32 vk = g.P(100);
+    u32 veh = kVehModelSlot;
+    if (vk >= 25) {
+        if (vk < 70) veh = 400u + g.P(212);
+        else if (vk < 80) veh = g.C(50) ? 400u : 611u;
+        else if (vk < 85) veh = 1000u + g.P(194);
+        else veh = g.C(50) ? (g.C(50) ? 0u : 1u) : (g.C(50) ? 19998u : 19999u);
+    }
+    if (veh == model) veh = 400u + g.P(212);   // el modelIndex nunca esta en 400..611
+    s.v[kVehIdx] = veh;
+    // (b) x del componente: valores especiales (desnormales, SNaN, ...) en parte de los casos de la rueda con x finita no nula; los demas conservan sus clases y sus minimos
+    const bool wheelCase = node == 0x13 && (hnd & 0x2000u);
+    if (wheelCase && IsFiniteNonZero(s.v[kPosX]) && g.C(85)) s.v[kPosX] = SpecialX(g);
     return s;
 }
 

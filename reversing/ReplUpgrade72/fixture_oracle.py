@@ -38,8 +38,12 @@ V_CLUMP, V_MODEL, V_HANDLING = 0x18, 0x22, 0x384
 MI_PLATE_MAT, MI_PLATE_TYPE, HND_FLAGS = 0x24, 0x31, 0xCC
 AT_PARENT, AT_GEOMETRY, FR_POSX, FR_MATRIX = 0x04, 0x18, 0x40, 0x10
 VEH_MODEL_SLOT, FIRST_UPGRADE_SLOT = 15, 16
+NUM_MODEL_INFOS = 20000   # ms_modelInfoPtrs (0xA9B0C8, 4 bytes por entrada): el EXE no valida el indice (0x6D3875 lee [ecx*4 + 0xA9B0C8] tal cual)
+# ranuras que el banco guarda/sobrescribe/repone (Fixtures.hpp kSlotPool): todas dentro de la tabla
+SLOT_POOL = [0, 1] + list(range(15, 20)) + list(range(400, 612)) + list(range(1000, 1194)) + [19998, 19999]
+assert len(SLOT_POOL) == 415 and max(SLOT_POOL) < NUM_MODEL_INFOS
 LAYOUT = {'veh': O_VEH, 'vmi': O_VMI, 'u0': O_U0, 'hnd': O_HND, 'f0': O_F0, 'f1': O_F1, 'fa': O_FA, 'at0': O_AT0, 'at1': O_AT1, 'at2': O_AT2, 'clump': O_CLUMP, 'g1': O_G1,
-          'size': ARENA_SIZE, 'max_events': MAX_EVENTS, 'ev_args': EV_ARGS, 'v_words': 24, 'families': FAMILIES}
+          'size': ARENA_SIZE, 'max_events': MAX_EVENTS, 'ev_args': EV_ARGS, 'v_words': 24, 'families': FAMILIES, 'pool': len(SLOT_POOL), 'num_infos': NUM_MODEL_INFOS}
 assert O_VEH == O_G0 + 0x40 and O_VMI == O_VEH + 0x5C0 and O_U0 == O_VMI + 0x80 and O_HND == O_U0 + 4 * 0x40 and O_F0 == O_HND + 0xE0 and O_F1 == O_F0 + 0x60 and O_FA == O_F1 + 0x60
 assert O_AT0 == O_FA + 0x60 and O_AT1 == O_AT0 + 0x40 and O_AT2 == O_AT1 + 0x40 and O_CLUMP == O_AT2 + 0x40 and O_G1 == O_CLUMP + 0x20 and ARENA_SIZE == O_G1 + 0x40
 # identificadores normalizados de callbacks
@@ -125,7 +129,7 @@ def f32_mul_m2(b):
 def build(fn, n, v):
     a = Arena(fn, n)
     a.s8(O_CLUMP, 2)
-    a.s16(O_VEH + V_MODEL, VEH_MODEL_SLOT)
+    a.s16(O_VEH + V_MODEL, v[18])
     a.s32(O_VEH + V_HANDLING, lab(O_HND))
     a.s32(O_VEH + V_CLUMP, lab(O_CLUMP) if v[7] else 0)
     a.s32(O_VMI + MI_PLATE_MAT, v[4])
@@ -145,14 +149,23 @@ def expected(name, inp, case):
     a = build(0, case, v)
     this, clump = lab(O_VEH), a.g32(O_VEH + V_CLUMP)
     model, node = v[0], v[1]
-    mi = lab(O_U0 + 0x40 * (model - FIRST_UPGRADE_SLOT))
+    assert model in SLOT_POOL and v[18] in SLOT_POOL and model != v[18], (model, v[18])
+    mi = lab(O_U0 + 0x40 * (model & 3))   # model info falso de la mejora instalado en la ranura `model`
     kind = v[2]
     frame = 0 if kind == 0 else (lab(O_F0) if kind == 1 else v[3])
     dmg = v[17] & 0xFF
     stats = {'frame_null': frame == 0, 'frame_arena': kind == 1, 'frame_other': kind == 2, 'obj_writes': bool(v[8]), 'ch_writes': bool(v[10]), 'flags_nonzero': False,
              'alpha': False, 'no_alpha': False, 'wheel': False, 'wheel_flag_off': False, 'plate': False, 'plate_c': node == 0xC, 'plate_d': node == 0xD, 'node_other': False,
              'damage': False, 'no_damage': False, 'damage_frame': False, 'damage_no_frame': False, 'clump_null': clump == 0, 'wheel_nan': False, 'wheel_inf': False, 'wheel_zero': False,
-             'dmg_init_set': dmg != 0, 'dmg_bits_only': False}
+             'dmg_init_set': dmg != 0, 'dmg_bits_only': False,
+             # (a) indices de la tabla
+             'idx_legacy': 16 <= model <= 19, 'idx_game_upgrade': 1000 <= model <= 1193, 'idx_game_edge': model in (1000, 1193), 'idx_table_first': model in (0, 1),
+             'idx_table_last': model in (19998, 19999), 'veh_idx_legacy': v[18] == VEH_MODEL_SLOT, 'veh_idx_game': 400 <= v[18] <= 611, 'veh_idx_edge': v[18] in (400, 611),
+             'veh_idx_upgrade_range': 1000 <= v[18] <= 1193, 'veh_idx_table_ends': v[18] in (0, 1, 19998, 19999), 'idx_plate_game': (node in (0xC, 0xD)) and 1000 <= model <= 1193,
+             # (b) x del componente de la rueda
+             'wheel_x_denormal': False, 'wheel_x_denormal_low': False, 'wheel_x_denormal_high': False, 'wheel_x_snan': False, 'wheel_x_qnan_payload': False,
+             'wheel_x_zero_neg': False, 'wheel_x_zero_pos': False, 'wheel_x_inf_neg': False, 'wheel_x_inf_pos': False, 'wheel_x_overflow': False, 'wheel_x_min_normal': False,
+             'wheel_x_denormal_result': False}
     ev = []
     ev.append([1, clump, node])
     flags = 0
@@ -185,7 +198,21 @@ def expected(name, inp, case):
             stats['wheel'] = True
             assert kind == 1
             ev.append([14, this, mi, frame, flags, dmg, 0, 1])
-            x = f32_mul_m2(a.g32(O_F0 + FR_POSX))
+            xin = a.g32(O_F0 + FR_POSX)
+            x = f32_mul_m2(xin)
+            mag, mant = xin & 0x7FFFFFFF, xin & 0x7FFFFF
+            stats['wheel_x_denormal'] = 0 < mag < 0x00800000
+            stats['wheel_x_denormal_low'] = 0 < mag < 0x00400000
+            stats['wheel_x_denormal_high'] = 0x00400000 <= mag < 0x00800000
+            stats['wheel_x_snan'] = mag > 0x7F800000 and not (mag & 0x00400000)
+            stats['wheel_x_qnan_payload'] = mag > 0x7F800000 and bool(mag & 0x00400000) and (mant & 0x3FFFFF) != 0
+            stats['wheel_x_zero_neg'] = xin == 0x80000000
+            stats['wheel_x_zero_pos'] = xin == 0
+            stats['wheel_x_inf_neg'] = xin == 0xFF800000
+            stats['wheel_x_inf_pos'] = xin == 0x7F800000
+            stats['wheel_x_overflow'] = mag < 0x7F800000 and (x & 0x7FFFFFFF) == 0x7F800000
+            stats['wheel_x_min_normal'] = 0x00800000 <= mag < 0x00800020
+            stats['wheel_x_denormal_result'] = 0 < (x & 0x7FFFFFFF) < 0x00800000
             stats['wheel_nan'] = is_nan(x)
             stats['wheel_inf'] = (x & 0x7FFFFFFF) == 0x7F800000
             stats['wheel_zero'] = (x & 0x7FFFFFFF) == 0
@@ -225,6 +252,7 @@ def selftest():
     v[6] = 0x2000
     v[7] = 1
     v[16] = 0x3F800000   # 1.0
+    v[18] = 15
     v[15] = 0
     obs, st = expected(NAME, {'v': v}, 3)
     kinds = [e[0] for e in obs['events']]
@@ -238,6 +266,11 @@ def selftest():
     assert kinds == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 16, 17, 14, 2, 3], kinds
     assert st['plate'] and st['damage_frame']
     assert f32_mul_m2(0x7F800000) == 0xFF800000 and f32_mul_m2(0x7FC12345) == 0x7FC12345 and f32_mul_m2(0x7F7FFFFF) == 0xFF800000
+    # lote 72b: desnormales exactos (la x87 no los vacia), SNaN -> QNaN con la misma carga y signo, ceros con signo
+    assert f32_mul_m2(0x00000001) == 0x80000002 and f32_mul_m2(0x80000001) == 0x00000002 and f32_mul_m2(0x003FFFFF) == 0x807FFFFE
+    assert f32_mul_m2(0x00400000) == 0x80800000 and f32_mul_m2(0x007FFFFF) == 0x80FFFFFE and f32_mul_m2(0x80400000) == 0x00800000
+    assert f32_mul_m2(0x7F800001) == 0x7FC00001 and f32_mul_m2(0xFF800001) == 0xFFC00001 and f32_mul_m2(0x7FC00000) == 0x7FC00000
+    assert f32_mul_m2(0x00000000) == 0x80000000 and f32_mul_m2(0x80000000) == 0x00000000 and f32_mul_m2(0xFF800000) == 0x7F800000
     print('autoprueba ok')
 
 

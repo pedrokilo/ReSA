@@ -1894,3 +1894,8 @@ bool __cdecl PedHearingRangeCpp(const float* posn, const float* ped, float range
 void __cdecl FightHitObjForceCpp(const float* posn1, const float* pos, const float* normal, bool lowFactor, float* point, float* force);
 // 0x61D556..0x61D575: fld danio; fmul 10.0f (0x85862C); fstp dword (a 24 bits, guardado como float).
 float __cdecl FightHitObjDamageCpp(float damage);
+
+// --- Lote 72b (ReplUpgrade72b): CVehicle::AddReplacementUpgrade (0x6D3830) ---
+// 0x6D3946..0x6D3956: *out = *x * -2.0f (0x858B18 = 0xC0000000) con fld dword / fmul dword / fstp dword: la x87 a 24 bits con exponente extendido conserva los desnormales (el producto es exacto) que
+// un mulss con MXCSR FTZ (el estado del juego) vaciaria a cero; los NaN conservan su carga y el signo, y el cero con signo y el infinito cambian de signo.
+void __cdecl AddReplUpgradeExhaustXCpp(const float* x, float* out);

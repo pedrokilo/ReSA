@@ -2,6 +2,7 @@
 #include <bit>
 #include <cstddef>
 #include <cstring>
+#include <type_traits>
 #include <fstream>
 #include <memory>
 #include <set>
@@ -30,6 +31,18 @@ static_assert(HsVeh::OffSub() == 0x594, "CVehicle::m_nVehicleSubType en +0x594")
 static_assert(offsetof(CPlane, field_9E4) == 0x9E4, "CPlane::field_9E4 en +0x9E4");
 static_assert(offsetof(CPlaceable, m_placement) == 4 && offsetof(CPlaceable, m_matrix) == 0x14, "CPlaceable: posicion compacta en +4 y matriz en +0x14");
 static_assert(offsetof(CPlane, field_9E4) + 4 <= Hs72Fix::kVehWin, "ventana del vehiculo");
+// CPlane REAL: la arena del vehiculo mide exactamente sizeof(CPlane); el estado del avion que lee el EXE en [esi+0x9E4] (6E0464, 6E0540, 6E0534) es el miembro real CPlane::field_9E4 (int32);
+// el subtipo [esi+0x594] (6E0454) es CVehicle::m_nVehicleSubType. Las fuentes no le dan otro nombre al miembro (field_9E4, sin renombrar).
+static_assert(sizeof(CPlane) == 0xA04 && Hs72Fix::kVehWin == sizeof(CPlane), "la arena del vehiculo es un CPlane completo");
+static_assert(std::is_base_of_v<CVehicle, CPlane>, "CPlane es un CVehicle");
+static_assert(std::is_same_v<decltype(CPlane::field_9E4), int32>, "CPlane::field_9E4 es un dword");
+struct HsPlane : CPlane {
+    static constexpr size_t OffSub() { return offsetof(HsPlane, m_nVehicleSubType); }
+    static constexpr size_t OffState() { return offsetof(HsPlane, field_9E4); }
+    void SetSub(Hs72Fix::u32 v) { m_nVehicleSubType = static_cast<decltype(m_nVehicleSubType)>(v); }
+    Hs72Fix::u32 Sub() const { return Hs72Fix::u32(m_nVehicleSubType); }
+};
+static_assert(HsPlane::OffSub() == 0x594 && HsPlane::OffState() == 0x9E4, "CPlane: subtipo en +0x594 y estado del avion en +0x9E4");
 }
 
 namespace Hs72Live {
@@ -86,7 +99,7 @@ inline u32 __cdecl FakeLos(u32 from,u32 to,u32 a2,u32 a3,u32 a4,u32 a5,u32 a6,u3
     vehA.Put32(0x1C,vehA.Get32(0x1C)^g.c->mutSelf);
     if(g.c->tgtKind==1)tgtA.Put32(0x1C,tgtA.Get32(0x1C)^g.c->mutTgt);
     else if(g.c->tgtKind==2)vehA.Put32(0x1C,vehA.Get32(0x1C)^g.c->mutTgt);
-    return (g.c->los&1u)|(g.c->losHi<<8);
+    return (g.c->losAl&0xFFu)|(g.c->losHi<<8);
 }
 // 3: ClearCrossHairImmediately 0x742CA0 (id)
 inline void __cdecl FakeClear(u32 id) {Ev& e=PushEv(3,1);e.v[0]=id;}
@@ -104,7 +117,8 @@ inline void CaseScan(Env& env,Totals& t,unsigned n) {
         PrepareFloatingState();
         vehA.Fill(c.seed*13u+1u);tgtA.Fill(c.seed*13u+2u);othA.Fill(c.seed*13u+3u);matV.Fill(c.seed*13u+4u);matT.Fill(c.seed*13u+5u);
         // vehiculo: siempre con matriz (posicion +0x30, direccion +0x10)
-        vehA.Put32(0x14,u32(matV.Obj()));vehA.Put32(0x1C,c.vflags);vehA.Put8(0x36,c.status);vehA.Put32(0x594,c.subType);vehA.Put32(0x9E4,c.pstate);
+        vehA.Put32(0x14,u32(matV.Obj()));vehA.Put32(0x1C,c.vflags);vehA.Put8(0x36,c.status);if(c.real){auto* pl=reinterpret_cast<Hs72Layout::HsPlane*>(vehA.Obj());pl->SetSub(c.subType);pl->field_9E4=int32(c.pstate);}   // por los miembros reales de CPlane
+        else{vehA.Put32(0x594,c.subType);vehA.Put32(0x9E4,c.pstate);}
         for(int i=0;i<3;++i){matV.Put32(0x30+4*i,c.vpos[i]);matV.Put32(0x10+4*i,c.vdir[i]);}
         // objetivo: con matriz (+0x30) o con posicion compacta (+4)
         tgtA.Put32(0x14,c.tgtMat?u32(matT.Obj()):0u);tgtA.Put32(0x1C,c.tflags);
@@ -118,6 +132,7 @@ inline void CaseScan(Env& env,Totals& t,unsigned n) {
         sides[s]=Execute(env,0,kEntry,candidate,[&](uintptr_t entry){return Gate(entry,args,1,c.eax,u32(vehA.Obj()),c.edx,c.stack,0);});
         json obs;
         obs["eax"]=Tag(uintptr_t(sides[s].reg.eax));
+        {const auto* pl=reinterpret_cast<const Hs72Layout::HsPlane*>(vehA.Obj());obs["plane_state"]=u32(pl->field_9E4);obs["plane_sub"]=pl->Sub();}   // leido por los miembros reales de CPlane
         obs["changes"]=json::array({vehA.Changes(),tgtA.Changes(),othA.Changes(),matV.Changes(),matT.Changes()});
         obs["events"]=EvsJson();
         rows[s]=CloseSide(env,sides[s],obs);

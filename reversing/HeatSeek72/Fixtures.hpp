@@ -24,13 +24,15 @@ using u32 = std::uint32_t;
 using i32 = std::int32_t;
 using u64 = std::uint64_t;
 
-constexpr unsigned kCases = 16384;
-constexpr unsigned kFamilies = 16;
+constexpr unsigned kBaseCases = 16384;   // familias 0..15 (lote 72 original)
+constexpr unsigned kExtraCases = 4096;   // familias 16..19 (ampliacion 26/10/2026): AL de la vision distinto de 0/1 y CPlane real
+constexpr unsigned kCases = kBaseCases + kExtraCases;
+constexpr unsigned kFamilies = 20;
 constexpr unsigned kFunctions = 1;
 
-// Arenas: guarda + ventana + guarda (la ventana es el objeto)
+// Arenas: guarda + ventana + guarda (la ventana es el objeto). La del vehiculo mide sizeof(CPlane) = 0xA04 (LiveComparison.hpp lo comprueba con static_assert); las familias 0..17 escriben en ella por desplazamiento (ventana), las 18 y 19 por los miembros reales de CPlane.
 constexpr std::size_t kGuard = 0x40;
-constexpr std::size_t kVehWin = 0xA00, kTgtWin = 0x40, kOthWin = 0x40, kMatWin = 0x48;
+constexpr std::size_t kVehWin = 0xA04, kTgtWin = 0x40, kOthWin = 0x40, kMatWin = 0x48;
 constexpr std::size_t Arena(std::size_t win) { return kGuard + win + kGuard; }
 constexpr std::size_t kVehArena = Arena(kVehWin), kTgtArena = Arena(kTgtWin), kOthArena = Arena(kOthWin), kMatArena = Arena(kMatWin);
 
@@ -111,14 +113,17 @@ struct C {
     u32 entRaw{};
     u32 tgtMat{};      // el objetivo tiene matriz (posicion en +0x30) o solo posicion compacta (+4)
     u32 los{}, losHi{};   // resultado de la vision (AL) y bits altos de EAX
+    u32 losAl{};   // valor COMPLETO de AL que devuelve el falso (0..255): el EXE decide con `test al,al` y guarda `movzx al; shl 31` (solo el bit 0)
+    u32 real{};    // 1 = el vehiculo se escribe/lee por los miembros reales de CPlane (m_nVehicleSubType, field_9E4)
     u32 mutSelf{}, mutTgt{};   // xor que aplica el falso de la vision a los dwords +0x1C
     u32 vpos[3]{}, vdir[3]{}, tpos[3]{};
 };
 
+inline constexpr std::array<u32, 11> kAl{0x02u, 0x80u, 0xFFu, 0x03u, 0x7Fu, 0xFEu, 0x81u, 0xC0u, 0x40u, 0x00u, 0x01u};
 inline C MakeC(unsigned n) {
     C c;
     c.n = n;
-    c.family = n % kFamilies;
+    c.family = n < kBaseCases ? n % 16 : 16 + (n - kBaseCases) % 4;
     c.seed = Rand(n, 7);
     c.eax = SeedReg(n, 1); c.edx = SeedReg(n, 2); c.stack = StackSeed(n);
     const bool special = (n / 16) % 4 == 3;
@@ -189,10 +194,32 @@ inline C MakeC(unsigned n) {
     case 13:  // objetivo sin matriz (posicion compacta en +4)
         c.tgtMat = 0; c.tgtKind = 1;
         break;
-    default:  // 14 y 15: mezcla libre
+    case 14: case 15:  // mezcla libre
         c.tgtKind = Rand(n, 35) % 10 == 0 ? 0 : (Rand(n, 35) % 10 == 1 ? 2 : 1);
         break;
+    case 16:  // AL de la vision distinto de 0/1 (2, 0x80, 0xFF...), vehiculo que no es avion, vision calculada
+        c.tgtKind = Rand(n, 35) % 8 == 0 ? 2 : 1; c.subType = Pick(kSubOther, n, 26); c.time = Rand(n, 20) % 2 ? Pick(kTimesLarge, n, 23) : 1001u + Rand(n, 24) % 5000u;
+        c.status = Rand(n, 30) % 4 ? (Rand(n, 31) & 7u) : (Rand(n, 32) & 0xFFu);
+        break;
+    case 17:  // lo mismo en un avion sobre la ventana: la decision usa AL != 0, pero el estado guardado usa solo el bit 0
+        c.tgtKind = Rand(n, 35) % 8 == 0 ? 2 : 1; c.subType = kPlane; c.time = Rand(n, 20) % 2 ? Pick(kTimesLarge, n, 23) : (Rand(n, 20) % 3 == 0 ? Pick(kTimesEdge, n, 21) : 1001u + Rand(n, 24) % 5000u);
+        c.status = Rand(n, 30) % 4 ? (Rand(n, 31) & 7u) : (Rand(n, 32) & 0xFFu);
+        break;
+    case 18:  // CPlane real, AL variado, vision calculada o guardada (tiempos alrededor del umbral), estado +0x9E4 por el miembro real
+        c.real = 1; c.tgtKind = Rand(n, 35) % 8 == 0 ? 2 : 1; c.subType = kPlane; c.time = Rand(n, 20) % 2 ? Pick(kTimesEdge, n, 21) : Pick(kTimesLarge, n, 23);
+        c.pstate = Rand(n, 27) % 2 ? (Rand(n, 28) & 0x80000000u) : Rand(n, 29);
+        c.status = Rand(n, 30) % 4 ? (Rand(n, 31) & 7u) : (Rand(n, 32) & 0xFFu);
+        break;
+    default:  // 19: CPlane real, mezcla completa (sin objetivo, objetivo, alias; AL de 0 a 255; banderas mutadas)
+        c.real = 1; c.subType = kPlane; c.tgtKind = Rand(n, 35) % 10 == 0 ? 0 : (Rand(n, 35) % 10 == 1 ? 2 : 1);
+        c.time = Rand(n, 20) % 3 == 0 ? Pick(kTimesEdge, n, 21) : Rand(n, 20) % 2 ? Pick(kTimesLarge, n, 23) : Rand(n, 24);
+        c.pstate = Rand(n, 27) % 3 == 0 ? (Rand(n, 28) & 0x80000000u) : Rand(n, 29);
+        c.status = Rand(n, 30) % 4 ? (Rand(n, 31) & 7u) : (Rand(n, 32) & 0xFFu);
+        break;
     }
+    // AL: en las familias antiguas es 0/1 (como siempre); en las nuevas, valores de 8 bits arbitrarios (la mitad de las veces 0/1)
+    c.losAl = c.los & 1u;
+    if (c.family >= 16) c.losAl = Rand(n, 120) % 5 == 0 ? (Rand(n, 121) & 0xFFu) : Pick(kAl, n, 122);
     if (c.family != 13 && c.family != 14 && c.family != 15) { /* tgtMat libre */ }
     if (c.tgtKind == 2) c.tgtMat = 1;
     return c;
@@ -202,7 +229,7 @@ inline std::string JsonC(const C& c) {
     Js j;
     j.U("n", c.n).U("family", c.family).U("seed", c.seed).U("eax", c.eax).U("edx", c.edx).U("stack", c.stack);
     j.U("time", c.time).U("sub_type", c.subType).U("pstate", c.pstate).U("status", c.status).U("vflags", c.vflags).U("tflags", c.tflags);
-    j.U("tgt_kind", c.tgtKind).U("ent_kind", c.entKind).U("ent_raw", c.entRaw).U("tgt_mat", c.tgtMat).U("los", c.los).U("los_hi", c.losHi).U("mut_self", c.mutSelf).U("mut_tgt", c.mutTgt);
+    j.U("tgt_kind", c.tgtKind).U("ent_kind", c.entKind).U("ent_raw", c.entRaw).U("tgt_mat", c.tgtMat).U("los", c.los).U("los_al", c.losAl).U("real", c.real).U("los_hi", c.losHi).U("mut_self", c.mutSelf).U("mut_tgt", c.mutTgt);
     j.U("vpos_x", c.vpos[0]).U("vpos_y", c.vpos[1]).U("vpos_z", c.vpos[2]).U("vdir_x", c.vdir[0]).U("vdir_y", c.vdir[1]).U("vdir_z", c.vdir[2]);
     j.U("tpos_x", c.tpos[0]).U("tpos_y", c.tpos[1]).U("tpos_z", c.tpos[2]);
     return j.End();

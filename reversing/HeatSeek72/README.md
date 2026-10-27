@@ -4,7 +4,7 @@
 
 # HeatSeek72: CVehicle::ScanAndMarkTargetForHeatSeekingMissile 0x6E0400 (hook S, lote 72)
 
-Estado: **APROBADO dentro del juego** (26/10/2026, worktree `D:\Original\wy-2`, HEAD 95f7d73eb + `source.patch`). 16384 pares, cero diferencias, todas las compuertas de ABI/ruta/restauracion en ambos lados.
+Estado: **APROBADO dentro del juego** (26/10/2026, worktree `D:\Original\wy-2`, HEAD 95f7d73eb + `source.patch`). 16384 pares (ampliado a 20480, ver la ultima seccion), cero diferencias, todas las compuertas de ABI/ruta/restauracion en ambos lados.
 Evidencia final: `E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-heatseek72\20261026-203547-474164`. (Primera corrida aprobada: `20261026-203103-504541`, sin `coverage.json`; corrida negativa con una mutacion deliberada: `20261026-203408-471466`, 272 diferencias.)
 
 | Funcion | Direccion | Hook | Fuente |
@@ -36,6 +36,16 @@ Se compara EAX (etiquetado), los cambios en 5 arenas (vehiculo de 0xA00 bytes, o
 Prueba negativa: con `holgura = 0` siempre (mutacion deliberada) el banco falla con 272/16384 diferencias (los casos de avion con hora 0 y bits bajos a cero, y los de hora 1001 con holgura).
 
 No cubierto: el vehiculo siempre tiene matriz (el EXE lee `matriz + 0x10` sin comprobar nulo y se cae sin ella; la rama de posicion compacta del vehiculo es inalcanzable); `m_nVehicleSubType == 4` en un vehiculo que no sea `CPlane` (el EXE y la DLL leen el mismo dword +0x9E4; el banco lo hace sobre una ventana de 0xA00 bytes); la validez de los cuatro colaboradores no la prueba este banco; no se prueba el AL con valores distintos de 0/1 devuelto por GetIsLineOfSightClear (el EXE solo guarda el bit 0).
+
+## Ampliacion 2026-10-26 (20480 pares)
+
+Evidencia final: `E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-heatseek72\20261026-220606-191000` (APROBADO, 20480 pares, 0 diferencias, oraculo Python 0 lados distintos). Corrida negativa (mutacion deliberada): `20261026-220419-351256`, 1191/20480 diferencias. Los 16384 casos originales no cambian (mismas entradas); se anaden 4096 (familias 16..19) y minimos nuevos en `coverage.json` (50 % de la primera corrida; los antiguos no se tocan).
+
+- **CPlane real.** La arena del vehiculo mide `sizeof(CPlane)` = 0xA04 (`static_assert`). El estado del avion es el miembro real `CPlane::field_9E4` (int32, +0x9E4; en las fuentes no tiene otro nombre) y el subtipo `CVehicle::m_nVehicleSubType` (+0x594); el EXE los lee en `[esi+0x9E4]` (6E0464, 6E0534, 6E0540) y `[esi+0x594]` (6E0454). Las familias 18 y 19 (2048 casos) escriben y leen por los miembros de `CPlane` (`HsPlane : CPlane`) y el banco compara `plane_state`/`plane_sub` leidos asi en ambos lados; las demas siguen por desplazamiento (ventana, ahora de 0xA04). No se construye un CPlane con su constructor (arrastra estado del motor): es un CPlane con layout verificado en memoria de la arena.
+- **Sin matriz.** Desensamblado: 6E0408 `test ecx,ecx` solo protege la posicion (cae a `esi+4`), pero 6E041B/6E041E hacen `add ecx,0x10; mov edi,[ecx]` y con matriz nula leen 0x10 y se caen antes de cualquier llamada; el segundo `test eax,eax` de 6E04CD es codigo muerto. La rama «vehiculo sin matriz» es inalcanzable por diseno (el EXE se cae); solo el objetivo sin matriz es alcanzable y ya esta cubierto.
+- **AL distinto de 0/1.** Familias 16..19: el falso de GetIsLineOfSightClear devuelve AL = 2, 0x80, 0xFF, 0x03, 0x7F, 0xFE, 0x81, 0xC0, 0x40, 0, 1 y aleatorios con bits altos de EAX basura. El EXE decide con `test al,al` (6E054B: visible = AL != 0) y guarda `movzx ecx,al; shl ecx,0x1F` (6E0524: solo el bit 0 de AL en el estado del avion; AL = 2/0x80 → visible esa llamada y bit 31 = 0). EXE y DLL coinciden en todos (la DLL hace `uint32(visible) << 31` sobre un bool que conserva AL): no hay defecto de produccion. La prueba negativa (guardar `visible ? 1 : 0`) da 1191 diferencias, justo los casos de avion con AL par distinto de 0.
+- **Colaboradores sustituidos** (este banco no prueba su validez; la prueban otros): `CWeaponEffects::ClearCrossHairImmediately` 0x742CA0 (`reversing/Ped9`, 64 pares) y `CWeaponEffects::MarkTarget` 0x742BF0 (`reversing/Ped9`, 128 pares), `CWorld::GetIsLineOfSightClear` 0x56A490 (`reversing/WldB`, 1024 pares), `CWeapon::PickTargetForHeatSeekingMissile` 0x73F910 (`reversing/PickWeap1`, 256 pares); los cuatro con `validated=1` en `docs/hooks.csv` y en `reversing/validation-registry.json`.
+- **Sigue fuera:** un CPlane construido por su constructor/pool; el vehiculo sin matriz (inalcanzable); la validez de los colaboradores en este banco.
 
 ## Comandos
 

@@ -1,4 +1,4 @@
-"""Compuertas del banco HeatSeek72 (lote 72): CVehicle::ScanAndMarkTargetForHeatSeekingMissile (EXE 0x6E0400, hook S), 16384 pares.
+"""Compuertas del banco HeatSeek72 (lote 72): CVehicle::ScanAndMarkTargetForHeatSeekingMissile (EXE 0x6E0400, hook S), 20480 pares.
 
 Ademas de la igualdad EXE/DLL fila a fila (probe_case.analyzer), exige hook S registrado y cuerpo en el ASI, todas las compuertas de ABI/ruta (entrada)/DF/SEH/restauracion
 en AMBOS lados, fp_difference vacio, la cobertura por familia de las fixtures y la cobertura de ramas medida sobre las entradas y los eventos (coverage.json = minimos).
@@ -15,7 +15,7 @@ from probe_case import analyzer as common_analyzer
 HERE = Path(__file__).resolve().parent
 
 NAMES = ['CVehicle::ScanAndMarkTargetForHeatSeekingMissile']
-CASES = 16384
+CASES = 20480   # 16384 (familias 0..15) + 4096 (familias 16..19: AL de la vision distinto de 0/1 y CPlane real)
 EXPECTED = {n: CASES for n in NAMES}
 GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh_restored', 'route_ok', 'collaborators_dll', 'globals_restored', 'floating_state_restored')
 HOOKS = {NAMES[0]: 0x6E0400}
@@ -57,10 +57,36 @@ def tally(inp, events, obs, cov):
     add('los_skipped_plane_bit_set', inp['tgt_kind'] != 0 and not los and plane and (inp['pstate'] >> 31) == 1)
     add('los_skipped_plane_bit_clear', inp['tgt_kind'] != 0 and not los and plane and (inp['pstate'] >> 31) == 0)
     add('los_skipped_other', inp['tgt_kind'] != 0 and not los and not plane)
-    add('los_visible', los and inp['los'] & 1 == 1)
-    add('los_blocked', los and inp['los'] & 1 == 0)
-    add('los_visible_plane', los and plane and inp['los'] & 1 == 1)
-    add('los_blocked_plane', los and plane and inp['los'] & 1 == 0)
+    al = inp['los_al'] & 0xFF   # el EXE decide con `test al,al`: visible = AL != 0
+    add('los_visible', los and al != 0)
+    add('los_blocked', los and al == 0)
+    add('los_visible_plane', los and plane and al != 0)
+    add('los_blocked_plane', los and plane and al == 0)
+    # AL distinto de 0/1 devuelto por GetIsLineOfSightClear (el EXE guarda solo el bit 0 en el estado del avion y decide con AL != 0)
+    add('los_al_gt1', los and al > 1)
+    add('los_al_2', los and al == 2)
+    add('los_al_0x80', los and al == 0x80)
+    add('los_al_0xff', los and al == 0xFF)
+    add('los_al_even_visible', los and al > 1 and al & 1 == 0)
+    add('los_al_odd_gt1', los and al > 1 and al & 1 == 1)
+    add('los_al_gt1_plane', los and plane and al > 1)
+    add('los_al_even_visible_plane', los and plane and al > 1 and al & 1 == 0)
+    add('los_al_odd_gt1_plane', los and plane and al > 1 and al & 1 == 1)
+    add('los_al_gt1_hi_garbage', los and al > 1 and inp['los_hi'] != 0)
+    add('los_al_gt1_mark', los and al > 1 and mark)
+    add('los_al_gt1_clear_status', los and al > 1 and clear and obs['eax'] != 0)
+    add('los_al_even_plane_then_hidden_state', los and plane and al > 1 and al & 1 == 0 and inp['time'] > 1)
+    # CPlane real (estado +0x9E4 y subtipo por los miembros reales)
+    add('real_plane', inp['real'] == 1)
+    add('real_plane_los_called', inp['real'] == 1 and los)
+    add('real_plane_los_skipped_bit_set', inp['real'] == 1 and inp['tgt_kind'] != 0 and not los and (inp['pstate'] >> 31) == 1)
+    add('real_plane_los_skipped_bit_clear', inp['real'] == 1 and inp['tgt_kind'] != 0 and not los and (inp['pstate'] >> 31) == 0)
+    add('real_plane_low_zero', inp['real'] == 1 and (inp['pstate'] & 0x7FFFFFFF) == 0)
+    add('real_plane_mark', inp['real'] == 1 and mark)
+    add('real_plane_state_written', inp['real'] == 1 and los and obs['plane_state'] != inp['pstate'])
+    add('real_plane_al_gt1', inp['real'] == 1 and los and al > 1)
+    add('real_plane_target_null', inp['real'] == 1 and inp['tgt_kind'] == 0)
+    add('real_plane_target_self', inp['real'] == 1 and inp['tgt_kind'] == 2)
     add('los_time_gt_1', los and plane and inp['time'] > 1)
     add('los_time_le_1', los and plane and inp['time'] <= 1)
     add('los_flags_mutated', los and (inp['mut_self'] != 0 or inp['mut_tgt'] != 0))
@@ -142,7 +168,7 @@ def analyze(path):
         if seen[fn] != set(range(CASES)):
             raise RuntimeError('Cobertura incompleta en ' + fn)
         short = {k: v for k, v in fam[fn].items() if v < 200}
-        if len(fam[fn]) != 16 or short:
+        if len(fam[fn]) != 20 or short:
             raise RuntimeError('Cobertura por familia insuficiente en %s: %s' % (fn, fam[fn]))
         for key, minimum in COVER.get(fn, {}).items():
             if cov[fn].get(key, 0) < minimum:
