@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "pairs": 20480,
+  "differences": 0,
+  "registered_pairs": 20480,
+  "registered_functions": 1,
+  "functions": {
+    "RsLoadPresetViews": 20480
+  },
+  "covered_functions": {
+    "RsLoadPresetViews": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-4 (HEAD f13a750cf + cambios integrados del lote 74; ver artifacts/build-manifest.json). RsLoadPresetViews es cdecl sin argumentos. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: psPathnameCreate 0x745470, psPathnameDestroy 0x7454E0, RsErrorMessage 0x619B00 y CMemoryMgr::Malloc 0x72F420 (con hook RH apagado), RsDestroyPresetViews 0x6198C0 y CMemoryMgr::Free 0x72F430 (reconstruidas sin hook) e isprint del CRT 0x8228B5 (la DLL lo llama por la direccion del EXE); y, durante la llamada, las entradas fopen, fclose, fgets, sprintf, strcpy, strlen y sscanf de la tabla de RenderWare (RwEngineInstance + 0xC4 / + 0xF0). El banco alimenta el contenido de views.txt desde un buffer controlado. NO prueba: la E/S real de ficheros (fopen/fgets/fclose reales), el formato real de sscanf (el falso devuelve los valores configurados), el isprint real del CRT ni la liberacion/asignacion real de memoria; tampoco el desbordamiento del buffer de nombre de 0x40 bytes del EXE (nombres de mas de 63 caracteres) ni RwOsGetFileInterface nulo. Valida el filtrado por isprint (hash de las llamadas), el orden de las llamadas, la lista enlazada (nodos y descripciones byte a byte, floats con NaN no canonicos), los caminos de memoria insuficiente (sin cerrar el fichero) y el valor de retorno. EAX completo solo se registra: el unico llamador, RsSavePresetView, lo lee como bool.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/PresetLoad74-20261027-052301-310721",
+  "summary_sha256": "4d0909c1901e979ff643c0ff9883a9c603630b95c10ff6387819ad9d0e7ba8cc",
+  "result_txt_sha256": "2dece8fba24af1ed9999c81c20a5b404907ae775c0624a8b5721423563de71bb",
+  "log_sha256": "756941400f75f0608821811e86589eb5916d98dc0bf3c583d99c1522dc28894c",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "9781aa719c1c9958a7a4fcdaabd7f3ab260c31b04a950f977d4f6ecf44a35f9d",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+      "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
+      "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+      "source/app/platform/preset_view.cpp": "2c270a583ef619401943d6ed0d4a6d31cb946fe6a3d45f36ed53276be2cd5631",
+      "source/app/platform/platform.cpp": "df1d4cebe575e87968d92176714725de3784961886fd2ea9001559ebf82387e1",
+      "source/app/platform/platform.h": "ad1ed83f0df3f991661f06866949cccb14a0a9ce91d7521d8064ac4295278639",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/PresetLoad74/LiveComparison.hpp": "c9ab210a2ccc9cd2a7c7b4e5b1b2db95cb329cdb388f358dd8694399ad535e0e",
+      "reversing/PresetLoad74/Core.hpp": "9d0def2a6de0f47113f66aba9a37d53b460b979c08ca2c359ed3a3541dbe5921",
+      "reversing/PresetLoad74/Fixtures.hpp": "ffc2b43677a03cf7d283ccb0c2eda0469395a6f939241ff2c855c78c64bab983",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

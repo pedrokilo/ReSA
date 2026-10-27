@@ -13,29 +13,29 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "7cb16d90a824b335540590a02c59d56c939e37c52c056b569f024bb95101a5a1",
+  "log_sha256": "1dcb94e0a03276395b1bb61d6cccf999436a33e05495a437419dd98fec56d3ff",
   "saves_unchanged": true,
   "class_recorded_progress": "28/28",
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-playerinfo\\20260922-230747-160060",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-playerinfo\\20261027-053200-804801",
   "probe_build_manifest": {
-    "helper_source": "6e49da436e4ee78f3156307786f2292a3ecf808d4bd55cc73433e1d6a5803370",
+    "helper_source": "a3c4ca4439508d7c33a6c06a723039305cd475d6b62f47cf655085a698cb6f6c",
     "binaries": {
-      "asi": "6f71a365e4fe2eb34e47ab5914b6fde2d387ca326ee7f484ca5c560553883b4f",
-      "pdb": "4c4868a6f91426b398f052aec098802a3c498be91b7c4807992100d65e2d6d42"
+      "asi": "15025d04f235467c4333d75190d637fb49dc3d4753d327669b9a4fb3850b1674",
+      "pdb": "58201d4cb71acea41087d30d2c923b635d7895047a7b9e8bf10d77fc50955036"
     },
     "sources": {
-      "source\\game_sa\\PlayerInfo.cpp": "e8971ed4d5eb5c4e3690942f6a7f58d1ef8f49ab66049aa9c5b3db6a897fc9a6",
-      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde"
+      "source\\game_sa\\PlayerInfo.cpp": "10c3a7e7e2999672406869cfc985be65cfd690fcf7d3cf2fa38bcb72fcc76932",
+      "source\\game_sa\\Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87"
     },
     "instrumentation": {
       "Probe.hpp": "54ca96f7274f712b7bce8a08b675e2025b88cf867356d7423192817bdec8f4af",
-      "LiveComparison.hpp": "e957a6a8bf612d7385d1ac4fec58be5146adb8b308442dd8cacab8be7dd83103",
-      "ProcessComparison.hpp": "99cfd1ba43a5d3c31ec098b0862ee9cd097620838afb42218dbe7838dd215e49",
-      "build_probe.py": "10f4c88dbb716ec47f7ae436ebca349d07e8e4e7f5489784e5d92d9b46115d9b"
+      "LiveComparison.hpp": "24c9eddf4f1543a33d7c2081b80240ce0659396edbfca56ce8d17368c07a18a9",
+      "ProcessComparison.hpp": "dbf6560da2561d844b174acd0f112ed66ee19f919ee4e73c6d4dd8a2cef519fb",
+      "build_probe.py": "e24e2aa1b0baccf241adb82253c9dce41e0e6ad70addf802c0b966ecdf81ca1f"
     },
     "dependencies": {
-      "source/game_sa/PlayerInfo.h": "11a8c605fff40d0100fac89328ecad28ea39c833def1ad3949517aaf8140cd58",
-      "source/game_sa/PathFind.cpp": "fb5727c1f494f1eed3471312032d47669eea19266ace4b1562ef8ebf42b5c0db",
+      "source/game_sa/PlayerInfo.h": "49e25549e83e1027b0e8568211f90fe5049a7b845ba46771a0cd57caf1c30190",
+      "source/game_sa/PathFind.cpp": "22aee463a73f9a507622610106e8d160ad7a996d4522b3a71071ba21439fec6e",
       "source/game_sa/Tasks/TaskTypes/TaskComplexEnterBoatAsDriver.h": "56016576dc4cb257d5ec28cd42386381deeab9842fd45d919ec3a818b1544339"
     }
   },
@@ -49,7 +49,8 @@
   "limitations": [
     "Controlled dependencies; finite fixture coverage, not general game stability.",
     "No cooperative gameplay, full task execution, pickup interaction, RC camera effects or streaming validation.",
-    "Separate original helpers: crosshair controller 0x56EC80, road density 0x44EFC0, pickup-task constructor 0x6919C0."
+    "Separate original helpers: crosshair controller 0x56EC80, road density 0x44EFC0, pickup-task constructor 0x6919C0.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ],
   "constructor_validation": "constructor-validation-summary.json",
   "normal_installation_at_three_function_validation": {

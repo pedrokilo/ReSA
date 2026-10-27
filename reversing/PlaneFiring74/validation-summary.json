@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 18432,
+  "differences": 0,
+  "registered_pairs": 18432,
+  "registered_functions": 1,
+  "functions": {
+    "CVehicle::GetPlaneWeaponFiringStatus": 18432
+  },
+  "covered_functions": {
+    "CVehicle::GetPlaneWeaponFiringStatus": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-4 (HEAD f13a750cf + cambios integrados del lote 74; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CWorld::FindPlayerSlotWithVehiclePointer 0x564000 (WldC, 256 pares), CPad::GetCarGunFired 0x53FF90, CPad::CarGunJustDown 0x53FFE0, CPad::GetEnterTargeting 0x5406B0 y CPad::GetTarget 0x540670 (RequestedPadSelectors, 3876 pares), CWeaponEffects::IsLockedOn 0x742BD0 (Ped9, 128 pares), CVehicle::ScanAndMarkTargetForHeatSeekingMissile 0x6E0400 (HeatSeek72) y CProjectileInfo::AddProjectile 0x737C80 (ProjectileAdd355); CPad::GetPad 0x53FB70 (inline sin hook) se ejecuta de verdad. El banco compara el orden y todos los argumentos de los falsos, el bool (un solo byte) y el tipo de ordenanza (dword) escritos solo en los caminos del EXE (vecinos intactos), EAX (objetivo), la hora de la ultima bengala (+0x4D4), el inicio y el objetivo de la fijacion (+0x9DC/+0x9E0), la mira global (gCrossHair[0]: color, rotacion y tiempo), los bytes globales 0xC1CC00/0xB6EC2E, la posicion de la bengala (x87 a 24 bits, incluidos NaN no canonicos, infinitos, desnormales y ceros con signo; reglas de NaN validadas ademas contra el hardware con flare_nan_hw) y 5 arenas (vehiculo CPlane completo, objetivo, otra entidad, matriz y salidas). Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. El EXE lee matriz + 0x10/+0x20 sin comprobar nulo en la bengala del Hydra: la matriz nula solo se prueba cuando no hay bengala (la rama de posicion compacta this+4 con matriz nula no es ejercitable: se cae el propio EXE). ECX/EDX solo se registran: el unico llamador, CVehicle::ProcessWeapons 0x6E39F4, los sobrescribe antes de leerlos; EAX si se compara. El colaborador GetPlaneWeaponFiringStatus de ProcessWeapons lo valida este banco (VehicleWeapons67 lo sustituye por un falso en la direccion del EXE y en el cuerpo de la DLL).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/PlaneFiring74-20261027-050140-392046",
+  "summary_sha256": "da9a98ca2d2560fa3f2b69e0d747142c78c8525089c52bfb015ed12c88fd5e79",
+  "result_txt_sha256": "987c0a857b30610c6b88267fceec5c75c076a4c4e53666cfa72e4768b8c2985e",
+  "log_sha256": "4be012e855a27e096ccfdd199a4dceb89e264158921d3d824bbbabcf15b7cff4",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "48559a749ac8180c7ce987ac2037d244a4cb2eca86c068c9697c9e92ec33ab1c",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+      "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
+      "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "5950ece273bbea7f5b833d0b757bfab1f275d83214b34220a88083eec7b7b36c",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/PlaneFiring74/LiveComparison.hpp": "79bff48206192cf5e3929641bddd5493e23fed342ce54c5bf9cf796612f88b9c",
+      "reversing/PlaneFiring74/Core.hpp": "a3998d6d9151ecd3bcbac5e112656865a1130f55eeb0b0a8cd3894d6abd6c58b",
+      "reversing/PlaneFiring74/Fixtures.hpp": "7c9ee4ad109d5a89a36ec812b357777b65b153c81a733d8e21ad3cb17f0cefa4",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

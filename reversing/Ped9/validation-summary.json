@@ -58,10 +58,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "4d834ca1f5cbbc3cbfab9cfbb999eefb4f47b2ebfc04d527ea84aad305beffbd",
+  "log_sha256": "42832f444361c8cf03fdb7cce014a049c76c392f7411a40d942631acf65691ee",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ped9\\20261003-041330-488865",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ped9\\20261027-053011-669524",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CPedIK::Constructor": true,
@@ -112,30 +112,33 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "ade82074d243e3c0e00a6b8ffa7ac098b89d91c2cf104dd14653345417d2ad69",
-      "pdb": "6a36e6bf293d60a331b1163e87f9f2ed34fc7ba3c669e55008693880b7f18070"
+      "asi": "4d12a3bd69447f327c87c1fe00282d255818b9411a41092cb5ef0739ca8c831f",
+      "pdb": "cc086617c32d1ab3a44b372997f67aa00e11c62d6157428b0680f6011f8a5390"
     },
     "sources": {
-      "source/game_sa/PedIK.cpp": "b104b491c48787e1465f03f880af0ff1cd4cf68b94c24c41529c1a405d2d60b7",
+      "source/game_sa/PedIK.cpp": "e57808262a3305b8cfe203634d9d2ad6b6fffe8e362a389450b492401bb29064",
       "source/game_sa/PedIK.h": "7ac4646fe9cc826b1af9b5ee0a8a9615c79d634d9a5c0d533ca4ba352e05c05b",
-      "source/game_sa/WeaponEffects.cpp": "f0df0ec90f9b0afaaf5ab355435904b1bf2646981972a9312c860e22818641e7",
-      "source/game_sa/WeaponEffects.h": "7a7fb60f10faa20362442ab8f8109d1d3d70e232b2d9912f1e4b450f8f07ea4b",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "c031fd86e26ec51d39e46c177697522757cf406e1950d78ed4c805889017f47f",
+      "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
+      "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
+      "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
+      "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp": "d384a643a3682338d14bfe35617244d9a5a8485dbddc43f82c475ed072596361",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.h": "816c950ae98248c778f4625e0893c94cdcdb51c0e673a6bade40586f009f54b5",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "3ce428b0d8ca32b5f9363454f1dc6c7a73601c49aad4e926345a3c2c40bc4c9a",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp": "0bd0604bd37a3e37bb1adc7578429a8e88bed82570e0114825f0381b28f9dc0e",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.h": "10c3a505072fb1a879de4d18ab76f95126f7dc39dc7fbe203e49d716d8f92bff",
-      "source/game_sa/Tasks/TaskTypes/TaskSimplePickUpBike.cpp": "261eec6766fb9c2dfe216510bf34431f726a93b42d2cd919e290e80ad2de88c7",
+      "source/game_sa/Tasks/TaskTypes/TaskSimplePickUpBike.cpp": "01b63703c7e3595346762c4bad5d3585f43b1d8bba379efcfc76baa9c5970019",
       "source/game_sa/Tasks/TaskTypes/TaskSimplePickUpBike.h": "04ad928b5e1c42ae5f17d79375219550090a501e02252f9fe45d01f3da1cff0d"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "04a21973f641b6de14e1370cc9cd972509ede107cbd41e9f1f0f2ba9fd60546a",
-      "build_probe.py": "a3433f7b472e5ebbc29f4ce6fdd7d092771a03110683440702e0b1cb192b556b",
+      "LiveComparison.hpp": "2c3fa605204c17431f189a574742e234b838c06eca69d68d81c9b3c52e449510",
+      "build_probe.py": "903d0a9429bf7c5ab23ad5802ef9e1e751625f1f4ca97c4a97014a760601bf33",
       "run_local.py": "bbc3d52810d05b15782926d413d14c12c4a5139fbd1c690ef611f759fac868bc"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

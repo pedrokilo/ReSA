@@ -1,0 +1,3 @@
+APROBADO: CPlayerInfo: tres funciones
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-playerinfo\20261027-053200-804801

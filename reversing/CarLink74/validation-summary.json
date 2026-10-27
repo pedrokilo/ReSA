@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 18432,
+  "differences": 0,
+  "registered_pairs": 18432,
+  "registered_functions": 1,
+  "functions": {
+    "CCarCtrl::ClipTargetOrientationToLink": 18432
+  },
+  "covered_functions": {
+    "CCarCtrl::ClipTargetOrientationToLink": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-4 (HEAD f13a750cf + cambios integrados del lote 74; ver artifacts/build-manifest.json). Colaborador CGeneral::GetATanOfXY 0x53CC70 sustituido por un falso identico en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; lo valida Core9); las 2048 fixtures de atan real (familias 14 y 15) ejecutan el atan de cada lado sin falso. El banco compara los argumentos de las tres llamadas al atan EN ORDEN (la primera con resultado descartado), el resultado en *arg4 (x87 a 24 bits, incluidos NaN no canonicos, infinitos, desnormales y ceros con signo), las 4 arenas (vehiculo, matriz, destino, enlace) y las entradas de ThePaths. Los bucles de normalizacion con |D| enorme o infinito no terminan en el EXE y no se prueban; EAX/ECX/EDX solo se registran.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/CarLink74-20261027-050335-455365",
+  "summary_sha256": "ebb91dded8eff9673a8cc231e943f1410555d79897de518d3cb14d58b0ef7931",
+  "result_txt_sha256": "9de6fd705a62191f32f7dbeb86d71d0f36abdf2d18f6793f439e18e39a46f396",
+  "log_sha256": "7193c7cc0b62eed11595a5c1ad31d7c33d903f9697c33903fb8d1235be0bb4a8",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "fb19cb30d209eb0821cca47444b09c024665e4d45a11bf937a4ad1e4abb7e181",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+      "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
+      "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+      "source/game_sa/CarCtrl.cpp": "3ee200d7d3a3ca6a3236024e9a585e04cb05334efccc9abd7b54d07145f9f3cb",
+      "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/CarLink74/LiveComparison.hpp": "2cec5fd8822e6249bd46f626e8b5a513a84c4597b62b32ed664b178c0830edd9",
+      "reversing/CarLink74/Core.hpp": "f0ef749d0c9bdfb560cf0d1c4c070531a67d5e0043db039bd3d7bce658465644",
+      "reversing/CarLink74/Fixtures.hpp": "fd3d99f594bd1f66a7a327cdf4c2bb7bef3e13f795afdab6e8eab2585f33553f",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

@@ -1,0 +1,3 @@
+APROBADO: CrosshairRender74
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-crosshairrender74\20261027-051846-841708

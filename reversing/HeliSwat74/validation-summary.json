@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 21504,
+  "differences": 0,
+  "registered_pairs": 21504,
+  "registered_functions": 1,
+  "functions": {
+    "CHeli::SendDownSwat": 21504
+  },
+  "covered_functions": {
+    "CHeli::SendDownSwat": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-4 (HEAD f13a750cf + cambios integrados del lote 74; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados) salvo que se indique lo contrario; el banco compara el orden y todos los argumentos de los falsos, los bytes cambiados de las arenas y los globales. Colaboradores: rand 0x821B1E (CRT del EXE, sin hook; la DLL lo llama por su direccion), CHeli::FindSwatPositionRelativeToHeli 0x6C4760 (Helpers65B; la DLL llama a la funcion miembro), CWorld::FindGroundZFor3DCoord 0x5696C0 (WldB), CWaterLevel::GetWaterLevelNoWaves 0x6E8580 (WaterQuery355), CRopes::RegisterRope 0x556B40 (Misc61a), CPopulation::AddPed 0x612710 (PopFinal4), CTask::operator new 0x61A5A0 (CTasks19), CTaskComplexSequence ctor 0x632BD0 y AddTask 0x632D10 (CTasks13), CTaskComplexUseSwatRope ctor 0x659470 (TasksBatch4), CTaskComplexWanderCop ctor 0x460C80 (CTasks9c), CGeneral::GetRandomNumberInRange_int32 0x407180 (Core9; la DLL lo llama por su direccion), CTaskManager::SetTask 0x681AF0 (Tasks18; en linea en la cabecera, la DLL lo llama por su direccion) y CAnimManager::BlendAnimation 0x4D4610 (AnimMgr31). CVector::Magnitude 0x4082C0 y la copia/destruccion de CMatrix, la rotacion 0x59C790 y la suma 0x411A00 corren reales en el EXE y en linea en la DLL (HeliSwat74WorldPosCpp, con las reglas de NaN validadas contra el hardware x87 por nan_rules_hw: 31671136 combinaciones, 0 discrepancias). Con la matriz del helicoptero nula el EXE se cae al copiarla: no se prueba. El resultado (AL) se compara; el unico llamador (0x6C7801) lo ignora, y EAX/ECX/EDX solo se registran.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/HeliSwat74-20261027-050458-019822",
+  "summary_sha256": "d44a3c762cfda383fff016317c6ceb5bda6ac0d43ac12a9ad1162a4abe0b4466",
+  "result_txt_sha256": "aee6413aa73b1108f828df8f41b4b293ca6102a711788eecf8f76e81c6eb1207",
+  "log_sha256": "ee5a117cf27156e916d5946d1f432ec3103f0618ede4177d12275b685ea11516",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "c5c550dfbf6fea617054cd4b2c0cdb7b3a94f8c4336890fe419f77376e09549a",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+      "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
+      "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+      "source/game_sa/Entity/Vehicle/Heli.cpp": "4dcca32e5bd5e2e8fc9fb975476f70d053372dd0f686c5814b46f234bbfe0b15",
+      "source/game_sa/Entity/Vehicle/Heli.h": "5a25d6cd5fce0d662d9b31ab5231933710170cd4f4fc17ffbfa28b09be364f12",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/HeliSwat74/LiveComparison.hpp": "08e345b379efe99a11cbca3561e9124004e271b80a19b879033680581410aacc",
+      "reversing/HeliSwat74/Core.hpp": "a2851af05e9c15034219abc31daa0dfce5da04395985eb3471db835ae65b7bc8",
+      "reversing/HeliSwat74/Fixtures.hpp": "1eae661b86b7e6ca7a1b5e97a573eca253b84b374bde8efbae99ace0773c3a65",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

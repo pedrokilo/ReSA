@@ -12,21 +12,21 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-1 (HEAD 1ca520153 + Vehicle.cpp/Vehicle.h del lote 67). Colaboradores sustituidos por falsos identicos en ambos lados (parche en la entrada del EXE y, si la DLL tiene hook, en el cuerpo de la DLL; no se validan sus cuerpos): FindPlayerVehicle (0x56E0D0), CWeaponEffects::ClearCrossHairImmediately (0x742CA0), GetPlaneWeaponFiringStatus (0x6E3440, sin hook: la DLL la llama por la direccion del EXE), SelectPlaneWeapon (0x6D4900; su falso conserva EDX como el original, del que ProcessWeapons depende), FirePlaneGuns (0x6D4D30), PossiblyDropFreeFallBombForPlayer (0x6E07E0), FireHeatSeakingMissile (0x6E05C0, sin hook), FireUnguidedMissile (0x6D5110), GetPlaneNumGuns (0x6D3F30) y FxSystem_c::SetMatrix (0x4AA630). Vehiculo (incluidos los campos del avion y del helicoptero), clump con su marco, lista de fogonazos y entidades son FALSOS en una arena; el banco no escribe ninguna global del juego. Los dos llamadores del EXE (0x6C7917 CHeli, 0x6C9348 CPlane) no leen EAX/ECX/EDX. GetPlaneWeaponFiringStatus pasa a devolver CEntity* (el original deja el objetivo en EAX y ProcessWeapons lo usa). Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/VehicleWeapons67-20261027-010017-164502",
-  "summary_sha256": "84fa4eb5f11a8d13d9d67766f611e1beee1a5b519beaf22c4959ad2224285232",
-  "result_txt_sha256": "be158fe29dadccd71a53cebf75fe2d1defe836d7a9a05f34b66d35bd7c115f4d",
-  "log_sha256": "8a934e9c5bbca89eeede90efea868fa6b014ff56d6f291f48e2675e02d2ba0e8",
+  "run": "reversing/CppTwelveLevel6Final/runs/VehicleWeapons67-20261027-052657-326184",
+  "summary_sha256": "b07da0d51e16636ed36c98dbeaccda7c64e235478785b1ffb8368cd6a375b73c",
+  "result_txt_sha256": "14133cc218e43a6fc24bf06f3f721020751009882e91ee5d42607bc51bdedb03",
+  "log_sha256": "7f220d16d3c50c8806fc94fab006c01b1bf9cd7907d2befedcd8319fbcce67a7",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "176236380d8390864ff8c2ba67963dc032878110b992a2def0370330c8426fb5",
+  "executed_probe_sha256": "fbaa09ab2a26a116d3f198a183de0d948683c0597ffbec244a151f82569fb9b4",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
       "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
-      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "c02ea6c2e267c10b7bb20b210eb11be8571c7307f8d6a0d2d787d7a25937b168",
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "5950ece273bbea7f5b833d0b757bfab1f275d83214b34220a88083eec7b7b36c",
       "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/VehicleWeapons67/LiveComparison.hpp": "8faaaaf75517c8f024bbd5b8216e4e19caeb5c3b0ec37cac04ca02afe82bb016",
@@ -37,10 +37,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/VehicleWeapons67-20261027-010017-164502/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/VehicleWeapons67-20261027-052657-326184/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "7208c403253520f807a2ca76a16b55357c45e96b1cdfb278302835f758f44d53",
-    "uncompressed_sha256": "8a934e9c5bbca89eeede90efea868fa6b014ff56d6f291f48e2675e02d2ba0e8"
+    "compressed_sha256": "cd7022d772e2e3d23aa46bea385cf46e7c8afff08efdeb75d1e82efe5e983439",
+    "uncompressed_sha256": "7f220d16d3c50c8806fc94fab006c01b1bf9cd7907d2befedcd8319fbcce67a7"
   }
 }

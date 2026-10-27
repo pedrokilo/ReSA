@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 21504,
+  "differences": 0,
+  "registered_pairs": 21504,
+  "registered_functions": 1,
+  "functions": {
+    "CHeli::BlowUpCar": 21504
+  },
+  "covered_functions": {
+    "CHeli::BlowUpCar": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-4 (HEAD f13a750cf + cambios integrados del lote 74; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados) salvo que se indique lo contrario; el banco compara el orden y todos los argumentos de los falsos, los bytes cambiados de las arenas y los globales. Hook VIRTUAL (ranura 41 de la vtable 0x871680; fila de docs/hooks.csv: CHeli,BlowUpCar,0x00000000,1,0,1,V; la direccion real va en evidence.original_address). Colaboradores: rand 0x821B1E (CRT del EXE, sin hook), CWorld::FindPlayerPed 0x56E210 y FindPlayerVehicle 0x56E0D0 (WldC), CStats::IncrementStat 0x55C180 (Stats32), CVisibilityPlugins::SetClumpForAllAtomicsFlag 0x7322F0 (VisPluginsFinal4), CDamageManager::FuckCarCompletely 0x6C25D0 (Damage27), CAutomobile::SetBumperDamage 0x6B1350 / SetDoorDamage 0x6B1600 / SpawnFlyingComponent 0x6A8580 (AutomobileFinal4), RwFrameForAllObjects 0x7F1200 (sin hook; la envoltura de la DLL llama a la direccion del EXE), CCamera::CamShake 0x50A9F0 (CameraFinal4), CVehicle::KillPedsInVehicle 0x6D1C80 (CVehB) y ChangeLawEnforcerState 0x6D2330 (CVehA), CFireManager::StartFire 0x53A050 (Fire24), CDarkel::RegisterCarBlownUpByPlayer 0x43DF20 (Game19) y CExplosion::AddExplosion 0x736A50 (World12). El falso de RwFrameForAllObjects no ejecuta la funcion de retorno GetCurrentAtomicObjectCB (0x6A0750 en el EXE; su copia de la DLL no se valida aqui): escribe el atomico en el destino. Los globales (jugador en foco, CPlayerInfo, bandera de noticias, contadores de ambulancias y camiones, hora) se fijan por caso y se restauran. El segundo argumento (bool) no lo lee el EXE. Void: EAX/ECX/EDX solo se registran.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/HeliBlow74-20261027-055644-032109",
+  "summary_sha256": "3117cce543806cf51477d62471df20ae7e23cbd6e61f5f5517468c7c694b3aad",
+  "result_txt_sha256": "742306975db1734a05d3247225f194b036d77405947d9d77088397ca915a98fd",
+  "log_sha256": "4fedac0254bd0941bf24310159971d8c6f7b08d49be3e65992db08a783b0bbbf",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "196546fdff90b0d2eb093012968f2aabf907a78dfda6e57afad5b58a74447a83",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+      "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
+      "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+      "source/game_sa/Entity/Vehicle/Heli.cpp": "4dcca32e5bd5e2e8fc9fb975476f70d053372dd0f686c5814b46f234bbfe0b15",
+      "source/game_sa/Entity/Vehicle/Heli.h": "5a25d6cd5fce0d662d9b31ab5231933710170cd4f4fc17ffbfa28b09be364f12",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/HeliBlow74/LiveComparison.hpp": "12e2759180bae13d2bb45c09921c8f212c476aa5cfaffb027736ca88136058d2",
+      "reversing/HeliBlow74/Core.hpp": "3dd26556d0e8c011585ea45103ec9a56869dba98792824af30530445633c966a",
+      "reversing/HeliBlow74/Fixtures.hpp": "03ec6ef0837f868ab2e37548c7faec4a852ace9936d2ddabcb90bc5f55f5d9af",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

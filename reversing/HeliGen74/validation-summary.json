@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 21504,
+  "differences": 0,
+  "registered_pairs": 21504,
+  "registered_functions": 1,
+  "functions": {
+    "CHeli::GenerateHeli": 21504
+  },
+  "covered_functions": {
+    "CHeli::GenerateHeli": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-4 (HEAD f13a750cf + cambios integrados del lote 74; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados) salvo que se indique lo contrario; el banco compara el orden y todos los argumentos de los falsos, los bytes cambiados de las arenas y los globales. Colaboradores: rand 0x821B1E (CRT del EXE, sin hook), CVehicle::operator new 0x6E2D50 (DependenciesVehicle12), el constructor de CHeli 0x6C4190 (Helpers66D), CWorld::FindPlayerPed 0x56E210 (WldC), CWorld::FindGroundZForCoord 0x569660 (WldB), CMatrix::SetTranslate 0x59AF40 (sin hook en la tabla y sin banco propio: falso en la direccion del EXE y en el cuerpo de la DLL), CWorld::Add 0x563220 (WldC) y CVehicle::SetUpDriver 0x6D1A50 (CVehB). Las funciones trigonometricas son las de X87Math (TrigCompoundCosMulAdd / TrigCompoundSinMulAdd / TrigSimpleSinCpp / TrigSimpleCosCpp), ya validadas por sus bancos. El bucle de 0x6C6790 sobre pHelis no tiene efecto y no se reproduce (el llamador, 0x6C7ACF, es quien registra el helicoptero). Con el pool agotado el EXE se cae: no se prueba. EAX se compara (puntero al helicoptero); ECX/EDX solo se registran.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/HeliGen74-20261027-050852-018542",
+  "summary_sha256": "2e295aef134880c64a64e75ed7473201a3639034c9451b13a92552559548fb2a",
+  "result_txt_sha256": "4804b13e19f2ff9180fcc65cd736028da785fd5df8b9e9dcf743a5a0547e90d4",
+  "log_sha256": "184e2da7d2a0234c46ad343088500d790611f7d2842d5ed4e66b118571560d02",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "e99ea334ab673959ae73b17bd8deab52c76b43052285402dd5b3759c47ebac60",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+      "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
+      "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+      "source/game_sa/Entity/Vehicle/Heli.cpp": "4dcca32e5bd5e2e8fc9fb975476f70d053372dd0f686c5814b46f234bbfe0b15",
+      "source/game_sa/Entity/Vehicle/Heli.h": "5a25d6cd5fce0d662d9b31ab5231933710170cd4f4fc17ffbfa28b09be364f12",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/HeliGen74/LiveComparison.hpp": "67a87037f6ec61f9c584eea8a22c037c6c4e0432aa594a1bd1b1ad4119d136ab",
+      "reversing/HeliGen74/Core.hpp": "bf2b9fb0c1290c432165514ffdeebe494904b847ce59d385865fef0dec22ca78",
+      "reversing/HeliGen74/Fixtures.hpp": "d0965b451a6126bfec83cb4db5bc218dd2bb66334ad3bf71ec79155d88536cee",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

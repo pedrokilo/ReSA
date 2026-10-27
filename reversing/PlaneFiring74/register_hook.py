@@ -17,7 +17,7 @@ FUNCS = (
     # (id del banco, direccion, clase, funcion, fuente)
     ('CVehicle::GetPlaneWeaponFiringStatus', '0x006E3440', 'CVehicle', 'GetPlaneWeaponFiringStatus', 'source/game_sa/Entity/Vehicle/Vehicle.cpp'),
 )
-SCOPE_NOTE = ('Fuentes probadas compiladas desde el worktree D:/Original/wy-1 (HEAD f13a750cf + source.patch del lote 74; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos '
+SCOPE_NOTE = ('Fuentes probadas compiladas desde el worktree D:/Original/wy-4 (HEAD f13a750cf + cambios integrados del lote 74; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos '
               'en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CWorld::FindPlayerSlotWithVehiclePointer 0x564000 (WldC, 256 pares), '
               'CPad::GetCarGunFired 0x53FF90, CPad::CarGunJustDown 0x53FFE0, CPad::GetEnterTargeting 0x5406B0 y CPad::GetTarget 0x540670 (RequestedPadSelectors, 3876 pares), CWeaponEffects::IsLockedOn 0x742BD0 (Ped9, 128 pares), '
               'CVehicle::ScanAndMarkTargetForHeatSeekingMissile 0x6E0400 (HeatSeek72) y CProjectileInfo::AddProjectile 0x737C80 (ProjectileAdd355); CPad::GetPad 0x53FB70 (inline sin hook) se ejecuta de verdad. '

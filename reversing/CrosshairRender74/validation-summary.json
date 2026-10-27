@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 20480,
+  "differences": 0,
+  "registered_pairs": 20480,
+  "registered_functions": 1,
+  "functions": {
+    "CWeaponEffects::RenderPlayerCrosshair": 20480
+  },
+  "covered_functions": {
+    "CWeaponEffects::RenderPlayerCrosshair": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-4 (HEAD f13a750cf + cambios integrados del lote 74; ver artifacts/build-manifest.json). CWeaponEffects::RenderPlayerCrosshair se llama con this = &m_nCrosshairActivated (hook de envoltura __fastcall). Colaboradores sustituidos por falsos identicos: CSprite::RenderOneXLUSprite_Rotate_Aspect 0x70D490 (en la direccion del EXE y en el cuerpo de la DLL; lo valida el banco de CSprite) y la entrada fpRenderStateSet de la tabla de RenderWare (RwEngineInstance + 0x20) durante la llamada. El banco compara los 6+60+2 eventos en orden (estados de render, 60 sprites con posicion, color y tamano), los tres historiales globales de 5 entradas por jugador (X, Y y hora, incluido el desplazamiento con la hora copiada de una direccion absoluta del jugador 0), el indice de textura y los dos jugadores. La emulacion x87 (Cross74PhaseCpp/Cross74TrailPointCpp) se valida ademas contra el hardware con nan_rules_hw de PlayerCrosshair74. No se prueba: indices de jugador distintos de 0 y 1 (el EXE indexa los historiales sin acotar), la textura nula. EAX/ECX/EDX solo se registran: el unico llamador, CWeaponEffects::Render 0x742E66, no los lee.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/CrosshairRender74-20261027-051846-841708",
+  "summary_sha256": "031c331f5c67c541588590b7469beac281c52e1de6eb509c9e12bbaef2dd37b3",
+  "result_txt_sha256": "270a51f3bcc50c171dd59f5b173b7160b9f6b453f9c8313aace81c498ed7604e",
+  "log_sha256": "b093b4752bf10a717271b63a3118f6ef19d64c7f64e9e7e7e56f2ca12a7a4803",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "9c64730220f16ea80ecd1af4f5778d15c263019127d06ebc2bde91305024fdd5",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+      "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
+      "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+      "source/game_sa/WeaponEffects.cpp": "9f8253555bd7016b95f56c79d89ee363d71d1b2ddae1accc616c0c3e1fb616c6",
+      "source/game_sa/WeaponEffects.h": "1a041e53ead10587b4fb0928bfb4520ec9b34b1221641b17cf1a77cbb52b4505",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/CrosshairRender74/LiveComparison.hpp": "39c9f6a503f28f022b86ce9eb2dc7bfd404833c297c71ac09c41e4952ddd35a6",
+      "reversing/CrosshairRender74/Core.hpp": "b4b9a16129b1ea2d6e410b164be6f64ea38f22a316892338f0e1d48bd6af34c5",
+      "reversing/CrosshairRender74/Fixtures.hpp": "c71b3bdd56c22ca5d4527d84016ca4921a8dc3a01660a79c7758836c11bcef40",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "9781aa719c1c9958a7a4fcdaabd7f3ab260c31b04a950f977d4f6ecf44a35f9d",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 20480,
+  "pairs_per_function": {
+    "RsLoadPresetViews": 20480
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "756941400f75f0608821811e86589eb5916d98dc0bf3c583d99c1522dc28894c",
+  "compare_dead_x87_registers": false,
+  "families": {
+    "RsLoadPresetViews": {
+      "0": 1024,
+      "1": 1024,
+      "2": 1024,
+      "3": 1024,
+      "4": 1024,
+      "5": 1024,
+      "6": 1024,
+      "7": 1024,
+      "8": 1024,
+      "9": 1024,
+      "10": 1024,
+      "11": 1024,
+      "12": 1024,
+      "13": 1024,
+      "14": 1024,
+      "15": 1024,
+      "16": 1024,
+      "17": 1024,
+      "18": 1024,
+      "19": 1024
+    }
+  },
+  "branch_coverage": {
+    "RsLoadPresetViews": {
+      "fopen_fail": 1185,
+      "ret_false_empty": 6023,
+      "num_before_nonzero": 13353,
+      "list_before_nonnull": 12831,
+      "cur_before_other": 13687,
+      "fopen_ok": 19295,
+      "no_lines": 1024,
+      "closed": 16564,
+      "num_before_zero": 7127,
+      "nodes_1": 4056,
+      "ret_ok_true": 13810,
+      "sprintf_default_name": 10958,
+      "empty_line": 7623,
+      "float_inf": 5731,
+      "float_denormal": 6600,
+      "isprint_calls": 16295,
+      "float_nan_noncanonical": 7170,
+      "float_snan": 5220,
+      "sscanf_ret_lt7": 7045,
+      "oom_desc_free": 1392,
+      "line_filtered": 11703,
+      "line_high_bytes": 3473,
+      "nodes_2plus": 10401,
+      "float_negzero": 1474,
+      "line_long": 3882,
+      "path_null": 3365,
+      "path_null_fopen_ok": 3219,
+      "sscanf_eof_minus1": 2064,
+      "name_40": 1384,
+      "nodes_5": 1147,
+      "ret_false_with_nodes_oom": 647
+    }
+  },
+  "saves_unchanged": true,
+  "configs_restored": true
+}

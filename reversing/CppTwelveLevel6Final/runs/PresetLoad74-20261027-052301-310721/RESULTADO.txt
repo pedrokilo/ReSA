@@ -1,0 +1,3 @@
+APROBADO: PresetLoad74
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-presetload74\20261027-052301-310721

@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 20480,
+  "differences": 0,
+  "registered_pairs": 20480,
+  "registered_functions": 1,
+  "functions": {
+    "CPlayerInfo::ProcessCrosshair": 20480
+  },
+  "covered_functions": {
+    "CPlayerInfo::ProcessCrosshair": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-4 (HEAD f13a750cf + cambios integrados del lote 74; ver artifacts/build-manifest.json). CPlayerInfo::ProcessCrosshair se llama con this = &m_nCrosshairActivated (hook de envoltura __fastcall). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados): CPad::GetSteeringLeftRight 0x53FB80, CPad::GetSteeringUpDown 0x53FBD0, CPad::GetCarGunFired 0x53FF90 (los valida el banco de CPad), CamShakeNoPos 0x50A970 y CCamera::FindCamFOV 0x50AD20 (bancos de la camara) y CWeapon::FireInstantHit 0x73FB10 (WeaponInstant355); el constructor CWeapon 0x73B430 corre de verdad en ambos lados (el EXE entra por su hook a la DLL; lo valida su propio banco) y el falso de FireInstantHit solo registra los campos que escribe. El banco compara el orden y todos los argumentos de los falsos, la mira recortada (x87 a 24 bits con exponente extendido, NaN no canonicos, infinitos, desnormales y ceros con signo; fptan/fsin/fcos sin redondear), las banderas del ped (+0x470) y el vector de disparo. La emulacion x87 de produccion (Cross74*Cpp) se valida ademas contra el hardware con nan_rules_hw (1,8 millones de combinaciones, 0 discrepancias). No se prueba: |fov*0.0087| >= 2^63 (fptan fuera de rango desequilibra la pila x87 del propio EXE), CPed con ped nulo (el EXE no lo comprueba), indices de jugador distintos de 0 y 1. EAX/ECX/EDX solo se registran: el unico llamador, CPlayerInfo::Process 0x56FA41, no los lee.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/PlayerCrosshair74-20261027-051645-242999",
+  "summary_sha256": "bc55b0b8fe651f03136540acf0832d4d1a942a741e95bc5a03e32412b34b9fa7",
+  "result_txt_sha256": "7323ca25400f62296786ee45188fc7ec6c0e49ab96bb325975c2768a607710e4",
+  "log_sha256": "3535045cb4a1948c064ccbde58331a17b3a3be3978d99fbdbc2e47759d4e4ed8",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "d3d00579894c38b17fa4e1522065b31b40f03aa5434f3e32e0bbd61824a43934",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+      "source/game_sa/X87Math.cpp": "f51f8a29488f508a59040afe9d0c4387cb9ee26a8facd8448d6e86f0d81c5a5f",
+      "source/game_sa/X87Math.h": "26ba15ee37b454b7b45c394b2b9036341dae9a5afba28257da1e7c0b88a25e63",
+      "source/game_sa/PlayerInfo.cpp": "10c3a7e7e2999672406869cfc985be65cfd690fcf7d3cf2fa38bcb72fcc76932",
+      "source/game_sa/PlayerInfo.h": "49e25549e83e1027b0e8568211f90fe5049a7b845ba46771a0cd57caf1c30190",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/PlayerCrosshair74/LiveComparison.hpp": "498ef30f25fadd173d31ab19e8721192bda6a1b59b7677ca6a7fa9a84ad65ddd",
+      "reversing/PlayerCrosshair74/Core.hpp": "398479280810641f55101087bb8e7b5a739ca14eaa6440ccf33c110fe5007584",
+      "reversing/PlayerCrosshair74/Fixtures.hpp": "866d35a2c4fabe24e1b7f0a56bf38827b1cc1252b1f52d803a7ea8986c930922",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

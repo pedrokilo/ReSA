@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,931 entradas reversed=1**, de 8,931 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,939 entradas reversed=1**, de 8,939 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8931 |
+| `validated=1` · evidencia aprobada vinculada | 8939 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8931 |
+| Evidencia histórica vinculada; revisión pendiente | 8939 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -1456,6 +1456,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCarCtrl | `ChooseModel` | [Resumen](../reversing/CarCtrlRest63E/validation-summary.json) |
 | CCarCtrl | `ChoosePoliceCarModel` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
 | CCarCtrl | `ClearInterestingVehicleList` | [Resumen](../reversing/DependenciesCarCtrl2/validation-summary.json) |
+| CCarCtrl | `ClipTargetOrientationToLink` | [Resumen](../reversing/CarLink74/validation-summary.json) |
 | CCarCtrl | `CreateCarForScript` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
 | CCarCtrl | `DealWithBend_Racing` | [Resumen](../reversing/CarCtrlSteer63f/validation-summary.json) |
 | CCarCtrl | `FindGhostRoadHeight` | [Resumen](../reversing/DependenciesWorld14/validation-summary.json) |
@@ -3054,15 +3055,18 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CHandShaker | `Reset` | [Resumen](../reversing/World52/validation-summary.json) |
 | CHandShaker | `SetDefaults` | [Resumen](../reversing/World52/validation-summary.json) |
 | CHeli | `AddHeliSearchLight` | [Resumen](../reversing/Mix11/validation-summary.json) |
+| CHeli | `BlowUpCar` | [Resumen](../reversing/HeliBlow74/validation-summary.json) |
 | CHeli | `BurstTyre` | [Resumen](../reversing/Mix11/validation-summary.json) |
 | CHeli | `Constructor` | [Resumen](../reversing/Helpers66D/validation-summary.json) |
 | CHeli | `FindSwatPositionRelativeToHeli` | [Resumen](../reversing/Helpers65B/validation-summary.json) |
 | CHeli | `Fix` | [Resumen](../reversing/Mix11/validation-summary.json) |
+| CHeli | `GenerateHeli` | [Resumen](../reversing/HeliGen74/validation-summary.json) |
 | CHeli | `InitHelis` | [Resumen](../reversing/Mix11/validation-summary.json) |
 | CHeli | `Post_SearchLightCone` | [Resumen](../reversing/Mix11/validation-summary.json) |
 | CHeli | `Pre_SearchLightCone` | [Resumen](../reversing/Mix11/validation-summary.json) |
 | CHeli | `Render` | [Resumen](../reversing/Mix11/validation-summary.json) |
 | CHeli | `RenderAllHeliSearchLights` | [Resumen](../reversing/Mix11/validation-summary.json) |
+| CHeli | `SendDownSwat` | [Resumen](../reversing/HeliSwat74/validation-summary.json) |
 | CHeli | `SetUpWheelColModel` | [Resumen](../reversing/Mix11/validation-summary.json) |
 | CHeli | `SwitchPoliceHelis` | [Resumen](../reversing/Mix11/validation-summary.json) |
 | CHeli | `TestSniperCollision` | [Resumen](../reversing/Mix11/validation-summary.json) |
@@ -4328,6 +4332,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPlayerInfo | `MakePlayerSafe` | [Resumen](../reversing/Player28/validation-summary.json) |
 | CPlayerInfo | `PlayerFailedCriticalMission` | [Resumen](../reversing/Player28/validation-summary.json) |
 | CPlayerInfo | `Process` | [Resumen](../reversing/CPlayerInfo/validation-summary.json) |
+| CPlayerInfo | `ProcessCrosshair` | [Resumen](../reversing/PlayerCrosshair74/validation-summary.json) |
 | CPlayerInfo | `Save` | [Resumen](../reversing/Player28/validation-summary.json) |
 | CPlayerInfo | `SetLastTargetVehicle` | [Resumen](../reversing/Player28/validation-summary.json) |
 | CPlayerInfo | `SetPlayerSkin` | [Resumen](../reversing/Player28/validation-summary.json) |
@@ -7710,6 +7715,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicle | `GetPlaneNumGuns` | [Resumen](../reversing/CVehE/validation-summary.json) |
 | CVehicle | `GetPlaneOrdnancePosition` | [Resumen](../reversing/CVehE/validation-summary.json) |
 | CVehicle | `GetPlaneOrdnanceRateOfFire` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `GetPlaneWeaponFiringStatus` | [Resumen](../reversing/PlaneFiring74/validation-summary.json) |
 | CVehicle | `GetRemapIndex` | [Resumen](../reversing/CVehC/validation-summary.json) |
 | CVehicle | `GetReplacementUpgrade` | [Resumen](../reversing/CVehC/validation-summary.json) |
 | CVehicle | `GetRopeHeightForHeli` | [Resumen](../reversing/CVehE/validation-summary.json) |
@@ -8138,6 +8144,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CWeaponEffects | `IsLockedOn` | [Resumen](../reversing/Ped9/validation-summary.json) |
 | CWeaponEffects | `MarkTarget` | [Resumen](../reversing/Ped9/validation-summary.json) |
 | CWeaponEffects | `Render` | [Resumen](../reversing/Ped9/validation-summary.json) |
+| CWeaponEffects | `RenderPlayerCrosshair` | [Resumen](../reversing/CrosshairRender74/validation-summary.json) |
 | CWeaponEffects | `Shutdown` | [Resumen](../reversing/Ped9/validation-summary.json) |
 | CWeaponInfo | `FindWeaponFireType` | [Resumen](../reversing/Data10/validation-summary.json) |
 | CWeaponInfo | `FindWeaponType` | [Resumen](../reversing/Data10/validation-summary.json) |
@@ -8749,6 +8756,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | Rs | `RsInputDeviceAttach` | [Resumen](../reversing/Rs27/validation-summary.json) |
 | Rs | `RsKeyFromScanCode` | [Resumen](../reversing/Rs27/validation-summary.json) |
 | Rs | `RsKeyboardEventHandler` | [Resumen](../reversing/Rs27/validation-summary.json) |
+| Rs | `RsLoadPresetViews` | [Resumen](../reversing/PresetLoad74/validation-summary.json) |
 | Rs | `RsMouseEventHandler` | [Resumen](../reversing/Rs27/validation-summary.json) |
 | Rs | `RsMouseSetPos` | [Resumen](../reversing/Rs27/validation-summary.json) |
 | Rs | `RsMouseSetVisibility` | [Resumen](../reversing/Rs27/validation-summary.json) |
@@ -9044,7 +9052,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CCam` | 51 | 0 | 51 | 0 |
 | `CCamera` | 119 | 0 | 119 | 0 |
 | `CCarAI` | 25 | 0 | 25 | 0 |
-| `CCarCtrl` | 93 | 0 | 93 | 0 |
+| `CCarCtrl` | 94 | 0 | 94 | 0 |
 | `CCarEnterExit` | 32 | 0 | 32 | 0 |
 | `CCarFXRenderer` | 10 | 0 | 10 | 0 |
 | `CCarGenerator` | 8 | 0 | 8 | 0 |
@@ -9204,7 +9212,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CGroupEventHandler` | 32 | 0 | 32 | 0 |
 | `CHandObject` | 3 | 0 | 3 | 0 |
 | `CHandShaker` | 3 | 0 | 3 | 0 |
-| `CHeli` | 13 | 0 | 13 | 0 |
+| `CHeli` | 16 | 0 | 16 | 0 |
 | `CHud` | 39 | 0 | 39 | 0 |
 | `CHudColours` | 5 | 0 | 5 | 0 |
 | `CIdleCam` | 14 | 0 | 14 | 0 |
@@ -9304,7 +9312,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPlantLocTri` | 3 | 0 | 3 | 0 |
 | `CPlantMgr` | 20 | 0 | 20 | 0 |
 | `CPlantSurfPropMgr` | 4 | 0 | 4 | 0 |
-| `CPlayerInfo` | 28 | 0 | 28 | 0 |
+| `CPlayerInfo` | 29 | 0 | 29 | 0 |
 | `CPlayerPed` | 54 | 0 | 54 | 0 |
 | `CPlayerPedData` | 5 | 0 | 5 | 0 |
 | `CPlayerRelationshipRecorder` | 1 | 0 | 1 | 0 |
@@ -9694,7 +9702,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTxdStore` | 26 | 0 | 26 | 0 |
 | `CUpsideDownCarCheck` | 5 | 0 | 5 | 0 |
 | `CUserDisplay` | 2 | 0 | 2 | 0 |
-| `CVehicle` | 160 | 0 | 160 | 0 |
+| `CVehicle` | 161 | 0 | 161 | 0 |
 | `CVehicleAnimGroup` | 5 | 0 | 5 | 0 |
 | `CVehicleAnimGroupData` | 5 | 0 | 5 | 0 |
 | `CVehicleModelInfo` | 75 | 0 | 75 | 0 |
@@ -9708,7 +9716,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CWaterCannons` | 4 | 0 | 4 | 0 |
 | `CWaterLevel` | 40 | 0 | 40 | 0 |
 | `CWeapon` | 41 | 0 | 41 | 0 |
-| `CWeaponEffects` | 9 | 0 | 9 | 0 |
+| `CWeaponEffects` | 10 | 0 | 10 | 0 |
 | `CWeaponInfo` | 10 | 0 | 10 | 0 |
 | `CWeaponModelInfo` | 3 | 0 | 3 | 0 |
 | `CWeather` | 13 | 0 | 13 | 0 |
@@ -9761,7 +9769,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `RpSkin` | 1 | 0 | 1 | 0 |
 | `RpUVAnim` | 2 | 0 | 2 | 0 |
 | `RpWorld` | 21 | 0 | 21 | 0 |
-| `Rs` | 29 | 0 | 29 | 0 |
+| `Rs` | 30 | 0 | 30 | 0 |
 | `RtAnim` | 3 | 0 | 3 | 0 |
 | `RtDict` | 2 | 0 | 2 | 0 |
 | `RwCore` | 29 | 0 | 29 | 0 |
