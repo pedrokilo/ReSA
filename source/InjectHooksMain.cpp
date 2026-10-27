@@ -231,6 +231,7 @@
 #include "TaskComplexSignalAtPed.h"
 #include "TaskSimpleCarCloseDoorFromOutside.h"
 #include "TaskSimpleCarFallOut.h"
+#include "TaskSimpleCarForcePedOut.h"
 #include "TaskSimpleCarGetIn.h"
 #include "TaskSimpleBeHit.h"
 #include "TaskSimpleHitByGunFromFront.h"
@@ -1203,7 +1204,7 @@ void InjectHooksMain() {
         CTaskSimpleCarCloseDoorFromInside::InjectHooks();
         CTaskSimpleCarCloseDoorFromOutside::InjectHooks();
         CTaskSimpleCarFallOut::InjectHooks();
-        // CTaskSimpleCarForcePedOut::InjectHooks();
+        CTaskSimpleCarForcePedOut::InjectHooks();
         CTaskSimpleCarGetOut::InjectHooks();
         CTaskSimpleCarGetIn::InjectHooks();
         CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse::InjectHooks();

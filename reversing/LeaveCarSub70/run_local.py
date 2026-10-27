@@ -20,9 +20,9 @@ EXPECTED = {n: CASES for n in NAMES}
 GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh_restored', 'route_ok', 'collaborators_dll', 'globals_restored', 'floating_state_restored')
 HOOKS = {NAMES[0]: 0x641530}
 # (direccion del EXE, hooked): CTask::operator new, CPed::IsPlayer, CEntity::RegisterReference, ctor Pause, GetUpAndStandStill, Die(1), LeaveBoat, CarDriveTimed, CloseDoorFromOutside, WaitToSlowDown,
-# WaitForDoorNotToBeInUse, CarGetOut, CarJumpOut, CarForcePedOut (sin clase en la DLL: solo EXE), ComplexCarSlowBeDraggedOut
+# WaitForDoorNotToBeInUse, CarGetOut, CarJumpOut, CarForcePedOut (con hook desde 2026-10-26: EXE y DLL), ComplexCarSlowBeDraggedOut
 STUBBED = {NAMES[0]: [(0x61A5A0, True), (0x5DF8F0, True), (0x571B70, True), (0x48E750, True), (0x678130, True), (0x62FA00, True), (0x63BB60, True), (0x5FF940, True), (0x6464F0, True),
-                      (0x646990, True), (0x646B70, True), (0x6471D0, True), (0x64BE40, True), (0x647710, False), (0x648490, True)]}
+                      (0x646990, True), (0x646B70, True), (0x6471D0, True), (0x64BE40, True), (0x647710, True), (0x648490, True)]}
 WATCHED = {a for lst in STUBBED.values() for a, _ in lst} | {0x641530}
 COVER = json.loads((HERE / 'coverage.json').read_text()) if (HERE / 'coverage.json').exists() else {}
 # tipo -> (nombre, tamano reservado, clase de evento del constructor)

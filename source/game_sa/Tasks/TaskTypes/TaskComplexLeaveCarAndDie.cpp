@@ -23,6 +23,7 @@ void CTaskComplexLeaveCarAndDie::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexLeaveCarAndDie, 0x86dd00, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
 
+    RH_ScopedInstall(Constructor, 0x62F1A0);
     RH_ScopedVMTInstall(Clone, 0x62F1D0);
     RH_ScopedVMTInstall(GetTaskType, 0x62F240);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x642280);

@@ -9,5 +9,6 @@ if __name__ == '__main__':
     print(json.dumps(build(Path(__file__).parent, 'leavecarsub70', 'Ls70Live',
         ['source/CMakeLists.txt', 'source/InjectHooksMain.cpp',
          'source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp', 'source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h',
+         'source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.cpp', 'source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.h',
          'reversing/OriginalDependencies499/HookRoute.hpp', 'reversing/LeaveCarSub70/LiveComparison.hpp', 'reversing/LeaveCarSub70/Core.hpp', 'reversing/LeaveCarSub70/Fixtures.hpp',
          'source/reversiblehooks/ReversibleHook/Simple.h', 'source/reversiblehooks/ReversibleHook/Simple.cpp'])))

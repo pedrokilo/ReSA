@@ -47,6 +47,7 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
-    CTaskComplexLeaveCar* Constructor(CVehicle* targetVehicle, int32 nTargetDoor, int32 nDelayTime, bool bSensibleLeaveCar, bool bForceGetOut);
+    CTaskComplexLeaveCar* Constructor(CVehicle* targetVehicle, int32 nTargetDoor, int32 nDelayTime, bool bSensibleLeaveCar, bool bForceGetOut) { this->CTaskComplexLeaveCar::CTaskComplexLeaveCar(targetVehicle, nTargetDoor, nDelayTime, bSensibleLeaveCar, bForceGetOut); return this; }
+    CTaskComplexLeaveCar* Destructor() { this->CTaskComplexLeaveCar::~CTaskComplexLeaveCar(); return this; }
 };
 VALIDATE_SIZE(CTaskComplexLeaveCar, 0x34);

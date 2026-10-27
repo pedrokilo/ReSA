@@ -1,0 +1,23 @@
+{
+  "CTaskSimpleCarForcePedOut::Constructor": {
+    "base_ctor_ok": 8192,
+    "door_extreme": 4220,
+    "door_valid": 3080,
+    "eax_seed_special": 1642,
+    "edx_seed_special": 1601,
+    "prefill_cd": 1027,
+    "prefill_ff": 1001,
+    "prefill_seed": 5114,
+    "prefill_zero": 1049,
+    "regref_called": 6469,
+    "regref_ref_is_field_8": 6469,
+    "regref_skipped": 1723,
+    "ret_is_this": 8192,
+    "type_0x32f": 8192,
+    "veh_arena": 3740,
+    "veh_arena_offset": 2504,
+    "veh_null": 1723,
+    "veh_raw": 2729,
+    "vptr_ok": 8192
+  }
+}

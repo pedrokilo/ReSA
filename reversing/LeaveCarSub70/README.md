@@ -67,3 +67,11 @@ python -B reversing/LeaveCarSub70/run_local.py --analyze <carpeta>/comparisons.j
 python -B reversing/LeaveCarSub70/register_hook.py <carpeta-de-evidencia>        # SOLO el coordinador, tras una corrida aprobada
 ```
 Archivo de arranque en el clon: `leavecarsub70-runtime.start`; salida `leavecarsub70-runtime.jsonl`.
+
+## 2026-10-26: constructor de CTaskSimpleCarForcePedOut (0x647710) reconstruido y enganchado (lote 71)
+
+`CreateSubTask` deja de llamar al EXE por `plugin::CallMethod` para la rama 815: ahora usa `NewLeaveCarSubTask<CTaskSimpleCarForcePedOut>` y el constructor tiene hook S (banco `ForcePedOut71`). Por la leccion de los colaboradores con hook, el falso de 0x647710 se instala ahora tambien en el cuerpo de la DLL (`Pair{0x647710, forceBody, true}`, cuerpo hallado con `FirstDllCall` de la envoltura `Constructor`); `run_local.py` espera `(0x647710, True)` y `build_probe.py` vigila las dos fuentes de la clase. Compuertas y cobertura sin cambios (ninguna relajada).
+Reejecutado: **APROBADO**, 16384 pares, cero diferencias, `E:\JUEGOS\GTA San Andreas - CVehicle Test
+esultados-leavecarsub7061026-182012-187798`.
+La nota «Lo unico que sigue delegando en el EXE» de arriba queda obsoleta para esa rama.
+Reejecutado de nuevo tras reconstruir y enganchar las virtuales de la clase (ForcePedOutVt71; sus instancias ya no llevan codigo sin validar): **APROBADO**, 16384 pares, cero diferencias, `E:\JUEGOS\GTA San Andreas - CVehicle Testesultados-leavecarsub7061026-184659-198106`.

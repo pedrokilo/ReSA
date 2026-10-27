@@ -17,4 +17,7 @@ public:
     CTask*    Clone() const override { return new CTaskComplexLeaveCarAndDie{ *this }; }
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateFirstSubTask(CPed * ped) override;
+
+private:
+    CTaskComplexLeaveCarAndDie* Constructor(CVehicle* targetVehicle, int32 nTargetDoor, int32 nDelayTime) { this->CTaskComplexLeaveCarAndDie::CTaskComplexLeaveCarAndDie(targetVehicle, nTargetDoor, nDelayTime); return this; }
 };

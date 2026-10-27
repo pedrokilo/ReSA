@@ -1,0 +1,28 @@
+{
+  "CTaskComplexLeaveCar::ControlSubTask": {
+    "abort_after_second_type_call": 814,
+    "abort_args": 1613,
+    "abort_ret_false": 783,
+    "abort_ret_true": 830,
+    "in_veh_not_sensible_other": 822,
+    "in_veh_not_sensible_wait_abort": 570,
+    "in_veh_sensible_no_calls": 889,
+    "out_create_returned_null": 746,
+    "out_create_returned_task": 1116,
+    "out_create_setped_out": 1862,
+    "out_die_fourth": 617,
+    "out_five_type_calls": 320,
+    "out_four_type_calls": 2442,
+    "out_getup_third": 590,
+    "out_jumpout_second": 697,
+    "out_one_type_call": 306,
+    "out_setout_then_sensible_check": 306,
+    "out_setout_then_unsensible_check": 1232,
+    "out_three_type_calls": 720,
+    "out_two_type_calls": 1515,
+    "returns_null_without_create": 606,
+    "returns_subtask": 5723,
+    "veh_null": 606,
+    "veh_raw": 1124
+  }
+}

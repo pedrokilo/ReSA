@@ -254,8 +254,9 @@ inline constexpr RouteInfo kInfo[kRoutes]{
     {"MakeAbortable","CTaskComplexKillPedOnFoot::MakeAbortable",0x625E40,3},
 };
 // Constructores y ayudantes REALES (no se sustituyen): con hook en HEAD deben ser saltos a la DLL en AMBOS lados; sin hook, codigo del EXE
-inline constexpr uintptr_t kRealHooked[]{0x5DF8F0,0x420E30,0x62F310,0x463540,0x48E750,0x621000,0x621190,0x5FF940,0x621C00,0x660A30,0x4B2190};
-inline constexpr uintptr_t kRealExe[]{0x5FE9C0,0x640430,0x63B8C0,0x4B2210};
+// 2026-10-26: el constructor de CTaskComplexLeaveCar 0x63B8C0 ya tiene hook (lote 71, banco LeaveCarCtor71): pasa de kRealExe a kRealHooked.
+inline constexpr uintptr_t kRealHooked[]{0x5DF8F0,0x420E30,0x62F310,0x463540,0x48E750,0x621000,0x621190,0x5FF940,0x621C00,0x660A30,0x4B2190,0x63B8C0};
+inline constexpr uintptr_t kRealExe[]{0x5FE9C0,0x640430,0x4B2210};
 
 struct Side {Reg reg{};std::array<uint8,108> fp{};uint32 mxcsr{};bool routeOK{};bool collabOK{};};
 struct Env {

@@ -45,6 +45,7 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleCarJumpOut.h"
 #include "TaskSimpleCarSetPedOut.h"
 #include "TaskComplexCarSlowBeDraggedOut.h"
+#include "TaskSimpleCarForcePedOut.h"
 
 #include "TaskComplexLeaveBoat.h"
 #include "TaskSimpleCarDriveTimed.h"
@@ -57,13 +58,16 @@ void CTaskComplexLeaveCar::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexLeaveCar, 0x86E828, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
 
+    RH_ScopedInstall(Constructor, 0x63B8C0);
+    RH_ScopedInstall(Destructor, 0x63B970);
     RH_ScopedVMTInstall(MakeAbortable, 0x641100);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x6419F0);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x641FC0);
+    RH_ScopedVMTInstall(ControlSubTask, 0x6421B0);
     RH_ScopedInstall(CreateSubTask, 0x641530);
 }
 
-// 0x62F1A0
+// NOTSA: el EXE no tiene un constructor de tres argumentos de esta clase; 0x62F1A0 es el de CTaskComplexLeaveCarAndDie (vtable 0x86DD00)
 CTaskComplexLeaveCar::CTaskComplexLeaveCar(CVehicle* targetVehicle, int32 nTargetDoor, int32 nDelayTime) : CTaskComplexLeaveCar(targetVehicle, nTargetDoor, nDelayTime, false, true) {
     m_bDie = true;
 }
@@ -497,17 +501,17 @@ CTask* CTaskComplexLeaveCar::ControlSubTask(CPed* ped) {
         return nullptr;
     }
 
-    const auto subTaskType = m_pSubTask->GetTaskType();
+    // Como el original: GetTaskType se vuelve a llamar en cada comprobacion (no se guarda el valor) y solo si el ped no esta en el vehiculo
     if (!ped->bInVehicle
-        && subTaskType != TASK_SIMPLE_CAR_SET_PED_OUT
-        && subTaskType != TASK_SIMPLE_CAR_JUMP_OUT
-        && subTaskType != TASK_COMPLEX_GET_UP_AND_STAND_STILL
-        && subTaskType != TASK_SIMPLE_DIE
+        && m_pSubTask->GetTaskType() != TASK_SIMPLE_CAR_SET_PED_OUT
+        && m_pSubTask->GetTaskType() != TASK_SIMPLE_CAR_JUMP_OUT
+        && m_pSubTask->GetTaskType() != TASK_COMPLEX_GET_UP_AND_STAND_STILL
+        && m_pSubTask->GetTaskType() != TASK_SIMPLE_DIE
     ) {
         return CreateSubTask(TASK_SIMPLE_CAR_SET_PED_OUT, ped);
     }
 
-    if (!m_bSensibleLeaveCar && subTaskType == TASK_SIMPLE_CAR_WAIT_TO_SLOW_DOWN) {
+    if (!m_bSensibleLeaveCar && m_pSubTask->GetTaskType() == TASK_SIMPLE_CAR_WAIT_TO_SLOW_DOWN) {
         m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_LEISURE, nullptr);
     }
 
@@ -569,16 +573,8 @@ CTask* CTaskComplexLeaveCar::CreateSubTask(eTaskType taskType, CPed* ped) {
         return NewLeaveCarSubTask<CTaskSimpleCarGetOut>(m_pTargetVehicle, static_cast<uint32>(m_nTargetDoor), m_pTaskUtilityLineUpPedWithCar);
     case TASK_SIMPLE_CAR_JUMP_OUT:
         return NewLeaveCarSubTask<CTaskSimpleCarJumpOut>(m_pTargetVehicle, static_cast<uint32>(m_nTargetDoor), m_pTaskUtilityLineUpPedWithCar);
-    case TASK_SIMPLE_CAR_FORCE_PED_OUT: {
-        // CTaskSimpleCarForcePedOut (0x10 bytes) aun no esta reconstruida: su constructor (0x647710, thiscall (vehiculo, puerta), ret 8) es del EXE
-        void* const memory = CTask::operator new(0x10);
-        if (!memory) {
-            return nullptr;
-        }
-        auto* const task = static_cast<CTask*>(memory);
-        plugin::CallMethod<0x647710, CTask*, CVehicle*, int32>(task, m_pTargetVehicle, m_nTargetDoor);
-        return task;
-    }
+    case TASK_SIMPLE_CAR_FORCE_PED_OUT:
+        return NewLeaveCarSubTask<CTaskSimpleCarForcePedOut>(m_pTargetVehicle, static_cast<int32>(m_nTargetDoor));
     case TASK_SIMPLE_CAR_SET_PED_OUT:
         return NewLeaveCarSubTask<CTaskSimpleCarSetPedOut>(m_pTargetVehicle, static_cast<eTargetDoor>(m_nTargetDoor), m_bSensibleLeaveCar);
     case TASK_COMPLEX_CAR_SLOW_BE_DRAGGED_OUT:

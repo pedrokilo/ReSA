@@ -22,6 +22,7 @@
 #include "Tasks/TaskTypes/TaskSimpleCarJumpOut.h"
 #include "Tasks/TaskTypes/TaskSimpleCarSetPedOut.h"
 #include "Tasks/TaskTypes/TaskComplexCarSlowBeDraggedOut.h"
+#include "Tasks/TaskTypes/TaskSimpleCarForcePedOut.h"
 #include "Timer.h"
 #include "World.h"
 #include "CutsceneMgr.h"
@@ -32,8 +33,8 @@
 // Banco par a par LeaveCarSub70 dentro del juego: Update() se llama desde CGame::Process (probe_build.py). Todo el nucleo esta en Core.hpp.
 // Una funcion: CTaskComplexLeaveCar::CreateSubTask (0x641530, hook SIMPLE; thiscall con (eTaskType, CPed*) en la pila). Los colaboradores se sustituyen por falsos identicos en ambos lados
 // (parche de entrada en la direccion del EXE y en el cuerpo de la DLL): CTask::operator new 0x61A5A0, CPed::IsPlayer 0x5DF8F0, CEntity::RegisterReference 0x571B70 y los constructores con hook
-// (el cuerpo real de la DLL se halla siguiendo la primera llamada de la envoltura `Constructor` del hook). CTaskSimpleCarForcePedOut (constructor 0x647710) no esta reconstruida: la DLL lo
-// llama por la direccion del EXE y se sustituye solo ahi. El constructor de CTaskSimpleCarSetPedOut (0x6478B0, sin hook) corre real en ambos lados (RegisterReference ya es falso) y se compara el objeto.
+// (el cuerpo real de la DLL se halla siguiendo la primera llamada de la envoltura `Constructor` del hook). CTaskSimpleCarForcePedOut (constructor 0x647710) se reconstruyo despues (2026-10-26, lote 71): ahora tambien se
+// sustituye en el cuerpo de la DLL, como el resto de constructores con hook. El constructor de CTaskSimpleCarSetPedOut (0x6478B0, sin hook) corre real en ambos lados (RegisterReference ya es falso) y se compara el objeto.
 
 namespace Ls70Layout {
 static_assert(offsetof(CTaskComplexLeaveCar, m_pTargetVehicle) == 0xC && offsetof(CTaskComplexLeaveCar, m_nTargetDoor) == 0x10 && offsetof(CTaskComplexLeaveCar, m_nDelayTime) == 0x14
@@ -100,7 +101,7 @@ inline void* __fastcall FakeWaitSlow(void* self,void*,u32 veh,u32 type) {Ev& e=P
 inline void* __fastcall FakeWaitDoor(void* self,void*,u32 veh,u32 d1,u32 d2) {Ev& e=PushEv(17,4);e.v[0]=Tag(self);e.v[1]=Tag(uintptr_t(veh));e.v[2]=d1;e.v[3]=d2;return Done(self,17);}   // 0x646B70, `ret 0Ch`
 inline void* __fastcall FakeGetOut(void* self,void*,u32 veh,u32 door,u32 line) {Ev& e=PushEv(18,4);e.v[0]=Tag(self);e.v[1]=Tag(uintptr_t(veh));e.v[2]=door;e.v[3]=Tag(uintptr_t(line));return Done(self,18);}   // 0x6471D0, `ret 0Ch`
 inline void* __fastcall FakeJumpOut(void* self,void*,u32 veh,u32 door,u32 line) {Ev& e=PushEv(19,4);e.v[0]=Tag(self);e.v[1]=Tag(uintptr_t(veh));e.v[2]=door;e.v[3]=Tag(uintptr_t(line));return Done(self,19);}  // 0x64BE40, `ret 0Ch`
-inline void* __fastcall FakeForceOut(void* self,void*,u32 veh,u32 door) {Ev& e=PushEv(20,3);e.v[0]=Tag(self);e.v[1]=Tag(uintptr_t(veh));e.v[2]=door;return Done(self,20);}        // 0x647710 (sin clase en la DLL), `ret 8`
+inline void* __fastcall FakeForceOut(void* self,void*,u32 veh,u32 door) {Ev& e=PushEv(20,3);e.v[0]=Tag(self);e.v[1]=Tag(uintptr_t(veh));e.v[2]=door;return Done(self,20);}        // 0x647710 (CTaskSimpleCarForcePedOut::Constructor, con hook desde 2026-10-26), `ret 8`
 inline void* __fastcall FakeSlowDragged(void* self,void*,u32 veh,u32 door,u32 flag) {Ev& e=PushEv(21,4);e.v[0]=Tag(self);e.v[1]=Tag(uintptr_t(veh));e.v[2]=door;e.v[3]=flag;return Done(self,21);}   // 0x648490, `ret 0Ch`
 
 inline void CaseSub(Env& env,Totals& t,unsigned n) {
@@ -230,12 +231,13 @@ inline void Update() {
     const uintptr_t getOutBody=FirstDllCall(env.asi,DllBodyOf("CTaskSimpleCarGetOut","Constructor"));
     const uintptr_t jumpBody=FirstDllCall(env.asi,DllBodyOf("CTaskSimpleCarJumpOut","Constructor"));
     const uintptr_t slowBody=FirstDllCall(env.asi,DllBodyOf("CTaskComplexCarSlowBeDraggedOut","Constructor"));
+    const uintptr_t forceBody=FirstDllCall(env.asi,DllBodyOf("CTaskSimpleCarForcePedOut","Constructor"));   // 2026-10-26: el constructor 0x647710 ya esta reconstruido y enganchado
     {
         env.route[0].reset(new HookRoute("CTaskComplexLeaveCar","CreateSubTask",0x641530,HookRoute::RegisteredTarget{}));
         registered[kFn[0]]=env.route[0]->Registered();bodies[kFn[0]]=env.route[0]->Body()!=0;
         ready&=env.route[0]->Registered()&&env.route[0]->Body()&&ModuleOf(env.route[0]->Body())==env.asi;
     }
-    ready&=newBody&&playerBody&&refBody&&pauseBody&&getUpBody&&dieBody&&boatBody&&driveBody&&closeBody&&waitSlowBody&&waitDoorBody&&getOutBody&&jumpBody&&slowBody;
+    ready&=newBody&&playerBody&&refBody&&pauseBody&&getUpBody&&dieBody&&boatBody&&driveBody&&closeBody&&waitSlowBody&&waitDoorBody&&getOutBody&&jumpBody&&slowBody&&forceBody;
     auto fk=[](auto* f){return reinterpret_cast<void*>(f);};
     env.stubs[0]={{Pair{0x61A5A0,newBody,true},fk(&FakeNew)},
                   {Pair{0x5DF8F0,playerBody,true},fk(&FakeIsPlayer)},
@@ -250,7 +252,7 @@ inline void Update() {
                   {Pair{0x646B70,waitDoorBody,true},fk(&FakeWaitDoor)},
                   {Pair{0x6471D0,getOutBody,true},fk(&FakeGetOut)},
                   {Pair{0x64BE40,jumpBody,true},fk(&FakeJumpOut)},
-                  {Pair{0x647710,0,false},fk(&FakeForceOut)},
+                  {Pair{0x647710,forceBody,true},fk(&FakeForceOut)},
                   {Pair{0x648490,slowBody,true},fk(&FakeSlowDragged)}};
     for(unsigned f=0;f<kFunctions;++f) {
         json stubbed=json::array();
