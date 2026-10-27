@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "pairs": 49152,
+  "differences": 0,
+  "registered_pairs": 49152,
+  "registered_functions": 3,
+  "functions": {
+    "CTaskComplexLeaveCar::CTaskComplexLeaveCar": 16384,
+    "CTaskComplexLeaveCar::~CTaskComplexLeaveCar": 16384,
+    "CTaskComplexLeaveCarAndDie::CTaskComplexLeaveCarAndDie": 16384
+  },
+  "covered_functions": {
+    "CTaskComplexLeaveCar::CTaskComplexLeaveCar": true,
+    "CTaskComplexLeaveCar::~CTaskComplexLeaveCar": true,
+    "CTaskComplexLeaveCarAndDie::CTaskComplexLeaveCarAndDie": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-1 (HEAD 1b2235ec3 + TaskComplexLeaveCar.cpp/.h y TaskComplexLeaveCarAndDie.cpp/.h, source.patch). 0x63B8C0 es el constructor de CTaskComplexLeaveCar (thiscall, ret 14h: vehiculo, puerta, retardo, salida sensata, forzar salida): llama a CTaskComplex (0x61A3B0), escribe los campos y registra la referencia al vehiculo (CEntity::RegisterReference 0x571B70) solo si no es nulo. 0x63B970 es su destructor no virtual: ClearGettingOutFlags(m_nDoorFlagsSet), resta m_nNumGettingInSet de m_nNumGettingIn del vehiculo, CleanUpOldReference, operator delete de la utilidad de alineacion si existe y ~CTaskComplex (0x61A3D0, borra la subtarea). 0x62F1A0 NO es de CTaskComplexLeaveCar: es el constructor de CTaskComplexLeaveCarAndDie (vtable 0x86DD00; llama a 0x63B8C0 con sensible=0 y forzar=1 y pone m_bDie=1). El destructor con borrado del ranura 0 (0x6410E0) solo llama a 0x63B970 y a CTask::operator delete, y no lleva hook propio. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): CEntity::RegisterReference 0x571B70, CleanUpOldReference 0x571A00, CVehicle::ClearGettingOutFlags 0x6D3060 y operator delete 0x8214BD; CTaskComplex, ~CTaskComplex y ~CTask corren reales. El objeto se compara completo byte a byte (relleno incluido, 8 desplazamientos y 8 rellenos), salvo la palabra de la vtable (se compara GetTaskType). Solo se compara EAX (los llamadores del EXE no leen ECX ni EDX); ECX/EDX/EAX del destructor y la vtable final de la DLL (la de CTask de la DLL, no 0x86D48C) no se comparan. Booleanos de la pila: se prueban con 0/1 y con bytes altos basura, no con bytes bajos distintos de 0/1.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/LeaveCarCtor71-20261026-192653-929920",
+  "summary_sha256": "0e1c5c7c0efa13cc1a130d418ca07abe505c985c835b72a8efe4543021e48af4",
+  "result_txt_sha256": "67630e934e8d99b234c0e6b5e3663fc69296d23d7a72308005138cb6113444e3",
+  "log_sha256": "768083c80bb8e874422812a0d7eee2545b24d8803e1a70f6b411b5d5d74177af",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "0992f0abc9c3b3c1a34f30953d55ac89b5ff652cdb45b678c15602a1188a0f81",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "1461390378eae1618f39c52d71e624020d3d2e7927648098b54bd33e1baa2646",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "b59c2f42c4d4550ecfb7c5e6cbfc45f7a3756446f670d6022850b09d6277d25d",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.cpp": "7516373718576f3743bffbb0cd04e79b2ef52703e52fd91802102325f7b9e74a",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.h": "6a97b2b41148d9e0f1ee6389f71fc36fdfa7ccb57f2fc1a852bd537bb38249d4",
+      "source/game_sa/X87Math.cpp": "881fd3e06e424b3edf2511b85a2cbdc23484ad7fe81cfa0b621124ca7089ab4c",
+      "source/game_sa/X87Math.h": "e2be2c445a566df55494d01cc0465850165aef39d3383c2eedbafce90ddc115d",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/LeaveCarCtor71/LiveComparison.hpp": "35edcd980a84faa6fc57b3a5d9182b0caed6eae07cb77e019af26679a7153425",
+      "reversing/LeaveCarCtor71/Core.hpp": "3f0487cf2080c9530c2ecdf694f710184312b9f698f240e54edddf02e7aa5d9f",
+      "reversing/LeaveCarCtor71/Fixtures.hpp": "2ac0d08416d7054d559dc9a11a8c258bb893e395c468c3920bb5f079cc0bb225",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

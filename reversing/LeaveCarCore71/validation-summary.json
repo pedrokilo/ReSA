@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 1,
+  "functions": {
+    "CTaskComplexLeaveCar::ControlSubTask": 16384
+  },
+  "covered_functions": {
+    "CTaskComplexLeaveCar::ControlSubTask": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-1 (HEAD 1b2235ec3 + TaskComplexLeaveCar.cpp, source.patch). CTaskComplexLeaveCar::ControlSubTask 0x6421B0 (virtual, ranura 10, thiscall, ret 4; EAX = subtarea, nueva o nulo): sin vehiculo devuelve nulo; con el ped fuera del vehiculo y una subtarea que no es SET_PED_OUT/JUMP_OUT/GET_UP_AND_STAND_STILL/DIE pide CreateSubTask(0x330); si no, con salida no sensata y subtarea WAIT_TO_SLOW_DOWN llama a MakeAbortable(ped, 0, 0) de la subtarea; devuelve la subtarea. El EXE vuelve a pedir GetTaskType a la subtarea en CADA comprobacion (hasta cinco veces) y solo si el ped no esta en el vehiculo: la fuente lo reproduce (la version anterior guardaba el tipo en una variable). Sustituido por falso identico en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): CreateSubTask 0x641530; la subtarea es un objeto con vtable falsa (GetTaskType ranura 4 con secuencia de tipos por llamada, MakeAbortable ranura 6) que registra sus llamadas. Fuera de cobertura: m_pSubTask nulo (el EXE falla igual), el residuo de EAX/ECX/EDX (solo se compara EAX) y la validez de CreateSubTask (la prueba su propio banco).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/LeaveCarCore71-20261026-193106-628222",
+  "summary_sha256": "54b6aff63e1a456f1eaefd451c9079b3ce9139c8bd1d2a006b60fcd2682c1ad3",
+  "result_txt_sha256": "3d99d72f7607a6d17398e23463b6263903708242c264af8d735cbfb97e798d37",
+  "log_sha256": "1a91fad7aeba0c36cc224454836efc47063ea613f19d116ecc1a65ebc52ba882",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "1e76b229123d8a3ddca56287af7d5d587f9e70dbd3330b1246e35d7e382a654a",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "1461390378eae1618f39c52d71e624020d3d2e7927648098b54bd33e1baa2646",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "b59c2f42c4d4550ecfb7c5e6cbfc45f7a3756446f670d6022850b09d6277d25d",
+      "source/game_sa/X87Math.cpp": "881fd3e06e424b3edf2511b85a2cbdc23484ad7fe81cfa0b621124ca7089ab4c",
+      "source/game_sa/X87Math.h": "e2be2c445a566df55494d01cc0465850165aef39d3383c2eedbafce90ddc115d",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/LeaveCarCore71/LiveComparison.hpp": "25cb76a7a3f2d857f5bdbcba4c8f5605705a6a59ea0a8f13c60d7d76345ae882",
+      "reversing/LeaveCarCore71/Core.hpp": "22522714cc7c9acffbc223bdf32b2b97abbbfa8a4beb0a733c68b4a1a25eb2a2",
+      "reversing/LeaveCarCore71/Fixtures.hpp": "caa3d56c569a9a9c507c423b3654c35f4e1bea1f264bb4988b9e91656c927c24",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

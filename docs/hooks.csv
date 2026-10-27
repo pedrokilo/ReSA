@@ -8916,3 +8916,12 @@ CTaskComplexLeaveCar,MakeAbortable,0x00000000,1,0,1,V
 CTaskComplexLeaveCar,CreateNextSubTask,0x00000000,1,0,1,V
 CTaskComplexLeaveCar,CreateSubTask,0x00641530,1,0,1,S
 CTaskComplexLeaveCar,CreateFirstSubTask,0x00000000,1,0,1,V
+CTaskComplexLeaveCar,Constructor,0x0063B8C0,1,0,1,S
+CTaskComplexLeaveCar,Destructor,0x0063B970,1,0,1,S
+CTaskComplexLeaveCar,ControlSubTask,0x00000000,1,0,1,V
+CTaskComplexLeaveCarAndDie,Constructor,0x0062F1A0,1,0,1,S
+CTaskSimpleCarForcePedOut,Constructor,0x00647710,1,0,1,S
+CTaskSimpleCarForcePedOut,Destructor,0x00647790,1,0,1,S
+CTaskSimpleCarForcePedOut,Clone,0x00000000,1,0,1,V
+CTaskSimpleCarForcePedOut,MakeAbortable,0x00000000,1,0,1,V
+CTaskSimpleCarForcePedOut,ProcessPed,0x00000000,1,0,1,V

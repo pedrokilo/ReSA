@@ -4942,11 +4942,11 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00571980,5,C,CPlayerInfo,baja,,1,0,,
 0x005719B0,44,reemplazada,CReferences,exacta,CReferences::Init,1,1,,
 0x005719E0,24,reemplazada,CReferences,exacta,CReferences::ListSize,0,0,,
-0x00571A00,59,reemplazada,CEntity,exacta,CEntity::CleanUpOldReference-,407,301,,
+0x00571A00,59,reemplazada,CEntity,exacta,CEntity::CleanUpOldReference-,407,303,,
 0x00571A40,78,reemplazada,CEntity,exacta,CEntity::ResolveReferences,4,4,,
 0x00571A90,62,reemplazada,CEntity,exacta,CEntity::PruneReferences,12,12,,
 0x00571AD0,151,reemplazada,CReferences,exacta,CReferences::RemoveReferencesToPlayer,5,5,,
-0x00571B70,315,reemplazada,CEntity,exacta,CEntity::RegisterReference-,423,362,,
+0x00571B70,315,reemplazada,CEntity,exacta,CEntity::RegisterReference-,423,364,,
 0x00571CC0,171,reemplazada,CReferences,exacta,CReferences::PruneAllReferencesInWorld,1,1,,
 0x00571D90,176,reemplazada,CPlaceName,exacta,CPlaceName::GetForMap,1,1,,
 0x00571EA0,50,reemplazada,CCurrentVehicle,exacta,CCurrentVehicle::Display,0,0,,
@@ -6194,7 +6194,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005E0670,108,reemplazada,CEventSoundQuiet,exacta,CEventSoundQuiet::CloneEditable,0,0,,sí
 0x005E06E0,75,reemplazada,CPed,exacta,CPed::SetPedDefaultDecisionMaker,4,4,,
 0x005E0730,229,reemplazada,CPed,exacta,CPed::CanSeeEntity,1,1,,
-0x005E0820,2966,reemplazada,CPed,exacta,CPed::PositionPedOutOfCollision,7,5,,
+0x005E0820,2966,reemplazada,CPed,exacta,CPed::PositionPedOutOfCollision,7,7,,
 0x005E13C0,672,reemplazada,CPed,exacta,CPed::PositionAnyPedOutOfCollision,1,1,,
 0x005E1660,376,reemplazada,CPed,exacta,CPed::OurPedCanSeeThisEntity,2,0,,
 0x005E1950,163,reemplazada,CPed,exacta,CPed::ClearLookFlag,5,3,,
@@ -7158,14 +7158,14 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0061A2E0,64,A,CPlayerRelationshipRecorder,baja,,2,2,,
 0x0061A350,7,C,CPlayerRelationshipRecorder,baja,,1,0,,
 0x0061A360,41,A,CPlayerRelationshipRecorder,baja,,29,23,,
-0x0061A390,16,A,CPlayerRelationshipRecorder,baja,,234,197,,
-0x0061A3A0,7,reemplazada,CPlayerRelationshipRecorder,baja,,257,96,,
-0x0061A3B0,17,A,CPlayerRelationshipRecorder,baja,,230,199,,
-0x0061A3D0,85,reemplazada,CPlayerRelationshipRecorder,baja,,334,107,,
+0x0061A390,16,A,CPlayerRelationshipRecorder,baja,,234,198,,
+0x0061A3A0,7,reemplazada,CPlayerRelationshipRecorder,baja,,257,97,,
+0x0061A3B0,17,A,CPlayerRelationshipRecorder,baja,,230,200,,
+0x0061A3D0,85,reemplazada,CPlayerRelationshipRecorder,baja,,334,108,,
 0x0061A430,40,B,CPlayerRelationshipRecorder,baja,,0,0,,sí
 0x0061A4B0,73,reemplazada,CTask,exacta,CTask::IsTaskPtr,2,2,,
 0x0061A500,103,reemplazada,CTaskPool,exacta,CTaskPool::New,1,1,,
-0x0061A5A0,11,reemplazada,CTask,exacta,CTask::operator new,1788,1521,,
+0x0061A5A0,11,reemplazada,CTask,exacta,CTask::operator new,1788,1522,,
 0x0061A5B0,41,reemplazada,CTask,exacta,CTask::operator delete,2114,0,,
 0x0061A620,59,D,CTask,baja,,0,0,,
 0x0061A660,56,B,CTask,baja,,0,0,,sí
@@ -7514,7 +7514,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0062F080,39,reemplazada,CTaskSimpleHitByGunFromRight,exacta,CTaskSimpleHitByGunFromRight::Constructor,1,1,,
 0x0062F0B0,99,reemplazada,CTaskSimpleHitByGunFromRight,exacta,CTaskSimpleHitByGunFromRight::Clone,0,0,,sí
 0x0062F120,5,reemplazada,CTaskSimpleHitByGunFromRight,exacta,CTaskSimpleHitByGunFromRight::IsInterruptable,0,0,,sí
-0x0062F1A0,45,A,CTaskSimpleHitByGunFromRight,baja,,3,3,,
+0x0062F1A0,45,reemplazada,CTaskSimpleHitByGunFromRight,baja,,3,3,,
 0x0062F1D0,103,reemplazada,CTaskComplexLeaveCarAndDie,exacta,CTaskComplexLeaveCarAndDie::Clone,0,0,,sí
 0x0062F240,6,reemplazada,CTaskComplexLeaveCarAndDie,exacta,CTaskComplexLeaveCarAndDie::GetTaskType,0,0,,sí
 0x0062F250,30,B,CTaskComplexLeaveCarAndDie,baja,,0,0,,sí
@@ -8053,9 +8053,9 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0063B7D0,103,reemplazada,CTaskComplexStealCar,exacta,CTaskComplexStealCar::Constructor,6,6,,
 0x0063B840,6,reemplazada,CTaskComplexStealCar,exacta,CTaskComplexStealCar::GetTaskType,0,0,,sí
 0x0063B850,106,reemplazada,CTaskComplexStealCar,exacta,CTaskComplexStealCar::Destructor,1,0,,
-0x0063B8C0,153,A,CTaskComplexStealCar,baja,,56,49,,
+0x0063B8C0,153,reemplazada,CTaskComplexStealCar,baja,,56,50,,
 0x0063B960,6,B,CTaskComplexStealCar,baja,,0,0,,sí
-0x0063B970,136,A,CTaskComplexStealCar,baja,,7,2,,
+0x0063B970,136,reemplazada,CTaskComplexStealCar,baja,,7,2,,
 0x0063BA00,157,A,CTaskComplexStealCar,baja,,3,3,,
 0x0063BAB0,34,A,CTaskComplexStealCar,baja,,2,2,,
 0x0063BAE0,122,A,CTaskComplexStealCar,baja,,2,2,,
@@ -8184,10 +8184,10 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00640F30,425,reemplazada,CTaskComplexStealCar,exacta,CTaskComplexStealCar::CreateSubTask,7,7,,
 0x006410E0,30,B,CTaskComplexStealCar,baja,,0,0,,sí
 0x00641100,1069,reemplazada,CTaskComplexStealCar,baja,,0,0,,sí
-0x00641530,1214,reemplazada,CTaskComplexStealCar,baja,,19,18,,
+0x00641530,1214,reemplazada,CTaskComplexStealCar,baja,,19,19,,
 0x006419F0,1428,reemplazada,CTaskComplexStealCar,baja,,0,0,,sí
 0x00641FC0,495,reemplazada,CTaskComplexStealCar,baja,,1,1,,sí
-0x006421B0,153,B,CTaskComplexStealCar,baja,,0,0,,sí
+0x006421B0,153,reemplazada,CTaskComplexStealCar,baja,,0,0,,sí
 0x00642250,30,B,CTaskComplexStealCar,baja,,0,0,,sí
 0x00642270,13,reemplazada,CTaskComplexLeaveBoat,exacta,CTaskComplexLeaveBoat::CreateFirstSubTask,0,0,,sí
 0x00642280,23,reemplazada,CTaskComplexLeaveCarAndDie,exacta,CTaskComplexLeaveCarAndDie::CreateFirstSubTask,0,0,,sí
@@ -8351,11 +8351,11 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00647590,242,reemplazada,CTaskSimpleCarJumpOut,exacta,CTaskSimpleCarJumpOut::SetPedPosition,0,0,,sí
 0x00647690,81,reemplazada,CTaskSimpleCarJumpOut,exacta,CTaskSimpleCarJumpOut::ComputeAnimID_ToHook,2,2,,
 0x00647700,16,reemplazada,CTaskSimpleCarJumpOut,exacta,CTaskSimpleCarJumpOut::FinishAnimCarJumpOutCB,0,0,,
-0x00647710,94,A,CTaskSimpleCarJumpOut,baja,,2,1,,
+0x00647710,94,reemplazada,CTaskSimpleCarJumpOut,baja,,2,2,,
 0x00647770,6,B,CTaskSimpleCarJumpOut,baja,,0,0,,sí
-0x00647780,5,B,CTaskSimpleCarJumpOut,baja,,0,0,,sí
-0x00647790,90,C,CTaskSimpleCarJumpOut,baja,,1,0,,
-0x006477F0,184,B,CTaskSimpleCarJumpOut,baja,,0,0,,sí
+0x00647780,5,reemplazada,CTaskSimpleCarJumpOut,baja,,0,0,,sí
+0x00647790,90,reemplazada,CTaskSimpleCarJumpOut,baja,,1,0,,
+0x006477F0,184,reemplazada,CTaskSimpleCarJumpOut,baja,,0,0,,sí
 0x006478B0,118,A,CTaskSimpleCarJumpOut,baja,,19,18,,
 0x00647930,6,reemplazada,CTaskSimpleCarSetPedOut,exacta,CTaskSimpleCarSetPedOut::GetTaskType,0,0,,sí
 0x00647940,5,reemplazada,CTaskSimpleCarSetPedOut,exacta,CTaskSimpleCarSetPedOut::MakeAbortable,0,0,,sí
@@ -8447,7 +8447,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00649D90,108,reemplazada,CTaskSimpleCarSetPedInAsPassenger,exacta,CTaskSimpleCarSetPedInAsPassenger::Clone,0,0,,sí
 0x00649E00,104,reemplazada,CTaskSimpleCarSetPedInAsDriver,exacta,CTaskSimpleCarSetPedInAsDriver::Clone,0,0,,sí
 0x00649E70,104,reemplazada,CTaskSimpleCarGetOut,exacta,CTaskSimpleCarGetOut::Clone,0,0,,sí
-0x00649EE0,100,B,CTaskSimpleCarGetOut,baja,,0,0,,sí
+0x00649EE0,100,reemplazada,CTaskSimpleCarGetOut,baja,,0,0,,sí
 0x00649F50,122,reemplazada,CTaskSimpleCarSetPedOut,exacta,CTaskSimpleCarSetPedOut::Clone,0,0,,sí
 0x00649FD0,110,reemplazada,CTaskSimpleCarSlowDragPedOut,exacta,CTaskSimpleCarSlowDragPedOut::Clone,0,0,,sí
 0x0064A040,106,reemplazada,CTaskSimpleCarSlowBeDraggedOut,exacta,CTaskSimpleCarSlowBeDraggedOut::Clone,0,0,,sí
@@ -8551,7 +8551,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0064E480,30,B,CTaskComplexGoToBoatSteeringWheel,baja,,0,0,,sí
 0x0064E4B0,41,A,CTaskComplexGoToBoatSteeringWheel,baja,,3,3,,
 0x0064E550,131,reemplazada,CCarEnterExit,exacta,CCarEnterExit::ComputeDoorFlag,4,3,,
-0x0064E610,131,reemplazada,CCarEnterExit,exacta,CCarEnterExit::ComputeOppositeDoorFlag,1,0,,
+0x0064E610,131,reemplazada,CCarEnterExit,exacta,CCarEnterExit::ComputeOppositeDoorFlag,1,1,,
 0x0064E740,1339,reemplazada,CCarEnterExit,exacta,CCarEnterExit::GetPositionToOpenCarDoor,26,25,,
 0x0064EC90,187,reemplazada,CCarEnterExit,exacta,CCarEnterExit::IsCarDoorInUse,2,2,,
 0x0064ED90,50,reemplazada,CCarEnterExit,exacta,CCarEnterExit::IsCarDoorReady,2,2,,
@@ -8566,7 +8566,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0064F070,110,reemplazada,CCarEnterExit,exacta,CCarEnterExit::ComputeSlowJackedPed,4,4,,
 0x0064F110,126,reemplazada,CCarEnterExit,exacta,CCarEnterExit::ComputeTargetDoorToExit,20,18,,
 0x0064F190,80,reemplazada,CCarEnterExit,exacta,CCarEnterExit::ComputeTargetDoorToEnterAsPassenger,8,4,,
-0x0064F1E0,83,reemplazada,CCarEnterExit,exacta,CCarEnterExit::ComputePassengerIndexFromCarDoor,9,8,,
+0x0064F1E0,83,reemplazada,CCarEnterExit,exacta,CCarEnterExit::ComputePassengerIndexFromCarDoor,9,9,,
 0x0064F240,730,reemplazada,CCarEnterExit,exacta,CCarEnterExit::IsPlayerToQuitCarEnter,4,4,,
 0x0064F540,181,reemplazada,CCarEnterExit,exacta,CCarEnterExit::MakeUndraggedPassengerPedsLeaveCar,2,2,,
 0x0064F600,114,reemplazada,CCarEnterExit,exacta,CCarEnterExit::MakeUndraggedDriverPedLeaveCar,0,0,,
@@ -8575,7 +8575,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0064F720,308,reemplazada,CCarEnterExit,exacta,CCarEnterExit::AddInCarAnim,2,2,,
 0x0064F860,841,reemplazada,CCarEnterExit,exacta,CCarEnterExit::SetAnimOffsetForEnterOrExitVehicle,1,1,,
 0x0064FBB0,65,reemplazada,CTaskUtilityLineUpPedWithCar,exacta,CTaskUtilityLineUpPedWithCar::Constructor,6,5,,
-0x0064FC00,1,reemplazada,CTaskUtilityLineUpPedWithCar,exacta,CTaskUtilityLineUpPedWithCar::Destructor,8,6,,
+0x0064FC00,1,reemplazada,CTaskUtilityLineUpPedWithCar,exacta,CTaskUtilityLineUpPedWithCar::Destructor,8,7,,
 0x0064FC10,1241,reemplazada,CTaskUtilityLineUpPedWithCar,exacta,CTaskUtilityLineUpPedWithCar::GetLocalPositionToOpenCarDoor,2,2,,
 0x00650130,308,reemplazada,CCarEnterExit,exacta,CCarEnterExit::QuitEnteringCar,0,0,,
 0x00650280,576,reemplazada,CCarEnterExit,exacta,CCarEnterExit::SetPedInCarDirect,3,3,,
@@ -10415,7 +10415,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006D1AA0,302,reemplazada,CVehicle,exacta,CVehicle::SetupPassenger,8,8,,
 0x006D1BD0,44,reemplazada,CVehicle,exacta,CVehicle::IsPassenger-Ped,14,13,,
 0x006D1C00,51,reemplazada,CVehicle,exacta,CVehicle::IsPassenger-ModelID,0,0,,
-0x006D1C40,25,reemplazada,CVehicle,exacta,CVehicle::IsDriver-Ped,28,27,,
+0x006D1C40,25,reemplazada,CVehicle,exacta,CVehicle::IsDriver-Ped,28,28,,
 0x006D1C60,30,reemplazada,CVehicle,exacta,CVehicle::IsDriver-ModelID,0,0,,
 0x006D1C80,266,reemplazada,CVehicle,exacta,CVehicle::KillPedsInVehicle,6,5,,
 0x006D1D90,58,reemplazada,CVehicle,exacta,CVehicle::IsUpsideDown,12,12,,
@@ -10449,7 +10449,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006D3000,21,reemplazada,CVehicle,exacta,CVehicle::SetGettingInFlags,2,2,,
 0x006D3020,21,reemplazada,CVehicle,exacta,CVehicle::SetGettingOutFlags,2,1,,
 0x006D3040,23,reemplazada,CVehicle,exacta,CVehicle::ClearGettingInFlags,10,10,,
-0x006D3060,23,reemplazada,CVehicle,exacta,CVehicle::ClearGettingOutFlags,9,8,,
+0x006D3060,23,reemplazada,CVehicle,exacta,CVehicle::ClearGettingOutFlags,9,9,,
 0x006D3080,44,reemplazada,CVehicle,exacta,CVehicle::SetWindowOpenFlag,2,2,,
 0x006D30B0,44,reemplazada,CVehicle,exacta,CVehicle::ClearWindowOpenFlag,4,4,,
 0x006D30E0,294,reemplazada,CVehicle,exacta,CVehicle::SetVehicleUpgradeFlags,1,1,,

@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 1,
+  "functions": {
+    "CTaskSimpleCarForcePedOut::Constructor": 16384
+  },
+  "covered_functions": {
+    "CTaskSimpleCarForcePedOut::Constructor": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-2 (HEAD de main + TaskSimpleCarForcePedOut.h/.cpp, InjectHooksMain.cpp y una linea de TaskComplexLeaveCar.cpp, source.patch). Constructor de CTaskSimpleCarForcePedOut 0x647710 (thiscall (vehiculo, puerta), ret 8, marco SEH propio; tarea de 0x10 bytes: +0 vtable 0x86EE94, +8 m_pVehicle, +0xC puerta): integra CTaskSimple (0x61A390: padre a 0), escribe los campos y registra la referencia al vehiculo (CEntity::RegisterReference 0x571B70) solo si no es nulo; devuelve this. Objeto en arenas controladas con relleno previo variable; se compara byte a byte (la vtable por tipo de tarea y origen de cada lado), EAX (= this), la secuencia de llamadas a RegisterReference (falso identico en la direccion del EXE y en el cuerpo de la DLL), la ruta y las compuertas de ABI/SEH/restauracion. CTaskSimple::CTaskSimple 0x61A390 no tiene cuerpo propio en la DLL (es en linea): se sustituye solo en el EXE por un falso con el mismo efecto y se comprueba su efecto en la DLL. ECX/EDX de salida se registran pero no se comparan (los dos llamadores del EXE, 0x6418B8 y 0x649F1D, los recargan). No valida el destructor, Clone, MakeAbortable ni ProcessPed, que no se enganchan.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/ForcePedOut71-20261026-192246-888856",
+  "summary_sha256": "237fe414a521dbc94eeafc761cc8b67802a6214d8dcda53d3adf44650bc2069c",
+  "result_txt_sha256": "7dc8ade5614aa421f201aba635eeffd014f862a1142894575aaf302d5d72f9e7",
+  "log_sha256": "a2e0d2e6153a9b621841a8de1d1b952625a133fc866fdbfcfe8857fddd74cf49",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "c504b2d3eed12ee189e00216d107eb94df7c9d07b1eb95cd39586078a223495e",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.cpp": "44db6ae8b2343f0d0e6a3b0d9e839edffa6329c8466a2b28c7dd75573f1a46e3",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.h": "d4e93474421aa478b46097bb72e276d6ba7cefbaa997448951676b4f0d25907a",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "1461390378eae1618f39c52d71e624020d3d2e7927648098b54bd33e1baa2646",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/ForcePedOut71/LiveComparison.hpp": "65f8829be049b836abf5cc257eed6d49da3ea35b916eba60ac7fb815ed163417",
+      "reversing/ForcePedOut71/Core.hpp": "2e222cfd8e97c0a63201827b411ea046a636375bf249c0171d0d0c87e858be96",
+      "reversing/ForcePedOut71/Fixtures.hpp": "1546d059e1d22f50887c6c75da0d07843d6e40608b61f5b7a5722938c4b62ffc",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

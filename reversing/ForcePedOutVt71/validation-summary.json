@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "pairs": 81920,
+  "differences": 0,
+  "registered_pairs": 81920,
+  "registered_functions": 5,
+  "functions": {
+    "CTaskSimpleCarForcePedOut::Destructor": 16384,
+    "CTaskSimpleCarForcePedOut::Clone": 16384,
+    "CTaskSimpleCarForcePedOut::MakeAbortable": 16384,
+    "CTaskSimpleCarForcePedOut::ProcessPed": 16384,
+    "CTaskSimpleCarForcePedOut::DeletingDestructor": 16384
+  },
+  "covered_functions": {
+    "CTaskSimpleCarForcePedOut::Destructor": true,
+    "CTaskSimpleCarForcePedOut::Clone": true,
+    "CTaskSimpleCarForcePedOut::MakeAbortable": true,
+    "CTaskSimpleCarForcePedOut::ProcessPed": true,
+    "CTaskSimpleCarForcePedOut::DeletingDestructor": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-2 (HEAD de main + TaskSimpleCarForcePedOut.h/.cpp, InjectHooksMain.cpp y una linea de TaskComplexLeaveCar.cpp, source.patch). Virtuales de CTaskSimpleCarForcePedOut (vtable 0x86EE94): cuerpo del destructor 0x647790 (limpia la referencia al vehiculo con CleanUpOldReference 0x571A00; hook S), Clone 0x649EE0 (CTask::operator new, comprobacion de nulo, constructor 0x647710), MakeAbortable 0x647780 (devuelve false) y ProcessPed 0x6477F0 (conductor/pasajeros con IsDriver 0x6D1C40, ComputeOppositeDoorFlag 0x64E610, ComputePassengerIndexFromCarDoor 0x64F1E0 y PositionPedOutOfCollision 0x5E0820); hooks V llamados por la ranura de la vtable del EXE. Colaboradores con hook sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL; CTask::~CTask 0x61A3A0 (en linea en la DLL) solo en el EXE con el mismo efecto. Se compara el objeto completo, AL/EAX, la traza de colaboradores y las compuertas de ABI/SEH/restauracion. El banco incluye ademas la ruta viva del destructor con borrado (0x64BF50 del EXE contra el del compilador en la DLL, con banderas 0/1 y bits altos): sin hook, sin registro. Los bits 1 y 2 de las banderas del destructor con borrado de la DLL (array y ::operator delete global) quedan fuera: ningun llamador los pasa.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/ForcePedOutVt71-20261026-191805-626348",
+  "summary_sha256": "dbc1174a8a10fc2e22a416e119d5b39905a1d738ad8545104fec5e211703aecb",
+  "result_txt_sha256": "3687272ae290f3ff13e3425e37404f77037fc3bbb07574e6d33fe769f05b2057",
+  "log_sha256": "0d605bcd3302de9448535732560b927d7672c8749520289dbf2778fc638363c2",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "f354d74bd1d706e68aee1160bd3a33f9bafce0eb01022e469c1f3df987280593",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.cpp": "44db6ae8b2343f0d0e6a3b0d9e839edffa6329c8466a2b28c7dd75573f1a46e3",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.h": "d4e93474421aa478b46097bb72e276d6ba7cefbaa997448951676b4f0d25907a",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "1461390378eae1618f39c52d71e624020d3d2e7927648098b54bd33e1baa2646",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/ForcePedOutVt71/LiveComparison.hpp": "146e67721d38d5ba578afcd9d9623ee616f57e91ee793d08de389d0b54b283bf",
+      "reversing/ForcePedOutVt71/Core.hpp": "cee5f4c31959a628e9540e10d4a8c499b94c3d4648c3e1d5968772da8a0ea223",
+      "reversing/ForcePedOutVt71/Fixtures.hpp": "292e4642e2a75c06127da7c9c2f966acd26b0f78c04d48baf5c91da967774978",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}
