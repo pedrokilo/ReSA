@@ -1,7 +1,7 @@
 {
   "scope": "source/game_sa and source/app (WindowedMode.cpp included as the documented NOTSA assembly exception, reported separately), definitions in cpp/h/hpp/inc; all preprocessing branches",
   "totals": {
-    "source_definition_count": 18532,
+    "source_definition_count": 18533,
     "groups": 1498,
     "assembly_occurrences": 0,
     "naked_declarations": 0,
@@ -25,7 +25,7 @@
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 20,
     "catalog_rows_linked_by_hook_address": 180,
-    "validated_reconstructed_own_cpp_definitions": 10482,
+    "validated_reconstructed_own_cpp_definitions": 10483,
     "validated_reconstructed_own_asm_definitions": 0,
     "wrapper_definitions": 89
   },
@@ -501,7 +501,7 @@
     "source/game_sa/Entity/Vehicle/Trailer.h": "63fe52f48bce8fc44e351af32a6e96844ab5ed6543443010b14b12456b8bbadb",
     "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
     "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-    "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8fd18c2fef3d55a0985d40d3060d73e12f88bd7a3ab0ac01a9aca6a03a47d19d",
+    "source/game_sa/Entity/Vehicle/Vehicle.cpp": "6747a70933500ab7ff9c389bf5d8b49614978ae365bd6b6b67c5d768523ffe9b",
     "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
     "source/game_sa/EntityScanner.cpp": "b1a00ee5d8885be94e0082c5113e50470ce33e7d9f538a01ecba8e3737fd1d5a",
     "source/game_sa/EntityScanner.h": "2f66450dba55116cc34ed0f86f4e97e9a655a7329f4e16d55fe116c700f64664",
@@ -1987,7 +1987,7 @@
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.h": "ec2e688e8e7eabeeb6ddd0e0bb19bc47ef5997db69a029c6b5740768dadd9845",
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFall.cpp": "a094804199c21aa380d267b956896117f60691d20d2dae0ab605c75209a89582",
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFall.h": "c9224f5b845695eba5a5cf4352474ec047fcc1714fe23ed39e06ef4c645ef6f2",
-    "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "4489ecbb3e30e5ad4935338af4783f8f73001ebc10099d67a84d0849e701c893",
+    "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "660e3762b594182a84b84b01653b24616515ad38be362db2d5fc444b5a64990d",
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "755c4eb6eb2dfaa4dd6709d7fac6d085bd42bc539ce6fdb80decfad3e0552dfd",
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp": "b4fa56c3f3bf80d3b7532befd0f427bb9120089f29864389a140a53129b32e39",
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h": "c3d8b0d7b9e47f79f802d6d35a8e480e8332d6c369fac7a27ae00775a4cd354e",
@@ -2225,8 +2225,8 @@
     "source/game_sa/World.cpp": "0066108864b6c6c3aa13ac5a68da99749b177bd94605ebc3a2c14580018340bd",
     "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c",
     "source/game_sa/World_Helper.cpp": "331f33ad029ba5a963ac2b15dbe384298d36075b3b0eef2adedeb72454f5a033",
-    "source/game_sa/X87Math.cpp": "e64a4fedd3f0505870ccab04632506b2547b4dfaf9c350ff7a9069249ab23c78",
-    "source/game_sa/X87Math.h": "3b95baef142792b5925ec4d621ad38e84cfa8b700968290b371da5624c86cecd",
+    "source/game_sa/X87Math.cpp": "e700e4679812abcd1e517522ed45232515d1ceb318ea043ba398ac078172d248",
+    "source/game_sa/X87Math.h": "fbc5f6c7681630c0c7b726f2e0a7cec5bec7e99c90aa0106cd04e3f43089ff50",
     "source/game_sa/Zone.cpp": "efb2c9fa14a6744d59fb142a8c8497719d7e9bf976ca3aebca78cc33caffa14a",
     "source/game_sa/Zone.h": "6e68b4a81ee271b97e3ed2b1ce9a6fcc1ff87dd54ab7790cb908fb14c5624d93",
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"

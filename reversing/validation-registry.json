@@ -544554,26 +544554,26 @@
       },
       "evidence": {
         "path": "reversing/FightHitObj72/validation-summary.json",
-        "sha256": "e92ce55f77887bb18a9f21f3419735eff57fdceb70c58ef2e807eb5b4f1bb314",
+        "sha256": "1a8eb8dae6ecd16dadcabc97559c8f9ebdbd5056a247ed53bb7bdb5f0440b803",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleFight::FightHitObj"
         ],
-        "pairs": 16384,
+        "pairs": 19864,
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
         "original_address": "0x0061D400"
       },
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
         "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "0ee5c118fd435d4a37d663e0d2301acf62c917e9b17697d3f084bacfc036082d",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "818f88d555b68e6753c682f01a15c1052e7e9cc48b45555d96baa711a07efe27",
-        "source/game_sa/X87Math.cpp": "e64a4fedd3f0505870ccab04632506b2547b4dfaf9c350ff7a9069249ab23c78",
-        "source/game_sa/X87Math.h": "3b95baef142792b5925ec4d621ad38e84cfa8b700968290b371da5624c86cecd",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "660e3762b594182a84b84b01653b24616515ad38be362db2d5fc444b5a64990d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "755c4eb6eb2dfaa4dd6709d7fac6d085bd42bc539ce6fdb80decfad3e0552dfd",
+        "source/game_sa/X87Math.cpp": "e700e4679812abcd1e517522ed45232515d1ceb318ea043ba398ac078172d248",
+        "source/game_sa/X87Math.h": "fbc5f6c7681630c0c7b726f2e0a7cec5bec7e99c90aa0106cd04e3f43089ff50",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/FightHitObj72/LiveComparison.hpp": "9f3aa8c65a64aa09eeb57c8cbded367dd4c6235558d560074cdf3fe553c28324",
+        "reversing/FightHitObj72/LiveComparison.hpp": "c6efefb81da0041f36d1b0e9b4fe899a5ae678ae4b6b4b4f35a0e7ac9aed57a5",
         "reversing/FightHitObj72/Core.hpp": "626b3737bc860c829c50c3f0774c35b4d6fbb3d17a8a0512842e35652464a880",
-        "reversing/FightHitObj72/Fixtures.hpp": "583837e501a6984e1d83ad9c04255e07d8b735d9eee1037ee15a757ff0fea926",
+        "reversing/FightHitObj72/Fixtures.hpp": "833348b231c20862a22a79439f419a4de99d607e4c173b5a4c686044a2521392",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
@@ -544591,23 +544591,23 @@
       },
       "evidence": {
         "path": "reversing/HeatSeek72/validation-summary.json",
-        "sha256": "8fae1a169c68a741bf836058a339eb555a49d94bdcf822af30fb3789713ec307",
+        "sha256": "027c415aa5d2bcd0d21fa2bddf16c4c107fd26d3f32b6db079211f98e6f168d8",
         "passed_path": [
           "covered_functions",
           "CVehicle::ScanAndMarkTargetForHeatSeekingMissile"
         ],
-        "pairs": 16384,
+        "pairs": 20480,
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
         "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8fd18c2fef3d55a0985d40d3060d73e12f88bd7a3ab0ac01a9aca6a03a47d19d",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "6747a70933500ab7ff9c389bf5d8b49614978ae365bd6b6b67c5d768523ffe9b",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/HeatSeek72/LiveComparison.hpp": "1abfc456f36147062ba77401ebe588a1751d9bd4cca185d62bbcc5b6f3946e58",
-        "reversing/HeatSeek72/Core.hpp": "60768ff303231913fedec0955b49eb15de2a6157ae29d8eefc740a2024b8171a",
-        "reversing/HeatSeek72/Fixtures.hpp": "5861862f54d2b377087e34c4de143a782794f51d0474fb22bb69bdf6e56139d9",
+        "reversing/HeatSeek72/LiveComparison.hpp": "2b7e9e9216cafc93ea13c70366197538fbb7f369a4a4e808b1e1fcf831c12f46",
+        "reversing/HeatSeek72/Core.hpp": "d397dba8a2a80f8265fd29207397c9061ea87f290a3259f613179785ccd36dca",
+        "reversing/HeatSeek72/Fixtures.hpp": "0130bada0af9969c0a653ffd216a0c1282ffd6dfc9b5a28eb17e033680a3b78c",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
@@ -544625,7 +544625,7 @@
       },
       "evidence": {
         "path": "reversing/ReplUpgrade72/validation-summary.json",
-        "sha256": "602e26f2fd90fdc3b9fc6939f7a060e2c9289bcc60992b79a3cc6d15bd2465a9",
+        "sha256": "3abc71369439f615231dd2fd031c4d3977b2659183ee6907d32e3ad83ed93bb0",
         "passed_path": [
           "covered_functions",
           "AddReplacementUpgrade"
@@ -544637,12 +544637,14 @@
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
         "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8fd18c2fef3d55a0985d40d3060d73e12f88bd7a3ab0ac01a9aca6a03a47d19d",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "6747a70933500ab7ff9c389bf5d8b49614978ae365bd6b6b67c5d768523ffe9b",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
+        "source/game_sa/X87Math.cpp": "e700e4679812abcd1e517522ed45232515d1ceb318ea043ba398ac078172d248",
+        "source/game_sa/X87Math.h": "fbc5f6c7681630c0c7b726f2e0a7cec5bec7e99c90aa0106cd04e3f43089ff50",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/ReplUpgrade72/LiveComparison.hpp": "c7d5edf8181aa6d0755ade39072db7bc7bc986447b1239466ef994e7d2ac0d01",
-        "reversing/ReplUpgrade72/Core.hpp": "f461c4c575838a1fbc869791b9854c0f14f5081f14a5c52175163603d115d8f9",
-        "reversing/ReplUpgrade72/Fixtures.hpp": "f2a17166472b26bdbdb34fff26f2597a2ca357ebd79e6a3fdde8ea9e7478a08f",
+        "reversing/ReplUpgrade72/Core.hpp": "aaea8453ee7744c4069fd5681baeb402fe3a14fabeaa32401c44ff8734332866",
+        "reversing/ReplUpgrade72/Fixtures.hpp": "0445468830378ce7b47312153158aff5446237358f3f1533aa412ff6a34d55f2",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },

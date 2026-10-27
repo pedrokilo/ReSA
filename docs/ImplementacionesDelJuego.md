@@ -8,7 +8,7 @@ Este documento distingue el lenguaje de la fuente, la reconstrucción, la valida
 
 El inventario asigna **0 apariciones de ensamblador** a **0 definiciones con cuerpo** y **0 declaraciones naked** a **0 definiciones**. No queda ninguna aparición sin ubicación. Las funciones mixtas se cuentan en «con ensamblador»; naked es una marca adicional que no se suma como otra función.
 
-De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 18532 definiciones en 1498 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
+De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 18533 definiciones en 1498 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
 
 ## Cómo leer la tabla
 
@@ -1348,7 +1348,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [Globales y helpers: source/game_sa/Weather.cpp](implementaciones/detalle-066.md#grupo-1317) · [source/game_sa/Weather.cpp](../source/game_sa/Weather.cpp) | 0 | 0 | 8 | 0 | 0 |
 | [Globales y helpers: source/game_sa/World.cpp](implementaciones/detalle-066.md#grupo-1318) · [source/game_sa/World.cpp](../source/game_sa/World.cpp) | 0 | 0 | 18 | 0 | 0 |
 | [Globales y helpers: source/game_sa/World_Helper.cpp](implementaciones/detalle-066.md#grupo-1319) · [source/game_sa/World_Helper.cpp](../source/game_sa/World_Helper.cpp) | 0 | 0 | 4 | 0 | 0 |
-| [Globales y helpers: source/game_sa/X87Math.cpp](implementaciones/detalle-066.md#grupo-1320) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 1037 | 0 | 1 | 0 | 0 |
+| [Globales y helpers: source/game_sa/X87Math.cpp](implementaciones/detalle-066.md#grupo-1320) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 1038 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/cHandlingDataMgr.cpp](implementaciones/detalle-067.md#grupo-1321) · [source/game_sa/cHandlingDataMgr.cpp](../source/game_sa/cHandlingDataMgr.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/common.cpp](implementaciones/detalle-067.md#grupo-1322) · [source/game_sa/common.cpp](../source/game_sa/common.cpp) | 3 | 0 | 10 | 0 | 0 |
 | [Globales y helpers: source/game_sa/common.h](implementaciones/detalle-067.md#grupo-1323) · [source/game_sa/common.h](../source/game_sa/common.h) | 0 | 0 | 26 | 0 | 0 |

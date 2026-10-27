@@ -1,39 +1,46 @@
 {
   "passed": true,
-  "pairs": 16384,
+  "pairs": 20480,
   "differences": 0,
-  "registered_pairs": 16384,
+  "registered_pairs": 20480,
   "registered_functions": 1,
   "functions": {
-    "CVehicle::ScanAndMarkTargetForHeatSeekingMissile": 16384
+    "CVehicle::ScanAndMarkTargetForHeatSeekingMissile": 20480
   },
   "covered_functions": {
     "CVehicle::ScanAndMarkTargetForHeatSeekingMissile": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-2 (HEAD 95f7d73eb + source.patch del lote 72; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados): CWeapon::PickTargetForHeatSeekingMissile 0x73F910, CWorld::GetIsLineOfSightClear 0x56A490, CWeaponEffects::MarkTarget 0x742BF0 y CWeaponEffects::ClearCrossHairImmediately 0x742CA0; el banco compara su orden y todos sus argumentos (incluidos los valores apuntados y los dwords de banderas +0x1C de vehiculo y objetivo en el momento de la vision) mas EAX, 5 arenas (vehiculo, objetivo, entidad previa y dos matrices) y la hora global. El vehiculo siempre tiene matriz (el EXE lee matriz + 0x10 sin comprobar nulo y se cae sin ella), por lo que la rama de posicion compacta del propio vehiculo no se ejercita. La validez de los colaboradores no la prueba este banco; ECX/EDX solo se registran (los dos llamadores del EXE, 0x6E3621 y 0x6E36DC, solo leen EAX).",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-2 (HEAD 95f7d73eb + source.patch del lote 72; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados): CWeapon::PickTargetForHeatSeekingMissile 0x73F910, CWorld::GetIsLineOfSightClear 0x56A490, CWeaponEffects::MarkTarget 0x742BF0 y CWeaponEffects::ClearCrossHairImmediately 0x742CA0; el banco compara su orden y todos sus argumentos (incluidos los valores apuntados y los dwords de banderas +0x1C de vehiculo y objetivo en el momento de la vision) mas EAX, 5 arenas (vehiculo, objetivo, entidad previa y dos matrices) y la hora global. El vehiculo siempre tiene matriz (el EXE lee matriz + 0x10 sin comprobar nulo y se cae sin ella), por lo que la rama de posicion compacta del propio vehiculo no se ejercita. La validez de los colaboradores no la prueba este banco; ECX/EDX solo se registran (los dos llamadores del EXE, 0x6E3621 y 0x6E36DC, solo leen EAX). Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/HeatSeek72-20261026-211056-876179",
-  "summary_sha256": "57663ada225a39b2b67c36d41b5439408d0fd4b6afbb90870ca17ad989e04b87",
-  "result_txt_sha256": "4ff58355fd1017938fd82a0eec4fdf872b762c7bfcf2b70b944b4e64762912f4",
-  "log_sha256": "2030e4e1059dd38385bcd8c5dfae312ba66a35c9a3e12f6279da1f6a39bd4641",
+  "run": "reversing/CppTwelveLevel6Final/runs/HeatSeek72-20261026-222140-545292",
+  "summary_sha256": "23bc28ed48a3a80c1c4c47534a5b37faf3da603ab6c7ed612e3874ba3f345b6d",
+  "result_txt_sha256": "2a52efbc5710fb3f4339426d5f164a1cb8acd04d3c042d52a7267515f5871712",
+  "log_sha256": "16324371a94044463f35c69ef16c5b99af20bdf8506e2d926d72ece5511fd8d0",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "47f43c23ff72314a86bb5b377fb2c7abbc13c9adb2eda414128725784410c69f",
+  "executed_probe_sha256": "e1e6b1bde21df59dcd63daea7ad5eff6f964fb652dfc2697a32a257d82e1f43e",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
       "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
-      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8fd18c2fef3d55a0985d40d3060d73e12f88bd7a3ab0ac01a9aca6a03a47d19d",
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "6747a70933500ab7ff9c389bf5d8b49614978ae365bd6b6b67c5d768523ffe9b",
       "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/HeatSeek72/LiveComparison.hpp": "1abfc456f36147062ba77401ebe588a1751d9bd4cca185d62bbcc5b6f3946e58",
-      "reversing/HeatSeek72/Core.hpp": "60768ff303231913fedec0955b49eb15de2a6157ae29d8eefc740a2024b8171a",
-      "reversing/HeatSeek72/Fixtures.hpp": "5861862f54d2b377087e34c4de143a782794f51d0474fb22bb69bdf6e56139d9",
+      "reversing/HeatSeek72/LiveComparison.hpp": "2b7e9e9216cafc93ea13c70366197538fbb7f369a4a4e808b1e1fcf831c12f46",
+      "reversing/HeatSeek72/Core.hpp": "d397dba8a2a80f8265fd29207397c9061ea87f290a3259f613179785ccd36dca",
+      "reversing/HeatSeek72/Fixtures.hpp": "0130bada0af9969c0a653ffd216a0c1282ffd6dfc9b5a28eb17e033680a3b78c",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/HeatSeek72-20261026-222140-545292/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "8a759c6f811677321fa946a756433764ac221d25cf8a2ea397ecc44e7bcb2003",
+    "uncompressed_sha256": "16324371a94044463f35c69ef16c5b99af20bdf8506e2d926d72ece5511fd8d0"
   }
 }
