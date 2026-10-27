@@ -197,7 +197,7 @@ inline json CommonRow(const Side& side,const std::array<uint8,108>& fp) {
 }
 inline json Finish(Totals& t,const char* function,unsigned n,const json& input,json rows[2],Side sides[2]) {
     bool ok=rows[0]==rows[1];
-    for(const char* k:{"stack_restored","nonvolatile_preserved","direction_flag_clear","seh_restored","route_ok","collaborators_dll","globals_restored","floating_state_restored"})ok&=rows[0][k]==true&&rows[1][k]==true;
+    for(const char* k:{"stack_restored","nonvolatile_preserved","direction_flag_clear","seh_restored","route_ok","collaborators_dll","globals_restored","pool_slots_null","floating_state_restored"})ok&=rows[0][k]==true&&rows[1][k]==true;
     const auto fa=NormalizeFp(sides[0].fp),fb=NormalizeFp(sides[1].fp);
     t.passed&=ok;t.failures+=!ok;
     json row={{"event","comparison"},{"function",function},{"case",n},{"pair",t.pairs++},{"input",input},{"original",rows[0]},{"candidate",rows[1]},{"fp_difference",FpDifference(fa,fb)},
@@ -312,31 +312,31 @@ inline void BuildArena(const Spec& s,unsigned n) {
     ArenaInit=Arena;
 }
 
-// Globales que el banco escribe durante un caso: las ranuras del pool de ms_modelInfoPtrs (kSlotPool: 415 entradas DENTRO de la tabla de 20000; en cada caso se instalan los model infos falsos
-// en las ranuras v[kModel] y v[kVehIdx] y las demas conservan su valor) y ms_bCreateDamagedVersion (0xA9B0B0, que la funcion deja a 0: se registra y se repone).
+// Globales: la tabla ms_modelInfoPtrs COMPLETA (20000 entradas, se captura y se compara byte a byte) y ms_bCreateDamagedVersion (0xA9B0B0, que la funcion deja a 0: se registra y se repone).
+// El banco solo ESCRIBE en las kSel ranuras nulas elegidas (Sel) y las repone a 0; nunca toca una ranura con model info real.
+inline std::array<u32,kSel> Sel{};
+inline const u32* Table(){return reinterpret_cast<const u32*>(kModelInfoPtrs);}
+inline u32* TableW(){return reinterpret_cast<u32*>(kModelInfoPtrs);}
+inline u64 TableHash(){u64 h=1469598103934665603ull;for(u32 i=0;i<kNumModelInfos;++i){h^=Table()[i];h*=1099511628211ull;}return h;}
+inline bool SelAllNull(){for(u32 s:Sel)if(s>=kNumModelInfos||Table()[s]!=0)return false;return true;}
 struct Globals {
-    std::array<u32,kPoolSize> slots{};u8 dmg{};
-    static Globals Capture(){Globals g;for(u32 i=0;i<kPoolSize;++i)g.slots[i]=reinterpret_cast<u32*>(kModelInfoPtrs)[kSlotPool[i]];g.dmg=*reinterpret_cast<u8*>(kDamagedFlag);return g;}
-    void Apply()const{for(u32 i=0;i<kPoolSize;++i)reinterpret_cast<u32*>(kModelInfoPtrs)[kSlotPool[i]]=slots[i];*reinterpret_cast<u8*>(kDamagedFlag)=dmg;}
-    bool operator==(const Globals& o)const{return slots==o.slots&&dmg==o.dmg;}
+    std::vector<u32> table;u8 dmg{};
+    static Globals Capture(){Globals g;g.table.assign(Table(),Table()+kNumModelInfos);g.dmg=*reinterpret_cast<u8*>(kDamagedFlag);return g;}
+    void Apply()const{for(u32 s:Sel)TableW()[s]=table[s];*reinterpret_cast<u8*>(kDamagedFlag)=dmg;}   // solo las ranuras elegidas (nulas al empezar)
+    bool operator==(const Globals& o)const{return table==o.table&&dmg==o.dmg;}
 };
-inline unsigned PoolPos(u32 index){
-    const auto it=std::lower_bound(kSlotPool.begin(),kSlotPool.end(),index);
-    return it!=kSlotPool.end()&&*it==index?unsigned(it-kSlotPool.begin()):kPoolSize;
-}
 inline Globals CaseGlobals(const Spec& s,const Globals& base){
     Globals g=base;
-    const unsigned pm=PoolPos(s.v[kModel]),pv=PoolPos(s.v[kVehIdx]);
-    if(pm<kPoolSize&&pv<kPoolSize&&pm!=pv){
-        g.slots[pv]=A(oVMi);                                // model info del vehiculo en [this+0x22]
-        g.slots[pm]=A(oU0+0x40*(s.v[kModel]&3));            // model info de la mejora en modelIndex
+    if(s.v[kModel]<kNumModelInfos&&s.v[kVehIdx]<kNumModelInfos&&s.v[kModel]!=s.v[kVehIdx]){
+        g.table[s.v[kVehIdx]]=A(oVMi);                          // model info del vehiculo en [this+0x22]
+        g.table[s.v[kModel]]=A(oU0+0x40*s.v[kUSel]);            // model info de la mejora en modelIndex
     }
     g.dmg=u8(s.v[kDmgInit]);
     return g;
 }
 
 inline void RunCase(Env& env,Totals& t,const Globals& base,u32 fn,unsigned n) {
-    const Spec s=MakeSpec(fn,n);
+    Spec s=MakeSpec(fn,n);Realize(s,Sel);
     const json input=json::parse(JsonSpec(s));
     Side sides[2];json rows[2];
     const Globals want=CaseGlobals(s,base);
@@ -345,6 +345,7 @@ inline void RunCase(Env& env,Totals& t,const Globals& base,u32 fn,unsigned n) {
         PrepareFloatingState();
         nev=0;cur=s;
         BuildArena(s,n);
+        const bool poolNull=SelAllNull();   // antes de instalar los falsos: ninguna ranura elegida tiene un model info real
         want.Apply();
         auto gate=[&](uintptr_t entry){
             const u32 args[2]{s.v[kModel],s.v[kNode]};
@@ -364,6 +365,7 @@ inline void RunCase(Env& env,Totals& t,const Globals& base,u32 fn,unsigned n) {
         RestoreFloatingState();
         const bool globalsSame=Globals::Capture()==want;
         out["globals_restored"]=globalsSame&&watchesIntact&&env.WatchesIntact();
+        out["pool_slots_null"]=poolNull;
         out["floating_state_restored"]=FloatingStateRestored();
         base.Apply();
         rows[sd]=out;
@@ -379,12 +381,18 @@ inline void Run(Env& env,bool ready,const json& registered,const json& bodies,co
     json watched=json::array();for(const auto& w:env.watches)watched.push_back({{"address",w.address},{"bytes",HexBytes(reinterpret_cast<void*>(w.address),16)}});
     SaveFP(savedFP.data());savedMXCSR=ReadMXCSR();savedFPActive=true;
     json cases=json::object();for(const char* nm:kFn)cases[nm]=kCases;
+    std::vector<u8> isNull(kNumModelInfos);u32 nullCount=0;for(u32 i=0;i<kNumModelInfos;++i){isNull[i]=Table()[i]==0;nullCount+=isNull[i];}
+    const bool selOK=SelectNullSlots(isNull,Sel);
+    ready&=selOK&&SelAllNull();
+    json selJson=json::array();for(u32 x:Sel)selJson.push_back(x);
+    const u64 hashBegin=TableHash();
     const Globals base=Globals::Capture();
     Write({{"event","begin"},{"registered_hook",ready},{"registered",registered},{"functions",kFns},{"pairs",kFns*kCases},{"cases",cases},
         {"direct_functions",json::array()},{"compare_dead_x87_registers",kCompareDeadX87Registers},{"compare_volatile_registers",kCompareVolatileRegisters},
         {"x87_comparison","fcw+top+ftw+valid_st; ignora FSW banderas/CC, FIP/FDP y registros vacios; MXCSR sin banderas"},{"collaborators_stubbed",true},
         {"collaborators",collaborators},{"watched_entries",watched},{"bodies",bodies},{"asi_module",env.asi},{"original_module",env.game},{"arena_size",kArenaSize},
-        {"initial_fp",HexBytes(savedFP.data(),108)},{"initial_mxcsr",savedMXCSR},{"mxcsr_ftz",(savedMXCSR&0x8000u)!=0},{"slot_pool",kPoolSize},{"num_model_infos",kNumModelInfos}});
+        {"initial_fp",HexBytes(savedFP.data(),108)},{"initial_mxcsr",savedMXCSR},{"mxcsr_ftz",(savedMXCSR&0x8000u)!=0},{"slot_pool",kSel},{"num_model_infos",kNumModelInfos},{"pool_slots",selJson},{"pool_all_null",selOK&&SelAllNull()},{"null_slots_total",nullCount},{"nonnull_slots_total",kNumModelInfos-nullCount},
+        {"table_first_null",isNull[0]!=0},{"table_last_null",isNull[kNumModelInfos-1]!=0},{"table_hash_begin",std::to_string(hashBegin)}});
     Totals totals;
     if(ready) {
         for(u32 fn=0;fn<kFns;++fn) {
@@ -400,7 +408,7 @@ inline void Run(Env& env,bool ready,const json& registered,const json& bodies,co
     for(auto& r:env.route)if(r)stateRestored&=r->Restore();
     RestoreFloatingState();stateRestored&=FloatingStateRestored();
     const bool globalsNow=Globals::Capture()==base;
-    Write({{"event","global_state_final"},{"floating_state",HexBytes(savedFP.data(),108)},{"mxcsr",ReadMXCSR()},{"state_restored",stateRestored},{"watched_intact",entriesIntact},{"region_restored",globalsNow}});
+    Write({{"event","global_state_final"},{"table_hash_final",std::to_string(TableHash())},{"table_hash_begin",std::to_string(hashBegin)},{"floating_state",HexBytes(savedFP.data(),108)},{"mxcsr",ReadMXCSR()},{"state_restored",stateRestored},{"watched_intact",entriesIntact},{"region_restored",globalsNow}});
     Write({{"event",ready&&totals.passed&&stateRestored&&globalsNow?"complete":"error"},{"pairs",totals.pairs},{"state_restored",stateRestored},{"floating_state_restored",FloatingStateRestored()},{"entries_intact",entriesIntact},{"region_restored",globalsNow}});
     RestoreFloatingState();savedFPActive=false;
 }

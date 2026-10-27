@@ -19,7 +19,7 @@ import fixture_oracle as oracle
 
 NAMES = oracle.NAMES
 EXPECTED = dict(oracle.CASES_BY_NAME)
-GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh_restored', 'route_ok', 'collaborators_dll', 'globals_restored', 'floating_state_restored')
+GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh_restored', 'route_ok', 'collaborators_dll', 'globals_restored', 'pool_slots_null', 'floating_state_restored')
 HOOKS = {oracle.NAME: 0x6D3830}
 # colaboradores sustituidos, EN ORDEN (direccion del EXE; hooked=False: su hook queda apagado durante el banco)
 STUBBED = {oracle.NAME: [0x4C53C0, 0x7F1200, 0x7F0DC0, 0x4C4BA0, 0x74A490, 0x74BF20, 0x7F05A0, 0x732290, 0x7322B0, 0x74C790, 0x7328A0, 0x4C88F0, 0x6D3700, 0x7F18A0, 0x6FDFE0]}
@@ -61,8 +61,12 @@ def analyze(path):
         raise RuntimeError('Configuracion de compuertas inesperada (ver README.md): x87 normalizado y ECX/EDX solo registrados')
     if b.get('mxcsr_ftz') is not True or (b['initial_mxcsr'] & 0x8000) == 0:
         raise RuntimeError('El banco no corre con MXCSR FTZ (estado del juego): los desnormales de x no se estarian probando como en el juego')
-    if b.get('slot_pool') != len(oracle.SLOT_POOL) or b.get('num_model_infos') != oracle.NUM_MODEL_INFOS:
+    pool = b.get('pool_slots')
+    if b.get('slot_pool') != oracle.KSEL or b.get('num_model_infos') != oracle.NUM_MODEL_INFOS or not isinstance(pool, list) or len(pool) != oracle.KSEL or len(set(pool)) != oracle.KSEL \
+            or any((not isinstance(x, int)) or x < 0 or x >= oracle.NUM_MODEL_INFOS for x in pool):
         raise RuntimeError('Pool de ranuras de ms_modelInfoPtrs inesperado')
+    if b.get('pool_all_null') is not True or b.get('null_slots_total', 0) < 4 * oracle.KSEL or b.get('nonnull_slots_total', 0) < 1:
+        raise RuntimeError('Las ranuras elegidas no eran todas nulas o la tabla no tiene suficientes nulas')
     if b['pairs'] != sum(EXPECTED.values()) or b['cases'] != EXPECTED or b['functions'] != len(NAMES):
         raise RuntimeError('Numero de pares inesperado')
     if set(b['registered']) != set(HOOKS) or not all(b['registered'].values()) or set(b['bodies']) != set(HOOKS) or not all(b['bodies'].values()):
@@ -93,6 +97,10 @@ def analyze(path):
                 raise RuntimeError('Compuerta fallida en %s %d: %s' % (fn, case, {k: side.get(k) for k in GATES}))
         if row['fp_difference']:
             raise RuntimeError('Estado x87 distinto en %s %d: %s' % (fn, case, row['fp_difference']))
+        iv = row['input']['v']
+        zone = lambda o: 0 if o < 8 else 1 if o < 16 else 2 if o < 48 else 3
+        if iv[0] not in pool or iv[18] not in pool or iv[0] == iv[18] or pool.index(iv[0]) & 3 != iv[19] or zone(pool.index(iv[0])) != iv[20] or zone(pool.index(iv[18])) != iv[21]:
+            raise RuntimeError('Indices de la fila fuera del pool de ranuras nulas o zonas inconsistentes en %s %d' % (fn, case))
         want, stats = oracle.expected(fn, row['input'], case)
         for label, side in (('EXE', a), ('DLL', c)):
             if side['observed'] != want:
@@ -113,8 +121,8 @@ def analyze(path):
     if len(end) != 1 or end[0]['pairs'] != sum(EXPECTED.values()) or not all(end[0].get(k) is True for k in ('state_restored', 'floating_state_restored', 'entries_intact', 'region_restored')):
         raise RuntimeError('Final sin restauracion exacta')
     state = [r for r in rows if r['event'] == 'global_state_final']
-    if len(state) != 1 or state[0]['floating_state'] != b['initial_fp'] or state[0]['watched_intact'] is not True or state[0]['state_restored'] is not True or state[0]['region_restored'] is not True:
-        raise RuntimeError('El x87, los hooks, las entradas vigiladas o las globales escritas por el banco (las 415 ranuras del pool de ms_modelInfoPtrs, ms_bCreateDamagedVersion) no se restauraron')
+    if len(state) != 1 or state[0]['floating_state'] != b['initial_fp'] or state[0]['watched_intact'] is not True or state[0]['state_restored'] is not True or state[0]['region_restored'] is not True or state[0].get('table_hash_final') != state[0].get('table_hash_begin') or state[0].get('table_hash_begin') != b.get('table_hash_begin'):
+        raise RuntimeError('El x87, los hooks, las entradas vigiladas o las globales escritas por el banco (la tabla ms_modelInfoPtrs completa byte a byte, ms_bCreateDamagedVersion) no se restauraron')
     summary['compare_dead_x87_registers'] = False
     summary['coverage'] = cov
     summary['coverage_method'] = 'serialized_inputs_and_independent_oracle; no_instruction_branch_tracing'

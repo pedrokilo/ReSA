@@ -3,13 +3,14 @@
 // Solo C++ estandar (sin tipos del juego): las incluyen Core.hpp / LiveComparison.hpp y un programa autonomo de calibracion (fixture_mirror.py / fixture_mirror.cpp).
 //
 // El caso es un vector `v` de kVWords palabras (ver abajo) y los valores iniciales de EAX/EDX/pila (ECX = this). El vehiculo, su model info, los model infos de mejoras
-// (instalados en ranuras de ms_modelInfoPtrs elegidas por el caso: 15..19, 0/1, 400..611, 1000..1193, 19998/19999), la manejabilidad, los marcos y los atomos FALSOS viven en una arena propia con guardas; los colaboradores se sustituyen por falsos
+// (instalados en ranuras NULAS de ms_modelInfoPtrs elegidas en `begin`), la manejabilidad, los marcos y los atomos FALSOS viven en una arena propia con guardas; los colaboradores se sustituyen por falsos
 // que registran sus argumentos en orden.
 #include <array>
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
 #include <string>
+#include <vector>
 
 namespace R72Fix {
 using u8 = std::uint8_t;
@@ -40,21 +41,32 @@ constexpr u32 kAtParent = 0x04, kAtGeometry = 0x18, kFrPosX = 0x40, kFrMatrix = 
 constexpr u32 kVehModelSlot = 15, kFirstUpgradeSlot = 16;
 constexpr u32 kModelInfoPtrs = 0xA9B0C8, kDamagedFlag = 0xA9B0B0;
 constexpr u32 kNumModelInfos = 20000;   // CModelInfo::NUM_MODEL_INFOS: la tabla ms_modelInfoPtrs (0xA9B0C8, 4 bytes por entrada) acaba en 0xACE948; el EXE no valida el indice (0x6D3875/0x6D3971)
-// Ranuras de la tabla que el banco guarda, sobrescribe con model infos falsos y repone: 0/1 (primeras), 15..19 (las del banco original), 400..611 (ids de vehiculos), 1000..1193 (ids de mejoras
-// de vehiculos, los que pasa AddVehicleUpgrade 0x6E3290) y 19998/19999 (ultimas entradas de la tabla). Todas DENTRO de la tabla; ninguna lectura/escritura fuera de ella.
-constexpr u32 kPoolSize = 2 + 5 + 212 + 194 + 2;
-constexpr std::array<u32, kPoolSize> MakeSlotPool() {
-    std::array<u32, kPoolSize> a{};
-    u32 k = 0;
-    a[k++] = 0; a[k++] = 1;
-    for (u32 i = 15; i <= 19; ++i) a[k++] = i;
-    for (u32 i = 400; i <= 611; ++i) a[k++] = i;
-    for (u32 i = 1000; i <= 1193; ++i) a[k++] = i;
-    a[k++] = 19998; a[k++] = 19999;
-    return a;
+// Ranuras de la tabla (modelo 26/10/2026b): el banco NUNCA toca una ranura con model info real. En `begin` se recorre la tabla (20000 entradas) y se eligen kSel ranuras NULAS
+// (SelectNullSlots); el caso usa ORDINALES 0..kSel-1 y Realize los sustituye por el indice real. Ordinales: 0..7 las nulas mas bajas, 8..15 las mas altas, 16..47 repartidas
+// (32), 48..63 un bloque de 16 consecutivas (zona 3). Todas dentro de la tabla; ninguna lectura/escritura fuera de ella.
+constexpr u32 kSel = 64;
+constexpr u32 ZoneOf(u32 ord) { return ord < 8 ? 0u : ord < 16 ? 1u : ord < 48 ? 2u : 3u; }
+inline bool SelectNullSlots(const std::vector<u8>& isNull, std::array<u32, kSel>& sel) {
+    std::vector<u32> nl;
+    for (u32 i = 0; i < kNumModelInfos; ++i) if (isNull[i]) nl.push_back(i);
+    const size_t n = nl.size();
+    if (n < 4 * kSel) return false;
+    std::vector<u8> used(kNumModelInfos, 0);
+    auto take = [&](size_t pos) {
+        for (size_t k = 0; k < n; ++k) { const u32 v = nl[(pos + k) % n]; if (!used[v]) { used[v] = 1; return v; } }
+        return 0xFFFFFFFFu;
+    };
+    // bloque de 16 consecutivas en el medio de la racha nula mas larga (si la racha es menor, se completa con las siguientes nulas)
+    size_t bestStart = 0, bestLen = 0;
+    for (size_t a = 0; a < n;) { size_t b = a; while (b + 1 < n && nl[b + 1] == nl[b] + 1) ++b; if (b - a + 1 > bestLen) { bestLen = b - a + 1; bestStart = a; } a = b + 1; }
+    const size_t runFirst = bestStart + (bestLen > 16 ? (bestLen - 16) / 2 : 0);
+    for (u32 i = 0; i < 16; ++i) sel[48 + i] = take(runFirst + i);
+    for (u32 i = 0; i < 8; ++i) sel[i] = take(i);
+    for (u32 i = 0; i < 8; ++i) sel[8 + i] = take(n - 1 - i);
+    for (u32 i = 0; i < 32; ++i) sel[16 + i] = take((2 * i + 1) * n / 64);
+    for (u32 i = 0; i < kSel; ++i) if (sel[i] >= kNumModelInfos) return false;
+    return true;
 }
-inline constexpr std::array<u32, kPoolSize> kSlotPool = MakeSlotPool();
-static_assert(kSlotPool.back() < kNumModelInfos, "pool dentro de la tabla");
 constexpr u64 kLabel = 0x100000000ull;   // marca de "puntero a la arena": kLabel + desplazamiento
 
 constexpr u32 Mix(u32 x) { x ^= x >> 16; x *= 0x7FEB352Du; x ^= x >> 15; x *= 0x846CA68Bu; x ^= x >> 16; return x; }
@@ -133,10 +145,10 @@ inline u32 NonNullPtrish(Gen& g) { const u32 p = Ptrish(g); return p ? p : 0xA00
 // v[7] = clump (+0x18): 0 nulo, 1 el clump falso; v[8] = 1: el falso de RwFrameForAllObjects(RemoveObjectsCB) escribe v[9] en `data`; v[10] = 1: el de ForAllChildren escribe v[11];
 // v[12] = marco original del atomo creado (AT0 +4); v[13] = geometria del atomo (AT0 +0x18); v[14] = byte que escribe el falso de RpGeometryForAllMaterials en `data` (hay material con alfa);
 // v[15] = retorno de AsDamageAtomicModelInfoPtr (EAX completo); v[16] = x del marco del componente (F0 +0x40, bits de float); v[17] = ms_bCreateDamagedVersion inicial (byte);
-// v[18] = indice (int16 de [this+0x22]) del model info del vehiculo en ms_modelInfoPtrs. v[0] = modelIndex: cualquier indice del pool (kSlotPool); el model info falso de la mejora es
-// U(v[0] & 3) de la arena y el del vehiculo VMi; v[0] != v[18].
+// v[18] = indice (int16 de [this+0x22]) del model info del vehiculo en ms_modelInfoPtrs; v[0] = modelIndex. En MakeSpec son ORDINALES 0..kSel-1; Realize los sustituye por el indice real de la ranura
+// nula elegida y rellena v[19] = selector del model info falso de la mejora (U0..U3 de la arena = ordinal & 3), v[20] / v[21] = zona (ZoneOf) del ordinal de modelIndex / del vehiculo; v[0] != v[18].
 constexpr u32 kModel = 0, kNode = 1, kFrameKind = 2, kFrameOther = 3, kPlateMat = 4, kPlateType = 5, kHnd = 6, kClumpOn = 7, kObjWrites = 8, kObjValue = 9, kChWrites = 10, kChValue = 11,
-              kOldFrame = 12, kGeom = 13, kAlphaByte = 14, kDamageRet = 15, kPosX = 16, kDmgInit = 17, kVehIdx = 18;
+              kOldFrame = 12, kGeom = 13, kAlphaByte = 14, kDamageRet = 15, kPosX = 16, kDmgInit = 17, kVehIdx = 18, kUSel = 19, kZoneM = 20, kZoneV = 21;
 
 inline Spec MakeSpec(u32 fn, u32 n) {
     Spec s;
@@ -187,30 +199,27 @@ inline Spec MakeSpec(u32 fn, u32 n) {
     s.v[kPosX] = FloatOf(g, cls);
     s.v[kDmgInit] = g.C(40) ? 0u : (g.C(50) ? 1u : g.P(256));
     // ---- ampliacion 26/10/2026 (tiradas nuevas, despues de todas las anteriores)
-    // (a) indices de la tabla: legados 16..19 (30 %), ids de mejoras del juego 1000..1193 (40 %), extremos 1000/1193 (7 %), primeras y ultimas entradas (23 %: 0/1 y 19998/19999)
-    const u32 pk = g.P(100);
-    u32 model = s.v[kModel];
-    if (pk >= 30) {
-        if (pk < 70) model = 1000u + g.P(194);
-        else if (pk < 77) model = g.C(50) ? 1000u : 1193u;
-        else if (pk < 85) model = g.C(50) ? 0u : 1u;
-        else model = g.C(50) ? 19998u : 19999u;
-    }
-    s.v[kModel] = model;
-    const u32 vk = g.P(100);
-    u32 veh = kVehModelSlot;
-    if (vk >= 25) {
-        if (vk < 70) veh = 400u + g.P(212);
-        else if (vk < 80) veh = g.C(50) ? 400u : 611u;
-        else if (vk < 85) veh = 1000u + g.P(194);
-        else veh = g.C(50) ? (g.C(50) ? 0u : 1u) : (g.C(50) ? 19998u : 19999u);
-    }
-    if (veh == model) veh = 400u + g.P(212);   // el modelIndex nunca esta en 400..611
-    s.v[kVehIdx] = veh;
+    // (a) ordinales de ranuras nulas (ver SelectNullSlots): zona 0 (bajas) 20 %, 1 (altas) 20 %, 2 (repartidas) 35 %, 3 (bloque consecutivo) 25 %
+    auto pick = [&]() { const u32 z = g.P(100); return z < 20 ? g.P(8) : z < 40 ? 8u + g.P(8) : z < 75 ? 16u + g.P(32) : 48u + g.P(16); };
+    const u32 mo = pick();
+    u32 vo = pick();
+    if (vo == mo) vo = (mo + 1u + g.P(kSel - 1)) % kSel;
+    s.v[kModel] = mo;
+    s.v[kVehIdx] = vo;
     // (b) x del componente: valores especiales (desnormales, SNaN, ...) en parte de los casos de la rueda con x finita no nula; los demas conservan sus clases y sus minimos
     const bool wheelCase = node == 0x13 && (hnd & 0x2000u);
     if (wheelCase && IsFiniteNonZero(s.v[kPosX]) && g.C(85)) s.v[kPosX] = SpecialX(g);
     return s;
+}
+
+// Sustituye los ordinales por los indices reales de las ranuras nulas elegidas y rellena v[19..21].
+inline void Realize(Spec& s, const std::array<u32, kSel>& sel) {
+    const u32 mo = s.v[kModel], vo = s.v[kVehIdx];
+    s.v[kUSel] = mo & 3u;
+    s.v[kZoneM] = ZoneOf(mo);
+    s.v[kZoneV] = ZoneOf(vo);
+    s.v[kModel] = sel[mo];
+    s.v[kVehIdx] = sel[vo];
 }
 
 // Relleno inicial de la arena: palabras con los bits 31 y 30 puestos (nunca coinciden con una direccion de la arena); los campos de la funcion se escriben encima.

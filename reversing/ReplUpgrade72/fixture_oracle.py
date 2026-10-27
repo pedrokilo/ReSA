@@ -39,11 +39,9 @@ MI_PLATE_MAT, MI_PLATE_TYPE, HND_FLAGS = 0x24, 0x31, 0xCC
 AT_PARENT, AT_GEOMETRY, FR_POSX, FR_MATRIX = 0x04, 0x18, 0x40, 0x10
 VEH_MODEL_SLOT, FIRST_UPGRADE_SLOT = 15, 16
 NUM_MODEL_INFOS = 20000   # ms_modelInfoPtrs (0xA9B0C8, 4 bytes por entrada): el EXE no valida el indice (0x6D3875 lee [ecx*4 + 0xA9B0C8] tal cual)
-# ranuras que el banco guarda/sobrescribe/repone (Fixtures.hpp kSlotPool): todas dentro de la tabla
-SLOT_POOL = [0, 1] + list(range(15, 20)) + list(range(400, 612)) + list(range(1000, 1194)) + [19998, 19999]
-assert len(SLOT_POOL) == 415 and max(SLOT_POOL) < NUM_MODEL_INFOS
+KSEL = 64   # ranuras NULAS elegidas en `begin` (ordinales 0..7 bajas, 8..15 altas, 16..47 repartidas, 48..63 bloque consecutivo)
 LAYOUT = {'veh': O_VEH, 'vmi': O_VMI, 'u0': O_U0, 'hnd': O_HND, 'f0': O_F0, 'f1': O_F1, 'fa': O_FA, 'at0': O_AT0, 'at1': O_AT1, 'at2': O_AT2, 'clump': O_CLUMP, 'g1': O_G1,
-          'size': ARENA_SIZE, 'max_events': MAX_EVENTS, 'ev_args': EV_ARGS, 'v_words': 24, 'families': FAMILIES, 'pool': len(SLOT_POOL), 'num_infos': NUM_MODEL_INFOS}
+          'size': ARENA_SIZE, 'max_events': MAX_EVENTS, 'ev_args': EV_ARGS, 'v_words': 24, 'families': FAMILIES, 'pool': KSEL, 'num_infos': NUM_MODEL_INFOS}
 assert O_VEH == O_G0 + 0x40 and O_VMI == O_VEH + 0x5C0 and O_U0 == O_VMI + 0x80 and O_HND == O_U0 + 4 * 0x40 and O_F0 == O_HND + 0xE0 and O_F1 == O_F0 + 0x60 and O_FA == O_F1 + 0x60
 assert O_AT0 == O_FA + 0x60 and O_AT1 == O_AT0 + 0x40 and O_AT2 == O_AT1 + 0x40 and O_CLUMP == O_AT2 + 0x40 and O_G1 == O_CLUMP + 0x20 and ARENA_SIZE == O_G1 + 0x40
 # identificadores normalizados de callbacks
@@ -149,8 +147,8 @@ def expected(name, inp, case):
     a = build(0, case, v)
     this, clump = lab(O_VEH), a.g32(O_VEH + V_CLUMP)
     model, node = v[0], v[1]
-    assert model in SLOT_POOL and v[18] in SLOT_POOL and model != v[18], (model, v[18])
-    mi = lab(O_U0 + 0x40 * (model & 3))   # model info falso de la mejora instalado en la ranura `model`
+    assert model < NUM_MODEL_INFOS and v[18] < NUM_MODEL_INFOS and model != v[18] and v[19] < 4, (model, v[18], v[19])
+    mi = lab(O_U0 + 0x40 * v[19])   # model info falso de la mejora (U0..U3) instalado en la ranura nula `model`
     kind = v[2]
     frame = 0 if kind == 0 else (lab(O_F0) if kind == 1 else v[3])
     dmg = v[17] & 0xFF
@@ -158,10 +156,12 @@ def expected(name, inp, case):
              'alpha': False, 'no_alpha': False, 'wheel': False, 'wheel_flag_off': False, 'plate': False, 'plate_c': node == 0xC, 'plate_d': node == 0xD, 'node_other': False,
              'damage': False, 'no_damage': False, 'damage_frame': False, 'damage_no_frame': False, 'clump_null': clump == 0, 'wheel_nan': False, 'wheel_inf': False, 'wheel_zero': False,
              'dmg_init_set': dmg != 0, 'dmg_bits_only': False,
-             # (a) indices de la tabla
-             'idx_legacy': 16 <= model <= 19, 'idx_game_upgrade': 1000 <= model <= 1193, 'idx_game_edge': model in (1000, 1193), 'idx_table_first': model in (0, 1),
-             'idx_table_last': model in (19998, 19999), 'veh_idx_legacy': v[18] == VEH_MODEL_SLOT, 'veh_idx_game': 400 <= v[18] <= 611, 'veh_idx_edge': v[18] in (400, 611),
-             'veh_idx_upgrade_range': 1000 <= v[18] <= 1193, 'veh_idx_table_ends': v[18] in (0, 1, 19998, 19999), 'idx_plate_game': (node in (0xC, 0xD)) and 1000 <= model <= 1193,
+             # (a) indices de la tabla (ranuras nulas): zona del ordinal (0 bajas, 1 altas, 2 repartidas, 3 bloque consecutivo) y relacion modelIndex / indice del vehiculo
+             'idx_zone_low': v[20] == 0, 'idx_zone_high': v[20] == 1, 'idx_zone_spread': v[20] == 2, 'idx_zone_run': v[20] == 3,
+             'veh_zone_low': v[21] == 0, 'veh_zone_high': v[21] == 1, 'veh_zone_spread': v[21] == 2, 'veh_zone_run': v[21] == 3,
+             'idx_model_above_veh': model > v[18], 'idx_model_below_veh': model < v[18], 'idx_adjacent': abs(model - v[18]) <= 2, 'idx_near': 0 < abs(model - v[18]) <= 64,
+             'idx_far': abs(model - v[18]) >= 10000, 'idx_in_low_tenth': model < 2000, 'idx_in_high_tenth': model >= 18000, 'veh_in_low_tenth': v[18] < 2000, 'veh_in_high_tenth': v[18] >= 18000,
+             'idx_plate_far': (node in (0xC, 0xD)) and abs(model - v[18]) >= 10000,
              # (b) x del componente de la rueda
              'wheel_x_denormal': False, 'wheel_x_denormal_low': False, 'wheel_x_denormal_high': False, 'wheel_x_snan': False, 'wheel_x_qnan_payload': False,
              'wheel_x_zero_neg': False, 'wheel_x_zero_pos': False, 'wheel_x_inf_neg': False, 'wheel_x_inf_pos': False, 'wheel_x_overflow': False, 'wheel_x_min_normal': False,
@@ -252,7 +252,8 @@ def selftest():
     v[6] = 0x2000
     v[7] = 1
     v[16] = 0x3F800000   # 1.0
-    v[18] = 15
+    v[18] = 5
+    v[19] = 0
     v[15] = 0
     obs, st = expected(NAME, {'v': v}, 3)
     kinds = [e[0] for e in obs['events']]
