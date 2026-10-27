@@ -201,7 +201,20 @@ def analyze(path):
     return summary
 
 
+def nan_gate():
+    """Compuerta previa opcional (HF73_NAN_GATE=1 o --nan-gate): el microtest nan_rules_hw valida contra el hardware x87 la emulacion de NaN de produccion; exige 0 discrepancias."""
+    import nan_rules_hw
+    res = nan_rules_hw.run()
+    print('nan_rules_hw: %d combinaciones, %s' % (res['part1'] + res['part2'], 'OK' if res['ok'] else 'FALLO'))
+    if not res['ok']:
+        raise RuntimeError('La emulacion de NaN de HeatFire73SpawnCpp difiere del hardware x87:\n' + res['output'][-2000:])
+
+
 if __name__ == '__main__':
+    import os
+    if '--nan-gate' in sys.argv or os.environ.get('HF73_NAN_GATE') == '1':
+        sys.argv = [a for a in sys.argv if a != '--nan-gate']
+        nan_gate()
     if len(sys.argv) == 3 and sys.argv[1] == '--analyze':
         print(json.dumps(analyze(Path(sys.argv[2])), indent=2))
     else:

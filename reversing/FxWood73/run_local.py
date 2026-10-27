@@ -15,7 +15,7 @@ from probe_case import analyzer as common_analyzer
 HERE = Path(__file__).resolve().parent
 
 NAMES = ['Fx_c::AddWood']
-CASES = 16384
+CASES = 16384 + 28   # 16 familias de 1024 + familia 16 (28 casos de 65535..1000000 vueltas, con medicion de tiempo)
 EXPECTED = {n: CASES for n in NAMES}
 GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh_restored', 'route_ok', 'collaborators_dll', 'globals_restored', 'floating_state_restored')
 HOOKS = {NAMES[0]: 0x49EE10}
@@ -84,6 +84,10 @@ def tally(inp, obs, cov):
     add('amount_1000', calls == 1000 and amount == 1000)
     add('amount_4096', calls == 4096 and amount == 4096)
     add('amount_10000', calls == 10000 and amount == 10000)
+    add('amount_65535', amount == 65535 and calls == 65535)
+    add('amount_65536', amount == 65536 and calls == 65536)
+    add('amount_100000', amount == 100000 and calls == 100000)
+    add('amount_1000000', amount == 1000000 and calls == 1000000)
     add('events_trace_truncated_hash_only', calls > 256)
     add('swap_slot', inp['swap_slot'] == 1 and calls >= 2)
     add('swap_slot_systems_alternate', inp['swap_slot'] == 1 and calls >= 2 and len({e[1] for e in ev}) == 2)
@@ -176,8 +180,8 @@ def analyze(path):
     for fn in NAMES:
         if seen[fn] != set(range(CASES)):
             raise RuntimeError('Cobertura incompleta en ' + fn)
-        short = {k: v for k, v in fam[fn].items() if v < 200}
-        if len(fam[fn]) != 16 or short:
+        short = {k: v for k, v in fam[fn].items() if v < 200 and k != 16}
+        if len(fam[fn]) != 17 or short or fam[fn].get(16) != 28:
             raise RuntimeError('Cobertura por familia insuficiente en %s: %s' % (fn, fam[fn]))
         for key, minimum in COVER.get(fn, {}).items():
             if cov[fn].get(key, 0) < minimum:

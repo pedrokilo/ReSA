@@ -23,7 +23,9 @@ using u32 = std::uint32_t;
 using i32 = std::int32_t;
 using u64 = std::uint64_t;
 
-constexpr unsigned kCases = 16384;
+constexpr unsigned kBaseCases = 16384;   // familias 0..15 (1024 cada una)
+constexpr unsigned kHugeCases = 28;      // familia 16 (2026-10-27): 65535 (8), 65536 (8), 100000 (8) y 1000000 (4) vueltas; se mide el tiempo por vuelta
+constexpr unsigned kCases = kBaseCases + kHugeCases;
 constexpr unsigned kFamilies = 16;
 constexpr unsigned kFunctions = 1;
 
@@ -208,7 +210,29 @@ inline u32 BigAmount(u32 c) {
     if (r < 98) return 4096u;
     return 10000u;
 }
+inline C MakeHuge(unsigned n) {
+    static constexpr u32 am[]{65535u, 65536u, 100000u, 1000000u};
+    const u32 j = n - kBaseCases;
+    C f{};
+    f.family = 16;
+    const u32 c = n * 8u + 0x73003u;
+    f.seed = Rand(c, 6) | 1u;
+    f.eax = SeedReg(c, 7); f.ecx = SeedReg(c, 8); f.edx = SeedReg(c, 9); f.stack = StackSeed(Rand(c, 11) % 12);
+    f.thisKind = Rand(c, 3) % 4;
+    f.hasMat = Rand(c, 1) % 2;
+    f.amount = am[j < 8 ? 0 : j < 16 ? 1 : j < 24 ? 2 : 3];
+    f.light = B(1.2f);
+    f.swapSlot = j % 2;
+    f.randMode = j % 4 == 3 ? 3u : 0u;
+    for (int i = 0; i < 3; ++i) { f.other[i] = MixComponent(c, 20 + i); f.dir[i] = RandFloat(c, 36 + i, -6, 4); f.cam[i] = RandFloat(c, 41 + i, -4, 11); }
+    double d[3];
+    Split3(c, 50, double(Rand(c, 53) % 2000) / 100.0, d);
+    for (int i = 0; i < 3; ++i) f.pos[i] = B(float(double(F(f.cam[i])) - d[i]));
+    ApplyRand(f, c);
+    return f;
+}
 inline C MakeC(unsigned n) {
+    if (n >= kBaseCases) return MakeHuge(n);
     C f{};
     f.family = n % kFamilies;
     const u32 c = n * 8u + 0x73003u;

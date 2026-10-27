@@ -82,7 +82,7 @@ inline void __fastcall FakeAddParticle(void* self,void*,const void* pos,const vo
 inline void CaseWood(Env& env,Totals& t,unsigned n) {
     const C c=MakeC(n);
     const json input=json::parse(JsonC(c));
-    Side sides[2];json rows[2];
+    Side sides[2];json rows[2];std::pair<double,u32> timing[2]{};
     for(int s=0;s<2;++s) {
         const bool candidate=s==1;
         PrepareFloatingState();
@@ -96,7 +96,10 @@ inline void CaseWood(Env& env,Totals& t,unsigned n) {
         *RandStatePtr()=c.randSeed;   // mismo estado inicial del rand() real del EXE en ambos lados
         const u32 thisPtr=c.thisKind==0?u32(entA.Obj()):c.thisKind==1?0xA9AE00u:c.thisKind==2?(0xDEAD0000u|(Rand(n,77)&0xFFFFu)):0u;
         const u32 args[4]{u32(posA.Obj()),u32(dirA.Obj()),c.amount,c.light};
+        LARGE_INTEGER t0{},t1{},qf{};QueryPerformanceFrequency(&qf);QueryPerformanceCounter(&t0);
         sides[s]=Execute(env,0,kEntry,candidate,[&](uintptr_t entry){return Gate(entry,args,4,c.eax,thisPtr,c.edx,c.stack,0);});
+        QueryPerformanceCounter(&t1);
+        if(c.family==16)timing[s]={double(t1.QuadPart-t0.QuadPart)*1000.0/double(qf.QuadPart),g.particleCalls};
         json obs;   // void: se observan la traza, los sorteos consumidos y los bytes cambiados
         obs["rand_state"]=*RandStatePtr();
         obs["ev_hash"]=g.evHash;
@@ -107,6 +110,7 @@ inline void CaseWood(Env& env,Totals& t,unsigned n) {
         rows[s]=CloseSide(env,sides[s],obs);
     }
     Finish(t,kFn[0],n,input,rows,sides);
+    if(c.family==16)Write({{"event","timing"},{"case",n},{"amount",c.amount},{"original_ms",timing[0].first},{"candidate_ms",timing[1].first},{"original_calls",timing[0].second},{"candidate_calls",timing[1].second}});   // medicion (no se compara)
 }
 
 // ================================================================================================ ejecucion

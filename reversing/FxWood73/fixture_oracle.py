@@ -278,24 +278,34 @@ def check_self():
     print('ok')
 
 
+def check_row(line):
+    """devuelve (caso, lista de mensajes de diferencia) para una fila `comparison`; None si no lo es"""
+    row = json.loads(line)
+    if row.get('event') != 'comparison':
+        return None
+    c = row['input']
+    state, particles, ev, h, slot = expected(c)
+    msgs = []
+    for side in ('original', 'candidate'):
+        o = row[side]['observed']
+        if o['rand_state'] != state or o['particle_calls'] != particles or o['events'] != ev or o['ev_hash'] != h or o['blood_slot'] != slot or any(o['changes']):
+            msgs.append('DIFIERE %s caso %s state %s %s part %s %s hash %s %s slot %s %s changes %s' % (side, row['case'], o['rand_state'], state, o['particle_calls'], particles, o['ev_hash'], h, o['blood_slot'], slot, o['changes']))
+    return row['case'], msgs
+
+
 def main(path):
+    from concurrent.futures import ProcessPoolExecutor
+    lines = [l for l in open(path, encoding='utf-8') if '"event":"comparison"' in l.replace(' ', '')]
     bad = checked = 0
-    for line in open(path, encoding='utf-8'):
-        row = json.loads(line)
-        if row.get('event') != 'comparison':
-            continue
-        c = row['input']
-        state, particles, ev, h, slot = expected(c)
-        for side in ('original', 'candidate'):
-            o = row[side]['observed']
-            if o['rand_state'] != state or o['particle_calls'] != particles or o['events'] != ev or o['ev_hash'] != h or o['blood_slot'] != slot or any(o['changes']):
+    with ProcessPoolExecutor() as ex:
+        for res in ex.map(check_row, lines, chunksize=16):
+            if res is None:
+                continue
+            checked += 1
+            for m in res[1]:
                 bad += 1
                 if bad <= 5:
-                    print('DIFIERE', side, row['case'], 'state', o['rand_state'], state, 'part', o['particle_calls'], particles, 'hash', o['ev_hash'], h)
-                    print('  events', o['events'][:2])
-                    print('  model ', ev[:2])
-                    print('  slot', o['blood_slot'], slot, 'changes', o['changes'])
-        checked += 1
+                    print(m)
     print('casos comprobados', checked, 'lados distintos del modelo', bad)
     return 1 if bad else 0
 
