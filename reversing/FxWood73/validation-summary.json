@@ -10,32 +10,39 @@
   "covered_functions": {
     "Fx_c::AddWood": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-1 (HEAD 429302be1 + source.patch del lote 73; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: FxSystem_c::AddParticle(v3d) 0x4AA440 (con hook RH, apagado durante el banco; su validez la prueba reversing/FxSystemPending, 1024 pares) y el rand() del CRT del EXE 0x821B1E (sin hook: la DLL lo llama por la direccion; no es una funcion reconstruida). El constructor FxPrtMult_c 0x4AB290 corre de verdad en cada lado (el EXE el suyo, la DLL el de FxPrtMult.cpp). El banco compara la traza completa de AddParticle (sistema de g_fx.m_Blood releido en cada vuelta, puntero de posicion, posicion, velocidad, tiempo, los siete floats del multiplicador, rotZ, luz, limite, createLocal), los sorteos consumidos, el estado de la camara (matriz o posicion compacta) y 6 arenas. La x87 (24 bits, exponente extendido, MXCSR FTZ) se compara incluidos desnormales, NaN no canonicos (tambien senalizantes), infinitos y ceros con signo. ECX/EDX/EAX no son resultados (void): solo se registran.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-1 (HEAD 429302be1 + source.patch del lote 73; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: FxSystem_c::AddParticle(v3d) 0x4AA440 (con hook RH, apagado durante el banco; su validez la prueba reversing/FxSystemPending, 1024 pares) y el rand() del CRT del EXE 0x821B1E (sin hook: la DLL lo llama por la direccion; no es una funcion reconstruida). El constructor FxPrtMult_c 0x4AB290 corre de verdad en cada lado (el EXE el suyo, la DLL el de FxPrtMult.cpp). El banco compara la traza completa de AddParticle (sistema de g_fx.m_Blood releido en cada vuelta, puntero de posicion, posicion, velocidad, tiempo, los siete floats del multiplicador, rotZ, luz, limite, createLocal), los sorteos consumidos, el estado de la camara (matriz o posicion compacta) y 6 arenas. La x87 (24 bits, exponente extendido, MXCSR FTZ) se compara incluidos desnormales, NaN no canonicos (tambien senalizantes), infinitos y ceros con signo. ECX/EDX/EAX no son resultados (void): solo se registran. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/FxWood73-20261027-000624-562361",
-  "summary_sha256": "37f3d7ed2b5e53f5fe237c774202b4d6a237681aebe277b5b77dee284d488441",
-  "result_txt_sha256": "4bc11217bb6ad200265ed9c3d27e9860c7d253cd6f0ae0062e9fb71a6ee76c25",
-  "log_sha256": "4aeb41dad7ab2fc6c4ecac18bf829f9a3cab3dd0be2d09ad14651ecc2536e3b2",
+  "run": "reversing/CppTwelveLevel6Final/runs/FxWood73-20261027-005635-540275",
+  "summary_sha256": "870dbdea70a90145b873e57439b4c58de2901d91752ea5e049cd90c7d8b4dd95",
+  "result_txt_sha256": "8e8a7fefed9fd3aa826563d84048b369ee6525983d4f92a19d1dd93b259c7303",
+  "log_sha256": "82bf489448c4a73b10931fe70ca4a34fda601b278ae2ca27a86ea8e0bea110c7",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "6ebdf8f7f3a50755b99c11d5fae36e41e6b1cbcc818849f325c41b6eb539c580",
+  "executed_probe_sha256": "a5315f7a7efd563056f4b811af17879c8a82811cd74170ec6e986e47c046e358",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
       "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
-      "source/game_sa/Fx/Fx.cpp": "9ef8fada5ddb5bd103678685471ce9fc765dd66a9c6598ff45f32f5180a20605",
+      "source/game_sa/Fx/Fx.cpp": "eb9f38c396922224c64d808e0345e408c15dd5662f6c7f0443eb6ff817cba0ce",
       "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
       "source/game_sa/X87Math.cpp": "9dbaf8ac0e331deca7fabb6c9f2c4b44ce8b928bf7df76a28886f77593b03f9b",
-      "source/game_sa/X87Math.h": "9cad12ca3875297462f017711b5cf629bc72afc54dc9fd5a18e2713f61d0de51",
+      "source/game_sa/X87Math.h": "29d2e1eecde896744ade74bdeb59b42555bf36c460d0a2e5de1603546bccf702",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/FxWood73/LiveComparison.hpp": "bca255c2c8428b2db6bdfe1c5a3ce2bafaa0fd660fa8112721b147454d87a18c",
-      "reversing/FxWood73/Core.hpp": "fcfea5b24e88a9d426e2e9bd47276bc9c6ced09dbe5f906c3c850c3ca5b9cd13",
-      "reversing/FxWood73/Fixtures.hpp": "b84233c7fcf6cb9d06a76f9fb8366dcaf51db5789d8f37e98a985fb35fba4bb2",
+      "reversing/FxWood73/LiveComparison.hpp": "e0f33e410d41c01f9ee3a9239d37e5e9ffe5317dbadd516816dc8e6400afe42c",
+      "reversing/FxWood73/Core.hpp": "a6810e44fb62bb31302926d077ef0985fb975a744006cbaf186e94cca756eede",
+      "reversing/FxWood73/Fixtures.hpp": "341acc8cdba3a13644d157ad5cdefed452a790bab83021240d27fcb18bfbc949",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/FxWood73-20261027-005635-540275/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "aa7e9a4c932da152ff422e9e77274ec267ec60956286bcbd4997cade7aeb7f67",
+    "uncompressed_sha256": "82bf489448c4a73b10931fe70ca4a34fda601b278ae2ca27a86ea8e0bea110c7"
   }
 }
