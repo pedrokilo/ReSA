@@ -1,4 +1,4 @@
-"""Compuertas del banco HeatFire73 (lote 73): CVehicle::FireHeatSeakingMissile (EXE 0x6E05C0, hook S), 16384 pares.
+"""Compuertas del banco HeatFire73 (lote 73): CVehicle::FireHeatSeakingMissile (EXE 0x6E05C0, hook S), 21504 pares.
 
 Ademas de la igualdad EXE/DLL fila a fila (probe_case.analyzer), exige hook S registrado y cuerpo en el ASI, todas las compuertas de ABI/ruta (entrada)/DF/SEH/restauracion
 en AMBOS lados, fp_difference vacio, la cobertura por familia de las fixtures y la cobertura de ramas medida sobre las entradas y los eventos (coverage.json = minimos).
@@ -17,7 +17,7 @@ sys.path.insert(0, str(HERE))
 import fixture_oracle as oracle
 
 NAMES = ['CVehicle::FireHeatSeakingMissile']
-CASES = 16384
+CASES = 21504   # 16384 (familias 0..15) + 5 x 1024 (familias 16..20, ampliacion 27/10/2026)
 EXPECTED = {n: CASES for n in NAMES}
 GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh_restored', 'route_ok', 'collaborators_dll', 'globals_restored', 'floating_state_restored')
 HOOKS = {NAMES[0]: 0x6E05C0}
@@ -58,6 +58,9 @@ def tally(inp, events, obs, cov):
     add('gate_pass', checked and fired)
     add('gate_cut_nullmat', checked and not fired and inp['has_mat'] == 0)
     add('gate_equal_cut', checked and inp['time'] == limit)
+    add('boundary_exact_valid_matrix', checked and inp['time'] == limit and inp['has_mat'] == 1)
+    add('boundary_exact_null_matrix', checked and inp['time'] == limit and inp['has_mat'] == 0)
+    add('boundary_exact_valid_matrix_cut', checked and inp['time'] == limit and inp['has_mat'] == 1 and not fired)
     add('gate_plus1_fire', checked and inp['time'] == ((limit + 1) & 0xFFFFFFFF) and fired)
     add('gate_arg2_hi_garbage', (inp['arg2'] >> 8) != 0)
     add('gate_arg2_byte_gt1', checked and (inp['arg2'] & 0xFF) > 1)
@@ -100,6 +103,16 @@ def tally(inp, events, obs, cov):
         add('out_negzero', any(p == 0x80000000 for p in pos))
         add('out_denormal_y_or_z', is_denormal(pos[1]) or is_denormal(pos[2]))
         add('out_denormal_x', is_denormal(pos[0]))
+        inter = oracle.spawn(inp) and oracle.LAST   # intermedios del x87 (dot, fs, ty, tz, A, B, Cz, X, Y, Z)
+        add('dot_poszero', oracle.is_signed_zero(inter['dot'], 0))
+        add('dot_negzero', oracle.is_signed_zero(inter['dot'], 1))
+        add('dot_zero_by_cancellation', dot != oracle.NAN and dot[0] == 'f' and dot[1] == 0 and any(inp[a] & 0x7FFFFFFF for a in ('ms_x', 'ms_y', 'ms_z')) and any(inp[a] & 0x7FFFFFFF for a in ('fwd_x', 'fwd_y', 'fwd_z')))
+        add('dot_negative_tiny_fixed_to_zero', oracle.lt0(dot) and dot[0] == 'f' and abs(dot[1]) < oracle.Fraction(1, 1 << 20))
+        add('dot_positive_tiny', dot != oracle.NAN and dot[0] == 'f' and 0 < dot[1] < oracle.Fraction(1, 1 << 20))
+        for nm in ('fs', 'ty', 'tz', 'a', 'b', 'cz', 'x', 'y', 'z'):
+            add('inter_tiny_' + nm, oracle.is_tiny(inter[nm]))
+        add('inter_tiny_stored_ty_tz_cz_x', any(oracle.is_tiny(inter[nm]) for nm in ('ty', 'tz', 'cz', 'x')))
+        add('inter_tiny_unstored_a_b_y_z', any(oracle.is_tiny(inter[nm]) for nm in ('a', 'b', 'y', 'z')))
         add('step_special', is_special(inp['step']))
         add('step_denormal', is_denormal(inp['step']))
         add('step_zero', inp['step'] & 0x7FFFFFFF == 0)
@@ -171,7 +184,7 @@ def analyze(path):
         if seen[fn] != set(range(CASES)):
             raise RuntimeError('Cobertura incompleta en ' + fn)
         short = {k: v for k, v in fam[fn].items() if v < 200}
-        if len(fam[fn]) != 16 or short:
+        if len(fam[fn]) != 21 or short:
             raise RuntimeError('Cobertura por familia insuficiente en %s: %s' % (fn, fam[fn]))
         for key, minimum in COVER.get(fn, {}).items():
             if cov[fn].get(key, 0) < minimum:

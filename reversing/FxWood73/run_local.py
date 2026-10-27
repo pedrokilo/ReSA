@@ -20,8 +20,8 @@ EXPECTED = {n: CASES for n in NAMES}
 GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh_restored', 'route_ok', 'collaborators_dll', 'globals_restored', 'floating_state_restored')
 HOOKS = {NAMES[0]: 0x49EE10}
 # (direccion del EXE, hooked): FxSystem_c::AddParticle(v3d) 0x4AA440 (hook RH apagado: la entrada del EXE es codigo original y la DLL tiene cuerpo propio) y rand() del CRT del EXE 0x821B1E (sin hook; la DLL lo llama por la direccion)
-STUBBED = {NAMES[0]: [(0x4AA440, False), (0x821B1E, False)]}
-WATCHED = {a for lst in STUBBED.values() for a, _ in lst} | {0x49EE10}
+STUBBED = {NAMES[0]: [(0x4AA440, False)]}   # rand 0x821B1E y getptd 0x827B3D NO se sustituyen: son bytes del EXE en ambos lados (solo se vigilan)
+WATCHED = {a for lst in STUBBED.values() for a, _ in lst} | {0x49EE10, 0x821B1E, 0x827B3D}
 COVER = json.loads((HERE / 'coverage.json').read_text()) if (HERE / 'coverage.json').exists() else {}
 
 
@@ -51,7 +51,7 @@ def tally(inp, obs, cov):
         if cond:
             cov[name] = cov.get(name, 0) + 1
     add('amount_le0', amount <= 0)
-    add('amount_le0_in_range_no_rand', amount <= 0 and obs['rand_calls'] == 0)
+    add('amount_le0_state_untouched', amount <= 0 and obs['rand_state'] == inp['rand_seed'])
     add('amount_negative', amount < 0)
     add('amount_min_int', inp['amount'] == 0x80000000)
     add('out_of_range', amount > 0 and calls == 0)
@@ -67,11 +67,24 @@ def tally(inp, obs, cov):
     add('cam_compact_in_range', inp['has_mat'] == 0 and calls > 0)
     add('cam_matrix_out', inp['has_mat'] == 1 and amount > 0 and calls == 0)
     add('cam_compact_out', inp['has_mat'] == 0 and amount > 0 and calls == 0)
-    add('rand_mode_0', calls > 0 and inp['rand_mode'] == 0)
-    add('rand_mode_1_edges', calls > 0 and inp['rand_mode'] == 1)
-    add('rand_mode_2_any32', calls > 0 and inp['rand_mode'] == 2)
-    add('rand_mode_3_zero_jitter', calls > 0 and inp['rand_mode'] == 3)
-    add('rand_calls_7_per_iteration', calls > 0 and obs['rand_calls'] == 7 * calls)
+    add('rand_mode_0_any_state', calls > 0 and inp['rand_mode'] == 0)
+    add('rand_mode_1_edge_draw', calls > 0 and inp['rand_mode'] == 1)
+    add('rand_mode_2_zero_jitter_pair', calls > 0 and inp['rand_mode'] == 2)
+    add('rand_mode_3_zero_jitter_single', calls > 0 and inp['rand_mode'] == 3)
+    add('rand_state_advanced', calls > 0 and obs['rand_state'] != inp['rand_seed'])
+    add('rand_special_seed', calls > 0 and inp['rand_seed'] in (0, 1, 0x80000000, 0xFFFFFFFF, 0x7FFFFFFF, 0x269EC3))
+    add('amount_31_to_256', 31 <= calls <= 256)
+    add('amount_257_to_1000', 257 <= calls <= 1000)
+    add('amount_1001_to_4096', 1001 <= calls <= 4096)
+    add('amount_4097_to_10000', 4097 <= calls <= 10000)
+    add('amount_64', calls == 64 and amount == 64)
+    add('amount_100', calls == 100 and amount == 100)
+    add('amount_255', calls == 255 and amount == 255)
+    add('amount_256', calls == 256 and amount == 256)
+    add('amount_1000', calls == 1000 and amount == 1000)
+    add('amount_4096', calls == 4096 and amount == 4096)
+    add('amount_10000', calls == 10000 and amount == 10000)
+    add('events_trace_truncated_hash_only', calls > 256)
     add('swap_slot', inp['swap_slot'] == 1 and calls >= 2)
     add('swap_slot_systems_alternate', inp['swap_slot'] == 1 and calls >= 2 and len({e[1] for e in ev}) == 2)
     add('slot_single_system', inp['swap_slot'] == 0 and calls >= 1 and len({e[1] for e in ev}) == 1)
@@ -119,6 +132,8 @@ def analyze(path):
     if len(b) != 1 or b[0].get('registered_hook') is not True or b[0].get('collaborators_stubbed') is not True:
         raise RuntimeError('Inicio sin hooks registrados, o sin los falsos de los colaboradores')
     b = b[0]
+    if b.get('rng_native') is not True:
+        raise RuntimeError('rand/getptd del EXE no son los bytes originales (o saltan a la DLL)')
     if b.get('compare_dead_x87_registers') is not False or b.get('compare_volatile_registers') is not False:
         raise RuntimeError('Configuracion de compuertas inesperada (ver README.md)')
     if b['pairs'] != sum(EXPECTED.values()) or b['cases'] != EXPECTED or b['functions'] != len(NAMES):
@@ -130,8 +145,8 @@ def analyze(path):
         got = [(s['exe'], s['hooked']) for s in col[fn]['stubbed']]
         if got != STUBBED.get(fn, []):
             raise RuntimeError('Colaboradores sustituidos inesperados en ' + fn)
-        # AddParticle(v3d) tiene hook RH en la DLL (apagado durante el banco): su cuerpo en el ASI lleva el mismo falso; rand() del EXE no tiene cuerpo propio
-        if [s['dll'] for s in col[fn]['stubbed']] != [True, False]:
+        # AddParticle(v3d) tiene hook RH en la DLL (apagado durante el banco): su cuerpo en el ASI lleva el mismo falso; rand/getptd del EXE ya no se sustituyen
+        if [s['dll'] for s in col[fn]['stubbed']] != [True]:
             raise RuntimeError('Cuerpo de la DLL de un colaborador sin resolver (o inesperado) en ' + fn)
     if {w['address'] for w in b['watched_entries']} != WATCHED:
         raise RuntimeError('Entradas vigiladas inesperadas')

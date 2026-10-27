@@ -109,8 +109,10 @@ constexpr u32 kCamPlacement = 0xB6F02C, kCamMatrixPtr = 0xB6F03C, kCamBase = 0xB
 constexpr u32 kBloodSlot = 0xA9AE00;                                                       // g_fx.m_Blood (el sistema que recibe las particulas)
 
 // ------------------------------------------------------------------------------------------------ el caso
-// Modos del generador de rand() falso: 0 = realista [0, 32767]; 1 = bordes (0, 9999, 10000, 19999, 32767...); 2 = cualquier entero de 32 bits (incluye negativos y 0x80000000);
-// 3 = los tres ultimos sorteos de cada vuelta (desplazamientos de la velocidad) valen exactamente 5000 + 10000 k (resto 5000: desplazamiento 0), el resto realista.
+// rand() es el REAL del CRT del EXE (0x821B1E: seed = seed * 0x343FD + 0x269EC3, devuelve (seed >> 16) & 0x7FFF; la semilla esta en getptd() + 0x14). El estado inicial de cada lado es `randSeed`.
+// Modos: 0 = estado inicial cualquiera (a veces 0, 1, 0x80000000, 0xFFFFFFFF); 1 = el sorteo numero `randK` vale un borde (0, 1, 4999, 5000, 9999, 10000, 19999, 20000, 29999, 30000, 32767);
+// 2 = los sorteos `randK` y `randK`+1 (desplazamientos consecutivos de la velocidad, x/y o y/z de una vuelta) valen 5000, 15000 o 25000 (resto 5000: desplazamiento exactamente 0);
+// 3 = solo el sorteo `randK` (un desplazamiento de la velocidad) vale 5000, 15000 o 25000. El estado inicial se obtiene invirtiendo la congruencia lineal (exacto, sin bucles de busqueda en el caso 1 y 3).
 struct C {
     u32 family{}, seed{};
     u32 eax{}, ecx{}, edx{}, stack{};
@@ -118,7 +120,7 @@ struct C {
     u32 hasMat{};      // la camara tiene matriz (posicion +0x30) o solo posicion compacta (+4)
     u32 amount{};      // int32 con signo
     u32 light{};       // lightMult (patron de bits)
-    u32 randMode{}, randSeed{};
+    u32 randMode{}, randSeed{}, randK{};   // randSeed = estado INICIAL del generador del CRT del EXE (hebra +0x14); randK = indice del sorteo forzado (modos 1..3)
     u32 swapSlot{};    // el falso de AddParticle cambia g_fx.m_Blood entre dos sistemas tras cada llamada (el EXE lo relee en cada vuelta)
     u32 cam[3]{}, other[3]{}, pos[3]{}, dir[3]{};
 };
@@ -135,6 +137,77 @@ inline void Split3(u32 c, u32 k, double len, double out[3]) {
 inline u32 SmallAmount(u32 n, u32 k, u32 hi) { return 1 + Rand(n, k) % hi; }
 inline u32 NegAmount(u32 n, u32 k) { static constexpr u32 v[]{0xFFFFFFFFu, 0x80000000u, 0x80000001u, 0xFFFFFFFEu, 0xFFFFFF9Cu, 0xFFFF0000u, 0xC0000000u, 0u, 0u}; return v[Rand(n, k) % std::size(v)]; }
 
+// Congruencia lineal del CRT del EXE y su inversa (A es impar: inversa modulo 2^32 por Newton)
+constexpr u32 kLcgA = 0x343FDu, kLcgC = 0x269EC3u;
+constexpr u32 InvOdd(u32 a) { u32 x = a; for (int i = 0; i < 5; ++i) x *= 2u - a * x; return x; }
+constexpr u32 kLcgInv = InvOdd(kLcgA);
+static_assert(kLcgA * kLcgInv == 1u, "inversa de 0x343FD modulo 2^32");
+constexpr u32 LcgNext(u32 s) { return s * kLcgA + kLcgC; }
+constexpr u32 LcgBack(u32 s) { return (s - kLcgC) * kLcgInv; }
+constexpr u32 LcgOut(u32 s) { return (s >> 16) & 0x7FFFu; }
+// Estado inicial tal que el sorteo numero k (0 = el primero) devuelve `out`; low/top16 completan los 17 bits que el sorteo no ve (bits 0..15 y 31)
+inline u32 SeedForDraw(u32 k, u32 out, u32 low16, u32 bit31) {
+    u32 s = (out << 16) | (low16 & 0xFFFFu) | ((bit31 & 1u) << 31);
+    for (u32 i = 0; i <= k; ++i) s = LcgBack(s);
+    return s;
+}
+// Estados s tales que out(s) y out(next(s)) valen 5000/15000/25000 (36 aprox.): una sola busqueda de 393216 candidatos
+inline const std::vector<u32>& ZeroPairStates() {
+    static const std::vector<u32> v = [] {
+        std::vector<u32> r;
+        for (u32 hi : {5000u, 15000u, 25000u}) for (u32 b = 0; b < 2; ++b) for (u32 low = 0; low < 65536; ++low) {
+            const u32 s = (hi << 16) | (b << 31) | low;
+            const u32 o = LcgOut(LcgNext(s));
+            if (o == 5000u || o == 15000u || o == 25000u) r.push_back(s);
+        }
+        return r;
+    }();
+    return v;
+}
+inline constexpr std::array<u32, 11> kEdgeOut{0u, 1u, 4999u, 5000u, 9999u, 10000u, 19999u, 20000u, 29999u, 30000u, 32767u};
+// Fija randSeed/randK segun randMode (despues de decidir `amount`)
+inline void ApplyRand(C& f, u32 c) {
+    const i32 amount = static_cast<i32>(f.amount);
+    const u32 iters = amount > 0 ? static_cast<u32>(amount) : 1u;
+    const u32 maxIter = iters < 3u ? iters : 3u;   // los sorteos forzados caen en las primeras vueltas
+    if (amount <= 0 && f.randMode != 0) f.randMode = 0;
+    switch (f.randMode) {
+    case 1: {
+        f.randK = Rand(c, 17) % (7u * maxIter);
+        f.randSeed = SeedForDraw(f.randK, kEdgeOut[Rand(c, 21) % kEdgeOut.size()], Rand(c, 22), Rand(c, 23));
+        break;
+    }
+    case 2: {
+        const auto& v = ZeroPairStates();
+        f.randK = (Rand(c, 17) % 2 ? 4u : 5u) + 7u * (Rand(c, 18) % maxIter);
+        u32 s = v[Rand(c, 21) % v.size()];
+        for (u32 i = 0; i <= f.randK; ++i) s = LcgBack(s);
+        f.randSeed = s;
+        break;
+    }
+    case 3: {
+        f.randK = 4u + Rand(c, 17) % 3u + 7u * (Rand(c, 18) % maxIter);
+        f.randSeed = SeedForDraw(f.randK, 5000u + 10000u * (Rand(c, 21) % 3), Rand(c, 22), Rand(c, 23));
+        break;
+    }
+    default: {
+        f.randMode = 0;
+        static constexpr u32 sp[]{0u, 1u, 0x80000000u, 0xFFFFFFFFu, 0x7FFFFFFFu, 0x269EC3u};
+        f.randSeed = Rand(c, 19) % 12 == 0 ? sp[Rand(c, 20) % std::size(sp)] : Rand(c, 24);
+        break;
+    }
+    }
+}
+
+inline u32 BigAmount(u32 c) {
+    static constexpr u32 mid[]{31u, 64u, 100u, 255u, 256u};
+    const u32 r = Rand(c, 12) % 100;
+    if (r < 40) return 13u + Rand(c, 13) % 18u;
+    if (r < 65) return mid[Rand(c, 13) % std::size(mid)];
+    if (r < 90) return 1000u;
+    if (r < 98) return 4096u;
+    return 10000u;
+}
 inline C MakeC(unsigned n) {
     C f{};
     f.family = n % kFamilies;
@@ -146,7 +219,6 @@ inline C MakeC(unsigned n) {
     f.amount = SmallAmount(c, 12, 4);
     f.light = Rand(c, 13) % 3 == 0 ? B(1.2f) : Rand(c, 14) % 2 ? RandFloat(c, 15, -4, 4) : B(0.0f);
     f.randMode = Rand(c, 16) % 8 == 0 ? 1u : 0u;
-    f.randSeed = Rand(c, 17);
     f.swapSlot = Rand(c, 18) % 3 == 0 ? 1u : 0u;
     for (int i = 0; i < 3; ++i) {
         f.other[i] = MixComponent(c, 20 + i);
@@ -193,16 +265,16 @@ inline C MakeC(unsigned n) {
             break;
     case 10: camNormal(11); Split3(c, 50, double(Rand(c, 53) % 2000) / 100.0, d); fromDelta(d); f.amount = SmallAmount(c, 12, 4);          // desnormales de direccion y desplazamientos exactamente 0
             for (int i = 0; i < 3; ++i) f.dir[i] = Rand(c, 90 + i) % 6 == 0 ? Pick(kSpecial, c, 93 + i) : Pick(kDenorm, c, 96 + i);
-            f.randMode = 3u;
+            f.randMode = Rand(c, 16) % 2 ? 2u : 3u;
             break;
     case 11: camNormal(11); Split3(c, 50, double(Rand(c, 53) % 2000) / 100.0, d); fromDelta(d); f.amount = SmallAmount(c, 12, 3);          // lightMult especial
             f.light = Rand(c, 99) % 4 == 0 ? Pick(kNan, c, 100) : Rand(c, 99) % 4 == 1 ? Pick(kInf, c, 101) : Rand(c, 99) % 4 == 2 ? Pick(kTiny, c, 102) : MixComponent(c, 103);
             break;
     case 12: camNormal(11); Split3(c, 50, double(Rand(c, 53) % 2000) / 100.0, d); fromDelta(d); f.amount = SmallAmount(c, 12, 4);          // rand: bordes y enteros de 32 bits (restos con signo)
-            f.randMode = 1u + Rand(c, 16) % 2;
+            f.randMode = 1u;
             break;
-    case 13: camNormal(11); Split3(c, 50, double(Rand(c, 53) % 2000) / 100.0, d); fromDelta(d); f.amount = 13 + Rand(c, 12) % 18;         // muchas vueltas (13..30)
-            f.randMode = Rand(c, 16) % 4 == 0 ? 2u : 0u;
+    case 13: camNormal(11); Split3(c, 50, double(Rand(c, 53) % 2000) / 100.0, d); fromDelta(d); f.amount = BigAmount(c);         // muchas vueltas (13..30, 31, 64, 100, 255, 256, 1000, 4096, 10000)
+            f.randMode = Rand(c, 16) % 4 == 0 ? 1u : 0u;
             break;
     case 14: camNormal(11); Split3(c, 50, double(Rand(c, 53) % 3000) / 100.0, d); fromDelta(d);                                            // mezcla de rangos y generadores
             f.amount = Rand(c, 12) % 6 == 0 ? NegAmount(c, 14) : SmallAmount(c, 12, 8); f.randMode = Rand(c, 16) % 4;
@@ -220,21 +292,12 @@ inline C MakeC(unsigned n) {
         if (Rand(c, 19) % 4 == 0) f.light = MixComponent(c, 104);
         break;
     }
+    ApplyRand(f, c);
     return f;
 }
 inline std::string JsonC(const C& c) {
-    Js j; j.U("family", c.family).U("seed", c.seed).U("this_kind", c.thisKind).U("has_mat", c.hasMat).U("amount", c.amount).U("light", c.light).U("rand_mode", c.randMode).U("rand_seed", c.randSeed).U("swap_slot", c.swapSlot)
+    Js j; j.U("family", c.family).U("seed", c.seed).U("this_kind", c.thisKind).U("has_mat", c.hasMat).U("amount", c.amount).U("light", c.light).U("rand_mode", c.randMode).U("rand_seed", c.randSeed).U("rand_k", c.randK).U("swap_slot", c.swapSlot)
      .A("cam", V3(c.cam)).A("other", V3(c.other)).A("pos", V3(c.pos)).A("dir", V3(c.dir)).U("eax", c.eax).U("ecx", c.ecx).U("edx", c.edx).U("stack_seed", c.stack);
     return j.End();
-}
-// Generador del rand() falso: sorteo numero k (0, 1, 2...) del caso. Identico en ambos lados.
-inline u32 RandValue(const C& c, u32 k) {
-    static constexpr u32 edge[]{0u, 1u, 4999u, 5000u, 5001u, 9999u, 10000u, 10001u, 19999u, 20000u, 32767u, 0x7FFFFFFFu, 0xFFFFFFFFu, 0x80000000u, 0x80000001u, 0xFFFFD8F0u, 0xFFFFFFF0u, 0xFFFF0001u};
-    switch (c.randMode) {
-    case 1: return edge[Rand(c.randSeed, k) % std::size(edge)];
-    case 2: return Rand(c.randSeed, k + 5000);
-    case 3: return (k % 7) >= 4 ? 5000u + 10000u * (Rand(c.randSeed, k) % 3) : (Rand(c.randSeed, k) & 0x7FFFu);
-    default: return Rand(c.randSeed, k) & 0x7FFFu;
-    }
 }
 }

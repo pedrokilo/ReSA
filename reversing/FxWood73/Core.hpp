@@ -236,10 +236,19 @@ struct Region {
     bool Intact()const {return saved==ReversingProbe::Bytes(Ptr(),bytes);}
 };
 inline std::vector<Region> regions;
+// Estado del generador de rand() del CRT del EXE: getptd() (0x827B3D) + 0x14 (0x821B1E: seed = seed * 0x343FD + 0x269EC3). Ambos lados llaman a los bytes del EXE.
+inline uint32* RandStatePtr() {return reinterpret_cast<uint32*>(reinterpret_cast<uint8*(__cdecl*)()>(0x827B3D)()+0x14);}
+// rand (0x821B1E) y getptd (0x827B3D) deben ser los bytes originales del EXE y rand debe llamar a getptd
+inline bool NativeRandom() {
+    const std::array<uint8,16> r{0xE8,0x1A,0x60,0x00,0x00,0x8B,0x48,0x14,0x69,0xC9,0xFD,0x43,0x03,0x00,0x81,0xC1};
+    const std::array<uint8,16> p{0x53,0x56,0xFF,0x15,0x94,0x80,0x85,0x00,0xFF,0x35,0x10,0x31,0x8E,0x00,0x8B,0xD8};
+    return memcmp(r.data(),reinterpret_cast<void*>(0x821B1E),16)==0&&memcmp(p.data(),reinterpret_cast<void*>(0x827B3D),16)==0&&(0x821B23+*reinterpret_cast<const int32*>(0x821B1F))==0x827B3D;
+}
 inline void SaveRegions() {
     regions.clear();
     regions.emplace_back(kCamBase,kCamBytes);                        // TheCamera: posicion (+4) y puntero de matriz (+0x14)
     regions.emplace_back(kBloodSlot,4);                              // g_fx.m_Blood: el sistema que recibe las particulas
+    regions.emplace_back(uintptr_t(RandStatePtr()),4);               // semilla de rand() del EXE (hebra +0x14): se fija por lado y se restaura
 }
 inline void RestoreRegions() {for(const auto& r:regions)r.Restore();}
 inline bool RegionsIntact() {return std::ranges::all_of(regions,[](const auto& r){return r.Intact();});}

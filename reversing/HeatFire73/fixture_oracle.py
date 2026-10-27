@@ -142,6 +142,9 @@ def reload(bits):
     return NAN if bits is None else load(bits)
 
 
+LAST = {}   # intermedios del ultimo spawn() (para la cobertura de run_local.py)
+
+
 def spawn(c):
     """posicion de salida del misil (bits, o None para NaN) segun 0x6E062D..0x6E0745"""
     ordx = load(c['ord_x'])
@@ -162,7 +165,18 @@ def spawn(c):
     y = add(load(c['ord_y']), b)
     z = add(load(c['ord_z']), cz)
     pos = [load(c['mpos_x']), load(c['mpos_y']), load(c['mpos_z'])]
+    LAST.clear()
+    LAST.update(dot=dot, fs=fs, ty=ty, tz=tz, a=a, b=b, cz=cz, x=x, y=y, z=z)
     return [store(add(pos[0], x)), store(add(pos[1], y)), store(add(pos[2], z))]
+
+
+def is_tiny(v):
+    """magnitud distinta de cero por debajo del menor normal de un float (2**-126): desnormal al guardarse como float, o un valor de exponente extendido"""
+    return v != NAN and v[0] == 'f' and v[1] != 0 and abs(v[1]) < Fraction(2) ** -126
+
+
+def is_signed_zero(v, neg):
+    return v != NAN and v[0] == 'f' and v[1] == 0 and v[2] == neg
 
 
 def expected(c):

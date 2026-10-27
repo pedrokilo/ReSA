@@ -11,6 +11,7 @@ indices: 0 posicion, 1 direccion, 2 matriz de la camara, 3 sistema A (g_fx.m_Blo
 import json
 import sys
 from fractions import Fraction
+from functools import lru_cache
 
 GUARD = 0x40
 M32 = 0xFFFFFFFF
@@ -20,32 +21,17 @@ def tag(idx, off=0):
     return 0x10000000 + (idx << 20) + GUARD + off
 
 
-# ---- rand() falso del banco (misma definicion que Fixtures.hpp: RandValue) ----
-def mix(x):
-    x &= M32
-    x ^= x >> 16
-    x = (x * 0x7FEB352D) & M32
-    x ^= x >> 15
-    x = (x * 0x846CA68B) & M32
-    x ^= x >> 16
-    return x
+# ---- rand() REAL del CRT del EXE (0x821B1E): seed = seed * 0x343FD + 0x269EC3 (mod 2^32), devuelve (seed >> 16) & 0x7FFF; la semilla es el estado inicial `rand_seed` ----
+LCG_A, LCG_C = 0x343FD, 0x269EC3
 
 
-def rnd(c, k):
-    return mix((c * 0x9E3779B1 + k * 0x85EBCA6B + 73073) & M32)
-
-
-EDGE = [0, 1, 4999, 5000, 5001, 9999, 10000, 10001, 19999, 20000, 32767, 0x7FFFFFFF, 0xFFFFFFFF, 0x80000000, 0x80000001, 0xFFFFD8F0, 0xFFFFFFF0, 0xFFFF0001]
-
-
-def rand_value(mode, seed, k):
-    if mode == 1:
-        return EDGE[rnd(seed, k) % len(EDGE)]
-    if mode == 2:
-        return rnd(seed, k + 5000)
-    if mode == 3:
-        return 5000 + 10000 * (rnd(seed, k) % 3) if (k % 7) >= 4 else rnd(seed, k) & 0x7FFF
-    return rnd(seed, k) & 0x7FFF
+def fnv_event(h, e):
+    """FNV-1a sobre los 20 valores de un evento (4 bytes little endian cada uno), como FakeAddParticle"""
+    for v in e[1:21]:
+        for b in range(4):
+            h ^= (v >> (8 * b)) & 0xFF
+            h = (h * 16777619) & M32
+    return h
 
 
 # ---- aritmetica ----
@@ -226,12 +212,14 @@ def from_int(i):
     return V('f', Fraction(i), False)
 
 
+@lru_cache(maxsize=None)
 def scaled(rem, scale_bits, off_bits):
     t = r24(mul(from_int(rem), INV))
     t = r24(mul(t, from_bits(scale_bits)))
     return to_f32_bits(r24(add(t, from_bits(off_bits))))
 
 
+@lru_cache(maxsize=None)
 def jitter(rem, vel_bits):
     t = r24(mul(from_int(rem), INV))
     t = r24(mul(t, FOUR))
@@ -239,31 +227,40 @@ def jitter(rem, vel_bits):
     return to_f32_bits(r24(add(t, from_bits(vel_bits))))
 
 
+@lru_cache(maxsize=None)
+def base_vel(bits):
+    return to_f32_bits(r24(mul(from_bits(bits), FOUR)))
+
+
 def expected(c):
-    """(rand_calls, particle_calls, events, slot_tag)"""
+    """(estado final del generador, llamadas a AddParticle, eventos guardados (como mucho 256), hash de todos, etiqueta final de m_Blood)"""
+    state = c['rand_seed']
     amount = signed32(c['amount'])
-    if far_away_pair(c):
-        return 0, 0, [], tag(3)
-    if amount <= 0:
-        return 0, 0, [], tag(3)
+    h = 2166136261
+    if far_away_pair(c) or amount <= 0:
+        return state, 0, [], h, tag(3)
     ev = []
-    k = 0
+    last = None
     slot = 0
     for _ in range(amount):
         draws = []
         for _j in range(7):
-            draws.append(cdiv_rem(rand_value(c['rand_mode'], c['rand_seed'], k)))
-            k += 1
+            state = (state * LCG_A + LCG_C) & M32
+            draws.append(((state >> 16) & 0x7FFF) % 10000)       # rand() >= 0: el resto con signo es el natural
         red = scaled(draws[0], 0x3DF5C290, 0x3E051EB8)
         green = scaled(draws[1], 0x3CF5C294, 0x3DF5C28F)
         blue = scaled(draws[2], 0x3CF5C290, 0x3D23D70A)
         size = scaled(draws[3], 0x3E99999A, 0x3F333333)
-        vel = [to_f32_bits(r24(mul(from_bits(c['dir'][i]), FOUR))) for i in range(3)]
-        vel = [jitter(draws[4 + i], vel[i]) for i in range(3)]
-        ev.append([31, tag(3 + slot), tag(0)] + list(c['pos']) + vel + [0, red, green, blue, 0x3F800000, size, 0, 0x3F800000, 0xBF800000, c['light'], 0x3F19999A, 0])
+        vel = [jitter(draws[4 + i], base_vel(c['dir'][i])) for i in range(3)]
+        e = [31, tag(3 + slot), tag(0)] + list(c['pos']) + vel + [0, red, green, blue, 0x3F800000, size, 0, 0x3F800000, 0xBF800000, c['light'], 0x3F19999A, 0]
+        h = fnv_event(h, e)
+        if len(ev) < 256:
+            ev.append(e)
+        else:
+            ev[255] = e          # el banco sobrescribe la ultima ranura con los eventos siguientes (solo el hash los cubre todos)
         if c['swap_slot']:
             slot ^= 1
-    return k, amount, ev, tag(3 + slot)
+    return state, amount, ev, h, tag(3 + slot)
 
 
 def far_away_pair(c):
@@ -275,8 +272,9 @@ def check_self():
     assert to_f32_bits(r24(mul(from_int(5000), INV))) == 0x3F000000
     assert jitter(5000, 0x00000004) == 0x00000004
     assert to_f32_bits(from_bits(0x7F800001)) == 0x7FC00001
-    assert cdiv_rem(0x80000000) == -3648 and cdiv_rem(0xFFFFFFFF) == -1 and cdiv_rem(32767) == 2767
     assert scaled(0, 0x3DF5C290, 0x3E051EB8) == 0x3E051EB8
+    # primer rand() con la semilla de srand(1): 41 (CRT de Microsoft)
+    assert ((((1 * LCG_A + LCG_C) & M32) >> 16) & 0x7FFF) == 41
     print('ok')
 
 
@@ -287,13 +285,16 @@ def main(path):
         if row.get('event') != 'comparison':
             continue
         c = row['input']
-        rand_calls, particles, ev, slot = expected(c)
+        state, particles, ev, h, slot = expected(c)
         for side in ('original', 'candidate'):
             o = row[side]['observed']
-            if o['rand_calls'] != rand_calls or o['particle_calls'] != particles or o['events'] != ev or o['blood_slot'] != slot or any(o['changes']):
+            if o['rand_state'] != state or o['particle_calls'] != particles or o['events'] != ev or o['ev_hash'] != h or o['blood_slot'] != slot or any(o['changes']):
                 bad += 1
                 if bad <= 5:
-                    print('DIFIERE', side, row['case'], 'rand', o['rand_calls'], rand_calls, 'part', o['particle_calls'], particles, '\n  events', o['events'][:2], '\n  model ', ev[:2], '\n  slot', o['blood_slot'], slot, 'changes', o['changes'])
+                    print('DIFIERE', side, row['case'], 'state', o['rand_state'], state, 'part', o['particle_calls'], particles, 'hash', o['ev_hash'], h)
+                    print('  events', o['events'][:2])
+                    print('  model ', ev[:2])
+                    print('  slot', o['blood_slot'], slot, 'changes', o['changes'])
         checked += 1
     print('casos comprobados', checked, 'lados distintos del modelo', bad)
     return 1 if bad else 0

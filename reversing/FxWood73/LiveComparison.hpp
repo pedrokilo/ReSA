@@ -62,10 +62,9 @@ inline void SetCamera(bool hasMat,const u32* used,const u32* other) {
 }
 
 // ================================================================================================ Fx_c::AddWood (0x49EE10)
-struct State {const C* c{};u32 randCalls{};u32 particleCalls{};};
+struct State {const C* c{};u32 evHash{};u32 particleCalls{};};
 inline State g;
-// 0x821B1E: rand() del CRT del EXE (cdecl, sin argumentos). Cuenta las llamadas; el valor es una funcion del numero de sorteo.
-inline u32 __cdecl FakeRand() {const u32 k=g.randCalls++;return RandValue(*g.c,k);}
+// rand() NO se sustituye: ambos lados llaman al CRT real del EXE (0x821B1E) con el mismo estado inicial (RandStatePtr), que se compara al final.
 // 0x4AA440: FxSystem_c::AddParticle(const CVector& pos, const CVector& vel, float timeSince, const FxPrtMult_c& mult, float rotZ, float light, float limit, bool createLocal), thiscall, `ret 20h`.
 // Registra el sistema (ECX), la direccion del vector de posicion (etiquetada) y TODOS los valores; con swap_slot cambia g_fx.m_Blood entre dos sistemas (el EXE lo relee en cada vuelta).
 inline void __fastcall FakeAddParticle(void* self,void*,const void* pos,const void* vel,u32 timeSince,const void* mult,u32 rotZ,u32 light,u32 limit,u32 createLocal) {
@@ -75,6 +74,7 @@ inline void __fastcall FakeAddParticle(void* self,void*,const void* pos,const vo
     e.v[8]=timeSince;
     for(unsigned i=0;i<7;++i) e.v[9+i]=BitsOf(static_cast<const u8*>(mult)+4*i);
     e.v[16]=rotZ;e.v[17]=light;e.v[18]=limit;e.v[19]=createLocal;
+    for(unsigned i=0;i<20;++i)for(unsigned b=0;b<4;++b){g.evHash^=(e.v[i]>>(8*b))&0xFFu;g.evHash*=16777619u;}   // hash de TODOS los eventos (la traza guardada se limita a 256)
     ++g.particleCalls;
     if(g.c->swapSlot)G32(kBloodSlot)=G32(kBloodSlot)==u32(sysA.Obj())?u32(sysB.Obj()):u32(sysA.Obj());
 }
@@ -92,12 +92,14 @@ inline void CaseWood(Env& env,Totals& t,unsigned n) {
         G32(kBloodSlot)=u32(sysA.Obj());
         posA.Snap();dirA.Snap();matCam.Snap();sysA.Snap();sysB.Snap();entA.Snap();
         TagClear();posA.Tagged();dirA.Tagged();matCam.Tagged();sysA.Tagged();sysB.Tagged();entA.Tagged();
-        g.c=&c;g.randCalls=0;g.particleCalls=0;nev=0;
+        g.c=&c;g.evHash=2166136261u;g.particleCalls=0;nev=0;
+        *RandStatePtr()=c.randSeed;   // mismo estado inicial del rand() real del EXE en ambos lados
         const u32 thisPtr=c.thisKind==0?u32(entA.Obj()):c.thisKind==1?0xA9AE00u:c.thisKind==2?(0xDEAD0000u|(Rand(n,77)&0xFFFFu)):0u;
         const u32 args[4]{u32(posA.Obj()),u32(dirA.Obj()),c.amount,c.light};
         sides[s]=Execute(env,0,kEntry,candidate,[&](uintptr_t entry){return Gate(entry,args,4,c.eax,thisPtr,c.edx,c.stack,0);});
         json obs;   // void: se observan la traza, los sorteos consumidos y los bytes cambiados
-        obs["rand_calls"]=g.randCalls;
+        obs["rand_state"]=*RandStatePtr();
+        obs["ev_hash"]=g.evHash;
         obs["particle_calls"]=g.particleCalls;
         obs["blood_slot"]=Tag(uintptr_t(G32(kBloodSlot)));
         obs["changes"]=json::array({posA.Changes(),dirA.Changes(),matCam.Changes(),sysA.Changes(),sysB.Changes(),entA.Changes()});
@@ -109,6 +111,7 @@ inline void CaseWood(Env& env,Totals& t,unsigned n) {
 
 // ================================================================================================ ejecucion
 inline void Run(Env& env,bool ready,const json& registered,const json& bodies,const json& collaborators) {
+    ready&=NativeRandom()&&!ReversingProbe::JumpsToDll(0x821B1E)&&!ReversingProbe::JumpsToDll(0x827B3D);   // rand real del EXE en ambos lados
     for(unsigned f=0;f<kFunctions;++f) {
         const uintptr_t body=env.route[f]?env.route[f]->Body():0;
         ready&=body&&ModuleOf(body)==env.asi;
@@ -122,7 +125,7 @@ inline void Run(Env& env,bool ready,const json& registered,const json& bodies,co
     json cases=json::object();for(const char* nm:kFn)cases[nm]=kCases;
     Write({{"event","begin"},{"registered_hook",ready},{"registered",registered},{"functions",kFunctions},{"pairs",kFunctions*kCases},{"cases",cases},
         {"direct_functions",json::array()},{"compare_dead_x87_registers",kCompareDeadX87Registers},{"compare_volatile_registers",kCompareVolatileRegisters},
-        {"x87_comparison","fcw+top+ftw+valid_st; ignora FSW banderas/CC, FIP/FDP y registros vacios; MXCSR sin banderas"},{"collaborators_stubbed",true},
+        {"x87_comparison","fcw+top+ftw+valid_st; ignora FSW banderas/CC, FIP/FDP y registros vacios; MXCSR sin banderas"},{"collaborators_stubbed",true},{"rng_native",NativeRandom()&&!ReversingProbe::JumpsToDll(0x821B1E)&&!ReversingProbe::JumpsToDll(0x827B3D)},
         {"collaborators",collaborators},{"watched_entries",watched},{"bodies",bodies},{"asi_module",env.asi},{"original_module",env.game},
         {"initial_fp",HexBytes(savedFP.data(),108)},{"initial_mxcsr",savedMXCSR}});
     Totals totals;
@@ -189,9 +192,8 @@ inline void Update() {
     json hooksFound=json::array();
     if(!ready){Run(env,false,registered,bodies,collaborators);return;}
     const Pair pAdd=MakeCollab(env,0x4AA440,hooksFound);
-    const Pair pRand{0x821B1E,0,false};   // rand() del CRT del EXE: sin hook, la DLL lo llama por su direccion
     auto S=[](const Pair& p,void* fake){return StubSpec{p,fake};};
-    env.stubs[0]={S(pAdd,reinterpret_cast<void*>(&FakeAddParticle)),S(pRand,reinterpret_cast<void*>(&FakeRand))};
+    env.stubs[0]={S(pAdd,reinterpret_cast<void*>(&FakeAddParticle))};
     for(unsigned f=0;f<kFunctions;++f) {
         json stubbed=json::array();
         for(const auto& s:env.stubs[f]) {
@@ -201,6 +203,8 @@ inline void Update() {
         collaborators[kFn[f]]={{"dll_real",json::array()},{"stubbed",stubbed},{"hooks_found",hooksFound},{"own_hook",ownHooks[kFn[f]]}};
     }
     env.watches.emplace_back(kEntry,16);
+    env.watches.emplace_back(0x821B1E,16);   // rand real del EXE (sin falso)
+    env.watches.emplace_back(0x827B3D,16);   // getptd
     SaveRegions();
     Run(env,ready,registered,bodies,collaborators);
 }
