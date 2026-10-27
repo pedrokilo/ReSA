@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 26/10/2026 (Ciudad de México):** 820 grupos / 8929 funciones reconstruidas; 8929 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 27/10/2026 (Ciudad de México):** 820 grupos / 8931 funciones reconstruidas; 8931 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Código del juego en el EXE: mapa de las 11,804 funciones
@@ -16,8 +16,8 @@ Región **0x401000–0x74FFFF**: 11,804 funciones, 3,007,877 bytes. Es el códig
 | C · Falta: solo la llaman funciones aún no reemplazadas | 529 | 4.5% | 67,680 | 2.3% |
 | B · Falta: método virtual | 905 | 7.7% | 36,916 | 1.2% |
 | A · Falta: llamada desde código ya reemplazado | 1,033 | 8.8% | 139,741 | 4.6% |
-| Envoltura pendiente (la DLL aún llama al EXE) | 92 | 0.8% | 110,488 | 3.7% |
-| Reemplazada por C++ | 8,822 | 74.7% | 2,593,523 | 86.2% |
+| Envoltura pendiente (la DLL aún llama al EXE) | 90 | 0.8% | 109,410 | 3.6% |
+| Reemplazada por C++ | 8,824 | 74.8% | 2,594,601 | 86.3% |
 
 Las funciones de A–D son **lo que falta**. El grupo A es el piso para la independencia (la DLL ya depende de ellas); es una cota inferior porque hay 6,004 llamadas indirectas sin resolver. Las envolturas pendientes (que ya tienen hook pero llaman al EXE) se cuentan aparte, por eso A–D suman menos que en la tabla de cobertura de ReversedClasses. Listas: [A](pendientes-A.md) · [B](pendientes-B.md) · [C](pendientes-C.md) · [D](pendientes-D.md).
 
@@ -54,9 +54,9 @@ El código se enlaza por unidad de compilación, así que cada bloque suele corr
 | 0x4F0000 | 203 | 80% | 41 | 3,100 | CAEUserRadioTrackManager (28), CAETwinLoopSoundEntity (2), CAEVehicleAudioEntity (2) |
 | 0x430000 | 200 | 80% | 35 | 1,379 | CEntryExitManager (9), CCheat (1), CConversations (1) |
 | 0x440000 | 194 | 79% | 39 | 6,754 | CPathFind (14), CGarage (10), CGarages (2) |
+| 0x6E0000 | 92 | 79% | 15 | 4,836 | CWaterLevel (6), CVehicle (4) |
 | 0x6D0000 | 179 | 79% | 33 | 517 | CVehicle (29) |
 | 0x540000 | 176 | 78% | 38 | 2,054 | CPad (3), Common (3), CPlaceable (3) |
-| 0x6E0000 | 92 | 78% | 15 | 4,836 | CWaterLevel (6), CVehicle (4) |
 | 0x690000 | 310 | 78% | 68 | 4,732 | CTaskComplexSeekEntityAiming (5), CTaskSimpleHoldEntity (2), CTaskSimpleFacial (1) |
 | 0x460000 | 164 | 78% | 36 | 7,782 | CScriptsForBrains (4), CTaskComplexClimb (1), CTheScripts (1) |
 | 0x470000 | 46 | 76% | 11 | 770 | — |
@@ -74,7 +74,7 @@ El código se enlaza por unidad de compilación, así que cada bloque suele corr
 | 0x4C0000 | 371 | 70% | 110 | 15,874 | CModelInfo (19), CVehicleModelInfo (13), CDamageAtomicModelInfo (3) |
 | 0x660000 | 300 | 70% | 91 | 8,132 | CTaskComplexGoToPointAndStandStill (3), CTaskLeanOnVehicle (2), CTaskComplexGoToAttractor (2) |
 | 0x400000 | 281 | 69% | 88 | 11,237 | CStreaming (15), CColSphere (9), CdStream (1) |
-| 0x490000 | 153 | 67% | 42 | 11,752 | Fx_c (6), CTheScripts (4), CSetPiece (4) |
+| 0x490000 | 153 | 68% | 42 | 11,752 | Fx_c (6), CTheScripts (4), CSetPiece (4) |
 | 0x5F0000 | 292 | 66% | 100 | 3,718 | CPedGroupIntelligence (3), CTaskComplexBeStill (1) |
 | 0x670000 | 290 | 65% | 101 | 11,150 | CTaskComplexWanderProstitute (2), CTaskSimpleGetUp (2), CTaskComplexGetUpAndStandStill (2) |
 | 0x5E0000 | 254 | 53% | 120 | 11,637 | CPedAttractor (13), CPed (5) |
@@ -579,7 +579,7 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 | CQuaternion | 13 | 3 | 10 | 1,009 | 0 |
 | CTaskComplexAvoidOtherPedWhileWandering | 25 | 15 | 10 | 1,382 | 0 |
 | CReplay | 57 | 47 | 10 | 4,172 | 10 |
-| Fx_c | 37 | 13 | 11 | 448 | 6 |
+| Fx_c | 37 | 14 | 11 | 448 | 6 |
 | CEntryExitManager | 29 | 18 | 11 | 675 | 9 |
 | CEventScriptCommand | 20 | 9 | 11 | 766 | 1 |
 | CTaskSimpleThrowProjectile | 25 | 14 | 11 | 767 | 0 |
@@ -622,7 +622,7 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 | CEventVehicleHitAndRun | 33 | 3 | 30 | 2,237 | 0 |
 | CAEUserRadioTrackManager | 46 | 16 | 30 | 2,533 | 28 |
 | CEventDamage | 53 | 20 | 33 | 2,525 | 2 |
-| CVehicle | 200 | 159 | 34 | 897 | 33 |
+| CVehicle | 200 | 160 | 34 | 897 | 33 |
 | CEventSeenCop | 36 | 1 | 35 | 902 | 0 |
 | CWeaponModelInfo | 45 | 4 | 39 | 12,299 | 0 |
 | CEntity | 113 | 69 | 44 | 10,348 | 6 |

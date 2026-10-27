@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,929 entradas reversed=1**, de 8,929 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,931 entradas reversed=1**, de 8,931 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8929 |
+| `validated=1` · evidencia aprobada vinculada | 8931 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8929 |
+| Evidencia histórica vinculada; revisión pendiente | 8931 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -7698,6 +7698,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicle | `FindReplacementUpgradeCB` | [Resumen](../reversing/Dependencies25A/validation-summary.json) |
 | CVehicle | `FindTyreNearestPoint` | [Resumen](../reversing/CVehB/validation-summary.json) |
 | CVehicle | `FindUpgradeCB` | [Resumen](../reversing/SmallHelpers64A/validation-summary.json) |
+| CVehicle | `FireHeatSeakingMissile` | [Resumen](../reversing/HeatFire73/validation-summary.json) |
 | CVehicle | `FirePlaneGuns` | [Resumen](../reversing/CVehE/validation-summary.json) |
 | CVehicle | `FireUnguidedMissile` | [Resumen](../reversing/CVehE/validation-summary.json) |
 | CVehicle | `FlyingControl` | [Resumen](../reversing/Dependencies23B/validation-summary.json) |
@@ -8424,6 +8425,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | FxSystem_c | `UpdateBoundingBoxCB` | [Resumen](../reversing/FxSystemPending/validation-summary.json) |
 | Fx_c | `AddPunchImpact` | [Resumen](../reversing/Helpers66A/validation-summary.json) |
 | Fx_c | `AddTyreBurst` | [Resumen](../reversing/Helpers65C/validation-summary.json) |
+| Fx_c | `AddWood` | [Resumen](../reversing/FxWood73/validation-summary.json) |
 | Fx_c | `CreateMatFromVec` | [Resumen](../reversing/DependenciesWorldFxFont5/validation-summary.json) |
 | Fx_c | `RenderAddTri_` | [Resumen](../reversing/Fx8/validation-summary.json) |
 | Fx_c | `RenderBegin` | [Resumen](../reversing/Fx8/validation-summary.json) |
@@ -9692,7 +9694,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTxdStore` | 26 | 0 | 26 | 0 |
 | `CUpsideDownCarCheck` | 5 | 0 | 5 | 0 |
 | `CUserDisplay` | 2 | 0 | 2 | 0 |
-| `CVehicle` | 159 | 0 | 159 | 0 |
+| `CVehicle` | 160 | 0 | 160 | 0 |
 | `CVehicleAnimGroup` | 5 | 0 | 5 | 0 |
 | `CVehicleAnimGroupData` | 5 | 0 | 5 | 0 |
 | `CVehicleModelInfo` | 75 | 0 | 75 | 0 |
@@ -9736,7 +9738,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `FxSphere_c` | 4 | 0 | 4 | 0 |
 | `FxSystemBP_c` | 10 | 0 | 10 | 0 |
 | `FxSystem_c` | 35 | 0 | 35 | 0 |
-| `Fx_c` | 13 | 0 | 13 | 0 |
+| `Fx_c` | 14 | 0 | 14 | 0 |
 | `Game` | 12 | 0 | 12 | 0 |
 | `IKChainManager_c` | 17 | 0 | 17 | 0 |
 | `IKChain_c` | 20 | 0 | 20 | 0 |

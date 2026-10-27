@@ -13259,5 +13259,33 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ (CVehicle, mejoras de reemplazo): AddReplacementUpgrade sin llamadas al EXE para esta función. El banco sustituye por falsos idénticos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL) los colaboradores y compara la secuencia de llamadas con sus argumentos, los cambios en la arena del caso y ms_bCreateDamagedVersion, contra un oráculo independiente. Banco ReplUpgrade72 con 16384 pares (16384 propios) y cero diferencias; EAX/ECX/EDX de salida: ver README del banco. Validado en el worktree D:/Original/wy-3 (HEAD 95f7d73eb + Vehicle.cpp, source.patch). CVehicle::AddReplacementUpgrade 0x6D3830 (thiscall, ret 8, sin retorno; ningun llamador del EXE, todos en AddVehicleUpgrade 0x6E3290, lee EAX/ECX/EDX): vacia el marco del componente (RemoveObjectsCB), crea el atomo del model info de la mejora (vtable +0x2C), lo cuelga del marco y configura su render (SetupUpgradeAtomicRendering); con nodeId 0x13 y la bandera 0x2000 de la manejabilidad crea el atomo de rueda y le da x = -2 * x del marco; con 0xC o 0xD vuelve a aplicar la matricula; si el model info es de atomo danado crea tambien la version danada y aplica la visibilidad. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): GetFrameFromId 0x4C53C0, RwFrameForAllObjects 0x7F1200, RwFrameForAllChildren 0x7F0DC0, CBaseModelInfo::AddRef 0x4C4BA0, RpClumpAddAtomic 0x74A490, RpAtomicSetFrame 0x74BF20, RwFrameDestroy 0x7F05A0, SetAtomicId 0x732290, SetAtomicFlag 0x7322B0, RpGeometryForAllMaterials 0x74C790, SetAtomicRenderCallback 0x7328A0, SetRenderPipelinesCB 0x4C88F0, CreateReplacementAtomic 0x6D3700, RwMatrixUpdate 0x7F18A0 y SetupClumpAfterVehicleUpgrade 0x6FDFE0; CreateInstance y AsDamageAtomicModelInfoPtr son virtuales de una vtable falsa. Se compara contra un oraculo independiente en Python (desde el desensamblado). Fuera de cobertura: indices de modelo fuera de ms_modelInfoPtrs[15..19], denormales (MXCSR FTZ), dos NaN, y el cuerpo real de los colaboradores sustituidos."
+  },
+  "0x0049EE10": {
+    "identity": "Fx_c::AddWood",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Fx/Fx.cpp",
+    "bank": "FxWood73",
+    "run": "20261027-000624-562361",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/FxWood73-20261027-000624-562361/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE (los cuatro colaboradores son falsos identicos en ambos lados). Banco FxWood73 con 16384 pares y cero diferencias; void; EAX/ECX/EDX solo registrados. Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-1 (HEAD 429302be1 + source.patch del lote 73; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: FxSystem_c::AddParticle(v3d) 0x4AA440 (con hook RH, apagado durante el banco; su validez la prueba reversing/FxSystemPending, 1024 pares) y el rand() del CRT del EXE 0x821B1E (sin hook: la DLL lo llama por la direccion; no es una funcion reconstruida). El constructor FxPrtMult_c 0x4AB290 corre de verdad en cada lado (el EXE el suyo, la DLL el de FxPrtMult.cpp). El banco compara la traza completa de AddParticle (sistema de g_fx.m_Blood releido en cada vuelta, puntero de posicion, posicion, velocidad, tiempo, los siete floats del multiplicador, rotZ, luz, limite, createLocal), los sorteos consumidos, el estado de la camara (matriz o posicion compacta) y 6 arenas. La x87 (24 bits, exponente extendido, MXCSR FTZ) se compara incluidos desnormales, NaN no canonicos (tambien senalizantes), infinitos y ceros con signo. ECX/EDX/EAX no son resultados (void): solo se registran."
+  },
+  "0x006E05C0": {
+    "identity": "CVehicle::FireHeatSeakingMissile",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Entity/Vehicle/Vehicle.cpp",
+    "bank": "HeatFire73",
+    "run": "20261027-000746-482188",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/HeatFire73-20261027-000746-482188/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE (los cuatro colaboradores son falsos identicos en ambos lados). Banco HeatFire73 con 16384 pares y cero diferencias; EAX/ECX/EDX solo registrados. Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-2 (HEAD 429302be1 + source.patch del lote 73; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados): CVehicle::GetPlaneOrdnanceRateOfFire 0x6D4590 y CVehicle::GetPlaneOrdnancePosition 0x6D46E0 (los valida CVehE), CProjectileInfo::AddProjectile 0x737C80 (ProjectileAdd355) y CPad::StartShake 0x53F920 (RequestedPadMutationRemaining3Hex); CPed::IsPlayer 0x5DF8F0 (CPedD) y CPad::GetPad 0x53FB70 (inline sin hook) se ejecutan de verdad. El banco compara el orden y todos los argumentos de los falsos, la posicion de salida del misil (x87 a 24 bits, incluidos NaN no canonicos, infinitos, desnormales y ceros con signo), el indice de ordenanza (+0x4A9), las horas de disparo (+0x4FC/+0x500), 5 arenas (vehiculo, objetivo, otra entidad, matriz y ped) y las globales de tiempo. El EXE lee matriz + 0x10 y la velocidad sin comprobar nulo: la matriz nula solo se prueba cuando el intervalo del arma corta el disparo antes de leerla, por lo que la rama de posicion compacta (this+4) no es ejercitable (se cae el propio EXE). EAX/ECX/EDX solo se registran: el unico llamador, CVehicle::ProcessWeapons 0x6E3A72, no los lee."
   }
 }

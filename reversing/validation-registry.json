@@ -543622,7 +543622,7 @@
       },
       "evidence": {
         "path": "reversing/VehicleWeapons67/validation-summary.json",
-        "sha256": "347cf73aaae786eb0eb2aa30056c11351442558910a2df5e00c7ffee48431c20",
+        "sha256": "91d251b5741bbb1dea95433f5498b13bcf7850053cccdeb4d2c50187858011ec",
         "passed_path": [
           "covered_functions",
           "ProcessWeapons"
@@ -543632,12 +543632,12 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "fea588100221502cb613213ac575e63f757db8a3d9aea08044ba0e7b4a3c7d2b",
+        "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "abc7a6a29175ae99084e6982854c8194a446fde1ef142d6aa61083098627bd46",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/VehicleWeapons67/LiveComparison.hpp": "8faaaaf75517c8f024bbd5b8216e4e19caeb5c3b0ec37cac04ca02afe82bb016",
-        "reversing/VehicleWeapons67/Core.hpp": "30f1b11cc9728da3770ea0d891f1060059966e723d6c51509a15dd917aa645b3",
+        "reversing/VehicleWeapons67/Core.hpp": "26dab948705476eaf139c7ae2fc6872ac8f2f6c46adfaf8416e370bc152184b7",
         "reversing/VehicleWeapons67/Fixtures.hpp": "ae71072f11a7fef1c68f09f549cf793a98e16b1c8c8685858414ef962b44e1da",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
@@ -544652,6 +544652,78 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wy-3 (HEAD 95f7d73eb + Vehicle.cpp, source.patch). CVehicle::AddReplacementUpgrade 0x6D3830 (thiscall, ret 8, sin retorno; ningun llamador del EXE, todos en AddVehicleUpgrade 0x6E3290, lee EAX/ECX/EDX): vacia el marco del componente (RemoveObjectsCB), crea el atomo del model info de la mejora (vtable +0x2C), lo cuelga del marco y configura su render (SetupUpgradeAtomicRendering); con nodeId 0x13 y la bandera 0x2000 de la manejabilidad crea el atomo de rueda y le da x = -2 * x del marco; con 0xC o 0xD vuelve a aplicar la matricula; si el model info es de atomo danado crea tambien la version danada y aplica la visibilidad. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): GetFrameFromId 0x4C53C0, RwFrameForAllObjects 0x7F1200, RwFrameForAllChildren 0x7F0DC0, CBaseModelInfo::AddRef 0x4C4BA0, RpClumpAddAtomic 0x74A490, RpAtomicSetFrame 0x74BF20, RwFrameDestroy 0x7F05A0, SetAtomicId 0x732290, SetAtomicFlag 0x7322B0, RpGeometryForAllMaterials 0x74C790, SetAtomicRenderCallback 0x7328A0, SetRenderPipelinesCB 0x4C88F0, CreateReplacementAtomic 0x6D3700, RwMatrixUpdate 0x7F18A0 y SetupClumpAfterVehicleUpgrade 0x6FDFE0; CreateInstance y AsDamageAtomicModelInfoPtr son virtuales de una vtable falsa. Se compara contra un oraculo independiente en Python (desde el desensamblado). Fuera de cobertura: indices de modelo fuera de ms_modelInfoPtrs[15..19], denormales (MXCSR FTZ), dos NaN, y el cuerpo real de los colaboradores sustituidos.",
       "review_reference": "reversing/ReplUpgrade72/README.md"
+    },
+    {
+      "hook": {
+        "class": "Fx_c",
+        "fn_name": "AddWood",
+        "address": "0x0049EE10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FxWood73/validation-summary.json",
+        "sha256": "53cf2420b9aeeb8c606f03394d0ae125b9e294c9d645f133710156b15384b769",
+        "passed_path": [
+          "covered_functions",
+          "Fx_c::AddWood"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+        "source/game_sa/Fx/Fx.cpp": "9ef8fada5ddb5bd103678685471ce9fc765dd66a9c6598ff45f32f5180a20605",
+        "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
+        "source/game_sa/X87Math.cpp": "9dbaf8ac0e331deca7fabb6c9f2c4b44ce8b928bf7df76a28886f77593b03f9b",
+        "source/game_sa/X87Math.h": "9cad12ca3875297462f017711b5cf629bc72afc54dc9fd5a18e2713f61d0de51",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/FxWood73/LiveComparison.hpp": "bca255c2c8428b2db6bdfe1c5a3ce2bafaa0fd660fa8112721b147454d87a18c",
+        "reversing/FxWood73/Core.hpp": "fcfea5b24e88a9d426e2e9bd47276bc9c6ced09dbe5f906c3c850c3ca5b9cd13",
+        "reversing/FxWood73/Fixtures.hpp": "b84233c7fcf6cb9d06a76f9fb8366dcaf51db5789d8f37e98a985fb35fba4bb2",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-1 (HEAD 429302be1 + source.patch del lote 73; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: FxSystem_c::AddParticle(v3d) 0x4AA440 (con hook RH, apagado durante el banco; su validez la prueba reversing/FxSystemPending, 1024 pares) y el rand() del CRT del EXE 0x821B1E (sin hook: la DLL lo llama por la direccion; no es una funcion reconstruida). El constructor FxPrtMult_c 0x4AB290 corre de verdad en cada lado (el EXE el suyo, la DLL el de FxPrtMult.cpp). El banco compara la traza completa de AddParticle (sistema de g_fx.m_Blood releido en cada vuelta, puntero de posicion, posicion, velocidad, tiempo, los siete floats del multiplicador, rotZ, luz, limite, createLocal), los sorteos consumidos, el estado de la camara (matriz o posicion compacta) y 6 arenas. La x87 (24 bits, exponente extendido, MXCSR FTZ) se compara incluidos desnormales, NaN no canonicos (tambien senalizantes), infinitos y ceros con signo. ECX/EDX/EAX no son resultados (void): solo se registran.",
+      "review_reference": "reversing/FxWood73/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "FireHeatSeakingMissile",
+        "address": "0x006E05C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/HeatFire73/validation-summary.json",
+        "sha256": "758761c8a6d6181a5ab3dc42a7d9a8d8a72abe66c9d66a5c25fdec509b507eeb",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::FireHeatSeakingMissile"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+        "source/game_sa/X87Math.cpp": "9dbaf8ac0e331deca7fabb6c9f2c4b44ce8b928bf7df76a28886f77593b03f9b",
+        "source/game_sa/X87Math.h": "9cad12ca3875297462f017711b5cf629bc72afc54dc9fd5a18e2713f61d0de51",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "abc7a6a29175ae99084e6982854c8194a446fde1ef142d6aa61083098627bd46",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/HeatFire73/LiveComparison.hpp": "6038c9596057f55e1a6741891ffc378116d272c385f8173a3a996368d2a1b88e",
+        "reversing/HeatFire73/Core.hpp": "7dc1b1c0adce4cb02d059b124ab5c460533e6df84af921f42e79033782c251a0",
+        "reversing/HeatFire73/Fixtures.hpp": "0f8ef717ff1fe76765fa1dec4d10575851789a283a9760f8a319613271bf0aae",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-2 (HEAD 429302be1 + source.patch del lote 73; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados): CVehicle::GetPlaneOrdnanceRateOfFire 0x6D4590 y CVehicle::GetPlaneOrdnancePosition 0x6D46E0 (los valida CVehE), CProjectileInfo::AddProjectile 0x737C80 (ProjectileAdd355) y CPad::StartShake 0x53F920 (RequestedPadMutationRemaining3Hex); CPed::IsPlayer 0x5DF8F0 (CPedD) y CPad::GetPad 0x53FB70 (inline sin hook) se ejecutan de verdad. El banco compara el orden y todos los argumentos de los falsos, la posicion de salida del misil (x87 a 24 bits, incluidos NaN no canonicos, infinitos, desnormales y ceros con signo), el indice de ordenanza (+0x4A9), las horas de disparo (+0x4FC/+0x500), 5 arenas (vehiculo, objetivo, otra entidad, matriz y ped) y las globales de tiempo. El EXE lee matriz + 0x10 y la velocidad sin comprobar nulo: la matriz nula solo se prueba cuando el intervalo del arma corta el disparo antes de leerla, por lo que la rama de posicion compacta (this+4) no es ejercitable (se cae el propio EXE). EAX/ECX/EDX solo se registran: el unico llamador, CVehicle::ProcessWeapons 0x6E3A72, no los lee.",
+      "review_reference": "reversing/HeatFire73/README.md"
     }
   ]
 }

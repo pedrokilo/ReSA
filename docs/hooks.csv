@@ -8928,3 +8928,5 @@ CTaskSimpleCarForcePedOut,ProcessPed,0x00000000,1,0,1,V
 CTaskSimpleFight,FightHitObj,0x0061D400,1,0,1,S
 CVehicle,ScanAndMarkTargetForHeatSeekingMissile,0x006E0400,1,0,1,S
 CVehicle,AddReplacementUpgrade,0x006D3830,1,0,1,S
+Fx_c,AddWood,0x0049EE10,1,0,1,S
+CVehicle,FireHeatSeakingMissile,0x006E05C0,1,0,1,S
