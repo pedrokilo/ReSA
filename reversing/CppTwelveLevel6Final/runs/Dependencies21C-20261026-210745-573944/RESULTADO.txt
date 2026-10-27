@@ -1,0 +1,3 @@
+APROBADO: Funciones de pelea CTaskSimpleFight (grupo C)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-dependencies21c\20261026-210745-573944

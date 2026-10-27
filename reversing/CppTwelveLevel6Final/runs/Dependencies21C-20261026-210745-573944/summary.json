@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "ea36d84397d117075a4db34bf321f8ee046041ffeb9988acf4d5dfbe68906145",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 4608,
+  "pairs_per_function": {
+    "CTaskSimpleFight::FightSetUpCol": 1536,
+    "CTaskSimpleFight::FightHitCar": 1536,
+    "CTaskSimpleFight::FightStrike": 1536
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "67f62946160699564e384668bdc629a7a5b4182ea1ba98c8e6e6820983894a1c",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

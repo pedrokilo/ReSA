@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,926 entradas reversed=1**, de 8,926 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,929 entradas reversed=1**, de 8,929 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8926 |
+| `validated=1` · evidencia aprobada vinculada | 8929 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8926 |
+| Evidencia histórica vinculada; revisión pendiente | 8929 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -6957,6 +6957,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleFight | `ControlFight` | [Resumen](../reversing/DependenciesTaskLeaf3/validation-summary.json) |
 | CTaskSimpleFight | `Destructor` | [Resumen](../reversing/DependenciesTask12/validation-summary.json) |
 | CTaskSimpleFight | `FightHitCar` | [Resumen](../reversing/Dependencies21C/validation-summary.json) |
+| CTaskSimpleFight | `FightHitObj` | [Resumen](../reversing/FightHitObj72/validation-summary.json) |
 | CTaskSimpleFight | `FightSetUpCol` | [Resumen](../reversing/Dependencies21C/validation-summary.json) |
 | CTaskSimpleFight | `FightStrike` | [Resumen](../reversing/Dependencies21C/validation-summary.json) |
 | CTaskSimpleFight | `FightStrikeDamage` | [Resumen](../reversing/Helpers65D/validation-summary.json) |
@@ -7649,6 +7650,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicle | `AddExhaustParticles` | [Resumen](../reversing/CVehD/validation-summary.json) |
 | CVehicle | `AddPassenger-Auto-Seat` | [Resumen](../reversing/CVehA/validation-summary.json) |
 | CVehicle | `AddPassenger-Fixed-Seat` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `AddReplacementUpgrade` | [Resumen](../reversing/ReplUpgrade72/validation-summary.json) |
 | CVehicle | `AddUpgrade` | [Resumen](../reversing/Vehicle66/validation-summary.json) |
 | CVehicle | `AddVehicleUpgrade` | [Resumen](../reversing/Vehicle66/validation-summary.json) |
 | CVehicle | `AddWaterSplashParticles` | [Resumen](../reversing/CVehD/validation-summary.json) |
@@ -7767,6 +7769,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicle | `RenderDriverAndPassengers` | [Resumen](../reversing/CVehD/validation-summary.json) |
 | CVehicle | `ResetAfterRender` | [Resumen](../reversing/CVehD/validation-summary.json) |
 | CVehicle | `Save` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `ScanAndMarkTargetForHeatSeekingMissile` | [Resumen](../reversing/HeatSeek72/validation-summary.json) |
 | CVehicle | `SelectPlaneWeapon` | [Resumen](../reversing/CVehE/validation-summary.json) |
 | CVehicle | `SetCollisionLighting` | [Resumen](../reversing/CVehD/validation-summary.json) |
 | CVehicle | `SetComponentAtomicAlpha` | [Resumen](../reversing/CVehC/validation-summary.json) |
@@ -9597,7 +9600,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleEvasiveStep` | 8 | 0 | 8 | 0 |
 | `CTaskSimpleFacial` | 5 | 0 | 5 | 0 |
 | `CTaskSimpleFall` | 6 | 0 | 6 | 0 |
-| `CTaskSimpleFight` | 13 | 0 | 13 | 0 |
+| `CTaskSimpleFight` | 14 | 0 | 14 | 0 |
 | `CTaskSimpleFightingControl` | 7 | 0 | 7 | 0 |
 | `CTaskSimpleFinishBrain` | 2 | 0 | 2 | 0 |
 | `CTaskSimpleGangDriveBy` | 10 | 0 | 10 | 0 |
@@ -9689,7 +9692,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTxdStore` | 26 | 0 | 26 | 0 |
 | `CUpsideDownCarCheck` | 5 | 0 | 5 | 0 |
 | `CUserDisplay` | 2 | 0 | 2 | 0 |
-| `CVehicle` | 157 | 0 | 157 | 0 |
+| `CVehicle` | 159 | 0 | 159 | 0 |
 | `CVehicleAnimGroup` | 5 | 0 | 5 | 0 |
 | `CVehicleAnimGroupData` | 5 | 0 | 5 | 0 |
 | `CVehicleModelInfo` | 75 | 0 | 75 | 0 |

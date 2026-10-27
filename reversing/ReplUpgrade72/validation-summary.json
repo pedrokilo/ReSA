@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 1,
+  "functions": {
+    "AddReplacementUpgrade": 16384
+  },
+  "covered_functions": {
+    "AddReplacementUpgrade": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-3 (HEAD 95f7d73eb + Vehicle.cpp, source.patch). CVehicle::AddReplacementUpgrade 0x6D3830 (thiscall, ret 8, sin retorno; ningun llamador del EXE, todos en AddVehicleUpgrade 0x6E3290, lee EAX/ECX/EDX): vacia el marco del componente (RemoveObjectsCB), crea el atomo del model info de la mejora (vtable +0x2C), lo cuelga del marco y configura su render (SetupUpgradeAtomicRendering); con nodeId 0x13 y la bandera 0x2000 de la manejabilidad crea el atomo de rueda y le da x = -2 * x del marco; con 0xC o 0xD vuelve a aplicar la matricula; si el model info es de atomo danado crea tambien la version danada y aplica la visibilidad. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): GetFrameFromId 0x4C53C0, RwFrameForAllObjects 0x7F1200, RwFrameForAllChildren 0x7F0DC0, CBaseModelInfo::AddRef 0x4C4BA0, RpClumpAddAtomic 0x74A490, RpAtomicSetFrame 0x74BF20, RwFrameDestroy 0x7F05A0, SetAtomicId 0x732290, SetAtomicFlag 0x7322B0, RpGeometryForAllMaterials 0x74C790, SetAtomicRenderCallback 0x7328A0, SetRenderPipelinesCB 0x4C88F0, CreateReplacementAtomic 0x6D3700, RwMatrixUpdate 0x7F18A0 y SetupClumpAfterVehicleUpgrade 0x6FDFE0; CreateInstance y AsDamageAtomicModelInfoPtr son virtuales de una vtable falsa. Se compara contra un oraculo independiente en Python (desde el desensamblado). Fuera de cobertura: indices de modelo fuera de ms_modelInfoPtrs[15..19], denormales (MXCSR FTZ), dos NaN, y el cuerpo real de los colaboradores sustituidos.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/ReplUpgrade72-20261026-211221-698349",
+  "summary_sha256": "6bc6dadbb4ead9156aba19983e6f218a5ff8be349671d60980b018456b972aaa",
+  "result_txt_sha256": "fa9c5fd9777e6880565b78f592f6fd2780ae76ac00283262f78ed731c22d93af",
+  "log_sha256": "83162bc888a67e969abb3fab27b2c1bfeec5de4a4593cabc97aebd63f0d9ed56",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "b0ea3392cf82d0e053d47c1e00faa8028e4072d55983d32e03da15f1cf6dfa72",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8fd18c2fef3d55a0985d40d3060d73e12f88bd7a3ab0ac01a9aca6a03a47d19d",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/ReplUpgrade72/LiveComparison.hpp": "c7d5edf8181aa6d0755ade39072db7bc7bc986447b1239466ef994e7d2ac0d01",
+      "reversing/ReplUpgrade72/Core.hpp": "f461c4c575838a1fbc869791b9854c0f14f5081f14a5c52175163603d115d8f9",
+      "reversing/ReplUpgrade72/Fixtures.hpp": "f2a17166472b26bdbdb34fff26f2597a2ca357ebd79e6a3fdde8ea9e7478a08f",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

@@ -13217,5 +13217,47 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ (CTaskSimpleCarForcePedOut, tarea de sacar al peatón del coche a la fuerza): ProcessPed sin llamadas al EXE para esta función. El banco sustituye por falsos idénticos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL) RegisterReference y compara la secuencia de llamadas con sus argumentos, el objeto completo construido (relleno incluido), los cambios en las arenas del caso y el retorno. Banco ForcePedOutVt71 con 81920 pares (16384 propios) y cero diferencias; EAX/ECX/EDX de salida: ver README del banco. Validado en el worktree D:/Original/wy-2 (HEAD de main + TaskSimpleCarForcePedOut.h/.cpp, InjectHooksMain.cpp y una linea de TaskComplexLeaveCar.cpp, source.patch). Virtuales de CTaskSimpleCarForcePedOut (vtable 0x86EE94): cuerpo del destructor 0x647790 (limpia la referencia al vehiculo con CleanUpOldReference 0x571A00; hook S), Clone 0x649EE0 (CTask::operator new, comprobacion de nulo, constructor 0x647710), MakeAbortable 0x647780 (devuelve false) y ProcessPed 0x6477F0 (conductor/pasajeros con IsDriver 0x6D1C40, ComputeOppositeDoorFlag 0x64E610, ComputePassengerIndexFromCarDoor 0x64F1E0 y PositionPedOutOfCollision 0x5E0820); hooks V llamados por la ranura de la vtable del EXE. Colaboradores con hook sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL; CTask::~CTask 0x61A3A0 (en linea en la DLL) solo en el EXE con el mismo efecto. Se compara el objeto completo, AL/EAX, la traza de colaboradores y las compuertas de ABI/SEH/restauracion. El banco incluye ademas la ruta viva del destructor con borrado (0x64BF50 del EXE contra el del compilador en la DLL, con banderas 0/1 y bits altos): sin hook, sin registro. Los bits 1 y 2 de las banderas del destructor con borrado de la DLL (array y ::operator delete global) quedan fuera: ningun llamador los pasa."
+  },
+  "0x0061D400": {
+    "identity": "CTaskSimpleFight::FightHitObj",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp",
+    "bank": "FightHitObj72",
+    "run": "20261026-210900-487110",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/FightHitObj72-20261026-210900-487110/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (CTaskSimpleFight, tarea de combate cuerpo a cuerpo): FightHitObj sin llamadas al EXE para esta función. El banco sustituye por falsos idénticos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL) los colaboradores con hook en HEAD y compara la secuencia de llamadas con sus argumentos, el objeto reservado los cambios en las arenas del caso y el estado de la x87. Banco FightHitObj72 con 16384 pares (16384 propios) y cero diferencias; EAX/ECX/EDX de salida: ver README del banco. Validado en el worktree D:/Original/wy-1 (HEAD 95f7d73eb + TaskSimpleFight.cpp/.h y el bloque del lote 72 de X87Math.cpp/.h, source.patch). CTaskSimpleFight::FightHitObj 0x61D400 (thiscall, ret 0x18; golpe de un ped contra un objeto; sin valor de retorno: su unico llamador, FightStrike 0x6245AF, no lee EAX): puertas (efecto de danio < 0xC8, banderas fisicas, multiplicador < 99.9f), SetIsStatic virtual y AddToMovingList, ApplyForce con el factor -0.5f o -0.1f, ObjectDamage con danio * 10.0f, sonido de motosierra y de golpe y AddPunchImpact. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): CTaskSimpleFight::FightStrikeDamage 0x61C740, CPhysical::AddToMovingList 0x542800, CPhysical::ApplyForce 0x542B50, CObject::ObjectDamage 0x5A0D90 y Fx_c::AddPunchImpact 0x49F670 (con hook); CAEPedWeaponAudioEntity::AddAudioEvent 0x4E69F0 y CAEPedAudioEntity::AddAudioEvent 0x4E2BB0 sin hook (el ejecutor pasa --unhook=Audio; su cuerpo en la DLL salta al EXE y un unico falso en la direccion del EXE sirve a ambos lados); CEntity::SetIsStatic por la vtable falsa del objeto. Dominio: la superficie siempre cabe en un byte (el unico llamador pasa un uint8; CAEPedAudioEntity::AddAudioEvent recibe un eSurfaceType de 8 bits)."
+  },
+  "0x006E0400": {
+    "identity": "CVehicle::ScanAndMarkTargetForHeatSeekingMissile",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Entity/Vehicle/Vehicle.cpp",
+    "bank": "HeatSeek72",
+    "run": "20261026-211056-876179",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/HeatSeek72-20261026-211056-876179/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE (los cuatro colaboradores son falsos identicos en ambos lados). Banco HeatSeek72 con 16384 pares y cero diferencias; EAX exigido; ECX/EDX solo registrados. Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-2 (HEAD 95f7d73eb + source.patch del lote 72; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados): CWeapon::PickTargetForHeatSeekingMissile 0x73F910, CWorld::GetIsLineOfSightClear 0x56A490, CWeaponEffects::MarkTarget 0x742BF0 y CWeaponEffects::ClearCrossHairImmediately 0x742CA0; el banco compara su orden y todos sus argumentos (incluidos los valores apuntados y los dwords de banderas +0x1C de vehiculo y objetivo en el momento de la vision) mas EAX, 5 arenas (vehiculo, objetivo, entidad previa y dos matrices) y la hora global. El vehiculo siempre tiene matriz (el EXE lee matriz + 0x10 sin comprobar nulo y se cae sin ella), por lo que la rama de posicion compacta del propio vehiculo no se ejercita. La validez de los colaboradores no la prueba este banco; ECX/EDX solo se registran (los dos llamadores del EXE, 0x6E3621 y 0x6E36DC, solo leen EAX)."
+  },
+  "0x006D3830": {
+    "identity": "AddReplacementUpgrade",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Entity/Vehicle/Vehicle.cpp",
+    "bank": "ReplUpgrade72",
+    "run": "20261026-211221-698349",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/ReplUpgrade72-20261026-211221-698349/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (CVehicle, mejoras de reemplazo): AddReplacementUpgrade sin llamadas al EXE para esta función. El banco sustituye por falsos idénticos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL) los colaboradores y compara la secuencia de llamadas con sus argumentos, los cambios en la arena del caso y ms_bCreateDamagedVersion, contra un oráculo independiente. Banco ReplUpgrade72 con 16384 pares (16384 propios) y cero diferencias; EAX/ECX/EDX de salida: ver README del banco. Validado en el worktree D:/Original/wy-3 (HEAD 95f7d73eb + Vehicle.cpp, source.patch). CVehicle::AddReplacementUpgrade 0x6D3830 (thiscall, ret 8, sin retorno; ningun llamador del EXE, todos en AddVehicleUpgrade 0x6E3290, lee EAX/ECX/EDX): vacia el marco del componente (RemoveObjectsCB), crea el atomo del model info de la mejora (vtable +0x2C), lo cuelga del marco y configura su render (SetupUpgradeAtomicRendering); con nodeId 0x13 y la bandera 0x2000 de la manejabilidad crea el atomo de rueda y le da x = -2 * x del marco; con 0xC o 0xD vuelve a aplicar la matricula; si el model info es de atomo danado crea tambien la version danada y aplica la visibilidad. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): GetFrameFromId 0x4C53C0, RwFrameForAllObjects 0x7F1200, RwFrameForAllChildren 0x7F0DC0, CBaseModelInfo::AddRef 0x4C4BA0, RpClumpAddAtomic 0x74A490, RpAtomicSetFrame 0x74BF20, RwFrameDestroy 0x7F05A0, SetAtomicId 0x732290, SetAtomicFlag 0x7322B0, RpGeometryForAllMaterials 0x74C790, SetAtomicRenderCallback 0x7328A0, SetRenderPipelinesCB 0x4C88F0, CreateReplacementAtomic 0x6D3700, RwMatrixUpdate 0x7F18A0 y SetupClumpAfterVehicleUpgrade 0x6FDFE0; CreateInstance y AsDamageAtomicModelInfoPtr son virtuales de una vtable falsa. Se compara contra un oraculo independiente en Python (desde el desensamblado). Fuera de cobertura: indices de modelo fuera de ms_modelInfoPtrs[15..19], denormales (MXCSR FTZ), dos NaN, y el cuerpo real de los colaboradores sustituidos."
   }
 }

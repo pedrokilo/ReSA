@@ -216,8 +216,7 @@ class,function,address,source,origins
 (helpers y globales sin clase),FightChooseAttackPlayerExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:377,envoltura en el código fuente
 (helpers y globales sin clase),FightFindTargetOnGroundExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:373,envoltura en el código fuente
 (helpers y globales sin clase),FightGetAvailableComboSetExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:369,envoltura en el código fuente
-(helpers y globales sin clase),FightHitObjExe,0x0061D400,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:277,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-(helpers y globales sin clase),FightHitPedExe,0x0061CBA0,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:272,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+(helpers y globales sin clase),FightHitPedExe,0x0061CBA0,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:277,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 (helpers y globales sin clase),FightStartAnimExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:385,envoltura en el código fuente
 (helpers y globales sin clase),GaCalcDistToRectSq,,source/game_sa/Garage.cpp:442,envoltura en el código fuente
 (helpers y globales sin clase),GaCountCarsCenterWithin,,source/game_sa/Garage.cpp:438,envoltura en el código fuente
@@ -296,15 +295,13 @@ CPlayerPed,ProcessGroupBehaviour,0x0060D350,source/game_sa/Entity/Ped/PlayerPed.
 CPlayerPed,ProcessWeaponSwitch,0x0060D850,source/game_sa/Entity/Ped/PlayerPed.cpp:1213,cohorte 499 + envoltura en el código fuente
 CPlayerPed,SetInitialState,0x0060CD20,source/game_sa/Entity/Ped/PlayerPed.cpp:1080,cohorte 499 + envoltura en el código fuente
 CPlayerPed,SetRealMoveAnim,0x0060A9C0,source/game_sa/Entity/Ped/PlayerPed.cpp:820,cohorte 499 + envoltura en el código fuente
-CVehicle,AddReplacementUpgrade,0x006D3830,source/game_sa/Entity/Vehicle/Vehicle.cpp:2742,cohorte nuevo 2026-10-17
 CVehicle,AddSingleWheelParticles,0x006DE880,source/game_sa/Entity/Vehicle/Vehicle.cpp:4787,cohorte 499
-CVehicle,DoDriveByShootings,0x00741FD0,source/game_sa/Entity/Vehicle/Vehicle.cpp:8269,cohorte 499 + envoltura en el código fuente
-CVehicle,FireFixedMachineGuns,0x0073DF00,source/game_sa/Entity/Vehicle/Vehicle.cpp:8264,cohorte 499 + envoltura en el código fuente
+CVehicle,DoDriveByShootings,0x00741FD0,source/game_sa/Entity/Vehicle/Vehicle.cpp:8345,cohorte 499 + envoltura en el código fuente
+CVehicle,FireFixedMachineGuns,0x0073DF00,source/game_sa/Entity/Vehicle/Vehicle.cpp:8340,cohorte 499 + envoltura en el código fuente
 CVehicle,FireHeatSeakingMissile,0x006E05C0,source/game_sa/Entity/Vehicle/Vehicle.cpp:7287,cohorte nuevo 2026-10-17
 CVehicle,GetPlaneWeaponFiringStatus,0x006E3440,source/game_sa/Entity/Vehicle/Vehicle.cpp:7844,cohorte nuevo 2026-10-17
 CVehicle,InflictDamage,0x006D7C90,source/game_sa/Entity/Vehicle/Vehicle.cpp:3738,cohorte 499
-CVehicle,ProcessBikeWheel,0x006D73B0,source/game_sa/Entity/Vehicle/Vehicle.cpp:3718,cohorte 499 + envoltura en el código fuente
-CVehicle,ScanAndMarkTargetForHeatSeekingMissile,0x006E0400,source/game_sa/Entity/Vehicle/Vehicle.cpp:7282,cohorte nuevo 2026-10-17
+CVehicle,ProcessBikeWheel,0x006D73B0,source/game_sa/Entity/Vehicle/Vehicle.cpp:3754,cohorte 499 + envoltura en el código fuente
 CVehicle,UpdateTractorLink,0x006E0050,source/game_sa/Entity/Vehicle/Vehicle.cpp:4837,cohorte 499
 CVehicle,UpdateTrailerLink,0x006DFC50,source/game_sa/Entity/Vehicle/Vehicle.cpp:4832,cohorte 499
 Fx_c,AddBlood,0x0049EB00,source/game_sa/Fx/Fx.cpp:273,cohorte 499

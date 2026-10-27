@@ -530248,7 +530248,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies21C/validation-summary.json",
-        "sha256": "ba434b1fca33a8fd5c3e59d73bfb87865a29e65c912e512c2cb92e62fc881567",
+        "sha256": "aeee8f30849f1efaf9be095f2af98b6dcd63c1d43712d8a4856d99c2baac994c",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleFight::FightSetUpCol"
@@ -530257,13 +530257,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "6a3d2d98b4bce0aee97a08790ce20cd2abf453a37baf0137728115469b5a4ebd",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "1eab8612f9343d766debc1db79a405df84cc4654a4b2e2e5fb7748fb8d616981",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "0ee5c118fd435d4a37d663e0d2301acf62c917e9b17697d3f084bacfc036082d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "818f88d555b68e6753c682f01a15c1052e7e9cc48b45555d96baa711a07efe27",
         "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "862f6635260c621952fc0c15772ae9d2fa161daedf87c1b349a93565d789022f",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp": "a79a33ef432c49892523b9117e87aea916daf04cd1d73cc3baebfaa472609448",
-        "source/game_sa/X87Math.cpp": "2744cf9b95d7657d019d320f455c50af1884474b4901a4ad357a128b441d7cee",
-        "source/game_sa/X87Math.h": "a9aa393f782698977e7c6453e1f65fa49357c241164bcd90713093a829c64f01",
-        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+        "source/game_sa/X87Math.cpp": "e64a4fedd3f0505870ccab04632506b2547b4dfaf9c350ff7a9069249ab23c78",
+        "source/game_sa/X87Math.h": "3b95baef142792b5925ec4d621ad38e84cfa8b700968290b371da5624c86cecd",
+        "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
       },
       "dependency_review": null,
@@ -530280,7 +530280,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies21C/validation-summary.json",
-        "sha256": "ba434b1fca33a8fd5c3e59d73bfb87865a29e65c912e512c2cb92e62fc881567",
+        "sha256": "aeee8f30849f1efaf9be095f2af98b6dcd63c1d43712d8a4856d99c2baac994c",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleFight::FightHitCar"
@@ -530289,13 +530289,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "6a3d2d98b4bce0aee97a08790ce20cd2abf453a37baf0137728115469b5a4ebd",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "1eab8612f9343d766debc1db79a405df84cc4654a4b2e2e5fb7748fb8d616981",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "0ee5c118fd435d4a37d663e0d2301acf62c917e9b17697d3f084bacfc036082d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "818f88d555b68e6753c682f01a15c1052e7e9cc48b45555d96baa711a07efe27",
         "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "862f6635260c621952fc0c15772ae9d2fa161daedf87c1b349a93565d789022f",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp": "a79a33ef432c49892523b9117e87aea916daf04cd1d73cc3baebfaa472609448",
-        "source/game_sa/X87Math.cpp": "2744cf9b95d7657d019d320f455c50af1884474b4901a4ad357a128b441d7cee",
-        "source/game_sa/X87Math.h": "a9aa393f782698977e7c6453e1f65fa49357c241164bcd90713093a829c64f01",
-        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+        "source/game_sa/X87Math.cpp": "e64a4fedd3f0505870ccab04632506b2547b4dfaf9c350ff7a9069249ab23c78",
+        "source/game_sa/X87Math.h": "3b95baef142792b5925ec4d621ad38e84cfa8b700968290b371da5624c86cecd",
+        "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
       },
       "dependency_review": null,
@@ -530312,7 +530312,7 @@
       },
       "evidence": {
         "path": "reversing/Dependencies21C/validation-summary.json",
-        "sha256": "ba434b1fca33a8fd5c3e59d73bfb87865a29e65c912e512c2cb92e62fc881567",
+        "sha256": "aeee8f30849f1efaf9be095f2af98b6dcd63c1d43712d8a4856d99c2baac994c",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleFight::FightStrike"
@@ -530321,13 +530321,13 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "6a3d2d98b4bce0aee97a08790ce20cd2abf453a37baf0137728115469b5a4ebd",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "1eab8612f9343d766debc1db79a405df84cc4654a4b2e2e5fb7748fb8d616981",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "0ee5c118fd435d4a37d663e0d2301acf62c917e9b17697d3f084bacfc036082d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "818f88d555b68e6753c682f01a15c1052e7e9cc48b45555d96baa711a07efe27",
         "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "862f6635260c621952fc0c15772ae9d2fa161daedf87c1b349a93565d789022f",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp": "a79a33ef432c49892523b9117e87aea916daf04cd1d73cc3baebfaa472609448",
-        "source/game_sa/X87Math.cpp": "2744cf9b95d7657d019d320f455c50af1884474b4901a4ad357a128b441d7cee",
-        "source/game_sa/X87Math.h": "a9aa393f782698977e7c6453e1f65fa49357c241164bcd90713093a829c64f01",
-        "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+        "source/game_sa/X87Math.cpp": "e64a4fedd3f0505870ccab04632506b2547b4dfaf9c350ff7a9069249ab23c78",
+        "source/game_sa/X87Math.h": "3b95baef142792b5925ec4d621ad38e84cfa8b700968290b371da5624c86cecd",
+        "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
       },
       "dependency_review": null,
@@ -543081,7 +543081,7 @@
       },
       "evidence": {
         "path": "reversing/Vehicle66/validation-summary.json",
-        "sha256": "4882294031539c6cc8a77f1389b2a6cc58d639424a57993d440cb16fb74b6055",
+        "sha256": "6730ba6bee5864e2fcad9ea30d56c1929fbe759efc0ad03a540645de9b29c443",
         "passed_path": [
           "covered_functions",
           "RemoveVehicleUpgrade"
@@ -543091,9 +543091,9 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "052c659fec398d91838dbe856d3ddb2c0c3eb6e126b93fdbabfc5f789d2447af",
-        "source/game_sa/Entity/Vehicle/Vehicle.h": "6c3fcb2d694b21e229e4884e1dcc18e79b1d84320aa797c8eb1dca14b442309e",
+        "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8fd18c2fef3d55a0985d40d3060d73e12f88bd7a3ab0ac01a9aca6a03a47d19d",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Vehicle66/LiveComparison.hpp": "3ef7fe2bed777417b76249232dd7ebef9370cfcf93868f91e38ed442ae7020a4",
         "reversing/Vehicle66/Core.hpp": "64d0d525400647b71dc7d76b27908e422aaa9594176226575c231b68ce6899ce",
@@ -543115,7 +543115,7 @@
       },
       "evidence": {
         "path": "reversing/Vehicle66/validation-summary.json",
-        "sha256": "4882294031539c6cc8a77f1389b2a6cc58d639424a57993d440cb16fb74b6055",
+        "sha256": "6730ba6bee5864e2fcad9ea30d56c1929fbe759efc0ad03a540645de9b29c443",
         "passed_path": [
           "covered_functions",
           "AddUpgrade"
@@ -543125,9 +543125,9 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "052c659fec398d91838dbe856d3ddb2c0c3eb6e126b93fdbabfc5f789d2447af",
-        "source/game_sa/Entity/Vehicle/Vehicle.h": "6c3fcb2d694b21e229e4884e1dcc18e79b1d84320aa797c8eb1dca14b442309e",
+        "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8fd18c2fef3d55a0985d40d3060d73e12f88bd7a3ab0ac01a9aca6a03a47d19d",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Vehicle66/LiveComparison.hpp": "3ef7fe2bed777417b76249232dd7ebef9370cfcf93868f91e38ed442ae7020a4",
         "reversing/Vehicle66/Core.hpp": "64d0d525400647b71dc7d76b27908e422aaa9594176226575c231b68ce6899ce",
@@ -543149,7 +543149,7 @@
       },
       "evidence": {
         "path": "reversing/Vehicle66/validation-summary.json",
-        "sha256": "4882294031539c6cc8a77f1389b2a6cc58d639424a57993d440cb16fb74b6055",
+        "sha256": "6730ba6bee5864e2fcad9ea30d56c1929fbe759efc0ad03a540645de9b29c443",
         "passed_path": [
           "covered_functions",
           "AddVehicleUpgrade"
@@ -543159,9 +543159,9 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "052c659fec398d91838dbe856d3ddb2c0c3eb6e126b93fdbabfc5f789d2447af",
-        "source/game_sa/Entity/Vehicle/Vehicle.h": "6c3fcb2d694b21e229e4884e1dcc18e79b1d84320aa797c8eb1dca14b442309e",
+        "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8fd18c2fef3d55a0985d40d3060d73e12f88bd7a3ab0ac01a9aca6a03a47d19d",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Vehicle66/LiveComparison.hpp": "3ef7fe2bed777417b76249232dd7ebef9370cfcf93868f91e38ed442ae7020a4",
         "reversing/Vehicle66/Core.hpp": "64d0d525400647b71dc7d76b27908e422aaa9594176226575c231b68ce6899ce",
@@ -543183,7 +543183,7 @@
       },
       "evidence": {
         "path": "reversing/Vehicle66/validation-summary.json",
-        "sha256": "4882294031539c6cc8a77f1389b2a6cc58d639424a57993d440cb16fb74b6055",
+        "sha256": "6730ba6bee5864e2fcad9ea30d56c1929fbe759efc0ad03a540645de9b29c443",
         "passed_path": [
           "covered_functions",
           "PossiblyDropFreeFallBombForPlayer"
@@ -543193,9 +543193,9 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "052c659fec398d91838dbe856d3ddb2c0c3eb6e126b93fdbabfc5f789d2447af",
-        "source/game_sa/Entity/Vehicle/Vehicle.h": "6c3fcb2d694b21e229e4884e1dcc18e79b1d84320aa797c8eb1dca14b442309e",
+        "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8fd18c2fef3d55a0985d40d3060d73e12f88bd7a3ab0ac01a9aca6a03a47d19d",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Vehicle66/LiveComparison.hpp": "3ef7fe2bed777417b76249232dd7ebef9370cfcf93868f91e38ed442ae7020a4",
         "reversing/Vehicle66/Core.hpp": "64d0d525400647b71dc7d76b27908e422aaa9594176226575c231b68ce6899ce",
@@ -543217,7 +543217,7 @@
       },
       "evidence": {
         "path": "reversing/Vehicle66/validation-summary.json",
-        "sha256": "4882294031539c6cc8a77f1389b2a6cc58d639424a57993d440cb16fb74b6055",
+        "sha256": "6730ba6bee5864e2fcad9ea30d56c1929fbe759efc0ad03a540645de9b29c443",
         "passed_path": [
           "covered_functions",
           "ProcessSirenAndHorn"
@@ -543227,9 +543227,9 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "a97b4da9c9036d9deef5375471e0e1cc79c04fe3eaf8d670dd921afd0618ae98",
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "052c659fec398d91838dbe856d3ddb2c0c3eb6e126b93fdbabfc5f789d2447af",
-        "source/game_sa/Entity/Vehicle/Vehicle.h": "6c3fcb2d694b21e229e4884e1dcc18e79b1d84320aa797c8eb1dca14b442309e",
+        "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8fd18c2fef3d55a0985d40d3060d73e12f88bd7a3ab0ac01a9aca6a03a47d19d",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Vehicle66/LiveComparison.hpp": "3ef7fe2bed777417b76249232dd7ebef9370cfcf93868f91e38ed442ae7020a4",
         "reversing/Vehicle66/Core.hpp": "64d0d525400647b71dc7d76b27908e422aaa9594176226575c231b68ce6899ce",
@@ -544544,6 +544544,112 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wy-2 (HEAD de main + TaskSimpleCarForcePedOut.h/.cpp, InjectHooksMain.cpp y una linea de TaskComplexLeaveCar.cpp, source.patch). Virtuales de CTaskSimpleCarForcePedOut (vtable 0x86EE94): cuerpo del destructor 0x647790 (limpia la referencia al vehiculo con CleanUpOldReference 0x571A00; hook S), Clone 0x649EE0 (CTask::operator new, comprobacion de nulo, constructor 0x647710), MakeAbortable 0x647780 (devuelve false) y ProcessPed 0x6477F0 (conductor/pasajeros con IsDriver 0x6D1C40, ComputeOppositeDoorFlag 0x64E610, ComputePassengerIndexFromCarDoor 0x64F1E0 y PositionPedOutOfCollision 0x5E0820); hooks V llamados por la ranura de la vtable del EXE. Colaboradores con hook sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL; CTask::~CTask 0x61A3A0 (en linea en la DLL) solo en el EXE con el mismo efecto. Se compara el objeto completo, AL/EAX, la traza de colaboradores y las compuertas de ABI/SEH/restauracion. El banco incluye ademas la ruta viva del destructor con borrado (0x64BF50 del EXE contra el del compilador en la DLL, con banderas 0/1 y bits altos): sin hook, sin registro. Los bits 1 y 2 de las banderas del destructor con borrado de la DLL (array y ::operator delete global) quedan fuera: ningun llamador los pasa.",
       "review_reference": "reversing/ForcePedOutVt71/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleFight",
+        "fn_name": "FightHitObj",
+        "address": "0x0061D400",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FightHitObj72/validation-summary.json",
+        "sha256": "e92ce55f77887bb18a9f21f3419735eff57fdceb70c58ef2e807eb5b4f1bb314",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleFight::FightHitObj"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x0061D400"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "0ee5c118fd435d4a37d663e0d2301acf62c917e9b17697d3f084bacfc036082d",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "818f88d555b68e6753c682f01a15c1052e7e9cc48b45555d96baa711a07efe27",
+        "source/game_sa/X87Math.cpp": "e64a4fedd3f0505870ccab04632506b2547b4dfaf9c350ff7a9069249ab23c78",
+        "source/game_sa/X87Math.h": "3b95baef142792b5925ec4d621ad38e84cfa8b700968290b371da5624c86cecd",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/FightHitObj72/LiveComparison.hpp": "9f3aa8c65a64aa09eeb57c8cbded367dd4c6235558d560074cdf3fe553c28324",
+        "reversing/FightHitObj72/Core.hpp": "626b3737bc860c829c50c3f0774c35b4d6fbb3d17a8a0512842e35652464a880",
+        "reversing/FightHitObj72/Fixtures.hpp": "583837e501a6984e1d83ad9c04255e07d8b735d9eee1037ee15a757ff0fea926",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wy-1 (HEAD 95f7d73eb + TaskSimpleFight.cpp/.h y el bloque del lote 72 de X87Math.cpp/.h, source.patch). CTaskSimpleFight::FightHitObj 0x61D400 (thiscall, ret 0x18; golpe de un ped contra un objeto; sin valor de retorno: su unico llamador, FightStrike 0x6245AF, no lee EAX): puertas (efecto de danio < 0xC8, banderas fisicas, multiplicador < 99.9f), SetIsStatic virtual y AddToMovingList, ApplyForce con el factor -0.5f o -0.1f, ObjectDamage con danio * 10.0f, sonido de motosierra y de golpe y AddPunchImpact. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): CTaskSimpleFight::FightStrikeDamage 0x61C740, CPhysical::AddToMovingList 0x542800, CPhysical::ApplyForce 0x542B50, CObject::ObjectDamage 0x5A0D90 y Fx_c::AddPunchImpact 0x49F670 (con hook); CAEPedWeaponAudioEntity::AddAudioEvent 0x4E69F0 y CAEPedAudioEntity::AddAudioEvent 0x4E2BB0 sin hook (el ejecutor pasa --unhook=Audio; su cuerpo en la DLL salta al EXE y un unico falso en la direccion del EXE sirve a ambos lados); CEntity::SetIsStatic por la vtable falsa del objeto. Dominio: la superficie siempre cabe en un byte (el unico llamador pasa un uint8; CAEPedAudioEntity::AddAudioEvent recibe un eSurfaceType de 8 bits).",
+      "review_reference": "reversing/FightHitObj72/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "ScanAndMarkTargetForHeatSeekingMissile",
+        "address": "0x006E0400",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/HeatSeek72/validation-summary.json",
+        "sha256": "8fae1a169c68a741bf836058a339eb555a49d94bdcf822af30fb3789713ec307",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::ScanAndMarkTargetForHeatSeekingMissile"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8fd18c2fef3d55a0985d40d3060d73e12f88bd7a3ab0ac01a9aca6a03a47d19d",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/HeatSeek72/LiveComparison.hpp": "1abfc456f36147062ba77401ebe588a1751d9bd4cca185d62bbcc5b6f3946e58",
+        "reversing/HeatSeek72/Core.hpp": "60768ff303231913fedec0955b49eb15de2a6157ae29d8eefc740a2024b8171a",
+        "reversing/HeatSeek72/Fixtures.hpp": "5861862f54d2b377087e34c4de143a782794f51d0474fb22bb69bdf6e56139d9",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-2 (HEAD 95f7d73eb + source.patch del lote 72; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados): CWeapon::PickTargetForHeatSeekingMissile 0x73F910, CWorld::GetIsLineOfSightClear 0x56A490, CWeaponEffects::MarkTarget 0x742BF0 y CWeaponEffects::ClearCrossHairImmediately 0x742CA0; el banco compara su orden y todos sus argumentos (incluidos los valores apuntados y los dwords de banderas +0x1C de vehiculo y objetivo en el momento de la vision) mas EAX, 5 arenas (vehiculo, objetivo, entidad previa y dos matrices) y la hora global. El vehiculo siempre tiene matriz (el EXE lee matriz + 0x10 sin comprobar nulo y se cae sin ella), por lo que la rama de posicion compacta del propio vehiculo no se ejercita. La validez de los colaboradores no la prueba este banco; ECX/EDX solo se registran (los dos llamadores del EXE, 0x6E3621 y 0x6E36DC, solo leen EAX).",
+      "review_reference": "reversing/HeatSeek72/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "AddReplacementUpgrade",
+        "address": "0x006D3830",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ReplUpgrade72/validation-summary.json",
+        "sha256": "602e26f2fd90fdc3b9fc6939f7a060e2c9289bcc60992b79a3cc6d15bd2465a9",
+        "passed_path": [
+          "covered_functions",
+          "AddReplacementUpgrade"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x006D3830"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "8fd18c2fef3d55a0985d40d3060d73e12f88bd7a3ab0ac01a9aca6a03a47d19d",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/ReplUpgrade72/LiveComparison.hpp": "c7d5edf8181aa6d0755ade39072db7bc7bc986447b1239466ef994e7d2ac0d01",
+        "reversing/ReplUpgrade72/Core.hpp": "f461c4c575838a1fbc869791b9854c0f14f5081f14a5c52175163603d115d8f9",
+        "reversing/ReplUpgrade72/Fixtures.hpp": "f2a17166472b26bdbdb34fff26f2597a2ca357ebd79e6a3fdde8ea9e7478a08f",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wy-3 (HEAD 95f7d73eb + Vehicle.cpp, source.patch). CVehicle::AddReplacementUpgrade 0x6D3830 (thiscall, ret 8, sin retorno; ningun llamador del EXE, todos en AddVehicleUpgrade 0x6E3290, lee EAX/ECX/EDX): vacia el marco del componente (RemoveObjectsCB), crea el atomo del model info de la mejora (vtable +0x2C), lo cuelga del marco y configura su render (SetupUpgradeAtomicRendering); con nodeId 0x13 y la bandera 0x2000 de la manejabilidad crea el atomo de rueda y le da x = -2 * x del marco; con 0xC o 0xD vuelve a aplicar la matricula; si el model info es de atomo danado crea tambien la version danada y aplica la visibilidad. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): GetFrameFromId 0x4C53C0, RwFrameForAllObjects 0x7F1200, RwFrameForAllChildren 0x7F0DC0, CBaseModelInfo::AddRef 0x4C4BA0, RpClumpAddAtomic 0x74A490, RpAtomicSetFrame 0x74BF20, RwFrameDestroy 0x7F05A0, SetAtomicId 0x732290, SetAtomicFlag 0x7322B0, RpGeometryForAllMaterials 0x74C790, SetAtomicRenderCallback 0x7328A0, SetRenderPipelinesCB 0x4C88F0, CreateReplacementAtomic 0x6D3700, RwMatrixUpdate 0x7F18A0 y SetupClumpAfterVehicleUpgrade 0x6FDFE0; CreateInstance y AsDamageAtomicModelInfoPtr son virtuales de una vtable falsa. Se compara contra un oraculo independiente en Python (desde el desensamblado). Fuera de cobertura: indices de modelo fuera de ms_modelInfoPtrs[15..19], denormales (MXCSR FTZ), dos NaN, y el cuerpo real de los colaboradores sustituidos.",
+      "review_reference": "reversing/ReplUpgrade72/README.md"
     }
   ]
 }

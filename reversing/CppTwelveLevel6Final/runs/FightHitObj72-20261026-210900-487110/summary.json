@@ -1,0 +1,90 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "fcc565b05170cbbee19cbe4ab9d5b26587b676416891f3663156c30aba0f3e50",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 16384,
+  "pairs_per_function": {
+    "CTaskSimpleFight::FightHitObj": 16384
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "825af7da442b2d925c02cb88e44d73301b9f7879e229358468e9afbb81b729ec",
+  "compare_dead_x87_registers": false,
+  "families": {
+    "CTaskSimpleFight::FightHitObj": {
+      "0": 1024,
+      "1": 1024,
+      "2": 1024,
+      "3": 1024,
+      "4": 1024,
+      "5": 1024,
+      "6": 1024,
+      "7": 1024,
+      "8": 1024,
+      "9": 1024,
+      "10": 1024,
+      "11": 1024,
+      "12": 1024,
+      "13": 1024,
+      "14": 1024,
+      "15": 1024
+    }
+  },
+  "branch_coverage": {
+    "CTaskSimpleFight::FightHitObj": {
+      "damage_called_once": 16384,
+      "gate_effect_fail": 1055,
+      "objdamage_called_once": 16384,
+      "chainsaw_audio": 8873,
+      "ped_audio_event": 16384,
+      "punch_called": 16384,
+      "gate_physical_fail": 1170,
+      "gate_mult_fail": 1118,
+      "mult_near_threshold": 450,
+      "no_chainsaw_audio": 7511,
+      "inner_set_static": 2711,
+      "inner_moving_list": 2711,
+      "inner_flags_40000": 909,
+      "inner_uproot_zero": 1266,
+      "surface_high": 4974,
+      "inner_uproot_not_met": 1236,
+      "damage_denormal": 1662,
+      "force_applied": 9740,
+      "force_matrix": 4869,
+      "force_high_factor": 7728,
+      "force_placement": 4871,
+      "force_low_factor": 2012,
+      "force_denormal_component": 1613,
+      "inner_flags_4": 1802,
+      "flags_reread_enables_force": 646,
+      "damage_nan": 354,
+      "chainsaw_lost_after_mutation": 821,
+      "combo_negative": 2485,
+      "slot_negative": 1815,
+      "objdamage_dir_is_old_copy": 1524,
+      "mut_normal": 1524,
+      "objdamage_origin_is_new_posn1": 1055,
+      "chainsaw_only_after_mutation": 1103,
+      "mut_posn1": 1055,
+      "flags_reread_blocks_force": 596,
+      "mult_nan": 143,
+      "force_nan_component": 1541,
+      "force_inf_component": 1499,
+      "slot_out_of_range": 441,
+      "inner_uproot_nan": 159,
+      "mult_inf": 71,
+      "damage_inf": 228
+    }
+  },
+  "saves_unchanged": true,
+  "configs_restored": true
+}

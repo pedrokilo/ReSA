@@ -8925,3 +8925,6 @@ CTaskSimpleCarForcePedOut,Destructor,0x00647790,1,0,1,S
 CTaskSimpleCarForcePedOut,Clone,0x00000000,1,0,1,V
 CTaskSimpleCarForcePedOut,MakeAbortable,0x00000000,1,0,1,V
 CTaskSimpleCarForcePedOut,ProcessPed,0x00000000,1,0,1,V
+CTaskSimpleFight,FightHitObj,0x0061D400,1,0,1,S
+CVehicle,ScanAndMarkTargetForHeatSeekingMissile,0x006E0400,1,0,1,S
+CVehicle,AddReplacementUpgrade,0x006D3830,1,0,1,S

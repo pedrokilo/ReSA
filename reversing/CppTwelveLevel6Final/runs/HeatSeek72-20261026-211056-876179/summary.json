@@ -1,0 +1,93 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "47f43c23ff72314a86bb5b377fb2c7abbc13c9adb2eda414128725784410c69f",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 16384,
+  "pairs_per_function": {
+    "CVehicle::ScanAndMarkTargetForHeatSeekingMissile": 16384
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "2030e4e1059dd38385bcd8c5dfae312ba66a35c9a3e12f6279da1f6a39bd4641",
+  "compare_dead_x87_registers": false,
+  "families": {
+    "CVehicle::ScanAndMarkTargetForHeatSeekingMissile": {
+      "0": 1024,
+      "1": 1024,
+      "2": 1024,
+      "3": 1024,
+      "4": 1024,
+      "5": 1024,
+      "6": 1024,
+      "7": 1024,
+      "8": 1024,
+      "9": 1024,
+      "10": 1024,
+      "11": 1024,
+      "12": 1024,
+      "13": 1024,
+      "14": 1024,
+      "15": 1024
+    }
+  },
+  "branch_coverage": {
+    "CVehicle::ScanAndMarkTargetForHeatSeekingMissile": {
+      "target_null": 2238,
+      "target_null_other": 1123,
+      "clear": 11667,
+      "status_nonplayer": 7502,
+      "ent_null": 4181,
+      "ret_null": 7884,
+      "target_null_plane": 1115,
+      "plane": 8622,
+      "plane_low_zero": 3388,
+      "ent_raw": 4041,
+      "target_entity": 12793,
+      "target_compact_pos": 6913,
+      "los_called": 10581,
+      "los_called_other": 5361,
+      "los_visible": 6091,
+      "los_hi_garbage": 10581,
+      "mark": 4717,
+      "mark_after_los": 3465,
+      "ent_target": 4092,
+      "ret_nonnull": 8500,
+      "los_blocked": 4490,
+      "los_flags_mutated": 6323,
+      "clear_hidden": 5646,
+      "time_edge_1000": 2544,
+      "sub_other_odd": 1492,
+      "los_skipped_target": 3565,
+      "los_skipped_other": 1278,
+      "clear_status": 3783,
+      "status_nonplayer_visible_target": 3783,
+      "plane_low_nonzero": 5234,
+      "los_skipped_plane_bit_set": 1131,
+      "mark_without_los": 1252,
+      "mark_plane": 2045,
+      "time_wrap": 942,
+      "los_skipped_plane_bit_clear": 1156,
+      "los_called_plane": 5220,
+      "los_called_slack_wrap": 127,
+      "los_visible_plane": 3030,
+      "los_time_le_1": 127,
+      "ent_other": 4070,
+      "target_self": 1353,
+      "los_time_gt_1": 5093,
+      "los_blocked_plane": 2190,
+      "los_mut_bit0": 3838,
+      "special_float": 4501
+    }
+  },
+  "saves_unchanged": true,
+  "configs_restored": true
+}

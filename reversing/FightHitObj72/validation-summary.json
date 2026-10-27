@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 1,
+  "functions": {
+    "CTaskSimpleFight::FightHitObj": 16384
+  },
+  "covered_functions": {
+    "CTaskSimpleFight::FightHitObj": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-1 (HEAD 95f7d73eb + TaskSimpleFight.cpp/.h y el bloque del lote 72 de X87Math.cpp/.h, source.patch). CTaskSimpleFight::FightHitObj 0x61D400 (thiscall, ret 0x18; golpe de un ped contra un objeto; sin valor de retorno: su unico llamador, FightStrike 0x6245AF, no lee EAX): puertas (efecto de danio < 0xC8, banderas fisicas, multiplicador < 99.9f), SetIsStatic virtual y AddToMovingList, ApplyForce con el factor -0.5f o -0.1f, ObjectDamage con danio * 10.0f, sonido de motosierra y de golpe y AddPunchImpact. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): CTaskSimpleFight::FightStrikeDamage 0x61C740, CPhysical::AddToMovingList 0x542800, CPhysical::ApplyForce 0x542B50, CObject::ObjectDamage 0x5A0D90 y Fx_c::AddPunchImpact 0x49F670 (con hook); CAEPedWeaponAudioEntity::AddAudioEvent 0x4E69F0 y CAEPedAudioEntity::AddAudioEvent 0x4E2BB0 sin hook (el ejecutor pasa --unhook=Audio; su cuerpo en la DLL salta al EXE y un unico falso en la direccion del EXE sirve a ambos lados); CEntity::SetIsStatic por la vtable falsa del objeto. Dominio: la superficie siempre cabe en un byte (el unico llamador pasa un uint8; CAEPedAudioEntity::AddAudioEvent recibe un eSurfaceType de 8 bits).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/FightHitObj72-20261026-210900-487110",
+  "summary_sha256": "06f81afa4cb817506c2f7d54c8afc76d3d8190090dcc04fcf02b3321996ae965",
+  "result_txt_sha256": "894799e192906b7fea888ab6a1d9cb20ff3bfc5d1aca8da09451126186d6feb9",
+  "log_sha256": "825af7da442b2d925c02cb88e44d73301b9f7879e229358468e9afbb81b729ec",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "fcc565b05170cbbee19cbe4ab9d5b26587b676416891f3663156c30aba0f3e50",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "0ee5c118fd435d4a37d663e0d2301acf62c917e9b17697d3f084bacfc036082d",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "818f88d555b68e6753c682f01a15c1052e7e9cc48b45555d96baa711a07efe27",
+      "source/game_sa/X87Math.cpp": "e64a4fedd3f0505870ccab04632506b2547b4dfaf9c350ff7a9069249ab23c78",
+      "source/game_sa/X87Math.h": "3b95baef142792b5925ec4d621ad38e84cfa8b700968290b371da5624c86cecd",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/FightHitObj72/LiveComparison.hpp": "9f3aa8c65a64aa09eeb57c8cbded367dd4c6235558d560074cdf3fe553c28324",
+      "reversing/FightHitObj72/Core.hpp": "626b3737bc860c829c50c3f0774c35b4d6fbb3d17a8a0512842e35652464a880",
+      "reversing/FightHitObj72/Fixtures.hpp": "583837e501a6984e1d83ad9c04255e07d8b735d9eee1037ee15a757ff0fea926",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

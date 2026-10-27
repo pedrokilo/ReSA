@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 26/10/2026 (Ciudad de México):** 820 grupos / 8926 funciones reconstruidas; 8926 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 26/10/2026 (Ciudad de México):** 820 grupos / 8929 funciones reconstruidas; 8929 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo A: Falta: llamada desde código ya reemplazado
@@ -46,8 +46,8 @@
 | `0x0059C050` | 33 | CCompressedMatrixNotAligned | baja | 37 (33) |  |
 | `0x004AB290` | 53 | FxSystem_c | baja | 47 (30) |  |
 | `0x0059BCF0` | 30 | CCompressedMatrixNotAligned | baja | 32 (30) |  |
+| `0x0074C790` | 62 | Win | baja | 30 (29) |  |
 | `0x0049EA50` | 4 | Fx_c | alta | 29 (29) |  |
-| `0x0074C790` | 62 | Win | baja | 30 (28) |  |
 | `0x0040FEF0` | 33 | CColSphere | alta | 29 (27) |  |
 | `0x0059AF40` | 57 | CMaths | baja | 29 (26) |  |
 | `0x00734E90` | 8 | RwHelper | baja | 26 (26) |  |
@@ -65,10 +65,10 @@
 | `0x004ADFD0` | 95 | CEventDamage | baja | 27 (21) |  |
 | `0x00420D40` | 79 | CCamera | baja | 28 (21) |  |
 | `0x006E2D60` | 36 | CVehicle | alta | 21 (21) |  |
+| `0x0074BF20` | 31 | Win | baja | 31 (21) |  |
 | `0x004AE070` | 94 | CEventDamage | baja | 52 (20) |  |
 | `0x00667E20` | 49 | CTaskSimpleGoToPoint | baja | 26 (20) |  |
 | `0x0059AE70` | 43 | CMaths | baja | 20 (20) |  |
-| `0x0074BF20` | 31 | Win | baja | 31 (20) |  |
 | `0x0059BE30` | 362 | CCompressedMatrixNotAligned | baja | 20 (19) |  |
 | `0x0059B120` | 180 | CMaths | baja | 20 (19) |  |
 | `0x00749DC0` | 127 | Win | baja | 26 (19) |  |
@@ -119,6 +119,7 @@
 | `0x005EB640` | 75 | CPedAttractor | baja | 10 (10) |  |
 | `0x005EB5F0` | 67 | CPedAttractor | baja | 10 (10) |  |
 | `0x0044E480` | 62 | CPathFind | alta | 12 (10) |  |
+| `0x0074A490` | 37 | Win | baja | 16 (10) |  |
 | `0x0059AF80` | 24 | CMaths | baja | 10 (10) |  |
 | `0x00407BE0` | 1 | CStreaming | alta | 10 (10) |  |
 | `0x00407BF0` | 1 | CStreaming | alta | 10 (10) |  |
@@ -128,7 +129,6 @@
 | `0x00749B20` | 65 | Win | baja | 9 (9) |  |
 | `0x005B3680` | 63 | CTimeInfo | baja | 9 (9) |  |
 | `0x004F56D0` | 44 | CAEVehicleAudioEntity | alta | 9 (9) |  |
-| `0x0074A490` | 37 | Win | baja | 16 (9) |  |
 | `0x0041B7C0` | 11 | CNodeRoutePool | baja | 11 (9) |  |
 | `0x004C6200` | 5 | CModelInfo | alta | 9 (9) |  |
 | `0x006682D0` | 661 | CTaskComplexGoToPointAndStandStill | alta | 8 (8) |  |
