@@ -1899,3 +1899,15 @@ float __cdecl FightHitObjDamageCpp(float damage);
 // 0x6D3946..0x6D3956: *out = *x * -2.0f (0x858B18 = 0xC0000000) con fld dword / fmul dword / fstp dword: la x87 a 24 bits con exponente extendido conserva los desnormales (el producto es exacto) que
 // un mulss con MXCSR FTZ (el estado del juego) vaciaria a cero; los NaN conservan su carga y el signo, y el cero con signo y el infinito cambian de signo.
 void __cdecl AddReplUpgradeExhaustXCpp(const float* x, float* out);
+
+// --- Lote 73 (FxWood73): Fx_c::AddWood (0x49EE10) ---
+// 0x49EEB1..0x49EEC7 (y gemelos): ((float)resto * 1e-4f) * escala + desplazamiento; fild/fmul/fmul/fadd/fstp dword a 24 bits con exponente extendido. resto = rand() % 10000 (con signo).
+float __cdecl Wood73ScaledCpp(int remainder, float scale, float offset);
+// 0x49EF4C..0x49EF6E: vel[i] = direction[i] * 4.0f, guardado como float (los desnormales se conservan).
+void __cdecl Wood73BaseVelCpp(const float* direction, float* vel);
+// 0x49EF72..0x49EF9D (y gemelos en vel.y / vel.z): *v = (((float)resto * 1e-4f) * 4.0f - 2.0f) + *v, solo con el guardado final como float.
+void __cdecl Wood73JitterCpp(int remainder, float* v);
+
+// --- Lote 73 (HeatFire73): CVehicle::FireHeatSeakingMissile (0x6E05C0) ---
+// 0x6E062D..0x6E0745: out = position + (ordnance (x negada si negateX) + velocidad-hacia-delante * direccion * paso) con el orden y los guardados como float del EXE (ver X87Math.cpp); a 24 bits con exponente extendido.
+void __cdecl HeatFire73SpawnCpp(const float* moveSpeed, const float* forward, const float* ordnance, bool negateX, const float* position, const float* timeStep, float* out);

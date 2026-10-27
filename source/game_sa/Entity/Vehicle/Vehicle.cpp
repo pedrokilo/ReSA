@@ -313,7 +313,7 @@ void CVehicle::InjectHooks() {
     // RH_ScopedInstall(UpdateTrailerLink, 0x6DFC50);
     // RH_ScopedInstall(UpdateTractorLink, 0x6E0050);
     RH_ScopedInstall(ScanAndMarkTargetForHeatSeekingMissile, 0x6E0400);
-    // RH_ScopedInstall(FireHeatSeakingMissile, 0x6E05C0);
+    RH_ScopedInstall(FireHeatSeakingMissile, 0x6E05C0);
     RH_ScopedInstall(PossiblyDropFreeFallBombForPlayer, 0x6E07E0);
     RH_ScopedInstall(ProcessSirenAndHorn, 0x6E0950);
     RH_ScopedInstall(DoHeadLightEffect, 0x6E0A50);
@@ -7471,7 +7471,41 @@ CEntity* CVehicle::ScanAndMarkTargetForHeatSeekingMissile(CEntity* entity) {
 
 // 0x6E05C0
 void CVehicle::FireHeatSeakingMissile(CEntity* targetEntity, eOrdnanceType type, bool arg2) {
-    ((void(__thiscall*)(CVehicle*, CEntity*, eOrdnanceType, bool))0x6E05C0)(this, targetEntity, type, arg2);
+    // Como el original (0x6E05C0..0x6E07CE): con arg2 respeta el intervalo del arma (GetPlaneOrdnanceRateOfFire, comparacion sin signo); lee la posicion (matriz + 0x30, o la del placeable si no hay matriz)
+    // ANTES de pedir la de la ordenanza; el lado de la ordenanza alterna con m_nOrdnanceCycleIndex (0 -> x sin negar y el indice pasa a 1; otro valor -> x negada y el indice pasa a 0); la direccion que pasa es matriz + 0x10
+    // sin comprobar nulo; el origen del misil (velocidad hacia delante recortada a 0 * direccion * paso, mas ordenanza y posicion) se calcula con la x87 del EXE (X87Math); arma 20 (cohorte buscador de calor),
+    // temblor del mando 0/1 si el conductor es el jugador y hora del disparo en 0x4FC (tipo 1) o 0x500 (resto).
+    const uint32 lastFiringTime = type == static_cast<eOrdnanceType>(1) ? m_nProjectileWeaponFiringTime : m_nAdditionalProjectileWeaponFiringTime;
+    if (arg2 && CTimer::GetTimeInMS() <= GetPlaneOrdnanceRateOfFire(type) + lastFiringTime) {
+        return;
+    }
+
+    const CVector position = GetPosition();
+    const CVector ordnance = GetPlaneOrdnancePosition(type);
+
+    const bool secondSide = m_nOrdnanceCycleIndex != 0;
+    m_nOrdnanceCycleIndex = secondSide ? 0 : 1;
+
+    // El EXE usa la matriz sin comprobar nulo (+0x10 direccion, +0x44.. velocidad): se lee por desplazamiento para no anadir comprobaciones
+    const auto* const direction = reinterpret_cast<const CVector*>(reinterpret_cast<uintptr_t>(m_matrix) + 0x10);
+    CVector spawn;
+    HeatFire73SpawnCpp(reinterpret_cast<const float*>(&m_vecMoveSpeed), reinterpret_cast<const float*>(direction), reinterpret_cast<const float*>(&ordnance), secondSide, reinterpret_cast<const float*>(&position), &CTimer::ms_fTimeStep, reinterpret_cast<float*>(&spawn));
+    // Como el original (0x6E06D5..0x6E0749): la direccion se copia a un local y se pasa su direccion
+    const CVector directionCopy = *direction;
+    CProjectileInfo::AddProjectile(this, static_cast<eWeaponType>(20), spawn, 0.0f, &directionCopy, targetEntity);
+
+    if (m_pDriver && m_pDriver->IsPlayer()) {
+        const auto pedType = m_pDriver->m_nPedType;
+        if (pedType == PED_TYPE_PLAYER1 || pedType == PED_TYPE_PLAYER2) {
+            CPad::GetPad(pedType)->StartShake(240, 160, 0);
+        }
+    }
+
+    if (type == static_cast<eOrdnanceType>(1)) {
+        m_nProjectileWeaponFiringTime = CTimer::GetTimeInMS();
+    } else {
+        m_nAdditionalProjectileWeaponFiringTime = CTimer::GetTimeInMS();
+    }
 }
 
 // 0x6E07E0

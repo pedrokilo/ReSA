@@ -26,6 +26,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "Fx.h"
+#include "X87Math.h"
 
 static auto& TempVertexBuffer = StaticRef<std::array<RxObjSpace3DVertex, 4>>(0xC4D958);
 
@@ -58,7 +59,7 @@ void Fx_c::InjectHooks() {
     // + RH_ScopedInstall(SetFxQuality, 0x49EA40);
     // + RH_ScopedInstall(GetFxQuality, 0x49EA50);
     // RH_ScopedInstall(AddBlood, 0x49EB00);
-    // RH_ScopedInstall(AddWood, 0x49EE10);
+    RH_ScopedInstall(AddWood, 0x49EE10);
     // RH_ScopedInstall(AddSparks, 0x49F040);
     RH_ScopedInstall(AddTyreBurst, 0x49F300);
     // RH_ScopedInstall(AddBulletImpact, 0x49F3D0);
@@ -294,7 +295,29 @@ void Fx_c::AddBlood(const CVector& pos, const CVector& direction, int32 amount, 
 
 // 0x49EE10
 void Fx_c::AddWood(const CVector& pos, const CVector& direction, int32 amount, float lightMult) {
-    ((void(__thiscall*)(Fx_c*, const CVector&, const CVector&, int32, float))0x49EE10)(this, pos, direction, amount, lightMult);
+    // Como el original (0x49EE10..0x49F032, `ret 10h`): `this` no se usa; las particulas van al sistema global g_fx.m_Blood ([0xA9AE00], recargado en cada vuelta).
+    // Fuera del rango de 625 (camara - pos) no hace nada; el multiplicador base es (0.5, 0.25, 0, 1, 0.3, 0, 1) (0x4AB290) y en cada vuelta se sortean rojo, verde, azul y tamano.
+    if (!IsFxWithinCameraRange(pos, 625.0f)) {
+        return;
+    }
+    FxPrtMult_c mult(0.5f, 0.25f, 0.0f, 1.0f, std::bit_cast<float>(0x3E99999Au), 0.0f, 1.0f);
+    if (amount <= 0) {
+        return;
+    }
+    // rand del CRT del EXE (0x821B1E: avanza la semilla del juego); el resto es con signo (cdq; idiv 10000).
+    const auto exeRand = reinterpret_cast<int32(__cdecl*)()>(0x821B1E);
+    CVector vel;
+    for (int32 i = amount; i > 0; --i) {
+        mult.m_Color.red   = Wood73ScaledCpp(exeRand() % 10000, std::bit_cast<float>(0x3DF5C290u), std::bit_cast<float>(0x3E051EB8u));
+        mult.m_Color.green = Wood73ScaledCpp(exeRand() % 10000, std::bit_cast<float>(0x3CF5C294u), std::bit_cast<float>(0x3DF5C28Fu));
+        mult.m_Color.blue  = Wood73ScaledCpp(exeRand() % 10000, std::bit_cast<float>(0x3CF5C290u), std::bit_cast<float>(0x3D23D70Au));
+        mult.m_fSize       = Wood73ScaledCpp(exeRand() % 10000, std::bit_cast<float>(0x3E99999Au), std::bit_cast<float>(0x3F333333u));
+        Wood73BaseVelCpp(&direction.x, &vel.x);
+        Wood73JitterCpp(exeRand() % 10000, &vel.x);
+        Wood73JitterCpp(exeRand() % 10000, &vel.y);
+        Wood73JitterCpp(exeRand() % 10000, &vel.z);
+        g_fx.m_Blood->AddParticle(pos, vel, 0.0f, mult, -1.0f, lightMult, 0.6f, false);
+    }
 }
 
 // 0x49F040

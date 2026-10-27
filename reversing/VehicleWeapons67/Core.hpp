@@ -18,7 +18,7 @@
 // Banco par a par de CVehicle::ProcessWeapons (0x6E3950). Original = bytes del EXE con el hook RH apagado; candidato = DLL con SOLO ese hook encendido.
 // Colaboradores sustituidos por falsos identicos en ambos lados (parche en la entrada del EXE y, si la DLL tiene hook, en el cuerpo de la DLL):
 //   FindPlayerVehicle (0x56E0D0), CWeaponEffects::ClearCrossHairImmediately (0x742CA0), GetPlaneWeaponFiringStatus (0x6E3440, sin hook en la DLL), SelectPlaneWeapon (0x6D4900),
-//   FirePlaneGuns (0x6D4D30), PossiblyDropFreeFallBombForPlayer (0x6E07E0), FireHeatSeakingMissile (0x6E05C0, sin hook en la DLL), FireUnguidedMissile (0x6D5110),
+//   FirePlaneGuns (0x6D4D30), PossiblyDropFreeFallBombForPlayer (0x6E07E0), FireHeatSeakingMissile (0x6E05C0, con hook en la DLL desde el lote 73: el mismo falso en su cuerpo), FireUnguidedMissile (0x6D5110),
 //   GetPlaneNumGuns (0x6D3F30) y FxSystem_c::SetMatrix (0x4AA630).
 // SelectPlaneWeapon del EXE NO toca EDX y ProcessWeapons lo aprovecha (`mov cl,dl` tras la llamada): su falso es un envoltorio desnudo (solo del banco) que conserva EDX.
 // Registros de salida: los dos llamadores del EXE (0x6C7917, 0x6C9348) no leen EAX/ECX/EDX (residue_scan.py): solo se registran.

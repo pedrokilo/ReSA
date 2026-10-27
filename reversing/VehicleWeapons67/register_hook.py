@@ -19,7 +19,7 @@ FUNCS = (
 SCOPE_NOTE = ('Validado en el worktree D:/Original/wy-1 (HEAD 1ca520153 + Vehicle.cpp/Vehicle.h del lote 67). Colaboradores sustituidos por falsos identicos en ambos lados (parche en la '
               'entrada del EXE y, si la DLL tiene hook, en el cuerpo de la DLL; no se validan sus cuerpos): FindPlayerVehicle (0x56E0D0), CWeaponEffects::ClearCrossHairImmediately (0x742CA0), '
               'GetPlaneWeaponFiringStatus (0x6E3440, sin hook: la DLL la llama por la direccion del EXE), SelectPlaneWeapon (0x6D4900; su falso conserva EDX como el original, del que ProcessWeapons '
-              'depende), FirePlaneGuns (0x6D4D30), PossiblyDropFreeFallBombForPlayer (0x6E07E0), FireHeatSeakingMissile (0x6E05C0, sin hook), FireUnguidedMissile (0x6D5110), GetPlaneNumGuns '
+              'depende), FirePlaneGuns (0x6D4D30), PossiblyDropFreeFallBombForPlayer (0x6E07E0), FireHeatSeakingMissile (0x6E05C0, con hook desde el lote 73: mismo falso en el cuerpo de la DLL; lo valida HeatFire73), FireUnguidedMissile (0x6D5110), GetPlaneNumGuns '
               '(0x6D3F30) y FxSystem_c::SetMatrix (0x4AA630). Vehiculo (incluidos los campos del avion y del helicoptero), clump con su marco, lista de fogonazos y entidades son FALSOS en una '
               'arena; el banco no escribe ninguna global del juego. Los dos llamadores del EXE (0x6C7917 CHeli, 0x6C9348 CPlane) no leen EAX/ECX/EDX. GetPlaneWeaponFiringStatus pasa a '
               'devolver CEntity* (el original deja el objetivo en EAX y ProcessWeapons lo usa).')

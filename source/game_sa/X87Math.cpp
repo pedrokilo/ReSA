@@ -15418,3 +15418,174 @@ __declspec(noinline) void __cdecl AddReplUpgradeExhaustXCpp(const float* x, floa
     *out = *x * std::bit_cast<float>(0xC0000000u);
 }
 #pragma float_control(pop)
+
+// --- Lote 73 (FxWood73): Fx_c::AddWood (0x49EE10), prefijo Wood73. Anadido al FINAL ---
+// La x87 a 24 bits de mantisa con exponente extendido conserva los desnormales que un float SSE con FTZ (el MXCSR del juego) vaciaria a cero; la direccion llega de fuera (cualquier patron de bits).
+#pragma float_control(precise, on, push)
+// 0x49EEB1..0x49EEC7 y gemelos: fild resto; fmul 1e-4f (0x858FC4 = 0x38D1B717); fmul escala; fadd desplazamiento; fstp dword (cada operacion a 24 bits).
+__declspec(noinline) float __cdecl Wood73ScaledCpp(int remainder, float scale, float offset) {
+    volatile float v = (static_cast<float>(remainder) * std::bit_cast<float>(0x38D1B717u)) * scale + offset;
+    return v;
+}
+// 0x49EF4C..0x49EF6E: vel = direccion * 4.0f (0x858B90), cada componente fld dword; fmul; fstp dword.
+__declspec(noinline) void __cdecl Wood73BaseVelCpp(const float* direction, float* vel) {
+    vel[0] = direction[0] * std::bit_cast<float>(0x40800000u);
+    vel[1] = direction[1] * std::bit_cast<float>(0x40800000u);
+    vel[2] = direction[2] * std::bit_cast<float>(0x40800000u);
+}
+// 0x49EF72..0x49EF9D (y gemelos en vel.y y vel.z): fild resto; fmul 1e-4f; fmul 4.0f; fsub 2.0f (0x858CA0); fadd dword [v]; fstp dword [v]; sin guardados intermedios.
+__declspec(noinline) void __cdecl Wood73JitterCpp(int remainder, float* v) {
+    *v = ((static_cast<float>(remainder) * std::bit_cast<float>(0x38D1B717u)) * std::bit_cast<float>(0x40800000u) - std::bit_cast<float>(0x40000000u)) + *v;
+}
+#pragma float_control(pop)
+
+// --- Lote 73 (HeatFire73): CVehicle::FireHeatSeakingMissile (0x6E05C0) ---
+#pragma float_control(precise, on, push)
+// 0x6E062D..0x6E0745: posicion de salida del misil. Pila x87 del EXE (24 bits, exponente extendido): ST = x de la ordenanza (fchs si negateX), dot = vel.z*dir.z + vel.y*dir.y + vel.x*dir.x (sin guardar),
+// fs = dot < 0 ? 0 : dot; P = fs*dir.x (sin guardar); ty = float(fs*dir.y); tz = float(fs*dir.z) (fstp dword); A = P*paso (sin guardar); B = ty*paso (sin guardar); Cz = float(tz*paso);
+// X = float(A + ordx); Y = ordy + B (sin guardar); Z = ordz + Cz (sin guardar); salida = float(pos.x + X), float(pos.y + Y), float(pos.z + Z). Las magnitudes sin guardar van en double: con la palabra de control
+// a 24 bits cada operacion se redondea a 24 bits y el exponente cabe en un double, asi que no cambia nada. Cada paso va en su propia variable volatile para que el compilador no reasocie ni reordene.
+// Los NaN no los resuelve el compilador (elige el orden de operandos): se siguen aparte con las reglas de la x87 (un solo NaN: ese NaN silenciado; un NaN de señal en memoria frente a un NaN en registro: el del registro;
+// dos de señal o dos silenciosos: el de mayor mantisa, y a igualdad el de signo positivo (o el destino); ninguno: el indefinido 0xFFC00000).
+namespace {
+// Prueba de NaN por bits (no por comparacion: /fp:fast podria darla por falsa)
+bool HeatFire73NanF(const volatile float* v) {
+    const uint32_t b = *reinterpret_cast<const volatile uint32_t*>(v);
+    return (b & 0x7F800000u) == 0x7F800000u && (b & 0x7FFFFFu) != 0;
+}
+bool HeatFire73NanD(const volatile double* v) {
+    const uint64_t b = *reinterpret_cast<const volatile uint64_t*>(v);
+    return (b & 0x7FF0000000000000ull) == 0x7FF0000000000000ull && (b & 0xFFFFFFFFFFFFFull) != 0;
+}
+struct HeatFire73Nan {
+    bool nan{};
+    bool snan{};
+    uint32_t bits{};
+};
+HeatFire73Nan HeatFire73Raw(uint32_t bits, bool quiet) {
+    HeatFire73Nan v;
+    if ((bits & 0x7F800000u) == 0x7F800000u && (bits & 0x7FFFFFu) != 0) {
+        v.nan = true;
+        v.snan = !quiet && (bits & 0x400000u) == 0;
+        v.bits = quiet ? (bits | 0x400000u) : bits;
+    }
+    return v;
+}
+HeatFire73Nan HeatFire73Quieted(HeatFire73Nan v) {
+    v.snan = false;
+    v.bits |= 0x400000u;
+    return v;
+}
+// dest = operando destino (registro); src = operando fuente; hw = resultado numerico del equipo (NaN si la operacion lo produce)
+HeatFire73Nan HeatFire73Op(bool hwNan, HeatFire73Nan dest, HeatFire73Nan src) {
+    if (!hwNan) {
+        return {};
+    }
+    if (dest.nan && src.nan) {
+        if (dest.snan != src.snan) {
+            return dest.snan ? src : dest;
+        }
+        const uint32_t dm = dest.bits & 0x7FFFFFu, sm = src.bits & 0x7FFFFFu;
+        if (sm == dm) {
+            return HeatFire73Quieted((dest.bits & 0x80000000u) != 0 && (src.bits & 0x80000000u) == 0 ? src : dest);   // misma mantisa: el de signo positivo
+        }
+        return HeatFire73Quieted(sm > dm ? src : dest);
+    }
+    if (dest.nan) {
+        return HeatFire73Quieted(dest);
+    }
+    if (src.nan) {
+        return HeatFire73Quieted(src);
+    }
+    return HeatFire73Quieted(HeatFire73Nan{true, false, 0xFFC00000u});
+}
+}
+
+__declspec(noinline) void __cdecl HeatFire73SpawnCpp(const float* moveSpeedIn, const float* forwardIn, const float* ordnanceIn, bool negateX, const float* positionIn, const float* timeStepIn, float* out) {
+    const volatile float* const moveSpeed = moveSpeedIn;
+    const volatile float* const forward = forwardIn;
+    const volatile float* const ordnance = ordnanceIn;
+    const volatile float* const position = positionIn;
+    const volatile float* const timeStepMem = timeStepIn;
+    volatile double prodZ = (double)moveSpeed[2];
+    prodZ = prodZ * forward[2];
+    volatile double prodY = (double)moveSpeed[1];
+    prodY = prodY * forward[1];
+    volatile double prodX = (double)moveSpeed[0];
+    prodX = prodX * forward[0];
+    volatile double sumZY = (double)prodZ + (double)prodY;
+    volatile double dot = (double)sumZY + (double)prodX;
+    volatile double forwardSpeed = (double)dot < 0.0 ? 0.0 : (double)dot;
+    volatile double ordX = (double)ordnance[0];
+    if (negateX) {
+        ordX = -(double)ordX;
+    }
+    volatile double product = (double)forwardSpeed;
+    product = product * forward[0];
+    volatile float scaledY = (float)((double)forwardSpeed * forward[1]);
+    volatile float scaledZ = (float)((double)forwardSpeed * forward[2]);
+    volatile double stepX = (double)product;
+    stepX = stepX * *timeStepMem;
+    volatile double stepY = (double)scaledY;
+    stepY = stepY * *timeStepMem;
+    volatile double stepZd = (double)scaledZ;
+    stepZd = stepZd * *timeStepMem;
+    volatile float stepZ = (float)(double)stepZd;
+    volatile float offsetX = (float)((double)stepX + (double)ordX);
+    volatile double offsetY = (double)ordnance[1];
+    offsetY = offsetY + (double)stepY;
+    volatile double offsetZ = (double)ordnance[2];
+    offsetZ = offsetZ + (double)stepZ;
+    out[0] = (float)((double)position[0] + (double)offsetX);
+    out[1] = (float)((double)position[1] + (double)offsetY);
+    out[2] = (float)((double)position[2] + (double)offsetZ);
+
+    // NaN: solo si alguna salida lo es se recalcula su carga con las reglas de la x87 (los bits se leen como enteros: una copia por x87 silenciaria los NaN de señal)
+    const uint32_t* const outBits = reinterpret_cast<const uint32_t*>(out);
+    if (!(HeatFire73NanF(&out[0]) || HeatFire73NanF(&out[1]) || HeatFire73NanF(&out[2]))) {
+        return;
+    }
+    const uint32_t* const ms = reinterpret_cast<const uint32_t*>(moveSpeedIn);
+    const uint32_t* const fw = reinterpret_cast<const uint32_t*>(forwardIn);
+    const uint32_t* const od = reinterpret_cast<const uint32_t*>(ordnanceIn);
+    const uint32_t* const ps = reinterpret_cast<const uint32_t*>(positionIn);
+    const uint32_t tsBits = *reinterpret_cast<const uint32_t*>(timeStepIn);
+    const bool hwZ1 = HeatFire73NanD(&prodZ), hwY1 = HeatFire73NanD(&prodY), hwX1 = HeatFire73NanD(&prodX);
+    const auto z1 = HeatFire73Op(hwZ1, HeatFire73Raw(ms[2], true), HeatFire73Raw(fw[2], false));
+    const auto y1 = HeatFire73Op(hwY1, HeatFire73Raw(ms[1], true), HeatFire73Raw(fw[1], false));
+    const auto x1 = HeatFire73Op(hwX1, HeatFire73Raw(ms[0], true), HeatFire73Raw(fw[0], false));
+    const auto s1 = HeatFire73Op(HeatFire73NanD(&sumZY), z1, y1);
+    const auto dotN = HeatFire73Op(HeatFire73NanD(&dot), s1, x1);
+    const auto fs = dotN;   // con dot < 0 el valor es 0.0 (numero); con NaN se recalcula igual
+    const bool fsNan = HeatFire73NanD(&forwardSpeed);
+    const auto fsV = fsNan ? fs : HeatFire73Nan{};
+    const auto pN = HeatFire73Op(HeatFire73NanD(&product), fsV, HeatFire73Raw(fw[0], false));
+    const auto tyN = HeatFire73Op(HeatFire73NanF(&scaledY), fsV, HeatFire73Raw(fw[1], false));
+    const auto tzN = HeatFire73Op(HeatFire73NanF(&scaledZ), fsV, HeatFire73Raw(fw[2], false));
+    const auto ts = HeatFire73Raw(tsBits, false);
+    const auto aN = HeatFire73Op(HeatFire73NanD(&stepX), pN, ts);
+    const auto bN = HeatFire73Op(HeatFire73NanD(&stepY), tyN, ts);
+    const auto czN = HeatFire73Op(HeatFire73NanF(&stepZ), tzN, ts);
+    HeatFire73Nan ordx = HeatFire73Raw(od[0], true);
+    if (negateX && ordx.nan) {
+        ordx.bits ^= 0x80000000u;
+    }
+    const auto xN = HeatFire73Op(HeatFire73NanF(&offsetX), aN, ordx);
+    const auto yN = HeatFire73Op(HeatFire73NanD(&offsetY), HeatFire73Raw(od[1], true), bN);
+    const auto zN = HeatFire73Op(HeatFire73NanD(&offsetZ), HeatFire73Raw(od[2], true), czN);
+    const auto ox = HeatFire73Op(HeatFire73NanF(&out[0]), HeatFire73Raw(ps[0], true), xN);
+    const auto oy = HeatFire73Op(HeatFire73NanF(&out[1]), HeatFire73Raw(ps[1], true), yN);
+    const auto oz = HeatFire73Op(HeatFire73NanF(&out[2]), HeatFire73Raw(ps[2], true), zN);
+    uint32_t* const o = reinterpret_cast<uint32_t*>(out);
+    if (ox.nan) {
+        o[0] = ox.bits;
+    }
+    if (oy.nan) {
+        o[1] = oy.bits;
+    }
+    if (oz.nan) {
+        o[2] = oz.bits;
+    }
+    (void)outBits;
+}
+#pragma float_control(pop)

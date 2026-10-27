@@ -1,0 +1,227 @@
+diff --git a/source/game_sa/Entity/Vehicle/Vehicle.cpp b/source/game_sa/Entity/Vehicle/Vehicle.cpp
+index eeed1075f..e5b90eabe 100644
+--- a/source/game_sa/Entity/Vehicle/Vehicle.cpp
++++ b/source/game_sa/Entity/Vehicle/Vehicle.cpp
+@@ -313,7 +313,7 @@ void CVehicle::InjectHooks() {
+     // RH_ScopedInstall(UpdateTrailerLink, 0x6DFC50);
+     // RH_ScopedInstall(UpdateTractorLink, 0x6E0050);
+     RH_ScopedInstall(ScanAndMarkTargetForHeatSeekingMissile, 0x6E0400);
+-    // RH_ScopedInstall(FireHeatSeakingMissile, 0x6E05C0);
++    RH_ScopedInstall(FireHeatSeakingMissile, 0x6E05C0);
+     RH_ScopedInstall(PossiblyDropFreeFallBombForPlayer, 0x6E07E0);
+     RH_ScopedInstall(ProcessSirenAndHorn, 0x6E0950);
+     RH_ScopedInstall(DoHeadLightEffect, 0x6E0A50);
+@@ -7471,7 +7471,41 @@ CEntity* CVehicle::ScanAndMarkTargetForHeatSeekingMissile(CEntity* entity) {
+ 
+ // 0x6E05C0
+ void CVehicle::FireHeatSeakingMissile(CEntity* targetEntity, eOrdnanceType type, bool arg2) {
+-    ((void(__thiscall*)(CVehicle*, CEntity*, eOrdnanceType, bool))0x6E05C0)(this, targetEntity, type, arg2);
++    // Como el original (0x6E05C0..0x6E07CE): con arg2 respeta el intervalo del arma (GetPlaneOrdnanceRateOfFire, comparacion sin signo); lee la posicion (matriz + 0x30, o la del placeable si no hay matriz)
++    // ANTES de pedir la de la ordenanza; el lado de la ordenanza alterna con m_nOrdnanceCycleIndex (0 -> x sin negar y el indice pasa a 1; otro valor -> x negada y el indice pasa a 0); la direccion que pasa es matriz + 0x10
++    // sin comprobar nulo; el origen del misil (velocidad hacia delante recortada a 0 * direccion * paso, mas ordenanza y posicion) se calcula con la x87 del EXE (X87Math); arma 20 (cohorte buscador de calor),
++    // temblor del mando 0/1 si el conductor es el jugador y hora del disparo en 0x4FC (tipo 1) o 0x500 (resto).
++    const uint32 lastFiringTime = type == static_cast<eOrdnanceType>(1) ? m_nProjectileWeaponFiringTime : m_nAdditionalProjectileWeaponFiringTime;
++    if (arg2 && CTimer::GetTimeInMS() <= GetPlaneOrdnanceRateOfFire(type) + lastFiringTime) {
++        return;
++    }
++
++    const CVector position = GetPosition();
++    const CVector ordnance = GetPlaneOrdnancePosition(type);
++
++    const bool secondSide = m_nOrdnanceCycleIndex != 0;
++    m_nOrdnanceCycleIndex = secondSide ? 0 : 1;
++
++    // El EXE usa la matriz sin comprobar nulo (+0x10 direccion, +0x44.. velocidad): se lee por desplazamiento para no anadir comprobaciones
++    const auto* const direction = reinterpret_cast<const CVector*>(reinterpret_cast<uintptr_t>(m_matrix) + 0x10);
++    CVector spawn;
++    HeatFire73SpawnCpp(reinterpret_cast<const float*>(&m_vecMoveSpeed), reinterpret_cast<const float*>(direction), reinterpret_cast<const float*>(&ordnance), secondSide, reinterpret_cast<const float*>(&position), &CTimer::ms_fTimeStep, reinterpret_cast<float*>(&spawn));
++    // Como el original (0x6E06D5..0x6E0749): la direccion se copia a un local y se pasa su direccion
++    const CVector directionCopy = *direction;
++    CProjectileInfo::AddProjectile(this, static_cast<eWeaponType>(20), spawn, 0.0f, &directionCopy, targetEntity);
++
++    if (m_pDriver && m_pDriver->IsPlayer()) {
++        const auto pedType = m_pDriver->m_nPedType;
++        if (pedType == PED_TYPE_PLAYER1 || pedType == PED_TYPE_PLAYER2) {
++            CPad::GetPad(pedType)->StartShake(240, 160, 0);
++        }
++    }
++
++    if (type == static_cast<eOrdnanceType>(1)) {
++        m_nProjectileWeaponFiringTime = CTimer::GetTimeInMS();
++    } else {
++        m_nAdditionalProjectileWeaponFiringTime = CTimer::GetTimeInMS();
++    }
+ }
+ 
+ // 0x6E07E0
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 094bdfd7f..0995e78e5 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -15418,3 +15418,154 @@ __declspec(noinline) void __cdecl AddReplUpgradeExhaustXCpp(const float* x, floa
+     *out = *x * std::bit_cast<float>(0xC0000000u);
+ }
+ #pragma float_control(pop)
++
++// --- Lote 73 (HeatFire73): CVehicle::FireHeatSeakingMissile (0x6E05C0) ---
++#pragma float_control(precise, on, push)
++// 0x6E062D..0x6E0745: posicion de salida del misil. Pila x87 del EXE (24 bits, exponente extendido): ST = x de la ordenanza (fchs si negateX), dot = vel.z*dir.z + vel.y*dir.y + vel.x*dir.x (sin guardar),
++// fs = dot < 0 ? 0 : dot; P = fs*dir.x (sin guardar); ty = float(fs*dir.y); tz = float(fs*dir.z) (fstp dword); A = P*paso (sin guardar); B = ty*paso (sin guardar); Cz = float(tz*paso);
++// X = float(A + ordx); Y = ordy + B (sin guardar); Z = ordz + Cz (sin guardar); salida = float(pos.x + X), float(pos.y + Y), float(pos.z + Z). Las magnitudes sin guardar van en double: con la palabra de control
++// a 24 bits cada operacion se redondea a 24 bits y el exponente cabe en un double, asi que no cambia nada. Cada paso va en su propia variable volatile para que el compilador no reasocie ni reordene.
++// Los NaN no los resuelve el compilador (elige el orden de operandos): se siguen aparte con las reglas de la x87 (un solo NaN: ese NaN silenciado; un NaN de señal en memoria frente a un NaN en registro: el del registro;
++// dos de señal o dos silenciosos: el de mayor mantisa, y a igualdad el de signo positivo (o el destino); ninguno: el indefinido 0xFFC00000).
++namespace {
++// Prueba de NaN por bits (no por comparacion: /fp:fast podria darla por falsa)
++bool HeatFire73NanF(const volatile float* v) {
++    const uint32_t b = *reinterpret_cast<const volatile uint32_t*>(v);
++    return (b & 0x7F800000u) == 0x7F800000u && (b & 0x7FFFFFu) != 0;
++}
++bool HeatFire73NanD(const volatile double* v) {
++    const uint64_t b = *reinterpret_cast<const volatile uint64_t*>(v);
++    return (b & 0x7FF0000000000000ull) == 0x7FF0000000000000ull && (b & 0xFFFFFFFFFFFFFull) != 0;
++}
++struct HeatFire73Nan {
++    bool nan{};
++    bool snan{};
++    uint32_t bits{};
++};
++HeatFire73Nan HeatFire73Raw(uint32_t bits, bool quiet) {
++    HeatFire73Nan v;
++    if ((bits & 0x7F800000u) == 0x7F800000u && (bits & 0x7FFFFFu) != 0) {
++        v.nan = true;
++        v.snan = !quiet && (bits & 0x400000u) == 0;
++        v.bits = quiet ? (bits | 0x400000u) : bits;
++    }
++    return v;
++}
++HeatFire73Nan HeatFire73Quieted(HeatFire73Nan v) {
++    v.snan = false;
++    v.bits |= 0x400000u;
++    return v;
++}
++// dest = operando destino (registro); src = operando fuente; hw = resultado numerico del equipo (NaN si la operacion lo produce)
++HeatFire73Nan HeatFire73Op(bool hwNan, HeatFire73Nan dest, HeatFire73Nan src) {
++    if (!hwNan) {
++        return {};
++    }
++    if (dest.nan && src.nan) {
++        if (dest.snan != src.snan) {
++            return dest.snan ? src : dest;
++        }
++        const uint32_t dm = dest.bits & 0x7FFFFFu, sm = src.bits & 0x7FFFFFu;
++        if (sm == dm) {
++            return HeatFire73Quieted((dest.bits & 0x80000000u) != 0 && (src.bits & 0x80000000u) == 0 ? src : dest);   // misma mantisa: el de signo positivo
++        }
++        return HeatFire73Quieted(sm > dm ? src : dest);
++    }
++    if (dest.nan) {
++        return HeatFire73Quieted(dest);
++    }
++    if (src.nan) {
++        return HeatFire73Quieted(src);
++    }
++    return HeatFire73Quieted(HeatFire73Nan{true, false, 0xFFC00000u});
++}
++}
++
++__declspec(noinline) void __cdecl HeatFire73SpawnCpp(const float* moveSpeedIn, const float* forwardIn, const float* ordnanceIn, bool negateX, const float* positionIn, const float* timeStepIn, float* out) {
++    const volatile float* const moveSpeed = moveSpeedIn;
++    const volatile float* const forward = forwardIn;
++    const volatile float* const ordnance = ordnanceIn;
++    const volatile float* const position = positionIn;
++    const volatile float* const timeStepMem = timeStepIn;
++    volatile double prodZ = (double)moveSpeed[2];
++    prodZ = prodZ * forward[2];
++    volatile double prodY = (double)moveSpeed[1];
++    prodY = prodY * forward[1];
++    volatile double prodX = (double)moveSpeed[0];
++    prodX = prodX * forward[0];
++    volatile double sumZY = (double)prodZ + (double)prodY;
++    volatile double dot = (double)sumZY + (double)prodX;
++    volatile double forwardSpeed = (double)dot < 0.0 ? 0.0 : (double)dot;
++    volatile double ordX = (double)ordnance[0];
++    if (negateX) {
++        ordX = -(double)ordX;
++    }
++    volatile double product = (double)forwardSpeed;
++    product = product * forward[0];
++    volatile float scaledY = (float)((double)forwardSpeed * forward[1]);
++    volatile float scaledZ = (float)((double)forwardSpeed * forward[2]);
++    volatile double stepX = (double)product;
++    stepX = stepX * *timeStepMem;
++    volatile double stepY = (double)scaledY;
++    stepY = stepY * *timeStepMem;
++    volatile double stepZd = (double)scaledZ;
++    stepZd = stepZd * *timeStepMem;
++    volatile float stepZ = (float)(double)stepZd;
++    volatile float offsetX = (float)((double)stepX + (double)ordX);
++    volatile double offsetY = (double)ordnance[1];
++    offsetY = offsetY + (double)stepY;
++    volatile double offsetZ = (double)ordnance[2];
++    offsetZ = offsetZ + (double)stepZ;
++    out[0] = (float)((double)position[0] + (double)offsetX);
++    out[1] = (float)((double)position[1] + (double)offsetY);
++    out[2] = (float)((double)position[2] + (double)offsetZ);
++
++    // NaN: solo si alguna salida lo es se recalcula su carga con las reglas de la x87 (los bits se leen como enteros: una copia por x87 silenciaria los NaN de señal)
++    const uint32_t* const outBits = reinterpret_cast<const uint32_t*>(out);
++    if (!(HeatFire73NanF(&out[0]) || HeatFire73NanF(&out[1]) || HeatFire73NanF(&out[2]))) {
++        return;
++    }
++    const uint32_t* const ms = reinterpret_cast<const uint32_t*>(moveSpeedIn);
++    const uint32_t* const fw = reinterpret_cast<const uint32_t*>(forwardIn);
++    const uint32_t* const od = reinterpret_cast<const uint32_t*>(ordnanceIn);
++    const uint32_t* const ps = reinterpret_cast<const uint32_t*>(positionIn);
++    const uint32_t tsBits = *reinterpret_cast<const uint32_t*>(timeStepIn);
++    const bool hwZ1 = HeatFire73NanD(&prodZ), hwY1 = HeatFire73NanD(&prodY), hwX1 = HeatFire73NanD(&prodX);
++    const auto z1 = HeatFire73Op(hwZ1, HeatFire73Raw(ms[2], true), HeatFire73Raw(fw[2], false));
++    const auto y1 = HeatFire73Op(hwY1, HeatFire73Raw(ms[1], true), HeatFire73Raw(fw[1], false));
++    const auto x1 = HeatFire73Op(hwX1, HeatFire73Raw(ms[0], true), HeatFire73Raw(fw[0], false));
++    const auto s1 = HeatFire73Op(HeatFire73NanD(&sumZY), z1, y1);
++    const auto dotN = HeatFire73Op(HeatFire73NanD(&dot), s1, x1);
++    const auto fs = dotN;   // con dot < 0 el valor es 0.0 (numero); con NaN se recalcula igual
++    const bool fsNan = HeatFire73NanD(&forwardSpeed);
++    const auto fsV = fsNan ? fs : HeatFire73Nan{};
++    const auto pN = HeatFire73Op(HeatFire73NanD(&product), fsV, HeatFire73Raw(fw[0], false));
++    const auto tyN = HeatFire73Op(HeatFire73NanF(&scaledY), fsV, HeatFire73Raw(fw[1], false));
++    const auto tzN = HeatFire73Op(HeatFire73NanF(&scaledZ), fsV, HeatFire73Raw(fw[2], false));
++    const auto ts = HeatFire73Raw(tsBits, false);
++    const auto aN = HeatFire73Op(HeatFire73NanD(&stepX), pN, ts);
++    const auto bN = HeatFire73Op(HeatFire73NanD(&stepY), tyN, ts);
++    const auto czN = HeatFire73Op(HeatFire73NanF(&stepZ), tzN, ts);
++    HeatFire73Nan ordx = HeatFire73Raw(od[0], true);
++    if (negateX && ordx.nan) {
++        ordx.bits ^= 0x80000000u;
++    }
++    const auto xN = HeatFire73Op(HeatFire73NanF(&offsetX), aN, ordx);
++    const auto yN = HeatFire73Op(HeatFire73NanD(&offsetY), HeatFire73Raw(od[1], true), bN);
++    const auto zN = HeatFire73Op(HeatFire73NanD(&offsetZ), HeatFire73Raw(od[2], true), czN);
++    const auto ox = HeatFire73Op(HeatFire73NanF(&out[0]), HeatFire73Raw(ps[0], true), xN);
++    const auto oy = HeatFire73Op(HeatFire73NanF(&out[1]), HeatFire73Raw(ps[1], true), yN);
++    const auto oz = HeatFire73Op(HeatFire73NanF(&out[2]), HeatFire73Raw(ps[2], true), zN);
++    uint32_t* const o = reinterpret_cast<uint32_t*>(out);
++    if (ox.nan) {
++        o[0] = ox.bits;
++    }
++    if (oy.nan) {
++        o[1] = oy.bits;
++    }
++    if (oz.nan) {
++        o[2] = oz.bits;
++    }
++    (void)outBits;
++}
++#pragma float_control(pop)
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index 66cfb3899..7a8b5e03f 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1899,3 +1899,7 @@ float __cdecl FightHitObjDamageCpp(float damage);
+ // 0x6D3946..0x6D3956: *out = *x * -2.0f (0x858B18 = 0xC0000000) con fld dword / fmul dword / fstp dword: la x87 a 24 bits con exponente extendido conserva los desnormales (el producto es exacto) que
+ // un mulss con MXCSR FTZ (el estado del juego) vaciaria a cero; los NaN conservan su carga y el signo, y el cero con signo y el infinito cambian de signo.
+ void __cdecl AddReplUpgradeExhaustXCpp(const float* x, float* out);
++
++// --- Lote 73 (HeatFire73): CVehicle::FireHeatSeakingMissile (0x6E05C0) ---
++// 0x6E062D..0x6E0745: out = position + (ordnance (x negada si negateX) + velocidad-hacia-delante * direccion * paso) con el orden y los guardados como float del EXE (ver X87Math.cpp); a 24 bits con exponente extendido.
++void __cdecl HeatFire73SpawnCpp(const float* moveSpeed, const float* forward, const float* ordnance, bool negateX, const float* position, const float* timeStep, float* out);

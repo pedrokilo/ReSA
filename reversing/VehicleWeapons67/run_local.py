@@ -24,9 +24,9 @@ HOOKS = {NAME: 0x6E3950}
 # colaboradores sustituidos, EN ORDEN (direccion del EXE; hooked=False: su hook queda apagado durante el banco)
 _FINDVEH, _CLEAR, _FIRING, _SELECT, _GUNS, _BOMB, _HEAT, _UNGUIDED, _NUMGUNS, _SETMATRIX = 0x56E0D0, 0x742CA0, 0x6E3440, 0x6D4900, 0x6D4D30, 0x6E07E0, 0x6E05C0, 0x6D5110, 0x6D3F30, 0x4AA630
 STUBBED = {NAME: [_FINDVEH, _CLEAR, _FIRING, _SELECT, _GUNS, _BOMB, _HEAT, _UNGUIDED, _NUMGUNS, _SETMATRIX]}
-# colaboradores con hook RH en la DLL (su cuerpo en el ASI debe estar parcheado: dll=true); GetPlaneWeaponFiringStatus (0x6E3440) y FireHeatSeakingMissile (0x6E05C0) no lo tienen:
-# la DLL los llama por la direccion del EXE (dll=false).
-DLL_HOOKED = {_FINDVEH, _CLEAR, _SELECT, _GUNS, _BOMB, _UNGUIDED, _NUMGUNS, _SETMATRIX}
+# colaboradores con hook RH en la DLL (su cuerpo en el ASI debe estar parcheado: dll=true); GetPlaneWeaponFiringStatus (0x6E3440) no lo tiene: la DLL lo llama por la direccion del EXE (dll=false).
+# FireHeatSeakingMissile (0x6E05C0) tiene hook desde el lote 73 (banco HeatFire73): su cuerpo en la DLL lleva el mismo falso que la entrada del EXE.
+DLL_HOOKED = {_FINDVEH, _CLEAR, _SELECT, _GUNS, _BOMB, _HEAT, _UNGUIDED, _NUMGUNS, _SETMATRIX}
 WATCHED = set(STUBBED[NAME])
 DLL_REAL = []
 
