@@ -34,7 +34,7 @@ STUBBED = {oracle.NAME_REMOVE: [_CLEAR, _FIND, _RREPL, _FORALL],
            oracle.NAME_SIREN: [_SIREN, _HORN]}
 # colaboradores con hook RH en la DLL (su cuerpo en el ASI debe estar parcheado: dll=true); los demas los llama la DLL por la direccion del EXE (dll=false).
 # AddUpgrade (0x6DFA20) es una de las funciones probadas: su cuerpo es el de su ruta.
-DLL_HOOKED = {_CLEAR, _FIND, _RREPL, _FRAME, _CREATE, _PLATE, _SETF, _GREPL, _GETUP, _ADDUP, _RATE, _ORD, _PROJ, _SHAKE, _SIREN, _HORN}
+DLL_HOOKED = {_CLEAR, _FIND, _RREPL, _FRAME, _CREATE, _PLATE, _SETF, _GREPL, _AREPL, _GETUP, _ADDUP, _RATE, _ORD, _PROJ, _SHAKE, _SIREN, _HORN}
 WATCHED = {a for lst in STUBBED.values() for a in lst}
 DLL_REAL = ['CPed::IsPlayer 0x5DF8F0', 'CPad::GetPad 0x53FB70']
 

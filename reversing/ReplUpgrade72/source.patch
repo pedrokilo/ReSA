@@ -1,0 +1,61 @@
+diff --git a/source/game_sa/Entity/Vehicle/Vehicle.cpp b/source/game_sa/Entity/Vehicle/Vehicle.cpp
+index 0c32823f0..f7fcd0f29 100644
+--- a/source/game_sa/Entity/Vehicle/Vehicle.cpp
++++ b/source/game_sa/Entity/Vehicle/Vehicle.cpp
+@@ -264,7 +264,7 @@ void CVehicle::InjectHooks() {
+     RH_ScopedInstall(RemoveUpgrade, 0x6D3630);
+     RH_ScopedInstall(GetUpgrade, 0x6D3650);
+     RH_ScopedInstall(CreateReplacementAtomic, 0x6D3700);
+-    // RH_ScopedInstall(AddReplacementUpgrade, 0x6D3830);
++    RH_ScopedInstall(AddReplacementUpgrade, 0x6D3830);
+     RH_ScopedInstall(RemoveReplacementUpgrade, 0x6D39E0);
+     RH_ScopedInstall(GetReplacementUpgrade, 0x6D3A50);
+     RH_ScopedInstall(RemoveAllUpgrades, 0x6D3AB0);
+@@ -2777,9 +2777,45 @@ RpAtomic* CVehicle::CreateReplacementAtomic(CBaseModelInfo* mi, RwFrame* parentF
+ 
+ // 0x6D3830
+ void CVehicle::AddReplacementUpgrade(int32 modelIndex, int32 nodeId) {
+-    // NOTE: 0x6D38D5 - 0x6D390B => `SetupUpgradeAtomicRendering`
++    // Como el original (0x6D3830, thiscall, ret 8, sin valor de retorno): primero se vacia el marco del componente (RemoveObjectsCB deja en 'flags' el
++    // identificador del ultimo atomo quitado), despues se crea el atomo de la mejora a partir del model info, se cuelga del marco y se configura su render.
++    auto* const frame = CClumpModelInfo::GetFrameFromId(GetRpClump(), nodeId);
++    int32 flags = 0;
++    RwFrameForAllObjects(frame, static_cast<RwObjectCallBack>(RemoveObjectsCB), &flags);
++    RwFrameForAllChildren(frame, static_cast<RwFrameCallBack>(RemoveObjectsCB), &flags);
++
++    auto* const mi = CModelInfo::ms_modelInfoPtrs[modelIndex];
++    auto* const atomic = reinterpret_cast<RpAtomic*>(mi->CreateInstance());
++    mi->AddRef();
++    auto* const oldFrame = RpAtomicGetFrame(atomic);
++    RpClumpAddAtomic(GetRpClump(), atomic);
++    RpAtomicSetFrame(atomic, frame);
++    RwFrameDestroy(oldFrame);
++    CVisibilityPlugins::SetAtomicId(atomic, flags & ~ATOMIC_MASK);
++    CVisibilityPlugins::SetAtomicFlag(atomic, ATOMIC_OK);
++    SetupUpgradeAtomicRendering(atomic, false); // 0x6D38D5 - 0x6D390B
++    CDamageAtomicModelInfo::ms_bCreateDamagedVersion = false;
++
++    if (nodeId == 0x13) {
++        if (m_pHandlingData->m_bDoubleExhaust) {
++            // Como el original: el marco del atomo nuevo recibe x = -2 * x del marco del componente (0x858B18 = -2.0f, leido tras la llamada)
++            auto* const replacement = CreateReplacementAtomic(mi, frame, static_cast<eAtomicComponentFlag>(flags), false, true);
++            auto* const matrix = RwFrameGetMatrix(RpAtomicGetFrame(replacement));
++            matrix->pos.x = RwFrameGetMatrix(frame)->pos.x * -2.0f;
++            RwMatrixUpdate(matrix);
++        }
++    } else if (nodeId == 0xC || nodeId == 0xD) {
++        auto* const info = static_cast<CVehicleModelInfo*>(CModelInfo::ms_modelInfoPtrs[static_cast<int16>(m_nModelIndex)]);
++        CCustomCarPlateMgr::SetupClumpAfterVehicleUpgrade(GetRpClump(), info->m_pPlateMaterial, info->m_nPlateType);
++    }
+ 
+-    ((void(__thiscall*)(CVehicle*, int32, int32))0x6D3830)(this, modelIndex, nodeId);
++    if (mi->AsDamageAtomicModelInfoPtr()) {
++        CreateReplacementAtomic(mi, frame, static_cast<eAtomicComponentFlag>(flags), true, false);
++        if (frame) {
++            RwFrameForAllObjects(frame, static_cast<RwObjectCallBack>(SetVehicleAtomicVisibilityCB), std::bit_cast<void*>(1));
++            RwFrameForAllChildren(frame, static_cast<RwFrameCallBack>(SetVehicleAtomicVisibilityCB), std::bit_cast<void*>(1));
++        }
++    }
+ }
+ 
+ // 0x6D39E0

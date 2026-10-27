@@ -1888,3 +1888,9 @@ int __cdecl GoPickUpRegionCpp(float dz, float dy, float dx, const float* right, 
 // --- Lote 69 (PedLeaf69): CPedIntelligence::IsInHearingRange (0x600C00) ---
 // 0x600C15..0x600C4C: rango² > (dz² + dx²) + dy² con d = posn - ped, todo a 24 bits con exponente extendido (comparación ordenada: con NaN da false).
 bool __cdecl PedHearingRangeCpp(const float* posn, const float* ped, float range);
+
+// --- Lote 72 (FightHitObj72): CTaskSimpleFight::FightHitObj (0x61D400) ---
+// 0x61D4D2..0x61D544: point = posn1 - pos (fld; fsub; fstp dword) y force = normal * factor (factor = -0.5f 0x858F40, o -0.1f 0x858EF4 si lowFactor); cada operacion a 24 bits y guardada como float.
+void __cdecl FightHitObjForceCpp(const float* posn1, const float* pos, const float* normal, bool lowFactor, float* point, float* force);
+// 0x61D556..0x61D575: fld danio; fmul 10.0f (0x85862C); fstp dword (a 24 bits, guardado como float).
+float __cdecl FightHitObjDamageCpp(float damage);

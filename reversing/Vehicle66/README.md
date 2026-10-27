@@ -23,3 +23,6 @@ Discrepancia hallada por el banco: la DLL comprueba el tipo del RwObject en `Get
 Limites: no se prueban denormales (MXCSR FTZ), dos NaN en una suma, indices de mejora fuera de 0..14 en AddUpgrade ni model infos fuera de los falsos instalados en ms_modelInfoPtrs[15..19].
 
 Comandos: `CMAKE_BUILD_PARALLEL_LEVEL=1 _CL_=-MP1 bash reversing/_handoff/bench_here.sh Vehicle66`; `python -I fixture_oracle.py`; `python -I fixture_mirror.py`; `python register_hook.py <carpeta-de-evidencia>` (coordinador).
+
+## 2026-10-26: AddReplacementUpgrade (0x6D3830) con hook desde el lote 72
+Desde el lote 72 `CVehicle::AddReplacementUpgrade` tiene `RH_ScopedInstall` (banco ReplUpgrade72). El banco ya la sustituia por `FkAddRepl` en la direccion del EXE, pero `MakeCollab` ya devuelve el cuerpo de la DLL cuando encuentra el hook y lo parchea con el mismo falso; lo que fallaba era la compuerta de `run_local.py`, que esperaba `dll=false` para 0x6D3830. Cambio: 0x6D3830 (`_AREPL`) entra en `DLL_HOOKED` (colaboradores con hook activo, sustituidos por el mismo falso en el EXE y en el cuerpo de la DLL). Compuertas y cobertura sin relajar; `hooked` sigue exigido a false para los colaboradores. Sin cambios en produccion.

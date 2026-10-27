@@ -15388,3 +15388,24 @@ __declspec(noinline) bool __cdecl PedHearingRangeCpp(const float* posn, const fl
     return limit > (dz * dz + dx * dx) + dy * dy;
 }
 #pragma float_control(pop)
+
+// --- Lote 72 (FightHitObj72) ---
+#pragma float_control(precise, on, push)
+// 0x61D4D2..0x61D544 (CTaskSimpleFight::FightHitObj): point = posn1 - pos y force = normal * factor, cada resultado guardado como float (fstp dword); la x87 a 24 bits con exponente extendido
+// conserva los desnormales que un float SSE con FTZ vaciaria. El factor es -0.5f (0x858F40) o, con el bit 7 del byte +0x40 del objeto, -0.1f (0x858EF4 = 0xBDCCCCCD).
+__declspec(noinline) void __cdecl FightHitObjForceCpp(const float* posn1, const float* pos, const float* normal, bool lowFactor, float* point, float* force) {
+    const float factor = lowFactor ? std::bit_cast<float>(0xBDCCCCCDu) : std::bit_cast<float>(0xBF000000u);
+    point[0] = posn1[0] - pos[0];
+    point[1] = posn1[1] - pos[1];
+    point[2] = posn1[2] - pos[2];
+    force[0] = normal[0] * factor;
+    force[1] = normal[1] * factor;
+    force[2] = normal[2] * factor;
+}
+
+// 0x61D556..0x61D575: danio * 10.0f (0x85862C = 0x41200000) con fld/fmul/fstp dword.
+__declspec(noinline) float __cdecl FightHitObjDamageCpp(float damage) {
+    volatile float scaled = damage * std::bit_cast<float>(0x41200000u);
+    return scaled;
+}
+#pragma float_control(pop)

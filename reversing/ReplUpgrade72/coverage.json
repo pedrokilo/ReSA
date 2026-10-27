@@ -1,0 +1,28 @@
+{
+  "AddReplacementUpgrade": {
+    "alpha": 4108,
+    "ch_writes": 4065,
+    "clump_null": 1214,
+    "damage": 4294,
+    "damage_frame": 3571,
+    "damage_no_frame": 723,
+    "dmg_bits_only": 399,
+    "dmg_init_set": 4878,
+    "flags_nonzero": 5889,
+    "frame_arena": 5454,
+    "frame_null": 1373,
+    "frame_other": 1364,
+    "no_alpha": 4083,
+    "no_damage": 3897,
+    "node_other": 3431,
+    "obj_writes": 4113,
+    "plate": 2100,
+    "plate_c": 1047,
+    "plate_d": 1053,
+    "wheel": 1338,
+    "wheel_flag_off": 1322,
+    "wheel_inf": 195,
+    "wheel_nan": 199,
+    "wheel_zero": 126
+  }
+}

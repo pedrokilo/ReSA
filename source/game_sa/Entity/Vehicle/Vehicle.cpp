@@ -264,7 +264,7 @@ void CVehicle::InjectHooks() {
     RH_ScopedInstall(RemoveUpgrade, 0x6D3630);
     RH_ScopedInstall(GetUpgrade, 0x6D3650);
     RH_ScopedInstall(CreateReplacementAtomic, 0x6D3700);
-    // RH_ScopedInstall(AddReplacementUpgrade, 0x6D3830);
+    RH_ScopedInstall(AddReplacementUpgrade, 0x6D3830);
     RH_ScopedInstall(RemoveReplacementUpgrade, 0x6D39E0);
     RH_ScopedInstall(GetReplacementUpgrade, 0x6D3A50);
     RH_ScopedInstall(RemoveAllUpgrades, 0x6D3AB0);
@@ -312,7 +312,7 @@ void CVehicle::InjectHooks() {
     RH_ScopedInstall(AddUpgrade, 0x6DFA20);
     // RH_ScopedInstall(UpdateTrailerLink, 0x6DFC50);
     // RH_ScopedInstall(UpdateTractorLink, 0x6E0050);
-    // RH_ScopedInstall(ScanAndMarkTargetForHeatSeekingMissile, 0x6E0400);
+    RH_ScopedInstall(ScanAndMarkTargetForHeatSeekingMissile, 0x6E0400);
     // RH_ScopedInstall(FireHeatSeakingMissile, 0x6E05C0);
     RH_ScopedInstall(PossiblyDropFreeFallBombForPlayer, 0x6E07E0);
     RH_ScopedInstall(ProcessSirenAndHorn, 0x6E0950);
@@ -2777,9 +2777,45 @@ RpAtomic* CVehicle::CreateReplacementAtomic(CBaseModelInfo* mi, RwFrame* parentF
 
 // 0x6D3830
 void CVehicle::AddReplacementUpgrade(int32 modelIndex, int32 nodeId) {
-    // NOTE: 0x6D38D5 - 0x6D390B => `SetupUpgradeAtomicRendering`
+    // Como el original (0x6D3830, thiscall, ret 8, sin valor de retorno): primero se vacia el marco del componente (RemoveObjectsCB deja en 'flags' el
+    // identificador del ultimo atomo quitado), despues se crea el atomo de la mejora a partir del model info, se cuelga del marco y se configura su render.
+    auto* const frame = CClumpModelInfo::GetFrameFromId(GetRpClump(), nodeId);
+    int32 flags = 0;
+    RwFrameForAllObjects(frame, static_cast<RwObjectCallBack>(RemoveObjectsCB), &flags);
+    RwFrameForAllChildren(frame, static_cast<RwFrameCallBack>(RemoveObjectsCB), &flags);
 
-    ((void(__thiscall*)(CVehicle*, int32, int32))0x6D3830)(this, modelIndex, nodeId);
+    auto* const mi = CModelInfo::ms_modelInfoPtrs[modelIndex];
+    auto* const atomic = reinterpret_cast<RpAtomic*>(mi->CreateInstance());
+    mi->AddRef();
+    auto* const oldFrame = RpAtomicGetFrame(atomic);
+    RpClumpAddAtomic(GetRpClump(), atomic);
+    RpAtomicSetFrame(atomic, frame);
+    RwFrameDestroy(oldFrame);
+    CVisibilityPlugins::SetAtomicId(atomic, flags & ~ATOMIC_MASK);
+    CVisibilityPlugins::SetAtomicFlag(atomic, ATOMIC_OK);
+    SetupUpgradeAtomicRendering(atomic, false); // 0x6D38D5 - 0x6D390B
+    CDamageAtomicModelInfo::ms_bCreateDamagedVersion = false;
+
+    if (nodeId == 0x13) {
+        if (m_pHandlingData->m_bDoubleExhaust) {
+            // Como el original: el marco del atomo nuevo recibe x = -2 * x del marco del componente (0x858B18 = -2.0f, leido tras la llamada)
+            auto* const replacement = CreateReplacementAtomic(mi, frame, static_cast<eAtomicComponentFlag>(flags), false, true);
+            auto* const matrix = RwFrameGetMatrix(RpAtomicGetFrame(replacement));
+            matrix->pos.x = RwFrameGetMatrix(frame)->pos.x * -2.0f;
+            RwMatrixUpdate(matrix);
+        }
+    } else if (nodeId == 0xC || nodeId == 0xD) {
+        auto* const info = static_cast<CVehicleModelInfo*>(CModelInfo::ms_modelInfoPtrs[static_cast<int16>(m_nModelIndex)]);
+        CCustomCarPlateMgr::SetupClumpAfterVehicleUpgrade(GetRpClump(), info->m_pPlateMaterial, info->m_nPlateType);
+    }
+
+    if (mi->AsDamageAtomicModelInfoPtr()) {
+        CreateReplacementAtomic(mi, frame, static_cast<eAtomicComponentFlag>(flags), true, false);
+        if (frame) {
+            RwFrameForAllObjects(frame, static_cast<RwObjectCallBack>(SetVehicleAtomicVisibilityCB), std::bit_cast<void*>(1));
+            RwFrameForAllChildren(frame, static_cast<RwFrameCallBack>(SetVehicleAtomicVisibilityCB), std::bit_cast<void*>(1));
+        }
+    }
 }
 
 // 0x6D39E0
@@ -7389,7 +7425,47 @@ void CVehicle::UpdateTractorLink(bool arg0, bool arg1) {
 
 // 0x6E0400
 CEntity* CVehicle::ScanAndMarkTargetForHeatSeekingMissile(CEntity* entity) {
-    return ((CEntity * (__thiscall*)(CVehicle*, CEntity*))0x6E0400)(this, entity);
+    // Como el original (0x6E0400..0x6E05BA): pide el objetivo a PickTargetForHeatSeekingMissile (origen = posicion, direccion = matriz + 0x10 SIN comprobar nulo, multiplicador 1.2f,
+    // ignora este vehiculo, aviones con prioridad, objetivo previo = entity); en los aviones (subtipo 4) el dword 0x9E4 guarda en el bit 31 el ultimo resultado de la linea de vision y en los
+    // 31 bits bajos un 1 si ya paso el primer milisegundo; la vision solo se vuelve a calcular si pasaron mas de 1000 ms (menos 1 si los 31 bits bajos son 0).
+    const CVector origin    = GetPosition();
+    const CVector direction = *reinterpret_cast<const CVector*>(reinterpret_cast<uintptr_t>(m_matrix) + 0x10);
+    CEntity* const target   = CWeapon::PickTargetForHeatSeekingMissile(origin, direction, 1.2f, this, true, entity);
+
+    const bool isPlane = m_nVehicleSubType == VEHICLE_TYPE_PLANE;
+    auto* const planeState = reinterpret_cast<uint32*>(reinterpret_cast<uintptr_t>(this) + 0x9E4);
+    const uint32 slack = isPlane && (*planeState & 0x7FFFFFFFu) == 0 ? 1u : 0u;
+
+    bool visible;
+    if (target && CTimer::GetTimeInMS() - slack > 1000u) {
+        // Como el original: durante la prueba ni el vehiculo ni el objetivo usan colision (solo el bit 0 se restaura al valor que tenia)
+        const bool targetUsedCollision = target->m_bUsesCollision;
+        const bool selfUsedCollision   = m_bUsesCollision;
+        m_bUsesCollision       = false;
+        target->m_bUsesCollision = false;
+        const CVector& to   = target->GetPosition();
+        const CVector& from = GetPosition();
+        visible = CWorld::GetIsLineOfSightClear(from, to, true, true, false, true, false, true, false);
+        m_bUsesCollision       = selfUsedCollision;
+        target->m_bUsesCollision = targetUsedCollision;
+        if (isPlane) {
+            *planeState = (CTimer::GetTimeInMS() > 1u ? 1u : 0u) | (uint32(visible) << 31);
+        }
+    } else {
+        visible = isPlane ? (*planeState >> 31) != 0 : true;
+    }
+
+    if (!visible) {
+        CWeaponEffects::ClearCrossHairImmediately(0);
+        return nullptr;
+    }
+    // Como el original (0x6E0564..0x6E0568): sin objetivo, o con el vehiculo no controlado por el jugador (estado != 0), solo se borra la mira
+    if (!target || GetStatus() != STATUS_PLAYER) {
+        CWeaponEffects::ClearCrossHairImmediately(0);
+        return target;
+    }
+    CWeaponEffects::MarkTarget(0, target->GetPosition(), 255, 255, 255, 100, 1.3f, true);
+    return target;
 }
 
 // 0x6E05C0

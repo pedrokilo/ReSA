@@ -30,6 +30,8 @@ END GENERATED HOOK STATUS */
 #include "Events/EventSoundQuiet.h"
 #include "Events/EventVehicleDamageWeapon.h"
 #include "Fx/Fx.h"
+#include "Entity/Object/Object.h"
+#include "ObjectData.h"
 #include "Crime.h"
 #include "Glass.h"
 #include "WeaponInfo.h"
@@ -261,6 +263,9 @@ constexpr float FightStrikeDamageFixed = std::bit_cast<float>(0x42480000u); // 0
 constexpr float FightStrikeKnuckleScale = std::bit_cast<float>(0x3FC00000u); // 0x858CE8 = 1.5f
 constexpr float FightSoundQuietLevel    = std::bit_cast<float>(0x42200000u); // 40.0f
 constexpr float FightAnimBlendOut       = std::bit_cast<float>(0xC0800000u); // -4.0f
+// FightHitObj (0x61D400): umbrales de la fuerza y del danio contra un objeto.
+const float FightHitObjMaxDamageMultiplier = std::bit_cast<float>(0x42C7CCCDu); // 0x86D6B0 = 99.9f (operando de memoria de fcomp)
+const float FightHitObjUprootFloor         = 0.0f;                               // 0x858B50
 
 // Tipo de arma del ped en su ranura activa: movsx del byte de la ranura * 0x1C + 0x5A0 (el EXE no acota la ranura).
 uint32 FightActiveWeaponType(const CPed* ped) {
@@ -271,11 +276,6 @@ uint32 FightActiveWeaponType(const CPed* ped) {
 // 0x61CBA0 (ret 0x14): golpe contra un ped; devuelve el ped golpeado (EAX) o null. Sin reconstruir.
 CPed* FightHitPedExe(CTaskSimpleFight* task, CPed* creator, CPed* victim, CVector* posn1, CVector* posn2, uint32 component) {
     return plugin::CallMethodAndReturn<CPed*, 0x61CBA0, CTaskSimpleFight*, CPed*, CPed*, CVector*, CVector*, uint32>(task, creator, victim, posn1, posn2, component);
-}
-
-// 0x61D400 (ret 0x18): golpe contra un objeto. Sin reconstruir.
-void FightHitObjExe(CTaskSimpleFight* task, CPed* creator, CEntity* object, CVector* posn1, CVector* posn2, uint32 component, uint32 surface) {
-    plugin::CallMethod<0x61D400, CTaskSimpleFight*, CPed*, CEntity*, CVector*, CVector*, uint32, uint32>(task, creator, object, posn1, posn2, component, surface);
 }
 
 // Fila de la tabla de combos de FightStrike: (combo - 4) * 0x88 sin acotar por abajo (a diferencia de FightComboInfo, que lo hace en las hojas).
@@ -887,6 +887,43 @@ void CTaskSimpleFight::FightHitCar(CPed* ped, CVehicle* vehicle, CVector& posn1,
     g_fx.AddPunchImpact(posn1, posn2, 4);
 }
 
+// 0x61D400 (ret 0x18): golpe de un ped contra un objeto. Orden de llamadas, relecturas de memoria y operaciones x87 como el EXE. `component` no se usa (el EXE no lo lee).
+// El EXE copia *posn2 al entrar (tres movs enteros, antes de calcular el danio) y usa SIEMPRE la copia (fuerza, ObjectDamage y AddPunchImpact); posn1 se lee por el puntero cuando se usa.
+void CTaskSimpleFight::FightHitObj(CPed* ped, CObject* object, CVector& posn1, CVector& posn2, uint32 /*component*/, uint32 surface) {
+    const auto* const rawNormal = reinterpret_cast<const uint32*>(&posn2);
+    const uint32 normalBits[3]{ rawNormal[0], rawNormal[1], rawNormal[2] };       // 0x61D40B..0x61D424
+    const auto* const normal = reinterpret_cast<const CVector*>(normalBits);
+    const float damage = FightStrikeDamageExe(this, 0, ped);                      // 0x61D428: fstp dword
+
+    if (object->m_nColDamageEffect < 0xC8                                        // cmp byte [esi+144h], 0C8h ; jae
+        && !(object->m_nPhysicalFlags & 4)                                       // test byte [esi+40h], 4
+        && GangDriveByLtCpp(&object->m_pObjectInfo->m_fColDamageMultiplier, &FightHitObjMaxDamageMultiplier)) { // fcomp [0x86D6B0] ; test ah,5 ; jp
+        const uint32 flags = object->m_nFlags;                                   // 0x61D466
+        if (((flags & 4) || (flags & 0x40000)) && GangDriveByLeCpp(&object->m_pObjectInfo->m_fUprootLimit, &FightHitObjUprootFloor)) {
+            object->SetIsStatic(false);                                          // call [vtable+10h]
+            object->AddToMovingList();                                           // 0x542800
+        }
+        const uint32 flagsAfter = object->m_nFlags;                              // 0x61D494: se relee tras las llamadas
+        if (!(flagsAfter & 4) && !(flagsAfter & 0x40000)) {
+            const bool lowFactor = (*reinterpret_cast<const uint8*>(&object->m_nPhysicalFlags) & 0x80) != 0; // test al,al ; jns
+            const float* const pos = object->m_matrix ? &object->m_matrix->GetPosition().x : &object->m_placement.m_vPosn.x;
+            float point[3], force[3];
+            FightHitObjForceCpp(&posn1.x, pos, &normal->x, lowFactor, point, force);
+            object->ApplyForce(CVector{ force[0], force[1], force[2] }, CVector{ point[0], point[1], point[2] }, true); // 0x542B50
+        }
+    }
+
+    const auto weaponType = static_cast<eWeaponType>(FightActiveWeaponType(ped));
+    object->ObjectDamage(FightHitObjDamageCpp(damage), &posn1, normal, ped, weaponType); // 0x5A0D90 ; danio * 10.0f (0x85862C)
+    if (FightActiveWeaponType(ped) == WEAPON_CHAINSAW) {                         // el arma se relee de la memoria
+        ped->GetWeaponAE().AddAudioEvent(AE_WEAPON_CHAINSAW_CUTTING);
+    }
+    const int32 hitIndex = static_cast<int32>(m_nComboSet) * 0x22 + static_cast<int32>(m_nCurrentMove);
+    const auto  hitSound = *reinterpret_cast<const int32*>(FightHitSoundAddress + static_cast<uint32>(hitIndex) * 4u);
+    ped->GetAE().AddAudioEvent(static_cast<eAudioEvents>(hitSound), 0.f, 1.f, object, static_cast<eSurfaceType>(surface), 0, 0);
+    g_fx.AddPunchImpact(posn1, *normal, 4);
+}
+
 // 0x6240B0 (ret 8): golpe de melee de `ped` en `posn` (puede desplazarla). Recorre 16 peds cercanos, 16 vehiculos cercanos y los objetos que encuentra FindObjectsInRange.
 void CTaskSimpleFight::FightStrike(CPed* ped, CVector& posn) {
     bool noPedHit = true; // byte [esp+13h]
@@ -1008,7 +1045,7 @@ void CTaskSimpleFight::FightStrike(CPed* ped, CVector& posn) {
                 if (vehicleCandidate) {
                     FightHitCar(ped, static_cast<CVehicle*>(vehicleCandidate), const_cast<CVector&>(point.m_vecPoint), const_cast<CVector&>(point.m_vecNormal), point.m_nPieceTypeB, static_cast<int8>(point.m_nSurfaceTypeB));
                 } else if (objectCandidate) {
-                    FightHitObjExe(this, ped, objectCandidate, const_cast<CVector*>(&point.m_vecPoint), const_cast<CVector*>(&point.m_vecNormal), point.m_nPieceTypeB, static_cast<uint8>(point.m_nSurfaceTypeB));
+                    FightHitObj(ped, static_cast<CObject*>(objectCandidate), const_cast<CVector&>(point.m_vecPoint), const_cast<CVector&>(point.m_vecNormal), point.m_nPieceTypeB, static_cast<uint8>(point.m_nSurfaceTypeB));
                 }
             }
         }
@@ -1043,6 +1080,7 @@ void CTaskSimpleFight::InjectHooks() {
     RH_ScopedNamedGlobalInstall(FightStrikeDamageExe, "FightStrikeDamage", 0x61C740);
     RH_ScopedInstall(FightSetUpCol, 0x61D5F0);
     RH_ScopedInstall(FightHitCar, 0x61D0B0);
+    RH_ScopedInstall(FightHitObj, 0x61D400);
     RH_ScopedInstall(FightStrike, 0x6240B0);
     RH_ScopedInstall(LoadMeleeData, 0x5BEDC0);
     RH_ScopedVMTInstall(MakeAbortable, 0x6239F0);

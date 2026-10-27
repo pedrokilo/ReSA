@@ -236,6 +236,18 @@ struct Fake {
     ReversingProbe::EntryPatch exe, dll;
     template<class F> Fake(uintptr_t exeAddress, uintptr_t dllAddress, F fake) : dllBody(Body(dllAddress)), exe(exeAddress, fake), dll(dllBody, fake) {}
 };
+// Cuerpo de la DLL de una funcion con hook Simple, localizado por la direccion del EXE (para funciones locales/anonimas sin simbolo accesible, p. ej. FightStrikeDamage).
+inline uintptr_t HookBodyByExe(uintptr_t exe) {
+    uintptr_t r = 0;
+    ReversibleHooks::GetRootCategory().ForEachCategory([&](auto& c) {
+        for (auto& h : c.Items())
+            if (h->Type() == ReversibleHooks::ReversibleHook::Base::HookType::Simple) {
+                auto* sh = static_cast<ReversibleHooks::ReversibleHook::Simple*>(h.get());
+                if (reinterpret_cast<uintptr_t>(sh->GetHookGTAAddress()) == exe) r = reinterpret_cast<uintptr_t>(sh->GetHookOurAddress());
+            }
+    });
+    return r ? Body(r) : 0;
+}
 // Solo el EXE (colaboradores sin reconstruir).
 struct FakeExe {
     ReversingProbe::EntryPatch exe;
@@ -532,7 +544,9 @@ inline void Run(int& failures) {
     Reg("clump", clump.data(), clump.size()); Reg("hierarchy", hierarchy.data(), hierarchy.size()); Reg("bones", bones.data(), bones.size()); Reg("g_fx", &g_fx, sizeof(Fx_c));
     const auto saved = Snapshot(reinterpret_cast<void*>(soundLow), soundSize + 0x40);
     {
-        FakeExe damageFake(0x61C740, FakeDamage);
+        const uintptr_t damageBody = HookBodyByExe(0x61C740); // 2026-10-26: FightStrikeDamage (hook desde el lote 65): falso tambien en el cuerpo de la DLL
+        if (!damageBody) { Write({{"event", "error"}, {"reason", "hook FightStrikeDamage 0x61C740 no registrado"}}); allPassed = false; return; }
+        Fake damageFake(0x61C740, damageBody, FakeDamage);
         Fake hier(0x734A40, reinterpret_cast<uintptr_t>(&GetAnimHierarchyFromSkinClump), FakeHierarchy);
         Fake bone(0x7C51A0, reinterpret_cast<uintptr_t>(&RpHAnimIDGetIndex), FakeBoneIndex);
         Fake mats(0x7C5120, reinterpret_cast<uintptr_t>(&RpHAnimHierarchyGetMatrixArray), FakeMatrices);
@@ -570,7 +584,7 @@ inline void Run(int& failures) {
 // ================================================================ FightStrike (0x6240B0)
 // Colaboradores falsos (EXE y DLL): GetWeaponInfo, FindPlayerPed, BreakGlassPhysically, CPed::IsPlayer/IsAlive, FindObjectsInRange, FightSetUpCol, GetBoundCentre,
 // AnimatePedColModelSkinnedWorld, AllocateMatrix, CSimpleTransform::UpdateMatrix, CEntity::GetColModel, ProcessColModels, FightHitCar, GetEventGlobalGroup,
-// CEventGroup::Add, RpAnimBlendClumpGetAssociation, RegisterReference/CleanUpOldReference; y solo en el EXE FightHitPed (0x61CBA0) y FightHitObj (0x61D400).
+// CEventGroup::Add, RpAnimBlendClumpGetAssociation, RegisterReference/CleanUpOldReference; y solo en el EXE FightHitPed (0x61CBA0); FightHitObj (0x61D400) desde el lote 72 va en EXE y DLL.
 // Corren de verdad: CMatrix (copia, SetTranslateOnly, destructor) y CEventSoundQuiet (constructor/destructor, que usan los falsos de referencias).
 namespace Strike {
 inline constexpr int N = 16;
@@ -995,7 +1009,7 @@ inline void Run(int& failures) {
     for (int k = 0; k < 8; ++k) { savedModelPtr[k] = CModelInfo::ms_modelInfoPtrs[modelSlot[k]]; CModelInfo::ms_modelInfoPtrs[modelSlot[k]] = reinterpret_cast<CBaseModelInfo*>(modelInfos[k].data()); }
     {
         FakeExe hitPed(0x61CBA0, FakeHitPed);
-        FakeExe hitObj(0x61D400, FakeHitObj);
+        Fake hitObj(0x61D400, Addr(&CTaskSimpleFight::FightHitObj), FakeHitObj); // 2026-10-26: FightHitObj ya esta reconstruida y con hook (lote 72): el falso tambien va en el cuerpo de la DLL
         Fake hitCar(0x61D0B0, Addr(&CTaskSimpleFight::FightHitCar), FakeHitCar);
         Fake setup(0x61D5F0, Addr(&CTaskSimpleFight::FightSetUpCol), FakeSetUp);
         Fake info(0x743C60, reinterpret_cast<uintptr_t>(static_cast<CWeaponInfo* (*)(eWeaponType, eWeaponSkill)>(&CWeaponInfo::GetWeaponInfo)), FakeWeaponInfo);
