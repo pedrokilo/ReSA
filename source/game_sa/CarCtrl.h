@@ -55,7 +55,7 @@ public:
     static int32 ChoosePoliceCarModel(uint32 arg0);
     static eModelID ChooseGangCarModel(eGangID loadedCarGroupId);
     static void ClearInterestingVehicleList();
-    static void ClitargetOrientationToLink(CVehicle* vehicle, CCarPathLinkAddress arg2, int8 arg3, float* arg4, float arg5, float arg6);
+    static void ClipTargetOrientationToLink(CVehicle* vehicle, CCarPathLinkAddress arg2, int8 arg3, float* arg4, float arg5, float arg6);
     static CVehicle* CreateCarForScript(int32 modelId, CVector posn, bool doMissionCleanup);
     static bool CreateConvoy(CVehicle* vehicle, int32 arg2);
     static bool CreatePoliceChase(CVehicle* vehicle, int32 arg2, CNodeAddress NodeAddress);

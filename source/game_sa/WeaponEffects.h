@@ -9,6 +9,8 @@
 #include "Vector.h"
 #include "RGBA.h"
 
+class CPlayerInfo;
+
 typedef int32 CrossHairId;
 
 enum eWeaponEffectsLockTexture {
@@ -43,6 +45,7 @@ public:
     static void ClearCrossHairImmediately(CrossHairId id);
     static void ClearCrossHairsImmediately();
     static void Render();
+    static void RenderPlayerCrosshair(CPlayerInfo& info, int32 playerIndex); // 0x56EF90 (en el EXE this = &Players[i].m_nCrosshairActivated)
 };
 
 VALIDATE_SIZE(CWeaponEffects, 0x2C);

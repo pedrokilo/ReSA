@@ -1,0 +1,316 @@
+diff --git a/source/game_sa/WeaponEffects.cpp b/source/game_sa/WeaponEffects.cpp
+index 0703bbfa3..b898c93ea 100644
+--- a/source/game_sa/WeaponEffects.cpp
++++ b/source/game_sa/WeaponEffects.cpp
+@@ -27,6 +27,8 @@ END GENERATED HOOK STATUS */
+ #include "WeaponEffects.h"
+ #include "X87Math.h"
+ 
++static void __fastcall RenderPlayerCrosshair_Hook(uint32* crosshair, void* edx, int32 playerIndex);
++
+ void CWeaponEffects::InjectHooks() {
+     RH_ScopedClass(CWeaponEffects);
+     RH_ScopedCategoryGlobal();
+@@ -40,6 +42,7 @@ void CWeaponEffects::InjectHooks() {
+     RH_ScopedInstall(ClearCrossHairImmediately, 0x742CA0);
+     RH_ScopedInstall(ClearCrossHairsImmediately, 0x742CC0);
+     RH_ScopedInstall(Render, 0x742CF0);
++    RH_ScopedNamedGlobalInstall(RenderPlayerCrosshair_Hook, "RenderPlayerCrosshair", 0x56EF90);
+ }
+ 
+ // 0x742AB0
+@@ -333,7 +336,70 @@ void CWeaponEffects::Render() {
+         end();
+     }
+     for (int i = 0; i < 2; ++i) {
+-        // The original delegates each player's auxiliary crosshair to this method.
+-        reinterpret_cast<void(__thiscall*)(void*, int)>(0x56EF90)(&CWorld::Players[i].m_nCrosshairActivated, i);
++        RenderPlayerCrosshair(CWorld::Players[i], i); // la mira auxiliar de cada jugador (0x56EF90)
++    }
++}
++
++// 0x56EF90: el EXE llama con this = &Players[i].m_nCrosshairActivated; ret 4, sin valor de retorno que lea ningun llamador.
++static void __fastcall RenderPlayerCrosshair_Hook(uint32* crosshair, void* /*edx*/, int32 playerIndex) {
++    CWeaponEffects::RenderPlayerCrosshair(*reinterpret_cast<CPlayerInfo*>(reinterpret_cast<uint8*>(crosshair) - offsetof(CPlayerInfo, m_nCrosshairActivated)), playerIndex);
++}
++
++// 0x56EF90
++// Dibuja la estela de la mira del jugador (cinco muestras de su posicion en pantalla, con 12 sprites cada una): guarda la posicion y la hora actuales en tres historiales
++// globales de 5 entradas por jugador (X 0xB9B948, Y 0xB9B920, hora 0xB9B8F8) y los pinta de la mas vieja a la mas nueva con el color del jugador reducido a la mitad por capa.
++void CWeaponEffects::RenderPlayerCrosshair(CPlayerInfo& info, int32 playerIndex) {
++    if (!*reinterpret_cast<const uint8*>(&info.m_nCrosshairActivated)) {
++        return;
++    }
++    const auto state = [](RwRenderState key, uint32 value) {
++        RwRenderStateSet(key, RWRSTATE(value));
++    };
++    state(rwRENDERSTATEZWRITEENABLE, 0);
++    state(rwRENDERSTATEZTESTENABLE, 0);
++    state(rwRENDERSTATEVERTEXALPHAENABLE, 1);
++    state(rwRENDERSTATESRCBLEND, rwBLENDSRCALPHA);
++    state(rwRENDERSTATEDESTBLEND, rwBLENDINVDESTALPHA);
++    // Como el original: textura 0xC3E000[indice en 0x8CDF1C] (gpCoronaTexture), sin comprobar el indice
++    RwRenderStateSet(rwRENDERSTATETEXTURERASTER, reinterpret_cast<RwTexture**>(0xC3E000)[StaticRef<int32>(0x8CDF1C)]->raster);
++
++    int32 r, g, b;
++    if (playerIndex != 0) {
++        r = 0x32; g = 0; b = 0xFF;
++    } else {
++        r = 0; g = 0xFF; b = 0x32;
++    }
++    auto* const historyX = reinterpret_cast<uint32*>(0xB9B948);
++    auto* const historyY = reinterpret_cast<uint32*>(0xB9B920);
++    auto* const historyTime = reinterpret_cast<uint32*>(0xB9B8F8);
++    const int32 base = playerIndex * 5;
++    // Como el original: la hora de cada entrada se copia de una direccion ABSOLUTA (Y del jugador 0 + 0xC, retrocediendo 4 por vuelta), no de la del jugador
++    const auto* const timeSource = reinterpret_cast<const uint32*>(0xB9B92C);
++    for (int32 k = 0; k < 4; ++k) {
++        const int32 to = base + 4 - k;
++        historyX[to] = historyX[to - 1];
++        historyY[to] = historyY[to - 1];
++        historyTime[to] = timeSource[-k];
++    }
++    memcpy(&historyX[base], &info.m_vecCrosshairTarget.x, 4);
++    memcpy(&historyY[base], &info.m_vecCrosshairTarget.y, 4);
++    historyTime[base] = CTimer::m_snTimeInMilliseconds;
++
++    for (int32 layer = 0; layer < 5; ++layer) {
++        // Como el original: la hora es siempre la de la primera entrada del jugador
++        const float phase = Cross74PhaseCpp(historyTime[base]);
++        for (int32 j = 0; j < 3; ++j) {
++            const float radius = float(j) * 10.0f + 20.0f;
++            for (int32 i = 0; i < 4; ++i) {
++                uint32 out[2];
++                Cross74TrailPointCpp(historyX[base + layer], historyY[base + layer], RsGlobal.maximumWidth, RsGlobal.maximumHeight, phase, radius, i, out);
++                CSprite::RenderOneXLUSprite_Rotate_Aspect({std::bit_cast<float>(out[0]), std::bit_cast<float>(out[1]), 100.0f}, {15.0f, 15.0f}, uint8(r), uint8(g), uint8(b), 255, 0.01f, 0.0f, 255);
++            }
++        }
++        r >>= 1;
++        g >>= 1;
++        b >>= 1;
+     }
++    state(rwRENDERSTATEZWRITEENABLE, 1);
++    state(rwRENDERSTATEZTESTENABLE, 1);
+ }
+diff --git a/source/game_sa/WeaponEffects.h b/source/game_sa/WeaponEffects.h
+index 88cddf7b2..3da6ddf7e 100644
+--- a/source/game_sa/WeaponEffects.h
++++ b/source/game_sa/WeaponEffects.h
+@@ -9,6 +9,8 @@
+ #include "Vector.h"
+ #include "RGBA.h"
+ 
++class CPlayerInfo;
++
+ typedef int32 CrossHairId;
+ 
+ enum eWeaponEffectsLockTexture {
+@@ -43,6 +45,7 @@ public:
+     static void ClearCrossHairImmediately(CrossHairId id);
+     static void ClearCrossHairsImmediately();
+     static void Render();
++    static void RenderPlayerCrosshair(CPlayerInfo& info, int32 playerIndex); // 0x56EF90 (en el EXE this = &Players[i].m_nCrosshairActivated)
+ };
+ 
+ VALIDATE_SIZE(CWeaponEffects, 0x2C);
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 07242656a..fa0224d92 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -15589,3 +15589,178 @@ __declspec(noinline) void __cdecl HeatFire73SpawnCpp(const float* moveSpeedIn, c
+     (void)outBits;
+ }
+ #pragma float_control(pop)
++
++// --- Lote 74 (PlayerCrosshair74 / CrosshairRender74): CPlayerInfo::ProcessCrosshair (0x56EC80) y CWeaponEffects::RenderPlayerCrosshair (0x56EF90), prefijo Cross74 ---
++// Pila x87 del EXE (24 bits con exponente extendido): cada operacion pasa por una variable volatile double (con 24 bits de mantisa el valor cabe exacto) para que el compilador no reasocie ni reordene.
++// fptan/fsin/fcos no se redondean a 24 bits (la precision de control no les afecta): se consumen en la misma expresion que su multiplicacion/division, sin guardarlos.
++// Los NaN siguen las reglas de la x87 con las funciones del lote 73 (HeatFire73Op): un solo NaN, el NaN silenciado; dos, el de mayor mantisa; ninguno pero operacion invalida, el indefinido 0xFFC00000.
++#pragma float_control(precise, on, push)
++namespace {
++struct Cross74V {
++    double d;
++    HeatFire73Nan n;
++};
++// quiet = true: fld m32 (registro, un NaN de senal sale silenciado); quiet = false: operando de memoria (conserva si es de senal)
++Cross74V Cross74Load(uint32_t bits, bool quiet) {
++    Cross74V v;
++    v.n = HeatFire73Raw(bits, quiet);
++    float f;
++    memcpy(&f, &bits, 4);
++    v.d = double(f);
++    return v;
++}
++Cross74V Cross74Int(int value) {
++    Cross74V v;
++    v.d = double(value);
++    return v;
++}
++Cross74V Cross74Fin(const volatile double& r, const Cross74V& a, const Cross74V& b) {
++    Cross74V o;
++    o.d = r;
++    o.n = HeatFire73Op(HeatFire73NanD(&r), a.n, b.n);
++    return o;
++}
++Cross74V Cross74Mul(const Cross74V& a, const Cross74V& b) {
++    volatile double r = a.d;
++    r = r * b.d;
++    return Cross74Fin(r, a, b);
++}
++Cross74V Cross74Add(const Cross74V& a, const Cross74V& b) {
++    volatile double r = a.d;
++    r = r + b.d;
++    return Cross74Fin(r, a, b);
++}
++Cross74V Cross74Sub(const Cross74V& a, const Cross74V& b) {
++    volatile double r = a.d;
++    r = r - b.d;
++    return Cross74Fin(r, a, b);
++}
++// fsubr m32: st0 = memoria - st0 (el destino sigue siendo st0 = a)
++Cross74V Cross74SubR(const Cross74V& a, const Cross74V& mem) {
++    volatile double r = mem.d;
++    r = r - a.d;
++    return Cross74Fin(r, a, mem);
++}
++// fstp m32: bits del float guardado
++uint32_t Cross74Store(const Cross74V& v) {
++    volatile float f = float(v.d);
++    uint32_t b;
++    memcpy(&b, const_cast<const float*>(&f), 4);
++    return v.n.nan ? v.n.bits : b;
++}
++// NaN del resultado de fptan(angulo) (el 1.0 que empuja se descarta)
++HeatFire73Nan Cross74TanNan(const Cross74V& ang) {
++    if (ang.n.nan) {
++        return HeatFire73Quieted(ang.n);
++    }
++    volatile double t = tan(ang.d);
++    return HeatFire73NanD(&t) ? HeatFire73Nan{true, false, 0xFFC00000u} : HeatFire73Nan{};
++}
++// x * tan(ang): fld x; fmul st, st(1) (destino = x, fuente = tan)
++Cross74V Cross74MulTan(const Cross74V& x, const Cross74V& ang) {
++    volatile double r = x.d * tan(ang.d);
++    Cross74V t;
++    t.d = 0.0;
++    t.n = Cross74TanNan(ang);
++    return Cross74Fin(r, x, t);
++}
++// tan(ang) / den: fptan; fstp st(0); fdiv m32 (destino = tan, fuente = den)
++Cross74V Cross74TanDiv(const Cross74V& ang, const Cross74V& den) {
++    volatile double r = tan(ang.d) / den.d;
++    Cross74V t;
++    t.d = 0.0;
++    t.n = Cross74TanNan(ang);
++    return Cross74Fin(r, t, den);
++}
++constexpr uint32_t kCross74Bits_Fov = 0x3C0EFA35u;   // 0x8631D4 (pi / 360)
++constexpr uint32_t kCross74Bits_200 = 0x43480000u;   // 0x858A48
++constexpr uint32_t kCross74Bits_K = 0x39AEC33Eu;     // 0x865030
++}
++
++// 0x56ECA7..0x56ED19: *v = float(*v + steer * paso * 0.00033333333f) (subtract: float(*v - ...)); x87 a 24 bits. tsBits = bits del paso (sin pasar por la x87).
++__declspec(noinline) void __cdecl Cross74StepCpp(float* v, int steer, uint32_t tsBits, bool subtract) {
++    const Cross74V ts = Cross74Load(tsBits, false);
++    const Cross74V k = Cross74Load(kCross74Bits_K, false);
++    uint32_t cur;
++    memcpy(&cur, v, 4);
++    const Cross74V prod = Cross74Mul(Cross74Mul(Cross74Int(steer), ts), k);
++    const Cross74V mem = Cross74Load(cur, false);
++    const Cross74V res = subtract ? Cross74SubR(prod, mem) : Cross74Add(prod, mem);
++    const uint32_t out = Cross74Store(res);
++    memcpy(v, &out, 4);
++}
++
++// 0x56ED85..0x56EEDC: punto de mira a 200 unidades. in = {fov1, fov2, aspecto, x, y, derecha[3], delante[3], arriba[3], posicion[3]} (bits); muzzle = arriba * V (3 floats, intermedios que el EXE deja en la pila; la produccion no los usa); target = posicion + 200 * (delante - derecha * x * tan2 - arriba * V).
++__declspec(noinline) void __cdecl Cross74AimCpp(const uint32_t* in, uint32_t* muzzle, uint32_t* target) {
++    const uint32_t fov1 = in[0], fov2 = in[1], aspect = in[2], cx = in[3], cy = in[4];
++    const uint32_t* const right = in + 5;
++    const uint32_t* const forward = in + 8;
++    const uint32_t* const up = in + 11;
++    const uint32_t* const pos = in + 14;
++    const Cross74V fovK = Cross74Load(kCross74Bits_Fov, false);
++    // V = (tan(fov1 * k) / aspecto) * y
++    const Cross74V ang1 = Cross74Mul(Cross74Load(fov1, true), fovK);
++    const Cross74V u = Cross74TanDiv(ang1, Cross74Load(aspect, false));
++    const Cross74V v = Cross74Mul(u, Cross74Load(cy, false));
++    uint32_t s[3];
++    for (int i = 0; i < 3; ++i) {
++        s[i] = Cross74Store(Cross74Mul(Cross74Load(up[i], true), v));
++    }
++    // segunda llamada a FindCamFOV
++    const Cross74V ang2 = Cross74Mul(Cross74Load(fov2, true), fovK);
++    const Cross74V x = Cross74Load(cx, true);
++    const uint32_t rx = Cross74Store(Cross74Mul(Cross74Load(right[0], true), x));
++    const uint32_t ry = Cross74Store(Cross74Mul(Cross74Load(right[1], true), x));
++    const Cross74V w = Cross74Mul(x, Cross74Load(right[2], false));
++    const uint32_t p0 = Cross74Store(Cross74MulTan(Cross74Load(rx, true), ang2));
++    const uint32_t p1 = Cross74Store(Cross74MulTan(Cross74Load(ry, true), ang2));
++    const Cross74V p2 = Cross74MulTan(w, ang2);   // sin guardar
++    const Cross74V f0 = Cross74Sub(Cross74Load(forward[0], true), Cross74Load(p0, false));   // sin guardar
++    const uint32_t f1b = Cross74Store(Cross74Sub(Cross74Load(forward[1], true), Cross74Load(p1, false)));
++    const uint32_t f2b = Cross74Store(Cross74Sub(Cross74Load(forward[2], true), p2));
++    const uint32_t g0 = Cross74Store(Cross74Sub(f0, Cross74Load(s[0], false)));
++    const uint32_t g1 = Cross74Store(Cross74Sub(Cross74Load(f1b, true), Cross74Load(s[1], false)));
++    const uint32_t g2 = Cross74Store(Cross74Sub(Cross74Load(f2b, true), Cross74Load(s[2], false)));
++    const Cross74V k200 = Cross74Load(kCross74Bits_200, false);
++    const Cross74V sc0 = Cross74Mul(Cross74Load(g0, true), k200);
++    const Cross74V sc1 = Cross74Mul(Cross74Load(g1, true), k200);
++    const uint32_t sc2 = Cross74Store(Cross74Mul(Cross74Load(g2, true), k200));
++    target[0] = Cross74Store(Cross74Add(sc0, Cross74Load(pos[0], false)));
++    target[1] = Cross74Store(Cross74Add(Cross74Load(pos[1], true), sc1));
++    target[2] = Cross74Store(Cross74Add(Cross74Load(pos[2], true), Cross74Load(sc2, false)));
++    muzzle[0] = s[0];
++    muzzle[1] = s[1];
++    muzzle[2] = s[2];
++}
++
++// 0x56F0A0..0x56F0DA: fase = float(sin(float(t & 0x3FF) * 0.0061359231f) * 0.2f + 1.0f); fild, fmul, fsin (sin(ST0) sin redondear), fmul, fadd, fstp dword.
++__declspec(noinline) float __cdecl Cross74PhaseCpp(uint32_t time) {
++    volatile double a1 = double(int(time & 0x3FFu));
++    a1 = a1 * double(std::bit_cast<float>(0x3BC90FDBu));
++    volatile double s2 = sin(a1) * double(std::bit_cast<float>(0x3E4CCCCDu));
++    volatile double s3 = s2 + 1.0;
++    return float(s3);
++}
++
++// 0x56F0E0..0x56F188: un punto de la estela. angulo = float(corner * 1.5707964f) + 0.7853982f (24 bits cada operacion); y = ((cos(angulo) * radio) * fase) + (((Y + 1) * alto) * 0.5f);
++// x = ((sin(angulo) * radio) * fase) + (((X + 1) * ancho) * 0.5f). xBits/yBits = bits de X[jugador][capa] / Y[jugador][capa]; width/height = RsGlobal.maximumWidth/Height (fimul). out = {x, y} (bits).
++__declspec(noinline) void __cdecl Cross74TrailPointCpp(uint32_t xBits, uint32_t yBits, int width, int height, float phase, float radius, int corner, uint32_t* out) {
++    volatile double ang = double(corner);
++    ang = ang * double(std::bit_cast<float>(0x3FC90FDBu));
++    ang = ang + double(std::bit_cast<float>(0x3F490FDBu));
++    volatile double cp = cos(ang) * double(radius);
++    cp = cp * double(phase);
++    const Cross74V one = Cross74Load(0x3F800000u, false);
++    const Cross74V half = Cross74Load(0x3F000000u, false);
++    Cross74V cpv;
++    cpv.d = cp;
++    const Cross74V yTerm = Cross74Mul(Cross74Mul(Cross74Add(Cross74Load(yBits, true), one), Cross74Int(height)), half);
++    out[1] = Cross74Store(Cross74Add(cpv, yTerm));
++    volatile double sp = sin(ang) * double(radius);
++    sp = sp * double(phase);
++    Cross74V spv;
++    spv.d = sp;
++    const Cross74V xTerm = Cross74Mul(Cross74Mul(Cross74Add(Cross74Load(xBits, true), one), Cross74Int(width)), half);
++    out[0] = Cross74Store(Cross74Add(spv, xTerm));
++}
++#pragma float_control(pop)
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index e350d3453..f4b20bc01 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1911,3 +1911,13 @@ void __cdecl Wood73JitterCpp(int remainder, float* v);
+ // --- Lote 73 (HeatFire73): CVehicle::FireHeatSeakingMissile (0x6E05C0) ---
+ // 0x6E062D..0x6E0745: out = position + (ordnance (x negada si negateX) + velocidad-hacia-delante * direccion * paso) con el orden y los guardados como float del EXE (ver X87Math.cpp); a 24 bits con exponente extendido.
+ void __cdecl HeatFire73SpawnCpp(const float* moveSpeed, const float* forward, const float* ordnance, bool negateX, const float* position, const float* timeStep, float* out);
++
++// --- Lote 74 (PlayerCrosshair74 / CrosshairRender74): CPlayerInfo::ProcessCrosshair (0x56EC80) y CWeaponEffects::RenderPlayerCrosshair (0x56EF90) ---
++// 0x56ECA7..0x56ED19: *v = float(*v + steer * paso * 0.00033333333f) (subtract: float(*v - ...)); tsBits = bits del paso; x87 a 24 bits con exponente extendido y reglas de NaN de la x87.
++void __cdecl Cross74StepCpp(float* v, int steer, uint32_t tsBits, bool subtract);
++// 0x56ED85..0x56EEDC: in = {fov1, fov2, aspecto, x, y, derecha[3], delante[3], arriba[3], posicion[3]} (bits de float, 17 palabras); muzzle = arriba * V (3 bits), target = posicion + 200 * direccion (3 bits).
++void __cdecl Cross74AimCpp(const uint32_t* in, uint32_t* muzzle, uint32_t* target);
++// 0x56F0A0..0x56F0DA: float(sin(float(time & 0x3FF) * 0.0061359231f) * 0.2f + 1.0f).
++float __cdecl Cross74PhaseCpp(uint32_t time);
++// 0x56F0E0..0x56F188: punto de la estela en pantalla; out = {x, y} (bits de float).
++void __cdecl Cross74TrailPointCpp(uint32_t xBits, uint32_t yBits, int width, int height, float phase, float radius, int corner, uint32_t* out);

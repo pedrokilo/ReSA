@@ -1,0 +1,13 @@
+"""Construye unicamente el banco CrosshairRender74 (ASI de sonda); no acredita aprobacion. Ver README.md."""
+import json, sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import runtime_runner
+runtime_runner.GAME = Path('E:/JUEGOS/GTA San Andreas - CVehicle Test')
+from probe_build import build
+if __name__ == '__main__':
+    print(json.dumps(build(Path(__file__).parent, 'crosshairrender74', 'Cr74Live',
+        ['source/CMakeLists.txt', 'source/InjectHooksMain.cpp', 'source/game_sa/X87Math.cpp', 'source/game_sa/X87Math.h',
+         'source/game_sa/WeaponEffects.cpp', 'source/game_sa/WeaponEffects.h',
+         'reversing/OriginalDependencies499/HookRoute.hpp', 'reversing/CrosshairRender74/LiveComparison.hpp', 'reversing/CrosshairRender74/Core.hpp', 'reversing/CrosshairRender74/Fixtures.hpp',
+         'source/reversiblehooks/ReversibleHook/Simple.h', 'source/reversiblehooks/ReversibleHook/Simple.cpp'])))

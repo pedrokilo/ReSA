@@ -1,0 +1,30 @@
+{
+  "CWeaponEffects::RenderPlayerCrosshair": {
+    "active": 9728,
+    "active_byte_gt1": 3246,
+    "cross_special": 514,
+    "hist_denormal": 1633,
+    "hist_minus_one": 512,
+    "hist_nan_noncanonical": 1334,
+    "hist_negzero": 852,
+    "hist_special": 1718,
+    "inactive": 512,
+    "inactive_garbage_hi": 380,
+    "player0": 4850,
+    "player1": 4878,
+    "raster_zero": 130,
+    "size_int_min": 57,
+    "size_negative": 2089,
+    "size_zero": 331,
+    "sprite_inf": 1813,
+    "sprite_nan_x": 618,
+    "sprite_nan_y": 817,
+    "sprites_60": 9728,
+    "tex_idx_0": 339,
+    "tex_idx_31": 519,
+    "tex_idx_other": 8869,
+    "time_bit31": 3493,
+    "time_hi_garbage": 6687,
+    "time_low_zero": 8
+  }
+}

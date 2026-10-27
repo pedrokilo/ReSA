@@ -47,3 +47,9 @@ Validadas el 02/10/2026 con **14.720 pares original/candidato dentro de GTA**, t
 - `IsLockedOn` se compara como verdadero/falso: el EXE devuelve el byte bajo del entero y la DLL un bool.
 
 Repetir: `python reversing/Ped9/build_probe.py` y `python reversing/run.py --case ped9`. Evidencia: [validation-summary.json](validation-summary.json).
+
+
+## Repetido el 27/10/2026 (lote 74): CWeaponEffects::RenderPlayerCrosshair con hook
+
+`CWeaponEffects::Render` ya no llama a 0x56EF90 por direccion: llama a `CWeaponEffects::RenderPlayerCrosshair` (C++, hook S, banco `CrosshairRender74`). El falso de la mira auxiliar (`AuxCross`) se instala ahora tambien en el cuerpo de la DLL (`AuxCrossDll`, `EntryPatch r4d` en `LiveComparison.hpp`).
+Repetido hasta APROBADO: 14720 pares, cero diferencias, `E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-ped9\20261027-041041-472805`.

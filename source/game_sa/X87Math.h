@@ -1911,3 +1911,26 @@ void __cdecl Wood73JitterCpp(int remainder, float* v);
 // --- Lote 73 (HeatFire73): CVehicle::FireHeatSeakingMissile (0x6E05C0) ---
 // 0x6E062D..0x6E0745: out = position + (ordnance (x negada si negateX) + velocidad-hacia-delante * direccion * paso) con el orden y los guardados como float del EXE (ver X87Math.cpp); a 24 bits con exponente extendido.
 void __cdecl HeatFire73SpawnCpp(const float* moveSpeed, const float* forward, const float* ordnance, bool negateX, const float* position, const float* timeStep, float* out);
+
+// --- Lote 74 (PlayerCrosshair74 / CrosshairRender74): CPlayerInfo::ProcessCrosshair (0x56EC80) y CWeaponEffects::RenderPlayerCrosshair (0x56EF90) ---
+// 0x56ECA7..0x56ED19: *v = float(*v + steer * paso * 0.00033333333f) (subtract: float(*v - ...)); tsBits = bits del paso; x87 a 24 bits con exponente extendido y reglas de NaN de la x87.
+void __cdecl Cross74StepCpp(float* v, int steer, uint32_t tsBits, bool subtract);
+// 0x56ED85..0x56EEDC: in = {fov1, fov2, aspecto, x, y, derecha[3], delante[3], arriba[3], posicion[3]} (bits de float, 17 palabras); muzzle = arriba * V (3 bits), target = posicion + 200 * direccion (3 bits).
+void __cdecl Cross74AimCpp(const uint32_t* in, uint32_t* muzzle, uint32_t* target);
+// 0x56F0A0..0x56F0DA: float(sin(float(time & 0x3FF) * 0.0061359231f) * 0.2f + 1.0f).
+float __cdecl Cross74PhaseCpp(uint32_t time);
+// 0x56F0E0..0x56F188: punto de la estela en pantalla; out = {x, y} (bits de float).
+void __cdecl Cross74TrailPointCpp(uint32_t xBits, uint32_t yBits, int width, int height, float phase, float radius, int corner, uint32_t* out);
+
+// --- Lote 74 (PlaneFiring74): CVehicle::GetPlaneWeaponFiringStatus (0x6E3440) ---
+// 0x6E3527..0x6E35D7: out = position + (forward * -2.5f + up * -1.0f), cada paso guardado como float, a 24 bits con exponente extendido; reglas de NaN de la x87 (ver X87Math.cpp).
+void __cdecl PlaneFiring74FlareCpp(const float* forward, const float* up, const float* position, float* out);
+
+// --- Lote 74 (CarLink74): CCarCtrl::ClipTargetOrientationToLink (0x422760) ---
+// Cuerpo completo desde el enlace ya localizado: link = CCarPathLink (14 bytes), arg3 = int8 con signo ya extendido, vehicle = CVehicle (matriz en +0x14, posicion compacta en +4). Llama tres veces a CGeneral::GetATanOfXY (0x53CC70), como el EXE.
+void __cdecl CarLink74ClipCpp(const unsigned char* link, int arg3, float* arg4, float arg5, float arg6, const unsigned char* vehicle);
+
+// --- Lote 74 (HeliSwat74): CHeli::SendDownSwat (0x6C69C0) ---
+// 0x59C790 + 0x411A00: out = float(posicion + float(rotacion(matriz) * relativo)) con el orden de sumas y los guardados como float del EXE, a 24 bits con exponente extendido; matrix = CMatrix (right 0, forward 0x10, up 0x20),
+// rel y heliPos = x, y, z consecutivos (ver X87Math.cpp).
+void __cdecl HeliSwat74WorldPosCpp(const float* matrix, const float* rel, const float* heliPos, float* out);

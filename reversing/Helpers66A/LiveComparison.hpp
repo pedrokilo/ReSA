@@ -82,8 +82,8 @@ inline void Update() {
     // 1: CPlayerPed::DoesTargetHaveToBeBroken 0x60C0C0 y CGeneral::GetATanOfXY 0x53CC70 (con hook).
     // 2: CWorld::GetIsLineOfSightClear 0x56A490 (con hook) y rand() del EXE 0x821B1E (sin hook: la DLL llama a la direccion del EXE).
     // 3: FxSystem_c::AddParticle(v3d) 0x4AA440 (con hook); el constructor FxPrtMult_c 0x4AB290 corre de verdad en ambos lados.
-    // 4: psPathnameCreate 0x745470, psPathnameDestroy 0x7454E0 y psErrorMessage 0x7451D0 (con hook); RwFrameGetLTM 0x7F0990, RwV3dNormalize 0x7ED9B0 y RsLoadPresetViews 0x619D60 (sin cuerpo propio:
-    //    la DLL llama a la direccion del EXE); RsSetPresetView 0x619780 (reconstruida sin hook). Ademas las tablas de RenderWare (fopen, fclose, fputs, sprintf, strlen) se sustituyen durante la llamada.
+    // 4: psPathnameCreate 0x745470, psPathnameDestroy 0x7454E0 y psErrorMessage 0x7451D0 (con hook); RwFrameGetLTM 0x7F0990 y RwV3dNormalize 0x7ED9B0 (sin cuerpo propio:
+    //    la DLL llama a la direccion del EXE); RsLoadPresetViews 0x619D60 (con hook desde el lote 74: falso tambien en el cuerpo de la DLL); RsSetPresetView 0x619780 (reconstruida sin hook). Ademas las tablas de RenderWare (fopen, fclose, fputs, sprintf, strlen) se sustituyen durante la llamada.
     //    RsErrorMessage 0x619B00 y RsKeyboardEventHandler 0x619560 corren de verdad (con hook): el EXE tiene RsErrorMessage expandida en linea en la rama de fallo de fopen.
     env.stubs[0]={{Pair{0x5F6AA0,DllBody(&CPedGroupMembership::CountMembersExcludingLeader),true},reinterpret_cast<void*>(&FakeCount)},
                   {Pair{0x5F8780,DllBody(&CPedGroupIntelligence::ReportAllBarScriptTasksFinished),true},reinterpret_cast<void*>(&FakeReport)},
@@ -101,7 +101,7 @@ inline void Update() {
                   {Pair{0x7451D0,DllBody(&psErrorMessage),true},reinterpret_cast<void*>(&FakeErrorBox)},
                   {Pair{0x7F0990,0,false},reinterpret_cast<void*>(&FakeGetLtm)},
                   {Pair{0x7ED9B0,0,false},reinterpret_cast<void*>(&FakeNormalize)},
-                  {Pair{0x619D60,0,false},reinterpret_cast<void*>(&FakeLoad)},
+                  {Pair{0x619D60,DllBody(&RsLoadPresetViews),true},reinterpret_cast<void*>(&FakeLoad)},
                   {Pair{0x619780,DllBody(&RsSetPresetView),false},reinterpret_cast<void*>(&FakeSetView)}};
     for(unsigned f=0;f<kFunctions;++f) {
         json stubbed=json::array();

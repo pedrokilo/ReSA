@@ -326,7 +326,7 @@ void CVehicle::InjectHooks() {
     RH_ScopedInstall(DoBladeCollision, 0x6E2E50);
     RH_ScopedInstall(AddVehicleUpgrade, 0x6E3290);
     RH_ScopedInstall(SetupUpgradesAfterLoad, 0x6E3400);
-    // RH_ScopedInstall(GetPlaneWeaponFiringStatus, 0x6E3440);
+    RH_ScopedInstall(GetPlaneWeaponFiringStatus, 0x6E3440);
     RH_ScopedInstall(ProcessWeapons, 0x6E3950);
     RH_ScopedInstall(DoFixedMachineGuns, 0x73F400);
     // RH_ScopedInstall(FireFixedMachineGuns, 0x73DF00);
@@ -8174,7 +8174,135 @@ void CVehicle::SetupUpgradesAfterLoad() {
 
 // 0x6E3440
 CEntity* CVehicle::GetPlaneWeaponFiringStatus(bool& status, eOrdnanceType& ordnanceType) {
-    return ((CEntity*(__thiscall*)(CVehicle*, bool&, eOrdnanceType&))0x6E3440)(this, status, ordnanceType);
+    // Como el original (0x6E3440..0x6E37ED). Siempre pide primero el pad del jugador que conduce (FindPlayerSlotWithVehiclePointer + GetPad) y despues elige por modelo con una tabla de 0x98
+    // entradas desde 425 (el indice se compara sin signo: los modelos fuera de 425..576 van al caso por defecto). Los camino que no escriben una de las dos salidas la dejan como estaba
+    // (p. ej. el Hunter con L1 escribe solo el bool; con circulo solo el tipo). Devuelve el objetivo en EAX (solo el Hydra con la mira fijada; el resto devuelve nulo).
+    // Desplazamientos: +0x4D4 hora de la ultima bengala, +0x9DC y +0x9E0 (avion/helicoptero) hora de inicio de la fijacion y objetivo fijado.
+    static_assert(offsetof(CVehicle, m_nGunFiringTime) == 0x4D4);
+    static_assert(offsetof(CPlane, field_9DC) == 0x9DC && offsetof(CPlane, field_9E0) == 0x9E0);
+    static_assert(WEAPON_FLARE == 58);
+    const CPad* const pad = CPad::GetPad(CWorld::FindPlayerSlotWithVehiclePointer(this));
+    auto* const lockStart  = reinterpret_cast<uint32*>(reinterpret_cast<uintptr_t>(this) + 0x9DC);
+    auto* const lockTarget = reinterpret_cast<CEntity**>(reinterpret_cast<uintptr_t>(this) + 0x9E0);
+
+    // Tabla del EXE (0x6E3804): 0 Hunter y 576, 1 helicopteros ligeros y avion RC, 2 Rustler, 3 Hydra, 4 resto
+    enum { KIND_HUNTER = 0, KIND_GUNS = 1, KIND_RUSTLER = 2, KIND_HYDRA = 3, KIND_NONE = 4 };
+    const uint32 slot = static_cast<uint32>(static_cast<int32>(static_cast<int16>(m_nModelIndex)) - 425);
+    int32 kind = KIND_NONE;
+    if (slot <= 0x97) {
+        switch (slot + 425) {
+        case 425: case 576: kind = KIND_HUNTER; break;
+        case 447: case 464: case 487: case 497: case 548: kind = KIND_GUNS; break;
+        case 476: kind = KIND_RUSTLER; break;
+        case 520: kind = KIND_HYDRA; break;
+        default: break;
+        }
+    }
+
+    switch (kind) {
+    case KIND_RUSTLER:
+        if (pad->GetCarGunFired() == 2) {
+            status = true;
+        }
+        ordnanceType = 0;
+        return nullptr;
+
+    case KIND_HUNTER:
+        if (pad->GetCarGunFired() == 2) {
+            status = true;
+            return nullptr;
+        }
+        if (pad->CarGunJustDown() == 1) {
+            ordnanceType = 1;
+            return nullptr;
+        }
+        break;
+
+    case KIND_GUNS:
+        if (pad->GetCarGunFired() == 2) {
+            status = true;
+        }
+        // RC Baron: con el raton en tercera persona y la bandera global, el boton de disparo normal tambien dispara (se vuelve a leer el pad)
+        if (static_cast<int16>(m_nModelIndex) == MODEL_RCBARON && StaticRef<uint8>(0xC1CC00) != 0 && StaticRef<uint8>(0xB6EC2E) != 0) {
+            if (pad->GetCarGunFired() == 1) {
+                status = true;
+            }
+        }
+        ordnanceType = 0;
+        return nullptr;
+
+    case KIND_HYDRA: {
+        ordnanceType = 0;
+        const uint32 now = CTimer::GetTimeInMS();
+        if (pad->CarGunJustDown() == 1 && CTimer::GetTimeInMS() > m_nGunFiringTime + 2000u) {
+            // Bengala: posicion (matriz + 0x30, o la del placeable) + adelante * -2.5 + arriba * -1.0 en la x87 del EXE (X87Math); la matriz se usa sin comprobar nulo (+0x10 adelante, +0x20 arriba)
+            const uintptr_t matrix = reinterpret_cast<uintptr_t>(m_matrix);
+            const float* const position = m_matrix ? reinterpret_cast<const float*>(matrix + 0x30) : reinterpret_cast<const float*>(&m_placement.m_vPosn);
+            CVector spawn;
+            PlaneFiring74FlareCpp(reinterpret_cast<const float*>(matrix + 0x10), reinterpret_cast<const float*>(matrix + 0x20), position, reinterpret_cast<float*>(&spawn));
+            CProjectileInfo::AddProjectile(this, WEAPON_FLARE, spawn, 0.0f, reinterpret_cast<const CVector*>(matrix + 0x10), nullptr);
+            m_nGunFiringTime = CTimer::GetTimeInMS();
+        }
+
+        auto& crossHair = gCrossHair[0];
+        if (pad->CarGunJustDown() == 2) {
+            // L1: dispara el misil guiado si la mira esta fijada y el objetivo se mantiene mas de 1500 ms; si no, el sin guia
+            if (CWeaponEffects::IsLockedOn(0) && *lockStart != 0) {
+                CEntity* const target = ScanAndMarkTargetForHeatSeekingMissile(*lockTarget);
+                if (target && target == *lockTarget && now - *lockStart > 1500u) {
+                    ordnanceType = 2;
+                    crossHair.m_color.r = 0xFF;
+                    crossHair.m_color.g = 0;
+                    crossHair.m_color.b = 0;
+                    crossHair.m_fRotation = 1.0f;
+                    crossHair.m_nTimeWhenToDeactivate = 0;
+                    return target;
+                }
+            }
+            ordnanceType = 1;
+            return nullptr;
+        }
+        if (pad->GetEnterTargeting()) {
+            *lockStart  = now;
+            *lockTarget = nullptr;
+            return nullptr;
+        }
+        if (pad->GetTarget()) {
+            if (*lockStart == 0) {
+                *lockStart = now;
+            }
+            CEntity* const target = ScanAndMarkTargetForHeatSeekingMissile(*lockTarget);
+            if (!target || target != *lockTarget) {
+                *lockStart = now;
+            }
+            crossHair.m_nTimeWhenToDeactivate = 0;
+            if (now - *lockStart > 1500u) {
+                crossHair.m_color.r = 0xFF;
+                crossHair.m_color.g = 0;
+                crossHair.m_color.b = 0;
+                crossHair.m_fRotation = 1.0f;
+            } else {
+                crossHair.m_color.r = 0xFF;
+                crossHair.m_color.g = 0xFF;
+                crossHair.m_color.b = 0xFF;
+                crossHair.m_fRotation = 0.0f;
+            }
+            *lockTarget = target;
+            return nullptr;
+        }
+        *lockStart  = 0;
+        *lockTarget = nullptr;
+        return nullptr;
+    }
+
+    default:
+        break;
+    }
+
+    // Caso por defecto del EXE (0x6E37D3), tambien al que cae el Hunter sin disparo
+    status = false;
+    ordnanceType = 0;
+    return nullptr;
 }
 
 

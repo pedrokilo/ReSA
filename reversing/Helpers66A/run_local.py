@@ -24,7 +24,7 @@ STUBBED = {
     NAMES[1]: [(0x60C0C0, True), (0x53CC70, True)],
     NAMES[2]: [(0x56A490, True), (0x821B1E, False)],
     NAMES[3]: [(0x4AA440, True)],
-    NAMES[4]: [(0x745470, True), (0x7454E0, True), (0x7451D0, True), (0x7F0990, False), (0x7ED9B0, False), (0x619D60, False), (0x619780, False)],
+    NAMES[4]: [(0x745470, True), (0x7454E0, True), (0x7451D0, True), (0x7F0990, False), (0x7ED9B0, False), (0x619D60, True), (0x619780, False)],
 }
 WATCHED = {a for lst in STUBBED.values() for a, _ in lst}
 # Cobertura minima de ramas (calibrada con la primera corrida, con margen): coverage.json = {funcion: {clave: minimo de casos}}

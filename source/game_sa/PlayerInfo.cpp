@@ -40,6 +40,8 @@ END GENERATED HOOK STATUS */
 #include "CullZones.h"
 #include "Renderer.h"
 
+static void __fastcall ProcessCrosshair_Hook(uint32* crosshair, void* edx, uint32 playerIndex, CPad* pad);
+
 void CPlayerInfo::InjectHooks() {
     RH_ScopedClass(CPlayerInfo);
     RH_ScopedCategoryGlobal();
@@ -49,6 +51,7 @@ void CPlayerInfo::InjectHooks() {
     RH_ScopedInstall(FindObjectToSteal, 0x56DBD0);
     RH_ScopedInstall(EvaluateCarPosition, 0x56DAD0);
     RH_ScopedInstall(Process, 0x56F8D0);
+    RH_ScopedNamedGlobalInstall(ProcessCrosshair_Hook, "ProcessCrosshair", 0x56EC80);
     RH_ScopedInstall(FindClosestCarSectorList, 0x56F4E0);
     RH_ScopedInstall(Clear, 0x56F330);
     RH_ScopedInstall(StreamParachuteWeapon, 0x56EB30);
@@ -97,6 +100,11 @@ CVector* CPlayerInfo::GetSpeed_Hook(CVector* out) {
 CVector* CPlayerInfo::GetPos_Hook(CVector* outPos) {
     *outPos = GetPos();
     return outPos;
+}
+
+// 0x56EC80: el EXE llama con this = &m_nCrosshairActivated (el byte activo y, a continuacion, la mira en pantalla); ret 8, sin valor de retorno que lea ningun llamador.
+static void __fastcall ProcessCrosshair_Hook(uint32* crosshair, void* /*edx*/, uint32 playerIndex, CPad* pad) {
+    reinterpret_cast<CPlayerInfo*>(reinterpret_cast<uint8*>(crosshair) - offsetof(CPlayerInfo, m_nCrosshairActivated))->ProcessCrosshair(playerIndex, pad);
 }
 
 // 0x56E860
@@ -321,10 +329,74 @@ void CPlayerInfo::Process(uint32 playerIndex) {
         const auto delta = ((wanted <= targets.size() ? targets[wanted - 1] : 0.0f) - m_fCurrentChaseValue) * CTimer::GetTimeStep() * 0.0001f;
         if (delta < 0.0f || (moved && nearRoad && !CCullZones::NoPolice() && !CCullZones::PoliceAbandonCars() && CGame::currArea == 0)) m_fCurrentChaseValue += delta;
     } else m_fCurrentChaseValue = 0.0f;
-    // Separate original crosshair controller (not the Process entry).
-    reinterpret_cast<void(__thiscall*)(uint32*, uint32, CPad*)>(0x56EC80)(&m_nCrosshairActivated, playerIndex, pad);
+    ProcessCrosshair(playerIndex, pad);
     m_nMoney = std::min(m_nMoney, 999999999);
     m_nDisplayMoney = std::min(m_nDisplayMoney, 999999999);
+}
+
+// 0x56EC80 (en el EXE this = &m_nCrosshairActivated: el byte "activa" y, tras el, la mira en pantalla -1..1 en +4/+8)
+// Mueve la mira con la palanca de la direccion (x87 a 24 bits: Cross74StepCpp), la recorta a +-0.9f y, si se dispara el arma del coche, lanza un disparo instantaneo desde la camara hacia la mira (200 unidades).
+void CPlayerInfo::ProcessCrosshair(uint32 playerIndex, CPad* pad) {
+    if (!*reinterpret_cast<const uint8*>(&m_nCrosshairActivated)) {
+        return;
+    }
+    float* const target = &m_vecCrosshairTarget.x; // +4: x, +8: y
+    {
+        const uint32 timeStep = std::bit_cast<uint32>(CTimer::ms_fTimeStep); // como el original: se lee antes de llamar al mando
+        const int32 steer = pad->GetSteeringLeftRight();
+        Cross74StepCpp(&target[0], steer, timeStep, false);
+    }
+    {
+        const bool inverted = StaticRef<uint8>(0xB73402) != 0; // CPad::bInvertLook4Pad (cualquier byte distinto de 0)
+        const uint32 timeStep = std::bit_cast<uint32>(CTimer::ms_fTimeStep);
+        const int32 steer = pad->GetSteeringUpDown();
+        Cross74StepCpp(&target[1], steer, timeStep, !inverted);
+    }
+    // Como el original: orden x alto, x bajo, y alto, y bajo; las comparaciones ordenadas dejan pasar los NaN
+    if (target[0] > 0.9f) target[0] = 0.9f;
+    if (target[0] < -0.9f) target[0] = -0.9f;
+    if (target[1] > 0.9f) target[1] = 0.9f;
+    if (target[1] < -0.9f) target[1] = -0.9f;
+
+    if (!pad->GetCarGunFired()) {
+        return;
+    }
+    CamShakeNoPos(&TheCamera, 0.2f);
+
+    // Direccion de la mira: dos lecturas de FindCamFOV (0x50AD20) y la matriz de la camara (0xB6F99C: derecha, delante, arriba, posicion)
+    uint32 in[17];
+    in[0] = std::bit_cast<uint32>(TheCamera.FindCamFOV());
+    in[1] = std::bit_cast<uint32>(TheCamera.FindCamFOV());
+    in[2] = std::bit_cast<uint32>(CDraw::ms_fAspectRatio);
+    memcpy(&in[3], &target[0], 4);
+    memcpy(&in[4], &target[1], 4);
+    const auto* const matrix = reinterpret_cast<const uint32*>(&TheCamera.m_mCameraMatrix);
+    for (int i = 0; i < 3; ++i) {
+        in[5 + i] = matrix[i];       // derecha
+        in[8 + i] = matrix[4 + i];   // delante
+        in[11 + i] = matrix[8 + i];  // arriba
+        in[14 + i] = matrix[12 + i]; // posicion
+    }
+    uint32 muzzleBits[3], targetBits[3];
+    Cross74AimCpp(in, muzzleBits, targetBits);
+
+    CWeapon weapon(eWeaponType(31), 5000); // 0x1F, 0x1388
+    // Como el original: el origen es la posicion de la camara copiada por palabras (CPlaceable::GetPosition)
+    uint32 originBits[3];
+    memcpy(originBits, &TheCamera.GetPosition(), 12);
+    CVector origin, aim;
+    memcpy(&origin, originBits, 12);
+    memcpy(&aim, targetBits, 12);
+
+    // Bit 25 del dword de banderas del ped en +0x470: se apaga durante el disparo y se restaura despues
+    const auto flagsOf = [](CPed* ped) { return reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(ped) + 0x470); };
+    CPed* ped = CWorld::Players[playerIndex].m_pPed;
+    const uint32 savedFlags = *flagsOf(ped);
+    *flagsOf(ped) = savedFlags & 0xFDFFFFFFu;
+    weapon.FireInstantHit(ped, &origin, &origin, nullptr, &aim, nullptr, true, true); // como el original: muzzlePosn es el mismo puntero que el origen (ambos apuntan a la copia local de la posicion de la camara)
+    ped = CWorld::Players[playerIndex].m_pPed;
+    uint32& flags = *flagsOf(ped);
+    flags = (flags & ~0x02000000u) | (savedFlags & 0x02000000u);
 }
 
 // 0x56F4E0

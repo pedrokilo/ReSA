@@ -118,11 +118,6 @@ void* RsGetPresetViewDescription() {
     return pv->m_Description;
 }
 
-// 0x619D60 (devuelve NumPresetViews != 0 en EAX: 0 o 1)
-bool RsLoadPresetViews() {
-    return plugin::CallAndReturn<bool, 0x619D60>();
-}
-
 // Funciones de fichero de RenderWare (RwFileFunctions, 11 punteros en RwEngineInstance + 0xC4: RwOsGetFileInterface, 0x804130)
 struct PresetViewFileFunctions {
     void*  fexist;
@@ -130,12 +125,81 @@ struct PresetViewFileFunctions {
     int32  (__cdecl* fclose)(void* file);                        // +8
     void*  fread;
     void*  fwrite;
-    void*  fgets;
+    char*  (__cdecl* fgets)(char* buffer, int32 size, void* file); // +0x14
     int32  (__cdecl* fputs)(const char* text, void* file);       // +0x18
     void*  rest[4];
 };
 static_assert(sizeof(PresetViewFileFunctions) == sizeof(RwGlobals::fileFuncs));
 static_assert(offsetof(RwCamera, nearPlane) == 0x80 && offsetof(RwCamera, farPlane) == 0x84);
+
+// 0x619D60 (devuelve NumPresetViews != 0 en EAX: 0 o 1)
+// Vuelve a leer ./views.txt: una vista por linea "x y z rotX rotY near far [nombre]"; las lineas con menos de 7 numeros se ignoran y sin nombre se llama "View<N>".
+// Como el original: si falta memoria devuelve false SIN cerrar el fichero.
+bool RsLoadPresetViews() {
+    RsDestroyPresetViews();
+    CurrentPresetView = -1;
+    auto* const files = reinterpret_cast<PresetViewFileFunctions*>(&RwEngineInstance->fileFuncs[0]);
+    if (files) {
+        char* const path = psPathnameCreate(ViewsFileName);
+        void* const file = files->fopen(path, "r"); // 0x85A53C
+        psPathnameDestroy(path);
+        if (file) {
+            char line[0x400];
+            while (files->fgets(line, 0x3FF, file)) {
+                (void)rwstrlen(line); // el EXE llama a strlen y no usa el resultado
+                // Se descartan los caracteres no imprimibles (isprint del EXE, 0x8228B5)
+                char* out = line;
+                if (line[0]) {
+                    for (const char* in = line;;) {
+                        if (reinterpret_cast<int(__cdecl*)(int)>(0x8228B5)(uint8(*in))) {
+                            *out++ = *in;
+                        }
+                        ++in;
+                        if (!*in) {
+                            break;
+                        }
+                    }
+                }
+                *out = '\0';
+
+                float v[7];
+                char name[0x400 - 0x30]{};
+                const int32 count = rwsscanf(line, "%f%f%f%f%f%f%f %[^\0]", &v[0], &v[1], &v[2], &v[3], &v[4], &v[5], &v[6], name); // 0x86D3E4: el literal del EXE es "...%[^\0]" (el conjunto queda sin cerrar tras el cero)
+                if (count < 7) {
+                    continue;
+                }
+                if (count == 7) {
+                    rwsprintf(name, "%s%d", "View", NumPresetViews); // 0x86D3D4 / 0x86D3DC
+                }
+                auto* const view = static_cast<PresetView*>(CMemoryMgr::Malloc(sizeof(PresetView), 0));
+                if (!view) {
+                    RsErrorMessage("Out of memory - not all preset views loaded"); // 0x86D3A8
+                    return false;
+                }
+                view->m_Translation.x = v[0];
+                view->m_Translation.y = v[1];
+                view->m_Translation.z = v[2];
+                view->m_RotX = v[3];
+                view->m_RotY = v[4];
+                view->m_NearClip = v[5];
+                view->m_FarClip = v[6];
+                const auto length = uint32(rwstrlen(name));
+                view->m_Description = static_cast<char*>(CMemoryMgr::Malloc(length + 1, 0));
+                if (!view->m_Description) {
+                    RsErrorMessage("Out of memory - not all preset views loaded");
+                    CMemoryMgr::Free(view);
+                    return false;
+                }
+                rwstrcpy(view->m_Description, name);
+                view->m_Next = PresetViews;
+                PresetViews = view;
+                ++NumPresetViews;
+            }
+            files->fclose(file);
+        }
+    }
+    return NumPresetViews != 0;
+}
 
 // 0x619FA0
 // Anade al fichero ./views.txt la vista actual de la camara (posicion, rotX, rotY, plano cercano y lejano y el nombre "View<N>"), recarga las vistas y selecciona la ultima.

@@ -2,7 +2,8 @@ import json,sys
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from runtime_runner import run_case,digest
-PROBE_HASH='6f71a365e4fe2eb34e47ab5914b6fde2d387ca326ee7f484ca5c560553883b4f'
+HERE=Path(__file__).resolve().parent
+PROBE_HASH=json.loads((HERE/'artifacts/build-manifest.json').read_text())['binaries']['asi'] if (HERE/'artifacts/build-manifest.json').exists() else '6f71a365e4fe2eb34e47ab5914b6fde2d387ca326ee7f484ca5c560553883b4f'   # lote 74: el hash de la sonda sale del manifiesto de la ultima compilacion
 def equivalent(a,b):
     if a==b:return True
     if isinstance(a,(int,float)) and isinstance(b,(int,float)):

@@ -27,6 +27,8 @@ END GENERATED HOOK STATUS */
 #include "WeaponEffects.h"
 #include "X87Math.h"
 
+static void __fastcall RenderPlayerCrosshair_Hook(uint32* crosshair, void* edx, int32 playerIndex);
+
 void CWeaponEffects::InjectHooks() {
     RH_ScopedClass(CWeaponEffects);
     RH_ScopedCategoryGlobal();
@@ -40,6 +42,7 @@ void CWeaponEffects::InjectHooks() {
     RH_ScopedInstall(ClearCrossHairImmediately, 0x742CA0);
     RH_ScopedInstall(ClearCrossHairsImmediately, 0x742CC0);
     RH_ScopedInstall(Render, 0x742CF0);
+    RH_ScopedNamedGlobalInstall(RenderPlayerCrosshair_Hook, "RenderPlayerCrosshair", 0x56EF90);
 }
 
 // 0x742AB0
@@ -333,7 +336,70 @@ void CWeaponEffects::Render() {
         end();
     }
     for (int i = 0; i < 2; ++i) {
-        // The original delegates each player's auxiliary crosshair to this method.
-        reinterpret_cast<void(__thiscall*)(void*, int)>(0x56EF90)(&CWorld::Players[i].m_nCrosshairActivated, i);
+        RenderPlayerCrosshair(CWorld::Players[i], i); // la mira auxiliar de cada jugador (0x56EF90)
     }
+}
+
+// 0x56EF90: el EXE llama con this = &Players[i].m_nCrosshairActivated; ret 4, sin valor de retorno que lea ningun llamador.
+static void __fastcall RenderPlayerCrosshair_Hook(uint32* crosshair, void* /*edx*/, int32 playerIndex) {
+    CWeaponEffects::RenderPlayerCrosshair(*reinterpret_cast<CPlayerInfo*>(reinterpret_cast<uint8*>(crosshair) - offsetof(CPlayerInfo, m_nCrosshairActivated)), playerIndex);
+}
+
+// 0x56EF90
+// Dibuja la estela de la mira del jugador (cinco muestras de su posicion en pantalla, con 12 sprites cada una): guarda la posicion y la hora actuales en tres historiales
+// globales de 5 entradas por jugador (X 0xB9B948, Y 0xB9B920, hora 0xB9B8F8) y los pinta de la mas vieja a la mas nueva con el color del jugador reducido a la mitad por capa.
+void CWeaponEffects::RenderPlayerCrosshair(CPlayerInfo& info, int32 playerIndex) {
+    if (!*reinterpret_cast<const uint8*>(&info.m_nCrosshairActivated)) {
+        return;
+    }
+    const auto state = [](RwRenderState key, uint32 value) {
+        RwRenderStateSet(key, RWRSTATE(value));
+    };
+    state(rwRENDERSTATEZWRITEENABLE, 0);
+    state(rwRENDERSTATEZTESTENABLE, 0);
+    state(rwRENDERSTATEVERTEXALPHAENABLE, 1);
+    state(rwRENDERSTATESRCBLEND, rwBLENDSRCALPHA);
+    state(rwRENDERSTATEDESTBLEND, rwBLENDINVDESTALPHA);
+    // Como el original: textura 0xC3E000[indice en 0x8CDF1C] (gpCoronaTexture), sin comprobar el indice
+    RwRenderStateSet(rwRENDERSTATETEXTURERASTER, reinterpret_cast<RwTexture**>(0xC3E000)[StaticRef<int32>(0x8CDF1C)]->raster);
+
+    int32 r, g, b;
+    if (playerIndex != 0) {
+        r = 0x32; g = 0; b = 0xFF;
+    } else {
+        r = 0; g = 0xFF; b = 0x32;
+    }
+    auto* const historyX = reinterpret_cast<uint32*>(0xB9B948);
+    auto* const historyY = reinterpret_cast<uint32*>(0xB9B920);
+    auto* const historyTime = reinterpret_cast<uint32*>(0xB9B8F8);
+    const int32 base = playerIndex * 5;
+    // Como el original: la hora de cada entrada se copia de una direccion ABSOLUTA (Y del jugador 0 + 0xC, retrocediendo 4 por vuelta), no de la del jugador
+    const auto* const timeSource = reinterpret_cast<const uint32*>(0xB9B92C);
+    for (int32 k = 0; k < 4; ++k) {
+        const int32 to = base + 4 - k;
+        historyX[to] = historyX[to - 1];
+        historyY[to] = historyY[to - 1];
+        historyTime[to] = timeSource[-k];
+    }
+    memcpy(&historyX[base], &info.m_vecCrosshairTarget.x, 4);
+    memcpy(&historyY[base], &info.m_vecCrosshairTarget.y, 4);
+    historyTime[base] = CTimer::m_snTimeInMilliseconds;
+
+    for (int32 layer = 0; layer < 5; ++layer) {
+        // Como el original: la hora es siempre la de la primera entrada del jugador
+        const float phase = Cross74PhaseCpp(historyTime[base]);
+        for (int32 j = 0; j < 3; ++j) {
+            const float radius = float(j) * 10.0f + 20.0f;
+            for (int32 i = 0; i < 4; ++i) {
+                uint32 out[2];
+                Cross74TrailPointCpp(historyX[base + layer], historyY[base + layer], RsGlobal.maximumWidth, RsGlobal.maximumHeight, phase, radius, i, out);
+                CSprite::RenderOneXLUSprite_Rotate_Aspect({std::bit_cast<float>(out[0]), std::bit_cast<float>(out[1]), 100.0f}, {15.0f, 15.0f}, uint8(r), uint8(g), uint8(b), 255, 0.01f, 0.0f, 255);
+            }
+        }
+        r >>= 1;
+        g >>= 1;
+        b >>= 1;
+    }
+    state(rwRENDERSTATEZWRITEENABLE, 1);
+    state(rwRENDERSTATEZTESTENABLE, 1);
 }

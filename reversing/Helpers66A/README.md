@@ -101,3 +101,9 @@ ya se exige aparte, el oráculo valida además los propios fixtures y la lectura
 - Las tablas de funciones de RenderWare (`RwEngineInstance` + 0xC4: fopen/fclose/fputs; + 0xF0: sprintf; + 0x120: strlen) se sobrescriben sólo durante la llamada y se restauran antes de comprobar las regiones.
 - `RsKeyboardEventHandler`/`RsErrorMessage` corren de verdad (el EXE tiene `RsErrorMessage` expandida en línea en la rama de fallo de fopen): el manejador de teclado de `RsGlobal` se sustituye por uno falso.
 - Los índices de grupo > 7 no se prueban (leerían memoria ajena a `ms_groups` sin control).
+
+
+## Repetido el 27/10/2026 (lote 74): RsLoadPresetViews con hook
+
+`RsLoadPresetViews` (0x619D60) pasa a C++ con hook S (banco `PresetLoad74`). Ya no es codigo del EXE sin cuerpo propio: el falso `FakeLoad` se instala ahora tambien en el cuerpo de la DLL (`Pair{0x619D60, DllBody(&RsLoadPresetViews), true}` en `LiveComparison.hpp`; `run_local.py`: `(0x619D60, True)`).
+Repetido hasta APROBADO: 20480 pares, cero diferencias, `E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-helpers66a\20261027-040602-268558` (worktree D:\Original\wy-4, HEAD f13a750cf + cambios del lote 74).

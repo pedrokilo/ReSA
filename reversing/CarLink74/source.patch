@@ -1,0 +1,172 @@
+diff --git a/source/game_sa/CarCtrl.cpp b/source/game_sa/CarCtrl.cpp
+index ac03fd55b..ca794c21a 100644
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -117,6 +117,8 @@ void CCarCtrl::InjectHooks()
+     RH_ScopedNamedGlobalInstall(Cc63SpeedMultiplierCpp, "FindSpeedMultiplier", 0x4224E0);
+     RH_ScopedInstall(StopCarIfNodesAreInvalid, 0x422590);
+     RH_ScopedInstall(FindPercDependingOnDistToLink, 0x422620);
++    // Lote 74
++    RH_ScopedInstall(ClipTargetOrientationToLink, 0x422760);
+     RH_ScopedNamedGlobalInstall(Cc63Intersection2LinesCpp, "FindIntersection2Lines", 0x4226F0);
+     // Lote 63 (parte C, tanda 2)
+     RH_ScopedInstall(SetUpDriverAndPassengersForVehicle, 0x4217C0);
+@@ -401,8 +403,13 @@ void CCarCtrl::ClearInterestingVehicleList() {
+ #endif
+ 
+ // 0x422760
+-void CCarCtrl::ClitargetOrientationToLink(CVehicle* vehicle, CCarPathLinkAddress arg2, int8 arg3, float* arg4, float arg5, float arg6) {
+-    plugin::Call<0x422760, CVehicle*, CCarPathLinkAddress, int8, float*, float, float>(vehicle, arg2, arg3, arg4, arg5, arg6);
++void CCarCtrl::ClipTargetOrientationToLink(CVehicle* vehicle, CCarPathLinkAddress arg2, int8 arg3, float* arg4, float arg5, float arg6) {
++    // Como el original: si el area de nodos no esta cargada no hace nada; el enlace (14 bytes) se localiza sin mas comprobaciones y el resto va en X87Math (CarLink74ClipCpp).
++    if (!ThePaths.m_pPathNodes[arg2.m_wAreaId]) {
++        return;
++    }
++    const auto* const link = reinterpret_cast<const unsigned char*>(&ThePaths.m_pNaviNodes[arg2.m_wAreaId][arg2.m_wCarPathLinkId]);
++    CarLink74ClipCpp(link, arg3, arg4, arg5, arg6, reinterpret_cast<const unsigned char*>(vehicle));
+ }
+ 
+ // 0x431F80
+diff --git a/source/game_sa/CarCtrl.h b/source/game_sa/CarCtrl.h
+index 95f9215a3..eb99a05c2 100644
+--- a/source/game_sa/CarCtrl.h
++++ b/source/game_sa/CarCtrl.h
+@@ -55,7 +55,7 @@ public:
+     static int32 ChoosePoliceCarModel(uint32 arg0);
+     static eModelID ChooseGangCarModel(eGangID loadedCarGroupId);
+     static void ClearInterestingVehicleList();
+-    static void ClitargetOrientationToLink(CVehicle* vehicle, CCarPathLinkAddress arg2, int8 arg3, float* arg4, float arg5, float arg6);
++    static void ClipTargetOrientationToLink(CVehicle* vehicle, CCarPathLinkAddress arg2, int8 arg3, float* arg4, float arg5, float arg6);
+     static CVehicle* CreateCarForScript(int32 modelId, CVector posn, bool doMissionCleanup);
+     static bool CreateConvoy(CVehicle* vehicle, int32 arg2);
+     static bool CreatePoliceChase(CVehicle* vehicle, int32 arg2, CNodeAddress NodeAddress);
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 07242656a..9a27f8bf3 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -15589,3 +15589,113 @@ __declspec(noinline) void __cdecl HeatFire73SpawnCpp(const float* moveSpeedIn, c
+     (void)outBits;
+ }
+ #pragma float_control(pop)
++
++// --- Lote 74 (CarLink74): CCarCtrl::ClipTargetOrientationToLink (0x422760) ---
++// Rumbo de un vehiculo respecto a un enlace de ruta (CCarPathLink, 14 bytes) con el orden x87 del EXE (24 bits, exponente extendido): las magnitudes que el EXE guarda como float van en volatile float;
++// las que deja en un registro (Y1 sin guardar, D2, los D normalizados) van en double. El EXE llama tres veces a 0x53CC70 (GetATanOfXY): la primera con (arg5 - x, arg6 - y) y el resultado descartado (fstp st(0)),
++// la segunda con el punto desplazado hacia un lado (resultado guardado como float) y la tercera con el desplazado hacia el otro (resultado en ST0 sin guardar). Con los dos errores D1 (guardado como float) y D2 (en registro)
++// normalizados a [-pi, pi]: si los dos son negativos se suma el mayor, si los dos son positivos el menor (a igualdad D2); con signos mezclados, ceros o NaN *arg4 no cambia. Al final *arg4 se lleva a [0, 2pi].
++// vehicle: el EXE lee m_matrix (+0x14) en cada uso de la posicion: matriz->pos (+0x30) o, sin matriz, la posicion compacta (+4).
++#pragma float_control(precise, on, push)
++namespace {
++inline const volatile float* CarLink74Pos(const unsigned char* vehicle) {
++    const unsigned char* const matrix = *reinterpret_cast<const unsigned char* const volatile*>(vehicle + 0x14);
++    return reinterpret_cast<const volatile float*>(matrix ? matrix + 0x30 : vehicle + 4);
++}
++}
++__declspec(noinline) void __cdecl CarLink74ClipCpp(const unsigned char* link, int arg3, float* arg4, float arg5, float arg6, const unsigned char* vehicle) {
++    constexpr float kHundredth = std::bit_cast<float>(0x3C23D70Au); // 0x858C58 = 0.01f
++    constexpr float kHalf = std::bit_cast<float>(0x3F000000u);      // 0x858B8C
++    constexpr float kPerWidth = std::bit_cast<float>(0x3C3DA12Fu);  // 0x858EEC
++    constexpr float kInset = std::bit_cast<float>(0x3E99999Au);     // 0x858C24 = 0.3f
++    constexpr float kReach = std::bit_cast<float>(0x40ACCCCDu);     // 0x858C50 = 5.4f
++    constexpr double kPi = std::bit_cast<float>(0x40490FDBu);       // 0x858CB8
++    constexpr double kTwoPi = std::bit_cast<float>(0x40C90FDBu);    // 0x858CBC
++    constexpr double kNegPi = std::bit_cast<float>(0xC0490FDBu);    // 0x858CC0
++    // direccion del enlace (int8 x 0.01) por arg3, cada producto guardado como float
++    volatile float dirX = (static_cast<float>(static_cast<signed char>(link[8])) * kHundredth) * static_cast<float>(arg3);
++    volatile float dirY = (static_cast<float>(static_cast<signed char>(link[9])) * kHundredth) * static_cast<float>(arg3);
++    // primera llamada (resultado descartado): primero y, luego x
++    {
++        volatile float ty = arg6 - CarLink74Pos(vehicle)[1];
++        volatile float tx = arg5 - CarLink74Pos(vehicle)[0];
++        (void)CGeneral::GetATanOfXY(tx, ty);
++    }
++    // carriles: bits 0-2 y 3-5 de +0xB, ancho en +0xA
++    const unsigned flags = link[0xB];
++    const unsigned lanesA = flags & 7u;
++    const unsigned lanesB = (flags >> 3) & 7u;
++    volatile float memLane;   // [esp+20h] antes de restar 0.3
++    float regLane;            // el que queda en la pila x87
++    if (lanesA == 0) {
++        memLane = static_cast<float>(lanesB) * kHalf;
++        regLane = memLane;
++    } else if (lanesB == 0) {
++        memLane = static_cast<float>(lanesA) * kHalf;
++        regLane = memLane;
++    } else if (static_cast<signed char>(arg3) == 0) {
++        memLane = static_cast<float>(link[0xA]) * kPerWidth + static_cast<float>(lanesA);
++        regLane = static_cast<float>(lanesB);
++    } else {
++        memLane = static_cast<float>(link[0xA]) * kPerWidth + static_cast<float>(lanesB);
++        regLane = static_cast<float>(lanesA);
++    }
++    const float q = memLane - kInset;
++    volatile float p = regLane - kInset;
++    // punto desplazado hacia un lado (X1 guardado; Y1 sin guardar) y hacia el otro (X2 e Y2 guardados)
++    volatile float x1 = (dirY * q) * kReach + arg5;
++    const double y1 = arg6 - (q * dirX) * kReach;
++    volatile float x2 = arg5 - (p * dirY) * kReach;
++    volatile float y2 = (p * dirX) * kReach + arg6;
++    // segunda llamada: y = Y1 - pos.y (sin guardar antes), x = X1 - pos.x
++    volatile float a1;
++    {
++        volatile float ty = static_cast<float>(y1 - CarLink74Pos(vehicle)[1]);
++        volatile float tx = x1 - CarLink74Pos(vehicle)[0];
++        a1 = CGeneral::GetATanOfXY(tx, ty);
++    }
++    // tercera llamada: resultado en ST0 sin guardar
++    double a2;
++    {
++        volatile float ty = y2 - CarLink74Pos(vehicle)[1];
++        volatile float tx = x2 - CarLink74Pos(vehicle)[0];
++        a2 = CGeneral::GetATanOfXY(tx, ty);
++    }
++    const volatile float* const target = arg4;
++    const float old = *target;
++    volatile float d1m = a1 - old;      // se guarda como float y se vuelve a cargar
++    double d2 = a2 - old;               // sin guardar
++    double d1 = d1m;
++    if (d1 > kPi) {
++        do { d1 -= kTwoPi; } while (d1 > kPi);
++        d1m = static_cast<float>(d1);
++    }
++    if (d1 < kNegPi) {
++        do { d1 += kTwoPi; } while (d1 < kNegPi);
++        d1m = static_cast<float>(d1);
++    }
++    if (d2 > kPi) {
++        do { d2 -= kTwoPi; } while (d2 > kPi);
++    }
++    if (d2 < kNegPi) {
++        do { d2 += kTwoPi; } while (d2 < kNegPi);
++    }
++    volatile float* const out = arg4;
++    if (d1 < 0.0 && d2 < 0.0) {
++        *out = static_cast<float>((d1 > d2 ? static_cast<double>(d1m) : d2) + old);
++    } else if (d1 > 0.0 && d2 > 0.0) {
++        *out = static_cast<float>((d1 < d2 ? static_cast<double>(d1m) : d2) + old);
++    }
++    // *arg4 a [0, 2pi]
++    if (*out < 0.0f) {
++        double f = *out;
++        do { f += kTwoPi; } while (f < 0.0);
++        *out = static_cast<float>(f);
++    }
++    if (*out > static_cast<float>(kTwoPi)) {
++        double f = *out;
++        do { f -= kTwoPi; } while (f > kTwoPi);
++        *out = static_cast<float>(f);
++    }
++}
++#pragma float_control(pop)
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index e350d3453..27584ffd8 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1911,3 +1911,7 @@ void __cdecl Wood73JitterCpp(int remainder, float* v);
+ // --- Lote 73 (HeatFire73): CVehicle::FireHeatSeakingMissile (0x6E05C0) ---
+ // 0x6E062D..0x6E0745: out = position + (ordnance (x negada si negateX) + velocidad-hacia-delante * direccion * paso) con el orden y los guardados como float del EXE (ver X87Math.cpp); a 24 bits con exponente extendido.
+ void __cdecl HeatFire73SpawnCpp(const float* moveSpeed, const float* forward, const float* ordnance, bool negateX, const float* position, const float* timeStep, float* out);
++
++// --- Lote 74 (CarLink74): CCarCtrl::ClipTargetOrientationToLink (0x422760) ---
++// Cuerpo completo desde el enlace ya localizado: link = CCarPathLink (14 bytes), arg3 = int8 con signo ya extendido, vehicle = CVehicle (matriz en +0x14, posicion compacta en +4). Llama tres veces a CGeneral::GetATanOfXY (0x53CC70), como el EXE.
++void __cdecl CarLink74ClipCpp(const unsigned char* link, int arg3, float* arg4, float arg5, float arg6, const unsigned char* vehicle);

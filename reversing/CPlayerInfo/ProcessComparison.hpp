@@ -55,6 +55,8 @@ inline void __fastcall Crosshair(uint32* state,void*,uint32 index,CPad* pad) {
     trace.push_back({"crosshair",uintptr_t(state)-uintptr_t(&CWorld::Players[0]),*state,index,pad==CPad::GetPad(index)});
     *state^=0x55;
 }
+// Desde el lote 74 la DLL llama a CPlayerInfo::ProcessCrosshair (C++, this = CPlayerInfo) en lugar de a 0x56EC80: mismo falso sobre &m_nCrosshairActivated
+inline void __fastcall CrosshairDll(CPlayerInfo* self,void*,uint32 index,CPad* pad) { Crosshair(&self->m_nCrosshairActivated,nullptr,index,pad); }
 inline bool ProcessTests(ReversibleHooks::ReversibleHook::Base* hook,int& pair) {
     auto* globals=reinterpret_cast<void*>(0xB7CD98);auto saved=ReversingProbe::Bytes(globals,800);
     auto timer=ReversingProbe::Bytes(reinterpret_cast<void*>(0xB7CB4C),0x3C);
@@ -71,7 +73,7 @@ inline bool ProcessTests(ReversibleHooks::ReversibleHook::Base* hook,int& pair) 
         Patch appearance(&CVehicle::GetVehicleAppearance,0x6D1080,Appearance),driving(CStats::UpdateStatsWhenDriving,0x55CAC0,Driving),flying(CStats::UpdateStatsWhenFlying,0x55CC00,Flying),biking(CStats::UpdateStatsWhenOnMotorBike,0x55CD60,Biking);
         Patch mission(CTheScripts::IsPlayerOnAMission,0x464D50,Mission),noPolice(CCullZones::NoPolice,0x72DD50,NoPolice),abandon(CCullZones::PoliceAbandonCars,0x72DD60,Abandon);
         ReversingProbe::EntryPatch nodeDll(Address(&CPathFind::FindNodeClosestToCoors),ClosestNode),nodeExe(0x44F460,ClosestNodeOriginal);
-        ReversingProbe::EntryPatch crosshair(0x56EC80,Crosshair);
+        ReversingProbe::EntryPatch crosshair(0x56EC80,Crosshair),crosshairDll(Address(&CPlayerInfo::ProcessCrosshair),CrosshairDll);
         Patch exitDown(&CPad::ExitVehicleJustDown,0x540120,ExitDown),exitHeld(&CPad::GetExitVehicle,0x5400D0,ExitHeld);
         Patch objectSearch(&CPlayerInfo::FindObjectToSteal,0x56DBD0,ObjectToSteal),carSearch(&CPlayerInfo::FindClosestCarSectorList,0x56F4E0,ClosestCar);
         Patch hold(&CPedIntelligence::GetTaskHold,0x600FF0,Hold),fight(&CPedIntelligence::GetTaskFighting,0x600F30,Fight),enter(&CVehicle::CanPedEnterCar,0x6D5400,EnterCar);

@@ -6,10 +6,10 @@ import subprocess
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from runtime_runner import digest
+from runtime_runner import digest, GAME
 ROOT = Path(__file__).resolve().parents[2]
 HERE = Path(__file__).resolve().parent
-CMAKE = ROOT/'reversing/CVehicle/conan-cache/p/cmake20ac4e0137fee/p/bin/cmake.exe'
+CMAKE = next((ROOT/'reversing/CVehicle/conan-cache/p').glob('cmake*/p/bin/cmake.exe'))   # lote 74: la ruta ya no esta fija
 
 def main():
     paths = [ROOT/'source/game_sa/PlayerInfo.cpp', ROOT/'source/game_sa/Game.cpp']
@@ -34,6 +34,7 @@ def main():
         for ext in ('asi','pdb'):
             dest = artifacts/f'gta_reversed-playerinfo-probe.{ext}'
             shutil.copy2(ROOT/f'bin/Debug/gta_reversed.{ext}', dest); hashes[ext] = digest(dest)
+            shutil.copy2(dest, GAME/'_baseline'/dest.name)   # lote 74: como probe_build.py, la sonda se instala en el clon de pruebas
         manifest = dict(helper_source=digest(ROOT/'source/game_sa/PlayerInfoProcess.cpp.inc'), binaries=hashes, sources={str(p.relative_to(ROOT)):hashlib.sha256(data).hexdigest() for p,data in saved.items()}, instrumentation={p.name:digest(p) for p in (HERE/'Probe.hpp',HERE/'LiveComparison.hpp',HERE/'ProcessComparison.hpp',HERE/'build_probe.py')})
         manifest['dependencies']={name:digest(ROOT/name) for name in ('source/game_sa/PlayerInfo.h','source/game_sa/PathFind.cpp','source/game_sa/Tasks/TaskTypes/TaskComplexEnterBoatAsDriver.h')}
         (artifacts/'build-manifest.json').write_text(json.dumps(manifest,indent=2))

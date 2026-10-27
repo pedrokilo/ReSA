@@ -117,6 +117,8 @@ void CCarCtrl::InjectHooks()
     RH_ScopedNamedGlobalInstall(Cc63SpeedMultiplierCpp, "FindSpeedMultiplier", 0x4224E0);
     RH_ScopedInstall(StopCarIfNodesAreInvalid, 0x422590);
     RH_ScopedInstall(FindPercDependingOnDistToLink, 0x422620);
+    // Lote 74
+    RH_ScopedInstall(ClipTargetOrientationToLink, 0x422760);
     RH_ScopedNamedGlobalInstall(Cc63Intersection2LinesCpp, "FindIntersection2Lines", 0x4226F0);
     // Lote 63 (parte C, tanda 2)
     RH_ScopedInstall(SetUpDriverAndPassengersForVehicle, 0x4217C0);
@@ -401,8 +403,13 @@ void CCarCtrl::ClearInterestingVehicleList() {
 #endif
 
 // 0x422760
-void CCarCtrl::ClitargetOrientationToLink(CVehicle* vehicle, CCarPathLinkAddress arg2, int8 arg3, float* arg4, float arg5, float arg6) {
-    plugin::Call<0x422760, CVehicle*, CCarPathLinkAddress, int8, float*, float, float>(vehicle, arg2, arg3, arg4, arg5, arg6);
+void CCarCtrl::ClipTargetOrientationToLink(CVehicle* vehicle, CCarPathLinkAddress arg2, int8 arg3, float* arg4, float arg5, float arg6) {
+    // Como el original: si el area de nodos no esta cargada no hace nada; el enlace (14 bytes) se localiza sin mas comprobaciones y el resto va en X87Math (CarLink74ClipCpp).
+    if (!ThePaths.m_pPathNodes[arg2.m_wAreaId]) {
+        return;
+    }
+    const auto* const link = reinterpret_cast<const unsigned char*>(&ThePaths.m_pNaviNodes[arg2.m_wAreaId][arg2.m_wCarPathLinkId]);
+    CarLink74ClipCpp(link, arg3, arg4, arg5, arg6, reinterpret_cast<const unsigned char*>(vehicle));
 }
 
 // 0x431F80

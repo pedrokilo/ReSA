@@ -1,0 +1,202 @@
+diff --git a/source/game_sa/Entity/Vehicle/Vehicle.cpp b/source/game_sa/Entity/Vehicle/Vehicle.cpp
+index c66ad8909..6f9cb8761 100644
+--- a/source/game_sa/Entity/Vehicle/Vehicle.cpp
++++ b/source/game_sa/Entity/Vehicle/Vehicle.cpp
+@@ -326,7 +326,7 @@ void CVehicle::InjectHooks() {
+     RH_ScopedInstall(DoBladeCollision, 0x6E2E50);
+     RH_ScopedInstall(AddVehicleUpgrade, 0x6E3290);
+     RH_ScopedInstall(SetupUpgradesAfterLoad, 0x6E3400);
+-    // RH_ScopedInstall(GetPlaneWeaponFiringStatus, 0x6E3440);
++    RH_ScopedInstall(GetPlaneWeaponFiringStatus, 0x6E3440);
+     RH_ScopedInstall(ProcessWeapons, 0x6E3950);
+     RH_ScopedInstall(DoFixedMachineGuns, 0x73F400);
+     // RH_ScopedInstall(FireFixedMachineGuns, 0x73DF00);
+@@ -8174,7 +8174,135 @@ void CVehicle::SetupUpgradesAfterLoad() {
+ 
+ // 0x6E3440
+ CEntity* CVehicle::GetPlaneWeaponFiringStatus(bool& status, eOrdnanceType& ordnanceType) {
+-    return ((CEntity*(__thiscall*)(CVehicle*, bool&, eOrdnanceType&))0x6E3440)(this, status, ordnanceType);
++    // Como el original (0x6E3440..0x6E37ED). Siempre pide primero el pad del jugador que conduce (FindPlayerSlotWithVehiclePointer + GetPad) y despues elige por modelo con una tabla de 0x98
++    // entradas desde 425 (el indice se compara sin signo: los modelos fuera de 425..576 van al caso por defecto). Los camino que no escriben una de las dos salidas la dejan como estaba
++    // (p. ej. el Hunter con L1 escribe solo el bool; con circulo solo el tipo). Devuelve el objetivo en EAX (solo el Hydra con la mira fijada; el resto devuelve nulo).
++    // Desplazamientos: +0x4D4 hora de la ultima bengala, +0x9DC y +0x9E0 (avion/helicoptero) hora de inicio de la fijacion y objetivo fijado.
++    static_assert(offsetof(CVehicle, m_nGunFiringTime) == 0x4D4);
++    static_assert(offsetof(CPlane, field_9DC) == 0x9DC && offsetof(CPlane, field_9E0) == 0x9E0);
++    static_assert(WEAPON_FLARE == 58);
++    const CPad* const pad = CPad::GetPad(CWorld::FindPlayerSlotWithVehiclePointer(this));
++    auto* const lockStart  = reinterpret_cast<uint32*>(reinterpret_cast<uintptr_t>(this) + 0x9DC);
++    auto* const lockTarget = reinterpret_cast<CEntity**>(reinterpret_cast<uintptr_t>(this) + 0x9E0);
++
++    // Tabla del EXE (0x6E3804): 0 Hunter y 576, 1 helicopteros ligeros y avion RC, 2 Rustler, 3 Hydra, 4 resto
++    enum { KIND_HUNTER = 0, KIND_GUNS = 1, KIND_RUSTLER = 2, KIND_HYDRA = 3, KIND_NONE = 4 };
++    const uint32 slot = static_cast<uint32>(static_cast<int32>(static_cast<int16>(m_nModelIndex)) - 425);
++    int32 kind = KIND_NONE;
++    if (slot <= 0x97) {
++        switch (slot + 425) {
++        case 425: case 576: kind = KIND_HUNTER; break;
++        case 447: case 464: case 487: case 497: case 548: kind = KIND_GUNS; break;
++        case 476: kind = KIND_RUSTLER; break;
++        case 520: kind = KIND_HYDRA; break;
++        default: break;
++        }
++    }
++
++    switch (kind) {
++    case KIND_RUSTLER:
++        if (pad->GetCarGunFired() == 2) {
++            status = true;
++        }
++        ordnanceType = 0;
++        return nullptr;
++
++    case KIND_HUNTER:
++        if (pad->GetCarGunFired() == 2) {
++            status = true;
++            return nullptr;
++        }
++        if (pad->CarGunJustDown() == 1) {
++            ordnanceType = 1;
++            return nullptr;
++        }
++        break;
++
++    case KIND_GUNS:
++        if (pad->GetCarGunFired() == 2) {
++            status = true;
++        }
++        // RC Baron: con el raton en tercera persona y la bandera global, el boton de disparo normal tambien dispara (se vuelve a leer el pad)
++        if (static_cast<int16>(m_nModelIndex) == MODEL_RCBARON && StaticRef<uint8>(0xC1CC00) != 0 && StaticRef<uint8>(0xB6EC2E) != 0) {
++            if (pad->GetCarGunFired() == 1) {
++                status = true;
++            }
++        }
++        ordnanceType = 0;
++        return nullptr;
++
++    case KIND_HYDRA: {
++        ordnanceType = 0;
++        const uint32 now = CTimer::GetTimeInMS();
++        if (pad->CarGunJustDown() == 1 && CTimer::GetTimeInMS() > m_nGunFiringTime + 2000u) {
++            // Bengala: posicion (matriz + 0x30, o la del placeable) + adelante * -2.5 + arriba * -1.0 en la x87 del EXE (X87Math); la matriz se usa sin comprobar nulo (+0x10 adelante, +0x20 arriba)
++            const uintptr_t matrix = reinterpret_cast<uintptr_t>(m_matrix);
++            const float* const position = m_matrix ? reinterpret_cast<const float*>(matrix + 0x30) : reinterpret_cast<const float*>(&m_placement.m_vPosn);
++            CVector spawn;
++            PlaneFiring74FlareCpp(reinterpret_cast<const float*>(matrix + 0x10), reinterpret_cast<const float*>(matrix + 0x20), position, reinterpret_cast<float*>(&spawn));
++            CProjectileInfo::AddProjectile(this, WEAPON_FLARE, spawn, 0.0f, reinterpret_cast<const CVector*>(matrix + 0x10), nullptr);
++            m_nGunFiringTime = CTimer::GetTimeInMS();
++        }
++
++        auto& crossHair = gCrossHair[0];
++        if (pad->CarGunJustDown() == 2) {
++            // L1: dispara el misil guiado si la mira esta fijada y el objetivo se mantiene mas de 1500 ms; si no, el sin guia
++            if (CWeaponEffects::IsLockedOn(0) && *lockStart != 0) {
++                CEntity* const target = ScanAndMarkTargetForHeatSeekingMissile(*lockTarget);
++                if (target && target == *lockTarget && now - *lockStart > 1500u) {
++                    ordnanceType = 2;
++                    crossHair.m_color.r = 0xFF;
++                    crossHair.m_color.g = 0;
++                    crossHair.m_color.b = 0;
++                    crossHair.m_fRotation = 1.0f;
++                    crossHair.m_nTimeWhenToDeactivate = 0;
++                    return target;
++                }
++            }
++            ordnanceType = 1;
++            return nullptr;
++        }
++        if (pad->GetEnterTargeting()) {
++            *lockStart  = now;
++            *lockTarget = nullptr;
++            return nullptr;
++        }
++        if (pad->GetTarget()) {
++            if (*lockStart == 0) {
++                *lockStart = now;
++            }
++            CEntity* const target = ScanAndMarkTargetForHeatSeekingMissile(*lockTarget);
++            if (!target || target != *lockTarget) {
++                *lockStart = now;
++            }
++            crossHair.m_nTimeWhenToDeactivate = 0;
++            if (now - *lockStart > 1500u) {
++                crossHair.m_color.r = 0xFF;
++                crossHair.m_color.g = 0;
++                crossHair.m_color.b = 0;
++                crossHair.m_fRotation = 1.0f;
++            } else {
++                crossHair.m_color.r = 0xFF;
++                crossHair.m_color.g = 0xFF;
++                crossHair.m_color.b = 0xFF;
++                crossHair.m_fRotation = 0.0f;
++            }
++            *lockTarget = target;
++            return nullptr;
++        }
++        *lockStart  = 0;
++        *lockTarget = nullptr;
++        return nullptr;
++    }
++
++    default:
++        break;
++    }
++
++    // Caso por defecto del EXE (0x6E37D3), tambien al que cae el Hunter sin disparo
++    status = false;
++    ordnanceType = 0;
++    return nullptr;
+ }
+ 
+ 
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 07242656a..02f4888fe 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -15589,3 +15589,35 @@ __declspec(noinline) void __cdecl HeatFire73SpawnCpp(const float* moveSpeedIn, c
+     (void)outBits;
+ }
+ #pragma float_control(pop)
++
++// --- Lote 74 (PlaneFiring74): CVehicle::GetPlaneWeaponFiringStatus (0x6E3440) ---
++#pragma float_control(precise, on, push)
++// 0x6E3527..0x6E35D7 (rama del Hydra): origen de la bengala = posicion + (adelante * -2.5f + arriba * -1.0f), componente a componente. El EXE guarda cada paso como float en memoria:
++// t1 = float(adelante * -2.5f) (0x40FEC0: fld k; fmul [v]; fstp), t2 = float(arriba * -1.0f), s = float(t2 + t1) (0x411A00: fld [t2]; fadd [t1]; fstp [t1]) y salida = float(s + posicion)
++// (fld [s]; fadd [pos]; fstp). Cada paso va en una variable volatile para que el compilador no lo fusione ni cambie la x87 (a 24 bits con exponente extendido, como el juego).
++// Los NaN con dos operandos (s = t2 + t1, salida = s + posicion, con la posicion en memoria y posible NaN de señal) no los resuelve el compilador (elige el orden de operandos): si el resultado es NaN se recalcula su carga
++// con las mismas reglas de la x87 ya validadas contra el hardware en HeatFire73 (HeatFire73Op/HeatFire73Raw, arriba): un solo NaN: ese NaN silenciado; un NaN de señal en memoria frente a uno en registro: el del registro;
++// dos de señal o dos silenciosos: el de mayor mantisa y, a igualdad, el de signo positivo (o el destino).
++__declspec(noinline) void __cdecl PlaneFiring74FlareCpp(const float* forwardIn, const float* upIn, const float* positionIn, float* out) {
++    const volatile float* const forward = forwardIn;
++    const volatile float* const up = upIn;
++    const volatile float* const position = positionIn;
++    const volatile float backScale = std::bit_cast<float>(0xC0200000u);   // -2.5f (0x006E3540)
++    const volatile float downScale = std::bit_cast<float>(0xBF800000u);   // -1.0f (0x006E3567)
++    for (int i = 0; i < 3; ++i) {
++        volatile float t1 = backScale * forward[i];
++        volatile float t2 = downScale * up[i];
++        volatile float s = t2 + t1;
++        volatile float r = s + position[i];
++        out[i] = r;
++        if (HeatFire73NanF(&r)) {
++            const auto t2n = HeatFire73Raw(*reinterpret_cast<const volatile uint32_t*>(&t2), true);
++            const auto t1n = HeatFire73Raw(*reinterpret_cast<const volatile uint32_t*>(&t1), false);
++            const auto sn = HeatFire73Op(HeatFire73NanF(&s), t2n, t1n);
++            const uint32_t sBits = HeatFire73NanF(&s) ? sn.bits : *reinterpret_cast<const volatile uint32_t*>(&s);
++            const auto rn = HeatFire73Op(true, HeatFire73Raw(sBits, true), HeatFire73Raw(*reinterpret_cast<const volatile uint32_t*>(&position[i]), false));
++            *reinterpret_cast<uint32_t*>(&out[i]) = rn.bits;
++        }
++    }
++}
++#pragma float_control(pop)
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index e350d3453..b92745922 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1911,3 +1911,7 @@ void __cdecl Wood73JitterCpp(int remainder, float* v);
+ // --- Lote 73 (HeatFire73): CVehicle::FireHeatSeakingMissile (0x6E05C0) ---
+ // 0x6E062D..0x6E0745: out = position + (ordnance (x negada si negateX) + velocidad-hacia-delante * direccion * paso) con el orden y los guardados como float del EXE (ver X87Math.cpp); a 24 bits con exponente extendido.
+ void __cdecl HeatFire73SpawnCpp(const float* moveSpeed, const float* forward, const float* ordnance, bool negateX, const float* position, const float* timeStep, float* out);
++
++// --- Lote 74 (PlaneFiring74): CVehicle::GetPlaneWeaponFiringStatus (0x6E3440) ---
++// 0x6E3527..0x6E35D7: out = position + (forward * -2.5f + up * -1.0f), cada paso guardado como float, a 24 bits con exponente extendido; reglas de NaN de la x87 (ver X87Math.cpp).
++void __cdecl PlaneFiring74FlareCpp(const float* forward, const float* up, const float* position, float* out);

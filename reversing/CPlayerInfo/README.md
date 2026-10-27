@@ -27,3 +27,9 @@ El cuerpo antiguo delegaba al ejecutable y dejaba inalcanzable una asignacion m_
 La regresion usa las funciones reales de cheats, GiveWeapon, recarga y seleccion sobre un ped aislado; intercepta streaming y adjuncion visual de modelos. SetInitialState y las operaciones de armas conservan sus hooks compartidos existentes. No prueba disparos, representacion visual, cooperativo ni estabilidad general. El defecto de copia esta eliminado; no se afirma haber reproducido cada manifestacion historica del fallo de armas.
 
 PROBAR.cmd --case playerinfo-constructor, tambien en --all. Se conservan el banco anterior --case playerinfo y su sonda archivada. Nueva compilacion normal instalada solo en copia de pruebas con respaldo; partidas sin cambios. Sin commit/push.
+
+
+## Repetido el 27/10/2026 (lote 74): CPlayerInfo::ProcessCrosshair con hook
+
+`CPlayerInfo::Process` ya no llama a 0x56EC80 por direccion: llama a `CPlayerInfo::ProcessCrosshair` (C++, hook S, banco `PlayerCrosshair74`). El falso del controlador de la mira (`Crosshair`) se instala ahora tambien en el cuerpo de la DLL (`CrosshairDll`, `crosshairDll` en `ProcessComparison.hpp`). Ademas `build_probe.py` ya no fija la ruta de cmake (la busca como `probe_build.py`) e instala la sonda en el clon, y `run_local.py` toma el hash de la sonda del manifiesto.
+Repetido hasta APROBADO: 16896 pares, cero diferencias, `E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-playerinfo\20261027-042146-882913`.

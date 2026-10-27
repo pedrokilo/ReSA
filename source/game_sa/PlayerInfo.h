@@ -11,6 +11,7 @@
 #include "PtrListDoubleLink.h"
 
 class CPed;
+class CPad;
 class CVehicle;
 class CPlayerPedData;
 class CPlayerPed;
@@ -100,6 +101,7 @@ public:
     CEntity* FindObjectToSteal(CPed* ped);
 
     void Process(uint32 playerIndex);
+    void ProcessCrosshair(uint32 playerIndex, CPad* pad); // 0x56EC80 (en el EXE this = &m_nCrosshairActivated)
     void FindClosestCarSectorList(CPtrListDoubleLink<CVehicle*>& ptrList, CPed* ped, float minX, float minY, float maxX, float maxY, float* outVehDist, CVehicle** outVehicle);
     void EvaluateCarPosition(CEntity* car, CPed* ped, float pedToVehDist, float* outDistance, CVehicle** outVehicle);
     void Clear();

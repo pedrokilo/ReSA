@@ -15589,3 +15589,373 @@ __declspec(noinline) void __cdecl HeatFire73SpawnCpp(const float* moveSpeedIn, c
     (void)outBits;
 }
 #pragma float_control(pop)
+
+// --- Lote 74 (PlayerCrosshair74 / CrosshairRender74): CPlayerInfo::ProcessCrosshair (0x56EC80) y CWeaponEffects::RenderPlayerCrosshair (0x56EF90), prefijo Cross74 ---
+// Pila x87 del EXE (24 bits con exponente extendido): cada operacion pasa por una variable volatile double (con 24 bits de mantisa el valor cabe exacto) para que el compilador no reasocie ni reordene.
+// fptan/fsin/fcos no se redondean a 24 bits (la precision de control no les afecta): se consumen en la misma expresion que su multiplicacion/division, sin guardarlos.
+// Los NaN siguen las reglas de la x87 con las funciones del lote 73 (HeatFire73Op): un solo NaN, el NaN silenciado; dos, el de mayor mantisa; ninguno pero operacion invalida, el indefinido 0xFFC00000.
+#pragma float_control(precise, on, push)
+namespace {
+struct Cross74V {
+    double d;
+    HeatFire73Nan n;
+};
+// quiet = true: fld m32 (registro, un NaN de senal sale silenciado); quiet = false: operando de memoria (conserva si es de senal)
+Cross74V Cross74Load(uint32_t bits, bool quiet) {
+    Cross74V v;
+    v.n = HeatFire73Raw(bits, quiet);
+    float f;
+    memcpy(&f, &bits, 4);
+    v.d = double(f);
+    return v;
+}
+Cross74V Cross74Int(int value) {
+    Cross74V v;
+    v.d = double(value);
+    return v;
+}
+Cross74V Cross74Fin(const volatile double& r, const Cross74V& a, const Cross74V& b) {
+    Cross74V o;
+    o.d = r;
+    o.n = HeatFire73Op(HeatFire73NanD(&r), a.n, b.n);
+    return o;
+}
+Cross74V Cross74Mul(const Cross74V& a, const Cross74V& b) {
+    volatile double r = a.d;
+    r = r * b.d;
+    return Cross74Fin(r, a, b);
+}
+Cross74V Cross74Add(const Cross74V& a, const Cross74V& b) {
+    volatile double r = a.d;
+    r = r + b.d;
+    return Cross74Fin(r, a, b);
+}
+Cross74V Cross74Sub(const Cross74V& a, const Cross74V& b) {
+    volatile double r = a.d;
+    r = r - b.d;
+    return Cross74Fin(r, a, b);
+}
+// fsubr m32: st0 = memoria - st0 (el destino sigue siendo st0 = a)
+Cross74V Cross74SubR(const Cross74V& a, const Cross74V& mem) {
+    volatile double r = mem.d;
+    r = r - a.d;
+    return Cross74Fin(r, a, mem);
+}
+// fstp m32: bits del float guardado
+uint32_t Cross74Store(const Cross74V& v) {
+    volatile float f = float(v.d);
+    uint32_t b;
+    memcpy(&b, const_cast<const float*>(&f), 4);
+    return v.n.nan ? v.n.bits : b;
+}
+// NaN del resultado de fptan(angulo) (el 1.0 que empuja se descarta)
+HeatFire73Nan Cross74TanNan(const Cross74V& ang) {
+    if (ang.n.nan) {
+        return HeatFire73Quieted(ang.n);
+    }
+    volatile double t = tan(ang.d);
+    return HeatFire73NanD(&t) ? HeatFire73Nan{true, false, 0xFFC00000u} : HeatFire73Nan{};
+}
+// x * tan(ang): fld x; fmul st, st(1) (destino = x, fuente = tan)
+Cross74V Cross74MulTan(const Cross74V& x, const Cross74V& ang) {
+    volatile double r = x.d * tan(ang.d);
+    Cross74V t;
+    t.d = 0.0;
+    t.n = Cross74TanNan(ang);
+    return Cross74Fin(r, x, t);
+}
+// tan(ang) / den: fptan; fstp st(0); fdiv m32 (destino = tan, fuente = den)
+Cross74V Cross74TanDiv(const Cross74V& ang, const Cross74V& den) {
+    volatile double r = tan(ang.d) / den.d;
+    Cross74V t;
+    t.d = 0.0;
+    t.n = Cross74TanNan(ang);
+    return Cross74Fin(r, t, den);
+}
+constexpr uint32_t kCross74Bits_Fov = 0x3C0EFA35u;   // 0x8631D4 (pi / 360)
+constexpr uint32_t kCross74Bits_200 = 0x43480000u;   // 0x858A48
+constexpr uint32_t kCross74Bits_K = 0x39AEC33Eu;     // 0x865030
+}
+
+// 0x56ECA7..0x56ED19: *v = float(*v + steer * paso * 0.00033333333f) (subtract: float(*v - ...)); x87 a 24 bits. tsBits = bits del paso (sin pasar por la x87).
+__declspec(noinline) void __cdecl Cross74StepCpp(float* v, int steer, uint32_t tsBits, bool subtract) {
+    const Cross74V ts = Cross74Load(tsBits, false);
+    const Cross74V k = Cross74Load(kCross74Bits_K, false);
+    uint32_t cur;
+    memcpy(&cur, v, 4);
+    const Cross74V prod = Cross74Mul(Cross74Mul(Cross74Int(steer), ts), k);
+    const Cross74V mem = Cross74Load(cur, false);
+    const Cross74V res = subtract ? Cross74SubR(prod, mem) : Cross74Add(prod, mem);
+    const uint32_t out = Cross74Store(res);
+    memcpy(v, &out, 4);
+}
+
+// 0x56ED85..0x56EEDC: punto de mira a 200 unidades. in = {fov1, fov2, aspecto, x, y, derecha[3], delante[3], arriba[3], posicion[3]} (bits); muzzle = arriba * V (3 floats, intermedios que el EXE deja en la pila; la produccion no los usa); target = posicion + 200 * (delante - derecha * x * tan2 - arriba * V).
+__declspec(noinline) void __cdecl Cross74AimCpp(const uint32_t* in, uint32_t* muzzle, uint32_t* target) {
+    const uint32_t fov1 = in[0], fov2 = in[1], aspect = in[2], cx = in[3], cy = in[4];
+    const uint32_t* const right = in + 5;
+    const uint32_t* const forward = in + 8;
+    const uint32_t* const up = in + 11;
+    const uint32_t* const pos = in + 14;
+    const Cross74V fovK = Cross74Load(kCross74Bits_Fov, false);
+    // V = (tan(fov1 * k) / aspecto) * y
+    const Cross74V ang1 = Cross74Mul(Cross74Load(fov1, true), fovK);
+    const Cross74V u = Cross74TanDiv(ang1, Cross74Load(aspect, false));
+    const Cross74V v = Cross74Mul(u, Cross74Load(cy, false));
+    uint32_t s[3];
+    for (int i = 0; i < 3; ++i) {
+        s[i] = Cross74Store(Cross74Mul(Cross74Load(up[i], true), v));
+    }
+    // segunda llamada a FindCamFOV
+    const Cross74V ang2 = Cross74Mul(Cross74Load(fov2, true), fovK);
+    const Cross74V x = Cross74Load(cx, true);
+    const uint32_t rx = Cross74Store(Cross74Mul(Cross74Load(right[0], true), x));
+    const uint32_t ry = Cross74Store(Cross74Mul(Cross74Load(right[1], true), x));
+    const Cross74V w = Cross74Mul(x, Cross74Load(right[2], false));
+    const uint32_t p0 = Cross74Store(Cross74MulTan(Cross74Load(rx, true), ang2));
+    const uint32_t p1 = Cross74Store(Cross74MulTan(Cross74Load(ry, true), ang2));
+    const Cross74V p2 = Cross74MulTan(w, ang2);   // sin guardar
+    const Cross74V f0 = Cross74Sub(Cross74Load(forward[0], true), Cross74Load(p0, false));   // sin guardar
+    const uint32_t f1b = Cross74Store(Cross74Sub(Cross74Load(forward[1], true), Cross74Load(p1, false)));
+    const uint32_t f2b = Cross74Store(Cross74Sub(Cross74Load(forward[2], true), p2));
+    const uint32_t g0 = Cross74Store(Cross74Sub(f0, Cross74Load(s[0], false)));
+    const uint32_t g1 = Cross74Store(Cross74Sub(Cross74Load(f1b, true), Cross74Load(s[1], false)));
+    const uint32_t g2 = Cross74Store(Cross74Sub(Cross74Load(f2b, true), Cross74Load(s[2], false)));
+    const Cross74V k200 = Cross74Load(kCross74Bits_200, false);
+    const Cross74V sc0 = Cross74Mul(Cross74Load(g0, true), k200);
+    const Cross74V sc1 = Cross74Mul(Cross74Load(g1, true), k200);
+    const uint32_t sc2 = Cross74Store(Cross74Mul(Cross74Load(g2, true), k200));
+    target[0] = Cross74Store(Cross74Add(sc0, Cross74Load(pos[0], false)));
+    target[1] = Cross74Store(Cross74Add(Cross74Load(pos[1], true), sc1));
+    target[2] = Cross74Store(Cross74Add(Cross74Load(pos[2], true), Cross74Load(sc2, false)));
+    muzzle[0] = s[0];
+    muzzle[1] = s[1];
+    muzzle[2] = s[2];
+}
+
+// 0x56F0A0..0x56F0DA: fase = float(sin(float(t & 0x3FF) * 0.0061359231f) * 0.2f + 1.0f); fild, fmul, fsin (sin(ST0) sin redondear), fmul, fadd, fstp dword.
+__declspec(noinline) float __cdecl Cross74PhaseCpp(uint32_t time) {
+    volatile double a1 = double(int(time & 0x3FFu));
+    a1 = a1 * double(std::bit_cast<float>(0x3BC90FDBu));
+    volatile double s2 = sin(a1) * double(std::bit_cast<float>(0x3E4CCCCDu));
+    volatile double s3 = s2 + 1.0;
+    return float(s3);
+}
+
+// 0x56F0E0..0x56F188: un punto de la estela. angulo = float(corner * 1.5707964f) + 0.7853982f (24 bits cada operacion); y = ((cos(angulo) * radio) * fase) + (((Y + 1) * alto) * 0.5f);
+// x = ((sin(angulo) * radio) * fase) + (((X + 1) * ancho) * 0.5f). xBits/yBits = bits de X[jugador][capa] / Y[jugador][capa]; width/height = RsGlobal.maximumWidth/Height (fimul). out = {x, y} (bits).
+__declspec(noinline) void __cdecl Cross74TrailPointCpp(uint32_t xBits, uint32_t yBits, int width, int height, float phase, float radius, int corner, uint32_t* out) {
+    volatile double ang = double(corner);
+    ang = ang * double(std::bit_cast<float>(0x3FC90FDBu));
+    ang = ang + double(std::bit_cast<float>(0x3F490FDBu));
+    volatile double cp = cos(ang) * double(radius);
+    cp = cp * double(phase);
+    const Cross74V one = Cross74Load(0x3F800000u, false);
+    const Cross74V half = Cross74Load(0x3F000000u, false);
+    Cross74V cpv;
+    cpv.d = cp;
+    const Cross74V yTerm = Cross74Mul(Cross74Mul(Cross74Add(Cross74Load(yBits, true), one), Cross74Int(height)), half);
+    out[1] = Cross74Store(Cross74Add(cpv, yTerm));
+    volatile double sp = sin(ang) * double(radius);
+    sp = sp * double(phase);
+    Cross74V spv;
+    spv.d = sp;
+    const Cross74V xTerm = Cross74Mul(Cross74Mul(Cross74Add(Cross74Load(xBits, true), one), Cross74Int(width)), half);
+    out[0] = Cross74Store(Cross74Add(spv, xTerm));
+}
+#pragma float_control(pop)
+
+// --- Lote 74 (PlaneFiring74): CVehicle::GetPlaneWeaponFiringStatus (0x6E3440) ---
+#pragma float_control(precise, on, push)
+// 0x6E3527..0x6E35D7 (rama del Hydra): origen de la bengala = posicion + (adelante * -2.5f + arriba * -1.0f), componente a componente. El EXE guarda cada paso como float en memoria:
+// t1 = float(adelante * -2.5f) (0x40FEC0: fld k; fmul [v]; fstp), t2 = float(arriba * -1.0f), s = float(t2 + t1) (0x411A00: fld [t2]; fadd [t1]; fstp [t1]) y salida = float(s + posicion)
+// (fld [s]; fadd [pos]; fstp). Cada paso va en una variable volatile para que el compilador no lo fusione ni cambie la x87 (a 24 bits con exponente extendido, como el juego).
+// Los NaN con dos operandos (s = t2 + t1, salida = s + posicion, con la posicion en memoria y posible NaN de señal) no los resuelve el compilador (elige el orden de operandos): si el resultado es NaN se recalcula su carga
+// con las mismas reglas de la x87 ya validadas contra el hardware en HeatFire73 (HeatFire73Op/HeatFire73Raw, arriba): un solo NaN: ese NaN silenciado; un NaN de señal en memoria frente a uno en registro: el del registro;
+// dos de señal o dos silenciosos: el de mayor mantisa y, a igualdad, el de signo positivo (o el destino).
+__declspec(noinline) void __cdecl PlaneFiring74FlareCpp(const float* forwardIn, const float* upIn, const float* positionIn, float* out) {
+    const volatile float* const forward = forwardIn;
+    const volatile float* const up = upIn;
+    const volatile float* const position = positionIn;
+    const volatile float backScale = std::bit_cast<float>(0xC0200000u);   // -2.5f (0x006E3540)
+    const volatile float downScale = std::bit_cast<float>(0xBF800000u);   // -1.0f (0x006E3567)
+    for (int i = 0; i < 3; ++i) {
+        volatile float t1 = backScale * forward[i];
+        volatile float t2 = downScale * up[i];
+        volatile float s = t2 + t1;
+        volatile float r = s + position[i];
+        out[i] = r;
+        if (HeatFire73NanF(&r)) {
+            const auto t2n = HeatFire73Raw(*reinterpret_cast<const volatile uint32_t*>(&t2), true);
+            const auto t1n = HeatFire73Raw(*reinterpret_cast<const volatile uint32_t*>(&t1), false);
+            const auto sn = HeatFire73Op(HeatFire73NanF(&s), t2n, t1n);
+            const uint32_t sBits = HeatFire73NanF(&s) ? sn.bits : *reinterpret_cast<const volatile uint32_t*>(&s);
+            const auto rn = HeatFire73Op(true, HeatFire73Raw(sBits, true), HeatFire73Raw(*reinterpret_cast<const volatile uint32_t*>(&position[i]), false));
+            *reinterpret_cast<uint32_t*>(&out[i]) = rn.bits;
+        }
+    }
+}
+#pragma float_control(pop)
+
+// --- Lote 74 (CarLink74): CCarCtrl::ClipTargetOrientationToLink (0x422760) ---
+// Rumbo de un vehiculo respecto a un enlace de ruta (CCarPathLink, 14 bytes) con el orden x87 del EXE (24 bits, exponente extendido): las magnitudes que el EXE guarda como float van en volatile float;
+// las que deja en un registro (Y1 sin guardar, D2, los D normalizados) van en double. El EXE llama tres veces a 0x53CC70 (GetATanOfXY): la primera con (arg5 - x, arg6 - y) y el resultado descartado (fstp st(0)),
+// la segunda con el punto desplazado hacia un lado (resultado guardado como float) y la tercera con el desplazado hacia el otro (resultado en ST0 sin guardar). Con los dos errores D1 (guardado como float) y D2 (en registro)
+// normalizados a [-pi, pi]: si los dos son negativos se suma el mayor, si los dos son positivos el menor (a igualdad D2); con signos mezclados, ceros o NaN *arg4 no cambia. Al final *arg4 se lleva a [0, 2pi].
+// vehicle: el EXE lee m_matrix (+0x14) en cada uso de la posicion: matriz->pos (+0x30) o, sin matriz, la posicion compacta (+4).
+#pragma float_control(precise, on, push)
+namespace {
+inline const volatile float* CarLink74Pos(const unsigned char* vehicle) {
+    const unsigned char* const matrix = *reinterpret_cast<const unsigned char* const volatile*>(vehicle + 0x14);
+    return reinterpret_cast<const volatile float*>(matrix ? matrix + 0x30 : vehicle + 4);
+}
+}
+__declspec(noinline) void __cdecl CarLink74ClipCpp(const unsigned char* link, int arg3, float* arg4, float arg5, float arg6, const unsigned char* vehicle) {
+    constexpr float kHundredth = std::bit_cast<float>(0x3C23D70Au); // 0x858C58 = 0.01f
+    constexpr float kHalf = std::bit_cast<float>(0x3F000000u);      // 0x858B8C
+    constexpr float kPerWidth = std::bit_cast<float>(0x3C3DA12Fu);  // 0x858EEC
+    constexpr float kInset = std::bit_cast<float>(0x3E99999Au);     // 0x858C24 = 0.3f
+    constexpr float kReach = std::bit_cast<float>(0x40ACCCCDu);     // 0x858C50 = 5.4f
+    constexpr double kPi = std::bit_cast<float>(0x40490FDBu);       // 0x858CB8
+    constexpr double kTwoPi = std::bit_cast<float>(0x40C90FDBu);    // 0x858CBC
+    constexpr double kNegPi = std::bit_cast<float>(0xC0490FDBu);    // 0x858CC0
+    // direccion del enlace (int8 x 0.01) por arg3, cada producto guardado como float
+    volatile float dirX = (static_cast<float>(static_cast<signed char>(link[8])) * kHundredth) * static_cast<float>(arg3);
+    volatile float dirY = (static_cast<float>(static_cast<signed char>(link[9])) * kHundredth) * static_cast<float>(arg3);
+    // primera llamada (resultado descartado): primero y, luego x
+    {
+        volatile float ty = arg6 - CarLink74Pos(vehicle)[1];
+        volatile float tx = arg5 - CarLink74Pos(vehicle)[0];
+        (void)CGeneral::GetATanOfXY(tx, ty);
+    }
+    // carriles: bits 0-2 y 3-5 de +0xB, ancho en +0xA
+    const unsigned flags = link[0xB];
+    const unsigned lanesA = flags & 7u;
+    const unsigned lanesB = (flags >> 3) & 7u;
+    volatile float memLane;   // [esp+20h] antes de restar 0.3
+    float regLane;            // el que queda en la pila x87
+    if (lanesA == 0) {
+        memLane = static_cast<float>(lanesB) * kHalf;
+        regLane = memLane;
+    } else if (lanesB == 0) {
+        memLane = static_cast<float>(lanesA) * kHalf;
+        regLane = memLane;
+    } else if (static_cast<signed char>(arg3) == 0) {
+        memLane = static_cast<float>(link[0xA]) * kPerWidth + static_cast<float>(lanesA);
+        regLane = static_cast<float>(lanesB);
+    } else {
+        memLane = static_cast<float>(link[0xA]) * kPerWidth + static_cast<float>(lanesB);
+        regLane = static_cast<float>(lanesA);
+    }
+    const float q = memLane - kInset;
+    volatile float p = regLane - kInset;
+    // punto desplazado hacia un lado (X1 guardado; Y1 sin guardar) y hacia el otro (X2 e Y2 guardados)
+    volatile float x1 = (dirY * q) * kReach + arg5;
+    const double y1 = arg6 - (q * dirX) * kReach;
+    volatile float x2 = arg5 - (p * dirY) * kReach;
+    volatile float y2 = (p * dirX) * kReach + arg6;
+    // segunda llamada: y = Y1 - pos.y (sin guardar antes), x = X1 - pos.x
+    volatile float a1;
+    {
+        volatile float ty = static_cast<float>(y1 - CarLink74Pos(vehicle)[1]);
+        volatile float tx = x1 - CarLink74Pos(vehicle)[0];
+        a1 = CGeneral::GetATanOfXY(tx, ty);
+    }
+    // tercera llamada: resultado en ST0 sin guardar
+    double a2;
+    {
+        volatile float ty = y2 - CarLink74Pos(vehicle)[1];
+        volatile float tx = x2 - CarLink74Pos(vehicle)[0];
+        a2 = CGeneral::GetATanOfXY(tx, ty);
+    }
+    const volatile float* const target = arg4;
+    const float old = *target;
+    volatile float d1m = a1 - old;      // se guarda como float y se vuelve a cargar
+    double d2 = a2 - old;               // sin guardar
+    double d1 = d1m;
+    if (d1 > kPi) {
+        do { d1 -= kTwoPi; } while (d1 > kPi);
+        d1m = static_cast<float>(d1);
+    }
+    if (d1 < kNegPi) {
+        do { d1 += kTwoPi; } while (d1 < kNegPi);
+        d1m = static_cast<float>(d1);
+    }
+    if (d2 > kPi) {
+        do { d2 -= kTwoPi; } while (d2 > kPi);
+    }
+    if (d2 < kNegPi) {
+        do { d2 += kTwoPi; } while (d2 < kNegPi);
+    }
+    volatile float* const out = arg4;
+    if (d1 < 0.0 && d2 < 0.0) {
+        *out = static_cast<float>((d1 > d2 ? static_cast<double>(d1m) : d2) + old);
+    } else if (d1 > 0.0 && d2 > 0.0) {
+        *out = static_cast<float>((d1 < d2 ? static_cast<double>(d1m) : d2) + old);
+    }
+    // *arg4 a [0, 2pi]
+    if (*out < 0.0f) {
+        double f = *out;
+        do { f += kTwoPi; } while (f < 0.0);
+        *out = static_cast<float>(f);
+    }
+    if (*out > static_cast<float>(kTwoPi)) {
+        double f = *out;
+        do { f -= kTwoPi; } while (f > kTwoPi);
+        *out = static_cast<float>(f);
+    }
+}
+#pragma float_control(pop)
+
+// --- Lote 74 (HeliSwat74): CHeli::SendDownSwat (0x6C69C0) ---
+#pragma float_control(precise, on, push)
+// 0x59C790 + 0x411A00: pos = rotacion(matriz) * relativo + posicion del helicoptero. Pila x87 del EXE (24 bits, exponente extendido):
+//   x = float(((up.x*rz) + (fwd.x*ry)) + (right.x*rx)); y = float(((up.y*rz) + (right.y*rx)) + (fwd.y*ry)); z = float(((up.z*rz) + (right.z*rx)) + (fwd.z*ry))  (productos y sumas sin guardar; fstp dword al final)
+//   salida = float(posicion + vector) con `fld [posicion]; fadd [vector]; fstp [vector]`.
+// matrix apunta a la CMatrix (right en 0, forward en 0x10, up en 0x20); rel y heliPos a x, y, z consecutivos. Las magnitudes sin guardar van en double: con la palabra de control a 24 bits cada operacion
+// se redondea a 24 bits y el exponente cabe en un double. Los NaN no los resuelve el compilador: se siguen aparte con las mismas reglas que HeatFire73 (HeatFire73Op).
+__declspec(noinline) void __cdecl HeliSwat74WorldPosCpp(const float* matrixIn, const float* relIn, const float* heliPosIn, float* out) {
+    const volatile float* const m = matrixIn;
+    const volatile float* const rel = relIn;
+    const volatile float* const pos = heliPosIn;
+    const uint32_t* const mb = reinterpret_cast<const uint32_t*>(matrixIn);
+    const uint32_t* const rb = reinterpret_cast<const uint32_t*>(relIn);
+    const uint32_t* const pb = reinterpret_cast<const uint32_t*>(heliPosIn);
+    // Indices (en floats) de los tres productos de cada componente, en el orden del EXE: {a, b, c} con rel.z, rel.x / rel.y segun el caso
+    static const int kA[3] = {8, 9, 10};   // up.x, up.y, up.z (por rel.z)
+    static const int kB[3] = {4, 1, 2};    // fwd.x (por rel.y), right.y (por rel.x), right.z (por rel.x)
+    static const int kC[3] = {0, 5, 6};    // right.x (por rel.x), fwd.y (por rel.y), fwd.z (por rel.y)
+    static const int kBRel[3] = {1, 0, 0};
+    static const int kCRel[3] = {0, 1, 1};
+    for (int i = 0; i < 3; ++i) {
+        volatile double a = (double)m[kA[i]];
+        a = a * rel[2];
+        volatile double b = (double)m[kB[i]];
+        b = b * rel[kBRel[i]];
+        volatile double s = (double)a + (double)b;
+        volatile double c = (double)m[kC[i]];
+        c = c * rel[kCRel[i]];
+        volatile double s2 = (double)s + (double)c;
+        volatile float vector = (float)(double)s2;
+        volatile double total = (double)pos[i];
+        total = total + vector;
+        out[i] = (float)(double)total;
+
+        // NaN: solo si la salida lo es se recalcula su carga con las reglas de la x87 (los bits se leen como enteros)
+        const uint32_t* const ob = reinterpret_cast<const uint32_t*>(&out[i]);
+        if (!((*ob & 0x7F800000u) == 0x7F800000u && (*ob & 0x7FFFFFu) != 0)) {
+            continue;
+        }
+        const auto na = HeatFire73Op(HeatFire73NanD(&a), HeatFire73Raw(mb[kA[i]], true), HeatFire73Raw(rb[2], false));
+        const auto nb = HeatFire73Op(HeatFire73NanD(&b), HeatFire73Raw(mb[kB[i]], true), HeatFire73Raw(rb[kBRel[i]], false));
+        const auto ns = HeatFire73Op(HeatFire73NanD(&s), na, nb);
+        const auto nc = HeatFire73Op(HeatFire73NanD(&c), HeatFire73Raw(mb[kC[i]], true), HeatFire73Raw(rb[kCRel[i]], false));
+        const auto ns2 = HeatFire73Op(HeatFire73NanD(&s2), ns, nc);
+        const auto nv = HeatFire73Raw(ns2.nan ? ns2.bits : 0u, false);   // fstp dword: un NaN queda como NaN silencioso con la misma carga
+        const auto nt = HeatFire73Op(HeatFire73NanD(&total), HeatFire73Raw(pb[i], true), nv.nan ? nv : HeatFire73Nan{});
+        if (nt.nan) {
+            *const_cast<uint32_t*>(ob) = nt.bits;
+        }
+    }
+}
+#pragma float_control(pop)

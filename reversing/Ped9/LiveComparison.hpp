@@ -207,6 +207,8 @@ inline CEntity* __cdecl Nearest(float x,float y,float range,float px,float py,fl
     return reinterpret_cast<CEntity*>(nearestRet);
 }
 inline void __fastcall AuxCross(void* t,void*,int32 i) { trace.push_back({"player_crosshair_aux",int32(intptr_t(t)-intptr_t(ADDR_PLAYERS)),i}); }
+// Desde el lote 74 la DLL llama a CWeaponEffects::RenderPlayerCrosshair (C++) en lugar de a 0x56EF90: mismo registro, recibe el CPlayerInfo por referencia
+inline void __cdecl AuxCrossDll(CPlayerInfo& info,int32 i) { trace.push_back({"player_crosshair_aux",int32(intptr_t(&info.m_nCrosshairActivated)-intptr_t(ADDR_PLAYERS)),i}); }
 
 inline std::vector<bool> Occupancy() { auto* p=GetTaskPool(); std::vector<bool> r(p->GetSize()); for(size_t k=0;k<r.size();++k)r[k]=!p->IsFreeSlotAtIndex(k); return r; }
 inline ReversibleHooks::ReversibleHook::Base* FindHook(const char* cls,const char* fn) {
@@ -327,7 +329,7 @@ inline void Update() {
         EntryPatch r1(bit_cast<uintptr_t>(&CPlayerPed::GetWeaponRadiusOnScreen),Radius), r1e(0x609CD0,Radius);
         EntryPatch r2(bit_cast<uintptr_t>(&CGameLogic::IsCoopGameGoingOn),Coop), r2e(0x441390,Coop);
         EntryPatch r3(bit_cast<uintptr_t>(&CWeapon::FindNearestTargetEntityWithScreenCoors),Nearest), r3e(0x73E240,Nearest);
-        EntryPatch r4(0x56EF90,AuxCross);
+        EntryPatch r4(0x56EF90,AuxCross), r4d(bit_cast<uintptr_t>(&CWeaponEffects::RenderPlayerCrosshair),AuxCrossDll);
         for(size_t f=0;f<fns.size();++f) {
             const auto& fn=fns[f]; const auto& cl=ClassOf(fn.cls); int failures=0; const std::string nm=fn.name, full=std::string(fn.cls)+"::"+nm;
             if(!only.empty()&&only!=full)continue;
