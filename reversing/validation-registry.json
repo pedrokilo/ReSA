@@ -544662,12 +544662,12 @@
       },
       "evidence": {
         "path": "reversing/FxWood73/validation-summary.json",
-        "sha256": "14033203e77a926736743acb23515a5f15bd6f06943ece342f8bd93f8b42022c",
+        "sha256": "ff5897849f41a5c6a7027cc2c6529161f85eae7b3efaabc1d107fb58f49a4af8",
         "passed_path": [
           "covered_functions",
           "Fx_c::AddWood"
         ],
-        "pairs": 16384,
+        "pairs": 16412,
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
@@ -544678,9 +544678,9 @@
         "source/game_sa/X87Math.cpp": "9dbaf8ac0e331deca7fabb6c9f2c4b44ce8b928bf7df76a28886f77593b03f9b",
         "source/game_sa/X87Math.h": "29d2e1eecde896744ade74bdeb59b42555bf36c460d0a2e5de1603546bccf702",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/FxWood73/LiveComparison.hpp": "e0f33e410d41c01f9ee3a9239d37e5e9ffe5317dbadd516816dc8e6400afe42c",
+        "reversing/FxWood73/LiveComparison.hpp": "1d9c1ea5036fbd195e3a054586fca4b221ea0d2ab3c3b524744c189136c9c320",
         "reversing/FxWood73/Core.hpp": "a6810e44fb62bb31302926d077ef0985fb975a744006cbaf186e94cca756eede",
-        "reversing/FxWood73/Fixtures.hpp": "341acc8cdba3a13644d157ad5cdefed452a790bab83021240d27fcb18bfbc949",
+        "reversing/FxWood73/Fixtures.hpp": "b5a20411b71ef42dc7927c5f26b21f686c27d7698c54940c62e1b1f437d196e3",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
@@ -544698,7 +544698,7 @@
       },
       "evidence": {
         "path": "reversing/HeatFire73/validation-summary.json",
-        "sha256": "f6e5d7b69ab5fde40ae33347633709691ef28f7949a37e2b362b8f61d3951db0",
+        "sha256": "967f736ef14d7fb5d211231d80d3d381ce6297fe0305bf0b7bfaff15785fe2de",
         "passed_path": [
           "covered_functions",
           "CVehicle::FireHeatSeakingMissile"

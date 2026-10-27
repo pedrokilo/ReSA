@@ -12,16 +12,16 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-2 (HEAD 429302be1 + source.patch del lote 73; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados): CVehicle::GetPlaneOrdnanceRateOfFire 0x6D4590 y CVehicle::GetPlaneOrdnancePosition 0x6D46E0 (los valida CVehE), CProjectileInfo::AddProjectile 0x737C80 (ProjectileAdd355) y CPad::StartShake 0x53F920 (RequestedPadMutationRemaining3Hex); CPed::IsPlayer 0x5DF8F0 (CPedD) y CPad::GetPad 0x53FB70 (inline sin hook) se ejecutan de verdad. El banco compara el orden y todos los argumentos de los falsos, la posicion de salida del misil (x87 a 24 bits, incluidos NaN no canonicos, infinitos, desnormales y ceros con signo), el indice de ordenanza (+0x4A9), las horas de disparo (+0x4FC/+0x500), 5 arenas (vehiculo, objetivo, otra entidad, matriz y ped) y las globales de tiempo. El EXE lee matriz + 0x10 y la velocidad sin comprobar nulo: la matriz nula solo se prueba cuando el intervalo del arma corta el disparo antes de leerla, por lo que la rama de posicion compacta (this+4) no es ejercitable (se cae el propio EXE). EAX/ECX/EDX solo se registran: el unico llamador, CVehicle::ProcessWeapons 0x6E3A72, no los lee. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/HeatFire73-20261027-005826-903181",
-  "summary_sha256": "558a22534af2d8a27ed43431b3543f38cb25065b042f8fd3dcd39db2f5bd35ad",
-  "result_txt_sha256": "4445a9192ae1ce73ab95d6bc82d27b05f4cd4f54076251e29b95342db5770a3d",
-  "log_sha256": "dd7160589f36d48905abcbd9c636e05676419a1bb66d9dfeb14ace27c7aac5c4",
+  "run": "reversing/CppTwelveLevel6Final/runs/HeatFire73-20261027-015319-262382",
+  "summary_sha256": "0311b726402584b0cd96d9aa3ffd3abd7ca239060ea1f7b61fa0d9415904e7a6",
+  "result_txt_sha256": "e2b7e6e816259c4eaed47391387eaf42e8d12b7bdafedb0b34294e8aa5ae69b5",
+  "log_sha256": "e2ef9a876026b87101c397e9d84e5e214e9153cd497bb30b042de65e0c4d3b24",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "9e8f2c6fbb26fa59f3fc97ecf4c5079cd1a5b4b423cc5889c51f803498de9d7a",
+  "executed_probe_sha256": "c906874611c7924b2e9618daa5ec5c6d036984eab24072d27bbad5e2bcc36650",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
@@ -39,10 +39,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/HeatFire73-20261027-005826-903181/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/HeatFire73-20261027-015319-262382/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "a61d7684dfa0ee919fcc8741e73bc7ed7839be106f92be845d4376fcff02ebd1",
-    "uncompressed_sha256": "dd7160589f36d48905abcbd9c636e05676419a1bb66d9dfeb14ace27c7aac5c4"
+    "compressed_sha256": "24419faf625c41ba5acb842329ff5c0f5df2a2fd9ae786c9ffef801c5e70ca1f",
+    "uncompressed_sha256": "e2ef9a876026b87101c397e9d84e5e214e9153cd497bb30b042de65e0c4d3b24"
   }
 }

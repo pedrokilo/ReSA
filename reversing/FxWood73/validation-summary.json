@@ -1,27 +1,27 @@
 {
   "passed": true,
-  "pairs": 16384,
+  "pairs": 16412,
   "differences": 0,
-  "registered_pairs": 16384,
+  "registered_pairs": 16412,
   "registered_functions": 1,
   "functions": {
-    "Fx_c::AddWood": 16384
+    "Fx_c::AddWood": 16412
   },
   "covered_functions": {
     "Fx_c::AddWood": true
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-1 (HEAD 429302be1 + source.patch del lote 73; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: FxSystem_c::AddParticle(v3d) 0x4AA440 (con hook RH, apagado durante el banco; su validez la prueba reversing/FxSystemPending, 1024 pares) y el rand() del CRT del EXE 0x821B1E (sin hook: la DLL lo llama por la direccion; no es una funcion reconstruida). El constructor FxPrtMult_c 0x4AB290 corre de verdad en cada lado (el EXE el suyo, la DLL el de FxPrtMult.cpp). El banco compara la traza completa de AddParticle (sistema de g_fx.m_Blood releido en cada vuelta, puntero de posicion, posicion, velocidad, tiempo, los siete floats del multiplicador, rotZ, luz, limite, createLocal), los sorteos consumidos, el estado de la camara (matriz o posicion compacta) y 6 arenas. La x87 (24 bits, exponente extendido, MXCSR FTZ) se compara incluidos desnormales, NaN no canonicos (tambien senalizantes), infinitos y ceros con signo. ECX/EDX/EAX no son resultados (void): solo se registran. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/FxWood73-20261027-005635-540275",
-  "summary_sha256": "870dbdea70a90145b873e57439b4c58de2901d91752ea5e049cd90c7d8b4dd95",
-  "result_txt_sha256": "8e8a7fefed9fd3aa826563d84048b369ee6525983d4f92a19d1dd93b259c7303",
-  "log_sha256": "82bf489448c4a73b10931fe70ca4a34fda601b278ae2ca27a86ea8e0bea110c7",
+  "run": "reversing/CppTwelveLevel6Final/runs/FxWood73-20261027-014653-799060",
+  "summary_sha256": "e40ca8864e4d358700722954db096c1fdf55b905ca3de9eb33d1949c117c8981",
+  "result_txt_sha256": "430b0d366944784fd7b780c378763160b5c54e9815f474446a906ea76a2e0815",
+  "log_sha256": "6d5a8d9a5382ba1642949cd9c970f391b9db7d4e50346dd4df9724ad3373a376",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "a5315f7a7efd563056f4b811af17879c8a82811cd74170ec6e986e47c046e358",
+  "executed_probe_sha256": "935f7435c4b1c9b6f1d2acde85fd879da3aa31fbdae6f76f7b60be3eb51f4a7c",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
@@ -31,18 +31,18 @@
       "source/game_sa/X87Math.cpp": "9dbaf8ac0e331deca7fabb6c9f2c4b44ce8b928bf7df76a28886f77593b03f9b",
       "source/game_sa/X87Math.h": "29d2e1eecde896744ade74bdeb59b42555bf36c460d0a2e5de1603546bccf702",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/FxWood73/LiveComparison.hpp": "e0f33e410d41c01f9ee3a9239d37e5e9ffe5317dbadd516816dc8e6400afe42c",
+      "reversing/FxWood73/LiveComparison.hpp": "1d9c1ea5036fbd195e3a054586fca4b221ea0d2ab3c3b524744c189136c9c320",
       "reversing/FxWood73/Core.hpp": "a6810e44fb62bb31302926d077ef0985fb975a744006cbaf186e94cca756eede",
-      "reversing/FxWood73/Fixtures.hpp": "341acc8cdba3a13644d157ad5cdefed452a790bab83021240d27fcb18bfbc949",
+      "reversing/FxWood73/Fixtures.hpp": "b5a20411b71ef42dc7927c5f26b21f686c27d7698c54940c62e1b1f437d196e3",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/FxWood73-20261027-005635-540275/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/FxWood73-20261027-014653-799060/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "aa7e9a4c932da152ff422e9e77274ec267ec60956286bcbd4997cade7aeb7f67",
-    "uncompressed_sha256": "82bf489448c4a73b10931fe70ca4a34fda601b278ae2ca27a86ea8e0bea110c7"
+    "compressed_sha256": "6bbda68d2bf9a8f7679ffd45a4326659f0cce59af6620571e4f98950bb561cb5",
+    "uncompressed_sha256": "6d5a8d9a5382ba1642949cd9c970f391b9db7d4e50346dd4df9724ad3373a376"
   }
 }
