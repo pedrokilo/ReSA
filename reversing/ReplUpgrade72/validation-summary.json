@@ -12,16 +12,16 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-3 (HEAD 95f7d73eb + Vehicle.cpp, source.patch). CVehicle::AddReplacementUpgrade 0x6D3830 (thiscall, ret 8, sin retorno; ningun llamador del EXE, todos en AddVehicleUpgrade 0x6E3290, lee EAX/ECX/EDX): vacia el marco del componente (RemoveObjectsCB), crea el atomo del model info de la mejora (vtable +0x2C), lo cuelga del marco y configura su render (SetupUpgradeAtomicRendering); con nodeId 0x13 y la bandera 0x2000 de la manejabilidad crea el atomo de rueda y le da x = -2 * x del marco; con 0xC o 0xD vuelve a aplicar la matricula; si el model info es de atomo danado crea tambien la version danada y aplica la visibilidad. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): GetFrameFromId 0x4C53C0, RwFrameForAllObjects 0x7F1200, RwFrameForAllChildren 0x7F0DC0, CBaseModelInfo::AddRef 0x4C4BA0, RpClumpAddAtomic 0x74A490, RpAtomicSetFrame 0x74BF20, RwFrameDestroy 0x7F05A0, SetAtomicId 0x732290, SetAtomicFlag 0x7322B0, RpGeometryForAllMaterials 0x74C790, SetAtomicRenderCallback 0x7328A0, SetRenderPipelinesCB 0x4C88F0, CreateReplacementAtomic 0x6D3700, RwMatrixUpdate 0x7F18A0 y SetupClumpAfterVehicleUpgrade 0x6FDFE0; CreateInstance y AsDamageAtomicModelInfoPtr son virtuales de una vtable falsa. Se compara contra un oraculo independiente en Python (desde el desensamblado). Fuera de cobertura: indices de modelo fuera de ms_modelInfoPtrs[15..19], denormales (MXCSR FTZ), dos NaN, y el cuerpo real de los colaboradores sustituidos. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/ReplUpgrade72-20261026-222729-225850",
-  "summary_sha256": "2b307568a6a39ee0a685d617b48e72447d87346108f8a3fb8fe4cc6e73afb958",
-  "result_txt_sha256": "9f6be025c1d69028799c0ba90c21b43cf388bdf8a0692edbc0697510d0302c25",
-  "log_sha256": "900270139759ad7c6971544efca0ca498080cf93cd02fa1cae8c05cdcdee5e1a",
+  "run": "reversing/CppTwelveLevel6Final/runs/ReplUpgrade72-20261026-231116-096308",
+  "summary_sha256": "e9599e938948fc18e5ce8bc0c71e7c56d2a9d3cf43f386eb1562c7b856a0bd6e",
+  "result_txt_sha256": "fde4d3b485a209c414b35a766bd7249771a15ee8172cb2144db386ba114d8513",
+  "log_sha256": "57258f698ef4fcee869d41fc67a6be65cda919db8d8219b85abdd127c70861db",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "53a21474b40767fb434f9e6838c1e1ba17961a579efcd1b5ca9214135c900803",
+  "executed_probe_sha256": "8c6e441aeb28f55661d41b9fc19c17449d5ec1fd0baa23f509105bc685207e9f",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
@@ -32,17 +32,17 @@
       "source/game_sa/X87Math.h": "fbc5f6c7681630c0c7b726f2e0a7cec5bec7e99c90aa0106cd04e3f43089ff50",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/ReplUpgrade72/LiveComparison.hpp": "c7d5edf8181aa6d0755ade39072db7bc7bc986447b1239466ef994e7d2ac0d01",
-      "reversing/ReplUpgrade72/Core.hpp": "aaea8453ee7744c4069fd5681baeb402fe3a14fabeaa32401c44ff8734332866",
-      "reversing/ReplUpgrade72/Fixtures.hpp": "0445468830378ce7b47312153158aff5446237358f3f1533aa412ff6a34d55f2",
+      "reversing/ReplUpgrade72/Core.hpp": "dca32d3df1a263d1526a30ec3e8c3cb9ce09bcb38cd8f2495fe43a9ee930575e",
+      "reversing/ReplUpgrade72/Fixtures.hpp": "b1f69ae9f9aa587bf323eae63ae0c42d49d6a028656094fa90e84ce34440abda",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/ReplUpgrade72-20261026-222729-225850/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/ReplUpgrade72-20261026-231116-096308/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "748335ca8eaad1ff7014d39a861cf29f78fe768c3fb34e840fc8663c6f6311b0",
-    "uncompressed_sha256": "900270139759ad7c6971544efca0ca498080cf93cd02fa1cae8c05cdcdee5e1a"
+    "compressed_sha256": "0890dba664ffc149e52eb07d657c7e20e33138f28b090efecbe0d4241d34a467",
+    "uncompressed_sha256": "57258f698ef4fcee869d41fc67a6be65cda919db8d8219b85abdd127c70861db"
   }
 }

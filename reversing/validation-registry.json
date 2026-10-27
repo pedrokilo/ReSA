@@ -544625,7 +544625,7 @@
       },
       "evidence": {
         "path": "reversing/ReplUpgrade72/validation-summary.json",
-        "sha256": "3abc71369439f615231dd2fd031c4d3977b2659183ee6907d32e3ad83ed93bb0",
+        "sha256": "3ad8dab7feb9b1fb96a5656b664a4589362c65da7bfb62a5b9834acbbf857e16",
         "passed_path": [
           "covered_functions",
           "AddReplacementUpgrade"
@@ -544643,8 +544643,8 @@
         "source/game_sa/X87Math.h": "fbc5f6c7681630c0c7b726f2e0a7cec5bec7e99c90aa0106cd04e3f43089ff50",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/ReplUpgrade72/LiveComparison.hpp": "c7d5edf8181aa6d0755ade39072db7bc7bc986447b1239466ef994e7d2ac0d01",
-        "reversing/ReplUpgrade72/Core.hpp": "aaea8453ee7744c4069fd5681baeb402fe3a14fabeaa32401c44ff8734332866",
-        "reversing/ReplUpgrade72/Fixtures.hpp": "0445468830378ce7b47312153158aff5446237358f3f1533aa412ff6a34d55f2",
+        "reversing/ReplUpgrade72/Core.hpp": "dca32d3df1a263d1526a30ec3e8c3cb9ce09bcb38cd8f2495fe43a9ee930575e",
+        "reversing/ReplUpgrade72/Fixtures.hpp": "b1f69ae9f9aa587bf323eae63ae0c42d49d6a028656094fa90e84ce34440abda",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
