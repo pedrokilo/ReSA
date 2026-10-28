@@ -1,0 +1,215 @@
+diff --git a/source/game_sa/Entity/Ped/PlayerPed.cpp b/source/game_sa/Entity/Ped/PlayerPed.cpp
+index 25e983d69..ea8306cbb 100644
+--- a/source/game_sa/Entity/Ped/PlayerPed.cpp
++++ b/source/game_sa/Entity/Ped/PlayerPed.cpp
+@@ -58,6 +58,7 @@ END GENERATED HOOK STATUS */
+ #include "PedIntelligence.h"
+ #include "Tasks/TaskTypes/TaskSimplePlayerOnFoot.h"
+ #include "Tasks/TaskTypes/TaskComplexFacial.h"
++#include "Tasks/TaskTypes/TaskSimpleFight.h"
+ #include "Plugins/RpAnimBlendPlugin/RpAnimBlend.h"
+ 
+ // Ayudante de X87Math.cpp (PlayerPedSprintTailDblCpp) que devuelve un double: el ((max(ratio - 1, 0) * k) + 1) de CPlayerPed::ControlButtonSprint queda sin guardar
+@@ -105,6 +106,7 @@ void CPlayerPed::InjectHooks() {
+     RH_ScopedInstall(ProcessPlayerWeapon, 0x6097F0);
+     RH_ScopedInstall(PickWeaponAllowedFor2Player, 0x609800);
+     RH_ScopedInstall(UpdateCameraWeaponModes, 0x609830);
++    RH_ScopedInstall(ProcessAnimGroups, 0x6098F0);
+     RH_ScopedInstall(ClearWeaponTarget, 0x609c80);
+     RH_ScopedInstall(GetWeaponRadiusOnScreen, 0x609CD0);
+     RH_ScopedInstall(PedCanBeTargettedVehicleWise, 0x609D90);
+@@ -422,8 +424,192 @@ void CPlayerPed::UpdateCameraWeaponModes(CPad* pad) {
+ 
+ // 0x6098F0
+ void CPlayerPed::ProcessAnimGroups() {
+-    // El procesamiento de grupos de animación del jugador continúa delegado al ejecutable original.
+-    plugin::CallMethod<0x6098F0, CPlayerPed *>(this);
++    // Lote 80D. Como el original: los datos del jugador (+0x480) y los grupos de animación se releen tras cada llamada.
++    // Como el original: índice de bloque = (puntero - ms_aAnimBlocks) >> 5 (sar), incluso con puntero nulo
++    // Como el original: arreglo de grupos de animación (CAnimManager::ms_aAnimAssocGroups, 0xB4EA34), releído en cada uso
++    const auto AssocGroups = []() -> CAnimBlendAssocGroup* { return StaticRef<CAnimBlendAssocGroup*>(0xB4EA34); };
++    const auto BlockIndexOf = [](const CAnimBlock* block) -> int32 {
++        return static_cast<int32>(reinterpret_cast<uintptr_t>(block) - uintptr_t(0xB5D4A0) /* CAnimManager::ms_aAnimBlocks */) >> 5;
++    };
++    // Como el original: el byte IsLoaded se compara con 1 (no es un bool normalizado)
++    const auto IsBlockLoadedByte = [](const CAnimBlock* block) -> bool {
++        return *reinterpret_cast<const uint8*>(&block->IsLoaded) == 1;
++    };
++    // Como el original: fila (0x88 bytes) de la tabla de combos 0xC170D0; su primer campo es el grupo de animación
++    const auto ComboGroupOf = [](int32 row) -> int32 {
++        return *reinterpret_cast<const int32*>(reinterpret_cast<const uint8*>(&CTaskSimpleFight::m_aComboData[0]) + row * 0x88);
++    };
++
++    int32 group = m_nAnimGroup; // edi
++    int32 newGroup = 0;         // eax
++
++    // Como el original: el rumbo (+0x50) se lee dos veces; entre -50 y +50 grados (exclusivos) no se mira la cámara. NaN sí.
++    bool lookAtCamera = false;
++    {
++        const float heading = m_pPlayerData->m_fFPSMoveHeading;
++        if (!(heading > StaticRef<float>(0x86D1D4))) {
++            lookAtCamera = true;
++        } else {
++            lookAtCamera = !(m_pPlayerData->m_fFPSMoveHeading < StaticRef<float>(0x86D1D0));
++        }
++    }
++    if (lookAtCamera) {
++        // Como el original: cámara activa (byte 0xB6F081) sin comprobar el rango, 0x238 bytes por cámara
++        CCam* const activeCam = &TheCamera.m_aCams[0] + TheCamera.m_nActiveCam;
++        if (activeCam->Using3rdPersonMouseCam() && CanStrafeOrMouseControl()) {
++            if (group == 0x36) {
++                goto PedModelGroup;
++            }
++            goto DefaultGroup;
++        }
++    }
++
++    // Como el original: edi se pone a 0 y solo cambia si el objeto del arma es un modelo de arma (tipo 4)
++    group = 0;
++    if (m_pWeaponObject) {
++        CClumpModelInfo* const weaponModelInfo = CVisibilityPlugins::GetClumpModelInfo(m_pWeaponObject);
++        if (weaponModelInfo && weaponModelInfo->GetModelType() == MODEL_INFO_WEAPON) {
++            group = static_cast<int32>(static_cast<CWeaponModelInfo*>(weaponModelInfo)->GetWeaponInfo()); // +0x24
++            if (group == 0x23 || group == 0x24) { // lanzacohetes
++                group = 0x39;
++                goto DefaultGroup;
++            }
++        }
++    }
++
++    if (GetIntelligence()->GetTaskJetPack()) {
++        newGroup = 0x46;
++        goto StoreGroup;
++    }
++
++    switch (group) {
++    case 5: case 6: case 7: // bate, pala, taco
++        group = 0x3F;
++        goto DefaultGroup;
++    case 9: case 0x25: case 0x26: // motosierra, lanzallamas, minigun
++        group = 0x42;
++        goto DefaultGroup;
++    case 0x1F: case 0x1E: case 0x1B: case 0x19: case 0x22: case 0x21: // fusiles y escopetas
++        group = 0x3C;
++        goto DefaultGroup;
++    default:
++        break;
++    }
++
++    if (m_pPlayerData->m_pPedClothesDesc->GetIsWearingBalaclava()) {
++        newGroup = 0x45;
++        goto StoreGroup;
++    }
++    group = 0x36;
++
++PedModelGroup: // 0x609A1F
++    // Como el original: el segundo jugador (tipo 1) usa el grupo de animación de su modelo si no es el 0x36
++    if (m_nPedType == PED_TYPE_PLAYER2) {
++        CBaseModelInfo* const baseInfo = *(&CModelInfo::ms_modelInfoPtrs[0] + static_cast<int16>(m_nModelIndex));
++        newGroup = static_cast<int32>(static_cast<CPedModelInfo*>(baseInfo)->m_nAnimType); // +0x24
++        if (newGroup != 0x36) {
++            goto StoreGroup;
++        }
++    }
++
++DefaultGroup: // 0x609A3B
++    newGroup = group + static_cast<int32>(CClothes::GetDefaultPlayerMotionGroup()) - 0x36;
++
++StoreGroup: // 0x609A44
++    if (m_nAnimGroup != newGroup) {
++        m_nAnimGroup = static_cast<AssocGroupId>(newGroup);
++        ReApplyMoveAnims();
++    }
++
++    {
++        // Como el original: ranura con signo, sin comprobar el rango; el tipo del arma se lee ANTES de GetWeaponSkill
++        const int32 slot = static_cast<int8>(m_nActiveWeaponSlot);
++        const eWeaponType weaponType = (&m_aWeapons[0] + slot)->m_Type;
++        const eWeaponSkill skill = GetWeaponSkill();
++        CWeaponInfo* const weaponInfo = CWeaponInfo::GetWeaponInfo(weaponType, skill);
++
++        bool releaseFirst = false;  // bl: soltar el bloque de animaciones +0x48
++        bool releaseSecond = false; // [esp+0x13]: soltar el bloque +0x4C
++
++        // Como el original: un arma que no es cuerpo a cuerpo, o estar en un vehículo, salta directo a soltar ambos bloques (0x609C73 -> 0x609BBF) y no pide nada
++        if (weaponInfo->m_nWeaponFire != eWeaponFire::WEAPON_FIRE_MELEE || bInVehicle) {
++            releaseFirst = true;
++            releaseSecond = true;
++        } else {
++            // Primer bloque: combo base del arma (byte con signo; 4 = estándar)
++            const int8 baseCombo = static_cast<int8>(weaponInfo->m_nBaseCombo);
++            if (baseCombo == 4) {
++                if (m_pPlayerData->m_nMeleeWeaponAnimReferenced != 0) {
++                    releaseFirst = true;
++                }
++            } else {
++                const int32 wantedGroup = ComboGroupOf(static_cast<int32>(baseCombo) - 4);
++                const uint32 currentGroup = m_pPlayerData->m_nMeleeWeaponAnimReferenced;
++                if (static_cast<uint32>(wantedGroup) != currentGroup) {
++                    if (currentGroup != 0) {
++                        releaseFirst = true;
++                    }
++                    CAnimBlock* block = AssocGroups()[wantedGroup].m_AnimBlock;
++                    if (!block) {
++                        block = CAnimManager::GetAnimationBlock(CAnimManager::GetAnimBlockName(static_cast<AssocGroupId>(wantedGroup)));
++                    }
++                    const int32 blockIdx = BlockIndexOf(block);
++                    if (IsBlockLoadedByte(block)) {
++                        if (m_pPlayerData->m_nMeleeWeaponAnimReferenced == 0) {
++                            CAnimManager::AddAnimBlockRef(blockIdx);
++                            m_pPlayerData->m_nMeleeWeaponAnimReferenced = wantedGroup;
++                        }
++                    } else {
++                        CStreaming::RequestModel(IFPToModelId(blockIdx), 8);
++                    }
++                }
++            }
++
++            // Segundo bloque: estilo de lucha (movzx; 4 = estándar)
++            const uint8 fightStyle = static_cast<uint8>(m_nFightingStyle);
++            if (fightStyle == 4) {
++                if (m_pPlayerData->m_nMeleeWeaponAnimReferencedExtra != 0) {
++                    releaseSecond = true;
++                }
++            } else {
++                const uint32 currentGroup = m_pPlayerData->m_nMeleeWeaponAnimReferencedExtra;
++                const int32 wantedGroup = ComboGroupOf(static_cast<int32>(fightStyle) - 4);
++                if (static_cast<uint32>(wantedGroup) != currentGroup) {
++                    if (currentGroup != 0) {
++                        releaseSecond = true;
++                    }
++                    CAnimBlock* block = AssocGroups()[wantedGroup].m_AnimBlock;
++                    if (!block) {
++                        block = CAnimManager::GetAnimationBlock(CAnimManager::GetAnimBlockName(static_cast<AssocGroupId>(wantedGroup)));
++                    }
++                    const int32 blockIdx = BlockIndexOf(block);
++                    if (IsBlockLoadedByte(block)) {
++                        if (m_pPlayerData->m_nMeleeWeaponAnimReferencedExtra == 0) {
++                            CAnimManager::AddAnimBlockRef(blockIdx);
++                            m_pPlayerData->m_nMeleeWeaponAnimReferencedExtra = wantedGroup;
++                        }
++                    } else {
++                        CStreaming::RequestModel(IFPToModelId(blockIdx), 8);
++                    }
++                }
++            }
++        }
++
++        if (releaseFirst) {
++            const uint32 referenced = m_pPlayerData->m_nMeleeWeaponAnimReferenced;
++            if (referenced != 0) {
++                CAnimManager::RemoveAnimBlockRef(BlockIndexOf(AssocGroups()[referenced].m_AnimBlock));
++                m_pPlayerData->m_nMeleeWeaponAnimReferenced = 0;
++            }
++        }
++        if (releaseSecond) {
++            const uint32 referenced = m_pPlayerData->m_nMeleeWeaponAnimReferencedExtra;
++            if (referenced != 0) {
++                CAnimManager::RemoveAnimBlockRef(BlockIndexOf(AssocGroups()[referenced].m_AnimBlock));
++                m_pPlayerData->m_nMeleeWeaponAnimReferencedExtra = 0;
++            }
++        }
++    }
+ }
+ 
+ // 0x609C80
