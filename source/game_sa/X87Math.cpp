@@ -16985,5 +16985,51 @@ __declspec(noinline) bool __cdecl Ka80VehicleAheadCpp(const float* reference, co
     const double a = (double(reference[1]) - double(vehicle[1])) * double(forward[1]);
     const double b = (double(reference[0]) - double(vehicle[0])) * double(forward[0]);
     return (a + b) > double(limit);
+
+// --- Lote 80C (Veh80C): CVehicle::FireFixedMachineGuns (0x73DF00), prefijo Veh80C ---
+#pragma float_control(precise, on, push)
+static __declspec(noinline) double __cdecl Veh80CSqrt(double value) {
+    return sqrt(value);
+}
+// 0x73DF22..0x73DF9D: direccion horizontal del vehiculo (top.x, top.y) normalizada y multiplicada por 60.0f. Como el original: len = sqrt(y*y + x*x) (fsqrt), si 0.1f (0x858B1C) > len ordenado se usa 0.1f,
+// inv = 1.0f / len (fdivr), nx = float(inv * x) y ny = float(inv * y) se guardan como float (fstp dword), luego nx * 60.0f (0x858B34) y ny * 60.0f (fmul + fst dword): el primer canon usa el producto que
+// queda en el registro x87 (24 bits, exponente extendido; reg[]), el segundo el valor guardado como float (stored[]). Todo a 24 bits con exponente extendido.
+__declspec(noinline) void __cdecl Veh80CDirCpp(const float& topX, const float& topY, double* reg, float* stored) {
+    const double fx = double(topX);
+    const double fy = double(topY);
+    double len = Veh80CSqrt(fy * fy + fx * fx);
+    const double minLen = double(std::bit_cast<float>(0x3DCCCCCDu));
+    if (minLen > len) {
+        len = minLen;
+    }
+    const double inv = double(std::bit_cast<float>(0x3F800000u)) / len;
+    volatile float nx = float(inv * fx);
+    volatile float ny = float(inv * fy);
+    const double scale = double(std::bit_cast<float>(0x42700000u));
+    const double rx = double(nx) * scale;
+    const double ry = double(ny) * scale;
+    reg[0] = rx;
+    reg[1] = ry;
+    volatile float sx = float(rx);
+    volatile float sy = float(ry);
+    stored[0] = sx;
+    stored[1] = sy;
+}
+// 0x73DFB6..0x73E0A7 y 0x73E102..0x73E1DB (cada canon): extremo del disparo = (dirX + p.x, p.y + dirY, p.z) (cada componente se guarda como float; p.z pasa por fld/fstp) mas el ruido
+// (jx * 0.015f (0x859F00) y jy * 0.015f guardados como float; jz * 0.02f (0x858B38) se queda en el registro x87), sumado y guardado como float: x = jx' + ex, y = ey + jy', z = ez + jz'.
+// jx, jy y jz son enteros ya restados de 0x80 (fild).
+__declspec(noinline) void __cdecl Veh80CEndCpp(double dirX, double dirY, const float& posX, const float& posY, const float& posZ, int jx, int jy, int jz, float* out) {
+    volatile float ex = float(dirX + double(posX));
+    volatile float ey = float(double(posY) + dirY);
+    volatile float ez = float(double(posZ));
+    volatile float jxs = float(double(jx) * double(std::bit_cast<float>(0x3C75C28Fu)));
+    volatile float jys = float(double(jy) * double(std::bit_cast<float>(0x3C75C28Fu)));
+    const double jzs = double(jz) * double(std::bit_cast<float>(0x3CA3D70Au));
+    volatile float ox = float(double(jxs) + double(ex));
+    volatile float oy = float(double(ey) + double(jys));
+    volatile float oz = float(double(ez) + jzs);
+    out[0] = ox;
+    out[1] = oy;
+    out[2] = oz;
 }
 #pragma float_control(pop)

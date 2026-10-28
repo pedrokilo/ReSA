@@ -2079,3 +2079,10 @@ bool __cdecl Pp79SprayPickCpp(const float* entity, const float* self, float rang
 bool __cdecl Ka80VehicleFarCpp(const float* vehicle, const float* reference, const float& limit);
 // 0x60C48F..0x60C4AF: ((ref.y - veh.y) * fwd.y + (ref.x - veh.x) * fwd.x) > limite; false con NaN.
 bool __cdecl Ka80VehicleAheadCpp(const float* reference, const float* vehicle, const float* forward, const float& limit);
+
+// --- Lote 80C (Veh80C): CVehicle::FireFixedMachineGuns (0x73DF00) ---
+// 0x73DF22..0x73DF9D: direccion horizontal normalizada (con longitud minima 0.1f) * 60.0f: reg[0..1] = producto que el EXE deja en el registro x87 (24 bits, exponente extendido; lo usa el primer canon)
+// y stored[0..1] = ese producto guardado como float (lo usa el segundo canon).
+void __cdecl Veh80CDirCpp(const float& topX, const float& topY, double* reg, float* stored);
+// 0x73DFB6..0x73E1DB: extremo del disparo de un canon = (dirX + pos.x, pos.y + dirY, pos.z) mas el ruido entero (jx * 0.015f, jy * 0.015f, jz * 0.02f), cada componente guardada como float.
+void __cdecl Veh80CEndCpp(double dirX, double dirY, const float& posX, const float& posY, const float& posZ, int jx, int jy, int jz, float* out);

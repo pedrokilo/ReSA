@@ -81,7 +81,7 @@ inline void Update() {
     const StubSpec follow=mk({"CCarCtrl","SteerAIHeliToFollowEntity",0x42A750,reinterpret_cast<void*>(&FkFollow),0});
     const StubSpec fpe=mk({"CWorld","FindPlayerEntity",0x56E120,reinterpret_cast<void*>(&FkFpe),0});
     const StubSpec rockets=mk({"CCarCtrl","FireHeliRocketsAtTarget",0x42B270,reinterpret_cast<void*>(&FkRockets),0});
-    const StubSpec boat=mk({nullptr,nullptr,0x73DF00,reinterpret_cast<void*>(&FkBoat),0});
+    const StubSpec boat=mk({"CVehicle","FireFixedMachineGuns",0x73DF00,reinterpret_cast<void*>(&FkBoat),0});
     const StubSpec distLine=mk({"CCollision","DistToMathematicalLine",0x412970,reinterpret_cast<void*>(&FkDistLine),0});
     const StubSpec addProj=mk({"CProjectileInfo","AddProjectile",0x737C80,reinterpret_cast<void*>(&FkAddProj),0});
     const StubSpec los=mk({"CWorld","ProcessLineOfSight",0x56BA00,reinterpret_cast<void*>(&FkLos),0});

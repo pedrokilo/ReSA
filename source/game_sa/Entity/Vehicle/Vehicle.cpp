@@ -331,7 +331,7 @@ void CVehicle::InjectHooks() {
     RH_ScopedInstall(GetPlaneWeaponFiringStatus, 0x6E3440);
     RH_ScopedInstall(ProcessWeapons, 0x6E3950);
     RH_ScopedInstall(DoFixedMachineGuns, 0x73F400);
-    // RH_ScopedInstall(FireFixedMachineGuns, 0x73DF00);
+    RH_ScopedInstall(FireFixedMachineGuns, 0x73DF00);
     RH_ScopedInstall(DoDriveByShootings, 0x741FD0);
     RH_ScopedInstall(ReleasePickedUpEntityWithWinch, 0x6D3CB0);
     RH_ScopedInstall(PickUpEntityWithWinch, 0x6D3CD0);
@@ -8503,7 +8503,44 @@ void CVehicle::DoFixedMachineGuns() {
 
 // 0x73DF00
 void CVehicle::FireFixedMachineGuns() {
-    plugin::CallMethod<0x73DF00, CVehicle*>(this);
+    // Como el original (0x73DF00..0x73E235): sin matriz comprobada (+0x14), +0x4D4 hora del ultimo disparo, +0x4AB balas del cargador, +0x460 conductor.
+    static_assert(offsetof(CVehicle, m_nGunFiringTime) == 0x4D4 && offsetof(CVehicle, m_nAmmoInClip) == 0x4AB && offsetof(CVehicle, m_pDriver) == 0x460);
+    static_assert(offsetof(CPlaceable, m_matrix) == 0x14);
+    const uint32 now = CTimer::GetTimeInMS();
+    if (now <= m_nGunFiringTime + 150u) { // jbe sin signo, con desbordamiento
+        return;
+    }
+
+    // Como el original: direccion horizontal (top.x, top.y) normalizada * 60 en la x87 (X87Math); la hora del disparo se guarda ANTES de la primera llamada
+    // El primer canon usa el producto que queda en el registro x87 (dirReg) y el segundo el guardado como float (dirStored)
+    double dirReg[2];
+    float dirStored[2];
+    Veh80CDirCpp(m_matrix->GetForward().x, m_matrix->GetForward().y, dirReg, dirStored); // top = +0x10
+    m_nGunFiringTime = now;
+
+    // Como el original: cada canon transforma su desplazamiento con 0x59C890, sortea tres numeros (el 2.o es el ruido en x, el 1.o en y y el 3.o en z), apunta (DoTankDoomAiming) y dispara
+    // (FireOneInstantHitRound, con el extremo ya modificado). El conductor y la matriz se vuelven a leer en cada canon
+    const auto fireGun = [&](const CVector& offset, double dirX, double dirY) {
+#pragma warning(push)
+#pragma warning(disable: 4996) // operator*(CMatrix, CVector) esta marcado [[deprecated]] para el codigo nuevo, pero es el colaborador del original (0x59C890)
+        CVector position = *m_matrix * offset;
+#pragma warning(pop)
+        const int32 noiseY = int32(CGeneral::GetRandomNumber() & 0xFFu) - 0x80;
+        const int32 noiseX = int32(CGeneral::GetRandomNumber() & 0xFFu) - 0x80;
+        const int32 noiseZ = int32(CGeneral::GetRandomNumber() & 0xFFu) - 0x80;
+        CVector end;
+        Veh80CEndCpp(dirX, dirY, position.x, position.y, position.z, noiseX, noiseY, noiseZ, &end.x);
+        CWeapon::DoTankDoomAiming(this, m_pDriver, &position, &end);
+        FireOneInstantHitRound(position, end, 15);
+    };
+    fireGun(CVector{ 2.0f, 2.5f, 1.0f }, dirReg[0], dirReg[1]);
+    fireGun(CVector{ -2.0f, 2.5f, 1.0f }, double(dirStored[0]), double(dirStored[1]));
+
+    AudioEngine.ReportWeaponEvent(AE_WEAPON_FIRE_PLANE, WEAPON_M4, this);
+    if (--m_nAmmoInClip == 0) { // dec byte: la bandera cero del resultado de 8 bits
+        m_nAmmoInClip = 20;
+        m_nGunFiringTime = CTimer::GetTimeInMS() + 1400u; // la hora se vuelve a leer
+    }
 }
 
 // 0x741FD0

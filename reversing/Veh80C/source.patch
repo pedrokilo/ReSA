@@ -1,0 +1,130 @@
+diff --git a/source/game_sa/Entity/Vehicle/Vehicle.cpp b/source/game_sa/Entity/Vehicle/Vehicle.cpp
+index 3125b5f1f..5d5f7b50a 100644
+--- a/source/game_sa/Entity/Vehicle/Vehicle.cpp
++++ b/source/game_sa/Entity/Vehicle/Vehicle.cpp
+@@ -329,7 +329,7 @@ void CVehicle::InjectHooks() {
+     RH_ScopedInstall(GetPlaneWeaponFiringStatus, 0x6E3440);
+     RH_ScopedInstall(ProcessWeapons, 0x6E3950);
+     RH_ScopedInstall(DoFixedMachineGuns, 0x73F400);
+-    // RH_ScopedInstall(FireFixedMachineGuns, 0x73DF00);
++    RH_ScopedInstall(FireFixedMachineGuns, 0x73DF00);
+     // RH_ScopedInstall(DoDriveByShootings, 0x741FD0);
+     RH_ScopedInstall(ReleasePickedUpEntityWithWinch, 0x6D3CB0);
+     RH_ScopedInstall(PickUpEntityWithWinch, 0x6D3CD0);
+@@ -8501,7 +8501,44 @@ void CVehicle::DoFixedMachineGuns() {
+ 
+ // 0x73DF00
+ void CVehicle::FireFixedMachineGuns() {
+-    plugin::CallMethod<0x73DF00, CVehicle*>(this);
++    // Como el original (0x73DF00..0x73E235): sin matriz comprobada (+0x14), +0x4D4 hora del ultimo disparo, +0x4AB balas del cargador, +0x460 conductor.
++    static_assert(offsetof(CVehicle, m_nGunFiringTime) == 0x4D4 && offsetof(CVehicle, m_nAmmoInClip) == 0x4AB && offsetof(CVehicle, m_pDriver) == 0x460);
++    static_assert(offsetof(CPlaceable, m_matrix) == 0x14);
++    const uint32 now = CTimer::GetTimeInMS();
++    if (now <= m_nGunFiringTime + 150u) { // jbe sin signo, con desbordamiento
++        return;
++    }
++
++    // Como el original: direccion horizontal (top.x, top.y) normalizada * 60 en la x87 (X87Math); la hora del disparo se guarda ANTES de la primera llamada
++    // El primer canon usa el producto que queda en el registro x87 (dirReg) y el segundo el guardado como float (dirStored)
++    double dirReg[2];
++    float dirStored[2];
++    Veh80CDirCpp(m_matrix->GetForward().x, m_matrix->GetForward().y, dirReg, dirStored); // top = +0x10
++    m_nGunFiringTime = now;
++
++    // Como el original: cada canon transforma su desplazamiento con 0x59C890, sortea tres numeros (el 2.o es el ruido en x, el 1.o en y y el 3.o en z), apunta (DoTankDoomAiming) y dispara
++    // (FireOneInstantHitRound, con el extremo ya modificado). El conductor y la matriz se vuelven a leer en cada canon
++    const auto fireGun = [&](const CVector& offset, double dirX, double dirY) {
++#pragma warning(push)
++#pragma warning(disable: 4996) // operator*(CMatrix, CVector) esta marcado [[deprecated]] para el codigo nuevo, pero es el colaborador del original (0x59C890)
++        CVector position = *m_matrix * offset;
++#pragma warning(pop)
++        const int32 noiseY = int32(CGeneral::GetRandomNumber() & 0xFFu) - 0x80;
++        const int32 noiseX = int32(CGeneral::GetRandomNumber() & 0xFFu) - 0x80;
++        const int32 noiseZ = int32(CGeneral::GetRandomNumber() & 0xFFu) - 0x80;
++        CVector end;
++        Veh80CEndCpp(dirX, dirY, position.x, position.y, position.z, noiseX, noiseY, noiseZ, &end.x);
++        CWeapon::DoTankDoomAiming(this, m_pDriver, &position, &end);
++        FireOneInstantHitRound(position, end, 15);
++    };
++    fireGun(CVector{ 2.0f, 2.5f, 1.0f }, dirReg[0], dirReg[1]);
++    fireGun(CVector{ -2.0f, 2.5f, 1.0f }, double(dirStored[0]), double(dirStored[1]));
++
++    AudioEngine.ReportWeaponEvent(AE_WEAPON_FIRE_PLANE, WEAPON_M4, this);
++    if (--m_nAmmoInClip == 0) { // dec byte: la bandera cero del resultado de 8 bits
++        m_nAmmoInClip = 20;
++        m_nGunFiringTime = CTimer::GetTimeInMS() + 1400u; // la hora se vuelve a leer
++    }
+ }
+ 
+ // 0x741FD0
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 019a11ddf..e13ee4796 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -16968,3 +16968,51 @@ __declspec(noinline) bool __cdecl Pp79SprayPickCpp(const float* entity, const fl
+     *outAngle = a;
+     return true;
+ }
++
++// --- Lote 80C (Veh80C): CVehicle::FireFixedMachineGuns (0x73DF00), prefijo Veh80C ---
++#pragma float_control(precise, on, push)
++static __declspec(noinline) double __cdecl Veh80CSqrt(double value) {
++    return sqrt(value);
++}
++// 0x73DF22..0x73DF9D: direccion horizontal del vehiculo (top.x, top.y) normalizada y multiplicada por 60.0f. Como el original: len = sqrt(y*y + x*x) (fsqrt), si 0.1f (0x858B1C) > len ordenado se usa 0.1f,
++// inv = 1.0f / len (fdivr), nx = float(inv * x) y ny = float(inv * y) se guardan como float (fstp dword), luego nx * 60.0f (0x858B34) y ny * 60.0f (fmul + fst dword): el primer canon usa el producto que
++// queda en el registro x87 (24 bits, exponente extendido; reg[]), el segundo el valor guardado como float (stored[]). Todo a 24 bits con exponente extendido.
++__declspec(noinline) void __cdecl Veh80CDirCpp(const float& topX, const float& topY, double* reg, float* stored) {
++    const double fx = double(topX);
++    const double fy = double(topY);
++    double len = Veh80CSqrt(fy * fy + fx * fx);
++    const double minLen = double(std::bit_cast<float>(0x3DCCCCCDu));
++    if (minLen > len) {
++        len = minLen;
++    }
++    const double inv = double(std::bit_cast<float>(0x3F800000u)) / len;
++    volatile float nx = float(inv * fx);
++    volatile float ny = float(inv * fy);
++    const double scale = double(std::bit_cast<float>(0x42700000u));
++    const double rx = double(nx) * scale;
++    const double ry = double(ny) * scale;
++    reg[0] = rx;
++    reg[1] = ry;
++    volatile float sx = float(rx);
++    volatile float sy = float(ry);
++    stored[0] = sx;
++    stored[1] = sy;
++}
++// 0x73DFB6..0x73E0A7 y 0x73E102..0x73E1DB (cada canon): extremo del disparo = (dirX + p.x, p.y + dirY, p.z) (cada componente se guarda como float; p.z pasa por fld/fstp) mas el ruido
++// (jx * 0.015f (0x859F00) y jy * 0.015f guardados como float; jz * 0.02f (0x858B38) se queda en el registro x87), sumado y guardado como float: x = jx' + ex, y = ey + jy', z = ez + jz'.
++// jx, jy y jz son enteros ya restados de 0x80 (fild).
++__declspec(noinline) void __cdecl Veh80CEndCpp(double dirX, double dirY, const float& posX, const float& posY, const float& posZ, int jx, int jy, int jz, float* out) {
++    volatile float ex = float(dirX + double(posX));
++    volatile float ey = float(double(posY) + dirY);
++    volatile float ez = float(double(posZ));
++    volatile float jxs = float(double(jx) * double(std::bit_cast<float>(0x3C75C28Fu)));
++    volatile float jys = float(double(jy) * double(std::bit_cast<float>(0x3C75C28Fu)));
++    const double jzs = double(jz) * double(std::bit_cast<float>(0x3CA3D70Au));
++    volatile float ox = float(double(jxs) + double(ex));
++    volatile float oy = float(double(ey) + double(jys));
++    volatile float oz = float(double(ez) + jzs);
++    out[0] = ox;
++    out[1] = oy;
++    out[2] = oz;
++}
++#pragma float_control(pop)
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index bf6c8a5d9..5a3e7ec87 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -2073,3 +2073,10 @@ float __cdecl Pp79SprayHeadingCpp(const float* forward);
+ void __cdecl Pp79SprayCentreCpp(const float* forward, const float* pos, float k, float* out);
+ // 0x60DF0B..0x60DF81: etiqueta candidata del bote de spray; false si range*range <= (dx*dx + dz*dz) + dy*dy o NaN; si no *outAngle = fpatan(-dx, dy) - rumbo con una correccion de +-2pi.
+ bool __cdecl Pp79SprayPickCpp(const float* entity, const float* self, float range, float heading, double* outAngle);
++
++// --- Lote 80C (Veh80C): CVehicle::FireFixedMachineGuns (0x73DF00) ---
++// 0x73DF22..0x73DF9D: direccion horizontal normalizada (con longitud minima 0.1f) * 60.0f: reg[0..1] = producto que el EXE deja en el registro x87 (24 bits, exponente extendido; lo usa el primer canon)
++// y stored[0..1] = ese producto guardado como float (lo usa el segundo canon).
++void __cdecl Veh80CDirCpp(const float& topX, const float& topY, double* reg, float* stored);
++// 0x73DFB6..0x73E1DB: extremo del disparo de un canon = (dirX + pos.x, pos.y + dirY, pos.z) mas el ruido entero (jx * 0.015f, jy * 0.015f, jz * 0.02f), cada componente guardada como float.
++void __cdecl Veh80CEndCpp(double dirX, double dirY, const float& posX, const float& posY, const float& posZ, int jx, int jy, int jz, float* out);
