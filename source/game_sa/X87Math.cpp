@@ -16985,6 +16985,8 @@ __declspec(noinline) bool __cdecl Ka80VehicleAheadCpp(const float* reference, co
     const double a = (double(reference[1]) - double(vehicle[1])) * double(forward[1]);
     const double b = (double(reference[0]) - double(vehicle[0])) * double(forward[0]);
     return (a + b) > double(limit);
+}
+#pragma float_control(pop)
 
 // --- Lote 80C (Veh80C): CVehicle::FireFixedMachineGuns (0x73DF00), prefijo Veh80C ---
 #pragma float_control(precise, on, push)
