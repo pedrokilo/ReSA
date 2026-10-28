@@ -16811,3 +16811,69 @@ __declspec(noinline) void __cdecl Fx77GunOffsetCpp(const float* origin, const fl
     out[2] = z;
 }
 #pragma float_control(pop)
+
+// --- Lote 78A (FxImpact78): Fx_c::AddSparks (0x49F040) y Fx_c::AddBulletImpact (0x49F3D0), prefijo Sparks78 / Bullet78. Anadido al FINAL ---
+// Como en el lote 77: la x87 a 24 bits con exponente extendido; cada valor de registro va en un double volatile y cada guardado en un float volatile.
+#pragma float_control(precise, on, push)
+namespace {
+constexpr float Sp78F(unsigned int bits) { return std::bit_cast<float>(bits); }
+constexpr float kSp78RandScale = Sp78F(0x38000100u);   // 0x858C7C
+}
+// 0x49F0B4..0x49F162 y 0x49F149..0x49F162: ver Sparks78Params.
+__declspec(noinline) void __cdecl Sparks78PrepareCpp(const float* spread, const float* life, const float* across, const float* timeStep, int amount, Sparks78Params* out) {
+    volatile double spreadLoaded = *spread;                     // fld dword (silencia un NaN de senal)
+    volatile double negLoaded = -double(spreadLoaded);          // fchs
+    volatile float neg = float(negLoaded);
+    volatile float range = float(double(*spread) - double(neg));
+    volatile float ampF = float(double(amount));                // fild; fstp dword
+    volatile float ax = float(double(across[0]) * double(*timeStep));
+    volatile float ay = float(double(across[1]) * double(*timeStep));
+    volatile float az = float(double(across[2]) * double(*timeStep));
+    volatile float lifeMul = float(double(*life) * double(Sp78F(0x3F4CCCCDu)));
+    out->negSpread = neg;
+    out->range = range;
+    out->ampF = ampF;
+    out->acrossTs[0] = ax;
+    out->acrossTs[1] = ay;
+    out->acrossTs[2] = az;
+    out->lifeMul = lifeMul;
+}
+// 0x49F166..0x49F2A1: velocidad x e y = float(((r * 3.05e-5f) * (spread - negSpread) + negSpread) + direccion) (el rango queda en registro), z con el rango guardado como float y sin guardar el resultado antes de multiplicar por la fuerza;
+// posicion = origen - across * w (x, y en registro; z con el producto guardado como float).
+__declspec(noinline) void __cdecl Sparks78StepCpp(const Sparks78Params* p, const float* spread, const float* direction, const float* origin, const float* force, int i, int r1, int r2, int r3, float* outVel, float* outPos, float* outTime) {
+    const double k = kSp78RandScale;
+    volatile double rangeReg = double(*spread) - double(p->negSpread);
+    volatile float w = float(1.0 - double(i) / double(p->ampF));
+    volatile float vx = float((double(r1) * k * rangeReg + double(p->negSpread)) + double(direction[0]));
+    volatile float vy = float((double(r2) * k * rangeReg + double(p->negSpread)) + double(direction[1]));
+    volatile float velX = float(double(vx) * double(*force));
+    volatile float velY = float(double(vy) * double(*force));
+    // z: el resultado queda en ST0 (sin guardar) y se multiplica por la fuerza como operando de memoria; en una sola expresion para que el NaN de senal de la fuerza conserve su condicion de operando de memoria
+    volatile float velZ = float(((double(r3) * k * double(p->range) + double(p->negSpread)) + double(direction[2])) * double(*force));
+    volatile double axw = double(p->acrossTs[0]) * double(w);
+    volatile double ayw = double(p->acrossTs[1]) * double(w);
+    volatile float azw = float(double(p->acrossTs[2]) * double(w));
+    volatile double ox = origin[0];
+    volatile double oy = origin[1];
+    volatile double oz = origin[2];
+    volatile float px = float(ox - axw);
+    volatile float py = float(oy - ayw);
+    volatile float pz = float(oz - double(azw));
+    volatile float t = float(double(w) * double(Sp78F(0x3D4CCCCDu)));
+    outVel[0] = velX;
+    outVel[1] = velY;
+    outVel[2] = velZ;
+    outPos[0] = px;
+    outPos[1] = py;
+    outPos[2] = pz;
+    *outTime = t;
+}
+__declspec(noinline) void __cdecl Bullet78SandVelCpp(const float* direction, float* out) {
+    volatile float x = float(double(direction[0]) * double(Sp78F(0x3E99999Au)));
+    volatile float y = float(double(direction[1]) * double(Sp78F(0x3E99999Au)));
+    volatile float z = float(double(direction[2]) * double(Sp78F(0x3E99999Au)));
+    out[0] = x;
+    out[1] = y;
+    out[2] = z;
+}
+#pragma float_control(pop)

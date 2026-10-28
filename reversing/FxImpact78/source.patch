@@ -1,0 +1,214 @@
+diff --git a/reversing/Data23/LiveComparison.hpp b/reversing/Data23/LiveComparison.hpp
+index 78f278441..621a38142 100644
+--- a/reversing/Data23/LiveComparison.hpp
++++ b/reversing/Data23/LiveComparison.hpp
+@@ -372,7 +372,7 @@ inline void Update() {
+                             P.Add(0x73A530,SDamageEvent); P.Add(MA(&CWeapon::GenerateDamageEvent),SDamageEvent);
+                             P.Add(0x532010,SReportCrime); P.Add(MA(&CCrime::ReportCrime),SReportCrime);
+                             P.Add(0x56D230,SBlood); P.Add(MA(&CLocalisation::Blood),SBlood);
+-                            P.Add(0x49EB00,SAddBlood); P.Add(0x49F3D0,SBulletImpact); P.Add(0x49F300,STyreBurst);
++                            P.Add(0x49EB00,SAddBlood); P.Add(0x49F3D0,SBulletImpact); P.Add(MA(&Fx_c::AddBulletImpact),SBulletImpact); /* lote 78A: ya es C++ real en la DLL */ P.Add(0x49F300,STyreBurst); P.Add(MA(&Fx_c::AddTyreBurst),STyreBurst); /* ya era C++ real en la DLL (hallado en la regresion del lote 78A) */
+                             P.Add(0x4D6A70,SFirstAssoc); P.Add(MA(static_cast<CAnimBlendAssociation*(*)(RpClump*,uint32)>(&RpAnimBlendClumpGetFirstAssociation)),SFirstAssoc);
+                             P.Add(0x4D4610,SBlend); P.Add(MA(static_cast<CAnimBlendAssociation*(*)(RpClump*,AssocGroupId,AnimationId,float)>(&CAnimManager::BlendAnimation)),SBlend);
+                             P.Add(0x4CEA80,SSetCurrentTime); P.Add(MA(&CAnimBlendAssociation::SetCurrentTime),SSetCurrentTime);
+diff --git a/source/game_sa/Fx/Fx.cpp b/source/game_sa/Fx/Fx.cpp
+index 2893de587..8d9e1d232 100644
+--- a/source/game_sa/Fx/Fx.cpp
++++ b/source/game_sa/Fx/Fx.cpp
+@@ -60,9 +60,9 @@ void Fx_c::InjectHooks() {
+     // + RH_ScopedInstall(GetFxQuality, 0x49EA50);
+     // RH_ScopedInstall(AddBlood, 0x49EB00);
+     RH_ScopedInstall(AddWood, 0x49EE10);
+-    // RH_ScopedInstall(AddSparks, 0x49F040);
++    RH_ScopedInstall(AddSparks, 0x49F040);
+     RH_ScopedInstall(AddTyreBurst, 0x49F300);
+-    // RH_ScopedInstall(AddBulletImpact, 0x49F3D0);
++    RH_ScopedInstall(AddBulletImpact, 0x49F3D0);
+     RH_ScopedInstall(AddPunchImpact, 0x49F670);
+     RH_ScopedInstall(AddDebris, 0x49F750);
+     RH_ScopedInstall(AddGlass, 0x49F970);
+@@ -463,7 +463,33 @@ void Fx_c::AddWood(const CVector& pos, const CVector& direction, int32 amount, f
+ 
+ // 0x49F040
+ void Fx_c::AddSparks(const CVector& origin, const CVector& direction, float force, int32 amount, CVector across, eSparkType sparksType, float spread, float life) {
+-    ((void(__thiscall*)(Fx_c*, const CVector&, const CVector&, float, int32, CVector, uint8, float, float))0x49F040)(this, origin, direction, force, amount, across, sparksType, spread, life);
++    // Como el original (0x49F040..0x49F2FD, `ret 28h`): `this` no se usa. Fuera de 150 (camara - origen, suma (dz2+dy2)+dx2; NaN no sale) no hace nada; a mas de 15 solo en los fotogramas pares.
++    const float distSq = FxCameraDistanceSqZYX(origin);
++    if (distSq > std::bit_cast<float>(0x46AFC800u)) { // 22500.0f (0x85A6FC)
++        return;
++    }
++    if (distSq > std::bit_cast<float>(0x43610000u) && (CTimer::m_FrameCounter & 1)) { // 225.0f (0x8599D4)
++        return;
++    }
++    // Como el original: multiplicador (1, 1, 1, 1, 1, 0, vida * 0.8f) y datos de la tirada; todo esto se evalua antes de mirar la cantidad.
++    Sparks78Params params;
++    Sparks78PrepareCpp(&spread, &life, &across.x, &CTimer::ms_fTimeStep, amount, &params);
++    const FxPrtMult_c mult(1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, params.lifeMul);
++    if (amount <= 0) {
++        return;
++    }
++    // Como el original: el byte de tipo decide el sistema (distinto de cero: g_fx.m_Spark; cero: g_fx.m_Spark2), releido de g_fx en cada vuelta.
++    const bool primary = static_cast<uint8>(sparksType) != 0;
++    CVector vel, position;
++    float time;
++    for (int32 i = 0; i < amount; ++i) {
++        // Como el original: tres sorteos por particula, en orden (x, y, z).
++        const int32 r1 = FxExeRand();
++        const int32 r2 = FxExeRand();
++        const int32 r3 = FxExeRand();
++        Sparks78StepCpp(&params, &spread, &direction.x, &origin.x, &force, i, r1, r2, r3, &vel.x, &position.x, &time);
++        (primary ? g_fx.m_Spark : g_fx.m_Spark2)->AddParticle(position, vel, time, mult, -1.0f, std::bit_cast<float>(0x3F99999Au), std::bit_cast<float>(0x3F19999Au), false);
++    }
+ }
+ 
+ // 0x49F300
+@@ -480,7 +506,49 @@ void Fx_c::AddTyreBurst(const CVector& posn, const CVector& velocity) {
+ 
+ // 0x49F3D0
+ void Fx_c::AddBulletImpact(const CVector& posn, const CVector& direction, int32 bulletFxType, int32 amount, float arg4) {
+-    ((void(__thiscall*)(Fx_c*, const CVector&, const CVector&, int32, int32, float))0x49F3D0)(this, posn, direction, bulletFxType, amount, arg4);
++    // Como el original (0x49F3D0..0x49F66B, `ret 14h`): `this` no se usa; las llamadas y los sistemas van contra g_fx (0xA9AE00). bulletFxType es el id de superficie de SurfaceInfos_c::GetBulletFx (0x55E670).
++    const uint32 fxType = g_surfaceInfos.GetBulletFx(static_cast<SurfaceId>(bulletFxType));
++    // Como el original: tipo 0 no hace nada; fuera de 150 (camara - posicion, suma (dz2+dy2)+dx2; NaN no sale) tampoco.
++    if (fxType == 0) {
++        return;
++    }
++    if (FxCameraDistanceSqZYX(posn) > std::bit_cast<float>(0x46AFC800u)) { // 22500.0f (0x85A6FC)
++        return;
++    }
++    if (fxType == 1) {
++        // Chispas (3.0 de fuerza, sin vector transversal, tipo 1, dispersion 0.4, vida 1.0) y 1 o 2 bocanadas de humo (la cantidad >= 8 duplica el alfa).
++        g_fx.AddSparks(posn, direction, 3.0f, amount, CVector(0.0f, 0.0f, 0.0f), SPARK_PARTICLE_SPARK, std::bit_cast<float>(0x3ECCCCCDu), 1.0f);
++        FxPrtMult_c mult(1.0f, 1.0f, 1.0f, std::bit_cast<float>(0x3E19999Au), std::bit_cast<float>(0x3ECCCCCDu), 0.0f, std::bit_cast<float>(0x3D99999Au));
++        int32 count = 2;
++        if (amount >= 8) {
++            count = 1;
++            mult.m_Color.alpha += mult.m_Color.alpha; // fadd st,st
++        }
++        for (int32 j = 0; j < count; ++j) {
++            g_fx.m_SmokeII3expand->AddParticle(posn, direction, static_cast<float>(j) * std::bit_cast<float>(0x3D4CCCCDu), mult, -1.0f, arg4, std::bit_cast<float>(0x3F19999Au), false);
++        }
++    } else if (fxType == 2 || fxType == 4) {
++        // Polvo/arena: color (0.81, 0.67, 0.57) o gris 0.6 para el tipo 4; 4 particulas (2 con cantidad >= 8, con el alfa doble) sobre g_fx.m_Sand con la direccion * 0.3.
++        FxPrtMult_c mult(std::bit_cast<float>(0x3F4F5C29u), std::bit_cast<float>(0x3F2B851Fu), std::bit_cast<float>(0x3F11EB85u), std::bit_cast<float>(0x3E19999Au), std::bit_cast<float>(0x3ECCCCCDu), 0.0f, std::bit_cast<float>(0x3E99999Au));
++        if (fxType == 4) {
++            mult.m_Color.red   = std::bit_cast<float>(0x3F19999Au);
++            mult.m_Color.green = std::bit_cast<float>(0x3F19999Au);
++            mult.m_Color.blue  = std::bit_cast<float>(0x3F19999Au);
++        }
++        int32 count = 4;
++        if (amount >= 8) {
++            count = 2;
++            mult.m_Color.alpha += mult.m_Color.alpha; // fadd st,st
++        }
++        CVector vel;
++        for (int32 j = 0; j < count; ++j) {
++            Bullet78SandVelCpp(&direction.x, &vel.x);
++            g_fx.m_Sand->AddParticle(posn, vel, static_cast<float>(j) * std::bit_cast<float>(0x3D4CCCCDu), mult, -1.0f, arg4, std::bit_cast<float>(0x3F19999Au), false);
++        }
++    } else if (fxType == 3) {
++        // Madera: AddWood con la mitad de la cantidad (fild; fmul 0.5; _ftol2) y luz 1.0.
++        g_fx.AddWood(posn, direction, static_cast<int32>(static_cast<float>(amount) * 0.5f), 1.0f);
++    }
+ }
+ 
+ // 0x49F670
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index b3c0fa981..08bd95f9b 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -16811,3 +16811,69 @@ __declspec(noinline) void __cdecl Fx77GunOffsetCpp(const float* origin, const fl
+     out[2] = z;
+ }
+ #pragma float_control(pop)
++
++// --- Lote 78A (FxImpact78): Fx_c::AddSparks (0x49F040) y Fx_c::AddBulletImpact (0x49F3D0), prefijo Sparks78 / Bullet78. Anadido al FINAL ---
++// Como en el lote 77: la x87 a 24 bits con exponente extendido; cada valor de registro va en un double volatile y cada guardado en un float volatile.
++#pragma float_control(precise, on, push)
++namespace {
++constexpr float Sp78F(unsigned int bits) { return std::bit_cast<float>(bits); }
++constexpr float kSp78RandScale = Sp78F(0x38000100u);   // 0x858C7C
++}
++// 0x49F0B4..0x49F162 y 0x49F149..0x49F162: ver Sparks78Params.
++__declspec(noinline) void __cdecl Sparks78PrepareCpp(const float* spread, const float* life, const float* across, const float* timeStep, int amount, Sparks78Params* out) {
++    volatile double spreadLoaded = *spread;                     // fld dword (silencia un NaN de senal)
++    volatile double negLoaded = -double(spreadLoaded);          // fchs
++    volatile float neg = float(negLoaded);
++    volatile float range = float(double(*spread) - double(neg));
++    volatile float ampF = float(double(amount));                // fild; fstp dword
++    volatile float ax = float(double(across[0]) * double(*timeStep));
++    volatile float ay = float(double(across[1]) * double(*timeStep));
++    volatile float az = float(double(across[2]) * double(*timeStep));
++    volatile float lifeMul = float(double(*life) * double(Sp78F(0x3F4CCCCDu)));
++    out->negSpread = neg;
++    out->range = range;
++    out->ampF = ampF;
++    out->acrossTs[0] = ax;
++    out->acrossTs[1] = ay;
++    out->acrossTs[2] = az;
++    out->lifeMul = lifeMul;
++}
++// 0x49F166..0x49F2A1: velocidad x e y = float(((r * 3.05e-5f) * (spread - negSpread) + negSpread) + direccion) (el rango queda en registro), z con el rango guardado como float y sin guardar el resultado antes de multiplicar por la fuerza;
++// posicion = origen - across * w (x, y en registro; z con el producto guardado como float).
++__declspec(noinline) void __cdecl Sparks78StepCpp(const Sparks78Params* p, const float* spread, const float* direction, const float* origin, const float* force, int i, int r1, int r2, int r3, float* outVel, float* outPos, float* outTime) {
++    const double k = kSp78RandScale;
++    volatile double rangeReg = double(*spread) - double(p->negSpread);
++    volatile float w = float(1.0 - double(i) / double(p->ampF));
++    volatile float vx = float((double(r1) * k * rangeReg + double(p->negSpread)) + double(direction[0]));
++    volatile float vy = float((double(r2) * k * rangeReg + double(p->negSpread)) + double(direction[1]));
++    volatile float velX = float(double(vx) * double(*force));
++    volatile float velY = float(double(vy) * double(*force));
++    // z: el resultado queda en ST0 (sin guardar) y se multiplica por la fuerza como operando de memoria; en una sola expresion para que el NaN de senal de la fuerza conserve su condicion de operando de memoria
++    volatile float velZ = float(((double(r3) * k * double(p->range) + double(p->negSpread)) + double(direction[2])) * double(*force));
++    volatile double axw = double(p->acrossTs[0]) * double(w);
++    volatile double ayw = double(p->acrossTs[1]) * double(w);
++    volatile float azw = float(double(p->acrossTs[2]) * double(w));
++    volatile double ox = origin[0];
++    volatile double oy = origin[1];
++    volatile double oz = origin[2];
++    volatile float px = float(ox - axw);
++    volatile float py = float(oy - ayw);
++    volatile float pz = float(oz - double(azw));
++    volatile float t = float(double(w) * double(Sp78F(0x3D4CCCCDu)));
++    outVel[0] = velX;
++    outVel[1] = velY;
++    outVel[2] = velZ;
++    outPos[0] = px;
++    outPos[1] = py;
++    outPos[2] = pz;
++    *outTime = t;
++}
++__declspec(noinline) void __cdecl Bullet78SandVelCpp(const float* direction, float* out) {
++    volatile float x = float(double(direction[0]) * double(Sp78F(0x3E99999Au)));
++    volatile float y = float(double(direction[1]) * double(Sp78F(0x3E99999Au)));
++    volatile float z = float(double(direction[2]) * double(Sp78F(0x3E99999Au)));
++    out[0] = x;
++    out[1] = y;
++    out[2] = z;
++}
++#pragma float_control(pop)
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index 32ae87081..855a41351 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -2034,3 +2034,20 @@ void __cdecl Fx77DirtStepCpp(const float* vel, const float* pos, const int* r, f
+ 
+ // 0x4A0E54..0x4A0E7C (Fx_c::TriggerGunshot): out = origin - entityPos (x, y, z), cada resta con fld/fsub/fstp dword.
+ void __cdecl Fx77GunOffsetCpp(const float* origin, const float* entityPos, float* out);
++
++// --- Lote 78A (FxImpact78): Fx_c::AddSparks (0x49F040) y Fx_c::AddBulletImpact (0x49F3D0), prefijo Sparks78 / Bullet78 ---
++// Datos de AddSparks que se calculan una vez (0x49F0B4..0x49F160): negSpread = -spread (fld; fchs; fstp dword), range = spread - negSpread (guardado como float, lo usa la componente z),
++// ampF = (float)cantidad (fild; fstp dword), acrossTs = across * CTimer::ms_fTimeStep (fld; fmul; fstp dword) y lifeMul = vida * 0.8f (0x858C98), que va como ultimo argumento del multiplicador.
++struct Sparks78Params {
++    float negSpread;
++    float range;
++    float ampF;
++    float acrossTs[3];
++    float lifeMul;
++};
++void __cdecl Sparks78PrepareCpp(const float* spread, const float* life, const float* across, const float* timeStep, int amount, Sparks78Params* out);
++// 0x49F166..0x49F2D3: una particula de chispas. r1, r2, r3 son los tres rand() de la vuelta, en orden; spread, direction, origin y force apuntan a los floats del llamador (el EXE los carga con fld / operandos de memoria).
++// outTime = w * 0.05f (0x858C28) con w = 1.0 - i / ampF guardado como float.
++void __cdecl Sparks78StepCpp(const Sparks78Params* p, const float* spread, const float* direction, const float* origin, const float* force, int i, int r1, int r2, int r3, float* outVel, float* outPos, float* outTime);
++// 0x49F5F0..0x49F63B (AddBulletImpact, tipos 2 y 4): out = direccion * 0.3f (0x858C24), cada componente fld dword; fmul; fstp dword.
++void __cdecl Bullet78SandVelCpp(const float* direction, float* out);

@@ -60,9 +60,9 @@ void Fx_c::InjectHooks() {
     // + RH_ScopedInstall(GetFxQuality, 0x49EA50);
     // RH_ScopedInstall(AddBlood, 0x49EB00);
     RH_ScopedInstall(AddWood, 0x49EE10);
-    // RH_ScopedInstall(AddSparks, 0x49F040);
+    RH_ScopedInstall(AddSparks, 0x49F040);
     RH_ScopedInstall(AddTyreBurst, 0x49F300);
-    // RH_ScopedInstall(AddBulletImpact, 0x49F3D0);
+    RH_ScopedInstall(AddBulletImpact, 0x49F3D0);
     RH_ScopedInstall(AddPunchImpact, 0x49F670);
     RH_ScopedInstall(AddDebris, 0x49F750);
     RH_ScopedInstall(AddGlass, 0x49F970);
@@ -463,7 +463,33 @@ void Fx_c::AddWood(const CVector& pos, const CVector& direction, int32 amount, f
 
 // 0x49F040
 void Fx_c::AddSparks(const CVector& origin, const CVector& direction, float force, int32 amount, CVector across, eSparkType sparksType, float spread, float life) {
-    ((void(__thiscall*)(Fx_c*, const CVector&, const CVector&, float, int32, CVector, uint8, float, float))0x49F040)(this, origin, direction, force, amount, across, sparksType, spread, life);
+    // Como el original (0x49F040..0x49F2FD, `ret 28h`): `this` no se usa. Fuera de 150 (camara - origen, suma (dz2+dy2)+dx2; NaN no sale) no hace nada; a mas de 15 solo en los fotogramas pares.
+    const float distSq = FxCameraDistanceSqZYX(origin);
+    if (distSq > std::bit_cast<float>(0x46AFC800u)) { // 22500.0f (0x85A6FC)
+        return;
+    }
+    if (distSq > std::bit_cast<float>(0x43610000u) && (CTimer::m_FrameCounter & 1)) { // 225.0f (0x8599D4)
+        return;
+    }
+    // Como el original: multiplicador (1, 1, 1, 1, 1, 0, vida * 0.8f) y datos de la tirada; todo esto se evalua antes de mirar la cantidad.
+    Sparks78Params params;
+    Sparks78PrepareCpp(&spread, &life, &across.x, &CTimer::ms_fTimeStep, amount, &params);
+    const FxPrtMult_c mult(1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, params.lifeMul);
+    if (amount <= 0) {
+        return;
+    }
+    // Como el original: el byte de tipo decide el sistema (distinto de cero: g_fx.m_Spark; cero: g_fx.m_Spark2), releido de g_fx en cada vuelta.
+    const bool primary = static_cast<uint8>(sparksType) != 0;
+    CVector vel, position;
+    float time;
+    for (int32 i = 0; i < amount; ++i) {
+        // Como el original: tres sorteos por particula, en orden (x, y, z).
+        const int32 r1 = FxExeRand();
+        const int32 r2 = FxExeRand();
+        const int32 r3 = FxExeRand();
+        Sparks78StepCpp(&params, &spread, &direction.x, &origin.x, &force, i, r1, r2, r3, &vel.x, &position.x, &time);
+        (primary ? g_fx.m_Spark : g_fx.m_Spark2)->AddParticle(position, vel, time, mult, -1.0f, std::bit_cast<float>(0x3F99999Au), std::bit_cast<float>(0x3F19999Au), false);
+    }
 }
 
 // 0x49F300
@@ -480,7 +506,49 @@ void Fx_c::AddTyreBurst(const CVector& posn, const CVector& velocity) {
 
 // 0x49F3D0
 void Fx_c::AddBulletImpact(const CVector& posn, const CVector& direction, int32 bulletFxType, int32 amount, float arg4) {
-    ((void(__thiscall*)(Fx_c*, const CVector&, const CVector&, int32, int32, float))0x49F3D0)(this, posn, direction, bulletFxType, amount, arg4);
+    // Como el original (0x49F3D0..0x49F66B, `ret 14h`): `this` no se usa; las llamadas y los sistemas van contra g_fx (0xA9AE00). bulletFxType es el id de superficie de SurfaceInfos_c::GetBulletFx (0x55E670).
+    const uint32 fxType = g_surfaceInfos.GetBulletFx(static_cast<SurfaceId>(bulletFxType));
+    // Como el original: tipo 0 no hace nada; fuera de 150 (camara - posicion, suma (dz2+dy2)+dx2; NaN no sale) tampoco.
+    if (fxType == 0) {
+        return;
+    }
+    if (FxCameraDistanceSqZYX(posn) > std::bit_cast<float>(0x46AFC800u)) { // 22500.0f (0x85A6FC)
+        return;
+    }
+    if (fxType == 1) {
+        // Chispas (3.0 de fuerza, sin vector transversal, tipo 1, dispersion 0.4, vida 1.0) y 1 o 2 bocanadas de humo (la cantidad >= 8 duplica el alfa).
+        g_fx.AddSparks(posn, direction, 3.0f, amount, CVector(0.0f, 0.0f, 0.0f), SPARK_PARTICLE_SPARK, std::bit_cast<float>(0x3ECCCCCDu), 1.0f);
+        FxPrtMult_c mult(1.0f, 1.0f, 1.0f, std::bit_cast<float>(0x3E19999Au), std::bit_cast<float>(0x3ECCCCCDu), 0.0f, std::bit_cast<float>(0x3D99999Au));
+        int32 count = 2;
+        if (amount >= 8) {
+            count = 1;
+            mult.m_Color.alpha += mult.m_Color.alpha; // fadd st,st
+        }
+        for (int32 j = 0; j < count; ++j) {
+            g_fx.m_SmokeII3expand->AddParticle(posn, direction, static_cast<float>(j) * std::bit_cast<float>(0x3D4CCCCDu), mult, -1.0f, arg4, std::bit_cast<float>(0x3F19999Au), false);
+        }
+    } else if (fxType == 2 || fxType == 4) {
+        // Polvo/arena: color (0.81, 0.67, 0.57) o gris 0.6 para el tipo 4; 4 particulas (2 con cantidad >= 8, con el alfa doble) sobre g_fx.m_Sand con la direccion * 0.3.
+        FxPrtMult_c mult(std::bit_cast<float>(0x3F4F5C29u), std::bit_cast<float>(0x3F2B851Fu), std::bit_cast<float>(0x3F11EB85u), std::bit_cast<float>(0x3E19999Au), std::bit_cast<float>(0x3ECCCCCDu), 0.0f, std::bit_cast<float>(0x3E99999Au));
+        if (fxType == 4) {
+            mult.m_Color.red   = std::bit_cast<float>(0x3F19999Au);
+            mult.m_Color.green = std::bit_cast<float>(0x3F19999Au);
+            mult.m_Color.blue  = std::bit_cast<float>(0x3F19999Au);
+        }
+        int32 count = 4;
+        if (amount >= 8) {
+            count = 2;
+            mult.m_Color.alpha += mult.m_Color.alpha; // fadd st,st
+        }
+        CVector vel;
+        for (int32 j = 0; j < count; ++j) {
+            Bullet78SandVelCpp(&direction.x, &vel.x);
+            g_fx.m_Sand->AddParticle(posn, vel, static_cast<float>(j) * std::bit_cast<float>(0x3D4CCCCDu), mult, -1.0f, arg4, std::bit_cast<float>(0x3F19999Au), false);
+        }
+    } else if (fxType == 3) {
+        // Madera: AddWood con la mitad de la cantidad (fild; fmul 0.5; _ftol2) y luz 1.0.
+        g_fx.AddWood(posn, direction, static_cast<int32>(static_cast<float>(amount) * 0.5f), 1.0f);
+    }
 }
 
 // 0x49F670

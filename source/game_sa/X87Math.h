@@ -2034,3 +2034,20 @@ void __cdecl Fx77DirtStepCpp(const float* vel, const float* pos, const int* r, f
 
 // 0x4A0E54..0x4A0E7C (Fx_c::TriggerGunshot): out = origin - entityPos (x, y, z), cada resta con fld/fsub/fstp dword.
 void __cdecl Fx77GunOffsetCpp(const float* origin, const float* entityPos, float* out);
+
+// --- Lote 78A (FxImpact78): Fx_c::AddSparks (0x49F040) y Fx_c::AddBulletImpact (0x49F3D0), prefijo Sparks78 / Bullet78 ---
+// Datos de AddSparks que se calculan una vez (0x49F0B4..0x49F160): negSpread = -spread (fld; fchs; fstp dword), range = spread - negSpread (guardado como float, lo usa la componente z),
+// ampF = (float)cantidad (fild; fstp dword), acrossTs = across * CTimer::ms_fTimeStep (fld; fmul; fstp dword) y lifeMul = vida * 0.8f (0x858C98), que va como ultimo argumento del multiplicador.
+struct Sparks78Params {
+    float negSpread;
+    float range;
+    float ampF;
+    float acrossTs[3];
+    float lifeMul;
+};
+void __cdecl Sparks78PrepareCpp(const float* spread, const float* life, const float* across, const float* timeStep, int amount, Sparks78Params* out);
+// 0x49F166..0x49F2D3: una particula de chispas. r1, r2, r3 son los tres rand() de la vuelta, en orden; spread, direction, origin y force apuntan a los floats del llamador (el EXE los carga con fld / operandos de memoria).
+// outTime = w * 0.05f (0x858C28) con w = 1.0 - i / ampF guardado como float.
+void __cdecl Sparks78StepCpp(const Sparks78Params* p, const float* spread, const float* direction, const float* origin, const float* force, int i, int r1, int r2, int r3, float* outVel, float* outPos, float* outTime);
+// 0x49F5F0..0x49F63B (AddBulletImpact, tipos 2 y 4): out = direccion * 0.3f (0x858C24), cada componente fld dword; fmul; fstp dword.
+void __cdecl Bullet78SandVelCpp(const float* direction, float* out);
