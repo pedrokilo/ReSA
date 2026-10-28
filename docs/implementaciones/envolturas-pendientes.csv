@@ -294,13 +294,5 @@ CVehicle,UpdateTractorLink,0x006E0050,source/game_sa/Entity/Vehicle/Vehicle.cpp:
 CVehicle,UpdateTrailerLink,0x006DFC50,source/game_sa/Entity/Vehicle/Vehicle.cpp:4832,cohorte 499
 Fx_c,AddBlood,0x0049EB00,source/game_sa/Fx/Fx.cpp:273,cohorte 499
 Fx_c,AddBulletImpact,0x0049F3D0,source/game_sa/Fx/Fx.cpp:293,cohorte 499
-Fx_c,AddDebris,0x0049F750,source/game_sa/Fx/Fx.cpp:303,cohorte 499
-Fx_c,AddGlass,0x0049F970,source/game_sa/Fx/Fx.cpp:308,cohorte 499
 Fx_c,AddSparks,0x0049F040,source/game_sa/Fx/Fx.cpp:283,cohorte 499
-Fx_c,AddWheelDust,0x004A09C0,source/game_sa/Fx/Fx.cpp:338,cohorte 499
-Fx_c,AddWheelGrass,0x0049FF20,source/game_sa/Fx/Fx.cpp:318,cohorte 499
-Fx_c,AddWheelGravel,0x004A0170,source/game_sa/Fx/Fx.cpp:323,cohorte 499
-Fx_c,AddWheelMud,0x004A03C0,source/game_sa/Fx/Fx.cpp:328,cohorte 499
-Fx_c,AddWheelSand,0x004A0610,source/game_sa/Fx/Fx.cpp:333,cohorte 499
 Fx_c,AddWheelSpray,0x0049FB30,source/game_sa/Fx/Fx.cpp:313,cohorte 499
-Fx_c,TriggerGunshot,0x004A0DE0,source/game_sa/Fx/Fx.cpp:348,cohorte 499

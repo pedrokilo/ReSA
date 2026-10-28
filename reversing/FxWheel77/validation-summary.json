@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "pairs": 131072,
+  "differences": 0,
+  "registered_pairs": 131072,
+  "registered_functions": 8,
+  "functions": {
+    "Fx_c::AddWheelDust": 16384,
+    "Fx_c::AddWheelSand": 16384,
+    "Fx_c::AddGlass": 16384,
+    "Fx_c::AddDebris": 16384,
+    "Fx_c::AddWheelGrass": 16384,
+    "Fx_c::AddWheelGravel": 16384,
+    "Fx_c::AddWheelMud": 16384,
+    "Fx_c::TriggerGunshot": 16384
+  },
+  "covered_functions": {
+    "Fx_c::AddWheelDust": true,
+    "Fx_c::AddWheelSand": true,
+    "Fx_c::AddGlass": true,
+    "Fx_c::AddDebris": true,
+    "Fx_c::AddWheelGrass": true,
+    "Fx_c::AddWheelGravel": true,
+    "Fx_c::AddWheelMud": true,
+    "Fx_c::TriggerGunshot": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-1 (HEAD cae5191ba + source.patch del lote 77; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: FxSystem_c::AddParticle(v3d) 0x4AA440 y FxSystem_c::EnablePrim 0x4AA610 (hook RH apagado durante el banco; AddParticle lo valida reversing/FxSystemPending), FindPlayerPed 0x56E210 y FindPlayerVehicle 0x56E0D0 (hook global), y para TriggerGunshot CPlaceable::AllocateMatrix 0x54F560, CSimpleTransform::UpdateMatrix 0x54F1B0 (sin hook RH: se parchea el cuerpo de la DLL por su direccion), FxManager_c::FxRwMatrixCreate 0x4A9440 / FxRwMatrixDestroy 0x4A9460 / CreateFxSystem 0x4A9BE0, Fx_c::CreateMatFromVec 0x49E950, FxSystem_c::CopyParentMatrix 0x4AA890 y PlayAndKill 0x4AA3D0. El rand() del CRT del EXE 0x821B1E corre real en ambos lados (semilla fijada por lado y comparada al final). Los constructores FxPrtMult_c 0x4AB270/0x4AB290 corren de verdad en cada lado. En TriggerGunshot el EXE llama a Multiply3x3 (0x59C810) pero descarta el resultado: no se reproduce ni se sustituye (sin efecto observable). La x87 (24 bits, exponente extendido, MXCSR FTZ) se compara incluidos desnormales, NaN no canonicos (tambien senalizantes), infinitos y ceros con signo. ECX/EDX/EAX no son resultados (void): solo se registran.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/FxWheel77-20261028-014813-344995",
+  "summary_sha256": "6905f126395dc1870660050a886480627d8ace746b2823c123cb3706b3e30afe",
+  "result_txt_sha256": "827732363e5ca2e0889e51eb9caed07557e7f6ebbf6ac2f182dedb46cdd19bec",
+  "log_sha256": "545989d080af24db58f2092e1f843470f9be20c317019e72c76d3ff38d27e9d9",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "ee20865f09801769c204aef0ec29f81843a67835e83a2eefb346a6517b4082f1",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/Fx/Fx.cpp": "7d7925086ca6c4c6d812f6731a4ff8fb033b2242fd0639f54a9c0d2a44a1b8bc",
+      "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
+      "source/game_sa/X87Math.cpp": "82f024f2f89c9b028e4f155b9e88d52369a44dab4d6dc56ae1916a43f2aa40bd",
+      "source/game_sa/X87Math.h": "65ec85114f13b50801ef1535eecf246f8b3a314a181aaa5dc6d708e5f3526eca",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/FxWheel77/LiveComparison.hpp": "2b7cac11965bb4731dde39e80456c54b8e5f717198edfd8127cbce597033af8b",
+      "reversing/FxWheel77/Core.hpp": "6af5232320eeefc62d760fc3a4f59ceb8348e60dffab8118016656fd662301c4",
+      "reversing/FxWheel77/Fixtures.hpp": "a5c5ec90f0094b1377e6037cac1d8551ec8483767a27ba7210acb832e66dce62",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

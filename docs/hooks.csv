@@ -8949,3 +8949,11 @@ CPlayerPed,MakeThisPedJoinOurGroup,0x0060C840,1,0,1,S
 CMatrix,Attach,0x0059BD10,1,0,1,S
 CMatrix,operator=,0x0059BBC0,1,0,1,S
 CCamera,IsSphereVisible-mirror,0x00420D40,1,0,1,S
+Fx_c,AddWheelDust,0x004A09C0,1,0,1,S
+Fx_c,AddWheelSand,0x004A0610,1,0,1,S
+Fx_c,AddGlass,0x0049F970,1,0,1,S
+Fx_c,AddDebris,0x0049F750,1,0,1,S
+Fx_c,AddWheelGrass,0x0049FF20,1,0,1,S
+Fx_c,AddWheelGravel,0x004A0170,1,0,1,S
+Fx_c,AddWheelMud,0x004A03C0,1,0,1,S
+Fx_c,TriggerGunshot,0x004A0DE0,1,0,1,S

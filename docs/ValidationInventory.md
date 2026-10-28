@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,950 entradas reversed=1**, de 8,950 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,958 entradas reversed=1**, de 8,958 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8950 |
+| `validated=1` · evidencia aprobada vinculada | 8958 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8950 |
+| Evidencia histórica vinculada; revisión pendiente | 8958 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -8441,8 +8441,15 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | FxSystem_c | `Stop` | [Resumen](../reversing/FxPost1/validation-summary.json) |
 | FxSystem_c | `Update` | [Resumen](../reversing/FxSystemPending/validation-summary.json) |
 | FxSystem_c | `UpdateBoundingBoxCB` | [Resumen](../reversing/FxSystemPending/validation-summary.json) |
+| Fx_c | `AddDebris` | [Resumen](../reversing/FxWheel77/validation-summary.json) |
+| Fx_c | `AddGlass` | [Resumen](../reversing/FxWheel77/validation-summary.json) |
 | Fx_c | `AddPunchImpact` | [Resumen](../reversing/Helpers66A/validation-summary.json) |
 | Fx_c | `AddTyreBurst` | [Resumen](../reversing/Helpers65C/validation-summary.json) |
+| Fx_c | `AddWheelDust` | [Resumen](../reversing/FxWheel77/validation-summary.json) |
+| Fx_c | `AddWheelGrass` | [Resumen](../reversing/FxWheel77/validation-summary.json) |
+| Fx_c | `AddWheelGravel` | [Resumen](../reversing/FxWheel77/validation-summary.json) |
+| Fx_c | `AddWheelMud` | [Resumen](../reversing/FxWheel77/validation-summary.json) |
+| Fx_c | `AddWheelSand` | [Resumen](../reversing/FxWheel77/validation-summary.json) |
 | Fx_c | `AddWood` | [Resumen](../reversing/FxWood73/validation-summary.json) |
 | Fx_c | `CreateMatFromVec` | [Resumen](../reversing/DependenciesWorldFxFont5/validation-summary.json) |
 | Fx_c | `RenderAddTri_` | [Resumen](../reversing/Fx8/validation-summary.json) |
@@ -8452,6 +8459,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | Fx_c | `RotateVecIntoVec` | [Resumen](../reversing/Fx8/validation-summary.json) |
 | Fx_c | `TriggerBulletSplash` | [Resumen](../reversing/Fx8/validation-summary.json) |
 | Fx_c | `TriggerFootSplash` | [Resumen](../reversing/Fx8/validation-summary.json) |
+| Fx_c | `TriggerGunshot` | [Resumen](../reversing/FxWheel77/validation-summary.json) |
 | Fx_c | `TriggerTankFire` | [Resumen](../reversing/Helpers65C/validation-summary.json) |
 | Fx_c | `TriggerWaterHydrant` | [Resumen](../reversing/Helpers65C/validation-summary.json) |
 | Fx_c | `TriggerWaterSplash` | [Resumen](../reversing/Fx8/validation-summary.json) |
@@ -9757,7 +9765,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `FxSphere_c` | 4 | 0 | 4 | 0 |
 | `FxSystemBP_c` | 10 | 0 | 10 | 0 |
 | `FxSystem_c` | 35 | 0 | 35 | 0 |
-| `Fx_c` | 14 | 0 | 14 | 0 |
+| `Fx_c` | 22 | 0 | 22 | 0 |
 | `Game` | 12 | 0 | 12 | 0 |
 | `IKChainManager_c` | 17 | 0 | 17 | 0 |
 | `IKChain_c` | 20 | 0 | 20 | 0 |

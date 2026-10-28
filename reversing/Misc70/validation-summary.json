@@ -40,7 +40,7 @@
   "log_sha256": "c786d28791de2d13b9549b19e081d7fe7315f6b430afdfaf3a6fc3e3f86441f5",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-misc70\\20261002-134358-934724",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-misc70\\20261028-015926-611959",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAEStreamingDecoder::Constructor": true,
@@ -70,44 +70,45 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "902ff747e427c157377ef48733d028912f2bc29325ad59a76774ce3452610baa",
-      "pdb": "6df619fc153a4525be8cb92274c3260558966d5368ee031cc5927e653c10ae8e"
+      "asi": "c71e290551be345d39a23df7973136841a767d8239190f5e05a96b5aa9d85105",
+      "pdb": "c6020044dd74f131973b4529731fed86460b0e622fa66dbd9e25c6678756316c"
     },
     "sources": {
-      "source/game_sa/Audio/Loaders/AEStreamingDecoder.cpp": "0a9ab21f0c61ae57d0b59ee68cdb1b21ac334e345e418399fce663413d5d7516",
-      "source/game_sa/Audio/Loaders/AEStreamingDecoder.h": "88f0491e819939a487753ea8d048fc0b37889982339f71e533d2c06b60289dd9",
+      "source/game_sa/Audio/Loaders/AEStreamingDecoder.cpp": "c50c71a1e899152ae7a2e4205559cc0e8a7c6b179643e36dee8bcd94570b7850",
+      "source/game_sa/Audio/Loaders/AEStreamingDecoder.h": "b9c2565c76e795f8405595b9d0d6e620ed20c71ad320a8b56eb0e160ef5a57c0",
       "source/game_sa/Audio/Loaders/AEStreamTransformer.cpp": "8edb5df40a3f1fb70672db5e0da21d3cc8de59b9eb166b1d827acfbf229dc4ed",
       "source/game_sa/Audio/Loaders/AEStreamTransformer.h": "a2edeef521d734aec75578428a8e942b72a6d2bacbe2180f2a65155a346c19d0",
-      "source/game_sa/Collision/ColourSet.cpp": "4d1e1b4d06afb2d4fd3f21a87e9a92c47952f27b01b8168a52f51a30babacadf",
+      "source/game_sa/Collision/ColourSet.cpp": "3ac19ab41af85aca76b9ae18b6c22a7da408625543e67be98fa31e4f06d5e427",
       "source/game_sa/Collision/ColourSet.h": "dc8e6070157b9648b67470ce88398e2bd693339a2edcc6d41b512e08a6f98e17",
       "source/game_sa/Crime.cpp": "ff7f3bbadcc857977952edab7342ee033bb5f2e091e053e06eb0dd2e3eee23a7",
       "source/game_sa/Crime.h": "fa3f2752f673a7130fdf6eb31f5e30d0add8cf5f09fbabca059736b3ec8a4872",
       "source/game_sa/CurrentVehicle.cpp": "c525a7a587ab20a3c57ab0c07e047d8cf144fc0d3a9449c3918c0e14ecd0d9b2",
       "source/game_sa/CurrentVehicle.h": "801eda24baf0bc0ebb88a57fed737b7ac6e8080ea172b93d73351f5f77addbd0",
-      "source/game_sa/FallingGlassPane.cpp": "ffe9c99d63cedc6ed9a31de4035381a42fa3f70311eda0d2cf9c26077910d7ff",
+      "source/game_sa/FallingGlassPane.cpp": "675208255b9355e43e0f3c96ad6d5c61401967980b0b6e3634896e122fdc15e3",
       "source/game_sa/FallingGlassPane.h": "6ce24d0990e37910a774cda8188b3758d130887ddcd8cdda62d1ffd9c49d5bdc",
-      "source/game_sa/Gamma.cpp": "59b93aa29db0d275700ebf3bb980c1aa5c2c0f8a0818a6b61775186ee01c464a",
+      "source/game_sa/Gamma.cpp": "2ad7c8461309d75b5f4b4d792e93d94dcbbffcf3136165ca40f8bade72617684",
       "source/game_sa/Gamma.h": "12a137fc4c1f61cc6bfe802eb11aadb61e984b07d262157e561a01eae443f9b4",
-      "source/game_sa/OnscreenCounterEntry.cpp": "3413d844b90b59d635a8fbe3effd9d991890e9d329633f6bc00722053e8dc165",
+      "source/game_sa/OnscreenCounterEntry.cpp": "5d184550a108d455a98c73b7f9985ec9f40de668e5f8705a6a78743288bafb96",
       "source/game_sa/OnscreenCounterEntry.h": "1947128b302bfd74b114ee5b194252bcacd12f72a042abe30189169b31131710",
-      "source/game_sa/PlaceName.cpp": "4070cb6b37c88d95796f6033af7b6616aa36d0c3f065d1aec97a8cb095b0584e",
+      "source/game_sa/PlaceName.cpp": "4ba8e3dc359000004d6e2df127a5a1b04be7fe1ead4ca7f5b6c7d694451318c3",
       "source/game_sa/PlaceName.h": "4945a383e333546d62d65d4ace6e4d7a9fc57dff3c8a7c9266f16c23fb38c293",
-      "source/game_sa/RegisteredMotionBlurStreak.cpp": "086faf950067fd092113914820eddccf927a9442273f6d8ee20a6363b73355ff",
+      "source/game_sa/RegisteredMotionBlurStreak.cpp": "8949fbc38b4eee20d9066b5c9fa0c956299c045cd187fa6745b29b8854b4805f",
       "source/game_sa/RegisteredMotionBlurStreak.h": "b6cf9ce6f0e6210f233771016c4a2bf169dab290c39cbd0217de8ea8533f4d82",
       "source/game_sa/UserDisplay.cpp": "d89f8708514c175425a7724efc46c40c6f654525f13be894f7aed061a96eaac3",
       "source/game_sa/UserDisplay.h": "9ea3ab0d795705b87c994013f73366bd1a19d9cc603ec89c7a4cd0bed3109dbf",
       "source/app/securom/Securom.cpp": "310ca6db22dc39db4bb4bb423d4a6cdfec5b1d0c88a500b44a85bdb9fc4b41fe",
       "source/app/securom/Securom.h": "e996fbf74f5f18a2f6efca65132fcfe865107a8edbc78d3e9d0ee50d5ac7f8df"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "f0895d9d0fdfda1047cd91efe1185ff30a83413dba08e303e4501e2a27956aea",
+      "LiveComparison.hpp": "8d5bee005ae3b96865ea599cd6d582bd8addcec26ec9a1e8bf769b2b23d99395",
       "build_probe.py": "757b2033842773e69c8894f2ee732989b239a380ee17135cb962a71e0ed21dfb",
       "run_local.py": "cf11825e5b4d7a3ca62e67fe595bf72de6b6dad541a6df0e0ae2644c2d698a07"
     }
   },
   "limitations": [
     "Dispositivo D3D falso; camara y peaton del jugador sustituidos temporalmente; CFont, CText, CHud, Im3D, CGlass, policia y COnscreenTimer simulados.",
-    "Sin zona, el argumento de SetZoneName se enmascara (el EXE pasa memoria de pila sin inicializar)."
+    "Sin zona, el argumento de SetZoneName se enmascara (el EXE pasa memoria de pila sin inicializar).",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }
