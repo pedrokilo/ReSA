@@ -225,7 +225,7 @@ inline void Update() {
         EntryPatch g2(reinterpret_cast<uintptr_t>(&CGlass::RenderHiLightPolys),FakeRenderHiLight), g2e(0x71ADA0,FakeRenderHiLight);
         EntryPatch g3(reinterpret_cast<uintptr_t>(&CGlass::RenderShatteredPolys),FakeRenderShattered), g3e(0x71AE30,FakeRenderShattered);
         EntryPatch g4(bit_cast<uintptr_t>(&CAudioEngine::ReportGlassCollisionEvent),FakeGlassAudio), g4e(0x506EE0,FakeGlassAudio);
-        EntryPatch g5(0x49F970,FakeAddGlass); // Fx_c::AddGlass de la DLL es un envoltorio del EXE
+        EntryPatch g5(0x49F970,FakeAddGlass), g5d(bit_cast<uintptr_t>(&Fx_c::AddGlass),FakeAddGlass); // lote 77: Fx_c::AddGlass de la DLL ya es C++ (hook S): se parchea tambien su cuerpo
         for(auto& v:devVt)v=reinterpret_cast<void*>(&FakeDevTrap);
         devVt[7]=reinterpret_cast<void*>(&FakeGetDeviceCaps); devVt[21]=reinterpret_cast<void*>(&FakeSetGammaRamp); devVt[22]=reinterpret_cast<void*>(&FakeGetGammaRamp);
         fakeDevice.vt=devVt.data();

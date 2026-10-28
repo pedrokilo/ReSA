@@ -64,16 +64,16 @@ void Fx_c::InjectHooks() {
     RH_ScopedInstall(AddTyreBurst, 0x49F300);
     // RH_ScopedInstall(AddBulletImpact, 0x49F3D0);
     RH_ScopedInstall(AddPunchImpact, 0x49F670);
-    // RH_ScopedInstall(AddDebris, 0x49F750);
-    // RH_ScopedInstall(AddGlass, 0x49F970);
+    RH_ScopedInstall(AddDebris, 0x49F750);
+    RH_ScopedInstall(AddGlass, 0x49F970);
     // RH_ScopedInstall(AddWheelSpray, 0x49FB30);
-    // RH_ScopedInstall(AddWheelGrass, 0x49FF20);
-    // RH_ScopedInstall(AddWheelGravel, 0x4A0170);
-    // RH_ScopedInstall(AddWheelMud, 0x4A03C0);
-    // RH_ScopedInstall(AddWheelSand, 0x4A0610);
-    // RH_ScopedInstall(AddWheelDust, 0x4A09C0);
+    RH_ScopedInstall(AddWheelGrass, 0x49FF20);
+    RH_ScopedInstall(AddWheelGravel, 0x4A0170);
+    RH_ScopedInstall(AddWheelMud, 0x4A03C0);
+    RH_ScopedInstall(AddWheelSand, 0x4A0610);
+    RH_ScopedInstall(AddWheelDust, 0x4A09C0);
     RH_ScopedInstall(TriggerWaterHydrant, 0x4A0D70);
-    // RH_ScopedInstall(TriggerGunshot, 0x4A0DE0);
+    RH_ScopedInstall(TriggerGunshot, 0x4A0DE0);
     RH_ScopedInstall(TriggerTankFire, 0x4A0FA0);
     RH_ScopedInstall(TriggerWaterSplash, 0x4A1070);
     RH_ScopedInstall(TriggerBulletSplash, 0x4A10E0);
@@ -155,6 +155,147 @@ static void CreateFxWithinCameraRange(const char* name, const CVector& pos, floa
             fxSystem->PlayAndKill();
         }
     }
+}
+
+// NOTSA
+// Desplazamientos del EXE que leen AddWheelSand/Dust/Grass/Gravel/Mud (0x4A0610.. y 0x49FF20..): modelo (+0x22), velocidad (+0x44), conductor (+0x460), pedal (+0x49C) y subtipo (+0x594).
+static_assert(offsetof(CVehicle, m_nModelIndex) == 0x22 && offsetof(CVehicle, m_vecMoveSpeed) == 0x44 && offsetof(CVehicle, m_pDriver) == 0x460 &&
+              offsetof(CVehicle, m_GasPedal) == 0x49C && offsetof(CVehicle, m_nVehicleSubType) == 0x594 && offsetof(Fx_c, m_FxQuality) == 0x54,
+              "AddWheel* lee estos desplazamientos del EXE");
+static_assert(offsetof(Fx_c, m_Cardebris) == 0xC && offsetof(Fx_c, m_Sand) == 0x18 && offsetof(Fx_c, m_WheelDirt) == 0x3C && offsetof(Fx_c, m_Glass) == 0x40,
+              "sistemas globales que usan AddDebris/AddGlass/AddWheel*");
+
+// NOTSA
+// rand del CRT del EXE (0x821B1E: avanza la semilla del juego).
+static int32 FxExeRand() {
+    return reinterpret_cast<int32(__cdecl*)()>(0x821B1E)();
+}
+
+// NOTSA
+// Como el EXE (0x4A0640..0x4A0659 y 0x49FF77..0x49FF99): (camara - pos) y suma (dz*dz + dy*dy) + dx*dx; el EXE sale si es mayor que 625 o NaN.
+static float FxCameraDistanceSqZYX(const CVector& pos) {
+    const auto& cam = TheCamera.GetPosition();
+    const float dx = cam.x - pos.x;
+    const float dy = cam.y - pos.y;
+    const float dz = cam.z - pos.z;
+    return (dz * dz + dy * dy) + dx * dx;
+}
+
+// NOTSA
+// Cuerpo de AddWheelSand (0x4A0610) y AddWheelDust (0x4A09C0), que solo difieren en el color base, en la vida de la particula y en las constantes de la formula.
+static void FxAddWheelSandOrDust(Fx_c* fx, CVehicle* vehicle, const CVector& pos, bool spinning, float lightMult, bool dust) {
+    // Como el original: primero el vehiculo del jugador (0x56E0D0, push 0; push -1) y despues la distancia a la camara.
+    CVehicle* const playerVehicle = FindPlayerVehicle(-1, false);
+    const float distSq = FxCameraDistanceSqZYX(pos); // fstp dword: se compara el float guardado
+    if (!(distSq <= 625.0f)) { // jp tras fcomp: mayor que 625 o NaN
+        return;
+    }
+    // Como el original: modelo con signo (movsx word) + contador de fotogramas; la calidad (this+0x54) decide la cadencia.
+    const uint32 key = static_cast<uint32>(static_cast<int32>(static_cast<int16>(vehicle->m_nModelIndex))) + CTimer::m_FrameCounter;
+    const int32 quality = static_cast<int32>(fx->m_FxQuality);
+    if (quality >= 1) {
+        if (key & 1) {
+            return;
+        }
+        if (distSq > 64.0f || !playerVehicle) {
+            if (key & 3) {
+                return;
+            }
+        }
+    } else if (quality == 0) {
+        if (key & 3) {
+            return;
+        }
+        if (distSq > 64.0f || !playerVehicle) {
+            if (key & 7) {
+                return;
+            }
+        }
+    }
+    // Como el original: multiplicador (0.81, 0.67, 0.57, 0.5, 1.0, 0, 0) de la arena o (0.51, 0.44, 0.31, ...) del polvo; tamano y vida se sustituyen por los calculados.
+    FxPrtMult_c mult = dust
+        ? FxPrtMult_c(std::bit_cast<float>(0x3F028F5Cu), std::bit_cast<float>(0x3EE147AEu), std::bit_cast<float>(0x3E9EB852u), 0.5f, 1.0f, 0.0f, 0.0f)
+        : FxPrtMult_c(std::bit_cast<float>(0x3F4F5C29u), std::bit_cast<float>(0x3F2B851Fu), std::bit_cast<float>(0x3F11EB85u), 0.5f, 1.0f, 0.0f, 0.0f);
+    Fx77DustParams params;
+    Fx77DustPrepareCpp(&vehicle->m_vecMoveSpeed.x, &vehicle->m_GasPedal, &CTimer::ms_fTimeStep, spinning ? 1 : 0, dust ? 1 : 0, static_cast<int>(vehicle->m_nVehicleSubType), &params);
+    mult.m_fSize = params.size;
+    mult.m_fLife = params.life;
+    CVector vel, position;
+    for (int32 i = 0; i < params.count; ++i) {
+        // Como el original: tres sorteos por particula, en orden (velocidad x, y, z); el sistema se relee de g_fx en cada vuelta.
+        const int32 r1 = FxExeRand();
+        const int32 r2 = FxExeRand();
+        const int32 r3 = FxExeRand();
+        Fx77DustStepCpp(&params, &vehicle->m_vecMoveSpeed.x, &pos.x, i, r1, r2, r3, &vel.x, &position.x);
+        g_fx.m_Sand->AddParticle(position, vel, 0.0f, mult, -1.0f, lightMult, std::bit_cast<float>(0x3F333333u), false);
+    }
+}
+
+// NOTSA
+// Cuerpo de AddWheelGrass (0x49FF20), AddWheelGravel (0x4A0170) y AddWheelMud (0x4A03C0): solo cambia el color base del multiplicador. `this` y el byte de giro no se usan.
+static void FxAddWheelDirt(CVehicle* vehicle, const CVector& pos, float lightMult, FxPrtMult_c mult) {
+    // Como el original: solo el jugador (conductor = FindPlayerPed(0) o, si no, FindPlayerPed(1)); la segunda consulta solo si la primera no coincide.
+    if (reinterpret_cast<uintptr_t>(vehicle->m_pDriver) != reinterpret_cast<uintptr_t>(FindPlayerPed(0))) {
+        if (reinterpret_cast<uintptr_t>(vehicle->m_pDriver) != reinterpret_cast<uintptr_t>(FindPlayerPed(1))) {
+            return;
+        }
+    }
+    CVehicle* const playerVehicle = FindPlayerVehicle(-1, false);
+    const float distSq = FxCameraDistanceSqZYX(pos); // en registro: no se redondea a float; el resultado de las comparaciones es el mismo
+    if (!(distSq <= 625.0f)) { // jp: mayor que 625 o NaN
+        return;
+    }
+    // Como el original: byte bajo del modelo (movzx) + contador de fotogramas; lejos (> 400) 1 de cada 4, a media distancia (> 64) o sin vehiculo del jugador 1 de cada 2.
+    const uint32 key = static_cast<uint32>(static_cast<uint8>(vehicle->m_nModelIndex)) + CTimer::m_FrameCounter;
+    if (distSq > 400.0f) {
+        if (key & 3) {
+            return;
+        }
+    } else if (distSq > 64.0f || !playerVehicle) {
+        if (key & 1) {
+            return;
+        }
+    }
+    CVector vel, position;
+    for (int32 n = 0; n < 3; ++n) {
+        // Como el original: seis sorteos por particula, en orden (tamano, velocidad x, y, z, posicion x, y); el sistema de tierra se relee de g_fx en cada vuelta.
+        int32 r[6];
+        for (int32& value : r) {
+            value = FxExeRand();
+        }
+        Fx77DirtStepCpp(&vehicle->m_vecMoveSpeed.x, &pos.x, r, &mult.m_fSize, &vel.x, &position.x);
+        g_fx.m_WheelDirt->AddParticle(position, vel, 0.0f, mult, -1.0f, lightMult, std::bit_cast<float>(0x3F19999Au), false);
+    }
+}
+
+// NOTSA
+// Color RwRGBA * (1/255) (0x859A3C), tamano, rot (sorteo) y vida de AddDebris/AddGlass (0x49F750.., 0x49F970..): rot = (resto * 1e-4f + 1.0f) * 0.5f y vida 0.2f.
+static FxPrtMult_c FxDebrisMult(const RwRGBA& color, float scale) {
+    const float inv255 = std::bit_cast<float>(0x3B808081u);
+    FxPrtMult_c mult; // 0x4AB270
+    mult.m_Color.red   = float(color.red) * inv255;
+    mult.m_Color.green = float(color.green) * inv255;
+    mult.m_Color.blue  = float(color.blue) * inv255;
+    mult.m_Color.alpha = float(color.alpha) * inv255;
+    mult.m_fSize = scale;
+    const int32 remainder = FxExeRand() % 10000;
+    mult.m_fLife = std::bit_cast<float>(0x3E4CCCCDu);
+    mult.m_Rot = (float(remainder) * std::bit_cast<float>(0x38D1B717u) + 1.0f) * 0.5f;
+    return mult;
+}
+
+// NOTSA
+// Velocidad de una particula de AddDebris/AddGlass: tres sorteos (x, y, z): x e y = ((r * 3.05e-5f) * 0.5f) * 20.0f - 5.0f; z = ((r * 3.05e-5f) * 0.15f) * 20.0f + 2.0f.
+static CVector FxDebrisVelocity() {
+    const float scale = std::bit_cast<float>(0x38000100u);
+    CVector vel;
+    const float rx = float(FxExeRand());
+    vel.x = ((rx * scale) * 0.5f) * 20.0f - 5.0f;
+    const float ry = float(FxExeRand());
+    vel.y = ((ry * scale) * 0.5f) * 20.0f - 5.0f;
+    const float rz = float(FxExeRand());
+    vel.z = ((rz * scale) * std::bit_cast<float>(0x3E19999Au)) * 20.0f + 2.0f;
+    return vel;
 }
 
 // 0x4A12D0
@@ -355,12 +496,42 @@ void Fx_c::AddPunchImpact(const CVector& pos, const CVector& velocity, int32 num
 
 // 0x49F750
 void Fx_c::AddDebris(const CVector& pos, const RwRGBA& color, float scale, int32 amount) {
-    ((void(__thiscall*)(Fx_c*, const CVector&, const RwRGBA&, float, int32))0x49F750)(this, pos, color, scale, amount);
+    // Como el original (0x49F750..0x49F95D, `ret 10h`): `this` no se usa. Fuera del rango de 625 (camara - pos, NaN no sale) no hace nada; el resto se sortea siempre (aunque amount <= 0).
+    if (!IsFxWithinCameraRange(pos, 625.0f)) {
+        return;
+    }
+    const FxPrtMult_c mult = FxDebrisMult(color, scale);
+    if (amount <= 0) {
+        return;
+    }
+    // Como el original: el contador del EXE (0xA9ADE4) elige que primitiva del sistema de escombros se activa; el sistema se relee de g_fx en cada llamada.
+    auto& primCounter = StaticRef<uint32>(0xA9ADE4);
+    for (int32 i = amount; i > 0; --i) {
+        const CVector vel = FxDebrisVelocity();
+        g_fx.m_Cardebris->EnablePrim(0, false);
+        g_fx.m_Cardebris->EnablePrim(1, false);
+        g_fx.m_Cardebris->EnablePrim(2, false);
+        g_fx.m_Cardebris->EnablePrim(3, false);
+        g_fx.m_Cardebris->EnablePrim(static_cast<int32>(primCounter), true);
+        g_fx.m_Cardebris->AddParticle(pos, vel, 0.0f, mult, -1.0f, std::bit_cast<float>(0x3F99999Au), std::bit_cast<float>(0x3F19999Au), false);
+        primCounter = (primCounter + 1) & 3;
+    }
 }
 
 // 0x49F970
 void Fx_c::AddGlass(const CVector& pos, const RwRGBA& color, float scale, int32 amount) {
-    ((void(__thiscall*)(Fx_c*, const CVector&, const RwRGBA&, float, int32))0x49F970)(this, pos, color, scale, amount);
+    // Como el original (0x49F970..0x49FB1D, `ret 10h`): igual que AddDebris pero sobre el sistema de cristal (g_fx.m_Glass, releido en cada vuelta) y sin activar primitivas.
+    if (!IsFxWithinCameraRange(pos, 625.0f)) {
+        return;
+    }
+    const FxPrtMult_c mult = FxDebrisMult(color, scale);
+    if (amount <= 0) {
+        return;
+    }
+    for (int32 i = amount; i > 0; --i) {
+        const CVector vel = FxDebrisVelocity();
+        g_fx.m_Glass->AddParticle(pos, vel, 0.0f, mult, -1.0f, std::bit_cast<float>(0x3F99999Au), std::bit_cast<float>(0x3F19999Au), false);
+    }
 }
 
 // 0x49FB30
@@ -370,27 +541,32 @@ void Fx_c::AddWheelSpray(CVehicle* vehicle, CVector pos, bool bWheelsSpinning, b
 
 // 0x49FF20
 void Fx_c::AddWheelGrass(CVehicle* vehicle, CVector pos, bool bWheelsSpinning, float lightMult) {
-    ((void(__thiscall*)(Fx_c*, CVehicle*, CVector, uint8, float))0x49FF20)(this, vehicle, pos, bWheelsSpinning, lightMult);
+    // Como el original (0x49FF20, `ret 18h`): ni `this` ni el byte de giro se usan; el color base del multiplicador es el unico dato propio.
+    FxAddWheelDirt(vehicle, pos, lightMult, FxPrtMult_c(std::bit_cast<float>(0x3CF5C28Fu), std::bit_cast<float>(0x3DB851ECu), std::bit_cast<float>(0x3CF5C28Fu), 1.0f, 0.0f, 0.0f, std::bit_cast<float>(0x3D4CCCCDu)));
 }
 
 // 0x4A0170
 void Fx_c::AddWheelGravel(CVehicle* vehicle, CVector pos, bool bWheelsSpinning, float lightMult) {
-    ((void(__thiscall*)(Fx_c*, CVehicle*, CVector, uint8, float))0x4A0170)(this, vehicle, pos, bWheelsSpinning, lightMult);
+    // Como el original (0x4A0170, `ret 18h`): ni `this` ni el byte de giro se usan; el color base del multiplicador es el unico dato propio.
+    FxAddWheelDirt(vehicle, pos, lightMult, FxPrtMult_c(0.25f, 0.25f, 0.25f, 1.0f, 0.0f, 0.0f, std::bit_cast<float>(0x3D4CCCCDu)));
 }
 
 // 0x4A03C0
 void Fx_c::AddWheelMud(CVehicle* vehicle, CVector pos, bool bWheelsSpinning, float lightMult) {
-    ((void(__thiscall*)(Fx_c*, CVehicle*, CVector, uint8, float))0x4A03C0)(this, vehicle, pos, bWheelsSpinning, lightMult);
+    // Como el original (0x4A03C0, `ret 18h`): ni `this` ni el byte de giro se usan; el color base del multiplicador es el unico dato propio.
+    FxAddWheelDirt(vehicle, pos, lightMult, FxPrtMult_c(0.25f, std::bit_cast<float>(0x3DF5C28Fu), std::bit_cast<float>(0x3D75C28Fu), 1.0f, 0.0f, 0.0f, std::bit_cast<float>(0x3D4CCCCDu)));
 }
 
 // 0x4A0610
 void Fx_c::AddWheelSand(CVehicle* vehicle, CVector pos, bool bWheelsSpinning, float lightMult) {
-    ((void(__thiscall*)(Fx_c*, CVehicle*, CVector, uint8, float))0x4A0610)(this, vehicle, pos, bWheelsSpinning, lightMult);
+    // Como el original (0x4A0610, `ret 18h`): lee la calidad de efectos de `this` (+0x54).
+    FxAddWheelSandOrDust(this, vehicle, pos, bWheelsSpinning, lightMult, false);
 }
 
 // 0x4A09C0
 void Fx_c::AddWheelDust(CVehicle* vehicle, CVector pos, bool bWheelsSpinning, float lightMult) {
-    ((void(__thiscall*)(Fx_c*, CVehicle*, CVector, uint8, float))0x4A09C0)(this, vehicle, pos, bWheelsSpinning, lightMult);
+    // Como el original (0x4A09C0, `ret 18h`): lee la calidad de efectos de `this` (+0x54).
+    FxAddWheelSandOrDust(this, vehicle, pos, bWheelsSpinning, lightMult, true);
 }
 
 // 0x4A0D70
@@ -400,7 +576,59 @@ void Fx_c::TriggerWaterHydrant(const CVector& pos) {
 
 // 0x4A0DE0
 void Fx_c::TriggerGunshot(CEntity* entity, const CVector& origin, const CVector& target, bool doGunflash) {
-    ((void(__thiscall*)(Fx_c*, CEntity*, const CVector&, const CVector&, bool))0x4A0DE0)(this, entity, origin, target, doGunflash);
+    // Como el original (0x4A0DE0..0x4A0F9A, `ret 10h`): fuera del rango de 625 (camara - origen, NaN no sale) no hace nada.
+    if (!IsFxWithinCameraRange(origin, 625.0f)) {
+        return;
+    }
+    CVector   offset{ 0.0f, 0.0f, 0.0f }; // [esp+10h]: el desplazamiento respecto a la entidad; sin entidad, cero
+    RwMatrix* created = nullptr;          // EBP: la matriz propia de Fx (solo sin entidad)
+    RwMatrix* matrix;                     // ESI: la matriz padre de los sistemas
+    if (entity) {
+        // Como el original: la posicion de la entidad se toma de su matriz (+0x30) o, si no tiene, de la transformacion simple (+4), ANTES de crear la matriz que falte.
+        const bool hadMatrix = entity->m_matrix != nullptr;
+        const CVector& entityPos = hadMatrix ? entity->m_matrix->GetPosition() : entity->m_placement.m_vPosn;
+        Fx77GunOffsetCpp(&origin.x, &entityPos.x, &offset.x);
+        if (!hadMatrix) {
+            entity->AllocateMatrix();                       // 0x54F560
+            entity->m_placement.UpdateMatrix(entity->m_matrix); // 0x54F1B0
+        }
+        // Como el original: el desplazamiento se multiplica por la matriz de la entidad (Multiply3x3 vector * matriz, 0x59C810) y el resultado sustituye al desplazamiento que se pasa a los sistemas.
+        {
+            FlcX87 fp;
+            float transformed[3];
+            FlcMatInvMul3x3(fp, transformed, reinterpret_cast<const float*>(entity->m_matrix), &offset.x);
+            std::memcpy(&offset.x, transformed, sizeof(transformed));
+        }
+        RwObject* const rwObject = entity->GetRwObject();
+        if (!rwObject) {
+            return;
+        }
+        matrix = &reinterpret_cast<RwFrame*>(rwObject->parent)->modelling; // [rwobject+4] + 0x10
+    } else {
+        created = g_fxMan.FxRwMatrixCreate(); // 0x4A9440
+        CreateMatFromVec(created, &origin, &target); // 0x49E950
+        matrix = created;
+    }
+    if (matrix) {
+        // Como el original: el fogonazo solo si se pidio; sin entidad los sistemas copian la matriz padre antes de reproducirse.
+        if (doGunflash) {
+            if (FxSystem_c* const flash = g_fxMan.CreateFxSystem("gunflash", offset, matrix, false)) { // 0x4A9BE0
+                if (!entity) {
+                    flash->CopyParentMatrix(); // 0x4AA890
+                }
+                flash->PlayAndKill(); // 0x4AA3D0
+            }
+        }
+        if (FxSystem_c* const smoke = g_fxMan.CreateFxSystem("gunsmoke", offset, matrix, false)) {
+            if (!entity) {
+                smoke->CopyParentMatrix();
+            }
+            smoke->PlayAndKill();
+        }
+    }
+    if (created) {
+        g_fxMan.FxRwMatrixDestroy(created); // 0x4A9460
+    }
 }
 
 // 0x4A0FA0

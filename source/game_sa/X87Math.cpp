@@ -16685,3 +16685,129 @@ __declspec(noinline) void __cdecl AutoRender75NegateCpp(float* move) {
     move[2] = c;
 }
 #pragma float_control(pop)
+
+// --- Lote 77 (FxWheel77): Fx_c::AddWheelSand/AddWheelDust (0x4A0610/0x4A09C0) y AddWheelGrass/Gravel/Mud (0x49FF20/0x4A0170/0x4A03C0), prefijo Fx77. Anadido al FINAL ---
+// La x87 a 24 bits de mantisa con exponente extendido conserva los desnormales y los valores fuera del rango float en los registros; solo lo guardado en memoria (fstp dword) se redondea a float.
+// Cada valor de registro va en un double volatile (la qword guarda exactamente un valor de 24 bits de mantisa) y cada guardado en un float volatile. Los operandos llegan por puntero:
+// el EXE los carga con fld dword, que silencia los NaN de señal.
+#pragma float_control(precise, on, push)
+namespace {
+constexpr float Fx77F(unsigned int bits) { return std::bit_cast<float>(bits); }
+constexpr float kFx77RandScale = Fx77F(0x38000100u);   // 0x858C7C
+}
+// 0x4A0712..0x4A0860 (y 0x4A0AC2.. para el polvo): |pedal| (fld; fabs; fstp dword), factor de velocidad t = min(2 * |v|, 1) (fsqrt; fadd st,st; fcomp 1.0f; el NaN conserva 2 * |v|),
+// tamano b y vida a del multiplicador, y numero de particulas = max(1, EAX de _ftol2(sqrt(...) * q)) con q = 2.0 (moto, BMX, quad) o 1.5. spinning = el byte del argumento; dust = AddWheelDust.
+__declspec(noinline) void __cdecl Fx77DustPrepareCpp(const float* vel, const float* gasPedal, const float* timeStep, int spinning, int dust, int subType, Fx77DustParams* out) {
+    // fld dword (silencia un NaN de señal) y fstp dword; fabs solo limpia el bit de signo (tambien en NaN, infinito y cero)
+    volatile double gasLoaded = *gasPedal;
+    volatile float gasStored = float(gasLoaded);
+    unsigned int gasBits;
+    memcpy(&gasBits, const_cast<const float*>(&gasStored), sizeof(gasBits));
+    gasBits &= 0x7FFFFFFFu;
+    float gas;
+    memcpy(&gas, &gasBits, sizeof(gas));
+    volatile double t;
+    if (spinning) {
+        t = 1.0;
+    } else {
+        const double x = vel[0], y = vel[1], z = vel[2];
+        volatile double root = sqrt((x * x + y * y) + z * z);
+        volatile double twice = root + root;
+        t = (twice > 1.0) ? 1.0 : twice;
+    }
+    volatile float life = dust ? float(double(Fx77F(0x3D4CCCCDu)) * t + double(Fx77F(0x3DCCCCCDu))) : float((1.0 + t) * double(Fx77F(0x3DCCCCCDu)));
+    volatile float size0 = float(double(Fx77F(0x3F666666u)) * t + double(Fx77F(0x3DCCCCCDu)));
+    volatile float size;
+    double q;
+    if (subType == 10) {
+        size = float(double(size0) * double(Fx77F(0x3E800000u)));
+        q = 2.0;
+    } else if (subType == 9 || subType == 2) {
+        size = float(double(size0) * double(Fx77F(0x3F000000u)));
+        q = 2.0;
+    } else {
+        size = float(double(size0) * double(Fx77F(0x3F333333u)));
+        q = double(Fx77F(0x3FC00000u));
+    }
+    const double ts = *timeStep;
+    volatile float vxts = float(ts * double(vel[0]));
+    volatile float vyts = float(ts * double(vel[1]));
+    volatile double vzreg = ts * double(vel[2]);
+    volatile float vzts = float(vzreg);
+    volatile double lenSq = (vzreg * double(vzts) + double(vyts) * double(vyts)) + double(vxts) * double(vxts);
+    volatile double root2 = sqrt(lenSq);
+    volatile double scaled = root2 * q;
+    // _ftol2 (0x821B40): trunca a 64 bits; el EXE usa EAX (los 32 bits bajos) y compara con signo; NaN y fuera de rango dan 0x8000000000000000 -> 0.
+    const long long wide = static_cast<long long>(double(scaled));
+    const int low = static_cast<int>(wide);
+    const int count = low < 1 ? 1 : low;
+    volatile float base = float((t + double(Fx77F(0x3F4CCCCDu))) - double(Fx77F(0x3E4CCCCDu)));
+    volatile float countF = float(count);
+    out->life = life;
+    out->size = size;
+    out->gas = gas;
+    out->base = base;
+    out->countF = countF;
+    out->vts[0] = vxts;
+    out->vts[1] = vyts;
+    out->vts[2] = vzts;
+    out->count = count;
+}
+// 0x4A0890..0x4A0990: una particula del polvo/arena. r1, r2, r3 son los tres rand() de la vuelta, en orden. La velocidad en x e y es (r * 3.05e-5) * ((|pedal| * v) * -40.0f); en z, (r3 * 3.05e-5) * base + 0.2f.
+// La posicion es pos - vts * w con w = 1.0 - i / count (x con el producto en registro; y, z guardados como float antes de restar).
+__declspec(noinline) void __cdecl Fx77DustStepCpp(const Fx77DustParams* p, const float* vel, const float* pos, int i, int r1, int r2, int r3, float* outVel, float* outPos) {
+    const double k = kFx77RandScale;
+    const double gas = p->gas;
+    volatile float t1 = float(gas * double(vel[0]) * double(Fx77F(0xC2200000u)));
+    volatile float vx = float(double(r1) * k * double(t1));
+    volatile float t2 = float(gas * double(vel[1]) * double(Fx77F(0xC2200000u)));
+    volatile float vy = float(double(r2) * k * double(t2));
+    volatile float vz = float(double(r3) * k * double(p->base) + double(Fx77F(0x3E4CCCCDu)));
+    volatile double w = 1.0 - double(i) / double(p->countF);
+    volatile double dxw = double(p->vts[0]) * w;
+    volatile float dyw = float(double(p->vts[1]) * w);
+    volatile float dzw = float(double(p->vts[2]) * w);
+    volatile float px = float(double(pos[0]) - dxw);
+    volatile float py = float(double(pos[1]) - double(dyw));
+    volatile float pz = float(double(pos[2]) - double(dzw));
+    outVel[0] = vx;
+    outVel[1] = vy;
+    outVel[2] = vz;
+    outPos[0] = px;
+    outPos[1] = py;
+    outPos[2] = pz;
+}
+// 0x49FFFA..0x4A014B (y gemelas): una particula de hierba/grava/barro; r[0..5] son los seis rand() de la vuelta, en orden: tamano (r * 3.05e-5) * 0.03f + 0.03f, velocidad x e y (r * 3.05e-5) * (v * -1.5f),
+// velocidad z (r * 3.05e-5) * 1.5f + 2.0f, y la posicion x e y mas (r * 3.05e-5) * 0.4f - 0.2f; z se copia sin pasar por la FPU.
+__declspec(noinline) void __cdecl Fx77DirtStepCpp(const float* vel, const float* pos, const int* r, float* outSize, float* outVel, float* outPos) {
+    const double k = kFx77RandScale;
+    volatile float size = float(double(r[0]) * k * double(Fx77F(0x3CF5C28Fu)) + double(Fx77F(0x3CF5C28Fu)));
+    volatile float t1 = float(double(vel[0]) * double(Fx77F(0xBFC00000u)));
+    volatile float vx = float(double(r[1]) * k * double(t1));
+    volatile float t2 = float(double(vel[1]) * double(Fx77F(0xBFC00000u)));
+    volatile float vy = float(double(r[2]) * k * double(t2));
+    volatile float vz = float(double(r[3]) * k * double(Fx77F(0x3FC00000u)) + double(Fx77F(0x40000000u)));
+    volatile float px = float((double(r[4]) * k * double(Fx77F(0x3ECCCCCDu)) + double(pos[0])) - double(Fx77F(0x3E4CCCCDu)));
+    volatile float py = float((double(r[5]) * k * double(Fx77F(0x3ECCCCCDu)) + double(pos[1])) - double(Fx77F(0x3E4CCCCDu)));
+    *outSize = size;
+    outVel[0] = vx;
+    outVel[1] = vy;
+    outVel[2] = vz;
+    outPos[0] = px;
+    outPos[1] = py;
+    memcpy(&outPos[2], &pos[2], sizeof(float));
+}
+#pragma float_control(pop)
+
+// --- Lote 77 (FxWheel77): Fx_c::TriggerGunshot (0x4A0DE0) ---
+#pragma float_control(precise, on, push)
+// 0x4A0E54..0x4A0E7C: desplazamiento = origen - posicion de la entidad, en el orden x, y, z (fld; fsub; fstp dword). Los desnormales se conservan (x87) y un NaN de señal se silencia.
+__declspec(noinline) void __cdecl Fx77GunOffsetCpp(const float* origin, const float* entityPos, float* out) {
+    volatile float x = float(double(origin[0]) - double(entityPos[0]));
+    volatile float y = float(double(origin[1]) - double(entityPos[1]));
+    volatile float z = float(double(origin[2]) - double(entityPos[2]));
+    out[0] = x;
+    out[1] = y;
+    out[2] = z;
+}
+#pragma float_control(pop)

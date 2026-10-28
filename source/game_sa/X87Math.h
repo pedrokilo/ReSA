@@ -2016,3 +2016,21 @@ void __cdecl FightHitPed75ScaleCpp(float* v);
 void __cdecl AutoRender75RhinoMoveCpp(const float* track, const float* lineLength, const float* springLength, const float* line, const float* nodePos, float* move);
 // 0x6A2E42..0x6A2E68: move *= -1.0f componente a componente (fmul + fstp dword).
 void __cdecl AutoRender75NegateCpp(float* move);
+
+// --- Lote 77 (FxWheel77): Fx_c::AddWheelSand/AddWheelDust/AddWheelGrass/AddWheelGravel/AddWheelMud ---
+// Resultados de la preparacion de AddWheelSand/AddWheelDust: vida y tamano del multiplicador, |pedal|, base de la velocidad z, numero de particulas (como float y como entero) y velocidad * paso de tiempo.
+struct Fx77DustParams {
+    float life;
+    float size;
+    float gas;
+    float base;
+    float countF;
+    float vts[3];
+    int count;
+};
+void __cdecl Fx77DustPrepareCpp(const float* vel, const float* gasPedal, const float* timeStep, int spinning, int dust, int subType, Fx77DustParams* out);
+void __cdecl Fx77DustStepCpp(const Fx77DustParams* p, const float* vel, const float* pos, int i, int r1, int r2, int r3, float* outVel, float* outPos);
+void __cdecl Fx77DirtStepCpp(const float* vel, const float* pos, const int* r, float* outSize, float* outVel, float* outPos);
+
+// 0x4A0E54..0x4A0E7C (Fx_c::TriggerGunshot): out = origin - entityPos (x, y, z), cada resta con fld/fsub/fstp dword.
+void __cdecl Fx77GunOffsetCpp(const float* origin, const float* entityPos, float* out);
