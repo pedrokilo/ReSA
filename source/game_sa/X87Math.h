@@ -1934,3 +1934,85 @@ void __cdecl CarLink74ClipCpp(const unsigned char* link, int arg3, float* arg4, 
 // 0x59C790 + 0x411A00: out = float(posicion + float(rotacion(matriz) * relativo)) con el orden de sumas y los guardados como float del EXE, a 24 bits con exponente extendido; matrix = CMatrix (right 0, forward 0x10, up 0x20),
 // rel y heliPos = x, y, z consecutivos (ver X87Math.cpp).
 void __cdecl HeliSwat74WorldPosCpp(const float* matrix, const float* rel, const float* heliPos, float* out);
+
+// --- Lote 75 (HeliFly75 / HeliPre75): CHeli::ProcessFlyingCarStuff (0x6C4E60) y CHeli::PreRender (0x6C5420) ---
+// 0x6C4EBD..0x6C4EE4: f = paso * k (sin guardar); con f < *rotor: *rotor = float(*rotor - f) y devuelve true; si no, *rotor = +0 y devuelve false. x87 a 24 bits con exponente extendido.
+bool __cdecl Heli75DecayCpp(float step, float k, float* rotor);
+// 0x6C5261..0x6C52B7: out = {dx, dy, dz, dist2} con d = camara - helicoptero (guardadas como float) y dist2 = (dx*dx + dy*dy) + dz*dz; devuelve dist2 < 400.0 (sin redondear).
+bool __cdecl Heli75NearCpp(const float* heliPos, const float* camPos, float* out);
+// 0x6C5342..0x6C53BD: Multiply3x3(matriz, axis) con el orden de sumas del EXE, d = max(sqrt(dist2), 0.01), producto punto con la direccion normalizada; devuelve |dot| > 0.95. matrix = CMatrix; d = {dx, dy, dz}.
+bool __cdecl Heli75DotCpp(const float* matrix, const float* axis, const float* d, float dist2);
+// 0x6C5524..0x6C5549: ratio de la suspension de una rueda de PreRender: float((comp - (1 - spr/line)) / (1 - (1 - spr/line))). Reglas de NaN de la x87.
+float __cdecl Heli75RatioCpp(float comp, float spr, float line);
+// 0x6C555A..0x6C55A6: T = (z + h) - (ratio > 0 ? ratio * spr : 0); *wp = float(T) si T > *wp o direct; si no, float((T - *wp) * 0.75 + *wp). Reglas de NaN de la x87.
+void __cdecl Heli75WheelCpp(float ratio, float z, float h, float spr, float* wp, bool direct);
+// 0x6C562C..0x6C56E9: *a = float(*a - paso*rotor [* k]) y, con *a < -2pi, se suma 2pi hasta que deje de ser menor. heavy: aplica el factor k.
+void __cdecl Heli75AngleACpp(float step, float rotor, bool heavy, float k, float* a);
+// 0x6C568A..0x6C56E9: *a = float(*a - paso*rotor * 2.3) (twice: paso*rotor sumado a si mismo) y, con *a > 2pi, se resta 2pi hasta que deje de ser mayor.
+void __cdecl Heli75AngleBCpp(float step, float rotor, bool twice, float* a);
+// 0x6C5729..0x6C5751 (y gemelos): pos[i] = float(pos[i] + saved[i]) para i en 0..2. Reglas de NaN de la x87.
+void __cdecl Heli75AddPosCpp(float* pos, const float* saved);
+
+// --- Lote 75 (CarWeave75): CCarCtrl::FindAngleToWeaveThroughTraffic (0x4325C0) ---
+// Rectangulo de busqueda alrededor del vehiculo (0x4325C0..0x432794): t = min(sqrt(vx^2 + vy^2) * 2.5 + 1.0, 2.0) (NaN -> 2.0); r = (t * escala) * 12.0; limites x/y = posicion -/+ r guardados como float
+// (bits, con las reglas de NaN de la x87) y celdas de sector minX/minY/maxX/maxY = ftol(floor(limite * 0.02 + 60.0)) con los topes del EXE (min: <= 0 -> 0; max: >= 119 -> 119). vehicle: m_matrix en +0x14, posicion compacta en +4, velocidad en +0x44/+0x48.
+struct Weave75Bounds {
+    unsigned int xminBits, yminBits, xmaxBits, ymaxBits;
+    int minX, minY, maxX, maxY;
+};
+void __cdecl Weave75BoundsCpp(const unsigned char* vehicle, float scale, Weave75Bounds* out);
+// Comparacion x87 (ordenada, sin DAZ) del bucle externo: true si el par (prev50, prev40) es igual al par actual (cur50, cur40); con NaN es falso.
+bool __cdecl Weave75StableCpp(float prev50, float cur50, float prev40, float cur40);
+// 0x432922..0x432B0A: resultado del rumbo: arg3 = rumbo al objetivo, arg4 = rumbo del vehiculo, slot50/slot40 = valores que dejan los barridos. Devuelve arg3 corregido (A), slot40 o slot50 (siempre un float cargado de memoria).
+float __cdecl Weave75FinalCpp(float arg3, float arg4, float slot50, float slot40);
+
+// --- Lote 75 (CarNodes75): CCarCtrl::FindNodesThisCarIsNearestTo (0x42BD20) ---
+// Ventana de casillas de rutas alrededor del vehiculo (0x42BD85..0x42BE56): dxr = float(pos.x - coordenada de la region X) y dyr = pos.y - coordenada de la region Y (sin guardar); la region baja un paso si dxr/dyr < 200.0 (0x858A48)
+// y sube uno si > 550.0 (0x858FF0), con aritmetica de 32 bits con vuelta; minimos acotados por abajo a 0 y maximos por arriba a 7 (signo). x87 a 24 bits con exponente extendido; las comparaciones son ordenadas (NaN no cumple).
+struct Nodes75Region {
+    int minX, minY, maxX, maxY;
+};
+void __cdecl Nodes75RegionCpp(float posX, float posY, float xCoord, float yCoord, int regionX, int regionY, Nodes75Region* out);
+// 0x42BEBA..0x42BF44: el nodo (enteros de 16 bits, en pasos de 0.125) esta a menos de 150.0 (0x858A28) de la posicion (3 floats): dist = sqrt((dy*dy + dz*dz) + dx*dx) con dx guardado como float; dy y dz sin guardar.
+bool __cdecl Nodes75InRangeCpp(const float* position, int nodeX, int nodeY, int nodeZ);
+// 0x42C029..0x42C06C: z de la posicion del vehiculo multiplicada por 3.0 (0x858B3C) y guardada como float (fld, fmul, fstp: un NaN de senal sale silenciado).
+float __cdecl Nodes75Z3Cpp(float z);
+// 0x42C12F..0x42C172: puntuacion = (1.0 - ((n.z*f.z + n.y*f.y) + n.x*f.x)) * 5.0 (0x858C80) + distancia; si es menor (ordenada) que *best, se guarda como float y devuelve true.
+bool __cdecl Nodes75ScoreCpp(const float* normal, const float* forward, float distance, float* best);
+
+// --- Lote 75 (CarPolice75 / CarConvoy75): CCarCtrl::CreatePoliceChase (0x42C2B0) y CCarCtrl::CreateConvoy (0x42C740) ---
+// 0x42C485 / 0x42C959: z = float(distancia + suelo) con la x87 a 24 bits (la distancia viene en ST0 del metodo virtual; el suelo es un operando de memoria); reglas de NaN de la x87. Trabaja con bits de float.
+uint32_t __cdecl Car75GroundSumCpp(uint32_t distBits, uint32_t groundBits);
+// 0x42C3FB..0x42C436 / 0x42C8EA..0x42C928: |golpe - z| < |suelo - z| (ordenado, con el fchs condicional del EXE): true cuando el segundo golpe vertical queda mas cerca del punto.
+bool __cdecl Car75NearerGroundCpp(uint32_t hitBits, uint32_t groundBits, uint32_t pointZBits);
+// 0x42C54A..0x42C585 (y 0x41CCB0 + 0x40FEC0 dos veces): out = ((adelante * escala) * 0.02f) por componente, escala = (float)entero, cada paso guardado como float; adelante = fila +0x10 de la matriz del vehiculo
+// (+0x14) o (-sen(rumbo), cos(rumbo), 0) con el rumbo de la posicion compacta (+0x10) si no hay matriz.
+void __cdecl CarPolice75MoveCpp(const unsigned char* vehicle, int scale, uint32_t* out);
+// 0x42C9CC..0x42CA22: out = adelante * (float)crucero * 0.02f (el producto en z se queda en el registro; los de x e y se guardan como float antes de escalar). Mismo adelante que CarPolice75MoveCpp.
+void __cdecl CarConvoy75MoveCpp(const unsigned char* vehicle, int cruise, uint32_t* out);
+// 0x42C7F7..0x42C88B: punto (x, y, z) de un coche de la caravana detras de la plantilla: fwd = {m10, m14, m18} (fila adelante), k = indice + 1, posicion = {x, y, z}; T = float(2 r + 2.5); out = posicion - adelante * k * T. Reglas de NaN de la x87.
+void __cdecl CarConvoy75PointCpp(const uint32_t* fwd, int k, uint32_t radiusBits, const uint32_t* pos, uint32_t* out);
+// 0x42CB21..0x42CB4A: float(velocidad - indice), 0 si el valor (sin redondear a float) es negativo (ordenado).
+uint32_t __cdecl CarConvoy75SpeedCpp(uint32_t speedBits, int index);
+
+// --- Lote 75 (FightHitPed75): CTaskSimpleFight::FightHitPed (0x61CBA0) ---
+// _ftol2 (0x821B40) trunca a 64 bits y el EXE usa EAX (los 32 bits bajos); NaN, infinito y fuera de rango dan 0x8000000000000000 -> 0.
+// 0x61CCF1..0x61CCF6: _ftol2 del danio que deja FightStrikeDamage (0x61C740) en ST0.
+unsigned int __cdecl FightHitPed75FtolCpp(float value);
+// 0x61CF34..0x61CF47: fld vida; fld 100.0f (0x858628); fsub st,st(1); _ftol2.
+unsigned int __cdecl FightHitPed75LossCpp(float health);
+// 0x61CF52..0x61CF70: fild(rand & 0xFFFF); fmul 1/32768 (0x858B14); fmul 100.0f; _ftol2.
+unsigned int __cdecl FightHitPed75RollCpp(int randValue);
+// 0x61CDF5..0x61CE14: fild(valor); si es negativo + 2^32 (0x858C54); fmul 2.8f (0x86D6A8); _ftol2.
+unsigned int __cdecl FightHitPed75DelayCpp(int table);
+// 0x61CFB3..0x61CFCF: out = atacante - victima, calculado en el orden z, y, x y guardado como float (fld; fsub; fstp dword).
+void __cdecl FightHitPed75DirectionCpp(const float* attacker, const float* victim, float* out);
+// 0x61D027..0x61D04D: v = v * 1.5f (0x858CE8) en x, y, z (fld; fmul; fstp dword).
+void __cdecl FightHitPed75ScaleCpp(float* v);
+
+// --- Lote 75 (AutoRender75): CAutomobile::Render (0x6A2B10) ---
+// Un paso de las orugas del Rhino (0x6A2CA1..0x6A2D75): move = posicion de la linea de colision interpolada menos la posicion del nodo, a 24 bits con exponente extendido y guardados como float del EXE
+// (ver X87Math.cpp). track, lineLength (0x888) y springLength (0x878) apuntan a los floats del vehiculo; line = CColLine (inicio xyz, fin xyz en +0x10); nodePos = RwFrame::modelling.pos.
+void __cdecl AutoRender75RhinoMoveCpp(const float* track, const float* lineLength, const float* springLength, const float* line, const float* nodePos, float* move);
+// 0x6A2E42..0x6A2E68: move *= -1.0f componente a componente (fmul + fstp dword).
+void __cdecl AutoRender75NegateCpp(float* move);

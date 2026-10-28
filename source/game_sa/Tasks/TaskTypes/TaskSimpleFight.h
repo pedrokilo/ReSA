@@ -80,7 +80,7 @@ public:
 
     void FightHitCar(CPed* ped, CVehicle* vehicle, CVector& posn1, CVector& posn2, int16, int8);
     void FightHitObj(CPed* ped, CObject* object, CVector& posn1, CVector& posn2, uint32 component, uint32 surface);
-    void FightHitPed(CPed* creator, CPed* victim, CVector& posn1, CVector& posn2, int16);
+    CPed* FightHitPed(CPed* creator, CPed* victim, CVector& posn1, CVector& posn2, int16 component);
     void FightSetUpCol(float);
     void FightStrike(CPed* ped, CVector& posn);
 

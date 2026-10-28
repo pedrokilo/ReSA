@@ -1,0 +1,405 @@
+diff --git a/source/game_sa/CarCtrl.cpp b/source/game_sa/CarCtrl.cpp
+index 58762d8fa..abdacf1a9 100644
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -119,6 +119,9 @@ void CCarCtrl::InjectHooks()
+     RH_ScopedInstall(FindPercDependingOnDistToLink, 0x422620);
+     // Lote 74
+     RH_ScopedInstall(ClipTargetOrientationToLink, 0x422760);
++    // Lote 75
++    RH_ScopedInstall(FindAngleToWeaveThroughTraffic, 0x4325C0);
++    RH_ScopedInstall(FindNodesThisCarIsNearestTo, 0x42BD20);
+     RH_ScopedNamedGlobalInstall(Cc63Intersection2LinesCpp, "FindIntersection2Lines", 0x4226F0);
+     // Lote 63 (parte C, tanda 2)
+     RH_ScopedInstall(SetUpDriverAndPassengersForVehicle, 0x4217C0);
+@@ -716,7 +719,36 @@ void CCarCtrl::DragCarToPoint(CVehicle* vehicle, CVector* pos) {
+ 
+ // 0x4325C0
+ float CCarCtrl::FindAngleToWeaveThroughTraffic(CVehicle* vehicle, CPhysical* physical, float arg3, float arg4, float arg5) {
+-    return plugin::CallAndReturn<float, 0x4325C0, CVehicle*, CPhysical*, float, float, float>(vehicle, physical, arg3, arg4, arg5);
++    // Como el original (0x4325C0..0x432B0A, cdecl `ret`; el float vuelve en ST0). arg3 = rumbo al objetivo, arg4 = rumbo del vehiculo, arg5 = escala. Rectangulo de busqueda alrededor del vehiculo y sus celdas de
++    // sector (aritmetica x87 en X87Math: Weave75BoundsCpp). Se avanza el codigo de escaneo (0xB7CD78; a 0xFFFF: CWorld::ClearScanCodes y 1). Los dos valores de salida (out50 = [esp+50], out40 = [esp+40]) empiezan
++    // en arg3 y los barridos los modifican; se repite el barrido de todas las celdas (y de MENOR a MAYOR, x de menor a mayor; indices del sector repetido = coordenada & 15) hasta que un barrido completo deja
++    // los dos iguales (la primera vez se compara con -10000.4f = 0xC61C3F9A). Por celda: coches (repetido: Vehicles), peatones (solo si el estilo de conduccion (+0x3B9) no es 6; se lee tras el primer barrido), objetos y otra
++    // vez coches (el segundo barrido de coches ya no encuentra nada: los codigos de escaneo estan puestos, pero el EXE lo ejecuta). Al final (Weave75FinalCpp) se elige entre A, out40 y out50.
++    Weave75Bounds bounds;
++    Weave75BoundsCpp(reinterpret_cast<const unsigned char*>(vehicle), arg5, &bounds);
++    const float xmin = std::bit_cast<float>(bounds.xminBits), ymin = std::bit_cast<float>(bounds.yminBits);
++    const float xmax = std::bit_cast<float>(bounds.xmaxBits), ymax = std::bit_cast<float>(bounds.ymaxBits);
++    CWorld::AdvanceCurrentScanCode();
++    float out50 = arg3;
++    float out40 = arg3;
++    float prev50 = std::bit_cast<float>(0xC61C3F9Au);
++    float prev40 = prev50;
++    while (!Weave75StableCpp(prev50, out50, prev40, out40)) {
++        prev40 = out40;
++        prev50 = out50;
++        for (int32 y = bounds.minY; y <= bounds.maxY; y++) {
++            for (int32 x = bounds.minX; x <= bounds.maxX; x++) {
++                CRepeatSector& sector = CWorld::GetRepeatSector(x, y);
++                WeaveThroughCarsSectorList(sector.Vehicles, vehicle, physical, xmin, ymin, xmax, ymax, &out50, &out40);
++                if (vehicle->m_autoPilot.m_nCarDrivingStyle != DRIVING_STYLE_DRIVINGMODE_AVOIDCARS_STOPFORPEDS_OBEYLIGHTS) {
++                    WeaveThroughPedsSectorList(sector.Peds, vehicle, physical, xmin, ymin, xmax, ymax, &out50, &out40);
++                }
++                WeaveThroughObjectsSectorList(sector.Objects, vehicle, xmin, ymin, xmax, ymax, &out50, &out40);
++                WeaveThroughCarsSectorList(sector.Vehicles, vehicle, physical, xmin, ymin, xmax, ymax, &out50, &out40);
++            }
++        }
++    }
++    return Weave75FinalCpp(arg3, arg4, out50, out40);
+ }
+ 
+ // 0x4226F0
+@@ -861,7 +893,71 @@ float CCarCtrl::FindMaximumSpeedForThisCarInTraffic(CVehicle* vehicle) {
+ 
+ // 0x42BD20
+ void CCarCtrl::FindNodesThisCarIsNearestTo(CVehicle* vehicle, CNodeAddress& nodeAddress1, CNodeAddress& nodeAddress2) {
+-    plugin::Call<0x42BD20, CVehicle*, CNodeAddress&, CNodeAddress&>(vehicle, nodeAddress1, nodeAddress2);
++    // Como el original (0x42BD20..0x42C249, cdecl `ret`). Llama, por este orden, a FindXRegionForCoors(pos.x), FindYRegionForCoors(pos.y), FindXCoorsForRegion(regionX) y FindYCoorsForRegion(regionY) (posicion = matriz+0x30 o
++    // compacta +4, releida en cada uso). La ventana de casillas (Nodes75RegionCpp, x87 en X87Math) baja o sube una casilla segun la distancia a su borde (< 200.0 / > 550.0) y se acota a 0..7: x exterior, y interior, casilla
++    // x + y * 8; la casilla sin cargar o con contador (con signo) <= 0 se salta. Por cada nodo de vehiculo (enteros de 16 bits en +8, +A, +C, en pasos de 0.125) a menos de 150.0 del vehiculo y con enlaces (+0x18 & 0xF), y por cada
++    // enlace m_pNodeLinks[casilla][int16 +0x10 + j] cuya casilla destino esta cargada (el nodo destino no se comprueba): DistToLine(nodo, destino, vehiculo) con las tres z multiplicadas por 3.0 (las del nodo y el destino son exactas;
++    // la del vehiculo, Nodes75Z3Cpp), y Normalise del vector destino - nodo (z sin multiplicar). Puntuacion = (1 - normal . adelante) * 5 + distancia (Nodes75ScoreCpp), el menor gana (estricto, empate = el primero), empezando en
++    // 99999.99 (0x47C34FF3). Salidas: primer CNodeAddress = (casilla, indice del nodo), segundo = el enlace elegido; sin candidato quedan las areas a 0xFFFF (el EXE deja en el nodo un resto de pila que nadie lee).
++    // La matriz del vehiculo solo se lee al puntuar un enlace (nula: el EXE se cae igual).
++    CNodeAddress best1{ 0xFFFF, 0xFFFF }, best2{ 0xFFFF, 0xFFFF };
++    float bestScore = std::bit_cast<float>(0x47C34FF3u);
++    const size_t regionX = ThePaths.FindXRegionForCoors(vehicle->GetPosition().x);
++    const size_t regionY = ThePaths.FindYRegionForCoors(vehicle->GetPosition().y);
++    const float xCoord = ThePaths.FindXCoorsForRegion(regionX);
++    const float yCoord = ThePaths.FindYCoorsForRegion(regionY);
++    Nodes75Region window;
++    Nodes75RegionCpp(vehicle->GetPosition().x, vehicle->GetPosition().y, xCoord, yCoord, static_cast<int32>(regionX), static_cast<int32>(regionY), &window);
++    for (int32 x = window.minX; x <= window.maxX; x++) {
++        for (int32 y = window.minY; y <= window.maxY; y++) {
++            const int32 areaId = x + y * 8;
++            const uint8* const nodes = reinterpret_cast<const uint8*>(ThePaths.m_pPathNodes[areaId]);
++            if (!nodes) {
++                continue;
++            }
++            const int32 count = static_cast<int32>(ThePaths.m_anNumVehicleNodes[areaId]);
++            if (count <= 0) {
++                continue;
++            }
++            for (int32 k = 0; k < count; k++) {
++                const uint8* const node = nodes + static_cast<size_t>(k) * 0x1C;
++                const int32 nodeX = *reinterpret_cast<const int16*>(node + 0x8);
++                const int32 nodeY = *reinterpret_cast<const int16*>(node + 0xA);
++                const int32 nodeZ = *reinterpret_cast<const int16*>(node + 0xC);
++                if (!Nodes75InRangeCpp(&vehicle->GetPosition().x, nodeX, nodeY, nodeZ)) {
++                    continue;
++                }
++                const int32 numLinks = node[0x18] & 0xF;
++                for (int32 j = 0; j < numLinks; j++) {
++                    const CNodeAddress link = ThePaths.m_pNodeLinks[areaId][*reinterpret_cast<const int16*>(node + 0x10) + j];
++                    const uint8* const target = reinterpret_cast<const uint8*>(ThePaths.m_pPathNodes[link.m_wAreaId]);
++                    if (!target) {
++                        continue;
++                    }
++                    const uint8* const targetNode = target + static_cast<size_t>(link.m_wNodeId) * 0x1C;
++                    const CVector from{ static_cast<float>(nodeX) * 0.125f, static_cast<float>(nodeY) * 0.125f, static_cast<float>(nodeZ) * 0.125f };
++                    const CVector to{ static_cast<float>(*reinterpret_cast<const int16*>(targetNode + 0x8)) * 0.125f, static_cast<float>(*reinterpret_cast<const int16*>(targetNode + 0xA)) * 0.125f,
++                                      static_cast<float>(*reinterpret_cast<const int16*>(targetNode + 0xC)) * 0.125f };
++                    const CVector& position = vehicle->GetPosition();
++                    CVector point;
++                    std::memcpy(&point.x, &position.x, sizeof(float));
++                    std::memcpy(&point.y, &position.y, sizeof(float));
++                    point.z = Nodes75Z3Cpp(position.z);
++                    const CVector from3{ from.x, from.y, from.z * 3.0f };
++                    const CVector to3{ to.x, to.y, to.z * 3.0f };
++                    const float distance = CCollision::DistToLine(from3, to3, point);
++                    CVector direction{ to.x - from.x, to.y - from.y, to.z - from.z };
++                    direction.Normalise();
++                    if (Nodes75ScoreCpp(&direction.x, reinterpret_cast<const float*>(reinterpret_cast<const uint8*>(vehicle->m_matrix) + 0x10), distance, &bestScore)) {
++                        best1 = CNodeAddress{ static_cast<uint16>(areaId), static_cast<uint16>(k) };
++                        best2 = link;
++                    }
++                }
++            }
++        }
++    }
++    nodeAddress1 = best1;
++    nodeAddress2 = best2;
+ }
+ 
+ // 0x422090
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 907cac883..fb42ddb35 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -15959,3 +15959,240 @@ __declspec(noinline) void __cdecl HeliSwat74WorldPosCpp(const float* matrixIn, c
+     }
+ }
+ #pragma float_control(pop)
++
++// --- Lote 75 (CarWeave75): CCarCtrl::FindAngleToWeaveThroughTraffic (0x4325C0) ---
++// Aritmetica x87 del EXE (24 bits con exponente extendido): cada operacion pasa por variables volatile double (con 24 bits de mantisa el valor cabe exacto); las magnitudes que el EXE guarda como float van en float.
++// NaN en los limites: reglas de la x87 con las funciones del lote 73/74 (HeatFire73Op / Cross74*).
++#pragma float_control(precise, on, push)
++namespace {
++// floor (0x8219F0) + _ftol2 (0x821B40): palabra baja del entero de 64 bits; NaN, infinito o |v| >= 2^63 -> 0x8000000000000000 (palabra baja 0), descartados por el exponente.
++int Weave75FloorFtol(double v) {
++    unsigned long long bits;
++    memcpy(&bits, &v, 8);
++    if (((bits >> 52) & 0x7FF) >= 0x43E) {
++        return 0;
++    }
++    long long truncated = static_cast<long long>(v);
++    if (static_cast<double>(truncated) > v) {
++        --truncated;
++    }
++    return static_cast<int>(truncated);
++}
++// fld limite; fmul 0.02; fadd 60.0; fst dword; fstp qword -> floor -> _ftol2. first = con el valor del registro, second = con el float guardado (el EXE repite la conversion con el float de memoria).
++void Weave75Sector(float stored, int& first, int& second) {
++    volatile double p = static_cast<double>(stored);
++    p = p * static_cast<double>(std::bit_cast<float>(0x3CA3D70Au));   // 0x858B38 = 0.02f
++    p = p + 60.0;                                                       // 0x858B34
++    volatile float f = static_cast<float>(static_cast<double>(p));
++    first = Weave75FloorFtol(static_cast<double>(p));
++    second = Weave75FloorFtol(static_cast<double>(static_cast<float>(f)));
++}
++}
++
++__declspec(noinline) void __cdecl Weave75BoundsCpp(const unsigned char* vehicle, float scale, Weave75Bounds* out) {
++    const volatile float* const speed = reinterpret_cast<const volatile float*>(vehicle + 0x44);
++    volatile double vx = static_cast<double>(speed[0]);
++    volatile double vy = static_cast<double>(speed[1]);
++    volatile double xx = vx;
++    xx = xx * vx;
++    volatile double yy = vy;
++    yy = yy * vy;
++    volatile double sum = xx;
++    sum = sum + yy;
++    volatile double root = sqrt(static_cast<double>(sum));
++    volatile double t = root;
++    t = t * 2.5;   // 0x858FA0
++    t = t + 1.0;   // 0x858624
++    double tv = t;
++    if (!(tv < 2.0)) {   // fcom 2.0 (0x858CA0): con NaN o >= 2 se carga 2.0
++        tv = 2.0;
++    }
++    uint32_t scaleBits;
++    memcpy(&scaleBits, &scale, 4);
++    Cross74V tr;
++    tr.d = tv;
++    tr = Cross74Mul(tr, Cross74Load(scaleBits, false));
++    tr = Cross74Mul(tr, Cross74Load(0x41400000u, false));   // 0x858CCC = 12.0
++    const volatile float* const pos = CarLink74Pos(vehicle);
++    const uint32_t px = *reinterpret_cast<const volatile uint32_t*>(&pos[0]);
++    const uint32_t py = *reinterpret_cast<const volatile uint32_t*>(&pos[1]);
++    out->xminBits = Cross74Store(Cross74Sub(Cross74Load(px, true), tr));
++    out->xmaxBits = Cross74Store(Cross74Add(tr, Cross74Load(px, false)));
++    out->yminBits = Cross74Store(Cross74Sub(Cross74Load(py, true), tr));
++    out->ymaxBits = Cross74Store(Cross74Add(tr, Cross74Load(py, false)));
++    int first, second;
++    Weave75Sector(std::bit_cast<float>(out->xminBits), first, second);
++    out->minX = first <= 0 ? 0 : second;
++    Weave75Sector(std::bit_cast<float>(out->yminBits), first, second);
++    out->minY = first <= 0 ? 0 : second;
++    Weave75Sector(std::bit_cast<float>(out->xmaxBits), first, second);
++    out->maxX = first >= 0x77 ? 0x77 : second;
++    Weave75Sector(std::bit_cast<float>(out->ymaxBits), first, second);
++    out->maxY = first >= 0x77 ? 0x77 : second;
++}
++
++__declspec(noinline) bool __cdecl Weave75StableCpp(float prev50, float cur50, float prev40, float cur40) {
++    const volatile float a = prev50, b = cur50, c = prev40, d = cur40;
++    return static_cast<double>(a) == static_cast<double>(b) && static_cast<double>(c) == static_cast<double>(d);
++}
++
++__declspec(noinline) float __cdecl Weave75FinalCpp(float arg3, float arg4, float slot50, float slot40) {
++    constexpr double kPi = std::bit_cast<float>(0x40490FDBu);       // 0x858CB8
++    constexpr double kTwoPi = std::bit_cast<float>(0x40C90FDBu);    // 0x858CBC
++    constexpr double kNegPi = std::bit_cast<float>(0xC0490FDBu);    // 0x858CC0
++    constexpr double kHalfPi = std::bit_cast<float>(0x3FC90FDBu);   // 0x858FE4
++    constexpr double kTol = std::bit_cast<float>(0x3DA3D70Au);      // 0x859018 = 0.08f
++    volatile float t = arg3;
++    volatile float h = arg4;
++    volatile float s50 = slot50;
++    volatile float s40 = slot40;
++    // diferencia de rumbos H - T, a [-pi, pi]
++    volatile double x = static_cast<double>(h);
++    x = x - static_cast<double>(t);
++    while (x < kNegPi) {
++        x = x + kTwoPi;
++    }
++    while (x > kPi) {
++        x = x - kTwoPi;
++    }
++    // rumbo intermedio v = x * 0.5 + T, A = float(v) (guardado), v tambien a [-pi, pi]
++    volatile double v = x;
++    v = v * 0.5;   // 0x858B8C
++    v = v + static_cast<double>(t);
++    volatile float a = static_cast<float>(static_cast<double>(v));
++    if (v < kNegPi) {
++        do {
++            v = v + kTwoPi;
++        } while (v < kNegPi);
++        a = static_cast<float>(static_cast<double>(v));
++    }
++    if (v > kPi) {
++        do {
++            v = v - kTwoPi;
++        } while (v > kPi);
++        a = static_cast<float>(static_cast<double>(v));
++    }
++    // errores de los dos barridos respecto a v (registro) y A (float guardado), normalizados y en valor absoluto
++    volatile double w1 = static_cast<double>(s50);
++    w1 = w1 - v;
++    volatile double w2 = static_cast<double>(s40);
++    w2 = w2 - static_cast<double>(a);
++    while (w1 < kNegPi) {
++        w1 = w1 + kTwoPi;
++    }
++    while (w1 > kPi) {
++        w1 = w1 - kTwoPi;
++    }
++    if (w1 < 0.0) {
++        w1 = -w1;
++    }
++    while (w2 < kNegPi) {
++        w2 = w2 + kTwoPi;
++    }
++    while (w2 > kPi) {
++        w2 = w2 - kTwoPi;
++    }
++    if (w2 < 0.0) {
++        w2 = -w2;
++    }
++    if (w1 > kHalfPi && w2 > kHalfPi) {
++        return a;
++    }
++    volatile double d = w1;
++    d = d - w2;
++    if (d < 0.0) {
++        d = -d;
++    }
++    if (d < kTol) {
++        return s40;
++    }
++    return w1 < w2 ? s50 : s40;
++}
++#pragma float_control(pop)
++
++// --- Lote 75 (CarNodes75): CCarCtrl::FindNodesThisCarIsNearestTo (0x42BD20) ---
++// Aritmetica x87 del EXE (24 bits con exponente extendido): cada operacion pasa por variables volatile double (con 24 bits de mantisa el valor cabe exacto). Los NaN no se propagan a ninguna salida
++// (solo se comparan con orden, y un NaN nunca cumple), asi que no hace falta emularlos.
++#pragma float_control(precise, on, push)
++__declspec(noinline) void __cdecl Nodes75RegionCpp(float posX, float posY, float xCoord, float yCoord, int regionX, int regionY, Nodes75Region* out) {
++    volatile double tx = static_cast<double>(posX);
++    tx = tx - static_cast<double>(xCoord);   // fsubr: pos.x - coordenada
++    volatile float dxr = static_cast<float>(static_cast<double>(tx));
++    volatile double dyr = static_cast<double>(posY);
++    dyr = dyr - static_cast<double>(yCoord);
++    int lowX = regionX, lowY = regionY, highX = regionX, highY = regionY;
++    if (static_cast<double>(dxr) < 200.0) {
++        lowX = static_cast<int>(static_cast<unsigned>(regionX) - 1u);
++    }
++    if (static_cast<double>(dyr) < 200.0) {
++        lowY = static_cast<int>(static_cast<unsigned>(regionY) - 1u);
++    }
++    if (static_cast<double>(dxr) > 550.0) {
++        highX = static_cast<int>(static_cast<unsigned>(regionX) + 1u);
++    }
++    if (static_cast<double>(dyr) > 550.0) {
++        highY = static_cast<int>(static_cast<unsigned>(regionY) + 1u);
++    }
++    out->minX = lowX < 0 ? 0 : lowX;
++    out->minY = lowY < 0 ? 0 : lowY;
++    out->maxX = highX > 7 ? 7 : highX;
++    out->maxY = highY > 7 ? 7 : highY;
++}
++
++__declspec(noinline) bool __cdecl Nodes75InRangeCpp(const float* position, int nodeX, int nodeY, int nodeZ) {
++    const volatile float* const pos = position;
++    volatile double nx = static_cast<double>(nodeX);
++    nx = nx * 0.125;
++    volatile double ny = static_cast<double>(nodeY);
++    ny = ny * 0.125;
++    volatile double nz = static_cast<double>(nodeZ);
++    nz = nz * 0.125;
++    volatile double tdx = nx;
++    tdx = tdx - static_cast<double>(pos[0]);
++    volatile float dx = static_cast<float>(static_cast<double>(tdx));
++    volatile double dy = ny;
++    dy = dy - static_cast<double>(pos[1]);
++    volatile double dz = nz;
++    dz = dz - static_cast<double>(pos[2]);
++    volatile double zz = dz;
++    zz = zz * static_cast<double>(dz);
++    volatile double yy = dy;
++    yy = yy * static_cast<double>(dy);
++    volatile double sum = zz;
++    sum = sum + static_cast<double>(yy);
++    volatile double xx = static_cast<double>(dx);
++    xx = xx * static_cast<double>(dx);
++    sum = sum + static_cast<double>(xx);
++    volatile double dist = sqrt(static_cast<double>(sum));
++    return static_cast<double>(dist) < 150.0;
++}
++
++__declspec(noinline) float __cdecl Nodes75Z3Cpp(float z) {
++    volatile double r = static_cast<double>(z);
++    r = r * 3.0;
++    return static_cast<float>(static_cast<double>(r));
++}
++
++__declspec(noinline) bool __cdecl Nodes75ScoreCpp(const float* normal, const float* forward, float distance, float* best) {
++    const volatile float* const n = normal;
++    const volatile float* const f = forward;
++    volatile double pz = static_cast<double>(n[2]);
++    pz = pz * static_cast<double>(f[2]);
++    volatile double py = static_cast<double>(n[1]);
++    py = py * static_cast<double>(f[1]);
++    volatile double sum = pz;
++    sum = sum + static_cast<double>(py);
++    volatile double px = static_cast<double>(n[0]);
++    px = px * static_cast<double>(f[0]);
++    sum = sum + static_cast<double>(px);
++    volatile double score = 1.0;
++    score = score - static_cast<double>(sum);
++    score = score * 5.0;
++    score = score + static_cast<double>(distance);
++    if (static_cast<double>(score) < static_cast<double>(*best)) {
++        *best = static_cast<float>(static_cast<double>(score));
++        return true;
++    }
++    return false;
++}
++#pragma float_control(pop)
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index ce4c24667..3744620b7 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -1934,3 +1934,30 @@ void __cdecl CarLink74ClipCpp(const unsigned char* link, int arg3, float* arg4,
+ // 0x59C790 + 0x411A00: out = float(posicion + float(rotacion(matriz) * relativo)) con el orden de sumas y los guardados como float del EXE, a 24 bits con exponente extendido; matrix = CMatrix (right 0, forward 0x10, up 0x20),
+ // rel y heliPos = x, y, z consecutivos (ver X87Math.cpp).
+ void __cdecl HeliSwat74WorldPosCpp(const float* matrix, const float* rel, const float* heliPos, float* out);
++
++// --- Lote 75 (CarWeave75): CCarCtrl::FindAngleToWeaveThroughTraffic (0x4325C0) ---
++// Rectangulo de busqueda alrededor del vehiculo (0x4325C0..0x432794): t = min(sqrt(vx^2 + vy^2) * 2.5 + 1.0, 2.0) (NaN -> 2.0); r = (t * escala) * 12.0; limites x/y = posicion -/+ r guardados como float
++// (bits, con las reglas de NaN de la x87) y celdas de sector minX/minY/maxX/maxY = ftol(floor(limite * 0.02 + 60.0)) con los topes del EXE (min: <= 0 -> 0; max: >= 119 -> 119). vehicle: m_matrix en +0x14, posicion compacta en +4, velocidad en +0x44/+0x48.
++struct Weave75Bounds {
++    unsigned int xminBits, yminBits, xmaxBits, ymaxBits;
++    int minX, minY, maxX, maxY;
++};
++void __cdecl Weave75BoundsCpp(const unsigned char* vehicle, float scale, Weave75Bounds* out);
++// Comparacion x87 (ordenada, sin DAZ) del bucle externo: true si el par (prev50, prev40) es igual al par actual (cur50, cur40); con NaN es falso.
++bool __cdecl Weave75StableCpp(float prev50, float cur50, float prev40, float cur40);
++// 0x432922..0x432B0A: resultado del rumbo: arg3 = rumbo al objetivo, arg4 = rumbo del vehiculo, slot50/slot40 = valores que dejan los barridos. Devuelve arg3 corregido (A), slot40 o slot50 (siempre un float cargado de memoria).
++float __cdecl Weave75FinalCpp(float arg3, float arg4, float slot50, float slot40);
++
++// --- Lote 75 (CarNodes75): CCarCtrl::FindNodesThisCarIsNearestTo (0x42BD20) ---
++// Ventana de casillas de rutas alrededor del vehiculo (0x42BD85..0x42BE56): dxr = float(pos.x - coordenada de la region X) y dyr = pos.y - coordenada de la region Y (sin guardar); la region baja un paso si dxr/dyr < 200.0 (0x858A48)
++// y sube uno si > 550.0 (0x858FF0), con aritmetica de 32 bits con vuelta; minimos acotados por abajo a 0 y maximos por arriba a 7 (signo). x87 a 24 bits con exponente extendido; las comparaciones son ordenadas (NaN no cumple).
++struct Nodes75Region {
++    int minX, minY, maxX, maxY;
++};
++void __cdecl Nodes75RegionCpp(float posX, float posY, float xCoord, float yCoord, int regionX, int regionY, Nodes75Region* out);
++// 0x42BEBA..0x42BF44: el nodo (enteros de 16 bits, en pasos de 0.125) esta a menos de 150.0 (0x858A28) de la posicion (3 floats): dist = sqrt((dy*dy + dz*dz) + dx*dx) con dx guardado como float; dy y dz sin guardar.
++bool __cdecl Nodes75InRangeCpp(const float* position, int nodeX, int nodeY, int nodeZ);
++// 0x42C029..0x42C06C: z de la posicion del vehiculo multiplicada por 3.0 (0x858B3C) y guardada como float (fld, fmul, fstp: un NaN de senal sale silenciado).
++float __cdecl Nodes75Z3Cpp(float z);
++// 0x42C12F..0x42C172: puntuacion = (1.0 - ((n.z*f.z + n.y*f.y) + n.x*f.x)) * 5.0 (0x858C80) + distancia; si es menor (ordenada) que *best, se guarda como float y devuelve true.
++bool __cdecl Nodes75ScoreCpp(const float* normal, const float* forward, float distance, float* best);

@@ -1,0 +1,140 @@
+diff --git a/source/game_sa/Entity/Ped/PlayerPed.cpp b/source/game_sa/Entity/Ped/PlayerPed.cpp
+index 9fd18e2eb..eb2794343 100644
+--- a/source/game_sa/Entity/Ped/PlayerPed.cpp
++++ b/source/game_sa/Entity/Ped/PlayerPed.cpp
+@@ -34,6 +34,19 @@ END GENERATED HOOK STATUS */
+ #include "EventPlayerCommandToGroupAttack.h"
+ #include "EventPlayerCommandToGroupGather.h"
+ #include "X87Math.h"
++#include "PedGroups.h"
++#include "PedGroup.h"
++#include "PedGroupMembership.h"
++#include "PedGroupIntelligence.h"
++#include "Stats.h"
++#include "Radar.h"
++#include "Audio/Entities/AEPedSpeechAudioEntity.h"
++#include "Events/EventScriptCommand.h"
++#include "Events/EventGroupEvent.h"
++#include "Events/EventNewGangMember.h"
++#include "Events/EventDontJoinPlayerGroup.h"
++#include "Tasks/TaskTypes/TaskComplexBeInGroup.h"
++#include "Pools/PedPool.h"
+ 
+ // Ayudante de X87Math.cpp (PlayerPedSprintTailDblCpp) que devuelve un double: el ((max(ratio - 1, 0) * k) + 1) de CPlayerPed::ControlButtonSprint queda sin guardar
+ // en ST0 (0x60A7D3). Aqui se declara como float (alias del enlazador) para que el llamador reciba ST0 tal cual, como el EXE (mismo mecanismo que Placeable.cpp).
+@@ -106,6 +119,7 @@ void CPlayerPed::InjectHooks() {
+     RH_ScopedInstall(PlayerWantsToAttack, 0x60CC50);
+     RH_ScopedInstall(ForceGroupToAlwaysFollow, 0x60C7C0);
+     RH_ScopedInstall(ForceGroupToNeverFollow, 0x60C800);
++    RH_ScopedInstall(MakeThisPedJoinOurGroup, 0x60C840);
+     RH_ScopedOverloadedInstall(MakeChangesForNewWeapon, "BySlot", 0x60D000, void(CPlayerPed::*)(uint32));
+     RH_ScopedInstall(EvaluateTarget, 0x60D020);
+     RH_ScopedInstall(EvaluateNeighbouringTarget, 0x60D1C0);
+@@ -1029,9 +1043,105 @@ void CPlayerPed::ForceGroupToNeverFollow(bool enable) {
+         TellGroupToStartFollowingPlayer(false, false, true);
+ }
+ 
+-// 0x60C840
++namespace {
++// 0x609380 (cdecl, sin argumentos; devuelve AL): (byte 0x96917C | byte 0x96917D | byte 0x96917E) != 0. Sin reconstruir: se llama por la direccion del EXE.
++bool JoinGroupFlagsExe() {
++    return plugin::CallAndReturn<bool, 0x609380>();
++}
++} // namespace
++
++// 0x60C840 (thiscall, `ret 4`; EAX/ECX/EDX los recarga el llamador): el jugador recluta a `ped` en su grupo. Orden de llamadas, relecturas de memoria (datos del jugador, indice del grupo
++// y banderas del peaton) como el EXE. Sale sin hacer nada si el peaton va drogado (solo dice una frase), tiene la tarea 1000 activa, no es del tipo 8 y las tres banderas globales
++// 0x96917C..E estan a cero, o ya es miembro del grupo. Con sitio libre (el limite sale de CStats::FindMaxNumberOfGroupMembers, el limite del script y dos comprobaciones de la estadistica
++// 0xB5), el peaton sale de su grupo, recibe CTaskComplexBeInGroup mediante un CEventScriptCommand (ranura 3), pasa a seguidor, el grupo se actualiza, se avisa con un CEventGroupEvent
++// de un CEventNewGangMember, y se le marca en el radar; sin sitio recibe un CEventDontJoinPlayerGroup.
+ void CPlayerPed::MakeThisPedJoinOurGroup(CPed* ped) {
+-    plugin::CallMethod<0x60C840, CPlayerPed *, CPed*>(this, ped);
++    if (ped->bDruggedUp) { // test ah,4 de [ped + 0x478]
++        Say(CTX_GLOBAL_DRUGGED_IGNORE, 0, 1.0f, false, false, false); // 0x5EFFE0 (0x52)
++        return;
++    }
++    if (ped->GetTaskManager().FindActiveTaskByType(static_cast<eTaskType>(1000))) { // 0x681740
++        return;
++    }
++    // El EXE relee los datos del jugador (+0x480) y el indice de grupo (+0x38) en cada uso: la membresia del grupo es la de la ranura 0xC09928 + indice * 0x2D4
++    const auto group = [this]() -> CPedGroup& { return CPedGroups::ms_groups.data()[GetPlayerData()->m_nPlayerGroup]; };
++    if (static_cast<int32>(ped->m_nPedType) != 8 && !StaticRef<uint8>(0x96917C) && !StaticRef<uint8>(0x96917D) && !StaticRef<uint8>(0x96917E)) {
++        return;
++    }
++    if (group().GetMembership().IsMember(ped)) { // 0x5F6A10
++        return;
++    }
++
++    CAEPedSpeechAudioEntity::SetCJMood(static_cast<eCJMood>(-1), 10000, 1, -1, -1); // 0x4E3ED0
++    Say(CTX_GLOBAL_JOIN_ME_ASK, 0, 1.0f, true, false, false); // 0x5EFFE0 (0x7F)
++
++    int32 limit = CStats::FindMaxNumberOfGroupMembers(); // 0x559A50
++    {
++        CPlayerPedData* const data = GetPlayerData();
++        if (limit >= static_cast<int32>(data->m_nScriptLimitToGangSize)) {
++            limit = data->m_nScriptLimitToGangSize;
++        }
++    }
++    if (CStats::GetStatValue(static_cast<eStats>(0xB5)) == 1.0f || CStats::GetStatValue(static_cast<eStats>(0xB5)) == 2.0f) { // 0x558E40 (0x858624 y 0x858CA0)
++        limit = 0;
++    }
++
++    bool join = false;
++    if (JoinGroupFlagsExe()) { // 0x609380
++        join = group().GetMembership().CountMembersExcludingLeader() < 7; // 0x5F6AA0
++    }
++    if (!join) {
++        if (group().GetMembership().CountMembersExcludingLeader() >= limit || group().GetMembership().CountMembersExcludingLeader() >= limit) {
++            // Sin sitio: el peaton se niega (0x7D) y recibe CEventDontJoinPlayerGroup en su grupo de eventos
++            ped->Say(CTX_GLOBAL_JOIN_GANG_NO, 2500, 1.0f, true, false, false);
++            CEventDontJoinPlayerGroup event{ this }; // 0x6090E0
++            ped->GetEventGroup().Add(&event, false); // 0x4AB420
++            return;
++        }
++    }
++
++    if (CPedGroup* const current = CPedGroups::GetPedsGroup(ped)) { // 0x5F7E80
++        current->GetMembership().RemoveMember(ped); // 0x5FB210
++    }
++    CTask* task = nullptr;
++    if (void* const memory = CTask::operator new(sizeof(CTaskComplexBeInGroup))) { // 0x61A5A0
++        const int32 groupId = static_cast<int32>(FindPlayerPed(-1)->GetPlayerData()->m_nPlayerGroup); // 0x56E210
++        task = ::new (memory) CTaskComplexBeInGroup(groupId, false); // 0x632E50
++    }
++    CEventScriptCommand scriptEvent{ 3, task, false }; // 0x4B0A00 (ranura primaria 3)
++    ped->GetEventGroup().Add(&scriptEvent, false); // 0x4AB420
++
++    group().GetMembership().AddFollower(ped); // 0x5F8020
++    group().Process(); // 0x5FC7E0
++    ped->GiveWeaponWhenJoiningGang(); // 0x5E8BE0
++
++    CEvent* newMember = nullptr;
++    if (void* const memory = CEvent::operator new(sizeof(CEventNewGangMember))) { // 0x4B5620
++        newMember = ::new (memory) CEventNewGangMember(ped); // 0x608F70
++    }
++    CEventGroupEvent groupEvent{ this, newMember }; // 0x4ADFD0
++    group().GetIntelligence().AddEvent(&groupEvent); // 0x5F7470
++
++    ped->bDrownsInWater = false; // and [ped + 0x470], 0xFFEFFFFF
++    CStats::IncrementStat(static_cast<eStats>(0xEE), 1.0f); // 0x55C180
++    CStats::DisplayScriptStatUpdateMessage(static_cast<eStatUpdateState>(1), static_cast<eStats>(0x150), 1.0f); // 0x55B980
++
++    // Color del blip: tres bytes de la tabla de colores de bandas (indice 1) en 0x8D1345, 0x8D1351 y 0x8D135D, mas alfa 0xFF
++    const uint32 colorA = StaticRef<uint8>(0x8D1345);
++    const uint32 colorB = StaticRef<uint8>(0x8D1351);
++    const uint32 colorC = StaticRef<uint8>(0x8D135D);
++    const uint32 color = (((((colorA << 8) | colorB) << 8) | colorC) << 8) | 0xFFu;
++    const int32 ref = static_cast<int32>(GetPedPool()->GetRef(ped)); // 0x4442D0
++    const auto blip = CRadar::SetEntityBlip(BLIP_CHAR, ref, color, BLIP_DISPLAY_BLIPONLY); // 0x5839A0
++    CRadar::ChangeBlipScale(blip, 2); // 0x583CC0
++    CRadar::ChangeBlipColour(blip, static_cast<eBlipColour>(color)); // 0x583AB0
++    CRadar::SetBlipFriendly(blip, true); // 0x583EB0
++
++    ped->bClearRadarBlipOnDeath = true; // or [ped + 0x474], 0x2000
++    const uint32 slot = GetPlayerData()->m_nPlayerGroup;
++    const uint32 separation = StaticRef<uint32>(0x86C6C0);
++    std::memcpy(reinterpret_cast<uint8*>(&CPedGroups::ms_groups.data()[slot].GetMembership()) + 0x24, &separation, sizeof(separation)); // separacion maxima del grupo del jugador (+0x24)
++    ped->Say(CTX_GLOBAL_JOIN_GANG_YES, 2500, 1.0f, true, false, false); // 0x5EFFE0 (0x7E)
+ }
+ 
+ // 0x60CC50

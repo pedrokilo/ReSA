@@ -109,6 +109,9 @@ void CCarCtrl::InjectHooks()
     RH_ScopedInstall(ChooseCarModelToLoad, 0x421900);
     RH_ScopedInstall(GetNewVehicleDependingOnCarModel, 0x421440);
     RH_ScopedInstall(IsAnyoneParking, 0x42C250);
+    // Lote 75
+    RH_ScopedInstall(CreateConvoy, 0x42C740);
+    RH_ScopedInstall(CreatePoliceChase, 0x42C2B0);
     RH_ScopedInstall(IsThisVehicleInteresting, 0x423EA0);
     // Lote 63 (parte C)
     RH_ScopedInstall(ThisVehicleShouldTryNotToTurn, 0x421FE0);
@@ -119,6 +122,9 @@ void CCarCtrl::InjectHooks()
     RH_ScopedInstall(FindPercDependingOnDistToLink, 0x422620);
     // Lote 74
     RH_ScopedInstall(ClipTargetOrientationToLink, 0x422760);
+    // Lote 75
+    RH_ScopedInstall(FindAngleToWeaveThroughTraffic, 0x4325C0);
+    RH_ScopedInstall(FindNodesThisCarIsNearestTo, 0x42BD20);
     RH_ScopedNamedGlobalInstall(Cc63Intersection2LinesCpp, "FindIntersection2Lines", 0x4226F0);
     // Lote 63 (parte C, tanda 2)
     RH_ScopedInstall(SetUpDriverAndPassengersForVehicle, 0x4217C0);
@@ -492,14 +498,239 @@ CVehicle* CCarCtrl::CreateCarForScript(int32 modelid, CVector posn, bool doMissi
     return vehicle;
 }
 
-// 0x42C740
-bool CCarCtrl::CreateConvoy(CVehicle* vehicle, int32 arg2) {
-    return plugin::CallAndReturn<bool, 0x42C740, CVehicle*, int32>(vehicle, arg2);
+// Lote 75 (CreateConvoy 0x42C740 y CreatePoliceChase 0x42C2B0)
+#include "Tasks/TaskTypes/TaskComplexDriveWander.h"
+#include "Events/EventAcquaintancePedHate.h"
+#include "CarAI.h"
+namespace {
+VALIDATE_OFFSET(CEntity, m_nRandomSeed, 0x20);
+VALIDATE_OFFSET(CVehicle, m_nForcedRandomRouteSeed, 0x45E);
+VALIDATE_OFFSET(CVehicle, m_pDriver, 0x460);
+VALIDATE_OFFSET(CVehicle, m_nMaxPassengers, 0x488);
+VALIDATE_OFFSET(CVehicle, m_nExtendedRemovalRange, 0x4A6);
+VALIDATE_OFFSET(CVehicle, m_nVehicleType, 0x590);
+VALIDATE_OFFSET(CAutoPilot, m_nCarDrivingStyle, 0x29);
+VALIDATE_OFFSET(CAutoPilot, m_speed, 0x38);
+VALIDATE_OFFSET(CAutoPilot, m_TargetEntity, 0x8C);
+
+// Palabra cruda de un campo del EXE (los bits se copian sin pasar por la x87: un NaN de señal no se silencia)
+template<typename T>
+T& Car75Raw(const void* base, uint32 offset) {
+    return *reinterpret_cast<T*>(reinterpret_cast<uintptr_t>(base) + offset);
+}
+// Los floats que pueden ser NaN de senal viajan como bits y se copian con memcpy: std::bit_cast<float> y los retornos float pasan por ST0 y silenciarian el NaN
+uint32 Car75Bits(const float& value) {
+    uint32 bits;
+    std::memcpy(&bits, &value, sizeof(bits));
+    return bits;
+}
+// Radio de la esfera de colision del modelo del vehiculo (CColModel +0x24), como bits: movsx del indice, tabla 0xA9B0C8, +0x14, +0x24
+uint32 Car75ModelRadiusBits(const CVehicle* vehicle) {
+    return Car75Bits(CModelInfo::ms_modelInfoPtrs[static_cast<int16>(vehicle->m_nModelIndex)]->GetColModel()->m_boundSphere.m_fRadius);
+}
+// CTask::operator new (0x61A5A0) + constructor (0x63CB10): el EXE solo comprueba el nulo de la reserva
+CTask* Car75NewDriveWanderTask(CVehicle* vehicle) {
+    void* const memory = CTask::operator new(0x24);
+    return memory ? ::new (memory) CTaskComplexCarDriveWander(vehicle, DRIVING_STYLE_STOP_FOR_CARS, 10.0f) : nullptr;
+}
+// CTaskManager::SetTask (0x681AF0) esta definido en linea en la cabecera: se llama por la direccion del EXE, como el original (conductor sin comprobar, ranura 4)
+void Car75SetDriverTask(CVehicle* vehicle, CTask* task) {
+    reinterpret_cast<void(__thiscall*)(CTaskManager*, CTask*, ePrimaryTasks, bool)>(0x681AF0)(&vehicle->m_pDriver->GetTaskManager(), task, TASK_PRIMARY_DEFAULT, false);
+}
+// Dos disparos verticales desde el punto (1000 hacia arriba, -1000 hacia abajo; solo edificios y objetos ficticios) y se queda con el golpe mas cercano en z al punto. 1e9 (0x4E6E6B28) si no hay golpe.
+uint32 Car75FindGround(const CVector& point) {
+    uint32 groundBits = 0x4E6E6B28u;
+    CColPoint colPoint;
+    CEntity* hitEntity;
+    if (CWorld::ProcessVerticalLine(point, 1000.0f, colPoint, hitEntity, true, false, false, false, true, false, nullptr)) { // 0x5674E0
+        groundBits = Car75Bits(colPoint.m_vecPoint.z);
+    }
+    if (CWorld::ProcessVerticalLine(point, -1000.0f, colPoint, hitEntity, true, false, false, false, true, false, nullptr)) {
+        if (Car75NearerGroundCpp(Car75Bits(colPoint.m_vecPoint.z), groundBits, Car75Bits(point.z))) {
+            groundBits = Car75Bits(colPoint.m_vecPoint.z);
+        }
+    }
+    return groundBits;
+}
+// Comparacion ordenada `suelo > 1e9` (0x858FEC): el 1e9 de «sin golpe» (0x4E6E6B28) no la cumple; un NaN tampoco
+bool Car75GroundTooHigh(uint32 groundBits) {
+    float ground;
+    std::memcpy(&ground, &groundBits, sizeof(ground));
+    return ground > 1.0e9f;
+}
 }
 
-// 0x42C2B0
-bool CCarCtrl::CreatePoliceChase(CVehicle* vehicle, int32 arg2, CNodeAddress NodeAddress) {
-    return plugin::CallAndReturn<bool, 0x42C2B0, CVehicle*, int32, CNodeAddress>(vehicle, arg2, NodeAddress);
+// 0x42C740: cdecl (vehiculo plantilla, tipo de ped), `ret` del llamador (0x431DCC); el resultado (AL) dice si se creo algun coche. Crea 2 o 3 coches del mismo modelo detras de la plantilla (a k * (2 r + 2.5) de ella) encadenados
+// (cada uno persigue al anterior). La plantilla DEBE tener matriz (el EXE lee su fila adelante sin comprobar el nulo).
+bool CCarCtrl::CreateConvoy(CVehicle* vehicle, int32 pedType) {
+    // Como el original: rand() del EXE (0x821B1E, avanza la semilla del juego); ftol2(fild(r & 0xFFFF) * 2^-15 * 100.0f) es exacto: (r * 100) / 32768
+    const int32 roll = ((CarCtrlAirExeRand() & 0xFFFF) * 100) / 32768;
+    const uint32 radiusBits = Car75ModelRadiusBits(vehicle);
+    vehicle->m_nForcedRandomRouteSeed = vehicle->m_nRandomSeed;
+    const int32 count = (roll > 50 ? 1 : 0) + 2;
+    CVehicle* previous = vehicle;
+    bool created = false;
+    for (int32 index = 0; index < count; index++) {
+        CVehicle* const car = GetNewVehicleDependingOnCarModel(static_cast<int16>(vehicle->m_nModelIndex), 1); // 0x421440
+        if (!car) {
+            continue;
+        }
+        // Posicion detras de la plantilla: posicion - adelante * (indice + 1) * (2 r + 2.5), sobre el suelo
+        const CMatrix* const matrix = vehicle->m_matrix;
+        uint32 forward[3];
+        forward[0] = Car75Raw<uint32>(matrix, 0x10);
+        forward[1] = Car75Raw<uint32>(matrix, 0x14);
+        forward[2] = Car75Raw<uint32>(matrix, 0x18);
+        const uint32* const source = reinterpret_cast<const uint32*>(matrix ? &matrix->GetPosition() : &vehicle->m_placement.m_vPosn);
+        uint32 pointBits[3];
+        CarConvoy75PointCpp(forward, index + 1, radiusBits, source, pointBits);
+        CVector point;
+        std::memcpy(&point, pointBits, sizeof(point));
+        const uint32 groundBits = Car75FindGround(point);
+        if (Car75GroundTooHigh(groundBits)) { // 0x858FEC (1e9): sin golpe valido
+            delete car;
+            continue;
+        }
+        pointBits[2] = Car75GroundSumCpp(Car75Bits(car->GetHeightAboveRoad()), groundBits); // virtual 0x6D63F0
+        std::memcpy(&point, pointBits, sizeof(point));
+        int16 colliding = 0;
+        float radius;
+        std::memcpy(&radius, &radiusBits, sizeof(radius));
+        CWorld::FindObjectsKindaColliding(point, radius, true, &colliding, 2, nullptr, false, true, true, false, false); // 0x568B80
+        if (colliding != 0) {
+            delete car;
+            continue;
+        }
+        if (!created) {
+            // El primer coche tambien deja la plantilla en movimiento: estado fisico, estilo de conduccion 2 y velocidad = adelante * crucero * 0.02f
+            vehicle->SetStatus(STATUS_PHYSICS);
+            const uint32 cruise = vehicle->m_autoPilot.m_nCruiseSpeed;
+            vehicle->m_autoPilot.m_nCarDrivingStyle = DRIVING_STYLE_AVOID_CARS;
+            uint32 speedBits[3];
+            CarConvoy75MoveCpp(reinterpret_cast<const unsigned char*>(vehicle), static_cast<int32>(cruise), speedBits);
+            std::memcpy(&vehicle->m_vecMoveSpeed, speedBits, sizeof(speedBits));
+        }
+        static_cast<CMatrix&>(*car->m_matrix) = static_cast<const CMatrix&>(*vehicle->m_matrix); // 0x59BBC0
+        uint32* const destination = reinterpret_cast<uint32*>(car->m_matrix ? &car->m_matrix->GetPosition() : &car->m_placement.m_vPosn);
+        destination[0] = pointBits[0];
+        destination[1] = pointBits[1];
+        destination[2] = pointBits[2];
+        car->m_vecMoveSpeed = vehicle->m_vecMoveSpeed;
+        car->SetStatus(vehicle->GetStatus());
+        car->vehicleFlags.bPartOfConvoy = true;
+        CWorld::Add(car); // 0x563220
+        if (car->m_nVehicleType == VEHICLE_TYPE_BIKE) {
+            static_cast<CBike*>(car)->PlaceOnRoadProperly(); // 0x6BEEB0
+        } else if (car->m_nVehicleType == VEHICLE_TYPE_AUTOMOBILE) {
+            static_cast<CAutomobile*>(car)->PlaceOnRoadProperly(); // 0x6AF420
+        }
+        SetUpDriverAndPassengersForVehicle(car, pedType, 0, true, false, 0x63); // 0x4217C0
+        CTask* const task = Car75NewDriveWanderTask(car);
+        Car75SetDriverTask(car, task);
+        car->m_autoPilot.m_nCruiseSpeed = vehicle->m_autoPilot.m_nCruiseSpeed;
+        const uint32 speedBits = CarConvoy75SpeedCpp(Car75Bits(vehicle->m_autoPilot.m_speed), index);
+        std::memcpy(&car->m_autoPilot.m_speed, &speedBits, sizeof(speedBits));
+        car->m_autoPilot.m_nCarDrivingStyle = vehicle->m_autoPilot.m_nCarDrivingStyle;
+        car->m_autoPilot.m_nCarMission = vehicle->m_autoPilot.m_nCarMission;
+        car->m_nRandomSeed = vehicle->m_nRandomSeed;
+        car->m_nForcedRandomRouteSeed = vehicle->m_nForcedRandomRouteSeed;
+        car->m_autoPilot.m_TargetEntity = previous;
+        previous->RegisterReference(reinterpret_cast<CEntity**>(&car->m_autoPilot.m_TargetEntity)); // 0x571B70
+        previous = car;
+        created = true;
+    }
+    return created;
+}
+
+// 0x42C2B0: cdecl (vehiculo plantilla, tipo de ped, nodo), `ret` del llamador (0x431D34); el resultado (AL) dice si se creo el coche de policia en el nodo. La plantilla DEBE tener conductor (el EXE le marca la bandera
+// 0x800 sin comprobar el nulo) y el coche nuevo tambien (AddPoliceCarOccupants lo crea).
+bool CCarCtrl::CreatePoliceChase(CVehicle* vehicle, int32 pedType, CNodeAddress nodeAddress) {
+    // Como el original: con coches de bandas (0xC0BC38 != 0, un NaN cuenta) y un tipo de ped fuera de 14..23 se sortea con rand() del EXE (ftol2(fild(r & 0xFFFF) * 2^-15 * 4.0f) != 0 <=> r >= 8192) y se sale
+    if (!(StaticRef<float>(0xC0BC38) == 0.0f) && (pedType < 14 || pedType > 23)) {
+        if ((CarCtrlAirExeRand() & 0xFFFF) >= 0x2000) {
+            return false;
+        }
+    }
+    const int32 model = ChoosePoliceCarModel(1); // 0x421980
+    if (model <= -1) {
+        return false;
+    }
+    if (StaticRef<uint8>(0x8E4CD0 + static_cast<uintptr_t>(model) * 20) != 1) { // el modelo debe estar cargado
+        return false;
+    }
+    CVehicle* const police = GetNewVehicleDependingOnCarModel(model, 1); // 0x421440
+    if (!police) {
+        return false;
+    }
+    // Punto del nodo (CPathNode::GetPosition 0x420A10, sin comprobar el area) y suelo bajo el
+    const CPathNode* const node = ThePaths.m_pPathNodes[nodeAddress.m_wAreaId] + nodeAddress.m_wNodeId;
+    CVector point = (node->*cc63GetNodePosition)();
+    const uint32 groundBits = Car75FindGround(point);
+    if (Car75GroundTooHigh(groundBits)) {
+        delete police;
+        return false;
+    }
+    const uint32 radiusBits = Car75ModelRadiusBits(police);
+    const uint32 heightBits = Car75GroundSumCpp(Car75Bits(police->GetHeightAboveRoad()), groundBits); // virtual 0x6D63F0
+    std::memcpy(&point.z, &heightBits, sizeof(heightBits));
+    float radius;
+    std::memcpy(&radius, &radiusBits, sizeof(radius));
+    // Si la plantilla no esta en pantalla y la esfera del coche si se ve desde la camara, o hay vehiculos o peds encima, se descarta
+    if (!vehicle->GetIsOnScreen()) { // 0x534540
+        if (TheCamera.IsSphereVisible(point, radius)) { // 0x420D40
+            delete police;
+            return false;
+        }
+    }
+    int16 colliding = 0;
+    CWorld::FindObjectsKindaColliding(point, radius, true, &colliding, 2, nullptr, false, true, true, false, false); // 0x568B80
+    if (colliding != 0) {
+        delete police;
+        return false;
+    }
+    // La plantilla pasa a fisica, estilo 2, velocidad de crucero + 10 (solo el byte bajo) y se mueve hacia adelante a esa velocidad * 0.02f
+    vehicle->SetStatus(STATUS_PHYSICS);
+    vehicle->m_autoPilot.m_nCarDrivingStyle = DRIVING_STYLE_AVOID_CARS;
+    vehicle->vehicleFlags.bMadDriver = true; // bit 3 de +0x42E
+    const uint8 cruise = static_cast<uint8>(vehicle->m_autoPilot.m_nCruiseSpeed + 10); // ftol2(cruise + 10.0f), solo el byte bajo
+    vehicle->m_autoPilot.m_nCruiseSpeed = cruise;
+    uint32 speedBits[3];
+    CarPolice75MoveCpp(reinterpret_cast<const unsigned char*>(vehicle), cruise, speedBits);
+    std::memcpy(&vehicle->m_vecMoveSpeed, speedBits, sizeof(speedBits));
+    SetUpDriverAndPassengersForVehicle(vehicle, pedType, 2, true, true, 0x63); // 0x4217C0
+
+    // El coche de policia: matriz y posicion de la plantilla, mismo movimiento, fisica, "policia" y ley
+    static_cast<CMatrix&>(*police->m_matrix) = static_cast<const CMatrix&>(*vehicle->m_matrix); // 0x59BBC0
+    police->SetPosn(point); // 0x4241C0
+    police->m_vecMoveSpeed = vehicle->m_vecMoveSpeed;
+    police->SetStatus(STATUS_PHYSICS);
+    police->vehicleFlags.bCreatedAsPoliceVehicle = true;
+    police->ChangeLawEnforcerState(true); // 0x6D2330
+    CWorld::Add(police); // 0x563220
+    if (police->m_nVehicleType == VEHICLE_TYPE_BIKE) {
+        static_cast<CBike*>(police)->PlaceOnRoadProperly(); // 0x6BEEB0
+    } else {
+        static_cast<CAutomobile*>(police)->PlaceOnRoadProperly(); // 0x6AF420
+    }
+    CCarAI::AddPoliceCarOccupants(police, true); // 0x41C070
+
+    // Los ocupantes de la plantilla (conductor y los primeros `maximo de pasajeros` huecos) quedan marcados con la bandera 0x800 de +0x478
+    Car75Raw<uint32>(vehicle->m_pDriver, 0x478) |= 0x800;
+    for (uint8 i = 0; i < vehicle->m_nMaxPassengers; i++) {
+        if (CPed* const passenger = vehicle->m_apPassengers.data()[i]) {
+            Car75Raw<uint32>(passenger, 0x478) |= 0x800;
+        }
+    }
+    // El conductor del coche de policia merodea en coche y se le avisa del conductor de la plantilla (CEventAcquaintancePedHate con tarea 0x451)
+    CTask* const task = Car75NewDriveWanderTask(police);
+    Car75SetDriverTask(police, task);
+    CPed* const chased = vehicle->m_pDriver;
+    CEventAcquaintancePedHate event(chased); // 0x4AF820 + vtable 0x858E68
+    event.m_TaskId = static_cast<eTaskType>(0x451);
+    police->m_pDriver->GetEventGroup().Add(&event, false); // 0x4AB420
+    police->vehicleFlags.bNeverUseSmallerRemovalRange = true;
+    police->m_nExtendedRemovalRange = 0xFF;
+    return true; // ~CEventAcquaintancePed (0x4AF890) al salir del ambito
 }
 
 // 0x428040
@@ -716,7 +947,36 @@ void CCarCtrl::DragCarToPoint(CVehicle* vehicle, CVector* pos) {
 
 // 0x4325C0
 float CCarCtrl::FindAngleToWeaveThroughTraffic(CVehicle* vehicle, CPhysical* physical, float arg3, float arg4, float arg5) {
-    return plugin::CallAndReturn<float, 0x4325C0, CVehicle*, CPhysical*, float, float, float>(vehicle, physical, arg3, arg4, arg5);
+    // Como el original (0x4325C0..0x432B0A, cdecl `ret`; el float vuelve en ST0). arg3 = rumbo al objetivo, arg4 = rumbo del vehiculo, arg5 = escala. Rectangulo de busqueda alrededor del vehiculo y sus celdas de
+    // sector (aritmetica x87 en X87Math: Weave75BoundsCpp). Se avanza el codigo de escaneo (0xB7CD78; a 0xFFFF: CWorld::ClearScanCodes y 1). Los dos valores de salida (out50 = [esp+50], out40 = [esp+40]) empiezan
+    // en arg3 y los barridos los modifican; se repite el barrido de todas las celdas (y de MENOR a MAYOR, x de menor a mayor; indices del sector repetido = coordenada & 15) hasta que un barrido completo deja
+    // los dos iguales (la primera vez se compara con -10000.4f = 0xC61C3F9A). Por celda: coches (repetido: Vehicles), peatones (solo si el estilo de conduccion (+0x3B9) no es 6; se lee tras el primer barrido), objetos y otra
+    // vez coches (el segundo barrido de coches ya no encuentra nada: los codigos de escaneo estan puestos, pero el EXE lo ejecuta). Al final (Weave75FinalCpp) se elige entre A, out40 y out50.
+    Weave75Bounds bounds;
+    Weave75BoundsCpp(reinterpret_cast<const unsigned char*>(vehicle), arg5, &bounds);
+    const float xmin = std::bit_cast<float>(bounds.xminBits), ymin = std::bit_cast<float>(bounds.yminBits);
+    const float xmax = std::bit_cast<float>(bounds.xmaxBits), ymax = std::bit_cast<float>(bounds.ymaxBits);
+    CWorld::AdvanceCurrentScanCode();
+    float out50 = arg3;
+    float out40 = arg3;
+    float prev50 = std::bit_cast<float>(0xC61C3F9Au);
+    float prev40 = prev50;
+    while (!Weave75StableCpp(prev50, out50, prev40, out40)) {
+        prev40 = out40;
+        prev50 = out50;
+        for (int32 y = bounds.minY; y <= bounds.maxY; y++) {
+            for (int32 x = bounds.minX; x <= bounds.maxX; x++) {
+                CRepeatSector& sector = CWorld::GetRepeatSector(x, y);
+                WeaveThroughCarsSectorList(sector.Vehicles, vehicle, physical, xmin, ymin, xmax, ymax, &out50, &out40);
+                if (vehicle->m_autoPilot.m_nCarDrivingStyle != DRIVING_STYLE_DRIVINGMODE_AVOIDCARS_STOPFORPEDS_OBEYLIGHTS) {
+                    WeaveThroughPedsSectorList(sector.Peds, vehicle, physical, xmin, ymin, xmax, ymax, &out50, &out40);
+                }
+                WeaveThroughObjectsSectorList(sector.Objects, vehicle, xmin, ymin, xmax, ymax, &out50, &out40);
+                WeaveThroughCarsSectorList(sector.Vehicles, vehicle, physical, xmin, ymin, xmax, ymax, &out50, &out40);
+            }
+        }
+    }
+    return Weave75FinalCpp(arg3, arg4, out50, out40);
 }
 
 // 0x4226F0
@@ -861,7 +1121,71 @@ float CCarCtrl::FindMaximumSpeedForThisCarInTraffic(CVehicle* vehicle) {
 
 // 0x42BD20
 void CCarCtrl::FindNodesThisCarIsNearestTo(CVehicle* vehicle, CNodeAddress& nodeAddress1, CNodeAddress& nodeAddress2) {
-    plugin::Call<0x42BD20, CVehicle*, CNodeAddress&, CNodeAddress&>(vehicle, nodeAddress1, nodeAddress2);
+    // Como el original (0x42BD20..0x42C249, cdecl `ret`). Llama, por este orden, a FindXRegionForCoors(pos.x), FindYRegionForCoors(pos.y), FindXCoorsForRegion(regionX) y FindYCoorsForRegion(regionY) (posicion = matriz+0x30 o
+    // compacta +4, releida en cada uso). La ventana de casillas (Nodes75RegionCpp, x87 en X87Math) baja o sube una casilla segun la distancia a su borde (< 200.0 / > 550.0) y se acota a 0..7: x exterior, y interior, casilla
+    // x + y * 8; la casilla sin cargar o con contador (con signo) <= 0 se salta. Por cada nodo de vehiculo (enteros de 16 bits en +8, +A, +C, en pasos de 0.125) a menos de 150.0 del vehiculo y con enlaces (+0x18 & 0xF), y por cada
+    // enlace m_pNodeLinks[casilla][int16 +0x10 + j] cuya casilla destino esta cargada (el nodo destino no se comprueba): DistToLine(nodo, destino, vehiculo) con las tres z multiplicadas por 3.0 (las del nodo y el destino son exactas;
+    // la del vehiculo, Nodes75Z3Cpp), y Normalise del vector destino - nodo (z sin multiplicar). Puntuacion = (1 - normal . adelante) * 5 + distancia (Nodes75ScoreCpp), el menor gana (estricto, empate = el primero), empezando en
+    // 99999.99 (0x47C34FF3). Salidas: primer CNodeAddress = (casilla, indice del nodo), segundo = el enlace elegido; sin candidato quedan las areas a 0xFFFF (el EXE deja en el nodo un resto de pila que nadie lee).
+    // La matriz del vehiculo solo se lee al puntuar un enlace (nula: el EXE se cae igual).
+    CNodeAddress best1{ 0xFFFF, 0xFFFF }, best2{ 0xFFFF, 0xFFFF };
+    float bestScore = std::bit_cast<float>(0x47C34FF3u);
+    const size_t regionX = ThePaths.FindXRegionForCoors(vehicle->GetPosition().x);
+    const size_t regionY = ThePaths.FindYRegionForCoors(vehicle->GetPosition().y);
+    const float xCoord = ThePaths.FindXCoorsForRegion(regionX);
+    const float yCoord = ThePaths.FindYCoorsForRegion(regionY);
+    Nodes75Region window;
+    Nodes75RegionCpp(vehicle->GetPosition().x, vehicle->GetPosition().y, xCoord, yCoord, static_cast<int32>(regionX), static_cast<int32>(regionY), &window);
+    for (int32 x = window.minX; x <= window.maxX; x++) {
+        for (int32 y = window.minY; y <= window.maxY; y++) {
+            const int32 areaId = x + y * 8;
+            const uint8* const nodes = reinterpret_cast<const uint8*>(ThePaths.m_pPathNodes[areaId]);
+            if (!nodes) {
+                continue;
+            }
+            const int32 count = static_cast<int32>(ThePaths.m_anNumVehicleNodes[areaId]);
+            if (count <= 0) {
+                continue;
+            }
+            for (int32 k = 0; k < count; k++) {
+                const uint8* const node = nodes + static_cast<size_t>(k) * 0x1C;
+                const int32 nodeX = *reinterpret_cast<const int16*>(node + 0x8);
+                const int32 nodeY = *reinterpret_cast<const int16*>(node + 0xA);
+                const int32 nodeZ = *reinterpret_cast<const int16*>(node + 0xC);
+                if (!Nodes75InRangeCpp(&vehicle->GetPosition().x, nodeX, nodeY, nodeZ)) {
+                    continue;
+                }
+                const int32 numLinks = node[0x18] & 0xF;
+                for (int32 j = 0; j < numLinks; j++) {
+                    const CNodeAddress link = ThePaths.m_pNodeLinks[areaId][*reinterpret_cast<const int16*>(node + 0x10) + j];
+                    const uint8* const target = reinterpret_cast<const uint8*>(ThePaths.m_pPathNodes[link.m_wAreaId]);
+                    if (!target) {
+                        continue;
+                    }
+                    const uint8* const targetNode = target + static_cast<size_t>(link.m_wNodeId) * 0x1C;
+                    const CVector from{ static_cast<float>(nodeX) * 0.125f, static_cast<float>(nodeY) * 0.125f, static_cast<float>(nodeZ) * 0.125f };
+                    const CVector to{ static_cast<float>(*reinterpret_cast<const int16*>(targetNode + 0x8)) * 0.125f, static_cast<float>(*reinterpret_cast<const int16*>(targetNode + 0xA)) * 0.125f,
+                                      static_cast<float>(*reinterpret_cast<const int16*>(targetNode + 0xC)) * 0.125f };
+                    const CVector& position = vehicle->GetPosition();
+                    CVector point;
+                    std::memcpy(&point.x, &position.x, sizeof(float));
+                    std::memcpy(&point.y, &position.y, sizeof(float));
+                    point.z = Nodes75Z3Cpp(position.z);
+                    const CVector from3{ from.x, from.y, from.z * 3.0f };
+                    const CVector to3{ to.x, to.y, to.z * 3.0f };
+                    const float distance = CCollision::DistToLine(from3, to3, point);
+                    CVector direction{ to.x - from.x, to.y - from.y, to.z - from.z };
+                    direction.Normalise();
+                    if (Nodes75ScoreCpp(&direction.x, reinterpret_cast<const float*>(reinterpret_cast<const uint8*>(vehicle->m_matrix) + 0x10), distance, &bestScore)) {
+                        best1 = CNodeAddress{ static_cast<uint16>(areaId), static_cast<uint16>(k) };
+                        best2 = link;
+                    }
+                }
+            }
+        }
+    }
+    nodeAddress1 = best1;
+    nodeAddress2 = best2;
 }
 
 // 0x422090

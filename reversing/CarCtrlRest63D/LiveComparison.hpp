@@ -54,8 +54,9 @@ inline void Update() {
     simple(1,"FindLinksToGoWithTheseNodes",0x42B470);
     // Colaboradores sustituidos: cuerpos de la DLL resueltos ANTES de escribir ningun parche (siguiendo los saltos solo dentro del ASI).
     // FindLinksToGoWithTheseNodes es a la vez funcion probada (su hook se apaga fuera de su propia llamada): como colaborador de ReconsiderRoute va con hooked=false y el cuerpo de la DLL parcheado.
-    // dll=0 y hooked=false: la DLL llama a la direccion del EXE (FindNodesThisCarIsNearestTo, envoltura plugin::Call; srand del CRT).
-    env.stubs[0]={{Pair{0x42BD20,0,false},reinterpret_cast<void*>(&FakeNearest)},
+    // FindNodesThisCarIsNearestTo (lote 75) ya esta reconstruida en C++ puro y con hook propio (encendido, como el de FindPlayerCoors): la entrada del EXE salta a la DLL y el cuerpo de la DLL lleva el falso.
+    // dll=0 y hooked=false: la DLL llama a la direccion del EXE (srand del CRT).
+    env.stubs[0]={{Pair{0x42BD20,DllBody(&CCarCtrl::FindNodesThisCarIsNearestTo),true},reinterpret_cast<void*>(&FakeNearest)},
                   {Pair{0x56E010,DllBody(static_cast<CVector(*)(int32)>(&FindPlayerCoors)),true},reinterpret_cast<void*>(&FakeCoors)},
                   {Pair{0x4515D0,DllBody(&CPathFind::DoPathSearch),true},reinterpret_cast<void*>(&FakeDoPathSearch)},
                   {Pair{0x42B470,DllBody(&CCarCtrl::FindLinksToGoWithTheseNodes),false},reinterpret_cast<void*>(&FakeFindLinks<83>)},

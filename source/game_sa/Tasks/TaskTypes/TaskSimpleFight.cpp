@@ -52,6 +52,10 @@ END GENERATED HOOK STATUS */
 #include "Camera.h"
 #include "Pad.h"
 #include "Timer.h"
+#include "Weapon.h"
+#include "PedGeometryAnalyser.h"
+#include "Audio/Entities/AEPedAudioEntity.h"
+#include "Audio/Entities/AEPedWeaponAudioEntity.h"
 #include "Streaming.h"
 
 // 0x61C470
@@ -271,11 +275,6 @@ const float FightHitObjUprootFloor         = 0.0f;                              
 uint32 FightActiveWeaponType(const CPed* ped) {
     const int32 slot = static_cast<int8>(ped->m_nActiveWeaponSlot);
     return *reinterpret_cast<const uint32*>(reinterpret_cast<const uint8*>(ped->m_aWeapons.data()) + slot * static_cast<int32>(sizeof(CWeapon)));
-}
-
-// 0x61CBA0 (ret 0x14): golpe contra un ped; devuelve el ped golpeado (EAX) o null. Sin reconstruir.
-CPed* FightHitPedExe(CTaskSimpleFight* task, CPed* creator, CPed* victim, CVector* posn1, CVector* posn2, uint32 component) {
-    return plugin::CallMethodAndReturn<CPed*, 0x61CBA0, CTaskSimpleFight*, CPed*, CPed*, CVector*, CVector*, uint32>(task, creator, victim, posn1, posn2, component);
 }
 
 // Fila de la tabla de combos de FightStrike: (combo - 4) * 0x88 sin acotar por abajo (a diferencia de FightComboInfo, que lo hace en las hojas).
@@ -924,6 +923,162 @@ void CTaskSimpleFight::FightHitObj(CPed* ped, CObject* object, CVector& posn1, C
     g_fx.AddPunchImpact(posn1, *normal, 4);
 }
 
+namespace {
+// --- FightHitPed (0x61CBA0) ---
+constexpr float     FightHitPedBlockVolume = std::bit_cast<float>(0xC1100000u); // -9.0f
+constexpr float     FightHitPedSoundLevel  = std::bit_cast<float>(0x425C0000u); // 55.0f
+constexpr uint32    FightHitPedDeadDirZ    = 0x40000000u;                       // 2.0f: direccion de la sangre de un ped muerto
+constexpr uintptr_t FightHitPedDelayTable  = 0x8D2E3C;                          // retardos (ms) por movimiento 0..2: 300, 400, 500
+constexpr auto      FightHitPedPlayerTask  = static_cast<eTaskType>(0xCD);      // tarea activa del jugador que no recibe golpes
+
+// 0x61C650 (thiscall, ret 0x10; ECX = tarea de combate de la victima): la victima esquiva o bloquea el golpe; devuelve AL. Sin reconstruir.
+bool FightBeHitWhileBlockingExe(CTaskSimpleFight* blocker, CPed* victim, CPed* creator, uint32 combo, uint32 move) {
+    return plugin::CallMethodAndReturn<bool, 0x61C650, CTaskSimpleFight*, CPed*, CPed*, uint32, uint32>(blocker, victim, creator, combo, move);
+}
+// CVector::Normalise (0x59C910, thiscall, in situ, sin reconstruir).
+void FightNormaliseExe(CVector* v) {
+    plugin::CallMethod<0x59C910, CVector*>(v);
+}
+// rand() del CRT del EXE (0x821B1E: avanza la semilla del juego, la rand() de la DLL no).
+int32 FightExeRand() {
+    return reinterpret_cast<int32(__cdecl*)()>(0x821B1E)();
+}
+// Posicion del placeable: matriz + 0x30 si la tiene, si no la posicion compacta (+4).
+const CVector* FightPositionOf(const CPlaceable* placeable) {
+    return placeable->m_matrix ? &placeable->m_matrix->GetPosition() : &placeable->m_placement.m_vPosn;
+}
+// Retardo en ms por movimiento; el EXE indexa sin acotar (movsx del byte).
+uint32 FightHitPedTableAt(int32 move) {
+    return *reinterpret_cast<const uint32*>(FightHitPedDelayTable + static_cast<uint32>(move) * 4u);
+}
+} // namespace
+
+// 0x61CBA0 (ret 0x14): golpe de `creator` contra `victim` (un ped). Devuelve la victima si GenerateDamageEvent la dano, si no null. Orden de llamadas, relecturas de memoria y x87 como el EXE.
+// Si la victima es el jugador y su tarea activa es la 0xCD, sale sin hacer nada (el EXE llama a GetTaskType sin comprobar nulo). Si la victima esta peleando y BeHitWhileBlocking (0x61C650) lo da por
+// bloqueado, solo suena el golpe bloqueado (-9.0f) y sale con null. `component` se lee como int16 (movsx word); `posn2` no se lee (el EXE no lo usa).
+CPed* CTaskSimpleFight::FightHitPed(CPed* creator, CPed* victim, CVector& posn1, CVector& /*posn2*/, int16 component) {
+    if (victim->IsPlayer()) { // 0x5DF8F0
+        CTask* const active = victim->GetIntelligence()->m_TaskMgr.GetActiveTask(); // 0x681720
+        if (active->GetTaskType() == FightHitPedPlayerTask) {
+            return nullptr;
+        }
+    }
+
+    if (victim->GetIntelligence()->GetTaskFighting()) { // 0x600F30
+        CPedIntelligence* const intelligence = victim->GetIntelligence();
+        const uint32 move  = static_cast<uint8>(m_nCurrentMove);
+        const uint32 combo = static_cast<uint8>(m_nComboSet);
+        CTaskSimpleFight* const blocker = intelligence->GetTaskFighting();
+        if (FightBeHitWhileBlockingExe(blocker, victim, creator, combo, move)) {
+            const int32 blockMove = static_cast<int8>(m_nCurrentMove);
+            const uint8* const blockRow = FightComboRow(m_nComboSet);
+            creator->GetAE().AddAudioEvent(static_cast<eAudioEvents>(*reinterpret_cast<const int32*>(blockRow + 0x70 + blockMove * 4)), FightHitPedBlockVolume, 1.0f, victim, static_cast<eSurfaceType>(0), 0, 0);
+            if (m_nComboSet == 5) {
+                const int8 move2 = static_cast<int8>(m_nCurrentMove);
+                if (move2 >= 0 && move2 <= 2) {
+                    const uint32 delay = FightHitPedTableAt(move2);
+                    const int32 sound  = *reinterpret_cast<const int32*>(blockRow + 0x70 + move2 * 4);
+                    creator->GetAE().AddAudioEvent(static_cast<eAudioEvents>(sound), FightHitPedBlockVolume, 1.0f, victim, static_cast<eSurfaceType>(0), 0, delay);
+                }
+            }
+            return nullptr;
+        }
+    }
+
+    CWeaponInfo::GetWeaponInfo(static_cast<eWeaponType>(FightActiveWeaponType(creator)), eWeaponSkill::STD); // 0x743C60 (resultado sin usar)
+    const uint8* const row = FightStrikeRow(this);
+    const int32 damage = static_cast<int32>(FightHitPed75FtolCpp(FightStrikeDamageExe(this, 0, creator))); // 0x61C740 y _ftol2 (32 bits bajos)
+    m_nContinueStrike = -1;
+
+    const CVector* const creatorPos = FightPositionOf(creator);
+    const int32 side = CPedGeometryAnalyser::ComputePedShotSide(*victim, *creatorPos); // 0x5F13F0
+    const auto weaponType = static_cast<eWeaponType>(FightActiveWeaponType(creator));
+    const bool damaged = CWeapon::GenerateDamageEvent(victim, creator, weaponType, damage, static_cast<ePedPieceTypes>(component), static_cast<uint8>(side)); // 0x73A530
+    if (FightActiveWeaponType(creator) == WEAPON_CHAINSAW) { // el arma se relee de la memoria
+        creator->GetWeaponAE().AddAudioEvent(AE_WEAPON_CHAINSAW_CUTTING); // 0x4E69F0 (0x9B)
+    }
+
+    // Sonido del golpe (0x4E2BB0): con lado 0 se usa la fila +0x5C y con otro la +0x70; (combo 5, movimiento 0..2) anade un segundo sonido con retardo.
+    const auto playHit = [&](uint32 offset, int32 move, uint32 delay) {
+        const int32 sound = *reinterpret_cast<const int32*>(row + offset + move * 4);
+        creator->GetAE().AddAudioEvent(static_cast<eAudioEvents>(sound), 0.f, 1.0f, victim, static_cast<eSurfaceType>(0), 0, delay);
+    };
+    if (side == 0) {
+        const int8 combo = m_nComboSet;
+        if (combo == 5 && static_cast<int8>(m_nCurrentMove) >= 0 && static_cast<int8>(m_nCurrentMove) <= 2) {
+            playHit(0x5C, static_cast<int8>(m_nCurrentMove), 0);
+            const int32 move   = static_cast<int8>(m_nCurrentMove);
+            const uint32 delay = FightHitPedTableAt(move);
+            playHit(0x5C, move, delay);
+        } else if (combo == 7 && static_cast<int8>(m_nCurrentMove) == 1) {
+            const uint32 firstDelay = FightHitPedTableAt(1); // 0x8D2E40
+            const int32 sound = *reinterpret_cast<const int32*>(row + 0x60);
+            creator->GetAE().AddAudioEvent(static_cast<eAudioEvents>(sound), 0.f, 1.0f, victim, static_cast<eSurfaceType>(0), 0, firstDelay);
+            const int32 move = static_cast<int8>(m_nCurrentMove);
+            const uint32 scaled = FightHitPed75DelayCpp(static_cast<int32>(FightHitPedTableAt(move))); // _ftol2(fild(tabla) * 2.8f)
+            playHit(0x5C, static_cast<int8>(m_nCurrentMove), scaled);
+        } else {
+            playHit(0x5C, static_cast<int8>(m_nCurrentMove), 0);
+        }
+    } else {
+        playHit(0x70, static_cast<int8>(m_nCurrentMove), 0);
+        if (m_nComboSet == 5) {
+            const int8 move = static_cast<int8>(m_nCurrentMove);
+            if (move >= 0 && move <= 2) {
+                const uint32 delay = FightHitPedTableAt(move);
+                playHit(0x70, move, delay);
+            }
+        }
+    }
+
+    if (creator->IsPlayer()) { // 0x5DF8F0
+        creator->Say(CTX_GLOBAL_FIGHT, 0, 1.0f, false, false, false); // 0x5EFFE0 (0x59)
+    }
+
+    {
+        CEventSoundQuiet event{ creator, FightHitPedSoundLevel, static_cast<uint32>(-1), CVector{ 0.f, 0.f, 0.f } }; // 0x5E05B0
+        GetEventGlobalGroup()->Add(&event, false); // 0x4ABA50 + 0x4AB420
+
+        const uint8 comboNow = static_cast<uint8>(m_nComboSet);
+        int32 chance;
+        if (comboNow == 8 || comboNow == 9 || comboNow == 10 || comboNow == 11 || comboNow == 12) {
+            chance = 100;
+        } else if (comboNow == 4 && static_cast<uint8>(m_nCurrentMove) == 4) {
+            chance = -1;
+        } else {
+            chance = static_cast<int32>(FightHitPed75LossCpp(victim->m_fHealth)); // _ftol2(100.0f - vida)
+        }
+        const int32 roll = static_cast<int32>(FightHitPed75RollCpp(FightExeRand())); // rand() del EXE, & 0xFFFF
+        if (roll < chance) {
+            uint32 bloodBits[3];
+            std::memcpy(bloodBits, &posn1, sizeof(bloodBits)); // tres movs enteros desde *posn1
+            const CVector* const victimPos   = FightPositionOf(victim);
+            const CVector* const attackerPos = FightPositionOf(creator);
+            CVector direction;
+            FightHitPed75DirectionCpp(&attackerPos->x, &victimPos->x, &direction.x);
+            FightNormaliseExe(&direction); // 0x59C910
+            if (!victim->IsAlive()) { // 0x5E0170
+                const uint32 zero = 0;
+                std::memcpy(&direction.x, &zero, sizeof(float));
+                std::memcpy(&direction.y, &zero, sizeof(float));
+                std::memcpy(&direction.z, &FightHitPedDeadDirZ, sizeof(float));
+            }
+            int32 amount = 8;
+            const uint8 comboBlood = static_cast<uint8>(m_nComboSet);
+            if (comboBlood >= 8 && comboBlood <= 12) {
+                amount = 0x10;
+                if (victim->IsAlive()) {
+                    FightHitPed75ScaleCpp(&direction.x);
+                }
+            }
+            CVector bloodPos;
+            std::memcpy(&bloodPos, bloodBits, sizeof(bloodBits));
+            g_fx.AddBlood(bloodPos, direction, amount, victim->m_fContactSurfaceBrightness); // 0x49EB00
+        }
+    }
+    return damaged ? victim : nullptr;
+}
+
 // 0x6240B0 (ret 8): golpe de melee de `ped` en `posn` (puede desplazarla). Recorre 16 peds cercanos, 16 vehiculos cercanos y los objetos que encuentra FindObjectsInRange.
 void CTaskSimpleFight::FightStrike(CPed* ped, CVector& posn) {
     bool noPedHit = true; // byte [esp+13h]
@@ -1016,7 +1171,7 @@ void CTaskSimpleFight::FightStrike(CPed* ped, CVector& posn) {
                     }
                 }
                 if (hit) {
-                    if (CPed* const struck = FightHitPedExe(this, ped, pedCandidate, &posn, &sphereDirection, 3)) {
+                    if (CPed* const struck = FightHitPed(ped, pedCandidate, posn, sphereDirection, 3)) {
                         hitPed = struck;
                     }
                     noPedHit = false;
@@ -1081,6 +1236,7 @@ void CTaskSimpleFight::InjectHooks() {
     RH_ScopedInstall(FightSetUpCol, 0x61D5F0);
     RH_ScopedInstall(FightHitCar, 0x61D0B0);
     RH_ScopedInstall(FightHitObj, 0x61D400);
+    RH_ScopedInstall(FightHitPed, 0x61CBA0);
     RH_ScopedInstall(FightStrike, 0x6240B0);
     RH_ScopedInstall(LoadMeleeData, 0x5BEDC0);
     RH_ScopedVMTInstall(MakeAbortable, 0x6239F0);

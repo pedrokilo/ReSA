@@ -584,7 +584,7 @@ inline void Run(int& failures) {
 // ================================================================ FightStrike (0x6240B0)
 // Colaboradores falsos (EXE y DLL): GetWeaponInfo, FindPlayerPed, BreakGlassPhysically, CPed::IsPlayer/IsAlive, FindObjectsInRange, FightSetUpCol, GetBoundCentre,
 // AnimatePedColModelSkinnedWorld, AllocateMatrix, CSimpleTransform::UpdateMatrix, CEntity::GetColModel, ProcessColModels, FightHitCar, GetEventGlobalGroup,
-// CEventGroup::Add, RpAnimBlendClumpGetAssociation, RegisterReference/CleanUpOldReference; y solo en el EXE FightHitPed (0x61CBA0); FightHitObj (0x61D400) desde el lote 72 va en EXE y DLL.
+// CEventGroup::Add, RpAnimBlendClumpGetAssociation, RegisterReference/CleanUpOldReference; FightHitPed (0x61CBA0, desde el lote 75) y FightHitObj (0x61D400, desde el lote 72) van en EXE y DLL.
 // Corren de verdad: CMatrix (copia, SetTranslateOnly, destructor) y CEventSoundQuiet (constructor/destructor, que usan los falsos de referencias).
 namespace Strike {
 inline constexpr int N = 16;
@@ -1008,7 +1008,7 @@ inline void Run(int& failures) {
     const auto savedPoints = Snapshot(reinterpret_cast<void*>(0xB9ACD0), 0x2C);
     for (int k = 0; k < 8; ++k) { savedModelPtr[k] = CModelInfo::ms_modelInfoPtrs[modelSlot[k]]; CModelInfo::ms_modelInfoPtrs[modelSlot[k]] = reinterpret_cast<CBaseModelInfo*>(modelInfos[k].data()); }
     {
-        FakeExe hitPed(0x61CBA0, FakeHitPed);
+        Fake hitPed(0x61CBA0, Addr(&CTaskSimpleFight::FightHitPed), FakeHitPed); // 2026-10-27: FightHitPed ya esta reconstruida y con hook (lote 75): el falso tambien va en el cuerpo de la DLL
         Fake hitObj(0x61D400, Addr(&CTaskSimpleFight::FightHitObj), FakeHitObj); // 2026-10-26: FightHitObj ya esta reconstruida y con hook (lote 72): el falso tambien va en el cuerpo de la DLL
         Fake hitCar(0x61D0B0, Addr(&CTaskSimpleFight::FightHitCar), FakeHitCar);
         Fake setup(0x61D5F0, Addr(&CTaskSimpleFight::FightSetUpCol), FakeSetUp);

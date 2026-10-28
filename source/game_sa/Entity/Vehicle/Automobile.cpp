@@ -7984,30 +7984,21 @@ void CAutomobile::Render() {
     if (static_cast<int16>(m_nModelIndex) == MODEL_RHINO) {
         // 6A2C35..6A2E86: orugas del Rhino. Las 8 lineas de colision 4..11 (suspension) mueven el nodo 7 (las 4 primeras) o el nodo 4
         const auto* const colData = GetColModel()->m_pColData; // 0x535300 y +0x2C
-        const auto RawFloat = [this](size_t offset) { return *reinterpret_cast<const float*>(reinterpret_cast<const uint8*>(this) + offset); };
-        const float tracks[8]{RawFloat(0x618), RawFloat(0x61C), RawFloat(0x624), RawFloat(0x628), RawFloat(0x630), RawFloat(0x634), RawFloat(0x63C), RawFloat(0x640)};
+        // Las 8 posiciones de oruga se copian a la pila al entrar (0x6A2C41..0x6A2C91) como dwords; el resto de la aritmetica va en AutoRender75RhinoMoveCpp (x87 a 24 bits con exponente extendido)
+        float tracks[8];
+        for (size_t i = 0; i < 8; i++) {
+            static constexpr size_t offsets[8]{0x618, 0x61C, 0x624, 0x628, 0x630, 0x634, 0x63C, 0x640};
+            std::memcpy(&tracks[i], reinterpret_cast<const uint8*>(this) + offsets[i], sizeof(float));
+        }
         for (int32 i = 0; i < 8; i++) {
-            const float ratio = (m_aSuspensionLineLength[0] - m_aSuspensionSpringLength[0]) / m_aSuspensionLineLength[0]; // 888h, 878h
-            float       v     = tracks[i] - ratio;
-            if (0.0f > v) { // fcomp 0.0 + test ah,41h: solo sustituye si v < 0 (con NaN se queda)
-                v = 0.0f;
-            }
-            const float  u    = 1.0f - v;
-            const auto*  line = reinterpret_cast<const float*>(reinterpret_cast<const uint8*>(colData->m_pLines) + 0x80 + i * 0x20); // inicio en +0, fin en +0x10
-            const float  sx   = u * line[0];
-            const float  sy   = u * line[1];
-            const float  ez   = v * line[6];
-            const float  x    = v * line[4] + sx;
-            const float  y    = v * line[5] + sy;
-            const float  z    = ez + u * line[2];
+            const auto* line = reinterpret_cast<const float*>(reinterpret_cast<const uint8*>(colData->m_pLines) + 0x80 + i * 0x20); // inicio en +0, fin en +0x10
             RwFrame* const node = i < 4 ? m_aCarNodes[CAR_WHEEL_LB] : m_aCarNodes[CAR_WHEEL_RB]; // [esi+664h] / [esi+658h]
-            RwV3d move{x - node->modelling.pos.x, y - node->modelling.pos.y, z - node->modelling.pos.z};
+            RwV3d move;
+            AutoRender75RhinoMoveCpp(&tracks[i], &m_aSuspensionLineLength[0], &m_aSuspensionSpringLength[0], line, &node->modelling.pos.x, &move.x); // 0x6A2CA1..0x6A2D75; 888h, 878h
             RwMatrixTranslate(&node->modelling, &move, rwCOMBINEPOSTCONCAT);
             RwFrameUpdateObjects(node);
             RenderFirstAtomic(i < 4 ? m_aCarNodes[CAR_WHEEL_LB] : m_aCarNodes[CAR_WHEEL_RB]);
-            move.x = move.x * -1.0f; // 0x858C1C
-            move.y = move.y * -1.0f;
-            move.z = move.z * -1.0f;
+            AutoRender75NegateCpp(&move.x); // 0x858C1C
             RwMatrixTranslate(&(i < 4 ? m_aCarNodes[CAR_WHEEL_LB] : m_aCarNodes[CAR_WHEEL_RB])->modelling, &move, rwCOMBINEPOSTCONCAT);
         }
     }

@@ -18,7 +18,7 @@ EXPECTED = {n: 4096 for n in NAMES}
 GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh_restored', 'route_ok', 'collaborators_dll', 'globals_restored', 'floating_state_restored')
 HOOKS = {NAMES[0]: 0x42FC40, NAMES[1]: 0x42B470}
 STUBBED = {
-    NAMES[0]: [(0x42BD20, False), (0x56E010, True), (0x4515D0, True), (0x42B470, False), (0x41B950, True)],
+    NAMES[0]: [(0x42BD20, True), (0x56E010, True), (0x4515D0, True), (0x42B470, False), (0x41B950, True)],
     NAMES[1]: [(0x821B11, False), (0x417610, True)],
 }
 WATCHED = {a for lst in STUBBED.values() for a, _ in lst}

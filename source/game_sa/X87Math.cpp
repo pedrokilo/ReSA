@@ -15959,3 +15959,729 @@ __declspec(noinline) void __cdecl HeliSwat74WorldPosCpp(const float* matrixIn, c
     }
 }
 #pragma float_control(pop)
+
+// --- Lote 75 (HeliFly75 / HeliPre75): CHeli::ProcessFlyingCarStuff (0x6C4E60) y CHeli::PreRender (0x6C5420), prefijo Heli75 ---
+// Pila x87 del EXE (24 bits con exponente extendido): cada operacion pasa por una variable volatile double (con 24 bits de mantisa el valor cabe exacto) para que el compilador no reasocie ni reordene.
+// Los NaN siguen las reglas de la x87 con las funciones del lote 73 (HeatFire73Op): un solo NaN, el NaN silenciado; dos, el de mayor mantisa; ninguno pero operacion invalida, el indefinido 0xFFC00000.
+// Un operando cargado con fld llega silenciado (Reg); uno de memoria de una instruccion aritmetica conserva su bit de señal (Mem).
+#pragma float_control(precise, on, push)
+namespace {
+HeatFire73Nan Heli75Reg(const float& f) {   // por referencia: un float por valor pasaria por un fld/fstp que silencia los sNaN
+    uint32_t b;
+    memcpy(&b, &f, 4);
+    return HeatFire73Raw(b, true);
+}
+HeatFire73Nan Heli75Mem(const float& f) {
+    uint32_t b;
+    memcpy(&b, &f, 4);
+    return HeatFire73Raw(b, false);
+}
+HeatFire73Nan Heli75Op(const volatile double& result, HeatFire73Nan dest, HeatFire73Nan src) {
+    return HeatFire73Op(HeatFire73NanD(&result), dest, src);
+}
+// fstp dword: el valor redondeado a float, o la carga del NaN que dejo la cadena de operaciones
+void Heli75Store(float* dst, const volatile double& value, const HeatFire73Nan& n) {
+    if (HeatFire73NanD(&value)) {
+        const uint32_t b = n.nan ? n.bits : 0xFFC00000u;
+        memcpy(dst, &b, 4);
+        return;
+    }
+    *dst = (float)(double)value;
+}
+}
+
+// 0x6C4EBD..0x6C4EE4: f = paso * k (sin guardar); con f < rotor: rotor = float(rotor - f) y devuelve true; si no, rotor = +0 y devuelve false.
+__declspec(noinline) bool __cdecl Heli75DecayCpp(float step, float k, float* rotor) {
+    volatile double f = (double)step;
+    f = f * k;
+    const volatile float* const r = rotor;
+    if ((double)f < (double)*r) {
+        volatile double d = (double)*r;
+        d = d - f;
+        *rotor = (float)(double)d;
+        return true;
+    }
+    *rotor = 0.0f;
+    return false;
+}
+
+// 0x6C5261..0x6C52B7: d = camara - helicoptero (cada diferencia guardada como float); dist2 = (dx*dx + dy*dy) + dz*dz sin guardar (dx*dx usa el dx sin guardar por el dx guardado) y guardada como float.
+// out = {dx, dy, dz, dist2}; devuelve dist2 < 400.0 comparada sin redondear.
+__declspec(noinline) bool __cdecl Heli75NearCpp(const float* heliPos, const float* camPos, float* out) {
+    const volatile float* const h = heliPos;
+    const volatile float* const c = camPos;
+    volatile double dz = (double)c[2];
+    dz = dz - h[2];
+    out[2] = (float)(double)dz;
+    volatile double dy = (double)c[1];
+    dy = dy - h[1];
+    out[1] = (float)(double)dy;
+    volatile double dx = (double)c[0];
+    dx = dx - h[0];
+    out[0] = (float)(double)dx;
+    volatile double xx = (double)dx;
+    xx = xx * out[0];
+    volatile double yy = (double)out[1];
+    yy = yy * out[1];
+    volatile double s1 = (double)xx + (double)yy;
+    volatile double zz = (double)out[2];
+    zz = zz * out[2];
+    volatile double s2 = (double)s1 + (double)zz;
+    out[3] = (float)(double)s2;
+    return (double)s2 < 400.0;
+}
+
+// 0x6C5342..0x6C53BD: r = Multiply3x3(matriz, axis) con el orden de sumas del EXE (cada componente guardada como float); d = sqrt(dist2 guardada), con minimo 0.01; inv = 1/d;
+// X = dx*inv, Y = inv*dy, Z = inv*dz (sin guardar); dot = (r.z*Z + r.y*Y) + r.x*X; devuelve |dot| > 0.95. matrix = CMatrix (right 0, forward 0x10, up 0x20), d = {dx, dy, dz}.
+__declspec(noinline) bool __cdecl Heli75DotCpp(const float* matrix, const float* axis, const float* d, float dist2) {
+    const volatile float* const m = matrix;
+    const volatile float* const v = axis;
+    float r[3];
+    {
+        volatile double a = (double)m[8];
+        a = a * v[2];
+        volatile double b = (double)m[4];
+        b = b * v[1];
+        volatile double s = (double)a + (double)b;
+        volatile double c = (double)m[0];
+        c = c * v[0];
+        volatile double t = (double)s + (double)c;
+        r[0] = (float)(double)t;
+    }
+    {
+        volatile double a = (double)m[9];
+        a = a * v[2];
+        volatile double b = (double)m[1];
+        b = b * v[0];
+        volatile double s = (double)a + (double)b;
+        volatile double c = (double)m[5];
+        c = c * v[1];
+        volatile double t = (double)s + (double)c;
+        r[1] = (float)(double)t;
+    }
+    {
+        volatile double a = (double)m[10];
+        a = a * v[2];
+        volatile double b = (double)m[2];
+        b = b * v[0];
+        volatile double s = (double)a + (double)b;
+        volatile double c = (double)m[6];
+        c = c * v[1];
+        volatile double t = (double)s + (double)c;
+        r[2] = (float)(double)t;
+    }
+    volatile double root = (double)dist2;
+    root = sqrt((double)root);
+    const float kMin = std::bit_cast<float>(0x3C23D70Au);   // 0x858C58
+    volatile double dd = (double)root;
+    if ((double)kMin > (double)dd) {
+        dd = (double)kMin;
+    }
+    volatile double inv = 1.0;
+    inv = inv / (double)dd;
+    volatile double x = (double)d[0];
+    x = x * (double)inv;
+    volatile double y = (double)inv;
+    y = y * d[1];
+    volatile double z = (double)inv;
+    z = z * d[2];
+    volatile double pa = (double)r[2];
+    pa = pa * (double)z;
+    volatile double pb = (double)r[1];
+    pb = pb * (double)y;
+    volatile double sab = (double)pa + (double)pb;
+    volatile double pc = (double)r[0];
+    pc = pc * (double)x;
+    volatile double dot = (double)sab + (double)pc;
+    double a = (double)dot;
+    if (a < 0.0) {
+        a = -a;
+    }
+    return a > (double)std::bit_cast<float>(0x3F733333u);   // 0x858EF0
+}
+
+// 0x6C5524..0x6C5549: ratio = float((comp - (1 - spr/line)) / (1 - (1 - spr/line))) con la pila x87 del EXE
+__declspec(noinline) float __cdecl Heli75RatioCpp(float comp, float spr, float line) {
+    volatile double r = (double)spr;
+    r = r / line;
+    volatile double q = 1.0;
+    q = q - (double)r;
+    volatile double n = (double)comp;
+    n = n - (double)q;
+    volatile double dd = 1.0;
+    dd = dd - (double)q;
+    volatile double ratio = (double)n;
+    ratio = ratio / (double)dd;
+    const auto nR = Heli75Op(r, Heli75Reg(spr), Heli75Mem(line));
+    const auto nQ = Heli75Op(q, nR, HeatFire73Nan{});
+    const auto nN = Heli75Op(n, Heli75Reg(comp), nQ);
+    const auto nD = Heli75Op(dd, HeatFire73Nan{}, nQ);
+    const auto nRatio = Heli75Op(ratio, nN, nD);
+    float out;
+    Heli75Store(&out, ratio, nRatio);
+    return out;
+}
+
+// 0x6C555A..0x6C55A6: T = (z + h) - (ratio > 0 ? ratio * spr : 0); *wp = float(T) si T > *wp o si direct; si no, float((T - *wp) * 0.75 + *wp)
+__declspec(noinline) void __cdecl Heli75WheelCpp(float ratio, float z, float h, float spr, float* wp, bool direct) {
+    volatile double t = (double)z;
+    t = t + h;
+    auto nT = Heli75Op(t, Heli75Reg(z), Heli75Mem(h));
+    if ((double)ratio > 0.0) {
+        volatile double p = (double)ratio;
+        p = p * spr;
+        const auto nP = Heli75Op(p, Heli75Reg(ratio), Heli75Mem(spr));
+        t = (double)t - (double)p;
+        nT = Heli75Op(t, nT, nP);
+    }
+    const volatile float* const w = wp;
+    if ((double)t > (double)*w || direct) {
+        Heli75Store(wp, t, nT);
+        return;
+    }
+    volatile double u = (double)t;
+    u = u - *w;
+    const auto nU = Heli75Op(u, nT, Heli75Mem(*wp));
+    volatile double v = (double)u;
+    v = v * (double)std::bit_cast<float>(0x3F400000u);   // 0x858F34
+    const auto nV = Heli75Op(v, nU, HeatFire73Nan{});
+    volatile double s = (double)v;
+    s = s + *w;
+    const auto nS = Heli75Op(s, nV, Heli75Mem(*wp));
+    Heli75Store(wp, s, nS);
+}
+
+// 0x6C562C..0x6C56E9: *a = float(*a - paso*rotor [* k]); con *a < -2pi: se suma 2pi (sin guardar) hasta que deje de ser menor
+__declspec(noinline) void __cdecl Heli75AngleACpp(float step, float rotor, bool heavy, float k, float* a) {
+    const float kLow = std::bit_cast<float>(0xC0C90FDBu);   // 0x863234
+    const float kTwoPi = std::bit_cast<float>(0x40C90FDBu); // 0x858CBC
+    volatile double p = (double)step;
+    p = p * rotor;
+    auto nP = Heli75Op(p, Heli75Reg(step), Heli75Mem(rotor));
+    if (heavy) {
+        p = (double)p * k;
+        nP = Heli75Op(p, nP, HeatFire73Nan{});
+    }
+    const volatile float* const av = a;
+    volatile double s = (double)*av;
+    s = s - (double)p;
+    const auto nS = Heli75Op(s, nP, Heli75Mem(*a));
+    Heli75Store(a, s, nS);
+    if ((double)*av < (double)kLow) {
+        volatile double x = (double)*av;
+        do {
+            x = x + kTwoPi;
+        } while ((double)x < (double)kLow);
+        *a = (float)(double)x;
+    }
+}
+
+// 0x6C568A..0x6C56E9: *a = float(*a - paso*rotor * 2.3) (o paso*rotor sumado a si mismo con twice); con *a > 2pi: se resta 2pi (sin guardar) hasta que deje de ser mayor
+__declspec(noinline) void __cdecl Heli75AngleBCpp(float step, float rotor, bool twice, float* a) {
+    const float kTwoPi = std::bit_cast<float>(0x40C90FDBu);   // 0x858CBC
+    volatile double p = (double)step;
+    p = p * rotor;
+    auto nP = Heli75Op(p, Heli75Reg(step), Heli75Mem(rotor));
+    if (twice) {
+        p = (double)p + (double)p;
+        nP = Heli75Op(p, nP, nP);
+    } else {
+        p = (double)p * std::bit_cast<float>(0x40133333u);   // 0x858F54
+        nP = Heli75Op(p, nP, HeatFire73Nan{});
+    }
+    const volatile float* const av = a;
+    volatile double s = (double)*av;
+    s = s - (double)p;
+    const auto nS = Heli75Op(s, nP, Heli75Mem(*a));
+    Heli75Store(a, s, nS);
+    if ((double)*av > (double)kTwoPi) {
+        volatile double x = (double)*av;
+        do {
+            x = x - kTwoPi;
+        } while ((double)x > (double)kTwoPi);
+        *a = (float)(double)x;
+    }
+}
+
+// 0x6C5729..0x6C5751 (y gemelos): pos[i] = float(pos[i] + saved[i]) componente a componente
+__declspec(noinline) void __cdecl Heli75AddPosCpp(float* pos, const float* saved) {
+    for (int i = 0; i < 3; ++i) {
+        volatile double s = (double)pos[i];
+        s = s + saved[i];
+        const auto n = Heli75Op(s, Heli75Reg(pos[i]), Heli75Mem(saved[i]));
+        Heli75Store(&pos[i], s, n);
+    }
+}
+#pragma float_control(pop)
+
+// --- Lote 75 (CarWeave75): CCarCtrl::FindAngleToWeaveThroughTraffic (0x4325C0) ---
+// Aritmetica x87 del EXE (24 bits con exponente extendido): cada operacion pasa por variables volatile double (con 24 bits de mantisa el valor cabe exacto); las magnitudes que el EXE guarda como float van en float.
+// NaN en los limites: reglas de la x87 con las funciones del lote 73/74 (HeatFire73Op / Cross74*).
+#pragma float_control(precise, on, push)
+namespace {
+// floor (0x8219F0) + _ftol2 (0x821B40): palabra baja del entero de 64 bits; NaN, infinito o |v| >= 2^63 -> 0x8000000000000000 (palabra baja 0), descartados por el exponente.
+int Weave75FloorFtol(double v) {
+    unsigned long long bits;
+    memcpy(&bits, &v, 8);
+    if (((bits >> 52) & 0x7FF) >= 0x43E) {
+        return 0;
+    }
+    long long truncated = static_cast<long long>(v);
+    if (static_cast<double>(truncated) > v) {
+        --truncated;
+    }
+    return static_cast<int>(truncated);
+}
+// fld limite; fmul 0.02; fadd 60.0; fst dword; fstp qword -> floor -> _ftol2. first = con el valor del registro, second = con el float guardado (el EXE repite la conversion con el float de memoria).
+void Weave75Sector(float stored, int& first, int& second) {
+    volatile double p = static_cast<double>(stored);
+    p = p * static_cast<double>(std::bit_cast<float>(0x3CA3D70Au));   // 0x858B38 = 0.02f
+    p = p + 60.0;                                                       // 0x858B34
+    volatile float f = static_cast<float>(static_cast<double>(p));
+    first = Weave75FloorFtol(static_cast<double>(p));
+    second = Weave75FloorFtol(static_cast<double>(static_cast<float>(f)));
+}
+}
+
+__declspec(noinline) void __cdecl Weave75BoundsCpp(const unsigned char* vehicle, float scale, Weave75Bounds* out) {
+    const volatile float* const speed = reinterpret_cast<const volatile float*>(vehicle + 0x44);
+    volatile double vx = static_cast<double>(speed[0]);
+    volatile double vy = static_cast<double>(speed[1]);
+    volatile double xx = vx;
+    xx = xx * vx;
+    volatile double yy = vy;
+    yy = yy * vy;
+    volatile double sum = xx;
+    sum = sum + yy;
+    volatile double root = sqrt(static_cast<double>(sum));
+    volatile double t = root;
+    t = t * 2.5;   // 0x858FA0
+    t = t + 1.0;   // 0x858624
+    double tv = t;
+    if (!(tv < 2.0)) {   // fcom 2.0 (0x858CA0): con NaN o >= 2 se carga 2.0
+        tv = 2.0;
+    }
+    uint32_t scaleBits;
+    memcpy(&scaleBits, &scale, 4);
+    Cross74V tr;
+    tr.d = tv;
+    tr = Cross74Mul(tr, Cross74Load(scaleBits, false));
+    tr = Cross74Mul(tr, Cross74Load(0x41400000u, false));   // 0x858CCC = 12.0
+    const volatile float* const pos = CarLink74Pos(vehicle);
+    const uint32_t px = *reinterpret_cast<const volatile uint32_t*>(&pos[0]);
+    const uint32_t py = *reinterpret_cast<const volatile uint32_t*>(&pos[1]);
+    out->xminBits = Cross74Store(Cross74Sub(Cross74Load(px, true), tr));
+    out->xmaxBits = Cross74Store(Cross74Add(tr, Cross74Load(px, false)));
+    out->yminBits = Cross74Store(Cross74Sub(Cross74Load(py, true), tr));
+    out->ymaxBits = Cross74Store(Cross74Add(tr, Cross74Load(py, false)));
+    int first, second;
+    Weave75Sector(std::bit_cast<float>(out->xminBits), first, second);
+    out->minX = first <= 0 ? 0 : second;
+    Weave75Sector(std::bit_cast<float>(out->yminBits), first, second);
+    out->minY = first <= 0 ? 0 : second;
+    Weave75Sector(std::bit_cast<float>(out->xmaxBits), first, second);
+    out->maxX = first >= 0x77 ? 0x77 : second;
+    Weave75Sector(std::bit_cast<float>(out->ymaxBits), first, second);
+    out->maxY = first >= 0x77 ? 0x77 : second;
+}
+
+__declspec(noinline) bool __cdecl Weave75StableCpp(float prev50, float cur50, float prev40, float cur40) {
+    const volatile float a = prev50, b = cur50, c = prev40, d = cur40;
+    return static_cast<double>(a) == static_cast<double>(b) && static_cast<double>(c) == static_cast<double>(d);
+}
+
+__declspec(noinline) float __cdecl Weave75FinalCpp(float arg3, float arg4, float slot50, float slot40) {
+    constexpr double kPi = std::bit_cast<float>(0x40490FDBu);       // 0x858CB8
+    constexpr double kTwoPi = std::bit_cast<float>(0x40C90FDBu);    // 0x858CBC
+    constexpr double kNegPi = std::bit_cast<float>(0xC0490FDBu);    // 0x858CC0
+    constexpr double kHalfPi = std::bit_cast<float>(0x3FC90FDBu);   // 0x858FE4
+    constexpr double kTol = std::bit_cast<float>(0x3DA3D70Au);      // 0x859018 = 0.08f
+    volatile float t = arg3;
+    volatile float h = arg4;
+    volatile float s50 = slot50;
+    volatile float s40 = slot40;
+    // diferencia de rumbos H - T, a [-pi, pi]
+    volatile double x = static_cast<double>(h);
+    x = x - static_cast<double>(t);
+    while (x < kNegPi) {
+        x = x + kTwoPi;
+    }
+    while (x > kPi) {
+        x = x - kTwoPi;
+    }
+    // rumbo intermedio v = x * 0.5 + T, A = float(v) (guardado), v tambien a [-pi, pi]
+    volatile double v = x;
+    v = v * 0.5;   // 0x858B8C
+    v = v + static_cast<double>(t);
+    volatile float a = static_cast<float>(static_cast<double>(v));
+    if (v < kNegPi) {
+        do {
+            v = v + kTwoPi;
+        } while (v < kNegPi);
+        a = static_cast<float>(static_cast<double>(v));
+    }
+    if (v > kPi) {
+        do {
+            v = v - kTwoPi;
+        } while (v > kPi);
+        a = static_cast<float>(static_cast<double>(v));
+    }
+    // errores de los dos barridos respecto a v (registro) y A (float guardado), normalizados y en valor absoluto
+    volatile double w1 = static_cast<double>(s50);
+    w1 = w1 - v;
+    volatile double w2 = static_cast<double>(s40);
+    w2 = w2 - static_cast<double>(a);
+    while (w1 < kNegPi) {
+        w1 = w1 + kTwoPi;
+    }
+    while (w1 > kPi) {
+        w1 = w1 - kTwoPi;
+    }
+    if (w1 < 0.0) {
+        w1 = -w1;
+    }
+    while (w2 < kNegPi) {
+        w2 = w2 + kTwoPi;
+    }
+    while (w2 > kPi) {
+        w2 = w2 - kTwoPi;
+    }
+    if (w2 < 0.0) {
+        w2 = -w2;
+    }
+    if (w1 > kHalfPi && w2 > kHalfPi) {
+        return a;
+    }
+    volatile double d = w1;
+    d = d - w2;
+    if (d < 0.0) {
+        d = -d;
+    }
+    if (d < kTol) {
+        return s40;
+    }
+    return w1 < w2 ? s50 : s40;
+}
+#pragma float_control(pop)
+
+// --- Lote 75 (CarNodes75): CCarCtrl::FindNodesThisCarIsNearestTo (0x42BD20) ---
+// Aritmetica x87 del EXE (24 bits con exponente extendido): cada operacion pasa por variables volatile double (con 24 bits de mantisa el valor cabe exacto). Los NaN no se propagan a ninguna salida
+// (solo se comparan con orden, y un NaN nunca cumple), asi que no hace falta emularlos.
+#pragma float_control(precise, on, push)
+__declspec(noinline) void __cdecl Nodes75RegionCpp(float posX, float posY, float xCoord, float yCoord, int regionX, int regionY, Nodes75Region* out) {
+    volatile double tx = static_cast<double>(posX);
+    tx = tx - static_cast<double>(xCoord);   // fsubr: pos.x - coordenada
+    volatile float dxr = static_cast<float>(static_cast<double>(tx));
+    volatile double dyr = static_cast<double>(posY);
+    dyr = dyr - static_cast<double>(yCoord);
+    int lowX = regionX, lowY = regionY, highX = regionX, highY = regionY;
+    if (static_cast<double>(dxr) < 200.0) {
+        lowX = static_cast<int>(static_cast<unsigned>(regionX) - 1u);
+    }
+    if (static_cast<double>(dyr) < 200.0) {
+        lowY = static_cast<int>(static_cast<unsigned>(regionY) - 1u);
+    }
+    if (static_cast<double>(dxr) > 550.0) {
+        highX = static_cast<int>(static_cast<unsigned>(regionX) + 1u);
+    }
+    if (static_cast<double>(dyr) > 550.0) {
+        highY = static_cast<int>(static_cast<unsigned>(regionY) + 1u);
+    }
+    out->minX = lowX < 0 ? 0 : lowX;
+    out->minY = lowY < 0 ? 0 : lowY;
+    out->maxX = highX > 7 ? 7 : highX;
+    out->maxY = highY > 7 ? 7 : highY;
+}
+
+__declspec(noinline) bool __cdecl Nodes75InRangeCpp(const float* position, int nodeX, int nodeY, int nodeZ) {
+    const volatile float* const pos = position;
+    volatile double nx = static_cast<double>(nodeX);
+    nx = nx * 0.125;
+    volatile double ny = static_cast<double>(nodeY);
+    ny = ny * 0.125;
+    volatile double nz = static_cast<double>(nodeZ);
+    nz = nz * 0.125;
+    volatile double tdx = nx;
+    tdx = tdx - static_cast<double>(pos[0]);
+    volatile float dx = static_cast<float>(static_cast<double>(tdx));
+    volatile double dy = ny;
+    dy = dy - static_cast<double>(pos[1]);
+    volatile double dz = nz;
+    dz = dz - static_cast<double>(pos[2]);
+    volatile double zz = dz;
+    zz = zz * static_cast<double>(dz);
+    volatile double yy = dy;
+    yy = yy * static_cast<double>(dy);
+    volatile double sum = zz;
+    sum = sum + static_cast<double>(yy);
+    volatile double xx = static_cast<double>(dx);
+    xx = xx * static_cast<double>(dx);
+    sum = sum + static_cast<double>(xx);
+    volatile double dist = sqrt(static_cast<double>(sum));
+    return static_cast<double>(dist) < 150.0;
+}
+
+__declspec(noinline) float __cdecl Nodes75Z3Cpp(float z) {
+    volatile double r = static_cast<double>(z);
+    r = r * 3.0;
+    return static_cast<float>(static_cast<double>(r));
+}
+
+__declspec(noinline) bool __cdecl Nodes75ScoreCpp(const float* normal, const float* forward, float distance, float* best) {
+    const volatile float* const n = normal;
+    const volatile float* const f = forward;
+    volatile double pz = static_cast<double>(n[2]);
+    pz = pz * static_cast<double>(f[2]);
+    volatile double py = static_cast<double>(n[1]);
+    py = py * static_cast<double>(f[1]);
+    volatile double sum = pz;
+    sum = sum + static_cast<double>(py);
+    volatile double px = static_cast<double>(n[0]);
+    px = px * static_cast<double>(f[0]);
+    sum = sum + static_cast<double>(px);
+    volatile double score = 1.0;
+    score = score - static_cast<double>(sum);
+    score = score * 5.0;
+    score = score + static_cast<double>(distance);
+    if (static_cast<double>(score) < static_cast<double>(*best)) {
+        *best = static_cast<float>(static_cast<double>(score));
+        return true;
+    }
+    return false;
+}
+#pragma float_control(pop)
+
+// --- Lote 75 (CarPolice75 / CarConvoy75): CCarCtrl::CreatePoliceChase (0x42C2B0) y CCarCtrl::CreateConvoy (0x42C740) ---
+// Aritmetica x87 del EXE (24 bits con exponente extendido). Las magnitudes que el EXE deja en un registro van en volatile double (con 24 bits de mantisa el valor cabe exacto); las que guarda como float, en volatile float.
+// Los floats se leen siempre de una palabra en memoria (nunca pasan por un float de la pila, que el compilador cargaria con fld y silenciaria un NaN de señal). Los NaN siguen las reglas de la x87 con las funciones del
+// lote 73 (HeatFire73Op): un solo NaN, ese NaN silenciado; un NaN de señal en memoria frente a uno en registro, el del registro; dos, el de mayor mantisa; ninguno pero operacion invalida, el indefinido 0xFFC00000.
+#pragma float_control(precise, on, push)
+namespace {
+struct Car75Word {
+    volatile uint32_t w;
+    explicit Car75Word(uint32_t bits) : w(bits) {}
+    const volatile float& f() const { return *reinterpret_cast<const volatile float*>(&w); }
+};
+uint32_t Car75Bits(const volatile float& v) { return *reinterpret_cast<const volatile uint32_t*>(&v); }
+// Adelante de un CPlaceable (0x41CCB0): fila +0x10 de la matriz (+0x14) copiada en crudo o (-sen(rumbo), cos(rumbo), 0) del rumbo de la posicion compacta (+0x10)
+void Car75Forward(const unsigned char* placeable, uint32_t* out) {
+    const unsigned char* const matrix = *reinterpret_cast<const unsigned char* const volatile*>(placeable + 0x14);
+    if (matrix) {
+        const uint32_t* const row = reinterpret_cast<const uint32_t*>(matrix + 0x10);
+        out[0] = row[0];
+        out[1] = row[1];
+        out[2] = row[2];
+        return;
+    }
+    const float heading = *reinterpret_cast<const volatile float*>(placeable + 0x10);
+    const float sine = TrigSimpleSinCpp(heading);
+    const float cosine = TrigSimpleCosCpp(heading);
+    volatile float x = -sine;
+    volatile float y = cosine;
+    out[0] = Car75Bits(x);
+    out[1] = Car75Bits(y);
+    out[2] = 0;
+}
+}
+
+__declspec(noinline) uint32_t __cdecl Car75GroundSumCpp(uint32_t distBits, uint32_t groundBits) {
+    const Car75Word dist(distBits), ground(groundBits);
+    volatile double sum = static_cast<double>(dist.f());
+    sum = sum + static_cast<double>(ground.f());
+    volatile float out = static_cast<float>(sum);
+    uint32_t bits = Car75Bits(out);
+    if (HeatFire73NanF(&out)) {
+        bits = HeatFire73Op(true, HeatFire73Raw(distBits, true), HeatFire73Raw(groundBits, false)).bits;   // ST0 = distancia (cargada), operando de memoria = suelo
+    }
+    return bits;
+}
+
+__declspec(noinline) bool __cdecl Car75NearerGroundCpp(uint32_t hitBits, uint32_t groundBits, uint32_t pointZBits) {
+    const Car75Word hit(hitBits), ground(groundBits), pointZ(pointZBits);
+    volatile double first = static_cast<double>(hit.f());
+    first = first - static_cast<double>(pointZ.f());
+    if (first < 0.0) {
+        first = -first;
+    }
+    volatile double second = static_cast<double>(ground.f());
+    second = second - static_cast<double>(pointZ.f());
+    if (second < 0.0) {
+        second = -second;
+    }
+    return first < second;
+}
+
+__declspec(noinline) void __cdecl CarPolice75MoveCpp(const unsigned char* vehicle, int scale, uint32_t* out) {
+    uint32_t forward[3];
+    Car75Forward(vehicle, forward);
+    constexpr float kStep = std::bit_cast<float>(0x3CA3D70Au);   // 0x858B38 = 0.02f
+    volatile float factor = static_cast<float>(scale);
+    volatile float step = kStep;
+    for (int i = 2; i >= 0; --i) {
+        const Car75Word component(forward[i]);
+        volatile float scaled = factor * component.f();
+        volatile float moved = step * scaled;
+        out[i] = Car75Bits(moved);
+    }
+}
+
+__declspec(noinline) void __cdecl CarConvoy75MoveCpp(const unsigned char* vehicle, int cruise, uint32_t* out) {
+    uint32_t forward[3];
+    Car75Forward(vehicle, forward);
+    constexpr float kStep = std::bit_cast<float>(0x3CA3D70Au);   // 0x858B38 = 0.02f
+    volatile float factor = static_cast<float>(cruise);
+    volatile float step = kStep;
+    const Car75Word fz(forward[2]), fy(forward[1]), fx(forward[0]);
+    volatile double z = static_cast<double>(factor);
+    z = z * static_cast<double>(fz.f());     // el producto en z se queda en el registro
+    z = z * static_cast<double>(step);
+    volatile float ay = factor * fy.f();     // x e y se guardan como float antes de escalar
+    volatile float ax = factor * fx.f();
+    volatile float y = ay * step;
+    volatile float x = ax * step;
+    volatile float zf = static_cast<float>(z);
+    out[0] = Car75Bits(x);
+    out[1] = Car75Bits(y);
+    out[2] = Car75Bits(zf);
+}
+
+__declspec(noinline) void __cdecl CarConvoy75PointCpp(const uint32_t* fwd, int k, uint32_t radiusBits, const uint32_t* pos, uint32_t* out) {
+    const Car75Word m10(fwd[0]), m14(fwd[1]), m18(fwd[2]), radius(radiusBits), px(pos[0]), py(pos[1]), pz(pos[2]);
+    volatile double kd = static_cast<double>(k);
+    volatile double a = kd;
+    a = a * static_cast<double>(m18.f());          // A = k * m18 (en el registro)
+    volatile float b = static_cast<float>(static_cast<double>(kd) * static_cast<double>(m14.f()));   // guardados como float
+    volatile float c = static_cast<float>(static_cast<double>(kd) * static_cast<double>(m10.f()));
+    volatile double t2 = static_cast<double>(radius.f());
+    t2 = t2 + t2;
+    t2 = t2 + 2.5;                                  // 0x858FA0
+    volatile float t = static_cast<float>(t2);
+    volatile double at = a;
+    at = at * static_cast<double>(t);              // A * T (en el registro)
+    volatile double zp = static_cast<double>(pz.f());
+    zp = zp - at;                                   // fsubr [pos.z]
+    volatile float bt = static_cast<float>(static_cast<double>(b) * static_cast<double>(t));
+    volatile double yp = static_cast<double>(py.f());
+    yp = yp - static_cast<double>(bt);
+    volatile float ct = static_cast<float>(static_cast<double>(c) * static_cast<double>(t));
+    volatile double xp = static_cast<double>(px.f());
+    xp = xp - static_cast<double>(ct);
+    volatile float xo = static_cast<float>(xp);
+    volatile float yo = static_cast<float>(yp);
+    volatile float zo = static_cast<float>(zp);
+    out[0] = Car75Bits(xo);
+    out[1] = Car75Bits(yo);
+    out[2] = Car75Bits(zo);
+
+    // NaN: solo si alguna salida lo es se recalcula su carga con las reglas de la x87
+    if (!(HeatFire73NanF(&xo) || HeatFire73NanF(&yo) || HeatFire73NanF(&zo))) {
+        return;
+    }
+    const HeatFire73Nan none{};
+    const auto nA = HeatFire73Op(HeatFire73NanD(&a), none, HeatFire73Raw(fwd[2], false));
+    const auto nB = HeatFire73Op(HeatFire73NanF(&b), none, HeatFire73Raw(fwd[1], false));
+    const auto nC = HeatFire73Op(HeatFire73NanF(&c), none, HeatFire73Raw(fwd[0], false));
+    const auto nT = HeatFire73Op(HeatFire73NanF(&t), HeatFire73Raw(radiusBits, true), none);
+    const auto nAT = HeatFire73Op(HeatFire73NanD(&at), nA, nT);
+    const auto nZ = HeatFire73Op(HeatFire73NanD(&zp), nAT, HeatFire73Raw(pos[2], false));
+    const auto nBT = HeatFire73Op(HeatFire73NanF(&bt), nB, nT);
+    const auto nY = HeatFire73Op(HeatFire73NanD(&yp), HeatFire73Raw(pos[1], true), nBT);
+    const auto nCT = HeatFire73Op(HeatFire73NanF(&ct), nC, nT);
+    const auto nX = HeatFire73Op(HeatFire73NanD(&xp), HeatFire73Raw(pos[0], true), nCT);
+    if (nX.nan) {
+        out[0] = nX.bits;
+    }
+    if (nY.nan) {
+        out[1] = nY.bits;
+    }
+    if (nZ.nan) {
+        out[2] = nZ.bits;
+    }
+}
+
+__declspec(noinline) uint32_t __cdecl CarConvoy75SpeedCpp(uint32_t speedBits, int index) {
+    const Car75Word speed(speedBits);
+    volatile double difference = static_cast<double>(index);
+    difference = static_cast<double>(speed.f()) - difference;   // fild + fsubr [velocidad]
+    volatile float stored = static_cast<float>(difference);
+    if (difference < 0.0) {
+        return 0;
+    }
+    return Car75Bits(stored);
+}
+#pragma float_control(pop)
+
+// --- Lote 75 (FightHitPed75): CTaskSimpleFight::FightHitPed (0x61CBA0) ---
+// La x87 a 24 bits de mantisa con exponente extendido (palabra de control del juego); cada helper es __cdecl y no deja nada en la pila x87.
+#pragma float_control(precise, on, push)
+__declspec(noinline) unsigned int __cdecl FightHitPed75FtolCpp(float value) {
+    return static_cast<unsigned int>(static_cast<long long>(value));
+}
+__declspec(noinline) unsigned int __cdecl FightHitPed75LossCpp(float health) {
+    return static_cast<unsigned int>(static_cast<long long>(100.0f - health));
+}
+__declspec(noinline) unsigned int __cdecl FightHitPed75RollCpp(int randValue) {
+    const double product = (double(randValue & 0xFFFF) * 3.0517578125e-05) * 100.0;
+    return static_cast<unsigned int>(static_cast<long long>(product));
+}
+__declspec(noinline) unsigned int __cdecl FightHitPed75DelayCpp(int table) {
+    double value = double(table);
+    if (table < 0) {
+        value = value + 4294967296.0;
+    }
+    value = value * 2.799999952316284;
+    return static_cast<unsigned int>(static_cast<long long>(value));
+}
+__declspec(noinline) void __cdecl FightHitPed75DirectionCpp(const float* attacker, const float* victim, float* out) {
+    out[2] = attacker[2] - victim[2];
+    out[1] = attacker[1] - victim[1];
+    out[0] = attacker[0] - victim[0];
+}
+__declspec(noinline) void __cdecl FightHitPed75ScaleCpp(float* v) {
+    v[0] = v[0] * 1.5f;
+    v[1] = v[1] * 1.5f;
+    v[2] = v[2] * 1.5f;
+}
+#pragma float_control(pop)
+
+// --- Lote 75 (AutoRender75): CAutomobile::Render (0x6A2B10), prefijo AutoRender75 ---
+// Orugas del Rhino (0x6A2CA1..0x6A2E5E): la x87 a 24 bits con exponente extendido conserva los desnormales y los valores fuera del rango float en los registros; solo los guardados en
+// memoria (fstp dword) se redondean a float. Cada valor de registro va en un double volatile (la qword guarda exactamente un valor de 24 bits de mantisa), cada guardado en un float volatile.
+#pragma float_control(precise, on, push)
+// Un paso del bucle (indice de linea ya resuelto): ratio = (linea0 - muelle0) / linea0 (fld; fsub; fdiv, sin guardar), v = track - ratio (fsubr dword), sustituido por 0.0 solo si 0.0 > v
+// (fcomp + test ah,41h: con NaN se queda), u = 1.0 - v; sx = float(u * inicio.x), sy = float(u * inicio.y), u*inicio.z en registro, ez = float(v * fin.z), x = float(v * fin.x + sx),
+// y = float(v * fin.y + sy), z = float(ez + u * inicio.z); move = float(x,y,z - posicion del nodo). Los operandos llegan por puntero (el EXE los carga con fld dword de la memoria,
+// que silencia los NaN de señal). line: inicio xyz en +0, fin xyz en +0x10 (CColLine).
+__declspec(noinline) void __cdecl AutoRender75RhinoMoveCpp(const float* track, const float* lineLength, const float* springLength, const float* line, const float* nodePos, float* move) {
+    volatile double ratio = ((double)*lineLength - (double)*springLength) / (double)*lineLength;
+    volatile double v = (double)*track - ratio;
+    if (0.0 > v) {
+        v = 0.0;
+    }
+    volatile double u = 1.0 - v;
+    volatile float sx = (float)(u * (double)line[0]);
+    volatile float sy = (float)(u * (double)line[1]);
+    volatile double usz = u * (double)line[2];
+    volatile double vex = v * (double)line[4];
+    volatile double vey = v * (double)line[5];
+    volatile float ez = (float)(v * (double)line[6]);
+    volatile float x = (float)(vex + (double)sx);
+    volatile float y = (float)(vey + (double)sy);
+    volatile float z = (float)((double)ez + usz);
+    volatile float mx = (float)((double)x - (double)nodePos[0]);
+    volatile float my = (float)((double)y - (double)nodePos[1]);
+    volatile float mz = (float)((double)z - (double)nodePos[2]);
+    move[0] = mx;
+    move[1] = my;
+    move[2] = mz;
+}
+// 0x6A2E42..0x6A2E68: cada componente del desplazamiento por -1.0f (0x858C1C): fld dword; fmul; fstp dword.
+__declspec(noinline) void __cdecl AutoRender75NegateCpp(float* move) {
+    volatile float a = move[0] * std::bit_cast<float>(0xBF800000u);
+    volatile float b = move[1] * std::bit_cast<float>(0xBF800000u);
+    volatile float c = move[2] * std::bit_cast<float>(0xBF800000u);
+    move[0] = a;
+    move[1] = b;
+    move[2] = c;
+}
+#pragma float_control(pop)

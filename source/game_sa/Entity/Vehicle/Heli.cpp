@@ -37,6 +37,9 @@ END GENERATED HOOK STATUS */
 #include "Streaming.h"
 #include "Camera.h"
 #include "PlayerInfo.h"
+#include "Shadows.h"
+#include "WindModifiers.h"
+#include "Clock.h"
 #include "Tasks/TaskComplexSequence.h"
 #include "Tasks/TaskTypes/TaskComplexUseSwatRope.h"
 #include "Tasks/TaskTypes/TaskComplexWanderCop.h"
@@ -82,6 +85,8 @@ void CHeli::InjectHooks() {
     RH_ScopedNamedGlobalInstall(FindSwatPositionRelativeToHeliExeAbi, "FindSwatPositionRelativeToHeli", 0x6C4760);
     RH_ScopedVMTInstall(Render, 0x6C4400);
     RH_ScopedVMTInstall(BlowUpCar, 0x6C6D30);
+    RH_ScopedVMTInstall(ProcessFlyingCarStuff, 0x6C4E60);
+    RH_ScopedVMTInstall(PreRender, 0x6C5420);
     RH_ScopedVMTInstall(Fix, 0x6C4530);
     RH_ScopedVMTInstall(BurstTyre, 0x6C4330);
     RH_ScopedVMTInstall(SetUpWheelColModel, 0x6C4320);
@@ -640,16 +645,213 @@ void CHeli::SetupDamageAfterLoad() {
     vehicleFlags.bIsDamaged = false;
 }
 
-// 0x6C4E60
-// El procesamiento del modo de vuelo continúa delegado al ejecutable original.
+// Disposicion que usan ProcessFlyingCarStuff y PreRender (comprobada en compilacion)
+VALIDATE_OFFSET(CHeli, m_fLeftRightSkid, 0x98C);
+VALIDATE_OFFSET(CHeli, m_fSteeringUpDown, 0x990);
+VALIDATE_OFFSET(CHeli, m_fSteeringLeftRight, 0x994);
+VALIDATE_OFFSET(CHeli, m_fAccelerationBreakStatus, 0x998);
+VALIDATE_OFFSET(CHeli, m_fRotorZ, 0x9A0);
+VALIDATE_OFFSET(CHeli, m_fSecondRotorZ, 0x9A4);
+VALIDATE_OFFSET(CHeli, m_vecSearchLightTarget, 0x9F4);
+VALIDATE_OFFSET(CHeli, m_fSearchLightIntensity, 0xA00);
+VALIDATE_OFFSET(CHeli, m_bSearchLightEnabled, 0xA11);
+VALIDATE_OFFSET(CAutomobile, m_wheelRotation, 0x828);
+VALIDATE_OFFSET(CAutomobile, m_wheelPosition, 0x838);
+VALIDATE_OFFSET(CAutomobile, m_fPropRotate, 0x958);
+VALIDATE_OFFSET(CAutomobile, m_aSuspensionSpringLength, 0x878);
+VALIDATE_OFFSET(CAutomobile, m_aSuspensionLineLength, 0x888);
+VALIDATE_OFFSET(CAutomobile, m_fWheelsSuspensionCompression, 0x7D4);
+VALIDATE_OFFSET(CAutomobile, m_nNumContactWheels, 0x960);
+VALIDATE_OFFSET(CVehicle, m_vehicleAudio, 0x138);
+VALIDATE_OFFSET(CVehicle, m_pHandlingData, 0x384);
+VALIDATE_OFFSET(CVehicle, m_nHandlingFlagsIntValue, 0x38C);
+VALIDATE_OFFSET(RpAtomic, boundingSphere, 0x1C);
+VALIDATE_OFFSET(RpAtomic, interpolator, 0x4C);
+VALIDATE_OFFSET(RwFrame, modelling, 0x10);
+
+namespace {
+// 0x6C549B..0x6C54B6: el EXE copia dos de las tres componentes de un vector con fld/fstp, que silencia los NaN de señal; la tercera con mov (sin cambios)
+float HeliQuietNan(float value) {
+    uint32 bits = std::bit_cast<uint32>(value);
+    if ((bits & 0x7F800000u) == 0x7F800000u && (bits & 0x7FFFFFu) != 0) {
+        bits |= 0x400000u;
+    }
+    return std::bit_cast<float>(bits);
+}
+} // namespace
+
+// 0x6C4E60: thiscall virtual (ranura 68 de la vtabla 0x871680), sin argumentos, void. Con estado de jugador, roto o a distancia (ver abajo) el rotor se acelera o se frena; con rotor rapido llama a FlyingControl;
+// con rotor sobre 0.015 coloca la paleta del rotor (nodo 12) y, con jugador/roto/abandonado, registra viento y colision de aspas; por ultimo, el sonido de las aspas al cruzar la camara.
+// La aritmetica con rotor y dist2 va por Heli75*Cpp (x87 a 24 bits con exponente extendido, X87Math.cpp).
 void CHeli::ProcessFlyingCarStuff() {
-    plugin::CallMethod<0x6C4E60, CHeli*>(this);
+    const auto C = [](uint32 bits) { return std::bit_cast<float>(bits); };
+    const uint32 status = HeliField<uint8>(this, 0x36) >> 3;
+    const uint16 model = m_nModelIndex;
+    float& rotor = m_fHeliRotorSpeed; // +0x84C
+
+    if (status == 0 || status == 8 || status == 3) { // 0x6C4EF8: jugador, jugador remoto o destruido
+        if (rotor < C(0x3E6147AEu)) { // 0x8717AC
+            if (!(HeliField<uint32>(this, 0x40) & 0x100u)) {
+                const bool rc = model == 0x1D1 || model == 0x1F5;
+                rotor = rotor + C(rc ? 0x3B449BA6u : 0x3A83126Fu); // 0x859CD8 / 0x858CDC
+            }
+        }
+        if (rotor > C(0x3E19999Au)) { // 0x6C4F43: 0x858FCC
+            const bool special = (HeliField<uint32>(this, 0x40) & 0x8000000u) && (model == 0x1BF || model == 0x1A1);
+            if (HeliField<uint8>(this, 0x42C) & 0x80u) {
+                FlyingControl(static_cast<eFlightModel>(2), m_fLeftRightSkid, m_fSteeringUpDown, m_fSteeringLeftRight, m_fAccelerationBreakStatus);
+            } else {
+                const float limit = C(0x3CA3D70Au); // 0x858B38
+                if ((m_nNumContactWheels < 4 && !special) || m_fAccelerationBreakStatus > 0.0f
+                    || std::fabs(m_vecMoveSpeed.x) > limit || std::fabs(m_vecMoveSpeed.y) > limit || std::fabs(m_vecMoveSpeed.z) > limit) {
+                    FlyingControl(static_cast<eFlightModel>(6), m_fLeftRightSkid, m_fSteeringUpDown, m_fSteeringLeftRight, m_fAccelerationBreakStatus);
+                }
+            }
+        }
+    } else { // 0x6C4E93: el resto de estados
+        if (!(*reinterpret_cast<const uint32*>(reinterpret_cast<const uint8*>(m_pHandlingData) + 0xCC) & 0x2000000u)) {
+            return;
+        }
+        HeliField<uint8>(this, 0x428) &= 0xEF; // bEngineOn
+        if (Heli75DecayCpp(CTimer::GetTimeStep(), C(0x3A102DE0u), &rotor)) { // 0x8717B0
+            HeliField<uint8>(this, 0xB8) = 0;
+        }
+    }
+
+    // 0x6C501D: paleta del rotor (solo jugador, jugador remoto y destruido; los demas estados saltan a 0x6C5200)
+    if ((status == 0 || status == 8 || status == 3) && rotor > C(0x3C75C290u)) { // 0x8717A8
+        if (RwFrame* const node = m_aCarNodes[HELI_STATIC_ROTOR]) { // +0x678
+            CMatrix mat;
+            mat.Attach(&node->modelling, false); // 0x59BD10
+            RpAtomic* atomic = nullptr;
+            RwFrameForAllObjects(node, GetCurrentAtomicObjectCB, &atomic); // 0x7F1200
+            if (atomic) {
+                const float radius = RpAtomicGetBoundingSphere(atomic)->radius; // 0x7491F0 si el bit 1 de las banderas del interpolador esta puesto
+                if (radius > C(0x3DCCCCCDu)) { // 0.1
+                    float scale = 1.0f;
+                    switch (model) {
+                    case 0x1D1:
+                    case 0x1F5:
+                        scale = C(0x3F666666u);
+                        break;
+                    case 0x1D5:
+                    case 0x1BF:
+                        scale = C(0x3F4CCCCDu);
+                        break;
+                    case 0x1A9:
+                        scale = 0.5f;
+                        break;
+                    default:
+                        break;
+                    }
+                    if (status == 0 || status == 8) {
+                        DoBladeCollision(mat.GetPosition(), *m_matrix, -3, radius, scale); // 0x6E2E50; el EXE no usa el resultado
+                    }
+                }
+            }
+            const CVector& windPos = m_matrix ? m_matrix->GetPosition() : m_placement.m_vPosn;
+            if ((status == 0 || status == 3) && rotor > C(0x3BF5C290u)) { // 0x8717A4
+                const float t = rotor * C(0x40D55555u); // 0x866FBC
+                const float power = (1.0f < t) ? 1.0f : t;
+                CWindModifiers::RegisterOne(windPos, 1, power); // 0x72C8B0
+            }
+            // 0x6C51B4: el EXE compara aqui el estado con 2 (viento a potencia 1.0), pero a este punto solo llegan los estados 0, 8 y 3: no se reproduce
+        }
+    }
+
+    // 0x6C5200: sonido de las aspas al pasar por la camara (no en los RC)
+    if (model == 0x1D1 || model == 0x1F5) {
+        return;
+    }
+    if (!(rotor < C(0x3E1DB22Du)) || !(rotor > C(0x3B902DE0u))) { // 0x8717A0 / 0x87179C
+        return;
+    }
+    RwFrame* const node = m_aCarNodes[HELI_STATIC_ROTOR];
+    if (!node) {
+        return;
+    }
+    const float* const heliPos = m_matrix ? &m_matrix->GetPosition().x : &m_placement.m_vPosn.x;
+    const float* const camPos = TheCamera.m_matrix ? &TheCamera.m_matrix->GetPosition().x : &TheCamera.m_placement.m_vPosn.x;
+    float d[4]; // dx, dy, dz, dist2
+    if (!Heli75NearCpp(heliPos, camPos, d)) {
+        return;
+    }
+    if (!(std::fabs(m_fPropRotate - m_wheelRotation[1]) > C(0x3F060A92u))) { // 0x858F20
+        return;
+    }
+    CMatrix mat;
+    mat.Attach(&node->modelling, false); // 0x59BD10
+    const CVector axis = mat.GetRight();
+    if (Heli75DotCpp(&m_matrix->GetRight().x, &axis.x, d, d[3])) {
+        m_vehicleAudio.AddAudioEvent(static_cast<eAudioEvents>(0x5E), 0.0f); // 0x4F6420
+        HeliField<uint32>(this, 0x958) = HeliField<uint32>(this, 0x82C);
+    }
 }
 
-// 0x6C5420
-// La preparación del helicóptero para el dibujo continúa delegada al ejecutable original.
+// 0x6C5420: thiscall virtual (ranura 17 de la vtabla 0x871680), sin argumentos, void. CVehicle::PreRender, foco de busqueda (de noche), relaciones de la suspension de las cuatro ruedas, matrices de rueda, polvo del
+// rotor, giro de los dos rotores y colocacion de sus cuatro paletas, y sombra. Aritmetica x87 con las Heli75*Cpp de X87Math.cpp.
 void CHeli::PreRender() {
-    plugin::CallMethod<0x6C5420, CHeli*>(this);
+    const auto C = [](uint32 bits) { return std::bit_cast<float>(bits); };
+    CVehicle::PreRender(); // 0x6D6480
+    CVehicleModelInfo* const modelInfo = reinterpret_cast<CVehicleModelInfo* const*>(0xA9B0C8)[static_cast<int16>(m_nModelIndex)];
+
+    if (HeliField<uint8>(this, 0xA11) && m_fSearchLightIntensity > 0.0f && CClock::GetIsTimeInRange(19, 6)) { // 0x858B50
+        CVector target;
+        target.x = m_vecSearchLightTarget.x;                      // mov (sin cambios)
+        target.y = HeliQuietNan(m_vecSearchLightTarget.y);       // fld/fstp
+        target.z = HeliQuietNan(m_vecSearchLightTarget.z);
+        const CVector local{ 0.0f, C(0x40600000u), C(0xBE99999Au) };
+#pragma warning(push)
+#pragma warning(disable: 4996)
+        const CVector origin = *m_matrix * local; // 0x59C890
+#pragma warning(pop)
+        AddHeliSearchLight(origin, target, 20.0f, m_fSearchLightIntensity, static_cast<uint32>(reinterpret_cast<uintptr_t>(this)) + 0xBu, 1, 1);
+    }
+
+    (void)GetColModel(); // 0x535300 (el EXE no usa el resultado)
+    if (vehicleFlags.bVehicleColProcessed) { // byte 0x42B bit 0
+        DoBurstAndSoftGroundRatios(); // virtual +0xD0 (ranura 52)
+        for (int32 i = 0; i < 4; i++) {
+            const float ratio = Heli75RatioCpp(m_fWheelsSuspensionCompression[i], m_aSuspensionSpringLength[i], m_aSuspensionLineLength[i]);
+            CVector wheel;
+            modelInfo->GetWheelPosn(i, wheel, true); // 0x4C7D20
+            const float handlingValue = *reinterpret_cast<const float*>(reinterpret_cast<const uint8*>(m_pHandlingData) + 0xB8);
+            const bool direct = (HeliField<uint32>(this, 0x40) & 0x4000000u) && (HeliField<uint32>(this, 0x38C) & 0x20000u);
+            Heli75WheelCpp(ratio, wheel.z, handlingValue, m_aSuspensionSpringLength[i], &m_wheelPosition[i], direct);
+        }
+    }
+
+    UpdateWheelMatrix(4, 1); // 0x6AA290
+    UpdateWheelMatrix(7, 1);
+    UpdateWheelMatrix(2, 1);
+    UpdateWheelMatrix(5, 1);
+    const uint16 model = m_nModelIndex;
+    if (model != 0x1D1 && model != 0x1F5) {
+        DoHeliDustEffect(1.0f, 1.0f); // 0x6B0690
+    }
+
+    const bool heavy = model == 0x1D5 || model == 0x1BF || model == 0x1E7 || model == 0x1E8 || model == 0x1F1;
+    Heli75AngleACpp(CTimer::GetTimeStep(), m_fHeliRotorSpeed, heavy, StaticRef<float>(0x8D33A0), &m_fRotorZ);
+    Heli75AngleBCpp(CTimer::GetTimeStep(), m_fHeliRotorSpeed, model == 0x1A1, &m_fSecondRotorZ);
+
+    // 0x6C56E9..0x6C589D: la misma CMatrix local unida al modelling de cada paleta (nodos 12 y 13 con SetRotateZ(angulo 1), 14 y 15 con SetRotateX(angulo 2))
+    CMatrix mat;
+    for (int32 k = 0; k < 4; k++) {
+        RwFrame* const node = m_aCarNodes[HELI_STATIC_ROTOR + k]; // +0x678, +0x67C, +0x680, +0x684
+        if (!node) {
+            continue;
+        }
+        mat.Attach(&node->modelling, false); // 0x59BD10
+        const CVector saved = mat.GetPosition();
+        if (k < 2) {
+            mat.SetRotateZ(m_fRotorZ); // 0x59B0E0
+        } else {
+            mat.SetRotateX(m_fSecondRotorZ); // 0x59B060
+        }
+        Heli75AddPosCpp(&mat.GetPosition().x, &saved.x);
+        mat.UpdateRW(); // 0x59BBB0
+    }
+    CShadows::StoreShadowForVehicle(this, VEH_SHD_HELI); // 0x70BDA0
 }
 
 // 0x6C7050

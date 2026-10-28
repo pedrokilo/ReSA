@@ -1,0 +1,35 @@
+# PlayerGroup75: CPlayerPed::MakeThisPedJoinOurGroup 0x60C840 (lote 75)
+
+Estado: **APROBADO dentro del juego** (27/10/2026, worktree `D:\Original\wy-4`, HEAD 98ff78aaa + `source.patch`). 19968 pares, cero diferencias EXE/DLL, compuertas de ABI/ruta/restauracion en ambos lados y CADA lado igual al oraculo independiente (`fixture_oracle.py`).
+Evidencia final: `E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-playergroup75\20261027-160526-315819`.
+esultados-playergroup7561027-160526-315819`.
+
+| Funcion | Direccion | Hook (clase / nombre / tipo) | Fuente |
+|---|---|---|---|
+| `void CPlayerPed::MakeThisPedJoinOurGroup(CPed* ped)` (antes `plugin::CallMethod<0x60C840>`) | 0x60C840 | `CPlayerPed` / `MakeThisPedJoinOurGroup` / S (`RH_ScopedInstall`) | `Entity/Ped/PlayerPed.cpp` |
+
+Fila de `docs/hooks.csv` (la anade el coordinador): `CPlayerPed,MakeThisPedJoinOurGroup,0x0060C840,1,0,1,S`.
+
+## Que hace (desensamblado 0x60C840..0x60CC42, thiscall `ret 4`, sin valor de retorno)
+Llamadores 0x60D411 y 0x60D4D5: recargan ECX/EAX, nadie lee los registros de salida. No es virtual. Sin x87 ni aritmetica float propia (solo dos comparaciones ordenadas de la estadistica 0xB5 con 1.0f y 2.0f, NaN = distinto).
+1. Peaton con el bit 10 de `[ped+0x478]` (drogado): `Say(0x52)` del jugador y sale. Tarea 1000 activa (`FindActiveTaskByType`): sale. Sale si el tipo no es 8 y las tres banderas globales 0x96917C..E son cero. Sale si `IsMember` del grupo del jugador (indice relido de `[this+0x480]+0x38` en cada uso).
+2. `SetCJMood(-1, 10000, 1, -1, -1)`, `Say(0x7F, 0, 1.0f, true)`. Limite = `FindMaxNumberOfGroupMembers` recortado por el byte `+0x43` (limite del script, comparacion con signo); `GetStatValue(0xB5) == 1.0f` o (segunda llamada) `== 2.0f` lo deja en 0.
+3. `0x609380` (sin reconstruir) y recuento `< 7` permiten unirse; si no, dos comparaciones `recuento >= limite` (cada una llama de nuevo a `CountMembersExcludingLeader`). Sin sitio: `Say(0x7D)` del peaton y `CEventDontJoinPlayerGroup` a su grupo de eventos (+0x68).
+4. Union: sale de su grupo anterior (`GetPedsGroup` + `RemoveMember`), tarea `CTaskComplexBeInGroup(grupo de FindPlayerPed(-1), false)` (reservada con `CTask::operator new`, nula si el pool falla) en un `CEventScriptCommand(3, tarea, false)` al grupo de eventos del peaton, `AddFollower`, `CPedGroup::Process`, `GiveWeaponWhenJoiningGang`, `CEventGroupEvent(jugador, CEventNewGangMember(ped))` a `CPedGroupIntelligence::AddEvent`, `bDrownsInWater = false` (RMW de `+0x470`), `IncrementStat(0xEE)`, `DisplayScriptStatUpdateMessage(1, 0x150)`, blip del radar (color de los bytes 0x8D1345/51/5D + 0xFF, `GetRef` del pool de peatones, escala 2, amigable), `bClearRadarBlipOnDeath = true` (RMW de `+0x474`), separacion 120.0f (0x86C6C0) en `+0x24` de la membresia del grupo del jugador y `Say(0x7E, 2500, 1.0f, true)`. Destructores en orden inverso (CEventGroupEvent, CEventScriptCommand).
+
+## Cambios de produccion (`source.patch`)
+`PlayerPed.cpp`: metodo en C++ puro con `RH_ScopedInstall(MakeThisPedJoinOurGroup, 0x60C840)`; 0x609380 se llama por su direccion del EXE; includes de grupos, estadisticas, radar, eventos y tarea. Los constructores y destructores de las tareas/eventos son los del codigo reconstruido.
+
+## Banco
+Falsos identicos en la direccion del EXE y en el cuerpo de la DLL (registran argumentos EN ORDEN; mutan el indice de grupo y el limite del jugador en 7 sitios, las banderas del peaton y comprueban relecturas): Say, FindActiveTaskByType, IsMember, GetStatValue, FindMaxNumberOfGroupMembers, CountMembersExcludingLeader, GetPedsGroup, RemoveMember, CTask::operator new/delete, FindPlayerPed, CEventGroup::Add, AddFollower, CPedGroup::Process, GiveWeaponWhenJoiningGang, RegisterReference, CleanUpOldReference, CPedGroupIntelligence::AddEvent, IncrementStat, DisplayScriptStatUpdateMessage, CPedPool::GetRef, CRadar::SetEntityBlip/ChangeBlipScale/ChangeBlipColour/SetBlipFriendly (con hook); sin hook: `CAEPedSpeechAudioEntity::SetCJMood` 0x4E3ED0 (`--unhook=Audio`: falso tambien en el cuerpo de la DLL), `0x609380` y `CEvent::operator new/delete` 0x4B5620/0x4B5630 (falso en EXE y en el cuerpo propio de la DLL). Corren de verdad en ambos lados: constructores y destructores de `CTaskComplexBeInGroup`, `CEventScriptCommand`, `CEventNewGangMember`, `CEventGroupEvent` y `CEventDontJoinPlayerGroup` (sobre arenas reservadas por los falsos; sus bytes se comprueban en el oraculo contra el constructor 0x632E50 del EXE).
+19968 pares: 16 familias de 1024 (drogado, tarea 1000, tipo/banderas, miembro, estadistica, sin sitio, 609380 con recuento <7 / >=7, fallo de tarea, fallo de evento, grupo anterior, otro jugador, mutaciones, colores/blip, basura en los bits altos de EAX, mezcla) + 1024 de la estadistica (NaN, infinitos, bordes de 1.0f/2.0f) + 1024 de recuentos en los bordes + 1024 de mutaciones + 512 de indice de grupo x otro jugador x ramas.
+Regiones restauradas: `CPedGroups::ms_groups` (se escribe la separacion), banderas 0x96917C..E y tabla de colores. Se comprueba la separacion de los 8 grupos antes y despues (solo cambia la del grupo final del jugador a 0x42F00000).
+
+## Pruebas
+- Prueba negativa (produccion mutada y restaurada; `PlayerPed.cpp` identico al bueno, `source.patch` verificado): las dos comparaciones `recuento >= limite` cambiadas por `> limite`: **900/19968 diferencias de resultado** (corrida 20261027-163111-045972), sin caida.
+- Hallazgos del BANCO (no de produccion): (1) `CAEPedSpeechAudioEntity::SetCJMood` estaba marcado con hook y con `--unhook=Audio` no lo tiene (compuerta `collaborators_dll`); (2) el oraculo no enmascaraba a 8 bits los bytes de color de la fixture. Produccion: sin discrepancias respecto al desensamblado en ninguna corrida.
+
+## Quien valida a cada colaborador y que NO prueba el banco
+Cada colaborador tiene su banco (docs/hooks.csv, reversing/validation-registry.json); este banco no valida su correccion: CPedGroupMembership (IsMember, CountMembersExcludingLeader, AddFollower, RemoveMember), CPedGroups::GetPedsGroup, CPedGroup::Process, CPedGroupIntelligence::AddEvent, CStats, CRadar, CPedPool::GetRef, FindPlayerPed, GiveWeaponWhenJoiningGang, Say, CTask/CEvent operator new/delete. 0x609380 y SetCJMood (`--unhook=Audio`) no tienen hook propio. No cubre: indices de grupo fuera de 0..7 (el EXE escribiria fuera de `ms_groups`), `FindPlayerPed` nulo (el EXE se cae), tarea activa nula en el jugador (el EXE se cae), el pool real de tareas/eventos (los falsos de new/delete lo sustituyen), ECX/EDX/EAX de salida.
+
+Comandos: `CMAKE_BUILD_PARALLEL_LEVEL=1 _CL_=-MP1 bash reversing/_handoff/bench_here.sh PlayerGroup75`; `python -B reversing/PlayerGroup75/run_local.py --analyze <carpeta>/comparisons.jsonl`; `register_hook.py <carpeta>` (solo el coordinador).
