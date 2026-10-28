@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 18432,
+  "differences": 0,
+  "registered_pairs": 18432,
+  "registered_functions": 1,
+  "functions": {
+    "CCarCtrl::FindAngleToWeaveThroughTraffic": 18432
+  },
+  "covered_functions": {
+    "CCarCtrl::FindAngleToWeaveThroughTraffic": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-2 (HEAD 98ff78aaa + cambios del lote 75; ver artifacts/build-manifest.json). Colaboradores WeaveThroughCarsSectorList 0x42D680, WeaveThroughPedsSectorList 0x42D7E0, WeaveThroughObjectsSectorList 0x42D950 y CWorld::ClearScanCodes 0x563470 sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; los validan sus propios bancos de la ola 63 y World). El banco compara los argumentos de CADA llamada a los barridos EN ORDEN (hash de toda la secuencia y los 48 primeros eventos), las escrituras programadas en los dos valores de salida, el valor devuelto en ST0 (float exacto), el codigo de escaneo final y la aritmetica x87 de 24 bits (limites con NaN no canonicos, infinitos y desnormales); el microtest de hardware bounds_nan_hw valida Weave75BoundsCpp y Weave75FinalCpp contra una transcripcion __asm del EXE. No se prueba la rejilla real de entidades (los barridos son falsos), ni valores infinitos o enormes de los rumbos (los bucles de normalizacion no terminan en el EXE), ni los valores de EAX/ECX/EDX de salida (nadie los lee).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/CarWeave75-20261027-191343-731575",
+  "summary_sha256": "6568bff97fb95c65fcd6530ef6a4a6b9bc5e365654929bb4401703d2e0d12d59",
+  "result_txt_sha256": "9c9de5fc1d2568791eff8ee3960e93ae701fc76ca47ef78ba7e6de6fcf0c44cd",
+  "log_sha256": "21466fdc0d9bc9b28706a40bfdcee1332e25cc68ecf6c7d7fb6e3d2526137a97",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "ce44c50a5b98507625b393fde5bd49a943a68810cc1b52106366e8e7a873a63d",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+      "source/game_sa/X87Math.cpp": "1e32d201b83098e0c4b72e1282e82f19e72a5c474b3c82440bcdf9f44bf971c4",
+      "source/game_sa/X87Math.h": "8015654fe6b233947884b917027582d2ea6eafc195c15d1e8a5902034e62c89a",
+      "source/game_sa/CarCtrl.cpp": "4de8d81c0df4a1abefeb524d0ca7951815e1c6a72d840cda780946d1d2599da9",
+      "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/CarWeave75/LiveComparison.hpp": "fe13f447ec8c53b0c501b466dcf21f74fc98e4d74c67eee2a34c07f26d772a85",
+      "reversing/CarWeave75/Core.hpp": "32bfaaac183a3263c01d2dcde555b934168c547b4452e8cdf668745d2bc6ee56",
+      "reversing/CarWeave75/Fixtures.hpp": "fb54f09a5b25857c2f8ec182830bf29dda037f0c5592306c28283642985f9768",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

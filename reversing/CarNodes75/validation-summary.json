@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 18432,
+  "differences": 0,
+  "registered_pairs": 18432,
+  "registered_functions": 1,
+  "functions": {
+    "CCarCtrl::FindNodesThisCarIsNearestTo": 18432
+  },
+  "covered_functions": {
+    "CCarCtrl::FindNodesThisCarIsNearestTo": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-2 (HEAD 98ff78aaa + cambios del lote 75; ver artifacts/build-manifest.json). Colaboradores CPathFind::FindXRegionForCoors 0x44D890, FindYRegionForCoors 0x44D8C0, FindXCoorsForRegion 0x44D8F0, FindYCoorsForRegion 0x44D910, CCollision::DistToLine 0x417610 y CVector::Normalise 0x59C910 sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado). El mundo de rutas es un fixture controlado (hasta 4 casillas con 5 nodos y sus tablas de enlaces en arenas; ThePaths.m_pPathNodes / m_pNodeLinks / m_anNumVehicleNodes se rellenan por caso y se restauran). El banco compara los argumentos de CADA llamada a los colaboradores EN ORDEN (hash de toda la secuencia y los 48 primeros eventos), los dos CNodeAddress de salida (con area 0xFFFF el EXE deja un resto de pila en el nodo que nadie lee: se registra como nulo) y la aritmetica x87 de 24 bits; el microtest de hardware nodes_nan_hw valida las cuatro ayudantes de X87Math contra una transcripcion __asm del EXE. No se prueba: un vehiculo sin matriz con un enlace que cumpla (el EXE se cae al leer la matriz), nodos destino fuera de la tabla cargada, areas con numeros >= 72 en los enlaces (lectura fuera de ThePaths), la validez de los colaboradores (sus bancos) ni los valores de EAX/ECX/EDX de salida (nadie los lee).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/CarNodes75-20261027-192148-168984",
+  "summary_sha256": "d648c68bf4979bd6b57045913690e917b6f211799c2e00b69e83db31e58faa4a",
+  "result_txt_sha256": "dbafb0734cf7b330cac3283cdf475a0af4e8af87d514e62166198c13d7366bf1",
+  "log_sha256": "4c5172ec3b8625bb15549979b728305b938a7e728645021027d92535f05cab5a",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "c00cee2a1bbe9c2303a3feda7fd9591bc554b72c3ed3f0aa8d5cc9fa32de090b",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+      "source/game_sa/X87Math.cpp": "1e32d201b83098e0c4b72e1282e82f19e72a5c474b3c82440bcdf9f44bf971c4",
+      "source/game_sa/X87Math.h": "8015654fe6b233947884b917027582d2ea6eafc195c15d1e8a5902034e62c89a",
+      "source/game_sa/CarCtrl.cpp": "4de8d81c0df4a1abefeb524d0ca7951815e1c6a72d840cda780946d1d2599da9",
+      "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/CarNodes75/LiveComparison.hpp": "a7699a119698a68ba3094777b789c5c0b43bd44d149e82bcdfde973967f25b2f",
+      "reversing/CarNodes75/Core.hpp": "7cdf8aa98cea99560c839ac2110b9a348c12c12c5b1e64ba109a17df9698a7e4",
+      "reversing/CarNodes75/Fixtures.hpp": "44592b46886173a732bb60b581a24af1ba2b9451c3643c611afe34ff79001ac6",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

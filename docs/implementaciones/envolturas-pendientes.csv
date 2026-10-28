@@ -212,12 +212,13 @@ class,function,address,source,origins
 (helpers y globales sin clase),CTaskSimpleGangDriveBy helper para shooter sin símbolo confirmado,0x00627CC0,source/game_sa/Cam.cpp:2398; source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:185,cohorte 499
 (helpers y globales sin clase),CWaterLevel helper de agua cercana,0x006E6A10,source/game_sa/WaterLevel.cpp:1557,cohorte 499
 (helpers y globales sin clase),ExeFree,,source/game_sa/RenderWare/D3DResourceSystem.cpp:79,envoltura en el código fuente
-(helpers y globales sin clase),FightChooseAttackAIExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:381,envoltura en el código fuente
-(helpers y globales sin clase),FightChooseAttackPlayerExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:377,envoltura en el código fuente
-(helpers y globales sin clase),FightFindTargetOnGroundExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:373,envoltura en el código fuente
-(helpers y globales sin clase),FightGetAvailableComboSetExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:369,envoltura en el código fuente
-(helpers y globales sin clase),FightHitPedExe,0x0061CBA0,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:277,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-(helpers y globales sin clase),FightStartAnimExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:385,envoltura en el código fuente
+(helpers y globales sin clase),FightBeHitWhileBlockingExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:935,envoltura en el código fuente
+(helpers y globales sin clase),FightChooseAttackAIExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:380,envoltura en el código fuente
+(helpers y globales sin clase),FightChooseAttackPlayerExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:376,envoltura en el código fuente
+(helpers y globales sin clase),FightFindTargetOnGroundExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:372,envoltura en el código fuente
+(helpers y globales sin clase),FightGetAvailableComboSetExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:368,envoltura en el código fuente
+(helpers y globales sin clase),FightNormaliseExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:939,envoltura en el código fuente
+(helpers y globales sin clase),FightStartAnimExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:384,envoltura en el código fuente
 (helpers y globales sin clase),GaCalcDistToRectSq,,source/game_sa/Garage.cpp:442,envoltura en el código fuente
 (helpers y globales sin clase),GaCountCarsCenterWithin,,source/game_sa/Garage.cpp:438,envoltura en el código fuente
 (helpers y globales sin clase),GaIsAnyCarBlockingDoor,,source/game_sa/Garage.cpp:437,envoltura en el código fuente
@@ -236,6 +237,7 @@ class,function,address,source,origins
 (helpers y globales sin clase),IndexDataBufferGetTotalDataSize,,source/game_sa/RenderWare/D3DResourceSystem.cpp:114,envoltura en el código fuente
 (helpers y globales sin clase),IndexDataBufferPop,,source/game_sa/RenderWare/D3DResourceSystem.cpp:98,envoltura en el código fuente
 (helpers y globales sin clase),IndexDataBufferResize,,source/game_sa/RenderWare/D3DResourceSystem.cpp:101,envoltura en el código fuente
+(helpers y globales sin clase),JoinGroupFlagsExe,,source/game_sa/Entity/Ped/PlayerPed.cpp:1048,envoltura en el código fuente
 (helpers y globales sin clase),operator delete,,source/game_sa/MemoryMgr.cpp:560,envoltura en el código fuente
 (helpers y globales sin clase),operator delete[],,source/game_sa/MemoryMgr.cpp:564,envoltura en el código fuente
 (helpers y globales sin clase),operator new,,source/game_sa/MemoryMgr.cpp:552,envoltura en el código fuente
@@ -256,40 +258,33 @@ class,function,address,source,origins
 (helpers y globales sin clase),TextureBufferPushWithoutIncreasingCounter,,source/game_sa/RenderWare/D3DResourceSystem.cpp:92,envoltura en el código fuente
 (helpers y globales sin clase),TextureBufferResize,,source/game_sa/RenderWare/D3DResourceSystem.cpp:95,envoltura en el código fuente
 (helpers y globales sin clase),TextureBufferSetup,,source/game_sa/RenderWare/D3DResourceSystem.cpp:86,envoltura en el código fuente
-CCarCtrl,CreateConvoy,0x0042C740,source/game_sa/CarCtrl.cpp:496,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,CreatePoliceChase,0x0042C2B0,source/game_sa/CarCtrl.cpp:501,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,DragCarToPoint,0x0042EC90,source/game_sa/CarCtrl.cpp:713,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,FindAngleToWeaveThroughTraffic,0x004325C0,source/game_sa/CarCtrl.cpp:718,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,FindNodesThisCarIsNearestTo,0x0042BD20,source/game_sa/CarCtrl.cpp:863,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,GenerateCarCreationCoors2,0x00424210,source/game_sa/CarCtrl.cpp:1247,cohorte 499 + envoltura en el código fuente
-CCarCtrl,GenerateEmergencyServicesCar,,source/game_sa/CarCtrl.cpp:1252,envoltura en el código fuente
-CCarCtrl,GenerateOneEmergencyServicesCar,0x0042B7D0,source/game_sa/CarCtrl.cpp:1257,cohorte 499 + envoltura en el código fuente
-CCarCtrl,GenerateOneRandomCar,0x00430050,source/game_sa/CarCtrl.cpp:1262,cohorte 499 + envoltura en el código fuente
-CCarCtrl,PickNextNodeRandomly,0x0042DE80,source/game_sa/CarCtrl.cpp:1821,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,PickNextNodeToChaseCar,0x00426EF0,source/game_sa/CarCtrl.cpp:1826,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,PickNextNodeToFollowPath,0x00427740,source/game_sa/CarCtrl.cpp:1831,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,PossiblyRemoveVehicle,0x00424F80,source/game_sa/CarCtrl.cpp:1869,cohorte 499 + envoltura en el código fuente
-CCarCtrl,SteerAICarWithPhysics,0x00437C20,source/game_sa/CarCtrl.cpp:3055,cohorte 499 + envoltura en el código fuente
-CCarCtrl,SteerAICarWithPhysics_OnlyMission,0x00436A90,source/game_sa/CarCtrl.cpp:3375,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,SteerAICarWithPhysicsFollowPath,0x00434900,source/game_sa/CarCtrl.cpp:3060,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,SteerAICarWithPhysicsFollowPath_Racing,0x00435830,source/game_sa/CarCtrl.cpp:3065,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CHeli,PreRender,0x006C5420,source/game_sa/Entity/Vehicle/Heli.cpp:651,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CHeli,ProcessControl,0x006C7050,source/game_sa/Entity/Vehicle/Heli.cpp:657,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CHeli,ProcessControlInputs,0x006C4830,source/game_sa/Entity/Vehicle/Heli.cpp:593,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CHeli,ProcessFlyingCarStuff,0x006C4E60,source/game_sa/Entity/Vehicle/Heli.cpp:645,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,DragCarToPoint,0x0042EC90,source/game_sa/CarCtrl.cpp:944,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,GenerateCarCreationCoors2,0x00424210,source/game_sa/CarCtrl.cpp:1571,cohorte 499 + envoltura en el código fuente
+CCarCtrl,GenerateEmergencyServicesCar,,source/game_sa/CarCtrl.cpp:1576,envoltura en el código fuente
+CCarCtrl,GenerateOneEmergencyServicesCar,0x0042B7D0,source/game_sa/CarCtrl.cpp:1581,cohorte 499 + envoltura en el código fuente
+CCarCtrl,GenerateOneRandomCar,0x00430050,source/game_sa/CarCtrl.cpp:1586,cohorte 499 + envoltura en el código fuente
+CCarCtrl,PickNextNodeRandomly,0x0042DE80,source/game_sa/CarCtrl.cpp:2145,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,PickNextNodeToChaseCar,0x00426EF0,source/game_sa/CarCtrl.cpp:2150,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,PickNextNodeToFollowPath,0x00427740,source/game_sa/CarCtrl.cpp:2155,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,PossiblyRemoveVehicle,0x00424F80,source/game_sa/CarCtrl.cpp:2193,cohorte 499 + envoltura en el código fuente
+CCarCtrl,SteerAICarWithPhysics,0x00437C20,source/game_sa/CarCtrl.cpp:3379,cohorte 499 + envoltura en el código fuente
+CCarCtrl,SteerAICarWithPhysics_OnlyMission,0x00436A90,source/game_sa/CarCtrl.cpp:3699,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,SteerAICarWithPhysicsFollowPath,0x00434900,source/game_sa/CarCtrl.cpp:3384,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,SteerAICarWithPhysicsFollowPath_Racing,0x00435830,source/game_sa/CarCtrl.cpp:3389,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CHeli,ProcessControl,0x006C7050,source/game_sa/Entity/Vehicle/Heli.cpp:859,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CHeli,ProcessControlInputs,0x006C4830,source/game_sa/Entity/Vehicle/Heli.cpp:598,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CHeli,SearchLightCone,0x006C58E0,source/game_sa/Entity/Vehicle/Heli.cpp:218,cohorte 499
 CHeli,UpdateHelis,0x006C79A0,source/game_sa/Entity/Vehicle/Heli.cpp:267,cohorte 499
-CPlayerPed,Compute3rdPersonMouseTarget,0x0060B650,source/game_sa/Entity/Ped/PlayerPed.cpp:883,cohorte 499 + envoltura en el código fuente
-CPlayerPed,DrawTriangleForMouseRecruitPed,0x0060BA80,source/game_sa/Entity/Ped/PlayerPed.cpp:889,cohorte 499 + envoltura en el código fuente
-CPlayerPed,FindNextWeaponLockOnTarget,0x0060E530,source/game_sa/Entity/Ped/PlayerPed.cpp:1223,cohorte 499 + envoltura en el código fuente
-CPlayerPed,FindWeaponLockOnTarget,0x0060DC50,source/game_sa/Entity/Ped/PlayerPed.cpp:1218,cohorte 499 + envoltura en el código fuente
-CPlayerPed,KeepAreaAroundPlayerClear,0x0060C1E0,source/game_sa/Entity/Ped/PlayerPed.cpp:922,cohorte 499 + envoltura en el código fuente
-CPlayerPed,MakeThisPedJoinOurGroup,0x0060C840,source/game_sa/Entity/Ped/PlayerPed.cpp:1033,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CPlayerPed,ProcessAnimGroups,0x006098F0,source/game_sa/Entity/Ped/PlayerPed.cpp:395,cohorte 499 + envoltura en el código fuente
-CPlayerPed,ProcessGroupBehaviour,0x0060D350,source/game_sa/Entity/Ped/PlayerPed.cpp:1186,cohorte 499 + envoltura en el código fuente
-CPlayerPed,ProcessWeaponSwitch,0x0060D850,source/game_sa/Entity/Ped/PlayerPed.cpp:1213,cohorte 499 + envoltura en el código fuente
-CPlayerPed,SetInitialState,0x0060CD20,source/game_sa/Entity/Ped/PlayerPed.cpp:1080,cohorte 499 + envoltura en el código fuente
-CPlayerPed,SetRealMoveAnim,0x0060A9C0,source/game_sa/Entity/Ped/PlayerPed.cpp:820,cohorte 499 + envoltura en el código fuente
+CPlayerPed,Compute3rdPersonMouseTarget,0x0060B650,source/game_sa/Entity/Ped/PlayerPed.cpp:897,cohorte 499 + envoltura en el código fuente
+CPlayerPed,DrawTriangleForMouseRecruitPed,0x0060BA80,source/game_sa/Entity/Ped/PlayerPed.cpp:903,cohorte 499 + envoltura en el código fuente
+CPlayerPed,FindNextWeaponLockOnTarget,0x0060E530,source/game_sa/Entity/Ped/PlayerPed.cpp:1333,cohorte 499 + envoltura en el código fuente
+CPlayerPed,FindWeaponLockOnTarget,0x0060DC50,source/game_sa/Entity/Ped/PlayerPed.cpp:1328,cohorte 499 + envoltura en el código fuente
+CPlayerPed,KeepAreaAroundPlayerClear,0x0060C1E0,source/game_sa/Entity/Ped/PlayerPed.cpp:936,cohorte 499 + envoltura en el código fuente
+CPlayerPed,ProcessAnimGroups,0x006098F0,source/game_sa/Entity/Ped/PlayerPed.cpp:409,cohorte 499 + envoltura en el código fuente
+CPlayerPed,ProcessGroupBehaviour,0x0060D350,source/game_sa/Entity/Ped/PlayerPed.cpp:1296,cohorte 499 + envoltura en el código fuente
+CPlayerPed,ProcessWeaponSwitch,0x0060D850,source/game_sa/Entity/Ped/PlayerPed.cpp:1323,cohorte 499 + envoltura en el código fuente
+CPlayerPed,SetInitialState,0x0060CD20,source/game_sa/Entity/Ped/PlayerPed.cpp:1190,cohorte 499 + envoltura en el código fuente
+CPlayerPed,SetRealMoveAnim,0x0060A9C0,source/game_sa/Entity/Ped/PlayerPed.cpp:834,cohorte 499 + envoltura en el código fuente
 CVehicle,AddSingleWheelParticles,0x006DE880,source/game_sa/Entity/Vehicle/Vehicle.cpp:4787,cohorte 499
 CVehicle,DoDriveByShootings,0x00741FD0,source/game_sa/Entity/Vehicle/Vehicle.cpp:8508,cohorte 499 + envoltura en el código fuente
 CVehicle,FireFixedMachineGuns,0x0073DF00,source/game_sa/Entity/Vehicle/Vehicle.cpp:8503,cohorte 499 + envoltura en el código fuente

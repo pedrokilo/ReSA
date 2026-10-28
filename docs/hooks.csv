@@ -8938,3 +8938,11 @@ CHeli,BlowUpCar,0x00000000,1,0,1,V
 CPlayerInfo,ProcessCrosshair,0x0056EC80,1,0,1,S
 CWeaponEffects,RenderPlayerCrosshair,0x0056EF90,1,0,1,S
 Rs,RsLoadPresetViews,0x00619D60,1,0,1,S
+CHeli,ProcessFlyingCarStuff,0x00000000,1,0,1,V
+CHeli,PreRender,0x00000000,1,0,1,V
+CCarCtrl,FindAngleToWeaveThroughTraffic,0x004325C0,1,0,1,S
+CCarCtrl,FindNodesThisCarIsNearestTo,0x0042BD20,1,0,1,S
+CCarCtrl,CreatePoliceChase,0x0042C2B0,1,0,1,S
+CCarCtrl,CreateConvoy,0x0042C740,1,0,1,S
+CTaskSimpleFight,FightHitPed,0x0061CBA0,1,0,1,S
+CPlayerPed,MakeThisPedJoinOurGroup,0x0060C840,1,0,1,S

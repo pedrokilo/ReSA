@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 1,
+  "functions": {
+    "CAutomobile::Render": 16384
+  },
+  "covered_functions": {
+    "CAutomobile::Render": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-5 (HEAD 98ff78aaa + cambios del lote 75; ver artifacts/build-manifest.json). CAutomobile::Render es virtual (RH_ScopedVMTInstall): el candidato es el cuerpo de la DLL de la tabla virtual. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (hook RH apagado): GetFirstObject 0x7348C0, CVehicle::Render 0x6D0E60, CEntity::GetColModel 0x535300, CVehicle::GetVehicleAppearance 0x6D1080, CVehicle::DoHeadLightBeam 0x6E0E20, RwMatrixTranslate 0x7F2450 y RwFrameUpdateObjects 0x7F0910 (funciones de RenderWare, sin cuerpo propio en la DLL), el renderCallBack de los atomicos falsos y las entradas fpRenderStateSet/Get de RwEngineInstance (+0x20/+0x24). Esos colaboradores NO reciben credito de este banco; se validan en los suyos. Aritmetica de las orugas del Rhino en AutoRender75RhinoMoveCpp/AutoRender75NegateCpp (X87Math, x87 a 24 bits con exponente extendido). No se prueba: el interior de los colaboradores, el dibujo real, el estado real de RenderWare, vehiculos sin matriz.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/AutoRender75-20261027-195046-120755",
+  "summary_sha256": "76845677b434f6dd901ded6b1b8d2b8b77966a1c0f3ac42be2d756addd18fb04",
+  "result_txt_sha256": "76a1a173d19be2969bda5bc0dd3fdc89b4cb73eb8ef44d2b1587e1f68023f251",
+  "log_sha256": "0fcaf35c98842e1e5ef507d74f9405cf57380b800ed6126503d083a2f175bed5",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "a14f4443e340f3788edbaef810d836b27edd3a8b69576eef093b5622b2a138f9",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+      "source/game_sa/Entity/Vehicle/Automobile.cpp": "1ea08891fddbcc10521179da2501de976fc8fe088f35dda2e53e4151d80ef4f2",
+      "source/game_sa/Entity/Vehicle/Automobile.h": "da9718ed15e3db18b9ca47759d6e98c145a3717a7ac752010c9852ef9f1e5739",
+      "source/game_sa/X87Math.cpp": "1e32d201b83098e0c4b72e1282e82f19e72a5c474b3c82440bcdf9f44bf971c4",
+      "source/game_sa/X87Math.h": "8015654fe6b233947884b917027582d2ea6eafc195c15d1e8a5902034e62c89a",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/AutoRender75/LiveComparison.hpp": "5c5e9ffbcf2b93310156608b9b153f720f36225f885225cd44ca267925ed4f04",
+      "reversing/AutoRender75/Core.hpp": "a816860c66ca152521f0f8b3f3749b8169d09a4023ae1957fab0af6109bc2376",
+      "reversing/AutoRender75/Fixtures.hpp": "6bb725cc74b7be63ee04aa6a4c5158e3752c6e7f7a2f63d547b523fec9852f8d",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

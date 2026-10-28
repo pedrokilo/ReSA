@@ -12,32 +12,39 @@
     "CCarCtrl::ReconsiderRoute": true,
     "CCarCtrl::FindLinksToGoWithTheseNodes": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wh-4 (HEAD df26d6fe7 + fuentes del lote 63 parte C, tandas 1 a 4). Colaboradores sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y, si tienen hook activo, en el cuerpo de la DLL; no se validan sus cuerpos reales): FindNodesThisCarIsNearestTo 0x42BD20 (envoltura plugin::Call; el falso escribe dwords completos y se registran solo las palabras de area iniciales, porque el EXE no inicializa la palabra de nodo), FindPlayerCoors 0x56E010, CPathFind::DoPathSearch 0x4515D0 (19 dwords de pila; las dos llamadas se distinguen por orden), CAutoPilot::RemoveOnePathNode 0x41B950 y FindLinksToGoWithTheseNodes 0x42B470 (con el hook apagado fuera de su propia prueba y el cuerpo de la DLL parcheado) en ReconsiderRoute; srand del CRT 0x821B11 y CCollision::DistToLine 0x417610 en FindLinksToGoWithTheseNodes. CNodeAddress::operator== (0x420920) no se sustituye: la DLL compara en linea los mismos 32 bits. Los nodos, enlaces y enlaces de carretera de ThePaths son sinteticos (arenas con guardas; ThePaths.m_pPathNodes/m_pNodeLinks/m_pNaviLinks y CTimer 0xB7CB78/0xB7CB84 guardados y restaurados). Ningun llamador del EXE lee EAX/ECX/EDX de salida.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wh-4 (HEAD df26d6fe7 + fuentes del lote 63 parte C, tandas 1 a 4). Colaboradores sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y, si tienen hook activo, en el cuerpo de la DLL; no se validan sus cuerpos reales): FindNodesThisCarIsNearestTo 0x42BD20 (envoltura plugin::Call; el falso escribe dwords completos y se registran solo las palabras de area iniciales, porque el EXE no inicializa la palabra de nodo), FindPlayerCoors 0x56E010, CPathFind::DoPathSearch 0x4515D0 (19 dwords de pila; las dos llamadas se distinguen por orden), CAutoPilot::RemoveOnePathNode 0x41B950 y FindLinksToGoWithTheseNodes 0x42B470 (con el hook apagado fuera de su propia prueba y el cuerpo de la DLL parcheado) en ReconsiderRoute; srand del CRT 0x821B11 y CCollision::DistToLine 0x417610 en FindLinksToGoWithTheseNodes. CNodeAddress::operator== (0x420920) no se sustituye: la DLL compara en linea los mismos 32 bits. Los nodos, enlaces y enlaces de carretera de ThePaths son sinteticos (arenas con guardas; ThePaths.m_pPathNodes/m_pNodeLinks/m_pNaviLinks y CTimer 0xB7CB78/0xB7CB84 guardados y restaurados). Ningun llamador del EXE lee EAX/ECX/EDX de salida. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/CarCtrlRest63D-20261020-234038-406032",
-  "summary_sha256": "7ede445f595f452ac4f5835c287eadac1481ac6e43d90ff272da4ecace64cc33",
-  "result_txt_sha256": "aa863a52d9cdf654f86d88138cfc82b4eb376692c0330fcc10f0d063d9b7b253",
-  "log_sha256": "a5c624029c75ca31cf1b181307bb2a9c03ac292d175afab266f01e3e1f891f36",
+  "run": "reversing/CppTwelveLevel6Final/runs/CarCtrlRest63D-20261027-195614-795662",
+  "summary_sha256": "87007ca27218e62d6489ee80c52ce642efe822bc6e6e383fc4cf85e27584f4f5",
+  "result_txt_sha256": "4b4d9132cbba8a8c5c18f717129fb090c1704fe3e064a6b345a3aba6eca8b9bb",
+  "log_sha256": "be87ceb4957a79884a87246b816cd081102548b3135493590aa23d5daa20751d",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "8fdef5ee14d49b4abd2fba55394e502465ac8a713788578f1f96e95a86467e08",
+  "executed_probe_sha256": "da66c8d5f69bb387e4073b7be53042d1d259531388d6c46aacc74ded0ad76ad7",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/game_sa/CarCtrl.cpp": "a2a8c49829a45039c8275decb586a4c845db8c1781e27770afe5194ffb6c9588",
-      "source/game_sa/CarCtrl.h": "839c30f512d0d453d3c5ede12522b5104f7788fab874bf9cf8802b98ee09b49d",
-      "source/game_sa/X87Math.cpp": "544d7f4d9ff0cc13613206d60f611801b59da379cd8b4ae4e9afcc410f63fc58",
-      "source/game_sa/X87Math.h": "d2933f31fbe910a6ba6ee6e3abe717e599e5e8bf865a5fc5af98c1b102d97065",
+      "source/game_sa/CarCtrl.cpp": "4de8d81c0df4a1abefeb524d0ca7951815e1c6a72d840cda780946d1d2599da9",
+      "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+      "source/game_sa/X87Math.cpp": "1e32d201b83098e0c4b72e1282e82f19e72a5c474b3c82440bcdf9f44bf971c4",
+      "source/game_sa/X87Math.h": "8015654fe6b233947884b917027582d2ea6eafc195c15d1e8a5902034e62c89a",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/CarCtrlRest63D/LiveComparison.hpp": "8ddb06cb72ff12d4ddbcf5a83e2ded3cca973a649f4f76cdd350f0867b8308ca",
-      "reversing/CarCtrlRest63D/Core.hpp": "2e7a89f38d4900660696767da1f56eb1aa1b62ea23039ad0481211bc4c26d587",
+      "reversing/CarCtrlRest63D/LiveComparison.hpp": "1ed825e708a69e6e8bb75b5b0c1bad333e3c3534ab98f97b58757c1233a80556",
+      "reversing/CarCtrlRest63D/Core.hpp": "d9f769dadec4f5ee9127d0d803260f4cca9c1d5c27fb3b7f39eedbee41aefcb3",
       "reversing/CarCtrlRest63D/Cases.hpp": "2e029706296c561f3713bfe79c198cae38600d048d24ac44c6ee47de19f6ad62",
-      "reversing/CarCtrlRest63D/Fixtures.hpp": "b2f5853cacfa762baebf25bfecb4c1cf3c22d26137b6b661e78daaf5a54a6592",
+      "reversing/CarCtrlRest63D/Fixtures.hpp": "1921cb9ad009f678948e05412b032450f2634128f4f81fc97ea3975e3bc99f3f",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/CarCtrlRest63D-20261027-195614-795662/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "e7a87a54f60f0e97811cd1661ead0ed816e53e4f9a3b3ead013f9b40d89eba92",
+    "uncompressed_sha256": "be87ceb4957a79884a87246b816cd081102548b3135493590aa23d5daa20751d"
   }
 }

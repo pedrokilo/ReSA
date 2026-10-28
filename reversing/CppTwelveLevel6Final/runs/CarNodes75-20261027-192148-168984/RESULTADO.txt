@@ -1,0 +1,3 @@
+APROBADO: CarNodes75
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-carnodes75\20261027-192148-168984

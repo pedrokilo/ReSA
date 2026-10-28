@@ -1,0 +1,3 @@
+APROBADO: CarWeave75
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-carweave75\20261027-191343-731575

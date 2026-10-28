@@ -16,33 +16,33 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Dependencies21C-20261026-210745-573944",
-  "summary_sha256": "23e62bab3cac5983565b6c99e28a754f0ee6fe8c292aba471afdaaa51b5818dc",
-  "result_txt_sha256": "c8c59ac1eb9a34cead4a784213e48829c33729a4fc3c4ad504c5bce3486760eb",
-  "log_sha256": "67f62946160699564e384668bdc629a7a5b4182ea1ba98c8e6e6820983894a1c",
+  "run": "reversing/CppTwelveLevel6Final/runs/Dependencies21C-20261027-200240-862173",
+  "summary_sha256": "637b687f19e831f79c3b5d21e2aca2c3b6b4d3b33cd193e5c5554a64225f774d",
+  "result_txt_sha256": "ba379077076e71c67b535965d62d88c3fe581860be16d6c38195914bc4f27924",
+  "log_sha256": "a2c622a950d653107f6b762cca324060762950257ddbb500886347251c0b406d",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "ea36d84397d117075a4db34bf321f8ee046041ffeb9988acf4d5dfbe68906145",
+  "executed_probe_sha256": "2e2c42ad61f127b27d2fd09bf1b9d77bb49dee0ab5b4b6d471ec616ea8ae7ed7",
   "manifest": {
     "tested_sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "0ee5c118fd435d4a37d663e0d2301acf62c917e9b17697d3f084bacfc036082d",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "818f88d555b68e6753c682f01a15c1052e7e9cc48b45555d96baa711a07efe27",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "19f7929eb4f1316240b46c843769bc340bc2faa2d8027caebb98476d506aefb8",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "b44f31f68330d9e4862366af27fd42cbefb8c65adb0112f5f724d381218dda23",
       "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "862f6635260c621952fc0c15772ae9d2fa161daedf87c1b349a93565d789022f",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp": "a79a33ef432c49892523b9117e87aea916daf04cd1d73cc3baebfaa472609448",
-      "source/game_sa/X87Math.cpp": "e64a4fedd3f0505870ccab04632506b2547b4dfaf9c350ff7a9069249ab23c78",
-      "source/game_sa/X87Math.h": "3b95baef142792b5925ec4d621ad38e84cfa8b700968290b371da5624c86cecd",
+      "source/game_sa/X87Math.cpp": "1e32d201b83098e0c4b72e1282e82f19e72a5c474b3c82440bcdf9f44bf971c4",
+      "source/game_sa/X87Math.h": "8015654fe6b233947884b917027582d2ea6eafc195c15d1e8a5902034e62c89a",
       "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Dependencies21C-20261026-210745-573944/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Dependencies21C-20261027-200240-862173/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "817d8cacf4901da571429162a22aa8151fe76b31146e000669e22a5f726eefa1",
-    "uncompressed_sha256": "67f62946160699564e384668bdc629a7a5b4182ea1ba98c8e6e6820983894a1c"
+    "compressed_sha256": "a68f2b28c4d2b07db0a967782897f3da6eaa87f11893355a95e5ee059ce1009a",
+    "uncompressed_sha256": "a2c622a950d653107f6b762cca324060762950257ddbb500886347251c0b406d"
   }
 }

@@ -14,32 +14,39 @@
     "CCarCtrl::SteerAICarWithPhysicsHeadingForTarget": true,
     "CCarCtrl::SteerAICarWithPhysicsTryingToBlockTarget": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wh-2 (HEAD df26d6fe7 + parche del banco). Los colaboradores se sustituyen por falsos identicos en ambos lados (parche en la entrada del EXE y en el cuerpo de la DLL cuando tienen hook; no se validan sus cuerpos): Stop: FindPlayerVehicle, CTaskManager::GetActiveTask, CTask::GetTaskType (virtual), CVehicle::IsUpsideDown y CCarAI::TellOccupantsToLeaveCar; HeadingForTarget: CGeneral::GetATanOfXY (el falso devuelve un double sin redondear en ST0), CCarCtrl::FindAngleToWeaveThroughTraffic, FindMaxSteerAngle y 0x4224E0; TryingToBlockTarget: SteerAICarWithPhysicsHeadingForTarget. El vehiculo, su matriz, el vehiculo del jugador, el peaton conductor y su inteligencia son objetos del banco; CTimer::ms_fTimeStep se fija por caso y se restaura. Ningun llamador del EXE lee EAX/ECX/EDX (los llamadores sobrescriben AL o solo hacen pop/ret en funciones void); solo se registran. Limites: NaN silenciosos en las fixtures; sin denormales ni infinitos en los rumbos (los bucles de normalizacion no terminarian en ninguno de los dos lados); el vector de avance se mantiene fuera del rango en que sus cuadrados serian denormales (el SSE del juego con FTZ los vaciaria, el x87 no). El resultado de FindAngleToWeaveThroughTraffic (0x4325C0) se lee como float redondeado: si el EXE lo deja sin redondear en ST0 el banco no lo distingue.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wh-2 (HEAD df26d6fe7 + parche del banco). Los colaboradores se sustituyen por falsos identicos en ambos lados (parche en la entrada del EXE y en el cuerpo de la DLL cuando tienen hook; no se validan sus cuerpos): Stop: FindPlayerVehicle, CTaskManager::GetActiveTask, CTask::GetTaskType (virtual), CVehicle::IsUpsideDown y CCarAI::TellOccupantsToLeaveCar; HeadingForTarget: CGeneral::GetATanOfXY (el falso devuelve un double sin redondear en ST0), CCarCtrl::FindAngleToWeaveThroughTraffic, FindMaxSteerAngle y 0x4224E0; TryingToBlockTarget: SteerAICarWithPhysicsHeadingForTarget. El vehiculo, su matriz, el vehiculo del jugador, el peaton conductor y su inteligencia son objetos del banco; CTimer::ms_fTimeStep se fija por caso y se restaura. Ningun llamador del EXE lee EAX/ECX/EDX (los llamadores sobrescriben AL o solo hacen pop/ret en funciones void); solo se registran. Limites: NaN silenciosos en las fixtures; sin denormales ni infinitos en los rumbos (los bucles de normalizacion no terminarian en ninguno de los dos lados); el vector de avance se mantiene fuera del rango en que sus cuadrados serian denormales (el SSE del juego con FTZ los vaciaria, el x87 no). El resultado de FindAngleToWeaveThroughTraffic (0x4325C0) se lee como float redondeado: si el EXE lo deja sin redondear en ST0 el banco no lo distingue. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/CarCtrlSteer63-20261020-231819-095272",
-  "summary_sha256": "57cd4bfc1eb7da697c677fcf7828b94c60303ea98a23333278d5c6e02852f6eb",
-  "result_txt_sha256": "b6d047cf03a93f748ae1dec1377e4296ac5acbe1116b8fd47a64e5ec4afdd723",
-  "log_sha256": "2e1d2550fd9fcab1f51699ce1291fe924405ef9a5c6246f39bd1f7d1325c5a0b",
+  "run": "reversing/CppTwelveLevel6Final/runs/CarCtrlSteer63-20261027-195732-097507",
+  "summary_sha256": "45df1ae99634c38d5fb695029bc146b3287f0cef237ed051e367beba1fe9e2bb",
+  "result_txt_sha256": "97fa493370390e94aaa170285add7d1a6daa863673661ae7b707f04d5b06d719",
+  "log_sha256": "96003265be4e1e0a22f036848b3785f631382a32677fc1cf1ff1ca4044ac3bce",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "3275d5d158bdfac6df8957f83af8abaaab371c00f62ebafa3e5c1d3e64a97c0c",
+  "executed_probe_sha256": "c5ae747cc0a7f1bd910358f70c21ab63a40df29cbe91d59befdce109b6321c37",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
-      "source/game_sa/CarCtrl.cpp": "a2a8c49829a45039c8275decb586a4c845db8c1781e27770afe5194ffb6c9588",
-      "source/game_sa/CarCtrl.h": "839c30f512d0d453d3c5ede12522b5104f7788fab874bf9cf8802b98ee09b49d",
-      "source/game_sa/X87Math.cpp": "544d7f4d9ff0cc13613206d60f611801b59da379cd8b4ae4e9afcc410f63fc58",
-      "source/game_sa/X87Math.h": "d2933f31fbe910a6ba6ee6e3abe717e599e5e8bf865a5fc5af98c1b102d97065",
+      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+      "source/game_sa/CarCtrl.cpp": "4de8d81c0df4a1abefeb524d0ca7951815e1c6a72d840cda780946d1d2599da9",
+      "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+      "source/game_sa/X87Math.cpp": "1e32d201b83098e0c4b72e1282e82f19e72a5c474b3c82440bcdf9f44bf971c4",
+      "source/game_sa/X87Math.h": "8015654fe6b233947884b917027582d2ea6eafc195c15d1e8a5902034e62c89a",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/CarCtrlSteer63/LiveComparison.hpp": "4396122adadfff57e4c2a90cc6b6e3f9a7903def6d82377db7bcc3c13bc5c158",
-      "reversing/CarCtrlSteer63/Core.hpp": "ccdc1cb922ec6578cbf27417e6ed43b3735d458add60a796ec8644a2f1919058",
-      "reversing/CarCtrlSteer63/Fixtures.hpp": "ca7dd971911e115362ec9a260a768027e2f8a44c643a07d67ef4a82a1e0208b6",
+      "reversing/CarCtrlSteer63/Core.hpp": "5fd1054cd2fc126e16f193da11a7765de46b5d6b661b57fe22f1e1af6400ae67",
+      "reversing/CarCtrlSteer63/Fixtures.hpp": "b2fd8889c5edfdb7feae46221ead3b13973044a77eb7a14f5bf86d51ec1a68be",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/CarCtrlSteer63-20261027-195732-097507/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "d6ffedf1293497effd80146019e3963e0765a6ad1409f877a69aca9e9a81854e",
+    "uncompressed_sha256": "96003265be4e1e0a22f036848b3785f631382a32677fc1cf1ff1ca4044ac3bce"
   }
 }

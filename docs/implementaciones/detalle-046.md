@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 27/10/2026 (Ciudad de México):** 820 grupos / 8939 funciones reconstruidas; 8939 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 27/10/2026 (Ciudad de México):** 820 grupos / 8947 funciones reconstruidas; 8947 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -434,6 +434,15 @@
 
 <a id="grupo-917"></a>
 
+## Car75Word
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| Car75Word(uint32_t bits) | [source/game_sa/X87Math.cpp:16462](../../source/game_sa/X87Math.cpp#L16462) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| & f() const | [source/game_sa/X87Math.cpp:16463](../../source/game_sa/X87Math.cpp#L16463) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-918"></a>
+
 ## CdStream
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -448,7 +457,7 @@
 | CdStreamRemoveImages() | [source/game_sa/CdStreamInfo.cpp:285](../../source/game_sa/CdStreamInfo.cpp#L285) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CdStream::CdStreamRemoveImages 0x00406690 | 0 / 0 | Posible dato fijo gCdImageNames: source/game_sa/CdStreamInfo.cpp:22 (0x008E4098); Posible dato fijo gOpenStreamCount: source/game_sa/CdStreamInfo.cpp:26 (0x008E4094); Posible dato fijo gStreamCount: source/game_sa/CdStreamInfo.cpp:25 (0x008E4090); Posible dato fijo gStreamFileHandles: source/game_sa/CdStreamInfo.cpp:21 (0x008E4010) |
 | CdStreamShutdown() | [source/game_sa/CdStreamInfo.cpp:301](../../source/game_sa/CdStreamInfo.cpp#L301) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CdStream::CdStreamShutdown 0x00406370 | 0 / 0 | Posible dato fijo gCdStreams: source/game_sa/CdStreamInfo.cpp:24 (0x008E3FFC); Posible dato fijo gStreamCount: source/game_sa/CdStreamInfo.cpp:25 (0x008E4090); Posible dato fijo gStreamQueue: source/game_sa/CdStreamInfo.cpp:29 (0x008E3FEC); Posible dato fijo gStreamSemaphore: source/game_sa/CdStreamInfo.cpp:30 (0x008E4004); Posible dato fijo gStreamingInitialized: source/game_sa/CdStreamInfo.cpp:27 (0x008E3FE4); Posible dato fijo gStreamingThread: source/game_sa/CdStreamInfo.cpp:31 (0x008E4008) |
 
-<a id="grupo-918"></a>
+<a id="grupo-919"></a>
 
 ## CdStreamPos
 
@@ -456,7 +465,7 @@
 | --- | --- | --- | --- | --- | --- |
 | ToInt() const | [source/game_sa/CdStreamInfo.h:22](../../source/game_sa/CdStreamInfo.h#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-919"></a>
+<a id="grupo-920"></a>
 
 ## ColDef
 
@@ -464,13 +473,3 @@
 | --- | --- | --- | --- | --- | --- |
 | * ColDef::operator new(unsigned size) | [source/game_sa/Collision/ColStore.cpp:39](../../source/game_sa/Collision/ColStore.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pColPool: source/game_sa/Collision/ColStore.cpp:24 (0x00965560) |
 | ColDef::operator delete(void* data) | [source/game_sa/Collision/ColStore.cpp:43](../../source/game_sa/Collision/ColStore.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pColPool: source/game_sa/Collision/ColStore.cpp:24 (0x00965560) |
-
-<a id="grupo-920"></a>
-
-## ColHelpers::FileHeader
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| GetTotalSize() const | [source/game_sa/Collision/ColHelpers.h:56](../../source/game_sa/Collision/ColHelpers.h#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetDataSize() const | [source/game_sa/Collision/ColHelpers.h:61](../../source/game_sa/Collision/ColHelpers.h#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetVersion() const | [source/game_sa/Collision/ColHelpers.h:66](../../source/game_sa/Collision/ColHelpers.h#L66) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

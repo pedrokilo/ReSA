@@ -10,32 +10,39 @@
   "covered_functions": {
     "CCarCtrl::SteerAICarTowardsPointInEscort": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wh-2 (HEAD df26d6fe7 + parche del banco). Los colaboradores se sustituyen por falsos identicos en ambos lados (parche en la entrada del EXE y en el cuerpo de la DLL cuando tienen hook; no se validan sus cuerpos): CGeneral::GetATanOfXY (el falso devuelve un double sin redondear en ST0), CCarCtrl::FindAngleToWeaveThroughTraffic y FindMaxSteerAngle. La multiplicacion matriz x vector (0x59C890) NO se sustituye: corre de verdad en el EXE y, en la DLL, con el ayudante x87 AutoPreMultiplyMatrixWithVectorCpp. Los dos vehiculos y sus matrices son objetos del banco. Ningun llamador del EXE lee EAX/ECX/EDX (ver README); solo se registran. Limites: NaN silenciosos, sin rumbos infinitos ni enormes (bucles de normalizacion); vehiculo con matriz siempre presente (el EXE la desreferencia sin comprobar).",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wh-2 (HEAD df26d6fe7 + parche del banco). Los colaboradores se sustituyen por falsos identicos en ambos lados (parche en la entrada del EXE y en el cuerpo de la DLL cuando tienen hook; no se validan sus cuerpos): CGeneral::GetATanOfXY (el falso devuelve un double sin redondear en ST0), CCarCtrl::FindAngleToWeaveThroughTraffic y FindMaxSteerAngle. La multiplicacion matriz x vector (0x59C890) NO se sustituye: corre de verdad en el EXE y, en la DLL, con el ayudante x87 AutoPreMultiplyMatrixWithVectorCpp. Los dos vehiculos y sus matrices son objetos del banco. Ningun llamador del EXE lee EAX/ECX/EDX (ver README); solo se registran. Limites: NaN silenciosos, sin rumbos infinitos ni enormes (bucles de normalizacion); vehiculo con matriz siempre presente (el EXE la desreferencia sin comprobar). Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/CarCtrlSteer63c-20261020-232131-579482",
-  "summary_sha256": "b14e0f20054b8e456056f8a1d97cfd20f0402072d21f58c13773d00ac27ca042",
-  "result_txt_sha256": "a55fda0d453b026f57a25fe419a371a797c99a7d6e619b066ca56cb1acf9830e",
-  "log_sha256": "a4b6b3db7c91bd0e0d8c08d56c94a4b6712792d541fd52478f2364177429abb8",
+  "run": "reversing/CppTwelveLevel6Final/runs/CarCtrlSteer63c-20261027-195947-485811",
+  "summary_sha256": "416d93d6c495e9f9e0af3ddc896139c1e1d954e5c1ac125968a52955c3968b6c",
+  "result_txt_sha256": "a6375e667230707ef6c8413f3d412d7eeb095b2772a4dbb7013b6db3c9a50c6b",
+  "log_sha256": "2065ae27d43ca5cfc3acb7dfcfa3316b2d6be9d3aee3cfb3ae594e82a7406d34",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "38247487b9fa9db70e19cf994f83482dfb1e3539cfba7298ea31132ecbdb5232",
+  "executed_probe_sha256": "8e34fcc0b9b9ef346e0e0b5ebca5525160a1dc28c74feb25e4acd99bada2e119",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
-      "source/game_sa/CarCtrl.cpp": "a2a8c49829a45039c8275decb586a4c845db8c1781e27770afe5194ffb6c9588",
-      "source/game_sa/CarCtrl.h": "839c30f512d0d453d3c5ede12522b5104f7788fab874bf9cf8802b98ee09b49d",
-      "source/game_sa/X87Math.cpp": "544d7f4d9ff0cc13613206d60f611801b59da379cd8b4ae4e9afcc410f63fc58",
-      "source/game_sa/X87Math.h": "d2933f31fbe910a6ba6ee6e3abe717e599e5e8bf865a5fc5af98c1b102d97065",
+      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+      "source/game_sa/CarCtrl.cpp": "4de8d81c0df4a1abefeb524d0ca7951815e1c6a72d840cda780946d1d2599da9",
+      "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+      "source/game_sa/X87Math.cpp": "1e32d201b83098e0c4b72e1282e82f19e72a5c474b3c82440bcdf9f44bf971c4",
+      "source/game_sa/X87Math.h": "8015654fe6b233947884b917027582d2ea6eafc195c15d1e8a5902034e62c89a",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/CarCtrlSteer63c/LiveComparison.hpp": "ca8cb8dda2f98db67649b8b364d5d7c37ca9d351041f5069c5156f663dfd3e48",
-      "reversing/CarCtrlSteer63c/Core.hpp": "9a75318d9a0d6264272f4039d1b42d4f0108cf755a9664f9f169cb453e2999e3",
+      "reversing/CarCtrlSteer63c/LiveComparison.hpp": "827a67b4c54c8c56ef439ca46617d69be6a35a529d815165f8e2564ddf201683",
+      "reversing/CarCtrlSteer63c/Core.hpp": "e6b668eae6adc5d0ef11255319842c885ef575d826e8d2ecb3ec2182317fc4f2",
       "reversing/CarCtrlSteer63c/Fixtures.hpp": "bcdb3c49c405790f8451310108c2b56975265ba3856bdbdea1d71b17133b83b9",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/CarCtrlSteer63c-20261027-195947-485811/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "612ff102a17c719f27f6562416018e1c975f53f8228063a9982c99e2a39559e3",
+    "uncompressed_sha256": "2065ae27d43ca5cfc3acb7dfcfa3316b2d6be9d3aee3cfb3ae594e82a7406d34"
   }
 }

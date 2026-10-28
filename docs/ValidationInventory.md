@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,939 entradas reversed=1**, de 8,939 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,947 entradas reversed=1**, de 8,947 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8939 |
+| `validated=1` · evidencia aprobada vinculada | 8947 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8939 |
+| Evidencia histórica vinculada; revisión pendiente | 8947 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -1090,7 +1090,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAutomobile | `RcbanditCheckHitWheels` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
 | CAutomobile | `ReduceHornCounter` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
 | CAutomobile | `RemoveBonnetInPedCollision` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
-| CAutomobile | `Render` | [Resumen](../reversing/AutomobileWrappers60/validation-summary.json) |
+| CAutomobile | `Render` | [Resumen](../reversing/AutoRender75/validation-summary.json) |
 | CAutomobile | `ResetSuspension` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
 | CAutomobile | `Save` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
 | CAutomobile | `ScanForCrimes` | [Resumen](../reversing/AutomobileFinal4/validation-summary.json) |
@@ -1458,12 +1458,16 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCarCtrl | `ClearInterestingVehicleList` | [Resumen](../reversing/DependenciesCarCtrl2/validation-summary.json) |
 | CCarCtrl | `ClipTargetOrientationToLink` | [Resumen](../reversing/CarLink74/validation-summary.json) |
 | CCarCtrl | `CreateCarForScript` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `CreateConvoy` | [Resumen](../reversing/CarConvoy75/validation-summary.json) |
+| CCarCtrl | `CreatePoliceChase` | [Resumen](../reversing/CarPolice75/validation-summary.json) |
 | CCarCtrl | `DealWithBend_Racing` | [Resumen](../reversing/CarCtrlSteer63f/validation-summary.json) |
+| CCarCtrl | `FindAngleToWeaveThroughTraffic` | [Resumen](../reversing/CarWeave75/validation-summary.json) |
 | CCarCtrl | `FindGhostRoadHeight` | [Resumen](../reversing/DependenciesWorld14/validation-summary.json) |
 | CCarCtrl | `FindIntersection2Lines` | [Resumen](../reversing/CarCtrlRest63/validation-summary.json) |
 | CCarCtrl | `FindLinksToGoWithTheseNodes` | [Resumen](../reversing/CarCtrlRest63D/validation-summary.json) |
 | CCarCtrl | `FindMaxSteerAngle` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
 | CCarCtrl | `FindMaximumSpeedForThisCarInTraffic` | [Resumen](../reversing/CarCtrlRest63B/validation-summary.json) |
+| CCarCtrl | `FindNodesThisCarIsNearestTo` | [Resumen](../reversing/CarNodes75/validation-summary.json) |
 | CCarCtrl | `FindPathDirection` | [Resumen](../reversing/CarCtrlRest63/validation-summary.json) |
 | CCarCtrl | `FindPercDependingOnDistToLink` | [Resumen](../reversing/CarCtrlRest63/validation-summary.json) |
 | CCarCtrl | `FindSequenceElement` | [Resumen](../reversing/DependenciesCarCtrl2/validation-summary.json) |
@@ -3063,7 +3067,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CHeli | `GenerateHeli` | [Resumen](../reversing/HeliGen74/validation-summary.json) |
 | CHeli | `InitHelis` | [Resumen](../reversing/Mix11/validation-summary.json) |
 | CHeli | `Post_SearchLightCone` | [Resumen](../reversing/Mix11/validation-summary.json) |
+| CHeli | `PreRender` | [Resumen](../reversing/HeliPre75/validation-summary.json) |
 | CHeli | `Pre_SearchLightCone` | [Resumen](../reversing/Mix11/validation-summary.json) |
+| CHeli | `ProcessFlyingCarStuff` | [Resumen](../reversing/HeliFly75/validation-summary.json) |
 | CHeli | `Render` | [Resumen](../reversing/Mix11/validation-summary.json) |
 | CHeli | `RenderAllHeliSearchLights` | [Resumen](../reversing/Mix11/validation-summary.json) |
 | CHeli | `SendDownSwat` | [Resumen](../reversing/HeliSwat74/validation-summary.json) |
@@ -4373,6 +4379,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPlayerPed | `MakeGroupRespondToPlayerTakingDamage` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `MakePlayerGroupDisappear` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `MakePlayerGroupReappear` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
+| CPlayerPed | `MakeThisPedJoinOurGroup` | [Resumen](../reversing/PlayerGroup75/validation-summary.json) |
 | CPlayerPed | `PedCanBeTargettedVehicleWise` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `PickWeaponAllowedFor2Player` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `PlayerHasJustAttackedSomeone` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
@@ -6963,6 +6970,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleFight | `Destructor` | [Resumen](../reversing/DependenciesTask12/validation-summary.json) |
 | CTaskSimpleFight | `FightHitCar` | [Resumen](../reversing/Dependencies21C/validation-summary.json) |
 | CTaskSimpleFight | `FightHitObj` | [Resumen](../reversing/FightHitObj72/validation-summary.json) |
+| CTaskSimpleFight | `FightHitPed` | [Resumen](../reversing/FightHitPed75/validation-summary.json) |
 | CTaskSimpleFight | `FightSetUpCol` | [Resumen](../reversing/Dependencies21C/validation-summary.json) |
 | CTaskSimpleFight | `FightStrike` | [Resumen](../reversing/Dependencies21C/validation-summary.json) |
 | CTaskSimpleFight | `FightStrikeDamage` | [Resumen](../reversing/Helpers65D/validation-summary.json) |
@@ -9052,7 +9060,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CCam` | 51 | 0 | 51 | 0 |
 | `CCamera` | 119 | 0 | 119 | 0 |
 | `CCarAI` | 25 | 0 | 25 | 0 |
-| `CCarCtrl` | 94 | 0 | 94 | 0 |
+| `CCarCtrl` | 98 | 0 | 98 | 0 |
 | `CCarEnterExit` | 32 | 0 | 32 | 0 |
 | `CCarFXRenderer` | 10 | 0 | 10 | 0 |
 | `CCarGenerator` | 8 | 0 | 8 | 0 |
@@ -9212,7 +9220,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CGroupEventHandler` | 32 | 0 | 32 | 0 |
 | `CHandObject` | 3 | 0 | 3 | 0 |
 | `CHandShaker` | 3 | 0 | 3 | 0 |
-| `CHeli` | 16 | 0 | 16 | 0 |
+| `CHeli` | 18 | 0 | 18 | 0 |
 | `CHud` | 39 | 0 | 39 | 0 |
 | `CHudColours` | 5 | 0 | 5 | 0 |
 | `CIdleCam` | 14 | 0 | 14 | 0 |
@@ -9313,7 +9321,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPlantMgr` | 20 | 0 | 20 | 0 |
 | `CPlantSurfPropMgr` | 4 | 0 | 4 | 0 |
 | `CPlayerInfo` | 29 | 0 | 29 | 0 |
-| `CPlayerPed` | 54 | 0 | 54 | 0 |
+| `CPlayerPed` | 55 | 0 | 55 | 0 |
 | `CPlayerPedData` | 5 | 0 | 5 | 0 |
 | `CPlayerRelationshipRecorder` | 1 | 0 | 1 | 0 |
 | `CPlayerSkin` | 4 | 0 | 4 | 0 |
@@ -9610,7 +9618,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleEvasiveStep` | 8 | 0 | 8 | 0 |
 | `CTaskSimpleFacial` | 5 | 0 | 5 | 0 |
 | `CTaskSimpleFall` | 6 | 0 | 6 | 0 |
-| `CTaskSimpleFight` | 14 | 0 | 14 | 0 |
+| `CTaskSimpleFight` | 15 | 0 | 15 | 0 |
 | `CTaskSimpleFightingControl` | 7 | 0 | 7 | 0 |
 | `CTaskSimpleFinishBrain` | 2 | 0 | 2 | 0 |
 | `CTaskSimpleGangDriveBy` | 10 | 0 | 10 | 0 |

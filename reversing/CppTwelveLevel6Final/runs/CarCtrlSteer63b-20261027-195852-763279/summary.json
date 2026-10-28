@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "7dd32efa8e8ae521d48d4817a89f60fc603b73480460281bc5f8ddd10be24aff",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 4096,
+  "pairs_per_function": {
+    "CCarCtrl::SteerAICarWithPhysicsFollowPreRecordedPath": 4096
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "32b0ee4b4f356bc88124c6c258583bfe9cc59c963a7bcf763be41277e1faf0a4",
+  "compare_dead_x87_registers": false,
+  "coverage": {
+    "loop_near": 1240,
+    "advance2plus": 537,
+    "accel_b": 965,
+    "steer": 1862,
+    "fn0": 4096,
+    "family0_fn0": 512,
+    "loop_next": 1297,
+    "end": 1317,
+    "family1_fn0": 512,
+    "family2_fn0": 512,
+    "family3_fn0": 512,
+    "noadvance": 1069,
+    "clamp_hi": 651,
+    "brake": 656,
+    "family4_fn0": 512,
+    "clamp_lo": 654,
+    "family5_fn0": 512,
+    "family6_fn0": 512,
+    "loop_lo": 342,
+    "family7_fn0": 512,
+    "neg_id": 326,
+    "loop_hi": 389,
+    "paused": 361,
+    "floor": 412,
+    "null_base": 230,
+    "late": 224,
+    "advance1": 256,
+    "accel_a": 241
+  },
+  "coverage_method": "serialized_inputs_and_independent_oracle; no_instruction_branch_tracing",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

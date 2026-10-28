@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-27 12:08 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-28 02:51 UTC
 
 ## Objetivo y dimensiones de progreso
 
@@ -10,19 +10,19 @@ La [hoja de ruta de ReSA](ProjectRoadmap.md) define una reconstrucción funciona
 
 | Dimensión | Progreso | Medición |
 | --- | --- | --- |
-| Funciones del juego reemplazadas por C++ en el EXE (meta del proyecto) | `███████████████░░░░░` | 8,832/11,804 · 74.82% |
-| Bytes de código del juego reemplazados | `█████████████████░░░` | 2,600,930/3,007,877 · 86.47% |
+| Funciones del juego reemplazadas por C++ en el EXE (meta del proyecto) | `███████████████░░░░░` | 8,840/11,804 · 74.89% |
+| Bytes de código del juego reemplazados | `█████████████████░░░` | 2,610,910/3,007,877 · 86.80% |
 | Clases del juego completas | `████████████████████` | 806/812 · 99.26% |
 | Clases del juego validadas (de las completas) | `████████████████████` | 806/806 · 100.00% |
-| Entradas de catálogo del juego reconstruidas | `████████████████████` | 8,860/8,969 · 98.78% |
-| Entradas del juego validadas (de las reconstruidas) | `████████████████████` | 8,860/8,860 · 100.00% |
-| Entradas del juego reconstruidas escritas solo en C++ (sin ensamblador) | `████████████████████` | 8,858/8,860 · 99.98% |
+| Entradas de catálogo del juego reconstruidas | `████████████████████` | 8,868/8,972 · 98.84% |
+| Entradas del juego validadas (de las reconstruidas) | `████████████████████` | 8,868/8,868 · 100.00% |
+| Entradas del juego reconstruidas escritas solo en C++ (sin ensamblador) | `████████████████████` | 8,866/8,868 · 99.98% |
 
 Las dos primeras filas miden el propio EXE (análisis estático, ver [cobertura real del EXE](#cobertura-exe)) y son la medida del avance hacia la meta; las demás miden las entradas del catálogo, que solo conoce una parte del código del juego, por eso su porcentaje es mayor. Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL. La última barra cuenta, de las funciones reconstruidas, las que tienen fuente identificada y sin `__asm` ni `naked`; las entradas sin fuente identificada de forma inequívoca no se cuentan como C++. El detalle está en [ImplementacionesDelJuego.md](ImplementacionesDelJuego.md).
 
 **Migración de ensamblador a C++:** en `source/game_sa` ya no queda ningún `__asm` ni función `naked`: todo lo reconstruido está escrito en C++, con resultados validados contra el EXE dentro del juego. Regla del proyecto: todo lo que se reconstruya va en C++, dos archivos por clase (`.cpp` y `.h`) y sin duplicados ([proceso](../reversing/CppOnlyMigration/PROCESO.md)). Historial y excepciones documentadas: [estado de la migración](../reversing/CppOnlyMigration/README.md) · [FILES.md](../reversing/CppOnlyMigration/FILES.md).
 
-Hay 8,860 entradas catalogadas del juego, 0 bloqueadas y 8,860 sin bloqueo. No constituyen un inventario exhaustivo del código del juego; las filas de RenderWare y del CRT del catálogo (79) quedan fuera de este informe. Desbloqueada no significa validada, activa ni independiente. No se deducen hooks eliminados del contador de locks. Las extensiones o adaptaciones NOTSA (4, en [hooks_notsa.csv](hooks_notsa.csv)) quedan fuera de la cuenta.
+Hay 8,868 entradas catalogadas del juego, 0 bloqueadas y 8,868 sin bloqueo. No constituyen un inventario exhaustivo del código del juego; las filas de RenderWare y del CRT del catálogo (79) quedan fuera de este informe. Desbloqueada no significa validada, activa ni independiente. No se deducen hooks eliminados del contador de locks. Las extensiones o adaptaciones NOTSA (4, en [hooks_notsa.csv](hooks_notsa.csv)) quedan fuera de la cuenta.
 
 ### Siguientes mediciones
 
@@ -30,19 +30,19 @@ Estas dimensiones todavía no tienen un porcentaje útil: indican el trabajo que
 
 | Dimensión | Estado actual | Qué hay que hacer |
 | --- | --- | --- |
-| Validaciones vigentes para el árbol actual | 0/8,860 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). |
-| Dependencias de funciones originales eliminadas | Medido (cota inferior): 906 funciones del juego siguen llamándose directamente desde código del juego ya reemplazado; cierre transitivo: 1,101 funciones / 235,240 bytes. Ver [Cobertura real del EXE](#cobertura-exe) | Resolver las llamadas indirectas (tablas de punteros, callbacks) para convertir la cota inferior en un valor exacto, y eliminar o sustituir las dependencias directas que quedan. |
+| Validaciones vigentes para el árbol actual | 0/8,868 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). |
+| Dependencias de funciones originales eliminadas | Medido (cota inferior): 906 funciones del juego siguen llamándose directamente desde código del juego ya reemplazado; cierre transitivo: 1,095 funciones / 227,931 bytes. Ver [Cobertura real del EXE](#cobertura-exe) | Resolver las llamadas indirectas (tablas de punteros, callbacks) para convertir la cota inferior en un valor exacto, y eliminar o sustituir las dependencias directas que quedan. |
 
-**Validación consolidada parcialmente:** 8860 funciones del juego con evidencia aprobada vinculada, 443 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
+**Validación consolidada parcialmente:** 8868 funciones del juego con evidencia aprobada vinculada, 444 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
 
 ## Vista general
 
 | Clases validadas | Completas por validar | Funciones validadas | Reconstruidas por validar | Funciones por reconstruir |
 | :---: | :---: | :---: | :---: | :---: |
-| **806 / 806** | **0 / 806** | **8,860 / 8,860** | **0 / 8,860** | **109 / 8,969** |
-| 100.00% | 0.00% | 100.00% | 0.00% | 1.22% |
+| **806 / 806** | **0 / 806** | **8,868 / 8,868** | **0 / 8,868** | **104 / 8,972** |
+| 100.00% | 0.00% | 100.00% | 0.00% | 1.16% |
 
-Reconstrucción por clases: 806 completas, 5 parciales y 1 sin revertir de 812 (incluye 109 funciones del juego con envoltura al EXE aún sin reconstruir, en 6 clases o grupos).
+Reconstrucción por clases: 806 completas, 5 parciales y 1 sin revertir de 812 (incluye 104 funciones del juego con envoltura al EXE aún sin reconstruir, en 6 clases o grupos).
 
 **Ir a:** [Completas](#completas) · [Parciales](#parciales) · [Sin revertir](#sin-revertir) · [Cohorte nuevo por dificultad](#cohorte-nuevo) · [Cómo leer y actualizar](#metodo)
 
@@ -53,27 +53,27 @@ Reconstrucción por clases: 806 completas, 5 parciales y 1 sin revertir de 812 (
 
 ## Cobertura real del EXE (estimación)
 
-Esta tabla es la única parte del informe que habla de lo que no es código del juego: sirve para aclarar qué queda fuera de la meta. Las dos primeras barras de progreso salen de aquí (región del juego); las demás miden filas del catálogo (`hooks.csv`). Se mide el propio ejecutable original con el análisis estático ([MemoryMap](MemoryMap/README.md): 17,765 entradas de función detectadas y 3.72 MB de cuerpos de función), cruzado con el catálogo, el registro de validación y las envolturas pendientes. 8,939 filas reconstruidas equivalen a **8,902 funciones distintas del EXE ya reemplazadas** (varias filas son sobrescrituras virtuales que comparten cuerpo).
+Esta tabla es la única parte del informe que habla de lo que no es código del juego: sirve para aclarar qué queda fuera de la meta. Las dos primeras barras de progreso salen de aquí (región del juego); las demás miden filas del catálogo (`hooks.csv`). Se mide el propio ejecutable original con el análisis estático ([MemoryMap](MemoryMap/README.md): 17,765 entradas de función detectadas y 3.72 MB de cuerpos de función), cruzado con el catálogo, el registro de validación y las envolturas pendientes. 8,947 filas reconstruidas equivalen a **8,910 funciones distintas del EXE ya reemplazadas** (varias filas son sobrescrituras virtuales que comparten cuerpo).
 
 | Región del EXE | Funciones | Bytes de código | Reemplazadas por C++ (funciones) | Reemplazadas (bytes) | Funciones llamadas directamente desde código ya reemplazado |
 | --- | ---: | ---: | --- | --- | ---: |
-| Juego y plataforma (0x401000–0x74FFFF) | 11,804 | 3,007,877 | `███████████████░░░░░` 8,832 · 74.8% | `█████████████████░░░` 86.5% | 906 |
+| Juego y plataforma (0x401000–0x74FFFF) | 11,804 | 3,007,877 | `███████████████░░░░░` 8,840 · 74.9% | `█████████████████░░░` 86.8% | 906 |
 | RenderWare y D3D (0x750000–0x81FFFF) | 1,889 | 600,971 | `█░░░░░░░░░░░░░░░░░░░` 61 · 3.2% | `░░░░░░░░░░░░░░░░░░░░` 0.3% | 224 |
 | CRT/MSVC y runtime (0x820000 en adelante) | 4,072 | 115,711 | `░░░░░░░░░░░░░░░░░░░░` 9 · 0.2% | `░░░░░░░░░░░░░░░░░░░░` 0.2% | 59 |
-| **Total** | **17,765** | **3,724,559** | `██████████░░░░░░░░░░` 8,902 · 50.1% | `██████████████░░░░░░` 69.9% | **1,189** |
+| **Total** | **17,765** | **3,724,559** | `██████████░░░░░░░░░░` 8,910 · 50.2% | `██████████████░░░░░░` 70.1% | **1,189** |
 
-**Qué significa para un ejecutable independiente.** No hace falta reconstruir las 17,765 funciones: RenderWare/D3D y el CRT son bibliotecas enlazadas dentro del EXE (5,961 entradas, 19% de los bytes) que se sustituirían enlazando una implementación equivalente, no reescribiéndolas desde el original. El trabajo propio del proyecto es el código del juego (11,804 funciones, 81% de los bytes), y de él ya está reemplazado el **86% de los bytes** (75% de las funciones: las que quedan son más pequeñas que la media). Entre las 11,804 entradas del juego hay 1,835 de 16 bytes o menos (stubs, thunks y helpers).
+**Qué significa para un ejecutable independiente.** No hace falta reconstruir las 17,765 funciones: RenderWare/D3D y el CRT son bibliotecas enlazadas dentro del EXE (5,961 entradas, 19% de los bytes) que se sustituirían enlazando una implementación equivalente, no reescribiéndolas desde el original. El trabajo propio del proyecto es el código del juego (11,804 funciones, 81% de los bytes), y de él ya está reemplazado el **87% de los bytes** (75% de las funciones: las que quedan son más pequeñas que la media). Entre las 11,804 entradas del juego hay 1,835 de 16 bytes o menos (stubs, thunks y helpers).
 
-### Lo que falta del código del juego: 2,972 funciones, 407 KB
+### Lo que falta del código del juego: 2,964 funciones, 397 KB
 
 Mapa completo de las funciones del juego, con lista por estado, bloque de direcciones y módulo estimado: [JuegoExe](JuegoExe/README.md).
 
 | Grupo (de mayor a menor tamaño) | Funciones | Bytes | Lectura |
 | --- | ---: | ---: | --- |
-| A. Llamadas directamente desde código ya reemplazado (cierre transitivo) | 1,101 | 235,240 | **Trabajo necesario**: la DLL sigue dependiendo de ellas. Es el piso para la independencia. |
+| A. Llamadas directamente desde código ya reemplazado (cierre transitivo) | 1,095 | 227,931 | **Trabajo necesario**: la DLL sigue dependiendo de ellas. Es el piso para la independencia. |
 | C. Llamadas directas solo desde código aún no reemplazado | 536 | 68,443 | Dependen de reconstruir antes A y B; parte puede ser código muerto. |
 | D. Sin llamadas directas ni vtable | 426 | 59,754 | Código muerto o alcanzado por tablas de punteros, callbacks o scripts: hay que revisarlo, no contarlo sin más. |
-| B. Métodos virtuales (en una vtable) no alcanzados por llamada directa | 909 | 43,510 | Probablemente necesarios: se ejecutan por despacho virtual. |
+| B. Métodos virtuales (en una vtable) no alcanzados por llamada directa | 907 | 40,839 | Probablemente necesarios: se ejecutan por despacho virtual. |
 
 Del código del juego ya reemplazado, **906 funciones del juego siguen llamándose directamente desde el EXE**. Esa es la lista corta de dependencias reales que hay que eliminar. Las que caen en RenderWare/D3D o el CRT se muestran solo en la última columna de la tabla de cobertura.
 
@@ -82,20 +82,20 @@ Del código del juego ya reemplazado, **906 funciones del juego siguen llamándo
 
 <a id="no-en-cpp"></a>
 
-### Funciones del juego que ya tenemos y aún no están en C++: 109
+### Funciones del juego que ya tenemos y aún no están en C++: 104
 
 Son envolturas: la DLL ya tiene la función y su hook, pero el cuerpo todavía llama al EXE original. Solo se listan funciones del juego, que son la meta del proyecto. Todas las tablas van **de mayor a menor tamaño**: «Bytes» es la suma de los cuerpos de las funciones pendientes (análisis estático) y «Tamaño» clasifica la función más grande de la fila (muy grande ≥ 2.000 B, grande 500–1.999 B, mediana 100–499 B, pequeña < 100 B; una instrucción x86 ocupa entre 1 y 15 bytes, unos 3–4 de media). Las funciones del EXE sin nombre ni hook (el resto de lo que falta) están en el [mapa del código del juego](JuegoExe/README.md). Fuente: [envolturas-pendientes.csv](implementaciones/envolturas-pendientes.csv).
 
-#### Código del juego: 109 funciones en 6 clases o grupos · 97,353 bytes
+#### Código del juego: 104 funciones en 6 clases o grupos · 87,373 bytes
 
 | Clase o grupo | Funciones | Bytes | Función más grande | Tamaño | Funciones (de mayor a menor) |
 | --- | ---: | ---: | ---: | --- | --- |
-| CCarCtrl | 17 | 40,659 | 7,915 | muy grande | `GenerateOneRandomCar` 0x00430050 · 7,915 B<br>`SteerAICarWithPhysics_OnlyMission` 0x00436A90 · 4,243 B<br>`SteerAICarWithPhysicsFollowPath` 0x00434900 · 3,729 B<br>`PickNextNodeRandomly` 0x0042DE80 · 3,591 B<br>`SteerAICarWithPhysicsFollowPath_Racing` 0x00435830 · 3,320 B<br>`GenerateCarCreationCoors2` 0x00424210 · 2,751 B<br>`PickNextNodeToFollowPath` 0x00427740 · 2,193 B<br>`PickNextNodeToChaseCar` 0x00426EF0 · 2,111 B<br>`DragCarToPoint` 0x0042EC90 · 1,748 B<br>`SteerAICarWithPhysics` 0x00437C20 · 1,717 B<br>`FindAngleToWeaveThroughTraffic` 0x004325C0 · 1,339 B<br>`FindNodesThisCarIsNearestTo` 0x0042BD20 · 1,323 B<br>`PossiblyRemoveVehicle` 0x00424F80 · 1,204 B<br>`CreateConvoy` 0x0042C740 · 1,168 B<br>`CreatePoliceChase` 0x0042C2B0 · 1,161 B<br>`GenerateOneEmergencyServicesCar` 0x0042B7D0 · 1,146 B<br>`GenerateEmergencyServicesCar` sin dirección |
-| CPlayerPed | 11 | 14,074 | 2,711 | muy grande | `SetRealMoveAnim` 0x0060A9C0 · 2,711 B<br>`FindWeaponLockOnTarget` 0x0060DC50 · 2,263 B<br>`DrawTriangleForMouseRecruitPed` 0x0060BA80 · 1,593 B<br>`FindNextWeaponLockOnTarget` 0x0060E530 · 1,362 B<br>`Compute3rdPersonMouseTarget` 0x0060B650 · 1,062 B<br>`MakeThisPedJoinOurGroup` 0x0060C840 · 1,029 B<br>`ProcessWeaponSwitch` 0x0060D850 · 1,012 B<br>`ProcessAnimGroups` 0x006098F0 · 909 B<br>`KeepAreaAroundPlayerClear` 0x0060C1E0 · 817 B<br>`SetInitialState` 0x0060CD20 · 727 B<br>`ProcessGroupBehaviour` 0x0060D350 · 589 B |
-| (helpers y globales sin clase) | 56 | 13,932 | 3,445 | muy grande | `helper sin símbolo confirmado` 0x0051D770 · 3,445 B<br>`CCamera unnamed geometry helper` 0x00514030 · 2,084 B<br>`CTaskSimpleGangDriveBy helper para shooter sin símbolo confirmado` 0x00627CC0 · 1,672 B<br>`CFont helper de impresión de segmento sin símbolo confirmado` 0x00719B40 · 1,440 B<br>`FightHitPedExe` 0x0061CBA0 · 1,289 B<br>`CPathFind generador de coordenadas de ped sin símbolo confirmado` 0x0044E790 · 1,274 B<br>`CCam helper arrest camera de from/initialise sin símbolo confirmado` 0x00512EF0 · 804 B<br>`CCam unnamed arrest cop-source helper` 0x00515D80 · 651 B<br>`CWaterLevel helper de agua cercana` 0x006E6A10 · 646 B<br>`Creación de objeto toalla para sunbathe sin símbolo confirmado` 0x006EABA0 · 627 B<br>`ComputeTargetDoorToExit` sin dirección<br>`ExeFree` sin dirección<br>`FightChooseAttackAIExe` sin dirección<br>`FightChooseAttackPlayerExe` sin dirección<br>`FightFindTargetOnGroundExe` sin dirección<br>`FightGetAvailableComboSetExe` sin dirección<br>`FightStartAnimExe` sin dirección<br>`GaCalcDistToRectSq` sin dirección<br>`GaCountCarsCenterWithin` sin dirección<br>`GaIsAnyCarBlockingDoor` sin dirección<br>`GaIsAnyOtherCarTouching` sin dirección<br>`GaIsAnyOtherPedTouching` sin dirección<br>`GaIsPlayerOutside` sin dirección<br>`GaNeatlyLineUp` sin dirección<br>`GaRestoreHideOut` sin dirección<br>`GaRestoreImpounding` sin dirección<br>`GaSlideDoorClosed` sin dirección<br>`GaSlideDoorOpen` sin dirección<br>`GaStoreAndRemoveImpounding` sin dirección<br>`GaThrowCarsNearDoorOut` sin dirección<br>`GetFirstTextureCallback` sin dirección<br>`IndexDataBufferGetTotalDataSize` sin dirección<br>`IndexDataBufferPop` sin dirección<br>`IndexDataBufferResize` sin dirección<br>`RpClumpGtaCancelStream` sin dirección<br>`RpClumpGtaStreamRead1` sin dirección<br>`RpClumpGtaStreamRead2` sin dirección<br>`RpMaterialUVAnimApplyUpdate` sin dirección<br>`RwEngineGetVideoModeInfo` sin dirección<br>`RwTexDictionaryGtaStreamRead1` sin dirección<br>`RwTexDictionaryGtaStreamRead2` sin dirección<br>`RwTextureRead` sin dirección<br>`RxLockedPipeAddFragment` sin dirección<br>`StencilTransformPoints` sin dirección<br>`TextureBufferGetTotalDataSize` sin dirección<br>`TextureBufferPop` sin dirección<br>`TextureBufferPush` sin dirección<br>`TextureBufferPushWithoutIncreasingCounter` sin dirección<br>`TextureBufferResize` sin dirección<br>`TextureBufferSetup` sin dirección<br>`_rwD3D9SetStreams` sin dirección<br>`_rwObjectHasFrameSetFrame` sin dirección<br>`operator delete` sin dirección<br>`operator delete[]` sin dirección<br>`operator new` sin dirección<br>`operator new[]` sin dirección |
-| CHeli | 6 | 10,393 | 3,121 | muy grande | `SearchLightCone` 0x006C58E0 · 3,121 B<br>`ProcessControl` 0x006C7050 · 2,352 B<br>`ProcessControlInputs` 0x006C4830 · 1,571 B<br>`ProcessFlyingCarStuff` 0x006C4E60 · 1,467 B<br>`PreRender` 0x006C5420 · 1,204 B<br>`UpdateHelis` 0x006C79A0 · 678 B |
+| CCarCtrl | 13 | 35,668 | 7,915 | muy grande | `GenerateOneRandomCar` 0x00430050 · 7,915 B<br>`SteerAICarWithPhysics_OnlyMission` 0x00436A90 · 4,243 B<br>`SteerAICarWithPhysicsFollowPath` 0x00434900 · 3,729 B<br>`PickNextNodeRandomly` 0x0042DE80 · 3,591 B<br>`SteerAICarWithPhysicsFollowPath_Racing` 0x00435830 · 3,320 B<br>`GenerateCarCreationCoors2` 0x00424210 · 2,751 B<br>`PickNextNodeToFollowPath` 0x00427740 · 2,193 B<br>`PickNextNodeToChaseCar` 0x00426EF0 · 2,111 B<br>`DragCarToPoint` 0x0042EC90 · 1,748 B<br>`SteerAICarWithPhysics` 0x00437C20 · 1,717 B<br>`PossiblyRemoveVehicle` 0x00424F80 · 1,204 B<br>`GenerateOneEmergencyServicesCar` 0x0042B7D0 · 1,146 B<br>`GenerateEmergencyServicesCar` sin dirección |
+| CPlayerPed | 10 | 13,045 | 2,711 | muy grande | `SetRealMoveAnim` 0x0060A9C0 · 2,711 B<br>`FindWeaponLockOnTarget` 0x0060DC50 · 2,263 B<br>`DrawTriangleForMouseRecruitPed` 0x0060BA80 · 1,593 B<br>`FindNextWeaponLockOnTarget` 0x0060E530 · 1,362 B<br>`Compute3rdPersonMouseTarget` 0x0060B650 · 1,062 B<br>`ProcessWeaponSwitch` 0x0060D850 · 1,012 B<br>`ProcessAnimGroups` 0x006098F0 · 909 B<br>`KeepAreaAroundPlayerClear` 0x0060C1E0 · 817 B<br>`SetInitialState` 0x0060CD20 · 727 B<br>`ProcessGroupBehaviour` 0x0060D350 · 589 B |
+| (helpers y globales sin clase) | 58 | 12,643 | 3,445 | muy grande | `helper sin símbolo confirmado` 0x0051D770 · 3,445 B<br>`CCamera unnamed geometry helper` 0x00514030 · 2,084 B<br>`CTaskSimpleGangDriveBy helper para shooter sin símbolo confirmado` 0x00627CC0 · 1,672 B<br>`CFont helper de impresión de segmento sin símbolo confirmado` 0x00719B40 · 1,440 B<br>`CPathFind generador de coordenadas de ped sin símbolo confirmado` 0x0044E790 · 1,274 B<br>`CCam helper arrest camera de from/initialise sin símbolo confirmado` 0x00512EF0 · 804 B<br>`CCam unnamed arrest cop-source helper` 0x00515D80 · 651 B<br>`CWaterLevel helper de agua cercana` 0x006E6A10 · 646 B<br>`Creación de objeto toalla para sunbathe sin símbolo confirmado` 0x006EABA0 · 627 B<br>`ComputeTargetDoorToExit` sin dirección<br>`ExeFree` sin dirección<br>`FightBeHitWhileBlockingExe` sin dirección<br>`FightChooseAttackAIExe` sin dirección<br>`FightChooseAttackPlayerExe` sin dirección<br>`FightFindTargetOnGroundExe` sin dirección<br>`FightGetAvailableComboSetExe` sin dirección<br>`FightNormaliseExe` sin dirección<br>`FightStartAnimExe` sin dirección<br>`GaCalcDistToRectSq` sin dirección<br>`GaCountCarsCenterWithin` sin dirección<br>`GaIsAnyCarBlockingDoor` sin dirección<br>`GaIsAnyOtherCarTouching` sin dirección<br>`GaIsAnyOtherPedTouching` sin dirección<br>`GaIsPlayerOutside` sin dirección<br>`GaNeatlyLineUp` sin dirección<br>`GaRestoreHideOut` sin dirección<br>`GaRestoreImpounding` sin dirección<br>`GaSlideDoorClosed` sin dirección<br>`GaSlideDoorOpen` sin dirección<br>`GaStoreAndRemoveImpounding` sin dirección<br>`GaThrowCarsNearDoorOut` sin dirección<br>`GetFirstTextureCallback` sin dirección<br>`IndexDataBufferGetTotalDataSize` sin dirección<br>`IndexDataBufferPop` sin dirección<br>`IndexDataBufferResize` sin dirección<br>`JoinGroupFlagsExe` sin dirección<br>`RpClumpGtaCancelStream` sin dirección<br>`RpClumpGtaStreamRead1` sin dirección<br>`RpClumpGtaStreamRead2` sin dirección<br>`RpMaterialUVAnimApplyUpdate` sin dirección<br>`RwEngineGetVideoModeInfo` sin dirección<br>`RwTexDictionaryGtaStreamRead1` sin dirección<br>`RwTexDictionaryGtaStreamRead2` sin dirección<br>`RwTextureRead` sin dirección<br>`RxLockedPipeAddFragment` sin dirección<br>`StencilTransformPoints` sin dirección<br>`TextureBufferGetTotalDataSize` sin dirección<br>`TextureBufferPop` sin dirección<br>`TextureBufferPush` sin dirección<br>`TextureBufferPushWithoutIncreasingCounter` sin dirección<br>`TextureBufferResize` sin dirección<br>`TextureBufferSetup` sin dirección<br>`_rwD3D9SetStreams` sin dirección<br>`_rwObjectHasFrameSetFrame` sin dirección<br>`operator delete` sin dirección<br>`operator delete[]` sin dirección<br>`operator new` sin dirección<br>`operator new[]` sin dirección |
 | CVehicle | 7 | 10,115 | 2,878 | muy grande | `AddSingleWheelParticles` 0x006DE880 · 2,878 B<br>`ProcessBikeWheel` 0x006D73B0 · 2,062 B<br>`InflictDamage` 0x006D7C90 · 1,581 B<br>`UpdateTrailerLink` 0x006DFC50 · 1,017 B<br>`UpdateTractorLink` 0x006E0050 · 941 B<br>`FireFixedMachineGuns` 0x0073DF00 · 822 B<br>`DoDriveByShootings` 0x00741FD0 · 814 B |
 | Fx_c | 12 | 8,180 | 1,003 | grande | `AddWheelSpray` 0x0049FB30 · 1,003 B<br>`AddWheelSand` 0x004A0610 · 929 B<br>`AddWheelDust` 0x004A09C0 · 929 B<br>`AddBlood` 0x0049EB00 · 773 B<br>`AddSparks` 0x0049F040 · 704 B<br>`AddBulletImpact` 0x0049F3D0 · 670 B<br>`AddWheelGrass` 0x0049FF20 · 587 B<br>`AddWheelGravel` 0x004A0170 · 587 B<br>`AddWheelMud` 0x004A03C0 · 587 B<br>`AddDebris` 0x0049F750 · 531 B<br>`TriggerGunshot` 0x004A0DE0 · 445 B<br>`AddGlass` 0x0049F970 · 435 B |
+| CHeli | 4 | 7,722 | 3,121 | muy grande | `SearchLightCone` 0x006C58E0 · 3,121 B<br>`ProcessControl` 0x006C7050 · 2,352 B<br>`ProcessControlInputs` 0x006C4830 · 1,571 B<br>`UpdateHelis` 0x006C79A0 · 678 B |
 
 <a id="completas"></a>
 ## 🟢 Completas · 806 clases
@@ -214,7 +214,7 @@ Orden alfabético. El número entre paréntesis indica funciones registradas; �
 | [CCollisionEventScanner](../source/game_sa/Collision/CollisionEventScanner.cpp) (1) ✅ 1 | [CRemote](../source/game_sa/Remote.cpp) (2) ✅ 2 | [CTaskSimpleEvasiveStep](../source/game_sa/Tasks/TaskTypes/TaskSimpleEvasiveStep.cpp) (8) ✅ 8 |
 | [CCollisionPlugin](../source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp) (2) ✅ 2 | [CRenderer](../source/game_sa/Renderer.cpp) (33) ✅ 33 | [CTaskSimpleFacial](../source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp) (5) ✅ 5 |
 | [CColModel](../source/game_sa/Collision/ColModel.cpp) (9) ✅ 9 | [CReplay](../source/game_sa/Replay.cpp) (47) ✅ 47 | [CTaskSimpleFall](../source/game_sa/Tasks/TaskTypes/TaskSimpleFall.cpp) (6) ✅ 6 |
-| [CColModelPool](../source/game_sa/Pools/ColModelPool.h) (1) ✅ 1 | [CRestart](../source/game_sa/Restart.cpp) (11) ✅ 11 | [CTaskSimpleFight](../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp) (14) ✅ 14 |
+| [CColModelPool](../source/game_sa/Pools/ColModelPool.h) (1) ✅ 1 | [CRestart](../source/game_sa/Restart.cpp) (11) ✅ 11 | [CTaskSimpleFight](../source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp) (15) ✅ 15 |
 | [CColourSet](../source/game_sa/Collision/ColourSet.cpp) (2) ✅ 2 | [CRoadBlocks](../source/game_sa/RoadBlocks.cpp) (8) ✅ 8 | [CTaskSimpleFightingControl](../source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp) (7) ✅ 7 |
 | [CColSphere](../source/game_sa/Collision/ColSphere.cpp) (5) ✅ 5 | [CRope](../source/game_sa/Rope.cpp) (7) ✅ 7 | [CTaskSimpleFinishBrain](../source/game_sa/Tasks/TaskTypes/TaskSimpleFinishBrain.cpp) (2) ✅ 2 |
 | [CColStore](../source/game_sa/Collision/ColStore.cpp) (23) ✅ 23 | [CRopes](../source/game_sa/Ropes.cpp) (11) ✅ 11 | [CTaskSimpleGangDriveBy](../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp) (10) ✅ 10 |
@@ -388,11 +388,11 @@ Incluye las clases del catálogo que ya tienen todas sus entradas reconstruidas 
 
 | Clase | Revertidas / total | Pendientes | Envolturas al EXE | Bytes de envolturas | Función más grande (B) | Tamaño | Avance | Validated | Locked |
 | --- | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: | ---: |
-| [CCarCtrl](../source/game_sa/CarCtrl.cpp) | 94/94 | **0** | **17** | 40,659 | 7,915 | muy grande | 100.00% | 94 | 0 |
-| [CPlayerPed](../source/game_sa/Entity/Ped/PlayerPed.cpp) | 54/54 | **0** | **11** | 14,074 | 2,711 | muy grande | 100.00% | 54 | 0 |
-| [CHeli](../source/game_sa/Entity/Vehicle/Heli.cpp) | 16/16 | **0** | **6** | 10,393 | 3,121 | muy grande | 100.00% | 16 | 0 |
+| [CCarCtrl](../source/game_sa/CarCtrl.cpp) | 98/98 | **0** | **13** | 35,668 | 7,915 | muy grande | 100.00% | 98 | 0 |
+| [CPlayerPed](../source/game_sa/Entity/Ped/PlayerPed.cpp) | 55/55 | **0** | **10** | 13,045 | 2,711 | muy grande | 100.00% | 55 | 0 |
 | [CVehicle](../source/game_sa/Entity/Vehicle/Vehicle.cpp) | 161/161 | **0** | **7** | 10,115 | 2,878 | muy grande | 100.00% | 161 | 0 |
 | [Fx_c](../source/game_sa/Fx/Fx.cpp) | 14/14 | **0** | **12** | 8,180 | 1,003 | grande | 100.00% | 14 | 0 |
+| [CHeli](../source/game_sa/Entity/Vehicle/Heli.cpp) | 18/18 | **0** | **4** | 7,722 | 3,121 | muy grande | 100.00% | 18 | 0 |
 
 <a id="sin-revertir"></a>
 ## 🔴 Sin revertir · 1 clases
@@ -401,7 +401,7 @@ Orden de mayor a menor tamaño de las envolturas pendientes. Clases o grupos sin
 
 | Clase | Revertidas / total | Pendientes | Envolturas al EXE | Bytes de envolturas | Función más grande (B) | Tamaño | Avance | Validated | Locked |
 | --- | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: | ---: |
-| (helpers y globales sin clase) | 0/0 | — | **56** | 13,932 | 3,445 | muy grande | 0.00% | 0 | 0 |
+| (helpers y globales sin clase) | 0/0 | — | **58** | 12,643 | 3,445 | muy grande | 0.00% | 0 | 0 |
 
 <a id="cohorte-nuevo"></a>
 ## 📋 Cohorte nuevo (17/10/2026): lista por dificultad
@@ -415,11 +415,11 @@ Las funciones ya validadas (`✅ validada`) no se listan: solo aparecen las pend
 | 1 Muy fácil | 9 | 9 | 0 |
 | 2 Fácil | 25 | 25 | 0 |
 | 3 Media | 75 | 75 | 0 |
-| 4 Difícil | 57 | 48 | 9 |
+| 4 Difícil | 57 | 56 | 1 |
 | 5 Muy difícil | 19 | 9 | 10 |
 
 <details>
-<summary>Funciones del juego pendientes o por validar (19), de mayor a menor tamaño en bytes</summary>
+<summary>Funciones del juego pendientes o por validar (11), de mayor a menor tamaño en bytes</summary>
 
 | Rango | Nivel | Subcategoría | Función | Dirección | Bytes | Estado |
 | ---: | --- | --- | --- | --- | ---: | --- |
@@ -433,14 +433,6 @@ Las funciones ya validadas (`✅ validada`) no se listan: solo aparecen las pend
 | 155 | 5 Muy difícil | wrapper | CCarCtrl::PickNextNodeToChaseCar | `0x00426EF0` | 2111 | pendiente |
 | 147 | 5 Muy difícil | wrapper | CCarCtrl::DragCarToPoint | `0x0042EC90` | 1748 | pendiente |
 | 173 | 5 Muy difícil | wrapper | CHeli::ProcessControlInputs | `0x006C4830` | 1571 | pendiente |
-| 161 | 4 Difícil | wrapper | CHeli::ProcessFlyingCarStuff | `0x006C4E60` | 1467 | pendiente |
-| 154 | 4 Difícil | wrapper | CCarCtrl::FindAngleToWeaveThroughTraffic | `0x004325C0` | 1339 | pendiente |
-| 124 | 4 Difícil | wrapper | CCarCtrl::FindNodesThisCarIsNearestTo | `0x0042BD20` | 1323 | pendiente |
-| 164 | 4 Difícil | wrapper | FightHitPedExe | `0x0061CBA0` | 1289 | pendiente |
-| 180 | 4 Difícil | wrapper | CHeli::PreRender | `0x006C5420` | 1204 | pendiente |
-| 152 | 4 Difícil | wrapper | CCarCtrl::CreateConvoy | `0x0042C740` | 1168 | pendiente |
-| 165 | 4 Difícil | wrapper | CCarCtrl::CreatePoliceChase | `0x0042C2B0` | 1161 | pendiente |
-| 158 | 4 Difícil | wrapper | CPlayerPed::MakeThisPedJoinOurGroup | `0x0060C840` | 1029 | pendiente |
 | 151 | 4 Difícil | wrapper | CAutomobile::Render | `0x006A2B10` | 1005 | pendiente |
 
 </details>

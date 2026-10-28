@@ -1,0 +1,82 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "da66c8d5f69bb387e4073b7be53042d1d259531388d6c46aacc74ded0ad76ad7",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 8192,
+  "pairs_per_function": {
+    "CCarCtrl::ReconsiderRoute": 4096,
+    "CCarCtrl::FindLinksToGoWithTheseNodes": 4096
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "be87ceb4957a79884a87246b816cd081102548b3135493590aa23d5daa20751d",
+  "compare_dead_x87_registers": false,
+  "families": {
+    "CCarCtrl::ReconsiderRoute": {
+      "0": 256,
+      "1": 256,
+      "2": 256,
+      "3": 256,
+      "4": 256,
+      "5": 256,
+      "6": 256,
+      "7": 256,
+      "8": 256,
+      "9": 256,
+      "10": 256,
+      "11": 256,
+      "12": 256,
+      "13": 256,
+      "14": 256,
+      "15": 256
+    },
+    "CCarCtrl::FindLinksToGoWithTheseNodes": {
+      "0": 256,
+      "1": 256,
+      "2": 256,
+      "3": 256,
+      "4": 256,
+      "5": 256,
+      "6": 256,
+      "7": 256,
+      "8": 256,
+      "9": 256,
+      "10": 256,
+      "11": 256,
+      "12": 256,
+      "13": 256,
+      "14": 256,
+      "15": 256
+    }
+  },
+  "branch_coverage": {
+    "CCarCtrl::ReconsiderRoute": {
+      "nearest_only": 1216,
+      "counter_changes": 3012,
+      "no_events": 1114,
+      "search_twice": 1658,
+      "links": 1658,
+      "remove_one": 1658,
+      "player_coords": 620,
+      "search_once": 108
+    },
+    "CCarCtrl::FindLinksToGoWithTheseNodes": {
+      "srand": 2764,
+      "no_dist": 1510,
+      "no_srand": 1332,
+      "dist_calls": 2586,
+      "multi_dist": 2440
+    }
+  },
+  "saves_unchanged": true,
+  "configs_restored": true
+}

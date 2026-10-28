@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 21504,
+  "differences": 0,
+  "registered_pairs": 21504,
+  "registered_functions": 1,
+  "functions": {
+    "CCarCtrl::CreateConvoy": 21504
+  },
+  "covered_functions": {
+    "CCarCtrl::CreateConvoy": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-3 (HEAD 98ff78aaa + cambios del lote 75; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (hooks RH apagados); el banco compara el orden y los argumentos de los falsos, los bytes cambiados de las arenas y los globales. Los colaboradores y el banco que valida a cada uno estan en reversing/CarConvoy75/README.md; CMatrix::operator= (0x59BBC0) y CCamera::IsSphereVisible (0x420D40) no tienen banco propio. Las aritmeticas de X87Math (bloque Lote 75) corren de verdad. AL se compara; EAX alto/ECX/EDX solo se registran. No probado: pools agotados, ocupantes nulos, areas de nodos o indices de modelo fuera de rango.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/CarConvoy75-20261027-193306-754909",
+  "summary_sha256": "6c1fd4b7de52af4f374d94048819e44ea3b483e500bf89702d3dde5ab826d6bc",
+  "result_txt_sha256": "fb74689b568d9e82527ced088ececbc3207ff63f1bdcc0024e9931f30dfd75ca",
+  "log_sha256": "318b3f84a03a706af60b91a48813a7de7c099b51a886d40359b7dc841969364b",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "177daf1747719cf306350df2810a2d84dbf540f33ee8fdeadf174d0d4c99ba53",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+      "source/game_sa/X87Math.cpp": "1e32d201b83098e0c4b72e1282e82f19e72a5c474b3c82440bcdf9f44bf971c4",
+      "source/game_sa/X87Math.h": "8015654fe6b233947884b917027582d2ea6eafc195c15d1e8a5902034e62c89a",
+      "source/game_sa/CarCtrl.cpp": "4de8d81c0df4a1abefeb524d0ca7951815e1c6a72d840cda780946d1d2599da9",
+      "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/CarConvoy75/LiveComparison.hpp": "ccb3d374f44dc51934fbe6aa63da5ceafada9da1e816955b9de8b53386ca50de",
+      "reversing/CarConvoy75/Core.hpp": "4054789891b34a191d96d023eedeea5999d6c379ea9dfcb549cd425daf3e97cc",
+      "reversing/CarConvoy75/Fixtures.hpp": "672fb4401649c8cdfbaa623ae64c0a66bc8f358c2e1450f07dcdb699f5390095",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

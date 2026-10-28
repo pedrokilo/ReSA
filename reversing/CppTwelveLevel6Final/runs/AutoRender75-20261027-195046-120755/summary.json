@@ -1,0 +1,70 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "a14f4443e340f3788edbaef810d836b27edd3a8b69576eef093b5622b2a138f9",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 16384,
+  "pairs_per_function": {
+    "CAutomobile::Render": 16384
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "0fcaf35c98842e1e5ef507d74f9405cf57380b800ed6126503d083a2f175bed5",
+  "compare_dead_x87_registers": false,
+  "coverage": {
+    "CAutomobile::Render": {
+      "cheat": 5795,
+      "rhino": 13312,
+      "appear": 1505,
+      "beam_r": 621,
+      "beam_l": 603,
+      "time_wrap": 7141,
+      "denormal_store": 3144,
+      "inf_store": 2509,
+      "nan_store": 3910,
+      "noncanon_nan_store": 754,
+      "negzero_store": 9925,
+      "ext_big": 1869,
+      "ext_tiny": 2239,
+      "v_clamped": 10388,
+      "ratio_nonfinite": 1187,
+      "sse_differs": 1433,
+      "nan_conflict": 0,
+      "model=rhino": 13312,
+      "family=0": 1024,
+      "wheel_nodes=0": 10589,
+      "family=1": 1024,
+      "wheel_nodes=6": 2593,
+      "family=2": 1024,
+      "wheel_nodes=5": 2632,
+      "family=3": 1024,
+      "family=4": 1024,
+      "family=5": 1024,
+      "family=6": 1024,
+      "family=7": 1024,
+      "family=8": 1024,
+      "family=9": 1024,
+      "family=10": 1024,
+      "family=11": 1024,
+      "model=other": 1915,
+      "family=12": 1024,
+      "family=13": 1024,
+      "family=14": 1024,
+      "family=15": 1024,
+      "model=minus2": 560,
+      "wheel_nodes=4": 570,
+      "model=bandit": 597
+    }
+  },
+  "coverage_method": "serialized_inputs_and_independent_oracle; no_instruction_branch_tracing",
+  "saves_unchanged": true,
+  "configs_restored": true
+}
