@@ -47,8 +47,18 @@ END GENERATED HOOK STATUS */
 #include "Events/EventDontJoinPlayerGroup.h"
 #include "Tasks/TaskTypes/TaskComplexBeInGroup.h"
 #include "Pools/PedPool.h"
+#include "Pools/ObjectPool.h"
+#include "Pools/VehiclePool.h"
+#include "GameLogic.h"
+#include "World.h"
+#include "WeaponInfo.h"
 #include "PedType.h"
 #include "Wanted.h"
+#include "Fire.h"
+#include "PedIntelligence.h"
+#include "Tasks/TaskTypes/TaskSimplePlayerOnFoot.h"
+#include "Tasks/TaskTypes/TaskComplexFacial.h"
+#include "Plugins/RpAnimBlendPlugin/RpAnimBlend.h"
 
 // Ayudante de X87Math.cpp (PlayerPedSprintTailDblCpp) que devuelve un double: el ((max(ratio - 1, 0) * k) + 1) de CPlayerPed::ControlButtonSprint queda sin guardar
 // en ST0 (0x60A7D3). Aqui se declara como float (alias del enlazador) para que el llamador reciba ST0 tal cual, como el EXE (mismo mecanismo que Placeable.cpp).
@@ -122,12 +132,14 @@ void CPlayerPed::InjectHooks() {
     RH_ScopedInstall(ForceGroupToAlwaysFollow, 0x60C7C0);
     RH_ScopedInstall(ForceGroupToNeverFollow, 0x60C800);
     RH_ScopedInstall(MakeThisPedJoinOurGroup, 0x60C840);
+    RH_ScopedInstall(SetInitialState, 0x60CD20);
     RH_ScopedOverloadedInstall(MakeChangesForNewWeapon, "BySlot", 0x60D000, void(CPlayerPed::*)(uint32));
     RH_ScopedInstall(EvaluateTarget, 0x60D020);
     RH_ScopedInstall(EvaluateNeighbouringTarget, 0x60D1C0);
     RH_ScopedInstall(ProcessGroupBehaviour, 0x60D350);
     RH_ScopedInstall(PlayerHasJustAttackedSomeone, 0x60D5A0);
     RH_ScopedInstall(SetupPlayerPed, 0x60D790);
+    RH_ScopedInstall(FindWeaponLockOnTarget, 0x60DC50);
 
     RH_ScopedVMTInstall(ProcessControl, 0x60EA90);
     RH_ScopedVMTInstall(SetMoveAnim, 0x609490);
@@ -1189,10 +1201,72 @@ bool CPlayerPed::PlayerWantsToAttack() {
     return false;
 }
 
-// 0x60CD20
+// 0x60CD20 (thiscall, `ret 4`, void): estado inicial del jugador. Los datos del jugador (+0x480) y las ranuras de tareas se releen en cada uso, como el original.
 void CPlayerPed::SetInitialState(bool bGroupCreated) {
-    // La configuración inicial del estado del jugador continúa delegada al ejecutable original.
-    plugin::CallMethod<0x60CD20, CPlayerPed *, bool>(this, bGroupCreated);
+    static_assert(ANIM_GROUP_PLAYER == 0x36);
+    static_assert(offsetof(CPed, m_nAnimGroup) == 0x4D4 && offsetof(CPed, m_pStats) == 0x59C && offsetof(CPed, m_pFire) == 0x730 && offsetof(CPed, m_nTurretAmmo) == 0x784 && offsetof(CPed, m_pAttachedTo) == 0xFC,
+                  "campos de CPed que SetInitialState toca");
+    CMBlur::ClearDrunkBlur(); // 0x71D780
+    CTimer::ms_fTimeScale = 1.0f; // 0xB7CB64
+    m_bUsesCollision = true; // or [this + 0x1C], 1
+    physicalFlags.bApplyGravity = true; // or [this + 0x40], 2
+    ClearAimFlag();  // 0x5DEF20
+    ClearLookFlag(); // 0x5E1950
+    bRenderPedInCar = true; // or [this + 0x46C], 0x2000
+    if (m_pFire) {
+        m_pFire->Extinguish(); // 0x5393F0
+    }
+    SetPedState(PEDSTATE_IDLE);  // 0x5E4500 (1)
+    SetMoveState(PEDMOVE_STILL); // 0x5DEC00 (1)
+    // Como el original: and [this + 0x474], ~0x42 / or 0x4000000; and [this + 0x46C], ~0x4000000
+    bDontRender = false;
+    bIsBeingArrested = false;
+    bCanExitCar = true;
+    bIsDucking = false;
+    GetIntelligence()->FlushIntelligence(); // 0x601DA0
+    RpAnimBlendClumpRemoveAllAssociations(reinterpret_cast<RpClump*>(GetRwObject())); // 0x4D6C00 (+0x18; sin la comprobacion de tipo de GetRpClump)
+
+    CTask* playerOnFoot = nullptr;
+    if (void* const memory = CTask::operator new(sizeof(CTaskSimplePlayerOnFoot))) { // 0x61A5A0 (0x1C)
+        playerOnFoot = ::new (memory) CTaskSimplePlayerOnFoot(); // 0x685750
+    }
+    GetIntelligence()->GetTaskManager().SetTask(playerOnFoot, TASK_PRIMARY_DEFAULT, false); // 0x681AF0 (4)
+
+    bIsPedDieAnimPlaying = false; // and [this + 0x46C], ~0x100000
+    m_nAnimGroup = ANIM_GROUP_PLAYER;
+    if (CPlayerPedData* const data = GetPlayerData()) {
+        data->m_bAdrenaline = false; // and [datos + 0x34], ~2
+    }
+    SetRealMoveAnim(); // 0x60A9C0 (sin reconstruir)
+    m_pStats->m_nTemper = 50; // mov byte [m_pStats + 0x25], 0x32
+    if (m_pAttachedTo) {
+        m_bUsesCollision = true; // or [this + 0x1C], 1 (solo si aun no lo esta)
+    }
+    m_pAttachedTo = nullptr;
+    m_nTurretAmmo = 0;
+
+    CTask* facial = nullptr;
+    if (void* const memory = CTask::operator new(sizeof(CTaskComplexFacial))) { // 0x61A5A0 (0x20)
+        facial = ::new (memory) CTaskComplexFacial(); // 0x690D20
+    }
+    GetIntelligence()->GetTaskManager().SetTaskSecondary(facial, TASK_SECONDARY_FACIAL_COMPLEX); // 0x681B60 (3)
+
+    if (!bGroupCreated && !GetPlayerData()->m_bGroupNeverFollow) { // bit 0x400 de las banderas de los datos
+        // Como el original: cada acceso al grupo del jugador relee [this + 0x480] + 0x38
+        GetPlayerGroup().m_bMembersEnterLeadersVehicle = true; // byte +4 del grupo
+        GetPlayerGroup().GetIntelligence().SetDefaultTaskAllocatorType(ePedGroupDefaultTaskAllocatorType::RANDOM); // 0x5FBB70 (5)
+        CEventPlayerCommandToGroupAttack command{ nullptr }; // 0x4B23D0 (0, 0); vtable 0x86C710
+        command.ComputeResponseTaskType(&GetPlayerGroup()); // 0x4B57A0
+        if (command.WillRespond()) { // 0x4AC490
+            auto* const gather = new CEventPlayerCommandToGroupGather(nullptr); // 0x4B5620 (0x1C) + 0x4B23D0 (2, 0); vtable 0x86D120
+            gather->m_TaskId = command.m_TaskId;
+            CEventGroupEvent groupEvent{ this, gather }; // 0x4ADFD0
+            GetPlayerGroup().GetIntelligence().AddEvent(&groupEvent); // 0x5F7470
+        }
+    }
+    if (CPlayerPedData* const data = GetPlayerData()) {
+        data->SetInitialState(); // 0x56F210
+    }
 }
 
 // 0x60D000
@@ -1413,8 +1487,224 @@ void CPlayerPed::ProcessWeaponSwitch(CPad* pad) {
 }
 
 // 0x60DC50
+// 0x60DC50 (thiscall, bool): busca el objetivo de fijacion del arma activa. Primero conserva (o suelta) el objetivo fijado; sin objetivo, con el bote de spray busca etiquetas cercanas y despues evalua
+// peatones, objetos y (en cooperativo) vehiculos con EvaluateTarget. Las lecturas del arma, de los datos del jugador y de la informacion del arma se repiten donde las repite el original.
 bool CPlayerPed::FindWeaponLockOnTarget() {
-    return plugin::CallMethodAndReturn<bool, 0x60DC50, CPlayerPed *>(this);
+    static_assert(offsetof(CPed, m_pVehicle) == 0x58C && offsetof(CPed, m_nPedType) == 0x598 && offsetof(CPed, m_nPedState) == 0x530 && offsetof(CPed, m_nActiveWeaponSlot) == 0x718 && offsetof(CPed, m_pTargetedObject) == 0x71C,
+                  "campos de CPed que FindWeaponLockOnTarget toca");
+    static_assert(offsetof(CVehicle, m_nVehicleType) == 0x590, "CVehicle::m_nVehicleType");
+    static_assert(offsetof(CVehicle, m_nVehicleSubType) == 0x594, "CVehicle::m_nVehicleSubType");
+    static_assert(PEDSTATE_DIE == 0x36, "PEDSTATE_DIE");
+    static_assert(PEDSTATE_DEAD == 0x37, "PEDSTATE_DEAD");
+    static_assert(WEAPON_SPRAYCAN == 41, "WEAPON_SPRAYCAN");
+    // Como el original: movsx de la ranura (con signo) y imul 0x1C, sin comprobar el rango
+    const auto activeWeapon = [this]() -> CWeapon& { return m_aWeapons.data()[static_cast<int8>(m_nActiveWeaponSlot)]; };
+    const auto setTarget = [this](CEntity* const entity) {
+        if (m_pTargetedObject) {
+            m_pTargetedObject->CleanUpOldReference(&m_pTargetedObject); // 0x571A00
+        }
+        m_pTargetedObject = entity;
+        entity->RegisterReference(&m_pTargetedObject); // 0x571B70
+        reinterpret_cast<uint8*>(GetPlayerData())[0x85] = 1; // byte +0x85 de los datos del jugador
+    };
+
+    const eWeaponType weaponType = activeWeapon().m_Type;
+    const eWeaponSkill skill = GetWeaponSkill(); // 0x5E6580
+    CWeaponInfo* const info = CWeaponInfo::GetWeaponInfo(weaponType, skill); // 0x743C60
+    const float range0 = info->m_fTargetRange; // +4: copia que usa el bote de spray
+
+    // ---- ya hay objetivo: se conserva mientras siga dentro del alcance
+    if (CEntity* const target = m_pTargetedObject) {
+        // Como el original: sqrt(dy*dy + dx*dx) con la x87 a 24 bits (exponente extendido), guardado como float
+        const float distance = Pp79TargetDistCpp(&target->GetPosition().x, &GetPosition().x);
+        const float range1 = info->m_fTargetRange;
+        const float multiplier = CWeapon::TargetWeaponRangeMultiplier(target, this); // 0x73B380
+        if (!(multiplier * range1 >= distance)) { // Como el original: NaN tambien sale
+            if (m_pTargetedObject) {
+                m_pTargetedObject->CleanUpOldReference(&m_pTargetedObject);
+            }
+            m_pTargetedObject = nullptr;
+            return false;
+        }
+        return true;
+    }
+
+    // ---- rumbo: el del vector hacia delante o, si el stick esta fuera de la zona muerta, el del stick respecto a la camara
+    float heading = CGeneral::GetATanOfXY(m_matrix->GetForward().x, m_matrix->GetForward().y); // 0x53CC70 (se guarda como float)
+    CEntity* best = nullptr;
+    float bestPriority = -10000.0f; // 0xC61C4000
+    CPad* pad = nullptr;
+    if (m_nPedType == 0) {
+        pad = CPad::GetPad(0); // 0x53FB70
+    } else if (m_nPedType == 1) {
+        pad = CPad::GetPad(1);
+    }
+    const float deadZone = StaticRef<float>(0x858B34); // 60.0f
+    bool stick = static_cast<float>(std::abs(static_cast<int32>(pad->GetPedWalkLeftRight()))) > deadZone; // 0x53FC90
+    if (!stick) {
+        stick = static_cast<float>(std::abs(static_cast<int32>(pad->GetPedWalkUpDown()))) > deadZone; // 0x53FD30
+    }
+    if (stick) {
+        // Como el original: se vuelve a pedir arriba/abajo y despues izquierda/derecha (en ese orden)
+        const int32 upDown = pad->GetPedWalkUpDown();
+        const int32 leftRight = pad->GetPedWalkLeftRight();
+        const float stickAngle = CGeneral::GetRadianAngleBetweenPoints(0.0f, 0.0f, static_cast<float>(-leftRight), static_cast<float>(upDown)); // 0x53CBE0
+        const float adjusted = (stickAngle - StaticRef<float>(0xB6F178)) + StaticRef<float>(0x858FE4); // - orientacion de la camara + pi/2
+        heading = CGeneral::LimitRadianAngle(adjusted); // 0x53CB50
+    }
+
+    // ---- bote de spray: etiquetas a menos de range0 metros, la de menor angulo respecto al rumbo
+    if (activeWeapon().m_Type == WEAPON_SPRAYCAN) {
+        float sprayHeading;
+        if (m_matrix) {
+            sprayHeading = Pp79SprayHeadingCpp(&m_matrix->GetForward().x);
+        } else {
+            sprayHeading = m_placement.m_fHeading;
+        }
+        CVector centre;
+        Pp79SprayCentreCpp(&m_matrix->GetForward().x, &GetPosition().x, StaticRef<float>(0x859000), &centre.x); // 8.0f
+        CEntity* found[15];
+        int16 count;
+        CWorld::FindObjectsInRange(centre, 8.0f, false, &count, 15, found, true, false, false, false, false); // 0x564A20
+        float bestAngle = 3.14159274101257324f; // 0x40490FDB
+        CEntity* chosen = nullptr;
+        for (int16 i = 0; i < count; ++i) {
+            CEntity* const entity = found[i];
+            if (!CTagManager::IsTag(*entity)) { // 0x49CCE0
+                continue;
+            }
+            if (CTagManager::GetAlpha(*entity) >= 0xFF) { // 0x49CF90
+                continue;
+            }
+            double angle;
+            if (!Pp79SprayPickCpp(&entity->GetPosition().x, &GetPosition().x, range0, sprayHeading, &angle)) {
+                continue;
+            }
+            // Como el original: fcom [mejor]; con NaN solo se acepta el primero
+            if (angle < bestAngle || !chosen) {
+                bestAngle = static_cast<float>(angle);
+                chosen = entity;
+            }
+        }
+        if (chosen && !LOSBlockedBetweenPeds(this, chosen)) { // 0x60B550
+            setTarget(chosen);
+            return true;
+        }
+    }
+
+    // ---- peatones (de atras adelante)
+    const float viewLimit = StaticRef<float>(0x8D243C) * StaticRef<float>(0x8631D4); // 140 grados en radianes
+    const auto limitAngle = [](float angle) {
+        if (angle > PLAYER_PI) {
+            do {
+                angle -= PLAYER_TWO_PI;
+            } while (angle > PLAYER_PI);
+        }
+        if (angle < -PLAYER_PI) {
+            do {
+                angle += PLAYER_TWO_PI;
+            } while (angle < -PLAYER_PI);
+        }
+        return angle < 0.0f ? -angle : angle; // fchs solo si es menor que 0 (-0 y NaN se conservan)
+    };
+    CPedPool* const pedPool = StaticRef<CPedPool*>(0xB74490);
+    for (size_t slot = pedPool->GetSize(); slot != 0; --slot) {
+        CPed* const ped = pedPool->GetAt(slot - 1);
+        if (!ped || ped == this) {
+            continue;
+        }
+        if (ped->m_nPedState == PEDSTATE_DIE || ped->m_nPedState == PEDSTATE_DEAD) { // 0x36 y 0x37
+            continue;
+        }
+        if (ped->bInVehicle) {
+            CVehicle* const vehicle = ped->m_pVehicle;
+            if (!vehicle) {
+                continue;
+            }
+            // Como el original: moto (9) o bit 2 del byte +0x42D del vehiculo
+            if (vehicle->m_nVehicleType != VEHICLE_TYPE_BIKE && !(reinterpret_cast<const uint8*>(vehicle)[0x42D] & 4)) {
+                continue;
+            }
+        }
+        if (ped->bNeverEverTargetThisPed) {
+            continue;
+        }
+        if ((ped->m_nPedType == 0 || ped->m_nPedType == 1) && StaticRef<uint8>(0x96A8B2)) {
+            continue;
+        }
+        if (CPedGroups::AreInSameGroup(ped, this)) { // 0x5F7F40
+            continue;
+        }
+        const CVector& pedPos = ped->GetPosition();
+        const CVector& myPos = GetPosition();
+        const float dy = pedPos.y - myPos.y;
+        const float dx = pedPos.x - myPos.x;
+        float angle = limitAngle(PlayerPedATanMinus(dx, dy, heading));
+        if (!(angle < viewLimit)) {
+            continue;
+        }
+        // Punto 3 m por detras: posicion - normalizado(vector hacia delante) * 3
+        CVector forward = m_matrix->GetForward();
+        forward.Normalise(); // 0x59C910
+        const CVector scaled = forward * StaticRef<float>(0x8D2440); // 0x40FEC0
+        const CVector behind = GetPosition() - scaled; // 0x40FE60
+        const float dy2 = ped->GetPosition().y - behind.y;
+        const float dx2 = ped->GetPosition().x - behind.x;
+        angle = limitAngle(PlayerPedATanMinus(dx2, dy2, heading));
+        if (!(angle < StaticRef<float>(0x8D2438) * StaticRef<float>(0x8631D4))) { // 90 grados
+            continue;
+        }
+        const CVector toPed = ped->GetPosition() - GetPosition();
+        const float distance = toPed.Magnitude(); // 0x4082C0
+        const float rangeNow = info->m_fTargetRange; // Como el original: se lee antes de llamar a TargetWeaponRangeMultiplier
+        const float adjustedRange = CWeapon::TargetWeaponRangeMultiplier(ped, this) * rangeNow;
+        if (!(distance < adjustedRange)) {
+            continue;
+        }
+        EvaluateTarget(ped, best, bestPriority, adjustedRange, heading, false); // 0x60D020
+    }
+
+    // ---- objetos
+    CObjectPool* const objectPool = StaticRef<CObjectPool*>(0xB7449C);
+    for (size_t slot = objectPool->GetSize(); slot != 0; --slot) {
+        CObject* const object = objectPool->GetAt(slot - 1);
+        if (!object || !object->CanBeTargetted()) { // 0x59F320
+            continue;
+        }
+        if (reinterpret_cast<const uint8*>(object)[0x140] & 0x40) {
+            continue;
+        }
+        if (!object->GetRwObject()) {
+            continue;
+        }
+        const CVector position = object->GetPosition();
+        if (!CanIKReachThisTarget(position, &activeWeapon(), true)) { // 0x609F80
+            continue;
+        }
+        EvaluateTarget(object, best, bestPriority, info->m_fTargetRange, heading, true);
+    }
+
+    // ---- vehiculos (solo en cooperativo)
+    if (CGameLogic::IsCoopGameGoingOn()) { // 0x441390
+        CVehiclePool* const vehiclePool = StaticRef<CVehiclePool*>(0xB74494);
+        for (size_t slot = vehiclePool->GetSize(); slot != 0; --slot) {
+            CVehicle* const vehicle = vehiclePool->GetAt(slot - 1);
+            if (!vehicle || (vehicle->m_nPhysicalFlags & 0x20000000) || vehicle->m_nVehicleSubType == VEHICLE_TYPE_BMX) {
+                continue;
+            }
+            const CVector position = vehicle->GetPosition();
+            if (!CanIKReachThisTarget(position, &activeWeapon(), true)) { // 0x609F80
+                continue;
+            }
+            EvaluateTarget(vehicle, best, bestPriority, info->m_fTargetRange, heading, true);
+        }
+    }
+
+    if (!best) {
+        return false;
+    }
+    setTarget(best);
+    return true;
 }
 
 // 0x60E530

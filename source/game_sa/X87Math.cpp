@@ -15300,7 +15300,7 @@ __declspec(noinline) void __cdecl Hp66CopSourceSideCpp(const float* c, const flo
 __declspec(noinline) void __cdecl Hp66CopSourceSnapCpp(float ground, float* sourceZ) {
     volatile float z = static_cast<float>(static_cast<double>(std::bit_cast<float>(0x3F333333u)) + static_cast<double>(ground));  // fld [0x8CC7F8]; fadd st,st(1)
     *sourceZ = z;
-}
+}
 
 // --- Lote 67W (Helpers67W): CWaterLevel::RenderSeaBedSegment (0x6E6870), prefijo Wl67 ---
 // Aritmetica x87 de 24 bits con exponente extendido. Lo que el EXE guarda con fst/fstp dword va por un volatile float (redondeo a float, subnormales incluidos); lo que usa del registro va por double.
@@ -16912,3 +16912,59 @@ __declspec(noinline) void __cdecl Blood79LiftCpp(float* z) {
     *z = *z + std::bit_cast<float>(0x3F800000u);
 }
 #pragma float_control(pop)
+
+// --- Lote 79B (PlayerPed79): CPlayerPed::FindWeaponLockOnTarget (0x60DC50), prefijo Pp79 ---
+#pragma float_control(precise, on, push)
+static __declspec(noinline) double __cdecl Pp79Sqrt(double value) {
+    return sqrt(value);
+}
+// Suma de cuadrados del bote de spray (0x60DF2A..0x60DF38): (dx*dx + dz*dz) + dy*dy, cada operacion a 24 bits con exponente extendido.
+static __declspec(noinline) double __cdecl Pp79SprayD2(double dx, double dy, double dz) {
+    return (dx * dx + dz * dz) + dy * dy;
+}
+// 0x60DCA9..0x60DCF3: dx = objetivo.x - yo.x; dy = objetivo.y - yo.y (fld / fsub); sqrt(dy*dy + dx*dx), guardado como float (fstp dword).
+__declspec(noinline) float __cdecl Pp79TargetDistCpp(const float* target, const float* self) {
+    const double dx = double(target[0]) - double(self[0]);
+    const double dy = double(target[1]) - double(self[1]);
+    volatile float result = float(Pp79Sqrt(dy * dy + dx * dx));
+    return result;
+}
+// 0x60DE3C..: centro de busqueda = (adelante.x * k, adelante.y * k) guardados como float (fstp dword) + posicion (fadd), y z = adelante.z * k (sin guardar) + posicion.z; cada componente se guarda como float.
+__declspec(noinline) void __cdecl Pp79SprayCentreCpp(const float* forward, const float* pos, float k, float* out) {
+    volatile float vx = float(double(forward[0]) * double(k));
+    volatile float vy = float(double(forward[1]) * double(k));
+    const double vz = double(forward[2]) * double(k);
+    volatile float cz = float(vz + double(pos[2]));
+    volatile float cy = float(double(vy) + double(pos[1]));
+    volatile float cx = float(double(vx) + double(pos[0]));
+    out[0] = cx;
+    out[1] = cy;
+    out[2] = cz;
+}
+#pragma float_control(pop)
+
+// 0x60DE25..0x60DE36: rumbo del bote de spray = float(fpatan(-adelante.x, adelante.y)) (fchs; fpatan; fstp dword).
+__declspec(noinline) float __cdecl Pp79SprayHeadingCpp(const float* forward) {
+    volatile float result = float(atan2(-double(forward[0]), double(forward[1])));
+    return result;
+}
+// 0x60DF0B..0x60DF81: una etiqueta candidata. Devuelve false (sin tocar *outAngle) si range*range <= d2 o es NaN; si no, *outAngle = fpatan(-dx, dy) - rumbo (a 24 bits) con una sola correccion de +-2pi
+// (si es < -pi se suma 2pi; si no y es > pi se resta). El angulo queda en la pila x87 sin guardar como float.
+__declspec(noinline) bool __cdecl Pp79SprayPickCpp(const float* entity, const float* self, float range, float heading, double* outAngle) {
+    const double dx = double(entity[0]) - double(self[0]);
+    const double dy = double(entity[1]) - double(self[1]);
+    const double dz = double(entity[2]) - double(self[2]);
+    const double d2 = Pp79SprayD2(dx, dy, dz);
+    const double r2 = double(range) * double(range);
+    if (!(r2 > d2)) {
+        return false;
+    }
+    double a = atan2(-dx, dy) - double(heading);
+    if (a < -3.1415927410125732) {
+        a = a + 6.2831854820251465;
+    } else if (a > 3.1415927410125732) {
+        a = a - 6.2831854820251465;
+    }
+    *outAngle = a;
+    return true;
+}

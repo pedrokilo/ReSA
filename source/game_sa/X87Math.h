@@ -2063,3 +2063,13 @@ void __cdecl Blood79OffsetCpp(const float* direction, const float* pos, float* o
 void __cdecl Blood79PosJitterCpp(int remainder, float* v);
 // 0x49ED49..0x49ED53: *z = *z + 1.0f (fld; fadd; fstp dword).
 void __cdecl Blood79LiftCpp(float* z);
+
+// --- Lote 79B (PlayerPed79): CPlayerPed::FindWeaponLockOnTarget (0x60DC50), prefijo Pp79 ---
+// 0x60DCA9..0x60DCF3: sqrt(dy*dy + dx*dx) con dx = objetivo.x - yo.x, dy = objetivo.y - yo.y (x87 a 24 bits, exponente extendido), guardado como float.
+float __cdecl Pp79TargetDistCpp(const float* target, const float* self);
+// 0x60DE25..0x60DE36: float(fpatan(-adelante.x, adelante.y)).
+float __cdecl Pp79SprayHeadingCpp(const float* forward);
+// 0x60DE3C..0x60DEA7: centro de busqueda del bote de spray (adelante * k + posicion), cada componente guardada como float.
+void __cdecl Pp79SprayCentreCpp(const float* forward, const float* pos, float k, float* out);
+// 0x60DF0B..0x60DF81: etiqueta candidata del bote de spray; false si range*range <= (dx*dx + dz*dz) + dy*dy o NaN; si no *outAngle = fpatan(-dx, dy) - rumbo con una correccion de +-2pi.
+bool __cdecl Pp79SprayPickCpp(const float* entity, const float* self, float range, float heading, double* outAngle);
