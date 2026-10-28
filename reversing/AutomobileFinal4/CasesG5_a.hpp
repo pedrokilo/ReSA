@@ -206,14 +206,14 @@ inline std::string StubsG5(){
     // CCarAI / CCarCtrl / CRemote / CStats
     H("CCarAI","UpdateCarAI",0x41DA30,FnPtr(&G5S_UpdateCarAI)); H("CCarAI","GetCarToParkAtCoors",0x41D350,FnPtr(&G5S_GetCarToPark));
     H("CCarAI","MakeWayForCarWithSiren",0x41D660,FnPtr(&G5S_MakeWay));
-    E(0x437C20,FnPtr(&G5S_SteerAI)); E(0x42FC40,FnPtr(&G5S_Reconsider)); E(0x436540,FnPtr(&G5S_OnRails)); E(0x42CE40,FnPtr(&G5S_PedDanger));
-    E(0x45AE80,FnPtr(&G5S_TakeRemote)); AddStub(5,G5_ALL,0x559AF0,bit_cast<uintptr_t>(&CStats::GetFatAndMuscleModifier),FnPtr(&G5S_FatMuscle)); /* la DLL ya no es naked: Automobile.cpp la llama directo */ E(0x741FD0,FnPtr(&G5S_DriveBy));
+    E(0x437C20,FnPtr(&G5S_SteerAI)); /* CCarCtrl y CRemote ya son C++ real en la DLL (Fusion CarCtrl, lotes 63/75): hay que parchear tambien su simbolo, no solo la direccion del EXE */ H("CCarCtrl","ReconsiderRoute",0x42FC40,FnPtr(&G5S_Reconsider)); H("CCarCtrl","UpdateCarOnRails",0x436540,FnPtr(&G5S_OnRails)); H("CCarCtrl","ScanForPedDanger",0x42CE40,FnPtr(&G5S_PedDanger));
+    H("CRemote","TakeRemoteControlledCarFromPlayer",0x45AE80,FnPtr(&G5S_TakeRemote)); AddStub(5,G5_ALL,0x559AF0,bit_cast<uintptr_t>(&CStats::GetFatAndMuscleModifier),FnPtr(&G5S_FatMuscle)); /* la DLL ya no es naked: Automobile.cpp la llama directo */ E(0x741FD0,FnPtr(&G5S_DriveBy));
     // CVehicle
     H("CVehicle","ProcessCarAlarm",0x6D21F0,FnPtr(&G5S_CarAlarm));   H("CVehicle","UpdateClumpAlpha",0x6D2980,FnPtr(&G5S_ClumpAlpha));
     H("CVehicle","UpdatePassengerList",0x6D29E0,FnPtr(&G5S_PassengerList)); H("CVehicle","IsUpsideDown",0x6D1D90,FnPtr(&G5S_IsUpsideDown));
     H("CVehicle","CanPedEnterCar",0x6D1E80,FnPtr(&G5S_CanPedEnter));  H("CVehicle","UsesSiren",0x6D8470,FnPtr(&G5S_UsesSiren));
     H("CVehicle","ProcessBoatControl",0x6DBCE0,FnPtr(&G5S_BoatControl));
-    E(0x6E0950,FnPtr(&G5S_SirenHorn)); E(0x6DFC50,FnPtr(&G5S_TrailerLink)); E(0x6E0050,FnPtr(&G5S_TractorLink));
+    H("CVehicle","ProcessSirenAndHorn",0x6E0950,FnPtr(&G5S_SirenHorn)); /* ya es C++ real en la DLL */ E(0x6DFC50,FnPtr(&G5S_TrailerLink)); E(0x6E0050,FnPtr(&G5S_TractorLink));
     // CEntity / CPhysical / varios
     H("CEntity","PruneReferences",0x571A90,FnPtr(&G5S_Prune)); H("CEntity","RegisterReference-",0x571B70,FnPtr(&G5S_RegRef));
     H("CEntity","CleanUpOldReference-",0x571A00,FnPtr(&G5S_CleanRef));
