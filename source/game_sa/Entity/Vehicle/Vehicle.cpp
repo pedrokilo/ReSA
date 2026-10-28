@@ -46,6 +46,8 @@ END GENERATED HOOK STATUS */
 #include "CustomBuildingDNPipeline.h"
 #include "PedClothesDesc.h"
 #include "X87Math.h"
+#include "PlayerPed.h"
+#include "WeaponInfo.h"
 
 auto& planeRotorDmgTimeMS = StaticRef<uint32>(0xC1CC1C);
 
@@ -330,7 +332,7 @@ void CVehicle::InjectHooks() {
     RH_ScopedInstall(ProcessWeapons, 0x6E3950);
     RH_ScopedInstall(DoFixedMachineGuns, 0x73F400);
     // RH_ScopedInstall(FireFixedMachineGuns, 0x73DF00);
-    // RH_ScopedInstall(DoDriveByShootings, 0x741FD0);
+    RH_ScopedInstall(DoDriveByShootings, 0x741FD0);
     RH_ScopedInstall(ReleasePickedUpEntityWithWinch, 0x6D3CB0);
     RH_ScopedInstall(PickUpEntityWithWinch, 0x6D3CD0);
     RH_ScopedInstall(QueryPickedUpEntityWithWinch, 0x6D3CF0);
@@ -8506,7 +8508,158 @@ void CVehicle::FireFixedMachineGuns() {
 
 // 0x741FD0
 void CVehicle::DoDriveByShootings() {
-    plugin::CallMethod<0x741FD0, CVehicle*>(this);
+    // Como el original (0x741FD0..0x7422FD): disparo desde el vehiculo del jugador (arma de la ranura SMG), animaciones de drive-by y recarga del cargador.
+    static_assert(offsetof(CVehicle, m_pDriver) == 0x460 && offsetof(CVehicle, m_nVehicleSubType) == 0x594, "vehiculo +0x460 +0x594 (subtipo)");
+    static_assert(offsetof(CPed, m_aWeapons) == 0x5A0 && offsetof(CPed, m_nActiveWeaponSlot) == 0x718, "peaton +0x5A0 +0x718");
+    static_assert(offsetof(CWeapon, m_Type) == 0x0 && offsetof(CWeapon, m_AmmoInClip) == 0x8 && offsetof(CWeapon, m_TotalAmmo) == 0xC && offsetof(CWeapon, m_TimeForNextShotMs) == 0x10, "arma +0 +8 +0xC +0x10");
+    static_assert(offsetof(CWeaponInfo, m_nSlot) == 0x14 && offsetof(CWeaponInfo, m_nAmmoClip) == 0x20, "informacion del arma +0x14 +0x20");
+    static_assert(offsetof(CAnimBlendAssociation, m_BlendAmount) == 0x18 && offsetof(CAnimBlendAssociation, m_BlendDelta) == 0x1C && offsetof(CAnimBlendAssociation, m_Flags) == 0x2E, "asociacion +0x18 +0x1C +0x2E");
+    static_assert(offsetof(CPlayerInfo, m_bCanDoDriveBy) == 0x153, "informacion del jugador +0x153");
+    static_assert(offsetof(CCam, m_bLookingLeft) == 0x8 && offsetof(CCam, m_bLookingRight) == 0x9 && offsetof(CCam, m_nMode) == 0xC && sizeof(CCam) == 0x238, "camara +8 +9 +0xC");
+
+    static_assert(offsetof(CCamera, m_aCams) == 0x174 && offsetof(CCamera, m_nActiveCam) == 0x59 && offsetof(CCamera, m_bObbeCinematicCarCamOn) == 0x2F, "camara +0x2F +0x59 +0x174");
+
+    // Banderas locales del original: izquierda (mirar a la izquierda), derecha, disparo, y si el vehiculo tiene datos de animacion de montar (moto/bici)
+    bool bLookLeft = false;
+    bool bLookRight = false;
+    bool bFire = false;
+    bool bHasRideAnim = false;
+
+    CPed* const driver = m_pDriver;
+    if (!driver) {
+        return;
+    }
+    CPlayerPed* const player = static_cast<CPlayerPed*>(driver); // Como el original: sin comprobar que sea un jugador
+    CPlayerInfo* const playerInfo = player->GetPlayerInfoForThisPlayerPed();
+    if (!playerInfo || !playerInfo->m_bCanDoDriveBy) {
+        return;
+    }
+    CPad* const pad = player->GetPadFromPlayer();
+    if (!pad) {
+        return;
+    }
+
+    // Como el original: la ranura activa se extiende con signo y no se comprueba el rango
+    CWeapon* const weapon = driver->m_aWeapons.data() + static_cast<int8>(driver->m_nActiveWeaponSlot);
+    if (CWeaponInfo::GetWeaponInfo(weapon->m_Type, eWeaponSkill::STD)->m_nSlot != static_cast<int32>(eWeaponSlot::SMG)) {
+        return;
+    }
+
+    // Disparo: la bici (BMX) exige exactamente 1; el resto, cualquier valor distinto de cero (el original compara AX)
+    if (m_nVehicleSubType == VEHICLE_TYPE_BMX) {
+        if (pad->GetCarGunFired() == 1) {
+            bFire = true;
+        }
+    } else if (pad->GetCarGunFired() != 0) {
+        bFire = true;
+    }
+
+    // Identificadores de animacion de izquierda/derecha/fija y grupo de animacion; el metodo virtual se llama dos veces (una para comprobar y otra para leer el grupo)
+    AssocGroupId animGroup = static_cast<AssocGroupId>(0);
+    uint32 animLeft, animRight, animFixed;
+    if (GetRideAnimData()) {
+        bHasRideAnim = true;
+        animGroup = GetRideAnimData()->AnimGroup;
+        animLeft  = 0xCA;
+        animRight = 0xCB;
+        animFixed = 0xCC;
+    } else {
+        animFixed = 0xBF;
+        if (vehicleFlags.bLowVehicle) {
+            animLeft  = 0x4C;
+            animRight = 0x4D;
+        } else {
+            animLeft  = 0x4A;
+            animRight = 0x4B;
+        }
+    }
+
+    weapon->Update(nullptr);
+
+    // Mirar a un lado: con las camaras 1 y 0x31 (o con la camara cinematica de coche, 0xB6F057) lo dicta el mando; si no, la camara activa (indice sin comprobar, de 0x238 bytes por camara)
+    const CCam& activeCam = TheCamera.m_aCams.data()[TheCamera.m_nActiveCam];
+    const uint16 camMode = static_cast<uint16>(activeCam.m_nMode);
+    if (camMode == 1 || TheCamera.m_bObbeCinematicCarCamOn || camMode == 0x31) {
+        if (pad->GetLookLeft()) {
+            bLookLeft = true;
+        }
+        if (pad->GetLookRight()) {
+            bLookRight = true;
+        }
+    } else {
+        if (activeCam.m_bLookingLeft) {
+            bLookLeft = true;
+        }
+        if (activeCam.m_bLookingRight) {
+            bLookRight = true;
+        }
+    }
+
+    // Si hay que apuntar/disparar y queda municion: asegura la animacion del lado elegido y dispara cuando esta completa
+    const bool bWantsToShoot = bHasRideAnim ? bFire : (bLookLeft || bLookRight);
+    if (bWantsToShoot && static_cast<int32>(weapon->m_TotalAmmo) > 0) {
+        uint32 animId = animLeft;
+        bool bHaveAnim = true;
+        if (!bLookLeft) {
+            if (bLookRight) {
+                animId = animRight;
+            } else if (bHasRideAnim) {
+                animId = animFixed;
+            } else {
+                bHaveAnim = false; // Como el original: inalcanzable (sin lado y sin datos de montar no se llega aqui)
+            }
+        }
+        if (bHaveAnim) {
+            CAnimBlendAssociation* assoc = RpAnimBlendClumpGetAssociation(reinterpret_cast<RpClump*>(driver->GetRwObject()), animId);
+            // Como el original: se vuelve a mezclar si no existe o si se esta desvaneciendo (delta < 0; NaN no cuenta)
+            if (!assoc || assoc->m_BlendDelta < 0.0f) {
+                assoc = CAnimManager::BlendAnimation(reinterpret_cast<RpClump*>(driver->GetRwObject()), animGroup, static_cast<AnimationId>(animId), 16.0f);
+            }
+            if (assoc) {
+                if (assoc->m_Flags & ANIMATION_IS_PLAYING) {
+                    return;
+                }
+                // Como el original: sale salvo que la mezcla sea mayor que 0.99 (comparacion ordenada)
+                if (!(assoc->m_BlendAmount > 0.99f)) {
+                    return;
+                }
+            }
+        }
+        if (!bFire) {
+            return;
+        }
+        if (!(CTimer::m_snTimeInMilliseconds > weapon->m_TimeForNextShotMs)) {
+            return;
+        }
+        weapon->FireFromCar(this, bLookLeft, bLookRight);
+        weapon->m_TimeForNextShotMs = CTimer::m_snTimeInMilliseconds + 0x46;
+        driver->DoGunFlash(0xFA, false);
+        return;
+    }
+
+    // Sin disparo: recarga el cargador (min(total, tamano del cargador con signo) sin signo) y retira las animaciones de drive-by
+    if (weapon->m_TotalAmmo != 0) {
+        const auto clipSize = static_cast<uint32>(static_cast<int32>(static_cast<int16>(CWeaponInfo::GetWeaponInfo(weapon->m_Type, eWeaponSkill::STD)->m_nAmmoClip)));
+        if (weapon->m_TotalAmmo < clipSize) {
+            weapon->m_AmmoInClip = weapon->m_TotalAmmo;
+        } else {
+            weapon->m_AmmoInClip = clipSize;
+        }
+    }
+    CAnimBlendAssociation* assoc = RpAnimBlendClumpGetAssociation(reinterpret_cast<RpClump*>(driver->GetRwObject()), animLeft);
+    if (assoc) {
+        assoc->m_BlendDelta = -8.0f;
+    }
+    assoc = RpAnimBlendClumpGetAssociation(reinterpret_cast<RpClump*>(driver->GetRwObject()), animRight);
+    if (assoc) {
+        assoc->m_BlendDelta = -8.0f;
+    }
+    if (bHasRideAnim) {
+        assoc = RpAnimBlendClumpGetAssociation(reinterpret_cast<RpClump*>(driver->GetRwObject()), animFixed);
+    }
+    if (assoc) {
+        assoc->m_BlendDelta = -8.0f;
+    }
 }
 
 // NOTSA
