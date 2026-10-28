@@ -41,6 +41,8 @@ Validadas el 02/10/2026 con **13.904 pares original/candidato dentro de GTA**, t
 - `CPlantSurfPropMgr`: `Initialise` escribe campo por campo sin tocar el relleno; `LoadPlantsDat` solo prueba los 16 bits bajos del id de superficie.
 - `CSpecialPlateHandler`: `Find` devuelve el índice (o -1) en EAX; `strcpy` en vez de `strcpy_s`; `Remove` compara con signo.
 
+- 28/10/2026: `StoreAndRemoveCarsForThisHideOut` parchea también `CStoredCar::StoreCar` de la DLL (desde el lote 64 es C++ real y el candidato lo llama; antes solo estaba la dirección del EXE y el candidato escribía en la fixture con la rutina real, y reventaba en `StoreCar+326` con el vehículo falso).
+
 **Método:**
 - Entidades falsas.
 - Todas las dependencias simuladas y trazadas en la dirección del EXE y en el símbolo de la DLL.

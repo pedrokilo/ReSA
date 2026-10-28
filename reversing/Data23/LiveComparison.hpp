@@ -446,7 +446,7 @@ inline void Update() {
                             int32 maxSlot=int32(next()%9)-2; if(next()%10==0)maxSlot=int32(next());
                             {
                                 Patches P;
-                                P.Add(0x448740,SInsideGarage); P.Add(0x449050,SSphereOutside); P.Add(0x449760,SStoreCar); P.Add(MA(static_cast<bool(CGarage::*)(CVector)>(&CGarage::IsPointInsideGarage)),SInsideGarage); P.Add(MA(&CGarage::EntityHasASphereWayOutsideGarage),SSphereOutside); // el candidato en C++ llama a las funciones de la DLL
+                                P.Add(0x448740,SInsideGarage); P.Add(0x449050,SSphereOutside); P.Add(0x449760,SStoreCar); P.Add(MA(&CStoredCar::StoreCar),SStoreCar); /* lote 64: CStoredCar::StoreCar es C++ real en la DLL y el candidato lo llama */ P.Add(MA(static_cast<bool(CGarage::*)(CVector)>(&CGarage::IsPointInsideGarage)),SInsideGarage); P.Add(MA(&CGarage::EntityHasASphereWayOutsideGarage),SSphereOutside); // el candidato en C++ llama a las funciones de la DLL
                                 P.Add(0x56E860,SCancelEnterExe); P.Add(MA(static_cast<void(CPlayerInfo::*)(CVehicle*)>(&CPlayerInfo::CancelPlayerEnteringCars)),SCancelEnterDll);
                                 P.Add(0x563280,SWorldRemove); P.Add(MA(&CWorld::Remove),SWorldRemove);
                                 reinterpret_cast<void(__thiscall*)(void*,void*,int32)>(a)(gar.data(),stored.data(),maxSlot);
