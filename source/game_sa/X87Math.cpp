@@ -16968,3 +16968,22 @@ __declspec(noinline) bool __cdecl Pp79SprayPickCpp(const float* entity, const fl
     *outAngle = a;
     return true;
 }
+
+// --- Lote 80B (PlayerArea80B): CPlayerPed::KeepAreaAroundPlayerClear (0x60C1E0), prefijo Ka80 ---
+#pragma float_control(precise, on, push)
+// 0x60C436..0x60C466: ((dz*dz) + (dy*dy)) + (dx*dx) > limite, con dx/dy/dz = vehiculo - referencia (fld / fsub de memoria; cada operacion a 24 bits con exponente extendido).
+// Como el original: fcomp del limite desde memoria y test ah,41h: con NaN (o igual / menor) el resultado es false.
+__declspec(noinline) bool __cdecl Ka80VehicleFarCpp(const float* vehicle, const float* reference, const float& limit) {
+    const double dx = double(vehicle[0]) - double(reference[0]);
+    const double dy = double(vehicle[1]) - double(reference[1]);
+    const double dz = double(vehicle[2]) - double(reference[2]);
+    const double sum = (dz * dz + dy * dy) + dx * dx;
+    return sum > double(limit);
+}
+// 0x60C48F..0x60C4AF: ((ref.y - veh.y) * fwd.y + (ref.x - veh.x) * fwd.x) > limite (mismo criterio que arriba).
+__declspec(noinline) bool __cdecl Ka80VehicleAheadCpp(const float* reference, const float* vehicle, const float* forward, const float& limit) {
+    const double a = (double(reference[1]) - double(vehicle[1])) * double(forward[1]);
+    const double b = (double(reference[0]) - double(vehicle[0])) * double(forward[0]);
+    return (a + b) > double(limit);
+}
+#pragma float_control(pop)

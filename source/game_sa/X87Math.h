@@ -2073,3 +2073,9 @@ float __cdecl Pp79SprayHeadingCpp(const float* forward);
 void __cdecl Pp79SprayCentreCpp(const float* forward, const float* pos, float k, float* out);
 // 0x60DF0B..0x60DF81: etiqueta candidata del bote de spray; false si range*range <= (dx*dx + dz*dz) + dy*dy o NaN; si no *outAngle = fpatan(-dx, dy) - rumbo con una correccion de +-2pi.
 bool __cdecl Pp79SprayPickCpp(const float* entity, const float* self, float range, float heading, double* outAngle);
+
+// --- Lote 80B (PlayerArea80B): CPlayerPed::KeepAreaAroundPlayerClear (0x60C1E0), prefijo Ka80 ---
+// 0x60C436..0x60C466: ((dz*dz) + (dy*dy)) + (dx*dx) > limite (x87 a 24 bits, exponente extendido); false con NaN.
+bool __cdecl Ka80VehicleFarCpp(const float* vehicle, const float* reference, const float& limit);
+// 0x60C48F..0x60C4AF: ((ref.y - veh.y) * fwd.y + (ref.x - veh.x) * fwd.x) > limite; false con NaN.
+bool __cdecl Ka80VehicleAheadCpp(const float* reference, const float* vehicle, const float* forward, const float& limit);

@@ -59,6 +59,9 @@ END GENERATED HOOK STATUS */
 #include "Tasks/TaskTypes/TaskSimplePlayerOnFoot.h"
 #include "Tasks/TaskTypes/TaskComplexFacial.h"
 #include "Plugins/RpAnimBlendPlugin/RpAnimBlend.h"
+#include "Tasks/TaskTypes/TaskComplexSmartFleeEntity.h"
+#include "CarCtrl.h"
+#include "Timer.h"
 
 // Ayudante de X87Math.cpp (PlayerPedSprintTailDblCpp) que devuelve un double: el ((max(ratio - 1, 0) * k) + 1) de CPlayerPed::ControlButtonSprint queda sin guardar
 // en ST0 (0x60A7D3). Aqui se declara como float (alias del enlazador) para que el llamador reciba ST0 tal cual, como el EXE (mismo mecanismo que Placeable.cpp).
@@ -132,6 +135,7 @@ void CPlayerPed::InjectHooks() {
     RH_ScopedInstall(ForceGroupToAlwaysFollow, 0x60C7C0);
     RH_ScopedInstall(ForceGroupToNeverFollow, 0x60C800);
     RH_ScopedInstall(MakeThisPedJoinOurGroup, 0x60C840);
+    RH_ScopedInstall(KeepAreaAroundPlayerClear, 0x60C1E0);
     RH_ScopedInstall(SetInitialState, 0x60CD20);
     RH_ScopedOverloadedInstall(MakeChangesForNewWeapon, "BySlot", 0x60D000, void(CPlayerPed::*)(uint32));
     RH_ScopedInstall(EvaluateTarget, 0x60D020);
@@ -949,7 +953,86 @@ bool CPlayerPed::DoesTargetHaveToBeBroken(CEntity* target, CWeapon* weapon) {
 
 // 0x60C1E0
 void CPlayerPed::KeepAreaAroundPlayerClear() {
-    plugin::CallMethod<0x60C1E0, CPlayerPed *>(this);
+    // Como el original (0x60C1E0..0x60C510): la inteligencia del jugador se lee UNA sola vez antes de recorrer los 16 peatones del escaner; de cada peaton
+    // se relee todo (inteligencia incluida) en cada uso.
+    static_assert(TASK_COMPLEX_SMART_FLEE_ENTITY == 0x38F && EVENT_SCRIPT_COMMAND == 0x20 && TEMPACT_WAIT == 1 && TEMPACT_REVERSE == 3 && TEMPACT_GOFORWARD == 9 && PEDMOVE_WALK == 4);
+    CPedIntelligence* const scanIntelligence = m_pIntelligence;
+    for (int32 i = 0; i < 16; i++) {
+        CPed* const ped = static_cast<CPed*>(scanIntelligence->GetPedEntities()[i]);
+        if (!ped || ped->GetCreatedBy() != PED_GAME || ped->bInVehicle) { // 0x484 == 1 y bit 0x100 de las banderas
+            continue;
+        }
+        if (!ped->IsAlive()) { // 0x5E0170
+            continue;
+        }
+        if (CPedGroups::ms_groups.data()[0].GetMembership().IsMember(ped)) { // 0x5F6A10 sobre 0xC09928
+            continue;
+        }
+        if (!ped->GetIsOnScreen() || ped->bKeepTasksAfterCleanUp) { // 0x534540; byte +0x478 bit 0x10
+            ped->FlagToDestroyWhenNextProcessed(); // virtual +0x54
+            continue;
+        }
+        // Ya huye de este jugador (tarea SmartFleeEntity con el jugador como amenaza) o su evento de guion pendiente es esa tarea
+        if (CTask* const flee = ped->GetIntelligence()->FindTaskByType(TASK_COMPLEX_SMART_FLEE_ENTITY)) { // 0x600EE0
+            if (static_cast<CTaskComplexSmartFleeEntity*>(flee)->m_fleeFrom == this) {
+                continue;
+            }
+        }
+        if (CEvent* const pending = ped->GetIntelligence()->m_eventGroup.GetEventOfType(EVENT_SCRIPT_COMMAND)) { // 0x4AB650 (la inteligencia se relee)
+            if (CTask* const pendingTask = static_cast<CEventScriptCommand*>(pending)->m_task) {
+                if (pendingTask->GetTaskType() == TASK_COMPLEX_SMART_FLEE_ENTITY) {
+                    continue;
+                }
+            }
+        }
+        CTaskComplexSmartFleeEntity* fleeTask = nullptr;
+        if (void* const memory = CTask::operator new(sizeof(CTaskComplexSmartFleeEntity))) { // 0x61A5A0
+            fleeTask = ::new (memory) CTaskComplexSmartFleeEntity(this, false, 1000.0f, 100000, StaticRef<int32>(0x86F678), StaticRef<float>(0xC18CF0)); // 0x65C430
+        }
+        fleeTask->m_moveState = PEDMOVE_WALK; // Como el original: [tarea + 0x30] = 4 (caminar; el constructor de la DLL deja SPRINT = 7) y sin comprobar el nulo de la reserva
+        CEventScriptCommand scriptEvent{ 3, fleeTask, false }; // 0x4B0A00 (ranura primaria 3)
+        ped->GetIntelligence()->m_eventGroup.Add(&scriptEvent, false); // 0x4AB420; el evento local libera la tarea al destruirse (0x4B0A50)
+    }
+
+    // Posicion de referencia: la del vehiculo si el jugador esta en uno (bit 0x100 y vehiculo no nulo), si no la propia. Se copia como tres dwords.
+    const CEntity* referenceEntity = this;
+    if (bInVehicle && m_pVehicle) {
+        referenceEntity = m_pVehicle;
+    }
+    uint32 reference[3];
+    memcpy(reference, &referenceEntity->GetPosition(), sizeof(reference));
+    // Centro de la busqueda: siempre la posicion propia (matriz o transformacion simple), releida
+    CVector centre;
+    memcpy(&centre, &GetPosition(), sizeof(centre));
+
+    int16 count = 0;
+    CEntity* found[6];
+    CWorld::FindObjectsInRange(centre, 15.0f, true, &count, 6, found, false, true, false, false, false); // 0x564A20: solo vehiculos
+    for (int32 i = 0; i < count; i++) {
+        CVehicle* const vehicle = static_cast<CVehicle*>(found[i]);
+        if (vehicle->m_nCreatedBy == MISSION_VEHICLE) { // +0x4A4 == 2
+            continue;
+        }
+        const uint32 status = vehicle->GetStatus(); // byte +0x36 >> 3
+        if (status == STATUS_PLAYER || status == STATUS_FORCED_STOP) {
+            continue;
+        }
+        // La matriz se lee una vez: sin ella el EXE sigue por la rama de la distancia y, si no esta lejos, lee [matriz + 0x10/0x14] (nulo)
+        CMatrixLink* const matrix = vehicle->m_matrix;
+        const float* const vehiclePos = reinterpret_cast<const float*>(matrix ? &matrix->GetPosition() : &vehicle->m_placement.m_vPosn);
+        const float* const referencePos = reinterpret_cast<const float*>(reference);
+        if (Ka80VehicleFarCpp(vehiclePos, referencePos, StaticRef<float>(0x858FE8))) { // 25.0f
+            vehicle->m_autoPilot.m_nTempAction = TEMPACT_WAIT;
+            vehicle->m_autoPilot.m_nTempActionTime = CTimer::m_snTimeInMilliseconds + 5000;
+        } else if (Ka80VehicleAheadCpp(referencePos, vehiclePos, &matrix->GetForward().x, StaticRef<float>(0x858B50))) { // 0.0f
+            vehicle->m_autoPilot.m_nTempAction = TEMPACT_REVERSE;
+            vehicle->m_autoPilot.m_nTempActionTime = CTimer::m_snTimeInMilliseconds + 2000;
+        } else {
+            vehicle->m_autoPilot.m_nTempAction = TEMPACT_GOFORWARD;
+            vehicle->m_autoPilot.m_nTempActionTime = CTimer::m_snTimeInMilliseconds + 2000;
+        }
+        CCarCtrl::PossiblyRemoveVehicle(vehicle); // 0x424F80 (sin hook: la DLL llama a la direccion del EXE)
+    }
 }
 
 // 0x60C520
