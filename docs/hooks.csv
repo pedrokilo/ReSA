@@ -8964,3 +8964,7 @@ CHeli,UpdateHelis,0x006C79A0,1,0,1,S
 Fx_c,AddBlood,0x0049EB00,1,0,1,S
 CPlayerPed,SetInitialState,0x0060CD20,1,0,1,S
 CPlayerPed,FindWeaponLockOnTarget,0x0060DC50,1,0,1,S
+CVehicle,DoDriveByShootings,0x00741FD0,1,0,1,S
+CPlayerPed,KeepAreaAroundPlayerClear,0x0060C1E0,1,0,1,S
+CVehicle,FireFixedMachineGuns,0x0073DF00,1,0,1,S
+CPlayerPed,ProcessAnimGroups,0x006098F0,1,0,1,S

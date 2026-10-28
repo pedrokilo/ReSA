@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,965 entradas reversed=1**, de 8,965 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,969 entradas reversed=1**, de 8,969 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8965 |
+| `validated=1` · evidencia aprobada vinculada | 8969 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8965 |
+| Evidencia histórica vinculada; revisión pendiente | 8969 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -4377,6 +4377,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPlayerPed | `HandlePlayerBreath` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `HandleSprintEnergy` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `IsHidden` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
+| CPlayerPed | `KeepAreaAroundPlayerClear` | [Resumen](../reversing/PlayerArea80B/validation-summary.json) |
 | CPlayerPed | `LOSBlockedBetweenPeds` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `Load` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `MakeChangesForNewWeapon-` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
@@ -4389,6 +4390,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPlayerPed | `PickWeaponAllowedFor2Player` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `PlayerHasJustAttackedSomeone` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `PlayerWantsToAttack` | [Resumen](../reversing/Helpers66A/validation-summary.json) |
+| CPlayerPed | `ProcessAnimGroups` | [Resumen](../reversing/PlayerAnim80D/validation-summary.json) |
 | CPlayerPed | `ProcessControl` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `ProcessGroupBehaviour` | [Resumen](../reversing/PlayerGroup78/validation-summary.json) |
 | CPlayerPed | `ProcessPlayerWeapon` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
@@ -7704,6 +7706,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicle | `Destructor` | [Resumen](../reversing/CVehB/validation-summary.json) |
 | CVehicle | `DoBladeCollision` | [Resumen](../reversing/CVehE/validation-summary.json) |
 | CVehicle | `DoBoatSplashes` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `DoDriveByShootings` | [Resumen](../reversing/Veh80A/validation-summary.json) |
 | CVehicle | `DoFixedMachineGuns` | [Resumen](../reversing/CVehE/validation-summary.json) |
 | CVehicle | `DoHeadLightBeam` | [Resumen](../reversing/CVehD/validation-summary.json) |
 | CVehicle | `DoHeadLightEffect` | [Resumen](../reversing/Dependencies22B/validation-summary.json) |
@@ -7718,6 +7721,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicle | `FindReplacementUpgradeCB` | [Resumen](../reversing/Dependencies25A/validation-summary.json) |
 | CVehicle | `FindTyreNearestPoint` | [Resumen](../reversing/CVehB/validation-summary.json) |
 | CVehicle | `FindUpgradeCB` | [Resumen](../reversing/SmallHelpers64A/validation-summary.json) |
+| CVehicle | `FireFixedMachineGuns` | [Resumen](../reversing/Veh80C/validation-summary.json) |
 | CVehicle | `FireHeatSeakingMissile` | [Resumen](../reversing/HeatFire73/validation-summary.json) |
 | CVehicle | `FirePlaneGuns` | [Resumen](../reversing/CVehE/validation-summary.json) |
 | CVehicle | `FireUnguidedMissile` | [Resumen](../reversing/CVehE/validation-summary.json) |
@@ -9339,7 +9343,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPlantMgr` | 20 | 0 | 20 | 0 |
 | `CPlantSurfPropMgr` | 4 | 0 | 4 | 0 |
 | `CPlayerInfo` | 29 | 0 | 29 | 0 |
-| `CPlayerPed` | 58 | 0 | 58 | 0 |
+| `CPlayerPed` | 60 | 0 | 60 | 0 |
 | `CPlayerPedData` | 5 | 0 | 5 | 0 |
 | `CPlayerRelationshipRecorder` | 1 | 0 | 1 | 0 |
 | `CPlayerSkin` | 4 | 0 | 4 | 0 |
@@ -9728,7 +9732,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTxdStore` | 26 | 0 | 26 | 0 |
 | `CUpsideDownCarCheck` | 5 | 0 | 5 | 0 |
 | `CUserDisplay` | 2 | 0 | 2 | 0 |
-| `CVehicle` | 161 | 0 | 161 | 0 |
+| `CVehicle` | 163 | 0 | 163 | 0 |
 | `CVehicleAnimGroup` | 5 | 0 | 5 | 0 |
 | `CVehicleAnimGroupData` | 5 | 0 | 5 | 0 |
 | `CVehicleModelInfo` | 75 | 0 | 75 | 0 |

@@ -237,7 +237,7 @@ class,function,address,source,origins
 (helpers y globales sin clase),IndexDataBufferGetTotalDataSize,,source/game_sa/RenderWare/D3DResourceSystem.cpp:114,envoltura en el código fuente
 (helpers y globales sin clase),IndexDataBufferPop,,source/game_sa/RenderWare/D3DResourceSystem.cpp:98,envoltura en el código fuente
 (helpers y globales sin clase),IndexDataBufferResize,,source/game_sa/RenderWare/D3DResourceSystem.cpp:101,envoltura en el código fuente
-(helpers y globales sin clase),JoinGroupFlagsExe,,source/game_sa/Entity/Ped/PlayerPed.cpp:1063,envoltura en el código fuente
+(helpers y globales sin clase),JoinGroupFlagsExe,,source/game_sa/Entity/Ped/PlayerPed.cpp:1332,envoltura en el código fuente
 (helpers y globales sin clase),operator delete,,source/game_sa/MemoryMgr.cpp:560,envoltura en el código fuente
 (helpers y globales sin clase),operator delete[],,source/game_sa/MemoryMgr.cpp:564,envoltura en el código fuente
 (helpers y globales sin clase),operator new,,source/game_sa/MemoryMgr.cpp:552,envoltura en el código fuente
@@ -274,18 +274,14 @@ CCarCtrl,SteerAICarWithPhysicsFollowPath_Racing,0x00435830,source/game_sa/CarCtr
 CHeli,ProcessControl,0x006C7050,source/game_sa/Entity/Vehicle/Heli.cpp:983,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CHeli,ProcessControlInputs,0x006C4830,source/game_sa/Entity/Vehicle/Heli.cpp:722,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CHeli,SearchLightCone,0x006C58E0,source/game_sa/Entity/Vehicle/Heli.cpp:218,cohorte 499
-CPlayerPed,Compute3rdPersonMouseTarget,0x0060B650,source/game_sa/Entity/Ped/PlayerPed.cpp:912,cohorte 499 + envoltura en el código fuente
-CPlayerPed,DrawTriangleForMouseRecruitPed,0x0060BA80,source/game_sa/Entity/Ped/PlayerPed.cpp:918,cohorte 499 + envoltura en el código fuente
-CPlayerPed,FindNextWeaponLockOnTarget,0x0060E530,source/game_sa/Entity/Ped/PlayerPed.cpp:1711,cohorte 499 + envoltura en el código fuente
-CPlayerPed,KeepAreaAroundPlayerClear,0x0060C1E0,source/game_sa/Entity/Ped/PlayerPed.cpp:951,cohorte 499 + envoltura en el código fuente
-CPlayerPed,ProcessAnimGroups,0x006098F0,source/game_sa/Entity/Ped/PlayerPed.cpp:424,cohorte 499 + envoltura en el código fuente
-CPlayerPed,ProcessWeaponSwitch,0x0060D850,source/game_sa/Entity/Ped/PlayerPed.cpp:1485,cohorte 499 + envoltura en el código fuente
-CPlayerPed,SetRealMoveAnim,0x0060A9C0,source/game_sa/Entity/Ped/PlayerPed.cpp:849,cohorte 499 + envoltura en el código fuente
+CPlayerPed,Compute3rdPersonMouseTarget,0x0060B650,source/game_sa/Entity/Ped/PlayerPed.cpp:1102,cohorte 499 + envoltura en el código fuente
+CPlayerPed,DrawTriangleForMouseRecruitPed,0x0060BA80,source/game_sa/Entity/Ped/PlayerPed.cpp:1108,cohorte 499 + envoltura en el código fuente
+CPlayerPed,FindNextWeaponLockOnTarget,0x0060E530,source/game_sa/Entity/Ped/PlayerPed.cpp:1980,cohorte 499 + envoltura en el código fuente
+CPlayerPed,ProcessWeaponSwitch,0x0060D850,source/game_sa/Entity/Ped/PlayerPed.cpp:1754,cohorte 499 + envoltura en el código fuente
+CPlayerPed,SetRealMoveAnim,0x0060A9C0,source/game_sa/Entity/Ped/PlayerPed.cpp:1039,cohorte 499 + envoltura en el código fuente
 CVehicle,AddSingleWheelParticles,0x006DE880,source/game_sa/Entity/Vehicle/Vehicle.cpp:4787,cohorte 499
-CVehicle,DoDriveByShootings,0x00741FD0,source/game_sa/Entity/Vehicle/Vehicle.cpp:8508,cohorte 499 + envoltura en el código fuente
-CVehicle,FireFixedMachineGuns,0x0073DF00,source/game_sa/Entity/Vehicle/Vehicle.cpp:8503,cohorte 499 + envoltura en el código fuente
 CVehicle,InflictDamage,0x006D7C90,source/game_sa/Entity/Vehicle/Vehicle.cpp:3738,cohorte 499
-CVehicle,ProcessBikeWheel,0x006D73B0,source/game_sa/Entity/Vehicle/Vehicle.cpp:3755,cohorte 499 + envoltura en el código fuente
+CVehicle,ProcessBikeWheel,0x006D73B0,source/game_sa/Entity/Vehicle/Vehicle.cpp:3757,cohorte 499 + envoltura en el código fuente
 CVehicle,UpdateTractorLink,0x006E0050,source/game_sa/Entity/Vehicle/Vehicle.cpp:4837,cohorte 499
 CVehicle,UpdateTrailerLink,0x006DFC50,source/game_sa/Entity/Vehicle/Vehicle.cpp:4832,cohorte 499
 Fx_c,AddWheelSpray,0x0049FB30,source/game_sa/Fx/Fx.cpp:313,cohorte 499

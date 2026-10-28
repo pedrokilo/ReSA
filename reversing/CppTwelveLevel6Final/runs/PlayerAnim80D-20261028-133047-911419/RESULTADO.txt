@@ -1,0 +1,3 @@
+APROBADO: PlayerAnim80D
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-playeranim80d\20261028-133047-911419

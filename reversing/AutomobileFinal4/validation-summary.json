@@ -310,22 +310,22 @@
     "CAutomobile::dmgDrawCarCollidingParticles": "Corpus 192; coche falso y colaboradores doblados con traza (sin crédito); "
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/AutomobileFinal4-20261028-051958-235305",
-  "summary_sha256": "448d7ba8deec47881d9a0accf72ac91bb8e83267fb50b8e1ed353a3760f1c822",
-  "result_txt_sha256": "f7dce619e4ef9fd3ed12e8ce378e971dbd5dd25111af54aa74cb35ee8bba7d24",
-  "log_sha256": "f62b96d8dc07efefdd19beecc60734704a83cfb99ba2e72209060aeed7cbc029",
+  "run": "reversing/CppTwelveLevel6Final/runs/AutomobileFinal4-20261028-134023-288903",
+  "summary_sha256": "e2e4bfec1136470287e80005159edb2b4200c80df85047b12b3cf35890a504bd",
+  "result_txt_sha256": "4527a6bbd80c41554bf904eba478579771bddf9e292afc26686d89630b43d0ba",
+  "log_sha256": "4058847f39f773ea442ab54cd735c3ee150bb44fa8e473b79aa7ac0fe618ab58",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/AutomobileFinal4-20261028-051958-235305/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/AutomobileFinal4-20261028-134023-288903/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "0c29f5aaf553ed2cd2c174a710d011a9809da90fc6ac611efbb77d9d96e3c7f0",
-    "uncompressed_sha256": "f62b96d8dc07efefdd19beecc60734704a83cfb99ba2e72209060aeed7cbc029"
+    "compressed_sha256": "131bad0211cdb311e54c5d824a130b27829b7cd59d93d22b8e8cb485bbf44e59",
+    "uncompressed_sha256": "4058847f39f773ea442ab54cd735c3ee150bb44fa8e473b79aa7ac0fe618ab58"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "a9af8338b6fa788964e5b574311969cc569e09032ff93ceabdb8c4964f3774bb",
+  "executed_probe_sha256": "3623c7a1bf52f56e558f950b872f404a0a8091732799c22ada47aee5daa74edd",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {

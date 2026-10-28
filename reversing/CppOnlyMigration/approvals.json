@@ -13763,5 +13763,61 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ (CPlayerPed): FindWeaponLockOnTarget sin llamadas al EXE salvo la función 0x60A9C0 (SetRealMoveAnim, sin reconstruir) en SetInitialState. El banco sustituye por falsos idénticos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL) los colaboradores y compara la secuencia de llamadas con sus argumentos, los objetos reservados los cambios en las arenas del caso y el estado de la x87. Banco PlayerPed79 con 40960 pares (20480 propios) y cero diferencias; EAX/ECX/EDX de salida: ver README del banco. Validado en el worktree D:/Original/wy-2 (HEAD 67b315a68 + PlayerPed.cpp, X87Math.cpp/.h, source.patch). CPlayerPed::SetInitialState 0x60CD20 (thiscall, ret 4; void; llamadores 0x4421CD y 0x60D60F no leen los registros de salida): estado inicial del jugador (banderas, estados de ped, tareas por defecto y secundaria, grupo con evento de reunir). CPlayerPed::FindWeaponLockOnTarget 0x60DC50 (thiscall, bool; su unico llamador 0x68693A ignora AL): conserva o suelta el objetivo fijado y busca nuevo (bote de spray, peatones, objetos y vehiculos en cooperativo) con aritmetica x87 a 24 bits (ayudantes Pp79* de X87Math). Colaboradores sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL); sin hook: ClearDrunkBlur, SetRealMoveAnim, CEvent::operator new/delete, rand(), CVector::Normalise/Magnitude. Los constructores de tareas y eventos corren de verdad. Dominio: ver README del banco (pools falsos de 5 peatones, 3 vehiculos y 3 objetos; un unico patron de NaN; sin denormales)."
+  },
+  "0x00741FD0": {
+    "identity": "CVehicle::DoDriveByShootings",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Entity/Vehicle/Vehicle.cpp",
+    "bank": "Veh80A",
+    "run": "20261028-131936-974997",
+    "pairs": 20480,
+    "own_pairs": 20480,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Veh80A-20261028-131936-974997/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE (los colaboradores son falsos identicos en ambos lados). Banco Veh80A con 20480 pares y cero diferencias; void; EAX/ECX/EDX solo registrados. Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas desde el worktree D:/Original/wz-1 (HEAD e4f077aea + source.patch del lote 80A; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: CPlayerPed::GetPlayerInfoForThisPlayerPed 0x609FF0, CPlayerPed::GetPadFromPlayer 0x609560, CWeaponInfo::GetWeaponInfo 0x743C60, CPad::GetCarGunFired 0x53FF90, CPad::GetLookLeft 0x53FDD0, CPad::GetLookRight 0x53FE10, CWeapon::Update 0x73DB40, RpAnimBlendClumpGetAssociation 0x4D68B0, CAnimManager::BlendAnimation 0x4D4610, CWeapon::FireFromCar 0x73FA20 y CPed::DoGunFlash 0x5DF340 (cada uno lo valida su propio banco); sus hooks RH estan apagados durante el banco. CVehicle::GetRideAnimData (virtual, ranura 47) es un falso en la vtabla del vehiculo de la arena. La unica aritmetica de coma flotante son comparaciones (delta < 0.0, amount > 0.99): NaN, infinitos, desnormales y ceros con signo cubiertos y 484 microtests de FCOMP del hardware. Cada lado coincide ademas con el oraculo independiente (fixture_oracle.py). EAX/ECX/EDX no son resultados (void): solo se registran."
+  },
+  "0x0060C1E0": {
+    "identity": "CPlayerPed::KeepAreaAroundPlayerClear",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Entity/Ped/PlayerPed.cpp",
+    "bank": "PlayerArea80B",
+    "run": "20261028-132216-870623",
+    "pairs": 20480,
+    "own_pairs": 20480,
+    "audit": "reversing/CppTwelveLevel6Final/runs/PlayerArea80B-20261028-132216-870623/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (CPlayerPed, despeje del area): KeepAreaAroundPlayerClear sin llamadas al EXE salvo 0x424F80 (PossiblyRemoveVehicle) sin reconstruir. El banco sustituye por falsos idénticos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL) los colaboradores con hook en HEAD y compara la secuencia de llamadas con sus argumentos, el objeto reservado los cambios en las arenas del caso y el estado de la x87. Banco PlayerArea80B con 20480 pares (20480 propios) y cero diferencias; EAX/ECX/EDX de salida: ver README del banco. Validado en el worktree D:/Original/wz-2 (HEAD e4f077aea + PlayerPed.cpp y X87Math.cpp/.h, source.patch). CPlayerPed::KeepAreaAroundPlayerClear 0x60C1E0 (thiscall sin argumentos, void; sus 4 llamadores del EXE no leen los registros de salida): recorre los 16 peatones del escaner (inteligencia leida una vez): los que no estan en vehiculo, estan vivos, no son del grupo del jugador y estan fuera de pantalla (o con la bandera 0x10) se marcan para destruir (virtual +0x54); los demas reciben un evento de guion con una tarea SmartFleeEntity del jugador salvo que ya huyan; despues, con los vehiculos a 15 m (FindObjectsInRange), les pone una accion temporal (espera, marcha atras o adelante) segun la distancia al cuadrado a 25.0 y el producto escalar con su eje y llama a 0x424F80. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): CPed::IsAlive, CPedGroupMembership::IsMember, CEntity::GetIsOnScreen, CPedIntelligence::FindTaskByType, CEventGroup::GetEventOfType y Add, CTask::operator new/delete, CEntity::RegisterReference/CleanUpOldReference, CWorld::FindObjectsInRange (con hook); sin hook: 0x424F80 (la DLL la llama por la direccion del EXE). Dominio: tareas/eventos reales (constructores y destructores de CTaskComplexSmartFleeEntity y CEventScriptCommand) sobre arenas; no cubre fallo de reserva de la tarea (el EXE escribe en [0 + 0x30]), vehiculo sin matriz cerca de la referencia (el EXE se cae) ni listas con entradas nulas bajo la cuenta."
+  },
+  "0x0073DF00": {
+    "identity": "CVehicle::FireFixedMachineGuns",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Entity/Vehicle/Vehicle.cpp",
+    "bank": "Veh80C",
+    "run": "20261028-132828-174795",
+    "pairs": 18432,
+    "own_pairs": 18432,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Veh80C-20261028-132828-174795/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE (los cinco colaboradores son falsos identicos en ambos lados). Banco Veh80C con 18432 pares y cero diferencias; EAX/ECX/EDX solo registrados. Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas desde el worktree D:/Original/wz-3 (HEAD e4f077aea + cambios del lote 80C; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): operator*(CMatrix, CVector) 0x59C890 (cdecl con puntero de resultado oculto), CWeapon::DoTankDoomAiming 0x73D1E0, FireOneInstantHitRound 0x73AF00, CAudioEngine::ReportWeaponEvent 0x506F40 y rand() 0x821B1E (en la DLL CGeneral::GetRandomNumber, sin hook). El banco compara el orden y todos los argumentos de los falsos (contenido de los vectores de pila, etiquetas de arena, hora del arma en cada evento), la mutacion del vehiculo (matriz +0x14, conductor +0x460, cargador +0x4AB, hora del arma +0x4D4) y del reloj global por un falso tras cada uno de los 13 eventos (relectura de campos), la escritura de la hora y del cargador, la recarga con la hora releida y los vectores que reescribe DoTankDoomAiming; la x87 a 24 bits (direccion normalizada, extremo y ruido) incluidos NaN (un solo patron, el indefinido), infinitos, desnormales y ceros con signo. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. El EXE lee la matriz +0x10 sin comprobar nulo: la matriz nula solo se prueba sin disparo. EAX/ECX/EDX de salida solo se registran: el unico llamador, CVehicle::DoFixedMachineGuns (0x73F459, jmp), no los lee. NaN con cargas distintas (sNaN, signos y cargas variadas) no cubiertos: las fixtures usan un unico patron de NaN para que el orden de operandos que elige el compilador no cambie la carga."
+  },
+  "0x006098F0": {
+    "identity": "CPlayerPed::ProcessAnimGroups",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Entity/Ped/PlayerPed.cpp",
+    "bank": "PlayerAnim80D",
+    "run": "20261028-133047-911419",
+    "pairs": 20480,
+    "own_pairs": 20480,
+    "audit": "reversing/CppTwelveLevel6Final/runs/PlayerAnim80D-20261028-133047-911419/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (CPlayerPed, botones del grupo): ProcessAnimGroups sin llamadas al EXE salvo la función 0x609380 sin reconstruir. El banco sustituye por falsos idénticos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL) los colaboradores con hook en HEAD y compara la secuencia de llamadas con sus argumentos, el objeto reservado los cambios en las arenas del caso y el estado de la x87. Banco PlayerAnim80D con 20480 pares (20480 propios) y cero diferencias; EAX/ECX/EDX de salida: ver README del banco. Validado en el worktree D:/Original/wz-4 (HEAD e4f077aea + PlayerPed.cpp, source.patch). CPlayerPed::ProcessAnimGroups 0x6098F0 (thiscall, ret; void; 909 bytes; su unico llamador, ProcessControl 0x60F2E7, no lee los registros de salida): elige el grupo de animacion del jugador (+0x4D4) segun el rumbo (+0x50 de los datos, +-0.8726646), la camara en 3a persona con raton, el modelo y tipo del arma, el jetpack, la balaclava y el modelo del segundo jugador, llama a ReApplyMoveAnims si cambia, y referencia/libera los bloques de animacion de pelea (+0x48/+0x4C de los datos) segun el combo base del arma y el estilo de pelea. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): CCam::Using3rdPersonMouseCam, CPed::CanStrafeOrMouseControl, CVisibilityPlugins::GetClumpModelInfo, CPedIntelligence::GetTaskJetPack, CPedClothesDesc::GetIsWearingBalaclava, CClothes::GetDefaultPlayerMotionGroup, CPlayerPed::ReApplyMoveAnims, CPed::GetWeaponSkill, CWeaponInfo::GetWeaponInfo, CAnimManager::GetAnimBlockName/GetAnimationBlock/AddAnimBlockRef, CStreaming::RequestModel (con hook) y CAnimManager::RemoveAnimBlockRef (funcion de la DLL sin hook, falso tambien en su cuerpo). El modelo del arma es un objeto falso con tabla virtual falsa. Dominio: grupos 0..23, bloques reales 0..7, ranuras de arma -20..20, filas de combos 4..15; no cubre punteros nulos de datos/ropa/inteligencia (el EXE se cae)."
   }
 }

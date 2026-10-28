@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "pairs": 20480,
+  "differences": 0,
+  "registered_pairs": 20480,
+  "registered_functions": 1,
+  "functions": {
+    "CVehicle::DoDriveByShootings": 20480
+  },
+  "covered_functions": {
+    "CVehicle::DoDriveByShootings": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wz-1 (HEAD e4f077aea + source.patch del lote 80A; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: CPlayerPed::GetPlayerInfoForThisPlayerPed 0x609FF0, CPlayerPed::GetPadFromPlayer 0x609560, CWeaponInfo::GetWeaponInfo 0x743C60, CPad::GetCarGunFired 0x53FF90, CPad::GetLookLeft 0x53FDD0, CPad::GetLookRight 0x53FE10, CWeapon::Update 0x73DB40, RpAnimBlendClumpGetAssociation 0x4D68B0, CAnimManager::BlendAnimation 0x4D4610, CWeapon::FireFromCar 0x73FA20 y CPed::DoGunFlash 0x5DF340 (cada uno lo valida su propio banco); sus hooks RH estan apagados durante el banco. CVehicle::GetRideAnimData (virtual, ranura 47) es un falso en la vtabla del vehiculo de la arena. La unica aritmetica de coma flotante son comparaciones (delta < 0.0, amount > 0.99): NaN, infinitos, desnormales y ceros con signo cubiertos y 484 microtests de FCOMP del hardware. Cada lado coincide ademas con el oraculo independiente (fixture_oracle.py). EAX/ECX/EDX no son resultados (void): solo se registran.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Veh80A-20261028-131936-974997",
+  "summary_sha256": "c72907066fdf9f9edd190c548909c52d64f075d34efb60989c20029050075c69",
+  "result_txt_sha256": "87e6335f5e9281dcf0d1c6463dc6ec70796c62847e5831eac56e265fb5fa7535",
+  "log_sha256": "2da023521df1068b69bf6e0af89a94ecbff14a495abce35983f33e5cc9f07dd5",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "bf9de48005740de7267100af45670773554e9ef0f7f6e16656c55ac12f92cbb4",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "c9464f59794f55348d99c11a91b103e76f602a30db01afdc59d554f7c6e19727",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Veh80A/LiveComparison.hpp": "23b95711eac807aeeafd24ec780e0d84856bd2e8cc36b56f005f4477b3336536",
+      "reversing/Veh80A/Core.hpp": "08ce9adf4e98ba247214aec3932e38e90b57804c1b611ec0c75924b4e837d579",
+      "reversing/Veh80A/Fixtures.hpp": "9acffb8622fa9f43341ff4c8fcb84cf80d5451037959f9de95e7066f0ff0065d",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

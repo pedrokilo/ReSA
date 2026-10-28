@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 20480,
+  "differences": 0,
+  "registered_pairs": 20480,
+  "registered_functions": 1,
+  "functions": {
+    "CPlayerPed::ProcessAnimGroups": 20480
+  },
+  "covered_functions": {
+    "CPlayerPed::ProcessAnimGroups": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wz-4 (HEAD e4f077aea + PlayerPed.cpp, source.patch). CPlayerPed::ProcessAnimGroups 0x6098F0 (thiscall, ret; void; 909 bytes; su unico llamador, ProcessControl 0x60F2E7, no lee los registros de salida): elige el grupo de animacion del jugador (+0x4D4) segun el rumbo (+0x50 de los datos, +-0.8726646), la camara en 3a persona con raton, el modelo y tipo del arma, el jetpack, la balaclava y el modelo del segundo jugador, llama a ReApplyMoveAnims si cambia, y referencia/libera los bloques de animacion de pelea (+0x48/+0x4C de los datos) segun el combo base del arma y el estilo de pelea. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): CCam::Using3rdPersonMouseCam, CPed::CanStrafeOrMouseControl, CVisibilityPlugins::GetClumpModelInfo, CPedIntelligence::GetTaskJetPack, CPedClothesDesc::GetIsWearingBalaclava, CClothes::GetDefaultPlayerMotionGroup, CPlayerPed::ReApplyMoveAnims, CPed::GetWeaponSkill, CWeaponInfo::GetWeaponInfo, CAnimManager::GetAnimBlockName/GetAnimationBlock/AddAnimBlockRef, CStreaming::RequestModel (con hook) y CAnimManager::RemoveAnimBlockRef (funcion de la DLL sin hook, falso tambien en su cuerpo). El modelo del arma es un objeto falso con tabla virtual falsa. Dominio: grupos 0..23, bloques reales 0..7, ranuras de arma -20..20, filas de combos 4..15; no cubre punteros nulos de datos/ropa/inteligencia (el EXE se cae).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/PlayerAnim80D-20261028-133047-911419",
+  "summary_sha256": "48c12cadaabe56b3d622ac3e1c4ed6dc68e3b2194b80a320afd1e02669f69028",
+  "result_txt_sha256": "292f26389326ccb03ee0a44f8407950db7f829adc23dd80e9326df3a5aa23164",
+  "log_sha256": "50e2fbc6978f91cd53f307bb93251ef88f457e47d3ede35abbf891d26dfb9e4a",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "88f4293a16c77af16794a2610afcd3ed2efd788923c462099982cfe81e5eb664",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/Entity/Ped/PlayerPed.cpp": "aeeae9091b852b361da87b40148e466b5d355772cbd296bfd4ad254651dd81c4",
+      "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
+      "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
+      "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/PlayerAnim80D/LiveComparison.hpp": "7be35897d3f0e9409f38fa609c7b7a826fa0db99df1eee05e7550def3e42efee",
+      "reversing/PlayerAnim80D/Core.hpp": "eb0ec4533f3ae046d0e5479fdf6fd9105bb818357d373c7d24d2800e73aeefec",
+      "reversing/PlayerAnim80D/Fixtures.hpp": "dec130dd1719024368d57692d4c9fad3de4f8dad2a75d4b707f5327546c493c6",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

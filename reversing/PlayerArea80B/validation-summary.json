@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 20480,
+  "differences": 0,
+  "registered_pairs": 20480,
+  "registered_functions": 1,
+  "functions": {
+    "CPlayerPed::KeepAreaAroundPlayerClear": 20480
+  },
+  "covered_functions": {
+    "CPlayerPed::KeepAreaAroundPlayerClear": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wz-2 (HEAD e4f077aea + PlayerPed.cpp y X87Math.cpp/.h, source.patch). CPlayerPed::KeepAreaAroundPlayerClear 0x60C1E0 (thiscall sin argumentos, void; sus 4 llamadores del EXE no leen los registros de salida): recorre los 16 peatones del escaner (inteligencia leida una vez): los que no estan en vehiculo, estan vivos, no son del grupo del jugador y estan fuera de pantalla (o con la bandera 0x10) se marcan para destruir (virtual +0x54); los demas reciben un evento de guion con una tarea SmartFleeEntity del jugador salvo que ya huyan; despues, con los vehiculos a 15 m (FindObjectsInRange), les pone una accion temporal (espera, marcha atras o adelante) segun la distancia al cuadrado a 25.0 y el producto escalar con su eje y llama a 0x424F80. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): CPed::IsAlive, CPedGroupMembership::IsMember, CEntity::GetIsOnScreen, CPedIntelligence::FindTaskByType, CEventGroup::GetEventOfType y Add, CTask::operator new/delete, CEntity::RegisterReference/CleanUpOldReference, CWorld::FindObjectsInRange (con hook); sin hook: 0x424F80 (la DLL la llama por la direccion del EXE). Dominio: tareas/eventos reales (constructores y destructores de CTaskComplexSmartFleeEntity y CEventScriptCommand) sobre arenas; no cubre fallo de reserva de la tarea (el EXE escribe en [0 + 0x30]), vehiculo sin matriz cerca de la referencia (el EXE se cae) ni listas con entradas nulas bajo la cuenta.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/PlayerArea80B-20261028-132216-870623",
+  "summary_sha256": "2b44fe6003e0a6fc000b83b97156bf5076a2bee65f5bfa6dd87d76ce26147c9b",
+  "result_txt_sha256": "8aef2ffca5cc079856d347e73f80483c1d656ee150896baeb4e587b7212d01a9",
+  "log_sha256": "b29475d9a3fc282fdfd5305c98401352a079aee39cbe57ee67e1c094c60e7dde",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "663d7d7ec8e8f3e14723d5f42ca5d21d20c1dd22322fe6c9e96c01a42b207aa2",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/Entity/Ped/PlayerPed.cpp": "aeeae9091b852b361da87b40148e466b5d355772cbd296bfd4ad254651dd81c4",
+      "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
+      "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
+      "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/PlayerArea80B/LiveComparison.hpp": "ef2a6317abb002ea8a426414febbe617be879ee231e0b50de701c92ee54bdb03",
+      "reversing/PlayerArea80B/Core.hpp": "1c2c80a8b3cdd6a51255059ffa0f81f29359158ee3fa2c4b5f11d535233eddbf",
+      "reversing/PlayerArea80B/Fixtures.hpp": "7a043f707de26ada9efe03bd8a9c70562ebd1014b452194acf7c892833cef2d2",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

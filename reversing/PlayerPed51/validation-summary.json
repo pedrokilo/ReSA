@@ -63,10 +63,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "0abcae5ee6ed583ed4302d3b43d5c6a161099fc9881a4bde21be91037382e2d5",
+  "log_sha256": "6cb15cc0f4e4d5e82be1ec3b686ed186d4fca720aa602fb783948242e0a0195f",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-playerped51\\20261005-090414-267940",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-playerped51\\20261028-134311-647050",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CPlayerPed::AnnoyPlayerPed": true,
@@ -122,11 +122,11 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "e358fedbb6a30771f26df3ba4a3874f0b1ca55ecf18fead20def4711a088117e",
-      "pdb": "aee61b8a2056a75d761a0f02323c5de3748d5638b3ada337b7c25b98ba5904c0"
+      "asi": "87294b7ad04bd9d804e82d581b718765c00ea14cfd1a8cfbfa8551faeeddd378",
+      "pdb": "034387272b510eee5e997073a2df945288d8aa291545e0a9f4c6e7e37b4636dc"
     },
     "sources": {
-      "source/game_sa/Entity/Ped/PlayerPed.cpp": "d850664c4a1a5279cf388979ff08625dd08c1d9c2fc0466e2be0e45dc37875ed",
+      "source/game_sa/Entity/Ped/PlayerPed.cpp": "aeeae9091b852b361da87b40148e466b5d355772cbd296bfd4ad254651dd81c4",
       "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
@@ -138,6 +138,7 @@
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }
