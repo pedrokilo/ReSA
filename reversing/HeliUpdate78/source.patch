@@ -1,0 +1,156 @@
+diff --git a/source/game_sa/Entity/Vehicle/Heli.cpp b/source/game_sa/Entity/Vehicle/Heli.cpp
+index 48a42f257..3f3340d97 100644
+--- a/source/game_sa/Entity/Vehicle/Heli.cpp
++++ b/source/game_sa/Entity/Vehicle/Heli.cpp
+@@ -34,6 +34,7 @@ END GENERATED HOOK STATUS */
+ #include "VisibilityPlugins.h"
+ #include "CarCtrl.h"
+ #include "Wanted.h"
++#include "CullZones.h"
+ #include "Streaming.h"
+ #include "Camera.h"
+ #include "PlayerInfo.h"
+@@ -81,6 +82,7 @@ void CHeli::InjectHooks() {
+     RH_ScopedInstall(RenderAllHeliSearchLights, 0x6C7C50);
+     RH_ScopedInstall(TestSniperCollision, 0x6C6890);
+     RH_ScopedInstall(GenerateHeli, 0x6C6520);
++    RH_ScopedInstall(UpdateHelis, 0x6C79A0);
+     RH_ScopedInstall(SendDownSwat, 0x6C69C0);
+     RH_ScopedNamedGlobalInstall(FindSwatPositionRelativeToHeliExeAbi, "FindSwatPositionRelativeToHeli", 0x6C4760);
+     RH_ScopedVMTInstall(Render, 0x6C4400);
+@@ -466,11 +468,133 @@ bool CHeli::SendDownSwat() {
+     return true;
+ }
+ 
+-// 0x6C79A0
++// 0x6C7B5D..0x6C7B95: distancia jugador - helicoptero > 170 (0x858F98) como el original: d = jugador - helicoptero por componentes, suma (z, y, x), raiz y comparacion ordenada (un NaN no cuenta como lejos).
++// La raiz se redondea a float como la x87 a 24 bits (la raiz doble de un float redondeada a float da el mismo resultado: 53 >= 2 * 24 + 2).
++static bool HeliIsFarFromPlayer(const CVector& player, const CVector& heli) {
++    const float dx = player.x - heli.x;
++    const float dy = player.y - heli.y;
++    const float dz = player.z - heli.z;
++    const float zz = dz * dz;
++    const float yy = dy * dy;
++    const float xx = dx * dx;
++    const float sumZY = zz + yy;
++    const float sum = sumZY + xx;
++    const float distance = static_cast<float>(std::sqrt(static_cast<double>(sum)));
++    return distance > 170.0f;
++}
++
++// 0x6C79A0..0x6C7C45 (cdecl, sin argumentos, resultado ninguno): lo llama CGame::Process.
+ void CHeli::UpdateHelis() {
+     ZoneScoped;
+ 
+-    ((void(__cdecl*)())0x6C79A0)();
++    NumberOfSearchLights = 0;
++    // Como el original: FindPlayerWanted(-1) y NumOfHelisRequired se llaman sin comprobar el nulo
++    int32 maxHelis = FindPlayerWanted(-1)->NumOfHelisRequired();
++
++    // Cuenta de helicopteros vivos y bandera "hay un helicoptero de policia (0x1F1) que no se retira": se pueden anadir las noticias
++    int32 numHelis = 0;
++    bool newsAllowed = false;
++    for (size_t i = 0; i < 2; i++) {
++        CHeli* const heli = pHelis.data()[i];
++        if (!heli) {
++            continue;
++        }
++        numHelis++;
++        if (static_cast<uint16>(heli->m_nModelIndex) == 0x1F1 && !(HeliField<uint32>(heli, 0x40) & 0x20000000u) && !(HeliField<uint8>(heli, 0x42B) & 0x40u)) {
++            newsAllowed = true;
++        }
++    }
++
++    // Como el original: PlayerNoRain se llama siempre; sin helicopteros permitidos (zona, interior, tormenta de arena en la region actual o la anterior) maxHelis = 0
++    if (CCullZones::PlayerNoRain() || StaticRef<int32>(0xB72914) != 0) { // CGame::currArea
++        maxHelis = 0;
++    }
++    if (!bPoliceHelisAllowed) {
++        maxHelis = 0;
++    }
++    if (StaticRef<int16>(0xC81320) == 0x13 || StaticRef<int16>(0xC8131C) == 0x13) { // CWeather::OldWeatherType / NewWeatherType: 19
++        maxHelis = 0;
++    }
++
++    // Con un helicoptero de noticias (0x1E8) vivo no se anade otro
++    for (size_t i = 0; i < 2; i++) {
++        CHeli* const heli = pHelis.data()[i];
++        if (heli && static_cast<uint16>(heli->m_nModelIndex) == 0x1E8) {
++            newsAllowed = false;
++        }
++    }
++
++    // 0xB7CB8C (CWanted::UseNewsHeliInAdditionToPolice) y la bandera: con ambas se mira el byte 0x8E72F0, si no la bandera se anula y se mira 0x8E73A4
++    bool allowed;
++    if (CWanted::UseNewsHeliInAdditionToPolice && newsAllowed) {
++        allowed = StaticRef<uint8>(0x8E72F0) == 1;
++    } else {
++        newsAllowed = false;
++        allowed = StaticRef<uint8>(0x8E73A4) == 1;
++    }
++
++    // Generacion: el temporizador (sin signo) se rearma aunque no falte ningun helicoptero
++    if (allowed && CTimer::GetTimeInMS() > TestForNewRandomHelisTimer) {
++        TestForNewRandomHelisTimer = CTimer::GetTimeInMS() + 15000u;
++        if (numHelis < maxHelis) {
++            CPed* const target = FindPlayerPed(-1);
++            CHeli* const heli = GenerateHeli(target, newsAllowed); // 0x6C6520
++            // Como el original: el helicoptero va a la primera ranura libre; si las dos estan ocupadas no se registra (y no se libera)
++            if (!pHelis.data()[0]) {
++                pHelis.data()[0] = heli;
++                heli->RegisterReference(reinterpret_cast<CEntity**>(&pHelis.data()[0])); // 0x571B70
++            } else if (!pHelis.data()[1]) {
++                pHelis.data()[1] = heli;
++                heli->RegisterReference(reinterpret_cast<CEntity**>(&pHelis.data()[1]));
++            }
++        }
++    }
++
++    // Retirada: marcado para borrar (+0x40 bit 29 o +0x42B bit 6) -> huye (mision 42) y se suelta; en mision 42 y a mas de 170 del jugador se saca del mundo y se destruye
++    for (size_t i = 0; i < 2; i++) {
++        CHeli* heli = pHelis.data()[i];
++        if (!heli) {
++            continue;
++        }
++        if ((HeliField<uint32>(heli, 0x40) & 0x20000000u) || (HeliField<uint8>(heli, 0x42B) & 0x40u)) {
++            heli->m_autoPilot.m_nCarMission = MISSION_HELI_FLY_AWAY_FROM_PLAYER;
++            pHelis.data()[i] = nullptr;
++            continue;
++        }
++        if (heli->m_autoPilot.m_nCarMission != MISSION_HELI_FLY_AWAY_FROM_PLAYER) {
++            continue;
++        }
++        const CVector heliPos = heli->GetPosition(); // matriz + 0x30 o posicion compacta +4
++        const CVector playerPos = FindPlayerCoors(-1);
++        if (!HeliIsFarFromPlayer(playerPos, heliPos)) {
++            continue;
++        }
++        CWorld::Remove(heli);
++        heli = pHelis.data()[i]; // el original relee la ranura
++        if (heli) {
++            delete heli; // destructor virtual con flag 1
++        }
++        pHelis.data()[i] = nullptr;
++    }
++
++    // Si sobra algun helicoptero (mas vivos que maxHelis) el primero que no huye se manda a huir con alturas de 100; el segundo solo si ya no queda cupo
++    int32 remaining = maxHelis;
++    CHeli* heli = pHelis.data()[0];
++    if (heli && heli->m_autoPilot.m_nCarMission != MISSION_HELI_FLY_AWAY_FROM_PLAYER) {
++        if (maxHelis > 0) {
++            remaining = maxHelis - 1;
++        } else {
++            heli->m_autoPilot.m_nCarMission = MISSION_HELI_FLY_AWAY_FROM_PLAYER;
++            pHelis.data()[0]->m_fMinAltitude = 100.0f; // +0x9B0
++            pHelis.data()[0]->m_fMaxAltitude = 100.0f; // +0x9A8
++        }
++    }
++    heli = pHelis.data()[1];
++    if (heli && heli->m_autoPilot.m_nCarMission != MISSION_HELI_FLY_AWAY_FROM_PLAYER && remaining <= 0) {
++        heli->m_autoPilot.m_nCarMission = MISSION_HELI_FLY_AWAY_FROM_PLAYER;
++        pHelis.data()[1]->m_fMinAltitude = 100.0f;
++        pHelis.data()[1]->m_fMaxAltitude = 100.0f;
++    }
+ }
+ 
+ // 0x6C7C50
