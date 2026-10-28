@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "pairs": 40960,
+  "differences": 0,
+  "registered_pairs": 40960,
+  "registered_functions": 2,
+  "functions": {
+    "CPlayerPed::SetInitialState": 20480,
+    "CPlayerPed::FindWeaponLockOnTarget": 20480
+  },
+  "covered_functions": {
+    "CPlayerPed::SetInitialState": true,
+    "CPlayerPed::FindWeaponLockOnTarget": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-2 (HEAD 67b315a68 + PlayerPed.cpp, X87Math.cpp/.h, source.patch). CPlayerPed::SetInitialState 0x60CD20 (thiscall, ret 4; void; llamadores 0x4421CD y 0x60D60F no leen los registros de salida): estado inicial del jugador (banderas, estados de ped, tareas por defecto y secundaria, grupo con evento de reunir). CPlayerPed::FindWeaponLockOnTarget 0x60DC50 (thiscall, bool; su unico llamador 0x68693A ignora AL): conserva o suelta el objetivo fijado y busca nuevo (bote de spray, peatones, objetos y vehiculos en cooperativo) con aritmetica x87 a 24 bits (ayudantes Pp79* de X87Math). Colaboradores sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL); sin hook: ClearDrunkBlur, SetRealMoveAnim, CEvent::operator new/delete, rand(), CVector::Normalise/Magnitude. Los constructores de tareas y eventos corren de verdad. Dominio: ver README del banco (pools falsos de 5 peatones, 3 vehiculos y 3 objetos; un unico patron de NaN; sin denormales).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/PlayerPed79-20261028-084414-830531",
+  "summary_sha256": "84041e0653e2b03608f41f8eb536399acaaed1dc91fa4b81ce63394ceac2dac0",
+  "result_txt_sha256": "f52c72f0203fcb71fc189a1a0f079cb711ac503a7f060a57e41d2cc9ecafb51f",
+  "log_sha256": "87967b6b9da90d003ad3fc2e09002c46e5564c9557938d90fda29cbcb88fd643",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "6b589c77c19bc78da99f3b3e4c36edd8f90524d5ef3fc3b08be46ca3b1898738",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/Entity/Ped/PlayerPed.cpp": "0aa072b38ace2c12822d716bb3ac91a11a6de3c5e082750a58187a0cf3ea682d",
+      "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
+      "source/game_sa/X87Math.cpp": "7366ab2ee1bc951c1cee789fcb4fd953b6d6b6424fd37c3d8e3985d8fec9f58d",
+      "source/game_sa/X87Math.h": "0fbad95b16861b4051cab9922303f1130a66da57b503dc431e98fd96224ccf59",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/PlayerPed79/LiveComparison.hpp": "0f66eb4e9b927bd5d73ebef1d60e38be7c2c33d908a435007f7894f80f5c8059",
+      "reversing/PlayerPed79/Core.hpp": "549a4820ba402d6db51cfe84b71ce33ea3ea27a27cf03aefdd8fe04c143c1a2e",
+      "reversing/PlayerPed79/Fixtures.hpp": "a9343506eb92ce9f2143159e2cb2292c462971d958aa6894759a367ba887a8b9",
+      "reversing/PlayerPed79/Fixtures1.hpp": "bd6d038c9f252a59d5d38e6bd6cc247220b09892eae449bf20091f41898d9be4",
+      "reversing/PlayerPed79/LiveComparison1.hpp": "a35abcaba420ed902a0ad00fff0a4473ffd43ee1563b032be1883fa88e08b954",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

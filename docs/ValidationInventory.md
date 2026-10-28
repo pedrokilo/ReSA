@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,962 entradas reversed=1**, de 8,962 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,965 entradas reversed=1**, de 8,965 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8962 |
+| `validated=1` · evidencia aprobada vinculada | 8965 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8962 |
+| Evidencia histórica vinculada; revisión pendiente | 8965 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -4366,6 +4366,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPlayerPed | `EvaluateTarget` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `FindPedToAttack` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `FindTargetPriority` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
+| CPlayerPed | `FindWeaponLockOnTarget` | [Resumen](../reversing/PlayerPed79/validation-summary.json) |
 | CPlayerPed | `ForceGroupToAlwaysFollow` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `ForceGroupToNeverFollow` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `GetButtonSprintResults` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
@@ -4397,6 +4398,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPlayerPed | `ResetPlayerBreath` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `ResetSprintEnergy` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `Save` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
+| CPlayerPed | `SetInitialState` | [Resumen](../reversing/PlayerPed79/validation-summary.json) |
 | CPlayerPed | `SetMoveAnim` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `SetPlayerMoveBlendRatio` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `SetWantedLevel` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
@@ -8443,6 +8445,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | FxSystem_c | `Stop` | [Resumen](../reversing/FxPost1/validation-summary.json) |
 | FxSystem_c | `Update` | [Resumen](../reversing/FxSystemPending/validation-summary.json) |
 | FxSystem_c | `UpdateBoundingBoxCB` | [Resumen](../reversing/FxSystemPending/validation-summary.json) |
+| Fx_c | `AddBlood` | [Resumen](../reversing/FxBlood79/validation-summary.json) |
 | Fx_c | `AddBulletImpact` | [Resumen](../reversing/FxImpact78/validation-summary.json) |
 | Fx_c | `AddDebris` | [Resumen](../reversing/FxWheel77/validation-summary.json) |
 | Fx_c | `AddGlass` | [Resumen](../reversing/FxWheel77/validation-summary.json) |
@@ -9336,7 +9339,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPlantMgr` | 20 | 0 | 20 | 0 |
 | `CPlantSurfPropMgr` | 4 | 0 | 4 | 0 |
 | `CPlayerInfo` | 29 | 0 | 29 | 0 |
-| `CPlayerPed` | 56 | 0 | 56 | 0 |
+| `CPlayerPed` | 58 | 0 | 58 | 0 |
 | `CPlayerPedData` | 5 | 0 | 5 | 0 |
 | `CPlayerRelationshipRecorder` | 1 | 0 | 1 | 0 |
 | `CPlayerSkin` | 4 | 0 | 4 | 0 |
@@ -9769,7 +9772,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `FxSphere_c` | 4 | 0 | 4 | 0 |
 | `FxSystemBP_c` | 10 | 0 | 10 | 0 |
 | `FxSystem_c` | 35 | 0 | 35 | 0 |
-| `Fx_c` | 24 | 0 | 24 | 0 |
+| `Fx_c` | 25 | 0 | 25 | 0 |
 | `Game` | 12 | 0 | 12 | 0 |
 | `IKChainManager_c` | 17 | 0 | 17 | 0 |
 | `IKChain_c` | 20 | 0 | 20 | 0 |

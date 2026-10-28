@@ -10,32 +10,39 @@
   "covered_functions": {
     "CTaskSimpleFight::FightHitPed": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-4 (HEAD 98ff78aaa + TaskSimpleFight.cpp/.h y el bloque del lote 75 de X87Math.cpp/.h, source.patch). CTaskSimpleFight::FightHitPed 0x61CBA0 (thiscall, ret 0x14; golpe de un ped contra otro; EAX = victima si GenerateDamageEvent la dano, si no 0): salida si la victima es el jugador con la tarea activa 0xCD, golpe bloqueado (BeHitWhileBlocking 0x61C650 sin reconstruir), danio _ftol2, ComputePedShotSide, GenerateDamageEvent, sonidos de golpe por lado y combo, Say del jugador, CEventSoundQuiet y sangre (probabilidad, direccion x87, Normalise, AddBlood). Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): IsPlayer, GetActiveTask, GetTaskFighting, GetWeaponInfo, FightStrikeDamage, ComputePedShotSide, GenerateDamageEvent, Say, GetEventGlobalGroup, CEventGroup::Add, RegisterReference/CleanUpOldReference e IsAlive (con hook); sin hook (el ejecutor pasa --unhook=Audio o no estan reconstruidas): CAEPedAudioEntity::AddAudioEvent 0x4E2BB0, CAEPedWeaponAudioEntity::AddAudioEvent 0x4E69F0, BeHitWhileBlocking 0x61C650, CVector::Normalise 0x59C910, Fx_c::AddBlood 0x49EB00 y rand 0x821B1E; CTask::GetTaskType por la vtable falsa de la tarea activa. CEventSoundQuiet (constructor y destructor) corre de verdad en ambos lados. Dominio: indices de la tabla de combos -8..15 y movimientos -8..40.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-4 (HEAD 98ff78aaa + TaskSimpleFight.cpp/.h y el bloque del lote 75 de X87Math.cpp/.h, source.patch). CTaskSimpleFight::FightHitPed 0x61CBA0 (thiscall, ret 0x14; golpe de un ped contra otro; EAX = victima si GenerateDamageEvent la dano, si no 0): salida si la victima es el jugador con la tarea activa 0xCD, golpe bloqueado (BeHitWhileBlocking 0x61C650 sin reconstruir), danio _ftol2, ComputePedShotSide, GenerateDamageEvent, sonidos de golpe por lado y combo, Say del jugador, CEventSoundQuiet y sangre (probabilidad, direccion x87, Normalise, AddBlood). Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): IsPlayer, GetActiveTask, GetTaskFighting, GetWeaponInfo, FightStrikeDamage, ComputePedShotSide, GenerateDamageEvent, Say, GetEventGlobalGroup, CEventGroup::Add, RegisterReference/CleanUpOldReference e IsAlive (con hook); sin hook (el ejecutor pasa --unhook=Audio o no estan reconstruidas): CAEPedAudioEntity::AddAudioEvent 0x4E2BB0, CAEPedWeaponAudioEntity::AddAudioEvent 0x4E69F0, BeHitWhileBlocking 0x61C650, CVector::Normalise 0x59C910, Fx_c::AddBlood 0x49EB00 y rand 0x821B1E; CTask::GetTaskType por la vtable falsa de la tarea activa. CEventSoundQuiet (constructor y destructor) corre de verdad en ambos lados. Dominio: indices de la tabla de combos -8..15 y movimientos -8..40. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/FightHitPed75-20261027-194154-148385",
-  "summary_sha256": "823f6980f43d494953ae8665b28d28c743822e0edd56713eaf98291817650b1a",
-  "result_txt_sha256": "8f431d29df3761ccd77236c0831dcec2de7f738cda934f0e9fb513808dc1efdb",
-  "log_sha256": "8f638fcc8558985209baea4e220a50f895ad869e210ea16e6add8978196028b0",
+  "run": "reversing/CppTwelveLevel6Final/runs/FightHitPed75-20261028-085603-764015",
+  "summary_sha256": "4aa705ea6108b8b17fb6e372af530a6c65ce20c4ecbf7deb99d9148450dbd3bd",
+  "result_txt_sha256": "103a9418ad623e6e80e909b71073290be8a41e4a5fadf2ffc4c2b3dbcec115f1",
+  "log_sha256": "8f0832ffa347aa4b97e7a6a15ff328fb3eb890256eb761905eb42e0c219e6d11",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "95d80c89656b9a77726cc631a1987517aefe5ede852c995168710c01ba54df94",
+  "executed_probe_sha256": "f5ce2671a06b9873bd95dc9158184e4be38783d042baa332311accd6de4cb75e",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "19f7929eb4f1316240b46c843769bc340bc2faa2d8027caebb98476d506aefb8",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "6c67197098132055e93c371e0c4d9a328596ce46a9ca3570ca57b61bd9a59acd",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "b44f31f68330d9e4862366af27fd42cbefb8c65adb0112f5f724d381218dda23",
-      "source/game_sa/X87Math.cpp": "1e32d201b83098e0c4b72e1282e82f19e72a5c474b3c82440bcdf9f44bf971c4",
-      "source/game_sa/X87Math.h": "8015654fe6b233947884b917027582d2ea6eafc195c15d1e8a5902034e62c89a",
+      "source/game_sa/X87Math.cpp": "7366ab2ee1bc951c1cee789fcb4fd953b6d6b6424fd37c3d8e3985d8fec9f58d",
+      "source/game_sa/X87Math.h": "0fbad95b16861b4051cab9922303f1130a66da57b503dc431e98fd96224ccf59",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/FightHitPed75/LiveComparison.hpp": "7f7e2b3d99bc16cc1c1ded871756bf1f63539cabd2c7cd9a90d0da79362f1bc9",
-      "reversing/FightHitPed75/Core.hpp": "55746f65b6a7009cff11a8cffefd312edafce41c2f78f03e8d5fbf75d1cdd544",
+      "reversing/FightHitPed75/LiveComparison.hpp": "a11be1b6bbd5f59e5d5d174fdbf7fb3a56fc3dd79ebe9a800e0c6472d11450c8",
+      "reversing/FightHitPed75/Core.hpp": "23852a3a35e186637b60c36d3b780a220c58b9164ff423b2911cd66e79789118",
       "reversing/FightHitPed75/Fixtures.hpp": "410a907376223a041edd4d6ec661cbf4146924911e1256339f61c0a3aa716bdf",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/FightHitPed75-20261028-085603-764015/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "7eee42d6e9c2d971ddefa2bb0b6029e5cdb39b4cb910222c6e11e84acfd08857",
+    "uncompressed_sha256": "8f0832ffa347aa4b97e7a6a15ff328fb3eb890256eb761905eb42e0c219e6d11"
   }
 }

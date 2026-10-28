@@ -8961,3 +8961,6 @@ Fx_c,AddSparks,0x0049F040,1,0,1,S
 Fx_c,AddBulletImpact,0x0049F3D0,1,0,1,S
 CPlayerPed,ProcessGroupBehaviour,0x0060D350,1,0,1,S
 CHeli,UpdateHelis,0x006C79A0,1,0,1,S
+Fx_c,AddBlood,0x0049EB00,1,0,1,S
+CPlayerPed,SetInitialState,0x0060CD20,1,0,1,S
+CPlayerPed,FindWeaponLockOnTarget,0x0060DC50,1,0,1,S

@@ -13721,5 +13721,47 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ sin llamadas al EXE para esta funcion (los colaboradores son falsos identicos en ambos lados): cada fotograma pone a cero el contador de focos, cuenta los helicopteros de policia y de noticias vivos, genera uno nuevo si el temporizador venció y falta cupo (maxHelis por nivel de busqueda, anulado en zonas sin lluvia, interiores, tormenta de arena o con policia desactivada), retira los marcados o los que huyen y estan a mas de 170 del jugador (CWorld::Remove y destructor) y manda a huir a los sobrantes con alturas de 100. Banco HeliUpdate78 con 21504 pares y cero diferencias. Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-3 (HEAD e89b38506 + cambios del lote 78C; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados); el banco compara el orden y todos los argumentos de los falsos, los bytes cambiados de las arenas (tres helicopteros y sus matrices), pHelis, el temporizador, NumberOfSearchLights y un hash de los globales tocados. Colaboradores: CWorld::FindPlayerWanted 0x56E230, CWanted::NumOfHelisRequired 0x561FA0, CCullZones::PlayerNoRain 0x72DDC0, CWorld::FindPlayerPed 0x56E210, CHeli::GenerateHeli 0x6C6520, CEntity::RegisterReference 0x571B70, CWorld::FindPlayerCoors 0x56E010 y CWorld::Remove 0x563280, todos con hook RH (cada uno validado por su banco); el destructor virtual (ranura 0 de la vtabla) es un falso. La distancia al jugador (> 170) es aritmetica propia, comprobada ademas contra el hardware x87 (dist_hw.py). No se prueba: el helicoptero nuevo nulo (el EXE se cae en RegisterReference) ni el valor de EAX/ECX/EDX de salida (ningun llamador los lee)."
+  },
+  "0x0049EB00": {
+    "identity": "Fx_c::AddBlood",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Fx/Fx.cpp",
+    "bank": "FxBlood79",
+    "run": "20261028-091451-925542",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/FxBlood79-20261028-091451-925542/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE (los colaboradores son falsos identicos en ambos lados). Banco FxBlood79 con 16384 pares y cero diferencias; void; EAX/ECX/EDX solo registrados. Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-1 (HEAD 67b315a68 + source.patch del lote 79A; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: CLocalisation::Blood 0x56D230, FxSystem_c::AddParticle(v3d) 0x4AA440 (lo valida reversing/FxSystemPending) y CShadows::AddPermanentShadow 0x706F60 (ShadowPermanent355); sus hooks RH estan apagados durante el banco. El rand() del CRT del EXE 0x821B1E corre real en ambos lados (semilla fijada por lado y comparada al final). Los constructores FxPrtMult_c 0x4AB270/0x4AB290 corren de verdad en cada lado. La x87 (24 bits, exponente extendido, MXCSR FTZ) se compara incluidos desnormales, NaN no canonicos (tambien senalizantes), infinitos y ceros con signo. ECX/EDX/EAX no son resultados (void): solo se registran. El contador de manchas this+0x50 se compara (arena y g_fx real)."
+  },
+  "0x0060CD20": {
+    "identity": "CPlayerPed::SetInitialState",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Entity/Ped/PlayerPed.cpp",
+    "bank": "PlayerPed79",
+    "run": "20261028-084414-830531",
+    "pairs": 40960,
+    "own_pairs": 20480,
+    "audit": "reversing/CppTwelveLevel6Final/runs/PlayerPed79-20261028-084414-830531/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (CPlayerPed): SetInitialState sin llamadas al EXE salvo la función 0x60A9C0 (SetRealMoveAnim, sin reconstruir) en SetInitialState. El banco sustituye por falsos idénticos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL) los colaboradores y compara la secuencia de llamadas con sus argumentos, los objetos reservados los cambios en las arenas del caso y el estado de la x87. Banco PlayerPed79 con 40960 pares (20480 propios) y cero diferencias; EAX/ECX/EDX de salida: ver README del banco. Validado en el worktree D:/Original/wy-2 (HEAD 67b315a68 + PlayerPed.cpp, X87Math.cpp/.h, source.patch). CPlayerPed::SetInitialState 0x60CD20 (thiscall, ret 4; void; llamadores 0x4421CD y 0x60D60F no leen los registros de salida): estado inicial del jugador (banderas, estados de ped, tareas por defecto y secundaria, grupo con evento de reunir). CPlayerPed::FindWeaponLockOnTarget 0x60DC50 (thiscall, bool; su unico llamador 0x68693A ignora AL): conserva o suelta el objetivo fijado y busca nuevo (bote de spray, peatones, objetos y vehiculos en cooperativo) con aritmetica x87 a 24 bits (ayudantes Pp79* de X87Math). Colaboradores sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL); sin hook: ClearDrunkBlur, SetRealMoveAnim, CEvent::operator new/delete, rand(), CVector::Normalise/Magnitude. Los constructores de tareas y eventos corren de verdad. Dominio: ver README del banco (pools falsos de 5 peatones, 3 vehiculos y 3 objetos; un unico patron de NaN; sin denormales)."
+  },
+  "0x0060DC50": {
+    "identity": "CPlayerPed::FindWeaponLockOnTarget",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Entity/Ped/PlayerPed.cpp",
+    "bank": "PlayerPed79",
+    "run": "20261028-084414-830531",
+    "pairs": 40960,
+    "own_pairs": 20480,
+    "audit": "reversing/CppTwelveLevel6Final/runs/PlayerPed79-20261028-084414-830531/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (CPlayerPed): FindWeaponLockOnTarget sin llamadas al EXE salvo la función 0x60A9C0 (SetRealMoveAnim, sin reconstruir) en SetInitialState. El banco sustituye por falsos idénticos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL) los colaboradores y compara la secuencia de llamadas con sus argumentos, los objetos reservados los cambios en las arenas del caso y el estado de la x87. Banco PlayerPed79 con 40960 pares (20480 propios) y cero diferencias; EAX/ECX/EDX de salida: ver README del banco. Validado en el worktree D:/Original/wy-2 (HEAD 67b315a68 + PlayerPed.cpp, X87Math.cpp/.h, source.patch). CPlayerPed::SetInitialState 0x60CD20 (thiscall, ret 4; void; llamadores 0x4421CD y 0x60D60F no leen los registros de salida): estado inicial del jugador (banderas, estados de ped, tareas por defecto y secundaria, grupo con evento de reunir). CPlayerPed::FindWeaponLockOnTarget 0x60DC50 (thiscall, bool; su unico llamador 0x68693A ignora AL): conserva o suelta el objetivo fijado y busca nuevo (bote de spray, peatones, objetos y vehiculos en cooperativo) con aritmetica x87 a 24 bits (ayudantes Pp79* de X87Math). Colaboradores sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL); sin hook: ClearDrunkBlur, SetRealMoveAnim, CEvent::operator new/delete, rand(), CVector::Normalise/Magnitude. Los constructores de tareas y eventos corren de verdad. Dominio: ver README del banco (pools falsos de 5 peatones, 3 vehiculos y 3 objetos; un unico patron de NaN; sin denormales)."
   }
 }

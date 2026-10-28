@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 1,
+  "functions": {
+    "Fx_c::AddBlood": 16384
+  },
+  "covered_functions": {
+    "Fx_c::AddBlood": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-1 (HEAD 67b315a68 + source.patch del lote 79A; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: CLocalisation::Blood 0x56D230, FxSystem_c::AddParticle(v3d) 0x4AA440 (lo valida reversing/FxSystemPending) y CShadows::AddPermanentShadow 0x706F60 (ShadowPermanent355); sus hooks RH estan apagados durante el banco. El rand() del CRT del EXE 0x821B1E corre real en ambos lados (semilla fijada por lado y comparada al final). Los constructores FxPrtMult_c 0x4AB270/0x4AB290 corren de verdad en cada lado. La x87 (24 bits, exponente extendido, MXCSR FTZ) se compara incluidos desnormales, NaN no canonicos (tambien senalizantes), infinitos y ceros con signo. ECX/EDX/EAX no son resultados (void): solo se registran. El contador de manchas this+0x50 se compara (arena y g_fx real).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/FxBlood79-20261028-091451-925542",
+  "summary_sha256": "0759e3607f9332da36c1d2af11aecb36cee22929785ac100c9d950da026c005a",
+  "result_txt_sha256": "97249c94172404e659a861fa9e9e8ef025e94b86d282853ce506ec46890f49fb",
+  "log_sha256": "f70e506a74e291d79d967da5d6d69cb955f7206dd754b04b5b5d5f71d00b8481",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "900d4f949722763814977647b19c9e00e36a120d540d5563edab6bdef39af2d2",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/Fx/Fx.cpp": "c9ce560773f5600db9168bc7dfa992911ac392c3edb59061562a4f56b3c36a5e",
+      "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
+      "source/game_sa/X87Math.cpp": "7366ab2ee1bc951c1cee789fcb4fd953b6d6b6424fd37c3d8e3985d8fec9f58d",
+      "source/game_sa/X87Math.h": "0fbad95b16861b4051cab9922303f1130a66da57b503dc431e98fd96224ccf59",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/FxBlood79/LiveComparison.hpp": "6edf6ab82c5e6df489869d477a57ec7860652f1ec464d0c2463bed1d0ac2823b",
+      "reversing/FxBlood79/Core.hpp": "676d835f787b2f703863bc208fbba834da5d27fc76e9bb33a625b9a809186638",
+      "reversing/FxBlood79/Fixtures.hpp": "25c0e47505bddeb58d151eedb0df5697f9076faeeff7e0431fdef695555ca5f9",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

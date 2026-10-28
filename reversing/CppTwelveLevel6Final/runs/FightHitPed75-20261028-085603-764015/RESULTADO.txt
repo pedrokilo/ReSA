@@ -1,0 +1,3 @@
+APROBADO: FightHitPed75
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fighthitped75\20261028-085603-764015
