@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 21504,
+  "differences": 0,
+  "registered_pairs": 21504,
+  "registered_functions": 1,
+  "functions": {
+    "CHeli::UpdateHelis": 21504
+  },
+  "covered_functions": {
+    "CHeli::UpdateHelis": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-3 (HEAD e89b38506 + cambios del lote 78C; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados); el banco compara el orden y todos los argumentos de los falsos, los bytes cambiados de las arenas (tres helicopteros y sus matrices), pHelis, el temporizador, NumberOfSearchLights y un hash de los globales tocados. Colaboradores: CWorld::FindPlayerWanted 0x56E230, CWanted::NumOfHelisRequired 0x561FA0, CCullZones::PlayerNoRain 0x72DDC0, CWorld::FindPlayerPed 0x56E210, CHeli::GenerateHeli 0x6C6520, CEntity::RegisterReference 0x571B70, CWorld::FindPlayerCoors 0x56E010 y CWorld::Remove 0x563280, todos con hook RH (cada uno validado por su banco); el destructor virtual (ranura 0 de la vtabla) es un falso. La distancia al jugador (> 170) es aritmetica propia, comprobada ademas contra el hardware x87 (dist_hw.py). No se prueba: el helicoptero nuevo nulo (el EXE se cae en RegisterReference) ni el valor de EAX/ECX/EDX de salida (ningun llamador los lee).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/HeliUpdate78-20261028-051608-077567",
+  "summary_sha256": "2a3bfc1013c24526250cfc00b6bdeee5fefdf1138b9f18bc29d2874e75930591",
+  "result_txt_sha256": "eaef1dd38523a71e0ac028fac7de938b720bb93b348dbef6fac05d5de873bb37",
+  "log_sha256": "b08a37c8e0d3b5deaf7c4b9891e52a8b41b4915d329c3ee64a46e122cd24c7f4",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "5b792007a00d9be33b9d1497d0b4bd16e51b24a5cb90b0e14ebcae88f1cbc091",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/X87Math.cpp": "e0f265e5141cc052e5d0388b3abb673cebc0f5710debb1e85c84b36abf1e02da",
+      "source/game_sa/X87Math.h": "02da40eada0f302e584541a828b1e34440374a68d5d99f9518f17b7add6ef13c",
+      "source/game_sa/Entity/Vehicle/Heli.cpp": "c129ed68f6cb8e17427a6567c25d918f04726f9dc5dd191e395840173e8ffc97",
+      "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/HeliUpdate78/LiveComparison.hpp": "b0afdbfd5e5f414af7beea99f8e239cf2c121ec1d59dec790e43f0831b78f0ff",
+      "reversing/HeliUpdate78/Core.hpp": "11bf87227fa69456de9df5dbb759358cc4a23b81b7effaa60440ad448b152b00",
+      "reversing/HeliUpdate78/Fixtures.hpp": "19a38ab62ad12353b6fca4304dfcc277cb50af009340d5905bc1aaa919d0f51a",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

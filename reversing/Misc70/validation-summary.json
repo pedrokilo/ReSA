@@ -40,7 +40,7 @@
   "log_sha256": "c786d28791de2d13b9549b19e081d7fe7315f6b430afdfaf3a6fc3e3f86441f5",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-misc70\\20261028-015926-611959",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-misc70\\20261028-052239-410823",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAEStreamingDecoder::Constructor": true,
@@ -70,8 +70,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "c71e290551be345d39a23df7973136841a767d8239190f5e05a96b5aa9d85105",
-      "pdb": "c6020044dd74f131973b4529731fed86460b0e622fa66dbd9e25c6678756316c"
+      "asi": "c4ed9efadfe6b74c440061eaaf51221af9c56c9d0c1767e7120f82532db577ba",
+      "pdb": "fa7fbea3eef1808333486a29f3cd0db775021eedb726154059acb1aef8c7c12e"
     },
     "sources": {
       "source/game_sa/Audio/Loaders/AEStreamingDecoder.cpp": "c50c71a1e899152ae7a2e4205559cc0e8a7c6b179643e36dee8bcd94570b7850",

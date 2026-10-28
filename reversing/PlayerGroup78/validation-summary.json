@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 20480,
+  "differences": 0,
+  "registered_pairs": 20480,
+  "registered_functions": 1,
+  "functions": {
+    "CPlayerPed::ProcessGroupBehaviour": 20480
+  },
+  "covered_functions": {
+    "CPlayerPed::ProcessGroupBehaviour": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-2 (HEAD e89b38506 + PlayerPed.cpp, source.patch). CPlayerPed::ProcessGroupBehaviour 0x60D350 (thiscall, ret 4; void; su unico llamador, ProcessControl 0x60F595, no lee los registros de salida): cruceta arriba (FindPlayerVehicle nulo): suma el paso de tiempo (_ftol2 de paso*0.02f*1000 a uint16), disuelve el grupo al llegar a 0x4B0, o al soltarla recluta al objetivo (MakeThisPedJoinOurGroup, con 0x609380 si el tipo no es 8) o manda seguir (TellGroupToStartFollowingPlayer); cruceta abajo igual (>= 0x4B0 sin comprobar el reclutamiento deshabilitado); cada 32 fotogramas (6) los peatones de tipo 8 del pool pasan a odiar (SetAsAcquaintance 4) o dejan de odiar (ClearAsAcquaintance) a los policias segun el nivel de busqueda. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): FindPlayerVehicle, CPad::GetGroupControlForward/Back, DisbandPlayerGroup, TellGroupToStartFollowingPlayer, MakeThisPedJoinOurGroup, FindPlayerPed, CPedType::GetPedFlag, CAcquaintance::SetAsAcquaintance/ClearAsAcquaintance (con hook); sin hook: 0x609380 (sin reconstruir). El pool de peatones es un pool falso en arenas (puntero global 0xB74490 apuntado a el). Dominio: pool de hasta 6 peatones; no cubre FindPlayerPed nulo ni datos del jugador nulos (el EXE se cae).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/PlayerGroup78-20261028-051320-774518",
+  "summary_sha256": "593d04507949626f9bb3821043465832840a3b869a3417d75162f4dcb4beb004",
+  "result_txt_sha256": "85f15dd3524099fe39b91e2437a2e8afd8aab84938fd8528f3214435eacb7521",
+  "log_sha256": "8480ccb42b5938b5785a1a70e2566a0cd5b4458a5a5342f409ee73d10d122cb1",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "c1cdc5c9ee87c7a6060c96fe7cff2548844f3a83190d5081329d584f443faa4d",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/Entity/Ped/PlayerPed.cpp": "0cb4aad83752b0050ecf1c1b140b63eeb674165d3a7b4c082f03d466b2b46448",
+      "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
+      "source/game_sa/X87Math.cpp": "e0f265e5141cc052e5d0388b3abb673cebc0f5710debb1e85c84b36abf1e02da",
+      "source/game_sa/X87Math.h": "02da40eada0f302e584541a828b1e34440374a68d5d99f9518f17b7add6ef13c",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/PlayerGroup78/LiveComparison.hpp": "395093aa3ca22ef65fcde789111d728be8cc860ecfacdbc6b13f685337f6caf6",
+      "reversing/PlayerGroup78/Core.hpp": "ad739bf42055dba4013875ecb0824dcdd77e63287928647be4b3efd3d927fe0a",
+      "reversing/PlayerGroup78/Fixtures.hpp": "9b6b29ee3b99a8eb209097bd6f7664d6bc5df2b7fa1bf83509d5c6ab66b823e9",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

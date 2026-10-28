@@ -13665,5 +13665,61 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ sin llamadas al EXE (los colaboradores son falsos identicos en ambos lados). Banco FxWheel77 con 131072 pares y cero diferencias; void; EAX/ECX/EDX solo registrados. Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-1 (HEAD cae5191ba + source.patch del lote 77; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: FxSystem_c::AddParticle(v3d) 0x4AA440 y FxSystem_c::EnablePrim 0x4AA610 (hook RH apagado durante el banco; AddParticle lo valida reversing/FxSystemPending), FindPlayerPed 0x56E210 y FindPlayerVehicle 0x56E0D0 (hook global), y para TriggerGunshot CPlaceable::AllocateMatrix 0x54F560, CSimpleTransform::UpdateMatrix 0x54F1B0 (sin hook RH: se parchea el cuerpo de la DLL por su direccion), FxManager_c::FxRwMatrixCreate 0x4A9440 / FxRwMatrixDestroy 0x4A9460 / CreateFxSystem 0x4A9BE0, Fx_c::CreateMatFromVec 0x49E950, FxSystem_c::CopyParentMatrix 0x4AA890 y PlayAndKill 0x4AA3D0. El rand() del CRT del EXE 0x821B1E corre real en ambos lados (semilla fijada por lado y comparada al final). Los constructores FxPrtMult_c 0x4AB270/0x4AB290 corren de verdad en cada lado. En TriggerGunshot el EXE llama a Multiply3x3 (0x59C810) pero descarta el resultado: no se reproduce ni se sustituye (sin efecto observable). La x87 (24 bits, exponente extendido, MXCSR FTZ) se compara incluidos desnormales, NaN no canonicos (tambien senalizantes), infinitos y ceros con signo. ECX/EDX/EAX no son resultados (void): solo se registran."
+  },
+  "0x0049F040": {
+    "identity": "Fx_c::AddSparks",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Fx/Fx.cpp",
+    "bank": "FxImpact78",
+    "run": "20261028-051101-584946",
+    "pairs": 32768,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/FxImpact78-20261028-051101-584946/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE (los colaboradores son falsos identicos en ambos lados). Banco FxImpact78 con 32768 pares y cero diferencias; void; EAX/ECX/EDX solo registrados. Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-1 (HEAD e89b38506 + source.patch del lote 78A; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: FxSystem_c::AddParticle(v3d) 0x4AA440 (hook RH apagado durante el banco; lo valida reversing/FxSystemPending); para AddBulletImpact tambien SurfaceInfos_c::GetBulletFx 0x55E670 (categoria desenganchada por el runner: se parchea el cuerpo de la DLL por su direccion), Fx_c::AddSparks 0x49F040 (la funcion enganchada de este mismo banco) y Fx_c::AddWood 0x49EE10 (lote 73). El rand() del CRT del EXE 0x821B1E corre real en ambos lados (semilla fijada por lado y comparada al final). Los constructores FxPrtMult_c 0x4AB270/0x4AB290 corren de verdad en cada lado. La x87 (24 bits, exponente extendido, MXCSR FTZ) se compara incluidos desnormales, NaN no canonicos (tambien senalizantes), infinitos y ceros con signo. ECX/EDX/EAX no son resultados (void): solo se registran."
+  },
+  "0x0049F3D0": {
+    "identity": "Fx_c::AddBulletImpact",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Fx/Fx.cpp",
+    "bank": "FxImpact78",
+    "run": "20261028-051101-584946",
+    "pairs": 32768,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/FxImpact78-20261028-051101-584946/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE (los colaboradores son falsos identicos en ambos lados). Banco FxImpact78 con 32768 pares y cero diferencias; void; EAX/ECX/EDX solo registrados. Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-1 (HEAD e89b38506 + source.patch del lote 78A; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: FxSystem_c::AddParticle(v3d) 0x4AA440 (hook RH apagado durante el banco; lo valida reversing/FxSystemPending); para AddBulletImpact tambien SurfaceInfos_c::GetBulletFx 0x55E670 (categoria desenganchada por el runner: se parchea el cuerpo de la DLL por su direccion), Fx_c::AddSparks 0x49F040 (la funcion enganchada de este mismo banco) y Fx_c::AddWood 0x49EE10 (lote 73). El rand() del CRT del EXE 0x821B1E corre real en ambos lados (semilla fijada por lado y comparada al final). Los constructores FxPrtMult_c 0x4AB270/0x4AB290 corren de verdad en cada lado. La x87 (24 bits, exponente extendido, MXCSR FTZ) se compara incluidos desnormales, NaN no canonicos (tambien senalizantes), infinitos y ceros con signo. ECX/EDX/EAX no son resultados (void): solo se registran."
+  },
+  "0x0060D350": {
+    "identity": "CPlayerPed::ProcessGroupBehaviour",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Entity/Ped/PlayerPed.cpp",
+    "bank": "PlayerGroup78",
+    "run": "20261028-051320-774518",
+    "pairs": 20480,
+    "own_pairs": 20480,
+    "audit": "reversing/CppTwelveLevel6Final/runs/PlayerGroup78-20261028-051320-774518/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (CPlayerPed, botones del grupo): ProcessGroupBehaviour sin llamadas al EXE salvo la función 0x609380 sin reconstruir. El banco sustituye por falsos idénticos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL) los colaboradores con hook en HEAD y compara la secuencia de llamadas con sus argumentos, el objeto reservado los cambios en las arenas del caso y el estado de la x87. Banco PlayerGroup78 con 20480 pares (20480 propios) y cero diferencias; EAX/ECX/EDX de salida: ver README del banco. Validado en el worktree D:/Original/wy-2 (HEAD e89b38506 + PlayerPed.cpp, source.patch). CPlayerPed::ProcessGroupBehaviour 0x60D350 (thiscall, ret 4; void; su unico llamador, ProcessControl 0x60F595, no lee los registros de salida): cruceta arriba (FindPlayerVehicle nulo): suma el paso de tiempo (_ftol2 de paso*0.02f*1000 a uint16), disuelve el grupo al llegar a 0x4B0, o al soltarla recluta al objetivo (MakeThisPedJoinOurGroup, con 0x609380 si el tipo no es 8) o manda seguir (TellGroupToStartFollowingPlayer); cruceta abajo igual (>= 0x4B0 sin comprobar el reclutamiento deshabilitado); cada 32 fotogramas (6) los peatones de tipo 8 del pool pasan a odiar (SetAsAcquaintance 4) o dejan de odiar (ClearAsAcquaintance) a los policias segun el nivel de busqueda. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): FindPlayerVehicle, CPad::GetGroupControlForward/Back, DisbandPlayerGroup, TellGroupToStartFollowingPlayer, MakeThisPedJoinOurGroup, FindPlayerPed, CPedType::GetPedFlag, CAcquaintance::SetAsAcquaintance/ClearAsAcquaintance (con hook); sin hook: 0x609380 (sin reconstruir). El pool de peatones es un pool falso en arenas (puntero global 0xB74490 apuntado a el). Dominio: pool de hasta 6 peatones; no cubre FindPlayerPed nulo ni datos del jugador nulos (el EXE se cae)."
+  },
+  "0x006C79A0": {
+    "identity": "CHeli::UpdateHelis",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Entity/Vehicle/Heli.cpp",
+    "bank": "HeliUpdate78",
+    "run": "20261028-051608-077567",
+    "pairs": 21504,
+    "own_pairs": 21504,
+    "audit": "reversing/CppTwelveLevel6Final/runs/HeliUpdate78-20261028-051608-077567/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE para esta funcion (los colaboradores son falsos identicos en ambos lados): cada fotograma pone a cero el contador de focos, cuenta los helicopteros de policia y de noticias vivos, genera uno nuevo si el temporizador venció y falta cupo (maxHelis por nivel de busqueda, anulado en zonas sin lluvia, interiores, tormenta de arena o con policia desactivada), retira los marcados o los que huyen y estan a mas de 170 del jugador (CWorld::Remove y destructor) y manda a huir a los sobrantes con alturas de 100. Banco HeliUpdate78 con 21504 pares y cero diferencias. Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-3 (HEAD e89b38506 + cambios del lote 78C; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados); el banco compara el orden y todos los argumentos de los falsos, los bytes cambiados de las arenas (tres helicopteros y sus matrices), pHelis, el temporizador, NumberOfSearchLights y un hash de los globales tocados. Colaboradores: CWorld::FindPlayerWanted 0x56E230, CWanted::NumOfHelisRequired 0x561FA0, CCullZones::PlayerNoRain 0x72DDC0, CWorld::FindPlayerPed 0x56E210, CHeli::GenerateHeli 0x6C6520, CEntity::RegisterReference 0x571B70, CWorld::FindPlayerCoors 0x56E010 y CWorld::Remove 0x563280, todos con hook RH (cada uno validado por su banco); el destructor virtual (ranura 0 de la vtabla) es un falso. La distancia al jugador (> 170) es aritmetica propia, comprobada ademas contra el hardware x87 (dist_hw.py). No se prueba: el helicoptero nuevo nulo (el EXE se cae en RegisterReference) ni el valor de EAX/ECX/EDX de salida (ningun llamador los lee)."
   }
 }

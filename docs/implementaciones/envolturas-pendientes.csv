@@ -237,7 +237,7 @@ class,function,address,source,origins
 (helpers y globales sin clase),IndexDataBufferGetTotalDataSize,,source/game_sa/RenderWare/D3DResourceSystem.cpp:114,envoltura en el código fuente
 (helpers y globales sin clase),IndexDataBufferPop,,source/game_sa/RenderWare/D3DResourceSystem.cpp:98,envoltura en el código fuente
 (helpers y globales sin clase),IndexDataBufferResize,,source/game_sa/RenderWare/D3DResourceSystem.cpp:101,envoltura en el código fuente
-(helpers y globales sin clase),JoinGroupFlagsExe,,source/game_sa/Entity/Ped/PlayerPed.cpp:1048,envoltura en el código fuente
+(helpers y globales sin clase),JoinGroupFlagsExe,,source/game_sa/Entity/Ped/PlayerPed.cpp:1051,envoltura en el código fuente
 (helpers y globales sin clase),operator delete,,source/game_sa/MemoryMgr.cpp:560,envoltura en el código fuente
 (helpers y globales sin clase),operator delete[],,source/game_sa/MemoryMgr.cpp:564,envoltura en el código fuente
 (helpers y globales sin clase),operator new,,source/game_sa/MemoryMgr.cpp:552,envoltura en el código fuente
@@ -271,20 +271,18 @@ CCarCtrl,SteerAICarWithPhysics,0x00437C20,source/game_sa/CarCtrl.cpp:3379,cohort
 CCarCtrl,SteerAICarWithPhysics_OnlyMission,0x00436A90,source/game_sa/CarCtrl.cpp:3699,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CCarCtrl,SteerAICarWithPhysicsFollowPath,0x00434900,source/game_sa/CarCtrl.cpp:3384,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CCarCtrl,SteerAICarWithPhysicsFollowPath_Racing,0x00435830,source/game_sa/CarCtrl.cpp:3389,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CHeli,ProcessControl,0x006C7050,source/game_sa/Entity/Vehicle/Heli.cpp:859,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CHeli,ProcessControlInputs,0x006C4830,source/game_sa/Entity/Vehicle/Heli.cpp:598,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CHeli,ProcessControl,0x006C7050,source/game_sa/Entity/Vehicle/Heli.cpp:983,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CHeli,ProcessControlInputs,0x006C4830,source/game_sa/Entity/Vehicle/Heli.cpp:722,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CHeli,SearchLightCone,0x006C58E0,source/game_sa/Entity/Vehicle/Heli.cpp:218,cohorte 499
-CHeli,UpdateHelis,0x006C79A0,source/game_sa/Entity/Vehicle/Heli.cpp:267,cohorte 499
-CPlayerPed,Compute3rdPersonMouseTarget,0x0060B650,source/game_sa/Entity/Ped/PlayerPed.cpp:897,cohorte 499 + envoltura en el código fuente
-CPlayerPed,DrawTriangleForMouseRecruitPed,0x0060BA80,source/game_sa/Entity/Ped/PlayerPed.cpp:903,cohorte 499 + envoltura en el código fuente
-CPlayerPed,FindNextWeaponLockOnTarget,0x0060E530,source/game_sa/Entity/Ped/PlayerPed.cpp:1333,cohorte 499 + envoltura en el código fuente
-CPlayerPed,FindWeaponLockOnTarget,0x0060DC50,source/game_sa/Entity/Ped/PlayerPed.cpp:1328,cohorte 499 + envoltura en el código fuente
-CPlayerPed,KeepAreaAroundPlayerClear,0x0060C1E0,source/game_sa/Entity/Ped/PlayerPed.cpp:936,cohorte 499 + envoltura en el código fuente
-CPlayerPed,ProcessAnimGroups,0x006098F0,source/game_sa/Entity/Ped/PlayerPed.cpp:409,cohorte 499 + envoltura en el código fuente
-CPlayerPed,ProcessGroupBehaviour,0x0060D350,source/game_sa/Entity/Ped/PlayerPed.cpp:1296,cohorte 499 + envoltura en el código fuente
-CPlayerPed,ProcessWeaponSwitch,0x0060D850,source/game_sa/Entity/Ped/PlayerPed.cpp:1323,cohorte 499 + envoltura en el código fuente
-CPlayerPed,SetInitialState,0x0060CD20,source/game_sa/Entity/Ped/PlayerPed.cpp:1190,cohorte 499 + envoltura en el código fuente
-CPlayerPed,SetRealMoveAnim,0x0060A9C0,source/game_sa/Entity/Ped/PlayerPed.cpp:834,cohorte 499 + envoltura en el código fuente
+CPlayerPed,Compute3rdPersonMouseTarget,0x0060B650,source/game_sa/Entity/Ped/PlayerPed.cpp:900,cohorte 499 + envoltura en el código fuente
+CPlayerPed,DrawTriangleForMouseRecruitPed,0x0060BA80,source/game_sa/Entity/Ped/PlayerPed.cpp:906,cohorte 499 + envoltura en el código fuente
+CPlayerPed,FindNextWeaponLockOnTarget,0x0060E530,source/game_sa/Entity/Ped/PlayerPed.cpp:1421,cohorte 499 + envoltura en el código fuente
+CPlayerPed,FindWeaponLockOnTarget,0x0060DC50,source/game_sa/Entity/Ped/PlayerPed.cpp:1416,cohorte 499 + envoltura en el código fuente
+CPlayerPed,KeepAreaAroundPlayerClear,0x0060C1E0,source/game_sa/Entity/Ped/PlayerPed.cpp:939,cohorte 499 + envoltura en el código fuente
+CPlayerPed,ProcessAnimGroups,0x006098F0,source/game_sa/Entity/Ped/PlayerPed.cpp:412,cohorte 499 + envoltura en el código fuente
+CPlayerPed,ProcessWeaponSwitch,0x0060D850,source/game_sa/Entity/Ped/PlayerPed.cpp:1411,cohorte 499 + envoltura en el código fuente
+CPlayerPed,SetInitialState,0x0060CD20,source/game_sa/Entity/Ped/PlayerPed.cpp:1193,cohorte 499 + envoltura en el código fuente
+CPlayerPed,SetRealMoveAnim,0x0060A9C0,source/game_sa/Entity/Ped/PlayerPed.cpp:837,cohorte 499 + envoltura en el código fuente
 CVehicle,AddSingleWheelParticles,0x006DE880,source/game_sa/Entity/Vehicle/Vehicle.cpp:4787,cohorte 499
 CVehicle,DoDriveByShootings,0x00741FD0,source/game_sa/Entity/Vehicle/Vehicle.cpp:8508,cohorte 499 + envoltura en el código fuente
 CVehicle,FireFixedMachineGuns,0x0073DF00,source/game_sa/Entity/Vehicle/Vehicle.cpp:8503,cohorte 499 + envoltura en el código fuente
@@ -293,6 +291,4 @@ CVehicle,ProcessBikeWheel,0x006D73B0,source/game_sa/Entity/Vehicle/Vehicle.cpp:3
 CVehicle,UpdateTractorLink,0x006E0050,source/game_sa/Entity/Vehicle/Vehicle.cpp:4837,cohorte 499
 CVehicle,UpdateTrailerLink,0x006DFC50,source/game_sa/Entity/Vehicle/Vehicle.cpp:4832,cohorte 499
 Fx_c,AddBlood,0x0049EB00,source/game_sa/Fx/Fx.cpp:273,cohorte 499
-Fx_c,AddBulletImpact,0x0049F3D0,source/game_sa/Fx/Fx.cpp:293,cohorte 499
-Fx_c,AddSparks,0x0049F040,source/game_sa/Fx/Fx.cpp:283,cohorte 499
 Fx_c,AddWheelSpray,0x0049FB30,source/game_sa/Fx/Fx.cpp:313,cohorte 499

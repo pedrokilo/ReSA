@@ -8957,3 +8957,7 @@ Fx_c,AddWheelGrass,0x0049FF20,1,0,1,S
 Fx_c,AddWheelGravel,0x004A0170,1,0,1,S
 Fx_c,AddWheelMud,0x004A03C0,1,0,1,S
 Fx_c,TriggerGunshot,0x004A0DE0,1,0,1,S
+Fx_c,AddSparks,0x0049F040,1,0,1,S
+Fx_c,AddBulletImpact,0x0049F3D0,1,0,1,S
+CPlayerPed,ProcessGroupBehaviour,0x0060D350,1,0,1,S
+CHeli,UpdateHelis,0x006C79A0,1,0,1,S

@@ -12,23 +12,23 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-1 (HEAD 98ff78aaa + cambios del lote 75; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados) salvo que se indique lo contrario; el banco compara el orden y todos los argumentos de los falsos, los bytes cambiados de las arenas y los globales. Hook VIRTUAL (fila de docs/hooks.csv: CHeli,ProcessFlyingCarStuff,0x00000000,1,0,1,V (ranura 68 de la vtable 0x871680); la direccion real va en evidence.original_address). Colaboradores: CVehicle::FlyingControl 0x6D85F0 (Dependencies23B, 16896 pares), CMatrix::Attach 0x59BD10 (sin hook RH ni banco propio; la DLL llama a su cuerpo y el falso copia la matriz como la real), RwFrameForAllObjects 0x7F1200 y _rpAtomicResyncInterpolatedSphere 0x7491F0 (sin hook; las envolturas de la DLL llaman a la direccion del EXE), CVehicle::DoBladeCollision 0x6E2E50 (CVehE, 512), CWindModifiers::RegisterOne 0x72C8B0 (Core70, 512) y CAEVehicleAudioEntity::AddAudioEvent 0x4F6420 (VehAudioFinal4, 768). Multiply3x3 0x59C790 y ~CMatrix 0x59ACD0 se ejecutan reales en el EXE y no se sustituyen. El falso de RwFrameForAllObjects no ejecuta GetCurrentAtomicObjectCB (0x6A0750): escribe el atomico en el destino; el de _rpAtomicResyncInterpolatedSphere escribe un radio nuevo en el atomico. El paso del temporizador y la camara (matriz o posicion compacta) se fijan por caso y se restauran. Void: EAX/ECX/EDX solo se registran. Sin llegar a Multiply3x3 con un helicoptero sin matriz (el EXE desreferenciaria el puntero nulo): no validado. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/HeliFly75-20261027-215507-215400",
-  "summary_sha256": "a17be563e820abbabde450621c93d59b2cb6589bde873b08ddb3e860778e856b",
-  "result_txt_sha256": "d9e998af70b19f97c508c2c012c6c7e34015acd2dbb46fbbe83d2f3ba7eb8c43",
-  "log_sha256": "39158601d132b3b8dbe078cfbd7fe4e83d7c031bdcf234d2f4d66c43bd164f0e",
+  "run": "reversing/CppTwelveLevel6Final/runs/HeliFly75-20261028-052828-078470",
+  "summary_sha256": "245c424720323d7c4aa1788b53e213804fdc690ef8673d35e60225192ac78b27",
+  "result_txt_sha256": "4aa2cadfc7a0b6960d4aa2b8f8dcc3cb747056f8d333d5ca055fde54485518e2",
+  "log_sha256": "e7ff1cc13819f503438a5c4338d8ea9af4400b1a80e2d0cd8fc620ff840a43da",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "7acc8d6d3d43c5a9fe99841809f448481db7ace9fdaa01b5db70cbb2d1e81c9a",
+  "executed_probe_sha256": "fa4ba28249f24e1c590fdf8c141f6dea5a7f7bbcf54d186761d72a43dcc8239b",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
       "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-      "source/game_sa/X87Math.cpp": "1e32d201b83098e0c4b72e1282e82f19e72a5c474b3c82440bcdf9f44bf971c4",
-      "source/game_sa/X87Math.h": "8015654fe6b233947884b917027582d2ea6eafc195c15d1e8a5902034e62c89a",
-      "source/game_sa/Entity/Vehicle/Heli.cpp": "0b11930c75ce153975fefbcc6f1abb0ce3b6b0bbe084210c005aeeaa81940c77",
+      "source/game_sa/X87Math.cpp": "e0f265e5141cc052e5d0388b3abb673cebc0f5710debb1e85c84b36abf1e02da",
+      "source/game_sa/X87Math.h": "02da40eada0f302e584541a828b1e34440374a68d5d99f9518f17b7add6ef13c",
+      "source/game_sa/Entity/Vehicle/Heli.cpp": "c129ed68f6cb8e17427a6567c25d918f04726f9dc5dd191e395840173e8ffc97",
       "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/HeliFly75/LiveComparison.hpp": "8fc5f83d78bd99fdd0d4730c5136a43e34b22d107bd836c41340c5c4c4c34155",
@@ -39,10 +39,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/HeliFly75-20261027-215507-215400/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/HeliFly75-20261028-052828-078470/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "718e1a2829164ba4ab4efe41a5f572aca8d926cf4f7b96e9df54fc53c18dcf13",
-    "uncompressed_sha256": "39158601d132b3b8dbe078cfbd7fe4e83d7c031bdcf234d2f4d66c43bd164f0e"
+    "compressed_sha256": "1f5dc26dbaabfb1f7849c013cda0addd1825ba369da4c5bb73068c70644082f3",
+    "uncompressed_sha256": "e7ff1cc13819f503438a5c4338d8ea9af4400b1a80e2d0cd8fc620ff840a43da"
   }
 }

@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "c4ed9efadfe6b74c440061eaaf51221af9c56c9d0c1767e7120f82532db577ba",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 12416,
+  "pairs_per_function": {
+    "CAEStreamingDecoder::Constructor": 256,
+    "CAEStreamingDecoder::Destructor": 256,
+    "CAEStreamTransformer::Initialise": 64,
+    "CAEStreamTransformer::TransformBuffer": 1024,
+    "CColourSet::Constructor": 512,
+    "CColourSet::Interpolate": 1024,
+    "CCrime::FindImmediateDetectionRange": 256,
+    "CCrime::ReportCrime": 1024,
+    "CCurrentVehicle::Display": 256,
+    "CCurrentVehicle::Process": 256,
+    "CFallingGlassPane::Render": 1024,
+    "CFallingGlassPane::Update": 1024,
+    "CGamma::Init": 128,
+    "CGamma::SetGamma": 512,
+    "COnscreenCounterEntry::ProcessForDisplayCounter": 1024,
+    "COnscreenCounterEntry::SetColourID": 256,
+    "CPlaceName::GetForMap": 512,
+    "CPlaceName::Process": 1024,
+    "CRegisteredMotionBlurStreak::Render": 512,
+    "CRegisteredMotionBlurStreak::Update": 512,
+    "CUserDisplay::Init": 128,
+    "CUserDisplay::Process": 512,
+    "Securom::SecuromDisplayInit": 64,
+    "Securom::SecuromStateDisplay": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "c786d28791de2d13b9549b19e081d7fe7315f6b430afdfaf3a6fc3e3f86441f5",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

@@ -1,0 +1,3 @@
+APROBADO: PlayerGroup78
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-playergroup78\20261028-051320-774518

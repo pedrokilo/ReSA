@@ -1,0 +1,3 @@
+APROBADO: FxImpact78
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fximpact78\20261028-051101-584946

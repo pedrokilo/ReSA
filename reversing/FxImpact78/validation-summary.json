@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "pairs": 32768,
+  "differences": 0,
+  "registered_pairs": 32768,
+  "registered_functions": 2,
+  "functions": {
+    "Fx_c::AddSparks": 16384,
+    "Fx_c::AddBulletImpact": 16384
+  },
+  "covered_functions": {
+    "Fx_c::AddSparks": true,
+    "Fx_c::AddBulletImpact": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-1 (HEAD e89b38506 + source.patch del lote 78A; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: FxSystem_c::AddParticle(v3d) 0x4AA440 (hook RH apagado durante el banco; lo valida reversing/FxSystemPending); para AddBulletImpact tambien SurfaceInfos_c::GetBulletFx 0x55E670 (categoria desenganchada por el runner: se parchea el cuerpo de la DLL por su direccion), Fx_c::AddSparks 0x49F040 (la funcion enganchada de este mismo banco) y Fx_c::AddWood 0x49EE10 (lote 73). El rand() del CRT del EXE 0x821B1E corre real en ambos lados (semilla fijada por lado y comparada al final). Los constructores FxPrtMult_c 0x4AB270/0x4AB290 corren de verdad en cada lado. La x87 (24 bits, exponente extendido, MXCSR FTZ) se compara incluidos desnormales, NaN no canonicos (tambien senalizantes), infinitos y ceros con signo. ECX/EDX/EAX no son resultados (void): solo se registran.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/FxImpact78-20261028-051101-584946",
+  "summary_sha256": "e460f75735c504a7ea7329e73f4ed261166bdd6997c755008e19cf3e4311bfa4",
+  "result_txt_sha256": "4e8ae0937985c6b684e607f9e115fd9f4272eae1a8226a6f889e9992c06c7a0c",
+  "log_sha256": "873d8dfb014750287686edc8d61df7fabeebc65e45b06d2a74afd737a4fff088",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "8b9d1961e9b81ffe115e578c5bd7bc4e947753c5b53b18155d530e1a5d5dbc39",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/Fx/Fx.cpp": "65d4bed67f342c4531096c62741dec27137fcf36ec891301f67098d27a43e226",
+      "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
+      "source/game_sa/X87Math.cpp": "e0f265e5141cc052e5d0388b3abb673cebc0f5710debb1e85c84b36abf1e02da",
+      "source/game_sa/X87Math.h": "02da40eada0f302e584541a828b1e34440374a68d5d99f9518f17b7add6ef13c",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/FxImpact78/LiveComparison.hpp": "4fec519ee79e52c19d18f60ad93799e95d0d6837d2494150ea5222297f4a3f88",
+      "reversing/FxImpact78/Core.hpp": "ba39c951ef066a8d89f57ef67ee729f5a22b8ec907e02bcef253d1329d4df7ad",
+      "reversing/FxImpact78/Fixtures.hpp": "97581195196e1a6842748abba9032a2aca9c7c315ab9b35383d2e443c992a9ab",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
   "scope": "source/game_sa and source/app (WindowedMode.cpp included as the documented NOTSA assembly exception, reported separately), definitions in cpp/h/hpp/inc; all preprocessing branches",
   "totals": {
-    "source_definition_count": 18632,
+    "source_definition_count": 18637,
     "groups": 1501,
     "assembly_occurrences": 0,
     "naked_declarations": 0,
@@ -20,14 +20,14 @@
     "body_parse_errors": 308,
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 447,
-    "historical_catalog_rows": 8962,
+    "historical_catalog_rows": 8966,
     "catalog_rows_without_unambiguous_source_match_in_scope": 2,
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 20,
     "catalog_rows_linked_by_hook_address": 180,
-    "validated_reconstructed_own_cpp_definitions": 10583,
+    "validated_reconstructed_own_cpp_definitions": 10591,
     "validated_reconstructed_own_asm_definitions": 0,
-    "wrapper_definitions": 81
+    "wrapper_definitions": 80
   },
   "source_sha256": {
     "source/app/app.cpp": "4717fcefd64b864f51910ae3ab7b4b3bc0966838f9cddaaca5727ee06c47ac16",
@@ -473,7 +473,7 @@
     "source/game_sa/Entity/Ped/PedSaveStructure.cpp": "5f58ccddfb1db70c9778c2f287d24ac9bb2eb9432155bd07a55d6dd05d961975",
     "source/game_sa/Entity/Ped/PedSaveStructure.h": "e5c92294002b82a7563cc3dcea70ece869fd25d7ce89e4654b8c530ee4d16187",
     "source/game_sa/Entity/Ped/PedStdBonePositions.h": "660b8512f81ce5369bb3d8e3b4c9ba5a3e1eb36442cbfa4ffc770371e8bb9655",
-    "source/game_sa/Entity/Ped/PlayerPed.cpp": "f7c38187c4474395af01562eedcb0438493a89018bcd190182a8ca5db9205ab7",
+    "source/game_sa/Entity/Ped/PlayerPed.cpp": "0cb4aad83752b0050ecf1c1b140b63eeb674165d3a7b4c082f03d466b2b46448",
     "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
     "source/game_sa/Entity/Ped/PlayerSkin.cpp": "b725e853ad0ac44d3c936722f693b77d30c58420091c43584dc9ac38a63b1cae",
     "source/game_sa/Entity/Ped/PlayerSkin.h": "1188243850ccb80021731e036a8de514fe20aaeac78ef76bb94e8c4150a563db",
@@ -489,7 +489,7 @@
     "source/game_sa/Entity/Vehicle/Bmx.h": "973ebb137609ea14fe271b3af789489f1c5889ee4ffe7510738770e9d29d6f7a",
     "source/game_sa/Entity/Vehicle/Boat.cpp": "cda2951a31b01f521e18021c6ef427424dcf75e8f391bcae4a89463eee6e6287",
     "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876",
-    "source/game_sa/Entity/Vehicle/Heli.cpp": "0b11930c75ce153975fefbcc6f1abb0ce3b6b0bbe084210c005aeeaa81940c77",
+    "source/game_sa/Entity/Vehicle/Heli.cpp": "c129ed68f6cb8e17427a6567c25d918f04726f9dc5dd191e395840173e8ffc97",
     "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
     "source/game_sa/Entity/Vehicle/MonsterTruck.cpp": "533676119014766f68176f1dd0cd27e361828beee54d170cd21ad77081e36ae6",
     "source/game_sa/Entity/Vehicle/MonsterTruck.h": "17d298117fc2c4077c0a5a26dd6cb5b5199f3be1d5b17227feae005f2cd59946",
@@ -864,7 +864,7 @@
     "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
     "source/game_sa/Fx/eFxInfoType.h": "e2b63b7b9845dc48dc34c779ffd15856023bab68cd12c7fb9dfe2dfc716f4042",
     "source/game_sa/Fx/EmissionInfo.h": "7911d228390e25bde277c593f98a34fa21f4391f8e4d9a3ab59f17e04b0c8459",
-    "source/game_sa/Fx/Fx.cpp": "a4fa35d757189a787188dd36faeb8a173b85984bf030483f383f21839723e04b",
+    "source/game_sa/Fx/Fx.cpp": "65d4bed67f342c4531096c62741dec27137fcf36ec891301f67098d27a43e226",
     "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
     "source/game_sa/Fx/FxBox.cpp": "cd912fe5906fc0e8c9aa290c80dd6ddb4f131822a4177cb829987c3c362ef33d",
     "source/game_sa/Fx/FxBox.h": "3232c761508369e0e9484871ccc25c6318ef508d6c6437d9a200b3213c8585d3",
@@ -2225,17 +2225,17 @@
     "source/game_sa/World.cpp": "0066108864b6c6c3aa13ac5a68da99749b177bd94605ebc3a2c14580018340bd",
     "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c",
     "source/game_sa/World_Helper.cpp": "331f33ad029ba5a963ac2b15dbe384298d36075b3b0eef2adedeb72454f5a033",
-    "source/game_sa/X87Math.cpp": "82f024f2f89c9b028e4f155b9e88d52369a44dab4d6dc56ae1916a43f2aa40bd",
-    "source/game_sa/X87Math.h": "65ec85114f13b50801ef1535eecf246f8b3a314a181aaa5dc6d708e5f3526eca",
+    "source/game_sa/X87Math.cpp": "e0f265e5141cc052e5d0388b3abb673cebc0f5710debb1e85c84b36abf1e02da",
+    "source/game_sa/X87Math.h": "02da40eada0f302e584541a828b1e34440374a68d5d99f9518f17b7add6ef13c",
     "source/game_sa/Zone.cpp": "efb2c9fa14a6744d59fb142a8c8497719d7e9bf976ca3aebca78cc33caffa14a",
     "source/game_sa/Zone.h": "6e68b4a81ee271b97e3ed2b1ce9a6fcc1ff87dd54ab7790cb908fb14c5624d93",
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "ceda502a10894b84350d0146949955f56a61aa172dca0c522026ef9241df1784",
+    "hooks.csv": "46a89d7829bdc8b0c0381671d39690e74fead22456259848dec5dec17736ab2e",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "8bd5a8174f9946aae3996548f2b478d7af912d42adc8e118888a4b0857fb146c",
+  "migration_registry_sha256": "2f593c71ba92ae6bbc3f193bf52057cff91fabd7f804425d6df91e7aea4ebcdd",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",
