@@ -289,8 +289,8 @@ inline void __fastcall S2_Choose(void* self, void*, uint8* a, uint8* b, uint8* c
     Push(TG("Choose"), self, a, b, c, d); Push(TG("Choose2"), shift);
     *a = uint8(g2Aux[40] + 1); *b = uint8(g2Aux[41] + 2); *c = uint8(g2Aux[42] + 3); *d = uint8(g2Aux[43] + 4);
 }
-// CVehicle::AddVehicleUpgrade(int32) : thiscall ret 4
-inline void __fastcall S2_AddUpgrade(void* self, void*, int32 model) { if (!Mine()) return; Push(TG("AddUpgrade"), self, model); }
+// CVehicle::AddVehicleUpgrade(int32) : thiscall ret 4, devuelve la mejora sustituida (EAX); el falso devuelve -1 en ambos lados
+inline int32 __fastcall S2_AddUpgrade(void* self, void*, int32 model) { if (!Mine()) return -1; Push(TG("AddUpgrade"), self, model); return -1; }
 // CAEVehicleAudioEntity::Initialise(CEntity*) : thiscall ret 4 ; Terminate() : thiscall
 inline void __fastcall S2_AudioInit(void* self, void*, void* ent) { if (!Mine()) return; Push(TG("AudioInit"), self, ent); }
 inline void __fastcall S2_AudioTerm(void* self, void*) { if (!Mine()) return; Push(TG("AudioTerm"), self); }
@@ -377,7 +377,7 @@ inline std::string StubsG2() {
     H(G2_CTOR, 0x6D6A40, "CVehicle", "SetModelIndex", FnPtr(&S2_VehSetModel));
     H(G2_CTOR, 0x4C5440, "CClumpModelInfo", "FillFrameArray", FnPtr(&S2_FillFrames));
     H(G2_CTOR, 0x4C8500, "CVehicleModelInfo", "ChooseVehicleColour", FnPtr(&S2_Choose));
-    E(G2_CTOR, 0x6E3290, "?AddVehicleUpgrade@CVehicle@@QAEXH@Z", FnPtr(&S2_AddUpgrade), "CVehicle::AddVehicleUpgrade");
+    E(G2_CTOR, 0x6E3290, "?AddVehicleUpgrade@CVehicle@@QAEHH@Z", FnPtr(&S2_AddUpgrade), "CVehicle::AddVehicleUpgrade");
     H(G2_CTOR, 0x4F7670, "CAEVehicleAudioEntity", "Initialise", FnPtr(&S2_AudioInit));
     H(G2_DTOR, 0x4FB8C0, "CAEVehicleAudioEntity", "Terminate", FnPtr(&S2_AudioTerm));
     E(G2_DTOR, 0x6E2B40, "??1CVehicle@@UAE@XZ", FnPtr(&S2_VehDtor), "CVehicle::~CVehicle");
