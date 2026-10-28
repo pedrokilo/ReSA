@@ -308,8 +308,8 @@ inline void Update() {
     const Pair pRand{0x821B1E, 0, false};
     const Pair pChoose = MakeCollab(env, 0x421980, hooksFound), pGetNew = MakeCollab(env, 0x421440, hooksFound), pGetPos = MakeCollab(env, 0x420A10, hooksFound), pVertical = MakeCollab(env, 0x5674E0, hooksFound);
     const Pair pOnScreen = MakeCollab(env, 0x534540, hooksFound);
-    const Pair pSphere{0x420D40, MemberBody(static_cast<bool (CCamera::*)(const CVector&, float)>(&CCamera::IsSphereVisible)), false};   // sin hook: la DLL llama a su propia funcion
-    const Pair pFind = MakeCollab(env, 0x568B80, hooksFound), pSetUp = MakeCollab(env, 0x4217C0, hooksFound), pMat{0x59BBC0, MemberBody(static_cast<void (CMatrix::*)(const CMatrix&)>(&CMatrix::operator=)), false}, pPosn = MakeCollab(env, 0x4241C0, hooksFound);
+    const Pair pSphere = MakeCollab(env, 0x420D40, hooksFound);   // con hook desde el lote 76 (CamSphere76)   // con hook desde el lote 76 (CamSphere76): el EXE salta a la DLL y el falso tambien parchea el cuerpo de la DLL
+    const Pair pFind = MakeCollab(env, 0x568B80, hooksFound), pSetUp = MakeCollab(env, 0x4217C0, hooksFound), pMat = MakeCollab(env, 0x59BBC0, hooksFound)   /* con hook desde el lote 76 (MatrixOps76) */, pPosn = MakeCollab(env, 0x4241C0, hooksFound);
     const Pair pLaw = MakeCollab(env, 0x6D2330, hooksFound), pAdd = MakeCollab(env, 0x563220, hooksFound), pBike = MakeCollab(env, 0x6BEEB0, hooksFound), pAuto = MakeCollab(env, 0x6AF420, hooksFound);
     const Pair pOcc = MakeCollab(env, 0x41C070, hooksFound), pNew = MakeCollab(env, 0x61A5A0, hooksFound);
     Pair pWander = MakeCollab(env, 0x63CB10, hooksFound); pWander.dll = pWander.dll ? FirstDllCall(env.asi, pWander.dll) : 0;   // el cuerpo real del constructor: primera llamada de la envoltura `Constructor`

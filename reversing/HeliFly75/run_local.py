@@ -23,7 +23,7 @@ EXPECTED = {n: CASES for n in NAMES}
 GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh_restored', 'route_ok', 'collaborators_dll', 'globals_restored', 'floating_state_restored')
 HOOKS = {NAMES[0]: 0x6C4E60}
 # (direccion del EXE, hooked) en el orden del banco: hooked=False => la DLL llama por la direccion del EXE, o la DLL llama a su cuerpo sin hook RH (CMatrix::Attach)
-STUBBED = {NAMES[0]: [(0x6D85F0, True), (0x59BD10, False), (0x7F1200, False), (0x7491F0, False), (0x6E2E50, True), (0x72C8B0, True), (0x4F6420, True)]}
+STUBBED = {NAMES[0]: [(0x6D85F0, True), (0x59BD10, True), (0x7F1200, False), (0x7491F0, False), (0x6E2E50, True), (0x72C8B0, True), (0x4F6420, True)]}
 WATCHED = {a for lst in STUBBED.values() for a, _ in lst} | {0x6C4E60, 0x871680 + 4 * 68}
 COVER = json.loads((HERE / 'coverage.json').read_text()) if (HERE / 'coverage.json').exists() else {}
 FAMILIES = 21

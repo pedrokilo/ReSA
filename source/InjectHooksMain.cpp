@@ -707,6 +707,7 @@ void InjectHooksMain() {
 
     CQuaternion::InjectHooks(); // Only the reconstructed Set dependencies.
     CMatrix::InjectHooksMultiplyVector(); // Only operator*(CMatrix, CVector) 0x59C890.
+    CMatrix::InjectHooksAttachAssign(); // Only Attach 0x59BD10 and operator= 0x59BBC0.
     CMatrixLink::InjectHooks();
     CMatrixLinkList::InjectHooks();
     CEntryInfoNode::InjectHooks();

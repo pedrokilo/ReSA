@@ -1,0 +1,32 @@
+{
+  "CCamera::IsSphereVisible": {
+    "first_false_mirror_second_false": 2013,
+    "first_false_mirror_second_true": 1964,
+    "first_false_no_mirror": 1549,
+    "first_true_byte_gt1": 337,
+    "first_true_short_circuit": 3689,
+    "hi_garbage_first": 4795,
+    "hi_garbage_second": 2066,
+    "mirror_byte_gt1": 2678,
+    "mirror_byte_one": 3652,
+    "mirror_byte_zero": 2886,
+    "mutated_other_nonzero": 735,
+    "mutated_to_nonzero": 122,
+    "mutated_to_zero": 128,
+    "one_call": 5238,
+    "origin_kind_0": 8565,
+    "origin_kind_1": 157,
+    "origin_kind_2": 161,
+    "origin_kind_3": 163,
+    "origin_kind_4": 168,
+    "origin_snan": 2771,
+    "origin_special": 5231,
+    "radius_denormal": 364,
+    "radius_inf": 175,
+    "radius_nan": 2721,
+    "radius_neg_zero": 86,
+    "radius_negative": 1359,
+    "radius_snan": 1353,
+    "two_calls": 3977
+  }
+}

@@ -107,6 +107,7 @@ void CCamera::InjectHooks() {
     RH_ScopedInstall(IsActiveCamUnderWater, 0x50B830);
 
     RH_ScopedOverloadedInstall(IsSphereVisible, "matrix", 0x420C40, bool(CCamera::*)(const CVector&,float,RwMatrix*));
+    RH_ScopedOverloadedInstall(IsSphereVisible, "mirror", 0x420D40, bool(CCamera::*)(const CVector&,float));
     RH_ScopedInstall(GetArrPosForVehicleType, 0x50AF00);
     RH_ScopedInstall(GetPositionAlongSpline, 0x50AF80);
     RH_ScopedInstall(GetRoughDistanceToGround, 0x516B00);
@@ -1621,7 +1622,7 @@ bool CCamera::IsSphereVisible(const CVector& origin, float radius, RwMatrix* tra
     return CameraSphereInFrustumCpp(&point.x, radius, &m_avecFrustumNormals[0].x, StaticRef<float>(0xC3EFA0), StaticRef<float>(0xC3EF9C));
 }
 
-// 0x420D40 - NOTE: Function has no hook
+// 0x420D40 - Como el original: matriz de vista normal y, si hay espejo activo (byte +0x970), la del espejo; el resultado es el de la segunda llamada.
 bool CCamera::IsSphereVisible(const CVector& origin, float radius) {
     return IsSphereVisible(origin, radius, (RwMatrix*)&m_mMatInverse)
         || (m_bMirrorActive && IsSphereVisible(origin, radius, (RwMatrix*)&m_mMatMirrorInverse));

@@ -294,7 +294,7 @@ inline void Update() {
     InitVtbl();
     const Pair pRand{0x821B1E, 0, false};
     const Pair pGetNew = MakeCollab(env, 0x421440, hooksFound), pVertical = MakeCollab(env, 0x5674E0, hooksFound), pFind = MakeCollab(env, 0x568B80, hooksFound), pSetUp = MakeCollab(env, 0x4217C0, hooksFound);
-    const Pair pMat{0x59BBC0, MemberBody(static_cast<void (CMatrix::*)(const CMatrix&)>(&CMatrix::operator=)), false}, pAdd = MakeCollab(env, 0x563220, hooksFound), pBike = MakeCollab(env, 0x6BEEB0, hooksFound), pAuto = MakeCollab(env, 0x6AF420, hooksFound);
+    const Pair pMat = MakeCollab(env, 0x59BBC0, hooksFound)   /* con hook desde el lote 76 (MatrixOps76) */, pAdd = MakeCollab(env, 0x563220, hooksFound), pBike = MakeCollab(env, 0x6BEEB0, hooksFound), pAuto = MakeCollab(env, 0x6AF420, hooksFound);
     const Pair pNew = MakeCollab(env, 0x61A5A0, hooksFound);
     Pair pWander = MakeCollab(env, 0x63CB10, hooksFound); pWander.dll = pWander.dll ? FirstDllCall(env.asi, pWander.dll) : 0;   // el cuerpo real del constructor: primera llamada de la envoltura `Constructor`
     const Pair pSetTask = [&] { Pair p = MakeCollab(env, 0x681AF0, hooksFound); p.dll = 0; p.hooked = false; return p; }();   // definido en linea en la cabecera: la DLL llama a la direccion del EXE; el hook (si existe) queda apagado

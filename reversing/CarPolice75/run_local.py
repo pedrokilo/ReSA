@@ -23,7 +23,7 @@ EXPECTED = {n: CASES for n in NAMES}
 GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh_restored', 'route_ok', 'collaborators_dll', 'globals_restored', 'floating_state_restored')
 HOOKS = {NAMES[0]: 0x42C2B0}
 # (direccion del EXE, hooked) en el orden del banco: hooked=False => la DLL llama por la direccion del EXE, a su propia funcion sin hook o no hay hook
-STUBBED = {NAMES[0]: [(0x821B1E, False), (0x421980, True), (0x421440, True), (0x420A10, True), (0x5674E0, True), (0x534540, True), (0x420D40, False), (0x568B80, True), (0x4217C0, True), (0x59BBC0, False),
+STUBBED = {NAMES[0]: [(0x821B1E, False), (0x421980, True), (0x421440, True), (0x420A10, True), (0x5674E0, True), (0x534540, True), (0x420D40, True), (0x568B80, True), (0x4217C0, True), (0x59BBC0, True),
                       (0x4241C0, True), (0x6D2330, True), (0x563220, True), (0x6BEEB0, True), (0x6AF420, True), (0x41C070, True), (0x61A5A0, True), (0x63CB10, True), (0x681AF0, False), (0x4AB420, True),
                       (0x571B70, True), (0x571A00, True)]}
 WATCHED = {a for lst in STUBBED.values() for a, _ in lst} | {0x42C2B0}

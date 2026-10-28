@@ -37,3 +37,5 @@ Defecto del BANCO: el oraculo no modelaba el radio que escribe el falso de `_rpA
 No validado: un helicoptero sin matriz que llegue a Multiply3x3 (el EXE desreferencia el puntero nulo; el banco lo evita), el valor de EAX/ECX/EDX de salida (void), GetCurrentAtomicObjectCB, y la validez de los colaboradores (la prueban sus propios bancos; CMatrix::Attach no la prueba ninguno).
 
 Comandos: `CMAKE_BUILD_PARALLEL_LEVEL=1 _CL_=-MP1 bash reversing/_handoff/bench_here.sh HeliFly75`; `python -I fixture_oracle.py <carpeta>/comparisons.jsonl`; `python register_hook.py <carpeta-de-evidencia>` (coordinador).
+
+Lote 76: CMatrix::Attach (0x59BD10) tiene ahora hook RH y banco propio, MatrixOps76; aqui es colaborador CON hook (hooked=true en STUBBED de run_local.py; MakeCollab lo detecta). Repetido el 27/10/2026 en el worktree D:\Original\wy-1: APROBADO, evidencia `E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-helifly75\20261027-215507-215400`.

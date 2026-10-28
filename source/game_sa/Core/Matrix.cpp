@@ -39,7 +39,7 @@ void CMatrix::InjectHooks()
     RH_ScopedClass(CMatrix);
     RH_ScopedCategory("Core");
 
-    RH_ScopedInstall(Attach, 0x59BD10);
+    // Attach (0x59BD10) y operator= (0x59BBC0) se instalan por InjectHooksAttachAssign.
     RH_ScopedInstall(Detach, 0x59ACF0);
     RH_ScopedInstall(CopyOnlyMatrix, 0x59ADD0);
     RH_ScopedInstall(Update, 0x59BB60);
@@ -70,7 +70,6 @@ void CMatrix::InjectHooks()
     RH_ScopedInstall(ForceUpVector, 0x59B7E0);
     RH_ScopedInstall(ConvertToEulerAngles, 0x59A840);
     RH_ScopedInstall(ConvertFromEulerAngles, 0x59AA40);
-    RH_ScopedInstall(operator=, 0x59BBC0);
     RH_ScopedInstall(operator+=, 0x59ADF0);
     RH_ScopedInstall(operator*=, 0x411A80);
     RH_ScopedGlobalOverloadedInstall(operator*, "Mat", 0x59BE30, CMatrix(*)(const CMatrix&, const CMatrix&));
@@ -92,6 +91,17 @@ void CMatrix::InjectHooksMultiplyVector()
 #pragma warning(pop)
 }
 
+// CMatrix::InjectHooks completo esta desactivado en InjectHooksMain (rendimiento); estas son, junto con InjectHooksMultiplyVector, las unicas entradas de CMatrix que se instalan:
+// Attach (0x59BD10) y operator= (0x59BBC0), ambas reconstruidas en C++ puro y validadas por el banco MatrixOps76.
+void CMatrix::InjectHooksAttachAssign()
+{
+    RH_ScopedClass(CMatrix);
+    RH_ScopedCategory("Core");
+
+    RH_ScopedInstall(Attach, 0x59BD10);
+    RH_ScopedInstall(operator=, 0x59BBC0);
+}
+
 CMatrix::CMatrix(const CMatrix& matrix) {
     CMatrix::CopyOnlyMatrix(matrix);
 }
@@ -107,12 +117,16 @@ CMatrix::~CMatrix()
     CMatrix::Detach();
 }
 
+// 0x59BD10 - Como el original: la bandera de propiedad se LEE como dword (+0x44; los tres bytes de relleno cuentan) y se ESCRIBE como dword con el byte del argumento sin normalizar
+// (movzx); el destructor de RenderWare (0x7F2A20) solo se llama si hay matriz y la bandera es distinta de cero. Despues copia los 12 dwords de la RwMatrix (sin las banderas ni el relleno).
 void CMatrix::Attach(RwMatrix* matrix, bool bOwnsMatrix)
 {
-    CMatrix::Detach();
+    uint32& ownsWord = *reinterpret_cast<uint32*>(&m_bOwnsAttachedMatrix);
+    if (m_pAttachMatrix && ownsWord)
+        RwMatrixDestroy(m_pAttachMatrix);
 
     m_pAttachMatrix = matrix;
-    m_bOwnsAttachedMatrix = bOwnsMatrix;
+    ownsWord = static_cast<uint32>(std::bit_cast<uint8>(bOwnsMatrix));
     CMatrix::Update();
 }
 
