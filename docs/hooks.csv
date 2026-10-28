@@ -8946,3 +8946,6 @@ CCarCtrl,CreatePoliceChase,0x0042C2B0,1,0,1,S
 CCarCtrl,CreateConvoy,0x0042C740,1,0,1,S
 CTaskSimpleFight,FightHitPed,0x0061CBA0,1,0,1,S
 CPlayerPed,MakeThisPedJoinOurGroup,0x0060C840,1,0,1,S
+CMatrix,Attach,0x0059BD10,1,0,1,S
+CMatrix,operator=,0x0059BBC0,1,0,1,S
+CCamera,IsSphereVisible-mirror,0x00420D40,1,0,1,S

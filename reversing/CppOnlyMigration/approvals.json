@@ -13511,5 +13511,47 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ (CPlayerPed, reclutar un peatón en el grupo del jugador): MakeThisPedJoinOurGroup sin llamadas al EXE salvo la función 0x609380 sin reconstruir. El banco sustituye por falsos idénticos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL) los colaboradores con hook en HEAD y compara la secuencia de llamadas con sus argumentos, el objeto reservado los cambios en las arenas del caso y el estado de la x87. Banco PlayerGroup75 con 19968 pares (19968 propios) y cero diferencias; EAX/ECX/EDX de salida: ver README del banco. Validado en el worktree D:/Original/wy-4 (HEAD 98ff78aaa + PlayerPed.cpp, source.patch). CPlayerPed::MakeThisPedJoinOurGroup 0x60C840 (thiscall, ret 4; sin valor de retorno: sus llamadores 0x60D411 y 0x60D4D5 recargan los registros): salida si el peaton va drogado (Say 0x52), tiene la tarea 1000, no es del tipo 8 sin banderas globales 0x96917C..E o ya es miembro; si no, SetCJMood, Say 0x7F, limite del grupo (FindMaxNumberOfGroupMembers, limite del script, estadistica 0xB5), recuentos de miembros, CEventDontJoinPlayerGroup si no hay sitio, o CTaskComplexBeInGroup por CEventScriptCommand, AddFollower, CPedGroup::Process, GiveWeaponWhenJoiningGang, CEventGroupEvent(CEventNewGangMember), estadisticas, blip del radar y separacion del grupo. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): Say, FindActiveTaskByType, IsMember, FindMaxNumberOfGroupMembers, GetStatValue, CountMembersExcludingLeader, GetPedsGroup, RemoveMember, CTask::operator new/delete, FindPlayerPed, CEventGroup::Add, AddFollower, CPedGroup::Process, GiveWeaponWhenJoiningGang, RegisterReference/CleanUpOldReference, CPedGroupIntelligence::AddEvent, IncrementStat, DisplayScriptStatUpdateMessage, CPedPool::GetRef y CRadar (SetEntityBlip, ChangeBlipScale, ChangeBlipColour, SetBlipFriendly) (con hook); sin hook: SetCJMood 0x4E3ED0 (--unhook=Audio), 0x609380 (sin reconstruir) y CEvent::operator new/delete. Constructores y destructores de CTaskComplexBeInGroup, CEventScriptCommand, CEventNewGangMember, CEventGroupEvent y CEventDontJoinPlayerGroup corren de verdad en ambos lados. Dominio: indices de grupo 0..7."
+  },
+  "0x0059BD10": {
+    "identity": "CMatrix::Attach",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Core/Matrix.cpp",
+    "bank": "MatrixOps76",
+    "run": "20261027-214215-184061",
+    "pairs": 36864,
+    "own_pairs": 18432,
+    "audit": "reversing/CppTwelveLevel6Final/runs/MatrixOps76-20261027-214215-184061/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (CMatrix, matriz con RwMatrix asociada): Attach en C++ puro. El banco sustituye por falsos idénticos en ambos lados (parche de entrada en el EXE) los colaboradores indicados en el README y compara la secuencia de llamadas con sus argumentos, los bytes cambiados en las arenas del caso y el estado de la x87. Banco MatrixOps76 con 36864 pares (18432 propios) y cero diferencias; EAX/ECX/EDX de salida: ver README del banco. Validado en el worktree D:/Original/wy-1 (HEAD a7266bf64 + source.patch: Matrix.cpp/.h, InjectHooksMain.cpp, Camera.cpp). CMatrix::Attach 0x59BD10 (thiscall, ret 8, void): destruye la RwMatrix previa (RwMatrixDestroy 0x7F2A20) solo si hay matriz y el DWORD de propiedad (+0x44, con los tres bytes de relleno) es distinto de cero, guarda la RwMatrix nueva y el byte del argumento ampliado a dword y copia los 12 dwords de la RwMatrix (sin banderas ni relleno). CMatrix::operator= 0x59BBC0 (thiscall, ret 4): copia 0x40 bytes y, si habia RwMatrix asociada (leida antes de copiar), la actualiza (UpdateRwMatrix + RwMatrixUpdate 0x7F18A0). El EXE devuelve this en EAX y la DLL es void: ninguno de los 89 llamadores del EXE lee EAX tras la llamada. Hooks instalados solo para estas dos por CMatrix::InjectHooksAttachAssign (CMatrix::InjectHooks completo sigue desactivado por rendimiento). Sustituidos por falsos identicos en ambos lados: RwMatrixDestroy 0x7F2A20 (Attach) y RwMatrixUpdate 0x7F18A0 (operator=), ambos de RenderWare sin hook. Corren de verdad: copia de 12 dwords, CopyOnlyMatrix, UpdateRW y UpdateRwMatrix (0x59AD70 en el EXE), sin hook en ambos lados y vigilados. No probado: matriz de origen/destino nula, RwMatrix nula en Attach, solapamiento parcial de origen y destino en operator=, bytes de RwMatrix mas alla de 0x40."
+  },
+  "0x0059BBC0": {
+    "identity": "CMatrix::operator=",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Core/Matrix.cpp",
+    "bank": "MatrixOps76",
+    "run": "20261027-214215-184061",
+    "pairs": 36864,
+    "own_pairs": 18432,
+    "audit": "reversing/CppTwelveLevel6Final/runs/MatrixOps76-20261027-214215-184061/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (CMatrix, matriz con RwMatrix asociada): operator= en C++ puro. El banco sustituye por falsos idénticos en ambos lados (parche de entrada en el EXE) los colaboradores indicados en el README y compara la secuencia de llamadas con sus argumentos, los bytes cambiados en las arenas del caso y el estado de la x87. Banco MatrixOps76 con 36864 pares (18432 propios) y cero diferencias; EAX/ECX/EDX de salida: ver README del banco. Validado en el worktree D:/Original/wy-1 (HEAD a7266bf64 + source.patch: Matrix.cpp/.h, InjectHooksMain.cpp, Camera.cpp). CMatrix::Attach 0x59BD10 (thiscall, ret 8, void): destruye la RwMatrix previa (RwMatrixDestroy 0x7F2A20) solo si hay matriz y el DWORD de propiedad (+0x44, con los tres bytes de relleno) es distinto de cero, guarda la RwMatrix nueva y el byte del argumento ampliado a dword y copia los 12 dwords de la RwMatrix (sin banderas ni relleno). CMatrix::operator= 0x59BBC0 (thiscall, ret 4): copia 0x40 bytes y, si habia RwMatrix asociada (leida antes de copiar), la actualiza (UpdateRwMatrix + RwMatrixUpdate 0x7F18A0). El EXE devuelve this en EAX y la DLL es void: ninguno de los 89 llamadores del EXE lee EAX tras la llamada. Hooks instalados solo para estas dos por CMatrix::InjectHooksAttachAssign (CMatrix::InjectHooks completo sigue desactivado por rendimiento). Sustituidos por falsos identicos en ambos lados: RwMatrixDestroy 0x7F2A20 (Attach) y RwMatrixUpdate 0x7F18A0 (operator=), ambos de RenderWare sin hook. Corren de verdad: copia de 12 dwords, CopyOnlyMatrix, UpdateRW y UpdateRwMatrix (0x59AD70 en el EXE), sin hook en ambos lados y vigilados. No probado: matriz de origen/destino nula, RwMatrix nula en Attach, solapamiento parcial de origen y destino en operator=, bytes de RwMatrix mas alla de 0x40."
+  },
+  "0x00420D40": {
+    "identity": "CCamera::IsSphereVisible",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Camera.cpp",
+    "bank": "CamSphere76",
+    "run": "20261027-214100-904974",
+    "pairs": 18432,
+    "own_pairs": 18432,
+    "audit": "reversing/CppTwelveLevel6Final/runs/CamSphere76-20261027-214100-904974/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (CCamera, visibilidad de una esfera con espejo): IsSphereVisible-mirror en C++ puro. El banco sustituye por falsos idénticos en ambos lados (parche de entrada en el EXE) los colaboradores indicados en el README y compara la secuencia de llamadas con sus argumentos, los bytes cambiados en las arenas del caso y el estado de la x87. Banco CamSphere76 con 18432 pares (18432 propios) y cero diferencias; EAX/ECX/EDX de salida: ver README del banco. Validado en el worktree D:/Original/wy-1 (HEAD a7266bf64 + source.patch: Camera.cpp con el hook nuevo). CCamera::IsSphereVisible(const CVector&, float) 0x420D40 (thiscall, ret 8, bool en AL): llama a la sobrecarga con matriz 0x420C40 con la matriz inversa (+0xA4C); si acierta devuelve true, si no relee el byte m_bMirrorActive (+0x970) DESPUES de la primera llamada y, si es distinto de cero, devuelve el resultado de la segunda llamada con la matriz del espejo (+0xA94). Sustituido por un falso identico en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): CCamera::IsSphereVisible con matriz 0x420C40 (con hook; la valida DependenciesWorldFxFont5). No hay aritmetica en la funcion: el radio y el origen solo se reenvian (comprobado con NaN de señal). No probado: el AL de la segunda llamada mayor que 1 (el EXE lo devuelve en bruto y la DLL lo normaliza; la funcion real devuelve 0/1), camara nula, ECX/EDX/EAX alto de salida."
   }
 }

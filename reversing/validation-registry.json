@@ -545121,7 +545121,7 @@
       },
       "evidence": {
         "path": "reversing/HeliFly75/validation-summary.json",
-        "sha256": "ccaad9ddf0f3f4887d339f587785084f4b85d4847a21b6eecdfeb079e6ce9c50",
+        "sha256": "77fc1b47b165945f4b066ba2236702c41d3fc9b68f3205205a2dcb1b2227039a",
         "passed_path": [
           "covered_functions",
           "CHeli::ProcessFlyingCarStuff"
@@ -545132,10 +545132,10 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
         "source/game_sa/X87Math.cpp": "1e32d201b83098e0c4b72e1282e82f19e72a5c474b3c82440bcdf9f44bf971c4",
         "source/game_sa/X87Math.h": "8015654fe6b233947884b917027582d2ea6eafc195c15d1e8a5902034e62c89a",
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "0d0e6da8fbf8412198dbf60bed72bc4bcd9ee1978719cd2c14946d794da786dc",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0b11930c75ce153975fefbcc6f1abb0ce3b6b0bbe084210c005aeeaa81940c77",
         "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/HeliFly75/LiveComparison.hpp": "8fc5f83d78bd99fdd0d4730c5136a43e34b22d107bd836c41340c5c4c4c34155",
@@ -545158,7 +545158,7 @@
       },
       "evidence": {
         "path": "reversing/HeliPre75/validation-summary.json",
-        "sha256": "cd439f5b40dbd9209dfc69c0b07e22494e94e88312619d359e604f37a50aa52f",
+        "sha256": "52aa768417384073425262c0087805d85b5698224fa9b7f51b1273430cef9c18",
         "passed_path": [
           "covered_functions",
           "CHeli::PreRender"
@@ -545169,10 +545169,10 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
         "source/game_sa/X87Math.cpp": "1e32d201b83098e0c4b72e1282e82f19e72a5c474b3c82440bcdf9f44bf971c4",
         "source/game_sa/X87Math.h": "8015654fe6b233947884b917027582d2ea6eafc195c15d1e8a5902034e62c89a",
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "0d0e6da8fbf8412198dbf60bed72bc4bcd9ee1978719cd2c14946d794da786dc",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0b11930c75ce153975fefbcc6f1abb0ce3b6b0bbe084210c005aeeaa81940c77",
         "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/HeliPre75/LiveComparison.hpp": "3992e1bbdfc4398f0c8e3887ad86d9b2f4c86b6f94d157a74efd2b4f8662f263",
@@ -545267,7 +545267,7 @@
       },
       "evidence": {
         "path": "reversing/CarPolice75/validation-summary.json",
-        "sha256": "83e4273ac442f91226f529ebf6df2debe26c1604043f22e458233b22547cea6d",
+        "sha256": "cf4b62f191f77e590da15bb98535079ab98c50e0b2d08553576ef3e31c8ce770",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::CreatePoliceChase"
@@ -545277,13 +545277,13 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
         "source/game_sa/X87Math.cpp": "1e32d201b83098e0c4b72e1282e82f19e72a5c474b3c82440bcdf9f44bf971c4",
         "source/game_sa/X87Math.h": "8015654fe6b233947884b917027582d2ea6eafc195c15d1e8a5902034e62c89a",
-        "source/game_sa/CarCtrl.cpp": "4de8d81c0df4a1abefeb524d0ca7951815e1c6a72d840cda780946d1d2599da9",
+        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarPolice75/LiveComparison.hpp": "24abf48dd6d429c061c184220e555d0ccd05c169477c1d206322a7ed1f17f931",
+        "reversing/CarPolice75/LiveComparison.hpp": "4e7e32c44885e4ba3f56141eb2402f79e889d589fc9e65be89d8f6ee116d58d1",
         "reversing/CarPolice75/Core.hpp": "bd1e8d14c60071fa85cebb2e31343df1916d9d3dc1677678db7f146e464f0d47",
         "reversing/CarPolice75/Fixtures.hpp": "ee35e28c692877e4c075d5b26183f776f4cfbccfe9d1190e900de94a9e8eb44b",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -545303,7 +545303,7 @@
       },
       "evidence": {
         "path": "reversing/CarConvoy75/validation-summary.json",
-        "sha256": "83e45273f72b255233fdb78affbd4c7a0ec56051ceb5bd2f964aba01b2807dc4",
+        "sha256": "8b1960da6e616e678b896590c812ffac773ecbe9ad955f225df37bcd6ff363b4",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::CreateConvoy"
@@ -545313,13 +545313,13 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
         "source/game_sa/X87Math.cpp": "1e32d201b83098e0c4b72e1282e82f19e72a5c474b3c82440bcdf9f44bf971c4",
         "source/game_sa/X87Math.h": "8015654fe6b233947884b917027582d2ea6eafc195c15d1e8a5902034e62c89a",
-        "source/game_sa/CarCtrl.cpp": "4de8d81c0df4a1abefeb524d0ca7951815e1c6a72d840cda780946d1d2599da9",
+        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarConvoy75/LiveComparison.hpp": "ccb3d374f44dc51934fbe6aa63da5ceafada9da1e816955b9de8b53386ca50de",
+        "reversing/CarConvoy75/LiveComparison.hpp": "8c502d89886efed55c7735b4f97723d30f88be8849438ecbb7f8c65dd7abb39d",
         "reversing/CarConvoy75/Core.hpp": "4054789891b34a191d96d023eedeea5999d6c379ea9dfcb549cd425daf3e97cc",
         "reversing/CarConvoy75/Fixtures.hpp": "672fb4401649c8cdfbaa623ae64c0a66bc8f358c2e1450f07dcdb699f5390095",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -545403,6 +545403,111 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wy-4 (HEAD 98ff78aaa + PlayerPed.cpp, source.patch). CPlayerPed::MakeThisPedJoinOurGroup 0x60C840 (thiscall, ret 4; sin valor de retorno: sus llamadores 0x60D411 y 0x60D4D5 recargan los registros): salida si el peaton va drogado (Say 0x52), tiene la tarea 1000, no es del tipo 8 sin banderas globales 0x96917C..E o ya es miembro; si no, SetCJMood, Say 0x7F, limite del grupo (FindMaxNumberOfGroupMembers, limite del script, estadistica 0xB5), recuentos de miembros, CEventDontJoinPlayerGroup si no hay sitio, o CTaskComplexBeInGroup por CEventScriptCommand, AddFollower, CPedGroup::Process, GiveWeaponWhenJoiningGang, CEventGroupEvent(CEventNewGangMember), estadisticas, blip del radar y separacion del grupo. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): Say, FindActiveTaskByType, IsMember, FindMaxNumberOfGroupMembers, GetStatValue, CountMembersExcludingLeader, GetPedsGroup, RemoveMember, CTask::operator new/delete, FindPlayerPed, CEventGroup::Add, AddFollower, CPedGroup::Process, GiveWeaponWhenJoiningGang, RegisterReference/CleanUpOldReference, CPedGroupIntelligence::AddEvent, IncrementStat, DisplayScriptStatUpdateMessage, CPedPool::GetRef y CRadar (SetEntityBlip, ChangeBlipScale, ChangeBlipColour, SetBlipFriendly) (con hook); sin hook: SetCJMood 0x4E3ED0 (--unhook=Audio), 0x609380 (sin reconstruir) y CEvent::operator new/delete. Constructores y destructores de CTaskComplexBeInGroup, CEventScriptCommand, CEventNewGangMember, CEventGroupEvent y CEventDontJoinPlayerGroup corren de verdad en ambos lados. Dominio: indices de grupo 0..7.",
       "review_reference": "reversing/PlayerGroup75/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMatrix",
+        "fn_name": "Attach",
+        "address": "0x0059BD10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MatrixOps76/validation-summary.json",
+        "sha256": "9aada6a363fbb423cef1273fd19a6f4222a07875eede513223e697ca0842d080",
+        "passed_path": [
+          "covered_functions",
+          "CMatrix::Attach"
+        ],
+        "pairs": 18432,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x0059BD10"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/Core/Matrix.cpp": "669fc74d55c6779de25f173e477843610ece885619a7c8d9fb42a35608a6fd7b",
+        "source/game_sa/Core/Matrix.h": "6911148c17cdb0ed5ecefcced5609d439c93a4d2dbcf3521e6324711bb38d6b2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/MatrixOps76/LiveComparison.hpp": "49e6cc6fe3ae418388b5d14bf9bee5d811be0d6ad2fe5bbed270641e18c8f768",
+        "reversing/MatrixOps76/Core.hpp": "36293b0dbf729b7d554e87d15c92680bb493db7aeec062f9e7638a88d5e876bb",
+        "reversing/MatrixOps76/Fixtures.hpp": "b8bde1bb532612881af980a0bfdd76983a99d7139a260f676f6bf7e0d79dfc53",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wy-1 (HEAD a7266bf64 + source.patch: Matrix.cpp/.h, InjectHooksMain.cpp, Camera.cpp). CMatrix::Attach 0x59BD10 (thiscall, ret 8, void): destruye la RwMatrix previa (RwMatrixDestroy 0x7F2A20) solo si hay matriz y el DWORD de propiedad (+0x44, con los tres bytes de relleno) es distinto de cero, guarda la RwMatrix nueva y el byte del argumento ampliado a dword y copia los 12 dwords de la RwMatrix (sin banderas ni relleno). CMatrix::operator= 0x59BBC0 (thiscall, ret 4): copia 0x40 bytes y, si habia RwMatrix asociada (leida antes de copiar), la actualiza (UpdateRwMatrix + RwMatrixUpdate 0x7F18A0). El EXE devuelve this en EAX y la DLL es void: ninguno de los 89 llamadores del EXE lee EAX tras la llamada. Hooks instalados solo para estas dos por CMatrix::InjectHooksAttachAssign (CMatrix::InjectHooks completo sigue desactivado por rendimiento). Sustituidos por falsos identicos en ambos lados: RwMatrixDestroy 0x7F2A20 (Attach) y RwMatrixUpdate 0x7F18A0 (operator=), ambos de RenderWare sin hook. Corren de verdad: copia de 12 dwords, CopyOnlyMatrix, UpdateRW y UpdateRwMatrix (0x59AD70 en el EXE), sin hook en ambos lados y vigilados. No probado: matriz de origen/destino nula, RwMatrix nula en Attach, solapamiento parcial de origen y destino en operator=, bytes de RwMatrix mas alla de 0x40.",
+      "review_reference": "reversing/MatrixOps76/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMatrix",
+        "fn_name": "operator=",
+        "address": "0x0059BBC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MatrixOps76/validation-summary.json",
+        "sha256": "9aada6a363fbb423cef1273fd19a6f4222a07875eede513223e697ca0842d080",
+        "passed_path": [
+          "covered_functions",
+          "CMatrix::operator="
+        ],
+        "pairs": 18432,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x0059BBC0"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/Core/Matrix.cpp": "669fc74d55c6779de25f173e477843610ece885619a7c8d9fb42a35608a6fd7b",
+        "source/game_sa/Core/Matrix.h": "6911148c17cdb0ed5ecefcced5609d439c93a4d2dbcf3521e6324711bb38d6b2",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/MatrixOps76/LiveComparison.hpp": "49e6cc6fe3ae418388b5d14bf9bee5d811be0d6ad2fe5bbed270641e18c8f768",
+        "reversing/MatrixOps76/Core.hpp": "36293b0dbf729b7d554e87d15c92680bb493db7aeec062f9e7638a88d5e876bb",
+        "reversing/MatrixOps76/Fixtures.hpp": "b8bde1bb532612881af980a0bfdd76983a99d7139a260f676f6bf7e0d79dfc53",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wy-1 (HEAD a7266bf64 + source.patch: Matrix.cpp/.h, InjectHooksMain.cpp, Camera.cpp). CMatrix::Attach 0x59BD10 (thiscall, ret 8, void): destruye la RwMatrix previa (RwMatrixDestroy 0x7F2A20) solo si hay matriz y el DWORD de propiedad (+0x44, con los tres bytes de relleno) es distinto de cero, guarda la RwMatrix nueva y el byte del argumento ampliado a dword y copia los 12 dwords de la RwMatrix (sin banderas ni relleno). CMatrix::operator= 0x59BBC0 (thiscall, ret 4): copia 0x40 bytes y, si habia RwMatrix asociada (leida antes de copiar), la actualiza (UpdateRwMatrix + RwMatrixUpdate 0x7F18A0). El EXE devuelve this en EAX y la DLL es void: ninguno de los 89 llamadores del EXE lee EAX tras la llamada. Hooks instalados solo para estas dos por CMatrix::InjectHooksAttachAssign (CMatrix::InjectHooks completo sigue desactivado por rendimiento). Sustituidos por falsos identicos en ambos lados: RwMatrixDestroy 0x7F2A20 (Attach) y RwMatrixUpdate 0x7F18A0 (operator=), ambos de RenderWare sin hook. Corren de verdad: copia de 12 dwords, CopyOnlyMatrix, UpdateRW y UpdateRwMatrix (0x59AD70 en el EXE), sin hook en ambos lados y vigilados. No probado: matriz de origen/destino nula, RwMatrix nula en Attach, solapamiento parcial de origen y destino en operator=, bytes de RwMatrix mas alla de 0x40.",
+      "review_reference": "reversing/MatrixOps76/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCamera",
+        "fn_name": "IsSphereVisible-mirror",
+        "address": "0x00420D40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CamSphere76/validation-summary.json",
+        "sha256": "a57bf79766f576047a9447391a9e8f9b5d920bc1b3a17d63d842af3865deff07",
+        "passed_path": [
+          "covered_functions",
+          "CCamera::IsSphereVisible"
+        ],
+        "pairs": 18432,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x00420D40"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/Camera.cpp": "395a9088d686e81dc16f7adf00e4a81f691db45ae3e5d096db128939ff05e3b8",
+        "source/game_sa/Camera.h": "5e4115efb5b1f2c0e9435740ca8a0554b554c3a22a9ef2a5dc2f30f0835b1a47",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/CamSphere76/LiveComparison.hpp": "07216cec507961e36dc256d32cf05026a5d6255369f73a28c6c74616ba7f18df",
+        "reversing/CamSphere76/Core.hpp": "6bda022b72a285a178cf5cbc602c93f9a5fcd65ecfc66bca9887d2f4d88e2ace",
+        "reversing/CamSphere76/Fixtures.hpp": "9a3faa9d1d5d8e570f7ac4be337d041ef1f1d7cd91b86577e8b461522144a2a6",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wy-1 (HEAD a7266bf64 + source.patch: Camera.cpp con el hook nuevo). CCamera::IsSphereVisible(const CVector&, float) 0x420D40 (thiscall, ret 8, bool en AL): llama a la sobrecarga con matriz 0x420C40 con la matriz inversa (+0xA4C); si acierta devuelve true, si no relee el byte m_bMirrorActive (+0x970) DESPUES de la primera llamada y, si es distinto de cero, devuelve el resultado de la segunda llamada con la matriz del espejo (+0xA94). Sustituido por un falso identico en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): CCamera::IsSphereVisible con matriz 0x420C40 (con hook; la valida DependenciesWorldFxFont5). No hay aritmetica en la funcion: el radio y el origen solo se reenvian (comprobado con NaN de se\u00f1al). No probado: el AL de la segunda llamada mayor que 1 (el EXE lo devuelve en bruto y la DLL lo normaliza; la funcion real devuelve 0/1), camara nula, ECX/EDX/EAX alto de salida.",
+      "review_reference": "reversing/CamSphere76/README.md"
     }
   ]
 }

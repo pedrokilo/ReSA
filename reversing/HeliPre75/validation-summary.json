@@ -10,25 +10,25 @@
   "covered_functions": {
     "CHeli::PreRender": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-1 (HEAD 98ff78aaa + cambios del lote 75; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados) salvo que se indique lo contrario; el banco compara el orden y todos los argumentos de los falsos, los bytes cambiados de las arenas y los globales. Hook VIRTUAL (fila de docs/hooks.csv: CHeli,PreRender,0x00000000,1,0,1,V (ranura 17 de la vtable 0x871680); la direccion real va en evidence.original_address). Colaboradores: CVehicle::PreRender 0x6D6480 (virtual; CVehD, 256 pares), CClock::GetIsTimeInRange 0x52CEE0 (Core9, 512), operator*(CMatrix, CVector) 0x59C890 (Helpers65D, 4096), CHeli::AddHeliSearchLight 0x6C45B0 (Mix11, 256), CEntity::GetColModel 0x535300 (CEntA, 256), CVehicleModelInfo::GetWheelPosn 0x4C7D20 (VehModelInfoFinal4, 256), CAutomobile::UpdateWheelMatrix 0x6AA290 (AutomobileWrappers60, 4096), CShadows::StoreShadowForVehicle 0x70BDA0 (ShadowVehicle355, 4096), CAutomobile::DoHeliDustEffect 0x6B0690 y CMatrix::Attach 0x59BD10 / SetRotateZ 0x59B0E0 / SetRotateX 0x59B060 / UpdateRW 0x59BBB0 (sin hook RH ni banco propio; la DLL llama a sus cuerpos). La llamada virtual a la ranura 52 (CAutomobile::DoBurstAndSoftGroundRatios, AutomobileFinal4, 256) pasa por una vtable propia del banco con un falso. ~CMatrix 0x59ACD0 no se sustituye. La matriz del helicoptero nula no se prueba (el EXE la pasa a 0x59C890, que aqui es un falso). Void: EAX/ECX/EDX solo se registran.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wy-1 (HEAD 98ff78aaa + cambios del lote 75; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados) salvo que se indique lo contrario; el banco compara el orden y todos los argumentos de los falsos, los bytes cambiados de las arenas y los globales. Hook VIRTUAL (fila de docs/hooks.csv: CHeli,PreRender,0x00000000,1,0,1,V (ranura 17 de la vtable 0x871680); la direccion real va en evidence.original_address). Colaboradores: CVehicle::PreRender 0x6D6480 (virtual; CVehD, 256 pares), CClock::GetIsTimeInRange 0x52CEE0 (Core9, 512), operator*(CMatrix, CVector) 0x59C890 (Helpers65D, 4096), CHeli::AddHeliSearchLight 0x6C45B0 (Mix11, 256), CEntity::GetColModel 0x535300 (CEntA, 256), CVehicleModelInfo::GetWheelPosn 0x4C7D20 (VehModelInfoFinal4, 256), CAutomobile::UpdateWheelMatrix 0x6AA290 (AutomobileWrappers60, 4096), CShadows::StoreShadowForVehicle 0x70BDA0 (ShadowVehicle355, 4096), CAutomobile::DoHeliDustEffect 0x6B0690 y CMatrix::Attach 0x59BD10 / SetRotateZ 0x59B0E0 / SetRotateX 0x59B060 / UpdateRW 0x59BBB0 (sin hook RH ni banco propio; la DLL llama a sus cuerpos). La llamada virtual a la ranura 52 (CAutomobile::DoBurstAndSoftGroundRatios, AutomobileFinal4, 256) pasa por una vtable propia del banco con un falso. ~CMatrix 0x59ACD0 no se sustituye. La matriz del helicoptero nula no se prueba (el EXE la pasa a 0x59C890, que aqui es un falso). Void: EAX/ECX/EDX solo se registran. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/HeliPre75-20261027-190558-315960",
-  "summary_sha256": "1523ecb6e30c5d66977e430caf04fbce47b062a0bbfc1bf2770dabd87e7cbba4",
-  "result_txt_sha256": "ca715b449bd65d45366ebb39b0c13f31c3a652e6e55e79e04051e6c40f5f905f",
-  "log_sha256": "c2b1e588fa2badbc073708e6e8bb94b208b8e373b309d1f0df0637517638011c",
+  "run": "reversing/CppTwelveLevel6Final/runs/HeliPre75-20261027-214633-706532",
+  "summary_sha256": "2268b0687a67ba50be3cbcdc32b1ccbe8b67fd0d5b696a007346b89352d04798",
+  "result_txt_sha256": "85831fa62d9eaa61255ecd451cffd22acf5709a7fdda2920d9f162fdbb5b7224",
+  "log_sha256": "d4ca40fc1fd0eacc9da8cbbfd632f0e506a0af1433fc397deefde48afae0c06e",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "2d493404b6d916e16293cf11f6e3ccdc035a159263ac10a547ce4457c1f4d7f4",
+  "executed_probe_sha256": "b30b7e3ed78ad3fe2f771186ba2891173d665d10d0203b6d21a9b3438acc994b",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
       "source/game_sa/X87Math.cpp": "1e32d201b83098e0c4b72e1282e82f19e72a5c474b3c82440bcdf9f44bf971c4",
       "source/game_sa/X87Math.h": "8015654fe6b233947884b917027582d2ea6eafc195c15d1e8a5902034e62c89a",
-      "source/game_sa/Entity/Vehicle/Heli.cpp": "0d0e6da8fbf8412198dbf60bed72bc4bcd9ee1978719cd2c14946d794da786dc",
+      "source/game_sa/Entity/Vehicle/Heli.cpp": "0b11930c75ce153975fefbcc6f1abb0ce3b6b0bbe084210c005aeeaa81940c77",
       "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/HeliPre75/LiveComparison.hpp": "3992e1bbdfc4398f0c8e3887ad86d9b2f4c86b6f94d157a74efd2b4f8662f263",
@@ -37,5 +37,12 @@
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/HeliPre75-20261027-214633-706532/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "62e43264ddc7225b4fca818f14cbc91d5121838850111eca2e8ebd3c759e576b",
+    "uncompressed_sha256": "d4ca40fc1fd0eacc9da8cbbfd632f0e506a0af1433fc397deefde48afae0c06e"
   }
 }

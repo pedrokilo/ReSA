@@ -1,0 +1,79 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "6318cdc17d8e632a16b28bf375a8fcfcffdb414847b0ca51fb5d698adc94d05a",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 18432,
+  "pairs_per_function": {
+    "CCamera::IsSphereVisible": 18432
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "0e70ae08844fe76efeefd87162450db852acd2cf4164b1296cc3e7cc4aa15982",
+  "compare_dead_x87_registers": false,
+  "families": {
+    "CCamera::IsSphereVisible": {
+      "0": 1024,
+      "1": 1024,
+      "2": 1024,
+      "3": 1024,
+      "4": 1024,
+      "5": 1024,
+      "6": 1024,
+      "7": 1024,
+      "8": 1024,
+      "9": 1024,
+      "10": 1024,
+      "11": 1024,
+      "12": 1024,
+      "13": 1024,
+      "14": 1024,
+      "15": 1024,
+      "16": 1024,
+      "17": 1024
+    }
+  },
+  "branch_coverage": {
+    "CCamera::IsSphereVisible": {
+      "one_call": 10477,
+      "first_true_short_circuit": 7379,
+      "mirror_byte_zero": 5772,
+      "origin_kind_0": 17131,
+      "hi_garbage_first": 9591,
+      "first_false_no_mirror": 3098,
+      "radius_nan": 5443,
+      "radius_snan": 2706,
+      "mirror_byte_one": 7304,
+      "origin_special": 10463,
+      "two_calls": 7955,
+      "first_false_mirror_second_true": 3928,
+      "hi_garbage_second": 4132,
+      "first_false_mirror_second_false": 4027,
+      "origin_snan": 5543,
+      "mutated_to_nonzero": 245,
+      "radius_negative": 2718,
+      "origin_kind_3": 327,
+      "mirror_byte_gt1": 5356,
+      "mutated_other_nonzero": 1471,
+      "first_true_byte_gt1": 674,
+      "origin_kind_2": 323,
+      "radius_denormal": 728,
+      "radius_neg_zero": 172,
+      "origin_kind_4": 337,
+      "radius_inf": 351,
+      "mutated_to_zero": 256,
+      "origin_kind_1": 314
+    }
+  },
+  "independent_oracle": "fixture_oracle.py: cada lado de cada par coincide con el modelo",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

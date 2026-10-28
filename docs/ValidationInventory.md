@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,947 entradas reversed=1**, de 8,947 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,950 entradas reversed=1**, de 8,950 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8947 |
+| `validated=1` · evidencia aprobada vinculada | 8950 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8947 |
+| Evidencia histórica vinculada; revisión pendiente | 8950 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -1360,6 +1360,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCamera | `IsActiveCamUnderWater` | [Resumen](../reversing/Helpers65B/validation-summary.json) |
 | CCamera | `IsExtraEntityToIgnore` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
 | CCamera | `IsSphereVisible-matrix` | [Resumen](../reversing/DependenciesWorldFxFont5/validation-summary.json) |
+| CCamera | `IsSphereVisible-mirror` | [Resumen](../reversing/CamSphere76/validation-summary.json) |
 | CCamera | `LerpFOV` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
 | CCamera | `LoadPathSplines` | [Resumen](../reversing/CameraPath355/validation-summary.json) |
 | CCamera | `Process` | [Resumen](../reversing/CameraProcess355/validation-summary.json) |
@@ -3260,7 +3261,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CMaths | `GetCosFast` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CMaths | `GetSinFast` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CMaths | `InitMathsTables` | [Resumen](../reversing/Small2/validation-summary.json) |
+| CMatrix | `Attach` | [Resumen](../reversing/MatrixOps76/validation-summary.json) |
 | CMatrix | `operator*-Vec` | [Resumen](../reversing/Helpers65D/validation-summary.json) |
+| CMatrix | `operator=` | [Resumen](../reversing/MatrixOps76/validation-summary.json) |
 | CMatrixLink | `Insert` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CMatrixLink | `Remove` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CMatrixLinkList | `AddToList1` | [Resumen](../reversing/Small2/validation-summary.json) |
@@ -9058,7 +9061,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CBulletInfo` | 4 | 0 | 4 | 0 |
 | `CBulletTraces` | 5 | 0 | 5 | 0 |
 | `CCam` | 51 | 0 | 51 | 0 |
-| `CCamera` | 119 | 0 | 119 | 0 |
+| `CCamera` | 120 | 0 | 120 | 0 |
 | `CCarAI` | 25 | 0 | 25 | 0 |
 | `CCarCtrl` | 98 | 0 | 98 | 0 |
 | `CCarEnterExit` | 32 | 0 | 32 | 0 |
@@ -9242,7 +9245,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CLodAtomicModelInfo` | 3 | 0 | 3 | 0 |
 | `CLodTimeModelInfo` | 2 | 0 | 2 | 0 |
 | `CMaths` | 3 | 0 | 3 | 0 |
-| `CMatrix` | 1 | 0 | 1 | 0 |
+| `CMatrix` | 3 | 0 | 3 | 0 |
 | `CMatrixLink` | 2 | 0 | 2 | 0 |
 | `CMatrixLinkList` | 10 | 0 | 10 | 0 |
 | `CMemoryHeap` | 1 | 0 | 1 | 0 |

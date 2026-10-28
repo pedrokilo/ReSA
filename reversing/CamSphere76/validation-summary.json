@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "pairs": 18432,
+  "differences": 0,
+  "registered_pairs": 18432,
+  "registered_functions": 1,
+  "functions": {
+    "CCamera::IsSphereVisible": 18432
+  },
+  "covered_functions": {
+    "CCamera::IsSphereVisible": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-1 (HEAD a7266bf64 + source.patch: Camera.cpp con el hook nuevo). CCamera::IsSphereVisible(const CVector&, float) 0x420D40 (thiscall, ret 8, bool en AL): llama a la sobrecarga con matriz 0x420C40 con la matriz inversa (+0xA4C); si acierta devuelve true, si no relee el byte m_bMirrorActive (+0x970) DESPUES de la primera llamada y, si es distinto de cero, devuelve el resultado de la segunda llamada con la matriz del espejo (+0xA94). Sustituido por un falso identico en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): CCamera::IsSphereVisible con matriz 0x420C40 (con hook; la valida DependenciesWorldFxFont5). No hay aritmetica en la funcion: el radio y el origen solo se reenvian (comprobado con NaN de señal). No probado: el AL de la segunda llamada mayor que 1 (el EXE lo devuelve en bruto y la DLL lo normaliza; la funcion real devuelve 0/1), camara nula, ECX/EDX/EAX alto de salida.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/CamSphere76-20261027-214100-904974",
+  "summary_sha256": "c9d8048cb0ad0768d04a8582de5afc94f3c624d3a926ffccff244982466538aa",
+  "result_txt_sha256": "175cdb097b76f4f14ebce0d1fc04257f4c2c3e2fd1f7432e55d02a42a1f107ec",
+  "log_sha256": "0e70ae08844fe76efeefd87162450db852acd2cf4164b1296cc3e7cc4aa15982",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "6318cdc17d8e632a16b28bf375a8fcfcffdb414847b0ca51fb5d698adc94d05a",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/Camera.cpp": "395a9088d686e81dc16f7adf00e4a81f691db45ae3e5d096db128939ff05e3b8",
+      "source/game_sa/Camera.h": "5e4115efb5b1f2c0e9435740ca8a0554b554c3a22a9ef2a5dc2f30f0835b1a47",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/CamSphere76/LiveComparison.hpp": "07216cec507961e36dc256d32cf05026a5d6255369f73a28c6c74616ba7f18df",
+      "reversing/CamSphere76/Core.hpp": "6bda022b72a285a178cf5cbc602c93f9a5fcd65ecfc66bca9887d2f4d88e2ace",
+      "reversing/CamSphere76/Fixtures.hpp": "9a3faa9d1d5d8e570f7ac4be337d041ef1f1d7cd91b86577e8b461522144a2a6",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

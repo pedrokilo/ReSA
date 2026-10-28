@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 36864,
+  "differences": 0,
+  "registered_pairs": 36864,
+  "registered_functions": 2,
+  "functions": {
+    "CMatrix::Attach": 18432,
+    "CMatrix::operator=": 18432
+  },
+  "covered_functions": {
+    "CMatrix::Attach": true,
+    "CMatrix::operator=": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-1 (HEAD a7266bf64 + source.patch: Matrix.cpp/.h, InjectHooksMain.cpp, Camera.cpp). CMatrix::Attach 0x59BD10 (thiscall, ret 8, void): destruye la RwMatrix previa (RwMatrixDestroy 0x7F2A20) solo si hay matriz y el DWORD de propiedad (+0x44, con los tres bytes de relleno) es distinto de cero, guarda la RwMatrix nueva y el byte del argumento ampliado a dword y copia los 12 dwords de la RwMatrix (sin banderas ni relleno). CMatrix::operator= 0x59BBC0 (thiscall, ret 4): copia 0x40 bytes y, si habia RwMatrix asociada (leida antes de copiar), la actualiza (UpdateRwMatrix + RwMatrixUpdate 0x7F18A0). El EXE devuelve this en EAX y la DLL es void: ninguno de los 89 llamadores del EXE lee EAX tras la llamada. Hooks instalados solo para estas dos por CMatrix::InjectHooksAttachAssign (CMatrix::InjectHooks completo sigue desactivado por rendimiento). Sustituidos por falsos identicos en ambos lados: RwMatrixDestroy 0x7F2A20 (Attach) y RwMatrixUpdate 0x7F18A0 (operator=), ambos de RenderWare sin hook. Corren de verdad: copia de 12 dwords, CopyOnlyMatrix, UpdateRW y UpdateRwMatrix (0x59AD70 en el EXE), sin hook en ambos lados y vigilados. No probado: matriz de origen/destino nula, RwMatrix nula en Attach, solapamiento parcial de origen y destino en operator=, bytes de RwMatrix mas alla de 0x40.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/MatrixOps76-20261027-214215-184061",
+  "summary_sha256": "3597ff7014d02dfababa40434ffaeeba3d7e7f8e4245cec33d43a9e2378d9ab5",
+  "result_txt_sha256": "9b6ba6a5bc803dda63d08939afc901b3219b94111bd39d7816d636c57eba85b8",
+  "log_sha256": "5f6d03197bd24b618d0fc25c3da1f7d286993309b5bc8e29b89768b7d6d71bc8",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "9421ff4c557c7732e5616a6bce6408488a9534cdb027f65ac54c643e958b632b",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/Core/Matrix.cpp": "669fc74d55c6779de25f173e477843610ece885619a7c8d9fb42a35608a6fd7b",
+      "source/game_sa/Core/Matrix.h": "6911148c17cdb0ed5ecefcced5609d439c93a4d2dbcf3521e6324711bb38d6b2",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/MatrixOps76/LiveComparison.hpp": "49e6cc6fe3ae418388b5d14bf9bee5d811be0d6ad2fe5bbed270641e18c8f768",
+      "reversing/MatrixOps76/Core.hpp": "36293b0dbf729b7d554e87d15c92680bb493db7aeec062f9e7638a88d5e876bb",
+      "reversing/MatrixOps76/Fixtures.hpp": "b8bde1bb532612881af980a0bfdd76983a99d7139a260f676f6bf7e0d79dfc53",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}
