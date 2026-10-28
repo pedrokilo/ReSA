@@ -1,0 +1,118 @@
+diff --git a/source/game_sa/Entity/Ped/PlayerPed.cpp b/source/game_sa/Entity/Ped/PlayerPed.cpp
+index 54bdb69b1..f6a7672e2 100644
+--- a/source/game_sa/Entity/Ped/PlayerPed.cpp
++++ b/source/game_sa/Entity/Ped/PlayerPed.cpp
+@@ -47,6 +47,8 @@ END GENERATED HOOK STATUS */
+ #include "Events/EventDontJoinPlayerGroup.h"
+ #include "Tasks/TaskTypes/TaskComplexBeInGroup.h"
+ #include "Pools/PedPool.h"
++#include "PedType.h"
++#include "Wanted.h"
+ 
+ // Ayudante de X87Math.cpp (PlayerPedSprintTailDblCpp) que devuelve un double: el ((max(ratio - 1, 0) * k) + 1) de CPlayerPed::ControlButtonSprint queda sin guardar
+ // en ST0 (0x60A7D3). Aqui se declara como float (alias del enlazador) para que el llamador reciba ST0 tal cual, como el EXE (mismo mecanismo que Placeable.cpp).
+@@ -123,6 +125,7 @@ void CPlayerPed::InjectHooks() {
+     RH_ScopedOverloadedInstall(MakeChangesForNewWeapon, "BySlot", 0x60D000, void(CPlayerPed::*)(uint32));
+     RH_ScopedInstall(EvaluateTarget, 0x60D020);
+     RH_ScopedInstall(EvaluateNeighbouringTarget, 0x60D1C0);
++    RH_ScopedInstall(ProcessGroupBehaviour, 0x60D350);
+     RH_ScopedInstall(PlayerHasJustAttackedSomeone, 0x60D5A0);
+     RH_ScopedInstall(SetupPlayerPed, 0x60D790);
+ 
+@@ -1292,9 +1295,94 @@ void CPlayerPed::EvaluateNeighbouringTarget(CEntity* target, CEntity** outTarget
+     }
+ }
+ 
+-// 0x60D350
++// 0x60D350 (thiscall, `ret 4`): botones del pad para el grupo del jugador. Cruceta arriba: al mantenerla 1200 ms se disuelve el grupo; si se suelta antes, el peaton apuntado
++// se une al grupo (o el grupo empieza a seguir al jugador). Cruceta abajo: igual, pero sin la comprobacion de reclutamiento deshabilitado en la pulsacion larga. Cada 32 fotogramas
++// (fotograma 6) los peatones de tipo 8 pasan a odiar o dejar de odiar a los policias segun el nivel de busqueda del jugador.
+ void CPlayerPed::ProcessGroupBehaviour(CPad* pad) {
+-    plugin::CallMethod<0x60D350, CPlayerPed *, CPad*>(this, pad);
++    constexpr uint32 GROUP_STUFF_DISABLED = 0x100;   // bit 8 de CPlayerPedData::m_nPlayerFlags
++    constexpr uint16 HOLD_TIME            = 0x4B0;   // 1200 ms
++
++    // Como el original: el objetivo (ebp) se lee una sola vez; con el raton en 3a persona (0xB6EC2E) y sin objetivo se usa el del raton (+0x79C)
++    CEntity* target = m_pTargetedObject;
++    if (StaticRef<bool>(0xB6EC2E) && !target) {
++        target = m_p3rdPersonMouseTarget;
++    }
++    const auto TargetIsPed = [&] { return target && target->GetType() == ENTITY_TYPE_PED; };
++    // Como el original: _ftol2 (0x821B40) de paso_sin_recortar * 0.02f (0x858B38) * 1000 (0x858C4C); se suma a un uint16 (add word ptr)
++    const auto HoldStep = [] {
++        const float step = (CTimer::ms_fTimeStepNonClipped * StaticRef<float>(0x858B38)) * StaticRef<float>(0x858C4C);
++        return static_cast<uint16>(static_cast<uint32>(static_cast<int64>(step)));
++    };
++
++    if (!FindPlayerVehicle(-1, false)) { // 0x56E0D0
++        const bool up = pad->GetGroupControlForward(); // 0x541190
++        CPlayerPedData* const data = GetPlayerData(); // edi: se conserva hasta el final de esta rama
++        if (up) {
++            data->m_nPadUpPressedInMilliseconds += HoldStep();
++            CPlayerPedData* const now = GetPlayerData();
++            if (now->m_nPadUpPressedInMilliseconds == HOLD_TIME && !(now->m_nPlayerFlags & GROUP_STUFF_DISABLED)) {
++                DisbandPlayerGroup(); // 0x60A0A0
++            }
++        } else {
++            const uint16 held = data->m_nPadUpPressedInMilliseconds;
++            if (held != 0 && held < HOLD_TIME) {
++                if (TargetIsPed() && (static_cast<CPed*>(target)->m_nPedType == 8 || JoinGroupFlagsExe())) { // 0x609380 solo si el tipo no es 8
++                    if (!(data->m_nPlayerFlags & GROUP_STUFF_DISABLED)) { // con el puntero leido antes de las llamadas
++                        MakeThisPedJoinOurGroup(static_cast<CPed*>(target)); // 0x60C840
++                    }
++                } else {
++                    TellGroupToStartFollowingPlayer(true, true, false); // 0x60A1D0
++                }
++            }
++            GetPlayerData()->m_nPadUpPressedInMilliseconds = 0;
++        }
++    }
++
++    if (GetPlayerData()->m_nPlayerFlags & GROUP_STUFF_DISABLED) {
++        return;
++    }
++
++    if (!FindPlayerVehicle(-1, false)) { // 0x56E0D0
++        const bool down = pad->GetGroupControlBack(); // 0x5411B0
++        if (down) {
++            GetPlayerData()->m_nPadDownPressedInMilliseconds += HoldStep();
++            if (GetPlayerData()->m_nPadDownPressedInMilliseconds >= HOLD_TIME) {
++                DisbandPlayerGroup(); // 0x60A0A0
++            }
++        } else {
++            const uint16 held = GetPlayerData()->m_nPadDownPressedInMilliseconds;
++            if (held != 0 && held < HOLD_TIME) {
++                if (TargetIsPed() && static_cast<CPed*>(target)->m_nPedType == 8) {
++                    MakeThisPedJoinOurGroup(static_cast<CPed*>(target)); // 0x60C840
++                } else {
++                    TellGroupToStartFollowingPlayer(false, true, false); // 0x60A1D0
++                }
++            }
++            GetPlayerData()->m_nPadDownPressedInMilliseconds = 0;
++        }
++    }
++
++    // Cada 32 fotogramas (0xB7CB4C & 0x1F == 6), de atras adelante por el pool de peatones (0xB74490): los de tipo 8 odian a los policias con nivel de busqueda > 0
++    if ((CTimer::GetFrameCounter() & 0x1F) != 6) {
++        return;
++    }
++    CPedPool* const pool = StaticRef<CPedPool*>(0xB74490);
++    for (size_t slot = pool->GetSize(); slot != 0; --slot) {
++        CPed* const ped = pool->GetAt(slot - 1);
++        if (!ped || ped->m_nPedType != 8) {
++            continue;
++        }
++        // Como el original: nivel de busqueda del jugador (FindPlayerPed(-1)->datos->CWanted, +0x2C) antes de pedir la bandera del tipo de policia
++        CPlayerPedData* const playerData = FindPlayerPed(-1)->GetPlayerData(); // 0x56E210
++        const CWanted* const wanted      = playerData ? playerData->m_pWanted : nullptr;
++        const int32 wantedLevel          = static_cast<int32>(wanted->m_WantedLevel);
++        const uint32 copFlag             = CPedType::GetPedFlag(static_cast<ePedType>(6)); // 0x608830
++        if (wantedLevel > 0) {
++            ped->m_acquaintance.SetAsAcquaintance(4, copFlag); // 0x608DA0
++        } else {
++            ped->m_acquaintance.ClearAsAcquaintance(4, copFlag); // 0x608980
++        }
++    }
+ }
+ 
+ // 0x60D5A0
