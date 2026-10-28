@@ -372,7 +372,7 @@ inline void Update() {
                             P.Add(0x73A530,SDamageEvent); P.Add(MA(&CWeapon::GenerateDamageEvent),SDamageEvent);
                             P.Add(0x532010,SReportCrime); P.Add(MA(&CCrime::ReportCrime),SReportCrime);
                             P.Add(0x56D230,SBlood); P.Add(MA(&CLocalisation::Blood),SBlood);
-                            P.Add(0x49EB00,SAddBlood); P.Add(0x49F3D0,SBulletImpact); P.Add(MA(&Fx_c::AddBulletImpact),SBulletImpact); /* lote 78A: ya es C++ real en la DLL */ P.Add(0x49F300,STyreBurst); P.Add(MA(&Fx_c::AddTyreBurst),STyreBurst); /* ya era C++ real en la DLL (hallado en la regresion del lote 78A) */
+                            P.Add(0x49EB00,SAddBlood); P.Add(MA(&Fx_c::AddBlood),SAddBlood); /* lote 79A: ya es C++ real en la DLL */ P.Add(0x49F3D0,SBulletImpact); P.Add(MA(&Fx_c::AddBulletImpact),SBulletImpact); /* lote 78A: ya es C++ real en la DLL */ P.Add(0x49F300,STyreBurst); P.Add(MA(&Fx_c::AddTyreBurst),STyreBurst); /* ya era C++ real en la DLL (hallado en la regresion del lote 78A) */
                             P.Add(0x4D6A70,SFirstAssoc); P.Add(MA(static_cast<CAnimBlendAssociation*(*)(RpClump*,uint32)>(&RpAnimBlendClumpGetFirstAssociation)),SFirstAssoc);
                             P.Add(0x4D4610,SBlend); P.Add(MA(static_cast<CAnimBlendAssociation*(*)(RpClump*,AssocGroupId,AnimationId,float)>(&CAnimManager::BlendAnimation)),SBlend);
                             P.Add(0x4CEA80,SSetCurrentTime); P.Add(MA(&CAnimBlendAssociation::SetCurrentTime),SSetCurrentTime);

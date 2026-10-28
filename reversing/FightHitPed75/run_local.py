@@ -26,10 +26,10 @@ GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh
 HOOKS = {NAMES[0]: 0x61CBA0}
 # (direccion del EXE, hooked) EN EL ORDEN de LiveComparison.hpp: IsPlayer, GetActiveTask, GetTaskFighting, BeHitWhileBlocking (sin hook), CAEPedAudioEntity::AddAudioEvent (sin hook),
 # GetWeaponInfo, FightStrikeDamage, ComputePedShotSide, GenerateDamageEvent, CAEPedWeaponAudioEntity::AddAudioEvent (sin hook), Say, GetEventGlobalGroup, CEventGroup::Add,
-# RegisterReference, CleanUpOldReference, rand (sin hook), IsAlive, CVector::Normalise (sin hook), Fx_c::AddBlood (sin hook)
+# RegisterReference, CleanUpOldReference, rand (sin hook), IsAlive, CVector::Normalise (sin hook), Fx_c::AddBlood (hook S desde el lote 79A)
 STUBBED = {NAMES[0]: [(0x5DF8F0, True), (0x681720, True), (0x600F30, True), (0x61C650, False), (0x4E2BB0, False), (0x743C60, True), (0x61C740, True), (0x5F13F0, True), (0x73A530, True),
                       (0x4E69F0, False), (0x5EFFE0, True), (0x4ABA50, True), (0x4AB420, True), (0x571B70, True), (0x571A00, True), (0x821B1E, False), (0x5E0170, True), (0x59C910, False),
-                      (0x49EB00, False)]}
+                      (0x49EB00, True)]}
 WATCHED = {a for lst in STUBBED.values() for a, _ in lst} | {0x61CBA0, 0xC16900, 0x8D2D00}
 COVER = json.loads((HERE / 'coverage.json').read_text()) if (HERE / 'coverage.json').exists() else {}
 COVER_FLOOR = 1   # todo contador medido debe alcanzarse al menos una vez; coverage.json sube los minimos

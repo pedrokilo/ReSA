@@ -1,0 +1,189 @@
+diff --git a/reversing/Data23/LiveComparison.hpp b/reversing/Data23/LiveComparison.hpp
+index 621a38142..04e7a3a87 100644
+--- a/reversing/Data23/LiveComparison.hpp
++++ b/reversing/Data23/LiveComparison.hpp
+@@ -372,7 +372,7 @@ inline void Update() {
+                             P.Add(0x73A530,SDamageEvent); P.Add(MA(&CWeapon::GenerateDamageEvent),SDamageEvent);
+                             P.Add(0x532010,SReportCrime); P.Add(MA(&CCrime::ReportCrime),SReportCrime);
+                             P.Add(0x56D230,SBlood); P.Add(MA(&CLocalisation::Blood),SBlood);
+-                            P.Add(0x49EB00,SAddBlood); P.Add(0x49F3D0,SBulletImpact); P.Add(MA(&Fx_c::AddBulletImpact),SBulletImpact); /* lote 78A: ya es C++ real en la DLL */ P.Add(0x49F300,STyreBurst); P.Add(MA(&Fx_c::AddTyreBurst),STyreBurst); /* ya era C++ real en la DLL (hallado en la regresion del lote 78A) */
++                            P.Add(0x49EB00,SAddBlood); P.Add(MA(&Fx_c::AddBlood),SAddBlood); /* lote 79A: ya es C++ real en la DLL */ P.Add(0x49F3D0,SBulletImpact); P.Add(MA(&Fx_c::AddBulletImpact),SBulletImpact); /* lote 78A: ya es C++ real en la DLL */ P.Add(0x49F300,STyreBurst); P.Add(MA(&Fx_c::AddTyreBurst),STyreBurst); /* ya era C++ real en la DLL (hallado en la regresion del lote 78A) */
+                             P.Add(0x4D6A70,SFirstAssoc); P.Add(MA(static_cast<CAnimBlendAssociation*(*)(RpClump*,uint32)>(&RpAnimBlendClumpGetFirstAssociation)),SFirstAssoc);
+                             P.Add(0x4D4610,SBlend); P.Add(MA(static_cast<CAnimBlendAssociation*(*)(RpClump*,AssocGroupId,AnimationId,float)>(&CAnimManager::BlendAnimation)),SBlend);
+                             P.Add(0x4CEA80,SSetCurrentTime); P.Add(MA(&CAnimBlendAssociation::SetCurrentTime),SSetCurrentTime);
+diff --git a/reversing/FightHitPed75/LiveComparison.hpp b/reversing/FightHitPed75/LiveComparison.hpp
+index f0dc7e107..2c2dd2db5 100644
+--- a/reversing/FightHitPed75/LiveComparison.hpp
++++ b/reversing/FightHitPed75/LiveComparison.hpp
+@@ -287,10 +287,11 @@ inline void Update() {
+     const uintptr_t addBody=Addr(static_cast<CEvent*(CEventGroup::*)(CEvent*,bool)>(&CEventGroup::Add));
+     const uintptr_t registerBody=Addr(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::RegisterReference));
+     const uintptr_t cleanBody=Addr(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::CleanUpOldReference));
++    const uintptr_t bloodBody=Addr(&Fx_c::AddBlood);   // lote 79A: AddBlood es C++ real (hook S) en la DLL
+     env.route[0].reset(new HookRoute("CTaskSimpleFight","FightHitPed",0x61CBA0,HookRoute::RegisteredTarget{}));
+     registered[kFn[0]]=env.route[0]->Registered();bodies[kFn[0]]=env.route[0]->Body()!=0;
+     ready&=env.route[0]->Registered()&&env.route[0]->Body()&&ModuleOf(env.route[0]->Body())==env.asi;
+-    ready&=isPlayerBody&&activeBody&&fightingBody&&weaponInfoBody&&damageBody&&shotSideBody&&generateBody&&sayBody&&aliveBody&&groupBody&&addBody&&registerBody&&cleanBody;
++    ready&=isPlayerBody&&activeBody&&fightingBody&&weaponInfoBody&&damageBody&&shotSideBody&&generateBody&&sayBody&&aliveBody&&groupBody&&addBody&&registerBody&&cleanBody&&bloodBody;
+     env.stubs[0]={{Pair{0x5DF8F0,isPlayerBody,true},reinterpret_cast<void*>(&FakeIsPlayer)},
+                   {Pair{0x681720,activeBody,true},reinterpret_cast<void*>(&FakeActiveTask)},
+                   {Pair{0x600F30,fightingBody,true},reinterpret_cast<void*>(&FakeFighting)},
+@@ -309,7 +310,7 @@ inline void Update() {
+                   {Pair{0x821B1E,0,false},reinterpret_cast<void*>(&FakeRand)},
+                   {Pair{0x5E0170,aliveBody,true},reinterpret_cast<void*>(&FakeIsAlive)},
+                   {Pair{0x59C910,0,false},reinterpret_cast<void*>(&FakeNormalise)},
+-                  {Pair{0x49EB00,0,false},reinterpret_cast<void*>(&FakeBlood)}};
++                  {Pair{0x49EB00,bloodBody,true},reinterpret_cast<void*>(&FakeBlood)}};
+     for(auto& v:fakeVt)v=reinterpret_cast<void*>(&FakeTrap);
+     fakeVt[4]=reinterpret_cast<void*>(&FakeTaskType);
+     for(unsigned f=0;f<kFunctions;++f) {
+diff --git a/reversing/FightHitPed75/run_local.py b/reversing/FightHitPed75/run_local.py
+index 3099b776e..3c903832c 100644
+--- a/reversing/FightHitPed75/run_local.py
++++ b/reversing/FightHitPed75/run_local.py
+@@ -26,10 +26,10 @@ GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh
+ HOOKS = {NAMES[0]: 0x61CBA0}
+ # (direccion del EXE, hooked) EN EL ORDEN de LiveComparison.hpp: IsPlayer, GetActiveTask, GetTaskFighting, BeHitWhileBlocking (sin hook), CAEPedAudioEntity::AddAudioEvent (sin hook),
+ # GetWeaponInfo, FightStrikeDamage, ComputePedShotSide, GenerateDamageEvent, CAEPedWeaponAudioEntity::AddAudioEvent (sin hook), Say, GetEventGlobalGroup, CEventGroup::Add,
+-# RegisterReference, CleanUpOldReference, rand (sin hook), IsAlive, CVector::Normalise (sin hook), Fx_c::AddBlood (sin hook)
++# RegisterReference, CleanUpOldReference, rand (sin hook), IsAlive, CVector::Normalise (sin hook), Fx_c::AddBlood (hook S desde el lote 79A)
+ STUBBED = {NAMES[0]: [(0x5DF8F0, True), (0x681720, True), (0x600F30, True), (0x61C650, False), (0x4E2BB0, False), (0x743C60, True), (0x61C740, True), (0x5F13F0, True), (0x73A530, True),
+                       (0x4E69F0, False), (0x5EFFE0, True), (0x4ABA50, True), (0x4AB420, True), (0x571B70, True), (0x571A00, True), (0x821B1E, False), (0x5E0170, True), (0x59C910, False),
+-                      (0x49EB00, False)]}
++                      (0x49EB00, True)]}
+ WATCHED = {a for lst in STUBBED.values() for a, _ in lst} | {0x61CBA0, 0xC16900, 0x8D2D00}
+ COVER = json.loads((HERE / 'coverage.json').read_text()) if (HERE / 'coverage.json').exists() else {}
+ COVER_FLOOR = 1   # todo contador medido debe alcanzarse al menos una vez; coverage.json sube los minimos
+diff --git a/source/game_sa/Fx/Fx.cpp b/source/game_sa/Fx/Fx.cpp
+index 34de2b68d..5d35f5038 100644
+--- a/source/game_sa/Fx/Fx.cpp
++++ b/source/game_sa/Fx/Fx.cpp
+@@ -27,6 +27,8 @@ END GENERATED HOOK STATUS */
+ 
+ #include "Fx.h"
+ #include "X87Math.h"
++#include "Shadows.h"
++#include "Localisation.h"
+ 
+ static auto& TempVertexBuffer = StaticRef<std::array<RxObjSpace3DVertex, 4>>(0xC4D958);
+ 
+@@ -58,7 +60,7 @@ void Fx_c::InjectHooks() {
+     RH_ScopedInstall(CreateMatFromVec, 0x49E950);
+     // + RH_ScopedInstall(SetFxQuality, 0x49EA40);
+     // + RH_ScopedInstall(GetFxQuality, 0x49EA50);
+-    // RH_ScopedInstall(AddBlood, 0x49EB00);
++    RH_ScopedInstall(AddBlood, 0x49EB00);
+     RH_ScopedInstall(AddWood, 0x49EE10);
+     RH_ScopedInstall(AddSparks, 0x49F040);
+     RH_ScopedInstall(AddTyreBurst, 0x49F300);
+@@ -429,9 +431,45 @@ FxQuality_e Fx_c::GetFxQuality() const {
+ }
+ 
+ // 0x49EB00
+-// Implementación real aún delegada al EXE original.
+ void Fx_c::AddBlood(const CVector& pos, const CVector& direction, int32 amount, float lightMult) {
+-    ((void(__thiscall*)(Fx_c*, const CVector&, const CVector&, int32, float))0x49EB00)(this, pos, direction, amount, lightMult);
++    // Como el original (0x49EB00..0x49EE02, `ret 10h`): solo con sangre permitida y a menos de 25 (625) de la camara (NaN no descarta). Las particulas van al sistema global g_fx.m_Blood
++    // ([0xA9AE00], recargado en cada vuelta); `this` solo se usa para el contador m_Randomizer (+0x50) de las manchas del suelo.
++    static_assert(offsetof(Fx_c, m_Randomizer) == 0x50, "AddBlood incrementa el contador de +0x50");
++    if (!CLocalisation::Blood()) {
++        return;
++    }
++    if (!IsFxWithinCameraRange(pos, 625.0f)) {
++        return;
++    }
++    FxPrtMult_c mult(0.5f, 0.0f, 0.0f, 1.0f, std::bit_cast<float>(0x3F4CCCCDu), 0.0f, std::bit_cast<float>(0x3F4CCCCDu));
++    if (amount > 0) {
++        CVector vel;
++        for (int32 i = amount; i > 0; --i) {
++            // Como el original: cinco sorteos por particula, en orden (tamano, x, y, z); el resto es con signo (cdq; idiv 10000).
++            mult.m_fSize = Wood73ScaledCpp(FxExeRand() % 10000, std::bit_cast<float>(0x3E99999Au), std::bit_cast<float>(0x3F333333u));
++            Blood79BaseVelCpp(&direction.x, &vel.x);
++            Blood79JitterCpp(FxExeRand() % 10000, &vel.x);
++            Blood79JitterCpp(FxExeRand() % 10000, &vel.y);
++            Blood79JitterCpp(FxExeRand() % 10000, &vel.z);
++            g_fx.m_Blood->AddParticle(pos, vel, 0.0f, mult, -1.0f, lightMult, std::bit_cast<float>(0x3F19999Au), false);
++        }
++    }
++    // Como el original: posicion de la mancha = pos + direccion * 0.5f, con un desplazamiento aleatorio en x e y y +1.0f en z.
++    CVector spot;
++    Blood79OffsetCpp(&direction.x, &pos.x, &spot.x);
++    Blood79PosJitterCpp(FxExeRand() % 10000, &spot.x);
++    const int32 yDraw = FxExeRand() % 10000;
++    const uint32 counter = ++m_Randomizer;
++    Blood79PosJitterCpp(yDraw, &spot.y);
++    Blood79LiftCpp(&spot.z);
++    // Cada 8 llamadas una mancha grande (contador % 8 == 5, 0.1f) y otra pequena (== 2, 0.2f); duracion = (rand & 0xFFF) + 2000 o 8000.
++    if ((counter & 7) == 5) {
++        const uint32 life = static_cast<uint32>((FxExeRand() & 0xFFF) + 0x7D0);
++        CShadows::AddPermanentShadow(1, gpBloodPoolTex, &spot, std::bit_cast<float>(0x3DCCCCCDu), 0.0f, 0.0f, std::bit_cast<float>(0xBDCCCCCDu), 0xFF, 0xC8, 0, 0, 4.0f, life, 1.0f); // 0x706F60
++    } else if ((counter & 7) == 2) {
++        const uint32 life = static_cast<uint32>((FxExeRand() & 0xFFF) + 0x1F40);
++        CShadows::AddPermanentShadow(1, gpBloodPoolTex, &spot, std::bit_cast<float>(0x3E4CCCCDu), 0.0f, 0.0f, std::bit_cast<float>(0xBE4CCCCDu), 0xFF, 0xC8, 0, 0, 4.0f, life, 1.0f); // 0x706F60
++    }
+ }
+ 
+ // 0x49EE10
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 08bd95f9b..8883d5ad1 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -16877,3 +16877,38 @@ __declspec(noinline) void __cdecl Bullet78SandVelCpp(const float* direction, flo
+     out[2] = z;
+ }
+ #pragma float_control(pop)
++
++// --- Lote 79A (FxBlood79): Fx_c::AddBlood (0x49EB00), prefijo Blood79. Anadido al FINAL ---
++// Como en los lotes 73/77/78A: x87 a 24 bits con exponente extendido. El tamano de cada particula reutiliza Wood73ScaledCpp (fild; fmul 1e-4f; fmul 0.3f; fadd 0.7f; fstp dword, 0x49EBB1..0x49EBC7).
++#pragma float_control(precise, on, push)
++// 0x49EBCB..0x49EBED: vel[i] = direccion[i] * 1.5f (0x858CE8), cada componente fld dword; fmul; fstp dword.
++__declspec(noinline) void __cdecl Blood79BaseVelCpp(const float* direction, float* vel) {
++    vel[0] = direction[0] * std::bit_cast<float>(0x3FC00000u);
++    vel[1] = direction[1] * std::bit_cast<float>(0x3FC00000u);
++    vel[2] = direction[2] * std::bit_cast<float>(0x3FC00000u);
++}
++// 0x49EBFE..0x49EC18 (y gemelos en vel.y y vel.z): fild resto; fmul 1e-4f; fadd st,st; fsub 1.0f; fadd dword [v]; fstp dword [v]; sin guardados intermedios.
++__declspec(noinline) void __cdecl Blood79JitterCpp(int remainder, float* v) {
++    *v = ((static_cast<float>(remainder) * std::bit_cast<float>(0x38D1B717u)) * std::bit_cast<float>(0x40000000u) - std::bit_cast<float>(0x3F800000u)) + *v;
++}
++// 0x49ECA2..0x49ECD6: out = direccion * 0.5f (0x858B8C) + posicion; x e y se suman sin guardar el producto (registro x87), z se guarda como float antes de sumar.
++__declspec(noinline) void __cdecl Blood79OffsetCpp(const float* direction, const float* pos, float* out) {
++    volatile double x = double(direction[0]) * double(std::bit_cast<float>(0x3F000000u));
++    volatile double y = double(direction[1]) * double(std::bit_cast<float>(0x3F000000u));
++    volatile float zs = float(double(direction[2]) * double(std::bit_cast<float>(0x3F000000u)));
++    volatile float ox = float(x + double(pos[0]));
++    volatile float oy = float(y + double(pos[1]));
++    volatile float oz = float(double(zs) + double(pos[2]));
++    out[0] = ox;
++    out[1] = oy;
++    out[2] = oz;
++}
++// 0x49ECDA..0x49ED05 y 0x49ED09..0x49ED45: *v = (((float)resto * 1e-4f) * 0.2f (0x858CC4) - 0.1f (0x858B1C)) + *v, solo con el guardado final como float.
++__declspec(noinline) void __cdecl Blood79PosJitterCpp(int remainder, float* v) {
++    *v = ((static_cast<float>(remainder) * std::bit_cast<float>(0x38D1B717u)) * std::bit_cast<float>(0x3E4CCCCDu) - std::bit_cast<float>(0x3DCCCCCDu)) + *v;
++}
++// 0x49ED49..0x49ED53: fld dword [z]; fadd 1.0f (0x858624); fstp dword [z].
++__declspec(noinline) void __cdecl Blood79LiftCpp(float* z) {
++    *z = *z + std::bit_cast<float>(0x3F800000u);
++}
++#pragma float_control(pop)
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index 855a41351..f8d8f1fe6 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -2051,3 +2051,15 @@ void __cdecl Sparks78PrepareCpp(const float* spread, const float* life, const fl
+ void __cdecl Sparks78StepCpp(const Sparks78Params* p, const float* spread, const float* direction, const float* origin, const float* force, int i, int r1, int r2, int r3, float* outVel, float* outPos, float* outTime);
+ // 0x49F5F0..0x49F63B (AddBulletImpact, tipos 2 y 4): out = direccion * 0.3f (0x858C24), cada componente fld dword; fmul; fstp dword.
+ void __cdecl Bullet78SandVelCpp(const float* direction, float* out);
++
++// --- Lote 79A (FxBlood79): Fx_c::AddBlood (0x49EB00), prefijo Blood79 (el tamano usa Wood73ScaledCpp con 0.3f y 0.7f) ---
++// 0x49EBCB..0x49EBED: vel = direccion * 1.5f (0x858CE8), cada componente fld dword; fmul; fstp dword.
++void __cdecl Blood79BaseVelCpp(const float* direction, float* vel);
++// 0x49EBFE..0x49EC18 y gemelos: *v = (((float)resto * 1e-4f) * 2.0f - 1.0f) + *v (fadd st,st), solo con el guardado final como float.
++void __cdecl Blood79JitterCpp(int remainder, float* v);
++// 0x49ECA2..0x49ECD6: out = direccion * 0.5f (0x858B8C) + posicion; x e y sin guardar el producto, z con el producto guardado como float.
++void __cdecl Blood79OffsetCpp(const float* direction, const float* pos, float* out);
++// 0x49ECDA..0x49ED45: *v = (((float)resto * 1e-4f) * 0.2f - 0.1f) + *v (x e y de la posicion de la mancha).
++void __cdecl Blood79PosJitterCpp(int remainder, float* v);
++// 0x49ED49..0x49ED53: *z = *z + 1.0f (fld; fadd; fstp dword).
++void __cdecl Blood79LiftCpp(float* z);

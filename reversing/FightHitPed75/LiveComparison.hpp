@@ -287,10 +287,11 @@ inline void Update() {
     const uintptr_t addBody=Addr(static_cast<CEvent*(CEventGroup::*)(CEvent*,bool)>(&CEventGroup::Add));
     const uintptr_t registerBody=Addr(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::RegisterReference));
     const uintptr_t cleanBody=Addr(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::CleanUpOldReference));
+    const uintptr_t bloodBody=Addr(&Fx_c::AddBlood);   // lote 79A: AddBlood es C++ real (hook S) en la DLL
     env.route[0].reset(new HookRoute("CTaskSimpleFight","FightHitPed",0x61CBA0,HookRoute::RegisteredTarget{}));
     registered[kFn[0]]=env.route[0]->Registered();bodies[kFn[0]]=env.route[0]->Body()!=0;
     ready&=env.route[0]->Registered()&&env.route[0]->Body()&&ModuleOf(env.route[0]->Body())==env.asi;
-    ready&=isPlayerBody&&activeBody&&fightingBody&&weaponInfoBody&&damageBody&&shotSideBody&&generateBody&&sayBody&&aliveBody&&groupBody&&addBody&&registerBody&&cleanBody;
+    ready&=isPlayerBody&&activeBody&&fightingBody&&weaponInfoBody&&damageBody&&shotSideBody&&generateBody&&sayBody&&aliveBody&&groupBody&&addBody&&registerBody&&cleanBody&&bloodBody;
     env.stubs[0]={{Pair{0x5DF8F0,isPlayerBody,true},reinterpret_cast<void*>(&FakeIsPlayer)},
                   {Pair{0x681720,activeBody,true},reinterpret_cast<void*>(&FakeActiveTask)},
                   {Pair{0x600F30,fightingBody,true},reinterpret_cast<void*>(&FakeFighting)},
@@ -309,7 +310,7 @@ inline void Update() {
                   {Pair{0x821B1E,0,false},reinterpret_cast<void*>(&FakeRand)},
                   {Pair{0x5E0170,aliveBody,true},reinterpret_cast<void*>(&FakeIsAlive)},
                   {Pair{0x59C910,0,false},reinterpret_cast<void*>(&FakeNormalise)},
-                  {Pair{0x49EB00,0,false},reinterpret_cast<void*>(&FakeBlood)}};
+                  {Pair{0x49EB00,bloodBody,true},reinterpret_cast<void*>(&FakeBlood)}};
     for(auto& v:fakeVt)v=reinterpret_cast<void*>(&FakeTrap);
     fakeVt[4]=reinterpret_cast<void*>(&FakeTaskType);
     for(unsigned f=0;f<kFunctions;++f) {

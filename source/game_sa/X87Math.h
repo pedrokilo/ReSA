@@ -2051,3 +2051,15 @@ void __cdecl Sparks78PrepareCpp(const float* spread, const float* life, const fl
 void __cdecl Sparks78StepCpp(const Sparks78Params* p, const float* spread, const float* direction, const float* origin, const float* force, int i, int r1, int r2, int r3, float* outVel, float* outPos, float* outTime);
 // 0x49F5F0..0x49F63B (AddBulletImpact, tipos 2 y 4): out = direccion * 0.3f (0x858C24), cada componente fld dword; fmul; fstp dword.
 void __cdecl Bullet78SandVelCpp(const float* direction, float* out);
+
+// --- Lote 79A (FxBlood79): Fx_c::AddBlood (0x49EB00), prefijo Blood79 (el tamano usa Wood73ScaledCpp con 0.3f y 0.7f) ---
+// 0x49EBCB..0x49EBED: vel = direccion * 1.5f (0x858CE8), cada componente fld dword; fmul; fstp dword.
+void __cdecl Blood79BaseVelCpp(const float* direction, float* vel);
+// 0x49EBFE..0x49EC18 y gemelos: *v = (((float)resto * 1e-4f) * 2.0f - 1.0f) + *v (fadd st,st), solo con el guardado final como float.
+void __cdecl Blood79JitterCpp(int remainder, float* v);
+// 0x49ECA2..0x49ECD6: out = direccion * 0.5f (0x858B8C) + posicion; x e y sin guardar el producto, z con el producto guardado como float.
+void __cdecl Blood79OffsetCpp(const float* direction, const float* pos, float* out);
+// 0x49ECDA..0x49ED45: *v = (((float)resto * 1e-4f) * 0.2f - 0.1f) + *v (x e y de la posicion de la mancha).
+void __cdecl Blood79PosJitterCpp(int remainder, float* v);
+// 0x49ED49..0x49ED53: *z = *z + 1.0f (fld; fadd; fstp dword).
+void __cdecl Blood79LiftCpp(float* z);

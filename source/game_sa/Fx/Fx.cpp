@@ -27,6 +27,8 @@ END GENERATED HOOK STATUS */
 
 #include "Fx.h"
 #include "X87Math.h"
+#include "Shadows.h"
+#include "Localisation.h"
 
 static auto& TempVertexBuffer = StaticRef<std::array<RxObjSpace3DVertex, 4>>(0xC4D958);
 
@@ -58,7 +60,7 @@ void Fx_c::InjectHooks() {
     RH_ScopedInstall(CreateMatFromVec, 0x49E950);
     // + RH_ScopedInstall(SetFxQuality, 0x49EA40);
     // + RH_ScopedInstall(GetFxQuality, 0x49EA50);
-    // RH_ScopedInstall(AddBlood, 0x49EB00);
+    RH_ScopedInstall(AddBlood, 0x49EB00);
     RH_ScopedInstall(AddWood, 0x49EE10);
     RH_ScopedInstall(AddSparks, 0x49F040);
     RH_ScopedInstall(AddTyreBurst, 0x49F300);
@@ -429,9 +431,45 @@ FxQuality_e Fx_c::GetFxQuality() const {
 }
 
 // 0x49EB00
-// Implementación real aún delegada al EXE original.
 void Fx_c::AddBlood(const CVector& pos, const CVector& direction, int32 amount, float lightMult) {
-    ((void(__thiscall*)(Fx_c*, const CVector&, const CVector&, int32, float))0x49EB00)(this, pos, direction, amount, lightMult);
+    // Como el original (0x49EB00..0x49EE02, `ret 10h`): solo con sangre permitida y a menos de 25 (625) de la camara (NaN no descarta). Las particulas van al sistema global g_fx.m_Blood
+    // ([0xA9AE00], recargado en cada vuelta); `this` solo se usa para el contador m_Randomizer (+0x50) de las manchas del suelo.
+    static_assert(offsetof(Fx_c, m_Randomizer) == 0x50, "AddBlood incrementa el contador de +0x50");
+    if (!CLocalisation::Blood()) {
+        return;
+    }
+    if (!IsFxWithinCameraRange(pos, 625.0f)) {
+        return;
+    }
+    FxPrtMult_c mult(0.5f, 0.0f, 0.0f, 1.0f, std::bit_cast<float>(0x3F4CCCCDu), 0.0f, std::bit_cast<float>(0x3F4CCCCDu));
+    if (amount > 0) {
+        CVector vel;
+        for (int32 i = amount; i > 0; --i) {
+            // Como el original: cinco sorteos por particula, en orden (tamano, x, y, z); el resto es con signo (cdq; idiv 10000).
+            mult.m_fSize = Wood73ScaledCpp(FxExeRand() % 10000, std::bit_cast<float>(0x3E99999Au), std::bit_cast<float>(0x3F333333u));
+            Blood79BaseVelCpp(&direction.x, &vel.x);
+            Blood79JitterCpp(FxExeRand() % 10000, &vel.x);
+            Blood79JitterCpp(FxExeRand() % 10000, &vel.y);
+            Blood79JitterCpp(FxExeRand() % 10000, &vel.z);
+            g_fx.m_Blood->AddParticle(pos, vel, 0.0f, mult, -1.0f, lightMult, std::bit_cast<float>(0x3F19999Au), false);
+        }
+    }
+    // Como el original: posicion de la mancha = pos + direccion * 0.5f, con un desplazamiento aleatorio en x e y y +1.0f en z.
+    CVector spot;
+    Blood79OffsetCpp(&direction.x, &pos.x, &spot.x);
+    Blood79PosJitterCpp(FxExeRand() % 10000, &spot.x);
+    const int32 yDraw = FxExeRand() % 10000;
+    const uint32 counter = ++m_Randomizer;
+    Blood79PosJitterCpp(yDraw, &spot.y);
+    Blood79LiftCpp(&spot.z);
+    // Cada 8 llamadas una mancha grande (contador % 8 == 5, 0.1f) y otra pequena (== 2, 0.2f); duracion = (rand & 0xFFF) + 2000 o 8000.
+    if ((counter & 7) == 5) {
+        const uint32 life = static_cast<uint32>((FxExeRand() & 0xFFF) + 0x7D0);
+        CShadows::AddPermanentShadow(1, gpBloodPoolTex, &spot, std::bit_cast<float>(0x3DCCCCCDu), 0.0f, 0.0f, std::bit_cast<float>(0xBDCCCCCDu), 0xFF, 0xC8, 0, 0, 4.0f, life, 1.0f); // 0x706F60
+    } else if ((counter & 7) == 2) {
+        const uint32 life = static_cast<uint32>((FxExeRand() & 0xFFF) + 0x1F40);
+        CShadows::AddPermanentShadow(1, gpBloodPoolTex, &spot, std::bit_cast<float>(0x3E4CCCCDu), 0.0f, 0.0f, std::bit_cast<float>(0xBE4CCCCDu), 0xFF, 0xC8, 0, 0, 4.0f, life, 1.0f); // 0x706F60
+    }
 }
 
 // 0x49EE10

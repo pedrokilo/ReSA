@@ -16877,3 +16877,38 @@ __declspec(noinline) void __cdecl Bullet78SandVelCpp(const float* direction, flo
     out[2] = z;
 }
 #pragma float_control(pop)
+
+// --- Lote 79A (FxBlood79): Fx_c::AddBlood (0x49EB00), prefijo Blood79. Anadido al FINAL ---
+// Como en los lotes 73/77/78A: x87 a 24 bits con exponente extendido. El tamano de cada particula reutiliza Wood73ScaledCpp (fild; fmul 1e-4f; fmul 0.3f; fadd 0.7f; fstp dword, 0x49EBB1..0x49EBC7).
+#pragma float_control(precise, on, push)
+// 0x49EBCB..0x49EBED: vel[i] = direccion[i] * 1.5f (0x858CE8), cada componente fld dword; fmul; fstp dword.
+__declspec(noinline) void __cdecl Blood79BaseVelCpp(const float* direction, float* vel) {
+    vel[0] = direction[0] * std::bit_cast<float>(0x3FC00000u);
+    vel[1] = direction[1] * std::bit_cast<float>(0x3FC00000u);
+    vel[2] = direction[2] * std::bit_cast<float>(0x3FC00000u);
+}
+// 0x49EBFE..0x49EC18 (y gemelos en vel.y y vel.z): fild resto; fmul 1e-4f; fadd st,st; fsub 1.0f; fadd dword [v]; fstp dword [v]; sin guardados intermedios.
+__declspec(noinline) void __cdecl Blood79JitterCpp(int remainder, float* v) {
+    *v = ((static_cast<float>(remainder) * std::bit_cast<float>(0x38D1B717u)) * std::bit_cast<float>(0x40000000u) - std::bit_cast<float>(0x3F800000u)) + *v;
+}
+// 0x49ECA2..0x49ECD6: out = direccion * 0.5f (0x858B8C) + posicion; x e y se suman sin guardar el producto (registro x87), z se guarda como float antes de sumar.
+__declspec(noinline) void __cdecl Blood79OffsetCpp(const float* direction, const float* pos, float* out) {
+    volatile double x = double(direction[0]) * double(std::bit_cast<float>(0x3F000000u));
+    volatile double y = double(direction[1]) * double(std::bit_cast<float>(0x3F000000u));
+    volatile float zs = float(double(direction[2]) * double(std::bit_cast<float>(0x3F000000u)));
+    volatile float ox = float(x + double(pos[0]));
+    volatile float oy = float(y + double(pos[1]));
+    volatile float oz = float(double(zs) + double(pos[2]));
+    out[0] = ox;
+    out[1] = oy;
+    out[2] = oz;
+}
+// 0x49ECDA..0x49ED05 y 0x49ED09..0x49ED45: *v = (((float)resto * 1e-4f) * 0.2f (0x858CC4) - 0.1f (0x858B1C)) + *v, solo con el guardado final como float.
+__declspec(noinline) void __cdecl Blood79PosJitterCpp(int remainder, float* v) {
+    *v = ((static_cast<float>(remainder) * std::bit_cast<float>(0x38D1B717u)) * std::bit_cast<float>(0x3E4CCCCDu) - std::bit_cast<float>(0x3DCCCCCDu)) + *v;
+}
+// 0x49ED49..0x49ED53: fld dword [z]; fadd 1.0f (0x858624); fstp dword [z].
+__declspec(noinline) void __cdecl Blood79LiftCpp(float* z) {
+    *z = *z + std::bit_cast<float>(0x3F800000u);
+}
+#pragma float_control(pop)
