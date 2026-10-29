@@ -17235,3 +17235,55 @@ __declspec(noinline) void __cdecl Veh81BForceCpp(const float* f, const float& tu
     force[2] = z;
 }
 #pragma float_control(pop)
+
+// --- Lote 81C (Car81C): CCarCtrl::PossiblyRemoveVehicle (0x424F80), prefijo Car81 ---
+#pragma float_control(precise, on, push)
+static __declspec(noinline) double __cdecl Car81Sqrt(double value) {
+    return sqrt(value);
+}
+// 0x425010..0x425053: dx = veh.x - centro.x, dy = veh.y - centro.y (fld / fsub de memoria); sqrt(dy*dy + dx*dx) guardado como float (fstp dword), a 24 bits por operacion con exponente extendido.
+__declspec(noinline) float __cdecl Car81DistCpp(const float* vehicle, const float* centre) {
+    const double dx = double(vehicle[0]) - double(centre[0]);
+    const double dy = double(vehicle[1]) - double(centre[1]);
+    volatile float stored = float(Car81Sqrt(dy * dy + dx * dx));
+    return stored;
+}
+// 0x4250E8..0x4250F4: multiplicador de la camara * 170.0f, guardado como float (fld, fmul, fstp dword).
+__declspec(noinline) float __cdecl Car81ScaleCpp(const float& multiplier, const float& factor) {
+    volatile float stored = float(double(multiplier) * double(factor));
+    return stored;
+}
+// 0x4250F8..0x425109: a < b ordenado (fld a; fcomp b; test ah,5; jp): con NaN es falso.
+__declspec(noinline) bool __cdecl Car81LessCpp(const float& a, const float& b) {
+    return double(a) < double(b);
+}
+// 0x425113..0x425146: m = max(float(rango), 170.0f) (0x420800: devuelve el primero solo si es mayor ordenado); m * rango * k (24 bits por operacion, sin guardar) < distancia (fcomp + test ah,5).
+__declspec(noinline) bool __cdecl Car81FarCpp(int range, const float& value, const float& factor, float distance) {
+    const double a = double(range);
+    const double b = double(std::bit_cast<float>(0x432A0000u));
+    const double m = (a > b) ? a : b;
+    const double scaled = (m * double(value)) * double(factor);
+    return scaled < double(distance);
+}
+// 0x4251C3..0x4251E0: v = z del eje "up"; si v < 0.0f (ordenado) v = -v (fchs); v < limite (ordenado) -> el vehiculo esta casi vertical o volcado y se elimina.
+__declspec(noinline) bool __cdecl Car81FlatCpp(const float& upZ, const float& zero, const float& limit) {
+    double v = double(upZ);
+    if (v < double(zero)) {
+        v = -v;
+    }
+    return v < double(limit);
+}
+// 0x4252DF..0x4252FF: sqrt(x*x + y*y) > limite (fcomp + test ah,41h: falso con NaN, igual o menor).
+__declspec(noinline) bool __cdecl Car81Dist2dAboveCpp(const float* vector, const float& limit) {
+    const double x2 = double(vector[0]) * double(vector[0]);
+    const double y2 = double(vector[1]) * double(vector[1]);
+    return Car81Sqrt(x2 + y2) > double(limit);
+}
+// 0x406DA0 + 0x4253E1: ((x*x + y*y) + z*z) > limite (fcomp + test ah,41h).
+__declspec(noinline) bool __cdecl Car81SquaredMagnitudeAboveCpp(const float* vector, const float& limit) {
+    const double x2 = double(vector[0]) * double(vector[0]);
+    const double y2 = double(vector[1]) * double(vector[1]);
+    const double z2 = double(vector[2]) * double(vector[2]);
+    return ((x2 + y2) + z2) > double(limit);
+}
+#pragma float_control(pop)

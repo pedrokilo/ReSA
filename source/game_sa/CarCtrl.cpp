@@ -32,6 +32,9 @@ END GENERATED HOOK STATUS */
 
 #include "CarCtrl.h"
 #include "TrafficLights.h"
+#include "Cranes.h"
+#include "VisibilityPlugins.h"
+#include "Garages.h"
 #include "TheScripts.h"
 #include "GangWars.h"
 #include "Game.h"
@@ -113,6 +116,7 @@ void CCarCtrl::InjectHooks()
     RH_ScopedInstall(CreateConvoy, 0x42C740);
     RH_ScopedInstall(CreatePoliceChase, 0x42C2B0);
     RH_ScopedInstall(IsThisVehicleInteresting, 0x423EA0);
+    RH_ScopedInstall(PossiblyRemoveVehicle, 0x424F80);
     // Lote 63 (parte C)
     RH_ScopedInstall(ThisVehicleShouldTryNotToTurn, 0x421FE0);
     RH_ScopedInstall(FindPathDirection, 0x422090);
@@ -2191,7 +2195,159 @@ void CCarCtrl::PossiblyFireHSMissile(CVehicle* entityLauncher, CEntity* targetEn
 
 // 0x424F80
 void CCarCtrl::PossiblyRemoveVehicle(CVehicle* vehicle) {
-    plugin::Call<0x424F80, CVehicle*>(vehicle);
+    // Como el original (0x424F80..0x425433, 1204 bytes). Etapa 1 (vehiculo no bloqueado, borrable y sin grua): desvanecido terminado -> elimina; si no, distancia 2D al centro del jugador contra el rango de
+    // eliminacion (45.0f si no se ve y la camara no mira de lado/atras, ...; si no multiplicador de la camara * 170.0f; 70.0f con la camara baja) -> lejos: elimina (o empieza a desvanecer, o marca fisica falsa si es
+    // interesante); si no, volcado (estado 2) o helicoptero/avion atascado (estados 3 y 5). Etapa 2: coche parado sin verse a mas de 22 m del centro. Etapa 3: restos destruidos (estado 5) tras 60 s. La matriz
+    // (+0x14) se relee donde el EXE la relee (una vez por copia de posicion para IsPointWithinHideOutGarage); el centro del jugador se copia una sola vez (en la etapa 1: el EXE lo deja sin inicializar si no
+    // se entra en ella); el reloj y el estado se releen donde el EXE los relee.
+    static_assert(offsetof(CVehicle, m_nNumGettingIn) == 0x485);
+    static_assert(offsetof(CVehicle, vehicleFlags) == 0x428);
+    static_assert(offsetof(CVehicle, m_nCreatedBy) == 0x4A4);
+    static_assert(offsetof(CVehicle, m_nExtendedRemovalRange) == 0x4A6);
+    static_assert(offsetof(CVehicle, m_nTimeTillWeNeedThisCar) == 0x4D0);
+    static_assert(offsetof(CVehicle, m_nTimeWhenBlowedUp) == 0x4D8);
+    static_assert(offsetof(CVehicle, m_nVehicleSubType) == 0x594);
+    static_assert(offsetof(CPhysical, m_nFakePhysics) == 0xB8);
+    static_assert(offsetof(CVehicle, m_autoPilot) == 0x390);
+    static_assert(offsetof(CAutoPilot, m_nTimeSwitchedToRealPhysics) == 0x20);
+    static_assert(offsetof(CAutoPilot, m_nCarDrivingStyle) == 0x29);
+    static_assert(offsetof(CAutoPilot, m_nCarMission) == 0x2A);
+    static_assert(offsetof(CAutoPilot, m_nTempAction) == 0x2B);
+    static_assert(offsetof(CAutoPilot, m_TargetEntity) == 0x8C);
+    static_assert(offsetof(CEntity, m_nModelIndex) == 0x22);
+    static_assert(PARKED_VEHICLE == 3 && MISSION_PLANE_ATTACK_PLAYER_POLICE == 0x3B && TEMPACT_STUCKINTRAFFIC == 12 && STATUS_SIMPLE == 2 && STATUS_PHYSICS == 3 && STATUS_WRECKED == 5
+        && VEHICLE_TYPE_HELI == 3 && VEHICLE_TYPE_PLANE == 4);
+    // Eliminar: CWorld::Remove (0x563280) y destructor virtual con flag 1
+    const auto remove = [](CVehicle* veh) {
+        CWorld::Remove(veh);
+        delete veh;
+    };
+    // Posicion del vehiculo: la de la matriz (+0x14, leida en cada uso) o la de la transformacion simple
+    const auto positionOf = [](CVehicle* veh) -> const CVector* {
+        const CMatrixLink* const matrix = veh->m_matrix;
+        return matrix ? &matrix->GetPosition() : &veh->m_placement.m_vPosn;
+    };
+
+    if (vehicle->m_nNumGettingIn > 0) { // byte +0x485, sin signo
+        return;
+    }
+    if (vehicle->vehicleFlags.bPartOfConvoy && vehicle->m_autoPilot.m_TargetEntity) { // +0x42B & 8 y +0x41C
+        return;
+    }
+
+    CVector centre{};
+    if (!vehicle->vehicleFlags.bIsLocked && vehicle->CanBeDeleted() && !CCranes::IsThisCarBeingTargettedByAnyCrane(vehicle)) { // +0x428 & 8, 0x6D1180, 0x6F4000
+        if (vehicle->vehicleFlags.bFadeOut && CVisibilityPlugins::GetClumpAlpha(reinterpret_cast<RpClump*>(vehicle->GetRwObject())) == 0) { // +0x42A & 4, 0x732B20 con +0x18
+            remove(vehicle);
+            return;
+        }
+
+        memcpy(&centre, &FindPlayerCentreOfWorld(CWorld::PlayerInFocus), sizeof(centre)); // 0x56E250 con el byte 0xB7CD74; tres dwords
+        const CVector* const vehiclePos = positionOf(vehicle);
+        const float distance = Car81DistCpp(&vehiclePos->x, &centre.x); // sqrt(dy*dy + dx*dx) guardado como float
+
+        float range; // rango de eliminacion (pila del EXE, +0x34)
+        bool nearRange = false;
+        if (!vehicle->GetIsOnScreen()) { // 0x534540
+            const uint8* const cam = &StaticRef<uint8>(0xB6F19C + uintptr_t(StaticRef<uint8>(0xB6F081)) * 0x238); // TheCamera.m_aCams[m_nActiveCam]
+            if (!cam[8] && !cam[9] && !cam[7] // mirando a la izquierda, a la derecha, atras
+                && TheCamera.GetLookDirection() != 0 // 0x50AE90
+                && vehicle->m_nCreatedBy != PARKED_VEHICLE
+                && vehicle->m_nModelIndex != 0x1A0 && vehicle->m_nModelIndex != 0x197
+                && !vehicle->vehicleFlags.bIsLawEnforcer && !vehicle->vehicleFlags.bIsCarParkVehicle
+                && CTimer::m_snTimeInMilliseconds >= vehicle->m_nTimeTillWeNeedThisCar
+                && !vehicle->vehicleFlags.bNeverUseSmallerRemovalRange) {
+                nearRange = true;
+            }
+        }
+        if (nearRange) {
+            range = 45.0f; // 0x42340000
+        } else {
+            range = Car81ScaleCpp(StaticRef<float>(0xB6F11C), StaticRef<float>(0x858F98)); // multiplicador de la camara * 170.0f, guardado como float
+        }
+        if (Car81LessCpp(StaticRef<float>(0xB6F9B4), StaticRef<float>(0x858CAC))) { // 0xB6F9B4 < -0.9f (comparacion ordenada)
+            range = 70.0f; // 0x428C0000
+        }
+
+        const int16 extendedRange = vehicle->m_nExtendedRemovalRange;
+        if (Car81FarCpp(extendedRange, range, StaticRef<float>(0x858F94), distance)) { // max(rango extendido, 170.0f) * rango * (1/170) < distancia
+            if (vehicle->m_autoPilot.m_nCarMission != MISSION_PLANE_ATTACK_PLAYER_POLICE) {
+                CVector point;
+                memcpy(&point, positionOf(vehicle), sizeof(point)); // copia de tres dwords (sin pasar por la x87)
+                if (!CGarages::IsPointWithinHideOutGarage(point)) { // 0x448900
+                    if (IsThisVehicleInteresting(vehicle)) { // 0x423EA0
+                        vehicle->m_nFakePhysics = 10;
+                        return;
+                    }
+                    if (!vehicle->GetIsOnScreen()) {
+                        remove(vehicle);
+                        return;
+                    }
+                    vehicle->vehicleFlags.bFadeOut = true;
+                    return;
+                }
+            }
+        }
+
+        // Volcado (estado 2: |z del eje "up" de la matriz| por debajo del limite) o helicoptero/avion atascado (estados 3 y 5)
+        const uint32 status = vehicle->GetStatus();
+        if (status == STATUS_SIMPLE) {
+            const CMatrixLink* const matrix = vehicle->m_matrix; // sin comprobar nulo, como el EXE
+            if (Car81FlatCpp(matrix->GetUp().z, StaticRef<float>(0x858B50), StaticRef<float>(0x858F90))) {
+                remove(vehicle);
+                return;
+            }
+        } else if (status == STATUS_PHYSICS || status == STATUS_WRECKED) {
+            const auto type = static_cast<int32>(vehicle->m_nVehicleSubType);
+            if ((type == VEHICLE_TYPE_PLANE || type == VEHICLE_TYPE_HELI) && vehicle->m_bIsStuck) { // +0x1C bit 4
+                remove(vehicle);
+                return;
+            }
+        }
+    }
+
+    // Etapa 2: coche parado sin verse, a mas de 22 m del centro
+    const auto type = static_cast<int32>(vehicle->m_nVehicleSubType);
+    if (type != VEHICLE_TYPE_HELI && type != VEHICLE_TYPE_PLANE && static_cast<uint8>(vehicle->m_autoPilot.m_nTempAction) != TEMPACT_STUCKINTRAFFIC) {
+        const uint32 status = vehicle->GetStatus();
+        if (status == STATUS_SIMPLE
+            || (status == STATUS_PHYSICS && (vehicle->m_autoPilot.m_nCarDrivingStyle == DRIVING_STYLE_STOP_FOR_CARS || vehicle->m_autoPilot.m_nCarDrivingStyle == DRIVING_STYLE_STOP_FOR_CARS_IGNORE_LIGHTS))) {
+            const uint32 now = CTimer::m_snTimeInMilliseconds;
+            const uint32 switched = vehicle->m_autoPilot.m_nTimeSwitchedToRealPhysics;
+            if (now - switched > 5000u && vehicle->m_nTimeTillWeNeedThisCar == 0 && now != 0 && !vehicle->GetIsOnScreen()) {
+                const CVector difference = *positionOf(vehicle) - centre; // 0x40FE60
+                if (Car81Dist2dAboveCpp(&difference.x, StaticRef<float>(0x858F8C))
+                    && !IsThisVehicleInteresting(vehicle) && !vehicle->vehicleFlags.bIsLocked && vehicle->CanBeDeleted()
+                    && !CTrafficLights::ShouldCarStopForLight(vehicle, true) && !CTrafficLights::ShouldCarStopForBridge(vehicle)) { // 0x49D610, 0x49D420
+                    CVector point;
+                memcpy(&point, positionOf(vehicle), sizeof(point)); // copia de tres dwords (sin pasar por la x87)
+                    if (!CGarages::IsPointWithinHideOutGarage(point)) {
+                        remove(vehicle);
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    // Etapa 3: restos destruidos (estado 5) a los 60 s, fuera de la pantalla y a mas de 6.5 m del centro
+    if (vehicle->GetStatus() == STATUS_WRECKED) {
+        const uint32 blown = vehicle->m_nTimeWhenBlowedUp;
+        if (blown != 0 && CTimer::m_snTimeInMilliseconds > blown + 60000u && CTimer::m_snTimeInMilliseconds > vehicle->m_nTimeTillWeNeedThisCar) {
+            if (!vehicle->GetIsOnScreen()) {
+                const CMatrixLink* const matrix = vehicle->m_matrix; // se lee una vez y se reutiliza para las dos copias de la posicion
+                const CVector* const vehiclePos = matrix ? &matrix->GetPosition() : &vehicle->m_placement.m_vPosn;
+                const CVector difference = *vehiclePos - centre;
+                if (Car81SquaredMagnitudeAboveCpp(&difference.x, StaticRef<float>(0x858F88))) { // 0x406DA0
+                    CVector point;
+                    memcpy(&point, vehiclePos, sizeof(point));
+                    if (!CGarages::IsPointWithinHideOutGarage(point)) {
+                        remove(vehicle);
+                    }
+                }
+            }
+        }
+    }
 }
 
 // 0x423F10

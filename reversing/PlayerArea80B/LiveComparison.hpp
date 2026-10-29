@@ -30,7 +30,7 @@
 // Una funcion: CPlayerPed::KeepAreaAroundPlayerClear (0x60C1E0, hook S). Colaboradores sustituidos por falsos identicos en ambos lados (parche de entrada en la direccion del EXE y, si tienen
 // hook, en el cuerpo de la DLL): CPed::IsAlive 0x5E0170, CPedGroupMembership::IsMember 0x5F6A10 (sobre 0xC09928), CEntity::GetIsOnScreen 0x534540, CPedIntelligence::FindTaskByType 0x600EE0,
 // CEventGroup::GetEventOfType 0x4AB650 y Add 0x4AB420, CTask::operator new 0x61A5A0 y delete 0x61A5B0, CEntity::RegisterReference 0x571B70 y CleanUpOldReference 0x571A00,
-// CWorld::FindObjectsInRange 0x564A20 (todos con hook); y sin hook: 0x424F80 (CCarCtrl::PossiblyRemoveVehicle: la DLL la llama por la direccion del EXE). Las llamadas virtuales
+// CWorld::FindObjectsInRange 0x564A20 (todos con hook); y 0x424F80 (CCarCtrl::PossiblyRemoveVehicle, con hook desde el lote 81C: falso tambien en el cuerpo de la DLL). Las llamadas virtuales
 // (FlagToDestroyWhenNextProcessed, ranura 21 de CPed; GetTaskType, ranura 4 de CTask) van a tablas virtuales falsas en las arenas: cada ranura registra su indice.
 // Corren de verdad en ambos lados: el constructor y destructor de CTaskComplexSmartFleeEntity y de CEventScriptCommand (sobre las arenas).
 
@@ -289,12 +289,13 @@ inline void Update() {
     const uintptr_t taskDeleteBody=Addr(static_cast<void(*)(void*)>(&CTask::operator delete));
     const uintptr_t registerBody=Addr(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::RegisterReference));
     const uintptr_t cleanBody=Addr(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::CleanUpOldReference));
+    const uintptr_t removeVehicleBody=Addr(&CCarCtrl::PossiblyRemoveVehicle);   // lote 81C: ahora con hook RH (0x424F80); la DLL la llama por su simbolo, asi que el falso va tambien en su cuerpo
     const uintptr_t addBody=Addr(static_cast<CEvent*(CEventGroup::*)(CEvent*,bool)>(&CEventGroup::Add));
     const uintptr_t findBody=Addr(&CWorld::FindObjectsInRange);
     env.route[0].reset(new HookRoute("CPlayerPed","KeepAreaAroundPlayerClear",0x60C1E0,HookRoute::RegisteredTarget{}));
     registered[kFn[0]]=env.route[0]->Registered();bodies[kFn[0]]=env.route[0]->Body()!=0;
     ready&=env.route[0]->Registered()&&env.route[0]->Body()&&ModuleOf(env.route[0]->Body())==env.asi;
-    ready&=aliveBody&&memberBody&&screenBody&&findTaskBody&&getEventBody&&taskNewBody&&taskDeleteBody&&registerBody&&cleanBody&&addBody&&findBody;
+    ready&=aliveBody&&memberBody&&screenBody&&findTaskBody&&getEventBody&&taskNewBody&&taskDeleteBody&&registerBody&&cleanBody&&addBody&&findBody&&removeVehicleBody;
     env.stubs[0]={{Pair{0x5E0170,aliveBody,true},reinterpret_cast<void*>(&FakeAlive)},
                   {Pair{0x5F6A10,memberBody,true},reinterpret_cast<void*>(&FakeMember)},
                   {Pair{0x534540,screenBody,true},reinterpret_cast<void*>(&FakeScreen)},
@@ -306,7 +307,7 @@ inline void Update() {
                   {Pair{0x571A00,cleanBody,true},reinterpret_cast<void*>(&FakeCleanUp)},
                   {Pair{0x4AB420,addBody,true},reinterpret_cast<void*>(&FakeAdd)},
                   {Pair{0x564A20,findBody,true},reinterpret_cast<void*>(&FakeFind)},
-                  {Pair{0x424F80,0,false},reinterpret_cast<void*>(&FakeRemoveVehicle)}};
+                  {Pair{0x424F80,removeVehicleBody,true},reinterpret_cast<void*>(&FakeRemoveVehicle)}};
     for(unsigned f=0;f<kFunctions;++f) {
         json stubbed=json::array();
         for(const auto& s:env.stubs[f]) {

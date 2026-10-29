@@ -2113,3 +2113,18 @@ void __cdecl Veh81BProjectCpp(const float* at, float* rel);
 void __cdecl Veh81BMul3x3Cpp(const float* m, const float* v, float* out);
 // force[i] = float(rel[i] * k), k = 1.0f / ((|f|^2 / masaGiro) + 1.0f / masa).
 void __cdecl Veh81BForceCpp(const float* f, const float& turnMass, const float& mass, const float* rel, float* force);
+// --- Lote 81C (Car81C): CCarCtrl::PossiblyRemoveVehicle (0x424F80), prefijo Car81 ---
+// 0x425010..0x425053: sqrt(dy*dy + dx*dx) con dx/dy = vehiculo - centro (x87 a 24 bits), guardado como float.
+float __cdecl Car81DistCpp(const float* vehicle, const float* centre);
+// 0x4250E8..0x4250F4: multiplicador * factor guardado como float.
+float __cdecl Car81ScaleCpp(const float& multiplier, const float& factor);
+// 0x4250F8..0x425109: a < b ordenado (falso con NaN).
+bool __cdecl Car81LessCpp(const float& a, const float& b);
+// 0x425113..0x425146: max(float(rango), 170.0f) * valor * factor < distancia (sin guardar entre operaciones; falso con NaN).
+bool __cdecl Car81FarCpp(int range, const float& value, const float& factor, float distance);
+// 0x4251C3..0x4251E0: |z| (negado solo si z < 0.0f ordenado) < limite.
+bool __cdecl Car81FlatCpp(const float& upZ, const float& zero, const float& limit);
+// 0x4252DF..0x4252FF: sqrt(x*x + y*y) > limite (falso con NaN).
+bool __cdecl Car81Dist2dAboveCpp(const float* vector, const float& limit);
+// 0x406DA0 + 0x4253E1: ((x*x + y*y) + z*z) > limite (falso con NaN).
+bool __cdecl Car81SquaredMagnitudeAboveCpp(const float* vector, const float& limit);

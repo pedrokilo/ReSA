@@ -25,7 +25,7 @@ GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh
 HOOKS = {NAMES[0]: 0x60C1E0}
 # (direccion del EXE, hooked) EN EL ORDEN de LiveComparison.hpp
 STUBBED = {NAMES[0]: [(0x5E0170, True), (0x5F6A10, True), (0x534540, True), (0x600EE0, True), (0x4AB650, True), (0x61A5A0, True), (0x61A5B0, True), (0x571B70, True),
-                      (0x571A00, True), (0x4AB420, True), (0x564A20, True), (0x424F80, False)]}
+                      (0x571A00, True), (0x4AB420, True), (0x564A20, True), (0x424F80, True)]}
 WATCHED = {a for lst in STUBBED.values() for a, _ in lst} | {0x60C1E0, 0x858FE8, 0x858B50, 0x86F678}
 COVER = json.loads((HERE / 'coverage.json').read_text()) if (HERE / 'coverage.json').exists() else {}
 COVER_FLOOR = 1   # todo contador medido debe alcanzarse al menos una vez; coverage.json sube los minimos
