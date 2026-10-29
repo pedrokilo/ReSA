@@ -8968,3 +8968,6 @@ CVehicle,DoDriveByShootings,0x00741FD0,1,0,1,S
 CPlayerPed,KeepAreaAroundPlayerClear,0x0060C1E0,1,0,1,S
 CVehicle,FireFixedMachineGuns,0x0073DF00,1,0,1,S
 CPlayerPed,ProcessAnimGroups,0x006098F0,1,0,1,S
+CVehicle,UpdateTrailerLink,0x006DFC50,1,0,1,S
+CVehicle,UpdateTractorLink,0x006E0050,1,0,1,S
+CCarCtrl,PossiblyRemoveVehicle,0x00424F80,1,0,1,S

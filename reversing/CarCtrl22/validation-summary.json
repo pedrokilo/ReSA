@@ -38,7 +38,7 @@
   "log_sha256": "f16c6c668eb6e4056bf64de9a59224e57ca5d39868959bf6851028bd6a158205",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-carctrl22\\20261004-083453-387489",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-carctrl22\\20261028-221924-568611",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CCarCtrl::Init": true,
@@ -66,22 +66,23 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "6c54ff4469f473765b38392b424a6e449deb574fb355dfecf19b0fb3326ec4dd",
-      "pdb": "585b97ae4ad05fa8813ae2415ea48758619e0242de60585d4a0eef69877cff3c"
+      "asi": "e823b6061322c03e2832ba7ea856c87f47e4f6316ff5c5b7e0fa394dd2e9dbdc",
+      "pdb": "46be97c87fcb2b7eeb042b34d0a3ac853f358c0f4c10567ef5a619bd320b3b7f"
     },
     "sources": {
-      "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
-      "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+      "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+      "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "add770bb79b46b2c38c5f4db227d1e6e94d30e96e51d3c6ec01f1a94dd7c0186",
+      "LiveComparison.hpp": "8d19a75a9ac1d87748553cc49e502fd9f76ec9f1df9bd920d5a5d823bd517e29",
       "build_probe.py": "064bfe1408fd5df3cf0836bb779156bb0cd033bdff0e73737fe74ace5361316f",
       "run_local.py": "911d524945328d4a09ce446ee4b3f1ef0e48d959d82f14176cb9592e71d3e8b1"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

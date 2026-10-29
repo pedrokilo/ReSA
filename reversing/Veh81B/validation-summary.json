@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 18432,
+  "differences": 0,
+  "registered_pairs": 18432,
+  "registered_functions": 1,
+  "functions": {
+    "CVehicle::UpdateTractorLink": 18432
+  },
+  "covered_functions": {
+    "CVehicle::UpdateTractorLink": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wv-2 (HEAD ad52bea16 + cambios del lote 81B; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CPhysical::GetSpeed 0x542CE0, CVector::Normalise 0x59C910, CrossProduct 0x59C730 y CPhysical::ApplyForce 0x542B50; los virtuales GetTowHitchPos (+0xEC) y GetTowBarPos (+0xF0) los atiende una vtabla falsa. Los ayudantes sin hook 0x40FE90, 0x4119D0, 0x420800, 0x406D70 y 0x59C790 se ejecutan tal cual en el EXE y como ayudantes x87 de X87Math en la DLL (validados con la funcion). El banco compara el orden y todos los argumentos de los falsos, la mutacion del estado (remolque +0x4C8, matrices +0x14, masas, paso de tiempo, modelo, gancho, campos de equipaje) tras cada uno de los 7 eventos (relecturas), las matrices nulas con relleno tardio, el puntero devuelto por CrossProduct, la x87 a 24 bits (incluidos NaN con un solo patron, infinitos, desnormales y ceros con signo) y 576 microtests de FCOMP del hardware. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX de salida solo se registran (void; los llamadores no los leen). NaN con cargas distintas (sNaN, signos y cargas variadas) no cubiertos: las fixtures usan un unico patron de NaN. El limite 0x8D313C (20000) es una constante en la DLL; el banco no lo cambia.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Veh81B-20261028-220732-315841",
+  "summary_sha256": "7c36f4590a9ace2da178e06e2e8b5f693f67bf33e06eefe69922f67694fec3c1",
+  "result_txt_sha256": "0fb709c3549ed974519d5238b916d7f3e5c7380a22727ee790c4f1d034b3bd94",
+  "log_sha256": "ba061cd83c5b5c267d1daf84b64017f04d3e893dc6999e7cfa8aaa95faa853ba",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "9e363a9862941393373c4db0501e38a53f22fc8e9b3e5eedfc696bd6f54c6513",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/X87Math.cpp": "005a714829c3b8b48a27947a407d87cb6964c457ffd33eef20f3816e840ed9b4",
+      "source/game_sa/X87Math.h": "73988440f158ca26708f865cd55bd4f10c590c9010ad2ea1b1a3d9109424693d",
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "33da6ec4684b5ca8069336a0698aee541a106eb8f1e1edb8e1b6ac29ecd5395b",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Veh81B/LiveComparison.hpp": "75c332b97148b7b40f8d674990bff22a067c59ac63a2a90094e9524df6a31a94",
+      "reversing/Veh81B/Core.hpp": "118dff763ddecd4fd9f38064dad767ead7618edbfb3244c2b3e0a846774bb25e",
+      "reversing/Veh81B/Fixtures.hpp": "5ebc3b4c2890e8076ba0c60a4c8ede29a7800feeb257dfd693b8486a0f8a3a0e",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

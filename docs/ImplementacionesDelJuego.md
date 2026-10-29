@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 28/10/2026 (Ciudad de México):** 820 grupos / 8969 funciones reconstruidas; 8969 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 28/10/2026 (Ciudad de México):** 820 grupos / 8972 funciones reconstruidas; 8972 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Implementaciones del juego: C++, ensamblador y dependencia del EXE
@@ -8,7 +8,7 @@ Este documento distingue el lenguaje de la fuente, la reconstrucción, la valida
 
 El inventario asigna **0 apariciones de ensamblador** a **0 definiciones con cuerpo** y **0 declaraciones naked** a **0 definiciones**. No queda ninguna aparición sin ubicación. Las funciones mixtas se cuentan en «con ensamblador»; naked es una marca adicional que no se suma como otra función.
 
-De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 18653 definiciones en 1501 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
+De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 18673 definiciones en 1501 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
 
 ## Cómo leer la tabla
 
@@ -131,7 +131,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CCam](implementaciones/detalle-005.md#grupo-100) · [source/game_sa/Cam.cpp](../source/game_sa/Cam.cpp), [source/game_sa/Cam.h](../source/game_sa/Cam.h) | 52 | 0 | 5 | 0 | 0 |
 | [CCamera](implementaciones/detalle-006.md#grupo-101) · [source/game_sa/Camera.cpp](../source/game_sa/Camera.cpp), [source/game_sa/Camera.h](../source/game_sa/Camera.h) | 121 | 0 | 14 | 0 | 0 |
 | [CCarAI](implementaciones/detalle-006.md#grupo-102) · [source/game_sa/CarAI.cpp](../source/game_sa/CarAI.cpp) | 25 | 0 | 1 | 0 | 0 |
-| [CCarCtrl](implementaciones/detalle-006.md#grupo-103) · [source/game_sa/CarCtrl.cpp](../source/game_sa/CarCtrl.cpp) | 95 | 0 | 17 | 0 | 0 |
+| [CCarCtrl](implementaciones/detalle-006.md#grupo-103) · [source/game_sa/CarCtrl.cpp](../source/game_sa/CarCtrl.cpp) | 96 | 0 | 16 | 0 | 0 |
 | [CCarEnterExit](implementaciones/detalle-006.md#grupo-104) · [source/game_sa/CarEnterExit.cpp](../source/game_sa/CarEnterExit.cpp) | 32 | 0 | 1 | 0 | 0 |
 | [CCarFXRenderer](implementaciones/detalle-006.md#grupo-105) · [source/game_sa/Fx/CarFXRenderer.cpp](../source/game_sa/Fx/CarFXRenderer.cpp) | 10 | 0 | 1 | 0 | 0 |
 | [CCarGenerator](implementaciones/detalle-006.md#grupo-106) · [source/game_sa/CarGenerator.cpp](../source/game_sa/CarGenerator.cpp) | 8 | 0 | 2 | 0 | 0 |
@@ -914,7 +914,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CUserDisplay](implementaciones/detalle-045.md#grupo-883) · [source/game_sa/UserDisplay.cpp](../source/game_sa/UserDisplay.cpp) | 2 | 0 | 1 | 0 | 0 |
 | [CVector](implementaciones/detalle-045.md#grupo-884) · [source/game_sa/Core/Vector.cpp](../source/game_sa/Core/Vector.cpp), [source/game_sa/Core/Vector.h](../source/game_sa/Core/Vector.h) | 0 | 0 | 48 | 0 | 0 |
 | [CVector2D](implementaciones/detalle-045.md#grupo-885) · [source/game_sa/Core/Vector2D.cpp](../source/game_sa/Core/Vector2D.cpp), [source/game_sa/Core/Vector2D.h](../source/game_sa/Core/Vector2D.h) | 0 | 0 | 39 | 0 | 0 |
-| [CVehicle](implementaciones/detalle-045.md#grupo-886) · [source/game_sa/Entity/Vehicle/Vehicle.cpp](../source/game_sa/Entity/Vehicle/Vehicle.cpp), [source/game_sa/Entity/Vehicle/Vehicle.h](../source/game_sa/Entity/Vehicle/Vehicle.h) | 161 | 0 | 110 | 0 | 0 |
+| [CVehicle](implementaciones/detalle-045.md#grupo-886) · [source/game_sa/Entity/Vehicle/Vehicle.cpp](../source/game_sa/Entity/Vehicle/Vehicle.cpp), [source/game_sa/Entity/Vehicle/Vehicle.h](../source/game_sa/Entity/Vehicle/Vehicle.h) | 163 | 0 | 108 | 0 | 0 |
 | [CVehicleAnimGroup](implementaciones/detalle-045.md#grupo-887) · [source/game_sa/VehicleAnimGroupData.cpp](../source/game_sa/VehicleAnimGroupData.cpp), [source/game_sa/VehicleAnimGroupData.h](../source/game_sa/VehicleAnimGroupData.h) | 5 | 0 | 7 | 0 | 0 |
 | [CVehicleAnimGroupData](implementaciones/detalle-045.md#grupo-888) · [source/game_sa/VehicleAnimGroupData.cpp](../source/game_sa/VehicleAnimGroupData.cpp), [source/game_sa/VehicleAnimGroupData.h](../source/game_sa/VehicleAnimGroupData.h) | 5 | 0 | 5 | 0 | 0 |
 | [CVehicleModelInfo](implementaciones/detalle-045.md#grupo-889) · [source/game_sa/Models/VehicleModelInfo.cpp](../source/game_sa/Models/VehicleModelInfo.cpp), [source/game_sa/Models/VehicleModelInfo.h](../source/game_sa/Models/VehicleModelInfo.h) | 73 | 0 | 28 | 0 | 0 |
@@ -1351,7 +1351,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [Globales y helpers: source/game_sa/Weather.cpp](implementaciones/detalle-066.md#grupo-1320) · [source/game_sa/Weather.cpp](../source/game_sa/Weather.cpp) | 0 | 0 | 8 | 0 | 0 |
 | [Globales y helpers: source/game_sa/World.cpp](implementaciones/detalle-067.md#grupo-1321) · [source/game_sa/World.cpp](../source/game_sa/World.cpp) | 0 | 0 | 18 | 0 | 0 |
 | [Globales y helpers: source/game_sa/World_Helper.cpp](implementaciones/detalle-067.md#grupo-1322) · [source/game_sa/World_Helper.cpp](../source/game_sa/World_Helper.cpp) | 0 | 0 | 4 | 0 | 0 |
-| [Globales y helpers: source/game_sa/X87Math.cpp](implementaciones/detalle-067.md#grupo-1323) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 1128 | 0 | 1 | 0 | 0 |
+| [Globales y helpers: source/game_sa/X87Math.cpp](implementaciones/detalle-067.md#grupo-1323) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 1148 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/cHandlingDataMgr.cpp](implementaciones/detalle-067.md#grupo-1324) · [source/game_sa/cHandlingDataMgr.cpp](../source/game_sa/cHandlingDataMgr.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/common.cpp](implementaciones/detalle-067.md#grupo-1325) · [source/game_sa/common.cpp](../source/game_sa/common.cpp) | 3 | 0 | 10 | 0 | 0 |
 | [Globales y helpers: source/game_sa/common.h](implementaciones/detalle-067.md#grupo-1326) · [source/game_sa/common.h](../source/game_sa/common.h) | 0 | 0 | 26 | 0 | 0 |

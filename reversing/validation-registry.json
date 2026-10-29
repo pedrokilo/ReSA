@@ -132649,7 +132649,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::Init"
@@ -132658,8 +132658,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
-        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
       "dependency_review": null,
@@ -132675,7 +132675,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::ReInit"
@@ -132684,8 +132684,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
-        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
       "dependency_review": null,
@@ -132701,7 +132701,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::InitSequence"
@@ -132710,8 +132710,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
-        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
       "dependency_review": null,
@@ -132727,7 +132727,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::ChooseBoatModel"
@@ -132736,8 +132736,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
-        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
       "dependency_review": null,
@@ -132753,7 +132753,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::ChooseCarModelToLoad"
@@ -132762,8 +132762,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
-        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
       "dependency_review": null,
@@ -132779,7 +132779,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::ChoosePoliceCarModel"
@@ -132788,8 +132788,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
-        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
       "dependency_review": null,
@@ -132805,7 +132805,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::ChooseGangCarModel"
@@ -132814,8 +132814,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
-        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
       "dependency_review": null,
@@ -132831,7 +132831,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::GetNewVehicleDependingOnCarModel"
@@ -132840,8 +132840,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
-        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
       "dependency_review": null,
@@ -132857,7 +132857,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::CreateCarForScript"
@@ -132866,8 +132866,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
-        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
       "dependency_review": null,
@@ -132883,7 +132883,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::IsAnyoneParking"
@@ -132892,8 +132892,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
-        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
       "dependency_review": null,
@@ -132909,7 +132909,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::IsThisVehicleInteresting"
@@ -132918,8 +132918,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
-        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
       "dependency_review": null,
@@ -132935,7 +132935,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::RemoveFromInterestingVehicleList"
@@ -132944,8 +132944,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
-        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
       "dependency_review": null,
@@ -132961,7 +132961,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::JoinCarWithRoadAccordingToMission"
@@ -132970,8 +132970,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
-        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
       "dependency_review": null,
@@ -132987,7 +132987,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::PossiblyFireHSMissile"
@@ -132996,8 +132996,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
-        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
       "dependency_review": null,
@@ -133013,7 +133013,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::PruneVehiclesOfInterest"
@@ -133022,8 +133022,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
-        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
       "dependency_review": null,
@@ -133039,7 +133039,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::RemoveCarsIfThePoolGetsFull"
@@ -133048,8 +133048,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
-        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
       "dependency_review": null,
@@ -133065,7 +133065,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::RemoveDistantCars"
@@ -133074,8 +133074,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
-        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
       "dependency_review": null,
@@ -133091,7 +133091,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::SlowCarDownForObject"
@@ -133100,8 +133100,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
-        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
       "dependency_review": null,
@@ -133117,7 +133117,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::SlowCarOnRailsDownForTrafficAndLights"
@@ -133126,8 +133126,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
-        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
       "dependency_review": null,
@@ -133143,7 +133143,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::FindMaxSteerAngle"
@@ -133152,8 +133152,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
-        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
       "dependency_review": null,
@@ -133169,7 +133169,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::GenerateRandomCars"
@@ -133178,8 +133178,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
-        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
       "dependency_review": null,
@@ -133195,7 +133195,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::ScriptGenerateOneEmergencyServicesCar"
@@ -133204,8 +133204,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
-        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
       "dependency_review": null,
@@ -517833,7 +517833,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::AddMovingCollisionSpeed"
@@ -517859,7 +517859,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::BlowUpCar"
@@ -517885,7 +517885,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::BlowUpCarCutSceneNoExtras"
@@ -517911,7 +517911,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::BlowUpCarsInPath"
@@ -517937,7 +517937,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::BoostJumpControl"
@@ -517963,7 +517963,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::BreakTowLink"
@@ -517989,7 +517989,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ClearHeliOrientation"
@@ -518015,7 +518015,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::CloseAllDoors"
@@ -518041,7 +518041,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::CloseBoot"
@@ -518067,7 +518067,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::Constructor"
@@ -518093,7 +518093,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::CustomCarPlate_AfterRenderingStop"
@@ -518119,7 +518119,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::CustomCarPlate_BeforeRenderingStart"
@@ -518145,7 +518145,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::Destructor"
@@ -518171,7 +518171,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::DoBurstAndSoftGroundRatios"
@@ -518197,7 +518197,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::DoHoverSuspensionRatios"
@@ -518223,7 +518223,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::DoSoftGroundResistance"
@@ -518249,7 +518249,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::FindWheelWidth"
@@ -518275,7 +518275,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::FireTruckControl"
@@ -518301,7 +518301,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::Fix"
@@ -518327,7 +518327,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::FixDoor"
@@ -518353,7 +518353,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::FixPanel"
@@ -518379,7 +518379,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::FixTyre"
@@ -518405,7 +518405,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::GetAllWheelsOffGround"
@@ -518431,7 +518431,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::GetCarPitch"
@@ -518457,7 +518457,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::GetCarRoll"
@@ -518483,7 +518483,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::GetComponentWorldPosition"
@@ -518509,7 +518509,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::GetDooorAngleOpenRatio"
@@ -518535,7 +518535,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::GetDooorAngleOpenRatioU32"
@@ -518561,7 +518561,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::GetHeightAboveRoad"
@@ -518587,7 +518587,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::GetMovingCollisionOffset"
@@ -518613,7 +518613,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::GetNumContactWheels"
@@ -518639,7 +518639,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::GetTowBarPos"
@@ -518665,7 +518665,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::GetTowHitchPos"
@@ -518691,7 +518691,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::HydraulicControl"
@@ -518717,7 +518717,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::IsComponentPresent"
@@ -518743,7 +518743,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::IsDoorClosed"
@@ -518769,7 +518769,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::IsDoorClosedU32"
@@ -518795,7 +518795,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::IsDoorFullyOpen"
@@ -518821,7 +518821,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::IsDoorFullyOpenU32"
@@ -518847,7 +518847,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::IsDoorMissing"
@@ -518873,7 +518873,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::IsDoorMissingU32"
@@ -518899,7 +518899,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::IsDoorReady"
@@ -518925,7 +518925,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::IsDoorReadyU32"
@@ -518951,7 +518951,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::IsInAir"
@@ -518977,7 +518977,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::IsOpenTopCar"
@@ -519003,7 +519003,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::IsRoomForPedToLeaveCar"
@@ -519029,7 +519029,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::KnockPedOutCar"
@@ -519055,7 +519055,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::Load"
@@ -519081,7 +519081,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::NitrousControl"
@@ -519107,7 +519107,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::OpenDoor"
@@ -519133,7 +519133,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::PlaceOnRoadProperly"
@@ -519159,7 +519159,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::PlayCarHorn"
@@ -519185,7 +519185,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::PlayHornIfNecessary"
@@ -519211,7 +519211,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::PopBoot"
@@ -519237,7 +519237,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::PopBootUsingPhysics"
@@ -519263,7 +519263,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::PopDoor"
@@ -519289,7 +519289,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::PopPanel"
@@ -519315,7 +519315,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessAI"
@@ -519341,7 +519341,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessAutoBusDoors"
@@ -519367,7 +519367,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessBuoyancy"
@@ -519393,7 +519393,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessCarOnFireAndExplode"
@@ -519419,7 +519419,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessCarWheelPair"
@@ -519445,7 +519445,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessControl"
@@ -519471,7 +519471,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessControlCollisionCheck"
@@ -519497,7 +519497,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessControlInputs"
@@ -519523,7 +519523,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessEntityCollision"
@@ -519549,7 +519549,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessFlyingCarStuff"
@@ -519575,7 +519575,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessHarvester"
@@ -519601,7 +519601,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessSuspension"
@@ -519627,7 +519627,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ProcessSwingingDoor"
@@ -519653,7 +519653,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::RcbanditCheck1CarWheels"
@@ -519679,7 +519679,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::RcbanditCheckHitWheels"
@@ -519705,7 +519705,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ReduceHornCounter"
@@ -519731,7 +519731,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::RemoveBonnetInPedCollision"
@@ -519757,7 +519757,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ResetSuspension"
@@ -519783,7 +519783,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::Save"
@@ -519809,7 +519809,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::ScanForCrimes"
@@ -519835,7 +519835,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SetAllTaxiLights"
@@ -519861,7 +519861,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SetBumperDamage"
@@ -519887,7 +519887,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SetBusDoorTimer"
@@ -519913,7 +519913,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SetDoorDamage"
@@ -519939,7 +519939,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SetHeliOrientation"
@@ -519965,7 +519965,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SetPanelDamage"
@@ -519991,7 +519991,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SetTaxiLight"
@@ -520017,7 +520017,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SetTotalDamage"
@@ -520043,7 +520043,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SetTowLink"
@@ -520069,7 +520069,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SetupDamageAfterLoad"
@@ -520095,7 +520095,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SetupModelNodes"
@@ -520121,7 +520121,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SetupSuspensionLines"
@@ -520147,7 +520147,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::SpawnFlyingComponent"
@@ -520173,7 +520173,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::StopNitroEffect"
@@ -520199,7 +520199,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::TankControl"
@@ -520225,7 +520225,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::Teleport"
@@ -520251,7 +520251,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::TellHeliToGoToCoors"
@@ -520277,7 +520277,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::TellPlaneToGoToCoors"
@@ -520303,7 +520303,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::TowTruckControl"
@@ -520329,7 +520329,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::UpdateMovingCollision"
@@ -520355,7 +520355,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::VehicleDamage"
@@ -520381,7 +520381,7 @@
       },
       "evidence": {
         "path": "reversing/AutomobileFinal4/validation-summary.json",
-        "sha256": "8da4845bf2f35e6a13d1b0d766738200a048b6a0301aa0ec7df1b16da6a320ed",
+        "sha256": "913ab5535d85a8aa86134b6313c21a4758eed0e34e7d540e488438e77b7e7868",
         "passed_path": [
           "covered_functions",
           "CAutomobile::dmgDrawCarCollidingParticles"
@@ -546099,7 +546099,7 @@
       },
       "evidence": {
         "path": "reversing/PlayerArea80B/validation-summary.json",
-        "sha256": "3decb5660ef55db29f39681b257ae9443090d57aff64e22deac42e885d62fb26",
+        "sha256": "df7fad45822abbda0e14613db64397318412f23b5fa21467af4b3d9215b0157a",
         "passed_path": [
           "covered_functions",
           "CPlayerPed::KeepAreaAroundPlayerClear"
@@ -546111,12 +546111,12 @@
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
         "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/Entity/Ped/PlayerPed.cpp": "aeeae9091b852b361da87b40148e466b5d355772cbd296bfd4ad254651dd81c4",
+        "source/game_sa/Entity/Ped/PlayerPed.cpp": "010fab5bcf9a33b1e87b284fe1d9d00a57349d157e330d8f35d4b6b7ecf86eb0",
         "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
-        "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-        "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+        "source/game_sa/X87Math.cpp": "005a714829c3b8b48a27947a407d87cb6964c457ffd33eef20f3816e840ed9b4",
+        "source/game_sa/X87Math.h": "73988440f158ca26708f865cd55bd4f10c590c9010ad2ea1b1a3d9109424693d",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/PlayerArea80B/LiveComparison.hpp": "ef2a6317abb002ea8a426414febbe617be879ee231e0b50de701c92ee54bdb03",
+        "reversing/PlayerArea80B/LiveComparison.hpp": "a52ad80599aa21be1e52862dc05ae7e474bbc6ccf6cff8bd05f9d88f8de71ea8",
         "reversing/PlayerArea80B/Core.hpp": "1c2c80a8b3cdd6a51255059ffa0f81f29359158ee3fa2c4b5f11d535233eddbf",
         "reversing/PlayerArea80B/Fixtures.hpp": "7a043f707de26ada9efe03bd8a9c70562ebd1014b452194acf7c892833cef2d2",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -546199,6 +546199,114 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el worktree D:/Original/wz-4 (HEAD e4f077aea + PlayerPed.cpp, source.patch). CPlayerPed::ProcessAnimGroups 0x6098F0 (thiscall, ret; void; 909 bytes; su unico llamador, ProcessControl 0x60F2E7, no lee los registros de salida): elige el grupo de animacion del jugador (+0x4D4) segun el rumbo (+0x50 de los datos, +-0.8726646), la camara en 3a persona con raton, el modelo y tipo del arma, el jetpack, la balaclava y el modelo del segundo jugador, llama a ReApplyMoveAnims si cambia, y referencia/libera los bloques de animacion de pelea (+0x48/+0x4C de los datos) segun el combo base del arma y el estilo de pelea. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): CCam::Using3rdPersonMouseCam, CPed::CanStrafeOrMouseControl, CVisibilityPlugins::GetClumpModelInfo, CPedIntelligence::GetTaskJetPack, CPedClothesDesc::GetIsWearingBalaclava, CClothes::GetDefaultPlayerMotionGroup, CPlayerPed::ReApplyMoveAnims, CPed::GetWeaponSkill, CWeaponInfo::GetWeaponInfo, CAnimManager::GetAnimBlockName/GetAnimationBlock/AddAnimBlockRef, CStreaming::RequestModel (con hook) y CAnimManager::RemoveAnimBlockRef (funcion de la DLL sin hook, falso tambien en su cuerpo). El modelo del arma es un objeto falso con tabla virtual falsa. Dominio: grupos 0..23, bloques reales 0..7, ranuras de arma -20..20, filas de combos 4..15; no cubre punteros nulos de datos/ropa/inteligencia (el EXE se cae).",
       "review_reference": "reversing/PlayerAnim80D/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "UpdateTrailerLink",
+        "address": "0x006DFC50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Veh81A/validation-summary.json",
+        "sha256": "3df1563cb869bd085a78a1f046f43a9e5b81ddbb5e77f62cc91b63a784434741",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::UpdateTrailerLink"
+        ],
+        "pairs": 18432,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/X87Math.cpp": "005a714829c3b8b48a27947a407d87cb6964c457ffd33eef20f3816e840ed9b4",
+        "source/game_sa/X87Math.h": "73988440f158ca26708f865cd55bd4f10c590c9010ad2ea1b1a3d9109424693d",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "33da6ec4684b5ca8069336a0698aee541a106eb8f1e1edb8e1b6ac29ecd5395b",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Veh81A/LiveComparison.hpp": "07075d41f042596448f55e01d4dff228b8d4d1fdcbc646ef6841996068a8978d",
+        "reversing/Veh81A/Core.hpp": "0cbb6ce11329fa2fd72df5b7d8cd7fce6fe240f884b170817e7d074417cca88f",
+        "reversing/Veh81A/Fixtures.hpp": "89f1bee48ba1b1e9ff89d21ede2455289babf985617e4f68c6da9ab6fcbe6392",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wv-1 (HEAD ad52bea16 + cambios del lote 81A; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CPhysical::GetSpeed 0x542CE0 y CPhysical::ApplyForce 0x542B50; los virtuales GetTowHitchPos (+0xEC), GetTowBarPos (+0xF0) y BreakTowLink (+0xF8) van por una vtabla falsa compartida (el EXE y la DLL llaman por la vtabla). La aritmetica (CVector::operator-=, DotProduct, CrossProduct, Normalise, Multiply3x3, SquaredMagnitude, max, operator* y operator/ de CVector) NO se sustituye: el EXE ejecuta su codigo y la DLL los ayudantes x87 Veh81A* de X87Math.cpp. El banco compara el orden y todos los argumentos de los falsos (contenido de los vectores de pila, etiquetas de arena), la mutacion del tractor, del remolque y de los globales (paso, limite 0x8D313C) por un falso tras cada uno de los 5 eventos (relectura de campos), la fuerza aplicada y la x87 a 24 bits incluidos NaN (un solo patron, el indefinido), infinitos, desnormales y ceros con signo. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. No cubre: la rama de posicion compacta (matriz nula; el EXE desreferencia ambas matrices antes, es inalcanzable), EAX/ECX/EDX de salida (nadie los lee) ni NaN con cargas distintas (sNaN, signos y cargas variadas).",
+      "review_reference": "reversing/Veh81A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "UpdateTractorLink",
+        "address": "0x006E0050",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Veh81B/validation-summary.json",
+        "sha256": "c314f0990361a2b6b80abf452b644edd5f874378a158c04814639269ef91d5af",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::UpdateTractorLink"
+        ],
+        "pairs": 18432,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/X87Math.cpp": "005a714829c3b8b48a27947a407d87cb6964c457ffd33eef20f3816e840ed9b4",
+        "source/game_sa/X87Math.h": "73988440f158ca26708f865cd55bd4f10c590c9010ad2ea1b1a3d9109424693d",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "33da6ec4684b5ca8069336a0698aee541a106eb8f1e1edb8e1b6ac29ecd5395b",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Veh81B/LiveComparison.hpp": "75c332b97148b7b40f8d674990bff22a067c59ac63a2a90094e9524df6a31a94",
+        "reversing/Veh81B/Core.hpp": "118dff763ddecd4fd9f38064dad767ead7618edbfb3244c2b3e0a846774bb25e",
+        "reversing/Veh81B/Fixtures.hpp": "5ebc3b4c2890e8076ba0c60a4c8ede29a7800feeb257dfd693b8486a0f8a3a0e",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wv-2 (HEAD ad52bea16 + cambios del lote 81B; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CPhysical::GetSpeed 0x542CE0, CVector::Normalise 0x59C910, CrossProduct 0x59C730 y CPhysical::ApplyForce 0x542B50; los virtuales GetTowHitchPos (+0xEC) y GetTowBarPos (+0xF0) los atiende una vtabla falsa. Los ayudantes sin hook 0x40FE90, 0x4119D0, 0x420800, 0x406D70 y 0x59C790 se ejecutan tal cual en el EXE y como ayudantes x87 de X87Math en la DLL (validados con la funcion). El banco compara el orden y todos los argumentos de los falsos, la mutacion del estado (remolque +0x4C8, matrices +0x14, masas, paso de tiempo, modelo, gancho, campos de equipaje) tras cada uno de los 7 eventos (relecturas), las matrices nulas con relleno tardio, el puntero devuelto por CrossProduct, la x87 a 24 bits (incluidos NaN con un solo patron, infinitos, desnormales y ceros con signo) y 576 microtests de FCOMP del hardware. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX de salida solo se registran (void; los llamadores no los leen). NaN con cargas distintas (sNaN, signos y cargas variadas) no cubiertos: las fixtures usan un unico patron de NaN. El limite 0x8D313C (20000) es una constante en la DLL; el banco no lo cambia.",
+      "review_reference": "reversing/Veh81B/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "PossiblyRemoveVehicle",
+        "address": "0x00424F80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Car81C/validation-summary.json",
+        "sha256": "0496edf5674c079c61397d7109f8c7849c73915232eff7b027b61cc1c4d3fcaf",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::PossiblyRemoveVehicle"
+        ],
+        "pairs": 18432,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/X87Math.cpp": "005a714829c3b8b48a27947a407d87cb6964c457ffd33eef20f3816e840ed9b4",
+        "source/game_sa/X87Math.h": "73988440f158ca26708f865cd55bd4f10c590c9010ad2ea1b1a3d9109424693d",
+        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Car81C/LiveComparison.hpp": "c289a10cfaa315087007547c1b8ddab777e726e09f68dd1e8ff67744d252ad1b",
+        "reversing/Car81C/Core.hpp": "83bd034839ee82155dcb4619698b28674ec3747588cd50b03fc2f8f6991ceb66",
+        "reversing/Car81C/Fixtures.hpp": "3007862be675eb0514a2e4f5351740c9c833f0eeabde492192cc184998e90da9",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wv-3 (HEAD ad52bea16 + cambios del lote 81C; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CVehicle::CanBeDeleted 0x6D1180, CCranes::IsThisCarBeingTargettedByAnyCrane 0x6F4000, CVisibilityPlugins::GetClumpAlpha 0x732B20, FindPlayerCentreOfWorld 0x56E250, CEntity::GetIsOnScreen 0x534540, CCamera::GetLookDirection 0x50AE90, CGarages::IsPointWithinHideOutGarage 0x448900, CCarCtrl::IsThisVehicleInteresting 0x423EA0, CTrafficLights::ShouldCarStopForLight 0x49D610 / ShouldCarStopForBridge 0x49D420 y CWorld::Remove 0x563280; el destructor virtual va a una tabla virtual falsa. El banco compara el orden y todos los argumentos de los falsos, la mutacion del vehiculo, de las matrices, del centro, del reloj y de la camara tras cada evento (relectura de campos), las escrituras (marca fisica +0xB8 y desvanecido +0x42A) y la x87 a 24 bits (distancia, rango, volcado, distancias de las etapas 2 y 3) incluidos NaN, infinitos, desnormales y ceros con signo. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. El EXE usa el centro del jugador sin inicializar si no entra en la etapa 1 y lee la matriz sin comprobar nulo en el estado 2: las fixtures lo evitan. EAX/ECX/EDX de salida solo se registran: los dos llamadores del EXE (0x42CD55 y 0x60C4E8) no los leen.",
+      "review_reference": "reversing/Car81C/README.md"
     }
   ]
 }

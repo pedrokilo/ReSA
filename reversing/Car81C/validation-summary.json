@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 18432,
+  "differences": 0,
+  "registered_pairs": 18432,
+  "registered_functions": 1,
+  "functions": {
+    "CCarCtrl::PossiblyRemoveVehicle": 18432
+  },
+  "covered_functions": {
+    "CCarCtrl::PossiblyRemoveVehicle": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wv-3 (HEAD ad52bea16 + cambios del lote 81C; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CVehicle::CanBeDeleted 0x6D1180, CCranes::IsThisCarBeingTargettedByAnyCrane 0x6F4000, CVisibilityPlugins::GetClumpAlpha 0x732B20, FindPlayerCentreOfWorld 0x56E250, CEntity::GetIsOnScreen 0x534540, CCamera::GetLookDirection 0x50AE90, CGarages::IsPointWithinHideOutGarage 0x448900, CCarCtrl::IsThisVehicleInteresting 0x423EA0, CTrafficLights::ShouldCarStopForLight 0x49D610 / ShouldCarStopForBridge 0x49D420 y CWorld::Remove 0x563280; el destructor virtual va a una tabla virtual falsa. El banco compara el orden y todos los argumentos de los falsos, la mutacion del vehiculo, de las matrices, del centro, del reloj y de la camara tras cada evento (relectura de campos), las escrituras (marca fisica +0xB8 y desvanecido +0x42A) y la x87 a 24 bits (distancia, rango, volcado, distancias de las etapas 2 y 3) incluidos NaN, infinitos, desnormales y ceros con signo. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. El EXE usa el centro del jugador sin inicializar si no entra en la etapa 1 y lee la matriz sin comprobar nulo en el estado 2: las fixtures lo evitan. EAX/ECX/EDX de salida solo se registran: los dos llamadores del EXE (0x42CD55 y 0x60C4E8) no los leen.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Car81C-20261028-221039-670411",
+  "summary_sha256": "a5db2723047bd11564f77a419ba470dbb8a0b8f5a5c0a17be34284e4b5a3baa6",
+  "result_txt_sha256": "5c2561fa117bb36475ff6e40f2b8e255699cc2ba6d9fad7d76b6f92200f6c595",
+  "log_sha256": "29d60b21596801a7706933d7e7f3c226d61ed833754bcbb02c05ce229d1e66ee",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "02343148c9b64afdd6c3c69f2a625f56fff471d5b11381c1e2ba660656cf75e6",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/X87Math.cpp": "005a714829c3b8b48a27947a407d87cb6964c457ffd33eef20f3816e840ed9b4",
+      "source/game_sa/X87Math.h": "73988440f158ca26708f865cd55bd4f10c590c9010ad2ea1b1a3d9109424693d",
+      "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+      "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Car81C/LiveComparison.hpp": "c289a10cfaa315087007547c1b8ddab777e726e09f68dd1e8ff67744d252ad1b",
+      "reversing/Car81C/Core.hpp": "83bd034839ee82155dcb4619698b28674ec3747588cd50b03fc2f8f6991ceb66",
+      "reversing/Car81C/Fixtures.hpp": "3007862be675eb0514a2e4f5351740c9c833f0eeabde492192cc184998e90da9",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

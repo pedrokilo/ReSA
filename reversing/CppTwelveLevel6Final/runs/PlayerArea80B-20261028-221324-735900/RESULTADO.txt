@@ -1,0 +1,3 @@
+APROBADO: PlayerArea80B
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-playerarea80b\20261028-221324-735900

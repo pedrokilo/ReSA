@@ -13819,5 +13819,47 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ (CPlayerPed, botones del grupo): ProcessAnimGroups sin llamadas al EXE salvo la función 0x609380 sin reconstruir. El banco sustituye por falsos idénticos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL) los colaboradores con hook en HEAD y compara la secuencia de llamadas con sus argumentos, el objeto reservado los cambios en las arenas del caso y el estado de la x87. Banco PlayerAnim80D con 20480 pares (20480 propios) y cero diferencias; EAX/ECX/EDX de salida: ver README del banco. Validado en el worktree D:/Original/wz-4 (HEAD e4f077aea + PlayerPed.cpp, source.patch). CPlayerPed::ProcessAnimGroups 0x6098F0 (thiscall, ret; void; 909 bytes; su unico llamador, ProcessControl 0x60F2E7, no lee los registros de salida): elige el grupo de animacion del jugador (+0x4D4) segun el rumbo (+0x50 de los datos, +-0.8726646), la camara en 3a persona con raton, el modelo y tipo del arma, el jetpack, la balaclava y el modelo del segundo jugador, llama a ReApplyMoveAnims si cambia, y referencia/libera los bloques de animacion de pelea (+0x48/+0x4C de los datos) segun el combo base del arma y el estilo de pelea. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): CCam::Using3rdPersonMouseCam, CPed::CanStrafeOrMouseControl, CVisibilityPlugins::GetClumpModelInfo, CPedIntelligence::GetTaskJetPack, CPedClothesDesc::GetIsWearingBalaclava, CClothes::GetDefaultPlayerMotionGroup, CPlayerPed::ReApplyMoveAnims, CPed::GetWeaponSkill, CWeaponInfo::GetWeaponInfo, CAnimManager::GetAnimBlockName/GetAnimationBlock/AddAnimBlockRef, CStreaming::RequestModel (con hook) y CAnimManager::RemoveAnimBlockRef (funcion de la DLL sin hook, falso tambien en su cuerpo). El modelo del arma es un objeto falso con tabla virtual falsa. Dominio: grupos 0..23, bloques reales 0..7, ranuras de arma -20..20, filas de combos 4..15; no cubre punteros nulos de datos/ropa/inteligencia (el EXE se cae)."
+  },
+  "0x006DFC50": {
+    "identity": "CVehicle::UpdateTrailerLink",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Entity/Vehicle/Vehicle.cpp",
+    "bank": "Veh81A",
+    "run": "20261028-220441-578318",
+    "pairs": 18432,
+    "own_pairs": 18432,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Veh81A-20261028-220441-578318/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE (los colaboradores con efectos son falsos identicos en ambos lados). Banco Veh81A con 18432 pares y cero diferencias; EAX/ECX/EDX solo registrados. Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas desde el worktree D:/Original/wv-1 (HEAD ad52bea16 + cambios del lote 81A; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CPhysical::GetSpeed 0x542CE0 y CPhysical::ApplyForce 0x542B50; los virtuales GetTowHitchPos (+0xEC), GetTowBarPos (+0xF0) y BreakTowLink (+0xF8) van por una vtabla falsa compartida (el EXE y la DLL llaman por la vtabla). La aritmetica (CVector::operator-=, DotProduct, CrossProduct, Normalise, Multiply3x3, SquaredMagnitude, max, operator* y operator/ de CVector) NO se sustituye: el EXE ejecuta su codigo y la DLL los ayudantes x87 Veh81A* de X87Math.cpp. El banco compara el orden y todos los argumentos de los falsos (contenido de los vectores de pila, etiquetas de arena), la mutacion del tractor, del remolque y de los globales (paso, limite 0x8D313C) por un falso tras cada uno de los 5 eventos (relectura de campos), la fuerza aplicada y la x87 a 24 bits incluidos NaN (un solo patron, el indefinido), infinitos, desnormales y ceros con signo. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. No cubre: la rama de posicion compacta (matriz nula; el EXE desreferencia ambas matrices antes, es inalcanzable), EAX/ECX/EDX de salida (nadie los lee) ni NaN con cargas distintas (sNaN, signos y cargas variadas)."
+  },
+  "0x006E0050": {
+    "identity": "CVehicle::UpdateTractorLink",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Entity/Vehicle/Vehicle.cpp",
+    "bank": "Veh81B",
+    "run": "20261028-220732-315841",
+    "pairs": 18432,
+    "own_pairs": 18432,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Veh81B-20261028-220732-315841/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE (los cuatro colaboradores con hook y los dos virtuales son falsos identicos en ambos lados). Banco Veh81B con 18432 pares y cero diferencias; EAX/ECX/EDX solo registrados. Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas desde el worktree D:/Original/wv-2 (HEAD ad52bea16 + cambios del lote 81B; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CPhysical::GetSpeed 0x542CE0, CVector::Normalise 0x59C910, CrossProduct 0x59C730 y CPhysical::ApplyForce 0x542B50; los virtuales GetTowHitchPos (+0xEC) y GetTowBarPos (+0xF0) los atiende una vtabla falsa. Los ayudantes sin hook 0x40FE90, 0x4119D0, 0x420800, 0x406D70 y 0x59C790 se ejecutan tal cual en el EXE y como ayudantes x87 de X87Math en la DLL (validados con la funcion). El banco compara el orden y todos los argumentos de los falsos, la mutacion del estado (remolque +0x4C8, matrices +0x14, masas, paso de tiempo, modelo, gancho, campos de equipaje) tras cada uno de los 7 eventos (relecturas), las matrices nulas con relleno tardio, el puntero devuelto por CrossProduct, la x87 a 24 bits (incluidos NaN con un solo patron, infinitos, desnormales y ceros con signo) y 576 microtests de FCOMP del hardware. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX de salida solo se registran (void; los llamadores no los leen). NaN con cargas distintas (sNaN, signos y cargas variadas) no cubiertos: las fixtures usan un unico patron de NaN. El limite 0x8D313C (20000) es una constante en la DLL; el banco no lo cambia."
+  },
+  "0x00424F80": {
+    "identity": "CCarCtrl::PossiblyRemoveVehicle",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/CarCtrl.cpp",
+    "bank": "Car81C",
+    "run": "20261028-221039-670411",
+    "pairs": 18432,
+    "own_pairs": 18432,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Car81C-20261028-221039-670411/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE (los once colaboradores son falsos identicos en ambos lados). Banco Car81C con 18432 pares y cero diferencias; EAX/ECX/EDX solo registrados. Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas desde el worktree D:/Original/wv-3 (HEAD ad52bea16 + cambios del lote 81C; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CVehicle::CanBeDeleted 0x6D1180, CCranes::IsThisCarBeingTargettedByAnyCrane 0x6F4000, CVisibilityPlugins::GetClumpAlpha 0x732B20, FindPlayerCentreOfWorld 0x56E250, CEntity::GetIsOnScreen 0x534540, CCamera::GetLookDirection 0x50AE90, CGarages::IsPointWithinHideOutGarage 0x448900, CCarCtrl::IsThisVehicleInteresting 0x423EA0, CTrafficLights::ShouldCarStopForLight 0x49D610 / ShouldCarStopForBridge 0x49D420 y CWorld::Remove 0x563280; el destructor virtual va a una tabla virtual falsa. El banco compara el orden y todos los argumentos de los falsos, la mutacion del vehiculo, de las matrices, del centro, del reloj y de la camara tras cada evento (relectura de campos), las escrituras (marca fisica +0xB8 y desvanecido +0x42A) y la x87 a 24 bits (distancia, rango, volcado, distancias de las etapas 2 y 3) incluidos NaN, infinitos, desnormales y ceros con signo. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. El EXE usa el centro del jugador sin inicializar si no entra en la etapa 1 y lee la matriz sin comprobar nulo en el estado 2: las fixtures lo evitan. EAX/ECX/EDX de salida solo se registran: los dos llamadores del EXE (0x42CD55 y 0x60C4E8) no los leen."
   }
 }

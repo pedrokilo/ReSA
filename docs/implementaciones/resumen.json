@@ -1,7 +1,7 @@
 {
   "scope": "source/game_sa and source/app (WindowedMode.cpp included as the documented NOTSA assembly exception, reported separately), definitions in cpp/h/hpp/inc; all preprocessing branches",
   "totals": {
-    "source_definition_count": 18653,
+    "source_definition_count": 18673,
     "groups": 1501,
     "assembly_occurrences": 0,
     "naked_declarations": 0,
@@ -20,14 +20,14 @@
     "body_parse_errors": 308,
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 447,
-    "historical_catalog_rows": 8973,
+    "historical_catalog_rows": 8976,
     "catalog_rows_without_unambiguous_source_match_in_scope": 2,
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 20,
     "catalog_rows_linked_by_hook_address": 180,
-    "validated_reconstructed_own_cpp_definitions": 10614,
+    "validated_reconstructed_own_cpp_definitions": 10637,
     "validated_reconstructed_own_asm_definitions": 0,
-    "wrapper_definitions": 74
+    "wrapper_definitions": 73
   },
   "source_sha256": {
     "source/app/app.cpp": "4717fcefd64b864f51910ae3ab7b4b3bc0966838f9cddaaca5727ee06c47ac16",
@@ -266,7 +266,7 @@
     "source/game_sa/CamPathSplines.h": "1ab5480a6512ae7544a2d70385ffd34030c874b8af093911c8b318e1c50102e5",
     "source/game_sa/CarAI.cpp": "2000725a71e60421c12d44b6a79bde072fd2d54672bc3a2bb030d7a91f6a96a2",
     "source/game_sa/CarAI.h": "e48563b339dd4eed69e7abb0a165b6fd8a5e9f22ecd35fc98dedd004dca54793",
-    "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+    "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
     "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
     "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
     "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
@@ -473,7 +473,7 @@
     "source/game_sa/Entity/Ped/PedSaveStructure.cpp": "5f58ccddfb1db70c9778c2f287d24ac9bb2eb9432155bd07a55d6dd05d961975",
     "source/game_sa/Entity/Ped/PedSaveStructure.h": "e5c92294002b82a7563cc3dcea70ece869fd25d7ce89e4654b8c530ee4d16187",
     "source/game_sa/Entity/Ped/PedStdBonePositions.h": "660b8512f81ce5369bb3d8e3b4c9ba5a3e1eb36442cbfa4ffc770371e8bb9655",
-    "source/game_sa/Entity/Ped/PlayerPed.cpp": "aeeae9091b852b361da87b40148e466b5d355772cbd296bfd4ad254651dd81c4",
+    "source/game_sa/Entity/Ped/PlayerPed.cpp": "010fab5bcf9a33b1e87b284fe1d9d00a57349d157e330d8f35d4b6b7ecf86eb0",
     "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
     "source/game_sa/Entity/Ped/PlayerSkin.cpp": "b725e853ad0ac44d3c936722f693b77d30c58420091c43584dc9ac38a63b1cae",
     "source/game_sa/Entity/Ped/PlayerSkin.h": "1188243850ccb80021731e036a8de514fe20aaeac78ef76bb94e8c4150a563db",
@@ -501,7 +501,7 @@
     "source/game_sa/Entity/Vehicle/Trailer.h": "63fe52f48bce8fc44e351af32a6e96844ab5ed6543443010b14b12456b8bbadb",
     "source/game_sa/Entity/Vehicle/Train.cpp": "9c85c617ea7db95e1b224625b2fa94a9e177ba818ee300675b6943d7c7f6129f",
     "source/game_sa/Entity/Vehicle/Train.h": "c05b3854076308be8387dddd80bb2dd3281e1c6d233a2e03f7dec3e72fd55c37",
-    "source/game_sa/Entity/Vehicle/Vehicle.cpp": "c9464f59794f55348d99c11a91b103e76f602a30db01afdc59d554f7c6e19727",
+    "source/game_sa/Entity/Vehicle/Vehicle.cpp": "33da6ec4684b5ca8069336a0698aee541a106eb8f1e1edb8e1b6ac29ecd5395b",
     "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
     "source/game_sa/EntityScanner.cpp": "b1a00ee5d8885be94e0082c5113e50470ce33e7d9f538a01ecba8e3737fd1d5a",
     "source/game_sa/EntityScanner.h": "2f66450dba55116cc34ed0f86f4e97e9a655a7329f4e16d55fe116c700f64664",
@@ -2225,17 +2225,17 @@
     "source/game_sa/World.cpp": "0066108864b6c6c3aa13ac5a68da99749b177bd94605ebc3a2c14580018340bd",
     "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c",
     "source/game_sa/World_Helper.cpp": "331f33ad029ba5a963ac2b15dbe384298d36075b3b0eef2adedeb72454f5a033",
-    "source/game_sa/X87Math.cpp": "c00514a03124ad8de26e6a588e00572357dba79dd7e23871e49c515bc5d97566",
-    "source/game_sa/X87Math.h": "e30825835cec47bc41d9b6503d169425b8d53bc1a860a27ba6040dbfd7852dee",
+    "source/game_sa/X87Math.cpp": "005a714829c3b8b48a27947a407d87cb6964c457ffd33eef20f3816e840ed9b4",
+    "source/game_sa/X87Math.h": "73988440f158ca26708f865cd55bd4f10c590c9010ad2ea1b1a3d9109424693d",
     "source/game_sa/Zone.cpp": "efb2c9fa14a6744d59fb142a8c8497719d7e9bf976ca3aebca78cc33caffa14a",
     "source/game_sa/Zone.h": "6e68b4a81ee271b97e3ed2b1ce9a6fcc1ff87dd54ab7790cb908fb14c5624d93",
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "2cec08f6af9ed5eb5052c0067e2fd46b88d924f94f8ed3d227a82daa3aa7321b",
+    "hooks.csv": "1b29cbd1bd6a60af8239ce40bf4cbe5ab1a93409db5a875334ec676723d0a026",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "2b64f01dd91047cebcf926b410c3a87d3d17307ed7f4886e5b143b7d98e2a735",
+  "migration_registry_sha256": "9827461e9a57cad0c71dc16e5de5db6fda3215d13a3bab45c7e796750a77518e",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

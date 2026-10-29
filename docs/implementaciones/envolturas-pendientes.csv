@@ -258,19 +258,18 @@ class,function,address,source,origins
 (helpers y globales sin clase),TextureBufferPushWithoutIncreasingCounter,,source/game_sa/RenderWare/D3DResourceSystem.cpp:92,envoltura en el código fuente
 (helpers y globales sin clase),TextureBufferResize,,source/game_sa/RenderWare/D3DResourceSystem.cpp:95,envoltura en el código fuente
 (helpers y globales sin clase),TextureBufferSetup,,source/game_sa/RenderWare/D3DResourceSystem.cpp:86,envoltura en el código fuente
-CCarCtrl,DragCarToPoint,0x0042EC90,source/game_sa/CarCtrl.cpp:944,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,GenerateCarCreationCoors2,0x00424210,source/game_sa/CarCtrl.cpp:1571,cohorte 499 + envoltura en el código fuente
-CCarCtrl,GenerateEmergencyServicesCar,,source/game_sa/CarCtrl.cpp:1576,envoltura en el código fuente
-CCarCtrl,GenerateOneEmergencyServicesCar,0x0042B7D0,source/game_sa/CarCtrl.cpp:1581,cohorte 499 + envoltura en el código fuente
-CCarCtrl,GenerateOneRandomCar,0x00430050,source/game_sa/CarCtrl.cpp:1586,cohorte 499 + envoltura en el código fuente
-CCarCtrl,PickNextNodeRandomly,0x0042DE80,source/game_sa/CarCtrl.cpp:2145,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,PickNextNodeToChaseCar,0x00426EF0,source/game_sa/CarCtrl.cpp:2150,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,PickNextNodeToFollowPath,0x00427740,source/game_sa/CarCtrl.cpp:2155,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,PossiblyRemoveVehicle,0x00424F80,source/game_sa/CarCtrl.cpp:2193,cohorte 499 + envoltura en el código fuente
-CCarCtrl,SteerAICarWithPhysics,0x00437C20,source/game_sa/CarCtrl.cpp:3379,cohorte 499 + envoltura en el código fuente
-CCarCtrl,SteerAICarWithPhysics_OnlyMission,0x00436A90,source/game_sa/CarCtrl.cpp:3699,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,SteerAICarWithPhysicsFollowPath,0x00434900,source/game_sa/CarCtrl.cpp:3384,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,SteerAICarWithPhysicsFollowPath_Racing,0x00435830,source/game_sa/CarCtrl.cpp:3389,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,DragCarToPoint,0x0042EC90,source/game_sa/CarCtrl.cpp:948,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,GenerateCarCreationCoors2,0x00424210,source/game_sa/CarCtrl.cpp:1575,cohorte 499 + envoltura en el código fuente
+CCarCtrl,GenerateEmergencyServicesCar,,source/game_sa/CarCtrl.cpp:1580,envoltura en el código fuente
+CCarCtrl,GenerateOneEmergencyServicesCar,0x0042B7D0,source/game_sa/CarCtrl.cpp:1585,cohorte 499 + envoltura en el código fuente
+CCarCtrl,GenerateOneRandomCar,0x00430050,source/game_sa/CarCtrl.cpp:1590,cohorte 499 + envoltura en el código fuente
+CCarCtrl,PickNextNodeRandomly,0x0042DE80,source/game_sa/CarCtrl.cpp:2149,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,PickNextNodeToChaseCar,0x00426EF0,source/game_sa/CarCtrl.cpp:2154,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,PickNextNodeToFollowPath,0x00427740,source/game_sa/CarCtrl.cpp:2159,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,SteerAICarWithPhysics,0x00437C20,source/game_sa/CarCtrl.cpp:3535,cohorte 499 + envoltura en el código fuente
+CCarCtrl,SteerAICarWithPhysics_OnlyMission,0x00436A90,source/game_sa/CarCtrl.cpp:3855,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,SteerAICarWithPhysicsFollowPath,0x00434900,source/game_sa/CarCtrl.cpp:3540,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,SteerAICarWithPhysicsFollowPath_Racing,0x00435830,source/game_sa/CarCtrl.cpp:3545,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CHeli,ProcessControl,0x006C7050,source/game_sa/Entity/Vehicle/Heli.cpp:983,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CHeli,ProcessControlInputs,0x006C4830,source/game_sa/Entity/Vehicle/Heli.cpp:722,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CHeli,SearchLightCone,0x006C58E0,source/game_sa/Entity/Vehicle/Heli.cpp:218,cohorte 499
@@ -282,6 +281,4 @@ CPlayerPed,SetRealMoveAnim,0x0060A9C0,source/game_sa/Entity/Ped/PlayerPed.cpp:10
 CVehicle,AddSingleWheelParticles,0x006DE880,source/game_sa/Entity/Vehicle/Vehicle.cpp:4787,cohorte 499
 CVehicle,InflictDamage,0x006D7C90,source/game_sa/Entity/Vehicle/Vehicle.cpp:3738,cohorte 499
 CVehicle,ProcessBikeWheel,0x006D73B0,source/game_sa/Entity/Vehicle/Vehicle.cpp:3757,cohorte 499 + envoltura en el código fuente
-CVehicle,UpdateTractorLink,0x006E0050,source/game_sa/Entity/Vehicle/Vehicle.cpp:4837,cohorte 499
-CVehicle,UpdateTrailerLink,0x006DFC50,source/game_sa/Entity/Vehicle/Vehicle.cpp:4832,cohorte 499
 Fx_c,AddWheelSpray,0x0049FB30,source/game_sa/Fx/Fx.cpp:313,cohorte 499
