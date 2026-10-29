@@ -2086,3 +2086,17 @@ bool __cdecl Ka80VehicleAheadCpp(const float* reference, const float* vehicle, c
 void __cdecl Veh80CDirCpp(const float& topX, const float& topY, double* reg, float* stored);
 // 0x73DFB6..0x73E1DB: extremo del disparo de un canon = (dirX + pos.x, pos.y + dirY, pos.z) mas el ruido entero (jx * 0.015f, jy * 0.015f, jz * 0.02f), cada componente guardada como float.
 void __cdecl Veh80CEndCpp(double dirX, double dirY, const float& posX, const float& posY, const float& posZ, int jx, int jy, int jz, float* out);
+
+// --- Lote 81A (Veh81A): CVehicle::UpdateTrailerLink (0x6DFC50) ---
+// 0x6DFCE0..0x6DFD58: diff = bar - hitch (floats); true si limit * max(timeStep, 0.7f) < sqrt((dz*dz + dy*dy) + dx*dx) (ordenado; un NaN no corta).
+bool __cdecl Veh81ATooFarCpp(const float* bar, const float* hitch, const float& timeStep, const float& limit, float* diff);
+// 0x6DFD5E..0x6DFDAC: true si dot(ejes +0x10) < -0.3f o dot(ejes +0x20) < 0.0f (matrices CMatrix completas).
+bool __cdecl Veh81ABentCpp(const float* towedMatrix, const float* selfMatrix);
+// out = a - b por componente (0x406D70 y restas de velocidad / brazo, cada una guardada como float); out puede ser a.
+void __cdecl Veh81ASubCpp(float* out, const float* a, const float* b);
+// 0x6DFE92..0x6DFEDF: out = (gain * diff) / max(1.0f, timeStep) con el redondeo del EXE (0x420800, 0x40FE90, 0x4119D0).
+void __cdecl Veh81ADampCpp(const float* diff, const float& timeStep, const float& gain, float* out);
+// 0x6DFEE5..0x6DFF2F: e -= ((e . at) * at) con la suma en el orden z, y, x (at = eje +0x20 de la matriz).
+void __cdecl Veh81AProjectCpp(float* e, const float* at);
+// 0x6DFF33..0x6DFFE0: force = e * (1 / (|(b - Multiply3x3(mat, centre)) x Normalise(e)|^2 / turnMass + 1 / mass)).
+void __cdecl Veh81AForceCpp(const float* mat, const float* centre, const float* e, const float* b, const float& mass, const float& turnMass, float* force);

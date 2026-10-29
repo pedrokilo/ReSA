@@ -213,7 +213,7 @@ inline std::string StubsG5(){
     H("CVehicle","UpdatePassengerList",0x6D29E0,FnPtr(&G5S_PassengerList)); H("CVehicle","IsUpsideDown",0x6D1D90,FnPtr(&G5S_IsUpsideDown));
     H("CVehicle","CanPedEnterCar",0x6D1E80,FnPtr(&G5S_CanPedEnter));  H("CVehicle","UsesSiren",0x6D8470,FnPtr(&G5S_UsesSiren));
     H("CVehicle","ProcessBoatControl",0x6DBCE0,FnPtr(&G5S_BoatControl));
-    H("CVehicle","ProcessSirenAndHorn",0x6E0950,FnPtr(&G5S_SirenHorn)); /* ya es C++ real en la DLL */ E(0x6DFC50,FnPtr(&G5S_TrailerLink)); E(0x6E0050,FnPtr(&G5S_TractorLink));
+    H("CVehicle","ProcessSirenAndHorn",0x6E0950,FnPtr(&G5S_SirenHorn)); /* ya es C++ real en la DLL */ H("CVehicle","UpdateTrailerLink",0x6DFC50,FnPtr(&G5S_TrailerLink)); /* ahora C++ real en la DLL (lote 81A): parchear tambien su cuerpo */ E(0x6E0050,FnPtr(&G5S_TractorLink));
     // CEntity / CPhysical / varios
     H("CEntity","PruneReferences",0x571A90,FnPtr(&G5S_Prune)); H("CEntity","RegisterReference-",0x571B70,FnPtr(&G5S_RegRef));
     H("CEntity","CleanUpOldReference-",0x571A00,FnPtr(&G5S_CleanRef));

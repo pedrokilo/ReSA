@@ -17035,3 +17035,120 @@ __declspec(noinline) void __cdecl Veh80CEndCpp(double dirX, double dirY, const f
     out[2] = oz;
 }
 #pragma float_control(pop)
+
+// --- Lote 81A (Veh81A): CVehicle::UpdateTrailerLink (0x6DFC50), prefijo Veh81A. Anadido al FINAL ---
+#pragma float_control(precise, on, push)
+// 0x6DFCE0..0x6DFD58: C = barra del remolque - enganche del tractor (x e y con fsub + fstp; z con fst y fmul del valor guardado), distancia al cuadrado ((z*z + y*y) + x*x) guardada como float,
+// t = max(paso, 0.7f (0x858CB0)) con el paso del juego (0xB7CB5C; un NaN o un valor <= 0.7f eligen la constante) y limite (0x871DF0) * t. Devuelve true si limite * t < sqrt(distancia) ordenado
+// (jnp tras fcompp: el NaN no corta el enlace). diff recibe C como float (x, y, z).
+__declspec(noinline) bool __cdecl Veh81ATooFarCpp(const float* bar, const float* hitch, const float& timeStep, const float& limit, float* diff) {
+    volatile float dx = float(double(bar[0]) - double(hitch[0]));
+    volatile float dy = float(double(bar[1]) - double(hitch[1]));
+    const double dzReg = double(bar[2]) - double(hitch[2]);
+    volatile float dz = float(dzReg);
+    diff[0] = dx;
+    diff[1] = dy;
+    diff[2] = dz;
+    const double zz = dzReg * double(dz);   // fmul dword [guardado]: el registro sin guardar por el valor guardado como float
+    const double yy = double(dy) * double(dy);
+    const double xx = double(dx) * double(dx);
+    volatile float squared = float((zz + yy) + xx);
+    const double minStep = double(std::bit_cast<float>(0x3F333333u));
+    const double t = double(timeStep) > minStep ? double(timeStep) : minStep;
+    const double length = Veh80CSqrt(double(squared));
+    const double scaled = double(limit) * t;
+    return scaled < length;
+}
+// 0x6DFD5E..0x6DFDAC: true si el producto escalar de los ejes +0x10 de las dos matrices ((tz*sz + ty*sy) + tx*sx, sin guardar) es menor que -0.3f (0x858EE4), o si el de los ejes +0x20
+// (0x40FDB0, mismo orden z, y, x) es menor que 0.0f (0x858B50); comparaciones ordenadas (un NaN no corta).
+__declspec(noinline) bool __cdecl Veh81ABentCpp(const float* towedMatrix, const float* selfMatrix) {
+    const double forward = (double(towedMatrix[6]) * double(selfMatrix[6]) + double(towedMatrix[5]) * double(selfMatrix[5])) + double(towedMatrix[4]) * double(selfMatrix[4]);
+    if (forward < double(std::bit_cast<float>(0xBE99999Au))) {
+        return true;
+    }
+    const double up = (double(towedMatrix[10]) * double(selfMatrix[10]) + double(towedMatrix[9]) * double(selfMatrix[9])) + double(towedMatrix[8]) * double(selfMatrix[8]);
+    return up < 0.0;
+}
+// 0x406D70 (v -= p) y las restas de velocidades / brazos: out = a - b, un fld + fsub + fstp por componente (x, y, z). out puede ser a.
+__declspec(noinline) void __cdecl Veh81ASubCpp(float* out, const float* a, const float* b) {
+    volatile float x = float(double(a[0]) - double(b[0]));
+    out[0] = x;
+    volatile float y = float(double(a[1]) - double(b[1]));
+    out[1] = y;
+    volatile float z = float(double(a[2]) - double(b[2]));
+    out[2] = z;
+}
+// 0x6DFE92..0x6DFEDF: out = ((ganancia (0x871DF4) * diff) / max(1.0f, paso)). max (0x420800): 1.0f si 1.0f > paso, si no el paso (NaN incluido), guardado como float; diff * ganancia se guarda como float por
+// componente (0x40FE90, productos en el orden z, y, x); la division (0x4119D0) multiplica por 1.0f / r: z con el reciproco del registro (24 bits) e y, x con el reciproco guardado como float.
+__declspec(noinline) void __cdecl Veh81ADampCpp(const float* diff, const float& timeStep, const float& gain, float* out) {
+    const double step = double(timeStep);
+    volatile float r = float(1.0 > step ? 1.0 : step);
+    const double g = double(gain);
+    volatile float tz = float(g * double(diff[2]));
+    volatile float ty = float(g * double(diff[1]));
+    volatile float tx = float(g * double(diff[0]));
+    const double inv = 1.0 / double(r);
+    volatile float invStored = float(inv);
+    volatile float oz = float(inv * double(tz));
+    volatile float oy = float(double(invStored) * double(ty));
+    volatile float ox = float(double(invStored) * double(tx));
+    out[0] = ox;
+    out[1] = oy;
+    out[2] = oz;
+}
+// 0x6DFEE5..0x6DFF2F (tractor de tipo remolque): d = (e.z*at.z + e.y*at.y) + e.x*at.x guardado como float; e -= d * at (0x40FE90 y 0x406D70). at = eje +0x20 de la matriz.
+__declspec(noinline) void __cdecl Veh81AProjectCpp(float* e, const float* at) {
+    volatile float d = float((double(e[2]) * double(at[2]) + double(e[1]) * double(at[1])) + double(e[0]) * double(at[0]));
+    const double dd = double(d);
+    volatile float pz = float(dd * double(at[2]));
+    volatile float py = float(dd * double(at[1]));
+    volatile float px = float(dd * double(at[0]));
+    volatile float ex = float(double(e[0]) - double(px));
+    e[0] = ex;
+    volatile float ey = float(double(e[1]) - double(py));
+    e[1] = ey;
+    volatile float ez = float(double(e[2]) - double(pz));
+    e[2] = ez;
+}
+// 0x6DFF33..0x6DFFE0: fuerza = e * m con m = 1 / (|(b - R) x n(e)|^2 / masaDeGiro + 1 / masa), R = Multiply3x3(matriz, centro de masa) (0x59C790, columnas, orden de sumas del EXE), n = Normalise (0x59C910:
+// (x*x + y*y) + z*z; si es <= 0 solo x = 1.0f, si no cada componente por 1/sqrt guardado como float), CrossProduct (0x59C730, a = b - R, b = n) y SquaredMagnitude (0x406DA0, (x*x + y*y) + z*z sin guardar).
+// m se guarda como float; la fuerza se calcula con 0x40FEC0 (m * e, productos en z, y, x; se guardan x, y, z). mat = matriz (right 0, forward 0x10, up 0x20).
+__declspec(noinline) void __cdecl Veh81AForceCpp(const float* mat, const float* centre, const float* e, const float* b, const float& mass, const float& turnMass, float* force) {
+    volatile float rx = float((double(mat[8]) * double(centre[2]) + double(mat[4]) * double(centre[1])) + double(mat[0]) * double(centre[0]));
+    volatile float ry = float((double(mat[9]) * double(centre[2]) + double(mat[1]) * double(centre[0])) + double(mat[5]) * double(centre[1]));
+    volatile float rz = float((double(mat[10]) * double(centre[2]) + double(mat[2]) * double(centre[0])) + double(mat[6]) * double(centre[1]));
+    unsigned int bits[3];
+    memcpy(bits, e, sizeof(bits));   // la copia del EXE es con mov: conserva los bits tal cual
+    float f[3];
+    memcpy(f, bits, sizeof(f));
+    const double s = (double(f[0]) * double(f[0]) + double(f[1]) * double(f[1])) + double(f[2]) * double(f[2]);
+    if (s <= 0.0) {
+        f[0] = std::bit_cast<float>(0x3F800000u);
+    } else {
+        const double inv = 1.0 / Veh80CSqrt(s);
+        volatile float nx = float(inv * double(f[0]));
+        f[0] = nx;
+        volatile float ny = float(inv * double(f[1]));
+        f[1] = ny;
+        volatile float nz = float(inv * double(f[2]));
+        f[2] = nz;
+    }
+    volatile float cx = float(double(b[0]) - double(rx));
+    volatile float cy = float(double(b[1]) - double(ry));
+    volatile float cz = float(double(b[2]) - double(rz));
+    volatile float kx = float(double(f[2]) * double(cy) - double(cz) * double(f[1]));
+    volatile float ky = float(double(cz) * double(f[0]) - double(f[2]) * double(cx));
+    volatile float kz = float(double(cx) * double(f[1]) - double(f[0]) * double(cy));
+    const double squared = (double(kx) * double(kx) + double(ky) * double(ky)) + double(kz) * double(kz);
+    const double turn = squared / double(turnMass);
+    const double inverseMass = 1.0 / double(mass);
+    volatile float m = float(1.0 / (turn + inverseMass));
+    const double md = double(m);
+    volatile float oz = float(md * double(e[2]));
+    volatile float oy = float(md * double(e[1]));
+    volatile float ox = float(md * double(e[0]));
+    force[0] = ox;
+    force[1] = oy;
+    force[2] = oz;
+}
+#pragma float_control(pop)

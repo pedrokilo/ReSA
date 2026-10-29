@@ -312,7 +312,7 @@ void CVehicle::InjectHooks() {
     RH_ScopedInstall(GetSpecialColModel, 0x6DF3D0);
     RH_ScopedInstall(RemoveVehicleUpgrade, 0x6DF930);
     RH_ScopedInstall(AddUpgrade, 0x6DFA20);
-    // RH_ScopedInstall(UpdateTrailerLink, 0x6DFC50);
+    RH_ScopedInstall(UpdateTrailerLink, 0x6DFC50);
     // RH_ScopedInstall(UpdateTractorLink, 0x6E0050);
     RH_ScopedInstall(ScanAndMarkTargetForHeatSeekingMissile, 0x6E0400);
     RH_ScopedInstall(FireHeatSeakingMissile, 0x6E05C0);
@@ -7418,7 +7418,69 @@ void CVehicle::AddUpgrade(int32 modelIndex, int32 upgradeIndex) {
 
 // 0x6DFC50
 void CVehicle::UpdateTrailerLink(bool arg0, bool arg1) {
-    ((void(__thiscall*)(CVehicle*, bool, bool))0x6DFC50)(this, arg0, arg1);
+    // Como el original (0x6DFC50..0x6E0049): this = remolque (tipo 11), +0x4C4 = tractor (se relee antes de cada uso), +0x36 = estado (bits 3..7), +0x14 matriz SIN comprobar nulo.
+    static_assert(offsetof(CVehicle, m_pTowingVehicle) == 0x4C4 && offsetof(CVehicle, m_nVehicleSubType) == 0x594);
+    static_assert(offsetof(CPlaceable, m_matrix) == 0x14 && offsetof(CPlaceable, m_placement) == 0x4);
+    static_assert(offsetof(CPhysical, m_fMass) == 0x8C && offsetof(CPhysical, m_fTurnMass) == 0x90 && offsetof(CPhysical, m_vecCentreOfMass) == 0xA4);
+
+    CVector hitch{}; // enganche del remolque (this); 0x6DFC60..0x6DFC88: los dos vectores empiezan a cero
+    CVector bar{};   // barra del tractor
+    CVehicle* const tractor = m_pTowingVehicle;
+    const eEntityStatus status = GetStatus();
+    // Como el original: sin tractor, con un estado distinto de remolcado (10 / 11) o si falla alguna de las dos posiciones virtuales (+0xEC, +0xF0; el tractor se vuelve a leer), se rompe el enlace (+0xF8)
+    if (!tractor || (status != STATUS_IS_TOWED && status != STATUS_IS_SIMPLE_TOWED) || !GetTowHitchPos(hitch, true, tractor) || !m_pTowingVehicle->GetTowBarPos(bar, true, this)) {
+        BreakTowLink();
+        return;
+    }
+
+    // Como el original: diferencia entre las dos posiciones, distancia contra limite (0x871DF0) * max(paso, 0.7f) y, con los ejes delantero (< -0.3f) y superior (< 0) demasiado torcidos, se rompe el enlace
+    float diff[3];
+    if (Veh81ATooFarCpp(&bar.x, &hitch.x, CTimer::ms_fTimeStep, StaticRef<float>(0x871DF0), diff)) {
+        BreakTowLink();
+        return;
+    }
+    CVehicle* const tractor2 = m_pTowingVehicle; // el original lo vuelve a leer aqui
+    const CMatrix* const tractorMatrix = tractor2->m_matrix;
+    const CMatrix* const selfMatrix = m_matrix;
+    if (Veh81ABentCpp(reinterpret_cast<const float*>(tractorMatrix), reinterpret_cast<const float*>(selfMatrix))) {
+        BreakTowLink();
+        return;
+    }
+
+    // Como el original: si el tractor es la grua (525) o el tractor agricola (531) no se hace nada mas mientras el brazo (+0x86C, uint16) este por encima de 0x8D313C - 100 (comparacion con signo de dwords)
+    const uint16 tractorModel = tractor2->m_nModelIndex;
+    if (tractorModel == 0x20D || tractorModel == 0x213) {
+        const int32 limit = int32(StaticRef<uint16>(0x8D313C)) - 100;
+        const int32 angle = int32(*reinterpret_cast<const uint16*>(reinterpret_cast<const uint8*>(tractor2) + 0x86C));
+        if (angle > limit) {
+            return;
+        }
+    }
+
+    // Como el original: posiciones relativas (posicion de la matriz +0x30, o la compacta +4 si no hay matriz; la del tractor se relee) y velocidades de ambos puntos (0x542CE0)
+    const float* const selfPos = selfMatrix ? reinterpret_cast<const float*>(selfMatrix) + 12 : &m_placement.m_vPosn.x;
+    Veh81ASubCpp(&hitch.x, &hitch.x, selfPos);
+    const CMatrix* const tractorMatrixAgain = tractor2->m_matrix;
+    const float* const tractorPos = tractorMatrixAgain ? reinterpret_cast<const float*>(tractorMatrixAgain) + 12 : &tractor2->m_placement.m_vPosn.x;
+    Veh81ASubCpp(&bar.x, &bar.x, tractorPos);
+    const CVector selfSpeed = GetSpeed(hitch);
+    const CVector tractorSpeed = m_pTowingVehicle->GetSpeed(bar); // el tractor se relee tras la primera llamada
+    float relative[3];
+    Veh81ASubCpp(relative, &tractorSpeed.x, &selfSpeed.x);
+
+    // Como el original: solo con arg0 = false y arg1 = true la diferencia de posiciones, amortiguada por 0x871DF4 / max(1, paso), sustituye a la de velocidades
+    if (!arg0 && arg1) {
+        Veh81ADampCpp(diff, CTimer::ms_fTimeStep, StaticRef<float>(0x871DF4), relative);
+    }
+    // Como el original: si this es un remolque (tipo 11) y 0x6D0AF0 (dword +0x9EC == -1000.0f) se cumple, se quita la componente a lo largo del eje superior
+    if (m_nVehicleSubType == VEHICLE_TYPE_TRAILER && *reinterpret_cast<const uint32*>(reinterpret_cast<const uint8*>(this) + 0x9EC) == 0xC47A0000u) {
+        Veh81AProjectCpp(relative, reinterpret_cast<const float*>(m_matrix) + 8);
+    }
+
+    // Como el original: fuerza = relativa * masa efectiva, aplicada en el punto del enganche (0x542B50, con actualizar el giro)
+    float force[3];
+    Veh81AForceCpp(reinterpret_cast<const float*>(m_matrix), &m_vecCentreOfMass.x, relative, &hitch.x, m_fMass, m_fTurnMass, force);
+    ApplyForce(CVector{ force[0], force[1], force[2] }, hitch, true);
 }
 
 // 0x6E0050
