@@ -313,7 +313,7 @@ void CVehicle::InjectHooks() {
     RH_ScopedInstall(RemoveVehicleUpgrade, 0x6DF930);
     RH_ScopedInstall(AddUpgrade, 0x6DFA20);
     RH_ScopedInstall(UpdateTrailerLink, 0x6DFC50);
-    // RH_ScopedInstall(UpdateTractorLink, 0x6E0050);
+    RH_ScopedInstall(UpdateTractorLink, 0x6E0050);
     RH_ScopedInstall(ScanAndMarkTargetForHeatSeekingMissile, 0x6E0400);
     RH_ScopedInstall(FireHeatSeakingMissile, 0x6E05C0);
     RH_ScopedInstall(PossiblyDropFreeFallBombForPlayer, 0x6E07E0);
@@ -7485,7 +7485,90 @@ void CVehicle::UpdateTrailerLink(bool arg0, bool arg1) {
 
 // 0x6E0050
 void CVehicle::UpdateTractorLink(bool arg0, bool arg1) {
-    ((void(__thiscall*)(CVehicle*, bool, bool))0x6E0050)(this, arg0, arg1);
+    // Como el original (0x6E0050..0x6E03FD, thiscall con dos bool, `ret 8`, void): este vehiculo arrastra al remolque de +0x4C8. Las lecturas de memoria se repiten en el mismo orden que
+    // el EXE: el remolque se vuelve a leer tras cada llamada (+0x4C8 en 0x6E00AC, 0x6E0119, 0x6E01F5 y 0x6E0293) y la matriz del vehiculo en 0x6E014A y 0x6E02E8. Sin comprobar nulo:
+    // el remolque a partir de 0x6E0119, la matriz del remolque en 0x6E02AE y la del vehiculo en 0x6E02E8 (como el EXE). La aritmetica x87 vive en X87Math.cpp (Veh81B*).
+    static_assert(offsetof(CVehicle, m_pVehicleBeingTowed) == 0x4C8 && offsetof(CVehicle, m_fMass) == 0x8C && offsetof(CVehicle, m_fTurnMass) == 0x90 &&
+                  offsetof(CVehicle, m_vecCentreOfMass) == 0xA4 && offsetof(CPlaceable, m_matrix) == 0x14 && offsetof(CEntity, m_nModelIndex) == 0x22);
+    const auto at = [](const void* base, size_t offset) { return reinterpret_cast<uintptr_t>(base) + offset; };
+    const auto trailerOf = [this] { return m_pVehicleBeingTowed; };
+
+    CVehicle* trailer = trailerOf();
+    if (!trailer) {
+        return;
+    }
+
+    // Como el original: ambos vectores arrancan a cero; el enganche del remolque (virtual +0xEC) y la barra de este vehiculo (virtual +0xF0, con el remolque releido)
+    CVector hitch{ 0.0f, 0.0f, 0.0f };
+    CVector bar{ 0.0f, 0.0f, 0.0f };
+    if (!trailer->GetTowHitchPos(hitch, true, this)) {
+        return;
+    }
+    trailer = trailerOf();
+    if (!GetTowBarPos(bar, true, trailer)) {
+        return;
+    }
+
+    // Como el original: c = enganche - barra (en el registro x87 y guardado como float); en el remolque grua (0x20D) y el tractor (0x213) el angulo del gancho (word +0x86C, sin signo)
+    // no puede superar 20000 - 100 (comparacion con signo de 32 bits)
+    CVector c;
+    Veh81BSub3Cpp(&hitch.x, &bar.x, &c.x);
+    if (m_nModelIndex == 0x20D || m_nModelIndex == 0x213) {
+        const int32 hoistAngle = int32(*reinterpret_cast<const uint16*>(at(this, 0x86C)));
+        if (hoistAngle > int32(TOWTRUCK_HOIST_DOWN_LIMIT) - 100) {
+            return;
+        }
+    }
+
+    // Como el original: enganche y barra pasan a ser relativos a las posiciones de cada vehiculo (matriz +0x30 o, sin matriz, la posicion de la transformacion simple +0x04)
+    CVehicle* const trailerPos = trailerOf();
+    const uint8* const trailerMatrix = *reinterpret_cast<const uint8* const*>(at(trailerPos, 0x14));
+    const float* const trailerPosition = reinterpret_cast<const float*>(trailerMatrix ? trailerMatrix + 0x30 : reinterpret_cast<const uint8*>(trailerPos) + 4);
+    Veh81BSub3Cpp(&hitch.x, trailerPosition, &hitch.x);
+    const uint8* const ownMatrix = *reinterpret_cast<const uint8* const*>(at(this, 0x14));
+    const float* const ownPosition = reinterpret_cast<const float*>(ownMatrix ? ownMatrix + 0x30 : reinterpret_cast<const uint8*>(this) + 4);
+    Veh81BSub3Cpp(&bar.x, ownPosition, &bar.x);
+
+    // Como el original: velocidad de cada punto (CPhysical::GetSpeed 0x542CE0; el remolque de 0x6E0119 y este vehiculo) y velocidad relativa
+    const CVector trailerSpeed = trailerPos->GetSpeed(hitch);
+    const CVector ownSpeed = GetSpeed(bar);
+    CVector relative;
+    Veh81BSub3Cpp(&trailerSpeed.x, &ownSpeed.x, &relative.x);
+
+    // Como el original: con arg0 la velocidad relativa queda tal cual; sin arg0, con arg1 vale (0.1f * c) / max(1.0f, paso de tiempo) (la lectura de masas del remolque es entonces
+    // codigo muerto) y sin arg1 se multiplica por (1 - masa / (masa del remolque releido + masa)) * 0.5
+    if (!arg0) {
+        CVehicle* const trailerMass = trailerOf();
+        if (arg1) {
+            Veh81BDampCpp(&c.x, CTimer::ms_fTimeStep, &relative.x);
+        } else {
+            Veh81BScaleCpp(trailerMass->m_fMass, m_fMass, &relative.x);
+        }
+    }
+
+    // Como el original: un remolque de equipaje (subtipo +0x594 == 11 y float +0x9EC == -1000.0f, comparados como dwords) pierde la componente de la velocidad relativa a lo largo de su eje "at" (+0x20)
+    CVehicle* const trailerLuggage = trailerOf();
+    if (*reinterpret_cast<const uint32*>(at(trailerLuggage, 0x594)) == 11u && *reinterpret_cast<const uint32*>(at(trailerLuggage, 0x9EC)) == 0xC47A0000u) {
+        const uint8* const luggageMatrix = *reinterpret_cast<const uint8* const*>(at(trailerLuggage, 0x14));
+        Veh81BProjectCpp(reinterpret_cast<const float*>(luggageMatrix + 0x20), &relative.x);
+    }
+
+    // Como el original: CMatrix::Multiply3x3 (0x59C790, sin hook) del centro de masas por la matriz releida, direccion normalizada (CVector::Normalise 0x59C910) y producto vectorial
+    // (0x59C730) con (barra - desplazamiento): el resultado se lee por el puntero que devuelve
+    CVector offset;
+    Veh81BMul3x3Cpp(reinterpret_cast<const float*>(*reinterpret_cast<const uint8* const*>(at(this, 0x14))), &m_vecCentreOfMass.x, &offset.x);
+    CVector direction = relative;
+    direction.Normalise();
+    CVector lever;
+    Veh81BSub3Cpp(&bar.x, &offset.x, &lever.x);
+    CVector crossStorage;
+    const CVector* const cross = CrossProduct(&crossStorage, &lever, &direction);
+
+    // Como el original: masa efectiva = 1 / (|cross|^2 / masa de giro + 1 / masa) y fuerza = velocidad relativa * masa efectiva, aplicada en la barra
+    CVector force;
+    Veh81BForceCpp(&cross->x, m_fTurnMass, m_fMass, &relative.x, &force.x);
+    ApplyForce(force, bar, true);
+    *reinterpret_cast<uint8*>(at(this, 0xB8)) = 0;
 }
 
 // 0x6E0400

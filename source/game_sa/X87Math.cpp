@@ -17152,3 +17152,86 @@ __declspec(noinline) void __cdecl Veh81AForceCpp(const float* mat, const float* 
     force[2] = oz;
 }
 #pragma float_control(pop)
+// --- Lote 81B (Veh81B): CVehicle::UpdateTractorLink (0x6E0050), prefijo Veh81B ---
+// Todo a 24 bits con exponente extendido (palabra de control del juego); lo que el EXE guarda con fstp/fst dword pasa por un volatile float y lo que deja en el registro queda en un double.
+#pragma float_control(precise, on, push)
+// 0x6E00CC..0x6E00F4, 0x6E012E..0x6E0147, 0x6E0164..0x6E017B, 0x6E01C5..0x6E01EB, 0x6E0321..0x6E0350: out[i] = a[i] - b[i] (fld a; fsub b; fstp out), componente a componente (out puede ser a).
+__declspec(noinline) void __cdecl Veh81BSub3Cpp(const float* a, const float* b, float* out) {
+    volatile float x = float(double(a[0]) - double(b[0]));
+    volatile float y = float(double(a[1]) - double(b[1]));
+    volatile float z = float(double(a[2]) - double(b[2]));
+    out[0] = x;
+    out[1] = y;
+    out[2] = z;
+}
+// 0x6E01F5..0x6E0239: factor = (1.0f - masa / (masaRemolque + masa)) * 0.5f (fadd, fdivr, fsubr 1.0f, fmul 0.5f; queda en el registro x87) y rel[i] = float(rel[i] * factor).
+__declspec(noinline) void __cdecl Veh81BScaleCpp(const float& trailerMass, const float& mass, float* rel) {
+    const double sum = double(trailerMass) + double(mass);
+    const double ratio = double(mass) / sum;
+    const double factor = (double(std::bit_cast<float>(0x3F800000u)) - ratio) * double(std::bit_cast<float>(0x3F000000u));
+    volatile float x = float(double(rel[0]) * factor);
+    volatile float y = float(double(rel[1]) * factor);
+    volatile float z = float(double(rel[2]) * factor);
+    rel[0] = x;
+    rel[1] = y;
+    rel[2] = z;
+}
+// 0x6E0241..0x6E028F: rel = (0.1f * c) / max(1.0f, paso de tiempo). 0x420800 devuelve 1.0f si 1.0f > paso (ordenado) y el paso en otro caso (NaN incluido) y lo guarda como float; 0x40FE90 multiplica
+// 0.1f por c (z, y, x; cada producto guardado como float); 0x4119D0 divide: d = 1.0f / m se guarda como float (fst) pero la componente z usa el d del registro x87 (sin redondear a float).
+__declspec(noinline) void __cdecl Veh81BDampCpp(const float* c, const float& timeStep, float* rel) {
+    const double step = double(timeStep);
+    const double larger = double(std::bit_cast<float>(0x3F800000u)) > step ? double(std::bit_cast<float>(0x3F800000u)) : step;
+    volatile float m = float(larger);
+    const double tenth = double(std::bit_cast<float>(0x3DCCCCCDu));
+    volatile float tz = float(tenth * double(c[2]));
+    volatile float ty = float(tenth * double(c[1]));
+    volatile float tx = float(tenth * double(c[0]));
+    const double d = double(std::bit_cast<float>(0x3F800000u)) / double(m);
+    volatile float df = float(d);
+    volatile float rz = float(d * double(tz));
+    volatile float ry = float(double(df) * double(ty));
+    volatile float rx = float(double(df) * double(tx));
+    rel[0] = rx;
+    rel[1] = ry;
+    rel[2] = rz;
+}
+// 0x6E02B1..0x6E0309 (con 0x40FE90 y 0x406D70): dot = float((rel.z * at.z + rel.y * at.y) + rel.x * at.x); t = dot * at (z, y, x; cada producto guardado como float); rel[i] = float(rel[i] - t[i]).
+__declspec(noinline) void __cdecl Veh81BProjectCpp(const float* at, float* rel) {
+    volatile float dot = float((double(rel[2]) * double(at[2]) + double(rel[1]) * double(at[1])) + double(rel[0]) * double(at[0]));
+    volatile float tz = float(double(dot) * double(at[2]));
+    volatile float ty = float(double(dot) * double(at[1]));
+    volatile float tx = float(double(dot) * double(at[0]));
+    volatile float x = float(double(rel[0]) - double(tx));
+    volatile float y = float(double(rel[1]) - double(ty));
+    volatile float z = float(double(rel[2]) - double(tz));
+    rel[0] = x;
+    rel[1] = y;
+    rel[2] = z;
+}
+// 0x59C790 (CMatrix * vector sin traslacion, sin hook): out0 = (m[0x20]*v.z + m[0x10]*v.y) + m[0x00]*v.x; out1 = (m[0x24]*v.z + m[0x04]*v.x) + m[0x14]*v.y; out2 = (m[0x28]*v.z + m[0x08]*v.x) + m[0x18]*v.y;
+// cada resultado guardado como float. m son los 16 floats de la matriz (indices de dword: 0x20/4 = 8, 0x10/4 = 4, ...).
+__declspec(noinline) void __cdecl Veh81BMul3x3Cpp(const float* m, const float* v, float* out) {
+    volatile float x = float((double(m[8]) * double(v[2]) + double(m[4]) * double(v[1])) + double(m[0]) * double(v[0]));
+    volatile float y = float((double(m[9]) * double(v[2]) + double(m[1]) * double(v[0])) + double(m[5]) * double(v[1]));
+    volatile float z = float((double(m[10]) * double(v[2]) + double(m[2]) * double(v[0])) + double(m[6]) * double(v[1]));
+    out[0] = x;
+    out[1] = y;
+    out[2] = z;
+}
+// 0x6E035F..0x6E03E5: k = 1.0f / ((((f.x*f.x + f.y*f.y) + f.z*f.z) / masaGiro) + 1.0f / masa) (todo en el registro x87, sin guardar) y force[i] = float(rel[i] * k).
+__declspec(noinline) void __cdecl Veh81BForceCpp(const float* f, const float& turnMass, const float& mass, const float* rel, float* force) {
+    const double fz = double(f[2]);
+    const double fy = double(f[1]);
+    const double fx = double(f[0]);
+    const double sum = (fx * fx + fy * fy) + fz * fz;
+    const double q = sum / double(turnMass);
+    const double inv = double(std::bit_cast<float>(0x3F800000u)) / double(mass);
+    const double k = double(std::bit_cast<float>(0x3F800000u)) / (q + inv);
+    volatile float x = float(double(rel[0]) * k);
+    volatile float y = float(double(rel[1]) * k);
+    volatile float z = float(double(rel[2]) * k);
+    force[0] = x;
+    force[1] = y;
+    force[2] = z;
+}
+#pragma float_control(pop)

@@ -2100,3 +2100,16 @@ void __cdecl Veh81ADampCpp(const float* diff, const float& timeStep, const float
 void __cdecl Veh81AProjectCpp(float* e, const float* at);
 // 0x6DFF33..0x6DFFE0: force = e * (1 / (|(b - Multiply3x3(mat, centre)) x Normalise(e)|^2 / turnMass + 1 / mass)).
 void __cdecl Veh81AForceCpp(const float* mat, const float* centre, const float* e, const float* b, const float& mass, const float& turnMass, float* force);
+// --- Lote 81B (Veh81B): CVehicle::UpdateTractorLink (0x6E0050) ---
+// out[i] = float(a[i] - b[i]) a 24 bits, componente a componente (out puede coincidir con a).
+void __cdecl Veh81BSub3Cpp(const float* a, const float* b, float* out);
+// rel[i] = float(rel[i] * ((1.0f - masa / (masaRemolque + masa)) * 0.5f)).
+void __cdecl Veh81BScaleCpp(const float& trailerMass, const float& mass, float* rel);
+// rel = (0.1f * c) / max(1.0f, paso de tiempo): el maximo devuelve el paso si no es 1.0f > paso (NaN incluido).
+void __cdecl Veh81BDampCpp(const float* c, const float& timeStep, float* rel);
+// rel -= at * float((rel.z*at.z + rel.y*at.y) + rel.x*at.x).
+void __cdecl Veh81BProjectCpp(const float* at, float* rel);
+// out = matriz(3x3) * v con los ordenes de suma de 0x59C790; m son los dwords de la matriz.
+void __cdecl Veh81BMul3x3Cpp(const float* m, const float* v, float* out);
+// force[i] = float(rel[i] * k), k = 1.0f / ((|f|^2 / masaGiro) + 1.0f / masa).
+void __cdecl Veh81BForceCpp(const float* f, const float& turnMass, const float& mass, const float* rel, float* force);

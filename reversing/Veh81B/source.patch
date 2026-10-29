@@ -1,0 +1,219 @@
+diff --git a/source/game_sa/Entity/Vehicle/Vehicle.cpp b/source/game_sa/Entity/Vehicle/Vehicle.cpp
+index 121a351c1..e332b1339 100644
+--- a/source/game_sa/Entity/Vehicle/Vehicle.cpp
++++ b/source/game_sa/Entity/Vehicle/Vehicle.cpp
+@@ -313,7 +313,7 @@ void CVehicle::InjectHooks() {
+     RH_ScopedInstall(RemoveVehicleUpgrade, 0x6DF930);
+     RH_ScopedInstall(AddUpgrade, 0x6DFA20);
+     // RH_ScopedInstall(UpdateTrailerLink, 0x6DFC50);
+-    // RH_ScopedInstall(UpdateTractorLink, 0x6E0050);
++    RH_ScopedInstall(UpdateTractorLink, 0x6E0050);
+     RH_ScopedInstall(ScanAndMarkTargetForHeatSeekingMissile, 0x6E0400);
+     RH_ScopedInstall(FireHeatSeakingMissile, 0x6E05C0);
+     RH_ScopedInstall(PossiblyDropFreeFallBombForPlayer, 0x6E07E0);
+@@ -7423,7 +7423,90 @@ void CVehicle::UpdateTrailerLink(bool arg0, bool arg1) {
+ 
+ // 0x6E0050
+ void CVehicle::UpdateTractorLink(bool arg0, bool arg1) {
+-    ((void(__thiscall*)(CVehicle*, bool, bool))0x6E0050)(this, arg0, arg1);
++    // Como el original (0x6E0050..0x6E03FD, thiscall con dos bool, `ret 8`, void): este vehiculo arrastra al remolque de +0x4C8. Las lecturas de memoria se repiten en el mismo orden que
++    // el EXE: el remolque se vuelve a leer tras cada llamada (+0x4C8 en 0x6E00AC, 0x6E0119, 0x6E01F5 y 0x6E0293) y la matriz del vehiculo en 0x6E014A y 0x6E02E8. Sin comprobar nulo:
++    // el remolque a partir de 0x6E0119, la matriz del remolque en 0x6E02AE y la del vehiculo en 0x6E02E8 (como el EXE). La aritmetica x87 vive en X87Math.cpp (Veh81B*).
++    static_assert(offsetof(CVehicle, m_pVehicleBeingTowed) == 0x4C8 && offsetof(CVehicle, m_fMass) == 0x8C && offsetof(CVehicle, m_fTurnMass) == 0x90 &&
++                  offsetof(CVehicle, m_vecCentreOfMass) == 0xA4 && offsetof(CPlaceable, m_matrix) == 0x14 && offsetof(CEntity, m_nModelIndex) == 0x22);
++    const auto at = [](const void* base, size_t offset) { return reinterpret_cast<uintptr_t>(base) + offset; };
++    const auto trailerOf = [this] { return m_pVehicleBeingTowed; };
++
++    CVehicle* trailer = trailerOf();
++    if (!trailer) {
++        return;
++    }
++
++    // Como el original: ambos vectores arrancan a cero; el enganche del remolque (virtual +0xEC) y la barra de este vehiculo (virtual +0xF0, con el remolque releido)
++    CVector hitch{ 0.0f, 0.0f, 0.0f };
++    CVector bar{ 0.0f, 0.0f, 0.0f };
++    if (!trailer->GetTowHitchPos(hitch, true, this)) {
++        return;
++    }
++    trailer = trailerOf();
++    if (!GetTowBarPos(bar, true, trailer)) {
++        return;
++    }
++
++    // Como el original: c = enganche - barra (en el registro x87 y guardado como float); en el remolque grua (0x20D) y el tractor (0x213) el angulo del gancho (word +0x86C, sin signo)
++    // no puede superar 20000 - 100 (comparacion con signo de 32 bits)
++    CVector c;
++    Veh81BSub3Cpp(&hitch.x, &bar.x, &c.x);
++    if (m_nModelIndex == 0x20D || m_nModelIndex == 0x213) {
++        const int32 hoistAngle = int32(*reinterpret_cast<const uint16*>(at(this, 0x86C)));
++        if (hoistAngle > int32(TOWTRUCK_HOIST_DOWN_LIMIT) - 100) {
++            return;
++        }
++    }
++
++    // Como el original: enganche y barra pasan a ser relativos a las posiciones de cada vehiculo (matriz +0x30 o, sin matriz, la posicion de la transformacion simple +0x04)
++    CVehicle* const trailerPos = trailerOf();
++    const uint8* const trailerMatrix = *reinterpret_cast<const uint8* const*>(at(trailerPos, 0x14));
++    const float* const trailerPosition = reinterpret_cast<const float*>(trailerMatrix ? trailerMatrix + 0x30 : reinterpret_cast<const uint8*>(trailerPos) + 4);
++    Veh81BSub3Cpp(&hitch.x, trailerPosition, &hitch.x);
++    const uint8* const ownMatrix = *reinterpret_cast<const uint8* const*>(at(this, 0x14));
++    const float* const ownPosition = reinterpret_cast<const float*>(ownMatrix ? ownMatrix + 0x30 : reinterpret_cast<const uint8*>(this) + 4);
++    Veh81BSub3Cpp(&bar.x, ownPosition, &bar.x);
++
++    // Como el original: velocidad de cada punto (CPhysical::GetSpeed 0x542CE0; el remolque de 0x6E0119 y este vehiculo) y velocidad relativa
++    const CVector trailerSpeed = trailerPos->GetSpeed(hitch);
++    const CVector ownSpeed = GetSpeed(bar);
++    CVector relative;
++    Veh81BSub3Cpp(&trailerSpeed.x, &ownSpeed.x, &relative.x);
++
++    // Como el original: con arg0 la velocidad relativa queda tal cual; sin arg0, con arg1 vale (0.1f * c) / max(1.0f, paso de tiempo) (la lectura de masas del remolque es entonces
++    // codigo muerto) y sin arg1 se multiplica por (1 - masa / (masa del remolque releido + masa)) * 0.5
++    if (!arg0) {
++        CVehicle* const trailerMass = trailerOf();
++        if (arg1) {
++            Veh81BDampCpp(&c.x, CTimer::ms_fTimeStep, &relative.x);
++        } else {
++            Veh81BScaleCpp(trailerMass->m_fMass, m_fMass, &relative.x);
++        }
++    }
++
++    // Como el original: un remolque de equipaje (subtipo +0x594 == 11 y float +0x9EC == -1000.0f, comparados como dwords) pierde la componente de la velocidad relativa a lo largo de su eje "at" (+0x20)
++    CVehicle* const trailerLuggage = trailerOf();
++    if (*reinterpret_cast<const uint32*>(at(trailerLuggage, 0x594)) == 11u && *reinterpret_cast<const uint32*>(at(trailerLuggage, 0x9EC)) == 0xC47A0000u) {
++        const uint8* const luggageMatrix = *reinterpret_cast<const uint8* const*>(at(trailerLuggage, 0x14));
++        Veh81BProjectCpp(reinterpret_cast<const float*>(luggageMatrix + 0x20), &relative.x);
++    }
++
++    // Como el original: CMatrix::Multiply3x3 (0x59C790, sin hook) del centro de masas por la matriz releida, direccion normalizada (CVector::Normalise 0x59C910) y producto vectorial
++    // (0x59C730) con (barra - desplazamiento): el resultado se lee por el puntero que devuelve
++    CVector offset;
++    Veh81BMul3x3Cpp(reinterpret_cast<const float*>(*reinterpret_cast<const uint8* const*>(at(this, 0x14))), &m_vecCentreOfMass.x, &offset.x);
++    CVector direction = relative;
++    direction.Normalise();
++    CVector lever;
++    Veh81BSub3Cpp(&bar.x, &offset.x, &lever.x);
++    CVector crossStorage;
++    const CVector* const cross = CrossProduct(&crossStorage, &lever, &direction);
++
++    // Como el original: masa efectiva = 1 / (|cross|^2 / masa de giro + 1 / masa) y fuerza = velocidad relativa * masa efectiva, aplicada en la barra
++    CVector force;
++    Veh81BForceCpp(&cross->x, m_fTurnMass, m_fMass, &relative.x, &force.x);
++    ApplyForce(force, bar, true);
++    *reinterpret_cast<uint8*>(at(this, 0xB8)) = 0;
+ }
+ 
+ // 0x6E0400
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 9b7f8b1ab..a3dac41a8 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -17035,3 +17035,87 @@ __declspec(noinline) void __cdecl Veh80CEndCpp(double dirX, double dirY, const f
+     out[2] = oz;
+ }
+ #pragma float_control(pop)
++
++// --- Lote 81B (Veh81B): CVehicle::UpdateTractorLink (0x6E0050), prefijo Veh81B ---
++// Todo a 24 bits con exponente extendido (palabra de control del juego); lo que el EXE guarda con fstp/fst dword pasa por un volatile float y lo que deja en el registro queda en un double.
++#pragma float_control(precise, on, push)
++// 0x6E00CC..0x6E00F4, 0x6E012E..0x6E0147, 0x6E0164..0x6E017B, 0x6E01C5..0x6E01EB, 0x6E0321..0x6E0350: out[i] = a[i] - b[i] (fld a; fsub b; fstp out), componente a componente (out puede ser a).
++__declspec(noinline) void __cdecl Veh81BSub3Cpp(const float* a, const float* b, float* out) {
++    volatile float x = float(double(a[0]) - double(b[0]));
++    volatile float y = float(double(a[1]) - double(b[1]));
++    volatile float z = float(double(a[2]) - double(b[2]));
++    out[0] = x;
++    out[1] = y;
++    out[2] = z;
++}
++// 0x6E01F5..0x6E0239: factor = (1.0f - masa / (masaRemolque + masa)) * 0.5f (fadd, fdivr, fsubr 1.0f, fmul 0.5f; queda en el registro x87) y rel[i] = float(rel[i] * factor).
++__declspec(noinline) void __cdecl Veh81BScaleCpp(const float& trailerMass, const float& mass, float* rel) {
++    const double sum = double(trailerMass) + double(mass);
++    const double ratio = double(mass) / sum;
++    const double factor = (double(std::bit_cast<float>(0x3F800000u)) - ratio) * double(std::bit_cast<float>(0x3F000000u));
++    volatile float x = float(double(rel[0]) * factor);
++    volatile float y = float(double(rel[1]) * factor);
++    volatile float z = float(double(rel[2]) * factor);
++    rel[0] = x;
++    rel[1] = y;
++    rel[2] = z;
++}
++// 0x6E0241..0x6E028F: rel = (0.1f * c) / max(1.0f, paso de tiempo). 0x420800 devuelve 1.0f si 1.0f > paso (ordenado) y el paso en otro caso (NaN incluido) y lo guarda como float; 0x40FE90 multiplica
++// 0.1f por c (z, y, x; cada producto guardado como float); 0x4119D0 divide: d = 1.0f / m se guarda como float (fst) pero la componente z usa el d del registro x87 (sin redondear a float).
++__declspec(noinline) void __cdecl Veh81BDampCpp(const float* c, const float& timeStep, float* rel) {
++    const double step = double(timeStep);
++    const double larger = double(std::bit_cast<float>(0x3F800000u)) > step ? double(std::bit_cast<float>(0x3F800000u)) : step;
++    volatile float m = float(larger);
++    const double tenth = double(std::bit_cast<float>(0x3DCCCCCDu));
++    volatile float tz = float(tenth * double(c[2]));
++    volatile float ty = float(tenth * double(c[1]));
++    volatile float tx = float(tenth * double(c[0]));
++    const double d = double(std::bit_cast<float>(0x3F800000u)) / double(m);
++    volatile float df = float(d);
++    volatile float rz = float(d * double(tz));
++    volatile float ry = float(double(df) * double(ty));
++    volatile float rx = float(double(df) * double(tx));
++    rel[0] = rx;
++    rel[1] = ry;
++    rel[2] = rz;
++}
++// 0x6E02B1..0x6E0309 (con 0x40FE90 y 0x406D70): dot = float((rel.z * at.z + rel.y * at.y) + rel.x * at.x); t = dot * at (z, y, x; cada producto guardado como float); rel[i] = float(rel[i] - t[i]).
++__declspec(noinline) void __cdecl Veh81BProjectCpp(const float* at, float* rel) {
++    volatile float dot = float((double(rel[2]) * double(at[2]) + double(rel[1]) * double(at[1])) + double(rel[0]) * double(at[0]));
++    volatile float tz = float(double(dot) * double(at[2]));
++    volatile float ty = float(double(dot) * double(at[1]));
++    volatile float tx = float(double(dot) * double(at[0]));
++    volatile float x = float(double(rel[0]) - double(tx));
++    volatile float y = float(double(rel[1]) - double(ty));
++    volatile float z = float(double(rel[2]) - double(tz));
++    rel[0] = x;
++    rel[1] = y;
++    rel[2] = z;
++}
++// 0x59C790 (CMatrix * vector sin traslacion, sin hook): out0 = (m[0x20]*v.z + m[0x10]*v.y) + m[0x00]*v.x; out1 = (m[0x24]*v.z + m[0x04]*v.x) + m[0x14]*v.y; out2 = (m[0x28]*v.z + m[0x08]*v.x) + m[0x18]*v.y;
++// cada resultado guardado como float. m son los 16 floats de la matriz (indices de dword: 0x20/4 = 8, 0x10/4 = 4, ...).
++__declspec(noinline) void __cdecl Veh81BMul3x3Cpp(const float* m, const float* v, float* out) {
++    volatile float x = float((double(m[8]) * double(v[2]) + double(m[4]) * double(v[1])) + double(m[0]) * double(v[0]));
++    volatile float y = float((double(m[9]) * double(v[2]) + double(m[1]) * double(v[0])) + double(m[5]) * double(v[1]));
++    volatile float z = float((double(m[10]) * double(v[2]) + double(m[2]) * double(v[0])) + double(m[6]) * double(v[1]));
++    out[0] = x;
++    out[1] = y;
++    out[2] = z;
++}
++// 0x6E035F..0x6E03E5: k = 1.0f / ((((f.x*f.x + f.y*f.y) + f.z*f.z) / masaGiro) + 1.0f / masa) (todo en el registro x87, sin guardar) y force[i] = float(rel[i] * k).
++__declspec(noinline) void __cdecl Veh81BForceCpp(const float* f, const float& turnMass, const float& mass, const float* rel, float* force) {
++    const double fz = double(f[2]);
++    const double fy = double(f[1]);
++    const double fx = double(f[0]);
++    const double sum = (fx * fx + fy * fy) + fz * fz;
++    const double q = sum / double(turnMass);
++    const double inv = double(std::bit_cast<float>(0x3F800000u)) / double(mass);
++    const double k = double(std::bit_cast<float>(0x3F800000u)) / (q + inv);
++    volatile float x = float(double(rel[0]) * k);
++    volatile float y = float(double(rel[1]) * k);
++    volatile float z = float(double(rel[2]) * k);
++    force[0] = x;
++    force[1] = y;
++    force[2] = z;
++}
++#pragma float_control(pop)
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index 3ce7740f8..665798adc 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -2086,3 +2086,17 @@ bool __cdecl Ka80VehicleAheadCpp(const float* reference, const float* vehicle, c
+ void __cdecl Veh80CDirCpp(const float& topX, const float& topY, double* reg, float* stored);
+ // 0x73DFB6..0x73E1DB: extremo del disparo de un canon = (dirX + pos.x, pos.y + dirY, pos.z) mas el ruido entero (jx * 0.015f, jy * 0.015f, jz * 0.02f), cada componente guardada como float.
+ void __cdecl Veh80CEndCpp(double dirX, double dirY, const float& posX, const float& posY, const float& posZ, int jx, int jy, int jz, float* out);
++
++// --- Lote 81B (Veh81B): CVehicle::UpdateTractorLink (0x6E0050) ---
++// out[i] = float(a[i] - b[i]) a 24 bits, componente a componente (out puede coincidir con a).
++void __cdecl Veh81BSub3Cpp(const float* a, const float* b, float* out);
++// rel[i] = float(rel[i] * ((1.0f - masa / (masaRemolque + masa)) * 0.5f)).
++void __cdecl Veh81BScaleCpp(const float& trailerMass, const float& mass, float* rel);
++// rel = (0.1f * c) / max(1.0f, paso de tiempo): el maximo devuelve el paso si no es 1.0f > paso (NaN incluido).
++void __cdecl Veh81BDampCpp(const float* c, const float& timeStep, float* rel);
++// rel -= at * float((rel.z*at.z + rel.y*at.y) + rel.x*at.x).
++void __cdecl Veh81BProjectCpp(const float* at, float* rel);
++// out = matriz(3x3) * v con los ordenes de suma de 0x59C790; m son los dwords de la matriz.
++void __cdecl Veh81BMul3x3Cpp(const float* m, const float* v, float* out);
++// force[i] = float(rel[i] * k), k = 1.0f / ((|f|^2 / masaGiro) + 1.0f / masa).
++void __cdecl Veh81BForceCpp(const float* f, const float& turnMass, const float& mass, const float* rel, float* force);
