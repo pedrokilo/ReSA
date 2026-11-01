@@ -17525,3 +17525,25 @@ __declspec(noinline) void __cdecl Fx83SprayStepCpp(const Fx83SprayHead* h, const
     outVel[2] = float(Player82ARound24(Player82ARound24(Player82ARound24(rk2 + 1.0) * double(h->t)) + double(mz)));
 }
 #pragma float_control(pop)
+
+// --- Lote 83B (Veh83B): CVehicle::InflictDamage (0x6D7C90), prefijo Veh83B. Anadido al FINAL ---
+// El guardado `fstp dword` de la x87 redondea el valor de 24 bits al rango de un float; en la zona desnormal lo hace a mano (cvtsd2ss con FTZ activo en el juego daria cero).
+#pragma float_control(precise, on, push)
+static float Veh83BStore(double value) {
+    const double magnitude = std::fabs(value);
+    if (magnitude != 0.0 && magnitude < 1.1754943508222875e-38) {
+        const double scaled = std::nearbyint(value * 0x1p149);
+        const uint32_t bits = static_cast<uint32_t>(std::fabs(scaled)) | (std::signbit(value) ? 0x80000000u : 0u);
+        return std::bit_cast<float>(bits);
+    }
+    return float(value);
+}
+// 0x6D7CEC y 0x6D8008..0x6D8015: `fld a; fmul k; fstp a` (24 bits de mantisa, exponente ampliado, guardado como float).
+__declspec(noinline) float __cdecl Veh83BScaleCpp(float a, float k) {
+    return Veh83BStore(Player82ARound24(double(a) * double(k)));
+}
+// 0x6D8067..0x6D8083: `fld a; fsub b; fstp a`.
+__declspec(noinline) float __cdecl Veh83BSubCpp(float a, float b) {
+    return Veh83BStore(Player82ARound24(double(a) - double(b)));
+}
+#pragma float_control(pop)

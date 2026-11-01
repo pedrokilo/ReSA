@@ -368,7 +368,7 @@ inline void Update() {
         EntryPatch f4(bit_cast<uintptr_t>(&FxSystem_c::SetOffsetPos),FakeFxOffset), f4e(0x4AA660,FakeFxOffset);
         EntryPatch f5(bit_cast<uintptr_t>(&FxSystem_c::SetConstTime),FakeFxConstTime), f5e(0x4AA6C0,FakeFxConstTime);
         EntryPatch f6(bit_cast<uintptr_t>(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::CleanUpOldReference)),FakeCleanUp), f6e(0x571A00,FakeCleanUp);
-        EntryPatch f7(0x6D7C90,FakeInflict);
+        EntryPatch f7(bit_cast<uintptr_t>(&CVehicle::InflictDamage),FakeInflict), f7e(0x6D7C90,FakeInflict); // lote 83B: la DLL llama a su cuerpo (ya es C++ real)
         EntryPatch f8(bit_cast<uintptr_t>(&CPlayerPed::DoStuffToGoOnFire),FakeGoOnFire), f8e(0x60A020,FakeGoOnFire);
         EntryPatch f9(bit_cast<uintptr_t>(&CVehicle::FindTyreNearestPoint),FakeNearestTyre), f9e(0x6D7BC0,FakeNearestTyre);
         EntryPatch f10(bit_cast<uintptr_t>(&CObject::ObjectFireDamage),FakeObjFireDamage), f10e(0x5A1580,FakeObjFireDamage);

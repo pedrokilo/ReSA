@@ -276,5 +276,4 @@ CHeli,SearchLightCone,0x006C58E0,source/game_sa/Entity/Vehicle/Heli.cpp:218,coho
 CPlayerPed,FindNextWeaponLockOnTarget,0x0060E530,source/game_sa/Entity/Ped/PlayerPed.cpp:2345,cohorte 499 + envoltura en el código fuente
 CPlayerPed,ProcessWeaponSwitch,0x0060D850,source/game_sa/Entity/Ped/PlayerPed.cpp:2119,cohorte 499 + envoltura en el código fuente
 CVehicle,AddSingleWheelParticles,0x006DE880,source/game_sa/Entity/Vehicle/Vehicle.cpp:4787,cohorte 499
-CVehicle,InflictDamage,0x006D7C90,source/game_sa/Entity/Vehicle/Vehicle.cpp:3738,cohorte 499
 CVehicle,ProcessBikeWheel,0x006D73B0,source/game_sa/Entity/Vehicle/Vehicle.cpp:3757,cohorte 499 + envoltura en el código fuente

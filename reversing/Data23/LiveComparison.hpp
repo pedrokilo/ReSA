@@ -376,7 +376,7 @@ inline void Update() {
                             P.Add(0x4D6A70,SFirstAssoc); P.Add(MA(static_cast<CAnimBlendAssociation*(*)(RpClump*,uint32)>(&RpAnimBlendClumpGetFirstAssociation)),SFirstAssoc);
                             P.Add(0x4D4610,SBlend); P.Add(MA(static_cast<CAnimBlendAssociation*(*)(RpClump*,AssocGroupId,AnimationId,float)>(&CAnimManager::BlendAnimation)),SBlend);
                             P.Add(0x4CEA80,SSetCurrentTime); P.Add(MA(&CAnimBlendAssociation::SetCurrentTime),SSetCurrentTime);
-                            P.Add(0x6D7C90,SInflictDamage);
+                            P.Add(0x6D7C90,SInflictDamage); P.Add(MA(&CVehicle::InflictDamage),SInflictDamage); /* lote 83B: ya es C++ real en la DLL */
                             P.Add(0x53A050,SStartFire); P.Add(MA(static_cast<CFire*(CFireManager::*)(CEntity*,CEntity*,float,uint8,uint32,int8)>(&CFireManager::StartFire)),SStartFire);
                             P.Add(0x420C40,SSphereVisible); P.Add(MA(static_cast<bool(CCamera::*)(const CVector&,float,RwMatrix*)>(&CCamera::IsSphereVisible)),SSphereVisible);
                             P.Add(0x59F0C0,SLightExe); P.Add(MA(&tColLighting::GetCurrentLighting),SLightDll);

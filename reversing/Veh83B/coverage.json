@@ -1,0 +1,31 @@
+{
+  "CVehicle::InflictDamage": {
+    "aircraft": 4190,
+    "blowup": 3570,
+    "burst_bike": 200,
+    "burst_car": 280,
+    "can_fire_garbage": 1880,
+    "cannot_damage": 920,
+    "coord_nan": 810,
+    "crime": 1630,
+    "detonate": 430,
+    "dmg_not_ped": 1350,
+    "dmg_null": 510,
+    "engine": 510,
+    "events": 2850,
+    "fp_ped_null_equal": 180,
+    "gas_cap": 540,
+    "havoc": 3520,
+    "health_nan": 360,
+    "intensity_denormal": 350,
+    "intensity_inf": 220,
+    "intensity_nan": 270,
+    "lethal_equal": 380,
+    "nothing": 2870,
+    "old_250_edge": 360,
+    "progress_halved": 480,
+    "status_wrecked": 1760,
+    "tyres_dont": 3240,
+    "wanted": 1780
+  }
+}

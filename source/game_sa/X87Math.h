@@ -2146,3 +2146,7 @@ struct Fx83SprayHead {
 bool __cdecl Fx83SprayPrepareCpp(const float* vel, int spinning, int inWater, const float* timeStep, Fx83SprayHead* out);
 // Posicion y velocidad de la particula i (rM = rand() previo al bucle, rI = rand() de la vuelta).
 void __cdecl Fx83SprayStepCpp(const Fx83SprayHead* h, const float* vel, const float* pos, const float* timeStep, int i, int rM, int rI, float* outVel, float* outPos);
+
+// Lote 83B: CVehicle::InflictDamage (0x6D7C90): a * k y a - b con la pila x87 a 24 bits y guardado como float
+float __cdecl Veh83BScaleCpp(float a, float k);
+float __cdecl Veh83BSubCpp(float a, float b);

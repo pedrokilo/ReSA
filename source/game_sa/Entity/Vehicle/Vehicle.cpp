@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CVehicle
- * Reconstrucción: COMPLETA — 165/165 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 166/166 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 165/165 entradas.
+ * Validación registrada: 166/166 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -296,7 +296,7 @@ void CVehicle::InjectHooks() {
     RH_ScopedInstall(SetupRender, 0x6D64F0);
     // RH_ScopedInstall(ProcessBikeWheel, 0x6D73B0);
     RH_ScopedInstall(FindTyreNearestPoint, 0x6D7BC0);
-    // RH_ScopedInstall(InflictDamage, 0x6D7C90);
+    RH_ScopedInstall(InflictDamage, 0x6D7C90);
     RH_ScopedInstall(KillPedsGettingInVehicle, 0x6D82F0);
     RH_ScopedInstall(UsesSiren, 0x6D8470);
     RH_ScopedInstall(IsSphereTouchingVehicle, 0x6D84D0);
@@ -3783,7 +3783,137 @@ auto CVehicle::FindTyreNearestPoint(CVector2D point) -> eNearestCarWheel {
 
 // 0x6D7C90
 void CVehicle::InflictDamage(CEntity* damager, eWeaponType weapon, float intensity, CVector coords) {
-    ((void(__thiscall*)(CVehicle*, CEntity*, eWeaponType, float, CVector))0x6D7C90)(this, damager, weapon, intensity, coords);
+    // Como el original: rand() del CRT del EXE (0x821B1E), la semilla del juego avanza con ella y no con la de la DLL.
+    const auto exeRand = reinterpret_cast<int32(__cdecl*)()>(0x821B1E);
+    // Probabilidad (sobre 128) de reventar una rueda segun el arma (tabla 0x6D82D0 + saltos 0x6D82C0); indice = arma - 22
+    static constexpr uint8 kTyreBurstChance[31]{5, 5, 64, 5, 0, 0, 5, 5, 10, 10, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5};
+
+    bool damagedDueToFire = false;
+    if (!CanVehicleBeDamaged(damager, weapon, damagedDueToFire)) {
+        return;
+    }
+
+    if (GetStatus() == STATUS_PLAYER && CStats::GetPercentageProgress() >= 100.0f) {
+        intensity = Veh83BScaleCpp(intensity, 0.5f);
+    }
+
+    if (intensity > 10.0f) {
+        if ((damager == FindPlayerPed(-1) || damager == FindPlayerVehicle(-1, false)) && GetStatus() != STATUS_WRECKED) {
+            auto& playerInfo = CWorld::Players[static_cast<uint8>(CWorld::PlayerInFocus)];
+            playerInfo.m_nHavocCaused += 2;
+            playerInfo.m_fCurrentChaseValue += 1.0f;
+            CStats::IncrementStat(static_cast<eStats>(0x7D), static_cast<float>(exeRand() % 20 + 5));
+        }
+    }
+
+    // Rueda reventada a tiros por un peaton
+    if (damager && damager->GetType() == ENTITY_TYPE_PED && (m_nVehicleType == VEHICLE_TYPE_AUTOMOBILE || m_nVehicleType == VEHICLE_TYPE_BIKE)) {
+        auto* const attacker = damager->AsPed();
+        int32 chance = 0;
+        const uint32 slot = static_cast<uint32>(weapon) - 22u;
+        if (slot <= 30u) {
+            chance = kTyreBurstChance[slot];
+        }
+        if (attacker->IsPlayer()) {
+            chance = 0;
+        }
+        bool skip = false;
+        if (attacker->m_pVehicle && attacker->m_pVehicle->m_nVehicleSubType == VEHICLE_TYPE_BIKE) {
+            if (chance > 1) {
+                chance = 1;
+            }
+        } else if (m_nModelIndex == 0x20B && m_pDriver && m_pDriver->m_nPedType == PED_TYPE_COP) {
+            skip = true;
+        }
+        if (!skip && chance != 0 && !vehicleFlags.bTyresDontBurst && (exeRand() & 0x7F) < chance) {
+            const CVector2D point{ coords.x, coords.y };
+            if (m_nVehicleType == VEHICLE_TYPE_BIKE) {
+                const auto tyre = FindTyreNearestPoint(point);
+                BurstTyre(static_cast<uint8>(static_cast<uint8>(tyre) + 13), false);
+            } else if (GetVehicleAppearance() == VEHICLE_APPEARANCE_AUTOMOBILE) {
+                const auto tyre = FindTyreNearestPoint(point);
+                BurstTyre(static_cast<uint8>(static_cast<uint8>(tyre) + 13), true);
+            }
+        }
+    }
+
+    // Disparo al deposito de gasolina: junto a la boca del deposito (< 0.25) el golpe es letal
+    if (vehicleFlags.bPetrolTankIsWeakPoint && damagedDueToFire && damager && damager->GetType() == ENTITY_TYPE_PED && damager->AsPed()->IsPlayer()) {
+        const auto* const modelInfo = static_cast<CVehicleModelInfo*>(CModelInfo::ms_modelInfoPtrs[static_cast<int16>(m_nModelIndex)]);
+        const CVector gasCap = modelInfo->m_pVehicleStruct->m_avDummyPos[DUMMY_GAS_CAP];
+        if (gasCap != CVector{ 0.0f, 0.0f, 0.0f }) {
+            CVector world;
+            Hp65MatrixTimesPointCpp(reinterpret_cast<const float*>(m_matrix), &gasCap.x, &world.x);
+            CVector difference;
+            Veh81BSub3Cpp(&coords.x, &world.x, &difference.x);
+            if (difference.Magnitude() < 0.25f) {
+                intensity = m_fHealth < 1100.0f ? m_fHealth : 1100.0f;
+            }
+        }
+    }
+
+    // Helicopteros y aviones (salvo los RC) aguantan mas, menos las explosiones y los misiles
+    if ((m_nVehicleSubType == VEHICLE_TYPE_HELI || m_nVehicleSubType == VEHICLE_TYPE_PLANE) && !vehicleFlags.bIsRCVehicle
+        && weapon != WEAPON_EXPLOSION && weapon != WEAPON_GRENADE && weapon != WEAPON_ROCKET && weapon != WEAPON_ROCKET_HS) {
+        intensity = Veh83BScaleCpp(intensity, 0.4f);
+    }
+
+    if (m_fHealth > 0.0f) {
+        m_nLastWeaponDamageType = static_cast<uint8>(weapon);
+        if (damager) {
+            m_pLastDamageEntity = damager;
+            damager->RegisterReference(&m_pLastDamageEntity);
+        }
+        if (m_fHealth > intensity) {
+            const float oldHealth = m_fHealth;
+            m_fHealth = Veh83BSubCpp(m_fHealth, intensity);
+            const int32 status = static_cast<int32>(GetStatus());
+            if ((status == 0 || (status > 1 && status <= 3)) && damager && damager->GetType() == ENTITY_TYPE_PED) {
+                if (m_pDriver) {
+                    CEventVehicleDamageWeapon event(this, damager, weapon);
+                    m_pDriver->GetEventGroup().Add(&event, false);
+                }
+                for (uint32 i = 0; i < m_nMaxPassengers; ++i) {
+                    if (m_apPassengers[i]) {
+                        CEventVehicleDamageWeapon event(this, damager, weapon);
+                        m_apPassengers[i]->GetEventGroup().Add(&event, false);
+                    }
+                }
+            }
+            if (oldHealth >= 250.0f && m_fHealth < 250.0f && m_nVehicleType == VEHICLE_TYPE_AUTOMOBILE) {
+                static_cast<CAutomobile*>(this)->m_damageManager.SetEngineStatus(225);
+                auto& whoDamaged = *reinterpret_cast<CEntity**>(reinterpret_cast<uint8*>(this) + 0x928); // CAutomobile::field_928
+                whoDamaged = damager;
+                if (damager) {
+                    damager->RegisterReference(&whoDamaged);
+                }
+            }
+        } else {
+            m_fHealth = 0.0f;
+            if (damager == FindPlayerPed(-1)) {
+                if (m_nVehicleSubType == VEHICLE_TYPE_HELI && !vehicleFlags.bIsRCVehicle) {
+                    CCrime::ReportCrime(CRIME_DESTROY_HELI, this, damager->AsPed());
+                } else if (m_nVehicleSubType == VEHICLE_TYPE_PLANE && !vehicleFlags.bIsRCVehicle) {
+                    CCrime::ReportCrime(CRIME_DESTROY_PLANE, this, damager->AsPed());
+                } else {
+                    CCrime::ReportCrime(static_cast<eCrimeType>(0x14), this, damager->AsPed());
+                }
+            }
+            if (weapon == WEAPON_EXPLOSION) {
+                m_wBombTimer = static_cast<int16>((exeRand() & 0x7FF) + 0x3E8);
+                m_pWhoDetonatedMe = damager ? damager->AsPed() : nullptr;
+                if (damager) {
+                    damager->RegisterReference(reinterpret_cast<CEntity**>(&m_pWhoDetonatedMe));
+                }
+            } else {
+                BlowUpCar(damager, false);
+            }
+        }
+    }
+
+    if (vehicleFlags.bIsLawEnforcer && damager == FindPlayerPed(-1)) {
+        FindPlayerPed(-1)->SetWantedLevelNoDrop(static_cast<eWantedLevel>(1));
+    }
 }
 
 // 0x6D82F0

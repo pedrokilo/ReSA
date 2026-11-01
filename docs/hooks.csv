@@ -3699,6 +3699,7 @@ CVehicle,IsSphereTouchingVehicle,0x006D84D0,1,0,1,S
 CVehicle,IsUpsideDown,0x006D1D90,1,0,1,S
 CVehicle,IsVehicleNormal,0x006D22F0,1,0,1,S
 CVehicle,IsVehiclePointerValid,0x006E38F0,1,0,1,S
+CVehicle,InflictDamage,0x006D7C90,1,0,1,S
 CVehicle,KillPedsGettingInVehicle,0x006D82F0,1,0,1,S
 CVehicle,KillPedsInVehicle,0x006D1C80,1,0,1,S
 CVehicle,Load,0x00000000,1,0,1,V

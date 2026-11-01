@@ -37,7 +37,7 @@
   "log_sha256": "4e7e8c5bd2741f5d85837f44606ba6d7536fe99ace6cd9b6c32fd0af035c8686",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-wlde\\20261007-164039-307798",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-wlde\\20261101-042118-941558",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CWorld::ResetLineTestOptions": true,
@@ -63,11 +63,11 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "b2893490b023c2966e30ebdf09de30ee810c9e9bd0aaf094929f0c196ee17f65",
-      "pdb": "4978a9407b2b31d11450fecf5a7c36c3958186bd76fe2faab51670aa5a67411a"
+      "asi": "55428e76cd91af61ad027e992bcc72e6d673b413123727e49e24c9e7199059d4",
+      "pdb": "a2037b6f0ddb5701a81208d9ca563cd2b82e442cdcf4b59b50d82d07bfffd130"
     },
     "sources": {
-      "source/game_sa/World.cpp": "3f991f51df2534fcfbcf9953c830960d443db5da8918c17136d9360f4c8eb21e",
+      "source/game_sa/World.cpp": "0066108864b6c6c3aa13ac5a68da99749b177bd94605ebc3a2c14580018340bd",
       "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
@@ -79,6 +79,7 @@
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }
