@@ -2128,3 +2128,5 @@ bool __cdecl Car81FlatCpp(const float& upZ, const float& zero, const float& limi
 bool __cdecl Car81Dist2dAboveCpp(const float* vector, const float& limit);
 // 0x406DA0 + 0x4253E1: ((x*x + y*y) + z*z) > limite (falso con NaN).
 bool __cdecl Car81SquaredMagnitudeAboveCpp(const float* vector, const float& limit);
+// 0x60BA80..0x60C0B8 (CPlayerPed::DrawTriangleForMouseRecruitPed): calcula los tres vertices (9 floats) y el color (r, g, b) del triangulo.
+void __cdecl Player82ATriangleCpp(const float* playerPos, const float* pedPos, float health, float maxHealth, bool gang, const float* camRight, float camHeading, const float* camPos, float* verts, unsigned char* rgb);

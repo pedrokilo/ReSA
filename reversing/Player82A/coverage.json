@@ -1,0 +1,31 @@
+{
+  "CPlayerPed::DrawTriangleForMouseRecruitPed": {
+    "no_target": 1000,
+    "target": 10000,
+    "gang": 5000,
+    "not_gang": 5000,
+    "ratio_mid": 5000,
+    "ratio_gt1": 3000,
+    "ratio_black": 1000,
+    "color_black": 1000,
+    "color_red_green": 4000,
+    "player_matrix": 5000,
+    "player_placement": 2000,
+    "target_matrix": 5000,
+    "target_placement": 2000,
+    "camera_matrix": 5000,
+    "camera_heading": 2500,
+    "size_zero": 1000,
+    "size_mid": 2000,
+    "size_clamped": 4000,
+    "normalise_zero_len_1": 200,
+    "normalise_zero_len_2plus": 80,
+    "transform_true": 6000,
+    "transform_false": 2000,
+    "transform_low_byte_zero": 800,
+    "dist_nonfinite": 300,
+    "verts_nan": 200,
+    "ped_type_wide_not_7": 200,
+    "camera_heading_large": 150
+  }
+}

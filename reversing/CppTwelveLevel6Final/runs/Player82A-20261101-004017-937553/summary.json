@@ -1,0 +1,76 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "a42d13d4351ffab877c63468f63a178ab1324e112801ce31c74d66e48cd16316",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 16384,
+  "pairs_per_function": {
+    "CPlayerPed::DrawTriangleForMouseRecruitPed": 16384
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "44e4f4597dcb8bcb11a3544ea6c1928effaba88b25d982b3df6a7f8c74a8c848",
+  "compare_dead_x87_registers": false,
+  "families": {
+    "CPlayerPed::DrawTriangleForMouseRecruitPed": {
+      "0": 1024,
+      "1": 1024,
+      "2": 1024,
+      "3": 1024,
+      "4": 1024,
+      "5": 1024,
+      "6": 1024,
+      "7": 1024,
+      "8": 1024,
+      "9": 1024,
+      "10": 1024,
+      "11": 1024,
+      "12": 1024,
+      "13": 1024,
+      "14": 1024,
+      "15": 1024
+    }
+  },
+  "branch_coverage": {
+    "CPlayerPed::DrawTriangleForMouseRecruitPed": {
+      "target": 14642,
+      "gang": 7477,
+      "ratio_mid": 7600,
+      "player_matrix": 10514,
+      "target_matrix": 10559,
+      "camera_matrix": 9764,
+      "size_mid": 4293,
+      "transform_false": 4485,
+      "color_red_green": 6915,
+      "not_gang": 7165,
+      "ratio_gt1": 5513,
+      "size_clamped": 8172,
+      "player_placement": 4128,
+      "target_placement": 4083,
+      "transform_true": 10157,
+      "transform_low_byte_zero": 1688,
+      "camera_heading": 4878,
+      "size_zero": 2177,
+      "normalise_zero_len_2plus": 176,
+      "no_target": 1742,
+      "ratio_black": 1529,
+      "color_black": 1529,
+      "normalise_zero_len_1": 470,
+      "dist_nonfinite": 617,
+      "verts_nan": 415,
+      "ped_type_wide_not_7": 376,
+      "camera_heading_large": 296
+    }
+  },
+  "independent_oracle": "fixture_oracle.py: cada lado de cada par coincide con el modelo",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

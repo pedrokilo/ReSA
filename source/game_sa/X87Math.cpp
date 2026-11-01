@@ -14,6 +14,7 @@ extern "C" double __cdecl tan(double);
 #include <string.h>
 #include <assert.h>
 #include <bit>
+#include <cmath>
 #include "X87Math.h"
 
 // --- Palabra de control como la del CRT del EXE (_CIasin/_CIacos, 0x821E70/0x822380): (anterior & 0x300) | 0x7F, solo la x87 ---
@@ -17285,5 +17286,128 @@ __declspec(noinline) bool __cdecl Car81SquaredMagnitudeAboveCpp(const float* vec
     const double y2 = double(vector[1]) * double(vector[1]);
     const double z2 = double(vector[2]) * double(vector[2]);
     return ((x2 + y2) + z2) > double(limit);
+}
+#pragma float_control(pop)
+
+// --- Lote 82A (Player82A): CPlayerPed::DrawTriangleForMouseRecruitPed (0x60BA80), prefijo Player82A ---
+#pragma float_control(precise, on, push)
+// Redondeo a 24 bits de mantisa conservando el exponente de double (la x87 con la precision a 24 bits: el exponente no se estrecha hasta guardar el valor como float).
+static __declspec(noinline) double __cdecl Player82ARound24(double value) {
+    uint64_t bitsValue = std::bit_cast<uint64_t>(value);
+    const uint32_t exponent = static_cast<uint32_t>((bitsValue >> 52) & 0x7FF);
+    if (exponent == 0x7FF || exponent == 0) {
+        return value;
+    }
+    const uint64_t low = bitsValue & ((uint64_t(1) << 29) - 1);
+    bitsValue &= ~((uint64_t(1) << 29) - 1);
+    const uint64_t half = uint64_t(1) << 28;
+    if (low > half || (low == half && ((bitsValue >> 29) & 1))) {
+        bitsValue += uint64_t(1) << 29;
+    }
+    return std::bit_cast<double>(bitsValue);
+}
+// 0x59C910 (CVector::Normalise del EXE): longitud al cuadrado (x*x + y*y) + z*z en la pila x87 (24 bits por operacion, exponente ampliado); si es <= 0 (ordenado) solo pone x = 1.0f;
+// con NaN sigue por la raiz. k = 1.0f / sqrt, cada componente float(c * k).
+static __declspec(noinline) void __cdecl Player82ANormalise(float* v) {
+    const double x2 = Player82ARound24(double(v[0]) * double(v[0]));
+    const double y2 = Player82ARound24(double(v[1]) * double(v[1]));
+    const double z2 = Player82ARound24(double(v[2]) * double(v[2]));
+    const double length2 = Player82ARound24(Player82ARound24(x2 + y2) + z2);
+    if (length2 <= 0.0) {
+        v[0] = 1.0f;
+        return;
+    }
+    const double k = Player82ARound24(1.0 / Player82ARound24(std::sqrt(length2)));
+    v[0] = float(Player82ARound24(double(v[0]) * k));
+    v[1] = float(Player82ARound24(double(v[1]) * k));
+    v[2] = float(Player82ARound24(double(v[2]) * k));
+}
+// 0x60BA80..0x60C0B8: calculo del triangulo (todo a 24 bits por operacion; cada valor guardado en la pila como float).
+//  color: ratio = vida / vidaMaxima; > 1.0f -> 1.0f; <= 0 o NaN -> negro; si no r = trunc((1 - ratio) * 255 + ratio * 0), g = trunc(ratio * 255 + (1 - ratio) * 0), b = trunc((1 - ratio) * 0 + ratio * 0) (_ftol2).
+//  tamano: v = max(distancia - 10, 0) * 0.02 limitado a 1.0f; V = v * 0.825 + 0.175. Eje derecho de la camara (matriz: fila +0; sin matriz: cos(rumbo), sin(rumbo), 0) escalado por V; Z0 = 0 * V.
+//  pandillero (tipo 7): v0 = P + (0,0,1); v1 = (P - R) + (Z0, Z0, V) etc.; resto: v0 = (Px + Z0, Z0 + Py, Q + V), v1 = P + R, v2 = P - R (Q = Pz + 1). Despues cada vertice se acerca a la camara por su direccion normalizada.
+__declspec(noinline) void __cdecl Player82ATriangleCpp(const float* playerPos, const float* pedPos, float health, float maxHealth, bool gang, const float* camRight, float camHeading,
+                                                       const float* camPos, float* verts, unsigned char* rgb) {
+    double ratio = Player82ARound24(double(health) / double(maxHealth));
+    unsigned char r = 0, g = 0, b = 0;
+    if (ratio > 1.0) {
+        ratio = 1.0;
+    }
+    if (ratio > 0.0) {
+        const double t = Player82ARound24(1.0 - ratio);
+        r = static_cast<unsigned char>(static_cast<int>(Player82ARound24(Player82ARound24(t * 255.0) + Player82ARound24(ratio * 0.0))));
+        g = static_cast<unsigned char>(static_cast<int>(Player82ARound24(Player82ARound24(ratio * 255.0) + Player82ARound24(t * 0.0))));
+        b = static_cast<unsigned char>(static_cast<int>(Player82ARound24(Player82ARound24(t * 0.0) + Player82ARound24(ratio * 0.0))));
+    }
+    rgb[0] = r;
+    rgb[1] = g;
+    rgb[2] = b;
+
+    const float dx = pedPos[0] - playerPos[0];
+    const float dy = pedPos[1] - playerPos[1];
+    const float dz = pedPos[2] - playerPos[2];
+    const float distance = std::sqrt((dz * dz + dy * dy) + dx * dx);
+    float size = distance - 10.0f;
+    if (!(size > 0.0f)) {
+        size = 0.0f;
+    }
+    size = size * 0.02f;
+    if (1.0f < size) {
+        size = 1.0f;
+    }
+    const float scale = size * 0.825f + 0.175f;
+
+    float right[3];
+    if (camRight) {
+        right[0] = camRight[0];
+        right[1] = camRight[1];
+        right[2] = camRight[2];
+    } else {
+        right[0] = TrigSimpleCosCpp(camHeading);
+        right[1] = TrigSimpleSinCpp(camHeading);
+        right[2] = 0.0f;
+    }
+    const float rx = right[0] * scale;
+    const float ry = right[1] * scale;
+    const float rz = right[2] * scale;
+    const float zero = 0.0f * scale;
+
+    const float px = pedPos[0], py = pedPos[1], pz = pedPos[2];
+    const float q = pz + 1.0f;
+    float v0[3], v1[3], v2[3];
+    if (gang) {
+        v0[0] = px;
+        v0[1] = py;
+        v0[2] = q;
+        v1[0] = (px - rx) + zero;
+        v1[1] = zero + (py - ry);
+        v1[2] = (q - rz) + scale;
+        v2[0] = (px + rx) + zero;
+        v2[1] = zero + (py + ry);
+        v2[2] = scale + (q + rz);
+    } else {
+        v0[0] = px + zero;
+        v0[1] = zero + py;
+        v0[2] = q + scale;
+        v1[0] = px + rx;
+        v1[1] = ry + py;
+        v1[2] = q + rz;
+        v2[0] = px - rx;
+        v2[1] = py - ry;
+        v2[2] = q - rz;
+    }
+    float* const list[3]{v0, v1, v2};
+    for (int i = 0; i < 3; ++i) {
+        float d[3]{camPos[0] - list[i][0], camPos[1] - list[i][1], camPos[2] - list[i][2]};
+        Player82ANormalise(d);
+        list[i][0] = d[0] + list[i][0];
+        list[i][1] = d[1] + list[i][1];
+        list[i][2] = d[2] + list[i][2];
+    }
+    for (int i = 0; i < 3; ++i) {
+        verts[i * 3 + 0] = list[i][0];
+        verts[i * 3 + 1] = list[i][1];
+        verts[i * 3 + 2] = list[i][2];
+    }
 }
 #pragma float_control(pop)

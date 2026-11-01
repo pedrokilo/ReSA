@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CPlayerPed
- * Reconstrucción: COMPLETA — 60/60 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 61/61 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 60/60 entradas.
+ * Validación registrada: 61/61 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -110,6 +110,7 @@ void CPlayerPed::InjectHooks() {
     RH_ScopedInstall(PickWeaponAllowedFor2Player, 0x609800);
     RH_ScopedInstall(UpdateCameraWeaponModes, 0x609830);
     RH_ScopedInstall(ProcessAnimGroups, 0x6098F0);
+    RH_ScopedInstall(DrawTriangleForMouseRecruitPed, 0x60BA80);
     RH_ScopedInstall(ClearWeaponTarget, 0x609c80);
     RH_ScopedInstall(GetWeaponRadiusOnScreen, 0x609CD0);
     RH_ScopedInstall(PedCanBeTargettedVehicleWise, 0x609D90);
@@ -1106,7 +1107,52 @@ void CPlayerPed::Compute3rdPersonMouseTarget(bool meleeWeapon) {
 
 // 0x60BA80
 void CPlayerPed::DrawTriangleForMouseRecruitPed() {
-    plugin::CallMethod<0x60BA80, CPlayerPed *>(this);
+    // Lote 82A. Como el original: sin objetivo del raton no hace nada; los estados se fijan en el orden del EXE (la tabla de funciones de RenderWare se relee en cada llamada)
+    CPed* const target = m_p3rdPersonMouseTarget;
+    if (!target) {
+        return;
+    }
+    static_assert(rwRENDERSTATEALPHATESTFUNCTION == 29 && rwRENDERSTATEZWRITEENABLE == 8 && rwRENDERSTATEZTESTENABLE == 6);
+    RwRenderStateSet(rwRENDERSTATEZWRITEENABLE, RWRSTATE(0));
+    RwRenderStateSet(rwRENDERSTATEZTESTENABLE, RWRSTATE(1));
+    RwRenderStateSet(rwRENDERSTATESRCBLEND, RWRSTATE(rwBLENDSRCALPHA));
+    RwRenderStateSet(rwRENDERSTATEDESTBLEND, RWRSTATE(rwBLENDINVSRCALPHA));
+    RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(1));
+    RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(0));
+    RwRenderStateSet(rwRENDERSTATEALPHATESTFUNCTION, RWRSTATE(8));
+
+    // Como el original (0x60BA80..0x60BF80): X87Math.cpp calcula los tres vertices y el color con la x87 a 24 bits
+    const CMatrixLink* const camMatrix = TheCamera.m_matrix;
+    float verts[9];
+    uint8 rgb[3];
+    Player82ATriangleCpp(&GetPosition().x, &target->GetPosition().x, target->m_fHealth, target->m_fMaxHealth, target->m_nPedType == PED_TYPE_GANG1,
+                         camMatrix ? &camMatrix->GetRight().x : nullptr, TheCamera.m_placement.m_fHeading, &TheCamera.GetPosition().x, verts, rgb);
+
+    auto& vertices = TempBufferVertices.m_3d;
+    for (int i = 0; i < 3; ++i) {
+        vertices[i].objVertex.x = verts[i * 3 + 0];
+        vertices[i].objVertex.y = verts[i * 3 + 1];
+        vertices[i].objVertex.z = verts[i * 3 + 2];
+    }
+    const uint32 color = (uint32(rgb[0]) << 16) | (uint32(rgb[1]) << 8) | uint32(rgb[2]);
+    vertices[0].color = 0xFF000000u | color;
+    vertices[1].color = color;
+    vertices[2].color = color;
+    aTempBufferIndices[0] = 0;
+    aTempBufferIndices[1] = 1;
+    aTempBufferIndices[2] = 2;
+    if (RwIm3DTransform(vertices, 3, nullptr, rwIM3D_VERTEXXYZ | rwIM3D_VERTEXRGBA)) {
+        RwIm3DRenderIndexedPrimitive(rwPRIMTYPETRILIST, aTempBufferIndices, 3);
+        RwIm3DEnd();
+    }
+
+    RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(0));
+    RwRenderStateSet(rwRENDERSTATEZWRITEENABLE, RWRSTATE(1));
+    RwRenderStateSet(rwRENDERSTATEZTESTENABLE, RWRSTATE(1));
+    RwRenderStateSet(rwRENDERSTATESRCBLEND, RWRSTATE(rwBLENDSRCALPHA));
+    RwRenderStateSet(rwRENDERSTATEDESTBLEND, RWRSTATE(rwBLENDINVSRCALPHA));
+    RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(0));
+    RwRenderStateSet(rwRENDERSTATEALPHATESTFUNCTION, RWRSTATE(5));
 }
 
 // 0x60C0C0

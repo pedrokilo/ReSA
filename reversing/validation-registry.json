@@ -154161,7 +154161,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "CStreamedScripts::Initialise"
@@ -154174,7 +154174,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154190,7 +154190,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "CStreamedScripts::ReInitialise"
@@ -154203,7 +154203,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154219,7 +154219,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "CStreamedScripts::FindStreamedScript"
@@ -154232,7 +154232,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154248,7 +154248,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "CStreamedScripts::FindStreamedScriptQuiet"
@@ -154261,7 +154261,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154277,7 +154277,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "CStreamedScripts::GetProperIndexFromIndexUsedByScript"
@@ -154290,7 +154290,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154306,7 +154306,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "CStreamedScripts::GetStreamedScriptFilename"
@@ -154319,7 +154319,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154335,7 +154335,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "CStreamedScripts::GetStreamedScriptWithThisStartAddress"
@@ -154348,7 +154348,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154364,7 +154364,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "CStreamedScripts::RegisterScript"
@@ -154377,7 +154377,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154393,7 +154393,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "CStreamedScripts::RemoveStreamedScriptFromMemory"
@@ -154406,7 +154406,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154422,7 +154422,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "CStreamedScripts::LoadStreamedScript"
@@ -154435,7 +154435,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154451,7 +154451,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "CStreamedScripts::StartNewStreamedScript"
@@ -154464,7 +154464,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154480,7 +154480,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "CStreamedScripts::ReadStreamedScriptData"
@@ -154493,7 +154493,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154509,7 +154509,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "CQuadTreeNode::InitPool"
@@ -154522,7 +154522,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154538,7 +154538,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "CQuadTreeNode::FindSector-rect"
@@ -154551,7 +154551,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154567,7 +154567,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "CQuadTreeNode::FindSector-vec"
@@ -154580,7 +154580,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154596,7 +154596,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "CQuadTreeNode::InSector"
@@ -154609,7 +154609,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154625,7 +154625,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "CQuadTreeNode::AddItem"
@@ -154638,7 +154638,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154654,7 +154654,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "CQuadTreeNode::DeleteItem-"
@@ -154667,7 +154667,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154683,7 +154683,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "CQuadTreeNode::DeleteItem-rect"
@@ -154696,7 +154696,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154712,7 +154712,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "CQuadTreeNode::GetAll"
@@ -154725,7 +154725,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154741,7 +154741,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "CQuadTreeNode::GetAllMatching-rect"
@@ -154754,7 +154754,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154770,7 +154770,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "CQuadTreeNode::GetAllMatching-vec"
@@ -154783,7 +154783,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154799,7 +154799,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "CQuadTreeNode::ForAllMatching-rect"
@@ -154812,7 +154812,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154828,7 +154828,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "CQuadTreeNode::ForAllMatching-vec"
@@ -154841,7 +154841,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154857,7 +154857,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "Game::GameInit"
@@ -154870,7 +154870,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154886,7 +154886,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "Game::RwInitialize"
@@ -154899,7 +154899,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154915,7 +154915,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "Game::RwTerminate"
@@ -154928,7 +154928,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154944,7 +154944,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "Game::InitialiseGame"
@@ -154957,7 +154957,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -154973,7 +154973,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "Game::TheGame"
@@ -154986,7 +154986,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -155002,7 +155002,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "Game::RenderMenus"
@@ -155015,7 +155015,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -155031,7 +155031,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "Game::RenderDebugShit"
@@ -155044,7 +155044,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -155060,7 +155060,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "Game::RenderEffects"
@@ -155073,7 +155073,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -155089,7 +155089,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "Game::RenderScene"
@@ -155102,7 +155102,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -155118,7 +155118,7 @@
       },
       "evidence": {
         "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "sha256": "f7bf64ee7836ea5f6b48eb065bd8b178a39325bd0d48bc6b35a14a053f114f4e",
         "passed_path": [
           "covered_functions",
           "Game::Render2dStuff"
@@ -155131,7 +155131,7 @@
         "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
         "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
         "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+        "source/app/app_game.cpp": "c1d72ea04170326e6665829082a10bc2288705af2efd4e9ed48cbe84299e6386"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
       "dependency_review": null,
@@ -546307,6 +546307,43 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wv-3 (HEAD ad52bea16 + cambios del lote 81C; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CVehicle::CanBeDeleted 0x6D1180, CCranes::IsThisCarBeingTargettedByAnyCrane 0x6F4000, CVisibilityPlugins::GetClumpAlpha 0x732B20, FindPlayerCentreOfWorld 0x56E250, CEntity::GetIsOnScreen 0x534540, CCamera::GetLookDirection 0x50AE90, CGarages::IsPointWithinHideOutGarage 0x448900, CCarCtrl::IsThisVehicleInteresting 0x423EA0, CTrafficLights::ShouldCarStopForLight 0x49D610 / ShouldCarStopForBridge 0x49D420 y CWorld::Remove 0x563280; el destructor virtual va a una tabla virtual falsa. El banco compara el orden y todos los argumentos de los falsos, la mutacion del vehiculo, de las matrices, del centro, del reloj y de la camara tras cada evento (relectura de campos), las escrituras (marca fisica +0xB8 y desvanecido +0x42A) y la x87 a 24 bits (distancia, rango, volcado, distancias de las etapas 2 y 3) incluidos NaN, infinitos, desnormales y ceros con signo. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. El EXE usa el centro del jugador sin inicializar si no entra en la etapa 1 y lee la matriz sin comprobar nulo en el estado 2: las fixtures lo evitan. EAX/ECX/EDX de salida solo se registran: los dos llamadores del EXE (0x42CD55 y 0x60C4E8) no los leen.",
       "review_reference": "reversing/Car81C/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPlayerPed",
+        "fn_name": "DrawTriangleForMouseRecruitPed",
+        "address": "0x0060BA80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Player82A/validation-summary.json",
+        "sha256": "1d9446d1d0566b338b0f2a9bc6fa862c1878d225d301a4b1309224ca302e7984",
+        "passed_path": [
+          "covered_functions",
+          "CPlayerPed::DrawTriangleForMouseRecruitPed"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x0060BA80"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/Entity/Ped/PlayerPed.cpp": "d080747a67859f38f462562d5d1b8bb32f9cf0b3161568b5c4fab00597134f3e",
+        "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
+        "source/game_sa/X87Math.cpp": "1919c46db1c02d3f974f09c8d7a84cb9235d458734a4044c78f7b856fe361001",
+        "source/game_sa/X87Math.h": "bd8114ae68f6a5adac9b1c097cc435e7ba45d21bb1e9dfb1fc23893d96e58706",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Player82A/LiveComparison.hpp": "e50489b2db63da11e842669379e7442e27cc9ec509c1e5959d8c273ecbe2d3a3",
+        "reversing/Player82A/Core.hpp": "0fac976735907e8bd796bc459f93c951bdf6fa8916f56709b3a599f8c4910dcf",
+        "reversing/Player82A/Fixtures.hpp": "e966b5e8facaa5ead484f4d244003b436f79f96558a1a26152c25a75da3b6dfa",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el arbol principal (HEAD 8fa4b77c1 + PlayerPed.cpp y X87Math.cpp, source.patch). CPlayerPed::DrawTriangleForMouseRecruitPed 0x60BA80 (thiscall, ret; void; 1592 bytes; sin objetivo del raton no hace nada): fija siete estados de render, calcula color (vida/vida maxima), tamano (distancia al jugador) y los tres vertices del triangulo respecto a la camara (matriz o rumbo), los escribe en el bufer temporal Im3D, llama a RwIm3DTransform y, si devuelve distinto de cero, a RwIm3DRenderIndexedPrimitive y RwIm3DEnd, y restablece los estados. Sustituidos por falsos identicos en ambos lados: RwIm3DTransform 0x7EF450, RwIm3DRenderIndexedPrimitive 0x7EF550, RwIm3DEnd 0x7EF520 (parche de entrada del EXE; funciones de la DLL sin hook) y la entrada fpRenderStateSet de RwEngineInstance. CVector::Normalise (0x59C910) corre de verdad en el lado del EXE; la DLL reproduce su comportamiento y la x87 a 24 bits con exponente ampliado en X87Math.cpp. Dominio: NaN canonicalizado (carga util distinta entre x87 y SSE); rumbos de camara sin matriz hasta 1e10 (fsin/fcos con reduccion de 66 bits no se prueban mas alla); sin objetivo nulo de matriz.",
+      "review_reference": "reversing/Player82A/README.md"
     }
   ]
 }
