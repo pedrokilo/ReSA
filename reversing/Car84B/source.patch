@@ -1,0 +1,292 @@
+diff --git a/source/game_sa/CarCtrl.cpp b/source/game_sa/CarCtrl.cpp
+index e0c1ec740..4b857a779 100644
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -6,10 +6,10 @@
+  * Pendientes y bloqueadas pueden coincidir; no se suman.
+  *
+  * ESTADO: CCarCtrl
+- * Reconstrucción: COMPLETA — 100/100 funciones reconstruidas.
++ * Reconstrucción: COMPLETA — 101/101 funciones reconstruidas.
+  * Pendientes de reconstruir: 0.
+  * Funciones bloqueadas: 0.
+- * Validación registrada: 100/100 entradas.
++ * Validación registrada: 101/101 entradas.
+  * Validación: consultar vigencia en docs/ValidationInventory.md y
+  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+@@ -144,6 +144,8 @@ void CCarCtrl::InjectHooks()
+     RH_ScopedInstall(FindLinksToGoWithTheseNodes, 0x42B470);
+     // Lote 84A
+     RH_ScopedInstall(PickNextNodeRandomly, 0x42DE80);
++    // Lote 84B
++    RH_ScopedInstall(PickNextNodeToChaseCar, 0x426EF0);
+     // Lote 63 (parte C, tanda 5)
+     RH_ScopedInstall(ChooseModel, 0x424CE0);
+     // Lote 63 (parte C, tanda 6)
+@@ -2462,7 +2464,208 @@ void CCarCtrl::PickNextNodeRandomly(CVehicle* vehicle) {
+ 
+ // 0x426EF0
+ bool CCarCtrl::PickNextNodeToChaseCar(CVehicle* vehicle, float destX, float destY, float destZ) {
+-    return plugin::CallAndReturn<bool, 0x426EF0, CVehicle*, float, float, float>(vehicle, destX, destY, destZ);
++    // Como el original (0x426EF0..0x427736, cdecl, devuelve bool). srand del EXE (0x821B11) con la palabra +0x45E si no es 0. Pide a DoPathSearch (tipo 0, posicion del nodo siguiente (+0x394) en coordenadas / 8,
++    // ese nodo como origen, destino tal cual, hasta 2 nodos de ruta y distancia, alcance 50.0f si la zona del clima [0xC81314] es 0 o 4 y 1000000.0f si no, sin nodo de destino, 1000000.0f, [0x8A5F44] como
++    // nodo prohibido, modelo == 539 (0x21B), sin agua) la ruta hacia el destino. Con la zona 0 o 4: sin nodos -> true, y si el triple de la distancia en linea recta (sqrt(dy*dy + dx*dx) en la pila x87) es
++    // menor que la distancia de la ruta -> true. Con 1 o 2 nodos y el primero distinto del siguiente se busca su enlace en la tabla del nodo siguiente (sin limite, el EXE tampoco lo pone); si el primero es el
++    // siguiente y hay 2, lo mismo con el segundo; si no hay coincidencia, se elige el enlace del nodo siguiente (hasta su numero de enlaces) cuyo extremo da el menor |ATanOfXY(extremo - siguiente) - ATanOfXY(destino -
++    // vehiculo)| normalizado a (-pi, pi] (<= gana los empates, ninguno con NaN; se saltan el actual si hay mas de un enlace y los de area sin cargar). Se desplazan los nodos (anterior <- actual <- siguiente <- elegido),
++    // los enlaces (anterior <- actual <- siguiente <- enlace de navegacion de la posicion elegida), field_C += factor de velocidad y los signos / carriles; si StopCarIfNodesAreInvalid -> true. Despues: signo del
++    // tramo (+0x3B6: 0xFF si el siguiente anterior < nuevo siguiente por (area, nodo), 1 si no), carriles = bits 0-2 o 3-5 del byte +0xB del enlace siguiente; si el cuadrado de la distancia entre los puntos
++    // del enlace actual y del siguiente supera 256.0f y la mision no es de las de la lista, cuenta atras (+0x3E0) y cambio de carril al azar; carril acotado a [0, carriles - 1] (0 con +0x3DB & 8; carriles - 1 con
++    // +0x3DB & 0x10 o subtipo 10); 0x44DB00 sobre los dos enlaces (sin efecto); false.
++    static_assert(offsetof(CAutoPilot, m_nSpeedScaleFactor) == 0x10 && offsetof(CAutoPilot, field_50) == 0x50);
++    auto* const raw = reinterpret_cast<uint8*>(vehicle);
++    auto& autoPilot = vehicle->m_autoPilot;
++    const auto exeRand = reinterpret_cast<int(__cdecl*)()>(0x821B1E);
++    const auto nodeAt = [](uint16 area, uint16 node) { return reinterpret_cast<const uint8*>(ThePaths.m_pPathNodes[area]) + static_cast<size_t>(node) * 0x1C; };
++    const auto linkAt = [](uint32 address) { return reinterpret_cast<const uint8*>(ThePaths.m_pNaviNodes[address >> 10]) + static_cast<size_t>(address & 0x3FF) * 0xE; };
++    const auto gameZone = [] { return *reinterpret_cast<const int16*>(0xC81314); };
++    // Posicion del vehiculo: la de la matriz (+0x14) o la de la transformacion simple; el EXE relee el puntero donde la usa
++    const auto position = [vehicle]() -> const float* {
++        const CMatrixLink* const matrix = vehicle->m_matrix;
++        return matrix ? &matrix->GetPosition().x : &vehicle->m_placement.m_vPosn.x;
++    };
++    constexpr float kEighth = 0.125f; // 0x858C48
++    if (const uint16 seed = *reinterpret_cast<const uint16*>(raw + 0x45E)) {
++        reinterpret_cast<void(__cdecl*)(uint32)>(0x821B11)(seed);
++    }
++    CNodeAddress nodes[2];
++    nodes[0].m_wAreaId = 0xFFFF;
++    nodes[0].m_wNodeId = 0xFFFF;
++    nodes[1].m_wAreaId = 0xFFFF;
++    nodes[1].m_wNodeId = 0xFFFF;
++    int16 count = 0;
++    float pathDistance = 0.0f;
++    const CNodeAddress current = autoPilot.m_currentAddress;
++    const CNodeAddress next = autoPilot.m_startingRouteNode;
++    float searchRange = std::bit_cast<float>(0x497423FEu);
++    if (const int16 zone = gameZone(); zone == 0 || zone == 4) {
++        searchRange = 50.0f;
++    }
++    {
++        const uint8* const nextNode = nodeAt(next.m_wAreaId, next.m_wNodeId);
++        const CVector origin{
++            static_cast<float>(*reinterpret_cast<const int16*>(nextNode + 8)) * kEighth,
++            static_cast<float>(*reinterpret_cast<const int16*>(nextNode + 0xA)) * kEighth,
++            static_cast<float>(*reinterpret_cast<const int16*>(nextNode + 0xC)) * kEighth
++        };
++        const bool isVortex = static_cast<int16>(vehicle->m_nModelIndex) == 0x21B;
++        ThePaths.DoPathSearch(static_cast<ePathType>(0), origin, next, CVector{ destX, destY, destZ }, nodes, count, 2, &pathDistance, searchRange, nullptr,
++                              std::bit_cast<float>(0x497423FEu), false, StaticRef<CNodeAddress>(0x8A5F44), isVortex, false);
++    }
++    if (const int16 zone = gameZone(); zone == 0 || zone == 4) {
++        if (count == 0) {
++            return true;
++        }
++        const float* const where = position();
++        if (Car84BDirectCloserCpp(destX, destY, where[0], where[1], pathDistance)) {
++            return true;
++        }
++    }
++
++    CNodeAddress chosen;
++    chosen.m_wAreaId = 0xFFFF;
++    chosen.m_wNodeId = 0xFFFF; // el EXE deja aqui basura de la pila si ningun enlace sirve (la direccion queda invalida y se sale por StopCarIfNodesAreInvalid)
++    int32 index = 0;
++    bool found = false;
++    {
++        // Busqueda del enlace del nodo siguiente que lleva al nodo dado (sin limite de indices)
++        const auto searchLink = [&](CNodeAddress target) {
++            chosen = target;
++            const int32 base = *reinterpret_cast<const int16*>(nodeAt(next.m_wAreaId, next.m_wNodeId) + 0x10);
++            index = 0;
++            for (;; ++index) {
++                const CNodeAddress link = ThePaths.m_pNodeLinks[next.m_wAreaId][base + static_cast<int16>(index)];
++                if (link.m_wAreaId == target.m_wAreaId && link.m_wNodeId == target.m_wNodeId) {
++                    break;
++                }
++            }
++            found = true;
++        };
++        if (count == 1 || count == 2) {
++            const CNodeAddress first = nodes[0];
++            if (first.m_wAreaId != next.m_wAreaId || first.m_wNodeId != next.m_wNodeId) {
++                searchLink(first);
++            } else if (count == 2) {
++                const CNodeAddress second = nodes[1];
++                if (second.m_wAreaId != next.m_wAreaId || second.m_wNodeId != next.m_wNodeId) {
++                    searchLink(second);
++                }
++            }
++        }
++    }
++    if (!found) {
++        // Rumbo del vehiculo al destino y enlace del nodo siguiente que mas se le parece
++        const float* const where = position();
++        const float headingY = Veh83CSubStore(destY, where[1]);
++        const float headingX = Veh83CSubStore(destX, where[0]);
++        const float heading = CGeneral::GetATanOfXY(headingX, headingY);
++        const int32 numLinks = nodeAt(next.m_wAreaId, next.m_wNodeId)[0x18] & 0x0F;
++        float best = 10.0f;
++        for (int32 i = 0; i < numLinks; ++i) {
++            const uint8* const nextNode = nodeAt(next.m_wAreaId, next.m_wNodeId);
++            const int32 base = *reinterpret_cast<const int16*>(nextNode + 0x10);
++            const CNodeAddress candidate = ThePaths.m_pNodeLinks[next.m_wAreaId][base + i];
++            if (candidate.m_wAreaId == current.m_wAreaId && candidate.m_wNodeId == current.m_wNodeId && numLinks > 1) {
++                continue;
++            }
++            if (!ThePaths.m_pPathNodes[candidate.m_wAreaId]) {
++                continue;
++            }
++            const uint8* const candidateNode = nodeAt(candidate.m_wAreaId, candidate.m_wNodeId);
++            const float candidateX = static_cast<float>(*reinterpret_cast<const int16*>(candidateNode + 8)) * kEighth;
++            const float candidateY = static_cast<float>(*reinterpret_cast<const int16*>(candidateNode + 0xA)) * kEighth;
++            const float nextX = static_cast<float>(*reinterpret_cast<const int16*>(nextNode + 8)) * kEighth;
++            const float nextY = static_cast<float>(*reinterpret_cast<const int16*>(nextNode + 0xA)) * kEighth;
++            if (Car84BConsiderLinkCpp(candidateX - nextX, candidateY - nextY, heading, &best)) {
++                index = i;
++                chosen = candidate;
++            }
++        }
++    }
++
++    // Se desplazan los nodos, los enlaces, los signos y el carril; el EXE relee actual y siguiente aqui (los falsos pueden haberlos cambiado)
++    {
++        const CNodeAddress oldCurrent = autoPilot.m_currentAddress;
++        const CNodeAddress oldNext = autoPilot.m_startingRouteNode;
++        autoPilot.m_currentAddress = oldNext;
++        const uint32 scale = autoPilot.m_nSpeedScaleFactor;
++        const int32 sum = static_cast<int32>(static_cast<uint32>(autoPilot.field_C) + scale);
++        autoPilot.m_endingRouteNode = oldCurrent;
++        const int8 signCurrent = autoPilot._smthCurr;
++        const int8 laneNext = autoPilot.m_nNextLane;
++        const CCarPathLinkAddress linkCurrent = autoPilot.m_nCurrentPathNodeInfo;
++        const CCarPathLinkAddress linkNext = autoPilot.m_nNextPathNodeInfo;
++        autoPilot.m_startingRouteNode = chosen;
++        autoPilot.field_C = sum;
++        autoPilot.m_nPreviousPathNodeInfo = linkCurrent;
++        autoPilot.m_nCurrentPathNodeInfo = linkNext;
++        autoPilot._smthPrev = signCurrent;
++        autoPilot._smthCurr = autoPilot._smthNext;
++        autoPilot.m_nCurrentLane = laneNext;
++        const int32 base = *reinterpret_cast<const int16*>(nodeAt(next.m_wAreaId, next.m_wNodeId) + 0x10);
++        autoPilot.m_nNextPathNodeInfo = ThePaths.m_pNaviLinks[next.m_wAreaId][base + static_cast<int16>(index)];
++    }
++    if (StopCarIfNodesAreInvalid(vehicle)) {
++        return true;
++    }
++
++    // Signo del tramo y carriles del enlace siguiente
++    {
++        const CNodeAddress now = autoPilot.m_startingRouteNode;
++        const bool below = next.m_wAreaId < now.m_wAreaId || (next.m_wAreaId == now.m_wAreaId && next.m_wNodeId < now.m_wNodeId);
++        autoPilot._smthNext = below ? static_cast<int8>(-1) : static_cast<int8>(1);
++    }
++    int32 lanes;
++    {
++        const uint32 nextLink = *reinterpret_cast<const uint16*>(raw + 0x3A6);
++        const uint8 flags = linkAt(nextLink)[0xB];
++        lanes = static_cast<int8>(autoPilot._smthNext) < 0 ? flags & 7 : (flags >> 3) & 7;
++    }
++    {
++        // Cuadrado de la distancia entre los puntos del enlace actual y del siguiente (coordenadas / 8, exactas): mas de 256.0f (16 m) y, salvo mision de la lista, se agota el contador (+0x3E0) y cambia de carril
++        const uint8* const linkCur = linkAt(*reinterpret_cast<const uint16*>(raw + 0x3A4));
++        const uint8* const linkNext = linkAt(*reinterpret_cast<const uint16*>(raw + 0x3A6));
++        const float diffX = static_cast<float>(*reinterpret_cast<const int16*>(linkNext)) * kEighth - static_cast<float>(*reinterpret_cast<const int16*>(linkCur)) * kEighth;
++        const float diffY = static_cast<float>(*reinterpret_cast<const int16*>(linkNext + 2)) * kEighth - static_cast<float>(*reinterpret_cast<const int16*>(linkCur + 2)) * kEighth;
++        const float squared = diffX * diffX + diffY * diffY;
++        if (squared > 256.0f) {
++            switch (static_cast<uint8>(autoPilot.m_nCarMission)) {
++            case 2: case 4: case 0x0F: case 0x34: case 0x11: case 0x36: case 0x2B: case 0x3D:
++                break;
++            default: {
++                const uint8 counter = static_cast<uint8>(autoPilot.field_50 - 1);
++                autoPilot.field_50 = static_cast<char>(counter);
++                if (counter == 0) {
++                    autoPilot.field_50 = static_cast<char>((exeRand() & 3) + 4);
++                    const int32 random = exeRand();
++                    const int8 lane = autoPilot.m_nNextLane;
++                    autoPilot.m_nNextLane = random >= 0x3FFF ? static_cast<int8>(lane - 1) : static_cast<int8>(lane + 1);
++                }
++                break;
++            }
++            }
++        }
++    }
++    {
++        int32 lane = static_cast<int8>(autoPilot.m_nNextLane);
++        if (!(lane < lanes - 1)) {
++            lane = lanes - 1;
++        }
++        const int8 clamped = static_cast<int8>(lane);
++        autoPilot.m_nNextLane = clamped > 0 ? clamped : static_cast<int8>(0);
++    }
++    if (autoPilot.m_nCarCtrlFlags & 8) {
++        autoPilot.m_nNextLane = 0;
++    } else if ((autoPilot.m_nCarCtrlFlags & 0x10) || *reinterpret_cast<const int32*>(raw + 0x594) == 10) {
++        const int32 last = lanes - 1;
++        autoPilot.m_nNextLane = static_cast<int8>(last < 0 ? 0 : last);
++    }
++    // 0x44DB00 sobre el enlace actual y el siguiente: el EXE descarta el resultado
++    (void)reinterpret_cast<const CCarPathLink*>(linkAt(*reinterpret_cast<const uint16*>(raw + 0x3A4)))->OneWayLaneOffset();
++    (void)reinterpret_cast<const CCarPathLink*>(linkAt(*reinterpret_cast<const uint16*>(raw + 0x3A6)))->OneWayLaneOffset();
++    return false;
+ }
+ 
+ // 0x427740
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 1f6ea71cd..de2bc86f4 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -17673,3 +17673,39 @@ __declspec(noinline) int32_t __cdecl Heli83GFtol(double value) {
+     return Veh83CFtolD(value);
+ }
+ #pragma float_control(pop)
++
++// --- Lote 84B (Car84B): CCarCtrl::PickNextNodeToChaseCar (0x426EF0), prefijo Car84B. Anadido al FINAL ---
++// Usa Player82ARound24 (cada operacion de la x87 a 24 bits con exponente ampliado) y GeneralATanOfXYDblCpp (el fpatan sin redondear de 0x53CC70).
++#pragma float_control(precise, on, push)
++// 0x427079..0x4270B4: dx = destino.x - vehiculo.x, dy = destino.y - vehiculo.y (registro); sqrt(dy*dy + dx*dx) * 3.0f < distancia de la ruta (ordenado: falso con NaN)
++__declspec(noinline) bool __cdecl Car84BDirectCloserCpp(float destX, float destY, float vehicleX, float vehicleY, float pathDistance) {
++    const double dx = Player82ARound24(double(destX) - double(vehicleX));
++    const double dy = Player82ARound24(double(destY) - double(vehicleY));
++    const double dy2 = Player82ARound24(dy * dy);
++    const double dx2 = Player82ARound24(dx * dx);
++    const double length = Player82ARound24(std::sqrt(Player82ARound24(dy2 + dx2)));
++    return Player82ARound24(length * 3.0) < double(pathDistance);
++}
++// 0x4272B3..0x427325: diferencia = ATanOfXY(x, y) (sin redondear) - rumbo, normalizada a [-pi, pi] sumando o restando 2pi (solo con comparaciones ordenadas), valor absoluto (solo si < 0.0f) y,
++// si es <= que el mejor (ordenado: nunca con NaN), se guarda como float (fstp dword) y devuelve true.
++__declspec(noinline) bool __cdecl Car84BConsiderLinkCpp(float x, float y, float heading, float* best) {
++    constexpr double pi = double(std::bit_cast<float>(0x40490FDBu));
++    constexpr double twoPi = double(std::bit_cast<float>(0x40C90FDBu));
++    constexpr double negativePi = double(std::bit_cast<float>(0xC0490FDBu));
++    double diff = Player82ARound24(GeneralATanOfXYDblCpp(x, y) - double(heading));
++    while (diff > pi) {
++        diff = Player82ARound24(diff - twoPi);
++    }
++    while (diff < negativePi) {
++        diff = Player82ARound24(diff + twoPi);
++    }
++    if (diff < 0.0) {
++        diff = -diff;
++    }
++    if (!(diff <= double(*best))) {
++        return false;
++    }
++    *best = Veh83BStore(diff);
++    return true;
++}
++#pragma float_control(pop)
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index 53eaa8dfb..05fd76128 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -2176,3 +2176,7 @@ float __cdecl Veh83DStore(double a);                                 // fstp dwo
+ float __cdecl Heli83GSinStore(double angle);
+ float __cdecl Heli83GCosStore(double angle);
+ int32_t __cdecl Heli83GFtol(double value);
++
++// Lote 84B: CCarCtrl::PickNextNodeToChaseCar (0x426EF0)
++bool __cdecl Car84BDirectCloserCpp(float destX, float destY, float vehicleX, float vehicleY, float pathDistance); // sqrt(dy*dy + dx*dx) * 3.0f < pathDistance en el registro x87
++bool __cdecl Car84BConsiderLinkCpp(float x, float y, float heading, float* best);                                // |normalizado(ATanOfXY(x, y) - heading)| <= *best: lo guarda y devuelve true

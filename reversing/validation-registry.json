@@ -539164,7 +539164,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlRest63C/validation-summary.json",
-        "sha256": "159b8552e04fd11cdbbc67ff7c31160ca3f663c40e1d06a76b8b4ac8f4d92fff",
+        "sha256": "d96f06e7c5dca2af58c846e7eaaab0ae0eb8115df72637e078c341386c84e5eb",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::PickNextNodeAccordingStrategy"
@@ -539174,12 +539174,12 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/game_sa/CarCtrl.cpp": "18ebe876bc66c47ce10e8491839f46af65cfc7efa5311a84ccff18bc4dcb57c6",
+        "source/game_sa/CarCtrl.cpp": "0c4e6f42a2a04054a8d67be2c44a379e7060e01ce6aae33bb2beb1305e3f8630",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "921edd3f8cc299b433419a8ed425ce830e35b55f41b6bab2e939633a2c33f67d",
-        "source/game_sa/X87Math.h": "4f32222b1ddef50be9360058f08574b5d1197160b1a8210f124ba164cd1e6f49",
+        "source/game_sa/X87Math.cpp": "dd9ef6a35a1dc41537771f5783decbc46281c8bbdf948eceaeba2d18d06ebc5c",
+        "source/game_sa/X87Math.h": "4f94d8be0e74043afa4fdc1b2d2c726c907779d6b9c2d4a4c6a7722c7f9009d4",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlRest63C/LiveComparison.hpp": "ec708e83bcccc05eee104b34b9d6fda639eed3d233eb21ab065faf8c7510ab9d",
+        "reversing/CarCtrlRest63C/LiveComparison.hpp": "28d243406628d50480be75ea030a68a93aedb65303a57f471c57bec595d9f89e",
         "reversing/CarCtrlRest63C/Core.hpp": "1be54a0d7f4ef654db1b487b00718bbd594510b074b6d897a8d1c5763d496161",
         "reversing/CarCtrlRest63C/Cases.hpp": "a88307833aa175fdd36a11b4d07e2e76e9cc9786251369206146a5cd35aa8b4e",
         "reversing/CarCtrlRest63C/Fixtures.hpp": "4fc1278b4502f8243dbcae839bdf991ee9851e368bdcbdf11fd98700f4976b57",
@@ -539200,7 +539200,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlRest63C/validation-summary.json",
-        "sha256": "159b8552e04fd11cdbbc67ff7c31160ca3f663c40e1d06a76b8b4ac8f4d92fff",
+        "sha256": "d96f06e7c5dca2af58c846e7eaaab0ae0eb8115df72637e078c341386c84e5eb",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::JoinCarWithRoadSystem"
@@ -539210,12 +539210,12 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/game_sa/CarCtrl.cpp": "18ebe876bc66c47ce10e8491839f46af65cfc7efa5311a84ccff18bc4dcb57c6",
+        "source/game_sa/CarCtrl.cpp": "0c4e6f42a2a04054a8d67be2c44a379e7060e01ce6aae33bb2beb1305e3f8630",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "921edd3f8cc299b433419a8ed425ce830e35b55f41b6bab2e939633a2c33f67d",
-        "source/game_sa/X87Math.h": "4f32222b1ddef50be9360058f08574b5d1197160b1a8210f124ba164cd1e6f49",
+        "source/game_sa/X87Math.cpp": "dd9ef6a35a1dc41537771f5783decbc46281c8bbdf948eceaeba2d18d06ebc5c",
+        "source/game_sa/X87Math.h": "4f94d8be0e74043afa4fdc1b2d2c726c907779d6b9c2d4a4c6a7722c7f9009d4",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlRest63C/LiveComparison.hpp": "ec708e83bcccc05eee104b34b9d6fda639eed3d233eb21ab065faf8c7510ab9d",
+        "reversing/CarCtrlRest63C/LiveComparison.hpp": "28d243406628d50480be75ea030a68a93aedb65303a57f471c57bec595d9f89e",
         "reversing/CarCtrlRest63C/Core.hpp": "1be54a0d7f4ef654db1b487b00718bbd594510b074b6d897a8d1c5763d496161",
         "reversing/CarCtrlRest63C/Cases.hpp": "a88307833aa175fdd36a11b4d07e2e76e9cc9786251369206146a5cd35aa8b4e",
         "reversing/CarCtrlRest63C/Fixtures.hpp": "4fc1278b4502f8243dbcae839bdf991ee9851e368bdcbdf11fd98700f4976b57",
@@ -539236,7 +539236,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlRest63C/validation-summary.json",
-        "sha256": "159b8552e04fd11cdbbc67ff7c31160ca3f663c40e1d06a76b8b4ac8f4d92fff",
+        "sha256": "d96f06e7c5dca2af58c846e7eaaab0ae0eb8115df72637e078c341386c84e5eb",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::JoinCarWithRoadSystemGotoCoors"
@@ -539246,12 +539246,12 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/game_sa/CarCtrl.cpp": "18ebe876bc66c47ce10e8491839f46af65cfc7efa5311a84ccff18bc4dcb57c6",
+        "source/game_sa/CarCtrl.cpp": "0c4e6f42a2a04054a8d67be2c44a379e7060e01ce6aae33bb2beb1305e3f8630",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "921edd3f8cc299b433419a8ed425ce830e35b55f41b6bab2e939633a2c33f67d",
-        "source/game_sa/X87Math.h": "4f32222b1ddef50be9360058f08574b5d1197160b1a8210f124ba164cd1e6f49",
+        "source/game_sa/X87Math.cpp": "dd9ef6a35a1dc41537771f5783decbc46281c8bbdf948eceaeba2d18d06ebc5c",
+        "source/game_sa/X87Math.h": "4f94d8be0e74043afa4fdc1b2d2c726c907779d6b9c2d4a4c6a7722c7f9009d4",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlRest63C/LiveComparison.hpp": "ec708e83bcccc05eee104b34b9d6fda639eed3d233eb21ab065faf8c7510ab9d",
+        "reversing/CarCtrlRest63C/LiveComparison.hpp": "28d243406628d50480be75ea030a68a93aedb65303a57f471c57bec595d9f89e",
         "reversing/CarCtrlRest63C/Core.hpp": "1be54a0d7f4ef654db1b487b00718bbd594510b074b6d897a8d1c5763d496161",
         "reversing/CarCtrlRest63C/Cases.hpp": "a88307833aa175fdd36a11b4d07e2e76e9cc9786251369206146a5cd35aa8b4e",
         "reversing/CarCtrlRest63C/Fixtures.hpp": "4fc1278b4502f8243dbcae839bdf991ee9851e368bdcbdf11fd98700f4976b57",
@@ -544188,6 +544188,42 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 299f931c1 + cambios del lote 84A; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CCarCtrl::InitSequence 0x421740, ThisVehicleShouldTryNotToTurn 0x421FE0, FindPathDirection 0x422090, IsThisAnAppropriateNode 0x42DAB0, CAutoPilot::ModifySpeed 0x41B980 y CCurves::CalcSpeedScaleFactor 0x43C710. Corren de verdad en ambos lados srand/rand/_ftol2 del CRT del EXE (semilla fijada por lado), 0x44DB00 (en el EXE; la DLL lleva CCarPathLink::OneWayLaneOffset), FindSequenceElement y las constantes de .rdata; el mundo de caminos son arenas del banco enlazadas desde ThePaths (cuatro tablas por area, restauradas). El banco compara el orden y todos los argumentos de los falsos (con el estado del piloto en ese instante), el estado final del piloto y del vehiculo, las tablas del mundo, las estaticas de la secuencia, el reloj y la semilla de rand(); cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: el desplazamiento de la secuencia negativo (indices fuera de la tabla), nodos o enlaces con identificadores fuera de las arenas, areas cargadas con numeros de nodo o enlace invalidos, NaN con cargas distintas (las fixtures usan un unico patron) y bytes altos de los argumentos booleanos de IsThisAnAppropriateNode.",
       "review_reference": "reversing/Car84A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "PickNextNodeToChaseCar",
+        "address": "0x00426EF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Car84B/validation-summary.json",
+        "sha256": "565fefc8ab87d2625222ff588a24e62db9d09d2aed187b8c95cfafcbd080c461",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::PickNextNodeToChaseCar"
+        ],
+        "pairs": 18432,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/X87Math.cpp": "dd9ef6a35a1dc41537771f5783decbc46281c8bbdf948eceaeba2d18d06ebc5c",
+        "source/game_sa/X87Math.h": "4f94d8be0e74043afa4fdc1b2d2c726c907779d6b9c2d4a4c6a7722c7f9009d4",
+        "source/game_sa/CarCtrl.cpp": "0c4e6f42a2a04054a8d67be2c44a379e7060e01ce6aae33bb2beb1305e3f8630",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Car84B/LiveComparison.hpp": "9bc40dccf4d78683e47c078f8157f861049647c98afcc0804b90816d6ae5424a",
+        "reversing/Car84B/Core.hpp": "5beefb1535aa71e4483a73de5c44917b9f02438ee897bd32a7e34fa9fdda8c23",
+        "reversing/Car84B/Fixtures.hpp": "5a10512e873367d04abce1a6c6eb368842a2bba36a051c2c4af61c685ed2dc70",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD f5d529b8d + cambios del lote 84B; ver artifacts/build-manifest.json). Colaborador sustituido por un falso identico en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): CPathFind::DoPathSearch 0x4515D0 (el banco compara todos sus argumentos y escribe la ruta del caso). Corren de verdad, con el hook apagado, CCarCtrl::StopCarIfNodesAreInvalid 0x422590 y CGeneral::GetATanOfXY 0x53CC70 (bytes del EXE frente al C++ de la DLL), y en ambos lados srand/rand del CRT del EXE (semilla fijada por lado), 0x44DB00 y las constantes de .rdata; el mundo de caminos son arenas del banco enlazadas desde ThePaths (cuatro tablas por area, restauradas). El banco compara el evento de DoPathSearch, el valor devuelto, el estado final del piloto y del vehiculo, las tablas del mundo, la matriz, la zona del clima, el reloj y la semilla de rand(); cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: rutas de 1 o 2 nodos cuyo nodo no este en la tabla de enlaces del nodo siguiente (el EXE los busca sin limite de indices), el nodo siguiente con el area sin cargar o con un numero de nodo o de enlace de carretera fuera de las arenas, la palabra alta de la direccion del nodo siguiente cuando ningun enlace sirve (basura de la pila del EXE), NaN con cargas distintas (las fixtures usan un unico patron), infinitos en el rumbo (la normalizacion no termina) y los bytes altos de los booleanos pasados a DoPathSearch.",
+      "review_reference": "reversing/Car84B/README.md"
     }
   ]
 }

@@ -51,10 +51,10 @@ inline void Update() {
     simple(2,"JoinCarWithRoadSystemGotoCoors",0x42F870);
     // Colaboradores sustituidos: cuerpos de la DLL resueltos ANTES de escribir ningun parche (siguiendo los saltos solo dentro del ASI).
     // JoinCarWithRoadSystem es a la vez funcion probada (banco: su hook se apaga fuera de su propia llamada): como colaborador de GotoCoors va con hooked=false y el cuerpo de la DLL parcheado.
-    // dll=0 y hooked=false: la DLL llama a la direccion del EXE (envolturas plugin::Call de PickNextNodeToChaseCar/ToFollowPath, RemoveBadStartNode; PickNextNodeRandomly ya es C++ con hook (hooked=true + DllBody); FindLinksToGoWithTheseNodes ya es C++ con hook (hooked=true + DllBody)).
+    // dll=0 y hooked=false: la DLL llama a la direccion del EXE (envolturas plugin::Call de PickNextNodeToFollowPath, RemoveBadStartNode; PickNextNodeRandomly y PickNextNodeToChaseCar ya son C++ con hook (hooked=true + DllBody); FindLinksToGoWithTheseNodes ya es C++ con hook (hooked=true + DllBody)).
     env.stubs[0]={{Pair{0x56E010,DllBody(static_cast<CVector(*)(int32)>(&FindPlayerCoors)),true},reinterpret_cast<void*>(&FakeFindCoors)},
                   {Pair{0x56E0D0,DllBody(static_cast<CVehicle*(*)(int32,bool)>(&FindPlayerVehicle)),true},reinterpret_cast<void*>(&FakeFindPlayerVeh)},
-                  {Pair{0x426EF0,0,false},reinterpret_cast<void*>(&FakeChase)},
+                  {Pair{0x426EF0,DllBody(&CCarCtrl::PickNextNodeToChaseCar),true},reinterpret_cast<void*>(&FakeChase)},
                   {Pair{0x427740,0,false},reinterpret_cast<void*>(&FakeFollow)},
                   {Pair{0x42DE80,DllBody(&CCarCtrl::PickNextNodeRandomly),true},reinterpret_cast<void*>(&FakeRandomly)}};
     env.stubs[1]={{Pair{0x44FCE0,DllBody(&CPathFind::FindNodeClosestToCoorsFavourDirection),true},reinterpret_cast<void*>(&FakeFavour)},

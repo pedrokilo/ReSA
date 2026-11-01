@@ -17673,3 +17673,39 @@ __declspec(noinline) int32_t __cdecl Heli83GFtol(double value) {
     return Veh83CFtolD(value);
 }
 #pragma float_control(pop)
+
+// --- Lote 84B (Car84B): CCarCtrl::PickNextNodeToChaseCar (0x426EF0), prefijo Car84B. Anadido al FINAL ---
+// Usa Player82ARound24 (cada operacion de la x87 a 24 bits con exponente ampliado) y GeneralATanOfXYDblCpp (el fpatan sin redondear de 0x53CC70).
+#pragma float_control(precise, on, push)
+// 0x427079..0x4270B4: dx = destino.x - vehiculo.x, dy = destino.y - vehiculo.y (registro); sqrt(dy*dy + dx*dx) * 3.0f < distancia de la ruta (ordenado: falso con NaN)
+__declspec(noinline) bool __cdecl Car84BDirectCloserCpp(float destX, float destY, float vehicleX, float vehicleY, float pathDistance) {
+    const double dx = Player82ARound24(double(destX) - double(vehicleX));
+    const double dy = Player82ARound24(double(destY) - double(vehicleY));
+    const double dy2 = Player82ARound24(dy * dy);
+    const double dx2 = Player82ARound24(dx * dx);
+    const double length = Player82ARound24(std::sqrt(Player82ARound24(dy2 + dx2)));
+    return Player82ARound24(length * 3.0) < double(pathDistance);
+}
+// 0x4272B3..0x427325: diferencia = ATanOfXY(x, y) (sin redondear) - rumbo, normalizada a [-pi, pi] sumando o restando 2pi (solo con comparaciones ordenadas), valor absoluto (solo si < 0.0f) y,
+// si es <= que el mejor (ordenado: nunca con NaN), se guarda como float (fstp dword) y devuelve true.
+__declspec(noinline) bool __cdecl Car84BConsiderLinkCpp(float x, float y, float heading, float* best) {
+    constexpr double pi = double(std::bit_cast<float>(0x40490FDBu));
+    constexpr double twoPi = double(std::bit_cast<float>(0x40C90FDBu));
+    constexpr double negativePi = double(std::bit_cast<float>(0xC0490FDBu));
+    double diff = Player82ARound24(GeneralATanOfXYDblCpp(x, y) - double(heading));
+    while (diff > pi) {
+        diff = Player82ARound24(diff - twoPi);
+    }
+    while (diff < negativePi) {
+        diff = Player82ARound24(diff + twoPi);
+    }
+    if (diff < 0.0) {
+        diff = -diff;
+    }
+    if (!(diff <= double(*best))) {
+        return false;
+    }
+    *best = Veh83BStore(diff);
+    return true;
+}
+#pragma float_control(pop)
