@@ -3874,6 +3874,7 @@ CHeli,ProcessControlInputs,0x00000000,1,0,1,V
 CHeli,ProcessControl,0x00000000,1,0,1,V
 CHeli,Render,0x00000000,1,0,1,V
 CHeli,RenderAllHeliSearchLights,0x006C7C50,1,0,1,S
+CHeli,SearchLightCone,0x006C58E0,1,0,1,S
 CHeli,SetUpWheelColModel,0x00000000,1,0,1,V
 CHeli,SwitchPoliceHelis,0x006C4800,1,0,1,S
 CHeli,TestSniperCollision,0x006C6890,1,0,1,S

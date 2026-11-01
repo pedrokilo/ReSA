@@ -399,7 +399,7 @@ inline void Update() {
         EntryPatch r1(bit_cast<uintptr_t>(&CGeneral::GetRandomNumber),FakeRandomNumber), r1e(0x821B1E,FakeRand);
         EntryPatch p1(bit_cast<uintptr_t>(static_cast<CPlayerPed*(*)(int32)>(&FindPlayerPed)),FakeFindPlayer), p1e(0x56E210,FakeFindPlayer);
         // CHeli
-        EntryPatch h1(0x6C58E0,FakeSearchLightCone); // la DLL lo reenvia al EXE
+        EntryPatch h1(bit_cast<uintptr_t>(&CHeli::SearchLightCone),FakeSearchLightCone), h1e(0x6C58E0,FakeSearchLightCone); // la DLL ahora tiene cuerpo C++ (lote 83G): mismo falso en ambos lados
         EntryPatch h2(bit_cast<uintptr_t>(&CCollision::DistToLine),FakeDistToLine), h2e(0x417610,FakeDistToLine);
         EntryPatch h3(bit_cast<uintptr_t>(&CVehicleModelInfo::SetVehicleColour),FakeSetVehicleColour), h3e(0x4C84B0,FakeSetVehicleColour);
         EntryPatch h4(0x7F1200,FakeFrameForAll); // la DLL lo reenvia al EXE

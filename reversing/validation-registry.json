@@ -104243,7 +104243,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CHeli::AddHeliSearchLight"
@@ -104252,11 +104252,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -104273,7 +104273,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CHeli::BurstTyre"
@@ -104282,11 +104282,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -104303,7 +104303,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CHeli::Fix"
@@ -104312,11 +104312,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -104333,7 +104333,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CHeli::InitHelis"
@@ -104342,11 +104342,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -104363,7 +104363,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CHeli::Post_SearchLightCone"
@@ -104372,11 +104372,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -104393,7 +104393,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CHeli::Pre_SearchLightCone"
@@ -104402,11 +104402,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -104423,7 +104423,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CHeli::Render"
@@ -104432,11 +104432,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -104453,7 +104453,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CHeli::RenderAllHeliSearchLights"
@@ -104462,11 +104462,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -104483,7 +104483,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CHeli::SetUpWheelColModel"
@@ -104492,11 +104492,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -104513,7 +104513,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CHeli::SwitchPoliceHelis"
@@ -104522,11 +104522,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -104543,7 +104543,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CHeli::TestSniperCollision"
@@ -104552,11 +104552,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -104573,7 +104573,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CTaskComplexGoToCarDoorAndStandStill::Clone"
@@ -104582,11 +104582,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -104603,7 +104603,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CTaskComplexGoToCarDoorAndStandStill::ComputeRouteToDoor"
@@ -104612,11 +104612,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -104633,7 +104633,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CTaskComplexGoToCarDoorAndStandStill::Constructor"
@@ -104642,11 +104642,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -104663,7 +104663,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CTaskComplexGoToCarDoorAndStandStill::ControlSubTask"
@@ -104672,11 +104672,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -104693,7 +104693,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CTaskComplexGoToCarDoorAndStandStill::CreateFirstSubTask"
@@ -104702,11 +104702,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -104723,7 +104723,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CTaskComplexGoToCarDoorAndStandStill::CreateNextSubTask"
@@ -104732,11 +104732,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -104753,7 +104753,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CTaskComplexGoToCarDoorAndStandStill::CreateSubTask"
@@ -104762,11 +104762,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -104783,7 +104783,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CTaskComplexGoToCarDoorAndStandStill::Destructor"
@@ -104792,11 +104792,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -104813,7 +104813,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CTaskComplexGoToCarDoorAndStandStill::GetTaskType"
@@ -104822,11 +104822,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -104843,7 +104843,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CTaskComplexGoToCarDoorAndStandStill::IsVehicleInRange"
@@ -104852,11 +104852,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -104873,7 +104873,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CTaskComplexGoToCarDoorAndStandStill::MakeAbortable"
@@ -104882,11 +104882,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -104903,7 +104903,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleSwim::Constructor"
@@ -104912,11 +104912,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -104933,7 +104933,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleSwim::CreateFxSystem"
@@ -104942,11 +104942,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -104963,7 +104963,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleSwim::DestroyFxSystem"
@@ -104972,11 +104972,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -104993,7 +104993,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleSwim::MakeAbortable"
@@ -105002,11 +105002,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -105023,7 +105023,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleSwim::ProcessControlAI"
@@ -105032,11 +105032,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -105053,7 +105053,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleSwim::ProcessControlInput"
@@ -105062,11 +105062,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -105083,7 +105083,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleSwim::ProcessEffects"
@@ -105092,11 +105092,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -105113,7 +105113,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleSwim::ProcessPed"
@@ -105122,11 +105122,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -105143,7 +105143,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleSwim::ProcessSwimAnims"
@@ -105152,11 +105152,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -105173,7 +105173,7 @@
       },
       "evidence": {
         "path": "reversing/Mix11/validation-summary.json",
-        "sha256": "4d14046b625b04f80ca681fd93da7123517a24632458d3167879aba565ad2033",
+        "sha256": "a28a9989ac4168f4cc79b0c5ee5a9620dd33e517d5669d79cd6290ad537dd2bc",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleSwim::ProcessSwimmingResistance"
@@ -105182,11 +105182,11 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-        "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-060308-770447).",
@@ -501266,7 +501266,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::AddScriptCheckpoint"
@@ -501275,7 +501275,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501292,7 +501292,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::AddScriptEffectSystem"
@@ -501301,7 +501301,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501318,7 +501318,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::AddScriptSearchLight"
@@ -501327,7 +501327,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501344,7 +501344,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::AddScriptSphere"
@@ -501353,7 +501353,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501370,7 +501370,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::AddToBuildingSwapArray"
@@ -501379,7 +501379,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501396,7 +501396,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::AddToInvisibilitySwapArray"
@@ -501405,7 +501405,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501422,7 +501422,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::AddToListOfConnectedLodObjects"
@@ -501431,7 +501431,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501448,7 +501448,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::AddToListOfSpecialAnimGroupsAttachedToCharModels"
@@ -501457,7 +501457,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501474,7 +501474,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::AddToSwitchJumpTable"
@@ -501483,7 +501483,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501500,7 +501500,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::AddToVehicleModelsBlockedByScript"
@@ -501509,7 +501509,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501526,7 +501526,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::AddToWaitingForScriptBrainArray"
@@ -501535,7 +501535,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501552,7 +501552,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::AttachSearchlightToSearchlightObject"
@@ -501561,7 +501561,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501578,7 +501578,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::CheckStreamedScriptVersion"
@@ -501587,7 +501587,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501604,7 +501604,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::CleanUpThisObject"
@@ -501613,7 +501613,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501630,7 +501630,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::CleanUpThisPed"
@@ -501639,7 +501639,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501656,7 +501656,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::CleanUpThisVehicle"
@@ -501665,7 +501665,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501682,7 +501682,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::ClearAllSuppressedCarModels"
@@ -501691,7 +501691,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501708,7 +501708,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::ClearAllVehicleModelsBlockedByScript"
@@ -501717,7 +501717,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501734,7 +501734,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::ClearSpaceForMissionEntity"
@@ -501743,7 +501743,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501760,7 +501760,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::DoScriptSetupAfterPoolsHaveLoaded"
@@ -501769,7 +501769,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501786,7 +501786,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::DrawDebugAngledSquare"
@@ -501795,7 +501795,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501812,7 +501812,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::DrawDebugSquare-"
@@ -501821,7 +501821,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501838,7 +501838,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::DrawScriptSpheres"
@@ -501847,7 +501847,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501864,7 +501864,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::DrawScriptSpritesAndRectangles"
@@ -501873,7 +501873,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501890,7 +501890,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::GetActualScriptThingIndex"
@@ -501899,7 +501899,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501916,7 +501916,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::GetNewUniqueScriptThingIndex"
@@ -501925,7 +501925,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501942,7 +501942,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::GetScriptIndexFromPointer"
@@ -501951,7 +501951,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501968,7 +501968,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::GetUniqueScriptThingIndex"
@@ -501977,7 +501977,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -501994,7 +501994,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::HasCarModelBeenSuppressed"
@@ -502003,7 +502003,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502020,7 +502020,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::HasVehicleModelBeenBlockedByScript"
@@ -502029,7 +502029,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502046,7 +502046,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::HighlightImportantAngledArea"
@@ -502055,7 +502055,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502072,7 +502072,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::HighlightImportantArea-"
@@ -502081,7 +502081,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502098,7 +502098,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::Init"
@@ -502107,7 +502107,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502124,7 +502124,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::InitialiseAllConnectLodObjects"
@@ -502133,7 +502133,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502150,7 +502150,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::InitialiseConnectLodObjects"
@@ -502159,7 +502159,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502176,7 +502176,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::InitialiseSpecialAnimGroup"
@@ -502185,7 +502185,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502202,7 +502202,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::InitialiseSpecialAnimGroupsAttachedToCharModels"
@@ -502211,7 +502211,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502228,7 +502228,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::IsPedStopped"
@@ -502237,7 +502237,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502254,7 +502254,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::IsPlayerOnAMission"
@@ -502263,7 +502263,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502280,7 +502280,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::IsVehicleStopped"
@@ -502289,7 +502289,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502306,7 +502306,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::Load"
@@ -502315,7 +502315,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502332,7 +502332,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::PrintListSizes"
@@ -502341,7 +502341,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502358,7 +502358,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::Process"
@@ -502367,7 +502367,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502384,7 +502384,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::ProcessAllSearchLights"
@@ -502393,7 +502393,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502410,7 +502410,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::ProcessWaitingForScriptBrainArray"
@@ -502419,7 +502419,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502436,7 +502436,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::ReadMultiScriptFileOffsetsFromScript"
@@ -502445,7 +502445,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502462,7 +502462,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::ReadObjectNamesFromScript"
@@ -502471,7 +502471,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502488,7 +502488,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::ReinitialiseSwitchStatementData"
@@ -502497,7 +502497,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502514,7 +502514,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::RemoveFromWaitingForScriptBrainArray"
@@ -502523,7 +502523,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502540,7 +502540,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::RemoveScriptCheckpoint"
@@ -502549,7 +502549,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502566,7 +502566,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::RemoveScriptEffectSystem"
@@ -502575,7 +502575,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502592,7 +502592,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::RemoveScriptSearchLight"
@@ -502601,7 +502601,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502618,7 +502618,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::RemoveScriptSphere"
@@ -502627,7 +502627,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502644,7 +502644,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::RemoveScriptTextureDictionary"
@@ -502653,7 +502653,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502670,7 +502670,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::RemoveThisPed"
@@ -502679,7 +502679,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502696,7 +502696,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::RenderAllSearchLights"
@@ -502705,7 +502705,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502722,7 +502722,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::Save"
@@ -502731,7 +502731,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502748,7 +502748,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::ScriptAttachAnimGroupToCharModel"
@@ -502757,7 +502757,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502774,7 +502774,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::ScriptConnectLodsFunction"
@@ -502783,7 +502783,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502800,7 +502800,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::ScriptDebugCircle2D"
@@ -502809,7 +502809,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502826,7 +502826,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::ScriptDebugLine3D"
@@ -502835,7 +502835,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502852,7 +502852,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::StartNewScript-indexed"
@@ -502861,7 +502861,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502878,7 +502878,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::StartNewScript-last-idle"
@@ -502887,7 +502887,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502904,7 +502904,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::StartTestScript"
@@ -502913,7 +502913,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502930,7 +502930,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::UndoBuildingSwaps"
@@ -502939,7 +502939,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502956,7 +502956,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::UndoEntityInvisibilitySettings"
@@ -502965,7 +502965,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -502982,7 +502982,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::UpdateObjectIndices"
@@ -502991,7 +502991,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -503008,7 +503008,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::UseSwitchJumpTable"
@@ -503017,7 +503017,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -503034,7 +503034,7 @@
       },
       "evidence": {
         "path": "reversing/ScriptsFinal3/validation-summary.json",
-        "sha256": "6ca82d45867dfc11aec12c7ca5ba1dc38b8aee46a51631fc61d47c65e1e3a34f",
+        "sha256": "068b6fa4d6ea324f06191927f4c123be9ae4e9e58e481e7b7dde8c42da527d5c",
         "passed_path": [
           "covered_functions",
           "CTheScripts::WipeLocalVariableMemoryForMissionScript"
@@ -503043,7 +503043,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Scripts/TheScripts.cpp": "bf72030caa28cf85b604b782eb4be49d11fdaa186612e89cbe1010c8f7bd61e7",
+        "source/game_sa/Scripts/TheScripts.cpp": "aedc9f51bcc9fff013f060a1a352a917863d6bde76ac1750a236a86c6d91a533",
         "source/game_sa/Scripts/TheScripts.h": "6ea55c36f13ce5352f8a0bccb4bf58ea1f33ed62f0c8e8c1582cb8d5736d25fd"
       },
       "source_provenance": "Exact compiled ScriptsFinal3 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 16384-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -544116,6 +544116,42 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 2c71b35d2 + cambios del lote 83F; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CAutomobile::ProcessControl 0x6B1880, FxSystem_c::Kill 0x4AA3F0, CPad::HornJustDown 0x53FF30, CCullZones::PlayerNoRain 0x72DDC0 y NoPolice 0x72DD50, FindPlayerVehicle 0x56E0D0, FindPlayerEntity 0x56E120, FindPlayerPed 0x56E210, FindPlayerWanted 0x56E230, CAudioEngine::SayPedless 0x5073C0 y ReportWeaponEvent 0x506F40, CHeli::FindSwatPositionRelativeToHeli 0x6C4760, operator*(CMatrix, CVector) 0x59C890, Multiply3x3 0x59C790 (en la DLL AutoPreMultiply3x3Cpp, parche solo del cuerpo), CWorld::GetIsLineOfSightClear 0x56A490, FireOneInstantHitRound 0x73AF00, CRopes::RegisterRope 0x556B40 y SetSpeedOfTopNode 0x555DF0, CVehicle::UpdateWinch 0x6D3B80 y ProcessWeapons 0x6E3950, CInterestingEvents::Add 0x602590, CHeli::SendDownSwat 0x6C69C0 y CVector::Normalise 0x59C910; los de salida escriben los valores que da cada caso. Corren de verdad CPad::GetPad (0x53FB70), el rand() del CRT del EXE (0x821B1E, con 0x41BD90 del EXE: su hook se apaga), GetUp/GetForward de la matriz (0x50E420/0x41CCB0), CTimer, 0xC0B184, la matriz y los campos del helicoptero y de las entidades (arenas y regiones restauradas). El banco compara el orden y todos los argumentos de los falsos, las palabras escritas en el helicoptero, el estado del rand() y las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: NaN con cargas distintas (las fixtures usan un unico patron), rumbo distinto de +-0 sin matriz (sin y cos exactos), punteros de datos del jugador o CWanted nulos, colaboradores con bytes altos distintos de los del caso en sus salidas booleanas y salidas incoherentes con la entrada (Normalise, operator*, Multiply3x3 y FindSwat devuelven lo que dice el caso, no el calculo real).",
       "review_reference": "reversing/Heli83F/README.md"
+    },
+    {
+      "hook": {
+        "class": "CHeli",
+        "fn_name": "SearchLightCone",
+        "address": "0x006C58E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Heli83G/validation-summary.json",
+        "sha256": "6d281e90d9da49f8de5509f7bbb8a900da72a2e4ef8f46440002ee27c8599718",
+        "passed_path": [
+          "covered_functions",
+          "CHeli::SearchLightCone"
+        ],
+        "pairs": 18432,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/X87Math.cpp": "921edd3f8cc299b433419a8ed425ce830e35b55f41b6bab2e939633a2c33f67d",
+        "source/game_sa/X87Math.h": "4f32222b1ddef50be9360058f08574b5d1197160b1a8210f124ba164cd1e6f49",
+        "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+        "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Heli83G/LiveComparison.hpp": "e82462115b2821ced72c93af7d80f47260c2c0cf53a92903300f16fafa93ae1c",
+        "reversing/Heli83G/Core.hpp": "b6612d5ce5c778635238646f6cec0c196dfd9e9efc6732d2212ac67330f5c3e6",
+        "reversing/Heli83G/Fixtures.hpp": "6d7c6c91c4275b304cfe4f86d1cfae4d58bf17430813d299803067d908799821",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD b2d657293 + cambios del lote 83G; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CVector::Normalise 0x59C910, CrossProduct 0x59C730, CWorld::ProcessLineOfSight 0x56BA00, CCoronas::RegisterCorona 0x6FC580 y CShadows::StoreShadowToBeRendered 0x707390; RwIm3DTransform 0x7EF450, RwIm3DRenderIndexedPrimitive 0x7EF550 y RwIm3DEnd 0x7EF520 llevan el falso solo en la direccion del EXE (la DLL las llama por esa direccion). Normalise y CrossProduct calculan de verdad con los ayudantes x87 (Veh83CNormalise, Veh83D*); los demas escriben o devuelven los valores del caso. Corren de verdad _ftol2 del EXE (0x821B40), fsin/fcos de la x87, TheCamera (puntero a la matriz y posicion), gpShadowExplosionTex y el bufer temporal de vertices e indices (regiones restauradas). El banco compara el orden y todos los argumentos de los falsos (traza de los 24 primeros y FNV-1a de todos), los contadores, los vertices, los indices y las salidas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: NaN con cargas distintas (las fixtures usan un unico patron), el retorno de RwIm3DTransform distinto de nulo/vertices, la entidad que devuelve ProcessLineOfSight (no se lee), camara con matriz nula y posicion NaN con carga distinta, y salidas de CrossProduct/Normalise reales del EXE (los falsos usan los ayudantes x87; sus cuerpos estan validados en sus propios bancos).",
+      "review_reference": "reversing/Heli83G/README.md"
     }
   ]
 }

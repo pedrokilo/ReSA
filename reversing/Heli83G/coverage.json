@@ -1,0 +1,32 @@
+{
+  "CHeli::SearchLightCone": {
+    "base_nan": 110,
+    "base_nonpos": 3230,
+    "base_pos": 11500,
+    "cam_matrix": 7320,
+    "cam_placement": 7410,
+    "clamp": 2070,
+    "corona_script": 10020,
+    "cos_flip": 12550,
+    "denormal_input": 870,
+    "dir_zero": 330,
+    "facing_clamped": 3690,
+    "huge_radius": 280,
+    "inf_input": 870,
+    "los_hit": 4120,
+    "los_miss": 10620,
+    "o_nan": 210,
+    "power_nan": 120,
+    "radius_nan": 70,
+    "shadow_draw": 6540,
+    "shadow_far": 1950,
+    "shadow_garbage_high": 14740,
+    "shadow_len_right": 510,
+    "shadow_len_top": 1700,
+    "shadow_off": 4020,
+    "t_nan": 230,
+    "transform_fail": 2430,
+    "transform_ok": 12310,
+    "zero_radius": 160
+  }
+}

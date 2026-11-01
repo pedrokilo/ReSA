@@ -1,0 +1,307 @@
+diff --git a/source/game_sa/Entity/Vehicle/Heli.cpp b/source/game_sa/Entity/Vehicle/Heli.cpp
+index b1e68165f..e09df971b 100644
+--- a/source/game_sa/Entity/Vehicle/Heli.cpp
++++ b/source/game_sa/Entity/Vehicle/Heli.cpp
+@@ -83,6 +83,7 @@ void CHeli::InjectHooks() {
+     RH_ScopedInstall(Pre_SearchLightCone, 0x6C4650);
+     RH_ScopedInstall(Post_SearchLightCone, 0x6C46E0);
+     RH_ScopedInstall(SwitchPoliceHelis, 0x6C4800);
++    RH_ScopedInstall(SearchLightCone, 0x6C58E0);
+     RH_ScopedInstall(RenderAllHeliSearchLights, 0x6C7C50);
+     RH_ScopedInstall(TestSniperCollision, 0x6C6890);
+     RH_ScopedInstall(GenerateHeli, 0x6C6520);
+@@ -262,6 +263,8 @@ void CHeli::SwitchPoliceHelis(bool enable) {
+ }
+ 
+ // 0x6C58E0
++// Como el original (0x6C58E0..0x6C6510, cdecl, void): la x87 trabaja a 24 bits de mantisa con exponente ampliado, asi que cada operacion usa los ayudantes Veh83D* de X87Math.cpp (el registro es un
++// double ya redondeado, `fstp dword` es Veh83DStore) y el seno, el coseno y _ftol2 los Heli83G*. unknownFlag, a11, a13, a14 y a15 no se leen.
+ void CHeli::SearchLightCone(int32 coronaIndex,
+                             CVector origin,
+                             CVector target,
+@@ -278,7 +281,248 @@ void CHeli::SearchLightCone(int32 coronaIndex,
+                             float a14,
+                             float a15
+ ) {
+-    ((void(__cdecl*)(int32, CVector, CVector, float, float, uint8, uint8, CVector&, CVector&, CVector&, bool, float, float, float, float))0x6C58E0)(coronaIndex, origin, target, targetRadius, power, unknownFlag, drawShadow, useless0, useless1, useless2, a11, baseRadius, a13, a14, a15);
++    (void)unknownFlag; (void)a11; (void)a13; (void)a14; (void)a15;
++    constexpr float kExtend      = std::bit_cast<float>(0x40400000u); // 0x858B3C (3.0)
++    constexpr float kFar         = std::bit_cast<float>(0x42C80000u); // 0x858628 (100.0)
++    constexpr float kCoronaScale = std::bit_cast<float>(0x41A00000u); // 0x858BA4 (20.0)
++    constexpr float kByte        = std::bit_cast<float>(0x437F0000u); // 0x859AAC (255.0)
++    constexpr float kAngleStep   = std::bit_cast<float>(0x3E20D97Cu); // 0x8717B4
++    constexpr float kTexScale    = std::bit_cast<float>(0x3E19999Au); // 0x858FCC (0.15)
++    constexpr float kTexBias     = std::bit_cast<float>(0x3DCCCCCDu); // 0x858B1C (0.1)
++    constexpr float kOne         = 1.0f;                              // 0x858624 / 0x8D12C0
++    constexpr float kGray        = std::bit_cast<float>(0x43480000u); // 0x858A48 (200.0)
++    constexpr float kShadowRise  = std::bit_cast<float>(0x40A00000u); // 0x858C80 (5.0)
++    constexpr float kSpotScale   = std::bit_cast<float>(0x3F99999Au); // 0x858F08 (1.2)
++    constexpr float kShadowRange = std::bit_cast<float>(0x41C80000u); // 0x858FE8 (25.0)
++    constexpr float kFalloff     = std::bit_cast<float>(0x3D23D70Au); // 0x858CEC (0.04)
++    constexpr float kHalf        = std::bit_cast<float>(0x3F000000u); // 0x858B8C (0.5)
++    constexpr float kIntensity   = std::bit_cast<float>(0x43000000u); // 0x858BF4 (128.0)
++    auto& tex = gpShadowExplosionTex;
++
++    // Direccion origen -> objetivo normalizada (0x59C910)
++    CVector n{ Veh83DStore(Veh83DSub(target.x, origin.x)), Veh83DStore(Veh83DSub(target.y, origin.y)), Veh83DStore(Veh83DSub(target.z, origin.z)) };
++    n.Normalise();
++
++    // El objetivo se prolonga 3.0 en esa direccion (x e y sin guardar, z guardada) y la linea de vision (solo edificios) lo recorta al punto de choque
++    const double extX = Veh83DMul(n.x, kExtend);
++    const double extY = Veh83DMul(n.y, kExtend);
++    const float  extZ = Veh83DStore(Veh83DMul(n.z, kExtend));
++    target.x = Veh83DStore(Veh83DAdd(extX, target.x));
++    target.y = Veh83DStore(Veh83DAdd(extY, target.y));
++    target.z = Veh83DStore(Veh83DAdd(extZ, target.z));
++    CColPoint colPoint;
++    CEntity* hitEntity{};
++    if (CWorld::ProcessLineOfSight(origin, target, colPoint, hitEntity, true, false, false, false, false, false, false, false)) {
++        std::memcpy(&target, &colPoint.m_vecPoint, sizeof(CVector)); // copia cruda (0x6C59CD..0x6C59F0)
++    }
++
++    // Punto lejano de la direccion (origen + 100 * direccion) y vector origen -> camara normalizado (0x59C910)
++    const double farX = Veh83DMul(n.x, kFar);
++    const double farY = Veh83DMul(n.y, kFar);
++    const float  farZ = Veh83DStore(Veh83DMul(n.z, kFar));
++    const CVector farPoint{ Veh83DStore(Veh83DAdd(farX, origin.x)), Veh83DStore(Veh83DAdd(farY, origin.y)), Veh83DStore(Veh83DAdd(farZ, origin.z)) };
++    const CVector& camPos = TheCamera.GetPosition();
++    CVector toCam{ Veh83DStore(Veh83DSub(camPos.x, origin.x)), Veh83DStore(Veh83DSub(camPos.y, origin.y)), Veh83DStore(Veh83DSub(camPos.z, origin.z)) };
++    toCam.Normalise();
++
++    // Corona: la potencia es el coseno (acotado a 0) a la sexta; tamano 20 * c^6 e intensidad ftol(c^6 * 255)
++    double facing = Veh83DAdd(Veh83DAdd(Veh83DMul(toCam.x, n.x), Veh83DMul(toCam.y, n.y)), Veh83DMul(toCam.z, n.z));
++    if (facing < 0.0) {
++        facing = 0.0;
++    }
++    double facing6 = Veh83DMul(facing, facing);
++    for (int32 k = 0; k < 4; ++k) {
++        facing6 = Veh83DMul(facing6, facing);
++    }
++    const float coronaSize = Veh83DStore(Veh83DMul(kCoronaScale, facing6));
++    const int32 coronaIntensity = Heli83GFtol(Veh83DMul(facing6, kByte));
++    CCoronas::RegisterCorona(static_cast<uint32>(coronaIndex), nullptr, 200, 200, 255, static_cast<uint8>(coronaIntensity), origin, coronaSize, kFar,
++                             static_cast<eCoronaType>(0), static_cast<eCoronaFlareType>(0), static_cast<eCoronaReflType>(1), static_cast<eCoronaLOSCheck>(0), static_cast<eCoronaTrail>(0),
++                             0.0f, false, 1.5f, false, 15.0f, false, false);
++
++    // Anillo de 41 puntos: cada uno da un vertice cercano (anillo de radio baseRadius) y otro lejano (anillo de radio targetRadius proyectado en el plano z del objetivo)
++    uiTempBufferIndicesStored = 0;
++    uiTempBufferVerticesStored = 0;
++    float vertexGlow[82];  // 0x2EC: brillo del vertice (la x87 los lee como float)
++    float vertexLight[82]; // 0x1A4: cuadrado del coseno
++    float maxSquare = 0.0f;
++    CVector spot20{};
++    CVector spot30{};
++    const float texV = Veh83DStore(Veh83DAdd(Veh83DMul(kOne, kTexScale), kTexBias));
++    for (int32 i = 0; i <= 40; ++i) {
++        CVector up{ 0.0f, 0.0f, 1.0f };
++        CVector side;
++        CrossProduct(&side, &n, &up);
++        side.Normalise();
++        CVector top;
++        CrossProduct(&top, &side, &n);
++        top.Normalise();
++
++        const double angle = Veh83DMul(static_cast<double>(i), kAngleStep);
++        const float s = Heli83GSinStore(angle);
++        const float c = Heli83GCosStore(angle);
++
++        // Punto cercano: origen + side * s * baseRadius + top * c * baseRadius
++        const double sideSx = Veh83DMul(side.x, s);
++        const float  sideSxS = Veh83DStore(sideSx);
++        const double sideSy = Veh83DMul(side.y, s);
++        const double sideSz = Veh83DMul(side.z, s);
++        const float  sideSzS = Veh83DStore(sideSz);
++        const float  nearSxS = Veh83DStore(Veh83DMul(sideSxS, baseRadius));
++        const float  nearSyS = Veh83DStore(Veh83DMul(sideSy, baseRadius));
++        const double nearSz = Veh83DMul(sideSz, baseRadius);
++        const double nearBaseX = Veh83DAdd(nearSxS, origin.x);
++        const float  nearBaseY = Veh83DStore(Veh83DAdd(nearSyS, origin.y));
++        const float  nearBaseZ = Veh83DStore(Veh83DAdd(nearSz, origin.z));
++        const double topCx = Veh83DMul(top.x, c);
++        const float  topCxS = Veh83DStore(topCx);
++        const double topCy = Veh83DMul(top.y, c);
++        const float  topCyS = Veh83DStore(topCy);
++        const float  topCzS = Veh83DStore(Veh83DMul(top.z, c));
++        const float  topBxS = Veh83DStore(Veh83DMul(topCx, baseRadius));
++        const float  topByS = Veh83DStore(Veh83DMul(topCy, baseRadius));
++        const float  topBzS = Veh83DStore(Veh83DMul(topCzS, baseRadius));
++        const CVector nearPoint{ Veh83DStore(Veh83DAdd(topBxS, nearBaseX)), Veh83DStore(Veh83DAdd(topByS, nearBaseY)), Veh83DStore(Veh83DAdd(topBzS, nearBaseZ)) };
++
++        // Punto lejano antes de proyectar: farPoint + side * s * targetRadius + top * c * targetRadius
++        const float  farSxS = Veh83DStore(Veh83DMul(sideSxS, targetRadius));
++        const float  farSyS = Veh83DStore(Veh83DMul(sideSy, targetRadius));
++        const double farSz = Veh83DMul(sideSzS, targetRadius);
++        const double farBaseX = Veh83DAdd(farSxS, farPoint.x);
++        const float  farBaseY = Veh83DStore(Veh83DAdd(farSyS, farPoint.y));
++        const float  farBaseZ = Veh83DStore(Veh83DAdd(farSz, farPoint.z));
++        const float  topTxS = Veh83DStore(Veh83DMul(topCxS, targetRadius));
++        const float  topTyS = Veh83DStore(Veh83DMul(topCyS, targetRadius));
++        const float  topTzS = Veh83DStore(Veh83DMul(topCzS, targetRadius));
++        const double farFx = Veh83DAdd(farBaseX, topTxS);
++        const double farFy = Veh83DAdd(topTyS, farBaseY);
++        const float  farFzS = Veh83DStore(Veh83DAdd(topTzS, farBaseZ));
++
++        // Se proyecta en el plano z = objetivo.z a lo largo del segmento cercano -> lejano
++        const float ratio = Veh83DStore(Veh83DDiv(Veh83DSub(nearPoint.z, target.z), Veh83DSub(nearPoint.z, farFzS)));
++        const float deltaX = Veh83DStore(Veh83DSub(farFx, nearPoint.x));
++        const double deltaY = Veh83DSub(farFy, nearPoint.y);
++        const double deltaZ = Veh83DSub(farFzS, nearPoint.z);
++        const float scaledX = Veh83DStore(Veh83DMul(deltaX, ratio));
++        const float scaledY = Veh83DStore(Veh83DMul(deltaY, ratio));
++        const double scaledZ = Veh83DMul(deltaZ, ratio);
++        CVector spot{ Veh83DStore(Veh83DAdd(scaledX, nearPoint.x)), Veh83DStore(Veh83DAdd(scaledY, nearPoint.y)), Veh83DStore(Veh83DAdd(scaledZ, nearPoint.z)) };
++
++        if (i == 20) {
++            std::memcpy(&spot20, &spot, sizeof(CVector));
++        } else if (i == 30) {
++            std::memcpy(&spot30, &spot, sizeof(CVector));
++        }
++
++        // Si el segmento mide mas de 100 se acorta a 100 (con 0x59C910)
++        const double extentX = Veh83DSub(spot.x, nearPoint.x);
++        const double extentY = Veh83DSub(spot.y, nearPoint.y);
++        const double extentZ = Veh83DSub(spot.z, nearPoint.z);
++        const float  extentYS = Veh83DStore(extentY);
++        const float  extentZS = Veh83DStore(extentZ);
++        const double extentLength = Veh83DSqrt(Veh83DAdd(Veh83DAdd(Veh83DMul(extentZ, extentZ), Veh83DMul(extentY, extentY)), Veh83DMul(extentX, extentX)));
++        if (extentLength > static_cast<double>(kFar)) {
++            CVector dir{ Veh83DStore(extentX), extentYS, extentZS };
++            dir.Normalise();
++            const double clampX = Veh83DMul(dir.x, kFar);
++            const double clampY = Veh83DMul(dir.y, kFar);
++            const float  clampZS = Veh83DStore(Veh83DMul(dir.z, kFar));
++            spot.x = Veh83DStore(Veh83DAdd(clampX, nearPoint.x));
++            spot.y = Veh83DStore(Veh83DAdd(clampY, nearPoint.y));
++            spot.z = Veh83DStore(Veh83DAdd(clampZS, nearPoint.z));
++        }
++
++        // Vertices cercano y lejano
++        const int32 vi = uiTempBufferVerticesStored;
++        std::memcpy(&TempBufferVertices.m_3d[vi].objVertex, &nearPoint, sizeof(CVector));
++        std::memcpy(&TempBufferVertices.m_3d[vi + 1].objVertex, &spot, sizeof(CVector));
++        CVector toNear{ Veh83DStore(Veh83DSub(nearPoint.x, origin.x)), Veh83DStore(Veh83DSub(nearPoint.y, origin.y)), Veh83DStore(Veh83DSub(nearPoint.z, origin.z)) };
++        toNear.Normalise();
++        double cosine = Veh83DAdd(Veh83DAdd(Veh83DMul(toNear.x, toCam.x), Veh83DMul(toNear.z, toCam.z)), Veh83DMul(toNear.y, toCam.y));
++        if (cosine < 0.0) {
++            cosine = -cosine;
++        }
++        const double square = Veh83DMul(cosine, cosine);
++        if (square > static_cast<double>(maxSquare)) {
++            maxSquare = Veh83DStore(square);
++        }
++        vertexGlow[vi] = texV;
++        vertexGlow[vi + 1] = 0.0f;
++        vertexLight[vi] = Veh83DStore(square);
++        vertexLight[vi + 1] = Veh83DStore(square);
++
++        int32 ii = uiTempBufferIndicesStored;
++        if (i != 40) {
++            aTempBufferIndices[ii] = static_cast<RxVertexIndex>(vi);
++            aTempBufferIndices[ii + 1] = static_cast<RxVertexIndex>(vi + 3);
++            aTempBufferIndices[ii + 2] = static_cast<RxVertexIndex>(vi + 1);
++            ii += 3;
++            uiTempBufferIndicesStored = ii;
++            if (baseRadius > 0.0f) {
++                aTempBufferIndices[ii] = static_cast<RxVertexIndex>(vi);
++                aTempBufferIndices[ii + 1] = static_cast<RxVertexIndex>(vi + 2);
++                aTempBufferIndices[ii + 2] = static_cast<RxVertexIndex>(vi + 3);
++                ii += 3;
++                uiTempBufferIndicesStored = ii;
++            }
++        }
++        uiTempBufferVerticesStored = vi + 2;
++    }
++
++    // Color de cada vertice: gris = ftol(200 * s), azul = ftol(255 * s) con s = (luz * brillo) / cuadrado maximo (alfa 0)
++    const int32 vertexCount = uiTempBufferVerticesStored;
++    const double inverseMax = Veh83DDiv(kOne, maxSquare);
++    for (int32 v = 0; v < vertexCount; ++v) {
++        const double lit = Veh83DMul(Veh83DMul(vertexLight[v], vertexGlow[v]), inverseMax);
++        const uint32 gray = static_cast<uint8>(Heli83GFtol(Veh83DMul(kGray, lit)));
++        const uint32 blue = static_cast<uint8>(Heli83GFtol(Veh83DMul(lit, kByte)));
++        TempBufferVertices.m_3d[v].color = (gray << 16) | (gray << 8) | blue;
++    }
++    if (uiTempBufferIndicesStored > 0) {
++        if (RwIm3DTransform(TempBufferVertices.m_3d, static_cast<RwUInt32>(vertexCount), nullptr, rwIM3D_VERTEXRGBA | rwIM3D_VERTEXXYZ)) {
++            RwIm3DRenderIndexedPrimitive(rwPRIMTYPETRILIST, aTempBufferIndices, uiTempBufferIndicesStored);
++            RwIm3DEnd();
++        }
++    }
++
++    // Salidas: el objetivo recortado y los puntos 20 y 30 del anillo relativos a el
++    std::memcpy(&useless0, &target, sizeof(CVector));
++    useless1.x = Veh83DStore(Veh83DSub(spot20.x, target.x));
++    useless1.y = Veh83DStore(Veh83DSub(spot20.y, target.y));
++    useless1.z = Veh83DStore(Veh83DSub(spot20.z, target.z));
++    useless2.x = Veh83DStore(Veh83DSub(spot30.x, target.x));
++    useless2.y = Veh83DStore(Veh83DSub(spot30.y, target.y));
++    useless2.z = Veh83DStore(Veh83DSub(spot30.z, target.z));
++
++    if (!drawShadow) {
++        return;
++    }
++    // Sombra del foco: se escalan por 1.2 los vectores (x, y) y se dibuja solo si miden menos de 100 y el objetivo esta a 25 o menos de la camara (en el plano)
++    CVector shadowPos;
++    std::memcpy(&shadowPos, &target, sizeof(CVector));
++    shadowPos.z = Veh83DStore(Veh83DAdd(target.z, kShadowRise));
++    const float topX = Veh83DStore(Veh83DMul(useless1.x, kSpotScale));
++    const float topY = Veh83DStore(Veh83DMul(useless1.y, kSpotScale));
++    const float rightX = Veh83DStore(Veh83DMul(useless2.x, kSpotScale));
++    const float rightY = Veh83DStore(Veh83DMul(useless2.y, kSpotScale));
++    if (!(Veh83DSqrt(Veh83DAdd(Veh83DMul(topX, topX), Veh83DMul(topY, topY))) < static_cast<double>(kFar))) {
++        return;
++    }
++    if (!(Veh83DSqrt(Veh83DAdd(Veh83DMul(rightX, rightX), Veh83DMul(rightY, rightY))) < static_cast<double>(kFar))) {
++        return;
++    }
++    const CVector& cam = TheCamera.GetPosition();
++    const double dx = Veh83DSub(target.x, cam.x);
++    const double dy = Veh83DSub(target.y, cam.y);
++    const double distance = Veh83DSqrt(Veh83DAdd(Veh83DMul(dy, dy), Veh83DMul(dx, dx)));
++    if (distance > static_cast<double>(kShadowRange)) {
++        return;
++    }
++    const double shade = Veh83DMul(Veh83DMul(Veh83DSub(kOne, Veh83DMul(distance, kFalloff)), power), kHalf);
++    const uint8 gray = static_cast<uint8>(Heli83GFtol(Veh83DMul(kGray, shade)));
++    const uint8 blue = static_cast<uint8>(Heli83GFtol(Veh83DMul(kByte, shade)));
++    const int32 intensity = Heli83GFtol(Veh83DMul(shade, kIntensity));
++    CShadows::StoreShadowToBeRendered(2, tex, shadowPos, topX, topY, rightX, rightY, static_cast<int16>(intensity), gray, gray, blue, 15.0f, true, 1.0f, nullptr, false);
+ }
+ 
+ // Disposicion que usan GenerateHeli, SendDownSwat y BlowUpCar (comprobada en compilacion)
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 6e36fd205..1f6ea71cd 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -17658,3 +17658,18 @@ __declspec(noinline) float __cdecl Veh83DStore(double a) {
+     return Veh83BStore(a);
+ }
+ #pragma float_control(pop)
++
++// --- Lote 83G (Heli83G): CHeli::SearchLightCone (0x6C58E0), prefijo Heli83G. Anadido al FINAL ---
++// Usa los ayudantes Veh83D* (operaciones del registro x87 a 24 bits). `fild i; fmul paso; fsin / fcos; fstp dword`: el seno y el coseno se redondean a 24 bits y se guardan como float.
++#pragma float_control(precise, on, push)
++__declspec(noinline) float __cdecl Heli83GSinStore(double angle) {
++    return Veh83BStore(Player82ARound24(std::sin(angle)));
++}
++__declspec(noinline) float __cdecl Heli83GCosStore(double angle) {
++    return Veh83BStore(Player82ARound24(std::cos(angle)));
++}
++// _ftol2 (0x821B40) del registro: EAX (NaN, infinito o fuera de rango dan 0)
++__declspec(noinline) int32_t __cdecl Heli83GFtol(double value) {
++    return Veh83CFtolD(value);
++}
++#pragma float_control(pop)
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index 151413a89..53eaa8dfb 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -2171,3 +2171,8 @@ double __cdecl Veh83DSub(double a, double b);
+ double __cdecl Veh83DDiv(double a, double b);
+ double __cdecl Veh83DSqrt(double a);
+ float __cdecl Veh83DStore(double a);                                 // fstp dword
++
++// Lote 83G: CHeli::SearchLightCone (0x6C58E0): seno y coseno del angulo (registro) guardados como float y _ftol2 del registro (EAX)
++float __cdecl Heli83GSinStore(double angle);
++float __cdecl Heli83GCosStore(double angle);
++int32_t __cdecl Heli83GFtol(double value);

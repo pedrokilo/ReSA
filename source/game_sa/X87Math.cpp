@@ -17658,3 +17658,18 @@ __declspec(noinline) float __cdecl Veh83DStore(double a) {
     return Veh83BStore(a);
 }
 #pragma float_control(pop)
+
+// --- Lote 83G (Heli83G): CHeli::SearchLightCone (0x6C58E0), prefijo Heli83G. Anadido al FINAL ---
+// Usa los ayudantes Veh83D* (operaciones del registro x87 a 24 bits). `fild i; fmul paso; fsin / fcos; fstp dword`: el seno y el coseno se redondean a 24 bits y se guardan como float.
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl Heli83GSinStore(double angle) {
+    return Veh83BStore(Player82ARound24(std::sin(angle)));
+}
+__declspec(noinline) float __cdecl Heli83GCosStore(double angle) {
+    return Veh83BStore(Player82ARound24(std::cos(angle)));
+}
+// _ftol2 (0x821B40) del registro: EAX (NaN, infinito o fuera de rango dan 0)
+__declspec(noinline) int32_t __cdecl Heli83GFtol(double value) {
+    return Veh83CFtolD(value);
+}
+#pragma float_control(pop)

@@ -270,6 +270,5 @@ CCarCtrl,SteerAICarWithPhysics,0x00437C20,source/game_sa/CarCtrl.cpp:3535,cohort
 CCarCtrl,SteerAICarWithPhysics_OnlyMission,0x00436A90,source/game_sa/CarCtrl.cpp:3855,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CCarCtrl,SteerAICarWithPhysicsFollowPath,0x00434900,source/game_sa/CarCtrl.cpp:3540,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CCarCtrl,SteerAICarWithPhysicsFollowPath_Racing,0x00435830,source/game_sa/CarCtrl.cpp:3545,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CHeli,SearchLightCone,0x006C58E0,source/game_sa/Entity/Vehicle/Heli.cpp:218,cohorte 499
 CPlayerPed,FindNextWeaponLockOnTarget,0x0060E530,source/game_sa/Entity/Ped/PlayerPed.cpp:2345,cohorte 499 + envoltura en el código fuente
 CPlayerPed,ProcessWeaponSwitch,0x0060D850,source/game_sa/Entity/Ped/PlayerPed.cpp:2119,cohorte 499 + envoltura en el código fuente

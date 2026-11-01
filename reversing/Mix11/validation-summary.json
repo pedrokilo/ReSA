@@ -46,10 +46,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "793d3633e04a5ee35c331d2a17e39ffceeae8d67dda724c14d2bc31ae22d755d",
+  "log_sha256": "289a13f38b6576e010a2b70cea4e754bacc73989caa8ba5032dc1fa0efb42887",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-mix11\\20261003-060308-770447",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-mix11\\20261101-090555-775272",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CHeli::AddHeliSearchLight": true,
@@ -88,26 +88,27 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "86ef58e846af8fcd8cf1649b0fd0623c73d8fc4d86a38f185b76812a64a6758f",
-      "pdb": "c4fe2c664188c8756686d6d401afb9af08b477cd7813af829ede9ee9a1aca58b"
+      "asi": "a281a450c126a53cbf82427a3da0cd4879fbd261d58bfe506f95decd7ba597d9",
+      "pdb": "122c712dd6ecdbbc48f79e7bd71723a8e072db63d58bcbb025adc96b02f75805"
     },
     "sources": {
-      "source/game_sa/Entity/Vehicle/Heli.cpp": "74c6ca0fc38cab2ebce5d0c8bb9998d5a04ce010e904d96bc9dfa8971b876067",
-      "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "c8be087979c63d2f831ae40861d5277b4d116120a5532e2ef23da899e1399c52",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "9ae845de5afed36b594095145dc79c32bd1f824e4376339f8d414a4481a020c5",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "b5937eb471710b56bc4637bfa3a2f3f07c66d02adde1219d18b9c8a8dfc150c7",
+      "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+      "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "433288d29bd13d1c67ee945de21bc127d4f4a7d613a8a454780a8166bc142a1e",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.h": "5dc3b225ffcf63a395c3a4036b204f4603fef0b8c37429a1f3af61ed876343e8"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "134764540b118c61591b9449ca7d5d3afe730b10f3a8a91d1e16501ef68dd62f",
+      "LiveComparison.hpp": "90ff34a60bc969b4229a162065b125efce6572e692934a316381934b05060ee1",
       "build_probe.py": "bc2f360ad8a4526eb0c31a21f9df3f1316a82f05229cd3ac4677cfc32610e013",
       "run_local.py": "bda5dd2eca964cc3457cc3f0c53336a0e9d11671e58ebf6e889ef7d219555dcd"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

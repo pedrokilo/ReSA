@@ -2171,3 +2171,8 @@ double __cdecl Veh83DSub(double a, double b);
 double __cdecl Veh83DDiv(double a, double b);
 double __cdecl Veh83DSqrt(double a);
 float __cdecl Veh83DStore(double a);                                 // fstp dword
+
+// Lote 83G: CHeli::SearchLightCone (0x6C58E0): seno y coseno del angulo (registro) guardados como float y _ftol2 del registro (EAX)
+float __cdecl Heli83GSinStore(double angle);
+float __cdecl Heli83GCosStore(double angle);
+int32_t __cdecl Heli83GFtol(double value);

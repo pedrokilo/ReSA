@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,981 entradas reversed=1**, de 8,981 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,982 entradas reversed=1**, de 8,982 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8981 |
+| `validated=1` · evidencia aprobada vinculada | 8982 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8981 |
+| Evidencia histórica vinculada; revisión pendiente | 8982 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -3076,6 +3076,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CHeli | `ProcessFlyingCarStuff` | [Resumen](../reversing/HeliFly75/validation-summary.json) |
 | CHeli | `Render` | [Resumen](../reversing/Mix11/validation-summary.json) |
 | CHeli | `RenderAllHeliSearchLights` | [Resumen](../reversing/Mix11/validation-summary.json) |
+| CHeli | `SearchLightCone` | [Resumen](../reversing/Heli83G/validation-summary.json) |
 | CHeli | `SendDownSwat` | [Resumen](../reversing/HeliSwat74/validation-summary.json) |
 | CHeli | `SetUpWheelColModel` | [Resumen](../reversing/Mix11/validation-summary.json) |
 | CHeli | `SwitchPoliceHelis` | [Resumen](../reversing/Mix11/validation-summary.json) |
@@ -9254,7 +9255,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CGroupEventHandler` | 32 | 0 | 32 | 0 |
 | `CHandObject` | 3 | 0 | 3 | 0 |
 | `CHandShaker` | 3 | 0 | 3 | 0 |
-| `CHeli` | 21 | 0 | 21 | 0 |
+| `CHeli` | 22 | 0 | 22 | 0 |
 | `CHud` | 39 | 0 | 39 | 0 |
 | `CHudColours` | 5 | 0 | 5 | 0 |
 | `CIdleCam` | 14 | 0 | 14 | 0 |

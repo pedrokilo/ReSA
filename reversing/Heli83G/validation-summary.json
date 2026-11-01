@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 18432,
+  "differences": 0,
+  "registered_pairs": 18432,
+  "registered_functions": 1,
+  "functions": {
+    "CHeli::SearchLightCone": 18432
+  },
+  "covered_functions": {
+    "CHeli::SearchLightCone": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD b2d657293 + cambios del lote 83G; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CVector::Normalise 0x59C910, CrossProduct 0x59C730, CWorld::ProcessLineOfSight 0x56BA00, CCoronas::RegisterCorona 0x6FC580 y CShadows::StoreShadowToBeRendered 0x707390; RwIm3DTransform 0x7EF450, RwIm3DRenderIndexedPrimitive 0x7EF550 y RwIm3DEnd 0x7EF520 llevan el falso solo en la direccion del EXE (la DLL las llama por esa direccion). Normalise y CrossProduct calculan de verdad con los ayudantes x87 (Veh83CNormalise, Veh83D*); los demas escriben o devuelven los valores del caso. Corren de verdad _ftol2 del EXE (0x821B40), fsin/fcos de la x87, TheCamera (puntero a la matriz y posicion), gpShadowExplosionTex y el bufer temporal de vertices e indices (regiones restauradas). El banco compara el orden y todos los argumentos de los falsos (traza de los 24 primeros y FNV-1a de todos), los contadores, los vertices, los indices y las salidas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: NaN con cargas distintas (las fixtures usan un unico patron), el retorno de RwIm3DTransform distinto de nulo/vertices, la entidad que devuelve ProcessLineOfSight (no se lee), camara con matriz nula y posicion NaN con carga distinta, y salidas de CrossProduct/Normalise reales del EXE (los falsos usan los ayudantes x87; sus cuerpos estan validados en sus propios bancos).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Heli83G-20261101-085542-634517",
+  "summary_sha256": "1724d6876d755d8e608e0e2b6294d472110da121ec445f8733e1f3f2b0d7ac4a",
+  "result_txt_sha256": "b2d09c956f1e3e7a1ec146ddbf31b08e2d3bd13e4aeaf0b51c3f16e9c84afaf7",
+  "log_sha256": "3e1d1007dae8d61780feca3c0dfc2066e24f9f90c5a5264db9e5297631396b22",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "2fc6c8c621105d6c8165cc024cfacfd84ca5af8425a85059e57be4734eaa4777",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/X87Math.cpp": "921edd3f8cc299b433419a8ed425ce830e35b55f41b6bab2e939633a2c33f67d",
+      "source/game_sa/X87Math.h": "4f32222b1ddef50be9360058f08574b5d1197160b1a8210f124ba164cd1e6f49",
+      "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+      "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Heli83G/LiveComparison.hpp": "e82462115b2821ced72c93af7d80f47260c2c0cf53a92903300f16fafa93ae1c",
+      "reversing/Heli83G/Core.hpp": "b6612d5ce5c778635238646f6cec0c196dfd9e9efc6732d2212ac67330f5c3e6",
+      "reversing/Heli83G/Fixtures.hpp": "6d7c6c91c4275b304cfe4f86d1cfae4d58bf17430813d299803067d908799821",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}
