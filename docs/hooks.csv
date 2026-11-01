@@ -3870,6 +3870,7 @@ CHeli,Fix,0x00000000,1,0,1,V
 CHeli,InitHelis,0x006C4560,1,0,1,S
 CHeli,Post_SearchLightCone,0x006C46E0,1,0,1,S
 CHeli,Pre_SearchLightCone,0x006C4650,1,0,1,S
+CHeli,ProcessControlInputs,0x00000000,1,0,1,V
 CHeli,Render,0x00000000,1,0,1,V
 CHeli,RenderAllHeliSearchLights,0x006C7C50,1,0,1,S
 CHeli,SetUpWheelColModel,0x00000000,1,0,1,V

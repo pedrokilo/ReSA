@@ -10301,7 +10301,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006C4760,141,reemplazada,CHeli,alta,,3,1,,
 0x006C4800,10,reemplazada,CHeli,exacta,CHeli::SwitchPoliceHelis,1,0,,
 0x006C4810,30,B,CHeli,alta,,0,0,,sí
-0x006C4830,1571,envoltura,CHeli,alta,,0,0,,sí
+0x006C4830,1571,B,CHeli,alta,,0,0,,sí
 0x006C4E60,1467,reemplazada,CHeli,alta,,0,0,,sí
 0x006C5420,1204,reemplazada,CHeli,alta,,0,0,,sí
 0x006C58E0,3121,envoltura,CHeli,alta,,2,2,,

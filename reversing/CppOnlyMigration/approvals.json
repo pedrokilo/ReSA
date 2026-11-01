@@ -13959,5 +13959,19 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ sin llamadas al EXE (los cuatro colaboradores son falsos identicos en ambos lados). Banco Veh83D con 18432 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el arbol principal (HEAD 30c8df96e + cambios del lote 83D; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CVector::Normalise 0x59C910, CrossProduct 0x59C730, CPhysical::ApplyMoveForce(CVector) 0x5429F0 y CPhysical::ApplyTurnForce 0x542A50; los de salida (Normalise, CrossProduct) escriben los valores que da cada caso. Corren de verdad rand() del CRT del EXE (0x821B1E, semilla fijada por lado), CTimer::ms_fTimeStep, gHandlingDataMgr.fWheelFriction, el CHandlingData, la matriz del vehiculo y las estaticas 0xC1CDAF..0xC1CDB2 (regiones restauradas). El banco compara el orden y todos los argumentos de los falsos, los sorteos de rand(), el estado de la rueda y las estaticas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: NaN con cargas distintas (las fixtures usan un unico patron), valores de las estaticas 0xC1CDAF..0xC1CDB2 distintos de 0/1, wheelSpeed (no se lee) y salidas de los colaboradores incoherentes con la entrada (Normalise y CrossProduct devuelven lo que dice el caso, no el calculo real)."
+  },
+  "0x006C4830": {
+    "identity": "CHeli::ProcessControlInputs",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Entity/Vehicle/Heli.cpp",
+    "bank": "Heli83E",
+    "run": "20261101-065320-967839",
+    "pairs": 18432,
+    "own_pairs": 18432,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Heli83E-20261101-065320-967839/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE (los once colaboradores son falsos identicos en ambos lados). Banco Heli83E con 18432 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el arbol principal (HEAD 2c71b35d2 + cambios del lote 83E; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CPad::GetAccelerate 0x5403F0, GetBrake 0x540080, GetSteeringLeftRight 0x53FB80, GetSteeringUpDown 0x53FBD0, GetLookRight 0x53FE10, GetLookLeft 0x53FDD0, GetHorn 0x53FEE0, FindPlayerPed 0x56E210, CPlayerPed::KeepAreaAroundPlayerClear 0x60C1E0, CVector::Normalise 0x59C910 y CrossProduct 0x59C730; los de salida escriben los valores que da cada caso (EAX de los del mando con basura en los bits altos). Corren de verdad CPad::GetPad (0x53FB70), las estaticas 0xB6EC2E, 0xC1CC03, 0xC1CC04, el raton 0xB73424/0xB73428, CTimer::ms_fTimeStep, la matriz del helicoptero, los datos de manejo en vuelo y las palabras +0x2C y +0x10E del mando (regiones restauradas); el pow del CRT del EXE (0x822130) corre de verdad en el original y en el candidato lo emula PowScaleFloatCpp. El banco compara el orden y todos los argumentos de los falsos, el modo de control, los campos escritos y las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (el pow solo con tolerancia). Fuera de los fixtures: NaN con cargas distintas (las fixtures usan un unico patron), numero de mando distinto de 0 y 1, estaticas booleanas distintas de 0/1, puntero de matriz nulo y salidas de los colaboradores incoherentes con la entrada (Normalise y CrossProduct devuelven lo que dice el caso, no el calculo real)."
   }
 }

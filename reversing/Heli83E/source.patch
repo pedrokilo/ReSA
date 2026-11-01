@@ -1,0 +1,117 @@
+diff --git a/source/game_sa/Entity/Vehicle/Heli.cpp b/source/game_sa/Entity/Vehicle/Heli.cpp
+index 9e0794661..e83d41e82 100644
+--- a/source/game_sa/Entity/Vehicle/Heli.cpp
++++ b/source/game_sa/Entity/Vehicle/Heli.cpp
+@@ -87,6 +87,7 @@ void CHeli::InjectHooks() {
+     RH_ScopedNamedGlobalInstall(FindSwatPositionRelativeToHeliExeAbi, "FindSwatPositionRelativeToHeli", 0x6C4760);
+     RH_ScopedVMTInstall(Render, 0x6C4400);
+     RH_ScopedVMTInstall(BlowUpCar, 0x6C6D30);
++    RH_ScopedVMTInstall(ProcessControlInputs, 0x6C4830);
+     RH_ScopedVMTInstall(ProcessFlyingCarStuff, 0x6C4E60);
+     RH_ScopedVMTInstall(PreRender, 0x6C5420);
+     RH_ScopedVMTInstall(Fix, 0x6C4530);
+@@ -718,9 +719,102 @@ bool CHeli::SetUpWheelColModel(CColModel* wheelCol) {
+ }
+ 
+ // 0x6C4830
+-// El procesamiento de controles del helicóptero continúa delegado al ejecutable original.
+ void CHeli::ProcessControlInputs(uint8 playerNum) {
+-    plugin::CallMethod<0x6C4830, CHeli*, uint8>(this, playerNum);
++    // Como el original (0x6C4830..0x6C4E50): CPad::GetPad se vuelve a pedir en cada acceso y cada operación de la x87 redondea a 24 bits (ayudantes Veh83D*; `fstp dword` es Veh83DStore).
++    constexpr float kInv255 = std::bit_cast<float>(0x3B808081u); // [0x859A3C]
++    constexpr float kInv128 = 0.0078125f;                         // [0x858B88]
++    constexpr float kMouseStep = 0.0025f;                         // [0x871674]
++    constexpr float kMouseDecay = 0.98f;                          // [0x87167C]
++    constexpr float kSpeedLimit = 0.28f;                          // [0x871254]
++    auto* const pad = CPad::GetPad(playerNum); // 0x53FB70
++
++    const int32 accelerate = pad->GetAccelerate();
++    const int32 brake = pad->GetBrake();
++    m_fAccelerationBreakStatus = Veh83DStore(Veh83DMul(double(accelerate - brake), double(kInv255)));
++
++    const auto KeyboardUpdate = [&] { // 0x6C4A4E / 0x6C4952
++        m_nLastControlInput = eControllerType::KEYBOARD;
++        const int32 upDown = pad->GetSteeringUpDown();
++        m_fSteeringUpDown = Veh83DStore(Veh83DMul(double(upDown), double(kInv128)));
++        const int32 leftRight = pad->GetSteeringLeftRight();
++        m_fSteeringLeftRight = Veh83DStore(Veh83DMul(double(-leftRight), double(kInv128)));
++    };
++    const float mouseX = CPad::NewMouseControllerState.m_AmountMoved.x; // 0xB73424
++    const float mouseY = CPad::NewMouseControllerState.m_AmountMoved.y; // 0xB73428
++    if (CCamera::m_bUseMouse3rdPerson && m_bEnableMouseFlying) {
++        bool mouse = false;
++        if (mouseX != 0.f || mouseY != 0.f) { // fcomp; test ah,44h; jp
++            mouse = true;
++        } else if ((std::fabs(m_fSteeringLeftRight) > 0.f || std::fabs(m_fSteeringUpDown) > 0.f) && m_nLastControlInput == eControllerType::MOUSE) {
++            mouse = pad->GetSteeringLeftRight() == 0 && pad->GetSteeringUpDown() == 0; // 0x6C48FC..0x6C492C
++        }
++        if (mouse) { // 0x6C4993
++            m_nLastControlInput = eControllerType::MOUSE;
++            if (pad->NewState.m_bVehicleMouseLook == 0) { // cmp word [pad+0x2C],0
++                m_fSteeringLeftRight = Veh83DStore(Veh83DSub(double(m_fSteeringLeftRight), Veh83DMul(double(mouseX), double(kMouseStep))));
++                m_fSteeringUpDown = Veh83DStore(Veh83DAdd(Veh83DMul(double(mouseY), double(kMouseStep)), double(m_fSteeringUpDown)));
++            }
++            if (std::fabs(m_fSteeringLeftRight) < 0.5f) {
++                PowScaleFloatCpp(&m_fSteeringLeftRight, kMouseDecay, CTimer::GetTimeStep()); // 0x822130
++            }
++            if (std::fabs(m_fSteeringUpDown) < 0.5f) {
++                PowScaleFloatCpp(&m_fSteeringUpDown, kMouseDecay, CTimer::GetTimeStep());
++            }
++        } else if (pad->GetSteeringLeftRight() != 0 || pad->GetSteeringUpDown() != 0 || m_nLastControlInput != eControllerType::MOUSE) { // 0x6C492E
++            KeyboardUpdate();
++        }
++    } else {
++        KeyboardUpdate();
++    }
++    // 0x6C4A96: cada eje se acota a [-1, 1]; con NaN se conserva el valor
++    const auto Clamp1 = [](float value) { return 1.0f < value ? 1.0f : (-1.0f > value ? -1.0f : value); };
++    m_fSteeringUpDown = Clamp1(m_fSteeringUpDown);
++    m_fSteeringLeftRight = Clamp1(m_fSteeringLeftRight);
++
++    m_fLeftRightSkid = float(uint8(pad->GetLookRight()));
++    if (pad->GetLookLeft()) {
++        m_fLeftRightSkid = -1.0f;
++    }
++
++    if (pad->GetHorn() && m_matrix->GetUp().z > 0.f) { // 0x6C4B4E: nivelar el helicóptero
++        m_fLeftRightSkid = 0.0f;
++        // Producto con la velocidad por el factor de estabilidad, acotado a [-2, 2] y guardado como float (el valor sin guardar decide la cota).
++        const auto Stabilise = [&](const CVector& axis, float factor) {
++            const double dot = Veh83DAdd(Veh83DAdd(Veh83DMul(double(axis.y), double(m_vecMoveSpeed.y)), Veh83DMul(double(axis.z), double(m_vecMoveSpeed.z))),
++                                         Veh83DMul(double(axis.x), double(m_vecMoveSpeed.x)));
++            const double value = Veh83DMul(dot, double(factor));
++            return value > 2.0 ? 2.0f : (-2.0 > value ? -2.0f : Veh83DStore(value));
++        };
++        CVector up{0.f, 0.f, 1.f};
++        CVector sideways;
++        CrossProduct(&sideways, &up, &m_matrix->GetRight()); // 0x59C730
++        sideways.Normalise();                                // 0x59C910
++        m_fSteeringUpDown = Stabilise(sideways, m_pFlyingHandlingData->m_fPitchStab);
++        CVector scratch;
++        CVector ahead = *CrossProduct(&scratch, &m_matrix->GetForward(), &up);
++        ahead.Normalise();
++        m_fSteeringLeftRight = Stabilise(ahead, m_pFlyingHandlingData->m_fRollStab);
++    }
++
++    reinterpret_cast<uint8*>(this)[0x428] &= 0xDF;
++    m_fSteerAngle = 0.0f;
++    m_BrakePedal = 1.0f;
++    m_GasPedal = 0.0f;
++    if (pad->DisablePlayerControls) {
++        FindPlayerPed(-1)->KeepAreaAroundPlayerClear(); // 0x56E210, 0x60C1E0
++        const double x = m_vecMoveSpeed.x, y = m_vecMoveSpeed.y, z = m_vecMoveSpeed.z;
++        const double length = Veh83DSqrt(Veh83DAdd(Veh83DAdd(Veh83DMul(x, x), Veh83DMul(y, y)), Veh83DMul(z, z)));
++        if (length > double(kSpeedLimit)) {
++            const double scale = Veh83DDiv(double(kSpeedLimit), length);
++            m_vecMoveSpeed.x = Veh83DStore(Veh83DMul(scale, x));
++            m_vecMoveSpeed.y = Veh83DStore(Veh83DMul(scale, y));
++            m_vecMoveSpeed.z = Veh83DStore(Veh83DMul(scale, z));
++        }
++    }
++    if (m_fHealth < 250.0f) { // 0x6C4E1A
++        m_fAccelerationBreakStatus = -0.1f;
++        m_fLeftRightSkid = Veh83DStore(Veh83DAdd(double(m_fLeftRightSkid), double(0.5f)));
++    }
+ }
+ 
+ // 0x6C4400

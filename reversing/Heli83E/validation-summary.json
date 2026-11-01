@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "pairs": 18432,
+  "differences": 0,
+  "registered_pairs": 18432,
+  "registered_functions": 1,
+  "functions": {
+    "CHeli::ProcessControlInputs": 18432
+  },
+  "covered_functions": {
+    "CHeli::ProcessControlInputs": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 2c71b35d2 + cambios del lote 83E; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CPad::GetAccelerate 0x5403F0, GetBrake 0x540080, GetSteeringLeftRight 0x53FB80, GetSteeringUpDown 0x53FBD0, GetLookRight 0x53FE10, GetLookLeft 0x53FDD0, GetHorn 0x53FEE0, FindPlayerPed 0x56E210, CPlayerPed::KeepAreaAroundPlayerClear 0x60C1E0, CVector::Normalise 0x59C910 y CrossProduct 0x59C730; los de salida escriben los valores que da cada caso (EAX de los del mando con basura en los bits altos). Corren de verdad CPad::GetPad (0x53FB70), las estaticas 0xB6EC2E, 0xC1CC03, 0xC1CC04, el raton 0xB73424/0xB73428, CTimer::ms_fTimeStep, la matriz del helicoptero, los datos de manejo en vuelo y las palabras +0x2C y +0x10E del mando (regiones restauradas); el pow del CRT del EXE (0x822130) corre de verdad en el original y en el candidato lo emula PowScaleFloatCpp. El banco compara el orden y todos los argumentos de los falsos, el modo de control, los campos escritos y las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (el pow solo con tolerancia). Fuera de los fixtures: NaN con cargas distintas (las fixtures usan un unico patron), numero de mando distinto de 0 y 1, estaticas booleanas distintas de 0/1, puntero de matriz nulo y salidas de los colaboradores incoherentes con la entrada (Normalise y CrossProduct devuelven lo que dice el caso, no el calculo real).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Heli83E-20261101-065320-967839",
+  "summary_sha256": "7cce323582e9205868963f91c11b44589cdd61779a86b8b230ba8094ab257a48",
+  "result_txt_sha256": "946ae2b6a55fa24ed20608affec4f2fa7b9b2e18dd53b0527a7ecb6139a9c723",
+  "log_sha256": "931ff11336137733179e56296e8282f3aa0c581d4ce346072c269adfcb6feecb",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "3407dcbd430c606282358ff70c3fa9290d40aba1cf7751de915193a187bdf287",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/X87Math.cpp": "87e3f62c035b969c59bf7c062382ff696b9c73d05e879c1a084e0f16fec17dbe",
+      "source/game_sa/X87Math.h": "448a81f7318aa36c0a8293731283cd5dd5268400b6991e4600eece40692c9776",
+      "source/game_sa/Entity/Vehicle/Heli.cpp": "51055f7fc5a113149e001882941e0012b7626e5b0911c1a3eb0d6d8c70dec550",
+      "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Heli83E/LiveComparison.hpp": "7aac492af57248aaba2f209665dd94c260d66cc655bd20845e3731a15e2ae19f",
+      "reversing/Heli83E/Core.hpp": "830346c840e2a55258bf9969efe3a194288b77a8f95a27124c1b1dd58681051b",
+      "reversing/Heli83E/Fixtures.hpp": "c68ce27737e64fc8d3d8bbf0f2fe724c1af286fd90853bb194698337d4ea3ce2",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}
