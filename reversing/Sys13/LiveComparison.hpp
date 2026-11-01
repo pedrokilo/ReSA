@@ -537,7 +537,7 @@ inline void Update() {
         // dependencias de CTrailer (ninguna se usa en CPedType ni CTimer; las llama solo el hilo principal)
         Patches patches;
         for(auto& b:bases){ patches.Add(b.exe,b.stub); patches.Add(b.dll,b.stub); }
-        patches.Add(0x6AAB50,BaseVoid4);
+        patches.Add(0x6AAB50,BaseVoid4); patches.Add(DllBody("CAutomobile","PreRender"),BaseVoid4);
         patches.Add(0x6B0A90,FakeAutoCtor); patches.Add(dllAutoCtor,FakeAutoCtor);
         patches.Add(0x543D60,FakeSpring); patches.Add(Addr(&CPhysical::ApplySpringCollisionAlt),FakeSpring);
         patches.Add(0x542CE0,FakeGetSpeed); patches.Add(Addr(&CPhysical::GetSpeed),FakeGetSpeed);
