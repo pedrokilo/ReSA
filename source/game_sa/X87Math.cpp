@@ -17451,3 +17451,77 @@ __declspec(noinline) bool __cdecl Player82CWalkStartFinishedCpp(float total, flo
     return double(total) <= Player82ARound24(double(timeStep) + double(currentTime));
 }
 #pragma float_control(pop)
+
+// --- Lote 83A (Fx83A): Fx_c::AddWheelSpray (0x49FB30), prefijo Fx83. Anadido al FINAL ---
+// La x87 a 24 bits de mantisa con exponente extendido: cada operacion redondea a 24 bits (Player82ARound24) y solo el guardado (fstp dword) estrecha al rango de un float.
+#pragma float_control(precise, on, push)
+namespace {
+constexpr float Fx83F(unsigned int bits) { return std::bit_cast<float>(bits); }
+}
+// 0x49FC0E..0x49FD25 y 0x49FD65..0x49FDCD: |v| = sqrt((x*x + y*y) + z*z) (si no es mayor que 0.01f y las ruedas no giran, sale: devuelve false); t = 1.0 si giran, si no 2*|v| limitado a 1.0 (el NaN conserva 2*|v|);
+// alfa = (t + 1) * (0.2f en el agua, 0.15f fuera), tamano (t + 1) * 0.2f, u = (t + 1) * 10 y w = 30 - u (guardados como float); numero de particulas = max(1, EAX de _ftol2(sqrt((z'*z' + y'*y') + x'*x')))
+// con v' = paso * v en registro, e inversa 1.0 / n guardada como float.
+__declspec(noinline) bool __cdecl Fx83SprayPrepareCpp(const float* vel, int spinning, int inWater, const float* timeStep, Fx83SprayHead* out) {
+    const double x = vel[0], y = vel[1], z = vel[2];
+    const double len = Player82ARound24(std::sqrt(Player82ARound24(Player82ARound24(Player82ARound24(x * x) + Player82ARound24(y * y)) + Player82ARound24(z * z))));
+    if (!(std::fabs(len) > double(Fx83F(0x3C23D70Au))) && !spinning) {
+        return false;
+    }
+    float t;
+    if (spinning) {
+        t = 1.0f;
+    } else {
+        const double twice = len + len;
+        t = (twice > 1.0) ? 1.0f : float(twice);
+    }
+    const double t1 = Player82ARound24(double(t) + 1.0);
+    out->t = t;
+    out->alpha = float(Player82ARound24(t1 * double(inWater ? Fx83F(0x3E4CCCCDu) : Fx83F(0x3E19999Au))));
+    out->size = float(Player82ARound24(t1 * double(Fx83F(0x3E4CCCCDu))));
+    out->u = float(Player82ARound24(t1 * 10.0));
+    out->w = float(Player82ARound24(30.0 - double(out->u)));
+    const double ts = *timeStep;
+    const double xs = Player82ARound24(ts * double(vel[0]));
+    const double ys = Player82ARound24(ts * double(vel[1]));
+    const double zs = Player82ARound24(ts * double(vel[2]));
+    const double len2 = Player82ARound24(std::sqrt(Player82ARound24(Player82ARound24(Player82ARound24(zs * zs) + Player82ARound24(ys * ys)) + Player82ARound24(xs * xs))));
+    // _ftol2 (0x821B40): trunca a 64 bits; el EXE usa EAX (los 32 bits bajos) y compara con signo; NaN y fuera de rango dan 0x8000000000000000 -> 0.
+    const long long wide = static_cast<long long>(len2);
+    const int low = static_cast<int>(wide);
+    out->n = low < 1 ? 1 : low;
+    out->invN = float(Player82ARound24(1.0 / double(out->n)));
+    return true;
+}
+// 0x49FD25..0x49FEF0: una particula. rM es el rand() previo al bucle (m = (rM * 3.05e-5) * ((u + 30) - w) + w; velocidad inicial (m * vx, m * vy, m * vz) guardada como float), rI el de la vuelta.
+// Posicion = pos - float(float(invN * v * i) * paso) por componente, con z + 0.25f; velocidad z = ((rI * 3.05e-5) + 1) * t + vz.
+__declspec(noinline) void __cdecl Fx83SprayStepCpp(const Fx83SprayHead* h, const float* vel, const float* pos, const float* timeStep, int i, int rM, int rI, float* outVel, float* outPos) {
+    const double k = Fx83F(0x38000100u);
+    const double rk = Player82ARound24(double(rM) * k);
+    const double m = Player82ARound24(Player82ARound24(rk * Player82ARound24(Player82ARound24(double(h->u) + 30.0) - double(h->w))) + double(h->w));
+    const float mx = float(Player82ARound24(m * double(vel[0])));
+    const float my = float(Player82ARound24(m * double(vel[1])));
+    const float mz = float(Player82ARound24(m * double(vel[2])));
+    const double ts = *timeStep;
+    const double invN = h->invN;
+    const double a1 = Player82ARound24(invN * double(vel[0]));
+    const double a2 = Player82ARound24(invN * double(vel[1]));
+    const float a3 = float(Player82ARound24(invN * double(vel[2])));
+    const float fi = float(i);
+    const float d1 = float(Player82ARound24(a1 * double(fi)));
+    const double d2 = Player82ARound24(a2 * double(fi));
+    const double d3 = Player82ARound24(double(a3) * double(fi));
+    const float e1 = float(Player82ARound24(double(d1) * ts));
+    const float e2 = float(Player82ARound24(d2 * ts));
+    const float e3 = float(Player82ARound24(d3 * ts));
+    const float px = float(Player82ARound24(double(pos[0]) - double(e1)));
+    const float py = float(Player82ARound24(double(pos[1]) - double(e2)));
+    const float pz = float(Player82ARound24(double(pos[2]) - double(e3)));
+    outPos[0] = px;
+    outPos[1] = py;
+    outPos[2] = float(Player82ARound24(double(pz) + double(Fx83F(0x3E800000u))));
+    const double rk2 = Player82ARound24(double(rI) * k);
+    outVel[0] = mx;
+    outVel[1] = my;
+    outVel[2] = float(Player82ARound24(Player82ARound24(Player82ARound24(rk2 + 1.0) * double(h->t)) + double(mz)));
+}
+#pragma float_control(pop)

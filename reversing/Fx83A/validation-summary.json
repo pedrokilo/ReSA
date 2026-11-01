@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 1,
+  "functions": {
+    "Fx_c::AddWheelSpray": 16384
+  },
+  "covered_functions": {
+    "Fx_c::AddWheelSpray": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 87b80ac15 + Fx.cpp y X87Math.cpp, source.patch). Fx_c::AddWheelSpray 0x49FB30 (thiscall `ret 1Ch`, `this` no se usa; 1008 bytes): FindPlayerVehicle, distancia a la camara (625/400/64), cadencia por modelo+contador, velocidad, multiplicador (alfa segun agua), n particulas y por particula velocidad y posicion con la x87 a 24 bits (X87Math.cpp Fx83Spray*); sistema g_fx.m_BoatSplash (0xA9AE04). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: FxSystem_c::AddParticle(v3d) 0x4AA440 y FindPlayerVehicle 0x56E0D0 (hook RH apagado durante el banco). El rand() del CRT del EXE 0x821B1E corre real en ambos lados (semilla fijada por lado y comparada al final). Los constructores FxPrtMult_c corren de verdad en cada lado. La x87 (24 bits, exponente extendido, MXCSR FTZ) se compara incluidos desnormales, NaN, infinitos y ceros con signo. ECX/EDX/EAX no son resultados (void). Fuera de los fixtures: velocidades que den mas de ~20000 particulas (el bucle es el mismo `for`).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fx83A-20261101-032620-582625",
+  "summary_sha256": "0f70b4becb9b3c202b953e00acfadd909a03f2dddd271c63911c4ae88b64fe9b",
+  "result_txt_sha256": "27f6ae8a5fa80c312fbb1ae7803f8081c23f1f41387948db35bfad7b9d57aa2a",
+  "log_sha256": "89e5bb79fb3dff815e6070cc969f5ad45e73c36d225ebbd520caefaa5eac68bd",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "8dc9c30e03ffd97b62268525e317f2703d989d9d46c03dab30550508df0afd15",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/Fx/Fx.cpp": "800193bc8b903d67270c055efb0e20de70d467bcf1cadd37122d092e55f8fe1e",
+      "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
+      "source/game_sa/X87Math.cpp": "82af00d7381e4b8bec0cc34f27929b15a6080d0d2632bb22873d8578d240a569",
+      "source/game_sa/X87Math.h": "b2473cff8e7ea2f6ab11a0ae5e175e61192510e597920900882c912d0dd6e146",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fx83A/LiveComparison.hpp": "73782cb39bdeb3b112bbf17594369c0d822a154ace24cc05bbd50c0f4bd2253e",
+      "reversing/Fx83A/Core.hpp": "6504e829429ca709c752b89ec3b7380252339711066f0adc848b6fd7722ee7f0",
+      "reversing/Fx83A/Fixtures.hpp": "9496b4286b4d098a8b336ef0a5c8d1ce19d3c8781f6df3714a24ac4c906c266f",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

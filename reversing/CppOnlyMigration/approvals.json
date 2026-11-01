@@ -13903,5 +13903,19 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ (CPlayerPed, animaciones de movimiento del jugador): SetRealMoveAnim sin llamadas al EXE salvo los colaboradores sustituidos en el banco. El banco sustituye por falsos idénticos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL) los colaboradores con hook en HEAD y compara la secuencia de llamadas con sus argumentos, el objeto reservado los cambios en las arenas del caso y el estado de la x87. Banco Player82C con 16384 pares (16384 propios) y cero diferencias; EAX/ECX/EDX de salida: ver README del banco. Validado en el arbol principal (HEAD acb9302dc + PlayerPed.cpp, X87Math.cpp/.h y docs/hooks.csv, source.patch). CPlayerPed::SetRealMoveAnim 0x60A9C0 (thiscall sin argumentos, ret; void; 0xA97 bytes): mezcla las diez animaciones de movimiento del jugador (andar, correr, sprint, arranque, reposo, frenadas, apuntado lateral, cansancio): crea, mezcla o borra segun el ratio, el estado, el pad, la camara y las tareas. Sustituidos por falsos identicos en ambos lados (entrada del EXE y cuerpo de la DLL): RpAnimBlendClumpGetAssociation, BlendAnimation, AddAnimation, SetCurrentTime, SetDeleteCallback, RestoreHeadingRate, GetPadFromPlayer, GetForceCameraBehindPlayer, AimWeaponLeftRight, GetTaskFighting/UseGun/Duck/Throw/JetPack, TestSphereAgainstWorld, GetDefaultPlayerMotionGroup, UpdateStatsWhenSprinting/Running y GetButtonSprintResults (con EDX intacto); el destructor virtual de las animaciones es una tabla falsa. Cobertura de 70 ramas con oraculo independiente. Dominio: NaN canonicalizado (carga util distinta entre x87 y SSE); camaras activas 0..2; ver README del banco."
+  },
+  "0x0049FB30": {
+    "identity": "Fx_c::AddWheelSpray",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Fx/Fx.cpp",
+    "bank": "Fx83A",
+    "run": "20261101-032620-582625",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fx83A-20261101-032620-582625/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE (los colaboradores son falsos identicos en ambos lados). Banco Fx83A con 16384 pares y cero diferencias; void; EAX/ECX/EDX solo registrados. Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el arbol principal (HEAD 87b80ac15 + Fx.cpp y X87Math.cpp, source.patch). Fx_c::AddWheelSpray 0x49FB30 (thiscall `ret 1Ch`, `this` no se usa; 1008 bytes): FindPlayerVehicle, distancia a la camara (625/400/64), cadencia por modelo+contador, velocidad, multiplicador (alfa segun agua), n particulas y por particula velocidad y posicion con la x87 a 24 bits (X87Math.cpp Fx83Spray*); sistema g_fx.m_BoatSplash (0xA9AE04). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: FxSystem_c::AddParticle(v3d) 0x4AA440 y FindPlayerVehicle 0x56E0D0 (hook RH apagado durante el banco). El rand() del CRT del EXE 0x821B1E corre real en ambos lados (semilla fijada por lado y comparada al final). Los constructores FxPrtMult_c corren de verdad en cada lado. La x87 (24 bits, exponente extendido, MXCSR FTZ) se compara incluidos desnormales, NaN, infinitos y ceros con signo. ECX/EDX/EAX no son resultados (void). Fuera de los fixtures: velocidades que den mas de ~20000 particulas (el bucle es el mismo `for`)."
   }
 }

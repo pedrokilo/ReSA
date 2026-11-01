@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: Fx_c
- * Reconstrucción: COMPLETA — 25/25 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 26/26 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 25/25 entradas.
+ * Validación registrada: 26/26 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -68,7 +68,7 @@ void Fx_c::InjectHooks() {
     RH_ScopedInstall(AddPunchImpact, 0x49F670);
     RH_ScopedInstall(AddDebris, 0x49F750);
     RH_ScopedInstall(AddGlass, 0x49F970);
-    // RH_ScopedInstall(AddWheelSpray, 0x49FB30);
+    RH_ScopedInstall(AddWheelSpray, 0x49FB30);
     RH_ScopedInstall(AddWheelGrass, 0x49FF20);
     RH_ScopedInstall(AddWheelGravel, 0x4A0170);
     RH_ScopedInstall(AddWheelMud, 0x4A03C0);
@@ -642,7 +642,39 @@ void Fx_c::AddGlass(const CVector& pos, const RwRGBA& color, float scale, int32 
 
 // 0x49FB30
 void Fx_c::AddWheelSpray(CVehicle* vehicle, CVector pos, bool bWheelsSpinning, bool bInWater, float lightMult) {
-    ((void(__thiscall*)(Fx_c*, CVehicle*, CVector, uint8, uint8, float))0x49FB30)(this, vehicle, pos, bWheelsSpinning, bInWater, lightMult);
+    // Lote 83A. Como el original (`ret 1Ch`, `this` no se usa): primero el vehiculo del jugador (0x56E0D0) y la distancia a la camara (en registro); sale si es mayor que 625 o NaN.
+    CVehicle* const playerVehicle = FindPlayerVehicle(-1, false);
+    const float distSq = FxCameraDistanceSqZYX(pos);
+    if (!(distSq <= 625.0f)) {
+        return;
+    }
+    // Cadencia: byte bajo del modelo (movzx) + contador de fotogramas; lejos (> 400) 1 de cada 4, a media distancia (> 64) o sin vehiculo del jugador 1 de cada 2.
+    const uint32 key = static_cast<uint32>(static_cast<uint8>(vehicle->m_nModelIndex)) + CTimer::m_FrameCounter;
+    if (distSq > 400.0f) {
+        if (key & 3) {
+            return;
+        }
+    } else if (distSq > 64.0f || !playerVehicle) {
+        if (key & 1) {
+            return;
+        }
+    }
+    Fx83SprayHead head;
+    if (!Fx83SprayPrepareCpp(&vehicle->m_vecMoveSpeed.x, bWheelsSpinning ? 1 : 0, bInWater ? 1 : 0, &CTimer::ms_fTimeStep, &head)) {
+        return;
+    }
+    FxPrtMult_c mult(1.0f, 1.0f, 1.0f, std::bit_cast<float>(0x3D4CCCCDu), 0.0f, 1.0f, 0.0f);
+    mult.m_Color.alpha = head.alpha;
+    mult.m_fSize = head.size;
+    mult.m_fLife = std::bit_cast<float>(0x3DA3D70Au);
+    // Como el original: un sorteo antes del bucle (velocidad inicial) y otro por particula; el sistema se relee de g_fx en cada vuelta.
+    const int32 rM = FxExeRand();
+    for (int32 i = 0; i < head.n; ++i) {
+        const int32 rI = FxExeRand();
+        CVector vel, position;
+        Fx83SprayStepCpp(&head, &vehicle->m_vecMoveSpeed.x, &pos.x, &CTimer::ms_fTimeStep, i, rM, rI, &vel.x, &position.x);
+        g_fx.m_BoatSplash->AddParticle(position, vel, 0.0f, mult, -1.0f, lightMult, std::bit_cast<float>(0x3F19999Au), false);
+    }
 }
 
 // 0x49FF20

@@ -8974,3 +8974,4 @@ CCarCtrl,PossiblyRemoveVehicle,0x00424F80,1,0,1,S
 CPlayerPed,DrawTriangleForMouseRecruitPed,0x0060BA80,1,0,1,S
 CPlayerPed,Compute3rdPersonMouseTarget,0x0060B650,1,0,1,S
 CPlayerPed,SetRealMoveAnim,0x0060A9C0,1,0,1,S
+Fx_c,AddWheelSpray,0x0049FB30,1,0,1,S

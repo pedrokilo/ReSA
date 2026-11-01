@@ -1,7 +1,7 @@
 {
   "scope": "source/game_sa and source/app (WindowedMode.cpp included as the documented NOTSA assembly exception, reported separately), definitions in cpp/h/hpp/inc; all preprocessing branches",
   "totals": {
-    "source_definition_count": 18678,
+    "source_definition_count": 18681,
     "groups": 1501,
     "assembly_occurrences": 0,
     "naked_declarations": 0,
@@ -20,12 +20,12 @@
     "body_parse_errors": 308,
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 447,
-    "historical_catalog_rows": 8979,
+    "historical_catalog_rows": 8980,
     "catalog_rows_without_unambiguous_source_match_in_scope": 2,
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 20,
     "catalog_rows_linked_by_hook_address": 180,
-    "validated_reconstructed_own_cpp_definitions": 10645,
+    "validated_reconstructed_own_cpp_definitions": 10649,
     "validated_reconstructed_own_asm_definitions": 0,
     "wrapper_definitions": 70
   },
@@ -473,7 +473,7 @@
     "source/game_sa/Entity/Ped/PedSaveStructure.cpp": "5f58ccddfb1db70c9778c2f287d24ac9bb2eb9432155bd07a55d6dd05d961975",
     "source/game_sa/Entity/Ped/PedSaveStructure.h": "e5c92294002b82a7563cc3dcea70ece869fd25d7ce89e4654b8c530ee4d16187",
     "source/game_sa/Entity/Ped/PedStdBonePositions.h": "660b8512f81ce5369bb3d8e3b4c9ba5a3e1eb36442cbfa4ffc770371e8bb9655",
-    "source/game_sa/Entity/Ped/PlayerPed.cpp": "a70d70ac718ae01139abe260f313354da3e7bc890c376486748f6714e5b8748c",
+    "source/game_sa/Entity/Ped/PlayerPed.cpp": "3f366db39a66cbd8451ecd76107539044fc9889bf2ef7a51a573ed6837110708",
     "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
     "source/game_sa/Entity/Ped/PlayerSkin.cpp": "b725e853ad0ac44d3c936722f693b77d30c58420091c43584dc9ac38a63b1cae",
     "source/game_sa/Entity/Ped/PlayerSkin.h": "1188243850ccb80021731e036a8de514fe20aaeac78ef76bb94e8c4150a563db",
@@ -864,7 +864,7 @@
     "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
     "source/game_sa/Fx/eFxInfoType.h": "e2b63b7b9845dc48dc34c779ffd15856023bab68cd12c7fb9dfe2dfc716f4042",
     "source/game_sa/Fx/EmissionInfo.h": "7911d228390e25bde277c593f98a34fa21f4391f8e4d9a3ab59f17e04b0c8459",
-    "source/game_sa/Fx/Fx.cpp": "a925b8f38f2f122a4c3a309430e31bfa0c77b8c079cc4ed0c42502bd93338b36",
+    "source/game_sa/Fx/Fx.cpp": "800193bc8b903d67270c055efb0e20de70d467bcf1cadd37122d092e55f8fe1e",
     "source/game_sa/Fx/Fx.h": "938481c427df86644b2043ff04721333735ae48df1b8d5657eae95fbd7f054c0",
     "source/game_sa/Fx/FxBox.cpp": "cd912fe5906fc0e8c9aa290c80dd6ddb4f131822a4177cb829987c3c362ef33d",
     "source/game_sa/Fx/FxBox.h": "3232c761508369e0e9484871ccc25c6318ef508d6c6437d9a200b3213c8585d3",
@@ -2225,17 +2225,17 @@
     "source/game_sa/World.cpp": "0066108864b6c6c3aa13ac5a68da99749b177bd94605ebc3a2c14580018340bd",
     "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c",
     "source/game_sa/World_Helper.cpp": "331f33ad029ba5a963ac2b15dbe384298d36075b3b0eef2adedeb72454f5a033",
-    "source/game_sa/X87Math.cpp": "2241d6f53ee4b6cd3239b964cfa869fa55b540596679ad95e7ab978f2bd65617",
-    "source/game_sa/X87Math.h": "9414ef94a9093deefff898ad580145c733d5774ad3358c20934e58fbe5fa2f27",
+    "source/game_sa/X87Math.cpp": "82af00d7381e4b8bec0cc34f27929b15a6080d0d2632bb22873d8578d240a569",
+    "source/game_sa/X87Math.h": "b2473cff8e7ea2f6ab11a0ae5e175e61192510e597920900882c912d0dd6e146",
     "source/game_sa/Zone.cpp": "efb2c9fa14a6744d59fb142a8c8497719d7e9bf976ca3aebca78cc33caffa14a",
     "source/game_sa/Zone.h": "6e68b4a81ee271b97e3ed2b1ce9a6fcc1ff87dd54ab7790cb908fb14c5624d93",
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "9a0b4c1c90f59297f2e54c68ecac6eecf42aa88e9c97ef22872760d603fbfe19",
+    "hooks.csv": "67bd47b79110e1c3886138327e023a94604d3f08462ad9cc59ad645b9bdec0a1",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "568bb022d51b553514c229084a64492e7d6f2a8e2918cb2679a19820b13c98a3",
+  "migration_registry_sha256": "3f41555455195e14e3485d821d55466b4fcc972aeb35b31371d97ccdbd7c2d9d",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

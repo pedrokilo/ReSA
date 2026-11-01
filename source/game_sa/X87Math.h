@@ -2136,3 +2136,13 @@ void __cdecl Player82BAimLineCpp(const float* origin, const float* camSource, co
 
 // Lote 82C: CPlayerPed::SetRealMoveAnim (0x60A9C0): true si total <= (timeStep + currentTime) con la suma en la pila x87 (comparacion ordenada: NaN da false)
 bool __cdecl Player82CWalkStartFinishedCpp(float total, float timeStep, float currentTime);
+
+// Lote 83A: Fx_c::AddWheelSpray (0x49FB30).
+struct Fx83SprayHead {
+    float t, alpha, size, u, w, invN;
+    int n;
+};
+// false si la velocidad no supera 0.01f y las ruedas no giran (la funcion sale sin hacer nada); si no, rellena los parametros del multiplicador y el numero de particulas.
+bool __cdecl Fx83SprayPrepareCpp(const float* vel, int spinning, int inWater, const float* timeStep, Fx83SprayHead* out);
+// Posicion y velocidad de la particula i (rM = rand() previo al bucle, rI = rand() de la vuelta).
+void __cdecl Fx83SprayStepCpp(const Fx83SprayHead* h, const float* vel, const float* pos, const float* timeStep, int i, int rM, int rI, float* outVel, float* outPos);

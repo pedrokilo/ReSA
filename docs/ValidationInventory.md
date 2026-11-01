@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,975 entradas reversed=1**, de 8,975 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,976 entradas reversed=1**, de 8,976 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8975 |
+| `validated=1` · evidencia aprobada vinculada | 8976 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8975 |
+| Evidencia histórica vinculada; revisión pendiente | 8976 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -8467,6 +8467,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | Fx_c | `AddWheelGravel` | [Resumen](../reversing/FxWheel77/validation-summary.json) |
 | Fx_c | `AddWheelMud` | [Resumen](../reversing/FxWheel77/validation-summary.json) |
 | Fx_c | `AddWheelSand` | [Resumen](../reversing/FxWheel77/validation-summary.json) |
+| Fx_c | `AddWheelSpray` | [Resumen](../reversing/Fx83A/validation-summary.json) |
 | Fx_c | `AddWood` | [Resumen](../reversing/FxWood73/validation-summary.json) |
 | Fx_c | `CreateMatFromVec` | [Resumen](../reversing/DependenciesWorldFxFont5/validation-summary.json) |
 | Fx_c | `RenderAddTri_` | [Resumen](../reversing/Fx8/validation-summary.json) |
@@ -9782,7 +9783,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `FxSphere_c` | 4 | 0 | 4 | 0 |
 | `FxSystemBP_c` | 10 | 0 | 10 | 0 |
 | `FxSystem_c` | 35 | 0 | 35 | 0 |
-| `Fx_c` | 25 | 0 | 25 | 0 |
+| `Fx_c` | 26 | 0 | 26 | 0 |
 | `Game` | 12 | 0 | 12 | 0 |
 | `IKChainManager_c` | 17 | 0 | 17 | 0 |
 | `IKChain_c` | 20 | 0 | 20 | 0 |

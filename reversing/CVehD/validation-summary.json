@@ -43,7 +43,7 @@
   "log_sha256": "41c91b7802fc3f901436db046106963a8134d088a4e0a9b7c8d3c28b83bb4aab",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cvehd\\20261006-174404-054276",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cvehd\\20261101-032912-734495",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CVehicle::PreRender": true,
@@ -75,12 +75,12 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "6b4855815916b04ec8df6412c6f859ec4762be0a613261888a11f62b7081d3a6",
-      "pdb": "1cc8c67156a481d55c71488e4371daef03388006aa74894f5eb1ea18db2034b0"
+      "asi": "530902d5078c0bc710cb990340bbee5ad62a882db7086cb4080c6ce2d5c9ac0c",
+      "pdb": "d75e18a493bf114b3781f62945be665b18c6b588511bf039ebe6f6f96fd18e04"
     },
     "sources": {
-      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
-      "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
@@ -91,6 +91,7 @@
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }
