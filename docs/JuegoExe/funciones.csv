@@ -10309,7 +10309,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006C6890,295,reemplazada,CHeli,exacta,CHeli::TestSniperCollision,1,1,,
 0x006C69C0,869,reemplazada,CHeli,alta,,1,0,,
 0x006C6D30,795,reemplazada,CHeli,alta,,0,0,,sí
-0x006C7050,2352,envoltura,CHeli,alta,,0,0,,sí
+0x006C7050,2352,B,CHeli,alta,,0,0,,sí
 0x006C79A0,678,reemplazada,CHeli,alta,,1,1,,
 0x006C7C50,182,reemplazada,CHeli,exacta,CHeli::RenderAllHeliSearchLights,1,1,,
 0x006C7D10,11,C,CHeli,baja,,1,0,,

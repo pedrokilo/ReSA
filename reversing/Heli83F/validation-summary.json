@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "pairs": 18432,
+  "differences": 0,
+  "registered_pairs": 18432,
+  "registered_functions": 1,
+  "functions": {
+    "CHeli::ProcessControl": 18432
+  },
+  "covered_functions": {
+    "CHeli::ProcessControl": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 2c71b35d2 + cambios del lote 83F; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CAutomobile::ProcessControl 0x6B1880, FxSystem_c::Kill 0x4AA3F0, CPad::HornJustDown 0x53FF30, CCullZones::PlayerNoRain 0x72DDC0 y NoPolice 0x72DD50, FindPlayerVehicle 0x56E0D0, FindPlayerEntity 0x56E120, FindPlayerPed 0x56E210, FindPlayerWanted 0x56E230, CAudioEngine::SayPedless 0x5073C0 y ReportWeaponEvent 0x506F40, CHeli::FindSwatPositionRelativeToHeli 0x6C4760, operator*(CMatrix, CVector) 0x59C890, Multiply3x3 0x59C790 (en la DLL AutoPreMultiply3x3Cpp, parche solo del cuerpo), CWorld::GetIsLineOfSightClear 0x56A490, FireOneInstantHitRound 0x73AF00, CRopes::RegisterRope 0x556B40 y SetSpeedOfTopNode 0x555DF0, CVehicle::UpdateWinch 0x6D3B80 y ProcessWeapons 0x6E3950, CInterestingEvents::Add 0x602590, CHeli::SendDownSwat 0x6C69C0 y CVector::Normalise 0x59C910; los de salida escriben los valores que da cada caso. Corren de verdad CPad::GetPad (0x53FB70), el rand() del CRT del EXE (0x821B1E, con 0x41BD90 del EXE: su hook se apaga), GetUp/GetForward de la matriz (0x50E420/0x41CCB0), CTimer, 0xC0B184, la matriz y los campos del helicoptero y de las entidades (arenas y regiones restauradas). El banco compara el orden y todos los argumentos de los falsos, las palabras escritas en el helicoptero, el estado del rand() y las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: NaN con cargas distintas (las fixtures usan un unico patron), rumbo distinto de +-0 sin matriz (sin y cos exactos), punteros de datos del jugador o CWanted nulos, colaboradores con bytes altos distintos de los del caso en sus salidas booleanas y salidas incoherentes con la entrada (Normalise, operator*, Multiply3x3 y FindSwat devuelven lo que dice el caso, no el calculo real).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Heli83F-20261101-075529-537512",
+  "summary_sha256": "1a21b2926ba24cedc62ee2db32c337e5936e7f0433aa33089a0e78a489084cda",
+  "result_txt_sha256": "3fcdebb73565f445ed4376a204c2a3356d48b95cf99c9d22585d48272548e934",
+  "log_sha256": "03be1be5a326d7ff788f268abf78ab22e44085b0adb6c6323e7c9f1479c8ead3",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "a38361bf730fbcdf7f6d14426479aebd6b8c364b89adb17c678017a826072efc",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/X87Math.cpp": "87e3f62c035b969c59bf7c062382ff696b9c73d05e879c1a084e0f16fec17dbe",
+      "source/game_sa/X87Math.h": "448a81f7318aa36c0a8293731283cd5dd5268400b6991e4600eece40692c9776",
+      "source/game_sa/Entity/Vehicle/Heli.cpp": "4e2d784f41d14f08c80eb6a590b8169149b372789dc651f853047e56a29ec7d6",
+      "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Heli83F/LiveComparison.hpp": "f23632e6dc5a27240a83629eb6a2fd2242399c955950e14634fb12be0cb9b980",
+      "reversing/Heli83F/Core.hpp": "a37eb970c9cb851736865e1378f2490e7d6bbbc5c6a162ed2e52a559890c50a3",
+      "reversing/Heli83F/Fixtures.hpp": "d6cbe02a63be158a22b2923b6f8844310bb95c1d1d1538b6cfb1d35aeda43c9b",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

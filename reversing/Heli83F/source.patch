@@ -1,0 +1,278 @@
+diff --git a/source/game_sa/Entity/Vehicle/Heli.cpp b/source/game_sa/Entity/Vehicle/Heli.cpp
+index ec651b67a..55db5477d 100644
+--- a/source/game_sa/Entity/Vehicle/Heli.cpp
++++ b/source/game_sa/Entity/Vehicle/Heli.cpp
+@@ -41,6 +41,10 @@ END GENERATED HOOK STATUS */
+ #include "Shadows.h"
+ #include "WindModifiers.h"
+ #include "Clock.h"
++#include "InterestingEvents.h"
++#include "Weapon.h"
++#include "PlayerPedData.h"
++#include "Audio/AudioEngine.h"
+ #include "Tasks/TaskComplexSequence.h"
+ #include "Tasks/TaskTypes/TaskComplexUseSwatRope.h"
+ #include "Tasks/TaskTypes/TaskComplexWanderCop.h"
+@@ -88,6 +92,7 @@ void CHeli::InjectHooks() {
+     RH_ScopedVMTInstall(Render, 0x6C4400);
+     RH_ScopedVMTInstall(BlowUpCar, 0x6C6D30);
+     RH_ScopedVMTInstall(ProcessControlInputs, 0x6C4830);
++    RH_ScopedVMTInstall(ProcessControl, 0x6C7050);
+     RH_ScopedVMTInstall(ProcessFlyingCarStuff, 0x6C4E60);
+     RH_ScopedVMTInstall(PreRender, 0x6C5420);
+     RH_ScopedVMTInstall(Fix, 0x6C4530);
+@@ -1072,8 +1077,251 @@ void CHeli::PreRender() {
+     CShadows::StoreShadowForVehicle(this, VEH_SHD_HELI); // 0x70BDA0
+ }
+ 
+-// 0x6C7050
+-// El control del helicóptero continúa delegado al ejecutable original.
++// 0x6C7050: thiscall virtual, sin argumentos, void. CAutomobile::ProcessControl, foco de busqueda (objetivo, historial de 1 s, potencia segun la distancia), disparos de la policia al jugador,
++// cuerdas de los SWAT, cabrestante y armas. Aritmetica x87 a 24 bits con los ayudantes Veh83D* (`fstp dword` es Veh83DStore; un valor sin guardar es un double ya redondeado).
+ void CHeli::ProcessControl() {
+-    plugin::CallMethod<0x6C7050, CHeli*>(this);
++    constexpr float kUpScale       = -30.0f;                            // [0x859CE4]
++    constexpr float kForwardScale  = 10.0f;                             // [0x85862C]
++    constexpr float kVelocityScale = 100.0f;                            // [0x858628]
++    constexpr float kHistoryStep   = std::bit_cast<float>(0x3A83126Fu); // [0x858CDC] (0.001)
++    constexpr float kFarLimit      = 60.0f;                             // [0x858B34]
++    constexpr float kNearLimit     = 40.0f;                             // [0x858A10]
++    constexpr float kFalloff       = std::bit_cast<float>(0x3D4CCCCDu); // [0x858C28] (0.05)
++    constexpr float kFullPower     = std::bit_cast<float>(0x3F666666u); // [0x858C20] (0.9)
++    constexpr float kAimLimitSq    = 49.0f;                             // [0x8717C4]
++    constexpr float kJitter        = std::bit_cast<float>(0x3CA3D70Au); // [0x858B38] (0.02)
++    constexpr float kBurstLength   = 3.0f;                              // [0x858B3C]
++    constexpr float kBurstChance   = std::bit_cast<float>(0x3E19999Au); // [0x8D33A4] (0.15)
++    constexpr float kEventScale    = std::bit_cast<float>(0x3DCCCCCDu); // [0x858B1C] (0.1)
++    constexpr float kRandScale     = std::bit_cast<float>(0x38000100u); // [0x858C7C]
++    const auto Mul = [](double a, double b) { return Veh83DMul(a, b); };
++    const auto Add = [](double a, double b) { return Veh83DAdd(a, b); };
++    const auto Sub = [](double a, double b) { return Veh83DSub(a, b); };
++    const auto Store = [](double a) { return Veh83DStore(a); };
++
++    CAutomobile::ProcessControl(); // 0x6B1880
++    CEntity* target = nullptr;     // EBP
++
++    if (!(HeliField<uint8>(this, 0x428) & 0x10)) { // motor apagado
++        if (m_pDustParticle) {
++            m_pDustParticle->Kill(); // 0x4AA3F0
++            m_pDustParticle = nullptr;
++            m_heliDustFxTimeConst = 0.0f;
++        }
++    }
++
++    const int32 padNumber = (m_pDriver && static_cast<int32>(m_pDriver->m_nPedType) == 1) ? 1 : 0;
++    if (CPad::GetPad(padNumber)->HornJustDown()) { // 0x53FB70, 0x53FF30
++        uint8& enabled = HeliField<uint8>(this, 0xA11);
++        enabled = enabled == 0;
++    }
++
++    bool searchLight = false; // BL
++    bool playerChase = false; // byte [ESP+13h]
++    if (!(HeliField<uint32>(this, 0x40) & 0x20000000u) && !CCullZones::PlayerNoRain()) { // 0x72DDC0
++        const uint8 mission = HeliField<uint8>(this, 0x3BA);
++        if (mission == 0x28 && (!FindPlayerVehicle(-1, false) // 0x56E0D0 (se vuelve a pedir en cada comprobacion)
++                || (FindPlayerVehicle(-1, false)->m_nVehicleSubType != VEHICLE_TYPE_HELI && FindPlayerVehicle(-1, false)->m_nVehicleSubType != VEHICLE_TYPE_PLANE))) {
++            searchLight = true;
++            playerChase = true;
++            target = FindPlayerEntity(-1); // 0x56E120
++        } else if (mission == 0x27 && HeliField<CEntity*>(this, 0x41C) && (m_nHeliFlags & 2)) {
++            target = HeliField<CEntity*>(this, 0x41C);
++            searchLight = true;
++        } else if (!(HeliField<uint8>(this, 0x36) & 0xF8) && HeliField<uint16>(this, 0x22) == 0x1F1 && HeliField<uint8>(this, 0xA11)) {
++            searchLight = true;
++        }
++        if (HeliField<uint32>(this, 0x40) & 0x100u) {
++            searchLight = false;
++            playerChase = false;
++        }
++        HeliField<uint8>(this, 0xA11) = searchLight;
++        if (searchLight) {
++            // 0x6C71B1..0x6C7294: punto de mira (aim) y velocidad del objetivo
++            CVector aim, velocity;
++            if (target) {
++                aim = target->GetPosition();
++                velocity = HeliField<CVector>(target, 0x44);
++            } else {
++                // 0x50E420 (arriba) y 0x41CCB0 (adelante); sin matriz: (0, 0, 1) y (-sin h, cos h, 0)
++                const CVector up = m_matrix ? m_matrix->GetUp() : CVector{ 0.0f, 0.0f, 1.0f };
++                const float heading = m_placement.m_fHeading;
++                const CVector forward = m_matrix ? m_matrix->GetForward() : CVector{ -TrigSimpleSinCpp(heading), TrigSimpleCosCpp(heading), 0.0f };
++                const float upX = Store(Mul(up.x, kUpScale));
++                const float upY = Store(Mul(up.y, kUpScale));
++                const float upZ = Store(Mul(up.z, kUpScale));
++                const double forwardX = Mul(forward.x, kForwardScale);
++                const float forwardY = Store(Mul(forward.y, kForwardScale));
++                const float forwardZ = Store(Mul(forward.z, kForwardScale));
++                const CVector& position = GetPosition();
++                const float sumZ = Store(Add(forwardZ, position.z));
++                aim.x = Store(Add(Add(forwardX, position.x), upX));
++                aim.y = Store(Add(Add(forwardY, position.y), upY));
++                aim.z = Store(Add(sumZ, upZ));
++                velocity = m_vecMoveSpeed;
++            }
++
++            // historial de 1 s del punto de mira: una muestra por cada 1000 ms transcurridos
++            const uint32 now = CTimer::m_snTimeInMilliseconds;
++            int32 remaining = static_cast<int32>(now - HeliField<uint32>(this, 0x9F0));
++            if (remaining > 1000) {
++                const uint32 count = static_cast<uint32>((static_cast<uint64>(static_cast<uint32>(remaining) - 1001u) * 0x10624DD3ull) >> 38) + 1u;
++                remaining = static_cast<int32>(static_cast<uint32>(remaining) - count * 1000u);
++                const double velocityX = Mul(velocity.x, kVelocityScale);
++                const double velocityY = Mul(velocity.y, kVelocityScale);
++                for (uint32 k = 0; k < count; k++) {
++                    for (int32 i = 5; i > 0; i--) {
++                        HeliField<uint32>(this, 0x9C0 + 4 * i) = HeliField<uint32>(this, 0x9C0 + 4 * (i - 1));
++                        HeliField<uint32>(this, 0x9D8 + 4 * i) = HeliField<uint32>(this, 0x9D8 + 4 * (i - 1));
++                    }
++                    HeliField<uint32>(this, 0x9F0) += 1000u;
++                    HeliField<float>(this, 0x9C0) = Store(Add(velocityX, aim.x));
++                    HeliField<float>(this, 0x9D8) = Store(Add(aim.y, velocityY));
++                }
++            }
++            const double t = Mul(static_cast<double>(remaining), kHistoryStep);
++            const double oneMinusT = Sub(1.0, t);
++            HeliField<float>(this, 0x9FC) = aim.z;
++            const float interpolatedX = Store(Add(Mul(oneMinusT, HeliField<float>(this, 0x9C8)), Mul(t, HeliField<float>(this, 0x9C4))));
++            HeliField<float>(this, 0x9F4) = interpolatedX;
++            const double interpolatedY = Add(Mul(oneMinusT, HeliField<float>(this, 0x9E0)), Mul(t, HeliField<float>(this, 0x9DC)));
++            HeliField<float>(this, 0x9F8) = Store(interpolatedY);
++
++            // potencia segun la distancia al punto de mira interpolado
++            const CVector& position = GetPosition();
++            const double dy = Sub(interpolatedY, position.y);
++            const double dx = Sub(interpolatedX, position.x);
++            const double distance = Veh83DSqrt(Add(Mul(dy, dy), Mul(dx, dx)));
++            const float distanceStored = Store(distance);
++            if (!(distance > kFarLimit)) {
++                if (distanceStored < kNearLimit) {
++                    HeliField<float>(this, 0xA00) = 1.0f;
++                } else {
++                    HeliField<float>(this, 0xA00) = Store(Sub(1.0, Mul(Sub(distanceStored, kNearLimit), kFalloff)));
++                }
++            } else {
++                HeliField<float>(this, 0xA00) = 0.0f;
++            }
++
++            const float aimDeltaX = Store(Sub(aim.x, interpolatedX)); // [ESP+18h]
++            const double aimDeltaY = Sub(aim.y, interpolatedY);
++            bool shout = false;
++            if (!(HeliField<float>(this, 0xA00) < kFullPower)) {
++                shout = !(Add(Mul(aimDeltaY, aimDeltaY), Mul(aimDeltaX, aimDeltaX)) > kAimLimitSq);
++            }
++            if (shout) {
++                if (now > HeliField<uint32>(this, 0xA08)) {
++                    HeliField<uint32>(this, 0xA08) = (static_cast<uint32>(HeliExeRand()) & 0xFFFu) + now + 4500u;
++                }
++            } else {
++                HeliField<uint32>(this, 0xA04) = now;
++                HeliField<uint32>(this, 0x504) = now;
++            }
++
++            if (playerChase) {
++                // 0x6C74C3..0x6C77E4: retardo entre disparos segun el nivel de busqueda, disparo con dispersion y sonido
++                const auto WantedLevel = [] {
++                    CPlayerPedData* const data = FindPlayerPed(-1)->GetPlayerData(); // 0x56E210
++                    CWanted* const wanted = data ? data->m_pWanted : nullptr;
++                    return HeliField<uint32>(wanted, 0x2C); // m_WantedLevel (sin comprobar nulo)
++                };
++                int32 shootDelay;
++                switch (WantedLevel()) {
++                case 0: case 1: case 2: shootDelay = 999999; break;
++                case 3:                 shootDelay = 10000; break;
++                case 4:                 shootDelay = 5000; break;
++                case 5:                 shootDelay = 3500; break;
++                case 6:                 shootDelay = 2000; break;
++                default:                shootDelay = std::bit_cast<int32>(aimDeltaX); break; // el EXE deja aqui el [ESP+18h]
++                }
++                if (WantedLevel() != 0) {
++                    AudioEngine.SayPedless(static_cast<eAudioEvents>(0x34), static_cast<eGlobalSpeechContext>(0xAE), this, 0, 1.0f, false, false, false); // 0x5073C0
++                }
++                if (CCullZones::NoPolice()) { // 0x72DD50
++                    shootDelay /= 2;
++                }
++                if (target != FindPlayerPed(-1)) {
++                    shootDelay = 5000;
++                }
++                if (FindPlayerWanted(-1)->m_Flags & 7) { // 0x56E230
++                    HeliField<uint32>(this, 0xA04) = now;
++                    HeliField<uint32>(this, 0x504) = now;
++                } else {
++#pragma warning(push)
++#pragma warning(disable: 4996)
++                    const CVector gun = *m_matrix * CVector{ 0.0f, 3.5f, -1.0f }; // 0x59C890
++#pragma warning(pop)
++                    const uint32 due = HeliField<uint32>(this, 0xA04) + static_cast<uint32>(shootDelay);
++                    if (now > due && !(CTimer::m_snPreviousTimeInMilliseconds > due)) {
++                        if (!CWorld::GetIsLineOfSightClear(gun, aim, true, false, false, false, false, false, false)) { // 0x56A490
++                            HeliField<uint32>(this, 0xA04) = now;
++                            HeliField<uint32>(this, 0x504) = now;
++                        }
++                    }
++                    if (now > HeliField<uint32>(this, 0xA04) + static_cast<uint32>(shootDelay) && now > HeliField<uint32>(this, 0x504)) {
++                        CVector end = aim;
++                        end.x = Store(Add(Mul(static_cast<double>((HeliExeRand() & 0xFF) - 0x80), kJitter), end.x));
++                        end.y = Store(Add(Mul(static_cast<double>((HeliExeRand() & 0xFF) - 0x80), kJitter), end.y));
++                        CVector direction{ Store(Sub(aim.x, gun.x)), Store(Sub(aim.y, gun.y)), Store(Sub(aim.z, gun.z)) };
++                        direction.Normalise(); // 0x59C910
++                        const double x3 = Mul(direction.x, kBurstLength);
++                        const float x3Stored = Store(x3);
++                        const double y3 = Mul(direction.y, kBurstLength);
++                        const double z3 = Mul(direction.z, kBurstLength);
++                        const float z3Stored = Store(z3);
++                        end.x = Store(Add(x3Stored, end.x));
++                        end.y = Store(Add(y3, end.y));
++                        end.z = Store(Add(end.z, z3));
++                        const CVector start{ Store(Add(x3Stored, gun.x)), Store(Add(gun.y, y3)), Store(Add(gun.z, z3Stored)) };
++                        FireOneInstantHitRound(start, end, 20); // 0x73AF00
++                        AudioEngine.ReportWeaponEvent(0x91, static_cast<eWeaponType>(0x1F), this); // 0x506F40
++                        const double roll = Add(Mul(Mul(static_cast<double>(HeliExeRand()), kRandScale), 1.0), 0.0); // 0x41BD90: GetRandomNumberInRange(0, 1)
++                        HeliField<uint32>(this, 0x504) = now + (roll < kBurstChance ? 400u : 150u);
++                    }
++                }
++            }
++        }
++    } else {
++        HeliField<uint32>(this, 0xA00) = 0;
++    }
++
++    if (HeliField<uint8>(this, 0x3BA) == 0x28 && HeliField<uint8>(this, 0x9B9) != 0) {
++        SendDownSwat();                                                               // 0x6C69C0
++        g_InterestingEvents.Add(static_cast<CInterestingEvents::EType>(0x1A), this); // 0x602590
++    }
++
++    // cuerdas de los SWAT: cada temporizador (bytes 0x9BA..0x9BD) cuenta atras y mantiene su cuerda; al llegar a cero la cuerda recibe un empujon
++    for (int32 i = 0; i < 4; i++) {
++        uint8& timer = HeliField<uint8>(this, 0x9BA + i);
++        if (timer == 0) {
++            continue;
++        }
++        timer--;
++        const uint32 ropeId = static_cast<uint32>(reinterpret_cast<uintptr_t>(this)) + i;
++#pragma warning(push)
++#pragma warning(disable: 4996)
++        const CVector rope = *m_matrix * FindSwatPositionRelativeToHeli(i); // 0x6C4760, 0x59C890
++#pragma warning(pop)
++        CRopes::RegisterRope(ropeId, 8, rope, false, 0, 0, nullptr, 20000); // 0x556B40
++        if (timer == 0) {
++            const CVector relative = FindSwatPositionRelativeToHeli(i);
++            const CVector scaled{ Store(Mul(relative.x, kFalloff)), Store(Mul(relative.y, kFalloff)), Store(Mul(relative.z, kFalloff)) };
++            float rotated[3];
++            AutoPreMultiply3x3Cpp(&m_matrix->GetRight().x, &scaled.x, rotated); // 0x59C790
++            CRopes::SetSpeedOfTopNode(ropeId, CVector{ rotated[0], rotated[1], 0.0f }); // 0x555DF0
++        }
++    }
++
++    UpdateWinch();    // 0x6D3B80
++    ProcessWeapons(); // 0x6E3950
++
++    if (StaticRef<uint8>(0xC0B184) & 1) {
++        float limit = Store(Mul(Mul(CTimer::GetTimeStep(), kJitter), kEventScale));
++        if (playerChase) {
++            limit = Store(Add(limit, limit));
++        }
++        if (Mul(static_cast<double>(HeliExeRand()), kRandScale) < limit) {
++            g_InterestingEvents.Add(static_cast<CInterestingEvents::EType>(0x15), this); // 0x602590
++        }
++    }
+ }
