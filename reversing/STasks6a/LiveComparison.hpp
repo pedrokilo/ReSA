@@ -332,7 +332,7 @@ inline void Update() {
         EntryPatch g10(bit_cast<uintptr_t>(&CGeneral::LimitRadianAngle),LimitAngle), g10e(0x53CB50,LimitAngle);
         EntryPatch s1(dllStandStill,StandStill), s1e(0x62F370,StandStill);
         EntryPatch s2(dllSetPedIn,SetPedInDriver), s2e(0x64B950,SetPedInDriver);
-        EntryPatch c1e(0x44F460,Closest); // la DLL llama a 0x44F460 (plugin::CallMethodAndReturn)
+        EntryPatch c1(bit_cast<uintptr_t>(&CPathFind::FindNodeClosestToCoors),Closest), c1e(0x44F460,Closest); // la DLL ya llama a su propio cuerpo (FindNodeClosestToCoors reconstruida): se falsea tambien
         EntryPatch c2(bit_cast<uintptr_t>(static_cast<CVector(CPathFind::*)(CNodeAddress,bool*)>(&CPathFind::FindNodeCoorsForScript)),NodeCoors), c2e(0x4505E0,NodeCoors);
         EntryPatch c3(bit_cast<uintptr_t>(static_cast<bool(CCamera::*)(const CVector&,float)>(&CCamera::IsSphereVisible)),SphereVisible), c3e(0x420D40,SphereVisible);
         EntryPatch c4(bit_cast<uintptr_t>(static_cast<bool(*)(const CVector&,float,int32,CEntity**,bool,bool,bool)>(&CPedPlacement::IsPositionClearForPed)),ClearForPed), c4e(0x616860,ClearForPed);

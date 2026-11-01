@@ -13889,5 +13889,19 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ (CPlayerPed, triángulo de reclutamiento con ratón): Compute3rdPersonMouseTarget sin llamadas al EXE salvo RwIm3D* y los estados de render (RenderWare). El banco sustituye por falsos idénticos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL) los colaboradores con hook en HEAD y compara la secuencia de llamadas con sus argumentos, el objeto reservado los cambios en las arenas del caso y el estado de la x87. Banco Player82B con 16384 pares (16384 propios) y cero diferencias; EAX/ECX/EDX de salida: ver README del banco. Validado en el arbol principal (HEAD 13b3e2992 + PlayerPed.cpp y X87Math.cpp, source.patch). CPlayerPed::Compute3rdPersonMouseTarget 0x60B650 (thiscall, un bool de pila, ret 4; void; 1060 bytes): con el raton en tercera persona traza una linea (vector de apuntado de la camara o linea calculada con x87 a 24 bits) con el alcance del arma activa, elige al primer peaton vivo golpeado (referencias, plazo +0x7A0, tipo de disparo, banderas del arma, rango de vision, tareas pendientes, frase, evento CEventGunAimedAt al grupo o a su grupo de eventos) y caduca el objetivo anterior. Sustituidos por falsos identicos en ambos lados (entrada del EXE y cuerpo de la DLL): GetWeaponSkill, GetWeaponInfo, Find3rdPersonCamTargetVector, ProcessLineOfSight, ResetLineTestOptions, IsAlive, CleanUpOldReference, RegisterReference, IsInSeeingRange, Say, GetPedsGroup, AreInSameGroup, AddEvent, CEventGroup::Add y CEvent::operator new/delete (sin hook). Corren de verdad en ambos lados los constructores y destructores de CEventGunAimedAt y CEventGroupEvent. Dominio: NaN canonicalizado (carga util distinta entre x87 y SSE); camaras activas 0..2; ranuras de arma entre -20 y 20."
+  },
+  "0x0060A9C0": {
+    "identity": "CPlayerPed::SetRealMoveAnim",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Entity/Ped/PlayerPed.cpp",
+    "bank": "Player82C",
+    "run": "20261101-015351-973615",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Player82C-20261101-015351-973615/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (CPlayerPed, animaciones de movimiento del jugador): SetRealMoveAnim sin llamadas al EXE salvo los colaboradores sustituidos en el banco. El banco sustituye por falsos idénticos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL) los colaboradores con hook en HEAD y compara la secuencia de llamadas con sus argumentos, el objeto reservado los cambios en las arenas del caso y el estado de la x87. Banco Player82C con 16384 pares (16384 propios) y cero diferencias; EAX/ECX/EDX de salida: ver README del banco. Validado en el arbol principal (HEAD acb9302dc + PlayerPed.cpp, X87Math.cpp/.h y docs/hooks.csv, source.patch). CPlayerPed::SetRealMoveAnim 0x60A9C0 (thiscall sin argumentos, ret; void; 0xA97 bytes): mezcla las diez animaciones de movimiento del jugador (andar, correr, sprint, arranque, reposo, frenadas, apuntado lateral, cansancio): crea, mezcla o borra segun el ratio, el estado, el pad, la camara y las tareas. Sustituidos por falsos identicos en ambos lados (entrada del EXE y cuerpo de la DLL): RpAnimBlendClumpGetAssociation, BlendAnimation, AddAnimation, SetCurrentTime, SetDeleteCallback, RestoreHeadingRate, GetPadFromPlayer, GetForceCameraBehindPlayer, AimWeaponLeftRight, GetTaskFighting/UseGun/Duck/Throw/JetPack, TestSphereAgainstWorld, GetDefaultPlayerMotionGroup, UpdateStatsWhenSprinting/Running y GetButtonSprintResults (con EDX intacto); el destructor virtual de las animaciones es una tabla falsa. Cobertura de 70 ramas con oraculo independiente. Dominio: NaN canonicalizado (carga util distinta entre x87 y SSE); camaras activas 0..2; ver README del banco."
   }
 }

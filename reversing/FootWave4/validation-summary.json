@@ -27,22 +27,22 @@
     "CTaskSimplePlayerOnFoot::ProcessPlayerWeapon": "Corpus 1024; source corrected (EXE): 0x6862F4..0x68632D in weapon state 2 the command is AIM only if GetTarget or a target exists or m_bFreeAiming, otherwise the whole weapon control is skipped (je 0x6860AD); 0x686AF9..0x686B0D IsInSeeingRange/GetActivePrimaryTask asked to the TARGET intelligence; 0x686BE4..0x686C08 CEventGunAimedAt added to the TARGET event group; 0x6871F0 !(dot > 0) with NaN; 0x686F90 fightMovement.y < -0.5 -> 16 else 15 (NaN included); 0x686DB5 unrounded fsin + z and 0x6870A9 fpatan; 0x68674C CMatrix MultiplyMatrixWithVector 0x59C890 summation order; weapon slot indexed with movsx and no range check."
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/FootWave4-20261101-011647-940738",
-  "summary_sha256": "026524bce2fbfbe69521fc4385f414b9403e2d7b7bb03a251e7f535817ba0710",
-  "result_txt_sha256": "6d30815d792b913987ed736216881eb0201373fdf15fd63b3780252b422bb15c",
-  "log_sha256": "aea2afd22c117fa66bb90dcc721e437bb9faf79257939c6a728c66b1de57ee51",
+  "run": "reversing/CppTwelveLevel6Final/runs/FootWave4-20261101-021837-878632",
+  "summary_sha256": "2f0f0f657087ed3541ced3229564fa1d1872c1bb1afe8d562199e74833706ad4",
+  "result_txt_sha256": "b0ef2db28afc80661895b59bc64ca5169fc6842a6be02263c0ebbae5e8ff9390",
+  "log_sha256": "ac682a180d0a9021b2899ff7485bfa9d8c3cc344a03c560224048e25e962c01a",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/FootWave4-20261101-011647-940738/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/FootWave4-20261101-021837-878632/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "8e7c135b608f9f2ec54c1dd4bd2518a641f424eca62fe1573eb211effad71396",
-    "uncompressed_sha256": "aea2afd22c117fa66bb90dcc721e437bb9faf79257939c6a728c66b1de57ee51"
+    "compressed_sha256": "b5f3d7d95c1e53ffa7cb4c7342ed4bbc7b33526f11d428f7ab7a4f1c99773566",
+    "uncompressed_sha256": "ac682a180d0a9021b2899ff7485bfa9d8c3cc344a03c560224048e25e962c01a"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "2941ea15eb67a373ef46bfed8b359c5f9aa56dd94f9d8bf9ca1760a6069c6faf",
+  "executed_probe_sha256": "3a94f9a8b0b4dc57f397e9ff4874d601895deed6c6df9e788d6782f97a2fa95c",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {

@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CPlayerPed
- * Reconstrucción: COMPLETA — 62/62 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 63/63 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 62/62 entradas.
+ * Validación registrada: 63/63 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -113,6 +113,7 @@ void CPlayerPed::InjectHooks() {
     RH_ScopedInstall(ProcessAnimGroups, 0x6098F0);
     RH_ScopedInstall(DrawTriangleForMouseRecruitPed, 0x60BA80);
     RH_ScopedInstall(Compute3rdPersonMouseTarget, 0x60B650);
+    RH_ScopedInstall(SetRealMoveAnim, 0x60A9C0);
     RH_ScopedInstall(ClearWeaponTarget, 0x609c80);
     RH_ScopedInstall(GetWeaponRadiusOnScreen, 0x609CD0);
     RH_ScopedInstall(PedCanBeTargettedVehicleWise, 0x609D90);
@@ -1040,7 +1041,246 @@ void CPlayerPed::HandlePlayerBreath(bool bDecreaseAir, float fMultiplier) {
 
 // 0x60A9C0
 void CPlayerPed::SetRealMoveAnim() {
-    plugin::CallMethod<0x60A9C0, CPlayerPed *>(this);
+    // Lote 82C. Como el original: las diez animaciones se piden de una vez (ids 0,1,2,5,3,6,7,0x89,0x8A,0x0A, en ese orden) y despues se decide, por ramas, cual se
+    // crea, se mezcla o se borra. Las comparaciones float conservan el tratamiento de NaN del x87 (fcomp + test ah): ">= 0" es "ordenado y mayor o igual", "!(x < 0)" incluye NaN.
+    static_assert(offsetof(CPlayerPed, m_nAnimGroup) == 0x4D4 && offsetof(CPlayerPed, m_nMoveState) == 0x534 && offsetof(CPlayerPed, m_fHeadingChangeRate) == 0x560 &&
+                  offsetof(CAnimBlendAssociation, m_BlendAmount) == 0x18 && offsetof(CAnimBlendAssociation, m_Flags) == 0x2E && offsetof(CAnimBlendAssociation, m_Speed) == 0x24 &&
+                  CHEAT_ADRENALINE_MODE == 71);
+    const auto getAssoc = [this](uint32 id) { return RpAnimBlendClumpGetAssociation(GetRpClump(), id); };
+    const auto cameraMode = []() { return static_cast<uint16>(TheCamera.m_aCams.data()[TheCamera.m_nActiveCam].m_nMode); }; // byte 0xB6F081 * 0x238 + 0xB6F1A8, palabra
+    const auto isPlaying = [](const CAnimBlendAssociation* a) { return a && (a->m_Flags & ANIMATION_IS_PLAYING); };
+    constexpr uint16 kClearPlaying = 0xFFFE;
+
+    CAnimBlendAssociation* walk = getAssoc(ANIM_ID_WALK);
+    CAnimBlendAssociation* run = getAssoc(ANIM_ID_RUN);
+    CAnimBlendAssociation* sprint = getAssoc(ANIM_ID_SPRINT);
+    CAnimBlendAssociation* walkStart = getAssoc(ANIM_ID_WALK_START);
+    CAnimBlendAssociation* idle = getAssoc(ANIM_ID_IDLE);
+    CAnimBlendAssociation* runStop = getAssoc(ANIM_ID_RUN_STOP);
+    CAnimBlendAssociation* runStopR = getAssoc(7);
+    CAnimBlendAssociation* strafeA = getAssoc(0x89);
+    CAnimBlendAssociation* strafeB = getAssoc(0x8A);
+    CAnimBlendAssociation* tired = getAssoc(ANIM_ID_IDLE_TIRED);
+
+    if (bResetWalkAnims) {
+        if (walk) walk->SetCurrentTime(0.0f);
+        if (run) run->SetCurrentTime(0.0f);
+        if (sprint) sprint->SetCurrentTime(0.0f);
+        bResetWalkAnims = false;
+    }
+
+    if (isPlaying(runStop) || isPlaying(runStopR)) {
+        m_nMoveState = PEDMOVE_RUN;
+        if (runStop && !(runStop->m_Flags & ANIMATION_IS_PLAYING) && runStop->m_BlendHier->m_fTotalTime > runStop->m_CurrentTime) {
+            runStop->m_Flags |= ANIMATION_IS_PLAYING;
+        }
+    } else if ((runStop && runStop->m_BlendDelta >= 0.0f) || (runStopR && runStopR->m_BlendDelta >= 0.0f)) {
+        CAnimBlendAssociation* const fading = runStop ? runStop : runStopR;
+        fading->m_Flags |= ANIMATION_IS_BLEND_AUTO_REMOVE;
+        fading->m_BlendAmount = 1.0f;
+        fading->m_BlendDelta = -8.0f;
+        RestoreHeadingRate();
+        if (!idle) {
+            idle = CAnimManager::BlendAnimation(GetRpClump(), m_nAnimGroup, ANIM_ID_IDLE, 8.0f);
+        }
+        idle->m_BlendAmount = 0.0f;
+        idle->m_BlendDelta = 8.0f;
+    } else if (m_pPlayerData->m_fMoveBlendRatio == 0.0f && !sprint) {
+        const bool strafing = GetPadFromPlayer()->GetForceCameraBehindPlayer() && GetPadFromPlayer()->AimWeaponLeftRight(nullptr) != 0 && cameraMode() == 4;
+        if (strafing) {
+            const int16 side = GetPadFromPlayer()->AimWeaponLeftRight(nullptr);
+            CAnimBlendAssociation* strafe;
+            if (side < 0) {
+                strafe = strafeA;
+                if (!(strafe && !(strafe->m_BlendDelta < 0.0f) && (!(strafe->m_BlendAmount < 1.0f) || !(strafe->m_BlendDelta <= 0.0f)))) {
+                    strafe = CAnimManager::BlendAnimation(GetRpClump(), static_cast<AssocGroupId>(0), static_cast<AnimationId>(0x89), 16.0f);
+                }
+            } else {
+                strafe = strafeB;
+                if (!(strafe && !(strafe->m_BlendDelta < 0.0f) && (!(strafe->m_BlendAmount < 1.0f) || !(strafe->m_BlendDelta <= 0.0f)))) {
+                    strafe = CAnimManager::BlendAnimation(GetRpClump(), static_cast<AssocGroupId>(0), static_cast<AnimationId>(0x8A), 16.0f);
+                }
+            }
+            // La entrada del pad se vuelve a leer (otra llamada), como el original; fild + fabs + (1.0f * 1/128) son exactos
+            const int16 magnitude = GetPadFromPlayer()->AimWeaponLeftRight(nullptr);
+            strafe->m_Speed = std::fabs(static_cast<float>(magnitude)) * 1.0f * 0.0078125f;
+            if (idle && idle->m_BlendAmount <= 0.01f) {
+                delete idle;
+            }
+        } else if (!idle) {
+            CAnimManager::BlendAnimation(GetRpClump(), m_nAnimGroup, ANIM_ID_IDLE, 4.0f);
+        }
+
+        bool notTired = true;
+        if (m_pPlayerData->m_fTimeCanRun < 0.0f) {
+            notTired = m_pIntelligence->GetTaskFighting() || m_pIntelligence->GetTaskUseGun() || m_pIntelligence->GetTaskDuck(true) ||
+                       m_pIntelligence->GetTaskThrow() || m_pIntelligence->GetTaskJetPack() ||
+                       CWorld::TestSphereAgainstWorld(GetPosition(), 0.5f, nullptr, true, false, false, false, false, false);
+        }
+        if (!notTired) {
+            if (!tired) {
+                CAnimBlendAssociation* const anim = CClothes::GetDefaultPlayerMotionGroup() == 0x37
+                    ? CAnimManager::BlendAnimation(GetRpClump(), static_cast<AssocGroupId>(0x4C), ANIM_ID_IDLE_TIRED, 4.0f)
+                    : CAnimManager::BlendAnimation(GetRpClump(), static_cast<AssocGroupId>(0), ANIM_ID_IDLE_TIRED, 4.0f);
+                anim->m_Flags |= ANIMATION_IS_PLAYING;
+            }
+        } else if (tired && tired->m_BlendAmount > 0.0f && tired->m_BlendDelta >= 0.0f) {
+            tired->m_Flags &= kClearPlaying;
+            tired->m_BlendDelta = -2.0f;
+        }
+        m_nMoveState = PEDMOVE_STILL;
+    } else {
+        if (idle) {
+            if (!walkStart) {
+                walkStart = CAnimManager::AddAnimation(GetRpClump(), m_nAnimGroup, ANIM_ID_WALK_START);
+            } else {
+                walkStart->m_BlendAmount = 1.0f;
+                walkStart->m_BlendDelta = 0.0f;
+            }
+            if (walk) walk->SetCurrentTime(0.0f);
+            if (run) run->SetCurrentTime(0.0f);
+            delete idle;
+            if (tired) tired->m_BlendDelta = -4.0f;
+            if (sprint) delete sprint;
+            sprint = nullptr;
+            m_nMoveState = PEDMOVE_WALK;
+        }
+        if (runStop) {
+            delete runStop;
+            RestoreHeadingRate();
+        }
+        if (runStopR) {
+            delete runStopR;
+            RestoreHeadingRate();
+        }
+        if (strafeA) delete strafeA;
+        if (strafeB) delete strafeB;
+        if (!walk) {
+            walk = CAnimManager::AddAnimation(GetRpClump(), m_nAnimGroup, ANIM_ID_WALK);
+            walk->m_BlendAmount = 0.0f;
+        }
+        if (!run) {
+            run = CAnimManager::AddAnimation(GetRpClump(), m_nAnimGroup, ANIM_ID_RUN);
+            run->m_BlendAmount = 0.0f;
+        }
+        if (walkStart) {
+            // Como el original: la suma va por la pila x87 (24 bits, exponente ampliado: un resultado desnormal no se aplasta a cero como con SSE)
+            const bool finished = !(walkStart->m_Flags & ANIMATION_IS_PLAYING) || Player82CWalkStartFinishedCpp(walkStart->m_BlendHier->m_fTotalTime, walkStart->m_TimeStep, walkStart->m_CurrentTime);
+            if (finished) {
+                delete walkStart;
+                walk->m_Flags |= ANIMATION_IS_PLAYING;
+                run->m_Flags |= ANIMATION_IS_PLAYING;
+                walkStart = nullptr;
+            }
+        }
+        if (m_nMoveState == PEDMOVE_SPRINT && walkStart) {
+            m_nMoveState = PEDMOVE_STILL;
+        }
+
+        if (sprint && !(m_nMoveState == PEDMOVE_SPRINT && !(m_pPlayerData->m_fMoveBlendRatio < 0.4f))) {
+            if (sprint->m_BlendAmount != 0.0f) {
+                if (!(sprint->m_BlendDelta < 0.0f) || !(sprint->m_BlendAmount < 0.8f)) {
+                    if (m_pPlayerData->m_fMoveBlendRatio < 0.4f) {
+                        const float progress = sprint->m_CurrentTime / sprint->m_BlendHier->m_fTotalTime;
+                        CAnimBlendAssociation* const stopAnim = CAnimManager::AddAnimation(GetRpClump(), static_cast<AssocGroupId>(0), static_cast<AnimationId>(progress < 0.5 ? 6 : 7));
+                        stopAnim->m_BlendAmount = 1.0f;
+                        stopAnim->SetDeleteCallback(&CPed::RestoreHeadingRateCB, this);
+                        m_fHeadingChangeRate = 0.0f;
+                        sprint->m_Flags |= ANIMATION_IS_BLEND_AUTO_REMOVE;
+                        sprint->m_BlendDelta = -1000.0f;
+                        walk->m_Flags &= kClearPlaying;
+                        run->m_Flags &= kClearPlaying;
+                        walk->m_BlendAmount = 0.0f;
+                        run->m_BlendAmount = 0.0f;
+                        walk->m_BlendDelta = 0.0f;
+                        run->m_BlendDelta = 0.0f;
+                    } else if (sprint->m_BlendDelta >= 0.0f) {
+                        sprint->m_Flags |= ANIMATION_IS_BLEND_AUTO_REMOVE;
+                        sprint->m_BlendDelta = -1.0f;
+                        run->m_BlendDelta = 1.0f;
+                    }
+                } else if (m_pPlayerData->m_fMoveBlendRatio < 1.0f) {
+                    sprint->m_BlendDelta = -8.0f;
+                    run->m_BlendDelta = 8.0f;
+                }
+            } else {
+                sprint->m_Flags |= ANIMATION_IS_BLEND_AUTO_REMOVE;
+                sprint->m_BlendDelta = -1000.0f;
+            }
+            m_nMoveState = m_pPlayerData->m_fMoveBlendRatio > 1.0f ? PEDMOVE_RUN : PEDMOVE_WALK;
+        } else if (walkStart) {
+            walk->m_Flags &= kClearPlaying;
+            run->m_Flags &= kClearPlaying;
+            walk->m_BlendAmount = 0.0f;
+            run->m_BlendAmount = 0.0f;
+        } else if (m_nMoveState == PEDMOVE_SPRINT) {
+            if (!sprint) {
+                if (!(run->m_BlendAmount < 1.0f)) {
+                    sprint = CAnimManager::BlendAnimation(GetRpClump(), m_nAnimGroup, ANIM_ID_SPRINT, 2.0f);
+                    CStats::UpdateStatsWhenSprinting();
+                } else {
+                    if (walk->m_BlendAmount == 0.0f && run->m_BlendAmount == 0.0f) {
+                        walk->m_BlendAmount = 1.0f;
+                    }
+                    if (run->m_BlendDelta <= 0.0f) {
+                        run = CAnimManager::BlendAnimation(GetRpClump(), m_nAnimGroup, ANIM_ID_RUN, 4.0f);
+                    }
+                    m_pPlayerData->m_fMoveBlendRatio = run->m_BlendDelta + 1.0f;
+                }
+            } else {
+                if (sprint->m_BlendDelta < 0.0f) {
+                    sprint->m_BlendDelta = 2.0f;
+                    run->m_BlendDelta = -2.0f;
+                }
+                CStats::UpdateStatsWhenSprinting();
+            }
+        } else if (m_pPlayerData->m_fMoveBlendRatio < 1.0f) {
+            walk->m_BlendAmount = 1.0f;
+            run->m_BlendAmount = 0.0f;
+            walk->m_BlendDelta = 0.0f;
+            run->m_BlendDelta = 0.0f;
+            m_nMoveState = PEDMOVE_WALK;
+        } else if (m_pPlayerData->m_fMoveBlendRatio < 2.0f) {
+            walk->m_BlendAmount = 2.0f - m_pPlayerData->m_fMoveBlendRatio;
+            run->m_BlendAmount = m_pPlayerData->m_fMoveBlendRatio - 1.0f;
+            walk->m_BlendDelta = 0.0f;
+            run->m_BlendDelta = 0.0f;
+            m_nMoveState = PEDMOVE_RUN;
+        } else {
+            walk->m_BlendAmount = 0.0f;
+            run->m_BlendAmount = 1.0f;
+            walk->m_BlendDelta = 0.0f;
+            run->m_BlendDelta = 0.0f;
+            m_nMoveState = PEDMOVE_RUN;
+            CStats::UpdateStatsWhenRunning();
+        }
+    }
+
+    // 0x60B399
+    CPlayerPedData* const data = m_pPlayerData;
+    if (data->m_nPlayerFlags & 2) { // adrenalina
+        float speed;
+        if (CTimer::m_snTimeInMilliseconds > data->m_nAdrenalineEndTime && !CCheat::m_aCheatsActive[CHEAT_ADRENALINE_MODE]) {
+            data->m_nPlayerFlags &= ~2u;
+            CTimer::ms_fTimeScale = 1.0f;
+            speed = 1.0f;
+        } else {
+            CTimer::ms_fTimeScale = 0.33333334f;
+            speed = 2.0f;
+        }
+        if (walkStart) walkStart->m_Speed = speed;
+        if (walk) walk->m_Speed = speed;
+        if (run) run->m_Speed = speed;
+        if (!sprint) return;
+        sprint->m_Speed = speed;
+    }
+    if (!sprint) return;
+    if (cameraMode() == 15) {
+        sprint->m_Speed = 0.7f;
+        return;
+    }
+    const float sprintResult = GetButtonSprintResults(static_cast<eSprintType>(0));
+    sprint->m_Speed = (1.0f > sprintResult) ? 1.0f : sprintResult;
 }
 
 // 0x60B460

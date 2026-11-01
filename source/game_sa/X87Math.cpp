@@ -17444,3 +17444,10 @@ __declspec(noinline) void __cdecl Player82BAimLineCpp(const float* origin, const
     outTarget[2] = float(Player82ARound24(double(qzr) + double(pz)));
 }
 #pragma float_control(pop)
+
+// --- Lote 82C (Player82C): CPlayerPed::SetRealMoveAnim (0x60A9C0), prefijo Player82C ---
+#pragma float_control(precise, on, push)
+__declspec(noinline) bool __cdecl Player82CWalkStartFinishedCpp(float total, float timeStep, float currentTime) {
+    return double(total) <= Player82ARound24(double(timeStep) + double(currentTime));
+}
+#pragma float_control(pop)

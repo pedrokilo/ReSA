@@ -281,7 +281,7 @@ inline void Update() {
                   {Pair{0x4D6C00,assocBody,true},reinterpret_cast<void*>(&FakeRemoveAssoc)},
                   {Pair{0x61A5A0,taskNewBody,true},reinterpret_cast<void*>(&FakeTaskNew)},
                   {Pair{0x681AF0,setTaskBody,true},reinterpret_cast<void*>(&FakeSetTask)},
-                  {Pair{0x60A9C0,realMoveBody,false},reinterpret_cast<void*>(&FakeRealMove)},
+                  {Pair{0x60A9C0,realMoveBody,true},reinterpret_cast<void*>(&FakeRealMove)},
                   {Pair{0x681B60,setTask2Body,true},reinterpret_cast<void*>(&FakeSetTask2)},
                   {Pair{0x5FBB70,allocBody,true},reinterpret_cast<void*>(&FakeAllocType)},
                   {Pair{0x4B57A0,computeBody,true},reinterpret_cast<void*>(&FakeCompute)},

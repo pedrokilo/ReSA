@@ -43,7 +43,7 @@
   "log_sha256": "b8afca26adf2b2b38d6293fa276bfa23c73e68805bcf8112170b8435a1e2534f",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks14b\\20261003-104845-800697",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks14b\\20261101-021631-392195",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskSimpleHoldEntity::CanThrowEntity": true,
@@ -76,24 +76,25 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "c125adab24e8465af65bd68584e28777f746cc17b405f990905f889bf4573449",
-      "pdb": "d2d13916775eb9a0826383d0ac17f525934f4cbed8e4d1c4ee781b6babfa783c"
+      "asi": "06900f842959e55dbac3d45833350cd2996da3322a01efa68bb26cb44879c750",
+      "pdb": "5f51255e10467f7918daa23773f2f1b08e2a45c79c930de68e7e73679d341ead"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.cpp": "4af19d518901ab19c11701d7e9af97ad7336b471f6091b90e4f97ea8f203ca32",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.cpp": "f3b282a0e69596371cdcfd6c39bdc0ead4c78aa1c4a65f98d3dc4b65e8bf2f75",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.h": "57dbeccf436c4225e915497aaa41dc356c4463bded9cf0cfd65b4127611fff36",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleJetPack.cpp": "380c6a9fd5e73c0eba4144aa622e69b37b68168f2449b6d7fc77bc16322b028c",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleJetPack.cpp": "402c8e3f6a36610529c03053248c11f4ee030a171301d5794911590a6262bb1d",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleJetPack.h": "c5d43cfdca8a3e59a518fb0a0fa35616ca79fb8dcfda0e38f217229af27e4e92"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "8233fb25adc68cb9be2715db715736e3fe124c3ea74fa44aca0b813804e29b80",
+      "LiveComparison.hpp": "29de6f57f36b9196cf579fad6d5cd593fdf6119489a51ecddff66f70ee4c8b0e",
       "build_probe.py": "250b3895d392c1288b7090617e6bffe1029f22f3a187b85eabd278795a7b0694",
       "run_local.py": "f87ff186c0466cf80500c1ece184fd1019d29428bc08633dcfbd93cc8022ab6d"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

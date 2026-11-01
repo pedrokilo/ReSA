@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 1,
+  "functions": {
+    "CPlayerPed::SetRealMoveAnim": 16384
+  },
+  "covered_functions": {
+    "CPlayerPed::SetRealMoveAnim": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el arbol principal (HEAD acb9302dc + PlayerPed.cpp, X87Math.cpp/.h y docs/hooks.csv, source.patch). CPlayerPed::SetRealMoveAnim 0x60A9C0 (thiscall sin argumentos, ret; void; 0xA97 bytes): mezcla las diez animaciones de movimiento del jugador (andar, correr, sprint, arranque, reposo, frenadas, apuntado lateral, cansancio): crea, mezcla o borra segun el ratio, el estado, el pad, la camara y las tareas. Sustituidos por falsos identicos en ambos lados (entrada del EXE y cuerpo de la DLL): RpAnimBlendClumpGetAssociation, BlendAnimation, AddAnimation, SetCurrentTime, SetDeleteCallback, RestoreHeadingRate, GetPadFromPlayer, GetForceCameraBehindPlayer, AimWeaponLeftRight, GetTaskFighting/UseGun/Duck/Throw/JetPack, TestSphereAgainstWorld, GetDefaultPlayerMotionGroup, UpdateStatsWhenSprinting/Running y GetButtonSprintResults (con EDX intacto); el destructor virtual de las animaciones es una tabla falsa. Cobertura de 70 ramas con oraculo independiente. Dominio: NaN canonicalizado (carga util distinta entre x87 y SSE); camaras activas 0..2; ver README del banco.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Player82C-20261101-015351-973615",
+  "summary_sha256": "878f215363e0621e568a62f9fe97ad38db6ae34a9bd17c47c4759092c8a59775",
+  "result_txt_sha256": "b7b6c1c0ba3ed41ebfe5696f54b48bf05f7b16c3104dee54d22ec0336d9183bc",
+  "log_sha256": "3faf2e5d49b3c4af3b6b2ccdb60185247f08442bda282b6ecc764712249d03f6",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "1ae316834cde8ab11fd34af9d16ac933648cb9880d1c735402a152fc3c735cdb",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/Entity/Ped/PlayerPed.cpp": "a70d70ac718ae01139abe260f313354da3e7bc890c376486748f6714e5b8748c",
+      "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
+      "source/game_sa/X87Math.cpp": "2241d6f53ee4b6cd3239b964cfa869fa55b540596679ad95e7ab978f2bd65617",
+      "source/game_sa/X87Math.h": "9414ef94a9093deefff898ad580145c733d5774ad3358c20934e58fbe5fa2f27",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Player82C/LiveComparison.hpp": "0ff5d649c279912f65cd7d7f0451eb4960f10cc090bfc97cee22b1ea67cdee67",
+      "reversing/Player82C/Core.hpp": "510b6dfc55f5e52323f41efd28526c730d9826a95ee5173c9a73d103cd29ac69",
+      "reversing/Player82C/Fixtures.hpp": "91f8b9b7230fe24339d909b46a5d6f3ace47ee5827a33aa45c726537685c6535",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

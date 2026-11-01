@@ -2133,3 +2133,6 @@ void __cdecl Player82ATriangleCpp(const float* playerPos, const float* pedPos, f
 
 // Lote 82B: CPlayerPed::Compute3rdPersonMouseTarget (0x60B650), ruta sin vector de apuntado de la camara
 void __cdecl Player82BAimLineCpp(const float* origin, const float* camSource, const float* camFront, float range, float* outSource, float* outTarget);
+
+// Lote 82C: CPlayerPed::SetRealMoveAnim (0x60A9C0): true si total <= (timeStep + currentTime) con la suma en la pila x87 (comparacion ordenada: NaN da false)
+bool __cdecl Player82CWalkStartFinishedCpp(float total, float timeStep, float currentTime);
