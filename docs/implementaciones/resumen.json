@@ -1,7 +1,7 @@
 {
   "scope": "source/game_sa and source/app (WindowedMode.cpp included as the documented NOTSA assembly exception, reported separately), definitions in cpp/h/hpp/inc; all preprocessing branches",
   "totals": {
-    "source_definition_count": 18676,
+    "source_definition_count": 18677,
     "groups": 1501,
     "assembly_occurrences": 0,
     "naked_declarations": 0,
@@ -20,14 +20,14 @@
     "body_parse_errors": 308,
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 447,
-    "historical_catalog_rows": 8977,
+    "historical_catalog_rows": 8978,
     "catalog_rows_without_unambiguous_source_match_in_scope": 2,
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 20,
     "catalog_rows_linked_by_hook_address": 180,
-    "validated_reconstructed_own_cpp_definitions": 10641,
+    "validated_reconstructed_own_cpp_definitions": 10643,
     "validated_reconstructed_own_asm_definitions": 0,
-    "wrapper_definitions": 72
+    "wrapper_definitions": 71
   },
   "source_sha256": {
     "source/app/app.cpp": "4717fcefd64b864f51910ae3ab7b4b3bc0966838f9cddaaca5727ee06c47ac16",
@@ -473,7 +473,7 @@
     "source/game_sa/Entity/Ped/PedSaveStructure.cpp": "5f58ccddfb1db70c9778c2f287d24ac9bb2eb9432155bd07a55d6dd05d961975",
     "source/game_sa/Entity/Ped/PedSaveStructure.h": "e5c92294002b82a7563cc3dcea70ece869fd25d7ce89e4654b8c530ee4d16187",
     "source/game_sa/Entity/Ped/PedStdBonePositions.h": "660b8512f81ce5369bb3d8e3b4c9ba5a3e1eb36442cbfa4ffc770371e8bb9655",
-    "source/game_sa/Entity/Ped/PlayerPed.cpp": "d080747a67859f38f462562d5d1b8bb32f9cf0b3161568b5c4fab00597134f3e",
+    "source/game_sa/Entity/Ped/PlayerPed.cpp": "d5c09d10057cb10f8ad8f3527108798f3a14cfdc07b297cfafedf782f1bbb57f",
     "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
     "source/game_sa/Entity/Ped/PlayerSkin.cpp": "b725e853ad0ac44d3c936722f693b77d30c58420091c43584dc9ac38a63b1cae",
     "source/game_sa/Entity/Ped/PlayerSkin.h": "1188243850ccb80021731e036a8de514fe20aaeac78ef76bb94e8c4150a563db",
@@ -2225,17 +2225,17 @@
     "source/game_sa/World.cpp": "0066108864b6c6c3aa13ac5a68da99749b177bd94605ebc3a2c14580018340bd",
     "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c",
     "source/game_sa/World_Helper.cpp": "331f33ad029ba5a963ac2b15dbe384298d36075b3b0eef2adedeb72454f5a033",
-    "source/game_sa/X87Math.cpp": "1919c46db1c02d3f974f09c8d7a84cb9235d458734a4044c78f7b856fe361001",
-    "source/game_sa/X87Math.h": "bd8114ae68f6a5adac9b1c097cc435e7ba45d21bb1e9dfb1fc23893d96e58706",
+    "source/game_sa/X87Math.cpp": "d1ebdb44d70685dcc787581f673381fd11d3ee8d5d15cd075f0632a48e53820f",
+    "source/game_sa/X87Math.h": "988e565940fb998de291b047dcb07da035fb3c26faa122bc1022cda28a0dc7c0",
     "source/game_sa/Zone.cpp": "efb2c9fa14a6744d59fb142a8c8497719d7e9bf976ca3aebca78cc33caffa14a",
     "source/game_sa/Zone.h": "6e68b4a81ee271b97e3ed2b1ce9a6fcc1ff87dd54ab7790cb908fb14c5624d93",
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "dc8855145dbd07c246f229f2ad1ad59db7b8348f9fe68d34b79eec6bb7c6b728",
+    "hooks.csv": "82c33af975c31bbf8aca9c373d214d3bca59ea7c5eceb6cd9ebd9f19866c8d4a",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "929683001f4b1e43927531e50a344c0f6bdb7cc5712d8dd045449c52e0afda5e",
+  "migration_registry_sha256": "6b8d1fdde607d68e8588701a3beba94e60ea51f48273f86b70bb96cb386c70c0",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

@@ -2130,3 +2130,6 @@ bool __cdecl Car81Dist2dAboveCpp(const float* vector, const float& limit);
 bool __cdecl Car81SquaredMagnitudeAboveCpp(const float* vector, const float& limit);
 // 0x60BA80..0x60C0B8 (CPlayerPed::DrawTriangleForMouseRecruitPed): calcula los tres vertices (9 floats) y el color (r, g, b) del triangulo.
 void __cdecl Player82ATriangleCpp(const float* playerPos, const float* pedPos, float health, float maxHealth, bool gang, const float* camRight, float camHeading, const float* camPos, float* verts, unsigned char* rgb);
+
+// Lote 82B: CPlayerPed::Compute3rdPersonMouseTarget (0x60B650), ruta sin vector de apuntado de la camara
+void __cdecl Player82BAimLineCpp(const float* origin, const float* camSource, const float* camFront, float range, float* outSource, float* outTarget);

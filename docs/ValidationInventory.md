@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,973 entradas reversed=1**, de 8,973 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,974 entradas reversed=1**, de 8,974 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8973 |
+| `validated=1` · evidencia aprobada vinculada | 8974 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8973 |
+| Evidencia histórica vinculada; revisión pendiente | 8974 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -4357,6 +4357,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPlayerPed | `Clear3rdPersonMouseTarget` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `ClearAdrenaline` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `ClearWeaponTarget` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
+| CPlayerPed | `Compute3rdPersonMouseTarget` | [Resumen](../reversing/Player82B/validation-summary.json) |
 | CPlayerPed | `ControlButtonSprint` | [Resumen](../reversing/DependenciesTaskSprint16/validation-summary.json) |
 | CPlayerPed | `DeactivatePlayerPed` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `DisbandPlayerGroup` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
@@ -9347,7 +9348,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPlantMgr` | 20 | 0 | 20 | 0 |
 | `CPlantSurfPropMgr` | 4 | 0 | 4 | 0 |
 | `CPlayerInfo` | 29 | 0 | 29 | 0 |
-| `CPlayerPed` | 61 | 0 | 61 | 0 |
+| `CPlayerPed` | 62 | 0 | 62 | 0 |
 | `CPlayerPedData` | 5 | 0 | 5 | 0 |
 | `CPlayerRelationshipRecorder` | 1 | 0 | 1 | 0 |
 | `CPlayerSkin` | 4 | 0 | 4 | 0 |

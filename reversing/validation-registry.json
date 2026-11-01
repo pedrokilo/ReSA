@@ -490651,7 +490651,7 @@
       },
       "evidence": {
         "path": "reversing/FootWave4/validation-summary.json",
-        "sha256": "0f0e37a36f06c40a71519a73d6de33a513e637a2a7147320b3d011738c8f8b6f",
+        "sha256": "8a9692b7efce4557853044bbf4be05832b1bf8a27ba6b1a74ba27ee58d0ca285",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePlayerOnFoot::PlayIdleAnimations"
@@ -490660,7 +490660,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "669e646345a3bffd75234297d9073847de2b183147138bdc95579fdf747114da",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "2ceafec7727bca043c4a80b57626a8aef0df5de21fd2705fcb0cafcdaa0d0f90",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.h": "5bdba70fb5bb39b826f3e47e6ba001c7c885f22f90cdb9fc3c2ddd28c4be23fe"
       },
       "source_provenance": "Exact compiled FootWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 5120-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -490677,7 +490677,7 @@
       },
       "evidence": {
         "path": "reversing/FootWave4/validation-summary.json",
-        "sha256": "0f0e37a36f06c40a71519a73d6de33a513e637a2a7147320b3d011738c8f8b6f",
+        "sha256": "8a9692b7efce4557853044bbf4be05832b1bf8a27ba6b1a74ba27ee58d0ca285",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePlayerOnFoot::PlayerControlZeldaWeapon"
@@ -490686,7 +490686,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "669e646345a3bffd75234297d9073847de2b183147138bdc95579fdf747114da",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "2ceafec7727bca043c4a80b57626a8aef0df5de21fd2705fcb0cafcdaa0d0f90",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.h": "5bdba70fb5bb39b826f3e47e6ba001c7c885f22f90cdb9fc3c2ddd28c4be23fe"
       },
       "source_provenance": "Exact compiled FootWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 5120-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -490703,7 +490703,7 @@
       },
       "evidence": {
         "path": "reversing/FootWave4/validation-summary.json",
-        "sha256": "0f0e37a36f06c40a71519a73d6de33a513e637a2a7147320b3d011738c8f8b6f",
+        "sha256": "8a9692b7efce4557853044bbf4be05832b1bf8a27ba6b1a74ba27ee58d0ca285",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePlayerOnFoot::PlayerControlDucked"
@@ -490712,7 +490712,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "669e646345a3bffd75234297d9073847de2b183147138bdc95579fdf747114da",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "2ceafec7727bca043c4a80b57626a8aef0df5de21fd2705fcb0cafcdaa0d0f90",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.h": "5bdba70fb5bb39b826f3e47e6ba001c7c885f22f90cdb9fc3c2ddd28c4be23fe"
       },
       "source_provenance": "Exact compiled FootWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 5120-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -490729,7 +490729,7 @@
       },
       "evidence": {
         "path": "reversing/FootWave4/validation-summary.json",
-        "sha256": "0f0e37a36f06c40a71519a73d6de33a513e637a2a7147320b3d011738c8f8b6f",
+        "sha256": "8a9692b7efce4557853044bbf4be05832b1bf8a27ba6b1a74ba27ee58d0ca285",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePlayerOnFoot::PlayerControlZelda"
@@ -490738,7 +490738,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "669e646345a3bffd75234297d9073847de2b183147138bdc95579fdf747114da",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "2ceafec7727bca043c4a80b57626a8aef0df5de21fd2705fcb0cafcdaa0d0f90",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.h": "5bdba70fb5bb39b826f3e47e6ba001c7c885f22f90cdb9fc3c2ddd28c4be23fe"
       },
       "source_provenance": "Exact compiled FootWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 5120-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -490755,7 +490755,7 @@
       },
       "evidence": {
         "path": "reversing/FootWave4/validation-summary.json",
-        "sha256": "0f0e37a36f06c40a71519a73d6de33a513e637a2a7147320b3d011738c8f8b6f",
+        "sha256": "8a9692b7efce4557853044bbf4be05832b1bf8a27ba6b1a74ba27ee58d0ca285",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePlayerOnFoot::ProcessPlayerWeapon"
@@ -490764,7 +490764,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "669e646345a3bffd75234297d9073847de2b183147138bdc95579fdf747114da",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "2ceafec7727bca043c4a80b57626a8aef0df5de21fd2705fcb0cafcdaa0d0f90",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.h": "5bdba70fb5bb39b826f3e47e6ba001c7c885f22f90cdb9fc3c2ddd28c4be23fe"
       },
       "source_provenance": "Exact compiled FootWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 5120-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -546344,6 +546344,43 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el arbol principal (HEAD 8fa4b77c1 + PlayerPed.cpp y X87Math.cpp, source.patch). CPlayerPed::DrawTriangleForMouseRecruitPed 0x60BA80 (thiscall, ret; void; 1592 bytes; sin objetivo del raton no hace nada): fija siete estados de render, calcula color (vida/vida maxima), tamano (distancia al jugador) y los tres vertices del triangulo respecto a la camara (matriz o rumbo), los escribe en el bufer temporal Im3D, llama a RwIm3DTransform y, si devuelve distinto de cero, a RwIm3DRenderIndexedPrimitive y RwIm3DEnd, y restablece los estados. Sustituidos por falsos identicos en ambos lados: RwIm3DTransform 0x7EF450, RwIm3DRenderIndexedPrimitive 0x7EF550, RwIm3DEnd 0x7EF520 (parche de entrada del EXE; funciones de la DLL sin hook) y la entrada fpRenderStateSet de RwEngineInstance. CVector::Normalise (0x59C910) corre de verdad en el lado del EXE; la DLL reproduce su comportamiento y la x87 a 24 bits con exponente ampliado en X87Math.cpp. Dominio: NaN canonicalizado (carga util distinta entre x87 y SSE); rumbos de camara sin matriz hasta 1e10 (fsin/fcos con reduccion de 66 bits no se prueban mas alla); sin objetivo nulo de matriz.",
       "review_reference": "reversing/Player82A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPlayerPed",
+        "fn_name": "Compute3rdPersonMouseTarget",
+        "address": "0x0060B650",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Player82B/validation-summary.json",
+        "sha256": "1e111b43698a7f552ccac293bd7ab016359487800444214c6fa0478fc693d741",
+        "passed_path": [
+          "covered_functions",
+          "CPlayerPed::Compute3rdPersonMouseTarget"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+        "original_address": "0x0060B650"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/Entity/Ped/PlayerPed.cpp": "d5c09d10057cb10f8ad8f3527108798f3a14cfdc07b297cfafedf782f1bbb57f",
+        "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
+        "source/game_sa/X87Math.cpp": "d1ebdb44d70685dcc787581f673381fd11d3ee8d5d15cd075f0632a48e53820f",
+        "source/game_sa/X87Math.h": "988e565940fb998de291b047dcb07da035fb3c26faa122bc1022cda28a0dc7c0",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Player82B/LiveComparison.hpp": "c9397ded974746417969d90633e8d16d22abfba423d992e6e9122817fa7d85a0",
+        "reversing/Player82B/Core.hpp": "ec1e1e2fe4ae1f86772a2e69a0516fd2859fe4dd7716da0903fad60a268bb0cd",
+        "reversing/Player82B/Fixtures.hpp": "9a844321bcdc08e91ee27a4adc555e47182f0dbf7e74b2b95429c46f319612ae",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Validado en el arbol principal (HEAD 13b3e2992 + PlayerPed.cpp y X87Math.cpp, source.patch). CPlayerPed::Compute3rdPersonMouseTarget 0x60B650 (thiscall, un bool de pila, ret 4; void; 1060 bytes): con el raton en tercera persona traza una linea (vector de apuntado de la camara o linea calculada con x87 a 24 bits) con el alcance del arma activa, elige al primer peaton vivo golpeado (referencias, plazo +0x7A0, tipo de disparo, banderas del arma, rango de vision, tareas pendientes, frase, evento CEventGunAimedAt al grupo o a su grupo de eventos) y caduca el objetivo anterior. Sustituidos por falsos identicos en ambos lados (entrada del EXE y cuerpo de la DLL): GetWeaponSkill, GetWeaponInfo, Find3rdPersonCamTargetVector, ProcessLineOfSight, ResetLineTestOptions, IsAlive, CleanUpOldReference, RegisterReference, IsInSeeingRange, Say, GetPedsGroup, AreInSameGroup, AddEvent, CEventGroup::Add y CEvent::operator new/delete (sin hook). Corren de verdad en ambos lados los constructores y destructores de CEventGunAimedAt y CEventGroupEvent. Dominio: NaN canonicalizado (carga util distinta entre x87 y SSE); camaras activas 0..2; ranuras de arma entre -20 y 20.",
+      "review_reference": "reversing/Player82B/README.md"
     }
   ]
 }

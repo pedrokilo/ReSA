@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CPlayerPed
- * Reconstrucción: COMPLETA — 61/61 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 62/62 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 61/61 entradas.
+ * Validación registrada: 62/62 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -43,6 +43,7 @@ END GENERATED HOOK STATUS */
 #include "Audio/Entities/AEPedSpeechAudioEntity.h"
 #include "Events/EventScriptCommand.h"
 #include "Events/EventGroupEvent.h"
+#include "Events/EventGunAimedAt.h"
 #include "Events/EventNewGangMember.h"
 #include "Events/EventDontJoinPlayerGroup.h"
 #include "Tasks/TaskTypes/TaskComplexBeInGroup.h"
@@ -111,6 +112,7 @@ void CPlayerPed::InjectHooks() {
     RH_ScopedInstall(UpdateCameraWeaponModes, 0x609830);
     RH_ScopedInstall(ProcessAnimGroups, 0x6098F0);
     RH_ScopedInstall(DrawTriangleForMouseRecruitPed, 0x60BA80);
+    RH_ScopedInstall(Compute3rdPersonMouseTarget, 0x60B650);
     RH_ScopedInstall(ClearWeaponTarget, 0x609c80);
     RH_ScopedInstall(GetWeaponRadiusOnScreen, 0x609CD0);
     RH_ScopedInstall(PedCanBeTargettedVehicleWise, 0x609D90);
@@ -1101,8 +1103,85 @@ bool LOSBlockedBetweenPeds(CEntity* entity1, CEntity* entity2) {
 
 // 0x60B650
 void CPlayerPed::Compute3rdPersonMouseTarget(bool meleeWeapon) {
-    // El cálculo del objetivo en tercera persona continúa delegado al ejecutable original.
-    plugin::CallMethod<0x60B650, CPlayerPed *, bool>(this, meleeWeapon);
+    // Lote 82B. Como el original: con el raton en tercera persona traza una linea desde la camara (o desde el vector de apuntado de la camara si meleeWeapon) con el alcance de
+    // objetivo del arma activa; el primer peaton vivo distinto del jugador pasa a ser m_p3rdPersonMouseTarget. Sin raton o sin peaton, el objetivo anterior caduca al vencer field_7A0.
+    static_assert(offsetof(CTaskManager, m_aPrimaryTasks) == 0 && offsetof(CPedIntelligence, m_TaskMgr) == 4 && TASK_COMPLEX_REACT_TO_GUN_AIMED_AT == 0x259);
+    // El indice de la ranura se lee con signo (movsx) en cada uso, como el EXE
+    const auto activeWeaponType = [this]() { return m_aWeapons.data()[static_cast<int8>(m_nActiveWeaponSlot)].m_Type; };
+    CPed* hitPed = nullptr;
+    if (CCamera::m_bUseMouse3rdPerson) {
+        const eWeaponType aimType = activeWeaponType();
+        const eWeaponSkill aimSkill = GetWeaponSkill(); // 0x5E6580
+        const float range = CWeaponInfo::GetWeaponInfo(aimType, aimSkill)->m_fTargetRange; // 0x743C60, +4
+        const CVector origin = GetPosition();
+        CVector lineStart, lineEnd;
+        if (meleeWeapon) {
+            TheCamera.Find3rdPersonCamTargetVector(range, origin, lineStart, lineEnd); // 0x514970
+        } else {
+            const CCam& activeCam = TheCamera.m_aCams.data()[TheCamera.m_nActiveCam];
+            Player82BAimLineCpp(&origin.x, &activeCam.m_vecSource.x, &activeCam.m_vecFront.x, range, &lineStart.x, &lineEnd.x);
+        }
+        CWorld::pIgnoreEntity = this;
+        CWorld::bIncludeBikers = true;
+        CEntity* hitEntity = nullptr;
+        CColPoint colPoint;
+        if (CWorld::ProcessLineOfSight(lineStart, lineEnd, colPoint, hitEntity, false, false, true, false, false, false, false, false)) { // 0x56BA00
+            if (hitEntity != this && static_cast<CPed*>(hitEntity)->IsAlive()) { // 0x5E0170
+                hitPed = static_cast<CPed*>(hitEntity);
+            }
+        }
+        CWorld::ResetLineTestOptions(); // 0x5631C0
+
+        if (hitPed) {
+            if (hitPed != m_p3rdPersonMouseTarget) {
+                if (m_p3rdPersonMouseTarget) {
+                    m_p3rdPersonMouseTarget->CleanUpOldReference(reinterpret_cast<CEntity**>(&m_p3rdPersonMouseTarget)); // 0x571A00
+                }
+                m_p3rdPersonMouseTarget = hitPed;
+                hitPed->RegisterReference(reinterpret_cast<CEntity**>(&m_p3rdPersonMouseTarget)); // 0x571B70
+            }
+            field_7A0 = CTimer::m_snTimeInMilliseconds + 1000;
+
+            // Solo armas de fuego que pueden apuntar (bit 0 de las banderas) y peatones a la vista que no estan ya reaccionando a un arma
+            if (CWeaponInfo::GetWeaponInfo(activeWeaponType(), eWeaponSkill::STD)->m_nWeaponFire == eWeaponFire::WEAPON_FIRE_MELEE) {
+                return;
+            }
+            const eWeaponType flagType = activeWeaponType();
+            const eWeaponSkill flagSkill = GetWeaponSkill(); // 0x5E6580
+            if (!(CWeaponInfo::GetWeaponInfo(flagType, flagSkill)->m_nFlags & 1)) {
+                return;
+            }
+            if (!hitPed->GetIntelligence()->IsInSeeingRange(GetPosition())) { // 0x600C60
+                return;
+            }
+            const auto& primaryTasks = hitPed->GetIntelligence()->m_TaskMgr.m_aPrimaryTasks;
+            CTask* const pending = primaryTasks[0] ? primaryTasks[0] : (primaryTasks[1] ? primaryTasks[1] : primaryTasks[2]);
+            if (pending && pending->GetTaskType() == TASK_COMPLEX_REACT_TO_GUN_AIMED_AT) {
+                return;
+            }
+            if (activeWeaponType() != static_cast<eWeaponType>(0x17)) {
+                Say(CTX_GLOBAL_PULL_GUN, 0, 1.0f, false, false, false); // 0x5EFFE0, frase 0xB0
+            }
+            if (CPedGroup* const group = CPedGroups::GetPedsGroup(hitPed)) { // 0x5F7E80
+                if (CPedGroups::AreInSameGroup(hitPed, this)) { // 0x5F7F40
+                    return;
+                }
+                CEvent* aimedAt = nullptr;
+                if (void* const memory = CEvent::operator new(sizeof(CEventGunAimedAt))) { // 0x4B5620
+                    aimedAt = ::new (memory) CEventGunAimedAt(this); // 0x4B0700
+                }
+                CEventGroupEvent groupEvent{ hitPed, aimedAt }; // 0x4ADFD0
+                group->GetIntelligence().AddEvent(&groupEvent); // 0x5F7470
+            } else {
+                CEventGunAimedAt aimedAt{ this }; // 0x4B0700
+                hitPed->GetIntelligence()->m_eventGroup.Add(&aimedAt, false); // 0x4AB420
+            }
+            return;
+        }
+    }
+    if (m_p3rdPersonMouseTarget && static_cast<uint32>(field_7A0) < CTimer::m_snTimeInMilliseconds) {
+        m_p3rdPersonMouseTarget = nullptr;
+    }
 }
 
 // 0x60BA80

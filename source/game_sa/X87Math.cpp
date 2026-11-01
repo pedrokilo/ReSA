@@ -17411,3 +17411,36 @@ __declspec(noinline) void __cdecl Player82ATriangleCpp(const float* playerPos, c
     }
 }
 #pragma float_control(pop)
+
+// --- Lote 82B (Player82B): CPlayerPed::Compute3rdPersonMouseTarget (0x60B650), prefijo Player82B ---
+#pragma float_control(precise, on, push)
+// 0x60B6FF..0x60B7FB (ruta sin vector de apuntado de la camara). d = fuente de la camara - origen (cada resta a 24 bits con exponente ampliado, en registros), producto escalar
+// (Qy*dy + Qz*dz) + Qx*dx sin guardar; si es < 0 (ordenado) la fuente se desplaza P - Q*dot (cada componente se guarda como float). El objetivo es P' + Q*alcance: x = Px' + Qx*r y
+// y = Qy*r + Py' con los productos en registros, z = float(Qz*r) (guardado en la pila) + Pz'.
+__declspec(noinline) void __cdecl Player82BAimLineCpp(const float* origin, const float* camSource, const float* camFront, float range, float* outSource, float* outTarget) {
+    float px = camSource[0], py = camSource[1], pz = camSource[2];
+    const float qx = camFront[0], qy = camFront[1], qz = camFront[2];
+    const double dz = Player82ARound24(double(pz) - double(origin[2]));
+    const double dy = Player82ARound24(double(py) - double(origin[1]));
+    const double dx = Player82ARound24(double(px) - double(origin[0]));
+    const double partial = Player82ARound24(Player82ARound24(double(qy) * dy) + Player82ARound24(double(qz) * dz));
+    const double dot = Player82ARound24(partial + Player82ARound24(dx * double(qx)));
+    if (dot < 0.0) {
+        const double qzDot = Player82ARound24(double(qz) * dot);
+        const double qyDot = Player82ARound24(double(qy) * dot);
+        const double qxDot = Player82ARound24(dot * double(qx));
+        px = float(Player82ARound24(double(px) - qxDot));
+        py = float(Player82ARound24(double(py) - qyDot));
+        pz = float(Player82ARound24(double(pz) - qzDot));
+    }
+    const double qxr = Player82ARound24(double(qx) * double(range));
+    const double qyr = Player82ARound24(double(qy) * double(range));
+    const float qzr = float(Player82ARound24(double(qz) * double(range)));
+    outSource[0] = px;
+    outSource[1] = py;
+    outSource[2] = pz;
+    outTarget[0] = float(Player82ARound24(double(px) + qxr));
+    outTarget[1] = float(Player82ARound24(qyr + double(py)));
+    outTarget[2] = float(Player82ARound24(double(qzr) + double(pz)));
+}
+#pragma float_control(pop)

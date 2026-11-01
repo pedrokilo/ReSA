@@ -1,0 +1,3 @@
+APROBADO: Player82B
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-player82b\20261101-011208-237724

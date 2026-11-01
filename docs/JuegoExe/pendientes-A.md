@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 01/11/2026 (Ciudad de México):** 820 grupos / 8973 funciones reconstruidas; 8973 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 01/11/2026 (Ciudad de México):** 820 grupos / 8974 funciones reconstruidas; 8974 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo A: Falta: llamada desde código ya reemplazado
@@ -53,14 +53,14 @@
 | `0x0041CCB0` | 70 | CCarAI | alta | 28 (25) |  |
 | `0x0040FE00` | 35 | CColSphere | alta | 28 (25) |  |
 | `0x0040FCF0` | 30 | CColModel | baja | 25 (25) |  |
+| `0x004B5620` | 11 | CEventPool | baja | 54 (25) |  |
 | `0x005A1EE0` | 11 | CObjectPool | baja | 26 (25) |  |
-| `0x004B5620` | 11 | CEventPool | baja | 54 (24) |  |
+| `0x004ADFD0` | 95 | CEventDamage | baja | 27 (24) |  |
 | `0x0059B920` | 206 | CMaths | baja | 25 (23) |  |
-| `0x004ADFD0` | 95 | CEventDamage | baja | 27 (23) |  |
+| `0x004AE070` | 94 | CEventDamage | baja | 52 (23) |  |
 | `0x007491C0` | 47 | Win | baja | 24 (23) |  |
 | `0x0061A360` | 41 | CPlayerRelationshipRecorder | baja | 29 (23) |  |
 | `0x0059C810` | 115 | CQuaternion | baja | 23 (22) |  |
-| `0x004AE070` | 94 | CEventDamage | baja | 52 (22) |  |
 | `0x004AD420` | 1 | CPedDamageResponseCalculator | alta | 49 (22) |  |
 | `0x006E2D60` | 36 | CVehicle | alta | 21 (21) |  |
 | `0x0074BF20` | 31 | Win | baja | 31 (21) |  |
@@ -205,6 +205,7 @@
 | `0x007469A0` | 109 | Win | baja | 6 (4) |  |
 | `0x005F6190` | 108 | CPedGeometryAnalyser | baja | 5 (4) |  |
 | `0x005D9110` | 104 | CCustomCarEnvMapPipeline | baja | 4 (4) |  |
+| `0x004B0700` | 102 | CEventKnockOffBike | baja | 7 (4) |  |
 | `0x004D1610` | 101 | RpAnimBlend | alta | 10 (4) |  |
 | `0x00667310` | 99 | CTaskComplexProstituteSolicit | baja | 4 (4) |  |
 | `0x004CFA90` | 91 | CAnimBlendHierarchy | baja | 4 (4) |  |
@@ -348,7 +349,6 @@
 | `0x00731B80` | 104 | CTxdStore | alta | 2 (2) |  |
 | `0x0049C9E0` | 103 | CStuntJumpManager | alta | 2 (2) |  |
 | `0x004AE1A0` | 102 | CEventDamage | baja | 3 (2) |  |
-| `0x004B0700` | 102 | CEventKnockOffBike | baja | 7 (2) |  |
 | `0x005EE200` | 102 | CPedAttractorManager | baja | 2 (2) |  |
 | `0x005D93B0` | 101 | CCustomCarEnvMapPipeline | baja | 2 (2) |  |
 | `0x00447720` | 100 | CGarages | alta | 2 (2) |  |
@@ -364,6 +364,7 @@
 | `0x004AE270` | 81 | CEventDamage | baja | 5 (2) |  |
 | `0x004AED60` | 81 | CEventVehicleHitAndRun | baja | 5 (2) |  |
 | `0x004AF700` | 81 | CEventVehicleToSteal | alta | 5 (2) |  |
+| `0x004B07B0` | 81 | CEventKnockOffBike | baja | 9 (2) |  |
 | `0x004B0DA0` | 81 | CEventVehicleDied | alta | 5 (2) |  |
 | `0x004B2130` | 81 | CEventSeenPanickedPed | baja | 5 (2) |  |
 | `0x004B2470` | 81 | CEventPlayerCommandToGroup | alta | 5 (2) |  |
@@ -668,7 +669,6 @@
 | `0x004AF1C0` | 81 | CEventVehicleHitAndRun | baja | 3 (1) |  |
 | `0x004AF2D0` | 81 | CEventVehicleHitAndRun | baja | 3 (1) |  |
 | `0x004AF400` | 81 | CEventAttractor | alta | 8 (1) |  |
-| `0x004B07B0` | 81 | CEventKnockOffBike | baja | 9 (1) |  |
 | `0x004B1520` | 81 | CEventStuckInAir | alta | 3 (1) |  |
 | `0x004B1C10` | 81 | CEventVehicleDamage | baja | 3 (1) |  |
 | `0x004B1D50` | 81 | CEventCarUpsideDown | alta | 3 (1) |  |
