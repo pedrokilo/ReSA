@@ -17547,3 +17547,91 @@ __declspec(noinline) float __cdecl Veh83BSubCpp(float a, float b) {
     return Veh83BStore(Player82ARound24(double(a) - double(b)));
 }
 #pragma float_control(pop)
+
+// --- Lote 83C (Veh83C): CVehicle::AddSingleWheelParticles (0x6DE880), prefijo Veh83C. Anadido al FINAL ---
+// Cada operacion de la x87 (24 bits de mantisa, exponente ampliado) se emula con double + Player82ARound24; `fstp dword` con Veh83BStore (desnormales incluidos, el juego tiene FTZ activo en SSE).
+#pragma float_control(precise, on, push)
+// fld a; fmul b; fstp dword
+__declspec(noinline) float __cdecl Veh83CMulStore(float a, float b) {
+    return Veh83BStore(Player82ARound24(double(a) * double(b)));
+}
+// fld a; fmul b; fmul c; fstp dword (el producto intermedio queda en el registro)
+__declspec(noinline) float __cdecl Veh83CMul2Store(float a, float b, float c) {
+    return Veh83BStore(Player82ARound24(Player82ARound24(double(a) * double(b)) * double(c)));
+}
+// fld a; fmul b; fadd c; fstp dword
+__declspec(noinline) float __cdecl Veh83CMulAddStore(float a, float b, float c) {
+    return Veh83BStore(Player82ARound24(Player82ARound24(double(a) * double(b)) + double(c)));
+}
+// fld a; fadd b; fstp dword
+__declspec(noinline) float __cdecl Veh83CAddStore(float a, float b) {
+    return Veh83BStore(Player82ARound24(double(a) + double(b)));
+}
+// fld a; fsub b; fstp dword
+__declspec(noinline) float __cdecl Veh83CSubStore(float a, float b) {
+    return Veh83BStore(Player82ARound24(double(a) - double(b)));
+}
+// _ftol2 del EXE (0x821B40): trunca a 64 bits con signo (NaN, infinito o fuera de rango dan 0x8000000000000000) y se usa EAX
+static __declspec(noinline) int32_t __cdecl Veh83CFtolD(double v) {
+    if (!(std::fabs(v) < 9223372036854775808.0)) {
+        return 0;
+    }
+    return static_cast<int32_t>(static_cast<uint32_t>(static_cast<uint64_t>(static_cast<int64_t>(v))));
+}
+__declspec(noinline) int32_t __cdecl Veh83CFtol(float v) {
+    return Veh83CFtolD(double(v));
+}
+// 0x6DE8C8..0x6DE8EA: (dz * dz + dy * dy) + dx * dx con d = camara - posicion; el resultado queda en el registro (sin guardar)
+__declspec(noinline) double __cdecl Veh83CDistSq(const float* cam, const float* own) {
+    const double dx = Player82ARound24(double(cam[0]) - double(own[0]));
+    const double dy = Player82ARound24(double(cam[1]) - double(own[1]));
+    const double dz = Player82ARound24(double(cam[2]) - double(own[2]));
+    const double z2 = Player82ARound24(dz * dz);
+    const double y2 = Player82ARound24(dy * dy);
+    const double x2 = Player82ARound24(dx * dx);
+    return Player82ARound24(Player82ARound24(z2 + y2) + x2);
+}
+// CVector::Magnitude (0x4082C0): sqrt((x*x + y*y) + z*z) en el registro
+__declspec(noinline) double __cdecl Veh83CMagnitude(const float* v) {
+    const double x2 = Player82ARound24(double(v[0]) * double(v[0]));
+    const double y2 = Player82ARound24(double(v[1]) * double(v[1]));
+    const double z2 = Player82ARound24(double(v[2]) * double(v[2]));
+    return Player82ARound24(std::sqrt(Player82ARound24(Player82ARound24(x2 + y2) + z2)));
+}
+// 0x6DEC05..0x6DEC1B: sqrt(x*x + y*y) en el registro
+__declspec(noinline) double __cdecl Veh83CMagnitude2D(float x, float y) {
+    const double x2 = Player82ARound24(double(x) * double(x));
+    const double y2 = Player82ARound24(double(y) * double(y));
+    return Player82ARound24(std::sqrt(Player82ARound24(x2 + y2)));
+}
+// Numero de particulas: _ftol2(|step| * escala), con la magnitud y el producto en el registro
+__declspec(noinline) int32_t __cdecl Veh83CTrailCount(const float* step, float scale) {
+    return Veh83CFtolD(Player82ARound24(Veh83CMagnitude(step) * double(scale)));
+}
+// CVector::NormaliseAndMag (0x59C970): normaliza en el sitio (cada componente guardado como float) y devuelve 1 / (1 / raiz) guardado como float; con la longitud al cuadrado <= 0 (ordenada) solo pone x = 1.0f y devuelve 1.0f
+__declspec(noinline) float __cdecl Veh83CNormalise(float* v) {
+    const double x2 = Player82ARound24(double(v[0]) * double(v[0]));
+    const double y2 = Player82ARound24(double(v[1]) * double(v[1]));
+    const double z2 = Player82ARound24(double(v[2]) * double(v[2]));
+    const double sum = Player82ARound24(Player82ARound24(x2 + y2) + z2);
+    if (!(sum > 0.0) && sum == sum) {
+        v[0] = 1.0f;
+        return 1.0f;
+    }
+    const double inv = Player82ARound24(1.0 / Player82ARound24(std::sqrt(sum)));
+    v[0] = Veh83BStore(Player82ARound24(inv * double(v[0])));
+    v[1] = Veh83BStore(Player82ARound24(inv * double(v[1])));
+    v[2] = Veh83BStore(Player82ARound24(inv * double(v[2])));
+    return Veh83BStore(Player82ARound24(1.0 / inv));
+}
+// 0x41BD90 con el entero del rand() del EXE: ((r * 0x38000100) * (max - min)) + min en el registro (24 bits por operacion)
+static __declspec(noinline) double __cdecl Veh83CRandExact(int random, float min, float max) {
+    const double t = Player82ARound24(double(random) * double(std::bit_cast<float>(0x38000100u)));
+    const double d = Player82ARound24(double(max) - double(min));
+    return Player82ARound24(Player82ARound24(t * d) + double(min));
+}
+// ... guardado como float (fst / fstp dword)
+__declspec(noinline) float __cdecl Veh83CRandStore(int random, float min, float max) {
+    return Veh83BStore(Veh83CRandExact(random, min, max));
+}
+#pragma float_control(pop)

@@ -479,8 +479,8 @@ inline const std::array<Fake,24>& Fakes() {
     }};
     return f;
 }
-// Unico colaborador sin gancho RH (envoltura al EXE): la DLL llama a la direccion del EXE, que ya esta sustituida.
-inline constexpr uintptr_t kNoDllBody = 0x6DE880;
+// Ya no hay colaborador sin gancho RH: AddSingleWheelParticles (0x6DE880) tiene cuerpo propio en la DLL desde el lote 83C (0 = ninguna excepcion).
+inline constexpr uintptr_t kNoDllBody = 0;
 inline void InitVTable() {
     for (auto& e : fakeVTable) e = (void*)&X_BadVirtual;
     fakeVTable[52] = (void*)&X_DoBurst;     // +0xD0

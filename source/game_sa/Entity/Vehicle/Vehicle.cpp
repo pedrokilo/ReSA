@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CVehicle
- * Reconstrucción: COMPLETA — 166/166 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 167/167 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 166/166 entradas.
+ * Validación registrada: 167/167 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -46,6 +46,7 @@ END GENERATED HOOK STATUS */
 #include "CustomBuildingDNPipeline.h"
 #include "PedClothesDesc.h"
 #include "X87Math.h"
+#include "Skidmarks.h"
 #include "PlayerPed.h"
 #include "WeaponInfo.h"
 
@@ -308,7 +309,7 @@ void CVehicle::InjectHooks() {
     // RH_ScopedInstall(DoSunGlare, 0x6DD6F0);
     RH_ScopedInstall(AddWaterSplashParticles, 0x6DDF60);
     RH_ScopedInstall(AddExhaustParticles, 0x6DE240);
-    // RH_ScopedInstall(AddSingleWheelParticles, 0x6DE880);
+    RH_ScopedInstall(AddSingleWheelParticles, 0x6DE880);
     RH_ScopedInstall(GetSpecialColModel, 0x6DF3D0);
     RH_ScopedInstall(RemoveVehicleUpgrade, 0x6DF930);
     RH_ScopedInstall(AddUpgrade, 0x6DFA20);
@@ -359,7 +360,7 @@ CVehicle::CVehicle(eVehicleCreatedBy createdBy) : CPhysical(), m_vehicleAudio(),
     SetTypeVehicle();
 
     m_fRawSteerAngle = 0.0f;
-    m_fSteerAngle = 0.0f; // Como el original: tambien se pone a cero (0x494)
+    m_GasPedal = 0.0f; // Como el original: tambien se pone a cero (0x494)
     m_f2ndSteerAngle = 0.0f;
     m_nCurrentGear = 1;
     m_fGearChangeCount = 0.0f;
@@ -1125,19 +1126,19 @@ void CVehicle::ProcessDrivingAnims(CPed* driver, bool blend) {
         return;
     }
 
-    if (m_fSteerAngle == 0.0F || driveByAnim) {
+    if (m_GasPedal == 0.0F || driveByAnim) {
         if (lookLeftAnim)  lookLeftAnim->m_BlendDelta  = -4.0F;
         if (lookRightAnim) lookRightAnim->m_BlendDelta = -4.0F;
         if (lookBackAnim)  lookBackAnim->m_BlendDelta  = -4.0F;
         return;
     }
 
-    const auto angle = m_fSteerAngle;
+    const auto angle = m_GasPedal;
     const float scale = angle < 0.0F ? -0x1.a3ac1p+0F : 0x1.a3ac1p+0F;
     float fUsedAngle = X87TimesFloatCpp(angle, scale); // fld angle; fmul [0x871FD0/0x871FD4]
     fUsedAngle = std::clamp(fUsedAngle, 0.0F, 1.0F);
 
-    if (m_fSteerAngle < 0) {
+    if (m_GasPedal < 0) {
         if (lookLeftAnim) {
             lookLeftAnim->m_BlendAmount = 0.0F;
             lookLeftAnim->m_BlendDelta  = 0.0F;
@@ -6950,7 +6951,7 @@ void CVehicle::ProcessBoatControl(tBoatHandlingData* boatHandling, float* fLastW
             }
 
             // Como el original: fsin y fcos del x87 sobre el mismo valor
-            const auto fSteerAngleChange = -(fTraction * m_fSteerAngle);
+            const auto fSteerAngleChange = -(fTraction * m_GasPedal);
             float fSteerAngleSin, fSteerAngleCos;
             VehESinCos(fSteerAngleChange, fSteerAngleSin, fSteerAngleCos);
 
@@ -6987,7 +6988,7 @@ void CVehicle::ProcessBoatControl(tBoatHandlingData* boatHandling, float* fLastW
                         bIsSlowingDown = true;
 
                     // Como el original: |steer| con comparacion + cambio de signo y z = |steer| * -1
-                    auto fSteerAngle = m_fSteerAngle;
+                    auto fSteerAngle = m_GasPedal;
                     if (fSteerAngle < 0.0F)
                         fSteerAngle = -fSteerAngle;
                     CVector vecSteer(-fSteerAngleSin, fSteerAngleCos, fSteerAngle * -1.0F);
@@ -7432,8 +7433,172 @@ void CVehicle::AddExhaustParticles() {
 
 // always return false?
 // 0x6DE880
-bool CVehicle::AddSingleWheelParticles(tWheelState wheelState, uint32 arg1, float arg2, float arg3, CColPoint* arg4, CVector* arg5, float arg6, int32 arg7, uint32 surfaceType, bool* bloodState, uint32 arg10) {
-    return ((bool(__thiscall*)(CVehicle*, tWheelState, uint32, float, float, CColPoint*, CVector*, float, int32, uint32, bool*, uint32))0x6DE880)(this, wheelState, arg1, arg2, arg3, arg4, arg5, arg6, arg7, surfaceType, bloodState, arg10);
+bool CVehicle::AddSingleWheelParticles(tWheelState wheelState, uint32 wheelStatus, float arg2, float arg3, CColPoint* colPoint, CVector* wheelPos, float arg6, int32 wheelIdx, uint32 skidmarkType, bool* bloodState, uint32 flags) {
+    // Como el original (0x6DE880..0x6DF3B9, thiscall con 11 argumentos, `ret 2Ch`): devuelve siempre false. Los argumentos del EXE son: wheelState (0 normal, 1 giro, 2 derrape, 3 fijo),
+    // wheelStatus (1 = pinchada), arg2 (compresion de la suspension, solo pasa si es menor que 1), arg3 (velocidad), punto de contacto, posicion de la rueda, wheelIdx, tipo de huella,
+    // estado de sangre y banderas (1 sangre, 2 barro, 4 sin derrape trasero). Las comparaciones de la x87 se conservan (los NaN salen como alli).
+    static_assert(offsetof(CVehicle, m_nVehicleSubType) == 0x594 && offsetof(CVehicle, m_GasPedal) == 0x49C && offsetof(CPhysical, m_vecMoveSpeed) == 0x44 &&
+                  offsetof(CPhysical, m_fContactSurfaceBrightness) == 0x12C && offsetof(CPlaceable, m_matrix) == 0x14);
+    const auto exeRand = reinterpret_cast<int32(__cdecl*)()>(0x821B1E);
+    (void)arg6;
+
+    CVehicle* const playerVehicle = FindPlayerVehicle(-1, false); // 0x56E0D0
+    if (m_bOffscreen) {
+        return false;
+    }
+
+    // Como el original: (dz^2 + dy^2) + dx^2 de camara - posicion, en el registro de la x87 (Veh83CDistSq)
+    const double distSq = Veh83CDistSq(&TheCamera.GetPosition().x, &GetPosition().x);
+    if (distSq > 625.0f && !vehicleFlags.bAlwaysSkidMarks) {
+        return false;
+    }
+    // Cadencia segun la distancia: > 400 una de cada 4, > 64 (o sin vehiculo del jugador) una de cada 2; solo cuentan los 8 bits bajos del modelo
+    bool canEmit = true;
+    const uint32 phase = CTimer::m_FrameCounter + static_cast<uint32>(static_cast<uint8>(m_nModelIndex));
+    if (distSq > 400.0f) {
+        canEmit = (phase & 3u) == 0;
+    } else if (distSq > 64.0f || !playerVehicle) {
+        canEmit = (phase & 1u) == 0;
+    }
+
+    // Como el original: solo pasa si arg2 < 1 (o es NaN)
+    if (!(arg2 < 1.0f) && !std::isnan(arg2)) {
+        return false;
+    }
+
+    bool inWater = false;
+    if (g_surfaceInfos.IsWater(colPoint->m_nSurfaceTypeB)) { // 0x55E710
+        inWater = true;
+    } else if (physicalFlags.bTouchingWater) {
+        float waterLevel;
+        if (CWaterLevel::GetWaterLevel(wheelPos->x, wheelPos->y, wheelPos->z, waterLevel, true, nullptr) && waterLevel >= wheelPos->z) { // 0x6EB690
+            inWater = true;
+        }
+    }
+    const bool produceDrops = arg3 < 1.0f;
+
+    // Chispas: rueda pinchada, con velocidad (o girando) sobre una superficie con efecto de friccion 1
+    if (wheelStatus == 1 && (arg3 > 0.1f || wheelState == static_cast<tWheelState>(1)) && static_cast<int32>(g_surfaceInfos.GetFrictionEffect(colPoint->m_nSurfaceTypeB)) == 1) { // 0x55E650
+        CVector sparkDir{ Veh83CMulStore(m_vecMoveSpeed.x, -50.0f), Veh83CMulStore(m_vecMoveSpeed.y, -50.0f), Veh83CMulAddStore(m_vecMoveSpeed.z, -50.0f, 2.5f) };
+        float sparkCount = Veh83CMulStore(arg3, 32.0f);
+        if (wheelState == static_cast<tWheelState>(1) && arg3 < 0.2f) {
+            const CVector& forward = m_matrix->GetForward();
+            const CVector pedaled{ Veh83CMulStore(m_GasPedal, forward.x), Veh83CMulStore(m_GasPedal, forward.y), Veh83CMulStore(m_GasPedal, forward.z) }; // 0x40FEC0
+            sparkDir = CVector{ Veh83CMulStore(-12.0f, pedaled.x), Veh83CMulStore(-12.0f, pedaled.y), Veh83CAddStore(Veh83CMulStore(-12.0f, pedaled.z), 2.5f) };
+            sparkCount = 10.0f;
+        }
+        const float sparkForce = Veh83CNormalise(&sparkDir.x); // 0x59C970
+        g_fx.AddSparks(*wheelPos, sparkDir, sparkForce, Veh83CFtol(sparkCount), m_vecMoveSpeed, static_cast<eSparkType>(1), 0.1f, 0.3f); // 0x49F040
+        AudioEngine.ReportCollision(this, FindPlayerPed(0), static_cast<eSurfaceType>(colPoint->m_nSurfaceTypeA), static_cast<eSurfaceType>(colPoint->m_nSurfaceTypeB), *wheelPos, nullptr, 1.0f, 1.0f, false, true); // 0x506EB0
+    }
+
+    MakeDirty(*colPoint); // 0x6D2BF0
+
+    // Como el original: ajuste de los multiplicadores por subtipo (9 y 2: tamano x0.5; 10: tamano x0.2 y vida x0.3)
+    const auto adjustBySubType = [this](FxPrtMult_c& mult) {
+        const uint32 subType = m_nVehicleSubType;
+        if (subType == 9 || subType == 2) {
+            mult.m_fSize = mult.m_fSize * 0.5f;
+            return true;
+        }
+        if (subType == 10) {
+            mult.m_fSize = mult.m_fSize * 0.2f;
+            mult.m_fLife = mult.m_fLife * 0.3f;
+            return true;
+        }
+        return false;
+    };
+    // Humo/spray de las ruedas en derrape o fijas: una particula por cada |v * paso| * 2 (3 en los subtipos 9, 2 y 10), con al menos una
+    const auto emitTrail = [&]() {
+        FxPrtMult_c mult{ 0.9f, 0.9f, 1.0f, 0.5f, 0.7f, 1.0f, 0.3f }; // 0x4AB290
+        const CVector smokeVel{ 0.0f, 0.0f, 0.5f };
+        const float countScale = adjustBySubType(mult) ? 3.0f : 2.0f;
+        const CVector step{ Veh83CMulStore(CTimer::ms_fTimeStep, m_vecMoveSpeed.x), Veh83CMulStore(CTimer::ms_fTimeStep, m_vecMoveSpeed.y), Veh83CMulStore(CTimer::ms_fTimeStep, m_vecMoveSpeed.z) }; // 0x40FEC0
+        const int32 amount = Veh83CTrailCount(&step.x, countScale); // 0x4082C0 y _ftol (0x821B40)
+        const int32 total = amount < 1 ? 1 : amount;
+        const float totalF = static_cast<float>(total);
+        for (int32 i = 0; i < total; i++) {
+            const float shade = Veh83CRandStore(exeRand(), 0.5f, 1.0f); // 0x41BD90
+            mult.m_Color.blue = shade;
+            mult.m_Color.green = Veh83CMulStore(shade, 0.9f);
+            mult.m_Color.red = mult.m_Color.green;
+            const float along = 1.0f - static_cast<float>(i) / totalF;
+            const CVector scaledStep{ Veh83CMulStore(along, step.x), Veh83CMulStore(along, step.y), Veh83CMulStore(along, step.z) }; // 0x40FEC0
+            const CVector pos{ Veh83CSubStore(wheelPos->x, scaledStep.x), Veh83CSubStore(wheelPos->y, scaledStep.y), Veh83CSubStore(wheelPos->z, scaledStep.z) }; // 0x40FE60
+            g_fx.m_SmokeII3expand->AddParticle(pos, smokeVel, 0.3f, mult, -1.0f, m_fContactSurfaceBrightness, 0.6f, false); // 0x4AA440
+        }
+    };
+    // Huella de la rueda (0x720930): la posicion de las quads se desplaza 0.15 hacia fuera (delanteras) o hacia dentro (traseras)
+    const auto registerSkidmark = [&]() {
+        if (wheelStatus == 1) {
+            return;
+        }
+        CVector skidPos = *wheelPos;
+        if (m_nModelIndex == 0x1D7) {
+            const CVector& right = m_matrix->GetRight();
+            const CVector offset{ Veh83CMulStore(0.15f, right.x), Veh83CMulStore(0.15f, right.y), Veh83CMulStore(0.15f, right.z) }; // 0x40FEC0
+            if (wheelIdx < 2) {
+                skidPos = CVector{ Veh83CAddStore(offset.x, skidPos.x), Veh83CAddStore(offset.y, skidPos.y), Veh83CAddStore(offset.z, skidPos.z) }; // 0x411A00
+            } else {
+                skidPos = CVector{ Veh83CSubStore(skidPos.x, offset.x), Veh83CSubStore(skidPos.y, offset.y), Veh83CSubStore(skidPos.z, offset.z) }; // 0x406D70
+            }
+        }
+        if (inWater) {
+            return;
+        }
+        const float width = FindWheelWidth((wheelIdx & 1) != 0); // virtual +0xFC
+        const CMatrix& matrix = *m_matrix;
+        CSkidmarks::RegisterOne(static_cast<uint32>(reinterpret_cast<uintptr_t>(this)) + static_cast<uint32>(wheelIdx), skidPos, matrix.GetForward().x, matrix.GetForward().y,
+                                static_cast<eSkidmarkType>(skidmarkType), bloodState, width); // 0x720930
+    };
+
+    switch (static_cast<int32>(wheelState)) {
+    case 1: {
+        if (AddWheelDirtAndWater(*colPoint, produceDrops, true, inWater) && canEmit) { // 0x6D2D50
+            FxPrtMult_c mult{ 0.9f, 0.9f, 1.0f, 0.5f, 1.0f, 1.0f, 0.5f }; // 0x4AB290
+            if (Veh83CMagnitude(&m_vecMoveSpeed.x) > 0.15f) { // 0x4082C0
+                mult.m_Color.alpha = 0.3f;
+                mult.m_fSize = 0.5f;
+            }
+            adjustBySubType(mult);
+            const float gasAbs = std::fabs(m_GasPedal);
+            CVector vel;
+            vel.x = Veh83CRandStore(exeRand(), 0.0f, Veh83CMul2Store(gasAbs, m_vecMoveSpeed.x, -30.0f)); // 0x41BD90
+            vel.y = Veh83CRandStore(exeRand(), 0.0f, Veh83CMul2Store(gasAbs, m_vecMoveSpeed.y, -30.0f));
+            vel.z = static_cast<float>(exeRand() % 10000) * 0.0001f * 0.8f;
+            const float shade = Veh83CRandStore(exeRand(), 0.5f, 1.0f);
+            mult.m_Color.blue = shade;
+            mult.m_Color.green = Veh83CMulStore(shade, 0.9f);
+            mult.m_Color.red = mult.m_Color.green;
+            g_fx.m_SmokeII3expand->AddParticle(*wheelPos, vel, 0.0f, mult, -1.0f, m_fContactSurfaceBrightness, 0.6f, false); // 0x4AA440
+        }
+        registerSkidmark();
+        break;
+    }
+    case 2:
+        if (flags & 4u) {
+            return false;
+        }
+        [[fallthrough]];
+    case 3:
+        if (arg3 > 0.03f && AddWheelDirtAndWater(*colPoint, produceDrops, false, inWater) && canEmit) {
+            emitTrail();
+        }
+        registerSkidmark();
+        break;
+    default: {
+        if (arg3 > 0.03f) {
+            AddWheelDirtAndWater(*colPoint, produceDrops, false, inWater);
+        }
+        const bool moving = vehicleFlags.bAlwaysSkidMarks && (wheelIdx & 1) && Veh83CMagnitude2D(m_vecMoveSpeed.x, m_vecMoveSpeed.y) > 0.04f;
+        if (!moving && !*bloodState && !(flags & 2u)) {
+            return false;
+        }
+        registerSkidmark();
+        break;
+    }
+    }
+    return false;
 }
 
 // 0x6DF3D0

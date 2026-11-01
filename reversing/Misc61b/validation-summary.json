@@ -55,10 +55,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "5c2dd69da5d590183f92fac5a289dea9ad149e228668069be4c24ede8e3a19b5",
+  "log_sha256": "0227b6d2a163697640c3f23a238c02ccb4c714a52a335996f49d5b8e1a743e5e",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-misc61b\\20261005-213253-455593",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-misc61b\\20261101-052608-999347",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CQuadBike::Fix": true,
@@ -106,30 +106,33 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "0d66da775f5a1f4b3d931c89c30189ee439aefbdc413e214347477dbd07cafb1",
-      "pdb": "68251ded69b67a0971270178648168d99896f0da4c25ff731b2f63be30cd09f4"
+      "asi": "86f265fefc56e998f574951860a11a5ce23520863fb5f126596c93d569d5dbb0",
+      "pdb": "2d65fb6c508ac9cb28c6f72af785d9e90d410c644f26a499508ba7fafaaa0ac4"
     },
     "sources": {
-      "source/game_sa/Entity/Vehicle/Bmx.cpp": "21ad2a3a0acddc3015171c72ed0c930346af2ff0d64eb68e49b5f67208008fcf",
+      "source/game_sa/Entity/Vehicle/Bmx.cpp": "fa7b05e3c5874c015c845b63ab417e58fd88c92735f5fa5f48a54013ef38914c",
       "source/game_sa/Entity/Vehicle/Bmx.h": "973ebb137609ea14fe271b3af789489f1c5889ee4ffe7510738770e9d29d6f7a",
-      "source/game_sa/Entity/Vehicle/QuadBike.cpp": "36c0a6140c017c3720a8bd43b2cdea4ef3c0bf35835c5221cac2a4f6ee1f2e47",
+      "source/game_sa/Entity/Vehicle/QuadBike.cpp": "a41e8cd0ff251926796203a93546e553934f94837a1829e895c05355b0f1b6e0",
       "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
-      "source/game_sa/Fx/CarFXRenderer.cpp": "768f9e0c41c46e11c879a3d14f8624bf61fddbf1e88f0dee41757458bd68d61f",
+      "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
       "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-      "source/game_sa/StencilShadows.cpp": "269606c515e4278211249ad9f45e324e386ef236816f6bf5c1287294e7c1f18c",
+      "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
       "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
       "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
-      "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908"
+      "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
+      "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
+      "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
       "LiveComparison.hpp": "0d8ed52dc46bcb7f433c45df5a107b29610ad40a6202f832c536ca9c97c2754b",
-      "build_probe.py": "44494523b02a3c4e18c2390be14213192aa6e00d35e6758a860e780fb91424f6",
+      "build_probe.py": "095210495c136a64202d13affc20035afbe6f612dae994a050dafa00aacbb182",
       "run_local.py": "33b62735bc8f63b6e6d2a092ba0e6b060b5124d378c2f9d4575d4788cf085cbb"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

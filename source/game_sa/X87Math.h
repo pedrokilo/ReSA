@@ -2150,3 +2150,17 @@ void __cdecl Fx83SprayStepCpp(const Fx83SprayHead* h, const float* vel, const fl
 // Lote 83B: CVehicle::InflictDamage (0x6D7C90): a * k y a - b con la pila x87 a 24 bits y guardado como float
 float __cdecl Veh83BScaleCpp(float a, float k);
 float __cdecl Veh83BSubCpp(float a, float b);
+
+// Lote 83C: CVehicle::AddSingleWheelParticles (0x6DE880): aritmetica de la x87 a 24 bits (cada resultado guardado como float, desnormales incluidos)
+float __cdecl Veh83CMulStore(float a, float b);                      // fld a; fmul b; fstp
+float __cdecl Veh83CMul2Store(float a, float b, float c);            // fld a; fmul b; fmul c; fstp
+float __cdecl Veh83CMulAddStore(float a, float b, float c);          // fld a; fmul b; fadd c; fstp
+float __cdecl Veh83CAddStore(float a, float b);
+float __cdecl Veh83CSubStore(float a, float b);
+int32_t __cdecl Veh83CFtol(float v);                                 // _ftol2 del EXE (EAX)
+double __cdecl Veh83CDistSq(const float* cam, const float* own);     // (dz*dz + dy*dy) + dx*dx de camara - posicion, sin guardar
+double __cdecl Veh83CMagnitude(const float* v);                      // CVector::Magnitude sin guardar
+double __cdecl Veh83CMagnitude2D(float x, float y);                  // sqrt(x*x + y*y) sin guardar
+int32_t __cdecl Veh83CTrailCount(const float* step, float scale);    // _ftol2(|step| * escala)
+float __cdecl Veh83CNormalise(float* v);                             // CVector::NormaliseAndMag (0x59C970): devuelve la fuerza
+float __cdecl Veh83CRandStore(int random, float min, float max);     // 0x41BD90 con el rand() del EXE, guardado como float

@@ -1,7 +1,7 @@
 """Compuertas independientes del banco AutoPreRender60 (CAutomobile::PreRender, 0x6AAB50, virtual), 8192 pares.
 
 Ademas de la igualdad EXE/DLL fila a fila (probe_case.analyzer; el oraculo de la funcion es el propio EXE con el gancho RH apagado), exige: el gancho RH virtual registrado y con cuerpo en el ASI,
-los 24 colaboradores del EXE sustituidos y 23 cuerpos de la DLL sustituidos (el unico sin gancho, AddSingleWheelParticles 0x6DE880, es una envoltura al EXE), todas las compuertas de
+los 24 colaboradores del EXE sustituidos y 23 cuerpos de la DLL sustituidos (AddSingleWheelParticles 0x6DE880 tenia una envoltura al EXE hasta el lote 83C; ahora tambien lleva cuerpo de la DLL), todas las compuertas de
 ABI/ruta/DF/restauracion en AMBOS lados, fp_difference vacio, que los parametros de cada caso sean los que regenera fixture_oracle.py, la cobertura minima (modelos, valores extremos,
 frontera y llamadas a cada colaborador, ninguna a una entrada virtual falsa no prevista) y la restauracion final (gancho, entradas de codigo vigiladas, globales, camara, tabla de modelos, x87).
 `python -B run_local.py --analyze <comparisons.jsonl>` solo analiza; devuelve None si el registro aun no existe o no esta terminado.
@@ -24,7 +24,7 @@ HOOKS = {'CAutomobile::PreRender': 0x6AAB50}
 EXE_COLLABORATORS = [0x6D6480, 0x535300, 0x6DE880, 0x72DDB0, 0x72DDC0, 0x6DDF60, 0x6DE240, 0x6D2A80, 0x6FC580, 0x7000E0, 0x6D1080, 0x6E1A60, 0x56E0D0, 0x50AED0, 0x70BDA0,
                      0x6DBA30, 0x6D1230, 0x6AA290, 0x6A9D70, 0x6F49A0, 0x6F4040, 0x4C7D20, 0x4C53C0, 0x6DBBB0]
 EXTRA_DLL = [0x6D1080]   # miembro real CVehicle::GetVehicleAppearance (el gancho RH es la envoltura GetVehicleAppearance_Reversed)
-NO_DLL_BODY = 0x6DE880
+NO_DLL_BODY = 0   # lote 83C: AddSingleWheelParticles (0x6DE880) ya tiene gancho y cuerpo en la DLL
 
 
 def analyze(path):

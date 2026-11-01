@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 18432,
+  "differences": 0,
+  "registered_pairs": 18432,
+  "registered_functions": 1,
+  "functions": {
+    "CVehicle::AddSingleWheelParticles": 18432
+  },
+  "covered_functions": {
+    "CVehicle::AddSingleWheelParticles": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD a59d24b67 + cambios del lote 83C; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): FindPlayerVehicle 0x56E0D0, SurfaceInfos_c::IsWater 0x55E710, CWaterLevel::GetWaterLevel 0x6EB690, SurfaceInfos_c::GetFrictionEffect 0x55E650, Fx_c::AddSparks 0x49F040, FindPlayerPed 0x56E210, CAudioEngine::ReportCollision 0x506EB0, CVehicle::MakeDirty 0x6D2BF0, CVehicle::AddWheelDirtAndWater 0x6D2D50, FxSystem_c::AddParticle 0x4AA440 y CSkidmarks::RegisterOne 0x720930; el virtual FindWheelWidth (+0xFC) lo atiende una vtabla falsa. Corren de verdad rand() del CRT del EXE (0x821B1E, semilla fijada por lado), 0x41BD90, CVector::Magnitude (0x4082C0), CVector::NormaliseAndMag (0x59C970) y el constructor de FxPrtMult_c (0x4AB290) con sus ganchos RH apagados (el lado original ejecuta los bytes del EXE), la aritmetica de vectores 0x40FEC0 / 0x40FE60 / 0x411A00 / 0x406D70, TheCamera y CTimer (regiones restauradas). El banco compara el orden y todos los argumentos de los falsos, los sorteos de rand(), el sistema del hueco de g_fx y que ninguna arena cambie; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: vehiculo sin matriz (el EXE la usa sin comprobar nulo), valores de bool de los colaboradores distintos de 0/1 en el retorno de AddWheelDirtAndWater (el EXE comprueba EAX completo), NaN con cargas distintas (las fixtures usan un unico patron), bytes altos de los argumentos de superficie y de bool (la funcion solo lee los bajos), mas de unas 450 particulas por llamada y FindWheelWidth fuera de la vtabla del vehiculo.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Veh83C-20261101-053150-162755",
+  "summary_sha256": "10b4f3236fc121e972e338274ff79883da7503deaf341ec1ef54b1c754722cb9",
+  "result_txt_sha256": "1182f93b41155f24e46a787043fd91498f26f32f39ae4abbbecdae441f884bd5",
+  "log_sha256": "4b86219d7f905fbc811af4ed47d96e204d4ddafdcc5a75a5fcd0a0e179b2dc2c",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "c854138d9d805876d00071a6586b9daed058c714aefdad4868785b0438591cf1",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
+      "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378",
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1e672970315ca21c3e0274a5a7323a65fcd0a092a6e050b72e2aca849e93e8ac",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Veh83C/LiveComparison.hpp": "5176bb1cc6bd92327a90e0b4ca920e896f4f3890a9074d4c0161dca29b2e65db",
+      "reversing/Veh83C/Core.hpp": "51433a50608a84217a6dc9d28561ae7c5a167212987cf36060f2ab400c95f799",
+      "reversing/Veh83C/Fixtures.hpp": "80cfa96ac8316df29095a0c085bcdd85287f09373a3ba23be44cd94f6f9c6fba",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}
