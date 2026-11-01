@@ -1,0 +1,292 @@
+diff --git a/source/game_sa/Entity/Vehicle/Bike.cpp b/source/game_sa/Entity/Vehicle/Bike.cpp
+index 37d4d4230..8cb99acdf 100644
+--- a/source/game_sa/Entity/Vehicle/Bike.cpp
++++ b/source/game_sa/Entity/Vehicle/Bike.cpp
+@@ -1531,9 +1531,9 @@ void CBike::ProcessControl() {
+             }
+             frontState = m_WheelStates[0];
+             CVector contactSpeedFront = wheelContactSpeed(frontPoint, frontIdx);
+-            // ProcessBikeWheel reenvia al EXE (0x6D73B0) con adhesion y destabTraction intercambiados: el 8o argumento del EXE es grip * traccion y el 9o el deslizamiento.
++            // ProcessBikeWheel (0x6D73B0): el 8o argumento es el agarre (grip * traccion) y el 9o el factor de deslizamiento
+             ProcessBikeWheel(wheelForward, wheelRight, contactSpeedFront, frontPoint, 2, wheelThrust, frontBias * brakeForce,
+-                             /*adhesion (9o arg. del EXE)*/ slide, /*destabTraction (8o arg. del EXE)*/ grip * tractionBias,
++                             /*adhesion*/ grip * tractionBias, /*destabTraction*/ slide,
+                              0, &m_aWheelAngularVelocity[0], &frontState, 0, uint16(m_nWheelStatus[0]));
+             clearWheelStateIfRequested(frontState);
+         };
+@@ -1588,7 +1588,7 @@ void CBike::ProcessControl() {
+             rearState = m_WheelStates[1];
+             CVector contactSpeedRear = wheelContactSpeed(rearPoint, rearIdx);
+             ProcessBikeWheel(wheelForward, wheelRight, contactSpeedRear, rearPoint, 2, wheelThrust, rearBrake * rearBias,
+-                             /*adhesion (9o arg. del EXE)*/ slide, /*destabTraction (8o arg. del EXE)*/ grip * tractionBiasInv,
++                             /*adhesion*/ grip * tractionBiasInv, /*destabTraction*/ slide,
+                              1, &m_aWheelAngularVelocity[1], &rearState, 1, uint16(m_nWheelStatus[1]));
+             clearWheelStateIfRequested(rearState);
+         } else {
+diff --git a/source/game_sa/Entity/Vehicle/Vehicle.cpp b/source/game_sa/Entity/Vehicle/Vehicle.cpp
+index 21a6b4b25..e346485d7 100644
+--- a/source/game_sa/Entity/Vehicle/Vehicle.cpp
++++ b/source/game_sa/Entity/Vehicle/Vehicle.cpp
+@@ -295,7 +295,7 @@ void CVehicle::InjectHooks() {
+     RH_ScopedInstall(CanPedLeanOut, 0x6D5CF0);
+     RH_ScopedInstall(SetVehicleCreatedBy, 0x6D5D70);
+     RH_ScopedInstall(SetupRender, 0x6D64F0);
+-    // RH_ScopedInstall(ProcessBikeWheel, 0x6D73B0);
++    RH_ScopedInstall(ProcessBikeWheel, 0x6D73B0);
+     RH_ScopedInstall(FindTyreNearestPoint, 0x6D7BC0);
+     RH_ScopedInstall(InflictDamage, 0x6D7C90);
+     RH_ScopedInstall(KillPedsGettingInVehicle, 0x6D82F0);
+@@ -3755,11 +3755,204 @@ void CVehicle::ProcessWheel(CVector& wheelFwd, CVector& wheelRight,
+ }
+ 
+ // 0x6D73B0
++// Como el original (0x6D73B0..0x6D7BBF, thiscall con 14 argumentos, `ret 38h`): la x87 trabaja a 24 bits de mantisa con exponente ampliado, asi que cada operacion usa los ayudantes Veh83D*
++// de X87Math.cpp (el registro es un double ya redondeado, `fstp dword` es Veh83DStore). El 8o argumento es el agarre ya multiplicado por la traccion y el 9o el factor de deslizamiento.
+ void CVehicle::ProcessBikeWheel(CVector& wheelFwd, CVector& wheelRight, CVector& wheelContactSpeed, CVector& wheelContactPoint, int32 wheelsOnGround, float thrust, float brake,
+                                 float adhesion, float destabTraction, int8 wheelId, float* wheelSpeed, tWheelState* wheelState, eBikeWheelSpecial special, uint16 wheelStatus) {
+-    plugin::CallMethod<0x6D73B0, CVehicle*, CVector&, CVector&, CVector&, CVector&, int32, float, float, float, float, char, float*, tWheelState*, eBikeWheelSpecial, uint16>(
+-        this, wheelFwd, wheelRight, wheelContactSpeed, wheelContactPoint, wheelsOnGround, thrust, brake, destabTraction, adhesion, wheelId, wheelSpeed, wheelState, special,
+-        wheelStatus);
++    static_assert(offsetof(CVehicle, m_nVehicleType) == 0x590 && offsetof(CVehicle, m_nVehicleSubType) == 0x594 && offsetof(CVehicle, m_GasPedal) == 0x49C &&
++                  offsetof(CVehicle, m_pHandlingData) == 0x384 && offsetof(CPhysical, m_fMass) == 0x8C && offsetof(CPhysical, m_fTurnMass) == 0x90 &&
++                  offsetof(tHandlingData, m_fMass) == 0x4 && offsetof(tHandlingData, m_fTractionLoss) == 0xA4);
++    // Estaticas del EXE: los cuatro bytes los escribe esta funcion; el ultimo (ya patinaba) solo se pone a true aqui
++    static auto& bBraking = StaticRef<bool>(0xC1CDB2);
++    static auto& bDriving = StaticRef<bool>(0xC1CDB1);
++    static auto& bReversing = StaticRef<bool>(0xC1CDB0);
++    static auto& bAlreadySkidding = StaticRef<bool>(0xC1CDAF);
++    // Constantes de 0x858xxx / 0x8D34xx del EXE
++    constexpr float kLimitSpeed = std::bit_cast<float>(0x3DF5C28Fu);     // 0x8D34CC
++    constexpr float kWobble = std::bit_cast<float>(0x3D4CCCCDu);         // 0x8D34C8 (el minimo es -1.0 * este valor)
++    constexpr float kRandScale = std::bit_cast<float>(0x38000100u);      // 0x858C7C
++    constexpr float kFixedSpeed = std::bit_cast<float>(0x3BA3D70Au);     // 0x858B4C
++    constexpr float kSpinSpeed = std::bit_cast<float>(0x3DCCCCCDu);      // 0x858B1C
++    constexpr float kIdleGas = std::bit_cast<float>(0x3C23D70Au);        // 0x858C58
++    constexpr float kIdleLow = std::bit_cast<float>(0xBD4CCCCDu);        // 0x85901C
++    constexpr float kIdleHigh = std::bit_cast<float>(0x3D4CCCCDu);       // 0x858C28
++    constexpr float kBmxFactor = std::bit_cast<float>(0x3F000000u);      // 0x858B8C
++    constexpr float kBikeFactor = std::bit_cast<float>(0x3F19999Au);     // 0x858CC8
++    constexpr float kLightMass = std::bit_cast<float>(0x43FA0000u);      // 0x858B58
++    constexpr float kLightFactor = std::bit_cast<float>(0x3E4CCCCDu);    // 0x858CC4
++    constexpr float kMassBias = std::bit_cast<float>(0x43480000u);       // 0x858A48
++    constexpr float kTurnScale = std::bit_cast<float>(0x40000000u);      // 0x8D34D0
++    const auto exeRand = reinterpret_cast<int32(__cdecl*)()>(0x821B1E);  // rand() del CRT del EXE (la semilla del juego avanza con ella y no con la de la DLL)
++    (void)wheelSpeed;
++
++    // (y * y + z * z) + x * x
++    const float contactSpeedFwd = Veh83DStore(Veh83DAdd(Veh83DAdd(Veh83DMul(wheelFwd.y, wheelContactSpeed.y), Veh83DMul(wheelContactSpeed.z, wheelFwd.z)), Veh83DMul(wheelFwd.x, wheelContactSpeed.x)));
++
++    if (brake != 0.0f) {
++        bBraking = true;
++        bDriving = false;
++        bReversing = false;
++    } else {
++        bBraking = false;
++        bDriving = thrust != 0.0f;
++        bReversing = thrust < 0.0f;
++    }
++
++    bool wasSkidding = bAlreadySkidding;
++    if (*wheelState != WHEEL_STATE_NORMAL) {
++        bAlreadySkidding = true;
++        wasSkidding = true;
++    }
++    *wheelState = WHEEL_STATE_NORMAL;
++
++    adhesion = Veh83DStore(Veh83DMul(CTimer::ms_fTimeStep, adhesion));
++    if (wasSkidding) {
++        adhesion = Veh83DStore(Veh83DMul(adhesion, m_pHandlingData->m_fTractionLoss));
++    }
++
++    // `lateral` y `brakeReg` son los dos registros de la x87 que viven hasta el final (st(0) y st(1))
++    double lateral = 0.0;
++    if (special != 2 && special != 3) {
++        const double rightSpeed = Veh83DAdd(Veh83DAdd(Veh83DMul(wheelRight.z, wheelContactSpeed.z), Veh83DMul(wheelRight.y, wheelContactSpeed.y)), Veh83DMul(wheelRight.x, wheelContactSpeed.x));
++        const float rightSpeedStored = Veh83DStore(rightSpeed);
++        if (!(rightSpeed == 0.0)) {
++            lateral = -Veh83DDiv(rightSpeedStored, static_cast<double>(wheelsOnGround));
++            const float lateralStored = Veh83DStore(lateral);
++            if (wheelStatus == 1) {
++                // pinchada: ruido aleatorio proporcional a la velocidad hacia delante (con tope)
++                const float limit = contactSpeedFwd < kLimitSpeed ? contactSpeedFwd : kLimitSpeed;
++                const float noiseMax = kWobble;
++                const float noiseMin = Veh83DStore(Veh83DMul(kWobble, -1.0f));
++                const int32 random = exeRand();
++                const double unit = Veh83DMul(static_cast<double>(random), kRandScale);
++                const double span = Veh83DSub(noiseMax, noiseMin);
++                lateral = Veh83DAdd(Veh83DMul(Veh83DAdd(Veh83DMul(unit, span), noiseMin), limit), lateralStored);
++            }
++        }
++    }
++
++    double brakeReg = brake;
++    float force = 0.0f;
++    if (bDriving) {
++        force = thrust;
++        if (lateral > 0.0) {
++            if (lateral > adhesion) {
++                lateral = adhesion;
++            }
++        } else {
++            const float negAdhesion = -adhesion;
++            if (lateral < negAdhesion) {
++                lateral = negAdhesion;
++            }
++        }
++    } else if (!(contactSpeedFwd == 0.0f)) {
++        force = Veh83DStore(-Veh83DDiv(contactSpeedFwd, static_cast<double>(wheelsOnGround)));
++        if (!bBraking) {
++            // sin freno ni empuje: freno pasivo segun el tipo de vehiculo (solo con el acelerador casi a cero)
++            const float gas = m_GasPedal;
++            const double gasAbs = gas < 0.0f ? -static_cast<double>(gas) : static_cast<double>(gas);
++            if (gasAbs < kIdleGas) {
++                const float friction = gHandlingDataMgr.fWheelFriction;
++                const float mass = m_pHandlingData->m_fMass;
++                if (m_nVehicleSubType == VEHICLE_TYPE_BMX) {
++                    if (force > kIdleLow && force < kIdleHigh) {
++                        brakeReg = Veh83DDiv(Veh83DMul(friction, kBmxFactor), Veh83DAdd(mass, kMassBias));
++                    }
++                } else if (m_nVehicleType == VEHICLE_TYPE_BIKE) {
++                    brakeReg = Veh83DDiv(Veh83DMul(friction, kBikeFactor), Veh83DAdd(mass, kMassBias));
++                } else {
++                    brakeReg = Veh83DDiv(friction, mass);
++                    if (mass < kLightMass || m_nModelIndex == MODEL_RCBANDIT) {
++                        brakeReg = Veh83DMul(brakeReg, kLightFactor);
++                    }
++                }
++            }
++        }
++        if (brakeReg <= adhesion) {
++            if (force > 0.0f) {
++                if (force > brakeReg) {
++                    force = Veh83DStore(brakeReg);
++                }
++            } else {
++                const double negBrake = -brakeReg;
++                if (force < negBrake) {
++                    force = Veh83DStore(negBrake);
++                }
++            }
++        } else if (std::fabs(contactSpeedFwd) > kFixedSpeed) {
++            *wheelState = WHEEL_STATE_FIXED;
++        }
++    }
++
++    // la fuerza total se limita al circulo de agarre
++    const float adhesionSq = Veh83DStore(Veh83DMul(adhesion, adhesion));
++    const double energy = Veh83DAdd(Veh83DMul(lateral, lateral), Veh83DMul(force, force));
++    const float magnitudeSq = Veh83DStore(energy);
++    if (energy > adhesionSq) {
++        if (*wheelState != WHEEL_STATE_FIXED) {
++            *wheelState = bDriving && contactSpeedFwd < kSpinSpeed ? WHEEL_STATE_SPINNING : WHEEL_STATE_SKIDDING;
++        }
++        const double tractionLoss = wasSkidding ? 1.0 : static_cast<double>(m_pHandlingData->m_fTractionLoss);
++        const double scale = Veh83DMul(Veh83DDiv(tractionLoss, Veh83DSqrt(magnitudeSq)), adhesion);
++        force = Veh83DStore(Veh83DMul(force, scale));
++        lateral = Veh83DMul(lateral, scale);
++        if (destabTraction < 1.0f) {
++            lateral = Veh83DMul(lateral, destabTraction);
++        }
++    } else if (destabTraction < 1.0f) {
++        if (!wasSkidding) {
++            destabTraction = Veh83DStore(Veh83DMul(destabTraction, m_pHandlingData->m_fTractionLoss));
++        }
++        if (Veh83DMul(Veh83DMul(adhesionSq, destabTraction), destabTraction) < magnitudeSq) {
++            lateral = Veh83DMul(lateral, Veh83DDiv(Veh83DMul(adhesion, destabTraction), Veh83DSqrt(magnitudeSq)));
++        }
++    }
++
++    if (!(force != 0.0f || lateral != 0.0)) {
++        return;
++    }
++
++    // fuerza total = lateral * derecha + fuerza * adelante (la z lateral se suma sin guardar)
++    const float fx = Veh83DStore(Veh83DMul(force, wheelFwd.x));
++    const float fy = Veh83DStore(Veh83DMul(force, wheelFwd.y));
++    const float fz = Veh83DStore(Veh83DMul(force, wheelFwd.z));
++    const float sx = Veh83DStore(Veh83DMul(lateral, wheelRight.x));
++    const float sy = Veh83DStore(Veh83DMul(lateral, wheelRight.y));
++    const double sz = Veh83DMul(lateral, wheelRight.z);
++    const CVector total{ Veh83DStore(Veh83DAdd(sx, fx)), Veh83DStore(Veh83DAdd(sy, fy)), Veh83DStore(Veh83DAdd(sz, fz)) };
++    CVector direction = total;
++    direction.Normalise(); // 0x59C910
++    const float length = Veh83DStore(Veh83DSqrt(Veh83DAdd(Veh83DAdd(Veh83DMul(total.z, total.z), Veh83DMul(total.y, total.y)), Veh83DMul(total.x, total.x))));
++    CVector arm;
++    CrossProduct(&arm, &wheelContactPoint, &direction); // 0x59C730
++    const double moveScale = Veh83DMul(m_fMass, length);
++    const double armSq = Veh83DAdd(Veh83DAdd(Veh83DMul(arm.x, arm.x), Veh83DMul(arm.y, arm.y)), Veh83DMul(arm.z, arm.z));
++    const double turnScale = Veh83DMul(Veh83DDiv(1.0, Veh83DAdd(Veh83DDiv(armSq, m_fTurnMass), Veh83DDiv(1.0, m_fMass))), length);
++    const CVector turn{ Veh83DStore(Veh83DMul(direction.x, turnScale)), Veh83DStore(Veh83DMul(direction.y, turnScale)), Veh83DStore(Veh83DMul(direction.z, turnScale)) };
++    ApplyMoveForce(CVector{ Veh83DStore(Veh83DMul(direction.x, moveScale)), Veh83DStore(Veh83DMul(direction.y, moveScale)), Veh83DStore(Veh83DMul(direction.z, moveScale)) }); // 0x5429F0
++
++    const CVector& right = m_matrix->GetRight();
++    const CVector& forward = m_matrix->GetForward();
++    const CVector& cp = wheelContactPoint;
++    const float turnRight = Veh83DStore(Veh83DAdd(Veh83DAdd(Veh83DMul(turn.z, right.z), Veh83DMul(turn.y, right.y)), Veh83DMul(turn.x, right.x)));
++    const float armRight = Veh83DStore(Veh83DAdd(Veh83DAdd(Veh83DMul(right.y, cp.y), Veh83DMul(right.z, cp.z)), Veh83DMul(cp.x, right.x)));
++    const float armForward = Veh83DStore(Veh83DAdd(Veh83DAdd(Veh83DMul(forward.y, cp.y), Veh83DMul(forward.z, cp.z)), Veh83DMul(cp.x, forward.x)));
++    if (wheelId != 1 || (!bBraking && !bReversing)) {
++        // fuerza de giro lateral: se quita la componente sobre el eje derecho (la z de cada producto se guarda como float)
++        const double armX = Veh83DMul(armRight, right.x);
++        const double armY = Veh83DMul(armRight, right.y);
++        const float armZ = Veh83DStore(Veh83DMul(armRight, right.z));
++        const CVector point{ Veh83DStore(Veh83DSub(cp.x, armX)), Veh83DStore(Veh83DSub(cp.y, armY)), Veh83DStore(Veh83DSub(cp.z, armZ)) };
++        const double rightX = Veh83DMul(turnRight, right.x);
++        const double rightY = Veh83DMul(turnRight, right.y);
++        const float rightZ = Veh83DStore(Veh83DMul(turnRight, right.z));
++        const float turnX = Veh83DStore(Veh83DSub(turn.x, rightX));
++        const double turnY = Veh83DSub(turn.y, rightY);
++        const double turnZ = Veh83DSub(turn.z, rightZ);
++        ApplyTurnForce(CVector{ Veh83DStore(Veh83DMul(turnX, kTurnScale)), Veh83DStore(Veh83DMul(turnY, kTurnScale)), Veh83DStore(Veh83DMul(turnZ, kTurnScale)) }, point); // 0x542A50
++    }
++    ApplyTurnForce(CVector{ Veh83DStore(Veh83DMul(turnRight, right.x)), Veh83DStore(Veh83DMul(turnRight, right.y)), Veh83DStore(Veh83DMul(turnRight, right.z)) },
++                   CVector{ Veh83DStore(Veh83DMul(armForward, forward.x)), Veh83DStore(Veh83DMul(armForward, forward.y)), Veh83DStore(Veh83DMul(armForward, forward.z)) }); // 0x542A50
+ }
+ 
+ // 0x6D7BC0
+diff --git a/source/game_sa/X87Math.cpp b/source/game_sa/X87Math.cpp
+index 14d6bf9c3..6e36fd205 100644
+--- a/source/game_sa/X87Math.cpp
++++ b/source/game_sa/X87Math.cpp
+@@ -17635,3 +17635,26 @@ __declspec(noinline) float __cdecl Veh83CRandStore(int random, float min, float
+     return Veh83BStore(Veh83CRandExact(random, min, max));
+ }
+ #pragma float_control(pop)
++
++// --- Lote 83D (Veh83D): CVehicle::ProcessBikeWheel (0x6D73B0), prefijo Veh83D. Anadido al FINAL ---
++// Operaciones de la x87 a 24 bits (exponente ampliado): un valor en el registro es un double ya redondeado; `fstp dword` es Veh83DStore (desnormales incluidos).
++#pragma float_control(precise, on, push)
++__declspec(noinline) double __cdecl Veh83DMul(double a, double b) {
++    return Player82ARound24(a * b);
++}
++__declspec(noinline) double __cdecl Veh83DAdd(double a, double b) {
++    return Player82ARound24(a + b);
++}
++__declspec(noinline) double __cdecl Veh83DSub(double a, double b) {
++    return Player82ARound24(a - b);
++}
++__declspec(noinline) double __cdecl Veh83DDiv(double a, double b) {
++    return Player82ARound24(a / b);
++}
++__declspec(noinline) double __cdecl Veh83DSqrt(double a) {
++    return Player82ARound24(std::sqrt(a));
++}
++__declspec(noinline) float __cdecl Veh83DStore(double a) {
++    return Veh83BStore(a);
++}
++#pragma float_control(pop)
+diff --git a/source/game_sa/X87Math.h b/source/game_sa/X87Math.h
+index 352e46a86..151413a89 100644
+--- a/source/game_sa/X87Math.h
++++ b/source/game_sa/X87Math.h
+@@ -2164,3 +2164,10 @@ double __cdecl Veh83CMagnitude2D(float x, float y);                  // sqrt(x*x
+ int32_t __cdecl Veh83CTrailCount(const float* step, float scale);    // _ftol2(|step| * escala)
+ float __cdecl Veh83CNormalise(float* v);                             // CVector::NormaliseAndMag (0x59C970): devuelve la fuerza
+ float __cdecl Veh83CRandStore(int random, float min, float max);     // 0x41BD90 con el rand() del EXE, guardado como float
++// Lote 83D: CVehicle::ProcessBikeWheel (0x6D73B0): operaciones de la x87 a 24 bits sobre el registro (double ya redondeado) y guardado `fstp dword`
++double __cdecl Veh83DMul(double a, double b);
++double __cdecl Veh83DAdd(double a, double b);
++double __cdecl Veh83DSub(double a, double b);
++double __cdecl Veh83DDiv(double a, double b);
++double __cdecl Veh83DSqrt(double a);
++float __cdecl Veh83DStore(double a);                                 // fstp dword

@@ -17635,3 +17635,26 @@ __declspec(noinline) float __cdecl Veh83CRandStore(int random, float min, float 
     return Veh83BStore(Veh83CRandExact(random, min, max));
 }
 #pragma float_control(pop)
+
+// --- Lote 83D (Veh83D): CVehicle::ProcessBikeWheel (0x6D73B0), prefijo Veh83D. Anadido al FINAL ---
+// Operaciones de la x87 a 24 bits (exponente ampliado): un valor en el registro es un double ya redondeado; `fstp dword` es Veh83DStore (desnormales incluidos).
+#pragma float_control(precise, on, push)
+__declspec(noinline) double __cdecl Veh83DMul(double a, double b) {
+    return Player82ARound24(a * b);
+}
+__declspec(noinline) double __cdecl Veh83DAdd(double a, double b) {
+    return Player82ARound24(a + b);
+}
+__declspec(noinline) double __cdecl Veh83DSub(double a, double b) {
+    return Player82ARound24(a - b);
+}
+__declspec(noinline) double __cdecl Veh83DDiv(double a, double b) {
+    return Player82ARound24(a / b);
+}
+__declspec(noinline) double __cdecl Veh83DSqrt(double a) {
+    return Player82ARound24(std::sqrt(a));
+}
+__declspec(noinline) float __cdecl Veh83DStore(double a) {
+    return Veh83BStore(a);
+}
+#pragma float_control(pop)

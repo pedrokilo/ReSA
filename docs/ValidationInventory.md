@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,978 entradas reversed=1**, de 8,978 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,979 entradas reversed=1**, de 8,979 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8978 |
+| `validated=1` · evidencia aprobada vinculada | 8979 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8978 |
+| Evidencia histórica vinculada; revisión pendiente | 8979 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -7773,6 +7773,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CVehicle | `PossiblyDropFreeFallBombForPlayer` | [Resumen](../reversing/Vehicle66/validation-summary.json) |
 | CVehicle | `PreRender` | [Resumen](../reversing/CVehD/validation-summary.json) |
 | CVehicle | `PreRenderDriverAndPassengers` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `ProcessBikeWheel` | [Resumen](../reversing/Veh83D/validation-summary.json) |
 | CVehicle | `ProcessBoatControl` | [Resumen](../reversing/CVehE/validation-summary.json) |
 | CVehicle | `ProcessCarAlarm` | [Resumen](../reversing/CVehB/validation-summary.json) |
 | CVehicle | `ProcessDelayedExplosion` | [Resumen](../reversing/CVehB/validation-summary.json) |
@@ -9741,7 +9742,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTxdStore` | 26 | 0 | 26 | 0 |
 | `CUpsideDownCarCheck` | 5 | 0 | 5 | 0 |
 | `CUserDisplay` | 2 | 0 | 2 | 0 |
-| `CVehicle` | 167 | 0 | 167 | 0 |
+| `CVehicle` | 168 | 0 | 168 | 0 |
 | `CVehicleAnimGroup` | 5 | 0 | 5 | 0 |
 | `CVehicleAnimGroupData` | 5 | 0 | 5 | 0 |
 | `CVehicleModelInfo` | 75 | 0 | 75 | 0 |

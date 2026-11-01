@@ -3713,6 +3713,7 @@ CVehicle,ProcessCarAlarm,0x006D21F0,1,0,1,S
 CVehicle,ProcessDelayedExplosion,0x006D1340,1,0,1,S
 CVehicle,ProcessDrivingAnims,0x00000000,1,0,1,V
 CVehicle,ProcessOpenDoor,0x00000000,1,0,1,V
+CVehicle,ProcessBikeWheel,0x006D73B0,1,0,1,S
 CVehicle,ProcessWheel,0x006D6C00,1,0,1,S
 CVehicle,ProcessWheelRotation,0x006D1230,1,0,1,S
 CVehicle,QueryPickedUpEntityWithWinch,0x006D3CF0,1,0,1,S

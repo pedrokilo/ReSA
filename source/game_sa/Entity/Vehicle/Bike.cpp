@@ -1531,9 +1531,9 @@ void CBike::ProcessControl() {
             }
             frontState = m_WheelStates[0];
             CVector contactSpeedFront = wheelContactSpeed(frontPoint, frontIdx);
-            // ProcessBikeWheel reenvia al EXE (0x6D73B0) con adhesion y destabTraction intercambiados: el 8o argumento del EXE es grip * traccion y el 9o el deslizamiento.
+            // ProcessBikeWheel (0x6D73B0): el 8o argumento es el agarre (grip * traccion) y el 9o el factor de deslizamiento
             ProcessBikeWheel(wheelForward, wheelRight, contactSpeedFront, frontPoint, 2, wheelThrust, frontBias * brakeForce,
-                             /*adhesion (9o arg. del EXE)*/ slide, /*destabTraction (8o arg. del EXE)*/ grip * tractionBias,
+                             /*adhesion*/ grip * tractionBias, /*destabTraction*/ slide,
                              0, &m_aWheelAngularVelocity[0], &frontState, 0, uint16(m_nWheelStatus[0]));
             clearWheelStateIfRequested(frontState);
         };
@@ -1588,7 +1588,7 @@ void CBike::ProcessControl() {
             rearState = m_WheelStates[1];
             CVector contactSpeedRear = wheelContactSpeed(rearPoint, rearIdx);
             ProcessBikeWheel(wheelForward, wheelRight, contactSpeedRear, rearPoint, 2, wheelThrust, rearBrake * rearBias,
-                             /*adhesion (9o arg. del EXE)*/ slide, /*destabTraction (8o arg. del EXE)*/ grip * tractionBiasInv,
+                             /*adhesion*/ grip * tractionBiasInv, /*destabTraction*/ slide,
                              1, &m_aWheelAngularVelocity[1], &rearState, 1, uint16(m_nWheelStatus[1]));
             clearWheelStateIfRequested(rearState);
         } else {

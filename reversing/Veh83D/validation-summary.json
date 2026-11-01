@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "pairs": 18432,
+  "differences": 0,
+  "registered_pairs": 18432,
+  "registered_functions": 1,
+  "functions": {
+    "CVehicle::ProcessBikeWheel": 18432
+  },
+  "covered_functions": {
+    "CVehicle::ProcessBikeWheel": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 30c8df96e + cambios del lote 83D; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CVector::Normalise 0x59C910, CrossProduct 0x59C730, CPhysical::ApplyMoveForce(CVector) 0x5429F0 y CPhysical::ApplyTurnForce 0x542A50; los de salida (Normalise, CrossProduct) escriben los valores que da cada caso. Corren de verdad rand() del CRT del EXE (0x821B1E, semilla fijada por lado), CTimer::ms_fTimeStep, gHandlingDataMgr.fWheelFriction, el CHandlingData, la matriz del vehiculo y las estaticas 0xC1CDAF..0xC1CDB2 (regiones restauradas). El banco compara el orden y todos los argumentos de los falsos, los sorteos de rand(), el estado de la rueda y las estaticas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: NaN con cargas distintas (las fixtures usan un unico patron), valores de las estaticas 0xC1CDAF..0xC1CDB2 distintos de 0/1, wheelSpeed (no se lee) y salidas de los colaboradores incoherentes con la entrada (Normalise y CrossProduct devuelven lo que dice el caso, no el calculo real).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Veh83D-20261101-061533-966790",
+  "summary_sha256": "f4806bc584068bb706b457b81a0f7ec60cee562e1bc13b7169cdc62bc31414fc",
+  "result_txt_sha256": "6b0a38181ab009e1c13464b471f8c81ccfea192ecbf8da9dd9419f974cae5e06",
+  "log_sha256": "3c224ccac67c85d9336337399f2d1d0a290dbc2ca3cb732163defa11ce5c23dd",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "5c9355a955a6e91890f8c2988ebab4be9e8a38be9cf5b288137ac3615e25bae6",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/X87Math.cpp": "87e3f62c035b969c59bf7c062382ff696b9c73d05e879c1a084e0f16fec17dbe",
+      "source/game_sa/X87Math.h": "448a81f7318aa36c0a8293731283cd5dd5268400b6991e4600eece40692c9776",
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "c1abcc12b1e4d36f0195ab55b747e0b84358514d3c3ef6baa44ea85f12013661",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
+      "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Veh83D/LiveComparison.hpp": "f356849874c0ded149230a40e65ed5efaabd35e945f220e5a91262cef78c6af6",
+      "reversing/Veh83D/Core.hpp": "b9d984ce538059d03d5fa5f0c99108699d9675d0492fc8196becdcc1fd2b9dcd",
+      "reversing/Veh83D/Fixtures.hpp": "e0f435277c36469e7eaa6879b2ae44795cd03fb4e0dbe4daad9d6b31628ab428",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

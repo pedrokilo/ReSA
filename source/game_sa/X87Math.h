@@ -2164,3 +2164,10 @@ double __cdecl Veh83CMagnitude2D(float x, float y);                  // sqrt(x*x
 int32_t __cdecl Veh83CTrailCount(const float* step, float scale);    // _ftol2(|step| * escala)
 float __cdecl Veh83CNormalise(float* v);                             // CVector::NormaliseAndMag (0x59C970): devuelve la fuerza
 float __cdecl Veh83CRandStore(int random, float min, float max);     // 0x41BD90 con el rand() del EXE, guardado como float
+// Lote 83D: CVehicle::ProcessBikeWheel (0x6D73B0): operaciones de la x87 a 24 bits sobre el registro (double ya redondeado) y guardado `fstp dword`
+double __cdecl Veh83DMul(double a, double b);
+double __cdecl Veh83DAdd(double a, double b);
+double __cdecl Veh83DSub(double a, double b);
+double __cdecl Veh83DDiv(double a, double b);
+double __cdecl Veh83DSqrt(double a);
+float __cdecl Veh83DStore(double a);                                 // fstp dword
