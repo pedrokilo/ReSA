@@ -8845,6 +8845,7 @@ CCarCtrl,ScanForPedDanger,0x0042CE40,1,0,1,S
 CCarCtrl,SetCoordsOfScriptCar,0x004342A0,1,0,1,S
 CCarCtrl,FindMaximumSpeedForThisCarInTraffic,0x00434400,1,0,1,S
 CCarCtrl,PickNextNodeAccordingStrategy,0x00432B10,1,0,1,S
+CCarCtrl,PickNextNodeRandomly,0x0042DE80,1,0,1,S
 CCarCtrl,JoinCarWithRoadSystem,0x0042F5A0,1,0,1,S
 CCarCtrl,JoinCarWithRoadSystemGotoCoors,0x0042F870,1,0,1,S
 CCarCtrl,ReconsiderRoute,0x0042FC40,1,0,1,S

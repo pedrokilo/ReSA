@@ -539164,7 +539164,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlRest63C/validation-summary.json",
-        "sha256": "2c0c543d3fae6cd4a8c650f6549d9a82cbbad8eb68dfb89e9dec333ec5284e3c",
+        "sha256": "159b8552e04fd11cdbbc67ff7c31160ca3f663c40e1d06a76b8b4ac8f4d92fff",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::PickNextNodeAccordingStrategy"
@@ -539174,12 +539174,12 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/game_sa/CarCtrl.cpp": "a2a8c49829a45039c8275decb586a4c845db8c1781e27770afe5194ffb6c9588",
-        "source/game_sa/CarCtrl.h": "839c30f512d0d453d3c5ede12522b5104f7788fab874bf9cf8802b98ee09b49d",
-        "source/game_sa/X87Math.cpp": "544d7f4d9ff0cc13613206d60f611801b59da379cd8b4ae4e9afcc410f63fc58",
-        "source/game_sa/X87Math.h": "d2933f31fbe910a6ba6ee6e3abe717e599e5e8bf865a5fc5af98c1b102d97065",
+        "source/game_sa/CarCtrl.cpp": "18ebe876bc66c47ce10e8491839f46af65cfc7efa5311a84ccff18bc4dcb57c6",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+        "source/game_sa/X87Math.cpp": "921edd3f8cc299b433419a8ed425ce830e35b55f41b6bab2e939633a2c33f67d",
+        "source/game_sa/X87Math.h": "4f32222b1ddef50be9360058f08574b5d1197160b1a8210f124ba164cd1e6f49",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlRest63C/LiveComparison.hpp": "0bf3dcc6ac14c170f595155c879ed721a74ba0753fb5694d28a82d61f73652f2",
+        "reversing/CarCtrlRest63C/LiveComparison.hpp": "ec708e83bcccc05eee104b34b9d6fda639eed3d233eb21ab065faf8c7510ab9d",
         "reversing/CarCtrlRest63C/Core.hpp": "1be54a0d7f4ef654db1b487b00718bbd594510b074b6d897a8d1c5763d496161",
         "reversing/CarCtrlRest63C/Cases.hpp": "a88307833aa175fdd36a11b4d07e2e76e9cc9786251369206146a5cd35aa8b4e",
         "reversing/CarCtrlRest63C/Fixtures.hpp": "4fc1278b4502f8243dbcae839bdf991ee9851e368bdcbdf11fd98700f4976b57",
@@ -539200,7 +539200,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlRest63C/validation-summary.json",
-        "sha256": "2c0c543d3fae6cd4a8c650f6549d9a82cbbad8eb68dfb89e9dec333ec5284e3c",
+        "sha256": "159b8552e04fd11cdbbc67ff7c31160ca3f663c40e1d06a76b8b4ac8f4d92fff",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::JoinCarWithRoadSystem"
@@ -539210,12 +539210,12 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/game_sa/CarCtrl.cpp": "a2a8c49829a45039c8275decb586a4c845db8c1781e27770afe5194ffb6c9588",
-        "source/game_sa/CarCtrl.h": "839c30f512d0d453d3c5ede12522b5104f7788fab874bf9cf8802b98ee09b49d",
-        "source/game_sa/X87Math.cpp": "544d7f4d9ff0cc13613206d60f611801b59da379cd8b4ae4e9afcc410f63fc58",
-        "source/game_sa/X87Math.h": "d2933f31fbe910a6ba6ee6e3abe717e599e5e8bf865a5fc5af98c1b102d97065",
+        "source/game_sa/CarCtrl.cpp": "18ebe876bc66c47ce10e8491839f46af65cfc7efa5311a84ccff18bc4dcb57c6",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+        "source/game_sa/X87Math.cpp": "921edd3f8cc299b433419a8ed425ce830e35b55f41b6bab2e939633a2c33f67d",
+        "source/game_sa/X87Math.h": "4f32222b1ddef50be9360058f08574b5d1197160b1a8210f124ba164cd1e6f49",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlRest63C/LiveComparison.hpp": "0bf3dcc6ac14c170f595155c879ed721a74ba0753fb5694d28a82d61f73652f2",
+        "reversing/CarCtrlRest63C/LiveComparison.hpp": "ec708e83bcccc05eee104b34b9d6fda639eed3d233eb21ab065faf8c7510ab9d",
         "reversing/CarCtrlRest63C/Core.hpp": "1be54a0d7f4ef654db1b487b00718bbd594510b074b6d897a8d1c5763d496161",
         "reversing/CarCtrlRest63C/Cases.hpp": "a88307833aa175fdd36a11b4d07e2e76e9cc9786251369206146a5cd35aa8b4e",
         "reversing/CarCtrlRest63C/Fixtures.hpp": "4fc1278b4502f8243dbcae839bdf991ee9851e368bdcbdf11fd98700f4976b57",
@@ -539236,7 +539236,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlRest63C/validation-summary.json",
-        "sha256": "2c0c543d3fae6cd4a8c650f6549d9a82cbbad8eb68dfb89e9dec333ec5284e3c",
+        "sha256": "159b8552e04fd11cdbbc67ff7c31160ca3f663c40e1d06a76b8b4ac8f4d92fff",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::JoinCarWithRoadSystemGotoCoors"
@@ -539246,12 +539246,12 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/game_sa/CarCtrl.cpp": "a2a8c49829a45039c8275decb586a4c845db8c1781e27770afe5194ffb6c9588",
-        "source/game_sa/CarCtrl.h": "839c30f512d0d453d3c5ede12522b5104f7788fab874bf9cf8802b98ee09b49d",
-        "source/game_sa/X87Math.cpp": "544d7f4d9ff0cc13613206d60f611801b59da379cd8b4ae4e9afcc410f63fc58",
-        "source/game_sa/X87Math.h": "d2933f31fbe910a6ba6ee6e3abe717e599e5e8bf865a5fc5af98c1b102d97065",
+        "source/game_sa/CarCtrl.cpp": "18ebe876bc66c47ce10e8491839f46af65cfc7efa5311a84ccff18bc4dcb57c6",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+        "source/game_sa/X87Math.cpp": "921edd3f8cc299b433419a8ed425ce830e35b55f41b6bab2e939633a2c33f67d",
+        "source/game_sa/X87Math.h": "4f32222b1ddef50be9360058f08574b5d1197160b1a8210f124ba164cd1e6f49",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlRest63C/LiveComparison.hpp": "0bf3dcc6ac14c170f595155c879ed721a74ba0753fb5694d28a82d61f73652f2",
+        "reversing/CarCtrlRest63C/LiveComparison.hpp": "ec708e83bcccc05eee104b34b9d6fda639eed3d233eb21ab065faf8c7510ab9d",
         "reversing/CarCtrlRest63C/Core.hpp": "1be54a0d7f4ef654db1b487b00718bbd594510b074b6d897a8d1c5763d496161",
         "reversing/CarCtrlRest63C/Cases.hpp": "a88307833aa175fdd36a11b4d07e2e76e9cc9786251369206146a5cd35aa8b4e",
         "reversing/CarCtrlRest63C/Fixtures.hpp": "4fc1278b4502f8243dbcae839bdf991ee9851e368bdcbdf11fd98700f4976b57",
@@ -544152,6 +544152,42 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD b2d657293 + cambios del lote 83G; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CVector::Normalise 0x59C910, CrossProduct 0x59C730, CWorld::ProcessLineOfSight 0x56BA00, CCoronas::RegisterCorona 0x6FC580 y CShadows::StoreShadowToBeRendered 0x707390; RwIm3DTransform 0x7EF450, RwIm3DRenderIndexedPrimitive 0x7EF550 y RwIm3DEnd 0x7EF520 llevan el falso solo en la direccion del EXE (la DLL las llama por esa direccion). Normalise y CrossProduct calculan de verdad con los ayudantes x87 (Veh83CNormalise, Veh83D*); los demas escriben o devuelven los valores del caso. Corren de verdad _ftol2 del EXE (0x821B40), fsin/fcos de la x87, TheCamera (puntero a la matriz y posicion), gpShadowExplosionTex y el bufer temporal de vertices e indices (regiones restauradas). El banco compara el orden y todos los argumentos de los falsos (traza de los 24 primeros y FNV-1a de todos), los contadores, los vertices, los indices y las salidas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: NaN con cargas distintas (las fixtures usan un unico patron), el retorno de RwIm3DTransform distinto de nulo/vertices, la entidad que devuelve ProcessLineOfSight (no se lee), camara con matriz nula y posicion NaN con carga distinta, y salidas de CrossProduct/Normalise reales del EXE (los falsos usan los ayudantes x87; sus cuerpos estan validados en sus propios bancos).",
       "review_reference": "reversing/Heli83G/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "PickNextNodeRandomly",
+        "address": "0x0042DE80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Car84A/validation-summary.json",
+        "sha256": "fa150bcfa104dbe55666e36f6b1ae95569a13562849baed91e7ece74918a4fa3",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::PickNextNodeRandomly"
+        ],
+        "pairs": 18432,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/X87Math.cpp": "921edd3f8cc299b433419a8ed425ce830e35b55f41b6bab2e939633a2c33f67d",
+        "source/game_sa/X87Math.h": "4f32222b1ddef50be9360058f08574b5d1197160b1a8210f124ba164cd1e6f49",
+        "source/game_sa/CarCtrl.cpp": "18ebe876bc66c47ce10e8491839f46af65cfc7efa5311a84ccff18bc4dcb57c6",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Car84A/LiveComparison.hpp": "0d95bd4956e837ec7b2c2e37aaa8286592fc9f5b7d9fc1288e75b11a3ba68840",
+        "reversing/Car84A/Core.hpp": "e6266502554fe9adbc0c28e5a84a44939fac8931e1b04f1df53160863876eea6",
+        "reversing/Car84A/Fixtures.hpp": "be4a4008735871d896b3b2cda45b64b5bc9f4ba12d99741f3974f1fcbc9bc151",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 299f931c1 + cambios del lote 84A; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CCarCtrl::InitSequence 0x421740, ThisVehicleShouldTryNotToTurn 0x421FE0, FindPathDirection 0x422090, IsThisAnAppropriateNode 0x42DAB0, CAutoPilot::ModifySpeed 0x41B980 y CCurves::CalcSpeedScaleFactor 0x43C710. Corren de verdad en ambos lados srand/rand/_ftol2 del CRT del EXE (semilla fijada por lado), 0x44DB00 (en el EXE; la DLL lleva CCarPathLink::OneWayLaneOffset), FindSequenceElement y las constantes de .rdata; el mundo de caminos son arenas del banco enlazadas desde ThePaths (cuatro tablas por area, restauradas). El banco compara el orden y todos los argumentos de los falsos (con el estado del piloto en ese instante), el estado final del piloto y del vehiculo, las tablas del mundo, las estaticas de la secuencia, el reloj y la semilla de rand(); cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: el desplazamiento de la secuencia negativo (indices fuera de la tabla), nodos o enlaces con identificadores fuera de las arenas, areas cargadas con numeros de nodo o enlace invalidos, NaN con cargas distintas (las fixtures usan un unico patron) y bytes altos de los argumentos booleanos de IsThisAnAppropriateNode.",
+      "review_reference": "reversing/Car84A/README.md"
     }
   ]
 }

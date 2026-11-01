@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 18432,
+  "differences": 0,
+  "registered_pairs": 18432,
+  "registered_functions": 1,
+  "functions": {
+    "CCarCtrl::PickNextNodeRandomly": 18432
+  },
+  "covered_functions": {
+    "CCarCtrl::PickNextNodeRandomly": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 299f931c1 + cambios del lote 84A; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CCarCtrl::InitSequence 0x421740, ThisVehicleShouldTryNotToTurn 0x421FE0, FindPathDirection 0x422090, IsThisAnAppropriateNode 0x42DAB0, CAutoPilot::ModifySpeed 0x41B980 y CCurves::CalcSpeedScaleFactor 0x43C710. Corren de verdad en ambos lados srand/rand/_ftol2 del CRT del EXE (semilla fijada por lado), 0x44DB00 (en el EXE; la DLL lleva CCarPathLink::OneWayLaneOffset), FindSequenceElement y las constantes de .rdata; el mundo de caminos son arenas del banco enlazadas desde ThePaths (cuatro tablas por area, restauradas). El banco compara el orden y todos los argumentos de los falsos (con el estado del piloto en ese instante), el estado final del piloto y del vehiculo, las tablas del mundo, las estaticas de la secuencia, el reloj y la semilla de rand(); cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: el desplazamiento de la secuencia negativo (indices fuera de la tabla), nodos o enlaces con identificadores fuera de las arenas, areas cargadas con numeros de nodo o enlace invalidos, NaN con cargas distintas (las fixtures usan un unico patron) y bytes altos de los argumentos booleanos de IsThisAnAppropriateNode.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Car84A-20261101-123521-395423",
+  "summary_sha256": "98d0846c1d4cf5668862e89537ec8783c41b610c789f67e072ea67806d8bee15",
+  "result_txt_sha256": "a24805938db801716e79110b7ac2314b6cd345c6f611e4e34668582032a0de22",
+  "log_sha256": "9afd3eb8dc335f6d5c485ba651f2a5f87e63431e94db977f4bae02d5e48ab4bd",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "5ec3a4e96f797c8bdb8d5050b3e471bf857728e3396a8e0e29dc2756e7ac8a47",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/X87Math.cpp": "921edd3f8cc299b433419a8ed425ce830e35b55f41b6bab2e939633a2c33f67d",
+      "source/game_sa/X87Math.h": "4f32222b1ddef50be9360058f08574b5d1197160b1a8210f124ba164cd1e6f49",
+      "source/game_sa/CarCtrl.cpp": "18ebe876bc66c47ce10e8491839f46af65cfc7efa5311a84ccff18bc4dcb57c6",
+      "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Car84A/LiveComparison.hpp": "0d95bd4956e837ec7b2c2e37aaa8286592fc9f5b7d9fc1288e75b11a3ba68840",
+      "reversing/Car84A/Core.hpp": "e6266502554fe9adbc0c28e5a84a44939fac8931e1b04f1df53160863876eea6",
+      "reversing/Car84A/Fixtures.hpp": "be4a4008735871d896b3b2cda45b64b5bc9f4ba12d99741f3974f1fcbc9bc151",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}
