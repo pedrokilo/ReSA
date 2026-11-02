@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 02/11/2026 (Ciudad de México):** 820 grupos / 8991 funciones reconstruidas; 8991 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 02/11/2026 (Ciudad de México):** 820 grupos / 8992 funciones reconstruidas; 8992 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo A: Falta: llamada desde código ya reemplazado
@@ -85,6 +85,7 @@
 | `0x0059C970` | 95 | CQuaternion | baja | 19 (16) |  |
 | `0x0062F360` | 11 | CTaskSimpleStandStill | alta | 38 (16) |  |
 | `0x0059C670` | 90 | CQuaternion | baja | 15 (15) |  |
+| `0x00403D60` | 48 | CEntity | baja | 15 (15) |  |
 | `0x00406D70` | 33 | CdStream | baja | 15 (15) |  |
 | `0x00409C70` | 30 | CStreaming | alta | 15 (15) |  |
 | `0x004A8EC0` | 4 | FxInfoManager_c | baja | 15 (15) |  |
@@ -94,12 +95,11 @@
 | `0x00733910` | 115 | CVisibilityPlugins | alta | 13 (13) |  |
 | `0x004AF890` | 81 | CEventAcquaintancePed | alta | 21 (13) |  |
 | `0x005A8080` | 78 | CPedClothesDesc | baja | 14 (13) |  |
-| `0x00403D60` | 48 | CEntity | baja | 15 (13) |  |
+| `0x00420920` | 35 | CCarAI | baja | 14 (13) |  |
 | `0x00638290` | 725 | CTaskComplexSunbathe | baja | 12 (12) |  |
 | `0x006389F0` | 79 | CTaskComplexWaitForBus | baja | 27 (12) |  |
 | `0x00509760` | 72 | CAudioZones | baja | 12 (12) |  |
 | `0x0048DF30` | 42 | CTaskSimpleCower | baja | 13 (12) |  |
-| `0x00420920` | 35 | CCarAI | baja | 14 (12) |  |
 | `0x00619440` | 5 | Rs | alta | 12 (12) |  |
 | `0x0074C800` | 595 | Win | baja | 14 (11) |  |
 | `0x0059B2C0` | 202 | CMaths | baja | 12 (11) |  |
@@ -397,6 +397,7 @@
 | `0x005F7660` | 46 | CPedGroupIntelligence | alta | 2 (2) |  |
 | `0x005404F0` | 45 | CPad | alta | 2 (2) |  |
 | `0x004637E0` | 44 | CTaskSimpleFinishBrain | baja | 31 (2) |  |
+| `0x00420980` | 43 | CCarAI | baja | 4 (2) |  |
 | `0x004E3350` | 43 | CAEPedAudioEntity | baja | 2 (2) |  |
 | `0x006985E0` | 43 | CTaskComplexReactToGunAimedAt | baja | 2 (2) |  |
 | `0x0074DBF0` | 39 | Win | baja | 5 (2) |  |
@@ -991,7 +992,6 @@
 | `0x005CCCC0` | 48 | FxEmitterBP_c | baja | 1 (0) |  |
 | `0x005EAE40` | 48 | CPedAttractorPool | baja | 3 (0) |  |
 | `0x005EB2E0` | 46 | CPedAttractor | alta | 3 (0) |  |
-| `0x00420980` | 43 | CCarAI | baja | 4 (0) |  |
 | `0x005EC0E0` | 42 | CPedAttractorManager | baja | 1 (0) |  |
 | `0x005EC140` | 42 | CPedAttractorManager | baja | 1 (0) |  |
 | `0x005EAAC0` | 41 | CPedAttractorPool | baja | 1 (0) |  |
