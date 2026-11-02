@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CPlayerPed
- * Reconstrucción: COMPLETA — 63/63 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 64/64 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 63/63 entradas.
+ * Validación registrada: 64/64 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -85,6 +85,8 @@ static float __declspec(safebuffers) __fastcall GetButtonSprintResultsKeepEdx(CP
 }
 #pragma runtime_checks("", restore)
 
+namespace { bool JoinGroupFlags(); }
+
 void CPlayerPed::InjectHooks() {
     RH_ScopedVirtualClass(CPlayerPed, 0x86D168, 26);
     RH_ScopedCategory("Entity/Ped");
@@ -114,6 +116,7 @@ void CPlayerPed::InjectHooks() {
     RH_ScopedInstall(DrawTriangleForMouseRecruitPed, 0x60BA80);
     RH_ScopedInstall(Compute3rdPersonMouseTarget, 0x60B650);
     RH_ScopedInstall(SetRealMoveAnim, 0x60A9C0);
+    RH_ScopedNamedGlobalInstall(JoinGroupFlags, "JoinGroupFlags", 0x609380);
     RH_ScopedInstall(ClearWeaponTarget, 0x609c80);
     RH_ScopedInstall(GetWeaponRadiusOnScreen, 0x609CD0);
     RH_ScopedInstall(PedCanBeTargettedVehicleWise, 0x609D90);
@@ -1693,9 +1696,9 @@ void CPlayerPed::ForceGroupToNeverFollow(bool enable) {
 }
 
 namespace {
-// 0x609380 (cdecl, sin argumentos; devuelve AL): (byte 0x96917C | byte 0x96917D | byte 0x96917E) != 0. Sin reconstruir: se llama por la direccion del EXE.
-bool JoinGroupFlagsExe() {
-    return plugin::CallAndReturn<bool, 0x609380>();
+// 0x609380 (cdecl, sin argumentos; devuelve AL): (byte 0x96917C | byte 0x96917D | byte 0x96917E) != 0.
+bool JoinGroupFlags() {
+    return *reinterpret_cast<const uint8*>(0x96917C) || *reinterpret_cast<const uint8*>(0x96917D) || *reinterpret_cast<const uint8*>(0x96917E);
 }
 } // namespace
 
@@ -1736,7 +1739,7 @@ void CPlayerPed::MakeThisPedJoinOurGroup(CPed* ped) {
     }
 
     bool join = false;
-    if (JoinGroupFlagsExe()) { // 0x609380
+    if (JoinGroupFlags()) { // 0x609380
         join = group().GetMembership().CountMembersExcludingLeader() < 7; // 0x5F6AA0
     }
     if (!join) {
@@ -2034,7 +2037,7 @@ void CPlayerPed::ProcessGroupBehaviour(CPad* pad) {
         } else {
             const uint16 held = data->m_nPadUpPressedInMilliseconds;
             if (held != 0 && held < HOLD_TIME) {
-                if (TargetIsPed() && (static_cast<CPed*>(target)->m_nPedType == 8 || JoinGroupFlagsExe())) { // 0x609380 solo si el tipo no es 8
+                if (TargetIsPed() && (static_cast<CPed*>(target)->m_nPedType == 8 || JoinGroupFlags())) { // 0x609380 solo si el tipo no es 8
                     if (!(data->m_nPlayerFlags & GROUP_STUFF_DISABLED)) { // con el puntero leido antes de las llamadas
                         MakeThisPedJoinOurGroup(static_cast<CPed*>(target)); // 0x60C840
                     }

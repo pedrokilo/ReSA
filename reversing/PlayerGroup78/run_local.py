@@ -24,7 +24,7 @@ EXPECTED = {n: CASES for n in NAMES}
 GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh_restored', 'route_ok', 'collaborators_dll', 'globals_restored', 'floating_state_restored')
 HOOKS = {NAMES[0]: 0x60D350}
 # (direccion del EXE, hooked) EN EL ORDEN de LiveComparison.hpp
-STUBBED = {NAMES[0]: [(0x56E0D0, True), (0x541190, True), (0x5411B0, True), (0x60A0A0, True), (0x60A1D0, True), (0x60C840, True), (0x609380, False), (0x56E210, True),
+STUBBED = {NAMES[0]: [(0x56E0D0, True), (0x541190, True), (0x5411B0, True), (0x60A0A0, True), (0x60A1D0, True), (0x60C840, True), (0x609380, True), (0x56E210, True),
                       (0x608830, True), (0x608DA0, True), (0x608980, True)]}
 WATCHED = {a for lst in STUBBED.values() for a, _ in lst} | {0x60D350, 0x858B38, 0x858C4C}
 COVER = json.loads((HERE / 'coverage.json').read_text()) if (HERE / 'coverage.json').exists() else {}

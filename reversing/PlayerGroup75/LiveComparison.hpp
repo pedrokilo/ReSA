@@ -276,6 +276,8 @@ inline void Update() {
     const uintptr_t scaleBody=Addr(&CRadar::ChangeBlipScale);
     const uintptr_t colourBody=Addr(&CRadar::ChangeBlipColour);
     const uintptr_t friendlyBody=Addr(&CRadar::SetBlipFriendly);
+    const uintptr_t joinFlagsBody=Resolve(0x609380);   // JoinGroupFlags (0x609380) tiene hook S desde el lote 85A: el cuerpo de la DLL se obtiene del salto de la entrada (hook encendido) y se parchea con el mismo falso
+    ready&=joinFlagsBody&&ModuleOf(joinFlagsBody)==env.asi&&ReversingProbe::JumpsToDll(0x609380);
     env.route[0].reset(new HookRoute("CPlayerPed","MakeThisPedJoinOurGroup",0x60C840,HookRoute::RegisteredTarget{}));
     registered[kFn[0]]=env.route[0]->Registered();bodies[kFn[0]]=env.route[0]->Body()!=0;
     ready&=env.route[0]->Registered()&&env.route[0]->Body()&&ModuleOf(env.route[0]->Body())==env.asi;
@@ -287,7 +289,7 @@ inline void Update() {
                   {Pair{0x4E3ED0,moodBody,false},reinterpret_cast<void*>(&FakeMood)},
                   {Pair{0x559A50,findMaxBody,true},reinterpret_cast<void*>(&FakeFindMax)},
                   {Pair{0x558E40,statBody,true},reinterpret_cast<void*>(&FakeStat)},
-                  {Pair{0x609380,0,false},reinterpret_cast<void*>(&FakeJoinFlags)},
+                  {Pair{0x609380,joinFlagsBody,true},reinterpret_cast<void*>(&FakeJoinFlags)},
                   {Pair{0x5F6AA0,countBody,true},reinterpret_cast<void*>(&FakeCount)},
                   {Pair{0x5F7E80,pedsGroupBody,true},reinterpret_cast<void*>(&FakePedsGroup)},
                   {Pair{0x5FB210,removeBody,true},reinterpret_cast<void*>(&FakeRemove)},

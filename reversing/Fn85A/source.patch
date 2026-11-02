@@ -1,0 +1,308 @@
+diff --git a/source/game_sa/Entity/Ped/PlayerPed.cpp b/source/game_sa/Entity/Ped/PlayerPed.cpp
+index 90a04772d..7ed7fbb26 100644
+--- a/source/game_sa/Entity/Ped/PlayerPed.cpp
++++ b/source/game_sa/Entity/Ped/PlayerPed.cpp
+@@ -85,6 +85,8 @@ static float __declspec(safebuffers) __fastcall GetButtonSprintResultsKeepEdx(CP
+ }
+ #pragma runtime_checks("", restore)
+ 
++namespace { bool JoinGroupFlags(); }
++
+ void CPlayerPed::InjectHooks() {
+     RH_ScopedVirtualClass(CPlayerPed, 0x86D168, 26);
+     RH_ScopedCategory("Entity/Ped");
+@@ -114,6 +116,7 @@ void CPlayerPed::InjectHooks() {
+     RH_ScopedInstall(DrawTriangleForMouseRecruitPed, 0x60BA80);
+     RH_ScopedInstall(Compute3rdPersonMouseTarget, 0x60B650);
+     RH_ScopedInstall(SetRealMoveAnim, 0x60A9C0);
++    RH_ScopedNamedGlobalInstall(JoinGroupFlags, "JoinGroupFlags", 0x609380);
+     RH_ScopedInstall(ClearWeaponTarget, 0x609c80);
+     RH_ScopedInstall(GetWeaponRadiusOnScreen, 0x609CD0);
+     RH_ScopedInstall(PedCanBeTargettedVehicleWise, 0x609D90);
+@@ -1693,9 +1696,9 @@ void CPlayerPed::ForceGroupToNeverFollow(bool enable) {
+ }
+ 
+ namespace {
+-// 0x609380 (cdecl, sin argumentos; devuelve AL): (byte 0x96917C | byte 0x96917D | byte 0x96917E) != 0. Sin reconstruir: se llama por la direccion del EXE.
+-bool JoinGroupFlagsExe() {
+-    return plugin::CallAndReturn<bool, 0x609380>();
++// 0x609380 (cdecl, sin argumentos; devuelve AL): (byte 0x96917C | byte 0x96917D | byte 0x96917E) != 0.
++bool JoinGroupFlags() {
++    return *reinterpret_cast<const uint8*>(0x96917C) || *reinterpret_cast<const uint8*>(0x96917D) || *reinterpret_cast<const uint8*>(0x96917E);
+ }
+ } // namespace
+ 
+@@ -1736,7 +1739,7 @@ void CPlayerPed::MakeThisPedJoinOurGroup(CPed* ped) {
+     }
+ 
+     bool join = false;
+-    if (JoinGroupFlagsExe()) { // 0x609380
++    if (JoinGroupFlags()) { // 0x609380
+         join = group().GetMembership().CountMembersExcludingLeader() < 7; // 0x5F6AA0
+     }
+     if (!join) {
+@@ -2034,7 +2037,7 @@ void CPlayerPed::ProcessGroupBehaviour(CPad* pad) {
+         } else {
+             const uint16 held = data->m_nPadUpPressedInMilliseconds;
+             if (held != 0 && held < HOLD_TIME) {
+-                if (TargetIsPed() && (static_cast<CPed*>(target)->m_nPedType == 8 || JoinGroupFlagsExe())) { // 0x609380 solo si el tipo no es 8
++                if (TargetIsPed() && (static_cast<CPed*>(target)->m_nPedType == 8 || JoinGroupFlags())) { // 0x609380 solo si el tipo no es 8
+                     if (!(data->m_nPlayerFlags & GROUP_STUFF_DISABLED)) { // con el puntero leido antes de las llamadas
+                         MakeThisPedJoinOurGroup(static_cast<CPed*>(target)); // 0x60C840
+                     }
+diff --git a/source/game_sa/Garage.cpp b/source/game_sa/Garage.cpp
+index 6b418dcd2..e67b48191 100644
+--- a/source/game_sa/Garage.cpp
++++ b/source/game_sa/Garage.cpp
+@@ -70,6 +70,10 @@ void CGarage::InjectHooks() {
+     RH_ScopedInstall(RemoveCarsBlockingDoorNotInside, 0x449690);
+     RH_ScopedInstall(IsEntityTouching3D, 0x448EE0);
+     RH_ScopedInstall(IsEntityEntirelyOutside, 0x448D30);
++    RH_ScopedInstall(RightModTypeForThisGarage, 0x447720);
++    RH_ScopedInstall(CalcDistToGarageRectangleSquared, 0x447D80);
++    RH_ScopedInstall(RestoreCarsForThisHideOut, 0x448550);
++    RH_ScopedInstall(IsPlayerOutsideGarage, 0x448E50);
+     RH_ScopedInstall(IsStaticPlayerCarEntirelyInside, 0x44A830);
+     RH_ScopedInstall(IsEntityEntirelyInside3D, 0x448BE0);
+     RH_ScopedNamedGlobalInstall(GarageIsPointInsideRegs, "IsPointInsideGarage-point", 0x448740); // EDX/ECX del EXE: ver GarageIsPointInsideRegs
+@@ -423,6 +427,7 @@ namespace {
+ template<class T> inline T& GaField(const void* base, uint32 offset) {
+     return *reinterpret_cast<T*>(const_cast<uint8*>(reinterpret_cast<const uint8*>(base)) + offset);
+ }
++
+ inline const char* GaKey(uint32 address) { return reinterpret_cast<const char*>(address); }   // clave GXT del EXE
+ // Posicion de la entidad como el EXE: matriz + 0x30 si existe, si no m_placement (+4).
+ inline const float* GaPos(CEntity* entity) {
+@@ -433,14 +438,10 @@ inline CPed* GaFpp() { return FindPlayerPed(-1); }
+ // Metodos de CGarage que siguen siendo del EXE (sin definicion en C++): colaboradores por direccion.
+ inline bool  GaSlideDoorOpen(CGarage* g) { return plugin::CallMethodAndReturn<bool, 0x44A660, CGarage*>(g); }
+ inline bool  GaSlideDoorClosed(CGarage* g) { return plugin::CallMethodAndReturn<bool, 0x44A750, CGarage*>(g); }
+-inline bool  GaIsPlayerOutside(CGarage* g, float radius) { return plugin::CallMethodAndReturn<bool, 0x448E50, CGarage*, float>(g, radius); }
+ inline bool  GaIsAnyCarBlockingDoor(CGarage* g) { return plugin::CallMethodAndReturn<bool, 0x4494F0, CGarage*>(g); }
+ inline int32 GaCountCarsCenterWithin(CGarage* g, CVehicle* ignored) { return plugin::CallMethodAndReturn<int32, 0x4495F0, CGarage*, CVehicle*>(g, ignored); }
+ inline bool  GaIsAnyOtherPedTouching(CGarage* g, CPed* ignored) { return plugin::CallMethodAndReturn<bool, 0x449100, CGarage*, CPed*>(g, ignored); }
+-inline bool  GaIsAnyOtherCarTouching(CGarage* g, CVehicle* ignored) { return plugin::CallMethodAndReturn<bool, 0x447720, CGarage*, CVehicle*>(g, ignored); }
+ inline void  GaThrowCarsNearDoorOut(CGarage* g, CVehicle* ignored) { plugin::CallMethod<0x449220, CGarage*, CVehicle*>(g, ignored); }
+-inline float GaCalcDistToRectSq(CGarage* g, float x, float y) { return plugin::CallMethodAndReturn<float, 0x447D80, CGarage*, float, float>(g, x, y); }
+-inline bool  GaRestoreHideOut(CGarage* g, CStoredCar* cars) { return plugin::CallMethodAndReturn<bool, 0x448550, CGarage*, CStoredCar*>(g, cars); }
+ inline void  GaNeatlyLineUp(CGarage* g, CStoredCar* cars) { plugin::CallMethod<0x448330, CGarage*, CStoredCar*>(g, cars); }
+ inline bool  GaRestoreImpounding(CGarage* g, CStoredCar* cars) { return plugin::CallMethodAndReturn<bool, 0x4485C0, CGarage*, CStoredCar*>(g, cars); }
+ inline void  GaStoreAndRemoveImpounding(CGarage* g, CStoredCar* cars, int32 maxSlot) { plugin::CallMethod<0x449A50, CGarage*, CStoredCar*, int32>(g, cars, maxSlot); }
+@@ -461,6 +462,69 @@ inline void GaWantedBit(bool set) {
+ }
+ }
+ 
++// 0x447720
++// Como el original (0x447720..0x447783): sin vehiculo es falso; el indice de manejo es el byte +0x4A de la informacion del modelo (solo el byte bajo) y las banderas de modelo son el dword +0xD0 de su entrada de la tabla de
++// manejo (0xC2B9DC + 0xE0 * indice; el indice puede salir de las 210 entradas del vector, el EXE no lo comprueba). Garaje 36: exige la bandera 0x2000000; 37: la 0x4000000; 38: ninguna de las dos (0x6000000); otro tipo: falso.
++bool CGarage::RightModTypeForThisGarage(CVehicle* vehicle) {
++    if (!vehicle)
++        return false;
++    const auto* const   modelInfo = CModelInfo::ms_modelInfoPtrs[static_cast<int16>(vehicle->m_nModelIndex)];
++    const uint8         handlingId = GaField<uint8>(modelInfo, 0x4A);
++    const uint32        flags = GaField<uint32>(reinterpret_cast<const uint8*>(gHandlingDataMgr.m_aVehicleHandling.data()) + size_t(handlingId) * 0xE0, 0xD0);
++    switch (static_cast<uint32>(m_nType)) {
++    case 36: return (flags & 0x2000000u) != 0;
++    case 37: return (flags & 0x4000000u) != 0;
++    case 38: return (flags & 0x6000000u) == 0;
++    default: return false;
++    }
++}
++
++// 0x447D80
++// Como el original (0x447D80..0x447E0E): distancia al cuadrado de (x, y) al rectangulo del garaje (izquierda +0x28, derecha +0x2C, frente +0x30, fondo +0x34). Cada eje: antes del borde bajo (comparacion ordenada) x - borde bajo;
++// pasado el alto (comparacion ordenada) x - borde alto; en otro caso (dentro o NaN) 0. dy*dy + dx*dx con los x87 a 24 bits sin guardar a float: se devuelve el valor del registro (el llamador hace el fstp dword).
++double CGarage::CalcDistToGarageRectangleSquared(float x, float y) {
++    const auto axis = [](float v, float low, float high) -> double {
++        if (v < low)
++            return Veh83DSub(v, low);
++        if (v > high)
++            return Veh83DSub(v, high);
++        return 0.0;
++    };
++    const double dx = axis(x, m_fLeftCoord, m_fRightCoord);
++    const double dy = axis(y, m_fFrontCoord, m_fBackCoord);
++    return Veh83DAdd(Veh83DMul(dy, dy), Veh83DMul(dx, dx));
++}
++
++// 0x448550
++// Como el original (0x448550..0x4485B6): para cada uno de los 4 coches guardados con modelo distinto de cero se restaura el vehiculo (CStoredCar::RestoreCar, 0x447E40); si existe, se limpia el bit 5 del byte +0x42D y se anade al mundo
++// (CWorld::Add, 0x563220) y el hueco queda vacio; si no, se deja. Devuelve verdadero si al final los 4 huecos estan vacios.
++bool CGarage::RestoreCarsForThisHideOut(CStoredCar* cars) {
++    for (uint32 i = 0; i < 4; ++i) {
++        if (cars[i].m_wModelIndex == 0)
++            continue;
++        CVehicle* const vehicle = cars[i].RestoreCar();
++        if (!vehicle)
++            continue;
++        GaField<uint8>(vehicle, 0x42D) &= 0xDFu;
++        CWorld::Add(vehicle);
++        cars[i].m_wModelIndex = 0;
++    }
++    for (uint32 i = 0; i < 4; ++i) {
++        if (cars[i].m_wModelIndex != 0)
++            return false;
++    }
++    return true;
++}
++
++// 0x448E50
++// Como el original (0x448E50..0x448E9A): con vehiculo del jugador (FindPlayerVehicle(-1, false), que el EXE pide dos veces) se pregunta por el; si no, por el ped del jugador (FindPlayerPed(-1)).
++bool CGarage::IsPlayerOutsideGarage(float radius) {
++    if (FindPlayerVehicle(-1, false))
++        return IsEntityEntirelyOutside(FindPlayerVehicle(-1, false), radius);
++    return IsEntityEntirelyOutside(FindPlayerPed(-1), radius);
++}
++
++
+ // 0x44AA50
+ // Como el original (0x44AA50..0x44C8BF), instruccion por instruccion: el cuerpo conserva la estructura de saltos del EXE (etiquetas L_xxxx con la direccion del EXE) porque muchas ramas
+ // comparten colas (L_C7C4 = salida, L_B3C1 = aviso a la policia del area, L_BCBE = abrir la puerta...). Orden y numero de llamadas a FindPlayerVehicle/FindPlayerPed/FindPlayerCoors,
+@@ -585,7 +649,7 @@ L_AC50:
+         GaAudio(0xF);
+         goto L_AD2D;
+     }
+-    if (GaIsPlayerOutside(this, 0.0f)) {
++    if (IsPlayerOutsideGarage(0.0f)) {
+         if (garageId == CGarages::LastGaragePlayerWasIn)
+             GaWantedBit(false);
+         goto L_ADA3;
+@@ -603,7 +667,7 @@ L_ADA3:
+     pa       = GaPos(vehicle);
+     vehicleB = GaFpv();
+     pb       = GaPos(vehicleB);
+-    dist     = GaCalcDistToRectSq(this, pb[0], pa[1]);
++    dist     = Veh83DStore(CalcDistToGarageRectangleSquared(pb[0], pa[1]));
+     if (!(dist < 64.0f))
+         goto L_C7C4;
+     goto L_B3C1;
+@@ -745,7 +809,7 @@ L_B79C:   // estado 3 (abriendo)
+     goto L_C7C4;
+ 
+ L_B40C:   // estado 4 (esperando que salga el jugador)
+-    if (!GaIsPlayerOutside(this, 0.0f))
++    if (!IsPlayerOutsideGarage(0.0f))
+         goto L_C7C4;
+     m_nDoorState = static_cast<eGarageDoorState>(1);
+     goto L_C7C4;
+@@ -927,7 +991,7 @@ L_B9C9:
+     pa       = GaPos(vehicle);
+     vehicleB = GaFpv();
+     pb       = GaPos(vehicleB);
+-    dist     = GaCalcDistToRectSq(this, pb[0], pa[1]);
++    dist     = Veh83DStore(CalcDistToGarageRectangleSquared(pb[0], pa[1]));
+     if (!(dist < 64.0f))
+         goto L_C7C4;
+     m_nDoorState = static_cast<eGarageDoorState>(3);
+@@ -1017,7 +1081,7 @@ L_BBFB:
+     pa       = GaPos(vehicle);
+     vehicleB = GaFpv();
+     pb       = GaPos(vehicleB);
+-    dist     = GaCalcDistToRectSq(this, pb[0], pa[1]);
++    dist     = Veh83DStore(CalcDistToGarageRectangleSquared(pb[0], pa[1]));
+     if (!(dist < 289.0f))
+         goto L_C7C4;
+     m_nDoorState = static_cast<eGarageDoorState>(3);
+@@ -1058,7 +1122,7 @@ L_BCDE:
+ L_BCF2:
+     c1 = FindPlayerCoors(-1);
+     c2 = FindPlayerCoors(-1);
+-    dist = GaCalcDistToRectSq(this, c1.x, c2.y);
++    dist = Veh83DStore(CalcDistToGarageRectangleSquared(c1.x, c2.y));
+     if (dist > 225.0f) {
+         // BD6A
+         if (!GaIsAnyCarBlockingDoor(this))
+@@ -1077,7 +1141,7 @@ L_BD79:
+     if (GaFpv()) {
+         const int32 needed = (m_nType != 0x10 ? 1 : 0) * 2 + 2;
+         if (GaCountCarsCenterWithin(this, GaFpv()) >= needed) {
+-            if (GaIsPlayerOutside(this, 0.25f))
++            if (IsPlayerOutsideGarage(0.25f))
+                 goto L_C7C0;
+         }
+     }
+@@ -1088,7 +1152,7 @@ L_BD79:
+     goto L_C7C4;
+ L_BDF1:
+     GaSlideDoorClosed(this);
+-    if (!GaIsPlayerOutside(this, 0.0f))
++    if (!IsPlayerOutsideGarage(0.0f))
+         goto L_C6F9;
+     if (!(m_fDoorPosition == 0.0f))
+         goto L_C7C4;
+@@ -1103,7 +1167,7 @@ L_BE56:
+         goto L_C7C4;
+     c2   = FindPlayerCoors(-1);
+     c3   = FindPlayerCoors(-1);
+-    dist = GaCalcDistToRectSq(this, c2.x, c3.y);
++    dist = Veh83DStore(CalcDistToGarageRectangleSquared(c2.x, c3.y));
+     if (dist < 12.25f)
+         goto L_BEF9;
+     if (!(dist < 100.0f))
+@@ -1165,7 +1229,7 @@ L_C13E:
+     goto L_C7C4;
+ L_C1C3:
+     if (m_nType != 0x2C) {
+-        if (!GaRestoreHideOut(this, GaStoredCars(m_nType)))
++        if (!RestoreCarsForThisHideOut(GaStoredCars(m_nType)))
+             goto L_C7C4;
+     }
+     m_nDoorState = static_cast<eGarageDoorState>(3);
+@@ -1221,7 +1285,7 @@ L_C331:
+         goto L_C7C4;
+     if (GaIsAnyCarBlockingDoor(this))
+         goto L_C7C4;
+-    if (!GaIsPlayerOutside(this, 0.0f))
++    if (!IsPlayerOutsideGarage(0.0f))
+         goto L_C7C4;
+     GaPadControls(true);
+     m_nFlags = static_cast<uint8>(m_nFlags & 0xFE);
+@@ -1236,7 +1300,7 @@ L_C395:
+         goto L_C7C4;
+     c1   = FindPlayerCoors(-1);
+     c2   = FindPlayerCoors(-1);
+-    dist = GaCalcDistToRectSq(this, c1.x, c2.y);
++    dist = Veh83DStore(CalcDistToGarageRectangleSquared(c1.x, c2.y));
+     c3   = FindPlayerCoors(-1);
+     flag = false;
+     if (Garage63TopMinus2GreaterCpp(m_fTopZ, c3.z)) {
+@@ -1254,7 +1318,7 @@ L_C395:
+ L_C477:
+     c1   = FindPlayerCoors(-1);
+     c2   = FindPlayerCoors(-1);
+-    dist = GaCalcDistToRectSq(this, c1.x, c2.y);
++    dist = Veh83DStore(CalcDistToGarageRectangleSquared(c1.x, c2.y));
+     c3   = FindPlayerCoors(-1);
+     flag = false;
+     if (Garage63TopMinus2GreaterCpp(m_fTopZ, c3.z)) {
+@@ -1290,7 +1354,7 @@ L_C578:
+         goto L_C7C4;
+     if (CTimer::GetFrameCounter() & 0x1F)
+         goto L_C7C4;
+-    if (GaIsAnyOtherCarTouching(this, GaFpv())) {
++    if (RightModTypeForThisGarage(GaFpv())) {
+         if (IsEntityTouching3D(GaFpv()))
+             goto L_C7C4;
+     }
+@@ -1302,7 +1366,7 @@ L_C67B:
+         GaThrowCarsNearDoorOut(this, GaFpv());
+     goto L_C69D;
+ L_C6BD:
+-    if (!GaIsAnyOtherCarTouching(this, GaFpv()))
++    if (!RightModTypeForThisGarage(GaFpv()))
+         goto L_C7C4;
+     goto L_B9C9;
+ 
+diff --git a/source/game_sa/Garage.h b/source/game_sa/Garage.h
+index d6d81fe8e..be6dade5f 100644
+--- a/source/game_sa/Garage.h
++++ b/source/game_sa/Garage.h
+@@ -154,7 +154,7 @@ public:
+     void Update(int32 garageId);
+ 
+     bool RightModTypeForThisGarage(CVehicle* vehicle);
+-    float CalcDistToGarageRectangleSquared(float, float);
++    double CalcDistToGarageRectangleSquared(float, float); // 0x447D80: el EXE devuelve el valor del registro x87 sin guardar (el llamador hace fstp dword)
+     void NeatlyLineUpStoredCars(CStoredCar* car);
+     bool RestoreCarsForThisHideOut(CStoredCar* car);
+     bool RestoreCarsForThisImpoundingGarage(CStoredCar* car);

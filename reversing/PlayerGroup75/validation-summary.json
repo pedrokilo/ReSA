@@ -12,26 +12,26 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wy-4 (HEAD 98ff78aaa + PlayerPed.cpp, source.patch). CPlayerPed::MakeThisPedJoinOurGroup 0x60C840 (thiscall, ret 4; sin valor de retorno: sus llamadores 0x60D411 y 0x60D4D5 recargan los registros): salida si el peaton va drogado (Say 0x52), tiene la tarea 1000, no es del tipo 8 sin banderas globales 0x96917C..E o ya es miembro; si no, SetCJMood, Say 0x7F, limite del grupo (FindMaxNumberOfGroupMembers, limite del script, estadistica 0xB5), recuentos de miembros, CEventDontJoinPlayerGroup si no hay sitio, o CTaskComplexBeInGroup por CEventScriptCommand, AddFollower, CPedGroup::Process, GiveWeaponWhenJoiningGang, CEventGroupEvent(CEventNewGangMember), estadisticas, blip del radar y separacion del grupo. Sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y en el cuerpo de la DLL): Say, FindActiveTaskByType, IsMember, FindMaxNumberOfGroupMembers, GetStatValue, CountMembersExcludingLeader, GetPedsGroup, RemoveMember, CTask::operator new/delete, FindPlayerPed, CEventGroup::Add, AddFollower, CPedGroup::Process, GiveWeaponWhenJoiningGang, RegisterReference/CleanUpOldReference, CPedGroupIntelligence::AddEvent, IncrementStat, DisplayScriptStatUpdateMessage, CPedPool::GetRef y CRadar (SetEntityBlip, ChangeBlipScale, ChangeBlipColour, SetBlipFriendly) (con hook); sin hook: SetCJMood 0x4E3ED0 (--unhook=Audio), 0x609380 (sin reconstruir) y CEvent::operator new/delete. Constructores y destructores de CTaskComplexBeInGroup, CEventScriptCommand, CEventNewGangMember, CEventGroupEvent y CEventDontJoinPlayerGroup corren de verdad en ambos lados. Dominio: indices de grupo 0..7. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/PlayerGroup75-20261028-052325-018358",
-  "summary_sha256": "41d007889deb20e4740a7bf680dab7ff15f33784ba6d54a8c37458673be1571c",
-  "result_txt_sha256": "314d171c8f6d6eefc01f335a9b94fbe28f63cff4d72ba0d0ed8eb4863a02c5da",
-  "log_sha256": "30cfa39682ba266c6ccdbd1d9c4c03b4c382fe6ce3b68c4bb23c953869265f68",
+  "run": "reversing/CppTwelveLevel6Final/runs/PlayerGroup75-20261102-123931-621643",
+  "summary_sha256": "c7ceb1c2937615f45af76027c5d0ecfc510cc6a13438b442c047262402247c70",
+  "result_txt_sha256": "ea54a157a4c93cc9d3c540ce8d9b32c91477e3900a722e96e6a06a475300e1be",
+  "log_sha256": "d190c3a2d578c7594b1053d9b1779473afe7061f8ddc0421c8e510c40a1dec9a",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "664d390107f740b9bcebb10430f82a469dd0b263a1a68550359cde7ba3fea077",
+  "executed_probe_sha256": "ca3b95b82c8224794706aa5aaaccc463ccafd0cc9d6462a4083d23b0020ae89d",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
       "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-      "source/game_sa/Entity/Ped/PlayerPed.cpp": "0cb4aad83752b0050ecf1c1b140b63eeb674165d3a7b4c082f03d466b2b46448",
+      "source/game_sa/Entity/Ped/PlayerPed.cpp": "39d6309a239adf505da4f71a62a2f0b457f3d6393008f8f45fd19b9b3e709449",
       "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
-      "source/game_sa/X87Math.cpp": "e0f265e5141cc052e5d0388b3abb673cebc0f5710debb1e85c84b36abf1e02da",
-      "source/game_sa/X87Math.h": "02da40eada0f302e584541a828b1e34440374a68d5d99f9518f17b7add6ef13c",
+      "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
+      "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/PlayerGroup75/LiveComparison.hpp": "3742f06cf65f971ef20af8fb09796fa90ad24757de1a7781c98378a523a1a2da",
+      "reversing/PlayerGroup75/LiveComparison.hpp": "e8d4ee8278f0e91febcdfcf629629f04d8af60c9156b1eee3bcfa4dfdbc794f5",
       "reversing/PlayerGroup75/Core.hpp": "ab9844c85049a645ff409e1235c7613a57f715c2ec4890a093ffbd16cb1a385c",
       "reversing/PlayerGroup75/Fixtures.hpp": "bc1c664f21962573546ffdcad6c0627f4493b1e058e9fc7febf59405520f7965",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -39,10 +39,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PlayerGroup75-20261028-052325-018358/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/PlayerGroup75-20261102-123931-621643/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "65f2426ba3edfeab6f0fae48ce24096ffe218e943339b5d76dc3246fdc11b03f",
-    "uncompressed_sha256": "30cfa39682ba266c6ccdbd1d9c4c03b4c382fe6ce3b68c4bb23c953869265f68"
+    "compressed_sha256": "f168882572d6b3f9ce57ea45b273c4ef9a78a6e0726e11c1f96e1a34371f9370",
+    "uncompressed_sha256": "d190c3a2d578c7594b1053d9b1779473afe7061f8ddc0421c8e510c40a1dec9a"
   }
 }

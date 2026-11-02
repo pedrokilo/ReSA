@@ -1,0 +1,39 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 02/11/2026 (Ciudad de México):** 820 grupos / 8999 funciones reconstruidas; 8999 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
+# Fn85A: cinco funciones de juego pequeñas (lote 85A)
+
+Estado: **APROBADO dentro del juego** (02/11/2026, árbol principal sobre HEAD b2d657293.. + `source.patch`). 81920 pares (16384 por función), cero diferencias EXE/DLL, compuertas de ABI/ruta/SEH/DF/restauración/x87 en ambos lados y salida de CADA lado igual a la del oráculo independiente (`fixture_oracle.py`, integrado en `run_local.py`).
+Evidencia final: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn85a/20261102-123026-236353` (la primera corrida completa, `...122238-666700`, ya dio los 81920 pares sin diferencias; la final se repitió con `coverage.json` calibrado y tras la prueba negativa para que el manifiesto de construcción sea el del código bueno).
+
+| Función | Dirección | Hook | Fuente |
+|---|---|---|---|
+| `JoinGroupFlags` (antes `JoinGroupFlagsExe`, `plugin::CallAndReturn<0x609380>`) | 0x609380 | `CPlayerPed` / `JoinGroupFlags` / S (`RH_ScopedNamedGlobalInstall`) | `Entity/Ped/PlayerPed.cpp` (anónima) |
+| `CGarage::RightModTypeForThisGarage` (antes el envoltorio `GaIsAnyOtherCarTouching`: el nombre estaba mal, la función de 0x447720 es la comprobación del tipo de taller contra las banderas de manejo) | 0x447720 | `CGarage` / `RightModTypeForThisGarage` / S | `Garage.cpp` |
+| `CGarage::CalcDistToGarageRectangleSquared` (antes `GaCalcDistToRectSq`) | 0x447D80 | `CGarage` / `CalcDistToGarageRectangleSquared` / S | `Garage.cpp` (usa `Veh83DSub/Mul/Add`; ahora devuelve `double`: el registro x87 sin guardar) |
+| `CGarage::RestoreCarsForThisHideOut` (antes `GaRestoreHideOut`) | 0x448550 | `CGarage` / `RestoreCarsForThisHideOut` / S | `Garage.cpp` |
+| `CGarage::IsPlayerOutsideGarage` (antes `GaIsPlayerOutside`) | 0x448E50 | `CGarage` / `IsPlayerOutsideGarage` / S | `Garage.cpp` |
+
+Filas de `docs/hooks.csv`: `CPlayerPed,JoinGroupFlags,0x00609380,1,0,1,S`, `CGarage,RightModTypeForThisGarage,0x00447720,1,0,1,S`, `CGarage,CalcDistToGarageRectangleSquared,0x00447D80,1,0,1,S`, `CGarage,RestoreCarsForThisHideOut,0x00448550,1,0,1,S`, `CGarage,IsPlayerOutsideGarage,0x00448E50,1,0,1,S`.
+
+## Revisión contra el EXE
+- **JoinGroupFlags** (0x609380, 0x21 bytes, cdecl, `ret`): AL = (byte 0x96917C | 0x96917D | 0x96917E) != 0. Sin colaboradores. 16384 casos: 24³ = 13824 combinaciones de 24 valores por byte (exhaustivo sobre los 24 valores) y el resto aleatorio; el cuarto byte (0x96917F) es ruido que no se lee.
+- **RightModTypeForThisGarage** (0x447720, `ret 4`): sin vehículo falso; si no, el byte bajo del índice de manejo (+0x4A de la información del modelo `ms_modelInfoPtrs[+0x22 del vehículo]`) indexa la tabla de manejo (0xC2B9DC + 0xE0 × índice; banderas de modelo en +0xD0). Tipo de garaje (+0x4C) 36: bandera 0x2000000; 37: 0x4000000; 38: ninguna de las dos (0x6000000 a cero); otro tipo: falso. Ocho índices de modelo (1..8) y 16 entradas de manejo se sustituyen y se restauran.
+- **CalcDistToGarageRectangleSquared** (0x447D80, `ret 8`, devuelve ST0): por eje, `v < borde bajo` (ordenado) → `v - bajo`; si no, `v > borde alto` (ordenado) → `v - alto`; si no (dentro o NaN) → 0. Resultado `dy*dy + dx*dx` con los x87 a 24 bits sin guardar a float; ST0 se compara byte a byte (80 bits).
+- **RestoreCarsForThisHideOut** (0x448550, `ret 4`): para cada uno de los 4 coches guardados con modelo ≠ 0, `CStoredCar::RestoreCar` (0x447E40); si devuelve vehículo se limpia el bit 5 del byte +0x42D, `CWorld::Add` (0x563220) y el hueco queda vacío. Devuelve verdadero si al final los 4 huecos están vacíos.
+- **IsPlayerOutsideGarage** (0x448E50, `ret 4`): con `FindPlayerVehicle(-1, false)` (que el EXE pide dos veces) se pregunta `IsEntityEntirelyOutside` (0x448D30) por el vehículo de la segunda llamada; si no, por `FindPlayerPed(-1)`.
+
+## Banco
+Falsos idénticos en la dirección del EXE y en el cuerpo de la DLL (con su hook RH apagado): `RestoreCar` 0x447E40 y `CWorld::Add` 0x563220 (RestoreCarsForThisHideOut); `FindPlayerVehicle` 0x56E0D0, `FindPlayerPed` 0x56E210 e `IsEntityEntirelyOutside` 0x448D30 (IsPlayerOutsideGarage). Registran todos sus argumentos EN ORDEN (más el estado de los cuatro modelos y el byte +0x42D del vehículo en cada `CWorld::Add`) y devuelven lo que dice el caso. Las otras tres funciones no llaman a nadie: corren de verdad en ambos lados (los ayudantes x87 de `X87Math.cpp` en CalcDist...).
+Se comparan el valor devuelto (AL, o ST0 en CalcDist...), los eventos, los bytes cambiados de las arenas (coches guardados y vehículos) y el hash de las regiones globales; todo contra el oráculo.
+16384 casos por función, 16 familias de 1024 casos. Cobertura de ramas con mínimos (`coverage.json`, 80 % de lo medido).
+
+## Prueba negativa
+Producción mutada en siete puntos (`PlayerPed.cpp`: quitar el tercer byte del OR; `Garage.cpp`: tipo 38 con `!= 0`, tipo 37 con la máscara 0x2000000, frente/fondo intercambiados en CalcDist..., `&= 0xBF` en lugar de `0xDF` en el byte +0x42D, el cuarto hueco no se vacía, y `IsPlayerOutsideGarage` pasa `nullptr` en lugar del segundo `FindPlayerVehicle`). Fallan **36989/81920** pares por diferencia de resultado, sin caída: `resultados-fn85a/20261102-122652-816831` (JoinGroupFlags 351/16384, RightMod... 4724, CalcDist... 12767, RestoreCars... 10945, IsPlayerOutside... 8202). Restauradas desde la copia buena y comprobadas con `cmp` y con el hash (Garage.cpp `c0ecee65af8339b3`, PlayerPed.cpp `39d6309a239adf50`) antes de la corrida final.
+
+## Bancos repetidos
+Citan alguna de estas funciones: `GarageUpdate63` (falsea las funciones de garaje como colaboradoras de `CGarage::Update`; sin adaptación, porque su `mk` ya parchea el cuerpo de la DLL cuando el hook existe): **APROBADO**, 16384 pares, `resultados-garageupdate63/20261102-123406-545323`. `PlayerGroup75` y `PlayerGroup78` (falseaban 0x609380 solo en la dirección del EXE, "sin reconstruir"; ahora la DLL ejecuta C++ real, así que se adaptaron: el cuerpo de la DLL de `JoinGroupFlags` se obtiene del salto del hook encendido, `Resolve(0x609380)`, y se parchea con el mismo falso): **APROBADOS**, 19968 y 20480 pares, `resultados-playergroup75/20261102-123931-621643` y `resultados-playergroup78/20261102-124527-215753`. La evidencia de los tres está refrescada en el registro. Ningún otro banco cita estas direcciones ni estos símbolos.
+
+## Fuera de los fixtures
+Índices de modelo fuera de las ocho ranuras del banco o de manejo fuera de 0..15 (`RightModTypeForThisGarage` lee la tabla de manejo sin comprobar el índice), vehículo sin información de modelo, NaN con cargas distintas (los fixtures usan un único patrón), bytes altos de los booleanos y un resultado de `IsEntityEntirelyOutside` distinto de 0/1.

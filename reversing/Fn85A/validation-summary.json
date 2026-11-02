@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "pairs": 81920,
+  "differences": 0,
+  "registered_pairs": 81920,
+  "registered_functions": 5,
+  "functions": {
+    "JoinGroupFlags": 16384,
+    "CGarage::RightModTypeForThisGarage": 16384,
+    "CGarage::CalcDistToGarageRectangleSquared": 16384,
+    "CGarage::RestoreCarsForThisHideOut": 16384,
+    "CGarage::IsPlayerOutsideGarage": 16384
+  },
+  "covered_functions": {
+    "JoinGroupFlags": true,
+    "CGarage::RightModTypeForThisGarage": true,
+    "CGarage::CalcDistToGarageRectangleSquared": true,
+    "CGarage::RestoreCarsForThisHideOut": true,
+    "CGarage::IsPlayerOutsideGarage": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). RestoreCarsForThisHideOut: colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): CStoredCar::RestoreCar 0x447E40 y CWorld::Add 0x563220. IsPlayerOutsideGarage: FindPlayerVehicle 0x56E0D0, FindPlayerPed 0x56E210 y CGarage::IsEntityEntirelyOutside 0x448D30. JoinGroupFlags, RightModTypeForThisGarage y CalcDistToGarageRectangleSquared no llaman a nadie (la ultima usa los ayudantes x87 de X87Math.cpp). El banco compara el valor devuelto (AL, o ST0 byte a byte en CalcDist...), los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: indices de modelo fuera de las 8 ranuras del banco o de manejo fuera de 0..15 (RightMod... lee la tabla de manejo sin comprobar el indice), vehiculo sin informacion de modelo, NaN con cargas distintas, bytes altos de los booleanos y el resultado de IsEntityEntirelyOutside distinto de 0/1.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn85A-20261102-123026-236353",
+  "summary_sha256": "cfbd3101db721b3e9c8a229de8dc5cb603f31c30cd662d74db99bb71a1dc1570",
+  "result_txt_sha256": "ab99c73f883d6ccc35ec4a86d7a6240e8fa762a75db1a2b66154e42497739b9c",
+  "log_sha256": "9e09b36f48766001c64ea48b28225f9814b9afbf0733e773cb5def1946b894c4",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "644a68058b54a134a1091bfafe0ac9fe69e9fd6f2e7d831a9e3f6a9721edbc2e",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
+      "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
+      "source/game_sa/Garage.cpp": "c0ecee65af8339b3d113cf7560c5352d782f64b4ac03c128e3f28a0167e26d69",
+      "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
+      "source/game_sa/Entity/Ped/PlayerPed.cpp": "39d6309a239adf505da4f71a62a2f0b457f3d6393008f8f45fd19b9b3e709449",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn85A/LiveComparison.hpp": "9a415fdbd2577c018896d2ee0a478e75ad455fd69f5e731611fc2d6dde4bd64d",
+      "reversing/Fn85A/Core.hpp": "b27aa5c3353d6d4c0a41ff4cb55bb079e12b41936c08fafe21270bca4e85198b",
+      "reversing/Fn85A/Fixtures.hpp": "cf8d8090aef4d50428fd0dcc6144dad3b5273171200a52b10f15caf5f8a7eaa0",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

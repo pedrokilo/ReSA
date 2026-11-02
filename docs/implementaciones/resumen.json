@@ -20,14 +20,14 @@
     "body_parse_errors": 309,
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 447,
-    "historical_catalog_rows": 8998,
+    "historical_catalog_rows": 9003,
     "catalog_rows_without_unambiguous_source_match_in_scope": 2,
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 20,
     "catalog_rows_linked_by_hook_address": 180,
-    "validated_reconstructed_own_cpp_definitions": 10696,
+    "validated_reconstructed_own_cpp_definitions": 10701,
     "validated_reconstructed_own_asm_definitions": 0,
-    "wrapper_definitions": 55
+    "wrapper_definitions": 50
   },
   "source_sha256": {
     "source/app/app.cpp": "4717fcefd64b864f51910ae3ab7b4b3bc0966838f9cddaaca5727ee06c47ac16",
@@ -266,7 +266,7 @@
     "source/game_sa/CamPathSplines.h": "1ab5480a6512ae7544a2d70385ffd34030c874b8af093911c8b318e1c50102e5",
     "source/game_sa/CarAI.cpp": "2000725a71e60421c12d44b6a79bde072fd2d54672bc3a2bb030d7a91f6a96a2",
     "source/game_sa/CarAI.h": "e48563b339dd4eed69e7abb0a165b6fd8a5e9f22ecd35fc98dedd004dca54793",
-    "source/game_sa/CarCtrl.cpp": "fccd720e9dd8f1b0934a8570e567ba9ef77a9e8017d404ffaca8a4c1d228b028",
+    "source/game_sa/CarCtrl.cpp": "5b6f98fc43d77a2481cd463d338eedc785b8ff72e9e2e914e840494951ac8a7a",
     "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
     "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
     "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
@@ -473,7 +473,7 @@
     "source/game_sa/Entity/Ped/PedSaveStructure.cpp": "5f58ccddfb1db70c9778c2f287d24ac9bb2eb9432155bd07a55d6dd05d961975",
     "source/game_sa/Entity/Ped/PedSaveStructure.h": "e5c92294002b82a7563cc3dcea70ece869fd25d7ce89e4654b8c530ee4d16187",
     "source/game_sa/Entity/Ped/PedStdBonePositions.h": "660b8512f81ce5369bb3d8e3b4c9ba5a3e1eb36442cbfa4ffc770371e8bb9655",
-    "source/game_sa/Entity/Ped/PlayerPed.cpp": "3f366db39a66cbd8451ecd76107539044fc9889bf2ef7a51a573ed6837110708",
+    "source/game_sa/Entity/Ped/PlayerPed.cpp": "39d6309a239adf505da4f71a62a2f0b457f3d6393008f8f45fd19b9b3e709449",
     "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
     "source/game_sa/Entity/Ped/PlayerSkin.cpp": "b725e853ad0ac44d3c936722f693b77d30c58420091c43584dc9ac38a63b1cae",
     "source/game_sa/Entity/Ped/PlayerSkin.h": "1188243850ccb80021731e036a8de514fe20aaeac78ef76bb94e8c4150a563db",
@@ -914,8 +914,8 @@
     "source/game_sa/GangWars.h": "9790db3a29cf70ace84a2f3b85476685194a0b23c42facb6ced08529cef3f1de",
     "source/game_sa/GangWarsSaveStructure.cpp": "ca73a3cb9f0a64ba3c7948017ee1407c06b4ad94d1154bed6bff473c834469d3",
     "source/game_sa/GangWarsSaveStructure.h": "9ed82dfdffec5eea07e79c273dc3e1e22d161433c23c604ed19b6d31d293d4e5",
-    "source/game_sa/Garage.cpp": "e544d346b628aa9081839c6f65786695da88399287d9c2b6a6e6badbaaa1237f",
-    "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
+    "source/game_sa/Garage.cpp": "c0ecee65af8339b3d113cf7560c5352d782f64b4ac03c128e3f28a0167e26d69",
+    "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
     "source/game_sa/Garages.cpp": "00d50a1d456143b7574ae3ea3bea69e95113fddb4eaaa92b1f573af312296ba7",
     "source/game_sa/Garages.h": "f71fc96fd17d9d22cba76e913da868dea9b8359fe466eea9465241a3f093f658",
     "source/game_sa/General.cpp": "7b6b28991efbd0a1e8b1a4d6a09a077e870a161df158fa38fb23c5ef1d1264f5",
@@ -2232,10 +2232,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "e3c0ee268d17dec7ce0e1ad54cfba56e11b2ee8de257a6b861a8ce798d9251a9",
+    "hooks.csv": "b667418ce4b7920c418ea2d6f8f1ad8024d920a4c71a6d91f7edc4806ae50432",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "0350eb643838c2dedcae5d6e5753fb7abfa03e0e64e8c18831104e9172492bfa",
+  "migration_registry_sha256": "b8231918bf226dbb2fe3c06ff30c0e2d744ca9de6501500382b3be34eb560d4d",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

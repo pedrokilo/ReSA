@@ -219,25 +219,20 @@ class,function,address,source,origins
 (helpers y globales sin clase),FightGetAvailableComboSetExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:368,envoltura en el código fuente
 (helpers y globales sin clase),FightNormaliseExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:939,envoltura en el código fuente
 (helpers y globales sin clase),FightStartAnimExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:384,envoltura en el código fuente
-(helpers y globales sin clase),GaCalcDistToRectSq,,source/game_sa/Garage.cpp:442,envoltura en el código fuente
-(helpers y globales sin clase),GaCountCarsCenterWithin,,source/game_sa/Garage.cpp:438,envoltura en el código fuente
-(helpers y globales sin clase),GaIsAnyCarBlockingDoor,,source/game_sa/Garage.cpp:437,envoltura en el código fuente
-(helpers y globales sin clase),GaIsAnyOtherCarTouching,,source/game_sa/Garage.cpp:440,envoltura en el código fuente
-(helpers y globales sin clase),GaIsAnyOtherPedTouching,,source/game_sa/Garage.cpp:439,envoltura en el código fuente
-(helpers y globales sin clase),GaIsPlayerOutside,,source/game_sa/Garage.cpp:436,envoltura en el código fuente
-(helpers y globales sin clase),GaNeatlyLineUp,,source/game_sa/Garage.cpp:444,envoltura en el código fuente
-(helpers y globales sin clase),GaRestoreHideOut,,source/game_sa/Garage.cpp:443,envoltura en el código fuente
-(helpers y globales sin clase),GaRestoreImpounding,,source/game_sa/Garage.cpp:445,envoltura en el código fuente
-(helpers y globales sin clase),GaSlideDoorClosed,,source/game_sa/Garage.cpp:435,envoltura en el código fuente
-(helpers y globales sin clase),GaSlideDoorOpen,,source/game_sa/Garage.cpp:434,envoltura en el código fuente
-(helpers y globales sin clase),GaStoreAndRemoveImpounding,,source/game_sa/Garage.cpp:446,envoltura en el código fuente
-(helpers y globales sin clase),GaThrowCarsNearDoorOut,,source/game_sa/Garage.cpp:441,envoltura en el código fuente
+(helpers y globales sin clase),GaCountCarsCenterWithin,,source/game_sa/Garage.cpp:442,envoltura en el código fuente
+(helpers y globales sin clase),GaIsAnyCarBlockingDoor,,source/game_sa/Garage.cpp:441,envoltura en el código fuente
+(helpers y globales sin clase),GaIsAnyOtherPedTouching,,source/game_sa/Garage.cpp:443,envoltura en el código fuente
+(helpers y globales sin clase),GaNeatlyLineUp,,source/game_sa/Garage.cpp:445,envoltura en el código fuente
+(helpers y globales sin clase),GaRestoreImpounding,,source/game_sa/Garage.cpp:446,envoltura en el código fuente
+(helpers y globales sin clase),GaSlideDoorClosed,,source/game_sa/Garage.cpp:440,envoltura en el código fuente
+(helpers y globales sin clase),GaSlideDoorOpen,,source/game_sa/Garage.cpp:439,envoltura en el código fuente
+(helpers y globales sin clase),GaStoreAndRemoveImpounding,,source/game_sa/Garage.cpp:447,envoltura en el código fuente
+(helpers y globales sin clase),GaThrowCarsNearDoorOut,,source/game_sa/Garage.cpp:444,envoltura en el código fuente
 (helpers y globales sin clase),GetFirstTextureCallback,,source/game_sa/RenderWare/rw/rwtexdict.cpp:20,envoltura en el código fuente
 (helpers y globales sin clase),helper sin símbolo confirmado,0x0051D770,source/game_sa/Camera.cpp:1806,cohorte nuevo 2026-10-17
 (helpers y globales sin clase),IndexDataBufferGetTotalDataSize,,source/game_sa/RenderWare/D3DResourceSystem.cpp:114,envoltura en el código fuente
 (helpers y globales sin clase),IndexDataBufferPop,,source/game_sa/RenderWare/D3DResourceSystem.cpp:98,envoltura en el código fuente
 (helpers y globales sin clase),IndexDataBufferResize,,source/game_sa/RenderWare/D3DResourceSystem.cpp:101,envoltura en el código fuente
-(helpers y globales sin clase),JoinGroupFlagsExe,,source/game_sa/Entity/Ped/PlayerPed.cpp:1697,envoltura en el código fuente
 (helpers y globales sin clase),operator delete,,source/game_sa/MemoryMgr.cpp:560,envoltura en el código fuente
 (helpers y globales sin clase),operator delete[],,source/game_sa/MemoryMgr.cpp:564,envoltura en el código fuente
 (helpers y globales sin clase),operator new,,source/game_sa/MemoryMgr.cpp:552,envoltura en el código fuente
@@ -258,5 +253,5 @@ class,function,address,source,origins
 (helpers y globales sin clase),TextureBufferPushWithoutIncreasingCounter,,source/game_sa/RenderWare/D3DResourceSystem.cpp:92,envoltura en el código fuente
 (helpers y globales sin clase),TextureBufferResize,,source/game_sa/RenderWare/D3DResourceSystem.cpp:95,envoltura en el código fuente
 (helpers y globales sin clase),TextureBufferSetup,,source/game_sa/RenderWare/D3DResourceSystem.cpp:86,envoltura en el código fuente
-CPlayerPed,FindNextWeaponLockOnTarget,0x0060E530,source/game_sa/Entity/Ped/PlayerPed.cpp:2345,cohorte 499 + envoltura en el código fuente
-CPlayerPed,ProcessWeaponSwitch,0x0060D850,source/game_sa/Entity/Ped/PlayerPed.cpp:2119,cohorte 499 + envoltura en el código fuente
+CPlayerPed,FindNextWeaponLockOnTarget,0x0060E530,source/game_sa/Entity/Ped/PlayerPed.cpp:2348,cohorte 499 + envoltura en el código fuente
+CPlayerPed,ProcessWeaponSwitch,0x0060D850,source/game_sa/Entity/Ped/PlayerPed.cpp:2122,cohorte 499 + envoltura en el código fuente

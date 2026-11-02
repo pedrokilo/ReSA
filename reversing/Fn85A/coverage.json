@@ -1,0 +1,57 @@
+{
+ "JoinGroupFlags": {
+  "all_three": 9977,
+  "any_set": 12850,
+  "b3_nonzero": 13067,
+  "none_set": 256,
+  "only_b0": 253,
+  "only_b1": 288,
+  "only_b2": 280
+ },
+ "CGarage::RightModTypeForThisGarage": {
+  "false": 9570,
+  "null_veh": 360,
+  "other_type": 5116,
+  "true": 3176,
+  "type36": 2664,
+  "type37": 2192,
+  "type38": 2773
+ },
+ "CGarage::CalcDistToGarageRectangleSquared": {
+  "denormal_input": 1854,
+  "inf_input": 1615,
+  "inf_result": 1219,
+  "nan_input": 2077,
+  "negzero_input": 262,
+  "x_above": 4128,
+  "x_below": 3990,
+  "x_inside": 4988,
+  "x_nan": 601,
+  "y_above": 4008,
+  "y_below": 4076,
+  "y_inside": 5022,
+  "y_nan": 561
+ },
+ "CGarage::RestoreCarsForThisHideOut": {
+  "all_full": 3775,
+  "empty_slot": 9332,
+  "restore_null": 7761,
+  "restore_ok": 9688,
+  "ret_false": 7761,
+  "ret_true": 5345
+ },
+ "CGarage::IsPlayerOutsideGarage": {
+  "denormal_input": 875,
+  "inf_input": 758,
+  "nan_input": 975,
+  "negzero_input": 93,
+  "out_false": 6514,
+  "out_true": 6592,
+  "ped_branch": 6545,
+  "ped_null": 2970,
+  "ped_ok": 3575,
+  "veh_first": 6561,
+  "veh_second_null": 2072,
+  "veh_second_ok": 4488
+ }
+}

@@ -206,6 +206,8 @@ inline void Update() {
     const uintptr_t pedFlagBody=Addr(&CPedType::GetPedFlag);
     const uintptr_t setAcqBody=Addr(&CAcquaintance::SetAsAcquaintance);
     const uintptr_t clearAcqBody=Addr(&CAcquaintance::ClearAsAcquaintance);
+    const uintptr_t joinFlagsBody=Resolve(0x609380);   // JoinGroupFlags (0x609380) tiene hook S desde el lote 85A: el cuerpo de la DLL se obtiene del salto de la entrada (hook encendido) y se parchea con el mismo falso
+    ready&=joinFlagsBody&&ModuleOf(joinFlagsBody)==env.asi&&ReversingProbe::JumpsToDll(0x609380);
     env.route[0].reset(new HookRoute("CPlayerPed","ProcessGroupBehaviour",0x60D350,HookRoute::RegisteredTarget{}));
     registered[kFn[0]]=env.route[0]->Registered();bodies[kFn[0]]=env.route[0]->Body()!=0;
     ready&=env.route[0]->Registered()&&env.route[0]->Body()&&ModuleOf(env.route[0]->Body())==env.asi;
@@ -216,7 +218,7 @@ inline void Update() {
                   {Pair{0x60A0A0,disbandBody,true},reinterpret_cast<void*>(&FakeDisband)},
                   {Pair{0x60A1D0,tellBody,true},reinterpret_cast<void*>(&FakeTell)},
                   {Pair{0x60C840,joinBody,true},reinterpret_cast<void*>(&FakeJoin)},
-                  {Pair{0x609380,0,false},reinterpret_cast<void*>(&FakeJoinFlags)},
+                  {Pair{0x609380,joinFlagsBody,true},reinterpret_cast<void*>(&FakeJoinFlags)},
                   {Pair{0x56E210,playerBody,true},reinterpret_cast<void*>(&FakePlayer)},
                   {Pair{0x608830,pedFlagBody,true},reinterpret_cast<void*>(&FakePedFlag)},
                   {Pair{0x608DA0,setAcqBody,true},reinterpret_cast<void*>(&FakeSetAcq)},

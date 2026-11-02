@@ -154,7 +154,7 @@ public:
     void Update(int32 garageId);
 
     bool RightModTypeForThisGarage(CVehicle* vehicle);
-    float CalcDistToGarageRectangleSquared(float, float);
+    double CalcDistToGarageRectangleSquared(float, float); // 0x447D80: el EXE devuelve el valor del registro x87 sin guardar (el llamador hace fstp dword)
     void NeatlyLineUpStoredCars(CStoredCar* car);
     bool RestoreCarsForThisHideOut(CStoredCar* car);
     bool RestoreCarsForThisImpoundingGarage(CStoredCar* car);

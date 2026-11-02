@@ -10,32 +10,39 @@
   "covered_functions": {
     "CGarage::Update": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wf-1 (HEAD 35e7b9d4b + parche del banco Garage63 + fuente del lote 63b). Los 47 colaboradores se sustituyen por falsos identicos en ambos lados (parche en la entrada del EXE y en el cuerpo de la DLL cuando tienen hook; no se validan sus cuerpos): FindPlayerVehicle/Ped/Coors/Wanted, CGarage::IsEntityEntirelyInside3D/Outside/IsStaticPlayerCarEntirelyInside/IsGarageEmpty/IsEntityTouching3D/RemoveCarsBlockingDoorNotInside/StoreAndRemoveCarsForThisHideOut, SlideDoorOpen/Closed, IsPlayerOutsideGarage, IsAnyCarBlockingDoor, CountCarsWithCenterPointWithinGarage, IsAnyOtherPed/CarTouchingGarage, ThrowCarsNearDoorOutOfGarage, CalcDistToGarageRectangleSquared, Restore/NeatlyLineUp/Store*Impounding, FindDoorsWithGarage, CGarages::TriggerMessage/FindSafeHouseIndexForGarageType/CountCarsInHideoutGarage/IsCarSprayable/GivePlayerDetonator, CWorld::CallOffChaseForArea, CStats::IncrementStat/GetStatValue/SetStatValue, CAudioEngine::ReportFrontendAudioEvent, CStreaming::RequestModel, CHud::SetHelpMessage, CText::Get, CWanted::ClearWantedLevelAndGoOnParole, CVehicle::GetRemapIndex/SetRemap/GetVehicleAppearance/Fix(virtual)/DestroyVehicleAndDriverAndPassengers, CVehicleModelInfo::ChooseVehicleColour, FxSystem_c::AddParticle, CGeneral::GetRandomNumberInRange<float> y rand del CRT del EXE (0x821B1E). Jugador, vehiculos, matrices y CWanted son objetos falsos del banco; el estado real que lee/escribe la funcion (reloj, contador de fotogramas, jugador en foco y su dinero, banderas de CGarages, camara, mando 0 y tienda de bombas) se fija por caso y se restaura. El garaje es privado: ninguno real se toca. Ningun llamador del EXE lee EAX/ECX/EDX (0x44C910 solo usa ESI/EDI); solo se registran. Los NaN de las fixtures son siempre silenciosos; no se prueban los caminos en que el EXE desreferencia sin comprobar (matriz nula del vehiculo del jugador en la rama de reparacion, IsStaticPlayerCarEntirelyInside verdadero sin vehiculo).",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wf-1 (HEAD 35e7b9d4b + parche del banco Garage63 + fuente del lote 63b). Los 47 colaboradores se sustituyen por falsos identicos en ambos lados (parche en la entrada del EXE y en el cuerpo de la DLL cuando tienen hook; no se validan sus cuerpos): FindPlayerVehicle/Ped/Coors/Wanted, CGarage::IsEntityEntirelyInside3D/Outside/IsStaticPlayerCarEntirelyInside/IsGarageEmpty/IsEntityTouching3D/RemoveCarsBlockingDoorNotInside/StoreAndRemoveCarsForThisHideOut, SlideDoorOpen/Closed, IsPlayerOutsideGarage, IsAnyCarBlockingDoor, CountCarsWithCenterPointWithinGarage, IsAnyOtherPed/CarTouchingGarage, ThrowCarsNearDoorOutOfGarage, CalcDistToGarageRectangleSquared, Restore/NeatlyLineUp/Store*Impounding, FindDoorsWithGarage, CGarages::TriggerMessage/FindSafeHouseIndexForGarageType/CountCarsInHideoutGarage/IsCarSprayable/GivePlayerDetonator, CWorld::CallOffChaseForArea, CStats::IncrementStat/GetStatValue/SetStatValue, CAudioEngine::ReportFrontendAudioEvent, CStreaming::RequestModel, CHud::SetHelpMessage, CText::Get, CWanted::ClearWantedLevelAndGoOnParole, CVehicle::GetRemapIndex/SetRemap/GetVehicleAppearance/Fix(virtual)/DestroyVehicleAndDriverAndPassengers, CVehicleModelInfo::ChooseVehicleColour, FxSystem_c::AddParticle, CGeneral::GetRandomNumberInRange<float> y rand del CRT del EXE (0x821B1E). Jugador, vehiculos, matrices y CWanted son objetos falsos del banco; el estado real que lee/escribe la funcion (reloj, contador de fotogramas, jugador en foco y su dinero, banderas de CGarages, camara, mando 0 y tienda de bombas) se fija por caso y se restaura. El garaje es privado: ninguno real se toca. Ningun llamador del EXE lee EAX/ECX/EDX (0x44C910 solo usa ESI/EDI); solo se registran. Los NaN de las fixtures son siempre silenciosos; no se prueban los caminos en que el EXE desreferencia sin comprobar (matriz nula del vehiculo del jugador en la rama de reparacion, IsStaticPlayerCarEntirelyInside verdadero sin vehiculo). Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/GarageUpdate63-20261020-164124-278338",
-  "summary_sha256": "a546854704820496fab3ab2830187ed2a9fbddf0b31eba4241eec240049f1adc",
-  "result_txt_sha256": "86b5bb51c34155d699efbfcdb3fb8cf6c7521e8c841bc679faf5a576ed55d4d9",
-  "log_sha256": "b95b71a63ca89aa2fc9858601a9a751795dfe58c12c2d4b1e7e388ddf0634971",
+  "run": "reversing/CppTwelveLevel6Final/runs/GarageUpdate63-20261102-123406-545323",
+  "summary_sha256": "d5e43574789e8e85d6dc154620995139bb773485955d2365c9d032a043881e5c",
+  "result_txt_sha256": "509679b80453bbf27ae55b11fe24ad01fdd6bbff2967425333e4c6dd642dd917",
+  "log_sha256": "a284a01837682ca73059826a17cb0fc8ce2d9068872a460da8757781dc38f44e",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "b9f438951defe2792182bed13fb4af6914710f0be7dbc512ca0409b944d85d9e",
+  "executed_probe_sha256": "92c94938cefe6ea5faded3df24f373f0ee66d06d3cfb587d9cfba118e6685753",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/InjectHooksMain.cpp": "40839c96f91272f0052be484f87e2ecc558523026eb57808bf0d67dd137be848",
-      "source/game_sa/Garage.cpp": "36e4ca85c9ea3cde6b02e3c2cdd837bbc5e813554c78010a0f6eda7812395d21",
-      "source/game_sa/Garage.h": "ac1b10854981b5b152f22cd9087e84e7fd425578237877b135d674d78adf798d",
-      "source/game_sa/X87Math.cpp": "700583c16051dd6cf29a8b5631490b1789ec65c489d3d02deed7671955e4eef0",
-      "source/game_sa/X87Math.h": "d62b2f5d121ff4e18c7bcf7ef4bea5c091fd948de1a209be8c8998be33220036",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/Garage.cpp": "c0ecee65af8339b3d113cf7560c5352d782f64b4ac03c128e3f28a0167e26d69",
+      "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
+      "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
+      "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/GarageUpdate63/LiveComparison.hpp": "93f081ba171c34014e99ac1eba739ca45cadcb3596ffec46f40f79698946af2b",
-      "reversing/GarageUpdate63/Core.hpp": "574ca0806538695a1418914735ed68de2597da0a91c3551d6403fa7816aec3b3",
+      "reversing/GarageUpdate63/LiveComparison.hpp": "922b937bca8d6052786c8f7db5715968b5052772a527454a5f3f9c09917b8996",
+      "reversing/GarageUpdate63/Core.hpp": "5ada0736b2e2f3939630ef70060883d1a40a25d518d98c023c17f5fb19e60bb4",
       "reversing/GarageUpdate63/Fixtures.hpp": "a40d9408a54940f07b61d8cc1e67f1bf31c461b2936c7817bfc66664ee8b7a04",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/GarageUpdate63-20261102-123406-545323/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "e01e29176334a7975bbc8ba3518a4a60b1a37ef4bdd87bb489ad66dbeef29a96",
+    "uncompressed_sha256": "a284a01837682ca73059826a17cb0fc8ce2d9068872a460da8757781dc38f44e"
   }
 }

@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,994 entradas reversed=1**, de 8,994 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,999 entradas reversed=1**, de 8,999 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8994 |
+| `validated=1` · evidencia aprobada vinculada | 8999 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8994 |
+| Evidencia histórica vinculada; revisión pendiente | 8999 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -2926,6 +2926,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CGangs | `SetGangWeapons` | [Resumen](../reversing/Data8a/validation-summary.json) |
 | CGangs | `SetWillAttackPlayerWithCops` | [Resumen](../reversing/Data8a/validation-summary.json) |
 | CGarage | `BuildRotatedDoorMatrix` | [Resumen](../reversing/Data23/validation-summary.json) |
+| CGarage | `CalcDistToGarageRectangleSquared` | [Resumen](../reversing/Fn85A/validation-summary.json) |
 | CGarage | `CloseThisGarage` | [Resumen](../reversing/Data23/validation-summary.json) |
 | CGarage | `EntityHasASphereWayOutsideGarage` | [Resumen](../reversing/DependenciesGarageSphere15/validation-summary.json) |
 | CGarage | `FindDoorsWithGarage` | [Resumen](../reversing/Helpers66D/validation-summary.json) |
@@ -2934,12 +2935,15 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CGarage | `IsEntityEntirelyOutside` | [Resumen](../reversing/Garage63/validation-summary.json) |
 | CGarage | `IsEntityTouching3D` | [Resumen](../reversing/DependenciesWorld15/validation-summary.json) |
 | CGarage | `IsGarageEmpty` | [Resumen](../reversing/Garage63/validation-summary.json) |
+| CGarage | `IsPlayerOutsideGarage` | [Resumen](../reversing/Fn85A/validation-summary.json) |
 | CGarage | `IsPointInsideGarage-point` | [Resumen](../reversing/DependenciesGarage2/validation-summary.json) |
 | CGarage | `IsPointInsideGarage-radius` | [Resumen](../reversing/DependenciesGarage2/validation-summary.json) |
 | CGarage | `IsStaticPlayerCarEntirelyInside` | [Resumen](../reversing/Garage63/validation-summary.json) |
 | CGarage | `OpenThisGarage` | [Resumen](../reversing/Data23/validation-summary.json) |
 | CGarage | `PlayerArrestedOrDied` | [Resumen](../reversing/Garage63/validation-summary.json) |
 | CGarage | `RemoveCarsBlockingDoorNotInside` | [Resumen](../reversing/Garage63/validation-summary.json) |
+| CGarage | `RestoreCarsForThisHideOut` | [Resumen](../reversing/Fn85A/validation-summary.json) |
+| CGarage | `RightModTypeForThisGarage` | [Resumen](../reversing/Fn85A/validation-summary.json) |
 | CGarage | `StoreAndRemoveCarsForThisHideOut` | [Resumen](../reversing/Data23/validation-summary.json) |
 | CGarage | `TidyUpGarage` | [Resumen](../reversing/Garage63/validation-summary.json) |
 | CGarage | `TidyUpGarageClose` | [Resumen](../reversing/Garage63/validation-summary.json) |
@@ -4395,6 +4399,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPlayerPed | `HandlePlayerBreath` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `HandleSprintEnergy` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `IsHidden` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
+| CPlayerPed | `JoinGroupFlags` | [Resumen](../reversing/Fn85A/validation-summary.json) |
 | CPlayerPed | `KeepAreaAroundPlayerClear` | [Resumen](../reversing/PlayerArea80B/validation-summary.json) |
 | CPlayerPed | `LOSBlockedBetweenPeds` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `Load` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
@@ -9257,7 +9262,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CGamma` | 2 | 0 | 2 | 0 |
 | `CGangWars` | 36 | 0 | 36 | 0 |
 | `CGangs` | 8 | 0 | 8 | 0 |
-| `CGarage` | 19 | 0 | 19 | 0 |
+| `CGarage` | 23 | 0 | 23 | 0 |
 | `CGarages` | 26 | 0 | 26 | 0 |
 | `CGeneral` | 9 | 0 | 9 | 0 |
 | `CGenericGameStorage` | 19 | 0 | 19 | 0 |
@@ -9368,7 +9373,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPlantMgr` | 20 | 0 | 20 | 0 |
 | `CPlantSurfPropMgr` | 4 | 0 | 4 | 0 |
 | `CPlayerInfo` | 29 | 0 | 29 | 0 |
-| `CPlayerPed` | 63 | 0 | 63 | 0 |
+| `CPlayerPed` | 64 | 0 | 64 | 0 |
 | `CPlayerPedData` | 5 | 0 | 5 | 0 |
 | `CPlayerRelationshipRecorder` | 1 | 0 | 1 | 0 |
 | `CPlayerSkin` | 4 | 0 | 4 | 0 |
