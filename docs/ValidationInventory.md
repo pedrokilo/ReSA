@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,989 entradas reversed=1**, de 8,989 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,990 entradas reversed=1**, de 8,990 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8989 |
+| `validated=1` · evidencia aprobada vinculada | 8990 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8989 |
+| Evidencia histórica vinculada; revisión pendiente | 8990 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -1528,6 +1528,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCarCtrl | `SteerAICarParkPerpendicular` | [Resumen](../reversing/CarCtrlSteer63e/validation-summary.json) |
 | CCarCtrl | `SteerAICarTowardsPointInEscort` | [Resumen](../reversing/CarCtrlSteer63c/validation-summary.json) |
 | CCarCtrl | `SteerAICarWithPhysics` | [Resumen](../reversing/Car84G/validation-summary.json) |
+| CCarCtrl | `SteerAICarWithPhysicsFollowPath` | [Resumen](../reversing/Car84H/validation-summary.json) |
 | CCarCtrl | `SteerAICarWithPhysicsFollowPreRecordedPath` | [Resumen](../reversing/CarCtrlSteer63b/validation-summary.json) |
 | CCarCtrl | `SteerAICarWithPhysicsHeadingForTarget` | [Resumen](../reversing/CarCtrlSteer63/validation-summary.json) |
 | CCarCtrl | `SteerAICarWithPhysicsTryingToBlockTarget` | [Resumen](../reversing/CarCtrlSteer63/validation-summary.json) |
@@ -9102,7 +9103,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CCam` | 51 | 0 | 51 | 0 |
 | `CCamera` | 120 | 0 | 120 | 0 |
 | `CCarAI` | 25 | 0 | 25 | 0 |
-| `CCarCtrl` | 106 | 0 | 106 | 0 |
+| `CCarCtrl` | 107 | 0 | 107 | 0 |
 | `CCarEnterExit` | 32 | 0 | 32 | 0 |
 | `CCarFXRenderer` | 10 | 0 | 10 | 0 |
 | `CCarGenerator` | 8 | 0 | 8 | 0 |

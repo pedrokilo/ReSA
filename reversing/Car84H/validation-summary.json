@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 18432,
+  "differences": 0,
+  "registered_pairs": 18432,
+  "registered_functions": 1,
+  "functions": {
+    "CCarCtrl::SteerAICarWithPhysicsFollowPath": 18432
+  },
+  "covered_functions": {
+    "CCarCtrl::SteerAICarWithPhysicsFollowPath": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD b90f378d9/abd32cf51 + cambios del lote 84H; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): CCarCtrl::StopCarIfNodesAreInvalid 0x422590, PickNextNodeAccordingStrategy 0x432B10, SteerAICarWithPhysicsHeadingForTarget 0x433280, FindAngleToWeaveThroughTraffic 0x4325C0, FindMaxSteerAngle 0x427FE0, FindMaximumSpeedForThisCarInTraffic 0x434400, FindSpeedMultiplier 0x4224E0 (cuerpo Cc63SpeedMultiplierCpp), CTrafficLights::ShouldCarStopForLight 0x49D610 y ShouldCarStopForBridge 0x49D420, CCarAI::CarHasReasonToStop 0x41C050 y FindPlayerCoors 0x56E010 (el banco compara los argumentos y el estado del vehiculo en cada llamada EN ORDEN y escribe los valores del caso). Corren de verdad, con el hook apagado (bytes del EXE frente al C++ de la DLL), CGeneral::GetATanOfXY 0x53CC70 y CCarPathLink::OneWayLaneOffset 0x44DB00, y en el EXE la resta 0x40FE60, el modulo 0x4082C0 y el producto escalar 0x40FDB0 frente a los ayudantes x87 de la DLL; ThePaths (tres areas con ocho tramos) y CTimer son las del banco. El banco compara los eventos, el estado final del vehiculo (tramos, multiplicadores, carriles, estilo, mision, accion temporal y su tiempo, crucero, destino.x, velocidad.x, subtipo, temporizador), la matriz y las cuatro salidas, sin otros cambios en las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Mutaciones del estado tras un evento (15 tipos). Fuera de los fixtures: vehiculo sin matriz, tramos o areas fuera de las tablas del banco (ids >= 8 en areas cargadas), objetivo nulo, rumbo corregido infinito o de mas de 2000 radianes (el bucle de normalizacion no terminaria), NaN con cargas distintas (las fixtures usan un unico patron) y bytes altos de los booleanos de los colaboradores.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Car84H-20261102-003550-500806",
+  "summary_sha256": "ad02e90d6f2453b8dd62f3483167d8e2edbdc401f885c9b98c3ae6fc9a6adec8",
+  "result_txt_sha256": "94ea0eddba737c58a8e941a03c714552b05b69e5e2a64c90f065f7b91e969486",
+  "log_sha256": "b9bda3e5e66dcb71fb703935dc22df98da85cbb6db7eb03b52699b8f8f787482",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "310e30165d2ed8e496a0ad7e05244cd58ea7de234ee3b8ba54f25e8654a4164e",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
+      "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
+      "source/game_sa/CarCtrl.cpp": "1fa25d00b2be66d68f51f6f5f05ca321ca91e5ce9866320a269d1a04b8ff8131",
+      "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Car84H/LiveComparison.hpp": "31784343860de98de4bcbffab3c0462dd83d4d88ad881cb80b7c11d47e3d77be",
+      "reversing/Car84H/Core.hpp": "75dba0bc65ff3654d10e6345580240651351f82169d5ae572ed34378d36fea20",
+      "reversing/Car84H/Fixtures.hpp": "5c428f7d477e95cb9586ab92b3ce598af3beef55f6b8921f2d252cfbbbf52204",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

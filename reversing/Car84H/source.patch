@@ -1,0 +1,344 @@
+diff --git a/source/game_sa/CarCtrl.cpp b/source/game_sa/CarCtrl.cpp
+index 6105e5b06..eedf8c385 100644
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -193,6 +193,7 @@ void CCarCtrl::InjectHooks()
+     RH_ScopedInstall(SlowCarOnRailsDownForTrafficAndLights, 0x434790);
+     RH_ScopedInstall(FindMaxSteerAngle, 0x427FE0);
+     RH_ScopedInstall(SteerAICarWithPhysics, 0x437C20);
++    RH_ScopedInstall(SteerAICarWithPhysicsFollowPath, 0x434900);
+     RH_ScopedInstall(SteerAICarWithPhysicsTryingToBlockTarget_Stop, 0x428990);
+     RH_ScopedInstall(SteerAICarWithPhysicsHeadingForTarget, 0x433280);
+     RH_ScopedInstall(SteerAICarWithPhysicsTryingToBlockTarget, 0x4335E0);
+@@ -4978,9 +4979,329 @@ void CCarCtrl::SteerAICarWithPhysics(CVehicle* vehicle) {
+     }
+ }
+ 
+-// 0x434900
++// 0x434900..0x43579A (cdecl, cinco argumentos, `ret`, void). Salidas: arg2 = giro, arg3 = acelerador, arg4 = freno, arg5 = freno de mano. Cada operacion x87 va con los ayudantes Veh83D* (24 bits, exponente
++// ampliado; un valor del registro es un double ya redondeado y `fstp dword` es Veh83DStore). Las direcciones de tramo (+0x3A4 actual, +0x3A6 siguiente) son palabras de 16 bits (id de 10 bits, area de 6) y los
++// tramos (CCarPathLink, 0xE bytes) se leen en crudo: posicion int16 en +0/+2 (x 0.125), direccion int8 en +8/+9 (x 0.01f), carril con signo en +0x3B7/+0x3B8 y multiplicadores en +0x3B5/+0x3B6.
+ void CCarCtrl::SteerAICarWithPhysicsFollowPath(CVehicle* vehicle, float* arg2, float* arg3, float* arg4, bool* arg5) {
+-    plugin::Call<0x434900, CVehicle*, float*, float*, float*, bool*>(vehicle, arg2, arg3, arg4, arg5);
++    constexpr float kPi = std::bit_cast<float>(0x40490FDBu);    // 0x858CB8
++    constexpr float kTwoPi = std::bit_cast<float>(0x40C90FDBu); // 0x858CBC
++    constexpr float kLane = std::bit_cast<float>(0x40ACCCCDu);  // 0x858C50 (5.4)
++    constexpr float kBikeLane = std::bit_cast<float>(0x3FBA9FBFu); // 0x859010
++    constexpr float kLookAhead = std::bit_cast<float>(0x3EB33333u); // 0x858F9C (0.35)
++    constexpr float kDirScale = std::bit_cast<float>(0x3C23D70Au);  // 0x858C58 (0.01)
++    constexpr float kDistScale = std::bit_cast<float>(0x3CCCCCCDu); // 0x859038 (0.025)
++    constexpr float kBrakeScale = std::bit_cast<float>(0xBDAAAAABu); // 0x859034
++    const auto store = [](double value) { return Veh83DStore(value); };
++    const auto raw16 = [](const void* address) { return *reinterpret_cast<const uint16*>(address); };
++    const auto linkOf = [](uint16 address) { return reinterpret_cast<const uint8*>(ThePaths.m_pNaviNodes[address >> 10]) + (address & 0x3FFu) * 0xEu; };
++    const auto i8 = [](const uint8* link, uint32 offset) { return static_cast<double>(*reinterpret_cast<const int8*>(link + offset)); };
++    const auto i16 = [](const uint8* link, uint32 offset) { return static_cast<double>(*reinterpret_cast<const int16*>(link + offset)); };
++    const auto laneOffset = [](const uint8* link) { return reinterpret_cast<const CCarPathLink*>(link)->OneWayLaneOffset(); }; // 0x44DB00
++    const auto subtype = [&] { return *reinterpret_cast<const int32*>(reinterpret_cast<const uint8*>(vehicle) + 0x594); };
++    const auto allStop = [&] {
++        *arg4 = 1.0f;
++        *arg3 = 0.0f;
++        *arg2 = 0.0f;
++        *arg5 = false;
++    };
++    auto& ap = vehicle->m_autoPilot;
++
++    if (StopCarIfNodesAreInvalid(vehicle)) {
++        return;
++    }
++
++    // Adelante normalizado (matriz sin comprobar nulo): la longitud queda en el registro; con longitud 0 la X vale 1 y la Y queda sin normalizar
++    const CVector& forward = vehicle->m_matrix->GetForward();
++    float forwardNormX;
++    float forwardNormY = forward.y;
++    {
++        const double length = Veh83DSqrt(Veh83DAdd(Veh83DMul(forward.y, forward.y), Veh83DMul(forward.x, forward.x)));
++        if (length == 0.0) {
++            forwardNormX = 1.0f;
++        } else {
++            const double inverse = Veh83DDiv(1.0, length);
++            forwardNormX = store(Veh83DMul(inverse, forward.x));
++            forwardNormY = store(Veh83DMul(inverse, forward.y));
++        }
++    }
++
++    // Las dos areas de tramos deben estar cargadas: si no, todo parado (freno 1, sin giro ni acelerador)
++    uint16 current = raw16(&ap.m_nCurrentPathNodeInfo);
++    uint16 next = raw16(&ap.m_nNextPathNodeInfo);
++    if (!ThePaths.m_pPathNodes[current >> 10]) {
++        allStop();
++        return;
++    }
++    if (!ThePaths.m_pPathNodes[next >> 10]) {
++        allStop();
++        return;
++    }
++    const uint8* link1 = linkOf(current);
++    const uint8* link2 = linkOf(next);
++
++    // Direcciones de los dos tramos escaladas por sus multiplicadores (+0x3B5 / +0x3B6)
++    const auto direction = [&](const uint8* link, uint32 offset, int8 multiplier) { return store(Veh83DMul(Veh83DMul(i8(link, offset), kDirScale), static_cast<double>(multiplier))); };
++    float q1x = direction(link1, 8, ap._smthCurr);
++    float q1y = direction(link1, 9, ap._smthCurr);
++    float q2x = direction(link2, 8, ap._smthNext);
++    float q2y = direction(link2, 9, ap._smthNext);
++
++    // Desplazamientos de carril: el del primer tramo se guarda; el del segundo se queda en el registro
++    float r1 = store(Veh83DMul(Veh83DAdd(laneOffset(link1), static_cast<double>(ap.m_nCurrentLane)), kLane));
++    double r2 = Veh83DMul(Veh83DAdd(laneOffset(link2), static_cast<double>(ap.m_nNextLane)), kLane);
++    if (subtype() == 10) {
++        r1 = store(Veh83DAdd(r1, kBikeLane));
++        r2 = Veh83DAdd(r2, kBikeLane);
++    }
++    const float p1x = store(Veh83DAdd(i16(link1, 0) * 0.125, Veh83DMul(r1, q1y)));
++    const float p1y = store(Veh83DSub(i16(link1, 2) * 0.125, Veh83DMul(r1, q1x)));
++    const float p2x = store(Veh83DAdd(i16(link2, 0) * 0.125, Veh83DMul(r2, q2y)));
++    const float p2y = store(Veh83DSub(i16(link2, 2) * 0.125, Veh83DMul(r2, q2x)));
++
++    // Distancia del vehiculo al punto 1, longitud del tramo y producto (p2 - p1) . (posicion - p1)
++    const double toP1X = Veh83DSub(vehicle->GetPosition().x, p1x);
++    const double toP1Y = Veh83DSub(vehicle->GetPosition().y, p1y);
++    float distance = store(Veh83DSqrt(Veh83DAdd(Veh83DMul(toP1Y, toP1Y), Veh83DMul(toP1X, toP1X))));
++    const double segmentX = Veh83DSub(p2x, p1x);
++    const double segmentY = Veh83DSub(p2y, p1y);
++    const float segment = store(Veh83DSqrt(Veh83DAdd(Veh83DMul(segmentY, segmentY), Veh83DMul(segmentX, segmentX))));
++    const float along = store(Veh83DAdd(Veh83DMul(segmentY, toP1Y), Veh83DMul(segmentX, toP1X)));
++
++    // ¿Hay que elegir el siguiente nodo? Cerca (< 5 m), cerca por delante (< 8 m) o muy alineado (> 0.7): si; en otro caso solo si los tramos coinciden
++    bool pickNext = false;
++    bool skipToTarget = false;
++    if (distance < 5.0f) {
++        pickNext = true;
++    } else if (along > 0.0f && distance < 8.0f) {
++        pickNext = true;
++    } else {
++        const double ratio = Veh83DDiv(along, Veh83DMul(segment, distance));
++        if (ratio > 0.7f) {
++            pickNext = true;
++        } else if (next != current) {
++            skipToTarget = true;
++        } else {
++            pickNext = true;
++        }
++    }
++
++    if (pickNext) {
++        if (PickNextNodeAccordingStrategy(vehicle)) {
++            const int8 mission = static_cast<int8>(ap.m_nCarMission);
++            const auto headTo = [&](float x, float y) { SteerAICarWithPhysicsHeadingForTarget(vehicle, nullptr, x, y, arg2, arg3, arg4, arg5); };
++            const auto headToTarget = [&] {
++                const CVector& target = ap.m_TargetEntity->GetPosition();
++                headTo(target.x, target.y);
++            };
++            if (static_cast<uint32>(int32(mission) - 2) <= 0x42u) {
++                switch (mission) {
++                case 8:
++                case 12:
++                    ap.m_nCarMission = static_cast<eCarMission>(mission == 8 ? 9 : 0xD);
++                    headTo(ap.m_vecDestinationCoors.x, ap.m_vecDestinationCoors.y);
++                    return;
++                case 2:
++                case 4:
++                case 0x2B: {
++                    ap.m_nCarMission = static_cast<eCarMission>(mission == 4 ? 5 : mission == 2 ? 3 : 0x2C);
++                    const CVector player = FindPlayerCoors(-1);
++                    headTo(player.x, player.y);
++                    return;
++                }
++                case 15:
++                case 17:
++                    ap.m_nCarMission = static_cast<eCarMission>(mission == 15 ? 0x10 : 0x12);
++                    headToTarget();
++                    return;
++                case 0x41:
++                case 0x42:
++                case 0x43:
++                case 0x44:
++                    ap.m_nCarMission = static_cast<eCarMission>(mission - 0x24);
++                    headToTarget();
++                    return;
++                default:
++                    break;
++                }
++            }
++        }
++
++        // Sin cambio de mision: se vuelven a leer los tramos y el punto 1 se recalcula con el desplazamiento de carril sin el de motos
++        current = raw16(&ap.m_nCurrentPathNodeInfo);
++        if (!ThePaths.m_pPathNodes[current >> 10]) {
++            allStop();
++            return;
++        }
++        next = raw16(&ap.m_nNextPathNodeInfo);
++        if (!ThePaths.m_pPathNodes[next >> 10]) {
++            allStop();
++            return;
++        }
++        link1 = linkOf(current);
++        r1 = store(Veh83DMul(Veh83DAdd(laneOffset(link1), static_cast<double>(ap.m_nCurrentLane)), kLane));
++        const double toX = Veh83DSub(Veh83DAdd(i16(link1, 0) * 0.125, Veh83DMul(r1, q1y)), vehicle->GetPosition().x); // con los q de antes
++        const double toY = Veh83DSub(Veh83DSub(i16(link1, 2) * 0.125, Veh83DMul(r1, q1x)), vehicle->GetPosition().y);
++        distance = store(Veh83DSqrt(Veh83DAdd(Veh83DMul(toY, toY), Veh83DMul(toX, toX))));
++        link2 = linkOf(next);
++        q1x = direction(link1, 8, ap._smthCurr);
++        q1y = direction(link1, 9, ap._smthCurr);
++        q2x = direction(link2, 8, ap._smthNext);
++        q2y = direction(link2, 9, ap._smthNext);
++    }
++    (void)skipToTarget;
++
++    // Punto objetivo: el punto del carril 1 adelantado hacia atras 0.35 * distancia a lo largo de la direccion (sin ello si esta a mas de 40 m)
++    const double x1 = i16(link1, 0) * 0.125;
++    const double y1 = i16(link1, 2) * 0.125;
++    const double r1q1y = Veh83DMul(r1, q1y);
++    const float px = store(Veh83DAdd(x1, r1q1y));
++    const float r1q1x = store(Veh83DMul(r1, q1x));
++    const float py = store(Veh83DSub(y1, r1q1x));
++    float targetX = store(Veh83DSub(px, Veh83DMul(Veh83DMul(distance, q1x), kLookAhead)));
++    float targetY = store(Veh83DSub(py, Veh83DMul(Veh83DMul(distance, q1y), kLookAhead)));
++    if (distance > 40.0f) {
++        targetX = px;
++        targetY = py;
++    }
++
++    // Rumbo al punto y rumbo del vehiculo (dos llamadas a 0x53CC70 en este orden); con los estilos 2, 5 y 6 el rumbo se corrige con FindAngleToWeaveThroughTraffic
++    const float xDiff = store(Veh83DSub(targetX, vehicle->GetPosition().x));
++    const float yDiff = store(Veh83DSub(targetY, vehicle->GetPosition().y));
++    const float headingToTarget = CGeneral::GetATanOfXY(xDiff, yDiff);
++    const float vehicleHeading = CGeneral::GetATanOfXY(forwardNormX, forwardNormY);
++    const uint8 style = static_cast<uint8>(ap.m_nCarDrivingStyle);
++    double angle;
++    if (style == 2 || style == 5 || style == 6) {
++        angle = Veh83DSub(FindAngleToWeaveThroughTraffic(vehicle, nullptr, headingToTarget, vehicleHeading, 1.0f), vehicleHeading);
++    } else {
++        angle = Veh83DSub(headingToTarget, vehicleHeading);
++    }
++
++    // Normaliza a [-pi, pi] en el registro (el valor guardado es el ultimo fst/fstp) y limita a +-FindMaxSteerAngle (0x427FE0)
++    float steer = store(angle);
++    if (angle < -kPi) {
++        do {
++            angle = Veh83DAdd(angle, kTwoPi);
++        } while (angle < -kPi);
++        steer = store(angle);
++    }
++    if (angle > kPi) {
++        do {
++            angle = Veh83DSub(angle, kTwoPi);
++        } while (angle > kPi);
++        steer = store(angle);
++    }
++    const float maxSteer = FindMaxSteerAngle(vehicle);
++    if (steer < -maxSteer) {
++        steer = -maxSteer;
++    }
++    if (steer > maxSteer) {
++        steer = maxSteer;
++    }
++
++    // Velocidad a lo largo del avance (DotProduct 0x40FDB0 * 60) y factor de trafico segun el estilo de conduccion (+0x3B9)
++    const float speedAlong = store(Veh83DMul(SteerPhysicsDot(vehicle->m_vecMoveSpeed, vehicle->m_matrix->GetForward()), 60.0f));
++    float trafficFactor;
++    {
++        const int32 drivingStyle = static_cast<int8>(ap.m_nCarDrivingStyle);
++        if (static_cast<uint32>(drivingStyle) <= 6u && (drivingStyle == 0 || drivingStyle == 1 || drivingStyle == 4 || drivingStyle == 6)) {
++            const float maxSpeed = FindMaximumSpeedForThisCarInTraffic(vehicle);
++            trafficFactor = store(Veh83DDiv(maxSpeed, static_cast<double>(ap.m_nCruiseSpeed)));
++        } else {
++            trafficFactor = 1.0f;
++        }
++    }
++    {
++        const int32 drivingStyle = static_cast<int8>(ap.m_nCarDrivingStyle);
++        if (static_cast<uint32>(drivingStyle) <= 6u && (drivingStyle == 0 || drivingStyle == 1 || drivingStyle == 5 || drivingStyle == 6)) {
++            if (CTrafficLights::ShouldCarStopForLight(vehicle, false)) {
++                CCarAI::CarHasReasonToStop(vehicle);
++                trafficFactor = 0.0f;
++            }
++        }
++    }
++    if (CTrafficLights::ShouldCarStopForBridge(vehicle)) {
++        CCarAI::CarHasReasonToStop(vehicle);
++        trafficFactor = 0.0f;
++    }
++
++    // Multiplicadores de velocidad por el angulo al punto del carril (0x4224E0 con 0.4, 1.2, 0.4) y por la curva entre los dos tramos (con 0.1, 1.2, 0.4)
++    const uint8* const laneLink = linkOf(raw16(&ap.m_nCurrentPathNodeInfo));
++    const double lane = Veh83DMul(Veh83DAdd(laneOffset(laneLink), static_cast<double>(ap.m_nCurrentLane)), kLane);
++    const CVector& position = vehicle->GetPosition();
++    const double aheadY = Veh83DSub(Veh83DSub(i16(laneLink, 2) * 0.125, Veh83DMul(lane, q1x)), position.y);
++    const double aheadX = Veh83DSub(Veh83DAdd(i16(laneLink, 0) * 0.125, Veh83DMul(lane, q1y)), position.x);
++    const float angleToLane = CarCtrlSteer63AtanMinusCpp(store(aheadX), store(aheadY), vehicleHeading);
++    const float multiplier1 = FindSpeedMultiplier(angleToLane, 0.4f, 1.2f, 0.4f);
++    const float headingLane1 = CGeneral::GetATanOfXY(q1x, q1y);
++    const float bend = CarCtrlSteer63AtanRsubCpp(q2x, q2y, headingLane1);
++    const float multiplier2 = FindSpeedMultiplier(bend, 0.1f, 1.2f, 0.4f);
++
++    // Con la velocidad de crucero >= 12 y a menos de 40 m el multiplicador de la curva se mezcla con la distancia
++    double bendFactor;
++    if (distance > 40.0f || ap.m_nCruiseSpeed < 12) {
++        bendFactor = 1.0;
++    } else {
++        bendFactor = Veh83DSub(1.0, Veh83DMul(Veh83DSub(1.0, Veh83DMul(distance, kDistScale)), Veh83DSub(1.0, multiplier2)));
++    }
++    const bool firstLower = multiplier1 < bendFactor;
++    const double lowest = firstLower ? static_cast<double>(multiplier1) : bendFactor;
++    float factor;
++    if (lowest < trafficFactor) {
++        factor = firstLower ? multiplier1 : store(bendFactor);
++    } else {
++        factor = trafficFactor;
++    }
++
++    // Velocidad deseada = velocidad de crucero * factor; error = deseada - velocidad actual
++    const double desired = Veh83DMul(static_cast<double>(ap.m_nCruiseSpeed), factor);
++    *arg4 = 0.0f;
++    const float error = store(Veh83DSub(desired, speedAlong));
++    if (desired < 0.05f && error < 0.03f) {
++        *arg4 = 1.0f;
++        *arg3 = 0.0f;
++    } else if (error > 0.0f) {
++        const double gas = speedAlong < 2.0f ? Veh83DMul(error, 0.25f) : Veh83DMul(error, 0.125f);
++        *arg3 = 1.0f < gas ? 1.0f : store(gas);
++        if (subtype() == 10 && error > 3.0f) {
++            float& timer = *reinterpret_cast<float*>(reinterpret_cast<uint8*>(vehicle) + 0x818);
++            if (timer <= 0.0f) {
++                timer = 10.0f;
++            }
++        }
++    } else {
++        *arg3 = 0.0f;
++        const double brake = Veh83DMul(error, kBrakeScale);
++        *arg4 = 0.5f < brake ? 0.5f : store(brake);
++    }
++    *arg2 = steer;
++    *arg5 = false;
++
++    // Misiones 8 y 12 sin accion temporal: cerca del destino (< 8 m) y casi perpendicular (|posicion . adelante| / distancia < 0.2) marcha atras 2 s
++    const int8 mission = static_cast<int8>(ap.m_nCarMission);
++    if (mission != 8 && mission != 12) {
++        return;
++    }
++    if (ap.m_nTempAction != 0) {
++        return;
++    }
++    const CVector& here = vehicle->GetPosition();
++    const CVector& destination = ap.m_vecDestinationCoors;
++    const float offset[3]{store(Veh83DSub(here.x, destination.x)), store(Veh83DSub(here.y, destination.y)), store(Veh83DSub(here.z, destination.z))}; // 0x40FE60
++    const double magnitudeRegister = Veh83CMagnitude(offset); // 0x4082C0
++    const float magnitude = store(magnitudeRegister);
++    if (!(magnitudeRegister < 8.0f)) {
++        return;
++    }
++    double projection = SteerPhysicsDot(here, vehicle->m_matrix->GetForward()); // 0x40FDB0 (posicion, adelante)
++    if (projection < 0.0) {
++        projection = -projection;
++    }
++    if (!(Veh83DDiv(projection, magnitude) < 0.2f)) {
++        return;
++    }
++    ap.m_nTempAction = TEMPACT_REVERSE; // 3: marcha atras durante 2 s
++    ap.m_nTempActionTime = CTimer::m_snTimeInMilliseconds + 2000;
+ }
+ 
+ // 0x435830

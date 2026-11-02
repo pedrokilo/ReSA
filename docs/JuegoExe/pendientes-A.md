@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 01/11/2026 (Ciudad de México):** 820 grupos / 8989 funciones reconstruidas; 8989 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 02/11/2026 (Ciudad de México):** 820 grupos / 8990 funciones reconstruidas; 8990 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo A: Falta: llamada desde código ya reemplazado
@@ -15,11 +15,11 @@
 | `0x0054F1B0` | 42 | CMatrixLinkList | baja | 353 (346) |  |
 | `0x007170C0` | 32 | CClouds | baja | 253 (244) |  |
 | `0x0059ACD0` | 22 | CMaths | baja | 469 (219) |  |
-| `0x0040FE60` | 37 | CColSphere | alta | 257 (217) |  |
+| `0x0040FE60` | 37 | CColSphere | alta | 257 (218) |  |
 | `0x0059C730` | 91 | CQuaternion | baja | 209 (200) |  |
 | `0x0061A3B0` | 17 | CPlayerRelationshipRecorder | baja | 230 (200) |  |
 | `0x0061A390` | 16 | CPlayerRelationshipRecorder | baja | 234 (198) |  |
-| `0x004082C0` | 33 | CStreaming | baja | 194 (156) |  |
+| `0x004082C0` | 33 | CStreaming | baja | 194 (157) |  |
 | `0x0040FE90` | 37 | CColSphere | alta | 134 (130) |  |
 | `0x0040FEC0` | 37 | CColSphere | alta | 132 (122) |  |
 | `0x0059C790` | 115 | CQuaternion | baja | 129 (119) |  |
@@ -32,7 +32,7 @@
 | `0x0059AD70` | 84 | CMaths | baja | 57 (52) |  |
 | `0x00420800` | 25 | CCarAI | baja | 54 (52) |  |
 | `0x00411A00` | 33 | CPlaceable | baja | 57 (51) |  |
-| `0x0040FDB0` | 29 | CColSphere | alta | 55 (50) |  |
+| `0x0040FDB0` | 29 | CColSphere | alta | 55 (51) |  |
 | `0x0054EF40` | 77 | Common | baja | 52 (49) |  |
 | `0x0040EF50` | 52 | CColLine | baja | 48 (48) |  |
 | `0x006E5280` | 77 | WaterCreatureManager_c | baja | 46 (46) |  |
@@ -61,6 +61,7 @@
 | `0x007491C0` | 47 | Win | baja | 24 (23) |  |
 | `0x0061A360` | 41 | CPlayerRelationshipRecorder | baja | 29 (23) |  |
 | `0x0059C810` | 115 | CQuaternion | baja | 23 (22) |  |
+| `0x0044DB00` | 96 | CPathFind | alta | 24 (22) |  |
 | `0x004AD420` | 1 | CPedDamageResponseCalculator | alta | 49 (22) |  |
 | `0x006E2D60` | 36 | CVehicle | alta | 21 (21) |  |
 | `0x0074BF20` | 31 | Win | baja | 31 (21) |  |
@@ -75,7 +76,6 @@
 | `0x0050A0A0` | 119 | CCam | baja | 21 (18) |  |
 | `0x006478B0` | 118 | CTaskSimpleCarJumpOut | baja | 19 (18) |  |
 | `0x00411A80` | 99 | CPlaceable | baja | 18 (18) |  |
-| `0x0044DB00` | 96 | CPathFind | alta | 24 (18) |  |
 | `0x0069F7E0` | 220 | CMissionTextOffsets | baja | 17 (17) |  |
 | `0x00411590` | 70 | CColStore | baja | 17 (17) |  |
 | `0x0059B060` | 60 | CMaths | baja | 17 (17) |  |

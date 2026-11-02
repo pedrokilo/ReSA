@@ -258,10 +258,9 @@ class,function,address,source,origins
 (helpers y globales sin clase),TextureBufferPushWithoutIncreasingCounter,,source/game_sa/RenderWare/D3DResourceSystem.cpp:92,envoltura en el código fuente
 (helpers y globales sin clase),TextureBufferResize,,source/game_sa/RenderWare/D3DResourceSystem.cpp:95,envoltura en el código fuente
 (helpers y globales sin clase),TextureBufferSetup,,source/game_sa/RenderWare/D3DResourceSystem.cpp:86,envoltura en el código fuente
-CCarCtrl,GenerateEmergencyServicesCar,,source/game_sa/CarCtrl.cpp:1966,envoltura en el código fuente
-CCarCtrl,GenerateOneRandomCar,0x00430050,source/game_sa/CarCtrl.cpp:2137,cohorte 499 + envoltura en el código fuente
-CCarCtrl,SteerAICarWithPhysics_OnlyMission,0x00436A90,source/game_sa/CarCtrl.cpp:5297,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,SteerAICarWithPhysicsFollowPath,0x00434900,source/game_sa/CarCtrl.cpp:4982,cohorte nuevo 2026-10-17 + envoltura en el código fuente
-CCarCtrl,SteerAICarWithPhysicsFollowPath_Racing,0x00435830,source/game_sa/CarCtrl.cpp:4987,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,GenerateEmergencyServicesCar,,source/game_sa/CarCtrl.cpp:1967,envoltura en el código fuente
+CCarCtrl,GenerateOneRandomCar,0x00430050,source/game_sa/CarCtrl.cpp:2138,cohorte 499 + envoltura en el código fuente
+CCarCtrl,SteerAICarWithPhysics_OnlyMission,0x00436A90,source/game_sa/CarCtrl.cpp:5618,cohorte nuevo 2026-10-17 + envoltura en el código fuente
+CCarCtrl,SteerAICarWithPhysicsFollowPath_Racing,0x00435830,source/game_sa/CarCtrl.cpp:5308,cohorte nuevo 2026-10-17 + envoltura en el código fuente
 CPlayerPed,FindNextWeaponLockOnTarget,0x0060E530,source/game_sa/Entity/Ped/PlayerPed.cpp:2345,cohorte 499 + envoltura en el código fuente
 CPlayerPed,ProcessWeaponSwitch,0x0060D850,source/game_sa/Entity/Ped/PlayerPed.cpp:2119,cohorte 499 + envoltura en el código fuente

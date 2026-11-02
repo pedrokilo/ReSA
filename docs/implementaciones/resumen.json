@@ -20,14 +20,14 @@
     "body_parse_errors": 309,
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 447,
-    "historical_catalog_rows": 8993,
+    "historical_catalog_rows": 8994,
     "catalog_rows_without_unambiguous_source_match_in_scope": 2,
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 20,
     "catalog_rows_linked_by_hook_address": 180,
-    "validated_reconstructed_own_cpp_definitions": 10691,
+    "validated_reconstructed_own_cpp_definitions": 10692,
     "validated_reconstructed_own_asm_definitions": 0,
-    "wrapper_definitions": 60
+    "wrapper_definitions": 59
   },
   "source_sha256": {
     "source/app/app.cpp": "4717fcefd64b864f51910ae3ab7b4b3bc0966838f9cddaaca5727ee06c47ac16",
@@ -266,7 +266,7 @@
     "source/game_sa/CamPathSplines.h": "1ab5480a6512ae7544a2d70385ffd34030c874b8af093911c8b318e1c50102e5",
     "source/game_sa/CarAI.cpp": "2000725a71e60421c12d44b6a79bde072fd2d54672bc3a2bb030d7a91f6a96a2",
     "source/game_sa/CarAI.h": "e48563b339dd4eed69e7abb0a165b6fd8a5e9f22ecd35fc98dedd004dca54793",
-    "source/game_sa/CarCtrl.cpp": "2a1650734ae929fca9f02ceec2412d27e1587366b7b746bcfc9d2d806b433443",
+    "source/game_sa/CarCtrl.cpp": "1fa25d00b2be66d68f51f6f5f05ca321ca91e5ce9866320a269d1a04b8ff8131",
     "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
     "source/game_sa/CarEnterExit.cpp": "e82b191f1d60e4c5cc2f51b3311e671dad24b1e00f70603414f1bcb89fd0d07c",
     "source/game_sa/CarEnterExit.h": "d88c797b509dc056ba633092f5aa4e59ffd0bef73a32e4f2340779483dd2cd50",
@@ -2232,10 +2232,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "d8da7d451260a700d7a73218913f8898320232cae154f8ab6e8f764d4b9f04b9",
+    "hooks.csv": "4c7ebc0fdc4de408a1e7b022f1fd85c8be66268ae1d3dc66155e2a4d06183dc9",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "880fe9ad3120f87514771de12212bc8796938ab443162b946f1daf664e2cd81d",
+  "migration_registry_sha256": "8761ce0f6c0aec589ddb3ed72d3e2e05596e5766ade2882733cceb6a9fc50ae4",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",
