@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 18432,
+  "differences": 0,
+  "registered_pairs": 18432,
+  "registered_functions": 1,
+  "functions": {
+    "CCarCtrl::PickNextNodeToFollowPath": 18432
+  },
+  "covered_functions": {
+    "CCarCtrl::PickNextNodeToFollowPath": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 4bc823184 + cambios del lote 84C; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): CPathFind::DoPathSearch 0x4515D0 (el banco compara todos sus argumentos y escribe la ruta del caso) y CCurves::CalcSpeedScaleFactor 0x43C710 (el banco compara sus argumentos y devuelve el factor del caso). Corren de verdad, con el hook apagado, CAutoPilot::RemoveOnePathNode 0x41B950 y CCarCtrl::SwitchVehicleToRealPhysics 0x423FC0 (bytes del EXE frente al C++ de la DLL), y en ambos lados srand/rand/_ftol2 del CRT del EXE (semilla fijada por lado), 0x44DB00 y las constantes de .rdata; el mundo de caminos son arenas del banco enlazadas desde ThePaths (cuatro tablas por area, restauradas). El banco compara los eventos de los falsos, el valor devuelto, el estado final del piloto y del vehiculo, las tablas del mundo, la matriz, el reloj y la semilla de rand(); cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: el nodo siguiente con el area sin cargar o con un numero de nodo o de enlace de carretera fuera de las arenas, el nodo elegido que no este en la tabla de enlaces del nodo actual (el EXE lo busca sin limite de indices), un contador de la ruta mayor que 8 (RemoveOnePathNode escribiria sobre el propio contador), NaN con cargas distintas (las fixtures usan un unico patron) y los bytes altos de los booleanos pasados a DoPathSearch.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Car84C-20261101-201428-677380",
+  "summary_sha256": "95897828410269456decb2eadbd3ecc0da9ef1a6d1be03c1097ffce12cfe508d",
+  "result_txt_sha256": "d12ab5a139f08e4278d0c97689e523737e648be2038a51b86cb455cd65cc3039",
+  "log_sha256": "7e2f8493572dde3b2fa8a9bd2d5d91989b856f9f48be9dfb68382dda5553acf8",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "7038700bc8ef3e2d791ab2d2ce0cabceb5093d36ecf0d6a5d2f1f3a78e495f85",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/X87Math.cpp": "dd9ef6a35a1dc41537771f5783decbc46281c8bbdf948eceaeba2d18d06ebc5c",
+      "source/game_sa/X87Math.h": "4f94d8be0e74043afa4fdc1b2d2c726c907779d6b9c2d4a4c6a7722c7f9009d4",
+      "source/game_sa/CarCtrl.cpp": "7226f58607b1b93e27eea067cf6f67bbbc6650fdd8113bd313427f898f1adbbe",
+      "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Car84C/LiveComparison.hpp": "8932b246fbaacad091adc730b4e514045a6b8dd2c3abb1c23febdd1761ce122b",
+      "reversing/Car84C/Core.hpp": "830786c27b77c4062a382abb31a88df655915b6215d9bef3547194d09787a3f8",
+      "reversing/Car84C/Fixtures.hpp": "6eab9b1e124c31192a764a112905adba7e9a10fd35519997543760edf1a88b21",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

@@ -1,0 +1,186 @@
+diff --git a/source/game_sa/CarCtrl.cpp b/source/game_sa/CarCtrl.cpp
+index 4b857a779..b4a397893 100644
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -6,10 +6,10 @@
+  * Pendientes y bloqueadas pueden coincidir; no se suman.
+  *
+  * ESTADO: CCarCtrl
+- * Reconstrucción: COMPLETA — 101/101 funciones reconstruidas.
++ * Reconstrucción: COMPLETA — 102/102 funciones reconstruidas.
+  * Pendientes de reconstruir: 0.
+  * Funciones bloqueadas: 0.
+- * Validación registrada: 101/101 entradas.
++ * Validación registrada: 102/102 entradas.
+  * Validación: consultar vigencia en docs/ValidationInventory.md y
+  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+@@ -146,6 +146,8 @@ void CCarCtrl::InjectHooks()
+     RH_ScopedInstall(PickNextNodeRandomly, 0x42DE80);
+     // Lote 84B
+     RH_ScopedInstall(PickNextNodeToChaseCar, 0x426EF0);
++    // Lote 84C
++    RH_ScopedInstall(PickNextNodeToFollowPath, 0x427740);
+     // Lote 63 (parte C, tanda 5)
+     RH_ScopedInstall(ChooseModel, 0x424CE0);
+     // Lote 63 (parte C, tanda 6)
+@@ -2670,7 +2672,158 @@ bool CCarCtrl::PickNextNodeToChaseCar(CVehicle* vehicle, float destX, float dest
+ 
+ // 0x427740
+ bool CCarCtrl::PickNextNodeToFollowPath(CVehicle* vehicle) {
+-    return plugin::CallAndReturn<bool, 0x427740, CVehicle*>(vehicle);
++    // Como el original (0x427740..0x427FCF, cdecl, devuelve bool). srand del EXE (0x821B11) con la palabra +0x45E si no es 0. Con el contador de la ruta (+0x418, con signo) <= 0 se pide a DoPathSearch (tipo 0,
++    // posicion del vehiculo (matriz o transformacion simple), nodo siguiente (+0x394), destino (+0x3EC), ruta (+0x3F8), contador, 8 nodos, sin distancia, 1000000.0f, sin nodo de destino, 1000000.0f, bit 6 de +0x3DB,
++    // [0x8A5F44] como nodo prohibido, modelo == 539, sin agua): con menos de 2 nodos -> true; el primer nodo igual al siguiente se quita (hasta dos veces, RemoveOnePathNode); sin nodos -> true. Se desplazan los nodos
++    // (anterior <- actual <- siguiente <- ruta[0]), se quita ruta[0], los enlaces (anterior <- actual <- siguiente <- enlace de navegacion del enlace del nodo actual que lleva al nuevo siguiente, buscado sin limite),
++    // field_C += factor de velocidad y los signos / carriles. Signo del tramo (+0x3B6: 0xFF si el siguiente de antes < el nuevo por (area, nodo), 1 si no) y carriles del enlace siguiente (bits 3-5 con 0xFF, 0-2 con 1).
++    // Si el cuadrado de la distancia entre los puntos del enlace actual y del siguiente supera 256.0f, con un rand() & 0x600 == 0 el carril siguiente cambia en 1 segun otro rand(); carril acotado a [0, carriles - 1]
++    // (0 con +0x3DB & 8; carriles - 1 con +0x3DB & 0x10). Punto de salida y de llegada con 0x44DB00 y CalcSpeedScaleFactor (0x43C710): factor de velocidad = ftol(factor * 1000.0f / velocidad), al menos 10. Si el nuevo
++    // siguiente tiene el area cargada y su byte +0x1A & 0xF0 es 0x20: SwitchVehicleToRealPhysics y mision 0x2D. Devuelve false.
++    static_assert(offsetof(CAutoPilot, m_nSpeedScaleFactor) == 0x10 && offsetof(CAutoPilot, m_nNextLane) == 0x28);
++    auto* const raw = reinterpret_cast<uint8*>(vehicle);
++    auto& autoPilot = vehicle->m_autoPilot;
++    const auto exeRand = reinterpret_cast<int(__cdecl*)()>(0x821B1E);
++    const auto nodeAt = [](uint16 area, uint16 node) { return reinterpret_cast<const uint8*>(ThePaths.m_pPathNodes[area]) + static_cast<size_t>(node) * 0x1C; };
++    const auto linkAt = [](uint32 address) { return reinterpret_cast<const uint8*>(ThePaths.m_pNaviNodes[address >> 10]) + static_cast<size_t>(address & 0x3FF) * 0xE; };
++    const auto same = [](const CNodeAddress& a, const CNodeAddress& b) { return a.m_wAreaId == b.m_wAreaId && a.m_wNodeId == b.m_wNodeId; };
++    constexpr float kEighth = 0.125f;                               // 0x858C48
++    constexpr float kHundredth = std::bit_cast<float>(0x3C23D70Au); // 0x858C58 (0.01f)
++    if (const uint16 seed = *reinterpret_cast<const uint16*>(raw + 0x45E)) {
++        reinterpret_cast<void(__cdecl*)(uint32)>(0x821B11)(seed);
++    }
++    const CNodeAddress previousNext = autoPilot.m_startingRouteNode; // el EXE lo guarda antes de la busqueda y lo usa para el signo del tramo
++    CNodeAddress* const nodes = autoPilot.m_aPathFindNodesInfo.data();
++    int16& count = reinterpret_cast<int16&>(autoPilot.m_nPathFindNodesCount);
++    if (count <= 0) {
++        // Posicion del vehiculo: la de la matriz (+0x14) o la de la transformacion simple; bits tal cual
++        CVector origin;
++        std::memcpy(&origin, vehicle->m_matrix ? static_cast<const void*>(&vehicle->m_matrix->GetPosition()) : static_cast<const void*>(&vehicle->m_placement.m_vPosn), sizeof(CVector));
++        const bool isVortex = static_cast<int16>(vehicle->m_nModelIndex) == 0x21B;
++        ThePaths.DoPathSearch(static_cast<ePathType>(0), origin, autoPilot.m_startingRouteNode, autoPilot.m_vecDestinationCoors, nodes, count, 8, nullptr, std::bit_cast<float>(0x497423FEu), nullptr,
++                              std::bit_cast<float>(0x497423FEu), autoPilot.carCtrlFlags.bCantGoAgainstTraffic, StaticRef<CNodeAddress>(0x8A5F44), isVortex, false);
++        if (count < 2) {
++            return true;
++        }
++        if (same(autoPilot.m_startingRouteNode, nodes[0])) {
++            autoPilot.RemoveOnePathNode();
++        }
++        if (same(autoPilot.m_startingRouteNode, nodes[0])) {
++            autoPilot.RemoveOnePathNode();
++        }
++        if (count < 1) {
++            return true;
++        }
++    }
++
++    // Se desplazan los nodos (el EXE relee actual y siguiente aqui), se quita el primero de la ruta y se desplazan los enlaces, los signos y el carril; field_C acumula el factor de velocidad
++    {
++        const CNodeAddress chosen = nodes[0];
++        const CNodeAddress oldCurrent = autoPilot.m_currentAddress;
++        const CNodeAddress oldNext = autoPilot.m_startingRouteNode;
++        autoPilot.m_startingRouteNode = chosen;
++        autoPilot.m_endingRouteNode = oldCurrent;
++        autoPilot.m_currentAddress = oldNext;
++        autoPilot.RemoveOnePathNode();
++        const uint32 scale = autoPilot.m_nSpeedScaleFactor;
++        const CCarPathLinkAddress linkCurrent = autoPilot.m_nCurrentPathNodeInfo;
++        const CCarPathLinkAddress linkNext = autoPilot.m_nNextPathNodeInfo;
++        const int32 sum = static_cast<int32>(static_cast<uint32>(autoPilot.field_C) + scale);
++        const int8 signCurrent = autoPilot._smthCurr;
++        autoPilot.m_nPreviousPathNodeInfo = linkCurrent;
++        autoPilot._smthCurr = autoPilot._smthNext;
++        autoPilot.field_C = sum;
++        autoPilot._smthPrev = signCurrent;
++        autoPilot.m_nCurrentPathNodeInfo = linkNext;
++        autoPilot.m_nCurrentLane = autoPilot.m_nNextLane;
++        const CNodeAddress here = autoPilot.m_currentAddress;
++        // Enlace del nodo actual que lleva al nuevo siguiente (sin limite, el EXE tampoco lo pone) y su enlace de navegacion
++        const int32 base = *reinterpret_cast<const int16*>(nodeAt(here.m_wAreaId, here.m_wNodeId) + 0x10);
++        int32 index = 0;
++        for (;; ++index) {
++            const CNodeAddress link = ThePaths.m_pNodeLinks[here.m_wAreaId][base + static_cast<int16>(index)];
++            if (same(link, autoPilot.m_startingRouteNode)) {
++                break;
++            }
++        }
++        autoPilot.m_nNextPathNodeInfo = ThePaths.m_pNaviLinks[here.m_wAreaId][base + static_cast<int16>(index)];
++    }
++
++    // Signo del tramo y carriles del enlace siguiente
++    int32 lanes;
++    {
++        const CNodeAddress now = autoPilot.m_startingRouteNode;
++        const bool below = previousNext.m_wAreaId < now.m_wAreaId || (previousNext.m_wAreaId == now.m_wAreaId && previousNext.m_wNodeId < now.m_wNodeId);
++        autoPilot._smthNext = below ? static_cast<int8>(-1) : static_cast<int8>(1);
++        const uint8 flags = linkAt(*reinterpret_cast<const uint16*>(raw + 0x3A6))[0xB];
++        lanes = below ? (flags >> 3) & 7 : flags & 7;
++    }
++    // Direcciones del enlace actual y del siguiente por el signo del tramo: (byte * 0.01f) * signo, cada operacion redondeada a float
++    const float signCurrentF = static_cast<float>(static_cast<int8>(autoPilot._smthCurr));
++    const float signNextF = static_cast<float>(static_cast<int8>(autoPilot._smthNext));
++    const uint8* const currentLinkBytes = linkAt(*reinterpret_cast<const uint16*>(raw + 0x3A4));
++    const uint8* const nextLinkBytes = linkAt(*reinterpret_cast<const uint16*>(raw + 0x3A6));
++    const float currentDirX = (static_cast<float>(static_cast<int8>(currentLinkBytes[8])) * kHundredth) * signCurrentF;
++    const float currentDirY = (static_cast<float>(static_cast<int8>(currentLinkBytes[9])) * kHundredth) * signCurrentF;
++    const float nextDirX = (static_cast<float>(static_cast<int8>(nextLinkBytes[8])) * kHundredth) * signNextF;
++    const float nextDirY = (static_cast<float>(static_cast<int8>(nextLinkBytes[9])) * kHundredth) * signNextF;
++    {
++        // Cuadrado de la distancia entre los puntos del enlace actual y del siguiente (coordenadas / 8, exactas): mas de 256.0f (16 m) y un rand() & 0x600 == 0 cambian el carril siguiente en 1
++        const float diffX = static_cast<float>(*reinterpret_cast<const int16*>(nextLinkBytes)) * kEighth - static_cast<float>(*reinterpret_cast<const int16*>(currentLinkBytes)) * kEighth;
++        const float diffY = static_cast<float>(*reinterpret_cast<const int16*>(nextLinkBytes + 2)) * kEighth - static_cast<float>(*reinterpret_cast<const int16*>(currentLinkBytes + 2)) * kEighth;
++        const float squared = diffX * diffX + diffY * diffY;
++        if (squared > 256.0f) {
++            if ((exeRand() & 0x600) == 0) {
++                const int32 random = exeRand();
++                const int8 lane = autoPilot.m_nNextLane;
++                autoPilot.m_nNextLane = random >= 0x3FFF ? static_cast<int8>(lane - 1) : static_cast<int8>(lane + 1);
++            }
++        }
++        int32 lane = static_cast<int8>(autoPilot.m_nNextLane);
++        if (!(lane < lanes - 1)) {
++            lane = lanes - 1;
++        }
++        const int8 clamped = static_cast<int8>(lane);
++        autoPilot.m_nNextLane = clamped > 0 ? clamped : static_cast<int8>(0);
++    }
++    if (autoPilot.m_nCarCtrlFlags & 8) {
++        autoPilot.m_nNextLane = 0;
++    } else if (autoPilot.m_nCarCtrlFlags & 0x10) {
++        const int32 last = lanes - 1;
++        autoPilot.m_nNextLane = static_cast<int8>(last < 0 ? 0 : last);
++    }
++    // Punto de salida (tramo actual) y de llegada (tramo siguiente): posicion del enlace + (ancho del carril * direccion girada); el ancho es (desplazamiento + carril) * 5.4f
++    constexpr float kLaneWidth = std::bit_cast<float>(0x40ACCCCDu); // 0x858C50 (5.4f)
++    const float offsetCurrent = reinterpret_cast<const CCarPathLink*>(currentLinkBytes)->OneWayLaneOffset(); // 0x44DB00
++    const float widthCurrent = (offsetCurrent + static_cast<float>(static_cast<int8>(autoPilot.m_nCurrentLane))) * kLaneWidth;
++    const uint8* const arrivalLink = nextLinkBytes;
++    const float offsetNext = reinterpret_cast<const CCarPathLink*>(arrivalLink)->OneWayLaneOffset();
++    const float widthNext = (offsetNext + static_cast<float>(static_cast<int8>(autoPilot.m_nNextLane))) * kLaneWidth;
++    const float arrivalY = static_cast<float>(*reinterpret_cast<const int16*>(arrivalLink + 2)) * kEighth - widthNext * nextDirX;
++    const float arrivalX = static_cast<float>(*reinterpret_cast<const int16*>(arrivalLink)) * kEighth + widthNext * nextDirY;
++    const uint8* const departureLink = currentLinkBytes;
++    const float departureY = static_cast<float>(*reinterpret_cast<const int16*>(departureLink + 2)) * kEighth - widthCurrent * currentDirX;
++    const float departureX = static_cast<float>(*reinterpret_cast<const int16*>(departureLink)) * kEighth + widthCurrent * currentDirY;
++    const CVector departure{ departureX, departureY, 0.0f };
++    const CVector arrival{ arrivalX, arrivalY, 0.0f };
++    const float ratio = CCurves::CalcSpeedScaleFactor(departure, arrival, currentDirX, currentDirY, nextDirX, nextDirY); // 0x43C710
++    // 1000.0f (0x858C4C) / velocidad (+0x3C8) por el factor, en el registro x87, y _ftol2: el factor de velocidad es al menos 10
++    int32 scale = Heli83GFtol(Veh83DMul(static_cast<double>(ratio), Veh83DDiv(1000.0, static_cast<double>(autoPilot.m_speed))));
++    autoPilot.m_nSpeedScaleFactor = static_cast<uint32>(scale);
++    if (!(scale > 10)) {
++        scale = 10;
++    }
++    autoPilot.m_nSpeedScaleFactor = static_cast<uint32>(scale);
++
++    // Nodo siguiente nuevo con el area cargada y tipo 2 (+0x1A & 0xF0 == 0x20): a la fisica real
++    {
++        const CNodeAddress start = autoPilot.m_startingRouteNode;
++        if (ThePaths.m_pPathNodes[start.m_wAreaId] && (nodeAt(start.m_wAreaId, start.m_wNodeId)[0x1A] & 0xF0) == 0x20) {
++            SwitchVehicleToRealPhysics(vehicle);
++            autoPilot.m_nCarMission = static_cast<eCarMission>(0x2D);
++        }
++    }
++    return false;
+ }
+ 
+ // 0x429600
