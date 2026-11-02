@@ -14239,5 +14239,61 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ sin llamadas al EXE (sus colaboradores son falsos identicos en ambos lados). Banco Fn85A con 81920 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). RestoreCarsForThisHideOut: colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): CStoredCar::RestoreCar 0x447E40 y CWorld::Add 0x563220. IsPlayerOutsideGarage: FindPlayerVehicle 0x56E0D0, FindPlayerPed 0x56E210 y CGarage::IsEntityEntirelyOutside 0x448D30. JoinGroupFlags, RightModTypeForThisGarage y CalcDistToGarageRectangleSquared no llaman a nadie (la ultima usa los ayudantes x87 de X87Math.cpp). El banco compara el valor devuelto (AL, o ST0 byte a byte en CalcDist...), los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: indices de modelo fuera de las 8 ranuras del banco o de manejo fuera de 0..15 (RightMod... lee la tabla de manejo sin comprobar el indice), vehiculo sin informacion de modelo, NaN con cargas distintas, bytes altos de los booleanos y el resultado de IsEntityEntirelyOutside distinto de 0/1."
+  },
+  "0x004485C0": {
+    "identity": "CGarage::RestoreCarsForThisImpoundingGarage",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Garage.cpp",
+    "bank": "Fn85B",
+    "run": "20261102-132751-076819",
+    "pairs": 65536,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn85B-20261102-132751-076819/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE (sus colaboradores son falsos identicos en ambos lados). Banco Fn85B con 65536 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): RestoreCarsForThisImpoundingGarage -> CStoredCar::RestoreCar 0x447E40, CWorld::Add 0x563220, CAutomobile::PlaceOnRoadProperly 0x6AF420 y CBike::PlaceOnRoadProperly 0x6BEEB0; CountCarsWithCenterPointWithinGarage -> CGarage::IsPointInsideGarage(CVector) 0x448740 (y el metodo miembro que llama la DLL); SlideDoorOpen y SlideDoorClosed -> CGarage::FindDoorsWithGarage 0x449FF0 y CAEDoorAudioEntity::AddAudioEvent 0x4DC860. El pool de vehiculos (ds:[0xB74494]) se sustituye por uno propio de hasta 8 ranuras; CTimer::ms_fTimeStep se fija por caso. SlideDoor... corre de verdad con los ayudantes x87 de X87Math.cpp en la DLL frente a los x87 del EXE (posicion de la puerta bit a bit). El banco compara el valor devuelto, los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: tamano de pool mayor que 8, estructura de pool distinta de la sustituida, vehiculo sin matriz con posicion no finita comparada de otro modo, NaN con cargas distintas, bytes altos de los booleanos y vehiculos del tipo 0x594 con valores no listados."
+  },
+  "0x004495F0": {
+    "identity": "CGarage::CountCarsWithCenterPointWithinGarage",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Garage.cpp",
+    "bank": "Fn85B",
+    "run": "20261102-132751-076819",
+    "pairs": 65536,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn85B-20261102-132751-076819/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE (sus colaboradores son falsos identicos en ambos lados). Banco Fn85B con 65536 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): RestoreCarsForThisImpoundingGarage -> CStoredCar::RestoreCar 0x447E40, CWorld::Add 0x563220, CAutomobile::PlaceOnRoadProperly 0x6AF420 y CBike::PlaceOnRoadProperly 0x6BEEB0; CountCarsWithCenterPointWithinGarage -> CGarage::IsPointInsideGarage(CVector) 0x448740 (y el metodo miembro que llama la DLL); SlideDoorOpen y SlideDoorClosed -> CGarage::FindDoorsWithGarage 0x449FF0 y CAEDoorAudioEntity::AddAudioEvent 0x4DC860. El pool de vehiculos (ds:[0xB74494]) se sustituye por uno propio de hasta 8 ranuras; CTimer::ms_fTimeStep se fija por caso. SlideDoor... corre de verdad con los ayudantes x87 de X87Math.cpp en la DLL frente a los x87 del EXE (posicion de la puerta bit a bit). El banco compara el valor devuelto, los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: tamano de pool mayor que 8, estructura de pool distinta de la sustituida, vehiculo sin matriz con posicion no finita comparada de otro modo, NaN con cargas distintas, bytes altos de los booleanos y vehiculos del tipo 0x594 con valores no listados."
+  },
+  "0x0044A660": {
+    "identity": "CGarage::SlideDoorOpen",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Garage.cpp",
+    "bank": "Fn85B",
+    "run": "20261102-132751-076819",
+    "pairs": 65536,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn85B-20261102-132751-076819/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE (sus colaboradores son falsos identicos en ambos lados). Banco Fn85B con 65536 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): RestoreCarsForThisImpoundingGarage -> CStoredCar::RestoreCar 0x447E40, CWorld::Add 0x563220, CAutomobile::PlaceOnRoadProperly 0x6AF420 y CBike::PlaceOnRoadProperly 0x6BEEB0; CountCarsWithCenterPointWithinGarage -> CGarage::IsPointInsideGarage(CVector) 0x448740 (y el metodo miembro que llama la DLL); SlideDoorOpen y SlideDoorClosed -> CGarage::FindDoorsWithGarage 0x449FF0 y CAEDoorAudioEntity::AddAudioEvent 0x4DC860. El pool de vehiculos (ds:[0xB74494]) se sustituye por uno propio de hasta 8 ranuras; CTimer::ms_fTimeStep se fija por caso. SlideDoor... corre de verdad con los ayudantes x87 de X87Math.cpp en la DLL frente a los x87 del EXE (posicion de la puerta bit a bit). El banco compara el valor devuelto, los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: tamano de pool mayor que 8, estructura de pool distinta de la sustituida, vehiculo sin matriz con posicion no finita comparada de otro modo, NaN con cargas distintas, bytes altos de los booleanos y vehiculos del tipo 0x594 con valores no listados."
+  },
+  "0x0044A750": {
+    "identity": "CGarage::SlideDoorClosed",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Garage.cpp",
+    "bank": "Fn85B",
+    "run": "20261102-132751-076819",
+    "pairs": 65536,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn85B-20261102-132751-076819/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE (sus colaboradores son falsos identicos en ambos lados). Banco Fn85B con 65536 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): RestoreCarsForThisImpoundingGarage -> CStoredCar::RestoreCar 0x447E40, CWorld::Add 0x563220, CAutomobile::PlaceOnRoadProperly 0x6AF420 y CBike::PlaceOnRoadProperly 0x6BEEB0; CountCarsWithCenterPointWithinGarage -> CGarage::IsPointInsideGarage(CVector) 0x448740 (y el metodo miembro que llama la DLL); SlideDoorOpen y SlideDoorClosed -> CGarage::FindDoorsWithGarage 0x449FF0 y CAEDoorAudioEntity::AddAudioEvent 0x4DC860. El pool de vehiculos (ds:[0xB74494]) se sustituye por uno propio de hasta 8 ranuras; CTimer::ms_fTimeStep se fija por caso. SlideDoor... corre de verdad con los ayudantes x87 de X87Math.cpp en la DLL frente a los x87 del EXE (posicion de la puerta bit a bit). El banco compara el valor devuelto, los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: tamano de pool mayor que 8, estructura de pool distinta de la sustituida, vehiculo sin matriz con posicion no finita comparada de otro modo, NaN con cargas distintas, bytes altos de los booleanos y vehiculos del tipo 0x594 con valores no listados."
   }
 }

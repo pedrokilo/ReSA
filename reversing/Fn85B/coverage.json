@@ -1,0 +1,63 @@
+{
+ "CGarage::RestoreCarsForThisImpoundingGarage": {
+  "all_full": 4970,
+  "empty_slot": 8136,
+  "fourth_ignored": 1376,
+  "restore_null": 5315,
+  "restore_ok": 8301,
+  "ret_false": 5315,
+  "ret_true": 7792,
+  "type_auto": 4434,
+  "type_bike": 4388,
+  "type_other": 2984
+ },
+ "CGarage::CountCarsWithCenterPointWithinGarage": {
+  "all_empty": 2605,
+  "denormal_input": 7092,
+  "empty_skipped": 6410,
+  "ign_external": 3476,
+  "ign_in_pool": 5959,
+  "ign_null": 3671,
+  "ignored_hit": 2845,
+  "inf_input": 6538,
+  "nan_input": 7855,
+  "negzero_input": 1161,
+  "no_matrix": 7630,
+  "none_inside": 4993,
+  "ret_zero": 4993,
+  "size_8": 4136,
+  "size_zero": 1380,
+  "some_inside": 8113,
+  "with_matrix": 8569
+ },
+ "CGarage::SlideDoorOpen": {
+  "denormal_input": 1033,
+  "door_matrix": 4351,
+  "door_nomatrix": 4336,
+  "door_null": 4419,
+  "finished": 3948,
+  "inf_input": 878,
+  "nan_input": 1093,
+  "nan_result": 1101,
+  "negzero_input": 116,
+  "not_finished": 9158,
+  "type44": 3036,
+  "type45": 3180,
+  "type_other": 6891
+ },
+ "CGarage::SlideDoorClosed": {
+  "denormal_input": 932,
+  "door_matrix": 4325,
+  "door_nomatrix": 4416,
+  "door_null": 4364,
+  "finished": 4547,
+  "inf_input": 856,
+  "nan_input": 1168,
+  "nan_result": 1187,
+  "negzero_input": 545,
+  "not_finished": 8560,
+  "type44": 3150,
+  "type45": 3174,
+  "type_other": 6782
+ }
+}

@@ -537173,7 +537173,7 @@
       },
       "evidence": {
         "path": "reversing/GarageUpdate63/validation-summary.json",
-        "sha256": "4065ce46d3924ac7df30950af7ea0a6a1ba689b3f45a27a13cdcd011590e3f7d",
+        "sha256": "6af87f2d31ba9378613a692d8f0530efac4118b17e1f62c760d98fe02d15cbcb",
         "passed_path": [
           "covered_functions",
           "CGarage::Update"
@@ -537184,7 +537184,7 @@
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
         "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/Garage.cpp": "c0ecee65af8339b3d113cf7560c5352d782f64b4ac03c128e3f28a0167e26d69",
+        "source/game_sa/Garage.cpp": "2baa8707730c2153dd285479029eb7a2f27c2eca27b704718d7fc5c27184bd0f",
         "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
         "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
@@ -542855,7 +542855,7 @@
       },
       "evidence": {
         "path": "reversing/FightHitPed75/validation-summary.json",
-        "sha256": "adc95d7dee6d0399a0fd6c20346a8d89d559a0a015dd4e7e24daa3b7815b8664",
+        "sha256": "331d78756c744a91ff26870f2a2d3294547a25750ffea1292d01b0c795ab9d84",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleFight::FightHitPed"
@@ -542867,12 +542867,12 @@
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
         "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "6c67197098132055e93c371e0c4d9a328596ce46a9ca3570ca57b61bd9a59acd",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "dc97c2a66269aa7e3fb172971ae70de77d31b9c288cb5bc0d2ad99b3697a2e6a",
         "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "b44f31f68330d9e4862366af27fd42cbefb8c65adb0112f5f724d381218dda23",
-        "source/game_sa/X87Math.cpp": "7366ab2ee1bc951c1cee789fcb4fd953b6d6b6424fd37c3d8e3985d8fec9f58d",
-        "source/game_sa/X87Math.h": "0fbad95b16861b4051cab9922303f1130a66da57b503dc431e98fd96224ccf59",
+        "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
+        "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/FightHitPed75/LiveComparison.hpp": "a11be1b6bbd5f59e5d5d174fdbf7fb3a56fc3dd79ebe9a800e0c6472d11450c8",
+        "reversing/FightHitPed75/LiveComparison.hpp": "d080f1a541508448d46fb6b27b91cab73640e086727c8ce08f9d64ffe6b8a53e",
         "reversing/FightHitPed75/Core.hpp": "23852a3a35e186637b60c36d3b780a220c58b9164ff423b2911cd66e79789118",
         "reversing/FightHitPed75/Fixtures.hpp": "410a907376223a041edd4d6ec661cbf4146924911e1256339f61c0a3aa716bdf",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -544809,6 +544809,154 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). RestoreCarsForThisHideOut: colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): CStoredCar::RestoreCar 0x447E40 y CWorld::Add 0x563220. IsPlayerOutsideGarage: FindPlayerVehicle 0x56E0D0, FindPlayerPed 0x56E210 y CGarage::IsEntityEntirelyOutside 0x448D30. JoinGroupFlags, RightModTypeForThisGarage y CalcDistToGarageRectangleSquared no llaman a nadie (la ultima usa los ayudantes x87 de X87Math.cpp). El banco compara el valor devuelto (AL, o ST0 byte a byte en CalcDist...), los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: indices de modelo fuera de las 8 ranuras del banco o de manejo fuera de 0..15 (RightMod... lee la tabla de manejo sin comprobar el indice), vehiculo sin informacion de modelo, NaN con cargas distintas, bytes altos de los booleanos y el resultado de IsEntityEntirelyOutside distinto de 0/1.",
       "review_reference": "reversing/Fn85A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarage",
+        "fn_name": "RestoreCarsForThisImpoundingGarage",
+        "address": "0x004485C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn85B/validation-summary.json",
+        "sha256": "f6e5f79d0a7c658df7ab8a8d3a23656df60c59dc4ced3089711bda39878ee84b",
+        "passed_path": [
+          "covered_functions",
+          "CGarage::RestoreCarsForThisImpoundingGarage"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
+        "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
+        "source/game_sa/Garage.cpp": "2baa8707730c2153dd285479029eb7a2f27c2eca27b704718d7fc5c27184bd0f",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "dc97c2a66269aa7e3fb172971ae70de77d31b9c288cb5bc0d2ad99b3697a2e6a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn85B/LiveComparison.hpp": "116c5fd9095b6eb120dfd89206a9cf0f46aef6cfd5b3388058809a6ca6934fd2",
+        "reversing/Fn85B/Core.hpp": "f561ed2fd97de78bd95dc03f329ac5833b236c17a3f265b0d8bb61fcf04facf6",
+        "reversing/Fn85B/Fixtures.hpp": "2704a7ba12f0db1b51e14bf83e362dc11f622a005538524a95e804aa6a0bfce5",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): RestoreCarsForThisImpoundingGarage -> CStoredCar::RestoreCar 0x447E40, CWorld::Add 0x563220, CAutomobile::PlaceOnRoadProperly 0x6AF420 y CBike::PlaceOnRoadProperly 0x6BEEB0; CountCarsWithCenterPointWithinGarage -> CGarage::IsPointInsideGarage(CVector) 0x448740 (y el metodo miembro que llama la DLL); SlideDoorOpen y SlideDoorClosed -> CGarage::FindDoorsWithGarage 0x449FF0 y CAEDoorAudioEntity::AddAudioEvent 0x4DC860. El pool de vehiculos (ds:[0xB74494]) se sustituye por uno propio de hasta 8 ranuras; CTimer::ms_fTimeStep se fija por caso. SlideDoor... corre de verdad con los ayudantes x87 de X87Math.cpp en la DLL frente a los x87 del EXE (posicion de la puerta bit a bit). El banco compara el valor devuelto, los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: tamano de pool mayor que 8, estructura de pool distinta de la sustituida, vehiculo sin matriz con posicion no finita comparada de otro modo, NaN con cargas distintas, bytes altos de los booleanos y vehiculos del tipo 0x594 con valores no listados.",
+      "review_reference": "reversing/Fn85B/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarage",
+        "fn_name": "CountCarsWithCenterPointWithinGarage",
+        "address": "0x004495F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn85B/validation-summary.json",
+        "sha256": "f6e5f79d0a7c658df7ab8a8d3a23656df60c59dc4ced3089711bda39878ee84b",
+        "passed_path": [
+          "covered_functions",
+          "CGarage::CountCarsWithCenterPointWithinGarage"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
+        "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
+        "source/game_sa/Garage.cpp": "2baa8707730c2153dd285479029eb7a2f27c2eca27b704718d7fc5c27184bd0f",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "dc97c2a66269aa7e3fb172971ae70de77d31b9c288cb5bc0d2ad99b3697a2e6a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn85B/LiveComparison.hpp": "116c5fd9095b6eb120dfd89206a9cf0f46aef6cfd5b3388058809a6ca6934fd2",
+        "reversing/Fn85B/Core.hpp": "f561ed2fd97de78bd95dc03f329ac5833b236c17a3f265b0d8bb61fcf04facf6",
+        "reversing/Fn85B/Fixtures.hpp": "2704a7ba12f0db1b51e14bf83e362dc11f622a005538524a95e804aa6a0bfce5",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): RestoreCarsForThisImpoundingGarage -> CStoredCar::RestoreCar 0x447E40, CWorld::Add 0x563220, CAutomobile::PlaceOnRoadProperly 0x6AF420 y CBike::PlaceOnRoadProperly 0x6BEEB0; CountCarsWithCenterPointWithinGarage -> CGarage::IsPointInsideGarage(CVector) 0x448740 (y el metodo miembro que llama la DLL); SlideDoorOpen y SlideDoorClosed -> CGarage::FindDoorsWithGarage 0x449FF0 y CAEDoorAudioEntity::AddAudioEvent 0x4DC860. El pool de vehiculos (ds:[0xB74494]) se sustituye por uno propio de hasta 8 ranuras; CTimer::ms_fTimeStep se fija por caso. SlideDoor... corre de verdad con los ayudantes x87 de X87Math.cpp en la DLL frente a los x87 del EXE (posicion de la puerta bit a bit). El banco compara el valor devuelto, los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: tamano de pool mayor que 8, estructura de pool distinta de la sustituida, vehiculo sin matriz con posicion no finita comparada de otro modo, NaN con cargas distintas, bytes altos de los booleanos y vehiculos del tipo 0x594 con valores no listados.",
+      "review_reference": "reversing/Fn85B/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarage",
+        "fn_name": "SlideDoorOpen",
+        "address": "0x0044A660",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn85B/validation-summary.json",
+        "sha256": "f6e5f79d0a7c658df7ab8a8d3a23656df60c59dc4ced3089711bda39878ee84b",
+        "passed_path": [
+          "covered_functions",
+          "CGarage::SlideDoorOpen"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
+        "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
+        "source/game_sa/Garage.cpp": "2baa8707730c2153dd285479029eb7a2f27c2eca27b704718d7fc5c27184bd0f",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "dc97c2a66269aa7e3fb172971ae70de77d31b9c288cb5bc0d2ad99b3697a2e6a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn85B/LiveComparison.hpp": "116c5fd9095b6eb120dfd89206a9cf0f46aef6cfd5b3388058809a6ca6934fd2",
+        "reversing/Fn85B/Core.hpp": "f561ed2fd97de78bd95dc03f329ac5833b236c17a3f265b0d8bb61fcf04facf6",
+        "reversing/Fn85B/Fixtures.hpp": "2704a7ba12f0db1b51e14bf83e362dc11f622a005538524a95e804aa6a0bfce5",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): RestoreCarsForThisImpoundingGarage -> CStoredCar::RestoreCar 0x447E40, CWorld::Add 0x563220, CAutomobile::PlaceOnRoadProperly 0x6AF420 y CBike::PlaceOnRoadProperly 0x6BEEB0; CountCarsWithCenterPointWithinGarage -> CGarage::IsPointInsideGarage(CVector) 0x448740 (y el metodo miembro que llama la DLL); SlideDoorOpen y SlideDoorClosed -> CGarage::FindDoorsWithGarage 0x449FF0 y CAEDoorAudioEntity::AddAudioEvent 0x4DC860. El pool de vehiculos (ds:[0xB74494]) se sustituye por uno propio de hasta 8 ranuras; CTimer::ms_fTimeStep se fija por caso. SlideDoor... corre de verdad con los ayudantes x87 de X87Math.cpp en la DLL frente a los x87 del EXE (posicion de la puerta bit a bit). El banco compara el valor devuelto, los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: tamano de pool mayor que 8, estructura de pool distinta de la sustituida, vehiculo sin matriz con posicion no finita comparada de otro modo, NaN con cargas distintas, bytes altos de los booleanos y vehiculos del tipo 0x594 con valores no listados.",
+      "review_reference": "reversing/Fn85B/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarage",
+        "fn_name": "SlideDoorClosed",
+        "address": "0x0044A750",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn85B/validation-summary.json",
+        "sha256": "f6e5f79d0a7c658df7ab8a8d3a23656df60c59dc4ced3089711bda39878ee84b",
+        "passed_path": [
+          "covered_functions",
+          "CGarage::SlideDoorClosed"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
+        "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
+        "source/game_sa/Garage.cpp": "2baa8707730c2153dd285479029eb7a2f27c2eca27b704718d7fc5c27184bd0f",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "dc97c2a66269aa7e3fb172971ae70de77d31b9c288cb5bc0d2ad99b3697a2e6a",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn85B/LiveComparison.hpp": "116c5fd9095b6eb120dfd89206a9cf0f46aef6cfd5b3388058809a6ca6934fd2",
+        "reversing/Fn85B/Core.hpp": "f561ed2fd97de78bd95dc03f329ac5833b236c17a3f265b0d8bb61fcf04facf6",
+        "reversing/Fn85B/Fixtures.hpp": "2704a7ba12f0db1b51e14bf83e362dc11f622a005538524a95e804aa6a0bfce5",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): RestoreCarsForThisImpoundingGarage -> CStoredCar::RestoreCar 0x447E40, CWorld::Add 0x563220, CAutomobile::PlaceOnRoadProperly 0x6AF420 y CBike::PlaceOnRoadProperly 0x6BEEB0; CountCarsWithCenterPointWithinGarage -> CGarage::IsPointInsideGarage(CVector) 0x448740 (y el metodo miembro que llama la DLL); SlideDoorOpen y SlideDoorClosed -> CGarage::FindDoorsWithGarage 0x449FF0 y CAEDoorAudioEntity::AddAudioEvent 0x4DC860. El pool de vehiculos (ds:[0xB74494]) se sustituye por uno propio de hasta 8 ranuras; CTimer::ms_fTimeStep se fija por caso. SlideDoor... corre de verdad con los ayudantes x87 de X87Math.cpp en la DLL frente a los x87 del EXE (posicion de la puerta bit a bit). El banco compara el valor devuelto, los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: tamano de pool mayor que 8, estructura de pool distinta de la sustituida, vehiculo sin matriz con posicion no finita comparada de otro modo, NaN con cargas distintas, bytes altos de los booleanos y vehiculos del tipo 0x594 con valores no listados.",
+      "review_reference": "reversing/Fn85B/README.md"
     }
   ]
 }

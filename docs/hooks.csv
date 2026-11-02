@@ -8998,3 +8998,7 @@ CGarage,RightModTypeForThisGarage,0x00447720,1,0,1,S
 CGarage,CalcDistToGarageRectangleSquared,0x00447D80,1,0,1,S
 CGarage,RestoreCarsForThisHideOut,0x00448550,1,0,1,S
 CGarage,IsPlayerOutsideGarage,0x00448E50,1,0,1,S
+CGarage,RestoreCarsForThisImpoundingGarage,0x004485C0,1,0,1,S
+CGarage,CountCarsWithCenterPointWithinGarage,0x004495F0,1,0,1,S
+CGarage,SlideDoorOpen,0x0044A660,1,0,1,S
+CGarage,SlideDoorClosed,0x0044A750,1,0,1,S

@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "pairs": 65536,
+  "differences": 0,
+  "registered_pairs": 65536,
+  "registered_functions": 4,
+  "functions": {
+    "CGarage::RestoreCarsForThisImpoundingGarage": 16384,
+    "CGarage::CountCarsWithCenterPointWithinGarage": 16384,
+    "CGarage::SlideDoorOpen": 16384,
+    "CGarage::SlideDoorClosed": 16384
+  },
+  "covered_functions": {
+    "CGarage::RestoreCarsForThisImpoundingGarage": true,
+    "CGarage::CountCarsWithCenterPointWithinGarage": true,
+    "CGarage::SlideDoorOpen": true,
+    "CGarage::SlideDoorClosed": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): RestoreCarsForThisImpoundingGarage -> CStoredCar::RestoreCar 0x447E40, CWorld::Add 0x563220, CAutomobile::PlaceOnRoadProperly 0x6AF420 y CBike::PlaceOnRoadProperly 0x6BEEB0; CountCarsWithCenterPointWithinGarage -> CGarage::IsPointInsideGarage(CVector) 0x448740 (y el metodo miembro que llama la DLL); SlideDoorOpen y SlideDoorClosed -> CGarage::FindDoorsWithGarage 0x449FF0 y CAEDoorAudioEntity::AddAudioEvent 0x4DC860. El pool de vehiculos (ds:[0xB74494]) se sustituye por uno propio de hasta 8 ranuras; CTimer::ms_fTimeStep se fija por caso. SlideDoor... corre de verdad con los ayudantes x87 de X87Math.cpp en la DLL frente a los x87 del EXE (posicion de la puerta bit a bit). El banco compara el valor devuelto, los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: tamano de pool mayor que 8, estructura de pool distinta de la sustituida, vehiculo sin matriz con posicion no finita comparada de otro modo, NaN con cargas distintas, bytes altos de los booleanos y vehiculos del tipo 0x594 con valores no listados.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn85B-20261102-132751-076819",
+  "summary_sha256": "faa95067d56adf3fda56419af4fe65aad0346b71bb9010e240a9d030fdb3bd15",
+  "result_txt_sha256": "a13e2076af2d35b1e16eb425bc9ccbf9d5cea6381c46e8bc97367dbd2ca518d1",
+  "log_sha256": "b81d4102f5c24ad00100e8171f2a4afae24d9b039139322bbc31e0d409ffa72f",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "ed9d68ab418fe7e505a4b7f50777cf3f5462a574a8296a78dfa03c00086a8347",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
+      "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
+      "source/game_sa/Garage.cpp": "2baa8707730c2153dd285479029eb7a2f27c2eca27b704718d7fc5c27184bd0f",
+      "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "dc97c2a66269aa7e3fb172971ae70de77d31b9c288cb5bc0d2ad99b3697a2e6a",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn85B/LiveComparison.hpp": "116c5fd9095b6eb120dfd89206a9cf0f46aef6cfd5b3388058809a6ca6934fd2",
+      "reversing/Fn85B/Core.hpp": "f561ed2fd97de78bd95dc03f329ac5833b236c17a3f265b0d8bb61fcf04facf6",
+      "reversing/Fn85B/Fixtures.hpp": "2704a7ba12f0db1b51e14bf83e362dc11f622a005538524a95e804aa6a0bfce5",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

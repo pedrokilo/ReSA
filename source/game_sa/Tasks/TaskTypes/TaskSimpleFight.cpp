@@ -935,10 +935,6 @@ constexpr auto      FightHitPedPlayerTask  = static_cast<eTaskType>(0xCD);      
 bool FightBeHitWhileBlockingExe(CTaskSimpleFight* blocker, CPed* victim, CPed* creator, uint32 combo, uint32 move) {
     return plugin::CallMethodAndReturn<bool, 0x61C650, CTaskSimpleFight*, CPed*, CPed*, uint32, uint32>(blocker, victim, creator, combo, move);
 }
-// CVector::Normalise (0x59C910, thiscall, in situ, sin reconstruir).
-void FightNormaliseExe(CVector* v) {
-    plugin::CallMethod<0x59C910, CVector*>(v);
-}
 // rand() del CRT del EXE (0x821B1E: avanza la semilla del juego, la rand() de la DLL no).
 int32 FightExeRand() {
     return reinterpret_cast<int32(__cdecl*)()>(0x821B1E)();
@@ -1056,7 +1052,7 @@ CPed* CTaskSimpleFight::FightHitPed(CPed* creator, CPed* victim, CVector& posn1,
             const CVector* const attackerPos = FightPositionOf(creator);
             CVector direction;
             FightHitPed75DirectionCpp(&attackerPos->x, &victimPos->x, &direction.x);
-            FightNormaliseExe(&direction); // 0x59C910
+            direction.Normalise(); // 0x59C910
             if (!victim->IsAlive()) { // 0x5E0170
                 const uint32 zero = 0;
                 std::memcpy(&direction.x, &zero, sizeof(float));

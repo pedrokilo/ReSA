@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 02/11/2026 (Ciudad de México):** 820 grupos / 8999 funciones reconstruidas; 8999 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 02/11/2026 (Ciudad de México):** 820 grupos / 9003 funciones reconstruidas; 9003 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo A: Falta: llamada desde código ya reemplazado
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-1,023 funciones, 137,667 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+1,019 funciones, 136,945 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -133,7 +133,6 @@
 | `0x004C6200` | 5 | CModelInfo | alta | 9 (9) |  |
 | `0x006682D0` | 661 | CTaskComplexGoToPointAndStandStill | alta | 8 (8) |  |
 | `0x005EF980` | 659 | CPedAttractorManager | baja | 8 (8) |  |
-| `0x0044A750` | 217 | CObject | baja | 8 (8) |  |
 | `0x0059B8B0` | 108 | CMaths | baja | 9 (8) |  |
 | `0x004DC670` | 54 | CAEDataStream | baja | 8 (8) |  |
 | `0x0074C7D0` | 44 | Win | baja | 13 (8) |  |
@@ -326,7 +325,6 @@
 | `0x005A7A20` | 263 | CPedClothesDesc | baja | 2 (2) |  |
 | `0x005DA6A0` | 236 | CCustomCarEnvMapPipeline | baja | 3 (2) |  |
 | `0x005A1DF0` | 230 | CObjectPool | baja | 2 (2) |  |
-| `0x0044A660` | 226 | CObject | baja | 2 (2) |  |
 | `0x00747300` | 210 | CGamma | baja | 2 (2) |  |
 | `0x00452090` | 190 | CPathFind | alta | 2 (2) |  |
 | `0x0049ABD0` | 184 | CShopping | alta | 2 (2) |  |
@@ -539,12 +537,10 @@
 | `0x00746ED0` | 148 | CPad | baja | 1 (1) |  |
 | `0x00683840` | 146 | CTaskComplexBeInCouple | baja | 1 (1) |  |
 | `0x005C87E0` | 143 | FxEmitterBP_c | baja | 1 (1) |  |
-| `0x004495F0` | 142 | CGarage | alta | 1 (1) |  |
 | `0x00683A40` | 142 | CTaskComplexBeInCouple | baja | 6 (1) |  |
 | `0x0072FF60` | 141 | CGame | baja | 1 (1) |  |
 | `0x004F2B80` | 139 | CAETwinLoopSoundEntity | alta | 8 (1) |  |
 | `0x005EE270` | 138 | CPedAttractorManager | baja | 1 (1) |  |
-| `0x004485C0` | 137 | CGarage | alta | 1 (1) |  |
 | `0x005EE370` | 136 | CPedAttractorManager | baja | 1 (1) |  |
 | `0x00748F70` | 134 | Win | baja | 1 (1) |  |
 | `0x00730270` | 132 | CGame | baja | 1 (1) |  |

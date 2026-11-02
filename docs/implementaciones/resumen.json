@@ -1,7 +1,7 @@
 {
   "scope": "source/game_sa and source/app (WindowedMode.cpp included as the documented NOTSA assembly exception, reported separately), definitions in cpp/h/hpp/inc; all preprocessing branches",
   "totals": {
-    "source_definition_count": 18726,
+    "source_definition_count": 18725,
     "groups": 1502,
     "assembly_occurrences": 0,
     "naked_declarations": 0,
@@ -20,14 +20,14 @@
     "body_parse_errors": 309,
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 447,
-    "historical_catalog_rows": 9003,
+    "historical_catalog_rows": 9007,
     "catalog_rows_without_unambiguous_source_match_in_scope": 2,
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 20,
     "catalog_rows_linked_by_hook_address": 180,
-    "validated_reconstructed_own_cpp_definitions": 10701,
+    "validated_reconstructed_own_cpp_definitions": 10705,
     "validated_reconstructed_own_asm_definitions": 0,
-    "wrapper_definitions": 50
+    "wrapper_definitions": 45
   },
   "source_sha256": {
     "source/app/app.cpp": "4717fcefd64b864f51910ae3ab7b4b3bc0966838f9cddaaca5727ee06c47ac16",
@@ -473,7 +473,7 @@
     "source/game_sa/Entity/Ped/PedSaveStructure.cpp": "5f58ccddfb1db70c9778c2f287d24ac9bb2eb9432155bd07a55d6dd05d961975",
     "source/game_sa/Entity/Ped/PedSaveStructure.h": "e5c92294002b82a7563cc3dcea70ece869fd25d7ce89e4654b8c530ee4d16187",
     "source/game_sa/Entity/Ped/PedStdBonePositions.h": "660b8512f81ce5369bb3d8e3b4c9ba5a3e1eb36442cbfa4ffc770371e8bb9655",
-    "source/game_sa/Entity/Ped/PlayerPed.cpp": "39d6309a239adf505da4f71a62a2f0b457f3d6393008f8f45fd19b9b3e709449",
+    "source/game_sa/Entity/Ped/PlayerPed.cpp": "303b045ffde3c6b90920397b492a6f5cfe0b369d04c8985931e3746f0c0741ac",
     "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
     "source/game_sa/Entity/Ped/PlayerSkin.cpp": "b725e853ad0ac44d3c936722f693b77d30c58420091c43584dc9ac38a63b1cae",
     "source/game_sa/Entity/Ped/PlayerSkin.h": "1188243850ccb80021731e036a8de514fe20aaeac78ef76bb94e8c4150a563db",
@@ -914,7 +914,7 @@
     "source/game_sa/GangWars.h": "9790db3a29cf70ace84a2f3b85476685194a0b23c42facb6ced08529cef3f1de",
     "source/game_sa/GangWarsSaveStructure.cpp": "ca73a3cb9f0a64ba3c7948017ee1407c06b4ad94d1154bed6bff473c834469d3",
     "source/game_sa/GangWarsSaveStructure.h": "9ed82dfdffec5eea07e79c273dc3e1e22d161433c23c604ed19b6d31d293d4e5",
-    "source/game_sa/Garage.cpp": "c0ecee65af8339b3d113cf7560c5352d782f64b4ac03c128e3f28a0167e26d69",
+    "source/game_sa/Garage.cpp": "2baa8707730c2153dd285479029eb7a2f27c2eca27b704718d7fc5c27184bd0f",
     "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
     "source/game_sa/Garages.cpp": "00d50a1d456143b7574ae3ea3bea69e95113fddb4eaaa92b1f573af312296ba7",
     "source/game_sa/Garages.h": "f71fc96fd17d9d22cba76e913da868dea9b8359fe466eea9465241a3f093f658",
@@ -1987,7 +1987,7 @@
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.h": "ec2e688e8e7eabeeb6ddd0e0bb19bc47ef5997db69a029c6b5740768dadd9845",
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFall.cpp": "a094804199c21aa380d267b956896117f60691d20d2dae0ab605c75209a89582",
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFall.h": "c9224f5b845695eba5a5cf4352474ec047fcc1714fe23ed39e06ef4c645ef6f2",
-    "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "6c67197098132055e93c371e0c4d9a328596ce46a9ca3570ca57b61bd9a59acd",
+    "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "dc97c2a66269aa7e3fb172971ae70de77d31b9c288cb5bc0d2ad99b3697a2e6a",
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "b44f31f68330d9e4862366af27fd42cbefb8c65adb0112f5f724d381218dda23",
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp": "b4fa56c3f3bf80d3b7532befd0f427bb9120089f29864389a140a53129b32e39",
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h": "c3d8b0d7b9e47f79f802d6d35a8e480e8332d6c369fac7a27ae00775a4cd354e",
@@ -2232,10 +2232,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "b667418ce4b7920c418ea2d6f8f1ad8024d920a4c71a6d91f7edc4806ae50432",
+    "hooks.csv": "7d5660f538a72bd84469fd53e353fd2125e0a939254d32147c2247f8524ada88",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "b8231918bf226dbb2fe3c06ff30c0e2d744ca9de6501500382b3be34eb560d4d",
+  "migration_registry_sha256": "60edf24cd374867dbded571e78b71c1836e927d3a53ef8ffb3c0b353a5132448",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

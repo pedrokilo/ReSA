@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CGarage
- * Reconstrucción: COMPLETA — 23/23 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 27/27 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 23/23 entradas.
+ * Validación registrada: 27/27 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -74,6 +74,10 @@ void CGarage::InjectHooks() {
     RH_ScopedInstall(CalcDistToGarageRectangleSquared, 0x447D80);
     RH_ScopedInstall(RestoreCarsForThisHideOut, 0x448550);
     RH_ScopedInstall(IsPlayerOutsideGarage, 0x448E50);
+    RH_ScopedInstall(RestoreCarsForThisImpoundingGarage, 0x4485C0);
+    RH_ScopedInstall(CountCarsWithCenterPointWithinGarage, 0x4495F0);
+    RH_ScopedInstall(SlideDoorOpen, 0x44A660);
+    RH_ScopedInstall(SlideDoorClosed, 0x44A750);
     RH_ScopedInstall(IsStaticPlayerCarEntirelyInside, 0x44A830);
     RH_ScopedInstall(IsEntityEntirelyInside3D, 0x448BE0);
     RH_ScopedNamedGlobalInstall(GarageIsPointInsideRegs, "IsPointInsideGarage-point", 0x448740); // EDX/ECX del EXE: ver GarageIsPointInsideRegs
@@ -436,14 +440,10 @@ inline const float* GaPos(CEntity* entity) {
 inline CVehicle* GaFpv() { return FindPlayerVehicle(-1, false); }
 inline CPed* GaFpp() { return FindPlayerPed(-1); }
 // Metodos de CGarage que siguen siendo del EXE (sin definicion en C++): colaboradores por direccion.
-inline bool  GaSlideDoorOpen(CGarage* g) { return plugin::CallMethodAndReturn<bool, 0x44A660, CGarage*>(g); }
-inline bool  GaSlideDoorClosed(CGarage* g) { return plugin::CallMethodAndReturn<bool, 0x44A750, CGarage*>(g); }
 inline bool  GaIsAnyCarBlockingDoor(CGarage* g) { return plugin::CallMethodAndReturn<bool, 0x4494F0, CGarage*>(g); }
-inline int32 GaCountCarsCenterWithin(CGarage* g, CVehicle* ignored) { return plugin::CallMethodAndReturn<int32, 0x4495F0, CGarage*, CVehicle*>(g, ignored); }
 inline bool  GaIsAnyOtherPedTouching(CGarage* g, CPed* ignored) { return plugin::CallMethodAndReturn<bool, 0x449100, CGarage*, CPed*>(g, ignored); }
 inline void  GaThrowCarsNearDoorOut(CGarage* g, CVehicle* ignored) { plugin::CallMethod<0x449220, CGarage*, CVehicle*>(g, ignored); }
 inline void  GaNeatlyLineUp(CGarage* g, CStoredCar* cars) { plugin::CallMethod<0x448330, CGarage*, CStoredCar*>(g, cars); }
-inline bool  GaRestoreImpounding(CGarage* g, CStoredCar* cars) { return plugin::CallMethodAndReturn<bool, 0x4485C0, CGarage*, CStoredCar*>(g, cars); }
 inline void  GaStoreAndRemoveImpounding(CGarage* g, CStoredCar* cars, int32 maxSlot) { plugin::CallMethod<0x449A50, CGarage*, CStoredCar*, int32>(g, cars, maxSlot); }
 inline void  GaFindDoorsWithGarage(CGarage* g, CObject** first, CObject** second) { g->FindDoorsWithGarage(first, second); }
 inline int32& GaMoney() { return *reinterpret_cast<int32*>(0xB7CE50 + static_cast<uint32>(CWorld::PlayerInFocus) * 0x190u); }   // CPlayerInfo::m_nMoney del jugador en foco
@@ -522,6 +522,89 @@ bool CGarage::IsPlayerOutsideGarage(float radius) {
     if (FindPlayerVehicle(-1, false))
         return IsEntityEntirelyOutside(FindPlayerVehicle(-1, false), radius);
     return IsEntityEntirelyOutside(FindPlayerPed(-1), radius);
+}
+
+// 0x4485C0
+// Como el original (0x4485C0..0x448646; thiscall, ECX sin uso, `ret 4`): igual que el hide-out pero solo con los 3 primeros coches guardados. Para cada uno con modelo distinto de cero se restaura el vehiculo
+// (CStoredCar::RestoreCar, 0x447E40); si existe se activa el bit 5 del byte +0x42D, se anade al mundo (CWorld::Add, 0x563220), se recoloca sobre la carretera segun el tipo (+0x594: 0 coche, 0x6AF420; 9 moto,
+// 0x6BEEB0) y el hueco queda vacio; si no, se deja. Devuelve verdadero si al final los 3 huecos estan vacios.
+bool CGarage::RestoreCarsForThisImpoundingGarage(CStoredCar* cars) {
+    for (uint32 i = 0; i < 3; ++i) {
+        if (cars[i].m_wModelIndex == 0)
+            continue;
+        CVehicle* const vehicle = cars[i].RestoreCar();
+        if (!vehicle)
+            continue;
+        GaField<uint8>(vehicle, 0x42D) |= 0x20u;
+        CWorld::Add(vehicle);
+        const uint32 type = GaField<uint32>(vehicle, 0x594);
+        if (type == 0)
+            static_cast<CAutomobile*>(vehicle)->PlaceOnRoadProperly(); // 0x6AF420
+        else if (type == 9)
+            static_cast<CBike*>(vehicle)->PlaceOnRoadProperly(); // 0x6BEEB0
+        cars[i].m_wModelIndex = 0;
+    }
+    for (uint32 i = 0; i < 3; ++i) {
+        if (cars[i].m_wModelIndex != 0)
+            return false;
+    }
+    return true;
+}
+
+// 0x4495F0
+// Como el original (0x4495F0..0x44967B; thiscall, `ret 4`): recorre el pool de vehiculos (ds:[0xB74494], tamano leido una vez) del ultimo indice al primero (el 0 incluido; ranuras libres fuera) y cuenta los que no son
+// el vehiculo ignorado y cuya posicion (matriz + 0x30, o m_placement + 4 sin matriz) cae dentro del garaje (IsPointInsideGarage, 0x448740, con el vector por valor).
+int32 CGarage::CountCarsWithCenterPointWithinGarage(CVehicle* ignoredVehicle) {
+    int32 count = 0;
+    auto* const pool = GetVehiclePool();
+    for (uint32 i = static_cast<uint32>(pool->GetSize()); i != 0; --i) {
+        CVehicle* const vehicle = pool->GetAt(i - 1);
+        if (!vehicle || vehicle == ignoredVehicle)
+            continue;
+        if (IsPointInsideGarage(vehicle->GetPosition()))
+            ++count;
+    }
+    return count;
+}
+
+// 0x44A660
+// Como el original (0x44A660..0x44A741; thiscall, devuelve AL): la puerta avanza ms_fTimeStep * paso (0.011 por defecto, 0.0011 en los hangares 44 y 45) sobre m_fDoorPosition (+0x38) con los x87 a 24 bits y se
+// guarda como float. Con posicion >= 1.0 (comparacion ordenada) queda en exactamente 1.0, se avisa a la primera puerta que devuelve FindDoorsWithGarage (0x449FF0) con el evento 0xA0 y se devuelve verdadero; si no
+// (tambien con NaN) se avisa con el evento 0x9F y se devuelve falso. El aviso es CAEDoorAudioEntity::AddAudioEvent (0x4DC860) del audio del garaje (+0x50): posicion de la puerta, volumen 0 y velocidad 1.
+bool CGarage::SlideDoorOpen() {
+    const double step = Veh83DMul(CTimer::ms_fTimeStep, (m_nType == 44 || m_nType == 45) ? 0.0011f : 0.011f);
+    m_fDoorPosition = Veh83DStore(Veh83DAdd(step, m_fDoorPosition));
+    const bool finished = m_fDoorPosition >= 1.0f;
+    if (finished)
+        m_fDoorPosition = 1.0f;
+    CObject* first{};
+    CObject* second{};
+    FindDoorsWithGarage(&first, &second);
+    if (first) {
+        CVector& position = *reinterpret_cast<CVector*>(const_cast<float*>(GaPos(first)));
+        m_GarageAudio.AddAudioEvent(static_cast<eAudioEvents>(finished ? 0xA0 : 0x9F), position, 0.0f, 1.0f);
+    }
+    return finished;
+}
+
+// 0x44A750
+// Como el original (0x44A750..0x44A829; thiscall, devuelve AL): la puerta retrocede ms_fTimeStep * paso (0.013 por defecto, 0.0013 en los hangares 44 y 45): m_fDoorPosition = posicion - paso (fsubr, x87 a 24 bits,
+// guardado como float). Con posicion <= 0.0 (comparacion ordenada) queda en exactamente 0, se avisa a la primera puerta con el evento 0xA2 y se devuelve verdadero; si no (tambien con NaN) se avisa con el
+// evento 0xA1 y se devuelve falso.
+bool CGarage::SlideDoorClosed() {
+    const double step = Veh83DMul(CTimer::ms_fTimeStep, (m_nType == 44 || m_nType == 45) ? 0.0013f : 0.013f);
+    m_fDoorPosition = Veh83DStore(Veh83DSub(m_fDoorPosition, step));
+    const bool finished = m_fDoorPosition <= 0.0f;
+    if (finished)
+        m_fDoorPosition = 0.0f;
+    CObject* first{};
+    CObject* second{};
+    FindDoorsWithGarage(&first, &second);
+    if (first) {
+        CVector& position = *reinterpret_cast<CVector*>(const_cast<float*>(GaPos(first)));
+        m_GarageAudio.AddAudioEvent(static_cast<eAudioEvents>(finished ? 0xA2 : 0xA1), position, 0.0f, 1.0f);
+    }
+    return finished;
 }
 
 
@@ -677,7 +760,7 @@ L_AE0C:   // PAYNSPRAY, estado 2 (cerrando)
         vehicle = GaFpv();
         GaThrowCarsNearDoorOut(this, vehicle);
     }
-    if (GaSlideDoorClosed(this)) {
+    if (SlideDoorClosed()) {
         m_nDoorState = static_cast<eGarageDoorState>(0);
         GaAudio(0x10);
         m_nTimeToOpen = CTimer::GetTimeInMS() + 0x7D0;
@@ -800,7 +883,7 @@ L_B3C1:
     goto L_C7C4;
 
 L_B79C:   // estado 3 (abriendo)
-    if (GaSlideDoorOpen(this))
+    if (SlideDoorOpen())
         m_nDoorState = static_cast<eGarageDoorState>(4);
     if (!(m_fDoorPosition > 0.5f))
         goto L_C7C4;
@@ -856,7 +939,7 @@ L_B564:   // estado 2
         vehicle = GaFpv();
         GaThrowCarsNearDoorOut(this, vehicle);
     }
-    if (GaSlideDoorClosed(this)) {
+    if (SlideDoorClosed()) {
         m_nDoorState = static_cast<eGarageDoorState>(0);
         m_nTimeToOpen = CTimer::GetTimeInMS() + 0x7D0;
     }
@@ -966,7 +1049,7 @@ L_B8BE:
 L_B963:   // estado 2: cerrando
     if (m_pTargetCar)
         GaThrowCarsNearDoorOut(this, m_pTargetCar);
-    if (!GaSlideDoorClosed(this))
+    if (!SlideDoorClosed())
         goto L_C7C4;
     if (m_nFlags & 1)
         goto L_C6AC;
@@ -1006,7 +1089,7 @@ L_B9FF:
     default: goto L_C7C4;
     }
 L_BA0D:
-    if (GaSlideDoorClosed(this))
+    if (SlideDoorClosed())
         m_nDoorState = static_cast<eGarageDoorState>(0);
     if (IsGarageEmpty())
         goto L_C7C4;
@@ -1051,7 +1134,7 @@ L_BA70:
 L_BB83:
     if (m_pTargetCar)
         GaThrowCarsNearDoorOut(this, m_pTargetCar);
-    if (!GaSlideDoorClosed(this))
+    if (!SlideDoorClosed())
         goto L_C7C4;
     if (m_nFlags & 1)
         goto L_C6AC;
@@ -1105,7 +1188,7 @@ L_BCAA:
     if (m_nDoorState != 3)
         goto L_C7C4;
 L_BCBE:
-    if (!GaSlideDoorOpen(this))
+    if (!SlideDoorOpen())
         goto L_C7C4;
     m_nDoorState = static_cast<eGarageDoorState>(1);
     goto L_C7C4;
@@ -1140,7 +1223,7 @@ L_BCF2:
 L_BD79:
     if (GaFpv()) {
         const int32 needed = (m_nType != 0x10 ? 1 : 0) * 2 + 2;
-        if (GaCountCarsCenterWithin(this, GaFpv()) >= needed) {
+        if (CountCarsWithCenterPointWithinGarage(GaFpv()) >= needed) {
             if (IsPlayerOutsideGarage(0.25f))
                 goto L_C7C0;
         }
@@ -1151,7 +1234,7 @@ L_BD79:
     RemoveCarsBlockingDoorNotInside();
     goto L_C7C4;
 L_BDF1:
-    GaSlideDoorClosed(this);
+    SlideDoorClosed();
     if (!IsPlayerOutsideGarage(0.0f))
         goto L_C6F9;
     if (!(m_fDoorPosition == 0.0f))
@@ -1273,7 +1356,7 @@ L_C2F3:
             goto L_C7C4;
         goto L_BCBE;
     }
-    if (!GaSlideDoorClosed(this))
+    if (!SlideDoorClosed())
         goto L_C7C4;
     m_nDoorState = static_cast<eGarageDoorState>(0);
     GaPadControls(false);
@@ -1331,7 +1414,7 @@ L_C477:
     if (!flag)
         goto L_C7C4;
     GaNeatlyLineUp(this, GaStoredCars(m_nType));
-    if (!GaRestoreImpounding(this, GaStoredCars(m_nType)))
+    if (!RestoreCarsForThisImpoundingGarage(GaStoredCars(m_nType)))
         goto L_C7C4;
     m_nDoorState = static_cast<eGarageDoorState>(1);
     goto L_C7C4;
@@ -1396,7 +1479,7 @@ L_C662:
     m_nDoorState = static_cast<eGarageDoorState>(2);
     goto L_C7C4;
 L_C69D:
-    if (!GaSlideDoorClosed(this))
+    if (!SlideDoorClosed())
         goto L_C7C4;
 L_C6AC:
     m_nDoorState = static_cast<eGarageDoorState>(0);
