@@ -73,8 +73,8 @@ public:
     CTaskSimpleFight* Constructor(CEntity* entity, int32 nCommand, uint32 nIdlePeriod);
     static void LoadMeleeData();
 
-    void BeHitWhileBlocking(CPed* ped1, CPed* ped2, int8, int8);
-    void ChooseAttackAI(CPed* ped);
+    bool BeHitWhileBlocking(CPed* victim, CPed* creator, uint8 combo, uint8 move); // 0x61C650 (ret 0x10)
+    int16 ChooseAttackAI(CPed* ped);                                              // 0x624A40 (ret 4)
     void ChooseAttackPlayer(CPed* ped);
     bool ControlFight(CEntity* entity, uint8 command);
 

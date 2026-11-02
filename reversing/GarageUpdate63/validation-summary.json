@@ -12,21 +12,21 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wf-1 (HEAD 35e7b9d4b + parche del banco Garage63 + fuente del lote 63b). Los 47 colaboradores se sustituyen por falsos identicos en ambos lados (parche en la entrada del EXE y en el cuerpo de la DLL cuando tienen hook; no se validan sus cuerpos): FindPlayerVehicle/Ped/Coors/Wanted, CGarage::IsEntityEntirelyInside3D/Outside/IsStaticPlayerCarEntirelyInside/IsGarageEmpty/IsEntityTouching3D/RemoveCarsBlockingDoorNotInside/StoreAndRemoveCarsForThisHideOut, SlideDoorOpen/Closed, IsPlayerOutsideGarage, IsAnyCarBlockingDoor, CountCarsWithCenterPointWithinGarage, IsAnyOtherPed/CarTouchingGarage, ThrowCarsNearDoorOutOfGarage, CalcDistToGarageRectangleSquared, Restore/NeatlyLineUp/Store*Impounding, FindDoorsWithGarage, CGarages::TriggerMessage/FindSafeHouseIndexForGarageType/CountCarsInHideoutGarage/IsCarSprayable/GivePlayerDetonator, CWorld::CallOffChaseForArea, CStats::IncrementStat/GetStatValue/SetStatValue, CAudioEngine::ReportFrontendAudioEvent, CStreaming::RequestModel, CHud::SetHelpMessage, CText::Get, CWanted::ClearWantedLevelAndGoOnParole, CVehicle::GetRemapIndex/SetRemap/GetVehicleAppearance/Fix(virtual)/DestroyVehicleAndDriverAndPassengers, CVehicleModelInfo::ChooseVehicleColour, FxSystem_c::AddParticle, CGeneral::GetRandomNumberInRange<float> y rand del CRT del EXE (0x821B1E). Jugador, vehiculos, matrices y CWanted son objetos falsos del banco; el estado real que lee/escribe la funcion (reloj, contador de fotogramas, jugador en foco y su dinero, banderas de CGarages, camara, mando 0 y tienda de bombas) se fija por caso y se restaura. El garaje es privado: ninguno real se toca. Ningun llamador del EXE lee EAX/ECX/EDX (0x44C910 solo usa ESI/EDI); solo se registran. Los NaN de las fixtures son siempre silenciosos; no se prueban los caminos en que el EXE desreferencia sin comprobar (matriz nula del vehiculo del jugador en la rama de reparacion, IsStaticPlayerCarEntirelyInside verdadero sin vehiculo). Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/GarageUpdate63-20261102-133218-926760",
-  "summary_sha256": "cd06f7c0acaacf43e869e585700bc9183c4feb7532667b4303d2f1074974390c",
-  "result_txt_sha256": "a80819e349f7a3777964fd85414b194ce8963f8e26b83a2f36a91d02813b654b",
-  "log_sha256": "40bfc044692b6af07faf9d86855dec060465efd6c51a64c568df6681a985ae43",
+  "run": "reversing/CppTwelveLevel6Final/runs/GarageUpdate63-20261102-143118-331142",
+  "summary_sha256": "1b450cd3ecee5355a70418f1922459ed6fcecdb0e9eab9f1e7a1761ab23e05a5",
+  "result_txt_sha256": "7ae9c6ccaf1acb32cc7d9b952de9f6d86245e8982550d523ed82de0eb9d69bad",
+  "log_sha256": "c4230061e8e5a4fcc11139a90af859b0fa0c9cbfc0a4cbcc28754f97b7020e63",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "36991cc8781abc3bf1b6165c53a6bf4e30d6290df7be9c7579ee09411c1511ad",
+  "executed_probe_sha256": "f5e66f3b748968938db2920759b46a722a66aea1e016bba345f97f7993781244",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
       "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-      "source/game_sa/Garage.cpp": "2baa8707730c2153dd285479029eb7a2f27c2eca27b704718d7fc5c27184bd0f",
+      "source/game_sa/Garage.cpp": "f4722b2a793938a26d2066de546f533597c86cd605c87e34ceb3b097d5eadb9d",
       "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
       "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
       "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
@@ -39,10 +39,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/GarageUpdate63-20261102-133218-926760/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/GarageUpdate63-20261102-143118-331142/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "76ad560e71304db7ba87c6c23002bfb6015ecfc141f4c085a9f26573a461f9a8",
-    "uncompressed_sha256": "40bfc044692b6af07faf9d86855dec060465efd6c51a64c568df6681a985ae43"
+    "compressed_sha256": "f5e5aad2b8737dce7103d1f80cd39e2d2e3ec73cca863ad52e57d4a830d00238",
+    "uncompressed_sha256": "c4230061e8e5a4fcc11139a90af859b0fa0c9cbfc0a4cbcc28754f97b7020e63"
   }
 }

@@ -14295,5 +14295,61 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ sin llamadas al EXE (sus colaboradores son falsos identicos en ambos lados). Banco Fn85B con 65536 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): RestoreCarsForThisImpoundingGarage -> CStoredCar::RestoreCar 0x447E40, CWorld::Add 0x563220, CAutomobile::PlaceOnRoadProperly 0x6AF420 y CBike::PlaceOnRoadProperly 0x6BEEB0; CountCarsWithCenterPointWithinGarage -> CGarage::IsPointInsideGarage(CVector) 0x448740 (y el metodo miembro que llama la DLL); SlideDoorOpen y SlideDoorClosed -> CGarage::FindDoorsWithGarage 0x449FF0 y CAEDoorAudioEntity::AddAudioEvent 0x4DC860. El pool de vehiculos (ds:[0xB74494]) se sustituye por uno propio de hasta 8 ranuras; CTimer::ms_fTimeStep se fija por caso. SlideDoor... corre de verdad con los ayudantes x87 de X87Math.cpp en la DLL frente a los x87 del EXE (posicion de la puerta bit a bit). El banco compara el valor devuelto, los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: tamano de pool mayor que 8, estructura de pool distinta de la sustituida, vehiculo sin matriz con posicion no finita comparada de otro modo, NaN con cargas distintas, bytes altos de los booleanos y vehiculos del tipo 0x594 con valores no listados."
+  },
+  "0x004494F0": {
+    "identity": "CGarage::IsAnyCarBlockingDoor",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Garage.cpp",
+    "bank": "Fn85C",
+    "run": "20261102-142601-178850",
+    "pairs": 65536,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn85C-20261102-142601-178850/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (los colaboradores sin reconstruir se llaman por su direccion del EXE, como ChooseAttackAI con 0x61D6F0, y en el banco son falsos identicos en ambos lados). Banco Fn85C con 65536 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): IsAnyCarBlockingDoor -> CGarage::IsEntityTouching3D 0x448EE0, CEntity::GetColModel 0x535300, CMatrix * CVector 0x59C890 y CGarage::IsPointInsideGarage(CVector, float) 0x4487D0 (y el metodo miembro que llama la DLL); StoreAndRemoveCarsForThisImpoundingGarage -> CGarage::IsPointInsideGarage(CVector) 0x448740 (y su metodo miembro), EntityHasASphereWayOutsideGarage 0x449050, CStoredCar::StoreCar 0x449760, CPlayerInfo::CancelPlayerEnteringCars 0x56E860, CWorld::Remove 0x563280 y el destructor virtual (tabla de funciones virtuales propia); BeHitWhileBlocking corre de verdad con los ayudantes x87 de X87Math.cpp en la DLL frente a los x87 del EXE (sin colaboradores); ChooseAttackAI -> rand() del EXE 0x821B1E, CPlayerPed::GetWantedLevel 0x41BE60 y CTaskSimpleFight 0x61D6F0 (sin reconstruir, por su direccion). El pool de vehiculos (ds:[0xB74494]) se sustituye por uno propio de hasta 8 ranuras y el byte bajo de las banderas de la fila (combo - 4) de la tabla de combos (0xC17154 + (combo - 4) * 0x88) se fija por caso y se restaura. El banco compara el valor devuelto, los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: tamano de pool mayor que 8, estructura de pool distinta de la sustituida, vehiculo sin CCollisionData, mas de 4 esferas por vehiculo, vehiculo sin matriz en BeHitWhileBlocking (victima), CAnimBlendAssociation sin jerarquia, NaN con cargas distintas, bytes altos de los booleanos y combos con fila de la tabla fuera de -3..17."
+  },
+  "0x00449A50": {
+    "identity": "CGarage::StoreAndRemoveCarsForThisImpoundingGarage",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Garage.cpp",
+    "bank": "Fn85C",
+    "run": "20261102-142601-178850",
+    "pairs": 65536,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn85C-20261102-142601-178850/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (los colaboradores sin reconstruir se llaman por su direccion del EXE, como ChooseAttackAI con 0x61D6F0, y en el banco son falsos identicos en ambos lados). Banco Fn85C con 65536 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): IsAnyCarBlockingDoor -> CGarage::IsEntityTouching3D 0x448EE0, CEntity::GetColModel 0x535300, CMatrix * CVector 0x59C890 y CGarage::IsPointInsideGarage(CVector, float) 0x4487D0 (y el metodo miembro que llama la DLL); StoreAndRemoveCarsForThisImpoundingGarage -> CGarage::IsPointInsideGarage(CVector) 0x448740 (y su metodo miembro), EntityHasASphereWayOutsideGarage 0x449050, CStoredCar::StoreCar 0x449760, CPlayerInfo::CancelPlayerEnteringCars 0x56E860, CWorld::Remove 0x563280 y el destructor virtual (tabla de funciones virtuales propia); BeHitWhileBlocking corre de verdad con los ayudantes x87 de X87Math.cpp en la DLL frente a los x87 del EXE (sin colaboradores); ChooseAttackAI -> rand() del EXE 0x821B1E, CPlayerPed::GetWantedLevel 0x41BE60 y CTaskSimpleFight 0x61D6F0 (sin reconstruir, por su direccion). El pool de vehiculos (ds:[0xB74494]) se sustituye por uno propio de hasta 8 ranuras y el byte bajo de las banderas de la fila (combo - 4) de la tabla de combos (0xC17154 + (combo - 4) * 0x88) se fija por caso y se restaura. El banco compara el valor devuelto, los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: tamano de pool mayor que 8, estructura de pool distinta de la sustituida, vehiculo sin CCollisionData, mas de 4 esferas por vehiculo, vehiculo sin matriz en BeHitWhileBlocking (victima), CAnimBlendAssociation sin jerarquia, NaN con cargas distintas, bytes altos de los booleanos y combos con fila de la tabla fuera de -3..17."
+  },
+  "0x0061C650": {
+    "identity": "CTaskSimpleFight::BeHitWhileBlocking",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp",
+    "bank": "Fn85C",
+    "run": "20261102-142601-178850",
+    "pairs": 65536,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn85C-20261102-142601-178850/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (los colaboradores sin reconstruir se llaman por su direccion del EXE, como ChooseAttackAI con 0x61D6F0, y en el banco son falsos identicos en ambos lados). Banco Fn85C con 65536 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): IsAnyCarBlockingDoor -> CGarage::IsEntityTouching3D 0x448EE0, CEntity::GetColModel 0x535300, CMatrix * CVector 0x59C890 y CGarage::IsPointInsideGarage(CVector, float) 0x4487D0 (y el metodo miembro que llama la DLL); StoreAndRemoveCarsForThisImpoundingGarage -> CGarage::IsPointInsideGarage(CVector) 0x448740 (y su metodo miembro), EntityHasASphereWayOutsideGarage 0x449050, CStoredCar::StoreCar 0x449760, CPlayerInfo::CancelPlayerEnteringCars 0x56E860, CWorld::Remove 0x563280 y el destructor virtual (tabla de funciones virtuales propia); BeHitWhileBlocking corre de verdad con los ayudantes x87 de X87Math.cpp en la DLL frente a los x87 del EXE (sin colaboradores); ChooseAttackAI -> rand() del EXE 0x821B1E, CPlayerPed::GetWantedLevel 0x41BE60 y CTaskSimpleFight 0x61D6F0 (sin reconstruir, por su direccion). El pool de vehiculos (ds:[0xB74494]) se sustituye por uno propio de hasta 8 ranuras y el byte bajo de las banderas de la fila (combo - 4) de la tabla de combos (0xC17154 + (combo - 4) * 0x88) se fija por caso y se restaura. El banco compara el valor devuelto, los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: tamano de pool mayor que 8, estructura de pool distinta de la sustituida, vehiculo sin CCollisionData, mas de 4 esferas por vehiculo, vehiculo sin matriz en BeHitWhileBlocking (victima), CAnimBlendAssociation sin jerarquia, NaN con cargas distintas, bytes altos de los booleanos y combos con fila de la tabla fuera de -3..17."
+  },
+  "0x00624A40": {
+    "identity": "CTaskSimpleFight::ChooseAttackAI",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp",
+    "bank": "Fn85C",
+    "run": "20261102-142601-178850",
+    "pairs": 65536,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn85C-20261102-142601-178850/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (los colaboradores sin reconstruir se llaman por su direccion del EXE, como ChooseAttackAI con 0x61D6F0, y en el banco son falsos identicos en ambos lados). Banco Fn85C con 65536 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): IsAnyCarBlockingDoor -> CGarage::IsEntityTouching3D 0x448EE0, CEntity::GetColModel 0x535300, CMatrix * CVector 0x59C890 y CGarage::IsPointInsideGarage(CVector, float) 0x4487D0 (y el metodo miembro que llama la DLL); StoreAndRemoveCarsForThisImpoundingGarage -> CGarage::IsPointInsideGarage(CVector) 0x448740 (y su metodo miembro), EntityHasASphereWayOutsideGarage 0x449050, CStoredCar::StoreCar 0x449760, CPlayerInfo::CancelPlayerEnteringCars 0x56E860, CWorld::Remove 0x563280 y el destructor virtual (tabla de funciones virtuales propia); BeHitWhileBlocking corre de verdad con los ayudantes x87 de X87Math.cpp en la DLL frente a los x87 del EXE (sin colaboradores); ChooseAttackAI -> rand() del EXE 0x821B1E, CPlayerPed::GetWantedLevel 0x41BE60 y CTaskSimpleFight 0x61D6F0 (sin reconstruir, por su direccion). El pool de vehiculos (ds:[0xB74494]) se sustituye por uno propio de hasta 8 ranuras y el byte bajo de las banderas de la fila (combo - 4) de la tabla de combos (0xC17154 + (combo - 4) * 0x88) se fija por caso y se restaura. El banco compara el valor devuelto, los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: tamano de pool mayor que 8, estructura de pool distinta de la sustituida, vehiculo sin CCollisionData, mas de 4 esferas por vehiculo, vehiculo sin matriz en BeHitWhileBlocking (victima), CAnimBlendAssociation sin jerarquia, NaN con cargas distintas, bytes altos de los booleanos y combos con fila de la tabla fuera de -3..17."
   }
 }

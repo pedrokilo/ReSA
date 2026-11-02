@@ -287,15 +287,16 @@ inline void Update() {
     const uintptr_t addBody=Addr(static_cast<CEvent*(CEventGroup::*)(CEvent*,bool)>(&CEventGroup::Add));
     const uintptr_t registerBody=Addr(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::RegisterReference));
     const uintptr_t cleanBody=Addr(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::CleanUpOldReference));
+    const uintptr_t beHitBody=Addr(&CTaskSimpleFight::BeHitWhileBlocking);   // lote 85C: BeHitWhileBlocking es C++ real (hook S) en la DLL
     const uintptr_t bloodBody=Addr(&Fx_c::AddBlood);   // lote 79A: AddBlood es C++ real (hook S) en la DLL
     env.route[0].reset(new HookRoute("CTaskSimpleFight","FightHitPed",0x61CBA0,HookRoute::RegisteredTarget{}));
     registered[kFn[0]]=env.route[0]->Registered();bodies[kFn[0]]=env.route[0]->Body()!=0;
     ready&=env.route[0]->Registered()&&env.route[0]->Body()&&ModuleOf(env.route[0]->Body())==env.asi;
-    ready&=isPlayerBody&&activeBody&&fightingBody&&weaponInfoBody&&damageBody&&shotSideBody&&generateBody&&sayBody&&aliveBody&&groupBody&&addBody&&registerBody&&cleanBody&&bloodBody;
+    ready&=isPlayerBody&&activeBody&&fightingBody&&weaponInfoBody&&damageBody&&shotSideBody&&generateBody&&sayBody&&aliveBody&&groupBody&&addBody&&registerBody&&cleanBody&&bloodBody&&beHitBody;
     env.stubs[0]={{Pair{0x5DF8F0,isPlayerBody,true},reinterpret_cast<void*>(&FakeIsPlayer)},
                   {Pair{0x681720,activeBody,true},reinterpret_cast<void*>(&FakeActiveTask)},
                   {Pair{0x600F30,fightingBody,true},reinterpret_cast<void*>(&FakeFighting)},
-                  {Pair{0x61C650,0,false},reinterpret_cast<void*>(&FakeBeHit)},
+                  {Pair{0x61C650,beHitBody,true},reinterpret_cast<void*>(&FakeBeHit)},
                   {Pair{0x4E2BB0,0,false},reinterpret_cast<void*>(&FakePedAE)},
                   {Pair{0x743C60,weaponInfoBody,true},reinterpret_cast<void*>(&FakeWeaponInfo)},
                   {Pair{0x61C740,damageBody,true},reinterpret_cast<void*>(&FakeDamage)},

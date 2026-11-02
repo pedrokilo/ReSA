@@ -533882,7 +533882,7 @@
       },
       "evidence": {
         "path": "reversing/FightProcessPed31/validation-summary.json",
-        "sha256": "272b8a85847ef5914c22b664381288bdd4a4938768869d795056ac8027ea79ca",
+        "sha256": "ede50611569db8198ecb1783958fd16d3059b921c7fdb463f69ac9270a1d1cda",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleFight::ProcessPed"
@@ -533892,34 +533892,34 @@
         "original_address": "0x00629920"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "ba63bf465527c1d8470af5f2d111df96c17f2e7ae880b10aac87224e08c867ba",
-        "source/InjectHooksMain.cpp": "002745d8598559aa6514a5e8f3a506963af903765f04f42548a31ffe1681241b",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "6b115891eae981f5eaa64160ce407bd90d4043762e9e622f09358b30703bb2b5",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "1eab8612f9343d766debc1db79a405df84cc4654a4b2e2e5fb7748fb8d616981",
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "962c14928e487e0c02553cfef2a6b4f1d7ff0752acab6f21f3fc48266e4677d0",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "4957b89633b88efd73588c5d1aaf9b18cd4c5a011f64eca1a580ad58c46f62ca",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
         "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "48d69096df4497e826e3afa52fbd856fa1d122d6e6349521f6dda121551956b6",
         "source/game_sa/Animation/AnimBlendAssociation.h": "c9f3243ffe9626d3bf003debd8cfa6fe8762323601c6a1cdc1acc911d4fa21cd",
         "source/game_sa/Animation/AnimManager.cpp": "bd74791f4c824fb2cb2e5cc995858b180c76cf2efa0e1bdbcac813df8ec154ae",
         "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b",
-        "source/game_sa/Entity/Ped/Ped.cpp": "9276709c6c47677beccd39d2607a65945d14de5ca81cb5da1208ce94e4774b00",
+        "source/game_sa/Entity/Ped/Ped.cpp": "96add3549ff0f04ccef718c2fcc4e59e214d726b71689d37ed01f4e562c0fade",
         "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
-        "source/game_sa/Entity/Ped/PlayerPed.cpp": "1405f8e607e5eb2201a2616d72eabbe3c16a1a8c8d7b4cfd36c8af9c925446c3",
+        "source/game_sa/Entity/Ped/PlayerPed.cpp": "303b045ffde3c6b90920397b492a6f5cfe0b369d04c8985931e3746f0c0741ac",
         "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
-        "source/game_sa/Pad.cpp": "4ae7648009088d8055e7806d18518d46c545bc33405fa48b7860c32b6f41461c",
-        "source/game_sa/Pad.h": "fc62f4d8e7190a6164e74c206262649d6f6e720ccb213d843f59edf9a440f52e",
+        "source/game_sa/Pad.cpp": "522ccd4cdcad027c728b7e509f76040dbf6917a50f1efb8af9b69efdf1a663ad",
+        "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
         "source/game_sa/WeaponInfo.cpp": "94ae37868705fc7af459a43e70621b57b5645ff49a8452b49f970b94951e3a4a",
         "source/game_sa/WeaponInfo.h": "fe843e4192ec6ed6da8be6d5843ae6d4ed69ecf7558422dd099d30c9c201d00b",
-        "source/game_sa/Streaming.cpp": "48313acbad9ed6f78f77272a6700e80623215eb4c32063936b9cd8967b2f443f",
-        "source/game_sa/Streaming.h": "0055e9284d015c283c2e31bf4b82a6e57fc44f0658b7d20e0e98cd7db9d4ebf7",
+        "source/game_sa/Streaming.cpp": "a99cc9dbae9a10fc06bb1b73567118ecd24db81073d3c6b6ddf58a0dd4db42b0",
+        "source/game_sa/Streaming.h": "9bcf24dc87d2b7a972699bb3101af8d7f8f3e34a4e0af942aa5876c6e9c64b99",
         "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "431552bf8c78c0d41cd8e1d1d90fcdce125ff87160d40ad4099977df98160d57",
         "source/game_sa/Audio/Entities/AEPedAudioEntity.h": "36ff93c3997768edf488fa60d956c4fd0cba35c399420a0541171f3fc0d5ad9c",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
-        "source/game_sa/X87Math.cpp": "6fc107272dd05de961c0764eb952a78686cb4b429a67ab5888e281667dace1f0",
-        "source/game_sa/X87Math.h": "838ab9c3d6626bb6a912fc010349e878c211862c6bd36cd8ec9609059bff7bd9",
+        "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
+        "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/FightProcessPed31/LiveComparison.hpp": "d2da1154044f45462ed4a43dce33b7315990afcaddb3fd1af9fdbedd57105213",
+        "reversing/FightProcessPed31/LiveComparison.hpp": "ef17ec5bba3e7dad55d249a7225d49b709911516ac7abf61aceba28a88801ad1",
         "reversing/FightProcessPed31/Core.hpp": "fe1d350c7dccb11bf25e0b4d4579fcf64a5f6910d7da86412375cc80f944249e",
         "reversing/FightProcessPed31/Fixtures.hpp": "bb6fe295785d06f61a61554306f18ffd06c24b0be4e76ca98a7d756f339c2cb8",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -537173,7 +537173,7 @@
       },
       "evidence": {
         "path": "reversing/GarageUpdate63/validation-summary.json",
-        "sha256": "6af87f2d31ba9378613a692d8f0530efac4118b17e1f62c760d98fe02d15cbcb",
+        "sha256": "761ebe0def580a3fe17060421f8149dec0d582508b4819edac111a7d43e20b30",
         "passed_path": [
           "covered_functions",
           "CGarage::Update"
@@ -537184,7 +537184,7 @@
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
         "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/Garage.cpp": "2baa8707730c2153dd285479029eb7a2f27c2eca27b704718d7fc5c27184bd0f",
+        "source/game_sa/Garage.cpp": "f4722b2a793938a26d2066de546f533597c86cd605c87e34ceb3b097d5eadb9d",
         "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
         "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
         "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
@@ -542855,7 +542855,7 @@
       },
       "evidence": {
         "path": "reversing/FightHitPed75/validation-summary.json",
-        "sha256": "331d78756c744a91ff26870f2a2d3294547a25750ffea1292d01b0c795ab9d84",
+        "sha256": "89d86f033cdbb3f5b0bd8cee24ea2238df0e10a005c8c3cb7b60e1c9ac4007cd",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleFight::FightHitPed"
@@ -542867,12 +542867,12 @@
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
         "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "dc97c2a66269aa7e3fb172971ae70de77d31b9c288cb5bc0d2ad99b3697a2e6a",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "b44f31f68330d9e4862366af27fd42cbefb8c65adb0112f5f724d381218dda23",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "962c14928e487e0c02553cfef2a6b4f1d7ff0752acab6f21f3fc48266e4677d0",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "4957b89633b88efd73588c5d1aaf9b18cd4c5a011f64eca1a580ad58c46f62ca",
         "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
         "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/FightHitPed75/LiveComparison.hpp": "d080f1a541508448d46fb6b27b91cab73640e086727c8ce08f9d64ffe6b8a53e",
+        "reversing/FightHitPed75/LiveComparison.hpp": "10c5c3e0cc203246a35c8ece891144759b47b192b74a95ae132460ea4decec42",
         "reversing/FightHitPed75/Core.hpp": "23852a3a35e186637b60c36d3b780a220c58b9164ff423b2911cd66e79789118",
         "reversing/FightHitPed75/Fixtures.hpp": "410a907376223a041edd4d6ec661cbf4146924911e1256339f61c0a3aa716bdf",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -544957,6 +544957,158 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): RestoreCarsForThisImpoundingGarage -> CStoredCar::RestoreCar 0x447E40, CWorld::Add 0x563220, CAutomobile::PlaceOnRoadProperly 0x6AF420 y CBike::PlaceOnRoadProperly 0x6BEEB0; CountCarsWithCenterPointWithinGarage -> CGarage::IsPointInsideGarage(CVector) 0x448740 (y el metodo miembro que llama la DLL); SlideDoorOpen y SlideDoorClosed -> CGarage::FindDoorsWithGarage 0x449FF0 y CAEDoorAudioEntity::AddAudioEvent 0x4DC860. El pool de vehiculos (ds:[0xB74494]) se sustituye por uno propio de hasta 8 ranuras; CTimer::ms_fTimeStep se fija por caso. SlideDoor... corre de verdad con los ayudantes x87 de X87Math.cpp en la DLL frente a los x87 del EXE (posicion de la puerta bit a bit). El banco compara el valor devuelto, los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: tamano de pool mayor que 8, estructura de pool distinta de la sustituida, vehiculo sin matriz con posicion no finita comparada de otro modo, NaN con cargas distintas, bytes altos de los booleanos y vehiculos del tipo 0x594 con valores no listados.",
       "review_reference": "reversing/Fn85B/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarage",
+        "fn_name": "IsAnyCarBlockingDoor",
+        "address": "0x004494F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn85C/validation-summary.json",
+        "sha256": "2137d4482a252e789a6b690b465379b0324e846cb0d5babc177d9f080caf15c4",
+        "passed_path": [
+          "covered_functions",
+          "CGarage::IsAnyCarBlockingDoor"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
+        "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
+        "source/game_sa/Garage.cpp": "f4722b2a793938a26d2066de546f533597c86cd605c87e34ceb3b097d5eadb9d",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "962c14928e487e0c02553cfef2a6b4f1d7ff0752acab6f21f3fc48266e4677d0",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "4957b89633b88efd73588c5d1aaf9b18cd4c5a011f64eca1a580ad58c46f62ca",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn85C/LiveComparison.hpp": "eb7c31ad0103ca6d6596319d967d02f89c14dfad43d27f96b8beea7659ea7ad7",
+        "reversing/Fn85C/Core.hpp": "eb7ca817b1de73e5a3d24ceb6097d17b5e57caeaaf393f19dbcccd72700afee8",
+        "reversing/Fn85C/Fixtures.hpp": "0cfe5a770b1231243655d68c1755e92c3e8e754a4dac889dd506d4732d1db893",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): IsAnyCarBlockingDoor -> CGarage::IsEntityTouching3D 0x448EE0, CEntity::GetColModel 0x535300, CMatrix * CVector 0x59C890 y CGarage::IsPointInsideGarage(CVector, float) 0x4487D0 (y el metodo miembro que llama la DLL); StoreAndRemoveCarsForThisImpoundingGarage -> CGarage::IsPointInsideGarage(CVector) 0x448740 (y su metodo miembro), EntityHasASphereWayOutsideGarage 0x449050, CStoredCar::StoreCar 0x449760, CPlayerInfo::CancelPlayerEnteringCars 0x56E860, CWorld::Remove 0x563280 y el destructor virtual (tabla de funciones virtuales propia); BeHitWhileBlocking corre de verdad con los ayudantes x87 de X87Math.cpp en la DLL frente a los x87 del EXE (sin colaboradores); ChooseAttackAI -> rand() del EXE 0x821B1E, CPlayerPed::GetWantedLevel 0x41BE60 y CTaskSimpleFight 0x61D6F0 (sin reconstruir, por su direccion). El pool de vehiculos (ds:[0xB74494]) se sustituye por uno propio de hasta 8 ranuras y el byte bajo de las banderas de la fila (combo - 4) de la tabla de combos (0xC17154 + (combo - 4) * 0x88) se fija por caso y se restaura. El banco compara el valor devuelto, los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: tamano de pool mayor que 8, estructura de pool distinta de la sustituida, vehiculo sin CCollisionData, mas de 4 esferas por vehiculo, vehiculo sin matriz en BeHitWhileBlocking (victima), CAnimBlendAssociation sin jerarquia, NaN con cargas distintas, bytes altos de los booleanos y combos con fila de la tabla fuera de -3..17.",
+      "review_reference": "reversing/Fn85C/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarage",
+        "fn_name": "StoreAndRemoveCarsForThisImpoundingGarage",
+        "address": "0x00449A50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn85C/validation-summary.json",
+        "sha256": "2137d4482a252e789a6b690b465379b0324e846cb0d5babc177d9f080caf15c4",
+        "passed_path": [
+          "covered_functions",
+          "CGarage::StoreAndRemoveCarsForThisImpoundingGarage"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
+        "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
+        "source/game_sa/Garage.cpp": "f4722b2a793938a26d2066de546f533597c86cd605c87e34ceb3b097d5eadb9d",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "962c14928e487e0c02553cfef2a6b4f1d7ff0752acab6f21f3fc48266e4677d0",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "4957b89633b88efd73588c5d1aaf9b18cd4c5a011f64eca1a580ad58c46f62ca",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn85C/LiveComparison.hpp": "eb7c31ad0103ca6d6596319d967d02f89c14dfad43d27f96b8beea7659ea7ad7",
+        "reversing/Fn85C/Core.hpp": "eb7ca817b1de73e5a3d24ceb6097d17b5e57caeaaf393f19dbcccd72700afee8",
+        "reversing/Fn85C/Fixtures.hpp": "0cfe5a770b1231243655d68c1755e92c3e8e754a4dac889dd506d4732d1db893",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): IsAnyCarBlockingDoor -> CGarage::IsEntityTouching3D 0x448EE0, CEntity::GetColModel 0x535300, CMatrix * CVector 0x59C890 y CGarage::IsPointInsideGarage(CVector, float) 0x4487D0 (y el metodo miembro que llama la DLL); StoreAndRemoveCarsForThisImpoundingGarage -> CGarage::IsPointInsideGarage(CVector) 0x448740 (y su metodo miembro), EntityHasASphereWayOutsideGarage 0x449050, CStoredCar::StoreCar 0x449760, CPlayerInfo::CancelPlayerEnteringCars 0x56E860, CWorld::Remove 0x563280 y el destructor virtual (tabla de funciones virtuales propia); BeHitWhileBlocking corre de verdad con los ayudantes x87 de X87Math.cpp en la DLL frente a los x87 del EXE (sin colaboradores); ChooseAttackAI -> rand() del EXE 0x821B1E, CPlayerPed::GetWantedLevel 0x41BE60 y CTaskSimpleFight 0x61D6F0 (sin reconstruir, por su direccion). El pool de vehiculos (ds:[0xB74494]) se sustituye por uno propio de hasta 8 ranuras y el byte bajo de las banderas de la fila (combo - 4) de la tabla de combos (0xC17154 + (combo - 4) * 0x88) se fija por caso y se restaura. El banco compara el valor devuelto, los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: tamano de pool mayor que 8, estructura de pool distinta de la sustituida, vehiculo sin CCollisionData, mas de 4 esferas por vehiculo, vehiculo sin matriz en BeHitWhileBlocking (victima), CAnimBlendAssociation sin jerarquia, NaN con cargas distintas, bytes altos de los booleanos y combos con fila de la tabla fuera de -3..17.",
+      "review_reference": "reversing/Fn85C/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleFight",
+        "fn_name": "BeHitWhileBlocking",
+        "address": "0x0061C650",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn85C/validation-summary.json",
+        "sha256": "2137d4482a252e789a6b690b465379b0324e846cb0d5babc177d9f080caf15c4",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleFight::BeHitWhileBlocking"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
+        "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
+        "source/game_sa/Garage.cpp": "f4722b2a793938a26d2066de546f533597c86cd605c87e34ceb3b097d5eadb9d",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "962c14928e487e0c02553cfef2a6b4f1d7ff0752acab6f21f3fc48266e4677d0",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "4957b89633b88efd73588c5d1aaf9b18cd4c5a011f64eca1a580ad58c46f62ca",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn85C/LiveComparison.hpp": "eb7c31ad0103ca6d6596319d967d02f89c14dfad43d27f96b8beea7659ea7ad7",
+        "reversing/Fn85C/Core.hpp": "eb7ca817b1de73e5a3d24ceb6097d17b5e57caeaaf393f19dbcccd72700afee8",
+        "reversing/Fn85C/Fixtures.hpp": "0cfe5a770b1231243655d68c1755e92c3e8e754a4dac889dd506d4732d1db893",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): IsAnyCarBlockingDoor -> CGarage::IsEntityTouching3D 0x448EE0, CEntity::GetColModel 0x535300, CMatrix * CVector 0x59C890 y CGarage::IsPointInsideGarage(CVector, float) 0x4487D0 (y el metodo miembro que llama la DLL); StoreAndRemoveCarsForThisImpoundingGarage -> CGarage::IsPointInsideGarage(CVector) 0x448740 (y su metodo miembro), EntityHasASphereWayOutsideGarage 0x449050, CStoredCar::StoreCar 0x449760, CPlayerInfo::CancelPlayerEnteringCars 0x56E860, CWorld::Remove 0x563280 y el destructor virtual (tabla de funciones virtuales propia); BeHitWhileBlocking corre de verdad con los ayudantes x87 de X87Math.cpp en la DLL frente a los x87 del EXE (sin colaboradores); ChooseAttackAI -> rand() del EXE 0x821B1E, CPlayerPed::GetWantedLevel 0x41BE60 y CTaskSimpleFight 0x61D6F0 (sin reconstruir, por su direccion). El pool de vehiculos (ds:[0xB74494]) se sustituye por uno propio de hasta 8 ranuras y el byte bajo de las banderas de la fila (combo - 4) de la tabla de combos (0xC17154 + (combo - 4) * 0x88) se fija por caso y se restaura. El banco compara el valor devuelto, los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: tamano de pool mayor que 8, estructura de pool distinta de la sustituida, vehiculo sin CCollisionData, mas de 4 esferas por vehiculo, vehiculo sin matriz en BeHitWhileBlocking (victima), CAnimBlendAssociation sin jerarquia, NaN con cargas distintas, bytes altos de los booleanos y combos con fila de la tabla fuera de -3..17.",
+      "review_reference": "reversing/Fn85C/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleFight",
+        "fn_name": "ChooseAttackAI",
+        "address": "0x00624A40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn85C/validation-summary.json",
+        "sha256": "2137d4482a252e789a6b690b465379b0324e846cb0d5babc177d9f080caf15c4",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleFight::ChooseAttackAI"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
+        "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
+        "source/game_sa/Garage.cpp": "f4722b2a793938a26d2066de546f533597c86cd605c87e34ceb3b097d5eadb9d",
+        "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "962c14928e487e0c02553cfef2a6b4f1d7ff0752acab6f21f3fc48266e4677d0",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "4957b89633b88efd73588c5d1aaf9b18cd4c5a011f64eca1a580ad58c46f62ca",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn85C/LiveComparison.hpp": "eb7c31ad0103ca6d6596319d967d02f89c14dfad43d27f96b8beea7659ea7ad7",
+        "reversing/Fn85C/Core.hpp": "eb7ca817b1de73e5a3d24ceb6097d17b5e57caeaaf393f19dbcccd72700afee8",
+        "reversing/Fn85C/Fixtures.hpp": "0cfe5a770b1231243655d68c1755e92c3e8e754a4dac889dd506d4732d1db893",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): IsAnyCarBlockingDoor -> CGarage::IsEntityTouching3D 0x448EE0, CEntity::GetColModel 0x535300, CMatrix * CVector 0x59C890 y CGarage::IsPointInsideGarage(CVector, float) 0x4487D0 (y el metodo miembro que llama la DLL); StoreAndRemoveCarsForThisImpoundingGarage -> CGarage::IsPointInsideGarage(CVector) 0x448740 (y su metodo miembro), EntityHasASphereWayOutsideGarage 0x449050, CStoredCar::StoreCar 0x449760, CPlayerInfo::CancelPlayerEnteringCars 0x56E860, CWorld::Remove 0x563280 y el destructor virtual (tabla de funciones virtuales propia); BeHitWhileBlocking corre de verdad con los ayudantes x87 de X87Math.cpp en la DLL frente a los x87 del EXE (sin colaboradores); ChooseAttackAI -> rand() del EXE 0x821B1E, CPlayerPed::GetWantedLevel 0x41BE60 y CTaskSimpleFight 0x61D6F0 (sin reconstruir, por su direccion). El pool de vehiculos (ds:[0xB74494]) se sustituye por uno propio de hasta 8 ranuras y el byte bajo de las banderas de la fila (combo - 4) de la tabla de combos (0xC17154 + (combo - 4) * 0x88) se fija por caso y se restaura. El banco compara el valor devuelto, los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: tamano de pool mayor que 8, estructura de pool distinta de la sustituida, vehiculo sin CCollisionData, mas de 4 esferas por vehiculo, vehiculo sin matriz en BeHitWhileBlocking (victima), CAnimBlendAssociation sin jerarquia, NaN con cargas distintas, bytes altos de los booleanos y combos con fila de la tabla fuera de -3..17.",
+      "review_reference": "reversing/Fn85C/README.md"
     }
   ]
 }

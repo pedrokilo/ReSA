@@ -8626,6 +8626,8 @@ CCamera,ProcessObbeCinemaCameraBoat,0x00526E20,1,0,1,S
 CTaskSimpleFight,FightSetUpCol,0x0061D5F0,1,0,1,S
 CTaskSimpleFight,FightHitCar,0x0061D0B0,1,0,1,S
 CTaskSimpleFight,FightStrike,0x006240B0,1,0,1,S
+CTaskSimpleFight,BeHitWhileBlocking,0x0061C650,1,0,1,S
+CTaskSimpleFight,ChooseAttackAI,0x00624A40,1,0,1,S
 CTaskSimpleGangDriveBy,AITarget,0x00627600,1,0,1,S
 CTaskSimpleGangDriveBy,AimGun,0x00628350,1,0,1,S
 CTaskSimpleGangDriveBy,Constructor,0x006217D0,1,0,1,S
@@ -9002,3 +9004,5 @@ CGarage,RestoreCarsForThisImpoundingGarage,0x004485C0,1,0,1,S
 CGarage,CountCarsWithCenterPointWithinGarage,0x004495F0,1,0,1,S
 CGarage,SlideDoorOpen,0x0044A660,1,0,1,S
 CGarage,SlideDoorClosed,0x0044A750,1,0,1,S
+CGarage,IsAnyCarBlockingDoor,0x004494F0,1,0,1,S
+CGarage,StoreAndRemoveCarsForThisImpoundingGarage,0x00449A50,1,0,1,S

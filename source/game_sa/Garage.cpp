@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CGarage
- * Reconstrucción: COMPLETA — 27/27 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 29/29 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 27/27 entradas.
+ * Validación registrada: 29/29 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -76,6 +76,8 @@ void CGarage::InjectHooks() {
     RH_ScopedInstall(IsPlayerOutsideGarage, 0x448E50);
     RH_ScopedInstall(RestoreCarsForThisImpoundingGarage, 0x4485C0);
     RH_ScopedInstall(CountCarsWithCenterPointWithinGarage, 0x4495F0);
+    RH_ScopedInstall(IsAnyCarBlockingDoor, 0x4494F0);
+    RH_ScopedInstall(StoreAndRemoveCarsForThisImpoundingGarage, 0x449A50);
     RH_ScopedInstall(SlideDoorOpen, 0x44A660);
     RH_ScopedInstall(SlideDoorClosed, 0x44A750);
     RH_ScopedInstall(IsStaticPlayerCarEntirelyInside, 0x44A830);
@@ -199,6 +201,37 @@ __declspec(noinline) void CGarage::StoreAndRemoveCarsForThisHideOut(CStoredCar* 
     }
 
     // Clear slots with no vehicles in it
+    for (auto i = storedCarIdx; i < (int32)NUM_GARAGE_STORED_CARS; i++)
+        storedCars[i].Clear();
+}
+
+// 0x449A50
+// Como el original (0x449A50..0x449B91, thiscall, `ret 8`): es el mismo codigo que StoreAndRemoveCarsForThisHideOut (0x449900) en otra direccion. Borra el modelo (+0x12) de las 4 plazas, recorre el pool de vehiculos
+// (ds:[0xB74494], tamano leido una vez) del ultimo al primero (el 0 incluido) y para cada vehiculo vivo cuya posicion (matriz + 0x30 o m_placement + 4) esta dentro del garaje y que no es de mision (byte +0x4A4 != 2):
+// si quedan plazas (contador < min(maxSlot, 4), con signo) y ninguna esfera queda mas de 1.0 fuera (EntityHasASphereWayOutsideGarage) lo guarda (StoreCar), y en cualquier caso avisa a la jugadora
+// (CancelPlayerEnteringCars), lo saca del mundo y lo destruye (destructor virtual con flag 1). Al final borra las plazas sin coche.
+__declspec(noinline) void CGarage::StoreAndRemoveCarsForThisImpoundingGarage(CStoredCar* storedCars, int32 maxSlot) {
+    maxSlot = std::min<int32>(maxSlot, NUM_GARAGE_STORED_CARS);
+
+    for (auto i = 0; i < NUM_GARAGE_STORED_CARS; i++)
+        storedCars[i].Clear();
+
+    auto pool = GetVehiclePool();
+    int32 storedCarIdx{0};
+    for (auto i = pool->GetSize(); i; i--) {
+        if (auto vehicle = pool->GetAt(i - 1)) {
+            if (IsPointInsideGarage(vehicle->GetPosition()) && vehicle->GetCreatedBy() != MISSION_VEHICLE) {
+                if (storedCarIdx < maxSlot && !EntityHasASphereWayOutsideGarage(vehicle, 1.0f)) {
+                    storedCars[storedCarIdx++].StoreCar(vehicle);
+                }
+
+                FindPlayerInfo().CancelPlayerEnteringCars(vehicle);
+                CWorld::Remove(vehicle);
+                delete vehicle;
+            }
+        }
+    }
+
     for (auto i = storedCarIdx; i < (int32)NUM_GARAGE_STORED_CARS; i++)
         storedCars[i].Clear();
 }
@@ -440,11 +473,9 @@ inline const float* GaPos(CEntity* entity) {
 inline CVehicle* GaFpv() { return FindPlayerVehicle(-1, false); }
 inline CPed* GaFpp() { return FindPlayerPed(-1); }
 // Metodos de CGarage que siguen siendo del EXE (sin definicion en C++): colaboradores por direccion.
-inline bool  GaIsAnyCarBlockingDoor(CGarage* g) { return plugin::CallMethodAndReturn<bool, 0x4494F0, CGarage*>(g); }
 inline bool  GaIsAnyOtherPedTouching(CGarage* g, CPed* ignored) { return plugin::CallMethodAndReturn<bool, 0x449100, CGarage*, CPed*>(g, ignored); }
 inline void  GaThrowCarsNearDoorOut(CGarage* g, CVehicle* ignored) { plugin::CallMethod<0x449220, CGarage*, CVehicle*>(g, ignored); }
 inline void  GaNeatlyLineUp(CGarage* g, CStoredCar* cars) { plugin::CallMethod<0x448330, CGarage*, CStoredCar*>(g, cars); }
-inline void  GaStoreAndRemoveImpounding(CGarage* g, CStoredCar* cars, int32 maxSlot) { plugin::CallMethod<0x449A50, CGarage*, CStoredCar*, int32>(g, cars, maxSlot); }
 inline void  GaFindDoorsWithGarage(CGarage* g, CObject** first, CObject** second) { g->FindDoorsWithGarage(first, second); }
 inline int32& GaMoney() { return *reinterpret_cast<int32*>(0xB7CE50 + static_cast<uint32>(CWorld::PlayerInFocus) * 0x190u); }   // CPlayerInfo::m_nMoney del jugador en foco
 inline CStoredCar* GaStoredCars(eGarageType type) { return reinterpret_cast<CStoredCar*>(0x96ABD8 + static_cast<uint32>(CGarages::FindSafeHouseIndexForGarageType(type)) * 0x100u); }
@@ -565,6 +596,33 @@ int32 CGarage::CountCarsWithCenterPointWithinGarage(CVehicle* ignoredVehicle) {
             ++count;
     }
     return count;
+}
+
+// 0x4494F0
+// Como el original (0x4494F0..0x4495E6; thiscall, devuelve AL): recorre el pool de vehiculos (ds:[0xB74494], tamano leido una vez) del ultimo indice al primero (el 0 incluido; ranuras libres fuera) y para cada
+// vehiculo que IsEntityTouching3D da por dentro recorre las esferas de colision de su CColModel (CEntity::GetColModel, 0x535300): centro transformado con 0x59C890 (la matriz del vehiculo, que NO se crea)
+// e IsPointInsideGarage(centro, radio de la esfera). Devuelve true con la primera esfera que queda fuera; el contador de esferas (int16 con signo) se relee en cada vuelta y sin esferas pasa al siguiente.
+__declspec(noinline) bool CGarage::IsAnyCarBlockingDoor() {
+    auto* const pool = GetVehiclePool();
+    for (uint32 i = static_cast<uint32>(pool->GetSize()); i != 0; --i) {
+        CVehicle* const vehicle = pool->GetAt(i - 1);
+        if (!vehicle)
+            continue;
+        if (!IsEntityTouching3D(vehicle))
+            continue;
+        CCollisionData* const data = vehicle->GetColModel()->m_pColData;
+        if (static_cast<int16>(data->m_nNumSpheres) <= 0)
+            continue;
+        int32 index = 0;
+        do {
+            CVector        transformed;
+            CVector* const point = plugin::CallAndReturn<CVector*, 0x59C890, CVector*, CMatrix*, CVector*>(&transformed, vehicle->m_matrix, &data->m_pSpheres[index].m_vecCenter);
+            if (!IsPointInsideGarage(*point, data->m_pSpheres[index].m_fRadius))
+                return true;
+            ++index;
+        } while (index < static_cast<int16>(data->m_nNumSpheres));
+    }
+    return false;
 }
 
 // 0x44A660
@@ -1124,7 +1182,7 @@ L_BA70:
         goto L_C7C4;
     if (!IsStaticPlayerCarEntirelyInside())
         goto L_C7C4;
-    if (GaIsAnyCarBlockingDoor(this))
+    if (IsAnyCarBlockingDoor())
         goto L_C7C4;
     GaPadControls(true);
     GaWantedBit(true);
@@ -1208,7 +1266,7 @@ L_BCF2:
     dist = Veh83DStore(CalcDistToGarageRectangleSquared(c1.x, c2.y));
     if (dist > 225.0f) {
         // BD6A
-        if (!GaIsAnyCarBlockingDoor(this))
+        if (!IsAnyCarBlockingDoor())
             goto L_C7C0;
         goto L_BD79;
     }
@@ -1218,7 +1276,7 @@ L_BCF2:
         if (GaField<int32>(GaFpv(), 0x594) != 0xA)
             goto L_BD79;
     }
-    if (!GaIsAnyCarBlockingDoor(this))
+    if (!IsAnyCarBlockingDoor())
         goto L_C7C0;
 L_BD79:
     if (GaFpv()) {
@@ -1366,7 +1424,7 @@ L_C331:
         goto L_C7C4;
     if (!IsEntityEntirelyInside3D(m_pTargetCar, 0.0f))
         goto L_C7C4;
-    if (GaIsAnyCarBlockingDoor(this))
+    if (IsAnyCarBlockingDoor())
         goto L_C7C4;
     if (!IsPlayerOutsideGarage(0.0f))
         goto L_C7C4;
@@ -1396,7 +1454,7 @@ L_C395:
             goto L_C7C4;
     }
     m_nDoorState = static_cast<eGarageDoorState>(0);
-    GaStoreAndRemoveImpounding(this, GaStoredCars(m_nType), 3);
+    StoreAndRemoveCarsForThisImpoundingGarage(GaStoredCars(m_nType), 3);
     goto L_C7C4;
 L_C477:
     c1   = FindPlayerCoors(-1);
