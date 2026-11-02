@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskSimpleFight
- * Reconstrucción: COMPLETA — 18/18 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 19/19 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 18/18 entradas.
+ * Validación registrada: 19/19 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -364,10 +364,6 @@ const uint8* FightComboRow(int32 combo) {
 }
 
 // Colaboradores sin reconstruir (todos thiscall; el valor de AL/AX es el que leen los llamadores).
-// 0x61C9B0 (ret 4)
-void FightFindTargetOnGroundExe(CTaskSimpleFight* task, CPed* ped) {
-    plugin::CallMethod<0x61C9B0, CTaskSimpleFight*, CPed*>(task, ped);
-}
 // 0x624710 (ret 4): ataque del jugador; devuelve AX.
 int16 FightChooseAttackPlayerExe(CTaskSimpleFight* task, CPed* ped) {
     return plugin::CallMethodAndReturn<int16, 0x624710, CTaskSimpleFight*, CPed*>(task, ped);
@@ -544,7 +540,7 @@ bool CTaskSimpleFight::MakeAbortable(CPed* ped, eAbortPriority priority, const C
         CPlayerPedData* const playerData = ped->GetPlayerData(); // sin comprobar nulo, como el EXE
         playerData->m_vecFightMovement.x = 0.f;
         playerData->m_vecFightMovement.y = 0.f;
-        FightFindTargetOnGroundExe(this, ped); // 0x61C9B0
+        FindTargetOnGround(ped); // 0x61C9B0
     }
     m_bIsFinished = true;
     return true;
@@ -670,7 +666,7 @@ bool CTaskSimpleFight::ProcessPed(CPed* ped) {
             if (ped->IsPlayer()) {
                 const int8 next = static_cast<int8>(m_nNextCommand);
                 if (next >= 3 && next <= 6) {
-                    FightFindTargetOnGroundExe(this, ped);
+                    FindTargetOnGround(ped);
                 } else {
                     FightStartAnimExe(this, ped, FightChooseAttackPlayerExe(this, ped));
                 }
@@ -1023,6 +1019,71 @@ int8 CTaskSimpleFight::GetAvailableComboSet(CPed* ped, int32 commandArg) {
     }
     return 4;
 }
+
+#pragma float_control(push)
+#pragma float_control(precise, on) // las comparaciones ordenadas (un NaN no cumple ninguna) y los ayudantes x87 a 24 bits no admiten /fp:fast
+static_assert(offsetof(CPlayerPedData, m_vecFightMovement) == 0xC, "CPlayerPedData: movimiento de pelea +0xC / +0x10");
+// 0x61C9B0 (thiscall, ret 4; devuelve nada que lean los llamadores): reparte el peso de las cuatro animaciones de movimiento de pelea (0x29..0x2C) segun el movimiento del jugador (+0x480: x en +0xC, y en +0x10).
+// Se piden las cuatro asociaciones del clump del ped (+0x18, que se relee en cada llamada) y despues se miran, como el EXE, el comando siguiente (+0x26) y el combo (+0x24): si ambos son cero, o el
+// movimiento (norma de 24 bits) es menor de 0.1 (con exactamente 0.1 o NaN no), cada asociacion existente recibe un retardo de mezcla de -8 y el combo, el ultimo comando y el siguiente quedan a cero.
+// Si no, el movimiento se normaliza por |x| + |y| (el cociente 1 / (|x| + |y|) se redondea a 24 bits y cada componente se guarda como float): x > 0 pesa 0x2C y anula 0x2A, x < 0 pesa 0x2A y anula 0x2C,
+// y < 0 pesa 0x29 y anula 0x2B, y > 0 pesa 0x2B y anula 0x29 (una componente cero o NaN no toca nada); la asociacion que falta se crea con AddAnimation(clump, 0, id). Al final el combo es 1,
+// el ultimo comando es el siguiente (releido) y el siguiente queda a cero.
+void CTaskSimpleFight::FindTargetOnGround(CPed* ped) {
+    const auto clump = [ped] { return reinterpret_cast<RpClump*>(ped->GetRwObject()); };
+    constexpr auto kGroup = static_cast<AssocGroupId>(0);
+    CAnimBlendAssociation* const a29 = RpAnimBlendClumpGetAssociation(clump(), 0x29u);
+    CAnimBlendAssociation* const a2A = RpAnimBlendClumpGetAssociation(clump(), 0x2Au);
+    CAnimBlendAssociation* const a2B = RpAnimBlendClumpGetAssociation(clump(), 0x2Bu);
+    CAnimBlendAssociation* const a2C = RpAnimBlendClumpGetAssociation(clump(), 0x2Cu);
+    CAnimBlendAssociation* assoc[4]{a29, a2A, a2B, a2C}; // indices 0..3 = animaciones 0x29..0x2C
+
+    CVector2D move{};
+    bool moving = false;
+    if (m_nNextCommand != 0 || m_nComboSet != 0) {
+        move = ped->GetPlayerData()->m_vecFightMovement; // sin comprobar nulo, como el EXE
+        const double length = Veh83DSqrt(Veh83DAdd(Veh83DMul(move.x, move.x), Veh83DMul(move.y, move.y)));
+        moving = !(length < static_cast<double>(std::bit_cast<float>(0x3DCCCCCDu))); // 0.1f (0x858B1C): fcomp + test ah,5 + jp salta a movimiento con longitud >= 0.1 (igual incluida) o NaN
+    }
+    if (!moving) {
+        for (CAnimBlendAssociation* const a : assoc) {
+            if (a) {
+                a->m_BlendDelta = -8.f;
+            }
+        }
+        m_nComboSet = 0;
+        m_nLastCommand = 0;
+        m_nNextCommand = 0;
+        return;
+    }
+
+    const double k = Veh83DDiv(1.0, Veh83DAdd(std::fabs(static_cast<double>(move.y)), std::fabs(static_cast<double>(move.x))));
+    const float fx = Veh83DStore(Veh83DMul(k, move.x));
+    const float fy = Veh83DStore(Veh83DMul(k, move.y));
+    const auto Weight = [&](int index, float amount, int other) {
+        if (assoc[other]) {
+            assoc[other]->m_BlendAmount = 0.f;
+        }
+        if (!assoc[index]) {
+            assoc[index] = CAnimManager::AddAnimation(clump(), kGroup, static_cast<AnimationId>(0x29 + index));
+        }
+        assoc[index]->m_BlendAmount = amount;
+    };
+    if (fx > 0.f) {
+        Weight(3, fx, 1);
+    } else if (fx < 0.f) {
+        Weight(1, -fx, 3);
+    }
+    if (fy < 0.f) {
+        Weight(0, -fy, 2);
+    } else if (fy > 0.f) {
+        Weight(2, fy, 0);
+    }
+    m_nLastCommand = m_nNextCommand;
+    m_nComboSet = 1;
+    m_nNextCommand = 0;
+}
+#pragma float_control(pop)
 
 // 0x61C650 (thiscall, ret 0x10; this = tarea de combate de la victima, devuelve AL): la victima esquiva o bloquea el golpe de `creator`. Solo si el ultimo comando es 2 (+0x27) y la animacion de golpe (+0x1C)
 // existe, no tiene el bit 0 de las banderas (+0x2E) y su duracion total (jerarquia +0x14, +0x10) supera el tiempo actual (+0x20, comparacion ordenada). Producto escalar con los x87 a 24 bits de
@@ -1402,6 +1463,7 @@ void CTaskSimpleFight::InjectHooks() {
     RH_ScopedInstall(FightHitPed, 0x61CBA0);
     RH_ScopedInstall(FightStrike, 0x6240B0);
     RH_ScopedInstall(GetAvailableComboSet, 0x61C7F0);
+    RH_ScopedInstall(FindTargetOnGround, 0x61C9B0);
     RH_ScopedInstall(BeHitWhileBlocking, 0x61C650);
     RH_ScopedInstall(ChooseAttackAI, 0x624A40);
     RH_ScopedInstall(LoadMeleeData, 0x5BEDC0);

@@ -84,8 +84,8 @@ def analyze(path):
     stubbed = b['collaborators']['stubbed']
     if {w['address'] for w in b['watched_entries']} != WATCHED or {s['exe'] for s in stubbed} != WATCHED or len(stubbed) != 4 or b['collaborators']['exe_real']:
         raise RuntimeError('Colaboradores o entradas vigiladas inesperados')
-    if any(not s['dll'] for s in stubbed if s['exe'] != 0x61C9B0) or any(s['dll'] for s in stubbed if s['exe'] == 0x61C9B0):
-        raise RuntimeError('Cuerpos de la DLL de los colaboradores inesperados (0x61C9B0 no existe en la DLL; los otros tres si)')
+    if any(not s['dll'] for s in stubbed):
+        raise RuntimeError('Cuerpos de la DLL de los colaboradores inesperados (los cuatro, 0x61C9B0 incluido desde el lote 85F, existen en la DLL)')
     if b['collaborators']['fake_event_slots'] != 16:
         raise RuntimeError('Vtable falsa inesperada')
     seen = set()

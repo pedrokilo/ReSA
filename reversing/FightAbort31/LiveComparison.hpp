@@ -55,11 +55,11 @@ inline void Update() {
     registered["CTaskSimpleFight::MakeAbortable"]=env.route->Registered();bodies["CTaskSimpleFight::MakeAbortable"]=env.route->Body();
     ready&=env.route->Registered()&&env.route->Body()&&ModuleOf(env.route->Body())==env.asi;
     // Cuerpos de la DLL de los colaboradores: se resuelven ANTES de escribir ningun parche (PROCESO.md, trampas). Con sus hooks encendidos (estado normal del ASI) la entrada del EXE
-    // salta a la DLL; Body() sigue el salto. 0x61C9B0 no esta reconstruido (solo existe la entrada del EXE).
+    // salta a la DLL; Body() sigue el salto. 0x61C9B0 (FindTargetOnGround) esta reconstruida desde el lote 85F: tambien lleva su cuerpo de la DLL.
     env.pSetDel={0x4CEBC0,Body(std::bit_cast<uintptr_t>(&CAnimBlendAssociation::SetDeleteCallback))};
     env.pBlend={0x4D4610,Body(std::bit_cast<uintptr_t>(static_cast<CAnimBlendAssociation*(*)(RpClump*,AssocGroupId,AnimationId,float)>(&CAnimManager::BlendAnimation)))};
     env.pIsPlayer={0x5DF8F0,Body(std::bit_cast<uintptr_t>(&CPed::IsPlayer))};
-    env.pFind={0x61C9B0,0};
+    env.pFind={0x61C9B0,Body(std::bit_cast<uintptr_t>(&CTaskSimpleFight::FindTargetOnGround))};   // reconstruida y enganchada en el lote 85F: el mismo falso va tambien en su cuerpo de la DLL
     Run(env,ready,registered,bodies);
 }
 }

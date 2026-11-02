@@ -20,14 +20,14 @@
     "body_parse_errors": 309,
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 447,
-    "historical_catalog_rows": 9015,
+    "historical_catalog_rows": 9016,
     "catalog_rows_without_unambiguous_source_match_in_scope": 2,
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 20,
     "catalog_rows_linked_by_hook_address": 180,
-    "validated_reconstructed_own_cpp_definitions": 10713,
+    "validated_reconstructed_own_cpp_definitions": 10714,
     "validated_reconstructed_own_asm_definitions": 0,
-    "wrapper_definitions": 38
+    "wrapper_definitions": 37
   },
   "source_sha256": {
     "source/app/app.cpp": "4717fcefd64b864f51910ae3ab7b4b3bc0966838f9cddaaca5727ee06c47ac16",
@@ -1987,7 +1987,7 @@
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.h": "ec2e688e8e7eabeeb6ddd0e0bb19bc47ef5997db69a029c6b5740768dadd9845",
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFall.cpp": "a094804199c21aa380d267b956896117f60691d20d2dae0ab605c75209a89582",
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFall.h": "c9224f5b845695eba5a5cf4352474ec047fcc1714fe23ed39e06ef4c645ef6f2",
-    "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "cd874a050d6ea27eee1621be5fe9eb765167cedf85305c5937ff0aa03b025524",
+    "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "be2829a69acec835cb4207036ab57b5df33a3ac5b6d2021399a50d947965255b",
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "1ea983d315c8574b444b589f3a48ad70fdbc9fbb45a820c60425ccd94836beac",
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp": "b4fa56c3f3bf80d3b7532befd0f427bb9120089f29864389a140a53129b32e39",
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h": "c3d8b0d7b9e47f79f802d6d35a8e480e8332d6c369fac7a27ae00775a4cd354e",
@@ -2232,10 +2232,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "2fff54c77800be04c9bd23974297ff57dd91cea155b43f3cca09600349fc0365",
+    "hooks.csv": "6c99bd9601728dae3f0d42c9190c1c4662f96f8738bb76e2bacffd88f820443e",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "060f21d58bec6e1cfa1265eb1b43be042cd421aa2410cce48dc8836d77ff634d",
+  "migration_registry_sha256": "b4e346e0c4a33da038ca3cbf440970c7875157bd5d4d8985e77576c0d104fa84",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

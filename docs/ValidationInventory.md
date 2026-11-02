@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,011 entradas reversed=1**, de 9,011 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,012 entradas reversed=1**, de 9,012 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9011 |
+| `validated=1` · evidencia aprobada vinculada | 9012 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9011 |
+| Evidencia histórica vinculada; revisión pendiente | 9012 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -7018,6 +7018,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleFight | `FightSetUpCol` | [Resumen](../reversing/Dependencies21C/validation-summary.json) |
 | CTaskSimpleFight | `FightStrike` | [Resumen](../reversing/Dependencies21C/validation-summary.json) |
 | CTaskSimpleFight | `FightStrikeDamage` | [Resumen](../reversing/Helpers65D/validation-summary.json) |
+| CTaskSimpleFight | `FindTargetOnGround` | [Resumen](../reversing/Fn85F/validation-summary.json) |
 | CTaskSimpleFight | `GetAvailableComboSet` | [Resumen](../reversing/Fn85E/validation-summary.json) |
 | CTaskSimpleFight | `GetComboAnimGroupID` | [Resumen](../reversing/DependenciesFightLeaf2/validation-summary.json) |
 | CTaskSimpleFight | `IsComboSet` | [Resumen](../reversing/DependenciesFightLeaf2/validation-summary.json) |
@@ -9682,7 +9683,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleEvasiveStep` | 8 | 0 | 8 | 0 |
 | `CTaskSimpleFacial` | 5 | 0 | 5 | 0 |
 | `CTaskSimpleFall` | 6 | 0 | 6 | 0 |
-| `CTaskSimpleFight` | 18 | 0 | 18 | 0 |
+| `CTaskSimpleFight` | 19 | 0 | 19 | 0 |
 | `CTaskSimpleFightingControl` | 7 | 0 | 7 | 0 |
 | `CTaskSimpleFinishBrain` | 2 | 0 | 2 | 0 |
 | `CTaskSimpleGangDriveBy` | 10 | 0 | 10 | 0 |

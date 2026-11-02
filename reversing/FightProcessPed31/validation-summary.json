@@ -12,21 +12,21 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wm-1 (HEAD 63d8ac6cb + parches del lote 31; ver artifacts/build-manifest.json), de sólo lectura y eliminado tras el registro. En el árbol principal las fuentes se fusionaron en tres vías con trabajo sin validar del lote 27 en los mismos archivos, por lo que sus hashes pueden diferir de los del manifiesto (normalizados a LF o no). Hook virtual (RH_ScopedVMTInstall) registrado como tipo V con original_address 0x00629920. Falsos idénticos en ambos lados: 21 colaboradores (ver README); objetos, tabla de combos y globales falsos. El oráculo acepta el ángulo de orientación (atan2) con tolerancia de 2 ulp (fpatan no modelado al ulp) y exige EXE == DLL estricto en bits; EAX/ECX/EDX sólo registrados.  Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/FightProcessPed31-20261102-160555-377395",
-  "summary_sha256": "0547e62701827b28ce48b2d3bce87e82e8f89f1bf77b36933346d5a13d7dcb24",
-  "result_txt_sha256": "5716d7011ce6b06fb9b8bb11904853ad6810ccb8d8527c6c0a8e52a09553d2fb",
-  "log_sha256": "704d644eddbfc14d6d6dedfedff698cdf345990d062270aefc75525946acf633",
+  "run": "reversing/CppTwelveLevel6Final/runs/FightProcessPed31-20261102-163810-246266",
+  "summary_sha256": "b616538ed227e01c9dd608d1a531195a49b7013c060eb754e8404ad3e41ec3fc",
+  "result_txt_sha256": "2d8076b1209132a8bb7b3b847b371178c83e26ac594c36bf6016d53a3ea18cd8",
+  "log_sha256": "9e99d15dfdc2a0dd32eed0234c8b0e60493c74327bc8cbc8fa0b66d1fa0033f5",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "9e5542706edcd82cb00fc938c8696a110d463f405338bcbf11c856136498d227",
+  "executed_probe_sha256": "be05d8c2285c111df6cce36e83fc03d5076535d3c334a21606007acc04713b9b",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
       "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "cd874a050d6ea27eee1621be5fe9eb765167cedf85305c5937ff0aa03b025524",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "be2829a69acec835cb4207036ab57b5df33a3ac5b6d2021399a50d947965255b",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "1ea983d315c8574b444b589f3a48ad70fdbc9fbb45a820c60425ccd94836beac",
       "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
       "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
@@ -51,8 +51,8 @@
       "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
       "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/FightProcessPed31/LiveComparison.hpp": "5a43d56ce60304e1495224fc75c0b09dbca99d7f945ec836379853d4983b3089",
-      "reversing/FightProcessPed31/Core.hpp": "959b4e0db8c8cde0a2f8ab8b5fa5f1517f5623cf359847ecccf3ee33fb21ceef",
+      "reversing/FightProcessPed31/LiveComparison.hpp": "fcff85f033d8ea9be54bbaaf7784f33a25f594fa402f3e7098b50f75e7eaee2d",
+      "reversing/FightProcessPed31/Core.hpp": "0554594d27c79a54db82ddee62aed85d18be9a73030f135775780bb689a6f631",
       "reversing/FightProcessPed31/Fixtures.hpp": "bb6fe295785d06f61a61554306f18ffd06c24b0be4e76ca98a7d756f339c2cb8",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
@@ -61,10 +61,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/FightProcessPed31-20261102-160555-377395/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/FightProcessPed31-20261102-163810-246266/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "dbdc2d0c0830382f3319ae403b1a1623caaa2ce4b31717154a5473067ed657d5",
-    "uncompressed_sha256": "704d644eddbfc14d6d6dedfedff698cdf345990d062270aefc75525946acf633"
+    "compressed_sha256": "6effd07550a7a61e1107127890b7c251018216c6214da184d0b7498500b26464",
+    "uncompressed_sha256": "9e99d15dfdc2a0dd32eed0234c8b0e60493c74327bc8cbc8fa0b66d1fa0033f5"
   }
 }

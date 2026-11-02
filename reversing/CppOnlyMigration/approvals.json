@@ -14407,5 +14407,19 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn85E con 16384 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado durante el banco): CWeaponInfo::GetWeaponInfo 0x743C60, CAnimManager::GetAnimBlockName 0x4D3A30, GetAnimationBlock(const char*) 0x4D3940, AddAnimBlockRef 0x4D3FB0, CStreaming::RequestModel 0x4087E0 y, sin hook RH (funcion C++ de la DLL), CAnimManager::RemoveAnimBlockRef 0x4D3FD0. Los bloques de animacion son los reales de ms_aAnimBlocks (0..15, solo su byte IsLoaded), el arreglo de grupos 0xB4EA34 apunta a una arena y las 12 filas de la tabla de combos 0xC170D0 se fijan por caso y se restauran. Con mutaciones de una lectura (grupo de las filas tras RemoveAnimBlockRef, comando siguiente tras RequestModel, estilo de pelea dentro de GetWeaponInfo). El banco compara el valor devuelto (AL), los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: estilo del arma o de pelea fuera de 4..15, grupos de animacion fuera de 0..39, bloques fuera de 0..15, ranura activa fuera de -3..12, NaN no aplica (sin floats) y bytes IsLoaded no son 0/1 solo en las fixtures con 2, 0x80 y 0xFF (el EXE compara distinto de cero)."
+  },
+  "0x0061C9B0": {
+    "identity": "CTaskSimpleFight::FindTargetOnGround",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp",
+    "bank": "Fn85F",
+    "run": "20261102-163218-315517",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn85F-20261102-163218-315517/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn85F con 16384 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado durante el banco): RpAnimBlendClumpGetAssociation(clump, id) 0x4D68B0 y CAnimManager::AddAnimation(clump, grupo, id) 0x4D3AA0. Registran sus argumentos en orden y devuelven asociaciones de arenas propias (las cuatro existentes o nulas segun el caso; las nuevas de AddAnimation). La aritmetica del movimiento (cuadrados, suma, raiz, cociente, productos y guardado a float, x87 a 24 bits) corre de verdad en ambos lados. Con mutaciones de una lectura (comando siguiente y combo tras la asociacion 0x29, datos del jugador tras la 0x2C, clump y floats tras la primera AddAnimation). El banco compara los eventos de los falsos con todos sus argumentos, los bytes cambiados de las arenas (tarea, ped, datos del jugador, asociaciones existentes y nuevas) y el puntero de datos del jugador; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: NaN con cargas distintas de 0xFFC00000, ped sin datos de jugador (+0x480 nulo), AddAnimation que devuelva nulo y asociaciones con basura en otros campos que los dos escritos."
   }
 }
