@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 18432,
+  "differences": 0,
+  "registered_pairs": 18432,
+  "registered_functions": 1,
+  "functions": {
+    "CCarCtrl::SteerAICarWithPhysics": 18432
+  },
+  "covered_functions": {
+    "CCarCtrl::SteerAICarWithPhysics": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD abd32cf51 + cambios del lote 84G; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): CCarCtrl::SwitchBetweenPhysicsAndGhost 0x4222A0, CPathFind::AreNodesLoadedForArea 0x44DD10, CCarCtrl::JoinCarWithRoadAccordingToMission 0x432CB0, CCarCtrl::FindMaxSteerAngle 0x427FE0 y CCarCtrl::SteerAICarWithPhysics_OnlyMission 0x436A90 (el banco compara el estado del vehiculo en cada llamada EN ORDEN y escribe los valores del caso). Corren de verdad el producto escalar, v * f, a + b y CPlaceable::GetForward (EXE frente a ayudantes x87 de la DLL), CVehicleRecording::bUseCarAI, CTimer y las constantes de .rdata. El banco compara los eventos, el estado final del vehiculo (mision, accion temporal, tiempos, nodos, banderas, objetivo, velocidad, volante, pedales, salidas del Vortex, modelo, relojes) y la matriz, sin otros cambios en las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Mutaciones del estado tras un evento (14 tipos). Fuera de los fixtures: vehiculo sin matriz fuera de la rama de espera y de la accion 23 (el EXE falla), id de grabacion con bUseCarAI distinto de 0 y 1, NaN con cargas distintas (las fixtures usan un unico patron), rumbo de la transformacion simple enorme o no finito y bytes altos del booleano de freno de mano que escribe SteerAICarWithPhysics_OnlyMission.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Car84G-20261101-234159-107639",
+  "summary_sha256": "52a088020fd37926845a54951f89c0c8533eed398c00eaf22ec1354f47db2440",
+  "result_txt_sha256": "1a30a899a69cf744ebad5492a9eaa94e32aaaebd76ff2de49fb42af7d5477934",
+  "log_sha256": "ab893499414a951c255c37c091092beeed5f03abd5710c4ba35dd6534b17d139",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "db536f3c46c4c805369cde03adbaf0bb95c0436111ee7a6a057da8c62e5f3893",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
+      "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
+      "source/game_sa/CarCtrl.cpp": "2a1650734ae929fca9f02ceec2412d27e1587366b7b746bcfc9d2d806b433443",
+      "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Car84G/LiveComparison.hpp": "e0b8c5988718be84cc766db2ff286c37ccbdb29147a3fc8d8fc9ecd2a8230bef",
+      "reversing/Car84G/Core.hpp": "53fc63853285ccdd1a0652d668a74e066eb8143da8f2ce502be425eb864b2f02",
+      "reversing/Car84G/Fixtures.hpp": "05ef8d203455d88bb253641f28387031cf2090b0500b80c2061b020f2c415e27",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

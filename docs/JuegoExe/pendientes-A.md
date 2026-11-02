@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 01/11/2026 (Ciudad de México):** 820 grupos / 8988 funciones reconstruidas; 8988 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 01/11/2026 (Ciudad de México):** 820 grupos / 8989 funciones reconstruidas; 8989 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo A: Falta: llamada desde código ya reemplazado
@@ -21,10 +21,10 @@
 | `0x0061A390` | 16 | CPlayerRelationshipRecorder | baja | 234 (198) |  |
 | `0x004082C0` | 33 | CStreaming | baja | 194 (156) |  |
 | `0x0040FE90` | 37 | CColSphere | alta | 134 (130) |  |
-| `0x0040FEC0` | 37 | CColSphere | alta | 132 (121) |  |
+| `0x0040FEC0` | 37 | CColSphere | alta | 132 (122) |  |
 | `0x0059C790` | 115 | CQuaternion | baja | 129 (119) |  |
 | `0x00406DA0` | 31 | CdStream | baja | 126 (119) |  |
-| `0x0040FE30` | 37 | CColSphere | alta | 99 (93) |  |
+| `0x0040FE30` | 37 | CColSphere | alta | 99 (94) |  |
 | `0x0072F430` | 5 | CMemoryMgr | alta | 78 (70) |  |
 | `0x0059BBB0` | 14 | CCompressedMatrixNotAligned | baja | 70 (69) |  |
 | `0x00749B70` | 57 | Win | baja | 74 (68) |  |
@@ -32,9 +32,9 @@
 | `0x0059AD70` | 84 | CMaths | baja | 57 (52) |  |
 | `0x00420800` | 25 | CCarAI | baja | 54 (52) |  |
 | `0x00411A00` | 33 | CPlaceable | baja | 57 (51) |  |
+| `0x0040FDB0` | 29 | CColSphere | alta | 55 (50) |  |
 | `0x0054EF40` | 77 | Common | baja | 52 (49) |  |
 | `0x0040EF50` | 52 | CColLine | baja | 48 (48) |  |
-| `0x0040FDB0` | 29 | CColSphere | alta | 55 (48) |  |
 | `0x006E5280` | 77 | WaterCreatureManager_c | baja | 46 (46) |  |
 | `0x004AB290` | 53 | FxSystem_c | baja | 47 (44) |  |
 | `0x004A8DF0` | 50 | FxInfoManager_c | baja | 41 (40) |  |
@@ -48,9 +48,9 @@
 | `0x0049EA50` | 4 | Fx_c | alta | 29 (29) |  |
 | `0x0059AF40` | 57 | CMaths | baja | 29 (27) |  |
 | `0x0040FEF0` | 33 | CColSphere | alta | 29 (27) |  |
+| `0x0041CCB0` | 70 | CCarAI | alta | 28 (26) |  |
 | `0x00734E90` | 8 | RwHelper | baja | 26 (26) |  |
 | `0x004AD960` | 81 | CEventDamage | alta | 55 (25) |  |
-| `0x0041CCB0` | 70 | CCarAI | alta | 28 (25) |  |
 | `0x0040FE00` | 35 | CColSphere | alta | 28 (25) |  |
 | `0x0040FCF0` | 30 | CColModel | baja | 25 (25) |  |
 | `0x004B5620` | 11 | CEventPool | baja | 54 (25) |  |

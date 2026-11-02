@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CCarCtrl
- * Reconstrucción: COMPLETA — 105/105 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 106/106 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 105/105 entradas.
+ * Validación registrada: 106/106 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -192,6 +192,7 @@ void CCarCtrl::InjectHooks()
     RH_ScopedInstall(SlowCarDownForObject, 0x426220);
     RH_ScopedInstall(SlowCarOnRailsDownForTrafficAndLights, 0x434790);
     RH_ScopedInstall(FindMaxSteerAngle, 0x427FE0);
+    RH_ScopedInstall(SteerAICarWithPhysics, 0x437C20);
     RH_ScopedInstall(SteerAICarWithPhysicsTryingToBlockTarget_Stop, 0x428990);
     RH_ScopedInstall(SteerAICarWithPhysicsHeadingForTarget, 0x433280);
     RH_ScopedInstall(SteerAICarWithPhysicsTryingToBlockTarget, 0x4335E0);
@@ -4737,9 +4738,244 @@ void CCarCtrl::SteerAICarTowardsPointInEscort(CVehicle* vehicle1, CVehicle* vehi
     *arg5 = diff;
 }
 
-// 0x437C20
+// 0x40FDB0 (DotProduct): (a.z * b.z + a.y * b.y) + a.x * b.x en la pila x87 (24 bits de mantisa por operacion, exponente ampliado); el resultado queda en el registro, sin guardar como float
+static double SteerPhysicsDot(const CVector& a, const CVector& b) {
+    return Veh83DAdd(Veh83DAdd(Veh83DMul(a.z, b.z), Veh83DMul(a.y, b.y)), Veh83DMul(a.x, b.x));
+}
+// 0x41CCB0 (CPlaceable::GetForward del EXE): adelante de la matriz o (-sin h, cos h, 0) con fsin/fcos del x87 guardados en float
+static CVector SteerPhysicsForward(const CPlaceable& placeable) {
+    if (placeable.m_matrix) {
+        return placeable.m_matrix->GetForward();
+    }
+    const float heading = placeable.m_placement.m_fHeading;
+    return CVector{-TrigSimpleSinCpp(heading), TrigSimpleCosCpp(heading), 0.0f};
+}
+
+// 0x437C20..0x4382D4 (cdecl, un argumento, void). Salidas locales: giro (steer), acelerador (gas), freno de mano (handbrake) y dos valores de freno: `brake` (local, solo lo escribe
+// SteerAICarWithPhysics_OnlyMission) y el registro x87 que acaba en m_BrakePedal (`brakeReg`, cargado de una constante o de `brake`). Despues se guardan en el vehiculo.
 void CCarCtrl::SteerAICarWithPhysics(CVehicle* vehicle) {
-    plugin::Call<0x437C20, CVehicle*>(vehicle);
+    auto& ap = vehicle->m_autoPilot;
+    float steer = 0.0f, gas = 0.0f, brake = 0.0f;
+    bool handbrake = false;
+
+    // Con grabacion de recorrido (id >= 0) solo actua si esa grabacion usa la IA del coche (0x97D6C0)
+    if (ap.m_vehicleRecordingId >= 0 && !CVehicleRecording::bUseCarAI.data()[ap.m_vehicleRecordingId]) {
+        return;
+    }
+    SwitchBetweenPhysicsAndGhost(vehicle);
+    const int32 missionIndex = int32(int8(ap.m_nCarMission)) - 15;
+    ap.m_ObstructingEntity = nullptr;
+    if (uint32(missionIndex) <= 0x28u) {
+        // Tabla de 0x4382E4 (mision - 15): 0 = sin objetivo -> MISSION_NONE, 1 = sin objetivo -> 0x2A, 2 = nada
+        static constexpr std::array<uint8, 41> kMissionClass{
+            0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0};
+        const uint8 missionClass = kMissionClass[missionIndex];
+        if (missionClass != 2 && !ap.m_TargetEntity) {
+            ap.m_nCarMission = missionClass == 0 ? MISSION_NONE : eCarMission(0x2A);
+        }
+    }
+
+    const auto finish = [&](float brakeReg) {
+        vehicle->m_BrakePedal = brakeReg;
+        vehicle->m_fSteerAngle = steer;
+        vehicle->vehicleFlags.bIsHandbrakeOn = handbrake;
+        vehicle->m_GasPedal = gas;
+        if (vehicle->m_nModelIndex == 0x21B) { // Vortex
+            *reinterpret_cast<float*>(reinterpret_cast<uint8*>(vehicle) + 0x994) = gas;
+            *reinterpret_cast<float*>(reinterpret_cast<uint8*>(vehicle) + 0x988) = steer;
+        }
+    };
+    const auto expireTemp = [&] {
+        if (CTimer::m_snTimeInMilliseconds > ap.m_nTempActionTime) {
+            ap.m_nTempAction = TEMPACT_NONE;
+        }
+    };
+
+    const uint8 movement = ap.m_nMovementFlags;
+    if (movement & 1) { // bIsStopped: espera a que se carguen los nodos de la zona
+        brake = 0.2f; // 0x858CC4
+        const CVector& pos = vehicle->GetPosition();
+        const float maxY = pos.y + 270.0f; // 0x859070
+        const float minY = pos.y - 270.0f;
+        const float maxX = pos.x + 270.0f;
+        const float minX = pos.x - 270.0f;
+        if (ThePaths.AreNodesLoadedForArea(minX, maxX, minY, maxY)) {
+            ap.m_nMovementFlags &= 0xFE;
+            JoinCarWithRoadAccordingToMission(vehicle);
+        }
+        finish(brake);
+        return;
+    }
+    if ((movement & 2) && ap.m_nCarMission != MISSION_STOP_FOREVER && ap.m_nCarMission != MISSION_NONE) { // bIsParked: se invierte la ruta y se da marcha atras 2 s
+        const CNodeAddress start = ap.m_startingRouteNode;
+        const CNodeAddress current = ap.m_currentAddress;
+        ap.m_nTempAction = TEMPACT_REVERSE_STRAIGHT;
+        ap.m_nTempActionTime = CTimer::m_snTimeInMilliseconds + 2000;
+        ap.m_nMovementFlags = movement & 0xFD;
+        ap.m_startingRouteNode = current;
+        ap.m_currentAddress = start;
+        ap.m_endingRouteNode = current;
+    }
+
+    const int32 tempAction = int32(int8(ap.m_nTempAction));
+    switch (tempAction) {
+    case TEMPACT_WAIT:
+    case TEMPACT_BRAKE: { // freno 0x858CC4 (0.2f) / 0x858624 (1.0f)
+        const float brakeReg = tempAction == TEMPACT_WAIT ? 0.2f : 1.0f;
+        handbrake = false;
+        gas = 0.0f;
+        steer = 0.0f;
+        if (CTimer::m_snTimeInMilliseconds > ap.m_nTempActionTime) {
+            ap.m_nTempAction = TEMPACT_NONE;
+            ap.m_nTimeToStartMission = CTimer::m_snTimeInMilliseconds;
+            ap.m_nTimeSwitchedToRealPhysics = CTimer::m_snTimeInMilliseconds;
+        }
+        finish(brakeReg);
+        return;
+    }
+    case TEMPACT_REVERSE: {
+        SteerAICarWithPhysics_OnlyMission(vehicle, &steer, &gas, &brake, &handbrake);
+        steer = -steer;
+        const double dot = SteerPhysicsDot(vehicle->m_vecMoveSpeed, vehicle->m_matrix->GetForward());
+        handbrake = false;
+        float brakeReg;
+        if (!(dot > double(0.04f))) { // 0x858CEC
+            brakeReg = 0.0f;          // 0x858B50
+            gas = -0.5f;
+        } else {
+            brakeReg = 0.5f; // 0x858B8C
+            gas = 0.0f;
+        }
+        if (CTimer::m_snTimeInMilliseconds > ap.m_nTempActionTime) {
+            ap.m_nTempAction = TEMPACT_NONE;
+            ap.m_nTimeToStartMission = CTimer::m_snTimeInMilliseconds;
+        }
+        finish(brakeReg);
+        return;
+    }
+    case TEMPACT_REVERSE_LEFT:
+    case TEMPACT_REVERSE_RIGHT: {
+        gas = -0.75f;
+        brake = 0.0f;
+        handbrake = false;
+        const float maxSteer = FindMaxSteerAngle(vehicle);
+        steer = tempAction == TEMPACT_REVERSE_LEFT ? maxSteer : -maxSteer;
+        if (CTimer::m_snTimeInMilliseconds > ap.m_nTempActionTime) {
+            ap.m_nTempAction = TEMPACT_NONE;
+            ap.m_nTimeToStartMission = CTimer::m_snTimeInMilliseconds;
+        }
+        finish(brake);
+        return;
+    }
+    case TEMPACT_HANDBRAKETURNLEFT:
+    case TEMPACT_HANDBRAKETURNRIGHT:
+    case TEMPACT_HANDBRAKESTRAIGHT:
+    case TEMPACT_TURNLEFT:
+    case TEMPACT_TURNRIGHT:
+    case TEMPACT_GOFORWARD: { // freno 0.0f (0x858B50); giro, acelerador y freno de mano segun el caso
+        switch (tempAction) {
+        case TEMPACT_HANDBRAKETURNLEFT:  handbrake = true;  steer = 1.0f;  gas = 0.0f; break;
+        case TEMPACT_HANDBRAKETURNRIGHT: handbrake = true;  steer = -1.0f; gas = 0.0f; break;
+        case TEMPACT_HANDBRAKESTRAIGHT:  handbrake = true;  steer = 0.0f;  gas = 0.0f; break;
+        case TEMPACT_TURNLEFT:           handbrake = false; steer = 1.0f;  gas = 1.0f; break;
+        case TEMPACT_TURNRIGHT:          handbrake = false; steer = -1.0f; gas = 1.0f; break;
+        default:                         handbrake = false; steer = 0.0f;  gas = 0.5f; break;
+        }
+        expireTemp();
+        finish(0.0f);
+        return;
+    }
+    case TEMPACT_SWIRVELEFT:
+    case TEMPACT_SWIRVERIGHT:
+    case TEMPACT_SWIRVELEFT_STOP:
+    case TEMPACT_SWIRVERIGHT_STOP: { // freno 0x858CDC (0.001f)
+        handbrake = false;
+        steer = (tempAction == TEMPACT_SWIRVERIGHT || tempAction == TEMPACT_SWIRVERIGHT_STOP) ? 0.25f : -0.25f;
+        const uint32 timeout = ap.m_nTempActionTime;
+        const uint32 nowMs = CTimer::m_snTimeInMilliseconds;
+        gas = 0.0f;
+        if (nowMs > timeout - 1250u) {
+            steer = -steer;
+        }
+        if (nowMs > timeout) {
+            if (tempAction == TEMPACT_SWIRVELEFT_STOP || tempAction == TEMPACT_SWIRVERIGHT_STOP) {
+                ap.m_nTempAction = TEMPACT_WAIT;
+                ap.m_nTempActionTime = CTimer::m_snTimeInMilliseconds + 4000;
+            } else {
+                ap.m_nTempAction = TEMPACT_NONE;
+            }
+        }
+        finish(0.001f);
+        return;
+    }
+    case TEMPACT_HEADON_COLLISION: { // freno 0x858624 (1.0f) o 0x858B50 (0.0f); el giro se acerca a +-0.5 con 0.05 por paso (0x859068, 0x859060, 0x859058: double)
+        const uint32 timeout = ap.m_nTempActionTime;
+        const uint32 nowMs = CTimer::m_snTimeInMilliseconds;
+        handbrake = false;
+        gas = 0.0f;
+        const float brakeReg = nowMs > timeout ? 1.0f : 0.0f;
+        const float current = vehicle->m_fSteerAngle;
+        const double step = Veh83DMul(double(CTimer::ms_fTimeStep), 0.05);
+        double value;
+        if (current > 0.0f) {
+            value = Veh83DAdd(step, double(current));
+            if (0.5 < value) {
+                value = 0.5;
+            }
+        } else {
+            value = Veh83DSub(double(current), step);
+            if (-0.5 > value) {
+                value = -0.5;
+            }
+        }
+        steer = Veh83DStore(value);
+        if (nowMs > timeout) {
+            ap.m_nTempAction = TEMPACT_NONE;
+        }
+        finish(brakeReg);
+        return;
+    }
+    case TEMPACT_REVERSE_STRAIGHT: { // 0x858B1C (0.1f)
+        steer = 0.0f;
+        const double dot = SteerPhysicsDot(vehicle->m_vecMoveSpeed, vehicle->m_matrix->GetForward());
+        handbrake = false;
+        float brakeReg;
+        if (!(dot > double(0.1f))) {
+            gas = -0.5f;
+            brakeReg = 0.0f;
+        } else {
+            gas = 0.0f;
+            brakeReg = 0.5f;
+        }
+        expireTemp();
+        finish(brakeReg);
+        return;
+    }
+    case TEMPACT_BOOST_USE_STEERING_ANGLE: { // la velocidad se empuja hacia delante: v += adelante * (paso * 0.012f)
+        steer = vehicle->m_fSteerAngle;
+        gas = 1.0f;
+        brake = 0.0f;
+        handbrake = false;
+        const float push = Veh83CMulStore(CTimer::ms_fTimeStep, 0.012f); // 0x859054
+        const CVector forward = SteerPhysicsForward(*vehicle);
+        CVector& speed = vehicle->m_vecMoveSpeed;
+        const CVector scaled{Veh83CMulStore(forward.x, push), Veh83CMulStore(forward.y, push), Veh83CMulStore(forward.z, push)};
+        speed = CVector{Veh83CAddStore(speed.x, scaled.x), Veh83CAddStore(speed.y, scaled.y), Veh83CAddStore(speed.z, scaled.z)};
+        expireTemp();
+        finish(brake);
+        return;
+    }
+    case TEMPACT_PLANE_FLY_UP:
+    case TEMPACT_PLANE_FLY_STRAIGHT:
+    case TEMPACT_PLANE_SHARP_LEFT:
+    case TEMPACT_PLANE_SHARP_RIGHT:
+        expireTemp();
+        [[fallthrough]];
+    default:
+        SteerAICarWithPhysics_OnlyMission(vehicle, &steer, &gas, &brake, &handbrake);
+        finish(brake);
+        return;
+    }
 }
 
 // 0x434900

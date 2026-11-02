@@ -8987,3 +8987,4 @@ CCarCtrl,PickNextNodeToFollowPath,0x00427740,1,0,1,S
 CCarCtrl,DragCarToPoint,0x0042EC90,1,0,1,S
 CCarCtrl,GenerateCarCreationCoors2,0x00424210,1,0,1,S
 CCarCtrl,GenerateOneEmergencyServicesCar,0x0042B7D0,1,0,1,S
+CCarCtrl,SteerAICarWithPhysics,0x00437C20,1,0,1,S
