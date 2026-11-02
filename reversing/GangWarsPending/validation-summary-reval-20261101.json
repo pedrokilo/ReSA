@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "pairs": 3072,
+  "differences": 0,
+  "registered_pairs": 3072,
+  "registered_functions": 3,
+  "functions": {
+    "CGangWars::AddKillToProvocation": 1024,
+    "CGangWars::Update": 1024,
+    "CGangWars::CreateAttackWave": 1024
+  },
+  "covered_functions": {
+    "CGangWars::AddKillToProvocation": true,
+    "CGangWars::Update": true,
+    "CGangWars::CreateAttackWave": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. REVALIDACIÓN 01/11/2026: re-ejecución del banco (3072 pares, 0 diferencias) con las fuentes actuales de GangWars.cpp/.h. Desde el lote 64B CGangWars::GetPopcycleGroupPedModel (0x406E80) es C++ enganchado en la DLL; el banco solo la falseaba en la dirección del EXE y CreateAttackWave divergía en 64/1024 casos (los de gang no transmitido). Ahora la falsea también en el cuerpo de la DLL (EntryPatch sobre la dirección del hook). Sin cambios de producción. run_local.py y build_probe.py fijan runtime_runner.GAME al clon E:/JUEGOS/GTA San Andreas - CVehicle Test.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/GangWarsPending-20261101-222347-905193",
+  "bank_pairs": 3072,
+  "bank_functions": 3,
+  "summary_sha256": "8191437f5cbe879ff2af420202f0602802fe07bbf47c3f063db27d4f8b975d07",
+  "result_txt_sha256": "08d2c0c4c92f66e7b0c922693865b2b2abba76ea4ff58f8b24c35fc432a34b1e",
+  "log_sha256": "b63fe486ad079aeed60b8023b97dec1b662a77ab4df5c36523c10f308b81118a",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "ad9379e5e08bae7e320c8307f774e7d097afc7e3e3047e37e63bf8aeb4b9a1ba",
+  "manifest": {
+    "tested_sources": {
+      "source/game_sa/GangWars.cpp": "cb797e71bee2cb68e9c74fdc650b32b3abc20caffd90d534379c89eb931dde84",
+      "source/game_sa/GangWars.h": "9790db3a29cf70ace84a2f3b85476685194a0b23c42facb6ced08529cef3f1de"
+    }
+  }
+}

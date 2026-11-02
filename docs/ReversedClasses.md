@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-11-02 04:16 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-11-02 04:26 UTC
 
 ## Objetivo y dimensiones de progreso
 
@@ -33,7 +33,7 @@ Estas dimensiones todavía no tienen un porcentaje útil: indican el trabajo que
 | Validaciones vigentes para el árbol actual | 0/8,908 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). |
 | Dependencias de funciones originales eliminadas | Medido (cota inferior): 871 funciones del juego siguen llamándose directamente desde código del juego ya reemplazado; cierre transitivo: 1,057 funciones / 181,333 bytes. Ver [Cobertura real del EXE](#cobertura-exe) | Resolver las llamadas indirectas (tablas de punteros, callbacks) para convertir la cota inferior en un valor exacto, y eliminar o sustituir las dependencias directas que quedan. |
 
-**Validación consolidada parcialmente:** 8908 funciones del juego con evidencia aprobada vinculada, 851 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
+**Validación consolidada parcialmente:** 8908 funciones del juego con evidencia aprobada vinculada, 854 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
 
 ## Vista general
 

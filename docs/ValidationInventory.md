@@ -2874,14 +2874,14 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CGameLogic | `UpdateSkip` | [Resumen](../reversing/GameLogic27/validation-summary.json) |
 | CGamma | `Init` | [Resumen](../reversing/Misc70/validation-summary.json) |
 | CGamma | `SetGamma` | [Resumen](../reversing/Misc70/validation-summary.json) |
-| CGangWars | `AddKillToProvocation` | [Resumen](../reversing/GangWarsPending/validation-summary-reval-20261019.json) |
+| CGangWars | `AddKillToProvocation` | [Resumen](../reversing/GangWarsPending/validation-summary-reval-20261101.json) |
 | CGangWars | `AttackWaveOvercome` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangWars | `CalculateTimeTillNextAttack` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangWars | `CanPlayerStartAGangWarHere` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangWars | `CheerVictory` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangWars | `ClearSpecificZonesToTriggerGangWar` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangWars | `ClearTheStreets` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
-| CGangWars | `CreateAttackWave` | [Resumen](../reversing/GangWarsPending/validation-summary-reval-20261019.json) |
+| CGangWars | `CreateAttackWave` | [Resumen](../reversing/GangWarsPending/validation-summary-reval-20261101.json) |
 | CGangWars | `CreateDefendingGroup` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangWars | `DoStuffWhenPlayerVictorious` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangWars | `DoesPlayerControlThisZone` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
@@ -2908,7 +2908,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CGangWars | `SwitchGangWarsActive` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangWars | `TellGangMembersTo` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangWars | `TellStreamingWhichGangsAreNeeded` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
-| CGangWars | `Update` | [Resumen](../reversing/GangWarsPending/validation-summary-reval-20261019.json) |
+| CGangWars | `Update` | [Resumen](../reversing/GangWarsPending/validation-summary-reval-20261101.json) |
 | CGangWars | `UpdateTerritoryUnderControlPercentage` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangs | `ChooseGangPedModel` | [Resumen](../reversing/Data8a/validation-summary.json) |
 | CGangs | `GetWillAttackPlayerWithCops` | [Resumen](../reversing/Data8a/validation-summary.json) |
