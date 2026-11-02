@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 18432,
+  "differences": 0,
+  "registered_pairs": 18432,
+  "registered_functions": 1,
+  "functions": {
+    "CCarCtrl::GenerateEmergencyServicesCar": 18432
+  },
+  "covered_functions": {
+    "CCarCtrl::GenerateEmergencyServicesCar": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 7d4f18e34 + cambios del lote 84K; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): CGangWars::GangWarFightingGoingOn 0x443AC0, FindPlayerPed 0x56E210, CAccidentManager::GetInstance 0x56CF20, GetNumberOfFreeAccidents 0x56CEE0 y GetNearestFreeAccident 0x56D050, FindPlayerCoors 0x56E010, CStreaming::StreamAmbulanceAndMedic 0x40A2A0 y StreamFireEngineAndFireman 0x40A400, CCarCtrl::GenerateOneEmergencyServicesCar 0x42B7D0 y CFireManager::GetNumOfNonScriptFires 0x538F10 / FindNearestFire 0x538F40 (el banco compara todos sus argumentos EN ORDEN y devuelven valores del caso). Corren de verdad las lecturas de las tablas de modelos por nivel de zona (0x8A5AB4 y 0x8A5AD4; 0x407D30 y 0x407DC0 en el EXE) y las de los contadores, el tiempo y el nivel de zona del juego. El banco compara los eventos, los ultimos tiempos de ambulancia y bomberos, los contadores y que ninguna arena cambie; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: nivel de zona fuera de 0..7, jugador sin datos de jugador o sin busqueda, herido con ped sin matriz ni posicion valida, el byte de bAllowEmergencyServicesToBeCreated distinto de 0 y 1, NaN con cargas distintas en las posiciones (el banco usa varias, incluidos senalizadores) y los bytes altos de los booleanos de los colaboradores.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Car84K-20261102-033430-952656",
+  "summary_sha256": "1e132ae6c5451a89a71bfdae83dd10c8594153279e7f5cf7c744713654a89ce8",
+  "result_txt_sha256": "f7568db469eaaff574d912d32f1a8aa01b9da00b9d00402e785fd0c497d2ba08",
+  "log_sha256": "073f8f4ae5d4aead57d1acac3a7d054dd53c17124b8e94acd412a0c09810eadb",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "68be1a31ef97c7666bee48ca51f15330c0b709a6d56187a94f0c3fc74998f811",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
+      "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
+      "source/game_sa/CarCtrl.cpp": "21fa2606f6edbe8ff85c909858b7ec8877a3c2ae1f459ae918f70ff3789f5e55",
+      "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Car84K/LiveComparison.hpp": "e30ef3ca4c38ec2f320280121bc2385a3e202bd833cae40c9a4071a7d7c04ff4",
+      "reversing/Car84K/Core.hpp": "870b2826597bb71af209f8275d2d2e4d67fb369ee82e0912d5e34caf5f4540a3",
+      "reversing/Car84K/Fixtures.hpp": "a3a5feb9ed444116065234858fa20af0605fc4e8f0f4f31e47c955ee815f9c60",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

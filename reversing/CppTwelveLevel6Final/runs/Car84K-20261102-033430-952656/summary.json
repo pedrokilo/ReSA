@@ -1,0 +1,88 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "68be1a31ef97c7666bee48ca51f15330c0b709a6d56187a94f0c3fc74998f811",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 18432,
+  "pairs_per_function": {
+    "CCarCtrl::GenerateEmergencyServicesCar": 18432
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "073f8f4ae5d4aead57d1acac3a7d054dd53c17124b8e94acd412a0c09810eadb",
+  "compare_dead_x87_registers": false,
+  "families": {
+    "CCarCtrl::GenerateEmergencyServicesCar": {
+      "0": 1024,
+      "1": 1024,
+      "2": 1024,
+      "3": 1024,
+      "4": 1024,
+      "5": 1024,
+      "6": 1024,
+      "7": 1024,
+      "8": 1024,
+      "9": 1024,
+      "10": 1024,
+      "11": 1024,
+      "12": 1024,
+      "13": 1024,
+      "14": 1024,
+      "15": 1024,
+      "16": 1024,
+      "17": 1024
+    }
+  },
+  "branch_coverage": {
+    "CCarCtrl::GenerateEmergencyServicesCar": {
+      "allow_off": 331,
+      "entered": 18432,
+      "fire_skip": 5649,
+      "amb_gen_ok": 6824,
+      "amb_placement": 3822,
+      "amb_accident_path": 9258,
+      "inf_input": 3387,
+      "denormal_input": 3723,
+      "amb_stream_fail": 543,
+      "amb_nfree_low": 2628,
+      "nfires_upper_garbage": 579,
+      "fire_stream_fail": 514,
+      "fire_gen_ok": 6567,
+      "nan_input": 4299,
+      "amb_skip": 4222,
+      "fire_few": 1417,
+      "amb_mat": 3733,
+      "wanted_high": 507,
+      "amb_time_fail": 816,
+      "amb_time_equal": 336,
+      "both_gen": 3805,
+      "gangwar": 282,
+      "fire_gen_fail": 726,
+      "area_nonzero": 300,
+      "fire_time_equal": 344,
+      "fire_time_fail": 847,
+      "level_high": 1679,
+      "amb_gen_fail": 731,
+      "amb_no_accident": 344,
+      "fire_no_fire": 388,
+      "negzero_input": 523,
+      "sum_equal": 146,
+      "too_many": 618,
+      "sum_wrap": 111,
+      "level_zero": 286,
+      "amb_time_wrap": 120,
+      "fire_time_wrap": 115
+    }
+  },
+  "independent_oracle": "fixture_oracle.py: cada lado de cada par coincide con el modelo",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

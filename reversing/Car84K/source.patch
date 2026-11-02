@@ -1,0 +1,120 @@
+diff --git a/source/game_sa/CarCtrl.cpp b/source/game_sa/CarCtrl.cpp
+index b633e3a32..a3e36252d 100644
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -6,10 +6,10 @@
+  * Pendientes y bloqueadas pueden coincidir; no se suman.
+  *
+  * ESTADO: CCarCtrl
+- * Reconstrucción: COMPLETA — 109/109 funciones reconstruidas.
++ * Reconstrucción: COMPLETA — 110/110 funciones reconstruidas.
+  * Pendientes de reconstruir: 0.
+  * Funciones bloqueadas: 0.
+- * Validación registrada: 109/109 entradas.
++ * Validación registrada: 110/110 entradas.
+  * Validación: consultar vigencia en docs/ValidationInventory.md y
+  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+@@ -55,6 +55,9 @@ END GENERATED HOOK STATUS */
+ #include "Entity/Vehicle/Automobile.h"
+ #include "Entity/Vehicle/Bike.h"
+ #include "DamageManager.h"
++#include "AccidentManager.h"
++#include "FireManager.h"
++#include "Streaming.h"
+ 
+ #include <reversiblebugfixes/Bugs.hpp>
+ #ifdef _MSC_VER
+@@ -153,6 +156,8 @@ void CCarCtrl::InjectHooks()
+     RH_ScopedInstall(GenerateOneEmergencyServicesCar, 0x42B7D0);
+     // Lote 84E
+     RH_ScopedInstall(GenerateCarCreationCoors2, 0x424210);
++    // Lote 84K
++    RH_ScopedInstall(GenerateEmergencyServicesCar, 0x42F9C0);
+     // Lote 63 (parte C, tanda 5)
+     RH_ScopedInstall(ChooseModel, 0x424CE0);
+     // Lote 63 (parte C, tanda 6)
+@@ -531,6 +536,8 @@ VALIDATE_OFFSET(CVehicle, m_nVehicleType, 0x590);
+ VALIDATE_OFFSET(CAutoPilot, m_nCarDrivingStyle, 0x29);
+ VALIDATE_OFFSET(CAutoPilot, m_speed, 0x38);
+ VALIDATE_OFFSET(CAutoPilot, m_TargetEntity, 0x8C);
++VALIDATE_OFFSET(CPlayerPedData, m_pWanted, 0x0);
++VALIDATE_OFFSET(CWanted, m_WantedLevel, 0x2C);
+ 
+ // Palabra cruda de un campo del EXE (los bits se copian sin pasar por la x87: un NaN de señal no se silencia)
+ template<typename T>
+@@ -1967,7 +1974,73 @@ bool CCarCtrl::GenerateCarCreationCoors2(CVector posn, float radius, float arg3,
+ 
+ // 0x42F9C0
+ void CCarCtrl::GenerateEmergencyServicesCar() {
+-    plugin::Call<0x42F9C0>();
++    if (!bAllowEmergencyServicesToBeCreated) { // 0x8A5B28
++        return;
++    }
++    if (CGangWars::GangWarFightingGoingOn()) { // 0x443AC0
++        return;
++    }
++    // Como el original (0x42F9E0..0x42F9F8): FindPlayerWanted inline; el nivel de busqueda (+0x2C) se compara con signo
++    const void* const player = FindPlayerPed(-1); // 0x56E210
++    const void* const playerData = Car75Raw<const void*>(player, 0x480);
++    const void* const wanted = playerData ? Car75Raw<const void*>(playerData, 0) : nullptr;
++    if (Car75Raw<int32>(wanted, 0x2C) > 3) {
++        return;
++    }
++    if (StaticRef<uint32>(0xB72914)) { // CGame::currArea
++        return;
++    }
++    const uint32 level = StaticRef<uint32>(0xBA6718); // CTheZones::m_CurrLevel
++    if (!level) {
++        return;
++    }
++    // Suma de 32 bits y comparacion con signo (0x42FA33..0x42FA51)
++    const uint32 ambulances = NumAmbulancesOnDuty;
++    const int32 total = int32(NumFireTrucksOnDuty + ambulances + NumParkedCars + uint32(NumMissionCars) + NumLawEnforcerCars + uint32(NumRandomCars));
++    if (total > int32(MaxNumberOfCarsInUse)) {
++        return;
++    }
++
++    // Ambulancia: el modelo sale de la tabla de ambulancias por nivel (0x407D30 = tabla en 0x8A5AB4)
++    if (ambulances == 0) {
++        if (CAccidentManager::GetInstance()->GetNumberOfFreeAccidents() >= 2) { // 0x56CF20, 0x56CEE0
++            CVector playerPos = FindPlayerCoors(-1); // 0x56E010
++            CAccident* const accident = CAccidentManager::GetInstance()->GetNearestFreeAccident(playerPos, false); // 0x56D050
++            if (accident && CStreaming::StreamAmbulanceAndMedic(true)
++                && CTimer::GetTimeInMS() > uint32(LastTimeAmbulanceCreated) + 30000u) {
++                // Posicion del herido: matriz (+0x14) en +0x30, o la compacta en +4; tres palabras crudas
++                const uint8* const ped = Car75Raw<const uint8*>(accident, 0);
++                const uint8* const matrix = Car75Raw<const uint8*>(ped, 0x14);
++                CVector pos;
++                std::memcpy(&pos, matrix ? matrix + 0x30 : ped + 4, sizeof(CVector));
++                if (GenerateOneEmergencyServicesCar(reinterpret_cast<const uint32*>(0x8A5AB4)[level], pos)) { // 0x42B7D0
++                    LastTimeAmbulanceCreated = int32(CTimer::GetTimeInMS());
++                }
++            }
++        } else {
++            CStreaming::StreamAmbulanceAndMedic(false); // 0x40A2A0
++        }
++    }
++
++    // Camion de bomberos: tabla en 0x8A5AD4 (0x407DC0); GetNumOfNonScriptFires devuelve AX
++    if (NumFireTrucksOnDuty != 0) {
++        return;
++    }
++    if (uint16(gFireManager.GetNumOfNonScriptFires()) < 3) { // 0x538F10
++        CStreaming::StreamFireEngineAndFireman(false); // 0x40A400
++        return;
++    }
++    CVector playerPos = FindPlayerCoors(-1);
++    CFire* const fire = gFireManager.FindNearestFire(playerPos, true, true); // 0x538F40
++    if (!fire || !CStreaming::StreamFireEngineAndFireman(true)
++        || !(CTimer::GetTimeInMS() > uint32(LastTimeFireTruckCreated) + 0x88B8u)) {
++        return;
++    }
++    CVector pos;
++    std::memcpy(&pos, reinterpret_cast<const uint8*>(fire) + 4, sizeof(CVector));
++    if (GenerateOneEmergencyServicesCar(reinterpret_cast<const uint32*>(0x8A5AD4)[level], pos)) {
++        LastTimeFireTruckCreated = int32(CTimer::GetTimeInMS());
++    }
+ }
+ 
+ namespace {

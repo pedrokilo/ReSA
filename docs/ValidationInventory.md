@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,992 entradas reversed=1**, de 8,992 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,993 entradas reversed=1**, de 8,993 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 8992 |
+| `validated=1` · evidencia aprobada vinculada | 8993 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 8992 |
+| Evidencia histórica vinculada; revisión pendiente | 8993 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -1480,6 +1480,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCarCtrl | `FlyAIHeliToTarget_FixedOrientation` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
 | CCarCtrl | `FlyAIPlaneInCertainDirection` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
 | CCarCtrl | `GenerateCarCreationCoors2` | [Resumen](../reversing/Car84E/validation-summary.json) |
+| CCarCtrl | `GenerateEmergencyServicesCar` | [Resumen](../reversing/Car84K/validation-summary.json) |
 | CCarCtrl | `GenerateOneEmergencyServicesCar` | [Resumen](../reversing/Car84F/validation-summary.json) |
 | CCarCtrl | `GenerateRandomCars` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
 | CCarCtrl | `GetAIHeliToAttackPlayer` | [Resumen](../reversing/CarCtrlAir63/validation-summary.json) |
@@ -9105,7 +9106,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CCam` | 51 | 0 | 51 | 0 |
 | `CCamera` | 120 | 0 | 120 | 0 |
 | `CCarAI` | 25 | 0 | 25 | 0 |
-| `CCarCtrl` | 109 | 0 | 109 | 0 |
+| `CCarCtrl` | 110 | 0 | 110 | 0 |
 | `CCarEnterExit` | 32 | 0 | 32 | 0 |
 | `CCarFXRenderer` | 10 | 0 | 10 | 0 |
 | `CCarGenerator` | 8 | 0 | 8 | 0 |
