@@ -9006,3 +9006,6 @@ CGarage,SlideDoorOpen,0x0044A660,1,0,1,S
 CGarage,SlideDoorClosed,0x0044A750,1,0,1,S
 CGarage,IsAnyCarBlockingDoor,0x004494F0,1,0,1,S
 CGarage,StoreAndRemoveCarsForThisImpoundingGarage,0x00449A50,1,0,1,S
+CGarage,IsAnyOtherCarTouchingGarage,0x00449100,1,0,1,S
+CGarage,ThrowCarsNearDoorOutOfGarage,0x00449220,1,0,1,S
+CGarage,NeatlyLineUpStoredCars,0x00448330,1,0,1,S

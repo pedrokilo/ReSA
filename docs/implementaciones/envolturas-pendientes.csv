@@ -217,9 +217,6 @@ class,function,address,source,origins
 (helpers y globales sin clase),FightGetAvailableComboSetExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:368,envoltura en el código fuente
 (helpers y globales sin clase),FightStartAnimExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:384,envoltura en el código fuente
 (helpers y globales sin clase),FightTargetInReachExe,,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp:380,envoltura en el código fuente
-(helpers y globales sin clase),GaIsAnyOtherPedTouching,,source/game_sa/Garage.cpp:476,envoltura en el código fuente
-(helpers y globales sin clase),GaNeatlyLineUp,,source/game_sa/Garage.cpp:478,envoltura en el código fuente
-(helpers y globales sin clase),GaThrowCarsNearDoorOut,,source/game_sa/Garage.cpp:477,envoltura en el código fuente
 (helpers y globales sin clase),GetFirstTextureCallback,,source/game_sa/RenderWare/rw/rwtexdict.cpp:20,envoltura en el código fuente
 (helpers y globales sin clase),helper sin símbolo confirmado,0x0051D770,source/game_sa/Camera.cpp:1806,cohorte nuevo 2026-10-17
 (helpers y globales sin clase),IndexDataBufferGetTotalDataSize,,source/game_sa/RenderWare/D3DResourceSystem.cpp:114,envoltura en el código fuente

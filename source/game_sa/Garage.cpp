@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CGarage
- * Reconstrucción: COMPLETA — 29/29 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 32/32 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 29/29 entradas.
+ * Validación registrada: 32/32 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -77,6 +77,9 @@ void CGarage::InjectHooks() {
     RH_ScopedInstall(RestoreCarsForThisImpoundingGarage, 0x4485C0);
     RH_ScopedInstall(CountCarsWithCenterPointWithinGarage, 0x4495F0);
     RH_ScopedInstall(IsAnyCarBlockingDoor, 0x4494F0);
+    RH_ScopedInstall(IsAnyOtherCarTouchingGarage, 0x449100);
+    RH_ScopedInstall(ThrowCarsNearDoorOutOfGarage, 0x449220);
+    RH_ScopedInstall(NeatlyLineUpStoredCars, 0x448330);
     RH_ScopedInstall(StoreAndRemoveCarsForThisImpoundingGarage, 0x449A50);
     RH_ScopedInstall(SlideDoorOpen, 0x44A660);
     RH_ScopedInstall(SlideDoorClosed, 0x44A750);
@@ -473,9 +476,6 @@ inline const float* GaPos(CEntity* entity) {
 inline CVehicle* GaFpv() { return FindPlayerVehicle(-1, false); }
 inline CPed* GaFpp() { return FindPlayerPed(-1); }
 // Metodos de CGarage que siguen siendo del EXE (sin definicion en C++): colaboradores por direccion.
-inline bool  GaIsAnyOtherPedTouching(CGarage* g, CPed* ignored) { return plugin::CallMethodAndReturn<bool, 0x449100, CGarage*, CPed*>(g, ignored); }
-inline void  GaThrowCarsNearDoorOut(CGarage* g, CVehicle* ignored) { plugin::CallMethod<0x449220, CGarage*, CVehicle*>(g, ignored); }
-inline void  GaNeatlyLineUp(CGarage* g, CStoredCar* cars) { plugin::CallMethod<0x448330, CGarage*, CStoredCar*>(g, cars); }
 inline void  GaFindDoorsWithGarage(CGarage* g, CObject** first, CObject** second) { g->FindDoorsWithGarage(first, second); }
 inline int32& GaMoney() { return *reinterpret_cast<int32*>(0xB7CE50 + static_cast<uint32>(CWorld::PlayerInFocus) * 0x190u); }   // CPlayerInfo::m_nMoney del jugador en foco
 inline CStoredCar* GaStoredCars(eGarageType type) { return reinterpret_cast<CStoredCar*>(0x96ABD8 + static_cast<uint32>(CGarages::FindSafeHouseIndexForGarageType(type)) * 0x100u); }
@@ -623,6 +623,138 @@ __declspec(noinline) bool CGarage::IsAnyCarBlockingDoor() {
         } while (index < static_cast<int16>(data->m_nNumSpheres));
     }
     return false;
+}
+
+// 0x449100
+// Como el original (0x449100..0x449217; thiscall, ret 4, devuelve AL): recorre el pool de vehiculos (ds:[0xB74494], tamano leido una vez) del ultimo indice al primero (el 0 incluido; ranuras libres fuera), salta el vehiculo
+// ignorado y los siniestrados (estado +0x36 con (byte & 0xF8) == 0x28) y para cada vehiculo que IsEntityTouching3D da por dentro recorre las esferas de colision de su CColModel (0x535300): centro transformado con 0x59C890
+// (la matriz del vehiculo, que NO se crea) e IsPointInsideGarage(centro, radio de la esfera). Devuelve true con la primera esfera que queda dentro; el contador de esferas (int16 con signo) se relee en cada vuelta.
+// El nombre del envoltorio anterior (GaIsAnyOtherPedTouching) era erroneo: el pool es el de vehiculos.
+__declspec(noinline) bool CGarage::IsAnyOtherCarTouchingGarage(CVehicle* ignoredVehicle) {
+    auto* const pool = GetVehiclePool();
+    for (uint32 i = static_cast<uint32>(pool->GetSize()); i != 0; --i) {
+        CVehicle* const vehicle = pool->GetAt(i - 1);
+        if (!vehicle || vehicle == ignoredVehicle)
+            continue;
+        if ((GaField<uint8>(vehicle, 0x36) & 0xF8) == 0x28)
+            continue;
+        if (!IsEntityTouching3D(vehicle))
+            continue;
+        CCollisionData* const data = vehicle->GetColModel()->m_pColData;
+        if (static_cast<int16>(data->m_nNumSpheres) <= 0)
+            continue;
+        int32 index = 0;
+        do {
+            CVector        transformed;
+            CVector* const point = plugin::CallAndReturn<CVector*, 0x59C890, CVector*, CMatrix*, CVector*>(&transformed, vehicle->m_matrix, &data->m_pSpheres[index].m_vecCenter);
+            if (IsPointInsideGarage(*point, data->m_pSpheres[index].m_fRadius))
+                return true;
+            ++index;
+        } while (index < static_cast<int16>(data->m_nNumSpheres));
+    }
+    return false;
+}
+
+// 0x449220
+// Como el original (0x449220..0x4493DC; thiscall, ret 4): mismo recorrido de vehiculos que IsAnyOtherCarTouchingGarage (sin el filtro de siniestrados). Con la primera esfera de un vehiculo que IsPointInsideGarage(centro, 0.0f)
+// da por fuera, empuja al vehiculo hacia fuera: direccion = (posicion.x - (derecha + izquierda) * 0.5, posicion.y - (fondo + frente) * 0.5, 0) con la posicion de la matriz (+0x30) o de m_placement (+4), normalizada con
+// CVector::Normalise (0x59C910) y velocidad += direccion * 0.02 * ms_fTimeStep (cada operacion del registro x87 a 24 bits; x se guarda como float, z se guarda y se relee, y queda en el registro).
+// Tras empujar, el contador de esferas pasa a ser el indice (se deja de recorrer las esferas de ese vehiculo).
+__declspec(noinline) void CGarage::ThrowCarsNearDoorOutOfGarage(CVehicle* ignoredVehicle) {
+    auto* const pool = GetVehiclePool();
+    for (uint32 i = static_cast<uint32>(pool->GetSize()); i != 0; --i) {
+        CVehicle* const vehicle = pool->GetAt(i - 1);
+        if (!vehicle || vehicle == ignoredVehicle)
+            continue;
+        if (!IsEntityTouching3D(vehicle))
+            continue;
+        CCollisionData* const data = vehicle->GetColModel()->m_pColData;
+        if (static_cast<int16>(data->m_nNumSpheres) <= 0)
+            continue;
+        int32 index = 0;
+        do {
+            CVector        transformed;
+            CVector* const point = plugin::CallAndReturn<CVector*, 0x59C890, CVector*, CMatrix*, CVector*>(&transformed, vehicle->m_matrix, &data->m_pSpheres[index].m_vecCenter);
+            if (!IsPointInsideGarage(*point, 0.0f)) {
+                const float* const position = GaPos(vehicle);
+                CVector            direction;
+                direction.x = Veh83DStore(Veh83DSub(position[0], Veh83DMul(Veh83DAdd(m_fRightCoord, m_fLeftCoord), 0.5f)));
+                direction.y = Veh83DStore(Veh83DSub(position[1], Veh83DMul(Veh83DAdd(m_fBackCoord, m_fFrontCoord), 0.5f)));
+                direction.z = 0.0f;
+                direction.Normalise();
+                const double scaleX = Veh83DMul(direction.x, 0.02f);
+                const double scaleY = Veh83DMul(direction.y, 0.02f);
+                const double scaleZ = Veh83DMul(direction.z, 0.02f);
+                const float  savedZ = Veh83DStore(scaleZ);                                               // fstp [esp+3Ch]; se relee tras el producto del eje y
+                const float  savedX = Veh83DStore(Veh83DMul(scaleX, CTimer::ms_fTimeStep));              // fstp [esp+40h]
+                const double timeY  = Veh83DMul(CTimer::ms_fTimeStep, scaleY);                           // queda en el registro
+                const double timeZ  = Veh83DMul(savedZ, CTimer::ms_fTimeStep);
+                const float  vx     = Veh83DStore(Veh83DAdd(savedX, vehicle->m_vecMoveSpeed.x));
+                const float  vy     = Veh83DStore(Veh83DAdd(timeY, vehicle->m_vecMoveSpeed.y));
+                const float  vz     = Veh83DStore(Veh83DAdd(timeZ, vehicle->m_vecMoveSpeed.z));
+                vehicle->m_vecMoveSpeed.x = vx;
+                vehicle->m_vecMoveSpeed.y = vy;
+                vehicle->m_vecMoveSpeed.z = vz;
+                index = static_cast<int16>(data->m_nNumSpheres);
+            }
+            ++index;
+        } while (index < static_cast<int16>(data->m_nNumSpheres));
+    }
+}
+
+// 0x448330
+// Como el original (0x448330..0x448541; thiscall, ret 4): coloca hasta tres coches guardados en fila. Con la direccion A (m_vDirectionA) y la anchura (m_fWidth) toma el medio eje (dir * anchura * 0.5) desde la posicion del garaje (z + 0.5),
+// con la direccion B y la altura (m_fHeight) suma el segundo medio eje, y empieza en ese punto menos 4 * la direccion A normalizada (en vertical el producto por 0.0 hace que z sea 0 salvo con infinitos). El coche i queda
+// en inicio + (4 * A normalizada) * i y su direccion empaquetada es (Ay, -Ax) * 100 truncado a byte (z = 0). Para con un coche sin modelo (palabra +0x12) o tras tres. Cada operacion es del registro x87 a 24 bits: los
+// valores que el EXE guarda en la pila (fstp dword) se redondean a float y los que dejan en el registro no.
+void CGarage::NeatlyLineUpStoredCars(CStoredCar* cars) {
+    const float width = m_fWidth;
+    const float height = m_fHeight;
+    const float baseZ = Veh83DStore(Veh83DAdd(m_vPosn.z, 0.5f));
+    // primer medio eje
+    const float  firstX   = Veh83DStore(Veh83DMul(m_vDirectionA.x, width));
+    const double firstY   = Veh83DMul(m_vDirectionA.y, width);
+    const double firstZ   = Veh83DMul(width, 0.0f);
+    const float  halfX    = Veh83DStore(Veh83DMul(firstX, 0.5f));
+    const float  halfY    = Veh83DStore(Veh83DMul(firstY, 0.5f));
+    const double halfZ    = Veh83DMul(firstZ, 0.5f);
+    const double pointX   = Veh83DAdd(halfX, m_vPosn.x);                                  // queda en el registro hasta sumarle el segundo medio eje
+    const float  pointY   = Veh83DStore(Veh83DAdd(halfY, m_vPosn.y));
+    const float  pointZ   = Veh83DStore(Veh83DAdd(halfZ, baseZ));
+    // segundo medio eje
+    const float  secondX  = Veh83DStore(Veh83DMul(height, m_vDirectionB.x));
+    const double secondY  = Veh83DMul(m_vDirectionB.y, height);
+    const double secondZ  = Veh83DMul(height, 0.0f);
+    const float  half2X   = Veh83DStore(Veh83DMul(secondX, 0.5f));
+    const float  half2Y   = Veh83DStore(Veh83DMul(secondY, 0.5f));
+    const float  half2Z   = Veh83DStore(Veh83DMul(secondZ, 0.5f));
+    const float  startX   = Veh83DStore(Veh83DAdd(half2X, pointX));
+    const float  startY   = Veh83DStore(Veh83DAdd(half2Y, pointY));
+    const float  startZ   = Veh83DStore(Veh83DAdd(half2Z, pointZ));
+    // direccion unitaria de la fila
+    CVector step{m_vDirectionA.x, m_vDirectionA.y, 0.0f};
+    step.Normalise();
+    const float perpX = step.y;
+    const float perpY = -step.x;
+    const float stepX = Veh83DStore(Veh83DMul(step.x, 4.0f));
+    const float stepY = Veh83DStore(Veh83DMul(step.y, 4.0f));
+    const float stepZ = Veh83DStore(Veh83DMul(step.z, 4.0f));
+    const float originX = Veh83DStore(Veh83DSub(startX, stepX));
+    const float originY = Veh83DStore(Veh83DSub(startY, stepY));
+    const float originZ = Veh83DStore(Veh83DSub(startZ, stepZ));
+    if (cars[0].m_wModelIndex == 0)
+        return;
+    for (int32 i = 0; i < 3; ++i) {
+        CStoredCar& car = cars[i];
+        car.m_vPosn.x = Veh83DStore(Veh83DAdd(Veh83DMul(stepX, i), originX));
+        car.m_vPosn.y = Veh83DStore(Veh83DAdd(Veh83DMul(stepY, i), originY));
+        car.m_vPosn.z = Veh83DStore(Veh83DAdd(Veh83DMul(i, stepZ), originZ));
+        car.m_nPackedForwardX = static_cast<uint8>(Heli83GFtol(Veh83DMul(perpX, 100.0f)));
+        car.m_nPackedForwardY = static_cast<uint8>(Heli83GFtol(Veh83DMul(perpY, 100.0f)));
+        car.m_nPackedForwardZ = 0;
+        if (cars[i + 1].m_wModelIndex == 0)
+            break;
+    }
 }
 
 // 0x44A660
@@ -816,7 +948,7 @@ L_ADA3:
 L_AE0C:   // PAYNSPRAY, estado 2 (cerrando)
     if (GaFpv()) {
         vehicle = GaFpv();
-        GaThrowCarsNearDoorOut(this, vehicle);
+        ThrowCarsNearDoorOutOfGarage(vehicle);
     }
     if (SlideDoorClosed()) {
         m_nDoorState = static_cast<eGarageDoorState>(0);
@@ -995,7 +1127,7 @@ L_B42D:
 L_B564:   // estado 2
     if (GaFpv()) {
         vehicle = GaFpv();
-        GaThrowCarsNearDoorOut(this, vehicle);
+        ThrowCarsNearDoorOutOfGarage(vehicle);
     }
     if (SlideDoorClosed()) {
         m_nDoorState = static_cast<eGarageDoorState>(0);
@@ -1106,7 +1238,7 @@ L_B8BE:
     }
 L_B963:   // estado 2: cerrando
     if (m_pTargetCar)
-        GaThrowCarsNearDoorOut(this, m_pTargetCar);
+        ThrowCarsNearDoorOutOfGarage(m_pTargetCar);
     if (!SlideDoorClosed())
         goto L_C7C4;
     if (m_nFlags & 1)
@@ -1191,7 +1323,7 @@ L_BA70:
     goto L_C7C4;
 L_BB83:
     if (m_pTargetCar)
-        GaThrowCarsNearDoorOut(this, m_pTargetCar);
+        ThrowCarsNearDoorOutOfGarage(m_pTargetCar);
     if (!SlideDoorClosed())
         goto L_C7C4;
     if (m_nFlags & 1)
@@ -1402,7 +1534,7 @@ L_C213:
 L_C2E3:
     if (!m_pTargetCar)
         goto L_C69D;
-    GaThrowCarsNearDoorOut(this, m_pTargetCar);
+    ThrowCarsNearDoorOutOfGarage(m_pTargetCar);
     goto L_C69D;
 
     // ---- tipo 23 (SCRIPT_OPEN_FREEZE_WHEN_CLOSING): 0x44C2F3 --------------------------------------------------------------------------------------------------------------------------
@@ -1471,7 +1603,7 @@ L_C477:
         goto L_C7C4;
     if (!flag)
         goto L_C7C4;
-    GaNeatlyLineUp(this, GaStoredCars(m_nType));
+    NeatlyLineUpStoredCars(GaStoredCars(m_nType));
     if (!RestoreCarsForThisImpoundingGarage(GaStoredCars(m_nType)))
         goto L_C7C4;
     m_nDoorState = static_cast<eGarageDoorState>(1);
@@ -1499,12 +1631,12 @@ L_C578:
         if (IsEntityTouching3D(GaFpv()))
             goto L_C7C4;
     }
-    if (GaIsAnyOtherPedTouching(this, nullptr))
+    if (IsAnyOtherCarTouchingGarage(nullptr))
         goto L_C7C4;
     goto L_C662;
 L_C67B:
     if (GaFpv())
-        GaThrowCarsNearDoorOut(this, GaFpv());
+        ThrowCarsNearDoorOutOfGarage(GaFpv());
     goto L_C69D;
 L_C6BD:
     if (!RightModTypeForThisGarage(GaFpv()))
@@ -1527,7 +1659,7 @@ L_C71D:
     c4 = FindPlayerCoors(-1);
     if (!(Garage63CenterDistSqCpp(reinterpret_cast<const float*>(this), c1.x, c2.x, c3.y, c4.y) > 900.0))
         goto L_C7C4;
-    if (GaIsAnyOtherPedTouching(this, nullptr))
+    if (IsAnyOtherCarTouchingGarage(nullptr))
         goto L_C7C4;
     goto L_C7C0;
 

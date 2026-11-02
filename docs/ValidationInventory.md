@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,007 entradas reversed=1**, de 9,007 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,010 entradas reversed=1**, de 9,010 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9007 |
+| `validated=1` · evidencia aprobada vinculada | 9010 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9007 |
+| Evidencia histórica vinculada; revisión pendiente | 9010 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -2933,6 +2933,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CGarage | `FindDoorsWithGarage` | [Resumen](../reversing/Helpers66D/validation-summary.json) |
 | CGarage | `InitDoorsAtStart` | [Resumen](../reversing/Garage63/validation-summary.json) |
 | CGarage | `IsAnyCarBlockingDoor` | [Resumen](../reversing/Fn85C/validation-summary.json) |
+| CGarage | `IsAnyOtherCarTouchingGarage` | [Resumen](../reversing/Fn85D/validation-summary.json) |
 | CGarage | `IsEntityEntirelyInside3D` | [Resumen](../reversing/Garage63/validation-summary.json) |
 | CGarage | `IsEntityEntirelyOutside` | [Resumen](../reversing/Garage63/validation-summary.json) |
 | CGarage | `IsEntityTouching3D` | [Resumen](../reversing/DependenciesWorld15/validation-summary.json) |
@@ -2941,6 +2942,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CGarage | `IsPointInsideGarage-point` | [Resumen](../reversing/DependenciesGarage2/validation-summary.json) |
 | CGarage | `IsPointInsideGarage-radius` | [Resumen](../reversing/DependenciesGarage2/validation-summary.json) |
 | CGarage | `IsStaticPlayerCarEntirelyInside` | [Resumen](../reversing/Garage63/validation-summary.json) |
+| CGarage | `NeatlyLineUpStoredCars` | [Resumen](../reversing/Fn85D/validation-summary.json) |
 | CGarage | `OpenThisGarage` | [Resumen](../reversing/Data23/validation-summary.json) |
 | CGarage | `PlayerArrestedOrDied` | [Resumen](../reversing/Garage63/validation-summary.json) |
 | CGarage | `RemoveCarsBlockingDoorNotInside` | [Resumen](../reversing/Garage63/validation-summary.json) |
@@ -2951,6 +2953,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CGarage | `SlideDoorOpen` | [Resumen](../reversing/Fn85B/validation-summary.json) |
 | CGarage | `StoreAndRemoveCarsForThisHideOut` | [Resumen](../reversing/Data23/validation-summary.json) |
 | CGarage | `StoreAndRemoveCarsForThisImpoundingGarage` | [Resumen](../reversing/Fn85C/validation-summary.json) |
+| CGarage | `ThrowCarsNearDoorOutOfGarage` | [Resumen](../reversing/Fn85D/validation-summary.json) |
 | CGarage | `TidyUpGarage` | [Resumen](../reversing/Garage63/validation-summary.json) |
 | CGarage | `TidyUpGarageClose` | [Resumen](../reversing/Garage63/validation-summary.json) |
 | CGarage | `Update` | [Resumen](../reversing/GarageUpdate63/validation-summary.json) |
@@ -9270,7 +9273,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CGamma` | 2 | 0 | 2 | 0 |
 | `CGangWars` | 36 | 0 | 36 | 0 |
 | `CGangs` | 8 | 0 | 8 | 0 |
-| `CGarage` | 29 | 0 | 29 | 0 |
+| `CGarage` | 32 | 0 | 32 | 0 |
 | `CGarages` | 26 | 0 | 26 | 0 |
 | `CGeneral` | 9 | 0 | 9 | 0 |
 | `CGenericGameStorage` | 19 | 0 | 19 | 0 |

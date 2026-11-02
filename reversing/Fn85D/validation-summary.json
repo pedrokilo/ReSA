@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "pairs": 49152,
+  "differences": 0,
+  "registered_pairs": 49152,
+  "registered_functions": 3,
+  "functions": {
+    "CGarage::IsAnyOtherCarTouchingGarage": 16384,
+    "CGarage::ThrowCarsNearDoorOutOfGarage": 16384,
+    "CGarage::NeatlyLineUpStoredCars": 16384
+  },
+  "covered_functions": {
+    "CGarage::IsAnyOtherCarTouchingGarage": true,
+    "CGarage::ThrowCarsNearDoorOutOfGarage": true,
+    "CGarage::NeatlyLineUpStoredCars": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): IsAnyOtherCarTouchingGarage y ThrowCarsNearDoorOutOfGarage -> CGarage::IsEntityTouching3D 0x448EE0, CEntity::GetColModel 0x535300, CMatrix * CVector 0x59C890 y CGarage::IsPointInsideGarage(CVector, float) 0x4487D0 (y el metodo miembro que llama la DLL); ThrowCarsNearDoorOutOfGarage y NeatlyLineUpStoredCars -> CVector::Normalise 0x59C910 (sin hook RH: la DLL llama al metodo miembro, parcheado con el mismo falso). Corren de verdad los ayudantes x87 de X87Math.cpp (Veh83D*, Heli83GFtol) de la DLL frente a los x87 del EXE y _ftol2 (0x821B40). El pool de vehiculos (ds:[0xB74494]) se sustituye por uno propio de hasta 8 ranuras y CTimer::ms_fTimeStep (0xB7CB5C) se fija por caso y se restaura. El banco compara el valor devuelto, los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas (velocidades de los vehiculos, coches guardados); cada lado coincide ademas con el oraculo independiente fixture_oracle.py. El nombre del envoltorio anterior de 0x449100 (GaIsAnyOtherPedTouching) era erroneo: la funcion recorre el pool de vehiculos. Fuera de los fixtures: tamano de pool mayor que 8, estructura de pool distinta de la sustituida, vehiculo sin CCollisionData, mas de 4 esferas por vehiculo, NaN con cargas distintas y NaN en la salida de CVector::Normalise (un fchs de un NaN invertiria su signo), bytes altos de los booleanos de los colaboradores y coches guardados sin modelo en el medio de la lista mas alla del primero vacio.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn85D-20261102-152646-539538",
+  "summary_sha256": "09d29ddb1a2cc6454f9c01947413839941b6c7db0e72013162e2a23b13332b0c",
+  "result_txt_sha256": "d070b97b9ff54296e419127a567b259495535138428deef6514eda19db85c24a",
+  "log_sha256": "c8f2b4e2245360180f8af1176176334bb132dc29df3d874d3ccc6a5f9544b53a",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "4d4dd037da8c06d9d9a54bbefed51e439d564fe03d9fc968a654d3c3149cda1b",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
+      "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
+      "source/game_sa/Garage.cpp": "e4207b1de91e84e54e1475b76247c21e3d6466454a491f2954b58354754286f0",
+      "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn85D/LiveComparison.hpp": "73b1a9f84b8776b2cf1594422c90bbfabac28113524f10dc40d91666673a795f",
+      "reversing/Fn85D/Core.hpp": "79275b616ef780ef7479835d937d1e0b4ebe70c45416a3f2cd5c84c91380ab4c",
+      "reversing/Fn85D/Fixtures.hpp": "57c411236a392f43534926eeea42fd1018428d37defd4397ab25bf0b532ed15c",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

@@ -1,17 +1,17 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 02/11/2026 (Ciudad de México):** 820 grupos / 9007 funciones reconstruidas; 9007 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 02/11/2026 (Ciudad de México):** 820 grupos / 9010 funciones reconstruidas; 9010 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo A: Falta: llamada desde código ya reemplazado
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-1,015 funciones, 135,919 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+1,012 funciones, 134,668 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | `0x0053FB70` | 16 | CPad | alta | 747 (696) |  |
-| `0x0059C910` | 81 | CQuaternion | baja | 457 (421) |  |
+| `0x0059C910` | 81 | CQuaternion | baja | 457 (423) |  |
 | `0x0054F1B0` | 42 | CMatrixLinkList | baja | 353 (346) |  |
 | `0x007170C0` | 32 | CClouds | baja | 253 (244) |  |
 | `0x0040FE60` | 37 | CColSphere | alta | 257 (237) |  |
@@ -173,7 +173,6 @@
 | `0x00411BA0` | 4 | CPlaceable | baja | 6 (6) |  |
 | `0x0047E050` | 4 | CTheCarGenerators | baja | 6 (6) |  |
 | `0x0074B420` | 2207 | Win | baja | 6 (5) |  |
-| `0x00449220` | 441 | CGarage | alta | 5 (5) |  |
 | `0x007491F0` | 318 | Win | baja | 12 (5) |  |
 | `0x0059B6A0` | 305 | CMaths | baja | 5 (5) |  |
 | `0x006FBA20` | 117 | CCoronas | alta | 5 (5) |  |
@@ -319,7 +318,6 @@
 | `0x0065ED40` | 329 | CTaskComplexGangFollower | alta | 2 (2) |  |
 | `0x005DD220` | 323 | CPlantMgr | baja | 2 (2) |  |
 | `0x00664770` | 295 | CTaskGoToVehicleAndLean | baja | 2 (2) |  |
-| `0x00449100` | 279 | CGarage | alta | 2 (2) |  |
 | `0x0074C200` | 269 | Win | baja | 2 (2) |  |
 | `0x005A7A20` | 263 | CPedClothesDesc | baja | 2 (2) |  |
 | `0x005DA6A0` | 236 | CCustomCarEnvMapPipeline | baja | 3 (2) |  |
@@ -469,7 +467,6 @@
 | `0x00603E70` | 589 | CEntityScanner | baja | 1 (1) |  |
 | `0x0059B460` | 571 | CMaths | baja | 2 (1) |  |
 | `0x00426970` | 553 | CCarCtrl | alta | 1 (1) |  |
-| `0x00448330` | 531 | CGarage | alta | 1 (1) |  |
 | `0x0050D590` | 527 | CCamera | baja | 1 (1) |  |
 | `0x0072F180` | 418 | CCullZones | baja | 1 (1) |  |
 | `0x00619910` | 410 | Rs | alta | 1 (1) |  |
