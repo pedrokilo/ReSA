@@ -132649,7 +132649,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
+        "sha256": "4b0d33ffd02ed15cb7f98ccfbe0861c7f06814830cd83ed3d440da03087bc8f3",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::Init"
@@ -132658,7 +132658,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.cpp": "289224bcaf6845f874971ca2f6355356d98cbedf4d1bed33c70f249e1fe2d7d8",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
@@ -132675,7 +132675,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
+        "sha256": "4b0d33ffd02ed15cb7f98ccfbe0861c7f06814830cd83ed3d440da03087bc8f3",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::ReInit"
@@ -132684,7 +132684,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.cpp": "289224bcaf6845f874971ca2f6355356d98cbedf4d1bed33c70f249e1fe2d7d8",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
@@ -132701,7 +132701,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
+        "sha256": "4b0d33ffd02ed15cb7f98ccfbe0861c7f06814830cd83ed3d440da03087bc8f3",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::InitSequence"
@@ -132710,7 +132710,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.cpp": "289224bcaf6845f874971ca2f6355356d98cbedf4d1bed33c70f249e1fe2d7d8",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
@@ -132727,7 +132727,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
+        "sha256": "4b0d33ffd02ed15cb7f98ccfbe0861c7f06814830cd83ed3d440da03087bc8f3",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::ChooseBoatModel"
@@ -132736,7 +132736,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.cpp": "289224bcaf6845f874971ca2f6355356d98cbedf4d1bed33c70f249e1fe2d7d8",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
@@ -132753,7 +132753,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
+        "sha256": "4b0d33ffd02ed15cb7f98ccfbe0861c7f06814830cd83ed3d440da03087bc8f3",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::ChooseCarModelToLoad"
@@ -132762,7 +132762,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.cpp": "289224bcaf6845f874971ca2f6355356d98cbedf4d1bed33c70f249e1fe2d7d8",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
@@ -132779,7 +132779,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
+        "sha256": "4b0d33ffd02ed15cb7f98ccfbe0861c7f06814830cd83ed3d440da03087bc8f3",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::ChoosePoliceCarModel"
@@ -132788,7 +132788,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.cpp": "289224bcaf6845f874971ca2f6355356d98cbedf4d1bed33c70f249e1fe2d7d8",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
@@ -132805,7 +132805,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
+        "sha256": "4b0d33ffd02ed15cb7f98ccfbe0861c7f06814830cd83ed3d440da03087bc8f3",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::ChooseGangCarModel"
@@ -132814,7 +132814,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.cpp": "289224bcaf6845f874971ca2f6355356d98cbedf4d1bed33c70f249e1fe2d7d8",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
@@ -132831,7 +132831,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
+        "sha256": "4b0d33ffd02ed15cb7f98ccfbe0861c7f06814830cd83ed3d440da03087bc8f3",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::GetNewVehicleDependingOnCarModel"
@@ -132840,7 +132840,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.cpp": "289224bcaf6845f874971ca2f6355356d98cbedf4d1bed33c70f249e1fe2d7d8",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
@@ -132857,7 +132857,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
+        "sha256": "4b0d33ffd02ed15cb7f98ccfbe0861c7f06814830cd83ed3d440da03087bc8f3",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::CreateCarForScript"
@@ -132866,7 +132866,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.cpp": "289224bcaf6845f874971ca2f6355356d98cbedf4d1bed33c70f249e1fe2d7d8",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
@@ -132883,7 +132883,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
+        "sha256": "4b0d33ffd02ed15cb7f98ccfbe0861c7f06814830cd83ed3d440da03087bc8f3",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::IsAnyoneParking"
@@ -132892,7 +132892,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.cpp": "289224bcaf6845f874971ca2f6355356d98cbedf4d1bed33c70f249e1fe2d7d8",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
@@ -132909,7 +132909,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
+        "sha256": "4b0d33ffd02ed15cb7f98ccfbe0861c7f06814830cd83ed3d440da03087bc8f3",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::IsThisVehicleInteresting"
@@ -132918,7 +132918,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.cpp": "289224bcaf6845f874971ca2f6355356d98cbedf4d1bed33c70f249e1fe2d7d8",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
@@ -132935,7 +132935,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
+        "sha256": "4b0d33ffd02ed15cb7f98ccfbe0861c7f06814830cd83ed3d440da03087bc8f3",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::RemoveFromInterestingVehicleList"
@@ -132944,7 +132944,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.cpp": "289224bcaf6845f874971ca2f6355356d98cbedf4d1bed33c70f249e1fe2d7d8",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
@@ -132961,7 +132961,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
+        "sha256": "4b0d33ffd02ed15cb7f98ccfbe0861c7f06814830cd83ed3d440da03087bc8f3",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::JoinCarWithRoadAccordingToMission"
@@ -132970,7 +132970,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.cpp": "289224bcaf6845f874971ca2f6355356d98cbedf4d1bed33c70f249e1fe2d7d8",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
@@ -132987,7 +132987,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
+        "sha256": "4b0d33ffd02ed15cb7f98ccfbe0861c7f06814830cd83ed3d440da03087bc8f3",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::PossiblyFireHSMissile"
@@ -132996,7 +132996,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.cpp": "289224bcaf6845f874971ca2f6355356d98cbedf4d1bed33c70f249e1fe2d7d8",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
@@ -133013,7 +133013,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
+        "sha256": "4b0d33ffd02ed15cb7f98ccfbe0861c7f06814830cd83ed3d440da03087bc8f3",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::PruneVehiclesOfInterest"
@@ -133022,7 +133022,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.cpp": "289224bcaf6845f874971ca2f6355356d98cbedf4d1bed33c70f249e1fe2d7d8",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
@@ -133039,7 +133039,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
+        "sha256": "4b0d33ffd02ed15cb7f98ccfbe0861c7f06814830cd83ed3d440da03087bc8f3",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::RemoveCarsIfThePoolGetsFull"
@@ -133048,7 +133048,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.cpp": "289224bcaf6845f874971ca2f6355356d98cbedf4d1bed33c70f249e1fe2d7d8",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
@@ -133065,7 +133065,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
+        "sha256": "4b0d33ffd02ed15cb7f98ccfbe0861c7f06814830cd83ed3d440da03087bc8f3",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::RemoveDistantCars"
@@ -133074,7 +133074,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.cpp": "289224bcaf6845f874971ca2f6355356d98cbedf4d1bed33c70f249e1fe2d7d8",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
@@ -133091,7 +133091,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
+        "sha256": "4b0d33ffd02ed15cb7f98ccfbe0861c7f06814830cd83ed3d440da03087bc8f3",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::SlowCarDownForObject"
@@ -133100,7 +133100,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.cpp": "289224bcaf6845f874971ca2f6355356d98cbedf4d1bed33c70f249e1fe2d7d8",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
@@ -133117,7 +133117,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
+        "sha256": "4b0d33ffd02ed15cb7f98ccfbe0861c7f06814830cd83ed3d440da03087bc8f3",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::SlowCarOnRailsDownForTrafficAndLights"
@@ -133126,7 +133126,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.cpp": "289224bcaf6845f874971ca2f6355356d98cbedf4d1bed33c70f249e1fe2d7d8",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
@@ -133143,7 +133143,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
+        "sha256": "4b0d33ffd02ed15cb7f98ccfbe0861c7f06814830cd83ed3d440da03087bc8f3",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::FindMaxSteerAngle"
@@ -133152,7 +133152,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.cpp": "289224bcaf6845f874971ca2f6355356d98cbedf4d1bed33c70f249e1fe2d7d8",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
@@ -133169,7 +133169,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
+        "sha256": "4b0d33ffd02ed15cb7f98ccfbe0861c7f06814830cd83ed3d440da03087bc8f3",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::GenerateRandomCars"
@@ -133178,7 +133178,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.cpp": "289224bcaf6845f874971ca2f6355356d98cbedf4d1bed33c70f249e1fe2d7d8",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
@@ -133195,7 +133195,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrl22/validation-summary.json",
-        "sha256": "9dcd416bdd760d2ef9941bf76555c23cfe25a259311c807e7540d7ff37acd1bb",
+        "sha256": "4b0d33ffd02ed15cb7f98ccfbe0861c7f06814830cd83ed3d440da03087bc8f3",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::ScriptGenerateOneEmergencyServicesCar"
@@ -133204,7 +133204,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/CarCtrl.cpp": "ce48713b0e99534e32084ab312d4ade9b75173011af4a6ecbbc8668282891b8a",
+        "source/game_sa/CarCtrl.cpp": "289224bcaf6845f874971ca2f6355356d98cbedf4d1bed33c70f249e1fe2d7d8",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
@@ -209154,7 +209154,7 @@
       },
       "evidence": {
         "path": "reversing/GangWarsPending/validation-summary-reval-20261101.json",
-        "sha256": "0ab7619bd6e03920ee98840e32e731aa1bd28bcdaa29b727abec5ea5f02fdc0c",
+        "sha256": "5955499719e365f529c768dcb8588afb351f757e8d72f1633501c487667c4b7d",
         "passed_path": [
           "covered_functions",
           "CGangWars::AddKillToProvocation"
@@ -209206,7 +209206,7 @@
       },
       "evidence": {
         "path": "reversing/GangWarsPending/validation-summary-reval-20261101.json",
-        "sha256": "0ab7619bd6e03920ee98840e32e731aa1bd28bcdaa29b727abec5ea5f02fdc0c",
+        "sha256": "5955499719e365f529c768dcb8588afb351f757e8d72f1633501c487667c4b7d",
         "passed_path": [
           "covered_functions",
           "CGangWars::Update"
@@ -209258,7 +209258,7 @@
       },
       "evidence": {
         "path": "reversing/GangWarsPending/validation-summary-reval-20261101.json",
-        "sha256": "0ab7619bd6e03920ee98840e32e731aa1bd28bcdaa29b727abec5ea5f02fdc0c",
+        "sha256": "5955499719e365f529c768dcb8588afb351f757e8d72f1633501c487667c4b7d",
         "passed_path": [
           "covered_functions",
           "CGangWars::CreateAttackWave"
@@ -544371,6 +544371,42 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 687b8e56c + cambios del lote 84E; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): CPathFind::Find2NodesForCarCreation 0x452090 (sin hook en la DLL, que lo llama por direccion), CPathFind::FindNodeClosestToCoors 0x44F460, CCamera::IsSphereVisible 0x420D40 y CPathFind::ThisNodeWillLeadIntoADeadEnd 0x44D310 (el banco compara todos sus argumentos EN ORDEN y devuelve o escribe los valores del caso; pueden mutar el mundo de caminos, una estatica, el reloj o el punto de salida tras un evento, 7 tipos). Corren de verdad, con el hook apagado, CPathNode::GetPosition 0x420A10 (bytes del EXE frente al C++ de la DLL), CCarPathLink::GetNodeCoors 0x420A60, srand/rand y sprintf del CRT del EXE (semilla fijada por lado) y las constantes de .rdata; el mundo de caminos son arenas del banco enlazadas desde ThePaths (cuatro tablas por area, restauradas). El banco compara los eventos de los falsos, el valor devuelto, el punto de salida, los dos nodos y la fraccion, las estaticas del EXE (guarda, proxima actualizacion, ultimo punto, nodos guardados, secuencia), la bandera 0xC0FCB5, gString, las tablas del mundo, el reloj y la semilla de rand(); cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: nodos con 0 enlaces (el EXE divide por cero), numeros de nodo o de enlace de carretera fuera de las arenas, areas de nodo ajenas a las ranuras, base de enlaces fuera de 0..7, el nodo guardado cuyo area propia (+0x12) no esta cargada, el limite de 30 nodos del recorrido (la red del banco tiene 12 nodos, no se alcanza), NaN con cargas distintas (las fixtures usan un unico patron) y los bytes altos de los booleanos de la pila.",
       "review_reference": "reversing/Car84E/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "GenerateOneEmergencyServicesCar",
+        "address": "0x0042B7D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Car84F/validation-summary.json",
+        "sha256": "03d9977addd0cb6441ab6d9d4f6ffc4a011bb2879b3c4d1b76d5b012f00d01f2",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::GenerateOneEmergencyServicesCar"
+        ],
+        "pairs": 18432,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
+        "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
+        "source/game_sa/CarCtrl.cpp": "289224bcaf6845f874971ca2f6355356d98cbedf4d1bed33c70f249e1fe2d7d8",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Car84F/LiveComparison.hpp": "e5461cd658ff8a3e7864bca670ea383c3f212e1985905df7a3ed935dabda4bc1",
+        "reversing/Car84F/Core.hpp": "7a1ae18d7490aa25ca53033b2df9b52556b1149ab46f8fe7081685bdfc3010a7",
+        "reversing/Car84F/Fixtures.hpp": "dc669882dd1ac24fdfc3d9ed1740cce823c26e343e57664d2c4fdd82bb31bfd4",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 14b6e731f/b90f378d9 + cambios del lote 84F; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): FindPlayerCentreOfWorld 0x56E250, CCarCtrl::GenerateCarCreationCoors2 0x424210, CWorld::FindObjectsKindaColliding 0x568B80, CWorld::ProcessVerticalLine 0x5674E0, CVehicle::operator new 0x6E2D50, el constructor de CAutomobile 0x6B0A90, CEntity::GetDistanceFromCentreOfMassToBaseOfModel 0x536BE0, CAutomobile::PlaceOnRoadProperly 0x6AF420, CWorld::Add 0x563220 y CCarAI::AddFiretruckOccupants 0x41C600 / AddAmbulanceOccupants 0x41C4A0 / AddPoliceCarOccupants 0x41C070 (el banco compara todos sus argumentos EN ORDEN y el estado del vehiculo en cada evento, y devuelven valores del caso). El vehiculo es la arena de un CAutomobile completo cuyo constructor falso solo deja la tabla virtual (destructor falso en la ranura 0) y la matriz. Corren de verdad la aritmetica propia de la funcion (ayudantes x87 de X87Math.cpp) y la lectura de la tabla de nodos de ThePaths (arenas del banco). El banco compara los eventos, el vehiculo devuelto, los bytes cambiados del vehiculo y de su matriz, los contadores de ambulancias y bomberos y el byte del jugador en foco; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: reserva nula de operator new (el EXE se cae despues), vehiculo sin matriz, nodos o areas fuera de las ranuras cuando un falso devuelve verdadero, NaN con cargas distintas (las fixtures usan un unico patron) y los bytes altos de los booleanos de la pila.",
+      "review_reference": "reversing/Car84F/README.md"
     }
   ]
 }

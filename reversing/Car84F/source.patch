@@ -1,0 +1,198 @@
+diff --git a/source/game_sa/CarCtrl.cpp b/source/game_sa/CarCtrl.cpp
+index 941b11e08..185591f12 100644
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -6,10 +6,10 @@
+  * Pendientes y bloqueadas pueden coincidir; no se suman.
+  *
+  * ESTADO: CCarCtrl
+- * Reconstrucción: COMPLETA — 104/104 funciones reconstruidas.
++ * Reconstrucción: COMPLETA — 105/105 funciones reconstruidas.
+  * Pendientes de reconstruir: 0.
+  * Funciones bloqueadas: 0.
+- * Validación registrada: 104/104 entradas.
++ * Validación registrada: 105/105 entradas.
+  * Validación: consultar vigencia en docs/ValidationInventory.md y
+  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+@@ -150,6 +150,7 @@ void CCarCtrl::InjectHooks()
+     RH_ScopedInstall(PickNextNodeToFollowPath, 0x427740);
+     // Lote 84D
+     RH_ScopedInstall(DragCarToPoint, 0x42EC90);
++    RH_ScopedInstall(GenerateOneEmergencyServicesCar, 0x42B7D0);
+     // Lote 84E
+     RH_ScopedInstall(GenerateCarCreationCoors2, 0x424210);
+     // Lote 63 (parte C, tanda 5)
+@@ -1965,9 +1966,170 @@ void CCarCtrl::GenerateEmergencyServicesCar() {
+     plugin::Call<0x42F9C0>();
+ }
+ 
+-// 0x42B7D0
++namespace {
++// fld dword + fstp dword del x87: un NaN senalizador sale silenciado (bit 22); el resto de patrones (subnormales incluidos) se conserva.
++inline uint32 Car84FQuiet(uint32 bits) {
++    return (bits & 0x7F800000u) == 0x7F800000u && (bits & 0x007FFFFFu) ? (bits | 0x00400000u) : bits;
++}
++// Posicion (x, y, z) de un vehiculo recien creado: matriz +0x30/+0x34/+0x38 (x como palabra, y y z por la x87) o placement +4/+8/+0xC si no hay matriz (+0x14)
++inline void Car84FSetPosition(CVehicle* car, uint32 xBits, uint32 yBits, uint32 zBits) {
++    uint8* const matrix = Car75Raw<uint8*>(car, 0x14);
++    if (matrix) {
++        Car75Raw<uint32>(matrix, 0x30) = xBits;
++        Car75Raw<uint32>(matrix, 0x34) = Car84FQuiet(yBits);
++        Car75Raw<uint32>(matrix, 0x38) = Car84FQuiet(zBits);
++    } else {
++        Car75Raw<uint32>(car, 0x08) = Car84FQuiet(yBits);
++        Car75Raw<uint32>(car, 0x04) = xBits;
++        Car75Raw<uint32>(car, 0x0C) = Car84FQuiet(zBits);
++    }
++}
++// Suelo bajo el punto (bits): dos disparos verticales (+1000 y -1000, solo edificios y objetos ficticios); 1e9 (0x4E6E6B28) si no hay golpe. El segundo golpe sustituye al primero si |hit - z| < |suelo - z|,
++// con las restas de la x87 a 24 bits (un empate tras el redondeo no lo sustituye) y comparaciones ordenadas (un NaN no sustituye)
++uint32 Car84FFindGround(const CVector& point) {
++    uint32 groundBits = 0x4E6E6B28u;
++    CColPoint colPoint;
++    CEntity* hitEntity;
++    if (CWorld::ProcessVerticalLine(point, 1000.0f, colPoint, hitEntity, true, false, false, false, true, false, nullptr)) { // 0x5674E0
++        groundBits = Car75Bits(colPoint.m_vecPoint.z);
++    }
++    if (CWorld::ProcessVerticalLine(point, -1000.0f, colPoint, hitEntity, true, false, false, false, true, false, nullptr)) {
++        const uint32 hitBits = Car75Bits(colPoint.m_vecPoint.z);
++        double hitDistance = Veh83DSub(std::bit_cast<float>(hitBits), point.z);
++        if (hitDistance < 0.0) {
++            hitDistance = -hitDistance;
++        }
++        double groundDistance = Veh83DSub(std::bit_cast<float>(groundBits), point.z);
++        if (groundDistance < 0.0) {
++            groundDistance = -groundDistance;
++        }
++        if (hitDistance < groundDistance) {
++            groundBits = hitBits;
++        }
++    }
++    return groundBits;
++}
++// `delete` con el destructor virtual por la tabla (ranura 0, indicador 1), como el EXE: el tipo dinamico no se conoce aqui
++__declspec(noinline) void Car84FDelete(CVehicle* vehicle) {
++    delete vehicle;
++}
++// Altura (z / 8) de un nodo de carreteras: palabra con signo +0x0C del nodo, convertida y multiplicada por 0.125 en el registro x87
++inline double Car84FNodeHeight(const CNodeAddress& node) {
++    return Veh83DMul(static_cast<double>(static_cast<int32>(Car75Raw<int16>(ThePaths.m_pPathNodes[node.m_wAreaId] + node.m_wNodeId, 0x0C))), 0.125);
++}
++}
++
++// 0x42B7D0: cdecl (modelo, posicion por valor), `ret` del llamador; devuelve el vehiculo de emergencias creado o null. Busca hasta 5 veces (el intento 5 cuenta como fallo aunque acierte, como el EXE) un
++// punto de creacion alrededor del jugador (GenerateCarCreationCoors2 con 0.7071, -1, 160, 160) que no sea nodo de agua y este libre de vehiculos y peds (radio 10). Crea el CAutomobile, lo coloca sobre la
++// carretera entre los dos nodos (interpolacion de su altura / 8 con la fraccion de salida), lo orienta hacia `posn` en el plano, lo descarta si no hay suelo (1e9) y lo registra con sus ocupantes.
++// La reserva de operator new solo se comprueba contra el nulo (el EXE se cae despues al usar el vehiculo si el pool esta agotado).
+ CAutomobile* CCarCtrl::GenerateOneEmergencyServicesCar(uint32 modelId, CVector posn) {
+-    return plugin::CallAndReturn<CAutomobile*, 0x42B7D0, uint32, CVector>(modelId, posn);
++    uint32 player[3];
++    std::memcpy(player, &FindPlayerCentreOfWorld(CWorld::PlayerInFocus), sizeof(player)); // 0x56E250 con el byte 0xB7CD74; tres palabras
++    CVector origin;
++    CNodeAddress node1, node2;
++    float fraction;
++    node1.m_wAreaId = 0xFFFF;
++    node2.m_wAreaId = 0xFFFF;
++    int16 attempts = 0;
++    for (;;) {
++        if (attempts >= 5) {
++            return nullptr;
++        }
++        bool found = false;
++        CVector playerPos;
++        std::memcpy(&playerPos, player, sizeof(playerPos));
++        if (GenerateCarCreationCoors2(playerPos, std::bit_cast<float>(0x3F34FDF4u), std::bit_cast<float>(0x3F34FDF4u), -1.0f, true, 160.0f, 160.0f, &origin, &node1, &node2, &fraction, false, false)) { // 0x424210
++            // Los nodos de agua (bit 7 del byte +0x18) no sirven
++            if (!(Car75Raw<uint8>(ThePaths.m_pPathNodes[node1.m_wAreaId] + node1.m_wNodeId, 0x18) & 0x80)) {
++                int16 colliding;
++                CWorld::FindObjectsKindaColliding(origin, 10.0f, true, &colliding, 2, nullptr, false, true, true, false, false); // 0x568B80
++                if (colliding == 0) {
++                    found = true;
++                }
++            }
++        }
++        attempts++;
++        if (found) {
++            break;
++        }
++    }
++    if (attempts >= 5) {
++        return nullptr;
++    }
++
++    void* const storage = CVehicle::operator new(0x988u); // 0x6E2D50: el tamano no se consulta
++    CAutomobile* const car = storage ? ::new (storage) CAutomobile(static_cast<int32>(modelId), RANDOM_VEHICLE, true) : nullptr; // 0x6B0A90 (modelo, 1, 1)
++    CVehicle* const vehicle = car;
++
++    // Posicion provisional: el punto de salida
++    uint32 originBits[3];
++    std::memcpy(originBits, &origin, sizeof(originBits));
++    Car84FSetPosition(vehicle, originBits[0], originBits[1], originBits[2]);
++
++    // Orientacion hacia `posn` en el plano: adelante = (dx, dy, 0) / |(dx, dy)|, derecha = (dy, -dx, 0), arriba = (0, 0, 1); la x87 trabaja a 24 bits con el exponente ampliado
++    const float dx = Veh83DStore(Veh83DSub(posn.x, origin.x));
++    const float dy = Veh83DStore(Veh83DSub(posn.y, origin.y));
++    const double length = Veh83DSqrt(Veh83DAdd(Veh83DMul(dy, dy), Veh83DMul(dx, dx)));
++    float forwardX, forwardY;
++    if (length == 0.0) { // ordenada: un NaN no entra
++        forwardX = 1.0f;
++        forwardY = dy;
++    } else {
++        const float inverse = Veh83DStore(Veh83DDiv(1.0, length));
++        forwardX = Veh83DStore(Veh83DMul(inverse, dx));
++        forwardY = Veh83DStore(Veh83DMul(inverse, dy));
++    }
++    uint8* const matrix = Car75Raw<uint8*>(vehicle, 0x14);
++    Car75Raw<float>(matrix, 0x10) = forwardX;
++    Car75Raw<float>(matrix, 0x14) = forwardY;
++    Car75Raw<uint32>(matrix, 0x18) = 0;
++    Car75Raw<float>(matrix, 0x00) = forwardY;
++    Car75Raw<float>(matrix, 0x04) = -forwardX;
++    Car75Raw<uint32>(matrix, 0x08) = 0;
++    Car75Raw<uint32>(matrix, 0x20) = 0;
++    Car75Raw<uint32>(matrix, 0x24) = 0;
++    Car75Raw<uint32>(matrix, 0x28) = 0x3F800000u;
++
++    // Altura del punto: (1 - t) * z1 + z2 * t con zN = altura del nodo N / 8, y suelo bajo el punto (si no hay golpe vale 1e9 y se descarta el coche)
++    const double z1 = Car84FNodeHeight(node1);
++    const double z2 = Car84FNodeHeight(node2);
++    const float zPoint = Veh83DStore(Veh83DAdd(Veh83DMul(Veh83DSub(1.0, fraction), z1), Veh83DMul(z2, fraction)));
++    const CVector point{ origin.x, origin.y, zPoint };
++    const uint32 groundBits = Car84FFindGround(point);
++    float ground;
++    std::memcpy(&ground, &groundBits, sizeof(ground));
++    if (ground == 1.0e9f) { // ordenada: sin golpe valido
++        Car84FDelete(car);
++        return nullptr;
++    }
++
++    // Posicion final: x, y del punto y suelo + distancia del centro de masa a la base
++    const float finalZ = Veh83DStore(Veh83DAdd(vehicle->GetDistanceFromCentreOfMassToBaseOfModel(), ground)); // 0x536BE0
++    Car84FSetPosition(vehicle, originBits[0], originBits[1], Car75Bits(finalZ));
++    vehicle->m_vecMoveSpeed = CVector{};
++    car->PlaceOnRoadProperly(); // 0x6AF420
++    CWorld::Add(vehicle);       // 0x563220
++
++    // Bomberos (407), ambulancia (416) y policia (427, 523, 596-599): ocupantes y, en los tres casos, sirena encendida
++    bool handled = true;
++    if (modelId == 407u) {
++        Car75Raw<uint8>(vehicle, 0x428) |= 4; // bIsFireTruckOnDuty
++        NumFireTrucksOnDuty = NumFireTrucksOnDuty + 1;
++        CCarAI::AddFiretruckOccupants(vehicle); // 0x41C600
++    } else if (modelId == 416u) {
++        Car75Raw<uint8>(vehicle, 0x428) |= 2; // bIsAmbulanceOnDuty
++        NumAmbulancesOnDuty = NumAmbulancesOnDuty + 1;
++        CCarAI::AddAmbulanceOccupants(vehicle); // 0x41C4A0
++    } else if (modelId == 427u || modelId == 523u || (modelId >= 596u && modelId <= 599u)) {
++        CCarAI::AddPoliceCarOccupants(vehicle, false); // 0x41C070
++    } else {
++        handled = false;
++    }
++    if (handled) {
++        Car75Raw<uint8>(vehicle, 0x42D) |= 0x80; // bSirenOrAlarm
++    }
++    return car;
+ }
+ 
+ // 0x430050
