@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CCarCtrl
- * Reconstrucción: COMPLETA — 102/102 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 103/103 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 102/102 entradas.
+ * Validación registrada: 103/103 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -148,6 +148,8 @@ void CCarCtrl::InjectHooks()
     RH_ScopedInstall(PickNextNodeToChaseCar, 0x426EF0);
     // Lote 84C
     RH_ScopedInstall(PickNextNodeToFollowPath, 0x427740);
+    // Lote 84D
+    RH_ScopedInstall(DragCarToPoint, 0x42EC90);
     // Lote 63 (parte C, tanda 5)
     RH_ScopedInstall(ChooseModel, 0x424CE0);
     // Lote 63 (parte C, tanda 6)
@@ -952,7 +954,127 @@ bool CCarCtrl::DealWithBend_Racing(CVehicle* vehicle, CCarPathLinkAddress LinkAd
 
 // 0x42EC90
 void CCarCtrl::DragCarToPoint(CVehicle* vehicle, CVector* pos) {
-    plugin::Call<0x42EC90, CVehicle*, CVector*>(vehicle, pos);
+    // Como el original (0x42EC90..0x42F363, cdecl, `ret`). Cada operacion x87 va con los ayudantes Veh83D* (24 bits, exponente ampliado; un valor del registro es un double ya redondeado y `fstp dword` es
+    // Veh83DStore). Medio largo = (max.y - min.y de la caja de colision del modelo) * 0.95f; margen = 100.0f si el byte +0x3E1 (con signo) es > 16, si no 3.0f. Punto trasero P = posicion - (adelante * medio largo) * 0.5f
+    // (posicion de la matriz o de la transformacion simple); si el segmento P -> P + adelante * 1.5f (z = 0) corta la esfera de radio "medio largo" centrada en el destino (ProcessLineSphere), P pasa al punto de corte;
+    // si no, P se acerca al destino a la distancia "medio largo" sobre la recta. Suelo delantero: (destino.xy, z) con z = posicion.z + (adelante.z * medio largo) * 0.5f: IsStoredPolyStillValidVerticalLine y, si falla, dos
+    // ProcessVerticalLine (z +- 1.5f / 2.0f y z +- margen); con acierto en un ProcessVerticalLine se copian a este vehiculo los bits 30 y 31 de las banderas de la entidad, se guarda la entidad (+0x48C) y se pone a cero el
+    // byte +0x3E1; sin acierto se conserva el suelo de antes. El suelo trasero igual con P y z = posicion.z - (adelante.z * medio largo) * 0.5f. El byte +0x3E1 se incrementa antes del primer sondeo. Luego se orienta la
+    // matriz (derecha = ((destino.y - P.y) / medio, (destino.x - P.x) * (-1.0f / medio), 0); cabeceo = atan((suelo delantero - suelo trasero) * (1.0f / medio)); adelante = (-(cos * derecha.y), cos * derecha.x, sin);
+    // arriba = derecha x adelante), se coloca el vehiculo en el punto medio (z + GetHeightAboveRoad, virtual 0xD4) y se fija el volante: ((adelante nueva x adelante vieja).z * -10.0f) acotado a [-0.5f, 0.5f] (NaN: 0.5f).
+    static_assert(offsetof(CVehicle, m_FrontCollPoly) == 0x51C && offsetof(CVehicle, m_RearCollPoly) == 0x548 && offsetof(CVehicle, m_pEntityWeAreOn) == 0x48C && offsetof(CVehicle, m_fSteerAngle) == 0x494
+                  && offsetof(CVehicle, m_fVehicleFrontGroundZ) == 0x4E4 && offsetof(CVehicle, m_fVehicleRearGroundZ) == 0x4E8 && offsetof(CVehicle, m_matrix) == 0x14 && offsetof(CEntity, m_nModelIndex) == 0x22);
+    auto* const raw = reinterpret_cast<uint8*>(vehicle);
+    const auto position = [&]() -> const CVector& { return vehicle->m_matrix ? vehicle->m_matrix->GetPosition() : vehicle->m_placement.m_vPosn; };
+    const auto store = [](double value) { return Veh83DStore(value); };
+    const CColModel* const colModel = CModelInfo::ms_modelInfoPtrs[static_cast<int16>(vehicle->m_nModelIndex)]->m_pColModel;
+    const double half = Veh83DMul(Veh83DSub(colModel->m_boundBox.m_vecMax.y, colModel->m_boundBox.m_vecMin.y), 0.95f);
+    const float halfStored = store(half);
+    const float margin = static_cast<int8>(raw[0x3E1]) > 16 ? 100.0f : 3.0f;
+    const CVector forward = vehicle->m_matrix->GetForward();
+    const CVector oldForward = forward;
+    float pX = store(Veh83DSub(position().x, Veh83DMul(Veh83DMul(forward.x, half), 0.5f)));
+    float pY = store(Veh83DSub(position().y, Veh83DMul(Veh83DMul(forward.y, half), 0.5f)));
+    const float targetX = pos->x, targetY = pos->y;
+
+    // Segmento y esfera
+    {
+        const double forwardXScaled = Veh83DMul(forward.x, 1.5f);
+        const float forwardYScaled = store(Veh83DMul(forward.y, 1.5f));
+        CColLine line;
+        line.m_vecStart = CVector{ pX, pY, 0.0f };
+        line.m_vecEnd = CVector{ store(Veh83DAdd(forwardXScaled, pX)), store(Veh83DAdd(forwardYScaled, pY)), 0.0f };
+        const CColSphere sphere(CVector{ targetX, targetY, 0.0f }, halfStored);
+        float depth = 1.0f;
+        CColPoint hit;
+        if (CCollision::ProcessLineSphere(line, sphere, hit, depth)) {
+            pX = hit.m_vecPoint.x;
+            pY = hit.m_vecPoint.y;
+        } else {
+            const double dy = Veh83DSub(targetY, pY);
+            const double dx = Veh83DSub(targetX, pX);
+            const double length = Veh83DSqrt(Veh83DAdd(Veh83DMul(dx, dx), Veh83DMul(dy, dy)));
+            const double ratio = Veh83DDiv(halfStored, length);
+            pX = store(Veh83DAdd(Veh83DMul(Veh83DSub(pX, targetX), ratio), targetX));
+            pY = store(Veh83DAdd(Veh83DMul(Veh83DSub(pY, targetY), ratio), targetY));
+        }
+    }
+
+    // Suelo bajo un punto: (x, y) y la altura del sondeo en el registro; devuelve false si no hay suelo (el llamador conserva el de antes); con un acierto de ProcessVerticalLine copia entidad y banderas
+    const auto probeGround = [&](float x, float y, double heightReg, CStoredCollPoly* poly, bool incrementCounter, float& ground) -> bool {
+        const float zc = store(heightReg);
+        const float zlow = store(Veh83DSub(heightReg, margin));
+        const float zhigh = store(Veh83DAdd(zc, margin));
+        if (incrementCounter) {
+            raw[0x3E1] = static_cast<uint8>(raw[0x3E1] + 1);
+        }
+        CVector origin{ x, y, zhigh };
+        CColPoint colPoint;
+        if (CCollision::IsStoredPolyStillValidVerticalLine(origin, zlow, colPoint, poly)) {
+            ground = colPoint.m_vecPoint.z;
+            return true;
+        }
+        CEntity* entity;
+        origin.z = store(Veh83DAdd(zc, 1.5f));
+        bool found = CWorld::ProcessVerticalLine(origin, store(Veh83DSub(zc, 2.0f)), colPoint, entity, true, false, false, false, false, false, poly);
+        if (!found) {
+            origin.z = zhigh;
+            found = CWorld::ProcessVerticalLine(origin, zlow, colPoint, entity, true, false, false, false, false, false, poly);
+        }
+        if (!found) {
+            return false;
+        }
+        *reinterpret_cast<CEntity**>(raw + 0x48C) = entity;
+        uint32& flags = *reinterpret_cast<uint32*>(raw + 0x1C);
+        const uint32 entityFlags = *reinterpret_cast<const uint32*>(reinterpret_cast<const uint8*>(entity) + 0x1C);
+        flags ^= (flags ^ entityFlags) & 0x40000000u;
+        flags = entityFlags ^ ((entityFlags ^ flags) & 0x7FFFFFFFu);
+        raw[0x3E1] = 0;
+        ground = colPoint.m_vecPoint.z;
+        return true;
+    };
+    const double halfForwardZ = Veh83DMul(Veh83DMul(forward.z, halfStored), 0.5f);
+    const float halfForwardZStored = store(halfForwardZ);
+    float frontGround = 0.0f;
+    if (!probeGround(targetX, targetY, Veh83DAdd(halfForwardZ, position().z), &vehicle->m_FrontCollPoly, true, frontGround)) {
+        frontGround = vehicle->m_fVehicleFrontGroundZ;
+    }
+    vehicle->m_fVehicleFrontGroundZ = frontGround;
+    float rearGround = 0.0f;
+    if (!probeGround(pX, pY, Veh83DSub(position().z, halfForwardZStored), &vehicle->m_RearCollPoly, false, rearGround)) {
+        rearGround = vehicle->m_fVehicleRearGroundZ;
+    }
+    vehicle->m_fVehicleRearGroundZ = rearGround;
+
+    // Orientacion de la matriz
+    const double inverseHalf = Veh83DDiv(1.0f, halfStored);
+    const double angle = Car84DAtan(Veh83DMul(Veh83DSub(frontGround, rearGround), inverseHalf));
+    const double cosine = Car84DCos(angle);
+    vehicle->m_matrix->GetRight().x = store(Veh83DMul(Veh83DSub(targetY, pY), inverseHalf));
+    vehicle->m_matrix->GetRight().y = store(Veh83DMul(Veh83DSub(targetX, pX), Veh83DDiv(-1.0f, halfStored)));
+    vehicle->m_matrix->GetRight().z = 0.0f;
+    vehicle->m_matrix->GetForward().x = store(-Veh83DMul(cosine, vehicle->m_matrix->GetRight().y));
+    vehicle->m_matrix->GetForward().y = store(Veh83DMul(cosine, vehicle->m_matrix->GetRight().x));
+    vehicle->m_matrix->GetForward().z = Heli83GSinStore(angle);
+    CVector up;
+    const CVector* const upResult = CrossProduct(&up, &vehicle->m_matrix->GetRight(), &vehicle->m_matrix->GetForward());
+    const CVector upValue = *upResult;
+    const float midX = store(Veh83DMul(Veh83DAdd(targetX, pX), 0.5f));
+    const float midY = store(Veh83DMul(Veh83DAdd(targetY, pY), 0.5f));
+    const float groundSum = store(Veh83DAdd(rearGround, frontGround));
+    vehicle->m_matrix->GetUp() = upValue;
+    const float midZ = store(Veh83DMul(groundSum, 0.5f));
+    const float midZLifted = store(Veh83DAdd(vehicle->GetHeightAboveRoad(), midZ));
+    vehicle->UpdateLightingFromStoredPolys();
+    if (vehicle->m_matrix) {
+        vehicle->m_matrix->GetPosition() = CVector{ midX, midY, midZLifted };
+    } else {
+        vehicle->m_placement.m_vPosn = CVector{ midX, midY, midZLifted };
+    }
+    CVector turn;
+    CrossProduct(&turn, &vehicle->m_matrix->GetForward(), const_cast<CVector*>(&oldForward));
+    const double steer = Veh83DMul(turn.z, -10.0f);
+    vehicle->m_fSteerAngle = !(steer < 0.5) ? 0.5f : steer > -0.5 ? store(steer) : -0.5f;
 }
 
 // 0x4325C0

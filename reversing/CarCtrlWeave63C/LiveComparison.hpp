@@ -58,7 +58,7 @@ inline void Update() {
     const StubSpec slow=mk({"CCarCtrl","SlowCarOnRailsDownForTrafficAndLights",0x434790,reinterpret_cast<void*>(&FkSlowRails),0});
     const StubSpec modify=mk({"CAutoPilot","ModifySpeed",0x41B980,reinterpret_cast<void*>(&FkModify),0});
     const StubSpec curve=mk({"CCurves","CalcCurvePoint",0x43C900,reinterpret_cast<void*>(&FkCurve),0});
-    const StubSpec s42EC90=mk({nullptr,nullptr,0x42EC90,reinterpret_cast<void*>(&Fk42EC90),0});
+    const StubSpec s42EC90=mk({"CCarCtrl","DragCarToPoint",0x42EC90,reinterpret_cast<void*>(&Fk42EC90),0});
     env.stubs[0]={s422590,s432B10,slow,modify,curve,s42EC90};
     for(const StubSpec* s:{&s422590,&s432B10,&slow,&modify,&curve,&s42EC90})env.watches.emplace_back(s->pair.exe,16);
     for(unsigned f=0;f<kFns;++f) {

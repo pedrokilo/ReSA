@@ -2180,3 +2180,7 @@ int32_t __cdecl Heli83GFtol(double value);
 // Lote 84B: CCarCtrl::PickNextNodeToChaseCar (0x426EF0)
 bool __cdecl Car84BDirectCloserCpp(float destX, float destY, float vehicleX, float vehicleY, float pathDistance); // sqrt(dy*dy + dx*dx) * 3.0f < pathDistance en el registro x87
 bool __cdecl Car84BConsiderLinkCpp(float x, float y, float heading, float* best);                                // |normalizado(ATanOfXY(x, y) - heading)| <= *best: lo guarda y devuelve true
+
+// Lote 84D: CCarCtrl::DragCarToPoint (0x42EC90): atan(x) (fpatan con 1.0) y cos(angulo) sin redondear a 24 bits
+double __cdecl Car84DAtan(double value);
+double __cdecl Car84DCos(double angle);

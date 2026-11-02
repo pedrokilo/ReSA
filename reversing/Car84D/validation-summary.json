@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 18432,
+  "differences": 0,
+  "registered_pairs": 18432,
+  "registered_functions": 1,
+  "functions": {
+    "CCarCtrl::DragCarToPoint": 18432
+  },
+  "covered_functions": {
+    "CCarCtrl::DragCarToPoint": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 89afb3901 + cambios del lote 84D; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): CCollision::ProcessLineSphere 0x412AA0, CCollision::IsStoredPolyStillValidVerticalLine 0x414D70, CWorld::ProcessVerticalLine 0x5674E0, CrossProduct 0x59C730 y CVehicle::UpdateLightingFromStoredPolys 0x6D0CC0 (el banco compara todos sus argumentos EN ORDEN, con el byte +0x3E1 y las banderas del vehiculo en ese instante, y escribe los valores del caso) y el virtual GetHeightAboveRoad (vtabla +0xD4) con una vtabla falsa compartida. Corren de verdad la matriz del vehiculo, su informacion de modelo y su caja de colision (arenas enlazadas desde CModelInfo::ms_modelInfoPtrs, restauradas) y las constantes de .rdata. El banco compara los eventos, las banderas y el byte +0x3E1 del vehiculo, la entidad y los suelos guardados, el volante, las dos matrices y las banderas de las dos entidades, sin otros cambios en las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Mutaciones del estado tras un evento (9 tipos). Fuera de los fixtures: vehiculo sin matriz (el EXE falla), suelos infinitos o enormes con medio largo finito distinto de cero y medio largo pequeno distinto de cero (alli el cos de la x87 y el de la DLL difieren por la precision del angulo), NaN con cargas distintas (las fixtures usan un unico patron), indice de modelo negativo o fuera de CModelInfo::ms_modelInfoPtrs y bytes altos de los booleanos pasados a ProcessVerticalLine.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Car84D-20261101-210753-404270",
+  "summary_sha256": "17865dd93eadab326204f97d02e341b68544089012a3300e7ee023e66839568b",
+  "result_txt_sha256": "93894c65540a1a13a23ffc2f9b2b8f7f0a4ac25ccfac05bc2c35fc33dc6aedf7",
+  "log_sha256": "e00b506ac3a5aa8fff9d788e736e7a21dcb2e290c79aa1bc745e8e3dd0e92352",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "05310f84f37ca69c7c0e0c714c9280f9a9a53f18a3a292b71fd73766b68a3419",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
+      "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
+      "source/game_sa/CarCtrl.cpp": "728b2c9aed690726c56d6c2067c408197049e65a5ef728305600b3272da5002d",
+      "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Car84D/LiveComparison.hpp": "0c028512c345c25afadc0d5847a658bea2576108fdea98a4585b9438d3adc5b5",
+      "reversing/Car84D/Core.hpp": "6db8d17247b901af67246f87da64dad32b08dcf836487ab0fd322e32684998c0",
+      "reversing/Car84D/Fixtures.hpp": "8694cae78f527c9aa297ba018bc120b00945b481c4ea1c1f8a10f25244228b0c",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

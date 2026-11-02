@@ -17709,3 +17709,14 @@ __declspec(noinline) bool __cdecl Car84BConsiderLinkCpp(float x, float y, float 
     return true;
 }
 #pragma float_control(pop)
+
+// --- Lote 84D (Car84D): CCarCtrl::DragCarToPoint (0x42EC90), prefijo Car84D. Anadido al FINAL ---
+// fld a; fld1; fpatan / fld st0; fcos: el resultado del fpatan y del fcos quedan en el registro (sin redondear a 24 bits); Veh83D* los redondea al combinarlos.
+#pragma float_control(precise, on, push)
+__declspec(noinline) double __cdecl Car84DAtan(double value) {
+    return std::atan(value);
+}
+__declspec(noinline) double __cdecl Car84DCos(double angle) {
+    return std::cos(angle);
+}
+#pragma float_control(pop)
