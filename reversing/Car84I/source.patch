@@ -1,0 +1,406 @@
+diff --git a/source/game_sa/CarCtrl.cpp b/source/game_sa/CarCtrl.cpp
+index 8339771ee..3f4ea9dd4 100644
+--- a/source/game_sa/CarCtrl.cpp
++++ b/source/game_sa/CarCtrl.cpp
+@@ -193,6 +193,7 @@ void CCarCtrl::InjectHooks()
+     RH_ScopedInstall(SlowCarOnRailsDownForTrafficAndLights, 0x434790);
+     RH_ScopedInstall(FindMaxSteerAngle, 0x427FE0);
+     RH_ScopedInstall(SteerAICarWithPhysics, 0x437C20);
++    RH_ScopedInstall(SteerAICarWithPhysics_OnlyMission, 0x436A90);
+     RH_ScopedInstall(SteerAICarWithPhysicsFollowPath, 0x434900);
+     RH_ScopedInstall(SteerAICarWithPhysicsTryingToBlockTarget_Stop, 0x428990);
+     RH_ScopedInstall(SteerAICarWithPhysicsHeadingForTarget, 0x433280);
+@@ -5614,9 +5615,391 @@ void CCarCtrl::SteerAICarWithPhysicsTryingToBlockTarget_Stop(CVehicle* vehicle,
+     tellOccupantsToLeave();
+ }
+ 
+-// 0x436A90
++// 0x436A90..0x437B22 (cdecl, cinco argumentos, `ret`, void). Salidas: arg2 = giro, arg3 = acelerador, arg4 = freno, arg5 = freno de mano. Despacha por la mision (byte con signo en +0x3BA; valores
++// sin signo > 0x44 no hacen nada) con una tabla de saltos de 44 destinos (0x437B24, indices en 0x437BD4): casi todos llaman a un colaborador con el vehiculo y las cuatro salidas. Cuatro misiones
++// calculan algo antes de llamar a HeadingForTarget: embestir al jugador de cerca (3), acercarse al jugador (44), seguir a un coche de cerca (53) y asomarse junto al objetivo (60). Cada operacion x87
++// va con los ayudantes Veh83D* (24 bits, exponente ampliado; un valor del registro es un double ya redondeado y `fstp dword` es Veh83DStore). Todas las llamadas a colaboradores se hacen en el mismo orden
++// que en el EXE (el banco compara la traza). La semilla aleatoria (+0x20) decide el lado y el desplazamiento de las misiones 3 y 60.
+ void CCarCtrl::SteerAICarWithPhysics_OnlyMission(CVehicle* vehicle, float* arg2, float* arg3, float* arg4, bool* arg5) {
+-    plugin::Call<0x436A90, CVehicle*, float*, float*, float*, bool*>(vehicle, arg2, arg3, arg4, arg5);
++    constexpr float kHalf = std::bit_cast<float>(0x3F000000u);          // 0x858B8C
++    constexpr float kLateralGap = std::bit_cast<float>(0x3E4CCCCDu);    // 0x858CC4 (0.2)
++    constexpr float kSpeedGain = std::bit_cast<float>(0x41400000u);     // 0x858CCC (12.0)
++    constexpr float kTwo = std::bit_cast<float>(0x40000000u);           // 0x858CA0
++    constexpr float kSeedScale = std::bit_cast<float>(0x3BCCCCCDu);     // 0x859050 (0.00625)
++    constexpr float kDotGain = std::bit_cast<float>(0xBCA3D70Au);       // 0x85904C (-0.02)
++    constexpr float kSpeedLimit = std::bit_cast<float>(0x3ECCCCCDu);    // 0x858EE8 (0.4)
++    constexpr float kTen = std::bit_cast<float>(0x41200000u);           // 0x85862C
++    constexpr float kSixty = std::bit_cast<float>(0x42700000u);         // 0x858B34
++    constexpr float kFive = std::bit_cast<float>(0x40A00000u);          // 0x858C80
++    constexpr float kBrakeGain = std::bit_cast<float>(0xBDCCCCCDu);     // 0x858EF4 (-0.1)
++    constexpr float kGasGain = std::bit_cast<float>(0x3D4CCCCDu);       // 0x858C28 (0.05)
++    constexpr float kSeven = std::bit_cast<float>(0x40E00000u);         // 0x858F48
++    const auto store = [](double value) { return Veh83DStore(value); };
++    auto& ap = vehicle->m_autoPilot;
++    const int8 mission = static_cast<int8>(ap.m_nCarMission);
++    if (static_cast<uint32>(static_cast<int32>(mission)) > 0x44u) {
++        return;
++    }
++    const auto automobile = [&] { return static_cast<CAutomobile*>(vehicle); };
++    const auto colModelOf = [](const CEntity* entity) { return CModelInfo::ms_modelInfoPtrs[static_cast<int16>(entity->m_nModelIndex)]->m_pColModel; };
++    // CVector a - b (0x40FE60): cada componente se guarda como float
++    const auto difference = [&](const CVector& a, const CVector& b, float (&out)[3]) {
++        out[2] = store(Veh83DSub(a.z, b.z));
++        out[1] = store(Veh83DSub(a.y, b.y));
++        out[0] = store(Veh83DSub(a.x, b.x));
++    };
++    // Llamada final comun de las misiones 3 y 44 y de las de objetivo: HeadingForTarget(vehiculo, objetivo, x, y, salidas)
++    const auto headingFor = [&](CPhysical* target, float x, float y) { SteerAICarWithPhysicsHeadingForTarget(vehicle, target, x, y, arg2, arg3, arg4, arg5); };
++
++    switch (mission) {
++    case MISSION_NONE:
++    case MISSION_EMERGENCYVEHICLE_STOP:
++    case MISSION_STOP_FOREVER:
++        *arg2 = 0.0f;
++        *arg3 = 0.0f;
++        *arg5 = true;
++        *arg4 = 0.5f;
++        return;
++    case MISSION_CRUISE:
++    case MISSION_RAMPLAYER_FARAWAY:
++    case MISSION_BLOCKPLAYER_FARAWAY:
++    case MISSION_GOTOCOORDINATES:
++    case MISSION_GOTOCOORDINATES_ACCURATE:
++    case MISSION_RAMCAR_FARAWAY:
++    case MISSION_BLOCKCAR_FARAWAY:
++    case MISSION_APPROACHPLAYER_FARAWAY:
++    case MISSION_FOLLOWCAR_FARAWAY:
++    case MISSION_KILLPED_FARAWAY:
++    case MISSION_DO_DRIVEBY_FARAWAY:
++    case MISSION_ESCORT_LEFT_FARAWAY:
++    case MISSION_ESCORT_RIGHT_FARAWAY:
++    case MISSION_ESCORT_REAR_FARAWAY:
++    case MISSION_ESCORT_FRONT_FARAWAY:
++        SteerAICarWithPhysicsFollowPath(vehicle, arg2, arg3, arg4, arg5);
++        return;
++    case MISSION_RAMPLAYER_CLOSE: {
++        // Posicion del jugador desplazada hacia un lado de su coche (con la semilla del vehiculo; el hueco es la suma de las semianchuras menos 0.2) y hacia donde va; ademas, si el jugador va en coche, puede avisar a un pasajero
++        const CVector playerCoords = FindPlayerCoors(-1);
++        float x = playerCoords.x;
++        float y = playerCoords.y;
++        float dot = 0.0f; // alineacion de los dos coches (solo con el jugador en coche)
++        if (FindPlayerVehicle(-1, false)) {
++            const CMatrix* ownMatrix = vehicle->m_matrix;
++            CVehicle* playerVehicle = FindPlayerVehicle(-1, false);
++            dot = store(SteerPhysicsDot(playerVehicle->m_matrix->GetForward(), ownMatrix->GetForward())); // 0x40FDB0
++            // La semilla (+0x20) se vuelve a leer en cada uso, como hace el EXE (entre lecturas hay llamadas a colaboradores)
++            if ((vehicle->m_nRandomSeed & 1u) && dot > kHalf) {
++                playerVehicle = FindPlayerVehicle(-1, false);
++                const float playerHalfWidth = colModelOf(playerVehicle)->m_boundBox.m_vecMax.x; // +0xC del modelo de colision
++                const float ownHalfWidth = colModelOf(vehicle)->m_boundBox.m_vecMax.x;
++                if (vehicle->m_nRandomSeed & 2u) {
++                    playerVehicle = FindPlayerVehicle(-1, false);
++                    const CMatrix* matrix = playerVehicle->m_matrix;
++                    const float gap = store(Veh83DSub(Veh83DAdd(ownHalfWidth, playerHalfWidth), kLateralGap));
++                    x = store(Veh83DAdd(Veh83DMul(gap, matrix->GetRight().x), x));
++                    playerVehicle = FindPlayerVehicle(-1, false);
++                    y = store(Veh83DAdd(Veh83DMul(gap, playerVehicle->m_matrix->GetRight().y), y));
++                } else {
++                    playerVehicle = FindPlayerVehicle(-1, false);
++                    const CMatrix* matrix = playerVehicle->m_matrix;
++                    const float gap = store(Veh83DSub(Veh83DAdd(ownHalfWidth, playerHalfWidth), kLateralGap));
++                    x = store(Veh83DSub(x, Veh83DMul(gap, matrix->GetRight().x)));
++                    playerVehicle = FindPlayerVehicle(-1, false);
++                    y = store(Veh83DSub(y, Veh83DMul(gap, playerVehicle->m_matrix->GetRight().y)));
++                }
++                // Cerca del punto (velocidad relativa * 12 + 2 m) y sin accion temporal: gira a un lado 250 ms
++                playerVehicle = FindPlayerVehicle(-1, false);
++                float relative[3];
++                difference(playerVehicle->m_vecMoveSpeed, vehicle->m_vecMoveSpeed, relative); // 0x40FE60
++                const double threshold = Veh83DAdd(Veh83DMul(Veh83CMagnitude(relative), kSpeedGain), kTwo); // 0x4082C0
++                const CVector& position = vehicle->GetPosition();
++                const double dy = Veh83DSub(position.y, y);
++                const double dx = Veh83DSub(position.x, x);
++                const double distance = Veh83DSqrt(Veh83DAdd(Veh83DMul(dy, dy), Veh83DMul(dx, dx)));
++                if (distance < threshold && ap.m_nTempAction == TEMPACT_NONE) {
++                    ap.m_nTempAction = (vehicle->m_nRandomSeed & 2u) ? TEMPACT_TURNLEFT : TEMPACT_TURNRIGHT;
++                    ap.m_nTempActionTime = CTimer::m_snTimeInMilliseconds + 250u;
++                }
++            } else {
++                playerVehicle = FindPlayerVehicle(-1, false);
++                const double offsetX = static_cast<double>(static_cast<int32>(vehicle->m_nRandomSeed & 0xFFu) - 0x80);
++                x = store(Veh83DAdd(Veh83DMul(Veh83DMul(offsetX, playerVehicle->m_matrix->GetRight().x), kSeedScale), x));
++                playerVehicle = FindPlayerVehicle(-1, false);
++                const double offsetY = static_cast<double>(static_cast<int32>(vehicle->m_nRandomSeed & 0xFFu) - 0x80);
++                y = store(Veh83DAdd(Veh83DMul(Veh83DMul(offsetY, playerVehicle->m_matrix->GetRight().y), kSeedScale), y));
++            }
++            if (dot < 0.0f) {
++                // Coches en sentido contrario: se adelanta el punto por la velocidad del jugador
++                const float speedX = FindPlayerSpeed(-1).x;
++                const double scaled = Veh83DMul(dot, kDotGain);
++                const float scaledStored = store(scaled);
++                x = store(Veh83DAdd(Veh83DMul(scaled, speedX), x));
++                const float speedY = FindPlayerSpeed(-1).y;
++                y = store(Veh83DAdd(Veh83DMul(scaledStored, speedY), y));
++            }
++            if (vehicle->vehicleFlags.bIsLawEnforcer) {
++                playerVehicle = FindPlayerVehicle(-1, false);
++                const CVector& speed = playerVehicle->m_vecMoveSpeed;
++                const double horizontal = Veh83DSqrt(Veh83DAdd(Veh83DMul(speed.x, speed.x), Veh83DMul(speed.y, speed.y)));
++                if (horizontal > kSpeedLimit) {
++                    if (CPed* passenger = FindPlayerVehicle(-1, false)->PickRandomPassenger()) { // 0x6D2A10
++                        passenger->Say(static_cast<eGlobalSpeechContext>(0x26), 0, 1.0f, false, false, false); // 0x5EFFE0
++                    }
++                }
++            }
++        }
++        headingFor(FindPlayerVehicle(-1, false), x, y);
++        return;
++    }
++    case MISSION_BLOCKPLAYER_CLOSE: {
++        CVector& speed1 = FindPlayerSpeed(-1);
++        const CVector coords1 = FindPlayerCoors(-1);
++        CVector& speed2 = FindPlayerSpeed(-1);
++        const float speedX = speed1.x;
++        const float speedY = speed2.y;
++        const CVector coords2 = FindPlayerCoors(-1);
++        SteerAICarWithPhysicsTryingToBlockTarget(vehicle, FindPlayerEntity(-1), coords1.x, coords2.y, speedX, speedY, arg2, arg3, arg4, arg5);
++        return;
++    }
++    case MISSION_BLOCKPLAYER_HANDBRAKESTOP: {
++        CVector& speed1 = FindPlayerSpeed(-1);
++        const CVector coords1 = FindPlayerCoors(-1);
++        CVector& speed2 = FindPlayerSpeed(-1);
++        const float speedX = speed1.x;
++        const float speedY = speed2.y;
++        const CVector coords2 = FindPlayerCoors(-1);
++        SteerAICarWithPhysicsTryingToBlockTarget_Stop(vehicle, coords1.x, coords2.y, speedX, speedY, arg2, arg3, arg4, arg5);
++        return;
++    }
++    case MISSION_GOTOCOORDINATES_STRAIGHTLINE:
++    case MISSION_GOTOCOORDINATES_STRAIGHTLINE_ACCURATE:
++    case MISSION_SLOWLY_DRIVE_TOWARDS_PLAYER_1:
++        headingFor(nullptr, ap.m_vecDestinationCoors.x, ap.m_vecDestinationCoors.y);
++        return;
++    case MISSION_GOTOCOORDINATES_ASTHECROWSWIMS:
++        SteerAIBoatWithPhysicsHeadingForTarget(vehicle, ap.m_vecDestinationCoors.x, ap.m_vecDestinationCoors.y, arg2, arg3, arg4);
++        *arg5 = false;
++        return;
++    case MISSION_RAMCAR_CLOSE:
++    case MISSION_KILLPED_CLOSE: {
++        CVehicle* target = ap.m_TargetEntity;
++        headingFor(target, target->GetPosition().x, target->GetPosition().y);
++        return;
++    }
++    case MISSION_BLOCKCAR_CLOSE: {
++        CVehicle* target = ap.m_TargetEntity;
++        const float x = target->GetPosition().x;
++        const float y = target->GetPosition().y;
++        SteerAICarWithPhysicsTryingToBlockTarget(vehicle, target, x, y, target->m_vecMoveSpeed.x, target->m_vecMoveSpeed.y, arg2, arg3, arg4, arg5);
++        return;
++    }
++    case MISSION_BLOCKCAR_HANDBRAKESTOP: {
++        CVehicle* target = ap.m_TargetEntity;
++        const float x = target->GetPosition().x;
++        const float y = target->GetPosition().y;
++        SteerAICarWithPhysicsTryingToBlockTarget_Stop(vehicle, x, y, target->m_vecMoveSpeed.x, target->m_vecMoveSpeed.y, arg2, arg3, arg4, arg5);
++        return;
++    }
++    case MISSION_HELI_FLYTOCOORS:
++        SteerAIHeliTowardsTargetCoors(automobile());
++        return;
++    case MISSION_BOAT_ATTACKPLAYER:
++        SteerAIBoatWithPhysicsAttackingPlayer(vehicle, arg2, arg3, arg4, arg5);
++        return;
++    case MISSION_PLANE_FLYTOCOORS:
++        SteerAIPlaneTowardsTargetCoors(automobile());
++        return;
++    case MISSION_HELI_ATTACK_PLAYER:
++    case MISSION_HELI_ATTACK_PLAYER_FLY_AWAY:
++        GetAIHeliToAttackPlayer(automobile());
++        return;
++    case MISSION_SLOWLY_DRIVE_TOWARDS_PLAYER_2: {
++        const CVector playerCoords1 = FindPlayerCoors(-1);
++        const CVector playerCoords2 = FindPlayerCoors(-1);
++        headingFor(nullptr, playerCoords1.x, playerCoords2.y);
++        return;
++    }
++    case MISSION_BLOCKPLAYER_FORWARDANDBACK:
++        SteerAICarBlockingPlayerForwardAndBack(vehicle, arg2, arg3, arg4, arg5);
++        return;
++    case MISSION_ESCORT_LEFT:
++    case MISSION_ESCORT_RIGHT:
++    case MISSION_ESCORT_REAR:
++    case MISSION_ESCORT_FRONT: {
++        // Junto al escoltado: la suma de las semianchuras (+0xC de la caja, izquierda y derecha) o de las semilongitudes (+0x10, detras y delante) de los dos modelos mas un margen, con el signo de la mision
++        CVehicle* target = ap.m_TargetEntity;
++        const CColModel* targetCol = colModelOf(target);
++        const CColModel* ownCol = colModelOf(vehicle);
++        if (mission == MISSION_ESCORT_LEFT || mission == MISSION_ESCORT_RIGHT) {
++            const double sum = Veh83DAdd(Veh83DAdd(targetCol->m_boundBox.m_vecMax.x, ownCol->m_boundBox.m_vecMax.x), kTwo);
++            const float value = store(sum);
++            SteerAICarTowardsPointInEscort(vehicle, target, mission == MISSION_ESCORT_LEFT ? -value : value, 0.0f, arg2, arg3, arg4, arg5);
++        } else {
++            const double sum = Veh83DAdd(Veh83DAdd(targetCol->m_boundBox.m_vecMax.y, ownCol->m_boundBox.m_vecMax.y), kSeven);
++            const float value = store(sum);
++            SteerAICarTowardsPointInEscort(vehicle, target, 0.0f, mission == MISSION_ESCORT_REAR ? -value : value, arg2, arg3, arg4, arg5);
++        }
++        return;
++    }
++    case MISSION_GOTOCOORDINATES_RACING:
++        SteerAICarWithPhysicsFollowPath_Racing(vehicle, arg2, arg3, arg4, arg5);
++        return;
++    case MISSION_FOLLOW_RECORDED_PATH:
++        SteerAICarWithPhysicsFollowPreRecordedPath(vehicle, arg2, arg3, arg4, arg5);
++        return;
++    case MISSION_PLANE_ATTACK_PLAYER:
++    case MISSION_PLANE_ATTACK_PLAYER_POLICE:
++        GetAIPlaneToAttackPlayer(automobile());
++        return;
++    case MISSION_PLANE_FLYINDIRECTION:
++        FlyAIPlaneInCertainDirection(static_cast<CPlane*>(vehicle));
++        return;
++    case MISSION_PLANE_FOLLOW_ENTITY:
++        SteerAIPlaneToFollowEntity(automobile());
++        return;
++    case MISSION_HELI_FLYINDIRECTION:
++        GetAIHeliToFlyInDirection(automobile());
++        return;
++    case MISSION_HELI_FOLLOW_ENTITY:
++    case MISSION_HELI_NEWS_BEHAVIOUR:
++        SteerAIHeliToFollowEntity(automobile());
++        return;
++    case MISSION_HELI_POLICE_BEHAVIOUR:
++        SteerAIHeliAsPoliceHeli(automobile());
++        return;
++    case MISSION_HELI_FLY_AWAY_FROM_PLAYER:
++        SteerAIHeliFlyingAwayFromPlayer(automobile());
++        return;
++    case MISSION_APPROACHPLAYER_CLOSE: {
++        // Se acerca al jugador por delante o por detras de su coche, el punto (4 m delante o 4 m detras) que quede mas cerca
++        const CVector& ownPosition = vehicle->GetPosition();
++        const CVector playerCoords = FindPlayerCoors(-1);
++        float toPlayer[3];
++        difference(playerCoords, ownPosition, toPlayer); // 0x40FE60
++        if (Veh83CMagnitude(toPlayer) < kTen) { // 0x4082C0
++            *arg2 = 0.0f;
++            *arg3 = 0.0f;
++            *arg4 = 1.0f;
++            *arg5 = false;
++            return;
++        }
++        CVector target = FindPlayerCoors(-1);
++        if (FindPlayerVehicle(-1, false)) {
++            const CVector& position = vehicle->GetPosition();
++            const CVector playerAgain = FindPlayerCoors(-1);
++            float relative[3];
++            difference(position, playerAgain, relative); // 0x40FE60
++            const CMatrix* firstMatrix = FindPlayerVehicle(-1, false)->m_matrix;
++            const CMatrix* secondMatrix = FindPlayerVehicle(-1, false)->m_matrix;
++            const double side = Veh83DMul(Veh83DAdd(secondMatrix->GetForward().y, firstMatrix->GetForward().x), relative[0]);
++            if (side > 0.0) {
++                const CVector front = WvMatrixTimesPoint(FindPlayerVehicle(-1, false)->m_matrix, CVector{4.0f, 0.0f, 0.0f}); // 0x59C890
++                const CVector back = WvMatrixTimesPoint(FindPlayerVehicle(-1, false)->m_matrix, CVector{-4.0f, 0.0f, 0.0f});
++                float toFront[3];
++                float toBack[3];
++                difference(vehicle->GetPosition(), front, toFront);
++                const float frontDistance = store(Veh83CMagnitude(toFront));
++                difference(vehicle->GetPosition(), back, toBack);
++                const double backDistance = Veh83CMagnitude(toBack);
++                target = backDistance > frontDistance ? front : back;
++            }
++        }
++        headingFor(FindPlayerVehicle(-1, false), target.x, target.y);
++        return;
++    }
++    case MISSION_PARK_PERPENDICULAR:
++    case MISSION_PARK_PERPENDICULAR_2:
++        SteerAICarParkPerpendicular(vehicle, arg2, arg3, arg4, arg5);
++        return;
++    case MISSION_PARK_PARALLEL:
++    case MISSION_PARK_PARALLEL_2:
++        SteerAICarParkParallel(vehicle, arg2, arg3, arg4, arg5);
++        return;
++    case MISSION_HELI_LAND:
++    case MISSION_HELI_LAND_TOUCHING_DOWN:
++        SteerAIHeliToLand(automobile());
++        return;
++    case MISSION_HELI_KEEP_ENTITY_IN_VIEW:
++        SteerAIHeliToKeepEntityInView(automobile());
++        return;
++    case MISSION_FOLLOWCAR_CLOSE: {
++        // Sigue al coche objetivo; si va cerca (menos que su distancia de seguimiento + 10 m) iguala su velocidad: gas con la diferencia (x 0.05) o freno (x -0.1)
++        CVehicle* target = ap.m_TargetEntity;
++        headingFor(target, target->GetPosition().x, target->GetPosition().y);
++        CVehicle* targetAgain = ap.m_TargetEntity;
++        float toTarget[3];
++        difference(vehicle->GetPosition(), targetAgain->GetPosition(), toTarget); // 0x40FE60
++        const double distanceRegister = Veh83CMagnitude(toTarget); // 0x4082C0
++        const float distance = store(distanceRegister);
++        const float followDistance = static_cast<float>(ap.m_ucCarFollowDist);
++        if (!(distanceRegister < Veh83DAdd(followDistance, kTen))) {
++            return;
++        }
++        const double targetSpeed = Veh83DMul(Veh83DSqrt(Veh83DAdd(Veh83DMul(targetAgain->m_vecMoveSpeed.x, targetAgain->m_vecMoveSpeed.x), Veh83DMul(targetAgain->m_vecMoveSpeed.y, targetAgain->m_vecMoveSpeed.y))), kSixty);
++        const double ownSpeed = Veh83DMul(Veh83DSqrt(Veh83DAdd(Veh83DMul(vehicle->m_vecMoveSpeed.x, vehicle->m_vecMoveSpeed.x), Veh83DMul(vehicle->m_vecMoveSpeed.y, vehicle->m_vecMoveSpeed.y))), kSixty);
++        const float ownSpeedStored = store(ownSpeed);
++        const double gap = Veh83DSub(distance, followDistance);
++        const double gapScaled = gap < 0.0 ? Veh83DMul(gap, kFive) : Veh83DAdd(gap, gap);
++        const double error = Veh83DSub(Veh83DAdd(targetSpeed, gapScaled), ownSpeedStored);
++        if (error < 0.0) {
++            double brake = Veh83DMul(error, kBrakeGain);
++            *arg3 = 0.0f;
++            if (1.0 < brake) {
++                brake = 1.0;
++            }
++            *arg4 = store(brake);
++        } else {
++            double gas = Veh83DMul(error, kGasGain);
++            if (1.0 < gas) {
++                gas = 1.0;
++            }
++            *arg3 = store(gas);
++            *arg4 = 0.0f;
++        }
++        return;
++    }
++    case MISSION_PLANE_CRASH_AND_BURN:
++        SteerAIPlaneToCrashAndBurn(automobile());
++        return;
++    case MISSION_HELI_CRASH_AND_BURN:
++        SteerAIHeliToCrashAndBurn(automobile());
++        return;
++    case MISSION_DO_DRIVEBY_CLOSE: {
++        // Se pone junto al objetivo, a 10 m de el hacia un lado (segun la semilla) en la perpendicular del vector hacia el
++        CVehicle* target = ap.m_TargetEntity;
++        if (!target) {
++            return;
++        }
++        const CVector targetPosition = target->GetPosition();
++        const CVector& position = vehicle->GetPosition();
++        // El vector (y objetivo - y propia, x propia - x objetivo, 0) se normaliza y se escala por 10 (con la semilla impar se invierte)
++        CVector perpendicular{store(Veh83DSub(targetPosition.y, position.y)), store(Veh83DSub(position.x, targetPosition.x)), 0.0f};
++        perpendicular.Normalise(); // 0x59C910
++        perpendicular.x = store(Veh83DMul(perpendicular.x, kTen));
++        perpendicular.y = store(Veh83DMul(perpendicular.y, kTen));
++        perpendicular.z = store(Veh83DMul(perpendicular.z, kTen));
++        if (vehicle->m_nRandomSeed & 1u) {
++            perpendicular.x = -perpendicular.x;
++            perpendicular.y = -perpendicular.y;
++            perpendicular.z = -perpendicular.z;
++        }
++        const float x = store(Veh83DAdd(perpendicular.x, targetPosition.x));
++        const float y = store(Veh83DAdd(perpendicular.y, targetPosition.y));
++        headingFor(nullptr, x, y);
++        return;
++    }
++    case MISSION_PLANE_DOG_FIGHT_ENTITY:
++        GetAIPlaneToDoDogFight(automobile());
++        return;
++    case MISSION_PLANE_DOG_FIGHT_PLAYER:
++        GetAIPlaneToDoDogFightAgainstPlayer(automobile());
++        return;
++    case MISSION_BOAT_CIRCLEPLAYER:
++        SteerAIBoatWithPhysicsCirclingPlayer(vehicle, arg2, arg3, arg4, arg5);
++        return;
++    default: // 7, 27, 28 (y los valores sin destino): nada
++        return;
++    }
+ }
+ 
+ // 0x42AAD0

@@ -8989,3 +8989,4 @@ CCarCtrl,GenerateCarCreationCoors2,0x00424210,1,0,1,S
 CCarCtrl,GenerateOneEmergencyServicesCar,0x0042B7D0,1,0,1,S
 CCarCtrl,SteerAICarWithPhysics,0x00437C20,1,0,1,S
 CCarCtrl,SteerAICarWithPhysicsFollowPath,0x00434900,1,0,1,S
+CCarCtrl,SteerAICarWithPhysics_OnlyMission,0x00436A90,1,0,1,S

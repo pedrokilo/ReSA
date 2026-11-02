@@ -544417,7 +544417,7 @@
       },
       "evidence": {
         "path": "reversing/Car84G/validation-summary.json",
-        "sha256": "eb91bb97da4aee02d622c2ab3a310d69e81715c207992cabb6c519b0d0821789",
+        "sha256": "a1eaa1037745eeb097f17dba3ef88269523b968f120a3c111dc84b40bdcc392b",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::SteerAICarWithPhysics"
@@ -544430,7 +544430,7 @@
         "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
         "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
         "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
-        "source/game_sa/CarCtrl.cpp": "2a1650734ae929fca9f02ceec2412d27e1587366b7b746bcfc9d2d806b433443",
+        "source/game_sa/CarCtrl.cpp": "e1a23f6a925017de92f9aeada1fa6cfc4997691c821504ca7c1ec5d78ed8b680",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/Car84G/LiveComparison.hpp": "e0b8c5988718be84cc766db2ff286c37ccbdb29147a3fc8d8fc9ecd2a8230bef",
@@ -544479,6 +544479,42 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD b90f378d9/abd32cf51 + cambios del lote 84H; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): CCarCtrl::StopCarIfNodesAreInvalid 0x422590, PickNextNodeAccordingStrategy 0x432B10, SteerAICarWithPhysicsHeadingForTarget 0x433280, FindAngleToWeaveThroughTraffic 0x4325C0, FindMaxSteerAngle 0x427FE0, FindMaximumSpeedForThisCarInTraffic 0x434400, FindSpeedMultiplier 0x4224E0 (cuerpo Cc63SpeedMultiplierCpp), CTrafficLights::ShouldCarStopForLight 0x49D610 y ShouldCarStopForBridge 0x49D420, CCarAI::CarHasReasonToStop 0x41C050 y FindPlayerCoors 0x56E010 (el banco compara los argumentos y el estado del vehiculo en cada llamada EN ORDEN y escribe los valores del caso). Corren de verdad, con el hook apagado (bytes del EXE frente al C++ de la DLL), CGeneral::GetATanOfXY 0x53CC70 y CCarPathLink::OneWayLaneOffset 0x44DB00, y en el EXE la resta 0x40FE60, el modulo 0x4082C0 y el producto escalar 0x40FDB0 frente a los ayudantes x87 de la DLL; ThePaths (tres areas con ocho tramos) y CTimer son las del banco. El banco compara los eventos, el estado final del vehiculo (tramos, multiplicadores, carriles, estilo, mision, accion temporal y su tiempo, crucero, destino.x, velocidad.x, subtipo, temporizador), la matriz y las cuatro salidas, sin otros cambios en las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Mutaciones del estado tras un evento (15 tipos). Fuera de los fixtures: vehiculo sin matriz, tramos o areas fuera de las tablas del banco (ids >= 8 en areas cargadas), objetivo nulo, rumbo corregido infinito o de mas de 2000 radianes (el bucle de normalizacion no terminaria), NaN con cargas distintas (las fixtures usan un unico patron) y bytes altos de los booleanos de los colaboradores.",
       "review_reference": "reversing/Car84H/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "SteerAICarWithPhysics_OnlyMission",
+        "address": "0x00436A90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Car84I/validation-summary.json",
+        "sha256": "89e5860b578f76decdcd99e62b5c93cf145a6ff4d937a3affbee765cf006aea4",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::SteerAICarWithPhysics_OnlyMission"
+        ],
+        "pairs": 18432,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
+        "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
+        "source/game_sa/CarCtrl.cpp": "e1a23f6a925017de92f9aeada1fa6cfc4997691c821504ca7c1ec5d78ed8b680",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Car84I/LiveComparison.hpp": "8fe3a11798dd246319189067772d313384420f953fb6158ecbd3ef2ee9c61fa5",
+        "reversing/Car84I/Core.hpp": "1ae5c9c1b36bcf2ca9c3eaf8734a6c059b73a566d56eef48ae3c35661880071f",
+        "reversing/Car84I/Fixtures.hpp": "9208bff01d2998575b849bf071cf6ede3d0bc4e4c4b83616caba1db7d2cafc9b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 1f02243c3 + cambios del lote 84I; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): las funciones de CCarCtrl a las que despacha (SteerAICarWithPhysicsFollowPath 0x434900, _Racing 0x435830, FollowPreRecordedPath 0x432DD0, HeadingForTarget 0x433280, TryingToBlockTarget 0x4335E0 y _Stop 0x428990, TowardsPointInEscort 0x4336D0, SteerAIBoatWithPhysics* 0x428BE0 / 0x428DE0 / 0x429090, BlockingPlayerForwardAndBack 0x422B20, ParkPerpendicular 0x433EA0, ParkParallel 0x433BA0 y 16 de aire con solo el vehiculo: 0x42A630, 0x423790, 0x42F3C0, 0x429780, 0x423000, 0x4237F0, 0x42A730, 0x42A750, 0x42AAD0, 0x42ACB0, 0x42AD30, 0x42AEB0, 0x423880, 0x4238E0, 0x429890, 0x42F370), FindPlayerCoors 0x56E010, FindPlayerVehicle 0x56E0D0, FindPlayerSpeed 0x56E090, FindPlayerEntity 0x56E120, CVehicle::PickRandomPassenger 0x6D2A10, CPed::Say 0x5EFFE0 y CVector::Normalise 0x59C910; CMatrix * CVector (0x59C890) lo llama el C++ por direccion, asi que su falso va solo en el EXE. El banco compara los argumentos y el estado del vehiculo en cada llamada EN ORDEN y escribe los valores del caso. Corren de verdad, con el hook apagado (bytes del EXE frente a los ayudantes x87 de la DLL), la resta 0x40FE60, el modulo 0x4082C0 y el producto escalar 0x40FDB0; los modelos 1..6 con su caja de colision y CTimer son los del banco. El banco compara los eventos, el estado final del vehiculo (mision, accion temporal y su tiempo, CTimer, velocidad.x, semilla, banderas, distancia de seguimiento, destino.x, posicion.x), las matrices del vehiculo y de los dos vehiculos del jugador, el objetivo y las cuatro salidas, sin otros cambios en las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Mutaciones del estado tras un evento (16 tipos). Fuera de los fixtures: vehiculo sin matriz en la mision 3, objetivo nulo salvo en la 60, indices de modelo fuera de 1..6, NaN con cargas distintas (las fixtures usan un unico patron) y bytes altos de los booleanos de los colaboradores.",
+      "review_reference": "reversing/Car84I/README.md"
     }
   ]
 }
