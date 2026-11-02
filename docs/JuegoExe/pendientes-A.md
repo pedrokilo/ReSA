@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 02/11/2026 (Ciudad de México):** 820 grupos / 9012 funciones reconstruidas; 9012 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 02/11/2026 (Ciudad de México):** 820 grupos / 9013 funciones reconstruidas; 9013 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo A: Falta: llamada desde código ya reemplazado
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-1,010 funciones, 133,748 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+1,009 funciones, 132,934 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -188,7 +188,6 @@
 | `0x004A8DD0` | 13 | FxInfoManager_c | baja | 20 (5) |  |
 | `0x00406D10` | 7 | CdStream | baja | 5 (5) |  |
 | `0x004A8DE0` | 1 | FxInfoManager_c | baja | 35 (5) |  |
-| `0x00624710` | 814 | CTaskComplexSeekCoverUntilTargetDead | baja | 4 (4) |  |
 | `0x005132D0` | 568 | CCam | alta | 4 (4) |  |
 | `0x00668D50` | 292 | CTaskComplexGoToPointAndStandStillAndAchieveHeading | alta | 4 (4) |  |
 | `0x0072D850` | 273 | CCullZones | alta | 4 (4) |  |
@@ -231,6 +230,7 @@
 | `0x00407A30` | 10 | CStreaming | alta | 4 (4) |  |
 | `0x005FFEE0` | 4 | CEntityScanner | baja | 4 (4) |  |
 | `0x0045BA90` | 1236 | CReplay | alta | 6 (3) |  |
+| `0x0061D6F0` | 993 | CTaskSimpleFight | baja | 3 (3) |  |
 | `0x0045B730` | 857 | CReplay | alta | 6 (3) |  |
 | `0x0045DEF0` | 763 | CReplay | alta | 3 (3) |  |
 | `0x006A3BD0` | 646 | CAutomobile | alta | 3 (3) |  |
@@ -442,7 +442,6 @@
 | `0x0055EB90` | 1814 | SurfaceInfos_c | alta | 1 (1) |  |
 | `0x00623B10` | 1394 | CTaskComplexSeekCoverUntilTargetDead | baja | 1 (1) |  |
 | `0x006060A0` | 1232 | CPedIntelligencePool | baja | 1 (1) |  |
-| `0x0061D6F0` | 993 | CTaskSimpleFight | baja | 3 (1) |  |
 | `0x004D1680` | 971 | RpAnimBlend | alta | 2 (1) |  |
 | `0x0074F760` | 923 | Win | baja | 1 (1) |  |
 | `0x004D2450` | 910 | RpAnimBlend | alta | 1 (1) |  |

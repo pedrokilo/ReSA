@@ -17720,3 +17720,22 @@ __declspec(noinline) double __cdecl Car84DCos(double angle) {
     return std::cos(angle);
 }
 #pragma float_control(pop)
+
+// --- Lote 85G (Fn85G): CTaskSimpleFight::ChooseAttackPlayer (0x624710), prefijo Fn85G. Anadido al FINAL ---
+// fpatan(-dx, dy) con dx y dy en el registro x87 (ya redondeados a 24 bits, desnormales de float incluidos: pasarlos como float con FTZ activo los dejaria en cero), sin redondear.
+#pragma float_control(precise, on, push)
+__declspec(noinline) double __cdecl Fn85GAtanNegXY(double dx, double dy) {
+    return std::atan2(-dx, dy);
+}
+// fstp dword del registro x87: la zona desnormal se redondea una sola vez. La escala por 2^149 se hace con ldexp (exacta): multiplicar con la x87 a 24 bits redondearia antes el producto a 24 bits y
+// un valor cercano a medio entero acabaria en el vecino par (Veh83BStore, con `value * 0x1p149`, tiene ese defecto).
+__declspec(noinline) float __cdecl Fn85GStore(double value) {
+    const double magnitude = std::fabs(value);
+    if (magnitude != 0.0 && magnitude < 1.1754943508222875e-38) {
+        const double scaled = std::nearbyint(std::ldexp(value, 149));
+        const uint32_t bits = static_cast<uint32_t>(std::fabs(scaled)) | (std::signbit(value) ? 0x80000000u : 0u);
+        return std::bit_cast<float>(bits);
+    }
+    return float(value);
+}
+#pragma float_control(pop)

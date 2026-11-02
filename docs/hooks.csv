@@ -8628,6 +8628,7 @@ CTaskSimpleFight,FightHitCar,0x0061D0B0,1,0,1,S
 CTaskSimpleFight,FightStrike,0x006240B0,1,0,1,S
 CTaskSimpleFight,BeHitWhileBlocking,0x0061C650,1,0,1,S
 CTaskSimpleFight,ChooseAttackAI,0x00624A40,1,0,1,S
+CTaskSimpleFight,ChooseAttackPlayer,0x00624710,1,0,1,S
 CTaskSimpleFight,GetAvailableComboSet,0x0061C7F0,1,0,1,S
 CTaskSimpleFight,FindTargetOnGround,0x0061C9B0,1,0,1,S
 CTaskSimpleGangDriveBy,AITarget,0x00627600,1,0,1,S

@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskSimpleFight
- * Reconstrucción: COMPLETA — 19/19 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 20/20 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 19/19 entradas.
+ * Validación registrada: 20/20 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -364,10 +364,6 @@ const uint8* FightComboRow(int32 combo) {
 }
 
 // Colaboradores sin reconstruir (todos thiscall; el valor de AL/AX es el que leen los llamadores).
-// 0x624710 (ret 4): ataque del jugador; devuelve AX.
-int16 FightChooseAttackPlayerExe(CTaskSimpleFight* task, CPed* ped) {
-    return plugin::CallMethodAndReturn<int16, 0x624710, CTaskSimpleFight*, CPed*>(task, ped);
-}
 // 0x61D6F0 (ret 4): el objetivo esta al alcance del ataque (sin reconstruir); devuelve AL.
 bool FightTargetInReachExe(CTaskSimpleFight* task, CPed* ped) {
     return plugin::CallMethodAndReturn<bool, 0x61D6F0, CTaskSimpleFight*, CPed*>(task, ped);
@@ -668,7 +664,7 @@ bool CTaskSimpleFight::ProcessPed(CPed* ped) {
                 if (next >= 3 && next <= 6) {
                     FindTargetOnGround(ped);
                 } else {
-                    FightStartAnimExe(this, ped, FightChooseAttackPlayerExe(this, ped));
+                    FightStartAnimExe(this, ped, ChooseAttackPlayer(ped));
                 }
             } else {
                 FightStartAnimExe(this, ped, ChooseAttackAI(ped));
@@ -765,12 +761,12 @@ bool CTaskSimpleFight::ProcessPed(CPed* ped) {
                         if (current == 0 || current == 1) { // 0x629FC4
                             m_nComboSet = GetAvailableComboSet(ped, static_cast<uint8>(next));
                             if (ped->IsPlayer()) {
-                                FightStartAnimExe(this, ped, FightChooseAttackPlayerExe(this, ped));
+                                FightStartAnimExe(this, ped, ChooseAttackPlayer(ped));
                             } else {
                                 FightStartAnimExe(this, ped, static_cast<int8>(m_nCurrentMove) + 1);
                             }
                         } else if (current == 3) {
-                            if (ped->IsPlayer() && FightChooseAttackPlayerExe(this, ped) == 3) {
+                            if (ped->IsPlayer() && ChooseAttackPlayer(ped) == 3) {
                                 FightStartAnimExe(this, ped, 3);
                             }
                         } else if (current == 4) {
@@ -779,7 +775,7 @@ bool CTaskSimpleFight::ProcessPed(CPed* ped) {
                             } else {
                                 m_nComboSet = GetAvailableComboSet(ped, m_nNextCommand);
                                 if (ped->IsPlayer()) {
-                                    FightStartAnimExe(this, ped, FightChooseAttackPlayerExe(this, ped));
+                                    FightStartAnimExe(this, ped, ChooseAttackPlayer(ped));
                                 } else {
                                     FightStartAnimExe(this, ped, static_cast<int8>(m_nCurrentMove) + 1);
                                 }
@@ -1177,6 +1173,114 @@ int16 CTaskSimpleFight::ChooseAttackAI(CPed* ped) {
     return 0;
 }
 
+#pragma float_control(push)
+#pragma float_control(precise, on) // comparaciones ordenadas (un NaN no cumple ninguna) y ayudantes x87 a 24 bits: no admiten /fp:fast
+// 0x624710 (thiscall, ret 4; devuelve AX): ataque del jugador. Banderas del combo activo = byte +0x84 de su fila de la tabla (sin acotar), que con combos 5..7 se enmascara con el byte +0x72E del ped.
+// "Ataque" empieza en -1, o en 1 salvo que el comando siguiente (con signo) sea 0xB..0xE con combo >= 4. Con -1 se decide segun la animacion de golpe (+0x1C) y el movimiento actual (+0x25):
+//  - con animacion y movimiento distinto de 3 y 4: el ped pasa a PEDMOVE_STILL (0x5DEC00) y el tope es 2 con la bandera 2, 1 con la 1, si no 0. Si el objetivo esta al alcance (0x61D6F0) queda -1. Si no, con
+//    comando siguiente distinto del ultimo y contador de cadena (+0x15, con signo) no mayor que el limite (0x8D2E48) el contador sube y el ataque sale de la paridad de (movimiento - ultimo + siguiente): bit 0 -> 0,
+//    bit 1 -> 1, si no 2, y se anula (0) si supera el tope; en los demas casos el ataque es movimiento + 1, o -1 si supera el tope;
+//  - sin animacion o con movimiento 3 o 4: si el ped corre (estado de movimiento > 4) la bandera 8 ausente pone el combo a 4 y el ataque es 4; si no, sin objetivo al alcance el contador de cadena se
+//    pone a 0 y el ataque a 0; con objetivo al alcance sale ya: -1 si hay animacion y el siguiente difiere del ultimo, si no el combo pasa a 4 (sin bandera 4, o con un objetivo ped con la bandera 0x4000000
+//    en +0x46C) y devuelve 3.
+// Si el ataque no ha salido ya y NO hay objetivo, busca entre los 16 peds cercanos (+0x47C -> +0x130) el vivo (0x5E0170) a menos de 2.0 (distancia cuadrada < 4.0 con la suma ((dz^2 + dy^2) + dx^2) a 24 bits)
+// cuyo rumbo fpatan(-dx, dy) (sin redondear) menos el rumbo actual (+0x558, un redondeo a 24 bits; una vuelta de +-2pi si cae fuera de [-pi, pi]) tenga el menor valor absoluto (estricto): si hay uno, su rumbo
+// se guarda como float en +0x55C. Devuelve AX = ataque.
+int16 CTaskSimpleFight::ChooseAttackPlayer(CPed* ped) {
+    constexpr uintptr_t FightChainLimit = 0x8D2E48; // int32 = 2
+    const bool noTarget = m_pTargetEntity == nullptr;
+    int16      attack   = -1;
+    {
+        const int8 next = static_cast<int8>(m_nNextCommand);
+        if (!(next >= 0xB && next <= 0xE && m_nComboSet >= 4)) {
+            attack = 1;
+        }
+    }
+    const int8 combo = m_nComboSet;
+    uint8      flags = *(FightComboRow(combo) + 0x84);
+    if (combo > 4 && combo <= 7) {
+        flags &= *(reinterpret_cast<const uint8*>(ped) + 0x72E);
+    }
+
+    if (attack < 0) {
+        const int8 moveBefore = static_cast<int8>(m_nCurrentMove);
+        if (m_pAnim && moveBefore != 3 && moveBefore != 4) {
+            ped->SetMoveState(PEDMOVE_STILL); // 0x5DEC00 (1)
+            const int16 cap = (flags & 2) ? 2 : ((flags & 1) ? 1 : 0);
+            if (FightTargetInReachExe(this, ped)) {
+                attack = -1;
+            } else if (m_nNextCommand != m_nLastCommand && !(static_cast<int32>(m_nChainCounter) > *reinterpret_cast<const int32*>(FightChainLimit))) {
+                ++m_nChainCounter;
+                const uint8 low = static_cast<uint8>(static_cast<int8>(m_nCurrentMove) - static_cast<int8>(m_nLastCommand) + static_cast<int8>(m_nNextCommand)); // el movimiento se relee tras la llamada
+                const int16 candidate = (low & 1) ? 0 : ((low & 2) ? 1 : 2);
+                attack = candidate > cap ? 0 : candidate;
+            } else {
+                const int16 following = static_cast<int16>(static_cast<int8>(m_nCurrentMove) + 1);
+                attack = following > cap ? -1 : following;
+            }
+        } else if (static_cast<int32>(ped->m_nMoveState) > 4) {
+            if (!(flags & 8)) {
+                m_nComboSet = 4;
+            }
+            attack = 4;
+        } else if (!FightTargetInReachExe(this, ped)) {
+            m_nChainCounter = 0;
+            attack = 0;
+        } else {
+            if (m_pAnim && m_nNextCommand != m_nLastCommand) {
+                return -1;
+            }
+            const uint8* const target = reinterpret_cast<const uint8*>(m_pTargetEntity);
+            if (!(flags & 4) || (target && (target[0x36] & 7) == 3 && (*reinterpret_cast<const uint32*>(target + 0x46C) & 0x4000000u))) {
+                m_nComboSet = 4;
+            }
+            return 3;
+        }
+    }
+    if (!noTarget) {
+        return attack;
+    }
+
+    constexpr double pi    = static_cast<double>(std::bit_cast<float>(0x40490FDBu)); // 0x858CB8
+    constexpr double twoPi = static_cast<double>(std::bit_cast<float>(0x40C90FDBu)); // 0x858CBC
+    constexpr double minusPi = static_cast<double>(std::bit_cast<float>(0xC0490FDBu)); // 0x858CC0
+    const double limitSquared = Veh83DMul(static_cast<double>(std::bit_cast<float>(0x40000000u)), static_cast<double>(std::bit_cast<float>(0x40000000u))); // 2.0f * 2.0f (0x8D2E8C)
+    CEntity* const* const nearby = ped->GetIntelligence()->GetPedEntities();
+    float bestDiff  = std::bit_cast<float>(0x447A0000u); // 1000.0f
+    float bestAngle = std::bit_cast<float>(0xC47A0000u); // -1000.0f
+    for (int32 i = 0; i < 16; ++i) {
+        CPed* const listed = static_cast<CPed*>(nearby[i]);
+        if (!listed || !listed->IsAlive()) { // 0x5E0170
+            continue;
+        }
+        CPed* const other = static_cast<CPed*>(nearby[i]); // el EXE relee el elemento de la lista tras la llamada
+        const float* const self = &FightPositionOf(ped)->x;
+        const float* const pos  = &FightPositionOf(other)->x;
+        if (!(limitSquared > Veh83CDistSq(pos, self))) {
+            continue;
+        }
+        const double dy    = Veh83DSub(pos[1], self[1]);
+        const double dx    = Veh83DSub(pos[0], self[0]);
+        const double angle = Fn85GAtanNegXY(dx, dy); // fpatan(-dx, dy) sin redondear
+        double diff = Veh83DSub(angle, static_cast<double>(ped->m_fCurrentRotation));
+        if (diff > pi) {
+            diff = Veh83DSub(diff, twoPi);
+        } else if (diff < minusPi) {
+            diff = Veh83DAdd(diff, twoPi);
+        }
+        diff = std::fabs(diff);
+        if (diff < static_cast<double>(bestDiff)) {
+            bestDiff  = Fn85GStore(diff);
+            bestAngle = Fn85GStore(angle);
+        }
+    }
+    if (bestAngle > std::bit_cast<float>(0xC1200000u)) { // -10.0f (0x859004)
+        ped->m_fAimingRotation = bestAngle;
+    }
+    return attack;
+}
+#pragma float_control(pop)
+
 // 0x61CBA0 (ret 0x14): golpe de `creator` contra `victim` (un ped). Devuelve la victima si GenerateDamageEvent la dano, si no null. Orden de llamadas, relecturas de memoria y x87 como el EXE.
 // Si la victima es el jugador y su tarea activa es la 0xCD, sale sin hacer nada (el EXE llama a GetTaskType sin comprobar nulo). Si la victima esta peleando y BeHitWhileBlocking (0x61C650) lo da por
 // bloqueado, solo suena el golpe bloqueado (-9.0f) y sale con null. `component` se lee como int16 (movsx word); `posn2` no se lee (el EXE no lo usa).
@@ -1466,6 +1570,7 @@ void CTaskSimpleFight::InjectHooks() {
     RH_ScopedInstall(FindTargetOnGround, 0x61C9B0);
     RH_ScopedInstall(BeHitWhileBlocking, 0x61C650);
     RH_ScopedInstall(ChooseAttackAI, 0x624A40);
+    RH_ScopedInstall(ChooseAttackPlayer, 0x624710);
     RH_ScopedInstall(LoadMeleeData, 0x5BEDC0);
     RH_ScopedVMTInstall(MakeAbortable, 0x6239F0);
     RH_ScopedVMTInstall(ProcessPed, 0x629920);

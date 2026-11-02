@@ -2184,3 +2184,7 @@ bool __cdecl Car84BConsiderLinkCpp(float x, float y, float heading, float* best)
 // Lote 84D: CCarCtrl::DragCarToPoint (0x42EC90): atan(x) (fpatan con 1.0) y cos(angulo) sin redondear a 24 bits
 double __cdecl Car84DAtan(double value);
 double __cdecl Car84DCos(double angle);
+
+// Lote 85G: CTaskSimpleFight::ChooseAttackPlayer (0x624710): fpatan(-dx, dy) sobre el registro x87, sin redondear
+double __cdecl Fn85GAtanNegXY(double dx, double dy);
+float __cdecl Fn85GStore(double value);                                 // fstp dword (zona desnormal exacta)

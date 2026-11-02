@@ -533882,7 +533882,7 @@
       },
       "evidence": {
         "path": "reversing/FightProcessPed31/validation-summary.json",
-        "sha256": "d612afb886e79e7a241b52905d15e3a166137f0b15d4c397941a3668fba2b3f9",
+        "sha256": "934a6f4930a52a205a3e1632c8a5f354118ac0b1ab51c860ec21a664d7551c9d",
         "passed_path": [
           "covered_functions",
           "CTaskSimpleFight::ProcessPed"
@@ -533894,8 +533894,8 @@
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
         "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "be2829a69acec835cb4207036ab57b5df33a3ac5b6d2021399a50d947965255b",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "1ea983d315c8574b444b589f3a48ad70fdbc9fbb45a820c60425ccd94836beac",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "850389ac3b605a4e6d7e90264b86dc412be8cda4ad3f1b4bacc77d522ade1858",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "61476c61ac71e1b0cd0212743ca371798c1ef5687782c87ebe21798442a4c719",
         "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069",
         "source/game_sa/Tasks/Task.h": "51a2ee3921064aa40d05646bae5598d58e4884322a248999bea84a5cc8bac0e8",
         "source/game_sa/Animation/AnimBlendAssociation.cpp": "48d69096df4497e826e3afa52fbd856fa1d122d6e6349521f6dda121551956b6",
@@ -533916,10 +533916,10 @@
         "source/game_sa/Audio/Entities/AEPedAudioEntity.h": "36ff93c3997768edf488fa60d956c4fd0cba35c399420a0541171f3fc0d5ad9c",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
         "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
-        "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
-        "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
+        "source/game_sa/X87Math.cpp": "7f2b0ed0729bed4ad65d0cb20a9cc45ea053cbc5dc3fda5eafa4e777c2578e49",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/FightProcessPed31/LiveComparison.hpp": "fcff85f033d8ea9be54bbaaf7784f33a25f594fa402f3e7098b50f75e7eaee2d",
+        "reversing/FightProcessPed31/LiveComparison.hpp": "b84ea3b39ee948d82c8e648398f0661e986b6f53167a070e0564c89de896e5bb",
         "reversing/FightProcessPed31/Core.hpp": "0554594d27c79a54db82ddee62aed85d18be9a73030f135775780bb689a6f631",
         "reversing/FightProcessPed31/Fixtures.hpp": "bb6fe295785d06f61a61554306f18ffd06c24b0be4e76ca98a7d756f339c2cb8",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -545289,6 +545289,42 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado durante el banco): RpAnimBlendClumpGetAssociation(clump, id) 0x4D68B0 y CAnimManager::AddAnimation(clump, grupo, id) 0x4D3AA0. Registran sus argumentos en orden y devuelven asociaciones de arenas propias (las cuatro existentes o nulas segun el caso; las nuevas de AddAnimation). La aritmetica del movimiento (cuadrados, suma, raiz, cociente, productos y guardado a float, x87 a 24 bits) corre de verdad en ambos lados. Con mutaciones de una lectura (comando siguiente y combo tras la asociacion 0x29, datos del jugador tras la 0x2C, clump y floats tras la primera AddAnimation). El banco compara los eventos de los falsos con todos sus argumentos, los bytes cambiados de las arenas (tarea, ped, datos del jugador, asociaciones existentes y nuevas) y el puntero de datos del jugador; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: NaN con cargas distintas de 0xFFC00000, ped sin datos de jugador (+0x480 nulo), AddAnimation que devuelva nulo y asociaciones con basura en otros campos que los dos escritos.",
       "review_reference": "reversing/Fn85F/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleFight",
+        "fn_name": "ChooseAttackPlayer",
+        "address": "0x00624710",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn85G/validation-summary.json",
+        "sha256": "81ad87ff7fd571247af354b6e5549345aa19e88faa660538694085be0bc194f7",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimpleFight::ChooseAttackPlayer"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/X87Math.cpp": "7f2b0ed0729bed4ad65d0cb20a9cc45ea053cbc5dc3fda5eafa4e777c2578e49",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "850389ac3b605a4e6d7e90264b86dc412be8cda4ad3f1b4bacc77d522ade1858",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "61476c61ac71e1b0cd0212743ca371798c1ef5687782c87ebe21798442a4c719",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn85G/LiveComparison.hpp": "4df56947f15f760d703351f1b8447de0caf16e66ba912d24e3ada8a5f56710f6",
+        "reversing/Fn85G/Core.hpp": "4c1c7caf1bf9da45236f68bd28626f1e9e8da7860d99f17b77187e29acfce34c",
+        "reversing/Fn85G/Fixtures.hpp": "68b5ea76e4c4f5a8fa0ac0e4fdfe6439f009b7b2e4ef9f8fce1a63e76a3c5a1c",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado durante el banco): CPed::SetMoveState 0x5DEC00 y CPed::IsAlive 0x5E0170; CTaskSimpleFight::TargetInReach 0x61D6F0 (sin reconstruir) solo en la direccion del EXE, porque la DLL lo llama por ella. Registran sus argumentos en orden. La aritmetica del rumbo (distancia cuadrada, restas, fpatan, vuelta de 2pi y comparaciones, x87 a 24 bits) corre de verdad en ambos lados y las filas de la tabla de combos son memoria real del juego (se rellenan las banderas de los combos 0..16 y se restauran). Con mutaciones de una lectura (siguiente, ultimo, movimiento y animacion tras 0x61D6F0; tipo y banderas del objetivo; bandera del combo y byte +0x72E tras 0x5DEC00; posicion, rumbo del ped y lista de peds cercanos tras 0x5E0170). El banco compara los eventos de los falsos con todos sus argumentos, el valor devuelto (AX) y los bytes cambiados de la tarea, el ped y el objetivo; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits y fpatan de 90 digitos). Fuera de los fixtures: combos fuera de 0..16, NaN con cargas distintas de 0xFFC00000, bytes altos de los booleanos de los colaboradores, ped sin inteligencia (+0x47C nulo), elementos de la lista que pasen a nulos tras su consulta y el movimiento del ped (+0x534) cambiado por un colaborador.",
+      "review_reference": "reversing/Fn85G/README.md"
     }
   ]
 }

@@ -14421,5 +14421,19 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn85F con 16384 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado durante el banco): RpAnimBlendClumpGetAssociation(clump, id) 0x4D68B0 y CAnimManager::AddAnimation(clump, grupo, id) 0x4D3AA0. Registran sus argumentos en orden y devuelven asociaciones de arenas propias (las cuatro existentes o nulas segun el caso; las nuevas de AddAnimation). La aritmetica del movimiento (cuadrados, suma, raiz, cociente, productos y guardado a float, x87 a 24 bits) corre de verdad en ambos lados. Con mutaciones de una lectura (comando siguiente y combo tras la asociacion 0x29, datos del jugador tras la 0x2C, clump y floats tras la primera AddAnimation). El banco compara los eventos de los falsos con todos sus argumentos, los bytes cambiados de las arenas (tarea, ped, datos del jugador, asociaciones existentes y nuevas) y el puntero de datos del jugador; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: NaN con cargas distintas de 0xFFC00000, ped sin datos de jugador (+0x480 nulo), AddAnimation que devuelva nulo y asociaciones con basura en otros campos que los dos escritos."
+  },
+  "0x00624710": {
+    "identity": "CTaskSimpleFight::ChooseAttackPlayer",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp",
+    "bank": "Fn85G",
+    "run": "20261102-172838-350037",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn85G-20261102-172838-350037/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn85G con 16384 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado durante el banco): CPed::SetMoveState 0x5DEC00 y CPed::IsAlive 0x5E0170; CTaskSimpleFight::TargetInReach 0x61D6F0 (sin reconstruir) solo en la direccion del EXE, porque la DLL lo llama por ella. Registran sus argumentos en orden. La aritmetica del rumbo (distancia cuadrada, restas, fpatan, vuelta de 2pi y comparaciones, x87 a 24 bits) corre de verdad en ambos lados y las filas de la tabla de combos son memoria real del juego (se rellenan las banderas de los combos 0..16 y se restauran). Con mutaciones de una lectura (siguiente, ultimo, movimiento y animacion tras 0x61D6F0; tipo y banderas del objetivo; bandera del combo y byte +0x72E tras 0x5DEC00; posicion, rumbo del ped y lista de peds cercanos tras 0x5E0170). El banco compara los eventos de los falsos con todos sus argumentos, el valor devuelto (AX) y los bytes cambiados de la tarea, el ped y el objetivo; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits y fpatan de 90 digitos). Fuera de los fixtures: combos fuera de 0..16, NaN con cargas distintas de 0xFFC00000, bytes altos de los booleanos de los colaboradores, ped sin inteligencia (+0x47C nulo), elementos de la lista que pasen a nulos tras su consulta y el movimiento del ped (+0x534) cambiado por un colaborador."
   }
 }
