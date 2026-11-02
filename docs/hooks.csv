@@ -8992,3 +8992,4 @@ CCarCtrl,SteerAICarWithPhysicsFollowPath,0x00434900,1,0,1,S
 CCarCtrl,SteerAICarWithPhysicsFollowPath_Racing,0x00435830,1,0,1,S
 CCarCtrl,SteerAICarWithPhysics_OnlyMission,0x00436A90,1,0,1,S
 CCarCtrl,GenerateEmergencyServicesCar,0x0042F9C0,1,0,1,S
+CCarCtrl,GenerateOneRandomCar,0x00430050,1,0,1,S

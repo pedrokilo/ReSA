@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CCarCtrl
- * Reconstrucción: COMPLETA — 110/110 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 111/111 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 110/110 entradas.
+ * Validación registrada: 111/111 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -158,6 +158,8 @@ void CCarCtrl::InjectHooks()
     RH_ScopedInstall(GenerateCarCreationCoors2, 0x424210);
     // Lote 84K
     RH_ScopedInstall(GenerateEmergencyServicesCar, 0x42F9C0);
+    // Lote 84L
+    RH_ScopedInstall(GenerateOneRandomCar, 0x430050);
     // Lote 63 (parte C, tanda 5)
     RH_ScopedInstall(ChooseModel, 0x424CE0);
     // Lote 63 (parte C, tanda 6)
@@ -2209,9 +2211,28 @@ CAutomobile* CCarCtrl::GenerateOneEmergencyServicesCar(uint32 modelId, CVector p
     return car;
 }
 
+namespace {
+namespace RandomCarLift {
+template<class T> inline T Ld(uintptr_t address) { T v; memcpy(&v, reinterpret_cast<const void*>(address), sizeof(T)); return v; }
+template<class T> inline void St(uintptr_t address, T v) { memcpy(reinterpret_cast<void*>(address), &v, sizeof(T)); }
+template<class T> inline T Ld(const uint8* address) { T v; memcpy(&v, address, sizeof(T)); return v; }
+template<class T> inline void St(uint8* address, T v) { memcpy(address, &v, sizeof(T)); }
+inline float F32(uint32 bits) { return std::bit_cast<float>(bits); }
+inline bool Parity(uint32 v) { v &= 0xFF; v ^= v >> 4; v ^= v >> 2; v ^= v >> 1; return !(v & 1); }
+// fcom/fcomp: C3/C2/C0 como los deja `fnstsw ax` en AH (mayor 0, menor 0x01, igual 0x40, no ordenado 0x45)
+inline uint8 X87Compare(double a, double b) { return (a != a || b != b) ? 0x45 : (a > b ? 0 : (a < b ? 0x01 : 0x40)); }
+}
+}
+
 // 0x430050
 void CCarCtrl::GenerateOneRandomCar() {
-    plugin::Call<0x430050>();
+    using namespace RandomCarLift;
+    alignas(16) uint8 F[0x300]{};
+    uint32 eax{}, ecx{}, edx{}, ebx{}, esi{}, edi{}, ebp{};
+    double x0{}, x1{}, x2{}, x3{}, x4{}, x5{}, x6{}, x7{};
+    bool zf{}, sf{}, cf{}, of{}, pf{};
+    uint8 fcc{};
+#include "CarCtrlGenerateOneRandomCar.inl"
 }
 
 // 0x4341C0

@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "pairs": 18432,
+  "differences": 0,
+  "registered_pairs": 18432,
+  "registered_functions": 1,
+  "functions": {
+    "CCarCtrl::GenerateOneRandomCar": 18432
+  },
+  "covered_functions": {
+    "CCarCtrl::GenerateOneRandomCar": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). La funcion de la DLL es una TRANSCRIPCION MECANICA del desensamblado del EXE (reversing/Car84L/tools/lift.py: registros enteros como variables, marco de pila F, pila x87 como variables double con los ayudantes Veh83D*, saltos como goto), no una reconstruccion legible; no hay oraculo independiente: su unica comprobacion es la igualdad exacta con el EXE. La DLL llama a los colaboradores por su direccion del EXE. Colaboradores sustituidos por falsos identicos en los dos lados (con su hook RH apagado; no se valida su cuerpo; 40 falsos, ver LiveComparison.hpp): jugador (FindPlayerCentreOfWorld, FindPlayerCoors, FindPlayerWanted, FindPlayerVehicle, FindPlayerPed, GetWantedLevel), eleccion de modelos (ChooseModel, ChoosePoliceCarModel, PickLeastUsedModel, RequestModel), GenerateCarCreationCoors2, FindObjectsKindaColliding, ProcessVerticalLine, GetWaterLevel, GetZoneInfo, GetNewVehicleDependingOnCarModel, CWorld::Add, PickNextNodeRandomly, CreatePoliceChase, CreateConvoy, SetUpDriverAndPassengersForVehicle y el resto (ver el README del banco) y las dos entradas virtuales del vehiculo (destructor y GetHeightAboveRoad). Corren de verdad, con el hook apagado (bytes del EXE en los dos lados): srand/rand/_ftol2, GetRandomNumberInRange (int y float), aritmetica de vectores, posicion de nodos y tramos, 0x43C710, 0x43C900 y 0x44DB00; ThePaths (tres areas con ocho tramos, ocho nodos y cuarenta enlaces de nodo y de navegacion) y la tabla de modelos son los del banco. El banco compara los eventos de los falsos EN ORDEN con sus argumentos y la huella del vehiculo en cada llamada, las escrituras en las arenas del vehiculo, la matriz, el conductor y las informaciones de modelo, y las globales; cobertura por sitio de llamada del EXE (63 sitios; tres de ellos con minimos menores por depender de sorteos encadenados, ver coverage.json). Prueba negativa: cinco mutaciones del codigo de produccion hacen fallar 14288 de 18432 pares. Fuera de los fixtures: nodos con cuenta de enlaces 0 (el EXE divide por cero), nodos cuyos enlaces son todos iguales (bucle sin fin del EXE), areas o tramos sin cargar, modelos fuera de los 28 del banco, vehiculo sin matriz, NaN con cargas distintas (las fixtures usan un unico patron), lecturas de pila sin inicializar, y bytes altos de los booleanos de los colaboradores.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Car84L-20261102-044204-119040",
+  "summary_sha256": "be1108ad33d11780d4515356007a0e9a7f51acff52e54b72ee4b9d795177696b",
+  "result_txt_sha256": "67eab0c4858b5b03fab9e8916997aee859663d30cc14a8ff3e574b9f4fb9665b",
+  "log_sha256": "11850b696f576fcf425ee1d06cfc88880ab8dd6d3a4124172a07b5d781655f7d",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "cdfe73b26a45a849e5aea00d951c4a1d382637013ca39a345248f82f3eb300ea",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
+      "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
+      "source/game_sa/CarCtrl.cpp": "fccd720e9dd8f1b0934a8570e567ba9ef77a9e8017d404ffaca8a4c1d228b028",
+      "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+      "source/game_sa/CarCtrlGenerateOneRandomCar.inl": "1c5e396262c06de49e79fc84b7ad2ed3348005a9798357d3edd7b3e693ce7715",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Car84L/LiveComparison.hpp": "dd8bf304aa1a2b0c657cc9c0c840c0bbacba150a17c96721e8f179d5c27bb4a7",
+      "reversing/Car84L/Core.hpp": "ecdd869952d3b6852a7f612051391932e339a4898085efee8c5d077a765b6e10",
+      "reversing/Car84L/Fixtures.hpp": "dc0ca4ffe2eded4f360f44a7b74f776f8e4127d0cad30578e08cb4d75ffc0e25",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}
