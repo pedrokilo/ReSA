@@ -544296,6 +544296,42 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 89afb3901 + cambios del lote 84D; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): CCollision::ProcessLineSphere 0x412AA0, CCollision::IsStoredPolyStillValidVerticalLine 0x414D70, CWorld::ProcessVerticalLine 0x5674E0, CrossProduct 0x59C730 y CVehicle::UpdateLightingFromStoredPolys 0x6D0CC0 (el banco compara todos sus argumentos EN ORDEN, con el byte +0x3E1 y las banderas del vehiculo en ese instante, y escribe los valores del caso) y el virtual GetHeightAboveRoad (vtabla +0xD4) con una vtabla falsa compartida. Corren de verdad la matriz del vehiculo, su informacion de modelo y su caja de colision (arenas enlazadas desde CModelInfo::ms_modelInfoPtrs, restauradas) y las constantes de .rdata. El banco compara los eventos, las banderas y el byte +0x3E1 del vehiculo, la entidad y los suelos guardados, el volante, las dos matrices y las banderas de las dos entidades, sin otros cambios en las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Mutaciones del estado tras un evento (9 tipos). Fuera de los fixtures: vehiculo sin matriz (el EXE falla), suelos infinitos o enormes con medio largo finito distinto de cero y medio largo pequeno distinto de cero (alli el cos de la x87 y el de la DLL difieren por la precision del angulo), NaN con cargas distintas (las fixtures usan un unico patron), indice de modelo negativo o fuera de CModelInfo::ms_modelInfoPtrs y bytes altos de los booleanos pasados a ProcessVerticalLine.",
       "review_reference": "reversing/Car84D/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "GenerateCarCreationCoors2",
+        "address": "0x00424210",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Car84E/validation-summary.json",
+        "sha256": "af8546555a9cb9efc6c2d20b141e5be48deae6ba815e4304fd1aa4e8e5fb8624",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::GenerateCarCreationCoors2"
+        ],
+        "pairs": 18432,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
+        "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
+        "source/game_sa/CarCtrl.cpp": "a918597dc09d13d7019fff69b4414566ed3328078000ed93faecaa9f85f588a1",
+        "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Car84E/LiveComparison.hpp": "9ea911f1727a151477ea690df80fee7770dbc52e475ca7e36e4c2fe8e3bc32fc",
+        "reversing/Car84E/Core.hpp": "3d8011848a17a60b4369abc31f419028dfcce10bdf78dc9172610aedbee1179c",
+        "reversing/Car84E/Fixtures.hpp": "a1fa43d7ff4bee8e6343de2adc4c725ec56efee073e161d9da2773636e7633f1",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 687b8e56c + cambios del lote 84E; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): CPathFind::Find2NodesForCarCreation 0x452090 (sin hook en la DLL, que lo llama por direccion), CPathFind::FindNodeClosestToCoors 0x44F460, CCamera::IsSphereVisible 0x420D40 y CPathFind::ThisNodeWillLeadIntoADeadEnd 0x44D310 (el banco compara todos sus argumentos EN ORDEN y devuelve o escribe los valores del caso; pueden mutar el mundo de caminos, una estatica, el reloj o el punto de salida tras un evento, 7 tipos). Corren de verdad, con el hook apagado, CPathNode::GetPosition 0x420A10 (bytes del EXE frente al C++ de la DLL), CCarPathLink::GetNodeCoors 0x420A60, srand/rand y sprintf del CRT del EXE (semilla fijada por lado) y las constantes de .rdata; el mundo de caminos son arenas del banco enlazadas desde ThePaths (cuatro tablas por area, restauradas). El banco compara los eventos de los falsos, el valor devuelto, el punto de salida, los dos nodos y la fraccion, las estaticas del EXE (guarda, proxima actualizacion, ultimo punto, nodos guardados, secuencia), la bandera 0xC0FCB5, gString, las tablas del mundo, el reloj y la semilla de rand(); cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: nodos con 0 enlaces (el EXE divide por cero), numeros de nodo o de enlace de carretera fuera de las arenas, areas de nodo ajenas a las ranuras, base de enlaces fuera de 0..7, el nodo guardado cuyo area propia (+0x12) no esta cargada, el limite de 30 nodos del recorrido (la red del banco tiene 12 nodos, no se alcanza), NaN con cargas distintas (las fixtures usan un unico patron) y los bytes altos de los booleanos de la pila.",
+      "review_reference": "reversing/Car84E/README.md"
     }
   ]
 }

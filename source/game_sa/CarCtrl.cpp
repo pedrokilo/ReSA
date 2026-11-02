@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CCarCtrl
- * Reconstrucción: COMPLETA — 103/103 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 104/104 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 103/103 entradas.
+ * Validación registrada: 104/104 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -150,6 +150,8 @@ void CCarCtrl::InjectHooks()
     RH_ScopedInstall(PickNextNodeToFollowPath, 0x427740);
     // Lote 84D
     RH_ScopedInstall(DragCarToPoint, 0x42EC90);
+    // Lote 84E
+    RH_ScopedInstall(GenerateCarCreationCoors2, 0x424210);
     // Lote 63 (parte C, tanda 5)
     RH_ScopedInstall(ChooseModel, 0x424CE0);
     // Lote 63 (parte C, tanda 6)
@@ -1699,9 +1701,263 @@ void CCarCtrl::FlyAIPlaneInCertainDirection(CPlane* pPlane) {
     }
 }
 
+// 0x452090 (CPathFind::Find2NodesForCarCreation, thiscall, `ret 0x18`) sin reconstruir: se llama por direccion
+static void CarCtrlGc2Find2Nodes(const CVector& pos, CNodeAddress* first, CNodeAddress* second, bool lowTraffic) {
+    reinterpret_cast<void(__thiscall*)(CPathFind*, CVector, CNodeAddress*, CNodeAddress*, bool)>(0x452090)(&ThePaths, pos, first, second, lowTraffic);
+}
+
 // 0x424210
 bool CCarCtrl::GenerateCarCreationCoors2(CVector posn, float radius, float arg3, float arg4, bool arg5, float arg6, float arg7, CVector* pOrigin, CNodeAddress* pNodeAddress1, CNodeAddress* pNodeAddress12, float* arg11, bool arg12, bool arg13) {
-    return plugin::CallAndReturn<bool, 0x424210, CVector, float, float, float, bool, float, float, CVector*, CNodeAddress*, CNodeAddress*, float*, bool, bool>(posn, radius, arg3, arg4, arg5, arg6, arg7, pOrigin, pNodeAddress1, pNodeAddress12, arg11, arg12, arg13);
+    // Como el original (0x424210..0x424CD7, cdecl, `ret`, devuelve bool en AL). Nombres reales de los argumentos: (radius, arg3) es la direccion (x, y) que se compara con el vector hacia el punto elegido, arg4 el
+    // limite del producto escalar, arg5 el sentido de esa comparacion, arg6/arg7 las dos distancias a las que se busca el punto (arg6 sube a 1.5 veces con un 1 de cada 16 y arg13 = false), arg11 la fraccion del tramo.
+    // Cada operacion x87 va con los ayudantes Veh83D* (24 bits, exponente ampliado; un valor del registro es un double ya redondeado y `fstp dword` es Veh83DStore). Las posiciones de los nodos se vuelven a leer
+    // donde las relee el EXE (tras cada llamada a un colaborador). Estaticas del EXE (a 0x9690xx, con su guarda de inicializacion en 0x969108) por direccion.
+    constexpr uintptr_t kGuard = 0x969108, kNodeA = 0x969104, kNodeB = 0x969100, kNodeC = 0x9690FC, kNodeD = 0x9690F8, kNextTime = 0x9690E8, kLastPos = 0x9690EC, kBusyFlag = 0xC0FCB5;
+    const auto raw32 = [](uintptr_t address) -> uint32& { return *reinterpret_cast<uint32*>(address); };
+    const auto store = [](double value) { return Veh83DStore(value); };
+    const auto node = [](uint32 address) { return reinterpret_cast<const uint8*>(ThePaths.m_pPathNodes[address & 0xFFFF]) + (address >> 16) * 0x1C; }; // CPathNode (0x1C bytes) en crudo, sin comprobar nulo
+    const auto rd16 = [](const uint8* base, uint32 offset) { return static_cast<int32>(*reinterpret_cast<const int16*>(base + offset)); };
+    const auto pos = [&](const uint8* n, uint32 offset) { return Veh83DMul(static_cast<double>(rd16(n, offset)), 0.125f); }; // int16 * 0.125f (0x858C48), exacto
+
+    uint32& guard = raw32(kGuard);
+    if (!(guard & 1)) { guard |= 1; *reinterpret_cast<uint16*>(kNodeA) = 0xFFFF; }
+    if (!(guard & 2)) { guard |= 2; *reinterpret_cast<uint16*>(kNodeB) = 0xFFFF; }
+    if (!(guard & 4)) { guard |= 4; *reinterpret_cast<uint16*>(kNodeC) = 0xFFFF; }
+    if (!(guard & 8)) { guard |= 8; *reinterpret_cast<uint16*>(kNodeD) = 0xFFFF; }
+    if (!(guard & 0x10)) { guard |= 0x10; }
+
+    float accumulated = 0.0f;
+    // Distancia al ultimo punto de refresco: sqrt(dx*dx + dy*dy) > 10.0f, o el reloj pasa de la proxima actualizacion: se vuelven a buscar los dos pares de nodos cercanos
+    {
+        const double dx = Veh83DSub(posn.x, *reinterpret_cast<float*>(kLastPos));
+        const double dy = Veh83DSub(posn.y, *reinterpret_cast<float*>(kLastPos + 4));
+        const double length = Veh83DSqrt(Veh83DAdd(Veh83DMul(dx, dx), Veh83DMul(dy, dy)));
+        if (length > 10.0 || CTimer::m_snTimeInMilliseconds > raw32(kNextTime)) {
+            CarCtrlGc2Find2Nodes(posn, reinterpret_cast<CNodeAddress*>(kNodeA), reinterpret_cast<CNodeAddress*>(kNodeB), true);
+            CarCtrlGc2Find2Nodes(posn, reinterpret_cast<CNodeAddress*>(kNodeC), reinterpret_cast<CNodeAddress*>(kNodeD), false);
+            raw32(kNextTime) = CTimer::m_snTimeInMilliseconds + 5000;
+            std::memcpy(reinterpret_cast<void*>(kLastPos), &posn, sizeof(CVector));
+            // Bandera "mas coches": con el primer nodo cargado, el tramo de su base de enlaces ancho (>= 2 carriles de un sentido o de los dos) a menos de 40.0f y el nodo de tipo (byte +0x19 & 0x30) >= 0x20
+            const uint32 first = raw32(kNodeA);
+            if (static_cast<uint16>(first) != 0xFFFF && ThePaths.m_pPathNodes[static_cast<uint16>(first)]) {
+                const uint8* const firstNode = node(first);
+                const uint16 firstArea = *reinterpret_cast<const uint16*>(firstNode + 0x12);
+                const uint16 naviWord = reinterpret_cast<const uint16*>(ThePaths.m_pNaviLinks[firstArea])[rd16(firstNode, 0x10)];
+                if (ThePaths.m_pPathNodes[naviWord >> 10]) {
+                    const uint8* const link = reinterpret_cast<const uint8*>(ThePaths.m_pNaviNodes[naviWord >> 10]) + (naviWord & 0x3FFu) * 0xE;
+                    const uint8 lanes = link[0xB];
+                    if ((lanes & 7) < 2 && (lanes & 0x38) < 0x10) {
+                        StaticRef<uint8>(kBusyFlag) = 0;
+                    } else {
+                        const double lx = Veh83DMul(static_cast<double>(rd16(link, 0)), 0.125f);
+                        const double ly = Veh83DMul(static_cast<double>(rd16(link, 2)), 0.125f);
+                        const double ddx = Veh83DSub(lx, posn.x);
+                        const double ddy = Veh83DSub(ly, posn.y);
+                        const double distance = Veh83DSqrt(Veh83DAdd(Veh83DMul(ddy, ddy), Veh83DMul(ddx, ddx)));
+                        if (distance < 40.0) {
+                            StaticRef<uint8>(kBusyFlag) = 1;
+                            if ((firstNode[0x19] & 0x30) < 0x20) {
+                                StaticRef<uint8>(kBusyFlag) = 0;
+                            }
+                        } else {
+                            StaticRef<uint8>(kBusyFlag) = 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Nodo de partida: uno de cada 16 (y arg13 = false) el mas cercano a posn con alcance 50.0f (y arg6 * 1.5f); si no, uno de los cuatro guardados segun otro rand() y arg12
+    uint32 current;
+    float nearDistance = arg6;
+    if ((CarCtrlAirExeRand() & 0xF) == 4 && !arg13) {
+        const CNodeAddress closest = ThePaths.FindNodeClosestToCoors(posn, PATH_TYPE_VEH, 50.0f, 0, 0, 0, 1, 1);
+        std::memcpy(&current, &closest, sizeof(current));
+        nearDistance = store(Veh83DMul(arg6, 1.5f));
+    } else if ((CarCtrlAirExeRand() & 3) != 0) {
+        current = arg12 ? raw32(kNodeA) : raw32(kNodeC);
+    } else {
+        current = arg12 ? raw32(kNodeB) : raw32(kNodeD);
+    }
+    if (static_cast<uint16>(current) == 0xFFFF || !ThePaths.m_pPathNodes[static_cast<uint16>(current)]) {
+        return false;
+    }
+    uint32 history[30];
+    history[0] = current;
+    int32 count = 1;
+
+    // Se recorre la red desde el nodo hasta 30 nodos o 230.0f metros
+    while (double(accumulated) < 230.0) {
+        if (!ThePaths.m_pPathNodes[static_cast<uint16>(current)]) {
+            return false;
+        }
+        const uint8* const currentNode = node(current);
+        const int32 numLinks = currentNode[0x18] & 0xF;
+        SequenceElements = numLinks;
+        SequenceRandomOffset = CarCtrlAirExeRand() % SequenceElements;
+        const bool otherWay = (CarCtrlAirExeRand() & 0x10) != 0;
+        bSequenceOtherWay = otherWay;
+        int32 descending = SequenceRandomOffset + SequenceElements;
+        uint32 next = 0;
+        const uint8* nextNode = nullptr;
+        bool found = false;
+        for (int32 i = 0; i < numLinks && !found; ++i, --descending) {
+            const int32 linkIndex = rd16(currentNode, 0x10) + (otherWay ? (i + SequenceRandomOffset) : descending) % SequenceElements;
+            next = reinterpret_cast<const uint32*>(ThePaths.m_pNodeLinks[static_cast<uint16>(current)])[linkIndex];
+            if (!ThePaths.m_pPathNodes[static_cast<uint16>(next)]) {
+                continue;
+            }
+            const uint16 naviWord = reinterpret_cast<const uint16*>(ThePaths.m_pNaviLinks[static_cast<uint16>(current)])[linkIndex];
+            if (!ThePaths.m_pPathNodes[naviWord >> 10]) {
+                continue;
+            }
+            nextNode = node(next);
+            bool seen = false;
+            for (int32 j = 0; j < count; ++j) {
+                if (history[j] == next) {
+                    seen = true;
+                }
+            }
+            found = !seen;
+        }
+        if (!found) {
+            return false;
+        }
+
+        // Posiciones del nodo actual y del siguiente (int16 * 0.125f), distancias al punto dado
+        const double currentX = pos(currentNode, 8), currentY = pos(currentNode, 0xA);
+        const double nextX = pos(nextNode, 8), nextY = pos(nextNode, 0xA);
+        const float dxCurrent = store(Veh83DSub(posn.x, currentX));
+        const double dyCurrent = Veh83DSub(posn.y, currentY);
+        const float distCurrent = store(Veh83DSqrt(Veh83DAdd(Veh83DMul(dyCurrent, dyCurrent), Veh83DMul(dxCurrent, dxCurrent))));
+        const float dxNext = store(Veh83DSub(posn.x, nextX));
+        const double dyNext = Veh83DSub(posn.y, nextY);
+        const float distNext = store(Veh83DSqrt(Veh83DAdd(Veh83DMul(dyNext, dyNext), Veh83DMul(dxNext, dxNext))));
+
+        bool advance = false;
+        bool accepted = false;
+        if (((nextNode[0x18] & 0x20) || (currentNode[0x18] & 0x20)) && arg12) {
+            advance = true;
+        } else {
+            // Primer intento (distancia arg6): los dos nodos a lados distintos de la distancia -> punto interpolado; visible: se acepta
+            const double beforeCurrent = Veh83DSub(distCurrent, nearDistance);
+            const double beforeNext = Veh83DSub(distNext, nearDistance);
+            if (Veh83DMul(beforeCurrent, beforeNext) < 0.0) {
+                const float absCurrent = store(beforeCurrent < 0.0 ? -beforeCurrent : beforeCurrent);
+                const double absNext = beforeNext < 0.0 ? -beforeNext : beforeNext;
+                const double currentZ = pos(currentNode, 0xC); // fild * 0.125f guardado (exacto)
+                const double nextZ = pos(nextNode, 0xC);
+                const float curXTimes = store(Veh83DMul(currentX, absNext));
+                const double curYTimes = Veh83DMul(currentY, absNext);
+                const double curZTimes = Veh83DMul(currentZ, absNext);
+                const float nextXTimes = store(Veh83DMul(nextX, absCurrent));
+                const double nextYTimes = Veh83DMul(nextY, absCurrent);
+                const float nextZTimes = store(Veh83DMul(nextZ, absCurrent));
+                const float sumX = store(Veh83DAdd(nextXTimes, curXTimes));
+                const float sumY = store(Veh83DAdd(nextYTimes, curYTimes));
+                const double sumZ = Veh83DAdd(nextZTimes, curZTimes);
+                const double inverse = Veh83DDiv(1.0, Veh83DAdd(absNext, absCurrent));
+                const float inverseStored = store(inverse);
+                pOrigin->x = store(Veh83DMul(sumX, inverse));
+                pOrigin->y = store(Veh83DMul(sumY, inverse));
+                pOrigin->z = store(Veh83DMul(sumZ, inverse));
+                if (TheCamera.IsSphereVisible(*pOrigin, 5.0f)) {
+                    *arg11 = store(Veh83DMul(inverseStored, absCurrent));
+                    accepted = true;
+                }
+            }
+            if (!accepted) {
+                // Segundo intento (distancia arg7): igual, con las posiciones de GetPosition; visible: se descarta el tramo
+                const double farCurrent = Veh83DSub(distCurrent, arg7);
+                const double farNext = Veh83DSub(distNext, arg7);
+                if (Veh83DMul(farCurrent, farNext) < 0.0) {
+                    const float absCurrent = store(farCurrent < 0.0 ? -farCurrent : farCurrent);
+                    const float absNext = store(farNext < 0.0 ? -farNext : farNext);
+                    const CVector currentPos = (reinterpret_cast<const CPathNode*>(currentNode)->*cc63GetNodePosition)();
+                    const float curXTimes = store(Veh83DMul(absNext, currentPos.x));
+                    const float curYTimes = store(Veh83DMul(absNext, currentPos.y));
+                    const float curZTimes = store(Veh83DMul(absNext, currentPos.z));
+                    const CVector nextPos = (reinterpret_cast<const CPathNode*>(nextNode)->*cc63GetNodePosition)();
+                    const double nextXTimes = Veh83DMul(absCurrent, nextPos.x);
+                    const double nextYTimes = Veh83DMul(absCurrent, nextPos.y);
+                    const float nextZTimes = store(Veh83DMul(absCurrent, nextPos.z));
+                    const float sumX = store(Veh83DAdd(nextXTimes, curXTimes));
+                    const double sumY = Veh83DAdd(nextYTimes, curYTimes);
+                    const double sumZ = Veh83DAdd(nextZTimes, curZTimes);
+                    const double inverse = Veh83DDiv(1.0, Veh83DAdd(absNext, absCurrent));
+                    const float inverseStored = store(inverse);
+                    pOrigin->x = store(Veh83DMul(sumX, inverse));
+                    pOrigin->y = store(Veh83DMul(sumY, inverse));
+                    pOrigin->z = store(Veh83DMul(sumZ, inverse));
+                    if (!TheCamera.IsSphereVisible(*pOrigin, 5.0f)) {
+                        *arg11 = store(Veh83DMul(inverseStored, absCurrent));
+                        accepted = true;
+                    }
+                }
+            }
+            if (accepted) {
+                // Pendiente: el tramo no puede subir mas de la mitad de su longitud horizontal
+                const double cX = pos(currentNode, 8), cY = pos(currentNode, 0xA), cZ = pos(currentNode, 0xC);
+                const double nX = pos(nextNode, 8), nY = pos(nextNode, 0xA), nZ = pos(nextNode, 0xC);
+                const float dxLink = store(Veh83DSub(cX, nX));
+                const double dyLink = Veh83DSub(cY, nY);
+                const double dz = std::fabs(Veh83DSub(cZ, nZ));
+                const double halfLength = Veh83DMul(Veh83DSqrt(Veh83DAdd(Veh83DMul(dxLink, dxLink), Veh83DMul(dyLink, dyLink))), 0.5f);
+                if (halfLength < dz) {
+                    advance = true;
+                }
+            } else {
+                advance = true;
+            }
+        }
+        if (!advance) {
+            if (CarCtrlAirExeRand() & 8) {
+                std::memcpy(pNodeAddress1, &current, sizeof(current));
+                std::memcpy(pNodeAddress12, &next, sizeof(next));
+            } else {
+                std::memcpy(pNodeAddress1, &next, sizeof(next));
+                std::memcpy(pNodeAddress12, &current, sizeof(current));
+                *arg11 = store(Veh83DSub(1.0, *arg11));
+            }
+            // Resultado: el nodo 2 sin salida (ThisNodeWillLeadIntoADeadEnd) se descarta con arg12; direccion hacia el punto frente a (radius, arg3) y arg4 segun arg5
+            uint32 firstRaw, secondRaw;
+            std::memcpy(&firstRaw, pNodeAddress1, sizeof(firstRaw));
+            std::memcpy(&secondRaw, pNodeAddress12, sizeof(secondRaw));
+            const uint8* const secondNode = node(secondRaw);
+            const uint8* const firstNode = node(firstRaw);
+            if (secondNode[0x18] & 0x10) {
+                if (ThePaths.ThisNodeWillLeadIntoADeadEnd(const_cast<CPathNode*>(reinterpret_cast<const CPathNode*>(secondNode)), const_cast<CPathNode*>(reinterpret_cast<const CPathNode*>(firstNode))) && arg12) {
+                    return false;
+                }
+            }
+            const double dx = Veh83DSub(pOrigin->x, posn.x);
+            const double dy = Veh83DSub(pOrigin->y, posn.y);
+            const double inverse = Veh83DDiv(1.0, Veh83DSqrt(Veh83DAdd(Veh83DMul(dy, dy), Veh83DMul(dx, dx))));
+            const double dot = Veh83DAdd(Veh83DMul(Veh83DMul(inverse, dy), arg3), Veh83DMul(Veh83DMul(inverse, dx), radius));
+            if (arg5 ? !(dot > static_cast<double>(arg4)) : !(dot <= static_cast<double>(arg4))) {
+                return false;
+            }
+            sprintf(gString, "tell Obbe it happened again %d/%d %d/%d", firstRaw & 0xFFFF, firstRaw >> 16, secondRaw & 0xFFFF, secondRaw >> 16);
+            return true;
+        }
+
+        // Se avanza al nodo siguiente: la distancia entre las posiciones (releidas) de los dos nodos se suma al recorrido
+        current = next;
+        history[count++] = next;
+        {
+            const double cX = pos(currentNode, 8), cY = pos(currentNode, 0xA);
+            const double nX = pos(nextNode, 8), nY = pos(nextNode, 0xA);
+            const float dxLink = store(Veh83DSub(nX, cX));
+            const double dyLink = Veh83DSub(nY, cY);
+            const double length = Veh83DSqrt(Veh83DAdd(Veh83DMul(dxLink, dxLink), Veh83DMul(dyLink, dyLink)));
+            accumulated = store(Veh83DAdd(length, accumulated));
+        }
+        if (count >= 30) {
+            return false;
+        }
+    }
+    return false;
 }
 
 // 0x42F9C0
