@@ -20,14 +20,14 @@
     "body_parse_errors": 309,
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 447,
-    "historical_catalog_rows": 9014,
+    "historical_catalog_rows": 9015,
     "catalog_rows_without_unambiguous_source_match_in_scope": 2,
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 20,
     "catalog_rows_linked_by_hook_address": 180,
-    "validated_reconstructed_own_cpp_definitions": 10712,
+    "validated_reconstructed_own_cpp_definitions": 10713,
     "validated_reconstructed_own_asm_definitions": 0,
-    "wrapper_definitions": 39
+    "wrapper_definitions": 38
   },
   "source_sha256": {
     "source/app/app.cpp": "4717fcefd64b864f51910ae3ab7b4b3bc0966838f9cddaaca5727ee06c47ac16",
@@ -914,7 +914,7 @@
     "source/game_sa/GangWars.h": "9790db3a29cf70ace84a2f3b85476685194a0b23c42facb6ced08529cef3f1de",
     "source/game_sa/GangWarsSaveStructure.cpp": "ca73a3cb9f0a64ba3c7948017ee1407c06b4ad94d1154bed6bff473c834469d3",
     "source/game_sa/GangWarsSaveStructure.h": "9ed82dfdffec5eea07e79c273dc3e1e22d161433c23c604ed19b6d31d293d4e5",
-    "source/game_sa/Garage.cpp": "e4207b1de91e84e54e1475b76247c21e3d6466454a491f2954b58354754286f0",
+    "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
     "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
     "source/game_sa/Garages.cpp": "00d50a1d456143b7574ae3ea3bea69e95113fddb4eaaa92b1f573af312296ba7",
     "source/game_sa/Garages.h": "f71fc96fd17d9d22cba76e913da868dea9b8359fe466eea9465241a3f093f658",
@@ -1987,8 +1987,8 @@
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.h": "ec2e688e8e7eabeeb6ddd0e0bb19bc47ef5997db69a029c6b5740768dadd9845",
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFall.cpp": "a094804199c21aa380d267b956896117f60691d20d2dae0ab605c75209a89582",
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFall.h": "c9224f5b845695eba5a5cf4352474ec047fcc1714fe23ed39e06ef4c645ef6f2",
-    "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "7f8540115ac9ee7c568070af934eb9b23390f51ae07d245a05fd12143612e506",
-    "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "4957b89633b88efd73588c5d1aaf9b18cd4c5a011f64eca1a580ad58c46f62ca",
+    "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "cd874a050d6ea27eee1621be5fe9eb765167cedf85305c5937ff0aa03b025524",
+    "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "1ea983d315c8574b444b589f3a48ad70fdbc9fbb45a820c60425ccd94836beac",
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp": "b4fa56c3f3bf80d3b7532befd0f427bb9120089f29864389a140a53129b32e39",
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h": "c3d8b0d7b9e47f79f802d6d35a8e480e8332d6c369fac7a27ae00775a4cd354e",
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFinishBrain.cpp": "4ad532bba94ba89661e820548b8b2d5290d5400250b1a56c7bff4ed8260e78d3",
@@ -2232,10 +2232,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "97697d200133697e2c7e4488a8c0f09c820d00cf3035fdde8cdd8891d822128b",
+    "hooks.csv": "2fff54c77800be04c9bd23974297ff57dd91cea155b43f3cca09600349fc0365",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "879481ca4fd2cbf5ea7b3913ed07869fd5cce96dd5b7e2dc72fd22fdaf22ffc6",
+  "migration_registry_sha256": "060f21d58bec6e1cfa1265eb1b43be042cd421aa2410cce48dc8836d77ff634d",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

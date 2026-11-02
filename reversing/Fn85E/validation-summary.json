@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 1,
+  "functions": {
+    "CTaskSimpleFight::GetAvailableComboSet": 16384
+  },
+  "covered_functions": {
+    "CTaskSimpleFight::GetAvailableComboSet": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado durante el banco): CWeaponInfo::GetWeaponInfo 0x743C60, CAnimManager::GetAnimBlockName 0x4D3A30, GetAnimationBlock(const char*) 0x4D3940, AddAnimBlockRef 0x4D3FB0, CStreaming::RequestModel 0x4087E0 y, sin hook RH (funcion C++ de la DLL), CAnimManager::RemoveAnimBlockRef 0x4D3FD0. Los bloques de animacion son los reales de ms_aAnimBlocks (0..15, solo su byte IsLoaded), el arreglo de grupos 0xB4EA34 apunta a una arena y las 12 filas de la tabla de combos 0xC170D0 se fijan por caso y se restauran. Con mutaciones de una lectura (grupo de las filas tras RemoveAnimBlockRef, comando siguiente tras RequestModel, estilo de pelea dentro de GetWeaponInfo). El banco compara el valor devuelto (AL), los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: estilo del arma o de pelea fuera de 4..15, grupos de animacion fuera de 0..39, bloques fuera de 0..15, ranura activa fuera de -3..12, NaN no aplica (sin floats) y bytes IsLoaded no son 0/1 solo en las fixtures con 2, 0x80 y 0xFF (el EXE compara distinto de cero).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn85E-20261102-160333-556082",
+  "summary_sha256": "cc1a754b0a8837adbf7a3e95d41e956c31c8cfef58f7a76a695ce0c718f9e991",
+  "result_txt_sha256": "fcefba08ad4cbfc68633d71d990568da47a0243dc6699469c9896e22b1aefb6a",
+  "log_sha256": "172c0a0d60b4f5b32a4dd5bd1770ee8349827decf774a4eb3f6dd7cf18d53ddc",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "29bbdccb17e0b0f4dd073a193bf23119030a61762ff753de4b7499f23923628d",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
+      "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "cd874a050d6ea27eee1621be5fe9eb765167cedf85305c5937ff0aa03b025524",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "1ea983d315c8574b444b589f3a48ad70fdbc9fbb45a820c60425ccd94836beac",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn85E/LiveComparison.hpp": "a67b55b49ead120de86d5f7dfed33f7e5f0be79894fe9e70edeecb2e0980ae57",
+      "reversing/Fn85E/Core.hpp": "5470b95d36e89f2f3d5ce07686480baebec64ebe6518dc1446f77162d6a02b29",
+      "reversing/Fn85E/Fixtures.hpp": "a5743fb28c4821cf7ca6ce063ffccad3809998cd496deadabeb9706cfc694e1e",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

@@ -70,7 +70,7 @@ inline void Update() {
     registered["CTaskSimpleFight::ProcessPed"]=env.route->Registered();bodies["CTaskSimpleFight::ProcessPed"]=env.route->Body();
     ready&=env.route->Registered()&&env.route->Body()&&ModuleOf(env.route->Body())==env.asi;
     // Cuerpos de la DLL de los colaboradores: se resuelven ANTES de escribir ningun parche (PROCESO.md, trampas). Con sus hooks encendidos (estado normal del ASI) la entrada del EXE
-    // salta a la DLL; Body() sigue el salto. 0x61C7F0, 0x61C9B0, 0x624710 y 0x623B10 no estan reconstruidos (solo existe la entrada del EXE); 0x624A40 (ChooseAttackAI) si desde el lote 85C.
+    // salta a la DLL; Body() sigue el salto. 0x61C9B0, 0x624710 y 0x623B10 no estan reconstruidos (solo existe la entrada del EXE); 0x624A40 (ChooseAttackAI) si desde el lote 85C y 0x61C7F0 (GetAvailableComboSet) desde el lote 85E.
     env.pSetDel={0x4CEBC0,Body(std::bit_cast<uintptr_t>(&CAnimBlendAssociation::SetDeleteCallback))};
     env.pBlend={0x4D4610,Body(std::bit_cast<uintptr_t>(static_cast<CAnimBlendAssociation*(*)(RpClump*,AssocGroupId,AnimationId,float)>(&CAnimManager::BlendAnimation)))};
     env.pSetTime={0x4CEA80,Body(std::bit_cast<uintptr_t>(&CAnimBlendAssociation::SetCurrentTime))};
@@ -85,7 +85,7 @@ inline void Update() {
     env.pPedAE={0x4E2BB0,Body(std::bit_cast<uintptr_t>(&CAEPedAudioEntity::AddAudioEvent))};
     env.pWeapAE={0x4E69F0,Body(std::bit_cast<uintptr_t>(&CAEPedWeaponAudioEntity::AddAudioEvent))};
     env.pStrike={0x6240B0,Body(std::bit_cast<uintptr_t>(&CTaskSimpleFight::FightStrike))};
-    env.pAvail={0x61C7F0,0};env.pFind={0x61C9B0,0};env.pChooseP={0x624710,0};env.pChooseAI={0x624A40,Body(std::bit_cast<uintptr_t>(&CTaskSimpleFight::ChooseAttackAI))};env.pStart={0x623B10,0};
+    env.pAvail={0x61C7F0,Body(std::bit_cast<uintptr_t>(&CTaskSimpleFight::GetAvailableComboSet))};env.pFind={0x61C9B0,0};env.pChooseP={0x624710,0};env.pChooseAI={0x624A40,Body(std::bit_cast<uintptr_t>(&CTaskSimpleFight::ChooseAttackAI))};env.pStart={0x623B10,0};
     env.pGetPad={0x609560,Body(std::bit_cast<uintptr_t>(&CPlayerPed::GetPadFromPlayer))};
     env.pGetTarget={0x540670,Body(std::bit_cast<uintptr_t>(&CPad::GetTarget))};
     Run(env,ready,registered,bodies);

@@ -18,7 +18,7 @@
 // las globales que lee (tabla de combos y vectores de nivel 0xC17090..0xC17940, 0xB7CB5C, 0xB6EC2E, 0xB6F32C, 0xB4EA34) se fijan por caso y se restauran. Los colaboradores se sustituyen por el
 // mismo falso en ambos lados (parche de entrada en el EXE y, si existe, en el cuerpo de la DLL resuelto antes de parchear): SetDeleteCallback, BlendAnimation, SetCurrentTime, IsPlayer,
 // SetMoveState, Add/RemoveAnimBlockRef, GetAnimBlockName, GetAnimationBlock, RequestModel, GetWeaponInfo, CAEPedAudioEntity::AddAudioEvent, CAEPedWeaponAudioEntity::AddAudioEvent, FightStrike,
-// GetPadFromPlayer, CPad::GetTarget (todos en C++ y enganchados) y, solo EXE, 0x61C7F0 (GetAvailableComboSet), 0x61C9B0, 0x624710, 0x624A40 y 0x623B10. Los falsos registran sus argumentos en orden.
+// GetPadFromPlayer, CPad::GetTarget (todos en C++ y enganchados) 0x61C7F0 (GetAvailableComboSet, desde el lote 85E), 0x624A40 (desde el 85C) y, solo EXE, 0x61C9B0, 0x624710 y 0x623B10. Los falsos registran sus argumentos en orden.
 
 namespace FightProcessPed31Live {
 using namespace FightProcessPed31Fix;

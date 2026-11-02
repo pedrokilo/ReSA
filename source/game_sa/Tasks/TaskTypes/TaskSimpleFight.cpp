@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskSimpleFight
- * Reconstrucción: COMPLETA — 17/17 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 18/18 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 17/17 entradas.
+ * Validación registrada: 18/18 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -364,10 +364,6 @@ const uint8* FightComboRow(int32 combo) {
 }
 
 // Colaboradores sin reconstruir (todos thiscall; el valor de AL/AX es el que leen los llamadores).
-// 0x61C7F0 (ret 8): elige el combo disponible para el comando; devuelve AL.
-int8 FightGetAvailableComboSetExe(CTaskSimpleFight* task, CPed* ped, int32 command) {
-    return plugin::CallMethodAndReturn<int8, 0x61C7F0, CTaskSimpleFight*, CPed*, int32>(task, ped, command);
-}
 // 0x61C9B0 (ret 4)
 void FightFindTargetOnGroundExe(CTaskSimpleFight* task, CPed* ped) {
     plugin::CallMethod<0x61C9B0, CTaskSimpleFight*, CPed*>(task, ped);
@@ -661,7 +657,7 @@ bool CTaskSimpleFight::ProcessPed(CPed* ped) {
     }
 
     if (m_nRequiredAnimGroup != 0x21 && !m_bAnimsReferenced) { // 0x629B9B
-        FightGetAvailableComboSetExe(this, ped, -1); // resultado sin usar
+        GetAvailableComboSet(ped, -1); // resultado sin usar
     }
 
     if (!m_pAnim) { // 0x629BB2: no hay animacion de golpe
@@ -670,7 +666,7 @@ bool CTaskSimpleFight::ProcessPed(CPed* ped) {
         }
         if ((m_nNextCommand != 0 || m_nComboSet != 0) && m_nLastCommand != 0x10) {
             const uint8 command = m_nNextCommand;
-            m_nComboSet = FightGetAvailableComboSetExe(this, ped, command);
+            m_nComboSet = GetAvailableComboSet(ped, command);
             if (ped->IsPlayer()) {
                 const int8 next = static_cast<int8>(m_nNextCommand);
                 if (next >= 3 && next <= 6) {
@@ -771,7 +767,7 @@ bool CTaskSimpleFight::ProcessPed(CPed* ped) {
                     if (next >= 0xB && next <= 0xE) {
                         const int8 current = static_cast<int8>(m_nCurrentMove);
                         if (current == 0 || current == 1) { // 0x629FC4
-                            m_nComboSet = FightGetAvailableComboSetExe(this, ped, static_cast<uint8>(next));
+                            m_nComboSet = GetAvailableComboSet(ped, static_cast<uint8>(next));
                             if (ped->IsPlayer()) {
                                 FightStartAnimExe(this, ped, FightChooseAttackPlayerExe(this, ped));
                             } else {
@@ -785,7 +781,7 @@ bool CTaskSimpleFight::ProcessPed(CPed* ped) {
                             if (m_nComboSet == 0xC && ped->IsPlayer()) {
                                 m_pAnim->SetCurrentTime(*rowFloat(0x08 + static_cast<int8>(m_nCurrentMove) * 4) - FightHitTimeBack);
                             } else {
-                                m_nComboSet = FightGetAvailableComboSetExe(this, ped, m_nNextCommand);
+                                m_nComboSet = GetAvailableComboSet(ped, m_nNextCommand);
                                 if (ped->IsPlayer()) {
                                     FightStartAnimExe(this, ped, FightChooseAttackPlayerExe(this, ped));
                                 } else {
@@ -944,6 +940,89 @@ uint32 FightHitPedTableAt(int32 move) {
     return *reinterpret_cast<const uint32*>(FightHitPedDelayTable + static_cast<uint32>(move) * 4u);
 }
 } // namespace
+
+// 0x61C7F0 (thiscall, ret 8; devuelve AL): elige el combo disponible para `command` (solo se lee el byte bajo, con signo) y se asegura de tener referenciado el bloque de animaciones de su grupo.
+// Con comando negativo solo referencia el bloque del grupo actual (si no hay referencia y ya esta cargado) y devuelve 0; sin los comandos 0, 2 y 0xB..0xE devuelve 0 sin mas. Estilo = byte base del arma activa
+// (CWeaponInfo +0x6E con habilidad 1) y, si es 4 con comando 0 o 2 o si el comando es 0xC, el estilo de pelea del ped (+0x72D): con comando 0 y sin el bit 2 del byte alto de las banderas de su fila de la tabla
+// de combos (fila = estilo - 4 sin acotar, +0x85) devuelve 4. Con la fila: grupo 0x21 (sin animaciones) devuelve el estilo; si el grupo coincide y ya hay referencia devuelve el estilo; si no, suelta la referencia del
+// grupo anterior (si la hay), fija el nuevo grupo y, con el bloque cargado (cualquier byte distinto de cero), lo referencia y devuelve el estilo. Sin cargar pide el bloque (modelo IFP, bandera 8), baja un comando
+// siguiente (+0x26, con signo) de 0xB..0xE a 0xB y devuelve 4. Como el original, el puntero del bloque del grupo se relee en cada uso y el indice del bloque es (puntero - ms_aAnimBlocks) >> 5 sin comprobar.
+int8 CTaskSimpleFight::GetAvailableComboSet(CPed* ped, int32 commandArg) {
+    const int8 command = static_cast<int8>(commandArg); // el EXE solo lee el byte bajo (mov bl, [esp+0Ch]) y lo trata con signo
+    const auto BlockOf = [](int32 group) {
+        CAnimBlock* block = StaticRef<CAnimBlendAssocGroup*>(0xB4EA34)[group].m_AnimBlock;
+        if (!block) {
+            block = CAnimManager::GetAnimationBlock(CAnimManager::GetAnimBlockName(static_cast<AssocGroupId>(group))); // 0x4D3A30 y 0x4D3940
+        }
+        return block;
+    };
+    const auto BlockIndexOf = [](const CAnimBlock* block) {
+        return static_cast<int32>(reinterpret_cast<uintptr_t>(block) - uintptr_t(0xB5D4A0) /* CAnimManager::ms_aAnimBlocks */) >> 5; // sar
+    };
+    const auto IsLoaded = [](const CAnimBlock* block) { // test cl,cl: cualquier byte distinto de cero
+        return *reinterpret_cast<const uint8*>(&block->IsLoaded) != 0;
+    };
+    uint8& referenced = reinterpret_cast<uint8&>(m_bAnimsReferenced); // el EXE solo la mira distinta de cero y escribe 0 o 1
+
+    if (command < 0) {
+        const int32 group = static_cast<int32>(m_nRequiredAnimGroup);
+        if (group != 0x21 && !referenced) {
+            CAnimBlock* const block = BlockOf(group);
+            if (IsLoaded(block)) {
+                CAnimManager::AddAnimBlockRef(BlockIndexOf(block)); // 0x4D3FB0
+                referenced = 1;
+            }
+        }
+        return 0;
+    }
+    if (command != 2 && command != 0 && (command < 0xB || command > 0xE)) {
+        return 0;
+    }
+
+    const int32 slot = static_cast<int8>(ped->m_nActiveWeaponSlot); // movsx, sin comprobar el rango
+    const eWeaponType weaponType = (&ped->m_aWeapons[0] + slot)->m_Type;
+    int8 style = static_cast<int8>(CWeaponInfo::GetWeaponInfo(weaponType, eWeaponSkill::STD)->m_nBaseCombo); // 0x743C60
+    if (command == 0xC) {
+        style = static_cast<int8>(ped->m_nFightingStyle);
+    } else {
+        if (style == 4 && (command == 2 || command == 0)) {
+            style = static_cast<int8>(ped->m_nFightingStyle);
+        }
+        if (command == 0 && !(FightComboRow(style)[0x85] & 4)) {
+            return 4;
+        }
+    }
+
+    const uint8* const row = FightComboRow(style);
+    if (*reinterpret_cast<const int32*>(row) == 0x21) {
+        return style;
+    }
+    if (*reinterpret_cast<const int32*>(row) == static_cast<int32>(m_nRequiredAnimGroup)) {
+        if (referenced) {
+            return style;
+        }
+    } else {
+        if (referenced) {
+            CAnimManager::RemoveAnimBlockRef(BlockIndexOf(StaticRef<CAnimBlendAssocGroup*>(0xB4EA34)[static_cast<int32>(m_nRequiredAnimGroup)].m_AnimBlock)); // 0x4D3FD0
+            referenced = 0;
+        }
+        m_nRequiredAnimGroup = static_cast<AssocGroupId>(*reinterpret_cast<const int32*>(row));
+    }
+
+    CAnimBlock* const block = BlockOf(static_cast<int32>(m_nRequiredAnimGroup));
+    const int32 blockIndex = BlockIndexOf(block);
+    if (IsLoaded(block)) {
+        CAnimManager::AddAnimBlockRef(blockIndex);
+        referenced = 1;
+        return style;
+    }
+    CStreaming::RequestModel(IFPToModelId(blockIndex), 8); // 0x4087E0
+    const int8 next = static_cast<int8>(m_nNextCommand);
+    if (next >= 0xB && next <= 0xE) {
+        m_nNextCommand = 0xB;
+    }
+    return 4;
+}
 
 // 0x61C650 (thiscall, ret 0x10; this = tarea de combate de la victima, devuelve AL): la victima esquiva o bloquea el golpe de `creator`. Solo si el ultimo comando es 2 (+0x27) y la animacion de golpe (+0x1C)
 // existe, no tiene el bit 0 de las banderas (+0x2E) y su duracion total (jerarquia +0x14, +0x10) supera el tiempo actual (+0x20, comparacion ordenada). Producto escalar con los x87 a 24 bits de
@@ -1322,6 +1401,7 @@ void CTaskSimpleFight::InjectHooks() {
     RH_ScopedInstall(FightHitObj, 0x61D400);
     RH_ScopedInstall(FightHitPed, 0x61CBA0);
     RH_ScopedInstall(FightStrike, 0x6240B0);
+    RH_ScopedInstall(GetAvailableComboSet, 0x61C7F0);
     RH_ScopedInstall(BeHitWhileBlocking, 0x61C650);
     RH_ScopedInstall(ChooseAttackAI, 0x624A40);
     RH_ScopedInstall(LoadMeleeData, 0x5BEDC0);

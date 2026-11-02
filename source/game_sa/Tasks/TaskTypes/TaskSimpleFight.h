@@ -90,7 +90,7 @@ public:
     bool IsComboSet();
     bool IsHitComboSet();
 
-    void GetAvailableComboSet(CPed* ped, int8);
+    int8 GetAvailableComboSet(CPed* ped, int32 command);                          // 0x61C7F0 (ret 8; solo se lee el byte bajo del comando)
     void GetComboType(char*);
     AssocGroupId GetComboAnimGroupID();
     void GetHitLevel(const char*);
