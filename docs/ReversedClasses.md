@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-11-03 18:53 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-11-03 19:04 UTC
 
 ## Objetivo y dimensiones de progreso
 
@@ -32,6 +32,15 @@ Estas dimensiones todavía no tienen un porcentaje útil: indican el trabajo que
 | --- | --- | --- |
 | Validaciones vigentes para el árbol actual | 0/8,939 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). |
 | Dependencias de funciones originales eliminadas | Medido (cota inferior): 848 funciones del juego siguen llamándose directamente desde código del juego ya reemplazado; cierre transitivo: 1,027 funciones / 148,983 bytes. Ver [Cobertura real del EXE](#cobertura-exe) | Resolver las llamadas indirectas (tablas de punteros, callbacks) para convertir la cota inferior en un valor exacto, y eliminar o sustituir las dependencias directas que quedan. |
+
+### Siguiente fase: después de las envolturas
+
+Cerrar las envolturas del inventario (cuyo número se muestra arriba) no cierra el juego: quedan además las funciones del EXE sin reemplazar (grupos A–D de la tabla anterior). El plan de trabajo sale de [AnalisisGrupoA.md](AnalisisGrupoA.md) y su [lista completa](JuegoExe/grupoA.csv):
+
+1. **Grupo A, por categorías y de menor a mayor coste:** helpers triviales y thunks muy llamados (CPad 0x53FB70, CClouds 0x7170C0...), pequeñas sin FPU, lógica sin FPU (empezando por las más llamadas y por clases enteras), funciones con FPU con el método x87 a 24 bits, y por último las de 0x300 bytes o más, una por lote.
+2. **Lote piloto de cada categoría** para medir el coste real: solo hay tiempos de funciones grandes (39–71 min de agente por lote), no de pequeñas.
+3. **Revalidación vigente:** repetir los bancos sobre el árbol actual, priorizando los de fuentes cambiadas por lotes posteriores. Motivo: el banco `CVehD` llevaba roto desde el lote 83C (se cambió `m_fSteerAngle` por `m_GasPedal` en `ProcessDrivingAnims`) y no se vio hasta repetirlo.
+4. **Después del código del juego:** `librw`, pipelines de SA y puentes `RwD3D9*`, QuickTime, DDraw y CRT, según la [hoja de ruta](RutaExeIndependiente.md); el cambio de método de validación sin el exe como oráculo.
 
 **Validación consolidada parcialmente:** 8939 funciones del juego con evidencia aprobada vinculada, 909 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
 

@@ -1,0 +1,1008 @@
+va,bytes,modulo,confianza,ninstr,tamano,fpu,llamadas,indirectas,tipo,en_vtable,thunk_csv,n_llamadores_repl,n_llamadores,llamadores_repl,disas_ok,directo,en_A_actual,es_envoltura_pendiente
+0x00403D60,48,CEntity,baja,27,<0x40,0,1,1,pequena,,,15,15,0x424210 0x435830 CBike::ProcessEntityCollision CCam::Process_DW_BirdyCam CEventHandler::ComputeVehiclePotentialCollisionResponse CEventVehicleCollision::AffectsPed CGlass::BreakGlassPhysically CHud::DrawRadar CPedGeometryAnalyser::IsEntityBlockingTarget CPopulation::CreateWaitingCoppers CTaskComple,si,si,si,no
+0x00403E00,32,CEntity,baja,12,<0x40,0,1,0,pequena,,,3,4,CFileLoader::LoadObjectInstance-inst Interior_c::PlaceFurniture ProcSurfaceInfo_c::AddObject,si,si,si,no
+0x00404090,11,CBuildingPool,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,4,4,CFileLoader::LoadObjectInstance-inst Interior_c::PlaceFurniture ProcSurfaceInfo_c::AddObject,si,si,si,no
+0x00404330,25,CRect,baja,9,<0x40,5,0,0,trivial(<=0x20 sin llamadas),,,37,37,0x6d7c90 0x6d85f0 CAEGlobalWeaponAudioEntity::ServiceAmbientGunFire CAutomobile::ProcessAI CAutomobile::ProcessCarWheelPair CAutomobile::UpdateMovingCollision CBike::ProcessAI CCamera::ImproveNearClip CFont::ParseToken CHud::DrawRadar CPed::KillPedWithCar CPedDamageResponseCalculator::AccountForPedD,si,si,si,no
+0x00404350,3,CRect,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,3,3,CAutomobile::ProcessCarWheelPair,si,si,si,no
+0x004043E0,8,CRect,baja,3,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,2,CAutomobile::ProcessCarWheelPair,si,si,si,no
+0x00404420,5,CRect,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CAutomobile::ProcessCarWheelPair,si,si,si,no
+0x004048E0,41,CObjectPool,baja,17,<0x40,0,0,0,pequena,,,1,58,0x587000,si,si,si,no
+0x00405900,91,CIplStore,baja,36,<0x100,0,2,0,logica,,,1,1,CIplStore::Initialise,si,si,si,no
+0x00406360,15,CIplStore,baja,5,<0x40,0,1,1,pequena,,,1,1,CStreaming::LoadCdDirectory-void,si,si,si,no
+0x00406450,6,CdStream,alta,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CStreaming::RequestModelStream,si,si,si,no
+0x00406D10,7,CdStream,baja,3,<0x40,2,0,0,trivial(<=0x20 sin llamadas),,,5,5,0x425440 CAutomobile::ProcessSuspension CAutomobile::TowTruckControl CTrailer::ScanForTowLink,si,si,si,no
+0x00406D70,33,CdStream,baja,12,<0x40,9,0,0,pequena,,,15,15,0x6de880 0x6dfc50 0x6e0050 CAutomobile::ProcessCarWheelPair CAutomobile::SetTowLink CPed::KillPedWithCar CPed::UpdatePosition CTaskSimpleUseGun::ProcessPed CTrain::AddNearbyPedAsRandomPassenger CVehicle::DoBoatSplashes,si,si,si,no
+0x00406DA0,31,CdStream,baja,15,<0x40,14,0,0,trivial(<=0x20 sin llamadas),,,119,125,0x424f80 0x425440 0x5e8cd0 0x602c00 0x603720 0x604500 0x695090 0x6d85f0 0x6dfc50 CAEGlobalWeaponAudioEntity::ServiceAmbientGunFire CAEPedSpeechAudioEntity::AddSayEvent CAEPedSpeechAudioEntity::RequestPedConversation CAEPedlessSpeechAudioEntity::AddSayEvent CAutomobile::ProcessAI CAutomobile::Process,si,si,si,no
+0x00407000,26,CPopulation,baja,11,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CRenderer::SetupEntityVisibility,si,si,si,no
+0x004072E0,33,CWorld,baja,7,<0x40,0,1,0,pequena,,,2,2,CPhysical::ProcessShift CPlayerInfo::Process,si,si,si,no
+0x00407A10,17,CStreaming,alta,4,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CCutsceneMgr::DeleteCutsceneData_overlay,si,si,si,no
+0x00407A30,10,CStreaming,alta,3,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,4,4,CCutsceneMgr::LoadCutsceneData_preload CEntryExit::TransitionFinished,si,si,si,no
+0x00407AC0,1,CStreaming,alta,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,2,CCutsceneMgr::LoadCutsceneData_overlay CGameLogic::SortOutStreamingAndMemory,si,si,si,no
+0x00407BE0,1,CStreaming,alta,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,10,10,CCutsceneMgr::CreateCutsceneObject CCutsceneMgr::LoadCutsceneData_postload CCutsceneMgr::SetCutsceneAnim CMenuManager::LoadAllTextures CMenuManager::SwapTexturesRound CPlantMgr::Initialise,si,si,si,no
+0x00407BF0,1,CStreaming,alta,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,10,10,CCutsceneMgr::CreateCutsceneObject CCutsceneMgr::LoadCutsceneData_postload CCutsceneMgr::SetCutsceneAnim CMenuManager::LoadAllTextures CMenuManager::SwapTexturesRound CPlantMgr::Initialise,si,si,si,no
+0x00407D30,13,CStreaming,alta,3,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CCarCtrl::GenerateRandomCars,si,si,si,no
+0x00407DC0,13,CStreaming,alta,3,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CCarCtrl::GenerateRandomCars,si,si,si,no
+0x00407F20,1,CStreaming,alta,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,2,CCutsceneMgr::DeleteCutsceneData_overlay CGame::Init2,si,si,si,no
+0x00408230,64,CStreaming,baja,24,<0x100,0,0,0,pequena,,,3,3,CStreaming::AddEntity,si,si,si,no
+0x004082A0,31,CStreaming,baja,10,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,2,CPedToPlayerConversations::Update,si,si,si,no
+0x004082C0,33,CStreaming,baja,16,<0x40,15,0,0,pequena,,,163,181,0x430050 0x434900 0x436a90 0x60dc50 0x641100 0x6c69c0 0x6d7c90 0x6d85f0 0x6de880 CAEAmbienceTrackManager::UpdateAmbienceTrackAndVolume CAECollisionAudioEntity::ReportWaterSplash-for-physical CAEGlobalWeaponAudioEntity::ServiceAmbientGunFire CAERadioTrackManager::UpdateRadioVolumes CAEWeaponAudioEnti,si,si,si,no
+0x004096C0,11,CStreaming,alta,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CRenderer::ConstructRenderList,si,si,si,no
+0x00409C70,30,CStreaming,alta,6,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,15,15,CCheat::VehicleCheat CCutsceneMgr::RemoveEverythingBecauseCutsceneDoesntFitInMemory CPlane::DoPlaneGenerationAndRemoval CPopulation::RemoveSpecificDriverModelsForCar CTrain::DoTrainGenerationAndRemoval,si,si,si,no
+0x0040B490,18,CStreaming,alta,4,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,0x468560,si,si,si,no
+0x0040C450,195,CStreaming,alta,70,<0x100,0,4,2,logica,,,3,3,CStreaming::AddModelsToRequestList,si,si,si,no
+0x0040EE70,71,CBox,baja,25,<0x100,0,0,0,logica,,,4,4,CCollision::SphereCastVsEntity CFileLoader::LoadCollisionModel CWorld::TriggerExplosionSectorList<CPtrListDoubleLink<CPhysical*>>,si,si,si,no
+0x0040EEC0,73,CBox,baja,29,<0x100,0,0,0,logica,,,1,1,CCollisionData::Copy,si,si,si,no
+0x0040EF50,52,CColLine,baja,20,<0x40,0,0,0,pequena,,,48,48,CBirds::HandleGunShot CCollision::ProcessLineOfSight CCollision::SphereCastVsBBox CCollision::SphereCastVsCaches CCollision::SphereCastVsEntity CCollision::SphereCastVsSphere CCollision::TestLineOfSight CPedGeometryAnalyser::GetIsLineOfSightClear-v3d CPickup::ProcessGunShot CWeapon::CheckForShooting,si,si,si,no
+0x0040F030,58,CColLine,baja,20,<0x40,0,0,0,pequena,,,3,3,CFileLoader::LoadCollisionModel CWorld::ProcessLineOfSightSectorList<CPtrListDoubleLink<CPhysical*>> CWorld::TestSphereAgainstSectorList<CPtrListDoubleLink<CPhysical*>>,si,si,si,no
+0x0040F700,52,CCollisionData,baja,21,<0x40,0,4,0,logica,,,7,11,CBaseModelInfo::DeleteCollisionModel CBaseModelInfo::Shutdown CPedModelInfo::DeleteRwObject CWorld::ProcessLineOfSightSectorList<CPtrListDoubleLink<CPhysical*>> CWorld::TestSphereAgainstSectorList<CPtrListDoubleLink<CPhysical*>>,si,si,si,no
+0x0040FAF0,96,CColModel,baja,23,<0x100,0,0,0,logica,,,3,8,CFileLoader::LoadCollisionModelVer2 CFileLoader::LoadCollisionModelVer3 CFileLoader::LoadCollisionModelVer4,si,si,si,no
+0x0040FB60,30,CColModel,baja,13,<0x40,0,1,0,pequena,,,7,7,CColAccel::cacheLoadCol CFileLoader::LoadCollisionFile-Buffer CFileLoader::LoadCollisionFile-File CFileLoader::LoadCollisionFileFirstTime CPedModelInfo::CreateHitColModelSkinned CWorld::ProcessLineOfSightSectorList<CPtrListDoubleLink<CPhysical*>> CWorld::TestSphereAgainstSectorList<CPtrListDoubleLin,si,si,si,no
+0x0040FC80,97,CColModel,baja,37,<0x100,0,0,0,logica,,,16,16,0x5e2530 CAutomobile::ProcessEntityCollision CBike::ProcessEntityCollision CCollision::ProcessColModels CCollision::ProcessDiscCollision CTrailer::ProcessEntityCollision CWeapon::CheckForShootingVehicleOccupant CWorld::ProcessLineOfSightSectorList<CPtrListDoubleLink<CPhysical*>> CWorld::ProcessVerti,si,si,si,no
+0x0040FCF0,30,CColModel,baja,10,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,25,25,CPedModelInfo::AnimatePedColModelSkinned CPedModelInfo::AnimatePedColModelSkinnedWorld CPedModelInfo::CreateHitColModelSkinned CPlantMgr::_ProcessEntryCollisionDataSections CTaskSimpleClimb::CreateColModel CTempColModels::Initialise CVehicle::DoBladeCollision,si,si,si,no
+0x0040FD50,85,CColSphere,alta,29,<0x100,0,0,0,logica,,,1,1,CMonsterTruck::SetupSuspensionLines,si,si,si,no
+0x0040FDB0,29,CColSphere,alta,11,<0x40,8,0,0,trivial(<=0x20 sin llamadas),,,53,55,0x42dab0 0x434900 0x436a90 0x437c20 0x604500 0x61d6f0 0x6575f0 0x6d85f0 0x6dfc50 CAutomobile::ProcessAI CAutomobile::ProcessCarWheelPair CAutomobile::SpawnFlyingComponent CAutomobile::VehicleDamage CBike::ProcessControl CBike::VehicleDamage CBmx::ProcessAI CCam::Process_AimWeapon CCam::Process_Follo,si,si,si,no
+0x0040FE00,35,CColSphere,alta,12,<0x40,9,0,0,pequena,,,25,28,CAutomobile::VehicleDamage CEventDamage::AffectsPed CEventSeenPanickedPed::AffectsPed CEventSoundQuiet::AffectsPed CTaskComplexArrestPed::ControlSubTask CTaskComplexArrestPed::CreateNextSubTask CTaskComplexFollowLeaderInFormation::ControlSubTask CTaskComplexFollowNodeRoute::ComputePathNodes CTaskCom,si,si,si,no
+0x0040FE30,37,CColSphere,alta,13,<0x40,9,0,0,pequena,,,95,98,0x430050 0x437c20 0x602c00 0x6aa290 0x6d85f0 CAutomobile::ProcessAI CAutomobile::ProcessCarWheelPair CAutomobile::ProcessSwingingDoor CBike::ProcessAI CBike::ProcessControl CBmx::ProcessAI CCam::Process CCam::Process_1stPerson CCam::Process_AimWeapon CCam::Process_Cam_TwoPlayer_InCarAndShooting CCam,si,si,si,no
+0x0040FE60,37,CColSphere,alta,13,<0x40,9,0,0,pequena,,,238,253,0x424f80 0x425440 0x42dab0 0x430050 0x434900 0x436a90 0x5e8cd0 0x602c00 0x604500 0x60dc50 0x61d6f0 0x695090 0x6d85f0 0x6de880 CAEGlobalWeaponAudioEntity::ServiceAmbientGunFire CAEPedSpeechAudioEntity::AddSayEvent CAEPedSpeechAudioEntity::RequestPedConversation CAEPedlessSpeechAudioEntity::AddSayEven,si,si,si,no
+0x0040FE90,37,CColSphere,alta,12,<0x40,9,0,0,pequena,,,130,134,0x604500 0x6aa290 0x6d85f0 0x6dfc50 0x6e0050 CAEWeatherAudioEntity::UpdateParameters CAutomobile::BoostJumpControl CAutomobile::ProcessAI CAutomobile::ProcessCarWheelPair CAutomobile::ProcessSwingingDoor CAutomobile::SpawnFlyingComponent CAutomobile::TankControl CAutomobile::VehicleDamage CBike::Bur,si,si,si,no
+0x0040FEC0,37,CColSphere,alta,12,<0x40,9,0,0,pequena,,,125,128,0x42c2b0 0x430050 0x437c20 0x5e8cd0 0x60dc50 0x629920 0x6d85f0 0x6de880 0x6dfc50 0x6e3440 CAutomobile::ProcessAI CAutomobile::TankControl CCam::Process CCam::Process_1stPerson CCam::Process_Cam_TwoPlayer_InCarAndShooting CCam::Process_FollowPed_SA CCam::Process_WheelCam CCamera::CamControl CCamera::,si,si,si,no
+0x0040FEF0,33,CColSphere,alta,11,<0x40,9,0,0,pequena,,,27,27,0x6d85f0 CAutomobile::ProcessBuoyancy CCam::Process_1stPerson CCam::Process_AimWeapon CCam::Process_Cam_TwoPlayer_InCarAndShooting CExplosion::Update CPedGeometryAnalyser::CanPedJumpObstacle-contacted CPhysical::ApplyFriction-void CPhysical::ApplySoftCollision-2 CPhysical::ProcessShift CShadows::Ren,si,si,si,no
+0x00410390,4,CColSphere,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CStreaming::LoadCdDirectory-char,si,si,si,no
+0x00410F80,91,CColStore,alta,36,<0x100,0,2,0,logica,,,1,1,CColStore::Initialise,si,si,si,no
+0x00411030,103,CColStore,alta,47,<0x100,0,0,0,logica,,,1,1,CColStore::AddColSlot,si,si,si,no
+0x00411590,70,CColStore,baja,18,<0x100,9,0,0,logica,,,17,17,CAutomobile::UpdateMovingCollision CCollision::ProcessLineTriangle CCollision::ProcessSphereTriangle CGlass::BreakGlassPhysically CGlass::WindowRespondsToCollision,si,si,si,no
+0x004119D0,47,CPlaceable,baja,14,<0x40,11,0,0,pequena,,,18,18,0x430050 0x604500 0x6dfc50 0x6e0050 CAutomobile::ProcessBuoyancy CBike::ProcessControl CCam::Process CCollision::ProcessSphereBox CObject::ProcessControl CPhysical::ApplyCollision-2 CPhysical::ApplyCollisionAlt CPhysical::ProcessCollisionSectorList CTaskSimpleClimb::ProcessPed CWeapon::FireAreaEffec,si,si,si,no
+0x00411A00,33,CPlaceable,baja,12,<0x40,9,0,0,pequena,,,51,52,0x629920 0x6c69c0 0x6d85f0 0x6de880 0x6e3440 CAutomobile::TankControl CBoat::BlowUpCar CCam::LookRight CCam::Process_1stPerson CCam::Process_Cam_TwoPlayer_InCarAndShooting CCam::Process_FollowPed_SA CCamera::TryToStartNewCamMode CClouds::VolumetricCloudsRender CExplosion::Update CObject::ObjectDamag,si,si,si,no
+0x00411A30,35,CPlaceable,baja,12,<0x40,10,0,0,pequena,,,1,1,CPedGeometryAnalyser::CanPedJumpObstacle-contacted,si,si,si,no
+0x00411A80,99,CPlaceable,baja,28,<0x100,0,3,0,logica,,,18,18,C3dMarker::Render CBike::CalculateLeanMatrix CBike::FixHandsToBars CBike::PreRender CBmx::PreRender CCollision::ProcessColModels CPed::PositionAttachedPed CPed::SetPedPositionInCar CPedIK::PitchForSlope CPhysical::AttachEntityToEntity-quat CPhysical::DettachEntityFromEntity CPhysical::PositionAttach,si,si,si,no
+0x00411BA0,4,CPlaceable,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,6,6,CAutomobile::ProcessCarWheelPair,si,si,si,no
+0x00411BF0,10,CPlaceable,baja,3,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,2,CAutomobile::ProcessCarWheelPair,si,si,si,no
+0x004161F0,64,CCollision,alta,24,<0x100,0,0,0,pequena,,,2,2,CCollision::CalculateTrianglePlanes-colData,si,si,si,no
+0x0041B7C0,11,CNodeRoutePool,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,9,11,CTaskComplexDrivePointRoute::Constructor CTaskComplexFollowNodeRoute::Constructor CTaskComplexFollowPedFootsteps::Constructor CTaskComplexFollowPointRoute::Constructor CTaskComplexGoToCarDoorAndStandStill::ComputeRouteToDoor CTaskComplexWalkRoundBuildingAttempt::Constructor CTaskComplexWalkRoundCar:,si,si,si,no
+0x0041B7D0,49,CNodeRoutePool,baja,18,<0x40,0,0,0,pequena,,,6,9,CTaskComplexDrivePointRoute::Destructor CTaskComplexFollowNodeRoute::Destructor CTaskComplexGoToCarDoorAndStandStill::Destructor CTaskComplexWalkRoundBuildingAttempt::Destructor CTaskComplexWalkRoundCar::Destructor,si,si,si,no
+0x0041BCB0,3,CBridge,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CPlayerInfo::Process,si,si,si,no
+0x0041BCE0,7,CBridge,baja,3,<0x40,2,0,0,trivial(<=0x20 sin llamadas),,,1,1,CAutomobile::ProcessCarWheelPair,si,si,si,no
+0x0041BCF0,7,CBridge,baja,3,<0x40,2,0,0,trivial(<=0x20 sin llamadas),,,1,1,CAutomobile::ProcessCarWheelPair,si,si,si,no
+0x0041BD00,3,CBridge,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CAutomobile::ProcessCarWheelPair,si,si,si,no
+0x0041BD10,4,CBridge,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,2,CAutomobile::ProcessCarWheelPair,si,si,si,no
+0x0041BD50,7,CBridge,baja,2,<0x40,1,0,0,trivial(<=0x20 sin llamadas),,,6,6,CAutomobile::ProcessCarWheelPair,si,si,si,no
+0x0041BD80,4,CBridge,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,3,3,CAutomobile::ProcessCarWheelPair,si,si,si,no
+0x0041BDD0,47,CGeneral,baja,12,<0x40,0,0,0,pequena,,,2,3,CPlane::DoPlaneGenerationAndRemoval,si,si,si,no
+0x0041CC70,59,CCarAI,alta,22,<0x40,6,0,0,pequena,,,5,5,0x42dab0 CAEWeatherAudioEntity::UpdateParameters CCarAI::UpdateCarAI CClouds::MovingFogRender CTaskSimpleSitIdle::ProcessPed,si,si,si,no
+0x0041CCB0,70,CCarAI,alta,26,<0x100,7,0,0,logica,,,27,28,0x425440 0x42c2b0 0x42c740 0x42d4f0 0x430050 0x432420 0x437c20 0x683ad0 0x6aab50 CAEWeatherAudioEntity::UpdateParameters CCam::Process_FollowPed_SA CCarAI::UpdateCarAI CPed::DoFootLanded CPedToPlayerConversations::Update CTaskSimpleCarAlign::FixHeading CTaskSimplePlayerOnFoot::ProcessPlayerWeapon CT,si,si,si,no
+0x00420800,25,CCarAI,baja,9,<0x40,5,0,0,trivial(<=0x20 sin llamadas),,,54,54,0x424f80 0x430050 0x44aa50 0x604500 0x6d85f0 0x6dfc50 0x6e0050 0x6e1a60 0x6ffbb0 CAutomobile::HydraulicControl CAutomobile::ProcessAI CAutomobile::TankControl CAutomobile::UpdateMovingCollision CBike::ProcessAI CBmx::ProcessAI CCam::Process CCam::Process_AimWeapon CCam::Process_DW_CamManCam CCam::Pr,si,si,si,no
+0x00420920,35,CCarAI,baja,11,<0x40,0,0,0,pequena,,,14,14,0x42fc40 0x430050 0x435830 CTaskComplexWander::ScanForBlockedNodes CTrafficLights::ShouldCarStopForLight,si,si,si,no
+0x00420950,35,CCarAI,baja,11,<0x40,0,0,0,pequena,,,4,4,0x430050 CTrafficLights::ShouldCarStopForLight,si,si,si,no
+0x00420980,43,CCarAI,baja,16,<0x40,0,0,0,pequena,,,4,4,0x430050 0x435830,si,si,si,no
+0x00420A60,56,CPathNode,baja,15,<0x40,6,0,0,pequena,,,6,6,0x424210 0x430050,si,si,si,no
+0x00421120,19,CPedIntelligence,baja,7,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,0x430050,si,si,si,no
+0x00421A50,1418,CCarCtrl,alta,489,>=0x300,97,17,0,logica,,,2,2,0x426350,si,si,si,no
+0x00422E10,353,CCarCtrl,alta,102,<0x300,64,2,0,logica,,,0,1,,si,no,si,no
+0x00422F80,117,CCarCtrl,alta,43,<0x100,5,1,0,logica,,,1,1,0x423000,si,si,si,no
+0x00426970,553,CCarCtrl,alta,172,<0x300,79,2,0,logica,,,1,1,0x42d7e0,si,si,si,no
+0x00438D60,223,CCheat,alta,62,<0x100,2,10,2,logica,,,1,1,CCheat::MoneyArmourHealthCheat,si,si,si,no
+0x0043A6A0,23,CCheat,baja,9,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,3,3,CPedToPlayerConversations::Update,si,si,si,no
+0x0043E400,11,CTaskSimpleUninterruptable,baja,4,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CPlayerPed::ProcessControl,si,si,si,no
+0x0043EA90,96,CEntryExit,alta,43,<0x100,0,2,0,logica,,,3,3,CEntryExit::WarpGangWithPlayer,si,si,si,no
+0x0043F720,91,CEntryExitManager,alta,36,<0x100,0,2,0,logica,,,1,1,CEntryExitManager::Init,si,si,si,no
+0x0043F7D0,103,CEntryExitManager,alta,47,<0x100,0,0,0,logica,,,1,1,CEntryExitManager::AddOne,si,si,si,no
+0x004410E0,23,CEntryExitManager,baja,8,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CMenuManager::UserInput,si,si,si,no
+0x00441130,54,CEntryExitManager,baja,16,<0x40,0,0,0,pequena,,,4,5,CObject::ProcessControl CPlane::DoPlaneGenerationAndRemoval ProcSurfaceInfo_c::AddObject,si,si,si,no
+0x00448650,6,CGarage,alta,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,2,CCamera::CamControl,si,si,si,no
+0x00448660,86,CGarage,alta,26,<0x100,0,3,0,logica,,,1,1,0x44aa50,si,si,si,no
+0x00448990,78,CGarages,alta,32,<0x100,0,1,0,logica,,,1,1,CTaskSimpleCarSetPedOut::ProcessPed,si,si,si,no
+0x00449BA0,93,CGarage,baja,31,<0x100,0,1,1,logica,,,2,2,CCamera::CamControl,si,si,si,no
+0x0044CB10,167,COnscreenCounterEntry,baja,56,<0x100,3,2,0,logica,,,0,1,,si,no,si,no
+0x0044CBC0,88,COnscreenCounterEntry,baja,32,<0x100,0,0,0,logica,,,1,1,CUserDisplay::Init,si,si,si,no
+0x0044CC20,258,COnscreenCounterEntry,baja,90,<0x300,0,3,0,logica,,,1,1,Game::Render2dStuff,si,si,si,no
+0x0044CD30,25,COnscreenCounterEntry,baja,7,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CUserDisplay::Process,si,si,si,no
+0x0044D0E0,1,CPathFind,alta,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CGame::Init2,si,si,si,no
+0x0044D2B0,1,CPathFind,alta,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CGame::Init1,si,si,si,no
+0x0044D2C0,3,CPathFind,alta,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CFileLoader::LoadCarPathNode,si,si,si,no
+0x0044D2D0,3,CPathFind,alta,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CFileLoader::LoadPedPathNode,si,si,si,no
+0x0044D2E0,3,CPathFind,alta,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CFileLoader::LoadPedPathNode,si,si,si,no
+0x0044D2F0,3,CPathFind,alta,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CFileLoader::LoadCarPathNode,si,si,si,no
+0x0044DB00,96,CPathFind,alta,30,<0x100,9,0,0,logica,,,24,24,0x41b980 0x426ef0 0x427740 0x428040 0x42de80 0x430050 0x434900 0x436540,si,si,si,no
+0x0044E480,62,CPathFind,alta,24,<0x40,19,0,0,pequena,,,10,12,0x683ad0 CEventDamage::ComputeDamageAnim CEventDamage::ComputeDeathAnim CPathFind::FindNodeCoorsForScript-LinkedNode CPed::UpdatePosition CRunningScript::CharInAngledAreaCheckCommand CRunningScript::ObjectInAngledAreaCheckCommand CTaskSimpleGoToPoint::ProcessPed CVehicle::BladeColSectorList<CPtrList,si,si,si,no
+0x0044E4F0,285,CPathFind,alta,92,<0x300,14,4,0,logica,,,1,1,0x42f870,si,si,si,no
+0x0044F190,298,CPathFind,alta,85,<0x300,25,1,0,logica,,,0,1,,si,no,si,no
+0x0044F2C0,396,CPathFind,alta,118,<0x300,31,1,0,logica,,,6,6,0x44f460,si,si,si,no
+0x0044FA30,285,CPathFind,alta,100,<0x300,0,1,0,logica,,,0,1,,si,no,si,no
+0x00450FB0,799,CPathFind,alta,231,>=0x300,126,4,0,logica,,,1,1,0x452270,si,si,si,no
+0x00452090,190,CPathFind,alta,71,<0x100,0,2,0,logica,,,2,2,0x424210,si,si,si,no
+0x00454920,28,CPathFind,baja,11,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,2,CPickup::Update,si,si,si,no
+0x00459350,47,CPed,baja,15,<0x40,9,0,0,pequena,,,3,3,C3dMarker::Render CVehicleRecording::InterpolateInfoForCar,si,si,si,no
+0x0045AF40,47,CVehicleRecording,baja,15,<0x40,9,0,0,pequena,,,2,4,CReplay::ProcessPedUpdate,si,si,si,no
+0x0045AFB0,54,CVehicleRecording,baja,16,<0x40,0,0,0,pequena,,,1,1,CAutomobile::ProcessHarvester,si,si,si,no
+0x0045B730,857,CReplay,alta,233,>=0x300,78,18,0,logica,,,3,6,CReplay::RecordThisFrame,si,si,si,no
+0x0045BA90,1236,CReplay,alta,329,>=0x300,53,29,0,logica,,,3,6,CReplay::PlayBackThisFrameInterpolation,si,si,si,no
+0x0045BF90,81,CReplay,alta,26,<0x100,4,5,2,logica,,,1,1,CReplay::RecordThisFrame,si,si,si,no
+0x0045BFF0,116,CReplay,alta,34,<0x100,6,4,2,logica,,,1,1,CReplay::PlayBackThisFrameInterpolation,si,si,si,no
+0x0045C070,81,CReplay,alta,26,<0x100,4,5,2,logica,,,1,1,CReplay::RecordThisFrame,si,si,si,no
+0x0045C0D0,116,CReplay,alta,34,<0x100,6,4,2,logica,,,1,1,CReplay::PlayBackThisFrameInterpolation,si,si,si,no
+0x0045C4B0,537,CReplay,alta,143,<0x300,0,0,0,logica,,,0,1,,si,no,si,no
+0x0045CD10,159,CReplay,alta,47,<0x100,0,1,0,logica,,,1,1,CReplay::RecordThisFrame,si,si,si,no
+0x0045CDB0,226,CReplay,alta,73,<0x100,0,5,0,logica,,,1,1,CReplay::PlayBackThisFrameInterpolation,si,si,si,no
+0x0045DEF0,763,CReplay,alta,145,<0x300,0,1,0,logica,,,3,3,CReplay::RestorePlayerInfoVariables CReplay::StorePlayerInfoVariables CReplay::StoreStuffInMem,si,si,si,no
+0x00460D80,87,CTaskComplexWanderCop,baja,25,<0x100,0,2,1,logica,,,1,2,CTaskComplexBeCop::Destructor,si,si,si,no
+0x00463370,31,CRoadBlocks,baja,11,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,2,CFont::ParseToken,si,si,si,no
+0x00463640,18,CTaskComplexSequence,baja,7,<0x40,0,1,0,pequena,,,1,1,CRunningScript::ShutdownThisScript,si,si,si,no
+0x004637E0,44,CTaskSimpleFinishBrain,baja,15,<0x40,0,0,0,pequena,,,2,7,CCarCtrl::CreateCarForScript,si,si,si,no
+0x00463970,104,CUpsideDownCarCheck,baja,27,<0x100,0,0,0,logica,,,1,1,CStuckCarCheck::Process,si,si,si,no
+0x00465040,41,CTheScripts,baja,17,<0x40,0,0,0,pequena,,,1,24,0x587000,si,si,si,no
+0x00465070,40,CTheScripts,baja,14,<0x40,0,0,0,pequena,,,1,2,CProjectileInfo::IsProjectileInRange,si,si,si,no
+0x004650A0,54,CTheScripts,baja,24,<0x40,0,2,0,logica,,,1,1,CDecisionMakerTypesFileLoader::LoadDecisionMaker-enum,si,si,si,no
+0x004654B0,226,CTheScripts,baja,73,<0x100,0,2,0,logica,,,4,7,0x45ae80 0x468560 CTaskSimpleCreateCarAndGetIn::Destructor CTaskSimpleCreateCarAndGetIn::ProcessPed,si,si,si,no
+0x0046AE00,33,CTaskComplexSeekEntityStandard,baja,11,<0x40,9,0,0,pequena,,,1,1,CAutomobile::SpawnFlyingComponent,si,si,si,no
+0x0046CED0,45,CScriptsForBrains,baja,20,<0x40,0,2,0,logica,,,1,1,InteriorGroup_c::SetupHousePeds,si,si,si,no
+0x0046FEE0,61,CTaskComplexGoToPointAndStandStill,baja,23,<0x40,0,1,1,pequena,,,2,2,CTaskComplexSeekEntityStandard::ControlSubTask,si,si,si,no
+0x00470000,14,CTaskComplexGoToPointAndStandStill,baja,4,<0x40,2,1,0,pequena,,,19,19,CAutomobile::ProcessCarWheelPair cHandlingDataMgr::LoadHandlingData,si,si,si,no
+0x0047E050,4,CTheCarGenerators,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,6,6,CAutomobile::ProcessCarWheelPair,si,si,si,no
+0x0048DF30,42,CTaskSimpleCower,baja,13,<0x40,0,1,0,pequena,,,12,12,CTaskComplexInvestigateDisturbance::CreateNextSubTask CTaskComplexKillPedOnFootStealth::ControlSubTask CTaskComplexPolicePursuit::ControlSubTask CTaskComplexPolicePursuit::CreateSubTask CTaskComplexWalkRoundBuildingAttempt::CreateFirstSubTask CTaskComplexWalkRoundBuildingAttempt::CreateSubTask CTask,si,si,si,no
+0x0048E180,48,CTaskSimpleLookAbout,baja,19,<0x40,0,0,0,pequena,,,4,4,0x657220 0x695090,si,si,si,no
+0x00493280,217,CTheScripts,alta,70,<0x100,37,2,0,logica,,,1,2,0x493900,si,si,si,no
+0x00496DC0,61,CTaskComplexSeekEntityRadiusAngleOffset,baja,23,<0x40,0,1,1,pequena,,,2,2,CTaskComplexSeekEntityRadiusAngleOffset::ControlSubTask,si,si,si,no
+0x004993D0,82,CTaskComplexSeekEntityRadiusAngleOffset,baja,29,<0x100,0,1,0,logica,,,4,4,CSetPiece::Update CTaskComplexBeCop::Clone,si,si,si,no
+0x004997A0,50,CSetPiece,alta,14,<0x40,6,0,0,pequena,,,7,7,CSetPiece::Update,si,si,si,no
+0x004997E0,50,CSetPiece,alta,14,<0x40,6,0,0,pequena,,,4,4,CSetPiece::Update,si,si,si,no
+0x00499820,50,CSetPiece,alta,14,<0x40,6,0,0,pequena,,,5,5,CSetPiece::Update,si,si,si,no
+0x00499860,50,CSetPiece,alta,14,<0x40,6,0,0,pequena,,,3,3,CSetPiece::Update,si,si,si,no
+0x0049ABD0,184,CShopping,alta,75,<0x100,0,0,0,logica,,,2,2,CShopping::LoadStats,si,si,si,no
+0x0049B0E0,217,CVehicle,baja,82,<0x100,0,10,1,logica,,,1,1,CShopping::Buy,si,si,si,no
+0x0049C300,89,CShopping,baja,35,<0x100,18,0,0,logica,,,2,2,CStuntJumpManager::Update,si,si,si,no
+0x0049C3B0,28,CShopping,baja,10,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CStuntJumpManager::Update,si,si,si,no
+0x0049C8F0,91,CStuntJumpManager,alta,36,<0x100,0,2,0,logica,,,1,1,CStuntJumpManager::Init,si,si,si,no
+0x0049C9A0,48,CStuntJumpManager,alta,22,<0x40,0,0,0,pequena,,,1,1,CStuntJumpManager::ShutdownForRestart,si,si,si,no
+0x0049C9E0,103,CStuntJumpManager,alta,47,<0x100,0,0,0,logica,,,2,2,CStuntJumpManager::AddOne CStuntJumpManager::Load,si,si,si,no
+0x0049CD50,80,CTagManager,alta,30,<0x100,0,2,0,logica,,,1,1,CEntity::CreateRwObject,si,si,si,no
+0x0049E640,10,CTrafficLights,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CGame::Process,si,si,si,no
+0x0049E650,10,CTrafficLights,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,2,CPostEffects::HeatHazeFX Game::RenderEffects,si,si,si,no
+0x0049E660,493,CTrafficLights,baja,145,<0x300,0,17,0,logica,,,0,2,,si,no,si,no
+0x0049E850,242,CTrafficLights,baja,72,<0x100,0,17,0,logica,,,0,1,,si,no,si,no
+0x0049EA40,10,Fx_c,alta,3,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,6,6,CMenuManager::LoadSettings CMenuManager::ProcessPCMenuOptions CMenuManager::SetDefaultPreferences,si,si,si,no
+0x0049EA50,4,Fx_c,alta,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,29,29,0x730e60 CClouds::VolumetricCloudsRender CCustomCarEnvMapPipeline::CustomPipeRenderCB CGrassRenderer::DrawTriPlants CMenuManager::DrawStandardMenus CMenuManager::ProcessPCMenuOptions CMenuManager::SaveSettings CMirrors::CreateBuffer CPed::PreRenderAfterTest CPlantMgr::Render CRealTimeShadowManager::,si,si,si,no
+0x0049EA70,5,Fx_c,alta,1,<0x40,0,0,0,thunk,,sí,0,3,,si,no,si,no
+0x0049EA90,66,Fx_c,alta,17,<0x100,0,4,0,logica,,,1,1,CGame::Init1,si,si,si,no
+0x0049EAE0,21,Fx_c,alta,7,<0x40,0,1,0,pequena,,,1,1,CGame::ShutDownForRestart,si,si,si,no
+0x004A11E0,153,Fx_c,baja,49,<0x100,0,5,0,logica,,,1,1,CEntity::CreateEffects,si,si,si,no
+0x004A1280,67,Fx_c,baja,29,<0x100,0,4,0,logica,,,1,1,CEntity::DestroyEffects,si,si,si,no
+0x004A12D0,57,Fx_c,baja,23,<0x40,0,4,0,logica,,,0,1,,si,no,si,no
+0x004A1320,26,Fx_c,baja,8,<0x40,0,2,0,logica,,,1,1,CGame::Shutdown,si,si,si,no
+0x004A1900,18,FxEmitterBP_c,alta,6,<0x40,0,1,0,pequena,,,1,1,FxSystemBP_c::Load,si,si,si,no
+0x004A24D0,50,FxEmitterBP_c,alta,24,<0x40,0,0,0,pequena,,,2,2,FxSystemBP_c::Load,si,si,si,no
+0x004A4C20,101,FxInfoManager_c,alta,27,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A4D00,101,FxInfoManager_c,alta,27,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A4DC0,101,FxInfoManager_c,alta,27,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A4E90,101,FxInfoManager_c,alta,27,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A4F50,101,FxInfoManager_c,alta,27,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A5010,101,FxInfoManager_c,alta,27,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A50E0,101,FxInfoManager_c,alta,27,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A51B0,101,FxInfoManager_c,alta,27,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A5270,101,FxInfoManager_c,alta,28,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A5450,101,FxInfoManager_c,alta,27,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A5550,101,FxInfoManager_c,alta,28,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A5650,101,FxInfoManager_c,alta,27,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A57C0,101,FxInfoManager_c,alta,27,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A5980,101,FxInfoManager_c,alta,27,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A5A10,101,FxInfoManager_c,alta,28,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A5B20,101,FxInfoManager_c,alta,28,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A5CB0,101,FxInfoManager_c,alta,27,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A5DA0,79,FxInfoManager_c,alta,21,<0x100,0,1,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A5E20,79,FxInfoManager_c,alta,21,<0x100,0,1,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A5EA0,101,FxInfoManager_c,alta,27,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A5FA0,101,FxInfoManager_c,alta,27,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A60B0,101,FxInfoManager_c,alta,27,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A61A0,79,FxInfoManager_c,alta,21,<0x100,0,1,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A6220,101,FxInfoManager_c,alta,27,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A6320,101,FxInfoManager_c,alta,27,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A6440,101,FxInfoManager_c,alta,27,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A6550,101,FxInfoManager_c,alta,28,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A6630,101,FxInfoManager_c,alta,27,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A6760,79,FxInfoManager_c,alta,21,<0x100,0,1,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A67D0,101,FxInfoManager_c,alta,27,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A68E0,101,FxInfoManager_c,alta,27,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A6A00,101,FxInfoManager_c,alta,28,<0x100,0,2,0,logica,,,1,1,FxInfoManager_c::AddFxInfo,si,si,si,no
+0x004A8440,20,FxInfoManager_c,baja,7,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,0,9,,si,no,si,no
+0x004A87D0,20,FxInfoManager_c,baja,7,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,0,8,,si,no,si,no
+0x004A8990,20,FxInfoManager_c,baja,7,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,0,13,,si,no,si,no
+0x004A8B50,20,FxInfoManager_c,baja,7,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,0,2,,si,no,si,no
+0x004A8DB0,16,FxInfoManager_c,baja,4,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,3,15,BoneNode_c::Constructor FxSystemBP_c::Constructor FxSystem_c::Constructor,si,si,si,no
+0x004A8DC0,1,FxInfoManager_c,baja,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,11,BoneNode_c::Destructor FxSystem_c::Destructor,si,si,si,no
+0x004A8DD0,13,FxInfoManager_c,baja,6,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,5,20,BoneNodeManager_c::Constructor BoneNode_c::Constructor FxManager_c::Constructor,si,si,si,no
+0x004A8DE0,1,FxInfoManager_c,baja,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,5,32,BoneNodeManager_c::Destructor BoneNode_c::Destructor FxManager_c::Destructor,si,si,si,no
+0x004A8DF0,50,FxInfoManager_c,baja,17,<0x40,0,0,0,pequena,,,40,41,0x4a2580 BoneNodeManager_c::Init BoneNodeManager_c::Reset BoneNodeManager_c::ReturnBoneNode BoneNode_c::AddChild FurnitureGroup_c::AddSubGroup FurnitureManager_c::Init FurnitureSubGroup_c::AddFurniture FxManager_c::CreateFxSystem-1 FxManager_c::CreateFxSystem-3 FxManager_c::DestroyFxSystem FxManager,si,si,si,no
+0x004A8E30,59,FxInfoManager_c,baja,24,<0x40,0,0,0,pequena,,,14,16,FxEmitterBP_c::FreePrtFromPrim FxEmitterBP_c::Update FxManager_c::DestroyFxSystem IKChainManager_c::RemoveIKChain InteriorManager_c::Update Interior_c::PlaceObject Interior_c::Unfurnish ProcObjectMan_c::ProcessTriangleRemoved ProcSurfaceInfo_c::Exit WaterCreatureManager_c::Exit WaterCreatureManager_,si,si,si,no
+0x004A8E70,54,FxInfoManager_c,baja,20,<0x40,0,0,0,pequena,,,11,11,BoneNodeManager_c::GetBoneNode FxManager_c::GetParticle IKChainManager_c::AddIKChain InteriorManager_c::GetInteriorFromPool InteriorManager_c::Update Interior_c::PlaceFurniture Interior_c::PlaceObject ProcObjectMan_c::GetEntityFromPool ProcSurfaceInfo_c::AddObject WaterCreatureManager_c::Update,si,si,si,no
+0x004A8EB0,11,FxInfoManager_c,baja,5,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,19,19,BoneNodeManager_c::Exit BoneNodeManager_c::Reset BoneNode_c::Init FurnitureGroup_c::Exit FurnitureManager_c::Exit FxManager_c::Exit FxManager_c::UnloadFxProject IKChainManager_c::Exit InteriorManager_c::Exit ProcObjectMan_c::Exit WaterCreatureManager_c::Exit,si,si,si,no
+0x004A8EC0,4,FxInfoManager_c,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,15,15,BoneNodeManager_c::GetNumBoneNodesLeft FurnitureSubGroup_c::GetFurniture FurnitureSubGroup_c::GetRandomId FxEmitterBP_c::Render FxEmitterBP_c::RenderHeatHaze FxEmitterBP_c::Update FxManager_c::FreeUpParticle Interior_c::PlaceFurniture Interior_c::PlaceObject WaterCreatureManager_c::Update,si,si,si,no
+0x004A9010,67,FxInfoManager_c,baja,29,<0x100,0,0,0,logica,,,3,3,FurnitureSubGroup_c::GetFurniture FurnitureSubGroup_c::GetRandomId FxManager_c::FreeUpParticle,si,si,si,no
+0x004A9C10,3,FxManager_c,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,FxManager_c::Constructor,si,si,si,no
+0x004A9C20,1,FxManager_c,baja,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,FxManager_c::Destructor,si,si,si,no
+0x004A9CF0,35,FxMemoryPool_c,baja,13,<0x40,0,1,0,pequena,,,1,1,FxEmitterBP_c::Constructor,si,si,si,no
+0x004A9F20,21,FxPrimBP_c,baja,7,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,2,FxEmitterBP_c::CreateInstance,si,si,si,no
+0x004A9F50,10,FxPrimBP_c,baja,3,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,FxSystem_c::EnablePrim,si,si,si,no
+0x004A9F70,10,FxPrimBP_c,baja,3,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,3,FxManager_c::Constructor FxManager_c::ShouldCreate,si,si,si,no
+0x004AB240,5,FxSystem_c,baja,1,<0x40,0,0,0,thunk,,sí,1,1,FxManager_c::LoadFxProject,si,si,si,no
+0x004AB250,5,FxSystem_c,baja,1,<0x40,0,0,0,thunk,,sí,59,59,0x5c0b70 FxEmitterBP_c::Load FxManager_c::LoadFxProject FxManager_c::LoadFxSystemBP FxPrimBP_c::Load FxSystemBP_c::Load,si,si,si,no
+0x004AB260,5,FxSystem_c,baja,1,<0x40,0,0,0,thunk,,sí,1,1,FxManager_c::LoadFxProject,si,si,si,no
+0x004AB270,28,FxSystem_c,baja,10,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,6,6,0x49f750 0x49f970 0x4a41e0 CAutomobile::ProcessHarvester CObject::DoBurnEffect FxEmitterBP_c::Render,si,si,si,no
+0x004AB290,53,FxSystem_c,baja,16,<0x40,0,0,0,pequena,,,44,46,0x44aa50 0x49eb00 0x49ee10 0x49f040 0x49f300 0x49f3d0 0x49f670 0x49fb30 0x49ff20 0x4a0170 0x4a03c0 0x4a0610 0x4a09c0 0x6aa290 0x6de880 BreakObject_c::DoCollisionResponse CAutomobile::ProcessCarOnFireAndExplode CAutomobile::dmgDrawCarCollidingParticles CFireManager::ExtinguishPointWithWater CObject::,si,si,si,no
+0x004AB2D0,51,FxSystem_c,baja,15,<0x40,0,0,0,pequena,,,1,1,CAutomobile::ProcessHarvester,si,si,si,no
+0x004AB980,14,CEventGlobalGroup,alta,4,<0x40,0,1,0,pequena,,,1,2,CPedIntelligence::Destructor,si,si,si,no
+0x004ABBA0,63,CEventSource,baja,18,<0x40,0,1,0,pequena,,,6,6,CEventKnockOffBike::CalcForcesAndAnims CPed::MakeTyresMuddySectorList<CPtrListSingleLink<CPhysical*>> CTaskSimpleInAir::ProcessPed CTaskSimpleSwim::ProcessSwimmingResistance,si,si,si,no
+0x004ABC30,36,CEventSource,baja,17,<0x40,0,2,2,logica,sí,,1,2,CEventDamage::TakesPriorityOver,si,si,si,no
+0x004ABCA0,23,CEventSource,baja,10,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,4,4,0x641100 CEventDamage::TakesPriorityOver CEventHandler::ComputeDamageResponse,si,si,si,no
+0x004ABEA0,33,CTaskSimpleFight,baja,9,<0x40,5,0,0,pequena,,,2,2,CEventGunShot::AffectsPed CEventHandler::ComputePedThreatResponse,si,si,si,no
+0x004AC010,7,CEvent,alta,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,3,57,0x607e30 CTaskInteriorBeInShop::ScanForStuff,si,si,si,no
+0x004AC480,7,CEventEditableResponse,alta,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,57,0x6008a0,si,si,si,no
+0x004AC720,81,CEventGunShot,alta,23,<0x100,0,1,0,logica,,,4,10,CWeapon::FireInstantHit CWeapon::FireInstantHitFromCar2 CWeapon::FireProjectile CWeapon::FireSniper,si,si,si,no
+0x004AC920,81,CEventVehicleCollision,baja,23,<0x100,0,1,0,logica,,,1,3,0x604500,si,si,si,no
+0x004ACA70,81,CEventPedCollisionWithPed,alta,23,<0x100,0,1,0,logica,,,4,9,0x604500,si,si,si,no
+0x004ACDD0,81,CEventObjectCollision,alta,23,<0x100,0,1,0,logica,,,1,3,0x604500,si,si,si,no
+0x004ACE80,110,CEventObjectCollision,baja,35,<0x100,11,1,0,logica,,,1,1,CEventHandler::ComputeObjectCollisionResponse,si,si,si,no
+0x004ACFF0,81,CEventBuildingCollision,alta,23,<0x100,0,1,0,logica,,,1,3,0x604500,si,si,si,no
+0x004AD250,139,CEventBuildingCollision,baja,41,<0x100,0,2,0,logica,,,6,7,CCarEnterExit::MakeUndraggedDriverPedLeaveCar CEventHandler::ComputeKnockOffBikeResponse CTaskComplexEnterCar::CreateNextSubTask CTaskComplexEnterCar::CreateNextSubTask_AfterSimpleCarAlign,si,si,si,no
+0x004AD330,97,CEventBuildingCollision,baja,29,<0x100,0,2,0,logica,,,6,13,CCarEnterExit::MakeUndraggedDriverPedLeaveCar CEventHandler::ComputeKnockOffBikeResponse CTaskComplexEnterCar::CreateNextSubTask CTaskComplexEnterCar::CreateNextSubTask_AfterSimpleCarAlign,si,si,si,no
+0x004AD420,1,CPedDamageResponseCalculator,alta,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,22,49,0x5e2530 0x604500 CAutomobile::ProcessBuoyancy CBike::ProcessBuoyancy CCheat::SuicideCheat CEventHandler::ComputeKnockOffBikeResponse CPed::KillPedWithCar CTaskComplexOnFire::ComputeFireDamage CTaskSimpleGetUp::StartAnim CTaskSimpleHurtPedWithCar::ProcessPed CTaskSimpleKillPedWithCar::ProcessPed CTa,si,si,si,no
+0x004AD960,81,CEventDamage,alta,23,<0x100,0,1,0,logica,,,25,55,0x5e2530 0x604500 0x607e30 CAutomobile::ProcessBuoyancy CBike::ProcessBuoyancy CCheat::SuicideCheat CEventHandler::ComputeKnockOffBikeResponse CPed::KillPedWithCar CPedDamageResponseCalculator::ComputeDamageResponse CTaskSimpleGetUp::StartAnim CTaskSimpleHurtPedWithCar::ProcessPed CTaskSimpleKillPed,si,si,si,no
+0x004ADBF0,30,CEventDamage,alta,11,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,2,CEventHandler::ComputeDamageResponse,si,si,si,no
+0x004ADD60,61,CEventDamage,baja,19,<0x40,0,0,1,pequena,,,1,1,CEventHandler::ComputeDamageResponse,si,si,si,no
+0x004ADDF0,35,CEventDamage,baja,10,<0x40,0,0,0,pequena,,,3,3,CTaskComplexCarSlowBeDraggedOutAndStandUp::CreateNextSubTask CTaskSimpleDie::ProcessPed CTaskSimpleDrownInCar::ProcessPed,si,si,si,no
+0x004ADE90,7,CEventDamage,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,3,6,CTaskComplexCarSlowBeDraggedOutAndStandUp::CreateNextSubTask CTaskSimpleDie::ProcessPed CTaskSimpleDrownInCar::ProcessPed,si,si,si,no
+0x004ADEA0,120,CEventDamage,baja,38,<0x100,0,1,0,logica,,,1,3,CTaskSimpleDead::ProcessPed,si,si,si,no
+0x004ADF70,81,CEventDamage,baja,23,<0x100,0,1,0,logica,,,1,5,CTaskSimpleDead::ProcessPed,si,si,si,no
+0x004ADFD0,95,CEventDamage,baja,31,<0x100,0,1,0,logica,,,24,26,0x60b650 0x60c840 0x60cd20 0x641fc0 CEntryExit::TransitionFinished CEventHandler::ComputeKnockOffBikeResponse CInformGroupEvent::Process CPedGroup::PlayerGaveCommand_Attack CPlayerPed::MakeGroupRespondToPlayerTakingDamage CPlayerPed::TellGroupToStartFollowingPlayer CTaskComplexEnterCar::ControlSubTa,si,si,si,no
+0x004AE070,94,CEventDamage,baja,29,<0x100,0,2,1,logica,,,23,51,0x60b650 0x60c840 0x60cd20 0x641fc0 CEntryExit::TransitionFinished CEventHandler::ComputeKnockOffBikeResponse CInformGroupEvent::Process CPedGroup::PlayerGaveCommand_Attack CPlayerPed::MakeGroupRespondToPlayerTakingDamage CPlayerPed::TellGroupToStartFollowingPlayer CTaskComplexEnterCar::ControlSubTa,si,si,si,no
+0x004AE100,149,CEventDamage,baja,67,<0x100,0,2,3,logica,,,2,2,CPedGroupIntelligence::AddEvent- CPedGroupIntelligence::Process,si,si,si,no
+0x004AE1A0,102,CEventDamage,baja,30,<0x100,0,1,0,logica,,,2,3,0x425440,si,si,si,no
+0x004AE270,81,CEventDamage,baja,23,<0x100,0,1,0,logica,,,2,5,0x425440,si,si,si,no
+0x004AE3C0,81,CEventPotentialWalkIntoVehicle,alta,23,<0x100,0,1,0,logica,,,1,3,0x603720,si,si,si,no
+0x004AE670,81,CEventPotentialWalkIntoObject,baja,23,<0x100,0,1,0,logica,,,0,3,,si,no,si,no
+0x004AE7A0,81,CEventPotentialWalkIntoPed,alta,23,<0x100,0,1,0,logica,,,0,3,,si,no,si,no
+0x004AEA50,97,CEventVehicleHitAndRun,baja,29,<0x100,0,2,0,logica,,,1,3,CTaskSimpleKillPedWithCar::ProcessPed,si,si,si,no
+0x004AEAC0,124,CEventVehicleHitAndRun,baja,38,<0x100,0,2,0,logica,,,2,3,0x607e30 CCarEnterExit::MakeUndraggedPassengerPedsLeaveCar,si,si,si,no
+0x004AEB90,97,CEventVehicleHitAndRun,baja,29,<0x100,0,2,0,logica,,,2,5,0x607e30 CCarEnterExit::MakeUndraggedPassengerPedsLeaveCar,si,si,si,no
+0x004AEC50,17,CEventVehicleHitAndRun,baja,6,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CTaskSimpleGiveCPR::ReviveDeadPed,si,si,si,no
+0x004AECA0,7,CEventVehicleHitAndRun,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,2,CTaskSimpleGiveCPR::ReviveDeadPed,si,si,si,no
+0x004AECD0,93,CEventVehicleHitAndRun,baja,29,<0x100,0,1,0,logica,,,2,3,CTaskComplexWanderStandard::LookForChatPartners,si,si,si,no
+0x004AED60,81,CEventVehicleHitAndRun,baja,23,<0x100,0,1,0,logica,,,2,5,CTaskComplexWanderStandard::LookForChatPartners,si,si,si,no
+0x004AEDF0,102,CEventVehicleHitAndRun,baja,30,<0x100,0,1,0,logica,,,1,3,CPopulation::AddPed,si,si,si,no
+0x004AEEA0,81,CEventVehicleHitAndRun,baja,23,<0x100,0,1,0,logica,,,1,5,CPopulation::AddPed,si,si,si,no
+0x004AF010,86,CEventVehicleHitAndRun,baja,27,<0x100,0,1,0,logica,,,1,2,CTaskComplexWanderStandard::LookForSexyCars,si,si,si,no
+0x004AF0A0,81,CEventVehicleHitAndRun,baja,23,<0x100,0,1,0,logica,,,1,3,CTaskComplexWanderStandard::LookForSexyCars,si,si,si,no
+0x004AF130,86,CEventVehicleHitAndRun,baja,27,<0x100,0,1,0,logica,,,1,2,CTaskComplexWanderCop::LookForCriminals,si,si,si,no
+0x004AF1C0,81,CEventVehicleHitAndRun,baja,23,<0x100,0,1,0,logica,,,1,3,CTaskComplexWanderCop::LookForCriminals,si,si,si,no
+0x004AF240,86,CEventVehicleHitAndRun,baja,27,<0x100,0,1,0,logica,,,1,2,CTaskComplexWanderCop::LookForCriminals,si,si,si,no
+0x004AF2D0,81,CEventVehicleHitAndRun,baja,23,<0x100,0,1,0,logica,,,1,3,CTaskComplexWanderCop::LookForCriminals,si,si,si,no
+0x004AF400,81,CEventAttractor,alta,23,<0x100,0,1,0,logica,,,1,7,CPopulation::AddPedAtAttractor,si,si,si,no
+0x004AF700,81,CEventVehicleToSteal,alta,23,<0x100,0,1,0,logica,,,2,5,CTaskComplexPolicePursuit::ControlSubTask CTaskComplexWanderCriminal::LookForCarsToSteal,si,si,si,no
+0x004AF890,81,CEventAcquaintancePed,alta,23,<0x100,0,1,0,logica,,,13,21,0x42c2b0 0x604500 CCheat::EverybodyAttacksPlayerCheat CCheat::MayhemCheat CPed::Constructor CPopulation::AddPed CTaskComplexKillCriminal::ControlSubTask CTaskComplexKillCriminal::CreateFirstSubTask CTaskComplexWanderProstitute::ScanForStuff CTaskComplexWanderStandard::LookForGangMembers,si,si,si,no
+0x004AFE70,97,CEventKnockOffBike,alta,29,<0x100,0,2,0,logica,,,16,34,CAutomobile::ProcessBuoyancy CBike::BurstTyre CBike::DamageKnockOffRider CBike::ProcessBuoyancy CBike::ProcessRiderAnims CEventHandler::ComputeKnockOffBikeResponse CTaskSimpleBikeJacked::ProcessPed CWorld::TriggerExplosionSectorList<CPtrListDoubleLink<CPhysical*>>,si,si,si,no
+0x004B0700,102,CEventKnockOffBike,baja,30,<0x100,0,1,0,logica,,,4,7,0x60b650 CTaskSimplePlayerOnFoot::ProcessPlayerWeapon,si,si,si,no
+0x004B07B0,81,CEventKnockOffBike,baja,23,<0x100,0,1,0,logica,,,2,9,0x60b650 CTaskSimplePlayerOnFoot::ProcessPlayerWeapon,si,si,si,no
+0x004B0D00,7,CEventInAir,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,3,0x607e30,si,si,si,no
+0x004B0DA0,81,CEventVehicleDied,alta,23,<0x100,0,1,0,logica,,,2,5,CVehicle::KillPedsInVehicle,si,si,si,no
+0x004B1170,81,CEventVehicleOnFire,baja,23,<0x100,0,1,0,logica,,,3,7,CAutomobile::ProcessCarOnFireAndExplode CBike::ProcessControl CBoat::ProcessControl,si,si,si,no
+0x004B1320,7,CEventHitByWaterCannon,alta,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,3,CWaterCannon::PushPeds,si,si,si,no
+0x004B1370,26,CEventHitByWaterCannon,baja,8,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,2,CPed::ProcessBuoyancy,si,si,si,no
+0x004B13C0,7,CEventHitByWaterCannon,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,4,CPed::ProcessBuoyancy,si,si,si,no
+0x004B1520,81,CEventStuckInAir,alta,23,<0x100,0,1,0,logica,,,1,3,0x602c00,si,si,si,no
+0x004B17F0,97,CEventCopCarBeingStolen,alta,29,<0x100,0,2,0,logica,,,3,7,CTaskComplexEnterCar::CreateSubTask CTaskSimpleCarDrive::ProcessPed CTaskSimpleCarSetPedInAsDriver::ProcessPed,si,si,si,no
+0x004B1990,97,CEventVehicleDamage,alta,29,<0x100,0,2,0,logica,,,9,12,0x61d0b0 0x6d7c90 CAutomobile::VehicleDamage CTaskComplexFleeAnyMeans::ControlSubTask CWeapon::DoBulletImpact,si,si,si,no
+0x004B1B60,102,CEventVehicleDamage,baja,30,<0x100,0,1,0,logica,,,1,2,CEventHandler::ComputeDamageResponse,si,si,si,no
+0x004B1C10,81,CEventVehicleDamage,baja,23,<0x100,0,1,0,logica,,,1,3,CEventHandler::ComputeDamageResponse,si,si,si,no
+0x004B1D50,81,CEventCarUpsideDown,alta,23,<0x100,0,1,0,logica,,,1,3,CTaskSimpleCarDrive::ProcessPed,si,si,si,no
+0x004B1F00,7,CEventPotentialWalkIntoFire,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,0,3,,si,no,si,no
+0x004B1F10,60,CEventPotentialWalkIntoFire,baja,19,<0x40,0,0,0,pequena,,,0,1,,si,no,si,no
+0x004B1F80,7,CEventPotentialWalkIntoFire,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,0,2,,si,no,si,no
+0x004B2070,11,CEventGunShotWhizzedBy,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,5,CWeapon::FireInstantHit CWeapon::FireSniper,si,si,si,no
+0x004B2130,81,CEventSeenPanickedPed,baja,23,<0x100,0,1,0,logica,,,2,5,CTaskComplexFleeEntity::ControlSubTask CTaskComplexSmartFleeEntity::ControlSubTask,si,si,si,no
+0x004B2210,81,CEventAreaCodes,alta,23,<0x100,0,1,0,logica,,,5,10,0x607e30 0x626260 CTaskComplexGotoDoorAndOpen::CreateFirstSubTask,si,si,si,no
+0x004B2470,81,CEventPlayerCommandToGroup,alta,23,<0x100,0,1,0,logica,,,2,5,0x60cd20 CPlayerPed::TellGroupToStartFollowingPlayer,si,si,si,no
+0x004B26A0,81,CEventDanger,alta,23,<0x100,0,1,0,logica,,,1,6,CPlane::DoPlaneGenerationAndRemoval,si,si,si,no
+0x004B4AA0,19,CEventPotentialWalkIntoObject,baja,8,<0x40,0,1,0,pequena,,,1,1,CEventHandler::ComputeKnockOffBikeResponse,si,si,si,no
+0x004B5620,11,CEventPool,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,25,53,0x60b650 0x60c840 0x60cd20 0x641fc0 CEntryExit::TransitionFinished CEventHandler::ComputeKnockOffBikeResponse CEventSoundQuiet::CloneEditable CEventVehicleDamageCollision::CloneEditable CEventVehicleDamageWeapon::CloneEditable CPedGroup::PlayerGaveCommand_Attack CPlayerPed::TellGroupToStartFollowing,si,si,si,no
+0x004C6200,5,CModelInfo,alta,2,<0x40,0,0,1,pequena,,,9,9,CModelInfo::ShutDown,si,si,si,no
+0x004CB640,157,CWeaponModelInfo,baja,58,<0x100,0,4,5,logica,,,0,1,,si,no,si,no
+0x004CBD80,87,CWeaponModelInfo,baja,36,<0x100,0,2,2,logica,,,0,8,,si,no,si,no
+0x004CEB60,16,CAnimBlendAssociation,alta,5,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,RpAnimBlend::RpAnimBlendClumpUpdateAnimations,si,si,si,no
+0x004CEC00,20,CAnimBlendAssociation,baja,7,<0x40,0,1,0,pequena,,,1,1,CAnimBlendStaticAssociation::Destructor,si,si,si,no
+0x004CFA30,83,CAnimBlendHierarchy,baja,23,<0x100,8,4,0,logica,,,1,1,CAnimBlendNode::CalcDeltasCompressed,si,si,si,no
+0x004CFA90,91,CAnimBlendHierarchy,baja,23,<0x100,12,0,0,logica,,,4,4,CAnimBlendNode::CalcDeltasCompressed CAnimBlendNode::UpdateCompressed,si,si,si,no
+0x004CFB10,70,CAnimBlendHierarchy,baja,18,<0x100,9,0,0,logica,,,5,5,CAnimBlendNode::GetCurrentTranslationCompressed CAnimBlendNode::GetEndTranslationCompressed CAnimBlendNode::UpdateCompressed,si,si,si,no
+0x004D1570,100,CAnimBlendAssociation,baja,43,<0x100,2,1,0,logica,,,1,1,RpAnimBlend::RpAnimBlendClumpUpdateAnimations,si,si,si,no
+0x004D1610,101,RpAnimBlend,alta,40,<0x100,35,0,0,logica,,,4,10,RpAnimBlend::FrameUpdateCallBackCompressedNonSkinned RpAnimBlend::FrameUpdateCallBackCompressedSkinned RpAnimBlend::FrameUpdateCallBackNonSkinned RpAnimBlend::FrameUpdateCallBackSkinned,si,si,si,no
+0x004D1680,971,RpAnimBlend,alta,286,>=0x300,109,4,0,logica,,,1,1,RpAnimBlend::FrameUpdateCallBackSkinned,si,si,si,no
+0x004D1A50,850,RpAnimBlend,alta,239,>=0x300,93,4,0,logica,,,1,1,RpAnimBlend::FrameUpdateCallBackSkinned,si,si,si,no
+0x004D1DB0,843,RpAnimBlend,alta,235,>=0x300,93,4,0,logica,,,1,1,RpAnimBlend::FrameUpdateCallBackCompressedSkinned,si,si,si,no
+0x004D2100,845,RpAnimBlend,alta,251,>=0x300,66,6,0,logica,,,1,1,RpAnimBlend::FrameUpdateCallBackNonSkinned,si,si,si,no
+0x004D2450,910,RpAnimBlend,alta,253,>=0x300,93,6,0,logica,,,1,1,RpAnimBlend::FrameUpdateCallBackNonSkinned,si,si,si,no
+0x004D27F0,910,RpAnimBlend,alta,253,>=0x300,93,6,0,logica,,,1,1,RpAnimBlend::FrameUpdateCallBackCompressedNonSkinned,si,si,si,no
+0x004D3FD0,17,CAnimManager,alta,5,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,38,45,0x6098f0 0x61c7f0 0x623b10 0x629920 0x682370 0x6823c0 0x691a50 CAtomicModelInfo::DeleteRwObject CCarEnterExit::SetAnimOffsetForEnterOrExitVehicle CClumpModelInfo::DeleteRwObject CTaskComplexGangFollower::ControlSubTask CTaskComplexGangFollower::Destructor CTaskComplexGangJoinRespond::ControlSubTask ,si,si,si,no
+0x004D40C0,64,CAnimManager,alta,24,<0x100,0,0,0,pequena,,,2,2,CAnimManager::UncompressAnimation,si,si,si,no
+0x004D58A0,128,CAnimManager,baja,42,<0x100,0,0,1,logica,,,1,2,CCam::Process_1rstPersonPedOnPC,si,si,si,no
+0x004D59E0,23,CAnimManager,baja,8,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,2,CPad::GetAccelerateJustDown CPad::WeaponJustDown,si,si,si,no
+0x004D6450,73,RpAnimBlend,alta,30,<0x100,0,3,0,logica,,,1,1,RpAnimBlend::RpAnimBlendClumpFillFrameArray,si,si,si,no
+0x004D6510,256,RpAnimBlend,alta,87,<0x300,0,8,0,logica,,,1,1,RpAnimBlend::RpAnimBlendClumpInit,si,si,si,no
+0x004D66A0,118,RpAnimBlend,alta,40,<0x100,0,5,0,logica,,,1,1,RpAnimBlend::RpAnimBlendClumpInit,si,si,si,no
+0x004D6CC0,40,CAEAmbienceTrackManager,alta,15,<0x40,0,0,0,pequena,,,5,5,CAEAmbienceTrackManager::UpdateAmbienceTrackAndVolume CAudioEngine::StopAmbienceTrack,si,si,si,no
+0x004D6DA0,70,CAEAmbienceTrackManager,alta,23,<0x100,0,3,0,logica,,,1,1,CAEAmbienceTrackManager::Service,si,si,si,no
+0x004D6DF0,97,CAEAmbienceTrackManager,alta,36,<0x100,0,2,0,logica,,,1,1,CAEAmbienceTrackManager::Service,si,si,si,no
+0x004D7890,115,CAEAmbienceTrackManager,baja,32,<0x100,0,0,0,logica,,,1,2,CAEStreamingChannel::Constructor,si,si,si,no
+0x004D7910,64,CAEAmbienceTrackManager,baja,23,<0x100,0,2,2,logica,,,1,4,CAEStreamingChannel::Destructor,si,si,si,no
+0x004D7990,7,CAEAudioChannel,alta,3,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,3,3,CAEStreamThread::MainLoop CAEStreamingChannel::Pause CAEStreamingChannel::SetFrequencyScalingFactor,si,si,si,no
+0x004DA510,33,CAECollisionAudioEntity,alta,9,<0x40,6,0,0,pequena,,,2,2,CAEPedAudioEntity::HandlePedHit,si,si,si,no
+0x004DBF10,71,CAECutsceneTrackManager,alta,22,<0x100,0,3,0,logica,,,1,1,CAECutsceneTrackManager::Service,si,si,si,no
+0x004DBF60,66,CAECutsceneTrackManager,alta,21,<0x100,0,1,0,logica,,,1,1,CAECutsceneTrackManager::Service,si,si,si,no
+0x004DC0E0,70,CAECutsceneTrackManager,alta,21,<0x100,0,3,0,logica,,,4,4,CAECutsceneTrackManager::PreloadBeatTrack CAudioEngine::PreloadCutsceneTrack,si,si,si,no
+0x004DC2A0,15,CAEDataStream,alta,5,<0x40,0,1,1,pequena,,,1,1,CAEVorbisDecoder::CloseCallback,si,si,si,no
+0x004DC670,54,CAEDataStream,baja,21,<0x40,9,0,0,pequena,,,8,8,CAEScriptAudioEntity::PlayLoadedMissionAudio CAEScriptAudioEntity::PlayMissionBankSound CAEScriptAudioEntity::PlayResidentSoundEvent CAEWeatherAudioEntity::UpdateParameters,si,si,si,no
+0x004DEFE0,121,CAEGlobalWeaponAudioEntity,alta,36,<0x100,0,5,0,logica,,,2,2,CAEGlobalWeaponAudioEntity::ServiceAmbientGunFire,si,si,si,no
+0x004DFB60,63,CAEBankLoader,alta,21,<0x40,0,0,0,pequena,,,1,1,CAEMP3BankLoader::Initialise,si,si,si,no
+0x004E0380,48,CAEMP3BankLoader,alta,14,<0x40,0,0,0,pequena,,,1,1,0x4d86b0,si,si,si,no
+0x004E3350,43,CAEPedAudioEntity,baja,14,<0x40,0,0,0,pequena,,,2,2,CAEPedSpeechAudioEntity::StopCurrentSpeech,si,si,si,no
+0x004E7850,10,CAEMFDecoder,alta,2,<0x40,0,1,0,pequena,,,1,1,CAEUserRadioTrackManager::Shutdown,si,si,si,no
+0x004E7F20,23,CAEMFDecoder,baja,8,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CAERadioTrackManager::Service,si,si,si,no
+0x004EEA80,30,CAESmoothFadeThread,alta,11,<0x40,5,0,0,trivial(<=0x20 sin llamadas),,,3,4,CTaskComplexGangFollower::ControlSubTask CTaskComplexWalkAlongsidePed::ControlSubTask,si,si,si,no
+0x004EF660,24,CAESoundManager,baja,10,<0x40,0,1,0,pequena,,,38,79,CAEAudioEntity::Destructor CAECollisionAudioEntity::PlayBulletHitCollisionSound CAECollisionAudioEntity::PlayLoopingCollisionSound CAECollisionAudioEntity::PlayOneShotCollisionSound CAEDoorAudioEntity::PlayDoorSound CAEExplosionAudioEntity::AddAudioEvent CAEFireAudioEntity::PlayFireSounds CAEFireAud,si,si,si,no
+0x004F0B10,60,CAESoundManager,baja,21,<0x40,0,1,0,pequena,,,1,1,CAEAudioHardware::Initialise,si,si,si,no
+0x004F11D0,3,CAEStaticChannel,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CAEAudioHardware::Constructor,si,si,si,no
+0x004F11E0,11,CAEStaticChannel,baja,4,<0x40,0,1,1,pequena,,,1,1,CAEAudioHardware::Destructor,si,si,si,no
+0x004F2B80,139,CAETwinLoopSoundEntity,alta,36,<0x100,0,3,0,logica,,,1,6,CAEVehicleAudioEntity::Destructor,si,si,si,no
+0x004F3940,37,CAEUserRadioTrackManager,alta,16,<0x40,0,0,0,pequena,,,0,3,,si,no,si,no
+0x004F39C0,85,CAEUserRadioTrackManager,alta,30,<0x100,0,1,0,logica,,,0,3,,si,no,si,no
+0x004F3A3E,102,CAEUserRadioTrackManager,alta,39,<0x100,0,1,0,logica,,,0,1,,si,no,si,no
+0x004F3AE0,30,CAEUserRadioTrackManager,alta,13,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,0,1,,si,no,si,no
+0x004F3B00,40,CAEUserRadioTrackManager,alta,16,<0x40,0,0,0,pequena,,,0,1,,si,no,si,no
+0x004F3B30,35,CAEUserRadioTrackManager,alta,16,<0x40,0,0,0,pequena,,,1,3,0x4f4620,si,si,si,no
+0x004F3BD0,190,CAEUserRadioTrackManager,alta,80,<0x100,0,4,0,logica,,,0,2,,si,no,si,no
+0x004F3CE0,40,CAEUserRadioTrackManager,alta,16,<0x40,0,1,0,pequena,,,0,2,,si,no,si,no
+0x004F3D80,39,CAEUserRadioTrackManager,alta,17,<0x40,0,1,0,pequena,,,0,1,,si,no,si,no
+0x004F3DB0,181,CAEUserRadioTrackManager,alta,78,<0x100,0,4,0,logica,,,0,2,,si,no,si,no
+0x004F3E80,166,CAEUserRadioTrackManager,alta,72,<0x100,0,4,0,logica,,,0,3,,si,no,si,no
+0x004F3F60,159,CAEUserRadioTrackManager,alta,69,<0x100,0,2,0,logica,,,0,7,,si,no,si,no
+0x004F4090,95,CAEUserRadioTrackManager,alta,28,<0x100,0,2,0,logica,,,0,8,,si,no,si,no
+0x004F4170,57,CAEUserRadioTrackManager,alta,23,<0x40,0,1,0,pequena,,,0,2,,si,no,si,no
+0x004F41B0,122,CAEUserRadioTrackManager,alta,30,<0x100,0,3,0,logica,,,0,1,,si,no,si,no
+0x004F4320,645,CAEUserRadioTrackManager,alta,264,<0x300,0,11,0,logica,,,1,1,0x4f4620,si,si,si,no
+0x004F4CA0,12,CAEUserRadioTrackManager,baja,4,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CAutomobile::ProcessCarWheelPair,si,si,si,no
+0x004F4CE0,36,CAEUserRadioTrackManager,baja,13,<0x40,0,0,0,pequena,,,2,2,0x6e1a60 CAutomobile::ProcessAI,si,si,si,no
+0x004F56D0,44,CAEVehicleAudioEntity,alta,12,<0x40,4,0,0,pequena,,,9,9,CAEVehicleAudioEntity::ProcessDummyStateTransition CAEVehicleAudioEntity::ProcessPlayerVehicleEngine,si,si,si,no
+0x00502BF0,32,CAEWMADecoder,alta,8,<0x40,0,1,1,pequena,,,1,1,CAEUserRadioTrackManager::Shutdown,si,si,si,no
+0x00502F80,223,CAEWaterCannonAudioEntity,alta,78,<0x100,0,4,0,logica,,,4,4,CAEWaterCannonAudioEntity::Service,si,si,si,no
+0x00506B20,108,CAEWeatherAudioEntity,baja,25,<0x100,0,3,0,logica,,,1,3,CAudioEngine::Destructor,si,si,si,no
+0x00506BA0,128,CAEWeatherAudioEntity,baja,27,<0x100,0,3,0,logica,,,1,3,CAudioEngine::Destructor,si,si,si,no
+0x00507400,14,CAudioEngine,alta,5,<0x40,0,1,0,pequena,,,1,1,CGameLogic::RestorePlayerStuffDuringResurrection,si,si,si,no
+0x00509760,72,CAudioZones,baja,29,<0x100,9,0,0,logica,,,12,12,0x6d7c90 CCamera::TakeControlAttachToEntity CClouds::VolumetricCloudsRender CTaskComplexFollowNodeRoute::SetTarget CTaskComplexGoToPointAiming::Constructor CTaskComplexGoToPointAndStandStill::Constructor CTaskSimpleGoToPoint::UpdatePoint CTaskSimpleThrowControl::ProcessPed CTaskSimpleThrowProjectile,si,si,si,no
+0x00509A30,175,CAudioZones,baja,47,<0x100,0,0,0,logica,,,6,6,CCam::GetLookFromLampPostPos CCam::Process_DW_BirdyCam CCam::Process_DW_CamManCam,si,si,si,no
+0x00509C50,70,CCam,alta,17,<0x100,11,0,0,logica,,,7,7,CCam::Process_1rstPersonPedOnPC CCam::Process_AimWeapon CCam::Process_FollowCar_SA CCam::Process_FollowPedWithMouse CCam::Process_FollowPed_SA CCam::Process_M16_1stPerson CCam::Process_Rocket,si,si,si,no
+0x00509DC0,42,CCam,alta,13,<0x40,0,0,0,pequena,,,3,3,CCamera::CamControl CEventHandler::ComputeDeadPedResponse,si,si,si,no
+0x0050A0A0,119,CCam,baja,32,<0x100,17,3,0,logica,,,18,21,CCam::Process_FollowCar_SA CCam::Process_FollowPed_SA,si,si,si,no
+0x0050A120,53,CCam,baja,23,<0x40,3,3,0,logica,,,1,1,CCam::Process_FollowPed_SA,si,si,si,no
+0x0050D590,527,CCamera,baja,150,<0x300,108,1,0,logica,,,1,1,CCollision::CheckCameraCollisionPeds,si,si,si,no
+0x0050E420,66,CCam,alta,21,<0x100,0,0,0,logica,,,2,3,CClouds::MovingFogRender CTaskSimpleUseGun::ProcessPed,si,si,si,no
+0x00513220,164,CCam,alta,61,<0x100,0,2,0,logica,,,3,3,CCam::Process_Cam_TwoPlayer,si,si,si,no
+0x005132D0,568,CCam,alta,181,<0x300,101,2,0,logica,,,4,4,CCam::Process_Cam_TwoPlayer,si,si,si,no
+0x00532240,10,CCrime,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CGame::Init1,si,si,si,no
+0x00532540,28,CDirectory,baja,11,<0x40,0,1,0,pequena,,,0,3,,si,no,si,no
+0x005326E0,11,CDummyPool,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CFileLoader::LoadObjectInstance-inst,si,si,si,no
+0x005329A0,30,CBaseModelInfo,baja,10,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,2,CEntity::AttachToRwObject CEntity::CreateRwObject,si,si,si,no
+0x00533020,35,CEntity,alta,16,<0x40,0,2,2,logica,sí,,2,2,CPhysical::Add CPhysical::RemoveAndAdd,si,si,si,no
+0x005335E0,47,CEntity,alta,20,<0x40,0,1,0,pequena,,,3,5,CQuadTreeNode<T>::GetAll CQuadTreeNode<T>::GetAllMatching-rect CQuadTreeNode<T>::GetAllMatching-vec,si,si,si,no
+0x00533610,81,CEntity,alta,37,<0x100,0,2,0,logica,,,3,3,CEntity::Remove CQuadTreeNode<T>::DeleteItem- CQuadTreeNode<T>::DeleteItem-rect,si,si,si,no
+0x005336B0,79,CEntity,alta,33,<0x100,0,1,0,logica,,,2,2,CEntity::DeleteRwObject CEntity::DetachFromRwObject,si,si,si,no
+0x00536E90,65,CEntryInfoList,baja,19,<0x100,6,3,0,logica,,,3,3,CAutomobile::UpdateMovingCollision,si,si,si,no
+0x00537510,55,CFileLoader,alta,26,<0x40,0,0,0,pequena,,,2,2,CFileLoader::LoadCollisionModelVer3 CFileLoader::LoadCollisionModelVer4,si,si,si,no
+0x00537A10,18,CFileLoader,baja,7,<0x40,0,1,0,pequena,,,1,1,CFileLoader::LoadObjectInstance-inst,si,si,si,no
+0x00538AD0,19,CFileMgr,baja,6,<0x40,2,1,0,pequena,,,1,1,CObject::SpecialEntityCalcCollisionSteps,si,si,si,no
+0x0053BC60,26,CGame,alta,8,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,0x747eb0,si,si,si,no
+0x0053E600,353,Game,alta,95,<0x300,4,7,0,logica,,,2,2,Game::FrontendIdle Game::Idle,si,si,si,no
+0x0053E8D0,63,Game,alta,27,<0x40,0,0,0,pequena,,,3,3,CMirrors::BeforeMainRender CPostEffects::Render Game::Idle,si,si,si,no
+0x0053ED30,1,App,baja,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CGame::Init2,si,si,si,no
+0x0053EDC0,23,App,baja,8,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,4,4,CPad::CarGunJustDown CPad::ExitVehicleJustDown CPad::HornJustDown CPad::WeaponJustDown,si,si,si,no
+0x0053EE20,23,App,baja,8,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,2,CPad::HornJustDown CPad::WeaponJustDown,si,si,si,no
+0x0053EE60,23,App,baja,8,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CPlayerPed::ProcessControl,si,si,si,no
+0x0053EF40,23,App,baja,8,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CPad::MeleeAttackJustDown,si,si,si,no
+0x0053EF60,23,App,baja,8,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CPad::WeaponJustDown,si,si,si,no
+0x0053F2D0,208,CMouseControllerState,baja,63,<0x100,0,3,2,logica,,,1,2,CControllerConfigManager::ReinitControls,si,si,si,no
+0x0053F910,10,CPad,alta,3,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,0x468560,si,si,si,no
+0x0053FB70,16,CPad,alta,4,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,696,721,0x44aa50 0x468560 0x60a610 0x60dc50 0x63a380 0x6e05c0 0x6e07e0 0x6e3440 0x747eb0 CAERadioTrackManager::CheckForStationRetune CAERadioTrackManager::Service CAEVehicleAudioEntity::ProcessDummyHovercraft CAEVehicleAudioEntity::ProcessDummyTrainEngine CAEVehicleAudioEntity::ProcessPlayerTrainBrakes CAut,si,si,si,no
+0x005404F0,45,CPad,alta,14,<0x40,0,0,1,pequena,,,2,2,CCamera::CamControl,si,si,si,no
+0x00540530,82,CPad,alta,23,<0x100,0,0,2,logica,,,1,1,CCamera::CamControl,si,si,si,no
+0x00541D70,1,CPad,alta,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,3,4,CMenuManager::Initialise CPlayerInfo::MakePlayerSafe CStreaming::RetryLoadFile,si,si,si,no
+0x00541DD0,113,CPad,baja,30,<0x100,0,7,0,logica,,,3,5,CGame::Process CMenuManager::CheckMissionPackValidMenu Game::FrontendIdle,si,si,si,no
+0x00541E50,5,CPad,baja,1,<0x40,0,0,0,thunk,,sí,1,1,CGenericGameStorage::GenericSave,si,si,si,no
+0x00541E90,23,CPad,baja,9,<0x40,0,1,0,pequena,,,1,1,CPhysical::PositionAttachedEntity,si,si,si,no
+0x00541F40,38,CPad,baja,10,<0x40,3,0,0,pequena,,,6,6,CPhysical::ApplySpeed,si,si,si,no
+0x0054EE30,97,Common,alta,36,<0x100,18,0,0,logica,,,1,1,CEntity::GetIsBoundingBoxOnScreen,si,si,si,no
+0x0054EEA0,79,Common,alta,30,<0x100,0,3,0,logica,,,3,3,CCamera::CalculateFrustumPlanes CEntity::GetIsBoundingBoxOnScreen,si,si,si,no
+0x0054EF40,77,Common,baja,27,<0x100,10,1,0,logica,,,49,50,0x693610 CAutomobile::ProcessHarvester CCam::Process_1rstPersonPedOnPC CCam::Process_FollowPedWithMouse CCam::Process_M16_1stPerson CCam::Process_Rocket CDummyObject::UpdateFromObject CEntity::BuildWindSockMatrix CEntity::CreateRwObject CEntity::ModifyMatrixForBannerInWind CEntity::UpdateRwMatrix CE,si,si,si,no
+0x0054EF90,60,Common,baja,24,<0x40,22,0,0,pequena,,,1,1,CEntity::GetIsBoundingBoxOnScreen,si,si,si,no
+0x0054F1B0,42,CMatrixLinkList,baja,19,<0x40,0,2,0,logica,,,346,349,0x422b20 0x426bc0 0x42a750 0x42d0e0 0x448d30 0x4a0de0 0x5e2530 0x6240b0 0x627600 0x628350 0x657380 0x6575f0 0x693610 CAutomobile::ProcessEntityCollision CBike::ProcessEntityCollision CCam::GetLookFromLampPostPos CCam::LookBehind CCam::LookRight CCam::Process CCam::ProcessPedsDeadBaby CCam::Process_1,si,si,si,no
+0x0054F1E0,26,CMatrixLinkList,baja,9,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,2,CCamera::Constructor CEntity::Constructor,si,si,si,no
+0x0054F490,36,CPlaceable,alta,11,<0x40,0,1,0,pequena,,,1,5,CEntity::Destructor,si,si,si,no
+0x00550180,93,CPools,alta,35,<0x100,0,2,0,logica,,,1,1,CPools::Initialise,si,si,si,no
+0x00550250,92,CPools,alta,36,<0x100,0,2,0,logica,,,1,1,CPools::Initialise,si,si,si,no
+0x00550320,92,CPools,alta,36,<0x100,0,2,0,logica,,,1,1,CPools::Initialise,si,si,si,no
+0x005503F0,94,CPools,alta,36,<0x100,0,2,0,logica,,,1,1,CPools::Initialise,si,si,si,no
+0x005504C0,94,CPools,alta,36,<0x100,0,2,0,logica,,,1,1,CPools::Initialise,si,si,si,no
+0x00550570,91,CPools,alta,36,<0x100,0,2,0,logica,,,1,1,CPools::Initialise,si,si,si,no
+0x00550640,94,CPools,alta,36,<0x100,0,2,0,logica,,,1,1,CPools::Initialise,si,si,si,no
+0x005506F0,91,CPools,alta,36,<0x100,0,2,0,logica,,,1,1,CPools::Initialise,si,si,si,no
+0x005507C0,92,CPools,alta,36,<0x100,0,2,0,logica,,,1,1,CPools::Initialise,si,si,si,no
+0x00550890,91,CPools,alta,36,<0x100,0,2,0,logica,,,1,1,CPools::Initialise,si,si,si,no
+0x00550960,91,CPools,alta,36,<0x100,0,2,0,logica,,,1,1,CPools::Initialise,si,si,si,no
+0x00550A30,91,CPools,alta,36,<0x100,0,2,0,logica,,,1,1,CPools::Initialise,si,si,si,no
+0x00550B00,94,CPools,alta,36,<0x100,0,2,0,logica,,,1,1,CPools::Initialise,si,si,si,no
+0x00550BD0,92,CPools,alta,36,<0x100,0,2,0,logica,,,1,1,CPools::Initialise,si,si,si,no
+0x00550CA0,91,CPools,alta,36,<0x100,0,2,0,logica,,,1,1,CPools::Initialise,si,si,si,no
+0x00550D70,94,CPools,alta,36,<0x100,0,2,0,logica,,,1,1,CPools::Initialise,si,si,si,no
+0x00550E40,94,CPools,alta,36,<0x100,0,2,0,logica,,,1,1,CPools::Initialise,si,si,si,no
+0x005521D0,37,CPools,baja,14,<0x40,0,0,0,pequena,,,1,1,CCover::Update,si,si,si,no
+0x00552380,11,CPtrNodeDoubleLinkPool,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,2,CQuadTreeNode<T>::AddItem,si,si,si,no
+0x00552390,41,CPtrNodeDoubleLinkPool,baja,16,<0x40,0,0,0,pequena,,,1,3,CEntity::Remove,si,si,si,no
+0x005523C0,11,CPtrNodeDoubleLinkPool,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,7,8,CCover::Update CEntity::AttachToRwObject CEntity::CreateRwObject CObject::AddToControlCodeList CPhysical::Add CPhysical::AddToMovingList CPhysical::RemoveAndAdd,si,si,si,no
+0x005523D0,48,CPtrNodeDoubleLinkPool,baja,18,<0x40,0,0,0,pequena,,,6,7,CCover::Update CEntity::Remove CObject::RemoveFromControlCodeList CPhysical::Remove CPhysical::RemoveAndAdd CPhysical::RemoveFromMovingList,si,si,si,no
+0x00552400,99,CPtrNodeDoubleLinkPool,baja,44,<0x100,0,0,0,logica,,,7,9,CEntryExitManager::FindNearestEntryExit CEntryExitManager::Update CWorld::RemoveStaticObjects CWorld::ShutDown,si,si,si,no
+0x00552470,112,CPtrNodeDoubleLinkPool,baja,48,<0x100,0,0,0,logica,,,10,11,CCover::Init CGame::Shutdown CWorld::RemoveStaticObjects CWorld::ShutDown,si,si,si,no
+0x00552520,114,CPtrNodeDoubleLinkPool,baja,37,<0x100,0,3,0,logica,,,3,5,CColStore::Shutdown CEntryExitManager::Shutdown CIplStore::Shutdown,si,si,si,no
+0x00552830,63,CQuadTreeNode<T>,alta,22,<0x40,0,0,0,pequena,,,3,3,CColStore::Initialise CEntryExitManager::Init CIplStore::Initialise,si,si,si,no
+0x00552AF0,92,CQuadTreeNode<T>,alta,36,<0x100,0,2,0,logica,,,1,1,CQuadTreeNode<T>::InitPool,si,si,si,no
+0x00552B50,104,CQuadTreeNode<T>,alta,47,<0x100,0,0,0,logica,,,1,2,CQuadTreeNode<T>::AddItem,si,si,si,no
+0x00552BC0,49,CQuadTreeNode<T>,alta,19,<0x40,0,0,0,pequena,,,0,1,,si,no,si,no
+0x00552C80,11,CQuadTreeNode<T>,alta,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,3,3,CColStore::Initialise CEntryExitManager::Init CIplStore::Initialise,si,si,si,no
+0x00552C90,49,CQuadTreeNode<T>,alta,18,<0x40,0,0,0,pequena,,,3,7,CColStore::Shutdown CEntryExitManager::Shutdown CIplStore::Shutdown,si,si,si,no
+0x005531C0,1,CQuadTreeNode<T>,baja,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CGame::Init2,si,si,si,no
+0x005531D0,1,CQuadTreeNode<T>,baja,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CGame::Shutdown,si,si,si,no
+0x00558F90,6,CStats,alta,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,2,CAERadioTrackManager::Initialise CAERadioTrackManager::Reset,si,si,si,no
+0x0055D0E0,314,CStats,baja,111,<0x300,0,7,0,logica,,,1,1,SurfaceInfos_c::Init,si,si,si,no
+0x0055EB90,1814,SurfaceInfos_c,alta,473,>=0x300,4,8,0,logica,,,1,1,SurfaceInfos_c::Init,si,si,si,no
+0x0055F2B0,360,SurfaceInfos_c,alta,117,<0x300,0,6,0,logica,,,1,1,SurfaceInfos_c::Init,si,si,si,no
+0x005617A0,26,CTimeCycle,baja,8,<0x40,0,1,1,pequena,,,1,1,CTimer::Initialise,si,si,si,no
+0x0056CE30,51,CWorld,baja,20,<0x40,0,1,0,pequena,,,1,1,CAccidentManager::GetInstance,si,si,si,no
+0x0056F200,11,CPlayerInfo,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,3,CPlayerPedData::DeAllocateData CPlayerPedData::Destructor,si,si,si,no
+0x005720C0,15,CUserDisplay,baja,5,<0x40,0,1,0,pequena,,,2,2,CPlaceName::GetForMap CPlaceName::Process,si,si,si,no
+0x00572130,69,CTheZones,alta,19,<0x100,6,2,0,logica,,,2,3,CMenuManager::PrintMap CTheZones::SetCurrentZoneAsUnlocked,si,si,si,no
+0x00572DB0,26,CTheZones,baja,8,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,3,3,CMenuManager::DrawBackground,si,si,si,no
+0x00572E70,24,CTheZones,baja,10,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CMenuManager::AdditionalOptionInput,si,si,si,no
+0x0057C400,24,CMenuManager,alta,10,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,2,CMenuManager::CheckRedefineControlInput CMenuManager::UserInput,si,si,si,no
+0x0057C420,24,CMenuManager,alta,10,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,2,CMenuManager::CheckRedefineControlInput CMenuManager::UserInput,si,si,si,no
+0x0057C440,24,CMenuManager,alta,10,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CMenuManager::CheckRedefineControlInput,si,si,si,no
+0x0057C460,24,CMenuManager,alta,10,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CMenuManager::CheckRedefineControlInput,si,si,si,no
+0x0057C5E0,118,CMenuManager,alta,37,<0x100,0,8,0,logica,,,2,2,0x747eb0,si,si,si,no
+0x00583AF0,67,CRadar,alta,21,<0x100,0,1,0,logica,,,2,2,0x587000 CRadar::DrawCoordBlip,si,si,si,no
+0x0059A840,510,Interior_c,baja,179,<0x300,76,0,0,logica,,,2,2,CPed::ShoulderBoneRotation,si,si,si,no
+0x0059AA40,591,Interior_c,baja,179,<0x300,97,0,0,logica,,,2,2,CPed::ShoulderBoneRotation,si,si,si,no
+0x0059ACD0,22,CMaths,baja,10,<0x40,0,1,0,pequena,,,219,456,0x6240b0 0x6aa290 0x6aab50 0x6c4e60 0x6c5420 0x6c69c0 C3dMarker::Render C3dMarkers::DirectionArrowsDraw CAEAudioEnvironment::GetPositionRelativeToCamera-vec CAEPedSpeechAudioEntity::UpdateParameters CAEPedlessSpeechAudioEntity::UpdateParameters CAEVehicleAudioEntity::ProcessAIHeli CAEVehicleAudioEnt,si,si,si,no
+0x0059ACF0,35,CMaths,baja,14,<0x40,0,1,0,pequena,,,2,2,CPed::PositionAttachedPed CPed::SetPedPositionInCar,si,si,si,no
+0x0059AD20,77,CMaths,baja,26,<0x100,0,0,0,logica,,,9,9,CCamera::CopyCameraMatrixToRWCam CEntity::AttachToRwObject CPhysical::AttachEntityToEntity-quat CPhysical::PositionAttachedEntity CTaskSimpleHoldEntity::SetPedPosition CTaskUtilityLineUpPedWithCar::ProcessPed,si,si,si,no
+0x0059AD70,84,CMaths,baja,29,<0x100,0,1,0,logica,,,52,55,0x59bbc0 0x693610 CAutomobile::ProcessHarvester CBoat::Render CCam::Process_1rstPersonPedOnPC CCam::Process_FollowPedWithMouse CCam::Process_M16_1stPerson CCam::Process_Rocket CDummyObject::UpdateFromObject CEntity::BuildWindSockMatrix CEntity::CreateRwObject CEntity::ModifyMatrixForBannerInWind CEn,si,si,si,no
+0x0059ADD0,20,CMaths,baja,9,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CReplay::RecordThisFrame,si,si,si,no
+0x0059ADF0,114,CMaths,baja,39,<0x100,36,0,0,logica,,,2,3,CReplay::PlayBackThisFrameInterpolation CReplay::ProcessPedUpdate,si,si,si,no
+0x0059AE70,43,CMaths,baja,15,<0x40,0,0,0,pequena,,,20,20,C3dMarker::AddMarker C3dMarker::Render C3dMarkers::DirectionArrowsDraw CBike::PreRender CBmx::PreRender CPed::SetPedPositionInCar CPedAttractorPedPlacer::PlacePedAtEffect CPhysical::Constructor CReplay::DealWithNewPedPacket CRoadBlocks::CreateRoadBlockBetween2Points Interior_c::PlaceFurniture Interi,si,si,si,no
+0x0059AEA0,34,CMaths,baja,12,<0x40,0,0,0,pequena,,,2,2,CPhysical::DettachEntityFromEntity CPhysical::PositionAttachedEntity,si,si,si,no
+0x0059AED0,48,CMaths,baja,16,<0x40,0,0,0,pequena,,,3,5,CCamera::Init CPedAttractor::Constructor CTaskComplexUseClosestFreeScriptedAttractor::ComputeClosestFreeScriptedEffect,si,si,si,no
+0x0059AF00,52,CMaths,baja,17,<0x40,0,0,0,pequena,,,1,1,0x6aa290,si,si,si,no
+0x0059AF40,57,CMaths,baja,18,<0x40,0,0,0,pequena,,,27,29,0x6c6520 C3dMarkers::PlaceMarker CAutomobile::Constructor CAutomobile::Fix CAutomobile::FixDoor CAutomobile::FixPanel CAutomobile::UpdateMovingCollision CBike::PreRender CBirds::Render CBmx::PreRender CPed::SetPedPositionInCar CPedIK::PitchForSlope CPlane::OpenDoor CProjectileInfo::AddProjectile CRo,si,si,si,no
+0x0059AF80,24,CMaths,baja,7,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,10,10,0x6240b0 0x6aab50 CMirrors::BuildCamMatrix CMirrors::BuildCameraMatrixForScreens CPhysical::PositionAttachedEntity CPlane::PreRender CRoadBlocks::CreateRoadBlockBetween2Points CTaskSimpleClimb::ScanToGrabSectorList<CPtrListSingleLink<CPhysical*>>,si,si,si,no
+0x0059B020,51,CMaths,baja,17,<0x40,10,0,0,pequena,,,38,40,0x45ab10 0x5e2530 0x693610 CAutomobile::SetTowLink CCam::Process_1rstPersonPedOnPC CCam::Process_FollowPedWithMouse CEntity::ModifyMatrixForCrane CEntryExit::TransitionFinished CEntryExit::WarpGangWithPlayer CEventKnockOffBike::SetPedSafePosition CFileLoader::LoadObjectInstance-inst CGameLogic::Rest,si,si,si,no
+0x0059B060,60,CMaths,baja,20,<0x40,10,0,0,pequena,,,17,17,0x6c5420 CAutomobile::UpdateMovingCollision CBike::CalculateLeanMatrix CBike::PreRender CBmx::PreRender COccluder::ProcessOneOccluder CTheScripts::ProcessAllSearchLights CVehicle::SetComponentRotation CVehicle::SetTransmissionRotation,si,si,si,no
+0x0059B0A0,62,CMaths,baja,21,<0x40,11,0,0,pequena,,,4,4,COccluder::ProcessOneOccluder CQuadBike::PreRender CVehicle::SetComponentRotation,si,si,si,no
+0x0059B0E0,60,CMaths,baja,20,<0x40,10,0,0,pequena,,,9,10,0x6c5420 CEntryExit::IsInArea CEntryExitManager::AddOne COccluder::ProcessOneOccluder CPed::PositionAttachedPed CQuadBike::PreRender CTaskUtilityLineUpPedWithCar::ProcessPed CVehicle::SetComponentRotation,si,si,si,no
+0x0059B120,180,CMaths,baja,65,<0x100,60,0,0,logica,,,19,20,0x6aab50 CAutomobile::CloseBoot CAutomobile::OpenDoor CAutomobile::PopBoot CAutomobile::ProcessSwingingDoor CAutomobile::SetDoorDamage CBike::PreRender CBmx::PreRender CBoat::PreRender CHandShaker::Process CPlaceable::SetOrientation-xyz CRoadBlocks::GenerateRoadBlockPedsForCar,si,si,si,no
+0x0059B1E0,211,CMaths,baja,69,<0x100,54,0,0,logica,,,6,6,0x6aab50 CPedIK::PitchForSlope CPhysical::DettachEntityFromEntity CTaskSimpleSwim::ApplyRollAndPitch CVehicle::SetComponentRotation,si,si,si,no
+0x0059B2C0,202,CMaths,baja,67,<0x100,52,0,0,logica,,,11,11,0x6aa290 CBike::CalculateLeanMatrix CBike::PreRender CBmx::PreRender CPed::SetPedPositionInCar CPedIK::PitchForSlope CRoadBlocks::CreateRoadBlockBetween2Points CTaskSimpleSwim::ApplyRollAndPitch CVehicle::SetComponentRotation CVehicle::SetTransmissionRotation,si,si,si,no
+0x0059B390,208,CMaths,baja,69,<0x100,54,0,0,logica,,,18,18,C3dMarkers::PlaceMarker CBoat::ProcessControl CPed::SetPedPositionInCar CPhysical::DettachEntityFromEntity CProjectileInfo::AddProjectile CRoadBlocks::CreateRoadBlockBetween2Points CTaskSimpleHoldEntity::SetPedPosition CTheScripts::ProcessAllSearchLights CVehicle::SetComponentRotation Interior_c::Pl,si,si,si,no
+0x0059B460,571,CMaths,baja,187,<0x300,164,0,0,logica,,,1,2,0x6aa290,si,si,si,no
+0x0059B6A0,305,CMaths,baja,101,<0x300,88,0,0,logica,,,5,5,CCompressedMatrixNotAligned::DecompressIntoFullMatrix CPhysical::ProcessCollision CPhysical::ProcessShift,si,si,si,no
+0x0059B7E0,171,CMaths,baja,53,<0x100,36,0,0,logica,,,3,3,CPhysical::ProcessCollision CRope::Update,si,si,si,no
+0x0059B8B0,108,CMaths,baja,42,<0x100,0,1,0,logica,,,8,9,CPhysical::AttachEntityToEntity-quat CShadows::CastShadowEntityXYZ CTaskUtilityLineUpPedWithCar::ProcessPed Common::TransformPoints,si,si,si,no
+0x0059B920,206,CMaths,baja,67,<0x100,42,0,0,logica,,,23,25,CAutomobile::RcbanditCheck1CarWheels CCarEnterExit::IsPathToDoorBlockedByVehicleCollisionModel CCollision::ProcessColModels CCollision::ProcessLineOfSight CCollision::SphereCastVsCaches CCollision::SphereCastVsEntity CCollision::SphereVsEntity CCollision::TestLineOfSight CEntity::GetIsBoundingBoxOnS,si,si,si,no
+0x0059BB60,74,CCompressedMatrixNotAligned,baja,26,<0x100,0,0,0,logica,,,5,5,App::DoRWStuffStartOfFrame_Horizon CBike::PreRender CBmx::PreRender CPlane::PreRender,si,si,si,no
+0x0059BBB0,14,CCompressedMatrixNotAligned,baja,6,<0x40,0,1,0,pequena,,,69,70,0x6aa290 0x6aab50 0x6c5420 C3dMarker::Render C3dMarkers::DirectionArrowsDraw C3dMarkers::PlaceMarker C3dMarkers::Update CAutomobile::CloseBoot CAutomobile::Constructor CAutomobile::Fix CAutomobile::FixDoor CAutomobile::FixPanel CAutomobile::OpenDoor CAutomobile::PopBoot CAutomobile::ProcessSwingingD,si,si,si,no
+0x0059BBF0,242,CCompressedMatrixNotAligned,baja,73,<0x100,65,0,0,logica,,,1,1,CFileLoader::LoadObjectInstance-inst,si,si,si,no
+0x0059BCF0,30,CCompressedMatrixNotAligned,baja,13,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,31,32,0x6240b0 0x6c69c0 CAutomobile::ProcessControlCollisionCheck CBike::ProcessControlCollisionCheck CBike::ProcessEntityCollision CDoor::Process CDoor::ProcessImpact CObject::Explode CObject::ObjectDamage CPed::SetPedPositionInCar CPhysical::AttachEntityToEntity-quat CPhysical::PositionAttachedEntity CP,si,si,si,no
+0x0059BDD0,95,CCompressedMatrixNotAligned,baja,38,<0x100,0,2,0,logica,,,5,5,CCamera::CalculateDerivedValues CCamera::DealWithMirrorBeforeConstructRenderList CPed::ShoulderBoneRotation CTaskSimpleClimb::ScanToGrab,si,si,si,no
+0x0059BE30,362,CCompressedMatrixNotAligned,baja,129,<0x300,111,0,0,logica,,,19,20,C3dMarkers::DirectionArrowsDraw CBike::PreRender CBmx::PreRender COccluder::ProcessOneOccluder CPed::ShoulderBoneRotation CPhysical::PositionAttachedEntity CPlane::PreRender Interior_c::PlaceFurniture Interior_c::PlaceObject,si,si,si,no
+0x0059BFA0,166,CCompressedMatrixNotAligned,baja,54,<0x100,36,0,0,logica,,,1,1,CVehicleRecording::InterpolateInfoForCar,si,si,si,no
+0x0059C050,33,CCompressedMatrixNotAligned,baja,12,<0x40,0,1,0,pequena,,,33,37,C3dMarkers::DirectionArrowsDraw CAutomobile::CloseBoot CAutomobile::Constructor CAutomobile::Fix CAutomobile::FixDoor CAutomobile::FixPanel CAutomobile::OpenDoor CAutomobile::PopBoot CAutomobile::ProcessSwingingDoor CAutomobile::SetDoorDamage CAutomobile::SpawnFlyingComponent CBike::FixHandsToBars C,si,si,si,no
+0x0059C670,90,CQuaternion,baja,33,<0x100,30,0,0,logica,,,15,15,0x603720 CCarEnterExit::IsPathToDoorBlockedByVehicleCollisionModel CPedAttractor::Constructor CPedAttractorManager::IsApproachable CPedAttractorPedPlacer::PlacePedAtEffect CPedGeometryAnalyser::ComputeEntityBoundingBoxCornersUncached CTaskComplexWalkRoundBuildingAttempt::ControlSubTask CTaskComplexW,si,si,si,no
+0x0059C6D0,81,CQuaternion,baja,30,<0x100,27,0,0,logica,,,3,5,CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::ControlSubTask CTaskComplexSeekEntityRadiusAngleOffset::ControlSubTask CTaskComplexSeekEntityStandard::ControlSubTask,si,si,si,no
+0x0059C730,91,CQuaternion,baja,31,<0x100,18,0,0,logica,,,200,206,0x42dab0 0x42ec90 0x516010 0x516560 0x6c58e0 0x6d73b0 0x6d85f0 0x6dfc50 0x6e0050 C3dMarker::Render C3dMarkers::DirectionArrowsDraw CAutomobile::AddMovingCollisionSpeed CAutomobile::PlaceOnRoadProperly CAutomobile::ProcessCarWheelPair CAutomobile::ProcessSuspension CBike::GetCorrectedWorldDoorPositio,si,si,si,no
+0x0059C790,115,CQuaternion,baja,40,<0x100,27,0,0,logica,,,119,122,0x426350 0x6aab50 0x6c4e60 0x6c69c0 0x6d85f0 0x6dfc50 0x6e0050 CAutomobile::AddMovingCollisionSpeed CAutomobile::FireTruckControl CAutomobile::ProcessControl CAutomobile::ProcessSuspension CAutomobile::ProcessSwingingDoor CAutomobile::TankControl CBike::FixHandsToBars CBike::PreRender CBike::Process,si,si,si,no
+0x0059C810,115,CQuaternion,baja,40,<0x100,27,0,0,logica,,,22,22,0x4a0de0 0x516560 0x6d85f0 CAutomobile::FireTruckControl CAutomobile::TankControl CBike::FixHandsToBars CBike::ProcessControl CBouncingPanel::ProcessPanel CCam::Finalise_DW_CineyCams CDoor::Process CIdleCam::FinaliseIdleCamera CPlane::VehicleDamage CQuadBike::ProcessControl CRoadBlocks::CreateRoadBl,si,si,si,no
+0x0059C910,81,CQuaternion,baja,32,<0x100,27,0,0,logica,,,423,449,0x422b20 0x423940 0x429090 0x429300 0x429520 0x429a70 0x42bd20 0x430050 0x433ba0 0x436540 0x436a90 0x448330 0x449220 0x516010 0x516560 0x5e2530 0x602c00 0x604500 0x60ba80 0x60dc50 0x61cba0 0x695090 0x6c58e0 0x6d73b0 0x6d85f0 0x6dfc50 0x6e0050 C3dMarker::Render C3dMarkers::DirectionArrowsDraw CAEAudi,si,si,si,no
+0x0059C970,95,CQuaternion,baja,35,<0x100,30,0,0,logica,,,16,18,0x657380 0x6de880 0x6e0a50 0x6e1780 0x6e1a60 CAutomobile::dmgDrawCarCollidingParticles CInterestingEvents::Add CInterestingEvents::ScanForNearbyEntities CPedGeometryAnalyser::GetIsLineOfSightClear-ped CTaskComplexWalkRoundBuildingAttempt::ComputeCrapRoute CTaskComplexWalkRoundCar::CreateFirstSubTask,si,si,si,no
+0x0059CA10,307,CQuaternion,baja,100,<0x300,0,5,0,logica,,,0,1,,si,no,si,no
+0x0059EA00,18,BreakManager_c,baja,7,<0x40,0,1,0,pequena,,,1,1,CFileLoader::LoadObjectInstance-inst,si,si,si,no
+0x0059EEB0,297,CHandObject,baja,89,<0x300,0,9,0,logica,,,6,6,CTaskSimplePlayHandSignalAnim::StartAnim,si,si,si,no
+0x0059F050,54,CHandObject,baja,17,<0x40,0,0,0,pequena,,,1,1,CObject::ProcessControl,si,si,si,no
+0x0059F0C0,77,CBaseModelInfo,baja,22,<0x100,13,0,0,logica,,,7,7,CBulletInfo::Update CTrain::ProcessControl CWeapon::DoBulletImpact,si,si,si,no
+0x0059F610,74,CObject,alta,29,<0x100,0,0,0,logica,,,0,1,,si,no,si,no
+0x005A1D10,90,CObjectPool,baja,22,<0x100,0,2,0,logica,,,3,5,0x5a4030 CAutomobile::SpawnFlyingComponent CBoat::BlowUpCar,si,si,si,no
+0x005A1DF0,230,CObjectPool,baja,75,<0x100,0,10,0,logica,,,2,2,CObject::Create-dummy,si,si,si,no
+0x005A1EE0,11,CObjectPool,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,25,26,CAutomobile::ProcessHarvester CAutomobile::SpawnFlyingComponent CBoat::BlowUpCar CCutsceneMgr::CreateCutsceneObject CEscalator::Update CPed::GiveObjectToPedToHold CPools::MakeSureSlotInObjectPoolIsEmpty CPopulation::AddToPopulation CProjectileInfo::AddProjectile CRoadBlocks::CreateRoadBlockBetween2P,si,si,si,no
+0x005A1EF0,36,CObjectPool,baja,13,<0x40,0,1,0,pequena,,,2,2,CPickup::GiveUsAPickUpObject CPools::LoadObjectPool,si,si,si,no
+0x005A2CB0,59,CObject,baja,16,<0x40,0,0,0,pequena,,,5,5,CAutomobile::SpawnFlyingComponent CObjectData::SetObjectData,si,si,si,no
+0x005A2E60,47,CObjectData,baja,15,<0x40,9,0,0,pequena,,,2,2,C3dMarker::Render ProcSurfaceInfo_c::AddObject,si,si,si,no
+0x005A2F80,229,ProcSurfaceInfo_c,baja,68,<0x100,57,0,0,logica,,,1,1,ProcSurfaceInfo_c::AddObjects,si,si,si,no
+0x005A42B0,203,CClothesBuilder,alta,60,<0x100,36,1,0,logica,,,1,1,CClothesBuilder::CreateSkinnedClump,si,si,si,no
+0x005A7A20,263,CPedClothesDesc,baja,104,<0x300,0,0,0,logica,,,2,2,CClothes::LoadClothesFile,si,si,si,no
+0x005A8050,38,CPedClothesDesc,baja,13,<0x40,0,1,0,pequena,,,6,7,CClothesBuilder::PreprocessClothesDesc CGameLogic::RestorePlayerStuffDuringResurrection CShopping::Buy,si,si,si,no
+0x005A8080,78,CPedClothesDesc,baja,32,<0x100,0,3,0,logica,,,13,13,CCheat::BeachPartyCheat CCheat::CountrysideInvasionCheat CCheat::FunhouseCheat CCheat::LoveConquersAllCheat,si,si,si,no
+0x005AFA50,60,CCredits,baja,26,<0x40,0,1,0,pequena,,,1,1,CCutsceneMgr::LoadCutsceneData_preload,si,si,si,no
+0x005B19D0,175,CCutsceneMgr,baja,43,<0x100,0,2,0,logica,,,1,1,CCutsceneMgr::CreateCutsceneObject,si,si,si,no
+0x005B3680,63,CTimeInfo,baja,22,<0x40,0,3,0,logica,,,9,9,CFileLoader::LoadLevel,si,si,si,no
+0x005B8340,94,CStreaming,baja,36,<0x100,0,2,0,logica,,,1,1,CVehicleModelInfo::SetupCommonData,si,si,si,no
+0x005BD360,68,CPopulation,baja,31,<0x100,0,0,0,logica,,,1,1,0x5bedc0,si,si,si,no
+0x005BD3B0,65,CPopulation,baja,21,<0x100,0,0,1,logica,,,2,2,0x5bedc0,si,si,si,no
+0x005BD420,113,CPopulation,baja,44,<0x100,0,0,0,logica,,,1,1,cHandlingDataMgr::LoadHandlingData,si,si,si,no
+0x005C26B0,117,FxEmitterBP_c,baja,41,<0x100,0,6,4,logica,,,1,1,JPegPlugin::JPegCompressScreen,si,si,si,no
+0x005C2730,194,FxEmitterBP_c,baja,65,<0x100,0,5,5,logica,,,1,1,JPegPlugin::JPegCompressScreen,si,si,si,no
+0x005C30D0,259,FxEmitterBP_c,baja,89,<0x300,0,5,3,logica,,,0,1,,si,no,si,no
+0x005C3700,531,FxEmitterBP_c,baja,198,<0x300,0,15,17,logica,,,0,1,,si,no,si,no
+0x005C4380,108,FxEmitterBP_c,baja,36,<0x100,0,2,2,logica,,,0,1,,si,no,si,no
+0x005C5210,66,FxEmitterBP_c,baja,23,<0x100,0,1,1,logica,,,0,1,,si,no,si,no
+0x005C5260,188,FxEmitterBP_c,baja,66,<0x100,0,13,4,logica,,,0,1,,si,no,si,no
+0x005C5420,134,FxEmitterBP_c,baja,57,<0x100,0,3,3,logica,,,0,1,,si,no,si,no
+0x005C63D0,81,FxEmitterBP_c,baja,19,<0x100,0,1,1,logica,,,0,1,,si,no,si,no
+0x005C6430,460,FxEmitterBP_c,baja,161,<0x300,0,10,5,logica,,,0,1,,si,no,si,no
+0x005C6A90,186,FxEmitterBP_c,baja,59,<0x100,0,3,2,logica,,,0,1,,si,no,si,no
+0x005C6B50,56,FxEmitterBP_c,baja,19,<0x40,0,1,1,pequena,,,0,3,,si,no,si,no
+0x005C6BB0,28,FxEmitterBP_c,baja,9,<0x40,0,1,1,pequena,,,0,2,,si,no,si,no
+0x005C6BD0,28,FxEmitterBP_c,baja,9,<0x40,0,1,1,pequena,,,0,2,,si,no,si,no
+0x005C6BF0,801,FxEmitterBP_c,baja,242,>=0x300,0,3,2,logica,,,0,2,,si,no,si,no
+0x005C7010,191,FxEmitterBP_c,baja,71,<0x100,0,2,1,logica,,,0,4,,si,no,si,no
+0x005C70D0,82,FxEmitterBP_c,baja,24,<0x100,0,4,0,logica,,,0,1,,si,no,si,no
+0x005C7130,714,FxEmitterBP_c,baja,230,<0x300,0,3,4,logica,,,0,3,,si,no,si,no
+0x005C7420,336,FxEmitterBP_c,baja,111,<0x300,0,6,4,logica,,,0,1,,si,no,si,no
+0x005C7590,264,FxEmitterBP_c,baja,74,<0x300,0,6,2,logica,,,1,1,JPegPlugin::JPegCompressScreen,si,si,si,no
+0x005C7920,174,FxEmitterBP_c,baja,68,<0x100,0,4,4,logica,,,0,1,,si,no,si,no
+0x005C7DF0,259,FxEmitterBP_c,baja,88,<0x300,0,3,3,logica,,,0,1,,si,no,si,no
+0x005C8620,100,FxEmitterBP_c,baja,30,<0x100,0,2,2,logica,,,0,2,,si,no,si,no
+0x005C8690,149,FxEmitterBP_c,baja,54,<0x100,0,4,4,logica,,,1,1,JPegPlugin::JPegDecompressToRaster,si,si,si,no
+0x005C87E0,143,FxEmitterBP_c,baja,47,<0x100,0,5,2,logica,,,1,1,JPegPlugin::JPegDecompressToRaster,si,si,si,no
+0x005C8E20,192,FxEmitterBP_c,baja,56,<0x100,0,3,3,logica,,,0,1,,si,no,si,no
+0x005C8EE0,195,FxEmitterBP_c,baja,65,<0x100,0,4,4,logica,,,0,2,,si,no,si,no
+0x005C9350,416,FxEmitterBP_c,baja,135,<0x300,0,9,8,logica,,,0,1,,si,no,si,no
+0x005C9710,127,FxEmitterBP_c,baja,47,<0x100,0,2,2,logica,,,0,1,,si,no,si,no
+0x005CA260,63,FxEmitterBP_c,baja,21,<0x40,0,1,1,pequena,,,0,1,,si,no,si,no
+0x005CA840,65,FxEmitterBP_c,baja,18,<0x100,0,1,1,logica,,,0,1,,si,no,si,no
+0x005CA890,168,FxEmitterBP_c,baja,60,<0x100,0,2,2,logica,,,0,1,,si,no,si,no
+0x005CAE30,207,FxEmitterBP_c,baja,75,<0x100,0,5,4,logica,,,0,1,,si,no,si,no
+0x005CC7D0,132,FxEmitterBP_c,baja,37,<0x100,0,1,1,logica,,,0,1,,si,no,si,no
+0x005CC8C0,121,FxEmitterBP_c,baja,41,<0x100,0,1,2,logica,,,0,1,,si,no,si,no
+0x005CC950,119,FxEmitterBP_c,baja,36,<0x100,0,1,1,logica,,,0,1,,si,no,si,no
+0x005CC9D0,373,FxEmitterBP_c,baja,140,<0x300,0,17,8,logica,,,0,1,,si,no,si,no
+0x005CCCC0,48,FxEmitterBP_c,baja,15,<0x40,0,2,1,logica,,,0,1,,si,no,si,no
+0x005CCDF0,110,FxEmitterBP_c,baja,44,<0x100,0,3,3,logica,,,0,1,,si,no,si,no
+0x005CD350,477,FxEmitterBP_c,baja,152,<0x300,0,5,4,logica,,,0,1,,si,no,si,no
+0x005CD810,76,FxEmitterBP_c,baja,16,<0x100,0,0,0,logica,,,2,2,JPegPlugin::JPegCompressScreen JPegPlugin::JPegDecompressToRaster,si,si,si,no
+0x005CF6D0,297,FxEmitterBP_c,baja,90,<0x300,0,6,1,logica,,,0,2,,si,no,si,no
+0x005CF800,16,FxEmitterBP_c,baja,6,<0x40,0,1,0,pequena,,,0,3,,si,no,si,no
+0x005CF870,3,FxEmitterBP_c,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,0,1,,si,no,si,no
+0x005CF880,1,FxEmitterBP_c,baja,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,0,1,,si,no,si,no
+0x005CF890,16,FxEmitterBP_c,baja,6,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,0,14,,si,no,si,no
+0x005CF8A0,24,FxEmitterBP_c,baja,11,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,0,3,,si,no,si,no
+0x005CF960,198,FxEmitterBP_c,baja,69,<0x100,0,3,2,logica,,,1,1,JPegPlugin::JPegCompressScreen,si,si,si,no
+0x005CFA30,5,FxEmitterBP_c,baja,1,<0x40,0,0,0,thunk,,sí,1,1,JPegPlugin::JPegCompressScreen,si,si,si,no
+0x005CFA50,102,FxEmitterBP_c,baja,34,<0x100,0,0,0,logica,,,0,1,,si,no,si,no
+0x005CFAC0,260,FxEmitterBP_c,baja,94,<0x300,0,11,10,logica,,,1,1,JPegPlugin::JPegCompressScreen,si,si,si,no
+0x005CFD20,218,FxEmitterBP_c,baja,72,<0x100,0,5,2,logica,,,1,1,JPegPlugin::JPegDecompressToRaster,si,si,si,no
+0x005CFE00,5,FxEmitterBP_c,baja,1,<0x40,0,0,0,thunk,,sí,3,3,JPegPlugin::JPegDecompressToRaster,si,si,si,no
+0x005CFE20,394,FxEmitterBP_c,baja,117,<0x300,0,3,3,logica,,,0,1,,si,no,si,no
+0x005CFFB0,151,FxEmitterBP_c,baja,55,<0x100,0,6,6,logica,,,0,1,,si,no,si,no
+0x005D0110,187,FxEmitterBP_c,baja,65,<0x100,0,6,5,logica,,,1,1,JPegPlugin::JPegDecompressToRaster,si,si,si,no
+0x005D01D0,112,FxEmitterBP_c,baja,42,<0x100,0,4,2,logica,,,1,1,JPegPlugin::JPegDecompressToRaster,si,si,si,no
+0x005D0570,108,JPegPlugin,alta,39,<0x100,0,1,0,logica,,,1,1,JPegPlugin::JPegDecompressToRaster,si,si,si,no
+0x005D0F40,16,CGenericGameStorage,alta,4,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CMenuManager::DrawStandardMenus,si,si,si,no
+0x005D24B0,172,CVehicleSaveStructure,baja,38,<0x100,0,0,0,logica,,,1,1,CPlayerInfo::Save,si,si,si,no
+0x005D2560,186,CVehicleSaveStructure,baja,40,<0x100,0,0,0,logica,,,1,1,CPlayerInfo::Load,si,si,si,no
+0x005D2620,282,CVehicleSaveStructure,baja,82,<0x300,0,0,0,logica,,,1,1,CGangWars::Save,si,si,si,no
+0x005D2740,234,CVehicleSaveStructure,baja,60,<0x100,0,0,0,logica,,,1,1,CGangWars::Load,si,si,si,no
+0x005D3020,149,CTheZones,baja,55,<0x100,0,0,0,logica,,,1,1,CGarages::Save,si,si,si,no
+0x005D30C0,154,CTheZones,baja,55,<0x100,0,0,0,logica,,,1,1,CGarages::Load,si,si,si,no
+0x005D6830,25,CCustomBuildingDNPipeline,alta,7,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CCustomBuildingRenderer::Update,si,si,si,no
+0x005D6E90,14,CCustomBuildingDNPipeline,baja,4,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,2,CCustomBuildingRenderer::AtomicSetup CCustomBuildingRenderer::IsCBPCPipelineAttached,si,si,si,no
+0x005D84C0,207,CCustomCarEnvMapPipeline,alta,59,<0x100,30,3,0,logica,,,1,1,CCustomCarEnvMapPipeline::CustomPipeRenderCB,si,si,si,no
+0x005D8590,723,CCustomCarEnvMapPipeline,alta,208,<0x300,113,7,0,logica,,,1,1,CCustomCarEnvMapPipeline::CustomPipeRenderCB,si,si,si,no
+0x005D8980,77,CCustomCarEnvMapPipeline,alta,28,<0x100,0,1,0,logica,,,1,1,CCustomCarEnvMapPipeline::CreatePipe,si,si,si,no
+0x005D8BE0,108,CCustomCarEnvMapPipeline,alta,30,<0x100,10,5,0,logica,,,1,1,CCustomCarEnvMapPipeline::pluginEnvMatStreamReadCB,si,si,si,no
+0x005D8C50,118,CCustomCarEnvMapPipeline,alta,30,<0x100,15,0,0,logica,,,1,1,CCustomCarEnvMapPipeline::pluginEnvMatStreamWriteCB,si,si,si,no
+0x005D9060,92,CCustomCarEnvMapPipeline,baja,36,<0x100,0,2,0,logica,,,1,1,CCustomCarEnvMapPipeline::CreatePipe,si,si,si,no
+0x005D9110,104,CCustomCarEnvMapPipeline,baja,47,<0x100,0,0,0,logica,,,4,4,CCustomBuildingDNPipeline::SetFxEnvTexture CCustomCarEnvMapPipeline::SetFxEnvTexture CCustomCarEnvMapPipeline::pluginEnvMatCopyConstructorCB CCustomCarEnvMapPipeline::pluginEnvMatStreamReadCB,si,si,si,no
+0x005D9180,48,CCustomCarEnvMapPipeline,baja,19,<0x40,0,0,0,pequena,,,1,1,CCustomCarEnvMapPipeline::SetFxEnvTexture,si,si,si,no
+0x005D91B0,92,CCustomCarEnvMapPipeline,baja,36,<0x100,0,2,0,logica,,,1,1,CCustomCarEnvMapPipeline::CreatePipe,si,si,si,no
+0x005D9260,104,CCustomCarEnvMapPipeline,baja,47,<0x100,0,0,0,logica,,,3,3,CCustomCarEnvMapPipeline::AllocEnvMapPipeAtomicData CCustomCarEnvMapPipeline::CustomPipeRenderCB CCustomCarEnvMapPipeline::pluginEnvAtmCopyConstructorCB,si,si,si,no
+0x005D9300,93,CCustomCarEnvMapPipeline,baja,35,<0x100,0,2,0,logica,,,1,1,CCustomCarEnvMapPipeline::CreatePipe,si,si,si,no
+0x005D93B0,101,CCustomCarEnvMapPipeline,baja,46,<0x100,0,0,0,logica,,,2,2,CCustomCarEnvMapPipeline::pluginSpecMatCopyConstructorCB CCustomCarEnvMapPipeline::pluginSpecMatStreamReadCB,si,si,si,no
+0x005DA640,82,CCustomCarEnvMapPipeline,baja,34,<0x100,0,4,0,logica,,,2,2,CCustomBuildingPipeline::CustomPipeRenderCB CCustomCarEnvMapPipeline::CustomPipeRenderCB,si,si,si,no
+0x005DA6A0,236,CCustomCarEnvMapPipeline,baja,89,<0x100,0,16,0,logica,,,2,2,CCustomBuildingPipeline::CustomPipeRenderCB CCustomCarEnvMapPipeline::CustomPipeRenderCB,si,si,si,no
+0x005DA790,804,CCustomCarEnvMapPipeline,baja,183,>=0x300,55,15,0,logica,,,1,1,CCustomCarEnvMapPipeline::CustomPipeRenderCB,si,si,si,no
+0x005DAAC0,21,CCustomCarEnvMapPipeline,baja,6,<0x40,0,1,0,pequena,,,1,1,CCustomCarEnvMapPipeline::CustomPipeRenderCB,si,si,si,no
+0x005DBE40,104,CPlantMgr,alta,41,<0x100,23,2,0,logica,,,2,2,CPlantMgr::_ColEntityCache_Update,si,si,si,no
+0x005DD1E0,57,CPlantMgr,baja,23,<0x40,0,2,0,logica,,,0,1,,si,no,si,no
+0x005DD220,323,CPlantMgr,baja,108,<0x300,0,18,0,logica,,,2,2,CPlantMgr::Initialise,si,si,si,no
+0x005DDBE0,11,CCivilianPed,alta,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CCivilianPed::Destructor,si,si,si,no
+0x005DE340,97,CCopPed,baja,27,<0x100,0,3,0,logica,,,2,2,CPopulation::AddPed,si,si,si,no
+0x005DE920,92,CGangs,baja,22,<0x100,0,2,0,logica,,,1,3,CPed::Destructor,si,si,si,no
+0x005DEA00,90,CAEAudioEntity,baja,25,<0x100,0,2,0,logica,,,11,26,0x604500 0x61cba0 0x6240b0 CAutomobile::OpenDoor CPed::PlayFootSteps CTaskComplexInAirAndLand::CreateNextSubTask CTaskSimpleClimb::ProcessPed CTaskSimpleHoldEntity::DropEntity CTaskSimpleJump::ProcessPed,si,si,si,no
+0x005E0540,74,CPed,baja,29,<0x100,0,0,0,logica,,,1,1,CPed::operator new-poolIndexed,si,si,si,no
+0x005E3630,400,CPed,alta,107,<0x300,34,6,0,logica,,,1,1,CPed::DoFootLanded,si,si,si,no
+0x005E37C0,404,CPed,alta,105,<0x300,35,8,0,logica,,,1,1,CPed::DoFootLanded,si,si,si,no
+0x005E88E0,43,CPed,alta,15,<0x40,0,2,0,logica,,,1,1,CCamera::CamControl,si,si,si,no
+0x005E8A30,125,CPed,alta,49,<0x100,0,1,0,logica,,,2,2,CCrime::ReportCrime CEntity::IsEntityPointerValid,si,si,si,no
+0x005E9800,33,CPedShelterAttractor,baja,14,<0x40,0,0,0,pequena,,,0,1,,si,no,si,no
+0x005E9850,32,CPedShelterAttractor,baja,14,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,0,1,,si,no,si,no
+0x005EAAA0,30,CPedAttractorPool,baja,13,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,0,1,,si,no,si,no
+0x005EAAC0,41,CPedAttractorPool,baja,19,<0x40,0,0,0,pequena,,,0,1,,si,no,si,no
+0x005EAAF0,30,CPedAttractorPool,baja,13,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,0,1,,si,no,si,no
+0x005EAB10,30,CPedAttractorPool,baja,13,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,0,1,,si,no,si,no
+0x005EAB80,62,CPedAttractorPool,baja,27,<0x40,0,0,0,pequena,,,1,1,CPedAttractor::DeRegisterPed,si,si,si,no
+0x005EAC50,62,CPedAttractorPool,baja,27,<0x40,0,0,0,pequena,,,0,1,,si,no,si,no
+0x005EACC0,59,CPedAttractorPool,baja,26,<0x40,0,0,0,pequena,,,0,1,,si,no,si,no
+0x005EAE10,37,CPedAttractorPool,baja,16,<0x40,0,0,0,pequena,,,0,3,,si,no,si,no
+0x005EAE40,48,CPedAttractorPool,baja,22,<0x40,0,0,0,pequena,,,0,3,,si,no,si,no
+0x005EAE70,37,CPedAttractorPool,baja,16,<0x40,0,0,0,pequena,,,0,3,,si,no,si,no
+0x005EAEA0,57,CPedAttractorPool,baja,26,<0x40,0,0,0,pequena,,,0,3,,si,no,si,no
+0x005EAEE0,37,CPedAttractorPool,baja,16,<0x40,0,0,0,pequena,,,0,3,,si,no,si,no
+0x005EB140,40,CPedAttractor,alta,16,<0x40,0,0,0,pequena,,,0,1,,si,no,si,no
+0x005EB170,50,CPedAttractor,alta,22,<0x40,0,1,0,pequena,,,0,1,,si,no,si,no
+0x005EB1B0,40,CPedAttractor,alta,16,<0x40,0,0,0,pequena,,,0,1,,si,no,si,no
+0x005EB1E0,50,CPedAttractor,alta,23,<0x40,0,0,0,pequena,,,0,1,,si,no,si,no
+0x005EB220,50,CPedAttractor,alta,22,<0x40,0,1,0,pequena,,,0,1,,si,no,si,no
+0x005EB260,40,CPedAttractor,alta,16,<0x40,0,0,0,pequena,,,0,1,,si,no,si,no
+0x005EB2A0,35,CPedAttractor,alta,16,<0x40,0,0,0,pequena,,,0,3,,si,no,si,no
+0x005EB2E0,46,CPedAttractor,alta,22,<0x40,0,0,0,pequena,,,0,3,,si,no,si,no
+0x005EB310,35,CPedAttractor,alta,16,<0x40,0,0,0,pequena,,,1,4,CPedAttractor::SetTaskForPed,si,si,si,no
+0x005EB340,55,CPedAttractor,alta,26,<0x40,0,0,0,pequena,,,0,3,,si,no,si,no
+0x005EB390,35,CPedAttractor,alta,16,<0x40,0,0,0,pequena,,,0,3,,si,no,si,no
+0x005EB5F0,67,CPedAttractor,baja,31,<0x100,0,1,0,logica,,,10,10,CPedAttractorManager::RemoveEffect-,si,si,si,no
+0x005EB640,75,CPedAttractor,baja,38,<0x100,0,1,0,logica,,,10,10,CPedAttractorManager::IsPedRegisteredWithEffect-Ped,si,si,si,no
+0x005EB690,93,CPedAttractor,baja,44,<0x100,0,1,0,logica,,,10,10,CPedAttractorManager::IsPedRegisteredWithEffect-Effect,si,si,si,no
+0x005EB6F0,68,CPedAttractor,baja,31,<0x100,0,0,0,logica,,,2,2,CPedAttractorManager::HasEmptySlot CPedAttractorManager::HasQueueTailArrivedAtSlot,si,si,si,no
+0x005EB740,97,CPedAttractor,baja,45,<0x100,0,0,0,logica,,,10,10,CPedAttractorManager::GetPedUsingEffect-,si,si,si,no
+0x005EB7B0,95,CPedAttractor,baja,45,<0x100,0,1,0,logica,,,10,10,CPedAttractorManager::GetRelevantAttractor-,si,si,si,no
+0x005EB930,40,CPedAttractor,baja,16,<0x40,0,1,0,pequena,,,0,2,,si,no,si,no
+0x005EB960,40,CPedAttractor,baja,16,<0x40,0,1,0,pequena,,,0,2,,si,no,si,no
+0x005EB990,40,CPedAttractor,baja,16,<0x40,0,1,0,pequena,,,0,2,,si,no,si,no
+0x005EB9D0,40,CPedAttractor,baja,16,<0x40,0,1,0,pequena,,,0,2,,si,no,si,no
+0x005EBA00,40,CPedAttractor,baja,16,<0x40,0,1,0,pequena,,,0,2,,si,no,si,no
+0x005EC070,39,CPedAttractorManager,baja,17,<0x40,0,1,0,pequena,,,0,1,,si,no,si,no
+0x005EC0E0,42,CPedAttractorManager,baja,18,<0x40,0,1,0,pequena,,,0,1,,si,no,si,no
+0x005EC110,39,CPedAttractorManager,baja,17,<0x40,0,1,0,pequena,,,0,1,,si,no,si,no
+0x005EC140,42,CPedAttractorManager,baja,18,<0x40,0,1,0,pequena,,,0,1,,si,no,si,no
+0x005EC1B0,39,CPedAttractorManager,baja,17,<0x40,0,1,0,pequena,,,0,1,,si,no,si,no
+0x005EC220,49,CPedAttractorManager,baja,22,<0x40,0,0,0,pequena,,,1,1,CPedAttractor::BroadcastArrival,si,si,si,no
+0x005EC660,217,CPedAttractor,baja,100,<0x100,0,3,3,logica,,,10,10,CPedAttractorManager::BroadcastDeparture-,si,si,si,no
+0x005EC740,217,CPedAttractor,baja,99,<0x100,0,3,2,logica,,,10,10,CPedAttractorManager::DeRegisterPed-,si,si,si,no
+0x005ECAB0,122,CPedAttractorManager,baja,30,<0x100,0,3,0,logica,,,0,1,,si,no,si,no
+0x005ECB30,122,CPedAttractorManager,baja,30,<0x100,0,3,0,logica,,,0,1,,si,no,si,no
+0x005ECBB0,122,CPedAttractorManager,baja,30,<0x100,0,3,0,logica,,,0,1,,si,no,si,no
+0x005ECC30,122,CPedAttractorManager,baja,30,<0x100,0,3,0,logica,,,0,1,,si,no,si,no
+0x005ECCB0,122,CPedAttractorManager,baja,30,<0x100,0,3,0,logica,,,0,1,,si,no,si,no
+0x005ECF10,645,CPedAttractorManager,baja,264,<0x300,0,11,0,logica,,,0,1,,si,no,si,no
+0x005ED1B0,739,CPedAttractorManager,baja,296,<0x300,0,12,0,logica,,,0,1,,si,no,si,no
+0x005ED4B0,645,CPedAttractorManager,baja,264,<0x300,0,11,0,logica,,,1,2,CPedAttractor::SetTaskForPed,si,si,si,no
+0x005ED750,739,CPedAttractorManager,baja,299,<0x300,0,12,0,logica,,,0,1,,si,no,si,no
+0x005EDA50,645,CPedAttractorManager,baja,264,<0x300,0,11,0,logica,,,0,1,,si,no,si,no
+0x005EDD90,111,CPedAttractorManager,baja,46,<0x100,0,1,0,logica,,,0,1,,si,no,si,no
+0x005EDE50,109,CPedAttractorManager,baja,46,<0x100,0,1,0,logica,,,0,1,,si,no,si,no
+0x005EDF10,148,CPedAttractorManager,baja,41,<0x100,0,0,0,logica,,,1,1,CPedAttractorManager::GetPedAttractorManager,si,si,si,no
+0x005EE200,102,CPedAttractorManager,baja,45,<0x100,0,2,0,logica,,,2,2,CPedAttractor::BroadcastArrival CPedAttractor::RegisterPed,si,si,si,no
+0x005EE270,138,CPedAttractorManager,baja,60,<0x100,0,2,0,logica,,,1,1,CPedAttractor::SetTaskForPed,si,si,si,no
+0x005EE300,102,CPedAttractorManager,baja,45,<0x100,0,2,0,logica,,,1,1,CPedAttractor::SetTaskForPed,si,si,si,no
+0x005EE370,136,CPedAttractorManager,baja,60,<0x100,0,2,0,logica,,,1,1,CPedShelterAttractor::GetDisplacement,si,si,si,no
+0x005EE400,102,CPedAttractorManager,baja,45,<0x100,0,2,0,logica,,,1,2,CPedAttractorManager::RestoreStuffFromMem,si,si,si,no
+0x005EE470,85,CPedAttractorManager,baja,29,<0x100,0,1,0,logica,,,0,1,,si,no,si,no
+0x005EE540,85,CPedAttractorManager,baja,29,<0x100,0,1,0,logica,,,0,1,,si,no,si,no
+0x005EE610,85,CPedAttractorManager,baja,29,<0x100,0,1,0,logica,,,0,1,,si,no,si,no
+0x005EE6E0,85,CPedAttractorManager,baja,29,<0x100,0,1,0,logica,,,0,1,,si,no,si,no
+0x005EE7C0,85,CPedAttractorManager,baja,29,<0x100,0,1,0,logica,,,0,1,,si,no,si,no
+0x005EE890,85,CPedAttractorManager,baja,29,<0x100,0,1,0,logica,,,0,1,,si,no,si,no
+0x005EE960,85,CPedAttractorManager,baja,29,<0x100,0,1,0,logica,,,0,1,,si,no,si,no
+0x005EEA30,85,CPedAttractorManager,baja,29,<0x100,0,1,0,logica,,,0,1,,si,no,si,no
+0x005EEB00,85,CPedAttractorManager,baja,29,<0x100,0,1,0,logica,,,0,1,,si,no,si,no
+0x005EEBD0,85,CPedAttractorManager,baja,29,<0x100,0,1,0,logica,,,0,1,,si,no,si,no
+0x005EF920,95,CPedAttractorManager,baja,44,<0x100,0,1,0,logica,,,10,10,CPedAttractorManager::BroadcastArrival-,si,si,si,no
+0x005EF980,659,CPedAttractorManager,baja,191,<0x300,0,22,1,logica,,,8,8,CPedAttractorManager::RegisterPedWithAttractor,si,si,si,no
+0x005F13A0,61,CPed,baja,29,<0x40,0,0,0,pequena,,,2,2,0x695090 0x695e40,si,si,si,no
+0x005F6190,108,CPedGeometryAnalyser,baja,31,<0x100,0,2,0,logica,,,4,5,CGroupEventHandler::ComputeDoDealResponse CGroupEventHandler::ComputeGreetResponse CTaskComplexGangLeader::ScanForStuff,si,si,si,no
+0x005F6200,90,CPedGeometryAnalyser,baja,25,<0x100,0,2,0,logica,,,4,9,CGroupEventHandler::ComputeDoDealResponse CGroupEventHandler::ComputeGreetResponse CTaskComplexGangLeader::ScanForStuff,si,si,si,no
+0x005F65A0,51,CPedGroupDefaultTaskAllocatorSitInLeaderCar,baja,16,<0x40,0,1,0,pequena,,,6,6,0x684380 CTaskComplexChat::CreateFirstSubTask CTaskComplexPartnerGreet::GetPartnerSequence,si,si,si,no
+0x005F7200,54,CPedGroupDefaultTaskAllocatorSitInLeaderCar,baja,17,<0x40,0,0,1,pequena,,,1,1,CPedGroupIntelligence::SetDefaultTaskAllocatorType,si,si,si,no
+0x005F7660,46,CPedGroupIntelligence,alta,21,<0x40,0,0,0,pequena,,,2,2,CTaskAllocatorKillOnFoot::AllocateTasks,si,si,si,no
+0x005F7E30,16,CPedGroup,baja,5,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CEventHandler::RegisterKill,si,si,si,no
+0x005F8510,77,CPedGroupDefaultTaskAllocatorChat,baja,32,<0x100,0,2,0,logica,,,11,11,CTaskAllocatorKillOnFoot::AllocateTasks CTaskAllocatorKillThreatsBasic::AllocateTasks CTaskAllocatorKillThreatsBasicRandomGroup::AllocateTasks CTaskAllocatorKillThreatsDriveby::AllocateTasks,si,si,si,no
+0x005FE960,49,CPedIK,baja,21,<0x40,0,0,0,pequena,,,0,1,,si,no,si,no
+0x005FE9C0,23,CPedIK,baja,9,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,4,6,0x62b150 0x62b490 CTaskComplexWanderStandard::WillChat,si,si,si,no
+0x005FFE60,113,CEntityScanner,baja,42,<0x100,0,5,0,logica,,,1,1,CPedIntelligence::Process,si,si,si,no
+0x005FFEE0,4,CEntityScanner,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,4,4,CTaskComplexEnterAnyCarAsDriver::CreateFirstSubTask CTaskComplexFleeAnyMeans::ControlSubTask CTaskComplexGoToPointAnyMeans::ControlSubTask CTaskComplexWander::ScanForBlockedNode-,si,si,si,no
+0x005FFF20,4,CEntityScanner,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,3,3,CCheat::MayhemCheat CTaskComplexWander::ScanForBlockedNode- CTaskSimpleSitIdle::ProcessPed,si,si,si,no
+0x005FFF30,55,CEntityScanner,baja,21,<0x40,0,2,0,logica,,,0,1,,si,no,si,no
+0x005FFFD0,429,CAttractorScanner,baja,139,<0x300,38,9,0,logica,,,0,2,,si,no,si,no
+0x00600180,364,CAttractorScanner,baja,136,<0x300,40,0,0,logica,,,0,1,,si,no,si,no
+0x006007A0,157,CDecision,baja,60,<0x100,6,1,0,logica,,,1,1,0x6040d0,si,si,si,no
+0x006034B0,181,CEntityScanner,baja,67,<0x100,0,2,0,logica,,,0,2,,si,no,si,no
+0x00603570,422,CEntityScanner,baja,133,<0x300,21,6,1,logica,,,0,1,,si,no,si,no
+0x00603A30,187,CEntityScanner,baja,72,<0x100,0,6,1,logica,,,0,1,,si,no,si,no
+0x00603AF0,241,CEntityScanner,baja,94,<0x100,0,11,0,logica,,,0,4,,si,no,si,no
+0x00603BF0,633,CEntityScanner,baja,186,<0x300,32,5,0,logica,,,1,1,0x607e30,si,si,si,no
+0x00603E70,589,CEntityScanner,baja,178,<0x300,35,13,1,logica,,,1,1,0x607e30,si,si,si,no
+0x006040C0,8,CEntityScanner,baja,3,<0x40,0,1,0,pequena,,,6,7,0x4650f0 CDecisionMakerTypesFileLoader::LoadDefaultDecisionMaker,si,si,si,no
+0x006042B0,236,CEntityScanner,baja,78,<0x100,0,0,0,logica,,,0,1,,si,no,si,no
+0x00605300,204,CDecisionMakerTypes,baja,54,<0x100,3,3,0,logica,,,1,1,CPedIntelligence::Constructor,si,si,si,no
+0x006053D0,69,CDecisionMakerTypes,baja,23,<0x100,0,1,0,logica,,,2,2,CTaskSimpleGoToPoint::ProcessPed,si,si,si,no
+0x00606010,49,CPedIntelligencePool,baja,14,<0x40,0,0,0,pequena,,,0,1,,si,no,si,no
+0x006060A0,1232,CPedIntelligencePool,baja,367,>=0x300,40,30,1,logica,,,1,1,0x607e30,si,si,si,no
+0x00606580,776,CPedIntelligencePool,baja,212,>=0x300,28,20,0,logica,,,1,1,0x607e30,si,si,si,no
+0x00606890,774,CPedIntelligencePool,baja,217,>=0x300,26,17,0,logica,,,1,1,0x607e30,si,si,si,no
+0x00606BA0,694,CPedIntelligencePool,baja,180,<0x300,5,17,1,logica,,,0,1,,si,no,si,no
+0x006074A0,11,CPedIntelligence,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CPed::Constructor,si,si,si,no
+0x006074E0,49,CPedIntelligence,baja,18,<0x40,0,0,0,pequena,,,1,3,CPed::Destructor,si,si,si,no
+0x00607560,326,CPedIntelligence,baja,112,<0x300,10,6,0,logica,,,0,1,,si,no,si,no
+0x00607A90,606,CDecisionMakerTypesFileLoader,alta,191,<0x300,19,12,0,logica,,,0,2,,si,no,si,no
+0x00607D80,161,CDecisionMakerTypesFileLoader,baja,59,<0x100,0,2,0,logica,,,1,1,0x607e30,si,si,si,no
+0x00608F00,20,CPedType,baja,7,<0x40,2,0,0,trivial(<=0x20 sin llamadas),,,2,2,CTaskSimpleUseGun::ProcessPed CTaskSimpleUseGun::StartAnim,si,si,si,no
+0x00608F20,20,CPedType,baja,7,<0x40,2,0,0,trivial(<=0x20 sin llamadas),,,1,1,CTaskSimpleUseGun::ProcessPed,si,si,si,no
+0x00609140,90,CEventDontJoinPlayerGroup,baja,25,<0x100,0,2,0,logica,,,1,3,0x60c840,si,si,si,no
+0x0060D5B0,465,CPlayerPed,alta,105,<0x300,2,13,0,logica,,,3,3,CPlayerPed::SetupPlayerPed CPools::LoadPedPool CReplay::DealWithNewPedPacket,si,si,si,no
+0x0060F8C0,1,CPlayerPed,baja,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,Game::Render2dStuff,si,si,si,no
+0x00616920,283,CPedPlacement,alta,93,<0x300,29,2,0,logica,,,14,15,CPed::PositionAnyPedOutOfCollision CPed::PositionPedOutOfCollision CPedAttractorPedPlacer::PlacePedAtEffect CRoadBlocks::GenerateRoadBlockPedsForCar CTaskComplexGoToAttractor::CreateFirstSubTask CTaskComplexGoToPointAndStandStillTimed::ControlSubTask CTaskComplexSeekEntity<CEntitySeekPosCalculatorXY,si,si,si,no
+0x00619440,5,Rs,alta,1,<0x40,0,0,0,thunk,,sí,12,12,App::DoRWStuffEndOfFrame CLoadingScreen::DisplayNextSplash CLoadingScreen::DisplayPCScreen CLoadingScreen::DoPCScreenChange CLoadingScreen::DoPCTitleFadeIn CLoadingScreen::DoPCTitleFadeOut Game::FrontendIdle Game::Idle,si,si,si,no
+0x00619780,181,Rs,alta,67,<0x100,3,7,0,logica,,,1,1,0x619fa0,si,si,si,no
+0x006198C0,65,Rs,alta,19,<0x100,0,2,0,logica,,,1,1,0x619d60,si,si,si,no
+0x00619910,410,Rs,alta,115,<0x300,70,4,0,logica,,,1,1,0x619fa0,si,si,si,no
+0x0061A150,35,Rs,baja,11,<0x40,0,0,0,pequena,,,1,1,CPedIntelligence::Destructor,si,si,si,no
+0x0061A2E0,64,CPlayerRelationshipRecorder,baja,20,<0x100,0,1,0,pequena,,,2,2,CPedIntelligence::Destructor CPedIntelligence::Process,si,si,si,no
+0x0061A360,41,CPlayerRelationshipRecorder,baja,18,<0x40,0,2,2,logica,,,23,29,0x603720 0x604500 0x695090 CEventHandler::ComputeBuildingCollisionResponse CEventHandler::ComputeObjectCollisionPassiveResponse CEventHandler::ComputeObjectCollisionResponse CEventHandler::ComputePedCollisionWithPedResponse CEventHandler::ComputePedCollisionWithPlayerResponse CEventHandler::ComputeP,si,si,si,no
+0x0061A390,16,CPlayerRelationshipRecorder,baja,4,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,198,234,0x6217d0 0x647710 CEventHandler::ComputeReviveResponse CGroupEventHandler::ComputeDoDealResponse CGroupEventHandler::ComputeFleePedResponse CGroupEventHandler::ComputeGreetResponse CGroupEventHandler::ComputeHandSignalResponse CGroupEventHandler::ComputeHassleSexyPedResponse CGroupEventHandler::Comp,si,si,si,no
+0x0061A3B0,17,CPlayerRelationshipRecorder,baja,6,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,200,230,0x433ba0 0x433ea0 0x63b8c0 0x6919c0 CGroupEventHandler::ComputeResponseLeaderEnteredCar CGroupEventHandler::ComputeResponseNewGangMember CPedGroupDefaultTaskAllocatorStandStill::AllocateDefaultTasks CTaskComplexArrestPed::Constructor CTaskComplexAttractorPartnerWait::Clone CTaskComplexAttractorPartn,si,si,si,no
+0x0061A6C0,47,CTask,baja,15,<0x40,0,1,0,pequena,,,1,2,CTaskSimpleRunNamedAnim::Constructor-Default,si,si,si,no
+0x0061AE50,76,CTaskSimpleRunTimedAnim,baja,25,<0x100,0,1,0,logica,,,1,2,CTaskComplexPlayHandSignalAnim::CreateSubTask,si,si,si,no
+0x0061BB10,167,CTaskSimpleRunAnim,baja,58,<0x100,0,4,0,logica,,,1,1,CTaskSimpleRunNamedAnim::ProcessPed,si,si,si,no
+0x0061C150,20,CTaskSimpleRunNamedAnim,baja,7,<0x40,2,0,0,trivial(<=0x20 sin llamadas),,,1,1,CTaskSimpleUseGun::ProcessPed,si,si,si,no
+0x0061C420,62,CTaskSimpleDuck,baja,22,<0x40,6,0,0,pequena,,,2,2,CTaskSimpleUseGun::StartAnim,si,si,si,no
+0x0061DB30,217,CTaskSimpleFight,baja,85,<0x100,0,0,0,logica,,,1,1,CWeaponInfo::LoadWeaponData,si,si,si,no
+0x0061DE60,185,CTaskSimpleFightingControl,baja,57,<0x100,0,2,0,logica,,,9,9,CTaskComplexFleeShooting::ControlSubTask CTaskComplexGoToPointAiming::ControlSubTask CTaskComplexGoToPointAiming::CreateFirstSubTask CTaskComplexSeekEntityAiming::ControlSubTask CTaskSimpleGunControl::ProcessPed CTaskSimplePlayerOnFoot::ProcessPlayerWeapon CTaskSimpleUseGun::Clone,si,si,si,no
+0x00620EF0,90,CTaskComplexKillPedOnFoot,baja,25,<0x100,0,2,0,logica,,,2,4,CGroupEventHandler::ComputeKillPlayerBasicResponse CTaskComplexKillPedOnFootStealth::Destructor,si,si,si,no
+0x006218C0,148,CTaskSimpleGangDriveBy,baja,43,<0x100,0,4,0,logica,,,3,7,CCam::Process_Cam_TwoPlayer_InCarAndShooting CTaskAllocatorKillThreatsDriveby::AllocateTasks,si,si,si,no
+0x0062EB80,24,CTaskComplexSeekCoverUntilTargetDead,baja,10,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,0,3,,si,no,si,no
+0x0062F2D0,49,CTaskComplexLeaveCarAndDie,baja,17,<0x40,0,0,0,pequena,,,1,1,CTaskComplexSunbathe::CanSunbathe,si,si,si,no
+0x0062F360,11,CTaskSimpleStandStill,alta,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,16,37,0x625e70 0x66c4e0 CTaskComplexDestroyCarMelee::CreateSubTask CTaskComplexEnterCar::MakeAbortable CTaskComplexFollowLeaderInFormation::ControlSubTask CTaskComplexKillPedOnFootArmed::CreateSubTask CTaskComplexKillPedOnFootMelee::CreateSubTask CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::C,si,si,si,no
+0x0062FB40,93,CTaskSimpleDie,alta,25,<0x100,0,2,0,logica,,,1,3,CTaskSimpleDieInCar::Destructor,si,si,si,no
+0x0062FEC0,62,CTaskComplexDieInCar,baja,19,<0x40,0,1,0,pequena,,,1,1,CTaskComplexDie::CreateFirstSubTask,si,si,si,no
+0x00631910,34,CTaskComplexObserveTrafficLights,baja,11,<0x40,0,1,0,pequena,,,1,1,CTaskComplexWander::CreateSubTask,si,si,si,no
+0x00631990,218,CTaskComplexObserveTrafficLightsAndAchieveHeading,alta,67,<0x100,0,4,0,logica,,,3,3,CTaskComplexObserveTrafficLightsAndAchieveHeading::CreateFirstSubTask CTaskComplexObserveTrafficLightsAndAchieveHeading::CreateNextSubTask,si,si,si,no
+0x00632190,90,CTaskComplexSunbathe,baja,31,<0x100,16,0,0,logica,,,3,4,CTaskComplexSunbathe::ControlSubTask CTaskComplexSunbathe::CreateFirstSubTask CTaskComplexSunbathe::CreateNextSubTask,si,si,si,no
+0x00633250,34,CTaskComplexUsePairedAttractor,baja,11,<0x40,0,1,0,pequena,,,1,1,CTaskComplexUsePairedAttractor::CreateSubTask,si,si,si,no
+0x00634A40,28,CTaskComplexUseClosestFreeScriptedAttractor,baja,11,<0x40,0,1,1,pequena,,,1,1,0x468560,si,si,si,no
+0x00634EF0,18,CTaskComplexUseClosestFreeScriptedAttractor,baja,7,<0x40,0,1,0,pequena,,,1,1,CTaskSimplePlayerOnFoot::ProcessPlayerWeapon,si,si,si,no
+0x00636780,39,CTaskComplexUseEffect,baja,13,<0x40,0,1,0,pequena,,,1,1,CTaskComplexUseClosestFreeScriptedAttractor::CreateFirstSubTask,si,si,si,no
+0x00636860,39,CTaskComplexUseEffectRunning,baja,13,<0x40,0,1,0,pequena,,,1,1,CTaskComplexUseClosestFreeScriptedAttractor::CreateFirstSubTask,si,si,si,no
+0x00638290,725,CTaskComplexSunbathe,baja,211,<0x300,0,21,1,logica,,,12,12,CTaskComplexSunbathe::CreateFirstSubTask CTaskComplexSunbathe::CreateNextSubTask,si,si,si,no
+0x006389F0,79,CTaskComplexWaitForBus,baja,20,<0x100,0,2,0,logica,,,12,26,CGroupEventHandler::ComputeResponseLeaderEnteredCar CGroupEventHandler::ComputeResponseLeaderExitedCar CGroupEventHandler::ComputeResponseNewGangMember CTaskAllocatorKillOnFoot::AllocateTasks CTaskAllocatorKillThreatsBasic::AllocateTasks CTaskAllocatorKillThreatsBasicRandomGroup::AllocateTasks CTask,si,si,si,no
+0x0063A040,61,CVehicleAnimGroupData,baja,30,<0x40,0,0,0,pequena,,,4,4,CTaskComplexDrivePointRoute::Constructor CTaskComplexFollowPointRoute::Constructor CTaskComplexWalkRoundBuildingAttempt::ComputeRoute CTaskComplexWalkRoundCar::ComputeRouteRoundBigCar,si,si,si,no
+0x0063AB70,22,CTaskComplexEnterCar,alta,8,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CTaskComplexEnterCar::CreateNextSubTask,si,si,si,no
+0x0063BA00,157,CTaskComplexStealCar,baja,52,<0x100,0,4,0,logica,,,3,3,0x6419f0,si,si,si,no
+0x0063BAB0,34,CTaskComplexStealCar,baja,14,<0x40,0,1,0,pequena,,,2,2,0x641100 0x6419f0,si,si,si,no
+0x0063BAE0,122,CTaskComplexStealCar,baja,34,<0x100,0,2,0,logica,,,2,2,0x6419f0,si,si,si,no
+0x00640430,131,CTaskComplexOpenPassengerDoor,baja,40,<0x100,0,2,0,logica,,,4,5,0x625e70 CEventHandler::ComputeDraggedOutCarResponse CTaskComplexArrestPed::CreateSubTask,si,si,si,no
+0x00642700,88,CTaskComplexScreamInCarThenLeave,baja,25,<0x100,0,3,0,logica,,,1,1,CTaskSimpleCarDrive::ProcessPed,si,si,si,no
+0x00646CF0,101,CTaskSimpleCarWaitForDoorNotToBeInUse,baja,30,<0x100,0,0,1,logica,,,1,1,0x6419f0,si,si,si,no
+0x00646F40,158,CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse,baja,54,<0x100,24,1,0,logica,,,1,1,CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse::ProcessPed,si,si,si,no
+0x00646FE0,116,CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse,baja,37,<0x100,0,2,0,logica,,,6,6,CCarEnterExit::SetPedInCarDirect CTaskComplexEnterCar::CreateSubTask CTaskComplexEnterCarAsPassengerTimed::ControlSubTask CTaskComplexLeaveCarAsPassengerWait::SetPedInZerothPassengerSeat CTaskComplexShuffleSeats::CreateSubTask CTaskSimpleCarSetPedInAsPassenger::Clone,si,si,si,no
+0x00647170,90,CTaskSimpleCarSetPedInAsDriver,baja,25,<0x100,0,2,0,logica,,,2,8,CCarEnterExit::SetPedInCarDirect CTaskSimpleCreateCarAndGetIn::ProcessPed,si,si,si,no
+0x006478B0,118,CTaskSimpleCarJumpOut,baja,38,<0x100,0,2,0,logica,,,18,18,0x641100 0x641530 CCarAI::AddPoliceCarOccupants CCutsceneMgr::LoadCutsceneData_preload CEventKnockOffBike::SetPedOutCar CPedGroup::Teleport CTaskComplexCarSlowBeDraggedOut::CreateSubTask CTaskComplexCarSlowBeDraggedOutAndStandUp::CreateSubTask CTaskComplexEnterCar::CreateSubTask CTaskComplexEnterCar,si,si,si,no
+0x00647950,90,CTaskSimpleCarSetPedOut,alta,25,<0x100,0,2,0,logica,,,11,24,0x641100 CCarAI::AddPoliceCarOccupants CCutsceneMgr::LoadCutsceneData_preload CEventKnockOffBike::SetPedOutCar CPedGroup::Teleport CTaskComplexEnterCar::MakeAbortable CTaskComplexLeaveCarAsPassengerWait::SetPedInZerothPassengerSeat CTaskSimpleCarDrive::MakeAbortable CTaskSimpleCarJumpOut::ProcessPed,si,si,si,no
+0x00648330,81,CTaskSimpleCarSlowBeDraggedOut,alta,20,<0x100,0,1,1,logica,,,4,4,CTaskSimpleCarSlowBeDraggedOut::MakeAbortable CTaskSimpleCarSlowBeDraggedOut::ProcessPed CTaskSimpleCarSlowBeDraggedOut::SetPedPosition CTaskSimpleCarSlowBeDraggedOut::StartAnim,si,si,si,no
+0x00648E90,80,CTaskSimpleCarFallOut,alta,21,<0x100,0,1,0,logica,,,2,2,CTaskSimpleCarFallOut::MakeAbortable CTaskSimpleCarFallOut::ProcessPed,si,si,si,no
+0x00649160,172,CTaskComplexGoToBoatSteeringWheel,baja,56,<0x100,9,1,0,logica,,,1,2,CTaskComplexGoToBoatSteeringWheel::ControlSubTask,si,si,si,no
+0x006497A0,79,CTaskSimpleWaitUntilPedIsInCar,baja,25,<0x100,0,3,0,logica,,,4,4,CTaskSimpleBikeJacked::ProcessPed CTaskSimpleCarSlowDragPedOut::ProcessPed,si,si,si,no
+0x006497F0,192,CTaskSimpleWaitUntilPedIsInCar,baja,65,<0x100,0,7,1,logica,,,4,4,CTaskSimpleBikeJacked::ProcessPed CTaskSimpleCarSlowDragPedOut::ProcessPed,si,si,si,no
+0x0064CDA0,218,CTaskSimpleCarFallOut,baja,64,<0x100,0,5,0,logica,,,3,3,CTaskComplexGoToBoatSteeringWheel::ControlSubTask CTaskComplexGoToBoatSteeringWheel::CreateFirstSubTask CTaskComplexGoToBoatSteeringWheel::CreateNextSubTask,si,si,si,no
+0x0064E4B0,41,CTaskComplexGoToBoatSteeringWheel,baja,15,<0x40,0,2,0,logica,,,3,3,CTaskUtilityLineUpPedWithCar::ProcessPed,si,si,si,no
+0x00654840,257,CTaskComplexWalkRoundBuildingAttempt,alta,83,<0x300,0,5,0,logica,,,4,4,CEventHandler::ComputeBuildingCollisionResponse,si,si,si,no
+0x006551D0,187,CTaskComplexWalkRoundObject,baja,68,<0x100,9,3,0,logica,,,1,1,0x657380,si,si,si,no
+0x00655290,161,CTaskComplexWalkRoundObject,baja,42,<0x100,0,3,0,logica,,,1,1,0x6575f0,si,si,si,no
+0x006563D0,208,CTaskComplexHitPedWithCar,baja,72,<0x100,42,4,0,logica,,,1,1,CTaskSimpleKillPedWithCar::ProcessPed,si,si,si,no
+0x006586A0,42,CTaskComplexWalkRoundFire,baja,13,<0x40,0,1,0,pequena,,,1,1,CTaskComplexUseSwatRope::CreateSubTask,si,si,si,no
+0x0065C530,328,CTaskComplexSmartFleeEntity,alta,99,<0x300,3,6,0,logica,,,3,3,CTaskComplexSmartFleeEntity::CreateFirstSubTask CTaskComplexSmartFleeEntity::CreateNextSubTask,si,si,si,no
+0x0065DCF0,90,CEventPassObject,baja,25,<0x100,0,2,0,logica,,,2,5,CTaskComplexGangFollower::ControlSubTask CTaskComplexGangLeader::ControlSubTask,si,si,si,no
+0x0065DE60,36,CEventPassObject,baja,13,<0x40,0,0,0,pequena,,,1,1,CTaskComplexGangFollower::CreateNextSubTask,si,si,si,no
+0x0065E710,29,CTaskComplexGangLeader,alta,9,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CTaskComplexGangLeader::GetRandomGangAmbientAnim,si,si,si,no
+0x0065E9A0,172,CTaskComplexGangLeader,alta,63,<0x100,0,4,0,logica,,,1,1,0x626260,si,si,si,no
+0x0065ED40,329,CTaskComplexGangFollower,alta,107,<0x300,22,1,0,logica,,,2,2,CTaskComplexAvoidOtherPedWhileWandering::ControlSubTask CTaskComplexGangFollower::ControlSubTask,si,si,si,no
+0x0065F3A0,10,CTaskSimpleGoToPointFine,baja,3,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,8,8,CTaskComplexFollowNodeRoute::ControlSubTask CTaskComplexFollowPointRoute::ControlSubTask,si,si,si,no
+0x00660F60,38,CTaskGoToVehicleAndLean,baja,14,<0x40,0,1,1,pequena,,,2,2,CTaskGoToVehicleAndLean::ControlSubTask CTaskGoToVehicleAndLean::CreateNextSubTask,si,si,si,no
+0x00664770,295,CTaskGoToVehicleAndLean,baja,95,<0x300,31,1,0,logica,,,2,2,CTaskGoToVehicleAndLean::ControlSubTask CTaskGoToVehicleAndLean::CreateFirstSubTask,si,si,si,no
+0x00665DC0,61,CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>,baja,23,<0x40,0,1,1,pequena,,,2,2,CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::ControlSubTask,si,si,si,no
+0x00667310,99,CTaskComplexProstituteSolicit,baja,25,<0x100,9,0,0,logica,,,4,4,CTaskComplexFollowNodeRoute::ComputePathNodes,si,si,si,no
+0x00667720,116,CTaskSimpleRunNamedAnim,baja,48,<0x100,0,0,0,logica,,,1,1,CTaskComplexFollowPointRoute::GetSubTaskType,si,si,si,no
+0x00667900,43,CTaskSimpleRunNamedAnim,baja,24,<0x40,0,0,0,pequena,,,1,1,CTaskComplexFollowNodeRoute::ComputePathNodes,si,si,si,no
+0x00667D50,11,CTaskSimpleGoToPoint,alta,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,3,CPedGroup::PlayerGaveCommand_Gather,si,si,si,no
+0x00667E20,49,CTaskSimpleGoToPoint,baja,16,<0x40,0,1,0,pequena,,,20,25,0x657380 0x691ae0 CEventHandler::ComputeDraggedOutCarResponse CEventHandler::ComputeVehiclePotentialCollisionResponse CPedGroupDefaultTaskAllocatorChat::AllocateDefaultTasks CTaskComplexCrossRoadLookAndAchieveHeading::CreateSubTask CTaskComplexEvasiveCower::CreateSubTask CTaskComplexEvasiveDiveAndGe,si,si,si,no
+0x00668250,116,CTaskComplexGoToPointAndStandStill,alta,39,<0x100,21,0,0,logica,,,1,2,CTaskComplexGoToPointAndStandStill::ControlSubTask,si,si,si,no
+0x006682D0,661,CTaskComplexGoToPointAndStandStill,alta,195,<0x300,16,14,1,logica,,,8,8,CTaskComplexGoToPointAndStandStill::CreateFirstSubTask CTaskComplexGoToPointAndStandStill::CreateNextSubTask CTaskComplexGoToPointAndStandStillTimed::CreateFirstSubTask,si,si,si,no
+0x00668D50,292,CTaskComplexGoToPointAndStandStillAndAchieveHeading,alta,84,<0x300,0,6,0,logica,,,4,4,CTaskComplexGoToPointAndStandStillAndAchieveHeading::CreateFirstSubTask CTaskComplexGoToPointAndStandStillAndAchieveHeading::CreateNextSubTask,si,si,si,no
+0x00669D20,11,CTaskComplexFollowNodeRoute,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,3,8,CTaskComplexWanderCriminal::Destructor CTaskComplexWanderFlee::Destructor CTaskInteriorBeInShop::Destructor,si,si,si,no
+0x00669D30,22,CTaskComplexFollowNodeRoute,baja,7,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CTaskComplexSmartFleePoint::ControlSubTask,si,si,si,no
+0x00669D50,69,CTaskComplexFollowNodeRoute,baja,21,<0x100,0,0,0,logica,,,1,1,CTaskComplexSmartFleePoint::SetDefaultTaskWanderDir,si,si,si,no
+0x00669FB0,54,CTaskComplexWander,baja,21,<0x40,0,0,0,pequena,,,1,1,CTaskComplexGangLeader::ScanForStuff,si,si,si,no
+0x00669FF0,265,CTaskComplexWander,baja,94,<0x300,40,2,0,logica,,,1,1,CTaskComplexGangLeader::ControlSubTask,si,si,si,no
+0x0066B150,10,CTaskComplexWanderStandard,baja,3,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,0x683ad0,si,si,si,no
+0x0066C3E0,86,CTaskComplexGotoDoorAndOpen,baja,31,<0x100,0,1,0,logica,,,1,3,CTaskComplexGoToAttractor::CreateFirstSubTask,si,si,si,no
+0x0066CA40,209,CTaskComplexInvestigateDisturbance,baja,64,<0x100,0,2,0,logica,,,1,2,CTaskComplexInvestigateDisturbance::CreateNextSubTask,si,si,si,no
+0x00674EA0,48,CTaskComplexWanderCop,baja,15,<0x40,0,1,0,pequena,,,2,2,CTaskInteriorBeInShop::ScanForStuff,si,si,si,no
+0x00678E80,3,CTaskSimpleInAir,baja,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CPed::PreRenderAfterTest,si,si,si,no
+0x0067A060,11,CTaskComplexJump,alta,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,2,CTaskComplexClimb::Destructor,si,si,si,no
+0x0067BA40,18,CTaskSimpleJetPack,baja,7,<0x40,0,1,0,pequena,,,1,1,CEventHandler::ComputeEventResponseTask-0,si,si,si,no
+0x00681970,30,CTaskManager,alta,15,<0x40,0,1,1,pequena,,,1,1,CTaskManager::SetTask,si,si,si,no
+0x00681A00,35,CTaskManager,alta,16,<0x40,0,1,1,pequena,,,1,1,CPedIntelligence::ProcessAfterProcCol,si,si,si,no
+0x00681FE0,658,CTaskComplexPartner,baja,207,<0x300,125,2,1,logica,,,1,1,0x683ad0,si,si,si,no
+0x006822B0,33,CTaskComplexPartner,baja,12,<0x40,0,1,0,pequena,,,3,3,0x683ad0,si,si,si,no
+0x00683840,146,CTaskComplexBeInCouple,baja,49,<0x100,21,0,0,logica,,,1,1,CTaskComplexBeInCouple::ControlSubTask,si,si,si,no
+0x00683A40,142,CTaskComplexBeInCouple,baja,45,<0x100,0,4,0,logica,,,1,6,CTaskComplexPartnerGreet::Destructor,si,si,si,no
+0x00684200,11,CTaskComplexPartnerDeal,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,3,CGroupEventHandler::ComputeDoDealResponse,si,si,si,no
+0x0068B620,91,CTaskSimpleSwim,baja,28,<0x100,0,2,0,logica,,,1,2,CTaskComplexArrestPed::CreateSubTask,si,si,si,no
+0x00690C70,48,CTaskSimpleShakeFist,baja,16,<0x40,0,1,0,pequena,,,3,3,CTaskComplexFacial::ControlSubTask CTaskComplexFacial::CreateNextSubTask,si,si,si,no
+0x00692340,77,CTaskSimpleDuck,alta,23,<0x100,0,2,0,logica,,,3,3,CTaskSimpleDuck::ProcessPed CTaskSimpleDuckToggle::ProcessPed,si,si,si,no
+0x006955D0,44,CTaskComplexFollowPedFootsteps,baja,12,<0x40,3,0,0,pequena,,,1,1,CTaskComplexFollowLeaderInFormation::ControlSubTask,si,si,si,no
+0x00695600,135,CTaskComplexFollowPedFootsteps,baja,40,<0x100,0,2,0,logica,,,2,2,CTaskComplexFollowLeaderAnyMeans::CreateSubTask CTaskComplexSeekEntityAnyMeansXYOffset::Clone,si,si,si,no
+0x006962A0,981,CTaskComplexSeekEntityAnyMeansXYOffset,baja,285,>=0x300,2,25,0,logica,,,7,7,CTaskComplexFollowLeaderInFormation::ControlSubTask CTaskComplexFollowLeaderInFormation::CreateFirstSubTask CTaskComplexFollowLeaderInFormation::CreateNextSubTask,si,si,si,no
+0x006985E0,43,CTaskComplexReactToGunAimedAt,baja,15,<0x40,0,1,1,pequena,,,2,2,CPlayerRelationshipRecorder::RecordRelationshipWithPlayer,si,si,si,no
+0x00698610,15,CTaskComplexReactToGunAimedAt,baja,5,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CPlayerRelationshipRecorder::RecordRelationshipWithPlayer,si,si,si,no
+0x00698680,88,CTaskComplexReactToGunAimedAt,baja,35,<0x100,0,3,3,logica,,,1,1,CEventHandler::ComputeBuildingCollisionResponse,si,si,si,no
+0x00699E20,179,CPedList,baja,81,<0x100,0,0,0,logica,,,3,3,CPedList::ExtractPedsWithGuns CPedList::RemovePedsAttackingPedType CPedList::RemovePedsThatDontListenToPlayer,si,si,si,no
+0x00699F00,24,CPedList,baja,8,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,3,CCover::FindCoordinatesCoverPoint CTaskAllocatorKillOnFoot::AllocateTasks,si,si,si,no
+0x0069C480,50,CTaskAllocatorAttack,baja,18,<0x40,0,2,0,logica,,,1,1,CGroupEventHandler::ComputeResponsePlayerCommand,si,si,si,no
+0x0069D980,11,CTaskAllocatorPool,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,4,4,CGroupEventHandler::ComputeDrivebyResponse CGroupEventHandler::ComputeKillThreatsBasicResponse CGroupEventHandler::ComputeResponsePlayerCommand,si,si,si,no
+0x0069F7E0,220,CMissionTextOffsets,baja,87,<0x100,0,0,0,logica,,,17,17,0x559230 0x55a780 CMenuManager::SaveStatsToFile CText::Load,si,si,si,no
+0x0069F8C0,78,CMissionTextOffsets,baja,33,<0x100,0,0,0,logica,,,1,1,C_PcSave::PopulateSlotInfo,si,si,si,no
+0x0069F910,37,CMissionTextOffsets,baja,17,<0x40,0,0,0,pequena,,,2,2,CSimpleVariablesSaveStructure::Construct,si,si,si,no
+0x006A06F0,20,CEventVehicleDamageCollision,baja,7,<0x40,2,0,0,trivial(<=0x20 sin llamadas),,,1,1,0x6aa290,si,si,si,no
+0x006A2530,703,CAutomobile,alta,206,<0x300,19,21,0,logica,,,1,1,0x430050,si,si,si,no
+0x006A3BD0,646,CAutomobile,alta,210,<0x300,15,19,0,logica,,,3,3,CAutomobile::NitrousControl,si,si,si,no
+0x006B0690,1018,CAutomobile,alta,308,>=0x300,64,20,0,logica,,,2,2,0x6c5420 CPlane::PreRender,si,si,si,no
+0x006C4130,54,cBuoyancy,baja,18,<0x40,10,0,0,pequena,,,2,2,CPlane::DoPlaneGenerationAndRemoval,si,si,si,no
+0x006C4750,1,CHeli,alta,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CRenderer::PreRender,si,si,si,no
+0x006D0AF0,18,CAEVehicleAudioEntity,baja,6,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,0x6dfc50,si,si,si,no
+0x006D0B10,25,CAEVehicleAudioEntity,baja,10,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,2,CBike::Constructor CQuadBike::Constructor,si,si,si,no
+0x006D0B30,1,CAEVehicleAudioEntity,baja,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,5,CBike::Destructor,si,si,si,no
+0x006D5DD0,74,CVehicle,alta,29,<0x100,0,0,0,logica,,,0,1,,si,no,si,no
+0x006D5E20,227,CVehicle,alta,69,<0x100,0,1,0,logica,,,1,1,CVehicle::Constructor,si,si,si,no
+0x006E2D60,36,CVehicle,alta,13,<0x40,0,1,0,pequena,,,21,21,CPools::LoadVehiclePool CReplay::PlayBackThisFrameInterpolation,si,si,si,no
+0x006E5280,77,WaterCreatureManager_c,baja,24,<0x100,19,0,0,logica,,,46,46,0x6eb810 CWaterLevel::RenderFlatWaterRectangle CWaterLevel::RenderWaterRectangle CWaterLevel::SplitWaterTriangleAlongYLine,si,si,si,no
+0x006E5750,182,WaterCreatureManager_c,baja,45,<0x100,0,0,0,logica,,,2,2,0x6e7b30,si,si,si,no
+0x006E8550,34,CWaterLevel,alta,13,<0x40,0,1,0,pequena,,,4,4,CShadows::RenderStoredShadows,si,si,si,no
+0x006E8780,1856,CWaterLevel,alta,430,>=0x300,170,8,0,logica,,,2,2,0x6eddc0,si,si,si,no
+0x006E91D0,1903,CWaterLevel,alta,430,>=0x300,191,7,0,logica,,,2,2,0x6eb810,si,si,si,no
+0x006EA8A0,125,CWaterLevel,alta,46,<0x100,10,1,0,logica,,,1,1,0x6ea960,si,si,si,no
+0x006F5440,70,cHandlingDataMgr,baja,19,<0x100,9,0,0,logica,,,4,4,CTrain::ProcessControl,si,si,si,no
+0x006F9EB0,116,CScripted2dEffects,alta,36,<0x100,0,0,0,logica,,,2,2,CScripted2dEffects::AddScripted2DEffect CScripted2dEffects::Init,si,si,si,no
+0x006FBA20,117,CCoronas,alta,38,<0x100,25,0,0,logica,,,5,5,CCoronas::RenderSunReflection,si,si,si,no
+0x006FD7C0,829,CCustomCarPlateMgr,alta,265,>=0x300,0,0,1,logica,,,1,1,CCustomCarPlateMgr::RenderLicenseplateTextToRaster,si,si,si,no
+0x006FE260,1939,CCustomRoadsignMgr,alta,614,>=0x300,0,0,1,logica,,,1,1,CCustomRoadsignMgr::RoadsignGenerateTextRaster,si,si,si,no
+0x007059E0,4,CRealTimeShadow,alta,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CShadows::CastShadowEntityXYZ,si,si,si,no
+0x00709CF0,837,CShadows,alta,252,>=0x300,90,7,0,logica,,,1,1,CShadows::CastShadowEntityXYZ,si,si,si,no
+0x0070FA70,107,CStencilShadows,alta,41,<0x100,0,0,0,logica,,,6,6,CStencilShadows::RenderForObject CStencilShadows::RenderForVehicle,si,si,si,no
+0x00710BA0,30,CStencilShadows,alta,12,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CStencilShadows::RegisterStencilShadows,si,si,si,no
+0x00711160,136,CStencilShadows,baja,50,<0x100,32,2,0,logica,,,3,3,CStencilShadows::RegisterStencilShadows,si,si,si,no
+0x007111F0,136,CStencilShadows,baja,50,<0x100,32,2,0,logica,,,2,2,CStencilShadows::RegisterStencilShadows,si,si,si,no
+0x00711280,134,CStencilShadows,baja,51,<0x100,0,4,0,logica,,,3,3,CStencilShadows::RegisterStencilShadows,si,si,si,no
+0x007170C0,32,CClouds,baja,10,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,244,246,0x587000 CAERadioTrackManager::DisplayRadioStationName CCamera::DrawBordersForWideScreen CCredits::PrintCreditText CCredits::RenderCredits CDarkel::DrawMessages CFont::Initialise CFont::ParseToken CFont::PrintChar CGame::InitialiseWhenRestarting CGarages::PrintMessages CHud::DrawAmmo CHud::DrawAreaN,si,si,si,no
+0x00717820,1,CPlaneTrails,baja,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CReplay::TriggerPlayback,si,si,si,no
+0x00718630,48,Common,alta,23,<0x40,0,0,0,pequena,,,1,1,CMenuManager::DrawStandardMenus,si,si,si,no
+0x00718660,35,Common,alta,16,<0x40,0,0,0,pequena,,,8,8,0x559230 0x55a780 CMenuManager::PrintStats CMenuManager::SaveStatsToFile,si,si,si,no
+0x00718690,26,Common,alta,12,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,2,CMenuManager::DrawStandardMenus CSimpleVariablesSaveStructure::Construct,si,si,si,no
+0x00718E50,117,CFont,alta,39,<0x100,0,0,0,logica,,,2,2,CFont::RenderFontBuffer,si,si,si,no
+0x00719240,115,CFont,alta,46,<0x100,0,0,0,logica,,,3,3,0x559230 0x55a780,si,si,si,no
+0x00719360,19,CFont,alta,6,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,2,CControllerConfigManager::GetControllerSettingTextKeyBoard,si,si,si,no
+0x0071D700,1,CGridRef,baja,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CCamera::RenderMotionBlur,si,si,si,no
+0x0071D710,6,CGridRef,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CCamera::SetRwCamera,si,si,si,no
+0x0071D720,6,CGridRef,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CGame::Shutdown,si,si,si,no
+0x0071D730,66,CGridRef,baja,17,<0x100,6,0,0,logica,,,1,1,CPlayerPed::ProcessControl,si,si,si,no
+0x0071D780,21,CGridRef,baja,3,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,3,3,0x60cd20 CGameLogic::RestorePlayerStuffDuringResurrection CPlayerPed::ProcessControl,si,si,si,no
+0x0071DB30,76,Common,alta,23,<0x100,17,0,0,logica,,,2,2,Common::DoesInfiniteLineTouchScreen,si,si,si,no
+0x007204C0,1,COcclusion,baja,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,3,3,CCutsceneMgr::DeleteCutsceneData_overlay CCutsceneMgr::LoadCutsceneData_preload CEntryExit::TransitionFinished,si,si,si,no
+0x0072A640,335,CWeather,alta,95,<0x300,36,0,0,logica,,,3,3,CWeather::SetWeatherToAppropriateTypeNow CWeather::Update,si,si,si,no
+0x0072D850,273,CCullZones,alta,85,<0x300,35,0,0,logica,,,4,4,CCullZones::FindAttributesForCoors CCullZones::FindMirrorAttributesForCoors CCullZones::FindTunnelAttributesForCoors CCullZones::FindZoneWithStairsAttributeForPlayer,si,si,si,no
+0x0072E140,217,CCullZones,baja,91,<0x100,0,5,0,logica,,,0,1,,si,no,si,no
+0x0072E220,79,CCullZones,baja,37,<0x100,0,2,0,logica,,,0,1,,si,no,si,no
+0x0072E270,236,CCullZones,baja,101,<0x100,0,10,0,logica,,,0,2,,si,no,si,no
+0x0072E360,60,CCullZones,baja,25,<0x40,0,2,0,logica,,,0,6,,si,no,si,no
+0x0072E570,172,CCullZones,baja,65,<0x100,0,7,0,logica,,,1,1,CFileLoader::StartLoadClumpFile,si,si,si,no
+0x0072E620,215,CCullZones,baja,82,<0x100,0,11,0,logica,,,1,1,CFileLoader::FinishLoadClumpFile,si,si,si,no
+0x0072E700,36,CCullZones,baja,9,<0x40,0,2,0,logica,,,1,1,CStreaming::RemoveModel,si,si,si,no
+0x0072E870,96,CCullZones,baja,39,<0x100,0,0,0,logica,,,0,1,,si,no,si,no
+0x0072EC80,238,CCullZones,baja,91,<0x100,0,1,0,logica,,,0,1,,si,no,si,no
+0x0072ED80,212,CCullZones,baja,85,<0x100,0,1,0,logica,,,0,1,,si,no,si,no
+0x0072F180,418,CCullZones,baja,135,<0x300,0,1,0,logica,,,1,1,CMemoryMgr::InitScratchPad,si,si,si,no
+0x0072F3B0,1,CCullZones,baja,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CGame::InitialiseOnceBeforeRW,si,si,si,no
+0x0072F430,5,CMemoryMgr,alta,1,<0x40,0,0,0,thunk,,sí,70,78,0x619d60 C2dEffect::Shutdown C2dEffect::t2dEffectPluginDestructor CAEMP3BankLoader::Service CAEMP3TrackLoader::Deconstructor CAEUserRadioTrackManager::Shutdown CAEWMADecoder::Initialise CAnimBlendHierarchy::CompressKeyframes CAnimBlendHierarchy::RemoveAnimSequences CAnimBlendHierarchy::RemoveUncompr,si,si,si,no
+0x0072F460,19,CMemoryMgr,alta,7,<0x40,0,1,0,pequena,,,3,3,CMenuManager::DrawStandardMenus VideoMode::GetVideoModeList,si,si,si,no
+0x0072F4A0,1,CMemoryMgr,alta,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CVehicleModelInfo::ReduceMaterialsInVehicle,si,si,si,no
+0x0072F4B0,1,CMemoryMgr,alta,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CVehicleModelInfo::ReduceMaterialsInVehicle,si,si,si,no
+0x0072F500,5,CMemoryMgr,baja,2,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,2,2,CAnimBlendHierarchy::MoveMemory CAnimBlendSequence::MoveMemory,si,si,si,no
+0x0072FC70,273,PipelinePlugin,baja,83,<0x300,11,3,0,logica,,,6,6,App::AppEventHandler App::DoRWStuffStartOfFrame App::DoRWStuffStartOfFrame_Horizon CGame::InitialiseRenderWare Game::FrontendIdle Game::Idle,si,si,si,no
+0x0072FE80,63,CGame,baja,22,<0x40,0,1,0,pequena,,,1,1,0x730b70,si,si,si,no
+0x0072FF60,141,CGame,baja,64,<0x100,0,2,2,logica,,,1,1,0x730510,si,si,si,no
+0x0072FFF0,43,CGame,baja,18,<0x40,0,0,0,pequena,,,1,1,0x730b70,si,si,si,no
+0x00730020,115,CGame,baja,47,<0x100,0,3,1,logica,,,2,2,0x730b70,si,si,si,no
+0x00730270,132,CGame,baja,58,<0x100,0,1,1,logica,,,1,1,0x7306a0,si,si,si,no
+0x00730330,115,CGame,baja,47,<0x100,0,3,1,logica,,,2,2,0x730d30,si,si,si,no
+0x00730AD0,41,D3DResourceSystem,baja,16,<0x40,0,0,0,pequena,,,1,1,0x730b70,si,si,si,no
+0x00731070,215,D3DResourceSystem,baja,78,<0x100,0,7,0,logica,,,1,1,CTxdStore::StartLoadTxd,si,si,si,no
+0x00731150,122,D3DResourceSystem,baja,45,<0x100,0,5,0,logica,,,1,1,CTxdStore::FinishLoadTxd,si,si,si,no
+0x00731650,46,D3DResourceSystem,baja,13,<0x40,0,1,0,pequena,,,1,1,App::PluginAttach,si,si,si,no
+0x007316D0,13,CTxdStore,alta,3,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CClothesBuilder::RequestTexture,si,si,si,no
+0x00731AD0,92,CTxdStore,alta,36,<0x100,0,2,0,logica,,,1,1,CTxdStore::Initialise,si,si,si,no
+0x00731B80,104,CTxdStore,alta,47,<0x100,0,0,0,logica,,,2,2,CTxdStore::AddTxdSlot CTxdStore::Initialise,si,si,si,no
+0x00733910,115,CVisibilityPlugins,alta,46,<0x100,3,0,0,logica,,,13,13,CVisibilityPlugins::InsertAtomicIntoReallyDrawLastList CVisibilityPlugins::InsertEntityIntoReallyDrawLastList CVisibilityPlugins::InsertEntityIntoSortedList CVisibilityPlugins::InsertEntityIntoUnderwaterList CVisibilityPlugins::InsertObjectIntoSortedList CVisibilityPlugins::RenderHeliRotorAlphaCB CV,si,si,si,no
+0x00733F40,63,CVisibilityPlugins,alta,27,<0x40,0,0,0,pequena,,,5,5,CVisibilityPlugins::InitAlphaAtomicList CVisibilityPlugins::InitAlphaEntityList,si,si,si,no
+0x00734610,1,CVisibilityPlugins,baja,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CGame::InitialiseRenderWare,si,si,si,no
+0x00734620,1,CVisibilityPlugins,baja,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CGame::ShutdownRenderWare,si,si,si,no
+0x00734640,1,CVisibilityPlugins,baja,1,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,3,3,App::DoRWStuffEndOfFrame Game::FrontendIdle Game::Idle,si,si,si,no
+0x00734E90,8,RwHelper,baja,2,<0x40,0,0,1,pequena,,,26,26,CPostEffects::DrawQuad CPostEffects::Radiosity CPostEffects::UnderWaterRipple CRadar::DrawAreaOnRadar CRadar::DrawRadarMask CRadar::DrawRadarSection CRadar::DrawRadarSectionMap CShadowCamera::Im2DRenderQuad CShadowCamera::InvertRaster CSprite2d::Draw-CRectCRGBA CSprite2d::Draw-CRectCRGBA4 CSprite2d:,si,si,si,no
+0x00734EA0,9,RwHelper,baja,2,<0x40,0,0,1,pequena,,,6,6,CMirrors::RenderMirrorBuffer CPostEffects::HeatHazeFX CShadowCamera::DrawOutlineBorder CSprite2d::RenderVertexBuffer CSprite::FlushSpriteBuffer,si,si,si,no
+0x00734EC0,9,RwHelper,baja,2,<0x40,0,0,1,pequena,,,2,2,CShadowCamera::MakeGradientRaster CTheScripts::ScriptDebugCircle2D,si,si,si,no
+0x0073A280,40,CShotInfo,baja,10,<0x40,0,0,0,pequena,,,3,3,CWeapon::Update,si,si,si,no
+0x0073A2B0,40,CShotInfo,baja,10,<0x40,0,0,0,pequena,,,3,3,CWeapon::Update,si,si,si,no
+0x007448B0,123,Input,alta,46,<0x100,0,4,0,logica,,,1,1,Input::PadHandler,si,si,si,no
+0x00744930,179,Input,alta,61,<0x100,0,4,0,logica,,,1,1,Input::PadHandler,si,si,si,no
+0x00745A70,5,Ps,baja,1,<0x40,0,0,0,thunk,,sí,2,2,CMenuManager::ProcessPCMenuOptions,si,si,si,no
+0x00746070,11,Win,baja,4,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,1,1,CCutsceneMgr::IsCutsceneSkipButtonBeingPressed,si,si,si,no
+0x007460A0,205,Win,baja,89,<0x100,0,5,4,logica,,,1,1,Ps::psSelectDevice,si,si,si,no
+0x007469A0,109,Win,baja,43,<0x100,0,4,4,logica,,,4,6,CMenuManager::CheckForMenuClosing CPad::UpdateMouse,si,si,si,no
+0x00746D80,322,CPad,baja,110,<0x300,0,8,8,logica,,,0,2,,si,no,si,no
+0x00746ED0,148,CPad,baja,57,<0x100,0,4,4,logica,,,1,1,CPad::UpdateMouse,si,si,si,no
+0x00747000,32,CPad,baja,10,<0x40,0,1,1,pequena,,,1,1,0x747eb0,si,si,si,no
+0x00747300,210,CGamma,baja,78,<0x100,0,10,7,logica,,,2,2,CAEMP3TrackLoader::Initialise CAEMP3TrackLoader::IsCurrentAudioStreamAvailable,si,si,si,no
+0x007477C0,85,VideoPlayer,baja,31,<0x100,0,3,1,logica,,,1,1,0x7485c0,si,si,si,no
+0x00748F70,134,Win,baja,39,<0x100,0,4,0,logica,,,1,1,App::PluginAttach,si,si,si,no
+0x007491C0,47,Win,baja,18,<0x40,0,1,0,pequena,,,23,23,CShadowCamera::Update-Atomic CShadowCamera::atomicQuickRender CVisibilityPlugins::RenderAtomicWithAlpha CVisibilityPlugins::RenderFadingClumpCB CVisibilityPlugins::RenderHeliRotorAlphaCB CVisibilityPlugins::RenderHeliTailRotorAlphaCB CVisibilityPlugins::RenderObjNormalAtomic CVisibilityPlugins::Rend,si,si,si,no
+0x007491F0,318,Win,baja,110,<0x300,38,0,0,logica,,,5,7,0x6c4e60 0x706520 CCutsceneMgr::CalculateBoundingSphereRadiusCB CVisibilityPlugins::IsAtomicVisible,si,si,si,no
+0x00749830,75,Win,baja,25,<0x100,0,2,0,logica,,,0,1,,si,no,si,no
+0x00749B20,65,Win,baja,32,<0x100,0,2,1,logica,,,9,9,C3dMarkers::DirectionArrowsDraw C3dMarkers::User3dMarkersDraw CEntity::Render CPed::Render CPlayerSkin::RenderFrontendSkinEdit CTaskSimpleJetPack::RenderJetPack CVisibilityPlugins::RenderWeaponPedsForPC,si,si,si,no
+0x00749B70,57,Win,baja,28,<0x40,0,1,1,pequena,,,68,73,0x6df930 0x6dfa20 0x734fc0 0x735360 C3dMarker::AddMarker C3dMarkers::DirectionArrowsDraw C3dMarkers::Shutdown C3dMarkers::User3dMarkersDraw CAnimBlendAssocGroup::CreateAssociations-1 CAnimBlendAssocGroup::CreateAssociations-3 CAnimManager::CreateAnimAssocGroups CAutomobile::Fix CCarFXRenderer::Custo,si,si,si,no
+0x00749C50,201,Win,baja,68,<0x100,0,3,1,logica,,,1,4,CCustomRoadsignMgr::CreateRoadsignAtomicA,si,si,si,no
+0x00749D40,124,Win,baja,49,<0x100,0,4,0,logica,,,2,5,0x5dd100 CCustomRoadsignMgr::CreateRoadsignAtomicA,si,si,si,no
+0x00749DC0,127,Win,baja,44,<0x100,0,7,1,logica,,,19,26,0x6d3300 C2dEffect::DestroyAtomic C2dEffect::t2dEffectPluginDestructor C3dMarker::DeleteMarkerObject C3dMarkers::PlaceMarker C3dMarkers::Render C3dMarkers::Shutdown CAtomicModelInfo::DeleteRwObject CCustomRoadsignMgr::CreateRoadsignAtomicA CDamageAtomicModelInfo::DeleteRwObject CEntity::DeleteRwObje,si,si,si,no
+0x00749E60,258,Win,baja,98,<0x300,0,7,0,logica,,,7,17,C3dMarker::AddMarker CAutomobile::SpawnFlyingComponent CBoat::BlowUpCar CVehicle::CopyObjectsCB CVehicleModelInfo::PreprocessHierarchy,si,si,si,no
+0x0074A290,113,Win,baja,39,<0x100,0,2,1,logica,,,4,8,C3dMarkers::Init CFileLoader::LoadClumpFile-1,si,si,si,no
+0x0074A310,377,Win,baja,134,<0x300,0,12,2,logica,,,13,21,C3dMarkers::Shutdown CAnimBlendAssocGroup::CreateAssociations-1 CAnimBlendAssocGroup::CreateAssociations-3 CAnimManager::CreateAnimAssocGroups CClumpModelInfo::DeleteRwObject CEntity::DeleteRwObject CFileLoader::LoadAtomicFile- CFileLoader::LoadAtomicFile-stream CFileLoader::LoadClumpFile- CFileLoad,si,si,si,no
+0x0074A490,37,Win,baja,16,<0x40,0,0,0,pequena,,,10,16,0x6d3830 C3dMarkers::Init CVehicle::CopyObjectsCB CVehicle::CreateReplacementAtomic CVehicle::CreateUpgradeAtomic CVehicleModelInfo::PreprocessHierarchy,si,si,si,no
+0x0074A4C0,33,Win,baja,10,<0x40,0,0,0,pequena,,,6,6,0x6d3300 CFileLoader::FindRelatedModelInfoCB CFileLoader::SetRelatedModelInfoCB CVehicle::RemoveAllUpgradesCB CVehicle::RemoveObjectsCB-Object CVehicleModelInfo::PreprocessHierarchy,si,si,si,no
+0x0074AE50,70,Win,baja,28,<0x100,0,2,1,logica,,,0,2,,si,no,si,no
+0x0074B060,952,Win,baja,319,>=0x300,0,39,2,logica,,,0,1,,si,no,si,no
+0x0074B420,2207,Win,baja,715,>=0x300,0,85,8,logica,,,5,6,CFileLoader::LoadAtomicFile- CFileLoader::LoadAtomicFile-stream CFileLoader::LoadClumpFile- CFileLoader::LoadClumpFile-1,si,si,si,no
+0x0074BDA0,39,Win,baja,14,<0x40,0,1,0,pequena,,,3,7,CCustomCarEnvMapPipeline::RegisterPlugin CVisibilityPlugins::PluginAttach PipelinePlugin::PipelinePluginAttach,si,si,si,no
+0x0074BDD0,39,Win,baja,14,<0x40,0,1,0,pequena,,,3,4,CCollisionPlugin::PluginAttach CVisibilityPlugins::PluginAttach RpAnimBlend::RpAnimBlendPluginAttach,si,si,si,no
+0x0074BE00,34,Win,baja,12,<0x40,0,1,0,pequena,,,1,4,PipelinePlugin::PipelinePluginAttach,si,si,si,no
+0x0074BE70,34,Win,baja,12,<0x40,0,1,0,pequena,,,1,1,CCollisionPlugin::PluginAttach,si,si,si,no
+0x0074BF20,31,Win,baja,13,<0x40,0,1,0,pequena,,,21,31,0x6d3830 C2dEffect::DestroyAtomic C2dEffect::t2dEffectPluginDestructor C3dMarker::AddMarker CAutomobile::SpawnFlyingComponent CBoat::BlowUpCar CCustomRoadsignMgr::CreateRoadsignAtomicA CEntity::DestroyEffects CFileLoader::FindRelatedModelInfoCB CFileLoader::SetRelatedModelInfoCB CModelInfo::ShutDown,si,si,si,no
+0x0074C200,269,Win,baja,86,<0x300,43,2,0,logica,,,2,2,CClothesBuilder::ConstructGeometryAndSkinArrays CCustomRoadsignMgr::CreateRoadsignAtomicA,si,si,si,no
+0x0074C690,35,Win,baja,9,<0x40,0,0,0,pequena,,,3,3,CClothesBuilder::ConstructGeometryAndSkinArrays CCustomRoadsignMgr::CreateRoadsignAtomicA,si,si,si,no
+0x0074C6C0,82,Win,baja,39,<0x100,0,2,0,logica,,,4,4,0x5dd100 CClothesBuilder::ConstructGeometryAndSkinArrays CCustomRoadsignMgr::CreateRoadsignAtomicA,si,si,si,no
+0x0074C790,62,Win,baja,30,<0x40,0,1,1,pequena,,,29,30,0x6d3830 CCustomBuildingDNPipeline::CustomPipeAtomicSetup CCustomBuildingPipeline::CustomPipeAtomicSetup CCustomCarEnvMapPipeline::CustomPipeAtomicSetup CCustomCarPlateMgr::AtomicSetCarplateTextureCB CCustomCarPlateMgr::AtomicUpgradeSetCarplateTextureCB CCustomRoadsignMgr::RenderRoadsignAtomic CCust,si,si,si,no
+0x0074C7D0,44,Win,baja,16,<0x40,0,1,0,pequena,,,8,13,CClothesBuilder::BlendGeometry-2 CClothesBuilder::BlendGeometry-3 CClothesBuilder::CopyGeometry CCustomBuildingDNPipeline::NVCPipelineProcess RwHelper::RpAtomicConvertGeometryToTL RwHelper::RpAtomicConvertGeometryToTS RwHelper::atomicConvertGeometryToTL RwHelper::atomicConvertGeometryToTS,si,si,si,no
+0x0074C800,595,Win,baja,192,<0x300,0,11,6,logica,,,11,14,0x5dd100 CClothesBuilder::BlendGeometry-2 CClothesBuilder::BlendGeometry-3 CClothesBuilder::ConstructGeometryAndSkinArrays CClothesBuilder::CopyGeometry CCustomBuildingDNPipeline::NVCPipelineProcess CCustomRoadsignMgr::CreateRoadsignAtomicA RwHelper::RpAtomicConvertGeometryToTL RwHelper::RpAtomicCon,si,si,si,no
+0x0074CA90,543,Win,baja,180,<0x300,0,8,2,logica,,,3,4,0x5dd100 CClothesBuilder::ConstructGeometryAndSkinArrays CCustomRoadsignMgr::CreateRoadsignAtomicA,si,si,si,no
+0x0074CCB0,9,Win,baja,3,<0x40,0,0,0,trivial(<=0x20 sin llamadas),,,3,7,CClothesBuilder::BlendGeometry-2 CClothesBuilder::BlendGeometry-3 CClothesBuilder::CopyGeometry,si,si,si,no
+0x0074CCC0,165,Win,baja,51,<0x100,0,6,2,logica,,,3,23,CCustomRoadsignMgr::CreateRoadsignAtomicA,si,si,si,no
+0x0074CD70,39,Win,baja,14,<0x40,0,1,0,pequena,,,3,7,BreakablePlugin::BreakablePluginAttach C2dEffect::PluginAttach CCustomBuildingDNPipeline::ExtraVertColourPluginAttach,si,si,si,no
+0x0074CDA0,34,Win,baja,12,<0x40,0,1,0,pequena,,,3,6,BreakablePlugin::BreakablePluginAttach C2dEffect::PluginAttach CCustomBuildingDNPipeline::ExtraVertColourPluginAttach,si,si,si,no
+0x0074D6D0,117,Win,baja,34,<0x100,0,5,2,logica,,,0,1,,si,no,si,no
+0x0074D990,131,Win,baja,40,<0x100,0,2,1,logica,,,2,2,CClothesBuilder::CreateSkinnedClump CCustomRoadsignMgr::CreateRoadsignAtomicA,si,si,si,no
+0x0074DA20,94,Win,baja,31,<0x100,0,3,1,logica,,,7,14,0x734de0 CCustomRoadsignMgr::CreateRoadsignAtomicA,si,si,si,no
+0x0074DBC0,39,Win,baja,18,<0x40,0,1,0,pequena,,,11,11,CAutomobile::CustomCarPlate_AfterRenderingStop CAutomobile::CustomCarPlate_BeforeRenderingStart CClothesBuilder::CreateSkinnedClump CCustomCarPlateMgr::SetupMaterialPlateTexture CCustomCarPlateMgr::SetupMaterialPlatebackTexture CCustomRoadsignMgr::CreateRoadsignAtomicA CHandObject::Render CPPTriPlan,si,si,si,no
+0x0074DBF0,39,Win,baja,14,<0x40,0,1,0,pequena,,,2,5,CCustomCarEnvMapPipeline::RegisterPlugin,si,si,si,no
+0x0074DC20,34,Win,baja,12,<0x40,0,1,0,pequena,,,2,5,CCustomCarEnvMapPipeline::RegisterPlugin,si,si,si,no
+0x0074E150,86,Win,baja,34,<0x100,0,2,1,logica,,,1,9,CVehicleModelInfo::ReduceMaterialsInVehicle,si,si,si,no
+0x0074E350,193,Win,baja,68,<0x100,0,4,2,logica,,,1,3,CVehicleModelInfo::StoreAtomicUsedMaterialsCB,si,si,si,no
+0x0074EA40,55,Win,baja,18,<0x40,0,4,0,logica,,,0,1,,si,no,si,no
+0x0074F610,288,Win,baja,98,<0x300,0,9,3,logica,,,1,1,CGame::ShutdownRenderWare,si,si,si,no
+0x0074F760,923,Win,baja,298,>=0x300,0,21,7,logica,,,1,1,CGame::InitialiseRenderWare,si,si,si,no
+0x0074FDA0,237,Win,baja,68,<0x100,0,11,0,logica,,,1,1,App::PluginAttach,si,si,si,no
+0x0074FFA0,68,Win,baja,22,<0x100,0,1,1,logica,,,0,2,,si,no,si,no
+0x0074FFF0,81,Win,baja,28,<0x100,0,1,1,logica,,,0,2,,si,no,si,no
