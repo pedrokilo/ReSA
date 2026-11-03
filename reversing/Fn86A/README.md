@@ -1,0 +1,39 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 03/11/2026 (Ciudad de México):** 820 grupos / 9016 funciones reconstruidas; 9016 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
+# Fn86A: `CCam::ProcessArrestCamCheese` (lote 86A)
+
+Estado: **APROBADO dentro del juego** (03/11/2026, árbol principal sobre HEAD 8160d269e + los cambios del lote). 16384 pares, cero diferencias EXE/DLL, compuertas de ABI/ruta/SEH/restauración en ambos lados, y cada lado coincide con el oráculo independiente (`fixture_oracle.py`).
+Evidencia final: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn86a/20261103-005745-230705` (archivada en `reversing/CppTwelveLevel6Final/runs/`). Una función de código de juego reconstruida en C++ puro y enganchada (tipo S).
+
+| Función | Dirección | Hook | Fuente |
+|---|---|---|---|
+| `CCam::ProcessArrestCamCheese` (antes la llamada por dirección `cheese` de `ProcessArrestCamOne`) | 0x512EF0 | `CCam` / `ProcessArrestCamCheese` / S | `Cam.cpp` / `Cam.h` |
+
+El nombre es mío (el original no tiene símbolo): es la cámara «cheese» de la secuencia de arresto, que `ProcessArrestCamOne` (0x518500) usa en los estados 1 y 0. Mide 0x323 B (0x512EF0..0x513212), thiscall, `ret 8` (`from`, `initialise`), devuelve AL.
+Sus únicos llamadores en el EXE son `ProcessArrestCamOne` (0x5188A0 y 0x518B9E), que solo leen AL. El `cheese` de `ProcessArrestCamOne` en la DLL llama ahora al método.
+
+## Revisión contra el EXE (0x512EF0..0x513212)
+- Con `initialise` (byte bajo del argumento de pila): `rand()` del EXE (0x821B1E) × 0x858C7C (`0x38000100`, x87 de 24 bits): mayor que 0x858F50 (`0x3F266666`, 0.65f) devuelve falso. Después, el objetivo de la camara (0xB6F980, leído una vez aquí) debe ser un ped (byte +0x36 & 7 == 3) y `from` no nulo; si no, falso sin tocar nada más.
+- t = ((`fild` del tiempo 0xB7CB84, con signo, más 2^32 (0x858C54) si es negativo) − 0xB6EC60) − 0xB70024) / 1000.0f (0x8CCCB0), cada operación redondeada a 24 bits con exponente ampliado, y t guardado como float. t > 1.0 (el registro) deja t = 1.0f y conmuta el byte 0xB70020 (0 → 1, otro → 0); t < 0 (el float guardado) deja t = 0.0f y pone 0xB70020 a 1; t en [0, 1) o NaN pone 0xB70020 a 1; t == 1.0f conmuta.
+- 0xB7001C: si el bit 0 está a cero se pone y 0xB70010..0xB70018 = 0; si el bit 1 está a cero se pone y 0xB70004..0xB7000C = (0, 0, −0.5f).
+- source = posición del objetivo (+0x30 de la matriz si +0x14 es distinto de cero, si no +4); FOV (+0xB4) = 100.0f. Hueso 5 del ped `from` (`GetAnimHierarchyFromSkinClump(from+0x18)`, `RpHAnimIDGetIndex(h, 5)`, `RpHAnimHierarchyGetMatrixArray(h)`, elemento `índice<<6` + 0x30): P = (x, y copiados en crudo, ((−0.06f + z) − 0.5f·t) guardado como float).
+- source += (0xB70004..0xB7000C) (cada suma guardada como float); front = P − source (cada resta guardada como float); `Normalise(front)` (0x59C910); up = (0, 0, 1); `CrossProduct(tmp, front, up)` (0x59C730); `Normalise(tmp)`; `CrossProduct(out, tmp, front)` y up = *devuelto.
+- Con `initialise`: `GetIsLineOfSightClear` (0x56A490) de source a P con (edificios, vehículos, objetos, ignorar cámara) falso → falso; la segunda (edificios y objetos) falsa → source vuelve al valor anterior. Al final el objetivo (releído de 0xB6F980) pierde el bit 0x80 de +0x1C y devuelve verdadero.
+
+## Banco
+Falsos idénticos en la dirección del EXE y en el cuerpo de la DLL (hook RH apagado durante el banco): `GetAnimHierarchyFromSkinClump` 0x734A40, `CVector::Normalise` 0x59C910, `CrossProduct(out)` 0x59C730 y `CWorld::GetIsLineOfSightClear` 0x56A490; y solo en la dirección del EXE (la DLL llama a esa dirección): `rand` 0x821B1E, `RpHAnimIDGetIndex` 0x7C51A0 y `RpHAnimHierarchyGetMatrixArray` 0x7C5120. `Normalise` y `CrossProduct` no figuran como hooks Simple del catálogo, así que su cuerpo de la DLL se resuelve por el puntero a la función (como en `Helpers66D`).
+Registran sus argumentos en orden (con el contenido de los vectores en la llamada). Los dos `Normalise` y los dos `CrossProduct` escriben lo que dicta el caso. La aritmética (tiempo, t, punto mirado, source, front, comparaciones) corre de verdad en ambos lados con los ayudantes `Veh83D*` / `Fn85GStore` de la DLL frente a la x87 del EXE; los estáticos 0xB70000..0xB7002F, 0xB6EC60, 0xB6F980 y 0xB7CB84 son memoria real del juego (se rellenan y se restauran tras cada lado).
+Se observa: AL, los 12 dwords de 0xB70000, 0xB6EC60, el objetivo final (etiqueta), 0xB7CB84, qué entidades tienen matriz, los bytes cambiados de todas las arenas (cámara, dos objetivos, ped, dos matrices y la jerarquía de huesos; sin los campos de puntero) y los eventos de los falsos con todos sus argumentos.
+Mutaciones de una lectura (una vez por caso): 1–9 dentro de `rand` (cambian el objetivo de la cámara, el tiempo, 0xB6EC60, 0xB70024, el clump del ped, las banderas 0xB7001C, 0xB70004, la matriz o el tipo del objetivo actual); 10 en `RpHAnimHierarchyGetMatrixArray` (z del hueso); 11 en la primera línea de vista (objetivo de la cámara, que el EXE relee al final). En todos los casos el EXE relee después esa memoria.
+16 familias de 1024 casos: sin `initialise`, `initialise` con todo despejado, `rand` por encima del umbral (con el borde), primera línea de vista bloqueada, segunda bloqueada, objetivo que no es un ped, `from` nulo, t < 0, t en [0, 1), t == 1.0 exacto, t > 1, valores especiales en 0xB6EC60/0xB70024, tiempo ≥ 2^31 (entero negativo), estados de 0xB7001C y 0xB70020, mutaciones, valores especiales en la geometría.
+
+## Fuera de los fixtures
+NaN con cargas distintas de 0xFFC00000, índices de hueso fuera de 0..15 (el EXE lee fuera de la jerarquía), un `GetAnimHierarchyFromSkinClump` o una matriz que no se escriban, bytes altos del booleano de los colaboradores, un objetivo ped sin clump y colaboradores que cambien `from` o su clump. Solo un ped real tiene `from`+0x18 válido; el banco usa un valor opaco porque los falsos no lo desreferencian.
+
+## Prueba negativa
+Producción mutada en siete puntos: 0.5f a 0.25f en el descenso de z, el umbral 0.65f a 0.7f, la conmutación de 0xB70020 (`== 0` a `== 1`), la primera línea de vista con `vehicles` falso, el hueso 5 a 4, el objetivo final tomado de la variable local en vez de releer 0xB6F980 y el bit 1 de 0xB7001C probado como bit 0. El banco falla en 12381 de 16384 pares (`resultados-fn86a/20261103-005432-312054`). Restaurado con `cmp` contra la copia buena (hash `96f4f8b86a9e3e0f`) y la corrida final posterior aprobó.
+
+## Banco repetido
+`CamArrest355` (ProcessArrestCamOne, 12288 pares): citaba 0x512EF0 solo en la dirección del EXE (y 0x516010, que ya era método C++ desde 66D y tampoco llevaba falso en la DLL); adaptado (`LiveComparison.hpp` parchea ahora también el cuerpo de la DLL de `ProcessArrestCamCheese` y de `GetArrestCamCopSourceSide` con el mismo falso). **APROBADO**, 12288 pares (`resultados-cam-arrest355/20261103-010142-358781`). Ningún otro banco cita la dirección ni el símbolo.

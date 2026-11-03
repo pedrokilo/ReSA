@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,015 entradas reversed=1**, de 9,015 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,016 entradas reversed=1**, de 9,016 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9015 |
+| `validated=1` · evidencia aprobada vinculada | 9016 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9015 |
+| Evidencia histórica vinculada; revisión pendiente | 9016 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -1273,6 +1273,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCam | `LookBehind` | [Resumen](../reversing/CamLookBehind355/validation-summary.json) |
 | CCam | `LookRight` | [Resumen](../reversing/CamLookSide355/validation-summary.json) |
 | CCam | `Process` | [Resumen](../reversing/CamProcess355/validation-summary.json) |
+| CCam | `ProcessArrestCamCheese` | [Resumen](../reversing/Fn86A/validation-summary.json) |
 | CCam | `ProcessArrestCamOne` | [Resumen](../reversing/CamArrest355/validation-summary.json) |
 | CCam | `ProcessPedsDeadBaby` | [Resumen](../reversing/CamDead355/validation-summary.json) |
 | CCam | `Process_1rstPersonPedOnPC` | [Resumen](../reversing/CamFirstPerson355/validation-summary.json) |
@@ -9125,7 +9126,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CBuildingPool` | 1 | 0 | 1 | 0 |
 | `CBulletInfo` | 4 | 0 | 4 | 0 |
 | `CBulletTraces` | 5 | 0 | 5 | 0 |
-| `CCam` | 51 | 0 | 51 | 0 |
+| `CCam` | 52 | 0 | 52 | 0 |
 | `CCamera` | 120 | 0 | 120 | 0 |
 | `CCarAI` | 25 | 0 | 25 | 0 |
 | `CCarCtrl` | 111 | 0 | 111 | 0 |

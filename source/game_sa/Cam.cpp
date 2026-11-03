@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CCam
- * Reconstrucción: COMPLETA — 51/51 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 52/52 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 51/51 entradas.
+ * Validación registrada: 52/52 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -264,6 +264,7 @@ void CCam::InjectHooks() {
     RH_ScopedInstall(Finalise_DW_CineyCams, 0x50DD70);
     RH_ScopedInstall(GetCoreDataForDWCineyCamMode, 0x517130);
     RH_ScopedInstall(GetArrestCamCopSourceSide, 0x516010);
+    RH_ScopedInstall(ProcessArrestCamCheese, 0x512EF0);
     RH_ScopedInstall(GetLookFromLampPostPos, 0x5161A0);
     RH_ScopedInstall(GetVectorsReadyForRW, 0x509CE0);
     RH_ScopedInstall(Get_TwoPlayer_AimVector, 0x513E40);
@@ -965,6 +966,109 @@ bool CCam::GetArrestCamCopSourceSide(CEntity* target, CPed* cop, const CVector* 
     return true;
 }
 
+// 0x512EF0 (thiscall, `ret 8`: from, initialise; devuelve AL): camara «cheese» de la secuencia de arresto (la usa ProcessArrestCamOne, que la llamaba por direccion). El objetivo de la camara (0xB6F980) debe ser un ped
+// (byte +0x36 & 7 == 3) y `from` no nulo, si no devuelve false sin tocar nada. Con `initialise`, antes de nada, rand() del CRT del EXE (0x821B1E) * 0x858C7C (float): mayor que 0x858F50 (0.65f) devuelve false.
+// t = ((tiempo - 0xB6EC60) - 0xB70024) / 1000.0f (el tiempo, 0xB7CB84, entra como entero con signo y se suma 2^32 si es negativo; todo en el registro x87 a 24 bits y t guardado como float): t > 1 (registro) lo deja en 1.0f;
+// t < 0 (float guardado) en 0.0f; t en [0, 1) o NaN pone 0xB70020 a 1 y t == 1.0f lo conmuta (0 -> 1, otro -> 0). Los vectores estaticos 0xB70010 (si no tiene el bit 0 de 0xB7001C) y 0xB70004 (bit 1: (0, 0, -0.5f)) se inician aqui.
+// source = posicion del objetivo (+0x30 de la matriz, o +4 sin ella); FOV = 100; punto mirado P = (hueso 5 del ped `from`: x, y, (-0.06f + z) - 0.5f * t); source += (0xB70004); front = P - source (guardado como float, normalizado),
+// up = (0, 0, 1); up = normalizado(front x up) x front (CrossProduct de 0x59C730 en las dos vueltas, la segunda copia el valor que devuelve). Con `initialise`: dos comprobaciones de linea de vista (0x56A490) de source a P; la primera
+// (edificios, vehiculos, objetos, ignorar camara) falla -> false; la segunda (edificios y objetos) falla -> source vuelve al valor de antes. Al final el objetivo (releido) pierde la bandera 0x80 de +0x1C y devuelve true.
+// Aritmetica de la x87 del EXE (registro de 24 bits, exponente ampliado, guardado con fstp dword) con los ayudantes Veh83D* / Fn85GStore. Ningun llamador del EXE lee EAX/ECX/EDX (solo AL).
+bool CCam::ProcessArrestCamCheese(CPed* from, bool initialise) {
+    constexpr float kRandomScale = std::bit_cast<float>(0x38000100u);   // 0x858C7C
+    constexpr float kMaxChance = std::bit_cast<float>(0x3F266666u);     // 0x858F50
+    if (initialise) {
+        const auto exeRand = reinterpret_cast<int32(__cdecl*)()>(0x821B1E);
+        const double chance = Veh83DMul(double(exeRand()), double(kRandomScale));
+        if (chance > double(kMaxChance)) {
+            return false;
+        }
+    }
+    auto* target = StaticRef<CEntity*>(0xB6F980);
+    if (target->GetType() != ENTITY_TYPE_PED || !from) {
+        return false;
+    }
+    auto& startTime = StaticRef<float>(0xB6EC60);
+    auto& offsetTime = StaticRef<float>(0xB70024);
+    auto& blinkState = StaticRef<uint8>(0xB70020);
+    const int32 now = static_cast<int32>(CTimer::m_snTimeInMilliseconds);
+    double elapsed = double(now);
+    if (now < 0) {
+        elapsed = Veh83DAdd(elapsed, double(std::bit_cast<float>(0x4F800000u)));   // 0x858C54 = 2^32
+    }
+    elapsed = Veh83DSub(elapsed, double(startTime));
+    elapsed = Veh83DSub(elapsed, double(offsetTime));
+    elapsed = Veh83DDiv(elapsed, double(std::bit_cast<float>(0x447A0000u)));      // 0x8CCCB0 = 1000.0f
+    float fraction = Fn85GStore(elapsed);
+    bool toggle;
+    if (elapsed > 1.0) {
+        fraction = 1.0f;
+        toggle = true;
+    } else if (fraction < 0.0f) {
+        fraction = 0.0f;
+        toggle = false;
+    } else {
+        toggle = !(fraction < 1.0f) && !std::isnan(fraction);
+    }
+    blinkState = toggle ? (blinkState == 0 ? 1 : 0) : 1;
+
+    auto& state = StaticRef<uint32>(0xB7001C);
+    if (!(state & 1)) {
+        state |= 1;
+        StaticRef<float>(0xB70010) = 0.0f;
+        StaticRef<float>(0xB70014) = 0.0f;
+        StaticRef<float>(0xB70018) = 0.0f;
+    }
+    if (!(state & 2)) {
+        state |= 2;
+        StaticRef<float>(0xB70004) = 0.0f;
+        StaticRef<float>(0xB70008) = 0.0f;
+        StaticRef<float>(0xB7000C) = std::bit_cast<float>(0xBF000000u);
+    }
+
+    const CVector previousSource = m_vecSource;
+    m_vecSource = target->GetPosition();
+    m_fFOV = 100.0f;
+
+    auto* hierarchy = GetAnimHierarchyFromSkinClump(reinterpret_cast<RpClump*>(from->GetRwObject()));
+    const int32 boneIndex = RpHAnimIDGetIndex(hierarchy, 5);
+    const auto matrices = reinterpret_cast<uintptr_t>(RpHAnimHierarchyGetMatrixArray(hierarchy));
+    const auto* bone = reinterpret_cast<const CVector*>(matrices + (uint32(boneIndex) << 6) + 0x30);
+    CVector look = *bone;
+    const double raised = Veh83DAdd(double(std::bit_cast<float>(0xBD75C28Fu)), double(bone->z));    // 0x8CCCAC (-0.06f) + z
+    const double lowered = Veh83DMul(double(std::bit_cast<float>(0x3F000000u)), double(fraction));    // 0x8CCCA8 (0.5f) * t
+    look.z = Fn85GStore(Veh83DSub(raised, lowered));
+
+    const CVector offset = StaticRef<CVector>(0xB70004);
+    m_vecSource.x = Fn85GStore(Veh83DAdd(double(offset.x), double(m_vecSource.x)));
+    m_vecSource.y = Fn85GStore(Veh83DAdd(double(offset.y), double(m_vecSource.y)));
+    m_vecSource.z = Fn85GStore(Veh83DAdd(double(offset.z), double(m_vecSource.z)));
+    const float frontX = Fn85GStore(Veh83DSub(double(look.x), double(m_vecSource.x)));
+    const float frontY = Fn85GStore(Veh83DSub(double(look.y), double(m_vecSource.y)));
+    const float frontZ = Fn85GStore(Veh83DSub(double(look.z), double(m_vecSource.z)));
+    m_vecFront = CVector{ frontX, frontY, frontZ };
+    m_vecFront.Normalise();
+
+    m_vecUp = CVector{ 0.0f, 0.0f, 1.0f };
+    CVector side;
+    CrossProduct(&side, &m_vecFront, &m_vecUp);
+    side.Normalise();
+    CVector up;
+    const CVector* const crossed = CrossProduct(&up, &side, &m_vecFront);
+    m_vecUp = *crossed;
+
+    if (initialise) {
+        if (!CWorld::GetIsLineOfSightClear(m_vecSource, look, true, true, false, true, false, false, true)) {
+            return false;
+        }
+        if (!CWorld::GetIsLineOfSightClear(m_vecSource, look, true, false, false, true, false, false, false)) {
+            m_vecSource = previousSource;
+        }
+    }
+    *reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(StaticRef<CEntity*>(0xB6F980)) + 0x1C) &= ~0x80u;
+    return true;
+}
+
 // 0x518500
 bool CCam::ProcessArrestCamOne() {
     m_fFOV=45.0f;auto* target=StaticRef<CEntity*>(0xB6F980);auto& mode=StaticRef<int32>(0xB6EC58);auto& tracked=StaticRef<CEntity*>(0xB6EC5C);
@@ -973,7 +1077,7 @@ bool CCam::ProcessArrestCamOne() {
     const auto geometry=[&](const CVector& position){m_vecSource=position;CVector copy=position;plugin::CallMethod<0x514030>(&TheCamera,&copy,&dest,&m_vecSource,m_fFOV);};
     const auto axes=[&](){m_vecFront=dest-m_vecSource;m_vecFront.Normalise();m_vecUp=CVector{0,0,1};CVector side=CrossProduct(m_vecFront,m_vecUp);side.Normalise();m_vecUp=CrossProduct(side,m_vecFront);};
     const auto copSource=[&](CPed* from,bool alternate){return alternate?GetArrestCamCopSourceSide(target,from,&dest,&source):plugin::CallMethodAndReturn<bool,0x515D80>(this,target,from,&dest,&source);};
-    const auto cheese=[&](CPed* from,bool initialise){return plugin::CallMethodAndReturn<bool,0x512EF0>(this,from,initialise);};
+    const auto cheese=[&](CPed* from,bool initialise){return ProcessArrestCamCheese(from,initialise);};
     if(m_bResetStatics){
         mode=0;CPed* actor=nullptr;std::array<int32,6> sequence;sequence.fill(-1);
         if(target->GetType()==ENTITY_TYPE_PED){actor=static_cast<CPed*>(target);actor->GetBonePosition(&dest,static_cast<eBoneTag>(3),true);cop=playerCop();

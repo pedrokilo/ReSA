@@ -202,7 +202,6 @@ class,function,address,source,origins
 (biblioteca) RenderWare SDK,RxRenderStateVectorSetDefaultRenderStateVector,0x0080EA40,source/game_sa/RenderWare/rw/rwcore.cpp:351,cohorte nuevo 2026-10-17 (biblioteca)
 (helpers y globales sin clase),_rwD3D9SetStreams,,source/game_sa/RenderWare/rw/rwcore.cpp:954,envoltura en el código fuente
 (helpers y globales sin clase),_rwObjectHasFrameSetFrame,,source/game_sa/RenderWare/rw/rwcore.cpp:1362,envoltura en el código fuente
-(helpers y globales sin clase),CCam helper arrest camera de from/initialise sin símbolo confirmado,0x00512EF0,source/game_sa/Cam.cpp:962,cohorte 499
 (helpers y globales sin clase),CCam unnamed arrest cop-source helper,0x00515D80,source/game_sa/Cam.cpp:961,cohorte 499
 (helpers y globales sin clase),CCamera unnamed geometry helper,0x00514030,source/game_sa/Cam.cpp:959,cohorte 499
 (helpers y globales sin clase),CFont helper de impresión de segmento sin símbolo confirmado,0x00719B40,source/game_sa/Font.cpp:704,cohorte 499

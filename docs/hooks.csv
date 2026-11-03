@@ -9014,3 +9014,4 @@ CGarage,StoreAndRemoveCarsForThisImpoundingGarage,0x00449A50,1,0,1,S
 CGarage,IsAnyOtherCarTouchingGarage,0x00449100,1,0,1,S
 CGarage,ThrowCarsNearDoorOutOfGarage,0x00449220,1,0,1,S
 CGarage,NeatlyLineUpStoredCars,0x00448330,1,0,1,S
+CCam,ProcessArrestCamCheese,0x00512EF0,1,0,1,S

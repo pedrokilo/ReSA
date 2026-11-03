@@ -58,6 +58,8 @@ inline void Update() {
  EntryPatch pl(0x56E210,Player),pld(bit_cast<uintptr_t>(&FindPlayerPed),Player);
  EntryPatch ip(0x5DF8F0,IsPlayer),ipd(bit_cast<uintptr_t>(&CPed::IsPlayer),IsPlayer);
  EntryPatch ch(0x512EF0,Cheese),co(0x515D80,CopSource),ca(0x516010,CopAlternate);
+ // 0x512EF0 y 0x516010 ya son metodos C++ con hook RH (lotes 86A y 66D): la DLL los llama directamente, asi que el mismo falso va tambien en su cuerpo
+ EntryPatch chd(bit_cast<uintptr_t>(&CCam::ProcessArrestCamCheese),Cheese),cad(bit_cast<uintptr_t>(&CCam::GetArrestCamCopSourceSide),CopAlternate);
  EntryPatch la(0x5161A0,Lamp),lad(bit_cast<uintptr_t>(&CCam::GetLookFromLampPostPos),Lamp);
  EntryPatch ta(0x681740,Task),tad(bit_cast<uintptr_t>(&CTaskManager::FindActiveTaskByType),Task);
  EntryPatch re(0x571B70,Reference),red(bit_cast<uintptr_t>(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::RegisterReference)),Reference);

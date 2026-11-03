@@ -143,6 +143,7 @@ public:
     void GetCoreDataForDWCineyCamMode(CEntity*& entity, CVehicle*& vehicle, CVector& dest, CVector& src, CVector& targetUp, CVector& targetRight, CVector& targetFwd, CVector& targetVel, float& targetSpeed, CVector& targetAngVel, float& targetAngSpeed, CColSphere& colSphere);
     bool GetLookFromLampPostPos(CEntity* target, CPed* cop, const CVector& vecTarget, CVector& vecSource);
     bool GetArrestCamCopSourceSide(CEntity* target, CPed* cop, const CVector* dest, CVector* source); // 0x516010
+    bool ProcessArrestCamCheese(CPed* from, bool initialise); // 0x512EF0
     void GetVectorsReadyForRW();
     CEntity* Get_TwoPlayer_AimVector(CVector&); // Como el original (0x513E40): devuelve la entidad apuntada (o nullptr) en EAX
     bool IsTimeToExitThisDWCineyCamMode(int32 camId, const CVector& src, const CVector& dst, float t, bool lineOfSightCheck);
