@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CPathFind
- * Reconstrucción: COMPLETA — 66/66 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 67/67 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 66/66 entradas.
+ * Validación registrada: 67/67 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -165,6 +165,7 @@ void CPathFind::InjectHooks() {
     RH_ScopedCategoryGlobal();
     RH_ScopedInstall(AddRandomOffsetToNodePosition, 0x44DA30);
     RH_ScopedInstall(GeneratePedCreationCoors_Interior, 0x44ECA0);
+    RH_ScopedInstall(GeneratePedCreationCoors, 0x44E790);
 
     // Hooks commented out because most of the functions have no definitions
     // thus it's not possible to take their address
@@ -403,6 +404,120 @@ auto CPathFind::FindIntersection(const CNodeAddress& startNodeAddress, const CNo
 bool CPathFind::TestCrossesRoad(CNodeAddress startNodeAddress, CNodeAddress targetNodeAddress) {
     const auto intersect = FindIntersection(startNodeAddress, targetNodeAddress);
     return intersect && intersect->m_bRoadCross;
+}
+
+// 0x44E790 (verificada contra el desensamblado, lote 86C)
+// Busca (hasta 300 intentos) un nodo de peaton de la region de (x, y) a menos de maxDist1 + 30 (en 2D), con trafico mayor que un umbral aleatorio, y genera una posicion aleatoria entre ese nodo y uno
+// de sus vecinos del mapa (areas < 64, enlace sin cruce de calle; si alguno de los dos nodos esta apagado solo con bLowTraffic). Hasta 5 intentos por enlace: la posicion se acepta si, segun la camara
+// (IsSphereVisible con la matriz, o sin ella si es nula), esta a minDist1 < d < maxDist1 (visible) o a minDist2 < d < maxDist2 y un rand() impar (no visible); entonces se escriben las dos direcciones de
+// nodo y la posicion, y se busca el suelo: si hay suelo a mas de 3 m de la z de la posicion se devuelve FALSO ya (no se sigue buscando), y si no (tambien con NaN) la z pasa a ser la del suelo.
+// Como el original: outOrientation recibe en cada intento la fraccion aleatoria t = (rand & 255) / 256 (no una orientacion); el rand es el del CRT del EXE (0x821B1E).
+// Los productos y sumas se redondean a float en cada paso (x87 a 24 bits). Las cuatro lecturas de posicion del nodo destino del EXE (CPathNode::GetPosition) dan el mismo valor.
+bool CPathFind::GeneratePedCreationCoors(float x, float y, float minDist1, float maxDist1, float minDist2, float maxDist2, CVector* outCoords, CNodeAddress* outAddress1,
+                                         CNodeAddress* outAddress2, float* outOrientation, bool bLowTraffic, RwMatrix* transformMatrix) {
+    // Umbral de trafico: ftol(float(rand & 0xFFFF) * 2^-15 * 15.0f) (0x858B14, 0x858B48; _ftol2: 32 bits bajos del entero de 64 bits truncado)
+    const int32 trafficLimit = (int32)(int64)((float)(detail::ExeRand() & 0xFFFF) * 3.0517578125e-05f * 15.0f);
+    const float maxReach     = maxDist1 + 30.0f; // 0x858CA4
+    const float maxReachSq   = maxReach * maxReach;
+
+    const int32 areaId = (int32)FindRegionForCoors({ x, y });
+    for (int32 iteration = 0; iteration < 300; iteration++) {
+        if (!m_pPathNodes[areaId] || m_anNumPedNodes[areaId] == 0) {
+            continue;
+        }
+
+        const int32 r       = detail::ExeRand() >> 6;
+        const int32 nodeIdx = (int32)m_anNumVehicleNodes[areaId] + r % (int32)m_anNumPedNodes[areaId];
+        const CPathNode* const node = &m_pPathNodes[areaId][nodeIdx];
+
+        const CVector nodePos = node->GetPosition();
+        const float   dy      = nodePos.y - y;
+        const float   dx      = nodePos.x - x;
+        const float   distSq  = dy * dy + dx * dx;
+        if (!(distSq < maxReachSq)) {
+            continue;
+        }
+
+        const uint8 nodeFlags = reinterpret_cast<const uint8*>(node)[0x18];
+        if (!((int32)(reinterpret_cast<const uint8*>(node)[0x1A] & 0xF) > trafficLimit)) {
+            continue;
+        }
+        const int32 numLinks = nodeFlags & 0xF;
+        // El EXE guarda sqrt(distSq) EN EL MISMO float [esp+20h] en que guardo distSq: en cada enlace que llega a esa raiz se vuelve a aplicar sobre el resultado anterior (1.º: sqrt, 2.º: raiz cuarta...).
+        float nodeDist = distSq;
+        for (int32 link = 0; link < numLinks; link++) {
+            const int32 linkIdx = (int32)node->m_wBaseLinkId + link;
+            if (reinterpret_cast<const uint8*>(m_pPathIntersections[areaId])[linkIdx] & 1) { // CPathIntersectionInfo::m_bRoadCross
+                continue;
+            }
+            const CNodeAddress linked = m_pNodeLinks[areaId][linkIdx];
+            if (linked.m_wAreaId >= 0x40 || !m_pPathNodes[linked.m_wAreaId]) {
+                continue;
+            }
+            const CPathNode* const other = &m_pPathNodes[linked.m_wAreaId][linked.m_wNodeId];
+
+            const uint8 otherFlags = reinterpret_cast<const uint8*>(other)[0x18];
+            if (((nodeFlags | otherFlags) & 0x20) && !bLowTraffic) { // nodo apagado (m_isSwitchedOff) solo con bLowTraffic
+                continue;
+            }
+            if (!((int32)(reinterpret_cast<const uint8*>(other)[0x1A] & 0xF) > trafficLimit)) {
+                continue;
+            }
+
+            nodeDist                = std::sqrt(nodeDist);
+            const CVector otherPos  = other->GetPosition();
+            const float   otherDyF  = otherPos.y - y;
+            const float   otherSum  = otherDyF * otherDyF + (otherPos.x - x) * (otherPos.x - x);
+            if (!(nodeDist < maxDist1) && !(std::sqrt(otherSum) < maxDist1)) {
+                continue;
+            }
+
+            for (int32 tries = 0; tries < 5; tries++) {
+                const float t = (float)(detail::ExeRand() & 0xFF) * 0.00390625f; // 0x859AA0
+                *outOrientation = t;
+
+                const float ax  = t * otherPos.x;
+                const float ay  = t * otherPos.y;
+                const float az  = t * otherPos.z;
+                const float omt = 1.0f - t;
+                const float bz  = omt * nodePos.z;
+                const CVector pos{ omt * nodePos.x + ax, omt * nodePos.y + ay, bz + az };
+
+                const float posDy = pos.y - y;
+                const float posDx = pos.x - x;
+                const float dist  = std::sqrt(posDy * posDy + posDx * posDx);
+
+                const bool visible = transformMatrix ? TheCamera.IsSphereVisible(pos, 2.0f, transformMatrix) : TheCamera.IsSphereVisible(pos, 2.0f);
+                if (visible) {
+                    if (!(dist > minDist1) || !(dist < maxDist1)) {
+                        continue;
+                    }
+                } else {
+                    if (!(dist > minDist2) || !(dist < maxDist2)) {
+                        continue;
+                    }
+                    if (!(detail::ExeRand() & 1)) {
+                        continue;
+                    }
+                }
+
+                *outAddress1 = *reinterpret_cast<const CNodeAddress*>(&node->m_wAreaId); // dword +0x12: area y nodo
+                *outAddress2 = *reinterpret_cast<const CNodeAddress*>(&other->m_wAreaId);
+                *outCoords   = pos;
+
+                bool        found   = false;
+                const float groundZ = CWorld::FindGroundZFor3DCoord({ pos.x, pos.y, pos.z + 2.0f }, &found, nullptr); // 0x5696C0
+                if (found) {
+                    if (std::fabs(groundZ - pos.z) > 3.0f) { // 0x858B3C; ordenada: con NaN no se rechaza
+                        return false;
+                    }
+                    outCoords->z = groundZ;
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
 }
 
 // 0x44ECA0 (verificada contra el desensamblado, lote 62)

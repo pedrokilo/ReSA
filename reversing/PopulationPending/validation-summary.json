@@ -16,10 +16,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "fb9b3f88727dcc63edc366f1c8283fb21fd781c6d96c54b7b0e19204fa6fb6a5",
+  "log_sha256": "3395eb78a9d08e24132cd442d29cb3fc5b66339f546507d4ace37a3c79a0716f",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-population-pending\\20261007-200446-913379",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-population-pending\\20261103-022441-499305",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CPopulation::ManageObject": true,
@@ -27,22 +27,23 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "3229168825752128324ad2426f5773f1242db81bb81ea6f56545bf648a944209",
-      "pdb": "cff5fd41d03ff4eea0c08751e84ce2701f973c7fdb8b5af256163ab3f9748200"
+      "asi": "b65875d3466fc1c4e0c2218b758ab1cfedf3e287003266017f7eee376eac550b",
+      "pdb": "b2185738c30c52d3dc0b637810031272cd80ba187af5fd615c258eff21ae6973"
     },
     "sources": {
-      "source/game_sa/Population.cpp": "d211c813e5792215db989871f5826079fd872b5b0f4a18fd5ba550280a39daad",
-      "source/game_sa/Population.h": "49a7b66162734ff4480da6f02bfa09b2c7b34034a4b27382258bf301e482a711"
+      "source/game_sa/Population.cpp": "767e9f9e3cc66357c5a6f6c665db0bd7a9a36695838f76536b55eafe22d68109",
+      "source/game_sa/Population.h": "03d63c9f80cbddf755b71a5ef1b2f3b8e97dcb746fb0fa46cfe0b6d595ab51d5"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "AddFixture.hpp": "6c92971e15b83c152c482ac90a898a9da07b511a2f119dace5faec70636d94a7",
+      "AddFixture.hpp": "dea955537b96e735ec84bd18160e4110b7ebf6c9a2c79fd52c5162b603b7a685",
       "LiveComparison.hpp": "8a33beec08a37d489a27c15fbca118bcb58afa7fa249163fce62acead6fe5691",
       "build_probe.py": "070eabd1d554672e2efdc82c907ad58bd5ca2da235f475fb716d59574991c152",
       "run_local.py": "3dcb8b22e52863a54cb478c3cc75f05917154a8b37b1dea6bcfdbc9ff03c1d43"
     }
   },
   "limitations": [
-    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego."
+    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

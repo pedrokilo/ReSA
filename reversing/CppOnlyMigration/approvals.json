@@ -14491,5 +14491,19 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn86B con 16384 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: rand() del CRT del EXE 0x821B1E (sin hook: la DLL lo llama por su direccion), CObject::operator new 0x5A1EE0 (sin hook, cuerpo de la DLL parcheado), constructor CObject(int32, bool) 0x5A1D70 (hook Constructor apagado; la DLL llama al constructor real, localizado tras la llamada a operator new), CMatrix::UpdateRwMatrix 0x59AD70, CSimpleTransform::UpdateRwMatrix 0x54EF40 (sin hook, cuerpo parcheado) y CWorld::Add 0x563220; SetIsStatic es la ranura 4 de una tabla de funciones virtuales propia. Registran sus argumentos en orden y el estado del objeto en ese momento. La seleccion del tipo efectivo, el modelo y el indicador de estatico, la posicion (matriz o compacta), las velocidades, el tipo temporal, el contador de temporales y la hora de borrado corren de verdad en ambos lados, y CEntity::UpdateRwMatrix real del lado de la DLL; el contador 0xBB4A70, la hora 0xB7CB84 y los words de modelo 0x8CD638..0x8CD698 son memoria real del juego (se rellenan y se restauran). El banco compara los eventos de los falsos con todos sus argumentos, el valor devuelto, el contador final y los bytes cambiados de todas las arenas; cada lado de cada par coincide con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: NaN senalizantes en la posicion (la x87 del EXE los silencia con fld/fstp), bytes altos del indicador que el EXE pasa a SetIsStatic, objetos con matriz y sin objeto RW o con un marco padre nulo, un constructor que devuelva otro puntero y reservas que cambien entre llamadas."
+  },
+  "0x0044E790": {
+    "identity": "CPathFind::GeneratePedCreationCoors",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/PathFind.cpp",
+    "bank": "Fn86C",
+    "run": "20261103-020848-414794",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn86C-20261103-020848-414794/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn86C con 16384 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). El objeto this es una arena propia (nunca ThePaths). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado durante el banco): rand() del CRT del EXE 0x821B1E (sin hook), CWorld::FindGroundZFor3DCoord 0x5696C0 y CCamera::IsSphereVisible 0x420C40 (con matriz) y 0x420D40 (sin ella). CPathFind::FindRegionForCoors 0x44D830 y CPathNode::GetPosition 0x420A10 se ejecutan con codigo real (con hook en la DLL, ambos lados usan el de la DLL). La aritmetica float (x87 a 24 bits en el EXE) corre de verdad en ambos lados; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica x87 de 24 bits con exponente extendido, modelada desde el desensamblado). Fuera de los fixtures: argumentos NaN senalizadores o con cargas distintas de 0xFFC00000, bytes altos del booleano de trafico bajo con valores distintos de los generados, matrices de transformacion reales (la matriz es una arena y solo se compara el puntero), nodos de enlaces fuera de las arenas, y salidas nulas (el EXE escribe en *salidaRumbo, *salidaDir1 y *salidaDir2 sin comprobarlos)."
   }
 }

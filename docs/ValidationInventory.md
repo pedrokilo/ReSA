@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,017 entradas reversed=1**, de 9,017 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,018 entradas reversed=1**, de 9,018 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9017 |
+| `validated=1` · evidencia aprobada vinculada | 9018 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9017 |
+| Evidencia histórica vinculada; revisión pendiente | 9018 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -3676,6 +3676,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPathFind | `FindXRegionForCoors` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `FindYCoorsForRegion` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `FindYRegionForCoors` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `GeneratePedCreationCoors` | [Resumen](../reversing/Fn86C/validation-summary.json) |
 | CPathFind | `GeneratePedCreationCoors_Interior` | [Resumen](../reversing/PathFind62/validation-summary.json) |
 | CPathFind | `GetPathNode` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `HaveRequestedNodesBeenLoaded` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
@@ -9341,7 +9342,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `COnscreenTimer` | 6 | 0 | 6 | 0 |
 | `CPPTriPlantBuffer` | 7 | 0 | 7 | 0 |
 | `CPad` | 80 | 0 | 80 | 0 |
-| `CPathFind` | 66 | 0 | 66 | 0 |
+| `CPathFind` | 67 | 0 | 67 | 0 |
 | `CPathNode` | 1 | 0 | 1 | 0 |
 | `CPed` | 149 | 0 | 149 | 0 |
 | `CPedAttractor` | 20 | 0 | 20 | 0 |

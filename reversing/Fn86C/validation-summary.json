@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 1,
+  "functions": {
+    "CPathFind::GeneratePedCreationCoors": 16384
+  },
+  "covered_functions": {
+    "CPathFind::GeneratePedCreationCoors": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). El objeto this es una arena propia (nunca ThePaths). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado durante el banco): rand() del CRT del EXE 0x821B1E (sin hook), CWorld::FindGroundZFor3DCoord 0x5696C0 y CCamera::IsSphereVisible 0x420C40 (con matriz) y 0x420D40 (sin ella). CPathFind::FindRegionForCoors 0x44D830 y CPathNode::GetPosition 0x420A10 se ejecutan con codigo real (con hook en la DLL, ambos lados usan el de la DLL). La aritmetica float (x87 a 24 bits en el EXE) corre de verdad en ambos lados; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica x87 de 24 bits con exponente extendido, modelada desde el desensamblado). Fuera de los fixtures: argumentos NaN senalizadores o con cargas distintas de 0xFFC00000, bytes altos del booleano de trafico bajo con valores distintos de los generados, matrices de transformacion reales (la matriz es una arena y solo se compara el puntero), nodos de enlaces fuera de las arenas, y salidas nulas (el EXE escribe en *salidaRumbo, *salidaDir1 y *salidaDir2 sin comprobarlos).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn86C-20261103-020848-414794",
+  "summary_sha256": "3a35c0492e808212a52c055def81d86c97f1bed53903ad21421c901237420e0f",
+  "result_txt_sha256": "7a8c04254e3bad604a4f1909e56af833f0b0ae6ad8e63fd4f56ea22da508aae2",
+  "log_sha256": "872afa3078d17fc6b573625e11f5fc8aeb3cb34afe58b35247bc3618e6a3f585",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "88696b9922b338d9ee209e5fdf2601beaaada7ff236d4ad11f4591e739de626c",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/PathFind.cpp": "d9de430daafc18fd6f926fa34d60b262bb0e5cf2f310118197dc64c9b3703476",
+      "source/game_sa/PathFind.h": "e5404a8db6051713f3b7be9ab0357105164ff8df604a5076d83333f0cae7920a",
+      "source/game_sa/World.cpp": "0066108864b6c6c3aa13ac5a68da99749b177bd94605ebc3a2c14580018340bd",
+      "source/game_sa/Camera.cpp": "6df73adb4a017734667c6300a12afa5db9fbc1f7facb9cdd477e58fbd31f7fa8",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn86C/LiveComparison.hpp": "3477c1ebc960f3017c0c58367b9667367350dddf35f0a48f023ed7bca4fed77e",
+      "reversing/Fn86C/Core.hpp": "31abc2f02c3dd03dd2980a30fdb87b1ebf0df59f1ba8ffcb014fb0d6cf6b6848",
+      "reversing/Fn86C/Cases.hpp": "bfb7b7aa67d1a34764a0ce786bee76527fae1bb2ca48a7b2ef80014cf2e7568c",
+      "reversing/Fn86C/Fixtures.hpp": "2a4d76d7c885819ce1c6848dcf05d615d6a2efb4bccd76a95f1ad98820fe8111",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

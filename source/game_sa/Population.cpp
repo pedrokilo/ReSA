@@ -2124,7 +2124,7 @@ bool CPopulation::AddToPopulation(float minDist, float maxDist, float minDistClo
     CNodeAddress first,second;
     first.m_wAreaId=second.m_wAreaId=0xFFFF;
     float orientation;
-    if(!plugin::CallMethodAndReturn<bool,0x44E790>(&ThePaths,playerPosition.x,playerPosition.y,minDist,maxDist,minDistClose,maxDistClose,&position,&first,&second,&orientation,lowTraffic,nullptr)) return underLimit;
+    if(!ThePaths.GeneratePedCreationCoors(playerPosition.x,playerPosition.y,minDist,maxDist,minDistClose,maxDistClose,&position,&first,&second,&orientation,lowTraffic,nullptr)) return underLimit;
     const auto traffic=[&](CNodeAddress node) {return reinterpret_cast<const uint8*>(ThePaths.GetPathNode(node))[0x1A]&0xF;};
     const uint32 density=std::min(traffic(first),traffic(second));
     if(uint32(CGeneral::GetRandomNumber()&0xF)>density) return underLimit;
