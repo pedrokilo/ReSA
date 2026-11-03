@@ -41,3 +41,5 @@ Los hashes de ManageObject usan FNV-1a de 64 bits: valor inicial 146959810393466
 
 Resultado final: **APROBADO**. 2.048 pares exactos. [Resumen y hashes](validation-summary.json); [informe completo](<D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-population-pending\20261007-200446-913379/summary.json>). Esta aprobación cubre los fixtures y límites descritos arriba.
 <!-- END FINAL PENDING BATCH RESULT -->
+
+Revalidado el 03/11/2026 (2048 pares, cero diferencias): desde los lotes 25/28 la DLL llama en C++ a `CPopulation::RandomIntInLimitRange` (0x610DB0) y `CScriptsForBrains::CheckIfNewEntityNeedsScript` (0x46FF20), pero el banco solo falseaba las direcciones del EXE; ahora `AddFixture.hpp` falsea tambien el cuerpo de la DLL de ambas. No habia regresion en produccion.

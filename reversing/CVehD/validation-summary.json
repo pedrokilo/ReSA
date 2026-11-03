@@ -43,7 +43,7 @@
   "log_sha256": "41c91b7802fc3f901436db046106963a8134d088a4e0a9b7c8d3c28b83bb4aab",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cvehd\\20261101-032912-734495",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cvehd\\20261103-021609-362269",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CVehicle::PreRender": true,
@@ -75,11 +75,11 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "530902d5078c0bc710cb990340bbee5ad62a882db7086cb4080c6ce2d5c9ac0c",
-      "pdb": "d75e18a493bf114b3781f62945be665b18c6b588511bf039ebe6f6f96fd18e04"
+      "asi": "5cf2a452cf996c1f2bcfed5285b59405a9add94419bdce172f06c31db57ec358",
+      "pdb": "2d8a3766dcca79fdc233147f181f2855cc8084656e5bb8ed2ca8a036a3356076"
     },
     "sources": {
-      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
       "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",

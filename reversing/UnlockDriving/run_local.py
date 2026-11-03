@@ -2,7 +2,7 @@ import json,sys
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from runtime_runner import run_case,digest,terminal_event
-PROBE_HASH='dbbd4ee31623a4eee92b5dceb73ac0a5a7652e4c3c33656328cb179a1bf36c20'
+PROBE_HASH='a101035493114ed5e47d65e52778cbca8f0ecedfe86b38b5fb78caf9c2187057'
 REQUIRE_ENABLED=True
 COUNTS={0:16384,1:256}
 def analyze(path):

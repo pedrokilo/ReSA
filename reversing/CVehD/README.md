@@ -67,3 +67,5 @@ Desviaciones que se dejan y el banco evita: tiempos de animación de puerta no m
 | ProcessWheelRotation | 0x6D1230 | 256 |
 
 Total: 10 176 pares.
+
+Revalidado el 03/11/2026 (10176 pares, cero diferencias): el lote 83C cambio por error `m_fSteerAngle` (0x494) por `m_GasPedal` (0x49C) en tres comparaciones de `CVehicle::ProcessDrivingAnims` (0x6DF4A0 lee [ecx+494h] en 0x6DF7DE/0x6DF7FD); revertido en `Vehicle.cpp`. El banco `UnlockDriving` se repitio con la correccion (16640 pares).

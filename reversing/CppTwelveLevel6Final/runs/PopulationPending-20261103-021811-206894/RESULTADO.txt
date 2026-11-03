@@ -1,0 +1,3 @@
+APROBADO: CPopulation ManageObject pendiente
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-population-pending\20261103-021811-206894

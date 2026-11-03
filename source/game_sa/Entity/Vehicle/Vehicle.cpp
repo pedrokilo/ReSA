@@ -1126,19 +1126,19 @@ void CVehicle::ProcessDrivingAnims(CPed* driver, bool blend) {
         return;
     }
 
-    if (m_GasPedal == 0.0F || driveByAnim) {
+    if (m_fSteerAngle == 0.0F || driveByAnim) {
         if (lookLeftAnim)  lookLeftAnim->m_BlendDelta  = -4.0F;
         if (lookRightAnim) lookRightAnim->m_BlendDelta = -4.0F;
         if (lookBackAnim)  lookBackAnim->m_BlendDelta  = -4.0F;
         return;
     }
 
-    const auto angle = m_GasPedal;
+    const auto angle = m_fSteerAngle;
     const float scale = angle < 0.0F ? -0x1.a3ac1p+0F : 0x1.a3ac1p+0F;
     float fUsedAngle = X87TimesFloatCpp(angle, scale); // fld angle; fmul [0x871FD0/0x871FD4]
     fUsedAngle = std::clamp(fUsedAngle, 0.0F, 1.0F);
 
-    if (m_GasPedal < 0) {
+    if (m_fSteerAngle < 0) {
         if (lookLeftAnim) {
             lookLeftAnim->m_BlendAmount = 0.0F;
             lookLeftAnim->m_BlendDelta  = 0.0F;

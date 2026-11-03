@@ -35,7 +35,7 @@
   "log_sha256": "5bcca4366031617478ea23e721222606a1ed621d6991783720531cae82640725",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-driving\\20260923-114405-636221",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-driving\\20261103-022224-383558",
   "build_manifest": {
     "binaries": {
       "asi": "dbbd4ee31623a4eee92b5dceb73ac0a5a7652e4c3c33656328cb179a1bf36c20",
@@ -54,5 +54,26 @@
       "source/game_sa/Entity/Vehicle/Vehicle.h": "c509bf10f697951ef02f03aab3984c17d28bc7e578f0c96de95742235161110d"
     }
   },
-  "scope": "Animaciones con asociaciones controladas; 256 comparaciones adicionales de la ABI de GetVehicleAppearance. No conducción prolongada."
+  "scope": "Animaciones con asociaciones controladas; 256 comparaciones adicionales de la ABI de GetVehicleAppearance. No conducción prolongada.",
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "a101035493114ed5e47d65e52778cbca8f0ecedfe86b38b5fb78caf9c2187057",
+      "pdb": "92705fac6e0d1fdab7659a0335dffdea7f448c7ccd178355db254c85ad72b37a"
+    },
+    "sources": {
+      "source\\game_sa\\Entity\\Vehicle\\Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
+      "source\\game_sa\\Game.cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87"
+    },
+    "instrumentation": {
+      "Probe.hpp": "535b43904fdc3c691cfc6dabbca8b0a8926526561d77bf3ad797577816146e7d",
+      "LiveComparison.hpp": "54e7c9a272aaf32b1427407866807b11cefc0e49f6dded6c746936e5336fe637",
+      "build_probe.py": "c01e73647fb80d24e13c60c3b5345c6e8f9b45e3a9a888b859a01729a75dc138"
+    },
+    "dependencies": {
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
+    }
+  },
+  "limitations": [
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
+  ]
 }

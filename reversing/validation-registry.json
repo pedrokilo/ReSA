@@ -199562,7 +199562,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::PreRender"
@@ -199571,7 +199571,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
@@ -199588,7 +199588,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::PreRenderDriverAndPassengers"
@@ -199597,7 +199597,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
@@ -199614,7 +199614,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::Render"
@@ -199623,7 +199623,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
@@ -199640,7 +199640,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::RenderDriverAndPassengers"
@@ -199649,7 +199649,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
@@ -199666,7 +199666,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::ResetAfterRender"
@@ -199675,7 +199675,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
@@ -199692,7 +199692,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::SetupRender"
@@ -199701,7 +199701,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
@@ -199718,7 +199718,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::SetupLighting"
@@ -199727,7 +199727,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
@@ -199744,7 +199744,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::RemoveLighting"
@@ -199753,7 +199753,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
@@ -199770,7 +199770,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::SetCollisionLighting"
@@ -199779,7 +199779,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
@@ -199796,7 +199796,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::CalculateLightingFromCollision"
@@ -199805,7 +199805,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
@@ -199822,7 +199822,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::UpdateLightingFromStoredPolys"
@@ -199831,7 +199831,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
@@ -199848,7 +199848,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::DoHeadLightBeam"
@@ -199857,7 +199857,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
@@ -199874,7 +199874,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::DoHeadLightReflection"
@@ -199883,7 +199883,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
@@ -199900,7 +199900,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::DoHeadLightReflectionSingle"
@@ -199909,7 +199909,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
@@ -199926,7 +199926,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::DoHeadLightReflectionTwin"
@@ -199935,7 +199935,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
@@ -199952,7 +199952,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::AddDamagedVehicleParticles"
@@ -199961,7 +199961,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
@@ -199978,7 +199978,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::AddExhaustParticles"
@@ -199987,7 +199987,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
@@ -200004,7 +200004,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::AddWaterSplashParticles"
@@ -200013,7 +200013,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
@@ -200030,7 +200030,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::AddWheelDirtAndWater"
@@ -200039,7 +200039,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
@@ -200056,7 +200056,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::DoBoatSplashes"
@@ -200065,7 +200065,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
@@ -200082,7 +200082,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::GetVehicleLightsStatus"
@@ -200091,7 +200091,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
@@ -200108,7 +200108,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::DoPlaneGunFireFX"
@@ -200117,7 +200117,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
@@ -200134,7 +200134,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::ProcessDrivingAnims"
@@ -200143,7 +200143,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
@@ -200160,7 +200160,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::ProcessOpenDoor"
@@ -200169,7 +200169,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
@@ -200186,7 +200186,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::ProcessWheel"
@@ -200195,7 +200195,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
@@ -200212,7 +200212,7 @@
       },
       "evidence": {
         "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "f03b8ee4b874845bdba4731ae0bb1da6bbe2722d3ba28280539da4f2e4087801",
+        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
         "passed_path": [
           "covered_functions",
           "CVehicle::ProcessWheelRotation"
@@ -200221,7 +200221,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "ecf65b5411bc40e7baf6507b577bdc30d958d360b03e8c383c127ca50ed93ad5",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
         "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
