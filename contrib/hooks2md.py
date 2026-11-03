@@ -1,6 +1,7 @@
 """Generate the progress dashboard from recorded hook flags (not test coverage)."""
 import argparse
 import csv
+import re
 import json
 import datetime
 import os
@@ -57,6 +58,23 @@ def difficulty_section(root, input_path):
                     state[int(original, 16)] = virtual_rows[key]
                 except ValueError:
                     pass
+
+    # La mayoria de los virtuales no guarda la direccion en el registro: se toma del RH_ScopedVMTInstall del fuente de su clase.
+    pendientes = {int(r['address'], 16) for r in items if r['address'].startswith('0x')}
+    install = re.compile(r'RH_ScopedVMT(?:Overloaded)?Install\(\s*(\w+)\s*,\s*(0x[0-9A-Fa-f]+)')
+    for path in (root / 'source').rglob('*.cpp'):
+        try:
+            text = path.read_text(encoding='utf-8', errors='replace')
+        except OSError:
+            continue
+        for fn_name, address in install.findall(text):
+            address = int(address, 16)
+            if address in state or address not in pendientes:
+                continue
+            for (cls, name), validated in virtual_rows.items():
+                if name == fn_name and f'{cls}::' in text:
+                    state[address] = validated
+                    break
 
     def status(row):
         try:

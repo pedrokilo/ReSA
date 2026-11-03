@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-11-03 19:44 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-11-03 21:21 UTC
 
 ## Objetivo y dimensiones de progreso
 
@@ -417,18 +417,15 @@ Las funciones ya validadas (`✅ validada`) no se listan: solo aparecen las pend
 | 1 Muy fácil | 9 | 9 | 0 |
 | 2 Fácil | 25 | 25 | 0 |
 | 3 Media | 75 | 75 | 0 |
-| 4 Difícil | 57 | 56 | 1 |
-| 5 Muy difícil | 19 | 16 | 3 |
+| 4 Difícil | 57 | 57 | 0 |
+| 5 Muy difícil | 19 | 18 | 1 |
 
 <details>
-<summary>Funciones del juego pendientes o por validar (4), de mayor a menor tamaño en bytes</summary>
+<summary>Funciones del juego pendientes o por validar (1), de mayor a menor tamaño en bytes</summary>
 
 | Rango | Nivel | Subcategoría | Función | Dirección | Bytes | Estado |
 | ---: | --- | --- | --- | --- | ---: | --- |
 | 184 | 5 Muy difícil | embedded_call | helper sin símbolo confirmado (usado por CameraObbeCinemaCycle) | `0x0051D770` | 3445 | pendiente |
-| 175 | 5 Muy difícil | wrapper | CHeli::ProcessControl | `0x006C7050` | 2352 | pendiente |
-| 173 | 5 Muy difícil | wrapper | CHeli::ProcessControlInputs | `0x006C4830` | 1571 | pendiente |
-| 151 | 4 Difícil | wrapper | CAutomobile::Render | `0x006A2B10` | 1005 | pendiente |
 
 </details>
 
