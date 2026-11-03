@@ -55,10 +55,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "0227b6d2a163697640c3f23a238c02ccb4c714a52a335996f49d5b8e1a743e5e",
+  "log_sha256": "3bf008356a0d851bcc4b3ca5037ac6f5d4f41d3a4c9662224939f0d659f45f05",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-misc61b\\20261101-052608-999347",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-misc61b\\20261103-131322-571820",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CQuadBike::Fix": true,
@@ -106,8 +106,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "86f265fefc56e998f574951860a11a5ce23520863fb5f126596c93d569d5dbb0",
-      "pdb": "2d65fb6c508ac9cb28c6f72af785d9e90d410c644f26a499508ba7fafaaa0ac4"
+      "asi": "82b3ac8d47434529db6dc41cacc67625f7f89cf95e4bde192d0941595f391659",
+      "pdb": "ff8ccbd2e4657f2cf25fde8434a435b8c90e9b36992b67b819b76abc1d40a3f9"
     },
     "sources": {
       "source/game_sa/Entity/Vehicle/Bmx.cpp": "fa7b05e3c5874c015c845b63ab417e58fd88c92735f5fa5f48a54013ef38914c",
@@ -116,16 +116,16 @@
       "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
       "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
       "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-      "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+      "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
       "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
       "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
       "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-      "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-      "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+      "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+      "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "0d8ed52dc46bcb7f433c45df5a107b29610ad40a6202f832c536ca9c97c2754b",
+      "LiveComparison.hpp": "dd07ccdef5e572494d846364c8c3aa1d0a38ebfd24768caf0c7e866147be4878",
       "build_probe.py": "095210495c136a64202d13affc20035afbe6f612dae994a050dafa00aacbb182",
       "run_local.py": "33b62735bc8f63b6e6d2a092ba0e6b060b5124d378c2f9d4575d4788cf085cbb"
     }

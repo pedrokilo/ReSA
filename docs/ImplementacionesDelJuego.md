@@ -8,7 +8,7 @@ Este documento distingue el lenguaje de la fuente, la reconstrucción, la valida
 
 El inventario asigna **0 apariciones de ensamblador** a **0 definiciones con cuerpo** y **0 declaraciones naked** a **0 definiciones**. No queda ninguna aparición sin ubicación. Las funciones mixtas se cuentan en «con ensamblador»; naked es una marca adicional que no se suma como otra función.
 
-De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 18732 definiciones en 1502 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
+De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 18731 definiciones en 1502 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
 
 ## Cómo leer la tabla
 
@@ -1281,7 +1281,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [Globales y helpers: source/game_sa/SpecialFX.cpp](implementaciones/detalle-063.md#grupo-1250) · [source/game_sa/SpecialFX.cpp](../source/game_sa/SpecialFX.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Sprite.cpp](implementaciones/detalle-063.md#grupo-1251) · [source/game_sa/Sprite.cpp](../source/game_sa/Sprite.cpp) | 0 | 0 | 11 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Stats.cpp](implementaciones/detalle-063.md#grupo-1252) · [source/game_sa/Stats.cpp](../source/game_sa/Stats.cpp) | 0 | 0 | 55 | 0 | 0 |
-| [Globales y helpers: source/game_sa/StencilShadows.cpp](implementaciones/detalle-063.md#grupo-1253) · [source/game_sa/StencilShadows.cpp](../source/game_sa/StencilShadows.cpp) | 0 | 0 | 8 | 0 | 0 |
+| [Globales y helpers: source/game_sa/StencilShadows.cpp](implementaciones/detalle-063.md#grupo-1253) · [source/game_sa/StencilShadows.cpp](../source/game_sa/StencilShadows.cpp) | 0 | 0 | 7 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Streaming.cpp](implementaciones/detalle-063.md#grupo-1254) · [source/game_sa/Streaming.cpp](../source/game_sa/Streaming.cpp) | 0 | 0 | 3 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Streaming.h](implementaciones/detalle-063.md#grupo-1255) · [source/game_sa/Streaming.h](../source/game_sa/Streaming.h) | 0 | 0 | 25 | 0 | 0 |
 | [Globales y helpers: source/game_sa/StuckCarCheck.cpp](implementaciones/detalle-063.md#grupo-1256) · [source/game_sa/StuckCarCheck.cpp](../source/game_sa/StuckCarCheck.cpp) | 0 | 0 | 1 | 0 | 0 |

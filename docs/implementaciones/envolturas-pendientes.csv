@@ -226,7 +226,6 @@ class,function,address,source,origins
 (helpers y globales sin clase),RwTexDictionaryGtaStreamRead2,,source/game_sa/RenderWare/rw/rwtexdict.cpp:124,envoltura en el código fuente
 (helpers y globales sin clase),RwTextureRead,,source/game_sa/RenderWare/rw/rwcore.cpp:619,envoltura en el código fuente
 (helpers y globales sin clase),RxLockedPipeAddFragment,,source/game_sa/RenderWare/rw/rwcore.cpp:309,envoltura en el código fuente
-(helpers y globales sin clase),StencilTransformPoints,,source/game_sa/StencilShadows.cpp:121,envoltura en el código fuente
 (helpers y globales sin clase),TextureBufferGetTotalDataSize,,source/game_sa/RenderWare/D3DResourceSystem.cpp:111,envoltura en el código fuente
 (helpers y globales sin clase),TextureBufferPop,,source/game_sa/RenderWare/D3DResourceSystem.cpp:83,envoltura en el código fuente
 (helpers y globales sin clase),TextureBufferPush,,source/game_sa/RenderWare/D3DResourceSystem.cpp:89,envoltura en el código fuente

@@ -190386,7 +190386,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CQuadBike::Fix"
@@ -190401,12 +190401,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -190422,7 +190422,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CQuadBike::GetRideAnimData"
@@ -190437,12 +190437,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -190458,7 +190458,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CQuadBike::PreRender"
@@ -190473,12 +190473,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -190494,7 +190494,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CQuadBike::ProcessAI"
@@ -190509,12 +190509,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -190530,7 +190530,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CQuadBike::ProcessControl"
@@ -190545,12 +190545,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -190566,7 +190566,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CQuadBike::ProcessControlInputs"
@@ -190581,12 +190581,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -190602,7 +190602,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CQuadBike::ProcessDrivingAnims"
@@ -190617,12 +190617,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -190638,7 +190638,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CQuadBike::ProcessSuspension"
@@ -190653,12 +190653,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -190674,7 +190674,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CQuadBike::ResetSuspension"
@@ -190689,12 +190689,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -190710,7 +190710,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CQuadBike::SetupDamageAfterLoad"
@@ -190725,12 +190725,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -190746,7 +190746,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CQuadBike::SetupSuspensionLines"
@@ -190761,12 +190761,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -190782,7 +190782,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CBmx::BurstTyre"
@@ -190797,12 +190797,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -190818,7 +190818,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CBmx::FindWheelWidth"
@@ -190833,12 +190833,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -190854,7 +190854,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CBmx::LaunchBunnyHopCB"
@@ -190869,12 +190869,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -190890,7 +190890,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CBmx::PreRender"
@@ -190905,12 +190905,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -190926,7 +190926,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CBmx::ProcessAI"
@@ -190941,12 +190941,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -190962,7 +190962,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CBmx::ProcessBunnyHop"
@@ -190977,12 +190977,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -190998,7 +190998,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CBmx::ProcessControl"
@@ -191013,12 +191013,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -191034,7 +191034,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CBmx::ProcessDrivingAnims"
@@ -191049,12 +191049,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -191070,7 +191070,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CBmx::SetUpWheelColModel"
@@ -191085,12 +191085,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -191106,7 +191106,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CCarFXRenderer::CustomCarPipeAtomicSetup"
@@ -191121,12 +191121,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -191142,7 +191142,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CCarFXRenderer::CustomCarPipeClumpSetup"
@@ -191157,12 +191157,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -191178,7 +191178,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CCarFXRenderer::Initialise"
@@ -191193,12 +191193,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -191214,7 +191214,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CCarFXRenderer::InitialiseDirtTexture"
@@ -191229,12 +191229,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -191250,7 +191250,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CCarFXRenderer::IsCCPCPipelineAttached"
@@ -191265,12 +191265,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -191286,7 +191286,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CCarFXRenderer::PreRenderUpdate"
@@ -191301,12 +191301,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -191322,7 +191322,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CCarFXRenderer::RegisterPlugins"
@@ -191337,12 +191337,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -191358,7 +191358,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CCarFXRenderer::SetCustomFXAtomicRenderPipelinesVMICB"
@@ -191373,12 +191373,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -191394,7 +191394,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CCarFXRenderer::SetFxEnvMapLightMult"
@@ -191409,12 +191409,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -191430,7 +191430,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CCarFXRenderer::Shutdown"
@@ -191445,12 +191445,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -191466,7 +191466,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CStencilShadows::GraphicsHighQuality"
@@ -191481,12 +191481,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -191502,7 +191502,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CStencilShadows::Init"
@@ -191517,12 +191517,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -191538,7 +191538,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CStencilShadows::Process"
@@ -191553,12 +191553,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -191574,7 +191574,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CStencilShadows::Render"
@@ -191589,12 +191589,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -191610,7 +191610,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CStencilShadows::RenderBuffer"
@@ -191625,12 +191625,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -191646,7 +191646,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CStencilShadows::RenderForObject"
@@ -191661,12 +191661,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -191682,7 +191682,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CStencilShadows::RenderForVehicle"
@@ -191697,12 +191697,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -191718,7 +191718,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CStencilShadows::RenderStencilShadows"
@@ -191733,12 +191733,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -191754,7 +191754,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CStencilShadows::Shutdown"
@@ -191769,12 +191769,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -191790,7 +191790,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CStencilShadows::SunSetPositionFromEntity"
@@ -191805,12 +191805,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -191826,7 +191826,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CStencilShadows::UpdateHierarchy"
@@ -191841,12 +191841,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,
@@ -191862,7 +191862,7 @@
       },
       "evidence": {
         "path": "reversing/Misc61b/validation-summary.json",
-        "sha256": "482133f170d9a23f3a1dfe6f2b6fadeb35405d9c42212dd9f2e018988ea7ce91",
+        "sha256": "2bda57f98b3d383970d2c31864bfb1509e47c321dc72b2480a610101773d4d66",
         "passed_path": [
           "covered_functions",
           "CStencilShadows::sub_710CC0"
@@ -191877,12 +191877,12 @@
         "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
         "source/game_sa/Fx/CarFXRenderer.cpp": "a22e1fa847e2891a39bd9bcd654480fbe9184349d6f95ab3c3e6b28f11104152",
         "source/game_sa/Fx/CarFXRenderer.h": "3f870a99536e2c9e67d7e3f244bcf4d38fd7449d43c59d5da54edb80e4ad3432",
-        "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+        "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
         "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
         "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
         "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-        "source/game_sa/X87Math.cpp": "683bf76c379300f9f31806429751488e80eda07ca6e2ce1f9b4224a7691b87e1",
-        "source/game_sa/X87Math.h": "09a79be75ed2a55ca1f9287bde2a06b021c40db0958ff8645f79282ab4a4d378"
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-213253-455593).",
       "dependency_review": null,

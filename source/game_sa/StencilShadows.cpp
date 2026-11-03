@@ -117,11 +117,6 @@ void StencilToggleEdge(RxVertexIndex* edges, uint16& count, uint16 i0, uint16 i1
     ++count;
 }
 
-// Como el original: 0x54EEF0 sin enganchar (copia la matriz a una RwMatrix estatica y transforma `count` puntos)
-void StencilTransformPoints(CVector* out, int32 count, const CMatrix* matrix, const CVector* in) {
-    plugin::Call<0x54EEF0, CVector*, int32, const CMatrix*, const CVector*>(out, count, matrix, in);
-}
-
 // Como el original: RenderForVehicle (0x70FAE0) y RenderForObject (0x710310) son la misma construccion del volumen
 // de sombra (caras que miran a la luz, caras extruidas y aristas de silueta); solo cambian la matriz (la de
 // inclinacion en las motos) y la longitud de extrusion (40/5 en aviones-helicopteros/resto, 60 en objetos).
@@ -178,7 +173,7 @@ bool BuildShadowVolume(CStencilShadowObject* obj, bool forVehicle) {
             colData->GetShadTrianglePoint(objPoints[j], j);
         }
     }
-    StencilTransformPoints(worldPoints, numVerts, matrix, objPoints);
+    TransformPoints(worldPoints, numVerts, *matrix, objPoints); // 0x54EEF0 (Common::TransformPoints)
 
     uint16 edgeCount = 0;
 

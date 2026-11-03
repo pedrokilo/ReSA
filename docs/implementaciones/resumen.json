@@ -1,7 +1,7 @@
 {
   "scope": "source/game_sa and source/app (WindowedMode.cpp included as the documented NOTSA assembly exception, reported separately), definitions in cpp/h/hpp/inc; all preprocessing branches",
   "totals": {
-    "source_definition_count": 18732,
+    "source_definition_count": 18731,
     "groups": 1502,
     "assembly_occurrences": 0,
     "naked_declarations": 0,
@@ -27,7 +27,7 @@
     "catalog_rows_linked_by_hook_address": 180,
     "validated_reconstructed_own_cpp_definitions": 10722,
     "validated_reconstructed_own_asm_definitions": 0,
-    "wrapper_definitions": 33
+    "wrapper_definitions": 32
   },
   "source_sha256": {
     "source/app/app.cpp": "4717fcefd64b864f51910ae3ab7b4b3bc0966838f9cddaaca5727ee06c47ac16",
@@ -1442,7 +1442,7 @@
     "source/game_sa/Stats.h": "6be0a2376936a21144df72891577f531373c1c9698742cafdae298a4587232e3",
     "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
     "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908",
-    "source/game_sa/StencilShadows.cpp": "6210f9b669e517914937fc2eef238c58506b573adf33e8aeccd8d4592f71bd0f",
+    "source/game_sa/StencilShadows.cpp": "9b8250d787d9b3ae95a15db65d6dbd0eff5131c4dd1ef852aab8aa2825c6d051",
     "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
     "source/game_sa/StoredCar.h": "0c902b5de971f2dc9bf2acff380bb0cff3593108404d18a399278d1259b81955",
     "source/game_sa/StoredCollPoly.h": "3fc987d549fc1e8737fa7e8926b1ee58b12a2b3da24081aa8c498f67b9d1072e",
