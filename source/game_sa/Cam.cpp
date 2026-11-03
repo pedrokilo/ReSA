@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CCam
- * Reconstrucción: COMPLETA — 52/52 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 53/53 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 52/52 entradas.
+ * Validación registrada: 53/53 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -263,6 +263,7 @@ void CCam::InjectHooks() {
     RH_ScopedInstall(DoCamBump, 0x50CB30);
     RH_ScopedInstall(Finalise_DW_CineyCams, 0x50DD70);
     RH_ScopedInstall(GetCoreDataForDWCineyCamMode, 0x517130);
+    RH_ScopedInstall(GetArrestCamCopSourceNormal, 0x515D80);
     RH_ScopedInstall(GetArrestCamCopSourceSide, 0x516010);
     RH_ScopedInstall(ProcessArrestCamCheese, 0x512EF0);
     RH_ScopedInstall(GetLookFromLampPostPos, 0x5161A0);
@@ -941,7 +942,7 @@ void CCam::Process() {
     if (StaticRef<bool>(0xB6FCB4)) { m_vecFront=StaticRef<CVector>(0xB6FCA8)-m_vecSource;m_vecFront.Normalise();GetVectorsReadyForRW();StaticRef<bool>(0xB6FCB4)=false; }
 }
 
-// 0x516010 (thiscall, ECX = this sin usar, cuatro argumentos en pila, `ret 10h`): posicion de la camara de arresto para la secuencia alternativa (el ayudante 0x515D80 es el normal).
+// 0x516010 (thiscall, ECX = this sin usar, cuatro argumentos en pila, `ret 10h`): posicion de la camara de arresto para la secuencia alternativa (GetArrestCamCopSourceNormal, 0x515D80, es el normal).
 // Falla (false) si `target` o `cop` son nulos (target no se usa mas). v = (dest.x - cop.x, dest.y - cop.y, 0) normalizado con CVector::Normalise (0x59C910); source = dest + 5.0 * v
 // (la z con el producto guardado como float); c = CrossProduct(v, (0, 0, 1)) (0x59C730); source.xy += 10.0 * c; source.z = dest.z + 5.0; si CWorld::FindGroundZFor3DCoord(source)
 // encuentra suelo, source.z = 0.7 + suelo. Siempre true al llegar al final. Aritmetica x87 del EXE en X87Math.cpp (Hp66CopSource*). Ningun llamador del EXE lee EAX/ECX/EDX (solo AL).
@@ -963,6 +964,82 @@ bool CCam::GetArrestCamCopSourceSide(CEntity* target, CPed* cop, const CVector* 
     if (found) {
         Hp66CopSourceSnapCpp(ground, &source->z);
     }
+    return true;
+}
+
+// 0x515D80 (thiscall, ECX = this sin usar, cuatro argumentos en pila, `ret 10h`; sin simbolo en el original: GetArrestCamCopSourceNormal es nombre propio): posicion de la camara de arresto para la secuencia normal (0x516010 es la alternativa).
+// Falla (false) si `target` o `cop` son nulos (target no se usa mas). C = posicion del policia (matriz +0x30 o compacta +4); D = dest - C; side = Normalise(CrossProduct(D, (0, 0, 1))) (0x59C730 y 0x59C910);
+// C += 3.0f * side; Normalise(D); si D.z < -0.7071f (0xBF350481): D.z = -0.7071f y D.xy se reescalan por 1 / (|D.xy| * 1.4142271f) si esa norma es > 0; si no D.z > 0 pone D.z = 0 (sin reescalado); en los dos casos
+// vuelve a normalizar (salvo D.z <= 0 o NaN en el segundo, que no toca nada). C.x = C.x - 5.0f * D.x (guardado como float), C.y y C.z restan 5.0f * D es del registro (y sin guardar; z con el producto guardado);
+// D = dest - C (guardado como float); si |D| < 8.0f y el modulo guardado como float es > 0, D.xy *= 8.0f / modulo (z sigue en el registro como 8.0f / modulo * D.z); source = dest - D (cada componente guardado como float).
+// Siempre true al llegar al final. Aritmetica de la x87 del EXE (registro de 24 bits, exponente ampliado, guardado con fstp dword) con los ayudantes Veh83D* / Fn85GStore. Ningun llamador del EXE lee EAX/ECX/EDX (solo AL).
+bool CCam::GetArrestCamCopSourceNormal(CEntity* target, CPed* cop, const CVector* dest, CVector* source) {
+    constexpr double kSide = 3.0;                                                    // 0x8CC8CC
+    constexpr double kBack = 5.0;                                                    // 0x8CC8C8
+    constexpr double kReach = 8.0;                                                   // 0x8CC8D4
+    constexpr float kSteep = std::bit_cast<float>(0xBF350481u);                      // 0x8631E8: -0.7071f
+    constexpr double kSteepScale = double(std::bit_cast<float>(0x3FB50565u));        // 0x8631E4: 1.4142271f
+    if (!target || !cop) {
+        return false;
+    }
+    const CVector& copPosition = cop->GetPosition();
+    float copX = copPosition.x, copY = copPosition.y, copZ = copPosition.z;
+    CVector direction{
+        Fn85GStore(Veh83DSub(double(dest->x), double(copX))),
+        Fn85GStore(Veh83DSub(double(dest->y), double(copY))),
+        Fn85GStore(Veh83DSub(double(dest->z), double(copZ)))
+    };
+    CVector side;
+    CVector up{ 0.0f, 0.0f, 1.0f };
+    CrossProduct(&side, &direction, &up);
+    side.Normalise();
+    const double sideX = Veh83DMul(double(side.x), kSide);
+    const double sideY = Veh83DMul(double(side.y), kSide);
+    const float sideZ = Fn85GStore(Veh83DMul(double(side.z), kSide));
+    copX = Fn85GStore(Veh83DAdd(sideX, double(copX)));
+    copY = Fn85GStore(Veh83DAdd(sideY, double(copY)));
+    copZ = Fn85GStore(Veh83DAdd(double(sideZ), double(copZ)));
+    direction.Normalise();
+    if (direction.z < kSteep) {
+        direction.z = kSteep;
+        const double reach = Veh83DMul(Veh83DSqrt(Veh83DAdd(Veh83DMul(double(direction.y), double(direction.y)), Veh83DMul(double(direction.x), double(direction.x)))), kSteepScale);
+        if (reach > 0.0) {
+            const double inverse = Veh83DDiv(1.0, reach);
+            direction.x = Fn85GStore(Veh83DMul(double(direction.x), inverse));
+            direction.y = Fn85GStore(Veh83DMul(inverse, double(direction.y)));
+        }
+        direction.Normalise();
+    } else if (direction.z > 0.0f) {
+        direction.z = 0.0f;
+        direction.Normalise();
+    }
+    const double backX = Veh83DMul(kBack, double(direction.x));
+    const double backY = Veh83DMul(kBack, double(direction.y));
+    const float backZ = Fn85GStore(Veh83DMul(kBack, double(direction.z)));
+    const float pullX = Fn85GStore(Veh83DSub(double(copX), backX));
+    const double pullY = Veh83DSub(double(copY), backY);
+    const double pullZ = Veh83DSub(double(copZ), double(backZ));
+    const CVector gap{
+        Fn85GStore(Veh83DSub(double(dest->x), double(pullX))),
+        Fn85GStore(Veh83DSub(double(dest->y), pullY)),
+        Fn85GStore(Veh83DSub(double(dest->z), pullZ))
+    };
+    direction = gap;
+    const double squared = Veh83DAdd(Veh83DAdd(Veh83DMul(double(gap.z), double(gap.z)), Veh83DMul(double(gap.y), double(gap.y))), Veh83DMul(double(gap.x), double(gap.x)));
+    const double length = Veh83DSqrt(squared);
+    const float storedLength = Fn85GStore(length);
+    double zScaled = double(direction.z);
+    if (length < kReach && storedLength > 0.0f) {
+        const double scale = Veh83DDiv(kReach, double(storedLength));
+        direction.x = Fn85GStore(Veh83DMul(double(gap.x), scale));
+        direction.y = Fn85GStore(Veh83DMul(double(direction.y), scale));
+        zScaled = Veh83DMul(scale, double(direction.z));
+    }
+    const float resultX = Fn85GStore(Veh83DSub(double(dest->x), double(direction.x)));
+    const float resultY = Fn85GStore(Veh83DSub(double(dest->y), double(direction.y)));
+    source->x = resultX;
+    source->y = resultY;
+    source->z = Fn85GStore(Veh83DSub(double(dest->z), zScaled));
     return true;
 }
 
@@ -1076,7 +1153,7 @@ bool CCam::ProcessArrestCamOne() {
     const auto playerCop=[&](){CPed* result=nullptr;if(FindPlayerPed(-1)){auto* player=FindPlayerPed(-1);if(*reinterpret_cast<CEntity**>(*reinterpret_cast<uint8**>(reinterpret_cast<uint8*>(player)+0x480)+8)){player=FindPlayerPed(-1);result=*reinterpret_cast<CPed**>(*reinterpret_cast<uint8**>(reinterpret_cast<uint8*>(player)+0x480)+8);}}return result;};
     const auto geometry=[&](const CVector& position){m_vecSource=position;CVector copy=position;plugin::CallMethod<0x514030>(&TheCamera,&copy,&dest,&m_vecSource,m_fFOV);};
     const auto axes=[&](){m_vecFront=dest-m_vecSource;m_vecFront.Normalise();m_vecUp=CVector{0,0,1};CVector side=CrossProduct(m_vecFront,m_vecUp);side.Normalise();m_vecUp=CrossProduct(side,m_vecFront);};
-    const auto copSource=[&](CPed* from,bool alternate){return alternate?GetArrestCamCopSourceSide(target,from,&dest,&source):plugin::CallMethodAndReturn<bool,0x515D80>(this,target,from,&dest,&source);};
+    const auto copSource=[&](CPed* from,bool alternate){return alternate?GetArrestCamCopSourceSide(target,from,&dest,&source):GetArrestCamCopSourceNormal(target,from,&dest,&source);};
     const auto cheese=[&](CPed* from,bool initialise){return ProcessArrestCamCheese(from,initialise);};
     if(m_bResetStatics){
         mode=0;CPed* actor=nullptr;std::array<int32,6> sequence;sequence.fill(-1);

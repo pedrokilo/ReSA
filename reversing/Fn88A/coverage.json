@@ -1,0 +1,26 @@
+{
+ "CCam::GetArrestCamCopSourceNormal": {
+  "a_branch": 3658,
+  "a_noscale": 131,
+  "a_scale": 3527,
+  "b_flat": 3132,
+  "b_none": 4494,
+  "len_ge8": 5080,
+  "len_lt8": 6205,
+  "len_nan": 627,
+  "len_zero": 906,
+  "mut1": 152,
+  "mut2": 180,
+  "mut3": 170,
+  "mut4": 169,
+  "mut5": 146,
+  "null_cop": 1220,
+  "null_target": 601,
+  "ret_0": 1821,
+  "ret_1": 11285,
+  "scaled": 5299,
+  "tmat": 6746,
+  "tnomat": 4539,
+  "z_nan": 96
+ }
+}

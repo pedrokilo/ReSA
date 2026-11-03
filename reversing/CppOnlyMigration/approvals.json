@@ -14505,5 +14505,19 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn86C con 16384 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). El objeto this es una arena propia (nunca ThePaths). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado durante el banco): rand() del CRT del EXE 0x821B1E (sin hook), CWorld::FindGroundZFor3DCoord 0x5696C0 y CCamera::IsSphereVisible 0x420C40 (con matriz) y 0x420D40 (sin ella). CPathFind::FindRegionForCoors 0x44D830 y CPathNode::GetPosition 0x420A10 se ejecutan con codigo real (con hook en la DLL, ambos lados usan el de la DLL). La aritmetica float (x87 a 24 bits en el EXE) corre de verdad en ambos lados; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica x87 de 24 bits con exponente extendido, modelada desde el desensamblado). Fuera de los fixtures: argumentos NaN senalizadores o con cargas distintas de 0xFFC00000, bytes altos del booleano de trafico bajo con valores distintos de los generados, matrices de transformacion reales (la matriz es una arena y solo se compara el puntero), nodos de enlaces fuera de las arenas, y salidas nulas (el EXE escribe en *salidaRumbo, *salidaDir1 y *salidaDir2 sin comprobarlos)."
+  },
+  "0x00515D80": {
+    "identity": "CCam::GetArrestCamCopSourceNormal",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Cam.cpp",
+    "bank": "Fn88A",
+    "run": "20261103-132827-518506",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn88A-20261103-132827-518506/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn88A con 16384 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en un worktree con el mismo contenido que el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (resuelto por el puntero a la funcion, porque no figuran como hooks Simple del catalogo): CVector::Normalise 0x59C910 y CrossProduct 0x59C730. Registran sus argumentos en orden (con el contenido de los vectores en la llamada). CrossProduct escribe el vector del caso y las tres llamadas a Normalise escriben el lado, la direccion y la direccion tras reescalar o aplanar. La aritmetica (dest - cop, desplazamientos de 3.0f y 5.0f, ramas de la direccion, distancia y reescalado a 8.0f; ayudantes x87 de 24 bits de la DLL frente a la x87 del EXE) corre de verdad en ambos lados; no hay globales del juego. Con mutaciones de una escritura dentro de un falso (dest.x, dest.y, dest.z que el EXE relee; puntero de matriz y posicion del ped, que copia al empezar). El banco compara los eventos de los falsos con todos sus argumentos, el valor devuelto (AL), la presencia de matriz y los bytes cambiados de todas las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: NaN con cargas distintas de 0xFFC00000, NaN senalizantes en las entradas, bytes altos del booleano devuelto, un Normalise o CrossProduct que no escriban los tres componentes y peds con matriz y posicion activas distintas tras una llamada."
   }
 }

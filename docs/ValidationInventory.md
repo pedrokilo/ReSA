@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,018 entradas reversed=1**, de 9,018 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,019 entradas reversed=1**, de 9,019 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9018 |
+| `validated=1` · evidencia aprobada vinculada | 9019 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9018 |
+| Evidencia histórica vinculada; revisión pendiente | 9019 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -1261,6 +1261,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCam | `Constructor` | [Resumen](../reversing/CamHud1/validation-summary.json) |
 | CCam | `DoCamBump` | [Resumen](../reversing/CamHud1/validation-summary.json) |
 | CCam | `Finalise_DW_CineyCams` | [Resumen](../reversing/CamHud1/validation-summary.json) |
+| CCam | `GetArrestCamCopSourceNormal` | [Resumen](../reversing/Fn88A/validation-summary.json) |
 | CCam | `GetArrestCamCopSourceSide` | [Resumen](../reversing/Helpers66D/validation-summary.json) |
 | CCam | `GetBoatHeightForFirstPerson` | [Resumen](../reversing/DependenciesWorld10/validation-summary.json) |
 | CCam | `GetCoreDataForDWCineyCamMode` | [Resumen](../reversing/CamHud1/validation-summary.json) |
@@ -2882,14 +2883,14 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CGameLogic | `UpdateSkip` | [Resumen](../reversing/GameLogic27/validation-summary.json) |
 | CGamma | `Init` | [Resumen](../reversing/Misc70/validation-summary.json) |
 | CGamma | `SetGamma` | [Resumen](../reversing/Misc70/validation-summary.json) |
-| CGangWars | `AddKillToProvocation` | [Resumen](../reversing/GangWarsPending/validation-summary-reval-20261101.json) |
+| CGangWars | `AddKillToProvocation` | [Resumen](../reversing/GangWarsPending/validation-summary-reval-20261103.json) |
 | CGangWars | `AttackWaveOvercome` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangWars | `CalculateTimeTillNextAttack` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangWars | `CanPlayerStartAGangWarHere` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangWars | `CheerVictory` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangWars | `ClearSpecificZonesToTriggerGangWar` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangWars | `ClearTheStreets` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
-| CGangWars | `CreateAttackWave` | [Resumen](../reversing/GangWarsPending/validation-summary-reval-20261101.json) |
+| CGangWars | `CreateAttackWave` | [Resumen](../reversing/GangWarsPending/validation-summary-reval-20261103.json) |
 | CGangWars | `CreateDefendingGroup` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangWars | `DoStuffWhenPlayerVictorious` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangWars | `DoesPlayerControlThisZone` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
@@ -2916,7 +2917,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CGangWars | `SwitchGangWarsActive` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangWars | `TellGangMembersTo` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangWars | `TellStreamingWhichGangsAreNeeded` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
-| CGangWars | `Update` | [Resumen](../reversing/GangWarsPending/validation-summary-reval-20261101.json) |
+| CGangWars | `Update` | [Resumen](../reversing/GangWarsPending/validation-summary-reval-20261103.json) |
 | CGangWars | `UpdateTerritoryUnderControlPercentage` | [Resumen](../reversing/GangEvent1/validation-summary-reval-20261019.json) |
 | CGangs | `ChooseGangPedModel` | [Resumen](../reversing/Data8a/validation-summary.json) |
 | CGangs | `GetWillAttackPlayerWithCops` | [Resumen](../reversing/Data8a/validation-summary.json) |
@@ -9128,7 +9129,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CBuildingPool` | 1 | 0 | 1 | 0 |
 | `CBulletInfo` | 4 | 0 | 4 | 0 |
 | `CBulletTraces` | 5 | 0 | 5 | 0 |
-| `CCam` | 52 | 0 | 52 | 0 |
+| `CCam` | 53 | 0 | 53 | 0 |
 | `CCamera` | 120 | 0 | 120 | 0 |
 | `CCarAI` | 25 | 0 | 25 | 0 |
 | `CCarCtrl` | 111 | 0 | 111 | 0 |

@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 03/11/2026 (Ciudad de México):** 820 grupos / 9018 funciones reconstruidas; 9018 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 03/11/2026 (Ciudad de México):** 820 grupos / 9019 funciones reconstruidas; 9019 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Implementaciones del juego: C++, ensamblador y dependencia del EXE
@@ -8,7 +8,7 @@ Este documento distingue el lenguaje de la fuente, la reconstrucción, la valida
 
 El inventario asigna **0 apariciones de ensamblador** a **0 definiciones con cuerpo** y **0 declaraciones naked** a **0 definiciones**. No queda ninguna aparición sin ubicación. Las funciones mixtas se cuentan en «con ensamblador»; naked es una marca adicional que no se suma como otra función.
 
-De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 18731 definiciones en 1502 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
+De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 18732 definiciones en 1502 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
 
 ## Cómo leer la tabla
 
@@ -128,7 +128,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CBulletInfo](implementaciones/detalle-005.md#grupo-97) · [source/game_sa/BulletInfo.cpp](../source/game_sa/BulletInfo.cpp) | 4 | 0 | 3 | 0 | 0 |
 | [CBulletTrace](implementaciones/detalle-005.md#grupo-98) · [source/game_sa/BulletTrace.h](../source/game_sa/BulletTrace.h) | 0 | 0 | 3 | 0 | 0 |
 | [CBulletTraces](implementaciones/detalle-005.md#grupo-99) · [source/game_sa/BulletTraces.cpp](../source/game_sa/BulletTraces.cpp), [source/game_sa/BulletTraces.h](../source/game_sa/BulletTraces.h) | 5 | 0 | 3 | 0 | 0 |
-| [CCam](implementaciones/detalle-005.md#grupo-100) · [source/game_sa/Cam.cpp](../source/game_sa/Cam.cpp), [source/game_sa/Cam.h](../source/game_sa/Cam.h) | 53 | 0 | 5 | 0 | 0 |
+| [CCam](implementaciones/detalle-005.md#grupo-100) · [source/game_sa/Cam.cpp](../source/game_sa/Cam.cpp), [source/game_sa/Cam.h](../source/game_sa/Cam.h) | 54 | 0 | 5 | 0 | 0 |
 | [CCamera](implementaciones/detalle-006.md#grupo-101) · [source/game_sa/Camera.cpp](../source/game_sa/Camera.cpp), [source/game_sa/Camera.h](../source/game_sa/Camera.h) | 121 | 0 | 14 | 0 | 0 |
 | [CCarAI](implementaciones/detalle-006.md#grupo-102) · [source/game_sa/CarAI.cpp](../source/game_sa/CarAI.cpp) | 25 | 0 | 1 | 0 | 0 |
 | [CCarCtrl](implementaciones/detalle-006.md#grupo-103) · [source/game_sa/CarCtrl.cpp](../source/game_sa/CarCtrl.cpp) | 107 | 0 | 5 | 0 | 0 |

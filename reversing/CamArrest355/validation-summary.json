@@ -17,18 +17,18 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "1453dfaccb2e829f8eb285531254ccaaa46d3fb8936abc39e630b1d03e471c70",
+  "log_sha256": "e28dd78f74dbe8d7c5e1d24553a80fcb5a575fe939834dc7d5665100151869b6",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-arrest355\\20261103-010142-358781",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-arrest355\\20261103-133228-525751",
   "probe_build_manifest": {
     "binaries": {
-      "asi": "9a29fe3dc0698d591491cf22818c0040495c17b1b679f9214d7816b7a74354b6",
-      "pdb": "34b079fbed6bc85b58169a9219319502ed2ea9ea632c76d43300a2d123493630"
+      "asi": "2380dd1e9582841043b3053b2cd711d3166c565046528d5e901878ec45c73e4b",
+      "pdb": "7dc2352ccf2eb4f4795fa498097bbe4cb38180d7f1e8ef922d742deb038837e4"
     },
     "sources": {
-      "source/game_sa/Cam.cpp": "96f4f8b86a9e3e0f960e2e46be6e7524cec25d8674141eaa3f3712bbe88edba1",
-      "source/game_sa/Cam.h": "b08ca85c53624ae6de9d8f7705c2e56ac24066cbc33d6565076629e8dc9f4b08",
+      "source/game_sa/Cam.cpp": "e550fd1740193bf748dee5a52e6975f38b3bff299df3aafa44c5a8ecfba08282",
+      "source/game_sa/Cam.h": "6185f083e15dd41b51c984a60a797837be41acd6dea95ea03bc2e887e669c34e",
       "source/game_sa/Camera.h": "5e4115efb5b1f2c0e9435740ca8a0554b554c3a22a9ef2a5dc2f30f0835b1a47",
       "source/game_sa/PedIntelligence.cpp": "db0023e4e7b54c2dcb58a7721f0040129b54aa524fb37b20092683972b4752ae",
       "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
@@ -48,9 +48,9 @@
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "58280409b311d482a80a0073c2bb6e8284d3352686b5d745d64f9d1b3aab82d0",
-      "build_probe.py": "d537d325e5081e8d93b05ceefe24473ce6d1975883015ea2178760e59703c78d",
-      "run_local.py": "060a226c344062ff3faebf4cd95a973ff2eee1fe46d553ae1b579a4a662481a0"
+      "LiveComparison.hpp": "ab028668af31caa02443de96ec304f53f8eacc13fa3b29a4cac5bc7e609b8e75",
+      "build_probe.py": "0c662d14ab76091409917b9954539fed6d4ed661c3112cbd06f7ada673303430",
+      "run_local.py": "142fff96e4835e3d746691ee59dd139e2531a7f2425d63d67f3ebd9bc0234495"
     }
   },
   "covered_functions": {

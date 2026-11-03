@@ -209153,8 +209153,8 @@
         "type": "S"
       },
       "evidence": {
-        "path": "reversing/GangWarsPending/validation-summary-reval-20261101.json",
-        "sha256": "5955499719e365f529c768dcb8588afb351f757e8d72f1633501c487667c4b7d",
+        "path": "reversing/GangWarsPending/validation-summary-reval-20261103.json",
+        "sha256": "9e02d7b5d2d330cf82b1090ff4e34d3236d7a6add597e6709348f1d9739c75d2",
         "passed_path": [
           "covered_functions",
           "CGangWars::AddKillToProvocation"
@@ -209163,17 +209163,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/GangWars.cpp": "cb797e71bee2cb68e9c74fdc650b32b3abc20caffd90d534379c89eb931dde84",
-        "source/game_sa/GangWars.h": "9790db3a29cf70ace84a2f3b85476685194a0b23c42facb6ced08529cef3f1de"
+        "source/game_sa/GangWars.cpp": "1f52d576d1a0aac8e6f74340cc97447927602fefbe72c0b2bdae50ca5b76a926",
+        "source/game_sa/GangWars.h": "8f7a31194226e4ed1ab464116354db839707e2684cefba22b7028daec58f7e76"
       },
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "dependency_review": null,
-      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. REVALIDACI\u00d3N 01/11/2026: re-ejecuci\u00f3n del banco (3072 pares, 0 diferencias) con las fuentes actuales de GangWars.cpp/.h. Desde el lote 64B CGangWars::GetPopcycleGroupPedModel (0x406E80) es C++ enganchado en la DLL; el banco solo la falseaba en la direcci\u00f3n del EXE y CreateAttackWave diverg\u00eda en 64/1024 casos (los de gang no transmitido). Ahora la falsea tambi\u00e9n en el cuerpo de la DLL (EntryPatch sobre la direcci\u00f3n del hook). Sin cambios de producci\u00f3n. run_local.py y build_probe.py fijan runtime_runner.GAME al clon E:/JUEGOS/GTA San Andreas - CVehicle Test.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. REVALIDACI\u00d3N 03/11/2026: CGangWars::CreateAttackWave llamaba a CCarCtrl::CreateCarForScript (0x431F80) para el coche de drive-by (pDriveByCar), pero el EXE llama ah\u00ed a 0x42B7D0 (GenerateOneEmergencyServicesCar(modelo, posicion por valor), 0x445125); GangWars.cpp pasa ahora a llamar a ese m\u00e9todo. El banco falseaba 0x42B7D0 solo con el falso de CreateCarForScript (ambos lados daban la misma traza, por eso no lo detectaba); ahora falsea 0x42B7D0 y GenerateOneEmergencyServicesCar con un falso propio (modelo y posicion) y 0x431F80 y CreateCarForScript con el de siempre (coche de la oleada, 0x4459B4). Negativa: cambiar el modelo del drive-by hace fallar 640/1024 pares de CreateAttackWave.",
       "review_reference": "reversing/GangWarsPending/README.md",
       "previous_evidence": {
         "evidence": {
-          "path": "reversing/GangWarsPending/validation-summary-reval-20261019.json",
-          "sha256": "26a53f9f46acbdf4a78755fa60ee0410702750b9ee12479c6154a406a029fe4e",
+          "path": "reversing/GangWarsPending/validation-summary-reval-20261101.json",
+          "sha256": "5955499719e365f529c768dcb8588afb351f757e8d72f1633501c487667c4b7d",
           "passed_path": [
             "covered_functions",
             "CGangWars::AddKillToProvocation"
@@ -209184,8 +209184,8 @@
         "review_reference": "reversing/GangWarsPending/README.md",
         "previous_evidence": {
           "evidence": {
-            "path": "reversing/GangWarsPending/validation-summary.json",
-            "sha256": "6a4cec4a3e6d9ea1238f742318b808037848b99f2f4fb746d73130620d146b04",
+            "path": "reversing/GangWarsPending/validation-summary-reval-20261019.json",
+            "sha256": "26a53f9f46acbdf4a78755fa60ee0410702750b9ee12479c6154a406a029fe4e",
             "passed_path": [
               "covered_functions",
               "CGangWars::AddKillToProvocation"
@@ -209193,7 +209193,20 @@
             "pairs": 1024,
             "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
           },
-          "review_reference": "reversing/GangWarsPending/README.md"
+          "review_reference": "reversing/GangWarsPending/README.md",
+          "previous_evidence": {
+            "evidence": {
+              "path": "reversing/GangWarsPending/validation-summary.json",
+              "sha256": "6a4cec4a3e6d9ea1238f742318b808037848b99f2f4fb746d73130620d146b04",
+              "passed_path": [
+                "covered_functions",
+                "CGangWars::AddKillToProvocation"
+              ],
+              "pairs": 1024,
+              "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+            },
+            "review_reference": "reversing/GangWarsPending/README.md"
+          }
         }
       }
     },
@@ -209205,8 +209218,8 @@
         "type": "S"
       },
       "evidence": {
-        "path": "reversing/GangWarsPending/validation-summary-reval-20261101.json",
-        "sha256": "5955499719e365f529c768dcb8588afb351f757e8d72f1633501c487667c4b7d",
+        "path": "reversing/GangWarsPending/validation-summary-reval-20261103.json",
+        "sha256": "9e02d7b5d2d330cf82b1090ff4e34d3236d7a6add597e6709348f1d9739c75d2",
         "passed_path": [
           "covered_functions",
           "CGangWars::Update"
@@ -209215,17 +209228,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/GangWars.cpp": "cb797e71bee2cb68e9c74fdc650b32b3abc20caffd90d534379c89eb931dde84",
-        "source/game_sa/GangWars.h": "9790db3a29cf70ace84a2f3b85476685194a0b23c42facb6ced08529cef3f1de"
+        "source/game_sa/GangWars.cpp": "1f52d576d1a0aac8e6f74340cc97447927602fefbe72c0b2bdae50ca5b76a926",
+        "source/game_sa/GangWars.h": "8f7a31194226e4ed1ab464116354db839707e2684cefba22b7028daec58f7e76"
       },
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "dependency_review": null,
-      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. REVALIDACI\u00d3N 01/11/2026: re-ejecuci\u00f3n del banco (3072 pares, 0 diferencias) con las fuentes actuales de GangWars.cpp/.h. Desde el lote 64B CGangWars::GetPopcycleGroupPedModel (0x406E80) es C++ enganchado en la DLL; el banco solo la falseaba en la direcci\u00f3n del EXE y CreateAttackWave diverg\u00eda en 64/1024 casos (los de gang no transmitido). Ahora la falsea tambi\u00e9n en el cuerpo de la DLL (EntryPatch sobre la direcci\u00f3n del hook). Sin cambios de producci\u00f3n. run_local.py y build_probe.py fijan runtime_runner.GAME al clon E:/JUEGOS/GTA San Andreas - CVehicle Test.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. REVALIDACI\u00d3N 03/11/2026: CGangWars::CreateAttackWave llamaba a CCarCtrl::CreateCarForScript (0x431F80) para el coche de drive-by (pDriveByCar), pero el EXE llama ah\u00ed a 0x42B7D0 (GenerateOneEmergencyServicesCar(modelo, posicion por valor), 0x445125); GangWars.cpp pasa ahora a llamar a ese m\u00e9todo. El banco falseaba 0x42B7D0 solo con el falso de CreateCarForScript (ambos lados daban la misma traza, por eso no lo detectaba); ahora falsea 0x42B7D0 y GenerateOneEmergencyServicesCar con un falso propio (modelo y posicion) y 0x431F80 y CreateCarForScript con el de siempre (coche de la oleada, 0x4459B4). Negativa: cambiar el modelo del drive-by hace fallar 640/1024 pares de CreateAttackWave.",
       "review_reference": "reversing/GangWarsPending/README.md",
       "previous_evidence": {
         "evidence": {
-          "path": "reversing/GangWarsPending/validation-summary-reval-20261019.json",
-          "sha256": "26a53f9f46acbdf4a78755fa60ee0410702750b9ee12479c6154a406a029fe4e",
+          "path": "reversing/GangWarsPending/validation-summary-reval-20261101.json",
+          "sha256": "5955499719e365f529c768dcb8588afb351f757e8d72f1633501c487667c4b7d",
           "passed_path": [
             "covered_functions",
             "CGangWars::Update"
@@ -209236,8 +209249,8 @@
         "review_reference": "reversing/GangWarsPending/README.md",
         "previous_evidence": {
           "evidence": {
-            "path": "reversing/GangWarsPending/validation-summary.json",
-            "sha256": "6a4cec4a3e6d9ea1238f742318b808037848b99f2f4fb746d73130620d146b04",
+            "path": "reversing/GangWarsPending/validation-summary-reval-20261019.json",
+            "sha256": "26a53f9f46acbdf4a78755fa60ee0410702750b9ee12479c6154a406a029fe4e",
             "passed_path": [
               "covered_functions",
               "CGangWars::Update"
@@ -209245,7 +209258,20 @@
             "pairs": 1024,
             "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
           },
-          "review_reference": "reversing/GangWarsPending/README.md"
+          "review_reference": "reversing/GangWarsPending/README.md",
+          "previous_evidence": {
+            "evidence": {
+              "path": "reversing/GangWarsPending/validation-summary.json",
+              "sha256": "6a4cec4a3e6d9ea1238f742318b808037848b99f2f4fb746d73130620d146b04",
+              "passed_path": [
+                "covered_functions",
+                "CGangWars::Update"
+              ],
+              "pairs": 1024,
+              "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+            },
+            "review_reference": "reversing/GangWarsPending/README.md"
+          }
         }
       }
     },
@@ -209257,8 +209283,8 @@
         "type": "S"
       },
       "evidence": {
-        "path": "reversing/GangWarsPending/validation-summary-reval-20261101.json",
-        "sha256": "5955499719e365f529c768dcb8588afb351f757e8d72f1633501c487667c4b7d",
+        "path": "reversing/GangWarsPending/validation-summary-reval-20261103.json",
+        "sha256": "9e02d7b5d2d330cf82b1090ff4e34d3236d7a6add597e6709348f1d9739c75d2",
         "passed_path": [
           "covered_functions",
           "CGangWars::CreateAttackWave"
@@ -209267,17 +209293,17 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/GangWars.cpp": "cb797e71bee2cb68e9c74fdc650b32b3abc20caffd90d534379c89eb931dde84",
-        "source/game_sa/GangWars.h": "9790db3a29cf70ace84a2f3b85476685194a0b23c42facb6ced08529cef3f1de"
+        "source/game_sa/GangWars.cpp": "1f52d576d1a0aac8e6f74340cc97447927602fefbe72c0b2bdae50ca5b76a926",
+        "source/game_sa/GangWars.h": "8f7a31194226e4ed1ab464116354db839707e2684cefba22b7028daec58f7e76"
       },
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "dependency_review": null,
-      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. REVALIDACI\u00d3N 01/11/2026: re-ejecuci\u00f3n del banco (3072 pares, 0 diferencias) con las fuentes actuales de GangWars.cpp/.h. Desde el lote 64B CGangWars::GetPopcycleGroupPedModel (0x406E80) es C++ enganchado en la DLL; el banco solo la falseaba en la direcci\u00f3n del EXE y CreateAttackWave diverg\u00eda en 64/1024 casos (los de gang no transmitido). Ahora la falsea tambi\u00e9n en el cuerpo de la DLL (EntryPatch sobre la direcci\u00f3n del hook). Sin cambios de producci\u00f3n. run_local.py y build_probe.py fijan runtime_runner.GAME al clon E:/JUEGOS/GTA San Andreas - CVehicle Test.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. REVALIDACI\u00d3N 03/11/2026: CGangWars::CreateAttackWave llamaba a CCarCtrl::CreateCarForScript (0x431F80) para el coche de drive-by (pDriveByCar), pero el EXE llama ah\u00ed a 0x42B7D0 (GenerateOneEmergencyServicesCar(modelo, posicion por valor), 0x445125); GangWars.cpp pasa ahora a llamar a ese m\u00e9todo. El banco falseaba 0x42B7D0 solo con el falso de CreateCarForScript (ambos lados daban la misma traza, por eso no lo detectaba); ahora falsea 0x42B7D0 y GenerateOneEmergencyServicesCar con un falso propio (modelo y posicion) y 0x431F80 y CreateCarForScript con el de siempre (coche de la oleada, 0x4459B4). Negativa: cambiar el modelo del drive-by hace fallar 640/1024 pares de CreateAttackWave.",
       "review_reference": "reversing/GangWarsPending/README.md",
       "previous_evidence": {
         "evidence": {
-          "path": "reversing/GangWarsPending/validation-summary-reval-20261019.json",
-          "sha256": "26a53f9f46acbdf4a78755fa60ee0410702750b9ee12479c6154a406a029fe4e",
+          "path": "reversing/GangWarsPending/validation-summary-reval-20261101.json",
+          "sha256": "5955499719e365f529c768dcb8588afb351f757e8d72f1633501c487667c4b7d",
           "passed_path": [
             "covered_functions",
             "CGangWars::CreateAttackWave"
@@ -209288,8 +209314,8 @@
         "review_reference": "reversing/GangWarsPending/README.md",
         "previous_evidence": {
           "evidence": {
-            "path": "reversing/GangWarsPending/validation-summary.json",
-            "sha256": "6a4cec4a3e6d9ea1238f742318b808037848b99f2f4fb746d73130620d146b04",
+            "path": "reversing/GangWarsPending/validation-summary-reval-20261019.json",
+            "sha256": "26a53f9f46acbdf4a78755fa60ee0410702750b9ee12479c6154a406a029fe4e",
             "passed_path": [
               "covered_functions",
               "CGangWars::CreateAttackWave"
@@ -209297,7 +209323,20 @@
             "pairs": 1024,
             "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
           },
-          "review_reference": "reversing/GangWarsPending/README.md"
+          "review_reference": "reversing/GangWarsPending/README.md",
+          "previous_evidence": {
+            "evidence": {
+              "path": "reversing/GangWarsPending/validation-summary.json",
+              "sha256": "6a4cec4a3e6d9ea1238f742318b808037848b99f2f4fb746d73130620d146b04",
+              "passed_path": [
+                "covered_functions",
+                "CGangWars::CreateAttackWave"
+              ],
+              "pairs": 1024,
+              "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+            },
+            "review_reference": "reversing/GangWarsPending/README.md"
+          }
         }
       }
     },
@@ -261327,7 +261366,7 @@
       },
       "evidence": {
         "path": "reversing/CamArrest355/validation-summary.json",
-        "sha256": "228a60d4adf64f4417aa533de294dc407692d08299425941e2445f712ef614d6",
+        "sha256": "f710daca68f0ce4dc634282e6a3d2ecc22c7c2b7608d3be9eb16eb8b4922b230",
         "passed_path": [
           "covered_functions",
           "CCam::ProcessArrestCamOne"
@@ -261336,8 +261375,8 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Cam.cpp": "96f4f8b86a9e3e0f960e2e46be6e7524cec25d8674141eaa3f3712bbe88edba1",
-        "source/game_sa/Cam.h": "b08ca85c53624ae6de9d8f7705c2e56ac24066cbc33d6565076629e8dc9f4b08",
+        "source/game_sa/Cam.cpp": "e550fd1740193bf748dee5a52e6975f38b3bff299df3aafa44c5a8ecfba08282",
+        "source/game_sa/Cam.h": "6185f083e15dd41b51c984a60a797837be41acd6dea95ea03bc2e887e669c34e",
         "source/game_sa/Camera.h": "5e4115efb5b1f2c0e9435740ca8a0554b554c3a22a9ef2a5dc2f30f0835b1a47",
         "source/game_sa/PedIntelligence.cpp": "db0023e4e7b54c2dcb58a7721f0040129b54aa524fb37b20092683972b4752ae",
         "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
@@ -544178,6 +544217,42 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). El objeto this es una arena propia (nunca ThePaths). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado durante el banco): rand() del CRT del EXE 0x821B1E (sin hook), CWorld::FindGroundZFor3DCoord 0x5696C0 y CCamera::IsSphereVisible 0x420C40 (con matriz) y 0x420D40 (sin ella). CPathFind::FindRegionForCoors 0x44D830 y CPathNode::GetPosition 0x420A10 se ejecutan con codigo real (con hook en la DLL, ambos lados usan el de la DLL). La aritmetica float (x87 a 24 bits en el EXE) corre de verdad en ambos lados; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica x87 de 24 bits con exponente extendido, modelada desde el desensamblado). Fuera de los fixtures: argumentos NaN senalizadores o con cargas distintas de 0xFFC00000, bytes altos del booleano de trafico bajo con valores distintos de los generados, matrices de transformacion reales (la matriz es una arena y solo se compara el puntero), nodos de enlaces fuera de las arenas, y salidas nulas (el EXE escribe en *salidaRumbo, *salidaDir1 y *salidaDir2 sin comprobarlos).",
       "review_reference": "reversing/Fn86C/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCam",
+        "fn_name": "GetArrestCamCopSourceNormal",
+        "address": "0x00515D80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn88A/validation-summary.json",
+        "sha256": "5d13dc8508b55b76e18ecd000c62564eeda90a9b6c91bbb7a35e183aff1eb806",
+        "passed_path": [
+          "covered_functions",
+          "CCam::GetArrestCamCopSourceNormal"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09",
+        "source/game_sa/Cam.cpp": "e550fd1740193bf748dee5a52e6975f38b3bff299df3aafa44c5a8ecfba08282",
+        "source/game_sa/Cam.h": "6185f083e15dd41b51c984a60a797837be41acd6dea95ea03bc2e887e669c34e",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn88A/LiveComparison.hpp": "7aff6440589374e3410283585a70598a8e3a383527db3e040ef64e82770f18fe",
+        "reversing/Fn88A/Core.hpp": "0c39608bbd1a5321f1d83d41c6d8a709a70ab08c1dfe70e51881c65c917a5fa2",
+        "reversing/Fn88A/Fixtures.hpp": "3be1da56a0c3eedc4f7f42315f1621cad5e711995defe0e31067149c0eefca1f",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree con el mismo contenido que el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (resuelto por el puntero a la funcion, porque no figuran como hooks Simple del catalogo): CVector::Normalise 0x59C910 y CrossProduct 0x59C730. Registran sus argumentos en orden (con el contenido de los vectores en la llamada). CrossProduct escribe el vector del caso y las tres llamadas a Normalise escriben el lado, la direccion y la direccion tras reescalar o aplanar. La aritmetica (dest - cop, desplazamientos de 3.0f y 5.0f, ramas de la direccion, distancia y reescalado a 8.0f; ayudantes x87 de 24 bits de la DLL frente a la x87 del EXE) corre de verdad en ambos lados; no hay globales del juego. Con mutaciones de una escritura dentro de un falso (dest.x, dest.y, dest.z que el EXE relee; puntero de matriz y posicion del ped, que copia al empezar). El banco compara los eventos de los falsos con todos sus argumentos, el valor devuelto (AL), la presencia de matriz y los bytes cambiados de todas las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: NaN con cargas distintas de 0xFFC00000, NaN senalizantes en las entradas, bytes altos del booleano devuelto, un Normalise o CrossProduct que no escriban los tres componentes y peds con matriz y posicion activas distintas tras una llamada.",
+      "review_reference": "reversing/Fn88A/README.md"
     }
   ]
 }
