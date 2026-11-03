@@ -24,7 +24,7 @@ HOOKS = {oracle.NAME: 0x629920}
 FN = oracle.NAME
 WATCHED = {0x4CEBC0, 0x4D4610, 0x4CEA80, 0x5DF8F0, 0x5DEC00, 0x4D3FB0, 0x4D3FD0, 0x4D3A30, 0x4D3940, 0x4087E0, 0x743C60, 0x4E2BB0, 0x4E69F0, 0x6240B0, 0x61C7F0, 0x61C9B0, 0x624710, 0x624A40, 0x623B10,
            0x609560, 0x540670}
-EXE_ONLY = {0x623B10}      # sin reconstruir: solo existe la entrada del EXE (0x61C9B0 desde el 85F y 0x624710 desde el 85G tienen cuerpo en la DLL)
+EXE_ONLY = set()      # todos los colaboradores tienen cuerpo en la DLL (0x61C9B0 desde el 85F, 0x624710 desde el 85G y 0x623B10 desde el 85I)
 
 # Minimos de cobertura. Calibrados con fixture_mirror.py (el generador real de Fixtures.hpp compilado aparte): ~45-60 % de lo medido.
 MINIMUMS = {

@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskSimpleFight
- * Reconstrucción: COMPLETA — 21/21 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 22/22 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 21/21 entradas.
+ * Validación registrada: 22/22 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -364,11 +364,6 @@ const uint8* FightComboRow(int32 combo) {
     return reinterpret_cast<const uint8*>(FightTableAddress) + (combo - 4) * static_cast<int32>(sizeof(CMeleeInfo));
 }
 
-// Colaboradores sin reconstruir (todos thiscall; el valor de AL/AX es el que leen los llamadores).
-// 0x623B10 (ret 8)
-void FightStartAnimExe(CTaskSimpleFight* task, CPed* ped, int32 attack) {
-    plugin::CallMethod<0x623B10, CTaskSimpleFight*, CPed*, int32>(task, ped, attack);
-}
 } // namespace
 
 // 0x5BEDC0: inicializa las 14 filas de la tabla de combos (el EXE recorre hasta 0xC177BC: las dos ultimas pisan el principio de la tabla de niveles, que se rellena despues), los
@@ -661,10 +656,10 @@ bool CTaskSimpleFight::ProcessPed(CPed* ped) {
                 if (next >= 3 && next <= 6) {
                     FindTargetOnGround(ped);
                 } else {
-                    FightStartAnimExe(this, ped, ChooseAttackPlayer(ped));
+                    StartAnim(ped, ChooseAttackPlayer(ped));
                 }
             } else {
-                FightStartAnimExe(this, ped, ChooseAttackAI(ped));
+                StartAnim(ped, ChooseAttackAI(ped));
             }
         }
     } else { // 0x629C4E: hay animacion de golpe
@@ -758,13 +753,13 @@ bool CTaskSimpleFight::ProcessPed(CPed* ped) {
                         if (current == 0 || current == 1) { // 0x629FC4
                             m_nComboSet = GetAvailableComboSet(ped, static_cast<uint8>(next));
                             if (ped->IsPlayer()) {
-                                FightStartAnimExe(this, ped, ChooseAttackPlayer(ped));
+                                StartAnim(ped, ChooseAttackPlayer(ped));
                             } else {
-                                FightStartAnimExe(this, ped, static_cast<int8>(m_nCurrentMove) + 1);
+                                StartAnim(ped, static_cast<int8>(m_nCurrentMove) + 1);
                             }
                         } else if (current == 3) {
                             if (ped->IsPlayer() && ChooseAttackPlayer(ped) == 3) {
-                                FightStartAnimExe(this, ped, 3);
+                                StartAnim(ped, 3);
                             }
                         } else if (current == 4) {
                             if (m_nComboSet == 0xC && ped->IsPlayer()) {
@@ -772,9 +767,9 @@ bool CTaskSimpleFight::ProcessPed(CPed* ped) {
                             } else {
                                 m_nComboSet = GetAvailableComboSet(ped, m_nNextCommand);
                                 if (ped->IsPlayer()) {
-                                    FightStartAnimExe(this, ped, ChooseAttackPlayer(ped));
+                                    StartAnim(ped, ChooseAttackPlayer(ped));
                                 } else {
-                                    FightStartAnimExe(this, ped, static_cast<int8>(m_nCurrentMove) + 1);
+                                    StartAnim(ped, static_cast<int8>(m_nCurrentMove) + 1);
                                 }
                             }
                         }
@@ -1074,6 +1069,168 @@ void CTaskSimpleFight::FindTargetOnGround(CPed* ped) {
     }
     m_nLastCommand = m_nNextCommand;
     m_nComboSet = 1;
+    m_nNextCommand = 0;
+}
+#pragma float_control(pop)
+
+static_assert(offsetof(CPed, m_nAnimGroup) == 0x4D4 && offsetof(CPed, m_nMoveState) == 0x534 && offsetof(CPed, m_nSwimmingMoveState) == 0x538, "CPed: grupo de animacion +0x4D4, estado de movimiento +0x534 / +0x538");
+static_assert(offsetof(CPlayerPedData, m_fMoveBlendRatio) == 0x14, "CPlayerPedData: razon de mezcla +0x14");
+static_assert(offsetof(CAnimBlendAssociation, m_CurrentTime) == 0x20 && offsetof(CAnimBlendAssociation, m_Speed) == 0x24 && offsetof(CAnimBlendAssociation, m_Flags) == 0x2E, "CAnimBlendAssociation: tiempo +0x20, velocidad +0x24, banderas +0x2E");
+#pragma float_control(push)
+#pragma float_control(precise, on) // comparaciones ordenadas (un NaN no cumple ninguna) con los floats de las asociaciones
+// 0x623B10 (thiscall, ret 8; no devuelve nada): arranca la animacion de combate `attack` (manda el comando siguiente +0x26). Con `attack` negativo solo pone a cero el comando siguiente. Si no: la animacion
+// actual (+0x1C) pasa a la callback de borrado 0x4D1390 y se suelta. Segun el comando siguiente (con signo; fuera de 0..0x12 solo el cierre):
+//  0 (sin comando): combo 0, movimiento 0, golpe continuado 0; el jugador con estado de movimiento >= 4 termina la tarea (+8). Si no el combo disponible es GetAvailableComboSet(ped, 0) (el EXE lo lleva en
+//    linea, con los mismos colaboradores en el mismo orden); la animacion de reposo (+0x20, anim 0xDF del grupo del combo, mezcla 8.0) se crea si falta (con callback de borrado) o se rehace si su peso
+//    es < 1.0 y su retardo <= 0 (comparaciones ordenadas); el jugador pone a cero su movimiento de pelea (+0xC/+0x10) y busca objetivo en el suelo (0x61C9B0). El combo termina a 0.
+//  1 y 15..18: el jugador con datos pone a cero el movimiento, busca objetivo en el suelo y, con 0x11 / 0x10, fija la razon de mezcla (+0x14 de los datos RELEIDOS) a 2.0 / 1.0; sin datos pasa a movimiento
+//    6 / 4 / 1 (SetMoveState) y copia el estado a +0x538. Mezcla anim 1 (0x11) o 0 (0x10) del grupo del ped (+0x4D4) con 8.0, 3 con 4.0 (0xF) o, con 0x12 agachado (bit 26 de +0x46C) y con tarea de
+//    agacharse (0x6010A0), anim 0x37 del grupo 0 con 4.0; en otro caso anim 3 con 2.0. Despues la animacion de reposo pierde el bit 0 de las banderas o, sin ella, la tarea termina; el siguiente pasa a 0x10.
+//  2: movimiento 0, golpe continuado 0, combo a 4 si la fila no tiene el bit 1 de +0x85; anim 0xDE con callback de fin.
+//  3..10: solo sin jugador: golpe continuado 0, combo 1, movimiento segun el comando (7 -> 0 con anim 0x2D, 9 -> 2 con anim 0x2E, 8 -> 1, 10 -> 2, otros comando - 3; anim 0x29 + movimiento, mezcla 8.0 del grupo 0).
+//    Con el comando siguiente 3: callback de borrado y bit 2 de las banderas; si no callback de fin y las banderas pierden los bits 1 y 5 y ganan el 3.
+//  11..14: movimiento = attack (byte bajo), anim 0xD6 + movimiento del grupo del combo con callback de fin; con movimiento 3 y tiempo de animacion distinto de cero (un NaN cuenta) se reposiciona (campo +0x44
+//    de la fila) y, con datos de jugador, la velocidad pasa a ser CStats::GetFatAndMuscleModifier(3) (con la asociacion RELEIDA) y, con movimiento < 4, el ped pasa a PEDMOVE_STILL.
+// Cierre comun: ultimo comando = siguiente (releido: los casos 1 lo dejan en 0x10) y siguiente = 0.
+void CTaskSimpleFight::StartAnim(CPed* ped, int32 attack) {
+    if (attack < 0) {
+        m_nNextCommand = 0;
+        return;
+    }
+    if (m_pAnim) {
+        m_pAnim->SetDeleteCallback(FightDefaultAnimCB, nullptr); // 0x4CEBC0
+        m_pAnim = nullptr;
+    }
+    const auto clump = [ped] { return reinterpret_cast<RpClump*>(ped->GetRwObject()); };
+    const auto groupOf = [](int32 combo) { return static_cast<AssocGroupId>(*reinterpret_cast<const int32*>(FightComboRow(combo))); };
+    const auto blend = [&](AssocGroupId group, int32 id, float delta) {
+        return CAnimManager::BlendAnimation(clump(), group, static_cast<AnimationId>(id), delta); // 0x4D4610
+    };
+    constexpr float kBlendIn = 8.0f; // 0x41000000
+
+    const int8 command = static_cast<int8>(m_nNextCommand);
+    switch (command) {
+    case 0: {
+        m_nComboSet = 0;
+        m_nCurrentMove = FIGHT_ATTACK_HIT_1;
+        m_nContinueStrike = 0;
+        if (static_cast<int32>(ped->m_nMoveState) >= 4 && ped->IsPlayer()) {
+            m_bIsFinished = true;
+            break;
+        }
+        const int8 style = GetAvailableComboSet(ped, 0);
+        m_nComboSet = style;
+        if (!m_pIdleAnim) {
+            m_pIdleAnim = blend(groupOf(style), 0xDF, kBlendIn);
+            m_pIdleAnim->SetDeleteCallback(FightMeleeAnimCB, this); // 0x4CEBC0
+        } else if (m_pIdleAnim->m_BlendAmount < 1.0f && m_pIdleAnim->m_BlendDelta <= 0.0f) {
+            m_pIdleAnim = blend(groupOf(style), 0xDF, kBlendIn);
+        }
+        if (ped->IsPlayer()) {
+            auto* const data = ped->GetPlayerData(); // sin comprobar nulo, como el EXE
+            data->m_vecFightMovement.x = 0.f;
+            data->m_vecFightMovement.y = 0.f;
+            FindTargetOnGround(ped); // 0x61C9B0
+        }
+        m_nComboSet = 0;
+        break;
+    }
+    case 1: case 15: case 16: case 17: case 18: {
+        if (auto* const data = ped->GetPlayerData()) {
+            data->m_vecFightMovement.x = 0.f;
+            data->m_vecFightMovement.y = 0.f;
+            FindTargetOnGround(ped); // 0x61C9B0
+            if (command == 0x11) {
+                ped->GetPlayerData()->m_fMoveBlendRatio = 2.0f; // los datos se releen tras la llamada
+            } else if (command == 0x10) {
+                ped->GetPlayerData()->m_fMoveBlendRatio = 1.0f;
+            }
+        } else {
+            ped->SetMoveState(command == 0x11 ? PEDMOVE_RUN : (command == 0x10 ? PEDMOVE_WALK : PEDMOVE_STILL)); // 0x5DEC00 (6 / 4 / 1)
+            ped->m_nSwimmingMoveState = ped->m_nMoveState;
+        }
+        if (command == 0x11) {
+            blend(ped->m_nAnimGroup, 1, kBlendIn);
+        } else if (command == 0x10) {
+            blend(ped->m_nAnimGroup, 0, kBlendIn);
+        } else if (command == 0xF) {
+            blend(ped->m_nAnimGroup, 3, 4.0f);
+        } else if (command == 0x12 && (*reinterpret_cast<const uint32*>(reinterpret_cast<const uint8*>(ped) + 0x46C) & 0x4000000u)
+                   && ped->GetIntelligence()->GetTaskDuck(true)) { // 0x6010A0 (1)
+            blend(static_cast<AssocGroupId>(0), 0x37, 4.0f);
+        } else {
+            blend(ped->m_nAnimGroup, 3, 2.0f);
+        }
+        if (m_pIdleAnim) {
+            m_pIdleAnim->m_Flags &= ~ANIMATION_IS_PLAYING;
+        } else {
+            m_bIsFinished = true;
+        }
+        m_nNextCommand = 0x10;
+        break;
+    }
+    case 2: {
+        m_nCurrentMove = FIGHT_ATTACK_HIT_1;
+        m_nContinueStrike = 0;
+        if (!(FightComboRow(m_nComboSet)[0x85] & 2)) {
+            m_nComboSet = 4;
+        }
+        m_pAnim = blend(groupOf(m_nComboSet), 0xDE, kBlendIn);
+        m_pAnim->SetFinishCallback(FightMeleeAnimCB, this); // 0x4CEBE0
+        break;
+    }
+    case 3: case 4: case 5: case 6: case 7: case 8: case 9: case 10: {
+        if (ped->IsPlayer()) {
+            break;
+        }
+        const uint8 next = m_nNextCommand; // el EXE lo relee tras IsPlayer
+        m_nContinueStrike = 0;
+        m_nComboSet = 1;
+        int32 id;
+        if (next == 7) {
+            m_nCurrentMove = FIGHT_ATTACK_HIT_1;
+            id = 0x2D;
+        } else if (next == 9) {
+            m_nCurrentMove = FIGHT_ATTACK_HIT_3;
+            id = 0x2E;
+        } else {
+            m_nCurrentMove = next == 8 ? FIGHT_ATTACK_HIT_2 : (next == 10 ? FIGHT_ATTACK_HIT_3 : static_cast<eFightAttackType>(static_cast<int8>(next - 3)));
+            id = static_cast<int32>(m_nCurrentMove) + 0x29;
+        }
+        m_pAnim = blend(static_cast<AssocGroupId>(0), id, kBlendIn);
+        if (m_nNextCommand == 3) {
+            m_pAnim->SetDeleteCallback(FightMeleeAnimCB, this); // 0x4CEBC0
+            m_pAnim->m_Flags |= ANIMATION_IS_BLEND_AUTO_REMOVE;
+        } else {
+            m_pAnim->m_Flags &= ~ANIMATION_IS_LOOPED;
+            m_pAnim->m_Flags &= ~ANIMATION_IS_SYNCRONISED;
+            m_pAnim->m_Flags |= ANIMATION_IS_FINISH_AUTO_REMOVE;
+            m_pAnim->SetFinishCallback(FightMeleeAnimCB, this); // 0x4CEBE0
+        }
+        break;
+    }
+    case 11: case 12: case 13: case 14: {
+        const int32 move = static_cast<int8>(attack);
+        m_nCurrentMove = static_cast<eFightAttackType>(move);
+        m_nContinueStrike = 1;
+        m_pAnim = blend(groupOf(m_nComboSet), move + 0xD6, kBlendIn);
+        m_pAnim->SetFinishCallback(FightMeleeAnimCB, this); // 0x4CEBE0
+        if (static_cast<uint8>(m_nCurrentMove) == 3 && m_pAnim->m_CurrentTime != 0.0f) {
+            m_pAnim->SetCurrentTime(*reinterpret_cast<const float*>(FightComboRow(m_nComboSet) + 0x44)); // 0x4CEA80
+        }
+        if (ped->GetPlayerData()) {
+            const float modifier = CStats::GetFatAndMuscleModifier(static_cast<eStatModAbilities>(3)); // 0x559AF0
+            m_pAnim->m_Speed = modifier;
+            if (m_nCurrentMove < 4) {
+                ped->SetMoveState(PEDMOVE_STILL); // 0x5DEC00 (1)
+            }
+        }
+        break;
+    }
+    default:
+        break;
+    }
+    m_nLastCommand = m_nNextCommand;
     m_nNextCommand = 0;
 }
 #pragma float_control(pop)
@@ -1730,6 +1887,7 @@ void CTaskSimpleFight::InjectHooks() {
     RH_ScopedInstall(FightStrike, 0x6240B0);
     RH_ScopedInstall(GetAvailableComboSet, 0x61C7F0);
     RH_ScopedInstall(FindTargetOnGround, 0x61C9B0);
+    RH_ScopedInstall(StartAnim, 0x623B10);
     RH_ScopedInstall(BeHitWhileBlocking, 0x61C650);
     RH_ScopedInstall(ChooseAttackAI, 0x624A40);
     RH_ScopedInstall(ChooseAttackPlayer, 0x624710);

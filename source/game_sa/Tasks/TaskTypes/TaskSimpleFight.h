@@ -100,7 +100,7 @@ public:
     void GetStrikeDamage(CPed* ped);
 
     void SetPlayerMoveAnim(CPlayerPed* player);
-    void StartAnim(CPed* ped, int32);
+    void StartAnim(CPed* ped, int32 attack);                                      // 0x623B10 (ret 8)
 
 private:
     friend void InjectHooksMain();
