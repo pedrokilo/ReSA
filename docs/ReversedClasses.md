@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-11-03 08:39 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-11-03 18:53 UTC
 
 ## Objetivo y dimensiones de progreso
 
@@ -14,7 +14,7 @@ La [hoja de ruta de ReSA](ProjectRoadmap.md) define una reconstrucción funciona
 | Bytes de código del juego reemplazados | `██████████████████░░` | 2,689,858/3,007,877 · 89.43% |
 | Clases del juego completas | `████████████████████` | 810/812 · 99.75% |
 | Clases del juego validadas (de las completas) | `████████████████████` | 810/810 · 100.00% |
-| Entradas de catálogo del juego reconstruidas | `████████████████████` | 8,939/8,975 · 99.60% |
+| Entradas de catálogo del juego reconstruidas | `████████████████████` | 8,939/8,974 · 99.61% |
 | Entradas del juego validadas (de las reconstruidas) | `████████████████████` | 8,939/8,939 · 100.00% |
 | Entradas del juego reconstruidas escritas solo en C++ (sin ensamblador) | `████████████████████` | 8,937/8,939 · 99.98% |
 
@@ -39,10 +39,10 @@ Estas dimensiones todavía no tienen un porcentaje útil: indican el trabajo que
 
 | Clases validadas | Completas por validar | Funciones validadas | Reconstruidas por validar | Funciones por reconstruir |
 | :---: | :---: | :---: | :---: | :---: |
-| **810 / 810** | **0 / 810** | **8,939 / 8,939** | **0 / 8,939** | **36 / 8,975** |
-| 100.00% | 0.00% | 100.00% | 0.00% | 0.40% |
+| **810 / 810** | **0 / 810** | **8,939 / 8,939** | **0 / 8,939** | **35 / 8,974** |
+| 100.00% | 0.00% | 100.00% | 0.00% | 0.39% |
 
-Reconstrucción por clases: 810 completas, 1 parciales y 1 sin revertir de 812 (incluye 36 funciones del juego con envoltura al EXE aún sin reconstruir, en 2 clases o grupos).
+Reconstrucción por clases: 810 completas, 1 parciales y 1 sin revertir de 812 (incluye 35 funciones del juego con envoltura al EXE aún sin reconstruir, en 2 clases o grupos).
 
 **Ir a:** [Completas](#completas) · [Parciales](#parciales) · [Sin revertir](#sin-revertir) · [Cohorte nuevo por dificultad](#cohorte-nuevo) · [Cómo leer y actualizar](#metodo)
 
@@ -82,15 +82,15 @@ Del código del juego ya reemplazado, **848 funciones del juego siguen llamándo
 
 <a id="no-en-cpp"></a>
 
-### Funciones del juego que ya tenemos y aún no están en C++: 36
+### Funciones del juego que ya tenemos y aún no están en C++: 35
 
 Son envolturas: la DLL ya tiene la función y su hook, pero el cuerpo todavía llama al EXE original. Solo se listan funciones del juego, que son la meta del proyecto. Todas las tablas van **de mayor a menor tamaño**: «Bytes» es la suma de los cuerpos de las funciones pendientes (análisis estático) y «Tamaño» clasifica la función más grande de la fila (muy grande ≥ 2.000 B, grande 500–1.999 B, mediana 100–499 B, pequeña < 100 B; una instrucción x86 ocupa entre 1 y 15 bytes, unos 3–4 de media). Las funciones del EXE sin nombre ni hook (el resto de lo que falta) están en el [mapa del código del juego](JuegoExe/README.md). Fuente: [envolturas-pendientes.csv](implementaciones/envolturas-pendientes.csv).
 
-#### Código del juego: 36 funciones en 2 clases o grupos · 12,312 bytes
+#### Código del juego: 35 funciones en 2 clases o grupos · 12,312 bytes
 
 | Clase o grupo | Funciones | Bytes | Función más grande | Tamaño | Funciones (de mayor a menor) |
 | --- | ---: | ---: | ---: | --- | --- |
-| (helpers y globales sin clase) | 34 | 9,938 | 3,445 | muy grande | `helper sin símbolo confirmado` 0x0051D770 · 3,445 B<br>`CCamera unnamed geometry helper` 0x00514030 · 2,084 B<br>`CTaskSimpleGangDriveBy helper para shooter sin símbolo confirmado` 0x00627CC0 · 1,672 B<br>`CFont helper de impresión de segmento sin símbolo confirmado` 0x00719B40 · 1,440 B<br>`CCam unnamed arrest cop-source helper` 0x00515D80 · 651 B<br>`CWaterLevel helper de agua cercana` 0x006E6A10 · 646 B<br>`ComputeTargetDoorToExit` sin dirección<br>`ExeFree` sin dirección<br>`GetFirstTextureCallback` sin dirección<br>`IndexDataBufferGetTotalDataSize` sin dirección<br>`IndexDataBufferPop` sin dirección<br>`IndexDataBufferResize` sin dirección<br>`RpClumpGtaCancelStream` sin dirección<br>`RpClumpGtaStreamRead1` sin dirección<br>`RpClumpGtaStreamRead2` sin dirección<br>`RpMaterialUVAnimApplyUpdate` sin dirección<br>`RwEngineGetVideoModeInfo` sin dirección<br>`RwTexDictionaryGtaStreamRead1` sin dirección<br>`RwTexDictionaryGtaStreamRead2` sin dirección<br>`RwTextureRead` sin dirección<br>`RxLockedPipeAddFragment` sin dirección<br>`StencilTransformPoints` sin dirección<br>`TextureBufferGetTotalDataSize` sin dirección<br>`TextureBufferPop` sin dirección<br>`TextureBufferPush` sin dirección<br>`TextureBufferPushWithoutIncreasingCounter` sin dirección<br>`TextureBufferResize` sin dirección<br>`TextureBufferSetup` sin dirección<br>`_rwD3D9SetStreams` sin dirección<br>`_rwObjectHasFrameSetFrame` sin dirección<br>`operator delete` sin dirección<br>`operator delete[]` sin dirección<br>`operator new` sin dirección<br>`operator new[]` sin dirección |
+| (helpers y globales sin clase) | 33 | 9,938 | 3,445 | muy grande | `helper sin símbolo confirmado` 0x0051D770 · 3,445 B<br>`CCamera unnamed geometry helper` 0x00514030 · 2,084 B<br>`CTaskSimpleGangDriveBy helper para shooter sin símbolo confirmado` 0x00627CC0 · 1,672 B<br>`CFont helper de impresión de segmento sin símbolo confirmado` 0x00719B40 · 1,440 B<br>`CCam unnamed arrest cop-source helper` 0x00515D80 · 651 B<br>`CWaterLevel helper de agua cercana` 0x006E6A10 · 646 B<br>`ExeFree` sin dirección<br>`GetFirstTextureCallback` sin dirección<br>`IndexDataBufferGetTotalDataSize` sin dirección<br>`IndexDataBufferPop` sin dirección<br>`IndexDataBufferResize` sin dirección<br>`RpClumpGtaCancelStream` sin dirección<br>`RpClumpGtaStreamRead1` sin dirección<br>`RpClumpGtaStreamRead2` sin dirección<br>`RpMaterialUVAnimApplyUpdate` sin dirección<br>`RwEngineGetVideoModeInfo` sin dirección<br>`RwTexDictionaryGtaStreamRead1` sin dirección<br>`RwTexDictionaryGtaStreamRead2` sin dirección<br>`RwTextureRead` sin dirección<br>`RxLockedPipeAddFragment` sin dirección<br>`StencilTransformPoints` sin dirección<br>`TextureBufferGetTotalDataSize` sin dirección<br>`TextureBufferPop` sin dirección<br>`TextureBufferPush` sin dirección<br>`TextureBufferPushWithoutIncreasingCounter` sin dirección<br>`TextureBufferResize` sin dirección<br>`TextureBufferSetup` sin dirección<br>`_rwD3D9SetStreams` sin dirección<br>`_rwObjectHasFrameSetFrame` sin dirección<br>`operator delete` sin dirección<br>`operator delete[]` sin dirección<br>`operator new` sin dirección<br>`operator new[]` sin dirección |
 | CPlayerPed | 2 | 2,374 | 1,362 | grande | `FindNextWeaponLockOnTarget` 0x0060E530 · 1,362 B<br>`ProcessWeaponSwitch` 0x0060D850 · 1,012 B |
 
 <a id="completas"></a>
@@ -394,7 +394,7 @@ Orden de mayor a menor tamaño de las envolturas pendientes. Clases o grupos sin
 
 | Clase | Revertidas / total | Pendientes | Envolturas al EXE | Bytes de envolturas | Función más grande (B) | Tamaño | Avance | Validated | Locked |
 | --- | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: | ---: |
-| (helpers y globales sin clase) | 0/0 | — | **34** | 9,938 | 3,445 | muy grande | 0.00% | 0 | 0 |
+| (helpers y globales sin clase) | 0/0 | — | **33** | 9,938 | 3,445 | muy grande | 0.00% | 0 | 0 |
 
 <a id="cohorte-nuevo"></a>
 ## 📋 Cohorte nuevo (17/10/2026): lista por dificultad

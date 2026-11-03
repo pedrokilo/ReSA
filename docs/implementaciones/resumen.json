@@ -1,7 +1,7 @@
 {
   "scope": "source/game_sa and source/app (WindowedMode.cpp included as the documented NOTSA assembly exception, reported separately), definitions in cpp/h/hpp/inc; all preprocessing branches",
   "totals": {
-    "source_definition_count": 18733,
+    "source_definition_count": 18732,
     "groups": 1502,
     "assembly_occurrences": 0,
     "naked_declarations": 0,
@@ -27,7 +27,7 @@
     "catalog_rows_linked_by_hook_address": 180,
     "validated_reconstructed_own_cpp_definitions": 10722,
     "validated_reconstructed_own_asm_definitions": 0,
-    "wrapper_definitions": 34
+    "wrapper_definitions": 33
   },
   "source_sha256": {
     "source/app/app.cpp": "4717fcefd64b864f51910ae3ab7b4b3bc0966838f9cddaaca5727ee06c47ac16",
@@ -1359,7 +1359,7 @@
     "source/game_sa/Scripts/CommandParser/Utility.hpp": "648214c6668f0aec52fdb0e1f5ed21fa23a73979d3022ee2b85086d1fb18e599",
     "source/game_sa/Scripts/Commands/BasicCommands.cpp": "778b784f97eb40be72b7aff5c9cddb75189b7bce4fc7cc0c8183f1f664b71273",
     "source/game_sa/Scripts/Commands/CameraCommands.cpp": "eda2d76b727ae4102cfc4c41c4961f45f18ceb99d2e0353094cc7b128fe6c396",
-    "source/game_sa/Scripts/Commands/CharacterCommands.cpp": "071e2701f586a78922e5895325da2d2c9a914359d2a93cbdec465d26336b40ab",
+    "source/game_sa/Scripts/Commands/CharacterCommands.cpp": "0daed37a7270e24b8cb4b6a45ad283929a00ddd259d2ab4cba0ca2c7ea94ab2a",
     "source/game_sa/Scripts/Commands/CLEO/CLEOAudioStreamCommands.cpp": "89eb39ebaf398da6c76069f4dca2554cc1e7a14ef270c976b115deab60465976",
     "source/game_sa/Scripts/Commands/CLEO/CLEOCharacterCommands.cpp": "2e809c34c5d92b66050163937ca1566590c9f7137062562c10f50d9bd67039f8",
     "source/game_sa/Scripts/Commands/CLEO/CLEOCommands.hpp": "b6866a27096bcec1b35c35942abbef08e6ca0a213d5d242c16962c8d7b2a78ec",

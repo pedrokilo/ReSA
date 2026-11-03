@@ -8,7 +8,7 @@ Este documento distingue el lenguaje de la fuente, la reconstrucción, la valida
 
 El inventario asigna **0 apariciones de ensamblador** a **0 definiciones con cuerpo** y **0 declaraciones naked** a **0 definiciones**. No queda ninguna aparición sin ubicación. Las funciones mixtas se cuentan en «con ensamblador»; naked es una marca adicional que no se suma como otra función.
 
-De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 18733 definiciones en 1502 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
+De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 18732 definiciones en 1502 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
 
 ## Cómo leer la tabla
 
@@ -1256,7 +1256,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [Globales y helpers: source/game_sa/Scripts/Commands/CLEO/CLEOVehicleCommands.cpp](implementaciones/detalle-062.md#grupo-1225) · [source/game_sa/Scripts/Commands/CLEO/CLEOVehicleCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEOVehicleCommands.cpp) | 0 | 0 | 5 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Scripts/Commands/CLEO/CLEOWorldCommands.cpp](implementaciones/detalle-062.md#grupo-1226) · [source/game_sa/Scripts/Commands/CLEO/CLEOWorldCommands.cpp](../source/game_sa/Scripts/Commands/CLEO/CLEOWorldCommands.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Scripts/Commands/CameraCommands.cpp](implementaciones/detalle-062.md#grupo-1227) · [source/game_sa/Scripts/Commands/CameraCommands.cpp](../source/game_sa/Scripts/Commands/CameraCommands.cpp) | 0 | 0 | 43 | 0 | 0 |
-| [Globales y helpers: source/game_sa/Scripts/Commands/CharacterCommands.cpp](implementaciones/detalle-062.md#grupo-1228) · [source/game_sa/Scripts/Commands/CharacterCommands.cpp](../source/game_sa/Scripts/Commands/CharacterCommands.cpp) | 0 | 0 | 195 | 0 | 0 |
+| [Globales y helpers: source/game_sa/Scripts/Commands/CharacterCommands.cpp](implementaciones/detalle-062.md#grupo-1228) · [source/game_sa/Scripts/Commands/CharacterCommands.cpp](../source/game_sa/Scripts/Commands/CharacterCommands.cpp) | 0 | 0 | 194 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Scripts/Commands/ClockCommands.cpp](implementaciones/detalle-062.md#grupo-1229) · [source/game_sa/Scripts/Commands/ClockCommands.cpp](../source/game_sa/Scripts/Commands/ClockCommands.cpp) | 0 | 0 | 5 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Scripts/Commands/ConversationCommands.cpp](implementaciones/detalle-062.md#grupo-1230) · [source/game_sa/Scripts/Commands/ConversationCommands.cpp](../source/game_sa/Scripts/Commands/ConversationCommands.cpp) | 0 | 0 | 11 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Scripts/Commands/DrawCommands.cpp](implementaciones/detalle-062.md#grupo-1231) · [source/game_sa/Scripts/Commands/DrawCommands.cpp](../source/game_sa/Scripts/Commands/DrawCommands.cpp) | 0 | 0 | 8 | 0 | 0 |

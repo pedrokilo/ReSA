@@ -3283,11 +3283,6 @@ bool IsCharUsingMapAttractor(CPed& ped) {
     return GetPedAttractorManager()->IsPedRegisteredWithEffect(&ped);
 }
 
-// todo: move that to somewhere else
-eTargetDoor ComputeTargetDoorToExit(const CVehicle& vehicle, const CPed& ped) {
-    return plugin::CallAndReturn<eTargetDoor, 0x64F110, const CVehicle&, const CPed&>(vehicle, ped);
-}
-
 /*
  * @opcode 09C9
  * @command REMOVE_CHAR_FROM_CAR_MAINTAIN_POSITION
@@ -3301,7 +3296,7 @@ eTargetDoor ComputeTargetDoorToExit(const CVehicle& vehicle, const CPed& ped) {
  */
 void RemoveCharFromCarMaintainPosition(CPed& ped, CVehicle& vehicle) {
     const auto pedPos = ped.GetPosition();
-    CTaskSimpleCarSetPedOut task(&vehicle, ComputeTargetDoorToExit(vehicle, ped), false);
+    CTaskSimpleCarSetPedOut task(&vehicle, static_cast<eTargetDoor>(CCarEnterExit::ComputeTargetDoorToExit(&vehicle, &ped)), false);
     task.ProcessPed(&ped);
     ped.SetPosn(pedPos); // ?
 }
