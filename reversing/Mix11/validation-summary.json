@@ -49,7 +49,7 @@
   "log_sha256": "289a13f38b6576e010a2b70cea4e754bacc73989caa8ba5032dc1fa0efb42887",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-mix11\\20261101-090555-775272",
+  "evidence_directory": "D:\\Original\\_e_resultados_movidos\\f85j\\resultados-mix11\\20261102-235937-435088",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CHeli::AddHeliSearchLight": true,
@@ -88,11 +88,11 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "a281a450c126a53cbf82427a3da0cd4879fbd261d58bfe506f95decd7ba597d9",
-      "pdb": "122c712dd6ecdbbc48f79e7bd71723a8e072db63d58bcbb025adc96b02f75805"
+      "asi": "95ab912bd69de4ffbe468aba0f1b125ac46eb894d409fd479f8d798452bd5e7b",
+      "pdb": "59fb1c1c6bebaa19737d8ee0b6d54282073e11ec44ad41d6d72ec7c5b686cfcb"
     },
     "sources": {
-      "source/game_sa/Entity/Vehicle/Heli.cpp": "0bf169a8bc025ecf4d9c74184b4f2631cd736b0c3595d61a5d50bc7e6f6adf60",
+      "source/game_sa/Entity/Vehicle/Heli.cpp": "7fb9f40a53cec600f75041a1b3c0b596ac27be17b86c02be28c276f59cc1184d",
       "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
       "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp": "9f9b884d4ec40e822a486f8ab811ef79579760c8e4859ef1020b3485110a1f4d",
       "source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.h": "e944cf78b8aeda583258cd92d1a821851e33cd6fab4fec08c6b45bd789478ddf",

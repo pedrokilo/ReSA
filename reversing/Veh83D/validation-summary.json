@@ -10,25 +10,25 @@
   "covered_functions": {
     "CVehicle::ProcessBikeWheel": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 30c8df96e + cambios del lote 83D; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CVector::Normalise 0x59C910, CrossProduct 0x59C730, CPhysical::ApplyMoveForce(CVector) 0x5429F0 y CPhysical::ApplyTurnForce 0x542A50; los de salida (Normalise, CrossProduct) escriben los valores que da cada caso. Corren de verdad rand() del CRT del EXE (0x821B1E, semilla fijada por lado), CTimer::ms_fTimeStep, gHandlingDataMgr.fWheelFriction, el CHandlingData, la matriz del vehiculo y las estaticas 0xC1CDAF..0xC1CDB2 (regiones restauradas). El banco compara el orden y todos los argumentos de los falsos, los sorteos de rand(), el estado de la rueda y las estaticas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: NaN con cargas distintas (las fixtures usan un unico patron), valores de las estaticas 0xC1CDAF..0xC1CDB2 distintos de 0/1, wheelSpeed (no se lee) y salidas de los colaboradores incoherentes con la entrada (Normalise y CrossProduct devuelven lo que dice el caso, no el calculo real).",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 30c8df96e + cambios del lote 83D; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CVector::Normalise 0x59C910, CrossProduct 0x59C730, CPhysical::ApplyMoveForce(CVector) 0x5429F0 y CPhysical::ApplyTurnForce 0x542A50; los de salida (Normalise, CrossProduct) escriben los valores que da cada caso. Corren de verdad rand() del CRT del EXE (0x821B1E, semilla fijada por lado), CTimer::ms_fTimeStep, gHandlingDataMgr.fWheelFriction, el CHandlingData, la matriz del vehiculo y las estaticas 0xC1CDAF..0xC1CDB2 (regiones restauradas). El banco compara el orden y todos los argumentos de los falsos, los sorteos de rand(), el estado de la rueda y las estaticas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: NaN con cargas distintas (las fixtures usan un unico patron), valores de las estaticas 0xC1CDAF..0xC1CDB2 distintos de 0/1, wheelSpeed (no se lee) y salidas de los colaboradores incoherentes con la entrada (Normalise y CrossProduct devuelven lo que dice el caso, no el calculo real). Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Veh83D-20261101-061533-966790",
-  "summary_sha256": "f4806bc584068bb706b457b81a0f7ec60cee562e1bc13b7169cdc62bc31414fc",
-  "result_txt_sha256": "6b0a38181ab009e1c13464b471f8c81ccfea192ecbf8da9dd9419f974cae5e06",
-  "log_sha256": "3c224ccac67c85d9336337399f2d1d0a290dbc2ca3cb732163defa11ce5c23dd",
+  "run": "reversing/CppTwelveLevel6Final/runs/Veh83D-20261102-220307-699687",
+  "summary_sha256": "3b0803aff05c870340736bc726eeac0d875bb900a0aa16d08145cca98169dcfe",
+  "result_txt_sha256": "75667ed93bebca28b2871eb5dd6bd5da9c8a2da56de028e7173a675772d2ec1d",
+  "log_sha256": "f39412fcb59d995d337cf1a761a019a9ff33daa69948883d5517eb8d85279ca5",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "5c9355a955a6e91890f8c2988ebab4be9e8a38be9cf5b288137ac3615e25bae6",
+  "executed_probe_sha256": "468562ff5b40155b08322fb6963079884293338810e02f678febd0db3074eb24",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
       "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-      "source/game_sa/X87Math.cpp": "87e3f62c035b969c59bf7c062382ff696b9c73d05e879c1a084e0f16fec17dbe",
-      "source/game_sa/X87Math.h": "448a81f7318aa36c0a8293731283cd5dd5268400b6991e4600eece40692c9776",
-      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "c1abcc12b1e4d36f0195ab55b747e0b84358514d3c3ef6baa44ea85f12013661",
+      "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+      "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09",
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "fa677e6992e492d16d869f2e76f3e1c121296cc4e7321046510fc448fab35b9b",
       "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
       "source/game_sa/Entity/Vehicle/Bike.cpp": "dbbd24efec3bdb2d2d54585d67adeadd98df099658f9289fd76165b0154059a4",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
@@ -38,5 +38,12 @@
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Veh83D-20261102-220307-699687/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "5c9d5022795d4004da556c84c39c2551d027e52cb08c6dd6831022eca525c4b4",
+    "uncompressed_sha256": "f39412fcb59d995d337cf1a761a019a9ff33daa69948883d5517eb8d85279ca5"
   }
 }

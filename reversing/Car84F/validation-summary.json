@@ -10,25 +10,25 @@
   "covered_functions": {
     "CCarCtrl::GenerateOneEmergencyServicesCar": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 14b6e731f/b90f378d9 + cambios del lote 84F; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): FindPlayerCentreOfWorld 0x56E250, CCarCtrl::GenerateCarCreationCoors2 0x424210, CWorld::FindObjectsKindaColliding 0x568B80, CWorld::ProcessVerticalLine 0x5674E0, CVehicle::operator new 0x6E2D50, el constructor de CAutomobile 0x6B0A90, CEntity::GetDistanceFromCentreOfMassToBaseOfModel 0x536BE0, CAutomobile::PlaceOnRoadProperly 0x6AF420, CWorld::Add 0x563220 y CCarAI::AddFiretruckOccupants 0x41C600 / AddAmbulanceOccupants 0x41C4A0 / AddPoliceCarOccupants 0x41C070 (el banco compara todos sus argumentos EN ORDEN y el estado del vehiculo en cada evento, y devuelven valores del caso). El vehiculo es la arena de un CAutomobile completo cuyo constructor falso solo deja la tabla virtual (destructor falso en la ranura 0) y la matriz. Corren de verdad la aritmetica propia de la funcion (ayudantes x87 de X87Math.cpp) y la lectura de la tabla de nodos de ThePaths (arenas del banco). El banco compara los eventos, el vehiculo devuelto, los bytes cambiados del vehiculo y de su matriz, los contadores de ambulancias y bomberos y el byte del jugador en foco; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: reserva nula de operator new (el EXE se cae despues), vehiculo sin matriz, nodos o areas fuera de las ranuras cuando un falso devuelve verdadero, NaN con cargas distintas (las fixtures usan un unico patron) y los bytes altos de los booleanos de la pila.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 14b6e731f/b90f378d9 + cambios del lote 84F; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): FindPlayerCentreOfWorld 0x56E250, CCarCtrl::GenerateCarCreationCoors2 0x424210, CWorld::FindObjectsKindaColliding 0x568B80, CWorld::ProcessVerticalLine 0x5674E0, CVehicle::operator new 0x6E2D50, el constructor de CAutomobile 0x6B0A90, CEntity::GetDistanceFromCentreOfMassToBaseOfModel 0x536BE0, CAutomobile::PlaceOnRoadProperly 0x6AF420, CWorld::Add 0x563220 y CCarAI::AddFiretruckOccupants 0x41C600 / AddAmbulanceOccupants 0x41C4A0 / AddPoliceCarOccupants 0x41C070 (el banco compara todos sus argumentos EN ORDEN y el estado del vehiculo en cada evento, y devuelven valores del caso). El vehiculo es la arena de un CAutomobile completo cuyo constructor falso solo deja la tabla virtual (destructor falso en la ranura 0) y la matriz. Corren de verdad la aritmetica propia de la funcion (ayudantes x87 de X87Math.cpp) y la lectura de la tabla de nodos de ThePaths (arenas del banco). El banco compara los eventos, el vehiculo devuelto, los bytes cambiados del vehiculo y de su matriz, los contadores de ambulancias y bomberos y el byte del jugador en foco; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: reserva nula de operator new (el EXE se cae despues), vehiculo sin matriz, nodos o areas fuera de las ranuras cuando un falso devuelve verdadero, NaN con cargas distintas (las fixtures usan un unico patron) y los bytes altos de los booleanos de la pila. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Car84F-20261101-230057-542537",
-  "summary_sha256": "25dc4c8552e2ec5ba3926417136530507f9477805ade2cefdcac8efeb7acfb87",
-  "result_txt_sha256": "84e06fab151c25d1a5e9f87914d2358af0f9fbfa4ec635f4eba8b50246779a6a",
-  "log_sha256": "980213797e77ea3cda8b010a1f012f7e927a8a02f79bcbe234dac6681fe66676",
+  "run": "reversing/CppTwelveLevel6Final/runs/Car84F-20261102-230525-352137",
+  "summary_sha256": "83b5431f5e47972948537d7a4871e4df406cc85437506f7e101b31a692da0244",
+  "result_txt_sha256": "1f1335304da447387cbc54835692c3eaa3e125696edb2313e5b2a5732f9874b0",
+  "log_sha256": "63ca4161a46b1319e7c4cdebe2d9478b21e85c0153265e83ab073ec0af3972b6",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "13a1fefdf9cc10bc48a58f26bc87fca9def67a9548df7a5b28ac957fc567bb13",
+  "executed_probe_sha256": "4b7c6898ffe9e2c37f4445f9b430fb14e9964f6bf99d4d6ade899a94b689bbc7",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
       "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-      "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
-      "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
-      "source/game_sa/CarCtrl.cpp": "289224bcaf6845f874971ca2f6355356d98cbedf4d1bed33c70f249e1fe2d7d8",
+      "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+      "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09",
+      "source/game_sa/CarCtrl.cpp": "5b6f98fc43d77a2481cd463d338eedc785b8ff72e9e2e914e840494951ac8a7a",
       "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/Car84F/LiveComparison.hpp": "e5461cd658ff8a3e7864bca670ea383c3f212e1985905df7a3ed935dabda4bc1",
@@ -37,5 +37,12 @@
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Car84F-20261102-230525-352137/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "746d4330e994cf949c807371938b73f7d04897566a09e23cad9b1f4847811702",
+    "uncompressed_sha256": "63ca4161a46b1319e7c4cdebe2d9478b21e85c0153265e83ab073ec0af3972b6"
   }
 }

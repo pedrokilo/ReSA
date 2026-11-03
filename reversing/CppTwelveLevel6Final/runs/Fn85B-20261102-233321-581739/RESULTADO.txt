@@ -1,0 +1,3 @@
+APROBADO: Fn85B
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn85b\20261102-233321-581739

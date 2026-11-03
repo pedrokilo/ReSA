@@ -12,23 +12,23 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 1f02243c3 + cambios del lote 84I; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): las funciones de CCarCtrl a las que despacha (SteerAICarWithPhysicsFollowPath 0x434900, _Racing 0x435830, FollowPreRecordedPath 0x432DD0, HeadingForTarget 0x433280, TryingToBlockTarget 0x4335E0 y _Stop 0x428990, TowardsPointInEscort 0x4336D0, SteerAIBoatWithPhysics* 0x428BE0 / 0x428DE0 / 0x429090, BlockingPlayerForwardAndBack 0x422B20, ParkPerpendicular 0x433EA0, ParkParallel 0x433BA0 y 16 de aire con solo el vehiculo: 0x42A630, 0x423790, 0x42F3C0, 0x429780, 0x423000, 0x4237F0, 0x42A730, 0x42A750, 0x42AAD0, 0x42ACB0, 0x42AD30, 0x42AEB0, 0x423880, 0x4238E0, 0x429890, 0x42F370), FindPlayerCoors 0x56E010, FindPlayerVehicle 0x56E0D0, FindPlayerSpeed 0x56E090, FindPlayerEntity 0x56E120, CVehicle::PickRandomPassenger 0x6D2A10, CPed::Say 0x5EFFE0 y CVector::Normalise 0x59C910; CMatrix * CVector (0x59C890) lo llama el C++ por direccion, asi que su falso va solo en el EXE. El banco compara los argumentos y el estado del vehiculo en cada llamada EN ORDEN y escribe los valores del caso. Corren de verdad, con el hook apagado (bytes del EXE frente a los ayudantes x87 de la DLL), la resta 0x40FE60, el modulo 0x4082C0 y el producto escalar 0x40FDB0; los modelos 1..6 con su caja de colision y CTimer son los del banco. El banco compara los eventos, el estado final del vehiculo (mision, accion temporal y su tiempo, CTimer, velocidad.x, semilla, banderas, distancia de seguimiento, destino.x, posicion.x), las matrices del vehiculo y de los dos vehiculos del jugador, el objetivo y las cuatro salidas, sin otros cambios en las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Mutaciones del estado tras un evento (16 tipos). Fuera de los fixtures: vehiculo sin matriz en la mision 3, objetivo nulo salvo en la 60, indices de modelo fuera de 1..6, NaN con cargas distintas (las fixtures usan un unico patron) y bytes altos de los booleanos de los colaboradores. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Car84I-20261102-030227-400372",
-  "summary_sha256": "a7e8ecb2010f843b6f3a4801b3514e8333a576157bd20119d1bb12f69fe90cba",
-  "result_txt_sha256": "41a53b34a973ebbcf246a1bb0b11184cb69a20c124ea82ad52c359cccdad50b0",
-  "log_sha256": "7169ee229a1114e56d0cb656b727c881ded42fe6a2d713d8ca05b6d47dd106a0",
+  "run": "reversing/CppTwelveLevel6Final/runs/Car84I-20261102-231746-572525",
+  "summary_sha256": "4a118a5c69c4e7c85d976385ff200b8642857d63238db9c411c75e690510c215",
+  "result_txt_sha256": "a7357544439e09fedba7716cc8f3cae0d56975dc105c8c5e047232e1f1ed0b55",
+  "log_sha256": "904803b4e941d0fba544ae71120fa016c361fe371326d72ebfa7926f33c8a7cb",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "96acaf49b689fbf6b7ae950ec6ba63cec95753cfc1bc36813998f60f55596e1c",
+  "executed_probe_sha256": "7671aa05f11a3dc2ed5da486cbed0e3c875518437ff2ca3413c0e90bdb795ac8",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
       "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-      "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
-      "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
-      "source/game_sa/CarCtrl.cpp": "360c11e11780a5bf9d1bc67f8c8132823d031b86d14c6240b0c9af76a80fd5cc",
+      "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+      "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09",
+      "source/game_sa/CarCtrl.cpp": "5b6f98fc43d77a2481cd463d338eedc785b8ff72e9e2e914e840494951ac8a7a",
       "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/Car84I/LiveComparison.hpp": "8fe3a11798dd246319189067772d313384420f953fb6158ecbd3ef2ee9c61fa5",
@@ -39,10 +39,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Car84I-20261102-030227-400372/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Car84I-20261102-231746-572525/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "5368f885bca52c972ab7ae39d228283c201fb0dfbd0aaf6b5925d6e6a4ed1d28",
-    "uncompressed_sha256": "7169ee229a1114e56d0cb656b727c881ded42fe6a2d713d8ca05b6d47dd106a0"
+    "compressed_sha256": "96fd20bd1f5daad6e41002c1445656293294d7400c48225b11db2a6a0484c3c9",
+    "uncompressed_sha256": "904803b4e941d0fba544ae71120fa016c361fe371326d72ebfa7926f33c8a7cb"
   }
 }

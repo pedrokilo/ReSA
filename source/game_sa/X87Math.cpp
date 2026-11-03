@@ -17532,7 +17532,7 @@ __declspec(noinline) void __cdecl Fx83SprayStepCpp(const Fx83SprayHead* h, const
 static float Veh83BStore(double value) {
     const double magnitude = std::fabs(value);
     if (magnitude != 0.0 && magnitude < 1.1754943508222875e-38) {
-        const double scaled = std::nearbyint(value * 0x1p149);
+        const double scaled = std::nearbyint(std::ldexp(value, 149)); // ldexp exacto: `value * 0x1p149` con la x87 a 24 bits redondearia antes el producto (doble redondeo cerca de medio entero)
         const uint32_t bits = static_cast<uint32_t>(std::fabs(scaled)) | (std::signbit(value) ? 0x80000000u : 0u);
         return std::bit_cast<float>(bits);
     }

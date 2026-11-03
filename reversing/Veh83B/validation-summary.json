@@ -10,25 +10,25 @@
   "covered_functions": {
     "CVehicle::InflictDamage": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 5bf419e97 + cambios del lote 83B; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CVehicle::CanVehicleBeDamaged 0x6D1280, CStats::GetPercentageProgress 0x5591E0, FindPlayerPed 0x56E210, FindPlayerVehicle 0x56E0D0, CStats::IncrementStat 0x55C180, CPed::IsPlayer 0x5DF8F0, CVehicle::GetVehicleAppearance 0x6D1080, CVehicle::FindTyreNearestPoint 0x6D7BC0 (el falso devuelve ECX intacto como la funcion real), CEntity::RegisterReference 0x571B70, CEntity::CleanUpOldReference 0x571A00, CEventGroup::Add 0x4AB420, CCrime::ReportCrime 0x532010, CDamageManager::SetEngineStatus 0x6C22A0 y CPlayerPed::SetWantedLevelNoDrop 0x609F30; los virtuales BlowUpCar (+0xA4) y BurstTyre (+0xB0) los atiende una vtabla falsa. Corren de verdad rand() del CRT del EXE (0x821B1E, semilla fijada por lado), CEventVehicleDamageWeapon (constructor y destructor), CVector::Magnitude, la multiplicacion matriz*punto (0x59C890), CVector != (0x509760) y min (0x404330). El banco compara el orden y todos los argumentos de los falsos, los campos escritos del vehiculo, CWorld::Players del jugador en foco y la semilla de rand(); cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: m_nMaxPassengers > 8 (el EXE lee mas alla de m_apPassengers), atacantes con tipo de entidad invalido, indices de modelo fuera de los 8 del banco, NaN con cargas distintas (las fixtures usan un unico patron) y bool con bytes distintos de 0/1 solo en la salida de CanVehicleBeDamaged.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 5bf419e97 + cambios del lote 83B; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CVehicle::CanVehicleBeDamaged 0x6D1280, CStats::GetPercentageProgress 0x5591E0, FindPlayerPed 0x56E210, FindPlayerVehicle 0x56E0D0, CStats::IncrementStat 0x55C180, CPed::IsPlayer 0x5DF8F0, CVehicle::GetVehicleAppearance 0x6D1080, CVehicle::FindTyreNearestPoint 0x6D7BC0 (el falso devuelve ECX intacto como la funcion real), CEntity::RegisterReference 0x571B70, CEntity::CleanUpOldReference 0x571A00, CEventGroup::Add 0x4AB420, CCrime::ReportCrime 0x532010, CDamageManager::SetEngineStatus 0x6C22A0 y CPlayerPed::SetWantedLevelNoDrop 0x609F30; los virtuales BlowUpCar (+0xA4) y BurstTyre (+0xB0) los atiende una vtabla falsa. Corren de verdad rand() del CRT del EXE (0x821B1E, semilla fijada por lado), CEventVehicleDamageWeapon (constructor y destructor), CVector::Magnitude, la multiplicacion matriz*punto (0x59C890), CVector != (0x509760) y min (0x404330). El banco compara el orden y todos los argumentos de los falsos, los campos escritos del vehiculo, CWorld::Players del jugador en foco y la semilla de rand(); cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: m_nMaxPassengers > 8 (el EXE lee mas alla de m_apPassengers), atacantes con tipo de entidad invalido, indices de modelo fuera de los 8 del banco, NaN con cargas distintas (las fixtures usan un unico patron) y bool con bytes distintos de 0/1 solo en la salida de CanVehicleBeDamaged. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Veh83B-20261101-042717-377646",
-  "summary_sha256": "5108121414fb113b49451c5ca558bc2c80d0ad29f53a6b110e11a2417fa48a7b",
-  "result_txt_sha256": "70c251cfddca074d96efa44062009730795c427391aea28a8796a274881db726",
-  "log_sha256": "e80936df3c5a357ffb0150abe9b8ed8a1cd6d821d58f33c5c822b56a90f54ed6",
+  "run": "reversing/CppTwelveLevel6Final/runs/Veh83B-20261102-215351-796933",
+  "summary_sha256": "00c9682b9b771cb33b65d6562b7db03e858f844984783b65128e2d7a578f40b1",
+  "result_txt_sha256": "8f0d1c6833b1d078f00d47b30c74076a07d067670fe1e7ace2fa096a599fcae4",
+  "log_sha256": "5fe5100f2f8e2c28891c08a8937c5c2575632f6bf285f1dbe3e4da1ba02847d0",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "d34af6864f5eb1f8d4d68b9fa03d72673013fac64aaaeeb52191500b08129028",
+  "executed_probe_sha256": "7eb6953560a8f3eeb43f4b783d054dbaeb6ade035914c194e1335ab1afa9d686",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
       "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-      "source/game_sa/X87Math.cpp": "4ca259ee94a1d3c6ce868ee35839a69add95485ddcb141e91f88ff1e94b48fe0",
-      "source/game_sa/X87Math.h": "42ca9b46c30ce35ec5827a12f9a29108c5a707afe1235389bdf82e9cee0d6915",
-      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "0b10908b1bda23126f7d696cbc78d2936fe0f2c0e17a73795a91a23747f5ddca",
+      "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+      "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09",
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "fa677e6992e492d16d869f2e76f3e1c121296cc4e7321046510fc448fab35b9b",
       "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/Veh83B/LiveComparison.hpp": "3a62ca60c54d4113cbdb65fedbc75099c0311edeb648394a0aa9d9a95d5c755f",
@@ -37,5 +37,12 @@
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Veh83B-20261102-215351-796933/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "006d84d14af92260d8ed9c445100a97f699ce98f391b4864a5304e4def82aac8",
+    "uncompressed_sha256": "5fe5100f2f8e2c28891c08a8937c5c2575632f6bf285f1dbe3e4da1ba02847d0"
   }
 }

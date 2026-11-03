@@ -10,26 +10,26 @@
   "covered_functions": {
     "CTaskSimpleFight::FindTargetOnGround": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado durante el banco): RpAnimBlendClumpGetAssociation(clump, id) 0x4D68B0 y CAnimManager::AddAnimation(clump, grupo, id) 0x4D3AA0. Registran sus argumentos en orden y devuelven asociaciones de arenas propias (las cuatro existentes o nulas segun el caso; las nuevas de AddAnimation). La aritmetica del movimiento (cuadrados, suma, raiz, cociente, productos y guardado a float, x87 a 24 bits) corre de verdad en ambos lados. Con mutaciones de una lectura (comando siguiente y combo tras la asociacion 0x29, datos del jugador tras la 0x2C, clump y floats tras la primera AddAnimation). El banco compara los eventos de los falsos con todos sus argumentos, los bytes cambiados de las arenas (tarea, ped, datos del jugador, asociaciones existentes y nuevas) y el puntero de datos del jugador; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: NaN con cargas distintas de 0xFFC00000, ped sin datos de jugador (+0x480 nulo), AddAnimation que devuelva nulo y asociaciones con basura en otros campos que los dos escritos.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado durante el banco): RpAnimBlendClumpGetAssociation(clump, id) 0x4D68B0 y CAnimManager::AddAnimation(clump, grupo, id) 0x4D3AA0. Registran sus argumentos en orden y devuelven asociaciones de arenas propias (las cuatro existentes o nulas segun el caso; las nuevas de AddAnimation). La aritmetica del movimiento (cuadrados, suma, raiz, cociente, productos y guardado a float, x87 a 24 bits) corre de verdad en ambos lados. Con mutaciones de una lectura (comando siguiente y combo tras la asociacion 0x29, datos del jugador tras la 0x2C, clump y floats tras la primera AddAnimation). El banco compara los eventos de los falsos con todos sus argumentos, los bytes cambiados de las arenas (tarea, ped, datos del jugador, asociaciones existentes y nuevas) y el puntero de datos del jugador; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: NaN con cargas distintas de 0xFFC00000, ped sin datos de jugador (+0x480 nulo), AddAnimation que devuelva nulo y asociaciones con basura en otros campos que los dos escritos. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Fn85F-20261102-163218-315517",
-  "summary_sha256": "e376ae97ebd102eede829b96d4c2fb0a2bbfe4af238c9a041a99f05281f6cee1",
-  "result_txt_sha256": "5340ec7bc1c419855c7e91bf56acffc34f295ca634b29842b2a441fcba23dce4",
-  "log_sha256": "206202cdcbe54485d1beb81c31d88e1b4175d8c7b984b98d842d8ba82e8a7b16",
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn85F-20261102-235023-121973",
+  "summary_sha256": "bd45dcb3cfb7e78636aa981228f2899e2c31e6012a4276ea693dd404318365c7",
+  "result_txt_sha256": "2682eb3df55acc8a153153a5afc6ffebbb9f55b8aee187d7126e6510b27df2e7",
+  "log_sha256": "8f40a9a7b80383246bcb06cc854cb3c7a645eff2046bcafa4975ee7840105959",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "8ba14012f220f630c31de17dd19dfbfb2ea7501ca4490a74f738c1c7dae6da7d",
+  "executed_probe_sha256": "51898e983e35fc97e233bd0622043284132754737ad35aabcd1a807d244146f9",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
       "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-      "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
-      "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "be2829a69acec835cb4207036ab57b5df33a3ac5b6d2021399a50d947965255b",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "1ea983d315c8574b444b589f3a48ad70fdbc9fbb45a820c60425ccd94836beac",
+      "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+      "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "4b58c28c70b3460298f23cf7a80e635bed03f1e5ddd29b6302464bc19e4d51f8",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "fe453f0e0df4c024c95063fa72d8c375e7714839d8c9eb5d00d989c899ff9532",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/Fn85F/LiveComparison.hpp": "5f111fcfbada20e073230c5621e03015d685bcaa003b2719bca65bc017ccc4b8",
       "reversing/Fn85F/Core.hpp": "dbfc49577a047089f0eed2d44d1845f5197be008ffe49a50b5ac02c79093399b",
@@ -37,5 +37,12 @@
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn85F-20261102-235023-121973/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "ee0c7327913f69d36bd24d28404e5d62ba48be41d73c0ccb3c0106021866ccad",
+    "uncompressed_sha256": "8f40a9a7b80383246bcb06cc854cb3c7a645eff2046bcafa4975ee7840105959"
   }
 }

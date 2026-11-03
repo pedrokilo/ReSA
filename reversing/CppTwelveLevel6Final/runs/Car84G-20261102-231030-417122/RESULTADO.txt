@@ -1,0 +1,3 @@
+APROBADO: Car84G
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-car84g\20261102-231030-417122
