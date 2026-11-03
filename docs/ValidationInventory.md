@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,016 entradas reversed=1**, de 9,016 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,017 entradas reversed=1**, de 9,017 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9016 |
+| `validated=1` · evidencia aprobada vinculada | 9017 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9016 |
+| Evidencia histórica vinculada; revisión pendiente | 9017 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -4512,6 +4512,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPopulation | `ConvertAllObjectsToDummyObjects` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
 | CPopulation | `ConvertToDummyObject` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
 | CPopulation | `ConvertToRealObject` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
+| CPopulation | `CreateSunbatheObject` | [Resumen](../reversing/Fn86B/validation-summary.json) |
 | CPopulation | `CreateWaitingCoppers` | [Resumen](../reversing/PopFinal4/validation-summary.json) |
 | CPopulation | `DealWithZoneChange` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
 | CPopulation | `DoesCarGroupHaveModelId` | [Resumen](../reversing/PopFinal3/validation-summary.json) |
@@ -9398,7 +9399,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPointRoutePool` | 1 | 0 | 1 | 0 |
 | `CPools` | 19 | 0 | 19 | 0 |
 | `CPopCycle` | 15 | 0 | 15 | 0 |
-| `CPopulation` | 67 | 0 | 67 | 0 |
+| `CPopulation` | 68 | 0 | 68 | 0 |
 | `CPostEffects` | 38 | 0 | 38 | 0 |
 | `CProjectile` | 1 | 0 | 1 | 0 |
 | `CProjectileInfo` | 12 | 0 | 12 | 0 |

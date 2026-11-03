@@ -1,7 +1,7 @@
 {
   "scope": "source/game_sa and source/app (WindowedMode.cpp included as the documented NOTSA assembly exception, reported separately), definitions in cpp/h/hpp/inc; all preprocessing branches",
   "totals": {
-    "source_definition_count": 18732,
+    "source_definition_count": 18733,
     "groups": 1502,
     "assembly_occurrences": 0,
     "naked_declarations": 0,
@@ -20,12 +20,12 @@
     "body_parse_errors": 309,
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 447,
-    "historical_catalog_rows": 9020,
+    "historical_catalog_rows": 9021,
     "catalog_rows_without_unambiguous_source_match_in_scope": 2,
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 20,
     "catalog_rows_linked_by_hook_address": 180,
-    "validated_reconstructed_own_cpp_definitions": 10720,
+    "validated_reconstructed_own_cpp_definitions": 10721,
     "validated_reconstructed_own_asm_definitions": 0,
     "wrapper_definitions": 34
   },
@@ -259,7 +259,7 @@
     "source/game_sa/Buoyancy.h": "77a32460f81bd42c770f7e6229b6a8b43679fa54b5b47b1b6e616b55b2a31389",
     "source/game_sa/C_PcSave.cpp": "3b199be2588c086819f4ffd6792dfbec92c5e8dd356d7d98bf3d32c310734f9f",
     "source/game_sa/C_PcSave.h": "9ce5bfc6d6dcccef1cc786f6feaaedaf9e76671450786ccd543a5ecb3345f920",
-    "source/game_sa/Cam.cpp": "96f4f8b86a9e3e0f960e2e46be6e7524cec25d8674141eaa3f3712bbe88edba1",
+    "source/game_sa/Cam.cpp": "4fb4d11ddaeb9bf247beceedf13703439d101e4a514f53bab5dd0b59a31a4c11",
     "source/game_sa/Cam.h": "b08ca85c53624ae6de9d8f7705c2e56ac24066cbc33d6565076629e8dc9f4b08",
     "source/game_sa/Camera.cpp": "6df73adb4a017734667c6300a12afa5db9fbc1f7facb9cdd477e58fbd31f7fa8",
     "source/game_sa/Camera.h": "5e4115efb5b1f2c0e9435740ca8a0554b554c3a22a9ef2a5dc2f30f0835b1a47",
@@ -1066,8 +1066,8 @@
     "source/game_sa/Pad.cpp": "522ccd4cdcad027c728b7e509f76040dbf6917a50f1efb8af9b69efdf1a663ad",
     "source/game_sa/Pad.h": "1f5fef4809f0f2947b737c02125f176b14d1ce21d071639cfd720b947e7f2875",
     "source/game_sa/Pad_SDL.cpp": "9ff55549305865ba8086e64a120009c432418882eb85ccc58fe9984e16f4a1e6",
-    "source/game_sa/PathFind.cpp": "22aee463a73f9a507622610106e8d160ad7a996d4522b3a71071ba21439fec6e",
-    "source/game_sa/PathFind.h": "f9d2e152051e5755f7f6a4783b6d727b6f63cdb2ecac303eef9d19aacc5cf5e4",
+    "source/game_sa/PathFind.cpp": "ba5afa63d26f63ce3e11d1fb4a3245ea3e2736c7bfcf5fe23cd8132d5b328911",
+    "source/game_sa/PathFind.h": "e5404a8db6051713f3b7be9ab0357105164ff8df604a5076d83333f0cae7920a",
     "source/game_sa/PedAttractorManager.cpp": "8a23dd27cd7983a52f0ebc321aee6c55166c342e043568084eaf81a0e756182a",
     "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
     "source/game_sa/PedClothesDesc.cpp": "4489094d24c3e0c1a781c59169692d7cdb6cc7f03ac1a0951c9d4924e3777dc8",
@@ -1194,7 +1194,7 @@
     "source/game_sa/Pools.cpp": "38b4dfcb66d2428ba80865b1e3d28f82ee464a8543e13443933715b92d8e07f6",
     "source/game_sa/PopCycle.cpp": "21bd0ae5cbb6a59be5917c4de6c032b82d9cf3e5659a57bec9ebedad6e709b68",
     "source/game_sa/PopCycle.h": "e8728983efd6d4242b9e8e52c4fe38e52b7dcc0e4c7f70a80a305fdeeceeb227",
-    "source/game_sa/Population.cpp": "7e1e836a979241a08a387809cedf1d1a0f8d427289fa84c71632b70bf1c40413",
+    "source/game_sa/Population.cpp": "3a22c7d5f7e8ed140e2424cd90c2eed8daf5f6fc960a5ac428bacade2a04cd05",
     "source/game_sa/Population.h": "03d63c9f80cbddf755b71a5ef1b2f3b8e97dcb746fb0fa46cfe0b6d595ab51d5",
     "source/game_sa/PostEffects.cpp": "879b14251e58c4b6db528775686b20751c928a43cc1eeaa03a2694a9b9e8b3af",
     "source/game_sa/PostEffects.h": "d6b6ac579bf6af7a4cf0d68aa1c1f18b177117a3db031fe71ec1eab5b8292302",
@@ -2232,10 +2232,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "3799106dc0f171887c804d5f75c755e14a1af04a77d86ff251fd650cb9d014d3",
+    "hooks.csv": "55439bb4fd709c29d0097dc3ab899d6e44555c9cd25de73a1b0efc918c0a99f5",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "387f04c1a1ef66a1ae84a92d42472759b91182075362aa396a194663b1610581",
+  "migration_registry_sha256": "eb45a4f06f98e68ae37a8d1d0be25c9978c3795cc20ea2139449ad39654ff9e8",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

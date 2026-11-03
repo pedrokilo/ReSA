@@ -83,6 +83,8 @@ public:
     static ePedRace FindPedRaceFromName(const char* modelName);
     // 0x610DB0: limiteInferior + (int)(rand * 2^-15 * (limiteSuperior - limiteInferior)); los limites (1 y 5) se leen de 0x86C6C4 y 0x86C6C8 (procedencia sin demostrar)
     static int32 RandomIntInLimitRange();
+    // 0x6EABA0: objeto temporal de playa (toalla, tipos 5 y 11 al azar) en `position`; nulo si hay demasiados temporales
+    static CObject* CreateSunbatheObject(const CVector* position, int32 type);
     // loads pedgrp.dat
     static void LoadPedGroups();
     // loads cargrp.dat

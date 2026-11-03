@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CPopulation
- * Reconstrucción: COMPLETA — 67/67 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 68/68 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 67/67 entradas.
+ * Validación registrada: 68/68 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -58,6 +58,7 @@ void CPopulation::InjectHooks() {
 
     RH_ScopedGlobalInstall(FindPedRaceFromName, 0x5B6D40);
     RH_ScopedGlobalInstall(RandomIntInLimitRange, 0x610DB0);
+    RH_ScopedGlobalInstall(CreateSunbatheObject, 0x6EABA0);
 
     RH_ScopedGlobalInstall(LoadPedGroups, 0x5BCFE0);
     RH_ScopedGlobalInstall(LoadCarGroups, 0x5BD1A0);
@@ -1998,7 +1999,7 @@ bool PopulationSunbathe(CPed* ped,const CVector& position) {
         CObject* towel=nullptr;
         if(towelRequired) {
             at.z=hit.m_vecPoint.z+.04f;
-            towel=plugin::CallAndReturn<CObject*,0x6EABA0>(&at,0xB);
+            towel=CPopulation::CreateSunbatheObject(&at,0xB);
             if(towel) {
                 plugin::CallMethod<0x43E0C0>(&towel->GetMatrix(),angle);
                 auto& matrix=towel->GetMatrix();
@@ -2012,7 +2013,7 @@ bool PopulationSunbathe(CPed* ped,const CVector& position) {
                     at+=right;
                     const auto forward=matrix.GetForward()*CGeneral::GetRandomNumberInRange(-1.0f,1.0f);
                     at+=forward;
-                    plugin::CallAndReturn<CObject*,0x6EABA0>(&at,6);
+                    CPopulation::CreateSunbatheObject(&at,6);
                 }
             }
         }
@@ -2021,6 +2022,53 @@ bool PopulationSunbathe(CPed* ped,const CVector& position) {
     }
     return true;
 }
+}
+
+// 0x6EABA0 (cdecl): crea un objeto temporal de playa (toalla u objeto suelto) en `position` y lo anade al mundo; devuelve nulo si hay demasiados temporales (150) o si falla la reserva.
+// Tipo 5 y 11 eligen un tipo efectivo con el rand() del EXE (0x821B1E: avanza la semilla del juego); 11 ademas exige menos de 145 temporales. Los tipos efectivos 6..10 llevan indicador de estatico a true.
+CObject* CPopulation::CreateSunbatheObject(const CVector* position, int32 type) {
+    if (CObject::nNoTempObjects >= 150) {
+        return nullptr;
+    }
+    const auto exeRand = reinterpret_cast<int32(__cdecl*)()>(0x821B1E);
+    auto& firstModel = StaticRef<uint16>(0x8CD638);
+    uint16 model = firstModel;
+    bool isStatic = false;
+    if (type == 5) {
+        static constexpr int32 kTowel[8]{3, 2, 3, 4, 3, 4, 3, 2};
+        type = kTowel[exeRand() & 7];
+    } else if (type == 11) {
+        static constexpr int32 kLoose[8]{7, 8, 9, 10, 7, 10, 9, 8};
+        type = kLoose[exeRand() & 7];
+        if (CObject::nNoTempObjects >= 145) {
+            return nullptr;
+        }
+    }
+    switch (type) {
+    case 2:  model = StaticRef<uint16>(0x8CD67C); break;
+    case 3:  model = StaticRef<uint16>(0x8CD680); break;
+    case 4:  model = StaticRef<uint16>(0x8CD684); break;
+    case 6:  model = StaticRef<uint16>(0x8CD688); isStatic = true; break;
+    case 7:  model = StaticRef<uint16>(0x8CD68C); isStatic = true; break;
+    case 8:  model = StaticRef<uint16>(0x8CD690); isStatic = true; break;
+    case 9:  model = StaticRef<uint16>(0x8CD694); isStatic = true; break;
+    case 10: model = StaticRef<uint16>(0x8CD698); isStatic = true; break;
+    default: break;
+    }
+    auto* const object = new CObject(model, true);
+    if (!object) {
+        return nullptr;
+    }
+    object->GetPosition() = *position;
+    object->UpdateRwMatrix();
+    object->m_vecMoveSpeed = CVector{0.0f, 0.0f, 0.0f};
+    object->m_vecTurnSpeed = CVector{0.0f, 0.0f, 0.0f};
+    object->m_nObjectType = OBJECT_TEMPORARY;
+    static_cast<CEntity*>(object)->SetIsStatic(isStatic);
+    ++CObject::nNoTempObjects;
+    object->m_nRemovalTime = CTimer::m_snTimeInMilliseconds + 43200000u; // 12 horas
+    CWorld::Add(object);
+    return object;
 }
 
 bool CPopulation::AddToPopulation(float minDist, float maxDist, float minDistClose, float maxDistClose) {

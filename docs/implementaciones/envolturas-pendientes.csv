@@ -207,7 +207,6 @@ class,function,address,source,origins
 (helpers y globales sin clase),CFont helper de impresión de segmento sin símbolo confirmado,0x00719B40,source/game_sa/Font.cpp:704,cohorte 499
 (helpers y globales sin clase),ComputeTargetDoorToExit,,source/game_sa/Scripts/Commands/CharacterCommands.cpp:3287,envoltura en el código fuente
 (helpers y globales sin clase),CPathFind generador de coordenadas de ped sin símbolo confirmado,0x0044E790,source/game_sa/Population.cpp:2090,cohorte 499
-(helpers y globales sin clase),Creación de objeto toalla para sunbathe sin símbolo confirmado,0x006EABA0,source/game_sa/Population.cpp:2012; source/game_sa/Population.cpp:2026,cohorte 499
 (helpers y globales sin clase),CTaskSimpleGangDriveBy helper para shooter sin símbolo confirmado,0x00627CC0,source/game_sa/Cam.cpp:2398; source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:185,cohorte 499
 (helpers y globales sin clase),CWaterLevel helper de agua cercana,0x006E6A10,source/game_sa/WaterLevel.cpp:1557,cohorte 499
 (helpers y globales sin clase),ExeFree,,source/game_sa/RenderWare/D3DResourceSystem.cpp:79,envoltura en el código fuente

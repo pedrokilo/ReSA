@@ -544107,6 +544107,40 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, los que tienen hook RH en la DLL (apagado durante el banco), tambien en el cuerpo de la DLL: rand 0x821B1E (CRT del EXE), GetAnimHierarchyFromSkinClump 0x734A40, RpHAnimIDGetIndex 0x7C51A0, RpHAnimHierarchyGetMatrixArray 0x7C5120, CVector::Normalise 0x59C910, CrossProduct 0x59C730 y CWorld::GetIsLineOfSightClear 0x56A490. Registran sus argumentos en orden (con el contenido de los vectores en la llamada). Los dos Normalise y los dos CrossProduct escriben lo que dicta el caso. La aritmetica (tiempo como entero con signo mas 2^32, resta de 0xB6EC60 y 0xB70024, division entre 1000.0f, guardado como float, comparaciones de t, punto mirado, source += desplazamiento, front = P - source; ayudantes x87 de 24 bits de la DLL frente a la x87 del EXE) corre de verdad en ambos lados y los estaticos 0xB70000..0xB7002F, 0xB6EC60, 0xB6F980 y 0xB7CB84 son memoria real del juego (se rellenan y se restauran). Con mutaciones de una lectura (objetivo de la camara, tiempo, 0xB6EC60, 0xB70024, clump del ped, banderas 0xB7001C, 0xB70004, matriz o tipo del objetivo tras rand, z del hueso, objetivo tras la primera linea de vista). El banco compara los eventos de los falsos con todos sus argumentos, el valor devuelto (AL), los globales, la presencia de matrices y los bytes cambiados de todas las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: NaN con cargas distintas de 0xFFC00000, indices de hueso fuera de 0..15, posiciones de hueso no escritas, bytes altos del booleano devuelto por los colaboradores, objetivo no nulo con tipo ped pero sin rw-clump y colaboradores que cambien `from`.",
       "review_reference": "reversing/Fn86A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPopulation",
+        "fn_name": "CreateSunbatheObject",
+        "address": "0x006EABA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn86B/validation-summary.json",
+        "sha256": "6708c4e974b5385a68daa03cc3064162319326b9bb3fdac3cbfff034f7286c2f",
+        "passed_path": [
+          "covered_functions",
+          "CPopulation::CreateSunbatheObject"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/Population.cpp": "77e89b7ba794947c22bf62e548336aa24f90f3b9fd84a0a2e0597fc254178492",
+        "source/game_sa/Population.h": "03d63c9f80cbddf755b71a5ef1b2f3b8e97dcb746fb0fa46cfe0b6d595ab51d5",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn86B/LiveComparison.hpp": "b5442eef8e19aa72dc98e309c00c8eddf6b1aa41c7ef746b396df75fe6fbab70",
+        "reversing/Fn86B/Core.hpp": "8720b1f86300c85bf3513b6f08861e515a48a6ecd605c7a087da2199c6021829",
+        "reversing/Fn86B/Fixtures.hpp": "b3a04217e71318fe114e6823ad2d5b562314f63da2ff3938c9deed8f38197728",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL: rand() del CRT del EXE 0x821B1E (sin hook: la DLL lo llama por su direccion), CObject::operator new 0x5A1EE0 (sin hook, cuerpo de la DLL parcheado), constructor CObject(int32, bool) 0x5A1D70 (hook Constructor apagado; la DLL llama al constructor real, localizado tras la llamada a operator new), CMatrix::UpdateRwMatrix 0x59AD70, CSimpleTransform::UpdateRwMatrix 0x54EF40 (sin hook, cuerpo parcheado) y CWorld::Add 0x563220; SetIsStatic es la ranura 4 de una tabla de funciones virtuales propia. Registran sus argumentos en orden y el estado del objeto en ese momento. La seleccion del tipo efectivo, el modelo y el indicador de estatico, la posicion (matriz o compacta), las velocidades, el tipo temporal, el contador de temporales y la hora de borrado corren de verdad en ambos lados, y CEntity::UpdateRwMatrix real del lado de la DLL; el contador 0xBB4A70, la hora 0xB7CB84 y los words de modelo 0x8CD638..0x8CD698 son memoria real del juego (se rellenan y se restauran). El banco compara los eventos de los falsos con todos sus argumentos, el valor devuelto, el contador final y los bytes cambiados de todas las arenas; cada lado de cada par coincide con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: NaN senalizantes en la posicion (la x87 del EXE los silencia con fld/fstp), bytes altos del indicador que el EXE pasa a SetIsStatic, objetos con matriz y sin objeto RW o con un marco padre nulo, un constructor que devuelva otro puntero y reservas que cambien entre llamadas.",
+      "review_reference": "reversing/Fn86B/README.md"
     }
   ]
 }
