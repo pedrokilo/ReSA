@@ -386,7 +386,7 @@ bool CGangWars::CreateAttackWave(int32 warFerocity, int32 waveID) {
     if (!bTrainingMission && !pDriveByCar) {
         const auto model=CPopulation::PickGangCar(Gang1);
         if (int32(model) >= 0 && loaded(model)) {
-            pDriveByCar=CCarCtrl::CreateCarForScript(model,FindPlayerCoors(),false);
+            pDriveByCar=CCarCtrl::GenerateOneEmergencyServicesCar(model,FindPlayerCoors()); // 0x445125 llama a 0x42B7D0 (no a CreateCarForScript): modelo y posicion por valor
             if (pDriveByCar) {
                 pDriveByCar->RegisterReference(reinterpret_cast<CEntity**>(&pDriveByCar));
                 CCarCtrl::JoinCarWithRoadSystemGotoCoors(pDriveByCar,FindPlayerCoors(),false,false);

@@ -24,13 +24,12 @@ def cut(a, b, start=0):
 
 
 # fragmentos del fuente: constantes y ayudantes comunes, ayudantes de ProcessPed y el cuerpo de la funcion
-early = cut('constexpr uint32 FightTableAddress', '// 0x61C740 (ret 4)')
+early = cut('constexpr uint32 FightTableAddress', '// 0x61C740 (thiscall')
 helpers = cut('using FightAnimCallback', 'constexpr uintptr_t FightLevelsAddress')
 helpers += 'constexpr uintptr_t FightLevelsAddress = 0xC177D0;\n'
 helpers += cut('constexpr float FightIdleScale', 'constexpr float FightMeleeDataK')
 helpers += cut('constexpr float FightHalfAnim', 'constexpr float FightBlendOutAbort')
-helpers += cut('const uint8* FightComboRow', '// Colaboradores sin reconstruir')
-helpers += cut('// Colaboradores sin reconstruir', '} // namespace\n\n// 0x5BEDC0')
+helpers += cut('const uint8* FightComboRow', '\n} // namespace\n\n// 0x5BEDC0')
 func = cut('#pragma float_control(push)', '// 0x61D5F0 (ret 4)').replace('reinterpret_cast<const uint32*>(0x8D2E3C)', 'kAltSounds')
 
 MOCK = r'''
@@ -114,6 +113,7 @@ struct CTaskSimpleFight {
     bool m_bIsFinished, m_bIsInControl, m_bAnimsReferenced; AssocGroupId m_nRequiredAnimGroup; uint16 m_nIdlePeriod, m_nIdleCounter; int8 m_nContinueStrike, m_nChainCounter;
     CEntity* m_pTargetEntity; CAnimBlendAssociation* m_pAnim; CAnimBlendAssociation* m_pIdleAnim; int8 m_nComboSet; eFightAttackType m_nCurrentMove; uint8 m_nNextCommand, m_nLastCommand;
     bool ProcessPed(CPed* ped); void FightStrike(CPed* ped, CVector& pos);
+    int16 ChooseAttackAI(CPed* ped); int16 ChooseAttackPlayer(CPed* ped); int8 GetAvailableComboSet(CPed* ped, int32 command); void FindTargetOnGround(CPed* ped); void StartAnim(CPed* ped, int32 attack);
 };
 static_assert(sizeof(CTaskSimpleFight) == 0x28 && offsetof(CTaskSimpleFight, m_pAnim) == 0x1C && offsetof(CTaskSimpleFight, m_nComboSet) == 0x24 && offsetof(CTaskSimpleFight, m_nRequiredAnimGroup) == 0xC, "CTaskSimpleFight");
 inline uint32 FightU32(const void* pointer) { return static_cast<uint32>(reinterpret_cast<uintptr_t>(pointer)); }
@@ -149,15 +149,11 @@ const char* CAnimManager::GetAnimBlockName(AssocGroupId g) { Push(8, u32(g)); re
 CAnimBlock* CAnimManager::GetAnimationBlock(const char* n) { Push(9, u32(uintptr_t(n))); return &gBlocks[gC->nameBlock - 1]; }
 CWeaponInfo* CWeaponInfo::GetWeaponInfo(eWeaponType t, eWeaponSkill s) { Push(11, u32(t), u32(s) & 0xFF); return reinterpret_cast<CWeaponInfo*>(pWinfo); }
 void CTaskSimpleFight::FightStrike(CPed* ped, CVector& pos) { Push(14, Label(this), Label(ped), BitsAt(&pos.x), BitsAt(&pos.y), BitsAt(&pos.z)); }
-namespace plugin {
-template<class R, uintptr_t A, class... T> R CallMethodAndReturn(T... a);
-template<uintptr_t A, class... T> void CallMethod(T... a);
-template<> inline int8 CallMethodAndReturn<int8, 0x61C7F0, CTaskSimpleFight*, CPed*, int32>(CTaskSimpleFight* t, CPed* p, int32 cmd) { Push(15, Label(t), Label(p), u32(cmd) & 0xFF); return int8(gC->rAvail & 0xFF); }
-template<> inline int16 CallMethodAndReturn<int16, 0x624710, CTaskSimpleFight*, CPed*>(CTaskSimpleFight* t, CPed* p) { Push(17, Label(t), Label(p)); return int16(gC->rAttack & 0xFFFF); }
-template<> inline int16 CallMethodAndReturn<int16, 0x624A40, CTaskSimpleFight*, CPed*>(CTaskSimpleFight* t, CPed* p) { Push(18, Label(t), Label(p)); return int16(gC->rAttack & 0xFFFF); }
-template<> inline void CallMethod<0x61C9B0, CTaskSimpleFight*, CPed*>(CTaskSimpleFight* t, CPed* p) { Push(16, Label(t), Label(p)); }
-template<> inline void CallMethod<0x623B10, CTaskSimpleFight*, CPed*, int32>(CTaskSimpleFight* t, CPed* p, int32 a) { Push(19, Label(t), Label(p), u32(a)); }
-}
+int8 CTaskSimpleFight::GetAvailableComboSet(CPed* p, int32 cmd) { Push(15, Label(this), Label(p), u32(cmd) & 0xFF); return int8(gC->rAvail & 0xFF); }
+int16 CTaskSimpleFight::ChooseAttackPlayer(CPed* p) { Push(17, Label(this), Label(p)); return int16(gC->rAttack & 0xFFFF); }
+int16 CTaskSimpleFight::ChooseAttackAI(CPed* p) { Push(18, Label(this), Label(p)); return int16(gC->rAttack & 0xFFFF); }
+void CTaskSimpleFight::FindTargetOnGround(CPed* p) { Push(16, Label(this), Label(p)); }
+void CTaskSimpleFight::StartAnim(CPed* p, int32 a) { Push(19, Label(this), Label(p), u32(a)); }
 static const uint32 kAltSounds[3] = {0x12C, 0x190, 0x1F4};   // .rdata del EXE en 0x8D2E3C
 %(early)s
 %(helpers)s
