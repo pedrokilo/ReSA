@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 02/11/2026 (Ciudad de México):** 820 grupos / 9013 funciones reconstruidas; 9013 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 02/11/2026 (Ciudad de México):** 820 grupos / 9014 funciones reconstruidas; 9014 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Grupo A: Falta: llamada desde código ya reemplazado
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-1,009 funciones, 132,934 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+1,008 funciones, 131,941 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -14,7 +14,7 @@
 | `0x0059C910` | 81 | CQuaternion | baja | 457 (423) |  |
 | `0x0054F1B0` | 42 | CMatrixLinkList | baja | 353 (346) |  |
 | `0x007170C0` | 32 | CClouds | baja | 253 (244) |  |
-| `0x0040FE60` | 37 | CColSphere | alta | 257 (237) |  |
+| `0x0040FE60` | 37 | CColSphere | alta | 257 (238) |  |
 | `0x0059ACD0` | 22 | CMaths | baja | 469 (219) |  |
 | `0x0059C730` | 91 | CQuaternion | baja | 209 (200) |  |
 | `0x0061A3B0` | 17 | CPlayerRelationshipRecorder | baja | 230 (200) |  |
@@ -30,8 +30,8 @@
 | `0x00749B70` | 57 | Win | baja | 74 (68) |  |
 | `0x004AB250` | 5 | FxSystem_c | baja | 59 (59) |  |
 | `0x00420800` | 25 | CCarAI | baja | 54 (54) |  |
+| `0x0040FDB0` | 29 | CColSphere | alta | 55 (53) |  |
 | `0x0059AD70` | 84 | CMaths | baja | 57 (52) |  |
-| `0x0040FDB0` | 29 | CColSphere | alta | 55 (52) |  |
 | `0x00411A00` | 33 | CPlaceable | baja | 57 (51) |  |
 | `0x0054EF40` | 77 | Common | baja | 52 (49) |  |
 | `0x0040EF50` | 52 | CColLine | baja | 48 (48) |  |
@@ -230,7 +230,6 @@
 | `0x00407A30` | 10 | CStreaming | alta | 4 (4) |  |
 | `0x005FFEE0` | 4 | CEntityScanner | baja | 4 (4) |  |
 | `0x0045BA90` | 1236 | CReplay | alta | 6 (3) |  |
-| `0x0061D6F0` | 993 | CTaskSimpleFight | baja | 3 (3) |  |
 | `0x0045B730` | 857 | CReplay | alta | 6 (3) |  |
 | `0x0045DEF0` | 763 | CReplay | alta | 3 (3) |  |
 | `0x006A3BD0` | 646 | CAutomobile | alta | 3 (3) |  |

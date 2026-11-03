@@ -76,6 +76,7 @@ public:
     bool BeHitWhileBlocking(CPed* victim, CPed* creator, uint8 combo, uint8 move); // 0x61C650 (ret 0x10)
     int16 ChooseAttackAI(CPed* ped);                                              // 0x624A40 (ret 4)
     int16 ChooseAttackPlayer(CPed* ped);                                          // 0x624710 (ret 4)
+    bool TargetInReach(CPed* ped);                                                // 0x61D6F0 (ret 4)
     bool ControlFight(CEntity* entity, uint8 command);
 
     void FightHitCar(CPed* ped, CVehicle* vehicle, CVector& posn1, CVector& posn2, int16, int8);

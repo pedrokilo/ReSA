@@ -23,7 +23,7 @@ EXPECTED = {n: CASES for n in NAMES}
 GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh_restored', 'route_ok', 'collaborators_dll', 'globals_restored', 'floating_state_restored')
 HOOKS = dict(zip(NAMES, (0x624710,)))
 # (direccion del EXE, hooked): con hook RH en la DLL (apagado durante el banco) el mismo falso va en el cuerpo de la DLL; sin hook (hooked False) la DLL llama a la direccion del EXE
-STUBBED = {NAMES[0]: [(0x5DEC00, True), (0x61D6F0, False), (0x5E0170, True)]}
+STUBBED = {NAMES[0]: [(0x5DEC00, True), (0x61D6F0, True), (0x5E0170, True)]}
 WATCHED = {a for lst in STUBBED.values() for a, _ in lst} | set(HOOKS.values())
 COVER_FLOOR = 100
 COVER = json.loads((HERE / 'coverage.json').read_text()) if (HERE / 'coverage.json').exists() else {}

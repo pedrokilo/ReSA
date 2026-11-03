@@ -16,28 +16,28 @@
     "CTaskSimpleFight::BeHitWhileBlocking": true,
     "CTaskSimpleFight::ChooseAttackAI": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): IsAnyCarBlockingDoor -> CGarage::IsEntityTouching3D 0x448EE0, CEntity::GetColModel 0x535300, CMatrix * CVector 0x59C890 y CGarage::IsPointInsideGarage(CVector, float) 0x4487D0 (y el metodo miembro que llama la DLL); StoreAndRemoveCarsForThisImpoundingGarage -> CGarage::IsPointInsideGarage(CVector) 0x448740 (y su metodo miembro), EntityHasASphereWayOutsideGarage 0x449050, CStoredCar::StoreCar 0x449760, CPlayerInfo::CancelPlayerEnteringCars 0x56E860, CWorld::Remove 0x563280 y el destructor virtual (tabla de funciones virtuales propia); BeHitWhileBlocking corre de verdad con los ayudantes x87 de X87Math.cpp en la DLL frente a los x87 del EXE (sin colaboradores); ChooseAttackAI -> rand() del EXE 0x821B1E, CPlayerPed::GetWantedLevel 0x41BE60 y CTaskSimpleFight 0x61D6F0 (sin reconstruir, por su direccion). El pool de vehiculos (ds:[0xB74494]) se sustituye por uno propio de hasta 8 ranuras y el byte bajo de las banderas de la fila (combo - 4) de la tabla de combos (0xC17154 + (combo - 4) * 0x88) se fija por caso y se restaura. El banco compara el valor devuelto, los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: tamano de pool mayor que 8, estructura de pool distinta de la sustituida, vehiculo sin CCollisionData, mas de 4 esferas por vehiculo, vehiculo sin matriz en BeHitWhileBlocking (victima), CAnimBlendAssociation sin jerarquia, NaN con cargas distintas, bytes altos de los booleanos y combos con fila de la tabla fuera de -3..17.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado; no se valida su cuerpo): IsAnyCarBlockingDoor -> CGarage::IsEntityTouching3D 0x448EE0, CEntity::GetColModel 0x535300, CMatrix * CVector 0x59C890 y CGarage::IsPointInsideGarage(CVector, float) 0x4487D0 (y el metodo miembro que llama la DLL); StoreAndRemoveCarsForThisImpoundingGarage -> CGarage::IsPointInsideGarage(CVector) 0x448740 (y su metodo miembro), EntityHasASphereWayOutsideGarage 0x449050, CStoredCar::StoreCar 0x449760, CPlayerInfo::CancelPlayerEnteringCars 0x56E860, CWorld::Remove 0x563280 y el destructor virtual (tabla de funciones virtuales propia); BeHitWhileBlocking corre de verdad con los ayudantes x87 de X87Math.cpp en la DLL frente a los x87 del EXE (sin colaboradores); ChooseAttackAI -> rand() del EXE 0x821B1E, CPlayerPed::GetWantedLevel 0x41BE60 y CTaskSimpleFight 0x61D6F0 (sin reconstruir, por su direccion). El pool de vehiculos (ds:[0xB74494]) se sustituye por uno propio de hasta 8 ranuras y el byte bajo de las banderas de la fila (combo - 4) de la tabla de combos (0xC17154 + (combo - 4) * 0x88) se fija por caso y se restaura. El banco compara el valor devuelto, los eventos de los falsos con todos sus argumentos y los bytes cambiados de las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: tamano de pool mayor que 8, estructura de pool distinta de la sustituida, vehiculo sin CCollisionData, mas de 4 esferas por vehiculo, vehiculo sin matriz en BeHitWhileBlocking (victima), CAnimBlendAssociation sin jerarquia, NaN con cargas distintas, bytes altos de los booleanos y combos con fila de la tabla fuera de -3..17. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Fn85C-20261102-142601-178850",
-  "summary_sha256": "9cd8607a3f3a649a2dba153dde054cb38b913968e1fcf1711d17290a6fa3703e",
-  "result_txt_sha256": "e41f83c6165238e8fef78fe0a754bcbc7cb12f850c96c5dfdf3cc9e8428b7aff",
-  "log_sha256": "d851d12aa1c741f401dab8581fa89a29ed12c368c6fce6cfc37719ef6b50d1c1",
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn85C-20261102-183922-144931",
+  "summary_sha256": "e38435b23c03f4b64cd4ec2d074753195ca13350f2a1daffab2b6a33a2b1d948",
+  "result_txt_sha256": "267666e8cf1b9d120704132174a7028ea67c5a00316272dcf5c309e72c93ad99",
+  "log_sha256": "bf859e06366e4d639f25f687271e03659a1eba97446bef0f64f6527a4b702b7f",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "c6c7875d406fcbb6d583622a3fc4a88f53e1a9ac888aa8bf8941e1631c6dd342",
+  "executed_probe_sha256": "d8605f391bb8bc2f5f6dd30971c150e6d22d97aa66c2da339f6faeefc66d1845",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
       "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-      "source/game_sa/X87Math.cpp": "de9e2fc634836d338ea245fed274cc56183a8d398efdb5164ac9b50b119250e2",
-      "source/game_sa/X87Math.h": "b37f99dad5364a169b5435943bc02a6e0ad523adcb4457efa3f2b4df5f1a5962",
-      "source/game_sa/Garage.cpp": "f4722b2a793938a26d2066de546f533597c86cd605c87e34ceb3b097d5eadb9d",
+      "source/game_sa/X87Math.cpp": "7f2b0ed0729bed4ad65d0cb20a9cc45ea053cbc5dc3fda5eafa4e777c2578e49",
+      "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09",
+      "source/game_sa/Garage.cpp": "fcdc8b0b375497f19c287deb50ee228c7f92a7d2acb27009891a07f8dfa863c6",
       "source/game_sa/Garage.h": "02a66b6c7e769bff7771ace48a496453327a47b2879031cd4d1f683586b2370a",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "962c14928e487e0c02553cfef2a6b4f1d7ff0752acab6f21f3fc48266e4677d0",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "4957b89633b88efd73588c5d1aaf9b18cd4c5a011f64eca1a580ad58c46f62ca",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "8bc53d618abb5ad23147be5d28e0edafd5ca7d28d97741ca3f393a4a9da123db",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "d209050b0060cc7ba97d55c8d84cc811855051374596747a073fc9d3d7053a2f",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/Fn85C/LiveComparison.hpp": "eb7c31ad0103ca6d6596319d967d02f89c14dfad43d27f96b8beea7659ea7ad7",
       "reversing/Fn85C/Core.hpp": "eb7ca817b1de73e5a3d24ceb6097d17b5e57caeaaf393f19dbcccd72700afee8",
@@ -45,5 +45,12 @@
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn85C-20261102-183922-144931/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "394b2ae84023cbec2fdf4af780a65f79f7d80f0db1ea3e2f7a09d17fa7faf2bd",
+    "uncompressed_sha256": "bf859e06366e4d639f25f687271e03659a1eba97446bef0f64f6527a4b702b7f"
   }
 }

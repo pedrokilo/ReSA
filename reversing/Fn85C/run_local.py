@@ -27,7 +27,7 @@ HOOKS = dict(zip(NAMES, (0x4494F0, 0x449A50, 0x61C650, 0x624A40)))
 STUBBED = {NAMES[0]: [(0x448EE0, True), (0x535300, True), (0x59C890, True), (0x4487D0, True)],
            NAMES[1]: [(0x448740, True), (0x449050, True), (0x449760, True), (0x56E860, True), (0x563280, True)],
            NAMES[2]: [],
-           NAMES[3]: [(0x821B1E, False), (0x41BE60, True), (0x61D6F0, False)]}
+           NAMES[3]: [(0x821B1E, False), (0x41BE60, True), (0x61D6F0, True)]}
 WATCHED = {a for lst in STUBBED.values() for a, _ in lst} | set(HOOKS.values())
 COVER_FLOOR = 100
 COVER = json.loads((HERE / 'coverage.json').read_text()) if (HERE / 'coverage.json').exists() else {}

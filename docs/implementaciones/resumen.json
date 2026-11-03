@@ -1,7 +1,7 @@
 {
   "scope": "source/game_sa and source/app (WindowedMode.cpp included as the documented NOTSA assembly exception, reported separately), definitions in cpp/h/hpp/inc; all preprocessing branches",
   "totals": {
-    "source_definition_count": 18728,
+    "source_definition_count": 18730,
     "groups": 1502,
     "assembly_occurrences": 0,
     "naked_declarations": 0,
@@ -20,14 +20,14 @@
     "body_parse_errors": 309,
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 447,
-    "historical_catalog_rows": 9017,
+    "historical_catalog_rows": 9018,
     "catalog_rows_without_unambiguous_source_match_in_scope": 2,
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 20,
     "catalog_rows_linked_by_hook_address": 180,
-    "validated_reconstructed_own_cpp_definitions": 10717,
+    "validated_reconstructed_own_cpp_definitions": 10718,
     "validated_reconstructed_own_asm_definitions": 0,
-    "wrapper_definitions": 36
+    "wrapper_definitions": 35
   },
   "source_sha256": {
     "source/app/app.cpp": "4717fcefd64b864f51910ae3ab7b4b3bc0966838f9cddaaca5727ee06c47ac16",
@@ -1987,8 +1987,8 @@
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.h": "ec2e688e8e7eabeeb6ddd0e0bb19bc47ef5997db69a029c6b5740768dadd9845",
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFall.cpp": "a094804199c21aa380d267b956896117f60691d20d2dae0ab605c75209a89582",
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFall.h": "c9224f5b845695eba5a5cf4352474ec047fcc1714fe23ed39e06ef4c645ef6f2",
-    "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "850389ac3b605a4e6d7e90264b86dc412be8cda4ad3f1b4bacc77d522ade1858",
-    "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "61476c61ac71e1b0cd0212743ca371798c1ef5687782c87ebe21798442a4c719",
+    "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "8bc53d618abb5ad23147be5d28e0edafd5ca7d28d97741ca3f393a4a9da123db",
+    "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "d209050b0060cc7ba97d55c8d84cc811855051374596747a073fc9d3d7053a2f",
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp": "b4fa56c3f3bf80d3b7532befd0f427bb9120089f29864389a140a53129b32e39",
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h": "c3d8b0d7b9e47f79f802d6d35a8e480e8332d6c369fac7a27ae00775a4cd354e",
     "source/game_sa/Tasks/TaskTypes/TaskSimpleFinishBrain.cpp": "4ad532bba94ba89661e820548b8b2d5290d5400250b1a56c7bff4ed8260e78d3",
@@ -2232,10 +2232,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "d7243bee39a6f0cd9f65860cd32433e88924faa07bdc883b9f5ab0e5c798d6c5",
+    "hooks.csv": "969207f7f541da13ceb685752302f7f1bfcb4bc091aa4bbdc5bfe91c1f1e3986",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "b8db3ac90319b5bdffb2527a4ce63810c0f88766bc6ba91f37d00ca3dc080dc9",
+  "migration_registry_sha256": "8a3a37aac32e19969dcf060d78eb255a9db79e6e5c475a49311da2ca4eb72cdf",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

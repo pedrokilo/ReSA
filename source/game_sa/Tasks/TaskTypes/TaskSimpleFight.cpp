@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskSimpleFight
- * Reconstrucción: COMPLETA — 20/20 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 21/21 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 20/20 entradas.
+ * Validación registrada: 21/21 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -33,6 +33,7 @@ END GENERATED HOOK STATUS */
 #include "Entity/Object/Object.h"
 #include "ObjectData.h"
 #include "Crime.h"
+#include "Localisation.h"
 #include "Glass.h"
 #include "WeaponInfo.h"
 #include "RwHelper.h"
@@ -364,10 +365,6 @@ const uint8* FightComboRow(int32 combo) {
 }
 
 // Colaboradores sin reconstruir (todos thiscall; el valor de AL/AX es el que leen los llamadores).
-// 0x61D6F0 (ret 4): el objetivo esta al alcance del ataque (sin reconstruir); devuelve AL.
-bool FightTargetInReachExe(CTaskSimpleFight* task, CPed* ped) {
-    return plugin::CallMethodAndReturn<bool, 0x61D6F0, CTaskSimpleFight*, CPed*>(task, ped);
-}
 // 0x623B10 (ret 8)
 void FightStartAnimExe(CTaskSimpleFight* task, CPed* ped, int32 attack) {
     plugin::CallMethod<0x623B10, CTaskSimpleFight*, CPed*, int32>(task, ped, attack);
@@ -1134,7 +1131,7 @@ bool CTaskSimpleFight::BeHitWhileBlocking(CPed* victim, CPed* creator, uint8 com
 // 0x624A40 (thiscall, ret 4; devuelve AX): ataque de la IA. Banderas del combo activo = byte bajo de m_wFlags de su fila de la tabla (0xC17154 = 0xC170D0 + (combo - 4) * 0x88 + 0x84; sin acotar), que con
 // combos 5..7 se enmascara con el byte +0x72E del ped. Tirada = rand() del EXE * 0x38000100 con los x87 a 24 bits (la primera comparacion usa el registro y las demas el float guardado). Con tirada > 0.8 y
 // bandera 2: sin bandera 0x40, sin objetivo, con objetivo que no sea un ped (byte +0x36 & 7 != 3) o sin datos de jugador (+0x480), con nivel de busqueda <= 0 (0x41BE60) o con salud (+0x540) no
-// mayor que 20.0 devuelve 2. En cualquier otro caso (tirada <= 0.8, un NaN incluido, o sin la bandera 2) pregunta si el objetivo esta al alcance (0x61D6F0, siempre) y con la bandera 4 devuelve 3. Despues:
+// mayor que 20.0 devuelve 2. En cualquier otro caso (tirada <= 0.8, un NaN incluido, o sin la bandera 2) pregunta si el objetivo esta al alcance (TargetInReach, 0x61D6F0, siempre) y con la bandera 4 devuelve 3. Despues:
 // tirada > 0.5 con bandera 1 devuelve 1, si no 0.
 int16 CTaskSimpleFight::ChooseAttackAI(CPed* ped) {
     const int8  combo = m_nComboSet;
@@ -1164,7 +1161,7 @@ int16 CTaskSimpleFight::ChooseAttackAI(CPed* ped) {
         if (!(*reinterpret_cast<const float*>(reinterpret_cast<const uint8*>(target) + 0x540) > std::bit_cast<float>(0x41A00000u))) { // 20.0f (0x858BA4)
             return 2;
         }
-    } else if (FightTargetInReachExe(this, ped) && (flags & 4)) {
+    } else if (TargetInReach(ped) && (flags & 4)) {
         return 3;
     }
     if (roll > std::bit_cast<float>(0x3F000000u) && (flags & 1)) { // 0.5f (0x858B8C)
@@ -1207,7 +1204,7 @@ int16 CTaskSimpleFight::ChooseAttackPlayer(CPed* ped) {
         if (m_pAnim && moveBefore != 3 && moveBefore != 4) {
             ped->SetMoveState(PEDMOVE_STILL); // 0x5DEC00 (1)
             const int16 cap = (flags & 2) ? 2 : ((flags & 1) ? 1 : 0);
-            if (FightTargetInReachExe(this, ped)) {
+            if (TargetInReach(ped)) {
                 attack = -1;
             } else if (m_nNextCommand != m_nLastCommand && !(static_cast<int32>(m_nChainCounter) > *reinterpret_cast<const int32*>(FightChainLimit))) {
                 ++m_nChainCounter;
@@ -1223,7 +1220,7 @@ int16 CTaskSimpleFight::ChooseAttackPlayer(CPed* ped) {
                 m_nComboSet = 4;
             }
             attack = 4;
-        } else if (!FightTargetInReachExe(this, ped)) {
+        } else if (!TargetInReach(ped)) {
             m_nChainCounter = 0;
             attack = 0;
         } else {
@@ -1278,6 +1275,171 @@ int16 CTaskSimpleFight::ChooseAttackPlayer(CPed* ped) {
         ped->m_fAimingRotation = bestAngle;
     }
     return attack;
+}
+#pragma float_control(pop)
+
+namespace {
+// CTaskManager::GetSimplestActiveTask (0x6819D0) se define en linea en TaskManager.h: con /O2 se expandiria y el EXE y la DLL dejarian de hacer la misma llamada.
+// Se invoca por un puntero a miembro volatil (llamada indirecta, sin expansion).
+CTask* (CTaskManager::* volatile s_fightSimplestActiveTask)() = &CTaskManager::GetSimplestActiveTask;
+
+// Lectura cruda de un campo del juego (el EXE lee estos desplazamientos sin comprobar tipos).
+template<typename T>
+T FightField(const void* base, uintptr_t offset) {
+    return *reinterpret_cast<const T*>(reinterpret_cast<uintptr_t>(base) + offset);
+}
+// Producto escalar de la x87 (0x40FDB0 y los productos en linea del EXE): (a.z * b.z + a.y * b.y) + a.x * b.x, cada operacion a 24 bits sobre el registro.
+double FightDot(double ax, double ay, double az, const float* b) {
+    return Veh83DAdd(Veh83DAdd(Veh83DMul(az, b[2]), Veh83DMul(ay, b[1])), Veh83DMul(ax, b[0]));
+}
+} // namespace
+
+#pragma float_control(push)
+#pragma float_control(precise, on) // comparaciones ordenadas (un NaN no cumple ninguna) y ayudantes x87 a 24 bits: no admiten /fp:fast
+// 0x61D6F0 (thiscall, ret 4; devuelve AL): el ped `ped` tiene a su objetivo al alcance del golpe. Sin 0x56D270 (CLocalisation::KickingWhenDown, siempre verdadero) devuelve falso.
+// Alcances: lejano = (0xC177EC + fila[combo].+0x3C) + 0.2f (0x858CC4) y cercano = (0xC177EC + fila[combo].+0x3C) + 0.4f (0x858EE8), ambos a 24 bits y guardados como float; la fila de la tabla (0xC170D0 + (combo - 4) * 0x88)
+// no se acota. Hay tres casos segun el objetivo (+0x18 de la tarea):
+//  - objetivo ped (byte +0x36 & 7 == 3): posicion de su hueso 3 (0x5E4280); si esta vivo (0x5E0170) y la z del ped menos 0.2f NO supera la z del hueso exige la bandera 0x4000000 de +0x46C del objetivo (si falta, falso) y
+//    acorta el alcance cercano en 0.4f. Si la tarea activa mas simple del objetivo (0x6819D0) es la 0xCF y el tiempo total de su animacion supera el actual, falso. Despues |((objetivo - ped) . avance del objetivo)| < cercano
+//    (0x411990 da la matriz) y |((objetivo - ped) guardado como float . derecha del objetivo)| < lejano (0x40FE60 y 0x40FDB0) dan verdadero; si no, falso;
+//  - otro objetivo no nulo: verdadero solo si es el objetivo apuntado del ped (+0x568);
+//  - sin objetivo: solo para el jugador (0x5DF8F0). Recorre los 16 peds cercanos (+0x47C -> +0x130): hueso 3 de cada uno; si su estado (+0x530) no es 0x37 exige que la z del ped menos 0.2f supere la z del hueso; |delta . avance| < cercano,
+//    |delta . derecha| < lejano (con dx y dy guardados como float y dz en el registro); rumbo = fpatan(-dx, dy) guardado como float; d = rumbo - rumbo del ped (+0x558) con vuelta de +-2pi fuera de [-pi, pi]; |d| < 1.0472f; y se
+//    queda con el que tenga menor |d| (un candidato con vida > 0.0 sustituye al mejor que no la tenga). Si hay uno guarda su rumbo (como float) en +0x55C del ped y devuelve verdadero; si no, devuelve verdadero solo si el objetivo
+//    apuntado del ped es un objeto (tipo 2) sin el puntero +0x590.
+bool CTaskSimpleFight::TargetInReach(CPed* ped) {
+    constexpr uintptr_t FightLimitBase   = 0xC177EC;                              // float global sumado a la fila de la tabla
+    constexpr float     FightReachFar    = std::bit_cast<float>(0x3E4CCCCDu);     // 0x858CC4 = 0.2f
+    constexpr float     FightReachNear   = std::bit_cast<float>(0x3ECCCCCDu);     // 0x858EE8 = 0.4f
+    constexpr double    FightPi          = static_cast<double>(std::bit_cast<float>(0x40490FDBu));  // 0x858CB8
+    constexpr double    FightTwoPi       = static_cast<double>(std::bit_cast<float>(0x40C90FDBu));  // 0x858CBC
+    constexpr double    FightMinusPi     = static_cast<double>(std::bit_cast<float>(0xC0490FDBu));  // 0x858CC0
+    constexpr float     FightMinusOne    = std::bit_cast<float>(0xBF800000u);     // 0x858C1C
+    constexpr float     FightMaxTurn     = std::bit_cast<float>(0x3F860A92u);     // 0x8630F8 = 1.0472f
+    constexpr auto      FightBlockedTask = static_cast<eTaskType>(0xCF);          // la tarea activa del objetivo que impide el golpe
+
+    if (!CLocalisation::KickingWhenDown()) { // 0x56D270
+        return false;
+    }
+    const double rowSum = Veh83DAdd(FightAt<float>(FightLimitBase), FightField<float>(FightComboRow(m_nComboSet), 0x3C));
+    const float  reachFar  = Fn85GStore(Veh83DAdd(FightReachFar, rowSum));  // [esp+10h]
+    float        reachNear = Fn85GStore(Veh83DAdd(rowSum, FightReachNear)); // [esp+0Ch]
+
+    CEntity* const target = m_pTargetEntity;
+    if (target) {
+        if ((FightField<uint8>(target, 0x36) & 7) != 3) {
+            return target == FightField<CEntity*>(ped, 0x568);
+        }
+        CVector bone{};
+        static_cast<CPed*>(target)->GetBonePosition(&bone, static_cast<eBoneTag>(3), false); // 0x5E4280
+        if (static_cast<CPed*>(m_pTargetEntity)->IsAlive()) { // 0x5E0170
+            if (!(Veh83DSub(FightPositionOf(ped)->z, FightReachFar) > static_cast<double>(bone.z))) {
+                if (!(FightField<uint32>(m_pTargetEntity, 0x46C) & 0x4000000u)) {
+                    return false;
+                }
+                reachNear = Fn85GStore(Veh83DSub(reachNear, FightReachNear));
+            }
+        }
+        {
+            CPedIntelligence* const intelligence = static_cast<CPed*>(m_pTargetEntity)->GetIntelligence();
+            CTask* const active = (intelligence->m_TaskMgr.*s_fightSimplestActiveTask)(); // 0x6819D0
+            if (active && active->GetTaskType() == FightBlockedTask) {
+                const void* const anim = FightField<const void*>(active, 0x14);
+                if (anim) {
+                    const float current = FightField<float>(anim, 0x20);
+                    const float total   = FightField<float>(FightField<const void*>(anim, 0x14), 0x10);
+                    if (total > current) {
+                        return false;
+                    }
+                }
+            }
+        }
+        {
+            const CMatrix& forwardOf = m_pTargetEntity->GetMatrix(); // 0x411990
+            const float* const pedPos    = &FightPositionOf(ped)->x;
+            const float* const targetPos = &FightPositionOf(m_pTargetEntity)->x;
+            const double dx = Veh83DSub(targetPos[0], pedPos[0]);
+            const double dy = Veh83DSub(targetPos[1], pedPos[1]);
+            const double dz = Veh83DSub(targetPos[2], pedPos[2]);
+            if (!(std::fabs(FightDot(dx, dy, dz, &forwardOf.GetForward().x)) < static_cast<double>(reachNear))) {
+                return false;
+            }
+        }
+        CEntity* const again = m_pTargetEntity;
+        const CMatrix& rightOf = again->GetMatrix(); // 0x411990
+        const float* const pedPos    = &FightPositionOf(ped)->x;
+        const float* const targetPos = &FightPositionOf(m_pTargetEntity)->x;
+        const float delta[3]{ Fn85GStore(Veh83DSub(targetPos[0], pedPos[0])), Fn85GStore(Veh83DSub(targetPos[1], pedPos[1])), Fn85GStore(Veh83DSub(targetPos[2], pedPos[2])) }; // 0x40FE60
+        return std::fabs(FightDot(delta[0], delta[1], delta[2], &rightOf.GetRight().x)) < static_cast<double>(reachFar); // 0x40FDB0
+    }
+
+    if (!ped->IsPlayer()) { // 0x5DF8F0
+        return false;
+    }
+    CEntity* const* const nearby = ped->GetIntelligence()->GetPedEntities();
+    CPed*  best      = nullptr;
+    float  bestDiff  = std::bit_cast<float>(0x40490FDBu); // pi: el EXE lo deja en [esp+1Ch]
+    float  bestAngle = 0.0f;                              // [esp+20h]: el rumbo del mejor, el que se guarda al final (el EXE hace pop ebp antes de leer [esp+1Ch], que pasa a ser [esp+20h] del bucle)
+    for (int32 i = 0; i < 16; ++i) {
+        CPed* const other = static_cast<CPed*>(nearby[i]);
+        if (!other) {
+            continue;
+        }
+        CVector bone{};
+        other->GetBonePosition(&bone, static_cast<eBoneTag>(3), false); // 0x5E4280
+        if (FightField<int32>(other, 0x530) != 0x37) {
+            if (!(Veh83DSub(FightPositionOf(ped)->z, FightReachFar) > static_cast<double>(bone.z))) {
+                continue;
+            }
+        }
+        const CMatrix* const otherMatrix = other->m_matrix;
+        const float* const pedPos   = &FightPositionOf(ped)->x;
+        const float* const otherPos = &FightPositionOf(other)->x;
+        const float  dx = Fn85GStore(Veh83DSub(otherPos[0], pedPos[0]));
+        const float  dy = Fn85GStore(Veh83DSub(otherPos[1], pedPos[1]));
+        const double dz = Veh83DSub(otherPos[2], pedPos[2]);
+        if (!(std::fabs(FightDot(dx, dy, dz, &otherMatrix->GetForward().x)) < static_cast<double>(reachNear))) {
+            continue;
+        }
+        if (!(std::fabs(FightDot(dx, dy, dz, &otherMatrix->GetRight().x)) < static_cast<double>(reachFar))) {
+            continue;
+        }
+        const float  angle = Fn85GStore(Fn85GAtanNegXY(dx, dy)); // fpatan(-dx, dy)
+        double diff = Veh83DSub(angle, static_cast<double>(ped->m_fCurrentRotation));
+        if (diff < FightMinusPi) {
+            diff = Veh83DAdd(diff, FightTwoPi);
+        } else if (diff > FightPi) {
+            diff = Veh83DSub(diff, FightTwoPi);
+        }
+        if (diff < 0.0) {
+            diff = Veh83DMul(diff, FightMinusOne);
+        }
+        if (!(diff < static_cast<double>(FightMaxTurn))) {
+            continue;
+        }
+        bool accept = !best;
+        if (!accept) {
+            if (best->m_fHealth <= 0.0f && other->m_fHealth > 0.0f) { // comparaciones ordenadas: con NaN en la salud del mejor se compara el rumbo
+                accept = true;
+            } else {
+                accept = diff < static_cast<double>(bestDiff);
+            }
+        }
+        if (accept) {
+            bestDiff  = Fn85GStore(diff);
+            bestAngle = angle;
+            best      = other;
+        }
+    }
+    if (best) {
+        ped->m_fAimingRotation = bestAngle;
+        return true;
+    }
+    CEntity* const targeted = FightField<CEntity*>(ped, 0x568);
+    if (!targeted || (FightField<uint8>(targeted, 0x36) & 7) != 2) {
+        return false;
+    }
+    return FightField<void*>(targeted, 0x590) == nullptr;
 }
 #pragma float_control(pop)
 
@@ -1571,6 +1733,7 @@ void CTaskSimpleFight::InjectHooks() {
     RH_ScopedInstall(BeHitWhileBlocking, 0x61C650);
     RH_ScopedInstall(ChooseAttackAI, 0x624A40);
     RH_ScopedInstall(ChooseAttackPlayer, 0x624710);
+    RH_ScopedInstall(TargetInReach, 0x61D6F0);
     RH_ScopedInstall(LoadMeleeData, 0x5BEDC0);
     RH_ScopedVMTInstall(MakeAbortable, 0x6239F0);
     RH_ScopedVMTInstall(ProcessPed, 0x629920);

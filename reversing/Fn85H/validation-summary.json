@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 1,
+  "functions": {
+    "CTaskSimpleFight::TargetInReach": 16384
+  },
+  "covered_functions": {
+    "CTaskSimpleFight::TargetInReach": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado durante el banco): CLocalisation::KickingWhenDown 0x56D270, CPed::GetBonePosition 0x5E4280, CPed::IsAlive 0x5E0170, CPed::IsPlayer 0x5DF8F0, CTaskManager::GetSimplestActiveTask 0x6819D0 y CPlaceable::GetMatrix 0x411990; el GetTaskType virtual de la tarea falsa lo da una tabla de funciones virtuales propia. Registran sus argumentos en orden. La aritmetica (suma de la fila de la tabla de combos y de 0xC177EC, restas, productos escalares con 0x40FE60 y 0x40FDB0 del EXE frente a los ayudantes x87 de la DLL, fpatan, vuelta de 2pi y comparaciones, x87 a 24 bits) corre de verdad en ambos lados y las filas de la tabla de combos son memoria real del juego (se rellenan y se restauran). Con mutaciones de una lectura (posicion o matriz del ped, posicion y estado de la entidad consultada, rumbo del ped, salud de otro ped, cambio de objetivo en cada colaborador, banderas del objetivo y matriz del objetivo tras 0x411990). El banco compara los eventos de los falsos con todos sus argumentos, el valor devuelto (AL), el objetivo final, la presencia de matrices y los bytes cambiados de todas las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits y fpatan de 90 digitos). Fuera de los fixtures: combos fuera de 0..16, NaN con cargas distintas de 0xFFC00000, bytes altos de los booleanos de los colaboradores, peds cercanos sin matriz o ped sin inteligencia, objetivo ped sin inteligencia (+0x47C nulo), tarea 0xCF con animacion o jerarquia nulas, cambios de la lista de peds cercanos tras una consulta y un GetBonePosition que no escriba los tres componentes.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn85H-20261102-183321-713986",
+  "summary_sha256": "f0a1e468c894543d7c7e4b974135f8b3c83ba43689ba54fbc1ca2287425213d3",
+  "result_txt_sha256": "3083c9e1df5ba821d956254a874db5ff1416bbb7a196fefd178b2a8edefd2291",
+  "log_sha256": "732ae2153e18ff5c5790c5d3804f11ebcc983d4e7be93b60d783cb90acd51630",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "aa10ee4ab89fa1859a8bf720a86c269c63d8c23453679bd231a198d70b31c048",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/X87Math.cpp": "7f2b0ed0729bed4ad65d0cb20a9cc45ea053cbc5dc3fda5eafa4e777c2578e49",
+      "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp": "8bc53d618abb5ad23147be5d28e0edafd5ca7d28d97741ca3f393a4a9da123db",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h": "d209050b0060cc7ba97d55c8d84cc811855051374596747a073fc9d3d7053a2f",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn85H/LiveComparison.hpp": "badb4f93a623c27eb2a516f1e1e1ade00be1c642906ce38e4dc03b5da1193b1a",
+      "reversing/Fn85H/Core.hpp": "6f9f1afef074d2384d35f06f8db5d5d1b2a8466ffeea348adc627e1e7e91491b",
+      "reversing/Fn85H/Fixtures.hpp": "33b954703624e6a45084e1b2f3dc18468c9bafc44bf01b876d1d083cbfaa679a",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}
