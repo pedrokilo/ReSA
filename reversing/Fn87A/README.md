@@ -1,0 +1,36 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 03/11/2026 (Ciudad de México):** 820 grupos / 9020 funciones reconstruidas; 9020 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
+# Fn87A: `CPlayerPed::ProcessWeaponSwitch` (lote 87A)
+
+Estado: **APROBADO dentro del juego** (03/11/2026, worktree `wc-1` sobre HEAD 5e114bf61 + los cambios del lote). 16384 pares, cero diferencias EXE/DLL, compuertas de ABI/ruta/SEH/restauración en ambos lados, y cada lado coincide con el oráculo Python independiente (`fixture_oracle.py`).
+Evidencia final: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn87a/20261103-133029-307669` (archivada en `reversing/CppTwelveLevel6Final/runs/`). Una función de código de juego reconstruida en C++ puro y enganchada (tipo S).
+
+| Función | Dirección | Hook | Fuente |
+|---|---|---|---|
+| `CPlayerPed::ProcessWeaponSwitch` (antes `plugin::CallMethod<0x60D850>`) | 0x60D850 | `CPlayerPed` / `ProcessWeaponSwitch` / S | `PlayerPed.cpp` |
+
+La llamada por dirección desaparece. Mide 0x3F4 B (0x60D850..0x60DC41), thiscall con un argumento (`CPad*`) y `ret 4`, void; no usa la x87 (solo empuja la constante -1000.0f). Único llamador en el EXE: `CPlayerPed::ProcessControl` (0x60F2E0), que ya llamaba al método.
+
+## Revisión contra el EXE (0x60D850..0x60DC41)
+- Si `CDarkel::FrenzyOnGoing` (0x43D1F0), `m_pAttachedTo` (+0xFC) o `GetTaskJetPack` (0x601110, con la inteligencia +0x47C) son distintos de cero salta a la comprobación final (0x60DBBC).
+- Sin objetivo fijado (+0x71C), con el dword +0x34 de los datos del jugador (+0x480) sin los bits 0x8 y 0x800 y con el byte +0x85 a cero: `CPad::CycleWeaponRightJustDown` (0x540640); si el modo de la camara (word 0xB6F858) no esta en {0x22,0x2A,7,0x27,8,0x28,0x33,0x34,0x2E} elegida = activa+1 y, si es < 0xD (con signo), recorre las ranuras con arma de tipo distinto de cero, `HasWeaponAmmoToBeUsed` (0x73B2A0) y (no cooperativo o `CanBeUsedFor2Player` 0x73DEF0); al llegar a >= 0xD queda 0. Sin boton derecho prueba `CycleWeaponLeftJustDown` (0x540610) con {0x22,7,8,0x33,0x2E}: elegida = activa-1, si es negativa 0xC, y retrocede hasta una ranura utilizable o hasta 0.
+- 0x60D9BE: `GetWeaponInfo` (0x743C60, tipo del arma activa, habilidad 1); si su primer dword es 0 (cuerpo a cuerpo) va a la comprobacion final. `CPad::GetWeapon` (0x540180) distinto de cero con la minigun (0x26), o municion del arma activa > 0 (con signo): comprobacion final. Modo de camara en {0x22,7,8,0x33}: sale sin comprobacion final. Detonador (0x28) con la bolsa de satchels (0x27) en la ranura 8: elegida = 8; si no, activa-1; retrocede hasta una ranura con municion > 0 que no sea 0x10..0x12 (la ranura 5 con un bate se queda), o hasta 0.
+- 0x60DBBC: elegida == activa: sale. `GetTaskUseGun` (0x600F70) se llama tres veces como en el original: la primera comprueba que existe, la segunda lee el ultimo comando (byte +0x10: 2 o 3 sale) y la tercera comprueba comando 4 con animacion (+0x2C) distinta de cero. Despues `RemoveWeaponAnims` (0x5F0250, ranura activa con signo, -1000.0f) y, si la elegida no es -1, `MakeChangesForNewWeapon` (0x60B460, tipo del arma elegida).
+- La rama de «izquierda con elegida negativa tras decrementar» (0x60DAD4..0x60DAE1) existe en el EXE pero es inalcanzable: la busqueda se detiene en 0 antes de volverse negativa. Se conserva en el C++ y el oraculo la modela; el banco no la exige.
+
+## Banco
+Falsos idénticos en la dirección del EXE y en el cuerpo de la DLL (los doce colaboradores tienen hook RH, apagado durante el banco): `FrenzyOnGoing` 0x43D1F0, `GetTaskJetPack` 0x601110, `CycleWeaponRightJustDown` 0x540640, `CycleWeaponLeftJustDown` 0x540610, `HasWeaponAmmoToBeUsed` 0x73B2A0, `IsCoopGameGoingOn` 0x441390, `CanBeUsedFor2Player` 0x73DEF0, `GetWeaponInfo` 0x743C60, `CPad::GetWeapon` 0x540180, `GetTaskUseGun` 0x600F70, `RemoveWeaponAnims` 0x5F0250 y `MakeChangesForNewWeapon` 0x60B460. Registran sus argumentos EN ORDEN (jugador, inteligencia, pad, arma, tipo y habilidad, ranura y bits del float).
+Memoria real del juego (se rellena y se restaura tras cada lado): el word 0xB6F858 (modo de la camara). El jugador (con las 20 primeras ranuras de armas), sus datos, la inteligencia, el pad, la tarea de disparo y la informacion del arma son arenas.
+Se observa: los eventos de los falsos con todos sus argumentos y los bytes cambiados de todas las arenas (la unica escritura esperada es la ranura elegida, byte +0x20 de los datos del jugador).
+16 familias de 1024 casos: aleatorio, `FrenzyOnGoing`, atado o con jetpack, ciclo derecho, ciclo izquierdo, derecho con cooperativo, izquierdo con cooperativo, ciclo cerrado por objetivo/apuntado/bloqueos/camara, arma activa sin municion, retroceso por municion entre ranuras, informacion cuerpo a cuerpo, minigun con `GetWeapon`, etapa final con las tres combinaciones de tarea de disparo, ranuras extremas, ABI con registros sembrados.
+
+## Fuera de los fixtures
+Ranuras activas y elegidas fuera de 0..19 (el original indexa sin comprobar el rango), jugador sin datos (+0x480) o sin inteligencia (+0x47C), pad nulo, bytes altos de los booleanos de los colaboradores y un `GetTaskUseGun` que devuelva nulo en la segunda o la tercera llamada (el EXE lo desreferencia).
+
+## Prueba negativa
+Producción mutada en nueve puntos (`PlayerPed.cpp` en `wc-1`): el límite 0xD del ciclo derecho (`<` → `<=`), el valor de reinicio 0xC del izquierdo (→ 0xB), la mascara 0x800 de los datos del jugador (→ 0x400), el umbral de municion (`> 0` → `>= 0`), la ranura de los satchels (8 → 9), la exclusion 0x12 (→ 0x13), los comandos de disparo (solo `FIRE`), el desvanecimiento (-1000 → -999) y el modo de camara 0x2A (quitado de la lista): 15073 de 16384 pares fallaron (`resultados-fn87a/20261103-132554-457431`), sin accesos inválidos, y en los 15073 el EXE coincide con el oraculo y la DLL en ninguno. Restaurado con `cmp` contra la copia buena (hash `8dceb4bbfeff2ecb`); la corrida final se hizo después.
+
+## Bancos repetidos
+`PlayerPed51` citaba 0x60D850 (`add(0x60D850, MAddr(&CPlayerPed::ProcessWeaponSwitch), &FakeWeaponSwitch)`: falso ya en la direccion del EXE y en el cuerpo de la DLL, asi que no hizo falta adaptarlo): repetido con el hook activo, 11648 pares, aprobado (`resultados-playerped51/20261103-133343-877349`). `PlayerPed79` solo lo nombra en su `source.patch` historico.

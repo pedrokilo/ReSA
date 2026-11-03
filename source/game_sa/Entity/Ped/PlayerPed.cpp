@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CPlayerPed
- * Reconstrucción: COMPLETA — 64/64 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 65/65 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 64/64 entradas.
+ * Validación registrada: 65/65 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -51,6 +51,7 @@ END GENERATED HOOK STATUS */
 #include "Pools/ObjectPool.h"
 #include "Pools/VehiclePool.h"
 #include "GameLogic.h"
+#include "Darkel.h"
 #include "World.h"
 #include "WeaponInfo.h"
 #include "PedType.h"
@@ -153,6 +154,7 @@ void CPlayerPed::InjectHooks() {
     RH_ScopedInstall(PlayerHasJustAttackedSomeone, 0x60D5A0);
     RH_ScopedInstall(SetupPlayerPed, 0x60D790);
     RH_ScopedInstall(FindWeaponLockOnTarget, 0x60DC50);
+    RH_ScopedInstall(ProcessWeaponSwitch, 0x60D850);
 
     RH_ScopedVMTInstall(ProcessControl, 0x60EA90);
     RH_ScopedVMTInstall(SetMoveAnim, 0x609490);
@@ -2118,9 +2120,130 @@ void CPlayerPed::SetupPlayerPed(int32 playerId) {
     playerInfo.m_nPlayerState = ePlayerState::PLAYERSTATE_PLAYING;
 }
 
-// 0x60D850
+// 0x60D850 (thiscall, ret 4): cambio de arma del jugador con los botones de ciclo. Sin objetivo fijado, con el apuntado libre apagado y sin bloqueos de cambio, el boton derecho (o el izquierdo)
+// busca la siguiente (o anterior) ranura con un arma utilizable; despues comprueba si el arma activa se ha quedado sin municion y, de ser asi, retrocede hasta una ranura con municion; si la ranura
+// elegida (+0x20 de los datos del jugador) difiere de la activa, quita las animaciones del arma activa y aplica el cambio. Como el original: las ranuras se leen con signo (movsx) y se indexan
+// sin comprobar el rango, la ranura elegida se relee de los datos del jugador donde el original la relee, y GetTaskUseGun se llama las tres veces que lo llama el original.
 void CPlayerPed::ProcessWeaponSwitch(CPad* pad) {
-    plugin::CallMethod<0x60D850, CPlayerPed *, CPad*>(this, pad);
+    static_assert(offsetof(CPhysical, m_pAttachedTo) == 0xFC && offsetof(CPlayerPed, m_pIntelligence) == 0x47C && offsetof(CPlayerPed, m_pPlayerData) == 0x480 && offsetof(CPed, m_aWeapons) == 0x5A0
+                  && offsetof(CPed, m_nActiveWeaponSlot) == 0x718 && offsetof(CPed, m_pTargetedObject) == 0x71C, "campos de CPed que ProcessWeaponSwitch toca");
+    static_assert(offsetof(CPlayerPedData, m_nChosenWeapon) == 0x20 && offsetof(CPlayerPedData, m_nPlayerFlags) == 0x34 && offsetof(CPlayerPedData, m_bDontAllowWeaponChange) == 0x85,
+                  "campos de CPlayerPedData que ProcessWeaponSwitch toca");
+    static_assert(sizeof(CWeapon) == 0x1C && offsetof(CWeapon, m_Type) == 0 && offsetof(CWeapon, m_TotalAmmo) == 0xC, "CWeapon: tipo +0, municion total +0xC");
+    static_assert(offsetof(CTaskSimpleUseGun, m_LastCmd) == 0x10 && offsetof(CTaskSimpleUseGun, m_Anim) == 0x2C, "CTaskSimpleUseGun: ultimo comando +0x10, animacion +0x2C");
+    static_assert(sizeof(eWeaponFire) == 4 && WEAPON_FIRE_MELEE == 0 && sizeof(eGunCommand) == 1, "tipo de disparo (dword en +0) y comandos de arma (byte)");
+    const auto weaponAt = [this](const int32 slot) -> CWeapon& { return m_aWeapons.data()[slot]; };                 // movsx + imul 0x1C
+    const auto activeSlot = [this] { return static_cast<int8>(m_nActiveWeaponSlot); };
+    const auto chosenRef = [this]() -> uint8& { return m_pPlayerData->m_nChosenWeapon; };
+    const auto chosen = [&] { return static_cast<int8>(chosenRef()); };
+    const auto cameraMode = [] { return StaticRef<uint16>(0xB6F858); };                                                // modo de la camara activa (word)
+    const auto lastGunCommand = [](const CTaskSimpleUseGun* task) { return static_cast<int8>(task->m_LastCmd); };
+
+    const bool skipToCheck = CDarkel::FrenzyOnGoing() || m_pAttachedTo || m_pIntelligence->GetTaskJetPack();
+    if (!skipToCheck) {
+        const auto isCycleBlockedMode = [&](const std::initializer_list<uint16> modes) {
+            const auto mode = cameraMode();
+            return std::ranges::find(modes, mode) != modes.end();
+        };
+        // La arma de la ranura elegida es candidata si tiene tipo, municion utilizable y (en cooperativo) sirve para dos jugadores
+        const auto pickable = [&]() {
+            if (weaponAt(chosen()).m_Type == WEAPON_UNARMED)
+                return false;
+            if (!weaponAt(chosen()).HasWeaponAmmoToBeUsed())
+                return false;
+            if (!CGameLogic::IsCoopGameGoingOn())
+                return true;
+            return weaponAt(chosen()).CanBeUsedFor2Player();
+        };
+        if (!m_pTargetedObject) {
+            const auto& flags = m_pPlayerData->m_nPlayerFlags;
+            if (!(flags & 0x8) && !m_pPlayerData->m_bDontAllowWeaponChange && !(flags & 0x800)) {
+                if (pad->CycleWeaponRightJustDown()) {
+                    if (!isCycleBlockedMode({0x22, 0x2A, 0x07, 0x27, 0x08, 0x28, 0x33, 0x34, 0x2E})) {
+                        chosenRef() = static_cast<uint8>(m_nActiveWeaponSlot + 1);
+                        if (chosen() < 0xD) {
+                            for (;;) {
+                                if (pickable())
+                                    break;
+                                ++chosenRef();
+                                if (!(chosen() < 0xD)) {
+                                    chosenRef() = 0;
+                                    break;
+                                }
+                            }
+                        } else {
+                            chosenRef() = 0;
+                        }
+                    }
+                } else if (pad->CycleWeaponLeftJustDown()) {
+                    if (!isCycleBlockedMode({0x22, 0x07, 0x08, 0x33, 0x2E})) {
+                        chosenRef() = static_cast<uint8>(m_nActiveWeaponSlot - 1);
+                        if (chosen() < 0)
+                            chosenRef() = 0xC;
+                        for (;;) {
+                            if (chosen() == 0)
+                                break;
+                            if (pickable())
+                                break;
+                            --chosenRef();
+                            if (chosen() < 0)
+                                chosenRef() = 0xC;
+                        }
+                    }
+                }
+            }
+        }
+
+        // 0x60D9BE: si el arma activa no tiene municion (y el boton de disparo no la usa), retrocede hasta una ranura con municion
+        const auto* const info = CWeaponInfo::GetWeaponInfo(weaponAt(activeSlot()).m_Type, eWeaponSkill::STD);
+        if (info->GetFireType() != WEAPON_FIRE_MELEE) {
+            const bool padWeapon = pad->GetWeapon(this) != 0;
+            if (!(padWeapon && weaponAt(activeSlot()).m_Type == WEAPON_MINIGUN)) {
+                if (!(static_cast<int32>(weaponAt(activeSlot()).m_TotalAmmo) > 0)) {
+                    const auto mode = cameraMode();
+                    if (mode == 0x22 || mode == 0x07 || mode == 0x08 || mode == 0x33)
+                        return;
+                    if (weaponAt(activeSlot()).m_Type == WEAPON_DETONATOR && m_aWeapons.data()[8].m_Type == WEAPON_REMOTE_SATCHEL_CHARGE)
+                        chosenRef() = 8;
+                    else
+                        chosenRef() = static_cast<uint8>(m_nActiveWeaponSlot - 1);
+                    if (chosen() < 0) {
+                        chosenRef() = 0;
+                    } else {
+                        for (;;) {
+                            const int8 slot = chosen();
+                            if (slot == 5 && m_aWeapons.data()[5].m_Type == WEAPON_BASEBALLBAT)
+                                break;
+                            if (static_cast<int32>(weaponAt(slot).m_TotalAmmo) > 0 && slot != 0x12 && slot != 0x11 && slot != 0x10)
+                                break;
+                            --chosenRef();
+                            if (chosen() < 0) {
+                                chosenRef() = 0;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // 0x60DBBC: si la ranura elegida difiere de la activa, quita las animaciones del arma activa y aplica el cambio (salvo disparando o recargando con animacion)
+    if (chosen() == activeSlot())
+        return;
+    if (m_pIntelligence->GetTaskUseGun()) {
+        auto* task = m_pIntelligence->GetTaskUseGun();
+        const auto command = lastGunCommand(task);
+        if (command == static_cast<int8>(eGunCommand::FIRE) || command == static_cast<int8>(eGunCommand::FIREBURST))
+            return;
+        task = m_pIntelligence->GetTaskUseGun();
+        if (lastGunCommand(task) == static_cast<int8>(eGunCommand::RELOAD) && task->m_Anim)
+            return;
+    }
+    RemoveWeaponAnims(activeSlot(), -1000.0f);
+    if (chosen() == -1)
+        return;
+    MakeChangesForNewWeapon(weaponAt(chosen()).m_Type);
 }
 
 // 0x60DC50

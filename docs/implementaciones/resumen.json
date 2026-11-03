@@ -20,14 +20,14 @@
     "body_parse_errors": 309,
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 447,
-    "historical_catalog_rows": 9023,
+    "historical_catalog_rows": 9024,
     "catalog_rows_without_unambiguous_source_match_in_scope": 2,
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 20,
     "catalog_rows_linked_by_hook_address": 180,
-    "validated_reconstructed_own_cpp_definitions": 10723,
+    "validated_reconstructed_own_cpp_definitions": 10724,
     "validated_reconstructed_own_asm_definitions": 0,
-    "wrapper_definitions": 32
+    "wrapper_definitions": 31
   },
   "source_sha256": {
     "source/app/app.cpp": "4717fcefd64b864f51910ae3ab7b4b3bc0966838f9cddaaca5727ee06c47ac16",
@@ -259,7 +259,7 @@
     "source/game_sa/Buoyancy.h": "77a32460f81bd42c770f7e6229b6a8b43679fa54b5b47b1b6e616b55b2a31389",
     "source/game_sa/C_PcSave.cpp": "3b199be2588c086819f4ffd6792dfbec92c5e8dd356d7d98bf3d32c310734f9f",
     "source/game_sa/C_PcSave.h": "9ce5bfc6d6dcccef1cc786f6feaaedaf9e76671450786ccd543a5ecb3345f920",
-    "source/game_sa/Cam.cpp": "e550fd1740193bf748dee5a52e6975f38b3bff299df3aafa44c5a8ecfba08282",
+    "source/game_sa/Cam.cpp": "c4df72bbc3082d4e266d32981fdcb3fa897db2015efc8c4327159a48bef0d9a4",
     "source/game_sa/Cam.h": "6185f083e15dd41b51c984a60a797837be41acd6dea95ea03bc2e887e669c34e",
     "source/game_sa/Camera.cpp": "6df73adb4a017734667c6300a12afa5db9fbc1f7facb9cdd477e58fbd31f7fa8",
     "source/game_sa/Camera.h": "5e4115efb5b1f2c0e9435740ca8a0554b554c3a22a9ef2a5dc2f30f0835b1a47",
@@ -473,7 +473,7 @@
     "source/game_sa/Entity/Ped/PedSaveStructure.cpp": "5f58ccddfb1db70c9778c2f287d24ac9bb2eb9432155bd07a55d6dd05d961975",
     "source/game_sa/Entity/Ped/PedSaveStructure.h": "e5c92294002b82a7563cc3dcea70ece869fd25d7ce89e4654b8c530ee4d16187",
     "source/game_sa/Entity/Ped/PedStdBonePositions.h": "660b8512f81ce5369bb3d8e3b4c9ba5a3e1eb36442cbfa4ffc770371e8bb9655",
-    "source/game_sa/Entity/Ped/PlayerPed.cpp": "303b045ffde3c6b90920397b492a6f5cfe0b369d04c8985931e3746f0c0741ac",
+    "source/game_sa/Entity/Ped/PlayerPed.cpp": "8dceb4bbfeff2ecbc005bbd55841e41d318374b745643eaf5ed693ccc2d1ea3f",
     "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
     "source/game_sa/Entity/Ped/PlayerSkin.cpp": "b725e853ad0ac44d3c936722f693b77d30c58420091c43584dc9ac38a63b1cae",
     "source/game_sa/Entity/Ped/PlayerSkin.h": "1188243850ccb80021731e036a8de514fe20aaeac78ef76bb94e8c4150a563db",
@@ -2232,10 +2232,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "589208509bae5f1233f4197f99f2f007e6c3b364a866dc9e5363b1f9e316dd7a",
+    "hooks.csv": "1d18072e70ad1fa949e6783801443fc0f7b2dc5ab8ecfa5c5bc6356a29a0f274",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "1c619bba67acb1a8167ec829683518db945437396ec42de9b5ddb5006114d6f5",
+  "migration_registry_sha256": "dd8baa77770360995bb7c9dd6ed96afc5e8153d3b9fb6eae18dc0221242366a5",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

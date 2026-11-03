@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,019 entradas reversed=1**, de 9,019 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,020 entradas reversed=1**, de 9,020 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9019 |
+| `validated=1` · evidencia aprobada vinculada | 9020 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9019 |
+| Evidencia histórica vinculada; revisión pendiente | 9020 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -4429,6 +4429,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPlayerPed | `ProcessControl` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `ProcessGroupBehaviour` | [Resumen](../reversing/PlayerGroup78/validation-summary.json) |
 | CPlayerPed | `ProcessPlayerWeapon` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
+| CPlayerPed | `ProcessWeaponSwitch` | [Resumen](../reversing/Fn87A/validation-summary.json) |
 | CPlayerPed | `ReApplyMoveAnims` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `ReactivatePlayerPed` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `RemovePlayerPed` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
@@ -9393,7 +9394,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPlantMgr` | 20 | 0 | 20 | 0 |
 | `CPlantSurfPropMgr` | 4 | 0 | 4 | 0 |
 | `CPlayerInfo` | 29 | 0 | 29 | 0 |
-| `CPlayerPed` | 64 | 0 | 64 | 0 |
+| `CPlayerPed` | 65 | 0 | 65 | 0 |
 | `CPlayerPedData` | 5 | 0 | 5 | 0 |
 | `CPlayerRelationshipRecorder` | 1 | 0 | 1 | 0 |
 | `CPlayerSkin` | 4 | 0 | 4 | 0 |

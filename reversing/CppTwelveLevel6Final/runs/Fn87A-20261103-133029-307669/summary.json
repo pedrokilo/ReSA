@@ -1,0 +1,90 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "8a07fa24413eb01e5fb67e50f1def33710a98328812bf20370fae5016d79ac4f",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 16384,
+  "pairs_per_function": {
+    "CPlayerPed::ProcessWeaponSwitch": 16384
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "bc324b9a1e81929caaa5378726b7d95a54d74c2b980b5711daffcfdccef81b22",
+  "compare_dead_x87_registers": false,
+  "families": {
+    "CPlayerPed::ProcessWeaponSwitch": {
+      "0": 1024,
+      "1": 1024,
+      "2": 1024,
+      "3": 1024,
+      "4": 1024,
+      "5": 1024,
+      "6": 1024,
+      "7": 1024,
+      "8": 1024,
+      "9": 1024,
+      "10": 1024,
+      "11": 1024,
+      "12": 1024,
+      "13": 1024,
+      "14": 1024,
+      "15": 1024
+    }
+  },
+  "branch_coverage": {
+    "CPlayerPed::ProcessWeaponSwitch": {
+      "has_ammo": 6289,
+      "noug": 8805,
+      "right_cam_blocked": 717,
+      "change": 12674,
+      "cycle_open": 12672,
+      "differ": 14989,
+      "same": 927,
+      "frenzy": 1165,
+      "attached": 706,
+      "right_found": 1978,
+      "right": 2482,
+      "ug": 6184,
+      "melee": 3085,
+      "left": 2657,
+      "ug_reload_anim": 824,
+      "left_found": 2321,
+      "prev_slot": 3013,
+      "keep_ammo": 2575,
+      "no_ammo": 3118,
+      "ug_fire": 1000,
+      "no_cycle": 6525,
+      "padw_minigun": 907,
+      "chosen_m1": 491,
+      "cam_exit": 468,
+      "noswitch": 253,
+      "jet": 646,
+      "ug_other": 3589,
+      "dontallow": 284,
+      "targeted": 385,
+      "right_high": 365,
+      "ug_reload_noanim": 771,
+      "left_zero": 336,
+      "right_wrap": 139,
+      "skip_1x": 207,
+      "prev_wrap": 196,
+      "prev_neg": 225,
+      "left_neg": 117,
+      "left_cam_blocked": 291,
+      "detonator": 105,
+      "freeaim": 273,
+      "keep_bat": 122
+    }
+  },
+  "independent_oracle": "fixture_oracle.py: cada lado de cada par coincide con el modelo",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 1,
+  "functions": {
+    "CPlayerPed::ProcessWeaponSwitch": 16384
+  },
+  "covered_functions": {
+    "CPlayerPed::ProcessWeaponSwitch": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wc-1 (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (todos con hook RH apagado durante el banco): CDarkel::FrenzyOnGoing 0x43D1F0, CPedIntelligence::GetTaskJetPack 0x601110 y GetTaskUseGun 0x600F70, CPad::CycleWeaponRightJustDown 0x540640, CycleWeaponLeftJustDown 0x540610 y GetWeapon 0x540180, CWeapon::HasWeaponAmmoToBeUsed 0x73B2A0 y CanBeUsedFor2Player 0x73DEF0, CGameLogic::IsCoopGameGoingOn 0x441390, CWeaponInfo::GetWeaponInfo 0x743C60, CPed::RemoveWeaponAnims 0x5F0250 y CPlayerPed::MakeChangesForNewWeapon 0x60B460. Registran sus argumentos en orden. La logica de la funcion (lectura con signo de ranuras, ciclo derecho e izquierdo, retroceso por falta de municion, comparacion final y orden de las tres llamadas a GetTaskUseGun) corre de verdad en ambos lados; el jugador, sus datos, la inteligencia, el pad, la tarea de disparo y la informacion del arma son arenas y el modo de la camara (word 0xB6F858) es memoria real del juego (se guarda y se restaura). El banco compara los eventos de los falsos con todos sus argumentos y los bytes cambiados de todas las arenas; cada lado de cada par coincide con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: combos de ranura fuera de 0..19, jugador sin datos o sin inteligencia, pad nulo, bytes altos de los booleanos de los colaboradores y un GetTaskUseGun que devuelva nulo en la segunda o tercera llamada.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn87A-20261103-133029-307669",
+  "summary_sha256": "f607cdbd511c6fc16f2e4b503ace0ac84c0c36ee5632de53a4dc23322217d5b7",
+  "result_txt_sha256": "a9166115da1e466f303c34c0b557da0f0e130d42498ea83ac51476e72dddcf99",
+  "log_sha256": "bc324b9a1e81929caaa5378726b7d95a54d74c2b980b5711daffcfdccef81b22",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "8a07fa24413eb01e5fb67e50f1def33710a98328812bf20370fae5016d79ac4f",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/Entity/Ped/PlayerPed.cpp": "8dceb4bbfeff2ecbc005bbd55841e41d318374b745643eaf5ed693ccc2d1ea3f",
+      "source/game_sa/Entity/Ped/PlayerPed.h": "7fe1df1360b8214326673190698eeebe9da81d7e7200370364adb628b8e0a015",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn87A/LiveComparison.hpp": "b9f6dd33b792a2f6617f40f89ac7664ac36159883f91581a8f43f4f10d19fa99",
+      "reversing/Fn87A/Core.hpp": "a59a5ad8f9be40892b349000129c4ba3820651afdf1ad8d3caf0bb7aec5de98d",
+      "reversing/Fn87A/Fixtures.hpp": "79231e501f2fc9d079a350b68c41a98857c47fad95d45c782bd6bf1b62f1ef8f",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}
