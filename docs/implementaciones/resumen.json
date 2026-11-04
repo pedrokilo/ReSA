@@ -1,7 +1,7 @@
 {
   "scope": "source/game_sa and source/app (WindowedMode.cpp included as the documented NOTSA assembly exception, reported separately), definitions in cpp/h/hpp/inc; all preprocessing branches",
   "totals": {
-    "source_definition_count": 18776,
+    "source_definition_count": 18802,
     "groups": 1507,
     "assembly_occurrences": 0,
     "naked_declarations": 0,
@@ -20,12 +20,12 @@
     "body_parse_errors": 309,
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 447,
-    "historical_catalog_rows": 9053,
+    "historical_catalog_rows": 9057,
     "catalog_rows_without_unambiguous_source_match_in_scope": 4,
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 20,
     "catalog_rows_linked_by_hook_address": 180,
-    "validated_reconstructed_own_cpp_definitions": 10768,
+    "validated_reconstructed_own_cpp_definitions": 10788,
     "validated_reconstructed_own_asm_definitions": 0,
     "wrapper_definitions": 30
   },
@@ -2211,8 +2211,8 @@
     "source/game_sa/WaterCreature_c.h": "e32cbbc26e9f2e92d17e4599105703d3111251d3b5edfada24ea001192596b7a",
     "source/game_sa/WaterCreatureManager_c.cpp": "7a7fcecfba92445b326df9a8470db51bf89c0035393abd75bc8d49ba1cc16142",
     "source/game_sa/WaterCreatureManager_c.h": "07ecdf3d2ab819320a13ad84c6dbb0ed8b5dfa75d72600b9af33be5011392876",
-    "source/game_sa/WaterLevel.cpp": "6250dd9c28731362d42de8895306652fd93e786c592edb8d7ed61807c7d03b14",
-    "source/game_sa/WaterLevel.h": "0f502388c91ac149b8db34d4faf91f906f1c16cab4d85e403c1f5af29b44fdc6",
+    "source/game_sa/WaterLevel.cpp": "c6d7c2c2ad4c279bd143b0f624d7dfff5a72cca203c60db3bf7893362c381712",
+    "source/game_sa/WaterLevel.h": "65434b95ae91278a4d9481cc540d4ec0021d0de8729fa2c86cd4ac82c815c1a4",
     "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
     "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6",
     "source/game_sa/WeaponEffects.cpp": "1a1df85c89eb631ff07871984b9476afb9cd4fd8c3d89938abe42e00bd799f32",
@@ -2226,17 +2226,17 @@
     "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
     "source/game_sa/World.h": "e74692b5453b443036eb91ed880449d9d2345fdcb9b189fc200a6e8dcf00abd4",
     "source/game_sa/World_Helper.cpp": "331f33ad029ba5a963ac2b15dbe384298d36075b3b0eef2adedeb72454f5a033",
-    "source/game_sa/X87Math.cpp": "0f05c3064e745b369facce14e1d0791454011689498d2dd4f12afcc01d5d9afc",
-    "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
+    "source/game_sa/X87Math.cpp": "15d6efba3daf1076c9c833b54c9c0af684bc8bba731c8438e6dc0524253068e2",
+    "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
     "source/game_sa/Zone.cpp": "efb2c9fa14a6744d59fb142a8c8497719d7e9bf976ca3aebca78cc33caffa14a",
     "source/game_sa/Zone.h": "6e68b4a81ee271b97e3ed2b1ce9a6fcc1ff87dd54ab7790cb908fb14c5624d93",
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "ed15ea40df50bf0522c832bbd3916779ac9fa742fe6852522574fbba36286b7b",
+    "hooks.csv": "80da019bcaf6d33bafcc0a40e7b998b3fc441f9365fb25cd947f48552e33bfca",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "8ff959a1335622c8e9a62b9ebfdf5ed6ce5687e11f2b414be950f0cb076f29df",
+  "migration_registry_sha256": "bbc0db58865948f29fd71863a8e95df9775b95dc29f7a4d8968fe3a3a79b8423",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

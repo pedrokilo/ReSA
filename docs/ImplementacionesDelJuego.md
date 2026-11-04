@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 04/11/2026 (Ciudad de México):** 830 grupos / 9049 funciones reconstruidas; 9049 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 04/11/2026 (Ciudad de México):** 830 grupos / 9053 funciones reconstruidas; 9053 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Implementaciones del juego: C++, ensamblador y dependencia del EXE
@@ -8,7 +8,7 @@ Este documento distingue el lenguaje de la fuente, la reconstrucción, la valida
 
 El inventario asigna **0 apariciones de ensamblador** a **0 definiciones con cuerpo** y **0 declaraciones naked** a **0 definiciones**. No queda ninguna aparición sin ubicación. Las funciones mixtas se cuentan en «con ensamblador»; naked es una marca adicional que no se suma como otra función.
 
-De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 18776 definiciones en 1507 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
+De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 18802 definiciones en 1507 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
 
 ## Cómo leer la tabla
 
@@ -933,7 +933,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CWanted](implementaciones/detalle-046.md#grupo-902) · [source/game_sa/Wanted.cpp](../source/game_sa/Wanted.cpp), [source/game_sa/Wanted.h](../source/game_sa/Wanted.h) | 33 | 0 | 6 | 0 | 0 |
 | [CWaterCannon](implementaciones/detalle-046.md#grupo-903) · [source/game_sa/WaterCannon.cpp](../source/game_sa/WaterCannon.cpp) | 5 | 0 | 4 | 0 | 0 |
 | [CWaterCannons](implementaciones/detalle-046.md#grupo-904) · [source/game_sa/WaterCannons.cpp](../source/game_sa/WaterCannons.cpp) | 4 | 0 | 1 | 0 | 0 |
-| [CWaterLevel](implementaciones/detalle-046.md#grupo-905) · [source/game_sa/WaterLevel.cpp](../source/game_sa/WaterLevel.cpp), [source/game_sa/WaterLevel.h](../source/game_sa/WaterLevel.h) | 41 | 0 | 12 | 0 | 0 |
+| [CWaterLevel](implementaciones/detalle-046.md#grupo-905) · [source/game_sa/WaterLevel.cpp](../source/game_sa/WaterLevel.cpp), [source/game_sa/WaterLevel.h](../source/game_sa/WaterLevel.h) | 45 | 0 | 12 | 0 | 0 |
 | [CWaterLevel::PolyInfo](implementaciones/detalle-046.md#grupo-906) · [source/game_sa/WaterLevel.h](../source/game_sa/WaterLevel.h) | 0 | 0 | 2 | 0 | 0 |
 | [CWaterPolygon](implementaciones/detalle-046.md#grupo-907) · [source/game_sa/WaterLevel.h](../source/game_sa/WaterLevel.h) | 0 | 0 | 3 | 0 | 0 |
 | [CWaterPolygon&lt;NumVerts&gt;](implementaciones/detalle-046.md#grupo-908) · [source/game_sa/WaterLevel.cpp](../source/game_sa/WaterLevel.cpp) | 0 | 0 | 1 | 0 | 0 |
@@ -1348,7 +1348,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [Globales y helpers: source/game_sa/VisibilityPlugins.cpp](implementaciones/detalle-066.md#grupo-1317) · [source/game_sa/VisibilityPlugins.cpp](../source/game_sa/VisibilityPlugins.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Wanted.cpp](implementaciones/detalle-066.md#grupo-1318) · [source/game_sa/Wanted.cpp](../source/game_sa/Wanted.cpp) | 0 | 0 | 2 | 0 | 0 |
 | [Globales y helpers: source/game_sa/WaterCreature_c.cpp](implementaciones/detalle-066.md#grupo-1319) · [source/game_sa/WaterCreature_c.cpp](../source/game_sa/WaterCreature_c.cpp) | 0 | 0 | 5 | 0 | 0 |
-| [Globales y helpers: source/game_sa/WaterLevel.cpp](implementaciones/detalle-066.md#grupo-1320) · [source/game_sa/WaterLevel.cpp](../source/game_sa/WaterLevel.cpp) | 2 | 0 | 8 | 0 | 0 |
+| [Globales y helpers: source/game_sa/WaterLevel.cpp](implementaciones/detalle-066.md#grupo-1320) · [source/game_sa/WaterLevel.cpp](../source/game_sa/WaterLevel.cpp) | 2 | 0 | 14 | 0 | 0 |
 | [Globales y helpers: source/game_sa/WaterLevel.h](implementaciones/detalle-067.md#grupo-1321) · [source/game_sa/WaterLevel.h](../source/game_sa/WaterLevel.h) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Weapon.cpp](implementaciones/detalle-067.md#grupo-1322) · [source/game_sa/Weapon.cpp](../source/game_sa/Weapon.cpp) | 0 | 0 | 6 | 0 | 0 |
 | [Globales y helpers: source/game_sa/WeaponEffects.cpp](implementaciones/detalle-067.md#grupo-1323) · [source/game_sa/WeaponEffects.cpp](../source/game_sa/WeaponEffects.cpp) | 1 | 0 | 0 | 0 | 0 |
@@ -1356,7 +1356,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [Globales y helpers: source/game_sa/Weather.cpp](implementaciones/detalle-067.md#grupo-1325) · [source/game_sa/Weather.cpp](../source/game_sa/Weather.cpp) | 0 | 0 | 8 | 0 | 0 |
 | [Globales y helpers: source/game_sa/World.cpp](implementaciones/detalle-067.md#grupo-1326) · [source/game_sa/World.cpp](../source/game_sa/World.cpp) | 0 | 0 | 18 | 0 | 0 |
 | [Globales y helpers: source/game_sa/World_Helper.cpp](implementaciones/detalle-067.md#grupo-1327) · [source/game_sa/World_Helper.cpp](../source/game_sa/World_Helper.cpp) | 0 | 0 | 4 | 0 | 0 |
-| [Globales y helpers: source/game_sa/X87Math.cpp](implementaciones/detalle-067.md#grupo-1328) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 1199 | 0 | 1 | 0 | 0 |
+| [Globales y helpers: source/game_sa/X87Math.cpp](implementaciones/detalle-067.md#grupo-1328) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 1215 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/cHandlingDataMgr.cpp](implementaciones/detalle-067.md#grupo-1329) · [source/game_sa/cHandlingDataMgr.cpp](../source/game_sa/cHandlingDataMgr.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/common.cpp](implementaciones/detalle-067.md#grupo-1330) · [source/game_sa/common.cpp](../source/game_sa/common.cpp) | 3 | 0 | 10 | 0 | 0 |
 | [Globales y helpers: source/game_sa/common.h](implementaciones/detalle-067.md#grupo-1331) · [source/game_sa/common.h](../source/game_sa/common.h) | 0 | 0 | 26 | 0 | 0 |

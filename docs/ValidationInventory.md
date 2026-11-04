@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,049 entradas reversed=1**, de 9,049 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,053 entradas reversed=1**, de 9,053 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9049 |
+| `validated=1` · evidencia aprobada vinculada | 9053 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9049 |
+| Evidencia histórica vinculada; revisión pendiente | 9053 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -8148,6 +8148,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CWaterCannons | `Render` | [Resumen](../reversing/Misc8/validation-summary.json) |
 | CWaterCannons | `Update` | [Resumen](../reversing/Misc8/validation-summary.json) |
 | CWaterCannons | `UpdateOne` | [Resumen](../reversing/Misc8/validation-summary.json) |
+| CWaterLevel | `AddToQuadsAndTrianglesList` | [Resumen](../reversing/Fn91A/validation-summary.json) |
 | CWaterLevel | `AddWaterLevelQuad` | [Resumen](../reversing/WaterWave4/validation-summary.json) |
 | CWaterLevel | `AddWaterLevelTriangle` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CWaterLevel | `AddWaterLevelVertex` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
@@ -8158,6 +8159,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CWaterLevel | `FillQuadsAndTrianglesList` | [Resumen](../reversing/WaterLevel62/validation-summary.json) |
 | CWaterLevel | `FindNearestWaterAndItsFlow` | [Resumen](../reversing/WaterNearest355/validation-summary.json) |
 | CWaterLevel | `FlushWaterRenderBuffer` | [Resumen](../reversing/SmallHelpers64B/validation-summary.json) |
+| CWaterLevel | `GetGroundLevel` | [Resumen](../reversing/Fn91A/validation-summary.json) |
 | CWaterLevel | `GetWaterDepth` | [Resumen](../reversing/WaterLevel62/validation-summary.json) |
 | CWaterLevel | `GetWaterLevel-` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CWaterLevel | `GetWaterLevelNoWaves` | [Resumen](../reversing/WaterQuery355/validation-summary.json) |
@@ -8171,7 +8173,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CWaterLevel | `RenderFlatWaterTriangle` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CWaterLevel | `RenderFlatWaterTriangle_OneLayer` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CWaterLevel | `RenderHighDetailWaterRectangle` | [Resumen](../reversing/WaterLevel62/validation-summary.json) |
+| CWaterLevel | `RenderHighDetailWaterRectangle_OneLayer` | [Resumen](../reversing/Fn91A/validation-summary.json) |
 | CWaterLevel | `RenderHighDetailWaterTriangle` | [Resumen](../reversing/WaterLevel62/validation-summary.json) |
+| CWaterLevel | `RenderHighDetailWaterTriangle_OneLayer` | [Resumen](../reversing/Fn91A/validation-summary.json) |
 | CWaterLevel | `RenderSeaBedSegment` | [Resumen](../reversing/Helpers67W/validation-summary.json) |
 | CWaterLevel | `RenderSeaBedSegmentNear` | [Resumen](../reversing/Fn88B/validation-summary.json) |
 | CWaterLevel | `RenderWakeSegment` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
@@ -9833,7 +9837,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CWanted` | 33 | 0 | 33 | 0 |
 | `CWaterCannon` | 5 | 0 | 5 | 0 |
 | `CWaterCannons` | 4 | 0 | 4 | 0 |
-| `CWaterLevel` | 41 | 0 | 41 | 0 |
+| `CWaterLevel` | 45 | 0 | 45 | 0 |
 | `CWeapon` | 41 | 0 | 41 | 0 |
 | `CWeaponEffects` | 10 | 0 | 10 | 0 |
 | `CWeaponInfo` | 10 | 0 | 10 | 0 |
