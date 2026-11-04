@@ -26,8 +26,8 @@ HOOKS = dict(zip(NAMES, (0x634A40, 0x65E9A0, 0x6551D0, 0x681FE0)))
 STUBBED = {NAMES[0]: [],
            NAMES[1]: [(0x56E210, True), (0x5EFFE0, True)],
            NAMES[2]: [(0x5F6110, True), (0x5F3660, True), (0x5F3AC0, True)],
-           NAMES[3]: [(0x59C910, False)]}
-DLL_BODY_WITHOUT_HOOK = {0x59C910}   # CVector::Normalise: sin hook RH, la DLL llama a su cuerpo (parcheado con el mismo falso)
+           NAMES[3]: [(0x59C910, True)]}
+DLL_BODY_WITHOUT_HOOK = set()   # (CVector::Normalise tiene hook RH desde el lote 96A)
 WATCHED = {a for lst in STUBBED.values() for a, _ in lst} | set(HOOKS.values())
 COVER_FLOOR = 50
 COVER = json.loads((HERE / 'coverage.json').read_text()) if (HERE / 'coverage.json').exists() else {}

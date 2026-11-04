@@ -10,32 +10,39 @@
   "covered_functions": {
     "CCam::ProcessArrestCamCheese": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, los que tienen hook RH en la DLL (apagado durante el banco), tambien en el cuerpo de la DLL: rand 0x821B1E (CRT del EXE), GetAnimHierarchyFromSkinClump 0x734A40, RpHAnimIDGetIndex 0x7C51A0, RpHAnimHierarchyGetMatrixArray 0x7C5120, CVector::Normalise 0x59C910, CrossProduct 0x59C730 y CWorld::GetIsLineOfSightClear 0x56A490. Registran sus argumentos en orden (con el contenido de los vectores en la llamada). Los dos Normalise y los dos CrossProduct escriben lo que dicta el caso. La aritmetica (tiempo como entero con signo mas 2^32, resta de 0xB6EC60 y 0xB70024, division entre 1000.0f, guardado como float, comparaciones de t, punto mirado, source += desplazamiento, front = P - source; ayudantes x87 de 24 bits de la DLL frente a la x87 del EXE) corre de verdad en ambos lados y los estaticos 0xB70000..0xB7002F, 0xB6EC60, 0xB6F980 y 0xB7CB84 son memoria real del juego (se rellenan y se restauran). Con mutaciones de una lectura (objetivo de la camara, tiempo, 0xB6EC60, 0xB70024, clump del ped, banderas 0xB7001C, 0xB70004, matriz o tipo del objetivo tras rand, z del hueso, objetivo tras la primera linea de vista). El banco compara los eventos de los falsos con todos sus argumentos, el valor devuelto (AL), los globales, la presencia de matrices y los bytes cambiados de todas las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: NaN con cargas distintas de 0xFFC00000, indices de hueso fuera de 0..15, posiciones de hueso no escritas, bytes altos del booleano devuelto por los colaboradores, objetivo no nulo con tipo ped pero sin rw-clump y colaboradores que cambien `from`.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, los que tienen hook RH en la DLL (apagado durante el banco), tambien en el cuerpo de la DLL: rand 0x821B1E (CRT del EXE), GetAnimHierarchyFromSkinClump 0x734A40, RpHAnimIDGetIndex 0x7C51A0, RpHAnimHierarchyGetMatrixArray 0x7C5120, CVector::Normalise 0x59C910, CrossProduct 0x59C730 y CWorld::GetIsLineOfSightClear 0x56A490. Registran sus argumentos en orden (con el contenido de los vectores en la llamada). Los dos Normalise y los dos CrossProduct escriben lo que dicta el caso. La aritmetica (tiempo como entero con signo mas 2^32, resta de 0xB6EC60 y 0xB70024, division entre 1000.0f, guardado como float, comparaciones de t, punto mirado, source += desplazamiento, front = P - source; ayudantes x87 de 24 bits de la DLL frente a la x87 del EXE) corre de verdad en ambos lados y los estaticos 0xB70000..0xB7002F, 0xB6EC60, 0xB6F980 y 0xB7CB84 son memoria real del juego (se rellenan y se restauran). Con mutaciones de una lectura (objetivo de la camara, tiempo, 0xB6EC60, 0xB70024, clump del ped, banderas 0xB7001C, 0xB70004, matriz o tipo del objetivo tras rand, z del hueso, objetivo tras la primera linea de vista). El banco compara los eventos de los falsos con todos sus argumentos, el valor devuelto (AL), los globales, la presencia de matrices y los bytes cambiados de todas las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: NaN con cargas distintas de 0xFFC00000, indices de hueso fuera de 0..15, posiciones de hueso no escritas, bytes altos del booleano devuelto por los colaboradores, objetivo no nulo con tipo ped pero sin rw-clump y colaboradores que cambien `from`. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Fn86A-20261103-005745-230705",
-  "summary_sha256": "2d56dbc28bea1d3ca63db00256eeb5f2862402618f70b5c00f9f68de8e43a144",
-  "result_txt_sha256": "c755994224dedc37c29ee7df20cb3abb6fa43a1658ca5cc0953bb69c20ad613a",
-  "log_sha256": "5ad9e4067dd63db4d133c783fd2062f41cfe8ba54776398e886e38d053a85e60",
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn86A-20261104-154003-900973",
+  "summary_sha256": "41ebf807fb58e2192007a328fa024a230f6bd74b1c2b4f5929e61de498bcbfe6",
+  "result_txt_sha256": "4bff244d213cb1f36d140bbdd196f297099c89143e5ff2031a5d3c821c776f5d",
+  "log_sha256": "10795a366e11f896f4a7a26d0ae13ebfdcfff800bf6fbe9e31e343f80261a41e",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "d2d6232ae5517759df4c87ee838997fed7705e2089d713a6ae979f67b52a4c82",
+  "executed_probe_sha256": "8648a76a696af097b5f51e35bedfa87d2262117b75212019e55f745282dfa96d",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-      "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-      "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09",
-      "source/game_sa/Cam.cpp": "96f4f8b86a9e3e0f960e2e46be6e7524cec25d8674141eaa3f3712bbe88edba1",
-      "source/game_sa/Cam.h": "b08ca85c53624ae6de9d8f7705c2e56ac24066cbc33d6565076629e8dc9f4b08",
+      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+      "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+      "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+      "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+      "source/game_sa/Cam.cpp": "6426802252dc1349e84668d6f23a4ae5505ae7736320e782016ecb45b31a157a",
+      "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/Fn86A/LiveComparison.hpp": "ea0ac87a28b9912844d34a3c07b16da78667eab12cf069e119251523f4553add",
-      "reversing/Fn86A/Core.hpp": "6eccd225f0ffd6714f69a2eef3f21bcb031ce5a2dba99ebcb834c85639360ad5",
-      "reversing/Fn86A/Fixtures.hpp": "f1f53592ea7f8e285fa60aa4f1f158530b18854fe5cda4ea8935e81b9126010e",
+      "reversing/Fn86A/LiveComparison.hpp": "a003885279d07022fee2a17126bd1422aaa87f8e5c0e1f695424a7ebd0a4116a",
+      "reversing/Fn86A/Core.hpp": "46cf1df9a05d24d02a6be045334e7a671eb255fa4d11d677e8164bc9fe6ea262",
+      "reversing/Fn86A/Fixtures.hpp": "137249630202cfe20c3051492a6932d0113e6eeece2fb32a387c8180b9a92b45",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn86A-20261104-154003-900973/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "019129dfdaaf078af7f0c002b2847b413b7bf3cc417fe1050f7166afc91ceee2",
+    "uncompressed_sha256": "10795a366e11f896f4a7a26d0ae13ebfdcfff800bf6fbe9e31e343f80261a41e"
   }
 }

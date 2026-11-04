@@ -44,3 +44,6 @@ Fuente restaurada con `cmp` contra la copia buena.
 
 ## Tiempo
 Una corrida de los 65536 pares: unos 4,5 min (mas la compilacion incremental de la sonda, de 0,5 a 10 min segun el reparto de los candados).
+
+## Actualizacion del lote 96A (04/11/2026)
+`CVector::Normalise` (0x59C910) tiene hook RH y banco propio desde el lote 96A (`reversing/Fn96A`: 16384 pares contra el EXE, cero diferencias): lo dicho arriba de que su exactitud "se hereda" y de que `CVector::InjectHooks` esta apagado ya no aplica a Normalise. El banco se corrigio como la leccion de los falsos identicos (el falso de 0x59C910 va ahora en la entrada del EXE y en el cuerpo de la DLL, hooked=true, como los demas colaboradores con hook) y se repitio aprobado con el codigo final.

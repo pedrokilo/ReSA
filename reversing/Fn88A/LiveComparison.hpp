@@ -197,6 +197,18 @@ inline bool FindHook(uintptr_t exe, std::string& cat, std::string& name) {
     return found;
 }
 
+// Colaborador: si la DLL tiene hook (apagado) se parchea tambien el cuerpo de la DLL; si no (dll = 0), la DLL llama a la direccion del EXE.
+inline Pair MakeCollab(Env& env, uintptr_t exe, json& hooksFound) {
+    Pair p{exe, 0, false};
+    std::string cat, name;
+    if (FindHook(exe, cat, name)) {
+        env.collab.emplace_back(new HookRoute(cat.c_str(), name.c_str(), exe, HookRoute::RegisteredTarget{}));
+        hooksFound.push_back({{"exe", exe}, {"class", cat}, {"name", name}});
+        if (env.collab.back()->Registered()) { p.dll = Body(env.collab.back()->Body()); p.hooked = true; }
+    }
+    return p;
+}
+
 inline void Update() {
     if (done) return; char exe[MAX_PATH]{}; GetModuleFileNameA(nullptr, exe, MAX_PATH); const auto dir = std::filesystem::path(exe).parent_path();
     if (!std::filesystem::exists(dir / "fn88a-runtime.start")) { done = true; return; }
@@ -221,7 +233,9 @@ inline void Update() {
     // CVector::Normalise y CrossProduct(out) tienen hook RH en la DLL pero no figuran como hooks Simple del catalogo: el cuerpo de la DLL se resuelve por el puntero a la funcion (como en Helpers66D y Fn86A).
     void (CVector::*normalise)() = &CVector::Normalise;
     CVector* (*crossOut)(CVector*, CVector*, CVector*) = &CrossProduct;
-    const Pair pNormalise{0x59C910, Body(std::bit_cast<uintptr_t>(normalise)), true}, pCross{0x59C730, Body(reinterpret_cast<uintptr_t>(crossOut)), true};
+    // CVector::Normalise tiene hook RH desde el lote 96A: MakeCollab crea su ruta (apagada durante el banco) y resuelve el cuerpo de la DLL
+    (void)normalise;
+    const Pair pNormalise = MakeCollab(env, 0x59C910, hooksFound), pCross{0x59C730, Body(reinterpret_cast<uintptr_t>(crossOut)), true};
     env.stubs[0] = {S(pNormalise, reinterpret_cast<void*>(&FkNormalise)), S(pCross, reinterpret_cast<void*>(&FkCross))};
     for (unsigned f = 0; f < kFunctions; ++f) {
         json stubbed = json::array();

@@ -1,0 +1,3 @@
+APROBADO: PlayerPed79
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-playerped79\20261104-145647-641371

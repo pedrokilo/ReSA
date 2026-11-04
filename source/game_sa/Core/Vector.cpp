@@ -5,12 +5,40 @@
     Do not delete this comment block. Respect others' work!
 */
 
+// Este archivo se compila completo con /O2 /Oi /arch:IA32 /fp:fast /Zi, sin PCH ni unity (ver source/CMakeLists.txt):
+// Magnitude, Magnitude2D, Normalise y NormaliseAndMag necesitan la x87 del EXE (palabra de control de 24 bits, exponente ampliado en los registros).
+#ifdef _MSC_VER
+#pragma warning(push, 0)
+#endif
 #include "StdInc.h"
 
 #include "Vector.h"
 #include "Vector2D.h"
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+
+extern "C" double __cdecl sqrt(double);
+#pragma intrinsic(sqrt)
 
 void CVector::InjectHooks()
+{
+    RH_ScopedClass(CVector);
+    RH_ScopedCategory("Core");
+
+    // Magnitude, Magnitude2D, Normalise y NormaliseAndMag se instalan por separado en InjectHooksExactMath
+    RH_ScopedInstall(Cross_OG, 0x70F890);
+    RH_ScopedInstall(Sum, 0x40FDD0);
+    RH_ScopedInstall(Difference, 0x40FE00);
+    RH_ScopedInstall(FromMultiply, 0x59C670);
+    RH_ScopedInstall(FromMultiply3x3, 0x59C6D0);
+    RH_ScopedGlobalOverloadedInstall(CrossProduct, "out", 0x59C730, CVector*(*)(CVector*, CVector*, CVector*));
+    RH_ScopedGlobalOverloadedInstall(DotProduct, "v3d*v3d*", 0x40FDB0, float(*)(CVector*, CVector*));
+}
+
+// CVector::InjectHooks completo esta desactivado en InjectHooksMain (rendimiento); estas son las unicas entradas de CVector que se instalan:
+// Magnitude (0x4082C0), Magnitude2D (0x406D50), Normalise (0x59C910) y NormaliseAndMag (0x59C970), reconstruidas con la x87 del EXE (ver abajo) y validadas por el banco Fn96A.
+void CVector::InjectHooksExactMath()
 {
     RH_ScopedClass(CVector);
     RH_ScopedCategory("Core");
@@ -19,13 +47,6 @@ void CVector::InjectHooks()
     RH_ScopedInstall(Magnitude2D, 0x406D50);
     RH_ScopedInstall(Normalise, 0x59C910);
     RH_ScopedInstall(NormaliseAndMag, 0x59C970);
-    RH_ScopedInstall(Cross_OG, 0x70F890);
-    RH_ScopedInstall(Sum, 0x40FDD0);
-    RH_ScopedInstall(Difference, 0x40FE00);
-    RH_ScopedInstall(FromMultiply, 0x59C670);
-    RH_ScopedInstall(FromMultiply3x3, 0x59C6D0);
-    RH_ScopedGlobalOverloadedInstall(CrossProduct, "out", 0x59C730, CVector*(*)(CVector*, CVector*, CVector*));
-    RH_ScopedGlobalOverloadedInstall(DotProduct, "v3d*v3d*", 0x40FDB0, float(*)(CVector*, CVector*));
 }
 
 /*!
@@ -49,39 +70,55 @@ CVector CVector::Random(float min, float max) {
     return { Get(), Get(), Get() };
 }
 
-// Returns length of vector
+// Las cuatro funciones siguientes (0x4082C0, 0x406D50, 0x59C910, 0x59C970) reproducen la x87 del EXE: este archivo se compila con /O2 /Oi /arch:IA32 /fp:fast
+// (source/CMakeLists.txt) y las sumas llevan el mismo orden que el EXE, ((x*x + y*y) + z*z); los valores intermedios (suma, raiz, inverso) quedan en los registros de la x87
+// (24 bits de mantisa por la palabra de control del juego y exponente ampliado): son `double` y no se guardan como float. Solo se guardan como float los componentes del vector
+// (y el valor devuelto sale en ST0 sin redondear a float). Como en el EXE, ECX y EDX no se tocan.
+
+// 0x4082C0: raiz de la suma de cuadrados, en ST0
 float CVector::Magnitude() const
 {
-    return sqrt(x * x + y * y + z * z);
+    return float(sqrt(((double)x * x + (double)y * y) + (double)z * z));
 }
 
+// 0x406D50
 float CVector::Magnitude2D() const
 {
-    return sqrt(x * x + y * y);
+    return float(sqrt((double)x * x + (double)y * y));
 }
 
-// Normalises a vector
+// 0x59C910: normaliza in situ; con la suma de cuadrados igual a 0 solo pone x = 1 (y y z intactos). Con NaN sigue el camino normal (la comparacion con 0 es "no mayor" solo si no es NaN)
 void CVector::Normalise()
 {
-    (void)NormaliseAndMag();
+    const double fDot = ((double)x * x + (double)y * y) + (double)z * z;
+    if (fDot <= 0.0)
+    {
+        x = 1.0F;
+        return;
+    }
+
+    const double fRecip = 1.0 / sqrt(fDot);
+    x = float(fRecip * x);
+    y = float(fRecip * y);
+    z = float(fRecip * z);
 }
 
-// Normalises a vector and returns length
+// 0x59C970: como Normalise y devuelve 1 / (1 / raiz) sin redondear a float (1.0 si la suma es 0)
 float CVector::NormaliseAndMag()
 {
-    const auto fDot = x * x + y * y + z * z;
-    if (fDot <= 0.0F)
+    const double fDot = ((double)x * x + (double)y * y) + (double)z * z;
+    if (fDot <= 0.0)
     {
         x = 1.0F;
         return 1.0F;
     }
 
-    const auto fRecip = 1.0F / sqrt(fDot);
-    x *= fRecip;
-    y *= fRecip;
-    z *= fRecip;
+    const double fRecip = 1.0 / sqrt(fDot);
+    x = float(fRecip * x);
+    y = float(fRecip * y);
+    z = float(fRecip * z);
 
-    return 1.0F / fRecip;
+    return float(1.0 / fRecip);
 }
 
 auto CVector::Dot(const CVector& o) const -> float{

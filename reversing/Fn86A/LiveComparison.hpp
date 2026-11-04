@@ -287,7 +287,9 @@ inline void Update() {
     // CVector::Normalise y CrossProduct(out) tienen hook RH en la DLL pero no figuran como hooks Simple del catalogo: el cuerpo de la DLL se resuelve por el puntero a la funcion (como en Helpers66D).
     void (CVector::*normalise)() = &CVector::Normalise;
     CVector* (*crossOut)(CVector*, CVector*, CVector*) = &CrossProduct;
-    const Pair pNormalise{0x59C910, Body(std::bit_cast<uintptr_t>(normalise)), true}, pCross{0x59C730, Body(reinterpret_cast<uintptr_t>(crossOut)), true};
+    // CVector::Normalise tiene hook RH desde el lote 96A: MakeCollab crea su ruta (apagada durante el banco) y resuelve el cuerpo de la DLL
+    (void)normalise;
+    const Pair pNormalise = MakeCollab(env, 0x59C910, hooksFound), pCross{0x59C730, Body(reinterpret_cast<uintptr_t>(crossOut)), true};
     const Pair pRand = MakeCollab(env, 0x821B1E, hooksFound), pHier = MakeCollab(env, 0x734A40, hooksFound), pIndex = MakeCollab(env, 0x7C51A0, hooksFound), pMatrices = MakeCollab(env, 0x7C5120, hooksFound),
                pLos = MakeCollab(env, 0x56A490, hooksFound);
     env.stubs[0] = {S(pRand, reinterpret_cast<void*>(&FkRand)), S(pHier, reinterpret_cast<void*>(&FkHier)), S(pIndex, reinterpret_cast<void*>(&FkIndex)), S(pMatrices, reinterpret_cast<void*>(&FkMatrices)),

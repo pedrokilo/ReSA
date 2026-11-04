@@ -15331,5 +15331,61 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn94A con 65536 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en un worktree sobre main 329ab605c con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en su cuerpo del ASI (todos tienen hook RH, apagado durante el banco): CWorld::FindPlayerPed 0x56E210 y CPed::Say 0x5EFFE0 (SayGangAttack); 0x5F6110, 0x5F3660 y 0x5F3AC0 de CPedGeometryAnalyser (ComputeRouteRoundObject); CVector::Normalise 0x59C910 (ComputeTargetPoints; sin hook RH, porque CVector::InjectHooks esta apagado: el falso va en el EXE y en el cuerpo propio de la DLL, que es el que llama la funcion nueva y no es identico al del EXE). Quit no tiene colaboradores directos: aborta por la ranura 6 de una vtabla propia (falso identico); ComputeTargetPoints consulta GetTaskType por la ranura 4 de la vtabla propia. NO se sustituyen y corren de verdad en ambos lados: toda la aritmetica x87 del EXE frente al C++ de la DLL (TaskComplexPartner.cpp y TaskComplexWalkRoundObject.cpp se compilan completos con /O2 /Oi /arch:IA32 /fp:fast), con el margen 0x8D22B0 como memoria real restaurada. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits, incluido ST0 de ComputeRouteRoundObject). Fuera de los fixtures: objeto o ruta nulos en ComputeRouteRoundObject, lados fuera de 0..3, NaN con cargas distintas de 0xFFC00000, NaN senalizantes y la exactitud de los colaboradores falseados."
+  },
+  "0x0059C910": {
+    "identity": "CVector::Normalise",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Core/Vector.cpp",
+    "bank": "Fn96A",
+    "run": "20261104-144041-346980",
+    "pairs": 65536,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn96A-20261104-144041-346980/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (sin colaboradores: aritmetica x87 real en ambos lados). Banco Fn96A con 65536 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en un worktree sobre main 1da7351eb con los cambios del lote (ver artifacts/build-manifest.json). Sin colaboradores: ninguna de las cuatro funciones llama a otra, y toda la aritmetica x87 del EXE (24 bits de mantisa, exponente ampliado, NaN con carga) corre de verdad en ambos lados frente al C++ de la DLL (Vector.cpp se compila completo con /O2 /Oi /arch:IA32 /fp:fast). Ademas de resultado y vector se comparan ECX, EDX y los 16 bits altos de EAX de salida (Magnitude y Magnitude2D: EAX entero), que leen los llamadores del EXE. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits con la seleccion de NaN de la x87). Fuera de los fixtures: NaN senalizantes distintos con el mismo significando y signo distinto, y excepciones x87 desenmascaradas."
+  },
+  "0x0059C970": {
+    "identity": "CVector::NormaliseAndMag",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Core/Vector.cpp",
+    "bank": "Fn96A",
+    "run": "20261104-144041-346980",
+    "pairs": 65536,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn96A-20261104-144041-346980/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (sin colaboradores: aritmetica x87 real en ambos lados). Banco Fn96A con 65536 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en un worktree sobre main 1da7351eb con los cambios del lote (ver artifacts/build-manifest.json). Sin colaboradores: ninguna de las cuatro funciones llama a otra, y toda la aritmetica x87 del EXE (24 bits de mantisa, exponente ampliado, NaN con carga) corre de verdad en ambos lados frente al C++ de la DLL (Vector.cpp se compila completo con /O2 /Oi /arch:IA32 /fp:fast). Ademas de resultado y vector se comparan ECX, EDX y los 16 bits altos de EAX de salida (Magnitude y Magnitude2D: EAX entero), que leen los llamadores del EXE. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits con la seleccion de NaN de la x87). Fuera de los fixtures: NaN senalizantes distintos con el mismo significando y signo distinto, y excepciones x87 desenmascaradas."
+  },
+  "0x004082C0": {
+    "identity": "CVector::Magnitude",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Core/Vector.cpp",
+    "bank": "Fn96A",
+    "run": "20261104-144041-346980",
+    "pairs": 65536,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn96A-20261104-144041-346980/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (sin colaboradores: aritmetica x87 real en ambos lados). Banco Fn96A con 65536 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en un worktree sobre main 1da7351eb con los cambios del lote (ver artifacts/build-manifest.json). Sin colaboradores: ninguna de las cuatro funciones llama a otra, y toda la aritmetica x87 del EXE (24 bits de mantisa, exponente ampliado, NaN con carga) corre de verdad en ambos lados frente al C++ de la DLL (Vector.cpp se compila completo con /O2 /Oi /arch:IA32 /fp:fast). Ademas de resultado y vector se comparan ECX, EDX y los 16 bits altos de EAX de salida (Magnitude y Magnitude2D: EAX entero), que leen los llamadores del EXE. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits con la seleccion de NaN de la x87). Fuera de los fixtures: NaN senalizantes distintos con el mismo significando y signo distinto, y excepciones x87 desenmascaradas."
+  },
+  "0x00406D50": {
+    "identity": "CVector::Magnitude2D",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Core/Vector.cpp",
+    "bank": "Fn96A",
+    "run": "20261104-144041-346980",
+    "pairs": 65536,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn96A-20261104-144041-346980/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (sin colaboradores: aritmetica x87 real en ambos lados). Banco Fn96A con 65536 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en un worktree sobre main 1da7351eb con los cambios del lote (ver artifacts/build-manifest.json). Sin colaboradores: ninguna de las cuatro funciones llama a otra, y toda la aritmetica x87 del EXE (24 bits de mantisa, exponente ampliado, NaN con carga) corre de verdad en ambos lados frente al C++ de la DLL (Vector.cpp se compila completo con /O2 /Oi /arch:IA32 /fp:fast). Ademas de resultado y vector se comparan ECX, EDX y los 16 bits altos de EAX de salida (Magnitude y Magnitude2D: EAX entero), que leen los llamadores del EXE. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits con la seleccion de NaN de la x87). Fuera de los fixtures: NaN senalizantes distintos con el mismo significando y signo distinto, y excepciones x87 desenmascaradas."
   }
 }

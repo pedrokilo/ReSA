@@ -10,34 +10,41 @@
   "covered_functions": {
     "CCamera::IsItTimeForNewCamera": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en un worktree (wf-2) sobre el arbol principal mas la reconstruccion del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (los de hook RH, apagado durante el banco): CWorld::GetIsLineOfSightClear 0x56A490, FindPlayerVehicle 0x56E0D0, FindPlayerCoors 0x56E010, FindPlayerSpeed 0x56E090, CEntity::GetIsOnScreen 0x534540 y los siete CCam::Process_DW_* (0x51A740, 0x51B120, 0x51B850, 0x51C250, 0x51C760, 0x51CC30, 0x51D100); RwCameraSetNearClipPlane 0x7EE1D0 no tiene hook y la DLL lo llama por su direccion. Registran sus argumentos en orden. La aritmetica (transcurrido en 24 bits, palo derecho, vector jugador - origen fijo, modulo con CVector::Magnitude y operator- del EXE frente a los ayudantes x87 de la DLL, productos escalares con la velocidad) corre de verdad en ambos lados. Globales reales (reloj 0xB7CB84, aviso 0x8CCDF4, paso 0x8CC471, 0xB6F059 y el eje X del palo derecho 0xB7345C) guardados y restaurados. Con mutaciones de una escritura dentro de un falso. El banco compara los eventos de los falsos con todos sus argumentos, el valor devuelto (AL), los globales y los bytes cambiados de todas las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Hallazgo corregido por el banco: las pruebas de transcurrido > 15000 de los casos 1, 2, 3, 5, 8 y 15..19 estaban invertidas en la reconstruccion (3141 de 16384 pares con diferencias antes de corregirlas). Fuera de los fixtures: NaN con cargas distintas de 0xFFC00000, NaN senalizantes, bytes altos de los booleanos de los falsos, indices de camara activa mayores de 3 y un objetivo de camara nulo.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en un worktree (wf-2) sobre el arbol principal mas la reconstruccion del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (los de hook RH, apagado durante el banco): CWorld::GetIsLineOfSightClear 0x56A490, FindPlayerVehicle 0x56E0D0, FindPlayerCoors 0x56E010, FindPlayerSpeed 0x56E090, CEntity::GetIsOnScreen 0x534540 y los siete CCam::Process_DW_* (0x51A740, 0x51B120, 0x51B850, 0x51C250, 0x51C760, 0x51CC30, 0x51D100); RwCameraSetNearClipPlane 0x7EE1D0 no tiene hook y la DLL lo llama por su direccion. Registran sus argumentos en orden. La aritmetica (transcurrido en 24 bits, palo derecho, vector jugador - origen fijo, modulo con CVector::Magnitude y operator- del EXE frente a los ayudantes x87 de la DLL, productos escalares con la velocidad) corre de verdad en ambos lados. Globales reales (reloj 0xB7CB84, aviso 0x8CCDF4, paso 0x8CC471, 0xB6F059 y el eje X del palo derecho 0xB7345C) guardados y restaurados. Con mutaciones de una escritura dentro de un falso. El banco compara los eventos de los falsos con todos sus argumentos, el valor devuelto (AL), los globales y los bytes cambiados de todas las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Hallazgo corregido por el banco: las pruebas de transcurrido > 15000 de los casos 1, 2, 3, 5, 8 y 15..19 estaban invertidas en la reconstruccion (3141 de 16384 pares con diferencias antes de corregirlas). Fuera de los fixtures: NaN con cargas distintas de 0xFFC00000, NaN senalizantes, bytes altos de los booleanos de los falsos, indices de camara activa mayores de 3 y un objetivo de camara nulo. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Fn89A-20261103-231948-449175",
-  "summary_sha256": "52b4f242f77700fdc655d3f5e1b3e013e99f3930eb85e464d11eae1a50e4c62b",
-  "result_txt_sha256": "8f6f81f6e868429de33dbc7a4f0b27e6a358d8213bb30dbfde96ecbc979d99b2",
-  "log_sha256": "fffe515f39d4dbf7128641cc590572807ee11224fccf8370115b8c8d214b65c2",
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn89A-20261104-152648-740553",
+  "summary_sha256": "30b6cc611157607d236f70db71dcbf78db4a0d824d9d01fdfd71ee30e0c311c2",
+  "result_txt_sha256": "abffdf338fc9c78218ef2666bd2146b2f0226d1a679dcb4d496c6dbfad091a08",
+  "log_sha256": "bda9bbb4865be21ee8c813a2b2ccd94c1cceb84754e0f51539f7f6a0e4b25191",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "b0e326f65dbb6c4561e654d07e8c50c17a079466dd579a93fca2bbef1ce93bf5",
+  "executed_probe_sha256": "5ab0f338614d65c8a30e34c8f624b5ba3b5fc50e8f4a8bbc43a96abd4115ea09",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-      "source/game_sa/X87Math.cpp": "0246b0ea7d1fbd817009edd1348482cfa5f56aab0b8f90369f58dd2b479eef15",
-      "source/game_sa/X87Math.h": "49370daa3b616e1c9721f1514b18f2a43806d7c0e8d08649d5803e9b8bbc3dcf",
-      "source/game_sa/Camera.cpp": "0d2965ed822c2ae29e617b00dfe10f04c255f7354088b311573b1fe6ad713797",
+      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+      "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+      "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+      "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+      "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
       "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
-      "source/game_sa/Cam.cpp": "cdd1a3600a08dcbc9f4a3cf5b9a0a6eb5c8f633e264b230d6a0b87de0149e4d0",
+      "source/game_sa/Cam.cpp": "6426802252dc1349e84668d6f23a4ae5505ae7736320e782016ecb45b31a157a",
       "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/Fn89A/LiveComparison.hpp": "59507027db0978687e76be56d417106701ff87fbe0bb0dfede836ec600ca7d1d",
-      "reversing/Fn89A/Core.hpp": "bdaa5553d4f7af2dd52b6656683b919b5aadfe22c65d50e0c2acafd682f9aaf6",
-      "reversing/Fn89A/Fixtures.hpp": "7feff95de80116d3b15d9851c32ec15c1816ef2d8a91865c4346f01c79160890",
+      "reversing/Fn89A/LiveComparison.hpp": "e7139b88df69986152493b127e156bd60af3b72c86f6b901e9484738fe5103be",
+      "reversing/Fn89A/Core.hpp": "2bc403449f085165e3a1f4cedffc1c7719ff528d3e04a02ccbc76821c0daf055",
+      "reversing/Fn89A/Fixtures.hpp": "f6b6bb0b26283edadddff56814e06bb241f8fbab61f748dd8d697454fefa19d5",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn89A-20261104-152648-740553/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "a46fb15135100c7a6de865855cd0c36ca6c98135d656c01a4f4a416b1be7d141",
+    "uncompressed_sha256": "bda9bbb4865be21ee8c813a2b2ccd94c1cceb84754e0f51539f7f6a0e4b25191"
   }
 }

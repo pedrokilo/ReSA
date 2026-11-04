@@ -313,10 +313,8 @@ inline void Update() {
     env.stubs[0] = {};
     env.stubs[1] = {F(0x56E210, &FkFindPlayer), F(0x5EFFE0, &FkSay)};
     env.stubs[2] = {F(0x5F6110, &Fk5F6110), F(0x5F3660, &Fk5F3660), F(0x5F3AC0, &Fk5F3AC0)};
-    // CVector::Normalise no tiene hook RH (CVector::InjectHooks esta apagado): la DLL llama a su propio cuerpo, que se parchea con el mismo falso; el EXE, en 0x59C910
-    uintptr_t normaliseDll{};
-    { auto pm = &CVector::Normalise; memcpy(&normaliseDll, &pm, sizeof(normaliseDll)); normaliseDll = Body(normaliseDll); }
-    env.stubs[3] = {S(Pair{0x59C910, normaliseDll, false}, reinterpret_cast<void*>(&FkNormalise))};
+    // CVector::Normalise tiene hook RH desde el lote 96A (CVector::InjectHooksExactMath): el falso va en la direccion del EXE y en el cuerpo de la DLL (MakeCollab lo detecta)
+    env.stubs[3] = {F(0x59C910, &FkNormalise)};
     const char* dllReal[kFunctions] = {
         "ranura 6 (MakeAbortable) de la vtabla propia de la tarea: falso identico; la aritmetica es el byte +0x1D de la tarea",
         "comprobaciones de tipo de peaton con signo; la aritmetica es la del propio cuerpo",

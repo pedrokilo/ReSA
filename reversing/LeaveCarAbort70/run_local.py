@@ -22,7 +22,7 @@ GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh
 HOOKS = {NAMES[0]: 0x641100}
 # (direccion del EXE, hooked): BlendAnimation(id), ProcessVerticalLine, ClearGettingOutFlags, CVector::Magnitude, CPed::IsPlayer, ComputeTargetDoorToExit, CloseDoorFromOutside ctor y dtor (con hook),
 # CloseDoorFromOutside::MakeAbortable y SetPedOut::ProcessPed (hooks V que tambien saltan en la entrada del EXE); sin hook en el EXE: CVector::Magnitude (su hook RH no esta activo), SetPedOut ctor / dtor
-STUBBED = {NAMES[0]: [(0x4D4610, True), (0x5674E0, True), (0x6D3060, True), (0x4082C0, False), (0x5DF8F0, True), (0x64F110, True), (0x6464F0, True), (0x646570, True),
+STUBBED = {NAMES[0]: [(0x4D4610, True), (0x5674E0, True), (0x6D3060, True), (0x4082C0, True), (0x5DF8F0, True), (0x64F110, True), (0x6464F0, True), (0x646570, True),
                       (0x64B020, True), (0x6478B0, False), (0x647950, False), (0x647D10, True)]}
 WATCHED = {a for lst in STUBBED.values() for a, _ in lst} | {0x641100, 0x86E828 + 6 * 4}
 COVER = json.loads((HERE / 'coverage.json').read_text()) if (HERE / 'coverage.json').exists() else {}

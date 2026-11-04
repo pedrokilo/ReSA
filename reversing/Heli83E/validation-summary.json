@@ -12,28 +12,28 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 2c71b35d2 + cambios del lote 83E; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CPad::GetAccelerate 0x5403F0, GetBrake 0x540080, GetSteeringLeftRight 0x53FB80, GetSteeringUpDown 0x53FBD0, GetLookRight 0x53FE10, GetLookLeft 0x53FDD0, GetHorn 0x53FEE0, FindPlayerPed 0x56E210, CPlayerPed::KeepAreaAroundPlayerClear 0x60C1E0, CVector::Normalise 0x59C910 y CrossProduct 0x59C730; los de salida escriben los valores que da cada caso (EAX de los del mando con basura en los bits altos). Corren de verdad CPad::GetPad (0x53FB70), las estaticas 0xB6EC2E, 0xC1CC03, 0xC1CC04, el raton 0xB73424/0xB73428, CTimer::ms_fTimeStep, la matriz del helicoptero, los datos de manejo en vuelo y las palabras +0x2C y +0x10E del mando (regiones restauradas); el pow del CRT del EXE (0x822130) corre de verdad en el original y en el candidato lo emula PowScaleFloatCpp. El banco compara el orden y todos los argumentos de los falsos, el modo de control, los campos escritos y las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (el pow solo con tolerancia). Fuera de los fixtures: NaN con cargas distintas (las fixtures usan un unico patron), numero de mando distinto de 0 y 1, estaticas booleanas distintas de 0/1, puntero de matriz nulo y salidas de los colaboradores incoherentes con la entrada (Normalise y CrossProduct devuelven lo que dice el caso, no el calculo real). Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Heli83E-20261102-220656-680817",
-  "summary_sha256": "0b04d4e76288c3b023c8335ef7cfa0fdd7ed67d564b227bed6b68a99c9c45442",
-  "result_txt_sha256": "69e720b2708cd64ae570de51500f8c554118099ecfb8fd682f81603e09b29eac",
-  "log_sha256": "d9db0c905ce6f5a3c2923564bca8cb35563421eacb30aa9c44998b6f0d3d8cdd",
+  "run": "reversing/CppTwelveLevel6Final/runs/Heli83E-20261104-151904-088765",
+  "summary_sha256": "b0b73e3e1a2573a6204e2fe215c869ea4f1585401183527927aad120944a80fe",
+  "result_txt_sha256": "18ce0f603f73e7a740e27a247dba6a720ab966d93600a4e59e37bb42d539df87",
+  "log_sha256": "a8c61e46491c7ca09764955b6ab9bf9c1f5c4987ee0e26679b44c929aa80a729",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "446edd4659e282facf94e9585daf7d61f248e8ee946616e1062ac2bd81146ef4",
+  "executed_probe_sha256": "c2904f663d169ceacb14ca49cdcb1be43a58293799fa29a686f1a14c94bdd3a6",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-      "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-      "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09",
+      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+      "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+      "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+      "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
       "source/game_sa/Entity/Vehicle/Heli.cpp": "7fb9f40a53cec600f75041a1b3c0b596ac27be17b86c02be28c276f59cc1184d",
       "source/game_sa/Entity/Vehicle/Heli.h": "f4383e0c61a23914ad4b90e3a565af10ddda448f627c66b90cbe676d3940d4ed",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/Heli83E/LiveComparison.hpp": "7aac492af57248aaba2f209665dd94c260d66cc655bd20845e3731a15e2ae19f",
+      "reversing/Heli83E/LiveComparison.hpp": "2a939fe4beb44b7bca0547c02c65465486ecbb8ce21b362179ce275b326c4c6a",
       "reversing/Heli83E/Core.hpp": "830346c840e2a55258bf9969efe3a194288b77a8f95a27124c1b1dd58681051b",
-      "reversing/Heli83E/Fixtures.hpp": "c68ce27737e64fc8d3d8bbf0f2fe724c1af286fd90853bb194698337d4ea3ce2",
+      "reversing/Heli83E/Fixtures.hpp": "963b47bdeb68a8cbbc6da137288641587dc12ee320befd164179495f9758231a",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
       "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
@@ -41,10 +41,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Heli83E-20261102-220656-680817/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Heli83E-20261104-151904-088765/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "19b367f047bc4ba2d3b8e18d614c70e8e309e39c554cf405a6c0d6faa2196ef7",
-    "uncompressed_sha256": "d9db0c905ce6f5a3c2923564bca8cb35563421eacb30aa9c44998b6f0d3d8cdd"
+    "compressed_sha256": "f2e6148380d77fde4cf2f9d6b72b09b8a5afd4da393f7e37f10fda32a9fb6339",
+    "uncompressed_sha256": "a8c61e46491c7ca09764955b6ab9bf9c1f5c4987ee0e26679b44c929aa80a729"
   }
 }

@@ -23,6 +23,7 @@ public:
 
 public:
     static void InjectHooks();
+    static void InjectHooksExactMath(); // Solo Magnitude, Magnitude2D, Normalise y NormaliseAndMag (el resto de CVector::InjectHooks sigue desactivado)
 
     static CVector Random(float min, float max);
     static CVector Random(CVector min, CVector max);

@@ -10,32 +10,39 @@
   "covered_functions": {
     "CCam::GetArrestCamCopSourceNormal": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en un worktree con el mismo contenido que el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (resuelto por el puntero a la funcion, porque no figuran como hooks Simple del catalogo): CVector::Normalise 0x59C910 y CrossProduct 0x59C730. Registran sus argumentos en orden (con el contenido de los vectores en la llamada). CrossProduct escribe el vector del caso y las tres llamadas a Normalise escriben el lado, la direccion y la direccion tras reescalar o aplanar. La aritmetica (dest - cop, desplazamientos de 3.0f y 5.0f, ramas de la direccion, distancia y reescalado a 8.0f; ayudantes x87 de 24 bits de la DLL frente a la x87 del EXE) corre de verdad en ambos lados; no hay globales del juego. Con mutaciones de una escritura dentro de un falso (dest.x, dest.y, dest.z que el EXE relee; puntero de matriz y posicion del ped, que copia al empezar). El banco compara los eventos de los falsos con todos sus argumentos, el valor devuelto (AL), la presencia de matriz y los bytes cambiados de todas las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: NaN con cargas distintas de 0xFFC00000, NaN senalizantes en las entradas, bytes altos del booleano devuelto, un Normalise o CrossProduct que no escriban los tres componentes y peds con matriz y posicion activas distintas tras una llamada.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en un worktree con el mismo contenido que el arbol principal (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (resuelto por el puntero a la funcion, porque no figuran como hooks Simple del catalogo): CVector::Normalise 0x59C910 y CrossProduct 0x59C730. Registran sus argumentos en orden (con el contenido de los vectores en la llamada). CrossProduct escribe el vector del caso y las tres llamadas a Normalise escriben el lado, la direccion y la direccion tras reescalar o aplanar. La aritmetica (dest - cop, desplazamientos de 3.0f y 5.0f, ramas de la direccion, distancia y reescalado a 8.0f; ayudantes x87 de 24 bits de la DLL frente a la x87 del EXE) corre de verdad en ambos lados; no hay globales del juego. Con mutaciones de una escritura dentro de un falso (dest.x, dest.y, dest.z que el EXE relee; puntero de matriz y posicion del ped, que copia al empezar). El banco compara los eventos de los falsos con todos sus argumentos, el valor devuelto (AL), la presencia de matriz y los bytes cambiados de todas las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: NaN con cargas distintas de 0xFFC00000, NaN senalizantes en las entradas, bytes altos del booleano devuelto, un Normalise o CrossProduct que no escriban los tres componentes y peds con matriz y posicion activas distintas tras una llamada. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Fn88A-20261103-132827-518506",
-  "summary_sha256": "75b34c6271a34790b71730b7ce8bf0455202af5384bdfb7211b249d58bae72c4",
-  "result_txt_sha256": "64cd9a11156bf4e643fbfa63fa52e6d4e71993375318431ae3b83ec87f5e6da4",
-  "log_sha256": "37d2c2597ec2e7c8e198ca22766268bcd14e72da90f2ecde1b6dccb33f045a75",
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn88A-20261104-154235-401254",
+  "summary_sha256": "378f748136b6d482c427157e5464981346beef811dd8196e771bc760e2352029",
+  "result_txt_sha256": "8b76362f8b53b3278ea56a3c9178ec7a6082efc792dd743b6553abab234ddfcf",
+  "log_sha256": "9a6303d56978f2144dc4d6a5801ccd8810e87cf553b55cf33813f6ab2efa6a1d",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "1dac96a54c5423265edeb45ba926b2f30870f510c48fe7395ac8cde5e0bf08d2",
+  "executed_probe_sha256": "1052a9a2f9ac1fd4d31dfbe86310cb9d54da7088106944d1f2ef24ceaf59e31f",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-      "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-      "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09",
-      "source/game_sa/Cam.cpp": "e550fd1740193bf748dee5a52e6975f38b3bff299df3aafa44c5a8ecfba08282",
-      "source/game_sa/Cam.h": "6185f083e15dd41b51c984a60a797837be41acd6dea95ea03bc2e887e669c34e",
+      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+      "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+      "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
+      "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+      "source/game_sa/Cam.cpp": "6426802252dc1349e84668d6f23a4ae5505ae7736320e782016ecb45b31a157a",
+      "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/Fn88A/LiveComparison.hpp": "7aff6440589374e3410283585a70598a8e3a383527db3e040ef64e82770f18fe",
-      "reversing/Fn88A/Core.hpp": "0c39608bbd1a5321f1d83d41c6d8a709a70ab08c1dfe70e51881c65c917a5fa2",
+      "reversing/Fn88A/LiveComparison.hpp": "d69cd893fdf97fcae73ff6c2d6ed50059a9535dcb06382a98c6ad638f8166aa8",
+      "reversing/Fn88A/Core.hpp": "39ec96cd1c6a44d00d59a079e986aa43185f9f81a184d6ca1684679922753c50",
       "reversing/Fn88A/Fixtures.hpp": "3be1da56a0c3eedc4f7f42315f1621cad5e711995defe0e31067149c0eefca1f",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Fn88A-20261104-154235-401254/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "62c8bcf301bc4c072ed08209c2b8dd60a41d5434aae78acfb75754393626cf42",
+    "uncompressed_sha256": "9a6303d56978f2144dc4d6a5801ccd8810e87cf553b55cf33813f6ab2efa6a1d"
   }
 }

@@ -708,6 +708,7 @@ void InjectHooksMain() {
     /* CMatrix::InjectHooks();
     /****************************************************/
 
+    CVector::InjectHooksExactMath(); // Only Magnitude 0x4082C0, Magnitude2D 0x406D50, Normalise 0x59C910 and NormaliseAndMag 0x59C970.
     CQuaternion::InjectHooks(); // Only the reconstructed Set dependencies.
     CMatrix::InjectHooksMultiplyVector(); // Only operator*(CMatrix, CVector) 0x59C890.
     CMatrix::InjectHooksAttachAssign(); // Only Attach 0x59BD10 and operator= 0x59BBC0.

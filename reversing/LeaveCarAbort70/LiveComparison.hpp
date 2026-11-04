@@ -282,7 +282,7 @@ inline void Update() {
     env.stubs[0]={{Pair{0x4D4610,blendBody,true},reinterpret_cast<void*>(&FakeBlend)},
                   {Pair{0x5674E0,vertBody,true},reinterpret_cast<void*>(&FakeVertLine)},
                   {Pair{0x6D3060,clearBody,true},reinterpret_cast<void*>(&FakeClearOut)},
-                  {Pair{0x4082C0,magBody,false},reinterpret_cast<void*>(&FakeMag)},
+                  {Pair{0x4082C0,magBody,true},reinterpret_cast<void*>(&FakeMag)},
                   {Pair{0x5DF8F0,playerBody,true},reinterpret_cast<void*>(&FakeIsPlayer)},
                   {Pair{0x64F110,doorBody,true},reinterpret_cast<void*>(&FakeCDoor)},
                   {Pair{0x6464F0,cdCtorBody,true},reinterpret_cast<void*>(&FakeCdCtor)},

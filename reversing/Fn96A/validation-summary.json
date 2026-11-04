@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "pairs": 65536,
+  "differences": 0,
+  "registered_pairs": 65536,
+  "registered_functions": 4,
+  "functions": {
+    "CVector::Normalise": 16384,
+    "CVector::NormaliseAndMag": 16384,
+    "CVector::Magnitude": 16384,
+    "CVector::Magnitude2D": 16384
+  },
+  "covered_functions": {
+    "CVector::Normalise": true,
+    "CVector::NormaliseAndMag": true,
+    "CVector::Magnitude": true,
+    "CVector::Magnitude2D": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en un worktree sobre main 1da7351eb con los cambios del lote (ver artifacts/build-manifest.json). Sin colaboradores: ninguna de las cuatro funciones llama a otra, y toda la aritmetica x87 del EXE (24 bits de mantisa, exponente ampliado, NaN con carga) corre de verdad en ambos lados frente al C++ de la DLL (Vector.cpp se compila completo con /O2 /Oi /arch:IA32 /fp:fast). Ademas de resultado y vector se comparan ECX, EDX y los 16 bits altos de EAX de salida (Magnitude y Magnitude2D: EAX entero), que leen los llamadores del EXE. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits con la seleccion de NaN de la x87). Fuera de los fixtures: NaN senalizantes distintos con el mismo significando y signo distinto, y excepciones x87 desenmascaradas.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn96A-20261104-144041-346980",
+  "summary_sha256": "70427e03fa81951f7b43d850ed08921954c7fa397f091e13d6b4a2e1755beabc",
+  "result_txt_sha256": "79e38cd9635299945b0446641ed8dd9f954d162e5667f1d31a5689e49266526a",
+  "log_sha256": "0cf2a2529834ecdc147fff239eb5fd90bd39db3ddb824388dd78df69feeaa211",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "110b0526d762c9dcb4d7db8f785ec604188cbc7ae6be946fbffd53fc1b94f61d",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
+      "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
+      "source/game_sa/Core/Vector.cpp": "d36faebd754879a09459711ba2638601758b02222199788e303b1c887d49c430",
+      "source/game_sa/Core/Vector.h": "f6164a14020b941f208d38c38cfc44d15ccc77bd32249d70a383fe6ddc23dcea",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn96A/LiveComparison.hpp": "9e52f860729c1693a49d9145c9bae9a736a9a7dd2d0b4350d2c1caa5e1ef1f62",
+      "reversing/Fn96A/Core.hpp": "7028aca016021414a58399eeda98ba602757d34700ff1d769f65eb1c166f72b3",
+      "reversing/Fn96A/Fixtures.hpp": "fbfadeb551ae26ae4271f06201358658de7cc687ed4d2e1dd23ba635e5e45537",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}
