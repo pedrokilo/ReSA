@@ -71,10 +71,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "753af6fe96d4ad916b7b25cf7ee26543743b7d35f25dbc57097e75808e0abd87",
+  "log_sha256": "29b08024dbe13f331f5f0a5aad4876784833eed061591715f72f5138e4b7a30a",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks61a\\20261005-211724-009757",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks61a\\20261104-041134-619161",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskSimpleCarDrive::Clone": true,
@@ -138,38 +138,39 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "a68bbb700e5726bd721a7f351d2fa474fc940995479145378b37ed0d6ad1f1ca",
-      "pdb": "19a6e5400ca94a62fc1936ed8e05506ab197636bd51a5687cdcf941401cf5dd8"
+      "asi": "c3a5b586c1ea61465c0a41fb1eb5bb7f2c5e95395ad22797988d5c2352731572",
+      "pdb": "38d298b999e4c4a44c005156f0f83984305ed08e87348d957db1e8ac8a86fd3c"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.cpp": "45d99f61026ac26e2dfcb61746f9b6ceef5826874794a65b59e9e0cfc76af553",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.h": "2e79406297dd26c408efc40efa2e8e1422356b5b2143c8241caedb4611341692",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarDriveTimed.cpp": "1006d37d581251f5d2f0ead02545e9548bb51916a3b4bef701058b7ac6a9ba29",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.cpp": "16df9f9dfa322b3bb6e31eb7626e198441f2765f20db7896d67769fd55890d6b",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.h": "792fa1bb162c945b35c6a8effea31fc56e7dfa0872e32947675a618050631892",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarDriveTimed.cpp": "c3e5b31406cb335eaca72681fc22e726288f614cda8c8caa2422b34672d64f7b",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleCarDriveTimed.h": "64aa062d19aaa309fbee078715fdb9b0ba607b0a4889430194cdf26de6ad4489",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.cpp": "1e63df7c54d32122d57a5517653117e35ee8f8aebc7d933364adc2b5964401de",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.cpp": "efa551bb32ae70785eac04b974132ea6eadd064983412f03f6b04afcf092f22b",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.h": "790202a739b886d681a2930e8b983793720c7381880c275fea4f4b119337e2b5",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "0a86d49d984fe5df925c2ddbc4ed2bda12ed3bf18786f8cd72314829186f3204",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp": "d9b9f149c08200a1d44c54231a8be4a1360151536f09f3f0166b2bff96e2345d",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.h": "dc439832ebeb7845aa9174bcf7533e24a301558277cd6ce8ff37f0efdae99dc9",
-      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "add7d827e2585995a6f70648cb66571b8e4d4cd9013ade8218b1d13819431c5a",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp": "f072be5e6e5f436194f84ec275e059e3764bea25df5b95030c454036b88c2de9",
       "source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.h": "0bb9454c7291d38322b5120e729763c7c2637247a4fb169879b77b65ffd048d7",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "37ed6b18c158be8d4a7848c25cab4ea4b700e4cd77dce5ec05655e62fef84c58",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp": "4f4f16a83a5f43019751d858a76957e464547261210ef1af229acb9d6b29513f",
       "source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.h": "7e62e6d02d784bcdbe736e4f10deb60cfa2ff210c657eb9c8094b7906b8c65c0",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.cpp": "625d3357414b83fa03ec8961f5b2ead65840f12366bd5111ff438dd7d0ed5cef",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.h": "1ad156ef0d6a42027df7aa78cac96fa2e8977954a875d1b1d1ed9ae2f1c1c1cb",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexOpenPassengerDoor.cpp": "be8f836853e130f67fa319f0bc7296a5359136a2d06d243018ff2da02b7bd33f",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexOpenPassengerDoor.h": "4efca49a61b5c2597059823749e6b10757ee9267cec737e68bcca57c5f469d41",
-      "source/game_sa/Tasks/TaskTypes/TaskLeanOnVehicle.cpp": "4ebc65af2dce9b9daf8338fcbff509e93c9faee6ab1fbec736c2f8d945cd5678",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.cpp": "32f15033f7b5e7006752a2cc8426a7bff1b56c400fccfc6a7288e4e03a7f1756",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.h": "573188b642ed40106530dcb76dfa636e47bf46e916c7c7d79b635b262c6b3cd2",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexOpenPassengerDoor.cpp": "b36d3eba00a24b45b1a69b2768a1fc68b08ad06c44524383c765bfd5e7308ee9",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexOpenPassengerDoor.h": "27c03e2ee15536f8a5ceb1565cae5fce5fe92543b541f222b497e6c9e9a7cd9f",
+      "source/game_sa/Tasks/TaskTypes/TaskLeanOnVehicle.cpp": "cf65338b4318a9a3d026990a43e47a9368e11227a765fa36548937da2b44ac57",
       "source/game_sa/Tasks/TaskTypes/TaskLeanOnVehicle.h": "9709f848c9134f6a7638f017127b82ad991791ae01bf18a2a5662c2d5f84fd7b"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "a8caa432452bad65e61d1dc0416f025ca3682507942dca113cb3d6cdda6a309d",
+      "LiveComparison.hpp": "bec86ebc04f9e2aec3f238963d62e6f7c91cd46621e79256f0fb726752a54621",
       "build_probe.py": "e611dda983ebb2f2680f8d1cc31c028093f2a7620dc358e85fb3f84d10ae5925",
       "run_local.py": "a62a194b666ced0447887ca6d26cfec8c61d1c8aa631a50e0b8f47c9fe17f866"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }
