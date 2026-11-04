@@ -196,6 +196,14 @@ if(MSVC)
         SKIP_PRECOMPILE_HEADERS ON
         SKIP_UNITY_BUILD_INCLUSION ON
     )
+    # Lote 90A: CAnimManager::RemoveAnimBlockRef (0x4D3FD0), Fx_c::SetFxQuality (0x49EA40) y CSphere::Set (0x40FCF0). Sus llamadores del EXE conservan ECX (y EDX en las dos primeras): alguno prueba CL o
+    # reutiliza ECX justo despues de la llamada, y el marco /Od de depuracion lo recarga con otro valor. Se optimizan por pragma, que solo actua con /Zi y sin comprobaciones de ejecucion.
+    set_source_files_properties(game_sa/Animation/AnimManager.cpp game_sa/Fx/Fx.cpp game_sa/Collision/Sphere.cpp PROPERTIES
+        COMPILE_OPTIONS "$<$<CONFIG:Debug>:/Zi>"
+        VS_SETTINGS "BasicRuntimeChecks=Default"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
 endif()
 if (${RE_PROJECT}_WITH_OPENAL)
     # TODO: Remove dsound specific sources

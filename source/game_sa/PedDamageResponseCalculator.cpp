@@ -29,6 +29,7 @@ void CPedDamageResponseCalculator::InjectHooks() {
     RH_ScopedCategoryGlobal();
 
     RH_ScopedInstall(Constructor, 0x4AD3F0);
+    RH_ScopedInstall(Destructor, 0x4AD420);
     RH_ScopedInstall(AccountForPedDamageStats, 0x4AD430);
     RH_ScopedInstall(AccountForPedArmour, 0x4AD550);
     RH_ScopedInstall(ComputeWillForceDeath, 0x4AD610);
@@ -50,6 +51,10 @@ CPedDamageResponseCalculator::CPedDamageResponseCalculator(const CEntity* entity
 CPedDamageResponseCalculator* CPedDamageResponseCalculator::Constructor(CEntity* entity, float fDamage, eWeaponType weaponType, ePedPieceTypes bodyPart, bool bSpeak) {
     this->CPedDamageResponseCalculator::CPedDamageResponseCalculator(entity, fDamage, weaponType, bodyPart, bSpeak);
     return this;
+}
+
+// 0x4AD420: el original es un unico `ret` (sin tocar EAX, ECX ni EDX); el cuerpo C++ de un destructor trivial no hace nada.
+void CPedDamageResponseCalculator::Destructor() {
 }
 
 /*!

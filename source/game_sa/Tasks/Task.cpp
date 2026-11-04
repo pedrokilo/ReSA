@@ -56,6 +56,28 @@ void CTask::Destructor() {
 
 class CTaskComplex;
 
+namespace CTaskSimpleBody {
+// 0x61A390 (thiscall, sin argumentos de pila): cuerpo no virtual del constructor de CTaskSimple. Pone m_Parent (+4) a 0, deja la vtable de CTaskSimple del EXE (0x86D4A8) y devuelve
+// this en EAX; ECX y EDX salen intactos. Los 200 llamadores son constructores de tareas simples del EXE (la vtable de la DLL no vale para ellos).
+#pragma runtime_checks("", off)
+#pragma optimize("gty", on)
+static void* __fastcall Constructor(void* self, void* /*edx*/) {
+    uint32* const words = static_cast<uint32*>(self);
+    words[1] = 0;
+    words[0] = 0x86D4A8;
+    return self;
+}
+#pragma optimize("", on)
+#pragma runtime_checks("", restore)
+
+static void InjectHooks() {
+    RH_ScopedClass(CTaskSimple);
+    RH_ScopedCategory("Tasks");
+
+    RH_ScopedGlobalInstall(Constructor, 0x61A390);
+}
+} // namespace CTaskSimpleBody
+
 namespace CTaskComplexBody {
 // 0x61A3D0 (thiscall, sin argumentos de pila): cuerpo no virtual de ~CTaskComplex. Deja la vtable de CTaskComplex del EXE (0x86D4CC), borra la subtarea (m_pSubTask,
 // +8) con su destructor virtual con borrado (`push 1; call [vtable]`) si no es nula, pone m_pSubTask a 0 y deja la vtable de CTask del EXE (0x86D48C). El EXE lo envuelve
@@ -74,11 +96,27 @@ static void __fastcall Destructor(CTask* self, void* /*edx*/) {
 }
 #pragma runtime_checks("", restore)
 
+// 0x61A3B0 (thiscall, sin argumentos de pila): cuerpo no virtual del constructor de CTaskComplex. Pone m_Parent (+4) y m_pSubTask (+8) a 0, deja la vtable de CTaskComplex del EXE
+// (0x86D4CC, la de la DLL no vale: las subclases del EXE la sobrescriben) y devuelve this en EAX. El EXE usa ECX como registro de trabajo (xor ecx,ecx): ECX no es contrato; EDX se conserva.
+// Los 198 llamadores son constructores de tareas complejas del EXE. __fastcall con un segundo registro sin usar equivale a thiscall sin argumentos de pila (`ret`).
+#pragma runtime_checks("", off)
+#pragma optimize("gty", on)
+static void* __fastcall Constructor(void* self, void* /*edx*/) {
+    uint32* const words = static_cast<uint32*>(self);
+    words[1] = 0;
+    words[0] = 0x86D4CC;
+    words[2] = 0;
+    return self;
+}
+#pragma optimize("", on)
+#pragma runtime_checks("", restore)
+
 static void InjectHooks() {
     RH_ScopedClass(CTaskComplex);
     RH_ScopedCategory("Tasks");
 
     RH_ScopedGlobalInstall(Destructor, 0x61A3D0);
+    RH_ScopedGlobalInstall(Constructor, 0x61A3B0);
 }
 } // namespace CTaskComplexBody
 
@@ -128,5 +166,6 @@ void CTask::InjectHooks() {
     RH_ScopedInstall(operator delete, 0x61A5B0);
     RH_ScopedVMTInstall(StopTimer, 0x421180);
 
+    CTaskSimpleBody::InjectHooks();
     CTaskComplexBody::InjectHooks();
 }

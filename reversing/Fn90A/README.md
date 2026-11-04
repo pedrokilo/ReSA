@@ -1,0 +1,40 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 04/11/2026 (Ciudad de México):** 820 grupos / 9026 funciones reconstruidas; 9026 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
+# Fn90A: lote piloto 90A, categoría 1 (triviales y thunks muy llamados del grupo A)
+
+Estado: **APROBADO dentro del juego** (04/11/2026, worktree `wk-1b` sobre main 6e80ef26d + los cambios del lote). 20480 pares, cero diferencias EXE/DLL, compuertas de ABI/ruta/SEH/restauracion en ambos lados, y cada lado coincide con el oraculo Python independiente. Evidencia final: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn90a/20261104-014500-697746` (archivada en `reversing/CppTwelveLevel6Final/runs/`). Diez funciones de codigo de juego reconstruidas en C++ puro y enganchadas (tipo S; antes sin envoltura ni hook: eran del grupo A). Banco par a par dentro del juego: 10 funciones, 2048 casos cada una (16 familias de 128 casos), 20480 pares; cada lado (EXE con el hook RH apagado, DLL con SOLO ese hook encendido) debe coincidir con el otro y con el oráculo Python independiente (`fixture_oracle.py`, que reproduce el desensamblado del EXE).
+
+## Funciones
+
+| Función | Dirección | Bytes | ABI | Hook | Fuente |
+|---|---|---:|---|---|---|
+| `CPad::GetPad` | 0x53FB70 | 16 | cdecl (n); EAX = 0xB73458 + n*0x134; ECX/EDX intactos | `CPad` / `GetPad` / S | `Pad.h` (inline, hook en `Pad.cpp`) |
+| `CRGBA::Constructor` (`CRGBA::CRGBA(r,g,b,a)`) | 0x7170C0 | 32 | thiscall, 4 dwords de pila (byte bajo), `ret 10h`; EAX = this | `CRGBA` / `Constructor` / S | `RGBA.cpp` (nuevo) / `RGBA.h` |
+| `CTaskSimple::Constructor` (cuerpo no virtual) | 0x61A390 | 16 | thiscall sin pila; [this]=0x86D4A8, [this+4]=0; EAX = this; ECX/EDX intactos | `CTaskSimple` / `Constructor` / S | `Tasks/Task.cpp` |
+| `CTaskComplex::Constructor` (cuerpo no virtual) | 0x61A3B0 | 17 | thiscall sin pila; [this]=0x86D4CC, +4 y +8 a 0; EAX = this; EDX intacto (ECX = 0) | `CTaskComplex` / `Constructor` / S | `Tasks/Task.cpp` |
+| `CAnimManager::RemoveAnimBlockRef` | 0x4D3FD0 | 17 | cdecl (índice); word [0xB5D4A0 + índice*32 + 0x12] -= 1; ECX/EDX intactos | `CAnimManager` / `RemoveAnimBlockRef` / S | `Animation/AnimManager.cpp` |
+| `Fx_c::GetFxQuality` | 0x49EA50 | 4 | thiscall; EAX = [this+0x54]; ECX/EDX intactos | `Fx_c` / `GetFxQuality` / S | `Fx/Fx.cpp` |
+| `Fx_c::SetFxQuality` | 0x49EA40 | 10 | thiscall, `ret 4`; [this+0x54] = q; ECX/EDX intactos | `Fx_c` / `SetFxQuality` / S | `Fx/Fx.cpp` |
+| `CSphere::Set` | 0x40FCF0 | 30 | thiscall, `ret 8`; radio en +0xC y luego 3 dwords del centro; ECX intacto | `CSphere` / `Set` / S | `Collision/Sphere.cpp` |
+| `FxPrtMult_c::Constructor` | 0x4AB270 | 11 | thiscall sin pila; 7 dwords = 1.0f; EAX = this; EDX intacto | `FxPrtMult_c` / `Constructor` / S | `Fx/FxPrtMult.cpp` |
+| `CPedDamageResponseCalculator::Destructor` | 0x4AD420 | 1 | solo `ret`: EAX, ECX y EDX intactos | `CPedDamageResponseCalculator` / `Destructor` / S | `PedDamageResponseCalculator.cpp` |
+
+Filas de `docs/hooks.csv`: `CPad,GetPad,0x0053FB70,1,0,1,S`, `CRGBA,Constructor,0x007170C0,1,0,1,S`, `CTaskSimple,Constructor,0x0061A390,1,0,1,S`, `CTaskComplex,Constructor,0x0061A3B0,1,0,1,S`, `CAnimManager,RemoveAnimBlockRef,0x004D3FD0,1,0,1,S`, `Fx_c,GetFxQuality,0x0049EA50,1,0,1,S`, `Fx_c,SetFxQuality,0x0049EA40,1,0,1,S`, `CSphere,Set,0x0040FCF0,1,0,1,S`, `FxPrtMult_c,Constructor,0x004AB270,1,0,1,S`, `CPedDamageResponseCalculator,Destructor,0x004AD420,1,0,1,S`.
+
+## Contrato de registros (lo que costó más)
+Los llamadores del EXE de `RemoveAnimBlockRef` (un sitio prueba `CL` tras la llamada: 0x662E93), de `SetFxQuality` (0x57CBE6 empuja ECX) y de los cuatro constructores/destructores de vtable conservan ECX/EDX a través de la llamada (análisis lineal de las instrucciones siguientes a cada `call`, ver `README` de la sesión). El banco exige solo los registros que el EXE NO escribe (ECX/EDX) y EAX cuando es retorno definido o queda intacto. Con el marco `/Od` de depuración el cuerpo C++ recarga ECX/EDX con otros valores; se resolvió con `#pragma optimize("gty", on)` + `#pragma runtime_checks("", off)` por función y opciones por archivo en `source/CMakeLists.txt` (`/Zi`, sin RTC, sin PCH) para `Task.cpp` (ya estaba), `AnimManager.cpp`, `Fx.cpp` y `Sphere.cpp`, y escribiendo el cuerpo SIN llamadas (`CVector::operator=` y `std::array::data()` sin expandir en línea son llamadas que reescriben ECX; `RemoveAnimBlockRef` usa la dirección de la tabla como inmediato, `kAnimBlocksAddress`).
+
+## Banco
+Sin colaboradores (ninguna de las diez llama a otra función del juego). Arena estática de 0x180 bytes (guarda 0x40 + ventana 0x100 + guarda 0x40) alineada a 32, rellenada por caso (ruido, ceros, unos, ruido con palabras cortas a cero, patrón 0x80/0x7F); `this`, el centro de la esfera y el bloque de animación caen en la ventana, y el índice de `RemoveAnimBlockRef` se calcula para que 0xB5D4A0 + índice*32 caiga en ella, con los bits 27..31 aleatorios (el EXE los descarta con `shl 5`). Se comparan EAX/ECX/EDX según el contrato, los bytes cambiados de toda la arena (guardas incluidas), ESP, EBX/ESI/EDI/EBP, DF, cadena SEH y x87; contadores con extremos (0, 1, 0xFFFF, 0x8000...), ángulos de alias en `CSphere::Set` (el centro solapa el objeto) y valores float especiales.
+`fixture_selfcheck.py` repasa los 20480 casos por el oráculo sin juego y cuenta las marcas de cobertura (`coverage.json`, 80 % de lo medido).
+
+## Fuera de los fixtures
+NaN señalizantes distintos de los de la lista, índices de bloque fuera de la ventana (el EXE no comprueba rangos), objetos reales del juego (el banco usa memoria de arena) y la copia de la vtable de la DLL (los constructores del EXE escriben las vtables del EXE, 0x86D4A8 y 0x86D4CC).
+
+## Prueba negativa
+Produccion mutada en diez puntos (`Pad.h`: `Pads[n + 1]`; `RGBA.cpp`: r y g intercambiados; `Task.cpp`: vtable simple 0x86D4A9 y `+8` de la compleja sin poner a 0; `AnimManager.cpp`: `RefCnt -= 2`; `Fx.cpp`: `GetFxQuality` con `| 1` y `SetFxQuality` con `+ 1`; `Sphere.cpp`: `z = -z`; `FxPrtMult.cpp`: `m_fLife = 2.0f`; `PedDamageResponseCalculator.cpp`: el destructor escribe `m_bSpeak`): el banco FALLA con 19254/20480 pares con diferencias, al menos en las diez funciones (`resultados-fn90a/20261104-015131-844316`: GetPad 2048, CRGBA 2017, CTaskSimple 2048, CTaskComplex 1920, RemoveAnimBlockRef 2048, GetFxQuality 981, SetFxQuality 2048, Sphere::Set 2048, FxPrtMult 2048, Destructor 2048). Fuentes restauradas desde la copia buena (mismos sha256) antes de registrar.
+
+## Historial de la puesta a punto (que costo)
+Primera corrida: FALLO en `RemoveAnimBlockRef`, `SetFxQuality` y `CSphere::Set` solo por registros (el marco /Od recarga ECX/EDX). Segunda: `#pragma optimize` por funcion + opciones por archivo (SetFxQuality pasa). Tercera: `CSphere::Set` sin la llamada a `CVector::operator=` (pasa). Cuarta/quinta: `RemoveAnimBlockRef` con la direccion de la tabla como inmediato y devolviendo el bloque para que el compilador use EAX y no ECX (pasa).

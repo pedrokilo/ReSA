@@ -23,7 +23,10 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 
+// Sin PCH (CMakeLists.txt): StdInc.h redefine NOMINMAX y el aviso C4005 es error; mismo recurso que Task.cpp.
+#pragma warning(push, 0)
 #include "StdInc.h"
+#pragma warning(pop)
 
 #include "Fx.h"
 #include "X87Math.h"
@@ -58,8 +61,8 @@ void Fx_c::InjectHooks() {
     // + RH_ScopedInstall(Update, 0x49E640);
     // + RH_ScopedInstall(Render, 0x49E650);
     RH_ScopedInstall(CreateMatFromVec, 0x49E950);
-    // + RH_ScopedInstall(SetFxQuality, 0x49EA40);
-    // + RH_ScopedInstall(GetFxQuality, 0x49EA50);
+    RH_ScopedInstall(SetFxQuality, 0x49EA40);
+    RH_ScopedInstall(GetFxQuality, 0x49EA50);
     RH_ScopedInstall(AddBlood, 0x49EB00);
     RH_ScopedInstall(AddWood, 0x49EE10);
     RH_ScopedInstall(AddSparks, 0x49F040);
@@ -420,10 +423,14 @@ void Fx_c::CreateMatFromVec(RwMatrix* mat, const CVector* pos, const CVector* di
     RwMatrixUpdate(mat);
 }
 
-// 0x49EA40
+// 0x49EA40 (thiscall, `ret 4`): los llamadores del EXE conservan ECX y EDX; se optimiza por pragma (CMakeLists.txt: /Zi y sin comprobaciones de ejecucion).
+#pragma runtime_checks("", off)
+#pragma optimize("gty", on)
 void Fx_c::SetFxQuality(FxQuality_e quality) {
     m_FxQuality = quality;
 }
+#pragma optimize("", on)
+#pragma runtime_checks("", restore)
 
 // 0x49EA50
 FxQuality_e Fx_c::GetFxQuality() const {

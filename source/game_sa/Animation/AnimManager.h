@@ -38,7 +38,8 @@ private:
     static inline auto& ms_aAnimations = StaticRef<std::array<CAnimBlendHierarchy, 2500>>(0xB4EA40);
     static inline auto& ms_numAnimations = StaticRef<int32>(0xB4EA2C);
 
-    static inline auto& ms_aAnimBlocks = StaticRef<std::array<CAnimBlock, NUM_ANIM_BLOCKS>>(0xB5D4A0);
+    static constexpr uintptr_t kAnimBlocksAddress = 0xB5D4A0; // direccion de ms_aAnimBlocks en el EXE (RemoveAnimBlockRef la usa como inmediato: sin cargar el puntero de la referencia)
+    static inline auto& ms_aAnimBlocks = StaticRef<std::array<CAnimBlock, NUM_ANIM_BLOCKS>>(kAnimBlocksAddress);
     static inline auto& ms_numAnimBlocks = StaticRef<uint32>(0xB4EA30);
 
     static inline auto& ms_AnimCache = StaticRef<CLinkList<CAnimBlendHierarchy*>>(0xB5EB20);
@@ -85,7 +86,7 @@ public:
     static int32 RegisterAnimBlock(const char* name);
     static void RemoveLastAnimFile();
     static void RemoveAnimBlock(int32 index);
-    static void RemoveAnimBlockRef(int32 index);
+    static CAnimBlock* RemoveAnimBlockRef(int32 index); // 0x4D3FD0: devuelve el bloque (EAX residual del EXE; el cuerpo solo usa EAX y asi conserva ECX/EDX como el original)
     static void RemoveAnimBlockRefWithoutDelete(int32 index);
     static void RemoveFromUncompressedCache(CAnimBlendHierarchy* hier);
 

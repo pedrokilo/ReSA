@@ -2,6 +2,19 @@
 
 #include "FxPrtMult.h"
 
+void FxPrtMult_c::InjectHooks() {
+    RH_ScopedClass(FxPrtMult_c);
+    RH_ScopedCategory("Fx");
+
+    RH_ScopedInstall(Constructor, 0x4AB270);
+}
+
+// 0x4AB270
+FxPrtMult_c* FxPrtMult_c::Constructor() {
+    this->FxPrtMult_c::FxPrtMult_c();
+    return this;
+}
+
 // 0x4AB270
 FxPrtMult_c::FxPrtMult_c() {
     SetColor(1.0f, 1.0f, 1.0f, 1.0f);

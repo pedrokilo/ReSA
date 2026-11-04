@@ -9028,3 +9028,13 @@ CFont,PrintSegment,0x00719B40,1,0,1,S
 CPedAcquaintanceScanner,ScanForPedAcquaintances,0x00607D80,1,0,1,S
 CNearbyFireScanner,ScanForNearbyFires,0x00603E70,1,0,1,S
 CSexyPedScanner,ScanForSexyPeds,0x00603BF0,1,0,1,S
+CPad,GetPad,0x0053FB70,1,0,1,S
+CRGBA,Constructor,0x007170C0,1,0,1,S
+CTaskSimple,Constructor,0x0061A390,1,0,1,S
+CTaskComplex,Constructor,0x0061A3B0,1,0,1,S
+CAnimManager,RemoveAnimBlockRef,0x004D3FD0,1,0,1,S
+Fx_c,GetFxQuality,0x0049EA50,1,0,1,S
+Fx_c,SetFxQuality,0x0049EA40,1,0,1,S
+CSphere,Set,0x0040FCF0,1,0,1,S
+FxPrtMult_c,Constructor,0x004AB270,1,0,1,S
+CPedDamageResponseCalculator,Destructor,0x004AD420,1,0,1,S

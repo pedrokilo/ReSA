@@ -32,6 +32,7 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    void Destructor(); // 0x4AD420 (hook): el destructor del EXE es solo `ret`
     CPedDamageResponseCalculator* Constructor(CEntity* entity, float fDamage, eWeaponType weaponType, ePedPieceTypes bodyPart, bool bSpeak);
 };
 

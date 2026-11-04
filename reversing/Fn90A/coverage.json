@@ -1,0 +1,40 @@
+{
+ "CPad::GetPad": {
+  "neg": 704,
+  "nowrap": 668,
+  "pad_other": 1124,
+  "pad_small": 513,
+  "pos": 933,
+  "wrap": 969
+ },
+ "CRGBA::Constructor": {
+  "bytes_only": 410,
+  "garbage_high": 1228,
+  "nonzero": 1638
+ },
+ "CAnimManager::RemoveAnimBlockRef": {
+  "dec": 1499,
+  "high_bits": 1187,
+  "no_high_bits": 451,
+  "other_old": 1524,
+  "to_signed_min": 113,
+  "wrap": 139
+ },
+ "Fx_c::GetFxQuality": {
+  "q_other": 1526,
+  "q_zero": 112
+ },
+ "Fx_c::SetFxQuality": {
+  "q_big": 1017,
+  "q_small": 620
+ },
+ "CSphere::Set": {
+  "alias": 495,
+  "radius_nan": 121,
+  "radius_num": 1516,
+  "separate": 1143
+ },
+ "CPedDamageResponseCalculator::Destructor": {
+  "noop": 1638
+ }
+}

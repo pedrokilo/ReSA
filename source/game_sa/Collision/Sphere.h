@@ -18,6 +18,8 @@ public:
     [[deprecated]]
     constexpr CSphere(float radius, CVector center) : m_vecCenter(center), m_fRadius(radius) {}
 
+    static void InjectHooks();
+
     void Set(float radius, const CVector& center);
 
     //! Check if point is inside (within) of `*this`

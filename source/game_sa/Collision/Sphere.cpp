@@ -1,13 +1,31 @@
+// Sin PCH (CMakeLists.txt): StdInc.h redefine NOMINMAX y el aviso C4005 es error; mismo recurso que Task.cpp.
+#pragma warning(push, 0)
 #include "StdInc.h"
+#pragma warning(pop)
 
 #include "Sphere.h"
 #include "Lines.h"
 
-// 0x40FCF0
+void CSphere::InjectHooks() {
+    RH_ScopedClass(CSphere);
+    RH_ScopedCategory("Collision");
+
+    RH_ScopedInstall(Set, 0x40FCF0);
+}
+
+// 0x40FCF0 (thiscall, `ret 8`): radio primero y luego el centro, dword a dword. Los llamadores del EXE conservan ECX (this) tras la llamada (el marco /Od de depuracion lo recarga con
+// otro valor): se optimiza por pragma (CMakeLists.txt: /Zi y sin comprobaciones de ejecucion), que deja el cuerpo en EAX/EDX.
+#pragma runtime_checks("", off)
+#pragma optimize("gty", on)
 void CSphere::Set(float radius, const CVector& center) {
     m_fRadius = radius;
-    m_vecCenter = center;
+    // Componente a componente y en este orden, como el EXE (0x40FCF8..0x40FD08): `CVector::operator=` sin expandir en linea es una llamada que reescribe ECX.
+    m_vecCenter.x = center.x;
+    m_vecCenter.y = center.y;
+    m_vecCenter.z = center.z;
 }
+#pragma optimize("", on)
+#pragma runtime_checks("", restore)
 
 // NOTSA
 bool CSphere::IsPointWithin(const CVector& p) const {

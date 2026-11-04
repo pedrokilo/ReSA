@@ -10,10 +10,15 @@ public:
     float      m_fLife;
 
 public:
+    static void InjectHooks();
+
+public:
     FxPrtMult_c();
     FxPrtMult_c(float red, float green, float blue, float alpha, float size, float rot, float life);
 
     void SetUp(float red, float green, float blue, float alpha, float size, float rot, float life);
+
+    FxPrtMult_c* Constructor();   // 0x4AB270 (hook): construye en el sitio
 
     inline void SetColor(float red, float green, float blue, float alpha = 1.0f) {
         m_Color.red   = red;

@@ -23,7 +23,10 @@ https://github.com/DK22Pac/plugin-sdk
 Do not delete this comment block. Respect others' work!
 */
 
+// Sin PCH (CMakeLists.txt): StdInc.h redefine NOMINMAX y el aviso C4005 es error; mismo recurso que Task.cpp.
+#pragma warning(push, 0)
 #include "StdInc.h"
+#pragma warning(pop)
 
 #include <extensions/ci_string.hpp>
 
@@ -37,6 +40,7 @@ void CAnimManager::InjectHooks() {
     RH_ScopedInstall(Initialise, 0x5BF6B0);
     RH_ScopedInstall(ReadAnimAssociationDefinitions, 0x5BC910);
     RH_ScopedInstall(Shutdown, 0x4D4130);
+    RH_ScopedInstall(RemoveAnimBlockRef, 0x4D3FD0);
     RH_ScopedOverloadedInstall(GetAnimationBlock, "", 0x4D3940, CAnimBlock*(*)(const char*));
     RH_ScopedOverloadedInstall(GetAnimationBlockIndex, "by-name", 0x4D3990, int32(*)(const char*));
     RH_ScopedInstall(GetFirstAssocGroup, 0x4D39B0);
@@ -416,15 +420,23 @@ void CAnimManager::AddAnimBlockRef(int32 index) {
     ms_aAnimBlocks.data()[index].RefCnt++;
 }
 
-// 0x4D3FD0
-void CAnimManager::RemoveAnimBlockRef(int32 index) {
-    GetAnimBlocks()[index].RefCnt--;
+// 0x4D3FD0 (cdecl): los llamadores del EXE conservan ECX y EDX (alguno prueba CL justo despues); se optimiza por pragma (CMakeLists.txt: /Zi y sin comprobaciones de ejecucion).
+#pragma runtime_checks("", off)
+#pragma optimize("gty", on)
+CAnimBlock* CAnimManager::RemoveAnimBlockRef(int32 index) {
+    // Sin comprobacion de rango y sin llamadas (`array::data()` sin expandir en linea tocaria ECX): el EXE usa el indice tal cual (0x4D3FD0: `shl eax,5`, `add eax,0B5D4A0h`, `dec word [eax+0x12]`)
+    // y deja la direccion del bloque en EAX; devolverla hace que el compilador use EAX (y no ECX) como unico registro de trabajo.
+    CAnimBlock* const block = reinterpret_cast<CAnimBlock*>(kAnimBlocksAddress) + index;
+    block->RefCnt--;
     /* see RemoveAnimBlockRefWithoutDelete, logically here should be called RemoveModel or something
     if (--ms_aAnimBlocks[index].usRefs == 0) {
     CStreaming::RemoveModel(IFPToModelId(index));
     }
     */
+    return block;
 }
+#pragma optimize("", on)
+#pragma runtime_checks("", restore)
 
 // 0x4D3FF0
 void CAnimManager::RemoveAnimBlockRefWithoutDelete(int32 index) {

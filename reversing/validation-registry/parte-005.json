@@ -36355,6 +36355,456 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main 6e80ef26d con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, cuando tienen hook RH en la DLL (apagado durante el banco), en su cuerpo del ASI: ScanForPedAcquaintances: 0x603A30 y 0x607A90 (sin hook; la DLL los llama por direccion del EXE); ScanForNearbyFires: CTaskManager::GetSimplestActiveTask 0x6819D0, GetActiveTask 0x681720, CFireManager::FindNearestFire 0x538F40 y CEventGroup::Add 0x4AB420; ScanForSexyPeds: CWorld::GetIsLineOfSightClear 0x56A490, CInterestingEvents::Add 0x602590, CEventGroup::Add 0x4AB420, CEntity::RegisterReference 0x571B70 y CEntity::CleanUpOldReference 0x571A00. Registran sus argumentos en orden con el contenido de los vectores y, en Add, los campos definidos del evento (tipo por GetEventType virtual). NO se sustituyen y corren de verdad en ambos lados: el temporizador en linea, CTask::IsGoToTask 0x61A360 y las llamadas virtuales GetTaskType sobre arenas con vtabla propia, los constructores y destructores de CEventFireNearby (0x4B1F10), CEventPotentialWalkIntoFire (0x4B1E20, hook activo) y CEventSexyPed (0x4AEDF0), y toda la aritmetica x87 del EXE frente al C++ de la DLL, con CTimer::m_snTimeInMilliseconds (0xB7CB84) y el dword 0x8D2358 como memoria real del juego restaurada tras cada lado. El banco compara los eventos de los falsos con todos sus argumentos y los bytes cambiados de todas las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: ped sin matriz en ScanForSexyPeds (el EXE la desreferencia), numero de entidades mayor que 16, NaN con cargas distintas de 0xFFC00000, NaN senalizantes y valores de retorno de los falsos.",
       "review_reference": "reversing/Fn92A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPad",
+        "fn_name": "GetPad",
+        "address": "0x0053FB70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn90A/validation-summary.json",
+        "sha256": "aa251b6a3879ec6da34b0f2e2a498fe19827a9e2104190e1215e2a388c29e639",
+        "passed_path": [
+          "covered_functions",
+          "CPad::GetPad"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "46455aa2a71243a7728804b0a9f2ff205ba2769419c3562ea58219866e931352",
+        "source/game_sa/Pad.cpp": "d078d513549230fc8e9ec19027b93b6ae36e18854aa8e77cccbe902d03a466d7",
+        "source/game_sa/RGBA.cpp": "3fbdc7eef85f8df73a756906a913fb4d6fe5cff3588deb5a0df1909993aa17d4",
+        "source/game_sa/RGBA.h": "0f6ee606161d74a3b1d6fc61bbd62de8d891c5b7fc8e24fd2141e479fda435cf",
+        "source/game_sa/Tasks/Task.cpp": "7bb5a2e6650e97b0b165134c1a4904e22bcc701b5067117024ad0366b7af4f07",
+        "source/game_sa/Animation/AnimManager.cpp": "f042e552f165de8d78993043b297da070b3340326f9a42eb362cbbfa18d6eaa4",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c",
+        "source/game_sa/Fx/Fx.cpp": "653e8fc05d86628f534b4fdeeb335297ed8d9ad89a9ef62df657b6820959c077",
+        "source/game_sa/Collision/Sphere.cpp": "c5e54dab2ce04b74e3ba1159d812fc08e516ff5e6383fb3eea8a0f1dd2438dec",
+        "source/game_sa/Collision/Sphere.h": "a47316d81e5f746994625e66d06f5b28aa3b5e8a477f82751642e2feee884ce9",
+        "source/game_sa/Fx/FxPrtMult.cpp": "6a253306114e10f4d0b8f8ef7a7f4cd1068a7769cd4bbc145b2f87b91c9c6e5a",
+        "source/game_sa/Fx/FxPrtMult.h": "1fe724953e6e982fcf17d01291f74ff668d90add5c1410fd404e02783d7239b3",
+        "source/game_sa/PedDamageResponseCalculator.cpp": "2a080bcb7da3abf5d0de9364393e4c46c2b66b65f0700b45faadfb60c9d99b9c",
+        "source/game_sa/PedDamageResponseCalculator.h": "6653c9f3053987ba2329d5ff3fa3bb5ef0a122a5f82c3b58a3b2864f01a22903",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn90A/LiveComparison.hpp": "e38ebdcb8053a278e49cd60aeb648e554ff24448c9d314c1f1589cbb7c2d56b2",
+        "reversing/Fn90A/Core.hpp": "94562ab74c1b39e903e470183b4e9c211e7a8099876287713ab8fddd13087d67",
+        "reversing/Fn90A/Fixtures.hpp": "732087079ad69aac3f01a9021d312948220ea121988e33d242b146a587a01b95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote piloto 90A (triviales y thunks muy llamados del grupo A). Ninguna de las diez funciones llama a otra del juego: no hay colaboradores sustituidos. Cada una se prueba con una arena estatica de 0x180 bytes (guarda de 0x40 + ventana de 0x100 + guarda de 0x40, alineada a 32; `this`, el centro de la esfera y el bloque de animacion caen en la ventana, y el indice de RemoveAnimBlockRef se calcula para que 0xB5D4A0 + indice*32 caiga en ella, con los bits 27..31 aleatorios porque el EXE los descarta con shl 5). Se comparan EAX (retorno definido, this o EAX intacto), ECX y EDX solo si el EXE no los escribe (el llamador puede contar con ellos), los bytes cambiados de toda la arena, ESP, EBX/ESI/EDI/EBP, DF, la cadena SEH y el x87; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Los constructores de CTaskSimple/CTaskComplex y los destructores solo escriben las vtables del EXE (0x86D4A8, 0x86D4CC), no construyen objetos. Fuera de los fixtures: NaN senalizantes distintos de los de la lista, indices de bloque fuera de la ventana (el EXE no comprueba rangos) y estructuras no alineadas a la semantica del juego (el banco usa memoria de arena, no objetos reales).",
+      "review_reference": "reversing/Fn90A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CRGBA",
+        "fn_name": "Constructor",
+        "address": "0x007170C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn90A/validation-summary.json",
+        "sha256": "aa251b6a3879ec6da34b0f2e2a498fe19827a9e2104190e1215e2a388c29e639",
+        "passed_path": [
+          "covered_functions",
+          "CRGBA::Constructor"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "46455aa2a71243a7728804b0a9f2ff205ba2769419c3562ea58219866e931352",
+        "source/game_sa/Pad.cpp": "d078d513549230fc8e9ec19027b93b6ae36e18854aa8e77cccbe902d03a466d7",
+        "source/game_sa/RGBA.cpp": "3fbdc7eef85f8df73a756906a913fb4d6fe5cff3588deb5a0df1909993aa17d4",
+        "source/game_sa/RGBA.h": "0f6ee606161d74a3b1d6fc61bbd62de8d891c5b7fc8e24fd2141e479fda435cf",
+        "source/game_sa/Tasks/Task.cpp": "7bb5a2e6650e97b0b165134c1a4904e22bcc701b5067117024ad0366b7af4f07",
+        "source/game_sa/Animation/AnimManager.cpp": "f042e552f165de8d78993043b297da070b3340326f9a42eb362cbbfa18d6eaa4",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c",
+        "source/game_sa/Fx/Fx.cpp": "653e8fc05d86628f534b4fdeeb335297ed8d9ad89a9ef62df657b6820959c077",
+        "source/game_sa/Collision/Sphere.cpp": "c5e54dab2ce04b74e3ba1159d812fc08e516ff5e6383fb3eea8a0f1dd2438dec",
+        "source/game_sa/Collision/Sphere.h": "a47316d81e5f746994625e66d06f5b28aa3b5e8a477f82751642e2feee884ce9",
+        "source/game_sa/Fx/FxPrtMult.cpp": "6a253306114e10f4d0b8f8ef7a7f4cd1068a7769cd4bbc145b2f87b91c9c6e5a",
+        "source/game_sa/Fx/FxPrtMult.h": "1fe724953e6e982fcf17d01291f74ff668d90add5c1410fd404e02783d7239b3",
+        "source/game_sa/PedDamageResponseCalculator.cpp": "2a080bcb7da3abf5d0de9364393e4c46c2b66b65f0700b45faadfb60c9d99b9c",
+        "source/game_sa/PedDamageResponseCalculator.h": "6653c9f3053987ba2329d5ff3fa3bb5ef0a122a5f82c3b58a3b2864f01a22903",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn90A/LiveComparison.hpp": "e38ebdcb8053a278e49cd60aeb648e554ff24448c9d314c1f1589cbb7c2d56b2",
+        "reversing/Fn90A/Core.hpp": "94562ab74c1b39e903e470183b4e9c211e7a8099876287713ab8fddd13087d67",
+        "reversing/Fn90A/Fixtures.hpp": "732087079ad69aac3f01a9021d312948220ea121988e33d242b146a587a01b95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote piloto 90A (triviales y thunks muy llamados del grupo A). Ninguna de las diez funciones llama a otra del juego: no hay colaboradores sustituidos. Cada una se prueba con una arena estatica de 0x180 bytes (guarda de 0x40 + ventana de 0x100 + guarda de 0x40, alineada a 32; `this`, el centro de la esfera y el bloque de animacion caen en la ventana, y el indice de RemoveAnimBlockRef se calcula para que 0xB5D4A0 + indice*32 caiga en ella, con los bits 27..31 aleatorios porque el EXE los descarta con shl 5). Se comparan EAX (retorno definido, this o EAX intacto), ECX y EDX solo si el EXE no los escribe (el llamador puede contar con ellos), los bytes cambiados de toda la arena, ESP, EBX/ESI/EDI/EBP, DF, la cadena SEH y el x87; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Los constructores de CTaskSimple/CTaskComplex y los destructores solo escriben las vtables del EXE (0x86D4A8, 0x86D4CC), no construyen objetos. Fuera de los fixtures: NaN senalizantes distintos de los de la lista, indices de bloque fuera de la ventana (el EXE no comprueba rangos) y estructuras no alineadas a la semantica del juego (el banco usa memoria de arena, no objetos reales).",
+      "review_reference": "reversing/Fn90A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimple",
+        "fn_name": "Constructor",
+        "address": "0x0061A390",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn90A/validation-summary.json",
+        "sha256": "aa251b6a3879ec6da34b0f2e2a498fe19827a9e2104190e1215e2a388c29e639",
+        "passed_path": [
+          "covered_functions",
+          "CTaskSimple::Constructor"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "46455aa2a71243a7728804b0a9f2ff205ba2769419c3562ea58219866e931352",
+        "source/game_sa/Pad.cpp": "d078d513549230fc8e9ec19027b93b6ae36e18854aa8e77cccbe902d03a466d7",
+        "source/game_sa/RGBA.cpp": "3fbdc7eef85f8df73a756906a913fb4d6fe5cff3588deb5a0df1909993aa17d4",
+        "source/game_sa/RGBA.h": "0f6ee606161d74a3b1d6fc61bbd62de8d891c5b7fc8e24fd2141e479fda435cf",
+        "source/game_sa/Tasks/Task.cpp": "7bb5a2e6650e97b0b165134c1a4904e22bcc701b5067117024ad0366b7af4f07",
+        "source/game_sa/Animation/AnimManager.cpp": "f042e552f165de8d78993043b297da070b3340326f9a42eb362cbbfa18d6eaa4",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c",
+        "source/game_sa/Fx/Fx.cpp": "653e8fc05d86628f534b4fdeeb335297ed8d9ad89a9ef62df657b6820959c077",
+        "source/game_sa/Collision/Sphere.cpp": "c5e54dab2ce04b74e3ba1159d812fc08e516ff5e6383fb3eea8a0f1dd2438dec",
+        "source/game_sa/Collision/Sphere.h": "a47316d81e5f746994625e66d06f5b28aa3b5e8a477f82751642e2feee884ce9",
+        "source/game_sa/Fx/FxPrtMult.cpp": "6a253306114e10f4d0b8f8ef7a7f4cd1068a7769cd4bbc145b2f87b91c9c6e5a",
+        "source/game_sa/Fx/FxPrtMult.h": "1fe724953e6e982fcf17d01291f74ff668d90add5c1410fd404e02783d7239b3",
+        "source/game_sa/PedDamageResponseCalculator.cpp": "2a080bcb7da3abf5d0de9364393e4c46c2b66b65f0700b45faadfb60c9d99b9c",
+        "source/game_sa/PedDamageResponseCalculator.h": "6653c9f3053987ba2329d5ff3fa3bb5ef0a122a5f82c3b58a3b2864f01a22903",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn90A/LiveComparison.hpp": "e38ebdcb8053a278e49cd60aeb648e554ff24448c9d314c1f1589cbb7c2d56b2",
+        "reversing/Fn90A/Core.hpp": "94562ab74c1b39e903e470183b4e9c211e7a8099876287713ab8fddd13087d67",
+        "reversing/Fn90A/Fixtures.hpp": "732087079ad69aac3f01a9021d312948220ea121988e33d242b146a587a01b95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote piloto 90A (triviales y thunks muy llamados del grupo A). Ninguna de las diez funciones llama a otra del juego: no hay colaboradores sustituidos. Cada una se prueba con una arena estatica de 0x180 bytes (guarda de 0x40 + ventana de 0x100 + guarda de 0x40, alineada a 32; `this`, el centro de la esfera y el bloque de animacion caen en la ventana, y el indice de RemoveAnimBlockRef se calcula para que 0xB5D4A0 + indice*32 caiga en ella, con los bits 27..31 aleatorios porque el EXE los descarta con shl 5). Se comparan EAX (retorno definido, this o EAX intacto), ECX y EDX solo si el EXE no los escribe (el llamador puede contar con ellos), los bytes cambiados de toda la arena, ESP, EBX/ESI/EDI/EBP, DF, la cadena SEH y el x87; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Los constructores de CTaskSimple/CTaskComplex y los destructores solo escriben las vtables del EXE (0x86D4A8, 0x86D4CC), no construyen objetos. Fuera de los fixtures: NaN senalizantes distintos de los de la lista, indices de bloque fuera de la ventana (el EXE no comprueba rangos) y estructuras no alineadas a la semantica del juego (el banco usa memoria de arena, no objetos reales).",
+      "review_reference": "reversing/Fn90A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplex",
+        "fn_name": "Constructor",
+        "address": "0x0061A3B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn90A/validation-summary.json",
+        "sha256": "aa251b6a3879ec6da34b0f2e2a498fe19827a9e2104190e1215e2a388c29e639",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplex::Constructor"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "46455aa2a71243a7728804b0a9f2ff205ba2769419c3562ea58219866e931352",
+        "source/game_sa/Pad.cpp": "d078d513549230fc8e9ec19027b93b6ae36e18854aa8e77cccbe902d03a466d7",
+        "source/game_sa/RGBA.cpp": "3fbdc7eef85f8df73a756906a913fb4d6fe5cff3588deb5a0df1909993aa17d4",
+        "source/game_sa/RGBA.h": "0f6ee606161d74a3b1d6fc61bbd62de8d891c5b7fc8e24fd2141e479fda435cf",
+        "source/game_sa/Tasks/Task.cpp": "7bb5a2e6650e97b0b165134c1a4904e22bcc701b5067117024ad0366b7af4f07",
+        "source/game_sa/Animation/AnimManager.cpp": "f042e552f165de8d78993043b297da070b3340326f9a42eb362cbbfa18d6eaa4",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c",
+        "source/game_sa/Fx/Fx.cpp": "653e8fc05d86628f534b4fdeeb335297ed8d9ad89a9ef62df657b6820959c077",
+        "source/game_sa/Collision/Sphere.cpp": "c5e54dab2ce04b74e3ba1159d812fc08e516ff5e6383fb3eea8a0f1dd2438dec",
+        "source/game_sa/Collision/Sphere.h": "a47316d81e5f746994625e66d06f5b28aa3b5e8a477f82751642e2feee884ce9",
+        "source/game_sa/Fx/FxPrtMult.cpp": "6a253306114e10f4d0b8f8ef7a7f4cd1068a7769cd4bbc145b2f87b91c9c6e5a",
+        "source/game_sa/Fx/FxPrtMult.h": "1fe724953e6e982fcf17d01291f74ff668d90add5c1410fd404e02783d7239b3",
+        "source/game_sa/PedDamageResponseCalculator.cpp": "2a080bcb7da3abf5d0de9364393e4c46c2b66b65f0700b45faadfb60c9d99b9c",
+        "source/game_sa/PedDamageResponseCalculator.h": "6653c9f3053987ba2329d5ff3fa3bb5ef0a122a5f82c3b58a3b2864f01a22903",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn90A/LiveComparison.hpp": "e38ebdcb8053a278e49cd60aeb648e554ff24448c9d314c1f1589cbb7c2d56b2",
+        "reversing/Fn90A/Core.hpp": "94562ab74c1b39e903e470183b4e9c211e7a8099876287713ab8fddd13087d67",
+        "reversing/Fn90A/Fixtures.hpp": "732087079ad69aac3f01a9021d312948220ea121988e33d242b146a587a01b95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote piloto 90A (triviales y thunks muy llamados del grupo A). Ninguna de las diez funciones llama a otra del juego: no hay colaboradores sustituidos. Cada una se prueba con una arena estatica de 0x180 bytes (guarda de 0x40 + ventana de 0x100 + guarda de 0x40, alineada a 32; `this`, el centro de la esfera y el bloque de animacion caen en la ventana, y el indice de RemoveAnimBlockRef se calcula para que 0xB5D4A0 + indice*32 caiga en ella, con los bits 27..31 aleatorios porque el EXE los descarta con shl 5). Se comparan EAX (retorno definido, this o EAX intacto), ECX y EDX solo si el EXE no los escribe (el llamador puede contar con ellos), los bytes cambiados de toda la arena, ESP, EBX/ESI/EDI/EBP, DF, la cadena SEH y el x87; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Los constructores de CTaskSimple/CTaskComplex y los destructores solo escriben las vtables del EXE (0x86D4A8, 0x86D4CC), no construyen objetos. Fuera de los fixtures: NaN senalizantes distintos de los de la lista, indices de bloque fuera de la ventana (el EXE no comprueba rangos) y estructuras no alineadas a la semantica del juego (el banco usa memoria de arena, no objetos reales).",
+      "review_reference": "reversing/Fn90A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAnimManager",
+        "fn_name": "RemoveAnimBlockRef",
+        "address": "0x004D3FD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn90A/validation-summary.json",
+        "sha256": "aa251b6a3879ec6da34b0f2e2a498fe19827a9e2104190e1215e2a388c29e639",
+        "passed_path": [
+          "covered_functions",
+          "CAnimManager::RemoveAnimBlockRef"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "46455aa2a71243a7728804b0a9f2ff205ba2769419c3562ea58219866e931352",
+        "source/game_sa/Pad.cpp": "d078d513549230fc8e9ec19027b93b6ae36e18854aa8e77cccbe902d03a466d7",
+        "source/game_sa/RGBA.cpp": "3fbdc7eef85f8df73a756906a913fb4d6fe5cff3588deb5a0df1909993aa17d4",
+        "source/game_sa/RGBA.h": "0f6ee606161d74a3b1d6fc61bbd62de8d891c5b7fc8e24fd2141e479fda435cf",
+        "source/game_sa/Tasks/Task.cpp": "7bb5a2e6650e97b0b165134c1a4904e22bcc701b5067117024ad0366b7af4f07",
+        "source/game_sa/Animation/AnimManager.cpp": "f042e552f165de8d78993043b297da070b3340326f9a42eb362cbbfa18d6eaa4",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c",
+        "source/game_sa/Fx/Fx.cpp": "653e8fc05d86628f534b4fdeeb335297ed8d9ad89a9ef62df657b6820959c077",
+        "source/game_sa/Collision/Sphere.cpp": "c5e54dab2ce04b74e3ba1159d812fc08e516ff5e6383fb3eea8a0f1dd2438dec",
+        "source/game_sa/Collision/Sphere.h": "a47316d81e5f746994625e66d06f5b28aa3b5e8a477f82751642e2feee884ce9",
+        "source/game_sa/Fx/FxPrtMult.cpp": "6a253306114e10f4d0b8f8ef7a7f4cd1068a7769cd4bbc145b2f87b91c9c6e5a",
+        "source/game_sa/Fx/FxPrtMult.h": "1fe724953e6e982fcf17d01291f74ff668d90add5c1410fd404e02783d7239b3",
+        "source/game_sa/PedDamageResponseCalculator.cpp": "2a080bcb7da3abf5d0de9364393e4c46c2b66b65f0700b45faadfb60c9d99b9c",
+        "source/game_sa/PedDamageResponseCalculator.h": "6653c9f3053987ba2329d5ff3fa3bb5ef0a122a5f82c3b58a3b2864f01a22903",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn90A/LiveComparison.hpp": "e38ebdcb8053a278e49cd60aeb648e554ff24448c9d314c1f1589cbb7c2d56b2",
+        "reversing/Fn90A/Core.hpp": "94562ab74c1b39e903e470183b4e9c211e7a8099876287713ab8fddd13087d67",
+        "reversing/Fn90A/Fixtures.hpp": "732087079ad69aac3f01a9021d312948220ea121988e33d242b146a587a01b95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote piloto 90A (triviales y thunks muy llamados del grupo A). Ninguna de las diez funciones llama a otra del juego: no hay colaboradores sustituidos. Cada una se prueba con una arena estatica de 0x180 bytes (guarda de 0x40 + ventana de 0x100 + guarda de 0x40, alineada a 32; `this`, el centro de la esfera y el bloque de animacion caen en la ventana, y el indice de RemoveAnimBlockRef se calcula para que 0xB5D4A0 + indice*32 caiga en ella, con los bits 27..31 aleatorios porque el EXE los descarta con shl 5). Se comparan EAX (retorno definido, this o EAX intacto), ECX y EDX solo si el EXE no los escribe (el llamador puede contar con ellos), los bytes cambiados de toda la arena, ESP, EBX/ESI/EDI/EBP, DF, la cadena SEH y el x87; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Los constructores de CTaskSimple/CTaskComplex y los destructores solo escriben las vtables del EXE (0x86D4A8, 0x86D4CC), no construyen objetos. Fuera de los fixtures: NaN senalizantes distintos de los de la lista, indices de bloque fuera de la ventana (el EXE no comprueba rangos) y estructuras no alineadas a la semantica del juego (el banco usa memoria de arena, no objetos reales).",
+      "review_reference": "reversing/Fn90A/README.md"
+    },
+    {
+      "hook": {
+        "class": "Fx_c",
+        "fn_name": "GetFxQuality",
+        "address": "0x0049EA50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn90A/validation-summary.json",
+        "sha256": "aa251b6a3879ec6da34b0f2e2a498fe19827a9e2104190e1215e2a388c29e639",
+        "passed_path": [
+          "covered_functions",
+          "Fx_c::GetFxQuality"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "46455aa2a71243a7728804b0a9f2ff205ba2769419c3562ea58219866e931352",
+        "source/game_sa/Pad.cpp": "d078d513549230fc8e9ec19027b93b6ae36e18854aa8e77cccbe902d03a466d7",
+        "source/game_sa/RGBA.cpp": "3fbdc7eef85f8df73a756906a913fb4d6fe5cff3588deb5a0df1909993aa17d4",
+        "source/game_sa/RGBA.h": "0f6ee606161d74a3b1d6fc61bbd62de8d891c5b7fc8e24fd2141e479fda435cf",
+        "source/game_sa/Tasks/Task.cpp": "7bb5a2e6650e97b0b165134c1a4904e22bcc701b5067117024ad0366b7af4f07",
+        "source/game_sa/Animation/AnimManager.cpp": "f042e552f165de8d78993043b297da070b3340326f9a42eb362cbbfa18d6eaa4",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c",
+        "source/game_sa/Fx/Fx.cpp": "653e8fc05d86628f534b4fdeeb335297ed8d9ad89a9ef62df657b6820959c077",
+        "source/game_sa/Collision/Sphere.cpp": "c5e54dab2ce04b74e3ba1159d812fc08e516ff5e6383fb3eea8a0f1dd2438dec",
+        "source/game_sa/Collision/Sphere.h": "a47316d81e5f746994625e66d06f5b28aa3b5e8a477f82751642e2feee884ce9",
+        "source/game_sa/Fx/FxPrtMult.cpp": "6a253306114e10f4d0b8f8ef7a7f4cd1068a7769cd4bbc145b2f87b91c9c6e5a",
+        "source/game_sa/Fx/FxPrtMult.h": "1fe724953e6e982fcf17d01291f74ff668d90add5c1410fd404e02783d7239b3",
+        "source/game_sa/PedDamageResponseCalculator.cpp": "2a080bcb7da3abf5d0de9364393e4c46c2b66b65f0700b45faadfb60c9d99b9c",
+        "source/game_sa/PedDamageResponseCalculator.h": "6653c9f3053987ba2329d5ff3fa3bb5ef0a122a5f82c3b58a3b2864f01a22903",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn90A/LiveComparison.hpp": "e38ebdcb8053a278e49cd60aeb648e554ff24448c9d314c1f1589cbb7c2d56b2",
+        "reversing/Fn90A/Core.hpp": "94562ab74c1b39e903e470183b4e9c211e7a8099876287713ab8fddd13087d67",
+        "reversing/Fn90A/Fixtures.hpp": "732087079ad69aac3f01a9021d312948220ea121988e33d242b146a587a01b95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote piloto 90A (triviales y thunks muy llamados del grupo A). Ninguna de las diez funciones llama a otra del juego: no hay colaboradores sustituidos. Cada una se prueba con una arena estatica de 0x180 bytes (guarda de 0x40 + ventana de 0x100 + guarda de 0x40, alineada a 32; `this`, el centro de la esfera y el bloque de animacion caen en la ventana, y el indice de RemoveAnimBlockRef se calcula para que 0xB5D4A0 + indice*32 caiga en ella, con los bits 27..31 aleatorios porque el EXE los descarta con shl 5). Se comparan EAX (retorno definido, this o EAX intacto), ECX y EDX solo si el EXE no los escribe (el llamador puede contar con ellos), los bytes cambiados de toda la arena, ESP, EBX/ESI/EDI/EBP, DF, la cadena SEH y el x87; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Los constructores de CTaskSimple/CTaskComplex y los destructores solo escriben las vtables del EXE (0x86D4A8, 0x86D4CC), no construyen objetos. Fuera de los fixtures: NaN senalizantes distintos de los de la lista, indices de bloque fuera de la ventana (el EXE no comprueba rangos) y estructuras no alineadas a la semantica del juego (el banco usa memoria de arena, no objetos reales).",
+      "review_reference": "reversing/Fn90A/README.md"
+    },
+    {
+      "hook": {
+        "class": "Fx_c",
+        "fn_name": "SetFxQuality",
+        "address": "0x0049EA40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn90A/validation-summary.json",
+        "sha256": "aa251b6a3879ec6da34b0f2e2a498fe19827a9e2104190e1215e2a388c29e639",
+        "passed_path": [
+          "covered_functions",
+          "Fx_c::SetFxQuality"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "46455aa2a71243a7728804b0a9f2ff205ba2769419c3562ea58219866e931352",
+        "source/game_sa/Pad.cpp": "d078d513549230fc8e9ec19027b93b6ae36e18854aa8e77cccbe902d03a466d7",
+        "source/game_sa/RGBA.cpp": "3fbdc7eef85f8df73a756906a913fb4d6fe5cff3588deb5a0df1909993aa17d4",
+        "source/game_sa/RGBA.h": "0f6ee606161d74a3b1d6fc61bbd62de8d891c5b7fc8e24fd2141e479fda435cf",
+        "source/game_sa/Tasks/Task.cpp": "7bb5a2e6650e97b0b165134c1a4904e22bcc701b5067117024ad0366b7af4f07",
+        "source/game_sa/Animation/AnimManager.cpp": "f042e552f165de8d78993043b297da070b3340326f9a42eb362cbbfa18d6eaa4",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c",
+        "source/game_sa/Fx/Fx.cpp": "653e8fc05d86628f534b4fdeeb335297ed8d9ad89a9ef62df657b6820959c077",
+        "source/game_sa/Collision/Sphere.cpp": "c5e54dab2ce04b74e3ba1159d812fc08e516ff5e6383fb3eea8a0f1dd2438dec",
+        "source/game_sa/Collision/Sphere.h": "a47316d81e5f746994625e66d06f5b28aa3b5e8a477f82751642e2feee884ce9",
+        "source/game_sa/Fx/FxPrtMult.cpp": "6a253306114e10f4d0b8f8ef7a7f4cd1068a7769cd4bbc145b2f87b91c9c6e5a",
+        "source/game_sa/Fx/FxPrtMult.h": "1fe724953e6e982fcf17d01291f74ff668d90add5c1410fd404e02783d7239b3",
+        "source/game_sa/PedDamageResponseCalculator.cpp": "2a080bcb7da3abf5d0de9364393e4c46c2b66b65f0700b45faadfb60c9d99b9c",
+        "source/game_sa/PedDamageResponseCalculator.h": "6653c9f3053987ba2329d5ff3fa3bb5ef0a122a5f82c3b58a3b2864f01a22903",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn90A/LiveComparison.hpp": "e38ebdcb8053a278e49cd60aeb648e554ff24448c9d314c1f1589cbb7c2d56b2",
+        "reversing/Fn90A/Core.hpp": "94562ab74c1b39e903e470183b4e9c211e7a8099876287713ab8fddd13087d67",
+        "reversing/Fn90A/Fixtures.hpp": "732087079ad69aac3f01a9021d312948220ea121988e33d242b146a587a01b95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote piloto 90A (triviales y thunks muy llamados del grupo A). Ninguna de las diez funciones llama a otra del juego: no hay colaboradores sustituidos. Cada una se prueba con una arena estatica de 0x180 bytes (guarda de 0x40 + ventana de 0x100 + guarda de 0x40, alineada a 32; `this`, el centro de la esfera y el bloque de animacion caen en la ventana, y el indice de RemoveAnimBlockRef se calcula para que 0xB5D4A0 + indice*32 caiga en ella, con los bits 27..31 aleatorios porque el EXE los descarta con shl 5). Se comparan EAX (retorno definido, this o EAX intacto), ECX y EDX solo si el EXE no los escribe (el llamador puede contar con ellos), los bytes cambiados de toda la arena, ESP, EBX/ESI/EDI/EBP, DF, la cadena SEH y el x87; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Los constructores de CTaskSimple/CTaskComplex y los destructores solo escriben las vtables del EXE (0x86D4A8, 0x86D4CC), no construyen objetos. Fuera de los fixtures: NaN senalizantes distintos de los de la lista, indices de bloque fuera de la ventana (el EXE no comprueba rangos) y estructuras no alineadas a la semantica del juego (el banco usa memoria de arena, no objetos reales).",
+      "review_reference": "reversing/Fn90A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CSphere",
+        "fn_name": "Set",
+        "address": "0x0040FCF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn90A/validation-summary.json",
+        "sha256": "aa251b6a3879ec6da34b0f2e2a498fe19827a9e2104190e1215e2a388c29e639",
+        "passed_path": [
+          "covered_functions",
+          "CSphere::Set"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "46455aa2a71243a7728804b0a9f2ff205ba2769419c3562ea58219866e931352",
+        "source/game_sa/Pad.cpp": "d078d513549230fc8e9ec19027b93b6ae36e18854aa8e77cccbe902d03a466d7",
+        "source/game_sa/RGBA.cpp": "3fbdc7eef85f8df73a756906a913fb4d6fe5cff3588deb5a0df1909993aa17d4",
+        "source/game_sa/RGBA.h": "0f6ee606161d74a3b1d6fc61bbd62de8d891c5b7fc8e24fd2141e479fda435cf",
+        "source/game_sa/Tasks/Task.cpp": "7bb5a2e6650e97b0b165134c1a4904e22bcc701b5067117024ad0366b7af4f07",
+        "source/game_sa/Animation/AnimManager.cpp": "f042e552f165de8d78993043b297da070b3340326f9a42eb362cbbfa18d6eaa4",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c",
+        "source/game_sa/Fx/Fx.cpp": "653e8fc05d86628f534b4fdeeb335297ed8d9ad89a9ef62df657b6820959c077",
+        "source/game_sa/Collision/Sphere.cpp": "c5e54dab2ce04b74e3ba1159d812fc08e516ff5e6383fb3eea8a0f1dd2438dec",
+        "source/game_sa/Collision/Sphere.h": "a47316d81e5f746994625e66d06f5b28aa3b5e8a477f82751642e2feee884ce9",
+        "source/game_sa/Fx/FxPrtMult.cpp": "6a253306114e10f4d0b8f8ef7a7f4cd1068a7769cd4bbc145b2f87b91c9c6e5a",
+        "source/game_sa/Fx/FxPrtMult.h": "1fe724953e6e982fcf17d01291f74ff668d90add5c1410fd404e02783d7239b3",
+        "source/game_sa/PedDamageResponseCalculator.cpp": "2a080bcb7da3abf5d0de9364393e4c46c2b66b65f0700b45faadfb60c9d99b9c",
+        "source/game_sa/PedDamageResponseCalculator.h": "6653c9f3053987ba2329d5ff3fa3bb5ef0a122a5f82c3b58a3b2864f01a22903",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn90A/LiveComparison.hpp": "e38ebdcb8053a278e49cd60aeb648e554ff24448c9d314c1f1589cbb7c2d56b2",
+        "reversing/Fn90A/Core.hpp": "94562ab74c1b39e903e470183b4e9c211e7a8099876287713ab8fddd13087d67",
+        "reversing/Fn90A/Fixtures.hpp": "732087079ad69aac3f01a9021d312948220ea121988e33d242b146a587a01b95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote piloto 90A (triviales y thunks muy llamados del grupo A). Ninguna de las diez funciones llama a otra del juego: no hay colaboradores sustituidos. Cada una se prueba con una arena estatica de 0x180 bytes (guarda de 0x40 + ventana de 0x100 + guarda de 0x40, alineada a 32; `this`, el centro de la esfera y el bloque de animacion caen en la ventana, y el indice de RemoveAnimBlockRef se calcula para que 0xB5D4A0 + indice*32 caiga en ella, con los bits 27..31 aleatorios porque el EXE los descarta con shl 5). Se comparan EAX (retorno definido, this o EAX intacto), ECX y EDX solo si el EXE no los escribe (el llamador puede contar con ellos), los bytes cambiados de toda la arena, ESP, EBX/ESI/EDI/EBP, DF, la cadena SEH y el x87; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Los constructores de CTaskSimple/CTaskComplex y los destructores solo escriben las vtables del EXE (0x86D4A8, 0x86D4CC), no construyen objetos. Fuera de los fixtures: NaN senalizantes distintos de los de la lista, indices de bloque fuera de la ventana (el EXE no comprueba rangos) y estructuras no alineadas a la semantica del juego (el banco usa memoria de arena, no objetos reales).",
+      "review_reference": "reversing/Fn90A/README.md"
+    },
+    {
+      "hook": {
+        "class": "FxPrtMult_c",
+        "fn_name": "Constructor",
+        "address": "0x004AB270",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn90A/validation-summary.json",
+        "sha256": "aa251b6a3879ec6da34b0f2e2a498fe19827a9e2104190e1215e2a388c29e639",
+        "passed_path": [
+          "covered_functions",
+          "FxPrtMult_c::Constructor"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "46455aa2a71243a7728804b0a9f2ff205ba2769419c3562ea58219866e931352",
+        "source/game_sa/Pad.cpp": "d078d513549230fc8e9ec19027b93b6ae36e18854aa8e77cccbe902d03a466d7",
+        "source/game_sa/RGBA.cpp": "3fbdc7eef85f8df73a756906a913fb4d6fe5cff3588deb5a0df1909993aa17d4",
+        "source/game_sa/RGBA.h": "0f6ee606161d74a3b1d6fc61bbd62de8d891c5b7fc8e24fd2141e479fda435cf",
+        "source/game_sa/Tasks/Task.cpp": "7bb5a2e6650e97b0b165134c1a4904e22bcc701b5067117024ad0366b7af4f07",
+        "source/game_sa/Animation/AnimManager.cpp": "f042e552f165de8d78993043b297da070b3340326f9a42eb362cbbfa18d6eaa4",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c",
+        "source/game_sa/Fx/Fx.cpp": "653e8fc05d86628f534b4fdeeb335297ed8d9ad89a9ef62df657b6820959c077",
+        "source/game_sa/Collision/Sphere.cpp": "c5e54dab2ce04b74e3ba1159d812fc08e516ff5e6383fb3eea8a0f1dd2438dec",
+        "source/game_sa/Collision/Sphere.h": "a47316d81e5f746994625e66d06f5b28aa3b5e8a477f82751642e2feee884ce9",
+        "source/game_sa/Fx/FxPrtMult.cpp": "6a253306114e10f4d0b8f8ef7a7f4cd1068a7769cd4bbc145b2f87b91c9c6e5a",
+        "source/game_sa/Fx/FxPrtMult.h": "1fe724953e6e982fcf17d01291f74ff668d90add5c1410fd404e02783d7239b3",
+        "source/game_sa/PedDamageResponseCalculator.cpp": "2a080bcb7da3abf5d0de9364393e4c46c2b66b65f0700b45faadfb60c9d99b9c",
+        "source/game_sa/PedDamageResponseCalculator.h": "6653c9f3053987ba2329d5ff3fa3bb5ef0a122a5f82c3b58a3b2864f01a22903",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn90A/LiveComparison.hpp": "e38ebdcb8053a278e49cd60aeb648e554ff24448c9d314c1f1589cbb7c2d56b2",
+        "reversing/Fn90A/Core.hpp": "94562ab74c1b39e903e470183b4e9c211e7a8099876287713ab8fddd13087d67",
+        "reversing/Fn90A/Fixtures.hpp": "732087079ad69aac3f01a9021d312948220ea121988e33d242b146a587a01b95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote piloto 90A (triviales y thunks muy llamados del grupo A). Ninguna de las diez funciones llama a otra del juego: no hay colaboradores sustituidos. Cada una se prueba con una arena estatica de 0x180 bytes (guarda de 0x40 + ventana de 0x100 + guarda de 0x40, alineada a 32; `this`, el centro de la esfera y el bloque de animacion caen en la ventana, y el indice de RemoveAnimBlockRef se calcula para que 0xB5D4A0 + indice*32 caiga en ella, con los bits 27..31 aleatorios porque el EXE los descarta con shl 5). Se comparan EAX (retorno definido, this o EAX intacto), ECX y EDX solo si el EXE no los escribe (el llamador puede contar con ellos), los bytes cambiados de toda la arena, ESP, EBX/ESI/EDI/EBP, DF, la cadena SEH y el x87; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Los constructores de CTaskSimple/CTaskComplex y los destructores solo escriben las vtables del EXE (0x86D4A8, 0x86D4CC), no construyen objetos. Fuera de los fixtures: NaN senalizantes distintos de los de la lista, indices de bloque fuera de la ventana (el EXE no comprueba rangos) y estructuras no alineadas a la semantica del juego (el banco usa memoria de arena, no objetos reales).",
+      "review_reference": "reversing/Fn90A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedDamageResponseCalculator",
+        "fn_name": "Destructor",
+        "address": "0x004AD420",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn90A/validation-summary.json",
+        "sha256": "aa251b6a3879ec6da34b0f2e2a498fe19827a9e2104190e1215e2a388c29e639",
+        "passed_path": [
+          "covered_functions",
+          "CPedDamageResponseCalculator::Destructor"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "46455aa2a71243a7728804b0a9f2ff205ba2769419c3562ea58219866e931352",
+        "source/game_sa/Pad.cpp": "d078d513549230fc8e9ec19027b93b6ae36e18854aa8e77cccbe902d03a466d7",
+        "source/game_sa/RGBA.cpp": "3fbdc7eef85f8df73a756906a913fb4d6fe5cff3588deb5a0df1909993aa17d4",
+        "source/game_sa/RGBA.h": "0f6ee606161d74a3b1d6fc61bbd62de8d891c5b7fc8e24fd2141e479fda435cf",
+        "source/game_sa/Tasks/Task.cpp": "7bb5a2e6650e97b0b165134c1a4904e22bcc701b5067117024ad0366b7af4f07",
+        "source/game_sa/Animation/AnimManager.cpp": "f042e552f165de8d78993043b297da070b3340326f9a42eb362cbbfa18d6eaa4",
+        "source/game_sa/Animation/AnimManager.h": "eef9a313e37620f8487a37af32dffb46e5ddccbec8c9f88f9d9ca2d72a00c79c",
+        "source/game_sa/Fx/Fx.cpp": "653e8fc05d86628f534b4fdeeb335297ed8d9ad89a9ef62df657b6820959c077",
+        "source/game_sa/Collision/Sphere.cpp": "c5e54dab2ce04b74e3ba1159d812fc08e516ff5e6383fb3eea8a0f1dd2438dec",
+        "source/game_sa/Collision/Sphere.h": "a47316d81e5f746994625e66d06f5b28aa3b5e8a477f82751642e2feee884ce9",
+        "source/game_sa/Fx/FxPrtMult.cpp": "6a253306114e10f4d0b8f8ef7a7f4cd1068a7769cd4bbc145b2f87b91c9c6e5a",
+        "source/game_sa/Fx/FxPrtMult.h": "1fe724953e6e982fcf17d01291f74ff668d90add5c1410fd404e02783d7239b3",
+        "source/game_sa/PedDamageResponseCalculator.cpp": "2a080bcb7da3abf5d0de9364393e4c46c2b66b65f0700b45faadfb60c9d99b9c",
+        "source/game_sa/PedDamageResponseCalculator.h": "6653c9f3053987ba2329d5ff3fa3bb5ef0a122a5f82c3b58a3b2864f01a22903",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn90A/LiveComparison.hpp": "e38ebdcb8053a278e49cd60aeb648e554ff24448c9d314c1f1589cbb7c2d56b2",
+        "reversing/Fn90A/Core.hpp": "94562ab74c1b39e903e470183b4e9c211e7a8099876287713ab8fddd13087d67",
+        "reversing/Fn90A/Fixtures.hpp": "732087079ad69aac3f01a9021d312948220ea121988e33d242b146a587a01b95",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Lote piloto 90A (triviales y thunks muy llamados del grupo A). Ninguna de las diez funciones llama a otra del juego: no hay colaboradores sustituidos. Cada una se prueba con una arena estatica de 0x180 bytes (guarda de 0x40 + ventana de 0x100 + guarda de 0x40, alineada a 32; `this`, el centro de la esfera y el bloque de animacion caen en la ventana, y el indice de RemoveAnimBlockRef se calcula para que 0xB5D4A0 + indice*32 caiga en ella, con los bits 27..31 aleatorios porque el EXE los descarta con shl 5). Se comparan EAX (retorno definido, this o EAX intacto), ECX y EDX solo si el EXE no los escribe (el llamador puede contar con ellos), los bytes cambiados de toda la arena, ESP, EBX/ESI/EDI/EBP, DF, la cadena SEH y el x87; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Los constructores de CTaskSimple/CTaskComplex y los destructores solo escriben las vtables del EXE (0x86D4A8, 0x86D4CC), no construyen objetos. Fuera de los fixtures: NaN senalizantes distintos de los de la lista, indices de bloque fuera de la ventana (el EXE no comprueba rangos) y estructuras no alineadas a la semantica del juego (el banco usa memoria de arena, no objetos reales).",
+      "review_reference": "reversing/Fn90A/README.md"
     }
   ]
 }

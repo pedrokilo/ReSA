@@ -14,6 +14,11 @@ class CRGBA {
 public:
     uint8 r{}, g{}, b{}, a{}; // msb(a) -> lsb(r)
 
+    static void InjectHooks();
+
+    //! 0x7170C0 (hook): construye en el sitio desde los cuatro componentes (el EXE pasa cada uno como dword de pila y usa el byte bajo)
+    CRGBA* Constructor(uint8 r, uint8 g, uint8 b, uint8 a);
+
 public:
     constexpr CRGBA() = default;
     constexpr CRGBA(const CRGBA& rhs) = default;

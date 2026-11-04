@@ -621,6 +621,7 @@ void InjectHooksMain() {
     RwCoreInjectHooks();
     RwPlCoreInjectHooks();
     CPad::InjectHooks();
+    CRGBA::InjectHooks();
     D3DResourceSystem::InjectHooks();
     RwCoreInjectHooks25d();
     RwPlCoreInjectHooks25d();
@@ -772,6 +773,7 @@ void InjectHooksMain() {
     CPedGroupIntelligence::InjectHooks();
     CCollision::InjectHooks();
     CTempColModels::InjectHooks();
+    CSphere::InjectHooks();
     CColSphere::InjectHooks();
     CColLine::InjectHooks();
     CColTrianglePlane::InjectHooks();
@@ -1516,6 +1518,7 @@ void InjectHooksMain() {
         FxEmitterBP_c::InjectHooks();
         FxEmitter_c::InjectHooks();
         Fx_c::InjectHooks();
+        FxPrtMult_c::InjectHooks();
     };
 
     const auto Vehicle = []() {

@@ -48,6 +48,7 @@ static auto& byte_B73401 = StaticRef<char>(0xB73401); // unused, unknown
 void CPad::InjectHooks() {
     RH_ScopedClass(CPad);
     RH_ScopedCategoryGlobal();
+    RH_ScopedInstall(GetPad, 0x53FB70);
     RH_ScopedInstall(GetCameraCycleUp, 0x5404A0);
     RH_ScopedInstall(GetMouseCameraStickHorizontal, 0x540E80);
     RH_ScopedInstall(GetMouseCameraStickVertical, 0x540F80);
