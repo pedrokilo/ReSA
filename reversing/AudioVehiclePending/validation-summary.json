@@ -18,10 +18,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "dcbb41a2a57e32f01da2b1e76286ea378152a9aa8de600e0b4faa096afcc2654",
+  "log_sha256": "b140f36323b0872be7570efe4234dd61a2bfdf894262771151d458c1b06f27af",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio-vehicle-pending\\20261007-195528-197908",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio-vehicle-pending\\20261104-164218-774489",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAEVehicleAudioEntity::ProcessDummyBicycle": true,
@@ -31,25 +31,26 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "a9f6a9d5a72092abd94bbb73fa3087af13397ecc37d13ff8f2fcd813040cc262",
-      "pdb": "7ef83821c1b19ec207d7d50b13c7c9fcf6cf40dcb644db7560850b58bbbdad27"
+      "asi": "079dc70e5f43faf71a991ab3431871d2a84abb8fb9ac7a9ca53b1c6db0138459",
+      "pdb": "f62ed638bf64173b7e8307c8bccece85520198ed8d54f2585ff0e0cb9feb5a17"
     },
     "sources": {
-      "source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp": "c318db6295f697ccd64f1981acd072c438ed2fe9f8bf37144384dbddfad3c1f4",
-      "source/game_sa/Audio/Entities/AEVehicleAudioEntity.h": "dd37152c6e9367600ae57dce27de99263ed09688278a9157eab97d602e01a31f",
-      "source/game_sa/Audio/AEAudioUtility.cpp": "64b6dc387de99da3e70c7e8f0e800e8a79ef4649c29d78e92299e59319b0252b",
+      "source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp": "494a8f924654c02a123de2b6e0a60dc47eb1ae25e9fcca6d71e84b89a1a6642a",
+      "source/game_sa/Audio/Entities/AEVehicleAudioEntity.h": "537ba09ad513febe240e0da6a85d84c9e123e1858a7b353b701f744f0ddc8d76",
+      "source/game_sa/Audio/AEAudioUtility.cpp": "040acc4cb40030ee8ef3c038f084c80484cf5758002ba7ba52c48d23c426d2f2",
       "source/game_sa/Audio/AEAudioUtility.h": "ea4d1eb95c63065e11eca92a622fc646a726f87630e5a239c507fd62a1039fdc",
-      "source/game_sa/Core/Vector.cpp": "79876b134e317dba1705147a63e44c0404317244f7e43e1e4eb749005ef27e96",
-      "source/game_sa/Core/Vector.h": "00a8ec7fbe3610f74afd526edbd3ae8ca489c1f3c3ef35a2d3147f7165f60c98"
+      "source/game_sa/Core/Vector.cpp": "24229e5a8387bd0ea137a67b47be76de9b7c4af253736fb988fb497e82d5fbfd",
+      "source/game_sa/Core/Vector.h": "f6164a14020b941f208d38c38cfc44d15ccc77bd32249d70a383fe6ddc23dcea"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "95c52cdee8b989a0ca655cc66b460fd142936378edfcdd44626fac2cae468daf",
+      "LiveComparison.hpp": "1c5022c553c6e73c0511d0da77960dc9c90c51ae10e2620160621b04cc30b966",
       "build_probe.py": "9faeafa5a41c53224983b4f4229b2f323c5b843728902dfdb2e8aa82c374c599",
       "run_local.py": "c0769611dc925f0f17e1d5c7784e37e49fbd2f5f44e0fa7852c1952eb4da1ab0"
     }
   },
   "limitations": [
-    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego."
+    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }
