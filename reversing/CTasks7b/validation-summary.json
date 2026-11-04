@@ -48,10 +48,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "cde81efc0aebf112841346116c056b3895a58d7be692e4dd276eaebd30571ab5",
+  "log_sha256": "ca0fecc38aefe7fb096b601dfd4cc0528300e2cd1b8c0640494b2dd507e5bac3",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks7b\\20261002-225318-228913",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks7b\\20261104-141323-332808",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexKillPedOnFootStealth::Clone": true,
@@ -92,30 +92,38 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "c8693c15faca9cdcb9c25ecc17fd9252a325dab6ee08fcb490aeb200be42d29b",
-      "pdb": "11ee6265c3925319cf2d3711ab6eb67b7c3520ad41d27d6e63a51e34c0008cfa"
+      "asi": "844faf2ffc3cadd7e317b4de13b22ad1d6ca7066eeded206cbeb0440cf3add82",
+      "pdb": "b91026f61acf4a1ec639f8055a397a1baa6c5b202eb54849ee02480cbaa41620"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "d7908a725eacacbb9e5aeb7b4f686ff9fae25c1d6b3e601aabcc55db4d7891db",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp": "a194ccf082a6a450298c1931b9730bc62cd4d0b94af805dba4bf975b0001355f",
       "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.h": "053ffac6b665a2baa9a549bb8b22c0fc0c87c6d32e39d64fa9321a95cb5a4cc3",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "5834f494deefa225a12af168ef6e675d52e2968f9b03503f231e7fa6dcc8b0c2",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp": "76e7725a840d1c1a01dd4d6f48c168df721811559907b94e08dc1680d9d40754",
       "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.h": "0603501eb30d8a45fc136fdeecc24d085ea3dab4b6487ca3def5cda69b6bc3bf",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "e238703a839c20f8252423fcebf62f6fa09eacb734cc6d316a904aeb7d7d34a4",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp": "49592186f7d22fa3b97171e8bca9d05646e06d3f08f3246b5488f276bf5d656b",
       "source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.h": "6be7b4cba58f64a5ad13f3c0cc2741bdd241090e077723856609e13ef89af29e",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "ef0483d3cea88d3c08c702f1c06d8c0bfdccca8f38e28711c32c2d24c17352ff",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp": "cb23cceafdc85137367aab2c445b843eb6cf1d6e579098395c83371960dbd6a5",
       "source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.h": "aec6cd9479f6d432b5dad759a713643ad9b8d00e613fb21a6ce281066c47426f",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "fbcaee06adb3e758d014f8227ab2e253552c66602c6e8ed5b3e4150335ca0f78",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87"
+      "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp": "a7e37eb16248f32b8280a89b81e56612848253f9b53985e0afabe818a3a15844",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.h": "ca431dd985a7549a02346de15bc42bafd4ee5a5122812b2f24df53cc8cbc2d87",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "4a5634726b91ed0867e23dd801902dcd6f880e8545772631db6897b217249101",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f75e8b2a374f13bb42390a47f667f76a5d65300f13a35c75acd628b54d7dd4ad",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "eb8553816627705ce922c0cd4da19b1f4f2ff33a3fdd783ff67317ea7ab2a697",
-      "build_probe.py": "d70eb80dfd2142032562e2e3b27bd9a0ad79e389bee64322c5b8a0ec9979d54f",
-      "run_local.py": "86ba968c8a98da1ab9050a3bd35333ce6a9942c65e21088b84a8d4a992995dd5"
+      "LiveComparison.hpp": "7e14c510f52c8bd3be09afd575ddaeeb9b766bdb4b68f0cab00c825f224b1f12",
+      "build_probe.py": "eba03f09f3429145a3d7c72b820703edb0cd9f1eab0f93fe0e145109d171cedd",
+      "register_revalidation_20261019.py": "62afd59d314769c7afa30b6b74ec5c71ece7ce8a3621c5726a030efbc9f78faa",
+      "run_local.py": "4b7956360515155618380803ff0f778eb54489de6c2018e43fd74e6744ddb089"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Constructores de tareas fuera de la lista se ejecutan de verdad y se comparan byte a byte."
+    "Constructores de tareas fuera de la lista se ejecutan de verdad y se comparan byte a byte.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }
