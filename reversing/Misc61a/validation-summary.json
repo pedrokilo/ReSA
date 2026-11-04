@@ -55,10 +55,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "ee1a3c3e4cd16c5e98b4414e1df3c516746c5bc640e37b2aa71f5fce1ed826d1",
+  "log_sha256": "d8c443c6b2db2a550f406d5314034f945d892470689042420506682a31caa5cf",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-misc61a\\20261005-210602-163524",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-misc61a\\20261104-022028-764276",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CScriptsForBrains::GetIndexOfScriptBrainWithThisName": true,
@@ -106,31 +106,32 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "057db01f0e95a61835423232e124d345da2996d403669cc90f9a3bbb352c18a1",
-      "pdb": "c1e15e693ff52dff2a0241f51adbd9d707177a25b043b6bca7286430f3987203"
+      "asi": "3930c2c879a98a7691f41408f099d697d3ef8ad6b0f327a50dec735eda663a18",
+      "pdb": "707aa5ca515110bdf40e62ec70d06df4762d1b25a49ecc7b3bb32d11eda7ca05"
     },
     "sources": {
-      "source/game_sa/ScriptsForBrains.cpp": "2fa191a3986f0410ecdfc720d31827523ebefe285b27edfc6fb4e6d94e222b46",
+      "source/game_sa/ScriptsForBrains.cpp": "a838b6e913bec458328cbd19a71f8ebde280fee4a8f2d392693737a5c75feb92",
       "source/game_sa/ScriptsForBrains.h": "acc820c618f08ab963724bdd856c8387bb4b558dfe2cd782b6d133ee59580b8c",
-      "source/game_sa/PedGroup.cpp": "ccf5827bc47841cf673ce40d131653148906f80edfe49fbbf5a85b3e5f232f3e",
-      "source/game_sa/PedGroup.h": "a55bc27dcf3f1ca52c166e998c5a575eb1b5d47892075e058821d45cb6ac979f",
-      "source/game_sa/PedGroupIntelligence.h": "2b5f205418513d4ebbe9ca3b50b70b7536ecba530d812c81533b824f7a6caab8",
-      "source/game_sa/Weather.cpp": "073ce44cf49fd84f736bf50f0291ee452fc9a59a7a8ff2565e36d2149f11a63b",
-      "source/game_sa/Weather.h": "2e1157e99a5d1c74402b94df44a72ff0d599dce975071bb87396ab5b19851852",
+      "source/game_sa/PedGroup.cpp": "b5f7df5d90ecdd4b44a9d1f7e0478079f73ba4e9e8dc9f94571b768b824ce34b",
+      "source/game_sa/PedGroup.h": "0d9e1c03f33e59e3310f76498cf456d32686ab2c9cdf28feb998235d716d8985",
+      "source/game_sa/PedGroupIntelligence.h": "1061837241e7990767704fadf56c29e674b98ae5eb36cbbc52957b5ad7f84344",
+      "source/game_sa/Weather.cpp": "c575400eb93a5d2e16d89b519e5b30d61f1a144343176bac4c13b3e0ded9b47d",
+      "source/game_sa/Weather.h": "ab22bb7b35f9c67c9581e9a5491aa5d9b5de6d69d7130b337dee1376cdba413c",
       "source/game_sa/Data/Weather.def": "4281d0b56cf15d326201cac193fd12196bee1191628fa0f0b4ed1f0aaf96bb5e",
-      "source/game_sa/Ropes.cpp": "35b6db13a596c490161a43592405fef399bbe08e38d635ff1be3954b065888bb",
-      "source/game_sa/Ropes.h": "705c94717bfa518f80cb647971b45f26993f9be2469de9a4726a0248ed1b8be1",
+      "source/game_sa/Ropes.cpp": "9edfa6a87025788683dc6f3636aff0823aed42000055b57519ed8008a70140dd",
+      "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac",
       "source/game_sa/Rope.h": "21862741e1609c8457bd7b66c18fd06c85126d600cf1fcc26fac1763c1e21fd1"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "22d39e2576ba0aa087d2840fbf980df1cc6d2a75af836fe7ca237f5e4a4ee8eb",
+      "LiveComparison.hpp": "1e950c4e99ef1107ba90f96e8e44633bb0b64cb84a0e4c6ac655561ba7e482f3",
       "build_probe.py": "0f662d0681b65a72436774507557af946a28e8109f20ce66b36acde9e0933b04",
       "run_local.py": "cc66d4b470e6d4bf14e785a596b60ecf83f6c206e1e6181f94eff935c5906c1e"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-11-04 tras reconstruir colaboradores (lotes 67 a 89 y anteriores); el banco se adapto a ellos: falsos identicos en la direccion del EXE y en el cuerpo/simbolo de la DLL (ver su README.md)."
   ]
 }

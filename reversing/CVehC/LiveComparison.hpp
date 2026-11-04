@@ -409,7 +409,7 @@ inline void Update() {
     P.Add(0x40F810,S_AllocateData);            P.Add(Dll(static_cast<void(CColModel::*)()>(&CColModel::AllocateData)),S_AllocateData);
     P.Add(0x40F7C0,S_ColAssign);               P.Add(Dll(static_cast<CColModel&(CColModel::*)(const CColModel&)>(&CColModel::operator=)),S_ColAssign);
     P.Add(0x59C080,S_QuatGet);                 P.Add(Dll(static_cast<void(CQuaternion::*)(RwMatrix*) const>(&CQuaternion::Get)),S_QuatGet);
-    P.Add(0x6E3290,S_AddVehicleUpgrade);       // CVehicle::AddVehicleUpgrade: el envoltorio de la DLL llama a esta direccion
+    P.Add(0x6E3290,S_AddVehicleUpgrade);       P.Add(Dll(&CVehicle::AddVehicleUpgrade),S_AddVehicleUpgrade);   // CVehicle::AddVehicleUpgrade ya es C++ en la DLL (Vehicle.cpp): mismo falso en la entrada de la DLL
     // RenderWare (los envoltorios de la DLL llaman a las direcciones del EXE)
     P.Add(0x74A4C0,S_ClumpRemoveAtomic); P.Add(0x749DC0,S_AtomicDestroy); P.Add(0x7F05A0,S_FrameDestroy); P.Add(0x749E60,S_AtomicClone); P.Add(0x74A490,S_ClumpAddAtomic);
     P.Add(0x74BF20,S_AtomicSetFrame); P.Add(0x7F0B00,S_FrameAddChild); P.Add(0x7F18A0,S_MatrixUpdate); P.Add(0x7F3820,S_TextureDestroy);

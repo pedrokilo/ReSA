@@ -320,7 +320,7 @@ inline void Update() {
         EntryPatch gb(0x69A620,FakeGenGather), gc(0x69A770,FakeGenGatherCar), gd(0x69B240,FakeDistribute), ge(0x699FA0,FakeReturnDest);   // CFormation::* de la DLL llaman al EXE
         // CFormation::* ya es C++ en la DLL y PedGroup.cpp lo llama directo: tambien se intercepta la entrada de la DLL con el mismo Fake
         EntryPatch gbd(Body(bit_cast<uintptr_t>(&CFormation::GenerateGatherDestinations)),FakeGenGather), gcd(Body(bit_cast<uintptr_t>(&CFormation::GenerateGatherDestinations_AroundCar)),FakeGenGatherCar), gdd(Body(bit_cast<uintptr_t>(&CFormation::DistributeDestinations)),FakeDistribute), ged(Body(bit_cast<uintptr_t>(&CFormation::ReturnDestinationForPed)),FakeReturnDest);
-        EntryPatch s1(0x46B270,FakeStartNewBrain);                                                                                        // la DLL lo llama por direccion del EXE
+        EntryPatch s1(0x46B270,FakeStartNewBrain), s1d(Body(MemberAddress(&CScriptsForBrains::StartNewStreamedScriptBrain)),FakeStartNewBrain);  // reconstruida: mismo falso en la DLL                                                                                       // la DLL lo llama por direccion del EXE
         EntryPatch s2(Body(bit_cast<uintptr_t>(&CTheScripts::AddToWaitingForScriptBrainArray)),FakeAddToWaiting), s2e(0x46AB60,FakeAddToWaiting);
         EntryPatch s3(Body(bit_cast<uintptr_t>(&CStreaming::RequestModel)),FakeRequestModel), s3e(0x4087E0,FakeRequestModel);
         EntryPatch o1(Body(MemberAddress(&CRope::Remove)),FakeRopeRemove), o1e(0x556780,FakeRopeRemove);
