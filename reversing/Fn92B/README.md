@@ -1,0 +1,50 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 04/11/2026 (Ciudad de México):** 823 grupos / 9029 funciones reconstruidas; 9029 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../../docs/BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../../docs/CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
+# Fn92B: `CObjectPotentialCollisionScanner::ScanForObjectPotentialCollisionEvents` (lote 92B)
+
+Estado: **APROBADO dentro del juego** (04/11/2026, worktree `wo-1` sobre main e3c35027a + los cambios del lote). Evidencia: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn92b/20261104-030842-122322` (archivada en `reversing/CppTwelveLevel6Final/runs/`). Banco par a par dentro del juego, 16384 pares EXE/DLL, cero diferencias, compuertas de ABI/ruta/SEH/restauracion en ambos lados, y cada lado coincide con el oraculo Python independiente (`fixture_oracle.py`).
+Funcion de codigo de juego reconstruida en C++ puro y enganchada (tipo S); `CEventScanner::ScanForEvents` (0x607E30) ya no la llama por direccion fija.
+
+| Funcion | Direccion | Bytes | Hook | Fuente |
+|---|---|---|---|---|
+| `CObjectPotentialCollisionScanner::ScanForObjectPotentialCollisionEvents` (antes `plugin::CallMethod<0x606890>`) | 0x606890 | 774 | `CObjectPotentialCollisionScanner` / `ScanForObjectPotentialCollisionEvents` / S | `Events/EventScanner.cpp` |
+
+Thiscall con `ret 4`, `void`, sin simbolo en el EXE (nombre propio, tomado del comentario de `EventScanner.cpp`). Mismo diseno que los otros escaneres de `CEventScanner` (`CVehiclePotentialCollisionScanner`, lote 92A).
+
+## Revision contra el EXE
+- **Temporizador en linea** (`CTaskTimer`: +0 inicio, +4 intervalo, +8 arrancado, +9 detenido; los booleanos se leen como bytes): sin arrancar = inicio hora, intervalo 500 ms; detenido = inicio hora; vence con `hora >= inicio + intervalo` (32 bits sin signo); al vencer se rearranca con 500 ms. Hora = `CTimer::m_snTimeInMilliseconds` (0xB7CB84).
+- **Estado de movimiento**: `GetSimplestActiveTask` (0x6819D0, ECX = inteligencia + 4); si hay tarea y `CTask::IsGoToTask` (0x61A360, tipo 900 o 926, una consulta por comparacion) el estado es `[tarea + 8]`, si no 1. `CPed::IsPlayer` (0x5DF8F0) o estado 1 salen. Segunda consulta de la tarea mas simple: sin tarea o sin ir-a-punto sale; su punto de destino (`+0xC`) se usa mas abajo.
+- **Escaner de objetos temporal** en la pila: constructor 0x606010, `ScanForObjectsInRange` 0x5FFF30 (thiscall, ped en pila) y destructor (vtabla de `CEntityScanner` + `Clear` 0x5FF9D0). La DLL ya tenia `CObjectScanner` (`ObjectScanner.h/.cpp`) y `CEntityScanner`; la funcion usa un `CObjectScanner` local con su constructor y destructor C++ (no se enganchan 0x606010 ni 0x5FFF30). Objeto = `[escaner + 0x4C]`; sin objeto se limpia y sale.
+- **Filtro del objeto**: banderas `+0x140` con el bit 0 (recogible) o el 10 (roto) descartan; `+0x1C` bit 0 (usa colision) apagado descarta.
+- **Distancia**: diferencia peaton - objeto (0x40FE00, cada resta guardada como float) y su cuadrado (0x406DA0), `(x*x + y*y) + z*z` sin guardar; debe ser `< 7.5 * 7.5` (0x86C8FC, comparacion ordenada). Se reconstruye en linea (no se llama a 0x40FE00 ni a 0x406DA0).
+- **Solape en altura**: `GetBoundCentre` (0x534250, resultado por puntero oculto) da la z del centro; el radio es **el de la esfera delimitadora de la colision del modelo** (`[[0xA9B0C8 + 4 * (int16)[objeto + 0x22]] + 0x14] + 0x24`; el modelo con signo, `movsx`, sin comprobar rango). Se descarta si `(z - 1.0) > (radio + centro)` (sin guardar a float; 1.0 = 0x858624) o `(z + 1.0) < (centro - radio)` (ambos guardados como float); NaN no descarta.
+- **Visibilidad**: `GetIsLineOfSightClear` 0x5F5A30 (cdecl; ped, destino, objeto, `&distancia` = 0): libre (AL != 0) sale; la distancia debe ser `> 0.5` (0x86C900). Luego `GetIsLineOfSightClear` 0x5F2F00 (cdecl; `ped - (0, 0, 0.75)` calculado con 0x40FE60 como `(x - 0.0, y - 0.0, z - 0.75)`, destino, objeto): libre sale.
+- **Evento**: `CEventPotentialWalkIntoObject(objeto, estado)` (0x4AE5D0; `RegisterReference` 0x571B70), `CEventGroup::Add(inteligencia + 0x68, evento, 0)` (0x4AB420), destructor (0x4AE670; `CleanUpOldReference` 0x571A00) y limpieza del escaner de objetos.
+- Correccion respecto al analisis previo: el `+0x24` de la colision del modelo es el **radio de la esfera delimitadora** (`CColModel`: caja +0x00, esfera +0x18, radio +0x24), no una altura maxima de la caja.
+- No hay aritmetica que exija opciones de compilacion especiales: el C++ por defecto (SSE) coincide con la x87 a 24 bits del EXE en todos los casos del banco, incluidos desnormales, infinitos y NaN. `EventScanner.cpp` sigue compilandose con las opciones normales.
+
+## Banco
+Falsos identicos en la direccion del EXE (y en el cuerpo de la DLL cuando el colaborador tiene hook RH, apagado durante el banco, o cuerpo C++ propio): `CTaskManager::GetSimplestActiveTask` 0x6819D0, `CObjectScanner::ScanForObjectsInRange` 0x5FFF30 (sin hook: la DLL tiene cuerpo C++ y su cuerpo lleva el mismo falso), `CEntityScanner::Clear` 0x5FF9D0, `CEntity::GetBoundCentre` 0x534250, `CPedGeometryAnalyser::GetIsLineOfSightClear` 0x5F5A30 y 0x5F2F00, `CEventGroup::Add` 0x4AB420, `CEntity::RegisterReference` 0x571B70 y `CleanUpOldReference` 0x571A00. Registran sus argumentos EN ORDEN (con el contenido de los vectores, el puntero a la distancia y su valor inicial) y, en `Add`, los campos definidos del evento (tipo por `GetEventType` virtual, +4, +8, +0xC, +0xE, +0x10 y la carga util: objeto y estado).
+NO se sustituyen (corren de verdad en ambos lados): el temporizador, `CPed::IsPlayer`, `CTask::IsGoToTask` 0x61A360 y los `GetTaskType` virtuales (arenas de tarea con vtabla propia, ranura 4 con el tipo en +0x20; las demas ranuras registran un evento si alguien las llama), el constructor del escaner de objetos (0x606010 frente al C++ de la DLL), los constructores y destructores del evento (0x4AE5D0 con hook activo frente al C++ de la DLL; 0x4AE670) y toda la aritmetica de la funcion (x87 del EXE frente al C++ de la DLL).
+Memoria real del juego (se rellena y se restaura tras cada lado): `CTimer::m_snTimeInMilliseconds` 0xB7CB84 y ocho ranuras de la tabla de modelos 0xA9B0C8 (indices 19996..19999 y -4, -8, -16, -32); cada caso apunta la del modelo del objeto a una arena de informacion de modelo (+0x14 -> colision con el radio en +0x24).
+Se observa: los eventos de los falsos con todos sus argumentos, los bytes cambiados de todas las arenas (escaner de 0xC bytes con basura tras el objeto, ped, inteligencia, tareas, objeto, matrices, modelo y colision) y el hash de las regiones globales.
+16 familias de 1024 casos: aleatorio, sin arrancar, jugador, estados de movimiento y tareas, objeto ausente o descartado por banderas, limite de distancia de 56.25 con ulps, solape en z, sin solape (arriba o abajo), limites z - 1.0 = radio + centro y z + 1.0 = centro - radio (ulps), distancia de la linea de vision en 0.5 (ulps, cero, negativa, NaN, infinito), combinaciones de las dos lineas de vision con basura en los bits altos, floats especiales, indices de modelo con signo, desplazamientos pequenos y caso tipico con exito.
+
+## Fuera de los fixtures
+Indices de modelo fuera de las ocho ranuras sustituidas, objetos con vtabla no real, tareas con `GetTaskType` que escriben, NaN con cargas distintas de 0xFFC00000, NaN senalizantes, los valores de retorno de las funciones (ningun llamador los lee) y la exactitud de los colaboradores falseados (los hooks listados y 0x5FFF30), que se hereda.
+
+## Bancos repetidos
+`EventScanners61` (cita 0x606890 como falso solo en la direccion del EXE): ahora el mismo falso va tambien en el cuerpo de la DLL (`LiveComparison.hpp`, `stub` con `hooked = true`): aprobado, 16384 pares, cero diferencias (`resultados-eventscanners61/20261104-031222-229632`, 04/11/2026).
+
+## Prueba negativa
+Produccion mutada en `EventScanner.cpp` (copia buena con SHA256 `eabc79b5af8adf336f42e41f861a7d009eb1a228090879e887fe781f0c523b4d`, la misma de la corrida aprobada), cuatro corridas:
+- Diez puntos a la vez (rearranque 500 -> 501; limite 7.5f -> 8.5f; `above < bottom` -> `<=`; `below > top` -> `>=`; distancia `> 0.5` -> `>=`; 0.75f -> 0.7f; estado de movimiento que tambien descarta PEDMOVE_WALK; sin descartar objetos rotos; `pos.x - 0.0f` -> `pos.x + 1.0f`; indice de modelo `uint16`): GTA se cae en el pase 5 (el indice sin signo lee fuera de la tabla de modelos; `resultados-fn92b/20261104-025823-714381`, 3 de 5 pares con diferencias antes de la caida).
+- Los mismos diez con `IsPlayer` retirado en lugar de la del indice de modelo: 14744/16384 pares con diferencias (`20261104-025951-927091`; domina el rearranque 501, que afecta a todos los pares vencidos).
+- Solo las tres mutaciones de frontera (`above <= bottom`, `below >= top`, `distance >= 0.5`): 302/16384 (`20261104-030424-598283`).
+- Seis mas, sin el temporizador (8.5, 0.7, PEDMOVE_WALK, sin filtro de roto, sin `IsPlayer`, `pos.x + 1.0`): 8510/16384 (`20261104-030630-828913`).
+Fuente restaurada con `cmp` contra la copia buena (misma suma SHA256 que la aprobada) y banco repetido.
+
+## Tiempo
+Primera compilacion completa del worktree (`build-project.ps1`, -MP1): 4 min 24 s. Una corrida (compilacion incremental de la sonda y 16384 pares): unos 2 min.

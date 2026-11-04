@@ -1,0 +1,3 @@
+APROBADO: Fn92B
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn92b\20261104-030842-122322

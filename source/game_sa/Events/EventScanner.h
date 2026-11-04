@@ -46,6 +46,9 @@ public:
 class CObjectPotentialCollisionScanner {
 public:
     CTaskTimer m_timer;
+
+    static void InjectHooks();
+    void ScanForObjectPotentialCollisionEvents(CPed& ped); // 0x606890
 };
 
 class CSexyPedScanner {

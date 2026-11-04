@@ -75,6 +75,18 @@ END GENERATED HOOK STATUS */
 #include "Events/EventFireNearby.h"
 #include "Events/EventPotentialWalkIntoFire.h"
 #include "Events/EventSexyPed.h"
+#include "Events/EventPotentialWalkIntoObject.h"
+#include "EntityScanner.h"
+#include "ObjectScanner.h"
+#include "Entity/Object/Object.h"
+#include "Models/ModelInfo.h"
+
+void CObjectPotentialCollisionScanner::InjectHooks() {
+    RH_ScopedClass(CObjectPotentialCollisionScanner);
+    RH_ScopedCategoryGlobal();
+
+    RH_ScopedInstall(ScanForObjectPotentialCollisionEvents, 0x606890);
+}
 
 void CPedAcquaintanceScanner::InjectHooks() {
     RH_ScopedClass(CPedAcquaintanceScanner);
@@ -136,7 +148,7 @@ void CEventScanner::ScanForEvents(CPed& ped) {
     m_vehiclePotentialCollisionScanner.ScanForVehiclePotentialCollisionEvents(ped, intel->GetVehicleEntities(), 16);
     // 0x606580: funcion sin `this` (el EXE le deja en ECX la direccion del argumento); recibe el peaton y el peaton mas cercano del escaner de peatones
     reinterpret_cast<void(__stdcall*)(CPed*, CEntity*)>(0x606580)(&ped, intel->m_pedScanner.GetClosestPedInRange());
-    plugin::CallMethod<0x606890, CObjectPotentialCollisionScanner*, CPed*>(&m_objectPotentialCollisionScanner, &ped);                              // ScanForObjectPotentialCollisionEvents
+    m_objectPotentialCollisionScanner.ScanForObjectPotentialCollisionEvents(ped);
     m_pedAcquaintanceScanner.ScanForPedAcquaintances(ped, intel->GetPedEntities(), 16);
     plugin::CallMethod<0x6060A0, CAttractorScanner*, CPed*>(&m_attractorScanner, &ped);                                                              // ScanForAttractors
     m_nearbyFireScanner.ScanForNearbyFires(ped);
@@ -350,6 +362,108 @@ void CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents(c
     const eMoveState moveState = intel->GetMoveStateFromGoToTask();
     CEventPotentialWalkIntoVehicle event(vehicle, moveState);
     intel->GetEventGroup().Add(&event, false);
+}
+
+// 0x606890
+void CObjectPotentialCollisionScanner::ScanForObjectPotentialCollisionEvents(CPed& ped) {
+    // Como el original: CTaskTimer en linea. Si no estaba arrancado se arranca con 500 ms (y se sigue); si estaba detenido se reinicia el inicio;
+    // si ya vencio (unsigned: hora >= inicio + intervalo) se rearranca con 500 ms y se escanea. Los booleanos se leen como bytes (!= 0).
+    uint32 now = CTimer::GetTimeInMS();
+    if (!m_timer.m_bStarted) {
+        m_timer.m_nStartTime = now;
+        m_timer.m_bStarted   = true;
+        m_timer.m_nInterval  = 500;
+    }
+    if (m_timer.m_bStopped) {
+        m_timer.m_nStartTime = CTimer::GetTimeInMS();
+        m_timer.m_bStopped   = false;
+    }
+    now = CTimer::GetTimeInMS();
+    if (!(now >= m_timer.m_nStartTime + static_cast<uint32>(m_timer.m_nInterval))) {
+        return;
+    }
+    m_timer.m_nStartTime = now;
+    m_timer.m_nInterval  = 500;
+    m_timer.m_bStarted   = true;
+
+    // Como el original: estado de movimiento de la tarea de ir a un punto (1 = PEDMOVE_STILL si la tarea mas simple no lo es). El jugador y un peaton quieto no escanean
+    CPedIntelligence* intel = ped.GetIntelligence();
+    CTask* simplest = intel->GetTaskManager().GetSimplestActiveTask();
+    eMoveState moveState = PEDMOVE_STILL;
+    if (simplest && CTask::IsGoToTask(simplest)) {
+        moveState = static_cast<CTaskSimpleGoTo*>(simplest)->m_moveState;
+    }
+    if (ped.IsPlayer() || moveState == PEDMOVE_STILL) {
+        return;
+    }
+    CTask* const goTo = intel->GetTaskManager().GetSimplestActiveTask();
+    if (!goTo || !CTask::IsGoToTask(goTo)) {
+        return;
+    }
+    const CVector& targetPoint = static_cast<CTaskSimpleGoTo*>(goTo)->m_vecTargetPoint;
+
+    // Escaner de objetos temporal (0x606010 / 0x5FFF30 / 0x5FF9D0): el destructor lo limpia al salir
+    CObjectScanner scanner;
+    scanner.ScanForObjectsInRange(ped);
+    CObject* const object = scanner.GetClosestObjectInRange();
+    if (!object) {
+        return;
+    }
+    // Como el original: se descartan los recogibles (bit 0) y los rotos (bit 10) de las banderas +0x140, y los que no usan colision (bit 0 de +0x1C)
+    if (object->objectFlags.bIsBroken || object->objectFlags.bIsPickup || !object->GetUsesCollision()) {
+        return;
+    }
+
+    // Como el original (x87 a 24 bits: cada operacion se redondea a float): diferencia peaton - objeto (0x40FE00) y su cuadrado (0x406DA0): (x*x + y*y) + z*z; el limite es 7.5 (0x86C8FC) al cuadrado
+    {
+        const CVector& objPos = object->GetPosition();
+        const CVector& pedPos = ped.GetPosition();
+        const float    dx     = pedPos.x - objPos.x;
+        const float    dy     = pedPos.y - objPos.y;
+        const float    dz     = pedPos.z - objPos.z;
+        const float    xx     = dx * dx;
+        const float    yy     = dy * dy;
+        const float    zz     = dz * dz;
+        const float    sq     = (xx + yy) + zz;
+        if (!(7.5f * 7.5f > sq)) {
+            return;
+        }
+    }
+
+    // Como el original: la altura del centro del objeto (0x534250) y el radio de la esfera delimitadora de la colision del modelo (+0x24; indice de modelo con signo, sin comprobar rango)
+    const float centreZ = object->GetBoundCentre().z;
+    const CBaseModelInfo* const modelInfo = CModelInfo::GetModelInfo(static_cast<int16>(object->m_nModelIndex));
+    const float radius  = modelInfo->GetColModel()->m_boundSphere.m_fRadius;
+    const float pedZ    = ped.GetPosition().z;
+    // El peaton (z - 1.0 .. z + 1.0, 0x858624) debe solapar la altura del objeto (centro -+ radio): se descarta si z - 1.0 > radio + centro (sin guardar a float) o
+    // si (z + 1.0) < (centro - radio) (guardados como float); NaN no descarta
+    const float below  = pedZ - 1.0f;
+    const float above  = pedZ + 1.0f;
+    const float bottom = centreZ - radius;
+    const float top    = radius + centreZ;
+    if (below > top) {
+        return;
+    }
+    if (above < bottom) {
+        return;
+    }
+
+    // Como el original: la linea de vision del peaton al punto de destino; si esta libre, o la distancia no pasa de 0.5 (0x86C900), no hay evento
+    float distance = 0.0f;
+    if (CPedGeometryAnalyser::GetIsLineOfSightClear(ped, targetPoint, *object, distance)) {
+        return;
+    }
+    if (!(distance > 0.5f)) {
+        return;
+    }
+    // Como el original: segunda comprobacion desde 0.75 (constante inmediata 0x3F400000) por debajo de la posicion del peaton (se vuelve a leer; la resta con 0 es la de 0x40FE60)
+    const CVector& pos = ped.GetPosition();
+    const CVector  low{ pos.x - 0.0f, pos.y - 0.0f, pos.z - 0.75f };
+    if (CPedGeometryAnalyser::GetIsLineOfSightClear(low, targetPoint, *object)) {
+        return;
+    }
+    CEventPotentialWalkIntoObject event(object, moveState);
+    ped.GetIntelligence()->GetEventGroup().Add(&event, false);
 }
 
 // 0x607D80

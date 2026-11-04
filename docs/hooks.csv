@@ -9046,3 +9046,4 @@ CTaskSimpleScratchHead,Constructor,0x0048DF30,1,0,1,S
 CTaskSimpleAchieveHeading,Constructor,0x00667E20,1,0,1,S
 CColModel,Constructor,0x0040FB60,1,0,1,S
 CEventDeath,Constructor,0x004ADDF0,1,0,1,S
+CObjectPotentialCollisionScanner,ScanForObjectPotentialCollisionEvents,0x00606890,1,0,1,S

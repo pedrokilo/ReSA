@@ -96,7 +96,7 @@ inline void Update() {
     stub(S_CLEANREF,kFnVpc|kFnScan|kFnStuck,0x571A00,std::bit_cast<uintptr_t>(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::CleanUpOldReference)),true,reinterpret_cast<void*>(&FakeCleanRef),"CEntity::CleanUpOldReference");
     stub(S_VPCSCAN,kFnScan,0x603720,std::bit_cast<uintptr_t>(&CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents),!(kEnabled&kFnVpc),reinterpret_cast<void*>(&FakeVpcScan),"CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents");
     stub(S_X606580,kFnScan,0x606580,0,false,reinterpret_cast<void*>(&Fake606580),"sub_606580");
-    stub(S_OBJSCAN,kFnScan,0x606890,0,false,reinterpret_cast<void*>(&FakeObjScan),"CObjectPotentialCollisionScanner::Scan");
+    stub(S_OBJSCAN,kFnScan,0x606890,std::bit_cast<uintptr_t>(&CObjectPotentialCollisionScanner::ScanForObjectPotentialCollisionEvents),true,reinterpret_cast<void*>(&FakeObjScan),"CObjectPotentialCollisionScanner::Scan");
     stub(S_ACQSCAN,kFnScan,0x607D80,std::bit_cast<uintptr_t>(&CPedAcquaintanceScanner::ScanForPedAcquaintances),true,reinterpret_cast<void*>(&FakeAcqScan),"CPedAcquaintanceScanner::Scan");
     stub(S_ATTRSCAN,kFnScan,0x6060A0,0,false,reinterpret_cast<void*>(&FakeAttrScan),"CAttractorScanner::Scan");
     stub(S_FIRESCAN,kFnScan,0x603E70,std::bit_cast<uintptr_t>(&CNearbyFireScanner::ScanForNearbyFires),true,reinterpret_cast<void*>(&FakeFireScan),"CNearbyFireScanner::Scan");
