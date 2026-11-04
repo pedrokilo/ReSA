@@ -44,6 +44,12 @@ void RwHelperInjectHooks() {
     RH_ScopedGlobalInstall(GetFirstTexture, 0x734940);
     RH_ScopedGlobalInstall(RwTexDictionaryGtaStreamRead, 0x730FC0);
     RH_ScopedGlobalInstall(RwTextureGtaStreamRead, 0x730E60);
+    RH_ScopedGlobalInstall(GetFirstTextureCallback, 0x734930);
+    RH_ScopedGlobalInstall(RwTexDictionaryGtaStreamRead1, 0x731070);
+    RH_ScopedGlobalInstall(RwTexDictionaryGtaStreamRead2, 0x731150);
+    RH_ScopedGlobalInstall(RpClumpGtaStreamRead1, 0x72E570);
+    RH_ScopedGlobalInstall(RpClumpGtaStreamRead2, 0x72E620);
+    RH_ScopedGlobalInstall(RpClumpGtaCancelStream, 0x72E700);
     RH_ScopedGlobalInstall(SkinGetBonePositionsToTable, 0x735360);
     RH_ScopedGlobalInstall(RpGeometryReplaceOldMaterialWithNewMaterial, 0x734DE0);
     RH_ScopedGlobalInstall(GetAnimHierarchyFromClump, 0x734B10);

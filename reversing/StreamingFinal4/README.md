@@ -145,3 +145,5 @@ Corrida `20261010-143008-897454`: passed=true, 20992 pares, 94 funciones registr
 ## Actualización 11/10/2026
 
 `CStreaming::Shutdown` fallaba 64/64: el banco interceptaba `CMemoryMgr::FreeAlign` sólo en 0x72F4F0 y la `FreeAlign` de la DLL pasó a ser una transcripción `naked` que no pasa por esa dirección. `LiveComparison.hpp` pasa ahora también `&CMemoryMgr::FreeAlign` a `AddStub`. Corrida 20261011-211139-086170: 20992 pares, aprobado. Evidencia en `reversing/CppStreamingFix`.
+
+Repetido el 04/11/2026 (lote 95C: `RpClumpGtaCancelStream` 0x72E700 ya es C++ enganchado): su falso va ahora tambien en el cuerpo de la DLL (`AddStub` con `&RpClumpGtaCancelStream`); aprobado, 20.992 pares (`resultados-streamingfinal4/20261104-090752-217229`).

@@ -31,3 +31,5 @@ Validadas el 04/10/2026 con **8.064 pares original/candidato dentro de GTA**, to
 - Slots libres solo donde el EXE no escribe (`StartLoadTxd`/`LoadTxd(stream)` sin chunk).
 
 Repetir: `python reversing/Txd26/build_probe.py` y `python reversing/run.py --case txd26`. Evidencia: [validation-summary.json](validation-summary.json).
+
+Repetido el 04/11/2026 (lote 95C: `RwTexDictionaryGtaStreamRead`, `Read1` y `Read2` ya son C++ enganchado): el mismo falso va ahora tambien en el cuerpo/simbolo de la DLL; aprobado, 8.064 pares (`resultados-txd26/20261104-084804-824784`).

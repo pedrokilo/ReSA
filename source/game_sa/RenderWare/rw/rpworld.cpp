@@ -694,9 +694,7 @@ const RwSphere* RpAtomicGetWorldBoundingSphere(RpAtomic* atomic) {
     return ((const RwSphere*(__cdecl *)(RpAtomic*))0x749330)(atomic);
 }
 
-void RpClumpGtaCancelStream() {
-    plugin::Call<0x72E700>();
-}
+// RpClumpGtaCancelStream (0x72E700) vive en rwtexdict.cpp junto con el resto de la lectura de clumps de GTA.
 
 RpClump* RpClumpForAllAtomics(RpClump* clump, RpAtomicCallBack callback, void* data) {
     return ((RpClump*(__cdecl *)(RpClump*, RpAtomicCallBack, void*))0x749B70)(clump, callback, data);

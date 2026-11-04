@@ -8912,6 +8912,12 @@ Ps,GetDXVersion,0x00745650,1,0,1,S
 RwHelper,RwTextureGtaStreamRead,0x00730E60,1,0,1,S
 RwHelper,SkinGetBonePositionsToTable,0x00735360,1,0,1,S
 RwHelper,RpClumpGetBoundingSphere,0x00734FC0,1,0,1,S
+RwHelper,GetFirstTextureCallback,0x00734930,1,0,1,S
+RwHelper,RwTexDictionaryGtaStreamRead1,0x00731070,1,0,1,S
+RwHelper,RwTexDictionaryGtaStreamRead2,0x00731150,1,0,1,S
+RwHelper,RpClumpGtaStreamRead1,0x0072E570,1,0,1,S
+RwHelper,RpClumpGtaStreamRead2,0x0072E620,1,0,1,S
+RwHelper,RpClumpGtaCancelStream,0x0072E700,1,0,1,S
 CGarage,FindDoorsWithGarage,0x00449FF0,1,0,1,S
 CCam,GetArrestCamCopSourceSide,0x00516010,1,0,1,S
 CHeli,Constructor,0x006C4190,1,0,1,S

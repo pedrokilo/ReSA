@@ -202,6 +202,8 @@ inline void Update() {
         EntryPatch r5(0x7F36A0,FakeDictDestroy), r6(0x7F3730,FakeForAll), r7(0x7F3820,FakeTexDestroy), r8(0x7F39C0,FakeRemoveTex);
         EntryPatch r9(0x7ED2D0,FakeFindChunk), r10(0x7ECEF0,FakeStreamOpen), r11(0x7ECE20,FakeStreamClose);
         EntryPatch g1(0x730FC0,FakeRead), g2(0x731070,FakeRead1), g3(0x731150,FakeRead2);
+        // 95C: las tres lecturas de TXD estan reconstruidas en C++ y enganchadas; CTxdStore (DLL) las llama directamente, asi que el mismo falso va tambien en el cuerpo de la DLL
+        EntryPatch g1d(bit_cast<uintptr_t>(&RwTexDictionaryGtaStreamRead),FakeRead), g2d(bit_cast<uintptr_t>(&RwTexDictionaryGtaStreamRead1),FakeRead1), g3d(bit_cast<uintptr_t>(&RwTexDictionaryGtaStreamRead2),FakeRead2);
         EntryPatch c1(0x7F34D0,FakeSetFindCB), c2(0x7F3500,FakeSetReadCB);
         EntryPatch s1(bit_cast<uintptr_t>(&CStreaming::RemoveModel),FakeRemoveModel), s1e(0x4089A0,FakeRemoveModel);
 

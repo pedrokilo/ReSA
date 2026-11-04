@@ -73,7 +73,7 @@ inline std::string RegisterStubs(){
     hk(E_SCRIPT,0x470660,"CStreamedScripts","Initialise",FnPtr(&S_ScrInit));
     // RenderWare / Rt (solo EXE)
     AddStub(E_RW,0x7EC810,0,FnPtr(&S_RwInit)); AddStub(E_RW,0x7ECE20,0,FnPtr(&S_RwClose)); AddStub(E_RW,0x7ED590,0,FnPtr(&S_RwChunk)); AddStub(E_RW,0x7CF240,0,FnPtr(&S_RtRead));
-    AddStub(E_RW,0x7CEEF0,0,FnPtr(&S_RtSetCur)); AddStub(E_RW,0x7CF130,0,FnPtr(&S_RtDestroy)); AddStub(E_RW,0x72E700,0,FnPtr(&S_ClumpCancel));
+    AddStub(E_RW,0x7CEEF0,0,FnPtr(&S_RtSetCur)); AddStub(E_RW,0x7CF130,0,FnPtr(&S_RtDestroy)); AddStub(E_RW,0x72E700,bit_cast<uintptr_t>(&RpClumpGtaCancelStream),FnPtr(&S_ClumpCancel));
     // cargadores
     hk(E_LOADER,0x5372D0,"CFileLoader","LoadClumpFile-1",FnPtr(&S_LdClump)); hk(E_LOADER,0x5371F0,"CFileLoader","LoadAtomicFile-stream",FnPtr(&S_LdAtomic));
     hk(E_LOADER,0x537450,"CFileLoader","FinishLoadClumpFile",FnPtr(&S_LdFinish));

@@ -136051,7 +136051,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "5521830f29ba2cdb6f5f2cb36a6f2d5bbf5b62694fd600ba6d72759c0285655d",
+        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
         "passed_path": [
           "covered_functions",
           "CTxdStore::AddRef"
@@ -136060,10 +136060,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "39b6582fed73dfe28ad7f3bc6528d08d4e9a2891791ba9a7e91ddc0058ed4ed5",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
         "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136079,7 +136079,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "5521830f29ba2cdb6f5f2cb36a6f2d5bbf5b62694fd600ba6d72759c0285655d",
+        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
         "passed_path": [
           "covered_functions",
           "CTxdStore::Create"
@@ -136088,10 +136088,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "39b6582fed73dfe28ad7f3bc6528d08d4e9a2891791ba9a7e91ddc0058ed4ed5",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
         "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136107,7 +136107,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "5521830f29ba2cdb6f5f2cb36a6f2d5bbf5b62694fd600ba6d72759c0285655d",
+        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
         "passed_path": [
           "covered_functions",
           "CTxdStore::FindTxdSlot-hash"
@@ -136116,10 +136116,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "39b6582fed73dfe28ad7f3bc6528d08d4e9a2891791ba9a7e91ddc0058ed4ed5",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
         "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136135,7 +136135,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "5521830f29ba2cdb6f5f2cb36a6f2d5bbf5b62694fd600ba6d72759c0285655d",
+        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
         "passed_path": [
           "covered_functions",
           "CTxdStore::FindTxdSlot-name"
@@ -136144,10 +136144,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "39b6582fed73dfe28ad7f3bc6528d08d4e9a2891791ba9a7e91ddc0058ed4ed5",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
         "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136163,7 +136163,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "5521830f29ba2cdb6f5f2cb36a6f2d5bbf5b62694fd600ba6d72759c0285655d",
+        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
         "passed_path": [
           "covered_functions",
           "CTxdStore::FinishLoadTxd"
@@ -136172,10 +136172,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "39b6582fed73dfe28ad7f3bc6528d08d4e9a2891791ba9a7e91ddc0058ed4ed5",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
         "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136191,7 +136191,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "5521830f29ba2cdb6f5f2cb36a6f2d5bbf5b62694fd600ba6d72759c0285655d",
+        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
         "passed_path": [
           "covered_functions",
           "CTxdStore::GameShutdown"
@@ -136200,10 +136200,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "39b6582fed73dfe28ad7f3bc6528d08d4e9a2891791ba9a7e91ddc0058ed4ed5",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
         "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136219,7 +136219,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "5521830f29ba2cdb6f5f2cb36a6f2d5bbf5b62694fd600ba6d72759c0285655d",
+        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
         "passed_path": [
           "covered_functions",
           "CTxdStore::GetNumRefs"
@@ -136228,10 +136228,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "39b6582fed73dfe28ad7f3bc6528d08d4e9a2891791ba9a7e91ddc0058ed4ed5",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
         "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136247,7 +136247,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "5521830f29ba2cdb6f5f2cb36a6f2d5bbf5b62694fd600ba6d72759c0285655d",
+        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
         "passed_path": [
           "covered_functions",
           "CTxdStore::GetParentTxdSlot"
@@ -136256,10 +136256,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "39b6582fed73dfe28ad7f3bc6528d08d4e9a2891791ba9a7e91ddc0058ed4ed5",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
         "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136275,7 +136275,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "5521830f29ba2cdb6f5f2cb36a6f2d5bbf5b62694fd600ba6d72759c0285655d",
+        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
         "passed_path": [
           "covered_functions",
           "CTxdStore::GetTxd"
@@ -136284,10 +136284,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "39b6582fed73dfe28ad7f3bc6528d08d4e9a2891791ba9a7e91ddc0058ed4ed5",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
         "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136303,7 +136303,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "5521830f29ba2cdb6f5f2cb36a6f2d5bbf5b62694fd600ba6d72759c0285655d",
+        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
         "passed_path": [
           "covered_functions",
           "CTxdStore::Initialise"
@@ -136312,10 +136312,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "39b6582fed73dfe28ad7f3bc6528d08d4e9a2891791ba9a7e91ddc0058ed4ed5",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
         "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136331,7 +136331,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "5521830f29ba2cdb6f5f2cb36a6f2d5bbf5b62694fd600ba6d72759c0285655d",
+        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
         "passed_path": [
           "covered_functions",
           "CTxdStore::LoadTxd-filename"
@@ -136340,10 +136340,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "39b6582fed73dfe28ad7f3bc6528d08d4e9a2891791ba9a7e91ddc0058ed4ed5",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
         "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136359,7 +136359,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "5521830f29ba2cdb6f5f2cb36a6f2d5bbf5b62694fd600ba6d72759c0285655d",
+        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
         "passed_path": [
           "covered_functions",
           "CTxdStore::LoadTxd-stream"
@@ -136368,10 +136368,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "39b6582fed73dfe28ad7f3bc6528d08d4e9a2891791ba9a7e91ddc0058ed4ed5",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
         "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136387,7 +136387,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "5521830f29ba2cdb6f5f2cb36a6f2d5bbf5b62694fd600ba6d72759c0285655d",
+        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
         "passed_path": [
           "covered_functions",
           "CTxdStore::PopCurrentTxd"
@@ -136396,10 +136396,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "39b6582fed73dfe28ad7f3bc6528d08d4e9a2891791ba9a7e91ddc0058ed4ed5",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
         "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136415,7 +136415,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "5521830f29ba2cdb6f5f2cb36a6f2d5bbf5b62694fd600ba6d72759c0285655d",
+        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
         "passed_path": [
           "covered_functions",
           "CTxdStore::PushCurrentTxd"
@@ -136424,10 +136424,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "39b6582fed73dfe28ad7f3bc6528d08d4e9a2891791ba9a7e91ddc0058ed4ed5",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
         "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136443,7 +136443,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "5521830f29ba2cdb6f5f2cb36a6f2d5bbf5b62694fd600ba6d72759c0285655d",
+        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
         "passed_path": [
           "covered_functions",
           "CTxdStore::RemoveIfRefCountIsGreaterThanOne"
@@ -136452,10 +136452,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "39b6582fed73dfe28ad7f3bc6528d08d4e9a2891791ba9a7e91ddc0058ed4ed5",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
         "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136471,7 +136471,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "5521830f29ba2cdb6f5f2cb36a6f2d5bbf5b62694fd600ba6d72759c0285655d",
+        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
         "passed_path": [
           "covered_functions",
           "CTxdStore::RemoveRef"
@@ -136480,10 +136480,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "39b6582fed73dfe28ad7f3bc6528d08d4e9a2891791ba9a7e91ddc0058ed4ed5",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
         "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136499,7 +136499,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "5521830f29ba2cdb6f5f2cb36a6f2d5bbf5b62694fd600ba6d72759c0285655d",
+        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
         "passed_path": [
           "covered_functions",
           "CTxdStore::RemoveRefWithoutDelete"
@@ -136508,10 +136508,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "39b6582fed73dfe28ad7f3bc6528d08d4e9a2891791ba9a7e91ddc0058ed4ed5",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
         "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136527,7 +136527,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "5521830f29ba2cdb6f5f2cb36a6f2d5bbf5b62694fd600ba6d72759c0285655d",
+        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
         "passed_path": [
           "covered_functions",
           "CTxdStore::RemoveTxd"
@@ -136536,10 +136536,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "39b6582fed73dfe28ad7f3bc6528d08d4e9a2891791ba9a7e91ddc0058ed4ed5",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
         "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136555,7 +136555,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "5521830f29ba2cdb6f5f2cb36a6f2d5bbf5b62694fd600ba6d72759c0285655d",
+        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
         "passed_path": [
           "covered_functions",
           "CTxdStore::SetCurrentTxd"
@@ -136564,10 +136564,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "39b6582fed73dfe28ad7f3bc6528d08d4e9a2891791ba9a7e91ddc0058ed4ed5",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
         "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136583,7 +136583,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "5521830f29ba2cdb6f5f2cb36a6f2d5bbf5b62694fd600ba6d72759c0285655d",
+        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
         "passed_path": [
           "covered_functions",
           "CTxdStore::SetupTxdParent"
@@ -136592,10 +136592,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "39b6582fed73dfe28ad7f3bc6528d08d4e9a2891791ba9a7e91ddc0058ed4ed5",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
         "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136611,7 +136611,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "5521830f29ba2cdb6f5f2cb36a6f2d5bbf5b62694fd600ba6d72759c0285655d",
+        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
         "passed_path": [
           "covered_functions",
           "CTxdStore::Shutdown"
@@ -136620,10 +136620,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "39b6582fed73dfe28ad7f3bc6528d08d4e9a2891791ba9a7e91ddc0058ed4ed5",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
         "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136639,7 +136639,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "5521830f29ba2cdb6f5f2cb36a6f2d5bbf5b62694fd600ba6d72759c0285655d",
+        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
         "passed_path": [
           "covered_functions",
           "CTxdStore::StartLoadTxd"
@@ -136648,10 +136648,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "39b6582fed73dfe28ad7f3bc6528d08d4e9a2891791ba9a7e91ddc0058ed4ed5",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
         "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136667,7 +136667,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "5521830f29ba2cdb6f5f2cb36a6f2d5bbf5b62694fd600ba6d72759c0285655d",
+        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
         "passed_path": [
           "covered_functions",
           "CTxdStore::TxdStoreFindCB"
@@ -136676,10 +136676,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "39b6582fed73dfe28ad7f3bc6528d08d4e9a2891791ba9a7e91ddc0058ed4ed5",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
         "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,
@@ -136695,7 +136695,7 @@
       },
       "evidence": {
         "path": "reversing/Txd26/validation-summary.json",
-        "sha256": "5521830f29ba2cdb6f5f2cb36a6f2d5bbf5b62694fd600ba6d72759c0285655d",
+        "sha256": "08e907487ec45269a5457bac0dd77021f5df4a0c694770939c3e9483d4d73940",
         "passed_path": [
           "covered_functions",
           "CTxdStore::TxdStoreLoadCB"
@@ -136704,10 +136704,10 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/TxdStore.cpp": "39b6582fed73dfe28ad7f3bc6528d08d4e9a2891791ba9a7e91ddc0058ed4ed5",
+        "source/game_sa/TxdStore.cpp": "f9a8f84a6a6dcdd784d1facf33b1ab8cd76d3032d2943a583edca145855ad915",
         "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
         "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
-        "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15"
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
       },
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-093430-168022).",
       "dependency_review": null,

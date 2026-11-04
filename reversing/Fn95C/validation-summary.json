@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "pairs": 98304,
+  "differences": 0,
+  "registered_pairs": 98304,
+  "registered_functions": 6,
+  "functions": {
+    "GetFirstTextureCallback": 16384,
+    "RwTexDictionaryGtaStreamRead1": 16384,
+    "RwTexDictionaryGtaStreamRead2": 16384,
+    "RpClumpGtaStreamRead1": 16384,
+    "RpClumpGtaStreamRead2": 16384,
+    "RpClumpGtaCancelStream": 16384
+  },
+  "covered_functions": {
+    "GetFirstTextureCallback": true,
+    "RwTexDictionaryGtaStreamRead1": true,
+    "RwTexDictionaryGtaStreamRead2": true,
+    "RpClumpGtaStreamRead1": true,
+    "RpClumpGtaStreamRead2": true,
+    "RpClumpGtaCancelStream": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wt-95 sobre main 329ab605c con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, cuando tienen hook RH en la DLL (apagado durante el banco), tambien en el cuerpo de la DLL: RwStreamFindChunk 0x7ED2D0, RwStreamRead 0x7EC9D0, RwStreamSkip 0x7ECD00, RwTexDictionaryCreate 0x7F3600, RwTextureGtaStreamRead 0x730E60 (hook), RwTexDictionaryAddTexture 0x7F3980, RwTexDictionaryForAllTextures 0x7F3730, RwTexDictionaryDestroy 0x7F36A0, _rwFrameListStreamRead 0x807970, _rwFrameListDeinitialize 0x807720 (hook), CMemoryMgr::Malloc 0x72F420 (hook), CMemoryMgr::Free 0x72F430, RpGeometryStreamRead 0x74D190, RpGeometryDestroy 0x74CCC0, RpAtomicCreate 0x749C50, RpAtomicSetFrame 0x74BF20, RpAtomicSetGeometry 0x749D40, RpAtomicDestroy 0x749DC0, RpClumpCreate 0x74A290, RpClumpAddAtomic 0x74A490 y RpClumpDestroy 0x74A310. RpClumpGtaStreamRead1/2 y RpClumpGtaCancelStream usan cuatro ayudantes del EXE con convencion de registros propia (0x72E140, 0x72E220, 0x72E270 y 0x72E360) que NO son enganchables: la DLL los lleva como funciones privadas en C++ y su evidencia es la de estas tres funciones (el lado EXE ejecuta los ayudantes reales). Registran sus argumentos en orden; el stream es una arena cuya posicion (+0xC) avanzan los falsos. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: longitudes de chunk de TXD 0 o 1 (el EXE usa bytes viejos de la pila) y mayores de 12 (el EXE desborda su marco), longitudes de atomico distintas de 16, indices de frame o de geometria fuera de las arenas, y la exactitud de los colaboradores falseados (se hereda).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn95C-20261104-083338-062431",
+  "summary_sha256": "fc3b1a1e3ba94d03ea2c8ef3ef083c094f88b29d5efdd5caed4dc39bfa597d71",
+  "result_txt_sha256": "cb76cb8b79082ef0e191ecf81d933242736ed4e605c4d117ccc8d29e2555d0b1",
+  "log_sha256": "c6dcae37815ecc5e4f4660a8c6810c8ca6007fecb12b7f2fadc5386bdbb72ead",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "bd8180b82cea0abece1958c35e0142e9130c58acc12e84a462537fada16dd6ef",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+      "source/InjectHooksMain.cpp": "e604610164110dc389722fdc13ad6b8519c5fd6aedfa06048e1364de25850360",
+      "source/game_sa/RwHelper.cpp": "2206bb0ed25107095ea2008316bcf8cfa5d244b55147a7c7dbeb54c053c1a065",
+      "source/game_sa/RenderWare/rw/rwtexdict.cpp": "d4d2d90ce71494bb231655f3107dc26c6dfc0bcd361fedce7842e91e152f6824",
+      "source/game_sa/RenderWare/rw/rpworld.cpp": "ccc6ba18178484bea18ea4449224695cb502803b563b99fcdfc6d53f6fe8e3bd",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn95C/LiveComparison.hpp": "07feb16030c31c05121d2324de4bb9594fcf670066b4bc5cd752c27f423c0450",
+      "reversing/Fn95C/Core.hpp": "04b1c4afd4548d5f2790bb34eb980c3496b7baaae96f505a8333f4a3c2561b80",
+      "reversing/Fn95C/Fixtures.hpp": "251d1313cb18069fb075f0ce33c50e3588ba05b4dac399bd83cf1520fdfa7f7d",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}
