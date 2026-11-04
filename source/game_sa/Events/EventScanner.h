@@ -31,6 +31,9 @@ public:
         m_bScanAllowedInVehicle    = false;
         m_bScanAllowedScriptedTask = false;
     }
+
+    static void InjectHooks();
+    void ScanForPedAcquaintances(CPed& ped, CEntity** entities, int32 count); // 0x607D80
 };
 
 class CVehiclePotentialCollisionScanner {
@@ -48,11 +51,17 @@ public:
 class CSexyPedScanner {
 public:
     CTaskTimer m_timer;
+
+    static void InjectHooks();
+    void ScanForSexyPeds(CPed& ped, CEntity** entities, int32 count); // 0x603BF0
 };
 
 class CNearbyFireScanner {
 public:
     CTaskTimer m_timer;
+
+    static void InjectHooks();
+    void ScanForNearbyFires(CPed& ped); // 0x603E70
 };
 
 VALIDATE_SIZE(CPedAcquaintanceScanner, 0x10);

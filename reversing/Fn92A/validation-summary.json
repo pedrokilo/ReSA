@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "pairs": 49152,
+  "differences": 0,
+  "registered_pairs": 49152,
+  "registered_functions": 3,
+  "functions": {
+    "CPedAcquaintanceScanner::ScanForPedAcquaintances": 16384,
+    "CNearbyFireScanner::ScanForNearbyFires": 16384,
+    "CSexyPedScanner::ScanForSexyPeds": 16384
+  },
+  "covered_functions": {
+    "CPedAcquaintanceScanner::ScanForPedAcquaintances": true,
+    "CNearbyFireScanner::ScanForNearbyFires": true,
+    "CSexyPedScanner::ScanForSexyPeds": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en un worktree sobre main 6e80ef26d con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, cuando tienen hook RH en la DLL (apagado durante el banco), en su cuerpo del ASI: ScanForPedAcquaintances: 0x603A30 y 0x607A90 (sin hook; la DLL los llama por direccion del EXE); ScanForNearbyFires: CTaskManager::GetSimplestActiveTask 0x6819D0, GetActiveTask 0x681720, CFireManager::FindNearestFire 0x538F40 y CEventGroup::Add 0x4AB420; ScanForSexyPeds: CWorld::GetIsLineOfSightClear 0x56A490, CInterestingEvents::Add 0x602590, CEventGroup::Add 0x4AB420, CEntity::RegisterReference 0x571B70 y CEntity::CleanUpOldReference 0x571A00. Registran sus argumentos en orden con el contenido de los vectores y, en Add, los campos definidos del evento (tipo por GetEventType virtual). NO se sustituyen y corren de verdad en ambos lados: el temporizador en linea, CTask::IsGoToTask 0x61A360 y las llamadas virtuales GetTaskType sobre arenas con vtabla propia, los constructores y destructores de CEventFireNearby (0x4B1F10), CEventPotentialWalkIntoFire (0x4B1E20, hook activo) y CEventSexyPed (0x4AEDF0), y toda la aritmetica x87 del EXE frente al C++ de la DLL, con CTimer::m_snTimeInMilliseconds (0xB7CB84) y el dword 0x8D2358 como memoria real del juego restaurada tras cada lado. El banco compara los eventos de los falsos con todos sus argumentos y los bytes cambiados de todas las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: ped sin matriz en ScanForSexyPeds (el EXE la desreferencia), numero de entidades mayor que 16, NaN con cargas distintas de 0xFFC00000, NaN senalizantes y valores de retorno de los falsos.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn92A-20261104-020434-937069",
+  "summary_sha256": "e58241e4dcc56861de7570ffe75a98aee5f84eaf746544557de0c79bb7c8294f",
+  "result_txt_sha256": "be6be05035865847d35f5526cfe15c6bb52ac3f6798a951095adaf0fb5b2a222",
+  "log_sha256": "3cc37ab054ceaa9d53e2f808918afa3abf952ccaacff44bc5648b56e5543182e",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "b724d06dc4f1f47f78eb26caf1d3c5e1e06e49aa8acbd0e2716211258dde547b",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "a13a55ffa059661756c6a2c926973b1395d2fdd70a5aac99097ebe35849e2581",
+      "source/game_sa/X87Math.cpp": "0f05c3064e745b369facce14e1d0791454011689498d2dd4f12afcc01d5d9afc",
+      "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
+      "source/game_sa/Events/EventScanner.cpp": "9ece445aff40f842434bd34fb2ddf4e03307e451b464a5536a54527ca84b97ff",
+      "source/game_sa/Events/EventScanner.h": "49e00bd7f3ad5a39d3ae1652c16110b5d87b596345380da28ede50a19223b4ee",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn92A/LiveComparison.hpp": "05ebd93d3f124975447e60ed68144f991eefe306685221d5f4ee15c0906b72a0",
+      "reversing/Fn92A/Core.hpp": "747934a6130e06981bd9ca5759b35bd401790d1caf7847ddfdf8f74f15974a4f",
+      "reversing/Fn92A/Fixtures.hpp": "146d07f07f07fe706636ce88f67197bafd3b59f536d9b58961b05aa80bf01701",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

@@ -97,10 +97,10 @@ inline void Update() {
     stub(S_VPCSCAN,kFnScan,0x603720,std::bit_cast<uintptr_t>(&CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents),!(kEnabled&kFnVpc),reinterpret_cast<void*>(&FakeVpcScan),"CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents");
     stub(S_X606580,kFnScan,0x606580,0,false,reinterpret_cast<void*>(&Fake606580),"sub_606580");
     stub(S_OBJSCAN,kFnScan,0x606890,0,false,reinterpret_cast<void*>(&FakeObjScan),"CObjectPotentialCollisionScanner::Scan");
-    stub(S_ACQSCAN,kFnScan,0x607D80,0,false,reinterpret_cast<void*>(&FakeAcqScan),"CPedAcquaintanceScanner::Scan");
+    stub(S_ACQSCAN,kFnScan,0x607D80,std::bit_cast<uintptr_t>(&CPedAcquaintanceScanner::ScanForPedAcquaintances),true,reinterpret_cast<void*>(&FakeAcqScan),"CPedAcquaintanceScanner::Scan");
     stub(S_ATTRSCAN,kFnScan,0x6060A0,0,false,reinterpret_cast<void*>(&FakeAttrScan),"CAttractorScanner::Scan");
-    stub(S_FIRESCAN,kFnScan,0x603E70,0,false,reinterpret_cast<void*>(&FakeFireScan),"CNearbyFireScanner::Scan");
-    stub(S_SEXYSCAN,kFnScan,0x603BF0,0,false,reinterpret_cast<void*>(&FakeSexyScan),"CSexyPedScanner::Scan");
+    stub(S_FIRESCAN,kFnScan,0x603E70,std::bit_cast<uintptr_t>(&CNearbyFireScanner::ScanForNearbyFires),true,reinterpret_cast<void*>(&FakeFireScan),"CNearbyFireScanner::Scan");
+    stub(S_SEXYSCAN,kFnScan,0x603BF0,std::bit_cast<uintptr_t>(&CSexyPedScanner::ScanForSexyPeds),true,reinterpret_cast<void*>(&FakeSexyScan),"CSexyPedScanner::Scan");
     stub(S_MENTAL,kFnScan,0x6008A0,std::bit_cast<uintptr_t>(&CMentalState::Process),!(kEnabled&kFnMental),reinterpret_cast<void*>(&FakeMental),"CMentalState::Process");
     stub(S_ISINAIR,kFnScan,0x5F1CB0,std::bit_cast<uintptr_t>(&CPedGeometryAnalyser::IsInAir),true,reinterpret_cast<void*>(&FakeIsInAir),"CPedGeometryAnalyser::IsInAir");
     stub(S_GETCUR,kFnScan,0x4B8CA0,std::bit_cast<uintptr_t>(&CEventHandlerHistory::GetCurrentEvent),true,reinterpret_cast<void*>(&FakeGetCur),"CEventHandlerHistory::GetCurrentEvent");

@@ -40,7 +40,35 @@ END GENERATED HOOK STATUS */
 #include "Events/EventDamage.h"
 #include "Tasks/TaskTypes/TaskComplexKillPedOnFoot.h"
 #include "Fire.h"
+#include "FireManager.h"
 #include "Weapon.h"
+#include "InterestingEvents.h"
+#include "PedStats.h"
+#include "World.h"
+#include "Events/EventFireNearby.h"
+#include "Events/EventPotentialWalkIntoFire.h"
+#include "Events/EventSexyPed.h"
+
+void CPedAcquaintanceScanner::InjectHooks() {
+    RH_ScopedClass(CPedAcquaintanceScanner);
+    RH_ScopedCategoryGlobal();
+
+    RH_ScopedInstall(ScanForPedAcquaintances, 0x607D80);
+}
+
+void CSexyPedScanner::InjectHooks() {
+    RH_ScopedClass(CSexyPedScanner);
+    RH_ScopedCategoryGlobal();
+
+    RH_ScopedInstall(ScanForSexyPeds, 0x603BF0);
+}
+
+void CNearbyFireScanner::InjectHooks() {
+    RH_ScopedClass(CNearbyFireScanner);
+    RH_ScopedCategoryGlobal();
+
+    RH_ScopedInstall(ScanForNearbyFires, 0x603E70);
+}
 
 void CEventScanner::InjectHooks() {
     RH_ScopedClass(CEventScanner);
@@ -82,9 +110,9 @@ void CEventScanner::ScanForEvents(CPed& ped) {
     // 0x606580: funcion sin `this` (el EXE le deja en ECX la direccion del argumento); recibe el peaton y el peaton mas cercano del escaner de peatones
     reinterpret_cast<void(__stdcall*)(CPed*, CEntity*)>(0x606580)(&ped, intel->m_pedScanner.GetClosestPedInRange());
     plugin::CallMethod<0x606890, CObjectPotentialCollisionScanner*, CPed*>(&m_objectPotentialCollisionScanner, &ped);                              // ScanForObjectPotentialCollisionEvents
-    plugin::CallMethod<0x607D80, CPedAcquaintanceScanner*, CPed*, CEntity**, int32>(&m_pedAcquaintanceScanner, &ped, intel->GetPedEntities(), 16);  // ScanForPedAcquaintances
+    m_pedAcquaintanceScanner.ScanForPedAcquaintances(ped, intel->GetPedEntities(), 16);
     plugin::CallMethod<0x6060A0, CAttractorScanner*, CPed*>(&m_attractorScanner, &ped);                                                              // ScanForAttractors
-    plugin::CallMethod<0x603E70, CNearbyFireScanner*, CPed*>(&m_nearbyFireScanner, &ped);                                                            // ScanForNearbyFires
+    m_nearbyFireScanner.ScanForNearbyFires(ped);
     intel->m_mentalState.Process(&ped);
 
     // En el aire: evento CEventInAir si no esta de pie y (la bandera dice que esta en el aire o la geometria lo dice); si esta de pie con la bandera puesta
@@ -117,7 +145,7 @@ void CEventScanner::ScanForEvents(CPed& ped) {
         }
     }
 
-    plugin::CallMethod<0x603BF0, CSexyPedScanner*, CPed*, CEntity**, int32>(&m_sexyPedScanner, &ped, intel->GetPedEntities(), 16);                 // ScanForSexyPeds
+    m_sexyPedScanner.ScanForSexyPeds(ped, intel->GetPedEntities(), 16);
 
     // Objetivo de una tarea de matar (4, 3, 1, 2 en ese orden) en otra area: CEventAreaCodes
     {
@@ -295,4 +323,185 @@ void CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents(c
     const eMoveState moveState = intel->GetMoveStateFromGoToTask();
     CEventPotentialWalkIntoVehicle event(vehicle, moveState);
     intel->GetEventGroup().Add(&event, false);
+}
+
+// 0x607D80
+void CPedAcquaintanceScanner::ScanForPedAcquaintances(CPed& ped, CEntity** entities, int32 count) {
+    // Como el original: CTaskTimer en linea con el intervalo de la tabla del EXE (0x8D2358, 500). Si no estaba arrancado se arranca (y se sigue);
+    // si estaba detenido se reinicia el inicio; si ya vencio (unsigned: hora >= inicio + intervalo) se rearranca y se escanea. Los booleanos se leen como bytes (!= 0).
+    const auto& interval = StaticRef<int32>(0x8D2358);
+    uint32 now = CTimer::GetTimeInMS();
+    if (!m_timer.m_bStarted) {
+        m_timer.m_nInterval  = interval;
+        m_timer.m_nStartTime = now;
+        m_timer.m_bStarted   = true;
+    }
+    if (m_timer.m_bStopped) {
+        m_timer.m_nStartTime = CTimer::GetTimeInMS();
+        m_timer.m_bStopped   = false;
+    }
+    now = CTimer::GetTimeInMS();
+    if (!(now >= m_timer.m_nStartTime + static_cast<uint32>(m_timer.m_nInterval))) {
+        return;
+    }
+    m_timer.m_nStartTime = now;
+    m_timer.m_nInterval  = interval;
+    m_timer.m_bStarted   = true;
+
+    // 0x603A30: decide si este escaner puede actuar sobre el peaton; 0x607A90 hace el escaneo (aun por direccion).
+    // El EXE le pasa dos punteros a variables locales que valen 0 y -1 (el escaneo las rellena; esta funcion no las lee).
+    if (!plugin::CallMethodAndReturn<bool, 0x603A30>(this, &ped)) {
+        return;
+    }
+    int32 outA = 0;
+    int32 outB = -1;
+    plugin::CallMethod<0x607A90, CPedAcquaintanceScanner*, CPed*, int32, CEntity**, int32, int32*, int32*>(this, &ped, -1, entities, count, &outA, &outB);
+}
+
+// 0x603E70
+void CNearbyFireScanner::ScanForNearbyFires(CPed& ped) {
+    // Como el original: CTaskTimer en linea. Si no estaba arrancado se arranca con intervalo 0 (y se sigue); si estaba detenido se reinicia el inicio;
+    // si ya vencio (unsigned: hora >= inicio + intervalo) se rearranca con 100 ms y se escanea. Los booleanos se leen como bytes (!= 0).
+    uint32 now = CTimer::GetTimeInMS();
+    if (!m_timer.m_bStarted) {
+        m_timer.m_nStartTime = now;
+        m_timer.m_bStarted   = true;
+        m_timer.m_nInterval  = 0;
+    }
+    if (m_timer.m_bStopped) {
+        m_timer.m_nStartTime = CTimer::GetTimeInMS();
+        m_timer.m_bStopped   = false;
+    }
+    now = CTimer::GetTimeInMS();
+    if (!(now >= m_timer.m_nStartTime + static_cast<uint32>(m_timer.m_nInterval))) {
+        return;
+    }
+    m_timer.m_nStartTime = now;
+    m_timer.m_nInterval  = 100;
+    m_timer.m_bStarted   = true;
+
+    // Como el original: estado de movimiento de la tarea de ir a un punto (1 = PEDMOVE_STILL si la tarea mas simple no lo es), tarea activa y fuego mas cercano
+    CPedIntelligence* intel = ped.GetIntelligence();
+    CTask* simplest = intel->GetTaskManager().GetSimplestActiveTask();
+    eMoveState moveState = PEDMOVE_STILL;
+    if (simplest && CTask::IsGoToTask(simplest)) {
+        moveState = static_cast<CTaskSimpleGoTo*>(simplest)->m_moveState;
+    }
+    CTask* const active = intel->GetTaskManager().GetActiveTask();
+    CFire* const fire = gFireManager.FindNearestFire(ped.GetPosition(), false, false);
+
+    // Como el original (x87 a 24 bits: cada operacion se redondea a float): d = fuego - peaton (la posicion del peaton se vuelve a leer);
+    // distancia al cuadrado = (dy*dy + dx*dx) + dz*dz, guardada como float
+    float dist2 = 0.0f;
+    float dz    = 0.0f;
+    if (fire) {
+        const CVector& firePos = fire->GetPosition();
+        const CVector& pedPos  = ped.GetPosition();
+        const float    dx      = firePos.x - pedPos.x;
+        const float    dy      = firePos.y - pedPos.y;
+        dz                     = firePos.z - pedPos.z;
+        const float yy         = dy * dy;
+        const float xx         = dx * dx;
+        const float zz         = dz * dz;
+        dist2                  = (yy + xx) + zz;
+        // 0x86C918 = 20.0f: radio de aviso (comparacion ordenada: con NaN no entra); 0x858CA0 = 2.0f: desnivel maximo
+        if (dist2 < 20.0f * 20.0f && fabs(dz) < 2.0f) {
+            CEventFireNearby event(fire->GetPosition());
+            ped.GetIntelligence()->GetEventGroup().Add(&event, false);
+        }
+    }
+
+    // Como el original: si la tarea activa no es CTaskComplexWalkRoundFire (514 = 0x202) y la mas simple es de ir a un punto, el fuego a menos de 4 m (0x86C91C)
+    // y con desnivel < 2.0f genera un CEventPotentialWalkIntoFire con el tamano del fuego (+0x1C) y el estado de movimiento de la primera consulta
+    if (active && active->GetTaskType() != static_cast<eTaskType>(0x202)) {
+        CTask* const goTo = ped.GetIntelligence()->GetTaskManager().GetSimplestActiveTask();
+        if (goTo && CTask::IsGoToTask(goTo) && fire) {
+            if (4.0f * 4.0f > dist2 && fabs(dz) < 2.0f) {
+                CEventPotentialWalkIntoFire event(fire->GetPosition(), fire->GetStrength(), moveState);
+                ped.GetIntelligence()->GetEventGroup().Add(&event, false);
+            }
+        }
+    }
+}
+
+// 0x603BF0
+void CSexyPedScanner::ScanForSexyPeds(CPed& ped, CEntity** entities, int32 count) {
+    // Como el original: CTaskTimer en linea. Si no estaba arrancado se arranca con 500 ms (y se sigue); si estaba detenido se reinicia el inicio;
+    // si ya vencio (unsigned: hora >= inicio + intervalo) se rearranca con 500 ms y se escanea. Los booleanos se leen como bytes (!= 0).
+    uint32 now = CTimer::GetTimeInMS();
+    if (!m_timer.m_bStarted) {
+        m_timer.m_nStartTime = now;
+        m_timer.m_bStarted   = true;
+        m_timer.m_nInterval  = 500;
+    }
+    if (m_timer.m_bStopped) {
+        m_timer.m_nStartTime = CTimer::GetTimeInMS();
+        m_timer.m_bStopped   = false;
+    }
+    now = CTimer::GetTimeInMS();
+    if (!(now >= m_timer.m_nStartTime + static_cast<uint32>(m_timer.m_nInterval))) {
+        return;
+    }
+    m_timer.m_nStartTime = now;
+    m_timer.m_nInterval  = 500;
+    m_timer.m_bStarted   = true;
+
+    // Como el original: un peaton que no es de mision y esta en un vehiculo (bit 8 de 0x46C) no escanea
+    if (ped.GetCreatedBy() != PED_MISSION && ped.bInVehicle) {
+        return;
+    }
+
+    // Candidato mas cercano (distancia inicial 0x501502F9 = 1.0e10f) entre los peatones con tipo 5 (civil femenino) y mayor atractivo (byte con signo +0x27 de las estadisticas),
+    // fuera de vehiculos, a menos de 100 m (0x859AA4 = 10000.0f al cuadrado), delante del peaton (producto con el eje +0x10 de su matriz > 0) y con linea de vision libre
+    CPed*         best    = nullptr;
+    float         minDist = std::bit_cast<float>(0x501502F9u);
+    const CVector pedPos  = ped.GetPosition();
+    for (int32 i = 0; i < count; i++) {
+        CPed* const other = static_cast<CPed*>(entities[i]);
+        if (!other || other->m_nPedType != PED_TYPE_CIVFEMALE) {
+            continue;
+        }
+        if (static_cast<int8>(other->m_pStats->m_nSexiness) <= static_cast<int8>(ped.m_pStats->m_nSexiness)) {
+            continue;
+        }
+        if (other->bInVehicle) {
+            continue;
+        }
+        const CVector otherPos = other->GetPosition();
+        const float   dx       = otherPos.x - pedPos.x;
+        const float   dy       = otherPos.y - pedPos.y;
+        const float   dz       = otherPos.z - pedPos.z;
+        const float   zz       = dz * dz;
+        const float   yy       = dy * dy;
+        const float   dist2    = (zz + yy) + dx * dx;
+        if (!(dist2 < 10000.0f)) {
+            continue;
+        }
+        if (ped.GetPlayerData()) {
+            g_InterestingEvents.Add(CInterestingEvents::INTERESTING_EVENT_9, other);
+        }
+        if (!(dist2 < minDist)) {
+            continue;
+        }
+        // Producto con el eje +0x10 de la matriz del peaton (sin comprobar nulo, como el EXE): (dz*f.z + dy*f.y) + dx*f.x
+        const CVector& fwd = ped.m_matrix->GetForward();
+        const float    p1  = dz * fwd.z;
+        const float    p2  = dy * fwd.y;
+        const float    dot = (p1 + p2) + dx * fwd.x;
+        if (!(dot > 0.0f)) {
+            continue;
+        }
+        if (CWorld::GetIsLineOfSightClear(pedPos, otherPos, true, false, false, true, false, false, false)) {
+            best    = other;
+            minDist = dist2;
+        }
+    }
+    if (!best) {
+        return;
+    }
+    CEventSexyPed event(best);
+    ped.GetIntelligence()->GetEventGroup().Add(&event, false);
+    m_timer.m_nStartTime = CTimer::GetTimeInMS();
+    m_timer.m_nInterval  = 3000;
+    m_timer.m_bStarted   = true;
 }

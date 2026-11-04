@@ -14617,5 +14617,47 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ sin llamadas al EXE y sin colaboradores (la aritmética x87 está en X87Math.cpp; _ftol2 del CRT). Banco Fn88B con 16384 pares y cero diferencias; EAX/ECX/EDX sólo registrados (los llamadores del EXE no los leen). Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el worktree D:/Original/wd-2 (ver artifacts/build-manifest.json). La funcion no llama a ninguna otra del juego (usa el _ftol2 del CRT para las celdas): no hay colaboradores sustituidos. La aritmetica x87 de 24 bits vive en X87Math.cpp (Wl88AxisCells, Wl88Column y Wl88Row). El banco guarda, rellena por caso y restaura la region del bufer temporal de agua [0xC4B950, 0xC5F958) (contadores, indices y vertices) y vigila 0x40 bytes a cada lado; compara el FNV-1a de los vertices e indices escritos, los dos primeros vertices, los contadores y el resto de la region. Los contadores previos se prueban de forma que quepan todas las celdas (hasta 11 por eje: ancho < 2.7, o NaN/infinito/|ancho| >= 2^61, que dan una celda): la funcion no comprueba el desbordamiento del bufer y el banco no lo provoca. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits), que a su vez se ha comprobado contra los bytes del EXE ejecutados en un emulador. Los llamadores del EXE (0x6EF80F y 0x6EF848, dentro de RenderWater) no leen EAX/ECX/EDX. Fuera de los fixtures: anchos que dan mas de 11 celdas por eje y NaN senalizantes."
+  },
+  "0x00607D80": {
+    "identity": "CPedAcquaintanceScanner::ScanForPedAcquaintances",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Events/EventScanner.cpp",
+    "bank": "Fn92A",
+    "run": "20261104-020434-937069",
+    "pairs": 49152,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn92A-20261104-020434-937069/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn92A con 49152 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en un worktree sobre main 6e80ef26d con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, cuando tienen hook RH en la DLL (apagado durante el banco), en su cuerpo del ASI: ScanForPedAcquaintances: 0x603A30 y 0x607A90 (sin hook; la DLL los llama por direccion del EXE); ScanForNearbyFires: CTaskManager::GetSimplestActiveTask 0x6819D0, GetActiveTask 0x681720, CFireManager::FindNearestFire 0x538F40 y CEventGroup::Add 0x4AB420; ScanForSexyPeds: CWorld::GetIsLineOfSightClear 0x56A490, CInterestingEvents::Add 0x602590, CEventGroup::Add 0x4AB420, CEntity::RegisterReference 0x571B70 y CEntity::CleanUpOldReference 0x571A00. Registran sus argumentos en orden con el contenido de los vectores y, en Add, los campos definidos del evento (tipo por GetEventType virtual). NO se sustituyen y corren de verdad en ambos lados: el temporizador en linea, CTask::IsGoToTask 0x61A360 y las llamadas virtuales GetTaskType sobre arenas con vtabla propia, los constructores y destructores de CEventFireNearby (0x4B1F10), CEventPotentialWalkIntoFire (0x4B1E20, hook activo) y CEventSexyPed (0x4AEDF0), y toda la aritmetica x87 del EXE frente al C++ de la DLL, con CTimer::m_snTimeInMilliseconds (0xB7CB84) y el dword 0x8D2358 como memoria real del juego restaurada tras cada lado. El banco compara los eventos de los falsos con todos sus argumentos y los bytes cambiados de todas las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: ped sin matriz en ScanForSexyPeds (el EXE la desreferencia), numero de entidades mayor que 16, NaN con cargas distintas de 0xFFC00000, NaN senalizantes y valores de retorno de los falsos."
+  },
+  "0x00603E70": {
+    "identity": "CNearbyFireScanner::ScanForNearbyFires",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Events/EventScanner.cpp",
+    "bank": "Fn92A",
+    "run": "20261104-020434-937069",
+    "pairs": 49152,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn92A-20261104-020434-937069/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn92A con 49152 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en un worktree sobre main 6e80ef26d con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, cuando tienen hook RH en la DLL (apagado durante el banco), en su cuerpo del ASI: ScanForPedAcquaintances: 0x603A30 y 0x607A90 (sin hook; la DLL los llama por direccion del EXE); ScanForNearbyFires: CTaskManager::GetSimplestActiveTask 0x6819D0, GetActiveTask 0x681720, CFireManager::FindNearestFire 0x538F40 y CEventGroup::Add 0x4AB420; ScanForSexyPeds: CWorld::GetIsLineOfSightClear 0x56A490, CInterestingEvents::Add 0x602590, CEventGroup::Add 0x4AB420, CEntity::RegisterReference 0x571B70 y CEntity::CleanUpOldReference 0x571A00. Registran sus argumentos en orden con el contenido de los vectores y, en Add, los campos definidos del evento (tipo por GetEventType virtual). NO se sustituyen y corren de verdad en ambos lados: el temporizador en linea, CTask::IsGoToTask 0x61A360 y las llamadas virtuales GetTaskType sobre arenas con vtabla propia, los constructores y destructores de CEventFireNearby (0x4B1F10), CEventPotentialWalkIntoFire (0x4B1E20, hook activo) y CEventSexyPed (0x4AEDF0), y toda la aritmetica x87 del EXE frente al C++ de la DLL, con CTimer::m_snTimeInMilliseconds (0xB7CB84) y el dword 0x8D2358 como memoria real del juego restaurada tras cada lado. El banco compara los eventos de los falsos con todos sus argumentos y los bytes cambiados de todas las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: ped sin matriz en ScanForSexyPeds (el EXE la desreferencia), numero de entidades mayor que 16, NaN con cargas distintas de 0xFFC00000, NaN senalizantes y valores de retorno de los falsos."
+  },
+  "0x00603BF0": {
+    "identity": "CSexyPedScanner::ScanForSexyPeds",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Events/EventScanner.cpp",
+    "bank": "Fn92A",
+    "run": "20261104-020434-937069",
+    "pairs": 49152,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn92A-20261104-020434-937069/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn92A con 49152 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en un worktree sobre main 6e80ef26d con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, cuando tienen hook RH en la DLL (apagado durante el banco), en su cuerpo del ASI: ScanForPedAcquaintances: 0x603A30 y 0x607A90 (sin hook; la DLL los llama por direccion del EXE); ScanForNearbyFires: CTaskManager::GetSimplestActiveTask 0x6819D0, GetActiveTask 0x681720, CFireManager::FindNearestFire 0x538F40 y CEventGroup::Add 0x4AB420; ScanForSexyPeds: CWorld::GetIsLineOfSightClear 0x56A490, CInterestingEvents::Add 0x602590, CEventGroup::Add 0x4AB420, CEntity::RegisterReference 0x571B70 y CEntity::CleanUpOldReference 0x571A00. Registran sus argumentos en orden con el contenido de los vectores y, en Add, los campos definidos del evento (tipo por GetEventType virtual). NO se sustituyen y corren de verdad en ambos lados: el temporizador en linea, CTask::IsGoToTask 0x61A360 y las llamadas virtuales GetTaskType sobre arenas con vtabla propia, los constructores y destructores de CEventFireNearby (0x4B1F10), CEventPotentialWalkIntoFire (0x4B1E20, hook activo) y CEventSexyPed (0x4AEDF0), y toda la aritmetica x87 del EXE frente al C++ de la DLL, con CTimer::m_snTimeInMilliseconds (0xB7CB84) y el dword 0x8D2358 como memoria real del juego restaurada tras cada lado. El banco compara los eventos de los falsos con todos sus argumentos y los bytes cambiados de todas las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: ped sin matriz en ScanForSexyPeds (el EXE la desreferencia), numero de entidades mayor que 16, NaN con cargas distintas de 0xFFC00000, NaN senalizantes y valores de retorno de los falsos."
   }
 }

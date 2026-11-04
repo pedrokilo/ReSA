@@ -762,6 +762,9 @@ void InjectHooksMain() {
     CMentalState::InjectHooks();
     CEventScanner::InjectHooks();
     CVehiclePotentialCollisionScanner::InjectHooks();
+    CPedAcquaintanceScanner::InjectHooks();
+    CSexyPedScanner::InjectHooks();
+    CNearbyFireScanner::InjectHooks();
     CPedStuckChecker::InjectHooks();
     CCollisionEventScanner::InjectHooks();
     CEventSource::InjectHooks();
