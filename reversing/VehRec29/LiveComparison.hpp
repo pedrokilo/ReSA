@@ -16,6 +16,7 @@
 #include <set>
 #include <reversiblehooks/RootHookCategory.h>
 #include <reversiblehooks/ReversibleHook/Base.h>
+#include <reversiblehooks/ReversibleHook/Simple.h>
 #include "VehicleRecording.h"
 #include "Streaming.h"
 #include "MemoryMgr.h"
@@ -382,6 +383,9 @@ inline void Update() {
         // Destinos resueltos ANTES de escribir ningún parche (FollowIn no debe seguir un salto recién escrito hasta un
         // stub); nunca se parchea la dirección de un stub.
         struct Want { uintptr_t exe, dll; void* stub; bool scoped; };
+        // CrtPrintf (0x821982) esta reconstruida (VehicleRecording.cpp, funcion estatica enganchada como CRT/CrtPrintf): su cuerpo de la DLL se resuelve por el hook
+        uintptr_t crtPrintfDll=0;
+        if(auto* h=FindHook("CRT","CrtPrintf"); h&&!strcmp(h->Symbol(),"S"))crtPrintfDll=uintptr_t(static_cast<ReversibleHooks::ReversibleHook::Simple*>(h)->GetHookOurAddress());
         std::vector<Want> wants{
             {0x4089A0,Addr(&CStreaming::RemoveModel),reinterpret_cast<void*>(&FakeRemoveModel),false},
             {0x4087E0,Addr(&CStreaming::RequestModel),reinterpret_cast<void*>(&FakeRequestModel),false},
@@ -396,7 +400,7 @@ inline void Update() {
             {0x7EF520,0,reinterpret_cast<void*>(&FakeIm3DEnd),false},
             {0x72F420,Addr(static_cast<void*(*)(uint32,uint32)>(&CMemoryMgr::Malloc)),reinterpret_cast<void*>(&FakeMalloc),true},
             {0x72F430,Addr(&CMemoryMgr::Free),reinterpret_cast<void*>(&FakeFree),true},
-            {0x821982,0,reinterpret_cast<void*>(&FakePrintf),true},
+            {0x821982,crtPrintfDll,reinterpret_cast<void*>(&FakePrintf),true},
         };
         std::set<uintptr_t> stubSet; for(auto& w:wants){ stubSet.insert(uintptr_t(w.stub)); stubSet.insert(FollowIn(uintptr_t(w.stub))); }
         struct Target { uintptr_t at; void* stub; bool scoped; };

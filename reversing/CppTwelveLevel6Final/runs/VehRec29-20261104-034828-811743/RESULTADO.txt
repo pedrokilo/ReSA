@@ -1,0 +1,3 @@
+APROBADO: Grabaciones de vehiculos (lista de 28)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-vehrec29\20261104-034828-811743

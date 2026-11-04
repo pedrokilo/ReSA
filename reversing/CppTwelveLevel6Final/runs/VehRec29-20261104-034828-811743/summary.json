@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "1516e15bf0509411ccd65b09fb02caef6cb6283e6f05a6ce158ffbf9474002ee",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 11136,
+  "pairs_per_function": {
+    "CVehicleRecording::ChangeCarPlaybackToUseAI": 512,
+    "CVehicleRecording::FindIndexWithFileNameNumber": 256,
+    "CVehicleRecording::HasRecordingFileBeenLoaded": 256,
+    "CVehicleRecording::Init": 64,
+    "CVehicleRecording::InitAtStartOfGame": 64,
+    "CVehicleRecording::InterpolateInfoForCar": 1024,
+    "CVehicleRecording::IsPlaybackGoingOnForCar": 256,
+    "CVehicleRecording::IsPlaybackPausedForCar": 64,
+    "CVehicleRecording::Load": 512,
+    "CVehicleRecording::PausePlaybackRecordedCar": 256,
+    "CVehicleRecording::RegisterRecordingFile": 256,
+    "CVehicleRecording::RemoveAllRecordingsThatArentUsed": 256,
+    "CVehicleRecording::RemoveRecordingFile": 256,
+    "CVehicleRecording::Render": 64,
+    "CVehicleRecording::RenderLineSegment": 256,
+    "CVehicleRecording::RequestRecordingFile": 256,
+    "CVehicleRecording::RestoreInfoForCar": 1024,
+    "CVehicleRecording::RestoreInfoForMatrix": 512,
+    "CVehicleRecording::SaveOrRetrieveDataForThisFrame": 1024,
+    "CVehicleRecording::SetPlaybackSpeed": 256,
+    "CVehicleRecording::SetRecordingToPointClosestToCoors": 512,
+    "CVehicleRecording::ShutDown": 128,
+    "CVehicleRecording::SkipForwardInRecording": 512,
+    "CVehicleRecording::SkipToEndAndStopPlaybackRecordedCar": 256,
+    "CVehicleRecording::SmoothRecording": 512,
+    "CVehicleRecording::StartPlaybackRecordedCar": 512,
+    "CVehicleRecording::StopPlaybackRecordedCar": 512,
+    "CVehicleRecording::StopPlaybackWithIndex": 512,
+    "CVehicleRecording::UnpausePlaybackRecordedCar": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "524c9ae002a40fdc1311a861af4408bfd6e0ae0aa5b368645125c114074a3aad",
+  "saves_unchanged": true,
+  "configs_restored": true
+}
