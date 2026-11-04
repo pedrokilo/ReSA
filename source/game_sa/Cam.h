@@ -201,6 +201,9 @@ VALIDATE_SIZE(CCam, 0x238);
 int32 ConvertPedNode2BoneTag(int32 simpleId);
 bool  IsLampPost(eModelID modelId);
 
+// 0x509AE0: acerca valueToChange a target con velocidad acotada (la usa tambien CCamera::AvoidTheGeometry).
+void WellBufferMe(float target, float& valueToChange, float& speedSoFar, float topSpeed, float speedStep, bool isAnAngle);
+
 // Descriptive aliases for native cutscene spline interpolation helpers.
 void CameraPathInterpolateVector(CVector*,const float*,float,int32*);
 void CameraPathInterpolateScalar(float*,const float*,float,int32*);

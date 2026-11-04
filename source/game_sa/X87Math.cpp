@@ -17739,3 +17739,92 @@ __declspec(noinline) float __cdecl Fn85GStore(double value) {
     return float(value);
 }
 #pragma float_control(pop)
+
+// --- CCamera::AvoidTheGeometry (0x514030), prefijo CamGeo. fsin / fcos / fptan del registro x87: ST0 queda sin redondear a 24 bits (Veh83D* lo redondea al combinarlo). ---
+#pragma float_control(precise, on, push)
+__declspec(noinline) double __cdecl CamGeoSinCpp(double angle) {
+    return std::sin(angle);
+}
+__declspec(noinline) double __cdecl CamGeoCosCpp(double angle) {
+    return std::cos(angle);
+}
+__declspec(noinline) double __cdecl CamGeoTanCpp(double angle) {
+    return std::tan(angle);
+}
+#pragma float_control(pop)
+
+// --- CTaskSimpleGangDriveBy::FireGun (0x627CC0), prefijo GangDriveByFire. Anadido al FINAL ---
+// Aritmetica x87 de 24 bits: los operandos son floats de memoria y cada resultado de fadd/fsub/fmul/fdiv queda en el registro (dobles sin guardar); cada fstp dword redondea a float.
+#pragma float_control(precise, on, push)
+__declspec(noinline) void __cdecl GangDriveByFireSubCpp(const float* a, const float* b, float* out) {
+    volatile float x = float(double(a[0]) - double(b[0]));
+    volatile float y = float(double(a[1]) - double(b[1]));
+    volatile float z = float(double(a[2]) - double(b[2]));
+    out[0] = x;
+    out[1] = y;
+    out[2] = z;
+}
+
+__declspec(noinline) void __cdecl GangDriveByFireHitCpp(int side, const float* d, const float* q, const float* p, const float* matrix, const float* box, float* out) {
+    static const volatile float kThreshold = std::bit_cast<float>(0x3DCCCCCDu); // 0x858B1C (0.1f)
+    static const volatile float kMargin    = std::bit_cast<float>(0x3E4CCCCDu); // 0x858CC4 (0.2f)
+    const float* const axis = side < 2 ? matrix : matrix + 4;                   // derecho [+0..+8] o adelante [+0x10..+0x18]
+    // d . eje: (dz * ez + dy * ey) + dx * ex; los lados 0 y 2 lo niegan (fchs) antes de compararlo con 0.1f (fcom; test ah, 41h; jne -> sin impacto).
+    double dot = (double(d[2]) * double(axis[2]) + double(d[1]) * double(axis[1])) + double(d[0]) * double(axis[0]);
+    if (side == 0 || side == 2) {
+        dot = -dot;
+    }
+    if (!(dot > double(kThreshold))) {
+        memcpy(out, p, 3 * sizeof(float));
+        return;
+    }
+    // q . eje: (qy * ey + qz * ez) + qx * ex; distancia hasta la cara menos/mas 0.2f (fsubr [cara]; fsub/fadd [0.2f]) entre d . eje.
+    const double dotQ = (double(q[1]) * double(axis[1]) + double(q[2]) * double(axis[2])) + double(q[0]) * double(axis[0]);
+    const double face = double(side == 0 ? box[0] : side == 1 ? box[3] : side == 2 ? box[1] : box[4]);
+    const double base = face - dotQ;
+    const double numerator = (side == 0 || side == 2) ? base - double(kMargin) : base + double(kMargin);
+    const double t = numerator / dot;
+    if (side < 2) {
+        // t sin guardar: x = fadd(d.x * t, p.x) sin guardar el producto; y, z con el producto guardado como float.
+        volatile float y = float(double(d[1]) * t);
+        volatile float z = float(double(d[2]) * t);
+        volatile float rx = float(double(d[0]) * t + double(p[0]));
+        volatile float ry = float(double(y) + double(p[1]));
+        volatile float rz = float(double(z) + double(p[2]));
+        out[0] = rx;
+        out[1] = ry;
+        out[2] = rz;
+    } else {
+        // t guardado como float (argumento de 0x40FE90) y out = p + t * d con 0x40FE90 y 0x40FE30 (productos y sumas guardados como float).
+        volatile float tf = float(t);
+        volatile float pz = float(double(tf) * double(d[2]));
+        volatile float py = float(double(tf) * double(d[1]));
+        volatile float px = float(double(tf) * double(d[0]));
+        volatile float rz = float(double(p[2]) + double(pz));
+        volatile float ry = float(double(p[1]) + double(py));
+        volatile float rx = float(double(p[0]) + double(px));
+        out[0] = rx;
+        out[1] = ry;
+        out[2] = rz;
+    }
+}
+#pragma float_control(pop)
+
+// --- CFont::PrintSegment (0x719B40), prefijo Font. fild count; fmul [k]; fild o; fmul: la x87 redondea cada producto a 24 bits (palabra de control del juego). ---
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl FontOffsetCpp(int count, float k, int o) {
+    volatile float result = float(double(count) * double(k) * double(o));
+    return result;
+}
+#pragma float_control(pop)
+
+#pragma float_control(precise, on, push)
+__declspec(noinline) float __cdecl FontAddCpp(float a, float b) {
+    volatile float result = float(double(a) + double(b));
+    return result;
+}
+__declspec(noinline) float __cdecl FontSubCpp(float a, float b) {
+    volatile float result = float(double(a) - double(b));
+    return result;
+}
+#pragma float_control(pop)

@@ -1,0 +1,3 @@
+APROBADO: Pendientes CFont
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-font-pending\20261103-233750-222626

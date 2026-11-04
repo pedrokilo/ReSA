@@ -51,10 +51,10 @@ inline void Update(){
  EntryPatch info0(0x743C60,Info),info1(bit_cast<uintptr_t>(static_cast<CWeaponInfo*(*)(eWeaponType,eWeaponSkill)>(&CWeaponInfo::GetWeaponInfo)),Info);
  EntryPatch target0(0x73E240,Target),target1(bit_cast<uintptr_t>(&CWeapon::FindNearestTargetEntityWithScreenCoors),Target);
  EntryPatch appearance0(0x6D1080,Appearance),appearance1(bit_cast<uintptr_t>(&CVehicle::GetVehicleAppearance),Appearance),appearance2(bit_cast<uintptr_t>(&CVehicle::GetVehicleAppearance_Reversed),Appearance);
- EntryPatch rot0(0x50A4F0,Rotate),rot1(bit_cast<uintptr_t>(&CCam::RotCamIfInFrontCar),Rotate),avoid0(0x514030,Avoid);
+ EntryPatch rot0(0x50A4F0,Rotate),rot1(bit_cast<uintptr_t>(&CCam::RotCamIfInFrontCar),Rotate),avoid0(0x514030,Avoid),avoid1(bit_cast<uintptr_t>(&CCamera::AvoidTheGeometry),Avoid);// 2026-11-03: AvoidTheGeometry (0x514030) tiene hook; mismo falso en la entrada de la DLL.
  EntryPatch vectors0(0x509CE0,Vectors),vectors1(bit_cast<uintptr_t>(&CCam::GetVectorsReadyForRW),Vectors),lean0(0x6D5CF0,Lean),lean1(bit_cast<uintptr_t>(&CVehicle::CanPedLeanOut),Lean);
  EntryPatch update0(0x73DB40,WeaponUpdate),update1(bit_cast<uintptr_t>(&CWeapon::Update),WeaponUpdate),melee0(0x73B1C0,Melee),melee1(bit_cast<uintptr_t>(&CWeapon::IsTypeMelee),Melee);
- EntryPatch fire0(0x53FF90,Fire),fire1(bit_cast<uintptr_t>(&CPad::GetCarGunFired),Fire),drive0(0x627CC0,Drive),shake0(0x50A970,Shake),shake1(bit_cast<uintptr_t>(&CamShakeNoPos),Shake);
+ EntryPatch fire0(0x53FF90,Fire),fire1(bit_cast<uintptr_t>(&CPad::GetCarGunFired),Fire),drive0(0x627CC0,Drive),drive1(bit_cast<uintptr_t>(&CTaskSimpleGangDriveBy::FireGun),Drive),shake0(0x50A970,Shake),shake1(bit_cast<uintptr_t>(&CamShakeNoPos),Shake);
  struct Region{uintptr_t address;std::vector<uint8> bytes;};std::array<Region,1> regions{{{0xB6F028,std::vector<uint8>(sizeof(CCamera))}}};for(auto& r:regions)std::memcpy(r.bytes.data(),reinterpret_cast<void*>(r.address),r.bytes.size());
  std::array<uint8,800> savedPlayers{};std::memcpy(savedPlayers.data(),reinterpret_cast<void*>(0xB7CD98),800);
  std::array<uint8,8> savedModels{};std::memcpy(savedModels.data(),reinterpret_cast<void*>(0xA9B0CC),8);const auto savedStep=StaticRef<float>(0xB7CB5C);

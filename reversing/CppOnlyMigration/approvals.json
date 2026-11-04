@@ -14547,5 +14547,61 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn87B con 20480 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el arbol del banco (ver artifacts/build-manifest.json). El objeto this, los pools de peatones, vehiculos y objetos y la camara (TheCamera) son arenas o regiones propias restauradas tras cada lado. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado durante el banco): CPed::GetWeaponSkill 0x5E6580, CWeaponInfo::GetWeaponInfo 0x743C60, CGeneral::GetATanOfXY 0x53CC70, CWeapon::TargetWeaponRangeMultiplier 0x73B380, CPlayerPed::CanIKReachThisTarget 0x609F80, LOSBlockedBetweenPeds 0x60B550, CPedGroups::AreInSameGroup 0x5F7F40 y GetPedsGroup 0x5F7E80, CObject::CanBeTargetted 0x59F320, CGameLogic::IsCoopGameGoingOn 0x441390, CPlayerPed::EvaluateNeighbouringTarget 0x60D1C0, CPedGroupIntelligence::AddEvent 0x5F7470, CEventGroup::Add 0x4AB420, CEvent::operator new 0x4B5620 (sin hook; entrega una ranura real del pool de eventos, que el EXE y la DLL liberan de verdad: el destructor virtual del EXE inlinea el borrado del pool; CEvent::operator delete corre real), CEntity::RegisterReference 0x571B70 y CleanUpOldReference 0x571A00. Corren de verdad en ambos lados los constructores y destructores de CEventGunAimedAt y CEventGroupEvent y CEvent::operator delete y la aritmetica float (x87 a 24 bits en el EXE); cada lado coincide ademas con el oraculo independiente fixture_oracle.py (modelado desde el desensamblado, incluido que los bucles de objetos y vehiculos piden el multiplicador de alcance con el ultimo peaton recorrido y no con la entidad evaluada, y que GetATanOfXY con el vector hacia delante se llama y se descarta). Fuera de los fixtures: ver README.md."
+  },
+  "0x0051D770": {
+    "identity": "CCamera::IsItTimeForNewCamera",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Camera.cpp",
+    "bank": "Fn89A",
+    "run": "20261103-231948-449175",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn89A-20261103-231948-449175/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn89A con 16384 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en un worktree (wf-2) sobre el arbol principal mas la reconstruccion del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (los de hook RH, apagado durante el banco): CWorld::GetIsLineOfSightClear 0x56A490, FindPlayerVehicle 0x56E0D0, FindPlayerCoors 0x56E010, FindPlayerSpeed 0x56E090, CEntity::GetIsOnScreen 0x534540 y los siete CCam::Process_DW_* (0x51A740, 0x51B120, 0x51B850, 0x51C250, 0x51C760, 0x51CC30, 0x51D100); RwCameraSetNearClipPlane 0x7EE1D0 no tiene hook y la DLL lo llama por su direccion. Registran sus argumentos en orden. La aritmetica (transcurrido en 24 bits, palo derecho, vector jugador - origen fijo, modulo con CVector::Magnitude y operator- del EXE frente a los ayudantes x87 de la DLL, productos escalares con la velocidad) corre de verdad en ambos lados. Globales reales (reloj 0xB7CB84, aviso 0x8CCDF4, paso 0x8CC471, 0xB6F059 y el eje X del palo derecho 0xB7345C) guardados y restaurados. Con mutaciones de una escritura dentro de un falso. El banco compara los eventos de los falsos con todos sus argumentos, el valor devuelto (AL), los globales y los bytes cambiados de todas las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Hallazgo corregido por el banco: las pruebas de transcurrido > 15000 de los casos 1, 2, 3, 5, 8 y 15..19 estaban invertidas en la reconstruccion (3141 de 16384 pares con diferencias antes de corregirlas). Fuera de los fixtures: NaN con cargas distintas de 0xFFC00000, NaN senalizantes, bytes altos de los booleanos de los falsos, indices de camara activa mayores de 3 y un objetivo de camara nulo."
+  },
+  "0x00514030": {
+    "identity": "CCamera::AvoidTheGeometry",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Camera.cpp",
+    "bank": "Fn89B",
+    "run": "20261103-231317-529109",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn89B-20261103-231317-529109/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn89B con 16384 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en un worktree (wf-2) sobre el arbol principal mas la reconstruccion del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (los de hook RH, apagado durante el banco): CWorld::ProcessLineOfSight 0x56BA00 (dos llamadas), FindPlayerPed 0x56E210, CWorld::TestSphereAgainstWorld 0x569E20, CPlaceable::GetMatrix 0x411990 y WellBufferMe 0x509AE0; RwCameraSetNearClipPlane 0x7EE1D0 no tiene hook y la DLL lo llama por su direccion (el falso actualiza el plano cercano de la RwCamera real). REALES en ambos lados (hook RH de la DLL apagado): GetATanOfXY 0x53CC70, CVector::Normalise 0x59C910, resta de vectores 0x40FE60 y CrossProduct 0x59C730, fsin/fcos/fptan y _CIpow 0x822130 (la DLL usa los ayudantes de X87Math con std::sin/cos/tan y ExeCompatiblePowCpp: cero diferencias de 1 ulp en los 16384 pares). Globales reales guardados y restaurados (pIgnoreEntity, paso de tiempo, 0xB6EC65, WellBufferMe, proporcion, punto y normal de la esfera y RwCamera.nearPlane). Con mutaciones de una escritura dentro de un falso. El banco compara los eventos de los falsos con todos sus argumentos, los globales y los bytes cambiados de todas las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional a 24 bits; fpatan, fsin, fcos, fptan y pow con Decimal de 120 digitos redondeado a 64 bits). Fuera de los fixtures: fov infinito, NaN o enorme (|angulo| >= 2^63), paso de tiempo NaN o infinito, NaN con otra carga, indices de camara fuera de rango y un objetivo de camara cuyo tipo no se pueda leer."
+  },
+  "0x00627CC0": {
+    "identity": "CTaskSimpleGangDriveBy::FireGun",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp",
+    "bank": "Fn89C",
+    "run": "20261103-232144-428069",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn89C-20261103-232144-428069/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn89C con 16384 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en un worktree con el contenido de la rama de trabajo (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, cuando tienen hook RH en la DLL (apagado durante el banco), en su cuerpo del ASI: GetAnimHierarchyFromSkinClump 0x734A40, CCamera::Find3rdPersonCamTargetVector 0x514970, CWeapon::Fire 0x742300 y CPed::DoGunFlash 0x5DF340; RpHAnimIDGetIndex 0x7C51A0, RpHAnimHierarchyGetMatrixArray 0x7C5120 y RwV3dTransformPoints 0x7EDD90 (la DLL los llama por su direccion del EXE). Registran sus argumentos en orden (con el contenido de los vectores). NO se sustituyen y corren de verdad en ambos lados: CPed::IsPlayer (m_nPedType), CVector::Normalise 0x59C910, CMatrix * CVector 0x59C890, 0x40FE90 y 0x40FE30 y toda la aritmetica de la funcion (x87 del EXE frente a los ayudantes x87 de 24 bits de la DLL), con camara activa (byte 0xB6F081, 3 camaras) y ms_modelInfoPtrs (indices 19980..19991) como memoria real del juego restaurada tras cada lado. Mutaciones de una escritura dentro de un falso (entidad objetivo, modelo del vehiculo, coords.x, asociacion de animacion). El banco compara los eventos de los falsos con todos sus argumentos y los bytes cambiados de todas las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: entidad objetivo sin matriz (AllocateMatrix + UpdateMatrix), vehiculo sin matriz, indices de ranura o modelo fuera de rango, NaN con cargas distintas de 0xFFC00000, NaN senalizantes y valores de retorno de los falsos."
+  },
+  "0x00719B40": {
+    "identity": "CFont::PrintSegment",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Font.cpp",
+    "bank": "Fn89D",
+    "run": "20261103-234308-184068",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn89D-20261103-234308-184068/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn89D con 16384 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en un worktree con el contenido de la rama de trabajo (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (los dos tienen hook RH, apagado durante el banco): CFont::RenderFontBuffer 0x719840 (registra pEmptyChar, ejecuta la mutacion y lo reinicia a 0xC716B0) y CFont::ParseToken 0x718F00 (registra texto, color, blip y etiqueta; avanza, escribe color y simbolo segun el caso). La recursion (sombra y contorno) corre de verdad: EXE en el original, DLL en el candidato. La aritmetica de los desplazamientos (fild del entero de pantalla, dos fmul de 24 bits) y de la referencia de inclinacion, el limite 0xC7187C del buffer, la cabecera de 0x30 bytes, la copia del texto y la alineacion corren de verdad. Memoria real del juego restaurada tras cada lado: pEmptyChar, buffer y estaticos de CFont (0xC716A8..0xC71AD0) y enteros 0xC17044/0xC17048. Mutaciones de una escritura en el primer vaciado (color, color de sombra, sombra, contorno, inclinacion, ancho de pantalla). El banco compara los eventos de los falsos con todos sus argumentos y los bytes cambiados de toda la imagen; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: texto largo que desborde el buffer tras el vaciado, ParseToken con avance cero o que devuelva una posicion anterior (bucle infinito en el EXE), punteros de texto no accesibles y begin/end en arenas distintas."
   }
 }

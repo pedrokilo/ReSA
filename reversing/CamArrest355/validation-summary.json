@@ -17,19 +17,19 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "e28dd78f74dbe8d7c5e1d24553a80fcb5a575fe939834dc7d5665100151869b6",
+  "log_sha256": "2aa02a6fe1635cd66a931f9e9e74818fc6a1ad3e49ae7d59cd3a5fd426fe8c62",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-arrest355\\20261103-133228-525751",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cam-arrest355\\20261103-234010-055214",
   "probe_build_manifest": {
     "binaries": {
-      "asi": "2380dd1e9582841043b3053b2cd711d3166c565046528d5e901878ec45c73e4b",
-      "pdb": "7dc2352ccf2eb4f4795fa498097bbe4cb38180d7f1e8ef922d742deb038837e4"
+      "asi": "2858261488e73268bab2587e8a5909598da75bab64ecbbf64de1d0092e7e18c7",
+      "pdb": "9d4433e7416e991b92a95b642b5bb5b9907ca6a5aba10b0edb578c9721f48700"
     },
     "sources": {
-      "source/game_sa/Cam.cpp": "e550fd1740193bf748dee5a52e6975f38b3bff299df3aafa44c5a8ecfba08282",
-      "source/game_sa/Cam.h": "6185f083e15dd41b51c984a60a797837be41acd6dea95ea03bc2e887e669c34e",
-      "source/game_sa/Camera.h": "5e4115efb5b1f2c0e9435740ca8a0554b554c3a22a9ef2a5dc2f30f0835b1a47",
+      "source/game_sa/Cam.cpp": "cdd1a3600a08dcbc9f4a3cf5b9a0a6eb5c8f633e264b230d6a0b87de0149e4d0",
+      "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
+      "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
       "source/game_sa/PedIntelligence.cpp": "db0023e4e7b54c2dcb58a7721f0040129b54aa524fb37b20092683972b4752ae",
       "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
       "source/game_sa/common.cpp": "33bc773c8312f7304a8ab6fef79450f0f925cffb2304a612e43fd6034dbfe20d",
@@ -43,13 +43,14 @@
       "source/game_sa/Core/Matrix.h": "6911148c17cdb0ed5ecefcced5609d439c93a4d2dbcf3521e6324711bb38d6b2",
       "source/game_sa/Entity/Placeable.cpp": "0030861304db9f417c8fd8b322a7be006ef4e5a099238c157e5dc0cf0d018e24",
       "source/game_sa/Entity/Entity.cpp": "c0e8b71dc61f80bbcb3ecf77b4b8e2d35e2781ac56f7c6dab89f998acaaa7c25",
-      "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-      "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09"
+      "source/game_sa/Camera.cpp": "0d2965ed822c2ae29e617b00dfe10f04c255f7354088b311573b1fe6ad713797",
+      "source/game_sa/X87Math.cpp": "0246b0ea7d1fbd817009edd1348482cfa5f56aab0b8f90369f58dd2b479eef15",
+      "source/game_sa/X87Math.h": "49370daa3b616e1c9721f1514b18f2a43806d7c0e8d08649d5803e9b8bbc3dcf"
     },
-    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "game_cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
     "instrumentation": {
-      "LiveComparison.hpp": "ab028668af31caa02443de96ec304f53f8eacc13fa3b29a4cac5bc7e609b8e75",
-      "build_probe.py": "0c662d14ab76091409917b9954539fed6d4ed661c3112cbd06f7ada673303430",
+      "LiveComparison.hpp": "2add3b0495209121480de2c908cc64f056cb99426d5d965a985b3ec6951f65e4",
+      "build_probe.py": "16312d510eaf23dce91df28d8b4bfd32eafe53a56d3678bcbedf7516020fe4fc",
       "run_local.py": "142fff96e4835e3d746691ee59dd139e2531a7f2425d63d67f3ebd9bc0234495"
     }
   },

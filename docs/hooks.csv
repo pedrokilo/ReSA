@@ -9020,3 +9020,7 @@ CGarage,NeatlyLineUpStoredCars,0x00448330,1,0,1,S
 CCam,ProcessArrestCamCheese,0x00512EF0,1,0,1,S
 CCam,GetArrestCamCopSourceNormal,0x00515D80,1,0,1,S
 CPopulation,CreateSunbatheObject,0x006EABA0,1,0,1,S
+CCamera,IsItTimeForNewCamera,0x0051D770,1,0,1,S
+CCamera,AvoidTheGeometry,0x00514030,1,0,1,S
+CTaskSimpleGangDriveBy,FireGun,0x00627CC0,1,0,1,S
+CFont,PrintSegment,0x00719B40,1,0,1,S

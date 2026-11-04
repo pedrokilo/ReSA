@@ -237,7 +237,7 @@ inline void SetSite(SiteId id, const char* name, uintptr_t exe, uintptr_t dll, v
 }
 // Calcula las direcciones (y Body) de TODOS los sitios antes de crear ningun parche.
 inline void BuildSites() {
-    SetSite(SITE_EMIT, "FontEmitLine", 0x719B40, 0, reinterpret_cast<void*>(&SEmit));
+    SetSite(SITE_EMIT, "FontEmitLine", 0x719B40, A(&CFont::PrintSegment), reinterpret_cast<void*>(&SEmit));
     SetSite(SITE_DRAWRECT, "CSprite2d::DrawRect", 0x727B60, A(static_cast<void(*)(const CRect&, const CRGBA&)>(&CSprite2d::DrawRect)), reinterpret_cast<void*>(&SDrawRect));
     SetSite(SITE_DRAWWIN, "CMenuManager::DrawWindow", 0x573EE0, A(&CMenuManager::DrawWindow), reinterpret_cast<void*>(&SDrawWindow));
     SetSite(SITE_INITSPR, "CSprite::InitSpriteBuffer", 0x70CFB0, A(&CSprite::InitSpriteBuffer), reinterpret_cast<void*>(&SInitSprite));

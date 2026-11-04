@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CFont
- * Reconstrucción: COMPLETA — 37/37 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 38/38 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 37/37 entradas.
+ * Validación registrada: 38/38 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -25,6 +25,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "Font.h"
+#include "X87Math.h"
 
 #include "eLanguage.h"
 
@@ -64,6 +65,7 @@ void CFont::InjectHooks() {
 
     RH_ScopedInstall(InitPerFrame, 0x719800);
     RH_ScopedInstall(RenderFontBuffer, 0x719840);
+    RH_ScopedInstall(PrintSegment, 0x719B40);
     RH_ScopedInstall(GetStringWidth, 0x71A0E0);
     RH_ScopedInstall(DrawFonts, 0x71A210);
     RH_ScopedInstall(ProcessCurrentString, 0x71A220);
@@ -630,6 +632,162 @@ void CFont::RenderFontBuffer() {
     pEmptyChar = FontRenderStateBuf.data();
 }
 
+// Imprime un segmento [begin, end) de texto en el buffer de fuentes (sin simbolo confirmado).
+// 0x719B40 (cdecl, 5 argumentos en pila; el EXE lo llama a si mismo para sombra y contorno).
+// Como el original: sombra (m_nFontShadow != 0) tiene prioridad sobre contorno (m_nFontOutlineSize != 0);
+// ambos dibujan recursivamente con el color de sombra, m_bFontIsBlip = 1 y el valor a 0, y despues
+// restauran color y valor, y ponen m_bFontIsBlip = 0 (no restauran el valor previo, igual que el EXE).
+// Cada operacion x87 del EXE se hace a 24 bits (palabra de control del juego): aqui cada paso es float.
+void CFont::PrintSegment(float left, float top, const char* begin, const char* end, float spacing) {
+    constexpr float kScaleX = 0.0015625f;     // 0x859520
+    constexpr float kScaleY = 0.0022321429f;  // 0x859524
+    const auto& maxWidth  = StaticRef<int32>(0xC17044);
+    const auto& maxHeight = StaticRef<int32>(0xC17048);
+
+    // 0x719B43..0x719B57: color guardado (dword) antes de vaciar el buffer.
+    CRGBA saved = m_Color;
+    if (RenderState.m_wFontTexture != static_cast<uint16>(m_FontTextureId)) {
+        RenderFontBuffer(); // 0x719840
+        RenderState.m_wFontTexture = static_cast<uint16>(m_FontTextureId);
+    }
+    // 0x719B6A: el dword se vuelve a leer tras el vaciado (lo usan los caminos de sombra y contorno).
+    const CRGBA colorBeforeEffect = m_Color;
+
+    // Como el original: dx = (ancho * 0.0015625) * o ; dy = (alto * 0.00223214) * o: fild del entero, fmul y fmul con la palabra de control del juego (24 bits), un solo redondeo por operacion.
+    const auto OffsetX = [&](int32 o) { return FontOffsetCpp(maxWidth, kScaleX, o); }; // (w * kx) * o con la x87 de 24 bits (fild + fmul + fmul)
+    const auto OffsetY = [&](int32 o) { return FontOffsetCpp(maxHeight, kScaleY, o); };
+
+    // 0x719C3D / 0x719D5D: desplaza el punto de referencia de la inclinacion (no se restaura).
+    const auto SetEffectState = [&](int8 value) {
+        m_Color.b = m_FontDropColor.b; // 0x719BC0
+        m_Color.r = m_FontDropColor.r; // 0x719BD4
+        m_Color.g = m_FontDropColor.g; // 0x719BE7
+        m_Color.a = m_FontDropColor.a; // 0x719BED
+        m_bFontIsBlip = true;          // 0x719BE0
+        if (!(m_fSlant == 0.0f)) {
+            const int32 o = static_cast<int32>(value);
+            m_fSlantRefPoint.x = FontAddCpp(OffsetX(o), m_fSlantRefPoint.x);
+            m_fSlantRefPoint.y = FontAddCpp(OffsetY(o), m_fSlantRefPoint.y);
+        }
+    };
+    const auto RestoreColor = [&]() {
+        m_Color = colorBeforeEffect;
+        m_bFontIsBlip = false; // 0x719F29: pone 0, no el valor anterior
+    };
+
+    const int8 shadow = static_cast<int8>(m_nFontShadow);
+    if (shadow != 0) {
+        // 0x719BA5..0x719C9E
+        SetEffectState(shadow);
+        m_nFontShadow = 0; // 0x719BF3
+        const int32 o = static_cast<int32>(shadow);
+        PrintSegment(FontAddCpp(OffsetX(o), left), FontAddCpp(OffsetY(o), top), begin, end, spacing); // 0x719C7F
+        m_nFontShadow = static_cast<uint8>(shadow); // 0x719C98
+        RestoreColor();
+    } else {
+        const int8 outline = static_cast<int8>(m_nFontOutlineSize);
+        if (outline != 0) {
+            // 0x719CC5..0x719F29
+            SetEffectState(outline);
+            m_nFontOutlineSize = 0; // 0x719D13
+            const int32 o = static_cast<int32>(outline);
+            // El EXE recalcula dx y dy (fild de los enteros de pantalla) en cada llamada: aqui tambien, por si el vaciado los cambia.
+            const auto dx = [&] { return OffsetX(o); };
+            const auto dy = [&] { return OffsetY(o); };
+            PrintSegment(FontAddCpp(dx(), left), FontSubCpp(top, dy()), begin, end, spacing); // 0x719DA5
+            PrintSegment(FontSubCpp(left, dx()), FontSubCpp(top, dy()), begin, end, spacing); // 0x719DE2
+            PrintSegment(FontAddCpp(dx(), left), FontAddCpp(dy(), top), begin, end, spacing); // 0x719E1F
+            PrintSegment(FontSubCpp(left, dx()), FontAddCpp(dy(), top), begin, end, spacing); // 0x719E5C
+            PrintSegment(FontAddCpp(dx(), left), top, begin, end, spacing); // 0x719E84
+            PrintSegment(FontSubCpp(left, dx()), top, begin, end, spacing); // 0x719EAC
+            PrintSegment(left, FontAddCpp(dy(), top), begin, end, spacing); // 0x719ED4
+            PrintSegment(left, FontSubCpp(top, dy()), begin, end, spacing); // 0x719EFC
+            m_nFontOutlineSize = static_cast<uint8>(outline); // 0x719F15
+            RestoreColor();
+        }
+    }
+
+    // 0x719F30: si no cabe (0xC7187C - longitud), se vacia el buffer.
+    {
+        const uintptr_t limit = uintptr_t(0xC7187C) - reinterpret_cast<uintptr_t>(end) + reinterpret_cast<uintptr_t>(begin);
+        if (!(reinterpret_cast<uintptr_t>(pEmptyChar) < limit)) {
+            RenderFontBuffer();
+        }
+    }
+
+    // 0x719F4E..0x719FE7: cabecera de 0x30 bytes (m_cLetter y m_dLetter no se escriben).
+    CFontChar* const record = pEmptyChar;
+    record->m_vPosn.x        = left;
+    record->m_vPosn.y        = top;
+    record->m_fWidth         = m_Scale.x;
+    record->m_fHeight        = m_Scale.y;
+    record->m_color.r        = m_Color.r;
+    record->m_color.g        = m_Color.g;
+    record->m_color.b        = m_Color.b;
+    record->m_color.a        = m_Color.a;
+    record->m_fWrap          = spacing;
+    record->m_fSlant         = m_fSlant;
+    record->m_vSlanRefPoint  = m_fSlantRefPoint;
+    record->m_nFontStyle     = m_FontStyle;
+    record->m_bPropOn        = m_bFontPropOn;
+    record->m_wFontTexture   = static_cast<uint16>(m_FontTextureId);
+    record->m_bContainImages = m_bFontIsBlip;
+    record->m_nOutline       = m_nFontOutline;
+    char* out = reinterpret_cast<char*>(record) + sizeof(CFontChar);
+    pEmptyChar = reinterpret_cast<CFontChar*>(out);
+
+    // 0x719FF3..0x71A08F: copia el texto; las etiquetas '~' pasan por ParseToken (0x718F00).
+    // El color guardado (r,g,b) lo pueden actualizar las etiquetas; el alfa es el de m_Color.
+    uint8 savedAlpha = saved.a; // 0x719FA4: mov bl,[esp+13h]
+    const char* src = begin;
+    if (src < end) {
+        do {
+            const char ch = *src;
+            if (ch == '~') {
+                CRGBA parsed = m_Color; // 0x719FFD
+                const char* const next = ParseToken(const_cast<char*>(src), parsed, RenderState.m_bContainImages, nullptr);
+                if (!m_bFontIsBlip && PS2Symbol == EXSYMBOL_NONE) {
+                    // 0x71A02B..0x71A05C
+                    m_Color.r = parsed.r;
+                    m_Color.g = parsed.g;
+                    m_Color.b = parsed.b;
+                    saved.r = parsed.r;
+                    saved.g = parsed.g;
+                    saved.b = parsed.b;
+                    savedAlpha = m_Color.a;
+                }
+                PS2Symbol = EXSYMBOL_NONE; // 0x71A068
+                out = reinterpret_cast<char*>(pEmptyChar);
+                if (src != next) {
+                    while (src != next) *out++ = *src++;
+                    pEmptyChar = reinterpret_cast<CFontChar*>(out);
+                }
+            } else {
+                *out++ = ch;
+                ++src;
+                pEmptyChar = reinterpret_cast<CFontChar*>(out);
+            }
+        } while (src < end);
+    }
+
+    // 0x71A08F: terminador y alineacion a 4 bytes.
+    out = reinterpret_cast<char*>(pEmptyChar);
+    *out++ = 0;
+    pEmptyChar = reinterpret_cast<CFontChar*>(out);
+    if (reinterpret_cast<uintptr_t>(out) & 3u) {
+        do { ++out; } while (reinterpret_cast<uintptr_t>(out) & 3u);
+        pEmptyChar = reinterpret_cast<CFontChar*>(out);
+    }
+
+    // 0x71A0AC: restaura el color si no es un blip.
+    if (!m_bFontIsBlip) {
+        m_Color.r = saved.r;
+        m_Color.g = saved.g;
+        m_Color.b = saved.b;
+        m_Color.a = savedAlpha;
+    }
+}
+
 // 0x71A0E0
 float CFont::GetStringWidth(const GxtChar* string, bool full, bool scriptText) {
     // Como el original: 0x71A104 movzx edx,ax (longitud de 16 bits); 0x71A112..0x71A138 copia min(len,0x18F)
@@ -701,7 +859,7 @@ void CFont::DrawFonts() {
 int16 CFont::ProcessCurrentString(bool print, float x, float y, const GxtChar* text) {
     const auto savedColor = m_Color;
     const auto emitLine = [](float left, float top, const char* begin, const char* end, float spacing) {
-        plugin::Call<0x719B40, float, float, const char*, const char*, float>(left, top, begin, end, spacing);
+        PrintSegment(left, top, begin, end, spacing); // 0x719B40
     };
     auto* lineBegin = reinterpret_cast<const char*>(text);
     auto* cursor = lineBegin;

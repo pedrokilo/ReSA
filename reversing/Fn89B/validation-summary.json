@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 1,
+  "functions": {
+    "CCamera::AvoidTheGeometry": 16384
+  },
+  "covered_functions": {
+    "CCamera::AvoidTheGeometry": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en un worktree (wf-2) sobre el arbol principal mas la reconstruccion del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (los de hook RH, apagado durante el banco): CWorld::ProcessLineOfSight 0x56BA00 (dos llamadas), FindPlayerPed 0x56E210, CWorld::TestSphereAgainstWorld 0x569E20, CPlaceable::GetMatrix 0x411990 y WellBufferMe 0x509AE0; RwCameraSetNearClipPlane 0x7EE1D0 no tiene hook y la DLL lo llama por su direccion (el falso actualiza el plano cercano de la RwCamera real). REALES en ambos lados (hook RH de la DLL apagado): GetATanOfXY 0x53CC70, CVector::Normalise 0x59C910, resta de vectores 0x40FE60 y CrossProduct 0x59C730, fsin/fcos/fptan y _CIpow 0x822130 (la DLL usa los ayudantes de X87Math con std::sin/cos/tan y ExeCompatiblePowCpp: cero diferencias de 1 ulp en los 16384 pares). Globales reales guardados y restaurados (pIgnoreEntity, paso de tiempo, 0xB6EC65, WellBufferMe, proporcion, punto y normal de la esfera y RwCamera.nearPlane). Con mutaciones de una escritura dentro de un falso. El banco compara los eventos de los falsos con todos sus argumentos, los globales y los bytes cambiados de todas las arenas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional a 24 bits; fpatan, fsin, fcos, fptan y pow con Decimal de 120 digitos redondeado a 64 bits). Fuera de los fixtures: fov infinito, NaN o enorme (|angulo| >= 2^63), paso de tiempo NaN o infinito, NaN con otra carga, indices de camara fuera de rango y un objetivo de camara cuyo tipo no se pueda leer.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn89B-20261103-231317-529109",
+  "summary_sha256": "3ed95776235ee2f078acf4b6a796739ec09baba1ead9246fd3fb039502eb0bfb",
+  "result_txt_sha256": "29ff42744e03676e91c8fcaf1cbb920d31096b31f0f38307f85d626df4d2d5e8",
+  "log_sha256": "9215800a769eaa5b0bb35c17b37d5f6a5ca9919c7b16bb60a51552428ae69e7e",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "86296b489ca643baa8fc4cb8cc16b40282dea3193e0eb02517247b0530a3e55b",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/X87Math.cpp": "0246b0ea7d1fbd817009edd1348482cfa5f56aab0b8f90369f58dd2b479eef15",
+      "source/game_sa/X87Math.h": "49370daa3b616e1c9721f1514b18f2a43806d7c0e8d08649d5803e9b8bbc3dcf",
+      "source/game_sa/Camera.cpp": "0d2965ed822c2ae29e617b00dfe10f04c255f7354088b311573b1fe6ad713797",
+      "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
+      "source/game_sa/Cam.cpp": "cdd1a3600a08dcbc9f4a3cf5b9a0a6eb5c8f633e264b230d6a0b87de0149e4d0",
+      "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn89B/LiveComparison.hpp": "52a3f14479e13ca184bf88f7745d34726d34367aa91492e3e8e168a1a388de82",
+      "reversing/Fn89B/Core.hpp": "992fcfed3f12281d60e15f421ac7bdb0fda82f11b07fa80d39af6f5ad2dd45b2",
+      "reversing/Fn89B/Fixtures.hpp": "dc338681c7504e7e1f8046ec3a7c6db06c35d0c803ac42660e2918d3de226d12",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

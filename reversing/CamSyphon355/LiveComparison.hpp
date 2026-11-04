@@ -35,7 +35,7 @@ inline void Update() {
  if(!FindPlayerPed()||CCutsceneMgr::IsRunning())return;done=true;
  bool passed=true;uint32 pairCount=0;
  using ReversingProbe::EntryPatch;using std::bit_cast;
- EntryPatch a(0x514030,Avoid);
+ EntryPatch a(0x514030,Avoid),ad(bit_cast<uintptr_t>(&CCamera::AvoidTheGeometry),Avoid);   // CCamera::AvoidTheGeometry ya es un metodo C++ con hook RH (lote 89B): la DLL lo llama directamente, asi que el mismo falso va tambien en su cuerpo
  EntryPatch b(0x5E6580,Skill),bd(bit_cast<uintptr_t>(static_cast<eWeaponSkill(CPed::*)()>(&CPed::GetWeaponSkill)),Skill);
  EntryPatch c(0x743C60,Info),cd(bit_cast<uintptr_t>(static_cast<CWeaponInfo*(*)(eWeaponType,eWeaponSkill)>(&CWeaponInfo::GetWeaponInfo)),Info);
  EntryPatch d(0x43E0C0,Heading),dd(bit_cast<uintptr_t>(&CPlaceable::SetHeading),Heading);

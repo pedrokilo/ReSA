@@ -18,31 +18,38 @@
     "CCamera::ProcessObbeCinemaCameraPlane": true,
     "CCamera::ProcessObbeCinemaCameraBoat": true
   },
-  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco.",
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Dependencies21B-20261017-022839-927967",
-  "summary_sha256": "7852f32be98126c7e2d96730cee0750a179d4af09d2bda2700d231890a29af0f",
-  "result_txt_sha256": "52774b46cafaef90ad7470a36918917ed0f008be537a9a53f52a247e8d481a39",
-  "log_sha256": "04b4f75d1acf0229d58a1235de0d93cf9932c1520e7479b33282706203fcd183",
+  "run": "reversing/CppTwelveLevel6Final/runs/Dependencies21B-20261103-233821-738823",
+  "summary_sha256": "6aef4719f186e09e2ae8b82de64d47c9215f97382db5b95961e52ce07c4bb9c0",
+  "result_txt_sha256": "a71080e23ca68ee74e61c7381813cdc0db2818d549f71a82bc46cd0d0c7a639d",
+  "log_sha256": "7413a3a6dbee803e2172cb8cd8e04af24ecb9c0ab82d6d4484414ca145a2efde",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "497527cd8c8c26f944e097b02f684dab19c14bf9043ec592f4a1dca6f94d1dc2",
+  "executed_probe_sha256": "cfe9ca076396f3699a9791bae2ea9e836572b3035a569207e095fb4d7928feec",
   "manifest": {
     "tested_sources": {
-      "source/game_sa/Camera.cpp": "69088a382c52d1f6215f64617f231abf1d665ff3374ca3b404455c4ddf55e6f0",
-      "source/game_sa/Camera.h": "96ebde7479824e30771b49a64c011f5273e81dc963b9836b99fdbf9d844e4a51",
-      "source/game_sa/Cam.h": "f48cf3c64eda811b598ea3808c1ad78ca126075703d4c81022986500d826524d",
-      "source/game_sa/Hud.cpp": "f6f38b6d52096e15cc0cdbcec3b66eb7e81d9fc90ab89c33bfc1cbf5701cb0a8",
+      "source/game_sa/Camera.cpp": "0d2965ed822c2ae29e617b00dfe10f04c255f7354088b311573b1fe6ad713797",
+      "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
+      "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
+      "source/game_sa/Hud.cpp": "4c02b81839711df740e092c1ddfb0e6942f2cabbedf7ea9bd2b730614b8a8e4a",
       "source/game_sa/Hud.h": "79281d4af6081a87676aa178f11fb77ed5003c1aa0a6a09965b8767e1a9209fa",
       "source/game_sa/Text/Text.cpp": "d474d34d62c9736dfc123b55dbe074047270605fe4b187eb07238dbf2e078e23",
       "source/game_sa/Text/Text.h": "c37296988233a6936c373ef7b8ca3b2ef1ba0aca659917de6370cc616f256ee6",
-      "source/InjectHooksMain.cpp": "9120d33798aa23d337fdcfd3411d1e90fd9252eff4a24e0280490d6fd62db0b8",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377"
     }
+  },
+  "comparison_storage": {
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Dependencies21B-20261103-233821-738823/comparisons.jsonl.gz",
+    "compression": "gzip",
+    "gzip_mtime": 0,
+    "compressed_sha256": "79b086a8e5359e98504bc1f157b57be7ef314a0bf926fec4c935d9df9189d4f7",
+    "uncompressed_sha256": "7413a3a6dbee803e2172cb8cd8e04af24ecb9c0ab82d6d4484414ca145a2efde"
   }
 }

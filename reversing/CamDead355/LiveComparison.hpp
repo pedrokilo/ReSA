@@ -38,7 +38,7 @@ inline void Update() {
  bool passed=true;uint32 pairCount=0;
  using ReversingProbe::EntryPatch;using std::bit_cast;
  const auto savedTarget=StaticRef<uintptr_t>(0xB6F980),savedModel=StaticRef<uintptr_t>(0xA9B0C8+2000*4);const auto savedTime=CTimer::GetTimeInMS(),savedDeath=StaticRef<uint32>(0xB6F094);const auto savedStep=CTimer::GetTimeStep();const auto savedFlag=StaticRef<uint8>(0xB6F055);std::array<uint8,8> savedState;std::memcpy(savedState.data(),reinterpret_cast<void*>(0xB70050),8);
- EntryPatch a(0x514030,Avoid);
+ EntryPatch a(0x514030,Avoid),ad(bit_cast<uintptr_t>(&CCamera::AvoidTheGeometry),Avoid);   // CCamera::AvoidTheGeometry ya es un metodo C++ con hook RH (lote 89B): la DLL lo llama directamente, asi que el mismo falso va tambien en su cuerpo
  EntryPatch b(0x5E4280,Bone),bd(bit_cast<uintptr_t>(static_cast<void(CPed::*)(CVector*,eBoneTag,bool)>(&CPed::GetBonePosition)),Bone);
  EntryPatch c(0x569E20,Sphere),cd(bit_cast<uintptr_t>(&CWorld::TestSphereAgainstWorld),Sphere);
  EntryPatch w(0x6E8580,Water),wd(bit_cast<uintptr_t>(static_cast<bool(*)(float,float,float,float&,uint8,CVector*)>(&CWaterLevel::GetWaterLevel)),Water);

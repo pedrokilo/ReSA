@@ -2188,3 +2188,22 @@ double __cdecl Car84DCos(double angle);
 // Lote 85G: CTaskSimpleFight::ChooseAttackPlayer (0x624710): fpatan(-dx, dy) sobre el registro x87, sin redondear
 double __cdecl Fn85GAtanNegXY(double dx, double dy);
 float __cdecl Fn85GStore(double value);                                 // fstp dword (zona desnormal exacta)
+// CCamera::AvoidTheGeometry (0x514030): fsin / fcos / fptan sobre el registro x87 (el resultado queda en ST0 sin redondear a 24 bits; fptan descarta el 1.0 que apila).
+double __cdecl CamGeoSinCpp(double angle);
+double __cdecl CamGeoCosCpp(double angle);
+double __cdecl CamGeoTanCpp(double angle);
+
+// --- CTaskSimpleGangDriveBy::FireGun (0x627CC0), prefijo GangDriveByFire. Anadido al FINAL de X87Math.h ---
+// out = a - b por componente (fld [a]; fsub [b]; fstp [out], x87 de 24 bits): relativo al vehiculo (0x627D47..0x627D7D), direccion del jugador (0x627E39..0x627E5F) y de la IA (0x627EA4..0x627EEC).
+void __cdecl GangDriveByFireSubCpp(const float* a, const float* b, float* out);
+// 0x627F26..0x628232: punto de impacto `out` de la direccion normalizada d desde el origen p contra una cara de la caja delimitadora del vehiculo.
+// side: 0 = izquierda (cara min.x, eje derecho, -d.eje), 1 = derecha (max.x, eje derecho), 2 = atras (min.y, eje adelante, -d.eje), 3 = adelante (max.y, eje adelante).
+// matrix = 16 floats (right @0, forward @4); q = p - posicion del vehiculo; box = {min.x, min.y, min.z, max.x, max.y, max.z}. Si d.eje no supera 0.1f (o es NaN) devuelve p sin tocar.
+void __cdecl GangDriveByFireHitCpp(int side, const float* d, const float* q, const float* p, const float* matrix, const float* box, float* out);
+
+// --- CFont::PrintSegment (0x719B40), prefijo Font ---
+// (int(count) * k) * int(o) sobre la x87 de 24 bits (fild; fmul dword; fild; fmul): un redondeo a 24 bits por operacion, sin pasar el entero por float (distinto para |count| > 2^24).
+float __cdecl FontOffsetCpp(int count, float k, int o);
+// a + b y a - b en la x87 (fadd / fsub con un solo redondeo a 24 bits): el resultado desnormal se conserva (la SSE de la DLL lo vacia a cero con el MXCSR del juego).
+float __cdecl FontAddCpp(float a, float b);
+float __cdecl FontSubCpp(float a, float b);

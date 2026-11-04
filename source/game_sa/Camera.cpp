@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CCamera
- * Reconstrucción: COMPLETA — 120/120 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 122/122 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 120/120 entradas.
+ * Validación registrada: 122/122 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -193,6 +193,8 @@ void CCamera::InjectHooks() {
     RH_ScopedInstall(CameraPedAimModeSpecialCases, 0x50CDA0);
     RH_ScopedInstall(CameraVehicleModeSpecialCases, 0x50CDE0);
     RH_ScopedInstall(IsExtraEntityToIgnore, 0x50CE80);
+    RH_ScopedInstall(IsItTimeForNewCamera, 0x51D770);
+    RH_ScopedInstall(AvoidTheGeometry, 0x514030);
     RH_ScopedInstall(ConsiderPedAsDucking, 0x50CEB0);
     RH_ScopedInstall(ResetDuckingSystem, 0x50CEF0);
     RH_ScopedInstall(HandleCameraMotionForDucking, 0x50CFA0);
@@ -1843,6 +1845,11 @@ VALIDATE_OFFSET(CCamera, m_nActiveCam, 0x59);
 VALIDATE_OFFSET(CCamera, m_aCams, 0x174);
 VALIDATE_OFFSET(CCam, m_nMode, 0xC);   // 0x174 + 0xC = 0x180, the word the EXE reads
 VALIDATE_OFFSET(CCamera, m_bCinemaCamera, 0xCF0);
+VALIDATE_OFFSET(CCamera, m_bMoveCamToAvoidGeom, 0x2D);               // AvoidTheGeometry (0x514030)
+VALIDATE_OFFSET(CCamera, m_fAvoidTheGeometryProbsTimer, 0x164);
+VALIDATE_OFFSET(CCamera, m_nAvoidTheGeometryProbsDirn, 0x168);
+VALIDATE_OFFSET(CCamera, m_vecClearGeometryVec, 0x8FC);
+VALIDATE_OFFSET(CCamera, m_pTargetEntity, 0x958);
 VALIDATE_OFFSET(CCamera, m_nModeObbeCamIsInForCar, 0xC34);
 constexpr ObbeCinemaKind ObbeCar{0x8CCEEC, 0xB70120, 0x8CC828, 11, false, false, false};
 constexpr ObbeCinemaKind ObbeTrain{0x8CCEF0, 0xB70124, 0x8CC858, 6, false, false, false};
@@ -1860,7 +1867,6 @@ void CameraObbeCinemaCycle(CCamera& camera, const ObbeCinemaKind& kind) {
     const auto* table = reinterpret_cast<const int32*>(kind.tableAddress);
     const auto now = [] { return StaticRef<uint32>(0xB7CB84); };   // CTimer::m_snTimeInMilliseconds
     const auto finish = [&](int32 mode) { camera.m_nModeObbeCamIsInForCar = mode; processed = 1; };
-    const auto isItTime = reinterpret_cast<bool(__thiscall*)(CCamera*, int32, int32)>(0x51D770);   // CCamera::IsItTimeForNewcam, not reconstructed
 
     bool check = processed != 0;
     if (!check) {
@@ -1880,7 +1886,7 @@ void CameraObbeCinemaCycle(CCamera& camera, const ObbeCinemaKind& kind) {
     }
     if (check && !(kind.checkBusy && CCamera::IsActiveCamUnderWater())) {
         const int32 mode = table[index];
-        if (!isItTime(&camera, mode, int32(lastTime))) {
+        if (!camera.IsItTimeForNewCamera(mode, int32(lastTime))) {
             finish(index);
             return;
         }
@@ -1936,6 +1942,468 @@ void CameraObbeCinemaCycle(CCamera& camera, const ObbeCinemaKind& kind) {
     finish(index);
 }
 } // namespace
+
+// 0x51D770 (thiscall, `ret 8`; sin simbolo en el original: IsItTimeForNewcam es el nombre del encabezado): decide si ya toca cambiar la camara cinematografica
+// de la secuencia `camSequence` (el modo de la tabla de CameraObbeCinemaCycle). Devuelve true si toca. `startTime` es la marca de tiempo (CTimer::m_snTimeInMilliseconds) en que empezo.
+// 1) camSequence < 0: true. Transcurrido = (sin signo) ahora - startTime con la x87 a 24 bits (fild con correccion de 2^32 si el entero es negativo, luego fisub); mayor de 20000: true.
+// 2) El palo derecho del pad 0 (+4 del estado nuevo): con |palo| <= 32 se arma el aviso (0x8CCDF4 = 1); con |palo| > 96 y el aviso armado se fija el paso (0x8CC471 = +1 si palo > 0, si no -1),
+//    se desarma y se devuelve true; en otro caso sigue al despacho por camSequence (> 29: false).
+// 3) Despacho (tabla 0x51E4E8): 0 y 8 (vehiculo del jugador / objetivo + linea de vision hasta la camara activa), 1, 2, 3, 5, 15..19 (transcurrido > 15000, linea de vision del jugador al origen fijo
+//    +0x86C y distancias; ver cada caso), 4, 6 y 29 (solo tiempo), 7 (vehiculo del jugador visible), 9..14 (false), 20..23 y 26..28 (Process_DW_* de la camara activa con true: el resultado negado), 24 y 25 (0xB6F059 = 0, true).
+// Aritmetica x87 del EXE (registro de 24 bits, guardado fstp dword) con los ayudantes Veh83D* / Fn85GStore / Veh83CMagnitude de X87Math.cpp. El orden de los productos del producto escalar con la velocidad
+// del jugador (A: (y*sy + sz*0) + x*sx; B: (y*sy + x*sx) + sz*0) es el de cada caso del EXE (la z del vector plano vale 0 y sz se multiplica por la constante 0.0f).
+bool CCamera::IsItTimeForNewCamera(int32 camSequence, int32 startTime) {
+    if (camSequence < 0) {
+        return true;
+    }
+    const uint32 now = CTimer::GetTimeInMS();
+    double elapsedRegister = double(int32(now));
+    if (int32(now) < 0) {
+        elapsedRegister = Veh83DAdd(elapsedRegister, 4294967296.0); // 0x858C54
+    }
+    elapsedRegister = Veh83DSub(elapsedRegister, double(startTime));
+    const float elapsed = Fn85GStore(elapsedRegister); // [esp+14h]
+    if (elapsedRegister > 20000.0) { // 0x8CCDF8
+        return true;
+    }
+
+    auto& stickAlert = StaticRef<uint8>(0x8CCDF4);
+    const float stick = float(CPad::GetPad(0)->GetRightStickX());
+    const double stickMagnitude = std::fabs(double(stick));
+    if (stickMagnitude <= 32.0) { // 0x85950C
+        stickAlert = 1;
+    } else if (stickMagnitude > 96.0 && stickAlert != 0) { // 0x863218
+        StaticRef<int8>(0x8CC471) = stick > 0.0f ? int8(1) : int8(-1);
+        stickAlert = 0;
+        return true;
+    }
+    if (uint32(camSequence) > 29) {
+        return false;
+    }
+
+    const uint32 start = uint32(startTime);
+    const auto setNearClip = [] { RwCameraSetNearClipPlane(StaticRef<RwCamera*>(0xC1703C), 0.15f); }; // push 3E19999Ah
+    const auto pastFifteenSeconds = [&] { return double(elapsed) > 15000.0; };                         // 0x8CCDF0: pasados 15 s el EXE devuelve true
+    // El jugador va en un barco (tipo 5) y el objetivo de la camara no es el modelo 0x1CC (Skimmer): true.
+    const auto playerBoatBlocks = [&] {
+        if (FindPlayerVehicle(-1, false)) {
+            const CVehicle* vehicle = FindPlayerVehicle(-1, false);
+            if (vehicle->m_nVehicleType == VEHICLE_TYPE_BOAT && m_pTargetEntity->m_nModelIndex != 0x1CC) {
+                return true;
+            }
+        }
+        return false;
+    };
+    // Linea de vision (solo edificios) de las coordenadas del jugador al origen fijo +0x86C.
+    const auto playerSeesFixedSource = [&] {
+        return CWorld::GetIsLineOfSightClear(FindPlayerCoors(-1), CameraRawField<CVector>(this, 0x86C), true, false, false, false, false, false, false);
+    };
+    // Vector coordenadas del jugador - origen fijo (CVector::operator-, 0x40FE60), con la z a 0 si `flat`.
+    const auto playerOffset = [&](bool flat) {
+        const CVector player = FindPlayerCoors(-1);
+        const CVector& fixed = CameraRawField<CVector>(this, 0x86C);
+        std::array<float, 3> offset{
+            Veh83CSubStore(player.x, fixed.x),
+            Veh83CSubStore(player.y, fixed.y),
+            Veh83CSubStore(player.z, fixed.z)
+        };
+        if (flat) {
+            offset[2] = 0.0f;
+        }
+        return offset;
+    };
+    const auto speedDotA = [](const std::array<float, 3>& v) {
+        const CVector& speed = FindPlayerSpeed(-1);
+        return Veh83DAdd(Veh83DAdd(Veh83DMul(v[1], speed.y), Veh83DMul(speed.z, 0.0)), Veh83DMul(v[0], speed.x));
+    };
+    const auto speedDotB = [](const std::array<float, 3>& v) {
+        const CVector& speed = FindPlayerSpeed(-1);
+        return Veh83DAdd(Veh83DAdd(Veh83DMul(v[1], speed.y), Veh83DMul(v[0], speed.x)), Veh83DMul(speed.z, 0.0));
+    };
+
+    switch (camSequence) {
+    case 0: {
+        if (const CVehicle* vehicle = FindPlayerVehicle(-1, false)) {
+            if (vehicle->m_nVehicleType == VEHICLE_TYPE_BOAT && m_pTargetEntity->m_nModelIndex != 0x1CC) {
+                return true;
+            }
+            if (vehicle->m_nModelIndex == 0x1B0) { // Rhino
+                return true;
+            }
+            if (!CWorld::GetIsLineOfSightClear(m_pTargetEntity->GetPosition(), m_aCams.data()[m_nActiveCam].m_vecSource, true, false, false, false, false, false, false)) {
+                return true;
+            }
+        }
+        if (now > start + 5000u) {
+            return true;
+        }
+        setNearClip();
+        return false;
+    }
+    case 1: {
+        if (pastFifteenSeconds() || playerBoatBlocks() || !playerSeesFixedSource()) {
+            return true;
+        }
+        const auto offset = playerOffset(true);
+        if (Veh83CMagnitude(offset.data()) > 40.0) { // 0x858A10
+            if (speedDotA(offset) > 0.0) {
+                return true;
+            }
+        }
+        return Veh83CMagnitude(offset.data()) < 4.5; // 0x863214
+    }
+    case 2: {
+        if (pastFifteenSeconds() || playerBoatBlocks() || !playerSeesFixedSource()) {
+            return true;
+        }
+        const auto offset = playerOffset(true);
+        if (Veh83CMagnitude(offset.data()) < 2.0) { // 0x858CA0
+            double value = Veh83DMul(Veh83CMagnitude(offset.data()), 0.5);
+            if (value < double(0.05f)) { // 0x858C28
+                value = double(0.05f);
+            }
+            CameraRawField<float>(this, 0x138) = Fn85GStore(value);
+            CameraRawField<bool>(this, 0x31) = true;
+        }
+        if (Veh83CMagnitude(offset.data()) > 29.0) { // 0x863210
+            if (speedDotA(offset) > 0.0) {
+                return true;
+            }
+        }
+        if (Veh83CMagnitude(offset.data()) < 2.0) {
+            return true;
+        }
+        setNearClip();
+        return false;
+    }
+    case 3: {
+        if (pastFifteenSeconds() || !playerSeesFixedSource()) {
+            return true;
+        }
+        const auto offset = playerOffset(true);
+        if (Veh83CMagnitude(offset.data()) > 48.0) { // 0x862D38
+            if (speedDotB(offset) > 0.0) {
+                return true;
+            }
+        }
+        setNearClip();
+        return false;
+    }
+    case 4:
+    case 6:
+        return now > start + 3000u;
+    case 5: {
+        if (pastFifteenSeconds() || playerBoatBlocks() || !playerSeesFixedSource()) {
+            return true;
+        }
+        const auto offset = playerOffset(true);
+        if (!(Veh83CMagnitude(offset.data()) > 38.0)) { // 0x86320C
+            return false;
+        }
+        return speedDotA(offset) > 0.0;
+    }
+    case 7:
+        if (!(now > start + 2000u)) {
+            return false;
+        }
+        return !FindPlayerVehicle(-1, false)->GetIsOnScreen(); // 0x534540 con ECX = el resultado, sin comprobar nulo
+    case 8: {
+        if (pastFifteenSeconds() || playerBoatBlocks()) {
+            return true;
+        }
+        if (!CWorld::GetIsLineOfSightClear(m_pTargetEntity->GetPosition(), m_aCams.data()[m_nActiveCam].m_vecSource, true, false, false, false, false, false, false)) {
+            return true;
+        }
+        if (now > start + 1000u) {
+            return true;
+        }
+        CameraRawField<float>(this, 0x138) = 0.6f; // 3F19999Ah
+        CameraRawField<bool>(this, 0x31) = true;
+        return false;
+    }
+    case 15: {
+        if (pastFifteenSeconds()) {
+            return true;
+        }
+        if (!FindPlayerVehicle(-1, false)) {
+            return false;
+        }
+        if (!playerSeesFixedSource()) {
+            return true;
+        }
+        const auto offset = playerOffset(true);
+        if (Veh83CMagnitude(offset.data()) > 44.0) { // 0x858FF8
+            if (speedDotB(offset) > 0.0) {
+                return true;
+            }
+        }
+        return Veh83CMagnitude(offset.data()) < 3.0; // 0x858B3C
+    }
+    case 16: {
+        if (pastFifteenSeconds()) {
+            return true;
+        }
+        if (!FindPlayerVehicle(-1, false)) {
+            return false;
+        }
+        if (!playerSeesFixedSource()) {
+            return true;
+        }
+        const auto offset = playerOffset(true);
+        if (Veh83CMagnitude(offset.data()) > 50.0) { // 0x858B40
+            return true;
+        }
+        return Veh83CMagnitude(offset.data()) < 3.0;
+    }
+    case 17: {
+        if (pastFifteenSeconds()) {
+            return true;
+        }
+        if (!FindPlayerVehicle(-1, false)) {
+            return false;
+        }
+        if (!playerSeesFixedSource()) {
+            return true;
+        }
+        const auto offset = playerOffset(true);
+        if (Veh83CMagnitude(offset.data()) > 50.0) {
+            if (speedDotB(offset) > 0.0) {
+                return true;
+            }
+        }
+        return Veh83CMagnitude(offset.data()) < 2.0;
+    }
+    case 18: {
+        if (pastFifteenSeconds() || !playerSeesFixedSource()) {
+            return true;
+        }
+        const auto offset = playerOffset(false); // la z se conserva
+        if (Veh83CMagnitude(offset.data()) > 57.0) { // 0x863208
+            return true;
+        }
+        return Veh83CMagnitude(offset.data()) < 1.0; // 0x858624
+    }
+    case 19: {
+        if (pastFifteenSeconds() || !playerSeesFixedSource()) {
+            return true;
+        }
+        const auto offset = playerOffset(true);
+        if (Veh83CMagnitude(offset.data()) > 36.0) { // 0x863204
+            return true;
+        }
+        return Veh83CMagnitude(offset.data()) < 2.0;
+    }
+    case 20:
+        return !m_aCams.data()[m_nActiveCam].Process_DW_HeliChaseCam(true);
+    case 21:
+        return !m_aCams.data()[m_nActiveCam].Process_DW_CamManCam(true);
+    case 22:
+        return !m_aCams.data()[m_nActiveCam].Process_DW_BirdyCam(true);
+    case 23:
+        return !m_aCams.data()[m_nActiveCam].Process_DW_PlaneSpotterCam(true);
+    case 24:
+    case 25:
+        StaticRef<uint8>(0xB6F059) = 0;
+        return true;
+    case 26:
+        return !m_aCams.data()[m_nActiveCam].Process_DW_PlaneCam1(true);
+    case 27:
+        return !m_aCams.data()[m_nActiveCam].Process_DW_PlaneCam2(true);
+    case 28:
+        return !m_aCams.data()[m_nActiveCam].Process_DW_PlaneCam3(true);
+    case 29:
+        return now > start + 5000u;
+    default: // 9..14
+        return false;
+    }
+}
+
+// 0x514030 (thiscall, `ret 10h`; en el EXE los tres vectores van por puntero): evita que la camara quede dentro de la geometria. `source` es la posicion de la camara, `target` el punto al
+// que mira y `out` la posicion resultante; ademas deja en m_vecClearGeometryVec (+0x8FC) el desplazamiento de salida y marca m_bMoveCamToAvoidGeom (+0x2D).
+// 1) m_vecClearGeometryVec = 0; d = target - source (cada componente guardado como float; dx se conserva tambien en el registro); L = |d| y h = |d.xy| (sumas en el orden del EXE: (dz2 + dx2) + dy2 y dy2 + dx2).
+//    Rumbo = ATanOfXY (0x53CC70) de (dx, dy) (de (+0x984, +0x988) si dx y dy son 0), guardado como float; paso = 0 si h == 0 y dz == 0, si no ATanOfXY(h, dz) sin redondear.
+//    Direccion = (cos(rumbo)*cos(paso), sin(rumbo)*cos(paso), sin(paso)) guardada como float; out = target - direccion * L (z con el producto guardado antes); la direccion se normaliza (0x59C910).
+// 2) pIgnoreEntity = objetivo de la camara (+0x958); linea de vision target -> out (edificios y objetos, ignorando la camara): si da, out = punto de choque y, con 0xB6EC65 distinto de 0, una segunda
+//    linea out -> target (vehiculos, peds y objetos): si el choque queda a menos de near de out, out = ese punto; si no y out (el primer choque) queda a menos de near de si mismo, out = el primer choque.
+// 3) Si hay jugador: distancia de out a target menos 0.5; si es menor que near, near = max(distancia, 0.15) (RwCameraSetNearClipPlane, 0x7EE1D0).
+// 4) Radio = near * (tan(fov * pi/180 * 0.5) * aspecto * 1.15) y centro = out + direccion * near; TestSphereAgainstWorld (0x569E20: edificios y objetos). Si choca: proyeccion del punto de choque (0xB9B250)
+//    sobre la direccion ajusta near (si esta en (0.15, 0.9) y es menor que near, near = proyeccion; si es menor que 0.15, near = 0.15); la normal (0xB9B260, normalizada) se orienta hacia el punto;
+//    m_vecClearGeometryVec = normal * (-(q . normal)), con q = (punto - centro normalizado) * profundidad de penetracion. Si el objetivo es un ped y near < 0.3, el temporizador +0x164 sube o baja
+//    segun el producto de la normal con el vector adelante del ped, y si +0x168 es 0 recibe el sentido (1 o 0xFFFF) del producto vectorial (ped - out) x normal.
+// 5) Siempre: temporizador *= pow(0.9, paso de tiempo); WellBufferMe(1 si choco la esfera, si no 0; 0xB6EC38, 0xB6EC3C, 0.2, 0.05, false); m_vecClearGeometryVec *= 0xB6EC38 por componente; m_bMoveCamToAvoidGeom = true.
+// Aritmetica x87 del EXE con los ayudantes Veh83D* / Fn85GStore / CamGeo* de X87Math.cpp. Ningun llamador del EXE lee EAX/ECX/EDX.
+void CCamera::AvoidTheGeometry(const CVector& source, const CVector& target, CVector& out, float fov) {
+    static_assert(offsetof(RwCamera, nearPlane) == 0x80);
+    const auto rwCamera = [] { return StaticRef<RwCamera*>(0xC1703C); };
+    const auto distance = [](const CVector& a, const CVector& b) {
+        const double dx = Veh83DSub(a.x, b.x);
+        const double dy = Veh83DSub(a.y, b.y);
+        const double dz = Veh83DSub(a.z, b.z);
+        const double dx2 = Veh83DMul(dx, dx);
+        const double dz2 = Veh83DMul(dz, dz);
+        const double dy2 = Veh83DMul(dy, dy);
+        return Veh83DSqrt(Veh83DAdd(Veh83DAdd(dx2, dz2), dy2));
+    };
+
+    const double registerDx = Veh83DSub(target.x, source.x);
+    const float dx = Fn85GStore(registerDx);
+    const float dy = Fn85GStore(Veh83DSub(target.y, source.y));
+    const float dz = Fn85GStore(Veh83DSub(target.z, source.z));
+    m_vecClearGeometryVec = CVector{ 0.0f, 0.0f, 0.0f };
+
+    const double dx2 = Veh83DMul(registerDx, registerDx);
+    const double dy2 = Veh83DMul(dy, dy);
+    const double dz2 = Veh83DMul(dz, dz);
+    const float length = Fn85GStore(Veh83DSqrt(Veh83DAdd(Veh83DAdd(dz2, dx2), dy2)));
+    const float horizontal = Fn85GStore(Veh83DSqrt(Veh83DAdd(dy2, dx2)));
+
+    const bool noHorizontalDelta = registerDx == 0.0 && dy == 0.0;
+    const float heading = Fn85GStore(noHorizontalDelta
+        ? GeneralATanOfXYDblCpp(CameraRawField<float>(this, 0x984), CameraRawField<float>(this, 0x988))
+        : GeneralATanOfXYDblCpp(dx, dy));
+    const double pitch = (horizontal == 0.0f && dz == 0.0f) ? 0.0 : GeneralATanOfXYDblCpp(horizontal, dz);
+
+    const double cosPitch = CamGeoCosCpp(pitch);
+    CVector direction{
+        Fn85GStore(Veh83DMul(CamGeoCosCpp(double(heading)), cosPitch)),
+        Fn85GStore(Veh83DMul(CamGeoSinCpp(double(heading)), cosPitch)),
+        Fn85GStore(CamGeoSinCpp(pitch))
+    };
+    const double travelX = Veh83DMul(direction.x, length);
+    const double travelY = Veh83DMul(direction.y, length);
+    const float travelZ = Fn85GStore(Veh83DMul(direction.z, length));
+    out.x = Fn85GStore(Veh83DSub(target.x, travelX));
+    out.y = Fn85GStore(Veh83DSub(target.y, travelY));
+    out.z = Fn85GStore(Veh83DSub(target.z, travelZ));
+    Veh83CNormalise(&direction.x); // CVector::Normalise (0x59C910)
+
+    CWorld::pIgnoreEntity = m_pTargetEntity;
+    CColPoint colPoint;
+    CEntity* hitEntity = nullptr;
+    if (CWorld::ProcessLineOfSight(target, out, colPoint, hitEntity, true, false, false, true, false, false, true, false)) {
+        const CVector firstHit = colPoint.m_vecPoint;
+        out = firstHit;
+        if (StaticRef<uint8>(0xB6EC65) != 0
+            && CWorld::ProcessLineOfSight(out, target, colPoint, hitEntity, false, true, true, true, false, false, true, false)) {
+            const CVector secondHit = colPoint.m_vecPoint;
+            if (distance(out, secondHit) < double(rwCamera()->nearPlane)) {
+                out = secondHit;
+            } else if (distance(out, firstHit) < double(rwCamera()->nearPlane)) {
+                out = firstHit;
+            }
+        }
+    }
+    CWorld::pIgnoreEntity = nullptr;
+
+    const CVector toTarget{
+        Veh83CSubStore(target.x, out.x),
+        Veh83CSubStore(target.y, out.y),
+        Veh83CSubStore(target.z, out.z)
+    };
+    if (FindPlayerPed(-1)) {
+        const double toTargetLength = Veh83DSqrt(Veh83DAdd(Veh83DAdd(Veh83DMul(toTarget.x, toTarget.x), Veh83DMul(toTarget.z, toTarget.z)), Veh83DMul(toTarget.y, toTarget.y)));
+        const double clearance = Veh83DSub(toTargetLength, 0.5); // 0x8CC38C
+        if (clearance < double(rwCamera()->nearPlane)) {
+            if (clearance <= double(0.15f)) { // 0x8CC390
+                RwCameraSetNearClipPlane(rwCamera(), 0.15f);
+            } else {
+                RwCameraSetNearClipPlane(rwCamera(), Fn85GStore(clearance));
+            }
+        }
+    }
+
+    const double halfAngle = Veh83DMul(Veh83DMul(double(fov), double(std::bit_cast<float>(0x3C8EFA35u))), 0.5); // 0x8595EC (pi / 180), 0x858B8C
+    const double frustumScale = Veh83DMul(Veh83DMul(CamGeoTanCpp(halfAngle), CDraw::ms_fAspectRatio), 1.15f); // 0xC3EFA4, 0x8CC820
+    const double nearRegister = rwCamera()->nearPlane;
+    const float radius = Fn85GStore(Veh83DMul(nearRegister, frustumScale));
+    const float scaledX = Fn85GStore(Veh83DMul(direction.x, nearRegister));
+    const float scaledY = Fn85GStore(Veh83DMul(direction.y, nearRegister));
+    const double scaledZ = Veh83DMul(direction.z, nearRegister);
+    const CVector center{
+        Fn85GStore(Veh83DAdd(scaledX, out.x)),
+        Fn85GStore(Veh83DAdd(scaledY, out.y)),
+        Fn85GStore(Veh83DAdd(scaledZ, out.z))
+    };
+    const bool sphereHit = CWorld::TestSphereAgainstWorld(center, radius, nullptr, true, false, false, true, false, true) != nullptr;
+    if (sphereHit) {
+        const CVector point = StaticRef<CVector>(0xB9B250);
+        CVector normal = StaticRef<CVector>(0xB9B260);
+        CVector penetrationDirection{
+            Fn85GStore(Veh83DSub(point.x, center.x)),
+            Fn85GStore(Veh83DSub(point.y, center.y)),
+            Fn85GStore(Veh83DSub(point.z, center.z))
+        };
+        const double toPointX = Veh83DSub(point.x, out.x);
+        const double toPointY = Veh83DSub(point.y, out.y);
+        const double toPointZ = Veh83DSub(point.z, out.z);
+        const double projection = Veh83DAdd(Veh83DAdd(Veh83DMul(toPointX, direction.x), Veh83DMul(toPointZ, direction.z)), Veh83DMul(toPointY, direction.y));
+        const float projectionStored = Fn85GStore(projection);
+        if (projection > double(0.15f) && projection < double(0.9f)) { // 0x8CC390, 0x858C20
+            if (projection < double(rwCamera()->nearPlane)) {
+                RwCameraSetNearClipPlane(rwCamera(), projectionStored);
+            }
+        } else if (projection < double(0.15f)) {
+            RwCameraSetNearClipPlane(rwCamera(), 0.15f);
+        }
+
+        const double penetrationLength = Veh83DSqrt(Veh83DAdd(Veh83DAdd(Veh83DMul(penetrationDirection.x, penetrationDirection.x), Veh83DMul(penetrationDirection.z, penetrationDirection.z)), Veh83DMul(penetrationDirection.y, penetrationDirection.y)));
+        const float depth = Fn85GStore(Veh83DSub(double(radius), penetrationLength));
+        Veh83CNormalise(&penetrationDirection.x);
+        Veh83CNormalise(&normal.x);
+        const double pushX = Veh83DMul(penetrationDirection.x, depth); // se queda en el registro
+        const float pushY = Fn85GStore(Veh83DMul(penetrationDirection.y, depth));
+        const float pushZ = Fn85GStore(Veh83DMul(penetrationDirection.z, depth));
+        const double facing = Veh83DAdd(Veh83DAdd(Veh83DMul(-penetrationDirection.x, normal.x), Veh83DMul(normal.z, -penetrationDirection.z)), Veh83DMul(normal.y, -penetrationDirection.y));
+        if (facing < 0.0) {
+            normal = CVector{ -normal.x, -normal.y, -normal.z };
+        }
+        const double slide = Veh83DAdd(Veh83DAdd(Veh83DMul(-pushX, normal.x), Veh83DMul(-double(pushZ), normal.z)), Veh83DMul(-double(pushY), normal.y));
+        m_vecClearGeometryVec = CVector{
+            Fn85GStore(Veh83DMul(normal.x, slide)),
+            Fn85GStore(Veh83DMul(normal.y, slide)),
+            Fn85GStore(Veh83DMul(normal.z, slide))
+        };
+
+        CEntity* targetEntity = m_pTargetEntity;
+        if (targetEntity && targetEntity->GetIsTypePed() && double(rwCamera()->nearPlane) < Veh83DAdd(double(0.15f), double(0.15f))) {
+            const auto facingDot = [&] {
+                const CVector& forward = targetEntity->GetMatrix().GetForward();
+                return Veh83DAdd(Veh83DAdd(Veh83DMul(normal.z, forward.z), Veh83DMul(normal.y, forward.y)), Veh83DMul(normal.x, forward.x));
+            };
+            if (facingDot() < 0.0) {
+                if (m_fAvoidTheGeometryProbsTimer < 0.0f) {
+                    m_fAvoidTheGeometryProbsTimer = 0.0f;
+                }
+                m_fAvoidTheGeometryProbsTimer = Fn85GStore(Veh83DAdd(CTimer::GetTimeStep(), m_fAvoidTheGeometryProbsTimer));
+            } else if (facingDot() > 0.5) { // 0x858B8C
+                if (m_fAvoidTheGeometryProbsTimer > 0.0f) {
+                    m_fAvoidTheGeometryProbsTimer = 0.0f;
+                }
+                m_fAvoidTheGeometryProbsTimer = Fn85GStore(Veh83DSub(m_fAvoidTheGeometryProbsTimer, CTimer::GetTimeStep()));
+            }
+            if (m_nAvoidTheGeometryProbsDirn == 0) {
+                const CVector& position = targetEntity->GetPosition(); // matriz +0x30 o compacta +4
+                const CVector toPed{
+                    Veh83CSubStore(position.x, out.x),
+                    Veh83CSubStore(position.y, out.y),
+                    Veh83CSubStore(position.z, out.z)
+                };
+                // z de CrossProduct (0x59C730): (a.x * b.y) - (b.x * a.y)
+                const float crossZ = Fn85GStore(Veh83DSub(Veh83DMul(toPed.x, normal.y), Veh83DMul(normal.x, toPed.y)));
+                m_nAvoidTheGeometryProbsDirn = crossZ > 0.0f ? uint16(0xFFFF) : uint16(1);
+            }
+        }
+    }
+
+    const double decay = ExeCompatiblePowCpp(double(0.9f), double(CTimer::GetTimeStep())); // 0x8CC81C, _CIpow (0x822130)
+    m_fAvoidTheGeometryProbsTimer = Fn85GStore(Veh83DMul(decay, m_fAvoidTheGeometryProbsTimer));
+    WellBufferMe(sphereHit ? 1.0f : 0.0f, StaticRef<float>(0xB6EC38), StaticRef<float>(0xB6EC3C), 0.2f, 0.05f, false);
+    const float factor = StaticRef<float>(0xB6EC38);
+    m_vecClearGeometryVec.x = Fn85GStore(Veh83DMul(factor, m_vecClearGeometryVec.x));
+    m_vecClearGeometryVec.y = Fn85GStore(Veh83DMul(factor, m_vecClearGeometryVec.y));
+    m_vecClearGeometryVec.z = Fn85GStore(Veh83DMul(factor, m_vecClearGeometryVec.z));
+    m_bMoveCamToAvoidGeom = true;
+}
 
 // 0x526C80
 void CCamera::ProcessObbeCinemaCameraPlane() {

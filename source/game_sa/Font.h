@@ -150,6 +150,8 @@ public:
     static void SetOrientation(eFontAlignment alignment);
     static void InitPerFrame();
     static void RenderFontBuffer();
+    // 0x719B40: imprime un segmento [begin, end) en el buffer (sin simbolo confirmado)
+    static void PrintSegment(float left, float top, const char* begin, const char* end, float spacing);
     static float GetHeight(bool a1 = false);
     static float GetStringWidth(const GxtChar* string, bool full, bool scriptText);
     static void DrawFonts();

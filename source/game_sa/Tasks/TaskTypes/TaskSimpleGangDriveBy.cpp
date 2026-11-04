@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskSimpleGangDriveBy
- * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 11/11 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 10/10 entradas.
+ * Validación registrada: 11/11 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -32,6 +32,7 @@ void CTaskSimpleGangDriveBy::InjectHooks() {
     RH_ScopedInstall(AITarget, 0x627600);
     RH_ScopedInstall(AimGun, 0x628350);
     RH_ScopedInstall(SetupAnim, 0x627B20);
+    RH_ScopedInstall(FireGun, 0x627CC0);
     RH_ScopedVMTInstall(GetTaskType, 0x6218B0);
     // Stubs hacia el original: activarlos provocaría recursión infinita.
     RH_ScopedVMTInstall(Clone, 0x6236D0);
@@ -175,7 +176,6 @@ bool CTaskSimpleGangDriveBy::ProcessPed(CPed* ped) {
             ped->AddWeaponModel(CWeaponInfo::GetWeaponInfo(ped->GetActiveWeapon().m_Type, eWeaponSkill::STD)->m_nModelId1);
         }
     }
-    // FireGun (0x627CC0) sigue siendo una dependencia separada sin catalogar.
     if (ped->IsPlayer()) {
         PlayerTarget(ped);
     } else {
@@ -193,7 +193,7 @@ bool CTaskSimpleGangDriveBy::ProcessPed(CPed* ped) {
     if (SetupAnim(ped)) { // 0x627B20
         auto* a = m_pAnimAssoc;
         if (a->IsPlaying() && crossed(a, fireTime) && (m_nLastCommand == 2 || m_nLastCommand == 3)) {
-            plugin::CallMethod<0x627CC0>(this, ped);
+            FireGun(ped); // 0x627CC0
         }
         a = m_pAnimAssoc;
         const bool playing = a->IsPlaying();
@@ -672,4 +672,87 @@ void CTaskSimpleGangDriveBy::AimGun(CPed* ped) {
         break;
     }
     ped->m_pedIK.PointGunInDirection(baseAngle, elevation, flag, kMinusOne);
+}
+
+// 0x627CC0 (thiscall, `ret 4`; sin simbolo en el original: FireGun es nombre propio): dispara el arma activa del ped en un tiroteo desde el coche.
+// Origen = offset de disparo del arma (CWeaponInfo +0x24) transformado por la matriz del hueso de la mano derecha (0x734A40, 0x7C51A0, 0x7C5120, 0x7EDD90).
+// Direccion: jugador = objetivo de la camara de apuntado (0x514970) menos el origen, solo con las camaras AIMWEAPON_FROMCAR y TWOPLAYER_IN_CAR_AND_SHOOTING (con otra, no dispara);
+// IA = (matriz de la entidad objetivo * coordenadas, o las coordenadas) menos el origen. La direccion se normaliza con 0x59C910.
+// El punto "de impacto" que recibe CWeapon::Fire como ultimo argumento es el corte del rayo origen + t * direccion con una cara de la caja delimitadora del coche (izquierda/derecha/atras/
+// adelante segun la animacion actual o m_nFakeShootDirn); si el rayo no apunta hacia la cara (d . eje <= 0.1f), es el propio origen. Despues marca bGunReachedTarget y lanza el fogonazo (0x5DF340).
+// Aritmetica x87 (24 bits) en X87Math.cpp (GangDriveByFire*).
+void CTaskSimpleGangDriveBy::FireGun(CPed* ped) {
+    CVector muzzle = m_pWeaponInfo->m_vecFireOffset;
+    {
+        auto* const hierarchy = GetAnimHierarchyFromSkinClump(reinterpret_cast<RpClump*>(ped->GetRwObject())); // 0x734A40
+        const auto  boneIndex = RpHAnimIDGetIndex(hierarchy, ped->m_apBones.data()[PED_NODE_RIGHT_HAND]->BoneTag); // 0x7C51A0
+        RwV3dTransformPoints(&muzzle, &muzzle, 1, RpHAnimHierarchyGetMatrixArray(hierarchy) + boneIndex); // 0x7C5120 + indice * 0x40, 0x7EDD90
+    }
+
+    // Caja delimitadora del coche (el EXE no comprueba el indice ni los punteros) y origen relativo a su posicion.
+    CVehicle* const vehicle = ped->m_pVehicle;
+    const float* const box = reinterpret_cast<const float*>(&CModelInfo::ms_modelInfoPtrs[static_cast<int16>(vehicle->m_nModelIndex)]->GetColModel()->m_boundBox);
+    CVector relative;
+    GangDriveByFireSubCpp(&muzzle.x, &vehicle->GetPosition().x, &relative.x);
+
+    CVector direction;
+    if (ped->IsPlayer()) { // 0x5DF8F0
+        auto& cam = ActiveCam();
+        float range = 20.0f; // 0x41A00000
+        if (cam.m_nMode == MODE_TWOPLAYER_IN_CAR_AND_SHOOTING) {
+            range = GangDriveByAimRangeCpp(&ped->GetPosition().x, &cam.m_vecSource.x);
+        } else if (cam.m_nMode != MODE_AIMWEAPON_FROMCAR) {
+            return;
+        }
+        CVector source, target;
+        TheCamera.Find3rdPersonCamTargetVector(range, muzzle, source, target); // 0x514970
+        GangDriveByFireSubCpp(&target.x, &muzzle.x, &direction.x);
+        ped->GetPlayerData()->m_fAttackButtonCounter = 0.0f; // mov dword [datos+0x2C], 0
+    } else {
+        CVector target;
+        if (CEntity* const entity = m_pTargetEntity) {
+            auto& matrix = entity->GetMatrix(); // se crea si falta (0x54F560 + 0x54F1B0)
+            Hp65MatrixTimesPointCpp(reinterpret_cast<const float*>(&matrix), &m_vecCoords.x, &target.x); // 0x59C890
+        } else {
+            target = m_vecCoords;
+        }
+        GangDriveByFireSubCpp(&target.x, &muzzle.x, &direction.x);
+    }
+    {
+        FlcX87 fp;
+        FlcVecNormalise(fp, &direction.x); // 0x59C910
+        fp.Commit();
+    }
+
+    // Cara del coche segun la animacion actual (E7/EC izquierda, EB/E8 derecha, EA/EE atras, E9/ED o ninguna: adelante) o, sin animacion que lo decida, m_nFakeShootDirn (1, 3, 2).
+    const bool     hasAssoc = m_pAnimAssoc != nullptr;
+    const uint16   animId   = hasAssoc ? static_cast<uint16>(m_pAnimAssoc->m_AnimId) : uint16(0);
+    const int8     fake     = static_cast<int8>(m_nFakeShootDirn);
+    int            side;
+    if ((hasAssoc && (animId == 0xE7 || animId == 0xEC)) || fake == 1) {
+        side = 0;
+    } else if ((hasAssoc && (animId == 0xEB || animId == 0xE8)) || fake == 3) {
+        side = 1;
+    } else if ((hasAssoc && (animId == 0xEA || animId == 0xEE)) || fake == 2) {
+        side = 2;
+    } else {
+        side = 3;
+    }
+    CVector hit;
+    GangDriveByFireHitCpp(side, &direction.x, &relative.x, &muzzle.x, reinterpret_cast<const float*>(vehicle->m_matrix), box, &hit.x);
+
+    ped->m_pedIK.m_nFlags |= 1u; // bGunReachedTarget
+
+    CWeapon& weapon = ped->m_aWeapons.data()[static_cast<int8>(ped->m_nActiveWeaponSlot)];
+    if (X87IsZero(m_vecCoords.x) && X87IsZero(m_vecCoords.y) && X87IsZero(m_vecCoords.z)) {
+        weapon.Fire(ped, &muzzle, &muzzle, m_pTargetEntity, nullptr, &hit); // 0x742300
+    } else {
+        CVector target = m_vecCoords;
+        if (CEntity* const entity = m_pTargetEntity) {
+            auto& matrix = entity->GetMatrix();
+            Hp65MatrixTimesPointCpp(reinterpret_cast<const float*>(&matrix), &m_vecCoords.x, &target.x);
+        }
+        weapon.Fire(ped, &muzzle, &muzzle, m_pTargetEntity, &target, &hit);
+    }
+    ped->DoGunFlash(StaticRef<uint16>(0x8D2E90), false); // 0x5DF340: duracion 250
 }

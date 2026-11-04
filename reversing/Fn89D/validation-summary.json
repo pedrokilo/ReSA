@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "pairs": 16384,
+  "differences": 0,
+  "registered_pairs": 16384,
+  "registered_functions": 1,
+  "functions": {
+    "CFont::PrintSegment": 16384
+  },
+  "covered_functions": {
+    "CFont::PrintSegment": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en un worktree con el contenido de la rama de trabajo (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (los dos tienen hook RH, apagado durante el banco): CFont::RenderFontBuffer 0x719840 (registra pEmptyChar, ejecuta la mutacion y lo reinicia a 0xC716B0) y CFont::ParseToken 0x718F00 (registra texto, color, blip y etiqueta; avanza, escribe color y simbolo segun el caso). La recursion (sombra y contorno) corre de verdad: EXE en el original, DLL en el candidato. La aritmetica de los desplazamientos (fild del entero de pantalla, dos fmul de 24 bits) y de la referencia de inclinacion, el limite 0xC7187C del buffer, la cabecera de 0x30 bytes, la copia del texto y la alineacion corren de verdad. Memoria real del juego restaurada tras cada lado: pEmptyChar, buffer y estaticos de CFont (0xC716A8..0xC71AD0) y enteros 0xC17044/0xC17048. Mutaciones de una escritura en el primer vaciado (color, color de sombra, sombra, contorno, inclinacion, ancho de pantalla). El banco compara los eventos de los falsos con todos sus argumentos y los bytes cambiados de toda la imagen; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: texto largo que desborde el buffer tras el vaciado, ParseToken con avance cero o que devuelva una posicion anterior (bucle infinito en el EXE), punteros de texto no accesibles y begin/end en arenas distintas.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn89D-20261103-234308-184068",
+  "summary_sha256": "9df663477603acb5e034474e296b534038a3c4be3b3a7012c3fbc54ca899b3b3",
+  "result_txt_sha256": "df55d0ab011a9b8103d31b626557d6fe6a4c3dac2b663bd42b880c2911fd0849",
+  "log_sha256": "550e4862b388d39d60c4318ecfce132d8c3f5fdd2b8763b48dde7926ae7ede37",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "df39b7ec9fa95237ba69271896777ec71a8d074e6dd17966f1d51ed7922e493d",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/X87Math.cpp": "593e9e9fed6d60a9ac880c6fd84325568c95f7579da06d38815b82a7de3de3b1",
+      "source/game_sa/X87Math.h": "e27ff565d3044829cf4bf81ea161047308d4d25d7b8f298f13c15362200bef45",
+      "source/game_sa/Font.cpp": "69b49aa5b7d4edd649d63207fadcd07a75d31d83cc21789c970a01c911f40fa7",
+      "source/game_sa/Font.h": "bfbca19d827fadeeb9527b34a904ad49528088c9073f075c4860482d0aba6b89",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn89D/LiveComparison.hpp": "b48e9f46ba14d472c25393b76f39d20a08af2297654b47b786b5ac0330ad7097",
+      "reversing/Fn89D/Core.hpp": "367afba4c7314dbfff0c5652c1923d1c17a40bd362424047c87bd15dde7ba820",
+      "reversing/Fn89D/Fixtures.hpp": "e4aaa68b9b19c385a180f2afe5554e361c19bf1138ef380ebc037df520dec4b5",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

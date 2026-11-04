@@ -98,8 +98,8 @@ static CVector CamMultiplyVectorMatrix(const CVector& v, const CMatrix& m) {
     };
 }
 
-// 0x509AE0
-static void WellBufferMe(float target, float& valueToChange, float& speedSoFar, float topSpeed, float speedStep, bool isAnAngle) {
+// 0x509AE0 (declarada en Cam.h)
+void WellBufferMe(float target, float& valueToChange, float& speedSoFar, float topSpeed, float speedStep, bool isAnAngle) {
     // Como el original: constantes pi, 2pi y -pi leidas del EXE (0x858CB8, 0x858CBC, 0x858CC0).
     const float pi    = CamExeFloat(0x858CB8);
     const float twoPi = CamExeFloat(0x858CBC);
@@ -1151,7 +1151,7 @@ bool CCam::ProcessArrestCamOne() {
     m_fFOV=45.0f;auto* target=StaticRef<CEntity*>(0xB6F980);auto& mode=StaticRef<int32>(0xB6EC58);auto& tracked=StaticRef<CEntity*>(0xB6EC5C);
     CPed* cop=nullptr;CVector dest,source;
     const auto playerCop=[&](){CPed* result=nullptr;if(FindPlayerPed(-1)){auto* player=FindPlayerPed(-1);if(*reinterpret_cast<CEntity**>(*reinterpret_cast<uint8**>(reinterpret_cast<uint8*>(player)+0x480)+8)){player=FindPlayerPed(-1);result=*reinterpret_cast<CPed**>(*reinterpret_cast<uint8**>(reinterpret_cast<uint8*>(player)+0x480)+8);}}return result;};
-    const auto geometry=[&](const CVector& position){m_vecSource=position;CVector copy=position;plugin::CallMethod<0x514030>(&TheCamera,&copy,&dest,&m_vecSource,m_fFOV);};
+    const auto geometry=[&](const CVector& position){m_vecSource=position;CVector copy=position;TheCamera.AvoidTheGeometry(copy,dest,m_vecSource,m_fFOV);};
     const auto axes=[&](){m_vecFront=dest-m_vecSource;m_vecFront.Normalise();m_vecUp=CVector{0,0,1};CVector side=CrossProduct(m_vecFront,m_vecUp);side.Normalise();m_vecUp=CrossProduct(side,m_vecFront);};
     const auto copSource=[&](CPed* from,bool alternate){return alternate?GetArrestCamCopSourceSide(target,from,&dest,&source):GetArrestCamCopSourceNormal(target,from,&dest,&source);};
     const auto cheese=[&](CPed* from,bool initialise){return ProcessArrestCamCheese(from,initialise);};
@@ -1209,7 +1209,7 @@ bool CCam::ProcessArrestCamOne() {
         const CVector test{m_vecFront.x*.5f+source.x,m_vecFront.y*.5f+source.y,m_vecFront.z*.5f+source.z};
         if(!CWorld::TestSphereAgainstWorld(test,.4f,target,true,true,false,true,false,true)){const float speed=StaticRef<float>(0x8CC800),step=CTimer::GetTimeStep();source=CVector{(speed*m_vecFront.x)*step+source.x,(speed*m_vecFront.y)*step+source.y,(speed*m_vecFront.z)*step+source.z};move=true;}
     }
-    if(move){geometry(source);axes();}else {CVector copy=m_vecSource;plugin::CallMethod<0x514030>(&TheCamera,&copy,&dest,&m_vecSource,m_fFOV);}
+    if(move){geometry(source);axes();}else {CVector copy=m_vecSource;TheCamera.AvoidTheGeometry(copy,dest,m_vecSource,m_fFOV);}
     return true;
 }
 
@@ -1253,7 +1253,7 @@ void CCam::ProcessPedsDeadBaby() {
         m_vecFront.Normalise();m_vecUp=CrossProduct(side,m_vecFront);m_vecUp.Normalise();
     }
     m_vecSource=source;
-    plugin::CallMethod<0x514030>(&TheCamera,&source,&dest,&m_vecSource,m_fFOV);
+    TheCamera.AvoidTheGeometry(source,dest,m_vecSource,m_fFOV);
     StaticRef<uint8>(0xB6F055)=0;
 }
 
@@ -2064,8 +2064,8 @@ void CCam::Process_Cam_TwoPlayer_InCarAndShooting() {
     RotCamIfInFrontCar(target,vehicleHeading);
     m_vecTargetCoorsForFudgeInter = target;
     const CVector oldSource = m_vecSource;
-    // Existing CCamera dependency has no DLL definition; retain its canonical EXE ABI.
-    plugin::CallMethod<0x514030>(&TheCamera,&oldSource,&m_vecTargetCoorsForFudgeInter,&m_vecSource,m_fFOV);
+    // CCamera::AvoidTheGeometry (0x514030), reconstruido en Camera.cpp.
+    TheCamera.AvoidTheGeometry(oldSource,m_vecTargetCoorsForFudgeInter,m_vecSource,m_fFOV);
     CamShootingOrbit355(this,target,excessHorizontal);
     target -= m_vecSource; m_bResetStatics = false; m_vecFront = target;
     GetVectorsReadyForRW();
@@ -2086,7 +2086,7 @@ void CCam::Process_Cam_TwoPlayer_InCarAndShooting() {
         task.m_pWeaponInfo = CWeaponInfo::GetWeaponInfo(weapon.m_Type,shooter->GetWeaponSkill());
         task.m_nFakeShootDirn = int8(int32(angle * StaticRef<float>(0x858FB8)));
         // Native51A3FD invokes the drive-by collaborator, not ProcessPed (62D3B0).
-        plugin::CallMethod<0x627CC0>(&task,shooter);
+        task.FireGun(shooter); // 0x627CC0
         CamShakeNoPos(&TheCamera,StaticRef<float>(0x8CCD18));
     }
 }
@@ -3923,8 +3923,8 @@ void CCam::Process_SpecialFixedForSyphon(const CVector& target, float, float, fl
     m_vecTargetCoorsForFudgeInter.z+=m_fSyphonModeTargetZOffSet;
     m_vecFront=target-m_vecSource;
     const CVector fixedSource=m_vecCamFixedModeSource;
-    // Existing external collaborator, absent implementation in Camera.cpp.
-    plugin::CallMethod<0x514030>(&TheCamera,&fixedSource,&m_vecTargetCoorsForFudgeInter,&m_vecSource,m_fFOV);
+    // CCamera::AvoidTheGeometry (0x514030), reconstruido en Camera.cpp.
+    TheCamera.AvoidTheGeometry(fixedSource,m_vecTargetCoorsForFudgeInter,m_vecSource,m_fFOV);
     m_vecFront.z+=m_fSyphonModeTargetZOffSet;
     GetVectorsReadyForRW();
     m_vecUp+=m_vecCamFixedModeUpOffSet;

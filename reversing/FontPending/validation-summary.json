@@ -18,10 +18,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "2c33bfffd9e3940f654b6521d9099fe7422f5d847c69fa742eab0f5b47279265",
+  "log_sha256": "38241d762c8269a044705ab81bc1ba916d4e043f70868c658df70944b6653509",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-font-pending\\20261007-201033-210407",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-font-pending\\20261103-233750-222626",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CFont::PrintChar": true,
@@ -31,21 +31,22 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "8e4ec9fec0946ed8ed0912718ac712dc6528c1d194a4762933f9d8a9c03d6410",
-      "pdb": "37854ccb601eaefb05e8531b1017ef4943bd8402f79d3b3edb003a77fee3d51e"
+      "asi": "fb4bb2156b5f074585223275e9cc580351303a098c57090d074640a7b8c9572c",
+      "pdb": "be1e962ebefa59ada6feb02ce59185325ce3802c681b01028c07680632967479"
     },
     "sources": {
-      "source/game_sa/Font.cpp": "51ed5006bc6fe140fbd99dd683ae2f09317a814989574519a8fa7b774cdc010b",
-      "source/game_sa/Font.h": "87e5bd9978ecfc2e34951832c5cc5e13e3b553f9b697753ba20869c68f545d07"
+      "source/game_sa/Font.cpp": "69b49aa5b7d4edd649d63207fadcd07a75d31d83cc21789c970a01c911f40fa7",
+      "source/game_sa/Font.h": "bfbca19d827fadeeb9527b34a904ad49528088c9073f075c4860482d0aba6b89"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "2785a79a9424ed2601685182022e0a2bb06624b770963f25f0c7847456672e05",
-      "build_probe.py": "2e0022b6ab3e179132f235e83f26d5ffb9ca4e91efec02d005c01ea916120ac5",
-      "run_local.py": "b3aaab3d2f879da92696e935c2189b38bca1eea07768fc7234c7ad9d71bd3019"
+      "LiveComparison.hpp": "385811997c928a65164341f5292b400d35fbc030dab24514bb931367b27efa16",
+      "build_probe.py": "fe782122301a4f4c9f403b246b7b25c1990375012d1d5a4c5f1f8dd68f5f30c5",
+      "run_local.py": "ba32c3c1c927eaf6a82953696e2a0faa2d4a48c0834a3506143255773a99e32c"
     }
   },
   "limitations": [
-    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego."
+    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego.",
+    "Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md)."
   ]
 }

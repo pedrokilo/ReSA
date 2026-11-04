@@ -101,9 +101,9 @@ inline void Update(){
  std::array<std::vector<uint8>,5> mainOff;for(size_t i=0;i<5;++i)mainOff[i]=ReversingProbe::Bytes(reinterpret_cast<void*>(fns[i].address),64);
  auto routeProof=[&](size_t i,bool candidate){const auto at=fns[i].address;return ReversingProbe::JumpsToDll(at)==candidate&&(candidate?(Resolve(at)==routes[i]->Body()&&ModuleOf(routes[i]->Body())==ModuleOf(uintptr_t(&ModuleMarker))):(Resolve(at)==at&&ModuleOf(at)==GetModuleHandleA(nullptr)&&mainOff[i]==ReversingProbe::Bytes(reinterpret_cast<void*>(at),64)));};
  bool routesReady=true;for(size_t i=0;i<5;++i)routesReady&=routes[i]->Registered()&&routes[i]->Invoke(true,[&]{return routeProof(i,true);})&&routeProof(i,false);
- // Colaboradores falsos. IsItTimeForNewcam (0x51D770) y la comprobacion 0x50B830 no estan reconstruidos: la DLL los llama por la direccion del EXE.
- const auto tryBody=Resolve(bit_cast<uintptr_t>(&CCamera::TryToStartNewCamMode));const auto getBody=Resolve(bit_cast<uintptr_t>(&CText::Get));const auto helpBody=Resolve(bit_cast<uintptr_t>(&CHud::SetHelpMessage));
- EntryPatch time0(0x51D770,FakeIsItTime),try0(0x51E560,FakeTry),try1(tryBody,FakeTry),busy0(0x50B830,FakeBusy),get0(0x6A0050,FakeGet),get1(getBody,FakeGet),help0(0x588BE0,FakeHelp),help1(helpBody,FakeHelp);
+ // Colaboradores falsos. IsItTimeForNewcam (0x51D770) ya es un metodo C++ con hook RH (lote 89A): la DLL lo llama directamente, asi que el mismo falso va tambien en su cuerpo; la comprobacion 0x50B830 (IsActiveCamUnderWater, lote 65) tambien es un metodo C++ con hook RH: el mismo falso va tambien en su cuerpo.
+ const auto timeBody=Resolve(bit_cast<uintptr_t>(&CCamera::IsItTimeForNewCamera));const auto busyBody=Resolve(bit_cast<uintptr_t>(&CCamera::IsActiveCamUnderWater));const auto tryBody=Resolve(bit_cast<uintptr_t>(&CCamera::TryToStartNewCamMode));const auto getBody=Resolve(bit_cast<uintptr_t>(&CText::Get));const auto helpBody=Resolve(bit_cast<uintptr_t>(&CHud::SetHelpMessage));
+ EntryPatch time0(0x51D770,FakeIsItTime),time1(timeBody,FakeIsItTime),try0(0x51E560,FakeTry),try1(tryBody,FakeTry),busy0(0x50B830,FakeBusy),busy1(busyBody,FakeBusy),get0(0x6A0050,FakeGet),get1(getBody,FakeGet),help0(0x588BE0,FakeHelp),help1(helpBody,FakeHelp);
  // Estado a restaurar
  std::vector<std::vector<uint8>> saved;for(const auto& r:mutated)saved.push_back(ReversingProbe::Bytes(reinterpret_cast<void*>(r.address),r.size));
  const auto stringSaved=ReversingProbe::Bytes(reinterpret_cast<void*>(0x863248),8);
@@ -111,7 +111,7 @@ inline void Update(){
  auto restored=[&]{for(size_t i=0;i<std::size(mutated);++i)if(saved[i]!=ReversingProbe::Bytes(reinterpret_cast<void*>(mutated[i].address),saved[i].size()))return false;return stringSaved==ReversingProbe::Bytes(reinterpret_cast<void*>(0x863248),8)&&CaptureFP()==fp;};
  const bool stringOk=std::memcmp(reinterpret_cast<void*>(0x863248),"CINCAM",7)==0;
  const bool ready=routesReady&&stringOk&&restored();
- json collaborators=json::array({json::array({0x51D770,0}),json::array({0x51E560,uintptr_t(tryBody)}),json::array({0x50B830,0}),json::array({0x6A0050,uintptr_t(getBody)}),json::array({0x588BE0,uintptr_t(helpBody)})});
+ json collaborators=json::array({json::array({0x51D770,uintptr_t(timeBody)}),json::array({0x51E560,uintptr_t(tryBody)}),json::array({0x50B830,uintptr_t(busyBody)}),json::array({0x6A0050,uintptr_t(getBody)}),json::array({0x588BE0,uintptr_t(helpBody)})});
  RestoreFP(fp);Write({{"event","begin"},{"ready",ready},{"routes_ready",routesReady},{"string_ok",stringOk},{"collaborators",collaborators},{"camera_bytes",sizeof(CCamera)},{"candidate_module",uintptr_t(ModuleOf(routes[0]->Body()))},{"probe_module",uintptr_t(ModuleOf(uintptr_t(&ModuleMarker)))},{"scope","private CCamera buffer; five collaborators replaced by traced fakes; live EXE statics saved/filled/restored per case"}});
  if(!ready){restore();bool hooks=true;for(auto& r:routes)hooks&=r->Restore();Write({{"event","error"},{"reason","fixture/routes preflight failed"},{"pairs",0},{"state_restored",hooks&&restored()}});return;}
  bool passed=true;unsigned pair=0;
