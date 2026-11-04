@@ -420,15 +420,6 @@ inline auto& CWorld::GetLodPtrList(int32 x, int32 y) {
     return ms_aLodPtrLists[y][x];
 }
 
-// 0x4072E0
-inline void CWorld::AdvanceCurrentScanCode() {
-    if (ms_nCurrentScanCode >= 65535u) {
-        ClearScanCodes();
-        ms_nCurrentScanCode = 1;
-    } else {
-        ms_nCurrentScanCode++;
-    }
-}
 
 CPlayerInfo&   FindPlayerInfo(int32 playerId = -1);
 

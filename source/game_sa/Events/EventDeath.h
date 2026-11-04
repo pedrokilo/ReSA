@@ -19,5 +19,14 @@ public:
 
     auto GetDeathTime() const { return m_deathTimeInMs; }
     auto HasDrowned()   const { return m_bDrowning; }
+
+    static void InjectHooks();
+
+private: // Wrapper para el hook
+    // 0x4ADDF0
+    CEventDeath* Constructor(bool bDrowning) {
+        this->CEventDeath::CEventDeath(bDrowning);
+        return this;
+    }
 };
 VALIDATE_SIZE(CEventDeath, 0x14);

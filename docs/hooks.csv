@@ -9038,3 +9038,11 @@ Fx_c,SetFxQuality,0x0049EA40,1,0,1,S
 CSphere,Set,0x0040FCF0,1,0,1,S
 FxPrtMult_c,Constructor,0x004AB270,1,0,1,S
 CPedDamageResponseCalculator,Destructor,0x004AD420,1,0,1,S
+CNodeAddress,operator==,0x00420920,1,0,1,S
+CNodeAddress,operator!=,0x00420950,1,0,1,S
+CNodeAddress,operator<,0x00420980,1,0,1,S
+CWorld,AdvanceCurrentScanCode,0x004072E0,1,0,1,S
+CTaskSimpleScratchHead,Constructor,0x0048DF30,1,0,1,S
+CTaskSimpleAchieveHeading,Constructor,0x00667E20,1,0,1,S
+CColModel,Constructor,0x0040FB60,1,0,1,S
+CEventDeath,Constructor,0x004ADDF0,1,0,1,S

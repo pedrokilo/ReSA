@@ -883,6 +883,7 @@ void InjectHooksMain() {
     CWeather::InjectHooks();
     CPathFind::InjectHooks();
     CPathNode::InjectHooks();
+    CNodeAddress::InjectHooks();
     CNodeRoute::InjectHooks();
     CAutoPilot::InjectHooks();
     CLoadMonitor::InjectHooks();
@@ -1433,7 +1434,7 @@ void InjectHooksMain() {
         CEventGunShot::InjectHooks();
         CEventGunShotWhizzedBy::InjectHooks();
         // + CEventGunAimedAt::InjectHooks();
-        // + CEventDeath::InjectHooks();
+        CEventDeath::InjectHooks();
         // + CEventDeadPed::InjectHooks();
         // + CEventDraggedOutCar::InjectHooks();
         // + CEventGotKnockedOverByCar::InjectHooks();

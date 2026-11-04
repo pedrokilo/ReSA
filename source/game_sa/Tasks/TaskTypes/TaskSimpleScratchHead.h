@@ -11,4 +11,11 @@ public:
 
     CTask* Clone() const override { return new CTaskSimpleScratchHead(); } // 0x48DF60
     virtual bool IsInterruptable(const CPed* ped) { return false; }  // 0x48DFD0
+
+private: // Wrapper para el hook
+    // 0x48DF30
+    CTaskSimpleScratchHead* Constructor() {
+        this->CTaskSimpleScratchHead::CTaskSimpleScratchHead();
+        return this;
+    }
 };

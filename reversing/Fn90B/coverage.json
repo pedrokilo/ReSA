@@ -1,0 +1,67 @@
+{
+ "CNodeAddress::operator==": {
+  "node_eq": 1569,
+  "true": 1065,
+  "area_eq": 1833,
+  "node_diff": 1707,
+  "false": 2211,
+  "sign_trap": 988,
+  "area_diff": 1443,
+  "alias": 204
+ },
+ "CNodeAddress::operator!=": {
+  "node_eq": 1581,
+  "area_eq": 1824,
+  "false": 1068,
+  "node_diff": 1695,
+  "true": 2208,
+  "area_diff": 1452,
+  "sign_trap": 1000,
+  "alias": 204
+ },
+ "CNodeAddress::operator<": {
+  "not_lt": 2052,
+  "node_eq": 1591,
+  "area_eq": 1806,
+  "false": 2052,
+  "node_diff": 1685,
+  "true": 1224,
+  "lt_by_node": 388,
+  "sign_trap": 1032,
+  "area_diff": 1470,
+  "lt_by_area": 836,
+  "alias": 204
+ },
+ "CWorld::AdvanceCurrentScanCode": {
+  "upper_nonzero": 2041,
+  "wrap": 970,
+  "inc_to_max": 577,
+  "inc": 2306,
+  "inc_from_zero": 133
+ },
+ "CTaskSimpleScratchHead::CTaskSimpleScratchHead": {
+  "c_bits_set": 2393,
+  "c_bits_clear": 883
+ },
+ "CTaskSimpleAchieveHeading::CTaskSimpleAchieveHeading": {
+  "bit0_set": 2133,
+  "bit0_clear": 1143,
+  "inf_arg": 310,
+  "denormal_arg": 524,
+  "negzero_arg": 148,
+  "nan_arg": 535
+ },
+ "CColModel::CColModel": {
+  "flags_low_set": 2292,
+  "bit2_set": 2044,
+  "flags_low_clear": 984,
+  "bit2_clear": 1232
+ },
+ "CEventDeath::CEventDeath": {
+  "time0": 819,
+  "drown1": 1619,
+  "drown0": 1657,
+  "timemax": 409,
+  "garbage_high": 819
+ }
+}

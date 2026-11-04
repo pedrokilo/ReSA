@@ -26,6 +26,7 @@ void CTaskSimpleAchieveHeading::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleAchieveHeading, 0x86fd74, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
 
+    RH_ScopedInstall(Constructor, 0x667E20);
     RH_ScopedInstall(SetUpIK, 0x667F20);
     RH_ScopedVMTInstall(Clone, 0x66CCF0);
     RH_ScopedVMTInstall(GetTaskType, 0x667E60);

@@ -2,6 +2,13 @@
 
 #include "EventDeath.h"
 
+void CEventDeath::InjectHooks() {
+    RH_ScopedClass(CEventDeath);
+    RH_ScopedCategory("Events");
+
+    RH_ScopedInstall(Constructor, 0x4ADDF0);
+}
+
 // 0x4ADE50, `time` should be int32
 CEventDeath::CEventDeath(bool bDrowning, uint32 deathTimeInMs) : CEvent() {
     m_bDrowning = bDrowning;

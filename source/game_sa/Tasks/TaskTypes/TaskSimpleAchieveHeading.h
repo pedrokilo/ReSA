@@ -41,5 +41,12 @@ private:
     float m_HeadingChangeRate{};
     float m_HeadingToleranceRad{};
     bool  m_IsDoingIK : 1{};
+
+    // Wrapper para el hook
+    // 0x667E20
+    CTaskSimpleAchieveHeading* Constructor(float desiredHeading, float changeRate, float tolerance) {
+        this->CTaskSimpleAchieveHeading::CTaskSimpleAchieveHeading(desiredHeading, changeRate, tolerance);
+        return this;
+    }
 };
 VALIDATE_SIZE(CTaskSimpleAchieveHeading, 0x18);

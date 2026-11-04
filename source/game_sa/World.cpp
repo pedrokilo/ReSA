@@ -123,6 +123,7 @@ void CWorld::InjectHooks() {
     RH_ScopedOverloadedInstall(TestForBuildingsOnTopOfEachOther<CPtrListDoubleLink<CPhysical*>>, "", 0x563950, void(*)(CPtrListDoubleLink<CPhysical*>&));
     RH_ScopedInstall(RemoveStaticObjects, 0x563840);
     RH_ScopedInstall(ClearScanCodes, 0x563470);
+    RH_ScopedInstall(AdvanceCurrentScanCode, 0x4072E0);
     RH_ScopedInstall(CastShadowSectorList<CPtrListDoubleLink<CPhysical*>>, 0x563390);
     RH_ScopedInstall(ResetLineTestOptions, 0x5631C0);
     RH_ScopedInstall(RepositionCertainDynamicObjects, 0x56B9C0);
@@ -272,6 +273,16 @@ void CWorld::ProcessPedsAfterPreRender() {
         if (entity->GetIsTypePed()) {
             entity->AsPed()->GetIntelligence()->ProcessAfterPreRender();
         }
+    }
+}
+
+// 0x4072E0
+void CWorld::AdvanceCurrentScanCode() {
+    if (ms_nCurrentScanCode >= 65535u) {
+        ClearScanCodes();
+        ms_nCurrentScanCode = 1;
+    } else {
+        ms_nCurrentScanCode++;
     }
 }
 

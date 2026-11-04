@@ -35,6 +35,7 @@ void CColModel::InjectHooks() {
     RH_ScopedClass(CColModel);
     RH_ScopedCategory("Collision");
 
+    RH_ScopedInstall(Constructor, 0x40FB60);
     RH_ScopedInstall(operator new, 0x40FC30);
     RH_ScopedInstall(operator delete, 0x40FC40);
     RH_ScopedInstall(operator=, 0x40F7C0);

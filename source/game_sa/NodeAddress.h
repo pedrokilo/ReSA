@@ -14,8 +14,11 @@ public:
     constexpr CNodeAddress() = default;
     constexpr CNodeAddress(uint16 areaId, uint16 nodeId) : m_wAreaId(areaId), m_wNodeId(nodeId) {}
 
-    bool operator==(CNodeAddress const&) const = default;
-    bool operator!=(CNodeAddress const&) const = default;
+    static void InjectHooks();
+
+    bool operator==(CNodeAddress const&) const; // 0x420920
+    bool operator!=(CNodeAddress const&) const; // 0x420950
+    bool operator<(CNodeAddress const&) const;  // 0x420980, orden lexicografico sin signo (area y luego nodo)
 
     void ResetAreaId() { m_wAreaId = UINT16_MAX; }
     void ResetNodeId() { m_wNodeId = UINT16_MAX; }

@@ -20,7 +20,11 @@
 class CColModel {
 public:
     CBoundingBox m_boundBox;    //!< Caja delimitadora usada para rechazo rápido.
-    CSphere      m_boundSphere; //!< Esfera delimitadora del modelo completo.
+    // El constructor del EXE (0x40FB60) no escribe la esfera: queda como estaba en la memoria del pool. La union anonima evita que el inicializador
+    // por defecto de CSphere la ponga a cero (la disposicion y el acceso `m_boundSphere` no cambian).
+    union {
+        CSphere  m_boundSphere; //!< Esfera delimitadora del modelo completo.
+    };
     uint8        m_nColSlot;    //!< Slot/origen del recurso de colisión.
     union {
         struct {
@@ -56,6 +60,13 @@ public:
 
 private:
     void AllocateData(int32 size);
+
+    // Wrapper para el hook
+    // 0x40FB60
+    CColModel* Constructor() {
+        this->CColModel::CColModel();
+        return this;
+    }
 
 public:
     // HELPERS
