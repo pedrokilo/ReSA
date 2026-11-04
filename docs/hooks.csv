@@ -9058,3 +9058,12 @@ CColModel,Constructor,0x0040FB60,1,0,1,S
 CEventDeath,Constructor,0x004ADDF0,1,0,1,S
 CObjectPotentialCollisionScanner,ScanForObjectPotentialCollisionEvents,0x00606890,1,0,1,S
 CAttractorScanner,ScanForAttractors,0x006060A0,1,0,1,S
+D3DTextureBuffer,Setup,0x0072FE80,1,0,1,S
+D3DTextureBuffer,Pop-Match,0x0072FF60,1,0,1,S
+D3DTextureBuffer,Push,0x0072FFF0,1,0,1,S
+D3DTextureBuffer,Resize,0x00730020,1,0,1,S
+D3DTextureBuffer,GetTotalDataSize,0x007300A0,1,0,1,S
+D3DTextureBuffer,PushWithoutIncreasingCounter,0x00730AD0,1,0,1,S
+D3DIndexDataBuffer,Pop-Size,0x00730270,1,0,1,S
+D3DIndexDataBuffer,Resize,0x00730330,1,0,1,S
+D3DIndexDataBuffer,GetTotalDataSize,0x007303B0,1,0,1,S

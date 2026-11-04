@@ -61,16 +61,7 @@ void D3DResourceSystem::InjectHooks() {
 }
 
 namespace {
-// IUnknown::Release (ranura 2 de la vtable, stdcall con `this` en la pila) de un recurso D3D9 (textura o index buffer): el `call dword ptr [edx+8]` del EXE.
-// Se llama por la vtable para no depender de d3d9.h (las caches guardan void*).
-inline void ReleaseD3DResource(void* resource) {
-    using ReleaseFn = unsigned long(__stdcall*)(void*);
-    (*static_cast<ReleaseFn**>(resource))[2](resource);
-}
-// Tabla de metodos de un objeto COM (cada metodo es stdcall con `this` como primer argumento).
-inline void** VTable(void* object) {
-    return *static_cast<void***>(object);
-}
+using D3DResourceCom::VTable;
 // IDirect3DDevice9 global del EXE (_RwD3DDevice, 0xC97C28).
 inline void* D3DDevice() {
     return *reinterpret_cast<void**>(0xC97C28);
@@ -79,40 +70,12 @@ inline void* D3DDevice() {
 inline void ExeFree(void* memory) {
     plugin::Call<0x8214BD, void*>(memory);
 }
-// Metodos de D3DTextureBuffer / D3DIndexDataBuffer que siguen siendo del EXE (sin definicion en C++): colaboradores.
-inline void* TextureBufferPop(D3DTextureBuffer* buffer, uint32 format, int32 width, int32 height, int32 levels) { // 0x72FF60
-    return plugin::CallMethodAndReturn<void*, 0x72FF60, D3DTextureBuffer*, uint32, int32, int32, int32>(buffer, format, width, height, levels);
-}
-inline void TextureBufferSetup(D3DTextureBuffer* buffer, uint32 format, int32 width, int32 levels, uint32 capacity) { // 0x72FE80
-    plugin::CallMethod<0x72FE80, D3DTextureBuffer*, uint32, int32, int32, uint32>(buffer, format, width, levels, capacity);
-}
-inline bool TextureBufferPush(D3DTextureBuffer* buffer, void* texture) { // 0x72FFF0
-    return plugin::CallMethodAndReturn<bool, 0x72FFF0, D3DTextureBuffer*, void*>(buffer, texture);
-}
-inline bool TextureBufferPushWithoutIncreasingCounter(D3DTextureBuffer* buffer, void* texture) { // 0x730AD0
-    return plugin::CallMethodAndReturn<bool, 0x730AD0, D3DTextureBuffer*, void*>(buffer, texture);
-}
-inline void TextureBufferResize(D3DTextureBuffer* buffer, uint32 capacity) { // 0x730020
-    plugin::CallMethod<0x730020, D3DTextureBuffer*, uint32>(buffer, capacity);
-}
-inline void* IndexDataBufferPop(D3DIndexDataBuffer* buffer, uint32 indexCount) { // 0x730270
-    return plugin::CallMethodAndReturn<void*, 0x730270, D3DIndexDataBuffer*, uint32>(buffer, indexCount);
-}
-inline void IndexDataBufferResize(D3DIndexDataBuffer* buffer, uint32 capacity) { // 0x730330
-    plugin::CallMethod<0x730330, D3DIndexDataBuffer*, uint32>(buffer, capacity);
-}
 // Buffer i-esimo con la aritmetica de 32 bits del EXE (`imul eax,edx,0x1C`; `lea eax,[edx+edx*2]` y `*8`): sin comprobar el rango, como el original.
 inline D3DTextureBuffer* TextureBufferAt(int32 index) {
     return reinterpret_cast<D3DTextureBuffer*>(reinterpret_cast<uintptr_t>(&D3DResourceSystem::TextureBuffers[0]) + static_cast<uint32>(index) * sizeof(D3DTextureBuffer));
 }
 inline D3DIndexDataBuffer* IndexDataBufferAt(int32 index) {
     return reinterpret_cast<D3DIndexDataBuffer*>(reinterpret_cast<uintptr_t>(&D3DResourceSystem::IndexDataBuffers[0]) + static_cast<uint32>(index) * sizeof(D3DIndexDataBuffer));
-}
-inline uint32 TextureBufferGetTotalDataSize(D3DTextureBuffer* buffer) { // 0x7300A0
-    return plugin::CallMethodAndReturn<uint32, 0x7300A0, D3DTextureBuffer*>(buffer);
-}
-inline uint32 IndexDataBufferGetTotalDataSize(D3DIndexDataBuffer* buffer) { // 0x7303B0
-    return plugin::CallMethodAndReturn<uint32, 0x7303B0, D3DIndexDataBuffer*>(buffer);
 }
 inline void StoreResource(void* array, int32 index, void* resource) {
     static_cast<void**>(array)[index] = resource;
@@ -126,7 +89,7 @@ void D3DResourceSystem::CancelBuffering() {
     for (int32 i = 0; i < static_cast<int32>(NumTextureBuffers); ++i) {
         D3DTextureBuffer* const buffer = TextureBufferAt(i);
         for (int32 j = 0; j < static_cast<int32>(buffer->m_nSize); ++j) {
-            ReleaseD3DResource(buffer->m_apTextures[j]);
+            D3DResourceCom::Release(buffer->m_apTextures[j]);
         }
         buffer->m_nSize = 0;
         buffer->m_nNumTexturesInBuffer = 0;
@@ -139,7 +102,7 @@ void D3DResourceSystem::CancelBuffering() {
     for (int32 i = 0; i < 16; ++i) {
         D3DIndexDataBuffer* const buffer = IndexDataBufferAt(i);
         for (int32 j = 0; j < static_cast<int32>(buffer->m_nSize); ++j) {
-            ReleaseD3DResource(buffer->m_apIndexData[j]);
+            D3DResourceCom::Release(buffer->m_apIndexData[j]);
         }
         buffer->m_nSize = 0;
         buffer->m_nNumDatasInBuffer = 0;
@@ -149,7 +112,7 @@ void D3DResourceSystem::CancelBuffering() {
         }
     }
     for (int32 j = 0; j < static_cast<int32>(IndexDataBuffer.m_nSize); ++j) {
-        ReleaseD3DResource(IndexDataBuffer.m_apIndexData[j]);
+        D3DResourceCom::Release(IndexDataBuffer.m_apIndexData[j]);
     }
     auto* const genericStack = IndexDataBuffer.m_apIndexData;
     IndexDataBuffer.m_nSize = 0;
@@ -167,9 +130,9 @@ void D3DResourceSystem::CancelBuffering() {
 uint32 D3DResourceSystem::GetTotalIndexDataSize() {
     uint32 total = 0;
     for (int32 i = 15; i >= 0; --i) {
-        total += IndexDataBufferGetTotalDataSize(IndexDataBufferAt(i));
+        total += IndexDataBufferAt(i)->GetTotalDataSize();
     }
-    return IndexDataBufferGetTotalDataSize(&IndexDataBuffer) + total;
+    return IndexDataBuffer.GetTotalDataSize() + total;
 }
 
 // 0x730660
@@ -182,7 +145,7 @@ uint32 D3DResourceSystem::GetTotalPixelsSize() {
     if (count) {
         do {
             buffer -= sizeof(D3DTextureBuffer);
-            total += TextureBufferGetTotalDataSize(reinterpret_cast<D3DTextureBuffer*>(buffer));
+            total += reinterpret_cast<D3DTextureBuffer*>(buffer)->GetTotalDataSize();
         } while (--count);
     }
     return total;
@@ -232,7 +195,7 @@ void D3DResourceSystem::Shutdown() {
     for (int32 i = 0; i < static_cast<int32>(NumTextureBuffers); ++i) {
         D3DTextureBuffer* const buffer = TextureBufferAt(i);
         for (int32 j = 0; j < static_cast<int32>(buffer->m_nSize); ++j) {
-            ReleaseD3DResource(buffer->m_apTextures[j]);
+            D3DResourceCom::Release(buffer->m_apTextures[j]);
         }
         buffer->m_nSize = 0;
         buffer->m_nNumTexturesInBuffer = 0;
@@ -241,13 +204,13 @@ void D3DResourceSystem::Shutdown() {
     for (int32 i = 0; i < 16; ++i) {
         D3DIndexDataBuffer* const buffer = IndexDataBufferAt(i);
         for (int32 j = 0; j < static_cast<int32>(buffer->m_nSize); ++j) {
-            ReleaseD3DResource(buffer->m_apIndexData[j]);
+            D3DResourceCom::Release(buffer->m_apIndexData[j]);
         }
         buffer->m_nSize = 0;
         buffer->m_nNumDatasInBuffer = 0;
     }
     for (int32 j = 0; j < static_cast<int32>(IndexDataBuffer.m_nSize); ++j) {
-        ReleaseD3DResource(IndexDataBuffer.m_apIndexData[j]);
+        D3DResourceCom::Release(IndexDataBuffer.m_apIndexData[j]);
     }
     IndexDataBuffer.m_nSize = 0;
     IndexDataBuffer.m_nNumDatasInBuffer = 0;
@@ -272,7 +235,7 @@ void D3DResourceSystem::TidyUpD3DIndexBuffers(uint32 count) {
         if (!indexBuffer) {
             break;
         }
-        ReleaseD3DResource(indexBuffer);
+        D3DResourceCom::Release(indexBuffer);
         if (--remaining == 0) {
             return;
         }
@@ -289,7 +252,7 @@ void D3DResourceSystem::TidyUpD3DIndexBuffers(uint32 count) {
             buffer->m_nSize = top;
             void* const indexBuffer = buffer->m_apIndexData[top];
             if (indexBuffer) {
-                ReleaseD3DResource(indexBuffer);
+                D3DResourceCom::Release(indexBuffer);
                 index = static_cast<int32>(FreeIndexBufferIndex);
                 emptyScans = 0;
                 --remaining;
@@ -330,7 +293,7 @@ void D3DResourceSystem::TidyUpD3DTextures(uint32 count) {
             buffer->m_nSize = top;
             void* const texture = buffer->m_apTextures[top];
             if (texture) {
-                ReleaseD3DResource(texture);
+                D3DResourceCom::Release(texture);
                 numBuffers = static_cast<int32>(NumTextureBuffers);
                 index = static_cast<int32>(FreeTextureBufferIndex);
                 emptyScans = 0;
@@ -372,7 +335,7 @@ int32 D3DResourceSystem::CreateIndexBuffer(uint32 numIndices, uint32 format, voi
         }
         *ppIndexBuffer = indexBuffer;
     } else {
-        indexBuffer = IndexDataBufferPop(&IndexDataBuffer, static_cast<uint32>(indices));
+        indexBuffer = IndexDataBuffer.Pop(static_cast<uint32>(indices));
         *ppIndexBuffer = indexBuffer;
         if (indexBuffer) {
             return 0;   // 0x730714: `jne 0x730700` salta el GetDesc (solo lo llama la ruta de la cache por tamano)
@@ -424,7 +387,7 @@ int32 D3DResourceSystem::CreateTexture(int32 width, int32 height, int32 levels, 
             texture = nullptr;
         }
     } else {
-        texture = TextureBufferPop(&TextureBuffer, format, width, height, levels);
+        texture = TextureBuffer.Pop(format, width, height, levels);
     }
     *ppTexture = texture;
     if (texture) {
@@ -440,7 +403,7 @@ int32 D3DResourceSystem::CreateTexture(int32 width, int32 height, int32 levels, 
 // 16 grupos; si la cache esta desactivada lo libera. Crece la pila (Resize, 0x730330) cuando esta llena y, si sigue llena, lo descarta sin liberarlo.
 void D3DResourceSystem::DestroyIndexBuffer(void* pIndexBuffer) {
     if (!UseD3DResourceBuffering) {
-        ReleaseD3DResource(pIndexBuffer);
+        D3DResourceCom::Release(pIndexBuffer);
         return;
     }
     uint32 desc[5];
@@ -451,7 +414,7 @@ void D3DResourceSystem::DestroyIndexBuffer(void* pIndexBuffer) {
         D3DIndexDataBuffer* const buffer = IndexDataBufferAt(static_cast<int32>(group));
         buffer->m_nNumDatasInBuffer = buffer->m_nNumDatasInBuffer + 1;
         if (static_cast<int32>(buffer->m_nSize) >= static_cast<int32>(buffer->m_nCapcacity)) {
-            IndexDataBufferResize(buffer, buffer->m_nCapcacity * 2);
+            buffer->Resize(buffer->m_nCapcacity * 2);
             if (static_cast<int32>(buffer->m_nSize) >= static_cast<int32>(buffer->m_nCapcacity)) {
                 return;
             }
@@ -462,7 +425,7 @@ void D3DResourceSystem::DestroyIndexBuffer(void* pIndexBuffer) {
     }
     IndexDataBuffer.m_nNumDatasInBuffer = IndexDataBuffer.m_nNumDatasInBuffer + 1;
     if (static_cast<int32>(IndexDataBuffer.m_nSize) >= static_cast<int32>(IndexDataBuffer.m_nCapcacity)) {
-        IndexDataBufferResize(&IndexDataBuffer, IndexDataBuffer.m_nCapcacity * 2);
+        IndexDataBuffer.Resize(IndexDataBuffer.m_nCapcacity * 2);
         if (static_cast<int32>(IndexDataBuffer.m_nSize) >= static_cast<int32>(IndexDataBuffer.m_nCapcacity)) {
             return;
         }
@@ -476,7 +439,7 @@ void D3DResourceSystem::DestroyIndexBuffer(void* pIndexBuffer) {
 // buffer generico (lados <= 256). El resto, y todo con la cache desactivada, se libera.
 void D3DResourceSystem::DestroyTexture(void* texture) {
     if (!UseD3DResourceBuffering) {
-        ReleaseD3DResource(texture);
+        D3DResourceCom::Release(texture);
         return;
     }
     using GetLevelCountFn = uint32(__stdcall*)(void*);
@@ -503,8 +466,8 @@ void D3DResourceSystem::DestroyTexture(void* texture) {
                     StoreResource(buffer->m_apTextures, static_cast<int32>(buffer->m_nSize), texture);
                     buffer->m_nSize = buffer->m_nSize + 1;
                 } else {
-                    TextureBufferResize(buffer, buffer->m_nCapcacity * 2);
-                    TextureBufferPushWithoutIncreasingCounter(buffer, texture);
+                    buffer->Resize(buffer->m_nCapcacity * 2);
+                    buffer->PushWithoutIncreasingCounter(static_cast<D3DTextureBuffer::Texture*>(texture));
                 }
                 return;
             }
@@ -512,22 +475,22 @@ void D3DResourceSystem::DestroyTexture(void* texture) {
     }
     if (count < 17 && width == height && width >= 0x20) {
         if (width > 0x100) {
-            ReleaseD3DResource(texture);
+            D3DResourceCom::Release(texture);
             return;
         }
-        TextureBufferSetup(TextureBufferAt(count), format, static_cast<int32>(width), singleLevel, 0x10);
+        TextureBufferAt(count)->Setup(format, static_cast<int32>(width), singleLevel, 0x10);
         const int32 next = static_cast<int32>(NumTextureBuffers);
-        TextureBufferPush(TextureBufferAt(next), texture);
+        TextureBufferAt(next)->Push(static_cast<D3DTextureBuffer::Texture*>(texture));
         NumTextureBuffers = static_cast<uint32>(next + 1);
         return;
     }
     if (width > 0x100 || height > 0x100) {
-        ReleaseD3DResource(texture);
+        D3DResourceCom::Release(texture);
         return;
     }
     TextureBuffer.m_nNumTexturesInBuffer = TextureBuffer.m_nNumTexturesInBuffer + 1;
     if (static_cast<int32>(TextureBuffer.m_nSize) >= static_cast<int32>(TextureBuffer.m_nCapcacity)) {
-        TextureBufferResize(&TextureBuffer, TextureBuffer.m_nCapcacity * 2);
+        TextureBuffer.Resize(TextureBuffer.m_nCapcacity * 2);
         if (static_cast<int32>(TextureBuffer.m_nSize) >= static_cast<int32>(TextureBuffer.m_nCapcacity)) {
             return;
         }

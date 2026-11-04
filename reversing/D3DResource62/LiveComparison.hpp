@@ -49,15 +49,17 @@ inline void Update() {
         ready&=env.route[f]->Registered()&&env.route[f]->Body()&&ModuleOf(env.route[f]->Body())==env.asi;
     }
     // Colaboradores del EXE sin reconstruir (ninguno tiene hook en la DLL): el orden importa (new/delete los ultimos: ver Patches).
-    env.stubs={{Pair{0x72FF60,0,false},reinterpret_cast<void*>(&FkTexPop)},
-               {Pair{0x72FE80,0,false},reinterpret_cast<void*>(&FkTexSetup)},
-               {Pair{0x72FFF0,0,false},reinterpret_cast<void*>(&FkTexPush)},
-               {Pair{0x730AD0,0,false},reinterpret_cast<void*>(&FkTexPushWithout)},
-               {Pair{0x730020,0,false},reinterpret_cast<void*>(&FkTexResize)},
-               {Pair{0x730270,0,false},reinterpret_cast<void*>(&FkIbPop)},
-               {Pair{0x730330,0,false},reinterpret_cast<void*>(&FkIbResize)},
-               {Pair{0x82119A,0,false},reinterpret_cast<void*>(&FkNew)},
-               {Pair{0x8214BD,0,false},reinterpret_cast<void*>(&FkDelete)}};
+    // Los siete metodos de D3DTextureBuffer / D3DIndexDataBuffer tienen hook S en la DLL desde el lote 95A (rutas apagadas): el mismo falso va en la entrada del EXE y en el cuerpo de la DLL.
+    auto H=[&](const char* cls,const char* name,uintptr_t exe,void* fake){env.collab.emplace_back(new HookRoute(cls,name,exe,HookRoute::RegisteredTarget{}));return StubSpec{Pair{exe,Body(env.collab.back()->Body()),true},fake};};
+    env.stubs={H("D3DTextureBuffer","Pop-Match",0x72FF60,reinterpret_cast<void*>(&FkTexPop)),
+               H("D3DTextureBuffer","Setup",0x72FE80,reinterpret_cast<void*>(&FkTexSetup)),
+               H("D3DTextureBuffer","Push",0x72FFF0,reinterpret_cast<void*>(&FkTexPush)),
+               H("D3DTextureBuffer","PushWithoutIncreasingCounter",0x730AD0,reinterpret_cast<void*>(&FkTexPushWithout)),
+               H("D3DTextureBuffer","Resize",0x730020,reinterpret_cast<void*>(&FkTexResize)),
+               H("D3DIndexDataBuffer","Pop-Size",0x730270,reinterpret_cast<void*>(&FkIbPop)),
+               H("D3DIndexDataBuffer","Resize",0x730330,reinterpret_cast<void*>(&FkIbResize)),
+               StubSpec{Pair{0x82119A,0,false},reinterpret_cast<void*>(&FkNew)},
+               StubSpec{Pair{0x8214BD,0,false},reinterpret_cast<void*>(&FkDelete)}};
     json stubbed=json::array();
     for(const auto& s:env.stubs) {
         env.watches.emplace_back(s.pair.exe,16);

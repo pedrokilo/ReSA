@@ -12,6 +12,20 @@
 #include "d3d9.h"
 #endif
 
+// Ayudantes de la vtable COM de los recursos D3D9 de las caches (texturas e index buffers; las caches guardan void*): comunes a D3DResourceSystem,
+// D3DTextureBuffer y D3DIndexDataBuffer. Cada metodo COM es stdcall con `this` como primer argumento.
+namespace D3DResourceCom {
+// Tabla de metodos de un objeto COM.
+inline void** VTable(void* object) {
+    return *static_cast<void***>(object);
+}
+// IUnknown::Release (ranura 2), el `call dword ptr [ecx+8]` del EXE.
+inline void Release(void* resource) {
+    using ReleaseFn = unsigned long(__stdcall*)(void*);
+    reinterpret_cast<ReleaseFn>(VTable(resource)[2])(resource);
+}
+} // namespace D3DResourceCom
+
 class D3DResourceSystem {
 public:
     static bool &UseD3DResourceBuffering;

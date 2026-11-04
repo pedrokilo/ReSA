@@ -24,7 +24,7 @@ GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh
 HOOKS = {oracle.NAME_CANCEL: 0x730900, oracle.NAME_CREATE_IB: 0x7306A0, oracle.NAME_CREATE_TEX: 0x730510, oracle.NAME_DESTROY_IB: 0x730D30, oracle.NAME_DESTROY_TEX: 0x730B70,
          oracle.NAME_INIT: 0x730830, oracle.NAME_SHUTDOWN: 0x730A00}
 # colaboradores sustituidos (direccion del EXE, tiene hook en la DLL): los mismos para las 7 funciones; ninguno tiene hook
-STUBBED = [(0x72FF60, False), (0x72FE80, False), (0x72FFF0, False), (0x730AD0, False), (0x730020, False), (0x730270, False), (0x730330, False), (0x82119A, False), (0x8214BD, False)]
+STUBBED = [(0x72FF60, True), (0x72FE80, True), (0x72FFF0, True), (0x730AD0, True), (0x730020, True), (0x730270, True), (0x730330, True), (0x82119A, False), (0x8214BD, False)]
 WATCHED = {a for a, _ in STUBBED}
 
 # Minimos de cobertura. Calibrados con fixture_mirror.py (el generador real de Fixtures.hpp compilado aparte): ~50 % de lo medido.
@@ -102,7 +102,7 @@ def analyze(path):
         stubbed = col[fn]['stubbed']
         if col[fn]['dll_real'] or [(s['exe'], s['hooked']) for s in stubbed] != STUBBED:
             raise RuntimeError('Colaboradores sustituidos inesperados en ' + fn)
-        if any(s['dll'] for s in stubbed):
+        if any(bool(s['dll']) != s['hooked'] for s in stubbed):
             raise RuntimeError('Colaborador con cuerpo de la DLL inesperado en ' + fn)
     if {w['address'] for w in b['watched_entries']} != WATCHED:
         raise RuntimeError('Entradas vigiladas inesperadas')

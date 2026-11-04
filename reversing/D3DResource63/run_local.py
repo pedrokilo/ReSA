@@ -22,7 +22,7 @@ EXPECTED = dict(oracle.CASES_BY_NAME)
 GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh_restored', 'route_ok', 'collaborators_dll', 'globals_restored', 'floating_state_restored')
 HOOKS = {oracle.NAME_PIXELS: 0x730660, oracle.NAME_INDEX: 0x7307F0}
 # colaboradores sustituidos (direccion del EXE, tiene hook en la DLL): los mismos para las 2 funciones; ninguno tiene hook
-STUBBED = [(0x7300A0, False), (0x7303B0, False)]
+STUBBED = [(0x7300A0, True), (0x7303B0, True)]
 WATCHED = {a for a, _ in STUBBED}
 
 # Minimos de cobertura. Calibrados con fixture_mirror.py (el generador real de Fixtures.hpp compilado aparte): ~50 % de lo medido.
@@ -81,7 +81,7 @@ def analyze(path):
         stubbed = col[fn]['stubbed']
         if col[fn]['dll_real'] or [(s['exe'], s['hooked']) for s in stubbed] != STUBBED:
             raise RuntimeError('Colaboradores sustituidos inesperados en ' + fn)
-        if any(s['dll'] for s in stubbed):
+        if any(bool(s['dll']) != s['hooked'] for s in stubbed):
             raise RuntimeError('Colaborador con cuerpo de la DLL inesperado en ' + fn)
     if {w['address'] for w in b['watched_entries']} != WATCHED:
         raise RuntimeError('Entradas vigiladas inesperadas')

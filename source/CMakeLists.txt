@@ -63,6 +63,13 @@ if(MSVC)
         SKIP_PRECOMPILE_HEADERS ON
         SKIP_UNITY_BUILD_INCLUSION ON
     )
+    # D3DTextureBuffer::GetTotalDataSize (0x7300A0): x87 de 24 bits del EXE (fild, fadd 2^32, fmul, fiadd, __ftol); el archivo de la clase se compila asi.
+    set_source_files_properties(game_sa/RenderWare/D3DTextureBuffer.cpp PROPERTIES
+        COMPILE_OPTIONS "/O2;/Oi;/arch:IA32;$<$<CONFIG:Debug>:/Zi>;/fp:fast"
+        VS_SETTINGS "BasicRuntimeChecks=Default;InlineFunctionExpansion=AnySuitable;FloatingPointModel=Fast"
+        SKIP_PRECOMPILE_HEADERS ON
+        SKIP_UNITY_BUILD_INCLUSION ON
+    )
     # CCarCtrl::Native_00424100 (0x424100) must be 3 bytes like the EXE; /ZI padding would change the flags.
     # The class file uses ordinary /Zi symbols and no runtime checks; only that stub is optimized, by pragma.
     set_source_files_properties(game_sa/CarCtrl.cpp PROPERTIES

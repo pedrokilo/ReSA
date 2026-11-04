@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "pairs": 147456,
+  "differences": 0,
+  "registered_pairs": 147456,
+  "registered_functions": 9,
+  "functions": {
+    "D3DTextureBuffer::Setup": 16384,
+    "D3DTextureBuffer::Pop": 16384,
+    "D3DTextureBuffer::Push": 16384,
+    "D3DTextureBuffer::Resize": 16384,
+    "D3DTextureBuffer::GetTotalDataSize": 16384,
+    "D3DTextureBuffer::PushWithoutIncreasingCounter": 16384,
+    "D3DIndexDataBuffer::Pop": 16384,
+    "D3DIndexDataBuffer::Resize": 16384,
+    "D3DIndexDataBuffer::GetTotalDataSize": 16384
+  },
+  "covered_functions": {
+    "D3DTextureBuffer::Setup": true,
+    "D3DTextureBuffer::Pop": true,
+    "D3DTextureBuffer::Push": true,
+    "D3DTextureBuffer::Resize": true,
+    "D3DTextureBuffer::GetTotalDataSize": true,
+    "D3DTextureBuffer::PushWithoutIncreasingCounter": true,
+    "D3DIndexDataBuffer::Pop": true,
+    "D3DIndexDataBuffer::Resize": true,
+    "D3DIndexDataBuffer::GetTotalDataSize": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree D:/Original/ws-1 sobre main 329ab605c con los cambios del lote (ver artifacts/build-manifest.json). Los recursos D3D9 son objetos COM FALSOS con vtable propia (Release ranura 2, GetLevelCount / GetDesc ranura 13, GetLevelDesc ranura 17) que registran sus llamadas en orden y escriben la descripcion entera del caso: no se prueba el dispositivo D3D9 real ni las caches reales de D3DResourceSystem (los buffers son arenas del banco con guardas; la pila de punteros tambien). Colaboradores sustituidos por falsos identicos en la direccion del EXE (sin hook RH en la DLL: la DLL los llama por la misma direccion): operator new 0x82119A (devuelve siempre la pila nueva de la arena y registra el tamano) y operator delete 0x8214BD (solo registra el puntero; el EXE lo llama tambien con nulo), armados solo durante la llamada probada y en el hilo del banco. GetTotalDataSize de D3DTextureBuffer se compila con /O2 /Oi /arch:IA32 /fp:fast (x87 de 24 bits: fild, fadd 2^32, fmul 4/3, fiadd y __ftol/_ftol2) y se compara con un oraculo que redondea cada operacion a 24 bits. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (eventos en orden, palabras del buffer, cambios de la pila, de las guardas y de la pila nueva). Fuera de los fixtures: cantidades negativas o mayores que la pila en Pop/Resize/GetTotalDataSize generico (el EXE indexa fuera del arreglo), capacidades de bit alto en Resize (indice negativo), el dispositivo D3D9 real, el valor de EAX/ECX/EDX de las funciones void y los bits altos de AL.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn95A-20261104-102753-265249",
+  "summary_sha256": "6f79914dec473246c25bc7a984179008754e93852fc0cc7249b11b49979b08fb",
+  "result_txt_sha256": "43560260663be8388b636e6bf15db405c7bbaa051d65fe7de5cdf6a6efce5e6e",
+  "log_sha256": "dbb097b6cada43c504d1d12927fb0caecf396394756ae8044a188ea666f2bade",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "555cc7242baa197939da57175555cf27c55d13acb00e6592212787fa44fe49ad",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "b636a1a581104737f2865bb86c1a213a32caae241bfc1e96a4105bee123977b9",
+      "source/InjectHooksMain.cpp": "966b5fc4e3e9aef7b326e5fd535a3b934a1cdaccf23259cd2b5c1157ae798ee2",
+      "source/game_sa/RenderWare/D3DTextureBuffer.cpp": "e155b51a102cbd9b53236ed5ad84eac0b9f965589c08276c6919730f489dc7bd",
+      "source/game_sa/RenderWare/D3DTextureBuffer.h": "1dadd39887119dae34f506747876c61be3763d18e096bfe783d45e132671b2db",
+      "source/game_sa/RenderWare/D3DIndexDataBuffer.cpp": "2d973d7ddb5df3285e39b2b5bc907f70e026c5fdb57735ce8d3a26015f58d77b",
+      "source/game_sa/RenderWare/D3DIndexDataBuffer.h": "97188846c26a55bf4bdbbcee7689195e9ada08e75364cec638fe119082ea52cd",
+      "source/game_sa/RenderWare/D3DResourceSystem.cpp": "526474085e645f418d924066d799994845439efb0e022a832addfe06addcf60c",
+      "source/game_sa/RenderWare/D3DResourceSystem.h": "dcbc751955ba7dbc513ddb34df9030b905b4a613c48d4403dd8ddc29c33febfe",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn95A/LiveComparison.hpp": "c616f129865e8829c2dbeb3db67a868f0ea8dfe13e2f357ec7a11c99d35b203e",
+      "reversing/Fn95A/Core.hpp": "45bc8e4f625eca4c8158a51ad38336c4a95cc3eeab570112508d5d7d43f3fea4",
+      "reversing/Fn95A/Fixtures.hpp": "8c951e4f7067e980e66ef539c109e934619f7aa153a479acf1cb105d9d66bb3e",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+ "D3DTextureBuffer::Setup": {
+  "cap_16": 4621,
+  "cap_other": 11272,
+  "cap_big": 2855,
+  "cap_zero": 491
+ },
+ "D3DTextureBuffer::Pop": {
+  "empty": 2200,
+  "levels_mismatch": 8852,
+  "one_level": 13013,
+  "not_found": 9198,
+  "multi_level": 8339,
+  "desc_mismatch": 9156,
+  "swap": 2874,
+  "found": 4986,
+  "no_swap": 2112
+ },
+ "D3DTextureBuffer::Push": {
+  "counter_incremented": 16384,
+  "stored": 10573,
+  "full": 5811,
+  "stored_guard": 2884
+ },
+ "D3DTextureBuffer::Resize": {
+  "same_capacity": 3832,
+  "shrinks": 6878,
+  "copies": 8834,
+  "releases": 4114,
+  "grows": 5674
+ },
+ "D3DTextureBuffer::GetTotalDataSize": {
+  "plain": 6370,
+  "x87": 6475,
+  "generic": 8192,
+  "unsigned_fixup": 3974,
+  "plain_single": 3470,
+  "single_format": 8192,
+  "empty": 2333,
+  "x87_single": 3778,
+  "negative_size": 676
+ },
+ "D3DTextureBuffer::PushWithoutIncreasingCounter": {
+  "stored": 10526,
+  "full": 5858,
+  "stored_guard": 2914
+ },
+ "D3DIndexDataBuffer::Pop": {
+  "empty": 2200,
+  "no_swap": 4152,
+  "found": 10985,
+  "swap": 6833,
+  "not_found": 3199
+ },
+ "D3DIndexDataBuffer::Resize": {
+  "grows": 5586,
+  "copies": 8803,
+  "shrinks": 6876,
+  "same_capacity": 3922,
+  "releases": 4184
+ },
+ "D3DIndexDataBuffer::GetTotalDataSize": {
+  "generic": 8192,
+  "empty": 2353,
+  "single_format": 8192
+ }
+}

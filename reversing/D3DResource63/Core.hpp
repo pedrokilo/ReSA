@@ -146,6 +146,7 @@ struct Side {Reg reg{};std::array<uint8,108> fp{};uint32 mxcsr{};bool routeOK{};
 struct Env {
     uintptr_t asi{},game{};
     std::array<std::unique_ptr<HookRoute>,kFns> route;              // una por funcion
+    std::vector<std::unique_ptr<HookRoute>> collab;                 // rutas (apagadas) de los colaboradores que ya tienen hook en la DLL (lote 95A)
     std::vector<StubSpec> stubs;                                    // colaboradores sustituidos (los mismos para todas las funciones: cualquier llamada no esperada queda registrada)
     std::vector<Watch> watches;                                     // entradas del EXE de todos los colaboradores: deben seguir siendo lo que eran al empezar
     bool WatchesIntact()const{return std::ranges::all_of(watches,[](const auto& w){return w.Intact();});}
@@ -163,7 +164,7 @@ template<class Fn> Side Execute(Env& env,unsigned fnIdx,uintptr_t entry,bool can
         bool collab=true;
         for(const auto& s:env.stubs) {
             const auto& pr=s.pair;
-            collab&=!ReversingProbe::JumpsToDll(pr.exe)&&pr.dll==0&&!pr.hooked;
+            collab&=!ReversingProbe::JumpsToDll(pr.exe)&&(pr.hooked?(pr.dll!=0&&ModuleOf(pr.dll)==env.asi):pr.dll==0);
         }
         side.collabOK=collab;
         {
@@ -299,6 +300,7 @@ inline void Run(Env& env,bool ready,const json& registered,const json& bodies,co
     }
     const bool entriesIntact=env.WatchesIntact();
     bool stateRestored=entriesIntact;
+    for(auto& r:env.collab)if(r)stateRestored&=r->Restore();
     for(auto& r:env.route)if(r)stateRestored&=r->Restore();
     RestoreFloatingState();stateRestored&=FloatingStateRestored();
     const bool regionNow=memcmp(initialRegion.data(),reinterpret_cast<void*>(kRegionBase),kRegionWords*4)==0;

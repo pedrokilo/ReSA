@@ -43,8 +43,10 @@ inline void Update() {
         ready&=env.route[f]->Registered()&&env.route[f]->Body()&&ModuleOf(env.route[f]->Body())==env.asi;
     }
     // Colaboradores del EXE sin reconstruir (ninguno tiene hook en la DLL).
-    env.stubs={{Pair{0x7300A0,0,false},reinterpret_cast<void*>(&FkTexTotal)},
-               {Pair{0x7303B0,0,false},reinterpret_cast<void*>(&FkIbTotal)}};
+    // GetTotalDataSize de las dos clases tiene hook S en la DLL desde el lote 95A (rutas apagadas): el mismo falso en la entrada del EXE y en el cuerpo de la DLL.
+    auto H=[&](const char* cls,const char* name,uintptr_t exe,void* fake){env.collab.emplace_back(new HookRoute(cls,name,exe,HookRoute::RegisteredTarget{}));return StubSpec{Pair{exe,Body(env.collab.back()->Body()),true},fake};};
+    env.stubs={H("D3DTextureBuffer","GetTotalDataSize",0x7300A0,reinterpret_cast<void*>(&FkTexTotal)),
+               H("D3DIndexDataBuffer","GetTotalDataSize",0x7303B0,reinterpret_cast<void*>(&FkIbTotal))};
     json stubbed=json::array();
     for(const auto& s:env.stubs) {
         env.watches.emplace_back(s.pair.exe,16);

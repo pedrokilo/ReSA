@@ -623,6 +623,8 @@ void InjectHooksMain() {
     CPad::InjectHooks();
     CRGBA::InjectHooks();
     D3DResourceSystem::InjectHooks();
+    D3DTextureBuffer::InjectHooks();
+    D3DIndexDataBuffer::InjectHooks();
     RwCoreInjectHooks25d();
     RwPlCoreInjectHooks25d();
     InjectCommonHooks();
