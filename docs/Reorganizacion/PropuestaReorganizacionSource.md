@@ -299,7 +299,7 @@ Cada línea es una carpeta nueva con las clases (archivos sin extensión) que ir
 ## Qué habría que actualizar al aplicarlo
 
 - Los 591 `build_probe.py` y `register_*.py` de `reversing/` con rutas de fuente escritas a mano.
-- `reversing/validation-registry.json`: unas 2164 rutas de fuente con sus hashes. Las pruebas ya aprobadas dejarían de coincidir con la ruta.
+- `reversing/validation-registry/parte-*.json` (el registro de validaciones, antes un solo `validation-registry.json`): unas 2164 rutas de fuente con sus hashes. Las pruebas ya aprobadas dejarían de coincidir con la ruta.
 - `contrib/correlate_sources.py`, `contrib/source_descriptions.py` y `sync_docs.py --update-source-status`.
 - Los documentos congelados y los hashes históricos (no se deben tocar): hay que comprobar si citan rutas de fuente.
 - `source/GUIA_DE_CARPETAS.md` y `docs/*.md` que citan rutas.

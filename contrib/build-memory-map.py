@@ -3,6 +3,8 @@ import argparse, base64, csv, gzip, hashlib, importlib.util, json, re, sys
 from collections import Counter, defaultdict
 from pathlib import Path
 sys.dont_write_bytecode=True
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+import registry_store
 
 def sha(path): return hashlib.sha256(path.read_bytes()).hexdigest()
 def load(path):
@@ -87,7 +89,7 @@ def main():
     spec=importlib.util.spec_from_file_location('resa_validation_registry',root/'contrib/validation_registry.py'); module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
     validation=module.evaluate(root,root/'docs/hooks.csv')
     key=lambda r:tuple(r[k] for k in module.KEY)
-    registry=json.loads((root/'reversing/validation-registry.json').read_text(encoding='utf-8'))
+    registry=registry_store.load_registry(root)
     evidence={key(r['hook']):r for r in registry['functions']}
     states={key(r['hook']):r for r in validation['functions']}
     types,sourcefuncs,tables,registrations,globals_,files=scan(root)
@@ -123,7 +125,7 @@ def main():
         source_matches=validation['source_matches'],source_type_definitions=len(types),source_unique_type_names=len({t['name'] for t in types}),
         source_function_candidates=len(sourcefuncs),source_vtable_references=len(tables),source_global_references=len(globals_),source_hook_references=len(registrations),
         source_files=len(files),notsa_entries=len(extras),addressed_catalogue_entries=sum(bool(r['va']) for r in hooks),
-        catalogue_zero_addresses=sum(not r['va'] for r in hooks),hooks_sha256=sha(root/'docs/hooks.csv'),registry_sha256=sha(root/'reversing/validation-registry.json'),
+        catalogue_zero_addresses=sum(not r['va'] for r in hooks),hooks_sha256=sha(root/'docs/hooks.csv'),registry_sha256=registry_store.registry_sha256(registry),
         source_manifest_sha256=hashlib.sha256(json.dumps(files,sort_keys=True).encode()).hexdigest(),
         source_files_changed_during_generation=changed_files,binary_verified=False,exhaustive_cpp_parse=False)
     dataset=dict(summary=summary,classes=classes,functions=hooks,types=types,source_functions=sourcefuncs,vtables=tables,globals=globals_,registrations=registrations,notsa=extras)

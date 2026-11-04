@@ -14,7 +14,11 @@ Uso: python contrib/pending_wrappers.py
 import csv
 import json
 import re
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import registry_store
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'docs/implementaciones/envolturas-pendientes.csv'
@@ -52,10 +56,9 @@ def main():
                 done.add(norm_addr(row['address']))
     # Los virtuales figuran en hooks.csv con dirección 0x00000000 (y, si están sobrecargados, con nombre «Función-sobrecarga»): su dirección del EXE
     # está en validation-registry.json (evidence.original_address); sin ella la fila pendiente de cada sobrecarga no se podría descartar.
-    registry = ROOT / 'reversing/validation-registry.json'
-    if registry.exists():
+    if registry_store.registry_dir(ROOT).is_dir():
         reversed_rows = {(r['class'], r['fn_name']) for r in read(ROOT / 'docs/hooks.csv') if r['reversed'] == '1'}
-        for entry in json.loads(registry.read_text(encoding='utf-8'))['functions']:
+        for entry in registry_store.load_registry(ROOT)['functions']:
             hook = entry['hook']
             original = norm_addr(entry.get('evidence', {}).get('original_address', ''))
             if original and (hook['class'], hook['fn_name']) in reversed_rows and not int(hook['address'], 16):

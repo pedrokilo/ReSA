@@ -8,6 +8,7 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 import exe_coverage
+import registry_store
 from validation_registry import evaluate
 from source_status import read_classes, source_index, update_comments
 from urllib.parse import quote
@@ -47,9 +48,8 @@ def difficulty_section(root, input_path):
                 else:
                     # Los virtuales figuran en hooks.csv con direccion 0x00000000: su direccion del EXE esta en el registro de validacion.
                     virtual_rows[(row['class'], row['fn_name'])] = row['validated'] == '1'
-    registry = root / 'reversing/validation-registry.json'
-    if virtual_rows and registry.exists():
-        for entry in json.loads(registry.read_text(encoding='utf-8')).get('functions', []):
+    if virtual_rows and registry_store.registry_dir(root).is_dir():
+        for entry in registry_store.load_registry(root).get('functions', []):
             hook = entry.get('hook', {})
             key = (hook.get('class'), hook.get('fn_name'))
             original = entry.get('evidence', {}).get('original_address', '')

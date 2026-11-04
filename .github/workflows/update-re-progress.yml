@@ -10,7 +10,8 @@ on:
        - 'contrib/hooks2md.py'
        - 'contrib/sync_validated_flags.py'
        - 'contrib/validation_registry.py'
-       - 'reversing/validation-registry.json'
+       - 'contrib/registry_store.py'
+       - 'reversing/validation-registry/**'
        - '.github/**'
 
 concurrency:

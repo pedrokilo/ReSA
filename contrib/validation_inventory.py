@@ -4,13 +4,14 @@ import json
 from collections import Counter, defaultdict
 from pathlib import Path
 from validation_registry import KEY, evaluate
+import registry_store
 
 
 def generate(root):
     root = Path(root)
     result = evaluate(root, root / 'docs/hooks.csv')
     states = {tuple(r['hook'][k] for k in KEY): r for r in result['functions']}
-    registry = json.loads((root/'reversing/validation-registry.json').read_text(encoding='utf-8'))
+    registry = registry_store.load_registry(root)
     evidence = {tuple(r['hook'][k] for k in KEY):r['evidence']['path'] for r in registry['functions']}
     with (root/'docs/hooks.csv').open(encoding='utf-8-sig', newline='') as stream:
         rows = list(csv.DictReader(stream))

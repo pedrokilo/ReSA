@@ -12,8 +12,12 @@ envolturas pendientes. Es una estimación con cotas explícitas, no una certific
 """
 import csv
 import json
+import sys
 from collections import defaultdict
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import registry_store
 
 # Clases del catálogo que son bibliotecas enlazadas en el EXE (RenderWare y CRT): ReversedClasses.md no las cuenta; solo aparecen en la tabla de cobertura.
 LIBRARY_CLASSES = frozenset({'CRT', 'RpHAnim', 'RpSkin', 'RpUVAnim', 'RpWorld', 'RtAnim', 'RtDict', 'RwCore', 'RwPlCore'})
@@ -80,9 +84,8 @@ def compute(root, internals=False):
     addresses = {_hex(r['address']) for r in reversed_rows} - {0}
     names = {f"{r['class']}::{r['fn_name'].split('-')[0]}" for r in reversed_rows}
 
-    registry = root / 'reversing/validation-registry.json'
-    if registry.exists():
-        for entry in json.loads(registry.read_text(encoding='utf-8')).get('functions', []):
+    if registry_store.registry_dir(root).is_dir():
+        for entry in registry_store.load_registry(root).get('functions', []):
             hook = entry.get('hook', {})
             if _hex(hook.get('address')) == 0:
                 original = _hex(entry.get('evidence', {}).get('original_address', ''))

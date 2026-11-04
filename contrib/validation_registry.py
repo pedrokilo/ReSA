@@ -2,8 +2,12 @@
 import csv
 import hashlib
 import json
+import sys
 from collections import Counter
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import registry_store
 
 
 KEY = ('class', 'fn_name', 'address', 'type')
@@ -26,8 +30,11 @@ def tree_digest(path):
 
 def evaluate(root, hooks_path, registry_path=None):
     root = Path(root).resolve()
-    registry_path = registry_path or root / 'reversing/validation-registry.json'
-    data = json.loads(Path(registry_path).read_text(encoding='utf-8'))
+    # Sin registry_path: fragmentos de reversing/validation-registry/ (registry_store). Con registry_path: un JSON suelto (pruebas).
+    if registry_path:
+        data = json.loads(Path(registry_path).read_text(encoding='utf-8'))
+    else:
+        data = registry_store.load_registry(root)
     if data['schema_version'] != 1:
         raise ValueError('Unsupported validation registry schema')
     with Path(hooks_path).open(encoding='utf-8-sig', newline='') as stream:

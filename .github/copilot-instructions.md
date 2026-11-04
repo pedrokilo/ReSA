@@ -26,7 +26,7 @@ No añadir al CSV owners sólo porque exista código de hook: los registros inac
 
 ## Validación en hooks.csv
 
-La columna `validated` se deriva de `reversing/validation-registry.json` y no se edita manualmente.
+La columna `validated` se deriva de `reversing/validation-registry/` (fragmentos; usar `contrib/registry_store.py`) y no se edita manualmente.
 
 ```powershell
 python contrib/sync_validated_flags.py

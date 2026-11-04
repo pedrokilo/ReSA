@@ -6,7 +6,7 @@
 
 La lista separa **haber pasado una prueba** de **tener confirmada su vigencia para el código actual**. `hooks.csv` incorpora ahora `validated`: `1` significa evidencia aprobada vinculada y `0` significa que todavía no existe esa vinculación. La vigencia actual sigue siendo una dimensión separada.
 
-Datos: [validation-registry.json](../validation-registry.json). Auditor de solo lectura: [validation_registry.py](../../contrib/validation_registry.py). El [generador del panel](../../contrib/hooks2md.py) lo consulta automáticamente; no ejecuta GTA ni necesita los binarios locales de las sondas.
+Datos: fragmentos [validation-registry/parte-NNN.json](../validation-registry/) (antes un solo `validation-registry.json`, partido por tamaño; la lista completa es la concatenación en orden). Lectura y escritura solo con [registry_store.py](../../contrib/registry_store.py) (`load_registry`, `save_registry`, `registry_sha256`). Auditor de solo lectura: [validation_registry.py](../../contrib/validation_registry.py). El [generador del panel](../../contrib/hooks2md.py) lo consulta automáticamente; no ejecuta GTA ni necesita los binarios locales de las sondas.
 
 ## Primeras acreditaciones: resultado histórico
 
