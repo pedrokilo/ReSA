@@ -733,8 +733,8 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| CVehiclePotentialCollisionScanner::InjectHooks() | [source/game_sa/Events/EventScanner.cpp:253](../../source/game_sa/Events/EventScanner.cpp#L253) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents(const CPed& ped, CEntity** entities, int32 count) | [source/game_sa/Events/EventScanner.cpp:262](../../source/game_sa/Events/EventScanner.cpp#L262) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents 0x00603720 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CVehiclePotentialCollisionScanner::InjectHooks() | [source/game_sa/Events/EventScanner.cpp:262](../../source/game_sa/Events/EventScanner.cpp#L262) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents(const CPed& ped, CEntity** entities, int32 count) | [source/game_sa/Events/EventScanner.cpp:271](../../source/game_sa/Events/EventScanner.cpp#L271) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents 0x00603720 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-898"></a>
 
