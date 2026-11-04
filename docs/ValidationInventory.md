@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,068 entradas reversed=1**, de 9,068 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,073 entradas reversed=1**, de 9,073 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9068 |
+| `validated=1` · evidencia aprobada vinculada | 9073 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9068 |
+| Evidencia histórica vinculada; revisión pendiente | 9073 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -1618,6 +1618,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCarGenerator | `Setup` | [Resumen](../reversing/Data8a/validation-summary.json) |
 | CCarGenerator | `SwitchOff` | [Resumen](../reversing/Data8a/validation-summary.json) |
 | CCarGenerator | `SwitchOn` | [Resumen](../reversing/Data8a/validation-summary.json) |
+| CCarPathLink | `OneWayLaneOffset` | [Resumen](../reversing/Fn93A/validation-summary.json) |
 | CCheat | `AddToCheatString` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
 | CCheat | `AdrenalineCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
 | CCheat | `AllCarsAreGreatCheat` | [Resumen](../reversing/CheatFinal3/validation-summary.json) |
@@ -3669,6 +3670,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPathFind | `AddNodeToNewInterior` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `AddRandomOffsetToNodePosition` | [Resumen](../reversing/DependenciesVehicleLeaf5/validation-summary.json) |
 | CPathFind | `AreNodesLoadedForArea` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `CalcDistToAnyConnectingLinks` | [Resumen](../reversing/Fn93A/validation-summary.json) |
 | CPathFind | `CalcRoadDensity` | [Resumen](../reversing/DependenciesPathDensity13/validation-summary.json) |
 | CPathFind | `CompleteNewInterior` | [Resumen](../reversing/PathFind62/validation-summary.json) |
 | CPathFind | `ComputeRoute` | [Resumen](../reversing/PathFindPending/validation-summary.json) |
@@ -3677,6 +3679,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPathFind | `FindLinkBetweenNodes` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `FindNearestExteriorNodeToInteriorNode` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `FindNextNodeWandering` | [Resumen](../reversing/PathFind62/validation-summary.json) |
+| CPathFind | `FindNodeClosestInRegion` | [Resumen](../reversing/Fn93A/validation-summary.json) |
 | CPathFind | `FindNodeClosestToCoors` | [Resumen](../reversing/PathFind62/validation-summary.json) |
 | CPathFind | `FindNodeClosestToCoorsFavourDirection` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `FindNodeCoorsForScript-LinkedNode` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
@@ -3706,6 +3709,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPathFind | `MarkRoadNodeAsDontWander` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `ReInit` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `ReleaseRequestedNodes` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `RemoveBadStartNode` | [Resumen](../reversing/Fn93A/validation-summary.json) |
 | CPathFind | `RemoveInterior` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `RemoveInteriorLinks` | [Resumen](../reversing/DependenciesWorld13/validation-summary.json) |
 | CPathFind | `RemoveNodeFromList` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
@@ -3715,6 +3719,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPathFind | `SetPathsNeededAtPosition` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `Shutdown` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `StartNewInterior` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
+| CPathFind | `StoreInteriorNodeLink` | [Resumen](../reversing/Fn93A/validation-summary.json) |
 | CPathFind | `SwitchOffNodeAndNeighbours` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `SwitchPedRoadsOffInArea` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
 | CPathFind | `SwitchRoadsOffInArea` | [Resumen](../reversing/PathFinal3/validation-summary.json) |
@@ -9185,6 +9190,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CCarEnterExit` | 32 | 0 | 32 | 0 |
 | `CCarFXRenderer` | 10 | 0 | 10 | 0 |
 | `CCarGenerator` | 8 | 0 | 8 | 0 |
+| `CCarPathLink` | 1 | 0 | 1 | 0 |
 | `CCheat` | 72 | 0 | 72 | 0 |
 | `CCheckpoint` | 1 | 0 | 1 | 0 |
 | `CCheckpoints` | 8 | 0 | 8 | 0 |
@@ -9396,7 +9402,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `COnscreenTimer` | 6 | 0 | 6 | 0 |
 | `CPPTriPlantBuffer` | 7 | 0 | 7 | 0 |
 | `CPad` | 81 | 0 | 81 | 0 |
-| `CPathFind` | 67 | 0 | 67 | 0 |
+| `CPathFind` | 71 | 0 | 71 | 0 |
 | `CPathNode` | 1 | 0 | 1 | 0 |
 | `CPed` | 149 | 0 | 149 | 0 |
 | `CPedAcquaintanceScanner` | 1 | 0 | 1 | 0 |

@@ -5,11 +5,20 @@
  * Conteos por clase/grupo completo, no solo por este archivo.
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
- * ESTADO: CPathFind
- * Reconstrucción: COMPLETA — 67/67 funciones reconstruidas.
+ * ESTADO: CCarPathLink
+ * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 67/67 entradas.
+ * Validación registrada: 1/1 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ *
+ * ESTADO: CPathFind
+ * Reconstrucción: COMPLETA — 71/71 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 71/71 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.

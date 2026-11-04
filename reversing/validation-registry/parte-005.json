@@ -24184,7 +24184,7 @@
       },
       "evidence": {
         "path": "reversing/PathFind62/validation-summary.json",
-        "sha256": "6016e7747c7916b9351cf432a32b98b36156e0d73a6578312402472bb6df76b0",
+        "sha256": "d9771f587b2cd036728fcea20b053e94d79fe0ff503b9dd7d47c810b481c41ae",
         "passed_path": [
           "covered_functions",
           "CPathFind::FindNodeClosestToCoors"
@@ -24193,16 +24193,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
-        "source/game_sa/PathFind.cpp": "b1660ff5fbda3d692177e1bf2c0f908db35475a9a8b59ca59df744174d19177b",
-        "source/game_sa/PathFind.h": "f9d2e152051e5755f7f6a4783b6d727b6f63cdb2ecac303eef9d19aacc5cf5e4",
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "08af20ae7b3d770242096d83f63478ec08367935398d231ddf98aafcba02c670",
+        "source/game_sa/PathFind.cpp": "a4555bf34524bf2e47bcff1bb8898e22acceebb4642b0dadfa03946685540e38",
+        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21",
         "source/game_sa/MemoryMgr.cpp": "8edba44feb8e34f5567afbf09d045c3a8b97579290277cd043cef4c04be95ebd",
-        "source/game_sa/World.cpp": "0066108864b6c6c3aa13ac5a68da99749b177bd94605ebc3a2c14580018340bd",
-        "source/game_sa/X87Math.cpp": "a54c7a4fc93bd013e8d3449f308057608434f546db26379cc3ae26180ddd493b",
-        "source/game_sa/X87Math.h": "18a04173f5b0140f5bd034f2ee61a1e0dfe36331721ce6c2e74bf627b9bdfefe",
+        "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
+        "source/game_sa/X87Math.cpp": "102e2f5a4df65cb2825bce309826d187fc64d728cd4b97afbc457a34bf992d92",
+        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/PathFind62/LiveComparison.hpp": "5a35986937cc08ec5dbf6b9b722a6e8d3409d9d9fe93b228bf3dc3aa4ec9f5ee",
+        "reversing/PathFind62/LiveComparison.hpp": "fe6b91bb6f44e5cc98e903bd7d630939a78725ca71eecc41cbbcb6daa4d474c4",
         "reversing/PathFind62/Core.hpp": "3c7b5f4a415c772e15d5ca9cada075766b41a85932ec3a2617a25825b8c6c595",
         "reversing/PathFind62/Cases.hpp": "0fb8b4249339a7b84d8aecd98861aa12ff89b1c9f538ff5ae6a5ca4bc1ca1dde",
         "reversing/PathFind62/Fixtures.hpp": "824e2653f29f066e34ea720fea1d581eca5db93a2f64a07f9ebf1128acd7759f",
@@ -24223,7 +24223,7 @@
       },
       "evidence": {
         "path": "reversing/PathFind62/validation-summary.json",
-        "sha256": "6016e7747c7916b9351cf432a32b98b36156e0d73a6578312402472bb6df76b0",
+        "sha256": "d9771f587b2cd036728fcea20b053e94d79fe0ff503b9dd7d47c810b481c41ae",
         "passed_path": [
           "covered_functions",
           "CPathFind::FindNthNodeClosestToCoors"
@@ -24232,16 +24232,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
-        "source/game_sa/PathFind.cpp": "b1660ff5fbda3d692177e1bf2c0f908db35475a9a8b59ca59df744174d19177b",
-        "source/game_sa/PathFind.h": "f9d2e152051e5755f7f6a4783b6d727b6f63cdb2ecac303eef9d19aacc5cf5e4",
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "08af20ae7b3d770242096d83f63478ec08367935398d231ddf98aafcba02c670",
+        "source/game_sa/PathFind.cpp": "a4555bf34524bf2e47bcff1bb8898e22acceebb4642b0dadfa03946685540e38",
+        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21",
         "source/game_sa/MemoryMgr.cpp": "8edba44feb8e34f5567afbf09d045c3a8b97579290277cd043cef4c04be95ebd",
-        "source/game_sa/World.cpp": "0066108864b6c6c3aa13ac5a68da99749b177bd94605ebc3a2c14580018340bd",
-        "source/game_sa/X87Math.cpp": "a54c7a4fc93bd013e8d3449f308057608434f546db26379cc3ae26180ddd493b",
-        "source/game_sa/X87Math.h": "18a04173f5b0140f5bd034f2ee61a1e0dfe36331721ce6c2e74bf627b9bdfefe",
+        "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
+        "source/game_sa/X87Math.cpp": "102e2f5a4df65cb2825bce309826d187fc64d728cd4b97afbc457a34bf992d92",
+        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/PathFind62/LiveComparison.hpp": "5a35986937cc08ec5dbf6b9b722a6e8d3409d9d9fe93b228bf3dc3aa4ec9f5ee",
+        "reversing/PathFind62/LiveComparison.hpp": "fe6b91bb6f44e5cc98e903bd7d630939a78725ca71eecc41cbbcb6daa4d474c4",
         "reversing/PathFind62/Core.hpp": "3c7b5f4a415c772e15d5ca9cada075766b41a85932ec3a2617a25825b8c6c595",
         "reversing/PathFind62/Cases.hpp": "0fb8b4249339a7b84d8aecd98861aa12ff89b1c9f538ff5ae6a5ca4bc1ca1dde",
         "reversing/PathFind62/Fixtures.hpp": "824e2653f29f066e34ea720fea1d581eca5db93a2f64a07f9ebf1128acd7759f",
@@ -24262,7 +24262,7 @@
       },
       "evidence": {
         "path": "reversing/PathFind62/validation-summary.json",
-        "sha256": "6016e7747c7916b9351cf432a32b98b36156e0d73a6578312402472bb6df76b0",
+        "sha256": "d9771f587b2cd036728fcea20b053e94d79fe0ff503b9dd7d47c810b481c41ae",
         "passed_path": [
           "covered_functions",
           "CPathFind::FindNextNodeWandering"
@@ -24271,16 +24271,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
-        "source/game_sa/PathFind.cpp": "b1660ff5fbda3d692177e1bf2c0f908db35475a9a8b59ca59df744174d19177b",
-        "source/game_sa/PathFind.h": "f9d2e152051e5755f7f6a4783b6d727b6f63cdb2ecac303eef9d19aacc5cf5e4",
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "08af20ae7b3d770242096d83f63478ec08367935398d231ddf98aafcba02c670",
+        "source/game_sa/PathFind.cpp": "a4555bf34524bf2e47bcff1bb8898e22acceebb4642b0dadfa03946685540e38",
+        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21",
         "source/game_sa/MemoryMgr.cpp": "8edba44feb8e34f5567afbf09d045c3a8b97579290277cd043cef4c04be95ebd",
-        "source/game_sa/World.cpp": "0066108864b6c6c3aa13ac5a68da99749b177bd94605ebc3a2c14580018340bd",
-        "source/game_sa/X87Math.cpp": "a54c7a4fc93bd013e8d3449f308057608434f546db26379cc3ae26180ddd493b",
-        "source/game_sa/X87Math.h": "18a04173f5b0140f5bd034f2ee61a1e0dfe36331721ce6c2e74bf627b9bdfefe",
+        "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
+        "source/game_sa/X87Math.cpp": "102e2f5a4df65cb2825bce309826d187fc64d728cd4b97afbc457a34bf992d92",
+        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/PathFind62/LiveComparison.hpp": "5a35986937cc08ec5dbf6b9b722a6e8d3409d9d9fe93b228bf3dc3aa4ec9f5ee",
+        "reversing/PathFind62/LiveComparison.hpp": "fe6b91bb6f44e5cc98e903bd7d630939a78725ca71eecc41cbbcb6daa4d474c4",
         "reversing/PathFind62/Core.hpp": "3c7b5f4a415c772e15d5ca9cada075766b41a85932ec3a2617a25825b8c6c595",
         "reversing/PathFind62/Cases.hpp": "0fb8b4249339a7b84d8aecd98861aa12ff89b1c9f538ff5ae6a5ca4bc1ca1dde",
         "reversing/PathFind62/Fixtures.hpp": "824e2653f29f066e34ea720fea1d581eca5db93a2f64a07f9ebf1128acd7759f",
@@ -24301,7 +24301,7 @@
       },
       "evidence": {
         "path": "reversing/PathFind62/validation-summary.json",
-        "sha256": "6016e7747c7916b9351cf432a32b98b36156e0d73a6578312402472bb6df76b0",
+        "sha256": "d9771f587b2cd036728fcea20b053e94d79fe0ff503b9dd7d47c810b481c41ae",
         "passed_path": [
           "covered_functions",
           "CPathFind::CompleteNewInterior"
@@ -24310,16 +24310,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
-        "source/game_sa/PathFind.cpp": "b1660ff5fbda3d692177e1bf2c0f908db35475a9a8b59ca59df744174d19177b",
-        "source/game_sa/PathFind.h": "f9d2e152051e5755f7f6a4783b6d727b6f63cdb2ecac303eef9d19aacc5cf5e4",
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "08af20ae7b3d770242096d83f63478ec08367935398d231ddf98aafcba02c670",
+        "source/game_sa/PathFind.cpp": "a4555bf34524bf2e47bcff1bb8898e22acceebb4642b0dadfa03946685540e38",
+        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21",
         "source/game_sa/MemoryMgr.cpp": "8edba44feb8e34f5567afbf09d045c3a8b97579290277cd043cef4c04be95ebd",
-        "source/game_sa/World.cpp": "0066108864b6c6c3aa13ac5a68da99749b177bd94605ebc3a2c14580018340bd",
-        "source/game_sa/X87Math.cpp": "a54c7a4fc93bd013e8d3449f308057608434f546db26379cc3ae26180ddd493b",
-        "source/game_sa/X87Math.h": "18a04173f5b0140f5bd034f2ee61a1e0dfe36331721ce6c2e74bf627b9bdfefe",
+        "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
+        "source/game_sa/X87Math.cpp": "102e2f5a4df65cb2825bce309826d187fc64d728cd4b97afbc457a34bf992d92",
+        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/PathFind62/LiveComparison.hpp": "5a35986937cc08ec5dbf6b9b722a6e8d3409d9d9fe93b228bf3dc3aa4ec9f5ee",
+        "reversing/PathFind62/LiveComparison.hpp": "fe6b91bb6f44e5cc98e903bd7d630939a78725ca71eecc41cbbcb6daa4d474c4",
         "reversing/PathFind62/Core.hpp": "3c7b5f4a415c772e15d5ca9cada075766b41a85932ec3a2617a25825b8c6c595",
         "reversing/PathFind62/Cases.hpp": "0fb8b4249339a7b84d8aecd98861aa12ff89b1c9f538ff5ae6a5ca4bc1ca1dde",
         "reversing/PathFind62/Fixtures.hpp": "824e2653f29f066e34ea720fea1d581eca5db93a2f64a07f9ebf1128acd7759f",
@@ -24340,7 +24340,7 @@
       },
       "evidence": {
         "path": "reversing/PathFind62/validation-summary.json",
-        "sha256": "6016e7747c7916b9351cf432a32b98b36156e0d73a6578312402472bb6df76b0",
+        "sha256": "d9771f587b2cd036728fcea20b053e94d79fe0ff503b9dd7d47c810b481c41ae",
         "passed_path": [
           "covered_functions",
           "CPathFind::FindParkingNodeInArea"
@@ -24349,16 +24349,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
-        "source/game_sa/PathFind.cpp": "b1660ff5fbda3d692177e1bf2c0f908db35475a9a8b59ca59df744174d19177b",
-        "source/game_sa/PathFind.h": "f9d2e152051e5755f7f6a4783b6d727b6f63cdb2ecac303eef9d19aacc5cf5e4",
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "08af20ae7b3d770242096d83f63478ec08367935398d231ddf98aafcba02c670",
+        "source/game_sa/PathFind.cpp": "a4555bf34524bf2e47bcff1bb8898e22acceebb4642b0dadfa03946685540e38",
+        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21",
         "source/game_sa/MemoryMgr.cpp": "8edba44feb8e34f5567afbf09d045c3a8b97579290277cd043cef4c04be95ebd",
-        "source/game_sa/World.cpp": "0066108864b6c6c3aa13ac5a68da99749b177bd94605ebc3a2c14580018340bd",
-        "source/game_sa/X87Math.cpp": "a54c7a4fc93bd013e8d3449f308057608434f546db26379cc3ae26180ddd493b",
-        "source/game_sa/X87Math.h": "18a04173f5b0140f5bd034f2ee61a1e0dfe36331721ce6c2e74bf627b9bdfefe",
+        "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
+        "source/game_sa/X87Math.cpp": "102e2f5a4df65cb2825bce309826d187fc64d728cd4b97afbc457a34bf992d92",
+        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/PathFind62/LiveComparison.hpp": "5a35986937cc08ec5dbf6b9b722a6e8d3409d9d9fe93b228bf3dc3aa4ec9f5ee",
+        "reversing/PathFind62/LiveComparison.hpp": "fe6b91bb6f44e5cc98e903bd7d630939a78725ca71eecc41cbbcb6daa4d474c4",
         "reversing/PathFind62/Core.hpp": "3c7b5f4a415c772e15d5ca9cada075766b41a85932ec3a2617a25825b8c6c595",
         "reversing/PathFind62/Cases.hpp": "0fb8b4249339a7b84d8aecd98861aa12ff89b1c9f538ff5ae6a5ca4bc1ca1dde",
         "reversing/PathFind62/Fixtures.hpp": "824e2653f29f066e34ea720fea1d581eca5db93a2f64a07f9ebf1128acd7759f",
@@ -24379,7 +24379,7 @@
       },
       "evidence": {
         "path": "reversing/PathFind62/validation-summary.json",
-        "sha256": "6016e7747c7916b9351cf432a32b98b36156e0d73a6578312402472bb6df76b0",
+        "sha256": "d9771f587b2cd036728fcea20b053e94d79fe0ff503b9dd7d47c810b481c41ae",
         "passed_path": [
           "covered_functions",
           "CPathFind::GeneratePedCreationCoors_Interior"
@@ -24388,16 +24388,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "6ff08f7820857628d8305ae8c6552f51097c01c4180b2d3ed1183dd8c23b1db4",
-        "source/game_sa/PathFind.cpp": "b1660ff5fbda3d692177e1bf2c0f908db35475a9a8b59ca59df744174d19177b",
-        "source/game_sa/PathFind.h": "f9d2e152051e5755f7f6a4783b6d727b6f63cdb2ecac303eef9d19aacc5cf5e4",
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "08af20ae7b3d770242096d83f63478ec08367935398d231ddf98aafcba02c670",
+        "source/game_sa/PathFind.cpp": "a4555bf34524bf2e47bcff1bb8898e22acceebb4642b0dadfa03946685540e38",
+        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21",
         "source/game_sa/MemoryMgr.cpp": "8edba44feb8e34f5567afbf09d045c3a8b97579290277cd043cef4c04be95ebd",
-        "source/game_sa/World.cpp": "0066108864b6c6c3aa13ac5a68da99749b177bd94605ebc3a2c14580018340bd",
-        "source/game_sa/X87Math.cpp": "a54c7a4fc93bd013e8d3449f308057608434f546db26379cc3ae26180ddd493b",
-        "source/game_sa/X87Math.h": "18a04173f5b0140f5bd034f2ee61a1e0dfe36331721ce6c2e74bf627b9bdfefe",
+        "source/game_sa/World.cpp": "3147c6ac6fdd55702a9c876b7650dcf20f7b4a0668d2455df2f69eeaaae602c1",
+        "source/game_sa/X87Math.cpp": "102e2f5a4df65cb2825bce309826d187fc64d728cd4b97afbc457a34bf992d92",
+        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/PathFind62/LiveComparison.hpp": "5a35986937cc08ec5dbf6b9b722a6e8d3409d9d9fe93b228bf3dc3aa4ec9f5ee",
+        "reversing/PathFind62/LiveComparison.hpp": "fe6b91bb6f44e5cc98e903bd7d630939a78725ca71eecc41cbbcb6daa4d474c4",
         "reversing/PathFind62/Core.hpp": "3c7b5f4a415c772e15d5ca9cada075766b41a85932ec3a2617a25825b8c6c595",
         "reversing/PathFind62/Cases.hpp": "0fb8b4249339a7b84d8aecd98861aa12ff89b1c9f538ff5ae6a5ca4bc1ca1dde",
         "reversing/PathFind62/Fixtures.hpp": "824e2653f29f066e34ea720fea1d581eca5db93a2f64a07f9ebf1128acd7759f",
@@ -28128,7 +28128,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlRest63C/validation-summary.json",
-        "sha256": "b5060c1d57fdbf6d2c30e354713890e277b76655da8de9a0a4e0d6070822e4a0",
+        "sha256": "ef7a9b0107aada7a0333b227733c0bf85944d7a3861daba70bb2a07d281382dc",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::PickNextNodeAccordingStrategy"
@@ -28137,16 +28137,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/game_sa/CarCtrl.cpp": "7226f58607b1b93e27eea067cf6f67bbbc6650fdd8113bd313427f898f1adbbe",
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "dd9ef6a35a1dc41537771f5783decbc46281c8bbdf948eceaeba2d18d06ebc5c",
-        "source/game_sa/X87Math.h": "4f94d8be0e74043afa4fdc1b2d2c726c907779d6b9c2d4a4c6a7722c7f9009d4",
+        "source/game_sa/X87Math.cpp": "102e2f5a4df65cb2825bce309826d187fc64d728cd4b97afbc457a34bf992d92",
+        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlRest63C/LiveComparison.hpp": "47b44729d6078059ef0b5fd9cd660831699a0538898eb576203d8689d2e25398",
-        "reversing/CarCtrlRest63C/Core.hpp": "1be54a0d7f4ef654db1b487b00718bbd594510b074b6d897a8d1c5763d496161",
-        "reversing/CarCtrlRest63C/Cases.hpp": "a88307833aa175fdd36a11b4d07e2e76e9cc9786251369206146a5cd35aa8b4e",
-        "reversing/CarCtrlRest63C/Fixtures.hpp": "4fc1278b4502f8243dbcae839bdf991ee9851e368bdcbdf11fd98700f4976b57",
+        "reversing/CarCtrlRest63C/LiveComparison.hpp": "0a436d27cc00c642d183b87148f5b7b80f89a7d65787aaa47246668715f0c283",
+        "reversing/CarCtrlRest63C/Core.hpp": "4e5c5ec04c2d2bfbab16391538e58312eccb37da3f3b1dfec8fbb5eb30e704a8",
+        "reversing/CarCtrlRest63C/Cases.hpp": "37229ae4b5e67bcd8c28d61b6fd870588334c11090206563a183607a82eb6a0b",
+        "reversing/CarCtrlRest63C/Fixtures.hpp": "bcb37ad9d88e776db4f6ee4bef6705a296069e52ac8e240ea18c661daf607077",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
@@ -28164,7 +28164,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlRest63C/validation-summary.json",
-        "sha256": "b5060c1d57fdbf6d2c30e354713890e277b76655da8de9a0a4e0d6070822e4a0",
+        "sha256": "ef7a9b0107aada7a0333b227733c0bf85944d7a3861daba70bb2a07d281382dc",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::JoinCarWithRoadSystem"
@@ -28173,16 +28173,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/game_sa/CarCtrl.cpp": "7226f58607b1b93e27eea067cf6f67bbbc6650fdd8113bd313427f898f1adbbe",
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "dd9ef6a35a1dc41537771f5783decbc46281c8bbdf948eceaeba2d18d06ebc5c",
-        "source/game_sa/X87Math.h": "4f94d8be0e74043afa4fdc1b2d2c726c907779d6b9c2d4a4c6a7722c7f9009d4",
+        "source/game_sa/X87Math.cpp": "102e2f5a4df65cb2825bce309826d187fc64d728cd4b97afbc457a34bf992d92",
+        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlRest63C/LiveComparison.hpp": "47b44729d6078059ef0b5fd9cd660831699a0538898eb576203d8689d2e25398",
-        "reversing/CarCtrlRest63C/Core.hpp": "1be54a0d7f4ef654db1b487b00718bbd594510b074b6d897a8d1c5763d496161",
-        "reversing/CarCtrlRest63C/Cases.hpp": "a88307833aa175fdd36a11b4d07e2e76e9cc9786251369206146a5cd35aa8b4e",
-        "reversing/CarCtrlRest63C/Fixtures.hpp": "4fc1278b4502f8243dbcae839bdf991ee9851e368bdcbdf11fd98700f4976b57",
+        "reversing/CarCtrlRest63C/LiveComparison.hpp": "0a436d27cc00c642d183b87148f5b7b80f89a7d65787aaa47246668715f0c283",
+        "reversing/CarCtrlRest63C/Core.hpp": "4e5c5ec04c2d2bfbab16391538e58312eccb37da3f3b1dfec8fbb5eb30e704a8",
+        "reversing/CarCtrlRest63C/Cases.hpp": "37229ae4b5e67bcd8c28d61b6fd870588334c11090206563a183607a82eb6a0b",
+        "reversing/CarCtrlRest63C/Fixtures.hpp": "bcb37ad9d88e776db4f6ee4bef6705a296069e52ac8e240ea18c661daf607077",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
@@ -28200,7 +28200,7 @@
       },
       "evidence": {
         "path": "reversing/CarCtrlRest63C/validation-summary.json",
-        "sha256": "b5060c1d57fdbf6d2c30e354713890e277b76655da8de9a0a4e0d6070822e4a0",
+        "sha256": "ef7a9b0107aada7a0333b227733c0bf85944d7a3861daba70bb2a07d281382dc",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::JoinCarWithRoadSystemGotoCoors"
@@ -28209,16 +28209,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/game_sa/CarCtrl.cpp": "7226f58607b1b93e27eea067cf6f67bbbc6650fdd8113bd313427f898f1adbbe",
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-        "source/game_sa/X87Math.cpp": "dd9ef6a35a1dc41537771f5783decbc46281c8bbdf948eceaeba2d18d06ebc5c",
-        "source/game_sa/X87Math.h": "4f94d8be0e74043afa4fdc1b2d2c726c907779d6b9c2d4a4c6a7722c7f9009d4",
+        "source/game_sa/X87Math.cpp": "102e2f5a4df65cb2825bce309826d187fc64d728cd4b97afbc457a34bf992d92",
+        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarCtrlRest63C/LiveComparison.hpp": "47b44729d6078059ef0b5fd9cd660831699a0538898eb576203d8689d2e25398",
-        "reversing/CarCtrlRest63C/Core.hpp": "1be54a0d7f4ef654db1b487b00718bbd594510b074b6d897a8d1c5763d496161",
-        "reversing/CarCtrlRest63C/Cases.hpp": "a88307833aa175fdd36a11b4d07e2e76e9cc9786251369206146a5cd35aa8b4e",
-        "reversing/CarCtrlRest63C/Fixtures.hpp": "4fc1278b4502f8243dbcae839bdf991ee9851e368bdcbdf11fd98700f4976b57",
+        "reversing/CarCtrlRest63C/LiveComparison.hpp": "0a436d27cc00c642d183b87148f5b7b80f89a7d65787aaa47246668715f0c283",
+        "reversing/CarCtrlRest63C/Core.hpp": "4e5c5ec04c2d2bfbab16391538e58312eccb37da3f3b1dfec8fbb5eb30e704a8",
+        "reversing/CarCtrlRest63C/Cases.hpp": "37229ae4b5e67bcd8c28d61b6fd870588334c11090206563a183607a82eb6a0b",
+        "reversing/CarCtrlRest63C/Fixtures.hpp": "bcb37ad9d88e776db4f6ee4bef6705a296069e52ac8e240ea18c661daf607077",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
@@ -31744,7 +31744,7 @@
       },
       "evidence": {
         "path": "reversing/CarConvoy75/validation-summary.json",
-        "sha256": "8b1960da6e616e678b896590c812ffac773ecbe9ad955f225df37bcd6ff363b4",
+        "sha256": "979f4df7fdd15edbe787cbfd1a1e824c3d10fad9dbe45451dd11ca0d90e53c0a",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::CreateConvoy"
@@ -31753,14 +31753,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/X87Math.cpp": "1e32d201b83098e0c4b72e1282e82f19e72a5c474b3c82440bcdf9f44bf971c4",
-        "source/game_sa/X87Math.h": "8015654fe6b233947884b917027582d2ea6eafc195c15d1e8a5902034e62c89a",
-        "source/game_sa/CarCtrl.cpp": "ff5ac3721843e1b4cd28fdf961efc365a31e9bbefcecb4fd8a98297a3cb3fd8d",
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "08af20ae7b3d770242096d83f63478ec08367935398d231ddf98aafcba02c670",
+        "source/game_sa/X87Math.cpp": "102e2f5a4df65cb2825bce309826d187fc64d728cd4b97afbc457a34bf992d92",
+        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/CarConvoy75/LiveComparison.hpp": "8c502d89886efed55c7735b4f97723d30f88be8849438ecbb7f8c65dd7abb39d",
+        "reversing/CarConvoy75/LiveComparison.hpp": "24cc940eaa8fc9982fd74411b50c4e3f1f493e0a784546971fc6afe8a80b2e00",
         "reversing/CarConvoy75/Core.hpp": "4054789891b34a191d96d023eedeea5999d6c379ea9dfcb549cd425daf3e97cc",
         "reversing/CarConvoy75/Fixtures.hpp": "672fb4401649c8cdfbaa623ae64c0a66bc8f358c2e1450f07dcdb699f5390095",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -33126,7 +33126,7 @@
       },
       "evidence": {
         "path": "reversing/Car84A/validation-summary.json",
-        "sha256": "fa150bcfa104dbe55666e36f6b1ae95569a13562849baed91e7ece74918a4fa3",
+        "sha256": "6ea5dc71655b386961a930393f0233d309ee4960d1fe94caf2b589d72d48bdd5",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::PickNextNodeRandomly"
@@ -33135,14 +33135,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/X87Math.cpp": "921edd3f8cc299b433419a8ed425ce830e35b55f41b6bab2e939633a2c33f67d",
-        "source/game_sa/X87Math.h": "4f32222b1ddef50be9360058f08574b5d1197160b1a8210f124ba164cd1e6f49",
-        "source/game_sa/CarCtrl.cpp": "18ebe876bc66c47ce10e8491839f46af65cfc7efa5311a84ccff18bc4dcb57c6",
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "08af20ae7b3d770242096d83f63478ec08367935398d231ddf98aafcba02c670",
+        "source/game_sa/X87Math.cpp": "102e2f5a4df65cb2825bce309826d187fc64d728cd4b97afbc457a34bf992d92",
+        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/Car84A/LiveComparison.hpp": "0d95bd4956e837ec7b2c2e37aaa8286592fc9f5b7d9fc1288e75b11a3ba68840",
+        "reversing/Car84A/LiveComparison.hpp": "a11b324a341d6373aaf55827a250601b4116654c46b49fb80533a176ccd08966",
         "reversing/Car84A/Core.hpp": "e6266502554fe9adbc0c28e5a84a44939fac8931e1b04f1df53160863876eea6",
         "reversing/Car84A/Fixtures.hpp": "be4a4008735871d896b3b2cda45b64b5bc9f4ba12d99741f3974f1fcbc9bc151",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -33162,7 +33162,7 @@
       },
       "evidence": {
         "path": "reversing/Car84B/validation-summary.json",
-        "sha256": "d76c06b52c6a17a308a10049cb910bd36e9e824a9ec08ce72e9e2a6d364a85a4",
+        "sha256": "03ef8f3bc3b8939a6081a0cf85cb5d51774efe43466f481cd9d992915dd2a794",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::PickNextNodeToChaseCar"
@@ -33171,16 +33171,16 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
-        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09",
-        "source/game_sa/CarCtrl.cpp": "5b6f98fc43d77a2481cd463d338eedc785b8ff72e9e2e914e840494951ac8a7a",
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "08af20ae7b3d770242096d83f63478ec08367935398d231ddf98aafcba02c670",
+        "source/game_sa/X87Math.cpp": "102e2f5a4df65cb2825bce309826d187fc64d728cd4b97afbc457a34bf992d92",
+        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/Car84B/LiveComparison.hpp": "9bc40dccf4d78683e47c078f8157f861049647c98afcc0804b90816d6ae5424a",
-        "reversing/Car84B/Core.hpp": "5beefb1535aa71e4483a73de5c44917b9f02438ee897bd32a7e34fa9fdda8c23",
-        "reversing/Car84B/Fixtures.hpp": "5a10512e873367d04abce1a6c6eb368842a2bba36a051c2c4af61c685ed2dc70",
+        "reversing/Car84B/LiveComparison.hpp": "01916afe9b4974e06958c3798f12b7b8235f25a19873d4fa4d41a1e4e60ba376",
+        "reversing/Car84B/Core.hpp": "9ada741bcc34b4bb00840ac8529f8db8359f8d8e8d25d6771bb6296f384de6ca",
+        "reversing/Car84B/Fixtures.hpp": "b67eb5887889f76af04355240f809fa4f7152f843ea22827e3b14c139c736a42",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
@@ -33198,7 +33198,7 @@
       },
       "evidence": {
         "path": "reversing/Car84C/validation-summary.json",
-        "sha256": "ef7fa41537851d2c8c16616f9c4d708b721bee5f8cfd8d47e1e1222de4149a8c",
+        "sha256": "2b506174c0c8c312554537e09d1fce297f04d2ea85236cd23b563bf6e7a9fa1b",
         "passed_path": [
           "covered_functions",
           "CCarCtrl::PickNextNodeToFollowPath"
@@ -33207,14 +33207,14 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
-        "source/game_sa/X87Math.cpp": "dd9ef6a35a1dc41537771f5783decbc46281c8bbdf948eceaeba2d18d06ebc5c",
-        "source/game_sa/X87Math.h": "4f94d8be0e74043afa4fdc1b2d2c726c907779d6b9c2d4a4c6a7722c7f9009d4",
-        "source/game_sa/CarCtrl.cpp": "7226f58607b1b93e27eea067cf6f67bbbc6650fdd8113bd313427f898f1adbbe",
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "08af20ae7b3d770242096d83f63478ec08367935398d231ddf98aafcba02c670",
+        "source/game_sa/X87Math.cpp": "102e2f5a4df65cb2825bce309826d187fc64d728cd4b97afbc457a34bf992d92",
+        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
         "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/Car84C/LiveComparison.hpp": "8932b246fbaacad091adc730b4e514045a6b8dd2c3abb1c23febdd1761ce122b",
+        "reversing/Car84C/LiveComparison.hpp": "dcd86b389831d6a7709a03a2ad27fd32411efe7881004a491e95075eabc9f2e2",
         "reversing/Car84C/Core.hpp": "830786c27b77c4062a382abb31a88df655915b6215d9bef3547194d09787a3f8",
         "reversing/Car84C/Fixtures.hpp": "6eab9b1e124c31192a764a112905adba7e9a10fd35519997543760edf1a88b21",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -36419,6 +36419,196 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree D:/Original/ws-1 sobre main 329ab605c con los cambios del lote (ver artifacts/build-manifest.json). Los recursos D3D9 son objetos COM FALSOS con vtable propia (Release ranura 2, GetLevelCount / GetDesc ranura 13, GetLevelDesc ranura 17) que registran sus llamadas en orden y escriben la descripcion entera del caso: no se prueba el dispositivo D3D9 real ni las caches reales de D3DResourceSystem (los buffers son arenas del banco con guardas; la pila de punteros tambien). Colaboradores sustituidos por falsos identicos en la direccion del EXE (sin hook RH en la DLL: la DLL los llama por la misma direccion): operator new 0x82119A (devuelve siempre la pila nueva de la arena y registra el tamano) y operator delete 0x8214BD (solo registra el puntero; el EXE lo llama tambien con nulo), armados solo durante la llamada probada y en el hilo del banco. GetTotalDataSize de D3DTextureBuffer se compila con /O2 /Oi /arch:IA32 /fp:fast (x87 de 24 bits: fild, fadd 2^32, fmul 4/3, fiadd y __ftol/_ftol2) y se compara con un oraculo que redondea cada operacion a 24 bits. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (eventos en orden, palabras del buffer, cambios de la pila, de las guardas y de la pila nueva). Fuera de los fixtures: cantidades negativas o mayores que la pila en Pop/Resize/GetTotalDataSize generico (el EXE indexa fuera del arreglo), capacidades de bit alto en Resize (indice negativo), el dispositivo D3D9 real, el valor de EAX/ECX/EDX de las funciones void y los bits altos de AL.",
       "review_reference": "reversing/Fn95A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarPathLink",
+        "fn_name": "OneWayLaneOffset",
+        "address": "0x0044DB00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn93A/validation-summary.json",
+        "sha256": "7d20d8473c1a78dff895d48d45a4aea9fbc2750db471bbb1ed0c25eef5124e17",
+        "passed_path": [
+          "covered_functions",
+          "CCarPathLink::OneWayLaneOffset"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "08af20ae7b3d770242096d83f63478ec08367935398d231ddf98aafcba02c670",
+        "source/game_sa/X87Math.cpp": "f0eaa9231109eb4be82716eadf7d12ddc9a186a6d32a3f7579bb4a2b57ac19c7",
+        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
+        "source/game_sa/PathFind.cpp": "caa2c3cfb261f33f80bd0eb130be2d19e98275ba55ce9479145b0d4e08c30352",
+        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
+        "source/game_sa/CarCtrlGenerateOneRandomCar.inl": "c598caed7c24b87d58bd61e0b2a84e1354abf8b8d421f59b5c570e06dec84b89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn93A/LiveComparison.hpp": "5cb0f22ceab292116fc1f7935c6b55a71b512120603641c67d6da57a9190ebb4",
+        "reversing/Fn93A/Core.hpp": "e16f2af131893ee6ed135271254df3930e984d0e3557c5839d8c0c88b2aa43be",
+        "reversing/Fn93A/Fixtures.hpp": "be1ddc50aba8dfbfb91d6b3f3d2080f6f7465c788fb346c0eccb745e998fb29d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main 329ab605c con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, como tienen hook RH en la DLL (apagado durante el banco), en su cuerpo del ASI: CalcDistToAnyConnectingLinks: CCollision::DistToLineSqr 0x412850; FindNodeClosestInRegion: CalcDistToAnyConnectingLinks 0x44F190. Los falsos registran sus argumentos en orden y devuelven el resultado k del caso. NO se sustituyen y corren de verdad en ambos lados: CPathNode::GetPosition 0x420A10 (hook activo) y toda la aritmetica x87 del EXE frente al C++ de la DLL (con ayudantes x87 de X87Math.cpp donde el SSE con FTZ difiere). Memoria real del juego restaurada tras cada lado: las matrices de punteros de ThePaths 0x96F854..0x96FDF4 (StoreInteriorNodeLink, que usa globales sin this). El banco compara los eventos de los falsos con todos sus argumentos, los bytes cambiados de todas las arenas y el ST0 devuelto (funciones 0 y 3); cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits y memoria predicha). Fuera de los fixtures: indices de nodo fuera de los bancos de 8/12 nodos, areas fuera de 0..71, contadores de enlaces mayores que la capacidad, nodeA con mas de -2 como byte con signo, NaN con cargas distintas de 0xFFC00000, NaN senalizantes y la exactitud de los colaboradores falseados (que se hereda).",
+      "review_reference": "reversing/Fn93A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPathFind",
+        "fn_name": "RemoveBadStartNode",
+        "address": "0x0044E4F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn93A/validation-summary.json",
+        "sha256": "7d20d8473c1a78dff895d48d45a4aea9fbc2750db471bbb1ed0c25eef5124e17",
+        "passed_path": [
+          "covered_functions",
+          "CPathFind::RemoveBadStartNode"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "08af20ae7b3d770242096d83f63478ec08367935398d231ddf98aafcba02c670",
+        "source/game_sa/X87Math.cpp": "f0eaa9231109eb4be82716eadf7d12ddc9a186a6d32a3f7579bb4a2b57ac19c7",
+        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
+        "source/game_sa/PathFind.cpp": "caa2c3cfb261f33f80bd0eb130be2d19e98275ba55ce9479145b0d4e08c30352",
+        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
+        "source/game_sa/CarCtrlGenerateOneRandomCar.inl": "c598caed7c24b87d58bd61e0b2a84e1354abf8b8d421f59b5c570e06dec84b89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn93A/LiveComparison.hpp": "5cb0f22ceab292116fc1f7935c6b55a71b512120603641c67d6da57a9190ebb4",
+        "reversing/Fn93A/Core.hpp": "e16f2af131893ee6ed135271254df3930e984d0e3557c5839d8c0c88b2aa43be",
+        "reversing/Fn93A/Fixtures.hpp": "be1ddc50aba8dfbfb91d6b3f3d2080f6f7465c788fb346c0eccb745e998fb29d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main 329ab605c con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, como tienen hook RH en la DLL (apagado durante el banco), en su cuerpo del ASI: CalcDistToAnyConnectingLinks: CCollision::DistToLineSqr 0x412850; FindNodeClosestInRegion: CalcDistToAnyConnectingLinks 0x44F190. Los falsos registran sus argumentos en orden y devuelven el resultado k del caso. NO se sustituyen y corren de verdad en ambos lados: CPathNode::GetPosition 0x420A10 (hook activo) y toda la aritmetica x87 del EXE frente al C++ de la DLL (con ayudantes x87 de X87Math.cpp donde el SSE con FTZ difiere). Memoria real del juego restaurada tras cada lado: las matrices de punteros de ThePaths 0x96F854..0x96FDF4 (StoreInteriorNodeLink, que usa globales sin this). El banco compara los eventos de los falsos con todos sus argumentos, los bytes cambiados de todas las arenas y el ST0 devuelto (funciones 0 y 3); cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits y memoria predicha). Fuera de los fixtures: indices de nodo fuera de los bancos de 8/12 nodos, areas fuera de 0..71, contadores de enlaces mayores que la capacidad, nodeA con mas de -2 como byte con signo, NaN con cargas distintas de 0xFFC00000, NaN senalizantes y la exactitud de los colaboradores falseados (que se hereda).",
+      "review_reference": "reversing/Fn93A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPathFind",
+        "fn_name": "StoreInteriorNodeLink",
+        "address": "0x00450FB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn93A/validation-summary.json",
+        "sha256": "7d20d8473c1a78dff895d48d45a4aea9fbc2750db471bbb1ed0c25eef5124e17",
+        "passed_path": [
+          "covered_functions",
+          "CPathFind::StoreInteriorNodeLink"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "08af20ae7b3d770242096d83f63478ec08367935398d231ddf98aafcba02c670",
+        "source/game_sa/X87Math.cpp": "f0eaa9231109eb4be82716eadf7d12ddc9a186a6d32a3f7579bb4a2b57ac19c7",
+        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
+        "source/game_sa/PathFind.cpp": "caa2c3cfb261f33f80bd0eb130be2d19e98275ba55ce9479145b0d4e08c30352",
+        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
+        "source/game_sa/CarCtrlGenerateOneRandomCar.inl": "c598caed7c24b87d58bd61e0b2a84e1354abf8b8d421f59b5c570e06dec84b89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn93A/LiveComparison.hpp": "5cb0f22ceab292116fc1f7935c6b55a71b512120603641c67d6da57a9190ebb4",
+        "reversing/Fn93A/Core.hpp": "e16f2af131893ee6ed135271254df3930e984d0e3557c5839d8c0c88b2aa43be",
+        "reversing/Fn93A/Fixtures.hpp": "be1ddc50aba8dfbfb91d6b3f3d2080f6f7465c788fb346c0eccb745e998fb29d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main 329ab605c con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, como tienen hook RH en la DLL (apagado durante el banco), en su cuerpo del ASI: CalcDistToAnyConnectingLinks: CCollision::DistToLineSqr 0x412850; FindNodeClosestInRegion: CalcDistToAnyConnectingLinks 0x44F190. Los falsos registran sus argumentos en orden y devuelven el resultado k del caso. NO se sustituyen y corren de verdad en ambos lados: CPathNode::GetPosition 0x420A10 (hook activo) y toda la aritmetica x87 del EXE frente al C++ de la DLL (con ayudantes x87 de X87Math.cpp donde el SSE con FTZ difiere). Memoria real del juego restaurada tras cada lado: las matrices de punteros de ThePaths 0x96F854..0x96FDF4 (StoreInteriorNodeLink, que usa globales sin this). El banco compara los eventos de los falsos con todos sus argumentos, los bytes cambiados de todas las arenas y el ST0 devuelto (funciones 0 y 3); cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits y memoria predicha). Fuera de los fixtures: indices de nodo fuera de los bancos de 8/12 nodos, areas fuera de 0..71, contadores de enlaces mayores que la capacidad, nodeA con mas de -2 como byte con signo, NaN con cargas distintas de 0xFFC00000, NaN senalizantes y la exactitud de los colaboradores falseados (que se hereda).",
+      "review_reference": "reversing/Fn93A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPathFind",
+        "fn_name": "CalcDistToAnyConnectingLinks",
+        "address": "0x0044F190",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn93A/validation-summary.json",
+        "sha256": "7d20d8473c1a78dff895d48d45a4aea9fbc2750db471bbb1ed0c25eef5124e17",
+        "passed_path": [
+          "covered_functions",
+          "CPathFind::CalcDistToAnyConnectingLinks"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "08af20ae7b3d770242096d83f63478ec08367935398d231ddf98aafcba02c670",
+        "source/game_sa/X87Math.cpp": "f0eaa9231109eb4be82716eadf7d12ddc9a186a6d32a3f7579bb4a2b57ac19c7",
+        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
+        "source/game_sa/PathFind.cpp": "caa2c3cfb261f33f80bd0eb130be2d19e98275ba55ce9479145b0d4e08c30352",
+        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
+        "source/game_sa/CarCtrlGenerateOneRandomCar.inl": "c598caed7c24b87d58bd61e0b2a84e1354abf8b8d421f59b5c570e06dec84b89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn93A/LiveComparison.hpp": "5cb0f22ceab292116fc1f7935c6b55a71b512120603641c67d6da57a9190ebb4",
+        "reversing/Fn93A/Core.hpp": "e16f2af131893ee6ed135271254df3930e984d0e3557c5839d8c0c88b2aa43be",
+        "reversing/Fn93A/Fixtures.hpp": "be1ddc50aba8dfbfb91d6b3f3d2080f6f7465c788fb346c0eccb745e998fb29d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main 329ab605c con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, como tienen hook RH en la DLL (apagado durante el banco), en su cuerpo del ASI: CalcDistToAnyConnectingLinks: CCollision::DistToLineSqr 0x412850; FindNodeClosestInRegion: CalcDistToAnyConnectingLinks 0x44F190. Los falsos registran sus argumentos en orden y devuelven el resultado k del caso. NO se sustituyen y corren de verdad en ambos lados: CPathNode::GetPosition 0x420A10 (hook activo) y toda la aritmetica x87 del EXE frente al C++ de la DLL (con ayudantes x87 de X87Math.cpp donde el SSE con FTZ difiere). Memoria real del juego restaurada tras cada lado: las matrices de punteros de ThePaths 0x96F854..0x96FDF4 (StoreInteriorNodeLink, que usa globales sin this). El banco compara los eventos de los falsos con todos sus argumentos, los bytes cambiados de todas las arenas y el ST0 devuelto (funciones 0 y 3); cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits y memoria predicha). Fuera de los fixtures: indices de nodo fuera de los bancos de 8/12 nodos, areas fuera de 0..71, contadores de enlaces mayores que la capacidad, nodeA con mas de -2 como byte con signo, NaN con cargas distintas de 0xFFC00000, NaN senalizantes y la exactitud de los colaboradores falseados (que se hereda).",
+      "review_reference": "reversing/Fn93A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPathFind",
+        "fn_name": "FindNodeClosestInRegion",
+        "address": "0x0044F2C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn93A/validation-summary.json",
+        "sha256": "7d20d8473c1a78dff895d48d45a4aea9fbc2750db471bbb1ed0c25eef5124e17",
+        "passed_path": [
+          "covered_functions",
+          "CPathFind::FindNodeClosestInRegion"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "08af20ae7b3d770242096d83f63478ec08367935398d231ddf98aafcba02c670",
+        "source/game_sa/X87Math.cpp": "f0eaa9231109eb4be82716eadf7d12ddc9a186a6d32a3f7579bb4a2b57ac19c7",
+        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
+        "source/game_sa/PathFind.cpp": "caa2c3cfb261f33f80bd0eb130be2d19e98275ba55ce9479145b0d4e08c30352",
+        "source/game_sa/PathFind.h": "2507d568c718e671ffdbdd09a9e568408bad74db7d663f7614c56afcab275d21",
+        "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
+        "source/game_sa/CarCtrlGenerateOneRandomCar.inl": "c598caed7c24b87d58bd61e0b2a84e1354abf8b8d421f59b5c570e06dec84b89",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn93A/LiveComparison.hpp": "5cb0f22ceab292116fc1f7935c6b55a71b512120603641c67d6da57a9190ebb4",
+        "reversing/Fn93A/Core.hpp": "e16f2af131893ee6ed135271254df3930e984d0e3557c5839d8c0c88b2aa43be",
+        "reversing/Fn93A/Fixtures.hpp": "be1ddc50aba8dfbfb91d6b3f3d2080f6f7465c788fb346c0eccb745e998fb29d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main 329ab605c con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, como tienen hook RH en la DLL (apagado durante el banco), en su cuerpo del ASI: CalcDistToAnyConnectingLinks: CCollision::DistToLineSqr 0x412850; FindNodeClosestInRegion: CalcDistToAnyConnectingLinks 0x44F190. Los falsos registran sus argumentos en orden y devuelven el resultado k del caso. NO se sustituyen y corren de verdad en ambos lados: CPathNode::GetPosition 0x420A10 (hook activo) y toda la aritmetica x87 del EXE frente al C++ de la DLL (con ayudantes x87 de X87Math.cpp donde el SSE con FTZ difiere). Memoria real del juego restaurada tras cada lado: las matrices de punteros de ThePaths 0x96F854..0x96FDF4 (StoreInteriorNodeLink, que usa globales sin this). El banco compara los eventos de los falsos con todos sus argumentos, los bytes cambiados de todas las arenas y el ST0 devuelto (funciones 0 y 3); cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits y memoria predicha). Fuera de los fixtures: indices de nodo fuera de los bancos de 8/12 nodos, areas fuera de 0..71, contadores de enlaces mayores que la capacidad, nodeA con mas de -2 como byte con signo, NaN con cargas distintas de 0xFFC00000, NaN senalizantes y la exactitud de los colaboradores falseados (que se hereda).",
+      "review_reference": "reversing/Fn93A/README.md"
     }
   ]
 }
