@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,025 entradas reversed=1**, de 9,025 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,026 entradas reversed=1**, de 9,026 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9025 |
+| `validated=1` · evidencia aprobada vinculada | 9026 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9025 |
+| Evidencia histórica vinculada; revisión pendiente | 9026 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -8154,6 +8154,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CWaterLevel | `RenderHighDetailWaterRectangle` | [Resumen](../reversing/WaterLevel62/validation-summary.json) |
 | CWaterLevel | `RenderHighDetailWaterTriangle` | [Resumen](../reversing/WaterLevel62/validation-summary.json) |
 | CWaterLevel | `RenderSeaBedSegment` | [Resumen](../reversing/Helpers67W/validation-summary.json) |
+| CWaterLevel | `RenderSeaBedSegmentNear` | [Resumen](../reversing/Fn88B/validation-summary.json) |
 | CWaterLevel | `RenderWakeSegment` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CWaterLevel | `RenderWater` | [Resumen](../reversing/WaterRender355/validation-summary.json) |
 | CWaterLevel | `RenderWaterFog` | [Resumen](../reversing/WaterFog355/validation-summary.json) |
@@ -9800,7 +9801,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CWanted` | 33 | 0 | 33 | 0 |
 | `CWaterCannon` | 5 | 0 | 5 | 0 |
 | `CWaterCannons` | 4 | 0 | 4 | 0 |
-| `CWaterLevel` | 40 | 0 | 40 | 0 |
+| `CWaterLevel` | 41 | 0 | 41 | 0 |
 | `CWeapon` | 41 | 0 | 41 | 0 |
 | `CWeaponEffects` | 10 | 0 | 10 | 0 |
 | `CWeaponInfo` | 10 | 0 | 10 | 0 |

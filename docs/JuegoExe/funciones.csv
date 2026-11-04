@@ -10609,7 +10609,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006E61B0,1505,reemplazada,CWaterLevel,alta,,2,2,,
 0x006E67A0,208,D,CWaterLevel,alta,,0,0,,
 0x006E6870,412,reemplazada,CWaterLevel,alta,,2,2,,
-0x006E6A10,646,envoltura,CWaterLevel,alta,,2,2,,
+0x006E6A10,646,reemplazada,CWaterLevel,alta,,2,2,,
 0x006E6CA0,103,reemplazada,CWaterLevel,exacta,CWaterLevel::BlockHit,0,0,,
 0x006E6D10,392,reemplazada,CWaterLevel,exacta,CWaterLevel::ScanThroughBlocks,1,1,,
 0x006E6EF0,794,reemplazada,CWaterLevel,exacta,CWaterLevel::CalculateWavesOnlyForCoordinate,2,0,,
