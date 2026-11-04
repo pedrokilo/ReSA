@@ -88,7 +88,7 @@ inline uint32 Needs(const std::string& nm){
     return 0; }
 
 // cuerpos de la DLL de los colaboradores (se calculan antes de crear ningun EntryPatch y con los hooks en su estado inicial)
-struct Bodies { uintptr_t timerSuspend{}, timerResume{}, request{}, remove{}, ped{}, coors{}, save{}, load{}, memAlloc{}; };
+struct Bodies { uintptr_t timerSuspend{}, timerResume{}, request{}, remove{}, ped{}, coors{}, save{}, load{}, memAlloc{}, closest{}; };
 
 inline json RunCase(const std::string& nm,Rng& r){
     if(nm=="AddDynamicLinkBetween2Nodes_For1Node") return C_AddDynamicLink(r);
@@ -169,6 +169,7 @@ inline void Update() {
     B.save=Body(static_cast<bool(*)(void*,int32)>(&CGenericGameStorage::SaveDataToWorkBuffer)); B.load=Body(static_cast<bool(*)(void*,int32)>(&CGenericGameStorage::LoadDataFromWorkBuffer));
     // CMemoryMgr::Malloc (0x72F420) esta reconstruida y enganchada: su cuerpo en C++ llama al malloc del CRT (0x824257) sin pasar por 0x72F420
     B.memAlloc=Body(static_cast<void*(*)(uint32,uint32)>(&CMemoryMgr::Malloc));
+    B.closest=Body(&CPathFind::FindNodeClosestToCoors);   // reconstruida: la DLL la llama directamente (mismo falso en direccion y cuerpo)
     if(!B.timerSuspend||!B.timerResume||!B.request||!B.remove||!B.ped||!B.coors||!B.save||!B.load||!B.memAlloc){
         Write({{"event","error"},{"reason","DLL body not found"},{"suspend",B.timerSuspend},{"resume",B.timerResume},{"request",B.request},{"remove",B.remove},{"ped",B.ped},{"coors",B.coors},{"save",B.save},{"load",B.load},{"memAlloc",B.memAlloc}}); return; }
     {   std::set<uintptr_t> all{B.timerSuspend,B.timerResume,B.request,B.remove,B.ped,B.coors,B.save,B.load,B.memAlloc};
@@ -240,7 +241,7 @@ inline void Update() {
                   if(need&N_MEM){ P.Add(0x72F420,S_Malloc); P.Add(B.memAlloc,S_Malloc); P.Add(0x72F430,S_Free); }
                   if(need&N_STREAM){ P.Add(0x7ECEF0,S_RwOpen); P.Add(0x7EC9D0,S_RwRead); P.Add(0x7ECE20,S_RwClose); }
                   if(need&N_TIMER){ P.Add(0x5619D0,S_TimerSuspend); P.Add(B.timerSuspend,S_TimerSuspend); P.Add(0x561A00,S_TimerResume); P.Add(B.timerResume,S_TimerResume); }
-                  if(need&N_CLOSEST) P.Add(0x44F460,S_Closest);
+                  if(need&N_CLOSEST){ P.Add(0x44F460,S_Closest); if(B.closest)P.Add(B.closest,S_Closest); }
                   if(need&N_STREAMING){ P.Add(0x4087E0,S_Request); P.Add(B.request,S_Request); P.Add(0x4089A0,S_Remove); P.Add(B.remove,S_Remove); }
                   if(need&N_PLAYER){ P.Add(0x56E210,S_FindPed); P.Add(B.ped,S_FindPed); P.Add(0x56E010,S_FindCoors); P.Add(B.coors,S_FindCoors); }
                   if(need&N_STORAGE){ P.Add(0x5D1270,S_Save); P.Add(B.save,S_Save); P.Add(0x5D1300,S_Load); P.Add(B.load,S_Load); }

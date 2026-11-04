@@ -30,7 +30,7 @@
   "log_sha256": "126893270f3ff2addcbf7651180376ae465dfb8b889a4874b2ebf1c0cb974020",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-evhd\\20261007-144904-298079",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-evhd\\20261104-013153-950998",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CEventHandler::ComputeSeenCopResponse": true,
@@ -49,22 +49,23 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "55ad8b384289aa41e32de9182f6a914979e4517e37ba7f0f8c1003d8ef99bfc0",
-      "pdb": "4c5f7969af71de4d879bcbbeefe0e1134cc5362917b0ba2a2196a3ec053c3c79"
+      "asi": "38cd94d1e839c85b1259fbc534d7acbe4cbad5442fe9806322929f5dddcdcab9",
+      "pdb": "61a01c973218d59f0fb673eca3280d19928298c4f4e19ff86469a21c08a784b4"
     },
     "sources": {
-      "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
+      "source/game_sa/Events/EventHandler.cpp": "b75c54ed64c94dab4e867d57b40d760d6d5e5fa90020a767cf014b9e18b59de7",
       "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "b4fa104fa3ebee36aeda572aa93e90a89d4dc7403663a9dffab3ed98a7d7d66f",
+      "LiveComparison.hpp": "7cc89ae515e9555074c0970469b082dbbe0b49e2b5c94f610a550a9820d5ce58",
       "build_probe.py": "527a32bff6953926f020691a3eecce79ae61c8e855bcc22fb1e4f8d8c34a432e",
       "run_local.py": "46c38720489de88bd6ff07c489e2ca94fdc28fdabb2fb88efc7c152483d008a7"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-11-04 tras reconstruir colaboradores (lotes 67 a 89 y anteriores); el banco se adapto a ellos: falsos identicos en la direccion del EXE y en el cuerpo/simbolo de la DLL (ver su README.md)."
   ]
 }

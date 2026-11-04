@@ -249,7 +249,7 @@ inline void Update() {
         EntryPatch s1(bit_cast<uintptr_t>(static_cast<int16(CPed::*)(eGlobalSpeechContext,uint32,float,bool,bool,bool)>(&CPed::Say)),FakeSay), s1e(0x5EFFE0,FakeSay);
         EntryPatch s2(bit_cast<uintptr_t>(&CPed::GetPedTalking),FakeTalking), s2e(0x5EFF50,FakeTalking);
         EntryPatch s3(bit_cast<uintptr_t>(&CPed::DettachPedFromEntity),FakeDettach), s3e(0x5E7EC0,FakeDettach);
-        EntryPatch s4e(0x602590,FakeInteresting); // CInterestingEvents::Add del DLL llama al EXE
+        EntryPatch s4(bit_cast<uintptr_t>(&CInterestingEvents::Add),FakeInteresting), s4e(0x602590,FakeInteresting); // CInterestingEvents::Add reconstruida: mismo falso en la DLL
         EntryPatch s5(bit_cast<uintptr_t>(&CPedIntelligence::FindTaskByType),FakeFindTask), s5e(0x600EE0,FakeFindTask);
         EntryPatch s6(bit_cast<uintptr_t>(&CPedGroups::GetPedsGroup),FakePedsGroup), s6e(0x5F7E80,FakePedsGroup);
         EntryPatch s7(bit_cast<uintptr_t>(static_cast<bool(*)(eModelID)>(&CPopulation::IsSunbather)),FakeSunbather), s7e(0x611760,FakeSunbather);

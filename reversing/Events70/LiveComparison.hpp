@@ -224,7 +224,9 @@ inline void Update() {
         using ReversingProbe::EntryPatch; using std::bit_cast;
         EntryPatch s1(bit_cast<uintptr_t>(static_cast<CPlayerPed*(*)(int32)>(&FindPlayerPed)),FindPlayer), s1e(0x56E210,FindPlayer);
         EntryPatch s2(bit_cast<uintptr_t>(&CTheScripts::IsPlayerOnAMission),OnMission), s2e(0x464D50,OnMission);
-        EntryPatch s3e(0x5F7F40,SameGroup), s4e(0x5F1CB0,IsInAir), s5e(0x5F3AC0,HitSide);   // envolturas de la DLL que llaman al EXE
+        EntryPatch s3(bit_cast<uintptr_t>(&CPedGroups::AreInSameGroup),SameGroup), s3e(0x5F7F40,SameGroup),
+                   s4(bit_cast<uintptr_t>(&CPedGeometryAnalyser::IsInAir),IsInAir), s4e(0x5F1CB0,IsInAir),
+                   s5(bit_cast<uintptr_t>(static_cast<int32(*)(const CVector&,CEntity&)>(&CPedGeometryAnalyser::ComputeEntityHitSide)),HitSide), s5e(0x5F3AC0,HitSide);   // reconstruidas: mismo falso en direccion y en la DLL
         EntryPatch s6(bit_cast<uintptr_t>(static_cast<bool(*)(const CPed&,CEntity&,CVector&)>(&CPedGeometryAnalyser::ComputeClosestSurfacePoint)),ClosestSurface), s6e(0x5F3B70,ClosestSurface);
         EntryPatch s7(bit_cast<uintptr_t>(&CTaskComplexEnterCar::GetTargetPos),TargetPos), s7e(0x63A300,TargetPos);
         EntryPatch s8(bit_cast<uintptr_t>(&CTaskComplexWalkRoundCar::SetNewVehicle),SetNewVeh), s8e(0x654290,SetNewVeh);

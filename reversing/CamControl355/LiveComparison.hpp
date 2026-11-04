@@ -127,17 +127,17 @@ inline void Update(){
  EntryPatch cyclePatch(0x5404A0,Cycle),cycleDll(bit_cast<uintptr_t>(&CPad::GetCameraCycleUp),Cycle);
  EntryPatch stickXPatch(0x540E80,StickX),stickXDll(bit_cast<uintptr_t>(&CPad::GetMouseCameraStickHorizontal),StickX);
  EntryPatch stickYPatch(0x540F80,StickY),stickYDll(bit_cast<uintptr_t>(&CPad::GetMouseCameraStickVertical),StickY);
- EntryPatch doorsPatch(0x449FF0,Doors);
+ EntryPatch doorsPatch(0x449FF0,Doors),doorsDll(bit_cast<uintptr_t>(&CGarage::FindDoorsWithGarage),Doors);   // la DLL llama ahora a CGarage::FindDoorsWithGarage reconstruida: mismo falso en la entrada de la DLL
  // CCamera::CamControl (DLL) llama a CZoneDef::GetCenter de la DLL directamente (CameraControlZoneCameraPosition): el mismo falso en la entrada de la DLL (Body calculado ANTES de crear parches, para no seguir un salto propio).
  const uintptr_t zoneCenterThunk=bit_cast<uintptr_t>(&CZoneDef::GetCenter),zoneCenterBody=Body(zoneCenterThunk);
  EntryPatch zonePositionPatch(0x72D6D0,ZonePosition),zonePositionDll(zoneCenterThunk,ZonePosition);
  std::unique_ptr<EntryPatch> zonePositionBody;if(zoneCenterBody!=zoneCenterThunk)zonePositionBody=std::make_unique<EntryPatch>(zoneCenterBody,ZonePosition);
- EntryPatch bufferPatch(0x509AE0,Buffer);
- EntryPatch cinemaCarPatch(0x5267C0,CinemaCar);
- EntryPatch cinemaTrainPatch(0x526950,CinemaTrain);
- EntryPatch cinemaHeliPatch(0x526AE0,CinemaHeli);
- EntryPatch cinemaPlanePatch(0x526C80,CinemaPlane);
- EntryPatch cinemaBoatPatch(0x526E20,CinemaBoat);
+ EntryPatch bufferPatch(0x509AE0,Buffer),bufferDll(bit_cast<uintptr_t>(&WellBufferMe),Buffer);   // reconstruida: mismo falso en la DLL
+ EntryPatch cinemaCarPatch(0x5267C0,CinemaCar),cinemaCarDll(bit_cast<uintptr_t>(&CCamera::ProcessObbeCinemaCameraCar),CinemaCar);
+ EntryPatch cinemaTrainPatch(0x526950,CinemaTrain),cinemaTrainDll(bit_cast<uintptr_t>(&CCamera::ProcessObbeCinemaCameraTrain),CinemaTrain);
+ EntryPatch cinemaHeliPatch(0x526AE0,CinemaHeli),cinemaHeliDll(bit_cast<uintptr_t>(&CCamera::ProcessObbeCinemaCameraHeli),CinemaHeli);
+ EntryPatch cinemaPlanePatch(0x526C80,CinemaPlane),cinemaPlaneDll(bit_cast<uintptr_t>(&CCamera::ProcessObbeCinemaCameraPlane),CinemaPlane);
+ EntryPatch cinemaBoatPatch(0x526E20,CinemaBoat),cinemaBoatDll(bit_cast<uintptr_t>(&CCamera::ProcessObbeCinemaCameraBoat),CinemaBoat);
 
  const auto savedPlayer0=StaticRef<CPed*>(0xB7CD98),savedPlayer1=StaticRef<CPed*>(0xB7CF28);const auto savedActive=StaticRef<uint8>(0xB7CD74);
  const auto savedMS=CTimer::GetTimeInMS();const auto savedStep=CTimer::GetTimeStep();const auto savedPause0=StaticRef<uint8>(0xB7CB48),savedPause1=StaticRef<uint8>(0xB7CB49),savedReplay=StaticRef<uint8>(0xA43088),savedModel=StaticRef<uint8>(0xBA6728),savedVisible=StaticRef<uint8>(0x8CC380),savedDraw=StaticRef<uint8>(0x8D5109);

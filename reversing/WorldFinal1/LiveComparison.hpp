@@ -376,6 +376,8 @@ inline void Update() {
     const uintptr_t dllMoving=Body(&CPhysical::AddToMovingList);
     const uintptr_t dllWorldAdd=Body(&CWorld::Add), dllWorldRemove=Body(&CWorld::Remove);
     const uintptr_t dllDefined=Body(&DefinedState);
+    const uintptr_t dllAutoPreRender=DllBody("CAutomobile","PreRender");   // reconstruida: CMonsterTruck::PreRender de la DLL la llama directamente
+    const uintptr_t dllVis=Body(static_cast<bool(CCamera::*)(const CVector&,float,RwMatrix*)>(&CCamera::IsSphereVisible));   // reconstruida: CRope::Render de la DLL la llama directamente
     const uintptr_t dllWheel=Body(&CVehicleModelInfo::GetWheelPosn);
     const uintptr_t dllTrans=Body(&CVehicle::SetTransmissionRotation), dllComp=Body(&CVehicle::SetComponentRotation);
     const uintptr_t dllPcm=Body(&CCollision::ProcessColModels), dllAddRec=Body(&CPhysical::AddCollisionRecord);
@@ -456,7 +458,7 @@ inline void Update() {
                     P.Add(0x571B70,S_Reg); P.Add(dllReg,S_Reg); P.Add(0x563220,S_WorldAdd); P.Add(dllWorldAdd,S_WorldAdd);
                     out["state"]=CaseCreate(r); }
                 else if(nm=="Render"){
-                    P.Add(0x420C40,S_Vis); P.Add(0x734650,S_Defined); P.Add(dllDefined,S_Defined);
+                    P.Add(0x420C40,S_Vis); P.Add(dllVis,S_Vis); P.Add(0x734650,S_Defined); P.Add(dllDefined,S_Defined);
                     P.Add(0x7EF450,S_Transform); P.Add(0x7EF550,S_RenderIdx); P.Add(0x7EF520,S_Im3dEnd);
                     AtA<uintptr_t>(renderFpAddr)=reinterpret_cast<uintptr_t>(&S_RenderState);
                     out["state"]=CaseRender(r);
@@ -467,7 +469,7 @@ inline void Update() {
                 else if(nm=="BurstTyre"){ out["state"]=CaseBurst(r,target); }
                 else if(nm=="SetUpWheelColModel"){ out["state"]=CaseSetUpWheel(r,target); }
                 else if(nm=="PreRender"){
-                    P.Add(0x6AAB50,S_AutoPreRender); P.Add(0x4C7D20,S_Wheel); P.Add(dllWheel,S_Wheel);
+                    P.Add(0x6AAB50,S_AutoPreRender); if(dllAutoPreRender)P.Add(dllAutoPreRender,S_AutoPreRender); P.Add(0x4C7D20,S_Wheel); P.Add(dllWheel,S_Wheel);
                     P.Add(0x6DBBB0,S_Trans); P.Add(dllTrans,S_Trans); P.Add(0x6DBA30,S_Comp); P.Add(dllComp,S_Comp);
                     out["state"]=CasePreRender(r,target); }
                 else if(nm=="ProcessEntityCollision"){

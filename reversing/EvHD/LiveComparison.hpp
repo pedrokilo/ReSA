@@ -201,7 +201,7 @@ inline void Update() {
         EntryPatch s6(bit_cast<uintptr_t>(static_cast<int16(CPed::*)(eGlobalSpeechContext,uint32,float,bool,bool,bool)>(&CPed::Say)),Say), s6e(0x5EFFE0,Say);
         EntryPatch s7(bit_cast<uintptr_t>(&CPedIntelligence::GetTaskDuck),GetDuck), s7e(0x6010A0,GetDuck);
         EntryPatch s8(bit_cast<uintptr_t>(&CTaskSimpleDuck::RestartTask),DuckRestart), s8e(0x692390,DuckRestart);
-        EntryPatch s9e(0x5F7E80,GetGroupStub);   // CPedGroups::GetPedsGroup de la DLL llama al EXE
+        EntryPatch s9(bit_cast<uintptr_t>(&CPedGroups::GetPedsGroup),GetGroupStub), s9e(0x5F7E80,GetGroupStub);   // reconstruida: mismo falso en direccion y en la DLL
         EntryPatch s10(bit_cast<uintptr_t>(&CPedIntelligence::IsPedGoingForCarDoor),GoingForDoor), s10e(0x602350,GoingForDoor);
         EntryPatch s11(bit_cast<uintptr_t>(static_cast<int32(*)(const CPed&,const CVector&)>(&CPedGeometryAnalyser::ComputePedHitSide)),HitSide), s11e(0x5F1E70,HitSide);
         EntryPatch s12(bit_cast<uintptr_t>(static_cast<void(CPhysical::*)(CVector)>(&CPhysical::ApplyMoveForce)),ApplyForce), s12e(0x5429F0,ApplyForce);

@@ -346,7 +346,7 @@ inline void Update() {
         EntryPatch t2(bit_cast<uintptr_t>(&CCarEnterExit::RemoveCarSitAnim),FakeRemoveSit), t2e(0x64F680,FakeRemoveSit);
         EntryPatch c1(bit_cast<uintptr_t>(static_cast<bool(CCamera::*)(const CVector&,float,RwMatrix*)>(&CCamera::IsSphereVisible)),FakeSphereVis), c1e(0x420C40,FakeSphereVis);   // la DLL llama a la de 3 args directamente (la de 2 args no tiene hook)
         EntryPatch c2(bit_cast<uintptr_t>(&CWorld::FindMissionEntitiesIntersectingCube),FakeFindMission), c2e(0x569240,FakeFindMission);
-        EntryPatch c3e(0x4342A0,FakeSetCoords);    // SetCoordsOfScriptCar: envoltorio en la DLL
+        EntryPatch c3(bit_cast<uintptr_t>(&CCarCtrl::SetCoordsOfScriptCar),FakeSetCoords), c3e(0x4342A0,FakeSetCoords);    // SetCoordsOfScriptCar: reconstruida en la DLL; mismo falso en direccion y entrada de la DLL
         EntryPatch c4(bit_cast<uintptr_t>(static_cast<bool(CUpsideDownCarCheck::*)(const CVehicle*)>(&CUpsideDownCarCheck::IsCarUpsideDown)),FakeUpside), c4e(0x463830,FakeUpside);
         EntryPatch c5(bit_cast<uintptr_t>(static_cast<CVector(CEntity::*)() const>(&CEntity::GetBoundCentre)),FakeBoundCentre), c5e(0x534250,FakeBoundCentre);
         EntryPatch n1(bit_cast<uintptr_t>(static_cast<CVector(CPathFind::*)(CNodeAddress,CNodeAddress,float&,bool*)>(&CPathFind::FindNodeCoorsForScript)),FakeCoorsTwo), n1e(0x450780,FakeCoorsTwo);

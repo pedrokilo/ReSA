@@ -58,7 +58,7 @@
   "log_sha256": "38c4ec325ca804c2b5aeac902c8de392e13546015cd4d7cc377e00b687518719",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks7a\\20261005-142444-051461",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks7a\\20261104-011031-430186",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexChat::Clone": true,
@@ -106,15 +106,15 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "c4b53688dbaae54d8c40d383b0a3cfc204016cfa5dca6012eadf8c86f1d292f1",
-      "pdb": "abfc330adbd74d588cae83afe6f2d54b2907a18fa7e4402d1b2ecfb63fcfe66d"
+      "asi": "e1ef928c66cf83767ee8c1120af8df5ba38bc10ca33b135ee2030473cf8216e3",
+      "pdb": "a526dd81e91e15d60dfc1cd9a399a44de4c066f48251ad2abb39c84f559ad56e"
     },
     "sources": {
       "source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp": "43fd9a84ae99e1ce5a13dc9aa4dd1dc3b3b2063ccdb73bdb031283e2b38c74b9",
       "source/game_sa/Tasks/TaskTypes/TaskComplexChat.h": "de62e8ce6761237f32ad24eb30d5e0a21e77dedebb599bc3f8cbdd70998f306c",
       "source/game_sa/Tasks/TaskTypes/TaskComplexDiveFromAttachedEntityAndGetUp.cpp": "b2afdd17f925652a1d22b9004a21c1e85a59680cc6ac1769bd753ed7566660a2",
       "source/game_sa/Tasks/TaskTypes/TaskComplexDiveFromAttachedEntityAndGetUp.h": "b90ce8d9b93e4c76f6b3a8902aec5851bd9fa4139ea281149f0adebdb8f5823a",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexDrivePointRoute.cpp": "6cc993c167fddcc2725c341cb6c11eb6388df7e05d7a96f930c2b0bae3f8facd",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDrivePointRoute.cpp": "f255af0c2f80d609cc78193545eb8243d506f5e479f66530b61c6726482df871",
       "source/game_sa/Tasks/TaskTypes/TaskComplexDrivePointRoute.h": "521643dbbecd539abc2a2ce6659f493318cd64f1f2de0d83835156214b36d9b3",
       "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "0eaf10e15bed49090db67f0b03bac2b2d00b33294883b4dbc5617e137c3ba6b7",
       "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.h": "70a6149b4fe79ca1505be3b8fa9cd90fee360a3f73d8d7b5f3417d09491163e9",
@@ -125,13 +125,14 @@
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "f437ce1d1161b5db023edb0268727c0973f4fab47b055971145e35afced8c15b",
+      "LiveComparison.hpp": "c02d50f588cb4d7cabd95b7a78e06e237ddc6dfb8118ffe98971e26517e84f26",
       "build_probe.py": "e32ec6e33c92fddf3f29e6ac0fdf8dc3a04c7d77e8561cebbd214afe2c3bf7b6",
       "run_local.py": "22b1e8a59899c1553032bb477a85c031e52f862d9013a6e74f6522987d365fa5"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Sin contextos de charla 164/167/168 (FIX_BUGS) ni relleno del estilo de conduccion; vehiculo esquivado siempre nulo."
+    "Sin contextos de charla 164/167/168 (FIX_BUGS) ni relleno del estilo de conduccion; vehiculo esquivado siempre nulo.",
+    "Revalidado el 2026-11-04 tras reconstruir colaboradores (lotes 67 a 89 y anteriores); el banco se adapto a ellos: falsos identicos en la direccion del EXE y en el cuerpo/simbolo de la DLL (ver su README.md)."
   ]
 }

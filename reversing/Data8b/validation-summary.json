@@ -61,10 +61,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "8c0c98d1bad70f537bd4520283db8c6ed55bd160431cf16c10fd557828cdece2",
+  "log_sha256": "d50c737338d8f8641efe9524c8ceefb9f5b1ab22c32728f1e4bdb673c21c5d3a",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-data8b\\20261003-014604-913938",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-data8b\\20261104-010153-988956",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CEventKnockOffBike::AffectsPed": true,
@@ -118,32 +118,33 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "8ea3cc84ee6b19a4ffbc7953f3453ef9f218fcd104cf9a6cb1ab070c4d262314",
-      "pdb": "e43d23e2ea3e32ba829da1e34538d0f06b31aef38ca93f13f6ec44572f4151e3"
+      "asi": "6cd72caea2ad743ecb45960d72b9ab950bd6d3344b95cf99ab31135ad76145df",
+      "pdb": "969cfc9902c70158e7e0035614005f853ccf103ba1a08499d721b03cc13a8172"
     },
     "sources": {
-      "source/game_sa/Events/EventKnockOffBike.cpp": "f860543e47def479c7d4805fa15f6691f88653c0eee8be10a0c4d083c5c1fa4e",
+      "source/game_sa/Events/EventKnockOffBike.cpp": "ddff5735670ba952caaf08ce8ca45d2e1e3198e30d86b743b3af4a66db9c9a20",
       "source/game_sa/Events/EventKnockOffBike.h": "26be087da7bba477efb9b2a1b5268ac9356b7962d08b183a8f242e244c0237ac",
-      "source/game_sa/Events/EventScriptCommand.cpp": "0fa6c64047ac095db787f1c35d7ff5f6d4747bc84d1e3c341d403701177da264",
-      "source/game_sa/Events/EventScriptCommand.h": "1209aa19e4fb7258c519f3b902c337bed23ea5f415d934106f9cab883e20f9c1",
-      "source/game_sa/Tasks/PedScriptedTaskRecord.cpp": "ee2c9c43978cff5b0fd54c689da568850242ef3920aa6a4ea86d1c309ef7f92b",
+      "source/game_sa/Events/EventScriptCommand.cpp": "8a0b75844d0c7e192ee0dd14f143d410503dd0c9f6312cfa5852892eefb6f993",
+      "source/game_sa/Events/EventScriptCommand.h": "4860ba0ad4eba054d5d0a708d9cf3c2c8a530425ced7a2e7666eb38975b6bb27",
+      "source/game_sa/Tasks/PedScriptedTaskRecord.cpp": "a80dd375843ac990075d893efc91dcb8321ea2f3bcff0442ee70e6aa59854e5c",
       "source/game_sa/Tasks/PedScriptedTaskRecord.h": "7f68827e4b6f920abb394b9d132c41988ba6059ae7b60b0e07a2884c722cfd5a",
-      "source/game_sa/RealTimeShadow.cpp": "2b6f9f1a841fb3655f1ba4bd87769caabcb6548b919219b207b2fda96d37ef79",
-      "source/game_sa/RealTimeShadow.h": "817407a109b81bbbf8a0e4e8733724eb62ab70ff99219df7b2d7c62443835548",
-      "source/game_sa/Core/Rect.cpp": "90de65f7cd07c4b4622a397edb718074a224df7926c5fa39975046c77fa0d1db",
+      "source/game_sa/RealTimeShadow.cpp": "faf8df8f54c646c8109ef43ac43d85d0ebb6679f4beb2359f0f2aa26455208fa",
+      "source/game_sa/RealTimeShadow.h": "9851f77d169019512dfb60e050f620ad383e84c94193bdf80aacbba7d0533b49",
+      "source/game_sa/Core/Rect.cpp": "f234c9ab59e9822bb3cf095a2093d2c5206aca736f44063c23bbd52eb43abeae",
       "source/game_sa/Core/Rect.h": "e7b704bfc6028faa25c61da1f5203788bafe0bb23dce706a20e16e96077421ca",
-      "source/game_sa/StuckCarCheck.cpp": "f939a8fda6d7b042d45a9e74b15c1276b885a8ffdbe7923ffb9ff894bf44eb0e",
+      "source/game_sa/StuckCarCheck.cpp": "00d40cc15a10c7ed67835cbee33148d8858a6ab5d125a31af6540cf596ce08f0",
       "source/game_sa/StuckCarCheck.h": "ebd346cb0bb2c5c51d2b78870e3ea8c4bcff07c30205ff90d54dd354dc8eadb7"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "b7b7acb5dd3ec92e4f68dbd8afa3b6de484c5a4e244269e260a93d8cf197c0aa",
+      "LiveComparison.hpp": "1f341f2e25f93bdd8739dc2607b4aad0e1228c4b2daddcd32065454a7c672c3e",
       "build_probe.py": "71979706b1dfac309ca35af348a13402e2689a7c7d2020114daabd7c8d7388d2",
       "run_local.py": "0f2497e0ae3e6bff5ac5a87dcbb6a7b125baac44042d747cf7895910a37e5970"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-11-04 tras reconstruir colaboradores (lotes 67 a 89 y anteriores); el banco se adapto a ellos: falsos identicos en la direccion del EXE y en el cuerpo/simbolo de la DLL (ver su README.md)."
   ]
 }

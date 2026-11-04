@@ -1,0 +1,3 @@
+APROBADO: Manejadores de eventos (CEventHandler, grupo D)
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-evhd\20261104-013153-950998
