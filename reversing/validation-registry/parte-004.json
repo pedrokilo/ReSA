@@ -85439,7 +85439,7 @@
       },
       "evidence": {
         "path": "reversing/FootWave4/validation-summary.json",
-        "sha256": "58f1a15c6fa42654b3cccaf3e42d3fbde326d7a1c13bc6891a503096f248086a",
+        "sha256": "49aab8695ae7418d80cc32892fed96a40918b15c1c0750b428141a54cd878c0f",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePlayerOnFoot::PlayIdleAnimations"
@@ -85448,7 +85448,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "2ceafec7727bca043c4a80b57626a8aef0df5de21fd2705fcb0cafcdaa0d0f90",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "624c2bc92b060c1542173d0aadb3e2f3b57cb09115cc8a07acc9a4fc2e76b91a",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.h": "5bdba70fb5bb39b826f3e47e6ba001c7c885f22f90cdb9fc3c2ddd28c4be23fe"
       },
       "source_provenance": "Exact compiled FootWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 5120-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -85465,7 +85465,7 @@
       },
       "evidence": {
         "path": "reversing/FootWave4/validation-summary.json",
-        "sha256": "58f1a15c6fa42654b3cccaf3e42d3fbde326d7a1c13bc6891a503096f248086a",
+        "sha256": "49aab8695ae7418d80cc32892fed96a40918b15c1c0750b428141a54cd878c0f",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePlayerOnFoot::PlayerControlZeldaWeapon"
@@ -85474,7 +85474,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "2ceafec7727bca043c4a80b57626a8aef0df5de21fd2705fcb0cafcdaa0d0f90",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "624c2bc92b060c1542173d0aadb3e2f3b57cb09115cc8a07acc9a4fc2e76b91a",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.h": "5bdba70fb5bb39b826f3e47e6ba001c7c885f22f90cdb9fc3c2ddd28c4be23fe"
       },
       "source_provenance": "Exact compiled FootWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 5120-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -85491,7 +85491,7 @@
       },
       "evidence": {
         "path": "reversing/FootWave4/validation-summary.json",
-        "sha256": "58f1a15c6fa42654b3cccaf3e42d3fbde326d7a1c13bc6891a503096f248086a",
+        "sha256": "49aab8695ae7418d80cc32892fed96a40918b15c1c0750b428141a54cd878c0f",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePlayerOnFoot::PlayerControlDucked"
@@ -85500,7 +85500,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "2ceafec7727bca043c4a80b57626a8aef0df5de21fd2705fcb0cafcdaa0d0f90",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "624c2bc92b060c1542173d0aadb3e2f3b57cb09115cc8a07acc9a4fc2e76b91a",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.h": "5bdba70fb5bb39b826f3e47e6ba001c7c885f22f90cdb9fc3c2ddd28c4be23fe"
       },
       "source_provenance": "Exact compiled FootWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 5120-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -85517,7 +85517,7 @@
       },
       "evidence": {
         "path": "reversing/FootWave4/validation-summary.json",
-        "sha256": "58f1a15c6fa42654b3cccaf3e42d3fbde326d7a1c13bc6891a503096f248086a",
+        "sha256": "49aab8695ae7418d80cc32892fed96a40918b15c1c0750b428141a54cd878c0f",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePlayerOnFoot::PlayerControlZelda"
@@ -85526,7 +85526,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "2ceafec7727bca043c4a80b57626a8aef0df5de21fd2705fcb0cafcdaa0d0f90",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "624c2bc92b060c1542173d0aadb3e2f3b57cb09115cc8a07acc9a4fc2e76b91a",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.h": "5bdba70fb5bb39b826f3e47e6ba001c7c885f22f90cdb9fc3c2ddd28c4be23fe"
       },
       "source_provenance": "Exact compiled FootWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 5120-row log reaudited offline in streaming and preserved gzipped with the original hash.",
@@ -85543,7 +85543,7 @@
       },
       "evidence": {
         "path": "reversing/FootWave4/validation-summary.json",
-        "sha256": "58f1a15c6fa42654b3cccaf3e42d3fbde326d7a1c13bc6891a503096f248086a",
+        "sha256": "49aab8695ae7418d80cc32892fed96a40918b15c1c0750b428141a54cd878c0f",
         "passed_path": [
           "covered_functions",
           "CTaskSimplePlayerOnFoot::ProcessPlayerWeapon"
@@ -85552,7 +85552,7 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "2ceafec7727bca043c4a80b57626a8aef0df5de21fd2705fcb0cafcdaa0d0f90",
+        "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "624c2bc92b060c1542173d0aadb3e2f3b57cb09115cc8a07acc9a4fc2e76b91a",
         "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.h": "5bdba70fb5bb39b826f3e47e6ba001c7c885f22f90cdb9fc3c2ddd28c4be23fe"
       },
       "source_provenance": "Exact compiled FootWave4 probe (ASI/PDB hashes in build-manifest.json); class sources hashed from the probe build manifest and equal to the working tree at registration; full 5120-row log reaudited offline in streaming and preserved gzipped with the original hash.",

@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CPlayerPed
- * Reconstrucción: COMPLETA — 65/65 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 66/66 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 65/65 entradas.
+ * Validación registrada: 66/66 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -155,6 +155,7 @@ void CPlayerPed::InjectHooks() {
     RH_ScopedInstall(SetupPlayerPed, 0x60D790);
     RH_ScopedInstall(FindWeaponLockOnTarget, 0x60DC50);
     RH_ScopedInstall(ProcessWeaponSwitch, 0x60D850);
+    RH_ScopedInstall(FindNextWeaponLockOnTarget, 0x60E530);
 
     RH_ScopedVMTInstall(ProcessControl, 0x60EA90);
     RH_ScopedVMTInstall(SetMoveAnim, 0x609490);
@@ -2467,9 +2468,154 @@ bool CPlayerPed::FindWeaponLockOnTarget() {
     return true;
 }
 
-// 0x60E530
-bool CPlayerPed::FindNextWeaponLockOnTarget(CEntity* arg0, bool arg1) {
-    return plugin::CallMethodAndReturn<bool, 0x60E530, CPlayerPed *, CEntity*, bool>(this, arg0, arg1);
+// 0x60E530 (thiscall, `ret 8`, bool): siguiente objetivo de fijacion del arma activa. `current` es el objetivo que se descarta (su rumbo respecto a la camara orienta la busqueda; sin el, el de
+// la camara). Evalua peatones, objetos y (en cooperativo) vehiculos con EvaluateNeighbouringTarget, y fija el mejor; si es un peaton y el arma no es cuerpo a cuerpo avisa con un CEventGunAimedAt.
+// Como el original: GetATanOfXY con el vector hacia delante se llama y su resultado se descarta; los bucles de objetos y vehiculos piden el multiplicador de alcance con el ULTIMO peaton visitado
+// (el registro EBP del bucle de peatones, o `current` si el pool esta vacio), no con la entidad evaluada.
+bool CPlayerPed::FindNextWeaponLockOnTarget(CEntity* current, bool arg1) {
+    static_assert(offsetof(CPed, m_pVehicle) == 0x58C && offsetof(CPed, m_nPedType) == 0x598 && offsetof(CPed, m_nPedState) == 0x530 && offsetof(CPed, m_nActiveWeaponSlot) == 0x718 && offsetof(CPed, m_pTargetedObject) == 0x71C,
+                  "campos de CPed que FindNextWeaponLockOnTarget toca");
+    static_assert(offsetof(CVehicle, m_nVehicleType) == 0x590, "CVehicle::m_nVehicleType");
+    static_assert(offsetof(CVehicle, m_nVehicleSubType) == 0x594, "CVehicle::m_nVehicleSubType");
+    // Como el original: movsx de la ranura (con signo) y imul 0x1C, sin comprobar el rango
+    const auto activeWeapon = [this]() -> CWeapon& { return m_aWeapons.data()[static_cast<int8>(m_nActiveWeaponSlot)]; };
+
+    const eWeaponType weaponType = activeWeapon().m_Type;
+    const eWeaponSkill skill = GetWeaponSkill(); // 0x5E6580
+    CWeaponInfo* const info = CWeaponInfo::GetWeaponInfo(weaponType, skill); // 0x743C60
+    const float range = info->m_fTargetRange; // una sola lectura (el original la guarda en la pila)
+
+    CEntity* best = nullptr;
+    float bestPriority = -10000.0f; // 0xC61C4000
+
+    // El original llama a GetATanOfXY (0x53CC70) con el vector hacia delante y descarta el resultado (fstp st(0))
+    (void)CGeneral::GetATanOfXY(m_matrix->GetForward().x, m_matrix->GetForward().y);
+
+    float heading;
+    if (current) {
+        // Rumbo del objetivo actual respecto a la camara (no al jugador)
+        const CVector& currentPos = current->GetPosition();
+        const CVector& camPos = TheCamera.GetPosition();
+        const float dy = currentPos.y - camPos.y;
+        const float dx = currentPos.x - camPos.x;
+        heading = CGeneral::GetATanOfXY(dx, dy); // 0x53CC70
+    } else {
+        heading = CGeneral::GetATanOfXY(StaticRef<float>(0xB6F9AC), StaticRef<float>(0xB6F9B0)); // vector de la camara; los dos dwords se empujan tal cual
+    }
+
+    // ---- peatones (de atras adelante)
+    CEntity* lastVisited = current; // EBP al salir del bucle: el ultimo hueco recorrido (nulo si esta libre); `current` si el pool esta vacio
+    CPedPool* const pedPool = StaticRef<CPedPool*>(0xB74490);
+    for (size_t slot = pedPool->GetSize(); slot != 0; --slot) {
+        CPed* const ped = pedPool->GetAt(slot - 1);
+        lastVisited = ped;
+        if (!ped || ped == this || ped == current) {
+            continue;
+        }
+        if (ped->m_nPedState == PEDSTATE_DIE || ped->m_nPedState == PEDSTATE_DEAD) { // 0x36 y 0x37
+            continue;
+        }
+        if (ped->bInVehicle) {
+            CVehicle* const vehicle = ped->m_pVehicle;
+            if (!vehicle) {
+                continue;
+            }
+            // Como el original: moto (9) o bit 2 del byte +0x42D del vehiculo
+            if (vehicle->m_nVehicleType != VEHICLE_TYPE_BIKE && !(reinterpret_cast<const uint8*>(vehicle)[0x42D] & 4)) {
+                continue;
+            }
+        }
+        if (ped->bNeverEverTargetThisPed) {
+            continue;
+        }
+        if (CPedGroups::AreInSameGroup(ped, this)) { // 0x5F7F40
+            continue;
+        }
+        if ((ped->m_nPedType == 0 || ped->m_nPedType == 1) && StaticRef<uint8>(0x96A8B2)) {
+            continue;
+        }
+        if (LOSBlockedBetweenPeds(this, ped)) { // 0x60B550
+            continue;
+        }
+        const CVector position = ped->GetPosition();
+        if (!CanIKReachThisTarget(position, &activeWeapon(), true)) { // 0x609F80
+            continue;
+        }
+        const float adjustedRange = X87TimesFloatCpp(CWeapon::TargetWeaponRangeMultiplier(ped, this), range); // 0x73B380
+        EvaluateNeighbouringTarget(ped, &best, &bestPriority, adjustedRange, heading, arg1); // 0x60D1C0
+    }
+
+    // ---- objetos
+    CObjectPool* const objectPool = StaticRef<CObjectPool*>(0xB7449C);
+    for (size_t slot = objectPool->GetSize(); slot != 0; --slot) {
+        CObject* const object = objectPool->GetAt(slot - 1);
+        if (!object || !object->CanBeTargetted()) { // 0x59F320
+            continue;
+        }
+        if (reinterpret_cast<const uint8*>(object)[0x140] & 0x40) {
+            continue;
+        }
+        if (!object->GetRwObject()) {
+            continue;
+        }
+        const CVector position = object->GetPosition();
+        if (!CanIKReachThisTarget(position, &activeWeapon(), true)) { // 0x609F80
+            continue;
+        }
+        const float adjustedRange = X87TimesFloatCpp(CWeapon::TargetWeaponRangeMultiplier(lastVisited, this), range); // el original pasa EBP (ultimo peaton), no el objeto
+        EvaluateNeighbouringTarget(object, &best, &bestPriority, adjustedRange, heading, arg1);
+    }
+
+    // ---- vehiculos (solo en cooperativo)
+    if (CGameLogic::IsCoopGameGoingOn()) { // 0x441390
+        CVehiclePool* const vehiclePool = StaticRef<CVehiclePool*>(0xB74494);
+        for (size_t slot = vehiclePool->GetSize(); slot != 0; --slot) {
+            CVehicle* const vehicle = vehiclePool->GetAt(slot - 1);
+            if (!vehicle || (vehicle->m_nPhysicalFlags & 0x20000000) || vehicle->m_nVehicleSubType == VEHICLE_TYPE_BMX) {
+                continue;
+            }
+            const CVector position = vehicle->GetPosition();
+            if (!CanIKReachThisTarget(position, &activeWeapon(), true)) { // 0x609F80
+                continue;
+            }
+            const float adjustedRange = X87TimesFloatCpp(CWeapon::TargetWeaponRangeMultiplier(lastVisited, this), range);
+            EvaluateNeighbouringTarget(vehicle, &best, &bestPriority, adjustedRange, heading, arg1);
+        }
+    }
+
+    if (!best) {
+        return false;
+    }
+
+    // ---- el mejor es un peaton y el arma no es cuerpo a cuerpo: avisa con un CEventGunAimedAt (a su grupo, o a su inteligencia)
+    if (best->GetIsTypePed()) {
+        const eWeaponType currentType = activeWeapon().m_Type;
+        if (CWeaponInfo::GetWeaponInfo(currentType, eWeaponSkill::STD)->m_nWeaponFire != eWeaponFire::WEAPON_FIRE_MELEE) { // 0x743C60
+            CPed* const bestPed = best->AsPed();
+            if (CPedGroup* const group = CPedGroups::GetPedsGroup(bestPed)) { // 0x5F7E80
+                if (!CPedGroups::AreInSameGroup(bestPed, this)) { // 0x5F7F40
+                    CEvent* aimedAt = nullptr;
+                    if (void* const memory = CEvent::operator new(sizeof(CEventGunAimedAt))) { // 0x4B5620
+                        aimedAt = ::new (memory) CEventGunAimedAt(this); // 0x4B0700
+                    }
+                    CEventGroupEvent groupEvent{ bestPed, aimedAt }; // 0x4ADFD0
+                    group->GetIntelligence().AddEvent(&groupEvent); // 0x5F7470
+                }
+            } else {
+                CEventGunAimedAt aimedAt{ this }; // 0x4B0700
+                bestPed->GetIntelligence()->m_eventGroup.Add(&aimedAt, false); // 0x4AB420
+            }
+        }
+    }
+
+    // ---- fija el objetivo
+    if (m_pTargetedObject) {
+        m_pTargetedObject->CleanUpOldReference(&m_pTargetedObject); // 0x571A00
+    }
+    m_pTargetedObject = best;
+    best->RegisterReference(&m_pTargetedObject); // 0x571B70
+    reinterpret_cast<uint8*>(GetPlayerData())[0x85] = 1; // byte +0x85 de los datos del jugador
+    return true;
 }
 
 // 0x60EA90

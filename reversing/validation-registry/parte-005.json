@@ -40067,6 +40067,42 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wc-1 (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (todos con hook RH apagado durante el banco): CDarkel::FrenzyOnGoing 0x43D1F0, CPedIntelligence::GetTaskJetPack 0x601110 y GetTaskUseGun 0x600F70, CPad::CycleWeaponRightJustDown 0x540640, CycleWeaponLeftJustDown 0x540610 y GetWeapon 0x540180, CWeapon::HasWeaponAmmoToBeUsed 0x73B2A0 y CanBeUsedFor2Player 0x73DEF0, CGameLogic::IsCoopGameGoingOn 0x441390, CWeaponInfo::GetWeaponInfo 0x743C60, CPed::RemoveWeaponAnims 0x5F0250 y CPlayerPed::MakeChangesForNewWeapon 0x60B460. Registran sus argumentos en orden. La logica de la funcion (lectura con signo de ranuras, ciclo derecho e izquierdo, retroceso por falta de municion, comparacion final y orden de las tres llamadas a GetTaskUseGun) corre de verdad en ambos lados; el jugador, sus datos, la inteligencia, el pad, la tarea de disparo y la informacion del arma son arenas y el modo de la camara (word 0xB6F858) es memoria real del juego (se guarda y se restaura). El banco compara los eventos de los falsos con todos sus argumentos y los bytes cambiados de todas las arenas; cada lado de cada par coincide con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: combos de ranura fuera de 0..19, jugador sin datos o sin inteligencia, pad nulo, bytes altos de los booleanos de los colaboradores y un GetTaskUseGun que devuelva nulo en la segunda o tercera llamada.",
       "review_reference": "reversing/Fn87A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPlayerPed",
+        "fn_name": "FindNextWeaponLockOnTarget",
+        "address": "0x0060E530",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn87B/validation-summary.json",
+        "sha256": "93b864a423f24ef36e31ed7415722fccd4fbc942ff567a3e24385b7fac32fb92",
+        "passed_path": [
+          "covered_functions",
+          "CPlayerPed::FindNextWeaponLockOnTarget"
+        ],
+        "pairs": 20480,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/Entity/Ped/PlayerPed.cpp": "482537f34d8a14228cd87cca5faf34ebbaa9a8dcfe10b9fda092187f6a4084bd",
+        "source/game_sa/Entity/Ped/PlayerPed.h": "827041ed275dc72fffe83571c281a6f7265601df6cc158541b03ec279ff52874",
+        "source/game_sa/X87Math.cpp": "d8da2a36396182147a7ef07bb80aa1dabe72feab75cbf834f351c24733ecdbb6",
+        "source/game_sa/X87Math.h": "423595be3e12b323c67fa715827faf1d00ac11df03d79668106780d410ae7a09",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn87B/LiveComparison.hpp": "b9235132115d5ef56740920faa1c8cb27a36bd95e6ddc0119c9b7d57d38feca3",
+        "reversing/Fn87B/Core.hpp": "73f3b742b119ad17d3813b16c4d30ad64bced53487fab39e26ad074f7a75deb9",
+        "reversing/Fn87B/Fixtures.hpp": "0c1bebab617d88a01110feb38a1d7056d457d788c81961b60fd5d5904060dd7f",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el arbol del banco (ver artifacts/build-manifest.json). El objeto this, los pools de peatones, vehiculos y objetos y la camara (TheCamera) son arenas o regiones propias restauradas tras cada lado. Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con su hook RH apagado durante el banco): CPed::GetWeaponSkill 0x5E6580, CWeaponInfo::GetWeaponInfo 0x743C60, CGeneral::GetATanOfXY 0x53CC70, CWeapon::TargetWeaponRangeMultiplier 0x73B380, CPlayerPed::CanIKReachThisTarget 0x609F80, LOSBlockedBetweenPeds 0x60B550, CPedGroups::AreInSameGroup 0x5F7F40 y GetPedsGroup 0x5F7E80, CObject::CanBeTargetted 0x59F320, CGameLogic::IsCoopGameGoingOn 0x441390, CPlayerPed::EvaluateNeighbouringTarget 0x60D1C0, CPedGroupIntelligence::AddEvent 0x5F7470, CEventGroup::Add 0x4AB420, CEvent::operator new 0x4B5620 (sin hook; entrega una ranura real del pool de eventos, que el EXE y la DLL liberan de verdad: el destructor virtual del EXE inlinea el borrado del pool; CEvent::operator delete corre real), CEntity::RegisterReference 0x571B70 y CleanUpOldReference 0x571A00. Corren de verdad en ambos lados los constructores y destructores de CEventGunAimedAt y CEventGroupEvent y CEvent::operator delete y la aritmetica float (x87 a 24 bits en el EXE); cada lado coincide ademas con el oraculo independiente fixture_oracle.py (modelado desde el desensamblado, incluido que los bucles de objetos y vehiculos piden el multiplicador de alcance con el ultimo peaton recorrido y no con la entidad evaluada, y que GetATanOfXY con el vector hacia delante se llama y se descarta). Fuera de los fixtures: ver README.md.",
+      "review_reference": "reversing/Fn87B/README.md"
     }
   ]
 }

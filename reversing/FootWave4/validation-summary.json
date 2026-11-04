@@ -27,26 +27,26 @@
     "CTaskSimplePlayerOnFoot::ProcessPlayerWeapon": "Corpus 1024; source corrected (EXE): 0x6862F4..0x68632D in weapon state 2 the command is AIM only if GetTarget or a target exists or m_bFreeAiming, otherwise the whole weapon control is skipped (je 0x6860AD); 0x686AF9..0x686B0D IsInSeeingRange/GetActivePrimaryTask asked to the TARGET intelligence; 0x686BE4..0x686C08 CEventGunAimedAt added to the TARGET event group; 0x6871F0 !(dot > 0) with NaN; 0x686F90 fightMovement.y < -0.5 -> 16 else 15 (NaN included); 0x686DB5 unrounded fsin + z and 0x6870A9 fpatan; 0x68674C CMatrix MultiplyMatrixWithVector 0x59C890 summation order; weapon slot indexed with movsx and no range check."
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/FootWave4-20261101-021837-878632",
-  "summary_sha256": "2f0f0f657087ed3541ced3229564fa1d1872c1bb1afe8d562199e74833706ad4",
-  "result_txt_sha256": "b0ef2db28afc80661895b59bc64ca5169fc6842a6be02263c0ebbae5e8ff9390",
-  "log_sha256": "ac682a180d0a9021b2899ff7485bfa9d8c3cc344a03c560224048e25e962c01a",
+  "run": "reversing/CppTwelveLevel6Final/runs/FootWave4-20261103-225557-566394",
+  "summary_sha256": "fcb4f2a9b0c5d9258ed867ac2cc5d615240f07d268b2b2c9c14e2766fb73758c",
+  "result_txt_sha256": "c445629b4727e4f70eec35cad09726de8150df08d1b6a1212be57fcec5232b86",
+  "log_sha256": "d88f2b5e452c963ed8ccccb14ee1de55415049e39d41d7b96cddc4febfea6385",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/FootWave4-20261101-021837-878632/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/FootWave4-20261103-225557-566394/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "b5f3d7d95c1e53ffa7cb4c7342ed4bbc7b33526f11d428f7ab7a4f1c99773566",
-    "uncompressed_sha256": "ac682a180d0a9021b2899ff7485bfa9d8c3cc344a03c560224048e25e962c01a"
+    "compressed_sha256": "b1a63947c57dad674da84a11127c01e4736aec24f413fb1e4574438d2b358ed8",
+    "uncompressed_sha256": "d88f2b5e452c963ed8ccccb14ee1de55415049e39d41d7b96cddc4febfea6385"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "3a94f9a8b0b4dc57f397e9ff4874d601895deed6c6df9e788d6782f97a2fa95c",
+  "executed_probe_sha256": "d109bd8feb5de06fc5428cba476bf02e558f8f342b349f143594f2c8d9e2a081",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "2ceafec7727bca043c4a80b57626a8aef0df5de21fd2705fcb0cafcdaa0d0f90",
+      "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "624c2bc92b060c1542173d0aadb3e2f3b57cb09115cc8a07acc9a4fc2e76b91a",
       "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.h": "5bdba70fb5bb39b826f3e47e6ba001c7c885f22f90cdb9fc3c2ddd28c4be23fe"
     }
   },

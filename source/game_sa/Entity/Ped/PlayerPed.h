@@ -97,7 +97,7 @@ public:
     bool PlayerHasJustAttackedSomeone();
     void ProcessWeaponSwitch(CPad* pad);
     bool FindWeaponLockOnTarget();
-    bool FindNextWeaponLockOnTarget(CEntity* arg0, bool arg1);
+    bool FindNextWeaponLockOnTarget(CEntity* current, bool arg1);
     // Thanks to Silent
     // 0x41BE60
     inline CWanted* GetWanted() {
