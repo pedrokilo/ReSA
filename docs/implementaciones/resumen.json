@@ -1,8 +1,8 @@
 {
   "scope": "source/game_sa and source/app (WindowedMode.cpp included as the documented NOTSA assembly exception, reported separately), definitions in cpp/h/hpp/inc; all preprocessing branches",
   "totals": {
-    "source_definition_count": 18748,
-    "groups": 1502,
+    "source_definition_count": 18754,
+    "groups": 1504,
     "assembly_occurrences": 0,
     "naked_declarations": 0,
     "definitions_with_assembly": 0,
@@ -20,12 +20,12 @@
     "body_parse_errors": 309,
     "asm_bodies_with_parse_errors": 0,
     "files_with_any_parse_errors": 447,
-    "historical_catalog_rows": 9030,
+    "historical_catalog_rows": 9033,
     "catalog_rows_without_unambiguous_source_match_in_scope": 2,
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 20,
     "catalog_rows_linked_by_hook_address": 180,
-    "validated_reconstructed_own_cpp_definitions": 10741,
+    "validated_reconstructed_own_cpp_definitions": 10744,
     "validated_reconstructed_own_asm_definitions": 0,
     "wrapper_definitions": 30
   },
@@ -705,8 +705,8 @@
     "source/game_sa/Events/EventPotentialWalkIntoVehicle.h": "fa53550a59369c3c8935bf4903a0e7c6f97a2b2df51a7b28a5eba6f9c2750605",
     "source/game_sa/Events/EventRevived.cpp": "7db63b8f08a9158040205a9196cea3c1e3cfade7ba75b0622360dafbc2f770d1",
     "source/game_sa/Events/EventRevived.h": "6208565e525d2f93dafcd6515627db19ebb8a9035e35a614d3ec5c274e90a12c",
-    "source/game_sa/Events/EventScanner.cpp": "1c851286738dace139b9c9c70eec75bf12bcab4c4d9bdeb80537370d598628ef",
-    "source/game_sa/Events/EventScanner.h": "63b79c9852b395bddd1acf409f494f6dde38a9b1e586ebf510a2ea4913973a15",
+    "source/game_sa/Events/EventScanner.cpp": "9ece445aff40f842434bd34fb2ddf4e03307e451b464a5536a54527ca84b97ff",
+    "source/game_sa/Events/EventScanner.h": "49e00bd7f3ad5a39d3ae1652c16110b5d87b596345380da28ede50a19223b4ee",
     "source/game_sa/Events/EventScriptCommand.cpp": "8a0b75844d0c7e192ee0dd14f143d410503dd0c9f6312cfa5852892eefb6f993",
     "source/game_sa/Events/EventScriptCommand.h": "4860ba0ad4eba054d5d0a708d9cf3c2c8a530425ced7a2e7666eb38975b6bb27",
     "source/game_sa/Events/EventScriptedAttractor.cpp": "759bff0242c5995ce00c9ca07b8575933b0c1891b3b7bddc5c5065e066cae274",
@@ -2210,7 +2210,7 @@
     "source/game_sa/WaterCreature_c.h": "e32cbbc26e9f2e92d17e4599105703d3111251d3b5edfada24ea001192596b7a",
     "source/game_sa/WaterCreatureManager_c.cpp": "7a7fcecfba92445b326df9a8470db51bf89c0035393abd75bc8d49ba1cc16142",
     "source/game_sa/WaterCreatureManager_c.h": "07ecdf3d2ab819320a13ad84c6dbb0ed8b5dfa75d72600b9af33be5011392876",
-    "source/game_sa/WaterLevel.cpp": "2b4c13728d5e4f45a9993d20f558781ef1a63874d0af519c03bedb455f090ee7",
+    "source/game_sa/WaterLevel.cpp": "6250dd9c28731362d42de8895306652fd93e786c592edb8d7ed61807c7d03b14",
     "source/game_sa/WaterLevel.h": "0f502388c91ac149b8db34d4faf91f906f1c16cab4d85e403c1f5af29b44fdc6",
     "source/game_sa/Weapon.cpp": "cd107c9c4d8fa4303edb36809eda0c5af11038449c6d425ba94d5bda671f6c03",
     "source/game_sa/Weapon.h": "ae10b89b6bd55f92a4bfa4a15187e7a5912f9ca905db3b21961864d168b8b8b6",
@@ -2232,10 +2232,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "5cd5adbbdc719750ed86578df921d7605e124eb213466cd416618df2e03e28b8",
+    "hooks.csv": "fdb8e6a65d8b8a50cb985e89776317c81405691d5b8ffd623b6129c90cbfbd3c",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "8d226f853f288ed6c59b3b40e4e9e6c97a31486156be49aa4c3ef3ecd5049578",
+  "migration_registry_sha256": "92750fe3734032321af27b5a4bf3a3c40ff91f4c6dc1ba014ee0f9eb92949171",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

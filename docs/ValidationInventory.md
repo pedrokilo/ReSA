@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,026 entradas reversed=1**, de 9,026 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,029 entradas reversed=1**, de 9,029 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9026 |
+| `validated=1` · evidencia aprobada vinculada | 9029 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9026 |
+| Evidencia histórica vinculada; revisión pendiente | 9029 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -3491,6 +3491,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CMovingThings | `Render_BeforeClouds` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | CMovingThings | `Shutdown` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | CMovingThings | `Update` | [Resumen](../reversing/Fx43/validation-summary.json) |
+| CNearbyFireScanner | `ScanForNearbyFires` | [Resumen](../reversing/Fn92A/validation-summary.json) |
 | CNodeRoute | `operator delete` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CNodeRoute | `operator new` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CNodeRoutePool | `New` | [Resumen](../reversing/Pools56/validation-summary.json) |
@@ -3869,6 +3870,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPed | `operator delete-anon` | [Resumen](../reversing/FixCore/validation-summary.json) |
 | CPed | `operator new-anon` | [Resumen](../reversing/FixCore/validation-summary.json) |
 | CPed | `operator new-poolIndexed` | [Resumen](../reversing/FixCore/validation-summary.json) |
+| CPedAcquaintanceScanner | `ScanForPedAcquaintances` | [Resumen](../reversing/Fn92A/validation-summary.json) |
 | CPedAttractor | `AbortPedTasks` | [Resumen](../reversing/IdleAttractorPending/validation-summary.json) |
 | CPedAttractor | `BroadcastArrival` | [Resumen](../reversing/FixPeds/validation-summary.json) |
 | CPedAttractor | `BroadcastDeparture` | [Resumen](../reversing/FixPeds/validation-summary.json) |
@@ -4949,6 +4951,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CSetPieces | `Load` | [Resumen](../reversing/World43/validation-summary.json) |
 | CSetPieces | `Save` | [Resumen](../reversing/World43/validation-summary.json) |
 | CSetPieces | `Update` | [Resumen](../reversing/World43/validation-summary.json) |
+| CSexyPedScanner | `ScanForSexyPeds` | [Resumen](../reversing/Fn92A/validation-summary.json) |
 | CShadowCamera | `Constructor` | [Resumen](../reversing/Render19/validation-summary.json) |
 | CShadowCamera | `Create` | [Resumen](../reversing/Render19/validation-summary.json) |
 | CShadowCamera | `Destroy` | [Resumen](../reversing/Render19/validation-summary.json) |
@@ -9338,6 +9341,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CMotionBlurStreaks` | 4 | 0 | 4 | 0 |
 | `CMouseControllerState` | 3 | 0 | 3 | 0 |
 | `CMovingThings` | 5 | 0 | 5 | 0 |
+| `CNearbyFireScanner` | 1 | 0 | 1 | 0 |
 | `CNodeRoute` | 2 | 0 | 2 | 0 |
 | `CNodeRoutePool` | 1 | 0 | 1 | 0 |
 | `CObject` | 49 | 0 | 49 | 0 |
@@ -9353,6 +9357,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPathFind` | 67 | 0 | 67 | 0 |
 | `CPathNode` | 1 | 0 | 1 | 0 |
 | `CPed` | 149 | 0 | 149 | 0 |
+| `CPedAcquaintanceScanner` | 1 | 0 | 1 | 0 |
 | `CPedAttractor` | 20 | 0 | 20 | 0 |
 | `CPedAttractorManager` | 14 | 0 | 14 | 0 |
 | `CPedAttractorPedPlacer` | 1 | 0 | 1 | 0 |
@@ -9441,6 +9446,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CSearchLight` | 1 | 0 | 1 | 0 |
 | `CSetPiece` | 3 | 0 | 3 | 0 |
 | `CSetPieces` | 5 | 0 | 5 | 0 |
+| `CSexyPedScanner` | 1 | 0 | 1 | 0 |
 | `CShadowCamera` | 19 | 0 | 19 | 0 |
 | `CShadows` | 30 | 0 | 30 | 0 |
 | `CShinyTexts` | 4 | 0 | 4 | 0 |
