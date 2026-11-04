@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,020 entradas reversed=1**, de 9,020 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,025 entradas reversed=1**, de 9,025 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9020 |
+| `validated=1` · evidencia aprobada vinculada | 9025 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9020 |
+| Evidencia histórica vinculada; revisión pendiente | 9025 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -1311,6 +1311,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCamera | `AddShakeSimple` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
 | CCamera | `AllowShootingWith2PlayersInCar` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
 | CCamera | `ApplyVehicleCameraTweaks` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `AvoidTheGeometry` | [Resumen](../reversing/Fn89B/validation-summary.json) |
 | CCamera | `CalculateDerivedValues` | [Resumen](../reversing/CameraDerived355/validation-summary.json) |
 | CCamera | `CalculateFrustumPlanes` | [Resumen](../reversing/CameraFrustum355/validation-summary.json) |
 | CCamera | `CalculateGroundHeight` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
@@ -1361,6 +1362,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCamera | `InitialiseScriptableComponents` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
 | CCamera | `IsActiveCamUnderWater` | [Resumen](../reversing/Helpers65B/validation-summary.json) |
 | CCamera | `IsExtraEntityToIgnore` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
+| CCamera | `IsItTimeForNewCamera` | [Resumen](../reversing/Fn89A/validation-summary.json) |
 | CCamera | `IsSphereVisible-matrix` | [Resumen](../reversing/DependenciesWorldFxFont5/validation-summary.json) |
 | CCamera | `IsSphereVisible-mirror` | [Resumen](../reversing/CamSphere76/validation-summary.json) |
 | CCamera | `LerpFOV` | [Resumen](../reversing/CameraFinal4/validation-summary.json) |
@@ -2798,6 +2800,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CFont | `LoadFontValues` | [Resumen](../reversing/RadioFont1/validation-summary.json) |
 | CFont | `ParseToken` | [Resumen](../reversing/RadioFont1/validation-summary.json) |
 | CFont | `PrintChar` | [Resumen](../reversing/FontPending/validation-summary.json) |
+| CFont | `PrintSegment` | [Resumen](../reversing/Fn89D/validation-summary.json) |
 | CFont | `PrintString` | [Resumen](../reversing/RadioFont1/validation-summary.json) |
 | CFont | `PrintStringFromBottom` | [Resumen](../reversing/RadioFont1/validation-summary.json) |
 | CFont | `ProcessCurrentString` | [Resumen](../reversing/FontPending/validation-summary.json) |
@@ -4398,6 +4401,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPlayerPed | `DrawTriangleForMouseRecruitPed` | [Resumen](../reversing/Player82A/validation-summary.json) |
 | CPlayerPed | `EvaluateNeighbouringTarget` | [Resumen](../reversing/Helpers66A/validation-summary.json) |
 | CPlayerPed | `EvaluateTarget` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
+| CPlayerPed | `FindNextWeaponLockOnTarget` | [Resumen](../reversing/Fn87B/validation-summary.json) |
 | CPlayerPed | `FindPedToAttack` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `FindTargetPriority` | [Resumen](../reversing/PlayerPed51/validation-summary.json) |
 | CPlayerPed | `FindWeaponLockOnTarget` | [Resumen](../reversing/PlayerPed79/validation-summary.json) |
@@ -7047,6 +7051,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskSimpleGangDriveBy | `AimGun` | [Resumen](../reversing/Dependencies21D/validation-summary.json) |
 | CTaskSimpleGangDriveBy | `Clone` | [Resumen](../reversing/DriveByPending/validation-summary.json) |
 | CTaskSimpleGangDriveBy | `Constructor` | [Resumen](../reversing/Dependencies21D/validation-summary.json) |
+| CTaskSimpleGangDriveBy | `FireGun` | [Resumen](../reversing/Fn89C/validation-summary.json) |
 | CTaskSimpleGangDriveBy | `GetTaskType` | [Resumen](../reversing/RequestedLeafValidation/LiveBatch/validation-summary.json) |
 | CTaskSimpleGangDriveBy | `HasClearLineOfSight` | [Resumen](../reversing/Helpers66A/validation-summary.json) |
 | CTaskSimpleGangDriveBy | `MakeAbortable` | [Resumen](../reversing/DriveByPending/validation-summary.json) |
@@ -9131,7 +9136,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CBulletInfo` | 4 | 0 | 4 | 0 |
 | `CBulletTraces` | 5 | 0 | 5 | 0 |
 | `CCam` | 53 | 0 | 53 | 0 |
-| `CCamera` | 120 | 0 | 120 | 0 |
+| `CCamera` | 122 | 0 | 122 | 0 |
 | `CCarAI` | 25 | 0 | 25 | 0 |
 | `CCarCtrl` | 111 | 0 | 111 | 0 |
 | `CCarEnterExit` | 32 | 0 | 32 | 0 |
@@ -9276,7 +9281,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CFileMgr` | 17 | 0 | 17 | 0 |
 | `CFire` | 5 | 0 | 5 | 0 |
 | `CFireManager` | 24 | 0 | 24 | 0 |
-| `CFont` | 37 | 0 | 37 | 0 |
+| `CFont` | 38 | 0 | 38 | 0 |
 | `CFormation` | 10 | 0 | 10 | 0 |
 | `CGame` | 22 | 0 | 22 | 0 |
 | `CGameLogic` | 27 | 0 | 27 | 0 |
@@ -9394,7 +9399,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPlantMgr` | 20 | 0 | 20 | 0 |
 | `CPlantSurfPropMgr` | 4 | 0 | 4 | 0 |
 | `CPlayerInfo` | 29 | 0 | 29 | 0 |
-| `CPlayerPed` | 65 | 0 | 65 | 0 |
+| `CPlayerPed` | 66 | 0 | 66 | 0 |
 | `CPlayerPedData` | 5 | 0 | 5 | 0 |
 | `CPlayerRelationshipRecorder` | 1 | 0 | 1 | 0 |
 | `CPlayerSkin` | 4 | 0 | 4 | 0 |
@@ -9694,7 +9699,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleFight` | 22 | 0 | 22 | 0 |
 | `CTaskSimpleFightingControl` | 7 | 0 | 7 | 0 |
 | `CTaskSimpleFinishBrain` | 2 | 0 | 2 | 0 |
-| `CTaskSimpleGangDriveBy` | 10 | 0 | 10 | 0 |
+| `CTaskSimpleGangDriveBy` | 11 | 0 | 11 | 0 |
 | `CTaskSimpleGetUp` | 5 | 0 | 5 | 0 |
 | `CTaskSimpleGiveCPR` | 6 | 0 | 6 | 0 |
 | `CTaskSimpleGoTo` | 4 | 0 | 4 | 0 |

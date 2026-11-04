@@ -202,13 +202,9 @@ class,function,address,source,origins
 (biblioteca) RenderWare SDK,RxRenderStateVectorSetDefaultRenderStateVector,0x0080EA40,source/game_sa/RenderWare/rw/rwcore.cpp:351,cohorte nuevo 2026-10-17 (biblioteca)
 (helpers y globales sin clase),_rwD3D9SetStreams,,source/game_sa/RenderWare/rw/rwcore.cpp:954,envoltura en el código fuente
 (helpers y globales sin clase),_rwObjectHasFrameSetFrame,,source/game_sa/RenderWare/rw/rwcore.cpp:1362,envoltura en el código fuente
-(helpers y globales sin clase),CCamera unnamed geometry helper,0x00514030,source/game_sa/Cam.cpp:959,cohorte 499
-(helpers y globales sin clase),CFont helper de impresión de segmento sin símbolo confirmado,0x00719B40,source/game_sa/Font.cpp:704,cohorte 499
-(helpers y globales sin clase),CTaskSimpleGangDriveBy helper para shooter sin símbolo confirmado,0x00627CC0,source/game_sa/Cam.cpp:2398; source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp:185,cohorte 499
 (helpers y globales sin clase),CWaterLevel helper de agua cercana,0x006E6A10,source/game_sa/WaterLevel.cpp:1557,cohorte 499
 (helpers y globales sin clase),ExeFree,,source/game_sa/RenderWare/D3DResourceSystem.cpp:79,envoltura en el código fuente
 (helpers y globales sin clase),GetFirstTextureCallback,,source/game_sa/RenderWare/rw/rwtexdict.cpp:20,envoltura en el código fuente
-(helpers y globales sin clase),helper sin símbolo confirmado,0x0051D770,source/game_sa/Camera.cpp:1806,cohorte nuevo 2026-10-17
 (helpers y globales sin clase),IndexDataBufferGetTotalDataSize,,source/game_sa/RenderWare/D3DResourceSystem.cpp:114,envoltura en el código fuente
 (helpers y globales sin clase),IndexDataBufferPop,,source/game_sa/RenderWare/D3DResourceSystem.cpp:98,envoltura en el código fuente
 (helpers y globales sin clase),IndexDataBufferResize,,source/game_sa/RenderWare/D3DResourceSystem.cpp:101,envoltura en el código fuente
@@ -231,4 +227,3 @@ class,function,address,source,origins
 (helpers y globales sin clase),TextureBufferPushWithoutIncreasingCounter,,source/game_sa/RenderWare/D3DResourceSystem.cpp:92,envoltura en el código fuente
 (helpers y globales sin clase),TextureBufferResize,,source/game_sa/RenderWare/D3DResourceSystem.cpp:95,envoltura en el código fuente
 (helpers y globales sin clase),TextureBufferSetup,,source/game_sa/RenderWare/D3DResourceSystem.cpp:86,envoltura en el código fuente
-CPlayerPed,FindNextWeaponLockOnTarget,0x0060E530,source/game_sa/Entity/Ped/PlayerPed.cpp:2471,cohorte 499 + envoltura en el código fuente
