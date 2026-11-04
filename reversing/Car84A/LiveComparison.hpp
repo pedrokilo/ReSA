@@ -314,6 +314,7 @@ inline void Update() {
     if(!ready){Run(env,false,registered,bodies,collaborators);return;}
     const Pair pInit=MakeCollab(env,kInit,hooksFound),pTurn=MakeCollab(env,kTurn,hooksFound),pDir=MakeCollab(env,kDir,hooksFound),pIan=MakeCollab(env,kIan,hooksFound),
         pModify=MakeCollab(env,kModify,hooksFound),pCsf=MakeCollab(env,kCsf,hooksFound);
+    (void)MakeCollab(env,0x44DB00,hooksFound); // 0x44DB00 (CCarPathLink::OneWayLaneOffset) ya tiene hook RH (lote 93A): se apaga para que el EXE ejecute sus bytes reales
     auto S=[](const Pair& p,void* fake){return StubSpec{p,fake};};
     env.stubs[0]={S(pInit,reinterpret_cast<void*>(&FakeInit)),S(pTurn,reinterpret_cast<void*>(&FakeTurn)),S(pDir,reinterpret_cast<void*>(&FakeDir)),S(pIan,reinterpret_cast<void*>(&FakeIan)),
         S(pModify,reinterpret_cast<void*>(&FakeModify)),S(pCsf,reinterpret_cast<void*>(&FakeCsf))};

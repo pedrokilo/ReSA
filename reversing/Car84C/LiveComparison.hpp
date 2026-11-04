@@ -327,7 +327,7 @@ inline void Update() {
     const Pair pPath=MakeCollab(env,kPath,hooksFound);
     const Pair pCsf=MakeCollab(env,kCsf,hooksFound);
     // Con el hook apagado y sin falso: RemoveOnePathNode y SwitchVehicleToRealPhysics (la DLL llama a su propio C++, el EXE a los bytes originales)
-    (void)MakeCollab(env,kRem,hooksFound);(void)MakeCollab(env,kSwitch,hooksFound);
+    (void)MakeCollab(env,kRem,hooksFound);(void)MakeCollab(env,kSwitch,hooksFound); (void)MakeCollab(env,0x44DB00,hooksFound); // 0x44DB00 (CCarPathLink::OneWayLaneOffset) ya tiene hook RH (lote 93A): se apaga para que el EXE ejecute sus bytes reales
     auto S=[](const Pair& p,void* fake){return StubSpec{p,fake};};
     env.stubs[0]={S(pPath,reinterpret_cast<void*>(&FakePath)),S(pCsf,reinterpret_cast<void*>(&FakeCsf))};
     for(unsigned f=0;f<kFunctions;++f) {
