@@ -16,37 +16,37 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Validado en el worktree D:/Original/wh-4 (HEAD df26d6fe7 + fuentes del lote 63 parte C, tandas 1 a 3). Colaboradores sustituidos por falsos identicos en ambos lados (parche de entrada en el EXE y, si tienen hook activo, en el cuerpo de la DLL; no se validan sus cuerpos reales): FindPlayerCoors 0x56E010, FindPlayerVehicle 0x56E0D0 y las envolturas PickNextNodeToChaseCar 0x426EF0, PickNextNodeToFollowPath 0x427740 y PickNextNodeRandomly 0x42DE80 en PickNextNodeAccordingStrategy (el EXE empuja ademas un dword sobrante, el vehiculo del jugador o el objetivo, que la funcion llamada ignora); CPathFind::FindNodeClosestToCoorsFavourDirection 0x44FCE0 (devolucion por puntero oculto) y FindLinksToGoWithTheseNodes 0x42B470 (envoltura plugin::Call) en JoinCarWithRoadSystem; CPathFind::DoPathSearch 0x4515D0 (19 dwords de pila), RemoveBadStartNode 0x44E4F0 (sin reconstruir; por direccion), CAutoPilot::RemoveOnePathNode 0x41B950, FindLinksToGoWithTheseNodes 0x42B470 y JoinCarWithRoadSystem 0x42F5A0 (con el hook apagado fuera de su propia prueba, cuerpo de la DLL parcheado) en JoinCarWithRoadSystemGotoCoors. Los nodos, enlaces y areas de ThePaths son sinteticos (arenas con guardas; ThePaths.m_pPathNodes/m_pNodeLinks guardados y restaurados). Los bool de pila de DoPathSearch se registran con su byte bajo. JoinCarWithRoadSystem solo se prueba con matriz valida, como el EXE (que la desreferencia sin comprobarla); JoinCarWithRoadSystemGotoCoors con y sin matriz. Ningun llamador del EXE lee EAX/ECX/EDX de salida salvo AL de las dos funciones bool (que el banco compara). Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/CarCtrlRest63C-20261101-201952-396126",
-  "summary_sha256": "55a271313d61ffc2d7a40200eace48fbd649c3933803b06f6b27445473147458",
-  "result_txt_sha256": "640f3aede126a582042b64f28f1c9509bea3b37d1a2f7c39d036ca840bc199e7",
-  "log_sha256": "f117dfc39032a3eb913f58e094585c4f4b53cc9da274b9a666439aafb7dd7311",
+  "run": "reversing/CppTwelveLevel6Final/runs/CarCtrlRest63C-20261104-104047-527247",
+  "summary_sha256": "7d338ce943eddb02401ced2330bb22e99380841a24cd60a830cf6fadd73d38e1",
+  "result_txt_sha256": "e54b21cb0a01a4a310aa1ef8844b59d8a014538baa2418822504ee40a113d1b4",
+  "log_sha256": "8da92eca51a23ccf0b68704d2a9749f69c14edba1a7c080e3dbb26863ea52447",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "e954f423aadcd7746c2394c2f413105abb7f3de943e38fb8ad565b57395dbe65",
+  "executed_probe_sha256": "94f9d3754fd7f55efd6a3ad011469f4ad9408a17d83a8fdc8318eb58e42deaf4",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-      "source/game_sa/CarCtrl.cpp": "7226f58607b1b93e27eea067cf6f67bbbc6650fdd8113bd313427f898f1adbbe",
+      "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+      "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
       "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
-      "source/game_sa/X87Math.cpp": "dd9ef6a35a1dc41537771f5783decbc46281c8bbdf948eceaeba2d18d06ebc5c",
-      "source/game_sa/X87Math.h": "4f94d8be0e74043afa4fdc1b2d2c726c907779d6b9c2d4a4c6a7722c7f9009d4",
+      "source/game_sa/X87Math.cpp": "102e2f5a4df65cb2825bce309826d187fc64d728cd4b97afbc457a34bf992d92",
+      "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-      "reversing/CarCtrlRest63C/LiveComparison.hpp": "47b44729d6078059ef0b5fd9cd660831699a0538898eb576203d8689d2e25398",
-      "reversing/CarCtrlRest63C/Core.hpp": "1be54a0d7f4ef654db1b487b00718bbd594510b074b6d897a8d1c5763d496161",
-      "reversing/CarCtrlRest63C/Cases.hpp": "a88307833aa175fdd36a11b4d07e2e76e9cc9786251369206146a5cd35aa8b4e",
-      "reversing/CarCtrlRest63C/Fixtures.hpp": "4fc1278b4502f8243dbcae839bdf991ee9851e368bdcbdf11fd98700f4976b57",
+      "reversing/CarCtrlRest63C/LiveComparison.hpp": "0a436d27cc00c642d183b87148f5b7b80f89a7d65787aaa47246668715f0c283",
+      "reversing/CarCtrlRest63C/Core.hpp": "4e5c5ec04c2d2bfbab16391538e58312eccb37da3f3b1dfec8fbb5eb30e704a8",
+      "reversing/CarCtrlRest63C/Cases.hpp": "37229ae4b5e67bcd8c28d61b6fd870588334c11090206563a183607a82eb6a0b",
+      "reversing/CarCtrlRest63C/Fixtures.hpp": "bcb37ad9d88e776db4f6ee4bef6705a296069e52ac8e240ea18c661daf607077",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/CarCtrlRest63C-20261101-201952-396126/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/CarCtrlRest63C-20261104-104047-527247/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "3f09000fbbdecd789eaae6736a129c9ceeae1f1f9f73d1a490e83a87523c9b56",
-    "uncompressed_sha256": "f117dfc39032a3eb913f58e094585c4f4b53cc9da274b9a666439aafb7dd7311"
+    "compressed_sha256": "afd20aa5a02ba6138ca77b180f62fc1034fe52f0dbf2d026565aa5897cf0fac7",
+    "uncompressed_sha256": "8da92eca51a23ccf0b68704d2a9749f69c14edba1a7c080e3dbb26863ea52447"
   }
 }
