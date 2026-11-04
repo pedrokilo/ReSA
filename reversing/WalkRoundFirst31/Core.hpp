@@ -405,7 +405,7 @@ inline void Run(Env& env,bool ready,const json& registered,const json& bodies) {
     for(const uintptr_t at:kWatchedOnly)env.watches.emplace_back(at,16);
     json watched=json::array();for(const auto& w:env.watches)watched.push_back({{"address",w.address},{"bytes",HexBytes(reinterpret_cast<void*>(w.address),16)}});
     const size_t cap=size_t(PoolCap());
-    ready&=cap>=256&&env.pAlloc.dll!=0&&env.pUpdate.dll!=0;
+    ready&=cap>=256&&env.pAlloc.dll!=0&&env.pUpdate.dll!=0&&env.pCreateRoute.dll!=0;
     SaveFP(savedFP.data());savedMXCSR=ReadMXCSR();savedFPActive=true;
     Write({{"event","begin"},{"registered_hook",ready},{"registered",registered},{"functions",1},{"pairs",kCases},
         {"cases",{{"CTaskComplexWalkRoundObject::CreateFirstSubTask",kCases}}},

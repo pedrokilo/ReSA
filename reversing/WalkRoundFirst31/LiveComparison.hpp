@@ -60,7 +60,7 @@ inline void Update() {
     env.pAlloc={0x54F560,Body(std::bit_cast<uintptr_t>(&CPlaceable::AllocateMatrix))};
     env.pUpdate={0x54F1B0,Body(std::bit_cast<uintptr_t>(&CSimpleTransform::UpdateMatrix))};
     env.pCalc={0x6551D0,0};          // sin simbolo: la DLL la llama por plugin a la direccion del EXE, que se parchea
-    env.pCreateRoute={0x655140,0};   // CreateRouteTask no esta enganchada: igual
+    env.pCreateRoute={0x655140,Body(std::bit_cast<uintptr_t>(&CTaskComplexWalkRoundObject::CreateRouteTask))};   // CreateRouteTask se enganchó en C++ (lote 65, 5765c0b5f) tras la evidencia: el mismo falso en el cuerpo de la DLL
     Run(env,ready,registered,bodies);
 }
 }
