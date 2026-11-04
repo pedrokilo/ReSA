@@ -144,6 +144,7 @@ inline CTask* __fastcall FakeKpofControl(void* t,void*,CPed* p) { trace.push_bac
 inline CTask* __fastcall FakeKpofSub(void* t,void*,int32 type,CPed* p) { trace.push_back({"kpof_create_sub",Name(t),type,Name(p)}); return reinterpret_cast<CTask*>(kpofSubRet); }
 inline bool __cdecl FakeCanTarget(CPed& a,CPed& b,uint32 dir) { trace.push_back({"can_ped_target_ped",Name(&a),Name(&b),dir&0xFF,canTargetRet}); return canTargetRet!=0; }
 inline float __fastcall FakeCanSee(void* in,void*,CEntity* e,int32 u) { trace.push_back({"can_see_with_lights",Name(in),Name(e),u,F(canSeeRet)}); return canSeeRet; }
+inline void __cdecl FakeSayGangAttack(CPed* ped,CPed* target) { trace.push_back({"say_gang_attack",Name(ped),Name(target)}); }
 inline CTask* __fastcall FakePartnerFirst(void* t,void*,CPed* p) { trace.push_back({"partner_create_first",Name(t),Name(p)}); return reinterpret_cast<CTask*>(partnerFirstRet); }
 inline bool __cdecl FakeShouldLoad() { trace.push_back({"should_load_gang_anims",shouldLoadRet}); return shouldLoadRet!=0; }
 inline int32 __cdecl FakeBlockIndex(const char* name) { std::string s; for(int k=0;k<16&&name[k];++k)s+=name[k]; trace.push_back({"anim_block_index",s,blockIdx}); return blockIdx; }
@@ -297,6 +298,15 @@ inline void Update() {
         EntryPatch r1(bit_cast<uintptr_t>(&CGeneral::GetRandomNumber),FakeRandomNumber), r1e(0x821B1E,FakeRand);
         EntryPatch s1(bit_cast<uintptr_t>(static_cast<int16(CPed::*)(eGlobalSpeechContext,uint32,float,bool,bool,bool)>(&CPed::Say)),FakeSay), s1e(0x5EFFE0,FakeSay);
         EntryPatch k1e(0x62B490,FakeKpofFirst), k2e(0x626260,FakeKpofControl), k3e(0x625E70,FakeKpofSub);
+        // CTaskComplexKillPedOnFoot::CreateFirstSubTask/ControlSubTask/CreateSubTask/SayGangAttack estan reconstruidas en C++ (lotes 62 y 94A): KillPedOnFootStealth las llama de forma cualificada, es decir
+        // directamente al cuerpo de la DLL (no por la entrada del EXE). El mismo falso se parchea en la direccion del EXE y en el cuerpo de la DLL (resuelto con el hook encendido, como lo deja el juego).
+        auto kpofBody=[&](const char* fn,uintptr_t simpleAddr)->uintptr_t{
+            auto* h=FindHook("CTaskComplexKillPedOnFoot",fn); if(!h)return 0;
+            const uintptr_t a=!strcmp(h->Symbol(),"V") ? uintptr_t(static_cast<ReversibleHooks::ReversibleHook::Virtual*>(h)->GetHookOurAddress()) : simpleAddr;
+            const uintptr_t body=PartnerSwitch::BodyOf(a); return body>=0x1000000&&PartnerSwitch::ModuleOf(body)==PartnerSwitch::ModuleOf(uintptr_t(&FakePartnerFirst)) ? body : 0; };
+        const uintptr_t kpofFirstBody=kpofBody("CreateFirstSubTask",0), kpofControlBody=kpofBody("ControlSubTask",0), kpofSubBody=kpofBody("CreateSubTask",bit_cast<uintptr_t>(&CTaskComplexKillPedOnFoot::CreateSubTask)), kpofSayBody=kpofBody("SayGangAttack",bit_cast<uintptr_t>(&CTaskComplexKillPedOnFoot::SayGangAttack));
+        if(!kpofFirstBody||!kpofControlBody||!kpofSubBody||!kpofSayBody){ Write({{"event","error"},{"reason","KillPedOnFoot collaborator body not resolved"},{"first",kpofFirstBody},{"control",kpofControlBody},{"sub",kpofSubBody},{"say",kpofSayBody}}); for(size_t f=0;f<fns.size();++f)hooks[f]->LockState(locked[f]); return; }
+        EntryPatch k1(kpofFirstBody,FakeKpofFirst), k2(kpofControlBody,FakeKpofControl), k3(kpofSubBody,FakeKpofSub), k4(kpofSayBody,FakeSayGangAttack), k4e(0x65E9A0,FakeSayGangAttack);
         EntryPatch g1(bit_cast<uintptr_t>(&CPedGeometryAnalyser::CanPedTargetPed),FakeCanTarget), g1e(0x5F1C40,FakeCanTarget);
         EntryPatch g2(bit_cast<uintptr_t>(&CPedIntelligence::CanSeeEntityWithLights),FakeCanSee), g2e(0x605550,FakeCanSee);
         EntryPatch a1(bit_cast<uintptr_t>(&CTaskComplexGangLeader::ShouldLoadGangAnims),FakeShouldLoad), a1e(0x65E7F0,FakeShouldLoad);
