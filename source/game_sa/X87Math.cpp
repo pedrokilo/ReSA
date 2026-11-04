@@ -15065,8 +15065,14 @@ Hp65Value Hp65Numeric(double d) {
     }
     return { d, false, 0 };
 }
+// Entre dos NaN silenciosos gana el de mayor mantisa; con la misma mantisa y distinto signo la x87 devuelve el POSITIVO (medido contra los bytes de 0x59C890 con todas las combinaciones
+// de signos: el banco Dependencies23A fallaba en 4 de 8192 pares porque aqui ganaba el primer operando, que a veces era el negativo).
 Hp65Value Hp65Larger(const Hp65Value& a, const Hp65Value& b) {
-    return (b.qbits & 0x7FFFFFu) > (a.qbits & 0x7FFFFFu) ? b : a;
+    const unsigned ma = a.qbits & 0x7FFFFFu, mb = b.qbits & 0x7FFFFFu;
+    if (mb != ma) {
+        return mb > ma ? b : a;
+    }
+    return (b.qbits & 0x80000000u) ? a : b;
 }
 // op de memoria (fmul/fadd dword [p]) sobre el registro a
 Hp65Value Hp65MemOp(const Hp65Value& a, const float* p, bool multiply) {
