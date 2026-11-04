@@ -101,7 +101,7 @@ inline void BuildCollabs() {
     S(J_SIREN, "uses_siren", 0x6D8470, Body(&CVehicle::UsesSiren), P_(&S_Siren));
     S(J_UPDRW, "matrix_update_rw", 0x59AD70, Body(&CMatrix::UpdateRwMatrix), P_(&S_UpdRw));
     S(J_SIMPLEUPD, "transform_update_rw", 0x54EF40, Body(&CSimpleTransform::UpdateRwMatrix), P_(&S_SimpleUpdRw));
-    S(J_JOIN, "join_car", 0x42F5A0, 0, P_(&S_Join));   // la DLL llama al EXE directamente (plugin::Call)
+    S(J_JOIN, "join_car", 0x42F5A0, Body(&CCarCtrl::JoinCarWithRoadSystem), P_(&S_Join));   // reconstruida: la DLL la llama directamente; mismo falso en direccion y cuerpo
     S(J_FINDNTH, "find_nth_node", 0x44F8C0, Body(&CPathFind::FindNthNodeClosestToCoors), P_(&S_FindNth));
     S(J_GENINT, "gen_interior", 0x44ECA0, Body(&CPathFind::GeneratePedCreationCoors_Interior), P_(&S_GenInterior));
     S(J_FINDNEW, "find_new_ped_type", 0x60FBD0, Body(&CPopCycle::FindNewPedType), P_(&S_FindNewPed));

@@ -131,7 +131,7 @@ inline void RegisterSites() {
     AddSite("CVector::Normalise", 0x59C910, bit_cast<uintptr_t>(&CVector::Normalise), (&SNormalise));
     // colaboradores que son a la vez funciones de CRadar (solo mientras se prueba otra funcion)
     AddSite("CRadar::SetupAirstripBlips", 0x587D20, bit_cast<uintptr_t>(&CRadar::SetupAirstripBlips), (&SSetupAirstrip));
-    AddSite("CRadar::DrawEntityBlip", 0x587000, 0, (&SDrawEntity));
+    AddSite("CRadar::DrawEntityBlip", 0x587000, bit_cast<uintptr_t>(&CRadar::DrawEntityBlip), (&SDrawEntity));   // reconstruida: mismo falso en la DLL
     AddSite("CRadar::DrawCoordBlip", 0x586D60, bit_cast<uintptr_t>(&CRadar::DrawCoordBlip), (&SDrawCoord));
     AddSite("CRadar::DrawRadarSprite", 0x585FF0, bit_cast<uintptr_t>(&CRadar::DrawRadarSprite), (&SDrawSprite));
     AddSite("CRadar::DrawRotatingRadarSprite", 0x584850, bit_cast<uintptr_t>(&CRadar::DrawRotatingRadarSprite), (&SDrawRot));

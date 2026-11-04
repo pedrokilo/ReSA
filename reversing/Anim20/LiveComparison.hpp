@@ -200,6 +200,8 @@ inline void Update() {
                 auto call=[&](auto&& body){
                     Patches p;
                     p.Add(0x72F4C0,FakeMallocAlign); p.Add(0x72F4F0,FakeFreeAlign);
+                    // MallocAlign/FreeAlign reconstruidas: el mismo falso en el cuerpo de la DLL
+                    p.Add(Body(bit_cast<uintptr_t>(static_cast<uint8*(*)(uint32,uint32,uint32)>(&CMemoryMgr::MallocAlign))),FakeMallocAlign); p.Add(Body(bit_cast<uintptr_t>(&CMemoryMgr::FreeAlign)),FakeFreeAlign);
                     p.Add(0x4D41C0,FakeUncompress); p.Add(Body(bit_cast<uintptr_t>(&CAnimManager::UncompressAnimation)),FakeUncompress);
                     p.Add(0x4D3FB0,FakeAddRef); p.Add(Body(bit_cast<uintptr_t>(&CAnimManager::AddAnimBlockRef)),FakeAddRef);
                     p.Add(0x4D0240,FakeFindKeyFrame); p.Add(Body(bit_cast<uintptr_t>(&CAnimBlendNode::FindKeyFrame)),FakeFindKeyFrame);

@@ -36,7 +36,7 @@
   "log_sha256": "9f51a19ace365c7de11d095276272cf64833040f15b08fbf88cae8fccd999a9a",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-anim20\\20261003-215020-521110",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-anim20\\20261104-035741-395247",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAnimBlendAssociation::Constructor0-": true,
@@ -62,22 +62,23 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "279586acf315158ead741d8dd66ffeec2d2f3aad84bf7a02f447b7a5642c29b7",
-      "pdb": "e24ad65fac322aca28df288d34ad1d22c416592e450473d2eaede460861cce06"
+      "asi": "6654611c3589c86e81fe7dc145d24c46dd7b9c855cbca31271025b7a0fe936ab",
+      "pdb": "5aa6c5dcbe9473d5098925d7a2e60c31fb5fa4e53911fb350ac1006ec2e2d88d"
     },
     "sources": {
-      "source/game_sa/Animation/AnimBlendAssociation.cpp": "8595afed8a8fa91229618098506bf1326b77f75f4b60419cd3630bcfccada34f",
+      "source/game_sa/Animation/AnimBlendAssociation.cpp": "48d69096df4497e826e3afa52fbd856fa1d122d6e6349521f6dda121551956b6",
       "source/game_sa/Animation/AnimBlendAssociation.h": "c9f3243ffe9626d3bf003debd8cfa6fe8762323601c6a1cdc1acc911d4fa21cd"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "d583a928c4705e5292a51260061fb6e42d625f0bed055248ca63fa33074c183a",
+      "LiveComparison.hpp": "a1c3bc332c9ab61a1778af9c070512af5876e2a766b3f59f845224766379f9f2",
       "build_probe.py": "2e3f6f9f7d99e4916149c697d29eea77845bef3fe9f0df75fc53e54ca5b8c743",
       "run_local.py": "9caa47bc237b297116afc9352b7e73b55f508567d3dd046e4718f0832069ed68"
     }
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-11-04 tras reconstruir colaboradores (lotes 67 a 89 y anteriores); el banco se adapto a ellos: falsos identicos en la direccion del EXE y en el cuerpo/simbolo de la DLL (ver su README.md)."
   ]
 }

@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "6654611c3589c86e81fe7dc145d24c46dd7b9c855cbca31271025b7a0fe936ab",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 10368,
+  "pairs_per_function": {
+    "CAnimBlendAssociation::Constructor0-": 512,
+    "CAnimBlendAssociation::Constructor1-clump_hier": 512,
+    "CAnimBlendAssociation::Constructor2-blend": 512,
+    "CAnimBlendAssociation::Constructor3-static_blend": 512,
+    "CAnimBlendAssociation::Init-0": 768,
+    "CAnimBlendAssociation::Init-1": 768,
+    "CAnimBlendAssociation::Init-2": 768,
+    "CAnimBlendAssociation::AllocateAnimBlendNodeArray": 512,
+    "CAnimBlendAssociation::FreeAnimBlendNodeArray": 128,
+    "CAnimBlendAssociation::ReferenceAnimBlock": 256,
+    "CAnimBlendAssociation::SetBlend": 128,
+    "CAnimBlendAssociation::SetBlendTo": 256,
+    "CAnimBlendAssociation::SetCurrentTime": 1024,
+    "CAnimBlendAssociation::SetDeleteCallback": 64,
+    "CAnimBlendAssociation::SetFinishCallback": 64,
+    "CAnimBlendAssociation::Start": 512,
+    "CAnimBlendAssociation::SyncAnimation": 512,
+    "CAnimBlendAssociation::UpdateBlend": 1024,
+    "CAnimBlendAssociation::UpdateTime": 1024,
+    "CAnimBlendAssociation::UpdateTimeStep": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "9f51a19ace365c7de11d095276272cf64833040f15b08fbf88cae8fccd999a9a",
+  "saves_unchanged": true,
+  "configs_restored": true
+}
