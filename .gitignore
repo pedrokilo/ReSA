@@ -84,3 +84,6 @@ compile_commands.json
 /reversing/RequestedValidation20261008/rea-live.log
 /reversing/RequestedValidation20261008/rea-queue.json
 /reversing/RequestedValidation20261008/rea-supplement-queue.json
+
+# Paquetes de Python descargados (unicorn y otros): se instalan con pip, no se versionan
+*.whl
