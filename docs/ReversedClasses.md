@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-11-04 14:19 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-11-04 14:24 UTC
 
 **Índice:** [1. Objetivo y dimensiones](#objetivo) · [2. Siguientes mediciones](#mediciones) · [3. Siguiente fase](#siguiente-fase) · [4. Vista general](#vista-general) · [5. Cobertura real del EXE](#cobertura-exe) · [6. Lo que falta del código del juego](#que-falta) · [7. Funciones del juego aún no en C++](#no-en-cpp) · [8. Completas](#completas) · [9. Cohorte 17/10/2026](#cohorte-nuevo) · [10. Dependencias directas (grupo A)](#grupo-a) · [11. Parciales](#parciales) · [12. Sin revertir](#sin-revertir) · [13. Cómo leer y actualizar](#metodo)
 
@@ -131,21 +131,21 @@ Al 04/11/2026, estas 15 funciones **del código del juego** (0x401000–0x74FFFF
 
 | Función | Dirección | Bytes | Tamaño | Clase o grupo | Lote en curso |
 | --- | --- | ---: | --- | --- | --- |
-| `RpClumpGtaStreamRead2` | `0x0072E620` | 215 | mediana | (helpers y globales sin clase) | 95A/95C |
-| `RwTexDictionaryGtaStreamRead1` | `0x00731070` | 215 | mediana | (helpers y globales sin clase) | 95A/95C |
-| `RpClumpGtaStreamRead1` | `0x0072E570` | 172 | mediana | (helpers y globales sin clase) | 95A/95C |
-| `TextureBufferPop` | `0x0072FF60` | 141 | mediana | (helpers y globales sin clase) | 95A/95C |
-| `IndexDataBufferPop` | `0x00730270` | 132 | mediana | (helpers y globales sin clase) | 95A/95C |
-| `RwTexDictionaryGtaStreamRead2` | `0x00731150` | 122 | mediana | (helpers y globales sin clase) | 95A/95C |
-| `TextureBufferResize` | `0x00730020` | 115 | mediana | (helpers y globales sin clase) | 95A/95C |
-| `IndexDataBufferResize` | `0x00730330` | 115 | mediana | (helpers y globales sin clase) | 95A/95C |
-| `TextureBufferSetup` | `0x0072FE80` | 63 | pequeña | (helpers y globales sin clase) | 95A/95C |
-| `TextureBufferPush` | `0x0072FFF0` | 43 | pequeña | (helpers y globales sin clase) | 95A/95C |
-| `TextureBufferPushWithoutIncreasingCounter` | `0x00730AD0` | 41 | pequeña | (helpers y globales sin clase) | 95A/95C |
-| `RpClumpGtaCancelStream` | `0x0072E700` | 36 | pequeña | (helpers y globales sin clase) | 95A/95C |
-| `TextureBufferGetTotalDataSize` | `0x007300A0` | — | sin dato | (helpers y globales sin clase) | 95A/95C |
-| `IndexDataBufferGetTotalDataSize` | `0x007303B0` | — | sin dato | (helpers y globales sin clase) | 95A/95C |
-| `GetFirstTextureCallback` | `0x00734930` | — | sin dato | (helpers y globales sin clase) | 95A/95C |
+| `RpClumpGtaStreamRead2` | `0x0072E620` | 215 | mediana | (helpers y globales sin clase) | 95C |
+| `RwTexDictionaryGtaStreamRead1` | `0x00731070` | 215 | mediana | (helpers y globales sin clase) | 95C |
+| `RpClumpGtaStreamRead1` | `0x0072E570` | 172 | mediana | (helpers y globales sin clase) | 95C |
+| `TextureBufferPop` | `0x0072FF60` | 141 | mediana | (helpers y globales sin clase) | 95A |
+| `IndexDataBufferPop` | `0x00730270` | 132 | mediana | (helpers y globales sin clase) | 95A |
+| `RwTexDictionaryGtaStreamRead2` | `0x00731150` | 122 | mediana | (helpers y globales sin clase) | 95C |
+| `TextureBufferResize` | `0x00730020` | 115 | mediana | (helpers y globales sin clase) | 95A |
+| `IndexDataBufferResize` | `0x00730330` | 115 | mediana | (helpers y globales sin clase) | 95A |
+| `TextureBufferSetup` | `0x0072FE80` | 63 | pequeña | (helpers y globales sin clase) | 95A |
+| `TextureBufferPush` | `0x0072FFF0` | 43 | pequeña | (helpers y globales sin clase) | 95A |
+| `TextureBufferPushWithoutIncreasingCounter` | `0x00730AD0` | 41 | pequeña | (helpers y globales sin clase) | 95A |
+| `RpClumpGtaCancelStream` | `0x0072E700` | 36 | pequeña | (helpers y globales sin clase) | 95C |
+| `TextureBufferGetTotalDataSize` | `0x007300A0` | — | sin dato | (helpers y globales sin clase) | 95A |
+| `IndexDataBufferGetTotalDataSize` | `0x007303B0` | — | sin dato | (helpers y globales sin clase) | 95A |
+| `GetFirstTextureCallback` | `0x00734930` | — | sin dato | (helpers y globales sin clase) | 95C |
 
 <a id="bibliotecas"></a>
 

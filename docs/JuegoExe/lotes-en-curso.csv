@@ -1,16 +1,16 @@
 lote,direccion,funcion,estado,nota
-95A/95C,0x0072FE80,TextureBufferSetup,en curso,"D3DResourceSystem y lecturas de streams; el reparto entre 95A y 95C lo fija el coordinador"
-95A/95C,0x0072FF60,TextureBufferPop,en curso,"D3DResourceSystem y lecturas de streams; el reparto entre 95A y 95C lo fija el coordinador"
-95A/95C,0x0072FFF0,TextureBufferPush,en curso,"D3DResourceSystem y lecturas de streams; el reparto entre 95A y 95C lo fija el coordinador"
-95A/95C,0x00730020,TextureBufferResize,en curso,"D3DResourceSystem y lecturas de streams; el reparto entre 95A y 95C lo fija el coordinador"
-95A/95C,0x007300A0,TextureBufferGetTotalDataSize,en curso,"D3DResourceSystem y lecturas de streams; el reparto entre 95A y 95C lo fija el coordinador"
-95A/95C,0x00730AD0,TextureBufferPushWithoutIncreasingCounter,en curso,"D3DResourceSystem y lecturas de streams; el reparto entre 95A y 95C lo fija el coordinador"
-95A/95C,0x00730270,IndexDataBufferPop,en curso,"D3DResourceSystem y lecturas de streams; el reparto entre 95A y 95C lo fija el coordinador"
-95A/95C,0x00730330,IndexDataBufferResize,en curso,"D3DResourceSystem y lecturas de streams; el reparto entre 95A y 95C lo fija el coordinador"
-95A/95C,0x007303B0,IndexDataBufferGetTotalDataSize,en curso,"D3DResourceSystem y lecturas de streams; el reparto entre 95A y 95C lo fija el coordinador"
-95A/95C,0x00731070,RwTexDictionaryGtaStreamRead1,en curso,"D3DResourceSystem y lecturas de streams; el reparto entre 95A y 95C lo fija el coordinador"
-95A/95C,0x00731150,RwTexDictionaryGtaStreamRead2,en curso,"D3DResourceSystem y lecturas de streams; el reparto entre 95A y 95C lo fija el coordinador"
-95A/95C,0x0072E570,RpClumpGtaStreamRead1,en curso,"D3DResourceSystem y lecturas de streams; el reparto entre 95A y 95C lo fija el coordinador"
-95A/95C,0x0072E620,RpClumpGtaStreamRead2,en curso,"D3DResourceSystem y lecturas de streams; el reparto entre 95A y 95C lo fija el coordinador"
-95A/95C,0x0072E700,RpClumpGtaCancelStream,en curso,"D3DResourceSystem y lecturas de streams; el reparto entre 95A y 95C lo fija el coordinador"
-95A/95C,0x00734930,GetFirstTextureCallback,en curso,"D3DResourceSystem y lecturas de streams; el reparto entre 95A y 95C lo fija el coordinador"
+95A,0x0072FE80,TextureBufferSetup,en curso,Buffers de D3DResourceSystem (D3DTextureBuffer / D3DIndexDataBuffer): banco Fn95A
+95A,0x0072FF60,TextureBufferPop,en curso,Buffers de D3DResourceSystem (D3DTextureBuffer / D3DIndexDataBuffer): banco Fn95A
+95A,0x0072FFF0,TextureBufferPush,en curso,Buffers de D3DResourceSystem (D3DTextureBuffer / D3DIndexDataBuffer): banco Fn95A
+95A,0x00730020,TextureBufferResize,en curso,Buffers de D3DResourceSystem (D3DTextureBuffer / D3DIndexDataBuffer): banco Fn95A
+95A,0x007300A0,TextureBufferGetTotalDataSize,en curso,Buffers de D3DResourceSystem (D3DTextureBuffer / D3DIndexDataBuffer): banco Fn95A
+95A,0x00730AD0,TextureBufferPushWithoutIncreasingCounter,en curso,Buffers de D3DResourceSystem (D3DTextureBuffer / D3DIndexDataBuffer): banco Fn95A
+95A,0x00730270,IndexDataBufferPop,en curso,Buffers de D3DResourceSystem (D3DTextureBuffer / D3DIndexDataBuffer): banco Fn95A
+95A,0x00730330,IndexDataBufferResize,en curso,Buffers de D3DResourceSystem (D3DTextureBuffer / D3DIndexDataBuffer): banco Fn95A
+95A,0x007303B0,IndexDataBufferGetTotalDataSize,en curso,Buffers de D3DResourceSystem (D3DTextureBuffer / D3DIndexDataBuffer): banco Fn95A
+95C,0x00731070,RwTexDictionaryGtaStreamRead1,en curso,Lectura de streams de TXD y clump: banco Fn95C
+95C,0x00731150,RwTexDictionaryGtaStreamRead2,en curso,Lectura de streams de TXD y clump: banco Fn95C
+95C,0x0072E570,RpClumpGtaStreamRead1,en curso,Lectura de streams de TXD y clump: banco Fn95C
+95C,0x0072E620,RpClumpGtaStreamRead2,en curso,Lectura de streams de TXD y clump: banco Fn95C
+95C,0x0072E700,RpClumpGtaCancelStream,en curso,Lectura de streams de TXD y clump: banco Fn95C
+95C,0x00734930,GetFirstTextureCallback,en curso,Lectura de streams de TXD y clump: banco Fn95C
