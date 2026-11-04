@@ -32286,7 +32286,7 @@
       },
       "evidence": {
         "path": "reversing/LeaveCarCtor71/validation-summary.json",
-        "sha256": "92212e0e13c8473e90305680b39a569943be1a7bf21ec954953df2c1939bd199",
+        "sha256": "30097f3bea545bb683ef92f606d08fa06f85a4eb46ea48fb11e8f82c5ecaf6b2",
         "passed_path": [
           "covered_functions",
           "CTaskComplexLeaveCar::CTaskComplexLeaveCar"
@@ -32296,17 +32296,17 @@
         "original_address": "0x0063B8C0"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "1461390378eae1618f39c52d71e624020d3d2e7927648098b54bd33e1baa2646",
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "46455aa2a71243a7728804b0a9f2ff205ba2769419c3562ea58219866e931352",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "d7fd870a679a009f1d987d9d1b69a208b275cffb1e50b9346dce734fa248bf31",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "b59c2f42c4d4550ecfb7c5e6cbfc45f7a3756446f670d6022850b09d6277d25d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.cpp": "7516373718576f3743bffbb0cd04e79b2ef52703e52fd91802102325f7b9e74a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.cpp": "ad2bae466b531a8e90b99c9cedc1668d908bd35aa65de56aae200a7f07c2d35a",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.h": "6a97b2b41148d9e0f1ee6389f71fc36fdfa7ccb57f2fc1a852bd537bb38249d4",
-        "source/game_sa/X87Math.cpp": "881fd3e06e424b3edf2511b85a2cbdc23484ad7fe81cfa0b621124ca7089ab4c",
-        "source/game_sa/X87Math.h": "e2be2c445a566df55494d01cc0465850165aef39d3383c2eedbafce90ddc115d",
+        "source/game_sa/X87Math.cpp": "0f05c3064e745b369facce14e1d0791454011689498d2dd4f12afcc01d5d9afc",
+        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/LeaveCarCtor71/LiveComparison.hpp": "35edcd980a84faa6fc57b3a5d9182b0caed6eae07cb77e019af26679a7153425",
-        "reversing/LeaveCarCtor71/Core.hpp": "3f0487cf2080c9530c2ecdf694f710184312b9f698f240e54edddf02e7aa5d9f",
+        "reversing/LeaveCarCtor71/Core.hpp": "b45572ce6703a8b21cc3390e34ad17a2ed5cb1bbe5c2da2dd5e387fe76d216eb",
         "reversing/LeaveCarCtor71/Fixtures.hpp": "2ac0d08416d7054d559dc9a11a8c258bb893e395c468c3920bb5f079cc0bb225",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
@@ -32325,7 +32325,7 @@
       },
       "evidence": {
         "path": "reversing/LeaveCarCtor71/validation-summary.json",
-        "sha256": "92212e0e13c8473e90305680b39a569943be1a7bf21ec954953df2c1939bd199",
+        "sha256": "30097f3bea545bb683ef92f606d08fa06f85a4eb46ea48fb11e8f82c5ecaf6b2",
         "passed_path": [
           "covered_functions",
           "CTaskComplexLeaveCar::~CTaskComplexLeaveCar"
@@ -32335,17 +32335,17 @@
         "original_address": "0x0063B970"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "1461390378eae1618f39c52d71e624020d3d2e7927648098b54bd33e1baa2646",
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "46455aa2a71243a7728804b0a9f2ff205ba2769419c3562ea58219866e931352",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "d7fd870a679a009f1d987d9d1b69a208b275cffb1e50b9346dce734fa248bf31",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "b59c2f42c4d4550ecfb7c5e6cbfc45f7a3756446f670d6022850b09d6277d25d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.cpp": "7516373718576f3743bffbb0cd04e79b2ef52703e52fd91802102325f7b9e74a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.cpp": "ad2bae466b531a8e90b99c9cedc1668d908bd35aa65de56aae200a7f07c2d35a",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.h": "6a97b2b41148d9e0f1ee6389f71fc36fdfa7ccb57f2fc1a852bd537bb38249d4",
-        "source/game_sa/X87Math.cpp": "881fd3e06e424b3edf2511b85a2cbdc23484ad7fe81cfa0b621124ca7089ab4c",
-        "source/game_sa/X87Math.h": "e2be2c445a566df55494d01cc0465850165aef39d3383c2eedbafce90ddc115d",
+        "source/game_sa/X87Math.cpp": "0f05c3064e745b369facce14e1d0791454011689498d2dd4f12afcc01d5d9afc",
+        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/LeaveCarCtor71/LiveComparison.hpp": "35edcd980a84faa6fc57b3a5d9182b0caed6eae07cb77e019af26679a7153425",
-        "reversing/LeaveCarCtor71/Core.hpp": "3f0487cf2080c9530c2ecdf694f710184312b9f698f240e54edddf02e7aa5d9f",
+        "reversing/LeaveCarCtor71/Core.hpp": "b45572ce6703a8b21cc3390e34ad17a2ed5cb1bbe5c2da2dd5e387fe76d216eb",
         "reversing/LeaveCarCtor71/Fixtures.hpp": "2ac0d08416d7054d559dc9a11a8c258bb893e395c468c3920bb5f079cc0bb225",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
@@ -32364,7 +32364,7 @@
       },
       "evidence": {
         "path": "reversing/LeaveCarCtor71/validation-summary.json",
-        "sha256": "92212e0e13c8473e90305680b39a569943be1a7bf21ec954953df2c1939bd199",
+        "sha256": "30097f3bea545bb683ef92f606d08fa06f85a4eb46ea48fb11e8f82c5ecaf6b2",
         "passed_path": [
           "covered_functions",
           "CTaskComplexLeaveCarAndDie::CTaskComplexLeaveCarAndDie"
@@ -32374,17 +32374,17 @@
         "original_address": "0x0062F1A0"
       },
       "tested_sources": {
-        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/InjectHooksMain.cpp": "52a0a5033c9bbfd63fea9357df77cf34744beaf853287c23a32cc099a45e5902",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "1461390378eae1618f39c52d71e624020d3d2e7927648098b54bd33e1baa2646",
+        "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+        "source/InjectHooksMain.cpp": "46455aa2a71243a7728804b0a9f2ff205ba2769419c3562ea58219866e931352",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "d7fd870a679a009f1d987d9d1b69a208b275cffb1e50b9346dce734fa248bf31",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "b59c2f42c4d4550ecfb7c5e6cbfc45f7a3756446f670d6022850b09d6277d25d",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.cpp": "7516373718576f3743bffbb0cd04e79b2ef52703e52fd91802102325f7b9e74a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.cpp": "ad2bae466b531a8e90b99c9cedc1668d908bd35aa65de56aae200a7f07c2d35a",
         "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.h": "6a97b2b41148d9e0f1ee6389f71fc36fdfa7ccb57f2fc1a852bd537bb38249d4",
-        "source/game_sa/X87Math.cpp": "881fd3e06e424b3edf2511b85a2cbdc23484ad7fe81cfa0b621124ca7089ab4c",
-        "source/game_sa/X87Math.h": "e2be2c445a566df55494d01cc0465850165aef39d3383c2eedbafce90ddc115d",
+        "source/game_sa/X87Math.cpp": "0f05c3064e745b369facce14e1d0791454011689498d2dd4f12afcc01d5d9afc",
+        "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
         "reversing/LeaveCarCtor71/LiveComparison.hpp": "35edcd980a84faa6fc57b3a5d9182b0caed6eae07cb77e019af26679a7153425",
-        "reversing/LeaveCarCtor71/Core.hpp": "3f0487cf2080c9530c2ecdf694f710184312b9f698f240e54edddf02e7aa5d9f",
+        "reversing/LeaveCarCtor71/Core.hpp": "b45572ce6703a8b21cc3390e34ad17a2ed5cb1bbe5c2da2dd5e387fe76d216eb",
         "reversing/LeaveCarCtor71/Fixtures.hpp": "2ac0d08416d7054d559dc9a11a8c258bb893e395c468c3920bb5f079cc0bb225",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"

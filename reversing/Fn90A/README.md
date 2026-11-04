@@ -38,3 +38,9 @@ Produccion mutada en diez puntos (`Pad.h`: `Pads[n + 1]`; `RGBA.cpp`: r y g inte
 
 ## Historial de la puesta a punto (que costo)
 Primera corrida: FALLO en `RemoveAnimBlockRef`, `SetFxQuality` y `CSphere::Set` solo por registros (el marco /Od recarga ECX/EDX). Segunda: `#pragma optimize` por funcion + opciones por archivo (SetFxQuality pasa). Tercera: `CSphere::Set` sin la llamada a `CVector::operator=` (pasa). Cuarta/quinta: `RemoveAnimBlockRef` con la direccion de la tabla como inmediato y devolviendo el bloque para que el compilador use EAX y no ECX (pasa).
+
+## Bancos repetidos
+Citan alguna de estas direcciones (lista completa por busqueda de la direccion o del simbolo en `reversing/*/LiveComparison.hpp`, `Core.hpp` y `run_local.py`; unos 70 bancos, ver el informe del lote):
+- `LeaveCarCtor71` (cita 0x61A3B0; el constructor de CTaskComplex corre real): **APROBADO**, `resultados-leavecarctor71/20261104-024319-851937`; evidencia refrescada en el registro.
+- `ForcePedOut71` (falsea 0x61A390 solo en el EXE con `Pair{0x61A390,0,false}`; ahora hay hook S en esa direccion): **FALLA solo por la compuerta `collaborators_dll`** (16384/16384; las filas coinciden: `resultados-forcepedout71/20261104-022648-848492`). La adaptacion es `Pair{0x61A390, DllBodyOf("CTaskSimple","Constructor"), true}` (como `PlayerGroup75` en el lote 85A) y `STUBBED` con `(0x61A390, True)` en `run_local.py`; queda sin verificar por falta de turno de juego (ver `/d/Original/wk1b_ForcePedOut71_adapt.patch`).
+- El resto de los bancos que citan estas direcciones (RadarBlip28, Sprite2d33, Dependencies22C, FxBlood79, CPedB, MenuMgrC, Mirrors, CTasks13, DependenciesVehicleStats10, CamAim355, Fn85E, CarCtrlSteer63e, ...) no se han repetido todavia: los candados de compilacion y de juego compartidos hicieron que cada banco esperase 15-35 minutos de turno.
