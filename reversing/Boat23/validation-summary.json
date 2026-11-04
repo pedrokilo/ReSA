@@ -36,10 +36,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "93cb5e1837c2f0462ef1cf9b9419f6a6e6950ff49526e51e35bc99f3f5cda027",
+  "log_sha256": "13ac7d9ace17838f6b35275625c9f4b1c4ae4c175fd0556aee289bd5808c44ec",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-boat23\\20261004-090726-942849",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-boat23\\20261104-040438-950433",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CBoat::AddWakePoint": true,
@@ -68,11 +68,11 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "ca0697bf6f9e2b8f03052ddf42d0b87b6ad49066bac897856e72c5ca2c05ee0b",
-      "pdb": "701b1b1ac2fe4425ff0bb4d66bbf42880e881f8d4b6073ad42127d910d20e4e6"
+      "asi": "cce8ef34769379e749193dc7c45d56162acd062a39689af63ad8ffb088828b76",
+      "pdb": "1da6e1b6b70308be1b4edc4df315d84c5d7ac06cefe7d6bdd10a371806258c13"
     },
     "sources": {
-      "source/game_sa/Entity/Vehicle/Boat.cpp": "2c0fc8e0e0bb00ab5b43bb7db7e4aee554fb55a1518dc1cf322f583784cf91d6",
+      "source/game_sa/Entity/Vehicle/Boat.cpp": "cda2951a31b01f521e18021c6ef427424dcf75e8f391bcae4a89463eee6e6287",
       "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
@@ -84,6 +84,7 @@
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-11-04 tras reconstruir colaboradores (lotes 67 a 89 y anteriores); el banco se adapto a ellos: falsos identicos en la direccion del EXE y en el cuerpo/simbolo de la DLL (ver su README.md)."
   ]
 }

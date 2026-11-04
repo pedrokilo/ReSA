@@ -37,10 +37,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "65d45f39a039648c012716f32a83ccdf56b310ade7305a61afec3ba1b88b3e43",
+  "log_sha256": "452412f2420394702056069f115de70beb622e80975feb2f4f8008bcd43b9f90",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-player28\\20261004-112035-381935",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-player28\\20261104-040806-966815",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CPlayerInfo::AddHealth": true,
@@ -70,12 +70,12 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "b5a4cfea151bfcbe973619d443f4e86360b0314bd51aa9081819521b7bf3af49",
-      "pdb": "dd40f623cd3a83648e5ee38936ecf6a04693e5e703cfbe207958f6bc72a856b7"
+      "asi": "ac2f0b36d07bb07ee7baba2d3bdf8245396d2c6905ff6e3e66de8ab103675d2c",
+      "pdb": "45aff3aae2c517e939ad4c47a20927103ef3d55642098350faf28909c2cc32b4"
     },
     "sources": {
-      "source/game_sa/PlayerInfo.cpp": "e49efb872ce6b2a78687ddf674bd96b7903728f716615cdf1204916d83ef22bb",
-      "source/game_sa/PlayerInfo.h": "1860550e07f2c88c924f5f072d7859e09bcb6f50feab0d01c1ec5103875ce77c"
+      "source/game_sa/PlayerInfo.cpp": "40ec669bed4ead1462276c425ac8aaebf4af2ca2b042c6d4b12bcf2119c2300f",
+      "source/game_sa/PlayerInfo.h": "49e25549e83e1027b0e8568211f90fe5049a7b845ba46771a0cd57caf1c30190"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
@@ -86,6 +86,7 @@
   },
   "limitations": [
     "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
-    "Ver README del banco."
+    "Ver README del banco.",
+    "Revalidado el 2026-11-04 tras reconstruir colaboradores (lotes 67 a 89 y anteriores); el banco se adapto a ellos: falsos identicos en la direccion del EXE y en el cuerpo/simbolo de la DLL (ver su README.md)."
   ]
 }
