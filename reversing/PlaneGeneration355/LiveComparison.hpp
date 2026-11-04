@@ -2,6 +2,7 @@
 #include <fstream>
 #include <reversiblehooks/RootHookCategory.h>
 #include <reversiblehooks/ReversibleHook/Base.h>
+#include <reversiblehooks/ReversibleHook/Simple.h>
 #include <reversiblehooks/ReversibleHook/Virtual.h>
 #include "Plane.h"
 #include "SurfaceInfos_c.h"
@@ -82,6 +83,9 @@ inline void Update(){
  EntryPatch pp(0x56E210,Player),ppd(bit_cast<uintptr_t>(&FindPlayerPed),Player),wa(0x41BE60,Wanted),wad(bit_cast<uintptr_t>(&CPlayerPed::GetWantedLevel),Wanted),pv(0x56E0D0,PlayerVehicle),pvd(bit_cast<uintptr_t>(&FindPlayerVehicle),PlayerVehicle),pg(0x41CC10,PoolGet),pgd(bit_cast<uintptr_t>(&CVehiclePool::GetAt),PoolGet);   // g25a: tambien el cuerpo de la DLL (CVehiclePool::GetAt, hook de 0x41CC10)
  EntryPatch ap(0x6D1080,Appearance),apd(bit_cast<uintptr_t>(&CVehicle::GetVehicleAppearance),Appearance),ar(0x821B1E,Random),ard(bit_cast<uintptr_t>(&CGeneral::GetRandomNumber),Random),mi(0x464D50,Mission),mid(bit_cast<uintptr_t>(&CTheScripts::IsPlayerOnAMission),Mission),ri(0x441C10,Riots),rid(bit_cast<uintptr_t>(&CGameLogic::LaRiotsActiveHere),Riots);
  EntryPatch rq(0x4087E0,Request),rqd(bit_cast<uintptr_t>(&CStreaming::RequestModel),Request),cr(0x6CD090,Creation),crd(bit_cast<uintptr_t>(&CPlane::FindPlaneCreationCoors),Creation),al(0x6E2D50,Allocate),hc(0x6C4190,HeliCtor),pc(0x6C8E20,PlaneCtor);
+ // CHeli::CHeli ya es C++ en la DLL y DoPlaneGenerationAndRemoval la construye con `new(storage) CHeli(...)` (el constructor real, no el hook Constructor de 0x6C4190): mismo falso en el simbolo exportado del constructor de la DLL
+ std::unique_ptr<EntryPatch> hcd;{HMODULE mod{};GetModuleHandleExA(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS|GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,reinterpret_cast<LPCSTR>(&FindHook),&mod);
+ if(const auto ctor=mod?uintptr_t(GetProcAddress(mod,"??0CHeli@@QAE@HW4eVehicleCreatedBy@@@Z")):uintptr_t(0))hcd=std::make_unique<EntryPatch>(ctor,HeliCtor);else{Write({{"event","error"},{"reason","CHeli constructor symbol not found"}});return;}}
  EntryPatch jo(0x42F5A0,Join),jod(bit_cast<uintptr_t>(&CCarCtrl::JoinCarWithRoadSystem),Join),ad(0x563220,Add),addp(bit_cast<uintptr_t>(&CWorld::Add),Add),ve(0x441130,Velocity),ved(bit_cast<uintptr_t>(&CPhysical::SetVelocity),Velocity),ge(0x6CAC20,Gear),ged(bit_cast<uintptr_t>(&CPlane::SetGearUp),Gear);
  EntryPatch de(0x409C10,Deletable),ded(bit_cast<uintptr_t>(&CStreaming::SetModelIsDeletable),Deletable),tx(0x409C70,Txd),txd(bit_cast<uintptr_t>(&CStreaming::SetModelTxdIsDeletable),Txd),co(0x56E010,Coordinates),cod(bit_cast<uintptr_t>(&FindPlayerCoors),Coordinates);
  EntryPatch tp(0x566DA0,TargetPed),tpd(bit_cast<uintptr_t>(&CWorld::FindUnsuspectingTargetPed),TargetPed),tc(0x566C90,TargetCar),tcd(bit_cast<uintptr_t>(&CWorld::FindUnsuspectingTargetCar),TargetCar),re(0x571B70,Register),red(bit_cast<uintptr_t>(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::RegisterReference)),Register),cl(0x571A00,Cleanup),cld(bit_cast<uintptr_t>(static_cast<void(CEntity::*)(CEntity**)>(&CEntity::CleanUpOldReference)),Cleanup);

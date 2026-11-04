@@ -60,7 +60,7 @@
   "log_sha256": "8cc4a666d3e5e7a77b58565c1a689e2794a279d76bcd7fdf1ef3bbd0acd73a4b",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-core70\\20261002-134306-924297",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-core70\\20261104-040022-990076",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CBox::Set": true,
@@ -110,46 +110,47 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "11a2867c0deb9d7ad217ef8db336daf4b260d706901aed2984264359faef4dcf",
-      "pdb": "f9e518d03f559a559b46a0c7b25fae590ea315f21cf1a92d2e070e1bd3e637ad"
+      "asi": "c34df3422e97e69c6b3275dee4aab2dd3cbd9fa3d1b2bd3e19d40301c0b7ed87",
+      "pdb": "ecbd1a96e83a3d575749351493ad789444b95ebc7d1aa6789e047cc457b336ae"
     },
     "sources": {
       "source/game_sa/Collision/Box.cpp": "e9ee21cfd40133ce8db58bcb94db507c2139421a2b9c57850b0101d18a8b75c2",
-      "source/game_sa/Entity/Building.cpp": "587d18cce83ed6335fb142ad99a1e2abc7c3e8c62eb57667d28b8ab3b38cdf32",
+      "source/game_sa/Entity/Building.cpp": "d099450fc899f41ba4c3953ea07dce81b35b5f27380c7f2d13a9cd5d883595cc",
       "source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp": "5d94840ee0a876554691386888ce5a6ae2d9bb6285e1dfda43d0b400598d2b3b",
-      "source/game_sa/Collision/ColTrianglePlane.cpp": "ed4da2d64437c91b0ea47733fa42198826e8ab61afb7265a08e8d75f64ff0dd8",
-      "source/game_sa/CompressedMatrixNotAligned.cpp": "a1c4eeae956f4a88793acb120f97abb928c28b8b5a7e0b46826a36f71d5b49a6",
+      "source/game_sa/Collision/ColTrianglePlane.cpp": "1101399aa35f892ffc76ff3989056fd36ce761f9859a4307020e6b0c833e8bc2",
+      "source/game_sa/CompressedMatrixNotAligned.cpp": "444b004c6e676f2e28d6e4136700fcc22db9fe0caf46761e1588feae79d2119a",
       "source/game_sa/ControllerState.cpp": "befc88f9a925c81ebe4b1089c1956325057dc4c86ea31ae4563a86fae5383932",
-      "source/game_sa/Text/Data.cpp": "e2454c7c53c2aafe2cd3703578f029cee77e570db750ab20c3ef47f0b24f9db1",
-      "source/game_sa/Draw.cpp": "9175c0c7b65561197ce433314da4569c5afd0f82fb1a5432aa5da09d7e0e492a",
-      "source/game_sa/Draw.h": "b9d2315a1293dc359612b5c2f117d0b7ae2008c37f38a13ee0bcdf9da28e1782",
+      "source/game_sa/Text/Data.cpp": "69c0e68d82f6f585635be4d5b64108acd942712b9c1a226a918f5d04e4cca98c",
+      "source/game_sa/Draw.cpp": "38d5ca7fba6b3825e841c9882b931b203acc784fac9b187fac32e5ff5870f7be",
+      "source/game_sa/Draw.h": "3c565805450927a5c64ef2c3fc520345ef90be916813f45e8f066251df967bd4",
       "source/game_sa/Entity/Dummy/DummyObject.cpp": "1d76664af0eae729af9d791c41268022891c108c9fb5eeab76d92ec8a6de212f",
       "source/game_sa/Core/EntryInfoNode.cpp": "2819f27229f200e57dd1502101d03a6c92e240345c584af5138316294c9e1da9",
       "source/game_sa/Pools/EntryInfoNodePool.h": "f330654ad8ed3212883701a6f166bcb0801d7b1f966667f67c853a425fb45fbd",
-      "source/game_sa/NodeRoute.cpp": "26ca9aca640961df4c2450166df0303d3cdb57cc0f821a0c1911e3d710b0fdae",
-      "source/game_sa/Pools/NodeRoutePool.h": "d1e7f5f65dd20c238301b7deb2fcfce282e57794680cfb477c9c7e138a0ab781",
+      "source/game_sa/NodeRoute.cpp": "9b090e1c8fc1fa1b9e3bcc8b9db8ffa521166f9734a37906fbf4223c834a1a73",
+      "source/game_sa/Pools/NodeRoutePool.h": "0a63b54ab932331d1565f023aad77733e5a823ff45dd6fcc61ffc91d905133fa",
       "source/game_sa/ObjectData.cpp": "94dcaac3c94bffedc87357fe5559da6dfb029261bbb6c42e00b58dcdb86d5996",
-      "source/game_sa/Pools/ObjectPool.h": "833e700558e62963f6716def8201758504b89c2f94d02e460acc5e35f0cb58cd",
-      "source/game_sa/Pools/PedPool.h": "5471c3169048392770658f70374d876454e3b31eda7abd105ad97a46c4ec07fd",
-      "source/game_sa/Core/Pool.h": "a1f5be278118d54af05d6685f5e151a843b938268fffbc45c4c845fb90d275bb",
+      "source/game_sa/Pools/ObjectPool.h": "bd955f4234ff48176159e9bb278b422e9d8b1fefdecc14b163a94286852096b6",
+      "source/game_sa/Pools/PedPool.h": "cb2ac3824b0b95207287831276c27101400af2fbd6663d8afce4114875de99f7",
+      "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
       "source/game_sa/ObjectSaveStructure.cpp": "5716494f09588cbc79466be0e622f2e4f33cea980458102f75b1867d1a15af6b",
-      "source/game_sa/SimpleVariablesSaveStructure.cpp": "4ee8ef0210739f5b687a31acb1a1d04499d5945fd27cda8031cf76cc438d8ba4",
+      "source/game_sa/SimpleVariablesSaveStructure.cpp": "fcbf3ec263786434179ac5a5cc2b06a693161e0cbd2ca2f656b693193ffca32e",
       "source/game_sa/VehicleSaveStructure.cpp": "af1dc0ec84c904fb8a7b89eded05e0f3a477d87ef820b52628cba62963061c84",
-      "source/game_sa/Collision/TempColModels.cpp": "63953ae8abda60225d921ab2be1a32e1fe9d8c9bf99a96f92d617d78b4a97300",
-      "source/game_sa/ModelIndices.cpp": "c6fd7aa56eaadde1f7550a7dacb5a36d3cd10b93fc530efb37b937f90e626725",
-      "source/game_sa/Fx/FxPrimBP.cpp": "e7a2d31660532f7c44f7fd765985edb9041bca52e34e6b9e7142765618e54b7b",
+      "source/game_sa/Collision/TempColModels.cpp": "34abff6396626b1bc3fc04300c6e253ef095a510646884e421992a0ae1e6dbe4",
+      "source/game_sa/ModelIndices.cpp": "3f9ee9a2282f35d4125f4a35be1f66a6c0264a56ca8daa6b3776cf2fbe561bde",
+      "source/game_sa/Fx/FxPrimBP.cpp": "a50405dd75d0be3083d46acb0d40613a1950f6a1f1a31165c9dc087f64dd8159",
       "source/game_sa/WindModifiers.cpp": "f434c9cab9598bb1408173a9e6ff17451bbce4158487d3782cde71b3e1ef88c3",
-      "source/game_sa/Plant/PlantColEntEntry.cpp": "848e50e31902b5db36cc3bc4c342ad73e01f969626fabd996140a9d07dd592fb"
+      "source/game_sa/Plant/PlantColEntEntry.cpp": "326d484869a0c60f9d4901c35fbcc646874bc793837d8dc512b777c8b27a2e4f"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "3822cd1e738fc3f6a7089deadc53f232aac3a9f5391612b4ef9fcb7a785fa156",
+      "LiveComparison.hpp": "9ab485e9bfb3942a2ea800bb2b1961dc79e9a4f17d4f9a0d5d4696a290f6b5ec",
       "build_probe.py": "ae681fba9facb25c2f0af4d659587ad0d4e682785175b48c36662689be62d1bf",
       "run_local.py": "f434c221e44e07528a33bd350df24854e6dac823fff1e15de7036c460236cd8e"
     }
   },
   "limitations": [
     "Pools falsos; globales de guardado, CTempColModels y ModelIndices aleatorizados y restaurados; archivos, RNG, hora local, model infos, efectos y memoria simulados.",
-    "Sin NaN senalizadores en los fixtures (el EXE los silencia al copiar con fld/fstp)."
+    "Sin NaN senalizadores en los fixtures (el EXE los silencia al copiar con fld/fstp).",
+    "Revalidado el 2026-11-04 tras reconstruir colaboradores (lotes 67 a 89 y anteriores); el banco se adapto a ellos: falsos identicos en la direccion del EXE y en el cuerpo/simbolo de la DLL (ver su README.md)."
   ]
 }

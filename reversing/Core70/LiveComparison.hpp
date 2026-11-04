@@ -22,6 +22,7 @@
 #include "MemoryMgr.h"
 #include "FxManager.h"
 #include "FxMemoryPool.h"
+#include "Fx/FxInfoManager.h"
 #include "Text/Text.h"
 #include "Object.h"
 #include "ColModel.h"
@@ -510,7 +511,7 @@ inline void Update() {
                             snprintf(b,sizeof(b),"DSTBLENDID: %d",next()%8 ? int(next()%12) : int(next()%1000)); lines.push_back(b);
                             { EntryPatch l1(bit_cast<uintptr_t>(&CFileMgr::ReadLine),FakeReadLine), l1e(0x5389B0,FakeReadLine);
                               EntryPatch g1(bit_cast<uintptr_t>(&FxMemoryPool_c::GetMem),FakeGetMem), g1e(0x4A9CA0,FakeGetMem);
-                              EntryPatch i1(0x5C0B70,FakeInfoLoad);
+                              EntryPatch i1(0x5C0B70,FakeInfoLoad), i1d(bit_cast<uintptr_t>(&FxInfoManager_c::Load),FakeInfoLoad);   // reconstruida: mismo falso en la DLL
                               ret=reinterpret_cast<bool(__thiscall*)(void*,FILESTREAM,int32,void*)>(a)(obj.data(),reinterpret_cast<FILESTREAM>(0x5678),version,names.data()); }
                             out["names"]=ReversingProbe::Bytes(names.data(),names.size()); out["fxmat"]=ReversingProbe::Bytes(fxMat.data(),fxMat.size()); out["lines_used"]=lineIdx; }
                         out["obj"]=Norm(obj.data(),0x2C,{{buf.data(),sizeof(buf)},{fxMat.data(),fxMat.size()}});
