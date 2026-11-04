@@ -16,6 +16,11 @@
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
+// Este archivo se compila completo con /O2 /Oi /arch:IA32 /fp:fast /Zi, sin PCH ni unity (ver source/CMakeLists.txt):
+// ComputeTargetPoints (0x681FE0) necesita el x87 del EXE (palabra de control de 24 bits, exponente ampliado en los registros).
+#ifdef _MSC_VER
+#pragma warning(push, 0)
+#endif
 #include "StdInc.h"
 
 #include "TaskComplexPartner.h"
@@ -28,11 +33,15 @@ END GENERATED HOOK STATUS */
 #include "General.h"
 #include "Ragdoll/IKChainManager.h"
 #include "X87Math.h"
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 void CTaskComplexPartner::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexPartner, 0x870664, 14);
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedInstall(Constructor, 0x681E70);
+    RH_ScopedInstall(ComputeTargetPoints, 0x681FE0);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x683AD0);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x681F20);
     RH_ScopedVMTInstall(ControlSubTask, 0x6840D0);
@@ -263,8 +272,8 @@ CTask* CTaskComplexPartner::CreateNextSubTask(CPed* ped) {
             return nullptr;
         }
         if (PartnerByte(m_leadSpeaker)) {
-            // 0x681FE0 (sin símbolo en el catálogo, sin reconstruir): calcula el punto de encuentro a partir de m_point y m_targetPoint
-            plugin::CallMethod<0x681FE0, CTaskComplexPartner*, CPed*, CVector*, CVector*>(this, ped, &m_point, &m_targetPoint);
+            // 0x681FE0: calcula el punto de encuentro a partir de m_point y m_targetPoint
+            ComputeTargetPoints(ped, &m_point, &m_targetPoint);
             auto* const t = PartnerTaskOfPartner(*this); // Como el original: sin comprobar nulo
             t->m_point    = m_targetPoint;
         }
@@ -360,4 +369,86 @@ void CTaskComplexPartner::RemoveStreamedAnims() {
         CAnimManager::RemoveAnimBlockRef(CAnimManager::GetAnimationBlockIndex(m_animBlockName));
     }
     m_requiredAnimsStreamedIn = false;
+}
+
+// 0x681FE0
+void CTaskComplexPartner::ComputeTargetPoints(CPed* ped, CVector* outPoint, CVector* outTargetPoint) {
+    // Como el original: posiciones copiadas (matriz +0x30 o placement +4) y direccion del peaton al companero, guardada como float
+    const CVector pedPos     = ped->GetPosition();
+    const CVector partnerPos = m_partner->GetPosition();
+    volatile float dirX = partnerPos.x - pedPos.x;
+    volatile float dirY = partnerPos.y - pedPos.y;
+    volatile float dirZ = partnerPos.z - pedPos.z;
+    CVector dir{ dirX, dirY, dirZ };
+
+    // Punto base = peaton + direccion * factor: el producto de x se suma sin guardarlo; los de y y z se guardan antes de sumar. Cada coordenada se guarda como float
+    const float factor = m_distanceMultiplier;
+    volatile float baseX = dir.x * factor + pedPos.x;
+    volatile float prodY = dir.y * factor;
+    volatile float prodZ = dir.z * factor;
+    volatile float baseY = prodY + pedPos.y;
+    volatile float baseZ = prodZ + pedPos.z;
+
+    dir.Normalise(); // 0x59C910
+
+    // Los registros de la x87 (24 bits de mantisa, exponente ampliado) se representan con double: no se guardan como float entre pasadas
+    double cx = baseX;
+    double cy = baseY;
+    double cz = baseZ;
+    // Una tarea de charla (TASK_COMPLEX_PARTNER_CHAT) no ajusta el punto; el resto lo aleja hasta 0.7 de ambos (como mucho 11 pasadas)
+    if (GetTaskType() != TASK_COMPLEX_PARTNER_CHAT) {
+        bool converged = false;
+        for (int32 pass = 0; pass <= 10 && !converged; pass++) {
+            bool pushedFromPed = false;
+            {
+                const double ax = cx - pedPos.x;
+                const double ay = cy - pedPos.y;
+                const double dist = sqrt(ay * ay + ax * ax);
+                if (dist < 0.7f) {
+                    const double w = 0.75f - dist;
+                    volatile float pushX = static_cast<float>(dir.x * w);
+                    volatile float pushY = static_cast<float>(dir.y * w);
+                    const double pushZ = w * dir.z;
+                    cx = cx + pushX;
+                    cy = cy + pushY;
+                    cz = cz + pushZ;
+                    pushedFromPed = true;
+                }
+            }
+            {
+                const double ax = cx - partnerPos.x;
+                const double ay = cy - partnerPos.y;
+                const double dist = sqrt(ay * ay + ax * ax);
+                if (dist < 0.7f) {
+                    const double w = 0.75f - dist;
+                    volatile float pushX = static_cast<float>(dir.x * w);
+                    volatile float pushY = static_cast<float>(dir.y * w);
+                    const double pushZ = w * dir.z;
+                    cx = cx - pushX;
+                    cy = cy - pushY;
+                    cz = cz - pushZ;
+                } else if (!pushedFromPed) {
+                    converged = true;
+                }
+            }
+        }
+        if (!converged) {
+            m_taskCompleted = true;
+            return;
+        }
+        // El original guarda cz y cy como float en este punto
+        baseZ = static_cast<float>(cz);
+        baseY = static_cast<float>(cy);
+    }
+
+    // Puntos finales: centro -/+ la mitad de la direccion
+    volatile float halfX = dir.x * 0.5f;
+    volatile float halfY = dir.y * 0.5f;
+    volatile float halfZ = dir.z * 0.5f;
+    outPoint->x       = static_cast<float>(cx - static_cast<double>(dir.x) * 0.5);
+    outPoint->y       = static_cast<float>(cy - halfY);
+    outPoint->z       = baseZ - halfZ;
+    outTargetPoint->x = static_cast<float>(halfX + cx);
+    outTargetPoint->y = halfY + baseY;
+    outTargetPoint->z = halfZ + baseZ;
 }

@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "pairs": 65536,
+  "differences": 0,
+  "registered_pairs": 65536,
+  "registered_functions": 4,
+  "functions": {
+    "CTaskComplexUseMobilePhone::Quit": 16384,
+    "CTaskComplexKillPedOnFoot::SayGangAttack": 16384,
+    "CTaskComplexWalkRoundObject::ComputeRouteRoundObject": 16384,
+    "CTaskComplexPartner::ComputeTargetPoints": 16384
+  },
+  "covered_functions": {
+    "CTaskComplexUseMobilePhone::Quit": true,
+    "CTaskComplexKillPedOnFoot::SayGangAttack": true,
+    "CTaskComplexWalkRoundObject::ComputeRouteRoundObject": true,
+    "CTaskComplexPartner::ComputeTargetPoints": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en un worktree sobre main 329ab605c con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en su cuerpo del ASI (todos tienen hook RH, apagado durante el banco): CWorld::FindPlayerPed 0x56E210 y CPed::Say 0x5EFFE0 (SayGangAttack); 0x5F6110, 0x5F3660 y 0x5F3AC0 de CPedGeometryAnalyser (ComputeRouteRoundObject); CVector::Normalise 0x59C910 (ComputeTargetPoints; sin hook RH, porque CVector::InjectHooks esta apagado: el falso va en el EXE y en el cuerpo propio de la DLL, que es el que llama la funcion nueva y no es identico al del EXE). Quit no tiene colaboradores directos: aborta por la ranura 6 de una vtabla propia (falso identico); ComputeTargetPoints consulta GetTaskType por la ranura 4 de la vtabla propia. NO se sustituyen y corren de verdad en ambos lados: toda la aritmetica x87 del EXE frente al C++ de la DLL (TaskComplexPartner.cpp y TaskComplexWalkRoundObject.cpp se compilan completos con /O2 /Oi /arch:IA32 /fp:fast), con el margen 0x8D22B0 como memoria real restaurada. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits, incluido ST0 de ComputeRouteRoundObject). Fuera de los fixtures: objeto o ruta nulos en ComputeRouteRoundObject, lados fuera de 0..3, NaN con cargas distintas de 0xFFC00000, NaN senalizantes y la exactitud de los colaboradores falseados.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn94A-20261104-121156-538234",
+  "summary_sha256": "d360b3ce0d2f27d15c5f6787d26429528c4ef55f999b8a50a66c04197c81b9a0",
+  "result_txt_sha256": "38a18e3a6f125cdb0e885608de2018adf7efb2041d65ec029fbb904b438d1156",
+  "log_sha256": "83de74d903273ea2f1f9926a6f16f1fd03a75a34903b7ea22c1b9eae0ad8a9ac",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "862f340a2ba0d5eed4d623b01f77cda17d6edfcaf479f60fa11613dd2e5a35f0",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "d80de777ac5a20cbfbe5d0d285a3a601af69365a82ef393939ab13d5d2097a73",
+      "source/InjectHooksMain.cpp": "52f079e9863766f588a5177d8ddcbf77cd547c0f8cb408b21f354aeee259c45b",
+      "source/game_sa/MissionCleanup.cpp": "a1efd0beaa679ee1f84ea0ac7630ba998a5bbed3feb1f49edaf70f2a16830685",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp": "27a008dc787e6cdf01fdf2e94f290e75bb17c75a8da2ca2ce55e85162342a44d",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.h": "b60db19b0cf2cd346b501da482a1a011f0b165ff4352670f94354b6b72546bf2",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp": "43c68293e434518dfd35ba8a12274bec6add28e097d17ab22beb603cb3ad724a",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.h": "f7920d71b80d7c508a1f7c23488484aa025a9e46bc20386be64814413461a4cc",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "55e132e2294c6cedb8f5c4c4a07c173686d0ca9b9476067750561c44a92c4904",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "a46fd5a5d124242b245ba0e85c9b16634229cf7ac3a519ca88e2b7a1fa6da4b5",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp": "d5ad335bd63e9083ef228b41a00ad6b706bf7837fa326db4b1b97c67ff5547cd",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPartner.h": "f75e8b2a374f13bb42390a47f667f76a5d65300f13a35c75acd628b54d7dd4ad",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn94A/LiveComparison.hpp": "aeee2b6c99eae1415e6a1c4f124b10d5630384117719c2b6f5d92c8d605a16d2",
+      "reversing/Fn94A/Core.hpp": "4f155b31d17c955d11d3682ba25ce7082b48ee17162e8b4c3b5e3b393a275088",
+      "reversing/Fn94A/Fixtures.hpp": "b3d12dea35d936573936d9b0daad3a3b5be959024d3d3b82b701f11cd00629c5",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

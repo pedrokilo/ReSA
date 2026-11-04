@@ -34,6 +34,10 @@ public:
 
     CTask* CreateRouteTask(CPed* ped);
 
+    // 0x6551D0: calcula la ruta alrededor del objeto (con margen 0.7) y devuelve la distancia con signo del peaton al plano del lado que toca
+    // Devuelve double a proposito: el original deja el resultado en ST0 sin guardarlo como float (24 bits de mantisa, exponente ampliado)
+    double ComputeRouteRoundObject(CPed* ped);
+
 private:
     friend void InjectHooksMain();
     static void InjectHooks();

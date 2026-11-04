@@ -44,6 +44,9 @@ public:
     CTask* ControlSubTask(CPed* ped) override;
     CTask* CreateSubTask(int32 taskId, CPed* ped);
 
+    // 0x65E9A0: el atacante (de un tipo de pandilla) lanza el insulto de ataque a la pandilla del objetivo
+    static void SayGangAttack(CPed* ped, CPed* target);
+
 private:
     friend void InjectHooksMain();
     static void InjectHooks();

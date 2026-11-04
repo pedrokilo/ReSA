@@ -16,6 +16,11 @@
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
+// Este archivo se compila completo con /O2 /Oi /arch:IA32 /fp:fast /Zi, sin PCH ni unity (ver source/CMakeLists.txt):
+// ComputeRouteRoundObject (0x6551D0) devuelve en ST0 el resultado del x87 del EXE.
+#ifdef _MSC_VER
+#pragma warning(push, 0)
+#endif
 #include "StdInc.h"
 
 #include "TaskComplexWalkRoundObject.h"
@@ -25,6 +30,9 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleStandStill.h"
 #include "TaskComplexFollowPointRoute.h"
 #include "X87Math.h"
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 void CTaskComplexWalkRoundObject::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexWalkRoundObject, 0x86F364, 11);
@@ -32,6 +40,7 @@ void CTaskComplexWalkRoundObject::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x655020);
     RH_ScopedInstall(CreateRouteTask, 0x655140);
+    RH_ScopedInstall(ComputeRouteRoundObject, 0x6551D0);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x657220);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x657380);
     RH_ScopedVMTInstall(ControlSubTask, 0x6575F0);
@@ -162,8 +171,7 @@ CTask* CTaskComplexWalkRoundObject::CreateFirstSubTask(CPed* ped) {
     }
 
     m_pointRoute->m_NumEntries = 0;
-    // 0x6551D0 (sin símbolo en el catálogo): calcula la ruta alrededor del objeto y devuelve un float en ST0
-    const float routeDist = plugin::CallMethodAndReturn<float, 0x6551D0, CTaskComplexWalkRoundObject*, CPed*>(this, ped);
+    const float routeDist = static_cast<float>(ComputeRouteRoundObject(ped)); // 0x6551D0: devuelve un float en ST0
     if (m_pointRoute->m_NumEntries == 0) {
         return nullptr;
     }
@@ -218,3 +226,26 @@ CTask* CTaskComplexWalkRoundObject::CreateRouteTask(CPed* ped) {
     }
     return ::new (memory) CTaskComplexFollowPointRoute(static_cast<eMoveState>(m_moveState), *m_pointRoute, CTaskComplexFollowPointRoute::Mode::ONE_WAY, 0.5f, 0.0f, true, false, false);
 }
+
+// 0x6551D0
+#pragma float_control(push)
+#pragma float_control(precise, on)
+double CTaskComplexWalkRoundObject::ComputeRouteRoundObject(CPed* ped) {
+    // Como el original: el margen del analizador de geometria (0x8D22B0) vale 0.7 (0x3F333333) solo durante el calculo de la ruta
+    // (se copia como bits enteros: un float con NaN senalizante se convertiria en NaN silencioso)
+    auto&        margin      = StaticRef<uint32>(0x8D22B0);
+    const uint32 savedMargin = margin;
+    margin = std::bit_cast<uint32>(0.7f);
+    CPedGeometryAnalyser::ComputeRouteRoundEntityBoundingBox(*ped, *m_object, m_targetPoint, *m_pointRoute, 0);
+    margin = savedMargin;
+
+    // Planos del objeto a la altura del peaton y lado que toca el peaton; el resultado es la distancia con signo al plano (suma en el orden z, y, x)
+    CVector planes[4];
+    float   planesDot[4];
+    CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanes(ped->GetPosition().z, *m_object, &planes, planesDot);
+    const auto side = CPedGeometryAnalyser::ComputeEntityHitSide(ped->GetPosition(), *m_object);
+    const auto& pos   = ped->GetPosition();
+    const auto& plane = planes[side];
+    return ((static_cast<double>(plane.z) * pos.z + static_cast<double>(plane.y) * pos.y) + static_cast<double>(plane.x) * pos.x) + planesDot[side];
+}
+#pragma float_control(pop)

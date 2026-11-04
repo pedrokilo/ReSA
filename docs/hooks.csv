@@ -9072,3 +9072,7 @@ CPathFind,RemoveBadStartNode,0x0044E4F0,1,0,1,S
 CPathFind,StoreInteriorNodeLink,0x00450FB0,1,0,1,S
 CPathFind,CalcDistToAnyConnectingLinks,0x0044F190,1,0,1,S
 CPathFind,FindNodeClosestInRegion,0x0044F2C0,1,0,1,S
+CTaskComplexUseMobilePhone,Quit,0x00634A40,1,0,1,S
+CTaskComplexKillPedOnFoot,SayGangAttack,0x0065E9A0,1,0,1,S
+CTaskComplexWalkRoundObject,ComputeRouteRoundObject,0x006551D0,1,0,1,S
+CTaskComplexPartner,ComputeTargetPoints,0x00681FE0,1,0,1,S

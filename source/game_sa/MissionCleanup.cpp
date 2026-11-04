@@ -52,6 +52,7 @@ END GENERATED HOOK STATUS */
 #include "Scripts/Scripted2dEffects.h"
 #include "Tasks/TaskManager.h"
 #include "Tasks/TaskComplexSequence.h"
+#include "Tasks/TaskTypes/TaskComplexUseMobilePhone.h"
 #include "Tasks/TaskSequences.h"
 #include "Entity/Vehicle/Train.h"
 #include "Entity/Vehicle/Plane.h"
@@ -244,7 +245,7 @@ void CMissionCleanup::Process() {
         auto* const intel = RawAt<CPedIntelligence*>(Raw<void*>(0xB7CD98), 0x47C);
         CTask* const task = intel->m_TaskMgr.FindTaskByType(static_cast<ePrimaryTasks>(3), static_cast<eTaskType>(0x640));
         if (task && task->GetTaskType() == static_cast<eTaskType>(0x640)) {
-            ((void(__thiscall*)(CTask*, CPed*))0x634A40)(task, Raw<CPed*>(0xB7CD98));
+            static_cast<CTaskComplexUseMobilePhone*>(task)->Quit(Raw<CPed*>(0xB7CD98));
         }
     }
     // 0x468966..0x4689B6

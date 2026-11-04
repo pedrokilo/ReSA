@@ -61,12 +61,12 @@ inline void Update() {
     registered["CTaskComplexPartner::CreateNextSubTask"]=env.route->Registered();bodies["CTaskComplexPartner::CreateNextSubTask"]=env.route->Body();
     ready&=env.route->Registered()&&env.route->Body()&&ModuleOf(env.route->Body())==env.asi;
     // Cuerpos de la DLL de los colaboradores sustituidos: se resuelven ANTES de escribir ningun parche (con su hook encendido, la entrada del EXE salta a la DLL; Body() sigue el salto).
-    // 0x681FE0 no esta reconstruido: la DLL lo llama por su direccion del EXE, que se parchea como los demas (sin cuerpo propio en la DLL).
+    // 0x681FE0 (ComputeTargetPoints) tiene hook RH desde el lote 94A: se parchea tambien su cuerpo de la DLL.
     env.stub[0]={0x681740,Body(std::bit_cast<uintptr_t>(&CTaskManager::FindActiveTaskByType))};
     env.stub[1]={0x53CDC0,Body(std::bit_cast<uintptr_t>(&CGeneral::GetNodeHeadingFromVector))};
     env.stub[2]={0x61A5A0,Body(std::bit_cast<uintptr_t>(static_cast<void*(*)(size_t)>(&CTask::operator new)))};
     env.stub[3]={0x681AF0,Body(std::bit_cast<uintptr_t>(&CTaskManager::SetTask))};
-    env.stub[4]={0x681FE0,0,false};
+    env.stub[4]={0x681FE0,Body(std::bit_cast<uintptr_t>(&CTaskComplexPartner::ComputeTargetPoints))};   // reconstruido en el lote 94A (hook RH): el mismo falso va en el EXE y en el cuerpo de la DLL
     Run(env,ready,registered,bodies);
 }
 }

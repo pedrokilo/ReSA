@@ -50,7 +50,7 @@ inline void Update() {
     env.stub[1]={0x4D3990,Body(std::bit_cast<uintptr_t>(static_cast<int32(*)(const char*)>(&CAnimManager::GetAnimationBlockIndex)))};
     env.stub[2]={0x4087E0,Body(std::bit_cast<uintptr_t>(&CStreaming::RequestModel))};
     env.stub[3]={0x4D3FB0,Body(std::bit_cast<uintptr_t>(&CAnimManager::AddAnimBlockRef))};
-    env.stub[4]={0x4D3FD0,Body(std::bit_cast<uintptr_t>(&CAnimManager::RemoveAnimBlockRef)),false};   // sin RH_ScopedInstall en HEAD: el EXE conserva su codigo
+    env.stub[4]={0x4D3FD0,Body(std::bit_cast<uintptr_t>(&CAnimManager::RemoveAnimBlockRef))};   // con hook RH desde el lote 90A: el EXE salta a la DLL
     Run(env,ready,registered,bodies);
 }
 }

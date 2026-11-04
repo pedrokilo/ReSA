@@ -44,6 +44,7 @@ void CTaskComplexKillPedOnFoot::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedInstall(Constructor, 0x620E30);
     RH_ScopedInstall(CreateSubTask, 0x625E70);
+    RH_ScopedInstall(SayGangAttack, 0x65E9A0);
 
     RH_ScopedVMTInstall(MakeAbortable, 0x625E40);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x62B150);
@@ -318,7 +319,7 @@ CTask* CTaskComplexKillPedOnFoot::ControlSubTask(CPed* ped) {
         }
 
         if (m_target) {
-            plugin::Call<0x65E9A0, CPed*, CPed*>(ped, m_target); // sin reconstruir
+            SayGangAttack(ped, m_target); // 0x65E9A0
         }
         return m_pSubTask;
     };
@@ -647,5 +648,36 @@ CTask* CTaskComplexKillPedOnFoot::CreateSubTask(int32 taskId, CPed* ped) {
         return nullptr;
     default:
         return nullptr;
+    }
+}
+
+// 0x65E9A0
+void CTaskComplexKillPedOnFoot::SayGangAttack(CPed* ped, CPed* target) {
+    if (!ped || !target) {
+        return;
+    }
+    // Como el original: comparaciones con signo del tipo de peaton (+0x598) del atacante y del objetivo
+    const auto IsGangType = [](ePedType type) {
+        return static_cast<int32>(type) >= PED_TYPE_GANG1 && static_cast<int32>(type) <= PED_TYPE_GANG10;
+    };
+    if (!IsGangType(ped->m_nPedType)) {
+        return;
+    }
+    // Un objetivo que no es de pandilla solo sigue adelante si es el jugador (FindPlayerPed(0))
+    if (!IsGangType(target->m_nPedType) && target != FindPlayerPed(0)) {
+        return;
+    }
+    switch (target->m_nPedType) {
+    case PED_TYPE_GANG1:
+        ped->Say(CTX_GLOBAL_ATTACK_GANG_BALLAS, 0, 1.0f, false, false, false);
+        break;
+    case PED_TYPE_GANG3:
+        ped->Say(CTX_GLOBAL_ATTACK_GANG_LSV, 0, 1.0f, false, false, false);
+        break;
+    case PED_TYPE_GANG8:
+        ped->Say(CTX_GLOBAL_ATTACK_GANG_VLA, 0, 1.0f, false, false, false);
+        break;
+    default:
+        break;
     }
 }

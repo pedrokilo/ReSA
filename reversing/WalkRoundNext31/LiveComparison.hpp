@@ -53,7 +53,7 @@ inline void Update() {
     env.pClosestPed={0x5F3B70,Body(std::bit_cast<uintptr_t>(static_cast<bool(*)(const CPed&,CEntity&,CVector&)>(&CPedGeometryAnalyser::ComputeClosestSurfacePoint)))};
     env.pClosestPosn={0x5F36F0,Body(std::bit_cast<uintptr_t>(static_cast<bool(*)(const CVector&,CEntity&,CVector&)>(&CPedGeometryAnalyser::ComputeClosestSurfacePoint)))};
     env.pHitSide={0x5F3AC0,Body(std::bit_cast<uintptr_t>(static_cast<int32(*)(const CVector&,CEntity&)>(&CPedGeometryAnalyser::ComputeEntityHitSide)))};
-    env.pCreateRoute={0x655140,0};   // CreateRouteTask no esta enganchada: la DLL la llama por plugin a la direccion del EXE, que se parchea
+    env.pCreateRoute={0x655140,Body(std::bit_cast<uintptr_t>(&CTaskComplexWalkRoundObject::CreateRouteTask))};   // CreateRouteTask tiene hook RH: el mismo falso va en el EXE y en el cuerpo de la DLL
     Run(env,ready,registered,bodies);
 }
 }

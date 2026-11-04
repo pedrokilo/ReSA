@@ -59,8 +59,8 @@ inline void Update() {
     // Cuerpos de la DLL de los colaboradores sustituidos: se resuelven ANTES de escribir ningun parche (con su hook encendido, la entrada del EXE salta a la DLL; Body() sigue el salto).
     env.pAlloc={0x54F560,Body(std::bit_cast<uintptr_t>(&CPlaceable::AllocateMatrix))};
     env.pUpdate={0x54F1B0,Body(std::bit_cast<uintptr_t>(&CSimpleTransform::UpdateMatrix))};
-    env.pCalc={0x6551D0,0};          // sin simbolo: la DLL la llama por plugin a la direccion del EXE, que se parchea
-    env.pCreateRoute={0x655140,Body(std::bit_cast<uintptr_t>(&CTaskComplexWalkRoundObject::CreateRouteTask))};   // CreateRouteTask se enganchó en C++ (lote 65, 5765c0b5f) tras la evidencia: el mismo falso en el cuerpo de la DLL
+    env.pCalc={0x6551D0,Body(std::bit_cast<uintptr_t>(&CTaskComplexWalkRoundObject::ComputeRouteRoundObject))};   // reconstruida en el lote 94A (hook RH): el mismo falso va en el EXE y en el cuerpo de la DLL
+    env.pCreateRoute={0x655140,Body(std::bit_cast<uintptr_t>(&CTaskComplexWalkRoundObject::CreateRouteTask))};   // CreateRouteTask tiene hook RH: el mismo falso va en el EXE y en el cuerpo de la DLL
     Run(env,ready,registered,bodies);
 }
 }

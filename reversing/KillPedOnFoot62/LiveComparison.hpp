@@ -105,7 +105,7 @@ inline void Update() {
         env.stub[S_STILL]={0x62F370,Body(body),body!=0};
     }
     env.stub[S_ADD]={0x4AB420,B(static_cast<CEvent*(CEventGroup::*)(CEvent*,bool)>(&CEventGroup::Add)),true};
-    env.stub[S_C65]={0x65E9A0,0,false};               // sin reconstruir: la DLL lo llama por su direccion del EXE
+    env.stub[S_C65]={0x65E9A0,B(&CTaskComplexKillPedOnFoot::SayGangAttack),true};   // reconstruida en el lote 94A (hook RH apagado durante el banco): el mismo falso va en el EXE y en su cuerpo de la DLL
     env.stub[S_RANDEXE]={0x821B1E,0,false};           // rand del CRT del EXE (lo usa el 0x407180 original)
     env.stub[S_RANDDLL]={0,B(&CGeneral::GetRandomNumber),false};   // rand de la DLL (CGeneral::GetRandomNumber, sin hook): lo usa GetRandomIntInRange en linea
     // Rutas RH: se construyen antes que nada; el constructor deja cada hook apagado.

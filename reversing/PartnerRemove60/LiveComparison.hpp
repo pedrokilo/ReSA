@@ -46,7 +46,7 @@ inline void Update() {
     ready&=env.route->Registered()&&env.route->Body()&&ModuleOf(env.route->Body())==env.asi;
     // Cuerpos de la DLL de los dos colaboradores sustituidos: se resuelven ANTES de escribir ningun parche (con su hook encendido, la entrada del EXE salta a la DLL; Body() sigue el salto).
     env.stub[0]={0x4D3990,Body(std::bit_cast<uintptr_t>(static_cast<int32(*)(const char*)>(&CAnimManager::GetAnimationBlockIndex)))};
-    env.stub[1]={0x4D3FD0,Body(std::bit_cast<uintptr_t>(&CAnimManager::RemoveAnimBlockRef)),false};   // sin RH_ScopedInstall en HEAD: el EXE conserva su codigo
+    env.stub[1]={0x4D3FD0,Body(std::bit_cast<uintptr_t>(&CAnimManager::RemoveAnimBlockRef))};   // con hook RH desde el lote 90A: el EXE salta a la DLL
     Run(env,ready,registered,bodies);
 }
 }

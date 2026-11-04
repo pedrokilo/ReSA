@@ -22,6 +22,9 @@ public:
     static void InjectHooks();
 
     CTaskComplexUseMobilePhone(int32 nDuration);
+
+    // 0x634A40: pide terminar la llamada (marca m_bQuit y aborta la tarea con prioridad ABORT_PRIORITY_LEISURE)
+    void Quit(CPed* ped);
 };
 
 VALIDATE_SIZE(CTaskComplexUseMobilePhone, 0x20);

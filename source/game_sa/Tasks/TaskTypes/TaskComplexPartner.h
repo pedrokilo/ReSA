@@ -41,6 +41,9 @@ public:
     virtual void RemoveStreamedAnims();
     virtual CTaskComplexSequence* GetPartnerSequence() = 0; // ranura 13 (en la vtable de la base 0x870664 es _purecall)
 
+    // 0x681FE0: calcula los dos puntos de encuentro (outPoint = centro - mitad de la direccion, outTargetPoint = centro + mitad); sin convergencia marca m_taskCompleted
+    void ComputeTargetPoints(CPed* ped, CVector* outPoint, CVector* outTargetPoint);
+
 private:
     friend void InjectHooksMain();
     static void InjectHooks();

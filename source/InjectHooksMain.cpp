@@ -1302,7 +1302,7 @@ void InjectHooksMain() {
         CTaskComplexClimb::InjectHooks();
         CTaskComplexBeStill::InjectHooks();
         CTaskComplexBeInCouple::InjectHooks();
-        // CTaskComplexUseMobilePhone::InjectHooks();
+        CTaskComplexUseMobilePhone::InjectHooks();
         CTaskSimpleStandStill::InjectHooks();
         CTaskSimpleCarDrive::InjectHooks();
         CTaskSimpleScratchHead::InjectHooks();
