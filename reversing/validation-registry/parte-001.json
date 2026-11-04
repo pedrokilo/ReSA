@@ -170534,7 +170534,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadLine-File"
@@ -170575,7 +170575,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadLine-Bufer"
@@ -170616,7 +170616,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadObject"
@@ -170657,7 +170657,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadTimeObject"
@@ -170698,7 +170698,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadWeaponObject"
@@ -170739,7 +170739,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadClumpObject"
@@ -170780,7 +170780,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadAnimatedClumpObject"
@@ -170821,7 +170821,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadVehicleObject"
@@ -170862,7 +170862,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadPedObject"
@@ -170903,7 +170903,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadTXDParent"
@@ -170944,7 +170944,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadPathHeader"
@@ -170985,7 +170985,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadPedPathNode"
@@ -171026,7 +171026,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadCarPathNode"
@@ -171067,7 +171067,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadGarage"
@@ -171108,7 +171108,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadStuntJump"
@@ -171149,7 +171149,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadCarGenerator-1"
@@ -171190,7 +171190,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadCarGenerator-0"
@@ -171231,7 +171231,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadPickup"
@@ -171285,7 +171285,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadZone"
@@ -171326,7 +171326,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadCullZone"
@@ -171367,7 +171367,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadOcclusionVolume"
@@ -171408,7 +171408,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadAudioZone"
@@ -171449,7 +171449,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadEntryExit"
@@ -171490,7 +171490,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadTimeCyclesModifier"
@@ -171531,7 +171531,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadObjectInstance-file"
@@ -171572,7 +171572,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadObjectInstance-inst"
@@ -171613,7 +171613,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::FindRelatedModelInfoCB"
@@ -171654,7 +171654,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::SetRelatedModelInfoCB"
@@ -171695,7 +171695,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadAtomicFile-stream"
@@ -171736,7 +171736,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadAtomicFile-"
@@ -171777,7 +171777,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadClumpFile-1"
@@ -171818,7 +171818,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadClumpFile-"
@@ -171859,7 +171859,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::StartLoadClumpFile"
@@ -171900,7 +171900,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::FinishLoadClumpFile"
@@ -171941,7 +171941,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadTexDictionary"
@@ -171982,7 +171982,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::AddTexDictionaries"
@@ -172023,7 +172023,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadCollisionModel"
@@ -172064,7 +172064,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadCollisionModelVer2"
@@ -172105,7 +172105,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadCollisionModelVer3"
@@ -172146,7 +172146,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadCollisionModelVer4"
@@ -172187,7 +172187,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadCollisionFile-Buffer"
@@ -172228,7 +172228,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadCollisionFileFirstTime"
@@ -172269,7 +172269,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadCollisionFile-File"
@@ -172310,7 +172310,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LinkLods"
@@ -172351,7 +172351,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadObjectTypes"
@@ -172392,7 +172392,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadScene"
@@ -172433,7 +172433,7 @@
       },
       "evidence": {
         "path": "reversing/FileLoader47/validation-summary-reval-20261019.json",
-        "sha256": "a96016089e462b9b080edefe1c63531311c4c12400d5700cc88f89172d923ad4",
+        "sha256": "d15a8d72c1dbeda3857568675352d48b63252c83710ab46611e6ec25bde2463e",
         "passed_path": [
           "covered_functions",
           "CFileLoader::LoadLevel"

@@ -402,7 +402,7 @@ inline void Update() {
                lvCommon{0x5B8F00,B(&CVehicleModelInfo::SetupCommonData)}, lvInit2{0x5B8AD0,B(&CStreaming::Init2)}, lvChunk{0x590D00,B(&CLoadingScreen::NewChunkLoaded)},
                lvBoxes{0x4113D0,B(&CColStore::LoadAllBoundingBoxes)}, lvRemaining{0x405780,B(&CIplStore::LoadAllRemainingIpls)}, lvPost{0x410EC0,B(&CColStore::BoundingBoxesPostProcess)},
                lvTrains{0x6F7440,B(&CTrain::InitTrains)}, lvRemoveCol{0x410E00,B(&CColStore::RemoveAllCollision)};
-    const Pair rwOpen{0x7ECEF0,0}, rwClose{0x7ECE20,0}, rwFind{0x7ED2D0,0}, rwClumpRead{0x74B420,0}, rwForAll{0x749B70,0}, rwClumpDestroy{0x74A310,0}, rwTxdRead{0x730FC0,0}, rwTxdCreate{0x7F3600,0},
+    const Pair rwOpen{0x7ECEF0,0}, rwClose{0x7ECE20,0}, rwFind{0x7ED2D0,0}, rwClumpRead{0x74B420,0}, rwForAll{0x749B70,0}, rwClumpDestroy{0x74A310,0}, rwTxdRead{0x730FC0,B(&RwTexDictionaryGtaStreamRead)}, rwTxdCreate{0x7F3600,0},
                rwForAllTex{0x7F3730,0}, rwTxdGet{0x7F3A90,0}, rwTxdSet{0x7F3A70,0}, rwTxdDestroy{0x7F36A0,0}, rwGta1{0x72E570,B(&RpClumpGtaStreamRead1)}, rwGta2{0x72E620,B(&RpClumpGtaStreamRead2)}, rwClumpCreate{0x74A290,0}, rwFrameCreate{0x7F0410,0},
                rwFrameClone{0x7EFFB0,0}, rwAddChild{0x7F0B00,0}, rwRemoveAtomic{0x74A4C0,0}, rwAtomicSetFrame{0x74BF20,0};
     dllSetRelated=reinterpret_cast<RpAtomicCallBack>(bit_cast<uintptr_t>(&CFileLoader::SetRelatedModelInfoCB)); dllFindRelated=reinterpret_cast<RpAtomicCallBack>(bit_cast<uintptr_t>(&CFileLoader::FindRelatedModelInfoCB));
