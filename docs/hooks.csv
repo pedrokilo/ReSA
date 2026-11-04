@@ -9076,3 +9076,7 @@ CTaskComplexUseMobilePhone,Quit,0x00634A40,1,0,1,S
 CTaskComplexKillPedOnFoot,SayGangAttack,0x0065E9A0,1,0,1,S
 CTaskComplexWalkRoundObject,ComputeRouteRoundObject,0x006551D0,1,0,1,S
 CTaskComplexPartner,ComputeTargetPoints,0x00681FE0,1,0,1,S
+CVector,Normalise,0x0059C910,1,0,1,S
+CVector,NormaliseAndMag,0x0059C970,1,0,1,S
+CVector,Magnitude,0x004082C0,1,0,1,S
+CVector,Magnitude2D,0x00406D50,1,0,1,S
