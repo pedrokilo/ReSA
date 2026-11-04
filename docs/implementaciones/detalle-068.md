@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 04/11/2026 (Ciudad de México):** 823 grupos / 9029 funciones reconstruidas; 9029 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 04/11/2026 (Ciudad de México):** 830 grupos / 9049 funciones reconstruidas; 9049 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -8,13 +8,66 @@
 
 <a id="grupo-1341"></a>
 
+## IplDef
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| IplDef(const char* name) | [source/game_sa/IplDef.h:31](../../source/game_sa/IplDef.h#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1342"></a>
+
+## JPegPlugin
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| JPegPlugin::InjectHooks() | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:38](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| JPegCompressScreen(RwCamera* camera, jpeg_destination_mgr& dst) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:55](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L55) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: JPegPlugin::JPegCompressScreen 0x005D0470 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| JPegCompressScreenToFile(RwCamera* camera, const char* path) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:95](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L95) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: JPegPlugin::JPegCompressScreenToFile 0x005D0820 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| JPegCompressScreenToBuffer(RwCamera* cam, uint8** buffer, size_t& bufferSizeInOut) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:132](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L132) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: JPegPlugin::JPegCompressScreenToBuffer 0x005D0740 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| JPegDecompressToRaster(RwRaster* raster, jpeg_source_mgr& src) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:185](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L185) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: JPegPlugin::JPegDecompressToRaster 0x005D05F0 | 0 / 0 | Conversión de dirección fija: 0x00BD0170 |
+| JPegDecompressToVramFromBuffer(RwRaster* raster, bool enable) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:238](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L238) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: JPegPlugin::JPegDecompressToVramFromBuffer 0x005D07A0 | 0 / 0 | Posible dato fijo FrontEndMenuManager: source/game_sa/MenuManager.cpp:40 (0x00BA6748) |
+
+<a id="grupo-1343"></a>
+
+## Light
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| ActivateDirectional() | [source/app/app_light.cpp:58](../../source/app/app_light.cpp#L58) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::ActivateDirectional 0x00735C80 | 0 / 0 | Posible dato fijo pDirect: source/app/app_light.h:12 (0x00C886EC) |
+| DeActivateDirectional() | [source/app/app_light.cpp:63](../../source/app/app_light.cpp#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::DeActivateDirectional 0x00735C70 | 0 / 0 | Posible dato fijo pDirect: source/app/app_light.h:12 (0x00C886EC) |
+| LightsCreate(RpWorld* world) | [source/app/app_light.cpp:68](../../source/app/app_light.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::LightsCreate 0x005BA520 | 0 / 0 | Posible dato fijo pAmbient: source/app/app_light.h:7 (0x00C886E8); Posible dato fijo pDirect: source/app/app_light.h:12 (0x00C886EC); Posible dato fijo pExtraDirectionals: source/app/app_light.h:16 (0x00C886F0) |
+| LightsDestroy(RpWorld* world) | [source/app/app_light.cpp:114](../../source/app/app_light.cpp#L114) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::LightsDestroy 0x00735730 | 0 / 0 | Posible dato fijo pAmbient: source/app/app_light.h:7 (0x00C886E8); Posible dato fijo pDirect: source/app/app_light.h:12 (0x00C886EC); Posible dato fijo pExtraDirectionals: source/app/app_light.h:16 (0x00C886F0) |
+| LightsEnable(int32 enable) | [source/app/app_light.cpp:137](../../source/app/app_light.cpp#L137) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::LightsEnable 0x00735720 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetLightsWithTimeOfDayColour(RpWorld* world) | [source/app/app_light.cpp:142](../../source/app/app_light.cpp#L142) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::SetLightsWithTimeOfDayColour 0x007354E0 | 0 / 0 | Posible dato fijo AmbientLightColourForFrame: source/app/app_light.h:9 (0x00C886D4); Posible dato fijo AmbientLightColourForFrame_PedsCarsAndObjects: source/app/app_light.h:10 (0x00C886C4); Posible dato fijo DirectionalLightColourForFrame: source/app/app_light.h:14 (0x00C886B4); Posible dato fijo LightningFlash: source/game_sa/Weather.h:33 (0x00C812CC); Posible dato fijo LightsMult: source/game_sa/Coronas.h:23 (0x008D4B5C); Posible dato fijo m_CurrentColours: source/game_sa/TimeCycle.h:105 (0x00B7C4A0); Posible dato fijo m_vecDirnLightToSun: source/game_sa/TimeCycle.h:134 (0x00B7CB14); Posible dato fijo pAmbient: source/app/app_light.h:7 (0x00C886E8); Posible dato fijo pDirect: source/app/app_light.h:12 (0x00C886EC) |
+| WorldReplaceNormalLightsWithScorched(RpWorld* world, float lighting) | [source/app/app_light.cpp:191](../../source/app/app_light.cpp#L191) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::WorldReplaceNormalLightsWithScorched 0x007357E0 | 0 / 0 | Posible dato fijo pAmbient: source/app/app_light.h:7 (0x00C886E8) |
+| WorldReplaceScorchedLightsWithNormal(RpWorld* world) | [source/app/app_light.cpp:203](../../source/app/app_light.cpp#L203) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::WorldReplaceScorchedLightsWithNormal 0x00735820 | 0 / 0 | Posible dato fijo AmbientLightColourForFrame: source/app/app_light.h:9 (0x00C886D4); Posible dato fijo pAmbient: source/app/app_light.h:7 (0x00C886E8) |
+| AddAnExtraDirectionalLight(RpWorld* world, float x, float y, float z, float red, float green, float blue) | [source/app/app_light.cpp:209](../../source/app/app_light.cpp#L209) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::AddAnExtraDirectionalLight 0x00735840 | 0 / 0 | Posible dato fijo LightStrengths: source/app/app_light.h:18 (0x00C8867C); Posible dato fijo NumExtraDirectionalLights: source/app/app_light.h:17 (0x00C88708); Posible dato fijo currArea: source/game_sa/Game.h:21 (0x00B72914); Posible dato fijo pExtraDirectionals: source/app/app_light.h:16 (0x00C886F0) |
+| RemoveExtraDirectionalLights(RpWorld* world) | [source/app/app_light.cpp:257](../../source/app/app_light.cpp#L257) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::RemoveExtraDirectionalLights 0x007359E0 | 0 / 0 | Posible dato fijo NumExtraDirectionalLights: source/app/app_light.h:17 (0x00C88708); Posible dato fijo pExtraDirectionals: source/app/app_light.h:16 (0x00C886F0) |
+| SetAmbientAndDirectionalColours(float fMult) | [source/app/app_light.cpp:267](../../source/app/app_light.cpp#L267) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::SetAmbientAndDirectionalColours 0x00735A20 | 0 / 0 | Posible dato fijo AmbientLightColour: source/app/app_light.h:8 (0x00C886A4); Posible dato fijo AmbientLightColourForFrame: source/app/app_light.h:9 (0x00C886D4); Posible dato fijo DirectionalLightColour: source/app/app_light.h:13 (0x00C88694); Posible dato fijo DirectionalLightColourForFrame: source/app/app_light.h:14 (0x00C886B4); Posible dato fijo pAmbient: source/app/app_light.h:7 (0x00C886E8); Posible dato fijo pDirect: source/app/app_light.h:12 (0x00C886EC) |
+| ReSetAmbientAndDirectionalColours() | [source/app/app_light.cpp:281](../../source/app/app_light.cpp#L281) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::ReSetAmbientAndDirectionalColours 0x00735C40 | 0 / 0 | Posible dato fijo AmbientLightColourForFrame: source/app/app_light.h:9 (0x00C886D4); Posible dato fijo DirectionalLightColourForFrame: source/app/app_light.h:14 (0x00C886B4); Posible dato fijo pAmbient: source/app/app_light.h:7 (0x00C886E8); Posible dato fijo pDirect: source/app/app_light.h:12 (0x00C886EC) |
+| SetFlashyColours(float fMult) | [source/app/app_light.cpp:288](../../source/app/app_light.cpp#L288) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::SetFlashyColours 0x00735AB0 | 0 / 0 | Posible dato fijo AmbientLightColour: source/app/app_light.h:8 (0x00C886A4); Posible dato fijo DirectionalLightColour: source/app/app_light.h:13 (0x00C88694); Posible dato fijo DirectionalLightColourForFrame: source/app/app_light.h:14 (0x00C886B4); Posible dato fijo pAmbient: source/app/app_light.h:7 (0x00C886E8); Posible dato fijo pDirect: source/app/app_light.h:12 (0x00C886EC) |
+| SetFlashyColours_Mild(float fMult) | [source/app/app_light.cpp:307](../../source/app/app_light.cpp#L307) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::SetFlashyColours_Mild 0x00735B40 | 0 / 0 | Posible dato fijo AmbientLightColour: source/app/app_light.h:8 (0x00C886A4); Posible dato fijo DirectionalLightColour: source/app/app_light.h:13 (0x00C88694); Posible dato fijo DirectionalLightColourForFrame: source/app/app_light.h:14 (0x00C886B4); Posible dato fijo pAmbient: source/app/app_light.h:7 (0x00C886E8); Posible dato fijo pDirect: source/app/app_light.h:12 (0x00C886EC) |
+| SetBrightMarkerColours(float lighting) | [source/app/app_light.cpp:325](../../source/app/app_light.cpp#L325) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::SetBrightMarkerColours 0x00735BD0 | 0 / 0 | Posible dato fijo AmbientLightColour: source/app/app_light.h:8 (0x00C886A4); Posible dato fijo DirectionalLightColour: source/app/app_light.h:13 (0x00C88694); Posible dato fijo pAmbient: source/app/app_light.h:7 (0x00C886E8); Posible dato fijo pDirect: source/app/app_light.h:12 (0x00C886EC) |
+| SetDirectionalColours(RwRGBAReal* color) | [source/app/app_light.cpp:340](../../source/app/app_light.cpp#L340) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::SetDirectionalColours 0x00735D70 | 0 / 0 | Posible dato fijo pDirect: source/app/app_light.h:12 (0x00C886EC) |
+| SetAmbientColoursToIndicateRoadGroup(int32 idx) | [source/app/app_light.cpp:347](../../source/app/app_light.cpp#L347) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::SetAmbientColoursToIndicateRoadGroup 0x00735C90 | 0 / 0 | Posible dato fijo AmbientLightColour: source/app/app_light.h:8 (0x00C886A4); Posible dato fijo pAmbient: source/app/app_light.h:7 (0x00C886E8) |
+| SetFullAmbient() | [source/app/app_light.cpp:362](../../source/app/app_light.cpp#L362) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::SetFullAmbient 0x00735D10 | 0 / 0 | Posible dato fijo pAmbient: source/app/app_light.h:7 (0x00C886E8) |
+| SetLightColoursForPedsCarsAndObjects(float fMult) | [source/app/app_light.cpp:380](../../source/app/app_light.cpp#L380) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::SetLightColoursForPedsCarsAndObjects 0x00735D90 | 0 / 0 | Posible dato fijo AmbientLightColour: source/app/app_light.h:8 (0x00C886A4); Posible dato fijo AmbientLightColourForFrame_PedsCarsAndObjects: source/app/app_light.h:10 (0x00C886C4); Posible dato fijo DirectionalLightColour: source/app/app_light.h:13 (0x00C88694); Posible dato fijo DirectionalLightColourForFrame: source/app/app_light.h:14 (0x00C886B4); Posible dato fijo m_BrightnessAddedToAmbientBlue: source/game_sa/TimeCycle.h:132 (0x00B79E30); Posible dato fijo m_BrightnessAddedToAmbientGreen: source/game_sa/TimeCycle.h:131 (0x00B79E34); Posible dato fijo m_BrightnessAddedToAmbientRed: source/game_sa/TimeCycle.h:130 (0x00B79E38); Posible dato fijo pAmbient: source/app/app_light.h:7 (0x00C886E8); Posible dato fijo pDirect: source/app/app_light.h:12 (0x00C886EC) |
+| SetLightsForInfraredVisionHeatObjects() | [source/app/app_light.cpp:399](../../source/app/app_light.cpp#L399) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::SetLightsForInfraredVisionHeatObjects 0x00735E40 | 0 / 0 | Posible dato fijo m_fInfraredVisionHeatObjectCol: source/game_sa/PostEffects.h:170 (0x008D50BC); Posible dato fijo pAmbient: source/app/app_light.h:7 (0x00C886E8); Posible dato fijo pDirect: source/app/app_light.h:12 (0x00C886EC) |
+| StoreAndSetLightsForInfraredVisionHeatObjects() | [source/app/app_light.cpp:405](../../source/app/app_light.cpp#L405) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::StoreAndSetLightsForInfraredVisionHeatObjects 0x00735E70 | 0 / 0 | Posible dato fijo AmbientLightColour: source/app/app_light.h:8 (0x00C886A4); Posible dato fijo DirectAmbientLight: source/app/app_light.h:15 (0x00C8865C); Posible dato fijo DirectionalLightColour: source/app/app_light.h:13 (0x00C88694) |
+| RestoreLightsForInfraredVisionHeatObjects() | [source/app/app_light.cpp:412](../../source/app/app_light.cpp#L412) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::RestoreLightsForInfraredVisionHeatObjects 0x00735EF0 | 0 / 0 | Posible dato fijo DirectAmbientLight: source/app/app_light.h:15 (0x00C8865C); Posible dato fijo pAmbient: source/app/app_light.h:7 (0x00C886E8); Posible dato fijo pDirect: source/app/app_light.h:12 (0x00C886EC) |
+| SetLightsForInfraredVisionDefaultObjects() | [source/app/app_light.cpp:418](../../source/app/app_light.cpp#L418) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::SetLightsForInfraredVisionDefaultObjects 0x00735F20 | 0 / 0 | Posible dato fijo pAmbient: source/app/app_light.h:7 (0x00C886E8); Posible dato fijo pDirect: source/app/app_light.h:12 (0x00C886EC) |
+| SetLightsForNightVision() | [source/app/app_light.cpp:425](../../source/app/app_light.cpp#L425) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::SetLightsForNightVision 0x00735F70 | 0 / 0 | Posible dato fijo pAmbient: source/app/app_light.h:7 (0x00C886E8); Posible dato fijo pDirect: source/app/app_light.h:12 (0x00C886EC) |
+| GetDayNightBalance() | [source/app/app_light.cpp:432](../../source/app/app_light.cpp#L432) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Light::GetDayNightBalance 0x006FAB30 | 0 / 0 | Posible dato fijo ms_nGameClockHours: source/game_sa/Clock.h:21 (0x00B70153); Posible dato fijo ms_nGameClockMinutes: source/game_sa/Clock.h:20 (0x00B70152); Posible dato fijo ms_nGameClockSeconds: source/game_sa/Clock.h:19 (0x00B70150) |
+
+<a id="grupo-1344"></a>
+
 ## LimbOrientation
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | LimbOrientation(float yaw, float pitch) | [source/game_sa/PedIK.h:24](../../source/game_sa/PedIK.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1342"></a>
+<a id="grupo-1345"></a>
 
 ## Model
 
@@ -26,7 +79,7 @@
 | LoadAllModelsNow() | [source/game_sa/Scripts/Commands/ObjectCommands.cpp:126](../../source/game_sa/Scripts/Commands/ObjectCommands.cpp#L126) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsModelAvailable(eModelID model) | [source/game_sa/Scripts/Commands/ObjectCommands.cpp:132](../../source/game_sa/Scripts/Commands/ObjectCommands.cpp#L132) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1343"></a>
+<a id="grupo-1346"></a>
 
 ## ModelIndices
 
@@ -60,7 +113,7 @@
 | HasMiscComponent(int32 modelId) | [source/game_sa/ModelIndices.h:198](../../source/game_sa/ModelIndices.h#L198) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsFence1Or2(int32 mi) | [source/game_sa/ModelIndices.h:206](../../source/game_sa/ModelIndices.h#L206) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo MI_FENCE: source/game_sa/ModelIndices.cpp:91 (0x008CD600); Posible dato fijo MI_FENCE2: source/game_sa/ModelIndices.cpp:92 (0x008CD604) |
 
-<a id="grupo-1344"></a>
+<a id="grupo-1347"></a>
 
 ## MovementInfo_t
 
@@ -68,7 +121,7 @@
 | --- | --- | --- | --- | --- | --- |
 | Process() | [source/game_sa/Fx/MovementInfo.h:12](../../source/game_sa/Fx/MovementInfo.h#L12) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1345"></a>
+<a id="grupo-1348"></a>
 
 ## NodeNamePlugin
 
@@ -79,7 +132,7 @@
 | * GetFrameNodeName(RwFrame* frame) | [source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp:111](../../source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp#L111) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: NodeNamePlugin::GetFrameNodeName 0x0072FB30 | 0 / 0 | Posible dato fijo gNodeNamePluginOffset: source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp:25 (0x00C87C5C) |
 | SetFrameNodeName(RwFrame* frame, const RwChar* name) | [source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp:119](../../source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp#L119) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: NodeNamePlugin::SetFrameNodeName 0x0072FB00 | 0 / 0 | Posible dato fijo gNodeNamePluginOffset: source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp:25 (0x00C87C5C) |
 
-<a id="grupo-1346"></a>
+<a id="grupo-1349"></a>
 
 ## OALBase
 
@@ -90,7 +143,7 @@
 | OALBase::Release() | [source/game_sa/Audio/OpenAL/OALBase.cpp:13](../../source/game_sa/Audio/OpenAL/OALBase.cpp#L13) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | OALBase::AddRef() | [source/game_sa/Audio/OpenAL/OALBase.cpp:22](../../source/game_sa/Audio/OpenAL/OALBase.cpp#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1347"></a>
+<a id="grupo-1350"></a>
 
 ## OALBuffer
 
@@ -100,7 +153,7 @@
 | OALBuffer::OALBuffer(void* preloopData, uint32 preloopSize, void* loopData, uint32 loopSize, uint32 frequency, uint32 channels) | [source/game_sa/Audio/OpenAL/OALBuffer.cpp:12](../../source/game_sa/Audio/OpenAL/OALBuffer.cpp#L12) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | OALBuffer::~OALBuffer() | [source/game_sa/Audio/OpenAL/OALBuffer.cpp:38](../../source/game_sa/Audio/OpenAL/OALBuffer.cpp#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1348"></a>
+<a id="grupo-1351"></a>
 
 ## OALSource
 
@@ -121,7 +174,7 @@
 | OALSource::Update() | [source/game_sa/Audio/OpenAL/OALSource.cpp:141](../../source/game_sa/Audio/OpenAL/OALSource.cpp#L141) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | OALSource() | [source/game_sa/Audio/OpenAL/OALSource.h:28](../../source/game_sa/Audio/OpenAL/OALSource.h#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1349"></a>
+<a id="grupo-1352"></a>
 
 ## Object
 
@@ -142,7 +195,7 @@
 | SetObjectCollision(CObject& object, bool enable) | [source/game_sa/Scripts/Commands/ObjectCommands.cpp:101](../../source/game_sa/Scripts/Commands/ObjectCommands.cpp#L101) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | DoesObjectHaveThisModel(CObject& object, script::Model model) | [source/game_sa/Scripts/Commands/ObjectCommands.cpp:105](../../source/game_sa/Scripts/Commands/ObjectCommands.cpp#L105) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1350"></a>
+<a id="grupo-1353"></a>
 
 ## Particle_c
 
@@ -150,7 +203,7 @@
 | --- | --- | --- | --- | --- | --- |
 | * AsFxEmitterPrt() | [source/game_sa/Fx/Particle.h:17](../../source/game_sa/Fx/Particle.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1351"></a>
+<a id="grupo-1354"></a>
 
 ## PipelinePlugin
 
@@ -161,7 +214,7 @@
 | GetPipelineID(RpAtomic* atomic) | [source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp:95](../../source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp#L95) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: PipelinePlugin::GetPipelineID 0x0072FC40 | 0 / 0 | Posible dato fijo gPipelinePluginOffset: source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp:25 (0x008D6080) |
 | SetPipelineID(RpAtomic* atomic, RwUInt32 pipelineId) | [source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp:100](../../source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp#L100) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: PipelinePlugin::SetPipelineID 0x0072FC50 | 0 / 0 | Posible dato fijo gPipelinePluginOffset: source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp:25 (0x008D6080) |
 
-<a id="grupo-1352"></a>
+<a id="grupo-1355"></a>
 
 ## PlayerRelationship
 
@@ -170,7 +223,7 @@
 | PlayerRelationship() | [source/game_sa/PlayerRelationshipRecorder.h:9](../../source/game_sa/PlayerRelationshipRecorder.h#L9) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Flush() | [source/game_sa/PlayerRelationshipRecorder.h:11](../../source/game_sa/PlayerRelationshipRecorder.h#L11) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1353"></a>
+<a id="grupo-1356"></a>
 
 ## PointLightsShadow
 
@@ -185,7 +238,7 @@
 | Ftol2(double x) | [source/game_sa/X87Math.cpp:10777](../../source/game_sa/X87Math.cpp#L10777) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Flush() | [source/game_sa/X87Math.cpp:10792](../../source/game_sa/X87Math.cpp#L10792) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1354"></a>
+<a id="grupo-1357"></a>
 
 ## ProcObjectMan_c
 
@@ -201,7 +254,7 @@
 | ProcObjectMan_c::ProcessTriangleAdded(CPlantLocTri* plant) | [source/game_sa/Plant/ProcObjectMan.cpp:128](../../source/game_sa/Plant/ProcObjectMan.cpp#L128) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: ProcObjectMan_c::ProcessTriangleAdded 0x005A3F20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ProcObjectMan_c::ProcessTriangleRemoved(CPlantLocTri* triangle) | [source/game_sa/Plant/ProcObjectMan.cpp:140](../../source/game_sa/Plant/ProcObjectMan.cpp#L140) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: ProcObjectMan_c::ProcessTriangleRemoved 0x005A3F70 | 0 / 0 | Posible dato fijo g_procObjMan: source/game_sa/Plant/ProcObjectMan.h:50 (0x00BB7CB0); Posible dato fijo nNoTempObjects: source/game_sa/Entity/Object/Object.h:94 (0x00BB4A70) |
 
-<a id="grupo-1355"></a>
+<a id="grupo-1358"></a>
 
 ## ProcSurfaceInfo_c
 
@@ -214,7 +267,7 @@
 | ProcSurfaceInfo_c::AddObjects(CPlantLocTri* plant) | [source/game_sa/Plant/ProcSurfaceInfo.cpp:214](../../source/game_sa/Plant/ProcSurfaceInfo.cpp#L214) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: ProcSurfaceInfo_c::AddObjects 0x005A3850 | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
 | ProcSurfaceInfo_c::IsPtInTriangle2D(float x, float y, CVector v1, CVector v2, CVector v3, CVector normal, float* z) | [source/game_sa/Plant/ProcSurfaceInfo.cpp:342](../../source/game_sa/Plant/ProcSurfaceInfo.cpp#L342) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1356"></a>
+<a id="grupo-1359"></a>
 
 ## Ps
 
@@ -244,7 +297,7 @@
 | psAlwaysOnTop(RwBool alwaysOnTop) | [source/app/platform/win/WinPs.cpp:429](../../source/app/platform/win/WinPs.cpp#L429) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Ps::psAlwaysOnTop 0x007458B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | psSelectDevice() | [source/app/platform/win/WinPs.cpp:481](../../source/app/platform/win/WinPs.cpp#L481) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Ps::psSelectDevice 0x00746190 | 0 / 0 | Posible dato fijo FrontEndMenuManager: source/game_sa/MenuManager.cpp:40 (0x00BA6748); Posible dato fijo GcurSelSS: source/app/platform/win/VideoMode.h:22 (0x00C920F4); Posible dato fijo GcurSelVM: source/app/platform/win/VideoMode.h:32 (0x008D6220); Posible dato fijo GnumSubSystems: source/app/platform/win/VideoMode.h:19 (0x00C920F0); Posible dato fijo GsubSysInfo: source/app/platform/win/VideoMode.h:16 (0x00C8CFC0); Posible dato fijo IsVMNotSelected: source/app/platform/win/VideoMode.h:41 (0x008D6218); Posible dato fijo MultipleSubSystems: source/app/platform/win/VideoMode.h:25 (0x00C92118); Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040); Posible dato fijo UseDefaultVM: source/app/platform/win/VideoMode.h:35 (0x00C920FC); Posible dato fijo s_SelectDeviceTscHigh: source/app/platform/win/WinPs.cpp:50 (0x00C92104); Posible dato fijo s_SelectDeviceTscLow: source/app/platform/win/WinPs.cpp:51 (0x00C92108) |
 
-<a id="grupo-1357"></a>
+<a id="grupo-1360"></a>
 
 ## RandomCarLift
 
@@ -257,47 +310,3 @@
 | F32(uint32 bits) | [source/game_sa/CarCtrl.cpp:2220](../../source/game_sa/CarCtrl.cpp#L2220) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | Parity(uint32 v) | [source/game_sa/CarCtrl.cpp:2221](../../source/game_sa/CarCtrl.cpp#L2221) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | X87Compare(double a, double b) | [source/game_sa/CarCtrl.cpp:2223](../../source/game_sa/CarCtrl.cpp#L2223) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1358"></a>
-
-## RenderBuffer
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| InjectHooks() | [source/game_sa/RenderBuffer.cpp:34](../../source/game_sa/RenderBuffer.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| StartStoring( int32 nIndicesNeeded, int32 nVerticesNeeded, RwImVertexIndex*& outPtrFirstIndex, RwIm3DVertex*& outPtrFirstVertex ) | [source/game_sa/RenderBuffer.cpp:45](../../source/game_sa/RenderBuffer.cpp#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RenderBuffer::StartStoring 0x00708290 | 0 / 0 | Posible dato fijo TempBufferVertices: source/game_sa/common.h:287 (0x00C4D958); Posible dato fijo aTempBufferIndices: source/game_sa/common.h:286 (0x00C4B958); Posible dato fijo s_IndicesToBeStored: source/game_sa/RenderBuffer.cpp:23 (0x00C40410); Posible dato fijo s_TempIdxStored: source/game_sa/RenderBuffer.cpp:28 (0x00C4B954); Posible dato fijo s_TempVtxStored: source/game_sa/RenderBuffer.cpp:29 (0x00C4B950); Posible dato fijo s_VerticesToBeStored: source/game_sa/RenderBuffer.cpp:24 (0x00C40414) |
-| StopStoring() | [source/game_sa/RenderBuffer.cpp:70](../../source/game_sa/RenderBuffer.cpp#L70) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RenderBuffer::StopStoring 0x007077A0 | 0 / 0 | Posible dato fijo aTempBufferIndices: source/game_sa/common.h:286 (0x00C4B958); Posible dato fijo s_IndicesToBeStored: source/game_sa/RenderBuffer.cpp:23 (0x00C40410); Posible dato fijo s_TempIdxStored: source/game_sa/RenderBuffer.cpp:28 (0x00C4B954); Posible dato fijo s_TempVtxStored: source/game_sa/RenderBuffer.cpp:29 (0x00C4B950); Posible dato fijo s_VerticesToBeStored: source/game_sa/RenderBuffer.cpp:24 (0x00C40414) |
-| Render(RwPrimitiveType primType, RwMatrix* ltm, RwUInt32 /*RwIm3DTransformFlags*/ flags, bool isIndexed) | [source/game_sa/RenderBuffer.cpp:87](../../source/game_sa/RenderBuffer.cpp#L87) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TempBufferVertices: source/game_sa/common.h:287 (0x00C4D958); Posible dato fijo aTempBufferIndices: source/game_sa/common.h:286 (0x00C4B958); Posible dato fijo s_TempIdxStored: source/game_sa/RenderBuffer.cpp:28 (0x00C4B954); Posible dato fijo s_TempVtxStored: source/game_sa/RenderBuffer.cpp:29 (0x00C4B950) |
-| RenderStuffInBuffer() | [source/game_sa/RenderBuffer.cpp:103](../../source/game_sa/RenderBuffer.cpp#L103) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RenderBuffer::RenderStuffInBuffer 0x00707800 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ClearRenderBuffer() | [source/game_sa/RenderBuffer.cpp:108](../../source/game_sa/RenderBuffer.cpp#L108) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RenderBuffer::ClearRenderBuffer 0x00707790 | 0 / 0 | Posible dato fijo s_TempIdxStored: source/game_sa/RenderBuffer.cpp:28 (0x00C4B954); Posible dato fijo s_TempVtxStored: source/game_sa/RenderBuffer.cpp:29 (0x00C4B950) |
-| RenderIfDoesntFit(int32 nIdxNeeded, int32 nVtxNeeded) | [source/game_sa/RenderBuffer.cpp:114](../../source/game_sa/RenderBuffer.cpp#L114) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CWaterLevel::FlushWaterRenderBuffer 0x006E7680 | 0 / 0 | Posible dato fijo s_TempIdxStored: source/game_sa/RenderBuffer.cpp:28 (0x00C4B954); Posible dato fijo s_TempVtxStored: source/game_sa/RenderBuffer.cpp:29 (0x00C4B950) |
-| * PushVertex(CVector pos, CRGBA color) | [source/game_sa/RenderBuffer.cpp:121](../../source/game_sa/RenderBuffer.cpp#L121) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TempBufferVertices: source/game_sa/common.h:287 (0x00C4D958); Posible dato fijo s_TempVtxStored: source/game_sa/RenderBuffer.cpp:29 (0x00C4B950) |
-| * PushVertex(CVector pos, CVector2D uv, CRGBA color) | [source/game_sa/RenderBuffer.cpp:131](../../source/game_sa/RenderBuffer.cpp#L131) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| PushIndex(int32 idx, bool useCurrentVtxAsBase) | [source/game_sa/RenderBuffer.cpp:141](../../source/game_sa/RenderBuffer.cpp#L141) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo aTempBufferIndices: source/game_sa/common.h:286 (0x00C4B958); Posible dato fijo s_TempIdxStored: source/game_sa/RenderBuffer.cpp:28 (0x00C4B954); Posible dato fijo s_TempVtxStored: source/game_sa/RenderBuffer.cpp:29 (0x00C4B950) |
-| PushIndices(std::initializer_list&lt;int32&gt; idxs, bool useCurrentVtxAsBase) | [source/game_sa/RenderBuffer.cpp:150](../../source/game_sa/RenderBuffer.cpp#L150) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CanFitVertices(int32 nVtxNeeded) | [source/game_sa/RenderBuffer.cpp:156](../../source/game_sa/RenderBuffer.cpp#L156) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo s_TempVtxStored: source/game_sa/RenderBuffer.cpp:29 (0x00C4B950) |
-
-<a id="grupo-1359"></a>
-
-## RenderInfo_t
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| SetColor(float red, float green, float blue, float alpha) | [source/game_sa/Fx/RenderInfo.h:48](../../source/game_sa/Fx/RenderInfo.h#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| SetRangeColor(float red, float green, float blue) | [source/game_sa/Fx/RenderInfo.h:55](../../source/game_sa/Fx/RenderInfo.h#L55) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| Process() | [source/game_sa/Fx/RenderInfo.h:61](../../source/game_sa/Fx/RenderInfo.h#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1360"></a>
-
-## RenderWare
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| D3D9FindDepth(D3DFORMAT format) | [source/app/platform/win/WindowedMode.cpp:497](../../source/app/platform/win/WindowedMode.cpp#L497) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| D3D9RestoreCacheLights(void) | [source/app/platform/win/WindowedMode.cpp:558](../../source/app/platform/win/WindowedMode.cpp#L558) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo LightsCache: source/app/platform/win/WindowedMode.cpp:128 (0x00C98088); Posible dato fijo MaxNumLights: source/app/platform/win/WindowedMode.cpp:129 (0x00C98084); Posible dato fijo _RwD3DDevice: source/game_sa/RenderWare/rw/rwcore.h:3635 (0x00C97C28) |
-| D3D9DeviceRestoreVideoMemory(void) | [source/app/platform/win/WindowedMode.cpp:611](../../source/app/platform/win/WindowedMode.cpp#L611) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo D3D9RestoreDeviceCallback: source/app/platform/win/WindowedMode.cpp:130 (0x00C980B0); Posible dato fijo _RwD3D9DepthStencilSurface: source/app/platform/win/WindowedMode.cpp:112 (0x00C97C2C); Posible dato fijo _RwD3D9RenderSurface: source/app/platform/win/WindowedMode.cpp:111 (0x00C97C30); Posible dato fijo _RwD3DDevice: source/game_sa/RenderWare/rw/rwcore.h:3635 (0x00C97C28) |
-| _rwD3D9TestState(void) | [source/app/platform/win/WindowedMode.cpp:661](../../source/app/platform/win/WindowedMode.cpp#L661) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo Present: source/app/platform/win/WindowedMode.cpp:109 (0x00C9C040); Posible dato fijo Windowed: source/app/platform/win/WinPlatform.h:44 (0x00C920CC); Posible dato fijo _RwD3D9AdapterInformation: source/app/platform/win/WindowedMode.cpp:108 (0x00C9BCE0); Posible dato fijo _RwD3DAdapterIndex: source/app/platform/win/WindowedMode.cpp:114 (0x00C97C24); Posible dato fijo _RwD3DDevice: source/game_sa/RenderWare/rw/rwcore.h:3635 (0x00C97C28); Posible dato fijo _RwDirect3DObject: source/app/platform/win/WindowedMode.cpp:113 (0x00C97C20) |
-| _rwD3D9BeginScene(void) | [source/app/platform/win/WindowedMode.cpp:721](../../source/app/platform/win/WindowedMode.cpp#L721) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo InsideScene: source/app/platform/win/WindowedMode.cpp:127 (0x00C97C54); Posible dato fijo _RwD3DDevice: source/game_sa/RenderWare/rw/rwcore.h:3635 (0x00C97C28) |
-| _rwD3D9CameraClear(void *camera, void *color, RwInt32 clearFlags) | [source/app/platform/win/WindowedMode.cpp:757](../../source/app/platform/win/WindowedMode.cpp#L757) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: WindowedModeHooks::RenderWare::_rwD3D9CameraClear 0x007F7730 | 0 / 0 | Posible dato fijo Present: source/app/platform/win/WindowedMode.cpp:109 (0x00C9C040); Posible dato fijo StencilClearValue: source/app/platform/win/WindowedMode.cpp:105 (0x00C97C44); Posible dato fijo WindowHandle: source/app/platform/win/WindowedMode.cpp:106 (0x00C97C1C); Posible dato fijo Windowed: source/app/platform/win/WinPlatform.h:44 (0x00C920CC); Posible dato fijo _RwD3D9AdapterInformation: source/app/platform/win/WindowedMode.cpp:108 (0x00C9BCE0); Posible dato fijo _RwD3D9DepthStencilSurface: source/app/platform/win/WindowedMode.cpp:112 (0x00C97C2C); Posible dato fijo _RwD3D9DeviceCaps: source/app/platform/win/WindowedMode.cpp:110 (0x00C9BF00); Posible dato fijo _RwD3D9RenderSurface: source/app/platform/win/WindowedMode.cpp:111 (0x00C97C30); Posible dato fijo _RwD3DDevice: source/game_sa/RenderWare/rw/rwcore.h:3635 (0x00C97C28); Posible dato fijo _RwHasStencilBuffer: source/app/platform/win/WindowedMode.cpp:107 (0x00C97C3C) |
-| _rwD3D9CameraBeginUpdate(void *out __RWUNUSED__, void *cameraIn, RwInt32 in __RWUNUSED__) | [source/app/platform/win/WindowedMode.cpp:1186](../../source/app/platform/win/WindowedMode.cpp#L1186) | C++ · Cuerpo fuente; delegación indirecta no descartada | Pendiente en catálogo: WindowedModeHooks::RenderWare::_rwD3D9CameraBeginUpdate 0x007F8F20 | 0 / 0 | Posible dato fijo NeedToCopyFromBackBuffer: source/app/platform/win/WindowedMode.cpp:126 (0x00C97C34); Posible dato fijo Present: source/app/platform/win/WindowedMode.cpp:109 (0x00C9C040); Posible dato fijo WindowHandle: source/app/platform/win/WindowedMode.cpp:106 (0x00C97C1C); Posible dato fijo Windowed: source/app/platform/win/WinPlatform.h:44 (0x00C920CC); Posible dato fijo _RwD3D9ActiveViewProjTransform: source/app/platform/win/WindowedMode.cpp:125 (0x00C97C64); Posible dato fijo _RwD3D9AdapterInformation: source/app/platform/win/WindowedMode.cpp:108 (0x00C9BCE0); Posible dato fijo _RwD3D9D3D9ProjTransform: source/app/platform/win/WindowedMode.cpp:124 (0x008E2458); Posible dato fijo _RwD3D9D3D9ViewTransform: source/app/platform/win/WindowedMode.cpp:123 (0x00C9BC80); Posible dato fijo _RwD3D9DepthStencilSurface: source/app/platform/win/WindowedMode.cpp:112 (0x00C97C2C); Posible dato fijo _RwD3D9RenderSurface: source/app/platform/win/WindowedMode.cpp:111 (0x00C97C30); Posible dato fijo _RwD3DDevice: source/game_sa/RenderWare/rw/rwcore.h:3635 (0x00C97C28); Posible dato fijo dgGGlobals: source/app/platform/win/WindowedMode.cpp:122 (0x00C9BCC0) |
-| D3D9SetPresentParameters(const D3DDISPLAYMODE *mode, RwUInt32 flags, D3DFORMAT adapterFormat) | [source/app/platform/win/WindowedMode.cpp:1569](../../source/app/platform/win/WindowedMode.cpp#L1569) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo FullScreenRefreshRateInHz: source/app/platform/win/WindowedMode.cpp:116 (0x008E243C); Posible dato fijo Present: source/app/platform/win/WindowedMode.cpp:109 (0x00C9C040); Posible dato fijo SelectedMultisamplingLevels: source/app/platform/win/WindowedMode.cpp:118 (0x008E2430); Posible dato fijo SelectedMultisamplingLevelsNonMask: source/app/platform/win/WindowedMode.cpp:119 (0x008E2438); Posible dato fijo WindowHandle: source/app/platform/win/WindowedMode.cpp:106 (0x00C97C1C); Posible dato fijo Windowed: source/app/platform/win/WinPlatform.h:44 (0x00C920CC); Posible dato fijo _RwD3D9ZBufferDepth: source/app/platform/win/WindowedMode.cpp:117 (0x00C9BEFC); Posible dato fijo _RwD3DAdapterIndex: source/app/platform/win/WindowedMode.cpp:114 (0x00C97C24); Posible dato fijo _RwD3DAdapterType: source/app/platform/win/WindowedMode.cpp:115 (0x008E2428); Posible dato fijo _RwDirect3DObject: source/app/platform/win/WindowedMode.cpp:113 (0x00C97C20); Posible dato fijo _RwHasStencilBuffer: source/app/platform/win/WindowedMode.cpp:107 (0x00C97C3C) |

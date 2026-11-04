@@ -17,5 +17,5 @@ CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::ControlSubTask,0x00000
 CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::Constructor,0x00661DC0,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,457,C++,plantilla genérica
 CTaskComplexSeekEntityStandard::Destructor,0x0046AD70,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,473,C++,plantilla heredada
 CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::Destructor,0x00661F30,hooks.csv,1,1,source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h,473,C++,plantilla genérica
-CWorld::TestForBuildingsOnTopOfEachOther<CPtrListDoubleLink<CPhysical*>>-,0x00563950,hooks.csv,1,1,source/game_sa/World.cpp,538,C++,plantilla genérica
-CWorld::TestForUnusedModels<CPtrListDoubleLink<CPhysical*>>-InputArray,0x005639D0,hooks.csv,1,1,source/game_sa/World.cpp,553,C++,plantilla genérica
+CWorld::TestForBuildingsOnTopOfEachOther<CPtrListDoubleLink<CPhysical*>>-,0x00563950,hooks.csv,1,1,source/game_sa/World.cpp,549,C++,plantilla genérica
+CWorld::TestForUnusedModels<CPtrListDoubleLink<CPhysical*>>-InputArray,0x005639D0,hooks.csv,1,1,source/game_sa/World.cpp,564,C++,plantilla genérica

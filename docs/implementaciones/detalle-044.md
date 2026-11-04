@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 04/11/2026 (Ciudad de México):** 823 grupos / 9029 funciones reconstruidas; 9029 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 04/11/2026 (Ciudad de México):** 830 grupos / 9049 funciones reconstruidas; 9049 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Detalle de implementaciones
@@ -8,6 +8,54 @@
 
 <a id="grupo-861"></a>
 
+## CTaskSimpleUseGun
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTaskSimpleUseGun::InjectHooks() | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp:27](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleUseGun::CTaskSimpleUseGun(CEntity* targetEntity, CVector vecTarget, eGunCommand firstCmd, uint16 burstLength, bool isAimImmediate) | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp:56](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleUseGun::~CTaskSimpleUseGun() | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp:66](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp#L66) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleUseGun::ControlGunMove(const CVector2D& moveDir) | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp:73](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp#L73) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleUseGun::ControlGunMove 0x0061E0C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleUseGun::FinishGunAnimCB(CAnimBlendAssociation* anim, void* data) | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp:94](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp#L94) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleUseGun::FinishGunAnimCB 0x0061F3A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleUseGun::FireGun(CPed* ped, bool isLeftHand) | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp:113](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp#L113) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleUseGun::FireGun 0x0061EB10 | 0 / 0 | Posible dato fijo g_ikChainMan: source/game_sa/Ragdoll/IKChainManager.cpp:29 (0x00C15448) |
+| CTaskSimpleUseGun::PlayerPassiveControlGun() | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp:147](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp#L147) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleUseGun::PlayerPassiveControlGun 0x0061E0A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleUseGun::RemoveStanceAnims(CPed* ped, float x) | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp:158](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp#L158) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleUseGun::RemoveStanceAnims 0x0061E8E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleUseGun::RequirePistolWhip(CPed* ped, CEntity* targetEntity) | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp:225](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp#L225) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleUseGun::RequirePistolWhip 0x0061E200 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleUseGun::ControlGun(CPed* ped, CEntity* target, eGunCommand cmd) | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp:283](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp#L283) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleUseGun::ControlGun 0x0061E040 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleUseGun::AbortIK(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp:296](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp#L296) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleUseGun::AbortIK 0x0061DFA0 | 0 / 0 | Posible dato fijo g_ikChainMan: source/game_sa/Ragdoll/IKChainManager.cpp:29 (0x00C15448) |
+| CTaskSimpleUseGun::AimGun(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp:310](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp#L310) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleUseGun::AimGun 0x0061ED10 | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo g_ikChainMan: source/game_sa/Ragdoll/IKChainManager.cpp:29 (0x00C15448) |
+| CTaskSimpleUseGun::ClearAnim(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp:428](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp#L428) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleUseGun::ClearAnim 0x0061E190 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleUseGun::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp:443](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp#L443) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleUseGun::MakeAbortable 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleUseGun::ProcessPed(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp:468](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp#L468) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleUseGun::ProcessPed 0x00000000 | 0 / 0 | Posible dato fijo g_ikChainMan: source/game_sa/Ragdoll/IKChainManager.cpp:29 (0x00C15448) |
+| CTaskSimpleUseGun::SetPedPosition(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp:672](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp#L672) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleUseGun::SetPedPosition 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleUseGun::GetAimTargetPosition(CPed* ped) const | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp:686](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp#L686) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
+| CTaskSimpleUseGun::GetAimLookAtInfo() const | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp:702](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp#L702) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleUseGun::Reset(CPed* ped, CEntity* targetEntity, CVector targetPos, eGunCommand, int16 burstLength) | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp:715](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp#L715) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleUseGun::Reset 0x00624DC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleUseGun::SetMoveAnim(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp:729](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp#L729) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleUseGun::SetMoveAnim 0x0061E3F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleUseGun::StartAnim(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp:883](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp#L883) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleUseGun::StartAnim 0x00624F30 | 0 / 0 | Posible dato fijo m_aComboData: source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h:60 (0x00C170D0) |
+| CTaskSimpleUseGun::StartCountDown(uint8 numIdleFrames, char isMax) | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp:996](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp#L996) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleUseGun::StartCountDown 0x0061E160 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h:26](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleUseGun::Clone 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h:27](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleUseGun::GetTaskType 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetLastGunCommand() const | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h:52](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Constructor(CEntity* targetEntity, CVector vecTarget, eGunCommand nCommand, uint16 nBurstLength, bool bAimImmediate) | [source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h:63](../../source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-862"></a>
+
+## CTaskSimpleWaitForBus
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| CTaskSimpleWaitForBus::InjectHooks() | [source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForBus.cpp:22](../../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForBus.cpp#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleWaitForBus::CTaskSimpleWaitForBus(const CTaskSimpleWaitForBus& o) | [source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForBus.cpp:35](../../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForBus.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CTaskSimpleWaitForBus::ProcessPed(CPed* ped) | [source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForBus.cpp:41](../../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForBus.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleWaitForBus::ProcessPed 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForBus.h:24](../../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForBus.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleWaitForBus::Clone 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForBus.h:25](../../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForBus.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleWaitForBus::GetTaskType 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override | [source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForBus.h:26](../../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForBus.h#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleWaitForBus::MakeAbortable 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Constructor() | [source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForBus.h:31](../../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForBus.h#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleWaitForBus::Constructor 0x00632A50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForBus.h:36](../../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForBus.h#L36) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskSimpleWaitForBus::Destructor 0x00632A90 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-863"></a>
+
 ## CTaskSimpleWaitForPizza
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
@@ -15,7 +63,7 @@
 | CTaskSimpleWaitForPizza::InjectHooks() | [source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp:5](../../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp#L5) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.h:18](../../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-862"></a>
+<a id="grupo-864"></a>
 
 ## CTaskSimpleWaitUntilAreaCodesMatch
 
@@ -32,7 +80,7 @@
 | * Constructor(CPed* pedToWaitFor) | [source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilAreaCodesMatch.h:29](../../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilAreaCodesMatch.h#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleWaitUntilAreaCodesMatch::Constructor 0x00635540 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilAreaCodesMatch.h:34](../../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilAreaCodesMatch.h#L34) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskSimpleWaitUntilAreaCodesMatch::Destructor 0x006355E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-863"></a>
+<a id="grupo-865"></a>
 
 ## CTaskSimpleWaitUntilLeaderAreaCodesMatch
 
@@ -45,7 +93,7 @@
 | * Clone() const override | [source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilLeaderAreaCodesMatch.h:24](../../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilLeaderAreaCodesMatch.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleWaitUntilLeaderAreaCodesMatch::Clone 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetTaskType() const override | [source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilLeaderAreaCodesMatch.h:25](../../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilLeaderAreaCodesMatch.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleWaitUntilLeaderAreaCodesMatch::GetTaskType 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-864"></a>
+<a id="grupo-866"></a>
 
 ## CTaskSimpleWaitUntilPedIsInCar
 
@@ -61,7 +109,7 @@
 | * Constructor(CPed* pedToWaitFor) | [source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsInCar.h:29](../../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsInCar.h#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleWaitUntilPedIsInCar::Constructor 0x00649620 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsInCar.h:34](../../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsInCar.h#L34) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskSimpleWaitUntilPedIsInCar::Destructor 0x006496A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-865"></a>
+<a id="grupo-867"></a>
 
 ## CTaskSimpleWaitUntilPedIsOutCar
 
@@ -77,7 +125,7 @@
 | * Constructor(CPed * ped, CVector const& pos) | [source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsOutCar.h:40](../../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsOutCar.h#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskSimpleWaitUntilPedIsOutCar::Constructor 0x00649450 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsOutCar.h:41](../../source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsOutCar.h#L41) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskSimpleWaitUntilPedIsOutCar::Destructor 0x006494F0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-866"></a>
+<a id="grupo-868"></a>
 
 ## CTaskTimer
 
@@ -95,7 +143,7 @@
 | SetAsOutOfTime() | [source/game_sa/Tasks/TaskTimer.h:85](../../source/game_sa/Tasks/TaskTimer.h#L85) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsStarted() const | [source/game_sa/Tasks/TaskTimer.h:91](../../source/game_sa/Tasks/TaskTimer.h#L91) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-867"></a>
+<a id="grupo-869"></a>
 
 ## CTaskUtilityLineUpPedWithCar
 
@@ -109,7 +157,7 @@
 | * Constructor(const CVector& offsets, int32 nTime, int32 doorOpenPosType, int32 doorIdx) | [source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h:32](../../source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTaskUtilityLineUpPedWithCar::Constructor 0x0064FBB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h:33](../../source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h#L33) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: CTaskUtilityLineUpPedWithCar::Destructor 0x0064FC00 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-868"></a>
+<a id="grupo-870"></a>
 
 ## CTempColModels
 
@@ -119,7 +167,7 @@
 | CTempColModels::Initialise() | [source/game_sa/Collision/TempColModels.cpp:41](../../source/game_sa/Collision/TempColModels.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTempColModels::Initialise 0x005BA8C0 | 0 / 0 | Posible dato fijo ms_colModelBBox: source/game_sa/Collision/TempColModels.h:16 (0x00968A00); Posible dato fijo ms_colModelBodyPart1: source/game_sa/Collision/TempColModels.h:25 (0x00968F70); Posible dato fijo ms_colModelBodyPart2: source/game_sa/Collision/TempColModels.h:26 (0x00968FA0); Posible dato fijo ms_colModelBonnet1: source/game_sa/Collision/TempColModels.h:22 (0x00968EE0); Posible dato fijo ms_colModelBoot1: source/game_sa/Collision/TempColModels.h:23 (0x00968F10); Posible dato fijo ms_colModelBumper1: source/game_sa/Collision/TempColModels.h:20 (0x00968E80); Posible dato fijo ms_colModelCutObj: source/game_sa/Collision/TempColModels.h:31 (0x00968A30); Posible dato fijo ms_colModelDoor1: source/game_sa/Collision/TempColModels.h:19 (0x00968E50); Posible dato fijo ms_colModelPanel1: source/game_sa/Collision/TempColModels.h:21 (0x00968EB0); Posible dato fijo ms_colModelPed1: source/game_sa/Collision/TempColModels.h:17 (0x00968DF0); Posible dato fijo ms_colModelPed2: source/game_sa/Collision/TempColModels.h:18 (0x00968E20); Posible dato fijo ms_colModelWeapon: source/game_sa/Collision/TempColModels.h:27 (0x00968FD0); Posible dato fijo ms_colModelWheel1: source/game_sa/Collision/TempColModels.h:24 (0x00968F40) |
 | CTempColModels::Shutdown() | [source/game_sa/Collision/TempColModels.cpp:259](../../source/game_sa/Collision/TempColModels.cpp#L259) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTempColModels::Shutdown 0x0041B360 | 0 / 0 | Posible dato fijo ms_colModelBBox: source/game_sa/Collision/TempColModels.h:16 (0x00968A00); Posible dato fijo ms_colModelBodyPart1: source/game_sa/Collision/TempColModels.h:25 (0x00968F70); Posible dato fijo ms_colModelBodyPart2: source/game_sa/Collision/TempColModels.h:26 (0x00968FA0); Posible dato fijo ms_colModelBonnet1: source/game_sa/Collision/TempColModels.h:22 (0x00968EE0); Posible dato fijo ms_colModelBoot1: source/game_sa/Collision/TempColModels.h:23 (0x00968F10); Posible dato fijo ms_colModelBumper1: source/game_sa/Collision/TempColModels.h:20 (0x00968E80); Posible dato fijo ms_colModelCutObj: source/game_sa/Collision/TempColModels.h:31 (0x00968A30); Posible dato fijo ms_colModelDoor1: source/game_sa/Collision/TempColModels.h:19 (0x00968E50); Posible dato fijo ms_colModelPanel1: source/game_sa/Collision/TempColModels.h:21 (0x00968EB0); Posible dato fijo ms_colModelPed1: source/game_sa/Collision/TempColModels.h:17 (0x00968DF0); Posible dato fijo ms_colModelPed2: source/game_sa/Collision/TempColModels.h:18 (0x00968E20); Posible dato fijo ms_colModelWeapon: source/game_sa/Collision/TempColModels.h:27 (0x00968FD0); Posible dato fijo ms_colModelWheel1: source/game_sa/Collision/TempColModels.h:24 (0x00968F40) |
 
-<a id="grupo-869"></a>
+<a id="grupo-871"></a>
 
 ## CText
 
@@ -142,7 +190,7 @@
 | GetMissionKeys() | [source/game_sa/Text/Text.h:72](../../source/game_sa/Text/Text.h#L72) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | & GetMissionName() const | [source/game_sa/Text/Text.h:75](../../source/game_sa/Text/Text.h#L75) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-870"></a>
+<a id="grupo-872"></a>
 
 ## CTheCarGenerators
 
@@ -158,7 +206,7 @@
 | * CTheCarGenerators::Get(uint16 index) | [source/game_sa/TheCarGenerators.cpp:160](../../source/game_sa/TheCarGenerators.cpp#L160) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTheCarGenerators::Get 0x00479D60 | 0 / 0 | Posible dato fijo CarGeneratorArray: source/game_sa/TheCarGenerators.h:20 (0x00C27AD0) |
 | CTheCarGenerators::GetIndex(CCarGenerator* carGen) | [source/game_sa/TheCarGenerators.cpp:164](../../source/game_sa/TheCarGenerators.cpp#L164) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo CarGeneratorArray: source/game_sa/TheCarGenerators.h:20 (0x00C27AD0) |
 
-<a id="grupo-871"></a>
+<a id="grupo-873"></a>
 
 ## CTheScripts
 
@@ -250,7 +298,7 @@
 | * GetTextByKeyFromScript(uint8*& ip) | [source/game_sa/Scripts/TheScripts.h:635](../../source/game_sa/Scripts/TheScripts.h#L635) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ScriptSpace: source/game_sa/Scripts/TheScripts.h:359 (0x00A49960); Posible dato fijo TheText: source/game_sa/Text/Text.h:88 (0x00C1B340) |
 | GetSizeOfVariableSpace() | [source/game_sa/Scripts/TheScripts.h:641](../../source/game_sa/Scripts/TheScripts.h#L641) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-872"></a>
+<a id="grupo-874"></a>
 
 ## CTheZones
 
@@ -290,7 +338,7 @@
 | GetZoneInfos() | [source/game_sa/TheZones.h:78](../../source/game_sa/TheZones.h#L78) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TotalNumberOfZoneInfos: source/game_sa/TheZones.h:24 (0x00BA1DE8); Posible dato fijo ZoneInfoArray: source/game_sa/TheZones.h:26 (0x00BA1DF0) |
 | * GetZoneInfo(const CZone* zone) | [source/game_sa/TheZones.h:80](../../source/game_sa/TheZones.h#L80) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTheZones::GetZoneInfo- 0x00572400 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-873"></a>
+<a id="grupo-875"></a>
 
 ## CTickCounter
 
@@ -302,7 +350,7 @@
 | Tick() | [source/game_sa/Tasks/TickCounter.h:18](../../source/game_sa/Tasks/TickCounter.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | SetCount(int32 count) | [source/game_sa/Tasks/TickCounter.h:27](../../source/game_sa/Tasks/TickCounter.h#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-874"></a>
+<a id="grupo-876"></a>
 
 ## CTimeCycle
 
@@ -389,7 +437,7 @@
 | GetBoxes() | [source/game_sa/TimeCycle.h:249](../../source/game_sa/TimeCycle.h#L249) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_NumBoxes: source/game_sa/Audio/AudioZones.h:45 (0x00B6DCC4), source/game_sa/TimeCycle.h:108 (0x00B7C480); Posible dato fijo m_aBoxes: source/game_sa/Audio/AudioZones.h:49 (0x00B6DCD0), source/game_sa/TimeCycle.h:107 (0x00B7C550) |
 | ShouldIgnoreSky() | [source/game_sa/TimeCycle.h:250](../../source/game_sa/TimeCycle.h#L250) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_ExtraColour: source/game_sa/TimeCycle.h:123 (0x00B79E44); Posible dato fijo m_ExtraColourWeatherType: source/game_sa/TimeCycle.h:124 (0x00B79E40); Posible dato fijo m_nSkyTopBlue: source/game_sa/TimeCycle.h:50 (0x00B7BE08); Posible dato fijo m_nSkyTopGreen: source/game_sa/TimeCycle.h:49 (0x00B7BEC0); Posible dato fijo m_nSkyTopRed: source/game_sa/TimeCycle.h:48 (0x00B7BF78) |
 
-<a id="grupo-875"></a>
+<a id="grupo-877"></a>
 
 ## CTimeInfo
 
@@ -404,7 +452,7 @@
 | SetTimes(uint8 timeOn, uint8 timeOff) | [source/game_sa/Models/TimeInfo.h:32](../../source/game_sa/Models/TimeInfo.h#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTimeInfo::SetTimes 0x005B3430 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsVisibleNow() const noexcept | [source/game_sa/Models/TimeInfo.h:35](../../source/game_sa/Models/TimeInfo.h#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-876"></a>
+<a id="grupo-878"></a>
 
 ## CTimeModelInfo
 
@@ -414,7 +462,7 @@
 | CTimeModelInfo::GetModelType() | [source/game_sa/Models/TimeModelInfo.cpp:35](../../source/game_sa/Models/TimeModelInfo.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTimeModelInfo::GetModelType 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * CTimeModelInfo::GetTimeInfo() | [source/game_sa/Models/TimeModelInfo.cpp:41](../../source/game_sa/Models/TimeModelInfo.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTimeModelInfo::GetTimeInfo 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-877"></a>
+<a id="grupo-879"></a>
 
 ## CTimer
 
@@ -465,7 +513,7 @@
 | HasTimePointPassed(uint32 timeMs) | [source/game_sa/Timer.h:114](../../source/game_sa/Timer.h#L114) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | IsTimeInRange(uint32 fromMs, uint32 toMs) | [source/game_sa/Timer.h:115](../../source/game_sa/Timer.h#L115) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-878"></a>
+<a id="grupo-880"></a>
 
 ## CTrafficLights
 
@@ -484,75 +532,3 @@
 | CTrafficLights::LightForCars2() | [source/game_sa/TrafficLights.cpp:437](../../source/game_sa/TrafficLights.cpp#L437) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrafficLights::LightForCars2 0x0049D310 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CTrafficLights::LightForCars1_Visual() | [source/game_sa/TrafficLights.cpp:455](../../source/game_sa/TrafficLights.cpp#L455) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrafficLights::LightForCars1_Visual 0x0049D350 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CTrafficLights::LightForCars2_Visual() | [source/game_sa/TrafficLights.cpp:467](../../source/game_sa/TrafficLights.cpp#L467) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrafficLights::LightForCars2_Visual 0x0049D3A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-879"></a>
-
-## CTrailer
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTrailer::InjectHooks() | [source/game_sa/Entity/Vehicle/Trailer.cpp:82](../../source/game_sa/Entity/Vehicle/Trailer.cpp#L82) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrailer::CTrailer(int32 modelIndex, eVehicleCreatedBy createdBy) | [source/game_sa/Entity/Vehicle/Trailer.cpp:103](../../source/game_sa/Entity/Vehicle/Trailer.cpp#L103) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrailer::Constructor 0x006D03A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrailer::SetupSuspensionLines() | [source/game_sa/Entity/Vehicle/Trailer.cpp:115](../../source/game_sa/Entity/Vehicle/Trailer.cpp#L115) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrailer::SetupSuspensionLines 0x00000000 | 0 / 0 | Posible dato fijo ms_modelInfoPtrs: source/game_sa/Models/ModelInfo.h:30 (0x00A9B0C8) |
-| CTrailer::SetTowLink(CVehicle* vehicle, bool setMyPosToTowBar) | [source/game_sa/Entity/Vehicle/Trailer.cpp:213](../../source/game_sa/Entity/Vehicle/Trailer.cpp#L213) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrailer::SetTowLink 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrailer::ScanForTowLink() | [source/game_sa/Entity/Vehicle/Trailer.cpp:268](../../source/game_sa/Entity/Vehicle/Trailer.cpp#L268) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrailer::ScanForTowLink 0x006CF030 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrailer::ResetSuspension() | [source/game_sa/Entity/Vehicle/Trailer.cpp:301](../../source/game_sa/Entity/Vehicle/Trailer.cpp#L301) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrailer::ResetSuspension 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrailer::ProcessSuspension() | [source/game_sa/Entity/Vehicle/Trailer.cpp:312](../../source/game_sa/Entity/Vehicle/Trailer.cpp#L312) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrailer::ProcessSuspension 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrailer::ProcessEntityCollision(CEntity* entity, CColPoint* outColPoints) | [source/game_sa/Entity/Vehicle/Trailer.cpp:380](../../source/game_sa/Entity/Vehicle/Trailer.cpp#L380) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrailer::ProcessEntityCollision 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrailer::ProcessControl() | [source/game_sa/Entity/Vehicle/Trailer.cpp:500](../../source/game_sa/Entity/Vehicle/Trailer.cpp#L500) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrailer::ProcessControl 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrailer::ProcessAI(uint32& extraHandlingFlags) | [source/game_sa/Entity/Vehicle/Trailer.cpp:534](../../source/game_sa/Entity/Vehicle/Trailer.cpp#L534) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrailer::ProcessAI 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrailer::PreRender() | [source/game_sa/Entity/Vehicle/Trailer.cpp:558](../../source/game_sa/Entity/Vehicle/Trailer.cpp#L558) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrailer::PreRender 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrailer::GetTowHitchPos(CVector& outPos, bool bCheckModelInfo, CVehicle* vehicle) | [source/game_sa/Entity/Vehicle/Trailer.cpp:602](../../source/game_sa/Entity/Vehicle/Trailer.cpp#L602) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrailer::GetTowHitchPos 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrailer::GetTowBarPos(CVector& outPos, bool bCheckModelInfo, CVehicle* vehicle) | [source/game_sa/Entity/Vehicle/Trailer.cpp:625](../../source/game_sa/Entity/Vehicle/Trailer.cpp#L625) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrailer::GetTowBarPos 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrailer::BreakTowLink() | [source/game_sa/Entity/Vehicle/Trailer.cpp:641](../../source/game_sa/Entity/Vehicle/Trailer.cpp#L641) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrailer::BreakTowLink 0x00000000 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Constructor(int32 modelIndex, eVehicleCreatedBy createdBy) | [source/game_sa/Entity/Vehicle/Trailer.h:89](../../source/game_sa/Entity/Vehicle/Trailer.h#L89) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrailer::Constructor 0x006D03A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-880"></a>
-
-## CTrain
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| CTrain::InjectHooks() | [source/game_sa/Entity/Vehicle/Train.cpp:40](../../source/game_sa/Entity/Vehicle/Train.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrain::CTrain(int32 modelIndex, eVehicleCreatedBy createdBy) | [source/game_sa/Entity/Vehicle/Train.cpp:88](../../source/game_sa/Entity/Vehicle/Train.cpp#L88) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::Constructor 0x006F6030 | 0 / 0 | Posible dato fijo gHandlingDataMgr: source/game_sa/cHandlingDataMgr.h:274 (0x00C2B9C8) |
-| CTrain::SetupModelNodes() | [source/game_sa/Entity/Vehicle/Train.cpp:139](../../source/game_sa/Entity/Vehicle/Train.cpp#L139) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrain::InitTrains() | [source/game_sa/Entity/Vehicle/Train.cpp:145](../../source/game_sa/Entity/Vehicle/Train.cpp#L145) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::InitTrains 0x006F7440 | 0 / 0 | Posible dato fijo GenTrain_Status: source/game_sa/Entity/Vehicle/Train.h:85 (0x00C3800C); Posible dato fijo NumTrackNodes: source/game_sa/Entity/Vehicle/Train.cpp:36 (0x00C38014); Posible dato fijo StationDist: source/game_sa/Entity/Vehicle/Train.cpp:38 (0x00C38034); Posible dato fijo aStationCoors: source/game_sa/Entity/Vehicle/Train.h:87 (0x008D48F8); Posible dato fijo arrTotalTrackLength: source/game_sa/Entity/Vehicle/Train.cpp:37 (0x00C37FEC); Posible dato fijo bDisableRandomTrains: source/game_sa/Entity/Vehicle/Train.h:86 (0x00C38010); Posible dato fijo pTrackNodes: source/game_sa/Entity/Vehicle/Train.cpp:35 (0x00C38024) |
-| CTrain::ReadAndInterpretTrackFile(const char* filename, CTrainNode** nodes, int32* lineCount, float* totalDist, int32 skipStations) | [source/game_sa/Entity/Vehicle/Train.cpp:161](../../source/game_sa/Entity/Vehicle/Train.cpp#L161) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::ReadAndInterpretTrackFile 0x006F55D0 | 0 / 0 | Posible dato fijo aStationCoors: source/game_sa/Entity/Vehicle/Train.h:87 (0x008D48F8); Posible dato fijo gString: source/game_sa/common.h:63 (0x00B71670) |
-| CTrain::Shutdown() | [source/game_sa/Entity/Vehicle/Train.cpp:203](../../source/game_sa/Entity/Vehicle/Train.cpp#L203) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::Shutdown 0x006F58D0 | 0 / 0 | Posible dato fijo pTrackNodes: source/game_sa/Entity/Vehicle/Train.cpp:35 (0x00C38024) |
-| CTrain::UpdateTrains() | [source/game_sa/Entity/Vehicle/Train.cpp:214](../../source/game_sa/Entity/Vehicle/Train.cpp#L214) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::UpdateTrains 0x006F5900 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ProcessTrainAnnouncements() | [source/game_sa/Entity/Vehicle/Train.cpp:221](../../source/game_sa/Entity/Vehicle/Train.cpp#L221) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::ProcessTrainAnnouncements 0x006F5910 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| PlayAnnouncement(uint8 arg0, uint8 arg1) | [source/game_sa/Entity/Vehicle/Train.cpp:226](../../source/game_sa/Entity/Vehicle/Train.cpp#L226) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::PlayAnnouncement 0x006F5920 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrain::FindCoorsFromPositionOnTrack(float railDistance, int32 trackId, CVector* outCoors) | [source/game_sa/Entity/Vehicle/Train.cpp:231](../../source/game_sa/Entity/Vehicle/Train.cpp#L231) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::FindCoorsFromPositionOnTrack 0x006F59E0 | 0 / 0 | Posible dato fijo NumTrackNodes: source/game_sa/Entity/Vehicle/Train.cpp:36 (0x00C38014); Posible dato fijo pTrackNodes: source/game_sa/Entity/Vehicle/Train.cpp:35 (0x00C38024) |
-| CTrain::FindMaximumSpeedToStopAtStations(float* speed) | [source/game_sa/Entity/Vehicle/Train.cpp:249](../../source/game_sa/Entity/Vehicle/Train.cpp#L249) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::FindMaximumSpeedToStopAtStations 0x006F5BA0 | 0 / 0 | Posible dato fijo StationDist: source/game_sa/Entity/Vehicle/Train.cpp:38 (0x00C38034); Posible dato fijo arrTotalTrackLength: source/game_sa/Entity/Vehicle/Train.cpp:37 (0x00C37FEC) |
-| CTrain::FindNumCarriagesPulled() | [source/game_sa/Entity/Vehicle/Train.cpp:279](../../source/game_sa/Entity/Vehicle/Train.cpp#L279) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::FindNumCarriagesPulled 0x006F5CD0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrain::OpenTrainDoor(float state) | [source/game_sa/Entity/Vehicle/Train.cpp:289](../../source/game_sa/Entity/Vehicle/Train.cpp#L289) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::OpenTrainDoor 0x006F5D80 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrain::AddPassenger(CPed* ped) | [source/game_sa/Entity/Vehicle/Train.cpp:294](../../source/game_sa/Entity/Vehicle/Train.cpp#L294) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::AddPassenger 0x006F5D90 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrain::RemovePassenger(CPed* ped) | [source/game_sa/Entity/Vehicle/Train.cpp:299](../../source/game_sa/Entity/Vehicle/Train.cpp#L299) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::RemovePassenger 0x006F5DA0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrain::DisableRandomTrains(bool disable) | [source/game_sa/Entity/Vehicle/Train.cpp:304](../../source/game_sa/Entity/Vehicle/Train.cpp#L304) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::DisableRandomTrains 0x006F5DB0 | 0 / 0 | Posible dato fijo bDisableRandomTrains: source/game_sa/Entity/Vehicle/Train.h:86 (0x00C38010) |
-| CTrain::RemoveOneMissionTrain(CTrain* train) | [source/game_sa/Entity/Vehicle/Train.cpp:309](../../source/game_sa/Entity/Vehicle/Train.cpp#L309) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::RemoveOneMissionTrain 0x006F5DC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrain::ReleaseOneMissionTrain(CTrain* train) | [source/game_sa/Entity/Vehicle/Train.cpp:324](../../source/game_sa/Entity/Vehicle/Train.cpp#L324) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::ReleaseOneMissionTrain 0x006F5DF0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrain::SetTrainSpeed(CTrain* train, float speed) | [source/game_sa/Entity/Vehicle/Train.cpp:331](../../source/game_sa/Entity/Vehicle/Train.cpp#L331) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::SetTrainSpeed 0x006F5E20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrain::SetTrainCruiseSpeed(CTrain* train, float speed) | [source/game_sa/Entity/Vehicle/Train.cpp:340](../../source/game_sa/Entity/Vehicle/Train.cpp#L340) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::SetTrainCruiseSpeed 0x006F5E50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CTrain::FindCaboose(CTrain* train) | [source/game_sa/Entity/Vehicle/Train.cpp:346](../../source/game_sa/Entity/Vehicle/Train.cpp#L346) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::FindCaboose 0x006F5E70 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CTrain::FindEngine(CTrain* train) | [source/game_sa/Entity/Vehicle/Train.cpp:354](../../source/game_sa/Entity/Vehicle/Train.cpp#L354) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::FindEngine 0x006F5E90 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * CTrain::FindCarriage(CTrain* train, uint8 carriage) | [source/game_sa/Entity/Vehicle/Train.cpp:362](../../source/game_sa/Entity/Vehicle/Train.cpp#L362) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::FindCarriage 0x006F5EB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrain::FindSideStationIsOn() const | [source/game_sa/Entity/Vehicle/Train.cpp:373](../../source/game_sa/Entity/Vehicle/Train.cpp#L373) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::FindSideStationIsOn 0x006F5EF0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrain::FindNextStationPositionInDirection(bool clockwiseDirection, float distance, float* distanceToStation, int32* numStations) | [source/game_sa/Entity/Vehicle/Train.cpp:378](../../source/game_sa/Entity/Vehicle/Train.cpp#L378) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::FindNextStationPositionInDirection 0x006F5F00 | 0 / 0 | Posible dato fijo StationDist: source/game_sa/Entity/Vehicle/Train.cpp:38 (0x00C38034) |
-| CTrain::IsInTunnel() const | [source/game_sa/Entity/Vehicle/Train.cpp:403](../../source/game_sa/Entity/Vehicle/Train.cpp#L403) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::IsInTunnel 0x006F6320 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| MarkSurroundingEntitiesForCollisionWithTrain(CVector pos, float radius, CEntity* entity, bool bOnlyVehicles) | [source/game_sa/Entity/Vehicle/Train.cpp:412](../../source/game_sa/Entity/Vehicle/Train.cpp#L412) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::MarkSurroundingEntitiesForCollisionWithTrain 0x006F6640 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| TrainHitStuff(PtrListType& ptrList, CEntity* entity) | [source/game_sa/Entity/Vehicle/Train.cpp:436](../../source/game_sa/Entity/Vehicle/Train.cpp#L436) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::TrainHitStuff&lt;CPtrListSingleLink&lt;CPhysical*&gt;&gt; 0x006F5CF0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrain::RemoveRandomPassenger() | [source/game_sa/Entity/Vehicle/Train.cpp:453](../../source/game_sa/Entity/Vehicle/Train.cpp#L453) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::RemoveRandomPassenger 0x006F6850 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrain::RemoveMissionTrains() | [source/game_sa/Entity/Vehicle/Train.cpp:485](../../source/game_sa/Entity/Vehicle/Train.cpp#L485) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::RemoveMissionTrains 0x006F6A20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrain::RemoveAllTrains() | [source/game_sa/Entity/Vehicle/Train.cpp:501](../../source/game_sa/Entity/Vehicle/Train.cpp#L501) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::RemoveAllTrains 0x006F6AA0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrain::ReleaseMissionTrains() | [source/game_sa/Entity/Vehicle/Train.cpp:522](../../source/game_sa/Entity/Vehicle/Train.cpp#L522) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::ReleaseMissionTrains 0x006F6B60 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrain::FindClosestTrackNode(CVector position, int32* outTrackId) | [source/game_sa/Entity/Vehicle/Train.cpp:534](../../source/game_sa/Entity/Vehicle/Train.cpp#L534) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::FindClosestTrackNode 0x006F6BD0 | 0 / 0 | Posible dato fijo NumTrackNodes: source/game_sa/Entity/Vehicle/Train.cpp:36 (0x00C38014); Posible dato fijo pTrackNodes: source/game_sa/Entity/Vehicle/Train.cpp:35 (0x00C38024) |
-| CTrain::FindPositionOnTrackFromCoors() | [source/game_sa/Entity/Vehicle/Train.cpp:555](../../source/game_sa/Entity/Vehicle/Train.cpp#L555) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::FindPositionOnTrackFromCoors 0x006F6CC0 | 0 / 0 | Posible dato fijo NumTrackNodes: source/game_sa/Entity/Vehicle/Train.cpp:36 (0x00C38014); Posible dato fijo arrTotalTrackLength: source/game_sa/Entity/Vehicle/Train.cpp:37 (0x00C37FEC); Posible dato fijo pTrackNodes: source/game_sa/Entity/Vehicle/Train.cpp:35 (0x00C38024) |
-| * CTrain::FindNearestTrain(CVector posn, bool mustBeMainTrain) | [source/game_sa/Entity/Vehicle/Train.cpp:592](../../source/game_sa/Entity/Vehicle/Train.cpp#L592) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::FindNearestTrain 0x006F7090 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrain::SetNewTrainPosition(CTrain* train, CVector posn) | [source/game_sa/Entity/Vehicle/Train.cpp:612](../../source/game_sa/Entity/Vehicle/Train.cpp#L612) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::SetNewTrainPosition 0x006F7140 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrain::IsNextStationAllowed(CTrain* train) | [source/game_sa/Entity/Vehicle/Train.cpp:618](../../source/game_sa/Entity/Vehicle/Train.cpp#L618) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::IsNextStationAllowed 0x006F7260 | 0 / 0 | Posible dato fijo aStationCoors: source/game_sa/Entity/Vehicle/Train.h:87 (0x008D48F8) |
-| CTrain::SkipToNextAllowedStation(CTrain* train) | [source/game_sa/Entity/Vehicle/Train.cpp:628](../../source/game_sa/Entity/Vehicle/Train.cpp#L628) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::SkipToNextAllowedStation 0x006F72F0 | 0 / 0 | Posible dato fijo aStationCoors: source/game_sa/Entity/Vehicle/Train.h:87 (0x008D48F8) |
-| CTrain::CreateMissionTrain(CVector posn, bool clockwise, uint32 type, CTrain** first, CTrain** last, int32 nodeIndex, int32 track, bool mission) | [source/game_sa/Entity/Vehicle/Train.cpp:654](../../source/game_sa/Entity/Vehicle/Train.cpp#L654) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::CreateMissionTrain 0x006F7550 | 0 / 0 | Conversión de dirección fija: 0x008D44F8; Posible dato fijo pTrackNodes: source/game_sa/Entity/Vehicle/Train.cpp:35 (0x00C38024) |
-| CTrain::DoTrainGenerationAndRemoval() | [source/game_sa/Entity/Vehicle/Train.cpp:714](../../source/game_sa/Entity/Vehicle/Train.cpp#L714) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::DoTrainGenerationAndRemoval 0x006F7900 | 0 / 0 | Conversión de dirección fija: 0x008D44F8; Posible dato fijo GenTrain_Direction: source/game_sa/Entity/Vehicle/Train.h:83 (0x00C38004); Posible dato fijo GenTrain_GenerationNode: source/game_sa/Entity/Vehicle/Train.h:84 (0x00C38008); Posible dato fijo GenTrain_Status: source/game_sa/Entity/Vehicle/Train.h:85 (0x00C3800C); Posible dato fijo GenTrain_Track: source/game_sa/Entity/Vehicle/Train.h:81 (0x00C37FFC); Posible dato fijo GenTrain_TrainConfig: source/game_sa/Entity/Vehicle/Train.h:82 (0x00C38000); Posible dato fijo NumTrackNodes: source/game_sa/Entity/Vehicle/Train.cpp:36 (0x00C38014); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo aStationCoors: source/game_sa/Entity/Vehicle/Train.h:87 (0x008D48F8); Posible dato fijo bDisableRandomTrains: source/game_sa/Entity/Vehicle/Train.h:86 (0x00C38010); Posible dato fijo pTrackNodes: source/game_sa/Entity/Vehicle/Train.cpp:35 (0x00C38024) |
-| CTrain::AddNearbyPedAsRandomPassenger() | [source/game_sa/Entity/Vehicle/Train.cpp:835](../../source/game_sa/Entity/Vehicle/Train.cpp#L835) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::AddNearbyPedAsRandomPassenger 0x006F8170 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CTrain::ProcessControl() | [source/game_sa/Entity/Vehicle/Train.cpp:913](../../source/game_sa/Entity/Vehicle/Train.cpp#L913) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::ProcessControl 0x00000000 | 0 / 0 | Posible dato fijo NumTrackNodes: source/game_sa/Entity/Vehicle/Train.cpp:36 (0x00C38014); Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo arrTotalTrackLength: source/game_sa/Entity/Vehicle/Train.cpp:37 (0x00C37FEC); Posible dato fijo gbModelViewer: source/game_sa/Camera.cpp:42 (0x00BA6728); Posible dato fijo mod_Buoyancy: source/game_sa/Buoyancy.cpp:23 (0x00C1C890); Posible dato fijo pTrackNodes: source/game_sa/Entity/Vehicle/Train.cpp:35 (0x00C38024) |
-| * Constructor(int32 modelIndex, eVehicleCreatedBy createdBy) | [source/game_sa/Entity/Vehicle/Train.h:137](../../source/game_sa/Entity/Vehicle/Train.h#L137) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CTrain::Constructor 0x006F6030 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
