@@ -1306,8 +1306,13 @@ float CPathFind::CalcDistToAnyConnectingLinks(CPathNode* node, CVector pos) {
 // el que tenga menor puntuacion si es menor que *outDist (que actualiza): puntuacion = ((|dz| * 3 + |dy|) + |dx|) * 0.3 y, si mejora a *outDist, + distancia a sus enlaces * 0.2
 // (CalcDistToAnyConnectingLinks). Se saltan los nodos apagados (bit 5 del byte +0x18) si bLowTraffic, los del bit 1 del byte +0x19 si bUnkn, y los cuyo bit de agua (bit 7 del byte +0x18)
 // no coincide con bBoats (byte entero). Sin nodos en el area no hace nada. Las dos puntuaciones van por el x87 (ver PathFind93RegionScoreCpp / PathFind93RegionTotalCpp).
-void CPathFind::FindNodeClosestInRegion(CNodeAddress* outAddress, uint16 areaId, CVector pos, uint8 nodeType, float* outDist, uint8 bLowTraffic, uint8 bUnkn, uint8 bBoats, uint8 bUnused) {
-    (void)bUnused;
+void CPathFind::FindNodeClosestInRegion(CNodeAddress* outAddress, uint32 areaDword, CVector pos, uint32 typeDword, float* outDist, uint32 lowTrafficDword, uint32 unknDword, uint32 boatsDword, uint32 unusedDword) {
+    (void)unusedDword;
+    const uint16 areaId      = static_cast<uint16>(areaDword);
+    const uint8  nodeType    = static_cast<uint8>(typeDword);
+    const uint8  bLowTraffic = static_cast<uint8>(lowTrafficDword);
+    const uint8  bUnkn       = static_cast<uint8>(unknDword);
+    const uint8  bBoats      = static_cast<uint8>(boatsDword);
     if (!m_pPathNodes[areaId]) {
         return;
     }
@@ -1393,8 +1398,8 @@ CNodeAddress CPathFind::FindNodeClosestToCoors(
     float dist = maxDistance;
 
     const auto Search = [&](int32 areaId, int32 unusedArg) {
-        FindNodeClosestInRegion(&result, static_cast<uint16>(areaId), pos, static_cast<uint8>(nodeType), &dist, static_cast<uint8>(unk2), static_cast<uint8>(unk4),
-                                static_cast<uint8>(bBoatsOnly), static_cast<uint8>(unusedArg));
+        FindNodeClosestInRegion(&result, static_cast<uint32>(areaId), pos, static_cast<uint32>(nodeType), &dist, static_cast<uint32>(unk2), static_cast<uint32>(unk4),
+                                static_cast<uint32>(bBoatsOnly), static_cast<uint32>(unusedArg));
     };
 
     const int32 rx = detail::RegionValueOf(pos.x);

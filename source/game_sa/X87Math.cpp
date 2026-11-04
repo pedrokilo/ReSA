@@ -18040,6 +18040,8 @@ __declspec(noinline) void __cdecl Wl91Amps(double f, double big, float smallV, f
 __declspec(noinline) int __cdecl Wl91ColorByte(int byteValue, float mult) {
     volatile double p = static_cast<double>(byteValue) * static_cast<double>(mult);
     return static_cast<int>(static_cast<long long>(p));
+}
+#pragma float_control(pop)
 // --- Lote 93A: CPathFind::RemoveBadStartNode (0x44E4F0) y CPathFind::FindNodeClosestInRegion (0x44F2C0), prefijo PathFind93. ---
 // Tramos x87 de 24 bits con exponente ampliado: lo que el EXE deja en registro se calcula como double (cada operacion redondea a 24 bits) y solo lo que guarda con fstp dword se redondea a float.
 // Los subnormales y los productos diminutos se conservan (la SSE de la DLL, con el MXCSR del juego, los vaciaria a cero).

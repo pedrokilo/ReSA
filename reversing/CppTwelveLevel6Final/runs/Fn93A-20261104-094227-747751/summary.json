@@ -5,7 +5,7 @@
     "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
     "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
   },
-  "executed_probe_sha256": "82e18a3a1d8361ac8d0412d3ef28d8372b14378e90f9d22856bb9a10b98359c5",
+  "executed_probe_sha256": "7c37bc106eeec0044e0112d048a1a09f4f54370785c2f5d71d7d596a688aeaf0",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "config_hashes_before": {
     "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
@@ -21,7 +21,7 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "7e066e1f4f8c1800ded57cb833f44b80dbd66d92de1f85cc3d5e37caf8aa92be",
+  "log_sha256": "003fc3a61d74e656e9a6cd6d42a2933113d9b9d4d0087680cd428c4cc516f123",
   "compare_dead_x87_registers": false,
   "families": {
     "CCarPathLink::OneWayLaneOffset": {
@@ -118,8 +118,8 @@
   "branch_coverage": {
     "CCarPathLink::OneWayLaneOffset": {
       "high_bits": 12791,
-      "width": 9545,
       "widthmid": 7403,
+      "width": 9545,
       "opp0": 4465,
       "same1": 369,
       "same0": 3576,
@@ -137,8 +137,8 @@
       "count_lt2": 1057,
       "area0_unloaded": 1149,
       "area1_unloaded": 899,
-      "count15": 1235,
       "removed": 5944,
+      "count15": 1235,
       "count10": 264,
       "nan": 212,
       "count2": 1202,
@@ -156,19 +156,19 @@
     },
     "CPathFind::StoreInteriorNodeLink": {
       "lenmid": 7300,
-      "len1": 3970,
       "under1": 3578,
-      "len255": 5114,
+      "len1": 3970,
       "clamped": 5018,
+      "len255": 5114,
       "nibble_wrap": 1215,
       "index_junk": 771,
       "same_node": 1849,
       "negative_index": 400
     },
     "CPathFind::CalcDistToAnyConnectingLinks": {
+      "final_ok": 15960,
       "call": 14267,
       "replaced": 12183,
-      "final_ok": 15960,
       "no_links": 1024,
       "unloaded": 1976,
       "nan_result": 1487,
@@ -176,18 +176,18 @@
       "final_nan": 424
     },
     "CPathFind::FindNodeClosestInRegion": {
-      "improved": 8512,
-      "type0": 7694,
       "candidate": 10298,
+      "improved": 8512,
       "score_not_better": 7381,
-      "skip_boat": 2384,
+      "type0": 7694,
       "score_better": 8664,
+      "skip_boat": 2384,
       "area_unloaded": 1024,
       "empty": 2420,
       "type1": 6642,
       "type_other": 1024,
-      "total_not_better": 1553,
       "skip_low": 2096,
+      "total_not_better": 1553,
       "skip_unk": 1234
     }
   },

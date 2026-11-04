@@ -258,8 +258,9 @@ public:
     void AddNodeToList(CPathNode* node, int32 distFromOrigin);
 
     float CalcDistToAnyConnectingLinks(CPathNode* node, CVector pos);
-    // 0x44F2C0: los cuatro ultimos argumentos son dwords en la pila de los que el EXE solo lee el byte bajo (por eso uint8, no bool: bBoats se compara con el bit de agua tal cual).
-    void FindNodeClosestInRegion(CNodeAddress* outAddress, uint16 areaId, CVector pos, uint8 nodeType, float* outDist, uint8 bLowTraffic, uint8 bUnkn, uint8 bBoats, uint8 bUnused);
+    // 0x44F2C0: todos los argumentos son dwords en la pila; el EXE solo lee la palabra baja del area y el byte bajo del tipo y de las cuatro banderas (por eso `& 0xFF` en el cuerpo y no bool:
+    // bBoats se compara con el bit de agua tal cual). Se declaran uint32 para que los llamadores empujen los mismos dwords que el EXE.
+    void FindNodeClosestInRegion(CNodeAddress* outAddress, uint32 areaId, CVector pos, uint32 nodeType, float* outDist, uint32 bLowTraffic, uint32 bUnkn, uint32 bBoats, uint32 bUnused);
 
     // 0x450FB0 (cdecl, sin this: usa las matrices globales de ThePaths): guarda en el enlace numero *linkCounter de la ranura de interior `slot` (area slot + 0x40) el nodo (areaB, nodeB),
     // su longitud (distancia entre (areaA, nodeA) y (areaB, nodeB), 1 como minimo y 255 como maximo) y sin interseccion, suma uno al contador de enlaces del nodo (nibble bajo del byte +0x18) y al contador.
