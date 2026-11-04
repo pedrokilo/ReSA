@@ -57,16 +57,16 @@ inline void Update() {
     // Colaboradores sustituidos: cuerpos de la DLL resueltos ANTES de escribir ningun parche (siguiendo los saltos solo dentro del ASI).
     using Sphere = bool(CCamera::*)(const CVector&,float,RwMatrix*);
     const Pair sphere{0x420C40,DllBody(static_cast<Sphere>(&CCamera::IsSphereVisible)),true};
-    env.stubs[0]={{Pair{0x6E5750,0,false},reinterpret_cast<void*>(&FakeAdd)}};   // AddToQuadsAndTrianglesList: sin reconstruir (la DLL llama a la direccion del EXE)
+    env.stubs[0]={{Pair{0x6E5750,DllBody(&CWaterLevel::AddToQuadsAndTrianglesList),true},reinterpret_cast<void*>(&FakeAdd)}};   // AddToQuadsAndTrianglesList: reconstruida en el lote 91A (el mismo falso va en el cuerpo de la DLL)
     env.stubs[1]={{Pair{0x6E8580,DllBody(&CWaterLevel::GetWaterLevelNoWaves),true},reinterpret_cast<void*>(&FakeLevel)},
-                  {Pair{0x6EA8A0,0,false},reinterpret_cast<void*>(&FakeGround)}};   // GetGroundLevel: sin reconstruir
+                  {Pair{0x6EA8A0,DllBody(&CWaterLevel::GetGroundLevel),true},reinterpret_cast<void*>(&FakeGround)}};   // GetGroundLevel: lote 91A
     env.stubs[2]={{sphere,reinterpret_cast<void*>(&FakeSphere)},
                   {Pair{0x6EA9F0,DllBody(&CWaterLevel::SetUpWaterFog),true},reinterpret_cast<void*>(&FakeFog)},
-                  {Pair{0x6E91D0,0,false},reinterpret_cast<void*>(&FakeRectLayer)},   // RenderHighDetailWaterRectangle_OneLayer: sin reconstruir
+                  {Pair{0x6E91D0,DllBody(&CWaterLevel::RenderHighDetailWaterRectangle_OneLayer),true},reinterpret_cast<void*>(&FakeRectLayer)},   // RenderHighDetailWaterRectangle_OneLayer: lote 91A
                   {Pair{0x6E73A0,DllBody(&CWaterLevel::SplitWaterRectangleAlongXLine),true},reinterpret_cast<void*>(&FakeSplitX)},
                   {Pair{0x6EC5D0,DllBody(&CWaterLevel::RenderWaterRectangle),true},reinterpret_cast<void*>(&FakeRenderRect)}};
     env.stubs[3]={{sphere,reinterpret_cast<void*>(&FakeSphere)},
-                  {Pair{0x6E8780,0,false},reinterpret_cast<void*>(&FakeTriLayer)},   // RenderHighDetailWaterTriangle_OneLayer: sin reconstruir
+                  {Pair{0x6E8780,DllBody(&CWaterLevel::RenderHighDetailWaterTriangle_OneLayer),true},reinterpret_cast<void*>(&FakeTriLayer)},   // RenderHighDetailWaterTriangle_OneLayer: lote 91A
                   {Pair{0x6ECF00,DllBody(&CWaterLevel::SplitWaterTriangleAlongXLine),true},reinterpret_cast<void*>(&FakeSplitTri)}};
     for(unsigned f=0;f<kFunctions;++f) {
         json stubbed=json::array();

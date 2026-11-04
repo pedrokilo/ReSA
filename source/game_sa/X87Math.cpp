@@ -17895,3 +17895,150 @@ __declspec(noinline) void __cdecl Wl88Row(int y, float minY, float height, int j
     out[3] = static_cast<float>(v1d);
 }
 #pragma float_control(pop)
+
+// --- Lote 91A: CWaterLevel (RenderHighDetailWaterRectangle_OneLayer 0x6E91D0, RenderHighDetailWaterTriangle_OneLayer 0x6E8780, GetGroundLevel 0x6EA8A0) ---
+// fsqrt aislado (con /fp:fast y `precise` en la misma funcion saldria como llamada a la CRT).
+static __declspec(noinline) double Wl91RootCpp(double value) {
+    return sqrt(value);
+}
+
+#pragma float_control(precise, on, push)
+// 0x6E8795 / 0x6E91E9: fild n; fdivr [0x858624 = 1.0f]; fstp dword.
+__declspec(noinline) float __cdecl Wl91Recip(int n) {
+    volatile double q = 1.0 / static_cast<double>(n);
+    volatile float r = static_cast<float>(q);
+    return r;
+}
+// (a - b) * inv con la resta en el registro (fld a; fsub b; fmul inv; fstp dword).
+__declspec(noinline) float __cdecl Wl91Slope(float a, float b, float inv) {
+    volatile double d = static_cast<double>(a) - static_cast<double>(b);
+    volatile float r = static_cast<float>(d * static_cast<double>(inv));
+    return r;
+}
+__declspec(noinline) float __cdecl Wl91Mul(int n, float k) {
+    volatile double p = static_cast<double>(n) * static_cast<double>(k);
+    volatile float r = static_cast<float>(p);
+    return r;
+}
+__declspec(noinline) float __cdecl Wl91Affine(int n, float k, float add) {
+    volatile double p = static_cast<double>(n) * static_cast<double>(k);
+    volatile double s = p + static_cast<double>(add);
+    volatile float r = static_cast<float>(s);
+    return r;
+}
+// fstp qword; call floor (0x8219F0); fsubr [v]; fstp dword.
+__declspec(noinline) float __cdecl Wl91Fract(float v) {
+    volatile double fl = floor(static_cast<double>(v));
+    volatile double r = static_cast<double>(v) - fl;
+    volatile float rf = static_cast<float>(r);
+    return rf;
+}
+__declspec(noinline) float __cdecl Wl91AddZ(float a, float b) {
+    volatile double s = static_cast<double>(a) + static_cast<double>(b);
+    volatile float r = static_cast<float>(s);
+    return r;
+}
+// 0x6E951D..0x6E952F: fild i; fmul invX; fadd a0; fcomp 1.0; test ah, 5; jp (salta al triangulo de arriba si no es menor: igual, mayor o NaN).
+__declspec(noinline) int __cdecl Wl91RectLower(int i, float invX, float a0) {
+    volatile double p = static_cast<double>(i) * static_cast<double>(invX);
+    volatile double s = p + static_cast<double>(a0);
+    return s < 1.0 ? 1 : 0;
+}
+// 0x6E9531..0x6E960F: z = (jYf * s68 + iF * sAC) + P1.z (guardado), big = (jYf * s74 + iF * s9C) + P1.big (queda en el registro), smallV = (iF * sB0 + jYf * s84) + P1.smallV (guardado).
+__declspec(noinline) void __cdecl Wl91RectLowerVals(float jYf, float iF, float s68, float sAC, float p1z, float s74, float s9C, float p1big, float sB0, float s84, float p1small, float* z, double* big, float* smallV) {
+    volatile double t1 = static_cast<double>(jYf) * static_cast<double>(s68);
+    volatile double t2 = static_cast<double>(iF) * static_cast<double>(sAC);
+    volatile double ts = t1 + t2;
+    volatile float zf = static_cast<float>(ts + static_cast<double>(p1z));
+    volatile double u1 = static_cast<double>(jYf) * static_cast<double>(s74);
+    volatile double u2 = static_cast<double>(iF) * static_cast<double>(s9C);
+    volatile double us = u1 + u2;
+    volatile double bg = us + static_cast<double>(p1big);
+    volatile double v1 = static_cast<double>(iF) * static_cast<double>(sB0);
+    volatile double v2 = static_cast<double>(jYf) * static_cast<double>(s84);
+    volatile double vs = v1 + v2;
+    volatile float sm = static_cast<float>(vs + static_cast<double>(p1small));
+    *z = zf;
+    *big = bg;
+    *smallV = sm;
+}
+// 0x6E95A5..0x6E960F: z = (remY * s8C + rXf * sB4) + P4.z (remY entra como entero exacto en el primer producto), big = (rYf * s94 + rXf * s6C) + P4.big, smallV = (rYf * s78 + rXf * s80) + P4.smallV; rYf = float(remY).
+__declspec(noinline) void __cdecl Wl91RectUpperVals(int remY, float rXf, float s8C, float sB4, float p4z, float s94, float s6C, float p4big, float s78, float s80, float p4small, float* z, double* big, float* smallV) {
+    volatile float rYf = static_cast<float>(remY);
+    volatile double t1 = static_cast<double>(remY) * static_cast<double>(s8C);
+    volatile double t2 = static_cast<double>(rXf) * static_cast<double>(sB4);
+    volatile double ts = t1 + t2;
+    volatile float zf = static_cast<float>(ts + static_cast<double>(p4z));
+    volatile double u1 = static_cast<double>(rYf) * static_cast<double>(s94);
+    volatile double u2 = static_cast<double>(rXf) * static_cast<double>(s6C);
+    volatile double us = u1 + u2;
+    volatile double bg = us + static_cast<double>(p4big);
+    volatile double v1 = static_cast<double>(rYf) * static_cast<double>(s78);
+    volatile double v2 = static_cast<double>(rXf) * static_cast<double>(s80);
+    volatile double vs = v1 + v2;
+    volatile float sm = static_cast<float>(vs + static_cast<double>(p4small));
+    *z = zf;
+    *big = bg;
+    *smallV = sm;
+}
+// 0x6E8A90..0x6E8AC6: z = (i * s44 + jz) + Pb.z, big = (i * s64 + jbig) + Pb.big, smallV = (i * s6C + jsmall) + Pb.smallV; los tres se guardan como float (jz, jbig y jsmall ya son floats de la fila).
+__declspec(noinline) void __cdecl Wl91TriVals(int i, float s44, float jz, float pbz, float s64, float jbig, float pbbig, float s6C, float jsmall, float pbsmall, float* z, float* big, float* smallV) {
+    volatile double a = static_cast<double>(i) * static_cast<double>(s44);
+    volatile double b = a + static_cast<double>(jz);
+    volatile float zf = static_cast<float>(b + static_cast<double>(pbz));
+    volatile double c = static_cast<double>(i) * static_cast<double>(s64);
+    volatile double d = c + static_cast<double>(jbig);
+    volatile float bf = static_cast<float>(d + static_cast<double>(pbbig));
+    volatile double e = static_cast<double>(i) * static_cast<double>(s6C);
+    volatile double g = e + static_cast<double>(jsmall);
+    volatile float sf = static_cast<float>(g + static_cast<double>(pbsmall));
+    *z = zf;
+    *big = bf;
+    *smallV = sf;
+}
+__declspec(noinline) float __cdecl Wl91SubInt(float cam, int v) {
+    volatile double r = static_cast<double>(cam) - static_cast<double>(v);
+    volatile float rf = static_cast<float>(r);
+    return rf;
+}
+__declspec(noinline) float __cdecl Wl91SubFloat(float cam, float v) {
+    volatile double r = static_cast<double>(cam) - static_cast<double>(v);
+    volatile float rf = static_cast<float>(r);
+    return rf;
+}
+// 0x6E961F..0x6E96B9 / 0x6E8B01..0x6E8B6B: d = sqrt(dy*dy + dx*dx) / detail (fidiv); d se guarda como float; la primera comparacion usa el registro (d > 1.0 -> 0.0f, 0x858B50),
+// la segunda el float guardado (d > 0.75f, 0x858F34 -> (1.0f - d) * 4.0f, 0x858B90); si no, 1.0f. Devuelve la atenuacion (queda en el registro).
+__declspec(noinline) double __cdecl Wl91Fade(float dx, float dy, int detail) {
+    volatile double dyy = static_cast<double>(dy) * static_cast<double>(dy);
+    volatile double dxx = static_cast<double>(dx) * static_cast<double>(dx);
+    volatile double sum = dyy + dxx;
+    volatile double root = Wl91RootCpp(sum);
+    volatile double q = root / static_cast<double>(detail);
+    volatile float stored = static_cast<float>(q);
+    volatile double f;
+    if (q > 1.0) {
+        f = 0.0;
+    } else if (static_cast<double>(stored) > static_cast<double>(0.75f)) {
+        volatile double om = 1.0 - static_cast<double>(stored);
+        f = om * 4.0;
+    } else {
+        f = 1.0;
+    }
+    volatile double r = f;
+    return r;
+}
+// 0x6E974C..0x6E975B / 0x6E8C84..0x6E8CB6: argumentos del calculo de olas: smallAmp = smallV * f, bigAmp = f * big, ambos guardados como float.
+__declspec(noinline) void __cdecl Wl91Amps(double f, double big, float smallV, float* bigAmp, float* smallAmp) {
+    volatile double sm = static_cast<double>(smallV) * f;
+    volatile float smf = static_cast<float>(sm);
+    volatile double bg = f * big;
+    volatile float bgf = static_cast<float>(bg);
+    *smallAmp = smf;
+    *bigAmp = bgf;
+}
+// fild byte; fmul mult; call _ftol2 (0x821B40): el EXE usa el byte bajo; el entero de 64 bits truncado (NaN / fuera de rango: 0x8000000000000000 -> 0).
+__declspec(noinline) int __cdecl Wl91ColorByte(int byteValue, float mult) {
+    volatile double p = static_cast<double>(byteValue) * static_cast<double>(mult);
+    return static_cast<int>(static_cast<long long>(p));
+}
+#pragma float_control(pop)

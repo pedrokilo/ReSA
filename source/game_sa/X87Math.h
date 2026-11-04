@@ -2212,3 +2212,21 @@ float __cdecl FontSubCpp(float a, float b);
 int __cdecl Wl88AxisCells(float minV, float maxV, float* storedWidth);
 void __cdecl Wl88Column(int x, float minX, float width, int i, int cells, float* out);   // out = {X0, X1, u0, u1}
 void __cdecl Wl88Row(int y, float minY, float height, int j, float cellsAsFloat, float* out);   // out = {Y0, Y1, v0, v1}
+
+// Lote 91A: CWaterLevel::RenderHighDetailWaterRectangle_OneLayer (0x6E91D0), RenderHighDetailWaterTriangle_OneLayer (0x6E8780) y GetGroundLevel (0x6EA8A0). Tramos x87 de 24 bits con exponente extendido:
+// lo que el EXE guarda con fstp dword sale como float; lo que deja en el registro, como double (cada operacion ya redondea a 24 bits). Cada funcion lleva en su comentario las direcciones del EXE que reproduce.
+float __cdecl Wl91Recip(int n);                                      // fild n; fdivr 1.0f; fstp dword
+float __cdecl Wl91Slope(float a, float b, float inv);                // fld a; fsub b; fmul inv; fstp dword
+float __cdecl Wl91Mul(int n, float k);                               // fild n; fmul k; fstp dword (el entero entra exacto)
+float __cdecl Wl91Affine(int n, float k, float add);                 // fild n; fmul k; fadd add; fstp dword
+float __cdecl Wl91Fract(float v);                                    // v - floor(v) (floor de la CRT, fsubr, fstp dword)
+float __cdecl Wl91AddZ(float a, float b);                            // fld a; fadd b; fstp dword
+int __cdecl Wl91RectLower(int i, float invX, float a0);              // (i * invX + a0) < 1.0 (falso con NaN)
+void __cdecl Wl91RectLowerVals(float jYf, float iF, float s68, float sAC, float p1z, float s74, float s9C, float p1big, float sB0, float s84, float p1small, float* z, double* big, float* smallV);
+void __cdecl Wl91RectUpperVals(int remY, float rXf, float s8C, float sB4, float p4z, float s94, float s6C, float p4big, float s78, float s80, float p4small, float* z, double* big, float* smallV);
+void __cdecl Wl91TriVals(int i, float s44, float jz, float pbz, float s64, float jbig, float pbbig, float s6C, float jsmall, float pbsmall, float* z, float* big, float* smallV);
+float __cdecl Wl91SubInt(float cam, int v);                          // fld cam; fsub st, st(n) (n entero exacto); fstp dword
+float __cdecl Wl91SubFloat(float cam, float v);                      // idem con un float
+double __cdecl Wl91Fade(float dx, float dy, int detail);             // atenuacion: 0.0 si d > 1, (1 - d) * 4 si d > 0.75, 1.0 si no; d = sqrt(dy*dy + dx*dx) / detail
+void __cdecl Wl91Amps(double f, double big, float smallV, float* bigAmp, float* smallAmp);   // f * big y smallV * f guardados como float
+int __cdecl Wl91ColorByte(int byteValue, float mult);                // _ftol2(fild * mult): el EXE usa el byte bajo

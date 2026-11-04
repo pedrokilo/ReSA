@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "pairs": 65536,
+  "differences": 0,
+  "registered_pairs": 65536,
+  "registered_functions": 4,
+  "functions": {
+    "CWaterLevel::AddToQuadsAndTrianglesList": 16384,
+    "CWaterLevel::GetGroundLevel": 16384,
+    "CWaterLevel::RenderHighDetailWaterRectangle_OneLayer": 16384,
+    "CWaterLevel::RenderHighDetailWaterTriangle_OneLayer": 16384
+  },
+  "covered_functions": {
+    "CWaterLevel::AddToQuadsAndTrianglesList": true,
+    "CWaterLevel::GetGroundLevel": true,
+    "CWaterLevel::RenderHighDetailWaterRectangle_OneLayer": true,
+    "CWaterLevel::RenderHighDetailWaterTriangle_OneLayer": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree D:/Original/wm-1 (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (los tres tienen hook RH, apagado durante el banco): FlushWaterRenderBuffer 0x6E7680 (rectangulo y triangulo; no renderiza: anota los contadores previos y deja los del caso), CWaterLevel::CalculateWavesOnlyForCoordinate 0x6E6EF0 (rectangulo y triangulo; escribe altura, multiplicador de color, brillo y normal segun el caso y, en algunos casos, modifica los contadores tras una llamada) y CWorld::ProcessVerticalLine 0x5674E0 (GetGroundLevel). Registran sus argumentos en orden. Corren de verdad en ambos lados: toda la aritmetica x87 de 24 bits (ayudantes Wl91* de X87Math frente a la x87 del EXE), la camara (posicion del placement o de una matriz propia), la atenuacion por distancia, los colores, los vertices, los indices y los contadores. Memoria real del juego restaurada tras cada lado: bufer temporal de agua, contador y tablas de color, combinaciones y bloques, desplazamientos de textura, normal de las olas, distancia de detalle y alfas. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: halfX o halfY iguales a cero (#DE), capa 2 del triangulo (el EXE multiplica por una ranura de pila sin inicializar; nunca la usa), NaN con cargas distintas de 0xFFC00000, NaN senalizantes, rejillas de mas de 441 vertices, bloques fuera de 12 x 12 y contadores fuera de los buferes.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn91A-20261104-073037-272120",
+  "summary_sha256": "954d3e3958e1fa49c40b5be87f42bc74e807307e9f03ef88929ee081e14e5e39",
+  "result_txt_sha256": "96e9e0ee01a90987e1cc6271204096df00875e7124105a3b1f65fd6272bcad03",
+  "log_sha256": "a86c37bb5c226d206a90cd4fbcce5b2f1ae7c74ab36ba2d5b7cd64c5338e54c6",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "0f018addf6fbae49e7b2d557f8afb50538df56e8cede2896726e3a3462bee03b",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+      "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+      "source/game_sa/X87Math.cpp": "15d6efba3daf1076c9c833b54c9c0af684bc8bba731c8438e6dc0524253068e2",
+      "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+      "source/game_sa/WaterLevel.cpp": "c6d7c2c2ad4c279bd143b0f624d7dfff5a72cca203c60db3bf7893362c381712",
+      "source/game_sa/WaterLevel.h": "65434b95ae91278a4d9481cc540d4ec0021d0de8729fa2c86cd4ac82c815c1a4",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn91A/LiveComparison.hpp": "638c09d3383a2a815dec6ad2f052bbe55bae6f7ea150ece93e735cbc8ade6586",
+      "reversing/Fn91A/Core.hpp": "16525946595c8551df3f7ec1c62d56545bd32c2fdbb909f7bd71afeb4ab24e2d",
+      "reversing/Fn91A/Fixtures.hpp": "06c4ab19f7919cfeec9e43557d8a39d63de4dd4f89e2d1657fcb3ac6ee239956",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

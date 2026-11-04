@@ -245,6 +245,8 @@ public:
     static CRGBA GetWaterColorForRendering(CRGBA real, DebugWaterColor debug, int32 WaterLayer);
 
     static void RenderFlatWaterTriangle_OneLayer(int32 X1, int32 Y1, CRenPar P1, int32 X2, int32 Y2, CRenPar P2, int32 X3, int32 Y3, CRenPar P3, int32 WaterLayer);
+    // 0x6E8780 (cdecl): una capa del triangulo de alto detalle (filas de vertices con olas).
+    static void RenderHighDetailWaterTriangle_OneLayer(int32 X1, int32 Y1, CRenPar P1, int32 X2, int32 Y2, CRenPar P2, int32 X3, int32 Y3, CRenPar P3, int32 WaterLayer, int32 halfSquared, int32 triangular, int32 halfW);
     static void RenderFlatWaterTriangle(int32 a1, int32 a2, CRenPar a3, int32 a4, int32 a5, CRenPar a6, int32 a7, int32 a8, CRenPar a9);
     static void RenderBoatWakes();
     static void SplitWaterTriangleAlongXLine(int32 a7, int32 a1, int32 a2, CRenPar a4, int32 a5, int32 a6, CRenPar arg18, int32 a8, int32 a9, CRenPar a10);
@@ -255,11 +257,18 @@ public:
     static void RenderWaterRectangle(int32 minX, int32 maxX, int32 Y1, int32 Y2, CRenPar P1, CRenPar P2, CRenPar P3, CRenPar P4);
     static void RenderFlatWaterRectangle(int32 minX, int32 maxX, int32 Y1, int32 Y2, CRenPar P1, CRenPar P2, CRenPar P3, CRenPar P4);
     static void RenderFlatWaterRectangle_OneLayer(int32 minX, int32 maxX, int32 Y1, int32 Y2, CRenPar P1, CRenPar P2, CRenPar P3, CRenPar P4, int32 WaterLayer);
+    // 0x6E91D0 (cdecl): una capa del rectangulo de alto detalle (rejilla de (halfX + 1) x (halfY + 1) vertices con olas).
+    static void RenderHighDetailWaterRectangle_OneLayer(int32 minX, int32 maxX, int32 Y1, int32 Y2, CRenPar P1, CRenPar P2, CRenPar P3, CRenPar P4, int32 WaterLayer, int32 twiceArea, int32 triangular, int32 halfX, int32 halfY);
     static void RenderHighDetailWaterRectangle(int32 minX, int32 maxX, int32 Y1, int32 Y2, CRenPar P1, CRenPar P2, CRenPar P3, CRenPar P4);
     static void SplitWaterRectangleAlongXLine(int32 a1, int32 a2, int32 a3, int32 a4, int32 a5, CRenPar a6, CRenPar a7, CRenPar a8, CRenPar a9);
     static void SplitWaterRectangleAlongYLine(int32 splitAtY, int32 minX, int32 maxX, int32 Y1, int32 Y2, CRenPar P1, CRenPar P2, CRenPar P3, CRenPar P4);
 
     static void PreRenderWater();
+    //! Superficie y pieza (CColPoint::m_nSurfaceTypeB / m_nPieceTypeB) del suelo bajo un punto, ver GetGroundLevel.
+    struct ColData { uint8 surfaceType, pieceType; };
+    static bool GetGroundLevel(const CVector& pos, float* outGroundZ, ColData* outColData, float range); // 0x6EA8A0
+    //! 0x6E5750 (cdecl): anade el poligono `index` de tipo `type` (1 = cuadrilatero, 2 = triangulo) al bloque (blockX, blockY), creando o ampliando su combinacion en m_PolyCombos.
+    static void AddToQuadsAndTrianglesList(int32 blockX, int32 blockY, int32 index, uint32 type);
     static bool GetWaterDepth(const CVector& vecPos, float* pOutWaterDepth, float* pOutWaterLevel, float* pOutGroundLevel);
     static bool GetWaterLevel(float x, float y, float z, float& pOutWaterLevel, uint8 bTouchingWater, CVector* pVecNormals);
     static bool LoadDataFile();

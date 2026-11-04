@@ -99,6 +99,11 @@ void CWaterLevel::InjectHooks() {
     RH_ScopedGlobalInstall(RenderHighDetailWaterRectangle, 0x6EB810);
     RH_ScopedGlobalInstall(RenderHighDetailWaterTriangle, 0x6EDDC0);
     RH_ScopedGlobalInstall(TestLineAgainstWater, 0x6E61B0);
+
+    RH_ScopedGlobalInstall(AddToQuadsAndTrianglesList, 0x6E5750);
+    RH_ScopedGlobalInstall(GetGroundLevel, 0x6EA8A0);
+    RH_ScopedGlobalInstall(RenderHighDetailWaterRectangle_OneLayer, 0x6E91D0);
+    RH_ScopedGlobalInstall(RenderHighDetailWaterTriangle_OneLayer, 0x6E8780);
 }
 
 // NOTSA (codigo de 0x6EAEB9..0x6EB5E9). Transcripcion de la lectura de water.dat del EXE, que usa el sscanf del CRT del EXE (0x8220AD).
@@ -768,8 +773,7 @@ void CWaterLevel::RenderHighDetailWaterRectangle(int32 minX, int32 maxX, int32 Y
         // Como el original (0x6EB948..0x6EBB07): primero SetUpWaterFog, luego las dos capas.
         SetUpWaterFog(minX, minY, maxX, maxY);
         for (int32 layer = 0; layer < 2; ++layer) {
-            plugin::Call<0x6E91D0, int32, int32, int32, int32, CRenPar, CRenPar, CRenPar, CRenPar, int32, int32, int32, int32, int32>(
-                minX, maxX, Y1, Y2, P1, P2, P3, P4, layer, twiceArea, triangular, halfX, halfY);   // RenderHighDetailWaterRectangle_OneLayer (sin reconstruir)
+            RenderHighDetailWaterRectangle_OneLayer(minX, maxX, Y1, Y2, P1, P2, P3, P4, layer, twiceArea, triangular, halfX, halfY);
         }
         return;
     }
@@ -900,7 +904,7 @@ void CWaterLevel::SetUpWaterFog(int32 minX, int32 minY, int32 maxX, int32 maxY) 
     // Como el original (0x6EAA0D-0x6EAA14): FindPlayerCoors se llama ANTES de GetWaterLevelNoWaves (aunque despues se salga).
     const auto plyrPos = FindPlayerCoors();
 
-    // Como el original (0x6EAA58..0x6EAA78): si GetWaterLevelNoWaves acierta y big == 0 && small == 0 la funcion termina sin registrar nada.
+    // Como el original (0x6EAA58..0x6EAA78): si GetWaterLevelNoWaves acierta y big == 0 && smallV == 0 la funcion termina sin registrar nada.
     float fogZ = 0.f;
     {
         float waterLvl, bigWaves, smallWaves;
@@ -1014,9 +1018,9 @@ bool CWaterLevel::GetWaterDepth(const CVector& vecPos, float* pOutWaterDepth, fl
     if (!GetWaterLevelNoWaves(CVector{ vecPos.x, vecPos.y, vecPos.z }, reinterpret_cast<float*>(&levelSlot), nullptr, nullptr)) {
         return false;
     }
-    // Como el original (0x6EA986..0x6EA998): GetGroundLevel(&vecPos, &suelo, nullptr, 30.0f) (0x6EA8A0, sin reconstruir); si falla se usa -100.0f (0x859014).
+    // Como el original (0x6EA986..0x6EA998): GetGroundLevel(&vecPos, &suelo, nullptr, 30.0f) (0x6EA8A0); si falla se usa -100.0f (0x859014).
     float groundSlot{};
-    const bool foundGround = plugin::CallAndReturn<bool, 0x6EA8A0, const CVector*, float*, void*, float>(&vecPos, &groundSlot, nullptr, 30.0f);
+    const bool foundGround = GetGroundLevel(vecPos, &groundSlot, nullptr, 30.0f);
     Water62DepthStoreCpp(&levelSlot, foundGround ? &groundSlot : nullptr, pOutWaterDepth, reinterpret_cast<uint32*>(pOutWaterLevel), pOutGroundLevel);
     return true;
 }
@@ -1245,8 +1249,7 @@ void CWaterLevel::RenderHighDetailWaterTriangle(int32 X1, int32 Y1, CRenPar P1, 
     const int32 triangular = n >= 1 ? int32(uint32((uint64(n) * (uint64(n) + 1u)) / 2u)) : 0;
     if (int32(uint32(halfSquared) * 3u) < 0x1000 && triangular < 0x800) {
         for (int32 layer = 0; layer < 2; ++layer) {
-            plugin::Call<0x6E8780, int32, int32, CRenPar, int32, int32, CRenPar, int32, int32, CRenPar, int32, int32, int32, int32>(
-                X1, Y1, P1, X2, Y2, P2, X3, Y3, P3, layer, halfSquared, triangular, halfW);   // RenderHighDetailWaterTriangle_OneLayer (sin reconstruir)
+            RenderHighDetailWaterTriangle_OneLayer(X1, Y1, P1, X2, Y2, P2, X3, Y3, P3, layer, halfSquared, triangular, halfW);
         }
         return;
     }
@@ -1555,6 +1558,373 @@ void CWaterLevel::AddWaterLevelTriangle(int32 X1, int32 Y1, CRenPar P1, int32 X2
     NumWaterTriangles++;
 }
 
+// 0x6E5750 (cdecl, void). El bloque (blockX, blockY) es la palabra m_BlockPolyInfo[blockY + 12 * blockX] (0xC21B70): 2 bits altos de tipo (0 vacio, 1 cuadrilatero, 2 triangulo, 3 combinacion) y 14 de indice.
+// Vacio: se guarda la entrada; con un poligono unico: se abre una combinacion nueva al final de m_PolyCombos (0xC215F8, contador 0xC215F0) con la entrada vieja, la nueva y un cero, y el bloque pasa a ser
+// (combinacion | posicion); con una combinacion: la nueva entrada pisa el cero final y se anade otro cero. Ni el contador ni los indices se comprueban (aritmetica de 32 bits como el EXE).
+void CWaterLevel::AddToQuadsAndTrianglesList(int32 blockX, int32 blockY, int32 index, uint32 type) {
+    auto& block = *reinterpret_cast<uint16*>(0xC21B70u + 2u * (uint32(blockY) + 12u * uint32(blockX)));
+    const auto comboWord = [](uint32 position) -> uint16& { return *reinterpret_cast<uint16*>(0xC215F8u + 2u * position); };   // m_PolyCombos[position], sin limite
+    const uint16 entry = uint16((type << 14) | uint32(index));
+    const uint16 old = block;
+    const uint32 oldType = uint16(old >> 14);
+    if (oldType == 0) {
+        block = entry;
+        return;
+    }
+    const uint32 count = NumWaterZonePolys;
+    if (oldType == 2 || oldType == 1) {
+        comboWord(count) = old;
+        comboWord(count + 1) = entry;
+        comboWord(count + 2) = 0;
+        NumWaterZonePolys = count + 3;
+        block = uint16(count | 0xC000u);
+        return;
+    }
+    comboWord(count - 1) = entry;
+    comboWord(count) = 0;
+    NumWaterZonePolys = count + 1;
+}
+
+// 0x6EA8A0 (cdecl): ProcessVerticalLine (0x5674E0) desde (x, y, z + range) hasta -range (sin vehiculos, peatones ni objetos: edificios y dummies); en caso de acierto devuelve la z del punto y,
+// si outColData no es nulo, el tipo de superficie y la pieza del lado B de la colision (CColPoint +0x23 y +0x24). La suma z + range es x87 de 24 bits (conserva los desnormales).
+bool CWaterLevel::GetGroundLevel(const CVector& pos, float* outGroundZ, ColData* outColData, float range) {
+    const CVector origin{ pos.x, pos.y, Wl91AddZ(range, pos.z) };
+    CColPoint colPoint;
+    CEntity* hitEntity{};
+    if (!CWorld::ProcessVerticalLine(origin, -range, colPoint, hitEntity, true, false, false, false, true, false, nullptr)) {
+        return false;
+    }
+    *outGroundZ = colPoint.m_vecPoint.z;
+    if (outColData) {
+        outColData->surfaceType = uint8(colPoint.m_nSurfaceTypeB);
+        outColData->pieceType = colPoint.m_nPieceTypeB;
+    }
+    return true;
+}
+
+namespace {
+// Tablas de color por vertice del agua (0xC20968 rojo, 0xC20168 verde, 0xC1F968 azul) indexadas por el contador 0xC1F960 y vertices del bufer temporal (0xC4D958, 36 bytes): sin comprobar limites.
+uint8& WaterColorR(int32 i) { return *reinterpret_cast<uint8*>(0xC20968u + uint32(i)); }
+uint8& WaterColorG(int32 i) { return *reinterpret_cast<uint8*>(0xC20168u + uint32(i)); }
+uint8& WaterColorB(int32 i) { return *reinterpret_cast<uint8*>(0xC1F968u + uint32(i)); }
+RwIm3DVertex& WaterBufferVertex(int32 i) { return *reinterpret_cast<RwIm3DVertex*>(0xC4D958u + uint32(i) * 36u); }
+// Como el EXE: ((((alfa << 8) | r) << 8 | g) << 8) | b con el alfa leido como dword (solo sobrevive su byte bajo).
+uint32 WaterPackColor(uint32 alpha, uint32 r, uint32 g, uint32 b) { return (((((alpha << 8) | r) << 8) | g) << 8) | b; }
+uint16& WaterIndexWord(int32 i) { return *reinterpret_cast<uint16*>(0xC4B958u + 2u * uint32(i)); }
+}
+
+// 0x6E91D0 (cdecl). El EXE hace x87 de 24 bits: cada tramo esta en X87Math (Wl91*). La division entera (idiv) lanza la excepcion de division con halfX o halfY iguales a cero, como el EXE.
+void CWaterLevel::RenderHighDetailWaterRectangle_OneLayer(int32 minX, int32 maxX, int32 Y1, int32 Y2, CRenPar P1, CRenPar P2, CRenPar P3, CRenPar P4, int32 WaterLayer, int32 /*twiceArea*/, int32 /*triangular*/, int32 halfX, int32 halfY) {
+    auto& colorIndex = StaticRef<int32>(0xC1F960);
+    auto& nVtx = StaticRef<int32>(0xC4B950);
+    auto& nIdx = StaticRef<int32>(0xC4B954);
+    // Como el original (0x6E91DA..0x6E91E4): contador de colores a cero y vaciado del bufer (0x6E7680).
+    colorIndex = 0;
+    FlushWaterRenderBuffer();
+
+    // Como el original (0x6E91E9..0x6E93CA): inversos 1 / mitad, cocientes enteros de los lados y pendientes (a - b) * inverso de z, grandes y pequenas olas.
+    const float invX = Wl91Recip(halfX);
+    const int32 quotX = int32(uint32(maxX) - uint32(minX)) / halfX;
+    const float invY = Wl91Recip(halfY);
+    const int32 quotY = int32(uint32(Y2) - uint32(Y1)) / halfY;
+    const float sAC = Wl91Slope(P2.z, P1.z, invX);
+    const float s68 = Wl91Slope(P3.z, P1.z, invY);
+    const float s9C = Wl91Slope(P2.bigWaves, P1.bigWaves, invX);
+    const int32 negQuotX = int32(uint32(minX) - uint32(maxX)) / halfX;
+    const float s74 = Wl91Slope(P3.bigWaves, P1.bigWaves, invY);
+    const float sB0 = Wl91Slope(P2.smallWaves, P1.smallWaves, invX);
+    const float s84 = Wl91Slope(P3.smallWaves, P1.smallWaves, invY);
+    const int32 negQuotY = int32(uint32(Y1) - uint32(Y2)) / halfY;
+    const float sB4 = Wl91Slope(P3.z, P4.z, invX);
+    const float s8C = Wl91Slope(P2.z, P4.z, invY);
+    const float s6C = Wl91Slope(P3.bigWaves, P4.bigWaves, invX);
+    const float s94 = Wl91Slope(P2.bigWaves, P4.bigWaves, invY);
+    const float s80 = Wl91Slope(P3.smallWaves, P4.smallWaves, invX);
+    const float s78 = Wl91Slope(P2.smallWaves, P4.smallWaves, invY);
+
+    // Como el original (0x6E93CE..0x6E945F): desplazamiento de textura (capa 0: 0.08f y 0xC21184 / 0xC21180; capa 1: 0.04f y 0xC2117C / 0xC21178) reducido a su parte fraccionaria.
+    float shiftU{}, shiftV{};
+    if (WaterLayer == 0) {
+        shiftU = Wl91Affine(minX, 0.08f, TextureShiftSecondU);
+        shiftV = Wl91Affine(Y1, 0.08f, TextureShiftSecondV);
+    } else if (WaterLayer == 1) {
+        shiftU = Wl91Affine(minX, 0.04f, TextureShiftFirstU);
+        shiftV = Wl91Affine(Y1, 0.04f, TextureShiftFirstV);
+    }
+    if (WaterLayer == 0 || WaterLayer == 1) {
+        shiftU = Wl91Fract(shiftU);
+        shiftV = Wl91Fract(shiftV);
+    }
+
+    // Como el original (0x6E945F..0x6E9497): posicion de la camara (matriz +0x30 si existe, si no la posicion del placement); con halfY negativo termina aqui.
+    const CVector cameraPos = TheCamera.GetPosition();
+    if (halfY < 0) {
+        return;
+    }
+
+    // Registros del EXE: idx = edx, vtx = edi, ci = ecx. rowStartY = [48] (Y2 + (Y1 - Y2) / halfY * halfY, mas el cociente por fila), yOffset = [38], remY = [58].
+    int32 idx = nIdx;
+    int32 rowStartY = int32(uint32(negQuotY) * uint32(halfY) + uint32(Y2));
+    int32 yOffset = 0;
+    int32 ci = colorIndex;
+    int32 vtx = nVtx;
+    int32 remY = halfY;
+    const int32 quotYPos = int32(0u - uint32(negQuotY));
+    int32 jY = 0;
+    do {
+        if (halfX >= 0) {
+            const float jYf = float(jY);
+            const float a0 = Wl91Mul(jY, invY);
+            int32 xOffset = 0;                                                                   // [30]
+            const int32 quotXPos = int32(0u - uint32(negQuotX));                                 // [90]
+            int32 xUp = int32(uint32(negQuotX) * uint32(halfX) + uint32(maxX));                  // [60]
+            int32 remX = halfX;                                                                  // [54]
+            int32 i = 0;                                                                         // [3C]
+            do {
+                // Como el original (0x6E9511..0x6E960F): triangulo de abajo (i * invX + jY * invY < 1.0) desde la esquina 1, si no el de arriba desde la 4.
+                float z, smallV;
+                double big;
+                int32 x, y;
+                if (Wl91RectLower(i, invX, a0)) {
+                    x = int32(uint32(minX) + uint32(xOffset));
+                    y = int32(uint32(Y1) + uint32(yOffset));
+                    Wl91RectLowerVals(jYf, float(i), s68, sAC, P1.z, s74, s9C, P1.bigWaves, sB0, s84, P1.smallWaves, &z, &big, &smallV);
+                } else {
+                    x = xUp;
+                    y = rowStartY;
+                    Wl91RectUpperVals(remY, float(remX), s8C, sB4, P4.z, s94, s6C, P4.bigWaves, s78, s80, P4.smallWaves, &z, &big, &smallV);
+                }
+                // Como el original (0x6E9613..0x6E96B9): x e y como float, distancia a la camara y atenuacion.
+                const float xf = float(x);
+                const float yf = float(y);
+                const float dx = Wl91SubInt(cameraPos.x, x);
+                const float dy = Wl91SubInt(cameraPos.y, y);
+                const double fade = Wl91Fade(dx, dy, DETAILEDWATERDIST);
+                if (WaterLayer == 0) {
+                    // Como el original (0x6E9733..0x6E9852): olas (0x6E6EF0) con grandes * f y pequenas * f; el vertice recibe x, y e la altura de la ola; el color sale de WaterColor por el multiplicador de la ola.
+                    float bigAmp, smallAmp;
+                    Wl91Amps(fade, big, smallV, &bigAmp, &smallAmp);
+                    float outWave = z, colorMult{}, glare{};
+                    CalculateWavesOnlyForCoordinate(x, y, bigAmp, smallAmp, outWave, colorMult, glare, StaticRef<CVector>(0xC278D4));
+                    vtx = nVtx;
+                    auto& vertex = WaterBufferVertex(vtx);
+                    vertex.u = Wl91Affine(xOffset, 0.08f, shiftU);
+                    vertex.v = Wl91Affine(yOffset, 0.08f, shiftV);
+                    vertex.objVertex.x = xf;
+                    vertex.objVertex.y = yf;
+                    vertex.objVertex.z = outWave;
+                    const CRGBA& baseColor = WaterColor;
+                    const uint8 r = uint8(Wl91ColorByte(baseColor.r, colorMult));
+                    const uint8 g = uint8(Wl91ColorByte(baseColor.g, colorMult));
+                    const uint8 b = uint8(Wl91ColorByte(baseColor.b, colorMult));
+                    vertex.color = WaterPackColor(WaterLayerAlpha[0], r, g, b);
+                    ci = colorIndex;
+                    WaterColorG(ci) = g;
+                    idx = nIdx;
+                    WaterColorR(ci) = r;
+                    WaterColorB(ci) = b;
+                    ++ci;
+                    colorIndex = ci;
+                } else if (WaterLayer == 1) {
+                    // Como el original (0x6E96D0..0x6E9853): segunda pasada sobre el mismo vertice: solo textura y color (los colores de la primera pasada, en las tablas por vertice).
+                    auto& vertex = WaterBufferVertex(vtx);
+                    const uint32 r = WaterColorR(ci), g = WaterColorG(ci), b = WaterColorB(ci);
+                    vertex.u = Wl91Affine(xOffset, 0.04f, shiftU);
+                    vertex.v = Wl91Affine(yOffset, 0.04f, shiftV);
+                    vertex.color = WaterPackColor(WaterLayerAlpha[1], r, g, b);
+                    ++ci;
+                    colorIndex = ci;
+                }
+                // Como el original (0x6E9859..0x6E98C0): con el byte 0xC278E0 distinto de cero no se avanza ni el vertice ni los indices; si no, dos triangulos (salvo en la primera fila y columna).
+                if (StaticRef<uint8>(0xC278E0) == 0) {
+                    if (jY != 0 && i != 0) {
+                        const int32 base = vtx - halfX;
+                        WaterIndexWord(idx + 0) = uint16(base - 2);
+                        WaterIndexWord(idx + 1) = uint16(base - 1);
+                        WaterIndexWord(idx + 2) = uint16(vtx - 1);
+                        idx += 3;
+                        WaterIndexWord(idx + 0) = uint16(vtx);
+                        WaterIndexWord(idx + 1) = uint16(base - 1);
+                        WaterIndexWord(idx + 2) = uint16(vtx - 1);
+                        idx += 3;
+                        nIdx = idx;
+                    }
+                    ++vtx;
+                    nVtx = vtx;
+                }
+                xOffset += quotX;
+                xUp += quotXPos;
+                --remX;
+                ++i;
+            } while (i <= halfX);
+        }
+        ++jY;
+        --remY;
+        rowStartY += quotYPos;
+        yOffset += quotY;
+    } while (jY <= halfY);
+}
+
+// 0x6E8780 (cdecl). Triangulo de (halfW + 1) filas; ver RenderHighDetailWaterRectangle_OneLayer. Base = esquina 1 si X1 == X3, si no la 2 (con las diferencias invertidas). La capa 2 (nunca la usa el EXE)
+// es una transcripcion: el EXE multiplica por una ranura de pila sin inicializar en ese camino, aqui 0.0f.
+void CWaterLevel::RenderHighDetailWaterTriangle_OneLayer(int32 X1, int32 Y1, CRenPar P1, int32 X2, int32 Y2, CRenPar P2, int32 X3, int32 Y3, CRenPar P3, int32 WaterLayer, int32 /*halfSquared*/, int32 /*triangular*/, int32 halfW) {
+    auto& colorIndex = StaticRef<int32>(0xC1F960);
+    auto& nVtx = StaticRef<int32>(0xC4B950);
+    auto& nIdx = StaticRef<int32>(0xC4B954);
+    colorIndex = 0;
+    FlushWaterRenderBuffer();
+
+    const float inv = Wl91Recip(halfW);
+    int32 baseX, baseY, quotX, quotY;
+    float s44, s68, s64, s54, s6C, s4C, baseZ, baseBig, baseSmall;
+    if (X1 == X3) {
+        // Como el original (0x6E87B8..0x6E8939): base en la esquina 1.
+        s44 = Wl91Slope(P2.z, P1.z, inv);
+        s68 = Wl91Slope(P3.z, P1.z, inv);
+        s64 = Wl91Slope(P2.bigWaves, P1.bigWaves, inv);
+        s54 = Wl91Slope(P3.bigWaves, P1.bigWaves, inv);
+        quotX = int32(uint32(X2) - uint32(X1)) / halfW;
+        s6C = Wl91Slope(P2.smallWaves, P1.smallWaves, inv);
+        quotY = int32(uint32(Y3) - uint32(Y1)) / halfW;
+        s4C = Wl91Slope(P3.smallWaves, P1.smallWaves, inv);
+        baseX = X1; baseY = Y1; baseZ = P1.z; baseBig = P1.bigWaves; baseSmall = P1.smallWaves;
+    } else {
+        // Como el original (0x6E887A..0x6E8939): base en la esquina 2, diferencias invertidas.
+        s44 = Wl91Slope(P1.z, P2.z, inv);
+        s68 = Wl91Slope(P3.z, P2.z, inv);
+        s64 = Wl91Slope(P1.bigWaves, P2.bigWaves, inv);
+        s54 = Wl91Slope(P3.bigWaves, P2.bigWaves, inv);
+        quotX = int32(uint32(X1) - uint32(X2)) / halfW;
+        s6C = Wl91Slope(P1.smallWaves, P2.smallWaves, inv);
+        quotY = int32(uint32(Y3) - uint32(Y2)) / halfW;
+        s4C = Wl91Slope(P3.smallWaves, P2.smallWaves, inv);
+        baseX = X2; baseY = Y2; baseZ = P2.z; baseBig = P2.bigWaves; baseSmall = P2.smallWaves;
+    }
+
+    // Como el original (0x6E8939..0x6E89D7): desplazamiento de textura de la base.
+    float shiftU{}, shiftV{};
+    if (WaterLayer == 0) {
+        shiftU = Wl91Affine(baseX, 0.08f, TextureShiftSecondU);
+        shiftV = Wl91Affine(baseY, 0.08f, TextureShiftSecondV);
+    } else if (WaterLayer == 1) {
+        shiftU = Wl91Affine(baseX, 0.04f, TextureShiftFirstU);
+        shiftV = Wl91Affine(baseY, 0.04f, TextureShiftFirstV);
+    }
+    if (WaterLayer == 0 || WaterLayer == 1) {
+        shiftU = Wl91Fract(shiftU);
+        shiftV = Wl91Fract(shiftV);
+    }
+
+    const CVector cameraPos = TheCamera.GetPosition();
+    if (halfW < 0) {
+        return;
+    }
+
+    // Registros del EXE: ci = ebp, vtx = edi, idx = esi, j = edx; remaining = [48] (halfW - j), yOffset = [20], curY = [10].
+    int32 ci = colorIndex;
+    int32 vtx = nVtx;
+    int32 idx = nIdx;
+    int32 yOffset = 0;
+    int32 curY = baseY;
+    int32 remaining = halfW;
+    int32 j = 0;
+    do {
+        if (remaining >= 0) {
+            const float jz = Wl91Mul(j, s68);
+            const float jbig = Wl91Mul(j, s54);
+            const float jsmall = Wl91Mul(j, s4C);
+            const float yf = float(curY);
+            int32 xOffset = 0;      // [1C]
+            int32 curX = baseX;     // [24]
+            int32 i = 0;            // [28]
+            do {
+                float z, big, smallV;
+                Wl91TriVals(i, s44, jz, baseZ, s64, jbig, baseBig, s6C, jsmall, baseSmall, &z, &big, &smallV);
+                const float xf = float(curX);
+                const float dx = Wl91SubInt(cameraPos.x, curX);
+                const float dy = Wl91SubFloat(cameraPos.y, yf);
+                const double fade = Wl91Fade(dx, dy, DETAILEDWATERDIST);
+                if (WaterLayer == 0) {
+                    // Como el original (0x6E8C7D..0x6E8DBE): olas con (grandes * f, pequenas * f); color = WaterColor * 0.577f (0x872004; el multiplicador de la ola se descarta).
+                    float bigAmp, smallAmp;
+                    Wl91Amps(fade, double(big), smallV, &bigAmp, &smallAmp);
+                    float outWave = z, colorMult{}, glare{};
+                    CalculateWavesOnlyForCoordinate(curX, curY, bigAmp, smallAmp, outWave, colorMult, glare, StaticRef<CVector>(0xC278D4));
+                    vtx = nVtx;
+                    auto& vertex = WaterBufferVertex(vtx);
+                    vertex.u = Wl91Affine(xOffset, 0.08f, shiftU);
+                    vertex.v = Wl91Affine(yOffset, 0.08f, shiftV);
+                    vertex.objVertex.x = xf;
+                    vertex.objVertex.y = yf;
+                    vertex.objVertex.z = outWave;
+                    const CRGBA& baseColor = WaterColor;
+                    const uint8 r = uint8(Wl91ColorByte(baseColor.r, 0.577f));
+                    const uint8 g = uint8(Wl91ColorByte(baseColor.g, 0.577f));
+                    const uint8 b = uint8(Wl91ColorByte(baseColor.b, 0.577f));
+                    ci = colorIndex;
+                    WaterColorR(ci) = r;
+                    WaterColorG(ci) = g;
+                    WaterColorB(ci) = b;
+                    ++ci;
+                    vertex.color = WaterPackColor(WaterLayerAlpha[0], r, g, b);
+                    idx = nIdx;
+                    colorIndex = ci;
+                } else if (WaterLayer == 1) {
+                    // Como el original (0x6E8C13..0x6E8C78): textura y color de la segunda pasada.
+                    auto& vertex = WaterBufferVertex(vtx);
+                    const uint32 r = WaterColorR(ci), g = WaterColorG(ci), b = WaterColorB(ci);
+                    vertex.u = Wl91Affine(xOffset, 0.04f, shiftU);
+                    vertex.v = Wl91Affine(yOffset, 0.04f, shiftV);
+                    vertex.color = WaterPackColor(WaterLayerAlpha[1], r, g, b);
+                    ++ci;
+                    colorIndex = ci;
+                } else if (WaterLayer == 2) {
+                    // Como el original (0x6E8B8B..0x6E8C0E): capa gris con otra escala (0x8D3834, 0xC21174, 0xC21170) y z + 0.1f (0x858B1C); el brillo multiplica una ranura de pila sin inicializar (aqui 0.0f).
+                    auto& vertex = WaterBufferVertex(vtx);
+                    vertex.u = Wl91Affine(xOffset, StaticRef<float>(0x8D3834), StaticRef<float>(0xC21174));
+                    vertex.v = Wl91Affine(yOffset, StaticRef<float>(0x8D3834), StaticRef<float>(0xC21170));
+                    vertex.objVertex.x = xf;
+                    vertex.objVertex.y = yf;
+                    vertex.objVertex.z = Wl91AddZ(z, 0.1f);
+                    const uint32 gray = uint8(Wl91ColorByte(StaticRef<int32>(0x8D3810), 0.0f));
+                    vertex.color = (((((0xFFFFFF00u | gray) << 8) | gray) << 8) | gray);
+                }
+                // Como el original (0x6E8DC2..0x6E8E4B): dos triangulos por vertice salvo en la primera fila y la primera columna.
+                if (j != 0 && i != 0) {
+                    WaterIndexWord(idx + 0) = uint16(vtx);
+                    WaterIndexWord(idx + 1) = uint16(vtx - 1);
+                    const int32 tail = vtx + j - halfW;
+                    WaterIndexWord(idx + 2) = uint16(tail - 3);
+                    idx += 3;
+                    WaterIndexWord(idx + 0) = uint16(vtx);
+                    WaterIndexWord(idx + 1) = uint16(tail - 2);
+                    WaterIndexWord(idx + 2) = uint16(tail - 3);
+                    idx += 3;
+                    nIdx = idx;
+                }
+                ++vtx;
+                nVtx = vtx;
+                xOffset += quotX;
+                curX += quotX;
+                ++i;
+            } while (i <= remaining);
+        }
+        // Como el original (0x6E8E55..0x6E8E8A): un triangulo mas al cerrar cada fila salvo la primera.
+        if (j != 0) {
+            const int32 tail = vtx + j - halfW;
+            WaterIndexWord(idx + 0) = uint16(vtx - 1);
+            WaterIndexWord(idx + 1) = uint16(tail - 2);
+            WaterIndexWord(idx + 2) = uint16(tail - 3);
+            idx += 3;
+            nIdx = idx;
+        }
+        yOffset += quotY;
+        curY += quotY;
+        ++j;
+        --remaining;
+    } while (j <= halfW);
+}
+
 // 0x6E7B30
 void CWaterLevel::FillQuadsAndTrianglesList() {
     // Como el original: 12 x 12 bloques de 500 unidades; el bloque (a, b) cubre x en [a * 500 - 3000, +500) e y en [b * 500 - 3000, +500). Todo son enteros pequenos (exactos en la x87).
@@ -1569,7 +1939,7 @@ void CWaterLevel::FillQuadsAndTrianglesList() {
                 for (int32 i = 0; ; ) {
                     const CWaterQuad& quad = *(WaterQuads.data() + i);
                     if (vertexOf(quad.verts[1]).x > xLo && vertexOf(quad.verts[0]).x < xHi && vertexOf(quad.verts[2]).y > yLo && vertexOf(quad.verts[0]).y < yHi) {
-                        plugin::Call<0x6E5750, int32, int32, int32, int32>(a, b, i, 1);   // AddToQuadsAndTrianglesList (sin reconstruir)
+                        AddToQuadsAndTrianglesList(a, b, i, 1);
                     }
                     ++i;
                     if (!(i < int32(NumWaterQuads))) {
@@ -1585,7 +1955,7 @@ void CWaterLevel::FillQuadsAndTrianglesList() {
                 const int32 yMin = y0 < y2 ? y0 : y2;
                 const int32 yMax = y0 <= y2 ? y2 : y0;
                 if (vertexOf(tri.verts[1]).x > xLo && vertexOf(tri.verts[0]).x < xHi && yMax > yLo && yMin < yHi) {
-                    plugin::Call<0x6E5750, int32, int32, int32, int32>(a, b, i, 2);
+                    AddToQuadsAndTrianglesList(a, b, i, 2);
                 }
             }
         }

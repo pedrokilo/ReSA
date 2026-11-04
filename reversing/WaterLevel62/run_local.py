@@ -24,10 +24,10 @@ GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh
 HOOKS = {oracle.NAME_FILL: 0x6E7B30, oracle.NAME_DEPTH: 0x6EA960, oracle.NAME_RECT: 0x6EB810, oracle.NAME_TRI: 0x6EDDC0, oracle.NAME_LINE: 0x6E61B0}
 # colaboradores sustituidos por funcion: (direccion del EXE, tiene hook en la DLL)
 STUBBED = {
-    oracle.NAME_FILL: [(0x6E5750, False)],
-    oracle.NAME_DEPTH: [(0x6E8580, True), (0x6EA8A0, False)],
-    oracle.NAME_RECT: [(0x420C40, True), (0x6EA9F0, True), (0x6E91D0, False), (0x6E73A0, True), (0x6EC5D0, True)],
-    oracle.NAME_TRI: [(0x420C40, True), (0x6E8780, False), (0x6ECF00, True)],
+    oracle.NAME_FILL: [(0x6E5750, True)],
+    oracle.NAME_DEPTH: [(0x6E8580, True), (0x6EA8A0, True)],
+    oracle.NAME_RECT: [(0x420C40, True), (0x6EA9F0, True), (0x6E91D0, True), (0x6E73A0, True), (0x6EC5D0, True)],
+    oracle.NAME_TRI: [(0x420C40, True), (0x6E8780, True), (0x6ECF00, True)],
     oracle.NAME_LINE: [],
 }
 WATCHED = {a for lst in STUBBED.values() for a, _ in lst}

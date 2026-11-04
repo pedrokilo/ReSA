@@ -1,0 +1,148 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "0f018addf6fbae49e7b2d557f8afb50538df56e8cede2896726e3a3462bee03b",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 65536,
+  "pairs_per_function": {
+    "CWaterLevel::AddToQuadsAndTrianglesList": 16384,
+    "CWaterLevel::GetGroundLevel": 16384,
+    "CWaterLevel::RenderHighDetailWaterRectangle_OneLayer": 16384,
+    "CWaterLevel::RenderHighDetailWaterTriangle_OneLayer": 16384
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "a86c37bb5c226d206a90cd4fbcce5b2f1ae7c74ab36ba2d5b7cd64c5338e54c6",
+  "compare_dead_x87_registers": false,
+  "families": {
+    "CWaterLevel::AddToQuadsAndTrianglesList": {
+      "0": 1024,
+      "1": 1024,
+      "2": 1024,
+      "3": 1024,
+      "4": 1024,
+      "5": 1024,
+      "6": 1024,
+      "7": 1024,
+      "8": 1024,
+      "9": 1024,
+      "10": 1024,
+      "11": 1024,
+      "12": 1024,
+      "13": 1024,
+      "14": 1024,
+      "15": 1024
+    },
+    "CWaterLevel::GetGroundLevel": {
+      "0": 1024,
+      "1": 1024,
+      "2": 1024,
+      "3": 1024,
+      "4": 1024,
+      "5": 1024,
+      "6": 1024,
+      "7": 1024,
+      "8": 1024,
+      "9": 1024,
+      "10": 1024,
+      "11": 1024,
+      "12": 1024,
+      "13": 1024,
+      "14": 1024,
+      "15": 1024
+    },
+    "CWaterLevel::RenderHighDetailWaterRectangle_OneLayer": {
+      "0": 1024,
+      "1": 1024,
+      "2": 1024,
+      "3": 1024,
+      "4": 1024,
+      "5": 1024,
+      "6": 1024,
+      "7": 1024,
+      "8": 1024,
+      "9": 1024,
+      "10": 1024,
+      "11": 1024,
+      "12": 1024,
+      "13": 1024,
+      "14": 1024,
+      "15": 1024
+    },
+    "CWaterLevel::RenderHighDetailWaterTriangle_OneLayer": {
+      "0": 1024,
+      "1": 1024,
+      "2": 1024,
+      "3": 1024,
+      "4": 1024,
+      "5": 1024,
+      "6": 1024,
+      "7": 1024,
+      "8": 1024,
+      "9": 1024,
+      "10": 1024,
+      "11": 1024,
+      "12": 1024,
+      "13": 1024,
+      "14": 1024,
+      "15": 1024
+    }
+  },
+  "branch_coverage": {
+    "CWaterLevel::AddToQuadsAndTrianglesList": {
+      "type_1": 7338,
+      "t3": 4834,
+      "t0": 3816,
+      "type_2": 7513,
+      "t1": 3829,
+      "t2": 3905,
+      "type_big": 760,
+      "t3_before_list": 403,
+      "type_0": 390,
+      "type_3": 383
+    },
+    "CWaterLevel::GetGroundLevel": {
+      "col": 7946,
+      "hit": 12505,
+      "colnull": 4559,
+      "miss": 3879
+    },
+    "CWaterLevel::RenderHighDetailWaterRectangle_OneLayer": {
+      "lower": 15378,
+      "rect": 16384,
+      "layer0": 7694,
+      "upper": 15378,
+      "fade0": 14671,
+      "fade_mid": 7854,
+      "layer1": 7666,
+      "fade1": 8423,
+      "layerX": 1024,
+      "neg_hy": 689,
+      "flag": 1248,
+      "neg_hx": 317
+    },
+    "CWaterLevel::RenderHighDetailWaterTriangle_OneLayer": {
+      "base1": 10360,
+      "layer0": 7672,
+      "tri": 16384,
+      "fade0": 15016,
+      "base2": 6024,
+      "layer1": 7688,
+      "fade_mid": 5698,
+      "fade1": 6055,
+      "layerX": 1024,
+      "neg_hw": 683
+    }
+  },
+  "independent_oracle": "fixture_oracle.py: cada lado de cada par coincide con el modelo",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

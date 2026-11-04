@@ -24928,7 +24928,7 @@
       },
       "evidence": {
         "path": "reversing/WaterLevel62/validation-summary.json",
-        "sha256": "199ce3e8e29be4b8da56af88f7f332566996d9945516d73863f094bd1dc73d9e",
+        "sha256": "08aae9a51402c9f62e98a92ce08d6455623b4e9e5263601428d9f33e7c56469f",
         "passed_path": [
           "covered_functions",
           "CWaterLevel::FillQuadsAndTrianglesList"
@@ -24938,15 +24938,15 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/game_sa/WaterLevel.cpp": "c12b8faee145744966f9d0bf997af0435cee9c69805c833bee0793a309e42db6",
-        "source/game_sa/WaterLevel.h": "c3199aa76139e05b93b1f76c9ef98e435c2cc231ceb593a0594be2b8ebf2319c",
-        "source/game_sa/X87Math.cpp": "a54c7a4fc93bd013e8d3449f308057608434f546db26379cc3ae26180ddd493b",
-        "source/game_sa/X87Math.h": "18a04173f5b0140f5bd034f2ee61a1e0dfe36331721ce6c2e74bf627b9bdfefe",
+        "source/game_sa/WaterLevel.cpp": "c6d7c2c2ad4c279bd143b0f624d7dfff5a72cca203c60db3bf7893362c381712",
+        "source/game_sa/WaterLevel.h": "65434b95ae91278a4d9481cc540d4ec0021d0de8729fa2c86cd4ac82c815c1a4",
+        "source/game_sa/X87Math.cpp": "15d6efba3daf1076c9c833b54c9c0af684bc8bba731c8438e6dc0524253068e2",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/WaterLevel62/LiveComparison.hpp": "9cd1f09e58236513b5fb97e1267f08fb6496f56592d4570bfc034c6f01562645",
-        "reversing/WaterLevel62/Core.hpp": "2f144517c4845436b14f58458cf67bb7cf368f259230b27fd6dafa58a919e6de",
-        "reversing/WaterLevel62/Cases.hpp": "bb241ffa0f5f7215dd03a35a3332dcc487e91425924d6cbaaa60f478e1b96d17",
-        "reversing/WaterLevel62/Fixtures.hpp": "3d5b17d1e3b626e21a7f6dd0102213684383b115a4e7e562357c987f11a46bbd",
+        "reversing/WaterLevel62/LiveComparison.hpp": "030ba418ff33ac8aa9674eee20e11db3c4349608e8b0970438c99fb81ac12652",
+        "reversing/WaterLevel62/Core.hpp": "a469b2562e9a3b0168b29afdad2f82a2b27654baa2ea3893c18099a6731224f1",
+        "reversing/WaterLevel62/Cases.hpp": "8d3c6770666d5bdad4f25b2985cf9fb5cfad6529abbb350e1ff07204fe09aa72",
+        "reversing/WaterLevel62/Fixtures.hpp": "2f012e8b09b5ade3c1a173dc7d40d17f449cbe8871aff87b8b30222ea90cee33",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
@@ -24964,7 +24964,7 @@
       },
       "evidence": {
         "path": "reversing/WaterLevel62/validation-summary.json",
-        "sha256": "199ce3e8e29be4b8da56af88f7f332566996d9945516d73863f094bd1dc73d9e",
+        "sha256": "08aae9a51402c9f62e98a92ce08d6455623b4e9e5263601428d9f33e7c56469f",
         "passed_path": [
           "covered_functions",
           "CWaterLevel::GetWaterDepth"
@@ -24974,15 +24974,15 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/game_sa/WaterLevel.cpp": "c12b8faee145744966f9d0bf997af0435cee9c69805c833bee0793a309e42db6",
-        "source/game_sa/WaterLevel.h": "c3199aa76139e05b93b1f76c9ef98e435c2cc231ceb593a0594be2b8ebf2319c",
-        "source/game_sa/X87Math.cpp": "a54c7a4fc93bd013e8d3449f308057608434f546db26379cc3ae26180ddd493b",
-        "source/game_sa/X87Math.h": "18a04173f5b0140f5bd034f2ee61a1e0dfe36331721ce6c2e74bf627b9bdfefe",
+        "source/game_sa/WaterLevel.cpp": "c6d7c2c2ad4c279bd143b0f624d7dfff5a72cca203c60db3bf7893362c381712",
+        "source/game_sa/WaterLevel.h": "65434b95ae91278a4d9481cc540d4ec0021d0de8729fa2c86cd4ac82c815c1a4",
+        "source/game_sa/X87Math.cpp": "15d6efba3daf1076c9c833b54c9c0af684bc8bba731c8438e6dc0524253068e2",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/WaterLevel62/LiveComparison.hpp": "9cd1f09e58236513b5fb97e1267f08fb6496f56592d4570bfc034c6f01562645",
-        "reversing/WaterLevel62/Core.hpp": "2f144517c4845436b14f58458cf67bb7cf368f259230b27fd6dafa58a919e6de",
-        "reversing/WaterLevel62/Cases.hpp": "bb241ffa0f5f7215dd03a35a3332dcc487e91425924d6cbaaa60f478e1b96d17",
-        "reversing/WaterLevel62/Fixtures.hpp": "3d5b17d1e3b626e21a7f6dd0102213684383b115a4e7e562357c987f11a46bbd",
+        "reversing/WaterLevel62/LiveComparison.hpp": "030ba418ff33ac8aa9674eee20e11db3c4349608e8b0970438c99fb81ac12652",
+        "reversing/WaterLevel62/Core.hpp": "a469b2562e9a3b0168b29afdad2f82a2b27654baa2ea3893c18099a6731224f1",
+        "reversing/WaterLevel62/Cases.hpp": "8d3c6770666d5bdad4f25b2985cf9fb5cfad6529abbb350e1ff07204fe09aa72",
+        "reversing/WaterLevel62/Fixtures.hpp": "2f012e8b09b5ade3c1a173dc7d40d17f449cbe8871aff87b8b30222ea90cee33",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
@@ -25000,7 +25000,7 @@
       },
       "evidence": {
         "path": "reversing/WaterLevel62/validation-summary.json",
-        "sha256": "199ce3e8e29be4b8da56af88f7f332566996d9945516d73863f094bd1dc73d9e",
+        "sha256": "08aae9a51402c9f62e98a92ce08d6455623b4e9e5263601428d9f33e7c56469f",
         "passed_path": [
           "covered_functions",
           "CWaterLevel::RenderHighDetailWaterRectangle"
@@ -25010,15 +25010,15 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/game_sa/WaterLevel.cpp": "c12b8faee145744966f9d0bf997af0435cee9c69805c833bee0793a309e42db6",
-        "source/game_sa/WaterLevel.h": "c3199aa76139e05b93b1f76c9ef98e435c2cc231ceb593a0594be2b8ebf2319c",
-        "source/game_sa/X87Math.cpp": "a54c7a4fc93bd013e8d3449f308057608434f546db26379cc3ae26180ddd493b",
-        "source/game_sa/X87Math.h": "18a04173f5b0140f5bd034f2ee61a1e0dfe36331721ce6c2e74bf627b9bdfefe",
+        "source/game_sa/WaterLevel.cpp": "c6d7c2c2ad4c279bd143b0f624d7dfff5a72cca203c60db3bf7893362c381712",
+        "source/game_sa/WaterLevel.h": "65434b95ae91278a4d9481cc540d4ec0021d0de8729fa2c86cd4ac82c815c1a4",
+        "source/game_sa/X87Math.cpp": "15d6efba3daf1076c9c833b54c9c0af684bc8bba731c8438e6dc0524253068e2",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/WaterLevel62/LiveComparison.hpp": "9cd1f09e58236513b5fb97e1267f08fb6496f56592d4570bfc034c6f01562645",
-        "reversing/WaterLevel62/Core.hpp": "2f144517c4845436b14f58458cf67bb7cf368f259230b27fd6dafa58a919e6de",
-        "reversing/WaterLevel62/Cases.hpp": "bb241ffa0f5f7215dd03a35a3332dcc487e91425924d6cbaaa60f478e1b96d17",
-        "reversing/WaterLevel62/Fixtures.hpp": "3d5b17d1e3b626e21a7f6dd0102213684383b115a4e7e562357c987f11a46bbd",
+        "reversing/WaterLevel62/LiveComparison.hpp": "030ba418ff33ac8aa9674eee20e11db3c4349608e8b0970438c99fb81ac12652",
+        "reversing/WaterLevel62/Core.hpp": "a469b2562e9a3b0168b29afdad2f82a2b27654baa2ea3893c18099a6731224f1",
+        "reversing/WaterLevel62/Cases.hpp": "8d3c6770666d5bdad4f25b2985cf9fb5cfad6529abbb350e1ff07204fe09aa72",
+        "reversing/WaterLevel62/Fixtures.hpp": "2f012e8b09b5ade3c1a173dc7d40d17f449cbe8871aff87b8b30222ea90cee33",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
@@ -25036,7 +25036,7 @@
       },
       "evidence": {
         "path": "reversing/WaterLevel62/validation-summary.json",
-        "sha256": "199ce3e8e29be4b8da56af88f7f332566996d9945516d73863f094bd1dc73d9e",
+        "sha256": "08aae9a51402c9f62e98a92ce08d6455623b4e9e5263601428d9f33e7c56469f",
         "passed_path": [
           "covered_functions",
           "CWaterLevel::RenderHighDetailWaterTriangle"
@@ -25046,15 +25046,15 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/game_sa/WaterLevel.cpp": "c12b8faee145744966f9d0bf997af0435cee9c69805c833bee0793a309e42db6",
-        "source/game_sa/WaterLevel.h": "c3199aa76139e05b93b1f76c9ef98e435c2cc231ceb593a0594be2b8ebf2319c",
-        "source/game_sa/X87Math.cpp": "a54c7a4fc93bd013e8d3449f308057608434f546db26379cc3ae26180ddd493b",
-        "source/game_sa/X87Math.h": "18a04173f5b0140f5bd034f2ee61a1e0dfe36331721ce6c2e74bf627b9bdfefe",
+        "source/game_sa/WaterLevel.cpp": "c6d7c2c2ad4c279bd143b0f624d7dfff5a72cca203c60db3bf7893362c381712",
+        "source/game_sa/WaterLevel.h": "65434b95ae91278a4d9481cc540d4ec0021d0de8729fa2c86cd4ac82c815c1a4",
+        "source/game_sa/X87Math.cpp": "15d6efba3daf1076c9c833b54c9c0af684bc8bba731c8438e6dc0524253068e2",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/WaterLevel62/LiveComparison.hpp": "9cd1f09e58236513b5fb97e1267f08fb6496f56592d4570bfc034c6f01562645",
-        "reversing/WaterLevel62/Core.hpp": "2f144517c4845436b14f58458cf67bb7cf368f259230b27fd6dafa58a919e6de",
-        "reversing/WaterLevel62/Cases.hpp": "bb241ffa0f5f7215dd03a35a3332dcc487e91425924d6cbaaa60f478e1b96d17",
-        "reversing/WaterLevel62/Fixtures.hpp": "3d5b17d1e3b626e21a7f6dd0102213684383b115a4e7e562357c987f11a46bbd",
+        "reversing/WaterLevel62/LiveComparison.hpp": "030ba418ff33ac8aa9674eee20e11db3c4349608e8b0970438c99fb81ac12652",
+        "reversing/WaterLevel62/Core.hpp": "a469b2562e9a3b0168b29afdad2f82a2b27654baa2ea3893c18099a6731224f1",
+        "reversing/WaterLevel62/Cases.hpp": "8d3c6770666d5bdad4f25b2985cf9fb5cfad6529abbb350e1ff07204fe09aa72",
+        "reversing/WaterLevel62/Fixtures.hpp": "2f012e8b09b5ade3c1a173dc7d40d17f449cbe8871aff87b8b30222ea90cee33",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
@@ -25072,7 +25072,7 @@
       },
       "evidence": {
         "path": "reversing/WaterLevel62/validation-summary.json",
-        "sha256": "199ce3e8e29be4b8da56af88f7f332566996d9945516d73863f094bd1dc73d9e",
+        "sha256": "08aae9a51402c9f62e98a92ce08d6455623b4e9e5263601428d9f33e7c56469f",
         "passed_path": [
           "covered_functions",
           "CWaterLevel::TestLineAgainstWater"
@@ -25082,15 +25082,15 @@
       },
       "tested_sources": {
         "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
-        "source/game_sa/WaterLevel.cpp": "c12b8faee145744966f9d0bf997af0435cee9c69805c833bee0793a309e42db6",
-        "source/game_sa/WaterLevel.h": "c3199aa76139e05b93b1f76c9ef98e435c2cc231ceb593a0594be2b8ebf2319c",
-        "source/game_sa/X87Math.cpp": "a54c7a4fc93bd013e8d3449f308057608434f546db26379cc3ae26180ddd493b",
-        "source/game_sa/X87Math.h": "18a04173f5b0140f5bd034f2ee61a1e0dfe36331721ce6c2e74bf627b9bdfefe",
+        "source/game_sa/WaterLevel.cpp": "c6d7c2c2ad4c279bd143b0f624d7dfff5a72cca203c60db3bf7893362c381712",
+        "source/game_sa/WaterLevel.h": "65434b95ae91278a4d9481cc540d4ec0021d0de8729fa2c86cd4ac82c815c1a4",
+        "source/game_sa/X87Math.cpp": "15d6efba3daf1076c9c833b54c9c0af684bc8bba731c8438e6dc0524253068e2",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
         "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/WaterLevel62/LiveComparison.hpp": "9cd1f09e58236513b5fb97e1267f08fb6496f56592d4570bfc034c6f01562645",
-        "reversing/WaterLevel62/Core.hpp": "2f144517c4845436b14f58458cf67bb7cf368f259230b27fd6dafa58a919e6de",
-        "reversing/WaterLevel62/Cases.hpp": "bb241ffa0f5f7215dd03a35a3332dcc487e91425924d6cbaaa60f478e1b96d17",
-        "reversing/WaterLevel62/Fixtures.hpp": "3d5b17d1e3b626e21a7f6dd0102213684383b115a4e7e562357c987f11a46bbd",
+        "reversing/WaterLevel62/LiveComparison.hpp": "030ba418ff33ac8aa9674eee20e11db3c4349608e8b0970438c99fb81ac12652",
+        "reversing/WaterLevel62/Core.hpp": "a469b2562e9a3b0168b29afdad2f82a2b27654baa2ea3893c18099a6731224f1",
+        "reversing/WaterLevel62/Cases.hpp": "8d3c6770666d5bdad4f25b2985cf9fb5cfad6529abbb350e1ff07204fe09aa72",
+        "reversing/WaterLevel62/Fixtures.hpp": "2f012e8b09b5ade3c1a173dc7d40d17f449cbe8871aff87b8b30222ea90cee33",
         "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
         "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
       },
@@ -35723,6 +35723,150 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree sobre main e154848ab (lote 92B) con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, cuando tienen hook RH en la DLL (apagado durante el banco), en su cuerpo del ASI: CTaskManager::GetActiveTask 0x681720, CEventGroup::Add 0x4AB420 (devuelve un valor del caso), CEntity::RegisterReference 0x571B70 y CleanUpOldReference 0x571A00; sin hook (la DLL los llama por su direccion del EXE): 0x6034B0 (explorador de la lista de un sector), 0x5FFFD0 (explorador de un efecto), 0x5FE960 (la lista de usuarios admite el tipo de ped), 0x600180 (mejor candidato) y 0x603570 (usuario del efecto). Registran sus argumentos en orden y, en Add, los campos definidos del evento (tipo por GetEventType virtual). NO se sustituyen y corren de verdad en ambos lados: el temporizador en linea, CAttractorScanner::Clear 0x5FFF90 (hook activo), CTask::GetTaskType sobre una arena con vtabla propia, los constructores y destructores de CEventAttractor (0x4AF350, hook activo) y CEventScriptedAttractor frente al destructor del EXE 0x4AF400, y toda la aritmetica x87 del EXE frente al C++ de la DLL, con CTimer::m_snTimeInMilliseconds (0xB7CB84), CScripted2dEffects::ms_activated (0xC3A1A0) y ms_userLists (0xC3A200) como memoria real del juego restaurada tras cada lado. AttractorScanner.cpp se compila completo con /O2 /Oi /arch:IA32 /fp:fast (por Clear); el banco comprueba la funcion nueva compilada asi. El banco compara los eventos de los falsos con todos sus argumentos, los bytes cambiados de todas las arenas y los punteros +0x10/+0x14 del escaner como etiquetas de arena; cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: ped sin matriz y sin placement valido, mas de 16 efectos activados a la vez, bucles de sectores mayores de 256 eventos, NaN con cargas distintas de 0xFFC00000, NaN senalizantes, tareas con GetTaskType que escriben y valores de retorno de los falsos.",
       "review_reference": "reversing/Fn92C/README.md"
+    },
+    {
+      "hook": {
+        "class": "CWaterLevel",
+        "fn_name": "AddToQuadsAndTrianglesList",
+        "address": "0x006E5750",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn91A/validation-summary.json",
+        "sha256": "780831e1ed346d6b2164e2f3857265f503e069850450101965c372c101e212fd",
+        "passed_path": [
+          "covered_functions",
+          "CWaterLevel::AddToQuadsAndTrianglesList"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/X87Math.cpp": "15d6efba3daf1076c9c833b54c9c0af684bc8bba731c8438e6dc0524253068e2",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+        "source/game_sa/WaterLevel.cpp": "c6d7c2c2ad4c279bd143b0f624d7dfff5a72cca203c60db3bf7893362c381712",
+        "source/game_sa/WaterLevel.h": "65434b95ae91278a4d9481cc540d4ec0021d0de8729fa2c86cd4ac82c815c1a4",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn91A/LiveComparison.hpp": "638c09d3383a2a815dec6ad2f052bbe55bae6f7ea150ece93e735cbc8ade6586",
+        "reversing/Fn91A/Core.hpp": "16525946595c8551df3f7ec1c62d56545bd32c2fdbb909f7bd71afeb4ab24e2d",
+        "reversing/Fn91A/Fixtures.hpp": "06c4ab19f7919cfeec9e43557d8a39d63de4dd4f89e2d1657fcb3ac6ee239956",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree D:/Original/wm-1 (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (los tres tienen hook RH, apagado durante el banco): FlushWaterRenderBuffer 0x6E7680 (rectangulo y triangulo; no renderiza: anota los contadores previos y deja los del caso), CWaterLevel::CalculateWavesOnlyForCoordinate 0x6E6EF0 (rectangulo y triangulo; escribe altura, multiplicador de color, brillo y normal segun el caso y, en algunos casos, modifica los contadores tras una llamada) y CWorld::ProcessVerticalLine 0x5674E0 (GetGroundLevel). Registran sus argumentos en orden. Corren de verdad en ambos lados: toda la aritmetica x87 de 24 bits (ayudantes Wl91* de X87Math frente a la x87 del EXE), la camara (posicion del placement o de una matriz propia), la atenuacion por distancia, los colores, los vertices, los indices y los contadores. Memoria real del juego restaurada tras cada lado: bufer temporal de agua, contador y tablas de color, combinaciones y bloques, desplazamientos de textura, normal de las olas, distancia de detalle y alfas. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: halfX o halfY iguales a cero (#DE), capa 2 del triangulo (el EXE multiplica por una ranura de pila sin inicializar; nunca la usa), NaN con cargas distintas de 0xFFC00000, NaN senalizantes, rejillas de mas de 441 vertices, bloques fuera de 12 x 12 y contadores fuera de los buferes.",
+      "review_reference": "reversing/Fn91A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CWaterLevel",
+        "fn_name": "GetGroundLevel",
+        "address": "0x006EA8A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn91A/validation-summary.json",
+        "sha256": "780831e1ed346d6b2164e2f3857265f503e069850450101965c372c101e212fd",
+        "passed_path": [
+          "covered_functions",
+          "CWaterLevel::GetGroundLevel"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/X87Math.cpp": "15d6efba3daf1076c9c833b54c9c0af684bc8bba731c8438e6dc0524253068e2",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+        "source/game_sa/WaterLevel.cpp": "c6d7c2c2ad4c279bd143b0f624d7dfff5a72cca203c60db3bf7893362c381712",
+        "source/game_sa/WaterLevel.h": "65434b95ae91278a4d9481cc540d4ec0021d0de8729fa2c86cd4ac82c815c1a4",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn91A/LiveComparison.hpp": "638c09d3383a2a815dec6ad2f052bbe55bae6f7ea150ece93e735cbc8ade6586",
+        "reversing/Fn91A/Core.hpp": "16525946595c8551df3f7ec1c62d56545bd32c2fdbb909f7bd71afeb4ab24e2d",
+        "reversing/Fn91A/Fixtures.hpp": "06c4ab19f7919cfeec9e43557d8a39d63de4dd4f89e2d1657fcb3ac6ee239956",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree D:/Original/wm-1 (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (los tres tienen hook RH, apagado durante el banco): FlushWaterRenderBuffer 0x6E7680 (rectangulo y triangulo; no renderiza: anota los contadores previos y deja los del caso), CWaterLevel::CalculateWavesOnlyForCoordinate 0x6E6EF0 (rectangulo y triangulo; escribe altura, multiplicador de color, brillo y normal segun el caso y, en algunos casos, modifica los contadores tras una llamada) y CWorld::ProcessVerticalLine 0x5674E0 (GetGroundLevel). Registran sus argumentos en orden. Corren de verdad en ambos lados: toda la aritmetica x87 de 24 bits (ayudantes Wl91* de X87Math frente a la x87 del EXE), la camara (posicion del placement o de una matriz propia), la atenuacion por distancia, los colores, los vertices, los indices y los contadores. Memoria real del juego restaurada tras cada lado: bufer temporal de agua, contador y tablas de color, combinaciones y bloques, desplazamientos de textura, normal de las olas, distancia de detalle y alfas. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: halfX o halfY iguales a cero (#DE), capa 2 del triangulo (el EXE multiplica por una ranura de pila sin inicializar; nunca la usa), NaN con cargas distintas de 0xFFC00000, NaN senalizantes, rejillas de mas de 441 vertices, bloques fuera de 12 x 12 y contadores fuera de los buferes.",
+      "review_reference": "reversing/Fn91A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CWaterLevel",
+        "fn_name": "RenderHighDetailWaterRectangle_OneLayer",
+        "address": "0x006E91D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn91A/validation-summary.json",
+        "sha256": "780831e1ed346d6b2164e2f3857265f503e069850450101965c372c101e212fd",
+        "passed_path": [
+          "covered_functions",
+          "CWaterLevel::RenderHighDetailWaterRectangle_OneLayer"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/X87Math.cpp": "15d6efba3daf1076c9c833b54c9c0af684bc8bba731c8438e6dc0524253068e2",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+        "source/game_sa/WaterLevel.cpp": "c6d7c2c2ad4c279bd143b0f624d7dfff5a72cca203c60db3bf7893362c381712",
+        "source/game_sa/WaterLevel.h": "65434b95ae91278a4d9481cc540d4ec0021d0de8729fa2c86cd4ac82c815c1a4",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn91A/LiveComparison.hpp": "638c09d3383a2a815dec6ad2f052bbe55bae6f7ea150ece93e735cbc8ade6586",
+        "reversing/Fn91A/Core.hpp": "16525946595c8551df3f7ec1c62d56545bd32c2fdbb909f7bd71afeb4ab24e2d",
+        "reversing/Fn91A/Fixtures.hpp": "06c4ab19f7919cfeec9e43557d8a39d63de4dd4f89e2d1657fcb3ac6ee239956",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree D:/Original/wm-1 (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (los tres tienen hook RH, apagado durante el banco): FlushWaterRenderBuffer 0x6E7680 (rectangulo y triangulo; no renderiza: anota los contadores previos y deja los del caso), CWaterLevel::CalculateWavesOnlyForCoordinate 0x6E6EF0 (rectangulo y triangulo; escribe altura, multiplicador de color, brillo y normal segun el caso y, en algunos casos, modifica los contadores tras una llamada) y CWorld::ProcessVerticalLine 0x5674E0 (GetGroundLevel). Registran sus argumentos en orden. Corren de verdad en ambos lados: toda la aritmetica x87 de 24 bits (ayudantes Wl91* de X87Math frente a la x87 del EXE), la camara (posicion del placement o de una matriz propia), la atenuacion por distancia, los colores, los vertices, los indices y los contadores. Memoria real del juego restaurada tras cada lado: bufer temporal de agua, contador y tablas de color, combinaciones y bloques, desplazamientos de textura, normal de las olas, distancia de detalle y alfas. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: halfX o halfY iguales a cero (#DE), capa 2 del triangulo (el EXE multiplica por una ranura de pila sin inicializar; nunca la usa), NaN con cargas distintas de 0xFFC00000, NaN senalizantes, rejillas de mas de 441 vertices, bloques fuera de 12 x 12 y contadores fuera de los buferes.",
+      "review_reference": "reversing/Fn91A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CWaterLevel",
+        "fn_name": "RenderHighDetailWaterTriangle_OneLayer",
+        "address": "0x006E8780",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn91A/validation-summary.json",
+        "sha256": "780831e1ed346d6b2164e2f3857265f503e069850450101965c372c101e212fd",
+        "passed_path": [
+          "covered_functions",
+          "CWaterLevel::RenderHighDetailWaterTriangle_OneLayer"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/X87Math.cpp": "15d6efba3daf1076c9c833b54c9c0af684bc8bba731c8438e6dc0524253068e2",
+        "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+        "source/game_sa/WaterLevel.cpp": "c6d7c2c2ad4c279bd143b0f624d7dfff5a72cca203c60db3bf7893362c381712",
+        "source/game_sa/WaterLevel.h": "65434b95ae91278a4d9481cc540d4ec0021d0de8729fa2c86cd4ac82c815c1a4",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn91A/LiveComparison.hpp": "638c09d3383a2a815dec6ad2f052bbe55bae6f7ea150ece93e735cbc8ade6586",
+        "reversing/Fn91A/Core.hpp": "16525946595c8551df3f7ec1c62d56545bd32c2fdbb909f7bd71afeb4ab24e2d",
+        "reversing/Fn91A/Fixtures.hpp": "06c4ab19f7919cfeec9e43557d8a39d63de4dd4f89e2d1657fcb3ac6ee239956",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree D:/Original/wm-1 (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (los tres tienen hook RH, apagado durante el banco): FlushWaterRenderBuffer 0x6E7680 (rectangulo y triangulo; no renderiza: anota los contadores previos y deja los del caso), CWaterLevel::CalculateWavesOnlyForCoordinate 0x6E6EF0 (rectangulo y triangulo; escribe altura, multiplicador de color, brillo y normal segun el caso y, en algunos casos, modifica los contadores tras una llamada) y CWorld::ProcessVerticalLine 0x5674E0 (GetGroundLevel). Registran sus argumentos en orden. Corren de verdad en ambos lados: toda la aritmetica x87 de 24 bits (ayudantes Wl91* de X87Math frente a la x87 del EXE), la camara (posicion del placement o de una matriz propia), la atenuacion por distancia, los colores, los vertices, los indices y los contadores. Memoria real del juego restaurada tras cada lado: bufer temporal de agua, contador y tablas de color, combinaciones y bloques, desplazamientos de textura, normal de las olas, distancia de detalle y alfas. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits). Fuera de los fixtures: halfX o halfY iguales a cero (#DE), capa 2 del triangulo (el EXE multiplica por una ranura de pila sin inicializar; nunca la usa), NaN con cargas distintas de 0xFFC00000, NaN senalizantes, rejillas de mas de 441 vertices, bloques fuera de 12 x 12 y contadores fuera de los buferes.",
+      "review_reference": "reversing/Fn91A/README.md"
     }
   ]
 }
