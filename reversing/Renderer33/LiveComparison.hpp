@@ -308,7 +308,7 @@ inline void Update() {
     add(0x7EE180,uintptr_t(&RwCameraEndUpdate),&FakeCamEnd);
     add(0x7EE190,uintptr_t(&RwCameraBeginUpdate),&FakeCamBegin);
     add(0x7EDD90,0,&FakeTransform);   // RwV3dTransformPoints de la DLL es un envoltorio del EXE
-    add(0x72CAE0,0,&FakeWorldScan);   // CWorldScan::ScanWorld de la DLL es un envoltorio del EXE
+    add(0x72CAE0,uintptr_t(&CWorldScan::ScanWorld),&FakeWorldScan);   // CWorldScan::ScanWorld se convirtio a C++ despues de la evidencia: el mismo falso en el cuerpo de la DLL
     add(0x56E210,uintptr_t(static_cast<CPlayerPed*(*)(int32)>(&FindPlayerPed)),&FakeFindPlayerPed);
     add(0x56E0D0,uintptr_t(static_cast<CVehicle*(*)(int32,bool)>(&FindPlayerVehicle)),&FakeFindPlayerVehicle);
     add(0x52CEE0,uintptr_t(&CClock::GetIsTimeInRange),&FakeTimeInRange);
