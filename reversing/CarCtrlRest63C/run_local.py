@@ -20,7 +20,7 @@ HOOKS = {NAMES[0]: 0x432B10, NAMES[1]: 0x42F5A0, NAMES[2]: 0x42F870}
 STUBBED = {
     NAMES[0]: [(0x56E010, True), (0x56E0D0, True), (0x426EF0, True), (0x427740, True), (0x42DE80, True)],
     NAMES[1]: [(0x44FCE0, True), (0x42B470, True)],
-    NAMES[2]: [(0x4515D0, True), (0x44E4F0, False), (0x41B950, True), (0x42B470, True), (0x42F5A0, False)],
+    NAMES[2]: [(0x4515D0, True), (0x44E4F0, True), (0x41B950, True), (0x42B470, True), (0x42F5A0, False)],
 }
 WATCHED = {a for lst in STUBBED.values() for a, _ in lst}
 # Cobertura minima (calibrada con la primera corrida; con margen): [funcion] -> {clave: minimo de casos}

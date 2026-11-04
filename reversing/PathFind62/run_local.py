@@ -18,10 +18,10 @@ EXPECTED = {n: CASES for n in NAMES}
 GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh_restored', 'route_ok', 'collaborators_dll', 'globals_restored', 'floating_state_restored')
 HOOKS = {NAMES[0]: 0x44F460, NAMES[1]: 0x44F8C0, NAMES[2]: 0x451B70, NAMES[3]: 0x452270, NAMES[4]: 0x4513F0, NAMES[5]: 0x44ECA0}
 STUBBED = {
-    NAMES[0]: [(0x44F2C0, False)],
+    NAMES[0]: [(0x44F2C0, True)],
     NAMES[1]: [(0x44F460, True)],
     NAMES[2]: [(0x44F460, True)],
-    NAMES[3]: [(0x72F420, True), (0x450FB0, False), (0x44E000, True)],
+    NAMES[3]: [(0x72F420, True), (0x450FB0, True), (0x44E000, True)],
     NAMES[4]: [],
     NAMES[5]: [(0x821B1E, False), (0x5696C0, True)],
 }

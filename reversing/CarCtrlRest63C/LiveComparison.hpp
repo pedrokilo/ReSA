@@ -60,7 +60,7 @@ inline void Update() {
     env.stubs[1]={{Pair{0x44FCE0,DllBody(&CPathFind::FindNodeClosestToCoorsFavourDirection),true},reinterpret_cast<void*>(&FakeFavour)},
                   {Pair{0x42B470,DllBody(&CCarCtrl::FindLinksToGoWithTheseNodes),true},reinterpret_cast<void*>(&FakeFindLinks<51>)}};
     env.stubs[2]={{Pair{0x4515D0,DllBody(&CPathFind::DoPathSearch),true},reinterpret_cast<void*>(&FakeDoPathSearch)},
-                  {Pair{0x44E4F0,0,false},reinterpret_cast<void*>(&FakeRemoveBad)},
+                  {Pair{0x44E4F0,DllBody(&CPathFind::RemoveBadStartNode),true},reinterpret_cast<void*>(&FakeRemoveBad)},   // lote 93A: RemoveBadStartNode reconstruida (hook S): falso identico en el EXE y en el cuerpo de la DLL
                   {Pair{0x41B950,DllBody(&CAutoPilot::RemoveOnePathNode),true},reinterpret_cast<void*>(&FakeRemoveOne)},
                   {Pair{0x42B470,DllBody(&CCarCtrl::FindLinksToGoWithTheseNodes),true},reinterpret_cast<void*>(&FakeFindLinks<73>)},
                   {Pair{0x42F5A0,DllBody(&CCarCtrl::JoinCarWithRoadSystem),false},reinterpret_cast<void*>(&FakeJoin)}};

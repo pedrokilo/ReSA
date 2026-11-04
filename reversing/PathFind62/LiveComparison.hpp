@@ -46,6 +46,8 @@ inline void Update() {
     const uintptr_t bodyMalloc=DllBody(static_cast<void*(*)(uint32,uint32)>(&CMemoryMgr::Malloc));
     const uintptr_t bodyAddDyn=DllBody(&CPathFind::AddDynamicLinkBetween2Nodes_For1Node);
     const uintptr_t bodyGround=DllBody(&CWorld::FindGroundZFor3DCoord);
+    const uintptr_t bodyRegion=DllBody(&CPathFind::FindNodeClosestInRegion);    // lote 93A: 0x44F2C0 reconstruida (hook S)
+    const uintptr_t bodyLink=DllBody(&CPathFind::StoreInteriorNodeLink);          // lote 93A: 0x450FB0 reconstruida (hook S)
     // Rutas RH: el constructor deja cada hook apagado.
     const struct {unsigned idx;const char* fn;uintptr_t entry;} routes[kFns]{
         {0,"FindNodeClosestToCoors",0x44F460},{1,"FindNthNodeClosestToCoors",0x44F8C0},{2,"FindNextNodeWandering",0x451B70},
@@ -55,11 +57,11 @@ inline void Update() {
         registered[kFn[r.idx]]=env.route[r.idx]->Registered();bodies[kFn[r.idx]]=env.route[r.idx]->Body()!=0;
         ready&=env.route[r.idx]->Registered()&&env.route[r.idx]->Body()&&ModuleOf(env.route[r.idx]->Body())==env.asi;
     }
-    env.stubs[0]={{Pair{0x44F2C0,0,false},reinterpret_cast<void*>(&FakeRegion)}};      // 0x44F2C0 sin reconstruir: la DLL llama a la direccion del EXE
+    env.stubs[0]={{Pair{0x44F2C0,bodyRegion,true},reinterpret_cast<void*>(&FakeRegion)}};  // 0x44F2C0 (lote 93A): falso identico en el EXE y en el cuerpo de la DLL
     env.stubs[1]={{Pair{0x44F460,bodyClosest,true},reinterpret_cast<void*>(&FakeFind)}};
     env.stubs[2]={{Pair{0x44F460,bodyClosest,true},reinterpret_cast<void*>(&FakeFind)}};
     env.stubs[3]={{Pair{0x72F420,bodyMalloc,true},reinterpret_cast<void*>(&FakeMalloc)},
-                  {Pair{0x450FB0,0,false},reinterpret_cast<void*>(&FakeLink)},               // 0x450FB0 sin reconstruir
+                  {Pair{0x450FB0,bodyLink,true},reinterpret_cast<void*>(&FakeLink)},             // 0x450FB0 (lote 93A): falso identico en el EXE y en el cuerpo de la DLL
                   {Pair{0x44E000,bodyAddDyn,true},reinterpret_cast<void*>(&FakeAddDyn)}};
     env.stubs[5]={{Pair{0x821B1E,0,false},reinterpret_cast<void*>(&FakeRand)},                // rand() del CRT del EXE
                   {Pair{0x5696C0,bodyGround,true},reinterpret_cast<void*>(&FakeGround)}};
