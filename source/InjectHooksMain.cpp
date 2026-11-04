@@ -886,6 +886,7 @@ void InjectHooksMain() {
     CWeather::InjectHooks();
     CPathFind::InjectHooks();
     CPathNode::InjectHooks();
+    CCarPathLink::InjectHooks();
     CNodeAddress::InjectHooks();
     CNodeRoute::InjectHooks();
     CAutoPilot::InjectHooks();

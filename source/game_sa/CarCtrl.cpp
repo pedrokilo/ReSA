@@ -2711,8 +2711,8 @@ void CCarCtrl::JoinCarWithRoadSystem(CVehicle* vehicle) {
 // 0x42F870
 bool CCarCtrl::JoinCarWithRoadSystemGotoCoors(CVehicle* vehicle, const CVector& posn, bool unused, bool bIsBoat) {
     // Como el original (0x42F870..0x42F9B6). El destino se copia tal cual (bits) a +0x3EC; DoPathSearch(tipo 0, posicion del vehiculo, [0x8A5F44] (direccion invalida), destino, ruta (+0x3F8), contador (+0x418),
-    // 8, sin distancia, 1000000.0f (0x497423FE), sin nodo de destino, 1000000.0f, bit 6 de +0x3DB, [0x8A5F44] (prohibido), modelo == 539 (0x21B), bIsBoat); RemoveBadStartNode (0x44E4F0, sin reconstruir:
-    // por direccion) con la posicion releida; si el contador (releido, con signo) es < 2: JoinCarWithRoadSystem y contador = 0 -> true; si no: actual = ruta[0] (+0x390), +0x398 (area) = 0xFFFF,
+    // 8, sin distancia, 1000000.0f (0x497423FE), sin nodo de destino, 1000000.0f, bit 6 de +0x3DB, [0x8A5F44] (prohibido), modelo == 539 (0x21B), bIsBoat); RemoveBadStartNode (0x44E4F0, reconstruida
+    // en PathFind.cpp) con la posicion releida; si el contador (releido, con signo) es < 2: JoinCarWithRoadSystem y contador = 0 -> true; si no: actual = ruta[0] (+0x390), +0x398 (area) = 0xFFFF,
     // RemoveOnePathNode, siguiente = ruta[0] (+0x394), RemoveOnePathNode, FindLinksToGoWithTheseNodes, carriles (+0x3B7, +0x3B8) = 0 -> false.
     auto& autoPilot = vehicle->m_autoPilot;
     std::memcpy(&autoPilot.m_vecDestinationCoors, &posn, sizeof(CVector));
@@ -2722,7 +2722,7 @@ bool CCarCtrl::JoinCarWithRoadSystemGotoCoors(CVehicle* vehicle, const CVector& 
     const CNodeAddress invalidAddress = StaticRef<CNodeAddress>(0x8A5F44);
     ThePaths.DoPathSearch(static_cast<ePathType>(0), vehicle->GetPosition(), invalidAddress, posn, nodes, count, 8, nullptr, std::bit_cast<float>(0x497423FEu), nullptr,
                           std::bit_cast<float>(0x497423FEu), autoPilot.carCtrlFlags.bCantGoAgainstTraffic, StaticRef<CNodeAddress>(0x8A5F44), isVortex, bIsBoat);
-    plugin::CallMethod<0x44E4F0, CPathFind*, CVector, CNodeAddress*, int16*>(&ThePaths, vehicle->GetPosition(), nodes, &count);
+    ThePaths.RemoveBadStartNode(vehicle->GetPosition(), nodes, &count);
     if (count < 2) {
         JoinCarWithRoadSystem(vehicle);
         count = 0;

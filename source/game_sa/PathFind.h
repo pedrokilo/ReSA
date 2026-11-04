@@ -99,6 +99,8 @@ public:
         return (float)m_nPathNodeWidth;
     }
 
+    static void InjectHooks();
+
     // 0x44DB00: opp = bits 0-2 y same = bits 3-5 de +0xB; ancho = byte sin signo de +0xA. x87 a 24 bits: cada operacion se redondea a float.
     float OneWayLaneOffset() const {
         const uint8* const raw = reinterpret_cast<const uint8*>(this);
@@ -256,7 +258,12 @@ public:
     void AddNodeToList(CPathNode* node, int32 distFromOrigin);
 
     float CalcDistToAnyConnectingLinks(CPathNode* node, CVector pos);
-    void FindNodeClosestInRegion(CNodeAddress* outAddress, uint16 areaId, CVector pos, uint8 nodeType, float* outDist, bool bLowTraffic, bool bUnkn, bool bBoats, bool bUnused);
+    // 0x44F2C0: los cuatro ultimos argumentos son dwords en la pila de los que el EXE solo lee el byte bajo (por eso uint8, no bool: bBoats se compara con el bit de agua tal cual).
+    void FindNodeClosestInRegion(CNodeAddress* outAddress, uint16 areaId, CVector pos, uint8 nodeType, float* outDist, uint8 bLowTraffic, uint8 bUnkn, uint8 bBoats, uint8 bUnused);
+
+    // 0x450FB0 (cdecl, sin this: usa las matrices globales de ThePaths): guarda en el enlace numero *linkCounter de la ranura de interior `slot` (area slot + 0x40) el nodo (areaB, nodeB),
+    // su longitud (distancia entre (areaA, nodeA) y (areaB, nodeB), 1 como minimo y 255 como maximo) y sin interseccion, suma uno al contador de enlaces del nodo (nibble bajo del byte +0x18) y al contador.
+    static void StoreInteriorNodeLink(int32 areaA, int32 nodeA, int32 areaB, int32 nodeB, int32 slot, int32* linkCounter);
 
     /*!
     * @addr 0x44D230

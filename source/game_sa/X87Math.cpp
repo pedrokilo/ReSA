@@ -18040,5 +18040,41 @@ __declspec(noinline) void __cdecl Wl91Amps(double f, double big, float smallV, f
 __declspec(noinline) int __cdecl Wl91ColorByte(int byteValue, float mult) {
     volatile double p = static_cast<double>(byteValue) * static_cast<double>(mult);
     return static_cast<int>(static_cast<long long>(p));
+// --- Lote 93A: CPathFind::RemoveBadStartNode (0x44E4F0) y CPathFind::FindNodeClosestInRegion (0x44F2C0), prefijo PathFind93. ---
+// Tramos x87 de 24 bits con exponente ampliado: lo que el EXE deja en registro se calcula como double (cada operacion redondea a 24 bits) y solo lo que guarda con fstp dword se redondea a float.
+// Los subnormales y los productos diminutos se conservan (la SSE de la DLL, con el MXCSR del juego, los vaciaria a cero).
+#pragma float_control(precise, on, push)
+// 0x44E58E..0x44E5CB: t1 = float(y1 - py) (fstp); a = (y0 - py) * t1; b = (x1 - px) * (x0 - px); true si a + b < 0 (ordenado: con NaN da false). node0, node1 y pos apuntan a x, y, z.
+__declspec(noinline) bool __cdecl PathFind93BadStartDotNegativeCpp(const float* node0, const float* node1, const float* pos) {
+    volatile float  t1  = node1[1] - pos[1];
+    volatile double y0  = static_cast<double>(node0[1]) - static_cast<double>(pos[1]);
+    volatile double a   = y0 * static_cast<double>(t1);
+    volatile double x1  = static_cast<double>(node1[0]) - static_cast<double>(pos[0]);
+    volatile double x0  = static_cast<double>(node0[0]) - static_cast<double>(pos[0]);
+    volatile double b   = x1 * x0;
+    volatile double sum = a + b;
+    return sum < 0.0;
+}
+// 0x44F37F..0x44F3E4: puntuacion D = (((|z - pz| * 3.0f) + |y - py|) + |x - px|) * 0.3f en registro; *scoreStored = float(D) (fst) y true si D < *outDist (ordenado). node y pos apuntan a x, y, z.
+__declspec(noinline) bool __cdecl PathFind93RegionScoreCpp(const float* node, const float* pos, const float* outDist, float* scoreStored) {
+    volatile double dz    = static_cast<double>(node[2]) - static_cast<double>(pos[2]);
+    volatile double zterm = fabs(dz) * 3.0;
+    volatile double dy    = static_cast<double>(node[1]) - static_cast<double>(pos[1]);
+    volatile double s1    = zterm + fabs(dy);
+    volatile double dx    = static_cast<double>(node[0]) - static_cast<double>(pos[0]);
+    volatile double s2    = s1 + fabs(dx);
+    volatile double score = s2 * static_cast<double>(0.3f);
+    *scoreStored          = static_cast<float>(score);
+    return score < static_cast<double>(*outDist);
+}
+// 0x44F407..0x44F428: E = linkDistance * 0.2f + scoreStored en registro; si E < *outDist (ordenado) guarda float(E) en *outDist (fstp) y devuelve true.
+__declspec(noinline) bool __cdecl PathFind93RegionTotalCpp(float linkDistance, float scoreStored, float* outDist) {
+    volatile double scaled = static_cast<double>(linkDistance) * static_cast<double>(0.2f);
+    volatile double total  = scaled + static_cast<double>(scoreStored);
+    if (total < static_cast<double>(*outDist)) {
+        *outDist = static_cast<float>(total);
+        return true;
+    }
+    return false;
 }
 #pragma float_control(pop)

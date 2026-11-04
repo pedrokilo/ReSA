@@ -2364,7 +2364,7 @@ L_0043100D:;
     St<float>((F+528),Veh83DStore(x1));
     // 0043110A: fstp st(0)
     // 0043110C: call 0044DB00
-    x0=(double)((float(__fastcall*)(uint32,uint32))0x44DB00)(ecx,edx);
+    x0=(double)reinterpret_cast<const CCarPathLink*>(static_cast<uintptr_t>(ecx))->OneWayLaneOffset();
     // 00431111: movzx ecx,word ptr [esi+000003A6h]
     ecx=(uint32)(Ld<uint16>((uintptr_t)(uint32)(esi+0x3A6u)));
     // 00431118: movsx eax,byte ptr [esi+000003B7h]
@@ -2390,7 +2390,7 @@ L_0043100D:;
     // 00431144: fstp dword ptr [esp+28h]
     St<float>((F+476),Veh83DStore(x0));
     // 00431148: call 0044DB00
-    x0=(double)((float(__fastcall*)(uint32,uint32))0x44DB00)(ecx,edx);
+    x0=(double)reinterpret_cast<const CCarPathLink*>(static_cast<uintptr_t>(ecx))->OneWayLaneOffset();
     // 0043114D: movsx eax,byte ptr [esi+000003B8h]
     eax=(uint32)((uint32)(int32)(int8)(Ld<uint8>((uintptr_t)(uint32)(esi+0x3B8u))));
     // 00431154: mov dword ptr [esp+10h],eax

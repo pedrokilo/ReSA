@@ -9067,3 +9067,8 @@ D3DTextureBuffer,PushWithoutIncreasingCounter,0x00730AD0,1,0,1,S
 D3DIndexDataBuffer,Pop-Size,0x00730270,1,0,1,S
 D3DIndexDataBuffer,Resize,0x00730330,1,0,1,S
 D3DIndexDataBuffer,GetTotalDataSize,0x007303B0,1,0,1,S
+CCarPathLink,OneWayLaneOffset,0x0044DB00,1,0,1,S
+CPathFind,RemoveBadStartNode,0x0044E4F0,1,0,1,S
+CPathFind,StoreInteriorNodeLink,0x00450FB0,1,0,1,S
+CPathFind,CalcDistToAnyConnectingLinks,0x0044F190,1,0,1,S
+CPathFind,FindNodeClosestInRegion,0x0044F2C0,1,0,1,S

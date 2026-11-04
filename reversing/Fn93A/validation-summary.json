@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "pairs": 81920,
+  "differences": 0,
+  "registered_pairs": 81920,
+  "registered_functions": 5,
+  "functions": {
+    "CCarPathLink::OneWayLaneOffset": 16384,
+    "CPathFind::RemoveBadStartNode": 16384,
+    "CPathFind::StoreInteriorNodeLink": 16384,
+    "CPathFind::CalcDistToAnyConnectingLinks": 16384,
+    "CPathFind::FindNodeClosestInRegion": 16384
+  },
+  "covered_functions": {
+    "CCarPathLink::OneWayLaneOffset": true,
+    "CPathFind::RemoveBadStartNode": true,
+    "CPathFind::StoreInteriorNodeLink": true,
+    "CPathFind::CalcDistToAnyConnectingLinks": true,
+    "CPathFind::FindNodeClosestInRegion": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en un worktree sobre main 329ab605c con los cambios del lote (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y, como tienen hook RH en la DLL (apagado durante el banco), en su cuerpo del ASI: CalcDistToAnyConnectingLinks: CCollision::DistToLineSqr 0x412850; FindNodeClosestInRegion: CalcDistToAnyConnectingLinks 0x44F190. Los falsos registran sus argumentos en orden y devuelven el resultado k del caso. NO se sustituyen y corren de verdad en ambos lados: CPathNode::GetPosition 0x420A10 (hook activo) y toda la aritmetica x87 del EXE frente al C++ de la DLL (con ayudantes x87 de X87Math.cpp donde el SSE con FTZ difiere). Memoria real del juego restaurada tras cada lado: las matrices de punteros de ThePaths 0x96F854..0x96FDF4 (StoreInteriorNodeLink, que usa globales sin this). El banco compara los eventos de los falsos con todos sus argumentos, los bytes cambiados de todas las arenas y el ST0 devuelto (funciones 0 y 3); cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits y memoria predicha). Fuera de los fixtures: indices de nodo fuera de los bancos de 8/12 nodos, areas fuera de 0..71, contadores de enlaces mayores que la capacidad, nodeA con mas de -2 como byte con signo, NaN con cargas distintas de 0xFFC00000, NaN senalizantes y la exactitud de los colaboradores falseados (que se hereda).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn93A-20261104-085338-827794",
+  "summary_sha256": "13786ac68ef9ef524713a9dffa47f87f5a97efdcc2bbbd01edbe5e06649dbbbe",
+  "result_txt_sha256": "08ef7347e89c08a279b6055059da48712b67aaa2c705f3df4a0f623265a1657c",
+  "log_sha256": "7e066e1f4f8c1800ded57cb833f44b80dbd66d92de1f85cc3d5e37caf8aa92be",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "82e18a3a1d8361ac8d0412d3ef28d8372b14378e90f9d22856bb9a10b98359c5",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
+      "source/InjectHooksMain.cpp": "08af20ae7b3d770242096d83f63478ec08367935398d231ddf98aafcba02c670",
+      "source/game_sa/X87Math.cpp": "102e2f5a4df65cb2825bce309826d187fc64d728cd4b97afbc457a34bf992d92",
+      "source/game_sa/X87Math.h": "1e23123be00211e8d165c0416185d8d71875872297f96cc81256013771a206d0",
+      "source/game_sa/PathFind.cpp": "3ee87e27d81ce3e85508a7128e58c7ebd2f4bb1262293d79486ea4866713287e",
+      "source/game_sa/PathFind.h": "32bbd5b3b7d64da71c781243c006ab29c01133eb3a1b65ca06b862e0a76e082d",
+      "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
+      "source/game_sa/CarCtrlGenerateOneRandomCar.inl": "c598caed7c24b87d58bd61e0b2a84e1354abf8b8d421f59b5c570e06dec84b89",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn93A/LiveComparison.hpp": "5cb0f22ceab292116fc1f7935c6b55a71b512120603641c67d6da57a9190ebb4",
+      "reversing/Fn93A/Core.hpp": "e16f2af131893ee6ed135271254df3930e984d0e3557c5839d8c0c88b2aa43be",
+      "reversing/Fn93A/Fixtures.hpp": "be1ddc50aba8dfbfb91d6b3f3d2080f6f7465c788fb346c0eccb745e998fb29d",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+    }
+  }
+}

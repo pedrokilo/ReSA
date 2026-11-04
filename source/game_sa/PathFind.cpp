@@ -35,8 +35,14 @@ END GENERATED HOOK STATUS */
 
 #include "PathFind.h"
 #include "X87Math.h"
+#include "Collision/Collision.h"
 
 #include <reversiblebugfixes/Bugs.hpp>
+
+// Ayudantes x87 del lote 93A (definidos al final de X87Math.cpp; declarados aqui para no recompilar todo el proyecto al tocar X87Math.h).
+bool __cdecl PathFind93BadStartDotNegativeCpp(const float* node0, const float* node1, const float* pos);                                // RemoveBadStartNode: producto escalar < 0
+bool __cdecl PathFind93RegionScoreCpp(const float* node, const float* pos, const float* outDist, float* scoreStored);                    // FindNodeClosestInRegion: puntuacion < *outDist
+bool __cdecl PathFind93RegionTotalCpp(float linkDistance, float scoreStored, float* outDist);                                          // FindNodeClosestInRegion: puntuacion total < *outDist (la guarda)
 
 // 0x44EFC0
 // Como el original (130 instrucciones, 0x44EFC0..0x44F186): recorre las 64 areas del mapa y, por cada nodo de vehiculos a menos de 80 unidades
@@ -217,8 +223,10 @@ void CPathFind::InjectHooks() {
     RH_ScopedInstall(FindLinkBetweenNodes, 0x451350);
     RH_ScopedInstall(ReturnInteriorNodeIndex, 0x451300);
     RH_ScopedInstall(FindNthNodeClosestToCoors, 0x44F8C0);
-    //RH_ScopedInstall(FindNodeClosestInRegion, 0x44F2C0);
-    //RH_ScopedInstall(CalcDistToAnyConnectingLinks, 0x44F190);
+    RH_ScopedInstall(FindNodeClosestInRegion, 0x44F2C0);
+    RH_ScopedInstall(CalcDistToAnyConnectingLinks, 0x44F190);
+    RH_ScopedInstall(RemoveBadStartNode, 0x44E4F0);
+    RH_ScopedInstall(StoreInteriorNodeLink, 0x450FB0);
     RH_ScopedInstall(CalcRoadDensity, 0x44EFC0);
     RH_ScopedInstall(TestForPedTrafficLight, 0x44D480);
     RH_ScopedInstall(UnMarkAllRoadNodesAsDontWander, 0x44D400);
@@ -247,6 +255,12 @@ void CPathNode::InjectHooks() {
     RH_ScopedClass(CPathNode);
     RH_ScopedCategoryGlobal();
     RH_ScopedInstall(GetPosition, 0x420A10);
+}
+
+void CCarPathLink::InjectHooks() {
+    RH_ScopedClass(CCarPathLink);
+    RH_ScopedCategoryGlobal();
+    RH_ScopedInstall(OneWayLaneOffset, 0x44DB00);
 }
 
 // 0x44D080
@@ -1243,8 +1257,125 @@ bool CPathFind::IsWaterNodeNearby(CVector position, float radius) {
     return false;
 }
 
+// 0x44E4F0 (lote 93A): si hay al menos dos nodos en la ruta y sus dos areas estan cargadas, y el producto (y0 - py) * (y1 - py) + (x1 - px) * (x0 - px) de los dos primeros nodos es
+// estrictamente negativo (ordenado: un NaN no lo cumple), quita el primer nodo (desplaza el resto una posicion y resta uno al contador). La aritmetica va por el x87 del EXE
+// (PathFind93BadStartDotNegativeCpp: el SSE con FTZ de la DLL vaciaria productos subnormales).
+void CPathFind::RemoveBadStartNode(CVector pos, CNodeAddress* nodes, int16* count) {
+    if (*count < 2) {
+        return;
+    }
+    if (!m_pPathNodes[nodes[0].m_wAreaId]) {
+        return;
+    }
+    if (!m_pPathNodes[nodes[1].m_wAreaId]) {
+        return;
+    }
+    const CVector position0 = m_pPathNodes[nodes[0].m_wAreaId][nodes[0].m_wNodeId].GetPosition();
+    const CVector position1 = m_pPathNodes[nodes[1].m_wAreaId][nodes[1].m_wNodeId].GetPosition();
+    if (!PathFind93BadStartDotNegativeCpp(&position0.x, &position1.x, &pos.x)) {
+        return;
+    }
+    const int16 remaining = static_cast<int16>(*count - 1);
+    *count                = remaining;
+    for (int16 i = 0; i < remaining; i++) {
+        nodes[i] = nodes[i + 1];
+    }
+}
+
+// 0x44F190 (lote 93A): distancia de pos al enlace mas cercano de los que salen del nodo (CCollision::DistToLineSqr entre el nodo y el nodo destino de cada enlace, 1.0e6f de partida; un
+// resultado NaN o igual al minimo lo sustituye) y su raiz. Los enlaces con el area destino sin cargar se saltan. El numero de enlaces se relee en cada vuelta, como el EXE. La comparacion y la raiz
+// van por el x87 (CloudsLessOrderedCpp / ShadowSqrtCpp): el SSE de la DLL trataria como cero los subnormales.
+float CPathFind::CalcDistToAnyConnectingLinks(CPathNode* node, CVector pos) {
+    float best = std::bit_cast<float>(0x497423FEu);
+    for (int32 i = 0; i < static_cast<int32>(node->m_nNumLinks & 0xFu); i++) {
+        const CNodeAddress link = m_pNodeLinks[node->m_wAreaId][static_cast<int16>(node->m_wBaseLinkId) + i];
+        if (!m_pPathNodes[link.m_wAreaId]) {
+            continue;
+        }
+        const CVector from   = node->GetPosition();
+        const CVector to     = m_pPathNodes[link.m_wAreaId][link.m_wNodeId].GetPosition();
+        const float   result = CCollision::DistToLineSqr(from, to, pos);
+        if (!CloudsLessOrderedCpp(best, result)) {
+            best = result;
+        }
+    }
+    return static_cast<float>(ShadowSqrtCpp(best));
+}
+
+// 0x44F2C0 (lote 93A): recorre los nodos de vehiculos (nodeType 0), los de peatones (1: desde el numero de nodos de vehiculos hasta el total) o ninguno (cualquier otro) del area, y guarda en *outAddress
+// el que tenga menor puntuacion si es menor que *outDist (que actualiza): puntuacion = ((|dz| * 3 + |dy|) + |dx|) * 0.3 y, si mejora a *outDist, + distancia a sus enlaces * 0.2
+// (CalcDistToAnyConnectingLinks). Se saltan los nodos apagados (bit 5 del byte +0x18) si bLowTraffic, los del bit 1 del byte +0x19 si bUnkn, y los cuyo bit de agua (bit 7 del byte +0x18)
+// no coincide con bBoats (byte entero). Sin nodos en el area no hace nada. Las dos puntuaciones van por el x87 (ver PathFind93RegionScoreCpp / PathFind93RegionTotalCpp).
+void CPathFind::FindNodeClosestInRegion(CNodeAddress* outAddress, uint16 areaId, CVector pos, uint8 nodeType, float* outDist, uint8 bLowTraffic, uint8 bUnkn, uint8 bBoats, uint8 bUnused) {
+    (void)bUnused;
+    if (!m_pPathNodes[areaId]) {
+        return;
+    }
+    int32 first;
+    int32 end;
+    if (nodeType == 0) {
+        first = 0;
+        end   = static_cast<int32>(m_anNumVehicleNodes[areaId]);
+    } else if (nodeType == 1) {
+        first = static_cast<int32>(m_anNumVehicleNodes[areaId]);
+        end   = static_cast<int32>(m_anNumNodes[areaId]);
+    } else {
+        return;
+    }
+    for (int32 i = first; i < end; i++) {
+        CPathNode* const   node  = &m_pPathNodes[areaId][i];
+        const uint8* const bytes = reinterpret_cast<const uint8*>(node);
+        if (bLowTraffic && (bytes[0x18] & 0x20)) {
+            continue;
+        }
+        if (bUnkn && (bytes[0x19] & 0x02)) {
+            continue;
+        }
+        if (bBoats != (bytes[0x18] >> 7)) {
+            continue;
+        }
+        const float nodePos[3] = {
+            static_cast<float>(*reinterpret_cast<const int16*>(bytes + 8)) * 0.125f,
+            static_cast<float>(*reinterpret_cast<const int16*>(bytes + 10)) * 0.125f,
+            static_cast<float>(*reinterpret_cast<const int16*>(bytes + 12)) * 0.125f,
+        };
+        float score = 0.0f;
+        if (!PathFind93RegionScoreCpp(nodePos, &pos.x, outDist, &score)) {
+            continue;
+        }
+        const float linkDistance = CalcDistToAnyConnectingLinks(node, pos);
+        if (PathFind93RegionTotalCpp(linkDistance, score, outDist)) {
+            outAddress->m_wAreaId = areaId;
+            outAddress->m_wNodeId = static_cast<uint16>(i);
+        }
+    }
+}
+
+// 0x450FB0 (lote 93A, cdecl, sin this: las matrices son las globales de ThePaths): ver PathFind.h. Los indices de nodo se usan como el EXE: nodeA como byte con signo (movsx), nodeB entero,
+// y las areas enteras; la posicion de cada nodo es int16 * 0.125 y la distancia sqrt((dz*dz + dy*dy) + dx*dx), sin subnormales ni desbordes (int16 / 8): el SSE de la DLL coincide con el
+// x87 de 24 bits. Longitud = parte entera de min(distancia, 255.0f) y 1 si es 0 (el EXE la calcula tres veces: el resultado es el mismo).
+void CPathFind::StoreInteriorNodeLink(int32 areaA, int32 nodeA, int32 areaB, int32 nodeB, int32 slot, int32* linkCounter) {
+    CNodeAddress* const link = &ThePaths.m_pNodeLinks[slot + 0x40][*linkCounter];
+    link->m_wNodeId          = static_cast<uint16>(nodeB);
+    link->m_wAreaId          = static_cast<uint16>(areaB);
+    const int32 offsetA      = static_cast<int8>(nodeA) * static_cast<int32>(sizeof(CPathNode));
+    const auto* const rawB   = reinterpret_cast<const uint8*>(ThePaths.m_pPathNodes[areaB]) + nodeB * static_cast<int32>(sizeof(CPathNode));
+    const auto* const rawA   = reinterpret_cast<const uint8*>(ThePaths.m_pPathNodes[areaA]) + offsetA;
+    const auto coord = [](const uint8* raw, int32 at) { return static_cast<float>(*reinterpret_cast<const int16*>(raw + at)) * 0.125f; };
+    const float dx   = coord(rawA, 8) - coord(rawB, 8);
+    const float dy   = coord(rawA, 10) - coord(rawB, 10);
+    const float dz   = coord(rawA, 12) - coord(rawB, 12);
+    const float dist = std::sqrt((dz * dz + dy * dy) + dx * dx);
+    const uint8 whole = static_cast<uint8>(static_cast<int32>(dist > 255.0f ? 255.0f : dist));
+    ThePaths.m_pLinkLengths[slot + 0x40][*linkCounter]       = whole < 1 ? 1 : whole;
+    ThePaths.m_pPathIntersections[slot + 0x40][*linkCounter] = {};
+    uint8* const flags = reinterpret_cast<uint8*>(ThePaths.m_pPathNodes[slot + 0x40]) + offsetA + 0x18;
+    *flags             = static_cast<uint8>((*flags & 0xF0) | ((*flags + 1) & 0x0F));
+    ++*linkCounter;
+}
+
 // 0x44F460 (verificada contra el desensamblado, lote 62): busca el nodo mas cercano a pos recorriendo la region (x, y) y hasta 4 anillos de regiones alrededor, y despues (si byte bajo de unk6 == 0) las 8 regiones de
-// interior (0x40..0x47). La busqueda por region es 0x44F2C0 (FindNodeClosestInRegion, sin reconstruir): su distancia (entrada/salida) arranca en maxDistance.
+// interior (0x40..0x47). La busqueda por region es 0x44F2C0 (FindNodeClosestInRegion): su distancia (entrada/salida) arranca en maxDistance.
 // Se para cuando la distancia hallada es <= (primera region) / < (anillos) que la distancia minima al borde de la region + 750 por anillo.
 // unk3 no se usa. Las banderas se pasan al colaborador como dwords (el EXE empuja los registros completos).
 CNodeAddress CPathFind::FindNodeClosestToCoors(
@@ -1262,8 +1393,8 @@ CNodeAddress CPathFind::FindNodeClosestToCoors(
     float dist = maxDistance;
 
     const auto Search = [&](int32 areaId, int32 unusedArg) {
-        plugin::CallMethod<0x44F2C0, CPathFind*, CNodeAddress*, int32, CVector, int32, float*, int32, int32, int32, int32>(
-            this, &result, areaId, pos, (int32)nodeType, &dist, (int32)unk2, (int32)unk4, (int32)bBoatsOnly, unusedArg);
+        FindNodeClosestInRegion(&result, static_cast<uint16>(areaId), pos, static_cast<uint8>(nodeType), &dist, static_cast<uint8>(unk2), static_cast<uint8>(unk4),
+                                static_cast<uint8>(bBoatsOnly), static_cast<uint8>(unusedArg));
     };
 
     const int32 rx = detail::RegionValueOf(pos.x);
@@ -1527,7 +1658,7 @@ void CPathFind::CompleteNewInterior(CNodeAddress* outAddress) {
         m_pLinkLengths[areaId]       = static_cast<uint8*>(CMemoryMgr::Malloc(linkCapacity, 0));
         m_pPathIntersections[areaId] = static_cast<CPathIntersectionInfo*>(CMemoryMgr::Malloc(linkCapacity, 0));
 
-        // 0x450FB0 (cdecl, sin reconstruir): area, nodo, area, vecino, ranura, &contador de enlaces
+        // 0x450FB0 (StoreInteriorNodeLink): area, nodo, area, vecino, ranura, &contador de enlaces
         int32 linkCounter = 0;
         for (int32 i = 0; i < numNodes; i++) {
             auto* const n = reinterpret_cast<uint8*>(&m_pPathNodes[areaId][i]);
@@ -1536,7 +1667,7 @@ void CPathFind::CompleteNewInterior(CNodeAddress* outAddress) {
             for (int32 j = 0; j < 6; j++) {
                 const int8 c = reinterpret_cast<const int8*>(ConnectsToGiven.data())[i * 6 + j];
                 if (c >= 0) {
-                    plugin::Call<0x450FB0, int32, int32, int32, int32, int32, int32*>(slot + 0x40, i, slot + 0x40, (int32)c, slot, &linkCounter);
+                    StoreInteriorNodeLink(slot + 0x40, i, slot + 0x40, (int32)c, slot, &linkCounter);
                 }
             }
         }
