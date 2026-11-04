@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,073 entradas reversed=1**, de 9,073 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,077 entradas reversed=1**, de 9,077 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9073 |
+| `validated=1` · evidencia aprobada vinculada | 9077 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9073 |
+| Evidencia histórica vinculada; revisión pendiente | 9077 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -5993,6 +5993,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexKillPedOnFoot | `CreateNextSubTask` | [Resumen](../reversing/KillPedOnFoot62/validation-summary.json) |
 | CTaskComplexKillPedOnFoot | `CreateSubTask` | [Resumen](../reversing/KillPedOnFoot62/validation-summary.json) |
 | CTaskComplexKillPedOnFoot | `MakeAbortable` | [Resumen](../reversing/KillPedOnFoot62/validation-summary.json) |
+| CTaskComplexKillPedOnFoot | `SayGangAttack` | [Resumen](../reversing/Fn94A/validation-summary.json) |
 | CTaskComplexKillPedOnFootArmed | `Clone` | [Resumen](../reversing/TaskWave2A/validation-summary.json) |
 | CTaskComplexKillPedOnFootArmed | `Constructor` | [Resumen](../reversing/TaskWave2A/validation-summary.json) |
 | CTaskComplexKillPedOnFootArmed | `ControlSubTask` | [Resumen](../reversing/TaskWave2A/validation-summary.json) |
@@ -6120,6 +6121,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexOpenPassengerDoor | `Constructor` | [Resumen](../reversing/CTasks61a/validation-summary.json) |
 | CTaskComplexOpenPassengerDoor | `Destructor` | [Resumen](../reversing/CTasks61a/validation-summary.json) |
 | CTaskComplexOpenPassengerDoor | `GetTaskType` | [Resumen](../reversing/CTasks61a/validation-summary.json) |
+| CTaskComplexPartner | `ComputeTargetPoints` | [Resumen](../reversing/Fn94A/validation-summary.json) |
 | CTaskComplexPartner | `Constructor` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
 | CTaskComplexPartner | `ControlSubTask` | [Resumen](../reversing/PartnerControl60/validation-summary.json) |
 | CTaskComplexPartner | `CreateFirstSubTask` | [Resumen](../reversing/PartnerFirstSub31/validation-summary.json) |
@@ -6422,6 +6424,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexUseGoggles | `CreateFirstSubTask` | [Resumen](../reversing/TasksBatch3/validation-summary.json) |
 | CTaskComplexUseGoggles | `CreateNextSubTask` | [Resumen](../reversing/TasksBatch3/validation-summary.json) |
 | CTaskComplexUseGoggles | `GetTaskType` | [Resumen](../reversing/TasksBatch3/validation-summary.json) |
+| CTaskComplexUseMobilePhone | `Quit` | [Resumen](../reversing/Fn94A/validation-summary.json) |
 | CTaskComplexUsePairedAttractor | `ClearPartnership` | [Resumen](../reversing/TasksBatch3/validation-summary.json) |
 | CTaskComplexUsePairedAttractor | `Clone` | [Resumen](../reversing/TasksBatch3/validation-summary.json) |
 | CTaskComplexUsePairedAttractor | `Constructor` | [Resumen](../reversing/TasksBatch3/validation-summary.json) |
@@ -6538,6 +6541,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexWalkRoundFire | `CreateNextSubTask` | [Resumen](../reversing/CTasks8c/validation-summary.json) |
 | CTaskComplexWalkRoundFire | `Destructor` | [Resumen](../reversing/CTasks8c/validation-summary.json) |
 | CTaskComplexWalkRoundFire | `GetTaskType` | [Resumen](../reversing/CTasks8c/validation-summary.json) |
+| CTaskComplexWalkRoundObject | `ComputeRouteRoundObject` | [Resumen](../reversing/Fn94A/validation-summary.json) |
 | CTaskComplexWalkRoundObject | `Constructor` | [Resumen](../reversing/EventsTasks56/validation-summary.json) |
 | CTaskComplexWalkRoundObject | `ControlSubTask` | [Resumen](../reversing/WalkRoundControl31/validation-summary.json) |
 | CTaskComplexWalkRoundObject | `CreateFirstSubTask` | [Resumen](../reversing/WalkRoundFirst31/validation-summary.json) |
@@ -9608,7 +9612,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexKillCriminal` | 11 | 0 | 11 | 0 |
 | `CTaskComplexKillPedFromBoat` | 7 | 0 | 7 | 0 |
 | `CTaskComplexKillPedGroupOnFoot` | 9 | 0 | 9 | 0 |
-| `CTaskComplexKillPedOnFoot` | 6 | 0 | 6 | 0 |
+| `CTaskComplexKillPedOnFoot` | 7 | 0 | 7 | 0 |
 | `CTaskComplexKillPedOnFootArmed` | 11 | 0 | 11 | 0 |
 | `CTaskComplexKillPedOnFootMelee` | 10 | 0 | 10 | 0 |
 | `CTaskComplexKillPedOnFootStealth` | 7 | 0 | 7 | 0 |
@@ -9626,7 +9630,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexOnFire` | 9 | 0 | 9 | 0 |
 | `CTaskComplexOpenDriverDoor` | 4 | 0 | 4 | 0 |
 | `CTaskComplexOpenPassengerDoor` | 4 | 0 | 4 | 0 |
-| `CTaskComplexPartner` | 6 | 0 | 6 | 0 |
+| `CTaskComplexPartner` | 7 | 0 | 7 | 0 |
 | `CTaskComplexPartnerChat` | 3 | 0 | 3 | 0 |
 | `CTaskComplexPartnerDeal` | 4 | 0 | 4 | 0 |
 | `CTaskComplexPartnerGreet` | 7 | 0 | 7 | 0 |
@@ -9666,6 +9670,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexUseEffectRunning` | 2 | 0 | 2 | 0 |
 | `CTaskComplexUseEffectSprinting` | 2 | 0 | 2 | 0 |
 | `CTaskComplexUseGoggles` | 5 | 0 | 5 | 0 |
+| `CTaskComplexUseMobilePhone` | 1 | 0 | 1 | 0 |
 | `CTaskComplexUsePairedAttractor` | 11 | 0 | 11 | 0 |
 | `CTaskComplexUseScriptedAttractor` | 7 | 0 | 7 | 0 |
 | `CTaskComplexUseScriptedBrain` | 8 | 0 | 8 | 0 |
@@ -9681,7 +9686,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexWalkRoundBuildingAttempt` | 12 | 0 | 12 | 0 |
 | `CTaskComplexWalkRoundCar` | 13 | 0 | 13 | 0 |
 | `CTaskComplexWalkRoundFire` | 8 | 0 | 8 | 0 |
-| `CTaskComplexWalkRoundObject` | 5 | 0 | 5 | 0 |
+| `CTaskComplexWalkRoundObject` | 6 | 0 | 6 | 0 |
 | `CTaskComplexWander` | 14 | 0 | 14 | 0 |
 | `CTaskComplexWanderCop` | 9 | 0 | 9 | 0 |
 | `CTaskComplexWanderCriminal` | 6 | 0 | 6 | 0 |

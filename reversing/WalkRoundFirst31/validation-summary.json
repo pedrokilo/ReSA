@@ -12,22 +12,22 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wm-1 (HEAD 63d8ac6cb + parches del lote 31; ver artifacts/build-manifest.json), de sólo lectura y eliminado tras el registro. En el árbol principal las fuentes se fusionaron en tres vías con trabajo sin validar del lote 27 en los mismos archivos, por lo que sus hashes pueden diferir de los del manifiesto (normalizados a LF o no). Hook virtual (RH_ScopedVMTInstall) registrado como tipo V con original_address 0x00657380. CTask::operator new (0x61A5A0), CVector::NormaliseAndMag (0x59C970), CGeneral::LimitRadianAngle (0x53CB50) y GetRadianAngleBetweenPoints (0x53CBE0) son los ya reconstruidos y enganchados; AllocateMatrix (0x54F560), UpdateMatrix (0x54F1B0), 0x6551D0 (sin simbolo) y CreateRouteTask (0x655140) estan sustituidos por falsos identicos en ambos lados. EAX/ECX/EDX solo registrados (el unico llamador es CTaskManager::AddSubTasks 0x681A30 (C++ de la DLL), que solo usa EAX). La primera corrida (20261019-160715-197856) falló por la compuerta del hook apagado de CVector::NormaliseAndMag 0x59C970 (ahora sólo vigilado; el lado original ejecuta el x87 del EXE y el candidato el C++ de la DLL) y no es evidencia; el ángulo del giro se acepta a 1e-4 rad (fpatan no modelado) con EXE == DLL estricto. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/WalkRoundFirst31-20261104-081236-809752",
-  "summary_sha256": "8cd4ffd9b60044ea26110b9e4850c7e19fcf054ef791b6746e7081af191cb99d",
-  "result_txt_sha256": "5959291ccd2f013833073f0abb1ab474b7337004c9a1c12a436301bb07d1dd3a",
-  "log_sha256": "2c1ebf38b2e425ad73c0901e107405588236eafff9eb88ef1218f31a14abeb3f",
+  "run": "reversing/CppTwelveLevel6Final/runs/WalkRoundFirst31-20261104-124426-186137",
+  "summary_sha256": "5008c0bae370537b58d773bf8a3eb693c37c19c6b82f0f19799e0eb146b96e22",
+  "result_txt_sha256": "90d14c29d898b6ec78498772a603039eb3d40b0e0f3c2c4d6b3ec876d317cee5",
+  "log_sha256": "e61c2073f98ac85c7e45eed01c0f7516a29ce4d1cc1fdb361f1eea0049c1c55c",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "ff39d93292a626881e54c6154ab5f2e5309e527d58754c88631c2bb86d47e04b",
+  "executed_probe_sha256": "4c54ee115613abe30cf858542cbc21bf74edbfceca1ee6f2fa21373249c7d287",
   "manifest": {
     "tested_sources": {
-      "source/CMakeLists.txt": "74ab2448a7ee3ad6d963c15cbc7de823ec0c81763aa7b8f1618a64b91264fad7",
-      "source/InjectHooksMain.cpp": "e604610164110dc389722fdc13ad6b8519c5fd6aedfa06048e1364de25850360",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "067309bff87ce0f6b73ff9cc9fae3072927b8717fcc729ccdd1c1c75b88419a9",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "8ecb300df3689b30f889a0c6a8e1d823da3617e917795c32d03842700ab36679",
+      "source/CMakeLists.txt": "d80de777ac5a20cbfbe5d0d285a3a601af69365a82ef393939ab13d5d2097a73",
+      "source/InjectHooksMain.cpp": "52f079e9863766f588a5177d8ddcbf77cd547c0f8cb408b21f354aeee259c45b",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp": "55e132e2294c6cedb8f5c4c4a07c173686d0ca9b9476067750561c44a92c4904",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.h": "a46fd5a5d124242b245ba0e85c9b16634229cf7ac3a519ca88e2b7a1fa6da4b5",
       "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
       "source/game_sa/Tasks/Task.cpp": "23b303826ad108736f38102ebf5180adaa7264f765f9f6e26a89a863bf595ae0",
       "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
@@ -50,16 +50,16 @@
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
       "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
       "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c",
-      "reversing/WalkRoundFirst31/LiveComparison.hpp": "73f9ded18fa97394eeb2f8faa0299528c3a098c2651e76c0f5dbd29184a34490",
-      "reversing/WalkRoundFirst31/Core.hpp": "c3518feed4429e17379d176a637c7e49f39855d03b92ca64c28a737f974ac789",
+      "reversing/WalkRoundFirst31/LiveComparison.hpp": "fde76ae15f0dfe536c46e3c3d6efe31a51c55cf4d0e9c3f9b82900663d9e7672",
+      "reversing/WalkRoundFirst31/Core.hpp": "dda9012fa89daeae0ce8cc5de4110fddf8f676b47909c2c517b3446fe8c17ea3",
       "reversing/WalkRoundFirst31/Fixtures.hpp": "827e93c3034d82221d7c229de9c922b936414ba8330fd15831adc37e8bc9c21b"
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/WalkRoundFirst31-20261104-081236-809752/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/WalkRoundFirst31-20261104-124426-186137/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "b620dd2291bdcf1b148337d487c80898396668a5b3c5a45e98f01557d9fb29e4",
-    "uncompressed_sha256": "2c1ebf38b2e425ad73c0901e107405588236eafff9eb88ef1218f31a14abeb3f"
+    "compressed_sha256": "28315de2e368739425274ea3493c5da5a3cddf8e0c5c84e900f6cb616d494bb1",
+    "uncompressed_sha256": "e61c2073f98ac85c7e45eed01c0f7516a29ce4d1cc1fdb361f1eea0049c1c55c"
   }
 }

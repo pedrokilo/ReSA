@@ -4903,7 +4903,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0056E0D0,70,reemplazada,CWorld,exacta,CWorld::FindPlayerVehicle,504,483,,
 0x0056E120,51,reemplazada,CWorld,exacta,CWorld::FindPlayerEntity,12,11,,
 0x0056E160,167,reemplazada,CWorld,exacta,CWorld::FindPlayerTrain,2,2,,
-0x0056E210,28,reemplazada,CWorld,exacta,CWorld::FindPlayerPed,688,656,,
+0x0056E210,28,reemplazada,CWorld,exacta,CWorld::FindPlayerPed,688,657,,
 0x0056E230,28,reemplazada,CWorld,exacta,CWorld::FindPlayerWanted,100,96,,
 0x0056E250,194,reemplazada,CWorld,exacta,CWorld::FindPlayerCentreOfWorld,16,15,,
 0x0056E320,222,reemplazada,CWorld,exacta,CWorld::FindPlayerCentreOfWorld_NoSniperShift,2,2,,
@@ -5361,7 +5361,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0059C790,115,A,CQuaternion,baja,,129,119,,
 0x0059C810,115,A,CQuaternion,baja,,23,22,,
 0x0059C890,124,reemplazada,CQuaternion,baja,,270,252,,
-0x0059C910,81,A,CQuaternion,baja,,457,432,,
+0x0059C910,81,A,CQuaternion,baja,,457,433,,
 0x0059C970,95,A,CQuaternion,baja,,19,16,,
 0x0059CA10,307,A,CQuaternion,baja,,1,0,,
 0x0059CBA0,7,C,CQuaternion,baja,,1,0,,
@@ -6428,7 +6428,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005EFF90,11,reemplazada,CPed,exacta,CPed::EnablePedSpeechForScriptSpeech,2,1,,
 0x005EFFA0,11,reemplazada,CPed,exacta,CPed::CanPedHoldConversation,2,2,,
 0x005EFFB0,40,reemplazada,CPed,exacta,CPed::SayScript,1,0,,
-0x005EFFE0,58,reemplazada,CPed,exacta,CPed::Say,187,173,,
+0x005EFFE0,58,reemplazada,CPed,exacta,CPed::Say,187,176,,
 0x005F0060,17,reemplazada,CPed,exacta,CPed::SetPedAtomicVisibilityCB,0,0,,
 0x005F0140,70,reemplazada,CPed,exacta,CPed::RemoveBodyPart,1,1,,
 0x005F0190,3,reemplazada,CPed,exacta,CPed::SpawnFlyingComponent,0,0,,
@@ -6460,13 +6460,13 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005F3590,163,reemplazada,CPedGeometryAnalyser,exacta,CPedGeometryAnalyser::GetNearestPed,0,0,,
 0x005F3640,16,reemplazada,CPedGeometryAnalyser,exacta,CPedGeometryAnalyser::ComputePedHitSide-physical,5,5,,
 0x005F3650,5,reemplazada,CPedGeometryAnalyser,exacta,CPedGeometryAnalyser::ComputeEntityBoundingBoxCorners,2,2,sí,
-0x005F3660,53,reemplazada,CPedGeometryAnalyser,exacta,CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanes,7,6,,
+0x005F3660,53,reemplazada,CPedGeometryAnalyser,exacta,CPedGeometryAnalyser::ComputeEntityBoundingBoxPlanes,7,7,,
 0x005F36A0,73,reemplazada,CPedGeometryAnalyser,exacta,CPedGeometryAnalyser::ComputeEntityBoundingBoxSegmentPlanes,0,0,,
 0x005F36F0,54,reemplazada,CPedGeometryAnalyser,exacta,CPedGeometryAnalyser::ComputeClosestSurfacePoint-posn,4,4,,
 0x005F3730,332,reemplazada,CPedGeometryAnalyser,exacta,CPedGeometryAnalyser::ComputeMoveDirToAvoidEntity,1,1,,
 0x005F3880,236,reemplazada,CPedGeometryAnalyser,exacta,CPedGeometryAnalyser::LiesInsideBoundingBox,3,3,,
 0x005F3970,319,reemplazada,CPedGeometryAnalyser,exacta,CPedGeometryAnalyser::IsEntityBlockingTarget,3,3,,
-0x005F3AC0,115,reemplazada,CPedGeometryAnalyser,exacta,CPedGeometryAnalyser::ComputeEntityHitSide-3,13,12,,
+0x005F3AC0,115,reemplazada,CPedGeometryAnalyser,exacta,CPedGeometryAnalyser::ComputeEntityHitSide-3,13,13,,
 0x005F3B40,48,reemplazada,CPedGeometryAnalyser,exacta,CPedGeometryAnalyser::ComputeEntityBoundingBoxCentreUncachedAll,0,0,,
 0x005F3B70,67,reemplazada,CPedGeometryAnalyser,exacta,CPedGeometryAnalyser::ComputeClosestSurfacePoint-ped,6,6,,
 0x005F3BC0,35,reemplazada,CPedGeometryAnalyser,exacta,CPedGeometryAnalyser::ComputeEntityHitSide-1,13,13,,
@@ -6474,7 +6474,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x005F3DD0,7257,reemplazada,CPedGeometryAnalyser,exacta,CPedGeometryAnalyser::ComputeRouteRoundEntityBoundingBox-2,2,2,,
 0x005F5A30,844,reemplazada,CPedGeometryAnalyser,exacta,CPedGeometryAnalyser::GetIsLineOfSightClear-ped,4,4,,
 0x005F5D80,902,reemplazada,CPedGeometryAnalyser,exacta,CPedGeometryAnalyser::ComputeClearTarget,3,3,,
-0x005F6110,50,reemplazada,CPedGeometryAnalyser,exacta,CPedGeometryAnalyser::ComputeRouteRoundEntityBoundingBox-1,6,5,,
+0x005F6110,50,reemplazada,CPedGeometryAnalyser,exacta,CPedGeometryAnalyser::ComputeRouteRoundEntityBoundingBox-1,6,6,,
 0x005F6190,108,A,CPedGeometryAnalyser,baja,,5,4,,
 0x005F6200,90,A,CPedGeometryAnalyser,baja,,9,4,,
 0x005F6280,110,D,CPedGeometryAnalyser,baja,,0,0,,
@@ -7792,7 +7792,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006348E0,11,C,CTaskComplexUseClosestFreeScriptedAttractor,baja,,1,0,,
 0x006348F0,62,C,CTaskComplexUseClosestFreeScriptedAttractor,baja,,2,0,,
 0x00634930,262,B,CTaskComplexUseClosestFreeScriptedAttractor,baja,,0,0,,sí
-0x00634A40,28,A,CTaskComplexUseClosestFreeScriptedAttractor,baja,,2,1,,
+0x00634A40,28,reemplazada,CTaskComplexUseClosestFreeScriptedAttractor,baja,,2,1,,
 0x00634A60,425,B,CTaskComplexUseClosestFreeScriptedAttractor,baja,,0,0,,sí
 0x00634C10,330,B,CTaskComplexUseClosestFreeScriptedAttractor,baja,,0,0,,sí
 0x00634D60,387,B,CTaskComplexUseClosestFreeScriptedAttractor,baja,,0,0,,sí
@@ -8657,7 +8657,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x006550C0,6,B,CTaskComplexWalkRoundObject,baja,,0,0,,sí
 0x006550D0,106,C,CTaskComplexWalkRoundObject,baja,,1,0,,
 0x00655140,130,reemplazada,CTaskComplexWalkRoundObject,baja,,4,3,,
-0x006551D0,187,A,CTaskComplexWalkRoundObject,baja,,1,1,,
+0x006551D0,187,reemplazada,CTaskComplexWalkRoundObject,baja,,1,1,,
 0x00655290,161,A,CTaskComplexWalkRoundObject,baja,,1,1,,
 0x00655340,18,reemplazada,CTaskComplexMoveBackAndJump,exacta,CTaskComplexMoveBackAndJump::Constructor,1,1,,
 0x00655360,6,reemplazada,CTaskComplexMoveBackAndJump,exacta,CTaskComplexMoveBackAndJump::GetTaskType,0,0,,sí
@@ -8927,7 +8927,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x0065E730,186,reemplazada,CTaskComplexGangLeader,exacta,CTaskComplexGangLeader::GetRandomGangAmbientAnim,2,2,,
 0x0065E7F0,99,reemplazada,CTaskComplexGangLeader,exacta,CTaskComplexGangLeader::ShouldLoadGangAnims,21,21,,
 0x0065E860,306,reemplazada,CTaskComplexGangLeader,exacta,CTaskComplexGangLeader::DoGangAbuseSpeech,2,2,,
-0x0065E9A0,172,A,CTaskComplexGangLeader,alta,,1,1,,
+0x0065E9A0,172,reemplazada,CTaskComplexGangLeader,alta,,1,1,,
 0x0065EA50,68,reemplazada,CTaskComplexGangLeader,exacta,CTaskComplexGangLeader::TryToPassObject,2,2,,
 0x0065EAA0,246,reemplazada,CTaskComplexGangFollower,exacta,CTaskComplexGangFollower::Constructor,2,2,,
 0x0065EBA0,6,B,CTaskComplexGangFollower,alta,,0,0,,sí
@@ -9589,7 +9589,7 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x00681E70,157,reemplazada,CTaskComplexPartner,exacta,CTaskComplexPartner::Constructor,4,4,,
 0x00681F10,6,B,CTaskComplexPartner,baja,,0,0,,sí
 0x00681F20,177,reemplazada,CTaskComplexPartner,baja,,0,0,,sí
-0x00681FE0,658,A,CTaskComplexPartner,baja,,1,1,,
+0x00681FE0,658,reemplazada,CTaskComplexPartner,baja,,1,1,,
 0x006822B0,33,A,CTaskComplexPartner,baja,,3,3,,
 0x00682310,93,reemplazada,CTaskComplexPartner,baja,,0,0,,sí
 0x00682370,56,reemplazada,CTaskComplexPartner,baja,,0,0,,sí
