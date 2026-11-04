@@ -210,15 +210,9 @@ class,function,address,source,origins
 (biblioteca) RenderWare SDK,RxPipelineExecute,0x00805710,source/game_sa/RenderWare/rw/rwcore.cpp:82,cohorte nuevo 2026-10-17 (biblioteca)
 (biblioteca) RenderWare SDK,RxPipelineNodeCloneDefinition,0x008059C0,source/game_sa/RenderWare/rw/rwcore.cpp:166,cohorte nuevo 2026-10-17 (biblioteca)
 (biblioteca) RenderWare SDK,RxRenderStateVectorSetDefaultRenderStateVector,0x0080EA40,source/game_sa/RenderWare/rw/rwcore.cpp:351,cohorte nuevo 2026-10-17 (biblioteca)
-(helpers y globales sin clase),GetFirstTextureCallback,0x00734930,source/game_sa/RenderWare/rw/rwtexdict.cpp:20,envoltura en el código fuente
 (helpers y globales sin clase),IndexDataBufferGetTotalDataSize,0x007303B0,source/game_sa/RenderWare/D3DResourceSystem.cpp:114,envoltura en el código fuente
 (helpers y globales sin clase),IndexDataBufferPop,0x00730270,source/game_sa/RenderWare/D3DResourceSystem.cpp:98,envoltura en el código fuente
 (helpers y globales sin clase),IndexDataBufferResize,0x00730330,source/game_sa/RenderWare/D3DResourceSystem.cpp:101,envoltura en el código fuente
-(helpers y globales sin clase),RpClumpGtaCancelStream,0x0072E700,source/game_sa/RenderWare/rw/rpworld.cpp:697,envoltura en el código fuente
-(helpers y globales sin clase),RpClumpGtaStreamRead1,0x0072E570,source/game_sa/RenderWare/rw/rwtexdict.cpp:128,envoltura en el código fuente
-(helpers y globales sin clase),RpClumpGtaStreamRead2,0x0072E620,source/game_sa/RenderWare/rw/rwtexdict.cpp:132,envoltura en el código fuente
-(helpers y globales sin clase),RwTexDictionaryGtaStreamRead1,0x00731070,source/game_sa/RenderWare/rw/rwtexdict.cpp:120,envoltura en el código fuente
-(helpers y globales sin clase),RwTexDictionaryGtaStreamRead2,0x00731150,source/game_sa/RenderWare/rw/rwtexdict.cpp:124,envoltura en el código fuente
 (helpers y globales sin clase),TextureBufferGetTotalDataSize,0x007300A0,source/game_sa/RenderWare/D3DResourceSystem.cpp:111,envoltura en el código fuente
 (helpers y globales sin clase),TextureBufferPop,0x0072FF60,source/game_sa/RenderWare/D3DResourceSystem.cpp:83,envoltura en el código fuente
 (helpers y globales sin clase),TextureBufferPush,0x0072FFF0,source/game_sa/RenderWare/D3DResourceSystem.cpp:89,envoltura en el código fuente

@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,053 entradas reversed=1**, de 9,053 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,059 entradas reversed=1**, de 9,059 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9053 |
+| `validated=1` · evidencia aprobada vinculada | 9059 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9053 |
+| Evidencia histórica vinculada; revisión pendiente | 9059 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -8939,6 +8939,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | RwHelper | `GetFirstObject` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
 | RwHelper | `GetFirstObjectCallback` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
 | RwHelper | `GetFirstTexture` | [Resumen](../reversing/Dependencies21G/validation-summary.json) |
+| RwHelper | `GetFirstTextureCallback` | [Resumen](../reversing/Fn95C/validation-summary.json) |
 | RwHelper | `GetNameAndDamage` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
 | RwHelper | `RemoveRefsCB` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
 | RwHelper | `RpAtomicConvertGeometryToTL` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
@@ -8946,9 +8947,14 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | RwHelper | `RpClumpConvertGeometryToTL` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
 | RwHelper | `RpClumpConvertGeometryToTS` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
 | RwHelper | `RpClumpGetBoundingSphere` | [Resumen](../reversing/Helpers66D/validation-summary.json) |
+| RwHelper | `RpClumpGtaCancelStream` | [Resumen](../reversing/Fn95C/validation-summary.json) |
+| RwHelper | `RpClumpGtaStreamRead1` | [Resumen](../reversing/Fn95C/validation-summary.json) |
+| RwHelper | `RpClumpGtaStreamRead2` | [Resumen](../reversing/Fn95C/validation-summary.json) |
 | RwHelper | `RpGeometryReplaceOldMaterialWithNewMaterial` | [Resumen](../reversing/Dependencies21G/validation-summary.json) |
 | RwHelper | `RwTexDictionaryFindHashNamedTexture` | [Resumen](../reversing/DependenciesWorld11/validation-summary.json) |
 | RwHelper | `RwTexDictionaryGtaStreamRead` | [Resumen](../reversing/Helpers65D/validation-summary.json) |
+| RwHelper | `RwTexDictionaryGtaStreamRead1` | [Resumen](../reversing/Fn95C/validation-summary.json) |
+| RwHelper | `RwTexDictionaryGtaStreamRead2` | [Resumen](../reversing/Fn95C/validation-summary.json) |
 | RwHelper | `RwTextureGtaStreamRead` | [Resumen](../reversing/Helpers66C/validation-summary.json) |
 | RwHelper | `SetFilterModeOnAtomicsTextures` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
 | RwHelper | `SetFilterModeOnClumpsTextures` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
@@ -9897,7 +9903,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `RtAnim` | 3 | 0 | 3 | 0 |
 | `RtDict` | 2 | 0 | 2 | 0 |
 | `RwCore` | 29 | 0 | 29 | 0 |
-| `RwHelper` | 33 | 0 | 33 | 0 |
+| `RwHelper` | 39 | 0 | 39 | 0 |
 | `RwPlCore` | 14 | 0 | 14 | 0 |
 | `Securom` | 2 | 0 | 2 | 0 |
 | `SurfaceInfos_c` | 47 | 0 | 47 | 0 |
