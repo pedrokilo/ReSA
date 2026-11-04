@@ -1,0 +1,6 @@
+lote,categoria,funciones,bytes,pares,estado,fecha,coste_medido,evidencia
+90A,"1. Triviales y thunks muy llamados (≤ 0x20 B sin llamadas)",10,171,20480,aprobado,2026-11-04,"tiempo no registrado; 2048 casos por función (16 familias de 128)",reversing/Fn90A/README.md
+90B,"2. Pequeñas sin FPU",8,302,32768,aprobado,2026-11-04,"~33 min hasta aprobado y registrado (~4 min por función) con la plantilla Fn85A ya hecha; más de la mitad de las ~175 candidatas se descartaron al leer el EXE",reversing/Fn90B/README.md
+92A,"3. Lógica (161-633 B, menos de 0x300)",3,1383,49152,aprobado,2026-11-04,"~6 min de compilación de sonda y corrida; compilación completa del worktree ~3 min",reversing/Fn92A/README.md
+92B,"5. ≥ 0x300 B (una por lote)",1,774,16384,aprobado,2026-11-04,"~2 min por corrida; compilación completa 4 min 24 s",reversing/Fn92B/README.md
+92C,"5. ≥ 0x300 B (una por lote)",1,1232,16384,aprobado,2026-11-04,"3-4 min por corrida (recompila el archivo de la clase con /O2)",reversing/Fn92C/README.md

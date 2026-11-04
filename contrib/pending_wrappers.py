@@ -23,6 +23,19 @@ import registry_store
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'docs/implementaciones/envolturas-pendientes.csv'
 HELPERS = '(helpers y globales sin clase)'
+# Regiones del EXE por dirección (las mismas que contrib/exe_coverage.py): 0x401000-0x74FFFF = código del juego; fuera = biblioteca enlazada.
+GAME_START, GAME_END, RW_END = 0x401000, 0x750000, 0x820000
+LIB_RENDERWARE = '(biblioteca) RenderWare SDK'
+LIB_CRT = '(biblioteca) CRT / runtime estático'
+CALL_ADDRESS = re.compile(r'direcci\w*n\s+(0x[0-9A-Fa-f]{6,8})')
+
+
+def library_class(address):
+    """Clase de biblioteca para una dirección fuera del código del juego (None si está en la región del juego)."""
+    value = int(address, 16)
+    if GAME_START <= value < GAME_END:
+        return None
+    return LIB_RENDERWARE if value < RW_END else LIB_CRT
 
 
 def read(path):
@@ -68,6 +81,9 @@ def main():
 
     def add(cls, fn, address, source, origin):
         address = norm_addr(address)
+        # Clasificación por dirección: una envoltura sin clase de biblioteca explícita cuyo destino cae fuera de 0x401000-0x74FFFF es de biblioteca.
+        if address and not cls.startswith('(biblioteca)') and library_class(address):
+            cls = library_class(address)
         fn = fn.split('::')[-1].strip() if cls != HELPERS else fn.strip()  # «Clase::Función» y «Función» son la misma función
         if (address and address in done) or (cls.casefold(), fn.casefold()) in done_names:
             return
@@ -88,7 +104,9 @@ def main():
             continue
         owner = row['owner']
         cls = HELPERS if owner.startswith('Globales y helpers') else owner
-        add(cls, row['function'], row.get('catalog_address', ''), f"{row['file']}:{row['line']}", 'envoltura en el código fuente')
+        # Sin dirección de catálogo, el destino sale de la llamada plugin::Call<0x...> que el inventario deja en la columna «dependency».
+        target = row.get('catalog_address', '') or (CALL_ADDRESS.search(row.get('dependency', '')) or [None, ''])[1]
+        add(cls, row['function'], target, f"{row['file']}:{row['line']}", 'envoltura en el código fuente')
     for row in read(ROOT / 'reversing/OriginalDependencies499/progress.csv'):
         if row['category'] == 'game' and row['runtime_status'] != 'passed':
             cls, fn = split_identity(row['identity'])

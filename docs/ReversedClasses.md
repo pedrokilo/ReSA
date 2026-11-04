@@ -2,109 +2,184 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-11-04 13:27 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-11-04 14:19 UTC
 
-## Objetivo y dimensiones de progreso
+**Índice:** [1. Objetivo y dimensiones](#objetivo) · [2. Siguientes mediciones](#mediciones) · [3. Siguiente fase](#siguiente-fase) · [4. Vista general](#vista-general) · [5. Cobertura real del EXE](#cobertura-exe) · [6. Lo que falta del código del juego](#que-falta) · [7. Funciones del juego aún no en C++](#no-en-cpp) · [8. Completas](#completas) · [9. Cohorte 17/10/2026](#cohorte-nuevo) · [10. Dependencias directas (grupo A)](#grupo-a) · [11. Parciales](#parciales) · [12. Sin revertir](#sin-revertir) · [13. Cómo leer y actualizar](#metodo)
 
-La [hoja de ruta de ReSA](ProjectRoadmap.md) define una reconstrucción funcionalmente equivalente, validada y progresivamente independiente del EXE, seguida de un ejecutable propio. **La meta de este informe es completar todas las funciones del juego** (11,804 funciones y 3.01 MB de código en el EXE: el código propio del juego y su capa de plataforma). RenderWare, Direct3D y el CRT son bibliotecas enlazadas dentro del EXE: no forman parte de la meta, no se cuentan en las tablas y solo aparecen en la tabla de [cobertura real del EXE](#cobertura-exe) para aclarar qué queda fuera. Completar el juego es un hito hacia **ReSA — Zero Original Function Dependency**.
+<a id="objetivo"></a>
 
-| Dimensión | Progreso | Medición |
-| --- | --- | --- |
-| Funciones del juego reemplazadas por C++ en el EXE (meta del proyecto) | `███████████████░░░░░` | 8,939/11,804 · 75.73% |
-| Bytes de código del juego reemplazados | `██████████████████░░` | 2,706,032/3,007,877 · 89.96% |
-| Clases del juego completas | `████████████████████` | 821/822 · 99.88% |
-| Clases del juego validadas (de las completas) | `████████████████████` | 821/821 · 100.00% |
-| Entradas de catálogo del juego reconstruidas | `████████████████████` | 8,970/8,996 · 99.71% |
-| Entradas del juego validadas (de las reconstruidas) | `████████████████████` | 8,970/8,970 · 100.00% |
-| Entradas del juego reconstruidas escritas solo en C++ (sin ensamblador) | `████████████████████` | 8,966/8,970 · 99.96% |
+## 1. Objetivo y dimensiones de progreso
 
-Las dos primeras filas miden el propio EXE (análisis estático, ver [cobertura real del EXE](#cobertura-exe)) y son la medida del avance hacia la meta; las demás miden las entradas del catálogo, que solo conoce una parte del código del juego, por eso su porcentaje es mayor. Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL. La última barra cuenta, de las funciones reconstruidas, las que tienen fuente identificada y sin `__asm` ni `naked`; las entradas sin fuente identificada de forma inequívoca no se cuentan como C++. El detalle está en [ImplementacionesDelJuego.md](ImplementacionesDelJuego.md).
+La [hoja de ruta de ReSA](ProjectRoadmap.md) define una reconstrucción funcionalmente equivalente, validada y progresivamente independiente del EXE, seguida de un ejecutable propio. **La meta de este informe es completar todas las funciones del juego** (11,804 funciones y 3.01 MB de código en el EXE: el código propio del juego y su capa de plataforma). RenderWare, Direct3D y el CRT son bibliotecas enlazadas dentro del EXE: no forman parte de la meta, no se cuentan en las tablas y solo aparecen en la [cobertura real del EXE](#cobertura-exe) y en la lista de [bibliotecas fuera del objetivo](#bibliotecas) para aclarar qué queda fuera. Completar el juego es un hito hacia **ReSA — Zero Original Function Dependency**.
+
+Cifras medidas el 04/11/2026. **Cada porcentaje de este informe lleva escrita la dimensión de la que habla**: *funciones* (del EXE), *bytes* (de código del EXE), *clases*, *entradas del catálogo* (filas de `hooks.csv`) o *validación* (cuántas de las ya hechas tienen evidencia aprobada). Dimensiones distintas dan porcentajes distintos y no son comparables entre sí.
+
+| Tipo | Dimensión | Qué cuenta | Numerador | Denominador | Porcentaje (de qué) | Progreso |
+| --- | --- | --- | ---: | ---: | --- | --- |
+| **Funciones** | Funciones del juego reemplazadas por C++ en el EXE (**meta del proyecto**) | Funciones del EXE en 0x401000–0x74FFFF que ya tienen su hook reconstruido (análisis estático del EXE) | 8,939 | 11,804 | 75.73% de las funciones del juego | `███████████████░░░░░` |
+| **Funciones** | Funciones del juego que faltan | Complemento de la fila anterior: grupos A–D de [lo que falta](#que-falta) | 2,865 | 11,804 | 24.27% de las funciones del juego | `█████░░░░░░░░░░░░░░░` |
+| **Bytes** | Bytes de código del juego reemplazados | Suma de los cuerpos de esas mismas funciones, en bytes de código | 2,706,032 | 3,007,877 | 89.96% de los bytes de código del juego | `██████████████████░░` |
+| **Clases** | Clases del juego completas | Clases o grupos del catálogo con todas sus entradas reconstruidas y sin envolturas del juego abiertas | 821 | 822 | 99.88% de las clases del juego | `████████████████████` |
+| **Validación** | Clases del juego validadas | Clases completas cuyas entradas tienen todas `validated=1` | 821 | 821 | 100.00% de las clases completas | `████████████████████` |
+| **Entradas del catálogo** | Entradas del juego reconstruidas | Filas de `hooks.csv` con `reversed=1` más las envolturas del juego abiertas, que cuentan como no reconstruidas | 8,970 | 8,985 | 99.83% de las entradas del juego del catálogo | `████████████████████` |
+| **Validación** | Entradas del juego validadas | Entradas reconstruidas con evidencia aprobada vinculada (`validated=1`) | 8,970 | 8,970 | 100.00% de las entradas reconstruidas | `████████████████████` |
+| **Entradas del catálogo** | Entradas reconstruidas escritas solo en C++ | Entradas reconstruidas cuyo cuerpo fuente no tiene `__asm` ni `naked` (las de fuente no identificada de forma inequívoca no cuentan) | 8,966 | 8,970 | 99.96% de las entradas reconstruidas | `████████████████████` |
+
+**Por qué hay un 76% y un 90%.** No se contradicen: miden cosas distintas. El 75.73% cuenta *funciones* y el 89.96% cuenta *bytes* de código; las funciones que faltan son más pequeñas que las ya reemplazadas, así que quedan muchas funciones pero pocos bytes. Las filas «Funciones» y «Bytes» miden el propio EXE (análisis estático, ver [cobertura real del EXE](#cobertura-exe)) y son la medida del avance hacia la meta; las filas de «Entradas del catálogo», «Clases» y «Validación» miden las filas registradas de `hooks.csv`, que solo conocen una parte del código del juego, por eso su porcentaje es mayor. Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL. La última fila cuenta, de las entradas reconstruidas, las que tienen fuente identificada y sin `__asm` ni `naked`; las entradas sin fuente identificada de forma inequívoca no se cuentan como C++. El detalle está en [ImplementacionesDelJuego.md](ImplementacionesDelJuego.md).
 
 **Migración de ensamblador a C++:** en `source/game_sa` ya no queda ningún `__asm` ni función `naked`: todo lo reconstruido está escrito en C++, con resultados validados contra el EXE dentro del juego. Regla del proyecto: todo lo que se reconstruya va en C++, dos archivos por clase (`.cpp` y `.h`) y sin duplicados ([proceso](../reversing/CppOnlyMigration/PROCESO.md)). Historial y excepciones documentadas: [estado de la migración](../reversing/CppOnlyMigration/README.md) · [FILES.md](../reversing/CppOnlyMigration/FILES.md).
 
 Hay 8,970 entradas catalogadas del juego, 0 bloqueadas y 8,970 sin bloqueo. No constituyen un inventario exhaustivo del código del juego; las filas de RenderWare y del CRT del catálogo (79) quedan fuera de este informe. Desbloqueada no significa validada, activa ni independiente. No se deducen hooks eliminados del contador de locks. Las extensiones o adaptaciones NOTSA (4, en [hooks_notsa.csv](hooks_notsa.csv)) quedan fuera de la cuenta.
 
-### Siguientes mediciones
+<a id="mediciones"></a>
 
-Estas dimensiones todavía no tienen un porcentaje útil: indican el trabajo que falta para poder medirlas.
+## 2. Siguientes mediciones
+
+Estado al 04/11/2026. Lo que ya se midió y lo que todavía no tiene un porcentaje útil:
 
 | Dimensión | Estado actual | Qué hay que hacer |
 | --- | --- | --- |
-| Validaciones vigentes para el árbol actual | 0/8,970 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). |
-| Dependencias de funciones originales eliminadas | Medido (cota inferior): 830 funciones del juego siguen llamándose directamente desde código del juego ya reemplazado; cierre transitivo: 996 funciones / 132,809 bytes. Ver [Cobertura real del EXE](#cobertura-exe) | Resolver las llamadas indirectas (tablas de punteros, callbacks) para convertir la cota inferior en un valor exacto, y eliminar o sustituir las dependencias directas que quedan. |
+| Validación vigente para el árbol actual (validación) | 0/8,970 entradas validadas confirmadas como vigentes (0.00% de las entradas validadas) | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). El 04/11/2026 se repitieron 20 bancos desfasados sin regresión de producción (todos eran bancos desfasados o artefactos del entorno): falta consolidarlos en el registro. |
+| Dependencias de funciones originales eliminadas (funciones) | Medido (cota inferior): 830 funciones del juego siguen llamándose directamente desde código del juego ya reemplazado; cierre transitivo: 996 funciones / 132,809 bytes. Ver [Cobertura real del EXE](#cobertura-exe) | Resolver las llamadas indirectas (tablas de punteros, callbacks) para convertir la cota inferior en un valor exacto, y eliminar o sustituir las dependencias directas que quedan: lista viva en la [sección 10](#grupo-a). |
+| Trabajo real que falta (funciones y bytes) | 2,865 funciones y 301,845 bytes del juego sin reemplazar (24.27% de las funciones y 10.04% de los bytes del juego); grupo A 996 funciones y 132,809 bytes | Reconstruir y validar de menor a mayor coste, empezando por el grupo A ([sección 6](#que-falta)). |
+| Coste por categoría de lote (tiempo de reconstrucción y validación) | Medido para las categorías 1, 2, 3 y 5 en los lotes 90A, 90B, 92A, 92B y 92C (tabla de abajo); sin medir la categoría 4 (funciones con FPU) | Cronometrar un lote piloto con FPU (método x87 a 24 bits) y los siguientes lotes de lógica para convertir la estimación en un coste por función. |
 
-### Siguiente fase: después de las envolturas
+Costes medidos en los lotes cerrados (datos al 04/11/2026, [lotes.csv](JuegoExe/lotes.csv)). Cada lote reconstruye en C++ puro funciones que antes se llamaban al EXE por dirección y las valida dentro del juego (pares EXE/DLL con cero diferencias).
 
-Cerrar las envolturas del inventario (cuyo número se muestra arriba) no cierra el juego: quedan además las funciones del EXE sin reemplazar (grupos A–D de la tabla anterior). El plan de trabajo sale de [AnalisisGrupoA.md](AnalisisGrupoA.md) y su [lista completa](JuegoExe/grupoA.csv):
+| Lote | Categoría de coste (del grupo A) | Funciones | Bytes | Pares validados | Coste medido |
+| --- | --- | ---: | ---: | ---: | --- |
+| 90A | 1. Triviales y thunks muy llamados (≤ 0x20 B sin llamadas) | 10 | 171 | 20,480 | tiempo no registrado; 2048 casos por función (16 familias de 128) |
+| 90B | 2. Pequeñas sin FPU | 8 | 302 | 32,768 | ~33 min hasta aprobado y registrado (~4 min por función) con la plantilla Fn85A ya hecha; más de la mitad de las ~175 candidatas se descartaron al leer el EXE |
+| 92A | 3. Lógica (161-633 B, menos de 0x300) | 3 | 1,383 | 49,152 | ~6 min de compilación de sonda y corrida; compilación completa del worktree ~3 min |
+| 92B | 5. ≥ 0x300 B (una por lote) | 1 | 774 | 16,384 | ~2 min por corrida; compilación completa 4 min 24 s |
+| 92C | 5. ≥ 0x300 B (una por lote) | 1 | 1,232 | 16,384 | 3-4 min por corrida (recompila el archivo de la clase con /O2) |
+| **Total** | | **23** | **3,862** | **135,168** | Solo hay tiempo de pared de las categorías 2, 3 y 5; la 1 no se cronometró y la 4 (FPU) no se ha medido. |
 
-1. **Grupo A, por categorías y de menor a mayor coste:** helpers triviales y thunks muy llamados (CPad 0x53FB70, CClouds 0x7170C0...), pequeñas sin FPU, lógica sin FPU (empezando por las más llamadas y por clases enteras), funciones con FPU con el método x87 a 24 bits, y por último las de 0x300 bytes o más, una por lote.
-2. **Lote piloto de cada categoría** para medir el coste real: solo hay tiempos de funciones grandes (39–71 min de agente por lote), no de pequeñas.
+<a id="siguiente-fase"></a>
+
+## 3. Siguiente fase: después de las envolturas
+
+**¿Quedan envolturas de código del juego en el catálogo?** Sí. **Envolturas del juego abiertas: 15** (comprobado el 04/11/2026; 1,410 bytes): `RpClumpGtaStreamRead2` `0x0072E620`, `RwTexDictionaryGtaStreamRead1` `0x00731070`, `RpClumpGtaStreamRead1` `0x0072E570`, `TextureBufferPop` `0x0072FF60`, `IndexDataBufferPop` `0x00730270`, `RwTexDictionaryGtaStreamRead2` `0x00731150`, `TextureBufferResize` `0x00730020`, `IndexDataBufferResize` `0x00730330`, `TextureBufferSetup` `0x0072FE80`, `TextureBufferPush` `0x0072FFF0`, `TextureBufferPushWithoutIncreasingCounter` `0x00730AD0`, `RpClumpGtaCancelStream` `0x0072E700`, `TextureBufferGetTotalDataSize` `0x007300A0`, `IndexDataBufferGetTotalDataSize` `0x007303B0`, `GetFirstTextureCallback` `0x00734930`. Son código del juego (D3DResourceSystem y lectura de streams en 0x72E000–0x735000): la DLL llama al EXE por dirección y no cuentan como reconstruidas hasta validarse. Detalle en la [sección 7](#no-en-cpp).
+
+Las envolturas de biblioteca no cuentan: 211 funciones con envoltura al EXE (RenderWare SDK 140, Controlador D3D9 de RenderWare 58, CRT / runtime estático 11, QuickTime/QTML 2) son RenderWare, controlador D3D9, CRT y QuickTime, que se sustituyen según la [hoja de ruta](RutaExeIndependiente.md) y no son trabajo del juego ([lista](#bibliotecas)). La clasificación sale de la dirección del destino: dentro de 0x401000–0x74FFFF es juego, fuera es biblioteca.
+
+**Lotes en curso:** lotes 95A y 95C, que reconstruyen en C++ las 15 envolturas del juego de D3DResourceSystem y de las lecturas de streams ([lotes-en-curso.csv](JuegoExe/lotes-en-curso.csv)); cuando se validen dejarán de figurar solas en la lista de la sección 7.
+
+Cerrar las envolturas del juego no cierra el juego: quedan además las funciones del EXE sin reemplazar (grupos A–D, 2,865 funciones al 04/11/2026; [sección 6](#que-falta)). El plan de trabajo sale de [AnalisisGrupoA.md](AnalisisGrupoA.md) y su [lista completa](JuegoExe/grupoA.csv), y la lista viva está en la [sección 10](#grupo-a):
+
+1. **Grupo A, por categorías y de menor a mayor coste:** helpers triviales y thunks muy llamados (hecho en el lote 90A: `CPad::GetPad` 0x53FB70, `CRGBA::Constructor` 0x7170C0...), pequeñas sin FPU (lote 90B), lógica sin FPU (empezando por las más llamadas y por clases enteras), funciones con FPU con el método x87 a 24 bits, y por último las de 0x300 bytes o más, una por lote (92B, 92C).
+2. **Lote piloto de cada categoría** para medir el coste real: ya medidos los de las categorías 1, 2, 3 y 5 (tabla de la sección 2); falta la 4, con FPU.
 3. **Revalidación vigente:** repetir los bancos sobre el árbol actual, priorizando los de fuentes cambiadas por lotes posteriores. Motivo: el banco `CVehD` llevaba roto desde el lote 83C (se cambió `m_fSteerAngle` por `m_GasPedal` en `ProcessDrivingAnims`) y no se vio hasta repetirlo.
 4. **Después del código del juego:** `librw`, pipelines de SA y puentes `RwD3D9*`, QuickTime, DDraw y CRT, según la [hoja de ruta](RutaExeIndependiente.md); el cambio de método de validación sin el exe como oráculo.
 
-**Validación consolidada parcialmente:** 8970 funciones del juego con evidencia aprobada vinculada, 1257 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
+**Validación consolidada parcialmente:** 8970 funciones del juego con evidencia aprobada vinculada, 1257 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias (cifras al 04/11/2026). Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
 
-## Vista general
+<a id="vista-general"></a>
 
-| Clases validadas | Completas por validar | Funciones validadas | Reconstruidas por validar | Funciones por reconstruir |
+## 4. Vista general
+
+Al 04/11/2026. Cada columna indica la dimensión y el denominador de su porcentaje.
+
+| Clases validadas (validación) | Clases completas por validar (validación) | Entradas validadas (validación) | Entradas reconstruidas por validar (validación) | Entradas por reconstruir (entradas del catálogo) |
 | :---: | :---: | :---: | :---: | :---: |
-| **821 / 821** | **0 / 821** | **8,970 / 8,970** | **0 / 8,970** | **26 / 8,996** |
-| 100.00% | 0.00% | 100.00% | 0.00% | 0.29% |
+| **821 / 821 clases** | **0 / 821 clases** | **8,970 / 8,970 entradas** | **0 / 8,970 entradas** | **15 / 8,985 entradas** |
+| 100.00% de las clases completas | 0.00% de las clases completas | 100.00% de las entradas reconstruidas | 0.00% de las entradas reconstruidas | 0.17% de las entradas del juego del catálogo |
 
-Reconstrucción por clases: 821 completas, 0 parciales y 1 sin revertir de 822 (incluye 26 funciones del juego con envoltura al EXE aún sin reconstruir, en 1 clases o grupos).
-
-**Ir a:** [Completas](#completas) · [Parciales](#parciales) · [Sin revertir](#sin-revertir) · [Cohorte nuevo por dificultad](#cohorte-nuevo) · [Cómo leer y actualizar](#metodo)
+Reconstrucción por clases: 821 completas, 0 parciales y 1 sin revertir de 822 clases o grupos (incluye 15 funciones del juego con envoltura al EXE aún sin reconstruir, en 1 clases o grupos).
 
 > [!NOTE]
-> Los porcentajes de reconstrucción miden entradas registradas como `reversed`; los de validación, entradas con evidencia aprobada (`validated=1`). Ninguno mide estabilidad del juego. Una clase completa puede conservar hooks bloqueados o funciones todavía no registradas.
+> Los porcentajes de reconstrucción miden entradas registradas como `reversed`; los de validación, entradas con evidencia aprobada (`validated=1`). Ninguno mide estabilidad del juego ni el avance sobre todo el EXE (para eso, las filas «Funciones» y «Bytes» de la sección 1). Una clase completa puede conservar hooks bloqueados o funciones todavía no registradas.
 
 <a id="cobertura-exe"></a>
 
-## Cobertura real del EXE (estimación)
+## 5. Cobertura real del EXE (estimación)
 
-Esta tabla es la única parte del informe que habla de lo que no es código del juego: sirve para aclarar qué queda fuera de la meta. Las dos primeras barras de progreso salen de aquí (región del juego); las demás miden filas del catálogo (`hooks.csv`). Se mide el propio ejecutable original con el análisis estático ([MemoryMap](MemoryMap/README.md): 17,765 entradas de función detectadas y 3.72 MB de cuerpos de función), cruzado con el catálogo, el registro de validación y las envolturas pendientes. 9,049 filas reconstruidas equivalen a **9,009 funciones distintas del EXE ya reemplazadas** (varias filas son sobrescrituras virtuales que comparten cuerpo).
+Esta tabla es la única parte del informe que habla de lo que no es código del juego: sirve para aclarar qué queda fuera de la meta. Las dos primeras filas de la tabla de dimensiones salen de aquí (región del juego); las demás miden filas del catálogo (`hooks.csv`). Se mide el propio ejecutable original con el análisis estático ([MemoryMap](MemoryMap/README.md): 17,765 entradas de función detectadas y 3.72 MB de cuerpos de función), cruzado con el catálogo, el registro de validación y las envolturas pendientes. 9,049 filas reconstruidas del catálogo equivalen a **9,009 funciones distintas del EXE ya reemplazadas** (varias filas son sobrescrituras virtuales que comparten cuerpo). En esta tabla, «% de funciones» es la parte de las funciones de esa región que ya está en C++ y «% de bytes» la parte de los bytes de código de esa región.
 
-| Región del EXE | Funciones | Bytes de código | Reemplazadas por C++ (funciones) | Reemplazadas (bytes) | Funciones llamadas directamente desde código ya reemplazado |
+| Región del EXE | Funciones (total de la región) | Bytes de código (total de la región) | Reemplazadas por C++: funciones y % de funciones | Reemplazadas: % de bytes | Funciones de la región llamadas directamente desde código ya reemplazado |
 | --- | ---: | ---: | --- | --- | ---: |
-| Juego y plataforma (0x401000–0x74FFFF) | 11,804 | 3,007,877 | `███████████████░░░░░` 8,939 · 75.7% | `██████████████████░░` 90.0% | 830 |
-| RenderWare y D3D (0x750000–0x81FFFF) | 1,889 | 600,971 | `█░░░░░░░░░░░░░░░░░░░` 61 · 3.2% | `░░░░░░░░░░░░░░░░░░░░` 0.3% | 224 |
-| CRT/MSVC y runtime (0x820000 en adelante) | 4,072 | 115,711 | `░░░░░░░░░░░░░░░░░░░░` 9 · 0.2% | `░░░░░░░░░░░░░░░░░░░░` 0.2% | 59 |
-| **Total** | **17,765** | **3,724,559** | `██████████░░░░░░░░░░` 9,009 · 50.7% | `███████████████░░░░░` 72.7% | **1,113** |
+| Juego y plataforma (0x401000–0x74FFFF) | 11,804 | 3,007,877 | `███████████████░░░░░` 8,939 · 75.7% de funciones | `██████████████████░░` 90.0% de bytes | 830 |
+| RenderWare y D3D (0x750000–0x81FFFF) | 1,889 | 600,971 | `█░░░░░░░░░░░░░░░░░░░` 61 · 3.2% de funciones | `░░░░░░░░░░░░░░░░░░░░` 0.3% de bytes | 224 |
+| CRT/MSVC y runtime (0x820000 en adelante) | 4,072 | 115,711 | `░░░░░░░░░░░░░░░░░░░░` 9 · 0.2% de funciones | `░░░░░░░░░░░░░░░░░░░░` 0.2% de bytes | 59 |
+| **Total** | **17,765** | **3,724,559** | `██████████░░░░░░░░░░` 9,009 · 50.7% de funciones | `███████████████░░░░░` 72.7% de bytes | **1,113** |
 
-**Qué significa para un ejecutable independiente.** No hace falta reconstruir las 17,765 funciones: RenderWare/D3D y el CRT son bibliotecas enlazadas dentro del EXE (5,961 entradas, 19% de los bytes) que se sustituirían enlazando una implementación equivalente, no reescribiéndolas desde el original. El trabajo propio del proyecto es el código del juego (11,804 funciones, 81% de los bytes), y de él ya está reemplazado el **90% de los bytes** (76% de las funciones: las que quedan son más pequeñas que la media). Entre las 11,804 entradas del juego hay 1,835 de 16 bytes o menos (stubs, thunks y helpers).
+**Qué significa para un ejecutable independiente.** No hace falta reconstruir las 17,765 funciones: RenderWare/D3D y el CRT son bibliotecas enlazadas dentro del EXE (5,961 entradas, 19% de los bytes del EXE) que se sustituirían enlazando una implementación equivalente, no reescribiéndolas desde el original. El trabajo propio del proyecto es el código del juego (11,804 funciones, 81% de los bytes del EXE), y de él ya está reemplazado el **90% de los bytes del juego** y el 76% de las funciones del juego: no se contradicen, las funciones que quedan son más pequeñas que la media. Entre las 11,804 funciones del juego hay 1,835 de 16 bytes o menos (stubs, thunks y helpers).
 
-### Lo que falta del código del juego: 2,865 funciones, 302 KB
+<a id="que-falta"></a>
 
-Mapa completo de las funciones del juego, con lista por estado, bloque de direcciones y módulo estimado: [JuegoExe](JuegoExe/README.md).
+## 6. Lo que falta del código del juego: 2,865 funciones, 302 KB
+
+Al 04/11/2026: 2,865 funciones (24.27% de las funciones del juego) y 301,845 bytes (10.04% de los bytes del juego) siguen sin reemplazar. Este es el trabajo real que falta del código del juego, lo mida o no el catálogo. Mapa completo de las funciones del juego, con lista por estado, bloque de direcciones y módulo estimado: [JuegoExe](JuegoExe/README.md).
 
 | Grupo (de mayor a menor tamaño) | Funciones | Bytes | Lectura |
 | --- | ---: | ---: | --- |
-| A. Llamadas directamente desde código ya reemplazado (cierre transitivo) | 996 | 132,809 | **Trabajo necesario**: la DLL sigue dependiendo de ellas. Es el piso para la independencia. |
+| A. Llamadas directamente desde código ya reemplazado (cierre transitivo) | 996 | 132,809 | **Trabajo necesario**: la DLL sigue dependiendo de ellas. Es el piso para la independencia. Lista viva: [dependencias directas (grupo A)](#grupo-a). |
 | C. Llamadas directas solo desde código aún no reemplazado | 536 | 68,443 | Dependen de reconstruir antes A y B; parte puede ser código muerto. |
 | D. Sin llamadas directas ni vtable | 426 | 59,754 | Código muerto o alcanzado por tablas de punteros, callbacks o scripts: hay que revisarlo, no contarlo sin más. |
 | B. Métodos virtuales (en una vtable) no alcanzados por llamada directa | 907 | 40,839 | Probablemente necesarios: se ejecutan por despacho virtual. |
 
-Del código del juego ya reemplazado, **830 funciones del juego siguen llamándose directamente desde el EXE**. Esa es la lista corta de dependencias reales que hay que eliminar. Las que caen en RenderWare/D3D o el CRT se muestran solo en la última columna de la tabla de cobertura.
+Del código del juego ya reemplazado, **830 funciones del juego siguen llamándose directamente desde el EXE**. Esa es la lista corta de dependencias reales que hay que eliminar. Las que caen en RenderWare/D3D o el CRT se muestran solo en la última columna de la tabla de cobertura. Las 15 envolturas del juego abiertas de la sección siguiente son funciones del EXE que la DLL llama por dirección: 12 están incluidas en estas cifras; las otras 3 no figuran como entrada de función en el análisis estático (sin tamaño), así que no entran en el recuento.
 
 > [!NOTE]
 > **Cotas y límites.** Es un análisis estático: hay 6,004 llamadas indirectas sin resolver que no están en el grafo, así que A es una **cota inferior** del trabajo. La partición por regiones usa la dirección, no una clasificación función a función. «Reemplazada» significa que el hook existe y pasó su banco; no acredita independencia del EXE ni que la validación siga vigente para el árbol actual. Se regenera con `contrib/exe_coverage.py` al sincronizar la documentación.
 
 <a id="no-en-cpp"></a>
 
-### Funciones del juego que ya tenemos y aún no están en C++: 26
+## 7. Funciones del juego que ya tenemos y aún no están en C++: 15
 
-Son envolturas: la DLL ya tiene la función y su hook, pero el cuerpo todavía llama al EXE original. Solo se listan funciones del juego, que son la meta del proyecto. Todas las tablas van **de mayor a menor tamaño**: «Bytes» es la suma de los cuerpos de las funciones pendientes (análisis estático) y «Tamaño» clasifica la función más grande de la fila (muy grande ≥ 2.000 B, grande 500–1.999 B, mediana 100–499 B, pequeña < 100 B; una instrucción x86 ocupa entre 1 y 15 bytes, unos 3–4 de media). Las funciones del EXE sin nombre ni hook (el resto de lo que falta) están en el [mapa del código del juego](JuegoExe/README.md). Fuente: [envolturas-pendientes.csv](implementaciones/envolturas-pendientes.csv).
+Al 04/11/2026, estas 15 funciones **del código del juego** (0x401000–0x74FFFF) tienen envoltura abierta: la DLL ya tiene la función y su hook, pero el cuerpo todavía llama al EXE original por dirección (1,410 bytes en total). Mientras no estén reconstruidas y validadas **son envolturas del juego**, aunque el catálogo las trate como funciones sin dirección. La clasificación sale de la dirección del destino (juego = 0x401000–0x74FFFF, biblioteca = fuera de ese rango, tomada de la llamada `plugin::Call<0x…>` del código), no de una lista a mano: cuando se validen dejarán de aparecer solas. La tabla va **de mayor a menor tamaño**: «Bytes» es el cuerpo de la función en el EXE (análisis estático) y «Tamaño» lo clasifica (muy grande ≥ 2.000 B, grande 500–1.999 B, mediana 100–499 B, pequeña < 100 B). Las funciones del EXE sin nombre ni hook (el resto de lo que falta) están en el [mapa del código del juego](JuegoExe/README.md). Fuente: [envolturas-pendientes.csv](implementaciones/envolturas-pendientes.csv); lotes: [lotes-en-curso.csv](JuegoExe/lotes-en-curso.csv).
 
-#### Código del juego: 26 funciones en 1 clases o grupos · 0 bytes
+| Función | Dirección | Bytes | Tamaño | Clase o grupo | Lote en curso |
+| --- | --- | ---: | --- | --- | --- |
+| `RpClumpGtaStreamRead2` | `0x0072E620` | 215 | mediana | (helpers y globales sin clase) | 95A/95C |
+| `RwTexDictionaryGtaStreamRead1` | `0x00731070` | 215 | mediana | (helpers y globales sin clase) | 95A/95C |
+| `RpClumpGtaStreamRead1` | `0x0072E570` | 172 | mediana | (helpers y globales sin clase) | 95A/95C |
+| `TextureBufferPop` | `0x0072FF60` | 141 | mediana | (helpers y globales sin clase) | 95A/95C |
+| `IndexDataBufferPop` | `0x00730270` | 132 | mediana | (helpers y globales sin clase) | 95A/95C |
+| `RwTexDictionaryGtaStreamRead2` | `0x00731150` | 122 | mediana | (helpers y globales sin clase) | 95A/95C |
+| `TextureBufferResize` | `0x00730020` | 115 | mediana | (helpers y globales sin clase) | 95A/95C |
+| `IndexDataBufferResize` | `0x00730330` | 115 | mediana | (helpers y globales sin clase) | 95A/95C |
+| `TextureBufferSetup` | `0x0072FE80` | 63 | pequeña | (helpers y globales sin clase) | 95A/95C |
+| `TextureBufferPush` | `0x0072FFF0` | 43 | pequeña | (helpers y globales sin clase) | 95A/95C |
+| `TextureBufferPushWithoutIncreasingCounter` | `0x00730AD0` | 41 | pequeña | (helpers y globales sin clase) | 95A/95C |
+| `RpClumpGtaCancelStream` | `0x0072E700` | 36 | pequeña | (helpers y globales sin clase) | 95A/95C |
+| `TextureBufferGetTotalDataSize` | `0x007300A0` | — | sin dato | (helpers y globales sin clase) | 95A/95C |
+| `IndexDataBufferGetTotalDataSize` | `0x007303B0` | — | sin dato | (helpers y globales sin clase) | 95A/95C |
+| `GetFirstTextureCallback` | `0x00734930` | — | sin dato | (helpers y globales sin clase) | 95A/95C |
 
-| Clase o grupo | Funciones | Bytes | Función más grande | Tamaño | Funciones (de mayor a menor) |
-| --- | ---: | ---: | ---: | --- | --- |
-| (helpers y globales sin clase) | 26 | 0 | — | sin dato | `ExeFree` sin dirección<br>`GetFirstTextureCallback` sin dirección<br>`IndexDataBufferGetTotalDataSize` sin dirección<br>`IndexDataBufferPop` sin dirección<br>`IndexDataBufferResize` sin dirección<br>`RpClumpGtaCancelStream` sin dirección<br>`RpClumpGtaStreamRead1` sin dirección<br>`RpClumpGtaStreamRead2` sin dirección<br>`RpMaterialUVAnimApplyUpdate` sin dirección<br>`RwEngineGetVideoModeInfo` sin dirección<br>`RwTexDictionaryGtaStreamRead1` sin dirección<br>`RwTexDictionaryGtaStreamRead2` sin dirección<br>`RwTextureRead` sin dirección<br>`RxLockedPipeAddFragment` sin dirección<br>`TextureBufferGetTotalDataSize` sin dirección<br>`TextureBufferPop` sin dirección<br>`TextureBufferPush` sin dirección<br>`TextureBufferPushWithoutIncreasingCounter` sin dirección<br>`TextureBufferResize` sin dirección<br>`TextureBufferSetup` sin dirección<br>`_rwD3D9SetStreams` sin dirección<br>`_rwObjectHasFrameSetFrame` sin dirección<br>`operator delete` sin dirección<br>`operator delete[]` sin dirección<br>`operator new` sin dirección<br>`operator new[]` sin dirección |
+<a id="bibliotecas"></a>
+
+### Bibliotecas, fuera del objetivo (211 envolturas)
+
+Estas envolturas llaman al EXE, pero su destino es una biblioteca enlazada dentro del ejecutable (RenderWare, controlador D3D9, CRT, QuickTime) y **no cuentan** como trabajo pendiente del juego ni en las cifras de este informe. La clase sale de la dirección del destino (fuera de 0x401000–0x74FFFF) o de la clasificación del cohorte; no se reconstruyen: se sustituyen según la [hoja de ruta](RutaExeIndependiente.md).
+
+| Biblioteca | Envolturas | De ellas, antes en «helpers sin clase» | Plan |
+| --- | ---: | ---: | --- |
+| RenderWare SDK | 140 | 6 | Sustituir por **librw** (o una implementación equivalente de RenderWare 3.7) y reconstruir los pipelines propios de SA; no se reescribe desde el EXE. |
+| Controlador D3D9 de RenderWare | 58 | 0 | Sustituir por el **backend D3D9** de la biblioteca de sustitución (puentes `RwD3D9*`); fuera de la reconstrucción del juego. |
+| CRT / runtime estático | 11 | 4 | Usar la **CRT del compilador** (malloc/free, operator new/delete, funciones matemáticas); fuera de la reconstrucción del juego. |
+| QuickTime/QTML | 2 | 0 | Reemplazar o desactivar el reproductor de vídeo (QuickTime/QTML) en el ejecutable propio; fuera de la reconstrucción del juego. |
+
+<details>
+<summary>Envolturas de biblioteca detectadas en el código fuente y reclasificadas por su dirección (10)</summary>
+
+- `RpMaterialUVAnimApplyUpdate` `0x007CC110` · RenderWare SDK
+- `RwEngineGetVideoModeInfo` `0x007F2CF0` · RenderWare SDK
+- `RwTextureRead` `0x007F3AC0` · RenderWare SDK
+- `_rwD3D9SetStreams` `0x007FA090` · RenderWare SDK
+- `_rwObjectHasFrameSetFrame` `0x00804EF0` · RenderWare SDK
+- `RxLockedPipeAddFragment` `0x00806BE0` · RenderWare SDK
+- `operator new[]` `0x00821195` · CRT / runtime estático
+- `operator new` `0x0082119A` · CRT / runtime estático
+- `operator delete[]` `0x008213AE` · CRT / runtime estático
+- `operator delete` `0x008214BD` · CRT / runtime estático
+
+</details>
 
 <a id="completas"></a>
-## 🟢 Completas · 821 clases
+## 8. 🟢 Completas · 821 clases
 
-Orden alfabético. El número entre paréntesis indica funciones registradas; ✅ indica entradas con validated=1 y 🔒 indica hooks cuya conmutación sigue bloqueada. Los bloqueos no son pendientes de validación.
+Al 04/11/2026: 821 de 822 clases o grupos están completas (todas sus entradas reconstruidas y ninguna envoltura del juego abierta). Orden alfabético. El número entre paréntesis indica funciones registradas; ✅ indica entradas con validated=1 y 🔒 indica hooks cuya conmutación sigue bloqueada. Los bloqueos no son pendientes de validación.
 
 <details>
 <summary>Mostrar catálogo de clases completas</summary>
@@ -388,55 +463,1079 @@ Orden alfabético. El número entre paréntesis indica funciones registradas; �
 
 </details>
 
-<a id="parciales"></a>
-## 🟡 Parciales · 0 clases
-
-Orden de mayor a menor tamaño de las envolturas al EXE pendientes (suma de bytes de sus cuerpos; a igualdad, alfabético). «Función más grande» y «Tamaño» (muy grande ≥ 2.000 B, grande 500–1.999 B, mediana 100–499 B, pequeña < 100 B) indican cuánto pesa la función más difícil de la clase. Para decidir qué abordar primero, consultar la [cola de validación por niveles](ReversingPriorities.md).
-
-Incluye las clases del catálogo que ya tienen todas sus entradas reconstruidas pero conservan funciones del juego que siguen delegando en el EXE (columna «Envolturas al EXE»): no cuentan como completas hasta reconstruirlas. Detalle por función en [envolturas-pendientes.csv](implementaciones/envolturas-pendientes.csv).
-
-| Clase | Revertidas / total | Pendientes | Envolturas al EXE | Bytes de envolturas | Función más grande (B) | Tamaño | Avance | Validated | Locked |
-| --- | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: | ---: |
-
-<a id="sin-revertir"></a>
-## 🔴 Sin revertir · 1 clases
-
-Orden de mayor a menor tamaño de las envolturas pendientes. Clases o grupos sin ninguna entrada reconstruida en el catálogo. Las que figuran con envolturas al EXE no están en [hooks.csv](hooks.csv): sus funciones del juego se conocen por el código fuente o por las cohortes de dependencias y siguen delegando en el original.
-
-| Clase | Revertidas / total | Pendientes | Envolturas al EXE | Bytes de envolturas | Función más grande (B) | Tamaño | Avance | Validated | Locked |
-| --- | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: | ---: |
-| (helpers y globales sin clase) | 0/0 | — | **26** | 0 | — | sin dato | 0.00% | 0 | 0 |
 
 <a id="cohorte-nuevo"></a>
-## 📋 Cohorte nuevo (17/10/2026): lista por dificultad
+## 9. 📋 Cohorte del 17/10/2026: CERRADO (185 destinos del juego del cohorte: 185 validadas, 0 reconstruidas por validar y 0 sin reconstruir, al 04/11/2026)
 
-Destinos originales explícitos que `source/` sigue referenciando y que no estaban reconstruidos ni validados el 17/10/2026, la lista completa va ordenada de mayor a menor tamaño en bytes (la columna «Rango» conserva la posición por dificultad, de menor a mayor: 1 es la más fácil) (puntuación de tamaño y riesgos —llamadas sin catalogar, indirectas, x87, tablas de saltos y SEH—). Solo se listan funciones del juego. Lista completa y descargable: [lista-por-dificultad.csv](../reversing/OriginalDependencies2026-10-17/lista-por-dificultad.csv) · metodología: [README del cohorte](../reversing/OriginalDependencies2026-10-17/README.md). La columna «Estado» se calcula con el catálogo actual: una dirección con fila reversed=1 en hooks.csv figura como reconstruida o validada.
+> [!NOTE]
+> **Cohorte cerrado.** Al 04/11/2026, los 185 destinos del código del juego del cohorte del 17/10/2026 (funciones del juego que `source/` llamaba por dirección y que no estaban reconstruidas ni validadas) tienen fila `reversed=1` y `validated=1` en [hooks.csv](hooks.csv): quedan **0 pendientes y 0 por validar**. Las 279 entradas restantes del cohorte son de bibliotecas (RenderWare, D3D9, CRT, QuickTime) y quedan fuera del objetivo ([sección 7](#bibliotecas)). La lista de abajo se conserva como histórico; ya no es trabajo pendiente.
 
-Las funciones ya validadas (`✅ validada`) no se listan: solo aparecen las pendientes y las reconstruidas por validar; en la tabla de niveles se cuentan aparte.
+Destinos originales explícitos que `source/` seguía referenciando y que no estaban reconstruidos ni validados el 17/10/2026. La lista va ordenada de mayor a menor tamaño en bytes (la columna «Rango» conserva la posición por dificultad, de menor a mayor: 1 es la más fácil; puntuación de tamaño y riesgos —llamadas sin catalogar, indirectas, x87, tablas de saltos y SEH—). Solo se listan funciones del juego. Lista completa y descargable: [lista-por-dificultad.csv](../reversing/OriginalDependencies2026-10-17/lista-por-dificultad.csv) · metodología: [README del cohorte](../reversing/OriginalDependencies2026-10-17/README.md). La columna «Estado» se calcula con el catálogo actual: una dirección con fila reversed=1 en hooks.csv figura como reconstruida o validada.
 
-| Nivel | Funciones del juego | ya validadas (no se listan) | de ellas pendientes |
-| --- | ---: | ---: | ---: |
-| 1 Muy fácil | 9 | 9 | 0 |
-| 2 Fácil | 25 | 25 | 0 |
-| 3 Media | 75 | 75 | 0 |
-| 4 Difícil | 57 | 57 | 0 |
-| 5 Muy difícil | 19 | 19 | 0 |
+| Nivel de dificultad | Funciones del juego | Validadas | Reconstruidas por validar | Sin reconstruir |
+| --- | ---: | ---: | ---: | ---: |
+| 1 Muy fácil | 9 | 9 | 0 | 0 |
+| 2 Fácil | 25 | 25 | 0 | 0 |
+| 3 Media | 75 | 75 | 0 | 0 |
+| 4 Difícil | 57 | 57 | 0 | 0 |
+| 5 Muy difícil | 19 | 19 | 0 | 0 |
+| **Total** | **185** | **185** | **0** | **0** |
 
 <details>
-<summary>Funciones del juego pendientes o por validar (0), de mayor a menor tamaño en bytes</summary>
+<summary>Histórico: los 185 destinos del juego del cohorte, todos validados, de mayor a menor tamaño en bytes</summary>
 
 | Rango | Nivel | Subcategoría | Función | Dirección | Bytes | Estado |
 | ---: | --- | --- | --- | --- | ---: | --- |
+| 178 | 5 Muy difícil | wrapper | CPed::ProcessEntityCollision | `0x005E2530` | 4342 | ✅ validada |
+| 185 | 5 Muy difícil | wrapper | CCarCtrl::SteerAICarWithPhysics_OnlyMission | `0x00436A90` | 4243 | ✅ validada |
+| 182 | 5 Muy difícil | wrapper | CCarCtrl::SteerAICarWithPhysicsFollowPath | `0x00434900` | 3729 | ✅ validada |
+| 170 | 5 Muy difícil | wrapper | CCarCtrl::PickNextNodeRandomly | `0x0042DE80` | 3591 | ✅ validada |
+| 184 | 5 Muy difícil | embedded_call | helper sin símbolo confirmado (usado por CameraObbeCinemaCycle) | `0x0051D770` | 3445 | ✅ validada |
+| 181 | 5 Muy difícil | wrapper | CCarCtrl::SteerAICarWithPhysicsFollowPath_Racing | `0x00435830` | 3320 | ✅ validada |
+| 162 | 5 Muy difícil | wrapper | CCarCtrl::FlyAIHeliInCertainDirection | `0x00429A70` | 2994 | ✅ validada |
+| 169 | 5 Muy difícil | wrapper | CCarCtrl::DealWithBend_Racing | `0x00428040` | 2361 | ✅ validada |
+| 175 | 5 Muy difícil | wrapper | CHeli::ProcessControl | `0x006C7050` | 2352 | ✅ validada |
+| 163 | 5 Muy difícil | wrapper | CCarCtrl::PickNextNodeToFollowPath | `0x00427740` | 2193 | ✅ validada |
+| 155 | 5 Muy difícil | wrapper | CCarCtrl::PickNextNodeToChaseCar | `0x00426EF0` | 2111 | ✅ validada |
+| 179 | 5 Muy difícil | wrapper | CMissionCleanup::Process | `0x00468560` | 1955 | ✅ validada |
+| 140 | 5 Muy difícil | wrapper | CCarCtrl::FlyAIPlaneInCertainDirection | `0x00423000` | 1917 | ✅ validada |
+| 176 | 5 Muy difícil | wrapper | CTaskSimpleFight::ProcessPed | `0x00629920` | 1907 | ✅ validada |
+| 166 | 5 Muy difícil | wrapper | CCarCtrl::SlowCarDownForPedsSectorList | `0x00425440` | 1761 | ✅ validada |
+| 147 | 5 Muy difícil | wrapper | CCarCtrl::DragCarToPoint | `0x0042EC90` | 1748 | ✅ validada |
+| 173 | 5 Muy difícil | wrapper | CHeli::ProcessControlInputs | `0x006C4830` | 1571 | ✅ validada |
+| 167 | 5 Muy difícil | wrapper | CCarCtrl::WeaveForOtherCar | `0x00426350` | 1558 | ✅ validada |
+| 171 | 5 Muy difícil | wrapper | CTaskComplexPartner::CreateNextSubTask | `0x00683AD0` | 1521 | ✅ validada |
+| 161 | 4 Difícil | wrapper | CHeli::ProcessFlyingCarStuff | `0x006C4E60` | 1467 | ✅ validada |
+| 177 | 4 Difícil | wrapper | __MainWndProc | `0x00747EB0` | 1458 | ✅ validada |
+| 148 | 4 Difícil | embedded_call | FxEmitter_c::CreateParticle | `0x004A2580` | 1434 | ✅ validada |
+| 183 | 4 Difícil | wrapper | CTaskComplexLeaveCar::CreateNextSubTask | `0x006419F0` | 1428 | ✅ validada |
+| 174 | 4 Difícil | wrapper | CTaskComplexFollowPedFootsteps::ControlSubTask | `0x00695090` | 1341 | ✅ validada |
+| 154 | 4 Difícil | wrapper | CCarCtrl::FindAngleToWeaveThroughTraffic | `0x004325C0` | 1339 | ✅ validada |
+| 124 | 4 Difícil | wrapper | CCarCtrl::FindNodesThisCarIsNearestTo | `0x0042BD20` | 1323 | ✅ validada |
+| 164 | 4 Difícil | wrapper | FightHitPedExe | `0x0061CBA0` | 1289 | ✅ validada |
+| 132 | 4 Difícil | wrapper | CCarCtrl::SteerAICarTowardsPointInEscort | `0x004336D0` | 1223 | ✅ validada |
+| 143 | 4 Difícil | wrapper | CTaskComplexLeaveCar::CreateSubTask | `0x00641530` | 1214 | ✅ validada |
+| 135 | 4 Difícil | wrapper | CStoredCar::RestoreCar | `0x00447E40` | 1211 | ✅ validada |
+| 180 | 4 Difícil | wrapper | CHeli::PreRender | `0x006C5420` | 1204 | ✅ validada |
+| 122 | 4 Difícil | wrapper | CCarCtrl::SteerAICarWithPhysicsFollowPreRecordedPath | `0x00432DD0` | 1177 | ✅ validada |
+| 152 | 4 Difícil | wrapper | CCarCtrl::CreateConvoy | `0x0042C740` | 1168 | ✅ validada |
+| 120 | 4 Difícil | wrapper | CCarCtrl::FlyAIHeliToTarget_FixedOrientation | `0x00423940` | 1167 | ✅ validada |
+| 165 | 4 Difícil | wrapper | CCarCtrl::CreatePoliceChase | `0x0042C2B0` | 1161 | ✅ validada |
+| 100 | 4 Difícil | wrapper | CCarCtrl::TestCollisionBetween2MovingRects | `0x00425B30` | 1081 | ✅ validada |
+| 172 | 4 Difícil | wrapper | CTaskComplexLeaveCar::MakeAbortable | `0x00641100` | 1069 | ✅ validada |
+| 144 | 4 Difícil | wrapper | CCarCtrl::SlowCarDownForOtherCar | `0x0042D0E0` | 1032 | ✅ validada |
+| 158 | 4 Difícil | wrapper | CPlayerPed::MakeThisPedJoinOurGroup | `0x0060C840` | 1029 | ✅ validada |
+| 151 | 4 Difícil | wrapper | CAutomobile::Render | `0x006A2B10` | 1005 | ✅ validada |
+| 157 | 4 Difícil | wrapper | CVehicle::GetPlaneWeaponFiringStatus | `0x006E3440` | 944 | ✅ validada |
+| 118 | 4 Difícil | wrapper | CCarCtrl::SteerAIHeliToKeepEntityInView | `0x0042AEB0` | 939 | ✅ validada |
+| 156 | 4 Difícil | wrapper | CCarCtrl::IsThisAnAppropriateNode | `0x0042DAB0` | 932 | ✅ validada |
+| 103 | 4 Difícil | wrapper | CCarCtrl::ClitargetOrientationToLink | `0x00422760` | 918 | ✅ validada |
+| 137 | 4 Difícil | wrapper | CCarCtrl::SteerAIHeliToFollowEntity | `0x0042A750` | 896 | ✅ validada |
+| 160 | 4 Difícil | wrapper | CHeli::SendDownSwat | `0x006C69C0` | 869 | ✅ validada |
+| 138 | 4 Difícil | wrapper | CHeli::GenerateHeli | `0x006C6520` | 867 | ✅ validada |
+| 93 | 4 Difícil | wrapper | CCarCtrl::FindLinksToGoWithTheseNodes | `0x0042B470` | 862 | ✅ validada |
+| 123 | 4 Difícil | wrapper | CCarCtrl::SteerAICarWithPhysicsHeadingForTarget | `0x00433280` | 841 | ✅ validada |
+| 139 | 4 Difícil | wrapper | CTaskComplexPartnerChat::GetPartnerSequence | `0x00684380` | 836 | ✅ validada |
+| 168 | 4 Difícil | wrapper | CTaskComplexKillPedOnFoot::CreateNextSubTask | `0x0062B150` | 831 | ✅ validada |
+| 141 | 4 Difícil | wrapper | CCarCtrl::WeaveForObject | `0x00426BC0` | 803 | ✅ validada |
+| 128 | 4 Difícil | wrapper | CCarCtrl::SteerAICarParkPerpendicular | `0x00433EA0` | 800 | ✅ validada |
+| 113 | 4 Difícil | wrapper | CHeli::BlowUpCar | `0x006C6D30` | 795 | ✅ validada |
+| 150 | 4 Difícil | wrapper | CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents | `0x00603720` | 777 | ✅ validada |
+| 95 | 4 Difícil | embedded_call | helper sin símbolo confirmado (usado por CPlayerInfo::Process) | `0x0056EC80` | 776 | ✅ validada |
+| 134 | 4 Difícil | wrapper | CCarCtrl::SteerAICarParkParallel | `0x00433BA0` | 762 | ✅ validada |
+| 131 | 4 Difícil | wrapper | CCarCtrl::SteerAICarBlockingPlayerForwardAndBack | `0x00422B20` | 745 | ✅ validada |
+| 159 | 4 Difícil | wrapper | CStats::BuildStatLine | `0x00559230` | 735 | ✅ validada |
+| 111 | 4 Difícil | wrapper | CCarCtrl::SteerAIBoatWithPhysicsAttackingPlayer | `0x00428DE0` | 684 | ✅ validada |
+| 78 | 4 Difícil | wrapper | CCarCtrl::TestCollisionBetween2MovingRects_OnlyFrontBumper | `0x00425F70` | 672 | ✅ validada |
+| 96 | 4 Difícil | wrapper | CCarCtrl::ChooseModel | `0x00424CE0` | 672 | ✅ validada |
+| 127 | 4 Difícil | wrapper | CMentalState::Process | `0x006008A0` | 646 | ✅ validada |
+| 153 | 4 Difícil | wrapper | CTaskComplexWalkRoundObject::CreateFirstSubTask | `0x00657380` | 620 | ✅ validada |
+| 101 | 4 Difícil | wrapper | CCarCtrl::SteerAIBoatWithPhysicsCirclingPlayer | `0x00429090` | 613 | ✅ validada |
+| 125 | 4 Difícil | embedded_call | helper sin símbolo confirmado (usado por CWeaponEffects::Render) | `0x0056EF90` | 608 | ✅ validada |
+| 69 | 4 Difícil | embedded_call | CPed::SpecialEntityPreCollisionStuff | `0x005E3C30` | 603 | ✅ validada |
+| 94 | 4 Difícil | wrapper | CCarCtrl::SteerAICarWithPhysicsTryingToBlockTarget_Stop | `0x00428990` | 583 | ✅ validada |
+| 116 | 4 Difícil | embedded_call | CTaskSimpleSlideToCoord::ProcessPed | `0x0066C4E0` | 570 | ✅ validada |
+| 146 | 4 Difícil | wrapper | RsLoadPresetViews | `0x00619D60` | 552 | ✅ validada |
+| 109 | 4 Difícil | wrapper | Fx_c::AddWood | `0x0049EE10` | 549 | ✅ validada |
+| 133 | 4 Difícil | wrapper | CRemote::GivePlayerRemoteControlledCar | `0x0045AB10` | 548 | ✅ validada |
+| 97 | 4 Difícil | wrapper | CVehicle::FireHeatSeakingMissile | `0x006E05C0` | 529 | ✅ validada |
+| 105 | 4 Difícil | wrapper | CCarCtrl::TriggerDogFightMoves | `0x00429300` | 526 | ✅ validada |
+| 73 | 4 Difícil | wrapper | CCarCtrl::FindPathDirection | `0x00422090` | 515 | ✅ validada |
+| 58 | 4 Difícil | wrapper | CCarCtrl::FireHeliRocketsAtTarget | `0x0042B270` | 506 | ✅ validada |
+| 57 | 3 Media | wrapper | CCarCtrl::SteerAIBoatWithPhysicsHeadingForTarget | `0x00428BE0` | 497 | ✅ validada |
+| 119 | 3 Media | wrapper | FightHitObjExe | `0x0061D400` | 494 | ✅ validada |
+| 110 | 3 Media | wrapper | CTaskComplexFollowPedFootsteps::CreateSubTask | `0x00695E40` | 488 | ✅ validada |
+| 56 | 3 Media | embedded_call | CPathFind::FindParkingNodeInArea | `0x004513F0` | 476 | ✅ validada |
+| 91 | 3 Media | wrapper | CCarCtrl::SteerAIHeliAsPoliceHeli | `0x0042AAD0` | 475 | ✅ validada |
+| 117 | 3 Media | wrapper | CCarCtrl::GetAIPlaneToDoDogFight | `0x00429890` | 472 | ✅ validada |
+| 126 | 3 Media | wrapper | CCarCtrl::GetAIHeliToAttackPlayer | `0x0042F3C0` | 472 | ✅ validada |
+| 54 | 3 Media | wrapper | CVehicle::ScanAndMarkTargetForHeatSeekingMissile | `0x006E0400` | 445 | ✅ validada |
+| 149 | 3 Media | wrapper | D3DResourceSystem::DestroyTexture | `0x00730B70` | 439 | ✅ validada |
+| 108 | 3 Media | wrapper | CVehicle::AddReplacementUpgrade | `0x006D3830` | 423 | ✅ validada |
+| 106 | 3 Media | embedded_call | FxEmitter_c::AddParticle | `0x004A3EA0` | 418 | ✅ validada |
+| 142 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CDecisionMakerTypes::InjectHooks) | `0x004650F0` | 415 | ✅ validada |
+| 112 | 3 Media | wrapper | CCarCtrl::SlowCarDownForCarsSectorList | `0x00432420` | 413 | ✅ validada |
+| 104 | 3 Media | embedded_call | FxEmitter_c::AddParticle | `0x004A4050` | 400 | ✅ validada |
+| 68 | 3 Media | embedded_call | CHeli::CHeli | `0x006C4190` | 398 | ✅ validada |
+| 145 | 3 Media | wrapper | RsSavePresetView | `0x00619FA0` | 393 | ✅ validada |
+| 88 | 3 Media | wrapper | CCarCtrl::SlowCarDownForObjectsSectorList | `0x0042D4F0` | 391 | ✅ validada |
+| 51 | 3 Media | wrapper | CPlayerPed::EvaluateNeighbouringTarget | `0x0060D1C0` | 388 | ✅ validada |
+| 92 | 3 Media | wrapper | CGarage::IsStaticPlayerCarEntirelyInside | `0x0044A830` | 386 | ✅ validada |
+| 66 | 3 Media | wrapper | RpClumpGetBoundingSphere | `0x00734FC0` | 384 | ✅ validada |
+| 60 | 3 Media | wrapper | SkinGetBonePositionsToTable | `0x00735360` | 381 | ✅ validada |
+| 83 | 3 Media | wrapper | CCarCtrl::SteerAIHeliToLand | `0x0042AD30` | 370 | ✅ validada |
+| 89 | 3 Media | wrapper | CVehicle::PossiblyDropFreeFallBombForPlayer | `0x006E07E0` | 359 | ✅ validada |
+| 102 | 3 Media | wrapper | RwTextureGtaStreamRead | `0x00730E60` | 347 | ✅ validada |
+| 81 | 3 Media | wrapper | CCarCtrl::WeaveThroughPedsSectorList | `0x0042D7E0` | 346 | ✅ validada |
+| 75 | 3 Media | wrapper | CTaskComplexPartnerDeal::GetPartnerSequence | `0x00682440` | 344 | ✅ validada |
+| 82 | 3 Media | wrapper | CCarCtrl::WeaveThroughObjectsSectorList | `0x0042D950` | 343 | ✅ validada |
+| 64 | 3 Media | wrapper | CPed::SpecialEntityCalcCollisionSteps | `0x005E3E90` | 342 | ✅ validada |
+| 80 | 3 Media | wrapper | CCarCtrl::WeaveThroughCarsSectorList | `0x0042D680` | 341 | ✅ validada |
+| 129 | 3 Media | wrapper | CTaskComplexWalkRoundObject::ControlSubTask | `0x006575F0` | 341 | ✅ validada |
+| 136 | 3 Media | wrapper | CTaskComplexWalkRoundObject::CreateNextSubTask | `0x00657220` | 341 | ✅ validada |
+| 52 | 3 Media | wrapper | CVehicle::AddUpgrade | `0x006DFA20` | 333 | ✅ validada |
+| 77 | 3 Media | embedded_call | CDecision::MakeDecision | `0x006040D0` | 333 | ✅ validada |
+| 84 | 3 Media | wrapper | CGarage::IsEntityEntirelyInside3D | `0x00448BE0` | 333 | ✅ validada |
+| 46 | 3 Media | embedded_call | FxInterpInfoFloat_c::GetVal | `0x004A8470` | 330 | ✅ validada |
+| 130 | 3 Media | wrapper | CCarCtrl::PickNextNodeAccordingStrategy | `0x00432B10` | 321 | ✅ validada |
+| 99 | 3 Media | wrapper | CTaskSimpleFight::MakeAbortable | `0x006239F0` | 284 | ✅ validada |
+| 115 | 3 Media | wrapper | CTaskComplexFollowPedFootsteps::CreateNextSubTask | `0x00694EE0` | 283 | ✅ validada |
+| 107 | 3 Media | wrapper | CGarage::IsEntityEntirelyOutside | `0x00448D30` | 281 | ✅ validada |
+| 61 | 3 Media | wrapper | CTaskComplexPartnerShove::GetPartnerSequence | `0x00683120` | 275 | ✅ validada |
+| 114 | 3 Media | wrapper | D3DResourceSystem::DestroyIndexBuffer | `0x00730D30` | 263 | ✅ validada |
+| 121 | 3 Media | wrapper | CCarCtrl::GetAIPlaneToAttackPlayer | `0x00429780` | 261 | ✅ validada |
+| 98 | 3 Media | wrapper | CCarCtrl::SteerAIHeliTowardsTargetCoors | `0x0042A630` | 244 | ✅ validada |
+| 71 | 3 Media | wrapper | CCarCtrl::SteerAICarWithPhysicsTryingToBlockTarget | `0x004335E0` | 240 | ✅ validada |
+| 41 | 3 Media | wrapper | CPlantMgr::AtomicCreatePrelitIfNeeded | `0x005DD100` | 221 | ✅ validada |
+| 33 | 3 Media | wrapper | CQuaternion::Get | `0x0059C080` | 215 | ✅ validada |
+| 67 | 3 Media | wrapper | CCarCtrl::TestWhetherToFirePlaneGuns | `0x00429520` | 214 | ✅ validada |
+| 74 | 3 Media | wrapper | diPadInit | `0x007485C0` | 214 | ✅ validada |
+| 72 | 3 Media | wrapper | Fx_c::AddPunchImpact | `0x0049F670` | 209 | ✅ validada |
+| 32 | 3 Media | wrapper | CCarCtrl::FindPercDependingOnDistToLink | `0x00422620` | 208 | ✅ validada |
+| 36 | 3 Media | wrapper | CCarCtrl::SwitchBetweenPhysicsAndGhost | `0x004222A0` | 208 | ✅ validada |
+| 79 | 3 Media | wrapper | D3DResourceSystem::CreateTexture | `0x00730510` | 204 | ✅ validada |
+| 39 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CTaskSimpleGangDriveBy::AITarget) | `0x00621B10` | 201 | ✅ validada |
+| 37 | 3 Media | wrapper | CPlayerPed::PlayerWantsToAttack | `0x0060CC50` | 200 | ✅ validada |
+| 40 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CDecisionMakerTypes::InjectHooks) | `0x005BB9F0` | 197 | ✅ validada |
+| 43 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CCam::Process_DW_HeliChaseCam) | `0x0050E090` | 192 | ✅ validada |
+| 86 | 3 Media | wrapper | CTaskComplexPartner::ControlSubTask | `0x006840D0` | 192 | ✅ validada |
+| 22 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CCam::Process_DW_HeliChaseCam) | `0x0050E180` | 184 | ✅ validada |
+| 45 | 3 Media | wrapper | CTaskComplexPartner::CreateFirstSubTask | `0x00681F20` | 177 | ✅ validada |
+| 26 | 3 Media | wrapper | CCarCtrl::FindSpeedMultiplier | `0x004224E0` | 167 | ✅ validada |
+| 76 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CProjectileInfo::AddProjectile) | `0x005A4030` | 167 | ✅ validada |
+| 31 | 3 Media | wrapper | FightStrikeDamageExe | `0x0061C740` | 164 | ✅ validada |
+| 29 | 3 Media | embedded_call | CTrainNode::GetLightingFromCollision | `0x006F5F80` | 161 | ✅ validada |
+| 85 | 3 Media | wrapper | D3DResourceSystem::CreateIndexBuffer | `0x007306A0` | 153 | ✅ validada |
+| 30 | 3 Media | wrapper | CCustomBuildingDNPipeline::CustomPipeMaterialSetup | `0x005D7120` | 149 | ✅ validada |
+| 25 | 2 Fácil | embedded_call | CHeli::FindSwatPositionRelativeToHeli | `0x006C4760` | 141 | ✅ validada |
+| 28 | 3 Media | embedded_call | CGarage::IsGarageEmpty | `0x0044A9C0` | 141 | ✅ validada |
+| 59 | 3 Media | wrapper | CCarCtrl::SteerAIPlaneToFollowEntity | `0x004237F0` | 141 | ✅ validada |
+| 65 | 3 Media | wrapper | CTaskComplexFollowPedFootsteps::CreateFirstSubTask | `0x00695000` | 141 | ✅ validada |
+| 15 | 2 Fácil | wrapper | CCarCtrl::StopCarIfNodesAreInvalid | `0x00422590` | 137 | ✅ validada |
+| 38 | 2 Fácil | wrapper | CreateRouteTask | `0x00655140` | 130 | ✅ validada |
+| 70 | 2 Fácil | embedded_call | helper sin símbolo confirmado (usado por ProcessPlayerVehicleInteraction) | `0x006919C0` | 126 | ✅ validada |
+| 23 | 3 Media | embedded_call | TransformPoint | `0x0059C890` | 124 | ✅ validada |
+| 63 | 3 Media | wrapper | CCarCtrl::SteerAIHeliFlyingAwayFromPlayer | `0x0042ACB0` | 122 | ✅ validada |
+| 62 | 2 Fácil | wrapper | CTaskComplexPartnerDeal::StreamRequiredAnims | `0x006823C0` | 113 | ✅ validada |
+| 11 | 2 Fácil | wrapper | CStats::FindLeastFavoriteRadioStation | `0x00559010` | 110 | ✅ validada |
+| 34 | 2 Fácil | wrapper | RemoveUpgradeCB | `0x006D3300` | 108 | ✅ validada |
+| 35 | 2 Fácil | embedded_call | helper sin símbolo confirmado (usado por CTaskSimpleCarDrive::StartRollingDoor) | `0x0063C840` | 108 | ✅ validada |
+| 87 | 2 Fácil | embedded_call | helper sin símbolo confirmado (usado por CAEUserRadioTrackManager::WriteUserTracksFile) | `0x004F4620` | 102 | ✅ validada |
+| 21 | 3 Media | wrapper | CCarCtrl::FindIntersection2Lines | `0x004226F0` | 100 | ✅ validada |
+| 18 | 2 Fácil | wrapper | CTaskComplexPartner::StreamRequiredAnims | `0x00682310` | 93 | ✅ validada |
+| 53 | 2 Fácil | wrapper | CSearchLight::IsSpottedEntity | `0x00493900` | 90 | ✅ validada |
+| 17 | 3 Media | wrapper | CCarCtrl::SteerAIHeliToCrashAndBurn | `0x004238E0` | 89 | ✅ validada |
+| 42 | 2 Fácil | embedded_call | helper sin símbolo confirmado (usado por WaitForPedUnwind) | `0x0061A3D0` | 85 | ✅ validada |
+| 7 | 2 Fácil | wrapper | CCarCtrl::SteerAIPlaneToCrashAndBurn | `0x00423880` | 81 | ✅ validada |
+| 19 | 3 Media | embedded_call | helper sin símbolo confirmado (usado por CameraObbeCinemaCycle) | `0x0050B830` | 77 | ✅ validada |
+| 90 | 2 Fácil | wrapper | CCarCtrl::GetAIPlaneToDoDogFightAgainstPlayer | `0x0042F370` | 76 | ✅ validada |
+| 55 | 3 Media | wrapper | CCarCtrl::SteerAIPlaneTowardsTargetCoors | `0x00423790` | 75 | ✅ validada |
+| 27 | 2 Fácil | wrapper | CTaskComplexPartnerChat::MakeAbortable | `0x00682C60` | 65 | ✅ validada |
+| 9 | 2 Fácil | wrapper | FindUpgradeCB | `0x006D3370` | 61 | ✅ validada |
+| 49 | 2 Fácil | embedded_call | helper sin símbolo confirmado (usado por CDecisionMakerTypes::InjectHooks) | `0x00606060` | 59 | ✅ validada |
+| 16 | 3 Media | wrapper | CQuaternion::Get | `0x0059C230` | 57 | ✅ validada |
+| 50 | 2 Fácil | wrapper | CTaskComplexPartner::RemoveStreamedAnims | `0x00682370` | 56 | ✅ validada |
+| 8 | 1 Muy fácil | wrapper | FindReplacementUpgradeCB | `0x006D3490` | 53 | ✅ validada |
+| 12 | 1 Muy fácil | embedded_call | helper sin símbolo confirmado (usado por GetAnimHierarchyFromFrame) | `0x00734A70` | 51 | ✅ validada |
+| 14 | 1 Muy fácil | wrapper | CAEStreamingDecoder scalar deleting destructor (operator delete de la clase) | `0x004F2860` | 50 | ✅ validada |
+| 48 | 2 Fácil | wrapper | CDecisionMakerTypes::AddEventResponse | `0x006044C0` | 50 | ✅ validada |
+| 24 | 2 Fácil | wrapper | CTaskComplexKillPedOnFoot::MakeAbortable | `0x00625E40` | 48 | ✅ validada |
+| 6 | 1 Muy fácil | wrapper | CGarages::CountCarsInHideoutGarage | `0x0044A210` | 47 | ✅ validada |
+| 3 | 1 Muy fácil | wrapper | CAutoPilot::RemoveOnePathNode | `0x0041B950` | 45 | ✅ validada |
+| 13 | 2 Fácil | wrapper | CCarCtrl::ThisVehicleShouldTryNotToTurn | `0x00421FE0` | 38 | ✅ validada |
+| 5 | 1 Muy fácil | wrapper | CDecisionMakerTypes::FlushDecisionMakerEventResponse | `0x00604490` | 35 | ✅ validada |
+| 4 | 1 Muy fácil | wrapper | CPedGroups::RemoveAllFollowersFromGroup | `0x005FB8A0` | 32 | ✅ validada |
+| 2 | 1 Muy fácil | embedded_call | CPool&lt;CVehicle&gt;::GetAt (acceso por índice a la ranura de 0xA18 bytes) | `0x0041CC10` | 31 | ✅ validada |
+| 47 | 2 Fácil | wrapper | CCarCtrl::GetAIHeliToFlyInDirection | `0x0042A730` | 28 | ✅ validada |
+| 10 | 2 Fácil | embedded_call | helper sin símbolo confirmado (usado por CHud::DrawVitalStats) | `0x00406CE0` | 19 | ✅ validada |
+| 20 | 2 Fácil | wrapper | CTaskComplexFollowPedFootsteps::MakeAbortable | `0x00694ED0` | 8 | ✅ validada |
+| 1 | 1 Muy fácil | embedded_call | helper sin símbolo confirmado (usado por FightUnwind) | `0x0061A3A0` | 7 | ✅ validada |
+| 44 | 2 Fácil | wrapper | CTaskComplexPartnerDeal::CreateFirstSubTask | `0x006823B0` | 5 | ✅ validada |
 
 </details>
 
+**Cohorte inicial de 499 dependencias (comprobado el 04/11/2026).** De sus 255 destinos del juego, 254 tienen fila `reversed=1` y `validated=1` en hooks.csv (131 figuran como aprobadas en su `progress.csv` y el resto se validó después con otros bancos), 0 están reconstruidas por validar y **1 abiertas**: `InteriorGroup_c::SetupHousePeds` `0x0046CED0`. El «124 entradas del juego pendientes» que repite la cabecera de estado de otros documentos sale del `progress.json` de ese cohorte, que no se ha refrescado; no es la medida actual.
+
+<a id="grupo-a"></a>
+
+## 10. Dependencias directas de la DLL al EXE (grupo A)
+
+Lista viva del trabajo real. Al 04/11/2026, el grupo A de [JuegoExe](JuegoExe/README.md) tiene **972 funciones del juego** (125,275 bytes) que la DLL ya necesita: 805 se llaman **directamente** desde código ya reemplazado (llamadas detectadas con dirección, bytes y llamador) y 167 solo de forma transitiva, a través de otras funciones aún no reemplazadas. La categoría y los llamadores salen del análisis de [AnalisisGrupoA.md](AnalisisGrupoA.md) ([grupoA.csv](JuegoExe/grupoA.csv), 1,007 funciones en el momento del análisis; 35 ya no son del grupo A: se reconstruyeron desde entonces o pasaron a envoltura abierta). El cierre transitivo de la [sección 6](#que-falta) cuenta 996 funciones: la diferencia (24) son funciones del grupo A que además tienen una envoltura abierta y figuran como envolturas abiertas ([sección 7](#no-en-cpp) y bibliotecas), no en esta lista. Es una cota inferior: las llamadas indirectas sin resolver no entran en el grafo.
+
+### Composición por categoría de coste
+
+| Categoría de coste | Funciones | % de funciones del grupo A | Bytes | % de bytes del grupo A | Directas desde código reemplazado | Lote medido |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| 1. Triviales y thunks (≤ 0x20 B sin llamadas, o un solo `jmp`) | 191 | 19.7% | 2,478 | 2.0% | 174 | 90A |
+| 2. Pequeñas sin FPU (≤ 0x40 B, ≤ 1 llamada) | 192 | 19.8% | 7,851 | 6.3% | 148 | 90B |
+| 3. Lógica sin FPU (< 0x300 B) | 421 | 43.3% | 60,810 | 48.5% | 326 | 92A |
+| 4. Con FPU (método x87 a 24 bits; < 0x300 B) | 144 | 14.8% | 26,857 | 21.4% | 135 | sin medir |
+| 5. De 0x300 B o más (una por lote) | 24 | 2.5% | 27,279 | 21.8% | 22 | 92B, 92C |
+
+### Llamadas directas detectadas
+
+Ordenadas por número de sitios de llamada desde código ya reemplazado (los más llamados ganan más por función) y, a igualdad, de mayor a menor tamaño. «Llamadores» son los primeros llamadores del código ya reemplazado (nombre del catálogo o dirección); «Lote» es el lote en curso o asignado que la reconstruye ([lotes-en-curso.csv](JuegoExe/lotes-en-curso.csv)); «—» significa sin lote asignado. Los lotes ya validados (90A, 90B, 92A–92C) dejaron de figurar porque estas funciones ya no están pendientes.
+
+<details>
+<summary>Llamadas directas del grupo A pendientes (805), de más a menos llamadas</summary>
+
+| Dirección | Bytes | Módulo estimado | Categoría | Llamadas desde código reemplazado | Llamadores | Lote |
+| --- | ---: | --- | ---: | ---: | --- | --- |
+| `0x0059C910` | 81 | CQuaternion (baja) | 4 | 423 | `0x422b20`, `0x423940`, `0x429090` (+420 más) | — |
+| `0x0054F1B0` | 42 | CMatrixLinkList (baja) | 3 | 346 | `0x422b20`, `0x426bc0`, `0x42a750` (+343 más) | — |
+| `0x0040FE60` | 37 | CColSphere (alta) | 4 | 238 | `0x424f80`, `0x425440`, `0x42dab0` (+235 más) | — |
+| `0x0059ACD0` | 22 | CMaths (baja) | 2 | 219 | `0x6240b0`, `0x6aa290`, `0x6aab50` (+216 más) | — |
+| `0x0059C730` | 91 | CQuaternion (baja) | 4 | 200 | `0x42dab0`, `0x42ec90`, `0x516010` (+197 más) | — |
+| `0x004082C0` | 33 | CStreaming (baja) | 4 | 163 | `0x430050`, `0x434900`, `0x436a90` (+160 más) | — |
+| `0x0040FE90` | 37 | CColSphere (alta) | 4 | 130 | `0x604500`, `0x6aa290`, `0x6d85f0` (+127 más) | — |
+| `0x0040FEC0` | 37 | CColSphere (alta) | 4 | 125 | `0x42c2b0`, `0x430050`, `0x437c20` (+122 más) | — |
+| `0x0059C790` | 115 | CQuaternion (baja) | 4 | 119 | `0x426350`, `0x6aab50`, `0x6c4e60` (+116 más) | — |
+| `0x00406DA0` | 31 | CdStream (baja) | 1 | 119 | `0x424f80`, `0x425440`, `0x5e8cd0` (+116 más) | — |
+| `0x0040FE30` | 37 | CColSphere (alta) | 4 | 95 | `0x430050`, `0x437c20`, `0x602c00` (+92 más) | — |
+| `0x0072F430` | 5 | CMemoryMgr (alta) | 1 | 70 | `0x619d60`, `C2dEffect::Shutdown`, `C2dEffect::t2dEffectPluginDestructor` (+67 más) | — |
+| `0x0059BBB0` | 14 | CCompressedMatrixNotAligned (baja) | 2 | 69 | `0x6aa290`, `0x6aab50`, `0x6c5420` (+66 más) | — |
+| `0x00749B70` | 57 | Win (baja) | 2 | 68 | `0x6df930`, `0x6dfa20`, `0x734fc0` (+65 más) | — |
+| `0x004AB250` | 5 | FxSystem_c (baja) | 1 | 59 | `0x5c0b70`, `FxEmitterBP_c::Load`, `FxManager_c::LoadFxProject` (+56 más) | — |
+| `0x00420800` | 25 | CCarAI (baja) | 1 | 54 | `0x424f80`, `0x430050`, `0x44aa50` (+51 más) | — |
+| `0x0040FDB0` | 29 | CColSphere (alta) | 1 | 53 | `0x42dab0`, `0x434900`, `0x436a90` (+50 más) | — |
+| `0x0059AD70` | 84 | CMaths (baja) | 3 | 52 | `0x59bbc0`, `0x693610`, `CAutomobile::ProcessHarvester` (+49 más) | — |
+| `0x00411A00` | 33 | CPlaceable (baja) | 4 | 51 | `0x629920`, `0x6c69c0`, `0x6d85f0` (+48 más) | — |
+| `0x0054EF40` | 77 | Common (baja) | 4 | 49 | `0x693610`, `CAutomobile::ProcessHarvester`, `CCam::Process_1rstPersonPedOnPC` (+46 más) | — |
+| `0x0040EF50` | 52 | CColLine (baja) | 2 | 48 | `CBirds::HandleGunShot`, `CCollision::ProcessLineOfSight`, `CCollision::SphereCastVsBBox` (+45 más) | — |
+| `0x006E5280` | 77 | WaterCreatureManager_c (baja) | 4 | 46 | `0x6eb810`, `CWaterLevel::RenderFlatWaterRectangle`, `CWaterLevel::RenderWaterRectangle` (+43 más) | — |
+| `0x004AB290` | 53 | FxSystem_c (baja) | 2 | 44 | `0x44aa50`, `0x49eb00`, `0x49ee10` (+41 más) | — |
+| `0x004A8DF0` | 50 | FxInfoManager_c (baja) | 2 | 40 | `0x4a2580`, `BoneNodeManager_c::Init`, `BoneNodeManager_c::Reset` (+37 más) | — |
+| `0x0059B020` | 51 | CMaths (baja) | 4 | 38 | `0x45ab10`, `0x5e2530`, `0x693610` (+35 más) | — |
+| `0x004EF660` | 24 | CAESoundManager (baja) | 2 | 38 | `CAEAudioEntity::Destructor`, `CAECollisionAudioEntity::PlayBulletHitCollisionSound`, `CAECollisionAudioEntity::PlayLoopingCollisionSound` (+35 más) | — |
+| `0x00404330` | 25 | CRect (baja) | 1 | 37 | `0x6d7c90`, `0x6d85f0`, `CAEGlobalWeaponAudioEntity::ServiceAmbientGunFire` (+34 más) | — |
+| `0x0059C050` | 33 | CCompressedMatrixNotAligned (baja) | 2 | 33 | `C3dMarkers::DirectionArrowsDraw`, `CAutomobile::CloseBoot`, `CAutomobile::Constructor` (+30 más) | — |
+| `0x0059BCF0` | 30 | CCompressedMatrixNotAligned (baja) | 1 | 31 | `0x6240b0`, `0x6c69c0`, `CAutomobile::ProcessControlCollisionCheck` (+28 más) | — |
+| `0x0074C790` | 62 | Win (baja) | 2 | 29 | `0x6d3830`, `CCustomBuildingDNPipeline::CustomPipeAtomicSetup`, `CCustomBuildingPipeline::CustomPipeAtomicSetup` (+26 más) | — |
+| `0x0041CCB0` | 70 | CCarAI (alta) | 4 | 27 | `0x425440`, `0x42c2b0`, `0x42c740` (+24 más) | — |
+| `0x0059AF40` | 57 | CMaths (baja) | 2 | 27 | `0x6c6520`, `C3dMarkers::PlaceMarker`, `CAutomobile::Constructor` (+24 más) | — |
+| `0x0040FEF0` | 33 | CColSphere (alta) | 4 | 27 | `0x6d85f0`, `CAutomobile::ProcessBuoyancy`, `CCam::Process_1stPerson` (+24 más) | — |
+| `0x00734E90` | 8 | RwHelper (baja) | 2 | 26 | `CPostEffects::DrawQuad`, `CPostEffects::Radiosity`, `CPostEffects::UnderWaterRipple` (+23 más) | — |
+| `0x004AD960` | 81 | CEventDamage (alta) | 3 | 25 | `0x5e2530`, `0x604500`, `0x607e30` (+22 más) | — |
+| `0x0040FE00` | 35 | CColSphere (alta) | 4 | 25 | `CAutomobile::VehicleDamage`, `CEventDamage::AffectsPed`, `CEventSeenPanickedPed::AffectsPed` (+22 más) | — |
+| `0x004B5620` | 11 | CEventPool (baja) | 1 | 25 | `0x60b650`, `0x60c840`, `0x60cd20` (+22 más) | — |
+| `0x005A1EE0` | 11 | CObjectPool (baja) | 1 | 25 | `CAutomobile::ProcessHarvester`, `CAutomobile::SpawnFlyingComponent`, `CBoat::BlowUpCar` (+22 más) | — |
+| `0x0044DB00` | 96 | CPathFind (alta) | 4 | 24 | `0x41b980`, `0x426ef0`, `0x427740` (+21 más) | — |
+| `0x004ADFD0` | 95 | CEventDamage (baja) | 3 | 24 | `0x60b650`, `0x60c840`, `0x60cd20` (+21 más) | — |
+| `0x0059B920` | 206 | CMaths (baja) | 4 | 23 | `CAutomobile::RcbanditCheck1CarWheels`, `CCarEnterExit::IsPathToDoorBlockedByVehicleCollisionModel`, `CCollision::ProcessColModels` (+20 más) | — |
+| `0x004AE070` | 94 | CEventDamage (baja) | 3 | 23 | `0x60b650`, `0x60c840`, `0x60cd20` (+20 más) | — |
+| `0x007491C0` | 47 | Win (baja) | 2 | 23 | `CShadowCamera::Update-Atomic`, `CShadowCamera::atomicQuickRender`, `CVisibilityPlugins::RenderAtomicWithAlpha` (+20 más) | — |
+| `0x0061A360` | 41 | CPlayerRelationshipRecorder (baja) | 3 | 23 | `0x603720`, `0x604500`, `0x695090` (+20 más) | — |
+| `0x0059C810` | 115 | CQuaternion (baja) | 4 | 22 | `0x4a0de0`, `0x516560`, `0x6d85f0` (+19 más) | — |
+| `0x006E2D60` | 36 | CVehicle (alta) | 2 | 21 | `CPools::LoadVehiclePool`, `CReplay::PlayBackThisFrameInterpolation` (+18 más) | — |
+| `0x0074BF20` | 31 | Win (baja) | 2 | 21 | `0x6d3830`, `C2dEffect::DestroyAtomic`, `C2dEffect::t2dEffectPluginDestructor` (+18 más) | — |
+| `0x0059AE70` | 43 | CMaths (baja) | 2 | 20 | `C3dMarker::AddMarker`, `C3dMarker::Render`, `C3dMarkers::DirectionArrowsDraw` (+17 más) | — |
+| `0x0059BE30` | 362 | CCompressedMatrixNotAligned (baja) | 4 | 19 | `C3dMarkers::DirectionArrowsDraw`, `CBike::PreRender`, `CBmx::PreRender` (+16 más) | — |
+| `0x0059B120` | 180 | CMaths (baja) | 4 | 19 | `0x6aab50`, `CAutomobile::CloseBoot`, `CAutomobile::OpenDoor` (+16 más) | — |
+| `0x00749DC0` | 127 | Win (baja) | 3 | 19 | `0x6d3300`, `C2dEffect::DestroyAtomic`, `C2dEffect::t2dEffectPluginDestructor` (+16 más) | — |
+| `0x00470000` | 14 | CTaskComplexGoToPointAndStandStill (baja) | 4 | 19 | `CAutomobile::ProcessCarWheelPair`, `cHandlingDataMgr::LoadHandlingData` (+16 más) | — |
+| `0x004A8EB0` | 11 | FxInfoManager_c (baja) | 1 | 19 | `BoneNodeManager_c::Exit`, `BoneNodeManager_c::Reset`, `BoneNode_c::Init` (+16 más) | — |
+| `0x0059B390` | 208 | CMaths (baja) | 4 | 18 | `C3dMarkers::PlaceMarker`, `CBoat::ProcessControl`, `CPed::SetPedPositionInCar` (+15 más) | — |
+| `0x0050A0A0` | 119 | CCam (baja) | 4 | 18 | `CCam::Process_FollowCar_SA`, `CCam::Process_FollowPed_SA` (+15 más) | — |
+| `0x006478B0` | 118 | CTaskSimpleCarJumpOut (baja) | 3 | 18 | `0x641100`, `0x641530`, `CCarAI::AddPoliceCarOccupants` (+15 más) | — |
+| `0x00411A80` | 99 | CPlaceable (baja) | 3 | 18 | `C3dMarker::Render`, `CBike::CalculateLeanMatrix`, `CBike::FixHandsToBars` (+15 más) | — |
+| `0x004119D0` | 47 | CPlaceable (baja) | 4 | 18 | `0x430050`, `0x604500`, `0x6dfc50` (+15 más) | — |
+| `0x0069F7E0` | 220 | CMissionTextOffsets (baja) | 3 | 17 | `0x559230`, `0x55a780`, `CMenuManager::SaveStatsToFile` (+14 más) | — |
+| `0x00411590` | 70 | CColStore (baja) | 4 | 17 | `CAutomobile::UpdateMovingCollision`, `CCollision::ProcessLineTriangle`, `CCollision::ProcessSphereTriangle` (+14 más) | — |
+| `0x0059B060` | 60 | CMaths (baja) | 4 | 17 | `0x6c5420`, `CAutomobile::UpdateMovingCollision`, `CBike::CalculateLeanMatrix` (+14 más) | — |
+| `0x0040FC80` | 97 | CColModel (baja) | 3 | 16 | `0x5e2530`, `CAutomobile::ProcessEntityCollision`, `CBike::ProcessEntityCollision` (+13 más) | — |
+| `0x004AFE70` | 97 | CEventKnockOffBike (alta) | 3 | 16 | `CAutomobile::ProcessBuoyancy`, `CBike::BurstTyre`, `CBike::DamageKnockOffRider` (+13 más) | — |
+| `0x0059C970` | 95 | CQuaternion (baja) | 4 | 16 | `0x657380`, `0x6de880`, `0x6e0a50` (+13 más) | — |
+| `0x0062F360` | 11 | CTaskSimpleStandStill (alta) | 1 | 16 | `0x625e70`, `0x66c4e0`, `CTaskComplexDestroyCarMelee::CreateSubTask` (+13 más) | — |
+| `0x0059C670` | 90 | CQuaternion (baja) | 4 | 15 | `0x603720`, `CCarEnterExit::IsPathToDoorBlockedByVehicleCollisionModel`, `CPedAttractor::Constructor` (+12 más) | — |
+| `0x00403D60` | 48 | CEntity (baja) | 2 | 15 | `0x424210`, `0x435830`, `CBike::ProcessEntityCollision` (+12 más) | — |
+| `0x00406D70` | 33 | CdStream (baja) | 4 | 15 | `0x6de880`, `0x6dfc50`, `0x6e0050` (+12 más) | — |
+| `0x00409C70` | 30 | CStreaming (alta) | 1 | 15 | `CCheat::VehicleCheat`, `CCutsceneMgr::RemoveEverythingBecauseCutsceneDoesntFitInMemory`, `CPlane::DoPlaneGenerationAndRemoval` (+12 más) | — |
+| `0x004A8EC0` | 4 | FxInfoManager_c (baja) | 1 | 15 | `BoneNodeManager_c::GetNumBoneNodesLeft`, `FurnitureSubGroup_c::GetFurniture`, `FurnitureSubGroup_c::GetRandomId` (+12 más) | — |
+| `0x00616920` | 283 | CPedPlacement (alta) | 4 | 14 | `CPed::PositionAnyPedOutOfCollision`, `CPed::PositionPedOutOfCollision`, `CPedAttractorPedPlacer::PlacePedAtEffect` (+11 más) | — |
+| `0x004A8E30` | 59 | FxInfoManager_c (baja) | 2 | 14 | `FxEmitterBP_c::FreePrtFromPrim`, `FxEmitterBP_c::Update`, `FxManager_c::DestroyFxSystem` (+11 más) | — |
+| `0x0074A310` | 377 | Win (baja) | 3 | 13 | `C3dMarkers::Shutdown`, `CAnimBlendAssocGroup::CreateAssociations-1`, `CAnimBlendAssocGroup::CreateAssociations-3` (+10 más) | — |
+| `0x00733910` | 115 | CVisibilityPlugins (alta) | 4 | 13 | `CVisibilityPlugins::InsertAtomicIntoReallyDrawLastList`, `CVisibilityPlugins::InsertEntityIntoReallyDrawLastList`, `CVisibilityPlugins::InsertEntityIntoSortedList` (+10 más) | — |
+| `0x004AF890` | 81 | CEventAcquaintancePed (alta) | 3 | 13 | `0x42c2b0`, `0x604500`, `CCheat::EverybodyAttacksPlayerCheat` (+10 más) | — |
+| `0x005A8080` | 78 | CPedClothesDesc (baja) | 3 | 13 | `CCheat::BeachPartyCheat`, `CCheat::CountrysideInvasionCheat`, `CCheat::FunhouseCheat` (+10 más) | — |
+| `0x00638290` | 725 | CTaskComplexSunbathe (baja) | 3 | 12 | `CTaskComplexSunbathe::CreateFirstSubTask`, `CTaskComplexSunbathe::CreateNextSubTask` (+9 más) | — |
+| `0x006389F0` | 79 | CTaskComplexWaitForBus (baja) | 3 | 12 | `CGroupEventHandler::ComputeResponseLeaderEnteredCar`, `CGroupEventHandler::ComputeResponseLeaderExitedCar`, `CGroupEventHandler::ComputeResponseNewGangMember` (+9 más) | — |
+| `0x00509760` | 72 | CAudioZones (baja) | 4 | 12 | `0x6d7c90`, `CCamera::TakeControlAttachToEntity`, `CClouds::VolumetricCloudsRender` (+9 más) | — |
+| `0x00619440` | 5 | Rs (alta) | 1 | 12 | `App::DoRWStuffEndOfFrame`, `CLoadingScreen::DisplayNextSplash`, `CLoadingScreen::DisplayPCScreen` (+9 más) | — |
+| `0x0074C800` | 595 | Win (baja) | 3 | 11 | `0x5dd100`, `CClothesBuilder::BlendGeometry-2`, `CClothesBuilder::BlendGeometry-3` (+8 más) | — |
+| `0x0059B2C0` | 202 | CMaths (baja) | 4 | 11 | `0x6aa290`, `CBike::CalculateLeanMatrix`, `CBike::PreRender` (+8 más) | — |
+| `0x005DEA00` | 90 | CAEAudioEntity (baja) | 3 | 11 | `0x604500`, `0x61cba0`, `0x6240b0` (+8 más) | — |
+| `0x00647950` | 90 | CTaskSimpleCarSetPedOut (alta) | 3 | 11 | `0x641100`, `CCarAI::AddPoliceCarOccupants`, `CCutsceneMgr::LoadCutsceneData_preload` (+8 más) | — |
+| `0x005F8510` | 77 | CPedGroupDefaultTaskAllocatorChat (baja) | 3 | 11 | `CTaskAllocatorKillOnFoot::AllocateTasks`, `CTaskAllocatorKillThreatsBasic::AllocateTasks`, `CTaskAllocatorKillThreatsBasicRandomGroup::AllocateTasks` (+8 más) | — |
+| `0x004A8E70` | 54 | FxInfoManager_c (baja) | 2 | 11 | `BoneNodeManager_c::GetBoneNode`, `FxManager_c::GetParticle`, `IKChainManager_c::AddIKChain` (+8 más) | — |
+| `0x0074DBC0` | 39 | Win (baja) | 2 | 11 | `CAutomobile::CustomCarPlate_AfterRenderingStop`, `CAutomobile::CustomCarPlate_BeforeRenderingStart`, `CClothesBuilder::CreateSkinnedClump` (+8 más) | — |
+| `0x005EC660` | 217 | CPedAttractor (baja) | 3 | 10 | `CPedAttractorManager::BroadcastDeparture-` (+7 más) | — |
+| `0x005EC740` | 217 | CPedAttractor (baja) | 3 | 10 | `CPedAttractorManager::DeRegisterPed-` (+7 más) | — |
+| `0x00552470` | 112 | CPtrNodeDoubleLinkPool (baja) | 3 | 10 | `CCover::Init`, `CGame::Shutdown`, `CWorld::RemoveStaticObjects` (+7 más) | — |
+| `0x005EB740` | 97 | CPedAttractor (baja) | 3 | 10 | `CPedAttractorManager::GetPedUsingEffect-` (+7 más) | — |
+| `0x005EB7B0` | 95 | CPedAttractor (baja) | 3 | 10 | `CPedAttractorManager::GetRelevantAttractor-` (+7 más) | — |
+| `0x005EF920` | 95 | CPedAttractorManager (baja) | 3 | 10 | `CPedAttractorManager::BroadcastArrival-` (+7 más) | — |
+| `0x005EB690` | 93 | CPedAttractor (baja) | 3 | 10 | `CPedAttractorManager::IsPedRegisteredWithEffect-Effect` (+7 más) | — |
+| `0x005EB640` | 75 | CPedAttractor (baja) | 3 | 10 | `CPedAttractorManager::IsPedRegisteredWithEffect-Ped` (+7 más) | — |
+| `0x005EB5F0` | 67 | CPedAttractor (baja) | 3 | 10 | `CPedAttractorManager::RemoveEffect-` (+7 más) | — |
+| `0x0044E480` | 62 | CPathFind (alta) | 4 | 10 | `0x683ad0`, `CEventDamage::ComputeDamageAnim`, `CEventDamage::ComputeDeathAnim` (+7 más) | — |
+| `0x0074A490` | 37 | Win (baja) | 2 | 10 | `0x6d3830`, `C3dMarkers::Init`, `CVehicle::CopyObjectsCB` (+7 más) | — |
+| `0x0059AF80` | 24 | CMaths (baja) | 1 | 10 | `0x6240b0`, `0x6aab50`, `CMirrors::BuildCamMatrix` (+7 más) | — |
+| `0x00407BE0` | 1 | CStreaming (alta) | 1 | 10 | `CCutsceneMgr::CreateCutsceneObject`, `CCutsceneMgr::LoadCutsceneData_postload`, `CCutsceneMgr::SetCutsceneAnim` (+7 más) | — |
+| `0x00407BF0` | 1 | CStreaming (alta) | 1 | 10 | `CCutsceneMgr::CreateCutsceneObject`, `CCutsceneMgr::LoadCutsceneData_postload`, `CCutsceneMgr::SetCutsceneAnim` (+7 más) | — |
+| `0x0061DE60` | 185 | CTaskSimpleFightingControl (baja) | 3 | 9 | `CTaskComplexFleeShooting::ControlSubTask`, `CTaskComplexGoToPointAiming::ControlSubTask`, `CTaskComplexGoToPointAiming::CreateFirstSubTask` (+6 más) | — |
+| `0x004B1990` | 97 | CEventVehicleDamage (alta) | 3 | 9 | `0x61d0b0`, `0x6d7c90`, `CAutomobile::VehicleDamage` (+6 más) | — |
+| `0x0059AD20` | 77 | CMaths (baja) | 3 | 9 | `CCamera::CopyCameraMatrixToRWCam`, `CEntity::AttachToRwObject`, `CPhysical::AttachEntityToEntity-quat` (+6 más) | — |
+| `0x00749B20` | 65 | Win (baja) | 3 | 9 | `C3dMarkers::DirectionArrowsDraw`, `C3dMarkers::User3dMarkersDraw`, `CEntity::Render` (+6 más) | — |
+| `0x005B3680` | 63 | CTimeInfo (baja) | 3 | 9 | `CFileLoader::LoadLevel` (+6 más) | — |
+| `0x0059B0E0` | 60 | CMaths (baja) | 4 | 9 | `0x6c5420`, `CEntryExit::IsInArea`, `CEntryExitManager::AddOne` (+6 más) | — |
+| `0x004F56D0` | 44 | CAEVehicleAudioEntity (alta) | 4 | 9 | `CAEVehicleAudioEntity::ProcessDummyStateTransition`, `CAEVehicleAudioEntity::ProcessPlayerVehicleEngine` (+6 más) | — |
+| `0x0041B7C0` | 11 | CNodeRoutePool (baja) | 1 | 9 | `CTaskComplexDrivePointRoute::Constructor`, `CTaskComplexFollowNodeRoute::Constructor`, `CTaskComplexFollowPedFootsteps::Constructor` (+6 más) | — |
+| `0x004C6200` | 5 | CModelInfo (alta) | 2 | 9 | `CModelInfo::ShutDown` (+6 más) | — |
+| `0x006682D0` | 661 | CTaskComplexGoToPointAndStandStill (alta) | 4 | 8 | `CTaskComplexGoToPointAndStandStill::CreateFirstSubTask`, `CTaskComplexGoToPointAndStandStill::CreateNextSubTask`, `CTaskComplexGoToPointAndStandStillTimed::CreateFirstSubTask` (+5 más) | — |
+| `0x005EF980` | 659 | CPedAttractorManager (baja) | 3 | 8 | `CPedAttractorManager::RegisterPedWithAttractor` (+5 más) | — |
+| `0x0059B8B0` | 108 | CMaths (baja) | 3 | 8 | `CPhysical::AttachEntityToEntity-quat`, `CShadows::CastShadowEntityXYZ`, `CTaskUtilityLineUpPedWithCar::ProcessPed` (+5 más) | — |
+| `0x004DC670` | 54 | CAEDataStream (baja) | 4 | 8 | `CAEScriptAudioEntity::PlayLoadedMissionAudio`, `CAEScriptAudioEntity::PlayMissionBankSound`, `CAEScriptAudioEntity::PlayResidentSoundEvent` (+5 más) | — |
+| `0x0074C7D0` | 44 | Win (baja) | 2 | 8 | `CClothesBuilder::BlendGeometry-2`, `CClothesBuilder::BlendGeometry-3`, `CClothesBuilder::CopyGeometry` (+5 más) | — |
+| `0x00718660` | 35 | Common (alta) | 2 | 8 | `0x559230`, `0x55a780`, `CMenuManager::PrintStats` (+5 más) | — |
+| `0x0065F3A0` | 10 | CTaskSimpleGoToPointFine (baja) | 1 | 8 | `CTaskComplexFollowNodeRoute::ControlSubTask`, `CTaskComplexFollowPointRoute::ControlSubTask` (+5 más) | — |
+| `0x006962A0` | 981 | CTaskComplexSeekEntityAnyMeansXYOffset (baja) | 5 | 7 | `CTaskComplexFollowLeaderInFormation::ControlSubTask`, `CTaskComplexFollowLeaderInFormation::CreateFirstSubTask`, `CTaskComplexFollowLeaderInFormation::CreateNextSubTask` (+4 más) | — |
+| `0x00749E60` | 258 | Win (baja) | 3 | 7 | `C3dMarker::AddMarker`, `CAutomobile::SpawnFlyingComponent`, `CBoat::BlowUpCar` (+4 más) | — |
+| `0x00552400` | 99 | CPtrNodeDoubleLinkPool (baja) | 3 | 7 | `CEntryExitManager::FindNearestEntryExit`, `CEntryExitManager::Update`, `CWorld::RemoveStaticObjects` (+4 más) | — |
+| `0x0074DA20` | 94 | Win (baja) | 3 | 7 | `0x734de0`, `CCustomRoadsignMgr::CreateRoadsignAtomicA` (+4 más) | — |
+| `0x0059F0C0` | 77 | CBaseModelInfo (baja) | 4 | 7 | `CBulletInfo::Update`, `CTrain::ProcessControl`, `CWeapon::DoBulletImpact` (+4 más) | — |
+| `0x00509C50` | 70 | CCam (alta) | 4 | 7 | `CCam::Process_1rstPersonPedOnPC`, `CCam::Process_AimWeapon`, `CCam::Process_FollowCar_SA` (+4 más) | — |
+| `0x0040F700` | 52 | CCollisionData (baja) | 3 | 7 | `CBaseModelInfo::DeleteCollisionModel`, `CBaseModelInfo::Shutdown`, `CPedModelInfo::DeleteRwObject` (+4 más) | — |
+| `0x004997A0` | 50 | CSetPiece (alta) | 4 | 7 | `CSetPiece::Update` (+4 más) | — |
+| `0x005523C0` | 11 | CPtrNodeDoubleLinkPool (baja) | 1 | 7 | `CCover::Update`, `CEntity::AttachToRwObject`, `CEntity::CreateRwObject` (+4 más) | — |
+| `0x0044F2C0` | 396 | CPathFind (alta) | 4 | 6 | `0x44f460` (+3 más) | — |
+| `0x0059EEB0` | 297 | CHandObject (baja) | 3 | 6 | `CTaskSimplePlayHandSignalAnim::StartAnim` (+3 más) | — |
+| `0x0072FC70` | 273 | PipelinePlugin (baja) | 4 | 6 | `App::AppEventHandler`, `App::DoRWStuffStartOfFrame`, `App::DoRWStuffStartOfFrame_Horizon` (+3 más) | — |
+| `0x0059B1E0` | 211 | CMaths (baja) | 4 | 6 | `0x6aab50`, `CPedIK::PitchForSlope`, `CPhysical::DettachEntityFromEntity` (+3 más) | — |
+| `0x00509A30` | 175 | CAudioZones (baja) | 3 | 6 | `CCam::GetLookFromLampPostPos`, `CCam::Process_DW_BirdyCam`, `CCam::Process_DW_CamManCam` (+3 más) | — |
+| `0x004AD250` | 139 | CEventBuildingCollision (baja) | 3 | 6 | `CCarEnterExit::MakeUndraggedDriverPedLeaveCar`, `CEventHandler::ComputeKnockOffBikeResponse`, `CTaskComplexEnterCar::CreateNextSubTask` (+3 más) | — |
+| `0x00646FE0` | 116 | CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse (baja) | 3 | 6 | `CCarEnterExit::SetPedInCarDirect`, `CTaskComplexEnterCar::CreateSubTask`, `CTaskComplexEnterCarAsPassengerTimed::ControlSubTask` (+3 más) | — |
+| `0x0070FA70` | 107 | CStencilShadows (alta) | 3 | 6 | `CStencilShadows::RenderForObject`, `CStencilShadows::RenderForVehicle` (+3 más) | — |
+| `0x004AD330` | 97 | CEventBuildingCollision (baja) | 3 | 6 | `CCarEnterExit::MakeUndraggedDriverPedLeaveCar`, `CEventHandler::ComputeKnockOffBikeResponse`, `CTaskComplexEnterCar::CreateNextSubTask` (+3 más) | — |
+| `0x004ABBA0` | 63 | CEventSource (baja) | 2 | 6 | `CEventKnockOffBike::CalcForcesAndAnims`, `CPed::MakeTyresMuddySectorList&lt;CPtrListSingleLink&lt;CPhysical*&gt;&gt;`, `CTaskSimpleInAir::ProcessPed` (+3 más) | — |
+| `0x00420A60` | 56 | CPathNode (baja) | 4 | 6 | `0x424210`, `0x430050` (+3 más) | — |
+| `0x005F65A0` | 51 | CPedGroupDefaultTaskAllocatorSitInLeaderCar (baja) | 2 | 6 | `0x684380`, `CTaskComplexChat::CreateFirstSubTask`, `CTaskComplexPartnerGreet::GetPartnerSequence` (+3 más) | — |
+| `0x0041B7D0` | 49 | CNodeRoutePool (baja) | 2 | 6 | `CTaskComplexDrivePointRoute::Destructor`, `CTaskComplexFollowNodeRoute::Destructor`, `CTaskComplexGoToCarDoorAndStandStill::Destructor` (+3 más) | — |
+| `0x005523D0` | 48 | CPtrNodeDoubleLinkPool (baja) | 2 | 6 | `CCover::Update`, `CEntity::Remove`, `CObject::RemoveFromControlCodeList` (+3 más) | — |
+| `0x00541F40` | 38 | CPad (baja) | 4 | 6 | `CPhysical::ApplySpeed` (+3 más) | — |
+| `0x005A8050` | 38 | CPedClothesDesc (baja) | 2 | 6 | `CClothesBuilder::PreprocessClothesDesc`, `CGameLogic::RestorePlayerStuffDuringResurrection`, `CShopping::Buy` (+3 más) | — |
+| `0x0074A4C0` | 33 | Win (baja) | 2 | 6 | `0x6d3300`, `CFileLoader::FindRelatedModelInfoCB`, `CFileLoader::SetRelatedModelInfoCB` (+3 más) | — |
+| `0x00734EA0` | 9 | RwHelper (baja) | 2 | 6 | `CMirrors::RenderMirrorBuffer`, `CPostEffects::HeatHazeFX`, `CShadowCamera::DrawOutlineBorder` (+3 más) | — |
+| `0x006040C0` | 8 | CEntityScanner (baja) | 2 | 6 | `0x4650f0`, `CDecisionMakerTypesFileLoader::LoadDefaultDecisionMaker` (+3 más) | — |
+| `0x0041BD50` | 7 | CBridge (baja) | 1 | 6 | `CAutomobile::ProcessCarWheelPair` (+3 más) | — |
+| `0x00411BA0` | 4 | CPlaceable (baja) | 1 | 6 | `CAutomobile::ProcessCarWheelPair` (+3 más) | — |
+| `0x0047E050` | 4 | CTheCarGenerators (baja) | 1 | 6 | `CAutomobile::ProcessCarWheelPair` (+3 más) | — |
+| `0x0074B420` | 2,207 | Win (baja) | 5 | 5 | `CFileLoader::LoadAtomicFile-`, `CFileLoader::LoadAtomicFile-stream`, `CFileLoader::LoadClumpFile-` (+2 más) | — |
+| `0x007491F0` | 318 | Win (baja) | 4 | 5 | `0x6c4e60`, `0x706520`, `CCutsceneMgr::CalculateBoundingSphereRadiusCB` (+2 más) | — |
+| `0x0059B6A0` | 305 | CMaths (baja) | 4 | 5 | `CCompressedMatrixNotAligned::DecompressIntoFullMatrix`, `CPhysical::ProcessCollision`, `CPhysical::ProcessShift` (+2 más) | — |
+| `0x006FBA20` | 117 | CCoronas (alta) | 4 | 5 | `CCoronas::RenderSunReflection` (+2 más) | — |
+| `0x0059BDD0` | 95 | CCompressedMatrixNotAligned (baja) | 3 | 5 | `CCamera::CalculateDerivedValues`, `CCamera::DealWithMirrorBeforeConstructRenderList`, `CPed::ShoulderBoneRotation` (+2 más) | — |
+| `0x004B2210` | 81 | CEventAreaCodes (alta) | 3 | 5 | `0x607e30`, `0x626260`, `CTaskComplexGotoDoorAndOpen::CreateFirstSubTask` (+2 más) | — |
+| `0x0059BB60` | 74 | CCompressedMatrixNotAligned (baja) | 3 | 5 | `App::DoRWStuffStartOfFrame_Horizon`, `CBike::PreRender`, `CBmx::PreRender` (+2 más) | — |
+| `0x004CFB10` | 70 | CAnimBlendHierarchy (baja) | 4 | 5 | `CAnimBlendNode::GetCurrentTranslationCompressed`, `CAnimBlendNode::GetEndTranslationCompressed`, `CAnimBlendNode::UpdateCompressed` (+2 más) | — |
+| `0x00733F40` | 63 | CVisibilityPlugins (alta) | 2 | 5 | `CVisibilityPlugins::InitAlphaAtomicList`, `CVisibilityPlugins::InitAlphaEntityList` (+2 más) | — |
+| `0x0041CC70` | 59 | CCarAI (alta) | 4 | 5 | `0x42dab0`, `CAEWeatherAudioEntity::UpdateParameters`, `CCarAI::UpdateCarAI` (+2 más) | — |
+| `0x005A2CB0` | 59 | CObject (baja) | 2 | 5 | `CAutomobile::SpawnFlyingComponent`, `CObjectData::SetObjectData` (+2 más) | — |
+| `0x00499820` | 50 | CSetPiece (alta) | 4 | 5 | `CSetPiece::Update` (+2 más) | — |
+| `0x004D6CC0` | 40 | CAEAmbienceTrackManager (alta) | 2 | 5 | `CAEAmbienceTrackManager::UpdateAmbienceTrackAndVolume`, `CAudioEngine::StopAmbienceTrack` (+2 más) | — |
+| `0x004A8DD0` | 13 | FxInfoManager_c (baja) | 1 | 5 | `BoneNodeManager_c::Constructor`, `BoneNode_c::Constructor`, `FxManager_c::Constructor` (+2 más) | — |
+| `0x00406D10` | 7 | CdStream (baja) | 1 | 5 | `0x425440`, `CAutomobile::ProcessSuspension`, `CAutomobile::TowTruckControl` (+2 más) | — |
+| `0x004A8DE0` | 1 | FxInfoManager_c (baja) | 1 | 5 | `BoneNodeManager_c::Destructor`, `BoneNode_c::Destructor`, `FxManager_c::Destructor` (+2 más) | — |
+| `0x005132D0` | 568 | CCam (alta) | 4 | 4 | `CCam::Process_Cam_TwoPlayer` (+1 más) | — |
+| `0x00668D50` | 292 | CTaskComplexGoToPointAndStandStillAndAchieveHeading (alta) | 3 | 4 | `CTaskComplexGoToPointAndStandStillAndAchieveHeading::CreateFirstSubTask`, `CTaskComplexGoToPointAndStandStillAndAchieveHeading::CreateNextSubTask` (+1 más) | — |
+| `0x0072D850` | 273 | CCullZones (alta) | 4 | 4 | `CCullZones::FindAttributesForCoors`, `CCullZones::FindMirrorAttributesForCoors`, `CCullZones::FindTunnelAttributesForCoors` (+1 más) | — |
+| `0x00654840` | 257 | CTaskComplexWalkRoundBuildingAttempt (alta) | 3 | 4 | `CEventHandler::ComputeBuildingCollisionResponse` (+1 más) | — |
+| `0x004654B0` | 226 | CTheScripts (baja) | 3 | 4 | `0x45ae80`, `0x468560`, `CTaskSimpleCreateCarAndGetIn::Destructor` (+1 más) | — |
+| `0x00502F80` | 223 | CAEWaterCannonAudioEntity (alta) | 3 | 4 | `CAEWaterCannonAudioEntity::Service` (+1 más) | — |
+| `0x006497F0` | 192 | CTaskSimpleWaitUntilPedIsInCar (baja) | 3 | 4 | `CTaskSimpleBikeJacked::ProcessPed`, `CTaskSimpleCarSlowDragPedOut::ProcessPed` (+1 más) | — |
+| `0x00640430` | 131 | CTaskComplexOpenPassengerDoor (baja) | 3 | 4 | `0x625e70`, `CEventHandler::ComputeDraggedOutCarResponse`, `CTaskComplexArrestPed::CreateSubTask` (+1 más) | — |
+| `0x0074A290` | 113 | Win (baja) | 3 | 4 | `C3dMarkers::Init`, `CFileLoader::LoadClumpFile-1` (+1 más) | — |
+| `0x007469A0` | 109 | Win (baja) | 3 | 4 | `CMenuManager::CheckForMenuClosing`, `CPad::UpdateMouse` (+1 más) | — |
+| `0x005F6190` | 108 | CPedGeometryAnalyser (baja) | 3 | 4 | `CGroupEventHandler::ComputeDoDealResponse`, `CGroupEventHandler::ComputeGreetResponse`, `CTaskComplexGangLeader::ScanForStuff` (+1 más) | — |
+| `0x005D9110` | 104 | CCustomCarEnvMapPipeline (baja) | 3 | 4 | `CCustomBuildingDNPipeline::SetFxEnvTexture`, `CCustomCarEnvMapPipeline::SetFxEnvTexture`, `CCustomCarEnvMapPipeline::pluginEnvMatCopyConstructorCB` (+1 más) | — |
+| `0x004B0700` | 102 | CEventKnockOffBike (baja) | 3 | 4 | `0x60b650`, `CTaskSimplePlayerOnFoot::ProcessPlayerWeapon` (+1 más) | — |
+| `0x004D1610` | 101 | RpAnimBlend (alta) | 4 | 4 | `RpAnimBlend::FrameUpdateCallBackCompressedNonSkinned`, `RpAnimBlend::FrameUpdateCallBackCompressedSkinned`, `RpAnimBlend::FrameUpdateCallBackNonSkinned` (+1 más) | — |
+| `0x00667310` | 99 | CTaskComplexProstituteSolicit (baja) | 4 | 4 | `CTaskComplexFollowNodeRoute::ComputePathNodes` (+1 más) | — |
+| `0x004CFA90` | 91 | CAnimBlendHierarchy (baja) | 4 | 4 | `CAnimBlendNode::CalcDeltasCompressed`, `CAnimBlendNode::UpdateCompressed` (+1 más) | — |
+| `0x005F6200` | 90 | CPedGeometryAnalyser (baja) | 3 | 4 | `CGroupEventHandler::ComputeDoDealResponse`, `CGroupEventHandler::ComputeGreetResponse`, `CTaskComplexGangLeader::ScanForStuff` (+1 más) | — |
+| `0x004993D0` | 82 | CTaskComplexSeekEntityRadiusAngleOffset (baja) | 3 | 4 | `CSetPiece::Update`, `CTaskComplexBeCop::Clone` (+1 más) | — |
+| `0x0074C6C0` | 82 | Win (baja) | 3 | 4 | `0x5dd100`, `CClothesBuilder::ConstructGeometryAndSkinArrays`, `CCustomRoadsignMgr::CreateRoadsignAtomicA` (+1 más) | — |
+| `0x004AC720` | 81 | CEventGunShot (alta) | 3 | 4 | `CWeapon::FireInstantHit`, `CWeapon::FireInstantHitFromCar2`, `CWeapon::FireProjectile` (+1 más) | — |
+| `0x004ACA70` | 81 | CEventPedCollisionWithPed (alta) | 3 | 4 | `0x604500` (+1 más) | — |
+| `0x00648330` | 81 | CTaskSimpleCarSlowBeDraggedOut (alta) | 3 | 4 | `CTaskSimpleCarSlowBeDraggedOut::MakeAbortable`, `CTaskSimpleCarSlowBeDraggedOut::ProcessPed`, `CTaskSimpleCarSlowBeDraggedOut::SetPedPosition` (+1 más) | — |
+| `0x006497A0` | 79 | CTaskSimpleWaitUntilPedIsInCar (baja) | 3 | 4 | `CTaskSimpleBikeJacked::ProcessPed`, `CTaskSimpleCarSlowDragPedOut::ProcessPed` (+1 más) | — |
+| `0x0040EE70` | 71 | CBox (baja) | 3 | 4 | `CCollision::SphereCastVsEntity`, `CFileLoader::LoadCollisionModel`, `CWorld::TriggerExplosionSectorList&lt;CPtrListDoubleLink&lt;CPhysical*&gt;&gt;` (+1 más) | — |
+| `0x004DC0E0` | 70 | CAECutsceneTrackManager (alta) | 3 | 4 | `CAECutsceneTrackManager::PreloadBeatTrack`, `CAudioEngine::PreloadCutsceneTrack` (+1 más) | — |
+| `0x006F5440` | 70 | cHandlingDataMgr (baja) | 4 | 4 | `CTrain::ProcessControl` (+1 más) | — |
+| `0x0059B0A0` | 62 | CMaths (baja) | 4 | 4 | `COccluder::ProcessOneOccluder`, `CQuadBike::PreRender`, `CVehicle::SetComponentRotation` (+1 más) | — |
+| `0x0063A040` | 61 | CVehicleAnimGroupData (baja) | 2 | 4 | `CTaskComplexDrivePointRoute::Constructor`, `CTaskComplexFollowPointRoute::Constructor`, `CTaskComplexWalkRoundBuildingAttempt::ComputeRoute` (+1 más) | — |
+| `0x00441130` | 54 | CEntryExitManager (baja) | 2 | 4 | `CObject::ProcessControl`, `CPlane::DoPlaneGenerationAndRemoval`, `ProcSurfaceInfo_c::AddObject` (+1 más) | — |
+| `0x004997E0` | 50 | CSetPiece (alta) | 4 | 4 | `CSetPiece::Update` (+1 más) | — |
+| `0x0048E180` | 48 | CTaskSimpleLookAbout (baja) | 2 | 4 | `0x657220`, `0x695090` (+1 más) | — |
+| `0x006E8550` | 34 | CWaterLevel (alta) | 2 | 4 | `CShadows::RenderStoredShadows` (+1 más) | — |
+| `0x004ABCA0` | 23 | CEventSource (baja) | 1 | 4 | `0x641100`, `CEventDamage::TakesPriorityOver`, `CEventHandler::ComputeDamageResponse` (+1 más) | — |
+| `0x0053EDC0` | 23 | App (baja) | 1 | 4 | `CPad::CarGunJustDown`, `CPad::ExitVehicleJustDown`, `CPad::HornJustDown` (+1 más) | — |
+| `0x005FE9C0` | 23 | CPedIK (baja) | 1 | 4 | `0x62b150`, `0x62b490`, `CTaskComplexWanderStandard::WillChat` (+1 más) | — |
+| `0x00404090` | 11 | CBuildingPool (baja) | 1 | 4 | `CFileLoader::LoadObjectInstance-inst`, `Interior_c::PlaceFurniture`, `ProcSurfaceInfo_c::AddObject` (+1 más) | — |
+| `0x0069D980` | 11 | CTaskAllocatorPool (baja) | 1 | 4 | `CGroupEventHandler::ComputeDrivebyResponse`, `CGroupEventHandler::ComputeKillThreatsBasicResponse`, `CGroupEventHandler::ComputeResponsePlayerCommand` (+1 más) | — |
+| `0x00407A30` | 10 | CStreaming (alta) | 1 | 4 | `CCutsceneMgr::LoadCutsceneData_preload`, `CEntryExit::TransitionFinished` (+1 más) | — |
+| `0x005FFEE0` | 4 | CEntityScanner (baja) | 1 | 4 | `CTaskComplexEnterAnyCarAsDriver::CreateFirstSubTask`, `CTaskComplexFleeAnyMeans::ControlSubTask`, `CTaskComplexGoToPointAnyMeans::ControlSubTask` (+1 más) | — |
+| `0x0045BA90` | 1,236 | CReplay (alta) | 5 | 3 | `CReplay::PlayBackThisFrameInterpolation` | — |
+| `0x0045B730` | 857 | CReplay (alta) | 5 | 3 | `CReplay::RecordThisFrame` | — |
+| `0x0045DEF0` | 763 | CReplay (alta) | 3 | 3 | `CReplay::RestorePlayerInfoVariables`, `CReplay::StorePlayerInfoVariables`, `CReplay::StoreStuffInMem` | — |
+| `0x006A3BD0` | 646 | CAutomobile (alta) | 4 | 3 | `CAutomobile::NitrousControl` | — |
+| `0x0074CA90` | 543 | Win (baja) | 3 | 3 | `0x5dd100`, `CClothesBuilder::ConstructGeometryAndSkinArrays`, `CCustomRoadsignMgr::CreateRoadsignAtomicA` | — |
+| `0x0060D5B0` | 465 | CPlayerPed (alta) | 4 | 3 | `CPlayerPed::SetupPlayerPed`, `CPools::LoadPedPool`, `CReplay::DealWithNewPedPacket` | — |
+| `0x0072A640` | 335 | CWeather (alta) | 4 | 3 | `CWeather::SetWeatherToAppropriateTypeNow`, `CWeather::Update` | — |
+| `0x0065C530` | 328 | CTaskComplexSmartFleeEntity (alta) | 4 | 3 | `CTaskComplexSmartFleeEntity::CreateFirstSubTask`, `CTaskComplexSmartFleeEntity::CreateNextSubTask` | — |
+| `0x00631990` | 218 | CTaskComplexObserveTrafficLightsAndAchieveHeading (alta) | 3 | 3 | `CTaskComplexObserveTrafficLightsAndAchieveHeading::CreateFirstSubTask`, `CTaskComplexObserveTrafficLightsAndAchieveHeading::CreateNextSubTask` | — |
+| `0x0064CDA0` | 218 | CTaskSimpleCarFallOut (baja) | 3 | 3 | `CTaskComplexGoToBoatSteeringWheel::ControlSubTask`, `CTaskComplexGoToBoatSteeringWheel::CreateFirstSubTask`, `CTaskComplexGoToBoatSteeringWheel::CreateNextSubTask` | — |
+| `0x0040C450` | 195 | CStreaming (alta) | 3 | 3 | `CStreaming::AddModelsToRequestList` | — |
+| `0x00699E20` | 179 | CPedList (baja) | 3 | 3 | `CPedList::ExtractPedsWithGuns`, `CPedList::RemovePedsAttackingPedType`, `CPedList::RemovePedsThatDontListenToPlayer` | — |
+| `0x0059B7E0` | 171 | CMaths (baja) | 4 | 3 | `CPhysical::ProcessCollision`, `CRope::Update` | — |
+| `0x0074CCC0` | 165 | Win (baja) | 3 | 3 | `CCustomRoadsignMgr::CreateRoadsignAtomicA` | — |
+| `0x00513220` | 164 | CCam (alta) | 3 | 3 | `CCam::Process_Cam_TwoPlayer` | — |
+| `0x0063BA00` | 157 | CTaskComplexStealCar (baja) | 3 | 3 | `0x6419f0` | — |
+| `0x006218C0` | 148 | CTaskSimpleGangDriveBy (baja) | 3 | 3 | `CCam::Process_Cam_TwoPlayer_InCarAndShooting`, `CTaskAllocatorKillThreatsDriveby::AllocateTasks` | — |
+| `0x00711160` | 136 | CStencilShadows (baja) | 4 | 3 | `CStencilShadows::RegisterStencilShadows` | — |
+| `0x00711280` | 134 | CStencilShadows (baja) | 3 | 3 | `CStencilShadows::RegisterStencilShadows` | — |
+| `0x00719240` | 115 | CFont (alta) | 3 | 3 | `0x559230`, `0x55a780` | — |
+| `0x00552520` | 114 | CPtrNodeDoubleLinkPool (baja) | 3 | 3 | `CColStore::Shutdown`, `CEntryExitManager::Shutdown`, `CIplStore::Shutdown` | — |
+| `0x00541DD0` | 113 | CPad (baja) | 3 | 3 | `CGame::Process`, `CMenuManager::CheckMissionPackValidMenu`, `Game::FrontendIdle` | — |
+| `0x005D9260` | 104 | CCustomCarEnvMapPipeline (baja) | 3 | 3 | `CCustomCarEnvMapPipeline::AllocEnvMapPipeAtomicData`, `CCustomCarEnvMapPipeline::CustomPipeRenderCB`, `CCustomCarEnvMapPipeline::pluginEnvAtmCopyConstructorCB` | — |
+| `0x004B17F0` | 97 | CEventCopCarBeingStolen (alta) | 3 | 3 | `CTaskComplexEnterCar::CreateSubTask`, `CTaskSimpleCarDrive::ProcessPed`, `CTaskSimpleCarSetPedInAsDriver::ProcessPed` | — |
+| `0x0040FAF0` | 96 | CColModel (baja) | 3 | 3 | `CFileLoader::LoadCollisionModelVer2`, `CFileLoader::LoadCollisionModelVer3`, `CFileLoader::LoadCollisionModelVer4` | — |
+| `0x0043EA90` | 96 | CEntryExit (alta) | 3 | 3 | `CEntryExit::WarpGangWithPlayer` | — |
+| `0x005A1D10` | 90 | CObjectPool (baja) | 3 | 3 | `0x5a4030`, `CAutomobile::SpawnFlyingComponent`, `CBoat::BlowUpCar` | — |
+| `0x00632190` | 90 | CTaskComplexSunbathe (baja) | 4 | 3 | `CTaskComplexSunbathe::ControlSubTask`, `CTaskComplexSunbathe::CreateFirstSubTask`, `CTaskComplexSunbathe::CreateNextSubTask` | — |
+| `0x004B1170` | 81 | CEventVehicleOnFire (baja) | 3 | 3 | `CAutomobile::ProcessCarOnFireAndExplode`, `CBike::ProcessControl`, `CBoat::ProcessControl` | — |
+| `0x00533610` | 81 | CEntity (alta) | 3 | 3 | `CEntity::Remove`, `CQuadTreeNode&lt;T&gt;::DeleteItem-`, `CQuadTreeNode&lt;T&gt;::DeleteItem-rect` | — |
+| `0x0059C6D0` | 81 | CQuaternion (baja) | 4 | 3 | `CTaskComplexSeekEntity&lt;CEntitySeekPosCalculatorXYOffset&gt;::ControlSubTask`, `CTaskComplexSeekEntityRadiusAngleOffset::ControlSubTask`, `CTaskComplexSeekEntityStandard::ControlSubTask` | — |
+| `0x0054EEA0` | 79 | Common (alta) | 3 | 3 | `CCamera::CalculateFrustumPlanes`, `CEntity::GetIsBoundingBoxOnScreen` | — |
+| `0x00692340` | 77 | CTaskSimpleDuck (alta) | 3 | 3 | `CTaskSimpleDuck::ProcessPed`, `CTaskSimpleDuckToggle::ProcessPed` | — |
+| `0x004A9010` | 67 | FxInfoManager_c (baja) | 3 | 3 | `FurnitureSubGroup_c::GetFurniture`, `FurnitureSubGroup_c::GetRandomId`, `FxManager_c::FreeUpParticle` | — |
+| `0x00536E90` | 65 | CEntryInfoList (baja) | 4 | 3 | `CAutomobile::UpdateMovingCollision` | — |
+| `0x00408230` | 64 | CStreaming (baja) | 2 | 3 | `CStreaming::AddEntity` | — |
+| `0x0053E8D0` | 63 | Game (alta) | 2 | 3 | `CMirrors::BeforeMainRender`, `CPostEffects::Render`, `Game::Idle` | — |
+| `0x00552830` | 63 | CQuadTreeNode&lt;T&gt; (alta) | 2 | 3 | `CColStore::Initialise`, `CEntryExitManager::Init`, `CIplStore::Initialise` | — |
+| `0x0040F030` | 58 | CColLine (baja) | 2 | 3 | `CFileLoader::LoadCollisionModel`, `CWorld::ProcessLineOfSightSectorList&lt;CPtrListDoubleLink&lt;CPhysical*&gt;&gt;`, `CWorld::TestSphereAgainstSectorList&lt;CPtrListDoubleLink&lt;CPhysical*&gt;&gt;` | — |
+| `0x00499860` | 50 | CSetPiece (alta) | 4 | 3 | `CSetPiece::Update` | — |
+| `0x00552C90` | 49 | CQuadTreeNode&lt;T&gt; (alta) | 2 | 3 | `CColStore::Shutdown`, `CEntryExitManager::Shutdown`, `CIplStore::Shutdown` | — |
+| `0x0059AED0` | 48 | CMaths (baja) | 2 | 3 | `CCamera::Init`, `CPedAttractor::Constructor`, `CTaskComplexUseClosestFreeScriptedAttractor::ComputeClosestFreeScriptedEffect` | — |
+| `0x00690C70` | 48 | CTaskSimpleShakeFist (baja) | 2 | 3 | `CTaskComplexFacial::ControlSubTask`, `CTaskComplexFacial::CreateNextSubTask` | — |
+| `0x00459350` | 47 | CPed (baja) | 4 | 3 | `C3dMarker::Render`, `CVehicleRecording::InterpolateInfoForCar` | — |
+| `0x005335E0` | 47 | CEntity (alta) | 2 | 3 | `CQuadTreeNode&lt;T&gt;::GetAll`, `CQuadTreeNode&lt;T&gt;::GetAllMatching-rect`, `CQuadTreeNode&lt;T&gt;::GetAllMatching-vec` | — |
+| `0x00509DC0` | 42 | CCam (alta) | 2 | 3 | `CCamera::CamControl`, `CEventHandler::ComputeDeadPedResponse` | — |
+| `0x0064E4B0` | 41 | CTaskComplexGoToBoatSteeringWheel (baja) | 3 | 3 | `CTaskUtilityLineUpPedWithCar::ProcessPed` | — |
+| `0x0073A280` | 40 | CShotInfo (baja) | 2 | 3 | `CWeapon::Update` | — |
+| `0x0073A2B0` | 40 | CShotInfo (baja) | 2 | 3 | `CWeapon::Update` | — |
+| `0x0074BDA0` | 39 | Win (baja) | 2 | 3 | `CCustomCarEnvMapPipeline::RegisterPlugin`, `CVisibilityPlugins::PluginAttach`, `PipelinePlugin::PipelinePluginAttach` | — |
+| `0x0074BDD0` | 39 | Win (baja) | 2 | 3 | `CCollisionPlugin::PluginAttach`, `CVisibilityPlugins::PluginAttach`, `RpAnimBlend::RpAnimBlendPluginAttach` | — |
+| `0x0074CD70` | 39 | Win (baja) | 2 | 3 | `BreakablePlugin::BreakablePluginAttach`, `C2dEffect::PluginAttach`, `CCustomBuildingDNPipeline::ExtraVertColourPluginAttach` | — |
+| `0x0074C690` | 35 | Win (baja) | 2 | 3 | `CClothesBuilder::ConstructGeometryAndSkinArrays`, `CCustomRoadsignMgr::CreateRoadsignAtomicA` | — |
+| `0x0074CDA0` | 34 | Win (baja) | 2 | 3 | `BreakablePlugin::BreakablePluginAttach`, `C2dEffect::PluginAttach`, `CCustomBuildingDNPipeline::ExtraVertColourPluginAttach` | — |
+| `0x006822B0` | 33 | CTaskComplexPartner (baja) | 2 | 3 | `0x683ad0` | — |
+| `0x00403E00` | 32 | CEntity (baja) | 2 | 3 | `CFileLoader::LoadObjectInstance-inst`, `Interior_c::PlaceFurniture`, `ProcSurfaceInfo_c::AddObject` | — |
+| `0x004EEA80` | 30 | CAESmoothFadeThread (alta) | 1 | 3 | `CTaskComplexGangFollower::ControlSubTask`, `CTaskComplexWalkAlongsidePed::ControlSubTask` | — |
+| `0x00572DB0` | 26 | CTheZones (baja) | 1 | 3 | `CMenuManager::DrawBackground` | — |
+| `0x0043A6A0` | 23 | CCheat (baja) | 1 | 3 | `CPedToPlayerConversations::Update` | — |
+| `0x0071D780` | 21 | CGridRef (baja) | 1 | 3 | `0x60cd20`, `CGameLogic::RestorePlayerStuffDuringResurrection`, `CPlayerPed::ProcessControl` | — |
+| `0x0072F460` | 19 | CMemoryMgr (alta) | 2 | 3 | `CMenuManager::DrawStandardMenus`, `VideoMode::GetVideoModeList` | — |
+| `0x004A8DB0` | 16 | FxInfoManager_c (baja) | 1 | 3 | `BoneNode_c::Constructor`, `FxSystemBP_c::Constructor`, `FxSystem_c::Constructor` | — |
+| `0x00552C80` | 11 | CQuadTreeNode&lt;T&gt; (alta) | 1 | 3 | `CColStore::Initialise`, `CEntryExitManager::Init`, `CIplStore::Initialise` | — |
+| `0x00669D20` | 11 | CTaskComplexFollowNodeRoute (baja) | 1 | 3 | `CTaskComplexWanderCriminal::Destructor`, `CTaskComplexWanderFlee::Destructor`, `CTaskInteriorBeInShop::Destructor` | — |
+| `0x0074CCB0` | 9 | Win (baja) | 1 | 3 | `CClothesBuilder::BlendGeometry-2`, `CClothesBuilder::BlendGeometry-3`, `CClothesBuilder::CopyGeometry` | — |
+| `0x004AC010` | 7 | CEvent (alta) | 1 | 3 | `0x607e30`, `CTaskInteriorBeInShop::ScanForStuff` | — |
+| `0x004ADE90` | 7 | CEventDamage (baja) | 1 | 3 | `CTaskComplexCarSlowBeDraggedOutAndStandUp::CreateNextSubTask`, `CTaskSimpleDie::ProcessPed`, `CTaskSimpleDrownInCar::ProcessPed` | — |
+| `0x004D7990` | 7 | CAEAudioChannel (alta) | 1 | 3 | `CAEStreamThread::MainLoop`, `CAEStreamingChannel::Pause`, `CAEStreamingChannel::SetFrequencyScalingFactor` | — |
+| `0x005CFE00` | 5 | FxEmitterBP_c (baja) | 1 | 3 | `JPegPlugin::JPegDecompressToRaster` | — |
+| `0x0041BD80` | 4 | CBridge (baja) | 1 | 3 | `CAutomobile::ProcessCarWheelPair` | — |
+| `0x005FFF20` | 4 | CEntityScanner (baja) | 1 | 3 | `CCheat::MayhemCheat`, `CTaskComplexWander::ScanForBlockedNode-`, `CTaskSimpleSitIdle::ProcessPed` | — |
+| `0x00404350` | 3 | CRect (baja) | 1 | 3 | `CAutomobile::ProcessCarWheelPair` | — |
+| `0x00541D70` | 1 | CPad (alta) | 1 | 3 | `CMenuManager::Initialise`, `CPlayerInfo::MakePlayerSafe`, `CStreaming::RetryLoadFile` | — |
+| `0x007204C0` | 1 | COcclusion (baja) | 1 | 3 | `CCutsceneMgr::DeleteCutsceneData_overlay`, `CCutsceneMgr::LoadCutsceneData_preload`, `CEntryExit::TransitionFinished` | — |
+| `0x00734640` | 1 | CVisibilityPlugins (baja) | 1 | 3 | `App::DoRWStuffEndOfFrame`, `Game::FrontendIdle`, `Game::Idle` | — |
+| `0x006E91D0` | 1,903 | CWaterLevel (alta) | 5 | 2 | `0x6eb810` | — |
+| `0x006E8780` | 1,856 | CWaterLevel (alta) | 5 | 2 | `0x6eddc0` | — |
+| `0x00421A50` | 1,418 | CCarCtrl (alta) | 5 | 2 | `0x426350` | — |
+| `0x006B0690` | 1,018 | CAutomobile (alta) | 5 | 2 | `0x6c5420`, `CPlane::PreRender` | — |
+| `0x0059AA40` | 591 | Interior_c (baja) | 4 | 2 | `CPed::ShoulderBoneRotation` | — |
+| `0x0059A840` | 510 | Interior_c (baja) | 4 | 2 | `CPed::ShoulderBoneRotation` | — |
+| `0x0053E600` | 353 | Game (alta) | 4 | 2 | `Game::FrontendIdle`, `Game::Idle` | — |
+| `0x0065ED40` | 329 | CTaskComplexGangFollower (alta) | 4 | 2 | `CTaskComplexAvoidOtherPedWhileWandering::ControlSubTask`, `CTaskComplexGangFollower::ControlSubTask` | — |
+| `0x005DD220` | 323 | CPlantMgr (baja) | 3 | 2 | `CPlantMgr::Initialise` | — |
+| `0x00664770` | 295 | CTaskGoToVehicleAndLean (baja) | 4 | 2 | `CTaskGoToVehicleAndLean::ControlSubTask`, `CTaskGoToVehicleAndLean::CreateFirstSubTask` | — |
+| `0x0074C200` | 269 | Win (baja) | 4 | 2 | `CClothesBuilder::ConstructGeometryAndSkinArrays`, `CCustomRoadsignMgr::CreateRoadsignAtomicA` | — |
+| `0x005A7A20` | 263 | CPedClothesDesc (baja) | 3 | 2 | `CClothes::LoadClothesFile` | — |
+| `0x005DA6A0` | 236 | CCustomCarEnvMapPipeline (baja) | 3 | 2 | `CCustomBuildingPipeline::CustomPipeRenderCB`, `CCustomCarEnvMapPipeline::CustomPipeRenderCB` | — |
+| `0x005A1DF0` | 230 | CObjectPool (baja) | 3 | 2 | `CObject::Create-dummy` | — |
+| `0x00747300` | 210 | CGamma (baja) | 3 | 2 | `CAEMP3TrackLoader::Initialise`, `CAEMP3TrackLoader::IsCurrentAudioStreamAvailable` | — |
+| `0x00452090` | 190 | CPathFind (alta) | 3 | 2 | `0x424210` | — |
+| `0x0049ABD0` | 184 | CShopping (alta) | 3 | 2 | `CShopping::LoadStats` | — |
+| `0x006E5750` | 182 | WaterCreatureManager_c (baja) | 3 | 2 | `0x6e7b30` | — |
+| `0x004AE100` | 149 | CEventDamage (baja) | 3 | 2 | `CPedGroupIntelligence::AddEvent-`, `CPedGroupIntelligence::Process` | — |
+| `0x007111F0` | 136 | CStencilShadows (baja) | 4 | 2 | `CStencilShadows::RegisterStencilShadows` | — |
+| `0x00695600` | 135 | CTaskComplexFollowPedFootsteps (baja) | 3 | 2 | `CTaskComplexFollowLeaderAnyMeans::CreateSubTask`, `CTaskComplexSeekEntityAnyMeansXYOffset::Clone` | — |
+| `0x0074D990` | 131 | Win (baja) | 3 | 2 | `CClothesBuilder::CreateSkinnedClump`, `CCustomRoadsignMgr::CreateRoadsignAtomicA` | — |
+| `0x005E8A30` | 125 | CPed (alta) | 3 | 2 | `CCrime::ReportCrime`, `CEntity::IsEntityPointerValid` | — |
+| `0x004AEAC0` | 124 | CEventVehicleHitAndRun (baja) | 3 | 2 | `0x607e30`, `CCarEnterExit::MakeUndraggedPassengerPedsLeaveCar` | — |
+| `0x00749D40` | 124 | Win (baja) | 3 | 2 | `0x5dd100`, `CCustomRoadsignMgr::CreateRoadsignAtomicA` | — |
+| `0x0063BAE0` | 122 | CTaskComplexStealCar (baja) | 3 | 2 | `0x6419f0` | — |
+| `0x004DEFE0` | 121 | CAEGlobalWeaponAudioEntity (alta) | 3 | 2 | `CAEGlobalWeaponAudioEntity::ServiceAmbientGunFire` | — |
+| `0x0057C5E0` | 118 | CMenuManager (alta) | 3 | 2 | `0x747eb0` | — |
+| `0x00718E50` | 117 | CFont (alta) | 3 | 2 | `CFont::RenderFontBuffer` | — |
+| `0x006F9EB0` | 116 | CScripted2dEffects (alta) | 3 | 2 | `CScripted2dEffects::AddScripted2DEffect`, `CScripted2dEffects::Init` | — |
+| `0x0059ADF0` | 114 | CMaths (baja) | 4 | 2 | `CReplay::PlayBackThisFrameInterpolation`, `CReplay::ProcessPedUpdate` | — |
+| `0x005DBE40` | 104 | CPlantMgr (alta) | 4 | 2 | `CPlantMgr::_ColEntityCache_Update` | — |
+| `0x00731B80` | 104 | CTxdStore (alta) | 3 | 2 | `CTxdStore::AddTxdSlot`, `CTxdStore::Initialise` | — |
+| `0x0049C9E0` | 103 | CStuntJumpManager (alta) | 3 | 2 | `CStuntJumpManager::AddOne`, `CStuntJumpManager::Load` | — |
+| `0x004AE1A0` | 102 | CEventDamage (baja) | 3 | 2 | `0x425440` | — |
+| `0x005EE200` | 102 | CPedAttractorManager (baja) | 3 | 2 | `CPedAttractor::BroadcastArrival`, `CPedAttractor::RegisterPed` | — |
+| `0x005D93B0` | 101 | CCustomCarEnvMapPipeline (baja) | 3 | 2 | `CCustomCarEnvMapPipeline::pluginSpecMatCopyConstructorCB`, `CCustomCarEnvMapPipeline::pluginSpecMatStreamReadCB` | — |
+| `0x004AEB90` | 97 | CEventVehicleHitAndRun (baja) | 3 | 2 | `0x607e30`, `CCarEnterExit::MakeUndraggedPassengerPedsLeaveCar` | — |
+| `0x005DE340` | 97 | CCopPed (baja) | 3 | 2 | `CPopulation::AddPed` | — |
+| `0x00449BA0` | 93 | CGarage (baja) | 3 | 2 | `CCamera::CamControl` | — |
+| `0x004AECD0` | 93 | CEventVehicleHitAndRun (baja) | 3 | 2 | `CTaskComplexWanderStandard::LookForChatPartners` | — |
+| `0x00620EF0` | 90 | CTaskComplexKillPedOnFoot (baja) | 3 | 2 | `CGroupEventHandler::ComputeKillPlayerBasicResponse`, `CTaskComplexKillPedOnFootStealth::Destructor` | — |
+| `0x00647170` | 90 | CTaskSimpleCarSetPedInAsDriver (baja) | 3 | 2 | `CCarEnterExit::SetPedInCarDirect`, `CTaskSimpleCreateCarAndGetIn::ProcessPed` | — |
+| `0x0065DCF0` | 90 | CEventPassObject (baja) | 3 | 2 | `CTaskComplexGangFollower::ControlSubTask`, `CTaskComplexGangLeader::ControlSubTask` | — |
+| `0x0049C300` | 89 | CShopping (baja) | 4 | 2 | `CStuntJumpManager::Update` | — |
+| `0x005DA640` | 82 | CCustomCarEnvMapPipeline (baja) | 3 | 2 | `CCustomBuildingPipeline::CustomPipeRenderCB`, `CCustomCarEnvMapPipeline::CustomPipeRenderCB` | — |
+| `0x004AE270` | 81 | CEventDamage (baja) | 3 | 2 | `0x425440` | — |
+| `0x004AED60` | 81 | CEventVehicleHitAndRun (baja) | 3 | 2 | `CTaskComplexWanderStandard::LookForChatPartners` | — |
+| `0x004AF700` | 81 | CEventVehicleToSteal (alta) | 3 | 2 | `CTaskComplexPolicePursuit::ControlSubTask`, `CTaskComplexWanderCriminal::LookForCarsToSteal` | — |
+| `0x004B07B0` | 81 | CEventKnockOffBike (baja) | 3 | 2 | `0x60b650`, `CTaskSimplePlayerOnFoot::ProcessPlayerWeapon` | — |
+| `0x004B0DA0` | 81 | CEventVehicleDied (alta) | 3 | 2 | `CVehicle::KillPedsInVehicle` | — |
+| `0x004B2130` | 81 | CEventSeenPanickedPed (baja) | 3 | 2 | `CTaskComplexFleeEntity::ControlSubTask`, `CTaskComplexSmartFleeEntity::ControlSubTask` | — |
+| `0x004B2470` | 81 | CEventPlayerCommandToGroup (alta) | 3 | 2 | `0x60cd20`, `CPlayerPed::TellGroupToStartFollowingPlayer` | — |
+| `0x00648E90` | 80 | CTaskSimpleCarFallOut (alta) | 3 | 2 | `CTaskSimpleCarFallOut::MakeAbortable`, `CTaskSimpleCarFallOut::ProcessPed` | — |
+| `0x005336B0` | 79 | CEntity (alta) | 3 | 2 | `CEntity::DeleteRwObject`, `CEntity::DetachFromRwObject` | — |
+| `0x005CD810` | 76 | FxEmitterBP_c (baja) | 3 | 2 | `JPegPlugin::JPegCompressScreen`, `JPegPlugin::JPegDecompressToRaster` | — |
+| `0x0071DB30` | 76 | Common (alta) | 4 | 2 | `Common::DoesInfiniteLineTouchScreen` | — |
+| `0x00572130` | 69 | CTheZones (alta) | 4 | 2 | `CMenuManager::PrintMap`, `CTheZones::SetCurrentZoneAsUnlocked` | — |
+| `0x006053D0` | 69 | CDecisionMakerTypes (baja) | 3 | 2 | `CTaskSimpleGoToPoint::ProcessPed` | — |
+| `0x005EB6F0` | 68 | CPedAttractor (baja) | 3 | 2 | `CPedAttractorManager::HasEmptySlot`, `CPedAttractorManager::HasQueueTailArrivedAtSlot` | — |
+| `0x00583AF0` | 67 | CRadar (alta) | 3 | 2 | `0x587000`, `CRadar::DrawCoordBlip` | — |
+| `0x0050E420` | 66 | CCam (alta) | 3 | 2 | `CClouds::MovingFogRender`, `CTaskSimpleUseGun::ProcessPed` | — |
+| `0x005BD3B0` | 65 | CPopulation (baja) | 3 | 2 | `0x5bedc0` | — |
+| `0x004161F0` | 64 | CCollision (alta) | 2 | 2 | `CCollision::CalculateTrianglePlanes-colData` | — |
+| `0x004D40C0` | 64 | CAnimManager (alta) | 2 | 2 | `CAnimManager::UncompressAnimation` | — |
+| `0x0061A2E0` | 64 | CPlayerRelationshipRecorder (baja) | 2 | 2 | `CPedIntelligence::Destructor`, `CPedIntelligence::Process` | — |
+| `0x0061C420` | 62 | CTaskSimpleDuck (baja) | 4 | 2 | `CTaskSimpleUseGun::StartAnim` | — |
+| `0x0046FEE0` | 61 | CTaskComplexGoToPointAndStandStill (baja) | 2 | 2 | `CTaskComplexSeekEntityStandard::ControlSubTask` | — |
+| `0x00496DC0` | 61 | CTaskComplexSeekEntityRadiusAngleOffset (baja) | 2 | 2 | `CTaskComplexSeekEntityRadiusAngleOffset::ControlSubTask` | — |
+| `0x005F13A0` | 61 | CPed (baja) | 2 | 2 | `0x695090`, `0x695e40` | — |
+| `0x00665DC0` | 61 | CTaskComplexSeekEntity&lt;CEntitySeekPosCalculatorXYOffset&gt; (baja) | 2 | 2 | `CTaskComplexSeekEntity&lt;CEntitySeekPosCalculatorXYOffset&gt;::ControlSubTask` | — |
+| `0x00537510` | 55 | CFileLoader (alta) | 2 | 2 | `CFileLoader::LoadCollisionModelVer3`, `CFileLoader::LoadCollisionModelVer4` | — |
+| `0x006C4130` | 54 | cBuoyancy (baja) | 4 | 2 | `CPlane::DoPlaneGenerationAndRemoval` | — |
+| `0x004A24D0` | 50 | FxEmitterBP_c (alta) | 2 | 2 | `FxSystemBP_c::Load` | — |
+| `0x00674EA0` | 48 | CTaskComplexWanderCop (baja) | 2 | 2 | `CTaskInteriorBeInShop::ScanForStuff` | — |
+| `0x0041BDD0` | 47 | CGeneral (baja) | 2 | 2 | `CPlane::DoPlaneGenerationAndRemoval` | — |
+| `0x0045AF40` | 47 | CVehicleRecording (baja) | 4 | 2 | `CReplay::ProcessPedUpdate` | — |
+| `0x005A2E60` | 47 | CObjectData (baja) | 4 | 2 | `C3dMarker::Render`, `ProcSurfaceInfo_c::AddObject` | — |
+| `0x005F7660` | 46 | CPedGroupIntelligence (alta) | 2 | 2 | `CTaskAllocatorKillOnFoot::AllocateTasks` | — |
+| `0x005404F0` | 45 | CPad (alta) | 2 | 2 | `CCamera::CamControl` | — |
+| `0x004637E0` | 44 | CTaskSimpleFinishBrain (baja) | 2 | 2 | `CCarCtrl::CreateCarForScript` | — |
+| `0x004E3350` | 43 | CAEPedAudioEntity (baja) | 2 | 2 | `CAEPedSpeechAudioEntity::StopCurrentSpeech` | — |
+| `0x006985E0` | 43 | CTaskComplexReactToGunAimedAt (baja) | 2 | 2 | `CPlayerRelationshipRecorder::RecordRelationshipWithPlayer` | — |
+| `0x0074DBF0` | 39 | Win (baja) | 2 | 2 | `CCustomCarEnvMapPipeline::RegisterPlugin` | — |
+| `0x00660F60` | 38 | CTaskGoToVehicleAndLean (baja) | 2 | 2 | `CTaskGoToVehicleAndLean::ControlSubTask`, `CTaskGoToVehicleAndLean::CreateNextSubTask` | — |
+| `0x0069F910` | 37 | CMissionTextOffsets (baja) | 2 | 2 | `CSimpleVariablesSaveStructure::Construct` | — |
+| `0x004F4CE0` | 36 | CAEUserRadioTrackManager (baja) | 2 | 2 | `0x6e1a60`, `CAutomobile::ProcessAI` | — |
+| `0x005A1EF0` | 36 | CObjectPool (baja) | 2 | 2 | `CPickup::GiveUsAPickUpObject`, `CPools::LoadObjectPool` | — |
+| `0x00533020` | 35 | CEntity (alta) | 3 | 2 | `CPhysical::Add`, `CPhysical::RemoveAndAdd` | — |
+| `0x0059ACF0` | 35 | CMaths (baja) | 2 | 2 | `CPed::PositionAttachedPed`, `CPed::SetPedPositionInCar` | — |
+| `0x0059AEA0` | 34 | CMaths (baja) | 2 | 2 | `CPhysical::DettachEntityFromEntity`, `CPhysical::PositionAttachedEntity` | — |
+| `0x0063BAB0` | 34 | CTaskComplexStealCar (baja) | 2 | 2 | `0x641100`, `0x6419f0` | — |
+| `0x0074DC20` | 34 | Win (baja) | 2 | 2 | `CCustomCarEnvMapPipeline::RegisterPlugin` | — |
+| `0x004ABEA0` | 33 | CTaskSimpleFight (baja) | 4 | 2 | `CEventGunShot::AffectsPed`, `CEventHandler::ComputePedThreatResponse` | — |
+| `0x004DA510` | 33 | CAECollisionAudioEntity (alta) | 4 | 2 | `CAEPedAudioEntity::HandlePedHit` | — |
+| `0x00463370` | 31 | CRoadBlocks (baja) | 1 | 2 | `CFont::ParseToken` | — |
+| `0x004ADBF0` | 30 | CEventDamage (alta) | 1 | 2 | `CEventHandler::ComputeDamageResponse` | — |
+| `0x005329A0` | 30 | CBaseModelInfo (baja) | 1 | 2 | `CEntity::AttachToRwObject`, `CEntity::CreateRwObject` | — |
+| `0x00454920` | 28 | CPathFind (baja) | 1 | 2 | `CPickup::Update` | — |
+| `0x004B1370` | 26 | CEventHitByWaterCannon (baja) | 1 | 2 | `CPed::ProcessBuoyancy` | — |
+| `0x0054F1E0` | 26 | CMatrixLinkList (baja) | 1 | 2 | `CCamera::Constructor`, `CEntity::Constructor` | — |
+| `0x00718690` | 26 | Common (alta) | 1 | 2 | `CMenuManager::DrawStandardMenus`, `CSimpleVariablesSaveStructure::Construct` | — |
+| `0x006D0B10` | 25 | CAEVehicleAudioEntity (baja) | 1 | 2 | `CBike::Constructor`, `CQuadBike::Constructor` | — |
+| `0x0057C400` | 24 | CMenuManager (alta) | 1 | 2 | `CMenuManager::CheckRedefineControlInput`, `CMenuManager::UserInput` | — |
+| `0x0057C420` | 24 | CMenuManager (alta) | 1 | 2 | `CMenuManager::CheckRedefineControlInput`, `CMenuManager::UserInput` | — |
+| `0x00699F00` | 24 | CPedList (baja) | 1 | 2 | `CCover::FindCoordinatesCoverPoint`, `CTaskAllocatorKillOnFoot::AllocateTasks` | — |
+| `0x004D59E0` | 23 | CAnimManager (baja) | 1 | 2 | `CPad::GetAccelerateJustDown`, `CPad::WeaponJustDown` | — |
+| `0x0053EE20` | 23 | App (baja) | 1 | 2 | `CPad::HornJustDown`, `CPad::WeaponJustDown` | — |
+| `0x00608F00` | 20 | CPedType (baja) | 1 | 2 | `CTaskSimpleUseGun::ProcessPed`, `CTaskSimpleUseGun::StartAnim` | — |
+| `0x00719360` | 19 | CFont (alta) | 1 | 2 | `CControllerConfigManager::GetControllerSettingTextKeyBoard` | — |
+| `0x005720C0` | 15 | CUserDisplay (baja) | 2 | 2 | `CPlaceName::GetForMap`, `CPlaceName::Process` | — |
+| `0x005D6E90` | 14 | CCustomBuildingDNPipeline (baja) | 1 | 2 | `CCustomBuildingRenderer::AtomicSetup`, `CCustomBuildingRenderer::IsCBPCPipelineAttached` | — |
+| `0x004B2070` | 11 | CEventGunShotWhizzedBy (baja) | 1 | 2 | `CWeapon::FireInstantHit`, `CWeapon::FireSniper` | — |
+| `0x0056F200` | 11 | CPlayerInfo (baja) | 1 | 2 | `CPlayerPedData::DeAllocateData`, `CPlayerPedData::Destructor` | — |
+| `0x00411BF0` | 10 | CPlaceable (baja) | 1 | 2 | `CAutomobile::ProcessCarWheelPair` | — |
+| `0x0049E650` | 10 | CTrafficLights (baja) | 1 | 2 | `CPostEffects::HeatHazeFX`, `Game::RenderEffects` | — |
+| `0x004A9F70` | 10 | FxPrimBP_c (baja) | 1 | 2 | `FxManager_c::Constructor`, `FxManager_c::ShouldCreate` | — |
+| `0x00734EC0` | 9 | RwHelper (baja) | 2 | 2 | `CShadowCamera::MakeGradientRaster`, `CTheScripts::ScriptDebugCircle2D` | — |
+| `0x004043E0` | 8 | CRect (baja) | 1 | 2 | `CAutomobile::ProcessCarWheelPair` | — |
+| `0x004AC480` | 7 | CEventEditableResponse (alta) | 1 | 2 | `0x6008a0` | — |
+| `0x004B13C0` | 7 | CEventHitByWaterCannon (baja) | 1 | 2 | `CPed::ProcessBuoyancy` | — |
+| `0x00448650` | 6 | CGarage (alta) | 1 | 2 | `CCamera::CamControl` | — |
+| `0x00558F90` | 6 | CStats (alta) | 1 | 2 | `CAERadioTrackManager::Initialise`, `CAERadioTrackManager::Reset` | — |
+| `0x0072F500` | 5 | CMemoryMgr (baja) | 1 | 2 | `CAnimBlendHierarchy::MoveMemory`, `CAnimBlendSequence::MoveMemory` | — |
+| `0x00745A70` | 5 | Ps (baja) | 1 | 2 | `CMenuManager::ProcessPCMenuOptions` | — |
+| `0x0041BD10` | 4 | CBridge (baja) | 1 | 2 | `CAutomobile::ProcessCarWheelPair` | — |
+| `0x00407AC0` | 1 | CStreaming (alta) | 1 | 2 | `CCutsceneMgr::LoadCutsceneData_overlay`, `CGameLogic::SortOutStreamingAndMemory` | — |
+| `0x00407F20` | 1 | CStreaming (alta) | 1 | 2 | `CCutsceneMgr::DeleteCutsceneData_overlay`, `CGame::Init2` | — |
+| `0x004A8DC0` | 1 | FxInfoManager_c (baja) | 1 | 2 | `BoneNode_c::Destructor`, `FxSystem_c::Destructor` | — |
+| `0x006FE260` | 1,939 | CCustomRoadsignMgr (alta) | 5 | 1 | `CCustomRoadsignMgr::RoadsignGenerateTextRaster` | — |
+| `0x0055EB90` | 1,814 | SurfaceInfos_c (alta) | 5 | 1 | `SurfaceInfos_c::Init` | — |
+| `0x004D1680` | 971 | RpAnimBlend (alta) | 5 | 1 | `RpAnimBlend::FrameUpdateCallBackSkinned` | — |
+| `0x0074F760` | 923 | Win (baja) | 5 | 1 | `CGame::InitialiseRenderWare` | — |
+| `0x004D2450` | 910 | RpAnimBlend (alta) | 5 | 1 | `RpAnimBlend::FrameUpdateCallBackNonSkinned` | — |
+| `0x004D27F0` | 910 | RpAnimBlend (alta) | 5 | 1 | `RpAnimBlend::FrameUpdateCallBackCompressedNonSkinned` | — |
+| `0x004D1A50` | 850 | RpAnimBlend (alta) | 5 | 1 | `RpAnimBlend::FrameUpdateCallBackSkinned` | — |
+| `0x004D2100` | 845 | RpAnimBlend (alta) | 5 | 1 | `RpAnimBlend::FrameUpdateCallBackNonSkinned` | — |
+| `0x004D1DB0` | 843 | RpAnimBlend (alta) | 5 | 1 | `RpAnimBlend::FrameUpdateCallBackCompressedSkinned` | — |
+| `0x00709CF0` | 837 | CShadows (alta) | 5 | 1 | `CShadows::CastShadowEntityXYZ` | — |
+| `0x006FD7C0` | 829 | CCustomCarPlateMgr (alta) | 5 | 1 | `CCustomCarPlateMgr::RenderLicenseplateTextToRaster` | — |
+| `0x005DA790` | 804 | CCustomCarEnvMapPipeline (baja) | 5 | 1 | `CCustomCarEnvMapPipeline::CustomPipeRenderCB` | — |
+| `0x00450FB0` | 799 | CPathFind (alta) | 5 | 1 | `0x452270` | — |
+| `0x00606580` | 776 | CPedIntelligencePool (baja) | 5 | 1 | `0x607e30` | — |
+| `0x005D8590` | 723 | CCustomCarEnvMapPipeline (alta) | 4 | 1 | `CCustomCarEnvMapPipeline::CustomPipeRenderCB` | — |
+| `0x006A2530` | 703 | CAutomobile (alta) | 4 | 1 | `0x430050` | — |
+| `0x00681FE0` | 658 | CTaskComplexPartner (baja) | 4 | 1 | `0x683ad0` | — |
+| `0x004F4320` | 645 | CAEUserRadioTrackManager (alta) | 3 | 1 | `0x4f4620` | — |
+| `0x005ED4B0` | 645 | CPedAttractorManager (baja) | 3 | 1 | `CPedAttractor::SetTaskForPed` | — |
+| `0x0059B460` | 571 | CMaths (baja) | 4 | 1 | `0x6aa290` | — |
+| `0x00426970` | 553 | CCarCtrl (alta) | 4 | 1 | `0x42d7e0` | — |
+| `0x0050D590` | 527 | CCamera (baja) | 4 | 1 | `CCollision::CheckCameraCollisionPeds` | — |
+| `0x0072F180` | 418 | CCullZones (baja) | 3 | 1 | `CMemoryMgr::InitScratchPad` | — |
+| `0x00619910` | 410 | Rs (alta) | 4 | 1 | `0x619fa0` | — |
+| `0x005E37C0` | 404 | CPed (alta) | 4 | 1 | `CPed::DoFootLanded` | — |
+| `0x005E3630` | 400 | CPed (alta) | 4 | 1 | `CPed::DoFootLanded` | — |
+| `0x0055F2B0` | 360 | SurfaceInfos_c (alta) | 3 | 1 | `SurfaceInfos_c::Init` | — |
+| `0x0055D0E0` | 314 | CStats (baja) | 3 | 1 | `SurfaceInfos_c::Init` | — |
+| `0x0074F610` | 288 | Win (baja) | 3 | 1 | `CGame::ShutdownRenderWare` | — |
+| `0x0044E4F0` | 285 | CPathFind (alta) | 4 | 1 | `0x42f870` | — |
+| `0x005D2620` | 282 | CVehicleSaveStructure (baja) | 3 | 1 | `CGangWars::Save` | — |
+| `0x00669FF0` | 265 | CTaskComplexWander (baja) | 4 | 1 | `CTaskComplexGangLeader::ControlSubTask` | — |
+| `0x005C7590` | 264 | FxEmitterBP_c (baja) | 3 | 1 | `JPegPlugin::JPegCompressScreen` | — |
+| `0x005CFAC0` | 260 | FxEmitterBP_c (baja) | 3 | 1 | `JPegPlugin::JPegCompressScreen` | — |
+| `0x0044CC20` | 258 | COnscreenCounterEntry (baja) | 3 | 1 | `Game::Render2dStuff` | — |
+| `0x004D6510` | 256 | RpAnimBlend (alta) | 3 | 1 | `RpAnimBlend::RpAnimBlendClumpInit` | — |
+| `0x0059BBF0` | 242 | CCompressedMatrixNotAligned (baja) | 4 | 1 | `CFileLoader::LoadObjectInstance-inst` | — |
+| `0x0074FDA0` | 237 | Win (baja) | 3 | 1 | `App::PluginAttach` | — |
+| `0x005D2740` | 234 | CVehicleSaveStructure (baja) | 3 | 1 | `CGangWars::Load` | — |
+| `0x005A2F80` | 229 | ProcSurfaceInfo_c (baja) | 4 | 1 | `ProcSurfaceInfo_c::AddObjects` | — |
+| `0x006D5E20` | 227 | CVehicle (alta) | 3 | 1 | `CVehicle::Constructor` | — |
+| `0x0045CDB0` | 226 | CReplay (alta) | 3 | 1 | `CReplay::PlayBackThisFrameInterpolation` | — |
+| `0x00438D60` | 223 | CCheat (alta) | 4 | 1 | `CCheat::MoneyArmourHealthCheat` | — |
+| `0x005CFD20` | 218 | FxEmitterBP_c (baja) | 3 | 1 | `JPegPlugin::JPegDecompressToRaster` | — |
+| `0x00493280` | 217 | CTheScripts (alta) | 4 | 1 | `0x493900` | — |
+| `0x0049B0E0` | 217 | CVehicle (baja) | 3 | 1 | `CShopping::Buy` | — |
+| `0x0061DB30` | 217 | CTaskSimpleFight (baja) | 3 | 1 | `CWeaponInfo::LoadWeaponData` | — |
+| `0x0066CA40` | 209 | CTaskComplexInvestigateDisturbance (baja) | 3 | 1 | `CTaskComplexInvestigateDisturbance::CreateNextSubTask` | — |
+| `0x0053F2D0` | 208 | CMouseControllerState (baja) | 3 | 1 | `CControllerConfigManager::ReinitControls` | — |
+| `0x006563D0` | 208 | CTaskComplexHitPedWithCar (baja) | 4 | 1 | `CTaskSimpleKillPedWithCar::ProcessPed` | — |
+| `0x005D84C0` | 207 | CCustomCarEnvMapPipeline (alta) | 4 | 1 | `CCustomCarEnvMapPipeline::CustomPipeRenderCB` | — |
+| `0x007460A0` | 205 | Win (baja) | 3 | 1 | `Ps::psSelectDevice` | — |
+| `0x00605300` | 204 | CDecisionMakerTypes (baja) | 4 | 1 | `CPedIntelligence::Constructor` | — |
+| `0x005A42B0` | 203 | CClothesBuilder (alta) | 4 | 1 | `CClothesBuilder::CreateSkinnedClump` | — |
+| `0x00749C50` | 201 | Win (baja) | 3 | 1 | `CCustomRoadsignMgr::CreateRoadsignAtomicA` | — |
+| `0x005CF960` | 198 | FxEmitterBP_c (baja) | 3 | 1 | `JPegPlugin::JPegCompressScreen` | — |
+| `0x005C2730` | 194 | FxEmitterBP_c (baja) | 3 | 1 | `JPegPlugin::JPegCompressScreen` | — |
+| `0x0074E350` | 193 | Win (baja) | 3 | 1 | `CVehicleModelInfo::StoreAtomicUsedMaterialsCB` | — |
+| `0x005D0110` | 187 | FxEmitterBP_c (baja) | 3 | 1 | `JPegPlugin::JPegDecompressToRaster` | — |
+| `0x006551D0` | 187 | CTaskComplexWalkRoundObject (baja) | 4 | 1 | `0x657380` | — |
+| `0x005D2560` | 186 | CVehicleSaveStructure (baja) | 3 | 1 | `CPlayerInfo::Load` | — |
+| `0x00619780` | 181 | Rs (alta) | 4 | 1 | `0x619fa0` | — |
+| `0x00744930` | 179 | Input (alta) | 3 | 1 | `Input::PadHandler` | — |
+| `0x005B19D0` | 175 | CCutsceneMgr (baja) | 3 | 1 | `CCutsceneMgr::CreateCutsceneObject` | — |
+| `0x005D24B0` | 172 | CVehicleSaveStructure (baja) | 3 | 1 | `CPlayerInfo::Save` | — |
+| `0x00649160` | 172 | CTaskComplexGoToBoatSteeringWheel (baja) | 4 | 1 | `CTaskComplexGoToBoatSteeringWheel::ControlSubTask` | — |
+| `0x0065E9A0` | 172 | CTaskComplexGangLeader (alta) | 3 | 1 | `0x626260` | — |
+| `0x0061BB10` | 167 | CTaskSimpleRunAnim (baja) | 3 | 1 | `CTaskSimpleRunNamedAnim::ProcessPed` | — |
+| `0x0059BFA0` | 166 | CCompressedMatrixNotAligned (baja) | 4 | 1 | `CVehicleRecording::InterpolateInfoForCar` | — |
+| `0x00655290` | 161 | CTaskComplexWalkRoundObject (baja) | 3 | 1 | `0x6575f0` | — |
+| `0x0045CD10` | 159 | CReplay (alta) | 3 | 1 | `CReplay::RecordThisFrame` | — |
+| `0x00646F40` | 158 | CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse (baja) | 4 | 1 | `CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse::ProcessPed` | — |
+| `0x006007A0` | 157 | CDecision (baja) | 4 | 1 | `0x6040d0` | — |
+| `0x005D30C0` | 154 | CTheZones (baja) | 3 | 1 | `CGarages::Load` | — |
+| `0x004A11E0` | 153 | Fx_c (baja) | 3 | 1 | `CEntity::CreateEffects` | — |
+| `0x005C8690` | 149 | FxEmitterBP_c (baja) | 3 | 1 | `JPegPlugin::JPegDecompressToRaster` | — |
+| `0x005D3020` | 149 | CTheZones (baja) | 3 | 1 | `CGarages::Save` | — |
+| `0x005EDF10` | 148 | CPedAttractorManager (baja) | 3 | 1 | `CPedAttractorManager::GetPedAttractorManager` | — |
+| `0x00746ED0` | 148 | CPad (baja) | 3 | 1 | `CPad::UpdateMouse` | — |
+| `0x00683840` | 146 | CTaskComplexBeInCouple (baja) | 4 | 1 | `CTaskComplexBeInCouple::ControlSubTask` | — |
+| `0x005C87E0` | 143 | FxEmitterBP_c (baja) | 3 | 1 | `JPegPlugin::JPegDecompressToRaster` | — |
+| `0x00683A40` | 142 | CTaskComplexBeInCouple (baja) | 3 | 1 | `CTaskComplexPartnerGreet::Destructor` | — |
+| `0x004F2B80` | 139 | CAETwinLoopSoundEntity (alta) | 3 | 1 | `CAEVehicleAudioEntity::Destructor` | — |
+| `0x005EE270` | 138 | CPedAttractorManager (baja) | 3 | 1 | `CPedAttractor::SetTaskForPed` | — |
+| `0x005EE370` | 136 | CPedAttractorManager (baja) | 3 | 1 | `CPedShelterAttractor::GetDisplacement` | — |
+| `0x00748F70` | 134 | Win (baja) | 3 | 1 | `App::PluginAttach` | — |
+| `0x004D58A0` | 128 | CAnimManager (baja) | 3 | 1 | `CCam::Process_1rstPersonPedOnPC` | — |
+| `0x00506BA0` | 128 | CAEWeatherAudioEntity (baja) | 3 | 1 | `CAudioEngine::Destructor` | — |
+| `0x006EA8A0` | 125 | CWaterLevel (alta) | 4 | 1 | `0x6ea960` | — |
+| `0x007448B0` | 123 | Input (alta) | 3 | 1 | `Input::PadHandler` | — |
+| `0x004ADEA0` | 120 | CEventDamage (baja) | 3 | 1 | `CTaskSimpleDead::ProcessPed` | — |
+| `0x004D66A0` | 118 | RpAnimBlend (alta) | 3 | 1 | `RpAnimBlend::RpAnimBlendClumpInit` | — |
+| `0x005D8C50` | 118 | CCustomCarEnvMapPipeline (alta) | 4 | 1 | `CCustomCarEnvMapPipeline::pluginEnvMatStreamWriteCB` | — |
+| `0x00422F80` | 117 | CCarCtrl (alta) | 4 | 1 | `0x423000` | — |
+| `0x005C26B0` | 117 | FxEmitterBP_c (baja) | 3 | 1 | `JPegPlugin::JPegCompressScreen` | — |
+| `0x0045BFF0` | 116 | CReplay (alta) | 4 | 1 | `CReplay::PlayBackThisFrameInterpolation` | — |
+| `0x0045C0D0` | 116 | CReplay (alta) | 4 | 1 | `CReplay::PlayBackThisFrameInterpolation` | — |
+| `0x00667720` | 116 | CTaskSimpleRunNamedAnim (baja) | 3 | 1 | `CTaskComplexFollowPointRoute::GetSubTaskType` | — |
+| `0x00668250` | 116 | CTaskComplexGoToPointAndStandStill (alta) | 4 | 1 | `CTaskComplexGoToPointAndStandStill::ControlSubTask` | — |
+| `0x004D7890` | 115 | CAEAmbienceTrackManager (baja) | 3 | 1 | `CAEStreamingChannel::Constructor` | — |
+| `0x005BD420` | 113 | CPopulation (baja) | 3 | 1 | `cHandlingDataMgr::LoadHandlingData` | — |
+| `0x005FFE60` | 113 | CEntityScanner (baja) | 3 | 1 | `CPedIntelligence::Process` | — |
+| `0x005D01D0` | 112 | FxEmitterBP_c (baja) | 3 | 1 | `JPegPlugin::JPegDecompressToRaster` | — |
+| `0x004ACE80` | 110 | CEventObjectCollision (baja) | 4 | 1 | `CEventHandler::ComputeObjectCollisionResponse` | — |
+| `0x00506B20` | 108 | CAEWeatherAudioEntity (baja) | 3 | 1 | `CAudioEngine::Destructor` | — |
+| `0x005D0570` | 108 | JPegPlugin (alta) | 3 | 1 | `JPegPlugin::JPegDecompressToRaster` | — |
+| `0x005D8BE0` | 108 | CCustomCarEnvMapPipeline (alta) | 4 | 1 | `CCustomCarEnvMapPipeline::pluginEnvMatStreamReadCB` | — |
+| `0x00463970` | 104 | CUpsideDownCarCheck (baja) | 3 | 1 | `CStuckCarCheck::Process` | — |
+| `0x00552B50` | 104 | CQuadTreeNode&lt;T&gt; (alta) | 3 | 1 | `CQuadTreeNode&lt;T&gt;::AddItem` | — |
+| `0x00411030` | 103 | CColStore (alta) | 3 | 1 | `CColStore::AddColSlot` | — |
+| `0x0043F7D0` | 103 | CEntryExitManager (alta) | 3 | 1 | `CEntryExitManager::AddOne` | — |
+| `0x004AEDF0` | 102 | CEventVehicleHitAndRun (baja) | 3 | 1 | `CPopulation::AddPed` | — |
+| `0x004B1B60` | 102 | CEventVehicleDamage (baja) | 3 | 1 | `CEventHandler::ComputeDamageResponse` | — |
+| `0x005EE300` | 102 | CPedAttractorManager (baja) | 3 | 1 | `CPedAttractor::SetTaskForPed` | — |
+| `0x005EE400` | 102 | CPedAttractorManager (baja) | 3 | 1 | `CPedAttractorManager::RestoreStuffFromMem` | — |
+| `0x004A4C20` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A4D00` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A4DC0` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A4E90` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A4F50` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A5010` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A50E0` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A51B0` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A5270` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A5450` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A5550` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A5650` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A57C0` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A5980` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A5A10` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A5B20` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A5CB0` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A5EA0` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A5FA0` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A60B0` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A6220` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A6320` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A6440` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A6550` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A6630` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A67D0` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A68E0` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A6A00` | 101 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x00646CF0` | 101 | CTaskSimpleCarWaitForDoorNotToBeInUse (baja) | 3 | 1 | `0x6419f0` | — |
+| `0x004D1570` | 100 | CAnimBlendAssociation (baja) | 4 | 1 | `RpAnimBlend::RpAnimBlendClumpUpdateAnimations` | — |
+| `0x004AEA50` | 97 | CEventVehicleHitAndRun (baja) | 3 | 1 | `CTaskSimpleKillPedWithCar::ProcessPed` | — |
+| `0x004D6DF0` | 97 | CAEAmbienceTrackManager (alta) | 3 | 1 | `CAEAmbienceTrackManager::Service` | — |
+| `0x0054EE30` | 97 | Common (alta) | 4 | 1 | `CEntity::GetIsBoundingBoxOnScreen` | — |
+| `0x005503F0` | 94 | CPools (alta) | 3 | 1 | `CPools::Initialise` | — |
+| `0x005504C0` | 94 | CPools (alta) | 3 | 1 | `CPools::Initialise` | — |
+| `0x00550640` | 94 | CPools (alta) | 3 | 1 | `CPools::Initialise` | — |
+| `0x00550B00` | 94 | CPools (alta) | 3 | 1 | `CPools::Initialise` | — |
+| `0x00550D70` | 94 | CPools (alta) | 3 | 1 | `CPools::Initialise` | — |
+| `0x00550E40` | 94 | CPools (alta) | 3 | 1 | `CPools::Initialise` | — |
+| `0x005B8340` | 94 | CStreaming (baja) | 3 | 1 | `CVehicleModelInfo::SetupCommonData` | — |
+| `0x00550180` | 93 | CPools (alta) | 3 | 1 | `CPools::Initialise` | — |
+| `0x005D9300` | 93 | CCustomCarEnvMapPipeline (baja) | 3 | 1 | `CCustomCarEnvMapPipeline::CreatePipe` | — |
+| `0x0062FB40` | 93 | CTaskSimpleDie (alta) | 3 | 1 | `CTaskSimpleDieInCar::Destructor` | — |
+| `0x00550250` | 92 | CPools (alta) | 3 | 1 | `CPools::Initialise` | — |
+| `0x00550320` | 92 | CPools (alta) | 3 | 1 | `CPools::Initialise` | — |
+| `0x005507C0` | 92 | CPools (alta) | 3 | 1 | `CPools::Initialise` | — |
+| `0x00550BD0` | 92 | CPools (alta) | 3 | 1 | `CPools::Initialise` | — |
+| `0x00552AF0` | 92 | CQuadTreeNode&lt;T&gt; (alta) | 3 | 1 | `CQuadTreeNode&lt;T&gt;::InitPool` | — |
+| `0x005D9060` | 92 | CCustomCarEnvMapPipeline (baja) | 3 | 1 | `CCustomCarEnvMapPipeline::CreatePipe` | — |
+| `0x005D91B0` | 92 | CCustomCarEnvMapPipeline (baja) | 3 | 1 | `CCustomCarEnvMapPipeline::CreatePipe` | — |
+| `0x005DE920` | 92 | CGangs (baja) | 3 | 1 | `CPed::Destructor` | — |
+| `0x00731AD0` | 92 | CTxdStore (alta) | 3 | 1 | `CTxdStore::Initialise` | — |
+| `0x00405900` | 91 | CIplStore (baja) | 3 | 1 | `CIplStore::Initialise` | — |
+| `0x00410F80` | 91 | CColStore (alta) | 3 | 1 | `CColStore::Initialise` | — |
+| `0x0043F720` | 91 | CEntryExitManager (alta) | 3 | 1 | `CEntryExitManager::Init` | — |
+| `0x0049C8F0` | 91 | CStuntJumpManager (alta) | 3 | 1 | `CStuntJumpManager::Init` | — |
+| `0x00550570` | 91 | CPools (alta) | 3 | 1 | `CPools::Initialise` | — |
+| `0x005506F0` | 91 | CPools (alta) | 3 | 1 | `CPools::Initialise` | — |
+| `0x00550890` | 91 | CPools (alta) | 3 | 1 | `CPools::Initialise` | — |
+| `0x00550960` | 91 | CPools (alta) | 3 | 1 | `CPools::Initialise` | — |
+| `0x00550A30` | 91 | CPools (alta) | 3 | 1 | `CPools::Initialise` | — |
+| `0x00550CA0` | 91 | CPools (alta) | 3 | 1 | `CPools::Initialise` | — |
+| `0x0068B620` | 91 | CTaskSimpleSwim (baja) | 3 | 1 | `CTaskComplexArrestPed::CreateSubTask` | — |
+| `0x00609140` | 90 | CEventDontJoinPlayerGroup (baja) | 3 | 1 | `0x60c840` | — |
+| `0x0044CBC0` | 88 | COnscreenCounterEntry (baja) | 3 | 1 | `CUserDisplay::Init` | — |
+| `0x00642700` | 88 | CTaskComplexScreamInCarThenLeave (baja) | 3 | 1 | `CTaskSimpleCarDrive::ProcessPed` | — |
+| `0x00698680` | 88 | CTaskComplexReactToGunAimedAt (baja) | 3 | 1 | `CEventHandler::ComputeBuildingCollisionResponse` | — |
+| `0x00460D80` | 87 | CTaskComplexWanderCop (baja) | 3 | 1 | `CTaskComplexBeCop::Destructor` | — |
+| `0x00448660` | 86 | CGarage (alta) | 3 | 1 | `0x44aa50` | — |
+| `0x004AF010` | 86 | CEventVehicleHitAndRun (baja) | 3 | 1 | `CTaskComplexWanderStandard::LookForSexyCars` | — |
+| `0x004AF130` | 86 | CEventVehicleHitAndRun (baja) | 3 | 1 | `CTaskComplexWanderCop::LookForCriminals` | — |
+| `0x004AF240` | 86 | CEventVehicleHitAndRun (baja) | 3 | 1 | `CTaskComplexWanderCop::LookForCriminals` | — |
+| `0x0066C3E0` | 86 | CTaskComplexGotoDoorAndOpen (baja) | 3 | 1 | `CTaskComplexGoToAttractor::CreateFirstSubTask` | — |
+| `0x0074E150` | 86 | Win (baja) | 3 | 1 | `CVehicleModelInfo::ReduceMaterialsInVehicle` | — |
+| `0x0040FD50` | 85 | CColSphere (alta) | 3 | 1 | `CMonsterTruck::SetupSuspensionLines` | — |
+| `0x007477C0` | 85 | VideoPlayer (baja) | 3 | 1 | `0x7485c0` | — |
+| `0x004CFA30` | 83 | CAnimBlendHierarchy (baja) | 4 | 1 | `CAnimBlendNode::CalcDeltasCompressed` | — |
+| `0x00540530` | 82 | CPad (alta) | 3 | 1 | `CCamera::CamControl` | — |
+| `0x0045BF90` | 81 | CReplay (alta) | 4 | 1 | `CReplay::RecordThisFrame` | — |
+| `0x0045C070` | 81 | CReplay (alta) | 4 | 1 | `CReplay::RecordThisFrame` | — |
+| `0x004AC920` | 81 | CEventVehicleCollision (baja) | 3 | 1 | `0x604500` | — |
+| `0x004ACDD0` | 81 | CEventObjectCollision (alta) | 3 | 1 | `0x604500` | — |
+| `0x004ACFF0` | 81 | CEventBuildingCollision (alta) | 3 | 1 | `0x604500` | — |
+| `0x004ADF70` | 81 | CEventDamage (baja) | 3 | 1 | `CTaskSimpleDead::ProcessPed` | — |
+| `0x004AE3C0` | 81 | CEventPotentialWalkIntoVehicle (alta) | 3 | 1 | `0x603720` | — |
+| `0x004AEEA0` | 81 | CEventVehicleHitAndRun (baja) | 3 | 1 | `CPopulation::AddPed` | — |
+| `0x004AF0A0` | 81 | CEventVehicleHitAndRun (baja) | 3 | 1 | `CTaskComplexWanderStandard::LookForSexyCars` | — |
+| `0x004AF1C0` | 81 | CEventVehicleHitAndRun (baja) | 3 | 1 | `CTaskComplexWanderCop::LookForCriminals` | — |
+| `0x004AF2D0` | 81 | CEventVehicleHitAndRun (baja) | 3 | 1 | `CTaskComplexWanderCop::LookForCriminals` | — |
+| `0x004AF400` | 81 | CEventAttractor (alta) | 3 | 1 | `CPopulation::AddPedAtAttractor` | — |
+| `0x004B1520` | 81 | CEventStuckInAir (alta) | 3 | 1 | `0x602c00` | — |
+| `0x004B1C10` | 81 | CEventVehicleDamage (baja) | 3 | 1 | `CEventHandler::ComputeDamageResponse` | — |
+| `0x004B1D50` | 81 | CEventCarUpsideDown (alta) | 3 | 1 | `CTaskSimpleCarDrive::ProcessPed` | — |
+| `0x004B26A0` | 81 | CEventDanger (alta) | 3 | 1 | `CPlane::DoPlaneGenerationAndRemoval` | — |
+| `0x0049CD50` | 80 | CTagManager (alta) | 3 | 1 | `CEntity::CreateRwObject` | — |
+| `0x004A5DA0` | 79 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A5E20` | 79 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A61A0` | 79 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x004A6760` | 79 | FxInfoManager_c (alta) | 3 | 1 | `FxInfoManager_c::AddFxInfo` | — |
+| `0x00448990` | 78 | CGarages (alta) | 3 | 1 | `CTaskSimpleCarSetPedOut::ProcessPed` | — |
+| `0x0069F8C0` | 78 | CMissionTextOffsets (baja) | 3 | 1 | `C_PcSave::PopulateSlotInfo` | — |
+| `0x005D8980` | 77 | CCustomCarEnvMapPipeline (alta) | 3 | 1 | `CCustomCarEnvMapPipeline::CreatePipe` | — |
+| `0x0061AE50` | 76 | CTaskSimpleRunTimedAnim (baja) | 3 | 1 | `CTaskComplexPlayHandSignalAnim::CreateSubTask` | — |
+| `0x005E0540` | 74 | CPed (baja) | 3 | 1 | `CPed::operator`, `new-poolIndexed` | — |
+| `0x0040EEC0` | 73 | CBox (baja) | 3 | 1 | `CCollisionData::Copy` | — |
+| `0x004D6450` | 73 | RpAnimBlend (alta) | 3 | 1 | `RpAnimBlend::RpAnimBlendClumpFillFrameArray` | — |
+| `0x004DBF10` | 71 | CAECutsceneTrackManager (alta) | 3 | 1 | `CAECutsceneTrackManager::Service` | — |
+| `0x004D6DA0` | 70 | CAEAmbienceTrackManager (alta) | 3 | 1 | `CAEAmbienceTrackManager::Service` | — |
+| `0x00669D50` | 69 | CTaskComplexFollowNodeRoute (baja) | 3 | 1 | `CTaskComplexSmartFleePoint::SetDefaultTaskWanderDir` | — |
+| `0x005BD360` | 68 | CPopulation (baja) | 3 | 1 | `0x5bedc0` | — |
+| `0x004A1280` | 67 | Fx_c (baja) | 3 | 1 | `CEntity::DestroyEffects` | — |
+| `0x0049EA90` | 66 | Fx_c (alta) | 3 | 1 | `CGame::Init1` | — |
+| `0x004DBF60` | 66 | CAECutsceneTrackManager (alta) | 3 | 1 | `CAECutsceneTrackManager::Service` | — |
+| `0x0071D730` | 66 | CGridRef (baja) | 4 | 1 | `CPlayerPed::ProcessControl` | — |
+| `0x006198C0` | 65 | Rs (alta) | 3 | 1 | `0x619d60` | — |
+| `0x004D7910` | 64 | CAEAmbienceTrackManager (baja) | 3 | 1 | `CAEStreamingChannel::Destructor` | — |
+| `0x004DFB60` | 63 | CAEBankLoader (alta) | 2 | 1 | `CAEMP3BankLoader::Initialise` | — |
+| `0x005EAB80` | 62 | CPedAttractorPool (baja) | 2 | 1 | `CPedAttractor::DeRegisterPed` | — |
+| `0x0062FEC0` | 62 | CTaskComplexDieInCar (baja) | 2 | 1 | `CTaskComplexDie::CreateFirstSubTask` | — |
+| `0x004ADD60` | 61 | CEventDamage (baja) | 2 | 1 | `CEventHandler::ComputeDamageResponse` | — |
+| `0x004F0B10` | 60 | CAESoundManager (baja) | 2 | 1 | `CAEAudioHardware::Initialise` | — |
+| `0x0054EF90` | 60 | Common (baja) | 4 | 1 | `CEntity::GetIsBoundingBoxOnScreen` | — |
+| `0x005AFA50` | 60 | CCredits (baja) | 2 | 1 | `CCutsceneMgr::LoadCutsceneData_preload` | — |
+| `0x0045AFB0` | 54 | CVehicleRecording (baja) | 2 | 1 | `CAutomobile::ProcessHarvester` | — |
+| `0x004650A0` | 54 | CTheScripts (baja) | 3 | 1 | `CDecisionMakerTypesFileLoader::LoadDecisionMaker-enum` | — |
+| `0x0059F050` | 54 | CHandObject (baja) | 2 | 1 | `CObject::ProcessControl` | — |
+| `0x005F7200` | 54 | CPedGroupDefaultTaskAllocatorSitInLeaderCar (baja) | 2 | 1 | `CPedGroupIntelligence::SetDefaultTaskAllocatorType` | — |
+| `0x00669FB0` | 54 | CTaskComplexWander (baja) | 2 | 1 | `CTaskComplexGangLeader::ScanForStuff` | — |
+| `0x0050A120` | 53 | CCam (baja) | 4 | 1 | `CCam::Process_FollowPed_SA` | — |
+| `0x0059AF00` | 52 | CMaths (baja) | 2 | 1 | `0x6aa290` | — |
+| `0x004AB2D0` | 51 | FxSystem_c (baja) | 2 | 1 | `CAutomobile::ProcessHarvester` | — |
+| `0x0056CE30` | 51 | CWorld (baja) | 2 | 1 | `CAccidentManager::GetInstance` | — |
+| `0x0069C480` | 50 | CTaskAllocatorAttack (baja) | 3 | 1 | `CGroupEventHandler::ComputeResponsePlayerCommand` | — |
+| `0x005EC220` | 49 | CPedAttractorManager (baja) | 2 | 1 | `CPedAttractor::BroadcastArrival` | — |
+| `0x006074E0` | 49 | CPedIntelligence (baja) | 2 | 1 | `CPed::Destructor` | — |
+| `0x0062F2D0` | 49 | CTaskComplexLeaveCarAndDie (baja) | 2 | 1 | `CTaskComplexSunbathe::CanSunbathe` | — |
+| `0x0049C9A0` | 48 | CStuntJumpManager (alta) | 2 | 1 | `CStuntJumpManager::ShutdownForRestart` | — |
+| `0x004E0380` | 48 | CAEMP3BankLoader (alta) | 2 | 1 | `0x4d86b0` | — |
+| `0x005D9180` | 48 | CCustomCarEnvMapPipeline (baja) | 2 | 1 | `CCustomCarEnvMapPipeline::SetFxEnvTexture` | — |
+| `0x00718630` | 48 | Common (alta) | 2 | 1 | `CMenuManager::DrawStandardMenus` | — |
+| `0x0061A6C0` | 47 | CTask (baja) | 2 | 1 | `CTaskSimpleRunNamedAnim::Constructor-Default` | — |
+| `0x00731650` | 46 | D3DResourceSystem (baja) | 2 | 1 | `App::PluginAttach` | — |
+| `0x0046CED0` | 45 | CScriptsForBrains (baja) | 3 | 1 | `InteriorGroup_c::SetupHousePeds` | — |
+| `0x006955D0` | 44 | CTaskComplexFollowPedFootsteps (baja) | 4 | 1 | `CTaskComplexFollowLeaderInFormation::ControlSubTask` | — |
+| `0x005E88E0` | 43 | CPed (alta) | 3 | 1 | `CCamera::CamControl` | — |
+| `0x00667900` | 43 | CTaskSimpleRunNamedAnim (baja) | 2 | 1 | `CTaskComplexFollowNodeRoute::ComputePathNodes` | — |
+| `0x006586A0` | 42 | CTaskComplexWalkRoundFire (baja) | 2 | 1 | `CTaskComplexUseSwatRope::CreateSubTask` | — |
+| `0x004048E0` | 41 | CObjectPool (baja) | 2 | 1 | `0x587000` | — |
+| `0x00465040` | 41 | CTheScripts (baja) | 2 | 1 | `0x587000` | — |
+| `0x00552390` | 41 | CPtrNodeDoubleLinkPool (baja) | 2 | 1 | `CEntity::Remove` | — |
+| `0x00465070` | 40 | CTheScripts (baja) | 2 | 1 | `CProjectileInfo::IsProjectileInRange` | — |
+| `0x00636780` | 39 | CTaskComplexUseEffect (baja) | 2 | 1 | `CTaskComplexUseClosestFreeScriptedAttractor::CreateFirstSubTask` | — |
+| `0x00636860` | 39 | CTaskComplexUseEffectRunning (baja) | 2 | 1 | `CTaskComplexUseClosestFreeScriptedAttractor::CreateFirstSubTask` | — |
+| `0x005521D0` | 37 | CPools (baja) | 2 | 1 | `CCover::Update` | — |
+| `0x004ABC30` | 36 | CEventSource (baja) | 3 | 1 | `CEventDamage::TakesPriorityOver` | — |
+| `0x0054F490` | 36 | CPlaceable (alta) | 2 | 1 | `CEntity::Destructor` | — |
+| `0x0065DE60` | 36 | CEventPassObject (baja) | 2 | 1 | `CTaskComplexGangFollower::CreateNextSubTask` | — |
+| `0x00411A30` | 35 | CPlaceable (baja) | 4 | 1 | `CPedGeometryAnalyser::CanPedJumpObstacle-contacted` | — |
+| `0x004A9CF0` | 35 | FxMemoryPool_c (baja) | 2 | 1 | `FxEmitterBP_c::Constructor` | — |
+| `0x004F3B30` | 35 | CAEUserRadioTrackManager (alta) | 2 | 1 | `0x4f4620` | — |
+| `0x005EB310` | 35 | CPedAttractor (alta) | 2 | 1 | `CPedAttractor::SetTaskForPed` | — |
+| `0x0061A150` | 35 | Rs (baja) | 2 | 1 | `CPedIntelligence::Destructor` | — |
+| `0x00681A00` | 35 | CTaskManager (alta) | 2 | 1 | `CPedIntelligence::ProcessAfterProcCol` | — |
+| `0x00631910` | 34 | CTaskComplexObserveTrafficLights (baja) | 2 | 1 | `CTaskComplexWander::CreateSubTask` | — |
+| `0x00633250` | 34 | CTaskComplexUsePairedAttractor (baja) | 2 | 1 | `CTaskComplexUsePairedAttractor::CreateSubTask` | — |
+| `0x0074BE00` | 34 | Win (baja) | 2 | 1 | `PipelinePlugin::PipelinePluginAttach` | — |
+| `0x0074BE70` | 34 | Win (baja) | 2 | 1 | `CCollisionPlugin::PluginAttach` | — |
+| `0x0046AE00` | 33 | CTaskComplexSeekEntityStandard (baja) | 4 | 1 | `CAutomobile::SpawnFlyingComponent` | — |
+| `0x00502BF0` | 32 | CAEWMADecoder (alta) | 2 | 1 | `CAEUserRadioTrackManager::Shutdown` | — |
+| `0x00747000` | 32 | CPad (baja) | 2 | 1 | `0x747eb0` | — |
+| `0x004082A0` | 31 | CStreaming (baja) | 1 | 1 | `CPedToPlayerConversations::Update` | — |
+| `0x00681970` | 30 | CTaskManager (alta) | 2 | 1 | `CTaskManager::SetTask` | — |
+| `0x00710BA0` | 30 | CStencilShadows (alta) | 1 | 1 | `CStencilShadows::RegisterStencilShadows` | — |
+| `0x0065E710` | 29 | CTaskComplexGangLeader (alta) | 1 | 1 | `CTaskComplexGangLeader::GetRandomGangAmbientAnim` | — |
+| `0x0049C3B0` | 28 | CShopping (baja) | 1 | 1 | `CStuntJumpManager::Update` | — |
+| `0x00634A40` | 28 | CTaskComplexUseClosestFreeScriptedAttractor (baja) | 2 | 1 | `0x468560` | — |
+| `0x00407000` | 26 | CPopulation (baja) | 1 | 1 | `CRenderer::SetupEntityVisibility` | — |
+| `0x004A1320` | 26 | Fx_c (baja) | 3 | 1 | `CGame::Shutdown` | — |
+| `0x0053BC60` | 26 | CGame (alta) | 1 | 1 | `0x747eb0` | — |
+| `0x005617A0` | 26 | CTimeCycle (baja) | 2 | 1 | `CTimer::Initialise` | — |
+| `0x0044CD30` | 25 | COnscreenCounterEntry (baja) | 1 | 1 | `CUserDisplay::Process` | — |
+| `0x005D6830` | 25 | CCustomBuildingDNPipeline (alta) | 1 | 1 | `CCustomBuildingRenderer::Update` | — |
+| `0x00572E70` | 24 | CTheZones (baja) | 1 | 1 | `CMenuManager::AdditionalOptionInput` | — |
+| `0x0057C440` | 24 | CMenuManager (alta) | 1 | 1 | `CMenuManager::CheckRedefineControlInput` | — |
+| `0x0057C460` | 24 | CMenuManager (alta) | 1 | 1 | `CMenuManager::CheckRedefineControlInput` | — |
+| `0x004410E0` | 23 | CEntryExitManager (baja) | 1 | 1 | `CMenuManager::UserInput` | — |
+| `0x004E7F20` | 23 | CAEMFDecoder (baja) | 1 | 1 | `CAERadioTrackManager::Service` | — |
+| `0x0053EE60` | 23 | App (baja) | 1 | 1 | `CPlayerPed::ProcessControl` | — |
+| `0x0053EF40` | 23 | App (baja) | 1 | 1 | `CPad::MeleeAttackJustDown` | — |
+| `0x0053EF60` | 23 | App (baja) | 1 | 1 | `CPad::WeaponJustDown` | — |
+| `0x00541E90` | 23 | CPad (baja) | 2 | 1 | `CPhysical::PositionAttachedEntity` | — |
+| `0x0063AB70` | 22 | CTaskComplexEnterCar (alta) | 1 | 1 | `CTaskComplexEnterCar::CreateNextSubTask` | — |
+| `0x00669D30` | 22 | CTaskComplexFollowNodeRoute (baja) | 1 | 1 | `CTaskComplexSmartFleePoint::ControlSubTask` | — |
+| `0x0049EAE0` | 21 | Fx_c (alta) | 2 | 1 | `CGame::ShutDownForRestart` | — |
+| `0x004A9F20` | 21 | FxPrimBP_c (baja) | 1 | 1 | `FxEmitterBP_c::CreateInstance` | — |
+| `0x005DAAC0` | 21 | CCustomCarEnvMapPipeline (baja) | 2 | 1 | `CCustomCarEnvMapPipeline::CustomPipeRenderCB` | — |
+| `0x004CEC00` | 20 | CAnimBlendAssociation (baja) | 2 | 1 | `CAnimBlendStaticAssociation::Destructor` | — |
+| `0x0059ADD0` | 20 | CMaths (baja) | 1 | 1 | `CReplay::RecordThisFrame` | — |
+| `0x00608F20` | 20 | CPedType (baja) | 1 | 1 | `CTaskSimpleUseGun::ProcessPed` | — |
+| `0x0061C150` | 20 | CTaskSimpleRunNamedAnim (baja) | 1 | 1 | `CTaskSimpleUseGun::ProcessPed` | — |
+| `0x006A06F0` | 20 | CEventVehicleDamageCollision (baja) | 1 | 1 | `0x6aa290` | — |
+| `0x00421120` | 19 | CPedIntelligence (baja) | 1 | 1 | `0x430050` | — |
+| `0x004B4AA0` | 19 | CEventPotentialWalkIntoObject (baja) | 2 | 1 | `CEventHandler::ComputeKnockOffBikeResponse` | — |
+| `0x00538AD0` | 19 | CFileMgr (baja) | 4 | 1 | `CObject::SpecialEntityCalcCollisionSteps` | — |
+| `0x0040B490` | 18 | CStreaming (alta) | 1 | 1 | `0x468560` | — |
+| `0x00463640` | 18 | CTaskComplexSequence (baja) | 2 | 1 | `CRunningScript::ShutdownThisScript` | — |
+| `0x004A1900` | 18 | FxEmitterBP_c (alta) | 2 | 1 | `FxSystemBP_c::Load` | — |
+| `0x00537A10` | 18 | CFileLoader (baja) | 2 | 1 | `CFileLoader::LoadObjectInstance-inst` | — |
+| `0x0059EA00` | 18 | BreakManager_c (baja) | 2 | 1 | `CFileLoader::LoadObjectInstance-inst` | — |
+| `0x00634EF0` | 18 | CTaskComplexUseClosestFreeScriptedAttractor (baja) | 2 | 1 | `CTaskSimplePlayerOnFoot::ProcessPlayerWeapon` | — |
+| `0x0067BA40` | 18 | CTaskSimpleJetPack (baja) | 2 | 1 | `CEventHandler::ComputeEventResponseTask-0` | — |
+| `0x006D0AF0` | 18 | CAEVehicleAudioEntity (baja) | 1 | 1 | `0x6dfc50` | — |
+| `0x00407A10` | 17 | CStreaming (alta) | 1 | 1 | `CCutsceneMgr::DeleteCutsceneData_overlay` | — |
+| `0x004AEC50` | 17 | CEventVehicleHitAndRun (baja) | 1 | 1 | `CTaskSimpleGiveCPR::ReviveDeadPed` | — |
+| `0x004CEB60` | 16 | CAnimBlendAssociation (alta) | 1 | 1 | `RpAnimBlend::RpAnimBlendClumpUpdateAnimations` | — |
+| `0x005D0F40` | 16 | CGenericGameStorage (alta) | 1 | 1 | `CMenuManager::DrawStandardMenus` | — |
+| `0x005F7E30` | 16 | CPedGroup (baja) | 1 | 1 | `CEventHandler::RegisterKill` | — |
+| `0x00406360` | 15 | CIplStore (baja) | 2 | 1 | `CStreaming::LoadCdDirectory-void` | — |
+| `0x004DC2A0` | 15 | CAEDataStream (alta) | 2 | 1 | `CAEVorbisDecoder::CloseCallback` | — |
+| `0x00698610` | 15 | CTaskComplexReactToGunAimedAt (baja) | 1 | 1 | `CPlayerRelationshipRecorder::RecordRelationshipWithPlayer` | — |
+| `0x004AB980` | 14 | CEventGlobalGroup (alta) | 2 | 1 | `CPedIntelligence::Destructor` | — |
+| `0x00507400` | 14 | CAudioEngine (alta) | 2 | 1 | `CGameLogic::RestorePlayerStuffDuringResurrection` | — |
+| `0x00407D30` | 13 | CStreaming (alta) | 1 | 1 | `CCarCtrl::GenerateRandomCars` | — |
+| `0x00407DC0` | 13 | CStreaming (alta) | 1 | 1 | `CCarCtrl::GenerateRandomCars` | — |
+| `0x007316D0` | 13 | CTxdStore (alta) | 1 | 1 | `CClothesBuilder::RequestTexture` | — |
+| `0x004F4CA0` | 12 | CAEUserRadioTrackManager (baja) | 1 | 1 | `CAutomobile::ProcessCarWheelPair` | — |
+| `0x004096C0` | 11 | CStreaming (alta) | 1 | 1 | `CRenderer::ConstructRenderList` | — |
+| `0x0043E400` | 11 | CTaskSimpleUninterruptable (baja) | 1 | 1 | `CPlayerPed::ProcessControl` | — |
+| `0x004F11E0` | 11 | CAEStaticChannel (baja) | 2 | 1 | `CAEAudioHardware::Destructor` | — |
+| `0x005326E0` | 11 | CDummyPool (baja) | 1 | 1 | `CFileLoader::LoadObjectInstance-inst` | — |
+| `0x00552380` | 11 | CPtrNodeDoubleLinkPool (baja) | 1 | 1 | `CQuadTreeNode&lt;T&gt;::AddItem` | — |
+| `0x005DDBE0` | 11 | CCivilianPed (alta) | 1 | 1 | `CCivilianPed::Destructor` | — |
+| `0x006074A0` | 11 | CPedIntelligence (baja) | 1 | 1 | `CPed::Constructor` | — |
+| `0x00667D50` | 11 | CTaskSimpleGoToPoint (alta) | 1 | 1 | `CPedGroup::PlayerGaveCommand_Gather` | — |
+| `0x0067A060` | 11 | CTaskComplexJump (alta) | 1 | 1 | `CTaskComplexClimb::Destructor` | — |
+| `0x00684200` | 11 | CTaskComplexPartnerDeal (baja) | 1 | 1 | `CGroupEventHandler::ComputeDoDealResponse` | — |
+| `0x00746070` | 11 | Win (baja) | 1 | 1 | `CCutsceneMgr::IsCutsceneSkipButtonBeingPressed` | — |
+| `0x0049E640` | 10 | CTrafficLights (baja) | 1 | 1 | `CGame::Process` | — |
+| `0x004A9F50` | 10 | FxPrimBP_c (baja) | 1 | 1 | `FxSystem_c::EnablePrim` | — |
+| `0x004E7850` | 10 | CAEMFDecoder (alta) | 2 | 1 | `CAEUserRadioTrackManager::Shutdown` | — |
+| `0x00532240` | 10 | CCrime (baja) | 1 | 1 | `CGame::Init1` | — |
+| `0x0053F910` | 10 | CPad (alta) | 1 | 1 | `0x468560` | — |
+| `0x0066B150` | 10 | CTaskComplexWanderStandard (baja) | 1 | 1 | `0x683ad0` | — |
+| `0x0041BCE0` | 7 | CBridge (baja) | 1 | 1 | `CAutomobile::ProcessCarWheelPair` | — |
+| `0x0041BCF0` | 7 | CBridge (baja) | 1 | 1 | `CAutomobile::ProcessCarWheelPair` | — |
+| `0x004AECA0` | 7 | CEventVehicleHitAndRun (baja) | 1 | 1 | `CTaskSimpleGiveCPR::ReviveDeadPed` | — |
+| `0x004B0D00` | 7 | CEventInAir (baja) | 1 | 1 | `0x607e30` | — |
+| `0x004B1320` | 7 | CEventHitByWaterCannon (alta) | 1 | 1 | `CWaterCannon::PushPeds` | — |
+| `0x00406450` | 6 | CdStream (alta) | 1 | 1 | `CStreaming::RequestModelStream` | — |
+| `0x0071D710` | 6 | CGridRef (baja) | 1 | 1 | `CCamera::SetRwCamera` | — |
+| `0x0071D720` | 6 | CGridRef (baja) | 1 | 1 | `CGame::Shutdown` | — |
+| `0x00404420` | 5 | CRect (baja) | 1 | 1 | `CAutomobile::ProcessCarWheelPair` | — |
+| `0x004AB240` | 5 | FxSystem_c (baja) | 1 | 1 | `FxManager_c::LoadFxProject` | — |
+| `0x004AB260` | 5 | FxSystem_c (baja) | 1 | 1 | `FxManager_c::LoadFxProject` | — |
+| `0x00541E50` | 5 | CPad (baja) | 1 | 1 | `CGenericGameStorage::GenericSave` | — |
+| `0x005CFA30` | 5 | FxEmitterBP_c (baja) | 1 | 1 | `JPegPlugin::JPegCompressScreen` | — |
+| `0x00410390` | 4 | CColSphere (baja) | 1 | 1 | `CStreaming::LoadCdDirectory-char` | — |
+| `0x007059E0` | 4 | CRealTimeShadow (alta) | 1 | 1 | `CShadows::CastShadowEntityXYZ` | — |
+| `0x0041BCB0` | 3 | CBridge (baja) | 1 | 1 | `CPlayerInfo::Process` | — |
+| `0x0041BD00` | 3 | CBridge (baja) | 1 | 1 | `CAutomobile::ProcessCarWheelPair` | — |
+| `0x0044D2C0` | 3 | CPathFind (alta) | 1 | 1 | `CFileLoader::LoadCarPathNode` | — |
+| `0x0044D2D0` | 3 | CPathFind (alta) | 1 | 1 | `CFileLoader::LoadPedPathNode` | — |
+| `0x0044D2E0` | 3 | CPathFind (alta) | 1 | 1 | `CFileLoader::LoadPedPathNode` | — |
+| `0x0044D2F0` | 3 | CPathFind (alta) | 1 | 1 | `CFileLoader::LoadCarPathNode` | — |
+| `0x004A9C10` | 3 | FxManager_c (baja) | 1 | 1 | `FxManager_c::Constructor` | — |
+| `0x004F11D0` | 3 | CAEStaticChannel (baja) | 1 | 1 | `CAEAudioHardware::Constructor` | — |
+| `0x00678E80` | 3 | CTaskSimpleInAir (baja) | 1 | 1 | `CPed::PreRenderAfterTest` | — |
+| `0x0044D0E0` | 1 | CPathFind (alta) | 1 | 1 | `CGame::Init2` | — |
+| `0x0044D2B0` | 1 | CPathFind (alta) | 1 | 1 | `CGame::Init1` | — |
+| `0x004A9C20` | 1 | FxManager_c (baja) | 1 | 1 | `FxManager_c::Destructor` | — |
+| `0x0053ED30` | 1 | App (baja) | 1 | 1 | `CGame::Init2` | — |
+| `0x005531C0` | 1 | CQuadTreeNode&lt;T&gt; (baja) | 1 | 1 | `CGame::Init2` | — |
+| `0x005531D0` | 1 | CQuadTreeNode&lt;T&gt; (baja) | 1 | 1 | `CGame::Shutdown` | — |
+| `0x0060F8C0` | 1 | CPlayerPed (baja) | 1 | 1 | `Game::Render2dStuff` | — |
+| `0x006C4750` | 1 | CHeli (alta) | 1 | 1 | `CRenderer::PreRender` | — |
+| `0x006D0B30` | 1 | CAEVehicleAudioEntity (baja) | 1 | 1 | `CBike::Destructor` | — |
+| `0x00717820` | 1 | CPlaneTrails (baja) | 1 | 1 | `CReplay::TriggerPlayback` | — |
+| `0x0071D700` | 1 | CGridRef (baja) | 1 | 1 | `CCamera::RenderMotionBlur` | — |
+| `0x0072F3B0` | 1 | CCullZones (baja) | 1 | 1 | `CGame::InitialiseOnceBeforeRW` | — |
+| `0x0072F4A0` | 1 | CMemoryMgr (alta) | 1 | 1 | `CVehicleModelInfo::ReduceMaterialsInVehicle` | — |
+| `0x0072F4B0` | 1 | CMemoryMgr (alta) | 1 | 1 | `CVehicleModelInfo::ReduceMaterialsInVehicle` | — |
+| `0x00734610` | 1 | CVisibilityPlugins (baja) | 1 | 1 | `CGame::InitialiseRenderWare` | — |
+| `0x00734620` | 1 | CVisibilityPlugins (baja) | 1 | 1 | `CGame::ShutdownRenderWare` | — |
+
+</details>
+
+<a id="parciales"></a>
+## 11. 🟡 Parciales · 0 clases
+
+Orden de mayor a menor tamaño de las envolturas al EXE pendientes (suma de bytes de sus cuerpos; a igualdad, alfabético). «Función más grande» y «Tamaño» (muy grande ≥ 2.000 B, grande 500–1.999 B, mediana 100–499 B, pequeña < 100 B) indican cuánto pesa la función más difícil de la clase. Para decidir qué abordar primero, consultar la [cola de validación por niveles](ReversingPriorities.md).
+
+Incluye las clases del catálogo que ya tienen todas sus entradas reconstruidas pero conservan funciones del juego que siguen delegando en el EXE (columna «Envolturas del juego al EXE», que cuenta solo código del juego; las de biblioteca no entran): no cuentan como completas hasta reconstruirlas. Detalle por función en [envolturas-pendientes.csv](implementaciones/envolturas-pendientes.csv).
+
+| Clase | Revertidas / total | Pendientes | Envolturas del juego al EXE (sin bibliotecas) | Bytes de envolturas | Función más grande (B) | Tamaño | Avance | Validated | Locked |
+| --- | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: | ---: |
+| *(ninguna clase parcial al 04/11/2026)* | | | | | | | | | |
+
+<a id="sin-revertir"></a>
+## 12. 🔴 Sin revertir · 1 clases
+
+Orden de mayor a menor tamaño de las envolturas pendientes. Clases o grupos sin ninguna entrada reconstruida en el catálogo. Las que figuran con envolturas al EXE no están en [hooks.csv](hooks.csv): sus funciones del juego se conocen por el código fuente o por las cohortes de dependencias y siguen delegando en el original.
+
+| Clase | Revertidas / total | Pendientes | Envolturas del juego al EXE (sin bibliotecas) | Bytes de envolturas | Función más grande (B) | Tamaño | Avance | Validated | Locked |
+| --- | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: | ---: |
+| (helpers y globales sin clase) | 0/0 | — | **15** | 1,410 | 215 | mediana | 0.00% | 0 | 0 |
+
 <a id="metodo"></a>
-## Cómo leer y actualizar
+## 13. Cómo leer y actualizar
 
 - **Pendientes:** total menos revertidas. Cada fila del CSV cuenta como una entrada, incluidas sobrecargas y virtuales.
 - **Validated:** `1` indica evidencia aprobada vinculada para esa entrada. No implica vigencia actual ni independencia del EXE.
 - **Locked:** indicador de bloqueo del hook; hay 0 entradas bloqueadas en el CSV. No equivale por sí solo a pendiente ni informa si el hook está activo durante una ejecución.
-- **Porcentajes:** las categorías cuentan clases; el avance de cada clase cuenta funciones. Se muestran dos decimales.
+- **Porcentajes:** cada porcentaje del informe indica la dimensión de la que habla (funciones, bytes, clases, entradas del catálogo o validación); las categorías cuentan clases y el avance de cada clase cuenta funciones. Se muestran dos decimales.
 - **Alcance:** solo incluye lo registrado en el CSV; completar una fila no certifica todo el comportamiento de una clase.
 
 - **Acceso al código:** pulsa el nombre para abrir el archivo que registra sus hooks. Si el registro está repartido, los enlaces adicionales abren los demás archivos. Algunas clases registran sus hooks en una cabecera.

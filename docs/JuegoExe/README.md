@@ -15,8 +15,8 @@ Región **0x401000–0x74FFFF**: 11,804 funciones, 3,007,877 bytes. Es el códig
 | D · Falta: sin llamadas ni vtable (¿muerto o por puntero?) | 423 | 3.6% | 59,529 | 2.0% |
 | C · Falta: solo la llaman funciones aún no reemplazadas | 529 | 4.5% | 67,680 | 2.3% |
 | B · Falta: método virtual | 907 | 7.7% | 40,839 | 1.4% |
-| A · Falta: llamada desde código ya reemplazado | 984 | 8.3% | 126,685 | 4.2% |
-| Envoltura pendiente (la DLL aún llama al EXE) | 22 | 0.2% | 7,112 | 0.2% |
+| A · Falta: llamada desde código ya reemplazado | 972 | 8.2% | 125,275 | 4.2% |
+| Envoltura pendiente (la DLL aún llama al EXE) | 34 | 0.3% | 8,522 | 0.3% |
 | Reemplazada por C++ | 8,939 | 75.7% | 2,706,032 | 90.0% |
 
 Las funciones de A–D son **lo que falta**. El grupo A es el piso para la independencia (la DLL ya depende de ellas); es una cota inferior porque hay 6,004 llamadas indirectas sin resolver. Las envolturas pendientes (que ya tienen hook pero llaman al EXE) se cuentan aparte, por eso A–D suman menos que en la tabla de cobertura de ReversedClasses. Listas: [A](pendientes-A.md) · [B](pendientes-B.md) · [C](pendientes-C.md) · [D](pendientes-D.md).
@@ -40,14 +40,14 @@ El código se enlaza por unidad de compilación, así que cada bloque suele corr
 | 0x570000 | 110 | 90% | 11 | 358 | CMenuManager (5), CTheZones (1) |
 | 0x710000 | 158 | 89% | 17 | 973 | Common (4), CFont (3), CStencilShadows (1) |
 | 0x450000 | 172 | 89% | 19 | 5,764 | CReplay (10), CPathFind (2) |
-| 0x730000 | 278 | 89% | 31 | 1,839 | CTxdStore (6), CVisibilityPlugins (4) |
+| 0x730000 | 278 | 89% | 25 | 1,099 | CTxdStore (6), CVisibilityPlugins (4) |
 | 0x5B0000 | 157 | 89% | 18 | 992 | CCutsceneObject (1) |
 | 0x6A0000 | 112 | 88% | 14 | 3,644 | CAutomobile (10), CEventVehicleDamageCollision (2) |
 | 0x6C0000 | 135 | 87% | 18 | 4,687 | CHeli (6), CBmx (2), CPlane (2) |
 | 0x440000 | 194 | 87% | 26 | 3,793 | CPathFind (14), CGarage (2), CGarages (1) |
 | 0x530000 | 275 | 87% | 37 | 2,436 | CEntity (6), CFileLoader (5), CGame (3) |
 | 0x4D0000 | 319 | 86% | 44 | 7,952 | RpAnimBlend (16), CAEAmbienceTrackManager (3), CAECutsceneTrackManager (3) |
-| 0x720000 | 203 | 85% | 31 | 4,001 | CMemoryMgr (4), CWeather (2), CCullZones (1) |
+| 0x720000 | 203 | 85% | 25 | 3,331 | CMemoryMgr (4), CWeather (2), CCullZones (1) |
 | 0x6E0000 | 92 | 84% | 15 | 4,836 | CWaterLevel (6), CVehicle (4) |
 | 0x610000 | 327 | 83% | 57 | 5,562 | Rs (4), CEventVehicleDamageWeapon (2), CPedPlacement (1) |
 | 0x430000 | 200 | 82% | 35 | 1,379 | CEntryExitManager (9), CCheat (1), CConversations (1) |
@@ -385,6 +385,7 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 | CTaskSimpleStealthKill | 11 | 8 | 3 | 169 | 1 |
 | CGarage | 24 | 21 | 3 | 185 | 2 |
 | CTaskComplexFollowPedFootsteps | 8 | 5 | 3 | 185 | 0 |
+| D3DResourceSystem | 11 | 5 | 3 | 188 | 0 |
 | CCutsceneMgr | 38 | 35 | 3 | 204 | 0 |
 | CMatrixLinkList | 13 | 10 | 3 | 208 | 0 |
 | CTaskComplexWanderProstitute | 8 | 5 | 3 | 223 | 2 |
@@ -522,7 +523,6 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 | CTaskSimpleIKPointArm | 12 | 6 | 6 | 516 | 0 |
 | CAudioZones | 11 | 5 | 6 | 522 | 0 |
 | CShopping | 36 | 30 | 6 | 549 | 3 |
-| D3DResourceSystem | 11 | 5 | 6 | 566 | 0 |
 | CTaskComplexWaitForPed | 7 | 1 | 6 | 772 | 0 |
 | Ps | 29 | 23 | 6 | 876 | 4 |
 | CTaskComplexSunbathe | 15 | 9 | 6 | 935 | 0 |
@@ -561,6 +561,7 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 | CTaskComplexWalkRoundFire | 17 | 8 | 9 | 385 | 0 |
 | CEventBuildingCollision | 13 | 4 | 9 | 399 | 6 |
 | CTaskAllocatorPool | 10 | 1 | 9 | 414 | 0 |
+| CGame | 44 | 29 | 9 | 428 | 3 |
 | Fx_c | 37 | 28 | 9 | 434 | 4 |
 | CTaskComplexWanderCop | 18 | 9 | 9 | 442 | 0 |
 | CTaskComplexPartnerGreet | 17 | 8 | 9 | 458 | 0 |
@@ -596,17 +597,16 @@ Módulos con alguna función por reconstruir, de menos a más funciones que falt
 | CTaskComplexMedicTreatInjuredPed | 22 | 9 | 13 | 974 | 2 |
 | CTaskSimpleRunTimedAnim | 20 | 7 | 13 | 1,251 | 0 |
 | CClothesBuilder | 36 | 23 | 13 | 1,285 | 3 |
+| CCullZones | 38 | 22 | 13 | 2,476 | 1 |
 | CTaskSimpleThrowControl | 20 | 6 | 14 | 1,802 | 0 |
 | CTaskComplexTurnToFaceEntityOrCoord | 23 | 9 | 14 | 2,607 | 0 |
 | CTaskComplexDieInCar | 21 | 6 | 15 | 406 | 1 |
 | CEventEditableResponse | 26 | 11 | 15 | 614 | 1 |
 | CTaskComplexUseWaterCannon | 20 | 5 | 15 | 769 | 2 |
-| CGame | 44 | 29 | 15 | 1,037 | 3 |
 | CVehicleModelInfo | 82 | 67 | 15 | 1,356 | 13 |
 | CTaskComplexUseClosestFreeScriptedAttractor | 23 | 8 | 15 | 1,904 | 0 |
 | CTheScripts | 87 | 72 | 15 | 10,081 | 7 |
 | CEventVehicleCollision | 19 | 3 | 16 | 1,230 | 0 |
-| CCullZones | 38 | 22 | 16 | 2,899 | 1 |
 | RpAnimBlend | 59 | 43 | 16 | 6,102 | 16 |
 | CEventVehicleOnFire | 21 | 3 | 18 | 1,226 | 0 |
 | CStreaming | 113 | 94 | 19 | 598 | 15 |

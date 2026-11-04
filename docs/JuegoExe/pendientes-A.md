@@ -6,7 +6,7 @@
 
 [Mapa](README.md) · [Lista completa](funciones.csv)
 
-984 funciones, 126,685 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
+972 funciones, 125,275 bytes. Orden: más llamadas desde código ya reemplazado primero, luego más grandes.
 
 | Dirección | Bytes | Módulo estimado | Confianza | Llamadas (desde reemplazadas) | Vtable |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -320,8 +320,6 @@
 | `0x0057C5E0` | 118 | CMenuManager | alta | 2 (2) |  |
 | `0x00718E50` | 117 | CFont | alta | 2 (2) |  |
 | `0x006F9EB0` | 116 | CScripted2dEffects | alta | 3 (2) |  |
-| `0x00730020` | 115 | CGame | baja | 2 (2) |  |
-| `0x00730330` | 115 | CGame | baja | 2 (2) |  |
 | `0x0059ADF0` | 114 | CMaths | baja | 3 (2) |  |
 | `0x005DBE40` | 104 | CPlantMgr | alta | 2 (2) |  |
 | `0x00731B80` | 104 | CTxdStore | alta | 2 (2) |  |
@@ -474,8 +472,6 @@
 | `0x00493280` | 217 | CTheScripts | alta | 2 (1) |  |
 | `0x0049B0E0` | 217 | CVehicle | baja | 1 (1) |  |
 | `0x0061DB30` | 217 | CTaskSimpleFight | baja | 1 (1) |  |
-| `0x0072E620` | 215 | CCullZones | baja | 1 (1) |  |
-| `0x00731070` | 215 | D3DResourceSystem | baja | 1 (1) |  |
 | `0x0066CA40` | 209 | CTaskComplexInvestigateDisturbance | baja | 2 (1) |  |
 | `0x0053F2D0` | 208 | CMouseControllerState | baja | 2 (1) |  |
 | `0x006563D0` | 208 | CTaskComplexHitPedWithCar | baja | 1 (1) |  |
@@ -497,7 +493,6 @@
 | `0x005D24B0` | 172 | CVehicleSaveStructure | baja | 1 (1) |  |
 | `0x00649160` | 172 | CTaskComplexGoToBoatSteeringWheel | baja | 2 (1) |  |
 | `0x0065E9A0` | 172 | CTaskComplexGangLeader | alta | 1 (1) |  |
-| `0x0072E570` | 172 | CCullZones | baja | 1 (1) |  |
 | `0x0061BB10` | 167 | CTaskSimpleRunAnim | baja | 1 (1) |  |
 | `0x0059BFA0` | 166 | CCompressedMatrixNotAligned | baja | 1 (1) |  |
 | `0x00655290` | 161 | CTaskComplexWalkRoundObject | baja | 1 (1) |  |
@@ -513,17 +508,14 @@
 | `0x00683840` | 146 | CTaskComplexBeInCouple | baja | 1 (1) |  |
 | `0x005C87E0` | 143 | FxEmitterBP_c | baja | 1 (1) |  |
 | `0x00683A40` | 142 | CTaskComplexBeInCouple | baja | 6 (1) |  |
-| `0x0072FF60` | 141 | CGame | baja | 1 (1) |  |
 | `0x004F2B80` | 139 | CAETwinLoopSoundEntity | alta | 8 (1) |  |
 | `0x005EE270` | 138 | CPedAttractorManager | baja | 1 (1) |  |
 | `0x005EE370` | 136 | CPedAttractorManager | baja | 1 (1) |  |
 | `0x00748F70` | 134 | Win | baja | 1 (1) |  |
-| `0x00730270` | 132 | CGame | baja | 1 (1) |  |
 | `0x004D58A0` | 128 | CAnimManager | baja | 2 (1) |  |
 | `0x00506BA0` | 128 | CAEWeatherAudioEntity | baja | 3 (1) |  |
 | `0x006EA8A0` | 125 | CWaterLevel | alta | 1 (1) |  |
 | `0x007448B0` | 123 | Input | alta | 1 (1) |  |
-| `0x00731150` | 122 | D3DResourceSystem | baja | 1 (1) |  |
 | `0x004ADEA0` | 120 | CEventDamage | baja | 3 (1) |  |
 | `0x004D66A0` | 118 | RpAnimBlend | alta | 1 (1) |  |
 | `0x005D8C50` | 118 | CCustomCarEnvMapPipeline | alta | 1 (1) |  |
@@ -664,7 +656,6 @@
 | `0x006198C0` | 65 | Rs | alta | 1 (1) |  |
 | `0x004D7910` | 64 | CAEAmbienceTrackManager | baja | 4 (1) |  |
 | `0x004DFB60` | 63 | CAEBankLoader | alta | 1 (1) |  |
-| `0x0072FE80` | 63 | CGame | baja | 1 (1) |  |
 | `0x005EAB80` | 62 | CPedAttractorPool | baja | 1 (1) |  |
 | `0x0062FEC0` | 62 | CTaskComplexDieInCar | baja | 1 (1) |  |
 | `0x004ADD60` | 61 | CEventDamage | baja | 1 (1) |  |
@@ -698,12 +689,10 @@
 | `0x006955D0` | 44 | CTaskComplexFollowPedFootsteps | baja | 1 (1) |  |
 | `0x005E88E0` | 43 | CPed | alta | 1 (1) |  |
 | `0x00667900` | 43 | CTaskSimpleRunNamedAnim | baja | 1 (1) |  |
-| `0x0072FFF0` | 43 | CGame | baja | 1 (1) |  |
 | `0x006586A0` | 42 | CTaskComplexWalkRoundFire | baja | 1 (1) |  |
 | `0x004048E0` | 41 | CObjectPool | baja | 297 (1) |  |
 | `0x00465040` | 41 | CTheScripts | baja | 98 (1) |  |
 | `0x00552390` | 41 | CPtrNodeDoubleLinkPool | baja | 3 (1) |  |
-| `0x00730AD0` | 41 | D3DResourceSystem | baja | 1 (1) |  |
 | `0x00465070` | 40 | CTheScripts | baja | 5 (1) |  |
 | `0x00636780` | 39 | CTaskComplexUseEffect | baja | 1 (1) |  |
 | `0x00636860` | 39 | CTaskComplexUseEffectRunning | baja | 1 (1) |  |
@@ -711,7 +700,6 @@
 | `0x004ABC30` | 36 | CEventSource | baja | 2 (1) | sí |
 | `0x0054F490` | 36 | CPlaceable | alta | 5 (1) |  |
 | `0x0065DE60` | 36 | CEventPassObject | baja | 1 (1) |  |
-| `0x0072E700` | 36 | CCullZones | baja | 1 (1) |  |
 | `0x00411A30` | 35 | CPlaceable | baja | 2 (1) |  |
 | `0x004A9CF0` | 35 | FxMemoryPool_c | baja | 1 (1) |  |
 | `0x004F3B30` | 35 | CAEUserRadioTrackManager | alta | 3 (1) |  |
