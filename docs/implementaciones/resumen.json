@@ -1,8 +1,8 @@
 {
   "scope": "source/game_sa and source/app (WindowedMode.cpp included as the documented NOTSA assembly exception, reported separately), definitions in cpp/h/hpp/inc; all preprocessing branches",
   "totals": {
-    "source_definition_count": 18807,
-    "groups": 1507,
+    "source_definition_count": 18812,
+    "groups": 1512,
     "assembly_occurrences": 0,
     "naked_declarations": 0,
     "definitions_with_assembly": 0,
@@ -19,15 +19,15 @@
     "unassigned_occurrences": 0,
     "body_parse_errors": 309,
     "asm_bodies_with_parse_errors": 0,
-    "files_with_any_parse_errors": 447,
-    "historical_catalog_rows": 9063,
+    "files_with_any_parse_errors": 445,
+    "historical_catalog_rows": 9072,
     "catalog_rows_without_unambiguous_source_match_in_scope": 4,
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 20,
     "catalog_rows_linked_by_hook_address": 183,
-    "validated_reconstructed_own_cpp_definitions": 10794,
+    "validated_reconstructed_own_cpp_definitions": 10803,
     "validated_reconstructed_own_asm_definitions": 0,
-    "wrapper_definitions": 24
+    "wrapper_definitions": 15
   },
   "source_sha256": {
     "source/app/app.cpp": "4717fcefd64b864f51910ae3ab7b4b3bc0966838f9cddaaca5727ee06c47ac16",
@@ -1236,12 +1236,12 @@
     "source/game_sa/RenderBuffer.hpp": "9da80af844eb60cb1eb9d3f9270a2aa273ecbfb6ef209d8ce9ff8d46314cbdd0",
     "source/game_sa/Renderer.cpp": "5988d89b4f231cd20816ea1a262b02d514cf4a8fce3201caa43bc60d0f691e05",
     "source/game_sa/Renderer.h": "de44b1277677e277311af0db0eb4271a7ec8df8e5a1f9b8db344bc1150e4cd97",
-    "source/game_sa/RenderWare/D3DIndexDataBuffer.cpp": "cd912fe5906fc0e8c9aa290c80dd6ddb4f131822a4177cb829987c3c362ef33d",
-    "source/game_sa/RenderWare/D3DIndexDataBuffer.h": "9741408d35194a224bf796f47ddde649e3a61dcccf523f2716a3386000d3971b",
-    "source/game_sa/RenderWare/D3DResourceSystem.cpp": "9bad8da4f11f3c93a89b3f9dfa639c38565151e68e1a86ec580012ff70da8fd1",
-    "source/game_sa/RenderWare/D3DResourceSystem.h": "8c5f48b2eafc4f2d8bc3e17076c68a5cc5a4a56781f803be492e522e3cdf249c",
-    "source/game_sa/RenderWare/D3DTextureBuffer.cpp": "cd912fe5906fc0e8c9aa290c80dd6ddb4f131822a4177cb829987c3c362ef33d",
-    "source/game_sa/RenderWare/D3DTextureBuffer.h": "c2e8c435d3fa9b7869483c2be90252caa411e71f9eb8d944bf28c625cb4bd3d6",
+    "source/game_sa/RenderWare/D3DIndexDataBuffer.cpp": "2d973d7ddb5df3285e39b2b5bc907f70e026c5fdb57735ce8d3a26015f58d77b",
+    "source/game_sa/RenderWare/D3DIndexDataBuffer.h": "bffde7a692b422059470af4e973a5425fc142344beaa67ddf6ee4b269a500b77",
+    "source/game_sa/RenderWare/D3DResourceSystem.cpp": "526474085e645f418d924066d799994845439efb0e022a832addfe06addcf60c",
+    "source/game_sa/RenderWare/D3DResourceSystem.h": "a3980d241ca20917b22c0eded1fc1a42c317e6957ca840a50feb0ed0adb5c670",
+    "source/game_sa/RenderWare/D3DTextureBuffer.cpp": "e155b51a102cbd9b53236ed5ad84eac0b9f965589c08276c6919730f489dc7bd",
+    "source/game_sa/RenderWare/D3DTextureBuffer.h": "f531f8ed7cfb356aff4521d12e49834dc98e8cc7b61c93212e19c0b1236c1464",
     "source/game_sa/RenderWare/RenderWare.h": "9e8087269535bf8a39820c3e03a94e4f0e357b72e2d16e33485b8b114347495c",
     "source/game_sa/RenderWare/rw/rpadc.h": "73a6b19b090bd52cb2b07e5f03f07719d2374878141838d40329483eadbef283",
     "source/game_sa/RenderWare/rw/rpanisot.cpp": "be6adfd48c53ba09c8822dd96616552544923b4d8855f706a6cc8521b386655f",
@@ -2233,10 +2233,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "1d9d26e1f56ab7141a0d97ecde5ebdc5d704a8b7f76aaaff048a789aabc53a51",
+    "hooks.csv": "dcd78ddf76646ca9286ef41624e7ddc6a5ea1c46633c94159eae18ff88b502c8",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "6cd67e73007c222959a28de2276fed4cd9a54133ae070fde19097bc441823fc6",
+  "migration_registry_sha256": "76571c1358fb2e9e9192e81fc7c602877dd48648c6362874fafbba7cf820947a",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",
@@ -2380,8 +2380,6 @@
     "source/game_sa/Ragdoll/IKChain.cpp",
     "source/game_sa/RealTimeShadow.h",
     "source/game_sa/RegisteredCorona.h",
-    "source/game_sa/RenderWare/D3DIndexDataBuffer.cpp",
-    "source/game_sa/RenderWare/D3DTextureBuffer.cpp",
     "source/game_sa/RenderWare/rw/rpadc.h",
     "source/game_sa/RenderWare/rw/rpanisot.h",
     "source/game_sa/RenderWare/rw/rpcollis.h",

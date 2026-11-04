@@ -210,12 +210,3 @@ class,function,address,source,origins
 (biblioteca) RenderWare SDK,RxPipelineExecute,0x00805710,source/game_sa/RenderWare/rw/rwcore.cpp:82,cohorte nuevo 2026-10-17 (biblioteca)
 (biblioteca) RenderWare SDK,RxPipelineNodeCloneDefinition,0x008059C0,source/game_sa/RenderWare/rw/rwcore.cpp:166,cohorte nuevo 2026-10-17 (biblioteca)
 (biblioteca) RenderWare SDK,RxRenderStateVectorSetDefaultRenderStateVector,0x0080EA40,source/game_sa/RenderWare/rw/rwcore.cpp:351,cohorte nuevo 2026-10-17 (biblioteca)
-(helpers y globales sin clase),IndexDataBufferGetTotalDataSize,0x007303B0,source/game_sa/RenderWare/D3DResourceSystem.cpp:114,envoltura en el código fuente
-(helpers y globales sin clase),IndexDataBufferPop,0x00730270,source/game_sa/RenderWare/D3DResourceSystem.cpp:98,envoltura en el código fuente
-(helpers y globales sin clase),IndexDataBufferResize,0x00730330,source/game_sa/RenderWare/D3DResourceSystem.cpp:101,envoltura en el código fuente
-(helpers y globales sin clase),TextureBufferGetTotalDataSize,0x007300A0,source/game_sa/RenderWare/D3DResourceSystem.cpp:111,envoltura en el código fuente
-(helpers y globales sin clase),TextureBufferPop,0x0072FF60,source/game_sa/RenderWare/D3DResourceSystem.cpp:83,envoltura en el código fuente
-(helpers y globales sin clase),TextureBufferPush,0x0072FFF0,source/game_sa/RenderWare/D3DResourceSystem.cpp:89,envoltura en el código fuente
-(helpers y globales sin clase),TextureBufferPushWithoutIncreasingCounter,0x00730AD0,source/game_sa/RenderWare/D3DResourceSystem.cpp:92,envoltura en el código fuente
-(helpers y globales sin clase),TextureBufferResize,0x00730020,source/game_sa/RenderWare/D3DResourceSystem.cpp:95,envoltura en el código fuente
-(helpers y globales sin clase),TextureBufferSetup,0x0072FE80,source/game_sa/RenderWare/D3DResourceSystem.cpp:86,envoltura en el código fuente

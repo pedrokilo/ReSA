@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **9,059 entradas reversed=1**, de 9,059 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **9,068 entradas reversed=1**, de 9,068 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 9059 |
+| `validated=1` · evidencia aprobada vinculada | 9068 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 9059 |
+| Evidencia histórica vinculada; revisión pendiente | 9068 |
 | Sin evidencia aprobada vinculada en este registro | 0 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -8396,6 +8396,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | Common | `TransformPoint` | [Resumen](../reversing/DependenciesMathSprite2/validation-summary.json) |
 | Common | `TransformPoints` | [Resumen](../reversing/DependenciesMathSprite2/validation-summary.json) |
 | Common | `WriteRaster` | [Resumen](../reversing/Core9/validation-summary.json) |
+| D3DIndexDataBuffer | `GetTotalDataSize` | [Resumen](../reversing/Fn95A/validation-summary.json) |
+| D3DIndexDataBuffer | `Pop-Size` | [Resumen](../reversing/Fn95A/validation-summary.json) |
+| D3DIndexDataBuffer | `Resize` | [Resumen](../reversing/Fn95A/validation-summary.json) |
 | D3DResourceSystem | `CancelBuffering` | [Resumen](../reversing/D3DResource62/validation-summary.json) |
 | D3DResourceSystem | `CreateIndexBuffer` | [Resumen](../reversing/D3DResource62/validation-summary.json) |
 | D3DResourceSystem | `CreateTexture` | [Resumen](../reversing/D3DResource62/validation-summary.json) |
@@ -8408,6 +8411,12 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | D3DResourceSystem | `Shutdown` | [Resumen](../reversing/D3DResource62/validation-summary.json) |
 | D3DResourceSystem | `TidyUpD3DIndexBuffers` | [Resumen](../reversing/Dependencies21F/validation-summary.json) |
 | D3DResourceSystem | `TidyUpD3DTextures` | [Resumen](../reversing/Dependencies21F/validation-summary.json) |
+| D3DTextureBuffer | `GetTotalDataSize` | [Resumen](../reversing/Fn95A/validation-summary.json) |
+| D3DTextureBuffer | `Pop-Match` | [Resumen](../reversing/Fn95A/validation-summary.json) |
+| D3DTextureBuffer | `Push` | [Resumen](../reversing/Fn95A/validation-summary.json) |
+| D3DTextureBuffer | `PushWithoutIncreasingCounter` | [Resumen](../reversing/Fn95A/validation-summary.json) |
+| D3DTextureBuffer | `Resize` | [Resumen](../reversing/Fn95A/validation-summary.json) |
+| D3DTextureBuffer | `Setup` | [Resumen](../reversing/Fn95A/validation-summary.json) |
 | FurnitureGroup_c | `AddFurniture` | [Resumen](../reversing/Misc6/validation-summary.json) |
 | FurnitureGroup_c | `AddSubGroup` | [Resumen](../reversing/Misc6/validation-summary.json) |
 | FurnitureGroup_c | `Exit` | [Resumen](../reversing/Misc6/validation-summary.json) |
@@ -9856,7 +9865,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `C_PcSave` | 5 | 0 | 5 | 0 |
 | `CdStream` | 9 | 0 | 9 | 0 |
 | `Common` | 11 | 0 | 11 | 0 |
+| `D3DIndexDataBuffer` | 3 | 0 | 3 | 0 |
 | `D3DResourceSystem` | 12 | 0 | 12 | 0 |
+| `D3DTextureBuffer` | 6 | 0 | 6 | 0 |
 | `FurnitureGroup_c` | 6 | 0 | 6 | 0 |
 | `FurnitureManager_c` | 7 | 0 | 7 | 0 |
 | `FurnitureSubGroup_c` | 3 | 0 | 3 | 0 |
