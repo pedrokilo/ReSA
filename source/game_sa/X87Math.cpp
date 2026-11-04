@@ -17828,3 +17828,70 @@ __declspec(noinline) float __cdecl FontSubCpp(float a, float b) {
     return result;
 }
 #pragma float_control(pop)
+
+// --- Lote 88B: CWaterLevel::RenderSeaBedSegmentNear (0x6E6A10) ---
+// El EXE hace aqui aritmetica x87 a 24 bits de mantisa con exponente extendido. Lo que guarda con fst/fstp dword va por un volatile float; lo que sigue en el registro, por un volatile double
+// (24 bits de mantisa caben exactos en el double y el exponente no se sale de su rango); cada operacion es una linea aparte porque /fp:fast distribuiria (x + a) * 500.
+#pragma float_control(precise, on, push)
+// 0x6E6A13..0x6E6A5A: ancho = max - min (fsub, a 24 bits; fst dword lo guarda) y celdas = max(1, EAX de _ftol2(ancho * 4)). _ftol2 trunca a 64 bits y el EXE usa los 32 bits bajos
+// (NaN, infinito o |valor| >= 2^63: 0x8000000000000000 -> 0); el 4.0 es exacto. Devuelve las celdas y el ancho guardado como float.
+__declspec(noinline) int __cdecl Wl88AxisCells(float minV, float maxV, float* storedWidth) {
+    volatile double width = static_cast<double>(maxV) - static_cast<double>(minV);
+    volatile float stored = static_cast<float>(width);
+    volatile double scaled = width * 4.0;
+    const int cells = static_cast<int>(static_cast<long long>(scaled));
+    *storedWidth = stored;
+    return cells >= 1 ? cells : 1;
+}
+
+// 0x6E6A96..0x6E6AF5: columna i. out = {X0, X1, u0, u1} como los guarda el EXE (X0, X1 y u1 salen del registro: se guardan con fstp dword; u0 con fstp dword antes de usarlo).
+//   x0 = (i * ancho) / celdas + minX;  x1 = ((i + 1) * ancho) / celdas + minX (guardado como float);  u0 = float(8 * x0);  X0 = (x + x0) * 500 - 3000;  u1 = x1f * 8;  X1 = (float(x) + x1f) * 500 - 3000
+// (i y celdas entran como enteros exactos con fild; x igual en X0 y como float, con el redondeo de fst dword, en X1).
+__declspec(noinline) void __cdecl Wl88Column(int x, float minX, float width, int i, int cells, float* out) {
+    volatile double step0 = static_cast<double>(i) * static_cast<double>(width);
+    volatile double quot0 = step0 / static_cast<double>(cells);
+    volatile double x0 = quot0 + static_cast<double>(minX);
+    volatile double step1 = static_cast<double>(i + 1) * static_cast<double>(width);
+    volatile double quot1 = step1 / static_cast<double>(cells);
+    volatile double x1 = quot1 + static_cast<double>(minX);
+    volatile float x1f = static_cast<float>(x1);
+    volatile float u0 = static_cast<float>(8.0 * x0);
+    volatile double sum0 = static_cast<double>(x) + x0;
+    volatile double scaled0 = sum0 * 500.0;
+    volatile double place0 = scaled0 - 3000.0;
+    volatile double u1d = static_cast<double>(x1f) * 8.0;
+    volatile float xFloat = static_cast<float>(x);
+    volatile double sum1 = static_cast<double>(xFloat) + static_cast<double>(x1f);
+    volatile double scaled1 = sum1 * 500.0;
+    volatile double place1 = scaled1 - 3000.0;
+    out[0] = static_cast<float>(place0);
+    out[1] = static_cast<float>(place1);
+    out[2] = u0;
+    out[3] = static_cast<float>(u1d);
+}
+
+// 0x6E6B20..0x6E6BF8: fila j. out = {Y0, Y1, v0, v1}. El divisor es float(celdas) (guardado con fstp dword), no el entero.
+//   y0f = float((j * alto) / float(celdas) + minY);  y1f = float(((j + 1) * alto) / float(celdas) + minY);  Y0 = (y + y0f) * 500 - 3000;  Y1 = (y + y1f) * 500 - 3000;  v0 = 8 * y0f;  v1 = 8 * y1f
+__declspec(noinline) void __cdecl Wl88Row(int y, float minY, float height, int j, float cellsAsFloat, float* out) {
+    volatile double step0 = static_cast<double>(j) * static_cast<double>(height);
+    volatile double quot0 = step0 / static_cast<double>(cellsAsFloat);
+    volatile double y0 = quot0 + static_cast<double>(minY);
+    volatile float y0f = static_cast<float>(y0);
+    volatile double step1 = static_cast<double>(j + 1) * static_cast<double>(height);
+    volatile double quot1 = step1 / static_cast<double>(cellsAsFloat);
+    volatile double y1 = quot1 + static_cast<double>(minY);
+    volatile float y1f = static_cast<float>(y1);
+    volatile double v0d = static_cast<double>(y0f) * 8.0;
+    volatile double sum0 = static_cast<double>(y) + static_cast<double>(y0f);
+    volatile double scaled0 = sum0 * 500.0;
+    volatile double place0 = scaled0 - 3000.0;
+    volatile double v1d = static_cast<double>(y1f) * 8.0;
+    volatile double sum1 = static_cast<double>(y) + static_cast<double>(y1f);
+    volatile double scaled1 = sum1 * 500.0;
+    volatile double place1 = scaled1 - 3000.0;
+    out[0] = static_cast<float>(place0);
+    out[1] = static_cast<float>(place1);
+    out[2] = static_cast<float>(v0d);
+    out[3] = static_cast<float>(v1d);
+}
+#pragma float_control(pop)

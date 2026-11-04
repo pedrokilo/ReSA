@@ -89,6 +89,7 @@ void CWaterLevel::InjectHooks() {
     RH_ScopedGlobalInstall(RenderWaterFog, 0x6E7760);
     RH_ScopedGlobalInstall(CalculateWavesOnlyForCoordinate, 0x6E6EF0);
     RH_ScopedGlobalInstall(RenderSeaBedSegment, 0x6E6870);
+    RH_ScopedGlobalInstall(RenderSeaBedSegmentNear, 0x6E6A10);
     RH_ScopedGlobalInstall(RenderWater, 0x6EF650);
     RH_ScopedGlobalInstall(AddWaveToResult, 0x6E81E0);
     RH_ScopedGlobalInstall(SetCameraRange, 0x6E9C80);
@@ -1310,6 +1311,51 @@ void CWaterLevel::RenderSeaBedSegment(int32 x, int32 y, float minX, float maxX, 
     indexCount = firstIndex + 6;
 }
 
+// 0x6E6A10 (cdecl, `ret` del llamador: 6 argumentos): version subdividida de RenderSeaBedSegment para el fondo marino cercano. Reparte [minX,maxX] x [minY,maxY] (fracciones del bloque (x, y)) en
+// max(1, trunc(ancho * 4)) columnas y max(1, trunc(alto * 4)) filas (trunc = los 32 bits bajos del _ftol2 del EXE, 0x821B40) y por cada celda anade al bufer temporal de agua cuatro vertices z = -70, color 0xFF505050,
+// sin tocar las normales, y seis indices (n, n+1, n+2, n+3, n+1, n+2); los contadores (dwords, 0xC4B950 vertices y 0xC4B954 indices) solo se guardan al final. Las columnas recorren X y las filas Y
+// (los vertices de cada celda son (X0,Y0), (X0,Y1), (X1,Y0), (X1,Y1)); u = 8 * X de bloque y v = 8 * Y de bloque. No comprueba el desbordamiento del bufer. Aritmetica x87 del EXE en X87Math.cpp
+// (Wl88AxisCells, Wl88Column y Wl88Row). Sus unicos llamadores del EXE (0x6EF80F y 0x6EF848, dentro de RenderWater) no leen EAX/ECX/EDX tras la llamada.
+void CWaterLevel::RenderSeaBedSegmentNear(int32 x, int32 y, float minX, float maxX, float minY, float maxY) {
+    float width{}, height{};
+    const int32 cellsX = Wl88AxisCells(minX, maxX, &width);
+    const int32 cellsY = Wl88AxisCells(minY, maxY, &height);
+    const float cellsYAsFloat = static_cast<float>(cellsY);   // fild + fstp dword
+    auto& vertexCount = StaticRef<int32>(0xC4B950);
+    auto& indexCount = StaticRef<int32>(0xC4B954);
+    int32 vertex = vertexCount;
+    int32 index = indexCount;
+    for (int32 i = 0; i < cellsX; ++i) {
+        float column[4];   // X0, X1, u0, u1
+        Wl88Column(x, minX, width, i, cellsX, column);
+        for (int32 j = 0; j < cellsY; ++j) {
+            float row[4];  // Y0, Y1, v0, v1
+            Wl88Row(y, minY, height, j, cellsYAsFloat, row);
+            const float xs[4]{column[0], column[0], column[1], column[1]};
+            const float ys[4]{row[0], row[1], row[0], row[1]};
+            const float us[4]{column[2], column[2], column[3], column[3]};
+            const float vs[4]{row[2], row[3], row[2], row[3]};
+            for (int32 k = 0; k < 4; ++k) {
+                RwIm3DVertex& v = TempBufferVertices.m_3d[vertex + k];
+                v.objVertex.x = xs[k];
+                v.objVertex.y = ys[k];
+                v.objVertex.z = std::bit_cast<float>(0xC28C0000u);
+                v.color = 0xFF505050u;
+                v.u = us[k];
+                v.v = vs[k];
+            }
+            const int32 order[6]{0, 1, 2, 3, 1, 2};
+            for (int32 k = 0; k < 6; ++k) {
+                aTempBufferIndices[index + k] = static_cast<RxVertexIndex>(vertex + order[k]);
+            }
+            vertex += 4;
+            index += 6;
+        }
+    }
+    vertexCount = vertex;
+    indexCount = index;
+}
+
 // 0x6EF650
 void CWaterLevel::RenderWater() {
     if (!CGame::CanSeeWaterFromCurrArea()) return;
@@ -1331,7 +1377,7 @@ void CWaterLevel::RenderWater() {
         const bool distant = std::sqrt(dx * dx + dy * dy) >= StaticRef<float>(0x8D3934);
         const auto segment = [&](float minX, float maxX, float minY, float maxY) {
             if (distant) RenderSeaBedSegment(x, y, minX, maxX, minY, maxY);
-            else plugin::Call<0x6E6A10, int32, int32, float, float, float, float>(x, y, minX, maxX, minY, maxY);
+            else RenderSeaBedSegmentNear(x, y, minX, maxX, minY, maxY);
         };
         if (x < 0 || x > 11 || y < 0 || y > 11) segment(0.0f,1.0f,0.0f,1.0f);
         else {

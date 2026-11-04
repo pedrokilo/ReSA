@@ -2207,3 +2207,8 @@ float __cdecl FontOffsetCpp(int count, float k, int o);
 // a + b y a - b en la x87 (fadd / fsub con un solo redondeo a 24 bits): el resultado desnormal se conserva (la SSE de la DLL lo vacia a cero con el MXCSR del juego).
 float __cdecl FontAddCpp(float a, float b);
 float __cdecl FontSubCpp(float a, float b);
+
+// Lote 88B: CWaterLevel::RenderSeaBedSegmentNear (0x6E6A10): celdas por eje (max(1, 32 bits bajos de _ftol2(ancho * 4))) y aritmetica x87 de cada columna y cada fila
+int __cdecl Wl88AxisCells(float minV, float maxV, float* storedWidth);
+void __cdecl Wl88Column(int x, float minX, float width, int i, int cells, float* out);   // out = {X0, X1, u0, u1}
+void __cdecl Wl88Row(int y, float minY, float height, int j, float cellsAsFloat, float* out);   // out = {Y0, Y1, v0, v1}

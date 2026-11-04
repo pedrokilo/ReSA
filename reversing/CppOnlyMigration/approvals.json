@@ -14603,5 +14603,19 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco Fn89D con 16384 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en un worktree con el contenido de la rama de trabajo (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (los dos tienen hook RH, apagado durante el banco): CFont::RenderFontBuffer 0x719840 (registra pEmptyChar, ejecuta la mutacion y lo reinicia a 0xC716B0) y CFont::ParseToken 0x718F00 (registra texto, color, blip y etiqueta; avanza, escribe color y simbolo segun el caso). La recursion (sombra y contorno) corre de verdad: EXE en el original, DLL en el candidato. La aritmetica de los desplazamientos (fild del entero de pantalla, dos fmul de 24 bits) y de la referencia de inclinacion, el limite 0xC7187C del buffer, la cabecera de 0x30 bytes, la copia del texto y la alineacion corren de verdad. Memoria real del juego restaurada tras cada lado: pEmptyChar, buffer y estaticos de CFont (0xC716A8..0xC71AD0) y enteros 0xC17044/0xC17048. Mutaciones de una escritura en el primer vaciado (color, color de sombra, sombra, contorno, inclinacion, ancho de pantalla). El banco compara los eventos de los falsos con todos sus argumentos y los bytes cambiados de toda la imagen; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: texto largo que desborde el buffer tras el vaciado, ParseToken con avance cero o que devuelva una posicion anterior (bucle infinito en el EXE), punteros de texto no accesibles y begin/end en arenas distintas."
+  },
+  "0x006E6A10": {
+    "identity": "CWaterLevel::RenderSeaBedSegmentNear",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/WaterLevel.cpp",
+    "bank": "Fn88B",
+    "run": "20261104-000908-327565",
+    "pairs": 16384,
+    "own_pairs": 16384,
+    "audit": "reversing/CppTwelveLevel6Final/runs/Fn88B-20261104-000908-327565/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ sin llamadas al EXE y sin colaboradores (la aritmética x87 está en X87Math.cpp; _ftol2 del CRT). Banco Fn88B con 16384 pares y cero diferencias; EAX/ECX/EDX sólo registrados (los llamadores del EXE no los leen). Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el worktree D:/Original/wd-2 (ver artifacts/build-manifest.json). La funcion no llama a ninguna otra del juego (usa el _ftol2 del CRT para las celdas): no hay colaboradores sustituidos. La aritmetica x87 de 24 bits vive en X87Math.cpp (Wl88AxisCells, Wl88Column y Wl88Row). El banco guarda, rellena por caso y restaura la region del bufer temporal de agua [0xC4B950, 0xC5F958) (contadores, indices y vertices) y vigila 0x40 bytes a cada lado; compara el FNV-1a de los vertices e indices escritos, los dos primeros vertices, los contadores y el resto de la region. Los contadores previos se prueban de forma que quepan todas las celdas (hasta 11 por eje: ancho < 2.7, o NaN/infinito/|ancho| >= 2^61, que dan una celda): la funcion no comprueba el desbordamiento del bufer y el banco no lo provoca. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits), que a su vez se ha comprobado contra los bytes del EXE ejecutados en un emulador. Los llamadores del EXE (0x6EF80F y 0x6EF848, dentro de RenderWater) no leen EAX/ECX/EDX. Fuera de los fixtures: anchos que dan mas de 11 celdas por eje y NaN senalizantes."
   }
 }

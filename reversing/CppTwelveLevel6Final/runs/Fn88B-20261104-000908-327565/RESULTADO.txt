@@ -1,0 +1,3 @@
+APROBADO: Fn88B
+Comparacion automatizada completada.
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn88b\20261104-000908-327565

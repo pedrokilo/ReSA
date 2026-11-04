@@ -36211,6 +36211,42 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en un worktree con el contenido de la rama de trabajo (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (los dos tienen hook RH, apagado durante el banco): CFont::RenderFontBuffer 0x719840 (registra pEmptyChar, ejecuta la mutacion y lo reinicia a 0xC716B0) y CFont::ParseToken 0x718F00 (registra texto, color, blip y etiqueta; avanza, escribe color y simbolo segun el caso). La recursion (sombra y contorno) corre de verdad: EXE en el original, DLL en el candidato. La aritmetica de los desplazamientos (fild del entero de pantalla, dos fmul de 24 bits) y de la referencia de inclinacion, el limite 0xC7187C del buffer, la cabecera de 0x30 bytes, la copia del texto y la alineacion corren de verdad. Memoria real del juego restaurada tras cada lado: pEmptyChar, buffer y estaticos de CFont (0xC716A8..0xC71AD0) y enteros 0xC17044/0xC17048. Mutaciones de una escritura en el primer vaciado (color, color de sombra, sombra, contorno, inclinacion, ancho de pantalla). El banco compara los eventos de los falsos con todos sus argumentos y los bytes cambiados de toda la imagen; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: texto largo que desborde el buffer tras el vaciado, ParseToken con avance cero o que devuelva una posicion anterior (bucle infinito en el EXE), punteros de texto no accesibles y begin/end en arenas distintas.",
       "review_reference": "reversing/Fn89D/README.md"
+    },
+    {
+      "hook": {
+        "class": "CWaterLevel",
+        "fn_name": "RenderSeaBedSegmentNear",
+        "address": "0x006E6A10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn88B/validation-summary.json",
+        "sha256": "95f56166a8d008937d85f4281f3ad3586a3e2e64d2f09f673836737d2e911e12",
+        "passed_path": [
+          "covered_functions",
+          "CWaterLevel::RenderSeaBedSegmentNear"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "06f724494547e7227284613478257430cc634842f6f5cb135cb027df941772e7",
+        "source/InjectHooksMain.cpp": "aacb0305556fb9aaefbc5a00b06dc94e22a21392f9e82e7963521e0640e57ec7",
+        "source/game_sa/X87Math.cpp": "75adfc2d587cbcd97cbff10984ae96d09dbbcd037667c2a79e9901b1b5f192e3",
+        "source/game_sa/X87Math.h": "31cc9f07b7d1dd90f4b11b3a0451ec9184776cb693108b9502fae33d81996ed2",
+        "source/game_sa/WaterLevel.cpp": "2b4c13728d5e4f45a9993d20f558781ef1a63874d0af519c03bedb455f090ee7",
+        "source/game_sa/WaterLevel.h": "0f502388c91ac149b8db34d4faf91f906f1c16cab4d85e403c1f5af29b44fdc6",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn88B/LiveComparison.hpp": "d0ef11e721f96e43b812de65cd9fed1640753eb703ec669486a1e7d1322b278a",
+        "reversing/Fn88B/Core.hpp": "d014f59639fe73f9841470e479e2fce9ca7eb08ae5276b5e35468ee9f240de4d",
+        "reversing/Fn88B/Fixtures.hpp": "785b314642ea7d0b3941e44840309d6cec54f3f0132f8efbb6efe820e78abdf1",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree D:/Original/wd-2 (ver artifacts/build-manifest.json). La funcion no llama a ninguna otra del juego (usa el _ftol2 del CRT para las celdas): no hay colaboradores sustituidos. La aritmetica x87 de 24 bits vive en X87Math.cpp (Wl88AxisCells, Wl88Column y Wl88Row). El banco guarda, rellena por caso y restaura la region del bufer temporal de agua [0xC4B950, 0xC5F958) (contadores, indices y vertices) y vigila 0x40 bytes a cada lado; compara el FNV-1a de los vertices e indices escritos, los dos primeros vertices, los contadores y el resto de la region. Los contadores previos se prueban de forma que quepan todas las celdas (hasta 11 por eje: ancho < 2.7, o NaN/infinito/|ancho| >= 2^61, que dan una celda): la funcion no comprueba el desbordamiento del bufer y el banco no lo provoca. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py (aritmetica racional exacta a 24 bits), que a su vez se ha comprobado contra los bytes del EXE ejecutados en un emulador. Los llamadores del EXE (0x6EF80F y 0x6EF848, dentro de RenderWater) no leen EAX/ECX/EDX. Fuera de los fixtures: anchos que dan mas de 11 celdas por eje y NaN senalizantes.",
+      "review_reference": "reversing/Fn88B/README.md"
     }
   ]
 }
