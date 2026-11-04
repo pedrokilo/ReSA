@@ -1,0 +1,76 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "f61df7bfec34f414f06ef4bb5289b66866712162b3caa34c12c1976b7a50bb41",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 16384,
+  "pairs_per_function": {
+    "CAttractorScanner::ScanForAttractors": 16384
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "1ec58524ebe7514a847d72d5f7248fee4dd7e644935f2e4ff5bacbeee51dfc93",
+  "compare_dead_x87_registers": false,
+  "families": {
+    "CAttractorScanner::ScanForAttractors": {
+      "0": 1024,
+      "1": 1024,
+      "2": 1024,
+      "3": 1024,
+      "4": 1024,
+      "5": 1024,
+      "6": 1024,
+      "7": 1024,
+      "8": 1024,
+      "9": 1024,
+      "10": 1024,
+      "11": 1024,
+      "12": 1024,
+      "13": 1024,
+      "14": 1024,
+      "15": 1024
+    }
+  },
+  "branch_coverage": {
+    "CAttractorScanner::ScanForAttractors": {
+      "started": 13451,
+      "stopped": 873,
+      "not_expired": 1781,
+      "garbage_stopped": 422,
+      "disabled": 651,
+      "in_vehicle": 953,
+      "use_effect": 805,
+      "negative_interval": 896,
+      "expired": 12194,
+      "sectors": 11983,
+      "ul_model": 7560,
+      "no_effect": 3279,
+      "ulist": 9349,
+      "cleared": 12194,
+      "effects_scan": 10391,
+      "ul_type": 5902,
+      "not_added": 2319,
+      "attractor": 4395,
+      "scripted_other_ped": 1250,
+      "scripted": 3882,
+      "same_inuse": 638,
+      "added": 4708,
+      "boundary": 452,
+      "not_started": 524,
+      "wrapped": 864,
+      "garbage_started": 527,
+      "no_cells": 211
+    }
+  },
+  "independent_oracle": "fixture_oracle.py: cada lado de cada par coincide con el modelo",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

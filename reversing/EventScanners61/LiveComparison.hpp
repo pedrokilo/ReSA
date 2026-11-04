@@ -98,7 +98,7 @@ inline void Update() {
     stub(S_X606580,kFnScan,0x606580,0,false,reinterpret_cast<void*>(&Fake606580),"sub_606580");
     stub(S_OBJSCAN,kFnScan,0x606890,std::bit_cast<uintptr_t>(&CObjectPotentialCollisionScanner::ScanForObjectPotentialCollisionEvents),true,reinterpret_cast<void*>(&FakeObjScan),"CObjectPotentialCollisionScanner::Scan");
     stub(S_ACQSCAN,kFnScan,0x607D80,std::bit_cast<uintptr_t>(&CPedAcquaintanceScanner::ScanForPedAcquaintances),true,reinterpret_cast<void*>(&FakeAcqScan),"CPedAcquaintanceScanner::Scan");
-    stub(S_ATTRSCAN,kFnScan,0x6060A0,0,false,reinterpret_cast<void*>(&FakeAttrScan),"CAttractorScanner::Scan");
+    stub(S_ATTRSCAN,kFnScan,0x6060A0,std::bit_cast<uintptr_t>(&CAttractorScanner::ScanForAttractors),true,reinterpret_cast<void*>(&FakeAttrScan),"CAttractorScanner::Scan");
     stub(S_FIRESCAN,kFnScan,0x603E70,std::bit_cast<uintptr_t>(&CNearbyFireScanner::ScanForNearbyFires),true,reinterpret_cast<void*>(&FakeFireScan),"CNearbyFireScanner::Scan");
     stub(S_SEXYSCAN,kFnScan,0x603BF0,std::bit_cast<uintptr_t>(&CSexyPedScanner::ScanForSexyPeds),true,reinterpret_cast<void*>(&FakeSexyScan),"CSexyPedScanner::Scan");
     stub(S_MENTAL,kFnScan,0x6008A0,std::bit_cast<uintptr_t>(&CMentalState::Process),!(kEnabled&kFnMental),reinterpret_cast<void*>(&FakeMental),"CMentalState::Process");

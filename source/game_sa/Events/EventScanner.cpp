@@ -150,7 +150,7 @@ void CEventScanner::ScanForEvents(CPed& ped) {
     reinterpret_cast<void(__stdcall*)(CPed*, CEntity*)>(0x606580)(&ped, intel->m_pedScanner.GetClosestPedInRange());
     m_objectPotentialCollisionScanner.ScanForObjectPotentialCollisionEvents(ped);
     m_pedAcquaintanceScanner.ScanForPedAcquaintances(ped, intel->GetPedEntities(), 16);
-    plugin::CallMethod<0x6060A0, CAttractorScanner*, CPed*>(&m_attractorScanner, &ped);                                                              // ScanForAttractors
+    m_attractorScanner.ScanForAttractors(ped);
     m_nearbyFireScanner.ScanForNearbyFires(ped);
     intel->m_mentalState.Process(&ped);
 

@@ -9,6 +9,7 @@
 #include "TaskTimer.h"
 
 class C2dEffect;
+class CPed;
 
 class CAttractorScanner {
 public:
@@ -28,6 +29,12 @@ public:
      * y EDX = 10. Los llamadores en C++ pueden ignorar el valor.
      */
     uint64 Clear();
+
+    /**
+     * 0x6060A0: busca atractores (efectos 2D) alrededor del peaton; sin efecto util, en vehiculo o con la tarea de usar un efecto no hace nada.
+     * Los exploradores de sectores y de efectos, y el resto de colaboradores, siguen por direccion del EXE.
+     */
+    void ScanForAttractors(CPed& ped);
 };
 
 VALIDATE_SIZE(CAttractorScanner, 0x90);

@@ -9047,3 +9047,4 @@ CTaskSimpleAchieveHeading,Constructor,0x00667E20,1,0,1,S
 CColModel,Constructor,0x0040FB60,1,0,1,S
 CEventDeath,Constructor,0x004ADDF0,1,0,1,S
 CObjectPotentialCollisionScanner,ScanForObjectPotentialCollisionEvents,0x00606890,1,0,1,S
+CAttractorScanner,ScanForAttractors,0x006060A0,1,0,1,S
