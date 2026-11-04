@@ -69,6 +69,7 @@ template<size_t N, size_t G = kGuard> struct Arena {
     void Put16(size_t off, u32 v) { const u16 w = u16(v); memcpy(m.data() + G + off, &w, 2); }
     void Put8(size_t off, u32 v) { m[G + off] = u8(v); }
     u32 Get32(size_t off) const { u32 v; memcpy(&v, m.data() + G + off, 4); return v; }
+    u32 GetRef32(size_t off) const { u32 v; memcpy(&v, r.data() + G + off, 4); return v; }   // valor de la imagen de referencia (antes de la llamada)
     void Hide32(size_t off) { memcpy(m.data() + G + off, r.data() + G + off, 4); }   // el campo es un puntero: se observa etiquetado y no entre los bytes cambiados
     json Changes() const { return ArenaChanges(m.data(), r.data(), N, G); }
     void Tagged() const { TagAdd(m.data(), N); }
@@ -179,7 +180,7 @@ inline void CaseConvoy(Env& env, Totals& t, unsigned n) {
         json obs;
         obs["ret"] = sides[s].reg.eax & 0xFFu;
         json targets = json::array();
-        for (auto& a : cA) { targets.push_back(Tag(uintptr_t(a.Get32(0x41C)))); a.Hide32(0x41C); }   // m_autoPilot.m_TargetEntity: puntero al coche anterior
+        for (auto& a : cA) { const u32 v = a.Get32(0x41C); targets.push_back(v == a.GetRef32(0x41C) ? v : Tag(uintptr_t(v))); a.Hide32(0x41C); }   // un puntero que la funcion no escribio sigue siendo basura del relleno: se observa en crudo (Tag lo etiquetaria si cayera por casualidad dentro de una arena del ASI)   // m_autoPilot.m_TargetEntity: puntero al coche anterior
         obs["targets"] = targets;
         json all = json::array({tA.Changes()});
         for (auto& a : cA) all.push_back(a.Changes());
