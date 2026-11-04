@@ -104,18 +104,18 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. REVALIDACIÓN 19/10/2026: corrida COMPLETA de las 47 funciones del banco (11968 pares, 0 diferencias) con las fuentes actuales (CFileLoader::Load2dEffect y CFileLoader::LoadPickup ya en C++, CPickups::GenerateNewOne como envoltorio). Sonda compilada desde el worktree D:/Original/wq-f (HEAD 98286d43c + fusión de CQuaternion; ver artifacts/build-manifest.json) con las fuentes actuales de Pickups.cpp/.h (CPickups::GenerateNewOne ahora envoltorio de GenerateNewOne_ExeAbi). Sustituye la evidencia de las 46 funciones de validation-summary.json (corrida 20261005-095618-262131) y la de LoadPickup (revalidación 18/10/2026, que queda anidada en previous_evidence); ya no hay funciones pendientes de repetir. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/FileLoader47-20261104-091348-939714",
+  "run": "reversing/CppTwelveLevel6Final/runs/FileLoader47-20261104-103925-020722",
   "bank_pairs": 11968,
   "bank_functions": 47,
-  "summary_sha256": "c97b53a1bd40e3964401950114054f294fc73069f648fb2aaee8850dfec492f9",
-  "result_txt_sha256": "4ded749d4d7e2076790e5736000362c9b27b208aba56cc5e2dd133aae9de7ed4",
+  "summary_sha256": "c9680ab6ff7a453576b836947e3e65d88ce0926ba5f062a7c7f0f22078a5a2b4",
+  "result_txt_sha256": "123cd0fcc15b93fd5619b3005c3409d7d0b2af077168ae59d75bf6fc4a882b18",
   "log_sha256": "31defbb55c12db695124cc69e02683862253c107c8fd4f83b278300cf73118d9",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "a6a34d1c2c23a5d87a69c5311ee2dfec160676808b2c7374e01f554e81d745b0",
+  "executed_probe_sha256": "598c1eb8420806ec83c75ac09a15a7dd686991e3c886871cd4e54ab0bb0a6c19",
   "manifest": {
     "tested_sources": {
       "source/game_sa/FileLoader.cpp": "ab295ba22508d739ecc5703aec55ca6799317a050467b9f56472a8e7da358607",
@@ -125,7 +125,7 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/FileLoader47-20261104-091348-939714/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/FileLoader47-20261104-103925-020722/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
     "compressed_sha256": "4bb32e1816a2869df27d54471929fec62840188f8be910d3b4e83b74bf74ff3a",
