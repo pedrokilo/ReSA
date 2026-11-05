@@ -32,6 +32,7 @@ void CEventDamage::InjectHooks() {
 
     RH_ScopedOverloadedInstall(Constructor, "", 0x4B33B0, CEventDamage*(CEventDamage::*)(const CEventDamage&));
     RH_ScopedOverloadedInstall(Constructor, "1", 0x4AD830, CEventDamage * (CEventDamage::*)(CEntity*, uint32, eWeaponType, ePedPieceTypes, uint8, bool, bool));
+    RH_ScopedInstall(Destructor, 0x4AD960);
     RH_ScopedVMTInstall(GetEventType, 0x4AD910);
     RH_ScopedVMTInstall(GetEventPriority, 0x4AD950);
     RH_ScopedVMTInstall(GetLifeTime, 0x4AD920);

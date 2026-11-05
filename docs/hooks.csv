@@ -373,6 +373,7 @@ CWaterLevel,CalculateWavesOnlyForCoordinate,0x006E6EF0,1,0,1,S
 CWaterLevel,FindNearestWaterAndItsFlow,0x006E9D70,1,0,1,S
 CWaterLevel,GetWaterLevel-,0x006EB690,1,0,1,S
 CWaterLevel,GetWaterLevelNoWaves,0x006E8580,1,0,1,S
+CWaterLevel,LerpRenPar,0x006E5280,1,0,1,S
 CWaterLevel,MarkQuadsAndPolysToBeRendered,0x006E5810,1,0,1,S
 CWaterLevel,PreRenderWater,0x006EB710,1,0,1,S
 CWaterLevel,RenderBoatWakes,0x006ED9A0,1,0,1,S
@@ -3337,6 +3338,8 @@ CEventGroup,Remove,0x004AB5A0,1,0,1,S
 CEventGroup,RemoveInvalidEvents,0x004AB760,1,0,1,S
 CEventGroup,Reorganise,0x004AB700,1,0,1,S
 CEventGroup,TickEvents,0x004AB6D0,1,0,1,S
+CEventGroupEvent,Constructor,0x004ADFD0,1,0,1,S
+CEventGroupEvent,Destructor,0x004AE070,1,0,1,S
 CEventGlobalGroup,AddEventsToGroup,0x004AB8A0,1,0,1,S
 CEventGlobalGroup,AddEventsToPed,0x004AB9C0,1,0,1,S
 CEventGlobalGroup,GetSoundLevel,0x004AB900,1,0,1,S
@@ -3366,6 +3369,7 @@ CEventDamage,ComputeDamageAnim,0x004B3FC0,1,0,1,S
 CEventDamage,ComputeDeathAnim,0x004B3A60,1,0,1,S
 CEventDamage,Constructor-,0x004B33B0,1,0,1,S
 CEventDamage,Constructor-1,0x004AD830,1,0,1,S
+CEventDamage,Destructor,0x004AD960,1,0,1,S
 CEventDamage,DoInformVehicleOccupants,0x00000000,1,0,1,V
 CEventDamage,From,0x004AD9C0,1,0,1,S
 CEventDamage,GetEventPriority,0x00000000,1,0,1,V
@@ -3402,6 +3406,7 @@ CEventAcquaintancePed,TakesPriorityOver,0x00000000,1,0,1,V
 CEvent,CalcSoundLevelIncrement,0x004AC050,1,0,1,S
 CEvent,Constructor,0x004ABFC0,1,0,1,S
 CEvent,GetSoundLevel,0x004B2850,1,0,1,S
+CEvent,operator new,0x004B5620,1,0,1,S
 CVehiclePool,New,0x006E2A50,1,0,1,S
 CVehiclePool,GetAt,0x0041CC10,1,0,1,S
 CTaskPool,New,0x0061A500,1,0,1,S
@@ -3765,6 +3770,7 @@ CVehicle,UpdateLightingFromStoredPolys,0x006D0CC0,1,0,1,S
 CVehicle,UpdatePassengerList,0x006D29E0,1,0,1,S
 CVehicle,UpdateWinch,0x006D3B80,1,0,1,S
 CVehicle,UsesSiren,0x006D8470,1,0,1,S
+CVehicle,operator new-poolRef,0x006E2D60,1,0,1,S
 CTrain,AddNearbyPedAsRandomPassenger,0x006F8170,1,0,1,S
 CTrain,AddPassenger,0x006F5D90,1,0,1,S
 CTrain,Constructor,0x006F6030,1,0,1,S
@@ -6654,6 +6660,7 @@ CTaskComplexSequence,DeRegister,0x00636BC0,1,0,1,S
 CTaskComplexSequence,Flush,0x00632C10,1,0,1,S
 CTaskComplexSequence,MakeAbortable,0x00000000,1,0,1,V
 CTaskComplexSequence,SetCanBeEmptied,0x00463610,1,0,1,S
+CTask,IsGoToTask,0x0061A360,1,0,1,S
 CTask,IsTaskPtr,0x0061A4B0,1,0,1,S
 CTask,StopTimer,0x00000000,1,0,1,V
 CTask,operator delete,0x0061A5B0,1,0,1,S
@@ -6928,6 +6935,7 @@ CObject,SpecialEntityPreCollisionStuff,0x00000000,1,0,1,V
 CObject,Teleport,0x00000000,1,0,1,V
 CObject,TryToExplode,0x0059F2D0,1,0,1,S
 CObject,TryToFreeUpTempObjects,0x005A1840,1,0,1,S
+CObject,operator new-anon,0x005A1EE0,1,0,1,S
 CHandObject,PreRender,0x00000000,1,0,1,V
 CHandObject,ProcessControl,0x00000000,1,0,1,V
 CHandObject,Render,0x00000000,1,0,1,V
@@ -8508,6 +8516,7 @@ CCarCtrl,ClearInterestingVehicleList,0x00423F00,1,0,1,S
 CCarCtrl,RegisterVehicleOfInterest,0x00423DE0,1,0,1,S
 CCarCtrl,FindSequenceElement,0x00421770,1,0,1,S
 CModelInfo,Get2dEffectStore,0x004C5A60,1,0,1,S
+CMemoryMgr,Free,0x0072F430,1,0,1,S
 CMemoryMgr,InitScratchPad,0x0072F480,1,0,1,S
 CPointLights,Init,0x006FFB40,1,0,1,S
 CPointLights,RemoveLightsAffectingObject,0x006FFFE0,1,0,1,S

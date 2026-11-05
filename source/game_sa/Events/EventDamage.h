@@ -82,6 +82,7 @@ private:
 
     CEventDamage* Constructor(const CEventDamage& event);
     CEventDamage* Constructor(CEntity * source, uint32 startTime, eWeaponType weaponType, ePedPieceTypes pieceHit, uint8 direction, bool a7, bool bPedInVehicle);
+    CEventDamage* Destructor() { this->CEventDamage::~CEventDamage(); return this; }
 
                 };
 

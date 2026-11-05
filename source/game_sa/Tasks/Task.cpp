@@ -169,6 +169,7 @@ void CTask::InjectHooks() {
     RH_ScopedCategory("Tasks");
     RH_ScopedVirtualClass(CTask, 0x86D48C, 7);
 
+    RH_ScopedInstall(IsGoToTask, 0x61A360);
     RH_ScopedInstall(IsTaskPtr, 0x61A4B0);
     RH_ScopedInstall(Destructor, 0x61A3A0);
     RH_ScopedInstall(operator new, 0x61A5A0);

@@ -2244,3 +2244,5 @@ void __cdecl WeaveForPedArcCpp(float dx, float dy, float angle, WeaveMaxXFn getM
 float* __cdecl MatrixInvertExeCpp(const float* in, float* out);
 // operator*(CMatrix, CMatrix) (0x59BE30, cdecl, resultado por puntero oculto): out = a * b con el orden de sumas de la x87 del EXE; pone a cero +0x40 y +0x44; no escribe las palabras de relleno.
 float* __cdecl MatrixMultiplyExeCpp(float* out, const float* a, const float* b);
+// CWaterLevel lerp de CRenPar (0x6E5280): (1 - t) * a + t * b por componente con 1 - t sin guardar como float (z, bigWaves, smallWaves consecutivos).
+void __cdecl WaterLerpRenParCpp(const float* a, const float* b, float t, float* out);

@@ -29,6 +29,12 @@ public:
     auto& GetEvent() const { return *m_event; }
 
 private:
+    friend void InjectHooksMain();
+    static void InjectHooks();
+
+    CEventGroupEvent* Constructor(CPed* ped, CEvent* event) { this->CEventGroupEvent::CEventGroupEvent(ped, event); return this; }
+    CEventGroupEvent* Destructor() { this->CEventGroupEvent::~CEventGroupEvent(); return this; }
+
     bool IsPriorityEvent() const;
 };
 

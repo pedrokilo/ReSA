@@ -42,9 +42,31 @@ static void FlushWaterRenderBuffer() {
     nVtx = 0;
 }
 
+// 0x6E5280 (cdecl): el EXE devuelve CRenPar por valor con el destino oculto como primer argumento de pila y lo devuelve en EAX. Escribe z, bigWaves y smallWaves
+// ((1 - t) * a + t * b por componente con la secuencia x87 del EXE, ver WaterLerpRenParCpp en X87Math.cpp) y los dos bytes de flujo a 0; no toca el relleno.
+static CRenPar* __cdecl LerpRenPar(CRenPar* out, CRenPar rp1, CRenPar rp2, float t) {
+    out->flowX = 0;
+    out->flowY = 0;
+    const float a[3]{ rp1.z, rp1.bigWaves, rp1.smallWaves };
+    const float b[3]{ rp2.z, rp2.bigWaves, rp2.smallWaves };
+    float r[3];
+    WaterLerpRenParCpp(a, b, t, r);
+    out->z = r[0];
+    out->bigWaves = r[1];
+    out->smallWaves = r[2];
+    return out;
+}
+
+CRenPar lerp(CRenPar rp1, CRenPar rp2, float t) {
+    CRenPar out;
+    LerpRenPar(&out, rp1, rp2, t);
+    return out;
+}
+
 void CWaterLevel::InjectHooks() {
     RH_ScopedClass(CWaterLevel);
     RH_ScopedCategoryGlobal();
+    RH_ScopedGlobalInstall(LerpRenPar, 0x6E5280);
     RH_ScopedGlobalInstall(FlushWaterRenderBuffer, 0x6E7680);
     RH_ScopedInstall(CalculateWavesOnlyForCoordinate2Native, 0x6E7210);
 

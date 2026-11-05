@@ -1481,7 +1481,7 @@ void InjectHooksMain() {
         CEventLeaderEntryExit::InjectHooks();
         // + CEventSpecial::InjectHooks();
         // + CEventFireNearby::InjectHooks();
-        // + CEventGroupEvent::InjectHooks();
+        CEventGroupEvent::InjectHooks();
         CEventGroup::InjectHooks();
         CEventGlobalGroup::InjectHooks();
         CEventPlayerCommandToGroup::InjectHooks();

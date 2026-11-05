@@ -14,15 +14,8 @@ struct CRenPar {
     int8  flowX{}, flowY{};           // Fixed-point float. Divide by 64
 };
 
-// 0x6E5280
-static CRenPar lerp(CRenPar rp1, CRenPar rp2, float t) {
-    // Como el original (0x6E5280): (1 - t) * a + t * b en float (x87 a 24 bits); std::lerp usaba a + t*(b-a) y daba otros redondeos.
-    const float omt = 1.0f - t;
-    const float z  = rp1.z * omt + rp2.z * t;
-    const float bw = rp1.bigWaves * omt + rp2.bigWaves * t;
-    const float sw = rp1.smallWaves * omt + rp2.smallWaves * t;
-    return { z, bw, sw, 0, 0 };
-}
+// 0x6E5280 (definida en WaterLevel.cpp)
+CRenPar lerp(CRenPar rp1, CRenPar rp2, float t);
 
 struct CWaterVertex {
     int16  x;

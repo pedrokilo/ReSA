@@ -178,6 +178,7 @@ void CVehicle::InjectHooks() {
     RH_ScopedCategory("Vehicle");
 
     RH_ScopedOverloadedInstall(operator new, "anon", 0x6E2D50, void* (*)(unsigned));
+    RH_ScopedOverloadedInstall(operator new, "poolRef", 0x6E2D60, void* (*)(unsigned, int32));
     RH_ScopedInstall(Constructor, 0x6D5F10);
     RH_ScopedInstall(Destructor, 0x6E2B40);
 

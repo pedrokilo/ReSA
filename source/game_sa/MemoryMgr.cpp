@@ -47,6 +47,7 @@ void CMemoryMgr::InjectHooks() {
     RH_ScopedOverloadedInstall(Malloc, "SizeHint", 0x72F420, void*(*)(uint32,uint32));
     RH_ScopedOverloadedInstall(Realloc, "MemorySizeHint", 0x72F440, uint8*(*)(void*,uint32,uint32));
     RH_ScopedOverloadedInstall(MallocAlign, "SizeAlignHint", 0x72F4C0, uint8*(*)(uint32,uint32,uint32));
+    RH_ScopedInstall(Free, 0x72F430);
     RH_ScopedInstall(FreeAlign, 0x72F4F0);
 
 }
@@ -328,8 +329,8 @@ void CMemoryMgr::Free(void* memory) {
     }
     UNLOCK_MEMORYHEAP();
 #else
-    return plugin::Call<0x72F430, void*>(memory);
-    return ::free(memory);
+    // 0x72F430: sólo salta (jmp) a la rutina free del CRT del EXE (0x82413F); el puntero se pasa tal cual, sin comprobar nulo.
+    reinterpret_cast<ExeCrtFree>(uintptr_t{0x82413F})(memory);
 #endif
 }
 

@@ -25,6 +25,7 @@ void CEvent::InjectHooks() {
     RH_ScopedVirtualClass(CEvent, 0x85AB38, 16);
     RH_ScopedCategory("Events");
 
+    RH_ScopedInstall(operator new, 0x4B5620);
     RH_ScopedInstall(Constructor, 0x4ABFC0);
     RH_ScopedInstall(CalcSoundLevelIncrement, 0x4AC050);
     RH_ScopedInstall(GetSoundLevel, 0x4B2850);

@@ -91,6 +91,7 @@ void CObject::InjectHooks()
     RH_ScopedVirtualClass(CObject, 0x866F60, 23);
     RH_ScopedCategory("Entity/Object");
 
+    RH_ScopedOverloadedInstall(operator new, "anon", 0x5A1EE0, void* (*)(size_t));
     RH_ScopedInstall(Constructor, 0x5A1D70);
     RH_ScopedVMTInstall(SetIsStatic, 0x5A0760);
     RH_ScopedVMTInstall(CreateRwObject, 0x59F110);
