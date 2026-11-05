@@ -53,8 +53,8 @@ bool CSearchLight::IsSpottedEntity(uint32 index, const CEntity& entity) {
         return false;
     }
 
-    // El EXE copia la posicion (matriz o placement) a una variable local y llama a 0x493280 (cdecl: posicion, indice; sin reconstruir todavia).
+    // El EXE copia la posicion (matriz o placement) a una variable local y llama a 0x493280 (cdecl: posicion, indice; CTheScripts::IsPointWithinSearchLight).
     // Como el original, devuelve 1/0 segun AL (no pasa el byte tal cual).
     CVector pos = entity.GetPosition();
-    return plugin::CallAndReturn<uint8, 0x493280, CVector*, int32>(&pos, searchLightIdx) != 0;
+    return CTheScripts::IsPointWithinSearchLight(pos, searchLightIdx) != 0;
 }

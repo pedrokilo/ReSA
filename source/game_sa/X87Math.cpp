@@ -18086,3 +18086,111 @@ __declspec(noinline) bool __cdecl PathFind93RegionTotalCpp(float linkDistance, f
     return false;
 }
 #pragma float_control(pop)
+
+// --- CTheScripts::IsPointWithinSearchLight (0x493280, lote 98A) ---
+// Los dos ejes del foco (vectores de 3 floats) se copian y se normalizan con 0x59C970 (CVector::NormaliseAndMag, `normalise`: su retorno llega en ST0): la magnitud del primero se guarda como float
+// (fstp), la del segundo queda sin redondear en el registro. d = punto - origen (en registro, sin guardar); proyecciones ((z * dz + y * dy) + x * dx) sobre cada eje;
+// qA = float(proyeccionA / magA) (se guarda), qB = proyeccionB / magB (sin guardar); el resultado es (qB * qB + qA * qA) <= 1.0 (ordenado: falso con NaN).
+// Con la palabra de control de 24 bits del juego cada operacion redondea a 24 bits con exponente ampliado; los valores que el EXE no guarda son double (sin volatile el compilador los
+// reasociaria con /fp:fast).
+#pragma float_control(precise, on, push)
+__declspec(noinline) bool __cdecl SearchLightPointWithinCpp(const float* pos, const float* origin, const float* axisA, const float* axisB, SearchLightNormaliseFn normalise) {
+    float a[3], b[3];
+    memcpy(a, axisA, sizeof(a));
+    memcpy(b, axisB, sizeof(b));
+    const float magA = normalise(a, nullptr);
+    const double magB = normalise(b, nullptr);
+    volatile double dx = static_cast<double>(pos[0]) - static_cast<double>(origin[0]);
+    volatile double dy = static_cast<double>(pos[1]) - static_cast<double>(origin[1]);
+    volatile double dz = static_cast<double>(pos[2]) - static_cast<double>(origin[2]);
+    volatile double azdz = static_cast<double>(a[2]) * dz;
+    volatile double aydy = static_cast<double>(a[1]) * dy;
+    volatile double sumA = azdz + aydy;
+    volatile double axdx = static_cast<double>(a[0]) * dx;
+    volatile double dotA = sumA + axdx;
+    volatile double divA = dotA / static_cast<double>(magA);
+    const float qA = static_cast<float>(divA);
+    volatile double bzdz = static_cast<double>(b[2]) * dz;
+    volatile double bydy = static_cast<double>(b[1]) * dy;
+    volatile double sumB = bzdz + bydy;
+    volatile double bxdx = static_cast<double>(b[0]) * dx;
+    volatile double dotB = sumB + bxdx;
+    volatile double qB = dotB / magB;
+    volatile double qB2 = qB * qB;
+    volatile double qA2 = static_cast<double>(qA) * static_cast<double>(qA);
+    volatile double total = qB2 + qA2;
+    return total <= 1.0;
+}
+#pragma float_control(pop)
+
+// --- CCarCtrl::WeaveForPed (0x426970, lote 98A): desde la distancia hasta el final ---
+// dist = sqrt(dy * dy + dx * dx) sin guardar; con dist < 1.0 (ordenado) no hace nada. Si no: ratio = float((maxX * 2.4 + 0.8) / dist) (0x858FB0, 0x858C98; solo el cociente se guarda) y margen = float(ratio * 0.5).
+// Para cada lado: d = angulo - *lado (sin guardar), llevado a [-pi, pi] con bucles de +-2pi (comparaciones ordenadas; pi = 0x858CB8, 2pi = 0x858CBC, -pi = 0x858CC0) y en valor absoluto;
+// si d < margen: v = angulo - margen (primer lado) o margen + angulo (segundo), *lado = float(v) y, si v (sin redondear) < -pi (primero) o > pi (segundo), se relee el float guardado, se le suma
+// 2pi (o se le resta) mientras siga fuera y se guarda otra vez. Los valores que el EXE no guarda son double: con la palabra de control de 24 bits del juego cada operacion redondea a 24 bits con
+// exponente ampliado (los bucles no terminan con valores enormes o infinitos, igual que en el EXE).
+// La raiz va aparte y con /fp:fast: con precise la llamada a sqrt sale como llamada a la CRT (__CIsqrt) en lugar de fsqrt en linea.
+#pragma float_control(precise, off, push)
+__declspec(noinline) static double WeaveDistance(float dx, float dy) {
+    return sqrt(static_cast<double>(dy) * static_cast<double>(dy) + static_cast<double>(dx) * static_cast<double>(dx));
+}
+#pragma float_control(pop)
+#pragma float_control(precise, on, push)
+namespace {
+constexpr double kWeavePi = static_cast<double>(3.1415927410125732f);      // 0x858CB8
+constexpr double kWeaveTwoPi = static_cast<double>(6.2831854820251465f);   // 0x858CBC
+constexpr double kWeaveMinusPi = static_cast<double>(-3.1415927410125732f); // 0x858CC0
+__declspec(noinline) double WeaveFoldAbs(double angle, double bound) {
+    volatile double diff = angle - bound;
+    if (diff < kWeaveMinusPi) {
+        do {
+            diff = diff + kWeaveTwoPi;
+        } while (diff < kWeaveMinusPi);
+    }
+    if (diff > kWeavePi) {
+        do {
+            diff = diff - kWeaveTwoPi;
+        } while (diff > kWeavePi);
+    }
+    if (diff < 0.0) {
+        diff = -diff;
+    }
+    return diff;
+}
+}
+__declspec(noinline) void __cdecl WeaveForPedArcCpp(float dx, float dy, float angle, WeaveMaxXFn getMaxX, const void* vehicle, float* a, float* b) {
+    volatile double dist = WeaveDistance(dx, dy);
+    if (dist < 1.0) {
+        return;
+    }
+    const float maxX = getMaxX(vehicle);
+    volatile double scaled = static_cast<double>(maxX) * static_cast<double>(2.4000000953674316f);
+    volatile double numer = scaled + static_cast<double>(0.800000011920929f);
+    volatile double quotient = numer / dist;
+    const float ratio = static_cast<float>(quotient);
+    volatile double halved = static_cast<double>(ratio) * 0.5;
+    const float margin = static_cast<float>(halved);
+    if (WeaveFoldAbs(static_cast<double>(angle), static_cast<double>(*a)) < static_cast<double>(margin)) {
+        volatile double v = static_cast<double>(angle) - static_cast<double>(margin);
+        *a = static_cast<float>(v);
+        if (v < kWeaveMinusPi) {
+            volatile double w = static_cast<double>(*a);
+            do {
+                w = w + kWeaveTwoPi;
+            } while (w < kWeaveMinusPi);
+            *a = static_cast<float>(w);
+        }
+    }
+    if (WeaveFoldAbs(static_cast<double>(angle), static_cast<double>(*b)) < static_cast<double>(margin)) {
+        volatile double v = static_cast<double>(margin) + static_cast<double>(angle);
+        *b = static_cast<float>(v);
+        if (v > kWeavePi) {
+            volatile double w = static_cast<double>(*b);
+            do {
+                w = w - kWeaveTwoPi;
+            } while (w > kWeavePi);
+            *b = static_cast<float>(w);
+        }
+    }
+}
+#pragma float_control(pop)

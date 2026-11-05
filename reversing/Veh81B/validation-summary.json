@@ -12,22 +12,22 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas desde el worktree D:/Original/wv-2 (HEAD ad52bea16 + cambios del lote 81B; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CPhysical::GetSpeed 0x542CE0, CVector::Normalise 0x59C910, CrossProduct 0x59C730 y CPhysical::ApplyForce 0x542B50; los virtuales GetTowHitchPos (+0xEC) y GetTowBarPos (+0xF0) los atiende una vtabla falsa. Los ayudantes sin hook 0x40FE90, 0x4119D0, 0x420800, 0x406D70 y 0x59C790 se ejecutan tal cual en el EXE y como ayudantes x87 de X87Math en la DLL (validados con la funcion). El banco compara el orden y todos los argumentos de los falsos, la mutacion del estado (remolque +0x4C8, matrices +0x14, masas, paso de tiempo, modelo, gancho, campos de equipaje) tras cada uno de los 7 eventos (relecturas), las matrices nulas con relleno tardio, el puntero devuelto por CrossProduct, la x87 a 24 bits (incluidos NaN con un solo patron, infinitos, desnormales y ceros con signo) y 576 microtests de FCOMP del hardware. Cada lado coincide ademas con el oraculo independiente fixture_oracle.py. EAX/ECX/EDX de salida solo se registran (void; los llamadores no los leen). NaN con cargas distintas (sNaN, signos y cargas variadas) no cubiertos: las fixtures usan un unico patron de NaN. El limite 0x8D313C (20000) es una constante en la DLL; el banco no lo cambia. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Veh81B-20261104-212739-253995",
-  "summary_sha256": "b57f285b9d65c0ce69ce24f547123d457e1789da6bd8029493b09eaeba91a967",
-  "result_txt_sha256": "2be08a69cd5e2f67c85923edaa7ecf7a916548a974b6f44fa0755a35e60c2803",
-  "log_sha256": "27a2cfc0bd397f01b6b0c83c2d3eba8eae9c045758e258abbadd1135921bf184",
+  "run": "reversing/CppTwelveLevel6Final/runs/Veh81B-20261105-024009-735960",
+  "summary_sha256": "aec9464eef19748ce1c08d23b7a427bba257fd3b13d22c13f9265174c555e4ba",
+  "result_txt_sha256": "bc109b90cb5739ad4c89584573020fba0df35e508e9ce10f200154ac4c13936a",
+  "log_sha256": "d6d2393ecca2b0e39970de6886969515c34d4e88f8426008bceec5add77b9df2",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "3033d492954af857485fe5af04144aaa83caf1eca273c29091043fa011c51b86",
+  "executed_probe_sha256": "acb132a99a3bae71cb651daecd5855d2e09b4501ec5546b1d7deb7a0d74d92e0",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
       "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
-      "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
-      "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+      "source/game_sa/X87Math.cpp": "9bc388015fff074e1f2b15d065415d26acbe54d29127cb1d28134f747c471fcf",
+      "source/game_sa/X87Math.h": "6e842a1d07f38fd525e638e9e15a8bfe61c2991d09b1dd6662376e02d3d7a83e",
       "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
       "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
@@ -39,10 +39,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Veh81B-20261104-212739-253995/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Veh81B-20261105-024009-735960/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "583e1f2ba8625920aef0113893e91e829f225c62750ebea5a3b4cfd3f54f38bb",
-    "uncompressed_sha256": "27a2cfc0bd397f01b6b0c83c2d3eba8eae9c045758e258abbadd1135921bf184"
+    "compressed_sha256": "54ca9c2423f1517e944f0b6b5433d9fa9f88bffe1844e8ab59274ad52e177abe",
+    "uncompressed_sha256": "d6d2393ecca2b0e39970de6886969515c34d4e88f8426008bceec5add77b9df2"
   }
 }

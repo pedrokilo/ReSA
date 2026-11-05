@@ -12,16 +12,16 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Dependencies23A-20261104-210934-288226",
-  "summary_sha256": "4a3639de7b18508d5dddde56d9f60c49b90dc3544d03f75c6c7437baf8096cba",
-  "result_txt_sha256": "66dd6751a175b49033def36cf9035d13ed16210923b9a4672d7435b5f96f0786",
-  "log_sha256": "ca276b2588b07113768c2de0bde4c5a3f181e8bb760e43489423b9f0d57dba45",
+  "run": "reversing/CppTwelveLevel6Final/runs/Dependencies23A-20261105-035259-528924",
+  "summary_sha256": "36bcb90414826ed47649a2fe786ffe591075740d38d2b6f9d0fd8c71b6a4c613",
+  "result_txt_sha256": "6239d9c1118b9c115ca69f4e6cbaf30bf03581efaf85539069a52d09426176bb",
+  "log_sha256": "74cec0168ec60cdd5819984f36ecfd5f18286a629a5687300ca5f7ac7837e19d",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "8b3eadd451894375c80762124f38cb399b1589f028016d42ab00d6301eadac77",
+  "executed_probe_sha256": "af5ecca46e9cef7141375d1fd2bd704c087c636353fe5cc288137ac9524b964c",
   "manifest": {
     "tested_sources": {
       "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
@@ -33,13 +33,13 @@
       "source/game_sa/DamageManager.h": "ada1c808c605762a63f2d09b6dd2ef007ccf2a57c264444f31d7f995e4a4d1bc",
       "source/game_sa/PointLights.cpp": "8777fd9c418358fa93e703e80a91d92175230e52eac510c69c4aa701b605bc31",
       "source/game_sa/PointLights.h": "4064a0170e62207882e15c48f10e4b76ce043a2748b661e6fe17d30101b973f8",
-      "source/game_sa/Models/VehicleModelInfo.h": "65ac9639466667dc5909d1fa9d4a673f2a4c50a33642acf6771123c14cdac9f4",
+      "source/game_sa/Models/VehicleModelInfo.h": "4666ffa0b761b2b2a72c9103e57fccb01f5746a89df77b4a8e5fbd0fee2a5b00",
       "source/game_sa/tHandlingData.h": "91ab5abf070978bff8c2076467a610410196a25038a33bdd9958de88ccadc19d",
       "source/game_sa/Camera.cpp": "fb30047db732431fa41bf0440c53080d37e026b90f6970a5f6511e5abc22d743",
       "source/game_sa/Camera.h": "5cae161c8ab04cdc6d91f0031f1918bbd3e08dd10aa9c8afa5bc5e23b4884e50",
       "source/game_sa/Cam.h": "a4824e8a260ff170d5f69a658e5eabb57de98b5e6224e908112f87f88aed58ce",
-      "source/game_sa/X87Math.cpp": "e5292b874ed010e9122adef6394de8d5ddc2799bd3cfd8951cd08c014f65bcb8",
-      "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+      "source/game_sa/X87Math.cpp": "9bc388015fff074e1f2b15d065415d26acbe54d29127cb1d28134f747c471fcf",
+      "source/game_sa/X87Math.h": "6e842a1d07f38fd525e638e9e15a8bfe61c2991d09b1dd6662376e02d3d7a83e",
       "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
       "source/reversiblehooks/ReversibleHook/Simple.cpp": "c8329400416dc0af0685ea1480adc25e4e5033d100fba414e090229a338c97dc",
       "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
@@ -47,10 +47,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Dependencies23A-20261104-210934-288226/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Dependencies23A-20261105-035259-528924/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "4f90252a3677d7806c7931ddbf8403846573b2195fbf90db640df89568c85051",
-    "uncompressed_sha256": "ca276b2588b07113768c2de0bde4c5a3f181e8bb760e43489423b9f0d57dba45"
+    "compressed_sha256": "19a6d8a8df3abdbe41af452e5f0b9a56d9e0e360035f1b556da6cba69acd6c54",
+    "uncompressed_sha256": "74cec0168ec60cdd5819984f36ecfd5f18286a629a5687300ca5f7ac7837e19d"
   }
 }

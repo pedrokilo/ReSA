@@ -9098,3 +9098,11 @@ CMatrix,UpdateRW,0x0059BBB0,1,0,1,S
 CMatrix,Destructor,0x0059ACD0,1,0,1,S
 CMatrix,ConstructCopy,0x0059BCF0,1,0,1,S
 CMatrix,ConstructAttached,0x0059C050,1,0,1,S
+CCarAI,FloatMax,0x00420800,1,0,1,S
+CCarPathLink,GetNodeCoors-vector,0x00420A60,1,0,1,S
+CVehicleModelInfo,IncrementTimesUsed,0x00421120,1,0,1,S
+CPlaceable,GetForwardVector,0x0041CCB0,1,0,1,S
+CScriptsForBrains,StartOrRequestNewStreamedScriptBrainWithThisName,0x0046CED0,1,0,1,S
+CTheScripts,IsPointWithinSearchLight,0x00493280,1,0,1,S
+Input,diPadEnumerate,0x007477C0,1,0,1,S
+CCarCtrl,WeaveForPed,0x00426970,1,0,1,S

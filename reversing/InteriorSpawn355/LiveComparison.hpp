@@ -79,7 +79,7 @@ inline void Update() {
  EntryPatch load(0x40EA10,Load),loadDll(bit_cast<uintptr_t>(&CStreaming::LoadAllRequestedModels),Load);
  EntryPatch gang(0x60F8D0,Gang),gangDll(bit_cast<uintptr_t>(&CPopCycle::PickGangToCreateMembersOf),Gang);
  EntryPatch occupation(0x611550,Occupation),occupationDll(bit_cast<uintptr_t>(&CPopulation::ChooseGangOccupation),Occupation);
- EntryPatch brain(0x46CED0,Brain);
+ EntryPatch brain(0x46CED0,Brain),brainDll(bit_cast<uintptr_t>(&CScriptsForBrains::StartOrRequestNewStreamedScriptBrainWithThisName),Brain);   // con hook RH desde el lote 98A: el mismo falso en el EXE y en su cuerpo (la DLL lo llama directamente)
  EntryPatch interior(0x5948C0,Interior),interiorDll(bit_cast<uintptr_t>(&InteriorGroup_c::GetRandomInterior),Interior);
  EntryPatch tile(0x591B20,Tile),tileDll(bit_cast<uintptr_t>(&Interior_c::GetRandomTile),Tile);
  EntryPatch centre(0x591BD0,Centre),centreDll(bit_cast<uintptr_t>(&Interior_c::GetTileCentre),Centre);

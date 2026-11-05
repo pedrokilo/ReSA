@@ -225,6 +225,7 @@ void CCarCtrl::InjectHooks()
     RH_ScopedInstall(SlowCarDownForOtherCar, 0x42D0E0);
     RH_ScopedInstall(WeaveForOtherCar, 0x426350);
     RH_ScopedInstall(WeaveForObject, 0x426BC0);
+    RH_ScopedInstall(WeaveForPed, 0x426970);
     RH_ScopedInstall(SlowCarDownForCarsSectorList<CPtrListDoubleLink<CVehicle*>>, 0x432420);
     RH_ScopedInstall(SlowCarDownForObjectsSectorList<CPtrListDoubleLink<CObject*>>, 0x42D4F0);
     RH_ScopedInstall(SlowCarDownForPedsSectorList<CPtrListDoubleLink<CPed*>>, 0x425440);
@@ -7255,6 +7256,34 @@ void CCarCtrl::WeaveForObject(CEntity* entity, CVehicle* vehicle, float* arg3, f
     }
 }
 
+// Ancho del modelo del vehiculo: caja de colision de su informacion de modelo (+0x14), maxima x (+0xC)
+static float __cdecl WeaveVehicleMaxX(const void* vehicle) {
+    return CModelInfo::GetModelInfo(static_cast<int16>(static_cast<const CVehicle*>(vehicle)->m_nModelIndex))->GetColModel()->GetBoundingBox().m_vecMax.x;
+}
+
+// 0x426970: el peaton se evita con el mismo recorte de arcos que WeaveForObject, pero con la distancia al peaton (sin margen de objeto). Primero las dos salidas por mision
+// (mision 3 y el peaton es el jugador; mision 0x37 y el peaton es el vehiculo objetivo), luego las diferencias de posicion como float y 0x53CC70; el resto (distancia, margen y
+// recorte de los dos limites) esta en X87Math.cpp (WeaveForPedArcCpp: los valores que el EXE deja en la x87 sin guardar son double).
+void CCarCtrl::WeaveForPed(CEntity* entity, CVehicle* vehicle, float* arg3, float* arg4) {
+    const int8 mission = static_cast<int8>(vehicle->m_autoPilot.m_nCarMission); // +0x3BA
+    if (mission == 3) {
+        if (entity == FindPlayerPed(-1)) { // 0x56E210
+            return;
+        }
+    }
+    if (mission == 0x37) {
+        if (entity == vehicle->m_autoPilot.m_TargetEntity) { // +0x41C
+            return;
+        }
+    }
+    const CVector& pedPosition = entity->GetPosition();
+    const CVector& vehiclePosition = vehicle->GetPosition();
+    const float deltaX = pedPosition.x - vehiclePosition.x;
+    const float deltaY = pedPosition.y - vehiclePosition.y;
+    const float angle = CGeneral::GetATanOfXY(deltaX, deltaY); // 0x53CC70
+    WeaveForPedArcCpp(deltaX, deltaY, angle, &WeaveVehicleMaxX, vehicle, arg3, arg4);
+}
+
 // 0x426350
 void CCarCtrl::WeaveForOtherCar(CEntity* entity, CVehicle* vehicle, float* arg3, float* arg4) {
     // Como el original: aritmetica de float (x87 a 24 bits); los campos de "entity" se leen por desplazamiento como si fuera un vehiculo, salvo donde el EXE
@@ -7427,7 +7456,7 @@ void CCarCtrl::WeaveThroughObjectsSectorList(PtrListType& ptrList, CVehicle* veh
 // 0x42D7E0
 template<typename PtrListType>
 void CCarCtrl::WeaveThroughPedsSectorList(PtrListType& ptrList, CVehicle* vehicle, CPhysical* physical, float arg4, float arg5, float arg6, float arg7, float* arg8, float* arg9) {
-    // Como el original: se usa la posicion del peaton (no su centro) y 0x426970 (WeaveForPed, sin catalogar) se llama por su direccion
+    // Como el original: se usa la posicion del peaton (no su centro) y 0x426970 es WeaveForPed
     for (auto* node = ptrList.GetNode(); node;) {
         CEntity* const entity = static_cast<CEntity*>(node->Item);
         node = node->Next;
@@ -7447,7 +7476,7 @@ void CCarCtrl::WeaveThroughPedsSectorList(PtrListType& ptrList, CVehicle* vehicl
         if (WvRaw<CEntity*>(entity, 0x584) == vehicle || WvRaw<CEntity*>(entity, 0xFC) == vehicle) {
             continue;
         }
-        plugin::Call<0x426970, CEntity*, CVehicle*, float*, float*>(entity, vehicle, arg8, arg9);
+        WeaveForPed(entity, vehicle, arg8, arg9); // 0x426970
     }
 }
 

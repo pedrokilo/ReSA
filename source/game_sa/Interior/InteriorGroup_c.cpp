@@ -141,7 +141,7 @@ void InteriorGroup_c::SetupHousePeds() {
         m_peds[slot]=ped;
         if(ped){
             ++m_numPeds;
-            plugin::CallMethod<0x46CED0, CScriptsForBrains*, const char*, CEntity*, int8>(&CTheScripts::ScriptsForBrains,"house",ped,3);
+            CTheScripts::ScriptsForBrains.StartOrRequestNewStreamedScriptBrainWithThisName("house",ped,3); // 0x46CED0
             ped->SetCharCreatedBy(ePedCreatedBy(2));
             ped->GetIntelligence()->SetPedDecisionMakerType(7);
             auto* memory=CTask::operator new(sizeof(CTaskInteriorBeInHouse));

@@ -12,24 +12,24 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (ver artifacts/build-manifest.json). La funcion de la DLL es una TRANSCRIPCION MECANICA del desensamblado del EXE (reversing/Car84L/tools/lift.py: registros enteros como variables, marco de pila F, pila x87 como variables double con los ayudantes Veh83D*, saltos como goto), no una reconstruccion legible; no hay oraculo independiente: su unica comprobacion es la igualdad exacta con el EXE. La DLL llama a los colaboradores por su direccion del EXE. Colaboradores sustituidos por falsos identicos en los dos lados (con su hook RH apagado; no se valida su cuerpo; 40 falsos, ver LiveComparison.hpp): jugador (FindPlayerCentreOfWorld, FindPlayerCoors, FindPlayerWanted, FindPlayerVehicle, FindPlayerPed, GetWantedLevel), eleccion de modelos (ChooseModel, ChoosePoliceCarModel, PickLeastUsedModel, RequestModel), GenerateCarCreationCoors2, FindObjectsKindaColliding, ProcessVerticalLine, GetWaterLevel, GetZoneInfo, GetNewVehicleDependingOnCarModel, CWorld::Add, PickNextNodeRandomly, CreatePoliceChase, CreateConvoy, SetUpDriverAndPassengersForVehicle y el resto (ver el README del banco) y las dos entradas virtuales del vehiculo (destructor y GetHeightAboveRoad). Corren de verdad, con el hook apagado (bytes del EXE en los dos lados): srand/rand/_ftol2, GetRandomNumberInRange (int y float), aritmetica de vectores, posicion de nodos y tramos, 0x43C710, 0x43C900 y 0x44DB00; ThePaths (tres areas con ocho tramos, ocho nodos y cuarenta enlaces de nodo y de navegacion) y la tabla de modelos son los del banco. El banco compara los eventos de los falsos EN ORDEN con sus argumentos y la huella del vehiculo en cada llamada, las escrituras en las arenas del vehiculo, la matriz, el conductor y las informaciones de modelo, y las globales; cobertura por sitio de llamada del EXE (63 sitios; tres de ellos con minimos menores por depender de sorteos encadenados, ver coverage.json). Prueba negativa: cinco mutaciones del codigo de produccion hacen fallar 14288 de 18432 pares. Fuera de los fixtures: nodos con cuenta de enlaces 0 (el EXE divide por cero), nodos cuyos enlaces son todos iguales (bucle sin fin del EXE), areas o tramos sin cargar, modelos fuera de los 28 del banco, vehiculo sin matriz, NaN con cargas distintas (las fixtures usan un unico patron), lecturas de pila sin inicializar, y bytes altos de los booleanos de los colaboradores. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Car84L-20261104-154858-182144",
-  "summary_sha256": "102aa728e46a52d632a9d37ada687a908da431ce1bd855c14a3e1772f51b22d1",
-  "result_txt_sha256": "62e33b9c246e12bfaf0a1f206cad18e5be1107eb3f0c57930c2aacc01d6d9824",
-  "log_sha256": "10fef3c3a9a0e1aeee6caedf2caa7ee99fb11241687ec406dc57afef23befaed",
+  "run": "reversing/CppTwelveLevel6Final/runs/Car84L-20261105-021536-131314",
+  "summary_sha256": "968a77e62df14c197c2d28aa9d29e65cc019a0694f75a7b30b2ea2dfa256183c",
+  "result_txt_sha256": "4e5e2687fb2e61e0af358a992ef786e2b407518875b17e30958fb397f5f4cfb7",
+  "log_sha256": "21216d9dc53ea40de3bbcf8edfd39ab3ee565629021a5c56a671f8e33d33d52d",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "21b37013afd22b21ce923e3266cd3f7f79850e3f125ab6ab235b2233028de31b",
+  "executed_probe_sha256": "e7563eaff679a0f0b4b251a6b4d2e7f4ebe37551679dd7e1cf81dd3e525bc85c",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
       "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
-      "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
-      "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
-      "source/game_sa/CarCtrl.cpp": "ec2c1cf15e186857631525cb5c99298f121c32276074fd1ffd0f1145284c3060",
-      "source/game_sa/CarCtrl.h": "f4e9754e1f59100d896339f59472f4d714fbee24613da804ef99eb08718e41de",
+      "source/game_sa/X87Math.cpp": "9bc388015fff074e1f2b15d065415d26acbe54d29127cb1d28134f747c471fcf",
+      "source/game_sa/X87Math.h": "6e842a1d07f38fd525e638e9e15a8bfe61c2991d09b1dd6662376e02d3d7a83e",
+      "source/game_sa/CarCtrl.cpp": "79a42ac7d20761586a4bc9ba7166bc5f9eeed15589e29382f8d7292e7c05fa01",
+      "source/game_sa/CarCtrl.h": "c551460ac16e87f07dfb0b044b8af5535794ee3c1c6a14f4b7ed8057b07a3f29",
       "source/game_sa/CarCtrlGenerateOneRandomCar.inl": "c598caed7c24b87d58bd61e0b2a84e1354abf8b8d421f59b5c570e06dec84b89",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
       "reversing/Car84L/LiveComparison.hpp": "28877426146357f7e4f11755075e62044af4faa7c0d99e7ec492faa69dbaae7e",
@@ -40,10 +40,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Car84L-20261104-154858-182144/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Car84L-20261105-021536-131314/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "6079207e0885d920ad03c4d642fe9f0c7c21fc1f9cea525a01338bfabd753eb4",
-    "uncompressed_sha256": "10fef3c3a9a0e1aeee6caedf2caa7ee99fb11241687ec406dc57afef23befaed"
+    "compressed_sha256": "d21f6b90844ea883804af51f5458ffa84883316a2638ccd3436d32cbb09c6274",
+    "uncompressed_sha256": "21216d9dc53ea40de3bbcf8edfd39ab3ee565629021a5c56a671f8e33d33d52d"
   }
 }

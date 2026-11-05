@@ -323,6 +323,8 @@ public:
     void ChooseVehicleColour(uint8& prim, uint8& sec, uint8& tert, uint8& quat, int32 variationShift);
     // get num remaps in this model
     int32 GetNumRemaps();
+    // 0x421120: como el original, el contador de usos (+0x50) se lee con signo, suma 1 y se limita a 0x78 (120)
+    void IncrementTimesUsed();
     // add remap to model. Txd is id of tex dictionary.
     void AddRemap(int32 txd);
     // setups rendering pipelines for atomics in model (CCustomCarEnvMapPipeline::CustomPipeAtomicSetup)

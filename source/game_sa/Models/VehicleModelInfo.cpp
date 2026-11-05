@@ -80,6 +80,7 @@ void CVehicleModelInfo::InjectHooks()
     RH_ScopedInstall(SetVehicleColour, 0x4C84B0);
     RH_ScopedInstall(ChooseVehicleColour, 0x4C8500);
     RH_ScopedInstall(GetNumRemaps, 0x4C86B0);
+    RH_ScopedInstall(IncrementTimesUsed, 0x421120);
     RH_ScopedInstall(AddRemap, 0x4C86D0);
     RH_ScopedInstall(SetRenderPipelines, 0x4C8900);
     RH_ScopedInstall(GetCustomCarPlateText, 0x4C8970);
@@ -498,6 +499,17 @@ void CVehicleModelInfo::ChooseVehicleColour(uint8& prim, uint8& sec, uint8& tert
         tert = m_anTertiaryColors.data()[m_nLastColorVariation];
         quat = m_anQuaternaryColors.data()[m_nLastColorVariation];
     }
+}
+
+// 0x421120
+void CVehicleModelInfo::IncrementTimesUsed()
+{
+    // Como el original (movsx eax, byte [ecx+50h]; inc; cmp 78h; jl): el byte se interpreta con signo, asi que 0x80..0xFF pasan por debajo del tope
+    int32 used = static_cast<int8>(m_nTimesUsed) + 1;
+    if (used >= 0x78) {
+        used = 0x78;
+    }
+    m_nTimesUsed = static_cast<uint8>(used);
 }
 
 // 0x4C86B0

@@ -8,6 +8,9 @@
 
 class CVehicle;
 
+// 0x420800 (plantilla Max<float> del EXE): a si a > b (comparacion ordenada), si no b (con NaN devuelve b). El resultado sale en ST0.
+float FloatMax(float a, float b);
+
 class CCarAI {
 public:
     static void InjectHooks();

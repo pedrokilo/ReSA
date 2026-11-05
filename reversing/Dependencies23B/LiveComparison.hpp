@@ -168,6 +168,12 @@ inline void Update(){
     const uintptr_t asi=ModuleOf(uintptr_t(&ModuleMarker)),gameExe=uintptr_t(GetModuleHandleA(nullptr));
     constexpr uintptr_t kEntry=0x6D85F0;
     OriginalDependencies499::HookRoute route("CVehicle","FlyingControl",kEntry,&CVehicle::FlyingControl);
+    // Lote 98A: el maximo 0x420800 (FloatMax) tiene hook RH en C++ (SSE: sus comparaciones levantan banderas de MXCSR); el lado original debe ejecutar los bytes del EXE.
+    OriginalDependencies499::HookRoute maxRoute("CCarAI","FloatMax",0x420800,OriginalDependencies499::HookRoute::RegisteredTarget{});
+    OriginalDependencies499::HookRoute fwdRoute("CPlaceable","GetForwardVector",0x41CCB0,OriginalDependencies499::HookRoute::RegisteredTarget{});   // idem para 0x41CCB0 (lote 98A)
+    // CVector::Normalise (0x59C910) y NormaliseAndMag (0x59C970) tienen hook RH en C++ desde el lote 96A: el lado original ejecuta los bytes del EXE (valores muertos de la x87).
+    OriginalDependencies499::HookRoute normRoute("CVector","Normalise",0x59C910,OriginalDependencies499::HookRoute::RegisteredTarget{});
+    OriginalDependencies499::HookRoute normMagRoute("CVector","NormaliseAndMag",0x59C970,OriginalDependencies499::HookRoute::RegisteredTarget{});
     bool ready=route.Registered()&&ModuleOf(route.Body())==asi;
     // Cuerpos de los colaboradores de la DLL: se calculan ANTES de crear los parches de entrada
     struct Col {uintptr_t exe,dll;void* fake;};
@@ -243,7 +249,7 @@ inline void Update(){
     }
     // Las entradas se vigilan ANTES de Restore(); despues se restauran el hook y los globales
     const bool entriesIntactBefore=watchesIntact();const json brokenBefore=brokenWatches();
-    bool stateRestored=entriesIntactBefore;RestoreAll();stateRestored&=GlobalsIntact();stateRestored&=route.Restore();
+    bool stateRestored=entriesIntactBefore;RestoreAll();stateRestored&=GlobalsIntact();stateRestored&=route.Restore();stateRestored&=maxRoute.Restore();stateRestored&=fwdRoute.Restore();stateRestored&=normRoute.Restore();stateRestored&=normMagRoute.Restore();
     RestoreFloatingState();stateRestored&=FloatingStateRestored();
     Write({{"event","global_state_final"},{"state_restored",stateRestored},{"watched_intact",entriesIntactBefore},{"broken_watches_before_restore",brokenBefore}});
     Write({{"event",passed&&stateRestored?"complete":"error"},{"pairs",pairs},{"state_restored",stateRestored},{"floating_state_restored",FloatingStateRestored()},{"entries_intact",entriesIntactBefore}});

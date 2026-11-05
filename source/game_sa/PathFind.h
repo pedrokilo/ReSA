@@ -119,6 +119,9 @@ public:
     CVector2D GetNodeCoors() const {
         return m_posn;
     }
+
+    /// 0x420A60: como el original escribe (x / 8, y / 8, 0) en el destino (tres floats) y lo devuelve (EAX)
+    CVector* GetNodeCoors(CVector* out) const;
 };
 VALIDATE_SIZE(CCarPathLink, 0xE);
 

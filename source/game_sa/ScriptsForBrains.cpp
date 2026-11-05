@@ -35,7 +35,7 @@ void CScriptsForBrains::InjectHooks() {
     RH_ScopedInstall(StartNewStreamedScriptBrain, 0x46B270);
     RH_ScopedInstall(StartAttractorScriptBrainWithThisName, 0x46B390);
     RH_ScopedInstall(StartOrRequestNewStreamedScriptBrain, 0x46CD80);
-    //RH_ScopedInstall(StartOrRequestNewStreamedScriptBrainWithThisName, 0x46CED0, {.reversed = false});
+    RH_ScopedInstall(StartOrRequestNewStreamedScriptBrainWithThisName, 0x46CED0);
     RH_ScopedInstall(IsObjectWithinBrainActivationRange, 0x46B3D0);
     RH_ScopedInstall(RequestAttractorScriptBrainWithThisName, 0x46AA80);
 }
@@ -202,6 +202,15 @@ void CScriptsForBrains::StartOrRequestNewStreamedScriptBrain(uint8 index, CEntit
             ped->m_StreamedScriptBrainToLoad = (int16)(uint16)index;
             CTheScripts::AddToWaitingForScriptBrainArray(ped, (int16)(uint16)index);
         }
+    }
+}
+
+// 0x46CED0: thiscall (nombre, entidad, tipo), `ret 0Ch`. Busca el indice por nombre y tipo (0x46AA30, int16 con signo) y, si existe (>= 0), llama a 0x46CD80 con (indice, entidad, tipo, true).
+// El EXE pasa el tipo tal como lo recibio (dword) y el indice en EAX completo; aqui se pasan int8 y uint8 (el EXE solo lee su byte bajo).
+void CScriptsForBrains::StartOrRequestNewStreamedScriptBrainWithThisName(const char* name, CEntity* entity, int8 attachType) {
+    const int16 index = GetIndexOfScriptBrainWithThisName(name, attachType);
+    if (index >= 0) {
+        StartOrRequestNewStreamedScriptBrain(static_cast<uint8>(index), entity, attachType, true);
     }
 }
 

@@ -58,6 +58,7 @@ inline void Update() {
     uintptr_t body=0;
     if(hook&&!strcmp(hook->Symbol(),"V"))body=uintptr_t(static_cast<ReversibleHooks::ReversibleHook::Virtual*>(hook)->GetHookOurAddress());
     env.route.reset(new HookRoute("CTaskComplexPartner","CreateNextSubTask",0x683AD0,body));
+    env.fwdRoute.reset(new HookRoute("CPlaceable","GetForwardVector",0x41CCB0,HookRoute::RegisteredTarget{}));
     registered["CTaskComplexPartner::CreateNextSubTask"]=env.route->Registered();bodies["CTaskComplexPartner::CreateNextSubTask"]=env.route->Body();
     ready&=env.route->Registered()&&env.route->Body()&&ModuleOf(env.route->Body())==env.asi;
     // Cuerpos de la DLL de los colaboradores sustituidos: se resuelven ANTES de escribir ningun parche (con su hook encendido, la entrada del EXE salta a la DLL; Body() sigue el salto).

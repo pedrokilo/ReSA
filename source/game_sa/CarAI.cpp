@@ -46,6 +46,8 @@ void CCarAI::InjectHooks() {
     RH_ScopedClass(CCarAI);
     RH_ScopedCategory("AI");
 
+    RH_ScopedGlobalInstall(FloatMax, 0x420800);
+
     RH_ScopedInstall(AddAmbulanceOccupants, 0x41C4A0);
     RH_ScopedInstall(AddFiretruckOccupants, 0x41C600);
     RH_ScopedInstall(AddPoliceCarOccupants, 0x41C070);
@@ -71,6 +73,11 @@ void CCarAI::InjectHooks() {
     RH_ScopedInstall(TellCarToRamOtherCar, 0x41C8A0);
     RH_ScopedInstall(TellOccupantsToLeaveCar, 0x41C760);
     RH_ScopedInstall(UpdateCarAI, 0x41DA30);
+}
+
+// 0x420800: fld a; fcomp b; fnstsw ax; test ah, 41h; jne -> b; si no a. Con NaN (o a <= b) devuelve b.
+float FloatMax(float a, float b) {
+    return a > b ? a : b;
 }
 
 namespace {

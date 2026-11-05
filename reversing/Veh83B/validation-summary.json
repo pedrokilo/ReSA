@@ -12,22 +12,22 @@
   },
   "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el arbol principal (HEAD 5bf419e97 + cambios del lote 83B; ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CVehicle::CanVehicleBeDamaged 0x6D1280, CStats::GetPercentageProgress 0x5591E0, FindPlayerPed 0x56E210, FindPlayerVehicle 0x56E0D0, CStats::IncrementStat 0x55C180, CPed::IsPlayer 0x5DF8F0, CVehicle::GetVehicleAppearance 0x6D1080, CVehicle::FindTyreNearestPoint 0x6D7BC0 (el falso devuelve ECX intacto como la funcion real), CEntity::RegisterReference 0x571B70, CEntity::CleanUpOldReference 0x571A00, CEventGroup::Add 0x4AB420, CCrime::ReportCrime 0x532010, CDamageManager::SetEngineStatus 0x6C22A0 y CPlayerPed::SetWantedLevelNoDrop 0x609F30; los virtuales BlowUpCar (+0xA4) y BurstTyre (+0xB0) los atiende una vtabla falsa. Corren de verdad rand() del CRT del EXE (0x821B1E, semilla fijada por lado), CEventVehicleDamageWeapon (constructor y destructor), CVector::Magnitude, la multiplicacion matriz*punto (0x59C890), CVector != (0x509760) y min (0x404330). El banco compara el orden y todos los argumentos de los falsos, los campos escritos del vehiculo, CWorld::Players del jugador en foco y la semilla de rand(); cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: m_nMaxPassengers > 8 (el EXE lee mas alla de m_apPassengers), atacantes con tipo de entidad invalido, indices de modelo fuera de los 8 del banco, NaN con cargas distintas (las fixtures usan un unico patron) y bool con bytes distintos de 0/1 solo en la salida de CanVehicleBeDamaged. Revalidado el 2026-10-26 tras reconstruir colaboradores (lote 67 y anteriores); el banco se adapto a ellos (ver su README.md).",
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/Veh83B-20261104-222812-903679",
-  "summary_sha256": "780d56a462edfc803394244a2c1f1234a72e165db1509c145e3bc872320cf469",
-  "result_txt_sha256": "06439cd917e96fd47c6071c596bd2422fba7f6e5f7a0fab6e1b85cd021ab0e01",
-  "log_sha256": "f87b45c255311f3aab41c50aa5bc9a2e485b3561548e83c7730429d2290e5eda",
+  "run": "reversing/CppTwelveLevel6Final/runs/Veh83B-20261105-024508-161839",
+  "summary_sha256": "9cf35152685929bb4fc65b5a5c0e51deef81dae0ddb3127610bc4862e0f22319",
+  "result_txt_sha256": "9dfe5e1ce9456a666a57188144cc2f12c953650058bc07d503318427b41bee4d",
+  "log_sha256": "efeb61eb040daff9da1e0b41ec58d3e028e532b882407b5ef75e324f90774e7d",
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
-  "executed_probe_sha256": "7a4d3eba0180aa263a8e9abcebdfd74c0402a9388eec13513ee83272d81bae99",
+  "executed_probe_sha256": "3bd18828c6fe2ef011bcdb8469c03384debd8a3e106771bf9ee2d047547e20e8",
   "manifest": {
     "tested_sources": {
       "source/CMakeLists.txt": "1ddd9ab5357eaeb577b3d78a745b693ca2ec2f2f449121f3320b95192b08cd2e",
       "source/InjectHooksMain.cpp": "ee1d4c76bd1e43e9b2e30dc73d0e99d99f7083c88fdb4fab168ce2e35bdce9e1",
-      "source/game_sa/X87Math.cpp": "2ecec88784f23aae33282348d32870f212f5c70a963611b7fd88a864b3e2b535",
-      "source/game_sa/X87Math.h": "2887662897fb93ce54f75fdf43dadc622ebdf7cae9889539f6b5b593a5ad2f38",
+      "source/game_sa/X87Math.cpp": "9bc388015fff074e1f2b15d065415d26acbe54d29127cb1d28134f747c471fcf",
+      "source/game_sa/X87Math.h": "6e842a1d07f38fd525e638e9e15a8bfe61c2991d09b1dd6662376e02d3d7a83e",
       "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
       "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a",
       "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
@@ -39,10 +39,10 @@
     }
   },
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Veh83B-20261104-222812-903679/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/Veh83B-20261105-024508-161839/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "ccf542c551526598a57e723a6ebf164e36e42af26c27dd0c663e6dcce796c7c8",
-    "uncompressed_sha256": "f87b45c255311f3aab41c50aa5bc9a2e485b3561548e83c7730429d2290e5eda"
+    "compressed_sha256": "3449c010ead258d2728a4fefb7a08ee0a9b3ed7e6ac2a4571f781a22484d7bb2",
+    "uncompressed_sha256": "efeb61eb040daff9da1e0b41ec58d3e028e532b882407b5ef75e324f90774e7d"
   }
 }

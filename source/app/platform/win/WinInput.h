@@ -7,6 +7,7 @@ namespace WinInput {
 
 void diMouseInit(bool exclusive);
 void diPadInit();
+int32 diPadEnumerate();
 
 BOOL CALLBACK EnumDevicesCallback(LPCDIDEVICEINSTANCEA pInst, LPVOID);
 CMouseControllerState GetMouseSetUp();

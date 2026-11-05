@@ -138,11 +138,31 @@ void diMouseInit(bool exclusive) {
     WIN_FCHECK(PSGLOBAL(diMouse)->Acquire());
 }
 
+// 0x7477C0: enumera los mandos conectados (clase DI8DEVCLASS_GAMECTRL = 4, DIEDFL_ATTACHEDONLY = 1) con la funcion de retorno del EXE (0x747020, sin dato de usuario). Si EnumDevices
+// devuelve algo distinto de 0 lo devuelve tal cual. Si no: sin primer mando (+0x20 de psGlobal) devuelve 1 (sin tocar el segundo); con primer mando fija sus rangos con 0x746D80
+// (mando, 0) y, si hay segundo mando (+0x24), (mando, 1); devuelve 0. psGlobal se vuelve a leer en cada uso, como el EXE.
+// Como el EXE, la funcion de retorno y los rangos se llaman por su direccion: con NOTSA_USE_SDL3 (la configuracion de las pruebas) EnumDevicesCallback y diPadSetRanges no se enganchan,
+// asi que 0x747020 y 0x746D80 son codigo del EXE; sin SDL3 los hooks de InjectHooks las redirigen a la DLL.
+int32 diPadEnumerate() {
+    const HRESULT result = RsGlobal.ps->diInterface->EnumDevices(DI8DEVCLASS_GAMECTRL, reinterpret_cast<LPDIENUMDEVICESCALLBACKA>(0x747020), nullptr, DIEDFL_ATTACHEDONLY);
+    if (result != 0) {
+        return result;
+    }
+    if (!RsGlobal.ps->diDevice1) {
+        return 1;
+    }
+    plugin::Call<0x746D80, LPDIRECTINPUTDEVICE8, DWORD>(RsGlobal.ps->diDevice1, 0);
+    if (RsGlobal.ps->diDevice2) {
+        plugin::Call<0x746D80, LPDIRECTINPUTDEVICE8, DWORD>(RsGlobal.ps->diDevice2, 1);
+    }
+    return 0;
+}
+
 // 0x7485C0 - _InputInitialiseJoys: borra los dos registros de pad, enumera con 0x7477C0 y, para cada pad presente, lee VID/PID.
 //
 // Reconstruccion exacta del EXE (sin ensamblador). Detalles que el EXE tiene y que se conservan:
 //  - Solo se borran wDeviceID y los tres indicadores de cada pad: wVendorID/wProductID (y el relleno del byte +7) NO se tocan.
-//  - La enumeracion es el 0x7477C0 del EXE (EnumDevices con 0x747020 y diPadSetRanges 0x746D80); su resultado se ignora.
+//  - La enumeracion es diPadEnumerate (0x7477C0: EnumDevices con EnumDevicesCallback 0x747020 y diPadSetRanges 0x746D80); su resultado se ignora.
 //  - GetCapabilities se llama con dwSize = 0x2C y su resultado se ignora; ControlsManager.InitDefaultControlConfigJoyPad recibe
 //    la constante 0x20, no dwButtons.
 //  - HRESULT de GetProperty ignorado: si falla (o no escribe dwData) el EXE guarda los restos de pila que habia en el DIPROPDWORD,
@@ -159,7 +179,7 @@ __declspec(noinline) static void diPadInitBody() {
     AllValidWinJoys.ClearJoyInfo(0);
     AllValidWinJoys.ClearJoyInfo(1);
 
-    plugin::Call<0x7477C0>();
+    diPadEnumerate(); // 0x7477C0
 
     DIPROPDWORD prop;
     prop.diph.dwSize       = s_diPadEntryResidue[0];
@@ -305,6 +325,7 @@ void InjectPadHooks() {
     RH_ScopedNamespaceName("Input");
 
     RH_ScopedGlobalInstall(diPadInit, 0x7485C0);
+    RH_ScopedGlobalInstall(diPadEnumerate, 0x7477C0);
 }
 
 void InjectHooks() {

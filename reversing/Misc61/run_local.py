@@ -25,7 +25,7 @@ HOOKS = {oracle.NAME_HEAP: 0x72E8E0, oracle.NAME_SPOT: 0x493900, oracle.NAME_SLI
 # colaboradores sustituidos por funcion: (direccion del EXE, tiene hook en la DLL)
 STUBBED = {
     oracle.NAME_HEAP: [],
-    oracle.NAME_SPOT: [(0x4839A0, True), (0x493280, False)],
+    oracle.NAME_SPOT: [(0x4839A0, True), (0x493280, True)],
     oracle.NAME_SLIDE: [(0x61BF20, True), (0x62F370, True), (0x53CB50, True)],
     oracle.NAME_NODE: [(0x5674E0, True)],
 }

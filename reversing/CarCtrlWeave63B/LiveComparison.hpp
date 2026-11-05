@@ -72,7 +72,7 @@ inline void Update() {
     const StubSpec slowObj=mk({"CCarCtrl","SlowCarDownForObject",0x426220,reinterpret_cast<void*>(&FkSlowObj),0});
     const StubSpec weaveCar=mk({"CCarCtrl","WeaveForOtherCar",0x426350,reinterpret_cast<void*>(&FkWeaveCar),0});
     const StubSpec weaveObj=mk({"CCarCtrl","WeaveForObject",0x426BC0,reinterpret_cast<void*>(&FkWeaveObj),0});
-    const StubSpec weavePed=mk({nullptr,nullptr,0x426970,reinterpret_cast<void*>(&FkWeavePed),0});
+    const StubSpec weavePed=mk({"CCarCtrl","WeaveForPed",0x426970,reinterpret_cast<void*>(&FkWeavePed),0});   // con hook RH desde el lote 98A (la DLL lo llama directamente): el mismo falso en el EXE y en su cuerpo
     const StubSpec getmat=mk({"CPlaceable","GetMatrix",0x411990,reinterpret_cast<void*>(&FkGetMat),0});
     const StubSpec fpv=mk({"CWorld","FindPlayerVehicle",0x56E0D0,reinterpret_cast<void*>(&FkFpv),0});
     const StubSpec fpp=mk({"CWorld","FindPlayerPed",0x56E210,reinterpret_cast<void*>(&FkFpp),0});

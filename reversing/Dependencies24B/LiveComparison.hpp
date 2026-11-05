@@ -73,14 +73,18 @@ inline void Update(){
  const uintptr_t asi=ModuleOf(uintptr_t(&ModuleMarker)),gameExe=uintptr_t(GetModuleHandleA(nullptr));
  // Ruta RH: se construye antes que nada; el constructor deja el hook apagado.
  OriginalDependencies499::HookRoute route("Input","diPadInit",kEntry,&WinInput::diPadInit);
+ // Lote 98A: 0x7477C0 (diPadEnumerate) tiene hook RH y la DLL lo llama directamente: se apaga su hook (ruta propia, nunca encendida durante el banco) y el mismo falso va en la
+ // direccion del EXE y en el cuerpo de la DLL.
+ OriginalDependencies499::HookRoute enumRoute("Input","diPadEnumerate",kEnumExe,&WinInput::diPadEnumerate);
+ const uintptr_t enumDll=enumRoute.Body();
  // Entrada de la DLL del colaborador reconstruido (se resuelve saltando los E9 de enlace incremental) y direcciones del EXE.
  const uintptr_t initDll=Resolve(std::bit_cast<uintptr_t>(&CControllerConfigManager::InitDefaultControlConfigJoyPad));
  bool collaboratorsOK=ModuleOf(initDll)==asi;
- // 0x7477C0 debe ser, hoy, el codigo del EXE sin hook (la DLL lo llama por direccion).
- collaboratorsOK&=!ReversingProbe::JumpsToDll(kEnumExe)&&ModuleOf(Resolve(kEnumExe))==gameExe;
+ // 0x7477C0 (hook RH apagado por enumRoute) debe ser el codigo del EXE y su cuerpo de la DLL debe estar en el ASI.
+ collaboratorsOK&=enumRoute.Registered()&&ModuleOf(enumDll)==asi&&!ReversingProbe::JumpsToDll(kEnumExe)&&ModuleOf(Resolve(kEnumExe))==gameExe;
  const bool ready=route.Registered()&&collaboratorsOK&&ModuleOf(route.Body())==asi;
  std::vector<Watch> watches;
- for(uintptr_t at:{uintptr_t(kEntry),uintptr_t(kEnumExe),uintptr_t(kInitExe),initDll})watches.emplace_back(at,16);
+ for(uintptr_t at:{uintptr_t(kEntry),uintptr_t(kEnumExe),uintptr_t(kInitExe),initDll,enumDll})watches.emplace_back(at,16);
  auto watchesIntact=[&]{return std::ranges::all_of(watches,[](const auto& w){return w.Intact();});};
  InitVtable();
  const Saved saved=SaveGlobals();
@@ -88,7 +92,7 @@ inline void Update(){
  json watched=json::array();for(const auto& w:watches)watched.push_back({{"address",w.address},{"bytes",Hex(w.address,16)}});
  Write({{"event","begin"},{"registered_hook",ready},{"functions",1},{"pairs",kCases},{"cases",{{"diPadInit",kCases}}},
   {"compare_dead_x87_registers",kCompareDeadX87Registers},{"collaborators_stubbed",true},
-  {"collaborators",{{"exe",std::vector<uintptr_t>{kEnumExe,kInitExe}},{"dll",std::vector<uintptr_t>{initDll}}}},
+  {"collaborators",{{"exe",std::vector<uintptr_t>{kEnumExe,kInitExe}},{"dll",std::vector<uintptr_t>{initDll,enumDll}}}},
   {"watched_entries",watched},{"bodies",{{"diPadInit",route.Body()}}},{"asi_module",asi},{"original_module",gameExe},
   {"initial_fp",Hex(uintptr_t(savedFP.data()),108)},{"initial_mxcsr",savedMXCSR},{"initial_table",HexBytes(saved.table.data(),saved.table.size())},
   {"initial_dev1",saved.dev1},{"initial_dev2",saved.dev2},{"ps",*reinterpret_cast<uint32*>(kPsPtr)}});
@@ -101,7 +105,7 @@ inline void Update(){
    const bool candidate=side==1;prepare();Prepare(fx);
    runs[side]=Execute(route,candidate,kEntry,[&]{
     // Los tres parches (dos en el EXE, uno en la DLL) llevan el mismo falso y se retiran al salir.
-    ReversingProbe::EntryPatch enumExe(kEnumExe,&StubEnum),initExe(kInitExe,&StubInit),initDllPatch(initDll,&StubInit);
+    ReversingProbe::EntryPatch enumExe(kEnumExe,&StubEnum),enumDllPatch(enumDll,&StubEnum),initExe(kInitExe,&StubInit),initDllPatch(initDll,&StubInit);
     return GateCdecl0(kEntry,fx.eax,fx.ecx,fx.edx,fx.stack_seed);});
    const Observed obs=Observe();
    auto fp=runs[side].fp;memset(fp.data()+12,0,4);const auto logged=kCompareDeadX87Registers?fp:MaskDeadRegisters(fp);
@@ -125,6 +129,7 @@ inline void Update(){
  const bool entriesIntactBefore=watchesIntact();
  bool stateRestored=entriesIntactBefore&&GlobalsEqual(saved);stateRestored&=route.Restore();
  for(size_t i=1;i<watches.size();++i)stateRestored&=watches[i].Intact();
+ stateRestored&=enumRoute.Restore();
  RestoreFloatingState();stateRestored&=FloatingStateRestored();
  Write({{"event","global_state_final"},{"floating_state",Hex(uintptr_t(savedFP.data()),108)},{"mxcsr",ReadMXCSR()},{"state_restored",stateRestored},{"watched_intact",entriesIntactBefore},
   {"table",HexBytes(reinterpret_cast<void*>(kTable),kTableSize)},{"dev1",PsField(kPsDev1)},{"dev2",PsField(kPsDev2)}});

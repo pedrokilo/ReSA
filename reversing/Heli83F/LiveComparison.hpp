@@ -442,7 +442,7 @@ inline void Update() {
     env.dllOnly.push_back(S(Pair{0,Body(FnAddr(&AutoPreMultiply3x3Cpp)),false},Void(&FakeMul3x3Dll)));
     // Entradas del EXE que la DLL tiene enganchadas y que corren de verdad en el lado original: sus hooks se apagan (0x41BD90 llama al rand() del EXE; la DLL no la llama)
     json realEntries=json::array();
-    for(const uintptr_t a:{uintptr_t(0x41BD90)}) {
+    for(const uintptr_t a:{uintptr_t(0x41BD90),uintptr_t(0x41CCB0)}) {   // 0x41CCB0 (CPlaceable::GetForwardVector) tiene hook RH desde el lote 98A
         std::string cat,name;
         const bool hooked=FindHook(a,cat,name);
         if(hooked)env.collab.emplace_back(new HookRoute(cat.c_str(),name.c_str(),a,HookRoute::RegisteredTarget{}));

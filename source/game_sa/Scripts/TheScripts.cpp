@@ -60,6 +60,7 @@ void CTheScripts::InjectHooks() {
     RH_ScopedCategory("Scripts");
 
     RH_ScopedInstall(Init, 0x468D50);
+    RH_ScopedInstall(IsPointWithinSearchLight, 0x493280);
     RH_ScopedInstall(InitialiseAllConnectLodObjects, 0x470960);
     RH_ScopedInstall(InitialiseConnectLodObjects, 0x470940);
     RH_ScopedInstall(InitialiseSpecialAnimGroupsAttachedToCharModels, 0x474730);
@@ -2295,4 +2296,16 @@ void CTheScripts::ScriptConnectLodsFunction(int32 lodRef1, int32 lodRef2) {
     CWorld::Remove(obj2);
     obj2->SetupBigBuilding();
     CWorld::Add(obj2);
+}
+
+// 0x59C970 (CVector::NormaliseAndMag) como __fastcall: el retorno float de la llamada llega en ST0 y no se guarda ni se recarga (se comprueba en el objeto), asi la magnitud
+// del segundo eje llega sin redondear a SearchLightPointWithinCpp, como en el EXE.
+static float __fastcall SearchLightNormaliseAndMag(float* vector, void*) {
+    return reinterpret_cast<CVector*>(vector)->NormaliseAndMag();
+}
+
+// 0x493280: cdecl (posicion, indice), bool en AL. Registro de 0x7C bytes: punto de impacto (+0x58), primer eje (+0x64) y segundo eje (+0x70). Aritmetica x87 en X87Math.cpp (SearchLightPointWithinCpp).
+bool CTheScripts::IsPointWithinSearchLight(const CVector& pointPosn, int32 index) {
+    const tScriptSearchlight& light = ScriptSearchLightArray.data()[index];
+    return SearchLightPointWithinCpp(&pointPosn.x, &light.m_TargetSpot.x, &light.vf64.x, &light.vf70.x, &SearchLightNormaliseAndMag);
 }

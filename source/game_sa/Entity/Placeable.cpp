@@ -42,6 +42,7 @@ void CPlaceable::InjectHooks() {
     RH_ScopedInstall(SetHeading, 0x43E0C0);
     RH_ScopedInstall(GetHeading, 0x441DB0);
     RH_ScopedInstall(GetRoll, 0x420B30);
+    RH_ScopedInstall(GetForwardVector, 0x41CCB0);
     RH_ScopedOverloadedInstall(IsWithinArea, "xy", 0x54F200, bool(CPlaceable::*)(float, float, float, float) const);
     RH_ScopedOverloadedInstall(IsWithinArea, "xyz", 0x54F2B0, bool(CPlaceable::*)(float, float, float, float, float, float) const);
     RH_ScopedInstall(RemoveMatrix, 0x54F3B0);
@@ -85,10 +86,21 @@ CVector CPlaceable::GetRightVector() {
     return { std::cos(m_placement.m_fHeading), std::sin(m_placement.m_fHeading), 0.0f };
 }
 
+// 0x41CCB0: thiscall, destino oculto en la pila (`ret 4`), devuelve el destino. Con matriz copia en crudo los tres dwords de la fila adelante (+0x10 de la matriz, sin pasar por el x87);
+// sin ella (-sin h, cos h, 0) con fsin/fcos del x87 guardados en float (el EXE calcula el coseno primero).
 CVector CPlaceable::GetForwardVector() {
-    if (m_matrix)
-        return m_matrix->GetForward();
-    return { -std::sin(m_placement.m_fHeading), std::cos(m_placement.m_fHeading), 0.0f };
+    CVector out;
+    if (m_matrix) {
+        std::memcpy(&out, &m_matrix->GetForward(), sizeof(out));
+        return out;
+    }
+    const float heading = m_placement.m_fHeading;
+    const float cosine = TrigSimpleCosCpp(heading);
+    const float sine = TrigSimpleSinCpp(heading);
+    out.x = -sine;
+    out.y = cosine;
+    out.z = 0.0f;
+    return out;
 }
 
 CVector CPlaceable::GetUpVector() {

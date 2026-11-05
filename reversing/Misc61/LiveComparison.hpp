@@ -94,7 +94,7 @@ inline void Update() {
     // Colaboradores sustituidos: cuerpos de la DLL resueltos ANTES de escribir ningun parche (siguiendo los saltos solo dentro del ASI).
     using Pvl = bool(*)(const CVector&,float,CColPoint&,CEntity*&,bool,bool,bool,bool,bool,bool,CStoredCollPoly*);
     env.stubs[1]={{Pair{0x4839A0,DllBody(&CTheScripts::GetActualScriptThingIndex),true},reinterpret_cast<void*>(&FakeScriptIndex)},
-                  {Pair{0x493280,0,false},reinterpret_cast<void*>(&FakeSpotted)}};   // 0x493280 sin reconstruir: la DLL llama a la direccion del EXE
+                  {Pair{0x493280,DllBody(&CTheScripts::IsPointWithinSearchLight),true},reinterpret_cast<void*>(&FakeSpotted)}};   // 0x493280 con hook RH desde el lote 98A (la DLL lo llama directamente): el mismo falso en el EXE y en su cuerpo
     env.stubs[2]={{Pair{0x61BF20,VirtualBody("CTaskSimpleRunNamedAnim","ProcessPed"),true},reinterpret_cast<void*>(&FakeAnim)},
                   {Pair{0x62F370,VirtualBody("CTaskSimpleStandStill","ProcessPed"),true},reinterpret_cast<void*>(&FakeStand)},
                   {Pair{0x53CB50,DllBody(&CGeneral::LimitRadianAngle),true},reinterpret_cast<void*>(&FakeLimit)}};

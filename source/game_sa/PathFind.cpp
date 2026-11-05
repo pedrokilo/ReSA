@@ -270,6 +270,19 @@ void CCarPathLink::InjectHooks() {
     RH_ScopedClass(CCarPathLink);
     RH_ScopedCategoryGlobal();
     RH_ScopedInstall(OneWayLaneOffset, 0x44DB00);
+    RH_ScopedOverloadedInstall(GetNodeCoors, "vector", 0x420A60, CVector*(CCarPathLink::*)(CVector*) const);
+}
+
+// 0x420A60: thiscall, destino en la pila (`ret 4`). Lee los dos enteros de 16 bits (+0 y +2) antes de escribir, pone z = 0 primero y devuelve el destino.
+// x e y son exactos (entero de 16 bits por 0.125).
+CVector* CCarPathLink::GetNodeCoors(CVector* out) const {
+    const int16* const raw = reinterpret_cast<const int16*>(this);
+    const int32 x = raw[0];
+    const int32 y = raw[1];
+    out->z = 0.0f;
+    out->x = static_cast<float>(x) * 0.125f; // 0x858C48
+    out->y = static_cast<float>(y) * 0.125f;
+    return out;
 }
 
 // 0x44D080

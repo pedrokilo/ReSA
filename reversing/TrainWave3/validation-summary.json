@@ -13,22 +13,22 @@
     "CTrain::ProcessControl": "Corpus 1024; source corrected (EXE addresses): (1) 0x6F88D0/0x6F8910/0x6F8940 or/and [eax+5B8h] stopped-at-station and passengers flags written on each carriage, not on this; (2) 0x6F8DF0 bNotOnARailRoad on each carriage; (3) 0x6F8991 fmul 0.02f stop speed; (4) 0x6F8BF2, 0x6F8E49, 0x6F9D1B EXE pow 0x822130 with double base and no float rounding; (5) 0x6F8D93 node dot product in z,x,y order; (6) 0x6F9626 fpatan minus old heading with the EXE pi constants (0x858CB8/BC/C0); (7) 0x6F9910 m_fMovingSpeed = sqrt((dz^2+dy^2)+dx^2); (8) 0x6F9CA6..0x6F9DA2 buoyancy with the force returned by ProcessBuoyancy; (9) 0x6F8EAD and 0x6F8F13 FindPlayerPed(-1) only in passenger states 0 and 2; (10) node distance uint16*0.33333334f (0x859040) inlined in the EXE and also fixed in CTrainNode::GetDistanceFromStart (TrainNode.cpp, 0x6F54B0)."
   },
   "dependency_review": null,
-  "run": "reversing/CppTwelveLevel6Final/runs/TrainWave3-20261104-222728-430223",
-  "summary_sha256": "ecaa990795752cfbfd2ede304e7ab0574685e48a3eb30cebadca2139572f2436",
-  "result_txt_sha256": "f1564f97336b14d8140e9044a38bb632ed8f42887004f88a76ea6798331dd3dc",
-  "log_sha256": "16b994f72d2e2f7f2effeddcfb13c6f6796f5540d1b7a7120a80206e3216b620",
+  "run": "reversing/CppTwelveLevel6Final/runs/TrainWave3-20261105-023457-102865",
+  "summary_sha256": "fdcad5d7186b9d22ee48a9a036ce76a3f3819ed0f0be693de5f175743b78fa11",
+  "result_txt_sha256": "d89ff1e631efad4289835e65a85a84ff4b31fa9508b2d8f0c03655213b0c151d",
+  "log_sha256": "dc3f7acca0bd47c8adbd4951de6e362905e741ec50ebc4f5c0e364ab126dcf55",
   "comparison_storage": {
-    "compressed_path": "reversing/CppTwelveLevel6Final/runs/TrainWave3-20261104-222728-430223/comparisons.jsonl.gz",
+    "compressed_path": "reversing/CppTwelveLevel6Final/runs/TrainWave3-20261105-023457-102865/comparisons.jsonl.gz",
     "compression": "gzip",
     "gzip_mtime": 0,
-    "compressed_sha256": "c122fe2689d9d236b4f5e65e4ad7b133675a2c1234376208f506de873ee912b8",
-    "uncompressed_sha256": "16b994f72d2e2f7f2effeddcfb13c6f6796f5540d1b7a7120a80206e3216b620"
+    "compressed_sha256": "a416ba1a4bcde4d44b97f24d41ac214a9e4a6ca204eecb3a9dc515947ad13fe4",
+    "uncompressed_sha256": "dc3f7acca0bd47c8adbd4951de6e362905e741ec50ebc4f5c0e364ab126dcf55"
   },
   "all_equal": true,
   "state_restored": true,
   "saves_unchanged": true,
   "configs_restored": true,
-  "executed_probe_sha256": "c76ea643947e51eac05e60d9ad5282d21fa7586bd863b569bd29e219176d019d",
+  "executed_probe_sha256": "63283f9cef66bce2be7f6bb8e163cb2b0ad7557b9e8235eb4aeb596b28eee7ca",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "manifest": {
     "tested_sources": {

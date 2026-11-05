@@ -2230,3 +2230,11 @@ float __cdecl Wl91SubFloat(float cam, float v);                      // idem con
 double __cdecl Wl91Fade(float dx, float dy, int detail);             // atenuacion: 0.0 si d > 1, (1 - d) * 4 si d > 0.75, 1.0 si no; d = sqrt(dy*dy + dx*dx) / detail
 void __cdecl Wl91Amps(double f, double big, float smallV, float* bigAmp, float* smallAmp);   // f * big y smallV * f guardados como float
 int __cdecl Wl91ColorByte(int byteValue, float mult);                // _ftol2(fild * mult): el EXE usa el byte bajo
+
+// CTheScripts::IsPointWithinSearchLight (0x493280): `normalise` es CVector::NormaliseAndMag (0x59C970) como funcion __fastcall (ECX = vector, el resultado queda en ST0)
+typedef float (__fastcall *SearchLightNormaliseFn)(float* vector, void* unused);
+bool __cdecl SearchLightPointWithinCpp(const float* pos, const float* origin, const float* axisA, const float* axisB, SearchLightNormaliseFn normalise);
+
+// CCarCtrl::WeaveForPed (0x426970): lee el ancho del modelo del vehiculo (maxima x de su caja) solo si la distancia es de al menos 1.0
+typedef float (__cdecl *WeaveMaxXFn)(const void* vehicle);
+void __cdecl WeaveForPedArcCpp(float dx, float dy, float angle, WeaveMaxXFn getMaxX, const void* vehicle, float* a, float* b);

@@ -29,7 +29,7 @@ STUB_ADDRS = (0x6B1880, 0x4AA3F0, 0x53FF30, 0x72DDC0, 0x72DD50, 0x56E0D0, 0x56E1
               0x6D3B80, 0x6E3950, 0x602590, 0x6C69C0, 0x59C910)
 DLL_ONLY_STUB = 0x59C790   # sin cuerpo propio en la DLL con la misma firma: la DLL llama a AutoPreMultiply3x3Cpp (parche aparte en dll_only)
 STUBBED = {'CHeli::ProcessControl': [(a, False) for a in STUB_ADDRS]}
-WATCHED = {a for fn in NAMES for a, _ in STUBBED.get(fn, [])} | set(HOOKS.values()) | {0x41BD90, 0x821B1E, 0x827B3D}
+WATCHED = {a for fn in NAMES for a, _ in STUBBED.get(fn, [])} | set(HOOKS.values()) | {0x41BD90, 0x41CCB0, 0x821B1E, 0x827B3D}
 COVER_FLOOR = 100
 FAMILIES = 18
 COVER = json.loads((HERE / 'coverage.json').read_text()) if (HERE / 'coverage.json').exists() else {}
@@ -201,8 +201,8 @@ def analyze(path):
             raise RuntimeError('Parche solo de la DLL (AutoPreMultiply3x3Cpp) sin resolver en ' + fn)
     if b.get('rng_native') is not True:
         raise RuntimeError('rand() del EXE no es nativo en ambos lados')
-    if b.get('real_entries') != [{'exe': 0x41BD90, 'was_hooked': True}]:
-        raise RuntimeError('Entradas reales inesperadas (0x41BD90 debe tener su hook apagado)')
+    if b.get('real_entries') != [{'exe': 0x41BD90, 'was_hooked': True}, {'exe': 0x41CCB0, 'was_hooked': True}]:
+        raise RuntimeError('Entradas reales inesperadas (0x41BD90 y 0x41CCB0 deben tener su hook apagado)')
     if {w['address'] for w in b['watched_entries']} != WATCHED:
         raise RuntimeError('Entradas vigiladas inesperadas')
     if counts != EXPECTED or sum(pairs_seen) != total:

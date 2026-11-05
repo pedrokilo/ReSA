@@ -292,6 +292,7 @@ inline void Update() {
     const Pair pDead=MakeCollab(env,kDead,hooksFound);
     // Con el hook apagado y sin falso: CPathNode::GetPosition (la DLL llama a su propio C++, el EXE a los bytes originales)
     (void)MakeCollab(env,kGetPos,hooksFound);
+    (void)MakeCollab(env,0x420A60,hooksFound);   // CCarPathLink::GetNodeCoors tiene hook RH desde el lote 98A: apagado, corren los bytes del EXE en ambos lados
     auto S=[](const Pair& p,void* fake){return StubSpec{p,fake};};
     env.stubs[0]={S(pFind2,reinterpret_cast<void*>(&FakeFind2)),S(pClosest,reinterpret_cast<void*>(&FakeClosest)),S(pVis,reinterpret_cast<void*>(&FakeVis)),S(pDead,reinterpret_cast<void*>(&FakeDead))};
     for(unsigned f=0;f<kFunctions;++f) {
