@@ -1,0 +1,79 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "3bd18828c6fe2ef011bcdb8469c03384debd8a3e106771bf9ee2d047547e20e8",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 18432,
+  "pairs_per_function": {
+    "CVehicle::InflictDamage": 18432
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "efeb61eb040daff9da1e0b41ec58d3e028e532b882407b5ef75e324f90774e7d",
+  "x87_microtests": 576,
+  "compare_dead_x87_registers": false,
+  "families": {
+    "CVehicle::InflictDamage": {
+      "0": 1024,
+      "1": 1024,
+      "2": 1024,
+      "3": 1024,
+      "4": 1024,
+      "5": 1024,
+      "6": 1024,
+      "7": 1024,
+      "8": 1024,
+      "9": 1024,
+      "10": 1024,
+      "11": 1024,
+      "12": 1024,
+      "13": 1024,
+      "14": 1024,
+      "15": 1024,
+      "16": 1024,
+      "17": 1024
+    }
+  },
+  "branch_coverage": {
+    "CVehicle::InflictDamage": {
+      "cannot_damage": 1154,
+      "dmg_null": 646,
+      "fp_ped_null_equal": 233,
+      "events": 3568,
+      "can_fire_garbage": 2351,
+      "crime": 2048,
+      "blowup": 4471,
+      "status_wrecked": 2208,
+      "havoc": 4403,
+      "tyres_dont": 4053,
+      "aircraft": 5242,
+      "burst_car": 360,
+      "nothing": 3597,
+      "dmg_not_ped": 1696,
+      "wanted": 2226,
+      "detonate": 547,
+      "health_nan": 455,
+      "progress_halved": 605,
+      "burst_bike": 257,
+      "gas_cap": 684,
+      "engine": 647,
+      "intensity_denormal": 444,
+      "coord_nan": 1020,
+      "intensity_inf": 280,
+      "intensity_nan": 340,
+      "lethal_equal": 478,
+      "old_250_edge": 454
+    }
+  },
+  "independent_oracle": "fixture_oracle.py: cada lado de cada par coincide con el modelo",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

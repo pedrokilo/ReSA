@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "a6d8fe885b068601f1520466ead2d881e7856dd69bef0eca332ca5a2f744e41e",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "pairs": 7680,
+  "pairs_per_function": {
+    "CPointLights::GenerateLightsAffectingObject": 2048,
+    "CPointLights::GetLightMultiplier": 1536,
+    "CPointLights::ProcessVerticalLineUsingCache": 2048,
+    "CPointLights::RenderFogEffect": 2048
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "cb35013f011559a871c67e7619c848d999fbb3dd3f84bc20f5a4185f7415a13e",
+  "coverage": {
+    "gen_adds": 822,
+    "gen_total_changed": 0,
+    "mult_cases": 1536,
+    "cache_hit": 593,
+    "cache_miss": 1080,
+    "cache_pvl_fail": 375,
+    "fog_sprites": 1883,
+    "fog_calc": 1889,
+    "fog_pvl": 1558,
+    "fog_cache": 1921,
+    "fog_early": 32,
+    "stress_inputs": 0
+  },
+  "compare_dead_x87_registers": true,
+  "dead_registers_equal_pairs": [
+    7680,
+    7680
+  ],
+  "coverage_method": "serialized_inputs_trace_counts_and_independent_cache_oracle",
+  "saves_unchanged": true,
+  "configs_restored": true
+}
