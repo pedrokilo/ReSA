@@ -1,7 +1,3 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 05/11/2026 (Ciudad de México):** 835 grupos / 9099 funciones reconstruidas; 9099 con evidencia histórica y 0 pendientes de validación en 0 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
 # Detalle de implementaciones
 
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
@@ -86,13 +82,13 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| Ld(uintptr_t address) | [source/game_sa/CarCtrl.cpp:2216](../../source/game_sa/CarCtrl.cpp#L2216) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| St(uintptr_t address, T v) | [source/game_sa/CarCtrl.cpp:2217](../../source/game_sa/CarCtrl.cpp#L2217) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| Ld(const uint8* address) | [source/game_sa/CarCtrl.cpp:2218](../../source/game_sa/CarCtrl.cpp#L2218) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| St(uint8* address, T v) | [source/game_sa/CarCtrl.cpp:2219](../../source/game_sa/CarCtrl.cpp#L2219) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| F32(uint32 bits) | [source/game_sa/CarCtrl.cpp:2220](../../source/game_sa/CarCtrl.cpp#L2220) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| Parity(uint32 v) | [source/game_sa/CarCtrl.cpp:2221](../../source/game_sa/CarCtrl.cpp#L2221) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| X87Compare(double a, double b) | [source/game_sa/CarCtrl.cpp:2223](../../source/game_sa/CarCtrl.cpp#L2223) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| Ld(uintptr_t address) | [source/game_sa/CarCtrl.cpp:2217](../../source/game_sa/CarCtrl.cpp#L2217) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| St(uintptr_t address, T v) | [source/game_sa/CarCtrl.cpp:2218](../../source/game_sa/CarCtrl.cpp#L2218) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| Ld(const uint8* address) | [source/game_sa/CarCtrl.cpp:2219](../../source/game_sa/CarCtrl.cpp#L2219) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| St(uint8* address, T v) | [source/game_sa/CarCtrl.cpp:2220](../../source/game_sa/CarCtrl.cpp#L2220) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| F32(uint32 bits) | [source/game_sa/CarCtrl.cpp:2221](../../source/game_sa/CarCtrl.cpp#L2221) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| Parity(uint32 v) | [source/game_sa/CarCtrl.cpp:2222](../../source/game_sa/CarCtrl.cpp#L2222) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| X87Compare(double a, double b) | [source/game_sa/CarCtrl.cpp:2224](../../source/game_sa/CarCtrl.cpp#L2224) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-1366"></a>
 
